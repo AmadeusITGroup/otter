@@ -1,10 +1,24 @@
-import { Architect } from '@angular-devkit/architect';
-import { TestingArchitectHost } from '@angular-devkit/architect/testing';
-import { schema } from '@angular-devkit/core';
-import { cleanVirtualFileSystem, useVirtualFileSystem } from '@o3r/test-helpers';
 import * as fs from 'node:fs';
-import { join, resolve } from 'node:path';
-import { AggregateMigrationScriptsSchema } from './schema';
+import {
+  join,
+  resolve
+} from 'node:path';
+import {
+  Architect
+} from '@angular-devkit/architect';
+import {
+  TestingArchitectHost
+} from '@angular-devkit/architect/testing';
+import {
+  schema
+} from '@angular-devkit/core';
+import {
+  cleanVirtualFileSystem,
+  useVirtualFileSystem
+} from '@o3r/test-helpers';
+import {
+  AggregateMigrationScriptsSchema
+} from './schema';
 
 describe('Aggregate migration scripts', () => {
   const workspaceRoot = join('..', '..', '..', '..', '..');
@@ -13,10 +27,10 @@ describe('Aggregate migration scripts', () => {
   let virtualFileSystem: typeof fs;
   const migrationScriptMocksPath = join(__dirname, '../../testing/mocks/migration-scripts');
   const copyMockFile = async (virtualPath: string, realPath: string) =>
-    await virtualFileSystem.promises.writeFile(virtualPath, await fs.promises.readFile(join(migrationScriptMocksPath, realPath), {encoding: 'utf8'}));
+    await virtualFileSystem.promises.writeFile(virtualPath, await fs.promises.readFile(join(migrationScriptMocksPath, realPath), { encoding: 'utf8' }));
   const expectFileToMatchMock = async (virtualPath: string, realPath: string) =>
-    expect(await virtualFileSystem.promises.readFile(virtualPath, {encoding: 'utf8'}))
-      .toEqual(await fs.promises.readFile(join(migrationScriptMocksPath, realPath), {encoding: 'utf8'}));
+    expect(await virtualFileSystem.promises.readFile(virtualPath, { encoding: 'utf8' }))
+      .toEqual(await fs.promises.readFile(join(migrationScriptMocksPath, realPath), { encoding: 'utf8' }));
 
   beforeEach(() => {
     virtualFileSystem = useVirtualFileSystem();
@@ -32,12 +46,12 @@ describe('Aggregate migration scripts', () => {
   });
 
   it('should aggregate the migration scripts', async () => {
-    await virtualFileSystem.promises.mkdir('app-migration-scripts', {recursive: true});
+    await virtualFileSystem.promises.mkdir('app-migration-scripts', { recursive: true });
     await copyMockFile('app-migration-scripts/migration-1.0.json', 'migration-1.0.json');
     await copyMockFile('app-migration-scripts/migration-1.5.json', 'migration-1.5.json');
     await copyMockFile('app-migration-scripts/migration-2.0.json', 'migration-2.0.json');
 
-    await virtualFileSystem.promises.mkdir('node_modules/@o3r/my-lib/migration-scripts', {recursive: true});
+    await virtualFileSystem.promises.mkdir('node_modules/@o3r/my-lib/migration-scripts', { recursive: true });
     await virtualFileSystem.promises.writeFile('node_modules/@o3r/my-lib/package.json', '{}');
     await copyMockFile('node_modules/@o3r/my-lib/migration-scripts/migration-2.0.json', 'lib/migration-2.0.json');
     await copyMockFile('node_modules/@o3r/my-lib/migration-scripts/migration-2.5.json', 'lib/migration-2.5.json');
@@ -60,7 +74,7 @@ describe('Aggregate migration scripts', () => {
   });
 
   it('should throw if library cannot be found', async () => {
-    await virtualFileSystem.promises.mkdir('app-migration-scripts', {recursive: true});
+    await virtualFileSystem.promises.mkdir('app-migration-scripts', { recursive: true });
     await copyMockFile('app-migration-scripts/migration-1.0.json', 'migration-1.0.json');
     await copyMockFile('app-migration-scripts/migration-2.0.json', 'migration-2.0.json');
 

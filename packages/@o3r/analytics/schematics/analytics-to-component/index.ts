@@ -1,4 +1,9 @@
 import {
+  basename,
+  dirname,
+  posix
+} from 'node:path';
+import {
   apply,
   chain,
   externalSchematic,
@@ -13,7 +18,9 @@ import {
   Tree,
   url
 } from '@angular-devkit/schematics';
-import { addCommentsOnClassProperties, addImportsRule,
+import {
+  addCommentsOnClassProperties,
+  addImportsRule,
   addInterfaceToClassTransformerFactory,
   applyEsLintFix,
   askConfirmationToConvertComponent,
@@ -27,11 +34,16 @@ import { addCommentsOnClassProperties, addImportsRule,
   O3rCliError,
   sortClassElement
 } from '@o3r/schematics';
-import { addImportToModule } from '@schematics/angular/utility/ast-utils';
-import { applyToUpdateRecorder } from '@schematics/angular/utility/change';
-import { basename, dirname, posix } from 'node:path';
+import {
+  addImportToModule
+} from '@schematics/angular/utility/ast-utils';
+import {
+  applyToUpdateRecorder
+} from '@schematics/angular/utility/change';
 import * as ts from 'typescript';
-import type { NgAddAnalyticsSchematicsSchema } from './schema';
+import type {
+  NgAddAnalyticsSchematicsSchema
+} from './schema';
 
 const analyticsProperties = [
   'analyticsEvents'
@@ -145,7 +157,6 @@ export function ngAddAnalyticsFn(options: NgAddAnalyticsSchematicsSchema): Rule 
                       )
                     )
                     : ngDecorator;
-
 
                   const newModifiers = (ts.getDecorators(node) || []).filter((decorator) => !isNgClassDecorator(decorator))
                     .concat([newNgDecorator])

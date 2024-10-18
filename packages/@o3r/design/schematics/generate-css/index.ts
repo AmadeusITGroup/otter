@@ -1,8 +1,21 @@
-import type { GenerateCssSchematicsSchema } from './schema';
-import type { Rule } from '@angular-devkit/schematics';
-import type { createSchematicWithMetricsIfInstalled } from '@o3r/schematics';
-import { parseDesignTokenFile, renderDesignTokens } from '@o3r/design';
-import type { DesignTokenRendererOptions, DesignTokenVariableSet, DesignTokenVariableStructure } from '@o3r/design';
+import type {
+  Rule
+} from '@angular-devkit/schematics';
+import {
+  parseDesignTokenFile,
+  renderDesignTokens
+} from '@o3r/design';
+import type {
+  DesignTokenRendererOptions,
+  DesignTokenVariableSet,
+  DesignTokenVariableStructure
+} from '@o3r/design';
+import type {
+  createSchematicWithMetricsIfInstalled
+} from '@o3r/schematics';
+import type {
+  GenerateCssSchematicsSchema
+} from './schema';
 
 /**
  * Generate CSS from Design Token files

@@ -1,23 +1,38 @@
-import {getTestBed, TestBed} from '@angular/core/testing';
-import {BrowserDynamicTestingModule, platformBrowserDynamicTesting} from '@angular/platform-browser-dynamic/testing';
-import {LoggerClient} from './logger.client';
-import {ConsoleLogger} from './logger.console';
-import {LoggerModule} from './logger.module';
-import {LoggerService} from './logger.service';
-import {LOGGER_CLIENT_TOKEN} from './logger.token';
+import {
+  getTestBed,
+  TestBed
+} from '@angular/core/testing';
+import {
+  BrowserDynamicTestingModule,
+  platformBrowserDynamicTesting
+} from '@angular/platform-browser-dynamic/testing';
+import {
+  LoggerClient
+} from './logger.client';
+import {
+  ConsoleLogger
+} from './logger.console';
+import {
+  LoggerModule
+} from './logger.module';
+import {
+  LoggerService
+} from './logger.service';
+import {
+  LOGGER_CLIENT_TOKEN
+} from './logger.token';
 
 describe('Logger service', () => {
   const consoleLogger = new ConsoleLogger();
 
   beforeAll(() => getTestBed().platform || TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting(), {
-    teardown: {destroyAfterEach: false}
+    teardown: { destroyAfterEach: false }
   }));
 
   describe('by default', () => {
     let service: LoggerService;
 
     beforeEach(() => {
-
       TestBed.configureTestingModule({
         imports: [
           LoggerModule.forRoot(consoleLogger)
@@ -69,15 +84,15 @@ describe('Logger service', () => {
     });
 
     it('should identify user', () => {
-      service.identify('123', {foo: 'bar'});
+      service.identify('123', { foo: 'bar' });
 
-      expect(client.identify).toHaveBeenCalledWith('123', {foo: 'bar'});
+      expect(client.identify).toHaveBeenCalledWith('123', { foo: 'bar' });
     });
 
     it('should report event', () => {
-      service.event('event name', {foo: 'bar'});
+      service.event('event name', { foo: 'bar' });
 
-      expect(client.event).toHaveBeenCalledWith('event name', {foo: 'bar'});
+      expect(client.event).toHaveBeenCalledWith('event name', { foo: 'bar' });
     });
 
     it('should return session URL', () => {
@@ -95,17 +110,17 @@ describe('Logger service', () => {
     });
 
     it('should report logs', () => {
-      service.log('log', {foo: 'bar'});
+      service.log('log', { foo: 'bar' });
 
-      expect(client.log).toHaveBeenCalledWith('log', {foo: 'bar'});
+      expect(client.log).toHaveBeenCalledWith('log', { foo: 'bar' });
 
-      service.warn('warn', {foo: 'bar'});
+      service.warn('warn', { foo: 'bar' });
 
-      expect(client.warn).toHaveBeenCalledWith('warn', {foo: 'bar'});
+      expect(client.warn).toHaveBeenCalledWith('warn', { foo: 'bar' });
 
-      service.error('error', {foo: 'bar'});
+      service.error('error', { foo: 'bar' });
 
-      expect(client.error).toHaveBeenCalledWith('error', {foo: 'bar'});
+      expect(client.error).toHaveBeenCalledWith('error', { foo: 'bar' });
     });
 
     it('should create a meta reducer', () => {
@@ -120,7 +135,6 @@ describe('Logger service', () => {
     let client1: LoggerClient;
     let client2: LoggerClient;
     describe('via forRoot', () => {
-
       beforeEach(() => {
         client1 = {
           identify: jest.fn(),
@@ -205,20 +219,20 @@ describe('Logger service', () => {
       });
 
       it('should report logs', () => {
-        service.log('log', {foo: 'bar'});
+        service.log('log', { foo: 'bar' });
 
-        expect(client1.log).toHaveBeenCalledWith('log', {foo: 'bar'});
-        expect(client2.log).toHaveBeenCalledWith('log', {foo: 'bar'});
+        expect(client1.log).toHaveBeenCalledWith('log', { foo: 'bar' });
+        expect(client2.log).toHaveBeenCalledWith('log', { foo: 'bar' });
 
-        service.warn('warn', {foo: 'bar'});
+        service.warn('warn', { foo: 'bar' });
 
-        expect(client1.warn).toHaveBeenCalledWith('warn', {foo: 'bar'});
-        expect(client2.warn).toHaveBeenCalledWith('warn', {foo: 'bar'});
+        expect(client1.warn).toHaveBeenCalledWith('warn', { foo: 'bar' });
+        expect(client2.warn).toHaveBeenCalledWith('warn', { foo: 'bar' });
 
-        service.error('error', {foo: 'bar'});
+        service.error('error', { foo: 'bar' });
 
-        expect(client1.error).toHaveBeenCalledWith('error', {foo: 'bar'});
-        expect(client2.error).toHaveBeenCalledWith('error', {foo: 'bar'});
+        expect(client1.error).toHaveBeenCalledWith('error', { foo: 'bar' });
+        expect(client2.error).toHaveBeenCalledWith('error', { foo: 'bar' });
       });
     });
 
@@ -252,8 +266,8 @@ describe('Logger service', () => {
             LoggerModule
           ],
           providers: [
-            {provide: LOGGER_CLIENT_TOKEN, useValue: client1, multi: true},
-            {provide: LOGGER_CLIENT_TOKEN, useValue: client2, multi: true}
+            { provide: LOGGER_CLIENT_TOKEN, useValue: client1, multi: true },
+            { provide: LOGGER_CLIENT_TOKEN, useValue: client2, multi: true }
           ]
         });
 
@@ -300,20 +314,20 @@ describe('Logger service', () => {
       });
 
       it('should report logs', () => {
-        service.log('log', {foo: 'bar'});
+        service.log('log', { foo: 'bar' });
 
-        expect(client1.log).toHaveBeenCalledWith('log', {foo: 'bar'});
-        expect(client2.log).toHaveBeenCalledWith('log', {foo: 'bar'});
+        expect(client1.log).toHaveBeenCalledWith('log', { foo: 'bar' });
+        expect(client2.log).toHaveBeenCalledWith('log', { foo: 'bar' });
 
-        service.warn('warn', {foo: 'bar'});
+        service.warn('warn', { foo: 'bar' });
 
-        expect(client1.warn).toHaveBeenCalledWith('warn', {foo: 'bar'});
-        expect(client2.warn).toHaveBeenCalledWith('warn', {foo: 'bar'});
+        expect(client1.warn).toHaveBeenCalledWith('warn', { foo: 'bar' });
+        expect(client2.warn).toHaveBeenCalledWith('warn', { foo: 'bar' });
 
-        service.error('error', {foo: 'bar'});
+        service.error('error', { foo: 'bar' });
 
-        expect(client1.error).toHaveBeenCalledWith('error', {foo: 'bar'});
-        expect(client2.error).toHaveBeenCalledWith('error', {foo: 'bar'});
+        expect(client1.error).toHaveBeenCalledWith('error', { foo: 'bar' });
+        expect(client2.error).toHaveBeenCalledWith('error', { foo: 'bar' });
       });
     });
   });

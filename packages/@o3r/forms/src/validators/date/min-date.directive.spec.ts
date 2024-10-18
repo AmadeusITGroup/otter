@@ -1,7 +1,12 @@
-import { utils } from '@ama-sdk/core';
-import { FormControl } from '@angular/forms';
-
-import { MinDateValidator } from './min-date.directive';
+import {
+  utils
+} from '@ama-sdk/core';
+import {
+  FormControl
+} from '@angular/forms';
+import {
+  MinDateValidator
+} from './min-date.directive';
 
 describe('Min Date', () => {
   it('should be invalid compare to tommorrow', () => {

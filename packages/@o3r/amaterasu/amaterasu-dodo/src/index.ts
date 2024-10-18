@@ -1,11 +1,24 @@
-
-import { AmaCliModule } from '@ama-terasu/core';
-import { spawn } from 'node:child_process';
-import { platform } from 'node:process';
-import { resolve } from 'node:path';
-import { createWriteStream, existsSync, promises as fs } from 'node:fs';
+import {
+  spawn
+} from 'node:child_process';
+import {
+  createWriteStream,
+  existsSync,
+  promises as fs
+} from 'node:fs';
 import * as http from 'node:https';
-import { extract } from 'tar';
+import {
+  resolve
+} from 'node:path';
+import {
+  platform
+} from 'node:process';
+import {
+  AmaCliModule
+} from '@ama-terasu/core';
+import {
+  extract
+} from 'tar';
 
 const name = 'dodo';
 
@@ -79,7 +92,7 @@ module.exports = {
       const download = downloadDodoCli();
       await context.getSpinner('Downloading Dodo CLI...').fromPromise(download, 'Dodo Loaded', 'Failed to download Dodo');
       const cliPath = await download;
-      const instance = spawn(`${cliPath} ${argsString}`, {shell: true});
+      const instance = spawn(`${cliPath} ${argsString}`, { shell: true });
       instance.stdout.setEncoding('utf8');
       instance.stderr.setEncoding('utf8');
       instance.stdout.pipe(process.stdout);

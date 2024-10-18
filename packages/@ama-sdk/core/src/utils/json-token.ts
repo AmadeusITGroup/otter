@@ -1,5 +1,13 @@
-import {ab2str, encryptPayload, generateContentEncryptionKey, generateIV, wrapContentEncryptionKey} from './crypto';
-import {Encoder} from './encoder';
+import {
+  ab2str,
+  encryptPayload,
+  generateContentEncryptionKey,
+  generateIV,
+  wrapContentEncryptionKey
+} from './crypto';
+import {
+  Encoder
+} from './encoder';
 
 /**
  * Encode a Unicode string in base64
@@ -127,9 +135,8 @@ export function createJwtEncoder() {
     typ: 'JWT'
   };
 
-  return (jwtPayload: {[key: string]: any}) => `${encoder(JSON.stringify(jwtHeader))}.${encoder(JSON.stringify(jwtPayload))}.`;
+  return (jwtPayload: { [key: string]: any }) => `${encoder(JSON.stringify(jwtHeader))}.${encoder(JSON.stringify(jwtPayload))}.`;
 }
-
 
 //  TODO: crypto implem for nodejs
 
@@ -162,7 +169,7 @@ export function createJweEncoder(aesTagLengthInBits = 128, useHeaderAsAAD = fals
 
     const serializedHeader = base64Encoder(JSON.stringify(jweHeader));
 
-    const {ciphertext, authenticationTag} = await encryptPayload(
+    const { ciphertext, authenticationTag } = await encryptPayload(
       iv,
       cek,
       stringEncoder.encode(JSON.stringify(jwePayload)),

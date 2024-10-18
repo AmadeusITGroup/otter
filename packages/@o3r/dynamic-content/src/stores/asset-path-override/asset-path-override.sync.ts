@@ -1,6 +1,12 @@
-import type { Serializer } from '@o3r/core';
-import { assetPathOverrideInitialState } from './asset-path-override.reducer';
-import { AssetPathOverrideState } from './asset-path-override.state';
+import type {
+  Serializer
+} from '@o3r/core';
+import {
+  assetPathOverrideInitialState
+} from './asset-path-override.reducer';
+import {
+  AssetPathOverrideState
+} from './asset-path-override.state';
 
 /**
  * Deserializer

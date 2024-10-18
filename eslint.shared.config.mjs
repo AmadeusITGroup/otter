@@ -126,21 +126,5 @@ export default [
       'unicorn/better-regex': 'off',
       '@stylistic/quote-props': 'off'
     }
-  },
-  {
-    name: '@o3r/disabled-for-review',
-    files: ['**/*'],
-    rules: {
-      'import/first': 'off',
-      'import/order': 'off',
-      'import/newline-after-import': 'off',
-      'import-newlines/enforce': 'off',
-      '@stylistic/object-curly-spacing': 'off',
-      '@stylistic/no-multiple-empty-lines': 'off',
-      '@stylistic/brace-style': 'off',
-      '@stylistic/padded-blocks': 'off',
-      '@stylistic/block-spacing': 'off',
-      '@stylistic/template-curly-spacing': 'off'
-    }
   }
 ];

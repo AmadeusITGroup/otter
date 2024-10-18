@@ -26,7 +26,6 @@ export interface WorkspaceLayout {
   appsDir: string;
 }
 
-
 export interface WorkspaceSchematics extends SchematicOptions {
   '@o3r/core:component'?: {
     path: string;
@@ -67,4 +66,3 @@ export interface WorkspaceSchema extends NgWorkspaceSchema {
   };
   schematics?: WorkspaceSchematics;
 }
-

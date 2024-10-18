@@ -1,4 +1,6 @@
-import type { SchematicOptionObject } from '@o3r/schematics';
+import type {
+  SchematicOptionObject
+} from '@o3r/schematics';
 
 export interface GenerateCssSchematicsSchema extends SchematicOptionObject {
   /** Path patterns to the Design Token JSON files */

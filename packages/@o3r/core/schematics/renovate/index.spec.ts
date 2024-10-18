@@ -1,11 +1,14 @@
-import { Tree } from '@angular-devkit/schematics';
-import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
 import * as path from 'node:path';
+import {
+  Tree
+} from '@angular-devkit/schematics';
+import {
+  SchematicTestRunner
+} from '@angular-devkit/schematics/testing';
 
 const collectionPath = path.join(__dirname, '..', '..', 'collection.json');
 
 describe('Renovate Bot generator', () => {
-
   let initialTree: Tree;
 
   beforeEach(() => {

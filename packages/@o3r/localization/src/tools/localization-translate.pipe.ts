@@ -1,14 +1,31 @@
-import { ChangeDetectorRef, Inject, OnDestroy, Pipe, PipeTransform } from '@angular/core';
-import { TranslatePipe, TranslateService } from '@ngx-translate/core';
-import { Subscription } from 'rxjs';
-import { LocalizationConfiguration } from '../core';
-import { LocalizationService } from './localization.service';
-import { LOCALIZATION_CONFIGURATION_TOKEN } from './localization.token';
+import {
+  ChangeDetectorRef,
+  Inject,
+  OnDestroy,
+  Pipe,
+  PipeTransform
+} from '@angular/core';
+import {
+  TranslatePipe,
+  TranslateService
+} from '@ngx-translate/core';
+import {
+  Subscription
+} from 'rxjs';
+import {
+  LocalizationConfiguration
+} from '../core';
+import {
+  LocalizationService
+} from './localization.service';
+import {
+  LOCALIZATION_CONFIGURATION_TOKEN
+} from './localization.token';
 
 /**
  * TranslatePipe class adding debug functionality
  */
-@Pipe({name: 'o3rTranslate', pure: false})
+@Pipe({ name: 'o3rTranslate', pure: false })
 export class O3rLocalizationTranslatePipe extends TranslatePipe implements PipeTransform, OnDestroy {
   /**
    * Internal subscription to the LocalizationService showKeys mode changes
@@ -61,7 +78,6 @@ export class O3rLocalizationTranslatePipe extends TranslatePipe implements PipeT
         this.lastResolvedKey = key;
         this.changeDetector.markForCheck();
       });
-
     }
 
     if (this.lastResolvedKey) {
@@ -92,5 +108,5 @@ export class O3rLocalizationTranslatePipe extends TranslatePipe implements PipeT
  * TranslatePipe class adding debug functionality
  * @deprecated please use O3rLocalizationTranslatePipe, will be removed in v12.
  */
-@Pipe({name: 'translate', pure: false})
+@Pipe({ name: 'translate', pure: false })
 export class LocalizationTranslatePipe extends O3rLocalizationTranslatePipe implements PipeTransform {}

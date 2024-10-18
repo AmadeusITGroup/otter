@@ -1,4 +1,6 @@
-import { lint } from 'stylelint';
+import {
+  lint
+} from 'stylelint';
 import plugins from '../../index.mts';
 
 const config = {
@@ -27,7 +29,6 @@ describe('o3r-var-parameter-equal-variable', () => {
     });
     expect(res.errored).toBe(false);
   });
-
 
   test('should not be executed on the declaration when o3r styling is not imported', async () => {
     const res = await lint({

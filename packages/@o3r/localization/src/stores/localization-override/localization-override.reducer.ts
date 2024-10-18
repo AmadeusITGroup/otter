@@ -1,17 +1,24 @@
-import {ActionCreator, createReducer, on, ReducerTypes} from '@ngrx/store';
+import {
+  ActionCreator,
+  createReducer,
+  on,
+  ReducerTypes
+} from '@ngrx/store';
 import * as actions from './localization-override.actions';
-import { LocalizationOverrideState} from './localization-override.state';
+import {
+  LocalizationOverrideState
+} from './localization-override.state';
 
 /**
  * LocalizationOverride Store initial value
  */
-export const localizationOverrideInitialState: LocalizationOverrideState = {localizationOverrides: {}};
+export const localizationOverrideInitialState: LocalizationOverrideState = { localizationOverrides: {} };
 
 /**
  *  List of basic actions for LocalizationOverride Store
  */
 export const localizationOverrideReducerFeatures: ReducerTypes<LocalizationOverrideState, ActionCreator[]>[] = [
-  on(actions.setLocalizationOverride, (_state, payload) => ({...payload.state}))
+  on(actions.setLocalizationOverride, (_state, payload) => ({ ...payload.state }))
 ];
 
 /**

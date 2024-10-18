@@ -1,14 +1,21 @@
-import { Tree } from '@angular-devkit/schematics';
-import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { lastValueFrom } from 'rxjs';
-import { updateThrowOnUndefinedCalls } from './throw-on-undefined';
+import {
+  Tree
+} from '@angular-devkit/schematics';
+import {
+  SchematicTestRunner
+} from '@angular-devkit/schematics/testing';
+import {
+  lastValueFrom
+} from 'rxjs';
+import {
+  updateThrowOnUndefinedCalls
+} from './throw-on-undefined';
 
 const collectionPath = path.join(__dirname, '..', '..', '..', '..', 'migration.json');
 
 describe('Update ThrowOnUndefined helper', () => {
-
   let initialTree: Tree;
 
   beforeEach(() => {
@@ -22,7 +29,7 @@ describe('Update ThrowOnUndefined helper', () => {
     const runner = new SchematicTestRunner('migrations', collectionPath);
     const tree = await lastValueFrom(runner.callRule(updateThrowOnUndefinedCalls(), initialTree));
 
-    expect(tree.readText('/src/mock.component.ts')).toBe(fs.readFileSync(path.resolve(__dirname, 'mocks', 'fixture.mocks.ts.template'), {encoding: 'utf8'}));
+    expect(tree.readText('/src/mock.component.ts')).toBe(fs.readFileSync(path.resolve(__dirname, 'mocks', 'fixture.mocks.ts.template'), { encoding: 'utf8' }));
   });
 
   it('should update fixture files', async () => {

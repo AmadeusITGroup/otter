@@ -1,6 +1,12 @@
-import type { TmplAstElement } from '@angular/compiler';
-import { getTemplateParserServices } from '../utils';
-import { createRule } from '../../utils';
+import type {
+  TmplAstElement
+} from '@angular/compiler';
+import {
+  createRule
+} from '../../utils';
+import {
+  getTemplateParserServices
+} from '../utils';
 
 /** Rule Name */
 export const name = 'no-inner-html';

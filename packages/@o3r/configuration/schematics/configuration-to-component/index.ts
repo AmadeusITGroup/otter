@@ -1,4 +1,9 @@
 import {
+  basename,
+  dirname,
+  posix
+} from 'node:path';
+import {
   apply,
   chain,
   externalSchematic,
@@ -32,9 +37,10 @@ import {
   O3rCliError,
   sortClassElement
 } from '@o3r/schematics';
-import { basename, dirname, posix } from 'node:path';
 import * as ts from 'typescript';
-import type { NgAddConfigSchematicsSchema } from './schema';
+import type {
+  NgAddConfigSchematicsSchema
+} from './schema';
 
 const configProperties = [
   'dynamicConfig$', 'config', 'config$', 'configSignal'

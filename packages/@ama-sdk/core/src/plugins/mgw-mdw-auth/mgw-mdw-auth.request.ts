@@ -1,7 +1,20 @@
-import { v4 } from 'uuid';
-import { base64EncodeUrl, createBase64Encoder, createBase64UrlEncoder } from '../../utils/json-token';
-import { PluginRunner, RequestOptions, RequestPlugin } from '../core';
-import { hmacSHA256, sha256 } from './mgw-mdw-auth.helpers';
+import {
+  v4
+} from 'uuid';
+import {
+  base64EncodeUrl,
+  createBase64Encoder,
+  createBase64UrlEncoder
+} from '../../utils/json-token';
+import {
+  PluginRunner,
+  RequestOptions,
+  RequestPlugin
+} from '../core';
+import {
+  hmacSHA256,
+  sha256
+} from './mgw-mdw-auth.helpers';
 
 /**
  * Type that represents context data.
@@ -99,7 +112,6 @@ export interface MicroGatewayMiddlewareAuthenticationRequestConstructor {
  * This plugin will throw an error if used in a Browser context.
  */
 export class MicroGatewayMiddlewareAuthenticationRequest implements RequestPlugin {
-
   /**
    * Application ID
    *

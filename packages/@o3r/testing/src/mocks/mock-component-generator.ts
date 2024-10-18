@@ -1,6 +1,12 @@
-import { Component, EventEmitter, forwardRef, Type } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
-
+import {
+  Component,
+  EventEmitter,
+  forwardRef,
+  Type
+} from '@angular/core';
+import {
+  NG_VALUE_ACCESSOR
+} from '@angular/forms';
 import * as ts from 'typescript';
 
 /**

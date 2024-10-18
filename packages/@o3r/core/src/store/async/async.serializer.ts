@@ -1,6 +1,13 @@
-import type { EntityState } from '@ngrx/entity';
-import { asyncStoreItemAdapter } from './async.adapter';
-import { AsyncStoreItem, EntityStatus } from './async.interfaces';
+import type {
+  EntityState
+} from '@ngrx/entity';
+import {
+  asyncStoreItemAdapter
+} from './async.adapter';
+import {
+  AsyncStoreItem,
+  EntityStatus
+} from './async.interfaces';
 
 /**
  * Serializer for asynchronous store.

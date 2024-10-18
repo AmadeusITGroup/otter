@@ -1,7 +1,8 @@
-import { pad } from './string';
+import {
+  pad
+} from './string';
 
 describe('String utils', () => {
-
   it('pad should add a 0 to number <10 and >=0', () => {
     for (let i = 0; i < 10; i++) {
       expect(pad(i)).toBe(`0${i}`);

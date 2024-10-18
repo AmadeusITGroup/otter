@@ -1,8 +1,16 @@
-import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
-import { firstValueFrom } from 'rxjs';
 import * as path from 'node:path';
-import { updateVscode } from './index';
-import { Tree } from '@angular-devkit/schematics';
+import {
+  Tree
+} from '@angular-devkit/schematics';
+import {
+  SchematicTestRunner
+} from '@angular-devkit/schematics/testing';
+import {
+  firstValueFrom
+} from 'rxjs';
+import {
+  updateVscode
+} from './index';
 
 const collectionPath = path.join(__dirname, '..', '..', '..', 'collection.json');
 const extensionFile = '.vscode/extensions.json';
@@ -20,7 +28,6 @@ describe('update vscode', () => {
     expect((tree.readJson(settingFile) as any)['editor.defaultFormatter']).toBe('dbaeumer.vscode-eslint');
   });
 
-
   it('should update vscode settings', async () => {
     const initialTree = Tree.empty();
     initialTree.create(extensionFile, JSON.stringify({ recommendations: [] }));
@@ -33,6 +40,3 @@ describe('update vscode', () => {
     expect((tree.readJson(settingFile) as any)['editor.defaultFormatter']).toBe('dbaeumer.vscode-eslint');
   });
 });
-
-
-

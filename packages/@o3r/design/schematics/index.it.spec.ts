@@ -3,8 +3,7 @@
  * @jest-environment @o3r/test-helpers/jest-environment
  * @jest-environment-o3r-app-folder test-app-design
  */
-const o3rEnvironment = globalThis.o3rEnvironment;
-
+import * as path from 'node:path';
 import {
   getDefaultExecSyncOptions,
   getGitDiff,
@@ -12,16 +11,17 @@ import {
   packageManagerInstall,
   packageManagerRunOnProject
 } from '@o3r/test-helpers';
-import * as path from 'node:path';
+
+const o3rEnvironment = globalThis.o3rEnvironment;
 
 describe('new otter application with Design', () => {
   test('should add design to existing application', () => {
     const { workspacePath, appName, isInWorkspace, untouchedProjectsPaths, o3rVersion } = o3rEnvironment.testEnvironment;
-    const execAppOptions = {...getDefaultExecSyncOptions(), cwd: workspacePath};
-    packageManagerExec({script: 'ng', args: ['add', `@o3r/design@${o3rVersion}`, '--skip-confirmation', '--project-name', appName]}, execAppOptions);
+    const execAppOptions = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
+    packageManagerExec({ script: 'ng', args: ['add', `@o3r/design@${o3rVersion}`, '--skip-confirmation', '--project-name', appName] }, execAppOptions);
 
     expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
-    expect(() => packageManagerRunOnProject(appName, isInWorkspace, {script: 'build'}, execAppOptions)).not.toThrow();
+    expect(() => packageManagerRunOnProject(appName, isInWorkspace, { script: 'build' }, execAppOptions)).not.toThrow();
 
     const diff = getGitDiff(workspacePath);
     expect(diff.modified).toContain('package.json');

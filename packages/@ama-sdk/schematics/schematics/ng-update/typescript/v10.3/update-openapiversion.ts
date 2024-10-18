@@ -1,7 +1,14 @@
-import type {Rule} from '@angular-devkit/schematics';
+import type {
+  Rule
+} from '@angular-devkit/schematics';
+import {
+  chain
+} from '@angular-devkit/schematics';
+import {
+  getWorkspaceConfig,
+  globInTree
+} from '@o3r/schematics';
 import * as semver from 'semver';
-import {getWorkspaceConfig, globInTree} from '@o3r/schematics';
-import {chain} from '@angular-devkit/schematics';
 
 /**
  * Update open api version used in the project to match with the one used in @ama-sdk/schematics:typescript-core

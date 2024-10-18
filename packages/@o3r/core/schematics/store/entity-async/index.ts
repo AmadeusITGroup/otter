@@ -1,16 +1,40 @@
-import { strings } from '@angular-devkit/core';
-import { apply, chain, MergeStrategy, mergeWith, move, noop, renameTemplateFiles, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
-import { applyEsLintFix, createSchematicWithMetricsIfInstalled, getDestinationPath, moduleHasSubEntryPoints, writeSubEntryPointPackageJson } from '@o3r/schematics';
 import * as path from 'node:path';
-import { ExtraFormattedProperties } from '../common/helpers';
-import { NgGenerateEntityAsyncStoreSchematicsSchema } from './schema';
+import {
+  strings
+} from '@angular-devkit/core';
+import {
+  apply,
+  chain,
+  MergeStrategy,
+  mergeWith,
+  move,
+  noop,
+  renameTemplateFiles,
+  Rule,
+  SchematicContext,
+  template,
+  Tree,
+  url
+} from '@angular-devkit/schematics';
+import {
+  applyEsLintFix,
+  createSchematicWithMetricsIfInstalled,
+  getDestinationPath,
+  moduleHasSubEntryPoints,
+  writeSubEntryPointPackageJson
+} from '@o3r/schematics';
+import {
+  ExtraFormattedProperties
+} from '../common/helpers';
+import {
+  NgGenerateEntityAsyncStoreSchematicsSchema
+} from './schema';
 
 /**
  * Create an Otter friendly entity async store
  * @param options
  */
 function ngGenerateEntityAsyncStoreFn(options: NgGenerateEntityAsyncStoreSchematicsSchema): Rule {
-
   const generateFiles: Rule = (tree: Tree, context: SchematicContext) => {
     const destination = getDestinationPath('@o3r/core:store', options.path, tree, options.projectName);
 

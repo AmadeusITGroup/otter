@@ -1,11 +1,32 @@
+import {
+  exec
+} from 'node:child_process';
+import {
+  existsSync,
+  promises as fs,
+  readFileSync
+} from 'node:fs';
+import {
+  dirname,
+  join,
+  resolve
+} from 'node:path';
+import {
+  promisify
+} from 'node:util';
+import {
+  getAvailableModules,
+  NpmRegistryPackage
+} from '@o3r/schematics';
 import * as chalk from 'chalk';
-import { exec } from 'node:child_process';
-import { existsSync, promises as fs, readFileSync } from 'node:fs';
-import { dirname, join, resolve } from 'node:path';
-import { promisify } from 'node:util';
-import type { PackageJson } from 'type-fest';
-import { getAvailableModules, NpmRegistryPackage } from '@o3r/schematics';
-import { dependencies, devDependencies, peerDependencies } from '../../package.json';
+import type {
+  PackageJson
+} from 'type-fest';
+import {
+  dependencies,
+  devDependencies,
+  peerDependencies
+} from '../../package.json';
 
 const moduleScopeWhitelist = ['@o3r', '@ama-sdk', '@ama-des'];
 
@@ -83,7 +104,7 @@ export const findClosestPackageJson = (currentPath: string): string | undefined 
 export const getDepPackage = (packageName: string): PackageJson | undefined => {
   try {
     const packageJsonPath = findClosestPackageJson(require.resolve(packageName));
-    return packageJsonPath && JSON.parse(readFileSync(packageJsonPath, {encoding: 'utf8'}));
+    return packageJsonPath && JSON.parse(readFileSync(packageJsonPath, { encoding: 'utf8' }));
   } catch {
     return undefined;
   }
@@ -100,7 +121,7 @@ export const getInstalledInformation = async (dep: MinimalPackageInformation & {
     let fsDiscoveredPath: string | undefined;
     if (useFsToSearch) {
       const localPath = resolve(dynModule, dep.name, 'package.json');
-      fsDiscoveredPath = existsSync(localPath) ? resolve(dynModule, dep.name, JSON.parse(await fs.readFile(localPath, {encoding: 'utf8'})).main) : undefined;
+      fsDiscoveredPath = existsSync(localPath) ? resolve(dynModule, dep.name, JSON.parse(await fs.readFile(localPath, { encoding: 'utf8' })).main) : undefined;
     }
     const resolutionPath = fsDiscoveredPath || require.resolve(dep.name, {
       paths: [
@@ -121,7 +142,6 @@ export const getInstalledInformation = async (dep: MinimalPackageInformation & {
     return;
   }
 };
-
 
 /**
  * Get the module simplified name

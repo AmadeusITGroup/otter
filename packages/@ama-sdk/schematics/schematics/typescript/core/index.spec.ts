@@ -1,14 +1,26 @@
-import type { OpenApiToolsConfiguration } from '@ama-sdk/schematics';
-import { Tree } from '@angular-devkit/schematics';
-import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
 import * as path from 'node:path';
-import { LOCAL_SPEC_FILENAME, SPEC_JSON_EXTENSION, SPEC_YAML_EXTENSION } from '@ama-sdk/schematics';
-import type { JsonObject } from 'type-fest';
+import type {
+  OpenApiToolsConfiguration
+} from '@ama-sdk/schematics';
+import {
+  LOCAL_SPEC_FILENAME,
+  SPEC_JSON_EXTENSION,
+  SPEC_YAML_EXTENSION
+} from '@ama-sdk/schematics';
+import {
+  Tree
+} from '@angular-devkit/schematics';
+import {
+  SchematicTestRunner,
+  UnitTestTree
+} from '@angular-devkit/schematics/testing';
+import type {
+  JsonObject
+} from 'type-fest';
 
 const collectionPath = path.join(__dirname, '..', '..', '..', 'collection.json');
 
 describe('Typescript Core Generator', () => {
-
   let baseTree: UnitTestTree;
   beforeEach(async () => {
     const runner = new SchematicTestRunner('@ama-sdk/schematics', collectionPath);

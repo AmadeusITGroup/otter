@@ -1,8 +1,12 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { browser } from 'protractor';
-
-import { ConditionFn, PostMessageCall } from './core';
+import {
+  browser
+} from 'protractor';
+import {
+  ConditionFn,
+  PostMessageCall
+} from './core';
 
 /**
  * Controls the postMessage interceptor

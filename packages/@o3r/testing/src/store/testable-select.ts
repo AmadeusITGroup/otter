@@ -1,10 +1,19 @@
 /* eslint-disable @typescript-eslint/ban-types */
+import {
+  select as baseSelect
+} from '@ngrx/store';
+import {
+  Observable,
+  of
+} from 'rxjs';
+import {
+  FakeSelectCall,
+  isSelectorSpyCall,
+  SelectorFunction,
+  SelectorSpy
+} from './typings';
+
 export * from '@ngrx/store';
-
-import { select as baseSelect } from '@ngrx/store';
-import { Observable, of } from 'rxjs';
-import { FakeSelectCall, isSelectorSpyCall, SelectorFunction, SelectorSpy } from './typings';
-
 
 /** Global variable that holds the registered spies */
 let registeredSpies: SelectorSpy<any>[] = [];

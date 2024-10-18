@@ -1,10 +1,21 @@
-import {browser, ElementFinder} from 'protractor';
-import {protractor as ptor} from 'protractor/built/ptor';
-import {waitForOtterStable} from '../../tools/protractor';
-import {ElementProfile} from '../element';
-import {convertPromise} from './utils';
+import {
+  browser,
+  ElementFinder
+} from 'protractor';
+import {
+  protractor as ptor
+} from 'protractor/built/ptor';
+import {
+  waitForOtterStable
+} from '../../tools/protractor';
+import {
+  ElementProfile
+} from '../element';
+import {
+  convertPromise
+} from './utils';
 
-export {ElementProfile} from '../element';
+export { ElementProfile } from '../element';
 
 /**
  * Implementation dedicated to protractor.

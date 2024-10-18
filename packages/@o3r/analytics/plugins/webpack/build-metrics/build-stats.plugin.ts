@@ -1,8 +1,20 @@
+import {
+  randomUUID
+} from 'node:crypto';
 import * as os from 'node:os';
-import {Compilation, Compiler, JavascriptModulesPlugin, NormalModule, Parser, WebpackPluginInstance } from 'webpack';
-import type { ReportData, Reporter, Timing } from './reporters.interface';
-import { randomUUID } from 'node:crypto';
-
+import {
+  Compilation,
+  Compiler,
+  JavascriptModulesPlugin,
+  NormalModule,
+  Parser,
+  WebpackPluginInstance
+} from 'webpack';
+import type {
+  ReportData,
+  Reporter,
+  Timing
+} from './reporters.interface';
 
 /**
  * BuildStats Plugin Options
@@ -70,7 +82,6 @@ export class BuildStatsPlugin implements WebpackPluginInstance {
             normalModule.loaders.forEach((loader) => {
               const name = this.getLoaderName(loader);
               performance.mark(`loader-${name}`);
-
             });
           }
         });
@@ -180,10 +191,8 @@ export class BuildStatsPlugin implements WebpackPluginInstance {
     this.loaderDurations = {};
   }
 
-
   // eslint-disable-next-line @typescript-eslint/ban-types
   private makeNewProfiledTapFn(hook: string, { name, type, fn }: { name: string; type: string; fn: Function }) {
-
     switch (type) {
       case 'promise': {
         return (...args: any) => {
@@ -206,7 +215,6 @@ export class BuildStatsPlugin implements WebpackPluginInstance {
       }
       case 'sync': {
         return (...args: any) => {
-
           if (name === PLUGIN_NAME) {
             return fn(...args);
           }
@@ -247,7 +255,6 @@ export class BuildStatsPlugin implements WebpackPluginInstance {
     }
   });
 
-
   private recordPluginEnd(name: string, hook: string) {
     try {
       const duration = performance.measure(`${name}-${hook}`, `${name}-${hook}`).duration;
@@ -264,7 +271,6 @@ export class BuildStatsPlugin implements WebpackPluginInstance {
   }
 
   private getLoaderName(loader: any): string {
-
     const actualLoader: string = loader.loader || loader;
     return actualLoader.replace(/\\/g, '/')
       .replace(

@@ -1,6 +1,9 @@
 const hasJestDependency = (() => {
-  try { return !!require.resolve('jest'); }
-  catch { return false; }
+  try {
+    return !!require.resolve('jest');
+  } catch {
+    return false;
+  }
 })();
 
 module.exports = {

@@ -1,4 +1,10 @@
-import { CompletionItem, CompletionItemKind, CompletionItemProvider, SnippetString, workspace } from 'vscode';
+import {
+  CompletionItem,
+  CompletionItemKind,
+  CompletionItemProvider,
+  SnippetString,
+  workspace
+} from 'vscode';
 
 const importStyling = /@use '@o3r\/styling'( as (?<lib>\w+))?;/;
 
@@ -8,7 +14,6 @@ const importStyling = /@use '@o3r\/styling'( as (?<lib>\w+))?;/;
 export const stylingCompletionTriggerChar = '$';
 
 export const stylingCompletionItemProvider = (): CompletionItemProvider<CompletionItem> => {
-
   return {
     provideCompletionItems: (doc) => {
       const text = doc.getText();

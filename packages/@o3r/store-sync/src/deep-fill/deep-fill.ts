@@ -1,5 +1,10 @@
-import { deepFill, type PrimitiveReviverMapper } from '@o3r/core';
-import { utils } from '@ama-sdk/core';
+import {
+  utils
+} from '@ama-sdk/core';
+import {
+  deepFill,
+  type PrimitiveReviverMapper
+} from '@o3r/core';
 
 const mapper: PrimitiveReviverMapper[] = [
   {

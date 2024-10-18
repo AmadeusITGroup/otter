@@ -1,4 +1,10 @@
-import { animationFrameScheduler, from, Observable, observeOn, of } from 'rxjs';
+import {
+  animationFrameScheduler,
+  from,
+  Observable,
+  observeOn,
+  of
+} from 'rxjs';
 import {
   bufferCount,
   concatMap,

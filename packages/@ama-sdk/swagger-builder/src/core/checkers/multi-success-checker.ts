@@ -1,11 +1,16 @@
-import { SwaggerSpec } from '../swagger-spec-wrappers/swagger-spec.interface';
-import { Checker, CheckerError, Report } from './checker.interface';
+import {
+  SwaggerSpec
+} from '../swagger-spec-wrappers/swagger-spec.interface';
+import {
+  Checker,
+  CheckerError,
+  Report
+} from './checker.interface';
 
 /**
  * Checker for Multi success response
  */
 export class MultiSuccessChecker implements Checker {
-
   /**
    * Retrieve the list success responses
    * @param swaggerSpec Swagger specification
@@ -33,11 +38,10 @@ export class MultiSuccessChecker implements Checker {
    * @param swaggerSpec Swagger specification
    */
   public async check(swaggerSpec: SwaggerSpec): Promise<Report> {
-
     const responsesMap = await this.getSuccessResponses(swaggerSpec);
 
     const multiSuccessResponses = responsesMap
-      .filter(({responses}) => {
+      .filter(({ responses }) => {
         const responseRefs = Object.values(responses);
         return responseRefs.length > 1 && responseRefs.some((ref) => ref !== responseRefs[0]);
       })
@@ -48,5 +52,4 @@ export class MultiSuccessChecker implements Checker {
 
     return multiSuccessResponses;
   }
-
 }

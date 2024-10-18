@@ -1,4 +1,6 @@
-import type { SchematicOptionObject } from '@o3r/schematics';
+import type {
+  SchematicOptionObject
+} from '@o3r/schematics';
 
 export interface NgShowModulesSchematicsSchema extends SchematicOptionObject {
   /** Display only the modules with CMS administration */

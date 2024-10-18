@@ -1,9 +1,23 @@
 /* eslint-disable no-console */
-import { Inject, Injectable, Optional } from '@angular/core';
-import type { DevtoolsServiceInterface, WindowWithDevtools } from '@o3r/core';
-import { ApplicationDevtoolsServiceOptions } from './application-devkit.interface';
-import { OtterApplicationDevtools } from './application-devtools.service';
-import { OTTER_APPLICATION_DEVTOOLS_DEFAULT_OPTIONS, OTTER_APPLICATION_DEVTOOLS_OPTIONS } from './application-devtools.token';
+import {
+  Inject,
+  Injectable,
+  Optional
+} from '@angular/core';
+import type {
+  DevtoolsServiceInterface,
+  WindowWithDevtools
+} from '@o3r/core';
+import {
+  ApplicationDevtoolsServiceOptions
+} from './application-devkit.interface';
+import {
+  OtterApplicationDevtools
+} from './application-devtools.service';
+import {
+  OTTER_APPLICATION_DEVTOOLS_DEFAULT_OPTIONS,
+  OTTER_APPLICATION_DEVTOOLS_OPTIONS
+} from './application-devtools.token';
 
 @Injectable({
   providedIn: 'root'

@@ -1,8 +1,11 @@
-import type { Probot } from 'probot';
-import { CascadingProbot } from './cascading/cascading-probot';
+import type {
+  Probot
+} from 'probot';
+import {
+  CascadingProbot
+} from './cascading/cascading-probot';
 
 export = (app: Probot) => {
-
   app.on(['push'], async (context) => {
     const logger = context.log;
     const branch = context.payload.ref.replace(/^refs\/heads\//, '');
@@ -61,7 +64,7 @@ export = (app: Probot) => {
     }
     await Promise.all(
       context.payload.check_suite.pull_requests
-        .map(async ({id, head}) => {
+        .map(async ({ id, head }) => {
           try {
             const branch = head.ref.replace(/^refs\/heads\//, '');
             await cascadingPlugin.mergeCascadingPullRequest({ id }, branch, context.payload.check_suite.conclusion);

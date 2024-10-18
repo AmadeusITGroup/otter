@@ -1,8 +1,18 @@
-import type { SchematicOptionObject } from '@o3r/schematics';
-import { NgGenerateEntityAsyncStoreSchematicsSchema } from './entity-async/schema';
-import { NgGenerateEntitySyncStoreSchematicsSchema } from './entity-sync/schema';
-import { NgGenerateSimpleAsyncStoreSchematicsSchema } from './simple-async/schema';
-import { NgGenerateSimpleSyncStoreSchematicsSchema } from './simple-sync/schema';
+import type {
+  SchematicOptionObject
+} from '@o3r/schematics';
+import {
+  NgGenerateEntityAsyncStoreSchematicsSchema
+} from './entity-async/schema';
+import {
+  NgGenerateEntitySyncStoreSchematicsSchema
+} from './entity-sync/schema';
+import {
+  NgGenerateSimpleAsyncStoreSchematicsSchema
+} from './simple-async/schema';
+import {
+  NgGenerateSimpleSyncStoreSchematicsSchema
+} from './simple-sync/schema';
 
 /**
  * Base properties associated to an Otter store

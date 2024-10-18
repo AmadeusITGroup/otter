@@ -1,7 +1,16 @@
-import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
-import { NodePackageName } from '@angular-devkit/schematics/tasks/package-manager/options';
-import { getPackageManager, getWorkspaceConfig } from '../../utility/index';
-import { NodePackageInstallTaskOptions } from './interfaces';
+import {
+  NodePackageInstallTask
+} from '@angular-devkit/schematics/tasks';
+import {
+  NodePackageName
+} from '@angular-devkit/schematics/tasks/package-manager/options';
+import {
+  getPackageManager,
+  getWorkspaceConfig
+} from '../../utility/index';
+import {
+  NodePackageInstallTaskOptions
+} from './interfaces';
 
 /**
  * Install new dev dependency on your package
@@ -20,7 +29,6 @@ export class AddDevInstall extends NodePackageInstallTask {
     this.force = !!options?.force;
   }
 
-
   /** @inheritdoc */
   public toConfiguration() {
     const defaultConfig = super.toConfiguration();
@@ -35,4 +43,3 @@ export class AddDevInstall extends NodePackageInstallTask {
     };
   }
 }
-

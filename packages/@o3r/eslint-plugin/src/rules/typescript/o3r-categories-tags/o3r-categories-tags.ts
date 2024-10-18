@@ -1,4 +1,10 @@
-import { createCommentString, createRule, defaultSupportedInterfaceNames, getNodeComment, isExtendingConfiguration } from '../../utils';
+import {
+  createCommentString,
+  createRule,
+  defaultSupportedInterfaceNames,
+  getNodeComment,
+  isExtendingConfiguration
+} from '../../utils';
 
 export interface O3rCategoriesTagsRuleOption {
   supportedInterfaceNames?: string[];

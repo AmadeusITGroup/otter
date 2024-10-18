@@ -1,10 +1,18 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import {ActionCreator, createReducer, on, ReducerTypes} from '@ngrx/store';
+import {
+  ActionCreator,
+  createReducer,
+  on,
+  ReducerTypes
+} from '@ngrx/store';
 import * as actions from './event-track.actions';
-import {EventTrackState, HeroComponent} from './event-track.state';
+import {
+  EventTrackState,
+  HeroComponent
+} from './event-track.state';
 
 /** The initial value of the Hero component */
-export const heroComponentInitialState: HeroComponent = {id: '', TTI: 0, involvedApiEndpoints: []};
+export const heroComponentInitialState: HeroComponent = { id: '', TTI: 0, involvedApiEndpoints: [] };
 
 /**
  * eventTrack initial state
@@ -60,7 +68,7 @@ function getInvolvedAPIEndpoints(component: HeroComponent, maxTTI: number): stri
  * @returns HeroComponent
  */
 function computeTTI(component: HeroComponent, id: string, value: number, endpoints: string[] = []): HeroComponent {
-  const computedComponent = {...component};
+  const computedComponent = { ...component };
   if (computedComponent.id === id) {
     computedComponent.TTI = value;
     computedComponent.hasBeenLogged = true;
@@ -93,13 +101,13 @@ function isTTIComputed(component: HeroComponent): boolean {
  * List of basic actions for EventTrack
  */
 export const eventTrackReducerFeatures: ReducerTypes<EventTrackState, ActionCreator[]>[] = [
-  on(actions.setEventTrack, (_state, payload) => ({...payload.model})),
+  on(actions.setEventTrack, (_state, payload) => ({ ...payload.model })),
 
-  on(actions.updateEventTrack, (state, payload) => ({...state, ...payload.model})),
+  on(actions.updateEventTrack, (state, payload) => ({ ...state, ...payload.model })),
 
   on(actions.resetEventTrack, () => eventTrackInitialState),
 
-  on(actions.registerHeroComponent, (state, payload) => ({...state, heroComponent: {...payload.model, TTI: 0}})),
+  on(actions.registerHeroComponent, (state, payload) => ({ ...state, heroComponent: { ...payload.model, TTI: 0 } })),
 
   on(actions.setHeroComponentTTI, (state, payload) => {
     const updatedHeroComponent = computeTTI(state.heroComponent, payload.model.id, payload.model.TTI, payload.model.involvedApiEndpoints);
@@ -107,7 +115,7 @@ export const eventTrackReducerFeatures: ReducerTypes<EventTrackState, ActionCrea
     if (isComputed) {
       updatedHeroComponent.involvedApiEndpoints = getInvolvedAPIEndpoints(updatedHeroComponent, updatedHeroComponent.TTI) || [];
     }
-    return {...state, heroComponent: updatedHeroComponent, isTTIComputed: isComputed};
+    return { ...state, heroComponent: updatedHeroComponent, isTTIComputed: isComputed };
   })
 ];
 

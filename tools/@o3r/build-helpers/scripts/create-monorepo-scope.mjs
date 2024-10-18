@@ -1,5 +1,10 @@
-import { readFile, writeFile } from 'node:fs/promises';
-import { resolve } from 'node:path';
+import {
+  readFile,
+  writeFile
+} from 'node:fs/promises';
+import {
+  resolve
+} from 'node:path';
 import minimist from 'minimist';
 
 const argv = minimist(process.argv.slice(2));
@@ -57,7 +62,7 @@ const updateNpmrcPr = async (scopeName) => {
 const updateRenovateGroup = async (scopeName) => {
   const renovateGroupPath = resolve(root, 'tools/renovate/group/otter.json');
 
-  const renovateGroup = JSON.parse(await readFile(renovateGroupPath, {encoding: 'utf8'}));
+  const renovateGroup = JSON.parse(await readFile(renovateGroupPath, { encoding: 'utf8' }));
   renovateGroup.packageRules
     .forEach(({ matchPackagePrefixes }) => matchPackagePrefixes.push(`@${scopeName}`));
 

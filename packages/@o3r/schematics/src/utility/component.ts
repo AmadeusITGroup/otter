@@ -1,7 +1,15 @@
-import type { Tree } from '@angular-devkit/schematics';
+import type {
+  Tree
+} from '@angular-devkit/schematics';
 import * as ts from 'typescript';
-import { DecoratorWithArg, getPropertyFromDecoratorFirstArgument, isDecoratorWithArg } from './ast';
-import { O3rCliError } from './error';
+import {
+  DecoratorWithArg,
+  getPropertyFromDecoratorFirstArgument,
+  isDecoratorWithArg
+} from './ast';
+import {
+  O3rCliError
+} from './error';
 
 /**
  * Returns true if `node` is the decorator of an Angular component
@@ -83,7 +91,6 @@ export const getO3rComponentInfoOrThrowIfNotFound = (tree: Tree, componentPath: 
   const selector = selectorExpression && ts.isStringLiteral(selectorExpression)
     ? selectorExpression.text
     : selectorExpression?.getText();
-
 
   if (!selector) {
     throw new O3rCliError(`The component's selector is not specified. Please provide one for the Otter component defined in ${componentPath}.`);

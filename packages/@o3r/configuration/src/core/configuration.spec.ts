@@ -1,10 +1,19 @@
-import { BehaviorSubject, firstValueFrom, Subject } from 'rxjs';
-import { take } from 'rxjs/operators';
-import { getConfiguration} from './configuration';
-import type { Configuration } from '@o3r/core';
+import type {
+  Configuration
+} from '@o3r/core';
+import {
+  BehaviorSubject,
+  firstValueFrom,
+  Subject
+} from 'rxjs';
+import {
+  take
+} from 'rxjs/operators';
+import {
+  getConfiguration
+} from './configuration';
 
 describe('Configuration operators getConfiguration', () => {
-
   const config$: Subject<Configuration> = new BehaviorSubject<Configuration>({});
 
   it('should get the given component config', async () => {
@@ -23,5 +32,4 @@ describe('Configuration operators getConfiguration', () => {
     ));
     await expect(computedConfig).resolves.toEqual({ id: 'test@otter/demo-components', flexibilityDaysSearch: 19, showComplexBtn: true });
   });
-
 });

@@ -1,4 +1,6 @@
-import { Configuration } from '../interfaces/configuration';
+import {
+  Configuration
+} from '../interfaces/configuration';
 /**
  * Application config
  * Application config should implement this to be identified by CMS extractor as a 'runtime' config

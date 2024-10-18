@@ -1,12 +1,24 @@
-import { logging } from '@angular-devkit/core';
-import { getLibraryCmsMetadata, getLocalizationFileFromAngularElement } from '@o3r/extractors';
-import type { JSONLocalization, LocalizationMetadata } from '@o3r/localization';
-import { O3rCliError } from '@o3r/schematics';
 import * as fs from 'node:fs';
-import * as glob from 'globby';
 import * as path from 'node:path';
+import {
+  logging
+} from '@angular-devkit/core';
+import {
+  getLibraryCmsMetadata,
+  getLocalizationFileFromAngularElement
+} from '@o3r/extractors';
+import type {
+  JSONLocalization,
+  LocalizationMetadata
+} from '@o3r/localization';
+import {
+  O3rCliError
+} from '@o3r/schematics';
+import * as glob from 'globby';
 import * as ts from 'typescript';
-import type { LocalizationExtractorBuilderSchema } from '../localization-extractor/schema';
+import type {
+  LocalizationExtractorBuilderSchema
+} from '../localization-extractor/schema';
 
 /** List of Angular decorator to look for */
 const ANGULAR_ANNOTATION = ['Component', 'Injectable', 'Pipe'];
@@ -58,7 +70,6 @@ export interface LibraryMetadataMap {
  * Localization extractor
  */
 export class LocalizationExtractor {
-
   /** TsConfig of the file to base on */
   private readonly tsconfigPath: string;
 
@@ -72,7 +83,7 @@ export class LocalizationExtractor {
   /** Get the list of file from tsconfig.json */
   private getFilesFromTsConfig() {
     const { include, exclude, cwd } = this.getPatternsFromTsConfig();
-    return glob.sync(include, {ignore: exclude, cwd});
+    return glob.sync(include, { ignore: exclude, cwd });
   }
 
   /**
@@ -116,15 +127,15 @@ export class LocalizationExtractor {
     const folder = localizationFilePath ? path.dirname(localizationFilePath) : undefined;
     const referencedFiles = Object.keys(localizationFileContent)
       .filter((key) => !!localizationFileContent[key].$ref)
-      .map((key) => ({key, ref: localizationFileContent[key].$ref!.split('#/')[0]}))
-      .filter(({key, ref}) => {
+      .map((key) => ({ key, ref: localizationFileContent[key].$ref!.split('#/')[0] }))
+      .filter(({ key, ref }) => {
         const res = !!ref;
         if (!res) {
           this.logger.error(`The reference (${ref}) of the key ${key} is invalid, it will be ignored`);
         }
         return res;
       })
-      .map(({ref}) => {
+      .map(({ ref }) => {
         if (!ref.startsWith('.')) {
           if (this.options?.libraries?.length && this.options.libraries.every((lib) => !ref.startsWith(lib))) {
             try {
@@ -227,7 +238,7 @@ export class LocalizationExtractor {
     const include: string[] = [...(tsconfigResult.config.files || []), ...(tsconfigResult.config.include || [])];
     const exclude: string[] = tsconfigResult.config.exclude || [];
     const cwd = path.resolve(path.dirname(this.tsconfigPath), tsconfigResult.config.rootDir || '.');
-    return {include, exclude, cwd };
+    return { include, exclude, cwd };
   }
 
   /**
@@ -275,8 +286,8 @@ export class LocalizationExtractor {
 
     const program = ts.createProgram(tsFiles, {});
     const localizationFiles = tsFiles
-      .map((file) => ({file, source: program.getSourceFile(file)}))
-      .map(({ file, source }) => ({ file, classes: source && this.getAngularClassNode(source), source}))
+      .map((file) => ({ file, source: program.getSourceFile(file) }))
+      .map(({ file, source }) => ({ file, classes: source && this.getAngularClassNode(source), source }))
       .filter(({ classes }) => !!classes)
       .map(({ file, classes }) => classes!
         .map((classItem) => getLocalizationFileFromAngularElement(classItem))

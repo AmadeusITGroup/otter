@@ -1,8 +1,13 @@
 #!/usr/bin/env node
 
-import { Option, program } from 'commander';
+import {
+  Option,
+  program
+} from 'commander';
 import * as winston from 'winston';
-import { PullRequestService } from '../helpers/index';
+import {
+  PullRequestService
+} from '../helpers/index';
 
 let comment: string | undefined;
 /**
@@ -23,7 +28,6 @@ program
   .option('-I, --threadIdentifier <threadIdentifier>', 'Thread identifier', undefined)
   .requiredOption('-T, --accessToken <accessToken>', 'Access token')
   .action((actionComment: string) => {
-
     comment = actionComment;
   })
   .parse(process.argv);

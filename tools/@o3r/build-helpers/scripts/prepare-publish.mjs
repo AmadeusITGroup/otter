@@ -5,9 +5,21 @@
  *   - Copy License file
  */
 
+import {
+  copyFileSync,
+  existsSync,
+  readdirSync,
+  readFileSync,
+  writeFileSync
+} from 'node:fs';
+import {
+  delimiter,
+  dirname,
+  join,
+  normalize,
+  resolve
+} from 'node:path';
 import minimist from 'minimist';
-import { copyFileSync, existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { delimiter, dirname, join, normalize, resolve } from 'node:path';
 
 const argv = minimist(process.argv.slice(2));
 const root = argv.root ? resolve(process.cwd(), argv.root) : process.cwd();
@@ -21,7 +33,7 @@ const appendPath = argv.append && normalize(argv.append);
 const findPrivatePackage = (currentFolder) => {
   const inspectedPackage = resolve(currentFolder, 'package.json');
   if (existsSync(inspectedPackage)) {
-    const pck = JSON.parse(readFileSync(inspectedPackage, {encoding: 'utf-8'}));
+    const pck = JSON.parse(readFileSync(inspectedPackage, { encoding: 'utf-8' }));
     if (pck.private) {
       return {
         content: pck,
@@ -36,7 +48,6 @@ const findPrivatePackage = (currentFolder) => {
   }
   return findPrivatePackage(parent);
 };
-
 
 /**
  * Find closest readme files
@@ -74,7 +85,7 @@ function preparePublish(rootPath, distPath, packageJsonPath) {
     throw new Error('No private package.json found');
   }
 
-  const packageJson = JSON.parse(readFileSync(distPackageJson, {encoding: 'utf-8'}));
+  const packageJson = JSON.parse(readFileSync(distPackageJson, { encoding: 'utf-8' }));
   fields.forEach((field) => packageJson[field] ||= privatePackageJson.content[field]);
 
   writeFileSync(distPackageJson, JSON.stringify(packageJson, null, 2));

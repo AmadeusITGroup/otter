@@ -1,7 +1,14 @@
 import * as fs from 'node:fs';
-import { NodeDependency, NodeDependencyType } from '@schematics/angular/utility/dependencies';
-import { logging } from '@angular-devkit/core';
-import type { PackageJson } from 'type-fest';
+import {
+  logging
+} from '@angular-devkit/core';
+import {
+  NodeDependency,
+  NodeDependencyType
+} from '@schematics/angular/utility/dependencies';
+import type {
+  PackageJson
+} from 'type-fest';
 
 /**
  * Method to extract the provided package version range from a package.json file
@@ -11,7 +18,7 @@ import type { PackageJson } from 'type-fest';
  * @returns The version range value retrieved from the provided package.json file
  */
 export function getExternalDependenciesVersionRange<T extends string>(packageNames: T[], packageJsonPath: string, logger: logging.LoggerApi): Record<T, string> {
-  const packageJsonContent = JSON.parse(fs.readFileSync(packageJsonPath, {encoding: 'utf8'})) as PackageJson & { generatorDependencies: Record<string, string> };
+  const packageJsonContent = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' })) as PackageJson & { generatorDependencies: Record<string, string> };
   return packageNames.reduce((acc: Partial<Record<T, string>>, packageName) => {
     acc[packageName] = packageJsonContent.generatorDependencies?.[packageName]
     || packageJsonContent.peerDependencies?.[packageName]
@@ -32,5 +39,5 @@ export function getExternalDependenciesVersionRange<T extends string>(packageNam
  * @returns the list of node dependencies to be installed
  */
 export function getNodeDependencyList<T extends string>(dependenciesVersions: Record<T, string>, type: NodeDependencyType): NodeDependency[] {
-  return Object.entries<string>(dependenciesVersions).map(([name, version]) => ({name, version, type, overwrite: true}));
+  return Object.entries<string>(dependenciesVersions).map(([name, version]) => ({ name, version, type, overwrite: true }));
 }

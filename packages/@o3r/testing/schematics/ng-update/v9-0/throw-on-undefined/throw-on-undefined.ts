@@ -1,5 +1,10 @@
-import { chain, Rule } from '@angular-devkit/schematics';
-import { getFilesInFolderFromWorkspaceProjectsInTree } from '@o3r/schematics';
+import {
+  chain,
+  Rule
+} from '@angular-devkit/schematics';
+import {
+  getFilesInFolderFromWorkspaceProjectsInTree
+} from '@o3r/schematics';
 
 /**
  * Replace the call of {@link O3rComponentFixture.ThrowOnUndefined} to {@link O3rComponentFixture.ThrowOnUndefinedElement}

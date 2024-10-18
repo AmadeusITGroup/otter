@@ -1,5 +1,12 @@
+import {
+  base64DecodeUrl,
+  createBase64Decoder,
+  createBase64Encoder,
+  createBase64UrlDecoder,
+  createBase64UrlEncoder,
+  createJweEncoder
+} from './json-token';
 const crypto = require('node:crypto');
-import { base64DecodeUrl, createBase64Decoder, createBase64Encoder, createBase64UrlDecoder, createBase64UrlEncoder, createJweEncoder } from './json-token';
 
 describe('JSON token utils', () => {
   it('should encode and decode in base64 properly a string that contains characters occupying more than 1 byte', () => {
@@ -22,13 +29,10 @@ describe('JSON token utils', () => {
     const original = base64UrlDecoder(converted);
 
     expect(original).toEqual(myString);
-
-
   });
 });
 
 describe('JSON Web Encryption Token', () => {
-
   it('should generate a proper JWE Token', async () => {
     /* eslint-disable @typescript-eslint/naming-convention */
     const expectedJwePayload = {
@@ -70,7 +74,7 @@ describe('JSON Web Encryption Token', () => {
       }
     };
 
-    const jweToken = await createJweEncoder(96)({publicKey: 'myPublicKey' as any, keyId: 'TEST'}, expectedJwePayload, ['iss', 'sub']);
+    const jweToken = await createJweEncoder(96)({ publicKey: 'myPublicKey' as any, keyId: 'TEST' }, expectedJwePayload, ['iss', 'sub']);
 
     (global as any).window = undefined;
 
@@ -80,7 +84,7 @@ describe('JSON Web Encryption Token', () => {
     expect(Buffer.from(base64DecodeUrl(jweEncryptedKey), 'base64')).toEqual(Buffer.from(expectedJweEncryptedKey));
     expect(Buffer.from(base64DecodeUrl(iv), 'base64')).toEqual(Buffer.from(expectedIv));
 
-    const decipher = crypto.createDecipheriv('aes-256-gcm', cek, Buffer.from(base64DecodeUrl(iv), 'base64'), {authTagLength: 12});
+    const decipher = crypto.createDecipheriv('aes-256-gcm', cek, Buffer.from(base64DecodeUrl(iv), 'base64'), { authTagLength: 12 });
     decipher.setAuthTag(Buffer.from(base64DecodeUrl(authenticationTag), 'base64'));
     let decrypted = decipher.update(Buffer.from(base64DecodeUrl((cipherContent)), 'base64'));
     decrypted += decipher.final();

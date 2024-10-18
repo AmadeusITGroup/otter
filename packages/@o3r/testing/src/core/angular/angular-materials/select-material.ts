@@ -1,7 +1,15 @@
-import { DebugElement } from '@angular/core';
-import { By } from '@angular/platform-browser';
-import { MatSelectProfile } from '../../angular-materials';
-import { O3rElement } from '../element';
+import {
+  DebugElement
+} from '@angular/core';
+import {
+  By
+} from '@angular/platform-browser';
+import {
+  MatSelectProfile
+} from '../../angular-materials';
+import {
+  O3rElement
+} from '../element';
 
 export { SelectElementProfile } from '../../elements';
 

@@ -1,7 +1,14 @@
-import { chain, Rule } from '@angular-devkit/schematics';
+import {
+  readFileSync
+} from 'node:fs';
 import * as path from 'node:path';
-import type { NgAddSchematicsSchema } from '../schema';
-import { readFileSync } from 'node:fs';
+import {
+  chain,
+  Rule
+} from '@angular-devkit/schematics';
+import type {
+  NgAddSchematicsSchema
+} from '../schema';
 
 const DEVTOOL_MODULE_NAME = 'ConfigurationDevtoolsModule';
 const MESSAGE_DEVTOOL_SERVICE_NAME = 'ConfigurationDevtoolsMessageService';

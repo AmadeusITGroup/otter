@@ -1,14 +1,18 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable camelcase */
 
-import type { Rule } from '@angular-devkit/schematics';
+import type {
+  Rule
+} from '@angular-devkit/schematics';
+import {
+  isTypescriptSdk
+} from '../helpers/is-typescript-project';
 import {
   updateV10_0 as tsUpdateV10_0,
   updateV10_1 as tsUpdateV10_1,
   updateV10_3 as tsUpdateV10_3,
   updateV11_0 as tsUpdateV11_0
 } from './typescript';
-import { isTypescriptSdk } from '../helpers/is-typescript-project';
 
 /**
  * update of Otter library V10.0

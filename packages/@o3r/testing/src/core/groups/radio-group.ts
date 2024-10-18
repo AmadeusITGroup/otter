@@ -1,6 +1,14 @@
-import { TranspilationPurposeOnlyError } from '../../errors/index';
-import { O3rRadioElement, RadioElementProfile } from '../elements/radio-element';
-import { GroupProfile, O3rGroup } from '../group';
+import {
+  TranspilationPurposeOnlyError
+} from '../../errors/index';
+import {
+  O3rRadioElement,
+  RadioElementProfile
+} from '../elements/radio-element';
+import {
+  GroupProfile,
+  O3rGroup
+} from '../group';
 
 /**
  * Interface to describe the Radio Group that are used inside a fixture.

@@ -1,15 +1,34 @@
-import { Inject, Injectable, Optional } from '@angular/core';
-import { TranslateLoader } from '@ngx-translate/core';
-
-import { LocalizationConfiguration } from '../core';
-
-import { combineLatest, from, Observable, of } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
-
-import { LOCALIZATION_CONFIGURATION_TOKEN } from './localization.token';
-
-import { DynamicContentService } from '@o3r/dynamic-content';
-import { LoggerService } from '@o3r/logger';
+import {
+  Inject,
+  Injectable,
+  Optional
+} from '@angular/core';
+import {
+  TranslateLoader
+} from '@ngx-translate/core';
+import {
+  DynamicContentService
+} from '@o3r/dynamic-content';
+import {
+  LoggerService
+} from '@o3r/logger';
+import {
+  combineLatest,
+  from,
+  Observable,
+  of
+} from 'rxjs';
+import {
+  catchError,
+  map,
+  switchMap
+} from 'rxjs/operators';
+import {
+  LocalizationConfiguration
+} from '../core';
+import {
+  LOCALIZATION_CONFIGURATION_TOKEN
+} from './localization.token';
 
 const JSON_EXT = '.json';
 
@@ -58,7 +77,6 @@ export class TranslationsLoader implements TranslateLoader {
     return localizationPath$.pipe(
       switchMap((localizationPath: string) => {
         if (localizationPath) {
-
           const localizationBundle$ = this.downloadLanguageBundle$(localizationPath + lang + JSON_EXT);
 
           if (this.localizationConfiguration.mergeWithLocalTranslations) {
@@ -70,7 +88,7 @@ export class TranslationsLoader implements TranslateLoader {
                   return translations;
                 })
               )
-            ]).pipe(map(([dynamicTranslations, localTranslations]) => ({...localTranslations, ...dynamicTranslations})));
+            ]).pipe(map(([dynamicTranslations, localTranslations]) => ({ ...localTranslations, ...dynamicTranslations })));
           }
 
           /*

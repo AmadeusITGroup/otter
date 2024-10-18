@@ -1,5 +1,10 @@
-import {configurationAdapter, configurationInitialState} from './configuration.reducer';
-import {ConfigurationState} from './configuration.state';
+import {
+  configurationAdapter,
+  configurationInitialState
+} from './configuration.reducer';
+import {
+  ConfigurationState
+} from './configuration.state';
 
 export const configurationStorageSync = {
   deserialize: (rawObject: any) => {

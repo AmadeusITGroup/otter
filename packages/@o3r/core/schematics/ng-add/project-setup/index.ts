@@ -1,13 +1,10 @@
-import { chain, noop, type Rule } from '@angular-devkit/schematics';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {
-  o3rBasicUpdates,
-  updateAdditionalModules,
-  updateCustomizationEnvironment,
-  updateOtterEnvironmentAdapter,
-  updateStore
-} from '../../rule-factories/index';
+  chain,
+  noop,
+  type Rule
+} from '@angular-devkit/schematics';
 import {
   applyEsLintFix,
   getO3rPeerDeps,
@@ -16,11 +13,29 @@ import {
   removePackages,
   type SetupDependenciesOptions
 } from '@o3r/schematics';
-import type { NgAddSchematicsSchema } from '../schema';
-import { updateBuildersNames } from '../updates-for-v8/cms-adapters/update-builders-names';
-import { updateOtterGeneratorsNames } from '../updates-for-v8/generators/update-generators-names';
-import { packagesToRemove } from '../updates-for-v8/replaced-packages';
-import { isUsingFlatConfig, shouldOtterLinterBeInstalled } from '../utils/index';
+import {
+  o3rBasicUpdates,
+  updateAdditionalModules,
+  updateCustomizationEnvironment,
+  updateOtterEnvironmentAdapter,
+  updateStore
+} from '../../rule-factories/index';
+import type {
+  NgAddSchematicsSchema
+} from '../schema';
+import {
+  updateBuildersNames
+} from '../updates-for-v8/cms-adapters/update-builders-names';
+import {
+  updateOtterGeneratorsNames
+} from '../updates-for-v8/generators/update-generators-names';
+import {
+  packagesToRemove
+} from '../updates-for-v8/replaced-packages';
+import {
+  isUsingFlatConfig,
+  shouldOtterLinterBeInstalled
+} from '../utils/index';
 
 /**
  * Enable all the otter features requested by the user

@@ -1,9 +1,24 @@
-import { inject, type InputSignal, type Signal } from '@angular/core';
-import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import type { Configuration } from '@o3r/core';
-import { shareReplay } from 'rxjs';
-import { getConfiguration } from '../core';
-import { ConfigurationBaseService } from '../services';
+import {
+  inject,
+  type InputSignal,
+  type Signal
+} from '@angular/core';
+import {
+  toObservable,
+  toSignal
+} from '@angular/core/rxjs-interop';
+import type {
+  Configuration
+} from '@o3r/core';
+import {
+  shareReplay
+} from 'rxjs';
+import {
+  getConfiguration
+} from '../core';
+import {
+  ConfigurationBaseService
+} from '../services';
 
 /** Configuration signal */
 export type ConfigurationSignal<T> = Signal<T> & { configId: string };
@@ -56,4 +71,3 @@ export function configSignal<T extends Configuration>(
   signal.configId = configId;
   return signal;
 }
-

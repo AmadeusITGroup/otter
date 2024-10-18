@@ -1,10 +1,11 @@
-import { Device } from '@capacitor/device';
+import {
+  Device
+} from '@capacitor/device';
 
 /**
  * Type for the 3 capacitor platforms
  */
 export type CapacitorPlatforms = 'ios' | 'android' | 'web';
-
 
 /**
  * Returns the capacitor platform

@@ -1,5 +1,7 @@
 import typescriptParser from '@typescript-eslint/parser';
-import { RuleTester } from '@typescript-eslint/rule-tester';
+import {
+  RuleTester
+} from '@typescript-eslint/rule-tester';
 import noMultipleTypeConfigurationPropertyRule from './no-multiple-type-configuration-property';
 
 const ruleTester = new RuleTester({
@@ -23,7 +25,7 @@ export interface Config extends Configuration {
 ruleTester.run('no-multiple-type-configuration-property', noMultipleTypeConfigurationPropertyRule, {
   valid: [
     { code },
-    { code: 'export interface A { prop1: string | number; }'}
+    { code: 'export interface A { prop1: string | number; }' }
   ],
   invalid: [
     {

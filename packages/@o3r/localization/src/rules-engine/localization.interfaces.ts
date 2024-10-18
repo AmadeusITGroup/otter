@@ -1,4 +1,6 @@
-import type { RulesEngineAction } from '@o3r/core';
+import type {
+  RulesEngineAction
+} from '@o3r/core';
 
 /** ActionUpdateLocalisationBlock  */
 export const RULES_ENGINE_LOCALISATION_UPDATE_ACTION_TYPE = 'UPDATE_LOCALISATION';

@@ -1,8 +1,20 @@
-import { TaskConfiguration, TaskConfigurationGenerator } from '@angular-devkit/schematics';
-import { NodePackageName, NodePackageTaskOptions } from '@angular-devkit/schematics/tasks/package-manager/options';
-import { getPackageManager } from '../../utility/package-manager-runner';
-import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
-import type { WorkspaceSchema } from '../../interfaces';
+import {
+  TaskConfiguration,
+  TaskConfigurationGenerator
+} from '@angular-devkit/schematics';
+import {
+  NodePackageInstallTask
+} from '@angular-devkit/schematics/tasks';
+import {
+  NodePackageName,
+  NodePackageTaskOptions
+} from '@angular-devkit/schematics/tasks/package-manager/options';
+import type {
+  WorkspaceSchema
+} from '../../interfaces';
+import {
+  getPackageManager
+} from '../../utility/package-manager-runner';
 
 /**
  * Linter options

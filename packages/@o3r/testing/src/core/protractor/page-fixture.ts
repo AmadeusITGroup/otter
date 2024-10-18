@@ -1,10 +1,20 @@
-import {browser} from 'protractor';
-import {PageFixtureProfile} from '../page-fixture';
-import {O3rComponentFixture} from './component-fixture';
-import {O3rElement} from './element';
-import {convertPromise} from './utils';
+import {
+  browser
+} from 'protractor';
+import {
+  PageFixtureProfile
+} from '../page-fixture';
+import {
+  O3rComponentFixture
+} from './component-fixture';
+import {
+  O3rElement
+} from './element';
+import {
+  convertPromise
+} from './utils';
 
-export {PageFixtureProfile} from '../page-fixture';
+export { PageFixtureProfile } from '../page-fixture';
 
 /**
  * Implementation of the page fixture dedicated to protractor.

@@ -1,5 +1,11 @@
-import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { CONFIG_OVERRIDE_STORE_NAME, ConfigOverrideState } from './config-override.state';
+import {
+  createFeatureSelector,
+  createSelector
+} from '@ngrx/store';
+import {
+  CONFIG_OVERRIDE_STORE_NAME,
+  ConfigOverrideState
+} from './config-override.state';
 
 /** Select ConfigOverride State */
 export const selectConfigOverrideState = createFeatureSelector<ConfigOverrideState>(CONFIG_OVERRIDE_STORE_NAME);

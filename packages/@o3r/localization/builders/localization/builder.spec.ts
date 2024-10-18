@@ -14,13 +14,10 @@ const languageFilesContent = Object.entries(filesPerLanguage).reduce((acc, [lang
   return acc;
 }, {} as Record<string, Record<string, string>>);
 
-
 describe('Localization builder', () => {
-
   beforeEach(() => {});
 
   describe('getTranslationsForLanguage', () => {
-
     it('No override should not merge files', () => {
       const result = builder.getTranslationsForLanguage('en_GB', filesPerLanguage, {}, {});
 
@@ -28,17 +25,17 @@ describe('Localization builder', () => {
     });
 
     it('Override should only merge specified files', () => {
-      const resultEnGb = builder.getTranslationsForLanguage('en_GB', filesPerLanguage, {en_GB: 'en_US'}, {});
+      const resultEnGb = builder.getTranslationsForLanguage('en_GB', filesPerLanguage, { en_GB: 'en_US' }, {});
 
-      expect(resultEnGb).toEqual({...languageFilesContent.en_US, ...languageFilesContent.en_GB});
+      expect(resultEnGb).toEqual({ ...languageFilesContent.en_US, ...languageFilesContent.en_GB });
 
-      const resultFrFr = builder.getTranslationsForLanguage('fr_FR', filesPerLanguage, {en_GB: 'en_US'}, {});
+      const resultFrFr = builder.getTranslationsForLanguage('fr_FR', filesPerLanguage, { en_GB: 'en_US' }, {});
 
       expect(resultFrFr).toEqual(languageFilesContent.fr_FR);
     });
 
     it('Circular override should throw', () => {
-      expect(() => builder.getTranslationsForLanguage('en_GB', filesPerLanguage, {en_GB: 'en_US', en_US: 'en_GB'}, {})).toThrow();
+      expect(() => builder.getTranslationsForLanguage('en_GB', filesPerLanguage, { en_GB: 'en_US', en_US: 'en_GB' }, {})).toThrow();
     });
   });
 });

@@ -1,8 +1,15 @@
-import { Context, promiseSpawn } from '@ama-terasu/core';
-import { existsSync, promises as fs, readFileSync } from 'node:fs';
+import {
+  existsSync,
+  promises as fs,
+  readFileSync
+} from 'node:fs';
 import * as path from 'node:path';
+import {
+  Context,
+  promiseSpawn
+} from '@ama-terasu/core';
 
-const { peerDependencies } = JSON.parse(readFileSync(path.resolve(__dirname, '..', 'package.json'), {encoding: 'utf8'}));
+const { peerDependencies } = JSON.parse(readFileSync(path.resolve(__dirname, '..', 'package.json'), { encoding: 'utf8' }));
 
 /** Option to create an application */
 export interface CreateApplicationOptions {

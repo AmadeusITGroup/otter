@@ -1,17 +1,29 @@
-import { Architect, createBuilder } from '@angular-devkit/architect';
-import { TestingArchitectHost } from '@angular-devkit/architect/testing';
-import { schema } from '@angular-devkit/core';
-import { cleanVirtualFileSystem, useVirtualFileSystem } from '@o3r/test-helpers';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { AppVersionBuilderSchema } from './schema';
+import {
+  Architect,
+  createBuilder
+} from '@angular-devkit/architect';
+import {
+  TestingArchitectHost
+} from '@angular-devkit/architect/testing';
+import {
+  schema
+} from '@angular-devkit/core';
+import {
+  cleanVirtualFileSystem,
+  useVirtualFileSystem
+} from '@o3r/test-helpers';
+import {
+  AppVersionBuilderSchema
+} from './schema';
 
 describe('App version Builder', () => {
   const workspaceRoot = path.join('..', '..', '..', '..', '..');
   let architect: Architect;
   let architectHost: TestingArchitectHost;
   let virtualFileSystem: typeof fs;
-  const patternReplacementBuilderSpy = jest.fn().mockReturnValue({success: true});
+  const patternReplacementBuilderSpy = jest.fn().mockReturnValue({ success: true });
 
   beforeEach(() => {
     virtualFileSystem = useVirtualFileSystem();
@@ -30,7 +42,7 @@ describe('App version Builder', () => {
   it('should extract version and call pattern replacement', async () => {
     const packageJsonPath = path.resolve(__dirname, workspaceRoot, 'package.json');
     const fakeFilePath = path.resolve(__dirname, workspaceRoot, 'app', 'package.json');
-    await virtualFileSystem.promises.mkdir(path.dirname(packageJsonPath), {recursive: true});
+    await virtualFileSystem.promises.mkdir(path.dirname(packageJsonPath), { recursive: true });
     await virtualFileSystem.promises.writeFile(packageJsonPath, '{"version": "7.7.7"}');
     const options: AppVersionBuilderSchema = {
       file: fakeFilePath,

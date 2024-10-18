@@ -1,4 +1,6 @@
-import {formatGitTagsOutput} from './index';
+import {
+  formatGitTagsOutput
+} from './index';
 
 describe('helpers', () => {
   it('formatGitBranchOutput', () => {

@@ -1,10 +1,24 @@
 #!/usr/bin/env node
 /* eslint-disable no-console */
 
-import { execSync, spawnSync } from 'node:child_process';
-import { dirname, extname, join, parse, relative, resolve } from 'node:path';
+import {
+  execSync,
+  spawnSync
+} from 'node:child_process';
+import {
+  dirname,
+  extname,
+  join,
+  parse,
+  relative,
+  resolve
+} from 'node:path';
+import {
+  LOCAL_SPEC_FILENAME,
+  SPEC_JSON_EXTENSION,
+  SPEC_YAML_EXTENSION
+} from '@ama-sdk/schematics';
 import * as minimist from 'minimist';
-import { LOCAL_SPEC_FILENAME, SPEC_JSON_EXTENSION, SPEC_YAML_EXTENSION } from '@ama-sdk/schematics';
 
 const packageManagerEnv = process.env.npm_config_user_agent?.split('/')[0];
 const binPath = resolve(require.resolve('@angular-devkit/schematics-cli/package.json'), '../bin/schematics.js');
@@ -136,10 +150,10 @@ const run = () => {
 
   const errors = steps
     .map((step) => spawnSync(step.runner || `"${process.execPath}"`, step.args, { stdio: 'inherit', cwd: step.cwd || process.cwd(), shell: true }))
-    .filter(({error, status}) => (error || status !== 0));
+    .filter(({ error, status }) => (error || status !== 0));
 
   if (errors.length > 0) {
-    errors.forEach(({error}) => {
+    errors.forEach(({ error }) => {
       if (error) {
         console.error(error);
       }

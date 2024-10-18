@@ -1,5 +1,16 @@
-import { type JsonArray, type JsonObject } from '@angular-devkit/core';
-import { apply, MergeStrategy, mergeWith, renameTemplateFiles, type Rule, template, url } from '@angular-devkit/schematics';
+import {
+  type JsonArray,
+  type JsonObject
+} from '@angular-devkit/core';
+import {
+  apply,
+  MergeStrategy,
+  mergeWith,
+  renameTemplateFiles,
+  type Rule,
+  template,
+  url
+} from '@angular-devkit/schematics';
 
 /**
  * Update or add tsconfig.eslint.json file

@@ -1,8 +1,11 @@
-import { ApiTypes } from '../../fwk/api';
-import { RawResponseInfoReply } from './raw-response-info.reply';
+import {
+  ApiTypes
+} from '../../fwk/api';
+import {
+  RawResponseInfoReply
+} from './raw-response-info.reply';
 
 describe('Raw response info Reply plugin', () => {
-
   const reviver = jest.fn();
 
   it('should add response object', async () => {
@@ -10,7 +13,7 @@ describe('Raw response info Reply plugin', () => {
     const runner = plugin.load({
       reviver,
       apiType: ApiTypes.DEFAULT,
-      response: {headers: new Headers(), test: 'OK'} as any
+      response: { headers: new Headers(), test: 'OK' } as any
     });
     const data = {};
 
@@ -25,9 +28,9 @@ describe('Raw response info Reply plugin', () => {
     const runner = plugin.load({
       reviver,
       apiType: ApiTypes.DEFAULT,
-      response: {headers: new Headers(), test: 'OK'} as any
+      response: { headers: new Headers(), test: 'OK' } as any
     });
-    const data = {originalData: 'OK'};
+    const data = { originalData: 'OK' };
 
     const newData = await runner.transform(data);
 
@@ -35,15 +38,14 @@ describe('Raw response info Reply plugin', () => {
   });
 
   it('should invalidate response info', () => {
-    const data = {originalData: 'OK'};
+    const data = { originalData: 'OK' };
 
     expect(RawResponseInfoReply.hasResponseInfo(data)).toBeFalsy();
   });
 
   it('should validate response info', () => {
-    const data = {originalData: 'OK', responseInfo: {headers: new Headers()}};
+    const data = { originalData: 'OK', responseInfo: { headers: new Headers() } };
 
     expect(RawResponseInfoReply.hasResponseInfo(data)).toBeTruthy();
   });
-
 });

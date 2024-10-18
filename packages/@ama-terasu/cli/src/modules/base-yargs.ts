@@ -1,17 +1,42 @@
-import { AmaCliModule, yargsAmaCli } from '@ama-terasu/core';
+import {
+  existsSync,
+  readFileSync
+} from 'node:fs';
+import {
+  EOL
+} from 'node:os';
+import {
+  resolve
+} from 'node:path';
+import {
+  AmaCliModule,
+  yargsAmaCli
+} from '@ama-terasu/core';
 import * as chalk from 'chalk';
-import { existsSync, readFileSync } from 'node:fs';
-import { error } from 'loglevel';
-import { EOL } from 'node:os';
-import { resolve } from 'node:path';
-import { terminalWidth } from 'yargs';
-
-import { formatHelpMessage, getPackageFormattedVersion, getPackageVersion } from '../helpers/index';
-import { baseContext, generateUsageMessage } from './base-context';
-import { getCliModules, getFormattedDescription, getInstalledInformation, installDependency, isInstalled } from '../helpers/module.helper';
+import {
+  error
+} from 'loglevel';
+import {
+  terminalWidth
+} from 'yargs';
+import {
+  formatHelpMessage,
+  getPackageFormattedVersion,
+  getPackageVersion
+} from '../helpers/index';
+import {
+  getCliModules,
+  getFormattedDescription,
+  getInstalledInformation,
+  installDependency,
+  isInstalled
+} from '../helpers/module.helper';
+import {
+  baseContext,
+  generateUsageMessage
+} from './base-context';
 
 export const amaYargs = async (argv?: Record<string, any>) => {
-
   /** Module registered to Amaterasu CLI */
   const modules = await getCliModules({ localOnly: !!argv?.['local-only'] });
 

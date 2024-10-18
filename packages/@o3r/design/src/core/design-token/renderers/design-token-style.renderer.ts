@@ -1,9 +1,24 @@
-import type { DesignTokenVariableSet, DesignTokenVariableStructure } from '../parsers/design-token-parser.interface';
-import { getCssTokenDefinitionRenderer } from './css/design-token-definition.renderers';
-import { getCssStyleContentUpdater } from './css/design-token-updater.renderers';
-import { existsSync, promises as fs } from 'node:fs';
-import { isAbsolute, resolve } from 'node:path';
-import type { DesignTokenRendererOptions } from './design-token.renderer.interface';
+import {
+  existsSync,
+  promises as fs
+} from 'node:fs';
+import {
+  isAbsolute,
+  resolve
+} from 'node:path';
+import type {
+  DesignTokenVariableSet,
+  DesignTokenVariableStructure
+} from '../parsers/design-token-parser.interface';
+import {
+  getCssTokenDefinitionRenderer
+} from './css/design-token-definition.renderers';
+import {
+  getCssStyleContentUpdater
+} from './css/design-token-updater.renderers';
+import type {
+  DesignTokenRendererOptions
+} from './design-token.renderer.interface';
 
 /**
  * Retrieve the function that determines which file to update for a given token
@@ -41,7 +56,7 @@ export const compareVariableByName = (a: DesignTokenVariableStructure, b: Design
  * ```
  */
 export const renderDesignTokens = async (variableSet: DesignTokenVariableSet, options?: DesignTokenRendererOptions) => {
-  const readFile = options?.readFile || ((filePath: string) => fs.readFile(filePath, {encoding: 'utf8'}));
+  const readFile = options?.readFile || ((filePath: string) => fs.readFile(filePath, { encoding: 'utf8' }));
   const writeFile = options?.writeFile || fs.writeFile;
   const existsFile = options?.existsFile || existsSync;
   const determineFileToUpdate = options?.determineFileToUpdate || computeFileToUpdatePath();

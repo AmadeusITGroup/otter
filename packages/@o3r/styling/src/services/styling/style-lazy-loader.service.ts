@@ -1,7 +1,15 @@
-import { Injectable } from '@angular/core';
-import { DynamicContentService } from '@o3r/dynamic-content';
-import { firstValueFrom } from 'rxjs';
-import { StyleLazyLoaderModule } from './style-lazy-loader.module';
+import {
+  Injectable
+} from '@angular/core';
+import {
+  DynamicContentService
+} from '@o3r/dynamic-content';
+import {
+  firstValueFrom
+} from 'rxjs';
+import {
+  StyleLazyLoaderModule
+} from './style-lazy-loader.module';
 
 /**
  * Interface to describe a style to lazy load from a url.
@@ -26,7 +34,6 @@ export interface StyleURL {
   providedIn: StyleLazyLoaderModule
 })
 export class StyleLazyLoader {
-
   private readonly DEFAULT_STYLE_ELEMENT_ID = 'external-theme';
 
   constructor(private readonly dcService: DynamicContentService) {}
@@ -37,7 +44,6 @@ export class StyleLazyLoader {
    * and the styleId id of the dynamic style in the body tag.
    */
   public loadStyleFromURL(styleUrlConfig: StyleURL) {
-
     const elementId = styleUrlConfig.id ? styleUrlConfig.id : this.DEFAULT_STYLE_ELEMENT_ID;
     let style = document.getElementById(elementId) as HTMLLinkElement | null;
 

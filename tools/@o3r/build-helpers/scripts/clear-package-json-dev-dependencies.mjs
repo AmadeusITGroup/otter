@@ -2,9 +2,15 @@
  * The purpose of this script is remove the devDependency field from a package.json
  */
 
+import {
+  readFileSync,
+  writeFileSync
+} from 'node:fs';
+import {
+  join,
+  resolve
+} from 'node:path';
 import minimist from 'minimist';
-import { readFileSync, writeFileSync } from 'node:fs';
-import { join, resolve } from 'node:path';
 
 const argv = minimist(process.argv.slice(2));
 const root = argv.root ? resolve(process.cwd(), argv.root) : process.cwd();

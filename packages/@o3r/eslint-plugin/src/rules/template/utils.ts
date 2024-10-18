@@ -1,4 +1,7 @@
-import { type ParserServices, TSESLint } from '@typescript-eslint/utils';
+import {
+  type ParserServices,
+  TSESLint
+} from '@typescript-eslint/utils';
 
 /** Position in source code */
 interface SourceSpan {

@@ -1,14 +1,29 @@
-import { strings } from '@angular-devkit/core';
-import { apply, MergeStrategy, mergeWith, renameTemplateFiles, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
-import { createSchematicWithMetricsIfInstalled } from '@o3r/schematics';
-import { NgGenerateRenovateBotSchematicsSchema } from './schema';
+import {
+  strings
+} from '@angular-devkit/core';
+import {
+  apply,
+  MergeStrategy,
+  mergeWith,
+  renameTemplateFiles,
+  Rule,
+  SchematicContext,
+  template,
+  Tree,
+  url
+} from '@angular-devkit/schematics';
+import {
+  createSchematicWithMetricsIfInstalled
+} from '@o3r/schematics';
+import {
+  NgGenerateRenovateBotSchematicsSchema
+} from './schema';
 
 /**
  * Create a Renovate Bot basic configuration
  * @param options
  */
 function ngGenerateRenovateBotComponentFn(options: NgGenerateRenovateBotSchematicsSchema): Rule {
-
   const generateFiles = (tree: Tree, context: SchematicContext) => {
     const templateSource = apply(url('./templates'), [
       template({

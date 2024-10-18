@@ -1,11 +1,14 @@
-import { BaseMockAdapter } from './base-mock-adapter';
-import { Mock } from './mock';
+import {
+  BaseMockAdapter
+} from './base-mock-adapter';
+import {
+  Mock
+} from './mock';
 
 /**
  * Mock adapter that, for each operation, runs through the list of mocks randomly
  */
 export class RandomMockAdapter extends BaseMockAdapter {
-
   private readonly cache: Record<string, Mock> = {};
 
   private getSingleMock(mocks: Mock<any>[]) {
@@ -32,5 +35,4 @@ export class RandomMockAdapter extends BaseMockAdapter {
     }
     return mock;
   }
-
 }

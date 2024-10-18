@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
-
 /**
  * File stored on the pCloudy cloud.
  * File can be installed on your application.
@@ -36,7 +35,6 @@ export interface Device {
   display_area: number;
   available: boolean;
 }
-
 
 /**
  * Data related to your book device action (selected device; url to access the device and reservation id)

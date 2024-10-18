@@ -1,10 +1,12 @@
-
-import { relative } from 'node:path';
+import {
+  relative
+} from 'node:path';
 import * as vscode from 'vscode';
-import { findPathAndExecuteSchematic } from './common';
+import {
+  findPathAndExecuteSchematic
+} from './common';
 
 const getExtraOptions = async (): Promise<string[]> => {
-
   const activeEditor = vscode.window.activeTextEditor;
   const document = activeEditor?.document;
   const componentPath = document

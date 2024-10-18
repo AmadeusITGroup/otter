@@ -1,7 +1,12 @@
-import type {Locator, Page} from '@playwright/test';
-import {ElementProfile} from '../element';
+import type {
+  Locator,
+  Page
+} from '@playwright/test';
+import {
+  ElementProfile
+} from '../element';
 
-export {ElementProfile} from '../element';
+export { ElementProfile } from '../element';
 
 /**
  * Playwright type for source element
@@ -31,7 +36,7 @@ export class O3rElement implements ElementProfile {
 
   constructor(sourceElement: PlaywrightSourceElement | O3rElement) {
     this.sourceElement = sourceElement instanceof O3rElement
-      ? {element: sourceElement.sourceElement.element, page: sourceElement.sourceElement.page}
+      ? { element: sourceElement.sourceElement.element, page: sourceElement.sourceElement.page }
       : sourceElement;
   }
 

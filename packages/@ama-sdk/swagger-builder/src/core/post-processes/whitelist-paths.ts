@@ -1,15 +1,16 @@
-import { PostProcess } from './post-process.interface';
+import {
+  PostProcess
+} from './post-process.interface';
 
 /**
  * Post Process to remove non white listed paths from the final Swagger Specification
  */
 export class PathsWhitelister implements PostProcess {
-
   constructor(private readonly pathPatterns: (string | RegExp)[] = []) {}
 
   /** @inheritdoc */
   public execute(swaggerSpec: any) {
-    const spec = { ...swaggerSpec};
+    const spec = { ...swaggerSpec };
     spec.paths = Object.keys(spec.paths)
       .filter((p) => this.pathPatterns
         .some((pattern) => {
@@ -23,5 +24,4 @@ export class PathsWhitelister implements PostProcess {
 
     return spec;
   }
-
 }

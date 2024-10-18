@@ -1,7 +1,13 @@
-import {logging} from '@angular-devkit/core';
-import {Tree} from '@angular-devkit/schematics';
-import {updateImportsInFile} from '@o3r/schematics';
+import {
+  logging
+} from '@angular-devkit/core';
+import {
+  Tree
+} from '@angular-devkit/schematics';
 import * as ts from 'typescript';
+import {
+  updateImportsInFile
+} from '@o3r/schematics';
 
 describe('updateImportsInFile', () => {
   const logger = {

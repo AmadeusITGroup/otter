@@ -3,10 +3,26 @@
  * @jest-environment @o3r/test-helpers/jest-environment
  * @jest-environment-o3r-app-folder test-app-styling-metadata-check
  */
-const o3rEnvironment = globalThis.o3rEnvironment;
-
-import type { MigrationFile } from '@o3r/extractors';
-import { getExternalDependenciesVersionRange, getPackageManager } from '@o3r/schematics';
+import {
+  existsSync,
+  promises,
+  readFileSync
+} from 'node:fs';
+import {
+  dirname,
+  join
+} from 'node:path';
+import type {
+  MigrationFile
+} from '@o3r/extractors';
+import {
+  getExternalDependenciesVersionRange,
+  getPackageManager
+} from '@o3r/schematics';
+import type {
+  CssMetadata,
+  CssVariable
+} from '@o3r/styling';
 import {
   getDefaultExecSyncOptions,
   getLatestPackageVersion,
@@ -15,11 +31,14 @@ import {
   packageManagerVersion,
   publishToVerdaccio
 } from '@o3r/test-helpers';
-import { existsSync, promises, readFileSync } from 'node:fs';
-import { dirname, join } from 'node:path';
-import { inc } from 'semver';
-import type { CssMetadata, CssVariable } from '@o3r/styling';
-import type { MigrationStylingData } from './helpers/styling-metadata-comparison.helper';
+import {
+  inc
+} from 'semver';
+import type {
+  MigrationStylingData
+} from './helpers/styling-metadata-comparison.helper';
+
+const o3rEnvironment = globalThis.o3rEnvironment;
 
 const baseVersion = '1.2.0';
 const version = '1.3.0';
@@ -65,10 +84,9 @@ const newStylingMetadata: CssMetadata = {
 };
 /* eslint-enable @typescript-eslint/naming-convention */
 
-
 async function writeFileAsJSON(path: string, content: object) {
   if (!existsSync(dirname(path))) {
-    await promises.mkdir(dirname(path), {recursive: true});
+    await promises.mkdir(dirname(path), { recursive: true });
   }
   await promises.writeFile(path, JSON.stringify(content), { encoding: 'utf8' });
 }
@@ -82,8 +100,8 @@ const initTest = async (
   const { workspacePath, appName, applicationPath, o3rVersion, isYarnTest } = o3rEnvironment.testEnvironment;
   const execAppOptions = { ...getDefaultExecSyncOptions(), cwd: applicationPath };
   const execAppOptionsWorkspace = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
-  packageManagerExec({script: 'ng', args: ['add', `@o3r/extractors@${o3rVersion}`, '--skip-confirmation', '--project-name', appName]}, execAppOptionsWorkspace);
-  packageManagerExec({script: 'ng', args: ['add', `@o3r/styling@${o3rVersion}`, '--skip-confirmation', '--project-name', appName]}, execAppOptionsWorkspace);
+  packageManagerExec({ script: 'ng', args: ['add', `@o3r/extractors@${o3rVersion}`, '--skip-confirmation', '--project-name', appName] }, execAppOptionsWorkspace);
+  packageManagerExec({ script: 'ng', args: ['add', `@o3r/styling@${o3rVersion}`, '--skip-confirmation', '--project-name', appName] }, execAppOptionsWorkspace);
   const versions = getExternalDependenciesVersionRange([
     'semver',
     ...(isYarnTest

@@ -1,5 +1,10 @@
-import { SwaggerSpec } from '../swagger-spec-wrappers/swagger-spec.interface';
-import { Checker, Report } from './checker.interface';
+import {
+  SwaggerSpec
+} from '../swagger-spec-wrappers/swagger-spec.interface';
+import {
+  Checker,
+  Report
+} from './checker.interface';
 
 /** Dictionary reference object */
 export interface DictionaryReference {
@@ -37,7 +42,6 @@ export interface DefinitionWithRefs {
  * Checker for dictionary references
  */
 export class DictionaryChecker implements Checker {
-
   /**
    * Extract definition names referred in the whole Swagger node
    * @param currentNode Swagger Node to inspect
@@ -57,7 +61,6 @@ export class DictionaryChecker implements Checker {
       await Promise.all(
         currentNode.map((n) => this.extractDefinitionNameReferenced(n, definitionNameMemory))
       );
-
     } else if (typeof currentNode === 'object') {
       for (const k of Object.keys(currentNode)) {
         await this.extractDefinitionNameReferenced(currentNode[k], definitionNameMemory, k);
@@ -75,12 +78,10 @@ export class DictionaryChecker implements Checker {
   private async extractDictionaryReferences(currentNode: any, dictionaryMemory: { [field: string]: DictionaryReference }, field?: string, requiredFields: string[] = []): Promise<void> {
     if (currentNode === undefined || currentNode === null) {
       return;
-
     } else if (Array.isArray(currentNode)) {
       await Promise.all(
         currentNode.map((n) => this.extractDictionaryReferences(n, dictionaryMemory))
       );
-
     } else if (typeof currentNode === 'object') {
       if (currentNode.type === 'object') {
         const requiredList: string[] = Array.isArray(currentNode.required) ? currentNode.required : [];
@@ -161,7 +162,7 @@ export class DictionaryChecker implements Checker {
    * @param definition Definition name
    * @param definitions List of Definition Swagger Node
    */
-  private async findDictionaryReferences(definition: string, definitions: { [name: string]: any }): Promise<{ [field: string]: DictionaryReference}> {
+  private async findDictionaryReferences(definition: string, definitions: { [name: string]: any }): Promise<{ [field: string]: DictionaryReference }> {
     const ret: { [field: string]: DictionaryReference } = {};
     await this.extractDictionaryReferences(definitions[definition], ret);
     return Object.keys(ret)
@@ -184,7 +185,7 @@ export class DictionaryChecker implements Checker {
       .filter((definitionName) => definitions[definitionName].referTo.includes(definition));
   }
 
-  private async getReplyDefinitions(paths: {[name: string]: any}): Promise<string[]> {
+  private async getReplyDefinitions(paths: { [name: string]: any }): Promise<string[]> {
     const replyDefinitions: string[] = [];
 
     for (const pName of Object.keys(paths)) {
@@ -267,7 +268,7 @@ export class DictionaryChecker implements Checker {
    * @param definitions List of Definition Swagger Node
    * @param stack stack of swagger fields
    */
-  private getAllDictionaryRefs(definitionName: string, definitions: {[definitionName: string]: DefinitionWithRefs}, stack: string[] = []): DictionaryReference[] {
+  private getAllDictionaryRefs(definitionName: string, definitions: { [definitionName: string]: DefinitionWithRefs }, stack: string[] = []): DictionaryReference[] {
     if (stack.includes(definitionName)) {
       return [];
     }
@@ -320,7 +321,7 @@ export class DictionaryChecker implements Checker {
    * @param definitions List of Definition Swagger Node
    * @param stack stack of swagger fields
    */
-  private isDictionaryInDefinition(dictionaryReference: DictionaryReference, definitionName: string, definitions: {[definitionName: string]: DefinitionWithRefs}, stack: string[] = []): boolean {
+  private isDictionaryInDefinition(dictionaryReference: DictionaryReference, definitionName: string, definitions: { [definitionName: string]: DefinitionWithRefs }, stack: string[] = []): boolean {
     if (stack.includes(definitionName)) {
       return false;
     }
@@ -374,8 +375,7 @@ export class DictionaryChecker implements Checker {
    * @param swaggerSpec Swagger specification
    */
   public async check(swaggerSpec: SwaggerSpec): Promise<Report> {
-
-    const {definitionsWithReferer, replyDefinitions} = await this.generateDefinitionsWithRefererLists(swaggerSpec);
+    const { definitionsWithReferer, replyDefinitions } = await this.generateDefinitionsWithRefererLists(swaggerSpec);
     const report: Report = [];
     for (const replyDefinition of replyDefinitions) {
       const dictionaryReferences = this.getAllDictionaryRefs(replyDefinition, definitionsWithReferer);
@@ -400,5 +400,4 @@ export class DictionaryChecker implements Checker {
 
     return report;
   }
-
 }

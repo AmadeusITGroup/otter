@@ -1,6 +1,10 @@
 import templateParser from '@angular-eslint/template-parser';
-import { RuleTester } from '@angular-eslint/test-utils';
-import noInnerHTMLRule, { name } from './no-inner-html';
+import {
+  RuleTester
+} from '@angular-eslint/test-utils';
+import noInnerHTMLRule, {
+  name
+} from './no-inner-html';
 
 const ruleTester = new RuleTester({
   languageOptions: {

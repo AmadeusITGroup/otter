@@ -1,8 +1,21 @@
-import type { RequestBody, RequestMetadata, RequestOptions, TokenizedOptions } from '../../plugins/index';
-import type { ApiTypes } from '../api';
-import type { Api } from '../api.interface';
-import type { ReviverType } from '../Reviver';
-import type { BaseApiClientOptions } from './base-api-constructor';
+import type {
+  RequestBody,
+  RequestMetadata,
+  RequestOptions,
+  TokenizedOptions
+} from '../../plugins/index';
+import type {
+  ApiTypes
+} from '../api';
+import type {
+  Api
+} from '../api.interface';
+import type {
+  ReviverType
+} from '../Reviver';
+import type {
+  BaseApiClientOptions
+} from './base-api-constructor';
 
 /** Parameters to the request the call options */
 export interface RequestOptionsParameters {
@@ -54,7 +67,6 @@ export interface ApiClient {
    */
   prepareUrl(url: string, queryParameters?: { [key: string]: string | undefined }): string;
 
-
   /**
    * Returns tokenized request options:
    * URL/query parameters for which sensitive parameters are replaced by tokens and the corresponding token-value associations
@@ -74,7 +86,7 @@ export interface ApiClient {
 
   /** Process HTTP call */
   processCall<T>(url: string, options: RequestOptions, apiType: ApiTypes | string, apiName: string, revivers?: ReviverType<T> |
-  {[key: number]: ReviverType<T> | undefined}, operationId?: string): Promise<T>;
+  { [key: number]: ReviverType<T> | undefined }, operationId?: string): Promise<T>;
 }
 
 /**

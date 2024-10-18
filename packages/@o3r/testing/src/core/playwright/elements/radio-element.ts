@@ -1,5 +1,10 @@
-import {RadioElementProfile} from '../../elements';
-import {O3rElement, PlaywrightSourceElement} from '../element';
+import {
+  RadioElementProfile
+} from '../../elements';
+import {
+  O3rElement,
+  PlaywrightSourceElement
+} from '../element';
 
 /**
  * Implementation dedicated to Playwright.

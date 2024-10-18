@@ -1,9 +1,21 @@
-import * as semver from 'semver';
-import type { PackageJson } from 'type-fest';
 import * as fs from 'node:fs';
-import { existsSync, readFileSync } from 'node:fs';
-import { dirname, normalize, posix, resolve } from 'node:path';
-import { sync as globbySync } from 'globby';
+import {
+  existsSync,
+  readFileSync
+} from 'node:fs';
+import {
+  dirname,
+  normalize,
+  posix,
+  resolve
+} from 'node:path';
+import {
+  sync as globbySync
+} from 'globby';
+import * as semver from 'semver';
+import type {
+  PackageJson
+} from 'type-fest';
 
 /** List of packages information resulting of a package.json discovery */
 export interface PackageProperty {

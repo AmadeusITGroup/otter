@@ -1,5 +1,10 @@
-import { createProbot } from 'probot';
-import { app as azureApp, type HttpRequest } from '@azure/functions';
+import {
+  app as azureApp,
+  type HttpRequest
+} from '@azure/functions';
+import {
+  createProbot
+} from 'probot';
 import app from '../app';
 
 const probotInstance = createProbot();

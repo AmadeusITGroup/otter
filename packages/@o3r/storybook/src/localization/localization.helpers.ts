@@ -1,6 +1,13 @@
-import type { LocalizationMetadata } from '@o3r/localization';
-import { LOCALIZATION_PREFIX, LocalizationConfigs } from './localization-configs.interface';
-import { getLocalizationMetadata } from './metadata-manager';
+import type {
+  LocalizationMetadata
+} from '@o3r/localization';
+import {
+  LOCALIZATION_PREFIX,
+  LocalizationConfigs
+} from './localization-configs.interface';
+import {
+  getLocalizationMetadata
+} from './metadata-manager';
 
 /**
  * Get storybook Localization configuration from metadata

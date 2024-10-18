@@ -1,14 +1,22 @@
 import {
+  promises as fs
+} from 'node:fs';
+import * as path from 'node:path';
+import {
   chain,
   Rule,
   SchematicContext,
   Tree
 } from '@angular-devkit/schematics';
-import { promises as fs } from 'node:fs';
-import * as path from 'node:path';
-import { treeGlob } from '../../helpers/tree-glob';
-import { NgGenerateJavaClientCoreSchematicsSchema } from './schema';
-import {SwaggerJavaGenerator} from '../../code-generator/swagger-java-generator/swagger-java.generator';
+import {
+  SwaggerJavaGenerator
+} from '../../code-generator/swagger-java-generator/swagger-java.generator';
+import {
+  treeGlob
+} from '../../helpers/tree-glob';
+import {
+  NgGenerateJavaClientCoreSchematicsSchema
+} from './schema';
 
 /** Base path where to find codegen jars */
 const jarBasePath = path.resolve(__dirname, 'swagger-codegen-java-client', 'target');
@@ -18,7 +26,6 @@ const jarBasePath = path.resolve(__dirname, 'swagger-codegen-java-client', 'targ
  * @param options
  */
 function ngGenerateJavaClientCoreFn(options: NgGenerateJavaClientCoreSchematicsSchema): Rule {
-
   const specPath = path.resolve(process.cwd(), options.specPath);
   /**
    * rule to clear previous SDK generation
@@ -26,7 +33,7 @@ function ngGenerateJavaClientCoreFn(options: NgGenerateJavaClientCoreSchematicsS
    * @param context
    */
   const clearGeneratedCode = async (tree: Tree, context: SchematicContext) => {
-    const swaggerConfig = options.specConfigPath ? JSON.parse(await fs.readFile(options.specConfigPath, {encoding: 'utf8'})) as Record<string, any> : undefined;
+    const swaggerConfig = options.specConfigPath ? JSON.parse(await fs.readFile(options.specConfigPath, { encoding: 'utf8' })) as Record<string, any> : undefined;
     if (swaggerConfig?.additionalProperties) {
       const modelPackage = swaggerConfig.additionalProperties?.basePackage;
       if (modelPackage) {
@@ -62,8 +69,7 @@ function ngGenerateJavaClientCoreFn(options: NgGenerateJavaClientCoreSchematicsS
    * @param _context
    */
   const generateSource = async (tree: Tree) => {
-
-    const specContent = await fs.readFile(path.resolve(process.cwd(), options.specPath), {encoding: 'utf8'});
+    const specContent = await fs.readFile(path.resolve(process.cwd(), options.specPath), { encoding: 'utf8' });
     if (tree.exists('/swagger-spec.yaml')) {
       tree.overwrite('/swagger-spec.yaml', specContent);
     } else {
@@ -85,7 +91,6 @@ function ngGenerateJavaClientCoreFn(options: NgGenerateJavaClientCoreSchematicsS
     })
   ]);
 }
-
 
 /**
  * Generate a Java client SDK source code base on swagger specification

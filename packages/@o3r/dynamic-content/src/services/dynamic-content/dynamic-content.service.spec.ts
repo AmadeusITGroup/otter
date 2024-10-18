@@ -1,10 +1,24 @@
-import { getTestBed, TestBed } from '@angular/core/testing';
-import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
-import { firstValueFrom } from 'rxjs';
-import { DynamicContentModule } from './dynamic-content.module';
-import { DynamicContentService } from './dynamic-content.service';
-import { CMS_ASSETS_PATH_TOKEN, DYNAMIC_CONTENT_BASE_PATH_TOKEN } from './dynamic-content.token';
-
+import {
+  getTestBed,
+  TestBed
+} from '@angular/core/testing';
+import {
+  BrowserDynamicTestingModule,
+  platformBrowserDynamicTesting
+} from '@angular/platform-browser-dynamic/testing';
+import {
+  firstValueFrom
+} from 'rxjs';
+import {
+  DynamicContentModule
+} from './dynamic-content.module';
+import {
+  DynamicContentService
+} from './dynamic-content.service';
+import {
+  CMS_ASSETS_PATH_TOKEN,
+  DYNAMIC_CONTENT_BASE_PATH_TOKEN
+} from './dynamic-content.token';
 
 let service: DynamicContentService;
 
@@ -21,8 +35,8 @@ describe('DynamicContentService', () => {
       await TestBed.configureTestingModule({
         providers: [
           DynamicContentService,
-          {provide: DYNAMIC_CONTENT_BASE_PATH_TOKEN, useValue: 'dynamic-base-path'},
-          {provide: CMS_ASSETS_PATH_TOKEN, useValue: 'assets-path'}
+          { provide: DYNAMIC_CONTENT_BASE_PATH_TOKEN, useValue: 'dynamic-base-path' },
+          { provide: CMS_ASSETS_PATH_TOKEN, useValue: 'assets-path' }
         ]
       }).compileComponents();
 
@@ -51,8 +65,8 @@ describe('DynamicContentService', () => {
       await TestBed.configureTestingModule({
         providers: [
           DynamicContentService,
-          {provide: DYNAMIC_CONTENT_BASE_PATH_TOKEN, useValue: 'dynamic-base-path/'},
-          {provide: CMS_ASSETS_PATH_TOKEN, useValue: 'assets-path'}
+          { provide: DYNAMIC_CONTENT_BASE_PATH_TOKEN, useValue: 'dynamic-base-path/' },
+          { provide: CMS_ASSETS_PATH_TOKEN, useValue: 'assets-path' }
         ]
       }).compileComponents();
       service = TestBed.inject(DynamicContentService);
@@ -69,7 +83,6 @@ describe('DynamicContentService', () => {
         service.getContentPathStream('asset.png')
       )).resolves.toBe('dynamic-base-path/asset.png');
     });
-
   });
 
   describe('regarding the module forRoot', () => {
@@ -127,7 +140,6 @@ describe('DynamicContentService', () => {
           expect(service.basePath).toBe('');
         });
       });
-
     });
 
     describe('with the custom configuration', () => {
@@ -138,7 +150,7 @@ describe('DynamicContentService', () => {
         } catch {}
 
         await TestBed.configureTestingModule({
-          imports: [DynamicContentModule.forRoot({ content: 'my-custom-path'})]
+          imports: [DynamicContentModule.forRoot({ content: 'my-custom-path' })]
         }).compileComponents();
 
         service = TestBed.inject(DynamicContentService);
@@ -165,7 +177,7 @@ describe('DynamicContentService', () => {
         } catch {}
 
         await TestBed.configureTestingModule({
-          imports: [DynamicContentModule.forRoot({content: 'my-custom-path'})]
+          imports: [DynamicContentModule.forRoot({ content: 'my-custom-path' })]
         }).compileComponents();
 
         service = TestBed.inject(DynamicContentService);
@@ -190,7 +202,7 @@ describe('DynamicContentService', () => {
         document.body.dataset.cmsassetspath = 'my-custom-cms-assets-location';
 
         await TestBed.configureTestingModule({
-          imports: [DynamicContentModule.forRoot({cmsAssets: 'cms-assets-location'})]
+          imports: [DynamicContentModule.forRoot({ cmsAssets: 'cms-assets-location' })]
         }).compileComponents();
 
         service = TestBed.inject(DynamicContentService);
@@ -214,7 +226,6 @@ describe('DynamicContentService', () => {
         )).resolves.toBe('/asset.png');
       });
     });
-
   });
 
   describe('with a tag data-cmsassetspath in the body', () => {
@@ -243,5 +254,4 @@ describe('DynamicContentService', () => {
       return expect(firstValueFrom(service.getMediaPathStream('/asset.png'))).resolves.toBe('/asset.png');
     });
   });
-
 });

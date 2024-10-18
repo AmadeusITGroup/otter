@@ -1,4 +1,6 @@
-import { CodegenTaskOptions } from '../code-generator';
+import {
+  CodegenTaskOptions
+} from '../code-generator';
 
 /**
  * Options for the generator-java task.

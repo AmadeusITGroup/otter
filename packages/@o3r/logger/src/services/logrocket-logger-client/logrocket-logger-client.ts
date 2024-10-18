@@ -1,14 +1,19 @@
-import { Action, MetaReducer } from '@ngrx/store';
-import type { LoggerClient } from '@o3r/logger';
-
+import {
+  Action,
+  MetaReducer
+} from '@ngrx/store';
+import type {
+  LoggerClient
+} from '@o3r/logger';
 import * as LogRocket from 'logrocket';
-import createNgrxMiddleware, { Options } from 'logrocket-ngrx';
+import createNgrxMiddleware, {
+  Options
+} from 'logrocket-ngrx';
 
 /**
  * LogRocket client.
  */
 export class LogRocketClient implements LoggerClient {
-
   /**
    * Meta reducer configuration to change what store related items LogRocket records
    */
@@ -27,21 +32,21 @@ export class LogRocketClient implements LoggerClient {
           // if the url contains '/purchase/orders'
           if (request.url.toLowerCase().includes('/purchase/orders')) {
             // scrub out the body
-            return {...request, body: ''};
+            return { ...request, body: '' };
           }
           return request;
         }
       }
     };
 
-    LogRocket.init(appId, {...defaultOptions, ...initOptions});
+    LogRocket.init(appId, { ...defaultOptions, ...initOptions });
     this.metaReducerOptions = metaReducerOptions;
   }
 
   /**
    * @inheritdoc
    */
-  public identify(uid: string, vars?: {[key: string]: string}): void {
+  public identify(uid: string, vars?: { [key: string]: string }): void {
     LogRocket.identify(uid, vars);
   }
 
@@ -110,6 +115,6 @@ export class LogRocketClient implements LoggerClient {
         return action;
       }
     };
-    return createNgrxMiddleware(LogRocket, {...defaultOptions, ...this.metaReducerOptions});
+    return createNgrxMiddleware(LogRocket, { ...defaultOptions, ...this.metaReducerOptions });
   }
 }

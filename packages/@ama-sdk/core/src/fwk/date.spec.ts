@@ -1,7 +1,8 @@
-import { utils } from './date';
+import {
+  utils
+} from './date';
 
 describe('DateTime', () => {
-
   it('should support timestamp', () => {
     const ts = Date.now();
     const dateUtils = new utils.DateTime(ts);
@@ -71,9 +72,7 @@ describe('DateTime', () => {
   });
 });
 
-
 describe('Date', () => {
-
   it('should support timestamp', () => {
     const ts = Date.now();
     const dateUtils = new utils.Date(ts);
@@ -92,7 +91,6 @@ describe('Date', () => {
 
     expect(new utils.Date(originalDate)).toEqual(originalDate);
   });
-
 
   it('should support json conversions', () => {
     const originalDate = new utils.Date(new Date());

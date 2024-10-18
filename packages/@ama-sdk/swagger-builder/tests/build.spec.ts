@@ -1,13 +1,14 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { buildSpecs } from '../src/helpers/build';
+import {
+  buildSpecs
+} from '../src/helpers/build';
 
 const expectPath = path.resolve(__dirname, 'mocks-build');
 const resourcePath = path.resolve(__dirname, 'mocks-build');
 const resultPath = path.resolve(__dirname, '..', 'test-results', 'build');
 
 describe('Swagger Builder', () => {
-
   it('should build a split spec', async () => {
     const resourceFolder = path.join(resourcePath, 'resource1');
     const expectFolder = path.resolve(expectPath, 'expect1');
@@ -16,7 +17,7 @@ describe('Swagger Builder', () => {
       outputFormat: 'yaml'
     }, [path.join(resourceFolder, 'spec/generate.config.json')]);
 
-    expect(fs.readFileSync(path.resolve(expectFolder, 'spec.yaml'), {encoding: 'utf8'})).toEqual(fs.readFileSync(path.resolve(resultPath, 'result1.yaml'), {encoding: 'utf8'}));
+    expect(fs.readFileSync(path.resolve(expectFolder, 'spec.yaml'), { encoding: 'utf8' })).toEqual(fs.readFileSync(path.resolve(resultPath, 'result1.yaml'), { encoding: 'utf8' }));
   });
 
   it('should build a split spec with multiple template', async () => {
@@ -65,7 +66,6 @@ describe('Swagger Builder', () => {
     });
 
     describe('two YAML specs and', () => {
-
       it('should override definitions', async () => {
         const resourceFolder = path.join(resourcePath, 'resource5');
         const expectFolder = path.resolve(expectPath, 'expect5');
@@ -108,8 +108,6 @@ describe('Swagger Builder', () => {
 
         expect(fs.readFileSync(path.resolve(expectFolder, 'spec.yaml'), { encoding: 'utf8' })).toEqual(fs.readFileSync(path.resolve(resultPath, 'result7.yaml'), { encoding: 'utf8' }));
       });
-
     });
   });
-
 });

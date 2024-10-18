@@ -1,7 +1,13 @@
+import {
+  readFileSync
+} from 'node:fs';
 import * as path from 'node:path';
-import { PackageJson } from 'type-fest';
-import { satisfies } from 'semver';
-import { readFileSync } from 'node:fs';
+import {
+  satisfies
+} from 'semver';
+import {
+  PackageJson
+} from 'type-fest';
 
 /**
  * Interface containing a npm package name, needed version and optionally found version

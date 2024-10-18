@@ -1,4 +1,7 @@
-import type { DesignTokenVariableStructure, TokenValueRenderer } from '../../parsers/design-token-parser.interface';
+import type {
+  DesignTokenVariableStructure,
+  TokenValueRenderer
+} from '../../parsers/design-token-parser.interface';
 
 /** Options for {@link getJsonSchemaTokenValueRenderer} */
 export interface JsonSchemaTokenValueRendererOptions {

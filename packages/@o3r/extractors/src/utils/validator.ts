@@ -1,5 +1,6 @@
-
-import { Validator } from 'jsonschema';
+import {
+  Validator
+} from 'jsonschema';
 
 /**
  * Get the validity of a given JSON object

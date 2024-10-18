@@ -1,12 +1,33 @@
-import type { Rule } from '@angular-devkit/schematics';
-import { MigrateSchematicsSchemaOptions } from './schema';
-import { getMigrationRuleRunner, getWorkspaceConfig, type MigrationRulesMap } from '@o3r/schematics';
-import { resolve } from 'node:path';
-import { readFileSync } from 'node:fs';
-import { updateRegenScript } from '../ng-update/typescript/v11.0/update-regen-script';
-import { gt, minVersion } from 'semver';
-import { isTypescriptSdk } from '../helpers/is-typescript-project';
-import {updateOpenApiVersionInProject} from '../ng-update/typescript/v10.3/update-openapiversion';
+import {
+  readFileSync
+} from 'node:fs';
+import {
+  resolve
+} from 'node:path';
+import type {
+  Rule
+} from '@angular-devkit/schematics';
+import {
+  getMigrationRuleRunner,
+  getWorkspaceConfig,
+  type MigrationRulesMap
+} from '@o3r/schematics';
+import {
+  gt,
+  minVersion
+} from 'semver';
+import {
+  isTypescriptSdk
+} from '../helpers/is-typescript-project';
+import {
+  updateOpenApiVersionInProject
+} from '../ng-update/typescript/v10.3/update-openapiversion';
+import {
+  updateRegenScript
+} from '../ng-update/typescript/v11.0/update-regen-script';
+import {
+  MigrateSchematicsSchemaOptions
+} from './schema';
 
 /* eslint-disable @typescript-eslint/naming-convention */
 const tsMigrationMap: MigrationRulesMap = {
@@ -21,8 +42,7 @@ const tsMigrationMap: MigrationRulesMap = {
  * @param options
  */
 function migrateFn(options: MigrateSchematicsSchemaOptions): Rule {
-
-  const currentVersion = JSON.parse(readFileSync(resolve(__dirname, '..', '..', 'package.json'), {encoding: 'utf8'})).version;
+  const currentVersion = JSON.parse(readFileSync(resolve(__dirname, '..', '..', 'package.json'), { encoding: 'utf8' })).version;
   const to: string = options.to || currentVersion;
   const minimumVersion = minVersion(to);
 
@@ -33,7 +53,7 @@ function migrateFn(options: MigrateSchematicsSchemaOptions): Rule {
     }
     const workingDirectory = options?.projectName && getWorkspaceConfig(tree)?.projects[options.projectName]?.root || '/';
     const runMigrateSchematic = isTypescriptSdk(tree, workingDirectory) ? getMigrationRuleRunner(tsMigrationMap, { logger: context.logger }) : undefined;
-    return runMigrateSchematic?.({from: options.from, to});
+    return runMigrateSchematic?.({ from: options.from, to });
   };
 }
 

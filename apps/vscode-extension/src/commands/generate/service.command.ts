@@ -1,8 +1,16 @@
-
-import { dirname, relative } from 'node:path';
-import type { ExtensionContext } from 'vscode';
+import {
+  dirname,
+  relative
+} from 'node:path';
+import type {
+  ExtensionContext
+} from 'vscode';
 import * as vscode from 'vscode';
-import { getPackageScriptRunner, getSchematicDefaultOptions, stringifyOptions } from '../helpers';
+import {
+  getPackageScriptRunner,
+  getSchematicDefaultOptions,
+  stringifyOptions
+} from '../helpers';
 
 /**
  * Generate service command

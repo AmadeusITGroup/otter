@@ -51,11 +51,11 @@
       const nativeFetch = window.fetch;
       // eslint-disable-next-line @typescript-eslint/no-this-alias
       const that = this;
-      Object.assign(window, {fetch: (...args: any[]) => this.interceptor(that, nativeFetch, ...args)});
+      Object.assign(window, { fetch: (...args: any[]) => this.interceptor(that, nativeFetch, ...args) });
     }
 
     private unregisterFetchInterceptor() {
-      Object.assign(window, {fetch: this.windowFetch});
+      Object.assign(window, { fetch: this.windowFetch });
     }
 
     /**

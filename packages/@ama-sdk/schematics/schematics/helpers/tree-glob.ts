@@ -1,4 +1,7 @@
-import { DirEntry, Tree } from '@angular-devkit/schematics';
+import {
+  DirEntry,
+  Tree
+} from '@angular-devkit/schematics';
 import * as minimatch from 'minimatch';
 
 const walkThroughDir = (

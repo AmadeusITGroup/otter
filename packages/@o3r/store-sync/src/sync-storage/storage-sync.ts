@@ -1,7 +1,19 @@
-import { INIT, UPDATE } from '@ngrx/store';
-import { deepFill } from '@o3r/core';
-import type { Logger } from '@o3r/core';
-import type { StorageKeyConfiguration, StorageKeys, SyncStorageConfig, SyncStorageSyncOptions } from './interfaces';
+import {
+  INIT,
+  UPDATE
+} from '@ngrx/store';
+import {
+  deepFill
+} from '@o3r/core';
+import type {
+  Logger
+} from '@o3r/core';
+import type {
+  StorageKeyConfiguration,
+  StorageKeys,
+  SyncStorageConfig,
+  SyncStorageSyncOptions
+} from './interfaces';
 
 /**
  * Reviver the date from a JSON field if the string is matching iso format. Return the same value otherwise

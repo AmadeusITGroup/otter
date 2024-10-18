@@ -1,5 +1,23 @@
-import { strings } from '@angular-devkit/core';
-import { apply, chain, externalSchematic, MergeStrategy, mergeWith, move, noop, renameTemplateFiles, Rule, schematic, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
+import * as path from 'node:path';
+import {
+  strings
+} from '@angular-devkit/core';
+import {
+  apply,
+  chain,
+  externalSchematic,
+  MergeStrategy,
+  mergeWith,
+  move,
+  noop,
+  renameTemplateFiles,
+  Rule,
+  schematic,
+  SchematicContext,
+  template,
+  Tree,
+  url
+} from '@angular-devkit/schematics';
 import {
   addImportToModuleFile,
   applyEsLintFix,
@@ -12,20 +30,28 @@ import {
   O3rCliError,
   Route
 } from '@o3r/schematics';
-import * as path from 'node:path';
 import * as ts from 'typescript';
-import { NgGeneratePageSchematicsSchema } from './schema';
-import { getAddConfigurationRules } from '../rule-factories/component/configuration';
-import { getAddThemingRules } from '../rule-factories/component/theming';
-import { getAddLocalizationRules } from '../rule-factories/component/localization';
-import { getAddFixtureRules } from '../rule-factories/component/fixture';
+import {
+  getAddConfigurationRules
+} from '../rule-factories/component/configuration';
+import {
+  getAddFixtureRules
+} from '../rule-factories/component/fixture';
+import {
+  getAddLocalizationRules
+} from '../rule-factories/component/localization';
+import {
+  getAddThemingRules
+} from '../rule-factories/component/theming';
+import {
+  NgGeneratePageSchematicsSchema
+} from './schema';
 
 /**
  * Add a Page to an Otter project
  * @param options
  */
 function ngGeneratePageFn(options: NgGeneratePageSchematicsSchema): Rule {
-
   const isApplication = (tree: Tree) => {
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
     if (!workspaceProject) {

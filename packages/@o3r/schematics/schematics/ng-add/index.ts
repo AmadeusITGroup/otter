@@ -1,8 +1,16 @@
-import type { Rule } from '@angular-devkit/schematics';
-import type { DependencyToAdd } from '@o3r/schematics';
-import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
 import * as path from 'node:path';
-import type { NgAddSchematicsSchema } from './schema';
+import type {
+  Rule
+} from '@angular-devkit/schematics';
+import {
+  NodeDependencyType
+} from '@schematics/angular/utility/dependencies';
+import type {
+  NgAddSchematicsSchema
+} from './schema';
+import type {
+  DependencyToAdd
+} from '@o3r/schematics';
 
 /**
  * Add Otter schematics to an Angular Project
@@ -47,4 +55,3 @@ export const ngAdd = (options: NgAddSchematicsSchema): Rule => async () => {
   const { createSchematicWithMetricsIfInstalled } = await import('@o3r/schematics');
   return createSchematicWithMetricsIfInstalled(ngAddFn)(options);
 };
-

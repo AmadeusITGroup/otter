@@ -1,4 +1,8 @@
-import { execFileSync, ExecFileSyncOptionsWithStringEncoding, execSync } from 'node:child_process';
+import {
+  execFileSync,
+  ExecFileSyncOptionsWithStringEncoding,
+  execSync
+} from 'node:child_process';
 
 /**
  * Setup git and initial commit
@@ -26,7 +30,7 @@ export function setupGit(workingDirectory?: string) {
  * @param baseBranch
  */
 export function getGitDiff(workingDirectory?: string, baseBranch = 'after-init') {
-  const execOptions: ExecFileSyncOptionsWithStringEncoding = {stdio: ['pipe', 'pipe', 'ignore'], encoding: 'utf8', cwd: workingDirectory};
+  const execOptions: ExecFileSyncOptionsWithStringEncoding = { stdio: ['pipe', 'pipe', 'ignore'], encoding: 'utf8', cwd: workingDirectory };
   const untrackedFiles = execFileSync('git', ['ls-files', '--others', '--exclude-standard'], execOptions).split('\n');
   const trackedFiles = execFileSync('git', ['diff', '--name-status', baseBranch], execOptions).split('\n');
   const indexedFiles = execFileSync('git', ['diff', '--cached', '--name-status', baseBranch], execOptions).split('\n');

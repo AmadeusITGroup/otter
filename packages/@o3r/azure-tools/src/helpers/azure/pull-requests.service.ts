@@ -1,6 +1,15 @@
-import { getPersonalAccessTokenHandler, WebApi } from 'azure-devops-node-api';
-import { Comment, CommentThreadStatus, GitPullRequestCommentThread } from 'azure-devops-node-api/interfaces/GitInterfaces';
-import { Logger } from 'winston';
+import {
+  getPersonalAccessTokenHandler,
+  WebApi
+} from 'azure-devops-node-api';
+import {
+  Comment,
+  CommentThreadStatus,
+  GitPullRequestCommentThread
+} from 'azure-devops-node-api/interfaces/GitInterfaces';
+import {
+  Logger
+} from 'winston';
 
 /**
  * Service to call AzureDevops API about PR
@@ -24,7 +33,7 @@ export class PullRequestService {
     const comments = await gitApi.getComments(repoName, pullRequestId, threadId, this.project);
     await Promise.all(
       comments
-        .filter((comment): comment is Comment & {id: string} => !!comment.id)
+        .filter((comment): comment is Comment & { id: string } => !!comment.id)
         .map((comment) => gitApi.deleteComment(repoName, pullRequestId, threadId, comment.id, this.project)));
   }
 

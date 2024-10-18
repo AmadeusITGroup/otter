@@ -1,9 +1,21 @@
-import type { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { chain } from '@angular-devkit/schematics';
-import { addRootImport } from '@schematics/angular/utility';
 import * as path from 'node:path';
-import { registerDevtools } from './helpers/devtools-registration';
-import type { NgAddSchematicsSchema } from './schema';
+import type {
+  Rule,
+  SchematicContext,
+  Tree
+} from '@angular-devkit/schematics';
+import {
+  chain
+} from '@angular-devkit/schematics';
+import {
+  addRootImport
+} from '@schematics/angular/utility';
+import {
+  registerDevtools
+} from './helpers/devtools-registration';
+import type {
+  NgAddSchematicsSchema
+} from './schema';
 
 const reportMissingSchematicsDep = (logger: { error: (message: string) => any }) => (reason: any) => {
   logger.error(`[ERROR]: Adding @o3r/application has failed.
@@ -57,7 +69,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       }
 
       const importInRootModule = (name: string, file: string, moduleFunction?: string) => additionalRules.push(
-        addRootImport(options.projectName!, ({code, external}) => code`\n${external(name, file)}${moduleFunction}`)
+        addRootImport(options.projectName!, ({ code, external }) => code`\n${external(name, file)}${moduleFunction}`)
       );
 
       const recorder = tree.beginUpdate(moduleFilePath);

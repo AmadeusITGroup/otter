@@ -1,11 +1,32 @@
-import type { Mark } from '@ama-sdk/core';
-import { getTestBed, TestBed } from '@angular/core/testing';
-import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
-import { NavigationEnd, Router } from '@angular/router';
-import { firstValueFrom, Observable } from 'rxjs';
-import { skip, take } from 'rxjs/operators';
-import { EVENT_TRACK_SERVICE_CONFIGURATION } from './event-track.configuration';
-import { EventTrackService } from './event-track.service';
+import type {
+  Mark
+} from '@ama-sdk/core';
+import {
+  getTestBed,
+  TestBed
+} from '@angular/core/testing';
+import {
+  BrowserDynamicTestingModule,
+  platformBrowserDynamicTesting
+} from '@angular/platform-browser-dynamic/testing';
+import {
+  NavigationEnd,
+  Router
+} from '@angular/router';
+import {
+  firstValueFrom,
+  Observable
+} from 'rxjs';
+import {
+  skip,
+  take
+} from 'rxjs/operators';
+import {
+  EVENT_TRACK_SERVICE_CONFIGURATION
+} from './event-track.configuration';
+import {
+  EventTrackService
+} from './event-track.service';
 
 class MockRouter {
   public p1 = new NavigationEnd(0, '/page1', '/page1');
@@ -34,7 +55,6 @@ function fireLoadEvent() {
 }
 
 describe('Performance metrics', () => {
-
   beforeAll(() => getTestBed().platform || TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting(), {
     teardown: { destroyAfterEach: false }
   }));
@@ -47,7 +67,7 @@ describe('Performance metrics', () => {
     await TestBed.configureTestingModule({
       providers: [
         EventTrackService,
-        {provide: Router, useClass: MockRouter}
+        { provide: Router, useClass: MockRouter }
       ]
     }).compileComponents();
     service = TestBed.inject(EventTrackService);
@@ -214,8 +234,8 @@ describe('Performance metrics - service configuration browserApi', () => {
   let service: EventTrackService;
   const FP_BROWSER_TIME = 100;
   const browserFirstPaint = [
-    {name: 'first-paint', entryType: 'paint', startTime: FP_BROWSER_TIME, duration: 0},
-    {name: 'first-contentful-paint', entryType: 'paint', startTime: 125, duration: 0}
+    { name: 'first-paint', entryType: 'paint', startTime: FP_BROWSER_TIME, duration: 0 },
+    { name: 'first-contentful-paint', entryType: 'paint', startTime: 125, duration: 0 }
   ];
 
   beforeEach(() => {
@@ -223,8 +243,8 @@ describe('Performance metrics - service configuration browserApi', () => {
     TestBed.configureTestingModule({
       providers: [
         EventTrackService,
-        {provide: Router, useClass: MockRouter},
-        {provide: EVENT_TRACK_SERVICE_CONFIGURATION, useValue: {useBrowserApiForFirstFP: true}}
+        { provide: Router, useClass: MockRouter },
+        { provide: EVENT_TRACK_SERVICE_CONFIGURATION, useValue: { useBrowserApiForFirstFP: true } }
       ]
     });
     service = TestBed.inject(EventTrackService);
@@ -253,8 +273,8 @@ describe('Performance metrics - service configuration activation', () => {
     spyOnConstructor = jest.spyOn(EventTrackService.prototype, 'markFirstLoad').mockImplementation();
     TestBed.configureTestingModule({
       providers: [
-        {provide: Router, useClass: MockRouter},
-        {provide: EVENT_TRACK_SERVICE_CONFIGURATION, useValue: {activate: {perfTracking: false}}}
+        { provide: Router, useClass: MockRouter },
+        { provide: EVENT_TRACK_SERVICE_CONFIGURATION, useValue: { activate: { perfTracking: false } } }
       ]
     });
     service = TestBed.inject(EventTrackService);

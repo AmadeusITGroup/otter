@@ -2,11 +2,16 @@
 /* eslint-disable camelcase */
 
 import * as fs from 'node:fs';
-import { Logger } from 'winston';
-
 import * as FormData from 'form-data';
 import fetch from 'node-fetch';
-import { AppFile, Device, PCloudyResponse } from './pcloudy.interfaces';
+import {
+  Logger
+} from 'winston';
+import {
+  AppFile,
+  Device,
+  PCloudyResponse
+} from './pcloudy.interfaces';
 
 /**
  * Class to interact with pCloudy API
@@ -37,11 +42,11 @@ export class PCloudyApi {
     if (!token) {
       throw new Error('No token of authentication detected, please start with authentication');
     }
-    const {result} = await (await fetch(
+    const { result } = await (await fetch(
       `${this.server}${endpoint}`, {
         method: 'post',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({...body, token})
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...body, token })
       })).json() as { result: PCloudyResponse<T> };
     if (result.code !== 200) {
       throw new Error(`Call to ${this.server}${endpoint} failed with error code ${result?.error || 'undefined'}`);
@@ -58,7 +63,7 @@ export class PCloudyApi {
    */
   public async authenticate(username: string, apiKey: string): Promise<string> {
     this.logger.debug(`Request authentication for ${username}`);
-    const {result} = await (
+    const { result } = await (
       await fetch(`${this.server}/api/access`, {
         headers: {
 
@@ -121,7 +126,7 @@ export class PCloudyApi {
    * @param rid Reservation id returned by {@link bookDevice}
    */
   public async getDevicePageUrl(rid: number): Promise<string> {
-    const result = await this.postCallToPCloudy<{ URL: string }>('/api/get_device_url', {rid});
+    const result = await this.postCallToPCloudy<{ URL: string }>('/api/get_device_url', { rid });
     return result.URL;
   }
 
@@ -160,7 +165,7 @@ export class PCloudyApi {
     }).forEach(([key, value]) => formData.append(key, value));
     this.logger.debug('Upload of application', filePath);
 
-    const {result} = await (
+    const { result } = await (
       await fetch(
         `${this.server}/api/upload_file`, {
           method: 'post',

@@ -1,4 +1,7 @@
-import { type ParserServices, TSESLint } from '@typescript-eslint/utils';
+import {
+  type ParserServices,
+  TSESLint
+} from '@typescript-eslint/utils';
 
 /** Basic interface for the Parser Services object provided by yaml-eslint-parser */
 type YamlParserServices = ParserServices & {

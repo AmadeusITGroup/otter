@@ -1,6 +1,20 @@
-import { DirEntry, noop, type Rule, SchematicContext, type TaskId, type Tree } from '@angular-devkit/schematics';
-import { dirname, extname, join } from 'node:path';
-import { EslintFixTask, LinterOptions } from '../../tasks/index';
+import {
+  dirname,
+  extname,
+  join
+} from 'node:path';
+import {
+  DirEntry,
+  noop,
+  type Rule,
+  SchematicContext,
+  type TaskId,
+  type Tree
+} from '@angular-devkit/schematics';
+import {
+  EslintFixTask,
+  LinterOptions
+} from '../../tasks/index';
 
 interface ApplyEslintFixOption extends LinterOptions {
   /** List of task to wait to run the linter */
@@ -51,10 +65,10 @@ export function applyEsLintFix(_prootPath = '/', extension: string[] = ['ts'], o
         filesToBeLint.reduce((acc, path) => {
           const level = path.split('/').length;
           if (acc.level < level) {
-            return {level, path};
+            return { level, path };
           }
           return acc;
-        }, {level: 0, path: ''}).path
+        }, { level: 0, path: '' }).path
       )
     );
 

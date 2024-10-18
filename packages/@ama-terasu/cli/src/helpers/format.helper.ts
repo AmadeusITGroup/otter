@@ -1,6 +1,11 @@
+import {
+  EOL
+} from 'node:os';
 import * as chalk from 'chalk';
-import { EOL } from 'node:os';
-import { Arguments, terminalWidth } from 'yargs';
+import {
+  Arguments,
+  terminalWidth
+} from 'yargs';
 
 /**
  * Format a text to a title
@@ -8,7 +13,7 @@ import { Arguments, terminalWidth } from 'yargs';
  */
 export const formatTitle = (text: string) => {
   const titleDecoratorSize = Math.min(Math.floor((terminalWidth() || 0) / 2) || 80, 80);
-  return `${chalk.grey('---')} ${chalk.bold(text)} ${chalk.grey(Array.from({length: titleDecoratorSize - text.length - 5}).fill('-').join(''))}`;
+  return `${chalk.grey('---')} ${chalk.bold(text)} ${chalk.grey(Array.from({ length: titleDecoratorSize - text.length - 5 }).fill('-').join(''))}`;
 };
 
 const formatHelpOptionsBlocks = (initialMessage: string, groups: string[]) => {

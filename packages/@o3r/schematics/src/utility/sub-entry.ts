@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import type { Tree } from '@angular-devkit/schematics';
 import * as path from 'node:path';
+import type {
+  Tree
+} from '@angular-devkit/schematics';
 
 /**
  * If ng-package.json is found under the /src/ folder of the module, it means sub entry points mechanism is implemented

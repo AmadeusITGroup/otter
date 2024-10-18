@@ -1,4 +1,7 @@
-import type { JsonObject } from '@angular-devkit/core';
+import * as path from 'node:path';
+import type {
+  JsonObject
+} from '@angular-devkit/core';
 import {
   apply,
   chain,
@@ -9,8 +12,9 @@ import {
   template,
   url
 } from '@angular-devkit/schematics';
-import * as path from 'node:path';
-import { updateOrAddTsconfigEslint } from '../tsconfig/index';
+import {
+  updateOrAddTsconfigEslint
+} from '../tsconfig/index';
 
 /**
  * Update ESLint Config

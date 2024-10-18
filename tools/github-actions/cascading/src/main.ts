@@ -1,9 +1,18 @@
+import {
+  exec
+} from 'node:child_process';
+import {
+  inspect,
+  promisify
+} from 'node:util';
 import * as core from '@actions/core';
-import { getOctokit } from '@actions/github';
+import {
+  getOctokit
+} from '@actions/github';
 import * as github from '@actions/github';
-import {inspect, promisify} from 'node:util';
-import {Cascading} from './cascading';
-import {exec} from 'node:child_process';
+import {
+  Cascading
+} from './cascading';
 
 const promisifiedExec = promisify(exec);
 
@@ -67,7 +76,6 @@ async function run(): Promise<void> {
       }
     }
   } catch (err) {
-
     const errorMessage = err instanceof Error ? err.message : (typeof err === 'string' ? err : 'Caught an error during input parsing');
     core.error(errorMessage);
     core.setFailed(errorMessage);

@@ -1,5 +1,7 @@
-import {CodegenTaskOptions} from '../code-generator';
 import * as path from 'node:path';
+import {
+  CodegenTaskOptions
+} from '../code-generator';
 
 /**
  * Options to pass the {@link OpenApiCliGenerator} to configure the generator

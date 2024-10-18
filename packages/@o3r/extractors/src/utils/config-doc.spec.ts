@@ -1,4 +1,7 @@
-import { getCategoriesFromDocText, getWidgetInformationFromDocComment } from './config-doc';
+import {
+  getCategoriesFromDocText,
+  getWidgetInformationFromDocComment
+} from './config-doc';
 
 describe('config doc', () => {
   describe('getWidgetInformationFromDocComment', () => {

@@ -1,4 +1,7 @@
 import {
+  posix
+} from 'node:path';
+import {
   apply,
   chain,
   MergeStrategy,
@@ -13,13 +16,23 @@ import {
   url
 } from '@angular-devkit/schematics';
 import {
-  getFileInfo, getTemplateFolder, getWorkspaceConfig, ngAddPackages, insertBeforeModule as o3rInsertBeforeModule,
+  getFileInfo,
+  getTemplateFolder,
+  getWorkspaceConfig,
+  ngAddPackages,
+  insertBeforeModule as o3rInsertBeforeModule,
   insertImportToModuleFile as o3rInsertImportToModuleFile
 } from '@o3r/schematics';
-import { addRootImport, addRootProvider } from '@schematics/angular/utility';
-import { isImported } from '@schematics/angular/utility/ast-utils';
-import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
-import { posix } from 'node:path';
+import {
+  addRootImport,
+  addRootProvider
+} from '@schematics/angular/utility';
+import {
+  isImported
+} from '@schematics/angular/utility/ast-utils';
+import {
+  NodeDependencyType
+} from '@schematics/angular/utility/dependencies';
 
 /**
  * Enable customization capabilities
@@ -97,9 +110,9 @@ export function updateCustomizationEnvironment(rootPath: string, o3rCoreVersion?
     updatedRecorder = insertImportToModuleFile(updatedRecorder, 'Provider', '@angular/core');
     updatedRecorder = insertImportToModuleFile(updatedRecorder, 'initializeCustomProviders', '../customization/custom-providers.empty');
 
-    additionalRules.push(addRootImport(options?.projectName!, ({code}) => code`...entry.customComponentsModules`));
-    additionalRules.push(addRootProvider(options?.projectName!, ({code}) => code`...customProviders`));
-    additionalRules.push(addRootImport(options?.projectName!, ({code}) => code`C11nModule.forRoot({registerCompFunc: registerCustomComponents})`));
+    additionalRules.push(addRootImport(options?.projectName!, ({ code }) => code`...entry.customComponentsModules`));
+    additionalRules.push(addRootProvider(options?.projectName!, ({ code }) => code`...customProviders`));
+    additionalRules.push(addRootImport(options?.projectName!, ({ code }) => code`C11nModule.forRoot({registerCompFunc: registerCustomComponents})`));
     updatedRecorder = insertImportToModuleFile(updatedRecorder, 'C11nModule', '@o3r/components');
 
     updatedRecorder = insertBeforeModule(updatedRecorder, 'const entry = initializeEntryComponents();');

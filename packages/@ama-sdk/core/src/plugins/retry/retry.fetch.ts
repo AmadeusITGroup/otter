@@ -1,5 +1,11 @@
-import { CanceledCallError } from '../../fwk/errors';
-import { FetchCall, FetchPlugin, FetchPluginContext } from '../core';
+import {
+  CanceledCallError
+} from '../../fwk/errors';
+import {
+  FetchCall,
+  FetchPlugin,
+  FetchPluginContext
+} from '../core';
 
 /**
  * Function to run to determine if we need to retry the call
@@ -70,7 +76,6 @@ export class RetryFetch implements FetchPlugin {
     // eslint-disable-next-line no-async-promise-executor
     return new Promise(async (resolve) => setTimeout(resolve, await this.sleepBetweenRetry(countDown)));
   }
-
 
   private async waitAndRetry(context: FetchPluginContext, countDown: number) {
     await this.delay(countDown);

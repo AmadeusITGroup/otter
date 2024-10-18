@@ -1,4 +1,6 @@
-import type { Logger } from '../../fwk/logger';
+import type {
+  Logger
+} from '../../fwk/logger';
 
 /**
  * Interface of a runnable plugin

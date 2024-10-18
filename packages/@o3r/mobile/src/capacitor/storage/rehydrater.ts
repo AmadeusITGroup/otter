@@ -1,7 +1,21 @@
-import { Inject, Injectable, InjectionToken } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { dateReviver, isLocalStorageConfig, isSerializer, rehydrateAction, StorageSyncOptions } from '@o3r/store-sync';
-import { LoggerService } from '@o3r/logger';
+import {
+  Inject,
+  Injectable,
+  InjectionToken
+} from '@angular/core';
+import {
+  Store
+} from '@ngrx/store';
+import {
+  LoggerService
+} from '@o3r/logger';
+import {
+  dateReviver,
+  isLocalStorageConfig,
+  isSerializer,
+  rehydrateAction,
+  StorageSyncOptions
+} from '@o3r/store-sync';
 
 /**
  * Injection token for the storage sync options
@@ -49,7 +63,6 @@ export class CapacitorRehydrater {
             : storeName
         );
         if (stateSlice) {
-
           const isObjectRegex = /{|\[/;
           let raw = stateSlice;
 
@@ -68,7 +81,7 @@ export class CapacitorRehydrater {
     this.store.dispatch(
       rehydrateAction({
         payload: result.reduce(
-          (acc: Record<string, any>, store) => ({...acc, ...store}),
+          (acc: Record<string, any>, store) => ({ ...acc, ...store }),
           {}
         )
       })

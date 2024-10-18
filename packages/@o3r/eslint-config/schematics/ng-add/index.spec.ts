@@ -1,4 +1,12 @@
 /* eslint-disable @typescript-eslint/naming-convention */
+import * as path from 'node:path';
+import {
+  Tree
+} from '@angular-devkit/schematics';
+import {
+  SchematicTestRunner
+} from '@angular-devkit/schematics/testing';
+
 const setupDependenciesMock = jest.fn(() => () => {});
 const updateVscodeMock = jest.fn(() => {});
 const updateEslintConfigMock = jest.fn(() => () => {});
@@ -14,10 +22,6 @@ jest.mock('./vscode/index', () => ({
 jest.mock('./eslint/index', () => ({
   updateEslintConfig: updateEslintConfigMock
 }));
-import { Tree } from '@angular-devkit/schematics';
-import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
-import * as path from 'node:path';
-
 
 const collectionPath = path.join(__dirname, '..', '..', 'collection.json');
 

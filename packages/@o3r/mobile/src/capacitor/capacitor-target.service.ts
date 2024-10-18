@@ -1,13 +1,22 @@
-import { Injectable, OnDestroy } from '@angular/core';
-import { Browser } from '@capacitor/browser';
-import { fromEvent, Subscription } from 'rxjs';
-import { isCapacitorContext } from './helpers';
+import {
+  Injectable,
+  OnDestroy
+} from '@angular/core';
+import {
+  Browser
+} from '@capacitor/browser';
+import {
+  fromEvent,
+  Subscription
+} from 'rxjs';
+import {
+  isCapacitorContext
+} from './helpers';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CapacitorTargetService implements OnDestroy {
-
   private readonly subscriptions: Subscription[] = [];
 
   private async openInCapacitorBrowser(element: EventTarget | null, event: Event) {
@@ -16,7 +25,7 @@ export class CapacitorTargetService implements OnDestroy {
         const url = element.getAttribute('href');
         if (element.getAttribute('target') === '_blank' && url) {
           event.preventDefault();
-          await Browser.open({url, presentationStyle: 'popover'});
+          await Browser.open({ url, presentationStyle: 'popover' });
         }
       } else {
         await this.openInCapacitorBrowser(element.parentElement, event);

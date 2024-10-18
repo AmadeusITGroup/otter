@@ -1,6 +1,16 @@
-import { createJweEncoder, createJwtEncoder } from '../../utils/json-token';
-import { PluginRunner, RequestOptions, RequestPlugin, RequestPluginContext } from '../core';
-import type { Logger } from '../../fwk/logger';
+import type {
+  Logger
+} from '../../fwk/logger';
+import {
+  createJweEncoder,
+  createJwtEncoder
+} from '../../utils/json-token';
+import {
+  PluginRunner,
+  RequestOptions,
+  RequestPlugin,
+  RequestPluginContext
+} from '../core';
 
 /**
  * Creates a JWT encoding function which transforms the provided token-value associations as a unsecured JWT format https://tools.ietf.org/html/rfc7519#section-6
@@ -10,7 +20,7 @@ import type { Logger } from '../../fwk/logger';
 export function createJwtPiiEncoder(applicationId: string, expirationDelay = 3600) {
   const jwtEncoder = createJwtEncoder();
 
-  const jwtPayload = (values: {[key: string]: string}) => {
+  const jwtPayload = (values: { [key: string]: string }) => {
     const timestamp: number = Math.floor(Date.now() / 1000);
 
     return {
@@ -23,7 +33,7 @@ export function createJwtPiiEncoder(applicationId: string, expirationDelay = 360
     };
   };
 
-  return (values: {[token: string]: string}) => jwtEncoder(jwtPayload(values));
+  return (values: { [token: string]: string }) => jwtEncoder(jwtPayload(values));
 }
 
 /**
@@ -39,12 +49,12 @@ export function createJwtPiiEncoder(applicationId: string, expirationDelay = 360
 export function createJwePiiEncoder(
   applicationId: string,
   expirationDelay = 3600,
-  key: {publicKey: Promise<CryptoKey> | CryptoKey; keyId: string},
+  key: { publicKey: Promise<CryptoKey> | CryptoKey; keyId: string },
   publicProperties: string[] = [],
   useHeaderAsAAD = false) {
   const jweEncoder = createJweEncoder(128, useHeaderAsAAD);
 
-  const jwePayload = (values: {[key: string]: string}) => {
+  const jwePayload = (values: { [key: string]: string }) => {
     const timestamp = Math.floor(Date.now() / 1000);
 
     return {
@@ -57,7 +67,7 @@ export function createJwePiiEncoder(
     };
   };
 
-  return (values: {[token: string]: string}) => jweEncoder(key, jwePayload(values), publicProperties);
+  return (values: { [token: string]: string }) => jweEncoder(key, jwePayload(values), publicProperties);
 }
 
 /**
@@ -166,7 +176,6 @@ export interface PiiTokenizerRequestPluginOptions {
  * ```
  */
 export class PiiTokenizerRequest implements RequestPlugin {
-
   /** Name of the header to append the token-value associations to */
   private readonly tokensHeader: string;
 
@@ -212,18 +221,16 @@ export class PiiTokenizerRequest implements RequestPlugin {
     return {
       transform: async (data: RequestOptions) => {
         if (data.metadata?.deepLinkOptions) {
-          const {token, challengeAnswers} = data.metadata.deepLinkOptions;
+          const { token, challengeAnswers } = data.metadata.deepLinkOptions;
           data.headers.append(this.tokensHeader, token);
           if (challengeAnswers) {
             data.headers.append(this.challengeHeader, JSON.stringify(challengeAnswers));
           }
-        }
-        else if (!data.tokenizedOptions) {
+        } else if (!data.tokenizedOptions) {
           (context?.logger || console).error('No tokenized options found. Please make sure tokenization is enabled on your ApiClient');
-        }
-        else if (Object.keys(data.tokenizedOptions.values).length > 0) {
+        } else if (Object.keys(data.tokenizedOptions.values).length > 0) {
           data.basePath = data.tokenizedOptions.url;
-          data.queryParams = {...data.queryParams, ...data.tokenizedOptions.queryParams};
+          data.queryParams = { ...data.queryParams, ...data.tokenizedOptions.queryParams };
           const token = await this.appendEncodedToken(data, context?.logger);
           if (token) {
             data.headers.append(this.tokensHeader, token);
@@ -233,5 +240,4 @@ export class PiiTokenizerRequest implements RequestPlugin {
       }
     };
   }
-
 }

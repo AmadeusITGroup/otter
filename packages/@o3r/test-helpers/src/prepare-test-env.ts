@@ -1,10 +1,26 @@
-import { O3rCliError } from '@o3r/schematics';
-import type { ExecSyncOptions } from 'node:child_process';
-import { cpSync, existsSync, mkdirSync, readFileSync, rmSync } from 'node:fs';
+import type {
+  ExecSyncOptions
+} from 'node:child_process';
+import {
+  cpSync,
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  rmSync
+} from 'node:fs';
 import * as path from 'node:path';
-import type { PackageJson } from 'type-fest';
-import { createTestEnvironmentBlank } from './test-environments/create-test-environment-blank';
-import { createTestEnvironmentOtterProjectWithAppAndLib } from './test-environments/create-test-environment-otter-project';
+import {
+  O3rCliError
+} from '@o3r/schematics';
+import type {
+  PackageJson
+} from 'type-fest';
+import {
+  createTestEnvironmentBlank
+} from './test-environments/create-test-environment-blank';
+import {
+  createTestEnvironmentOtterProjectWithAppAndLib
+} from './test-environments/create-test-environment-otter-project';
 import {
   createWithLock,
   getLatestPackageVersion,
@@ -62,7 +78,7 @@ export async function prepareTestEnv(folderName: string, options?: PrepareTestEn
     cwd: workspacePath,
     stdio: 'inherit',
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    env: {...process.env, NODE_OPTIONS: '', CI: 'true'}
+    env: { ...process.env, NODE_OPTIONS: '', CI: 'true' }
   };
 
   const packageManagerConfig = {
@@ -76,9 +92,9 @@ export async function prepareTestEnv(folderName: string, options?: PrepareTestEn
     logger.debug?.(`Creating it-tests folder`);
     await createWithLock(() => {
       mkdirSync(itTestsFolderPath);
-      setPackagerManagerConfig(packageManagerConfig, {...execAppOptions, cwd: itTestsFolderPath}, 'npm');
+      setPackagerManagerConfig(packageManagerConfig, { ...execAppOptions, cwd: itTestsFolderPath }, 'npm');
       return Promise.resolve();
-    }, {lockFilePath: `${itTestsFolderPath}.lock`, cwd: path.join(rootFolderPath, '..'), appDirectory: 'it-tests'});
+    }, { lockFilePath: `${itTestsFolderPath}.lock`, cwd: path.join(rootFolderPath, '..'), appDirectory: 'it-tests' });
   }
   const o3rExactVersion = getLatestPackageVersion('@o3r/create', {
     ...execAppOptions,
@@ -88,7 +104,7 @@ export async function prepareTestEnv(folderName: string, options?: PrepareTestEn
 
   // Remove existing app
   if (existsSync(workspacePath)) {
-    rmSync(workspacePath, {recursive: true});
+    rmSync(workspacePath, { recursive: true });
   }
 
   const prepareFinalApp = (baseApp: string) => {

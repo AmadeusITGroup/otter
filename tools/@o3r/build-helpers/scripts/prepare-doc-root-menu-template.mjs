@@ -6,10 +6,12 @@
  * @param packagesVariableValueIdentifier Identifier to be replaced by the packages value
  */
 
-import { globby as glob } from 'globby';
-import minimist from 'minimist';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
+import {
+  globby as glob
+} from 'globby';
+import minimist from 'minimist';
 
 const argv = minimist(process.argv.slice(2));
 

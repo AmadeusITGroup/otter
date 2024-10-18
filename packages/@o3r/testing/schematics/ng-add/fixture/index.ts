@@ -1,7 +1,12 @@
-
-import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import type { TsConfigJson } from 'type-fest';
-
+import {
+  chain,
+  Rule,
+  SchematicContext,
+  Tree
+} from '@angular-devkit/schematics';
+import type {
+  TsConfigJson
+} from 'type-fest';
 import * as ts from 'typescript';
 
 /**
@@ -11,7 +16,6 @@ import * as ts from 'typescript';
  * @param options.testingFramework
  */
 export function updateFixtureConfig(options: { projectName?: string | null | undefined; testingFramework?: string | null | undefined }): Rule {
-
   const oldPaths = ['@otter/testing/core', '@otter/testing/core/*'];
   /**
    * Update test tsconfig

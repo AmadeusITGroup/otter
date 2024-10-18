@@ -1,4 +1,6 @@
-import type { Dictionary } from '@ngrx/entity';
+import type {
+  Dictionary
+} from '@ngrx/entity';
 import type {
   Configuration,
   ConnectContentMessage,
@@ -9,7 +11,9 @@ import type {
   OtterMessageContent,
   RequestMessagesContentMessage
 } from '@o3r/core';
-import type { ConfigurationModel } from '../stores/index';
+import type {
+  ConfigurationModel
+} from '../stores/index';
 
 /** Option for Configuration devtools service */
 export interface ConfigurationDevtoolsServiceOptions extends DevtoolsCommonOptions, ContextualizationDevtoolsCommonOptions {

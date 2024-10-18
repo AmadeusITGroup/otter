@@ -1,9 +1,16 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable camelcase */
 
-import { chain, type Rule } from '@angular-devkit/schematics';
-import { createSchematicWithMetricsIfInstalled } from '@o3r/schematics';
-import { addPresetsRenovate } from './v10.1/add-presets-renovate';
+import {
+  chain,
+  type Rule
+} from '@angular-devkit/schematics';
+import {
+  createSchematicWithMetricsIfInstalled
+} from '@o3r/schematics';
+import {
+  addPresetsRenovate
+} from './v10.1/add-presets-renovate';
 
 /**
  * Update of Otter Workspace V10.1

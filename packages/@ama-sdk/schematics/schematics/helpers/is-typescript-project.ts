@@ -1,4 +1,6 @@
-import type { Tree } from '@angular-devkit/schematics';
+import type {
+  Tree
+} from '@angular-devkit/schematics';
 
 /**
  * Determine if the targeted SDK is typescript based

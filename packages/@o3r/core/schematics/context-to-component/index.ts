@@ -1,4 +1,9 @@
 import {
+  basename,
+  dirname,
+  posix
+} from 'node:path';
+import {
   apply,
   chain,
   MergeStrategy,
@@ -24,9 +29,10 @@ import {
   NoOtterComponent,
   O3rCliError
 } from '@o3r/schematics';
-import { basename, dirname, posix } from 'node:path';
 import * as ts from 'typescript';
-import type { NgAddConfigSchematicsSchema } from './schema';
+import type {
+  NgAddConfigSchematicsSchema
+} from './schema';
 
 const checkContext = (componentPath: string, tree: Tree) => {
   const files = [
@@ -36,7 +42,6 @@ const checkContext = (componentPath: string, tree: Tree) => {
     throw new O3rCliError(`Unable to add context to this component because it already has at least one of these files: ${files.join(', ')}.`);
   }
 };
-
 
 /**
  * Add context to an existing component

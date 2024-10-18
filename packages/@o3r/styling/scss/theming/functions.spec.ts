@@ -1,5 +1,9 @@
-import { compileString } from 'sass';
-import { resolve } from 'node:path';
+import {
+  resolve
+} from 'node:path';
+import {
+  compileString
+} from 'sass';
 
 const url = new URL('.', 'file://' + resolve(__dirname, 'test.scss'));
 const testedFile = './functions';

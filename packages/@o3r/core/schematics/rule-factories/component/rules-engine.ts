@@ -1,6 +1,12 @@
-import type { Rule } from '@angular-devkit/schematics';
-import type { NgGenerateComponentSchematicsSchema } from '../../component/schema';
-import { askQuestionsToGetRulesOrThrowIfPackageNotAvailable } from './common';
+import type {
+  Rule
+} from '@angular-devkit/schematics';
+import type {
+  NgGenerateComponentSchematicsSchema
+} from '../../component/schema';
+import {
+  askQuestionsToGetRulesOrThrowIfPackageNotAvailable
+} from './common';
 
 export const getAddRulesEngineRules = (
   componentPath: string,

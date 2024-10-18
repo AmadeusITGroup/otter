@@ -1,18 +1,31 @@
-import {SchematicContext, SchematicsException, Tree, UpdateRecorder} from '@angular-devkit/schematics';
-import * as ts from 'typescript';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
+import {
+  SchematicContext,
+  SchematicsException,
+  Tree,
+  UpdateRecorder
+} from '@angular-devkit/schematics';
 import {
   addImportToModule,
   addProviderToModule,
   getRouterModuleDeclaration,
-  insertImport, isImported
+  insertImport,
+  isImported
 } from '@schematics/angular/utility/ast-utils';
-import {InsertChange} from '@schematics/angular/utility/change';
-import * as fs from 'node:fs';
-import {sync as globbySync} from 'globby';
-import * as path from 'node:path';
-import {getExportedSymbolsFromFile} from './ast';
-import { getWorkspaceConfig } from './loaders';
-
+import {
+  InsertChange
+} from '@schematics/angular/utility/change';
+import {
+  sync as globbySync
+} from 'globby';
+import * as ts from 'typescript';
+import {
+  getExportedSymbolsFromFile
+} from './ast';
+import {
+  getWorkspaceConfig
+} from './loaders';
 
 /**
  * Get the path to the `app.module.ts`
@@ -78,7 +91,6 @@ export function getAppModuleFilePath(tree: Tree, context: SchematicContext, proj
     }
   }
   throw new SchematicsException(`Could not find ${bootstrapModule} source file`);
-
 }
 
 /**
@@ -176,7 +188,6 @@ export function insertImportToModuleFile(name: string, file: string, sourceFile:
   }
   return recorder;
 }
-
 
 /**
  * Add providers to the main module

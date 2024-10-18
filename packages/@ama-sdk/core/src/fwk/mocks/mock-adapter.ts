@@ -1,5 +1,9 @@
-import { Mock } from './mock';
-import { EncodedApiRequest } from './encoded-api-request';
+import {
+  EncodedApiRequest
+} from './encoded-api-request';
+import {
+  Mock
+} from './mock';
 
 /** Describes an adapter for mocking */
 export interface MockAdapter {

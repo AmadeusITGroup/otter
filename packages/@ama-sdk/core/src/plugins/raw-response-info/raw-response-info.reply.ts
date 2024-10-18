@@ -1,5 +1,11 @@
-import { ApiTypes } from '../../fwk/api';
-import { PluginRunner, ReplyPlugin, ReplyPluginContext } from '../core';
+import {
+  ApiTypes
+} from '../../fwk/api';
+import {
+  PluginRunner,
+  ReplyPlugin,
+  ReplyPluginContext
+} from '../core';
 
 /**
  * Interface of the response information
@@ -23,14 +29,13 @@ export interface RawResponseReply {
 /**
  * Plugin to add the Raw response to the reply object in `responseInfo` property.
  */
-export class RawResponseInfoReply<V = {[key: string]: any} | undefined> implements ReplyPlugin<V, V> {
-
+export class RawResponseInfoReply<V = { [key: string]: any } | undefined> implements ReplyPlugin<V, V> {
   /**
    * Check if the Reply has a Response Info
    * @param reply API call reply
    * @returns Cast the reply to add responseInfo field
    */
-  public static hasResponseInfo<T extends {[key: string]: any} | undefined>(reply: T): reply is T & RawResponseReply {
+  public static hasResponseInfo<T extends { [key: string]: any } | undefined>(reply: T): reply is T & RawResponseReply {
     return !!(reply && reply.responseInfo);
   }
 
@@ -43,7 +48,9 @@ export class RawResponseInfoReply<V = {[key: string]: any} | undefined> implemen
   public load<K>(context: ReplyPluginContext<K>): PluginRunner<V | V & RawResponseReply, V> {
     return {
       transform: (data: V) => {
-        if (!context.response) { return data; }
+        if (!context.response) {
+          return data;
+        }
 
         const responseInfo: RawResponseReply = {
           responseInfo: {
@@ -57,5 +64,4 @@ export class RawResponseInfoReply<V = {[key: string]: any} | undefined> implemen
       }
     };
   }
-
 }

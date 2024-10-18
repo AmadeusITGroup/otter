@@ -1,7 +1,20 @@
-import {Injectable} from '@angular/core';
-import {NavigationEnd, PreloadingStrategy, Route, Router} from '@angular/router';
-import {Observable, of} from 'rxjs';
-import {filter, switchMap} from 'rxjs/operators';
+import {
+  Injectable
+} from '@angular/core';
+import {
+  NavigationEnd,
+  PreloadingStrategy,
+  Route,
+  Router
+} from '@angular/router';
+import {
+  Observable,
+  of
+} from 'rxjs';
+import {
+  filter,
+  switchMap
+} from 'rxjs/operators';
 
 /**
  * Data to inject to the route parameter to specifiy preloading strategy
@@ -31,7 +44,6 @@ export function hasPreloadingOnDemand(data: any): data is O3rOnDemandPreloadingD
  */
 @Injectable()
 export class O3rOnNavigationPreloadingStrategy implements PreloadingStrategy {
-
   constructor(private readonly router: Router) {}
 
   /**
@@ -48,7 +60,6 @@ export class O3rOnNavigationPreloadingStrategy implements PreloadingStrategy {
   /** @inheritDoc */
   public preload(route: Route, preload: () => Observable<any>): Observable<any> {
     if ((route.path || route.matcher) && hasPreloadingOnDemand(route.data)) {
-
       // On application landing page, check the route to preload.
       if (route.data.preloadOn === '*' || this.isUrlMatchingPreloadConfig(route.data, this.router.routerState.snapshot.url)) {
         return preload();

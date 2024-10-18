@@ -1,6 +1,14 @@
-import type { PathObject } from '@ama-sdk/core';
-import type { OpenApiToolsConfiguration, OpenApiToolsGenerator } from '../../helpers/open-api-tools-configuration';
-import { LOCAL_SPEC_FILENAME, SPEC_JSON_EXTENSION, SPEC_YAML_EXTENSION } from '../../helpers/generators';
+import {
+  existsSync,
+  readFileSync
+} from 'node:fs';
+import * as path from 'node:path';
+import {
+  URL
+} from 'node:url';
+import type {
+  PathObject
+} from '@ama-sdk/core';
 import {
   apply,
   chain,
@@ -14,18 +22,38 @@ import {
   Tree,
   url
 } from '@angular-devkit/schematics';
-import { existsSync, readFileSync } from 'node:fs';
-import * as path from 'node:path';
-import { URL } from 'node:url';
 import * as semver from 'semver';
-import type { JsonObject } from 'type-fest';
-
-import { OpenApiCliOptions } from '../../code-generator/open-api-cli-generator/open-api-cli.options';
-import { treeGlob } from '../../helpers/tree-glob';
-import { NgGenerateTypescriptSDKCoreSchematicsSchema } from './schema';
-import { OpenApiCliGenerator } from '../../code-generator/open-api-cli-generator/open-api-cli.generator';
-import { copyReferencedFiles, updateLocalRelativeRefs } from './helpers/copy-referenced-files';
-import { generateOperationFinderFromSingleFile } from './helpers/path-extractor';
+import type {
+  JsonObject
+} from 'type-fest';
+import {
+  OpenApiCliGenerator
+} from '../../code-generator/open-api-cli-generator/open-api-cli.generator';
+import {
+  OpenApiCliOptions
+} from '../../code-generator/open-api-cli-generator/open-api-cli.options';
+import {
+  LOCAL_SPEC_FILENAME,
+  SPEC_JSON_EXTENSION,
+  SPEC_YAML_EXTENSION
+} from '../../helpers/generators';
+import type {
+  OpenApiToolsConfiguration,
+  OpenApiToolsGenerator
+} from '../../helpers/open-api-tools-configuration';
+import {
+  treeGlob
+} from '../../helpers/tree-glob';
+import {
+  copyReferencedFiles,
+  updateLocalRelativeRefs
+} from './helpers/copy-referenced-files';
+import {
+  generateOperationFinderFromSingleFile
+} from './helpers/path-extractor';
+import {
+  NgGenerateTypescriptSDKCoreSchematicsSchema
+} from './schema';
 
 const JAVA_OPTIONS = ['specPath', 'specConfigPath', 'globalProperty', 'outputPath'];
 const OPEN_API_TOOLS_OPTIONS = ['generatorName', 'output', 'inputSpec', 'config', 'globalProperty'];
@@ -84,7 +112,7 @@ const getGeneratorOptions = (tree: Tree, context: SchematicContext, options: NgG
     throw new Error('Path to the swagger/open-api specification is undefined');
   }
 
-  const generatorOptions: Partial<OpenApiCliOptions> = {specPath};
+  const generatorOptions: Partial<OpenApiCliOptions> = { specPath };
 
   const packageJsonFile: { openApiSupportedVersion?: string } = JSON.parse((readFileSync(path.join(__dirname, '..', '..', '..', 'package.json'))).toString());
   const packageOpenApiSupportedVersionRange = packageJsonFile.openApiSupportedVersion;
@@ -129,11 +157,11 @@ const getGeneratorOptions = (tree: Tree, context: SchematicContext, options: NgG
   }
   return {
     ...generatorOptions,
-    ...(outputPath ? {outputPath} : {}),
-    ...(specConfigPath ? {specConfigPath} : {}),
-    ...(globalProperty ? {globalProperty} : {}),
-    ...(openapiNormalizer ? {openapiNormalizer} : {}),
-    ...(options.generatorCustomPath ? {generatorCustomPath: options.generatorCustomPath} : {})
+    ...(outputPath ? { outputPath } : {}),
+    ...(specConfigPath ? { specConfigPath } : {}),
+    ...(globalProperty ? { globalProperty } : {}),
+    ...(openapiNormalizer ? { openapiNormalizer } : {}),
+    ...(options.generatorCustomPath ? { generatorCustomPath: options.generatorCustomPath } : {})
   };
 };
 
@@ -142,7 +170,6 @@ const getGeneratorOptions = (tree: Tree, context: SchematicContext, options: NgG
  * @param options
  */
 function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKCoreSchematicsSchema): Rule {
-
   return async (tree, context) => {
     const targetPath = options.directory || '';
     const generatorOptions = getGeneratorOptions(tree, context, options);
@@ -159,7 +186,7 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKCoreSchematic
       const specPath = path.isAbsolute(generatorOptions.specPath) || !options.directory
         ? generatorOptions.specPath
         : path.join(options.directory, generatorOptions.specPath);
-      specContent = readFileSync(specPath, {encoding: 'utf8'}).toString();
+      specContent = readFileSync(specPath, { encoding: 'utf8' }).toString();
 
       if (path.relative(process.cwd(), specPath).startsWith('..')) {
         // TODO would be better to create files on tree instead of FS
@@ -257,11 +284,11 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKCoreSchematic
         (options.generatorKey && JAVA_OPTIONS.every((optionName) => options[optionName] === undefined))
           ? {
             generatorKey: options.generatorKey,
-            ...(generatorOptions.generatorVersion ? {generatorVersion: generatorOptions.generatorVersion} : {}),
-            ...(options.openapiNormalizer ? {openapiNormalizer: options.openapiNormalizer} : {})
+            ...(generatorOptions.generatorVersion ? { generatorVersion: generatorOptions.generatorVersion } : {}),
+            ...(options.openapiNormalizer ? { openapiNormalizer: options.openapiNormalizer } : {})
           }
           : generatorOptions,
-        {rootDirectory: options.directory || undefined}
+        { rootDirectory: options.directory || undefined }
       );
     };
 

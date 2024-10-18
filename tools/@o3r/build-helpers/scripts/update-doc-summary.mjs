@@ -35,7 +35,7 @@ function generateFolderMdFiles(folderPath) {
             }\n\n${
               subFiles.map((f) => `- [${f.replace('.md', '')}](./${subFolderName}/${f})`).join('\n')
             }\n`,
-            {encoding: 'utf-8'}
+            { encoding: 'utf-8' }
           );
         })
     ));
@@ -49,7 +49,6 @@ function generateFolderMdFiles(folderPath) {
 function generateSummary(folderPath) {
   return readdir(folderPath)
     .then((files) => {
-
       const ret = files
         .filter((file) => /\.?md$/i.test(path.extname(file)))
         .map((file) => ({
@@ -80,6 +79,6 @@ function generateSummary(folderPath) {
 
 void generateFolderMdFiles(docsFolder).then(() =>
   generateSummary(docsFolder).then((summary) =>
-    writeFile(summaryFilePath, JSON.stringify(summary, null, 2), {encoding: 'utf-8'})
+    writeFile(summaryFilePath, JSON.stringify(summary, null, 2), { encoding: 'utf-8' })
   )
 );

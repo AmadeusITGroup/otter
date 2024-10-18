@@ -1,9 +1,30 @@
-import { Injectable } from '@angular/core';
-import { select, Store } from '@ngrx/store';
-import { Configuration, CustomConfig, deepFill } from '@o3r/core';
-import { combineLatest, Observable, of } from 'rxjs';
-import { distinctUntilChanged, map, switchMap, take } from 'rxjs/operators';
-import { ConfigOverrideStore, selectComponentOverrideConfig } from '../../stores/config-override/index';
+import {
+  Injectable
+} from '@angular/core';
+import {
+  select,
+  Store
+} from '@ngrx/store';
+import {
+  Configuration,
+  CustomConfig,
+  deepFill
+} from '@o3r/core';
+import {
+  combineLatest,
+  Observable,
+  of
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  map,
+  switchMap,
+  take
+} from 'rxjs/operators';
+import {
+  ConfigOverrideStore,
+  selectComponentOverrideConfig
+} from '../../stores/config-override/index';
 import {
   computeConfiguration,
   ConfigurationStore,
@@ -15,7 +36,9 @@ import {
   upsertConfigurationEntities,
   upsertConfigurationEntity
 } from '../../stores/index';
-import { ConfigurationBaseServiceModule } from './configuration.base.module';
+import {
+  ConfigurationBaseServiceModule
+} from './configuration.base.module';
 
 const jsonStringifyDiff = (obj1: any, obj2: any) => JSON.stringify(obj1) === JSON.stringify(obj2);
 
@@ -26,8 +49,7 @@ const jsonStringifyDiff = (obj1: any, obj2: any) => JSON.stringify(obj1) === JSO
   providedIn: ConfigurationBaseServiceModule
 })
 export class ConfigurationBaseService {
-
-  private readonly extendedConfiguration: {[key: string]: boolean} = {};
+  private readonly extendedConfiguration: { [key: string]: boolean } = {};
 
   constructor(private readonly store: Store<ConfigurationStore & ConfigOverrideStore>) {}
 
@@ -37,7 +59,7 @@ export class ConfigurationBaseService {
    * @param configurationId Configuration ID
    */
   public upsertConfiguration<T extends Configuration>(configuration: T, configurationId = globalConfigurationId) {
-    this.store.dispatch(upsertConfigurationEntity({id: configurationId, configuration}));
+    this.store.dispatch(upsertConfigurationEntity({ id: configurationId, configuration }));
   }
 
   /**
@@ -46,7 +68,7 @@ export class ConfigurationBaseService {
    * @param configurationId Configuration ID
    */
   public updateConfiguration<T extends Partial<Configuration>>(configuration: T, configurationId = globalConfigurationId) {
-    this.store.dispatch(updateConfigurationEntity({id: configurationId, configuration}));
+    this.store.dispatch(updateConfigurationEntity({ id: configurationId, configuration }));
   }
 
   /**

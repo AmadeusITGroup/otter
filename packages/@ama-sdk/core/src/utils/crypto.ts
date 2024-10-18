@@ -1,4 +1,7 @@
-import {MsCrypto, promisifyMsCrypto} from './ie11';
+import {
+  MsCrypto,
+  promisifyMsCrypto
+} from './ie11';
 
 declare global {
   interface Window extends MsCrypto {}
@@ -30,9 +33,9 @@ export function str2ab(str: string) {
  */
 export function generateContentEncryptionKey() {
   if (typeof window.msCrypto !== 'undefined') {
-    return promisifyMsCrypto(window.msCrypto.subtle.generateKey({name: 'AES-GCM', length: 256}, true, ['encrypt']));
+    return promisifyMsCrypto(window.msCrypto.subtle.generateKey({ name: 'AES-GCM', length: 256 }, true, ['encrypt']));
   }
-  return window.crypto.subtle.generateKey({name: 'AES-GCM', length: 256}, true, ['encrypt']);
+  return window.crypto.subtle.generateKey({ name: 'AES-GCM', length: 256 }, true, ['encrypt']);
 }
 
 /**
@@ -54,9 +57,9 @@ export async function wrapContentEncryptionKey(publicKey: CryptoKey, contentEncr
   if (typeof window.msCrypto !== 'undefined') {
     const bufferCek = await promisifyMsCrypto(window.msCrypto.subtle.exportKey('raw', contentEncryptionKey));
     // RSA doesn't output a tag so we cast the result to avoid an unnecessary runtime check
-    return promisifyMsCrypto(window.msCrypto.subtle.encrypt({name: 'RSA-OAEP', hash: 'SHA-256'}, publicKey, new Uint8Array(bufferCek)));
+    return promisifyMsCrypto(window.msCrypto.subtle.encrypt({ name: 'RSA-OAEP', hash: 'SHA-256' }, publicKey, new Uint8Array(bufferCek)));
   }
-  return window.crypto.subtle.wrapKey('raw', contentEncryptionKey, publicKey, {name: 'RSA-OAEP'});
+  return window.crypto.subtle.wrapKey('raw', contentEncryptionKey, publicKey, { name: 'RSA-OAEP' });
 }
 
 /**
@@ -85,9 +88,9 @@ export async function encryptPayload(iv: Uint8Array, key: CryptoKey, payload: Ui
     authenticationTag = aesOutput.slice(-authenticationTagLength / 8);
   } else {
     // AES will output a tag so we cast to avoid unnecessary runtime check
-    const aesOutput = await promisifyMsCrypto(window.msCrypto.subtle.encrypt(aesParams, key, payload)) as {ciphertext: ArrayBuffer; tag: ArrayBuffer};
+    const aesOutput = await promisifyMsCrypto(window.msCrypto.subtle.encrypt(aesParams, key, payload)) as { ciphertext: ArrayBuffer; tag: ArrayBuffer };
     ciphertext = aesOutput.ciphertext;
     authenticationTag = aesOutput.tag;
   }
-  return {ciphertext, authenticationTag};
+  return { ciphertext, authenticationTag };
 }

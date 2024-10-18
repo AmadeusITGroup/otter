@@ -1,4 +1,9 @@
-import {extractBranchesFromGitOutput, extractPackageLine, extractPackages, sortBranches} from './helpers';
+import {
+  extractBranchesFromGitOutput,
+  extractPackageLine,
+  extractPackages,
+  sortBranches
+} from './helpers';
 
 describe('helpers', () => {
   it('sortBranches should sort release array properly', () => {
@@ -28,7 +33,7 @@ describe('helpers', () => {
   });
 
   it('Extract packages name from the file in conflict', () => {
-    expect(extractPackages('No match to be found here')).toEqual({oldPackages: [], newPackages: []});
+    expect(extractPackages('No match to be found here')).toEqual({ oldPackages: [], newPackages: [] });
     const conflictPackageJson = `"@ngrx/entity": "~14.0.2",
             ++<<<<<<< HEAD
                 "react-dom": "^16.0.3",

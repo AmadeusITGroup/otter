@@ -1,4 +1,6 @@
-import type { DesignTokenVariableStructure } from '../parsers';
+import type {
+  DesignTokenVariableStructure
+} from '../parsers';
 
 /**
  * Indicate that the variable is private based on the Otter extension

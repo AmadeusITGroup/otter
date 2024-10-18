@@ -1,29 +1,34 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import * as actions from './event-track.actions';
-import { eventTrackInitialState, eventTrackReducer } from './event-track.reducer';
-import { EventTrackState, RegisterHeroComponentPayload } from './event-track.state';
+import {
+  eventTrackInitialState,
+  eventTrackReducer
+} from './event-track.reducer';
+import {
+  EventTrackState,
+  RegisterHeroComponentPayload
+} from './event-track.state';
 
 describe('EventTrack Store reducer', () => {
-
-  const simpleState: EventTrackState = {heroComponent: {id: 'Page', TTI: 0}, isTTIComputed: false};
-  const firstEventTrack: EventTrackState = {heroComponent: {id: 'Page', TTI: 150}, isTTIComputed: true};
-  const secondEventTrack: EventTrackState = {heroComponent: {id: 'Page', TTI: 30}, isTTIComputed: true};
+  const simpleState: EventTrackState = { heroComponent: { id: 'Page', TTI: 0 }, isTTIComputed: false };
+  const firstEventTrack: EventTrackState = { heroComponent: { id: 'Page', TTI: 150 }, isTTIComputed: true };
+  const secondEventTrack: EventTrackState = { heroComponent: { id: 'Page', TTI: 30 }, isTTIComputed: true };
 
   it('should by default return the initial state', () => {
-    const state = eventTrackReducer(eventTrackInitialState, {type: 'fake'} as any);
+    const state = eventTrackReducer(eventTrackInitialState, { type: 'fake' } as any);
 
     expect(state).toEqual(eventTrackInitialState);
   });
 
   describe('Actions on state details', () => {
     it('SET action should clear current state details and return a state with the new one', () => {
-      const firstState = eventTrackReducer(simpleState, actions.setEventTrack({model: firstEventTrack}));
+      const firstState = eventTrackReducer(simpleState, actions.setEventTrack({ model: firstEventTrack }));
 
       expect(firstState).toEqual(firstEventTrack);
     });
 
     it('UPDATE should update the state details', () => {
-      const firstState = eventTrackReducer(firstEventTrack, actions.updateEventTrack({model: secondEventTrack}));
+      const firstState = eventTrackReducer(firstEventTrack, actions.updateEventTrack({ model: secondEventTrack }));
 
       expect(firstState).toEqual(secondEventTrack);
     });
@@ -39,9 +44,9 @@ describe('EventTrack Store reducer', () => {
     it('REGISTER_HERO_COMPONENT action should register the hero component and its children as specified in the payload', () => {
       const payload: RegisterHeroComponentPayload = {
         id: 'Page1',
-        children: [{id: 'Child1', TTI: 0}, {id: 'Child2', TTI: 0}]
+        children: [{ id: 'Child1', TTI: 0 }, { id: 'Child2', TTI: 0 }]
       };
-      const firstState = eventTrackReducer(simpleState, actions.registerHeroComponent({model: payload}));
+      const firstState = eventTrackReducer(simpleState, actions.registerHeroComponent({ model: payload }));
 
       expect(firstState.heroComponent.children.length).toEqual(2);
       expect(firstState.isTTIComputed).toBeFalsy();
@@ -50,11 +55,11 @@ describe('EventTrack Store reducer', () => {
     it('ACTION_SET_HERO_COMPONENT_TTI action should set the TTI of the specified component and recompute the parent TTI', () => {
       const payload: RegisterHeroComponentPayload = {
         id: 'Page1',
-        children: [{id: 'Child1', TTI: 0}, {id: 'Child2', TTI: 0}]
+        children: [{ id: 'Child1', TTI: 0 }, { id: 'Child2', TTI: 0 }]
       };
-      const firstState = eventTrackReducer(simpleState, actions.registerHeroComponent({model: payload}));
-      const secondState = eventTrackReducer(firstState, actions.setHeroComponentTTI({model: {id: 'Child1', TTI: 70}}));
-      const thirdState = eventTrackReducer(secondState, actions.setHeroComponentTTI({model: {id: 'Child2', TTI: 100}}));
+      const firstState = eventTrackReducer(simpleState, actions.registerHeroComponent({ model: payload }));
+      const secondState = eventTrackReducer(firstState, actions.setHeroComponentTTI({ model: { id: 'Child1', TTI: 70 } }));
+      const thirdState = eventTrackReducer(secondState, actions.setHeroComponentTTI({ model: { id: 'Child2', TTI: 100 } }));
 
       expect(secondState.heroComponent.children.find((child) => child.id === 'Child1').TTI).toEqual(70);
       expect(secondState.heroComponent.TTI).toEqual(70);
@@ -69,12 +74,12 @@ describe('EventTrack Store reducer', () => {
       const payload: RegisterHeroComponentPayload = {
         id: 'Page1',
         measureSelf: true,
-        children: [{id: 'Child1', TTI: 0}, {id: 'Child2', TTI: 0}]
+        children: [{ id: 'Child1', TTI: 0 }, { id: 'Child2', TTI: 0 }]
       };
-      const firstState: EventTrackState = eventTrackReducer(simpleState, actions.registerHeroComponent({model: payload}));
-      const secondState: EventTrackState = eventTrackReducer(firstState, actions.setHeroComponentTTI({model: {id: 'Child1', TTI: 70}}));
-      const thirdState: EventTrackState = eventTrackReducer(secondState, actions.setHeroComponentTTI({model: {id: 'Child2', TTI: 100}}));
-      const fourthState: EventTrackState = eventTrackReducer(thirdState, actions.setHeroComponentTTI({model: {id: 'Page1', TTI: 120}}));
+      const firstState: EventTrackState = eventTrackReducer(simpleState, actions.registerHeroComponent({ model: payload }));
+      const secondState: EventTrackState = eventTrackReducer(firstState, actions.setHeroComponentTTI({ model: { id: 'Child1', TTI: 70 } }));
+      const thirdState: EventTrackState = eventTrackReducer(secondState, actions.setHeroComponentTTI({ model: { id: 'Child2', TTI: 100 } }));
+      const fourthState: EventTrackState = eventTrackReducer(thirdState, actions.setHeroComponentTTI({ model: { id: 'Page1', TTI: 120 } }));
 
       expect(secondState.heroComponent.children.find((child) => child.id === 'Child1').TTI).toEqual(70);
       expect(secondState.heroComponent.TTI).toEqual(70);
@@ -92,12 +97,12 @@ describe('EventTrack Store reducer', () => {
       const payload: RegisterHeroComponentPayload = {
         id: 'Page1',
         measureSelf: true,
-        children: [{id: 'Child1', TTI: 0}, {id: 'Child2', TTI: 0}]
+        children: [{ id: 'Child1', TTI: 0 }, { id: 'Child2', TTI: 0 }]
       };
-      const firstState: EventTrackState = eventTrackReducer(simpleState, actions.registerHeroComponent({model: payload}));
-      const secondState: EventTrackState = eventTrackReducer(firstState, actions.setHeroComponentTTI({model: {id: 'Child1', TTI: 70}}));
-      const thirdState: EventTrackState = eventTrackReducer(secondState, actions.setHeroComponentTTI({model: {id: 'Child2', TTI: 100}}));
-      const fourthState: EventTrackState = eventTrackReducer(thirdState, actions.setHeroComponentTTI({model: {id: 'Page1', TTI: 90}}));
+      const firstState: EventTrackState = eventTrackReducer(simpleState, actions.registerHeroComponent({ model: payload }));
+      const secondState: EventTrackState = eventTrackReducer(firstState, actions.setHeroComponentTTI({ model: { id: 'Child1', TTI: 70 } }));
+      const thirdState: EventTrackState = eventTrackReducer(secondState, actions.setHeroComponentTTI({ model: { id: 'Child2', TTI: 100 } }));
+      const fourthState: EventTrackState = eventTrackReducer(thirdState, actions.setHeroComponentTTI({ model: { id: 'Page1', TTI: 90 } }));
 
       expect(secondState.heroComponent.children.find((child) => child.id === 'Child1').TTI).toEqual(70);
       expect(secondState.heroComponent.TTI).toEqual(70);
@@ -115,13 +120,13 @@ describe('EventTrack Store reducer', () => {
       const payload: RegisterHeroComponentPayload = {
         id: 'Page1',
         measureSelf: true,
-        children: [{id: 'Child1', TTI: 0, measureSelf: true, children: [{id: 'SubChild', TTI: 0}]}, {id: 'Child2', TTI: 0}]
+        children: [{ id: 'Child1', TTI: 0, measureSelf: true, children: [{ id: 'SubChild', TTI: 0 }] }, { id: 'Child2', TTI: 0 }]
       };
-      const firstState: EventTrackState = eventTrackReducer(simpleState, actions.registerHeroComponent({model: payload}));
-      const secondState: EventTrackState = eventTrackReducer(firstState, actions.setHeroComponentTTI({model: {id: 'Child1', TTI: 70, involvedApiEndpoints: []}}));
-      const thirdState: EventTrackState = eventTrackReducer(secondState, actions.setHeroComponentTTI({model: {id: 'Child2', TTI: 100, involvedApiEndpoints: ['endpoint1']}}));
-      const fourthState: EventTrackState = eventTrackReducer(thirdState, actions.setHeroComponentTTI({model: {id: 'Page1', TTI: 90, involvedApiEndpoints: ['endpoint2']}}));
-      const fifthState: EventTrackState = eventTrackReducer(fourthState, actions.setHeroComponentTTI({model: {id: 'SubChild', TTI: 290, involvedApiEndpoints: ['endpoint3']}}));
+      const firstState: EventTrackState = eventTrackReducer(simpleState, actions.registerHeroComponent({ model: payload }));
+      const secondState: EventTrackState = eventTrackReducer(firstState, actions.setHeroComponentTTI({ model: { id: 'Child1', TTI: 70, involvedApiEndpoints: [] } }));
+      const thirdState: EventTrackState = eventTrackReducer(secondState, actions.setHeroComponentTTI({ model: { id: 'Child2', TTI: 100, involvedApiEndpoints: ['endpoint1'] } }));
+      const fourthState: EventTrackState = eventTrackReducer(thirdState, actions.setHeroComponentTTI({ model: { id: 'Page1', TTI: 90, involvedApiEndpoints: ['endpoint2'] } }));
+      const fifthState: EventTrackState = eventTrackReducer(fourthState, actions.setHeroComponentTTI({ model: { id: 'SubChild', TTI: 290, involvedApiEndpoints: ['endpoint3'] } }));
 
       expect(secondState.heroComponent.children.find((child) => child.id === 'Child1').TTI).toEqual(70);
       expect(secondState.heroComponent.TTI).toEqual(70);
@@ -144,13 +149,13 @@ describe('EventTrack Store reducer', () => {
       const payload: RegisterHeroComponentPayload = {
         id: 'Page1',
         measureSelf: true,
-        children: [{id: 'Child1', TTI: 0, measureSelf: true, children: [{id: 'SubChild', TTI: 0}]}, {id: 'Child2', TTI: 0}]
+        children: [{ id: 'Child1', TTI: 0, measureSelf: true, children: [{ id: 'SubChild', TTI: 0 }] }, { id: 'Child2', TTI: 0 }]
       };
-      const firstState: EventTrackState = eventTrackReducer(simpleState, actions.registerHeroComponent({model: payload}));
-      const secondState: EventTrackState = eventTrackReducer(firstState, actions.setHeroComponentTTI({model: {id: 'Child1', TTI: 70, involvedApiEndpoints: ['EP-child1']}}));
-      const thirdState: EventTrackState = eventTrackReducer(secondState, actions.setHeroComponentTTI({model: {id: 'Child2', TTI: 100, involvedApiEndpoints: ['EP-child2']}}));
-      const fourthState: EventTrackState = eventTrackReducer(thirdState, actions.setHeroComponentTTI({model: {id: 'Page1', TTI: 900, involvedApiEndpoints: ['EP-page1']}}));
-      const fifthState: EventTrackState = eventTrackReducer(fourthState, actions.setHeroComponentTTI({model: {id: 'SubChild', TTI: 1000, involvedApiEndpoints: ['EP-subchild1']}}));
+      const firstState: EventTrackState = eventTrackReducer(simpleState, actions.registerHeroComponent({ model: payload }));
+      const secondState: EventTrackState = eventTrackReducer(firstState, actions.setHeroComponentTTI({ model: { id: 'Child1', TTI: 70, involvedApiEndpoints: ['EP-child1'] } }));
+      const thirdState: EventTrackState = eventTrackReducer(secondState, actions.setHeroComponentTTI({ model: { id: 'Child2', TTI: 100, involvedApiEndpoints: ['EP-child2'] } }));
+      const fourthState: EventTrackState = eventTrackReducer(thirdState, actions.setHeroComponentTTI({ model: { id: 'Page1', TTI: 900, involvedApiEndpoints: ['EP-page1'] } }));
+      const fifthState: EventTrackState = eventTrackReducer(fourthState, actions.setHeroComponentTTI({ model: { id: 'SubChild', TTI: 1000, involvedApiEndpoints: ['EP-subchild1'] } }));
 
       expect(secondState.heroComponent.TTI).toEqual(70);
       expect(secondState.isTTIComputed).toBeFalsy();
@@ -171,13 +176,13 @@ describe('EventTrack Store reducer', () => {
     const payload: RegisterHeroComponentPayload = {
       id: 'Page1',
       measureSelf: true,
-      children: [{id: 'Child1', TTI: 0, measureSelf: true, children: [{id: 'SubChild', TTI: 0}]}, {id: 'Child2', TTI: 0}]
+      children: [{ id: 'Child1', TTI: 0, measureSelf: true, children: [{ id: 'SubChild', TTI: 0 }] }, { id: 'Child2', TTI: 0 }]
     };
-    const firstState: EventTrackState = eventTrackReducer(simpleState, actions.registerHeroComponent({model: payload}));
-    const secondState: EventTrackState = eventTrackReducer(firstState, actions.setHeroComponentTTI({model: {id: 'Child1', TTI: 70, involvedApiEndpoints: ['EP-child1']}}));
-    const thirdState: EventTrackState = eventTrackReducer(secondState, actions.setHeroComponentTTI({model: {id: 'Child2', TTI: 100, involvedApiEndpoints: ['EP-child2']}}));
-    const fourthState: EventTrackState = eventTrackReducer(thirdState, actions.setHeroComponentTTI({model: {id: 'Page1', TTI: 900, involvedApiEndpoints: ['EP-page1']}}));
-    const fifthState: EventTrackState = eventTrackReducer(fourthState, actions.setHeroComponentTTI({model: {id: 'SubChild', TTI: 100, involvedApiEndpoints: ['EP-subchild1']}}));
+    const firstState: EventTrackState = eventTrackReducer(simpleState, actions.registerHeroComponent({ model: payload }));
+    const secondState: EventTrackState = eventTrackReducer(firstState, actions.setHeroComponentTTI({ model: { id: 'Child1', TTI: 70, involvedApiEndpoints: ['EP-child1'] } }));
+    const thirdState: EventTrackState = eventTrackReducer(secondState, actions.setHeroComponentTTI({ model: { id: 'Child2', TTI: 100, involvedApiEndpoints: ['EP-child2'] } }));
+    const fourthState: EventTrackState = eventTrackReducer(thirdState, actions.setHeroComponentTTI({ model: { id: 'Page1', TTI: 900, involvedApiEndpoints: ['EP-page1'] } }));
+    const fifthState: EventTrackState = eventTrackReducer(fourthState, actions.setHeroComponentTTI({ model: { id: 'SubChild', TTI: 100, involvedApiEndpoints: ['EP-subchild1'] } }));
 
     expect(secondState.heroComponent.TTI).toEqual(70);
     expect(secondState.isTTIComputed).toBeFalsy();
@@ -199,13 +204,13 @@ describe('EventTrack Store reducer', () => {
     const payload1: RegisterHeroComponentPayload = {
       id: 'Page1',
       measureSelf: true,
-      children: [{id: 'Child1', measureSelf: true, TTI: 0, children: [{id: 'SubChild', TTI: 0}]}, {id: 'Child2', TTI: 0}]
+      children: [{ id: 'Child1', measureSelf: true, TTI: 0, children: [{ id: 'SubChild', TTI: 0 }] }, { id: 'Child2', TTI: 0 }]
     };
-    const firstState: EventTrackState = eventTrackReducer(simpleState, actions.registerHeroComponent({model: payload1}));
-    const secondState: EventTrackState = eventTrackReducer(firstState, actions.setHeroComponentTTI({model: {id: 'Child2', TTI: 900, involvedApiEndpoints: ['EP-child2']}}));
-    const thirdState: EventTrackState = eventTrackReducer(secondState, actions.setHeroComponentTTI({model: {id: 'Child1', TTI: 700, involvedApiEndpoints: ['EP-child1']}}));
-    const fourthState: EventTrackState = eventTrackReducer(thirdState, actions.setHeroComponentTTI({model: {id: 'SubChild', TTI: 900, involvedApiEndpoints: ['EP-subchild1', 'EP-child2']}}));
-    const fifthState: EventTrackState = eventTrackReducer(fourthState, actions.setHeroComponentTTI({model: {id: 'Page1', TTI: 70, involvedApiEndpoints: ['EP-page1']}}));
+    const firstState: EventTrackState = eventTrackReducer(simpleState, actions.registerHeroComponent({ model: payload1 }));
+    const secondState: EventTrackState = eventTrackReducer(firstState, actions.setHeroComponentTTI({ model: { id: 'Child2', TTI: 900, involvedApiEndpoints: ['EP-child2'] } }));
+    const thirdState: EventTrackState = eventTrackReducer(secondState, actions.setHeroComponentTTI({ model: { id: 'Child1', TTI: 700, involvedApiEndpoints: ['EP-child1'] } }));
+    const fourthState: EventTrackState = eventTrackReducer(thirdState, actions.setHeroComponentTTI({ model: { id: 'SubChild', TTI: 900, involvedApiEndpoints: ['EP-subchild1', 'EP-child2'] } }));
+    const fifthState: EventTrackState = eventTrackReducer(fourthState, actions.setHeroComponentTTI({ model: { id: 'Page1', TTI: 70, involvedApiEndpoints: ['EP-page1'] } }));
 
     expect(secondState.heroComponent.TTI).toEqual(900);
     expect(secondState.isTTIComputed).toBeFalsy();

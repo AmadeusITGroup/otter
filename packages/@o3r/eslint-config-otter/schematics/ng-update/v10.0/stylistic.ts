@@ -1,5 +1,9 @@
-import { type Rule } from '@angular-devkit/schematics';
-import { AddDevInstall } from '@o3r/schematics';
+import {
+  type Rule
+} from '@angular-devkit/schematics';
+import {
+  AddDevInstall
+} from '@o3r/schematics';
 
 /**
  * Add Stylistic package in the dependencies

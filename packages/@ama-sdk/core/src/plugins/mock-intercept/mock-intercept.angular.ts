@@ -1,8 +1,24 @@
-import { delay, from, mergeMap } from 'rxjs';
-import type { AngularCall, AngularPlugin, AngularPluginContext, PluginObservableRunner } from '../core/angular-plugin';
-import { CUSTOM_MOCK_OPERATION_ID_HEADER, MockInterceptFetchParameters } from './mock-intercept.interface';
-import { MockInterceptRequest } from './mock-intercept.request';
-import { HttpResponse } from '@angular/common/http';
+import {
+  HttpResponse
+} from '@angular/common/http';
+import {
+  delay,
+  from,
+  mergeMap
+} from 'rxjs';
+import type {
+  AngularCall,
+  AngularPlugin,
+  AngularPluginContext,
+  PluginObservableRunner
+} from '../core/angular-plugin';
+import {
+  CUSTOM_MOCK_OPERATION_ID_HEADER,
+  MockInterceptFetchParameters
+} from './mock-intercept.interface';
+import {
+  MockInterceptRequest
+} from './mock-intercept.request';
 
 /**
  * Plugin to mock and intercept the call of SDK
@@ -11,11 +27,9 @@ import { HttpResponse } from '@angular/common/http';
  * It will allow the user to delay the response or to handle the getResponse function provided with the mock (if present).
  */
 export class MockInterceptAngular implements AngularPlugin {
-
   constructor(protected options: MockInterceptFetchParameters) {}
 
   public load(context: AngularPluginContext): PluginObservableRunner<HttpResponse<any>, AngularCall> {
-
     if (!context.apiClient.options.requestPlugins.some((plugin) => plugin instanceof MockInterceptRequest)) {
       throw new Error('MockInterceptAngular plugin should be used only with the MockInterceptRequest plugin');
     }
@@ -43,7 +57,6 @@ export class MockInterceptAngular implements AngularPlugin {
               originalCall = originalCall.pipe(delay(delayTime));
             }
 
-
             const operationId = (context.options.headers as Headers).get(CUSTOM_MOCK_OPERATION_ID_HEADER)!;
             try {
               const mock = this.options.adapter.getLatestMock(operationId);
@@ -64,7 +77,6 @@ export class MockInterceptAngular implements AngularPlugin {
                   });
                 })
               );
-
             } catch {
               (context.logger || console).error(`Failed to retrieve the latest mock for Operation ID ${operationId}, fallback to default mock`);
               return originalCall;
@@ -74,5 +86,4 @@ export class MockInterceptAngular implements AngularPlugin {
       }
     };
   }
-
 }

@@ -1,4 +1,6 @@
-import { PathObject } from './path-object';
+import {
+  PathObject
+} from './path-object';
 
 /**
  * Gets an operation ID from a path object and HTTP method
@@ -30,7 +32,7 @@ export function getPath(requestUrl: string, pathObjects: PathObject[], method?: 
   }
 
   // Find all matching paths
-  let matches = pathObjects.reduce<{index: number; segments: string[]; methods: string[]}[]>((newMatches, pathObject, index) => {
+  let matches = pathObjects.reduce<{ index: number; segments: string[]; methods: string[] }[]>((newMatches, pathObject, index) => {
     if (pathObject.regexp.test(pathName)) {
       newMatches.push({
         index,
@@ -44,7 +46,7 @@ export function getPath(requestUrl: string, pathObjects: PathObject[], method?: 
   let lastIndex = -1;
   let nextIndex = -1;
   while (matches.length > 1) {
-    matches = matches.reduce<{index: number; segments: string[]; methods: string[]}[]>((newMatches, match) => {
+    matches = matches.reduce<{ index: number; segments: string[]; methods: string[] }[]>((newMatches, match) => {
       let newIndex = match.segments.findIndex((segment) => segment.startsWith('{') && segment.endsWith('}'));
       // Complete static match so use some value that can't be exceeded
       if (newIndex === -1) {

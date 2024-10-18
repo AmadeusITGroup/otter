@@ -1,5 +1,9 @@
-import { Rule } from '@angular-devkit/schematics';
-import { getFilesInFolderFromWorkspaceProjectsInTree } from '@o3r/schematics';
+import {
+  Rule
+} from '@angular-devkit/schematics';
+import {
+  getFilesInFolderFromWorkspaceProjectsInTree
+} from '@o3r/schematics';
 
 /**
  * Replace the XML format to specify categories in the configuration extractor (<o3rCategories>) to JSDoc annotations (@o3rCategories)

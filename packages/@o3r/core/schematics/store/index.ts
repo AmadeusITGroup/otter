@@ -1,6 +1,13 @@
-import { Rule, schematic } from '@angular-devkit/schematics';
-import { createSchematicWithMetricsIfInstalled } from '@o3r/schematics';
-import { NgGenerateStoreSchematicsSchema } from './schema';
+import {
+  Rule,
+  schematic
+} from '@angular-devkit/schematics';
+import {
+  createSchematicWithMetricsIfInstalled
+} from '@o3r/schematics';
+import {
+  NgGenerateStoreSchematicsSchema
+} from './schema';
 
 /**
  * Create an Otter store
