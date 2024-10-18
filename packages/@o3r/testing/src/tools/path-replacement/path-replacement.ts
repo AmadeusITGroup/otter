@@ -18,10 +18,10 @@ export function adjustPath(frameworkName: 'playwright' | 'protractor', customTra
     const newId = id.replace(regex, `@o3r/testing/core/${frameworkName}$1`);
 
     try {
-      return originalRequire.apply(this, [newId]);
-    } catch (error: any) {
+      return Reflect.apply(originalRequire, this, [newId]);
+    } catch {
       const paths = ([] as string[])
-        .concat(this.paths, this.paths.map(i => i.replace(/[\\/]node_modules$/, '')));
+        .concat(this.paths, this.paths.map((i) => i.replace(/[\\/]node_modules$/, '')));
 
       const filePath = require.resolve(newId, { paths });
       if (!modulesCache[filePath]) {

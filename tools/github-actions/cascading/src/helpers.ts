@@ -5,14 +5,14 @@ import type {BaseLogger} from './cascading';
  * @param branches
  */
 export function sortBranches(branches: string[]) {
-  return branches.map(branch => {
+  return branches.map((branch) => {
     const extract = branch.match(/release\/([0-9]+)\.([0-9]+)/);
     if (!extract) {
       throw new Error(`Format of branch does not match the release pattern ${branches.join(',')}`);
     }
     return {
-      maj: parseInt(extract[1], 10),
-      min: parseInt(extract[2], 10),
+      maj: Number.parseInt(extract[1], 10),
+      min: Number.parseInt(extract[2], 10),
       branch
     };
   }).sort((branchObjectA, branchObjectB) => {
@@ -22,7 +22,7 @@ export function sortBranches(branches: string[]) {
       return -1;
     }
     return branchObjectA.min - branchObjectB.min;
-  }).map(branchObject => branchObject.branch);
+  }).map((branchObject) => branchObject.branch);
 }
 
 /**
@@ -44,7 +44,7 @@ export function extractBranchesFromGitOutput(gitOutput: string) {
  */
 export function extractPackageLine(diffOutput: string): string[] {
   const results = diffOutput.matchAll(/"([^"]+)":\s+/g);
-  return [...results].map(result => result[1]);
+  return [...results].map((result) => result[1]);
 }
 
 /**
@@ -109,23 +109,23 @@ export function extractPackageChanges<T extends BaseLogger>(gitDiffResult: strin
  * @param packageChanges
  * @param conflictsIgnoredPackages
  */
-export function notIgnorablePackages(packageChanges: { file: string; oldPackages: string[]; newPackages: string[] }[], conflictsIgnoredPackages : string[]) {
+export function notIgnorablePackages(packageChanges: { file: string; oldPackages: string[]; newPackages: string[] }[], conflictsIgnoredPackages: string[]) {
   return packageChanges.reduce((remaining: { file: string; addedPackages: string[]; commonPackages: string[]; removedPackages: string[] }[], fileWithPackages) => {
-    if (fileWithPackages.oldPackages.length || fileWithPackages.newPackages.length) {
+    if (fileWithPackages.oldPackages.length > 0 || fileWithPackages.newPackages.length > 0) {
       const removedPackages: string[] = [];
       const commonPackages: string[] = [];
       fileWithPackages.oldPackages.forEach((oldPackage) => {
-        if (!fileWithPackages.newPackages.includes(oldPackage)) {
-          removedPackages.push(oldPackage);
-        } else {
+        if (fileWithPackages.newPackages.includes(oldPackage)) {
           if (!conflictsIgnoredPackages.includes(oldPackage)) {
             // We keep it only if it is not ignored
             commonPackages.push(oldPackage);
           }
+        } else {
+          removedPackages.push(oldPackage);
         }
       });
       const addedPackages = fileWithPackages.newPackages.filter((newPackage) => !fileWithPackages.oldPackages.includes(newPackage));
-      if (addedPackages.length || commonPackages.length || removedPackages.length) {
+      if (addedPackages.length > 0 || commonPackages.length > 0 || removedPackages.length > 0) {
         remaining.push({
           file: fileWithPackages.file,
           addedPackages,

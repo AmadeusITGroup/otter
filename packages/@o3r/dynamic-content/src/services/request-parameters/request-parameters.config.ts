@@ -5,7 +5,7 @@
  * Replace: storage data will be completely replaced by the ones provided
  * ReplaceIfNotEmpty: If no parameters are provided, use the content from storage. Otherwise use the ones provided and update the storage with them.
  */
-// eslint-disable-next-line no-shadow
+
 export enum StorageStrategy {
   // eslint-disable-next-line @typescript-eslint/naming-convention
   Rehydrate = 0,
@@ -40,7 +40,7 @@ export interface RequestParametersConfig {
 }
 
 export const defaultRequestParametersConfig: RequestParametersConfig = {
-  storage: (typeof window !== 'undefined') ? window.sessionStorage : undefined,
+  storage: (typeof window === 'undefined') ? undefined : window.sessionStorage,
   strategy: StorageStrategy.Rehydrate,
   queryParamsValue: typeof document !== 'undefined' && document.body && document.body.dataset && document.body.dataset.query || '{}',
   postParamsValue: typeof document !== 'undefined' && document.body && document.body.dataset && document.body.dataset.post || '{}'

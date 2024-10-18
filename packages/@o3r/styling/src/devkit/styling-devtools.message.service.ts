@@ -64,8 +64,8 @@ export class StylingDevtoolsMessageService implements OnDestroy {
   private readonly sendMessage = sendOtterMessage<AvailableStylingMessageContents>;
 
   constructor(
-      private readonly logger: LoggerService,
-      private readonly stylingDevTools: OtterStylingDevtools,
+    private readonly logger: LoggerService,
+    private readonly stylingDevTools: OtterStylingDevtools,
     @Optional() @Inject(OTTER_STYLING_DEVTOOLS_OPTIONS) private readonly options: StylingDevtoolsServiceOptions = OTTER_STYLING_DEVTOOLS_DEFAULT_OPTIONS) {
     this.options = {
       ...OTTER_STYLING_DEVTOOLS_DEFAULT_OPTIONS,

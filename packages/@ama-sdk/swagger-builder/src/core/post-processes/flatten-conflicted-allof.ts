@@ -63,7 +63,7 @@ export class FlattenConflictedAllOf implements PostProcess {
       .filter((definition) => !definition[X_VENDOR_CONFLICT_TAG] && definition.allOf)
       .forEach((definition: { allOf?: any[]; properties?: Record<string, any>; type: any; description?: string; required: string[]}) => {
         // If not an allOf or if the allOf it not based on conflicting definition, we skip the process
-        if (!(definition.allOf && definition.allOf.some((def) => def.$ref && (def.$ref as string).split('/').slice(-1)[0] in Object.keys(toFlattenDefinitions)))) {
+        if (!(definition.allOf && definition.allOf.some((def) => def.$ref && (def.$ref as string).split('/').at(-1)! in Object.keys(toFlattenDefinitions)))) {
           return;
         }
 

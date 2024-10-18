@@ -10,5 +10,4 @@ import { ConfigurationRulesEngineActionHandler } from './configuration.handler-a
     ConfigurationRulesEngineActionHandler
   ]
 })
-export class ConfigurationRulesEngineActionModule {
-}
+export class ConfigurationRulesEngineActionModule {}

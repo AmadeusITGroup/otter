@@ -4,5 +4,5 @@ import { StorybookStoryConfiguration } from '../types';
 export const CONFIGURATION_PREFIX = 'config-';
 
 /** Configuration of Storybook stories */
-export interface ConfigurationConfigs extends StorybookStoryConfiguration{
+export interface ConfigurationConfigs extends StorybookStoryConfiguration {
 }

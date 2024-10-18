@@ -55,7 +55,7 @@ export = (app: Probot) => {
       logger.debug(`The check suite ${context.payload.check_suite.id} is not passed yet`);
       return;
     }
-    if (!['neutral', 'success'].some((status) => context.payload.check_suite.conclusion === status)) {
+    if (!context.payload.check_suite.conclusion || !['neutral', 'success'].includes(context.payload.check_suite.conclusion)) {
       logger.debug(`The check suite ${context.payload.check_suite.id} is not passed yet`);
       return;
     }

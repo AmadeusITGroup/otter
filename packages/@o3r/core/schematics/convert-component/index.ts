@@ -7,7 +7,6 @@ import { ConvertToO3rComponentSchematicsSchema } from './schema';
 
 /**
  * Convert an Angular component into an Otter component
- *
  * @param options
  */
 function convertToO3rComponentFn(options: ConvertToO3rComponentSchematicsSchema): Rule {
@@ -56,7 +55,6 @@ function convertToO3rComponentFn(options: ConvertToO3rComponentSchematicsSchema)
 
 /**
  * Convert an Angular component into an Otter component
- *
  * @param options
  */
 export const convertToO3rComponent = createSchematicWithMetricsIfInstalled(convertToO3rComponentFn);

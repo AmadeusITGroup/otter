@@ -12,10 +12,10 @@ export class AwsCompatConverter implements PostProcess {
    */
   private isInvalidField(field: string | undefined, ancestors: string[]) {
     return field && (
-      field.toLowerCase() === 'example' ||
-      field === 'default' && ancestors[0] === 'paths' && ancestors[ancestors.length - 1] === 'responses' ||
-      field === 'discriminator' ||
-      /^x-.*/i.test(field)
+      field.toLowerCase() === 'example'
+      || field === 'default' && ancestors[0] === 'paths' && ancestors.at(-1) === 'responses'
+      || field === 'discriminator'
+      || /^x-.*/i.test(field)
     );
   }
 

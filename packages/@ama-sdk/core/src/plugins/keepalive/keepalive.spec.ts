@@ -10,7 +10,7 @@ describe('Keepalive Request Plugin', () => {
     const runner = plugin.load();
 
     await runner.transform(options);
-    const keepalive = (await plugin.load().transform(options)).keepalive;
+    const {keepalive} = await plugin.load().transform(options);
 
     expect(keepalive).toBe(true);
   });

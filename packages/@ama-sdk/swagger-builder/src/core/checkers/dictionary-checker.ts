@@ -50,7 +50,7 @@ export class DictionaryChecker implements Checker {
     } else if (field === '$ref') {
       if (typeof currentNode === 'string' && /\/definitions\//.test(currentNode)) {
         const splitRef = currentNode.split('/');
-        definitionNameMemory.push(splitRef[splitRef.length - 1]);
+        definitionNameMemory.push(splitRef.at(-1)!);
       }
       return;
     } else if (Array.isArray(currentNode)) {
@@ -97,7 +97,7 @@ export class DictionaryChecker implements Checker {
             mapName: currentNode['x-map-name'],
             requestedBy: 'unknown',
             originField: field,
-            isRequired: requiredFields.indexOf(field) > -1
+            isRequired: requiredFields.includes(field)
           };
         }
         for (const k of keys) {
@@ -138,7 +138,7 @@ export class DictionaryChecker implements Checker {
     }
 
     return ret.reduce<string[]>((acc, cur) => {
-      if (acc.indexOf(cur) === -1) {
+      if (!acc.includes(cur)) {
         acc.push(cur);
       }
       return acc;
@@ -181,7 +181,7 @@ export class DictionaryChecker implements Checker {
    */
   private findReferredByDefinitions(definition: string, definitions: { [definitionName: string]: DefinitionWithRefs }): string[] {
     return Object.keys(definitions)
-      .filter((definitionName) => definitions[definitionName].referTo.indexOf(definition) >= 0);
+      .filter((definitionName) => definitions[definitionName].referTo.includes(definition));
   }
 
   private async getReplyDefinitions(paths: {[name: string]: any}): Promise<string[]> {
@@ -189,7 +189,7 @@ export class DictionaryChecker implements Checker {
 
     for (const pName of Object.keys(paths)) {
       const replyDefinitionsPath = await this.getReplyDefinitionsFromPath(paths[pName]);
-      replyDefinitions.push(...replyDefinitionsPath.filter((def) => replyDefinitions.indexOf(def) === -1));
+      replyDefinitions.push(...replyDefinitionsPath.filter((def) => !replyDefinitions.includes(def)));
     }
 
     return replyDefinitions;
@@ -204,19 +204,19 @@ export class DictionaryChecker implements Checker {
    */
   private findAssociatedRepliesFor(definitionName: string, replyDefinitions: string[], definitions: { [definitionName: string]: DefinitionWithRefs }, stack: string[] = []): string[] {
     const definition = definitions[definitionName];
-    if (definition.associatedReplies.length) {
+    if (definition.associatedReplies.length > 0) {
       return definition.associatedReplies;
     }
 
-    if (replyDefinitions.indexOf(definitionName) >= 0) {
+    if (replyDefinitions.includes(definitionName)) {
       return [definitionName];
     }
 
-    if (stack.indexOf(definitionName) >= 0) {
+    if (stack.includes(definitionName)) {
       return [];
     }
 
-    if (!definition.referredBy.length) {
+    if (definition.referredBy.length === 0) {
       return [];
     }
 
@@ -224,7 +224,7 @@ export class DictionaryChecker implements Checker {
     return definition.referredBy
       .map((defName) => this.findAssociatedRepliesFor(defName, replyDefinitions, definitions, stack))
       .reduce((acc, cur) => {
-        acc.push(...cur.filter((item) => acc.indexOf(item) === -1));
+        acc.push(...cur.filter((item) => !acc.includes(item)));
         return acc;
       }, []);
   }
@@ -268,7 +268,7 @@ export class DictionaryChecker implements Checker {
    * @param stack stack of swagger fields
    */
   private getAllDictionaryRefs(definitionName: string, definitions: {[definitionName: string]: DefinitionWithRefs}, stack: string[] = []): DictionaryReference[] {
-    if (stack.indexOf(definitionName) >= 0) {
+    if (stack.includes(definitionName)) {
       return [];
     }
 
@@ -297,10 +297,10 @@ export class DictionaryChecker implements Checker {
     if (currentNode === undefined || currentNode === null) {
       return false;
     } else if (typeof currentNode === 'object' && field === dictionaryReference.dictionaryName) {
-      const resource = currentNode.$ref ||
-        (currentNode.additionalProperties && currentNode.additionalProperties.$ref) ||
-        (currentNode.additionalProperties && currentNode.additionalProperties.type) ||
-        currentNode.type;
+      const resource = currentNode.$ref
+        || (currentNode.additionalProperties && currentNode.additionalProperties.$ref)
+        || (currentNode.additionalProperties && currentNode.additionalProperties.type)
+        || currentNode.type;
       return new RegExp(dictionaryReference.fieldType + '$').test(resource);
     } else if (Array.isArray(currentNode)) {
       return currentNode
@@ -321,7 +321,7 @@ export class DictionaryChecker implements Checker {
    * @param stack stack of swagger fields
    */
   private isDictionaryInDefinition(dictionaryReference: DictionaryReference, definitionName: string, definitions: {[definitionName: string]: DefinitionWithRefs}, stack: string[] = []): boolean {
-    if (stack.indexOf(definitionName) > -1) {
+    if (stack.includes(definitionName)) {
       return false;
     }
 
@@ -353,7 +353,7 @@ export class DictionaryChecker implements Checker {
     currentPath = [...currentPath, from];
     if (from === to) {
       return [currentPath];
-    } else if (!definition.referTo.length) {
+    } else if (definition.referTo.length === 0) {
       return [];
     }
 
@@ -363,7 +363,7 @@ export class DictionaryChecker implements Checker {
       )
       .reduce<string[][]>((pathList, nextResolvingPaths) => {
         pathList.push(
-          ...nextResolvingPaths.filter((nextResolvingPath) => pathList.map((p) => p.join()).indexOf(nextResolvingPath.join()))
+          ...nextResolvingPaths.filter((nextResolvingPath) => pathList.map((p) => p.join(',')).indexOf(nextResolvingPath.join(',')))
         );
         return pathList;
       }, []);
@@ -383,7 +383,7 @@ export class DictionaryChecker implements Checker {
         ...dictionaryReferences
           .filter((dictionaryReference) => !this.isDictionaryInDefinition(dictionaryReference, replyDefinition, definitionsWithReferer))
           .map((dictionaryReference) => ({
-            // eslint-disable-next-line max-len
+
             message: `The dictionary ${dictionaryReference.dictionaryName} (type: ${dictionaryReference.fieldType}${dictionaryReference.isRequired ? ', required' : ''}) referred by ${dictionaryReference.requestedBy}.${dictionaryReference.originField} is missing in ${replyDefinition}`,
             details: this.findReferencePaths(replyDefinition, dictionaryReference.requestedBy, definitionsWithReferer)
               .map((refPath) => `Path from ${replyDefinition} to ${dictionaryReference.requestedBy}: ${refPath.join(' -> ')}`),

@@ -29,7 +29,7 @@ export class KeepaliveRequest implements RequestPlugin {
     try {
       await fetch('', {headers: customHeaders, keepalive: true});
       this.active = true;
-    } catch (e) {
+    } catch {
       this.active = false;
     }
   }

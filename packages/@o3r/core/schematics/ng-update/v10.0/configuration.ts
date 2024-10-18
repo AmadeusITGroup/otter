@@ -14,7 +14,7 @@ export const updateConfiguration: Rule = (tree: Tree) => {
   files.forEach((file) => {
     const text = tree.readText(file);
     const matches = Array.from(text.matchAll(matchingRegex));
-    if (matches.length) {
+    if (matches.length > 0) {
       tree.overwrite(
         file,
         text.replaceAll(matchingRegex, '$1')

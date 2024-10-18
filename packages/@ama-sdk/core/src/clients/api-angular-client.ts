@@ -5,7 +5,7 @@ import { ReviverReply } from '../plugins/reviver';
 import { ApiTypes } from '../fwk/api';
 import { extractQueryParams, filterUndefinedValues, getResponseReviver, prepareUrl, processFormData, tokenizeRequestOptions } from '../fwk/api.helpers';
 import type { PartialExcept } from '../fwk/api.interface';
-import type { ApiClient,RequestOptionsParameters } from '../fwk/core/api-client';
+import type { ApiClient, RequestOptionsParameters } from '../fwk/core/api-client';
 import { BaseApiClientOptions } from '../fwk/core/base-api-constructor';
 import { EmptyResponseError } from '../fwk/errors';
 import { ReviverType } from '../fwk/Reviver';
@@ -92,7 +92,7 @@ export class ApiAngularClient implements ApiClient {
   public async processCall<T>(url: string, options: RequestOptions, apiType: ApiTypes, apiName: string, revivers: ReviverType<T> | { [statusCode: number]: ReviverType<T> | undefined },
     operationId?: string): Promise<T>;
   public async processCall<T>(url: string, options: RequestOptions, apiType: ApiTypes | string, apiName: string,
-    revivers?: ReviverType<T> | undefined | { [statusCode: number]: ReviverType<T> | undefined }, operationId?: string): Promise<T> {
+    revivers?: ReviverType<T> | { [statusCode: number]: ReviverType<T> | undefined }, operationId?: string): Promise<T> {
 
     let response: HttpResponse<any> | undefined;
     let root: any;
@@ -150,8 +150,8 @@ export class ApiAngularClient implements ApiClient {
 
     // eslint-disable-next-line no-console
     const reviver = getResponseReviver(revivers, response, operationId, { disableFallback: this.options.disableFallback, log: console.error });
-    const replyPlugins = this.options.replyPlugins ?
-      this.options.replyPlugins.map((plugin) => plugin.load<T>({
+    const replyPlugins = this.options.replyPlugins
+      ? this.options.replyPlugins.map((plugin) => plugin.load<T>({
         dictionaries: root && root.dictionaries,
         response: response && {
           ...response,
@@ -168,7 +168,8 @@ export class ApiAngularClient implements ApiClient {
         url,
         origin,
         logger: this.options.logger
-      })) : [];
+      }))
+      : [];
 
     let parsedData = root;
     for (const pluginRunner of replyPlugins) {

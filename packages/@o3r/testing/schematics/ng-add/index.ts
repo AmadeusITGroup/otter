@@ -90,9 +90,9 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
 
       let installPlaywright = false;
       if (projectType === 'application') {
-        installPlaywright = options.enablePlaywright !== undefined ?
-          options.enablePlaywright :
-          await askConfirmation('Do you want to setup Playwright test framework for E2E?', true);
+        installPlaywright = options.enablePlaywright === undefined
+          ? await askConfirmation('Do you want to setup Playwright test framework for E2E?', true)
+          : options.enablePlaywright;
       }
 
       const rules = [
@@ -123,7 +123,9 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       ];
 
       if (installJest) {
-        if (workingDirectory !== undefined) {
+        if (workingDirectory === undefined) {
+          throw new O3rCliError(`Could not find working directory for project ${options.projectName || ''}`);
+        } else {
           const packageJsonFile = tree.readJson(`${workingDirectory}/package.json`) as PackageJson;
           packageJsonFile.scripts ||= {};
           packageJsonFile.scripts.test = 'jest';
@@ -150,8 +152,6 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
             jestConfigFilesForProject,
             jestConfigFilesForWorkspace
           );
-        } else {
-          throw new O3rCliError(`Could not find working directory for project ${options.projectName || ''}`);
         }
       }
 

@@ -73,8 +73,8 @@ export interface ApiClient {
   processFormData(data: any, type: string): FormData | string;
 
   /** Process HTTP call */
-  processCall<T>(url: string, options: RequestOptions, apiType: ApiTypes | string, apiName: string, revivers?: ReviverType<T> | undefined |
-    {[key: number]: ReviverType<T> | undefined}, operationId?: string): Promise<T>;
+  processCall<T>(url: string, options: RequestOptions, apiType: ApiTypes | string, apiName: string, revivers?: ReviverType<T> |
+  {[key: number]: ReviverType<T> | undefined}, operationId?: string): Promise<T>;
 }
 
 /**
@@ -82,11 +82,11 @@ export interface ApiClient {
  * @param client object to check
  */
 export function isApiClient(client: any): client is ApiClient {
-  return client &&
-    !!client.options &&
-    typeof client.extractQueryParams === 'function' &&
-    typeof client.getRequestOptions === 'function' &&
-    typeof client.prepareUrl === 'function' &&
-    typeof client.processFormData === 'function' &&
-    typeof client.processCall === 'function';
+  return client
+    && !!client.options
+    && typeof client.extractQueryParams === 'function'
+    && typeof client.getRequestOptions === 'function'
+    && typeof client.prepareUrl === 'function'
+    && typeof client.processFormData === 'function'
+    && typeof client.processCall === 'function';
 }

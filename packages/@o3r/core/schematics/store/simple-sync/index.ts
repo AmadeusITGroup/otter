@@ -7,7 +7,6 @@ import {NgGenerateSimpleSyncStoreSchematicsSchema} from './schema';
 
 /**
  * Create an Otter friendly simple sync store
- *
  * @param options
  */
 function ngGenerateSimpleSyncStoreFn(options: NgGenerateSimpleSyncStoreSchematicsSchema): Rule {

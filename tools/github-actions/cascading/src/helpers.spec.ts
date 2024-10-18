@@ -11,9 +11,9 @@ describe('helpers', () => {
   });
 
   it('formatGitBranchOutput', () => {
-    const fakeOutput = '  remotes/origin/test/3.2 \n remotes/origin/release/0.1.0-test \n remotes/origin/release/0.1-test \n ' +
-      'remotes/origin/feature/whatever \n  remotes/origin/release/0.1  \n remotes/origin/release/1.2  \n remotes/origin/bugfix/whatever  ' +
-      '\r\n remotes/origin/release/2.4 \n remotes/origin/release/2.5.0-prerelease    \r\n remotes/origin/release/3.0.0-rc  \r\n remotes/origin/release/3.0.0-next';
+    const fakeOutput = '  remotes/origin/test/3.2 \n remotes/origin/release/0.1.0-test \n remotes/origin/release/0.1-test \n '
+      + 'remotes/origin/feature/whatever \n  remotes/origin/release/0.1  \n remotes/origin/release/1.2  \n remotes/origin/bugfix/whatever  '
+      + '\r\n remotes/origin/release/2.4 \n remotes/origin/release/2.5.0-prerelease    \r\n remotes/origin/release/3.0.0-rc  \r\n remotes/origin/release/3.0.0-next';
     expect(extractBranchesFromGitOutput(fakeOutput)).toEqual(['release/0.1', 'release/1.2', 'release/2.4', 'release/2.5.0-prerelease', 'release/3.0.0-rc', 'release/3.0.0-next']);
   });
 

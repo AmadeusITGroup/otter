@@ -12,11 +12,7 @@ export function findFirstNodeOfKind<T extends ts.Node = ts.Node>(sourceFile: ts.
   let ret: T | null = null;
   currentNode.forEachChild((n) => {
     if (!ret) {
-      if (n.kind === searchKind) {
-        ret = n as T;
-      } else {
-        ret = findFirstNodeOfKind(sourceFile, searchKind, n);
-      }
+      ret = n.kind === searchKind ? n as T : findFirstNodeOfKind(sourceFile, searchKind, n);
     }
   });
   return ret;
@@ -37,7 +33,7 @@ export function findLastNodeOfKind<T extends ts.Node = ts.Node>(sourceFile: ts.S
     } else {
       const found = findLastNodeOfKind<T>(sourceFile, searchKind, n);
       if (found) {
-        ret = !ret ? found : (found.pos > ret.pos ? found : ret);
+        ret = ret ? (found.pos > ret.pos ? found : ret) : found;
       }
     }
   });
@@ -56,9 +52,9 @@ export function parseImportsFromFile(sourceFile: ts.SourceFile) {
 
     // We retrieve all the symbols listed in the import statement
     const namedImport = imp.importClause && imp.importClause.getChildAt(0);
-    const imports = namedImport && ts.isNamedImports(namedImport) ?
-      namedImport.elements.map((element) => element.getText()) :
-      [];
+    const imports = namedImport && ts.isNamedImports(namedImport)
+      ? namedImport.elements.map((element) => element.getText())
+      : [];
 
     return {node: imp, symbols: imports, module: importFrom};
   });
@@ -238,7 +234,7 @@ export const addInterfaceToClassTransformerFactory = (
         const newImplementsClauses = implementsClauses
           ? factory.updateHeritageClause(implementsClauses, [
             ...implementsClauses.types.filter((interfaceNode) =>
-              !interfacesToRemove.size
+              interfacesToRemove.size === 0
               || (
                 ts.isIdentifier(interfaceNode.expression)
                 && !interfacesToRemove.has(interfaceNode.expression.escapedText.toString())
@@ -344,8 +340,10 @@ export const getSimpleUpdatedMethod = (node: ts.ClassDeclaration, factory: ts.No
         ? factory.updateBlock(
           originalMethod.body,
           originalMethod.body.statements.concat(blockStatements)
-        ) : factory.createBlock(blockStatements, true)
-    ) : factory.createMethodDeclaration(
+        )
+        : factory.createBlock(blockStatements, true)
+    )
+    : factory.createMethodDeclaration(
       [factory.createToken(ts.SyntaxKind.PublicKeyword)],
       undefined,
       factory.createIdentifier(methodName),

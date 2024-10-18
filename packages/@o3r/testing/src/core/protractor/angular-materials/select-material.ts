@@ -17,11 +17,11 @@ export class MatSelect extends O3rElement implements MatSelectProfile {
     await this.click();
     // eslint-disable-next-line no-underscore-dangle
     const options: ElementFinder[] = await element.all(By.css('mat-option')).asElementFinders_();
-    if (typeof options[index] !== 'undefined') {
+    if (typeof options[index] === 'undefined') {
+      return Promise.reject(`Option with index ${index} not found in select element.`);
+    } else {
       const option = new O3rElement(options[index]);
       return option.click();
-    } else {
-      return Promise.reject(`Option with index ${index} not found in select element.`);
     }
   }
 

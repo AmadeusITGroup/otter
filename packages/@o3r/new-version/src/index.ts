@@ -117,8 +117,8 @@ export class NewVersion {
     if (branchReleaseMatches) {
       this.options.logger.info(JSON.stringify(branchReleaseMatches));
     }
-    return this.isDefaultBranch && this.options.defaultBranchVersionMask ||
-      branchReleaseMatches?.length && `${branchReleaseMatches[1]}.${branchReleaseMatches[2]}${branchReleaseMatches[3] || ''}` || '';
+    return this.isDefaultBranch && this.options.defaultBranchVersionMask
+      || branchReleaseMatches?.length && `${branchReleaseMatches[1]}.${branchReleaseMatches[2]}${branchReleaseMatches[3] || ''}` || '';
   }
 
   /**
@@ -138,14 +138,14 @@ export class NewVersion {
     this.options.logger.debug(JSON.stringify(parsedSortedTags));
     this.options.logger.info(`Version mask: ${versionMask}`);
 
-    if (!this.isDefaultBranch) {
-      // If release branch, we filter all versions that do not satisfy the branch name to exclude 3.6.0-alpha.2 when building branch release/3.6 for example
-      parsedSortedTags = parsedSortedTags.filter((parsedTag) => semver.satisfies(parsedTag, `~${versionMask}`));
-    } else {
+    if (this.isDefaultBranch) {
       const releaseTags = [...this.defaultBranchPrereleaseName ? [this.defaultBranchPrereleaseName] : [], 'prerelease', 'rc'];
       parsedSortedTags = parsedSortedTags.filter((parsedTag) =>
         parsedTag.prerelease.length === 0 || releaseTags.includes(`${parsedTag.prerelease[0]}`)
       );
+    } else {
+      // If release branch, we filter all versions that do not satisfy the branch name to exclude 3.6.0-alpha.2 when building branch release/3.6 for example
+      parsedSortedTags = parsedSortedTags.filter((parsedTag) => semver.satisfies(parsedTag, `~${versionMask}`));
     }
 
     this.options.logger.debug('Tags after filtering:');
@@ -159,7 +159,7 @@ export class NewVersion {
       if (!latest) {
         // If we couldn't find a label after filtering, create a new one using the version mask given
         baseVersion = `${semver.minVersion(versionMask)!.version}-${this.defaultBranchPrereleaseName!}.0`;
-      } else if (latest.prerelease.some((releaseTag) => releaseTag === this.defaultBranchPrereleaseName)) {
+      } else if (latest.prerelease.includes(this.defaultBranchPrereleaseName || '')) {
         // If the latest label is a default branch label, we will simply bump it
         this.options.logger.info(`Bumping patch ${this.defaultBranchPrereleaseName || ''}`);
         baseVersion = latest.raw;

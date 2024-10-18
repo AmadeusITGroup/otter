@@ -115,7 +115,7 @@ export class WaitForFetch<T = any> implements FetchPlugin {
           if (!didTimeOut) {
             resolve(canStart);
           }
-        } catch (ex) {
+        } catch {
           if (!didTimeOut) {
             resolve(false);
           }

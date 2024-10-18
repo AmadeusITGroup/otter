@@ -16,7 +16,7 @@ describe('ng-add', () => {
 
   it('should generate the template files', async () => {
     const runner = new SchematicTestRunner('@o3r/design', collectionPath);
-    const tree = await runner.runSchematic('ng-add',{
+    const tree = await runner.runSchematic('ng-add', {
       projectName: 'test-project'
     }, initialTree);
 

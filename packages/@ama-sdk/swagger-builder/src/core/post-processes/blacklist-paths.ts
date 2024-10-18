@@ -13,11 +13,7 @@ export class PathsBlacklister implements PostProcess {
     spec.paths = Object.keys(spec.paths)
       .filter((p) => !this.pathPatterns
         .some((pattern) => {
-          if (typeof pattern === 'string') {
-            return p === pattern;
-          } else {
-            return pattern.test(p);
-          }
+          return typeof pattern === 'string' ? p === pattern : pattern.test(p);
         })
       )
       .reduce<any>((acc, p) => {

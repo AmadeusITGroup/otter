@@ -81,7 +81,7 @@ const editPackageJson = async () => {
   packageJson.exports ||= {};
   (packageJson.exports as Record<string, PackageJson.Exports>)['./package.json'] ||= (packageJson.exports as Record<string, PackageJson.Exports>)?.['./package.json'] || { default: './package.json' };
   (packageJson.exports as Record<string, PackageJson.Exports>)['.'] ||= (packageJson.exports as Record<string, PackageJson.Exports>)?.['.'] || {
-    ...exportTypes.reduce<Record<string, string | undefined>>((acc, type) => ({ ...acc, [type]: originPackageJson[type] as string | undefined }), {}),
+    ...Object.fromEntries(exportTypes.map((type) => [type, originPackageJson[type] as string | undefined])),
     default: originPackageJson.main || './index.js',
     node: (originPackageJson.node || originPackageJson.main) as PackageJson.Exports
   };

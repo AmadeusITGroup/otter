@@ -44,7 +44,7 @@ describe('generateApplication', () => {
       projectRoot: '/projects/test',
       style: 'scss'
     }));
-    ['/angular.json', '/package.json', '/projects/test/package.json'].forEach(filePath => {
+    ['/angular.json', '/package.json', '/projects/test/package.json'].forEach((filePath) => {
       expect(tree.files).toContain(filePath);
     });
   });
@@ -57,7 +57,7 @@ describe('generateApplication', () => {
       projectRoot: '/apps/test',
       style: 'scss'
     }));
-    ['/angular.json', '/package.json', '/apps/test/package.json'].forEach(filePath => {
+    ['/angular.json', '/package.json', '/apps/test/package.json'].forEach((filePath) => {
       expect(tree.files).toContain(filePath);
     });
   });

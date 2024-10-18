@@ -81,11 +81,7 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
     } = {}
   ): Promise<O3rElement | undefined> {
     let queryElement: O3rElement | undefined;
-    if (options.index !== undefined) {
-      queryElement = await this.queryNth(selector, options.index, elementConstructor as any);
-    } else {
-      queryElement = await this.query(selector, elementConstructor as any);
-    }
+    queryElement = await (options.index === undefined ? this.query(selector, elementConstructor as any) : this.queryNth(selector, options.index, elementConstructor as any));
     if (options.shouldThrowIfNotPresent) {
       return this.throwOnUndefinedElement<O3rElement>(queryElement, options.timeout);
     }

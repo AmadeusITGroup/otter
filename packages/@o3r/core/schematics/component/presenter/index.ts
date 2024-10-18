@@ -46,7 +46,7 @@ export const PRESENTER_FOLDER = 'presenter';
 const getTemplateProperties = (options: NgGenerateComponentSchematicsSchema, componentStructureDef: ComponentStructureDef, prefix?: string) => {
   const inputComponentName = getInputComponentName(options.componentName);
   const folderName = getComponentFolderName(inputComponentName);
-  const structure: string = componentStructureDef !== ComponentStructureDef.Simple ? componentStructureDef : '';
+  const structure: string = componentStructureDef === ComponentStructureDef.Simple ? '' : componentStructureDef;
 
   return {
     ...options,
@@ -122,12 +122,14 @@ function ngGenerateComponentPresenterFn(options: NgGenerateComponentSchematicsSc
         skipSelector: false,
         standalone: options.standalone,
         ...(
-          options.standalone ? {
-            skipImport: true
-          } : {
-            module: `${properties.name}.module.ts`,
-            export: true
-          }
+          options.standalone
+            ? {
+              skipImport: true
+            }
+            : {
+              module: `${properties.name}.module.ts`,
+              export: true
+            }
         ),
         flat: true
       }),
@@ -209,7 +211,7 @@ function ngGenerateComponentPresenterFn(options: NgGenerateComponentSchematicsSc
 
   return chain([
     generateFiles,
-    !fullStructureRequested ? options.skipLinter ? noop() : applyEsLintFix() : noop()
+    fullStructureRequested ? noop() : (options.skipLinter ? noop() : applyEsLintFix())
   ]);
 }
 

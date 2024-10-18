@@ -100,7 +100,7 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<StyleExtractorB
     }, previousMetadata);
 
     // exit on failure
-    if (hasFailedFiles.length) {
+    if (hasFailedFiles.length > 0) {
       return {
         success: false,
         // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
@@ -110,7 +110,7 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<StyleExtractorB
     } else {
       context.reportProgress(STEP_NUMBER - 1, STEP_NUMBER, 'Read libraries Metadata');
       // extract library metadata if a library has been specified
-      if (options.libraries.length) {
+      if (options.libraries.length > 0) {
         cssMetadata = cssVariableExtractor.extract(options.libraries, cssMetadata);
       }
 
@@ -124,7 +124,7 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<StyleExtractorB
 
         try {
           await fs.promises.mkdir(path.dirname(path.resolve(context.workspaceRoot, options.outputFile)), { recursive: true });
-        } catch { }
+        } catch {}
         // Write metadata file
         await new Promise<void>((resolve, reject) =>
           fs.writeFile(
@@ -174,10 +174,7 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<StyleExtractorB
     return result;
   };
 
-  if (!options.watch) {
-    return execute(getAllFiles());
-
-  } else {
+  if (options.watch) {
     /** Cache */
     const cacheMetadata: CssMetadata = {
       variables: {}
@@ -199,24 +196,24 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<StyleExtractorB
 
     metadataWatcher
       .on('all', async (eventName, filePath) => {
-        if (!currentProcess) {
+        if (currentProcess) {
+          context.logger.debug(`Ignored action ${eventName} on ${filePath}`);
+        } else {
           context.logger.debug(`Refreshed for action ${eventName} on ${filePath}`);
           currentProcess = generateWithReport(null, cacheMetadata);
           await currentProcess;
           currentProcess = undefined;
-        } else {
-          context.logger.debug(`Ignored action ${eventName} on ${filePath}`);
         }
       });
     watcher
       .on('all', async (eventName, filePath) => {
-        if (!currentProcess) {
+        if (currentProcess) {
+          context.logger.debug(`Ignored action ${eventName} on ${filePath}`);
+        } else {
           context.logger.debug(`Refreshed for action ${eventName} on ${filePath}`);
           currentProcess = generateWithReport(filePath, cacheMetadata);
           await currentProcess;
           currentProcess = undefined;
-        } else {
-          context.logger.debug(`Ignored action ${eventName} on ${filePath}`);
         }
       });
 
@@ -230,5 +227,8 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<StyleExtractorB
       watcher
         .on('error', (err) => reject(err))
     );
+  } else {
+    return execute(getAllFiles());
+
   }
 }));

@@ -27,9 +27,9 @@ export type TimeoutStatus = 'timeoutStopped' | 'timeoutStarted';
  * @param message
  */
 function isImpervaCaptchaMessage(message: any): message is ImpervaCaptchaMessageData {
-  return !!message && Object.prototype.hasOwnProperty.call(message, 'impervaChallenge') &&
-    Object.prototype.hasOwnProperty.call(message.impervaChallenge, 'status') &&
-    Object.prototype.hasOwnProperty.call(message.impervaChallenge, 'type') && message.impervaChallenge.type === 'captcha';
+  return !!message && Object.prototype.hasOwnProperty.call(message, 'impervaChallenge')
+    && Object.prototype.hasOwnProperty.call(message.impervaChallenge, 'status')
+    && Object.prototype.hasOwnProperty.call(message.impervaChallenge, 'type') && message.impervaChallenge.type === 'captcha';
 }
 
 /**
@@ -51,9 +51,9 @@ export type TimeoutPauseEventHandlerFactory<T> = (config?: Partial<T>) => Timeou
  */
 export const impervaCaptchaEventHandlerFactory: TimeoutPauseEventHandlerFactory<{ whiteListedHostNames: string[] }> = (config) =>
   (timeoutPauseCallback: (timeoutStatus: TimeoutStatus) => void) => {
-    const onImpervaCaptcha = ((event: MessageEvent<any>) => {
+    const onImpervaCaptcha = (event: MessageEvent<any>) => {
       const originHostname = (new URL(event.origin)).hostname;
-      if (originHostname !== location.hostname && (config?.whiteListedHostNames || []).indexOf(originHostname) === -1) {
+      if (originHostname !== location.hostname && !(config?.whiteListedHostNames || []).includes(originHostname)) {
         return;
       }
       let message = event.data;
@@ -67,7 +67,7 @@ export const impervaCaptchaEventHandlerFactory: TimeoutPauseEventHandlerFactory<
       if (typeof message === 'object' && isImpervaCaptchaMessage(message)) {
         timeoutPauseCallback(message.impervaChallenge.status === 'started' ? 'timeoutStopped' : 'timeoutStarted');
       }
-    });
+    };
     addEventListener('message', onImpervaCaptcha);
     return () => {
       removeEventListener('message', onImpervaCaptcha);
@@ -89,7 +89,7 @@ export class TimeoutFetch implements FetchPlugin {
    * @param timeout Timeout in millisecond
    * @param timeoutPauseEvent Event that will trigger the pause and reset of the timeout
    */
-  constructor(timeout = 60000, private readonly timeoutPauseEvent?: TimeoutPauseEventHandler) {
+  constructor(timeout = 60_000, private readonly timeoutPauseEvent?: TimeoutPauseEventHandler) {
     this.timeout = timeout;
     if (this.timeoutPauseEvent) {
       this.timeoutPauseEvent((pausedStatus: TimeoutStatus) => {
@@ -133,7 +133,7 @@ export class TimeoutFetch implements FetchPlugin {
             if (timer) {
               clearTimeout(timer);
             }
-            this.timerSubscription = this.timerSubscription.filter(callback => timerCallback !== callback);
+            this.timerSubscription = this.timerSubscription.filter((callback) => timerCallback !== callback);
           }
         })
     };

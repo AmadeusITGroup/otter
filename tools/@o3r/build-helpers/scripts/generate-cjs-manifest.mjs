@@ -2,7 +2,6 @@
  * Generate a basic package.json file, in the specific folders, with explicity type defined to 'commonjs'
  */
 
-import { globby as glob } from 'globby';
 import minimist from 'minimist';
 import { existsSync, promises as fs } from 'node:fs';
 import * as path from 'node:path';

@@ -14,7 +14,7 @@ export class TreeShaker implements PostProcess {
    */
   private removeUnusedTags(spec: any) {
     const tags = getTags(spec);
-    spec.tags = spec.tags.filter((tag: { name: string }) => tags.some((t) => t === tag.name));
+    spec.tags = spec.tags.filter((tag: { name: string }) => tags.includes(tag.name));
   }
 
   /**
@@ -56,9 +56,9 @@ export class TreeShaker implements PostProcess {
 
       spec.definitions = Object.fromEntries(Object.entries(spec.definitions)
         .filter(([definitionName]) =>
-          references.some((ref) => ref.type === 'definitions' && ref.name === definitionName) ||
-          Object.keys(discriminatorRefs).some((discriminatorModel) =>
-            spec.definitions[discriminatorModel] && discriminatorRefs[discriminatorModel].indexOf(definitionName) >= 0)
+          references.some((ref) => ref.type === 'definitions' && ref.name === definitionName)
+          || Object.keys(discriminatorRefs).some((discriminatorModel) =>
+            spec.definitions[discriminatorModel] && discriminatorRefs[discriminatorModel].includes(definitionName))
         )
       );
     } while (nbEntities !== Object.keys(spec.definitions).length);

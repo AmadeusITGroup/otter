@@ -11,8 +11,8 @@ import type { CmsMetadataData, DocumentationNode } from '../interfaces';
  */
 export function checkComponentImplementsInterface(node: DocumentationNode, interfaceName: string) {
   return !!(
-    node.reflection && node.reflection.implementedTypes &&
-    node.reflection.implementedTypes.find((type) => (type as ReferenceType).name === interfaceName));
+    node.reflection && node.reflection.implementedTypes
+    && node.reflection.implementedTypes.find((type) => (type as ReferenceType).name === interfaceName));
 }
 
 /**
@@ -23,8 +23,8 @@ export function checkComponentImplementsInterface(node: DocumentationNode, inter
  */
 export function checkInterfaceExtendsInterface(node: DocumentationNode, interfaceName: string) {
   return !!(
-    node.reflection && node.reflection.extendedTypes &&
-    node.reflection.extendedTypes.find((type) => (type as ReferenceType).name === interfaceName));
+    node.reflection && node.reflection.extendedTypes
+    && node.reflection.extendedTypes.find((type) => (type as ReferenceType).name === interfaceName));
 }
 
 /**
@@ -60,7 +60,7 @@ export function getLibraryModulePath(libraryName: string, executionDir: string =
           executionDir
         ]
       });
-    } catch (e) {
+    } catch {
       return undefined;
     }
   };

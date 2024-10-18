@@ -138,10 +138,7 @@ export function writeScreenshotsDiff(pathToScenarioReport: string, screenshotsDi
  */
 export function compareScreenshot(screenshot: string, baseImagePath: string, threshold: number, pathToScenarioReport: string): VisualTestResult {
   const baseImageExists = fs.existsSync(baseImagePath);
-  if (!baseImageExists) {
-    return {baseScreenshotNotFound: {baseScreenshotPath: baseImagePath}};
-  }
-  else {
+  if (baseImageExists) {
     const baseImage = PNG.sync.read(fs.readFileSync(baseImagePath));
     const {width, height} = baseImage;
     const diff = new PNG({width, height});
@@ -153,7 +150,7 @@ export function compareScreenshot(screenshot: string, baseImagePath: string, thr
     try {
       result = pixelmatch(baseImage.data, currentImg.data, diff.data, width, height, {threshold: 0.1});
     } catch (err: any) {
-      if (err.toString().indexOf('Image sizes do not match.') === -1) {
+      if (!err.toString().includes('Image sizes do not match.')) {
         throw err;
       }
       writeScreenshotsDiff(pathToScenarioReport, diffDirName, diff, baseImage, currentImg);
@@ -164,6 +161,9 @@ export function compareScreenshot(screenshot: string, baseImagePath: string, thr
       writeScreenshotsDiff(pathToScenarioReport, diffDirName, diff, baseImage, currentImg);
     }
     return {diff: {actualDiff: pr, threshold, screenshotName: diffDirName}};
+  }
+  else {
+    return {baseScreenshotNotFound: {baseScreenshotPath: baseImagePath}};
   }
 }
 

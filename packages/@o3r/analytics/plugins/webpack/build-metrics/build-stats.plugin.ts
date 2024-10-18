@@ -21,7 +21,7 @@ export interface BuildStatsPluginOptions {
 const defaultOptions: BuildStatsPluginOptions = {
   threshold: 50,
   appName: 'Test',
-  reporters: [ console ],
+  reporters: [console],
   sessionId: randomUUID()
 };
 
@@ -116,6 +116,7 @@ export class BuildStatsPlugin implements WebpackPluginInstance {
       this.reportData(buildData);
     });
   }
+
   private interceptAllParserHooks(moduleFactory: any) {
     const moduleTypes = [
       'javascript/auto',
@@ -126,7 +127,7 @@ export class BuildStatsPlugin implements WebpackPluginInstance {
       'webassembly/sync'
     ];
 
-    moduleTypes.forEach(moduleType => {
+    moduleTypes.forEach((moduleType) => {
       moduleFactory.hooks.parser
         .for(moduleType)
         .tap(PLUGIN_NAME, (parser: Parser, _parserOpts: any) => {
@@ -134,9 +135,10 @@ export class BuildStatsPlugin implements WebpackPluginInstance {
         });
     });
   }
+
   private interceptAllHooksFor(instance: any, logLabel: any) {
     if (Reflect.has(instance, 'hooks')) {
-      Object.keys(instance.hooks).forEach(hookName => {
+      Object.keys(instance.hooks).forEach((hookName) => {
         const hook = instance.hooks[hookName];
         // eslint-disable-next-line no-underscore-dangle
         if (hook && !hook._fakeHook) {
@@ -160,7 +162,7 @@ export class BuildStatsPlugin implements WebpackPluginInstance {
 
   private filterTimingsForThreshold(): { [key: string]: number } {
     const filtered: { [key: string]: number } = {};
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+
     const limit = this.options.threshold ?? defaultOptions.threshold!;
     for (const key of Object.keys(this.pluginDurations)) {
       if (this.pluginDurations[key] > limit) {
@@ -169,6 +171,7 @@ export class BuildStatsPlugin implements WebpackPluginInstance {
     }
     return filtered;
   }
+
   private resetStats() {
     performance.clearMeasures();
     performance.clearMarks();
@@ -224,6 +227,7 @@ export class BuildStatsPlugin implements WebpackPluginInstance {
       }
     }
   }
+
   private readonly makeInterceptorFor = (_instance: string) => (hookName: string) => ({
     register: (tapInfo: any) => {
       const { name, type, fn } = tapInfo;

@@ -53,8 +53,9 @@ export class OpenApiCliGenerator extends CodeGenerator<OpenApiCliOptions> {
       'generate',
       generatorOptions.generatorCustomPath ? `--custom-generator=${generatorOptions.generatorCustomPath}` : '',
       ...generatorOptions.openapiNormalizer ? ['--openapi-normalizer', generatorOptions.openapiNormalizer] : [],
-      ...generatorOptions.generatorKey ? ['--generator-key', generatorOptions.generatorKey] :
-        [
+      ...generatorOptions.generatorKey
+        ? ['--generator-key', generatorOptions.generatorKey]
+        : [
           '-g', generatorOptions.generatorName,
           '-i', generatorOptions.specPath,
           ...generatorOptions.specConfigPath ? ['-c', generatorOptions.specConfigPath] : [],
@@ -79,9 +80,9 @@ export class OpenApiCliGenerator extends CodeGenerator<OpenApiCliOptions> {
 
   /** @inheritDoc */
   protected runCodeGeneratorFactory = (factoryOptions: { rootDirectory?: string } = {}) => {
-    const rootDirectory = factoryOptions.rootDirectory ?
-      (path.isAbsolute(factoryOptions.rootDirectory) ? factoryOptions.rootDirectory : path.resolve(process.cwd(), factoryOptions.rootDirectory)) :
-      process.cwd();
+    const rootDirectory = factoryOptions.rootDirectory
+      ? (path.isAbsolute(factoryOptions.rootDirectory) ? factoryOptions.rootDirectory : path.resolve(process.cwd(), factoryOptions.rootDirectory))
+      : process.cwd();
     return async (generatorOptions?: OpenApiCliOptions) => {
       if (!generatorOptions) {
         return Promise.reject('Missing options to run open api generator');

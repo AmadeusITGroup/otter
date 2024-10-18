@@ -15,7 +15,7 @@ function ngGenerateUpdateFn(options: NgGenerateUpdateSchematicsSchema): Rule {
     const destination = getDestinationPath('@o3r/core:schematics-update', options.path, tree, options.projectName);
 
     const sanitizedVersion = options.version.replace('.', '_');
-    const baseVersion = `${options.version}${options.version.indexOf('.') > -1 ? '' : '.0'}.0-alpha.0`;
+    const baseVersion = `${options.version}${options.version.includes('.') ? '' : '.0'}.0-alpha.0`;
     const updateFunction = `updateV${sanitizedVersion}`;
 
     const barrelPath = path.join(destination, 'schematics', 'ng-update', 'index.ts');

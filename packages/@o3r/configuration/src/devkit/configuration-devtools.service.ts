@@ -60,8 +60,9 @@ export class OtterConfigurationDevtools {
       return typeof selector === 'string' ? selector : computeConfigurationName(selector.componentName, selector.library || this.options.defaultLibraryName);
     }
 
-    return typeof selector === 'string' ? computeConfigurationName(selector, this.options.defaultLibraryName || 'global') :
-      computeConfigurationName(selector.componentName, this.options.defaultLibraryName || 'global');
+    return typeof selector === 'string'
+      ? computeConfigurationName(selector, this.options.defaultLibraryName || 'global')
+      : computeConfigurationName(selector.componentName, this.options.defaultLibraryName || 'global');
   }
 
   /**
@@ -109,7 +110,7 @@ export class OtterConfigurationDevtools {
         map((entities) => entities[this.getComponentConfigName(selector)] || entities[this.getComponentConfigName(selector, true)]),
         filter((entity): entity is ConfigurationModel => !!entity),
         map((entity) => {
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
           const { id, ...configuration } = entity;
           return configuration as Configuration;
         })

@@ -47,8 +47,7 @@ export class SwaggerSpecMerger {
   /** List of additional spec required to consolidate the spec merged */
   public additionalSpecs: { [path: string]: SwaggerSpec } = {};
 
-  constructor(public specs: SwaggerSpec[], public ignoredSwaggerPath: string[] = []) {
-  }
+  constructor(public specs: SwaggerSpec[], public ignoredSwaggerPath: string[] = []) {}
 
   /**
    * Reset the temporary field before generating the final Swagger Spec
@@ -72,7 +71,7 @@ export class SwaggerSpecMerger {
   private async editSpecWithReferences(swaggerSpec: Partial<Spec>, swaggerPath: string, innerPath: string) {
     const originalSpec = this.specs.find((spec) => spec.sourcePath === swaggerPath);
     const [resourceType, resourcePath] = innerPath.replace(/^\//, '').split('/') as [keyof OverrideItems, any];
-    const isOverride = originalSpec && this.overrideItems[resourceType] && this.overrideItems[resourceType].indexOf(resourcePath) > -1;
+    const isOverride = originalSpec && this.overrideItems[resourceType] && this.overrideItems[resourceType].includes(resourcePath);
     let newPath = innerPath;
 
     const additionalSpec = isOverride ? originalSpec : this.additionalSpecs[swaggerPath];
@@ -199,7 +198,7 @@ export class SwaggerSpecMerger {
       if (isOuterRefPath(currentNode)) {
         // eslint-disable-next-line prefer-const
         let [swaggerPath, innerPath] = currentNode.split('#');
-        if (this.ignoredSwaggerPath.indexOf(swaggerPath) === -1) {
+        if (!this.ignoredSwaggerPath.includes(swaggerPath)) {
           if (!this.additionalSpecs[swaggerPath] && !this.specs.some((s) => s.sourcePath === swaggerPath)) {
             this.additionalSpecs[swaggerPath] = await getTargetInformation(isUrlRefPath(swaggerPath) ? swaggerPath : path.relative(process.cwd(), swaggerPath));
           }
@@ -264,7 +263,7 @@ export class SwaggerSpecMerger {
     const envelops = await Promise.all(this.specs.map((s) => s.getEnvelop()));
     return envelops
       .reduce<Record<string, unknown>>((acc, e) => {
-        const info = {...(acc.info as Record<string, unknown> || {}), ...(e.info || {})};
+        const info = {...acc.info as (Record<string, unknown> | undefined), ...e.info};
         acc = {
           ...acc,
           ...e,
@@ -303,7 +302,7 @@ export class SwaggerSpecMerger {
       .reduce<{ [k: string]: any }>((acc, e) => {
         const props = Object.keys(acc);
         this.overrideItems.parameters.push(
-          ...Object.keys(e).filter((param) => props.indexOf(param) >= 0)
+          ...Object.keys(e).filter((param) => props.includes(param))
         );
         Object.assign(acc, e);
         return acc;
@@ -322,8 +321,8 @@ export class SwaggerSpecMerger {
         const props = Object.keys(acc);
         const conflicts = Object.keys(e)
           .filter((url) =>
-            props.indexOf(url) >= 0 &&
-            Object.keys(acc[url]).some((method) => Object.keys(e[url]).some((m) => m === method))
+            props.includes(url)
+            && Object.keys(acc[url]).some((method) => Object.keys(e[url]).includes(method))
           );
         const conflictMethods = conflicts.reduce<{ [url: string]: string[] }>((accConflict, url) => {
           accConflict[url] = Object.keys(acc[url]).filter((method) => !!e[url][method as keyof Path]);
@@ -336,14 +335,14 @@ export class SwaggerSpecMerger {
           }, [])
         );
         if (conflicts.length > 0) {
-          if (!ignoreConflict) {
-            throw new Error(`The path${conflicts.length > 1 ? 's' : ''} ${Object.keys(conflictMethods)
-              .map((url) => `${url} (${conflictMethods[url].join(', ')})`)
-              .join(', ')} ${conflicts.length > 1 ? 'are' : 'is'} conflicting`);
-          } else {
+          if (ignoreConflict) {
             Object.keys(conflictMethods)
               // eslint-disable-next-line no-console
               .forEach((url) => console.log(`The Path "${url}" will override the default method${conflictMethods[url].length > 1 ? 's' : ''} ${conflictMethods[url].join(', ')}`));
+          } else {
+            throw new Error(`The path${conflicts.length > 1 ? 's' : ''} ${Object.keys(conflictMethods)
+              .map((url) => `${url} (${conflictMethods[url].join(', ')})`)
+              .join(', ')} ${conflicts.length > 1 ? 'are' : 'is'} conflicting`);
           }
         }
 
@@ -367,7 +366,7 @@ export class SwaggerSpecMerger {
       .reduce<{ [k: string]: any }>((acc, e) => {
         const props = Object.keys(acc);
         this.overrideItems.definitions.push(
-          ...Object.keys(e).filter((param) => props.indexOf(param) >= 0)
+          ...Object.keys(e).filter((param) => props.includes(param))
         );
         Object.assign(acc, e);
         return acc;
@@ -384,7 +383,7 @@ export class SwaggerSpecMerger {
       .reduce<{ [k: string]: any }>((acc, e) => {
         const props = Object.keys(acc);
         this.overrideItems.responses.push(
-          ...Object.keys(e).filter((param) => props.indexOf(param) >= 0)
+          ...Object.keys(e).filter((param) => props.includes(param))
         );
         Object.assign(acc, e);
         return acc;
@@ -401,12 +400,12 @@ export class SwaggerSpecMerger {
       return swaggerSpec;
     }
 
-    if (!swaggerSpec.info) {
+    if (swaggerSpec.info) {
+      swaggerSpec.info.version = version;
+    } else {
       swaggerSpec.info = {
         version
       };
-    } else {
-      swaggerSpec.info.version = version;
     }
     return swaggerSpec;
   }
@@ -437,7 +436,7 @@ export class SwaggerSpecMerger {
       basicSwaggerSpec = this.setVersion(basicSwaggerSpec, options.setVersion);
     }
 
-    if (basicSwaggerSpec.responses && Object.keys(basicSwaggerSpec.responses).length < 1) {
+    if (basicSwaggerSpec.responses && Object.keys(basicSwaggerSpec.responses).length === 0) {
       delete basicSwaggerSpec.responses;
     }
 

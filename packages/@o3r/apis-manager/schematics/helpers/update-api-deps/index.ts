@@ -88,12 +88,11 @@ export function apiManagerFactory(): ApiManager {
 
   const updateTsConfig: Rule = (tree: Tree, context: SchematicContext) => {
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
-    const tsconfig: string | undefined =
-      workspaceProject &&
-      workspaceProject.architect &&
-      workspaceProject.architect.build &&
-      workspaceProject.architect.build.options &&
-      workspaceProject.architect.build.options.tsConfig;
+    const tsconfig: string | undefined = workspaceProject
+      && workspaceProject.architect
+      && workspaceProject.architect.build
+      && workspaceProject.architect.build.options
+      && workspaceProject.architect.build.options.tsConfig;
 
     if (!tsconfig) {
       context.logger.warn('No tsconfig found in build target');
@@ -110,10 +109,8 @@ export function apiManagerFactory(): ApiManager {
       tsconfigObj.compilerOptions.lib = [];
     }
 
-    tsconfigObj.compilerOptions.lib.push('scripthost');
-    tsconfigObj.compilerOptions.lib.push('es2020');
-    tsconfigObj.compilerOptions.lib.push('dom');
-    tsconfigObj.compilerOptions.lib = tsconfigObj.compilerOptions.lib.reduce((acc: string[], lib: string) => acc.indexOf(lib) >= 0 ? acc : [...acc, lib], []);
+    tsconfigObj.compilerOptions.lib.push('scripthost', 'es2020', 'dom');
+    tsconfigObj.compilerOptions.lib = tsconfigObj.compilerOptions.lib.reduce((acc: string[], lib: string) => acc.includes(lib) ? acc : [...acc, lib], []);
 
     tree.overwrite(tsconfig, JSON.stringify(tsconfigObj, null, 2));
     return tree;

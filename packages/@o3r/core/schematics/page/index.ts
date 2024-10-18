@@ -116,12 +116,14 @@ function ngGeneratePageFn(options: NgGeneratePageSchematicsSchema): Rule {
         skipSelector: false,
         standalone: options.standalone,
         ...(
-          options.standalone ? {
-            skipImport: true
-          } : {
-            module: `${dasherizedPageName}.module.ts`,
-            export: true
-          }
+          options.standalone
+            ? {
+              skipImport: true
+            }
+            : {
+              module: `${dasherizedPageName}.module.ts`,
+              export: true
+            }
         ),
         flat: true
       }),

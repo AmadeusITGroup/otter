@@ -17,8 +17,8 @@ import { formatHelpMessage } from '../helpers';
  * @param baseCommand Argument of the cli
  */
 export const generateUsageMessage = (moduleName: string, command?: string, longDescription?: string, cmdParameters = '[options]', baseCommand = '$0') => {
-  return `${chalk.grey('Usage:')} ${baseCommand} ${chalk.cyan(moduleName)}${command ? ' ' + command : ''} ${chalk.grey(cmdParameters)}` +
-    (longDescription ? `${EOL}${EOL}${chalk.grey('Description:')}${EOL}${longDescription}` : '');
+  return `${chalk.grey('Usage:')} ${baseCommand} ${chalk.cyan(moduleName)}${command ? ' ' + command : ''} ${chalk.grey(cmdParameters)}`
+    + (longDescription ? `${EOL}${EOL}${chalk.grey('Description:')}${EOL}${longDescription}` : '');
 };
 
 /**

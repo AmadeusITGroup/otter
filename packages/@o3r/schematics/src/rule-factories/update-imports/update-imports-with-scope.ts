@@ -20,7 +20,7 @@ export function updateSassImports(alias: string, dependencyName = '@o3r/styling'
       if (content.match(imports)) {
         const contentWithoutImports = content.replace(imports, '');
         content = `@use '${dependencyName}' as ${alias};\n${contentWithoutImports}`;
-        exposedElements.forEach(elem => {
+        exposedElements.forEach((elem) => {
           const elemRegex = new RegExp(`(?<![\\w\\d-]|o3r\\.)${elem.type === 'var' ? '\\' : ''}${elem.value}((?![\\w\\d-])(?!(\\s*\\:)))`, 'g');
           content = content.replace(elemRegex, `${alias}.${(elem.replacement || elem.value)}`);
         });

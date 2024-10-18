@@ -62,7 +62,7 @@ export function ngGenerateModule(options: NgGenerateModuleSchema & { targetPath:
   const updateTsConfigFiles: Rule = (tree, context) => {
     const tsconfigBase = findConfigFileRelativePath(tree, ['tsconfig.base.json', 'tsconfig.json'], '/');
     const tsconfigBuild = findConfigFileRelativePath(tree, ['tsconfig.build.json'], '/');
-    [tsconfigBase, tsconfigBuild].forEach(tsconfigPath => {
+    [tsconfigBase, tsconfigBuild].forEach((tsconfigPath) => {
       if (tsconfigPath) {
         const configFile = tree.readJson(tsconfigPath) as TsConfigJson;
         if (configFile?.compilerOptions?.paths) {

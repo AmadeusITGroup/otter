@@ -42,7 +42,6 @@ export function updateOtterGeneratorsNames(): Rule {
 
   /**
    * Change otter generators names into angular.json
-   *
    * @param tree
    * @param context
    */
@@ -59,10 +58,10 @@ export function updateOtterGeneratorsNames(): Rule {
       updateGeneratorsPackage(workspace.schematics);
       delete workspace.schematics['@otter/ng-tools:api-service'];
     }
-    projectsInAngularJson.forEach(projectName => {
+    projectsInAngularJson.forEach((projectName) => {
       if (workspace.projects[projectName].schematics) {
-        updateGeneratorsPackage(workspace.projects[projectName].schematics!);
-        delete workspace.projects[projectName].schematics!['@otter/ng-tools:api-service'];
+        updateGeneratorsPackage(workspace.projects[projectName].schematics);
+        delete workspace.projects[projectName].schematics['@otter/ng-tools:api-service'];
       }
     });
 

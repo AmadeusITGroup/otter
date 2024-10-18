@@ -7,7 +7,7 @@
 
 import minimist from 'minimist';
 import { copyFileSync, existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { dirname, join, resolve, delimiter, normalize } from 'node:path';
+import { delimiter, dirname, join, normalize, resolve } from 'node:path';
 
 const argv = minimist(process.argv.slice(2));
 const root = argv.root ? resolve(process.cwd(), argv.root) : process.cwd();
@@ -16,7 +16,6 @@ const appendPath = argv.append && normalize(argv.append);
 
 /**
  * Find Private package.json
- *
  * @param {string} currentFolder
  */
 const findPrivatePackage = (currentFolder) => {
@@ -41,7 +40,6 @@ const findPrivatePackage = (currentFolder) => {
 
 /**
  * Find closest readme files
- *
  * @param {string} currentFolder
  */
 const findReadme = (currentFolder) => {
@@ -61,7 +59,6 @@ const findReadme = (currentFolder) => {
 
 /**
  * Update package.json, copy .npmignore, README.md and LICENSE into dist folder
- *
  * @param {string} rootPath
  * @param {string} distPath
  * @param {string} packageJsonPath
@@ -90,14 +87,14 @@ function preparePublish(rootPath, distPath, packageJsonPath) {
 
   const readmeDistPath = resolve(distPath, 'README.md');
   const readmeBasePath = findReadme(distPath);
-  if (!readmeBasePath) {
-    console.warn(`No README.md file found for ${distPath}`);
-  } else {
+  if (readmeBasePath) {
     copyFileSync(readmeBasePath, readmeDistPath);
+  } else {
+    console.warn(`No README.md file found for ${distPath}`);
   }
 }
 
-const distPaths = argv._.length
+const distPaths = argv._.length > 0
   ? argv._
     .flatMap((files) => files.split(delimiter))
     .map((p) => appendPath ? join(p, appendPath) : p)

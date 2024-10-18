@@ -70,7 +70,7 @@ export abstract class SwaggerSpecFile implements SwaggerSpec {
   public async getEnvelop(): Promise<{ [k: string]: any }> {
     await this.parse();
     return Object.keys(this.spec!)
-      .filter((k) => ['tags', 'parameters', 'paths', 'definitions'].indexOf(k.toLowerCase()) < 0)
+      .filter((k) => !['tags', 'parameters', 'paths', 'definitions'].includes(k.toLowerCase()))
       .reduce<{ [k: string]: any }>((acc, k) => {
         acc[k] = this.spec![k as keyof Spec];
         return acc;

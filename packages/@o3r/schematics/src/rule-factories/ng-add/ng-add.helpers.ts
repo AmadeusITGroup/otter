@@ -15,7 +15,7 @@ import { getPackageManager } from '../../utility/index';
  * @param packageJsonPath path of the package json of the project where they will be installed
  */
 export function ngAddPackages(packages: string[], options?: Omit<NgAddPackageOptions, 'version'> & { version?: string | (string | undefined)[] }, packageJsonPath = '/package.json'): Rule {
-  if (!packages.length) {
+  if (packages.length === 0) {
     return noop;
   }
   const cwd = process.cwd().replace(/[\\/]+/g, '/');
@@ -45,7 +45,7 @@ export function ngAddPackages(packages: string[], options?: Omit<NgAddPackageOpt
           return;
         }
         versionFound = version;
-      } catch (e) {
+      } catch {
         return;
       }
     }
@@ -75,16 +75,16 @@ export function ngAddPackages(packages: string[], options?: Omit<NgAddPackageOpt
   const installedVersions = packages.map((packageName) => getInstalledVersion(packageName));
   const packageManager = getPackageManager();
   const packagesToInstall = packages.filter((packageName, index) => !installedVersions[index] || installedVersions[index] !== versions[packageName]);
-  if (packagesToInstall.length < 1) {
+  if (packagesToInstall.length === 0) {
     return noop;
   }
   return chain([
     // Update package.json in tree
     (tree) => {
       const sortDependencies = (packageJson: PackageJson, depType: 'dependencies' | 'devDependencies' | 'peerDependencies') => {
-        packageJson[depType] = packageJson[depType] ?
-          Object.fromEntries(Object.entries(packageJson[depType] || {}).sort(([key1, _val1], [key2, _val2]) => key1.localeCompare(key2))) :
-          undefined;
+        packageJson[depType] = packageJson[depType]
+          ? Object.fromEntries(Object.entries(packageJson[depType] || {}).sort(([key1, _val1], [key2, _val2]) => key1.localeCompare(key2)))
+          : undefined;
       };
       for (const filePath of new Set([packageJsonPath, './package.json'])) {
         const packageJson: PackageJson = tree.readJson(filePath) as PackageJson;

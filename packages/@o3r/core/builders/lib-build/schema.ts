@@ -7,8 +7,7 @@ export interface LibraryBuilderSchema extends JsonObject {
 
   /**
    * Skip the workaround for the Jasmine fixture issue
-   *
    * @default false
-   **/
+   */
   skipJasmineFixtureWorkaround: boolean;
 }

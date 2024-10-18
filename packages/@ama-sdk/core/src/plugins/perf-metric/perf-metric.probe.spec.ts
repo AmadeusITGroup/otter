@@ -15,7 +15,7 @@ describe('PerformanceMetricPlugin', () => {
 
   it('should include a new mark when closing', () => {
     const markId = perfPlugin.openMark('my-url', {});
-    const ret = new Promise<void>((resolve) =>{
+    const ret = new Promise<void>((resolve) => {
       perfPlugin.onMarkComplete = (mark) => {
         expect(mark).toBeDefined();
         expect(mark.markId).toBe(markId);

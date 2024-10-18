@@ -14,10 +14,10 @@ export function updateGitIgnore(workspaceConfig?: WorkspaceSchema | null): Rule 
       const foldersToExclude = ['node_modules', 'dist'];
       const foldersToExcludeRegExp = new RegExp(`(\r\n|\n)/(${foldersToExclude.join('|')})(\r\n|\n)`, 'gm');
       gitignore = gitignore.replaceAll(foldersToExcludeRegExp, '$1$2$3');
-      foldersToExclude.forEach(folderToExclude => {
+      foldersToExclude.forEach((folderToExclude) => {
         if (!gitignore.includes(folderToExclude)) {
-          gitignore +=
-            `
+          gitignore
+            += `
 ${folderToExclude}
         `;
         }

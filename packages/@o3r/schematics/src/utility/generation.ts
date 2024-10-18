@@ -26,7 +26,7 @@ export const OTTER_ITEM_TYPES: GeneratedItemType[] = [
 ];
 
 /** List of the default destination paths for each generated entity */
-export const TYPES_DEFAULT_FOLDER: { [key in GeneratedItemType] : {app?: string; lib?: string} } = {
+export const TYPES_DEFAULT_FOLDER: { [key in GeneratedItemType]: {app?: string; lib?: string} } = {
   // eslint-disable-next-line @typescript-eslint/naming-convention
   '@o3r/core:component': {app: 'src/components', lib: 'src/components'},
   // eslint-disable-next-line @typescript-eslint/naming-convention

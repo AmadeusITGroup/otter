@@ -21,13 +21,13 @@ async function run(): Promise<void> {
       .filter((release) => !release.draft && !release.prerelease)
       .map((release) => release.tag_name.replace(/^v/i, ''))
       .map((tagWithoutV) => clean(tagWithoutV))
-      .filter((cleanedTag) : cleanedTag is string => cleanedTag !== null)
+      .filter((cleanedTag): cleanedTag is string => cleanedTag !== null)
       .sort(compare)
       .pop();
     const isLatest = latestVersion ? compare(latestVersion, version) <= 0 : true;
 
     const preRelease = prerelease(version);
-    if (!preRelease || !preRelease.length) {
+    if (!preRelease || preRelease.length === 0) {
       if (isPreRelease) {
         core.setFailed(`No pre-release found for version ${version}`);
       } else {
@@ -40,7 +40,7 @@ async function run(): Promise<void> {
     core.info(`Tag "${preRelease[0]}" will be used for version "${version}"`);
     core.setOutput('tag', preRelease[0]);
   } catch (err) {
-    const errorMessage = err instanceof Error ? err.message : typeof err === 'string' ? err : 'Caught an error during NPM tag calculation';
+    const errorMessage = err instanceof Error ? err.message : (typeof err === 'string' ? err : 'Caught an error during NPM tag calculation');
     core.setFailed(errorMessage);
   }
 }

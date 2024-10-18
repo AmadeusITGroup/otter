@@ -6,6 +6,7 @@ import { readFileSync } from 'node:fs';
 import { lastValueFrom } from 'rxjs';
 import type { JsonObject, PackageJson } from 'type-fest';
 import { DevInstall } from '../helpers/node-install';
+import type { NgAddSchematicsSchema } from './schema';
 
 const packageJsonPath = '/package.json';
 const swaggerIgnorePath = '/.swagger-codegen-ignore';
@@ -35,7 +36,7 @@ export const updatePackageJsonScripts: Rule = (tree, context) => {
         acc[scriptName] = cmd
           .replace(
             // Remove swagger config path if it is the default value
-            // eslint-disable-next-line max-len
+
             / --(swagger-config-path|swaggerConfigPath)[= ]?(\.\/)?node_modules\/@ama-sdk\/generator-sdk\/src\/generators\/java-client-core\/templates\/swagger-codegen-java-client\/config\/swagger-codegen-config.json/,
             ''
           )
@@ -79,7 +80,7 @@ const createOpenApiToolsConfig: Rule = (tree) => {
   const openApiGeneratorVersion = amaSdkSchematicsPackageJsonContent.openApiSupportedVersion.replace(/\^|~/, '');
   const openApiDefaultStorageDir = '.openapi-generator';
   if (tree.exists(openApiConfigPath)) {
-    // eslint-disable-next-line @typescript-eslint/naming-convention
+
     const openapitoolsConfig = tree.readJson(openApiConfigPath) as JsonObject & OpenApiToolsConfiguration;
     openapitoolsConfig['generator-cli'] = {storageDir: openApiDefaultStorageDir, ...openapitoolsConfig['generator-cli'], version: openApiGeneratorVersion};
     tree.overwrite(openApiConfigPath, JSON.stringify(openapitoolsConfig));
@@ -176,8 +177,9 @@ function ngAddFn(): Rule {
 
 /**
  * Add Otter ama-sdk-schematics to a Project
+ * @param opts
  */
-export const ngAdd = (): Rule => async () => {
+export const ngAdd = (opts: NgAddSchematicsSchema): Rule => async () => {
   const { createSchematicWithMetricsIfInstalled } = await import('@o3r/schematics');
-  return createSchematicWithMetricsIfInstalled(ngAddFn)(undefined);
+  return createSchematicWithMetricsIfInstalled(ngAddFn)(opts);
 };

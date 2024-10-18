@@ -187,11 +187,7 @@ export class PiiTokenizerRequest implements RequestPlugin {
     this.tokensHeader = options.headerName || 'ama-client-facts';
     this.challengeHeader = options.challengeHeaderName || 'ama-client-facts-challenge';
     this.silent = options.silent || false;
-    if (options.key) {
-      this.tokenEncoder = createJwePiiEncoder(options.applicationId, options.expirationDelay, options.key, options.publicProperties || ['iss', 'sub'], options.useHeaderAsAdditionalAuthenticatedData);
-    } else {
-      this.tokenEncoder = createJwtPiiEncoder(options.applicationId, options.expirationDelay);
-    }
+    this.tokenEncoder = options.key ? createJwePiiEncoder(options.applicationId, options.expirationDelay, options.key, options.publicProperties || ['iss', 'sub'], options.useHeaderAsAdditionalAuthenticatedData) : createJwtPiiEncoder(options.applicationId, options.expirationDelay);
   }
 
   /**
@@ -204,7 +200,7 @@ export class PiiTokenizerRequest implements RequestPlugin {
       return await this.tokenEncoder(requestOptions.tokenizedOptions!.values);
     } catch (e) {
       if (this.silent) {
-        (logger || console).error('Couldn\'t encode the token');
+        (logger || console).error('Couldn\'t encode the token', e);
       } else {
         throw new Error('Couldn\'t encode the token');
       }

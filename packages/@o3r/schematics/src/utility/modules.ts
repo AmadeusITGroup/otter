@@ -65,7 +65,7 @@ export function getAppModuleFilePath(tree: Tree, context: SchematicContext, proj
 
   const symbols = getExportedSymbolsFromFile(prog, normalizedFilePath);
 
-  const bootstrapModuleSymbol = symbols.find(s => s.name === bootstrapModule);
+  const bootstrapModuleSymbol = symbols.find((s) => s.name === bootstrapModule);
   const checker = prog.getTypeChecker();
 
   if (bootstrapModuleSymbol) {
@@ -110,8 +110,8 @@ export function isApplicationThatUsesRouterModule(tree: Tree, options: { project
   const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
   const cwd = process.cwd().replace(/[\\/]+/g, '/');
   const root = (workspaceProject?.root && cwd.endsWith(workspaceProject.root)) ? workspaceProject.root.replace(/[^\\/]+/g, '..') : '.';
-  return workspaceProject?.sourceRoot &&
-    globbySync(path.posix.join(root, workspaceProject.sourceRoot, '**', '*.ts')).some((filePath) => {
+  return workspaceProject?.sourceRoot
+    && globbySync(path.posix.join(root, workspaceProject.sourceRoot, '**', '*.ts')).some((filePath) => {
       const fileContent = fs.readFileSync(filePath).toString();
       if (!/RouterModule/.test(fileContent)) {
         return false;
@@ -213,7 +213,7 @@ export function addProviderToModuleFile(name: string, file: string, sourceFile: 
  * @param moduleIndex
  */
 export function insertBeforeModule(line: string, file: string, recorder: UpdateRecorder, moduleIndex: number) {
-  if (file.indexOf(line.replace(/[\r\n ]*/g, '')) === -1) {
+  if (!file.includes(line.replace(/[\r\n ]*/g, ''))) {
     return recorder.insertLeft(moduleIndex - 1, `${line}\n\n`);
   }
   return recorder;

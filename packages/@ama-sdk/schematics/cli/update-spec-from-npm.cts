@@ -46,15 +46,15 @@ void (async () => {
   let specSourcePath;
   const appRequire = createRequire(posix.join(process.cwd(), 'package.json'));
   const packageJsonPath = appRequire.resolve(`${packageName}/package.json`);
-  if (!packagePath) {
+  if (packagePath) {
+    specSourcePath = packageJsonPath.replace(/package.json$/, packagePath);
+  } else {
     const packageJson = JSON.parse(await readFile(packageJsonPath, {encoding: 'utf8'})) as PackageJson;
     const exportMatcher = new RegExp(`^\\./${DEFAULT_SPEC_EXPORT_PATH_IN_NPM_MODULE}\\.(?:${supportedExtensions.join('|')})$`);
     const matchingExport = packageJson.exports && Object.keys(packageJson.exports).find((exportPath) => exportMatcher.test(exportPath));
     if (matchingExport) {
       specSourcePath = appRequire.resolve(posix.join(packageName, matchingExport));
     }
-  } else {
-    specSourcePath = packageJsonPath.replace(/package.json$/, packagePath);
   }
   if (!specSourcePath || !existsSync(specSourcePath)) {
     logger.error(`Unable to find source spec from ${packageName}, please make sure it is correctly exported in package.json`);

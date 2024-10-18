@@ -10,9 +10,7 @@ export class ReviverReply<V = {[key: string]: any}> implements ReplyPlugin<undef
    * Instance a plugin to revive a reply from the SDK
    * @param options Reviver options
    */
-  constructor(public readonly options?: ReviverOptions) {
-
-  }
+  constructor(public readonly options?: ReviverOptions) {}
 
   public load<K>(context: ReplyPluginContext<K>): PluginRunner<K | undefined, V> {
     const options: ReviverOptions = {

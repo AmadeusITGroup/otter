@@ -10,5 +10,4 @@ import { AssetRulesEngineActionHandler } from './asset.handler-action';
     AssetRulesEngineActionHandler
   ]
 })
-export class AssetRulesEngineActionModule {
-}
+export class AssetRulesEngineActionModule {}

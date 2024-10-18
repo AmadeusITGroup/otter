@@ -82,11 +82,11 @@ export class AbTestBridge<T> implements AbTestBridgeInterface<T> {
       ...defaultOptions,
       ...options
     };
-    if (!(window as any)[this.options.bridgeName]) {
-      // eslint-disable-next-line @typescript-eslint/dot-notation, dot-notation
-      (window as any)[this.options.bridgeName] = {start: this.start.bind(this), stop: this.stop.bind(this)};
-    } else {
+    if ((window as any)[this.options.bridgeName]) {
       this.log(`An instance of ${this.options.bridgeName} already exists. This AbTestBridge instance will be ignored`);
+    } else {
+
+      (window as any)[this.options.bridgeName] = {start: this.start.bind(this), stop: this.stop.bind(this)};
     }
     document.dispatchEvent(new CustomEvent(this.options.readyEventName));
   }
@@ -120,7 +120,7 @@ export class AbTestBridge<T> implements AbTestBridgeInterface<T> {
     const currentExperiments = this.experimentSubject$.getValue();
     if (experiments) {
       // Stop the mentioned experiment
-      this.experimentSubject$.next(currentExperiments.filter((expB: T) => !(Array.isArray(experiments) ? experiments : [experiments]).some(expA => this.isExperimentEqual(expB, expA)))
+      this.experimentSubject$.next(currentExperiments.filter((expB: T) => !(Array.isArray(experiments) ? experiments : [experiments]).some((expA) => this.isExperimentEqual(expB, expA)))
       );
     } else {
       // Stop all the experiment

@@ -19,7 +19,6 @@ const FS_DEBOUNCE_TIME = 200;
 
 /**
  * Get the list of translation files provided in the current package
- *
  * @param languages List of languages
  * @param assets Folder containing the package override translations bundles
  * @param context Ng Builder context
@@ -46,7 +45,6 @@ function getAppTranslationFiles(languages: string[], assets: string | string[], 
 
 /**
  * Check if a translation has been overridden at application level but not defined in the metadata
- *
  * @param language Language
  * @param defaultBundle Default translation bundle
  * @param customTranslations Override of translations provided by assets
@@ -73,7 +71,7 @@ function checkUnusedTranslation(
 
   missingMetadata.forEach((key) => context.logger[failIfMissingMetadata ? 'error' : 'warn'](`The key "${key}" from "${language}" is not part of the MetaData`));
 
-  if (missingMetadata.length && failIfMissingMetadata) {
+  if (missingMetadata.length > 0 && failIfMissingMetadata) {
     throw new O3rCliError(`There is missing metadata for ${language}`);
   }
 }
@@ -81,7 +79,6 @@ function checkUnusedTranslation(
 /**
  * Clean localization json file.
  * Note: it is used to remove $schema potentially added by the customization
- *
  * @param translationBundle Translation bundle
  */
 function sanitizeLocalization(translationBundle: {[k: string]: string}) {
@@ -91,7 +88,6 @@ function sanitizeLocalization(translationBundle: {[k: string]: string}) {
 
 /**
  * Load all the translation files in the given array and created a single Object that associated to each key its localized value.
- *
  * @param files
  */
 export function loadTranslations(files: string[]): {[k: string]: string} {
@@ -101,7 +97,6 @@ export function loadTranslations(files: string[]): {[k: string]: string} {
 
 /**
  * Computes the translation bundle for a given language, by resolving overrides specified in defaultLanguageMapping
- *
  * @param language
  * @param filesPerLanguage
  * @param defaultLanguageMapping
@@ -147,7 +142,6 @@ export function getTranslationsForLanguage(
 
 /**
  * Get the translation bundle for each languages
- *
  * @param languages List of languages
  * @param defaultBundle Default translation bundle
  * @param fileMapping Mapping of translations per languages
@@ -185,10 +179,12 @@ function getBundlesPerLanguages(
       checkUnusedTranslation(language, defaultBundle, translations, context, metadata, failIfMissingMetadata);
     }
 
-    const bundle = useMetadataAsDefault ? {
-      ...defaultBundle,
-      ...translations
-    } : translations;
+    const bundle = useMetadataAsDefault
+      ? {
+        ...defaultBundle,
+        ...translations
+      }
+      : translations;
     bundles[language] = bundle;
 
     Object.keys(mapReferencesDictionary)
@@ -215,7 +211,6 @@ function getBundlesPerLanguages(
 
 /**
  * Extract localization referred in metadata
- *
  * @param metaData Localization metadata
  * @param key Translation key
  */
@@ -230,7 +225,6 @@ function getExtractReferredTranslationValue(metaData: JSONLocalization[], key: s
 
 /**
  * Extract localization key referred in metadata
- *
  * @param metaData Localization metadata
  * @param key Translation key
  */
@@ -241,10 +235,9 @@ function getExtractReferredTranslationKey(metaData: JSONLocalization[], key: str
 
 /**
  * Extract some data from the provided localization metadata:
- *  - The bundle containing default translations
- *  - The map that associates to every key containing a reference, the key it resolves to
- *  - The map that associated to every key being a dictionary reference, the key it resolves to
- *
+ * - The bundle containing default translations
+ * - The map that associates to every key containing a reference, the key it resolves to
+ * - The map that associated to every key being a dictionary reference, the key it resolves to
  * @param metadata
  */
 function processMetadata(metadata: JSONLocalization[]) {
@@ -273,7 +266,6 @@ function processMetadata(metadata: JSONLocalization[]) {
 
 /**
  * Start the metadata generator in watch mode
- *
  * @param localizationExtractorTarget Target of the localization extractor builder
  * @param context Builder context
  */
@@ -292,7 +284,6 @@ function startMetadataGenerator(localizationExtractorTarget: Target, context: Bu
 
 /**
  *  Regenerate the metadata if missing
- *
  * @param localizationMetaDataFile Path to the localization metadata file
  * @param localizationExtractorTarget Localization Extractor target configured in the angular.json
  * @param context Ng Builder context
@@ -304,9 +295,7 @@ async function checkMetadata(localizationMetaDataFile: string, localizationExtra
     context.reportProgress(2, STEP_NUMBER, 'Generating Localization metadata file');
     const extractorBuild = await context.scheduleTarget(localizationExtractorTarget, {watch: false});
     const extractorBuildResult = await extractorBuild.result;
-    if (!extractorBuildResult.success) {
-      return extractorBuildResult;
-    } else {
+    if (extractorBuildResult.success) {
       metaDataExists = fs.existsSync(localizationMetaDataFile);
       if (!metaDataExists) {
         return {
@@ -314,6 +303,8 @@ async function checkMetadata(localizationMetaDataFile: string, localizationExtra
           error: `The file ${localizationMetaDataFile} has not been generated`
         };
       }
+    } else {
+      return extractorBuildResult;
     }
   }
 }
@@ -347,11 +338,11 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<LocalizationBui
       success: false,
       error: `The targetBrowser ${options.browserTarget} does not provide 'outputPath' option`
     };
-  } else if (typeof browserTargetOptions.outputPath !== 'string') {
+  } else if (typeof browserTargetOptions.outputPath === 'string') {
+    browserTargetOptionsOutputPath = browserTargetOptions.outputPath;
+  } else {
     browserTargetOptionsOutputPath = path.join(browserTargetOptions.outputPath.base,
       typeof browserTargetOptions.outputPath.browser === 'string' ? browserTargetOptions.outputPath.browser : '');
-  } else {
-    browserTargetOptionsOutputPath = browserTargetOptions.outputPath;
   }
   if (typeof localizationExtracterTargetOptions.outputFile !== 'string') {
     return {
@@ -367,7 +358,6 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<LocalizationBui
 
   /**
    * Generate translation bundles
-   *
    * @param languageToRegenerate language to focus on
    */
   const execute = (languageToRegenerate?: string): BuilderOutput => {
@@ -433,7 +423,6 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<LocalizationBui
 
   /**
    * Run a translation generation and report the result
-   *
    * @param language Language that has changed and requires a regeneration
    */
   const generateWithReport = (language?: string) => {
@@ -468,7 +457,6 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<LocalizationBui
 
   /**
    * Run a translation generation for asset change
-   *
    * @param filename File that has changed and requires a regeneration
    * @param fullFilePath
    */
@@ -484,15 +472,7 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<LocalizationBui
     }, FS_DEBOUNCE_TIME);
   };
 
-  if (!options.watch) {
-    // Execute the generation only once if not watch mode
-    const metaDataGeneration = await checkMetadata(localizationMetaDataFile, localizationExtractorTarget, context);
-    if (metaDataGeneration && !metaDataGeneration.success) {
-      return metaDataGeneration;
-    }
-    return execute();
-
-  } else {
+  if (options.watch) {
     const metaDataGeneration = await startMetadataGenerator(localizationExtractorTarget, context);
     const metaDataGenerationResult = metaDataGeneration && metaDataGeneration.output && metaDataGeneration.result;
     if (metaDataGenerationResult && !(metaDataGenerationResult as BuilderOutput).success) {
@@ -525,5 +505,13 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<LocalizationBui
       assetsWatchers.forEach((assetsWatcher) => assetsWatcher.once('error', (err) => reject(err)));
       metadataWatcher.once('error', (err) => reject(err));
     });
+  } else {
+    // Execute the generation only once if not watch mode
+    const metaDataGeneration = await checkMetadata(localizationMetaDataFile, localizationExtractorTarget, context);
+    if (metaDataGeneration && !metaDataGeneration.success) {
+      return metaDataGeneration;
+    }
+    return execute();
+
   }
 }));

@@ -29,7 +29,7 @@ export class CapacitorTargetService implements OnDestroy {
    * Instead of the default action, it will open the URL using the CapacitorJS Browser plugin.
    */
   public hijackClick(): void {
-    if (!this.subscriptions.length) {
+    if (this.subscriptions.length === 0) {
       this.subscriptions.push(fromEvent(document, 'click').subscribe(async (event) => {
         const element: EventTarget | null = event.target;
         await this.openInCapacitorBrowser(element, event);

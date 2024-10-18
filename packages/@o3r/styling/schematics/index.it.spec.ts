@@ -37,8 +37,8 @@ describe('ng add styling', () => {
     expect(diff.added.length).toBe(expectedAddedFiles.length + 16); // TODO define what are the remaining added files
     expect(diff.modified.length).toBe(7); // TODO define what are these modified files
 
-    [libraryPath, ...untouchedProjectsPaths].forEach(untouchedProject => {
-      expect(diff.all.some(file => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
+    [libraryPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
+      expect(diff.all.some((file) => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
     });
 
     expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
@@ -62,8 +62,8 @@ describe('ng add styling', () => {
 
     expect(diff.modified.length).toBe(5);
 
-    [applicationPath, ...untouchedProjectsPaths].forEach(untouchedProject => {
-      expect(diff.all.some(file => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
+    [applicationPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
+      expect(diff.all.some((file) => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
     });
 
     expect(() => packageManagerInstall(execAppOptions)).not.toThrow();

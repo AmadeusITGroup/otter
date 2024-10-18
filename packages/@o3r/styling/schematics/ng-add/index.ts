@@ -49,7 +49,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
     const {NodeDependencyType} = await import('@schematics/angular/utility/dependencies');
     const depsInfo = getO3rPeerDeps(packageJsonPath);
     if (options.enableMetadataExtract) {
-      depsInfo.o3rPeerDeps = [...depsInfo.o3rPeerDeps , '@o3r/extractors'];
+      depsInfo.o3rPeerDeps = [...depsInfo.o3rPeerDeps, '@o3r/extractors'];
     }
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
     const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {

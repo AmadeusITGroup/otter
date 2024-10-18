@@ -51,7 +51,7 @@ export function displayModuleListRule(options?: Partial<DisplayModuleListOptions
         .join(EOL + EOL);
       if (message) {
         context.logger.info('The following modules are now available for your application, add them according to your needs:');
-        // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+
         context.logger.info(EOL + message);
       }
     } catch (e: any) {

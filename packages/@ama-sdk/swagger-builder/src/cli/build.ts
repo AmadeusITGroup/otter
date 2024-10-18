@@ -20,7 +20,7 @@ process.on('unhandledRejection', (err) => {
 
 const apisConfigurationSchema = JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', 'schemas', 'apis-configuration.schema.json'), { encoding: 'utf8' }));
 const buildConfigurationSchema = JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', 'schemas', 'builder-configuration.schema.json'), { encoding: 'utf8' }));
-const myPackageJson: {version: string} = JSON.parse(fs.readFileSync(path.resolve(__dirname, '..' , '..', 'package.json'), 'utf8'));
+const myPackageJson: {version: string} = JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', '..', 'package.json'), 'utf8'));
 
 const program = new commander.Command('swagger-build');
 program.version(myPackageJson.version);

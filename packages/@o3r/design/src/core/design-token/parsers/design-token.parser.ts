@@ -21,11 +21,11 @@ import { dirname } from 'node:path';
 const tokenReferenceRegExp = /\{([^}]+)\}/g;
 const splitValueNumericRegExp = /^([-+]?[0-9]+[.,]?[0-9]*)\s*([^\s.,;]+)?/;
 
-const getTokenReferenceName = (tokenName: string, parents: string[]) => parents.join('.') + (parents.length ? '.' : '') + tokenName;
+const getTokenReferenceName = (tokenName: string, parents: string[]) => parents.join('.') + (parents.length > 0 ? '.' : '') + tokenName;
 const getExtensions = (nodes: NodeReference[], context: DesignTokenContext | undefined) => {
   return nodes.reduce((acc, {tokenNode}, i) => {
     const nodeNames = nodes.slice(0, i + 1).map(({ name }) => name);
-    const defaultMetadata = nodeNames.length ? nodeNames.reduce((accTpl, name) => accTpl?.[name] as DesignTokenGroupTemplate, context?.template) : undefined;
+    const defaultMetadata = nodeNames.length > 0 ? nodeNames.reduce((accTpl, name) => accTpl?.[name] as DesignTokenGroupTemplate, context?.template) : undefined;
     const o3rMetadata = { ...defaultMetadata?.$extensions?.o3rMetadata, ...acc.o3rMetadata, ...tokenNode.$extensions?.o3rMetadata };
     return ({ ...acc, ...defaultMetadata?.$extensions, ...tokenNode.$extensions, o3rMetadata });
   }, {} as DesignTokenGroupExtensions & DesignTokenExtensions);
@@ -43,7 +43,7 @@ const applyConversion = (token: DesignTokenVariableStructure, value: string) => 
 
   const [, floatValue, unit] = splitValue;
 
-  const newValue = value.replace(floatValue, (parseFloat((parseFloat(floatValue) * token.extensions.o3rRatio).toFixed(3))).toString());
+  const newValue = value.replace(floatValue, (Number.parseFloat((Number.parseFloat(floatValue) * token.extensions.o3rRatio).toFixed(3))).toString());
 
   if (unit) {
     return newValue.replace(unit, token.extensions.o3rUnit);
@@ -63,7 +63,7 @@ const getCssRawValue = (variableSet: DesignTokenVariableSet, token: DesignTokenV
   const { node, getType } = token;
   const nodeType = getType(variableSet, false);
   if (!nodeType && node.$value) {
-    return typeof node.$value.toString !== 'undefined' ? (node.$value as any).toString() : JSON.stringify(node.$value);
+    return typeof node.$value.toString === 'undefined' ? JSON.stringify(node.$value) : (node.$value as any).toString();
   }
   const checkNode = {
     ...node,
@@ -86,14 +86,16 @@ const getCssRawValue = (variableSet: DesignTokenVariableSet, token: DesignTokenV
       return renderCssTypeStrokeStyleValue(checkNode.$value);
     }
     case 'cubicBezier': {
-      return typeof checkNode.$value === 'string' ? checkNode.$value :
-        checkNode.$value
+      return typeof checkNode.$value === 'string'
+        ? checkNode.$value
+        : checkNode.$value
           .map((value) => applyConversion(token, value.toString()))
           .join(', ');
     }
     case 'border': {
-      return typeof checkNode.$value === 'string' ? checkNode.$value :
-        `${applyConversion(token, checkNode.$value.width)} ${renderCssTypeStrokeStyleValue(checkNode.$value.style)} ${checkNode.$value.color}`;
+      return typeof checkNode.$value === 'string'
+        ? checkNode.$value
+        : `${applyConversion(token, checkNode.$value.width)} ${renderCssTypeStrokeStyleValue(checkNode.$value.style)} ${checkNode.$value.color}`;
     }
     case 'gradient': {
       if (typeof checkNode.$value === 'string') {
@@ -112,17 +114,21 @@ const getCssRawValue = (variableSet: DesignTokenVariableSet, token: DesignTokenV
       const values = Array.isArray(checkNode.$value) ? checkNode.$value : [checkNode.$value];
       return values
         .map((value) => `${applyConversion(token, value.offsetX)} ${applyConversion(token, value.offsetY)} ${applyConversion(token, value.blur)}  ${applyConversion(token, value.spread)}`
-          + ` ${value.color}`)
+        + ` ${value.color}`)
         .join(', ');
     }
     case 'transition': {
-      return typeof checkNode.$value === 'string' ? checkNode.$value :
-        typeof checkNode.$value.timingFunction === 'string' ? checkNode.$value.timingFunction : checkNode.$value.timingFunction.join(' ') +
-          ` ${applyConversion(token, checkNode.$value.duration)} ${applyConversion(token, checkNode.$value.delay)}`;
+      return typeof checkNode.$value === 'string'
+        ? checkNode.$value
+        : (typeof checkNode.$value.timingFunction === 'string'
+          ? checkNode.$value.timingFunction
+          : checkNode.$value.timingFunction.join(' ')
+          + ` ${applyConversion(token, checkNode.$value.duration)} ${applyConversion(token, checkNode.$value.delay)}`);
     }
     case 'typography': {
-      return typeof checkNode.$value === 'string' ? checkNode.$value :
-        `${applyConversion(token, checkNode.$value.fontWeight.toString())} ${checkNode.$value.fontFamily}`
+      return typeof checkNode.$value === 'string'
+        ? checkNode.$value
+        : `${applyConversion(token, checkNode.$value.fontWeight.toString())} ${checkNode.$value.fontFamily}`
         + ` ${applyConversion(token, checkNode.$value.fontSize)} ${applyConversion(token, checkNode.$value.letterSpacing)} ${applyConversion(token, checkNode.$value.lineHeight.toString())}`;
     }
     // TODO: Add support for Grid type when available in the Design Token Standard
@@ -160,7 +166,7 @@ const walkThroughDesignTokenNodes = (
       node,
       tokenReferenceName,
       ancestors,
-      parent: ancestors.slice(-1)[0],
+      parent: ancestors.at(-1),
       description: node.$description,
       getCssRawValue: function (variableSet = mem) {
         return getCssRawValue(variableSet, this);
@@ -177,10 +183,10 @@ const walkThroughDesignTokenNodes = (
           .map((ref) => variableSet.get(ref)!);
       },
       getType: function (variableSet = mem, followReference = true) {
-        return node.$type ||
-          followReference && this.getIsAlias(variableSet) && this.getReferencesNode(variableSet)[0]?.getType(variableSet, followReference) ||
-          followReference && this.parent?.name && variableSet.get(this.parent.name)?.getType(variableSet, followReference) ||
-          undefined;
+        return node.$type
+          || followReference && this.getIsAlias(variableSet) && this.getReferencesNode(variableSet)[0]?.getType(variableSet, followReference)
+          || followReference && this.parent?.name && variableSet.get(this.parent.name)?.getType(variableSet, followReference)
+          || undefined;
       },
       getKey: function (keyRenderer) {
         return keyRenderer ? keyRenderer(this) : sanitizeKeyName(this.tokenReferenceName);

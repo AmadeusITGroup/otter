@@ -38,7 +38,7 @@ program.action(async (inputs: string[] = []) => {
   for (const specPath of inputs) {
     const spec = await getTargetInformation(specPath);
     const report = await checker.check(spec);
-    if (report && report.length) {
+    if (report && report.length > 0) {
       reports[specPath] = report;
     }
   }
@@ -58,7 +58,7 @@ program.action(async (inputs: string[] = []) => {
         });
     });
 
-  if (Object.keys(reports).length) {
+  if (Object.keys(reports).length > 0) {
     process.exit(1);
   }
 });

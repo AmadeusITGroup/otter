@@ -16,7 +16,6 @@ export class ComponentWrapperService {
 
   /**
    * Trigger a config update for a given component
-   *
    * @param componentId Id of component to update the config for
    * @param props Configuration update object
    */

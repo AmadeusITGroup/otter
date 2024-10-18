@@ -25,20 +25,20 @@ export function updateThemeFiles(rootPath: string, options: { projectName?: stri
       mainStyleName = path.basename(mainStyleName, '.scss').replace(/\.scss$/i, '');
       mainStyleFolder = path.dirname(mainStylePath);
       currentStyleFile = tree.readText(mainStylePath);
-      if (currentStyleFile.indexOf('./styling/theme') > -1) {
+      if (currentStyleFile.includes('./styling/theme')) {
         return;
       }
       tree.delete(mainStylePath);
     }
 
-    const npmClient = process.env && process.env.npm_execpath && process.env.npm_execpath.indexOf('yarn') === -1 ? 'npm' : 'yarn';
+    const npmClient = process.env && process.env.npm_execpath && !process.env.npm_execpath.includes('yarn') ? 'npm' : 'yarn';
     context.logger.info(`Otter library requires Angular Material, you can install it with "${npmClient} ng add @angular/material"`);
 
-    if (tree.exists(path.posix.join(mainStyleFolder, 'styling', mainStyleName)) ||
-      tree.exists(path.posix.join(mainStyleFolder, 'styling', 'index.scss')) ||
-      tree.exists(path.posix.join(mainStyleFolder, 'styling', '_index.scss')) ||
-      tree.exists(path.posix.join(mainStyleFolder, 'styling', 'styling.scss')) ||
-      tree.exists(path.posix.join(mainStyleFolder, 'styling', '_styling.scss'))
+    if (tree.exists(path.posix.join(mainStyleFolder, 'styling', mainStyleName))
+      || tree.exists(path.posix.join(mainStyleFolder, 'styling', 'index.scss'))
+      || tree.exists(path.posix.join(mainStyleFolder, 'styling', '_index.scss'))
+      || tree.exists(path.posix.join(mainStyleFolder, 'styling', 'styling.scss'))
+      || tree.exists(path.posix.join(mainStyleFolder, 'styling', '_styling.scss'))
     ) { // do nothing if the styling is already in place
       return;
     }
@@ -81,8 +81,7 @@ export function removeV7OtterAssetsInAngularJson(options: { projectName?: string
     }
 
     if (workspaceProject.architect?.build?.options?.assets) {
-      workspaceProject.architect.build.options.assets =
-        workspaceProject.architect.build.options.assets.filter((a: { glob: string; input: string; output: string }) => !a.input || a.input.indexOf('node_modules/@otter/styling/assets') === -1);
+      workspaceProject.architect.build.options.assets = workspaceProject.architect.build.options.assets.filter((a: { glob: string; input: string; output: string }) => !a.input || !a.input.includes('node_modules/@otter/styling/assets'));
     }
 
     workspace.projects[projectName] = workspaceProject;

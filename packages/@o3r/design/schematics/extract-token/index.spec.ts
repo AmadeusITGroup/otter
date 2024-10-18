@@ -52,7 +52,8 @@ $breadcrumb-pres-item-other-color: o3r.variable('breadcrumb-pres-item-other-colo
             type: 'string'
           }
         ]);
-        constructor() { }
+
+        constructor() {}
       }
     }));
   });

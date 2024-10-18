@@ -18,7 +18,7 @@ void (async () => {
   await Promise.all(files.map(async (file) => {
     try {
       await fs.mkdir(path.dirname(path.resolve(outDir, file)), { recursive: true });
-    } catch (e) { }
+    } catch {}
     return fs.copyFile(path.resolve(buildFolder, file), path.resolve(outDir, file));
   }));
 })();

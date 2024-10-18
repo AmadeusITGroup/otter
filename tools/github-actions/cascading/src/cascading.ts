@@ -111,7 +111,7 @@ export class Cascading {
       await handlePromisifiedExecLog(promisifiedExec(`git merge ${this.options.noFf === 'true' ? '--no-ff' : ''} --no-edit ${this.options.baseBranch}`), this.options.logger);
     } catch (e: any) {
       // Compute the packages for which to ignore the conflict if any
-      if (this.options.conflictsIgnoredPackages.length) {
+      if (this.options.conflictsIgnoredPackages.length > 0) {
         this.options.logger.info('Checking if ignored packages are the only conflicts of the cascading');
         this.options.logger.info(`Packages to ignore: ${JSON.stringify(this.options.conflictsIgnoredPackages)}`);
         const cascadingError: string = e.stdout;
@@ -123,14 +123,14 @@ export class Cascading {
           .map((line) => line.split(conflictingFileStartOfLine)[1]);
         const onlyPackagesInConflict = filesInConflict.every((fileName) => fileName.endsWith('package.json') || fileName.endsWith('yarn.lock'));
         // We won't handle the use case where only the yarn lock is in conflict
-        const packageJsonInConflict = filesInConflict.some(filename => filename.endsWith('package.json'));
+        const packageJsonInConflict = filesInConflict.some((filename) => filename.endsWith('package.json'));
         this.options.logger.info(`Files in conflict: ${JSON.stringify(filesInConflict)}`);
         if (onlyPackagesInConflict && packageJsonInConflict) {
           this.options.logger.info('Conflict is only about packages, checking if we can ignore it');
           const gitDiffResultOutput = (await handlePromisifiedExecLog(promisifiedExec('git diff'), this.options.logger)).stdout;
           const changes = extractPackageChanges(gitDiffResultOutput, this.options.logger);
           const notIgnorablePackageChanges = notIgnorablePackages(changes.packageChanges, this.options.conflictsIgnoredPackages);
-          if (notIgnorablePackageChanges.length) {
+          if (notIgnorablePackageChanges.length > 0) {
             this.options.logger.info('Conflicts in package.json cannot be ignored');
             notIgnorablePackageChanges.forEach((fileChange) => {
               this.options.logger.info(JSON.stringify(fileChange, null, 2));
@@ -153,7 +153,7 @@ export class Cascading {
             await handlePromisifiedExecLog(promisifiedExec('git status'), this.options.logger);
             this.options.logger.info('Should create a branch with completion done inside');
             const authenticatedGitUrl = this.githubContext.payload.repository!.html_url!.replace(/https:\/\/[\w-]+@/, `https://${this.ownerName}:${this.options.token}@`);
-            const newCascadingBranchName = `automation/automatic-cascading-resolution-${new Date().getTime()}`;
+            const newCascadingBranchName = `automation/automatic-cascading-resolution-${Date.now()}`;
             await handlePromisifiedExecLog(promisifiedExec(`git push ${authenticatedGitUrl} ${branchToCascade}:${newCascadingBranchName}`), this.options.logger);
             this.options.logger.info('Creating a Pull Request with package conflict resolutions');
             await this.createFallbackPullRequest(
@@ -220,7 +220,7 @@ export class Cascading {
       this.options.logger.info('Process to assign the responsible of the failure');
       const firstMergeCommit = await this.getFirstMergeCommit(pullRequestCreationResponse.data.number);
       this.options.logger.debug(JSON.stringify(firstMergeCommit, null, 2));
-      if (firstMergeCommit.author) {
+      if (firstMergeCommit?.author) {
         this.options.logger.info(`Responsible of the failure is ${JSON.stringify(firstMergeCommit.author.login)}`);
         await this.assignPullRequest(pullRequestCreationResponse.data.number, firstMergeCommit.author.login);
       }
@@ -243,7 +243,7 @@ export class Cascading {
     this.options.logger.debug(JSON.stringify(commitsResponse, null, 2));
 
     // Responsible for the merge conflict is the first person who merged his PR
-    return commitsResponse.data.reverse().find((commitObject => commitObject.commit.message.startsWith('Merged'))) || commitsResponse.data[commitsResponse.data.length - 1];
+    return commitsResponse.data.reverse().find(((commitObject) => commitObject.commit.message.startsWith('Merged'))) || commitsResponse.data.at(-1);
   }
 
   /**

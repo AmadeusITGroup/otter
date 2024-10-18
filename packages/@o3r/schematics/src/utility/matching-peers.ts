@@ -42,8 +42,8 @@ export function getO3rPeerDeps(packageJsonPath: string, filterBasics = true, pac
   return {
     packageName: depsInfo.packageName,
     packageVersion: versionRangePrefix + depsInfo.packageVersion,
-    o3rPeerDeps: filterBasics ?
-      depsInfo.matchingPackages.filter((peerDep) => !basicsPackageName.has(peerDep))
+    o3rPeerDeps: filterBasics
+      ? depsInfo.matchingPackages.filter((peerDep) => !basicsPackageName.has(peerDep))
       : depsInfo.matchingPackages
   };
 
@@ -63,7 +63,7 @@ export function getO3rGeneratorDeps(packageJsonPath: string, packagePattern = /^
     .map(([depName]) => depName);
 
   const o3rGeneratorDeps = Object.keys(packageJsonContent.peerDependencies || [])
-    .filter(peerDep => packagePattern.test(peerDep) && !optionalPackages.includes(peerDep));
+    .filter((peerDep) => packagePattern.test(peerDep) && !optionalPackages.includes(peerDep));
 
   return { packageName, packageVersion, o3rGeneratorDeps };
 

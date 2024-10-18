@@ -17,7 +17,8 @@ const config = [
         {
           ignore: ['eslint-enable']
         }
-      ]
+      ],
+      '@eslint-community/eslint-comments/disable-enable-pair': 'off'
     }
   }
 ];

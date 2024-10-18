@@ -37,12 +37,13 @@ export default createBuilder<GenerateCssSchematicsSchema>(createBuilderWithMetri
     && (typeof options.templateFile === 'string' ? [options.templateFile] : options.templateFile)
     || undefined;
   const designTokenFilePatterns = Array.isArray(options.designTokenFilePatterns) ? options.designTokenFilePatterns : [options.designTokenFilePatterns];
-  const determineFileToUpdate = options.output ? () => resolve(context.workspaceRoot, options.output!) :
-    (token: DesignTokenVariableStructure) => {
+  const determineFileToUpdate = options.output
+    ? () => resolve(context.workspaceRoot, options.output!)
+    : (token: DesignTokenVariableStructure) => {
       if (token.extensions.o3rTargetFile) {
-        return token.context?.basePath && !options.rootPath ?
-          resolve(token.context.basePath, token.extensions.o3rTargetFile) :
-          resolve(context.workspaceRoot, options.rootPath || '', token.extensions.o3rTargetFile);
+        return token.context?.basePath && !options.rootPath
+          ? resolve(token.context.basePath, token.extensions.o3rTargetFile)
+          : resolve(context.workspaceRoot, options.rootPath || '', token.extensions.o3rTargetFile);
       }
 
       return resolve(context.workspaceRoot, options.defaultStyleFile);
@@ -162,7 +163,7 @@ export default createBuilder<GenerateCssSchematicsSchema>(createBuilderWithMetri
         acc.success = false;
         if (res.reason) {
           acc.error ||= '';
-          // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+
           acc.error += EOL + res.reason;
         }
       }
@@ -170,9 +171,7 @@ export default createBuilder<GenerateCssSchematicsSchema>(createBuilderWithMetri
     }, { success: true } as BuilderOutput);
   };
 
-  if (!options.watch) {
-    return await executeMultiRenderer();
-  } else {
+  if (options.watch) {
     try {
       await import('chokidar')
         .then((chokidar) => chokidar.watch([
@@ -190,5 +189,7 @@ export default createBuilder<GenerateCssSchematicsSchema>(createBuilderWithMetri
     } catch (err) {
       return { success: false, error: String(err) };
     }
+  } else {
+    return await executeMultiRenderer();
   }
 }));

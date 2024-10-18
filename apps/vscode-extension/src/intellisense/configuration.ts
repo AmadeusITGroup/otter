@@ -16,7 +16,7 @@ const getCompletionsItemsFromConfigurationTags = (configurationTags: Record<stri
   return Object.entries(configurationTags).map(([label, { detail, description, snippet }]) => {
     const completion = new CompletionItem({ label: `${label} `, detail }, CompletionItemKind.Keyword);
     completion.documentation = description;
-    completion.insertText = typeof snippet !== 'undefined' ? new SnippetString(`${label} ${snippet}`) : undefined;
+    completion.insertText = typeof snippet === 'undefined' ? undefined : new SnippetString(`${label} ${snippet}`);
 
     return completion;
   });
@@ -69,7 +69,7 @@ const getConfigurationTagsFromEslintConfig = (eslintConfig: any, comment: string
     }
   };
 
-  if (!Object.keys(o3rWidgetsTagsRulesConfig?.widgets || {}).length) {
+  if (Object.keys(o3rWidgetsTagsRulesConfig?.widgets || {}).length === 0) {
     return configurationTags;
   }
 
@@ -80,24 +80,28 @@ const getConfigurationTagsFromEslintConfig = (eslintConfig: any, comment: string
 
   return {
     ...configurationTags,
-    ...(!widgetName ? {
-      o3rWidget: {
-        description: 'Tag to use CMS widget for configuration property',
-        detail: 'widgetName',
-        snippet: `\${1|${Object.keys(o3rWidgetsTagsRulesConfig.widgets).join(',')}|}`
+    ...(widgetName
+      ? {}
+      : {
+        o3rWidget: {
+          description: 'Tag to use CMS widget for configuration property',
+          detail: 'widgetName',
+          snippet: `\${1|${Object.keys(o3rWidgetsTagsRulesConfig.widgets).join(',')}|}`
+        }
+      }),
+    ...(widgetParamsToPropose.length > 0
+      ? {
+        o3rWidgetParam: {
+          description: 'Tag to use CMS widget parameter for configuration property',
+          detail: 'paramName paramValue',
+          snippet: `\${1|${widgetParamsToPropose.join(',')}|} \${2:paramValue}`
+        }
       }
-    } : {}),
-    ...(widgetParamsToPropose.length ? {
-      o3rWidgetParam: {
-        description: 'Tag to use CMS widget parameter for configuration property',
-        detail: 'paramName paramValue',
-        snippet: `\${1|${widgetParamsToPropose.join(',')}|} \${2:paramValue}`
-      }
-    } : {})
+      : {})
   };
 };
 
-export const configurationCompletionItemProvider = () : CompletionItemProvider<CompletionItem> => {
+export const configurationCompletionItemProvider = (): CompletionItemProvider<CompletionItem> => {
   const eslint = new ESLint();
 
   return {
@@ -128,7 +132,7 @@ export const configurationCompletionItemProvider = () : CompletionItemProvider<C
 
       const lineFromTriggerChar = lineUntilPos.slice(lineUntilPos.lastIndexOf(configurationCompletionTriggerChar) + 1);
 
-      if (lineFromTriggerChar.match(/\s/)) {
+      if (/\s/.test(lineFromTriggerChar)) {
         return [];
       }
 

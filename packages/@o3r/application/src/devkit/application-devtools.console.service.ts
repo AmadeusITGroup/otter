@@ -24,6 +24,7 @@ export class ApplicationDevtoolsConsoleService implements DevtoolsServiceInterfa
       this.activate();
     }
   }
+
   /** @inheritDoc */
   public activate() {
     const windowWithDevtools: WindowWithDevtools = window;

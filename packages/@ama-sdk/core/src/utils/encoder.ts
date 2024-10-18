@@ -10,7 +10,7 @@ class Stream {
   private readonly tokens: number[];
 
   constructor(tokens: Uint8Array | number[]) {
-    this.tokens = [].slice.call(tokens);
+    this.tokens = Array.prototype.slice.call(tokens);
     // Reversed as push/pop is more efficient than shift/unshift.
     this.tokens.reverse();
   }
@@ -19,7 +19,7 @@ class Stream {
    * @returns True if end-of-stream has been hit.
    */
   public get endOfStream() {
-    return !this.tokens.length;
+    return this.tokens.length === 0;
   }
 
   /**
@@ -30,7 +30,7 @@ class Stream {
    * end_of_stream.
    */
   public read() {
-    if (!this.tokens.length) {
+    if (this.tokens.length === 0) {
       return Stream.END_OF_STREAM;
     }
     return this.tokens.pop();
@@ -45,7 +45,7 @@ class Stream {
    */
   public prepend(token: number | number[]) {
     if (Array.isArray(token)) {
-      while (token.length) {
+      while (token.length > 0) {
         this.tokens.push(token.pop()!);
       }
     } else {
@@ -62,7 +62,7 @@ class Stream {
    */
   public push(token: number | number[]) {
     if (Array.isArray(token)) {
-      while (token.length) {
+      while (token.length > 0) {
         this.tokens.unshift(token.shift()!);
       }
     } else {
@@ -97,23 +97,23 @@ function stringToCodePoints(s: string) {
     // 2. Depending on the value of c:
 
     // c < 0xD800 or c > 0xDFFF
-    if (c < 0xD800 || c > 0xDFFF) {
+    if (c < 0xD8_00 || c > 0xDF_FF) {
       // Append to U the Unicode character with code point c.
       u.push(c);
     }
 
     // 0xDC00 ≤ c ≤ 0xDFFF
-    else if (0xDC00 <= c && c <= 0xDFFF) {
+    else if (0xDC_00 <= c && c <= 0xDF_FF) {
       // Append to U a U+FFFD REPLACEMENT CHARACTER.
-      u.push(0xFFFD);
+      u.push(0xFF_FD);
     }
 
     // 0xD800 ≤ c ≤ 0xDBFF
-    else if (0xD800 <= c && c <= 0xDBFF) {
+    else if (0xD8_00 <= c && c <= 0xDB_FF) {
       // 1. If i = n−1, then append to U a U+FFFD REPLACEMENT
       // CHARACTER.
       if (i === n - 1) {
-        u.push(0xFFFD);
+        u.push(0xFF_FD);
       }
       // 2. Otherwise, i < n−1:
       else {
@@ -121,19 +121,19 @@ function stringToCodePoints(s: string) {
         const d = s.charCodeAt(i + 1);
 
         // 2. If 0xDC00 ≤ d ≤ 0xDFFF, then:
-        if (0xDC00 <= d && d <= 0xDFFF) {
+        if (0xDC_00 <= d && d <= 0xDF_FF) {
           // 1. Let a be c & 0x3FF.
           // eslint-disable-next-line no-bitwise
-          const a = c & 0x3FF;
+          const a = c & 0x3_FF;
 
           // 2. Let b be d & 0x3FF.
           // eslint-disable-next-line no-bitwise
-          const b = d & 0x3FF;
+          const b = d & 0x3_FF;
 
           // 3. Append to U the Unicode character with code point
           // 2^16+2^10*a+b.
           // eslint-disable-next-line no-bitwise
-          u.push(0x10000 + (a << 10) + b);
+          u.push(0x1_00_00 + (a << 10) + b);
 
           // 4. Set i to i+1.
           i += 1;
@@ -142,7 +142,7 @@ function stringToCodePoints(s: string) {
         // 3. Otherwise, d < 0xDC00 or d > 0xDFFF. Append to U a
         // U+FFFD REPLACEMENT CHARACTER.
         else {
-          u.push(0xFFFD);
+          u.push(0xFF_FD);
         }
       }
     }
@@ -200,13 +200,13 @@ export class Encoder {
     // U+0080 to U+07FF, inclusive:
 
     // U+0800 to U+FFFF, inclusive:
-    if (this.inRange(codePoint, 0x0800, 0xFFFF)) {
+    if (this.inRange(codePoint, 0x08_00, 0xFF_FF)) {
       // 2 and 0xE0
       count = 2;
       offset = 0xE0;
     }
     // U+10000 to U+10FFFF, inclusive:
-    else if (this.inRange(codePoint, 0x10000, 0x10FFFF)) {
+    else if (this.inRange(codePoint, 0x1_00_00, 0x10_FF_FF)) {
       // 3 and 0xF0
       count = 3;
       offset = 0xF0;
@@ -214,7 +214,7 @@ export class Encoder {
 
     // 4. Let bytes be a byte sequence whose first byte is (code
     // point >> (6 × count)) + offset.
-    // eslint-disable-next-line @typescript-eslint/restrict-plus-operands,no-bitwise
+    // eslint-disable-next-line no-bitwise
     const bytes = [(codePoint >> (6 * count)) + offset];
 
     // 5. Run these substeps while count is greater than 0:
@@ -244,7 +244,7 @@ export class Encoder {
 
     let result: number | number[];
     // 3. While true, run these substeps:
-    // eslint-disable-next-line no-constant-condition
+
     while (true) {
       // 1. Let token be the result of reading from input.
       const token = input.read();

@@ -27,8 +27,7 @@ export type PrepareTestEnvType = 'blank' | 'o3r-project-with-app';
  * @param rootFolderPath
  */
 export function getYarnVersionFromRoot(rootFolderPath: string) {
-  const o3rPackageJson: PackageJson & { generatorDependencies?: Record<string, string> } =
-    JSON.parse(readFileSync(path.join(rootFolderPath, 'package.json')).toString());
+  const o3rPackageJson: PackageJson & { generatorDependencies?: Record<string, string> } = JSON.parse(readFileSync(path.join(rootFolderPath, 'package.json')).toString());
   return o3rPackageJson?.packageManager?.split('@')?.[1] || 'latest';
 }
 
@@ -99,8 +98,8 @@ export async function prepareTestEnv(folderName: string, options?: PrepareTestEn
       recursive: true,
       dereference: true,
       filter: (source) =>
-        !/(?:^|[\\/])node_modules(?:[\\/]|$)/.test(source) &&
-        !/(?:^|[\\/])\.git(?:[\\/]|$)/.test(source)
+        !/(?:^|[\\/])node_modules(?:[\\/]|$)/.test(source)
+        && !/(?:^|[\\/])\.git(?:[\\/]|$)/.test(source)
     });
     if (existsSync(path.join(workspacePath, 'package.json'))) {
       packageManagerInstallWithFrozenLock(execAppOptions);

@@ -19,18 +19,20 @@ export class StorageSync {
   constructor(options?: StorageSyncConstructorOptions, extraOptions?: {disableSmartSync: boolean}) {
     this.options = {
       keys: [],
-      ...(extraOptions?.disableSmartSync ? {} : {
-        syncKeyCondition: (key, state) => !equal(this.storeImage[key], state[key]),
-        postProcess: (state) => {
-          this.options.keys.forEach(key => {
-            const keyName: string = typeof key === 'object' ? Object.keys(key)[0] : key;
-            this.storeImage[keyName] = state[keyName];
-          });
-        }
-      }),
+      ...(extraOptions?.disableSmartSync
+        ? {}
+        : {
+          syncKeyCondition: (key, state) => !equal(this.storeImage[key], state[key]),
+          postProcess: (state) => {
+            this.options.keys.forEach((key) => {
+              const keyName: string = typeof key === 'object' ? Object.keys(key)[0] : key;
+              this.storeImage[keyName] = state[keyName];
+            });
+          }
+        }),
       ...options,
       storage: options?.storage as unknown as Storage,
-      mergeReducer: typeof options?.mergeReducer !== 'function' ? this.mergeReducer : options.mergeReducer
+      mergeReducer: typeof options?.mergeReducer === 'function' ? options.mergeReducer : this.mergeReducer
     };
   }
 
@@ -102,7 +104,7 @@ export class StorageSync {
               return acc;
             }, {});
           }
-          if (Object.keys(overrides).length) {
+          if (Object.keys(overrides).length > 0) {
             hydratedState = { ...state, ...overrides };
           }
         }

@@ -20,7 +20,7 @@ program
   .option('-S, --source-folder <path>', 'Source folder', 'src/')
   .option('--verbose', 'Display debug log message')
   .action((actionPackageJsonPath = 'package.json') => {
-    // eslint-disable-next-line no-import-assign
+
     packageJsonPath = path.resolve(process.cwd(), actionPackageJsonPath);
   })
   .parse(process.argv);
@@ -59,7 +59,7 @@ const packageJson: { [x: string]: any } = JSON.parse(fs.readFileSync(packageJson
 
 files.push(
   // Keep the patterns already defined in package.json
-  ...packageJson.files.filter((file: string) => files.indexOf(file) === -1)
+  ...packageJson.files.filter((file: string) => !files.includes(file))
 );
 
 // remove duplicate RegExps

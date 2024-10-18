@@ -13,8 +13,9 @@ function generateCssFn(options: GenerateCssSchematicsSchema): Rule {
     const writeFile = (filePath: string, content: string) => tree.exists(filePath) ? tree.overwrite(filePath, content) : tree.create(filePath, content);
     const readFile = tree.readText;
     const existsFile = tree.exists;
-    const determineFileToUpdate = options.output ? () => options.output! :
-      (token: DesignTokenVariableStructure) => {
+    const determineFileToUpdate = options.output
+      ? () => options.output!
+      : (token: DesignTokenVariableStructure) => {
         if (token.extensions.o3rTargetFile && tree.exists(token.extensions.o3rTargetFile)) {
           return token.extensions.o3rTargetFile;
         }

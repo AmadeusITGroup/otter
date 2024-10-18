@@ -1,9 +1,8 @@
-import { callRule } from '@angular-devkit/schematics';
+import { callRule, Tree } from '@angular-devkit/schematics';
 import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
 import { firstValueFrom } from 'rxjs';
 import * as path from 'node:path';
 import { updateOrAddTsconfigEslint } from './index';
-import { Tree } from '@angular-devkit/schematics';
 
 const collectionPath = path.join(__dirname, '..', '..', '..', 'collection.json');
 const tsconfigEslintPath = 'tsconfig.eslint.json';

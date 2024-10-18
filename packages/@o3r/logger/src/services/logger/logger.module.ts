@@ -11,7 +11,7 @@ import { LOGGER_CLIENT_TOKEN } from './logger.token';
 })
 export class LoggerModule {
   public static forRoot(...clients: LoggerClient[]): ModuleWithProviders<LoggerModule> {
-    if (clients.length < 1) {
+    if (clients.length === 0) {
       clients = [new ConsoleLogger()];
     }
     return {

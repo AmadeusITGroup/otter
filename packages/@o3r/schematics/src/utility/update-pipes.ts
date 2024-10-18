@@ -20,9 +20,9 @@ const applyChanges = (
   if (ts.isObjectLiteralExpression(ngDecorator.expression.arguments[0])) {
     const importsProp = ngDecorator.expression.arguments[0].properties.find((prop): prop is ts.PropertyAssignment & { initializer: ts.ArrayLiteralExpression } =>
       ts.isPropertyAssignment(prop)
-              && ts.isIdentifier(prop.name)
-              && prop.name.text === 'imports'
-              && ts.isArrayLiteralExpression(prop.initializer)
+      && ts.isIdentifier(prop.name)
+      && prop.name.text === 'imports'
+      && ts.isArrayLiteralExpression(prop.initializer)
     );
     if (importsProp) {
       matchers.forEach((matcher) => {
@@ -68,7 +68,7 @@ export const updatePipes = (pipeReplacementInfo: PipeReplacementInfo): Rule => (
     const matchers = Array.from(
       file.content.toString().matchAll(pipeRegex)
     ).filter((matcher) => !!pipeReplacementInfo[matcher[1]]);
-    if (matchers.length) {
+    if (matchers.length > 0) {
       const directory = dirname(file.path);
       const baseFileName = basename(basename(file.path, '.html'), '.template');
       const componentFile = join(directory, `${baseFileName}.component.ts`);
@@ -87,11 +87,11 @@ export const updatePipes = (pipeReplacementInfo: PipeReplacementInfo): Rule => (
           ts.ScriptTarget.ES2020,
           true
         );
-        const [ngClass] = componentSourceFile.statements.filter((statement): statement is ts.ClassDeclaration =>
+        const ngClass = componentSourceFile.statements.find((statement): statement is ts.ClassDeclaration =>
           ts.isClassDeclaration(statement)
           && isNgClassComponent(statement)
         );
-        const [ngDecorator] = ((ngClass && ts.getDecorators(ngClass)) || []).filter(isNgClassDecorator);
+        const ngDecorator = ((ngClass && ts.getDecorators(ngClass)) || []).find(isNgClassDecorator);
         if (ngDecorator) {
           applyChanges(pipeReplacementInfo, ngDecorator, matchers, componentFile, file.path, tree, context);
         }

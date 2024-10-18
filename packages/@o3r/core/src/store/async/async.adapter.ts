@@ -147,17 +147,19 @@ export const asyncStoreItemAdapter: AsyncStoreItemAdapter = {
   },
 
   clearAsyncStoreItem: <T extends AsyncStoreItem>(entityItem: T) => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { isPending, isFailure, ...newResponse } : T = { ...entityItem, requestIds: [] };
+
+    const { isPending, isFailure, ...newResponse }: T = { ...entityItem, requestIds: [] };
     return newResponse as T;
   },
 
   merge: (...items) => {
-    return items.reduce<AsyncStoreItem>((mergedItem, item) => item ? {
-      requestIds: [...mergedItem.requestIds, ...item.requestIds],
-      isFailure: mergedItem.isFailure || item.isFailure,
-      isPending: mergedItem.isPending || item.isPending
-    } : mergedItem, asyncStoreItemAdapter.initialize({}));
+    return items.reduce<AsyncStoreItem>((mergedItem, item) => item
+      ? {
+        requestIds: [...mergedItem.requestIds, ...item.requestIds],
+        isFailure: mergedItem.isFailure || item.isFailure,
+        isPending: mergedItem.isPending || item.isPending
+      }
+      : mergedItem, asyncStoreItemAdapter.initialize({}));
   },
 
   entityStatusAddRequest: (status, subResource, requestId) => {

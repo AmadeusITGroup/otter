@@ -104,7 +104,7 @@ export class LocalizationExtractor {
       }
     });
 
-    return angularItems.length ? angularItems : undefined;
+    return angularItems.length > 0 ? angularItems : undefined;
   }
 
   /**
@@ -139,7 +139,7 @@ export class LocalizationExtractor {
       })
       .filter((ref): ref is string => !!ref);
 
-    return referencedFiles.length ? referencedFiles : undefined;
+    return referencedFiles.length > 0 ? referencedFiles : undefined;
   }
 
   /**
@@ -185,11 +185,7 @@ export class LocalizationExtractor {
 
     if (loc.$ref) {
       const [refPath, refKey] = loc.$ref.split('#/', 2);
-      if (refPath.startsWith('.') || this.options?.libraries?.some((lib) => refPath.startsWith(lib))) {
-        res.ref = refKey;
-      } else {
-        res.ref = loc.$ref;
-      }
+      res.ref = refPath.startsWith('.') || this.options?.libraries?.some((lib) => refPath.startsWith(lib)) ? refKey : loc.$ref;
     }
 
     if (typeof loc.defaultValue === 'undefined' && typeof loc.$ref === 'undefined' && !loc.dictionary) {
@@ -253,11 +249,11 @@ export class LocalizationExtractor {
       .map((file) => this.getReferencedFiles(mapLocalization[file].data, file))
       .filter((refs): refs is string[] => !!refs)
       .reduce((acc, refs) => {
-        acc.push(...refs.filter((ref) => localizationFiles.indexOf(ref) === -1 && alreadyLoadedFiles.indexOf(ref) === -1));
+        acc.push(...refs.filter((ref) => !localizationFiles.includes(ref) && !alreadyLoadedFiles.includes(ref)));
         return acc;
       }, []);
 
-    if (references.length) {
+    if (references.length > 0) {
       return {
         ...mapLocalization,
         ...await this.getLocalizationMap(references, [...localizationFiles, ...alreadyLoadedFiles], true)
@@ -286,17 +282,17 @@ export class LocalizationExtractor {
         .map((classItem) => getLocalizationFileFromAngularElement(classItem))
         .filter((locFiles): locFiles is string[] => !!locFiles)
         .reduce((acc: string[], locFiles) => {
-          acc.push(...locFiles.filter((f) => acc.indexOf(f) === -1));
+          acc.push(...locFiles.filter((f) => !acc.includes(f)));
           return acc;
         }, [])
         .map((locFile) => path.resolve(path.dirname(file), locFile))
       )
       .reduce((acc: string[], locFiles) => {
-        acc.push(...locFiles.filter((f) => acc.indexOf(f) === -1));
+        acc.push(...locFiles.filter((f) => !acc.includes(f)));
         return acc;
       }, []);
 
-    localizationFiles.push(...extraLocalizationFiles.filter((file) => localizationFiles.indexOf(file) === -1));
+    localizationFiles.push(...extraLocalizationFiles.filter((file) => !localizationFiles.includes(file)));
 
     return this.getLocalizationMap(localizationFiles);
   }
@@ -357,10 +353,12 @@ export class LocalizationExtractor {
         }
       }
 
-      metadata[data.key] = data.ref && data.ref.includes('#/') && libraries.some((lib) => data.ref!.startsWith(lib)) ? {
-        ...data,
-        ref: data.ref.split('#/')[1]
-      } : data;
+      metadata[data.key] = data.ref && data.ref.includes('#/') && libraries.some((lib) => data.ref!.startsWith(lib))
+        ? {
+          ...data,
+          ref: data.ref.split('#/')[1]
+        }
+        : data;
     };
 
     Object.keys(options.libraryMetadata)

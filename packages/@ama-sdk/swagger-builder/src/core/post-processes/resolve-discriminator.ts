@@ -8,23 +8,13 @@ export class ResolveDiscriminator implements PostProcess {
   private readonly captureDefinitionRegExp = /#\/definitions\/(.*)/;
 
   private resolveDiscriminator(definitionName: string, definition: any, processedDefs: any, discriminator?: string) {
-    if (!discriminator) {
-      const inlineDiscDef = definition.allOf && (definition.allOf as any[]).find((allOfDef) => !!allOfDef.discriminator);
-      if (inlineDiscDef) {
-        (definition.allOf as any[]).filter((ref: any): ref is { $ref: string } => !!ref.$ref)
-          .forEach((ref) => {
-            const parentDefName = this.captureDefinitionRegExp.exec(ref.$ref)![1];
-            // discriminator found on a property inside an allOf, call recursively the resolver to find if it appears on a parent definition
-            this.resolveDiscriminator(parentDefName, processedDefs[parentDefName], processedDefs, inlineDiscDef.discriminator);
-          });
-      }
-    } else {
+    if (discriminator) {
       // Looked up discriminator found at definition level.
       if (discriminator === definition.discriminator) {
         // Delete the discriminator in this case
         processedDefs[definitionName] = {...definition};
         delete processedDefs[definitionName].discriminator;
-        // eslint-disable-next-line no-console, no-restricted-syntax
+        // eslint-disable-next-line no-console
         console.info('Discriminator ' + discriminator + ' removed from ' + definitionName);
       }
       if (definition.allOf) {
@@ -35,7 +25,7 @@ export class ResolveDiscriminator implements PostProcess {
           }
           const newLine = {...definition.allOf};
           delete newLine.discriminator;
-          // eslint-disable-next-line no-console, no-restricted-syntax
+          // eslint-disable-next-line no-console
           console.info('Discriminator ' + discriminator + ' removed the AllOf of ' + definitionName);
           return newLine;
         });
@@ -44,6 +34,16 @@ export class ResolveDiscriminator implements PostProcess {
             // Call recursively the resolver on the parents
             const parentDefName = this.captureDefinitionRegExp.exec(ref.$ref)![1];
             this.resolveDiscriminator(parentDefName, processedDefs[parentDefName], processedDefs, discriminator);
+          });
+      }
+    } else {
+      const inlineDiscDef = definition.allOf && (definition.allOf as any[]).find((allOfDef) => !!allOfDef.discriminator);
+      if (inlineDiscDef) {
+        (definition.allOf as any[]).filter((ref: any): ref is { $ref: string } => !!ref.$ref)
+          .forEach((ref) => {
+            const parentDefName = this.captureDefinitionRegExp.exec(ref.$ref)![1];
+            // discriminator found on a property inside an allOf, call recursively the resolver to find if it appears on a parent definition
+            this.resolveDiscriminator(parentDefName, processedDefs[parentDefName], processedDefs, inlineDiscDef.discriminator);
           });
       }
     }
@@ -59,7 +59,7 @@ export class ResolveDiscriminator implements PostProcess {
 
   /** @inheritdoc */
   public execute(swaggerSpec: any) {
-    // eslint-disable-next-line no-console, no-restricted-syntax
+    // eslint-disable-next-line no-console
     console.info('Resolve discriminator...');
     return {
       ...swaggerSpec,

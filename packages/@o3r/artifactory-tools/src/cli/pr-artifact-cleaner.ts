@@ -49,9 +49,9 @@ if (programOptions.basicAuth && programOptions.apiKey) {
   logger.error('Only one authentication method should be used at a time. Please provide only the apiKey (-a) or the basicAuth (-b) but not both.');
   process.exit(1);
 }
-const authHeader: RequestInit['headers'] = programOptions.basicAuth ?
+const authHeader: RequestInit['headers'] = programOptions.basicAuth
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  { Authorization: `Basic ${programOptions.basicAuth as string}`} : {'X-JFrog-Art-Api': programOptions.apiKey as string};
+  ? { Authorization: `Basic ${programOptions.basicAuth as string}`} : {'X-JFrog-Art-Api': programOptions.apiKey as string};
 let url: string = programOptions.artifactoryUrl;
 url += (url.endsWith('/') ? '' : '/') + 'api/search/aql';
 const ageInDays: number = programOptions.durationKept;
@@ -74,7 +74,7 @@ const fetchOptions = {
       .sort({"$desc" : ["path","name"]})
       .limit(10000)`
 } as const satisfies RequestInit;
-// eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+
 logger.debug(`AQL search executed : ${fetchOptions.body}`);
 logger.info(`Url called : ${url}`);
 
@@ -98,11 +98,9 @@ logger.info(`Url called : ${url}`);
   for (const result of sortedResult) {
     const splitPath = result.name.split('.');
     const mapId = splitPath.slice(0, -2).join('.');
-    const currentBuildNumber = +splitPath[splitPath.length - 2];
+    const currentBuildNumber = +splitPath.at(-2)!;
     const buildNumbers = mapOfKeptItems.get(mapId);
-    if (!buildNumbers) {
-      mapOfKeptItems.set(mapId, [currentBuildNumber]);
-    } else {
+    if (buildNumbers) {
       buildNumbers.sort();
       let isBuildNumberAlreadyInMap = false;
       let isBuildNumberHigherThanExisting = true;
@@ -127,14 +125,16 @@ logger.info(`Url called : ${url}`);
           buildNumbers.sort();
           mapOfKeptItems.set(mapId, buildNumbers);
           const keptBuildNumbers = mapOfKeptResult.get(`${mapId}${currentBuildNumber}`);
-          if (!keptBuildNumbers) {
-            mapOfKeptResult.set(`${mapId}${currentBuildNumber}`, [result]);
-          } else {
+          if (keptBuildNumbers) {
             keptBuildNumbers.push(result);
             mapOfKeptResult.set(`${mapId}${currentBuildNumber}`, keptBuildNumbers);
+          } else {
+            mapOfKeptResult.set(`${mapId}${currentBuildNumber}`, [result]);
           }
         }
       }
+    } else {
+      mapOfKeptItems.set(mapId, [currentBuildNumber]);
     }
   }
   logger.debug('Map of build that will be kept: %o', mapOfKeptItems);

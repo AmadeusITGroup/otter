@@ -8,7 +8,6 @@ import {Logger} from 'winston';
 
 /**
  * Create a command line logger
- *
  * @param verbose Show debug information
  * @param pretty Colorize and format logs as json
  */
@@ -23,7 +22,6 @@ function getLogger(verbose: boolean, pretty: boolean) {
 /**
  * Command to upload an app on pCloudy
  * In case the file is an .ipa, the application will be resigned
- *
  * @param username pCloudy email credential
  * @param apiKey Account APIKey - can be found on pCloudy account info
  * @param application .ipa or .apk file to upload on pCloudy
@@ -44,7 +42,6 @@ async function uploadApp(username: string, apiKey: string, application: string, 
 
 /**
  * Command to delete an app uploaded on pCloudy
- *
  * @param username pCloudy email credential
  * @param apiKey Account APIKey - can be found on pCloudy account info
  * @param application name as uploaded on the cloud
@@ -62,7 +59,6 @@ async function deleteApp(username: string, apiKey: string, application: string, 
 
 /**
  * List the devices available for booking on pCloudy
- *
  * @param username pCloudy email credential
  * @param apiKey Account APIKey - can be found on pCloudy account info
  * @param devicePlatform Filter the devices according to their platform
@@ -104,7 +100,7 @@ program
   .option('--pretty', 'Prettify logs ')
   .action(async (options) => {
     const logger = getLogger(options.verbose, options.pretty);
-    /* eslint-disable-next-line no-console */
+
     await deleteApp(options.username, options.password, options.application, logger);
   });
 

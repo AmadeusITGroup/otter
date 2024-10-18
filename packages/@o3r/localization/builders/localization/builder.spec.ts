@@ -17,9 +17,7 @@ const languageFilesContent = Object.entries(filesPerLanguage).reduce((acc, [lang
 
 describe('Localization builder', () => {
 
-  beforeEach(() => {
-
-  });
+  beforeEach(() => {});
 
   describe('getTranslationsForLanguage', () => {
 

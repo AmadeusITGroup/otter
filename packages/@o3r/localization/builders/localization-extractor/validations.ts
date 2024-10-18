@@ -3,7 +3,6 @@ export type ValidatorType = (str: string) => boolean;
 
 /**
  * Check that the opened parentheses are correctly closed
- *
  * @param str translation
  */
 export function checkParentheses(str: string) {
@@ -20,7 +19,7 @@ export function checkParentheses(str: string) {
   for (const ch of str) {
     if (mapBrackets[ch]) {
       stack.push(ch);
-    } else if (closureBrackets.indexOf(ch) >= 0) {
+    } else if (closureBrackets.includes(ch)) {
       const tail = stack.pop();
       if (!tail) {
         return false;
@@ -37,7 +36,6 @@ export function checkParentheses(str: string) {
 
 /**
  * Check if the plural instruction always include an "other" case
- *
  * @param str translation
  */
 export function checkOtherInPlural(str: string) {

@@ -20,17 +20,19 @@ export const getJsonSchemaTokenDefinitionRenderer = (options?: JsonSchemaTokenDe
       {
         type: 'object',
         properties: {
-          [ancestors.map(({name}) => name).join('.') + (ancestors.length ? '.' : '') + currentVariable.tokenReferenceName.split('.').at(-1)]: JSON.parse(variableValue)
+          [ancestors.map(({name}) => name).join('.') + (ancestors.length > 0 ? '.' : '') + currentVariable.tokenReferenceName.split('.').at(-1)]: JSON.parse(variableValue)
         }
       },
-      ...ancestors.length ? [{
-        type: 'object',
-        properties: {
-          [ancestors[0].name]: {
-            anyOf: generateNode(currentVariable, variableValue, ancestors.slice(1))
+      ...ancestors.length > 0
+        ? [{
+          type: 'object',
+          properties: {
+            [ancestors[0].name]: {
+              anyOf: generateNode(currentVariable, variableValue, ancestors.slice(1))
+            }
           }
-        }
-      }] : []
+        }]
+        : []
     ];
   };
 

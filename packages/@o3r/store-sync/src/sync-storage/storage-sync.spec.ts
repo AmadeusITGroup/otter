@@ -5,17 +5,13 @@ import { StorageKeys, SyncStorageConfig } from './interfaces';
 import { dateReviver, rehydrateApplicationState, syncStateUpdate, syncStorage } from './storage-sync';
 
 class TypeB {
-  constructor(public afield: string) { }
+  constructor(public afield: string) {}
 }
 
 class TypeA {
   public static reviver(key: string, value: any): any {
     if (typeof value === 'object') {
-      if (value.afield) {
-        return new TypeB(value.afield);
-      } else {
-        return new TypeA(value.astring, value.anumber, value.aboolean, value.adate, value.aclass);
-      }
+      return value.afield ? new TypeB(value.afield) : new TypeA(value.astring, value.anumber, value.aboolean, value.adate, value.aclass);
     }
     return dateReviver(key, value);
   }
@@ -41,7 +37,7 @@ class TypeA {
     public aboolean: boolean = undefined,
     public adate: Date = undefined,
     public aclass: TypeB = undefined
-  ) { }
+  ) {}
 }
 
 class MockStorage implements Storage {
@@ -49,15 +45,19 @@ class MockStorage implements Storage {
   public clear(): void {
     throw new Error('Not Implemented');
   }
+
   public getItem(key: string): string | null {
     return (this as any)[key] ? (this as any)[key] : null;
   }
+
   public key(_index: number): string | null {
     throw new Error('Not Implemented');
   }
+
   public removeItem(key: string): void {
     (this as any)[key] = undefined;
   }
+
   public setItem(key: string, data: string): void {
     (this as any)[key] = data;
   }
@@ -68,13 +68,13 @@ const mockStorageKeySerializer = (key: string | number) => {
 };
 
 describe('ngrxLocalStorage', () => {
-  const t1 = new TypeA('Testing', 3.14159, true, new Date('1968-11-16T12:30:00Z'), new TypeB('Nested Class'));
+  const t1 = new TypeA('Testing', 3.141_59, true, new Date('1968-11-16T12:30:00Z'), new TypeB('Nested Class'));
 
   const t1Json = JSON.stringify(t1);
 
   const t1Filtered = new TypeA('Testing', undefined, undefined, undefined, new TypeB('Nested Class'));
 
-  const t1Simple = { astring: 'Testing', adate: '1968-11-16T12:30:00.000Z', anumber: 3.14159, aboolean: true };
+  const t1Simple = { astring: 'Testing', adate: '1968-11-16T12:30:00.000Z', anumber: 3.141_59, aboolean: true };
 
   const initialState = { state: t1 };
 

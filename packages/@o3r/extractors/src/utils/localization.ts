@@ -32,5 +32,5 @@ export function getLocalizationFileFromAngularElement(node: ts.ClassDeclaration)
     });
   });
 
-  return localizationPaths.length ? localizationPaths : undefined;
+  return localizationPaths.length > 0 ? localizationPaths : undefined;
 }

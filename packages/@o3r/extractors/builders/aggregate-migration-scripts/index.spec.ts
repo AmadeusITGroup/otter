@@ -33,8 +33,8 @@ describe('Aggregate migration scripts', () => {
 
   it('should aggregate the migration scripts', async () => {
     await virtualFileSystem.promises.mkdir('app-migration-scripts', {recursive: true});
-    await copyMockFile('app-migration-scripts/migration-1.0.json','migration-1.0.json');
-    await copyMockFile('app-migration-scripts/migration-1.5.json','migration-1.5.json');
+    await copyMockFile('app-migration-scripts/migration-1.0.json', 'migration-1.0.json');
+    await copyMockFile('app-migration-scripts/migration-1.5.json', 'migration-1.5.json');
     await copyMockFile('app-migration-scripts/migration-2.0.json', 'migration-2.0.json');
 
     await virtualFileSystem.promises.mkdir('node_modules/@o3r/my-lib/migration-scripts', {recursive: true});
@@ -61,7 +61,7 @@ describe('Aggregate migration scripts', () => {
 
   it('should throw if library cannot be found', async () => {
     await virtualFileSystem.promises.mkdir('app-migration-scripts', {recursive: true});
-    await copyMockFile('app-migration-scripts/migration-1.0.json','migration-1.0.json');
+    await copyMockFile('app-migration-scripts/migration-1.0.json', 'migration-1.0.json');
     await copyMockFile('app-migration-scripts/migration-2.0.json', 'migration-2.0.json');
 
     const options: AggregateMigrationScriptsSchema = {
