@@ -14,7 +14,7 @@ function getComponentModuleItems(componentName: string): string[] {
  */
 export function getInputComponentName(componentName: string): string {
   const componentModuleItems = getComponentModuleItems(componentName);
-  return componentModuleItems.at(-1);
+  return componentModuleItems.at(-1)!;
 }
 
 /**

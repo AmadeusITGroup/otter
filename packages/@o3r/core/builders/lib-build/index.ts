@@ -1,5 +1,4 @@
 import { BuilderOutput, createBuilder } from '@angular-devkit/architect';
-import type { JsonObject } from '@angular-devkit/core';
 import { promises as fs } from 'node:fs';
 import { sync as globbySync } from 'globby';
 import * as path from 'node:path';
@@ -25,7 +24,7 @@ export default createBuilder<LibraryBuilderSchema>(createBuilderWithMetricsIfIns
 
   const opts = Object.fromEntries(Object.entries(options)
     .filter(([key]) => !libBuildOptions.includes(key))
-    .map<JsonObject>(([key, value]) => [key, value]));
+    .map<[string, any]>(([key, value]) => [key, value]));
   const build = await context.scheduleTarget(nextBuildTarget, opts);
   const buildResult = await build.result;
 

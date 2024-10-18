@@ -55,7 +55,7 @@ export function getTsDocTextFromNode(source: ts.SourceFile, node: ts.Node): stri
   const fullText = source.getFullText();
   const commentRanges = ts.getLeadingCommentRanges(fullText, node.getFullStart());
   if (commentRanges && commentRanges.length > 0) {
-    const jsDocRange = commentRanges.at(-1);
+    const jsDocRange = commentRanges.at(-1)!;
     return fullText.slice(jsDocRange.pos, jsDocRange.end);
   }
 }

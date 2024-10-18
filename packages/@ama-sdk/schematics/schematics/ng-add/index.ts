@@ -6,6 +6,7 @@ import { readFileSync } from 'node:fs';
 import { lastValueFrom } from 'rxjs';
 import type { JsonObject, PackageJson } from 'type-fest';
 import { DevInstall } from '../helpers/node-install';
+import type { NgAddSchematicsSchema } from './schema';
 
 const packageJsonPath = '/package.json';
 const swaggerIgnorePath = '/.swagger-codegen-ignore';
@@ -176,8 +177,9 @@ function ngAddFn(): Rule {
 
 /**
  * Add Otter ama-sdk-schematics to a Project
+ * @param opts
  */
-export const ngAdd = (): Rule => async () => {
+export const ngAdd = (opts: NgAddSchematicsSchema): Rule => async () => {
   const { createSchematicWithMetricsIfInstalled } = await import('@o3r/schematics');
-  return createSchematicWithMetricsIfInstalled(ngAddFn)(undefined);
+  return createSchematicWithMetricsIfInstalled(ngAddFn)(opts);
 };

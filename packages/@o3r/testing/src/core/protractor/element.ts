@@ -64,7 +64,8 @@ export class O3rElement implements ElementProfile {
     const currentValue = await this.getValue();
 
     if (currentValue !== undefined) {
-      await this.sourceElement.sendKeys(...Array.from({length: currentValue.length + 1}).fill(ptor.Key.BACK_SPACE));
+      // eslint-disable-next-line unicorn/no-new-array -- Required for array initialization purpose
+      await this.sourceElement.sendKeys(...(new Array<string>(currentValue.length + 1).fill(ptor.Key.BACK_SPACE)));
     }
   }
 

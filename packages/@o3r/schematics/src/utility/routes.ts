@@ -121,7 +121,7 @@ export function insertRoute(tree: Tree, context: SchematicContext, appRoutingMod
 
   if (routes) {
     const noStarRoutes = routes.filter((r) => !hasRoutePath(r, '**'));
-    const index = noStarRoutes.length > 0 ? noStarRoutes.at(-1).end : routes.end;
+    const index = noStarRoutes.length > 0 ? noStarRoutes.at(-1)!.end : routes.end;
     const routeString = `{path: '${route.path}', load${standalone ? 'Component' : 'Children'}: () => import('${route.import}').then((m) => m.${route.module})}`;
     const content = noStarRoutes.length > 0 ? `,\n${routeString}` : routeString;
 

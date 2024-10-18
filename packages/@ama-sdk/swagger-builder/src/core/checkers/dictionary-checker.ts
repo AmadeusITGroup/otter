@@ -50,7 +50,7 @@ export class DictionaryChecker implements Checker {
     } else if (field === '$ref') {
       if (typeof currentNode === 'string' && /\/definitions\//.test(currentNode)) {
         const splitRef = currentNode.split('/');
-        definitionNameMemory.push(splitRef.at(-1));
+        definitionNameMemory.push(splitRef.at(-1)!);
       }
       return;
     } else if (Array.isArray(currentNode)) {

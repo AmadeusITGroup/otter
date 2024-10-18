@@ -159,7 +159,7 @@ export class NewVersion {
       if (!latest) {
         // If we couldn't find a label after filtering, create a new one using the version mask given
         baseVersion = `${semver.minVersion(versionMask)!.version}-${this.defaultBranchPrereleaseName!}.0`;
-      } else if (latest.prerelease.includes(this.defaultBranchPrereleaseName)) {
+      } else if (latest.prerelease.includes(this.defaultBranchPrereleaseName || '')) {
         // If the latest label is a default branch label, we will simply bump it
         this.options.logger.info(`Bumping patch ${this.defaultBranchPrereleaseName || ''}`);
         baseVersion = latest.raw;

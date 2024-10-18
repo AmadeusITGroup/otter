@@ -220,7 +220,7 @@ export class Cascading {
       this.options.logger.info('Process to assign the responsible of the failure');
       const firstMergeCommit = await this.getFirstMergeCommit(pullRequestCreationResponse.data.number);
       this.options.logger.debug(JSON.stringify(firstMergeCommit, null, 2));
-      if (firstMergeCommit.author) {
+      if (firstMergeCommit?.author) {
         this.options.logger.info(`Responsible of the failure is ${JSON.stringify(firstMergeCommit.author.login)}`);
         await this.assignPullRequest(pullRequestCreationResponse.data.number, firstMergeCommit.author.login);
       }

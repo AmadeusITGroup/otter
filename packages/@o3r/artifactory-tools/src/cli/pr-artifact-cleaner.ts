@@ -98,7 +98,7 @@ logger.info(`Url called : ${url}`);
   for (const result of sortedResult) {
     const splitPath = result.name.split('.');
     const mapId = splitPath.slice(0, -2).join('.');
-    const currentBuildNumber = +splitPath.at(-2);
+    const currentBuildNumber = +splitPath.at(-2)!;
     const buildNumbers = mapOfKeptItems.get(mapId);
     if (buildNumbers) {
       buildNumbers.sort();
