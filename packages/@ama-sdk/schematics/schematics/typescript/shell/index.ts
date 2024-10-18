@@ -1,30 +1,44 @@
 import {
+  isAbsolute,
+  posix,
+  relative
+} from 'node:path';
+import {
   apply,
   chain,
   MergeStrategy,
   mergeWith,
   move,
   renameTemplateFiles,
-  Rule, SchematicContext,
+  Rule,
+  SchematicContext,
   template,
   Tree,
   url
 } from '@angular-devkit/schematics';
-import {dump, load} from 'js-yaml';
-import {isAbsolute, posix, relative} from 'node:path';
-import {getPackageManagerName, NpmInstall} from '../../helpers/node-install';
-import {readPackageJson} from '../../helpers/read-package';
-import type {NgGenerateTypescriptSDKShellSchematicsSchema} from './schema';
+import {
+  dump,
+  load
+} from 'js-yaml';
+import {
+  getPackageManagerName,
+  NpmInstall
+} from '../../helpers/node-install';
+import {
+  readPackageJson
+} from '../../helpers/read-package';
+import type {
+  NgGenerateTypescriptSDKShellSchematicsSchema
+} from './schema';
 
 /**
  * Generate Typescript SDK shell
  * @param options
  */
 function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKShellSchematicsSchema): Rule {
-
   const installRule = (_tree: Tree, context: SchematicContext) => {
     const workingDirectory = options.directory ? (isAbsolute(options.directory) ? relative(process.cwd(), options.directory) : options.directory) : '.';
-    const installTask = new NpmInstall({workingDirectory, packageManager: options.packageManager, allowScripts: false});
+    const installTask = new NpmInstall({ workingDirectory, packageManager: options.packageManager, allowScripts: false });
     context.addTask(installTask);
   };
 
@@ -91,7 +105,7 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKShellSchemati
       angularVersion: amaSdkSchematicsPackageJson.dependencies!['@angular-devkit/core'],
       angularEslintVersion: amaSdkSchematicsPackageJson.devDependencies!['@angular-eslint/eslint-plugin'],
       versions,
-      ...openApiSupportedVersion ? {openApiSupportedVersion} : {},
+      ...openApiSupportedVersion ? { openApiSupportedVersion } : {},
       engineVersions,
       empty: ''
     };
@@ -120,11 +134,11 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKShellSchemati
       }
 
       if (tree.exists(workspaceRootYarnRcPath)) {
-        tree.overwrite(workspaceRootYarnRcPath, dump(yarnrc, {indent: 2}));
+        tree.overwrite(workspaceRootYarnRcPath, dump(yarnrc, { indent: 2 }));
       } else if (tree.exists(standaloneYarnRcPath)) {
-        tree.overwrite(standaloneYarnRcPath, dump(yarnrc, {indent: 2}));
+        tree.overwrite(standaloneYarnRcPath, dump(yarnrc, { indent: 2 }));
       } else {
-        tree.create(standaloneYarnRcPath, dump(yarnrc, {indent: 2}));
+        tree.create(standaloneYarnRcPath, dump(yarnrc, { indent: 2 }));
       }
     } else if (properties.packageManager === 'npm' && options.specPackageRegistry && specScope) {
       const workspaceRootNpmrcPath = posix.join(tree.root.path, '.npmrc');

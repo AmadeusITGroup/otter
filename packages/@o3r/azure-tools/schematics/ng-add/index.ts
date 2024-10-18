@@ -1,5 +1,9 @@
-import { noop } from '@angular-devkit/schematics';
-import type { Rule } from '@angular-devkit/schematics';
+import {
+  noop
+} from '@angular-devkit/schematics';
+import type {
+  Rule
+} from '@angular-devkit/schematics';
 
 /**
  * Add Otter azure-tools to an Angular Project

@@ -1,6 +1,14 @@
-import { BuilderOutput, createBuilder, Target } from '@angular-devkit/architect';
-import { createBuilderWithMetricsIfInstalled } from '../utils';
-import { MultiWatcherBuilderSchema } from './schema';
+import {
+  BuilderOutput,
+  createBuilder,
+  Target
+} from '@angular-devkit/architect';
+import {
+  createBuilderWithMetricsIfInstalled
+} from '../utils';
+import {
+  MultiWatcherBuilderSchema
+} from './schema';
 
 export default createBuilder<MultiWatcherBuilderSchema>(createBuilderWithMetricsIfInstalled(async (options, context): Promise<BuilderOutput> => {
   context.reportRunning();
@@ -19,7 +27,7 @@ export default createBuilder<MultiWatcherBuilderSchema>(createBuilderWithMetrics
         buildOptions.watch = true;
       }
 
-      return context.scheduleTarget(target, buildOptions, { logger: context.logger.createChild(target.target)});
+      return context.scheduleTarget(target, buildOptions, { logger: context.logger.createChild(target.target) });
     });
 
   const builds = await Promise.all(processes);

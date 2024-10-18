@@ -1,15 +1,31 @@
 #!/usr/bin/env node
 
-
-import { blue, bold, green, grey } from 'chalk';
-import { program } from 'commander';
-import * as globby from 'globby';
-import { promises as fs, readFileSync } from 'node:fs';
+import {
+  promises as fs,
+  readFileSync
+} from 'node:fs';
 import * as path from 'node:path';
+import {
+  blue,
+  bold,
+  green,
+  grey
+} from 'chalk';
+import {
+  program
+} from 'commander';
+import * as globby from 'globby';
 import * as semver from 'semver';
-import type { PackageJson } from 'type-fest';
+import type {
+  PackageJson
+} from 'type-fest';
 import * as winston from 'winston';
-import { DependencyInfo, DependencyToUpdate, Options, PackageJsonWithOtterConfiguration } from '../helpers/version-harmonize/interfaces';
+import {
+  DependencyInfo,
+  DependencyToUpdate,
+  Options,
+  PackageJsonWithOtterConfiguration
+} from '../helpers/version-harmonize/interfaces';
 
 /** Console logger */
 const logger = winston.createLogger({
@@ -122,7 +138,6 @@ const updatePackageJsonPackageManager = async (packageJsonPaths: string[], packa
 };
 
 void (async () => {
-
   logger.warn('This script is deprecated and will be removed in v12, please use the linter rule @o3r/json-dependency-versions-harmonize instead (documentation available https://github.com/AmadeusITGroup/otter/blob/main/docs/linter/eslint-plugin/rules/json-dependency-versions-harmonize.md)');
   const monorepoPackage: PackageJson = JSON.parse(readFileSync(options.monorepo, { encoding: 'utf8' }));
   const { workspaces, packageManager } = monorepoPackage;
@@ -237,5 +252,4 @@ void (async () => {
 
   await updatePackageJson(dependenciesToUpdate, bestRangeDependencies);
   await updatePackageJsonPackageManager(packagePathToUpdateThePackageManager, packageManager);
-
 })();

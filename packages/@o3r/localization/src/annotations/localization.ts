@@ -1,4 +1,8 @@
-import { deepFill, immutablePrimitive, otterComponentInfoPropertyName } from '@o3r/core';
+import {
+  deepFill,
+  immutablePrimitive,
+  otterComponentInfoPropertyName
+} from '@o3r/core';
 
 /**
  * Decorator to pass localization url

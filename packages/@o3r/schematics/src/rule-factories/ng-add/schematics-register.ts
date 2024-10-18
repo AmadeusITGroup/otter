@@ -1,8 +1,17 @@
-import type { Rule } from '@angular-devkit/schematics';
-import type { PackageJson } from 'type-fest';
-import type { SchematicOptionObject } from '../../interfaces/index';
-import { getWorkspaceConfig, registerCollectionSchematics, writeAngularJson } from '../../utility';
-
+import type {
+  Rule
+} from '@angular-devkit/schematics';
+import type {
+  PackageJson
+} from 'type-fest';
+import type {
+  SchematicOptionObject
+} from '../../interfaces/index';
+import {
+  getWorkspaceConfig,
+  registerCollectionSchematics,
+  writeAngularJson
+} from '../../utility';
 
 /**
  * Register the given package in the Angular CLI schematics

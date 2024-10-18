@@ -1,12 +1,19 @@
-import { TSESLint } from '@typescript-eslint/utils';
-import { createCommentString, createRule, defaultSupportedInterfaceNames, getNodeComment, isExtendingConfiguration } from '../../utils';
+import {
+  TSESLint
+} from '@typescript-eslint/utils';
+import {
+  createCommentString,
+  createRule,
+  defaultSupportedInterfaceNames,
+  getNodeComment,
+  isExtendingConfiguration
+} from '../../utils';
 
 const o3rWidgetParameterPattern = '^[a-zA-Z0-9-_:.]+$';
 
 type O3rWidgetParamType = 'string' | 'number' | 'boolean' | 'string[]' | 'number[]' | 'boolean[]';
 
 const o3rWidgetParamTypes: O3rWidgetParamType[] = ['string', 'number', 'boolean', 'string[]', 'number[]', 'boolean[]'];
-
 
 export interface O3rWidgetTagsRuleOption {
   supportedInterfaceNames?: string[];

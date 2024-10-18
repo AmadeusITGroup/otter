@@ -1,5 +1,9 @@
-import type { Rule } from '@angular-devkit/schematics';
-import { getFilesWithExtensionFromTree } from '@o3r/schematics';
+import type {
+  Rule
+} from '@angular-devkit/schematics';
+import {
+  getFilesWithExtensionFromTree
+} from '@o3r/schematics';
 
 export const updateScssImports = (): Rule => {
   const otterThemeFunctions = [
@@ -25,7 +29,7 @@ export const updateScssImports = (): Rule => {
     files
       .map((file) => {
         const content = tree.readText(file);
-        const match = content.match(/@use +['"]@o3r\/styling['"] +as +(.*);/);
+        const match = content.match(/@use +["']@o3r\/styling["'] +as +(.*);/);
         const importName = match?.[1];
         if (!importName) {
           return {
@@ -41,13 +45,13 @@ export const updateScssImports = (): Rule => {
           content,
           toReplace: otterThemeFunctions
             .map((item) => ({ from: `${importName}.${item}`, to: `${otterSubEntryPrefix}.${item}` }))
-            .filter(({from}) => content.includes(from))
+            .filter(({ from }) => content.includes(from))
         };
       })
       .filter(({ toReplace, importName }) => !!importName && !!toReplace?.length)
       .forEach(({ file, content, toReplace, importName }) => {
         let newContent = `@use '@o3r/styling/otter-theme' as ${otterSubEntryPrefix};\n`
-          + toReplace!.reduce((acc, {from, to}) => {
+          + toReplace!.reduce((acc, { from, to }) => {
             return acc.replaceAll(from, to);
           }, content);
         if (!newContent.includes(`${importName!}.`)) {

@@ -1,4 +1,8 @@
 import {
+  basename,
+  dirname
+} from 'node:path';
+import {
   apply,
   chain,
   MergeStrategy,
@@ -11,11 +15,17 @@ import {
   Tree,
   url
 } from '@angular-devkit/schematics';
-import { createSchematicWithMetricsIfInstalled, O3rCliError } from '@o3r/schematics';
-import { applyToUpdateRecorder, InsertChange } from '@schematics/angular/utility/change';
-import { basename, dirname } from 'node:path';
-import type { NgAddThemingSchematicsSchema } from './schema';
-
+import {
+  createSchematicWithMetricsIfInstalled,
+  O3rCliError
+} from '@o3r/schematics';
+import {
+  applyToUpdateRecorder,
+  InsertChange
+} from '@schematics/angular/utility/change';
+import type {
+  NgAddThemingSchematicsSchema
+} from './schema';
 
 const checkTheming = (stylePath: string, tree: Tree) => {
   if (!/style\.scss$/.test(stylePath)) {
@@ -27,7 +37,6 @@ const checkTheming = (stylePath: string, tree: Tree) => {
     throw new O3rCliError('This component already have theming.');
   }
 };
-
 
 /**
  * Add theming to an existing component

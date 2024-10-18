@@ -1,6 +1,14 @@
-import { CONFIGURATION_PREFIX } from './configuration-configs.interface';
-import { extractConfiguration, retrieveConfigFromProps } from './configuration.helpers';
-import { getConfigurationMetadata, setConfigurationMetadata } from './metadata-manager';
+import {
+  CONFIGURATION_PREFIX
+} from './configuration-configs.interface';
+import {
+  extractConfiguration,
+  retrieveConfigFromProps
+} from './configuration.helpers';
+import {
+  getConfigurationMetadata,
+  setConfigurationMetadata
+} from './metadata-manager';
 
 describe('Configuration Metadata setup', () => {
   beforeEach(() => {

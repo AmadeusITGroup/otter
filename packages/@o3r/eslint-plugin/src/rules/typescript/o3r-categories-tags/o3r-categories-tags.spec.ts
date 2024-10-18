@@ -1,6 +1,10 @@
 import typescriptParser from '@typescript-eslint/parser';
-import { RuleTester } from '@typescript-eslint/rule-tester';
-import o3rCategoriesTagsRule, { O3rCategoriesTagsRuleOption } from './o3r-categories-tags';
+import {
+  RuleTester
+} from '@typescript-eslint/rule-tester';
+import o3rCategoriesTagsRule, {
+  O3rCategoriesTagsRuleOption
+} from './o3r-categories-tags';
 
 const ruleTester = new RuleTester({
   languageOptions: {

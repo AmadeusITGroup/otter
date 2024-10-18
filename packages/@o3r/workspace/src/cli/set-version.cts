@@ -1,11 +1,17 @@
 #!/usr/bin/env node
 
-import { program } from 'commander';
-import { sync as globbySync } from 'globby';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
+import {
+  program
+} from 'commander';
+import {
+  sync as globbySync
+} from 'globby';
+import {
+  clean
+} from 'semver';
 import * as winston from 'winston';
-import { clean } from 'semver';
 
 const defaultIncludedFiles = ['**/package.json', '!/**/templates/**/package.json', '!**/node_modules/**/package.json', '**/lerna.json'];
 
@@ -46,16 +52,16 @@ program
 const options: any = program.opts();
 logger.level = options.verbose ? 'debug' : 'info';
 
-globbySync(options.include, {cwd: process.cwd()})
+globbySync(options.include, { cwd: process.cwd() })
   .map((file: string) => path.join(process.cwd(), file))
   .map((filePath: string) => ({
     path: filePath,
     content: fs.readFileSync(filePath).toString()
   }))
-  .forEach((pathWithContent: {path: string; content: string}) => {
+  .forEach((pathWithContent: { path: string; content: string }) => {
     const newContent = pathWithContent.content
-      .replace(new RegExp('"([~^]?)' + (options.placeholder as string).replace(/[.+?^${}()|[\]\\]/g, '\\$&').replace(/\\*\./g, '\\.') + '"', 'g'), `"$1${replaceVersion}"`)
-      .replace(/"workspace:([~^]?)[^"]*"(,?)$/gm, `"$1${replaceVersion}"$2`);
+      .replace(new RegExp('"([~^]?)' + (options.placeholder as string).replace(/[$()+.?[\\\]^{|}]/g, '\\$&').replace(/\\*\./g, '\\.') + '"', 'g'), `"$1${replaceVersion}"`)
+      .replace(/"workspace:([^~]?)[^"]*"(,?)$/gm, `"$1${replaceVersion}"$2`);
     if (newContent === pathWithContent.content) {
       logger.debug(`No change in ${pathWithContent.path}`);
     } else {

@@ -1,6 +1,13 @@
-import type { DesignTokenVariableStructure, TokenValueRenderer } from '../../parsers/design-token-parser.interface';
-import type { TokenDefinitionRenderer } from '../design-token.renderer.interface';
-import { getJsonSchemaTokenValueRenderer } from './design-token-value.renderers';
+import type {
+  DesignTokenVariableStructure,
+  TokenValueRenderer
+} from '../../parsers/design-token-parser.interface';
+import type {
+  TokenDefinitionRenderer
+} from '../design-token.renderer.interface';
+import {
+  getJsonSchemaTokenValueRenderer
+} from './design-token-value.renderers';
 
 /** Options for {@link getJsonSchemaTokenDefinitionRenderer} */
 export interface JsonSchemaTokenDefinitionRendererOptions {
@@ -15,12 +22,12 @@ export interface JsonSchemaTokenDefinitionRendererOptions {
 export const getJsonSchemaTokenDefinitionRenderer = (options?: JsonSchemaTokenDefinitionRendererOptions): TokenDefinitionRenderer => {
   const tokenValueRenderer = options?.tokenValueRenderer || getJsonSchemaTokenValueRenderer();
 
-  const generateNode = (currentVariable: DesignTokenVariableStructure, variableValue: string, ancestors: typeof currentVariable.ancestors): {type: string; properties: Record<any, any>}[] => {
+  const generateNode = (currentVariable: DesignTokenVariableStructure, variableValue: string, ancestors: typeof currentVariable.ancestors): { type: string; properties: Record<any, any> }[] => {
     return [
       {
         type: 'object',
         properties: {
-          [ancestors.map(({name}) => name).join('.') + (ancestors.length > 0 ? '.' : '') + currentVariable.tokenReferenceName.split('.').at(-1)]: JSON.parse(variableValue)
+          [ancestors.map(({ name }) => name).join('.') + (ancestors.length > 0 ? '.' : '') + currentVariable.tokenReferenceName.split('.').at(-1)]: JSON.parse(variableValue)
         }
       },
       ...ancestors.length > 0

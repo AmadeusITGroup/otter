@@ -1,4 +1,5 @@
 export * from './ast';
+export * from './builder';
 export * from './collection';
 export * from './component';
 export * from './dependencies';
@@ -10,9 +11,8 @@ export * from './gitignore';
 export * from './loaders';
 export * from './logo';
 export * from './matching-peers';
-export * from './builder';
-export * from './modules';
 export * from './migration/migration';
+export * from './modules';
 export * from './monorepo';
 export * from './package-manager-runner';
 export * from './package-version';

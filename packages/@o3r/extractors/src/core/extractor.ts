@@ -1,5 +1,9 @@
-import type { Output } from '@o3r/core';
-import type { Documentation } from '../interfaces';
+import type {
+  Output
+} from '@o3r/core';
+import type {
+  Documentation
+} from '../interfaces';
 
 /**
  * Represents a extractor

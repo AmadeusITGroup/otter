@@ -1,9 +1,21 @@
+import {
+  promises as fs
+} from 'node:fs';
+import {
+  resolve
+} from 'node:path';
+import type {
+  DesignTokenSpecification
+} from '../design-token-specification.interface';
+import type {
+  DesignTokenVariableSet
+} from '../parsers';
 import * as parser from '../parsers/design-token.parser';
-import { promises as fs } from 'node:fs';
-import { resolve } from 'node:path';
-import type { DesignTokenSpecification } from '../design-token-specification.interface';
-import type { DesignTokenVariableSet } from '../parsers';
-import { compareVariableByName, computeFileToUpdatePath, renderDesignTokens } from './design-token-style.renderer';
+import {
+  compareVariableByName,
+  computeFileToUpdatePath,
+  renderDesignTokens
+} from './design-token-style.renderer';
 
 describe('Design Token Renderer', () => {
   let exampleVariable!: DesignTokenSpecification;
@@ -13,7 +25,7 @@ describe('Design Token Renderer', () => {
     const file = await fs.readFile(resolve(__dirname, '../../../../testing/mocks/design-token-theme.json'), { encoding: 'utf8' });
     exampleVariable = { document: JSON.parse(file) };
     // Add different target file
-    (exampleVariable.document.example as any)['test.var2'].$extensions = { o3rTargetFile: 'file.scss'};
+    (exampleVariable.document.example as any)['test.var2'].$extensions = { o3rTargetFile: 'file.scss' };
     designTokens = parser.parseDesignToken(exampleVariable);
   });
 
@@ -84,7 +96,9 @@ describe('Design Token Renderer', () => {
 
       test('should sort variable by name per default', async () => {
         const result: any = {};
-        const writeFile = jest.fn().mockImplementation((filename, content) => { result[filename] = content; });
+        const writeFile = jest.fn().mockImplementation((filename, content) => {
+          result[filename] = content;
+        });
         const readFile = jest.fn().mockReturnValue('');
         const existsFile = jest.fn().mockReturnValue(true);
         const determineFileToUpdate = jest.fn().mockImplementation(computeFileToUpdatePath('.'));
@@ -103,7 +117,9 @@ describe('Design Token Renderer', () => {
 
       test('should sort variable based on option', async () => {
         const result: any = {};
-        const writeFile = jest.fn().mockImplementation((filename, content) => { result[filename] = content; });
+        const writeFile = jest.fn().mockImplementation((filename, content) => {
+          result[filename] = content;
+        });
         const readFile = jest.fn().mockReturnValue('');
         const existsFile = jest.fn().mockReturnValue(true);
         const determineFileToUpdate = jest.fn().mockImplementation(computeFileToUpdatePath('.'));

@@ -1,7 +1,12 @@
-import { Tree } from '@angular-devkit/schematics';
-import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
+import {
+  Tree
+} from '@angular-devkit/schematics';
+import {
+  SchematicTestRunner,
+  UnitTestTree
+} from '@angular-devkit/schematics/testing';
 
 jest.mock('@o3r/schematics', () => ({
   setupDependencies: jest.fn().mockReturnValue((tree: any) => tree),
@@ -73,5 +78,4 @@ describe('generateApplication', () => {
     await expect(runner.runSchematic('application', { name: 'test' }, initalTree)).rejects.toThrow(
       'The `path` option is not provided and no workspace configuration file found to define it.');
   });
-
 });

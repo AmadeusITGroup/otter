@@ -1,4 +1,9 @@
 import {
+  basename,
+  dirname,
+  relative
+} from 'node:path';
+import {
   apply,
   MergeStrategy,
   mergeWith,
@@ -8,9 +13,12 @@ import {
   template,
   url
 } from '@angular-devkit/schematics';
-import { basename, dirname, relative } from 'node:path';
-import type { NgAddDesignTokenSchematicsSchema } from './schema';
-import type { createSchematicWithMetricsIfInstalled } from '@o3r/schematics';
+import type {
+  createSchematicWithMetricsIfInstalled
+} from '@o3r/schematics';
+import type {
+  NgAddDesignTokenSchematicsSchema
+} from './schema';
 
 /**
  * Add Design Token to an existing component

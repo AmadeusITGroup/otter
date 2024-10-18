@@ -1,8 +1,14 @@
-import { readJsonSync } from 'fs-extra';
-import { exec } from 'node:child_process';
+import {
+  exec
+} from 'node:child_process';
 import * as fs from 'node:fs';
+import {
+  promisify
+} from 'node:util';
+import {
+  readJsonSync
+} from 'fs-extra';
 import * as semver from 'semver';
-import { promisify } from 'node:util';
 import * as winston from 'winston';
 
 interface Dependency {
@@ -48,7 +54,6 @@ const dependencyParser = (value: string): Dependency | undefined => {
   }
 };
 
-
 /**
  * Update a package.json with the given dependencies versions and their respective peer dependencies.
  * Relies on npm info to retrieve package information.
@@ -60,7 +65,6 @@ const dependencyParser = (value: string): Dependency | undefined => {
  * @param silent
  */
 export async function updatePeerDependencies(dependencies: string[] = [], packageJsonPath: string, verbose = false, silent = true) {
-
   const logger = winston.createLogger({
     level: verbose ? 'debug' : 'info',
     format: winston.format.simple(),

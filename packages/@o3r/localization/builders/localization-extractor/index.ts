@@ -1,13 +1,31 @@
-import { BuilderOutput, createBuilder } from '@angular-devkit/architect';
-import { createBuilderWithMetricsIfInstalled, validateJson } from '@o3r/extractors';
-import { O3rCliError } from '@o3r/schematics';
-import * as chokidar from 'chokidar';
 import * as fs from 'node:fs';
-import { sync as globbySync } from 'globby';
 import * as path from 'node:path';
-import { LibraryMetadataMap, LocalizationExtractor, LocalizationFileMap } from '../helpers/localization.generator';
-import { LocalizationExtractorBuilderSchema } from './schema';
-import { validators } from './validations';
+import {
+  BuilderOutput,
+  createBuilder
+} from '@angular-devkit/architect';
+import {
+  createBuilderWithMetricsIfInstalled,
+  validateJson
+} from '@o3r/extractors';
+import {
+  O3rCliError
+} from '@o3r/schematics';
+import * as chokidar from 'chokidar';
+import {
+  sync as globbySync
+} from 'globby';
+import {
+  LibraryMetadataMap,
+  LocalizationExtractor,
+  LocalizationFileMap
+} from '../helpers/localization.generator';
+import {
+  LocalizationExtractorBuilderSchema
+} from './schema';
+import {
+  validators
+} from './validations';
 
 export * from './schema';
 
@@ -15,7 +33,7 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<LocalizationExt
   context.reportRunning();
 
   const localizationExtractor = new LocalizationExtractor(path.resolve(context.workspaceRoot, options.tsConfig), context.logger, options);
-  const cache: { libs: LibraryMetadataMap; locs: LocalizationFileMap } = {libs: {}, locs: {}};
+  const cache: { libs: LibraryMetadataMap; locs: LocalizationFileMap } = { libs: {}, locs: {} };
 
   const execute = async (isFirstLoad = true, files?: { libs?: string[]; locs?: string[]; extraFiles?: string[] }): Promise<BuilderOutput> => {
     /** Maximum number of steps */
@@ -145,10 +163,10 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<LocalizationExt
     await currentProcess;
 
     /** SCSS file watcher */
-    const watcher = chokidar.watch([...Object.keys(cache.locs), ...(options.extraFilePatterns || [])], {ignoreInitial: true});
-    const metadataWatcher = chokidar.watch(Object.keys(cache.libs), {ignoreInitial: true});
+    const watcher = chokidar.watch([...Object.keys(cache.locs), ...(options.extraFilePatterns || [])], { ignoreInitial: true });
+    const metadataWatcher = chokidar.watch(Object.keys(cache.libs), { ignoreInitial: true });
     const { include, exclude, cwd } = localizationExtractor.getPatternsFromTsConfig();
-    const tsWatcher = chokidar.watch(include, {ignoreInitial: true, ignored: exclude, cwd});
+    const tsWatcher = chokidar.watch(include, { ignoreInitial: true, ignored: exclude, cwd });
 
     tsWatcher
       .on('add', async (filePath, fileStat) => {
@@ -171,7 +189,7 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<LocalizationExt
           context.logger.debug(`Ignored action ${eventName} on ${filePath}`);
         } else {
           context.logger.debug(`Refreshed for action ${eventName} on ${filePath}`);
-          currentProcess = generateWithReport(execute(false, {libs: [filePath]}));
+          currentProcess = generateWithReport(execute(false, { libs: [filePath] }));
           await currentProcess;
           currentProcess = undefined;
         }
@@ -203,6 +221,5 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<LocalizationExt
     });
   } else {
     return execute(true, { extraFiles: initialExtraLocs, libs: options.libraries });
-
   }
 }));

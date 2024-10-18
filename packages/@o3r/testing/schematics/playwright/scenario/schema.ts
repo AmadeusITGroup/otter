@@ -1,4 +1,6 @@
-import type { SchematicOptionObject } from '@o3r/schematics';
+import type {
+  SchematicOptionObject
+} from '@o3r/schematics';
 
 export interface NgGeneratePlaywrightScenarioSchematicsSchema extends SchematicOptionObject {
   /** Project name */

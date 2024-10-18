@@ -15,7 +15,9 @@ import {
   O3rCliError
 } from '@o3r/schematics';
 import * as ts from 'typescript';
-import type { NgUseConfigSignalSchematicsSchema } from './schema';
+import type {
+  NgUseConfigSignalSchematicsSchema
+} from './schema';
 
 const configObserverRegexp = /.*new ConfigurationObserver<(?<configName>\w+)>\(\s*(?<configId>\w+),\s*(?<defaultConfig>\w+)(,\s*\w+)?\s*\);/;
 

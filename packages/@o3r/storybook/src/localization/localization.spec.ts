@@ -1,6 +1,14 @@
-import { LOCALIZATION_PREFIX } from './localization-configs.interface';
-import { extractLocalization, getLocalizations } from './localization.helpers';
-import { getLocalizationMetadata, setLocalizationMetadata } from './metadata-manager';
+import {
+  LOCALIZATION_PREFIX
+} from './localization-configs.interface';
+import {
+  extractLocalization,
+  getLocalizations
+} from './localization.helpers';
+import {
+  getLocalizationMetadata,
+  setLocalizationMetadata
+} from './metadata-manager';
 
 describe('Localization Metadata setup', () => {
   beforeEach(() => {
@@ -31,7 +39,7 @@ describe('Localization Metadata setup', () => {
 describe('Localization helper', () => {
   describe('extractLocalization', () => {
     it('should extract description from metadata', () => {
-      const result = extractLocalization({localKeyTest: 'keyTest'}, [
+      const result = extractLocalization({ localKeyTest: 'keyTest' }, [
         {
           key: 'keyTest',
           description: 'ok description',

@@ -1,9 +1,19 @@
 import * as path from 'node:path';
+import type {
+  AST
+} from 'jsonc-eslint-parser';
 import * as semver from 'semver';
-import { createRule } from '../../utils';
-import { getJsoncParserServices } from '../utils';
-import type { AST } from 'jsonc-eslint-parser';
-import { findWorkspacePackageJsons, getBestRange, getBestRanges } from './version-harmonize';
+import {
+  createRule
+} from '../../utils';
+import {
+  getJsoncParserServices
+} from '../utils';
+import {
+  findWorkspacePackageJsons,
+  getBestRange,
+  getBestRanges
+} from './version-harmonize';
 
 interface Options {
   /** List of package name to ignore when determining the dependencies versions */
@@ -98,7 +108,7 @@ export default createRule<[Options, ...any], 'versionUpdate' | 'error'>({
     const workspace = findWorkspacePackageJsons(dirname);
     const dependencyTypesWithInterest = [...options.dependencyTypes!, ...(options.alignEngines ? [enginesField] : [])];
     const bestRanges = workspace && getBestRanges(dependencyTypesWithInterest, workspace.packages.filter(({ content }) => !content.name || !options.ignoredPackages!.includes(content.name)));
-    const ignoredDependencies = options.ignoredDependencies!.map((dep) => new RegExp(dep.replace(/[.+?^${}()|[\]\\]/g, '\\$&').replace(/\*/g, '.*')));
+    const ignoredDependencies = options.ignoredDependencies!.map((dep) => new RegExp(dep.replace(/[$()+.?[\\\]^{|}]/g, '\\$&').replace(/\*/g, '.*')));
     const dependencyTypes = [...dependencyTypesWithInterest, ...(options.alignResolutions ? resolutionsFields : [])];
 
     if (parserServices.isJSON) {

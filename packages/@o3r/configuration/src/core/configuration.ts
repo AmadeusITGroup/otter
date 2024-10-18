@@ -1,6 +1,15 @@
-import { computeItemIdentifier, deepFill } from '@o3r/core';
-import { Observable } from 'rxjs';
-import { distinctUntilChanged, map, shareReplay } from 'rxjs/operators';
+import {
+  computeItemIdentifier,
+  deepFill
+} from '@o3r/core';
+import {
+  Observable
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  map,
+  shareReplay
+} from 'rxjs/operators';
 
 /**
  * Interface to define the error messages into component configuration

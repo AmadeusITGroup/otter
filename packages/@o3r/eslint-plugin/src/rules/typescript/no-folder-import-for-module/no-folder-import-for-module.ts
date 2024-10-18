@@ -1,6 +1,8 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { createRule } from '../../utils';
+import {
+  createRule
+} from '../../utils';
 
 export default createRule({
   name: 'no-folder-import-for-module',
@@ -36,7 +38,7 @@ export default createRule({
           const indexPath = path.resolve(importTarget, 'index.ts');
           const indexFileExist = fs.existsSync(indexPath);
           const newIndexFilePath = path.join(importPath, 'index')
-            .replace(/[\\/]/g, '/')
+            .replace(/[/\\]/g, '/')
             .replace(/^([^.])/, './$1');
           context.report({
             node,

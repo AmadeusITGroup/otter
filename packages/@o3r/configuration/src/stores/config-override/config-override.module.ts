@@ -1,8 +1,20 @@
-import { InjectionToken, ModuleWithProviders, NgModule } from '@angular/core';
-import { Action, ActionReducer, StoreModule } from '@ngrx/store';
-
-import { configOverrideReducer } from './config-override.reducer';
-import { CONFIG_OVERRIDE_STORE_NAME, ConfigOverrideState } from './config-override.state';
+import {
+  InjectionToken,
+  ModuleWithProviders,
+  NgModule
+} from '@angular/core';
+import {
+  Action,
+  ActionReducer,
+  StoreModule
+} from '@ngrx/store';
+import {
+  configOverrideReducer
+} from './config-override.reducer';
+import {
+  CONFIG_OVERRIDE_STORE_NAME,
+  ConfigOverrideState
+} from './config-override.state';
 
 /** Token of the ConfigOverride reducer */
 export const CONFIG_OVERRIDE_REDUCER_TOKEN = new InjectionToken<ActionReducer<ConfigOverrideState, Action>>('Feature ConfigOverride Reducer');

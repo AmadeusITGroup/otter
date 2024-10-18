@@ -1,6 +1,16 @@
-import { ProbotOctokit } from 'probot';
-import { BaseLogger, CascadingConfiguration, CascadingPullRequestInfo, CheckConclusion, DEFAULT_CONFIGURATION } from './interfaces';
-import { Cascading } from './cascading';
+import {
+  ProbotOctokit
+} from 'probot';
+import {
+  Cascading
+} from './cascading';
+import {
+  BaseLogger,
+  CascadingConfiguration,
+  CascadingPullRequestInfo,
+  CheckConclusion,
+  DEFAULT_CONFIGURATION
+} from './interfaces';
 
 export interface CascadingProbotOptions {
   /** Logger to report information */
@@ -17,7 +27,6 @@ export interface CascadingProbotOptions {
  * Cascading class implementation for Probot framework
  */
 export class CascadingProbot extends Cascading {
-
   /** List of possible configuration files paths */
   public static readonly CONFIGURATION_FILES = ['.github/cascadingrc.json', '.github/.cascadingrc.json', 'cascadingrc.json', '.cascadingrc.json'];
 
@@ -111,7 +120,7 @@ export class CascadingProbot extends Cascading {
         this.options.octokit.repos.getBranch({
           ...this.options.repo,
           branch: `refs/heads/${branch}`
-        }).then(({data}) => data.commit.sha)
+        }).then(({ data }) => data.commit.sha)
       )
     );
 
@@ -185,7 +194,7 @@ export class CascadingProbot extends Cascading {
   /** @inheritdoc */
   protected async createPullRequest(cascadingBranch: string, targetBranch: string, body: string, title: string, labels?: string[]) {
     // TODO: add auto_merge when allow by the RestAPI (cf: https://github.com/orgs/community/discussions/24719)
-    const {data} = await this.options.octokit.pulls.create({
+    const { data } = await this.options.octokit.pulls.create({
       ...this.options.repo,
       head: `refs/heads/${cascadingBranch}`,
       base: `refs/heads/${targetBranch}`,

@@ -1,9 +1,19 @@
 import * as path from 'node:path';
 import * as semver from 'semver';
-import { createRule } from '../../utils';
-import { getYamlParserServices } from '../utils';
-import { type AST, getStaticYAMLValue } from 'yaml-eslint-parser';
-import { findWorkspacePackageJsons, /* getBestRange,*/ getBestRanges } from '../../json/json-dependency-versions-harmonize/version-harmonize';
+import {
+  type AST,
+  getStaticYAMLValue
+} from 'yaml-eslint-parser';
+import {
+  findWorkspacePackageJsons,
+  getBestRanges
+} from '../../json/json-dependency-versions-harmonize/version-harmonize';
+import {
+  createRule
+} from '../../utils';
+import {
+  getYamlParserServices
+} from '../utils';
 
 interface Options {
   /** List of package.json to ignore when determining the dependencies versions */
@@ -86,13 +96,12 @@ export default createRule<[Options, ...any], 'versionUpdate' | 'error'>({
     const bestRanges = workspace
       ? getBestRanges(options.dependencyTypesInPackages, workspace.packages.filter(({ content }) => !content.name || !options.excludePackages.includes(content.name)))
       : {};
-    const ignoredDependencies = options.ignoredDependencies.map((dep) => new RegExp(dep.replace(/[.+?^${}()|[\]\\]/g, '\\$&').replace(/\*/g, '.*')));
+    const ignoredDependencies = options.ignoredDependencies.map((dep) => new RegExp(dep.replace(/[$()+.?[\\\]^{|}]/g, '\\$&').replace(/\*/g, '.*')));
 
     if (parserServices.isYAML) {
       return {
         // eslint-disable-next-line @typescript-eslint/naming-convention
         'YAMLPair': (node: AST.YAMLPair) => {
-
           if (node.value) {
             const range = getStaticYAMLValue(node.value)?.toString();
             const parent = node.parent.parent && node.parent.parent.type === 'YAMLPair' && getStaticYAMLValue(node.parent.parent.key!)?.toString();

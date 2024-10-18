@@ -1,10 +1,21 @@
-import { isJsonObject, JsonObject } from '@angular-devkit/core';
-import { Tree } from '@angular-devkit/schematics';
-import {SchematicTestRunner} from '@angular-devkit/schematics/testing';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { firstValueFrom } from 'rxjs';
-import { updatePackageJsonScripts } from './index';
+import {
+  isJsonObject,
+  JsonObject
+} from '@angular-devkit/core';
+import {
+  Tree
+} from '@angular-devkit/schematics';
+import {
+  SchematicTestRunner
+} from '@angular-devkit/schematics/testing';
+import {
+  firstValueFrom
+} from 'rxjs';
+import {
+  updatePackageJsonScripts
+} from './index';
 
 const collectionPath = path.join(__dirname, '..', '..', 'collection.json');
 const packageJsonPath = path.join(

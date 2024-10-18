@@ -1,5 +1,10 @@
-import { compileString, Logger } from 'sass';
-import { resolve } from 'node:path';
+import {
+  resolve
+} from 'node:path';
+import {
+  compileString,
+  Logger
+} from 'sass';
 
 const url = new URL('.', 'file://' + resolve(__dirname, 'test.scss'));
 const testedFile = './functions';
@@ -49,7 +54,7 @@ describe('Utils function', () => {
         $res: o3r.get-mandatory((test: 'test-value'), missing-key, 'map');
         @debug $res;`;
       expect(() => compileString(mock, { url })).toThrow(
-        expect.objectContaining({message: expect.stringContaining('"Missing mandatory `missing-key` in `map`"')})
+        expect.objectContaining({ message: expect.stringContaining('"Missing mandatory `missing-key` in `map`"') })
       );
     });
   });

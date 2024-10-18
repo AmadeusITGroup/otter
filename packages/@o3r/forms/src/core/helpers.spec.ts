@@ -1,10 +1,15 @@
-import { FormControl, FormGroup } from '@angular/forms';
-import { getFlatControlErrors, markAllControlsDirtyAndTouched, markAllControlsPristineAndUntouched } from './helpers';
+import {
+  FormControl,
+  FormGroup
+} from '@angular/forms';
+import {
+  getFlatControlErrors,
+  markAllControlsDirtyAndTouched,
+  markAllControlsPristineAndUntouched
+} from './helpers';
 
 describe('Form helpers', () => {
-
   describe('markAllControlsDirtyAndTouched and markAllControlsPristineAndUntouched', () => {
-
     let form: FormGroup<{
       first: FormControl<any>;
       last: FormControl<any>;
@@ -81,26 +86,26 @@ describe('Form helpers', () => {
 
     it('should return the error of an invalid form with one error', () => {
       form = new FormGroup({});
-      form.setErrors({singleError: {expected: true, actual: false}});
+      form.setErrors({ singleError: { expected: true, actual: false } });
 
       expect(getFlatControlErrors(form)).toEqual([{
         controlName: undefined,
         customErrors: null,
         errors: [{
           errorKey: 'singleError',
-          errorValue: {expected: true, actual: false},
-          validationError: {singleError: {expected: true, actual: false}}
+          errorValue: { expected: true, actual: false },
+          validationError: { singleError: { expected: true, actual: false } }
         }]
       }]);
     });
 
     it('should return the customErrors of an invalid form', () => {
       form = new FormGroup({});
-      form.setErrors({customErrors: [{translationKey: 'component.global.my-custom-validation'}]});
+      form.setErrors({ customErrors: [{ translationKey: 'component.global.my-custom-validation' }] });
 
       expect(getFlatControlErrors(form)).toEqual([{
         controlName: undefined,
-        customErrors: [{translationKey: 'component.global.my-custom-validation'}],
+        customErrors: [{ translationKey: 'component.global.my-custom-validation' }],
         errors: []
       }]);
     });
@@ -108,17 +113,17 @@ describe('Form helpers', () => {
     it('should separate validation errors from custom ones', () => {
       form = new FormGroup({});
       form.setErrors({
-        singleError: {expected: true, actual: false},
-        customErrors: [{translationKey: 'component.global.my-custom-validation'}]
+        singleError: { expected: true, actual: false },
+        customErrors: [{ translationKey: 'component.global.my-custom-validation' }]
       });
 
       expect(getFlatControlErrors(form)).toEqual([{
         controlName: undefined,
-        customErrors: [{translationKey: 'component.global.my-custom-validation'}],
+        customErrors: [{ translationKey: 'component.global.my-custom-validation' }],
         errors: [{
           errorKey: 'singleError',
-          errorValue: {expected: true, actual: false},
-          validationError: {singleError: {expected: true, actual: false}}
+          errorValue: { expected: true, actual: false },
+          validationError: { singleError: { expected: true, actual: false } }
         }]
       }]);
     });
@@ -126,7 +131,7 @@ describe('Form helpers', () => {
     it('should return a flatten error list of an invalid form with multiple errors', () => {
       form = new FormGroup({});
       form.setErrors({
-        singleError: {expected: true, actual: false},
+        singleError: { expected: true, actual: false },
         anotherError: 'SYSTEM_ERROR'
       });
 
@@ -135,12 +140,12 @@ describe('Form helpers', () => {
         customErrors: null,
         errors: [{
           errorKey: 'singleError',
-          errorValue: {expected: true, actual: false},
-          validationError: {singleError: {expected: true, actual: false}}
+          errorValue: { expected: true, actual: false },
+          validationError: { singleError: { expected: true, actual: false } }
         }, {
           errorKey: 'anotherError',
           errorValue: 'SYSTEM_ERROR',
-          validationError: {anotherError: 'SYSTEM_ERROR'}
+          validationError: { anotherError: 'SYSTEM_ERROR' }
         }]
       }]);
     });
@@ -157,7 +162,7 @@ describe('Form helpers', () => {
       form = new FormGroup({
         firstName: new FormControl()
       });
-      form.get('firstName').setErrors({singleError: {expected: true, actual: false}});
+      form.get('firstName').setErrors({ singleError: { expected: true, actual: false } });
 
       expect(getFlatControlErrors(form)).toEqual([
         {
@@ -165,8 +170,8 @@ describe('Form helpers', () => {
           customErrors: null,
           errors: [{
             errorKey: 'singleError',
-            errorValue: {expected: true, actual: false},
-            validationError: {singleError: {expected: true, actual: false}}
+            errorValue: { expected: true, actual: false },
+            validationError: { singleError: { expected: true, actual: false } }
           }]
         }
       ]);
@@ -176,8 +181,8 @@ describe('Form helpers', () => {
       form = new FormGroup({
         firstName: new FormControl()
       });
-      form.setErrors({randomGlobalError: true});
-      form.get('firstName').setErrors({singleError: {expected: true, actual: false}});
+      form.setErrors({ randomGlobalError: true });
+      form.get('firstName').setErrors({ singleError: { expected: true, actual: false } });
 
       const errors = getFlatControlErrors(form);
 
@@ -187,7 +192,7 @@ describe('Form helpers', () => {
         errors: [{
           errorKey: 'randomGlobalError',
           errorValue: true,
-          validationError: {randomGlobalError: true}
+          validationError: { randomGlobalError: true }
         }]
       });
 
@@ -207,7 +212,7 @@ describe('Form helpers', () => {
         firstName: new FormControl()
       });
       form.get('firstName').setErrors({
-        singleError: {expected: true, actual: false},
+        singleError: { expected: true, actual: false },
         anotherError: 'SYSTEM_ERROR'
       });
 
@@ -217,12 +222,12 @@ describe('Form helpers', () => {
           customErrors: null,
           errors: [{
             errorKey: 'singleError',
-            errorValue: {expected: true, actual: false},
-            validationError: {singleError: {expected: true, actual: false}}
+            errorValue: { expected: true, actual: false },
+            validationError: { singleError: { expected: true, actual: false } }
           }, {
             errorKey: 'anotherError',
             errorValue: 'SYSTEM_ERROR',
-            validationError: {anotherError: 'SYSTEM_ERROR'}
+            validationError: { anotherError: 'SYSTEM_ERROR' }
           }]
         }
       ]);
@@ -237,10 +242,10 @@ describe('Form helpers', () => {
         })
       });
 
-      form.setErrors({error1: 10});
-      form.get('cardNumber').setErrors({error2: 20});
-      form.get('expiryDate').setErrors({error3: 30});
-      form.get('expiryDate').get('month').setErrors({error4: 40});
+      form.setErrors({ error1: 10 });
+      form.get('cardNumber').setErrors({ error2: 20 });
+      form.get('expiryDate').setErrors({ error3: 30 });
+      form.get('expiryDate').get('month').setErrors({ error4: 40 });
 
       expect(getFlatControlErrors(form)).toEqual([
         { // Global form
@@ -249,7 +254,7 @@ describe('Form helpers', () => {
           errors: [{
             errorKey: 'error1',
             errorValue: 10,
-            validationError: {error1: 10}
+            validationError: { error1: 10 }
           }]
         },
         { // cardNumber
@@ -258,7 +263,7 @@ describe('Form helpers', () => {
           errors: [{
             errorKey: 'error2',
             errorValue: 20,
-            validationError: {error2: 20}
+            validationError: { error2: 20 }
           }]
         },
         { // expiryDate
@@ -267,7 +272,7 @@ describe('Form helpers', () => {
           errors: [{
             errorKey: 'error3',
             errorValue: 30,
-            validationError: {error3: 30}
+            validationError: { error3: 30 }
           }]
         },
         { // expiryDate.month
@@ -276,11 +281,10 @@ describe('Form helpers', () => {
           errors: [{
             errorKey: 'error4',
             errorValue: 40,
-            validationError: {error4: 40}
+            validationError: { error4: 40 }
           }]
         }
       ]);
     });
-
   });
 });

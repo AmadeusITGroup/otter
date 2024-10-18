@@ -1,7 +1,15 @@
+import {
+  spawn,
+  SpawnOptions
+} from 'node:child_process';
 import * as path from 'node:path';
-import { spawn, SpawnOptions } from 'node:child_process';
-import { CodeGenerator } from '../code-generator';
-import { defaultOptions, JavaGeneratorTaskOptions } from './swagger-java.options';
+import {
+  CodeGenerator
+} from '../code-generator';
+import {
+  defaultOptions,
+  JavaGeneratorTaskOptions
+} from './swagger-java.options';
 
 /**
  * Manage the schematic to generate a sdk using the Swagger 2 Generator

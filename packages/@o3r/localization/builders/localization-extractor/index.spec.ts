@@ -1,10 +1,21 @@
-import { Architect } from '@angular-devkit/architect';
-import { TestingArchitectHost } from '@angular-devkit/architect/testing';
-import { schema } from '@angular-devkit/core';
-import { cleanVirtualFileSystem, useVirtualFileSystem } from '@o3r/test-helpers';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { LocalizationExtractorBuilderSchema } from './schema';
+import {
+  Architect
+} from '@angular-devkit/architect';
+import {
+  TestingArchitectHost
+} from '@angular-devkit/architect/testing';
+import {
+  schema
+} from '@angular-devkit/core';
+import {
+  cleanVirtualFileSystem,
+  useVirtualFileSystem
+} from '@o3r/test-helpers';
+import {
+  LocalizationExtractorBuilderSchema
+} from './schema';
 
 describe('Localization Extractor Builder', () => {
   const workspaceRoot = path.join('..', '..', '..', '..', '..');
@@ -44,7 +55,7 @@ describe('Localization Extractor Builder', () => {
     expect(output.error).toBeUndefined();
     await run.stop();
 
-    const localizationOutput = JSON.parse(virtualFileSystem.readFileSync(options.outputFile, {encoding: 'utf8'}));
+    const localizationOutput = JSON.parse(virtualFileSystem.readFileSync(options.outputFile, { encoding: 'utf8' }));
     expect(typeof localizationOutput).toBe('object');
     expect(typeof localizationOutput.length).toBe('number');
     expect(localizationOutput[0].key).toMatch(/o3r-.*/);

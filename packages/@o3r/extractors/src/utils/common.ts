@@ -1,8 +1,16 @@
-import { O3rCliError } from '@o3r/schematics';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import type { DeclarationReflection, ReferenceType } from 'typedoc';
-import type { CmsMetadataData, DocumentationNode } from '../interfaces';
+import {
+  O3rCliError
+} from '@o3r/schematics';
+import type {
+  DeclarationReflection,
+  ReferenceType
+} from 'typedoc';
+import type {
+  CmsMetadataData,
+  DocumentationNode
+} from '../interfaces';
 
 /**
  * Check if a component implements an interface given as a parameter
@@ -66,7 +74,7 @@ export function getLibraryModulePath(libraryName: string, executionDir: string =
   };
 
   const moduleIndexPath = getPackagePath(packageJsonInDist) || getPackagePath(packageJson);
-  const libraryNameForRegExp = libraryName.replace(/[\\/]+/g, '[\\\\/]').replace(/-/g, '[\\\\/-]');
+  const libraryNameForRegExp = libraryName.replace(/[/\\]+/g, '[\\\\/]').replace(/-/g, '[\\\\/-]');
   const libraryReg = new RegExp('^(.*?)' + libraryNameForRegExp + '[\\\\/]?(dist)?');
   const matches = moduleIndexPath?.match(libraryReg);
   if (!matches) {
@@ -74,7 +82,6 @@ export function getLibraryModulePath(libraryName: string, executionDir: string =
   }
   return matches[0];
 }
-
 
 /**
  * Get cms metadata files from the node_modules package of the provided library

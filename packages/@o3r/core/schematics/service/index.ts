@@ -1,8 +1,34 @@
-import { strings } from '@angular-devkit/core';
-import { apply, chain, MergeStrategy, mergeWith, move, noop, renameTemplateFiles, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
-import { applyEsLintFix, createSchematicWithMetricsIfInstalled, getDestinationPath, getTestFramework, getWorkspaceConfig, moduleHasSubEntryPoints, O3rCliError, writeSubEntryPointPackageJson } from '@o3r/schematics';
 import * as path from 'node:path';
-import { NgGenerateServiceSchematicsSchema } from './schema';
+import {
+  strings
+} from '@angular-devkit/core';
+import {
+  apply,
+  chain,
+  MergeStrategy,
+  mergeWith,
+  move,
+  noop,
+  renameTemplateFiles,
+  Rule,
+  SchematicContext,
+  template,
+  Tree,
+  url
+} from '@angular-devkit/schematics';
+import {
+  applyEsLintFix,
+  createSchematicWithMetricsIfInstalled,
+  getDestinationPath,
+  getTestFramework,
+  getWorkspaceConfig,
+  moduleHasSubEntryPoints,
+  O3rCliError,
+  writeSubEntryPointPackageJson
+} from '@o3r/schematics';
+import {
+  NgGenerateServiceSchematicsSchema
+} from './schema';
 
 /**
  * Add a Service to an Otter project

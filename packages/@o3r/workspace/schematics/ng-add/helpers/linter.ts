@@ -1,11 +1,16 @@
-import type { SchematicContext, Tree } from '@angular-devkit/schematics';
-import { askConfirmation } from '@angular/cli/src/utilities/prompt';
+import {
+  askConfirmation
+} from '@angular/cli/src/utilities/prompt';
+import type {
+  SchematicContext,
+  Tree
+} from '@angular-devkit/schematics';
 
 /**
  * If the ESLint FlatConfig is used in the repository
  * @param tree
  */
-export const isUsingFlatConfig = (tree: Tree) => tree.root.subfiles.find((file) => /eslint\.config\.{m,c,}[tj]s/.test(file));
+export const isUsingFlatConfig = (tree: Tree) => tree.root.subfiles.find((file) => /eslint\.config\.{m,c,}[jt]s/.test(file));
 
 /**
  * Checks if `eslint` package is installed. If so, ask the user for otter linter rules install.

@@ -1,10 +1,18 @@
 #!/usr/bin/env node
 
-import { program } from 'commander';
-import * as globby from 'globby';
-import { existsSync, promises as fs, readFileSync } from 'node:fs';
+import {
+  existsSync,
+  promises as fs,
+  readFileSync
+} from 'node:fs';
 import * as path from 'node:path';
-import type { PackageJson } from 'type-fest';
+import {
+  program
+} from 'commander';
+import * as globby from 'globby';
+import type {
+  PackageJson
+} from 'type-fest';
 import * as winston from 'winston';
 
 /** Options of the CLI */
@@ -51,7 +59,7 @@ program
 logger.warn('This script is deprecated, will be removed in Otter v12.');
 
 // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-const { cwd, pattern, exportTypes, ...options} = program.opts() as Options;
+const { cwd, pattern, exportTypes, ...options } = program.opts() as Options;
 const srcDir = path.resolve(cwd, options.srcDir);
 const outDir = path.resolve(cwd, options.outDir);
 
@@ -106,7 +114,6 @@ const editPackageJson = async () => {
   Object.keys(exportMap).forEach((exp) => logger.debug(`export sub entry: ${exp}`));
   await fs.writeFile(outputtedPackageJsonPath, JSON.stringify(packageJson, null, 2));
 };
-
 
 editPackageJson()
   .then(() => process.exit(0))

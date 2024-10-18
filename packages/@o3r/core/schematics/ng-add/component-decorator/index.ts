@@ -1,6 +1,13 @@
-import { Rule, Tree } from '@angular-devkit/schematics';
-import { insertImport } from '@schematics/angular/utility/ast-utils';
-import { InsertChange } from '@schematics/angular/utility/change';
+import {
+  Rule,
+  Tree
+} from '@angular-devkit/schematics';
+import {
+  insertImport
+} from '@schematics/angular/utility/ast-utils';
+import {
+  InsertChange
+} from '@schematics/angular/utility/change';
 import * as ts from 'typescript';
 
 interface RemovePosition {

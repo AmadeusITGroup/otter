@@ -1,6 +1,12 @@
-import { AbstractControl } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { ErrorMessageObject } from './errors';
+import {
+  AbstractControl
+} from '@angular/forms';
+import {
+  Observable
+} from 'rxjs';
+import {
+  ErrorMessageObject
+} from './errors';
 
 /**
  * The return of a custom validation

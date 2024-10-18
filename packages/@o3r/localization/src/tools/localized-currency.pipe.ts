@@ -1,7 +1,18 @@
-import {CurrencyPipe} from '@angular/common';
-import {ChangeDetectorRef, OnDestroy, Pipe, PipeTransform} from '@angular/core';
-import {Subscription} from 'rxjs';
-import {LocalizationService} from './localization.service';
+import {
+  CurrencyPipe
+} from '@angular/common';
+import {
+  ChangeDetectorRef,
+  OnDestroy,
+  Pipe,
+  PipeTransform
+} from '@angular/core';
+import {
+  Subscription
+} from 'rxjs';
+import {
+  LocalizationService
+} from './localization.service';
 
 /**
  * Native angular CurrencyPipe taking the current lang into consideration

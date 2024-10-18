@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 
-import { program } from 'commander';
+import {
+  program
+} from 'commander';
 import * as winston from 'winston';
 
 program
@@ -51,7 +53,7 @@ if (programOptions.basicAuth && programOptions.apiKey) {
 }
 const authHeader: RequestInit['headers'] = programOptions.basicAuth
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  ? { Authorization: `Basic ${programOptions.basicAuth as string}`} : {'X-JFrog-Art-Api': programOptions.apiKey as string};
+  ? { Authorization: `Basic ${programOptions.basicAuth as string}` } : { 'X-JFrog-Art-Api': programOptions.apiKey as string };
 let url: string = programOptions.artifactoryUrl;
 url += (url.endsWith('/') ? '' : '/') + 'api/search/aql';
 const ageInDays: number = programOptions.durationKept;
@@ -145,9 +147,8 @@ logger.info(`Url called : ${url}`);
   for (const uri of filesToDelete) {
     logger.info(`Deleting ${uri}...`);
     if (!programOptions.dryRun) {
-      const response = await fetch(uri, {method: 'DELETE', headers: authHeader});
+      const response = await fetch(uri, { method: 'DELETE', headers: authHeader });
       logger.info(response);
     }
   }
 })();
-

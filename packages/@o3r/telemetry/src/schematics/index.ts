@@ -1,9 +1,24 @@
-import type { JsonObject } from '@angular-devkit/core';
-import { callRule, Rule } from '@angular-devkit/schematics';
-import { performance } from 'node:perf_hooks';
-import { lastValueFrom } from 'rxjs';
-import { getEnvironmentInfo } from '../environment/index';
-import { sendData as defaultSendData, SchematicMetricData, type SendDataFn } from '../sender';
+import {
+  performance
+} from 'node:perf_hooks';
+import type {
+  JsonObject
+} from '@angular-devkit/core';
+import {
+  callRule,
+  Rule
+} from '@angular-devkit/schematics';
+import {
+  lastValueFrom
+} from 'rxjs';
+import {
+  getEnvironmentInfo
+} from '../environment/index';
+import {
+  sendData as defaultSendData,
+  SchematicMetricData,
+  type SendDataFn
+} from '../sender';
 
 /**
  * Factory of the schematic to wrap
@@ -27,13 +42,11 @@ export const createSchematicWithMetrics: SchematicWrapper = (schematicFn, sendDa
   try {
     const rule = schematicFn(options);
     await lastValueFrom(callRule(rule, tree, context));
-  }
-  catch (e: any) {
+  } catch (e: any) {
     const err = e instanceof Error ? e : new Error(e.toString());
     error = err.stack || err.toString();
     throw err;
-  }
-  finally {
+  } finally {
     const endTime = Math.floor(performance.now());
     const duration = endTime - startTime;
     const environment = await getEnvironmentInfo();
@@ -78,4 +91,3 @@ export const createSchematicWithMetrics: SchematicWrapper = (schematicFn, sendDa
     }
   }
 };
-

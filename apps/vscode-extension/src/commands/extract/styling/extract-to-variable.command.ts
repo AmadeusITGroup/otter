@@ -1,6 +1,17 @@
-import { EOL } from 'node:os';
-import { ExtensionContext, Range, TextEditor, window } from 'vscode';
-import { generateVariableName, insertVariable, isPropertyValue } from './helpers/utils.helper';
+import {
+  EOL
+} from 'node:os';
+import {
+  ExtensionContext,
+  Range,
+  TextEditor,
+  window
+} from 'vscode';
+import {
+  generateVariableName,
+  insertVariable,
+  isPropertyValue
+} from './helpers/utils.helper';
 /**
  * Extract a single prop/value scss line to an otter variable
  * The active cursor needs to be on the line you want to refactor

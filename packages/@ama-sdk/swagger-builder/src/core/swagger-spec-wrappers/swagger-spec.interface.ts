@@ -1,4 +1,10 @@
-import type { BodyParameter, Path, QueryParameter, Schema, Tag } from 'swagger-schema-official';
+import type {
+  BodyParameter,
+  Path,
+  QueryParameter,
+  Schema,
+  Tag
+} from 'swagger-schema-official';
 
 /** Swagger spec available as target of $ref field */
 export type AvailableSwaggerSpecTargets = 'NpmModule' | 'LocalPath' | 'Url';

@@ -1,8 +1,17 @@
-import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import type { NgAddSchematicsSchema } from './schema';
-import { registerDevtools } from './helpers/devtools-registration';
+import {
+  chain,
+  Rule,
+  SchematicContext,
+  Tree
+} from '@angular-devkit/schematics';
+import {
+  registerDevtools
+} from './helpers/devtools-registration';
+import type {
+  NgAddSchematicsSchema
+} from './schema';
 
 const reportMissingSchematicsDep = (logger: { error: (message: string) => any }) => (reason: any) => {
   logger.error(`[ERROR]: Adding @o3r/configuration has failed.
@@ -67,7 +76,6 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       () => registerDevtools(options)
     ])(tree, context);
   };
-
 }
 
 /**

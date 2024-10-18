@@ -1,5 +1,9 @@
-import { promises as fs } from 'node:fs';
-import type { DesignTokenVariableSet, DesignTokenVariableStructure, NodeReference, ParentReference } from './design-token-parser.interface';
+import {
+  promises as fs
+} from 'node:fs';
+import {
+  dirname
+} from 'node:path';
 import type {
   DesignToken,
   DesignTokenContext,
@@ -16,14 +20,19 @@ import {
   isDesignTokenGroup,
   isTokenTypeStrokeStyleValueComplex
 } from '../design-token-specification.interface';
-import { dirname } from 'node:path';
+import type {
+  DesignTokenVariableSet,
+  DesignTokenVariableStructure,
+  NodeReference,
+  ParentReference
+} from './design-token-parser.interface';
 
-const tokenReferenceRegExp = /\{([^}]+)\}/g;
-const splitValueNumericRegExp = /^([-+]?[0-9]+[.,]?[0-9]*)\s*([^\s.,;]+)?/;
+const tokenReferenceRegExp = /{([^}]+)}/g;
+const splitValueNumericRegExp = /^([+-]?\d+[,.]?\d*)\s*([^\s,.;]+)?/;
 
 const getTokenReferenceName = (tokenName: string, parents: string[]) => parents.join('.') + (parents.length > 0 ? '.' : '') + tokenName;
 const getExtensions = (nodes: NodeReference[], context: DesignTokenContext | undefined) => {
-  return nodes.reduce((acc, {tokenNode}, i) => {
+  return nodes.reduce((acc, { tokenNode }, i) => {
     const nodeNames = nodes.slice(0, i + 1).map(({ name }) => name);
     const defaultMetadata = nodeNames.length > 0 ? nodeNames.reduce((accTpl, name) => accTpl?.[name] as DesignTokenGroupTemplate, context?.template) : undefined;
     const o3rMetadata = { ...defaultMetadata?.$extensions?.o3rMetadata, ...acc.o3rMetadata, ...tokenNode.$extensions?.o3rMetadata };
@@ -57,7 +66,7 @@ const applyConversion = (token: DesignTokenVariableStructure, value: string) => 
 };
 // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
 const renderCssTypeStrokeStyleValue = (value: DesignTokenTypeStrokeStyleValue | string) => isTokenTypeStrokeStyleValueComplex(value) ? `${value.lineCap} ${value.dashArray.join(' ')}` : value;
-const sanitizeStringValue = (value: string) => value.replace(/[\\]/g, '\\\\').replace(/"/g, '\\"');
+const sanitizeStringValue = (value: string) => value.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
 const sanitizeKeyName = (name: string) => name.replace(/[ .]+/g, '-').replace(/[()[\]]+/g, '');
 const getCssRawValue = (variableSet: DesignTokenVariableSet, token: DesignTokenVariableStructure) => {
   const { node, getType } = token;
@@ -144,7 +153,6 @@ const walkThroughDesignTokenNodes = (
   ancestors: ParentReference[],
   mem: DesignTokenVariableSet,
   nodeName?: string): DesignTokenVariableSet => {
-
   if (isDesignTokenGroup(node)) {
     Object.entries(node)
       .filter(([tokenName, tokenNode]) => !tokenName.startsWith('$') && (isDesignToken(tokenNode) || isDesignTokenGroup(tokenNode)))
@@ -175,7 +183,7 @@ const walkThroughDesignTokenNodes = (
         return getReferences(this.getCssRawValue(variableSet));
       },
       getIsAlias: function (variableSet = mem) {
-        return this.getReferences(variableSet).length === 1 && typeof node.$value === 'string' && !!node.$value?.toString().match(/^\{[^}]*\}$/);
+        return this.getReferences(variableSet).length === 1 && typeof node.$value === 'string' && !!node.$value?.toString().match(/^{[^}]*}$/);
       },
       getReferencesNode: function (variableSet = mem) {
         return this.getReferences(variableSet)
@@ -194,8 +202,7 @@ const walkThroughDesignTokenNodes = (
     };
 
     mem.set(tokenReferenceName, tokenVariable);
-  }
-  else if (!isDesignTokenGroup(node)) {
+  } else if (!isDesignTokenGroup(node)) {
     throw new Error('Fail to determine the Design Token Node type');
   }
 

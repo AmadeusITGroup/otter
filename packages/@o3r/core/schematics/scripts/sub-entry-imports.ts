@@ -1,8 +1,10 @@
-import { getExportedSymbolsFromFile } from '@o3r/schematics';
-import * as ts from 'typescript';
 import * as fs from 'node:fs';
-import * as minimist from 'minimist';
 import * as path from 'node:path';
+import {
+  getExportedSymbolsFromFile
+} from '@o3r/schematics';
+import * as minimist from 'minimist';
+import * as ts from 'typescript';
 
 const argv = minimist(process.argv.slice(2));
 
@@ -62,6 +64,3 @@ if (fixtureFiles.length > 0) {
 const content = { [moduleName]: mapping };
 
 fs.writeFileSync(outputJsonPath, JSON.stringify(content, null, 2));
-
-
-

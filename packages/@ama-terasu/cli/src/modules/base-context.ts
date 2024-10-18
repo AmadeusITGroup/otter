@@ -1,12 +1,30 @@
-import type { Context, RootContext, ProgressBar as SimpleProgressBar, Task } from '@ama-terasu/core';
+import {
+  EOL
+} from 'node:os';
+import type {
+  Context,
+  RootContext,
+  ProgressBar as SimpleProgressBar,
+  Task
+} from '@ama-terasu/core';
 import * as chalk from 'chalk';
 import * as logger from 'loglevel';
-import { EOL } from 'node:os';
-import { default as ora, oraPromise } from 'ora';
+import {
+  error
+} from 'loglevel';
+import {
+  default as ora,
+  oraPromise
+} from 'ora';
 import ProgressBar from 'progress';
-import { Arguments, Argv, terminalWidth } from 'yargs';
-import { error } from 'loglevel';
-import { formatHelpMessage } from '../helpers';
+import {
+  Arguments,
+  Argv,
+  terminalWidth
+} from 'yargs';
+import {
+  formatHelpMessage
+} from '../helpers';
 
 /**
  * Generate a formatted usage message
@@ -41,11 +59,13 @@ export const getSpinner: Context['getSpinner'] = (initialLabel): Task => {
 
   return {
     start: () => !spinner.isSpinning && spinner.start(),
-    updateLabel: (label) => { spinner.text = label; },
+    updateLabel: (label) => {
+      spinner.text = label;
+    },
     fail: (text) => spinner.isSpinning && spinner.fail(text),
     succeed: (text) => spinner.isSpinning && spinner.succeed(text),
     fromPromise: (promise, successText, failText) =>
-      oraPromise(promise, {text: initialLabel, successText, failText})
+      oraPromise(promise, { text: initialLabel, successText, failText })
   };
 };
 

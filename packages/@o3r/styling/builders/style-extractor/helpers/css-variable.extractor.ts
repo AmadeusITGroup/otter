@@ -1,9 +1,19 @@
-import { getLibraryCmsMetadata } from '@o3r/extractors';
-import { O3rCliError } from '@o3r/schematics';
-import type { CssMetadata, CssVariable, CssVariableType } from '@o3r/styling';
 import * as fs from 'node:fs';
-import { pathToFileURL } from 'node:url';
 import * as path from 'node:path';
+import {
+  pathToFileURL
+} from 'node:url';
+import {
+  getLibraryCmsMetadata
+} from '@o3r/extractors';
+import {
+  O3rCliError
+} from '@o3r/schematics';
+import type {
+  CssMetadata,
+  CssVariable,
+  CssVariableType
+} from '@o3r/styling';
 import {
   compileString,
   SassBoolean,
@@ -15,7 +25,9 @@ import {
   StringOptions,
   Value
 } from 'sass';
-import type { StyleExtractorBuilderSchema } from '../schema';
+import type {
+  StyleExtractorBuilderSchema
+} from '../schema';
 
 /**
  * SassCalculation interface
@@ -40,7 +52,7 @@ export class CssVariableExtractor {
    */
   private parseCssVariable(name: string, value = ''): CssVariable {
     const defaultValue = value.trim();
-    const res = defaultValue.match(/^var\( *([^,)]*) *(?:, *([^,()]*(\(.*\))?))*\)$/);
+    const res = defaultValue.match(/^var\( *([^),]*) *(?:, *([^(),]*(\(.*\))?))*\)$/);
     const ret: CssVariable = { name, defaultValue };
     if (res) {
       ret.references = [
@@ -51,7 +63,7 @@ export class CssVariableExtractor {
       let ref: RegExpExecArray | null;
       const references: Record<string, CssVariable> = {};
       do {
-        ref = /var\( *([^,)]*) *(?:, *([^,()]*(\(.*\))?))*\)/.exec(findRef);
+        ref = /var\( *([^),]*) *(?:, *([^(),]*(\(.*\))?))*\)/.exec(findRef);
         if (ref) {
           const refName = ref[1].replace(/^--/, '');
           references[refName] = this.parseCssVariable(refName, ref[2]);
@@ -297,7 +309,7 @@ export class CssVariableExtractor {
    * @param sassFilePath SCSS file to parse
    */
   public extractFile(sassFilePath: string): CssVariable[] {
-    const sassFileContent = fs.readFileSync(sassFilePath, {encoding: 'utf8'});
+    const sassFileContent = fs.readFileSync(sassFilePath, { encoding: 'utf8' });
     return this.extractFileContent(sassFilePath, sassFileContent);
   }
 
@@ -321,6 +333,6 @@ export class CssVariableExtractor {
             libAcc.variables[libKey] = libMetadata.variables[libKey];
             return libAcc;
           }, acc);
-      }, {...current});
+      }, { ...current });
   }
 }

@@ -3,8 +3,7 @@
  * @jest-environment @o3r/test-helpers/jest-environment
  * @jest-environment-o3r-app-folder test-app-eslint-config
  */
-const o3rEnvironment = globalThis.o3rEnvironment;
-
+import path from 'node:path';
 import {
   getDefaultExecSyncOptions,
   getGitDiff,
@@ -12,14 +11,14 @@ import {
   packageManagerInstall,
   packageManagerRunOnProject
 } from '@o3r/test-helpers';
-import path from 'node:path';
+
+const o3rEnvironment = globalThis.o3rEnvironment;
 
 describe('ng add eslint-config', () => {
-
   test('should add eslint-config to an application', () => {
     const { workspacePath, appName, libraryPath, untouchedProjectsPaths, isInWorkspace, isYarnTest, o3rVersion } = o3rEnvironment.testEnvironment;
-    const execAppOptions = {...getDefaultExecSyncOptions(), cwd: workspacePath};
-    packageManagerExec({script: 'ng', args: ['add', `@o3r/eslint-config-otter@${o3rVersion}`, '--skip-confirmation', '--project-name', appName]}, execAppOptions);
+    const execAppOptions = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
+    packageManagerExec({ script: 'ng', args: ['add', `@o3r/eslint-config-otter@${o3rVersion}`, '--skip-confirmation', '--project-name', appName] }, execAppOptions);
     const diff = getGitDiff(workspacePath);
     expect(diff.modified.sort()).toEqual([
       '.vscode/extensions.json',
@@ -41,14 +40,14 @@ describe('ng add eslint-config', () => {
     });
 
     expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
-    expect(() => packageManagerRunOnProject(appName, isInWorkspace, {script: 'build'}, execAppOptions)).not.toThrow();
-    expect(() => packageManagerExec({script: 'ng', args: ['lint', appName, '--fix']}, execAppOptions)).not.toThrow();
+    expect(() => packageManagerRunOnProject(appName, isInWorkspace, { script: 'build' }, execAppOptions)).not.toThrow();
+    expect(() => packageManagerExec({ script: 'ng', args: ['lint', appName, '--fix'] }, execAppOptions)).not.toThrow();
   });
 
   test('should add eslint-config to a library', () => {
     const { workspacePath, libName, applicationPath, untouchedProjectsPaths, isInWorkspace, isYarnTest, o3rVersion } = o3rEnvironment.testEnvironment;
-    const execAppOptions = {...getDefaultExecSyncOptions(), cwd: workspacePath};
-    packageManagerExec({script: 'ng', args: ['add', `@o3r/eslint-config-otter@${o3rVersion}`, '--skip-confirmation', '--project-name', libName]}, execAppOptions);
+    const execAppOptions = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
+    packageManagerExec({ script: 'ng', args: ['add', `@o3r/eslint-config-otter@${o3rVersion}`, '--skip-confirmation', '--project-name', libName] }, execAppOptions);
     const diff = getGitDiff(workspacePath);
 
     expect(diff.modified.sort()).toEqual([
@@ -70,7 +69,7 @@ describe('ng add eslint-config', () => {
     });
 
     expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
-    expect(() => packageManagerRunOnProject(libName, isInWorkspace, {script: 'build'}, execAppOptions)).not.toThrow();
-    expect(() => packageManagerExec({script: 'ng', args: ['lint', libName, '--fix']}, execAppOptions)).not.toThrow();
+    expect(() => packageManagerRunOnProject(libName, isInWorkspace, { script: 'build' }, execAppOptions)).not.toThrow();
+    expect(() => packageManagerExec({ script: 'ng', args: ['lint', libName, '--fix'] }, execAppOptions)).not.toThrow();
   });
 });

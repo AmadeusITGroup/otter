@@ -1,6 +1,12 @@
-import {ElementFinder} from 'protractor';
-import {RadioElementProfile} from '../../elements';
-import {O3rElement} from '../element';
+import {
+  ElementFinder
+} from 'protractor';
+import {
+  RadioElementProfile
+} from '../../elements';
+import {
+  O3rElement
+} from '../element';
 
 /**
  * Implementation dedicated to karma / TestBed.

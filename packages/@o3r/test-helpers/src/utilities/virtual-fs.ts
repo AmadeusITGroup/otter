@@ -1,7 +1,13 @@
-import { Volume } from 'memfs';
-import type { Volume as VolumeInterface } from 'memfs/lib/volume';
 import * as actualFileSystem from 'node:fs';
-import { Union } from 'unionfs';
+import {
+  Volume
+} from 'memfs';
+import type {
+  Volume as VolumeInterface
+} from 'memfs/lib/volume';
+import {
+  Union
+} from 'unionfs';
 
 /**
  * Mock every call to `node:fs` to write files on a virtual memory instead of disk

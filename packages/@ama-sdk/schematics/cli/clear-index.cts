@@ -4,9 +4,14 @@
  * Remove deleted models' exports
  */
 
+import {
+  promises as fs,
+  statSync
+} from 'node:fs';
+import {
+  resolve
+} from 'node:path';
 import * as minimist from 'minimist';
-import { promises as fs, statSync } from 'node:fs';
-import { resolve } from 'node:path';
 
 const argv = minimist(process.argv.slice(2));
 const { help } = argv;

@@ -1,4 +1,6 @@
-import type { PackageJson } from 'type-fest';
+import type {
+  PackageJson
+} from 'type-fest';
 
 /** Package as return by the NPM Registry */
 export type NpmRegistryPackage = Pick<PackageJson, 'name' | 'description' | 'version' | 'keywords'> &

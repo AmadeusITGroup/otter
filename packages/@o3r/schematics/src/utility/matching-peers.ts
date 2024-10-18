@@ -1,5 +1,7 @@
 import * as fs from 'node:fs';
-import type { PackageJson } from 'type-fest';
+import type {
+  PackageJson
+} from 'type-fest';
 
 /**
  * Retrieve the peer dependencies with the given pattern from the given package json file
@@ -46,7 +48,6 @@ export function getO3rPeerDeps(packageJsonPath: string, filterBasics = true, pac
       ? depsInfo.matchingPackages.filter((peerDep) => !basicsPackageName.has(peerDep))
       : depsInfo.matchingPackages
   };
-
 }
 
 /**
@@ -66,5 +67,4 @@ export function getO3rGeneratorDeps(packageJsonPath: string, packagePattern = /^
     .filter((peerDep) => packagePattern.test(peerDep) && !optionalPackages.includes(peerDep));
 
   return { packageName, packageVersion, o3rGeneratorDeps };
-
 }

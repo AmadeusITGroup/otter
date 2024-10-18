@@ -1,8 +1,18 @@
-import { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { getFilesFromRootOfWorkspaceProjects, getFilesWithExtensionFromTree } from '../../utility/index';
-import { listOfExposedElements, SassImportExposedElement } from './list-of-vars';
+import {
+  Rule,
+  SchematicContext,
+  Tree
+} from '@angular-devkit/schematics';
+import {
+  getFilesFromRootOfWorkspaceProjects,
+  getFilesWithExtensionFromTree
+} from '../../utility/index';
+import {
+  listOfExposedElements,
+  SassImportExposedElement
+} from './list-of-vars';
 
-const imports = new RegExp(/^@import\s+['"]~?@(o3r|otter)\/styling.*\s*/, 'gm');
+const imports = new RegExp(/^@import\s+["']~?@(o3r|otter)\/styling.*\s*/, 'gm');
 
 /**
  * Update SASS imports to use a scoped dependency
@@ -13,7 +23,6 @@ const imports = new RegExp(/^@import\s+['"]~?@(o3r|otter)\/styling.*\s*/, 'gm');
  */
 export function updateSassImports(alias: string, dependencyName = '@o3r/styling', exposedElements: SassImportExposedElement[] = listOfExposedElements, fromRoot = false): Rule {
   return (tree: Tree, _context: SchematicContext) => {
-
     const files = fromRoot ? getFilesWithExtensionFromTree(tree, 'scss') : getFilesFromRootOfWorkspaceProjects(tree, 'scss');
     files.forEach((file) => {
       let content = tree.read(file)!.toString();

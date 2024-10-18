@@ -1,8 +1,23 @@
-import type { Rule } from '@angular-devkit/schematics';
-import type { createSchematicWithMetricsIfInstalled } from '@o3r/schematics';
-import { posix, resolve } from 'node:path';
-import { AUTO_GENERATED_END, AUTO_GENERATED_START, DesignToken, DesignTokenGroup, DesignTokenNode } from '../../src/public_api';
-import type { ExtractTokenSchematicsSchema } from './schema';
+import {
+  posix,
+  resolve
+} from 'node:path';
+import type {
+  Rule
+} from '@angular-devkit/schematics';
+import type {
+  createSchematicWithMetricsIfInstalled
+} from '@o3r/schematics';
+import {
+  AUTO_GENERATED_END,
+  AUTO_GENERATED_START,
+  DesignToken,
+  DesignTokenGroup,
+  DesignTokenNode
+} from '../../src/public_api';
+import type {
+  ExtractTokenSchematicsSchema
+} from './schema';
 
 const patternToDetect = 'o3r.var';
 
@@ -11,7 +26,6 @@ const patternToDetect = 'o3r.var';
  * @param options
  */
 function extractTokenFn(options: ExtractTokenSchematicsSchema): Rule {
-
   const updateFileContent = (content: string): string => {
     const start = content.indexOf(patternToDetect);
     const end = content.lastIndexOf(patternToDetect);
@@ -27,7 +41,7 @@ function extractTokenFn(options: ExtractTokenSchematicsSchema): Rule {
 
     return `${content.substring(0, indexToInsertStart)}${startTag}\n`
       + content.substring(indexToInsertStart, indexToInsertEnd)
-      + `${endTag}\n${content.substring(indexToInsertEnd) }`;
+      + `${endTag}\n${content.substring(indexToInsertEnd)}`;
   };
 
   return async (tree, context) => {
@@ -36,7 +50,7 @@ function extractTokenFn(options: ExtractTokenSchematicsSchema): Rule {
       const { CssVariableExtractor } = await import('@o3r/styling/builders/style-extractor/helpers');
       const { filter } = await import('minimatch');
       const filterFunctions = options.componentFilePatterns.map((pattern) => filter(
-        '/' + pattern.replace(/[\\/]+/g, '/'),
+        '/' + pattern.replace(/[/\\]+/g, '/'),
         { dot: true }
       ));
       const sassParser = new CssVariableExtractor();
@@ -66,7 +80,7 @@ function extractTokenFn(options: ExtractTokenSchematicsSchema): Rule {
               targetNode = (targetNode as DesignTokenGroup)[name] as DesignTokenGroup | DesignToken;
             });
 
-            const valueWithVariable = [...variable.defaultValue.matchAll(/var\(--([^,)]+),?[^)]*\)/g)]
+            const valueWithVariable = [...variable.defaultValue.matchAll(/var\(--([^),]+),?[^)]*\)/g)]
               .reduce((acc, [variableString, variableName]) => {
                 return acc.replaceAll(variableString, `{${variableName.replaceAll('-', '.')}}`);
               }, variable.defaultValue);

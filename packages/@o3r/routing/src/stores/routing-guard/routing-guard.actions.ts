@@ -1,5 +1,10 @@
-import {createAction, props} from '@ngrx/store';
-import {RegisteredItemFailureReason} from './routing-guard.state';
+import {
+  createAction,
+  props
+} from '@ngrx/store';
+import {
+  RegisteredItemFailureReason
+} from './routing-guard.state';
 
 /** Entity Actions */
 const ACTION_REGISTER_ENTITY = '[RoutingGuard] register an entity';

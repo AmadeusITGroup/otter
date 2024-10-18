@@ -1,7 +1,13 @@
-import { Tree } from '@angular-devkit/schematics';
-import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
+import {
+  Tree
+} from '@angular-devkit/schematics';
+import {
+  SchematicTestRunner,
+  UnitTestTree
+} from '@angular-devkit/schematics/testing';
+
 const mockGetAppModuleFilePath = jest.fn();
 jest.mock('@o3r/schematics', () => {
   return {
@@ -40,6 +46,7 @@ describe('Page', () => {
 
     it('should generate files', () => {
       expect(tree.files.filter((file) => /test-page/.test(file)).length).toEqual(7);
+      // eslint-disable-next-line unicorn/better-regex -- This regex is more readable
       expect(tree.files.some((file) => /^[\\/]?src[\\/]app[\\/]test-page[\\/]test-page\.module\.ts$/i.test(file))).toBeTruthy();
       expect(tree.readContent('/src/app/test-page/test-page.module.ts')).toContain('RouterModule.forChild([{path: \'\', component: TestPageComponent}])');
     });
@@ -69,7 +76,7 @@ describe('Page', () => {
 
     it('should generate files', () => {
       expect(tree.files.filter((file) => /test-page/.test(file)).length).toEqual(6);
-      expect(tree.files.some((file) => /^[\\/]?src[\\/]app[\\/]test-page[\\/]test-page\.module\.ts$/i.test(file))).toBeFalsy();
+      expect(tree.files.some((file) => /^[/\\]?src[/\\]ap{2}(?:[/\\]test-page){2}\.module\.ts$/i.test(file))).toBeFalsy();
     });
 
     it('should insert page route in App Routing Module', () => {
@@ -94,6 +101,7 @@ describe('Page', () => {
 
     it('should generate files with default parameters', () => {
       expect(tree.files.filter((file) => /test-page/.test(file)).length).toEqual(7);
+      // eslint-disable-next-line unicorn/better-regex -- This regex is more readable
       expect(tree.files.some((file) => /^[\\/]?custom[\\/]test-scope[\\/]test-page[\\/]test-page\.module\.ts$/i.test(file))).toBeTruthy();
     });
 

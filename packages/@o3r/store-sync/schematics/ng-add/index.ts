@@ -1,12 +1,19 @@
-import { chain, noop, Rule } from '@angular-devkit/schematics';
-import type { NgAddSchematicsSchema } from './schema';
 import * as path from 'node:path';
-import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
+import {
+  chain,
+  noop,
+  Rule
+} from '@angular-devkit/schematics';
+import {
+  NodeDependencyType
+} from '@schematics/angular/utility/dependencies';
+import type {
+  NgAddSchematicsSchema
+} from './schema';
 
 const devDependenciesToInstall = [
   'fast-deep-equal'
 ];
-
 
 const reportMissingSchematicsDep = (logger: { error: (message: string) => any }) => (reason: any) => {
   logger.error(`[ERROR]: Adding store-sync has failed.

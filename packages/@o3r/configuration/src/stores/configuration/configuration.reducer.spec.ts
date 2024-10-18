@@ -1,14 +1,33 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { getTestBed, TestBed } from '@angular/core/testing';
-import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
-import { Dictionary } from '@ngrx/entity';
-import type { Configuration } from '@o3r/core';
 import {
-  clearConfigurationEntities, updateConfigurationEntities, updateConfigurationEntity, upsertConfigurationEntities,
+  getTestBed,
+  TestBed
+} from '@angular/core/testing';
+import {
+  BrowserDynamicTestingModule,
+  platformBrowserDynamicTesting
+} from '@angular/platform-browser-dynamic/testing';
+import {
+  Dictionary
+} from '@ngrx/entity';
+import type {
+  Configuration
+} from '@o3r/core';
+import {
+  clearConfigurationEntities,
+  updateConfigurationEntities,
+  updateConfigurationEntity,
+  upsertConfigurationEntities,
   upsertConfigurationEntity
 } from './configuration.actions';
-import { configurationAdapter, configurationInitialState, configurationReducer } from './configuration.reducer';
-import type { ConfigurationModel } from './configuration.state';
+import {
+  configurationAdapter,
+  configurationInitialState,
+  configurationReducer
+} from './configuration.reducer';
+import type {
+  ConfigurationModel
+} from './configuration.state';
 
 interface MyConfigToTest extends Configuration {
   fieldNumber: number;
@@ -53,7 +72,7 @@ const updatedComponentsConfiguration = {
   MY_SECOND_COMPONENT: mySecondUpdateConfiguration
 };
 
-const componentsConfigurationsModel = (Object.keys(componentsConfigurations) as (keyof typeof updatedComponentsConfiguration)[]).map((id) => ({id, ...componentsConfigurations[id]}));
+const componentsConfigurationsModel = (Object.keys(componentsConfigurations) as (keyof typeof updatedComponentsConfiguration)[]).map((id) => ({ id, ...componentsConfigurations[id] }));
 
 const getEntity = (entities: Dictionary<ConfigurationModel>, entityId: string): ConfigurationModel | undefined => entities[entityId];
 
@@ -65,7 +84,7 @@ describe('Configuration Store', () => {
   );
 
   beforeEach(() => {
-    configurationReducer(configurationInitialState, {type: 'fake'} as any);
+    configurationReducer(configurationInitialState, { type: 'fake' } as any);
   });
 
   it('should have the correct initial state', () => {
@@ -73,7 +92,7 @@ describe('Configuration Store', () => {
   });
 
   it('UPSERT_ENTITIES should add the configuration for multiple components', () => {
-    const state = configurationReducer(configurationInitialState, upsertConfigurationEntities({entities: componentsConfigurations}));
+    const state = configurationReducer(configurationInitialState, upsertConfigurationEntities({ entities: componentsConfigurations }));
 
     expect(state.ids.length).toEqual(2);
     const firstEntity = getEntity(state.entities, 'MY_COMPONENT_TEST_CONFIG');
@@ -81,33 +100,41 @@ describe('Configuration Store', () => {
 
     expect(firstEntity).toBeDefined();
     expect(secondEntity).toBeDefined();
-    if (!firstEntity) { return; }
+    if (!firstEntity) {
+      return;
+    }
 
     expect(firstEntity.fieldNumber).toEqual(myInitialConfiguration.fieldNumber);
-    if (!secondEntity) { return; }
+    if (!secondEntity) {
+      return;
+    }
 
     expect(secondEntity.secondNumber).toEqual(mySecondComponentConfiguration.secondNumber);
   });
 
   it('UPSERT_ENTITIES should update the configuration for multiple components', () => {
     const state = configurationAdapter.addMany(componentsConfigurationsModel, configurationInitialState);
-    const newState = configurationReducer(state, upsertConfigurationEntities({entities: updatedComponentsConfiguration}));
+    const newState = configurationReducer(state, upsertConfigurationEntities({ entities: updatedComponentsConfiguration }));
     const firstEntity = getEntity(newState.entities, 'MY_COMPONENT_TEST_CONFIG');
     const secondEntity = getEntity(newState.entities, 'MY_SECOND_COMPONENT');
 
     expect(firstEntity).toBeDefined();
     expect(secondEntity).toBeDefined();
-    if (!firstEntity) { return; }
+    if (!firstEntity) {
+      return;
+    }
 
     expect(firstEntity.fieldNumber).toEqual(myInitialConfiguration.fieldNumber);
-    if (!secondEntity) { return; }
+    if (!secondEntity) {
+      return;
+    }
 
     expect(secondEntity.secondNumber).toEqual(mySecondUpdateConfiguration.secondNumber);
   });
 
   it('UPDATE_ENTITY should update the configuration with a partial one', () => {
-    const state = configurationAdapter.addOne({id: 'MY_COMPONENT_TEST_CONFIG', ...myInitialConfiguration}, configurationInitialState);
-    const newState = configurationReducer(state, updateConfigurationEntity({id: 'MY_COMPONENT_TEST_CONFIG', configuration: myPartialUpdateConfiguration}));
+    const state = configurationAdapter.addOne({ id: 'MY_COMPONENT_TEST_CONFIG', ...myInitialConfiguration }, configurationInitialState);
+    const newState = configurationReducer(state, updateConfigurationEntity({ id: 'MY_COMPONENT_TEST_CONFIG', configuration: myPartialUpdateConfiguration }));
 
     expect(newState.ids).toEqual(['MY_COMPONENT_TEST_CONFIG']);
     const entity = getEntity(newState.entities, 'MY_COMPONENT_TEST_CONFIG');
@@ -123,22 +150,26 @@ describe('Configuration Store', () => {
 
   it('UPDATE_ENTITIES should update the configuration for multiple components', () => {
     const state = configurationAdapter.addMany(componentsConfigurationsModel, configurationInitialState);
-    const newState = configurationReducer(state, updateConfigurationEntities({entities: updatedComponentsConfiguration}));
+    const newState = configurationReducer(state, updateConfigurationEntities({ entities: updatedComponentsConfiguration }));
     const firstEntity = getEntity(newState.entities, 'MY_COMPONENT_TEST_CONFIG');
     const secondEntity = getEntity(newState.entities, 'MY_SECOND_COMPONENT');
 
     expect(firstEntity).toBeDefined();
     expect(secondEntity).toBeDefined();
-    if (!firstEntity) { return; }
+    if (!firstEntity) {
+      return;
+    }
 
     expect(firstEntity.fieldNumber).toEqual(myInitialConfiguration.fieldNumber);
-    if (!secondEntity) { return; }
+    if (!secondEntity) {
+      return;
+    }
 
     expect(secondEntity.secondNumber).toEqual(mySecondUpdateConfiguration.secondNumber);
   });
 
   it('UPSERT_ENTITY should add a configuration if not found', () => {
-    const state = configurationReducer(configurationInitialState, upsertConfigurationEntity({id: 'MY_COMPONENT_TEST_CONFIG', configuration: myInitialConfiguration}));
+    const state = configurationReducer(configurationInitialState, upsertConfigurationEntity({ id: 'MY_COMPONENT_TEST_CONFIG', configuration: myInitialConfiguration }));
 
     expect(state.ids).toEqual(['MY_COMPONENT_TEST_CONFIG']);
     const entity = getEntity(state.entities, 'MY_COMPONENT_TEST_CONFIG');
@@ -152,8 +183,8 @@ describe('Configuration Store', () => {
   });
 
   it('UPSERT_ENTITY should update the configuration if it is already in the entities', () => {
-    const state = configurationAdapter.addOne({id: 'MY_COMPONENT_TEST_CONFIG', ...myInitialConfiguration}, configurationInitialState);
-    const newState = configurationReducer(state, upsertConfigurationEntity({id: 'MY_COMPONENT_TEST_CONFIG', configuration: myUpdateConfiguration}));
+    const state = configurationAdapter.addOne({ id: 'MY_COMPONENT_TEST_CONFIG', ...myInitialConfiguration }, configurationInitialState);
+    const newState = configurationReducer(state, upsertConfigurationEntity({ id: 'MY_COMPONENT_TEST_CONFIG', configuration: myUpdateConfiguration }));
 
     expect(newState.ids).toEqual(['MY_COMPONENT_TEST_CONFIG']);
     const entity = getEntity(newState.entities, 'MY_COMPONENT_TEST_CONFIG');
@@ -167,7 +198,7 @@ describe('Configuration Store', () => {
   });
 
   it('CLEAR_ENTITIES should clear the configuration entities', () => {
-    const state = configurationReducer(configurationInitialState, upsertConfigurationEntity({id: 'MY_COMPONENT_TEST_CONFIG', configuration: myInitialConfiguration}));
+    const state = configurationReducer(configurationInitialState, upsertConfigurationEntity({ id: 'MY_COMPONENT_TEST_CONFIG', configuration: myInitialConfiguration }));
 
     expect(state.ids.length).toEqual(1);
     const newState = configurationReducer(state, clearConfigurationEntities());

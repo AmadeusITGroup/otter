@@ -1,4 +1,6 @@
-import {Operation} from './operation';
+import {
+  Operation
+} from './operation';
 
 /** Describes a path on the swagger specification */
 export interface PathObject {

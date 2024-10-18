@@ -1,11 +1,14 @@
-import { MethodType, returnType } from './models';
+import {
+  MethodType,
+  returnType
+} from './models';
 
 const getMethodName = (selector: string, method: MethodType) => {
   // PascalCase converter
   const formattedSelectedText = selector
     .toLowerCase()
-    .replace(new RegExp(/[-_]+/, 'g'), ' ')
-    .replace(new RegExp(/[^\w\s]/, 'g'), '')
+    .replace(new RegExp(/[_-]+/, 'g'), ' ')
+    .replace(new RegExp(/[^\s\w]/, 'g'), '')
     .replace(
       new RegExp(/\s+(.)(\w*)/, 'g'),
       (_$1: string, $2: string, $3: string) => $2.toUpperCase() + $3

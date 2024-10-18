@@ -1,3 +1,9 @@
+import {
+  getFilesFromRegistry,
+  getLatestMigrationMetadataFile,
+  getVersionRangeFromLatestVersion
+} from './metadata-files.helper';
+
 const mockBaseName = jest.fn();
 jest.mock('node:path', () => {
   const original = jest.requireActual('node:path');
@@ -24,12 +30,6 @@ const mockYarnGetFilesFromRegistry = jest.fn();
 jest.mock('./package-managers-extractors/yarn2-file-extractor.helper', () => ({
   getFilesFromRegistry: mockYarnGetFilesFromRegistry
 }));
-
-import {
-  getFilesFromRegistry,
-  getLatestMigrationMetadataFile,
-  getVersionRangeFromLatestVersion
-} from './metadata-files.helper';
 
 const getFakePath = (fileName: string) => `path/${fileName}`;
 
@@ -84,7 +84,7 @@ describe('metadata files helpers', () => {
     it('should return the good granularity version', async () => {
       const major = 1;
       const minor = 3;
-      mockCoerce.mockReturnValue({ major, minor});
+      mockCoerce.mockReturnValue({ major, minor });
       await expect(getVersionRangeFromLatestVersion(`${major}.${minor}.14`, 'major')).resolves.toBe(`<${major}.0.0`);
       await expect(getVersionRangeFromLatestVersion(`${major}.${minor}.14`, 'minor')).resolves.toBe(`<${major}.${minor}.0`);
     });

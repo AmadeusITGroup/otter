@@ -1,4 +1,10 @@
-import type { ConnectContentMessage, DevtoolsCommonOptions, MessageDataTypes, OtterMessageContent, RequestMessagesContentMessage } from '@o3r/core';
+import type {
+  ConnectContentMessage,
+  DevtoolsCommonOptions,
+  MessageDataTypes,
+  OtterMessageContent,
+  RequestMessagesContentMessage
+} from '@o3r/core';
 
 export interface ApplicationDevtoolsServiceOptions extends DevtoolsCommonOptions {
   /**
@@ -52,7 +58,6 @@ export interface ToggleVisualTestingMessage extends OtterMessageContent<'toggleV
   /** Toggle the visual testing mode */
   toggle?: boolean;
 }
-
 
 /** Application Information Message Content */
 export interface ApplicationInformationContentMessage extends ApplicationInformation, OtterMessageContent<'applicationInformation'> {

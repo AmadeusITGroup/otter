@@ -1,9 +1,27 @@
-import { ChangeDetectorRef, Directive, ElementRef, Inject, Input, OnDestroy } from '@angular/core';
-import { TranslateDirective, TranslateService } from '@ngx-translate/core';
-import { Subscription } from 'rxjs';
-import { LocalizationConfiguration } from '../core';
-import { LocalizationService } from './localization.service';
-import { LOCALIZATION_CONFIGURATION_TOKEN } from './localization.token';
+import {
+  ChangeDetectorRef,
+  Directive,
+  ElementRef,
+  Inject,
+  Input,
+  OnDestroy
+} from '@angular/core';
+import {
+  TranslateDirective,
+  TranslateService
+} from '@ngx-translate/core';
+import {
+  Subscription
+} from 'rxjs';
+import {
+  LocalizationConfiguration
+} from '../core';
+import {
+  LocalizationService
+} from './localization.service';
+import {
+  LOCALIZATION_CONFIGURATION_TOKEN
+} from './localization.token';
 /**
  * TranslateDirective class adding debug functionality
  */

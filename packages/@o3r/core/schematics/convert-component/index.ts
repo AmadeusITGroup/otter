@@ -1,16 +1,33 @@
-import { chain, noop, Rule, Tree } from '@angular-devkit/schematics';
-import { applyEsLintFix, createSchematicWithMetricsIfInstalled, isNgClassComponent, isO3rClassComponent, O3rCliError } from '@o3r/schematics';
-import { insertImport } from '@schematics/angular/utility/ast-utils';
-import { applyToUpdateRecorder, InsertChange } from '@schematics/angular/utility/change';
+import {
+  chain,
+  noop,
+  Rule,
+  Tree
+} from '@angular-devkit/schematics';
+import {
+  applyEsLintFix,
+  createSchematicWithMetricsIfInstalled,
+  isNgClassComponent,
+  isO3rClassComponent,
+  O3rCliError
+} from '@o3r/schematics';
+import {
+  insertImport
+} from '@schematics/angular/utility/ast-utils';
+import {
+  applyToUpdateRecorder,
+  InsertChange
+} from '@schematics/angular/utility/change';
 import * as ts from 'typescript';
-import { ConvertToO3rComponentSchematicsSchema } from './schema';
+import {
+  ConvertToO3rComponentSchematicsSchema
+} from './schema';
 
 /**
  * Convert an Angular component into an Otter component
  * @param options
  */
 function convertToO3rComponentFn(options: ConvertToO3rComponentSchematicsSchema): Rule {
-
   const updateComponentFile: Rule = (tree: Tree) => {
     const sourceFile = ts.createSourceFile(
       options.path,

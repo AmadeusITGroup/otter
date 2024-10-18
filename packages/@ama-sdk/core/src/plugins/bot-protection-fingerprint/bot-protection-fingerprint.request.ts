@@ -1,5 +1,12 @@
-import {PluginRunner, RequestOptions, RequestPlugin, RequestPluginContext} from '../core';
-import type {Logger} from '../../fwk/logger';
+import type {
+  Logger
+} from '../../fwk/logger';
+import {
+  PluginRunner,
+  RequestOptions,
+  RequestPlugin,
+  RequestPluginContext
+} from '../core';
 
 /**
  * Function that returns the value of the fingerprint if available.

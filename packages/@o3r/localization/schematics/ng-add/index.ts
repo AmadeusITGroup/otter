@@ -1,9 +1,19 @@
-import { chain, noop, Rule } from '@angular-devkit/schematics';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { updateCmsAdapter } from '../cms-adapter';
-import type { NgAddSchematicsSchema } from './schema';
-import { registerDevtools } from './helpers/devtools-registration';
+import {
+  chain,
+  noop,
+  Rule
+} from '@angular-devkit/schematics';
+import {
+  updateCmsAdapter
+} from '../cms-adapter';
+import {
+  registerDevtools
+} from './helpers/devtools-registration';
+import type {
+  NgAddSchematicsSchema
+} from './schema';
 
 const dependenciesToInstall = [
   'chokidar',
@@ -34,7 +44,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       registerPackageCollectionSchematics,
       setupSchematicsParamsForProject
     } = await import('@o3r/schematics');
-    const {updateI18n, updateLocalization} = await import('../localization-base');
+    const { updateI18n, updateLocalization } = await import('../localization-base');
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
     const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' }));
     const depsInfo = getO3rPeerDeps(packageJsonPath);

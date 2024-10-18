@@ -1,6 +1,14 @@
-import { sync as globbySync } from 'globby';
-import { existsSync, readFileSync } from 'node:fs';
-import { posix, resolve } from 'node:path';
+import {
+  existsSync,
+  readFileSync
+} from 'node:fs';
+import {
+  posix,
+  resolve
+} from 'node:path';
+import {
+  sync as globbySync
+} from 'globby';
 
 /**
  * Get the list of Jest Projects in the workspace

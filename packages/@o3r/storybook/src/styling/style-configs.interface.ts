@@ -1,4 +1,6 @@
-import { StorybookStoryConfiguration } from '../types';
+import {
+  StorybookStoryConfiguration
+} from '../types';
 
 /** Style argument name prefix */
 export const STYLING_PREFIX = 'cssvar-';

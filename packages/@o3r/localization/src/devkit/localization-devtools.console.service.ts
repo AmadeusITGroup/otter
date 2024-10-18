@@ -1,14 +1,31 @@
 /* eslint-disable no-console */
-import { Inject, Injectable, Optional } from '@angular/core';
-import type { ContextualizationDataset, DevtoolsServiceInterface, WindowWithDevtools } from '@o3r/core';
-import { Subscription } from 'rxjs';
-import { LocalizationContextualizationDevtools, LocalizationDevtoolsServiceOptions } from './localization-devkit.interface';
-import { OtterLocalizationDevtools } from './localization-devtools.service';
-import { OTTER_LOCALIZATION_DEVTOOLS_DEFAULT_OPTIONS, OTTER_LOCALIZATION_DEVTOOLS_OPTIONS } from './localization-devtools.token';
+import {
+  Inject,
+  Injectable,
+  Optional
+} from '@angular/core';
+import type {
+  ContextualizationDataset,
+  DevtoolsServiceInterface,
+  WindowWithDevtools
+} from '@o3r/core';
+import {
+  Subscription
+} from 'rxjs';
+import {
+  LocalizationContextualizationDevtools,
+  LocalizationDevtoolsServiceOptions
+} from './localization-devkit.interface';
+import {
+  OtterLocalizationDevtools
+} from './localization-devtools.service';
+import {
+  OTTER_LOCALIZATION_DEVTOOLS_DEFAULT_OPTIONS,
+  OTTER_LOCALIZATION_DEVTOOLS_OPTIONS
+} from './localization-devtools.token';
 
 @Injectable()
 export class LocalizationDevtoolsConsoleService implements DevtoolsServiceInterface, LocalizationContextualizationDevtools {
-
   /** Name of the Window property to access to the devtools */
   public static readonly windowModuleName = 'localization';
 

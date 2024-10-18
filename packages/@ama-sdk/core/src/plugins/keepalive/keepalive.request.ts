@@ -1,11 +1,14 @@
-import {PluginRunner, RequestOptions, RequestPlugin} from '../core';
+import {
+  PluginRunner,
+  RequestOptions,
+  RequestPlugin
+} from '../core';
 
 /**
  * Plugin to add the keepalive flag to the request
  * @deprecated Use the one exposed by {@link @ama-sdk/client-fetch}, will be removed in v13
  */
 export class KeepaliveRequest implements RequestPlugin {
-
   private active: boolean | undefined;
 
   constructor(force = false) {
@@ -27,7 +30,7 @@ export class KeepaliveRequest implements RequestPlugin {
     const customHeaders = new Headers();
     customHeaders.set('Content-Type', 'application/json');
     try {
-      await fetch('', {headers: customHeaders, keepalive: true});
+      await fetch('', { headers: customHeaders, keepalive: true });
       this.active = true;
     } catch {
       this.active = false;
@@ -37,7 +40,7 @@ export class KeepaliveRequest implements RequestPlugin {
   public load(): PluginRunner<RequestOptions, RequestOptions> {
     return {
       transform: (data: RequestOptions) => {
-        return {...data, keepalive: this.active};
+        return { ...data, keepalive: this.active };
       }
     };
   }

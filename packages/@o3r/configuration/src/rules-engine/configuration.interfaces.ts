@@ -1,4 +1,6 @@
-import type { RulesEngineAction } from '@o3r/core';
+import type {
+  RulesEngineAction
+} from '@o3r/core';
 
 /** ActionUpdateConfigurationBlock  */
 export const RULES_ENGINE_CONFIGURATION_UPDATE_ACTION_TYPE = 'UPDATE_CONFIG';

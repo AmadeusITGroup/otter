@@ -1,8 +1,24 @@
-import { spawnSync, SpawnSyncOptionsWithStringEncoding, SpawnSyncReturns } from 'node:child_process';
-import { mkdirSync, readFileSync, rmSync } from 'node:fs';
-import { randomBytes } from 'node:crypto';
-import { tmpdir } from 'node:os';
-import { join, posix, sep } from 'node:path';
+import {
+  spawnSync,
+  SpawnSyncOptionsWithStringEncoding,
+  SpawnSyncReturns
+} from 'node:child_process';
+import {
+  randomBytes
+} from 'node:crypto';
+import {
+  mkdirSync,
+  readFileSync,
+  rmSync
+} from 'node:fs';
+import {
+  tmpdir
+} from 'node:os';
+import {
+  join,
+  posix,
+  sep
+} from 'node:path';
 
 function runAndThrowOnError(command: string, spawnOptions: SpawnSyncOptionsWithStringEncoding): SpawnSyncReturns<string> {
   const cmdOutput = spawnSync(command, spawnOptions);
@@ -17,7 +33,7 @@ function pathToPosix(path: string): string {
 }
 
 function sanitizeInput(input: string) {
-  return input.replace(/[^\w/\\:@^~=<> .-]/g, '');
+  return input.replace(/[^\w ./:<=>@\\^~-]/g, '');
 }
 
 /**

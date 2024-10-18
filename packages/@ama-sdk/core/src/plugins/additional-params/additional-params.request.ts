@@ -1,10 +1,14 @@
-import { PluginRunner, RequestOptions, RequestPlugin } from '../core';
+import {
+  PluginRunner,
+  RequestOptions,
+  RequestPlugin
+} from '../core';
 
 export interface AdditionalParameters {
   /** Additional headers */
-  headers?: {[key: string]: string} | ((headers: Headers) => {[key: string]: string} | Promise<{[key: string]: string}>);
+  headers?: { [key: string]: string } | ((headers: Headers) => { [key: string]: string } | Promise<{ [key: string]: string }>);
   /** Additional query params */
-  queryParams?: {[key: string]: string} | ((defaultValues?: {[key: string]: string}) => {[key: string]: string} | Promise<{[key: string]: string}>);
+  queryParams?: { [key: string]: string } | ((defaultValues?: { [key: string]: string }) => { [key: string]: string } | Promise<{ [key: string]: string }>);
   /** Additional body params */
   body?: (defaultValues?: string) => string | null | Promise<string>;
 }
@@ -23,7 +27,6 @@ export function isStringOrUndefined(value: any): value is string | undefined {
  * Plugin to add (or change) the request parameters
  */
 export class AdditionalParamsRequest implements RequestPlugin {
-
   private readonly additionalParams: AdditionalParameters;
 
   /**
@@ -42,7 +45,7 @@ export class AdditionalParamsRequest implements RequestPlugin {
         const body = this.additionalParams.body && isStringOrUndefined(data.body) ? this.additionalParams.body(data.body) : undefined;
 
         if (queryParams) {
-          data.queryParams = {...data.queryParams, ...queryParams};
+          data.queryParams = { ...data.queryParams, ...queryParams };
         }
 
         if (body !== undefined) {
@@ -57,5 +60,4 @@ export class AdditionalParamsRequest implements RequestPlugin {
       }
     };
   }
-
 }

@@ -1,7 +1,12 @@
 #!/usr/bin/env node
 
-import { program } from 'commander';
-import { Headers, Options } from 'request';
+import {
+  program
+} from 'commander';
+import {
+  Headers,
+  Options
+} from 'request';
 import * as request from 'request-promise-native';
 import * as winston from 'winston';
 
@@ -14,8 +19,8 @@ program
   .option('-p, --path <path>', 'Artifact paths to cleanup using matcher from AQL language. Be careful that the path do not include release artifacts.', '*')
   .option('-f, --filename <filename>', 'Filenames to cleanup using matcher from AQL language.', '*')
   .option('--dry-run', 'List all files that should be deleted without actually deleting them')
-  .option('-a, --api-key <apiKey>', 'Artifactory API Key of the user that can be used to log in', (value, previous) => /[a-zA-Z0-9]+/.test(value) ? value : previous)
-  .option('-b, --basicAuth <base64>', 'Base 64 encoding of username:password (password already encrypted from artifactory UI)', (value, previous) => /[a-zA-Z0-9]+/.test(value) ? value : previous)
+  .option('-a, --api-key <apiKey>', 'Artifactory API Key of the user that can be used to log in', (value, previous) => /[\dA-Za-z]+/.test(value) ? value : previous)
+  .option('-b, --basicAuth <base64>', 'Base 64 encoding of username:password (password already encrypted from artifactory UI)', (value, previous) => /[\dA-Za-z]+/.test(value) ? value : previous)
   .option('-c, --only-creation-time', 'Pass to true if you don\'t want to consider the last downloaded time')
   .option<number>('-t, --last-downloaded-time-value <numberOfDays>', 'This is to be used if you which to pass a different value than durationKept for the download part', (v) => +v)
   .option('--property <property>', 'Artifactory property to filter on')
@@ -94,9 +99,9 @@ const options: Options = {
           {"repo": {"$eq":"${repository}"}},
           {"$and":[{"path":{"$match":"${path}"}}, {"path":{"$nmatch":"*.npm*"}}]},
           {"name":{"$match":"${filename}"}},
-          ${ (!!property && !!propertyValue) ? `{"@${property}":{"$eq":"${propertyValue}"}},` : '' }
-          {"created":{"$before":"${ageInDays}d"}}${ shouldConsiderDownloadedTime ? '' : ','}
-          ${ shouldConsiderDownloadedTime ? '' : `{"$or":[{"stat.downloaded": {"$before":"${ isDownloadedTimeValueDefined ? downloadedTimeValue : ageInDays}d"}}, {"stat.downloads":{"$eq":null}}]}` }
+          ${(!!property && !!propertyValue) ? `{"@${property}":{"$eq":"${propertyValue}"}},` : ''}
+          {"created":{"$before":"${ageInDays}d"}}${shouldConsiderDownloadedTime ? '' : ','}
+          ${shouldConsiderDownloadedTime ? '' : `{"$or":[{"stat.downloaded": {"$before":"${isDownloadedTimeValueDefined ? downloadedTimeValue : ageInDays}d"}}, {"stat.downloads":{"$eq":null}}]}`}
         ]
     }
   )
@@ -132,4 +137,3 @@ void (async () => {
     }
   }
 })();
-

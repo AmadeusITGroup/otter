@@ -1,7 +1,13 @@
-import {exec} from 'node:child_process';
-import {promisify} from 'node:util';
+import {
+  exec
+} from 'node:child_process';
+import {
+  promisify
+} from 'node:util';
 import * as semver from 'semver';
-import {formatGitTagsOutput} from './helpers/index';
+import {
+  formatGitTagsOutput
+} from './helpers/index';
 
 const promisifiedExec = promisify(exec);
 
@@ -61,7 +67,6 @@ export interface NewVersionOptions<T extends BaseLogger> {
  * Class responsible for computing the next version according to options and the GIT tags of the repository
  */
 export class NewVersion {
-
   /** Is the current branch supported by the plug-in to compute a new version */
   public isBaseBranchSupported: boolean;
 
@@ -97,11 +102,11 @@ export class NewVersion {
   public async retrieveGitTags() {
     const fetchCommand = `git fetch --tags ${this.options.authenticatedGitUrl}`;
     this.options.logger.debug(`Executing command: ${fetchCommand}`);
-    const fetchOutput = await promisifiedExec(fetchCommand, {cwd: this.options.localGitFolder});
+    const fetchOutput = await promisifiedExec(fetchCommand, { cwd: this.options.localGitFolder });
     this.options.logger.debug(JSON.stringify(fetchOutput, null, 2));
     const gitTagCommand = 'git tag --list';
     this.options.logger.info(`Executing command: ${gitTagCommand}`);
-    const tagsResult = await promisifiedExec(gitTagCommand, {cwd: this.options.localGitFolder});
+    const tagsResult = await promisifiedExec(gitTagCommand, { cwd: this.options.localGitFolder });
     this.options.logger.debug('Git tags result:');
     this.options.logger.debug(JSON.stringify(tagsResult, null, 2));
     return formatGitTagsOutput(tagsResult.stdout);

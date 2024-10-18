@@ -1,4 +1,6 @@
-import { getEnvironmentInfoStringify } from './environment';
+import {
+  getEnvironmentInfoStringify
+} from './environment';
 
 /**
  * Error to be throw when otter script failed

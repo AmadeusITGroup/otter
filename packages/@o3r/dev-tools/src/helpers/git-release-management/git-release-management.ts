@@ -1,9 +1,13 @@
-import * as fsPromises from 'node:fs/promises';
+import {
+  exec as cpExec
+} from 'node:child_process';
 import * as fs from 'node:fs';
+import * as fsPromises from 'node:fs/promises';
 import * as path from 'node:path';
-import { SemVer } from 'semver';
 import * as util from 'node:util';
-import { exec as cpExec } from 'node:child_process';
+import {
+  SemVer
+} from 'semver';
 import * as winston from 'winston';
 
 const exec = util.promisify(cpExec);
@@ -91,7 +95,7 @@ export async function updateRenovateBaseBranch(branchName: string, renovatePath:
     // Extract npm tag (rc | alpha)
     const suffix = branchName.split('-')[1];
     const suffixRegExp = new RegExp(`${suffix}$`);
-    const renovateRc = JSON.parse(await fsPromises.readFile(renovateRcPath, {encoding: 'utf8'}));
+    const renovateRc = JSON.parse(await fsPromises.readFile(renovateRcPath, { encoding: 'utf8' }));
     logger.info(`Current base branches : ${(renovateRc.baseBranches || []).join(' ') as string}`);
     // Filters branching with same npm tag than the one being created
     // For example, [release/7.0.0-next release/6.1.0-rc release/6.2.0-alpha] will become [release/7.0.0-next release/6.2.0-alpha]

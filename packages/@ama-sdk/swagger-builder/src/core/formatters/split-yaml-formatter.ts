@@ -1,14 +1,17 @@
 import fs from 'node:fs';
-import yaml from 'js-yaml';
 import path from 'node:path';
-import { Formatter } from './formatter.interface';
-import { generatePackageJson } from './utils';
+import yaml from 'js-yaml';
+import {
+  Formatter
+} from './formatter.interface';
+import {
+  generatePackageJson
+} from './utils';
 
 /**
  * Formatter to generate split Swagger spec in YAML files
  */
 export class SplitYamlFormatter implements Formatter {
-
   /** Definitions folder */
   public readonly DEFINITIONS_FOLDER = 'definitions';
 
@@ -32,7 +35,7 @@ export class SplitYamlFormatter implements Formatter {
    * @param content Content of the file to write
    */
   private async writeFileYaml(filePath: string, content: any) {
-    await fs.promises.mkdir(path.dirname(filePath), {recursive: true});
+    await fs.promises.mkdir(path.dirname(filePath), { recursive: true });
     await fs.promises.writeFile(filePath, yaml.dump(content, { indent: 2 }));
   }
 
@@ -42,7 +45,7 @@ export class SplitYamlFormatter implements Formatter {
    * @param content Content of the file to write
    */
   private async writeFileJson(filePath: string, content: any) {
-    await fs.promises.mkdir(path.dirname(filePath), {recursive: true});
+    await fs.promises.mkdir(path.dirname(filePath), { recursive: true });
     await fs.promises.writeFile(filePath, JSON.stringify(content, null, 2));
   }
 
@@ -134,7 +137,7 @@ export class SplitYamlFormatter implements Formatter {
               title: 'Parameters',
               description: 'All the parameters used in APIs'
             },
-            tags: (spec.tags as {name: string}[])
+            tags: (spec.tags as { name: string }[])
               .filter((tag) => Object.keys(paths)
                 .some((k) => Object.keys(paths[k])
                   .some((pathType) => (paths[k][pathType].tags || []).includes(tag.name)))
@@ -168,7 +171,7 @@ export class SplitYamlFormatter implements Formatter {
    */
   private generateJsonFile(products: string[]) {
     return this.writeFileJson(this.filePath, {
-      $schema: path.relative(this.cwd, path.resolve(__dirname, '..', '..', 'schemas', 'api-configuration.schema.json')).replace(/[\\/]/g, '/'),
+      $schema: path.relative(this.cwd, path.resolve(__dirname, '..', '..', 'schemas', 'api-configuration.schema.json')).replace(/[/\\]/g, '/'),
       swaggerTemplate: `./${path.basename(this.filePath, '.json')}.yaml`,
       products: products.map((product) => `${product} API`)
     });
@@ -176,7 +179,7 @@ export class SplitYamlFormatter implements Formatter {
 
   /** @inheritdoc */
   public async generate(spec: any): Promise<void> {
-    const writableSpec = await this.rewriterReferences({...spec});
+    const writableSpec = await this.rewriterReferences({ ...spec });
     await this.generateEnvelop(writableSpec);
     await this.generateDefinitionFiles(writableSpec);
     await this.generateParameterFile(writableSpec);
@@ -188,7 +191,7 @@ export class SplitYamlFormatter implements Formatter {
 
   /** @inheritdoc */
   public async generateArtifact(artifactName: string, spec: any): Promise<void> {
-    await fs.promises.mkdir(this.cwd, {recursive: true});
+    await fs.promises.mkdir(this.cwd, { recursive: true });
 
     const content = JSON.stringify({
       ...generatePackageJson(artifactName, spec),

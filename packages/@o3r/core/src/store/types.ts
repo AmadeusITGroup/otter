@@ -36,7 +36,7 @@ export interface LocalStateModel {
 /**
  * Adds an `id` to the given type
  */
-export type Idfy<T> = T & {id: string | number};
+export type Idfy<T> = T & { id: string | number };
 
 /**
  * Payload to update actions
@@ -65,7 +65,6 @@ export interface FailActionPayload<T> {
   error?: T;
 }
 
-
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export type keep<T, K extends keyof T> = (Partial<T> & { [p in K]: T[p] });
 
@@ -75,7 +74,7 @@ export interface UpdateEntitiesActionPayload<T, K extends keyof T> {
 }
 
 /** Payload to update entities actions with a field ID */
-export interface UpdateEntitiesActionPayloadWithId<T extends {id: string | number}> {
+export interface UpdateEntitiesActionPayloadWithId<T extends { id: string | number }> {
   entities: keep<T, 'id'>[];
 }
 
@@ -85,7 +84,7 @@ export interface UpdateEntityActionPayload<T, K extends keyof T> {
 }
 
 /** Payload to update entities actions with a field ID */
-export interface UpdateEntityActionPayloadWithId<T extends {id: string | number}> {
+export interface UpdateEntityActionPayloadWithId<T extends { id: string | number }> {
   entity: keep<T, 'id'>;
 }
 

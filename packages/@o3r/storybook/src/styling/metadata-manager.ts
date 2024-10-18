@@ -1,4 +1,6 @@
-import type { CssMetadata } from '@o3r/styling';
+import type {
+  CssMetadata
+} from '@o3r/styling';
 
 declare global {
   interface Window {

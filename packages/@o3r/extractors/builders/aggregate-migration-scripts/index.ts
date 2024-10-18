@@ -1,11 +1,30 @@
-import { BuilderOutput, createBuilder } from '@angular-devkit/architect';
-import { createBuilderWithMetricsIfInstalled, type MigrationFile } from '@o3r/extractors';
 import * as fs from 'node:fs';
-import { mkdir, readFile, rm, writeFile } from 'node:fs/promises';
-import { basename, dirname, join, posix, resolve } from 'node:path';
+import {
+  mkdir,
+  readFile,
+  rm,
+  writeFile
+} from 'node:fs/promises';
+import {
+  basename,
+  dirname,
+  join,
+  posix,
+  resolve
+} from 'node:path';
+import {
+  BuilderOutput,
+  createBuilder
+} from '@angular-devkit/architect';
 import * as globby from 'globby';
 import * as semver from 'semver';
-import { AggregateMigrationScriptsSchema } from './schema';
+import {
+  AggregateMigrationScriptsSchema
+} from './schema';
+import {
+  createBuilderWithMetricsIfInstalled,
+  type MigrationFile
+} from '@o3r/extractors';
 
 const STEPS = [
   'Find all migration files',
@@ -21,7 +40,7 @@ interface MigrationFileEntry<T = any> {
 
 /** A map that defines for each library the history of versions defined in all the original migration scripts */
 interface LibraryVersions {
-  [libName: string]: {libVersion: string; appVersion: string}[];
+  [libName: string]: { libVersion: string; appVersion: string }[];
 }
 
 /**
@@ -29,10 +48,10 @@ interface LibraryVersions {
  * @param glob
  */
 const getMigrationFiles = async (glob: string | string[]): Promise<MigrationFileEntry[]> => {
-  return await Promise.all((await globby(glob, {fs}))
+  return await Promise.all((await globby(glob, { fs }))
     .map(async (fileName) => ({
       fileName,
-      migrationObject: JSON.parse(await readFile(fileName, {encoding: 'utf8'}))
+      migrationObject: JSON.parse(await readFile(fileName, { encoding: 'utf8' }))
     }))
   );
 };
@@ -84,13 +103,13 @@ const getLibrariesVersions = (migrationFiles: MigrationFileEntry[]): LibraryVers
 const writeMigrationFiles = async (migrationFiles: MigrationFileEntry[], destinationPath: string) => {
   const outputDirectory = resolve(destinationPath);
   if (fs.existsSync(outputDirectory)) {
-    await rm(outputDirectory, {recursive: true});
+    await rm(outputDirectory, { recursive: true });
   }
 
   for (const file of migrationFiles) {
     const distFilePath = join(outputDirectory, basename(file.fileName));
     if (!fs.existsSync(dirname(distFilePath))) {
-      await mkdir(dirname(distFilePath), {recursive: true});
+      await mkdir(dirname(distFilePath), { recursive: true });
     }
     await writeFile(distFilePath, JSON.stringify(file.migrationObject, null, 2) + '\n');
   }
@@ -113,7 +132,7 @@ const aggregateLibrariesChangesIntoMigrationFiles = async (migrationFiles: Migra
           const previousLibVersion = librariesVersions[lib][libIndex - 1].libVersion;
           if (previousLibVersion !== newLibVersion) {
             const libRange = new semver.Range(`>${previousLibVersion} <=${newLibVersion}`);
-            const libPath = dirname(resolver(`${lib}/package.json`)).replace(/[\\/]/g, '/');
+            const libPath = dirname(resolver(`${lib}/package.json`)).replace(/[/\\]/g, '/');
             if (!fs.existsSync(libPath)) {
               throw new Error(`Library ${lib} not found at ${libPath}`);
             }

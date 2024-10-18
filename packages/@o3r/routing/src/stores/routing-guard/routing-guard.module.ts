@@ -1,8 +1,20 @@
-import { InjectionToken, ModuleWithProviders, NgModule } from '@angular/core';
-import { Action, ActionReducer, StoreModule } from '@ngrx/store';
-
-import { routingGuardReducer } from './routing-guard.reducer';
-import { ROUTING_GUARD_STORE_NAME, RoutingGuardState } from './routing-guard.state';
+import {
+  InjectionToken,
+  ModuleWithProviders,
+  NgModule
+} from '@angular/core';
+import {
+  Action,
+  ActionReducer,
+  StoreModule
+} from '@ngrx/store';
+import {
+  routingGuardReducer
+} from './routing-guard.reducer';
+import {
+  ROUTING_GUARD_STORE_NAME,
+  RoutingGuardState
+} from './routing-guard.state';
 
 /** Token of the RoutingGuard reducer */
 export const ROUTING_GUARD_REDUCER_TOKEN = new InjectionToken<ActionReducer<RoutingGuardState, Action>>('Feature RoutingGuard Reducer');

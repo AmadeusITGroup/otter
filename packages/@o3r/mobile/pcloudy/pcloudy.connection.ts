@@ -1,10 +1,18 @@
 #!/usr/bin/env node
 
-import { program } from 'commander';
-import {PCloudyApi} from './pcloudy.api';
-import {PCloudyService} from './pcloudy.service';
+import {
+  program
+} from 'commander';
 import * as winston from 'winston';
-import {Logger} from 'winston';
+import {
+  Logger
+} from 'winston';
+import {
+  PCloudyApi
+} from './pcloudy.api';
+import {
+  PCloudyService
+} from './pcloudy.service';
 
 /**
  * Create a command line logger
@@ -14,7 +22,7 @@ import {Logger} from 'winston';
 function getLogger(verbose: boolean, pretty: boolean) {
   return winston.createLogger({
     level: verbose ? 'debug' : 'info',
-    format: pretty ? winston.format.prettyPrint({colorize: true}) : winston.format.simple(),
+    format: pretty ? winston.format.prettyPrint({ colorize: true }) : winston.format.simple(),
     transports: new winston.transports.Console()
   });
 }

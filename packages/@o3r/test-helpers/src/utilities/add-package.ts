@@ -1,4 +1,7 @@
-import { readFileSync, writeFileSync } from 'node:fs';
+import {
+  readFileSync,
+  writeFileSync
+} from 'node:fs';
 
 /**
  * Add dependencies to package.json files
@@ -10,7 +13,7 @@ import { readFileSync, writeFileSync } from 'node:fs';
 export const addDependenciesToPackageJson = (folders: string[], dependencyName: string, dependencyRange: string, type: 'dependencies' | 'devDependencies' | 'peerDependencies') => {
   folders.forEach((folder) => {
     const packageJsonPath = `${folder}/package.json`;
-    const packageJson = JSON.parse(readFileSync(packageJsonPath, {encoding: 'utf8'}));
+    const packageJson = JSON.parse(readFileSync(packageJsonPath, { encoding: 'utf8' }));
     (packageJson[type] ||= {})[dependencyName] = dependencyRange;
     writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
   });

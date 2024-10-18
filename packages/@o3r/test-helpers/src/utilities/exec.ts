@@ -1,4 +1,6 @@
-import {ExecSyncOptions} from 'node:child_process';
+import {
+  ExecSyncOptions
+} from 'node:child_process';
 
 /**
  * Default options to be sent to any exec command inside tests

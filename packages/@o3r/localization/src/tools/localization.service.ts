@@ -1,13 +1,41 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import { Inject, Injectable, Optional } from '@angular/core';
-import { select, Store } from '@ngrx/store';
-import { TranslateService } from '@ngx-translate/core';
-import { LoggerService } from '@o3r/logger';
-import { BehaviorSubject, combineLatest, Observable, of } from 'rxjs';
-import { distinctUntilChanged, map, shareReplay, switchMap } from 'rxjs/operators';
-import { LocalizationConfiguration } from '../core/localization.configuration';
-import { LocalizationOverrideStore, selectLocalizationOverride } from '../stores/index';
-import { LOCALIZATION_CONFIGURATION_TOKEN } from './localization.token';
+import {
+  Inject,
+  Injectable,
+  Optional
+} from '@angular/core';
+import {
+  select,
+  Store
+} from '@ngrx/store';
+import {
+  TranslateService
+} from '@ngx-translate/core';
+import {
+  LoggerService
+} from '@o3r/logger';
+import {
+  BehaviorSubject,
+  combineLatest,
+  Observable,
+  of
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  map,
+  shareReplay,
+  switchMap
+} from 'rxjs/operators';
+import {
+  LocalizationConfiguration
+} from '../core/localization.configuration';
+import {
+  LocalizationOverrideStore,
+  selectLocalizationOverride
+} from '../stores/index';
+import {
+  LOCALIZATION_CONFIGURATION_TOKEN
+} from './localization.token';
 
 /**
  * Service which is wrapping the configuration logic of TranslateService from ngx-translate
@@ -16,7 +44,6 @@ import { LOCALIZATION_CONFIGURATION_TOKEN } from './localization.token';
  */
 @Injectable()
 export class LocalizationService {
-
   private readonly localeSplitIdentifier: string = '-';
 
   /**
@@ -87,7 +114,6 @@ export class LocalizationService {
     const [locale] = language.split(this.localeSplitIdentifier);
 
     return fallbackLocalesMap && (fallbackLocalesMap[language] || fallbackLocalesMap[locale]);
-
   }
 
   /**
@@ -99,7 +125,6 @@ export class LocalizationService {
    * @returns Closest supported language if available, undefined otherwise.
    */
   private getFirstClosestSupportedLanguageCode(language: string): string | undefined {
-
     const [locale] = language.split(this.localeSplitIdentifier);
     const firstClosestRegx = new RegExp(`^${locale}${this.localeSplitIdentifier}?`, 'i');
 
@@ -158,7 +183,6 @@ export class LocalizationService {
    * @param language
    */
   public useLanguage(language: string): Observable<any> {
-
     language = this.checkFallbackLocalesMap(language);
     return this.translateService.use(language);
   }

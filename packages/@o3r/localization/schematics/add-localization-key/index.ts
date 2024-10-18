@@ -1,4 +1,11 @@
 import {
+  dirname,
+  posix
+} from 'node:path';
+import {
+  askConfirmation
+} from '@angular/cli/src/utilities/prompt';
+import {
   chain,
   externalSchematic,
   noop,
@@ -7,7 +14,6 @@ import {
   SchematicContext,
   Tree
 } from '@angular-devkit/schematics';
-import { askConfirmation } from '@angular/cli/src/utilities/prompt';
 import {
   applyEsLintFix,
   askConfirmationToConvertComponent,
@@ -18,9 +24,10 @@ import {
   NoOtterComponent,
   O3rCliError
 } from '@o3r/schematics';
-import { dirname, posix } from 'node:path';
 import * as ts from 'typescript';
-import type { NgAddLocalizationKeySchematicsSchema } from './schema';
+import type {
+  NgAddLocalizationKeySchematicsSchema
+} from './schema';
 
 class NoLocalizationArchitecture extends Error {
   constructor(componentPath: string) {
@@ -52,7 +59,7 @@ const getLocalizationInformation = (componentPath: string, tree: Tree) => {
   o3rClass.members.forEach((member) => {
     if (ts.isPropertyDeclaration(member) && ts.isIdentifier(member.name) && member.type && ts.isTypeReferenceNode(member.type) && ts.isIdentifier(member.type.typeName)) {
       const decorators = [...(ts.getDecorators(member) || [])];
-      const localizationDecorator = decorators.find((decorator): decorator is ts.Decorator & { expression: ts.CallExpression & { arguments: [ts.StringLiteral]} } =>
+      const localizationDecorator = decorators.find((decorator): decorator is ts.Decorator & { expression: ts.CallExpression & { arguments: [ts.StringLiteral] } } =>
         ts.isCallExpression(decorator.expression)
         && ts.isIdentifier(decorator.expression.expression)
         && decorator.expression.expression.escapedText.toString() === 'Localization'

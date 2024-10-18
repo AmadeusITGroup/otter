@@ -1,5 +1,10 @@
-import { TranspilationPurposeOnlyError } from '../errors/index';
-import { ElementProfile, O3rElement } from './element';
+import {
+  TranspilationPurposeOnlyError
+} from '../errors/index';
+import {
+  ElementProfile,
+  O3rElement
+} from './element';
 
 /**
  * Constructor of a O3rGroup
@@ -25,7 +30,6 @@ export interface GroupProfile<T extends ElementProfile> {
  * This class is used for fixture compilation purpose.
  */
 export class O3rGroup<T extends O3rElement> implements GroupProfile<T> {
-
   /** @inheritDoc */
   public get items(): T[] {
     throw new TranspilationPurposeOnlyError('Should target a proper implementation');

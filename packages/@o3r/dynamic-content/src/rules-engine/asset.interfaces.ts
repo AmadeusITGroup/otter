@@ -1,4 +1,6 @@
-import type { RulesEngineAction } from '@o3r/core';
+import type {
+  RulesEngineAction
+} from '@o3r/core';
 
 /** ActionUpdateAssetBlock  */
 export const RULES_ENGINE_ASSET_UPDATE_ACTION_TYPE = 'UPDATE_ASSET';

@@ -1,4 +1,7 @@
-import {strings} from '@angular-devkit/core';
+import * as path from 'node:path';
+import {
+  strings
+} from '@angular-devkit/core';
 import {
   apply,
   chain,
@@ -11,9 +14,9 @@ import {
   Tree,
   url
 } from '@angular-devkit/schematics';
-import * as path from 'node:path';
-import {NgGenerateMockSchematicsSchema} from './schema';
-
+import {
+  NgGenerateMockSchematicsSchema
+} from './schema';
 
 /**
  * @param singular
@@ -86,7 +89,6 @@ function ngGenerateMockFn(options: NgGenerateMockSchematicsSchema): Rule {
       }),
       move(mockDestination)
     ]), MergeStrategy.Overwrite)(tree, context);
-
   };
 
   const rules = [

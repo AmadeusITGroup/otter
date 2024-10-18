@@ -1,4 +1,10 @@
-import type { DesignToken, DesignTokenContext, DesignTokenExtensions, DesignTokenGroup, DesignTokenGroupExtensions } from '../design-token-specification.interface';
+import type {
+  DesignToken,
+  DesignTokenContext,
+  DesignTokenExtensions,
+  DesignTokenGroup,
+  DesignTokenGroupExtensions
+} from '../design-token-specification.interface';
 
 /** Reference to a parent node */
 export interface ParentReference {
@@ -48,7 +54,6 @@ export type UnregisteredTokenReferenceRender = (referenceName: string, variableS
  */
 // eslint-disable-next-line no-use-before-define
 export type TokenReferenceRenderer = (tokenStructure: DesignTokenVariableStructure, variableSet: Map<string, DesignTokenVariableStructure>) => string;
-
 
 /**
  * Function rendering the Design Token Key

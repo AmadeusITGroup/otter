@@ -1,5 +1,10 @@
-import type { InputSignal, Signal } from '@angular/core';
-import type { Observable } from 'rxjs';
+import type {
+  InputSignal,
+  Signal
+} from '@angular/core';
+import type {
+  Observable
+} from 'rxjs';
 
 /**
  * Types available for configuration
@@ -74,7 +79,6 @@ export interface Configurable<T extends {}> {
    */
   config: T;
 }
-
 
 /**
  * Description of a configuration property extracted to the CMS

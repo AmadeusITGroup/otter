@@ -1,6 +1,12 @@
-import type { TmplAstElement } from '@angular/compiler';
-import { getTemplateParserServices } from '../utils';
-import { createRule } from '../../utils';
+import type {
+  TmplAstElement
+} from '@angular/compiler';
+import {
+  createRule
+} from '../../utils';
+import {
+  getTemplateParserServices
+} from '../utils';
 
 interface Options {
   maximumAsyncOnTag: number;
@@ -44,7 +50,6 @@ export default createRule<[Options, ...any], 'tooManyAsyncOnTag'>({
   create: (context, [options]: Readonly<[Options, ...any]>) => {
     const parserServices = getTemplateParserServices(context);
     const asyncRegExp = /\| *async\b/g;
-
 
     return {
       // eslint-disable-next-line @typescript-eslint/naming-convention

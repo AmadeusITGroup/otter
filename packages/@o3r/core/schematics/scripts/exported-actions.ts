@@ -1,8 +1,12 @@
-import { getExportedSymbolsFromFile } from '@o3r/schematics';
-import * as ts from 'typescript';
 import * as fs from 'node:fs';
-import { sync as globbySync } from 'globby';
 import * as path from 'node:path';
+import {
+  getExportedSymbolsFromFile
+} from '@o3r/schematics';
+import {
+  sync as globbySync
+} from 'globby';
+import * as ts from 'typescript';
 
 const moduleName = 'store';
 
@@ -25,6 +29,3 @@ const exportedActions = actionFiles.reduce((acc, actionFile) => {
 }, {} as Record<string, string>);
 
 fs.writeFileSync(outputJsonPath, JSON.stringify(exportedActions, null, 2));
-
-
-

@@ -1,7 +1,18 @@
-import { ModuleWithProviders, NgModule } from '@angular/core';
-import { DynamicContentPipe, O3rDynamicContentPipe } from './dynamic-content.pipe';
-import { DynamicContentService } from './dynamic-content.service';
-import { CMS_ASSETS_PATH_TOKEN, DYNAMIC_CONTENT_BASE_PATH_TOKEN } from './dynamic-content.token';
+import {
+  ModuleWithProviders,
+  NgModule
+} from '@angular/core';
+import {
+  DynamicContentPipe,
+  O3rDynamicContentPipe
+} from './dynamic-content.pipe';
+import {
+  DynamicContentService
+} from './dynamic-content.service';
+import {
+  CMS_ASSETS_PATH_TOKEN,
+  DYNAMIC_CONTENT_BASE_PATH_TOKEN
+} from './dynamic-content.token';
 
 /**
  * Function to get dynamic content from body dataset
@@ -37,7 +48,6 @@ export function getCmsAssets() {
  * DynamicContent module
  */
 export class DynamicContentModule {
-
   /**
    * Customize the location where the application will search for the base path of dynamic content
    * @param dynamicPath Configuration for dynamic content path
@@ -45,7 +55,7 @@ export class DynamicContentModule {
    * @param dynamicPath.cmsAssets The string will be used for the the base path of cms assets
    * @note The cmsAssets will be used only in the cms editor mode and it will take priority over dynamic content
    */
-  public static forRoot(dynamicPath: {content: string} | {cmsAssets: string}): ModuleWithProviders<DynamicContentModule> {
+  public static forRoot(dynamicPath: { content: string } | { cmsAssets: string }): ModuleWithProviders<DynamicContentModule> {
     const providers = [];
     if ('content' in dynamicPath) {
       providers.push({

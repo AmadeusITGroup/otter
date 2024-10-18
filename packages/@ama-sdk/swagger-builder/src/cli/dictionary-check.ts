@@ -1,13 +1,18 @@
 #!/usr/bin/env node
 
-import commander from 'commander';
 import fs from 'node:fs';
-import { sync as globbySync } from 'globby';
 import path from 'node:path';
 import process from 'node:process';
-
-import { isGlobPattern } from '../core/utils';
-import { checkDictionaries } from '../helpers/dictionary-check';
+import commander from 'commander';
+import {
+  sync as globbySync
+} from 'globby';
+import {
+  isGlobPattern
+} from '../core/utils';
+import {
+  checkDictionaries
+} from '../helpers/dictionary-check';
 
 process.on('unhandledRejection', (err) => {
   // eslint-disable-next-line no-console

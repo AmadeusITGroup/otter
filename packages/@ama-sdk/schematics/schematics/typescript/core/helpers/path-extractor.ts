@@ -1,6 +1,11 @@
-import type { PathObject } from '@ama-sdk/core';
-// eslint-disable-next-line camelcase
-import type { OpenAPIV2, OpenAPIV3, OpenAPIV3_1 } from 'openapi-types';
+import type {
+  PathObject
+} from '@ama-sdk/core';
+import type {
+  OpenAPIV2,
+  OpenAPIV3,
+  OpenAPIV3_1
+} from 'openapi-types';
 
 /**
  * Parse a single specification to retrieve the Operation Finder information
@@ -15,7 +20,6 @@ export const generateOperationFinderFromSingleFile = (specification: OpenAPIV2.D
   let basePath = '/';
   if ('basePath' in specification && specification.basePath) {
     basePath = specification.basePath.replace(/\/$/, '');
-
   }
 
   return Object.entries(specification.paths)
@@ -27,7 +31,7 @@ export const generateOperationFinderFromSingleFile = (specification: OpenAPIV2.D
         : pathObjectOrRef;
       return {
         path,
-        regexp: new RegExp(`^${(basePath + path).replace(/^\/{2,}/, '/').replace(/\{[^}]+}/g, '((?:[^/]+?))')}(?:/(?=$))?$`),
+        regexp: new RegExp(`^${(basePath + path).replace(/^\/{2,}/, '/').replace(/{[^}]+}/g, '((?:[^/]+?))')}(?:/(?=$))?$`),
         operations: Object.entries(pathObject)
           .map(([method, reqObject]) => ({
             method,

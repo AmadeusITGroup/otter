@@ -1,19 +1,36 @@
-import { Tree } from '@angular-devkit/schematics';
-import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { asyncSimpleActionsContent } from './mocks/example-actions';
-import { asyncSimpleEffectContent } from './mocks/example-effect';
-import { asyncSimpleEffectSpecContent } from './mocks/example-effect-spec';
-import { asyncSimpleReducerContent } from './mocks/example-reducer';
-import { asyncSimpleReducerSpecContent } from './mocks/example-reducer-spec';
-import { asyncSimpleStateContent } from './mocks/example-state';
-import { asyncSimpleSyncContent } from './mocks/example-sync';
+import {
+  Tree
+} from '@angular-devkit/schematics';
+import {
+  SchematicTestRunner
+} from '@angular-devkit/schematics/testing';
+import {
+  asyncSimpleActionsContent
+} from './mocks/example-actions';
+import {
+  asyncSimpleEffectContent
+} from './mocks/example-effect';
+import {
+  asyncSimpleEffectSpecContent
+} from './mocks/example-effect-spec';
+import {
+  asyncSimpleReducerContent
+} from './mocks/example-reducer';
+import {
+  asyncSimpleReducerSpecContent
+} from './mocks/example-reducer-spec';
+import {
+  asyncSimpleStateContent
+} from './mocks/example-state';
+import {
+  asyncSimpleSyncContent
+} from './mocks/example-sync';
 
 const collectionPath = path.join(__dirname, '..', '..', '..', 'collection.json');
 
 describe('Store simple async generator', () => {
-
   let initialTree: Tree;
 
   beforeEach(() => {

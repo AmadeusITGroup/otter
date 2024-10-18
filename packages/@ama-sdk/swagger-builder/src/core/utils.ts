@@ -1,17 +1,38 @@
 import fs from 'node:fs';
 import https from 'node:https';
-import { Validator } from 'jsonschema';
-import { load } from 'js-yaml';
-import { pascalCase } from 'pascal-case';
 import path from 'node:path';
 import process from 'node:process';
-import { SwaggerSpecJson } from './swagger-spec-wrappers/swagger-spec-json';
-import { SwaggerSpecSplit } from './swagger-spec-wrappers/swagger-spec-split';
-import { SwaggerSpecYaml } from './swagger-spec-wrappers/swagger-spec-yaml';
-import { SwaggerSpecObject } from './swagger-spec-wrappers/swagger-spec-object';
-import { AvailableSwaggerSpecTargets, SwaggerSpec } from './swagger-spec-wrappers/swagger-spec.interface';
-import type { Spec } from 'swagger-schema-official';
-import { isUrlRefPath } from './swagger-spec-wrappers/utils';
+import {
+  load
+} from 'js-yaml';
+import {
+  Validator
+} from 'jsonschema';
+import {
+  pascalCase
+} from 'pascal-case';
+import type {
+  Spec
+} from 'swagger-schema-official';
+import {
+  SwaggerSpecJson
+} from './swagger-spec-wrappers/swagger-spec-json';
+import {
+  SwaggerSpecObject
+} from './swagger-spec-wrappers/swagger-spec-object';
+import {
+  SwaggerSpecSplit
+} from './swagger-spec-wrappers/swagger-spec-split';
+import {
+  SwaggerSpecYaml
+} from './swagger-spec-wrappers/swagger-spec-yaml';
+import {
+  AvailableSwaggerSpecTargets,
+  SwaggerSpec
+} from './swagger-spec-wrappers/swagger-spec.interface';
+import {
+  isUrlRefPath
+} from './swagger-spec-wrappers/utils';
 
 /** X Vendor to indicate that the definition is generated because of reference conflict */
 export const X_VENDOR_CONFLICT_TAG = 'x-generated-from-conflict';
@@ -31,9 +52,10 @@ export async function retrieveRemoteSwagger(targetedSwaggerSpec: string, current
 
       res.setEncoding('utf8');
       let rawData = '';
-      res.on('data', (chunk) => { rawData += chunk; });
+      res.on('data', (chunk) => {
+        rawData += chunk;
+      });
       res.on('end', () => resolve(rawData));
-
     }).on('error', (e) => reject(e))
   );
 
@@ -86,7 +108,6 @@ export async function getTargetInformation(
   targetedSwaggerSpec: string,
   currentDirectory: string = process.cwd(),
   targetType: AvailableSwaggerSpecTargets = 'LocalPath'): Promise<SwaggerSpec> {
-
   if (targetType === 'Url' || isUrlRefPath(targetedSwaggerSpec)) {
     return retrieveRemoteSwagger(targetedSwaggerSpec, currentDirectory);
   }
@@ -159,7 +180,7 @@ export function addItemToSpecObj(swaggerSpec: Partial<Spec>, nodeType: keyof Spe
     } else if (!ignoreConflict) {
       const newItemName = calculatePrefix(itemName, swaggerPath) + itemName;
       console.warn(`The ${nodeType} "${itemName}"${swaggerPath ? ` from "${swaggerPath}"` : ''} is conflicting, "${newItemName}" will be used instead.`);
-      return addItemToSpecObj(swaggerSpec, nodeType, newItemName, { ...item, [X_VENDOR_CONFLICT_TAG]: true}, swaggerPath);
+      return addItemToSpecObj(swaggerSpec, nodeType, newItemName, { ...item, [X_VENDOR_CONFLICT_TAG]: true }, swaggerPath);
     }
   } else {
     swaggerSpec[nodeType] = {
@@ -179,7 +200,7 @@ export function addItemToSpecObj(swaggerSpec: Partial<Spec>, nodeType: keyof Spe
  * @param ignoreConflict ignore the conflict and keep the original definition
  */
 export function addDefinitionToSpecObj(swaggerSpec: Partial<Spec>, definitionName: string, definition: any, swaggerPath?: string, ignoreConflict = false
-): { finalName: string; swaggerSpec: Partial<Spec>} {
+): { finalName: string; swaggerSpec: Partial<Spec> } {
   return addItemToSpecObj(swaggerSpec, 'definitions', definitionName, definition, swaggerPath, ignoreConflict);
 }
 
@@ -192,7 +213,7 @@ export function addDefinitionToSpecObj(swaggerSpec: Partial<Spec>, definitionNam
  * @param ignoreConflict ignore the conflict and keep the original response
  */
 export function addResponseToSpecObj(swaggerSpec: Partial<Spec>, responseName: string, response: any, swaggerPath?: string, ignoreConflict = false
-): { finalName: string; swaggerSpec: Partial<Spec>} {
+): { finalName: string; swaggerSpec: Partial<Spec> } {
   return addItemToSpecObj(swaggerSpec, 'responses', responseName, response, swaggerPath, ignoreConflict);
 }
 
@@ -232,7 +253,7 @@ export function checkJson(jsonObject: object, schema: Record<string, unknown>, e
 export async function getCurrentArtifactVersion(): Promise<string | undefined> {
   const currentPackageJsonPath = path.resolve(process.cwd(), 'package.json');
   if (fs.existsSync(currentPackageJsonPath)) {
-    const rawPackageJson = await fs.promises.readFile(currentPackageJsonPath, {encoding: 'utf8'});
+    const rawPackageJson = await fs.promises.readFile(currentPackageJsonPath, { encoding: 'utf8' });
     return JSON.parse(rawPackageJson).version;
   }
   return undefined;

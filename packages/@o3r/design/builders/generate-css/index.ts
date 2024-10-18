@@ -1,6 +1,26 @@
-import type { GenerateCssSchematicsSchema } from './schema';
-import { BuilderOutput, createBuilder } from '@angular-devkit/architect';
-import type { BuilderWrapper } from '@o3r/telemetry';
+import {
+  existsSync
+} from 'node:fs';
+import {
+  readFile,
+  writeFile
+} from 'node:fs/promises';
+import {
+  EOL
+} from 'node:os';
+import {
+  resolve
+} from 'node:path';
+import {
+  BuilderOutput,
+  createBuilder
+} from '@angular-devkit/architect';
+import type {
+  BuilderWrapper
+} from '@o3r/telemetry';
+import {
+  sync
+} from 'globby';
 import {
   getCssTokenDefinitionRenderer,
   getCssTokenValueRenderer,
@@ -12,12 +32,16 @@ import {
   renderDesignTokens,
   tokenVariableNameSassRenderer
 } from '../../src/public_api';
-import type { DesignTokenGroupTemplate, DesignTokenRendererOptions, DesignTokenVariableSet, DesignTokenVariableStructure, TokenKeyRenderer } from '../../src/public_api';
-import { resolve } from 'node:path';
-import { sync } from 'globby';
-import { EOL } from 'node:os';
-import { readFile, writeFile } from 'node:fs/promises';
-import { existsSync } from 'node:fs';
+import type {
+  DesignTokenGroupTemplate,
+  DesignTokenRendererOptions,
+  DesignTokenVariableSet,
+  DesignTokenVariableStructure,
+  TokenKeyRenderer
+} from '../../src/public_api';
+import type {
+  GenerateCssSchematicsSchema
+} from './schema';
 
 const createBuilderWithMetricsIfInstalled: BuilderWrapper = (builderFn) => async (opts, ctx) => {
   let wrapper: BuilderWrapper = (fn) => fn;
@@ -68,7 +92,11 @@ export default createBuilder<GenerateCssSchematicsSchema>(createBuilderWithMetri
       privateDefinitionRenderer: options.renderPrivateVariableTo === 'sass' ? sassRenderer : undefined,
       tokenValueRenderer: getCssTokenValueRenderer({
         tokenVariableNameRenderer,
-        unregisteredReferenceRenderer: options.failOnMissingReference ? (refName) => { throw new Error(`The Design Token ${refName} is not registered`); } : undefined
+        unregisteredReferenceRenderer: options.failOnMissingReference
+          ? (refName) => {
+            throw new Error(`The Design Token ${refName} is not registered`);
+          }
+          : undefined
       }),
       logger
     }),
@@ -127,8 +155,8 @@ export default createBuilder<GenerateCssSchematicsSchema>(createBuilderWithMetri
 
     try {
       const duplicatedToken: DesignTokenVariableStructure[] = [];
-      const tokens = (await Promise.all(files.map(async (file) => ({file, parsed: await parseDesignTokenFile(file, { specificationContext: { template } })}))))
-        .reduce<DesignTokenVariableSet>((acc, {file, parsed}) => {
+      const tokens = (await Promise.all(files.map(async (file) => ({ file, parsed: await parseDesignTokenFile(file, { specificationContext: { template } }) }))))
+        .reduce<DesignTokenVariableSet>((acc, { file, parsed }) => {
           parsed.forEach((variable, key) => {
             if (acc.has(key)) {
               context.logger[options.failOnDuplicate ? 'error' : 'warn'](`A duplication of the variable ${key} is found in ${file}`);

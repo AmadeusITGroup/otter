@@ -1,14 +1,22 @@
 #!/usr/bin/env node
 
-import commander from 'commander';
 import fs from 'node:fs';
-import { sync as globbySync } from 'globby';
 import path from 'node:path';
 import process from 'node:process';
-
-import { Report } from '../core/checkers/checker.interface';
-import { OperationIdChecker } from '../core/checkers/operation-id-checker';
-import { getTargetInformation, isGlobPattern } from '../core/utils';
+import commander from 'commander';
+import {
+  sync as globbySync
+} from 'globby';
+import {
+  Report
+} from '../core/checkers/checker.interface';
+import {
+  OperationIdChecker
+} from '../core/checkers/operation-id-checker';
+import {
+  getTargetInformation,
+  isGlobPattern
+} from '../core/utils';
 
 process.on('unhandledRejection', (err) => {
   // eslint-disable-next-line no-console

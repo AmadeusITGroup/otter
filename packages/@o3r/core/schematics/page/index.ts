@@ -1,5 +1,23 @@
-import { strings } from '@angular-devkit/core';
-import { apply, chain, externalSchematic, MergeStrategy, mergeWith, move, noop, renameTemplateFiles, Rule, schematic, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
+import * as path from 'node:path';
+import {
+  strings
+} from '@angular-devkit/core';
+import {
+  apply,
+  chain,
+  externalSchematic,
+  MergeStrategy,
+  mergeWith,
+  move,
+  noop,
+  renameTemplateFiles,
+  Rule,
+  schematic,
+  SchematicContext,
+  template,
+  Tree,
+  url
+} from '@angular-devkit/schematics';
 import {
   addImportToModuleFile,
   applyEsLintFix,
@@ -12,20 +30,28 @@ import {
   O3rCliError,
   Route
 } from '@o3r/schematics';
-import * as path from 'node:path';
 import * as ts from 'typescript';
-import { NgGeneratePageSchematicsSchema } from './schema';
-import { getAddConfigurationRules } from '../rule-factories/component/configuration';
-import { getAddThemingRules } from '../rule-factories/component/theming';
-import { getAddLocalizationRules } from '../rule-factories/component/localization';
-import { getAddFixtureRules } from '../rule-factories/component/fixture';
+import {
+  getAddConfigurationRules
+} from '../rule-factories/component/configuration';
+import {
+  getAddFixtureRules
+} from '../rule-factories/component/fixture';
+import {
+  getAddLocalizationRules
+} from '../rule-factories/component/localization';
+import {
+  getAddThemingRules
+} from '../rule-factories/component/theming';
+import {
+  NgGeneratePageSchematicsSchema
+} from './schema';
 
 /**
  * Add a Page to an Otter project
  * @param options
  */
 function ngGeneratePageFn(options: NgGeneratePageSchematicsSchema): Rule {
-
   const isApplication = (tree: Tree) => {
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
     if (!workspaceProject) {
@@ -209,7 +235,7 @@ function ngGeneratePageFn(options: NgGeneratePageSchematicsSchema): Rule {
     const indexFilePath = path.posix.join(strings.dasherize(options.scope), strings.dasherize(options.name), 'index');
     const route: Route = {
       path: strings.dasherize(options.name),
-      import: `./${indexFilePath.replace(/[\\/]/g, '/')}`,
+      import: `./${indexFilePath.replace(/[/\\]/g, '/')}`,
       module: `${pageName}${options.standalone ? 'Component' : 'Module'}`
     };
     if (options.appRoutingModulePath) {
@@ -218,7 +244,7 @@ function ngGeneratePageFn(options: NgGeneratePageSchematicsSchema): Rule {
     const appModuleFilePath = getAppModuleFilePath(tree, context, options.projectName);
     if (appModuleFilePath) {
       const text = tree.readText(appModuleFilePath);
-      const match = text.match(/(provideRouter|RouterModule\.forRoot)\((\s*)?(?<routeVarName>[^,\s)]*)/);
+      const match = text.match(/(provideRouter|RouterModule\.forRoot)\((\s*)?(?<routeVarName>[^\s),]*)/);
       const routeVariableName = match?.groups?.routeVarName;
       if (routeVariableName) {
         const sourceFile = ts.createSourceFile(

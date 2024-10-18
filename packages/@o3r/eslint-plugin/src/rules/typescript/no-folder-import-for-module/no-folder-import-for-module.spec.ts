@@ -1,10 +1,15 @@
-import { cleanVirtualFileSystem, useVirtualFileSystem } from '@o3r/test-helpers';
-import typescriptParser from '@typescript-eslint/parser';
-import { RuleTester } from '@typescript-eslint/rule-tester';
 import * as path from 'node:path';
+import {
+  cleanVirtualFileSystem,
+  useVirtualFileSystem
+} from '@o3r/test-helpers';
+import typescriptParser from '@typescript-eslint/parser';
+import {
+  RuleTester
+} from '@typescript-eslint/rule-tester';
+import noFolderImportForModule from './no-folder-import-for-module';
 
 const virtualFileSystem = useVirtualFileSystem();
-import noFolderImportForModule from './no-folder-import-for-module';
 
 const ruleTester = new RuleTester({
   languageOptions: {
@@ -18,8 +23,8 @@ const ruleTester = new RuleTester({
 const fakeFolder = path.resolve('/fake-folder');
 
 beforeAll(async () => {
-  await virtualFileSystem.promises.mkdir(path.join(fakeFolder, 'local'), {recursive: true});
-  await virtualFileSystem.promises.mkdir(path.join(fakeFolder, 'empty-local'), {recursive: true});
+  await virtualFileSystem.promises.mkdir(path.join(fakeFolder, 'local'), { recursive: true });
+  await virtualFileSystem.promises.mkdir(path.join(fakeFolder, 'empty-local'), { recursive: true });
   await virtualFileSystem.promises.writeFile(path.join(fakeFolder, 'local', 'index.ts'), 'export default {};');
 });
 

@@ -1,6 +1,13 @@
 /* eslint-disable no-underscore-dangle */
-import {AbstractControl, FormGroup, ValidationErrors} from '@angular/forms';
-import {ControlFlatErrors, FlatError} from './flat-errors';
+import {
+  AbstractControl,
+  FormGroup,
+  ValidationErrors
+} from '@angular/forms';
+import {
+  ControlFlatErrors,
+  FlatError
+} from './flat-errors';
 
 /**
  * Checks if controls is a FormGroup
@@ -63,7 +70,7 @@ export function getFlatControlErrors(form: AbstractControl) {
         return {
           errorKey,
           errorValue,
-          validationError: {[errorKey]: errorValue}
+          validationError: { [errorKey]: errorValue }
         };
       });
   };

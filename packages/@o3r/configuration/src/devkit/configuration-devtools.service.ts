@@ -1,9 +1,30 @@
-import { ApplicationRef, Inject, Injectable, Optional } from '@angular/core';
-import { select, Store } from '@ngrx/store';
-import { Configuration, CustomConfig } from '@o3r/core';
-import { firstValueFrom, Observable } from 'rxjs';
-import { filter, map, shareReplay } from 'rxjs/operators';
-import { computeConfigurationName, parseConfigurationName } from '../core';
+import {
+  ApplicationRef,
+  Inject,
+  Injectable,
+  Optional
+} from '@angular/core';
+import {
+  select,
+  Store
+} from '@ngrx/store';
+import {
+  Configuration,
+  CustomConfig
+} from '@o3r/core';
+import {
+  firstValueFrom,
+  Observable
+} from 'rxjs';
+import {
+  filter,
+  map,
+  shareReplay
+} from 'rxjs/operators';
+import {
+  computeConfigurationName,
+  parseConfigurationName
+} from '../core';
 import {
   computeConfiguration,
   ConfigurationModel,
@@ -13,12 +34,16 @@ import {
   upsertConfigurationEntities,
   upsertConfigurationEntity
 } from '../stores';
-import { ConfigurationDevtoolsServiceOptions } from './configuration-devtools.interface';
-import { OTTER_CONFIGURATION_DEVTOOLS_DEFAULT_OPTIONS, OTTER_CONFIGURATION_DEVTOOLS_OPTIONS } from './configuration-devtools.token';
+import {
+  ConfigurationDevtoolsServiceOptions
+} from './configuration-devtools.interface';
+import {
+  OTTER_CONFIGURATION_DEVTOOLS_DEFAULT_OPTIONS,
+  OTTER_CONFIGURATION_DEVTOOLS_OPTIONS
+} from './configuration-devtools.token';
 
 @Injectable({ providedIn: 'root' })
 export class OtterConfigurationDevtools {
-
   /** Stream of configurations */
   public readonly configurationEntities$: Observable<CustomConfig[]>;
 
@@ -26,7 +51,6 @@ export class OtterConfigurationDevtools {
     protected store: Store<ConfigurationStore>,
     private readonly appRef: ApplicationRef,
     @Optional() @Inject(OTTER_CONFIGURATION_DEVTOOLS_OPTIONS) private readonly options: ConfigurationDevtoolsServiceOptions) {
-
     this.options = { ...OTTER_CONFIGURATION_DEVTOOLS_DEFAULT_OPTIONS, ...options };
 
     /** Full configuration store */
@@ -110,7 +134,6 @@ export class OtterConfigurationDevtools {
         map((entities) => entities[this.getComponentConfigName(selector)] || entities[this.getComponentConfigName(selector, true)]),
         filter((entity): entity is ConfigurationModel => !!entity),
         map((entity) => {
-
           const { id, ...configuration } = entity;
           return configuration as Configuration;
         })

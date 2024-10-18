@@ -35,7 +35,7 @@ export interface LocalizationConfiguration {
   /** Debug mode switch */
   debugMode: boolean;
   /** Query parameters for fetching the localization resources */
-  queryParams?: {[key: string]: string};
+  queryParams?: { [key: string]: string };
   /** Fetch options object as per https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters */
   fetchOptions?: RequestInit;
   /** Enable the ability to switch the translations on and off at runtime. */

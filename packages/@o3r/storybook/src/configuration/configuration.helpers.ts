@@ -1,6 +1,13 @@
-import { ComponentConfigOutput } from '@o3r/components';
-import { CONFIGURATION_PREFIX, ConfigurationConfigs } from './configuration-configs.interface';
-import { getConfigurationMetadata } from './metadata-manager';
+import {
+  ComponentConfigOutput
+} from '@o3r/components';
+import {
+  CONFIGURATION_PREFIX,
+  ConfigurationConfigs
+} from './configuration-configs.interface';
+import {
+  getConfigurationMetadata
+} from './metadata-manager';
 
 /**
  * Extract storybook argument type base for component configuration

@@ -1,6 +1,12 @@
 /* eslint-disable camelcase, @typescript-eslint/naming-convention */
-import type { Rule, Tree } from '@angular-devkit/schematics';
-import { createSchematicWithMetricsIfInstalled, findFilesInTree } from '@o3r/schematics';
+import type {
+  Rule,
+  Tree
+} from '@angular-devkit/schematics';
+import {
+  createSchematicWithMetricsIfInstalled,
+  findFilesInTree
+} from '@o3r/schematics';
 
 const configObserverRegExp = /\bConfigObserver\b/g;
 

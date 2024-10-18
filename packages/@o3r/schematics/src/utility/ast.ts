@@ -1,5 +1,7 @@
+import {
+  findNodes
+} from '@schematics/angular/utility/ast-utils';
 import * as ts from 'typescript';
-import { findNodes } from '@schematics/angular/utility/ast-utils';
 
 /**
  * Find the first node with the specific syntax kind
@@ -48,7 +50,7 @@ export function parseImportsFromFile(sourceFile: ts.SourceFile) {
   // First we look for all imports lines targeting an Otter package for which we know a mapping
   return findNodes(sourceFile, ts.SyntaxKind.ImportDeclaration).map((nodeImp) => {
     const imp = nodeImp as ts.ImportDeclaration;
-    const importFrom = imp.moduleSpecifier.getText().replace(/['"]/g, '');
+    const importFrom = imp.moduleSpecifier.getText().replace(/["']/g, '');
 
     // We retrieve all the symbols listed in the import statement
     const namedImport = imp.importClause && imp.importClause.getChildAt(0);
@@ -56,7 +58,7 @@ export function parseImportsFromFile(sourceFile: ts.SourceFile) {
       ? namedImport.elements.map((element) => element.getText())
       : [];
 
-    return {node: imp, symbols: imports, module: importFrom};
+    return { node: imp, symbols: imports, module: importFrom };
   });
 }
 

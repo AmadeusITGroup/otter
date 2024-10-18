@@ -1,6 +1,10 @@
-import { Context, promiseSpawn } from '@ama-terasu/core';
-import { resolve } from 'node:path';
-
+import {
+  resolve
+} from 'node:path';
+import {
+  Context,
+  promiseSpawn
+} from '@ama-terasu/core';
 
 /** Option to create a Custom Application */
 export interface CreateCustomAppOptions {

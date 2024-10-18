@@ -1,6 +1,8 @@
-import type { DesignContentFileUpdater } from '../design-token.renderer.interface';
+import type {
+  DesignContentFileUpdater
+} from '../design-token.renderer.interface';
 
-const SANITIZE_TAG_INPUTS_REGEXP = /[.*+?^${}()|[\]\\]/g;
+const SANITIZE_TAG_INPUTS_REGEXP = /[$()*+.?[\\\]^{|}]/g;
 
 const generateVars = (variables: string[], startTag: string, endTag: string, addCssScope = false) =>
   `${addCssScope ? ':root {\n' : ''}${startTag}\n${variables.join('\n')}\n${endTag}${addCssScope ? '\n}' : ''}`;

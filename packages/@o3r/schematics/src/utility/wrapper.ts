@@ -1,11 +1,30 @@
-import type { JsonObject } from '@angular-devkit/core';
-import { applyToSubtree, chain, noop, type Rule } from '@angular-devkit/schematics';
-import type { SchematicWrapper } from '@o3r/telemetry';
-import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
-import { prompt, Question } from 'inquirer';
-import { readFileSync } from 'node:fs';
+import {
+  readFileSync
+} from 'node:fs';
 import * as path from 'node:path';
-import { hasSetupInformation, setupDependencies } from '../rule-factories';
+import type {
+  JsonObject
+} from '@angular-devkit/core';
+import {
+  applyToSubtree,
+  chain,
+  noop,
+  type Rule
+} from '@angular-devkit/schematics';
+import type {
+  SchematicWrapper
+} from '@o3r/telemetry';
+import {
+  NodeDependencyType
+} from '@schematics/angular/utility/dependencies';
+import {
+  prompt,
+  Question
+} from 'inquirer';
+import {
+  hasSetupInformation,
+  setupDependencies
+} from '../rule-factories';
 
 const noopSchematicWrapper: SchematicWrapper = (fn) => fn;
 
@@ -23,7 +42,7 @@ const setupO3rMetricsInPackageJson: (activated: boolean) => Rule = (activated) =
   }
 };
 
-const setupTelemetry: (opts: {workingDirectory?: string; runNgAdd?: boolean; exactO3rVersion?: boolean}) => Rule = ({ workingDirectory, runNgAdd, exactO3rVersion }) => (_, context) => {
+const setupTelemetry: (opts: { workingDirectory?: string; runNgAdd?: boolean; exactO3rVersion?: boolean }) => Rule = ({ workingDirectory, runNgAdd, exactO3rVersion }) => (_, context) => {
   const taskIdsFromContext = hasSetupInformation(context) ? context.setupDependencies.taskIds : undefined;
   const version = JSON.parse(readFileSync(path.join(__dirname, '..', '..', 'package.json'), 'utf-8')).version;
   return setupDependencies({

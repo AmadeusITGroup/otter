@@ -1,6 +1,16 @@
-import { extractStyling, getThemeVariables, getTypeAndValue, setCssVariable } from './styling.helpers';
-import { getStyleMetadata, setStyleMetadata } from './metadata-manager';
-import { STYLING_PREFIX } from './style-configs.interface';
+import {
+  getStyleMetadata,
+  setStyleMetadata
+} from './metadata-manager';
+import {
+  STYLING_PREFIX
+} from './style-configs.interface';
+import {
+  extractStyling,
+  getThemeVariables,
+  getTypeAndValue,
+  setCssVariable
+} from './styling.helpers';
 
 describe('Styling Metadata setup', () => {
   beforeEach(() => {
@@ -30,7 +40,6 @@ describe('Styling Metadata setup', () => {
 });
 
 describe('Styling Helpers', () => {
-
   beforeEach(() => {
     if (typeof document === 'undefined') {
       globalThis.document = {
@@ -83,7 +92,7 @@ describe('Styling Helpers', () => {
 
   describe('getTypeAndValue', () => {
     it('should return a color editor for color', () => {
-      const result = getTypeAndValue({defaultValue: '#000', name: 'test-var'}, { variables: {} });
+      const result = getTypeAndValue({ defaultValue: '#000', name: 'test-var' }, { variables: {} });
 
       expect(result.type).toBe('color');
       expect(result.value).toBe('#000');
@@ -109,7 +118,7 @@ describe('Styling Helpers', () => {
           defaultValue: '1px solid #000',
           name: 'test-component-example-2'
         }
-      }});
+      } });
 
       expect(Object.keys(result.argTypes).length).toBe(2);
       expect(Object.keys(result.rawValues).length).toBe(2);
@@ -134,7 +143,7 @@ describe('Styling Helpers', () => {
           defaultValue: '1px solid #000',
           name: 'test-component-example-2'
         }
-      }});
+      } });
 
       expect(Object.keys(result.argTypes).length).toBe(2);
       expect(Object.keys(result.rawValues).length).toBe(2);
@@ -160,7 +169,7 @@ describe('Styling Helpers', () => {
           name: 'primary-600',
           defaultValue: '#0056B1'
         }
-      }});
+      } });
 
       const name = `${STYLING_PREFIX}test-component-example-2`;
 
@@ -194,7 +203,7 @@ describe('Styling Helpers', () => {
           defaultValue: '#0056B1',
           tags: ['theme']
         }
-      }});
+      } });
       /* eslint-enable @typescript-eslint/naming-convention */
 
       expect(Object.keys(result).length).toBe(1);

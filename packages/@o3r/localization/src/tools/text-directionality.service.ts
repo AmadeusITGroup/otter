@@ -1,7 +1,17 @@
-import { DIR_DOCUMENT, Direction, Directionality } from '@angular/cdk/bidi';
-
-import { Inject, Injectable, OnDestroy, Optional } from '@angular/core';
-import { startWith } from 'rxjs/operators';
+import {
+  DIR_DOCUMENT,
+  Direction,
+  Directionality
+} from '@angular/cdk/bidi';
+import {
+  Inject,
+  Injectable,
+  OnDestroy,
+  Optional
+} from '@angular/core';
+import {
+  startWith
+} from 'rxjs/operators';
 
 @Injectable()
 export class TextDirectionality extends Directionality implements OnDestroy {

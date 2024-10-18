@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import { Observable } from 'rxjs';
+import {
+  Observable
+} from 'rxjs';
 
 /** Specifies a fake select call */
 export type FakeSelectCall<R> = ($source: Observable<any>) => Observable<R>;

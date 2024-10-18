@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import noFolderImportForModule from './rules/typescript/no-folder-import-for-module/no-folder-import-for-module';
-import o3rWidgetTags from './rules/typescript/o3r-widget-tags/o3r-widget-tags';
+import jsonDependencyVersionsHarmonize from './rules/json/json-dependency-versions-harmonize/json-dependency-versions-harmonize';
 import noInnerHTML from './rules/template/no-inner-html/no-inner-html';
 import templateAsyncNumberLimitation from './rules/template/template-async-number-limitation/template-async-number-limitation';
-import jsonDependencyVersionsHarmonize from './rules/json/json-dependency-versions-harmonize/json-dependency-versions-harmonize';
-import yarnrcPackageExtensionHarmonize from './rules/yaml/yarnrc-package-extensions-harmonize/yarnrc-package-extensions-harmonize';
 import matchingConfigurationName from './rules/typescript/matching-configuration-name/matching-configuration-name';
+import noFolderImportForModule from './rules/typescript/no-folder-import-for-module/no-folder-import-for-module';
 import noMultipleTypeConfigurationProperty from './rules/typescript/no-multiple-type-configuration-property/no-multiple-type-configuration-property';
 import o3rCategoriesTags from './rules/typescript/o3r-categories-tags/o3r-categories-tags';
+import o3rWidgetTags from './rules/typescript/o3r-widget-tags/o3r-widget-tags';
+import yarnrcPackageExtensionHarmonize from './rules/yaml/yarnrc-package-extensions-harmonize/yarnrc-package-extensions-harmonize';
 
 module.exports = {
   rules: {
@@ -59,4 +59,3 @@ module.exports = {
     }
   }
 };
-

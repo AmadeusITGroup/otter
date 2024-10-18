@@ -1,5 +1,9 @@
-import type { JsonObject } from '@angular-devkit/core';
-import type { SupportedPackageManagers } from '@o3r/schematics';
+import type {
+  JsonObject
+} from '@angular-devkit/core';
+import type {
+  SupportedPackageManagers
+} from '@o3r/schematics';
 
 /**
  * Interface of the comparator used to compare 2 different versions of the same metadata file.

@@ -1,9 +1,15 @@
-import { callRule, Tree } from '@angular-devkit/schematics';
-import { getMigrationRuleRunner } from './migration';
-import { firstValueFrom } from 'rxjs';
+import {
+  callRule,
+  Tree
+} from '@angular-devkit/schematics';
+import {
+  firstValueFrom
+} from 'rxjs';
+import {
+  getMigrationRuleRunner
+} from './migration';
 
 describe('getMigrationRuleRunner', () => {
-
   it('should execute rule when in the range', async () => {
     const spy = jest.fn();
     const runnner = getMigrationRuleRunner({

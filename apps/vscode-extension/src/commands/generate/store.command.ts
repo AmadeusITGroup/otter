@@ -1,8 +1,16 @@
-
-import { dirname, relative } from 'node:path';
-import type { ExtensionContext } from 'vscode';
+import {
+  dirname,
+  relative
+} from 'node:path';
+import type {
+  ExtensionContext
+} from 'vscode';
 import * as vscode from 'vscode';
-import { getPackageScriptRunner, getSchematicDefaultOptions, stringifyOptions } from '../helpers';
+import {
+  getPackageScriptRunner,
+  getSchematicDefaultOptions,
+  stringifyOptions
+} from '../helpers';
 
 /**
  * Generate store command
@@ -44,7 +52,7 @@ export function generateStoreGenerateCommand(_context: ExtensionContext, folder?
     const modelName = await vscode.window.showInputBox({
       title: 'The SDK Model to use as store item',
       placeHolder: 'e.g. AirOffer',
-      value: /^[a-zA-Z]+$/.test(clipboardContent) ? clipboardContent : undefined,
+      value: /^[A-Za-z]+$/.test(clipboardContent) ? clipboardContent : undefined,
       ignoreFocusOut: true
     });
 

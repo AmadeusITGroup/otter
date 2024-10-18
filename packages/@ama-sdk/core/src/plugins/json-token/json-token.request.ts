@@ -1,19 +1,22 @@
-import { PluginRunner, RequestOptions, RequestPlugin } from '../core';
+import {
+  PluginRunner,
+  RequestOptions,
+  RequestPlugin
+} from '../core';
 
 /**
  * Plugin to send a jwt with the request
  */
 export class JsonTokenRequest implements RequestPlugin {
-
   private readonly storageTokenKey: string;
-  private readonly sharedMemory: {[key: string]: any};
+  private readonly sharedMemory: { [key: string]: any };
 
   /**
    * Initialize your plugin
    * @param storageTokenKey   Key used to store the token
    * @param sharedMemory      Only useful for NodeJS - Will keep data such as JWT tokens in memory instead of sessionStorage
    */
-  constructor(storageTokenKey = 'DP_SDK_AUTH_TOKEN', sharedMemory: {[key: string]: any} = {}) {
+  constructor(storageTokenKey = 'DP_SDK_AUTH_TOKEN', sharedMemory: { [key: string]: any } = {}) {
     this.storageTokenKey = storageTokenKey;
     this.sharedMemory = sharedMemory;
   }
@@ -31,5 +34,4 @@ export class JsonTokenRequest implements RequestPlugin {
       }
     };
   }
-
 }

@@ -1,11 +1,19 @@
-import { PluginRunner, RequestOptions, RequestPlugin } from '../core';
-import { CUSTOM_MOCK_OPERATION_ID_HEADER, CUSTOM_MOCK_REQUEST_HEADER, MockInterceptFetchParameters, MockInterceptRequestParameters } from './mock-intercept.interface';
+import {
+  PluginRunner,
+  RequestOptions,
+  RequestPlugin
+} from '../core';
+import {
+  CUSTOM_MOCK_OPERATION_ID_HEADER,
+  CUSTOM_MOCK_REQUEST_HEADER,
+  MockInterceptFetchParameters,
+  MockInterceptRequestParameters
+} from './mock-intercept.interface';
 
 /**
  * Plugin to intercept an API request for mock purposes
  */
 export class MockInterceptRequest implements RequestPlugin {
-
   protected options: MockInterceptRequestParameters;
 
   /**

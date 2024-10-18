@@ -1,6 +1,15 @@
-import { TranspilationPurposeOnlyError } from '../errors/index';
-import { ElementProfile, O3rElement, O3rElementConstructor } from './element';
-import { GroupProfile, O3rGroupConstructor } from './group';
+import {
+  TranspilationPurposeOnlyError
+} from '../errors/index';
+import {
+  ElementProfile,
+  O3rElement,
+  O3rElementConstructor
+} from './element';
+import {
+  GroupProfile,
+  O3rGroupConstructor
+} from './group';
 
 /**
  * Interface to describe the Component fixture that is used as an abstraction layer to access the DOM of a component.
@@ -84,7 +93,7 @@ export type Constructable<T extends ComponentFixtureProfile, U extends FixtureWi
  * customSubFixtures: custom fixtures for the presenter subcomponents
  */
 export interface FixtureWithCustom {
-  [fixtureKey: string]: {fixture?: Constructable<ComponentFixtureProfile, FixtureWithCustom>; customSubFixtures?: FixtureWithCustom} | undefined;
+  [fixtureKey: string]: { fixture?: Constructable<ComponentFixtureProfile, FixtureWithCustom>; customSubFixtures?: FixtureWithCustom } | undefined;
 }
 
 /**
@@ -258,7 +267,7 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
   }
 
   /** @inheritdoc */
-  public getSubComponents(): Promise<{[componentName: string]: ComponentFixtureProfile[]}> {
+  public getSubComponents(): Promise<{ [componentName: string]: ComponentFixtureProfile[] }> {
     throw new TranspilationPurposeOnlyError('Should target a proper implementation');
   }
 

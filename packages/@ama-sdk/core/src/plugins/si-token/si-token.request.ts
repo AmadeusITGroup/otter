@@ -1,11 +1,14 @@
-import { AdditionalParamsRequest } from '../additional-params';
-import { RequestPlugin } from '../core';
+import {
+  AdditionalParamsRequest
+} from '../additional-params';
+import {
+  RequestPlugin
+} from '../core';
 
 /**
  * Plugin to send the SI Tokens with the request
  */
 export class SiTokenRequest extends AdditionalParamsRequest implements RequestPlugin {
-
   /** SI Token */
   public siToken?: string;
 
@@ -21,10 +24,14 @@ export class SiTokenRequest extends AdditionalParamsRequest implements RequestPl
    */
   constructor(siToken?: string, siToken2?: string) {
     super({
-      queryParams: (queryParams?: {[key: string]: string}) => {
+      queryParams: (queryParams?: { [key: string]: string }) => {
         const ret = queryParams || {};
-        if (this.siToken) { ret.SITK = this.siToken; }
-        if (this.siToken2) { ret.SITK2 = this.siToken2; }
+        if (this.siToken) {
+          ret.SITK = this.siToken;
+        }
+        if (this.siToken2) {
+          ret.SITK2 = this.siToken2;
+        }
         return ret;
       }
     });

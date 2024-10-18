@@ -1,7 +1,13 @@
 import * as path from 'node:path';
-import { Logger } from 'winston';
-import { PCloudyApi } from './pcloudy.api';
-import { BookedData } from './pcloudy.interfaces';
+import {
+  Logger
+} from 'winston';
+import {
+  PCloudyApi
+} from './pcloudy.api';
+import {
+  BookedData
+} from './pcloudy.interfaces';
 
 export class PCloudyService {
   private readonly api: PCloudyApi;
@@ -80,7 +86,7 @@ export class PCloudyService {
     // TODO include retry parameter
     const rid = await this.api.bookDevice(selectedDevice, duration);
     const url = await this.api.getDevicePageUrl(rid);
-    return {selectedDevice, rid, url};
+    return { selectedDevice, rid, url };
   }
 
   /**

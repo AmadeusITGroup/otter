@@ -1,7 +1,15 @@
-import { DebugElement } from '@angular/core';
-import { By } from '@angular/platform-browser';
-import type { SliderElementProfile } from '../../elements';
-import { O3rElement } from '../element';
+import {
+  DebugElement
+} from '@angular/core';
+import {
+  By
+} from '@angular/platform-browser';
+import type {
+  SliderElementProfile
+} from '../../elements';
+import {
+  O3rElement
+} from '../element';
 
 /**
  * Implementation dedicated to angular / TestBed.

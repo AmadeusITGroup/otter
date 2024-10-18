@@ -1,8 +1,18 @@
-import { existsSync, readFileSync } from 'node:fs';
+import {
+  existsSync,
+  readFileSync
+} from 'node:fs';
 import * as path from 'node:path';
-import { satisfies } from 'semver';
-import type { PackageJson } from 'type-fest';
-import { Locker, LockerOptions } from './locker';
+import {
+  satisfies
+} from 'semver';
+import type {
+  PackageJson
+} from 'type-fest';
+import {
+  Locker,
+  LockerOptions
+} from './locker';
 
 export interface CreateWithLockOptions extends Partial<LockerOptions> {
   /**
@@ -53,8 +63,8 @@ export async function createWithLock(createFunction: () => Promise<void>, option
     }
     let areDependenciesMatching = true;
     if (options.dependenciesToCheck) {
-      const packageJson: PackageJson = JSON.parse(readFileSync(path.join(appFolderPath, 'package.json'), {encoding: 'utf8'}));
-      areDependenciesMatching = options.dependenciesToCheck?.every(({name, expected, type}) => {
+      const packageJson: PackageJson = JSON.parse(readFileSync(path.join(appFolderPath, 'package.json'), { encoding: 'utf8' }));
+      areDependenciesMatching = options.dependenciesToCheck?.every(({ name, expected, type }) => {
         const actual = packageJson[type || 'dependencies']?.[name];
         return !expected || (actual && satisfies(expected, actual));
       });

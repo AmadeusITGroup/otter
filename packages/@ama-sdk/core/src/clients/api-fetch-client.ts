@@ -1,3 +1,32 @@
+import {
+  ApiTypes
+} from '../fwk/api';
+import {
+  extractQueryParams,
+  filterUndefinedValues,
+  getResponseReviver,
+  prepareUrl,
+  processFormData,
+  tokenizeRequestOptions
+} from '../fwk/api.helpers';
+import type {
+  PartialExcept
+} from '../fwk/api.interface';
+import type {
+  ApiClient,
+  RequestOptionsParameters
+} from '../fwk/core/api-client';
+import {
+  BaseApiClientOptions
+} from '../fwk/core/base-api-constructor';
+import {
+  CanceledCallError,
+  EmptyResponseError,
+  ResponseJSONParseError
+} from '../fwk/errors';
+import {
+  ReviverType
+} from '../fwk/Reviver';
 import type {
   FetchCall,
   FetchPlugin,
@@ -6,15 +35,12 @@ import type {
   RequestOptions,
   TokenizedOptions
 } from '../plugins/core/index';
-import {ExceptionReply} from '../plugins/exception';
-import {ReviverReply} from '../plugins/reviver';
-import {ApiTypes} from '../fwk/api';
-import {extractQueryParams, filterUndefinedValues, getResponseReviver, prepareUrl, processFormData, tokenizeRequestOptions} from '../fwk/api.helpers';
-import type {PartialExcept} from '../fwk/api.interface';
-import type {ApiClient, RequestOptionsParameters} from '../fwk/core/api-client';
-import {BaseApiClientOptions} from '../fwk/core/base-api-constructor';
-import {CanceledCallError, EmptyResponseError, ResponseJSONParseError} from '../fwk/errors';
-import {ReviverType} from '../fwk/Reviver';
+import {
+  ExceptionReply
+} from '../plugins/exception';
+import {
+  ReviverReply
+} from '../plugins/reviver';
 
 /**
  * @see BaseApiClientOptions
@@ -45,7 +71,6 @@ const DEFAULT_OPTIONS: Omit<BaseApiFetchClientOptions, 'basePath'> = {
  * @deprecated Use the one exposed by {@link @ama-sdk/client-fetch}, will be removed in v13
  */
 export class ApiFetchClient implements ApiClient {
-
   /** @inheritdoc */
   public options: BaseApiFetchClientOptions;
 
@@ -105,7 +130,6 @@ export class ApiFetchClient implements ApiClient {
     operationId?: string): Promise<T>;
   public async processCall<T>(url: string, options: RequestOptions, apiType: ApiTypes | string, apiName: string,
     revivers?: ReviverType<T> | { [statusCode: number]: ReviverType<T> | undefined }, operationId?: string): Promise<T> {
-
     let response: Response | undefined;
     let asyncResponse: Promise<Response>;
     let root: any;
@@ -116,7 +140,6 @@ export class ApiFetchClient implements ApiClient {
 
     // Execute call
     try {
-
       const metadataSignal = options.metadata?.signal;
       metadataSignal?.throwIfAborted();
 
@@ -141,7 +164,7 @@ export class ApiFetchClient implements ApiClient {
       const isCanceledBy = canStart.indexOf(false);
       if (isCanceledBy >= 0) {
         // One of the fetch plugins cancelled the execution of the call
-        asyncResponse = Promise.reject(new CanceledCallError(`Is canceled by the plugin ${isCanceledBy}`, isCanceledBy, this.options.fetchPlugins[isCanceledBy], {apiName, operationId, url, origin}));
+        asyncResponse = Promise.reject(new CanceledCallError(`Is canceled by the plugin ${isCanceledBy}`, isCanceledBy, this.options.fetchPlugins[isCanceledBy], { apiName, operationId, url, origin }));
       } else {
         asyncResponse = fetch(url, options);
       }
@@ -154,16 +177,16 @@ export class ApiFetchClient implements ApiClient {
 
       body = await response.text();
     } catch (e: any) {
-      exception = e instanceof CanceledCallError ? e : new EmptyResponseError(e.message || 'Fail to Fetch', undefined, {apiName, operationId, url, origin});
+      exception = e instanceof CanceledCallError ? e : new EmptyResponseError(e.message || 'Fail to Fetch', undefined, { apiName, operationId, url, origin });
     }
 
     try {
       root = body ? JSON.parse(body) : undefined;
     } catch (e: any) {
-      exception = new ResponseJSONParseError(e.message || 'Fail to parse response body', response && response.status || 0, body, {apiName, operationId, url, origin});
+      exception = new ResponseJSONParseError(e.message || 'Fail to parse response body', response && response.status || 0, body, { apiName, operationId, url, origin });
     }
     // eslint-disable-next-line no-console
-    const reviver = getResponseReviver(revivers, response, operationId, {disableFallback: this.options.disableFallback, log: console.error});
+    const reviver = getResponseReviver(revivers, response, operationId, { disableFallback: this.options.disableFallback, log: console.error });
     const replyPlugins = this.options.replyPlugins
       ? this.options.replyPlugins.map((plugin) => plugin.load<T>({
         dictionaries: root && root.dictionaries,

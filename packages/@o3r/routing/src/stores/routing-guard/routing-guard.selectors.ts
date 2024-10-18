@@ -1,8 +1,18 @@
-import {createFeatureSelector, createSelector} from '@ngrx/store';
-import {routingGuardAdapter} from './routing-guard.reducer';
-import {RegisteredItemFailureReason, RegisteredItemStatus, ROUTING_GUARD_STORE_NAME, RoutingGuardState} from './routing-guard.state';
+import {
+  createFeatureSelector,
+  createSelector
+} from '@ngrx/store';
+import {
+  routingGuardAdapter
+} from './routing-guard.reducer';
+import {
+  RegisteredItemFailureReason,
+  RegisteredItemStatus,
+  ROUTING_GUARD_STORE_NAME,
+  RoutingGuardState
+} from './routing-guard.state';
 
-const {selectIds, selectEntities, selectAll, selectTotal} = routingGuardAdapter.getSelectors();
+const { selectIds, selectEntities, selectAll, selectTotal } = routingGuardAdapter.getSelectors();
 
 /** Select RoutingGuard State */
 export const selectRoutingGuardState = createFeatureSelector<RoutingGuardState>(ROUTING_GUARD_STORE_NAME);

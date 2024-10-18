@@ -2,9 +2,18 @@
  * The purpose of this script is to remove the dist/ part of the path in a "main", "types" and "typing" field of the package.json
  */
 
+import {
+  existsSync,
+  readFileSync,
+  writeFileSync
+} from 'node:fs';
+import {
+  join,
+  posix,
+  relative,
+  resolve
+} from 'node:path';
 import minimist from 'minimist';
-import { existsSync, readFileSync, writeFileSync } from 'node:fs';
-import { join, posix, relative, resolve } from 'node:path';
 
 const argv = minimist(process.argv.slice(2));
 const root = argv.root ? resolve(process.cwd(), argv.root) : process.cwd();
@@ -16,7 +25,7 @@ const srcFields = ['main', 'default', 'module', 'esm2015', 'esm2020', 'schematic
 const fields = [...typeFields, ...srcFields];
 const distPath = resolve(root, distFolder);
 const packageJsonPath = join(distPath, 'package.json');
-const packageJson = JSON.parse(readFileSync(packageJsonPath, {encoding: 'utf-8'}));
+const packageJson = JSON.parse(readFileSync(packageJsonPath, { encoding: 'utf-8' }));
 
 const distPrefixRegExp = new RegExp(`^(\\.\\/)?${distFolder}\\/`);
 
@@ -48,7 +57,7 @@ const updateField = (field, originalPath) => {
 fields
   .filter((field) => packageJson[field])
   .map((field) => updateField(field, packageJson[field]))
-  .forEach(({field, path}) => packageJson[field] = path);
+  .forEach(({ field, path }) => packageJson[field] = path);
 
 if (packageJson.bin) {
   Object.keys(packageJson.bin)

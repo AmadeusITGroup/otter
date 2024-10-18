@@ -1,10 +1,21 @@
-import { Architect } from '@angular-devkit/architect';
-import { TestingArchitectHost } from '@angular-devkit/architect/testing';
-import { schema } from '@angular-devkit/core';
-import { cleanVirtualFileSystem, useVirtualFileSystem } from '@o3r/test-helpers';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { I18nBuilderSchema } from './schema';
+import {
+  Architect
+} from '@angular-devkit/architect';
+import {
+  TestingArchitectHost
+} from '@angular-devkit/architect/testing';
+import {
+  schema
+} from '@angular-devkit/core';
+import {
+  cleanVirtualFileSystem,
+  useVirtualFileSystem
+} from '@o3r/test-helpers';
+import {
+  I18nBuilderSchema
+} from './schema';
 
 describe('Localization i18n Builder', () => {
   const workspaceRoot = path.join('..', '..', '..', '..', '..');
@@ -27,7 +38,7 @@ describe('Localization i18n Builder', () => {
 
   it('should generate the i18n', async () => {
     const i18nFolder = path.resolve(__dirname, `${workspaceRoot}/apps/showcase/src/components/showcase/localization/i18n`);
-    await virtualFileSystem.promises.mkdir(i18nFolder, {recursive: true});
+    await virtualFileSystem.promises.mkdir(i18nFolder, { recursive: true });
     const options: I18nBuilderSchema = {
       localizationConfigs: [
         {
@@ -44,7 +55,7 @@ describe('Localization i18n Builder', () => {
     expect(output.error).toBeUndefined();
     await run.stop();
 
-    const i18nOutput = JSON.parse(virtualFileSystem.readFileSync(path.join(i18nFolder, 'en-GB.json'), {encoding: 'utf8'}));
+    const i18nOutput = JSON.parse(virtualFileSystem.readFileSync(path.join(i18nFolder, 'en-GB.json'), { encoding: 'utf8' }));
     expect(typeof i18nOutput).toBe('object');
     expect(Object.keys(i18nOutput)[0]).toMatch(/o3r-.*/);
   });

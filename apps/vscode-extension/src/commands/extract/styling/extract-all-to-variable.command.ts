@@ -1,6 +1,18 @@
-import { EOL } from 'node:os';
-import { ExtensionContext, Position, Range, TextEditor, window } from 'vscode';
-import { generateVariableName, insertVariable, isPropertyValue } from './helpers/utils.helper';
+import {
+  EOL
+} from 'node:os';
+import {
+  ExtensionContext,
+  Position,
+  Range,
+  TextEditor,
+  window
+} from 'vscode';
+import {
+  generateVariableName,
+  insertVariable,
+  isPropertyValue
+} from './helpers/utils.helper';
 
 /**
  * Replace all the interested lines with an Otter variable
@@ -8,7 +20,7 @@ import { generateVariableName, insertVariable, isPropertyValue } from './helpers
  */
 export function extractAllToVariable(_context: ExtensionContext) {
   return async (editor: TextEditor) => {
-    const isPropertyLineRegExp = /^ *[^ .$#:]+ *: *([^$:]+) *;/;
+    const isPropertyLineRegExp = /^ *[^ #$.:]+ *: *([^$:]+) *;/;
     const document = editor.document;
     const lines: { valueRange: Range; variableName: string; value: string }[] = [];
     for (let i = 0; i < document.lineCount; i++) {
@@ -39,10 +51,9 @@ export function extractAllToVariable(_context: ExtensionContext) {
       });
     }
 
-
     const hasEdited = await editor.edit((edit) => {
       let pos: Position | undefined;
-      lines.forEach(({valueRange, variableName, value}, idx) => {
+      lines.forEach(({ valueRange, variableName, value }, idx) => {
         edit.replace(valueRange, `$${variableName}`);
         pos = insertVariable(document, edit, variableName, value, !!idx, pos);
       });

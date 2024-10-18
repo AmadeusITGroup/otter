@@ -1,5 +1,9 @@
-import type {IMock} from '@amadeus-it-group/kassette';
-import {Temporal} from 'temporal-polyfill';
+import type {
+  IMock
+} from '@amadeus-it-group/kassette';
+import {
+  Temporal
+} from 'temporal-polyfill';
 
 /**
  * Options to be passed to `updateDatesInMocks`
@@ -72,9 +76,9 @@ export async function updateDatesInMocks(mock: IMock, inputOptions: Partial<Upda
   };
   const checksum = await mock.checksum({
     headers: false,
-    body: {filter: (body) => replaceDatesInInput(body.toString())},
-    query: {filter: (params) => Object.fromEntries(Object.entries(params).map(([key, value]) => [key, replaceDatesInInput(value)]))},
-    customData: {updateDatesMode: options.mode}
+    body: { filter: (body) => replaceDatesInInput(body.toString()) },
+    query: { filter: (params) => Object.fromEntries(Object.entries(params).map(([key, value]) => [key, replaceDatesInInput(value)])) },
+    customData: { updateDatesMode: options.mode }
   });
   mock.setLocalPath([mock.localPath, checksum]);
 
@@ -83,7 +87,7 @@ export async function updateDatesInMocks(mock: IMock, inputOptions: Partial<Upda
     const localPayload = (await mock.readLocalPayload())?.payload;
     if (localPayload && localPayload.data.creationDateTime) {
       const referenceTime = Temporal.PlainDate.from(localPayload.data.creationDateTime.toISOString().substring(0, 10));
-      const timeOffset = Temporal.PlainDate.from(referenceTime).until(todayTime, {smallestUnit: 'days', largestUnit: 'days'});
+      const timeOffset = Temporal.PlainDate.from(referenceTime).until(todayTime, { smallestUnit: 'days', largestUnit: 'days' });
       if (timeOffset.days !== 0) {
         mock.setMode('manual');
         const replaceDatesInOutput = (output: string): string => {

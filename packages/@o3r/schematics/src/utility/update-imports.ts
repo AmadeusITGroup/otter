@@ -1,7 +1,13 @@
+import {
+  logging
+} from '@angular-devkit/core';
+import type {
+  Tree
+} from '@angular-devkit/schematics';
+import {
+  findNodes
+} from '@schematics/angular/utility/ast-utils';
 import * as ts from 'typescript';
-import { logging } from '@angular-devkit/core';
-import { findNodes } from '@schematics/angular/utility/ast-utils';
-import type { Tree } from '@angular-devkit/schematics';
 
 /**
  * Extracted symbol from an import line.
@@ -21,7 +27,6 @@ interface ExtractedImport {
 export interface ImportsMapping {
   [packageName: string]: { [importName: string]: { newPackage: string; newValue?: string } };
 }
-
 
 /**
  * Update the imports of a given file according to replace mapping
@@ -49,7 +54,7 @@ export function updateImportsInFile(
   // First we look for all imports lines targeting an Otter package for which we know a mapping
   findNodes(sourceFile, ts.SyntaxKind.ImportDeclaration).map((nodeImp) => {
     const imp = nodeImp as ts.ImportDeclaration;
-    const importFrom = imp.moduleSpecifier.getText().replace(/['"]/g, '');
+    const importFrom = imp.moduleSpecifier.getText().replace(/["']/g, '');
 
     const renamePackageMatch = importFrom.match(renamePackagesRegexp);
 
@@ -57,7 +62,6 @@ export function updateImportsInFile(
 
     // If the import matched an Otter package
     if (otterPackage) {
-
       if (!oldImportedSymbolsPerPackage[otterPackage]) {
         oldImportedSymbolsPerPackage[otterPackage] = [];
       }
@@ -70,7 +74,7 @@ export function updateImportsInFile(
       const isTypeOnlyImport = !!imp.importClause && ts.isTypeOnlyImportDeclaration(imp.importClause);
       const imports: ExtractedImport[] = namedImport && ts.isNamedImports(namedImport)
         ? namedImport.elements.map((element) =>
-          ({symbol: element.getText(), isTypeOnlyImport, location: importFrom}))
+          ({ symbol: element.getText(), isTypeOnlyImport, location: importFrom }))
         : [];
 
       // And associate them to the Otter package
@@ -87,7 +91,6 @@ export function updateImportsInFile(
   // If no mapping is found, we keep the original import location
   const resolvedImports = Object.entries(oldImportedSymbolsPerPackage).reduce((acc, [oldPackageName, importsFromOldPackage]) => {
     importsFromOldPackage.forEach((importSymbol) => {
-
       let newPackageNameImport;
       newPackageNameImport = renamedPackages[oldPackageName] ? importSymbol.location.replace(oldPackageName, renamedPackages[oldPackageName]) : mapImports[oldPackageName]?.[importSymbol.symbol]?.newPackage;
 
@@ -105,7 +108,7 @@ export function updateImportsInFile(
   }, {} as Record<string, string[]>);
 
   let fileContent = tree.readText(sourceFile.fileName);
-  const escapeRegExp = (str: string) => str.replace(/[-[\]/{}()*+?.\\^$|]/g, '\\$&');
+  const escapeRegExp = (str: string) => str.replace(/[$()*+./?[\\\]^{|}-]/g, '\\$&');
 
   // Remove captured imports
   fileContent = fileContent.replace(new RegExp(`(${importNodes.map((node) => escapeRegExp(node.getText())).join('|')})[\\n\\r]*`, 'g'), '');

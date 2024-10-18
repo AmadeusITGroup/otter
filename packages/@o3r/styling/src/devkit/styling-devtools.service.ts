@@ -1,6 +1,13 @@
-import { DOCUMENT } from '@angular/common';
-import { inject, Injectable } from '@angular/core';
-import type { CssMetadata } from '../core/index';
+import {
+  DOCUMENT
+} from '@angular/common';
+import {
+  inject,
+  Injectable
+} from '@angular/core';
+import type {
+  CssMetadata
+} from '../core/index';
 
 /**
  * Styling devtools service

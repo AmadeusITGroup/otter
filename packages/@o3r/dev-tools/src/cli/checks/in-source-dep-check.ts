@@ -1,13 +1,25 @@
 #!/usr/bin/env node
 
-import { bold } from 'chalk';
-import { program } from 'commander';
+import {
+  readFileSync
+} from 'node:fs';
+import {
+  dirname,
+  join,
+  resolve
+} from 'node:path';
+import {
+  _builtinLibs as nodeWellKnownModules
+} from 'node:repl';
+import {
+  bold
+} from 'chalk';
+import {
+  program
+} from 'commander';
 import * as glob from 'globby';
-import { readFileSync } from 'node:fs';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore -- _builtinLibs is not part of repl types (due to the fact it is flagged to internal usage purpose)
-import { _builtinLibs as nodeWellKnownModules } from 'node:repl';
-import { dirname, join, resolve } from 'node:path';
 import * as winston from 'winston';
 
 /** Console logger */
@@ -29,7 +41,7 @@ program
   .option('--fail-on-error', 'Return a non-null status in case of dependency issue found')
   .parse(process.argv);
 
-const {root, ignore, ignoreWorkspace, failOnError} = program.opts();
+const { root, ignore, ignoreWorkspace, failOnError } = program.opts();
 
 const packagePatterns: string[] = ignoreWorkspace
   ? join(root, 'package.json').replace(/\\/g, '/')
@@ -37,13 +49,13 @@ const packagePatterns: string[] = ignoreWorkspace
 
 void (async () => {
   logger.warn('This script is deprecated, will be removed in Otter v12');
-  const packageFiles = await glob(packagePatterns, { absolute: true});
+  const packageFiles = await glob(packagePatterns, { absolute: true });
   let fixFound = false;
 
   await Promise.all(packageFiles
     .sort()
     .map(async (packageFile) => {
-      const packageJson = JSON.parse(readFileSync(packageFile, {encoding: 'utf8'}));
+      const packageJson = JSON.parse(readFileSync(packageFile, { encoding: 'utf8' }));
       const packageName = packageJson.name;
       const packageFolder = dirname(packageFile);
 
@@ -71,8 +83,8 @@ void (async () => {
               return [
                 ...acc,
                 ...[
-                  ...content.matchAll(/^import .* from ['"]([^.].*)['"];?/mg),
-                  ...content.matchAll(/ ?= ?require\(['"]([^.].*)['"]\);?$/mg)
+                  ...content.matchAll(/^import .* from ["']([^.].*)["'];?/gm),
+                  ...content.matchAll(/ ?= ?require\(["']([^.].*)["']\);?$/gm)
                 ].map(([, dep]) => dep)
               ];
             }, []);
@@ -83,7 +95,7 @@ void (async () => {
             .reduce<string[]>((acc, content) => {
               return [
                 ...acc,
-                ...[...content.matchAll(/^@import ['"]~?([^.].*)['"];?$/mg)]
+                ...[...content.matchAll(/^@import ["']~?([^.].*)["'];?$/gm)]
                   .map(([, dep]) => dep)
                   .filter((dep) => !dep.startsWith('http'))
               ];
@@ -106,7 +118,6 @@ void (async () => {
           fixFound = true;
           logger.warn(`${bold(packageName)} is missing a dependency to ${bold(dep)}`);
         });
-
     }));
 
   if (!fixFound) {

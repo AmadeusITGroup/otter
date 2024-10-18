@@ -1,8 +1,21 @@
-import { Position, Selection, TextDocument, TextEditorEdit, TextLine, workspace } from 'vscode';
-import { basename } from 'node:path';
-import { EOL } from 'node:os';
-import {regExp} from './regex.helper';
+import {
+  EOL
+} from 'node:os';
+import {
+  basename
+} from 'node:path';
+import {
+  Position,
+  Selection,
+  TextDocument,
+  TextEditorEdit,
+  TextLine,
+  workspace
+} from 'vscode';
 import * as vscode from 'vscode';
+import {
+  regExp
+} from './regex.helper';
 
 /**
  * Sanitize the selector
@@ -116,7 +129,7 @@ export function getProperty(line: TextLine) {
  */
 export function getClassRuleName(document: TextDocument, line: TextLine) {
   let i = line.lineNumber;
-  const ruleClassRegExp = /([^ ,#{.]+) *{$/;
+  const ruleClassRegExp = /([^ #,.{]+) *{$/;
   while (i >= 0) {
     const match = document.lineAt(i).text.match(ruleClassRegExp);
     if (match) {
@@ -160,7 +173,7 @@ export function lineIndexToInsert(document: TextDocument): number {
   let i = 0;
   while (i < document.lineCount) {
     const line = document.lineAt(i);
-    if (!/^ *[@/]/.test(line.text)) {
+    if (!/^ *[/@]/.test(line.text)) {
       return i;
     }
     i++;

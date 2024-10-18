@@ -2,10 +2,14 @@
  * The purpose of this script is to copy files from the temporary build folder
  */
 
-import { globby as glob } from 'globby';
-import minimist from 'minimist';
-import { promises as fs } from 'node:fs';
+import {
+  promises as fs
+} from 'node:fs';
 import * as path from 'node:path';
+import {
+  globby as glob
+} from 'globby';
+import minimist from 'minimist';
 
 const argv = minimist(process.argv.slice(2));
 const cwd = argv.root ? path.resolve(process.cwd(), argv.root) : process.cwd();

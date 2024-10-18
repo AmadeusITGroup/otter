@@ -1,12 +1,30 @@
 /* eslint-disable new-cap */
-import { browser, By, element, ElementFinder } from 'protractor';
-import { FixtureUsageError } from '../../errors/index';
-
-import type { ComponentFixtureProfile } from '../component-fixture';
-import { withTimeout } from '../helpers';
-import { O3rElement, O3rElementConstructor } from './element';
-import { O3rGroup, O3rGroupConstructor } from './group';
-import { convertPromise } from './utils';
+import {
+  browser,
+  By,
+  element,
+  ElementFinder
+} from 'protractor';
+import {
+  FixtureUsageError
+} from '../../errors/index';
+import type {
+  ComponentFixtureProfile
+} from '../component-fixture';
+import {
+  withTimeout
+} from '../helpers';
+import {
+  O3rElement,
+  O3rElementConstructor
+} from './element';
+import {
+  O3rGroup,
+  O3rGroupConstructor
+} from './group';
+import {
+  convertPromise
+} from './utils';
 
 /**
  * @deprecated Will be removed in v13, please use Playwright instead
@@ -60,7 +78,6 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
         return el;
       });
   }
-
 
   /**
    * Get the element associated to the selector if present
@@ -213,8 +230,8 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
   }
 
   /** @inheritdoc */
-  public getSubComponents(): Promise<{[componentName: string]: ComponentFixtureProfile[]}> {
-    return Promise.resolve({block: [this]});
+  public getSubComponents(): Promise<{ [componentName: string]: ComponentFixtureProfile[] }> {
+    return Promise.resolve({ block: [this] });
   }
 
   /** @inheritDoc */

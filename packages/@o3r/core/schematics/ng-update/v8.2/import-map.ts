@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import type { ImportsMapping } from '@o3r/schematics';
+import type {
+  ImportsMapping
+} from '@o3r/schematics';
 
 /** Map containing the import changes in otter packages for the exported elements */
 export const mapImportAsyncStore: ImportsMapping = {

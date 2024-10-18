@@ -1,9 +1,17 @@
-import type { CssMetadata, CssVariable } from '@o3r/styling';
-import { getStyleMetadata } from './metadata-manager';
-import { StyleConfigs, STYLING_PREFIX } from './style-configs.interface';
+import type {
+  CssMetadata,
+  CssVariable
+} from '@o3r/styling';
+import {
+  getStyleMetadata
+} from './metadata-manager';
+import {
+  StyleConfigs,
+  STYLING_PREFIX
+} from './style-configs.interface';
 
 /** RegExp to check if the value is a color*/
-const colorRegExp = /^(#[a-fA-F0-9]{3,8}|rgba?\([^)]+\))\s*;?$/;
+const colorRegExp = /^(#[\dA-Fa-f]{3,8}|rgba?\([^)]+\))\s*;?$/;
 
 /**
  * Inject CSS variable into the DOM
@@ -78,8 +86,6 @@ export function getTypeAndValue(data: CssVariable, metadata: CssMetadata, mem: s
     value: data.defaultValue
   };
 }
-
-
 
 /**
  * Extract storybook argument type base for component styling

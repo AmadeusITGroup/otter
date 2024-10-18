@@ -1,6 +1,12 @@
-import type { TmplAstElement } from '@angular/compiler';
-import { getTemplateParserServices } from '../utils';
-import { createRule } from '../../utils';
+import type {
+  TmplAstElement
+} from '@angular/compiler';
+import {
+  createRule
+} from '../../utils';
+import {
+  getTemplateParserServices
+} from '../utils';
 
 /** Rule Name */
 export const name = 'no-inner-html';
@@ -30,7 +36,7 @@ export default createRule<[], Messages>({
     return {
       // eslint-disable-next-line @typescript-eslint/naming-convention
       'Element$1': (node: TmplAstElement) => {
-        const innerHTMLAttribute = node.attributes.find((a) => /innerHTML/i.test(a.name));
+        const innerHTMLAttribute = node.attributes.find((a) => /innerhtml/i.test(a.name));
         if (innerHTMLAttribute && innerHTMLAttribute.keySpan) {
           context.report({
             messageId: 'error',

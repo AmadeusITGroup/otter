@@ -2,7 +2,10 @@
  * Note: This file is not part of the running script, it is injected in the browser while running e2e tests.
  */
 
-import { ConditionFn, PostMessageCall } from './core';
+import {
+  ConditionFn,
+  PostMessageCall
+} from './core';
 
 // TODO: Move to PollyJS when the winter comes
 (() => {
@@ -65,14 +68,14 @@ import { ConditionFn, PostMessageCall } from './core';
     private registerFetchInterceptor() {
       const nativeMethod = window.postMessage;
       this.nativeMethod = nativeMethod;
-      Object.assign(window, {postMessage: (...args: any[]) => this.interceptor(this, nativeMethod, ...args)});
+      Object.assign(window, { postMessage: (...args: any[]) => this.interceptor(this, nativeMethod, ...args) });
     }
 
     /**
      * Unregister the interceptor from the window object
      */
     private unregisterFetchInterceptor() {
-      Object.assign(window, {postMessage: this.nativeMethod});
+      Object.assign(window, { postMessage: this.nativeMethod });
     }
 
     /**
@@ -155,5 +158,5 @@ import { ConditionFn, PostMessageCall } from './core';
       activeMessageWatch(retries);
     }
   };
-  Object.assign(window, {postMessageInterceptor});
+  Object.assign(window, { postMessageInterceptor });
 })();

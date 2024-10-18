@@ -1,16 +1,20 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import type { WorkspaceSchema } from '../interfaces';
-import {getSchematicOptions} from './collection';
+import type {
+  WorkspaceSchema
+} from '../interfaces';
+import {
+  getSchematicOptions
+} from './collection';
 
 const angularJsonGenericNgAdd: WorkspaceSchema = {
   projects: {},
   version: 1,
   schematics: { '@o3r/components:component': { path: '' },
-    '@o3r/services:service': {path: ''},
-    '@o3r/store:store': {path: ''},
-    '@o3r/core:schematics': {path: ''},
+    '@o3r/services:service': { path: '' },
+    '@o3r/store:store': { path: '' },
+    '@o3r/core:schematics': { path: '' },
     '*:ng-add': { enableMetadataExtract: true } as any,
-    '*:*': {libsDir: 'libs', appsDir: 'apps'}
+    '*:*': { libsDir: 'libs', appsDir: 'apps' }
   } as any
 };
 
@@ -18,12 +22,12 @@ const angularJsonSpecificNgAdd: WorkspaceSchema = {
   projects: {},
   version: 1,
   schematics: { '@o3r/components:component': { path: '' },
-    '@o3r/services:service': {path: ''},
-    '@o3r/store:store': {path: ''},
-    '@o3r/core:schematics': {path: ''},
-    '@o3r/core:ng-add': {projectName: 'otter'},
+    '@o3r/services:service': { path: '' },
+    '@o3r/store:store': { path: '' },
+    '@o3r/core:schematics': { path: '' },
+    '@o3r/core:ng-add': { projectName: 'otter' },
     '*:ng-add': { enableMetadataExtract: true },
-    '*:*': {libsDir: 'libs', appsDir: 'apps', testFramework: 'jest'}
+    '*:*': { libsDir: 'libs', appsDir: 'apps', testFramework: 'jest' }
   } as any
 };
 
@@ -31,16 +35,15 @@ const angularJsonNoGeneric: WorkspaceSchema = {
   projects: {},
   version: 1,
   schematics: { '@o3r/components:component': { path: '' },
-    '@o3r/services:service': {path: ''},
-    '@o3r/store:store': {path: ''},
-    '@o3r/core:schematics': {path: ''},
-    '@o3r/core:ng-add': {projectName: 'otter'},
+    '@o3r/services:service': { path: '' },
+    '@o3r/store:store': { path: '' },
+    '@o3r/core:schematics': { path: '' },
+    '@o3r/core:ng-add': { projectName: 'otter' },
     '*:ng-add': { enableMetadataExtract: true }
   } as any
 };
 
 describe('Get schematics options', () => {
-
   const createFakeContext = (collection: string, name: string): any => ({
     schematic: {
       description: {
@@ -86,5 +89,4 @@ describe('Get schematics options', () => {
     const options = getSchematicOptions(angularJsonNoGeneric, createFakeContext('@o3r/core', 'dummy'));
     expect(options).toBeUndefined();
   });
-
 });

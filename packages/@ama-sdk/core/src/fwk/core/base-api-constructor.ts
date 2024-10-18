@@ -1,5 +1,10 @@
-import type { Logger } from '../logger';
-import { ReplyPlugin, RequestPlugin } from '../../plugins';
+import {
+  ReplyPlugin,
+  RequestPlugin
+} from '../../plugins';
+import type {
+  Logger
+} from '../logger';
 
 /** Interface of the constructor configuration object */
 export interface BaseApiClientOptions {

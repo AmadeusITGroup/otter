@@ -1,9 +1,20 @@
-import { getTestBed, TestBed } from '@angular/core/testing';
-import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
-import { StorageStrategy } from './request-parameters.config';
-import { RequestParametersModule } from './request-parameters.module';
-import { RequestParametersService } from './request-parameters.service';
-
+import {
+  getTestBed,
+  TestBed
+} from '@angular/core/testing';
+import {
+  BrowserDynamicTestingModule,
+  platformBrowserDynamicTesting
+} from '@angular/platform-browser-dynamic/testing';
+import {
+  StorageStrategy
+} from './request-parameters.config';
+import {
+  RequestParametersModule
+} from './request-parameters.module';
+import {
+  RequestParametersService
+} from './request-parameters.service';
 
 class FakeStorage implements Storage {
   private storage: any = {};
@@ -402,13 +413,13 @@ describe('RequestParametersService', () => {
     it('should remove only qParam1 from query parameters', () => {
       service.clearQueryParameters(['qParam1']);
 
-      expect(JSON.parse(sessionCustomStorage.getItem('_query'))).toEqual(expect.objectContaining({qParam2: 'q2'}));
+      expect(JSON.parse(sessionCustomStorage.getItem('_query'))).toEqual(expect.objectContaining({ qParam2: 'q2' }));
     });
 
     it('should remove only pParam1 from post parameters', () => {
       service.clearPostParameters(['pParam1']);
 
-      expect(JSON.parse(sessionCustomStorage.getItem('_post'))).toEqual(expect.objectContaining({pParam2: 'p2'}));
+      expect(JSON.parse(sessionCustomStorage.getItem('_post'))).toEqual(expect.objectContaining({ pParam2: 'p2' }));
     });
 
     it('should remove all query parameters', () => {
@@ -455,9 +466,8 @@ describe('RequestParametersService', () => {
       const qParams = JSON.parse(queryParams);
       const pParams = JSON.parse(postParams);
 
-      expect(service.getParams()).toEqual({...qParams, ...pParams});
+      expect(service.getParams()).toEqual({ ...qParams, ...pParams });
     });
-
   });
 
   describe('Filter parameters', () => {
@@ -488,7 +498,7 @@ describe('RequestParametersService', () => {
 
     it('should filter qParam1, pParam2 and pParam3 from parameters', () => {
       const filteredParams = service.getFilteredParameters(['qParam1', 'pParam2', 'pParam3']);
-      const remainingParams = {qParam2: 'q2', qParam3: 'true', qParam4: 'false', pParam1: 'p1', pParam4: 'false'};
+      const remainingParams = { qParam2: 'q2', qParam3: 'true', qParam4: 'false', pParam1: 'p1', pParam4: 'false' };
 
       expect(filteredParams).toEqual(remainingParams);
     });

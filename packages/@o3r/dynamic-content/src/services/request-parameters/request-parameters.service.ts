@@ -1,12 +1,19 @@
-import {Inject, Injectable} from '@angular/core';
-
-import {defaultRequestParametersConfig, RequestParametersConfig, StorageStrategy} from './request-parameters.config';
-
-import {REQUEST_PARAMETERS_CONFIG_TOKEN} from './request-parameters.token';
+import {
+  Inject,
+  Injectable
+} from '@angular/core';
+import {
+  defaultRequestParametersConfig,
+  RequestParametersConfig,
+  StorageStrategy
+} from './request-parameters.config';
+import {
+  REQUEST_PARAMETERS_CONFIG_TOKEN
+} from './request-parameters.token';
 
 export type ParamsList = 'query' | 'post';
 
-export type ParamsType = {[k in ParamsList]: {[key: string]: string}};
+export type ParamsType = { [k in ParamsList]: { [key: string]: string } };
 
 /**
  * Partial configuration for RequestParameters Service
@@ -19,8 +26,8 @@ export interface PartialRequestParametersConfig extends Partial<RequestParameter
  */
 @Injectable()
 export class RequestParametersService implements ParamsType {
-  private _query: {[key: string]: any} = {};
-  private _post: {[key: string]: any} = {};
+  private _query: { [key: string]: any } = {};
+  private _post: { [key: string]: any } = {};
 
   private readonly config: RequestParametersConfig;
 
@@ -40,7 +47,7 @@ export class RequestParametersService implements ParamsType {
    * @param key
    * @param value
    */
-  private setParameters(key: ParamsList, value: {[key: string]: string}) {
+  private setParameters(key: ParamsList, value: { [key: string]: string }) {
     const privateKey: `_${ParamsList}` = `_${key}`;
     if (!this.config.storage) {
       // No storage is available , cannot set items
@@ -150,7 +157,7 @@ export class RequestParametersService implements ParamsType {
    */
   public clearQueryParameters(paramsToClear?: string[]) {
     const newQuery = (paramsToClear ? Object.keys(this._query).filter((key) => !paramsToClear.includes(key)) : [])
-      .reduce<{[k: string]: string}>((acc, key) => {
+      .reduce<{ [k: string]: string }>((acc, key) => {
         acc[key] = this._query[key];
         return acc;
       }, {});
@@ -166,7 +173,7 @@ export class RequestParametersService implements ParamsType {
    */
   public clearPostParameters(paramsToClear?: string[]) {
     const newPost = (paramsToClear ? Object.keys(this._post).filter((key) => !paramsToClear.includes(key)) : [])
-      .reduce<{[k: string]: string}>((acc, key) => {
+      .reduce<{ [k: string]: string }>((acc, key) => {
         acc[key] = this._post[key];
         return acc;
       }, {});

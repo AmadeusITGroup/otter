@@ -3,10 +3,26 @@
  * @jest-environment @o3r/test-helpers/jest-environment
  * @jest-environment-o3r-app-folder test-app-localization-metadata-check
  */
-const o3rEnvironment = globalThis.o3rEnvironment;
-
-import type { MigrationFile } from '@o3r/extractors';
-import { getExternalDependenciesVersionRange, getPackageManager } from '@o3r/schematics';
+import {
+  existsSync,
+  promises,
+  readFileSync
+} from 'node:fs';
+import {
+  dirname,
+  join
+} from 'node:path';
+import type {
+  MigrationFile
+} from '@o3r/extractors';
+import type {
+  JSONLocalization,
+  LocalizationMetadata
+} from '@o3r/localization';
+import {
+  getExternalDependenciesVersionRange,
+  getPackageManager
+} from '@o3r/schematics';
 import {
   getDefaultExecSyncOptions,
   getLatestPackageVersion,
@@ -15,11 +31,14 @@ import {
   packageManagerVersion,
   publishToVerdaccio
 } from '@o3r/test-helpers';
-import { existsSync, promises, readFileSync } from 'node:fs';
-import { dirname, join } from 'node:path';
-import { inc } from 'semver';
-import type { JSONLocalization, LocalizationMetadata } from '@o3r/localization';
-import type { MigrationLocalizationMetadata } from './helpers/localization-metadata-comparison.helper';
+import {
+  inc
+} from 'semver';
+import type {
+  MigrationLocalizationMetadata
+} from './helpers/localization-metadata-comparison.helper';
+
+const o3rEnvironment = globalThis.o3rEnvironment;
 
 const baseVersion = '1.2.0';
 const version = '1.3.0';
@@ -60,7 +79,7 @@ const newLocalizationMetadata: LocalizationMetadata = [
 
 async function writeFileAsJSON(path: string, content: object) {
   if (!existsSync(dirname(path))) {
-    await promises.mkdir(dirname(path), {recursive: true});
+    await promises.mkdir(dirname(path), { recursive: true });
   }
   await promises.writeFile(path, JSON.stringify(content), { encoding: 'utf8' });
 }
@@ -74,8 +93,8 @@ const initTest = async (
   const { workspacePath, appName, applicationPath, o3rVersion, isYarnTest } = o3rEnvironment.testEnvironment;
   const execAppOptions = { ...getDefaultExecSyncOptions(), cwd: applicationPath };
   const execAppOptionsWorkspace = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
-  packageManagerExec({script: 'ng', args: ['add', `@o3r/extractors@${o3rVersion}`, '--skip-confirmation', '--project-name', appName]}, execAppOptionsWorkspace);
-  packageManagerExec({script: 'ng', args: ['add', `@o3r/localization@${o3rVersion}`, '--skip-confirmation', '--project-name', appName]}, execAppOptionsWorkspace);
+  packageManagerExec({ script: 'ng', args: ['add', `@o3r/extractors@${o3rVersion}`, '--skip-confirmation', '--project-name', appName] }, execAppOptionsWorkspace);
+  packageManagerExec({ script: 'ng', args: ['add', `@o3r/localization@${o3rVersion}`, '--skip-confirmation', '--project-name', appName] }, execAppOptionsWorkspace);
   const versions = getExternalDependenciesVersionRange([
     'semver',
     ...(isYarnTest

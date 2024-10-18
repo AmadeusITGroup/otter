@@ -1,9 +1,13 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import type { OpenAPIV2, OpenAPIV3 } from 'openapi-types';
-import { generateOperationFinderFromSingleFile } from './path-extractor';
+import type {
+  OpenAPIV2,
+  OpenAPIV3
+} from 'openapi-types';
+import {
+  generateOperationFinderFromSingleFile
+} from './path-extractor';
 
 describe('generateOperationFinderFromSingleFile', () => {
-
   it('should parse a full path object', () => {
     const spec: OpenAPIV3.Document = {
       openapi: '3.0.0',
@@ -166,7 +170,5 @@ describe('generateOperationFinderFromSingleFile', () => {
         path: '/pet', regexp: new RegExp('^/pet(?:/(?=$))?$'), operations: [{ 'method': 'post', 'operationId': 'addPet' }]
       }
     ]);
-
   });
-
 });

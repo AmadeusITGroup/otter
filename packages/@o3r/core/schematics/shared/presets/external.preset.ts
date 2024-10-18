@@ -1,12 +1,19 @@
-import { SchematicContext, Tree } from '@angular-devkit/schematics';
-import { defaultPresetRuleFactory } from './helpers';
-import type { PresetFactory } from './preset.interface';
+import {
+  SchematicContext,
+  Tree
+} from '@angular-devkit/schematics';
 import {
   getAvailableModules,
   getWorkspaceConfig,
   OTTER_MODULE_PRESET_PREFIX,
   OTTER_MODULE_SUPPORTED_SCOPES
 } from '@o3r/schematics';
+import {
+  defaultPresetRuleFactory
+} from './helpers';
+import type {
+  PresetFactory
+} from './preset.interface';
 
 /**
  * Generate the Preset runner for external presets

@@ -1,10 +1,11 @@
-import { PostProcess } from './post-process.interface';
+import {
+  PostProcess
+} from './post-process.interface';
 
 /**
  * Post Process to validate a given Swagger spec
  */
 export class PropagateXvendor implements PostProcess {
-
   constructor(private readonly vendorExtToPropagate = 'x-unknown') {}
 
   private getRecApiFlag(definitionName: string, definition: any, originDefs: any, processedDefs: any) {
@@ -12,7 +13,7 @@ export class PropagateXvendor implements PostProcess {
       processedDefs[definitionName] = definition;
     } else {
       const captureDefinitionRegExp = /#\/definitions\/(.*)/;
-      const parentWithFlag = (definition.allOf as any[]).filter((ref: any): ref is {$ref: string} => !!ref.$ref)
+      const parentWithFlag = (definition.allOf as any[]).filter((ref: any): ref is { $ref: string } => !!ref.$ref)
         .map((ref) => {
           const defName = captureDefinitionRegExp.exec(ref.$ref)![1];
           return {
@@ -26,7 +27,7 @@ export class PropagateXvendor implements PostProcess {
           }
           const parentFlag = processedDefs[defEntry.name][this.vendorExtToPropagate];
           if (parentFlag) {
-            const defCopy = {...definition};
+            const defCopy = { ...definition };
             defCopy[this.vendorExtToPropagate] = parentFlag;
             processedDefs[definitionName] = defCopy;
           }

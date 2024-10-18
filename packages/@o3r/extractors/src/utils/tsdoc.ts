@@ -1,4 +1,8 @@
-import { DocComment, DocExcerpt, DocNode } from '@microsoft/tsdoc';
+import {
+  DocComment,
+  DocExcerpt,
+  DocNode
+} from '@microsoft/tsdoc';
 import * as ts from 'typescript';
 
 /**
@@ -59,4 +63,3 @@ export function getTsDocTextFromNode(source: ts.SourceFile, node: ts.Node): stri
     return fullText.slice(jsDocRange.pos, jsDocRange.end);
   }
 }
-

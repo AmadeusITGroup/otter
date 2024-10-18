@@ -1,10 +1,11 @@
-import { PostProcess } from './post-process.interface';
+import {
+  PostProcess
+} from './post-process.interface';
 
 /**
  * Post Process to remove black listed paths from the final Swagger Specification
  */
 export class PathsBlacklister implements PostProcess {
-
   constructor(private readonly pathPatterns: (string | RegExp)[] = []) {}
 
   /** @inheritdoc */
@@ -23,5 +24,4 @@ export class PathsBlacklister implements PostProcess {
 
     return spec;
   }
-
 }

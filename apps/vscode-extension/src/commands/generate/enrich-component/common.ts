@@ -1,7 +1,12 @@
-
-import { relative } from 'node:path';
+import {
+  relative
+} from 'node:path';
 import * as vscode from 'vscode';
-import { getPackageScriptRunner, getSchematicDefaultOptions, stringifyOptions } from '../../helpers';
+import {
+  getPackageScriptRunner,
+  getSchematicDefaultOptions,
+  stringifyOptions
+} from '../../helpers';
 
 const executeSchematic = async (componentPath: string, schematicName: string, getExtraOptions: () => Promise<string[]> = () => Promise.resolve([])) => {
   const terminal = vscode.window.createTerminal('Otter');

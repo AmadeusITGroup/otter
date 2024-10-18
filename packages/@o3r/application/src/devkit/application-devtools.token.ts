@@ -1,5 +1,9 @@
-import { InjectionToken } from '@angular/core';
-import { ApplicationDevtoolsServiceOptions } from './application-devkit.interface';
+import {
+  InjectionToken
+} from '@angular/core';
+import {
+  ApplicationDevtoolsServiceOptions
+} from './application-devkit.interface';
 
 export const OTTER_APPLICATION_DEVTOOLS_DEFAULT_OPTIONS: ApplicationDevtoolsServiceOptions = {
   isActivatedOnBootstrap: false

@@ -5,17 +5,19 @@ import {
   move,
   renameTemplateFiles,
   Rule,
-  template, Tree,
+  template,
+  Tree,
   url
 } from '@angular-devkit/schematics';
-import { NgGenerateApiExtensionSchematicsSchema } from './schema';
+import {
+  NgGenerateApiExtensionSchematicsSchema
+} from './schema';
 
 /**
  * Generate a Extension of a API core definition
  * @param options
  */
 function ngGenerateApiExtensionFn(options: NgGenerateApiExtensionSchematicsSchema): Rule {
-
   return (tree: Tree) => mergeWith(apply(url('./templates'), [
     template({
       ...options,
@@ -24,7 +26,6 @@ function ngGenerateApiExtensionFn(options: NgGenerateApiExtensionSchematicsSchem
     move(tree.root.path),
     renameTemplateFiles()
   ]), MergeStrategy.Overwrite);
-
 }
 
 /**

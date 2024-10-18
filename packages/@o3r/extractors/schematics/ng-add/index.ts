@@ -1,8 +1,16 @@
-import { chain } from '@angular-devkit/schematics';
-import type { Rule } from '@angular-devkit/schematics';
 import * as path from 'node:path';
-import { updateCmsAdapter } from '../cms-adapter';
-import type { NgAddSchematicsSchema } from './schema';
+import {
+  chain
+} from '@angular-devkit/schematics';
+import type {
+  Rule
+} from '@angular-devkit/schematics';
+import {
+  updateCmsAdapter
+} from '../cms-adapter';
+import type {
+  NgAddSchematicsSchema
+} from './schema';
 
 const dependenciesToInstall = [
   'semver'

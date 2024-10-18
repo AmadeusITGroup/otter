@@ -1,7 +1,17 @@
-import { CompletionItem, CompletionItemKind, CompletionItemProvider, HoverProvider } from 'vscode';
-import { type DesignTokenVariableSet, type DesignTokenVariableStructure, getCssTokenValueRenderer, parseDesignTokenFile } from '@o3r/design';
-import * as vscode from 'vscode';
 import * as path from 'node:path';
+import {
+  type DesignTokenVariableSet,
+  type DesignTokenVariableStructure,
+  getCssTokenValueRenderer,
+  parseDesignTokenFile
+} from '@o3r/design';
+import {
+  CompletionItem,
+  CompletionItemKind,
+  CompletionItemProvider,
+  HoverProvider
+} from 'vscode';
+import * as vscode from 'vscode';
 
 type DesignTokenCache = {
   lastExtractionTimestamp: number;
@@ -99,7 +109,7 @@ export const designTokenCompletionItemAndHoverProviders = (cache: Map<string, De
         const key = token.getKey();
         const value = renderer(token, tokens, true);
         const documentation = getTokenDetail(token, tokens);
-        if (/var\([^,)]*$/.test(lineUntilPosition)) {
+        if (/var\([^),]*$/.test(lineUntilPosition)) {
           const variableItem = new CompletionItem({ label: `--${key}` }, CompletionItemKind.Variable);
           variableItem.insertText = value.replace(/^var\((.*)\)$/, '$1');
           variableItem.documentation = documentation;

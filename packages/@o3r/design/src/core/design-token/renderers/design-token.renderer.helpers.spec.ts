@@ -1,9 +1,19 @@
+import {
+  promises as fs
+} from 'node:fs';
+import {
+  resolve
+} from 'node:path';
+import type {
+  DesignTokenSpecification
+} from '../design-token-specification.interface';
+import type {
+  DesignTokenVariableSet
+} from '../parsers';
 import * as parser from '../parsers/design-token.parser';
-import { promises as fs } from 'node:fs';
-import { resolve } from 'node:path';
-import type { DesignTokenSpecification } from '../design-token-specification.interface';
-import { isO3rPrivateVariable } from './design-token.renderer.helpers';
-import type { DesignTokenVariableSet } from '../parsers';
+import {
+  isO3rPrivateVariable
+} from './design-token.renderer.helpers';
 
 describe('isO3rPrivateVariable', () => {
   let exampleVariable!: DesignTokenSpecification;

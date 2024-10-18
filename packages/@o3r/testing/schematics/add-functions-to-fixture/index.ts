@@ -1,9 +1,25 @@
-import { chain, noop, Rule, Tree } from '@angular-devkit/schematics';
-import { applyEsLintFix, createSchematicWithMetricsIfInstalled, O3rCliError } from '@o3r/schematics';
+import {
+  chain,
+  noop,
+  Rule,
+  Tree
+} from '@angular-devkit/schematics';
+import {
+  applyEsLintFix,
+  createSchematicWithMetricsIfInstalled,
+  O3rCliError
+} from '@o3r/schematics';
 import * as ts from 'typescript';
-import { getImplementation, getSignature } from './helpers';
-import { description } from './models';
-import { NgAddFunctionsToFixtureSchematicsSchema } from './schema';
+import {
+  getImplementation,
+  getSignature
+} from './helpers';
+import {
+  description
+} from './models';
+import {
+  NgAddFunctionsToFixtureSchematicsSchema
+} from './schema';
 
 /**
  * Generate fixture
@@ -59,7 +75,6 @@ function ngAddFunctionsToFixtureFn(options: NgAddFunctionsToFixtureSchematicsSch
 
         tree.commitUpdate(recorder);
       });
-
     },
 
     options.skipLinter ? noop() : applyEsLintFix()

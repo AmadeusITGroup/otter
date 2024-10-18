@@ -1,6 +1,12 @@
-import {Directive, ElementRef, OnDestroy, Renderer2} from '@angular/core';
-import {Subscription} from 'rxjs';
-
+import {
+  Directive,
+  ElementRef,
+  OnDestroy,
+  Renderer2
+} from '@angular/core';
+import {
+  Subscription
+} from 'rxjs';
 import {
   AnalyticsEvent,
   ConstructorAnalyticsEvent,
@@ -8,7 +14,9 @@ import {
   EventContext,
   TrackEventName
 } from '../../contracts';
-import {EventTrackService} from '../../services/event-track';
+import {
+  EventTrackService
+} from '../../services/event-track';
 
 @Directive()
 export abstract class BaseTrackEvents implements OnDestroy {
@@ -63,9 +71,9 @@ export abstract class BaseTrackEvents implements OnDestroy {
     return this.renderer.listen(this.el.nativeElement, event, (nativeEvent) => {
       if (this.trackEventContextConstructor) {
         // eslint-disable-next-line new-cap
-        this.trackEventsService.addUiEvent({nativeEvent, context: new this.trackEventContextConstructor(this.trackEventContextConstructorParameters)});
+        this.trackEventsService.addUiEvent({ nativeEvent, context: new this.trackEventContextConstructor(this.trackEventContextConstructorParameters) });
       } else if (this.trackEventContext) {
-        this.trackEventsService.addUiEvent({nativeEvent, context: this.trackEventContext});
+        this.trackEventsService.addUiEvent({ nativeEvent, context: this.trackEventContext });
       }
     });
   }

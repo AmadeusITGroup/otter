@@ -1,7 +1,11 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import {eventTrackInitialState} from './event-track.reducer';
+import {
+  eventTrackInitialState
+} from './event-track.reducer';
 import * as selectors from './event-track.selectors';
-import {EventTrackState} from './event-track.state';
+import {
+  EventTrackState
+} from './event-track.state';
 
 describe('EventTrack Selectors tests', () => {
   it('should return initial state', () => {
@@ -11,13 +15,13 @@ describe('EventTrack Selectors tests', () => {
   });
 
   it('should return the initial hero component status', () => {
-    const state: EventTrackState = {heroComponent: {id: 'Page', TTI: 0}, isTTIComputed: false};
+    const state: EventTrackState = { heroComponent: { id: 'Page', TTI: 0 }, isTTIComputed: false };
 
     expect(selectors.selectHeroComponentStatus.projector(state)).toBeUndefined();
   });
 
   it('should return the computed hero component status', () => {
-    const state: EventTrackState = {heroComponent: {id: 'Page', TTI: 30}, isTTIComputed: true};
+    const state: EventTrackState = { heroComponent: { id: 'Page', TTI: 30 }, isTTIComputed: true };
 
     expect(selectors.selectHeroComponentStatus.projector(state)).toEqual(30);
   });

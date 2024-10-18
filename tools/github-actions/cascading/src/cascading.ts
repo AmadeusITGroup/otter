@@ -1,5 +1,14 @@
-import {exec} from 'node:child_process';
-import {promisify} from 'node:util';
+import {
+  exec
+} from 'node:child_process';
+import {
+  promisify
+} from 'node:util';
+import * as github from '@actions/github';
+import * as Context from '@actions/github/lib/context';
+import {
+  GitHub
+} from '@actions/github/lib/utils';
 import {
   extractBranchesFromGitOutput,
   extractPackageChanges,
@@ -7,9 +16,6 @@ import {
   notIgnorablePackages,
   sortBranches
 } from './helpers';
-import * as Context from '@actions/github/lib/context';
-import * as github from '@actions/github';
-import {GitHub} from '@actions/github/lib/utils';
 
 const promisifiedExec = promisify(exec);
 

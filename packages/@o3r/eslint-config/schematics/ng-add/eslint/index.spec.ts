@@ -1,8 +1,17 @@
-import { callRule, Tree } from '@angular-devkit/schematics';
-import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
 import * as path from 'node:path';
-import { firstValueFrom } from 'rxjs';
-import { updateEslintConfig } from './index';
+import {
+  callRule,
+  Tree
+} from '@angular-devkit/schematics';
+import {
+  SchematicTestRunner
+} from '@angular-devkit/schematics/testing';
+import {
+  firstValueFrom
+} from 'rxjs';
+import {
+  updateEslintConfig
+} from './index';
 
 const collectionPath = path.join(__dirname, '..', '..', '..', 'collection.json');
 const context = { description: { path: __dirname } };

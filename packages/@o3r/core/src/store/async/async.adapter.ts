@@ -1,4 +1,7 @@
-import {AsyncStoreItem, EntityStatus} from './async.interfaces';
+import {
+  AsyncStoreItem,
+  EntityStatus
+} from './async.interfaces';
 
 /**
  * Adapter to help manipulate AsyncStoreItems to register new request and update the status when they fail or resolve.
@@ -147,7 +150,6 @@ export const asyncStoreItemAdapter: AsyncStoreItemAdapter = {
   },
 
   clearAsyncStoreItem: <T extends AsyncStoreItem>(entityItem: T) => {
-
     const { isPending, isFailure, ...newResponse }: T = { ...entityItem, requestIds: [] };
     return newResponse as T;
   },
@@ -174,7 +176,7 @@ export const asyncStoreItemAdapter: AsyncStoreItemAdapter = {
     const currentSubStatus = status[subResource];
     return {
       ...status,
-      [subResource]: currentSubStatus ? asyncStoreItemAdapter.resolveRequest(currentSubStatus, requestId) : {requestIds: []}
+      [subResource]: currentSubStatus ? asyncStoreItemAdapter.resolveRequest(currentSubStatus, requestId) : { requestIds: [] }
     };
   },
 
@@ -182,7 +184,7 @@ export const asyncStoreItemAdapter: AsyncStoreItemAdapter = {
     const currentSubStatus = status[subResource];
     return {
       ...status,
-      [subResource]: currentSubStatus ? asyncStoreItemAdapter.failRequest(currentSubStatus, requestId) : {requestIds: [], isFailure: true}
+      [subResource]: currentSubStatus ? asyncStoreItemAdapter.failRequest(currentSubStatus, requestId) : { requestIds: [], isFailure: true }
     };
   },
 
@@ -190,7 +192,7 @@ export const asyncStoreItemAdapter: AsyncStoreItemAdapter = {
     const currentSubStatus = status[subResource];
     return {
       ...status,
-      [subResource]: currentSubStatus ? asyncStoreItemAdapter.resetFailureStatus(currentSubStatus) : {requestIds: []}
+      [subResource]: currentSubStatus ? asyncStoreItemAdapter.resetFailureStatus(currentSubStatus) : { requestIds: [] }
     };
   },
 

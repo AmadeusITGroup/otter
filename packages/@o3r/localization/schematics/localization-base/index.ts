@@ -1,4 +1,19 @@
-import { apply, applyToSubtree, chain, MergeStrategy, mergeWith, move, noop, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
+import {
+  apply,
+  applyToSubtree,
+  chain,
+  MergeStrategy,
+  mergeWith,
+  move,
+  noop,
+  Rule,
+  SchematicContext,
+  template,
+  Tree,
+  url
+} from '@angular-devkit/schematics';
 import {
   createSchematicWithMetricsIfInstalled,
   type DependencyToAdd,
@@ -17,15 +32,20 @@ import {
   writeAngularJson
 } from '@o3r/schematics';
 import {
+  addRootImport,
+  addRootProvider
+} from '@schematics/angular/utility';
+import {
   insertImport,
   isImported
 } from '@schematics/angular/utility/ast-utils';
-import { addRootImport, addRootProvider } from '@schematics/angular/utility';
-import { InsertChange } from '@schematics/angular/utility/change';
-import * as path from 'node:path';
-import * as fs from 'node:fs';
+import {
+  InsertChange
+} from '@schematics/angular/utility/change';
+import type {
+  PackageJson
+} from 'type-fest';
 import * as ts from 'typescript';
-import type { PackageJson } from 'type-fest';
 
 const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
 const ownPackageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' })) as PackageJson;
@@ -227,14 +247,14 @@ export function updateLocalization(options: { projectName?: string | null | unde
     const { moduleIndex } = getModuleIndex(sourceFile, appModuleFile);
 
     const addImportToModuleFile = (name: string, file: string, moduleFunction?: string) => additionalRules.push(
-      addRootImport(options.projectName!, ({code, external}) => code`${external(name, file)}${moduleFunction}`)
+      addRootImport(options.projectName!, ({ code, external }) => code`${external(name, file)}${moduleFunction}`)
     );
 
     const insertImportToModuleFile = (name: string, file: string, isDefault?: boolean) =>
       o3rInsertImportToModuleFile(name, file, sourceFile, recorder, moduleFilePath, isDefault);
 
     const addProviderToModuleFile = (name: string, file: string, customProvider: string) => additionalRules.push(
-      addRootProvider(options.projectName!, ({code, external}) =>
+      addRootProvider(options.projectName!, ({ code, external }) =>
         code`{provide: ${external(name, file)}, ${customProvider}}`)
     );
 
@@ -425,8 +445,8 @@ export function updateLocalization(options: { projectName?: string | null | unde
     return applyToSubtree(
       workingDirectory, [
         (subTree) => ignorePatterns(subTree, [
-          {description: 'Local Development resources files', patterns: [`/${devResourcesFolder}`]},
-          {description: 'CMS metadata files', patterns: ['/*.metadata.json']}
+          { description: 'Local Development resources files', patterns: [`/${devResourcesFolder}`] },
+          { description: 'CMS metadata files', patterns: ['/*.metadata.json'] }
         ])
       ]);
   };
@@ -448,7 +468,7 @@ export function updateLocalization(options: { projectName?: string | null | unde
  * @param options
  * @param options.projectName
  */
-function updateI18nFn(options: {projectName?: string | undefined}): Rule {
+function updateI18nFn(options: { projectName?: string | undefined }): Rule {
   if (!options.projectName) {
     return noop;
   }

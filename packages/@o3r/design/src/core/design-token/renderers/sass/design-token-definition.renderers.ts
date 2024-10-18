@@ -1,7 +1,17 @@
-import type { DesignTokenVariableStructure, TokenKeyRenderer, TokenValueRenderer } from '../../parsers/design-token-parser.interface';
-import type { TokenDefinitionRenderer } from '../design-token.renderer.interface';
-import { getCssTokenValueRenderer } from '../css/design-token-value.renderers';
-import type { Logger } from '@o3r/core';
+import type {
+  Logger
+} from '@o3r/core';
+import type {
+  DesignTokenVariableStructure,
+  TokenKeyRenderer,
+  TokenValueRenderer
+} from '../../parsers/design-token-parser.interface';
+import {
+  getCssTokenValueRenderer
+} from '../css/design-token-value.renderers';
+import type {
+  TokenDefinitionRenderer
+} from '../design-token.renderer.interface';
 
 export interface SassTokenDefinitionRendererOptions {
 
@@ -39,7 +49,7 @@ export const getSassTokenDefinitionRenderer = (options?: SassTokenDefinitionRend
   const keyRenderer = options?.tokenVariableNameRenderer || tokenVariableNameSassRenderer;
 
   const renderer = (variable: DesignTokenVariableStructure, variableSet: Map<string, DesignTokenVariableStructure>) => {
-    return `$${variable.getKey(keyRenderer)}: ${ tokenValueRenderer(variable, variableSet, true) };`;
+    return `$${variable.getKey(keyRenderer)}: ${tokenValueRenderer(variable, variableSet, true)};`;
   };
   return renderer;
 };

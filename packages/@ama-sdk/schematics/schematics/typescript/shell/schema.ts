@@ -1,4 +1,6 @@
-import type { SchematicOptionObject } from '@o3r/schematics';
+import type {
+  SchematicOptionObject
+} from '@o3r/schematics';
 
 export interface NgGenerateTypescriptSDKShellSchematicsSchema extends SchematicOptionObject {
   /** Project name (NPM package scope, package.json name will be @{projectName}/{packageName}) */

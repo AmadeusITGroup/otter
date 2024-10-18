@@ -39,8 +39,8 @@ export async function findReferences(startingNode: any, startingField?: string):
     if (currentNode !== undefined && currentNode !== null) {
       if (field === '$ref' && typeof currentNode === 'string') {
         const [refType, refName] = currentNode.replace(/^#\//, '').split('/');
-        if (!references.find(({type, name}) => type === refType && name === refName)) {
-          references.push({name: refName, type: refType});
+        if (!references.find(({ type, name }) => type === refType && name === refName)) {
+          references.push({ name: refName, type: refType });
         }
       } else if (Array.isArray(currentNode)) {
         await Promise.all(currentNode.map((n) => findReferencesRec(n)));
@@ -83,7 +83,7 @@ export function getDiscriminatorLinks(spec: any): DiscriminatorRefs {
         refs: (discriminatorNode && discriminatorNode.enum) || []
       };
     })
-    .reduce<{ [model: string]: string[] }>((acc, {definitionName, refs}) => {
+    .reduce<{ [model: string]: string[] }>((acc, { definitionName, refs }) => {
       if (refs.length > 0) {
         acc[definitionName] = refs;
       }

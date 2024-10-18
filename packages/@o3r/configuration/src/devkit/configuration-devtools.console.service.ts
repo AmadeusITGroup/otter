@@ -1,16 +1,35 @@
 /* eslint-disable no-console */
-import { Inject, Injectable, Optional } from '@angular/core';
-import type { Configuration, ContextualizationDataset, CustomConfig, DevtoolsServiceInterface, WindowWithDevtools } from '@o3r/core';
-import { firstValueFrom } from 'rxjs';
-import { ConfigurationContextualizationDevtools, ConfigurationDevtoolsServiceOptions } from './configuration-devtools.interface';
-import { OtterConfigurationDevtools } from './configuration-devtools.service';
-import { OTTER_CONFIGURATION_DEVTOOLS_DEFAULT_OPTIONS, OTTER_CONFIGURATION_DEVTOOLS_OPTIONS } from './configuration-devtools.token';
+import {
+  Inject,
+  Injectable,
+  Optional
+} from '@angular/core';
+import type {
+  Configuration,
+  ContextualizationDataset,
+  CustomConfig,
+  DevtoolsServiceInterface,
+  WindowWithDevtools
+} from '@o3r/core';
+import {
+  firstValueFrom
+} from 'rxjs';
+import {
+  ConfigurationContextualizationDevtools,
+  ConfigurationDevtoolsServiceOptions
+} from './configuration-devtools.interface';
+import {
+  OtterConfigurationDevtools
+} from './configuration-devtools.service';
+import {
+  OTTER_CONFIGURATION_DEVTOOLS_DEFAULT_OPTIONS,
+  OTTER_CONFIGURATION_DEVTOOLS_OPTIONS
+} from './configuration-devtools.token';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ConfigurationDevtoolsConsoleService implements DevtoolsServiceInterface, ConfigurationContextualizationDevtools {
-
   /** Name of the Window property to access to the devtools */
   public static readonly windowModuleName = 'configuration';
 
@@ -114,7 +133,7 @@ export class ConfigurationDevtoolsConsoleService implements DevtoolsServiceInter
     const content = await this.configurationDevtools.getConfiguration();
 
     console.log('BOOKMARK');
-    console.log(`javascript:window._OTTER_DEVTOOLS_.updateConfigurations('${JSON.stringify(content).replace(/[']/g, '\\\'')}')`);
+    console.log(`javascript:window._OTTER_DEVTOOLS_.updateConfigurations('${JSON.stringify(content).replace(/'/g, '\\\'')}')`);
   }
 
   /**

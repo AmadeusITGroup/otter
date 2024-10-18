@@ -1,8 +1,18 @@
-import { Tree } from '@angular-devkit/schematics';
 import * as fs from 'node:fs';
-import { existsSync } from 'node:fs';
-import { dirname, join, posix } from 'node:path';
-import type { PackageJson } from 'type-fest';
+import {
+  existsSync
+} from 'node:fs';
+import {
+  dirname,
+  join,
+  posix
+} from 'node:path';
+import {
+  Tree
+} from '@angular-devkit/schematics';
+import type {
+  PackageJson
+} from 'type-fest';
 
 /**
  * Return the version of the given package json path

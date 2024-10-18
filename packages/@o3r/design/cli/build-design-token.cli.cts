@@ -1,10 +1,24 @@
 #!/usr/bin/env node
 
-import { isAbsolute, normalize, resolve } from 'node:path';
-import { existsSync, promises as fs } from 'node:fs';
-import { getDesignTokenTokenDefinitionRenderer, parseDesignTokenFile, renderDesignTokens } from '../src/public_api';
-import type { DesignTokenRendererOptions, DesignTokenVariableSet } from '../src/public_api';
+import {
+  existsSync,
+  promises as fs
+} from 'node:fs';
+import {
+  isAbsolute,
+  normalize,
+  resolve
+} from 'node:path';
 import * as minimist from 'minimist';
+import {
+  getDesignTokenTokenDefinitionRenderer,
+  parseDesignTokenFile,
+  renderDesignTokens
+} from '../src/public_api';
+import type {
+  DesignTokenRendererOptions,
+  DesignTokenVariableSet
+} from '../src/public_api';
 
 const args = minimist(process.argv.splice(2));
 
@@ -30,7 +44,7 @@ void (async () => {
         }
         return res;
       })
-      .map(async (file) => ({ file, parsed: await parseDesignTokenFile(file, {specificationContext: { template }}) }))
+      .map(async (file) => ({ file, parsed: await parseDesignTokenFile(file, { specificationContext: { template } }) }))
   )).reduce<DesignTokenVariableSet>((acc, { file, parsed }) => {
     parsed.forEach((variable, key) => {
       if (acc.has(key)) {

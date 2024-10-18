@@ -1,10 +1,25 @@
-import type { DirEntry, FileEntry } from '@angular-devkit/schematics';
-import { SchematicsException, Tree } from '@angular-devkit/schematics';
-import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
-import { minimatch } from 'minimatch';
 import * as path from 'node:path';
-import type { PackageJson } from 'type-fest';
-import type { WorkspaceProject, WorkspaceSchema } from '../interfaces/index';
+import type {
+  DirEntry,
+  FileEntry
+} from '@angular-devkit/schematics';
+import {
+  SchematicsException,
+  Tree
+} from '@angular-devkit/schematics';
+import {
+  NodeDependencyType
+} from '@schematics/angular/utility/dependencies';
+import {
+  minimatch
+} from 'minimatch';
+import type {
+  PackageJson
+} from 'type-fest';
+import type {
+  WorkspaceProject,
+  WorkspaceSchema
+} from '../interfaces/index';
 
 function findFilesInTreeRec(memory: Set<FileEntry>, directory: DirEntry, fileMatchesCriteria: (file: string) => boolean, ignoreDirectories: string[]) {
   if (ignoreDirectories.some((i) => directory.path.split(path.posix.sep).includes(i))) {
@@ -98,7 +113,7 @@ export function getProjectNewDependenciesTypes(project?: WorkspaceProject): Node
  * @param templateFolder Folder containing the templates
  */
 export function getTemplateFolder(rootPath: string, currentPath: string, templateFolder = 'templates') {
-  const templateFolderPath = path.resolve(currentPath, templateFolder).replace(/[\\]/g, '/');
+  const templateFolderPath = path.resolve(currentPath, templateFolder).replace(/\\/g, '/');
   return path.relative(rootPath, templateFolderPath);
 }
 
@@ -110,7 +125,7 @@ export function getTemplateFolder(rootPath: string, currentPath: string, templat
  * @param recursive determine if the function will walk through the sub folders
  */
 export function getAllFilesInTree(tree: Tree, basePath = '/', excludes: string[] = [], recursive = true): string[] {
-  if (excludes.some((e) => minimatch(basePath, e, {dot: true}))) {
+  if (excludes.some((e) => minimatch(basePath, e, { dot: true }))) {
     return [];
   }
   return [
@@ -144,7 +159,6 @@ export function getFilesInFolderFromWorkspaceProjectsInTree(tree: Tree, folderIn
     .filter((filePath) => extensionMatcher.test(filePath));
 }
 
-
 /**
  * Get all files with specific extension from the tree
  * @param tree
@@ -174,7 +188,6 @@ export function getFilesFromRootOfWorkspaceProjects(tree: Tree, extension: strin
 export function getFilesFromWorkspaceProjects(tree: Tree, extension: string) {
   return getFilesInFolderFromWorkspaceProjectsInTree(tree, 'src', extension);
 }
-
 
 /**
  * Get all the typescript files from the src folder for all the projects described in the workspace

@@ -1,7 +1,15 @@
-import { Action, ActionReducer, MetaReducer } from '@ngrx/store';
-import type { LoggerClient } from '@o3r/logger';
-
-import { FullStory as fullStory, init } from '@fullstory/browser';
+import {
+  FullStory as fullStory,
+  init
+} from '@fullstory/browser';
+import {
+  Action,
+  ActionReducer,
+  MetaReducer
+} from '@ngrx/store';
+import type {
+  LoggerClient
+} from '@o3r/logger';
 
 /**
  * FullStory client.
@@ -12,17 +20,17 @@ export class FullStoryClient implements LoggerClient {
    * @param orgId FullStory organization ID
    */
   constructor(orgId: string) {
-    init({orgId});
+    init({ orgId });
   }
 
   /**
    * @inheritdoc
    */
-  public identify(uid: string, vars?: {[key: string]: string}): void {
+  public identify(uid: string, vars?: { [key: string]: string }): void {
     if (vars && vars.name) {
-      fullStory('setIdentity', {uid, properties: {...vars, displayName: vars.name}});
+      fullStory('setIdentity', { uid, properties: { ...vars, displayName: vars.name } });
     } else {
-      fullStory('setIdentity', {uid, properties: vars});
+      fullStory('setIdentity', { uid, properties: vars });
     }
   }
 
@@ -30,28 +38,28 @@ export class FullStoryClient implements LoggerClient {
    * @inheritdoc
    */
   public event(name: string, properties?: any): void {
-    fullStory('trackEvent', {name, properties});
+    fullStory('trackEvent', { name, properties });
   }
 
   /**
    * @inheritdoc
    */
   public error(message?: any, ...optionalParams: any[]): void {
-    fullStory('log', {level: 'error', msg: `${message.toString() as string}\n${optionalParams.toString()}`});
+    fullStory('log', { level: 'error', msg: `${message.toString() as string}\n${optionalParams.toString()}` });
   }
 
   /**
    * @inheritdoc
    */
   public warn(message?: any, ...optionalParams: any[]): void {
-    fullStory('log', {level: 'warn', msg: `${message.toString() as string}\n${optionalParams.toString()}`});
+    fullStory('log', { level: 'warn', msg: `${message.toString() as string}\n${optionalParams.toString()}` });
   }
 
   /**
    * @inheritdoc
    */
   public log(message?: any, ...optionalParams: any[]): void {
-    fullStory('log', {level: 'log', msg: `${message.toString() as string}\n${optionalParams.toString()}`});
+    fullStory('log', { level: 'log', msg: `${message.toString() as string}\n${optionalParams.toString()}` });
   }
 
   /**

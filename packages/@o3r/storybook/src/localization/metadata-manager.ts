@@ -1,4 +1,6 @@
-import type { LocalizationMetadata } from '@o3r/localization';
+import type {
+  LocalizationMetadata
+} from '@o3r/localization';
 
 declare global {
   interface Window {

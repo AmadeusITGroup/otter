@@ -1,15 +1,49 @@
-import type { HttpClient, HttpResponse } from '@angular/common/http';
-import type { RequestOptions, TokenizedOptions } from '../plugins/core/index';
-import { ExceptionReply } from '../plugins/exception';
-import { ReviverReply } from '../plugins/reviver';
-import { ApiTypes } from '../fwk/api';
-import { extractQueryParams, filterUndefinedValues, getResponseReviver, prepareUrl, processFormData, tokenizeRequestOptions } from '../fwk/api.helpers';
-import type { PartialExcept } from '../fwk/api.interface';
-import type { ApiClient, RequestOptionsParameters } from '../fwk/core/api-client';
-import { BaseApiClientOptions } from '../fwk/core/base-api-constructor';
-import { EmptyResponseError } from '../fwk/errors';
-import { ReviverType } from '../fwk/Reviver';
-import type { AngularCall, AngularPlugin, PluginObservableRunner } from '../plugins/core/angular-plugin';
+import type {
+  HttpClient,
+  HttpResponse
+} from '@angular/common/http';
+import {
+  ApiTypes
+} from '../fwk/api';
+import {
+  extractQueryParams,
+  filterUndefinedValues,
+  getResponseReviver,
+  prepareUrl,
+  processFormData,
+  tokenizeRequestOptions
+} from '../fwk/api.helpers';
+import type {
+  PartialExcept
+} from '../fwk/api.interface';
+import type {
+  ApiClient,
+  RequestOptionsParameters
+} from '../fwk/core/api-client';
+import {
+  BaseApiClientOptions
+} from '../fwk/core/base-api-constructor';
+import {
+  EmptyResponseError
+} from '../fwk/errors';
+import {
+  ReviverType
+} from '../fwk/Reviver';
+import type {
+  AngularCall,
+  AngularPlugin,
+  PluginObservableRunner
+} from '../plugins/core/angular-plugin';
+import type {
+  RequestOptions,
+  TokenizedOptions
+} from '../plugins/core/index';
+import {
+  ExceptionReply
+} from '../plugins/exception';
+import {
+  ReviverReply
+} from '../plugins/reviver';
 
 /** @see BaseApiClientOptions */
 export interface BaseApiAngularClientOptions extends BaseApiClientOptions {
@@ -33,7 +67,6 @@ const DEFAULT_OPTIONS: Omit<BaseApiAngularClientOptions, 'basePath' | 'httpClien
 
 /** Client to process the call to the API using Angular API */
 export class ApiAngularClient implements ApiClient {
-
   /** @inheritdoc */
   public options: BaseApiAngularClientOptions;
 
@@ -93,7 +126,6 @@ export class ApiAngularClient implements ApiClient {
     operationId?: string): Promise<T>;
   public async processCall<T>(url: string, options: RequestOptions, apiType: ApiTypes | string, apiName: string,
     revivers?: ReviverType<T> | { [statusCode: number]: ReviverType<T> | undefined }, operationId?: string): Promise<T> {
-
     let response: HttpResponse<any> | undefined;
     let root: any;
     let exception: Error | undefined;

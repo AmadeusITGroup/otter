@@ -1,5 +1,5 @@
-import * as cheerio from 'cheerio';
 import * as querystring from 'node:querystring';
+import * as cheerio from 'cheerio';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore -- no type are provided for express-interceptor
 import * as expressInterceptor from 'express-interceptor';

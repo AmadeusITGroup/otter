@@ -1,5 +1,18 @@
-import { Directive, forwardRef, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator, ValidatorFn, Validators } from '@angular/forms';
+import {
+  Directive,
+  forwardRef,
+  Input,
+  OnChanges,
+  SimpleChanges
+} from '@angular/core';
+import {
+  AbstractControl,
+  NG_VALIDATORS,
+  ValidationErrors,
+  Validator,
+  ValidatorFn,
+  Validators
+} from '@angular/forms';
 
 /**
  * A directive which installs the `MinValidator` for any `formControlName,
@@ -16,7 +29,7 @@ import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator, ValidatorF
     }
   ],
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  host: {'[attr.min]': 'min ? min : null'}
+  host: { '[attr.min]': 'min ? min : null' }
 })
 export class MinValidator implements Validator, OnChanges {
   /** Minimum date to compare to */

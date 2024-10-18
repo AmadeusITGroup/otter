@@ -1,8 +1,22 @@
-import type { Rule } from '@angular-devkit/schematics';
-import { EOL } from 'node:os';
-import {OTTER_KEYWORD_CMS, OTTER_MODULE_KEYWORD, OTTER_MODULE_SUPPORTED_SCOPES} from './modules.constants';
-import { getPackageManagerExecutor, getWorkspaceConfig } from '../utility/index';
-import { formatModuleDescription, getAvailableModulesWithLatestPackage } from './modules.helpers';
+import {
+  EOL
+} from 'node:os';
+import type {
+  Rule
+} from '@angular-devkit/schematics';
+import {
+  getPackageManagerExecutor,
+  getWorkspaceConfig
+} from '../utility/index';
+import {
+  OTTER_KEYWORD_CMS,
+  OTTER_MODULE_KEYWORD,
+  OTTER_MODULE_SUPPORTED_SCOPES
+} from './modules.constants';
+import {
+  formatModuleDescription,
+  getAvailableModulesWithLatestPackage
+} from './modules.helpers';
 
 /** Options for the Display Module rule */
 export interface DisplayModuleListOptions {
@@ -29,7 +43,6 @@ export interface DisplayModuleListOptions {
  * @param options Options of the Display Module list
  */
 export function displayModuleListRule(options?: Partial<DisplayModuleListOptions>): Rule {
-
   const scopeWhitelist = options?.scopeWhitelist || OTTER_MODULE_SUPPORTED_SCOPES;
   const keyword = options?.keyword || OTTER_MODULE_KEYWORD;
 

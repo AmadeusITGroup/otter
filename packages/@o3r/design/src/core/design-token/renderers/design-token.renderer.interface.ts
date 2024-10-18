@@ -1,5 +1,9 @@
-import type { DesignTokenVariableStructure } from '../parsers';
-import type { Logger } from '@o3r/core';
+import type {
+  Logger
+} from '@o3r/core';
+import type {
+  DesignTokenVariableStructure
+} from '../parsers';
 
 /**
  * Updater function to append the rendered variable into a file content

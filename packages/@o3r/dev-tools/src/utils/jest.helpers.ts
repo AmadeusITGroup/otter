@@ -1,8 +1,19 @@
-import { sync as globbySync } from 'globby';
-import { existsSync, readFileSync } from 'node:fs';
-import { dirname, normalize, relative, resolve } from 'node:path';
-
-import type { TsConfigJson } from 'type-fest';
+import {
+  existsSync,
+  readFileSync
+} from 'node:fs';
+import {
+  dirname,
+  normalize,
+  relative,
+  resolve
+} from 'node:path';
+import {
+  sync as globbySync
+} from 'globby';
+import type {
+  TsConfigJson
+} from 'type-fest';
 
 /**
  * Get the list of Jest Projects in the workspace
@@ -12,7 +23,6 @@ import type { TsConfigJson } from 'type-fest';
  * @param jestConfigPattern Pattern to the jest config files
  * @returns list of Jest projects
  */
-
 
 /**
  * Find the closest package.json file containing workspace definition in the parent directories
@@ -33,7 +43,7 @@ const findParentPackageJson = (directory: string, rootDir?: string): string | un
   if (!workspaces) {
     return findParentPackageJson(parentFolder, rootDir);
   }
-  return globbySync(workspaces, { cwd: parentFolder, onlyFiles: false, absolute: true})
+  return globbySync(workspaces, { cwd: parentFolder, onlyFiles: false, absolute: true })
     .some((workspacePath) => normalize(workspacePath) === rootDir)
     ? packageJsonPath
     : findParentPackageJson(parentFolder, rootDir);
@@ -58,10 +68,10 @@ export const getJestModuleNameMapper = (rootDir: string, testingTsconfigPath?: s
   const { compilerOptions } = JSON.parse(readFileSync(testingTsconfigPath, { encoding: 'utf8' })) as TsConfigJson;
   const relativePath = relative(rootDir, workspacePath);
   return Object.entries(compilerOptions?.paths || {}).reduce<Record<string, any>>((acc, [keyPath, mapPaths]) => {
-    const relativeModulePath = mapPaths.map((mapPath) => `<rootDir>/${relativePath.replace(/\\+/g, '/') || ''}/${mapPath.replace(/[*]/g, '$1')}`.replace(/\/{2,}/g, '/'));
-    acc['^' + keyPath.replace(/[*]/g, '(.*)') + '$'] = relativeModulePath;
+    const relativeModulePath = mapPaths.map((mapPath) => `<rootDir>/${relativePath.replace(/\\+/g, '/') || ''}/${mapPath.replace(/\*/g, '$1')}`.replace(/\/{2,}/g, '/'));
+    acc['^' + keyPath.replace(/\*/g, '(.*)') + '$'] = relativeModulePath;
     return acc;
   }, {});
 };
 
-export {getJestProjects} from '@o3r/workspace';
+export { getJestProjects } from '@o3r/workspace';

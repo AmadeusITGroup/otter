@@ -1,6 +1,10 @@
-import { TranspilationPurposeOnlyError } from '../../errors/index';
-
-import { ElementProfile, O3rElement } from '../element';
+import {
+  TranspilationPurposeOnlyError
+} from '../../errors/index';
+import {
+  ElementProfile,
+  O3rElement
+} from '../element';
 
 /**
  * Interface to describe the Checkbox elements that are used inside a fixture.

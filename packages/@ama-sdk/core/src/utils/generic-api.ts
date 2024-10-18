@@ -1,4 +1,10 @@
-import { type Api, type ApiClient, ApiTypes, type RequestOptionsParameters, type ReviverType } from '../fwk';
+import {
+  type Api,
+  type ApiClient,
+  ApiTypes,
+  type RequestOptionsParameters,
+  type ReviverType
+} from '../fwk';
 
 /**
  * Generic request to the API
@@ -23,7 +29,6 @@ export class GenericApi implements Api {
 
   /** @inheritDoc */
   public readonly apiName = GenericApi.apiName;
-
 
   /** @inheritDoc */
   public client: ApiClient;

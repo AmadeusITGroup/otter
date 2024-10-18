@@ -1,5 +1,14 @@
-import { chain, SchematicContext, TaskConfiguration, TaskConfigurationGenerator, TaskExecutor, Tree } from '@angular-devkit/schematics';
-import { NodeModulesEngineHost } from '@angular-devkit/schematics/tools';
+import {
+  chain,
+  SchematicContext,
+  TaskConfiguration,
+  TaskConfigurationGenerator,
+  TaskExecutor,
+  Tree
+} from '@angular-devkit/schematics';
+import {
+  NodeModulesEngineHost
+} from '@angular-devkit/schematics/tools';
 
 /**
  * Common configuration for all the code generators
@@ -40,7 +49,7 @@ export abstract class CodeGenerator<T extends CodegenTaskOptions> {
    */
   private getTaskConfiguration(options: Partial<T>): TaskConfigurationGenerator<T> {
     const name = this.generatorName;
-    const opts: T = {...this.getDefaultOptions(), ...options};
+    const opts: T = { ...this.getDefaultOptions(), ...options };
     return new (class implements TaskConfigurationGenerator<T> {
       public toConfiguration(): TaskConfiguration<T> {
         return {

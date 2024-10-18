@@ -1,8 +1,15 @@
-import { Tree } from '@angular-devkit/schematics';
-import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
-import { getWorkspaceConfig } from '@o3r/schematics';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
+import {
+  Tree
+} from '@angular-devkit/schematics';
+import {
+  SchematicTestRunner,
+  UnitTestTree
+} from '@angular-devkit/schematics/testing';
+import {
+  getWorkspaceConfig
+} from '@o3r/schematics';
 
 const collectionPath = path.join(__dirname, '..', '..', '..', 'collection.json');
 
@@ -18,7 +25,7 @@ describe('Playwright Sanity', () => {
     const dir = 'e2e-playwright/sanity';
     const configurationIndex = '@o3r/testing:playwright-sanity';
     workspaceProject.schematics ||= {};
-    workspaceProject.schematics[configurationIndex] = {path: dir};
+    workspaceProject.schematics[configurationIndex] = { path: dir };
     workspace.projects['test-project'] = workspaceProject;
     initialTree.overwrite('/angular.json', JSON.stringify(workspace, null, 2));
 

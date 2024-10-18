@@ -1,4 +1,20 @@
-import { apply, chain, externalSchematic, MergeStrategy, mergeWith, move, noop, renameTemplateFiles, Rule, schematic, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
+import * as path from 'node:path';
+import {
+  apply,
+  chain,
+  externalSchematic,
+  MergeStrategy,
+  mergeWith,
+  move,
+  noop,
+  renameTemplateFiles,
+  Rule,
+  schematic,
+  SchematicContext,
+  template,
+  Tree,
+  url
+} from '@angular-devkit/schematics';
 import {
   addImportsAndCodeBlockStatementAtSpecInitializationTransformerFactory,
   addImportsIntoComponentDecoratorTransformerFactory,
@@ -14,17 +30,36 @@ import {
   getInputComponentName,
   getWorkspaceConfig
 } from '@o3r/schematics';
-import { addImportToModule, insertImport } from '@schematics/angular/utility/ast-utils';
-import { applyToUpdateRecorder, InsertChange } from '@schematics/angular/utility/change';
-import * as path from 'node:path';
+import {
+  addImportToModule,
+  insertImport
+} from '@schematics/angular/utility/ast-utils';
+import {
+  applyToUpdateRecorder,
+  InsertChange
+} from '@schematics/angular/utility/change';
 import * as ts from 'typescript';
-import { getAddConfigurationRules } from '../../rule-factories/component/configuration';
-import { getAddRulesEngineRules } from '../../rule-factories/component/rules-engine';
-import { getAddFixtureRules } from '../../rule-factories/component/fixture';
-import { getAddContextRules } from '../../rule-factories/component/context';
-import { PRESENTER_FOLDER } from '../presenter';
-import { ComponentStructureDef } from '../structures.types';
-import { NgGenerateComponentContainerSchematicsSchema } from './schema';
+import {
+  getAddConfigurationRules
+} from '../../rule-factories/component/configuration';
+import {
+  getAddContextRules
+} from '../../rule-factories/component/context';
+import {
+  getAddFixtureRules
+} from '../../rule-factories/component/fixture';
+import {
+  getAddRulesEngineRules
+} from '../../rule-factories/component/rules-engine';
+import {
+  PRESENTER_FOLDER
+} from '../presenter';
+import {
+  ComponentStructureDef
+} from '../structures.types';
+import {
+  NgGenerateComponentContainerSchematicsSchema
+} from './schema';
 
 export const CONTAINER_FOLDER = 'container';
 
@@ -35,7 +70,6 @@ export const CONTAINER_FOLDER = 'container';
  * @param prefix
  */
 const getTemplateProperties = (options: NgGenerateComponentContainerSchematicsSchema, componentStructureDef: ComponentStructureDef, prefix?: string) => {
-
   const inputComponentName = getInputComponentName(options.componentName);
   const folderName = getComponentFolderName(inputComponentName);
   const componentSelector = getComponentSelectorWithoutSuffix(options.componentName, prefix || null);
@@ -60,11 +94,9 @@ const getTemplateProperties = (options: NgGenerateComponentContainerSchematicsSc
  * @param options
  */
 function ngGenerateComponentContainerFn(options: NgGenerateComponentContainerSchematicsSchema): Rule {
-
   const fullStructureRequested = options.componentStructure === 'full';
 
   const generateFiles = (tree: Tree, context: SchematicContext) => {
-
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
 
     const properties = getTemplateProperties(options, ComponentStructureDef.Cont, options.prefix ? options.prefix : workspaceProject?.prefix);

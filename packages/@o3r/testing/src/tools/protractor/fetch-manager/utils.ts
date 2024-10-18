@@ -1,6 +1,8 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { browser } from 'protractor';
+import {
+  browser
+} from 'protractor';
 
 /**
  * This function waits for all fetchs calls to be resolved and the page to be stable to resolve the promise.
@@ -33,7 +35,7 @@ export async function initFetchManager() {
     path.resolve(
       process.cwd(), 'node_modules', '@o3r', 'testing', 'tools', 'protractor', 'fetch-manager',
       '_fetch-manager.js'),
-    {encoding: 'utf8'});
+    { encoding: 'utf8' });
   await browser.executeScript(fetchManager);
   await browser.executeScript('window.fetchManager.getInstance().init();');
 }

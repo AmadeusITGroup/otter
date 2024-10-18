@@ -1,9 +1,16 @@
-import {ModuleWithProviders, NgModule} from '@angular/core';
-
-import { RequestParametersService} from './request-parameters.service';
-import { REQUEST_PARAMETERS_CONFIG_TOKEN } from './request-parameters.token';
-
-import {RequestParametersConfig} from './request-parameters.config';
+import {
+  ModuleWithProviders,
+  NgModule
+} from '@angular/core';
+import {
+  RequestParametersConfig
+} from './request-parameters.config';
+import {
+  RequestParametersService
+} from './request-parameters.service';
+import {
+  REQUEST_PARAMETERS_CONFIG_TOKEN
+} from './request-parameters.token';
 
 /**
  * Empty configuration factory, used when config is not provided. It needs a separate function for AOT.

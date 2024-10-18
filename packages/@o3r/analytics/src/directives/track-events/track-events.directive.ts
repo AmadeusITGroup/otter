@@ -1,5 +1,11 @@
-import {Directive, ElementRef, Input, OnChanges, Renderer2, SimpleChanges} from '@angular/core';
-
+import {
+  Directive,
+  ElementRef,
+  Input,
+  OnChanges,
+  Renderer2,
+  SimpleChanges
+} from '@angular/core';
 import {
   AnalyticsEvent,
   ConstructorAnalyticsEvent,
@@ -7,8 +13,12 @@ import {
   EventContext,
   TrackEventName
 } from '../../contracts';
-import {EventTrackService} from '../../services/event-track/event-track.service';
-import {BaseTrackEvents} from './base-track-events';
+import {
+  EventTrackService
+} from '../../services/event-track/event-track.service';
+import {
+  BaseTrackEvents
+} from './base-track-events';
 
 /**
  * Directive to capture the events given as input, on the reference element.

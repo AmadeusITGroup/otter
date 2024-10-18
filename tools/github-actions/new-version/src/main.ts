@@ -1,6 +1,8 @@
 import * as core from '@actions/core';
 import * as github from '@actions/github';
-import {NewVersion} from '@o3r/new-version';
+import {
+  NewVersion
+} from '@o3r/new-version';
 
 async function run(): Promise<void> {
   try {
@@ -10,7 +12,7 @@ async function run(): Promise<void> {
     const defaultBranchVersionMask = core.getInput('defaultBranchVersionMask');
     const releaseBranchRegExpInput = core.getInput('releaseBranchRegExp');
     const releaseBranchRegExp = new RegExp(releaseBranchRegExpInput);
-    const prPreReleaseTag = core.getInput('prPreReleaseTag', {required: true});
+    const prPreReleaseTag = core.getInput('prPreReleaseTag', { required: true });
     core.debug('Environment variables :');
     core.debug(JSON.stringify(process.env, null, 2));
 
@@ -60,7 +62,6 @@ async function run(): Promise<void> {
       core.setFailed(errorMessage);
     }
   } catch (err) {
-
     const errorMessage = err instanceof Error ? err.message : (typeof err === 'string' ? err : 'Caught an error during input parsing');
     core.error(errorMessage);
     core.setFailed(errorMessage);
