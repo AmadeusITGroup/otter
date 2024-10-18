@@ -12,14 +12,6 @@ const config = [
     ],
     rules: {
       ...convertWarningsToErrors(unicorn.configs['flat/recommended']),
-      'unicorn/catch-error-name': [
-        'error',
-        {
-          ignore: [
-            '^err'
-          ]
-        }
-      ],
       'unicorn/filename-case': [
         'error',
         {
@@ -39,7 +31,13 @@ const config = [
       'unicorn/prefer-spread': 'off',
       'unicorn/prefer-string-raw': 'off',
       'unicorn/prefer-string-replace-all': 'off',
-      'unicorn/prevent-abbreviations': 'off'
+      'unicorn/prevent-abbreviations': 'off',
+      'unicorn/catch-error-name': 'off',
+      'unicorn/no-useless-promise-resolve-reject': 'off',
+      'unicorn/prefer-set-has': 'off',
+      'unicorn/prefer-string-slice': 'off',
+      'unicorn/prefer-type-error': 'off',
+      'unicorn/no-useless-undefined': 'off'
     }
   }
 ];

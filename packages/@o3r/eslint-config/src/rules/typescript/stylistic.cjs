@@ -89,6 +89,13 @@ const config = [
       '@stylistic/wrap-iife': [
         'error',
         'inside'
+      ],
+      '@stylistic/operator-linebreak': [
+        'error',
+        'before',
+        {
+          'overrides': { '=': 'none' }
+        }
       ]
     }
   }

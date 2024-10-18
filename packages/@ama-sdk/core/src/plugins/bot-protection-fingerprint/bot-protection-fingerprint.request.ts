@@ -66,7 +66,7 @@ If the application runs on a domain that is not protected by Imperva, this plugi
     try {
       return await protection.token(tokenTimeout);
     } catch (e) {
-      (logger || console).error('[SDK][Plug-in][BotProtectionFingerprintRequest] Timeout: no Token was received in time.');
+      (logger || console).error('[SDK][Plug-in][BotProtectionFingerprintRequest] Timeout: no Token was received in time.', e);
       return;
     }
   };

@@ -5,6 +5,7 @@ module.exports = {
     'eslint:recommended'
   ],
   rules: {
+    'require-await': 'error',
     'camelcase': 'error',
     'comma-dangle': 'error',
     'comma-style': [

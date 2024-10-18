@@ -204,7 +204,7 @@ export class PiiTokenizerRequest implements RequestPlugin {
       return await this.tokenEncoder(requestOptions.tokenizedOptions!.values);
     } catch (e) {
       if (this.silent) {
-        (logger || console).error('Couldn\'t encode the token');
+        (logger || console).error('Couldn\'t encode the token', e);
       } else {
         throw new Error('Couldn\'t encode the token');
       }

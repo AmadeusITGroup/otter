@@ -28,7 +28,7 @@ function generateScssVarName(selectors: string[], fileName: string): string {
   const wordsNotToReuseSet = new Set<string>([...forbiddenWords ?? [], '']);
   const prefixToAdd = workspace.getConfiguration('otter.extract.styling').get<string>('prefix');
 
-  selectors = [...([prefixToAdd ?? '']), fileName, ...selectors];
+  selectors = [...(prefixToAdd ? [prefixToAdd] : []), fileName, ...selectors];
   selectors.forEach((element) => {
     const elementWords = element.split('-');
     let distinctSelector = '';
@@ -133,7 +133,7 @@ export function getClassRuleName(document: TextDocument, line: TextLine) {
  * @param endPos
  */
 export function generateVariableName(document: TextDocument, line: TextLine) {
-  const documentNamePart = basename(document.fileName, '.scss').replace(/\.?(styling|style|theme)$/, '').replace('_','');
+  const documentNamePart = basename(document.fileName, '.scss').replace(/\.?(styling|style|theme)$/, '').replace('_', '');
   const property = getProperty(line) || 'unknown-property';
 
   const startFilePos = new Position(0, 0);
@@ -160,7 +160,7 @@ export function lineIndexToInsert(document: TextDocument): number {
   let i = 0;
   while (i < document.lineCount) {
     const line = document.lineAt(i);
-    if (!line.text.match(/^ *[@/]/)) {
+    if (!/^ *[@/]/.test(line.text)) {
       return i;
     }
     i++;

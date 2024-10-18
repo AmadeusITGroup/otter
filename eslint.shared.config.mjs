@@ -72,6 +72,13 @@ export default [
     }
   },
   {
+    name: '@o3r/setup-jest',
+    files: ['**/setup-jest.ts'],
+    rules: {
+      'unicorn/no-empty-file': 'off',
+    }
+  },
+  {
     name: '@o3r/package-json',
     files: ['package.json'],
     plugins: {
@@ -109,6 +116,31 @@ export default [
           allow: ['__filename', '__dirname']
         }
       ]
+    }
+  },
+  {
+    name: '@o3r/disabled-for-discussion',
+    files: ['**/*'],
+    rules: {
+      '@stylistic/comma-dangle': 'off',
+      'unicorn/better-regex': 'off',
+      '@stylistic/quote-props': 'off'
+    }
+  },
+  {
+    name: '@o3r/disabled-for-review',
+    files: ['**/*'],
+    rules: {
+      'import/first': 'off',
+      'import/order': 'off',
+      'import/newline-after-import': 'off',
+      'import-newlines/enforce': 'off',
+      '@stylistic/object-curly-spacing': 'off',
+      '@stylistic/no-multiple-empty-lines': 'off',
+      '@stylistic/brace-style': 'off',
+      '@stylistic/padded-blocks': 'off',
+      '@stylistic/block-spacing': 'off',
+      '@stylistic/template-curly-spacing': 'off'
     }
   }
 ];

@@ -264,7 +264,7 @@ export class SwaggerSpecMerger {
     const envelops = await Promise.all(this.specs.map((s) => s.getEnvelop()));
     return envelops
       .reduce<Record<string, unknown>>((acc, e) => {
-        const info = {...(acc.info as Record<string, unknown> || {}), ...(e.info || {})};
+        const info = {...(acc.info as (Record<string, unknown> | undefined) || {}), ...(e.info || {})};
         acc = {
           ...acc,
           ...e,
