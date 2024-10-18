@@ -31,6 +31,12 @@
           "tools/github-actions/audit/package.json"
         ]
       }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "options": {
+        "jestConfig": "tools/github-actions/audit/jest.config.js"
+      }
     }
   },
   "tags": []

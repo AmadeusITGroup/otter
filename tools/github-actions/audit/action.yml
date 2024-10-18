@@ -10,11 +10,11 @@ inputs:
     required: false
     default: 'true'
   recursive:
-    description: 'Audit transitive dependencies as well'
+    description: 'Audit transitive dependencies as well (Yarn Berry only)'
     required: false
     default: 'true'
   environment:
-    description: 'Which environments to cover'
+    description: 'Which environments to cover ("production" or "development")'
     required: false
     default: production
 outputs:
