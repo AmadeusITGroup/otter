@@ -6,10 +6,14 @@
       </ng-template>
     </li>
     <li ngbNavItem class="nav-item" role="presentation" [destroyOnHide]="false">
-      <a ngbNavLink class="nav-link" [class.active]="activeTab === 'output'" (click)="activeTab = 'output'">Output</a>
+      <a ngbNavLink class="nav-link ps-5" [class.active]="activeTab === 'output'" (click)="activeTab = 'output'">
+        Output
+        <span class="fa-arrows-rotate terminal-active-indicator" [class.invisible]="!isTerminalActive()"></span>
+      </a>
       <ng-template ngbNavContent>
         <code-editor-terminal id="tab-content2" class="d-block h-100"
                               (disposed)="webContainerService.runner.disposeCommandOutputTerminal()"
+                              (terminalActivity)="terminalActivity.next()"
                               (terminalUpdated)="webContainerService.runner.registerCommandOutputTerminal($event)">
         </code-editor-terminal>
       </ng-template>
