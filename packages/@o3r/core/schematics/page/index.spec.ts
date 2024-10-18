@@ -2,6 +2,13 @@ import { Tree } from '@angular-devkit/schematics';
 import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
+const mockGetAppModuleFilePath = jest.fn();
+jest.mock('@o3r/schematics', () => {
+  return {
+    ...jest.requireActual('@o3r/schematics'),
+    getAppModuleFilePath: mockGetAppModuleFilePath
+  };
+});
 
 const collectionPath = path.join(__dirname, '..', '..', 'collection.json');
 
@@ -115,6 +122,82 @@ describe('Page', () => {
 
     it('should still generate files', () => {
       expect(tree.files.filter((file) => /test-page/.test(file)).length).toEqual(7);
+    });
+  });
+
+  describe('Automatic routes definition detection', () => {
+    beforeEach(() => {
+      mockGetAppModuleFilePath.mockReset();
+      mockGetAppModuleFilePath.mockClear();
+    });
+
+    it('should add the route on standalone application', async () => {
+      mockGetAppModuleFilePath.mockReturnValue('app.config.ts');
+      const initialTree = getInitialTree();
+      initialTree.create('app.config.ts', `
+import { ApplicationConfig } from '@angular/core';
+import { provideRouter } from '@angular/router';
+import { appRoutes as routes } from './app.routing.module';
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideRouter(routes)
+  ]
+};
+      `);
+      const runner = new SchematicTestRunner('schematics', collectionPath);
+      const angularPackageJson = require.resolve('@schematics/angular/package.json');
+      runner.registerCollection('@schematics/angular', path.resolve(path.dirname(angularPackageJson), require(angularPackageJson).schematics));
+      tree = await runner.runExternalSchematic('schematics', 'page', {
+        projectName: 'test-project',
+        name: 'testPage',
+        prefix: 'o3r',
+        appRoutingModulePath: undefined,
+        path: '.'
+      }, initialTree);
+
+      expect(tree.readText('/app.routing.module.ts')).toContain('path: \'test-page\'');
+    });
+
+    it('should add the route on module application', async () => {
+      mockGetAppModuleFilePath.mockReturnValue('app.module.ts');
+      const initialTree = getInitialTree();
+      initialTree.create('app.module.ts', `
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/routing';
+import { AppComponent } from './app.component';
+const appRoutes: Routes = [
+  {
+    path: '',
+    children: [
+      {path: '', redirectTo: '/home', pathMatch: 'full'}
+    ]
+  }
+];
+
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    RouterModule.forRoot(appRoutes)
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule {}
+      `);
+      const runner = new SchematicTestRunner('schematics', collectionPath);
+      const angularPackageJson = require.resolve('@schematics/angular/package.json');
+      runner.registerCollection('@schematics/angular', path.resolve(path.dirname(angularPackageJson), require(angularPackageJson).schematics));
+      tree = await runner.runExternalSchematic('schematics', 'page', {
+        projectName: 'test-project',
+        name: 'testPage',
+        prefix: 'o3r',
+        appRoutingModulePath: undefined,
+        path: '.'
+      }, initialTree);
+
+      expect(tree.readText('/app.module.ts')).toContain('path: \'test-page\'');
     });
   });
 });

@@ -40,7 +40,7 @@ jobs:
         run: zip -r verdaccio.zip ./.verdaccio
         shell: bash
       - name: Publish verdaccio storage
-        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.3
+        uses: actions/upload-artifact@0b2256b8c012f0828dc542b3febcab082c67f72b # v4.3.4
         with:
           name: verdaccio
           path: verdaccio.zip
@@ -85,7 +85,7 @@ jobs:
             !.cache/test-app/cache/@o3r*
             !.cache/test-app/npm-cache/_npx/**
           key: ${{ runner.os }}-test-app-${{ matrix.packageManager }}-${{ env.currentMonth }}
-      - uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e # v4.1.7
+      - uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 # v4.1.8
         name: Download verdaccio storage prepared in the previous job
         with:
           name: verdaccio
@@ -119,7 +119,7 @@ jobs:
         shell: bash
       - name: Publish generated tests environment on failure
         if: failure() && steps.it-tests.conclusion == 'failure'
-        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.3
+        uses: actions/upload-artifact@0b2256b8c012f0828dc542b3febcab082c67f72b # v4.3.4
         with:
           name: it-tests-${{ matrix.os }}-${{ matrix.packageManager }}
           path: it-tests.zip

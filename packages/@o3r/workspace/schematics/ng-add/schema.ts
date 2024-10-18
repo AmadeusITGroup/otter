@@ -1,6 +1,7 @@
 import type { SchematicOptionObject } from '@o3r/schematics';
 
-export type PresetNames = 'basic' | 'cms';
+/** Monorepo manager to use */
+export type MonorepoManager = 'lerna' | 'none';
 
 export interface NgAddSchematicsSchema extends SchematicOptionObject {
   /** Skip the linter process */
@@ -17,4 +18,7 @@ export interface NgAddSchematicsSchema extends SchematicOptionObject {
 
   /** Use a pinned version for otter packages */
   exactO3rVersion?: boolean;
+
+  /** Monorepo manager to use */
+  monorepoManager: MonorepoManager;
 }

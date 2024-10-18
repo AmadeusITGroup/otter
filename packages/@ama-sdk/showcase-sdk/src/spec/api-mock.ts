@@ -20,7 +20,6 @@ export const myApi: Api = {
 
 /**
  * Retrieve mocked SDK Apis
- *
  * @param config configuration of the Api Client
  */
 export function getMockedApi(config?: string | BaseApiFetchClientConstructor | ApiClient): Api {

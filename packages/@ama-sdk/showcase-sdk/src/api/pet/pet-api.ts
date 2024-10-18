@@ -101,7 +101,6 @@ export class PetApi implements Api {
 
   /**
    * Initialize your interface
-   *
    * @param apiClient Client used to process call to the API
    */
   constructor(apiClient: ApiClient) {
@@ -152,7 +151,6 @@ export class PetApi implements Api {
 
   /**
    * Deletes a pet
-   *
    * @param data Data to provide to the API call
    * @param metadata Metadata to pass to the API call
    */
@@ -344,7 +342,6 @@ export class PetApi implements Api {
 
   /**
    * Updates a pet in the store with form data
-   *
    * @param data Data to provide to the API call
    * @param metadata Metadata to pass to the API call
    */
@@ -381,7 +378,6 @@ export class PetApi implements Api {
 
   /**
    * uploads an image
-   *
    * @param data Data to provide to the API call
    * @param metadata Metadata to pass to the API call
    */

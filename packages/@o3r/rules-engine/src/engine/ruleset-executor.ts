@@ -287,7 +287,7 @@ export class RulesetExecutor {
             rulesetOutputExecution?: RuleEvaluation[];
             allExecutionsValid?: boolean;
             rulesetTriggers?: Record<string, Record<string, EvaluationReason>>;
-          } = {actionsLists: (allExecutionsValid ? actionsLists : [[]]) as ActionBlock[][]};
+          } = {actionsLists: (allExecutionsValid ? actionsLists : [[]])};
 
           if (this.rulesEngine.engineDebug) {
             execInfo = {

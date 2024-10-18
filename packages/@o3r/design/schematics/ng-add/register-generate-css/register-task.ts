@@ -8,22 +8,25 @@ import { posix } from 'node:path';
  * @param taskName name of the task to generate
  */
 export const registerGenerateCssBuilder = (projectName?: string, taskName = 'generate-css'): Rule => {
-  const registerBuilderRule: Rule = async (tree, {logger}) => {
+  const registerBuilderRule: Rule = async (tree, { logger }) => {
     const { getWorkspaceConfig, registerBuilder } = await import('@o3r/schematics');
-    const workspaceProject = projectName ? getWorkspaceConfig(tree)?.projects[projectName] : undefined;
-    const srcBasePath = workspaceProject?.sourceRoot || (workspaceProject?.root ? posix.resolve(workspaceProject.root, 'src') : '');
-    const themeFile = posix.resolve(srcBasePath, 'style', 'theme.scss');
+    const workspace = getWorkspaceConfig(tree);
+    const workspaceProject = projectName ? workspace?.projects[projectName] : undefined;
+    const workspaceRootPath = workspaceProject?.root || '.';
+    const srcBasePath = workspaceProject?.sourceRoot || posix.join(workspaceRootPath, 'src');
+    const themeFile = posix.join(srcBasePath, 'style', 'theme.scss');
     const taskOptions: GenerateCssSchematicsSchema = {
       defaultStyleFile: themeFile,
-      renderPrivateVariableTo: 'sass',
+      templateFile: posix.join(workspaceRootPath, 'design-token.template.json'),
       designTokenFilePatterns: [
-        `${posix.resolve(srcBasePath, 'style', '*.json')}`,
-        `${posix.resolve(srcBasePath, '**', '*.theme.json')}`
+        posix.join(srcBasePath, 'style', '*.json'),
+        posix.join(srcBasePath, '**', '*.theme.json')
       ]
     };
     const taskParameters = {
+      builder: '@o3r/design:generate-css',
       options: taskOptions,
-      configuration: {
+      configurations: {
         watch: { watch: true }
       }
     };
@@ -32,27 +35,37 @@ export const registerGenerateCssBuilder = (projectName?: string, taskName = 'gen
       return;
     }
     registerBuilder(workspaceProject, taskName, taskParameters);
+    tree.overwrite('/angular.json', JSON.stringify(workspace, null, 2));
   };
 
-  const generateTemplateRule: Rule = async (tree) => {
+  const generateDesignTokenFilesRule: Rule = async (tree) => {
     const { getWorkspaceConfig } = await import('@o3r/schematics');
     const workspaceProject = projectName ? getWorkspaceConfig(tree)?.projects[projectName] : undefined;
-    const srcBasePath = workspaceProject?.sourceRoot || (workspaceProject?.root ? posix.resolve(workspaceProject.root, 'src') : '');
-    const themeFolder = posix.resolve(srcBasePath, 'style');
-    const rule = mergeWith(apply(url('./templates'), [
+    const srcBasePath = workspaceProject?.sourceRoot || (workspaceProject?.root ? posix.join(workspaceProject.root, 'src') : './src');
+    const themeFolder = posix.join(srcBasePath, 'style');
+    return mergeWith(apply(url('./register-generate-css/templates'), [
       template({}),
-      move(themeFolder),
-      renameTemplateFiles()
+      renameTemplateFiles(),
+      move(themeFolder)
     ]), MergeStrategy.Overwrite);
+  };
 
-    return rule;
+  const generateTemplateFilesRule: Rule = async (tree) => {
+    const { getWorkspaceConfig } = await import('@o3r/schematics');
+    const workspaceProject = projectName ? getWorkspaceConfig(tree)?.projects[projectName] : undefined;
+    const workspaceRootPath = workspaceProject?.root || '.';
+    return mergeWith(apply(url('./register-generate-css/templates-workspace'), [
+      template({}),
+      renameTemplateFiles(),
+      move(workspaceRootPath)
+    ]), MergeStrategy.Overwrite);
   };
 
   const importTheme: Rule = async (tree, context) => {
     const { getWorkspaceConfig } = await import('@o3r/schematics');
     const workspaceProject = projectName ? getWorkspaceConfig(tree)?.projects[projectName] : undefined;
-    const srcBasePath = workspaceProject?.sourceRoot || (workspaceProject?.root ? posix.resolve(workspaceProject.root, 'src') : '');
-    const styleFile = posix.resolve(srcBasePath, 'styles.scss');
+    const srcBasePath = workspaceProject?.sourceRoot || (workspaceProject?.root ? posix.join(workspaceProject.root, 'src') : './src');
+    const styleFile = posix.join(srcBasePath, 'styles.scss');
     if (!tree.exists(styleFile)) {
       context.logger.warn(`The theme was not updated as ${styleFile} was not found`);
       return;
@@ -62,7 +75,8 @@ export const registerGenerateCssBuilder = (projectName?: string, taskName = 'gen
 
   return chain([
     registerBuilderRule,
-    generateTemplateRule,
+    generateDesignTokenFilesRule,
+    generateTemplateFilesRule,
     importTheme
   ]);
 };
