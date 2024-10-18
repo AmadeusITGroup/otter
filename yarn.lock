@@ -6958,7 +6958,7 @@ __metadata:
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.2.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    jsonpath-plus: "npm:^9.0.0"
+    jsonpath-plus: "npm:~10.0.0"
     memfs: "npm:~4.11.0"
     nx: "npm:~19.5.0"
     pid-from-port: "npm:^1.1.3"
@@ -7001,7 +7001,7 @@ __metadata:
     "@yarnpkg/plugin-pack": ^4.0.0
     chokidar: ^3.5.2
     globby: ^11.1.0
-    jsonpath-plus: ^9.0.0
+    jsonpath-plus: ">= 9.0.0"
     rxjs: ^7.8.1
     semver: ^7.5.2
     typescript: ~5.5.4
@@ -7998,7 +7998,7 @@ __metadata:
     jest-preset-angular: "npm:~14.2.0"
     js-yaml: "npm:^4.1.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    jsonpath-plus: "npm:^9.0.0"
+    jsonpath-plus: "npm:~10.0.0"
     lighthouse: "npm:9.6.8"
     lint-staged: "npm:^15.0.0"
     minimist: "npm:^1.2.6"
@@ -8608,7 +8608,7 @@ __metadata:
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.2.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    jsonpath-plus: "npm:^9.0.0"
+    jsonpath-plus: "npm:~10.0.0"
     memfs: "npm:~4.11.0"
     nx: "npm:~19.5.0"
     pid-from-port: "npm:^1.1.3"
@@ -8641,7 +8641,7 @@ __metadata:
     "@schematics/angular": ~18.2.0
     globby: ^11.1.0
     jasmine: ^5.0.0
-    jsonpath-plus: ^9.0.0
+    jsonpath-plus: ">= 9.0.0"
     rxjs: ^7.8.1
     typescript: ~5.5.4
     typescript-json-schema: ~0.65.0
@@ -22951,7 +22951,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jsep@npm:^1.3.8":
+"jsep@npm:^1.3.9":
   version: 1.3.9
   resolution: "jsep@npm:1.3.9"
   checksum: 10/c60d7064c3b5047f58345e65e7618bbaecf2f46338e56689244db057b0550bf8fb7c1457a7384dfd38aca9acde3ff851d062c3f182cc1fbc66c13cb2ca0b579d
@@ -23122,17 +23122,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jsonpath-plus@npm:^9.0.0":
-  version: 9.0.0
-  resolution: "jsonpath-plus@npm:9.0.0"
+"jsonpath-plus@npm:~10.0.0":
+  version: 10.0.6
+  resolution: "jsonpath-plus@npm:10.0.6"
   dependencies:
     "@jsep-plugin/assignment": "npm:^1.2.1"
     "@jsep-plugin/regex": "npm:^1.0.3"
-    jsep: "npm:^1.3.8"
+    jsep: "npm:^1.3.9"
   bin:
     jsonpath: bin/jsonpath-cli.js
     jsonpath-plus: bin/jsonpath-cli.js
-  checksum: 10/a7b8099e92a8d11896857e55c48ce898180b6b2fa6a1db819dcdacf9741ae03a8b4263ae844b40d6a8e171c2d54e37d8ee3d206777e90ee0127246bae2102ee5
+  checksum: 10/1d57988878f095d2fdc6efdbdfb612472c4961882a8e1dc3333e540880689be823cf7fc6fcdd36311c246adf96293796cf2d5992eff3ce82044a39ceb74abea6
   languageName: node
   linkType: hard
 
