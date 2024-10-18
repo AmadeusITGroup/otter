@@ -40,7 +40,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
   return async (tree: Tree, context: SchematicContext) => {
     try {
       const testPackageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
-      const packageJson = JSON.parse(fs.readFileSync(testPackageJsonPath, { encoding: 'utf-8' })) as PackageJson;
+      const packageJson = JSON.parse(fs.readFileSync(testPackageJsonPath, { encoding: 'utf8' })) as PackageJson;
       const depsInfo = getO3rPeerDeps(testPackageJsonPath);
       const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
       const workingDirectory = workspaceProject?.root || '.';

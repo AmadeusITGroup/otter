@@ -1,5 +1,5 @@
-import { effect, inject, Injectable, signal, type Signal } from '@angular/core';
-import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { inject, Injectable, signal, type Signal } from '@angular/core';
+import { takeUntilDestroyed, toObservable, toSignal } from '@angular/core/rxjs-interop';
 import type {
   GetTranslationValuesContentMessage,
   IsTranslationDeactivationEnabledContentMessage,
@@ -23,15 +23,13 @@ export class LocalizationService {
     ),
     { initialValue: [] }
   );
-  public readonly languages = toSignal(
-    this.connectionService.message$.pipe(
-      filterAndMapMessage(
-        (message): message is LanguagesContentMessage => message.dataType === 'languages',
-        (message) => message.languages
-      )
-    ),
-    { initialValue: [] }
+  public readonly languages$ = this.connectionService.message$.pipe(
+    filterAndMapMessage(
+      (message): message is LanguagesContentMessage => message.dataType === 'languages',
+      (message) => message.languages
+    )
   );
+  public readonly languages = toSignal(this.languages$, { initialValue: [] });
   public readonly isTranslationDeactivationEnabled = toSignal(
     this.connectionService.message$.pipe(
       filterAndMapMessage(
@@ -55,9 +53,10 @@ export class LocalizationService {
   );
 
   constructor() {
-    const activated = toSignal(this.connectionService.appState$);
-    effect(() => {
-      if (activated() === 'connected') {
+    this.connectionService.appState$.pipe(
+      takeUntilDestroyed()
+    ).subscribe((state) => {
+      if (state === 'connected') {
         this.connectionService.sendMessage(
           'requestMessages',
           {
@@ -72,24 +71,23 @@ export class LocalizationService {
       }
     });
 
-    effect(() => {
-      const currentLanguage = this.currentLanguage();
-      if (currentLanguage) {
-        this.connectionService.sendMessage('switchLanguage', { language: this.currentLanguage() });
+    toObservable(this.currentLanguage).pipe(
+      takeUntilDestroyed()
+    ).subscribe((language) => {
+      if (language) {
+        this.connectionService.sendMessage('switchLanguage', { language });
         this.connectionService.sendMessage('requestMessages', { only: ['getTranslationValuesContentMessage'] });
       }
     });
-    const externalSwitchLanguage = toSignal(
-      this.connectionService.message$.pipe(
-        filterAndMapMessage(
-          (message): message is SwitchLanguageContentMessage => message.dataType === 'switchLanguage',
-          (message) => message.language
-        )
-      )
-    );
-    effect(() => {
-      this.lang.set(externalSwitchLanguage());
-    }, { allowSignalWrites: true });
+    this.connectionService.message$.pipe(
+      filterAndMapMessage(
+        (message): message is SwitchLanguageContentMessage => message.dataType === 'switchLanguage',
+        (message) => message.language
+      ),
+      takeUntilDestroyed()
+    ).subscribe((lang) => {
+      this.lang.set(lang);
+    });
   }
 
   /**

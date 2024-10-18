@@ -7,6 +7,21 @@ export interface ReviverOptions {
    * @default console
    */
   logger?: Logger;
+
+  /**
+   * Determine if the fields from dictionary should be removed from the given object.
+   * This options affects dictionary fields only if no dictionary is provided to the reviver function
+   * @default false
+   * @example Clear Dictionary fields from Data object
+   * ```typescript
+   * // Revived Data:
+   * const revivedData = reviveMyModel<MyModel>(data, myDictionary);
+   *
+   * // Remove dictionary from revived data :
+   * reviveMyModel(revivedData, undefined, { clearDictionaryFields: true });
+   * ```
+   */
+  clearDictionaryFields?: boolean;
 }
 
 /** Reviver type */

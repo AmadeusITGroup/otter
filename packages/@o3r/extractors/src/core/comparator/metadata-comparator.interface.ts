@@ -1,5 +1,6 @@
 import type { JsonObject } from '@angular-devkit/core';
 import type { SupportedPackageManagers } from '@o3r/schematics';
+import type { CmsMetadataData } from '../../interfaces';
 
 /**
  * Interface of the comparator used to compare 2 different versions of the same metadata file.
@@ -28,8 +29,9 @@ export interface MetadataComparator<MetadataItem, MigrationMetadataItem, Metadat
    * Returns true if a migration item matches a metadata item.
    * @param metadataItem Metadata item
    * @param migrationItem Migration item
+   * @param metadataType Type of the metadata
    */
-  isMigrationDataMatch: (metadataItem: MetadataItem, migrationItem: MigrationMetadataItem) => boolean;
+  isMigrationDataMatch: (metadataItem: MetadataItem, migrationItem: MigrationMetadataItem, metadataType: string) => boolean;
 }
 
 /**
@@ -80,4 +82,7 @@ export interface MigrationMetadataCheckBuilderOptions extends JsonObject {
 
   /** Path of the metadata file to check */
   metadataPath: string;
+
+  /** Entry to check for previous metadata in the `package.json` file under `cmsMetadata`. */
+  packageJsonEntry: keyof Omit<CmsMetadataData, 'libraryName'>;
 }

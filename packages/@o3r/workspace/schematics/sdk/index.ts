@@ -56,8 +56,7 @@ function generateSdkFn(options: NgGenerateSdkSchema): Rule {
         options.specPath = path.relative(path.resolve(targetPath), resolvedPath);
       }
     }
-    // TODO: Change `swagger-spec` to `openapi` in v11 (ref: #1745)
-    const specPath = options.specPackageName ? `swagger-spec${specExtension}` : options.specPath;
+    const specPath = options.specPackageName ? `openapi${specExtension}` : options.specPath;
     return chain([
       externalSchematic('@ama-sdk/schematics', 'typescript-shell', {
         ...options,
@@ -77,8 +76,7 @@ function generateSdkFn(options: NgGenerateSdkSchema): Rule {
           c.addTask(new NpmExecTask('amasdk-update-spec-from-npm', [
             options.specPackageName,
             ...options.specPackagePath ? ['--package-path', options.specPackagePath] : [],
-            // TODO: Change `swagger-spec` to `openapi` in v11 (ref: #1745)
-            '--output', path.join(process.cwd(), targetPath, `swagger-spec${specExtension}`)
+            '--output', path.join(process.cwd(), targetPath, `openapi${specExtension}`)
           ], targetPath), [installTask])
         ] : [];
         c.addTask(new RunSchematicTask('@ama-sdk/schematics', 'typescript-core', {

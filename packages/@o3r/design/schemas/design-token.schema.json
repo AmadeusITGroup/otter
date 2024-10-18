@@ -59,25 +59,31 @@
       "type": "object",
       "properties": {
         "o3rTargetFile": {
+          "description": "Information regarding the path to file where the token requests to be generated",
           "type": "string"
         },
         "o3rPrivate": {
+          "description": "Determine if the token is flagged as private",
           "type": "boolean",
           "default": false
         },
         "o3rImportant": {
+          "description": "Determine if the token should be flagged as important when generated",
           "type": "boolean",
           "default": false
         },
         "o3rScope": {
+          "description": "Scope to apply to the generated variable",
           "type": "string"
         },
         "o3rMetadata": {
+          "description": "Additional information to provide to the metadata if generated",
           "$ref": "#/definitions/otterExtensionMetadata"
         }
       }
     },
     "extensions": {
+      "description": "Information to enhance generation",
       "allOf": [
         {
           "$ref": "#/definitions/otterExtension"
@@ -91,6 +97,7 @@
           "type": "string"
         },
         "$description": {
+          "description": "Description for the token group",
           "type": "string"
         },
         "$extensions": {
@@ -133,6 +140,7 @@
               "$ref": "#/definitions/extensions"
             },
             "$description": {
+              "description": "Description for the token group",
               "type": "string"
             }
           }

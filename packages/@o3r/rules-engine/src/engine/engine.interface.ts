@@ -1,4 +1,4 @@
-import type { Logger } from '@o3r/core';
+import type { ItemIdentifier, Logger } from '@o3r/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import type { EngineDebugger } from './debug/engine.debug';
 import type { Fact, Facts } from './fact';
@@ -79,12 +79,12 @@ export interface EngineRuleset {
    * 'or' condition: If at least one component has subscribed, the ruleset will become active.
    * If present, the {@link linkedComponent} property will not be taken into consideration
    */
-  linkedComponents?: {or: { library: string; name: string }[]};
+  linkedComponents?: {or: ItemIdentifier[]};
   /**
    * Component linked to the ruleset, if set it will disable the ruleset execution per default, waiting to a subscription
    * @deprecated It will be removed in v12, use {@link linkedComponents} instead
    */
-  linkedComponent?: { library: string; name: string };
+  linkedComponent?: ItemIdentifier;
   /** Unique id of the ruleset*/
   id: string;
   /** Stores the result of each rules from the ruleset */
