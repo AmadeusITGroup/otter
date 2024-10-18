@@ -23,7 +23,7 @@ import {
  */
 export const updateEslintConfig = (isWorkspace = true, rootPath = __dirname): Rule => async (tree, context) => {
   const { findFilesInTree, getTemplateFolder } = await import('@o3r/schematics');
-  const eslintConfigFiles = findFilesInTree(tree.root, (file) => /eslint.config.[mc]?js/.test(file));
+  const eslintConfigFiles = findFilesInTree(tree.root, (file) => /eslint.config.[cm]?js/.test(file));
   if (eslintConfigFiles.length > 1) {
     context.logger.warn(
       'Unable to add the "@o3r/eslint-config" recommendation because several ESLint config file detected.\n'

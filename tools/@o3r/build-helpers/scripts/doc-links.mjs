@@ -37,7 +37,7 @@ function getAllFiles(dirPath, arrayOfFiles, extension, isRecursive) {
   return arrayOfFiles;
 }
 
-const linkRegex = /(href=|])[("]((\.|\/)[^)"]+)[)"]/;
+const linkRegex = /(href=|])["(](([./])[^")]+)[")]/;
 const linkRegexGMI = new RegExp(linkRegex, 'gmi');
 const linkRegexG = new RegExp(linkRegex, 'g');
 const mdRegex = /\.md("?)$/;

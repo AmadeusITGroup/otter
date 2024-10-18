@@ -114,8 +114,8 @@ export async function prepareTestEnv(folderName: string, options?: PrepareTestEn
       recursive: true,
       dereference: true,
       filter: (source) =>
-        !/(?:^|[\\/])node_modules(?:[\\/]|$)/.test(source)
-        && !/(?:^|[\\/])\.git(?:[\\/]|$)/.test(source)
+        !/(?:^|[/\\])node_modules(?:[/\\]|$)/.test(source)
+        && !/(?:^|[/\\])\.git(?:[/\\]|$)/.test(source)
     });
     if (existsSync(path.join(workspacePath, 'package.json'))) {
       packageManagerInstallWithFrozenLock(execAppOptions);

@@ -96,7 +96,7 @@ export default createRule<[Options, ...any], 'versionUpdate' | 'error'>({
     const bestRanges = workspace
       ? getBestRanges(options.dependencyTypesInPackages, workspace.packages.filter(({ content }) => !content.name || !options.excludePackages.includes(content.name)))
       : {};
-    const ignoredDependencies = options.ignoredDependencies.map((dep) => new RegExp(dep.replace(/[.+?^${}()|[\]\\]/g, '\\$&').replace(/\*/g, '.*')));
+    const ignoredDependencies = options.ignoredDependencies.map((dep) => new RegExp(dep.replace(/[$()+.?[\\\]^{|}]/g, '\\$&').replace(/\*/g, '.*')));
 
     if (parserServices.isYAML) {
       return {

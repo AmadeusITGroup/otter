@@ -20,7 +20,7 @@ import {
  */
 export function extractAllToVariable(_context: ExtensionContext) {
   return async (editor: TextEditor) => {
-    const isPropertyLineRegExp = /^ *[^ .$#:]+ *: *([^$:]+) *;/;
+    const isPropertyLineRegExp = /^ *[^ #$.:]+ *: *([^$:]+) *;/;
     const document = editor.document;
     const lines: { valueRange: Range; variableName: string; value: string }[] = [];
     for (let i = 0; i < document.lineCount; i++) {

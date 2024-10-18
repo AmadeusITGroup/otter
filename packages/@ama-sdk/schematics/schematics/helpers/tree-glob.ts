@@ -36,7 +36,7 @@ const walkThroughDir = (
  */
 export const treeGlob = (tree: Tree, pattern: string) => {
   const filterFunction = minimatch.filter(
-    '/' + pattern.replace(/[\\/]+/g, '/'),
+    '/' + pattern.replace(/[/\\]+/g, '/'),
     { dot: true }
   );
 

@@ -46,7 +46,7 @@ describe('Page', () => {
 
     it('should generate files', () => {
       expect(tree.files.filter((file) => /test-page/.test(file)).length).toEqual(7);
-      expect(tree.files.some((file) => /^[\\/]?src[\\/]app[\\/]test-page[\\/]test-page\.module\.ts$/i.test(file))).toBeTruthy();
+      expect(tree.files.some((file) => /^[/\\]?src[/\\]ap{2}(?:[/\\]test-page){2}\.module\.ts$/i.test(file))).toBeTruthy();
       expect(tree.readContent('/src/app/test-page/test-page.module.ts')).toContain('RouterModule.forChild([{path: \'\', component: TestPageComponent}])');
     });
 
@@ -75,7 +75,7 @@ describe('Page', () => {
 
     it('should generate files', () => {
       expect(tree.files.filter((file) => /test-page/.test(file)).length).toEqual(6);
-      expect(tree.files.some((file) => /^[\\/]?src[\\/]app[\\/]test-page[\\/]test-page\.module\.ts$/i.test(file))).toBeFalsy();
+      expect(tree.files.some((file) => /^[/\\]?src[/\\]ap{2}(?:[/\\]test-page){2}\.module\.ts$/i.test(file))).toBeFalsy();
     });
 
     it('should insert page route in App Routing Module', () => {
@@ -100,7 +100,7 @@ describe('Page', () => {
 
     it('should generate files with default parameters', () => {
       expect(tree.files.filter((file) => /test-page/.test(file)).length).toEqual(7);
-      expect(tree.files.some((file) => /^[\\/]?custom[\\/]test-scope[\\/]test-page[\\/]test-page\.module\.ts$/i.test(file))).toBeTruthy();
+      expect(tree.files.some((file) => /^[/\\]?custom[/\\]test-scop(?:e[/\\]test-pag){2}e\.module\.ts$/i.test(file))).toBeTruthy();
     });
 
     it('should insert page route in App Routing Module', () => {

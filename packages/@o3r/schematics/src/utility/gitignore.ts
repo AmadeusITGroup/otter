@@ -13,7 +13,7 @@ export function ignorePatterns(tree: Tree, patternsToAdd: { description?: string
   let gitIgnoreFileContent = isGitIgnorePresent ? tree.readText(gitIgnoreFileName) : '';
 
   const filteredPatternsToAdd = patternsToAdd
-    .map(({ description, patterns }) => ({ description, patterns: patterns.filter((pattern) => !new RegExp('^' + pattern.replace(/([*/\\.])/g, '\\$1')).test(gitIgnoreFileContent)) }))
+    .map(({ description, patterns }) => ({ description, patterns: patterns.filter((pattern) => !new RegExp('^' + pattern.replace(/([*./\\])/g, '\\$1')).test(gitIgnoreFileContent)) }))
     .filter(({ patterns }) => patterns.length);
 
   if (filteredPatternsToAdd.length === 0) {

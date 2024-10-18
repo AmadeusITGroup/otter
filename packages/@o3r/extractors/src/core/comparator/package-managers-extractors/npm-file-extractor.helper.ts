@@ -33,7 +33,7 @@ function pathToPosix(path: string): string {
 }
 
 function sanitizeInput(input: string) {
-  return input.replace(/[^\w/\\:@^~=<> .-]/g, '');
+  return input.replace(/[^\w ./:<=>@\\^~-]/g, '');
 }
 
 /**

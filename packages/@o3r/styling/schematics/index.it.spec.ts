@@ -30,7 +30,7 @@ describe('ng add styling', () => {
 
     const diff = getGitDiff(execAppOptions.cwd);
     const expectedAddedFiles = [
-      path.join(relativeApplicationPath, 'src/components/test-component/test-component.style.theme.scss').replace(/[\\/]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test-component/test-component.style.theme.scss').replace(/[/\\]+/g, '/'),
       'apps/test-app/migration-scripts/README.md'
     ];
     expectedAddedFiles.forEach((file) => expect(diff.added).toContain(file));
@@ -58,7 +58,7 @@ describe('ng add styling', () => {
 
     const diff = getGitDiff(execAppOptions.cwd);
     expect(diff.added.length).toBe(14);
-    expect(diff.added).toContain(path.join(relativeLibraryPath, 'src/components/test-component/test-component.style.theme.scss').replace(/[\\/]+/g, '/'));
+    expect(diff.added).toContain(path.join(relativeLibraryPath, 'src/components/test-component/test-component.style.theme.scss').replace(/[/\\]+/g, '/'));
 
     expect(diff.modified.length).toBe(5);
 

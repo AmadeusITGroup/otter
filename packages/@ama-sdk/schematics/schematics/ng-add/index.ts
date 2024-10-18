@@ -58,7 +58,7 @@ export const updatePackageJsonScripts: Rule = (tree, context) => {
           .replace(
             // Remove swagger config path if it is the default value
 
-            / --(swagger-config-path|swaggerConfigPath)[= ]?(\.\/)?node_modules\/@ama-sdk\/generator-sdk\/src\/generators\/java-client-core\/templates\/swagger-codegen-java-client\/config\/swagger-codegen-config.json/,
+            / --(swagger-config-path|swaggerConfigPath)[ =]?(\.\/)?node_modules\/@ama-sdk\/generator-sdk\/src\/generators\/java-client-core\/templates\/swagger-codegen-java-client\/config\/swagger-codegen-config.json/,
             ''
           )
           .replace(/\byo\b/g, 'schematics') // Migrate from yeoman to schematics
@@ -72,7 +72,7 @@ export const updatePackageJsonScripts: Rule = (tree, context) => {
             '@ama-sdk/schematics/schematics'
           ) // Change relative path for swaggerConfigPath
           .replace(
-            /(@ama-sdk\/schematics\/schematics\/)java-client-core/g,
+            /(@ama-sdk(?:\/schematics){2}\/)java-client-core/g,
             '$1java/client-core'
           ) // Change java client core path
           .replace(

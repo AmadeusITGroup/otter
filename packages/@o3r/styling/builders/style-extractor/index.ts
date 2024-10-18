@@ -203,10 +203,10 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<StyleExtractorB
     const metadataFiles: CmsMetadataData[] = options.libraries.map((library) => getLibraryCmsMetadata(library, context.currentDirectory));
     const libMetadataFiles = metadataFiles
       .filter(({ styleFilePath }) => !!styleFilePath)
-      .map(({ styleFilePath }) => styleFilePath!.replace(/[\\/]/g, '/'));
+      .map(({ styleFilePath }) => styleFilePath!.replace(/[/\\]/g, '/'));
     /** List of scss file pattern */
     const scssFiles = options.filePatterns
-      .map((pattern) => path.resolve(context.currentDirectory, pattern).replace(/[\\/]/g, '/'));
+      .map((pattern) => path.resolve(context.currentDirectory, pattern).replace(/[/\\]/g, '/'));
     /** SCSS file watcher */
     const watcher = chokidar.watch(scssFiles);
     /** Libraries Metadata files watcher */

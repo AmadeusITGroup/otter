@@ -171,7 +171,7 @@ describe('TranslationsLoader - with endPointUrl', () => {
       translationsLoader = new TranslationsLoader({ ...configuration3, mergeWithLocalTranslations: true });
       const subscription = translationsLoader.getTranslation(configuration3.language).subscribe((res) => {
         expect(res.localOnly).toBeDefined();
-        expect(res.localOnly).toMatch(/^\[local\] /);
+        expect(res.localOnly).toMatch(/^\[local] /);
         expect(translationsBundleSpy).toHaveBeenCalledTimes(2);
         subscription.unsubscribe();
         done();

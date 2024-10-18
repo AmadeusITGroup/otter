@@ -113,7 +113,7 @@ export function getProjectNewDependenciesTypes(project?: WorkspaceProject): Node
  * @param templateFolder Folder containing the templates
  */
 export function getTemplateFolder(rootPath: string, currentPath: string, templateFolder = 'templates') {
-  const templateFolderPath = path.resolve(currentPath, templateFolder).replace(/[\\]/g, '/');
+  const templateFolderPath = path.resolve(currentPath, templateFolder).replace(/\\/g, '/');
   return path.relative(rootPath, templateFolderPath);
 }
 

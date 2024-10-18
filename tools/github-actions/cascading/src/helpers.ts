@@ -8,7 +8,7 @@ import type {
  */
 export function sortBranches(branches: string[]) {
   return branches.map((branch) => {
-    const extract = branch.match(/release\/([0-9]+)\.([0-9]+)/);
+    const extract = branch.match(/release\/(\d+)\.(\d+)/);
     if (!extract) {
       throw new Error(`Format of branch does not match the release pattern ${branches.join(',')}`);
     }

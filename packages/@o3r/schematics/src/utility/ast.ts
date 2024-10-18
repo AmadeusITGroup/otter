@@ -50,7 +50,7 @@ export function parseImportsFromFile(sourceFile: ts.SourceFile) {
   // First we look for all imports lines targeting an Otter package for which we know a mapping
   return findNodes(sourceFile, ts.SyntaxKind.ImportDeclaration).map((nodeImp) => {
     const imp = nodeImp as ts.ImportDeclaration;
-    const importFrom = imp.moduleSpecifier.getText().replace(/['"]/g, '');
+    const importFrom = imp.moduleSpecifier.getText().replace(/["']/g, '');
 
     // We retrieve all the symbols listed in the import statement
     const namedImport = imp.importClause && imp.importClause.getChildAt(0);

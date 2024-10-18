@@ -24,7 +24,7 @@ export type PlaywrightSourceElement = {
  * @param innerText
  */
 export function getPlainText(innerText: string) {
-  return innerText ? innerText.replace(/(?:\r\n|\r|\n)/g, ' ').replace(/\s\s+/g, ' ').trim() : undefined;
+  return innerText ? innerText.replace(/\r\n|\r|\n/g, ' ').replace(/\s\s+/g, ' ').trim() : undefined;
 }
 
 /**
