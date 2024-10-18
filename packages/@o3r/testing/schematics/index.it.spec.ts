@@ -27,8 +27,8 @@ describe('ng add testing', () => {
     expect(diff.added.length).toBe(0);
     expect(fs.readFileSync(path.join(applicationPath, 'package.json'), {encoding: 'utf8'})).toContain('@o3r/testing');
 
-    [libraryPath, ...untouchedProjectsPaths].forEach(untouchedProject => {
-      expect(diff.all.some(file => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
+    [libraryPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
+      expect(diff.all.some((file) => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
     });
 
 
@@ -53,8 +53,8 @@ describe('ng add testing', () => {
     const diff = getGitDiff(execAppOptions.cwd);
     expect(diff.added).toContain(path.join(relativeApplicationPath, 'src/components/test-component/container/test-component-cont.fixture.ts').replace(/[\\/]+/g, '/'));
 
-    [libraryPath, ...untouchedProjectsPaths].forEach(untouchedProject => {
-      expect(diff.all.some(file => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
+    [libraryPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
+      expect(diff.all.some((file) => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
     });
 
     expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
@@ -72,8 +72,8 @@ describe('ng add testing', () => {
     expect(diff.added.length).toBe(0);
     expect(diff.modified).toEqual(['libs/test-lib/package.json']);
 
-    [applicationPath, ...untouchedProjectsPaths].forEach(untouchedProject => {
-      expect(diff.all.some(file => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
+    [applicationPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
+      expect(diff.all.some((file) => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
     });
 
     expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
@@ -99,8 +99,8 @@ describe('ng add testing', () => {
     expect(diff.added.length).toBe(18);
     expect(diff.modified.length).toBe(6);
 
-    [applicationPath, ...untouchedProjectsPaths].forEach(untouchedProject => {
-      expect(diff.all.some(file => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
+    [applicationPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
+      expect(diff.all.some((file) => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
     });
 
     expect(() => packageManagerInstall(execAppOptions)).not.toThrow();

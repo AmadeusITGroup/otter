@@ -111,7 +111,7 @@ export default createRule<[Readonly<O3rWidgetTagsRuleOption>, ...any], O3rWidget
         const sourceCode = context.getSourceCode();
         const comment = getNodeComment(node, sourceCode);
 
-        if (!comment || !comment.value.length) {
+        if (!comment || comment.value.length === 0) {
           return;
         }
 
@@ -138,7 +138,7 @@ export default createRule<[Readonly<O3rWidgetTagsRuleOption>, ...any], O3rWidget
           .map((match) => match[1].trim());
 
         if (!widgetType) {
-          if (widgetParameterTexts.length) {
+          if (widgetParameterTexts.length > 0) {
             const fix: TSESLint.ReportFixFunction = (fixer) => {
               return fixer.replaceTextRange(
                 comment.range,

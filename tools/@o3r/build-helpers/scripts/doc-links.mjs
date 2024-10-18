@@ -8,13 +8,12 @@ const argv = minimist(process.argv.slice(2));
 const libRoot = path.resolve(process.cwd());
 const rootGenerated = path.join(libRoot, argv['generated-doc']);
 const additionalDocGenerated = path.resolve(rootGenerated, 'additional-documentation');
-const rootSource = path.join(libRoot, argv['docs']);
+const rootSource = path.join(libRoot, argv.docs);
 
 
 /**
  * Get the list of files with the given extension from given folder
  * and its subfloders if isRecursive is true
- *
  * @param dirPath
  * @param arrayOfFiles
  * @param extension
@@ -46,14 +45,13 @@ const mdRegex = /\.md("?)$/;
 
 /**
  * replace the .md links with .html links inside compodoc generated files
- *
  * @param filePath
  */
 function replaceMdLinks(filePath) {
   const oldContent = fs.readFileSync(filePath, {encoding: 'utf8'});
 
   const newContent = oldContent.replace(linkRegexGMI, (match, group1, group2) => {
-    if (group2.match(mdRegex)) {
+    if (mdRegex.test(group2)) {
       return match.toLowerCase().replace(mdRegex, '.html$1').replace(/_/g, '-');
     }
     return match;
@@ -69,7 +67,6 @@ function replaceMdLinks(filePath) {
 
 /**
  * Checks the relative paths found in the given filePath, to .md files and to files inside .attachments folder
- *
  * @param  filePath
  * @returns the list of broken file paths from the checked file
  */
@@ -81,8 +78,8 @@ function checkInternalLinks(filePath) {
   if (matches) {
     const matchesArray = Array.from(matches);
 
-    matchesArray.map(groups => groups[2].replace(/#.*$/, ''))
-      .filter(relPath => relPath.match(mdRegex) || relPath.indexOf('.attachments') > -1)
+    matchesArray.map((groups) => groups[2].replace(/#.*$/, ''))
+      .filter((relPath) => relPath.match(mdRegex) || relPath.includes('.attachments'))
       .forEach((relPath) => {
         const referencedPath = path.join(path.dirname(filePath), relPath);
         if (!fs.existsSync(referencedPath)) {
@@ -96,19 +93,19 @@ function checkInternalLinks(filePath) {
 
 const additionalDocGeneratedFiles = getAllFiles(additionalDocGenerated, [], '.html', true);
 const atRootGeneratedFilesPaths = getAllFiles(rootGenerated, [], '.html');
-[...additionalDocGeneratedFiles, ...atRootGeneratedFilesPaths].forEach(filePath => replaceMdLinks(filePath));
+[...additionalDocGeneratedFiles, ...atRootGeneratedFilesPaths].forEach((filePath) => replaceMdLinks(filePath));
 
 const allSourceFilePaths = getAllFiles(rootSource, [], '.md', true);
 const libMdFiles = getAllFiles(libRoot, [], '.md');
 const wrongPaths = {};
-[...allSourceFilePaths, ...libMdFiles].forEach(filePath => {
+[...allSourceFilePaths, ...libMdFiles].forEach((filePath) => {
   const wrongFilesPaths = checkInternalLinks(filePath);
   if (wrongFilesPaths.length > 0) {
     wrongPaths[filePath] = wrongFilesPaths;
   }
 });
 
-if (Object.keys(wrongPaths).length) {
+if (Object.keys(wrongPaths).length > 0) {
   let stringBuilder = '';
   Object.entries(wrongPaths).forEach(([key, value]) => {
     stringBuilder += `\n\nERROR: ${key} contain the following broken links: ${JSON.stringify(value)}`;

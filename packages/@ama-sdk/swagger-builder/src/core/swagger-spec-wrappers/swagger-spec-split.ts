@@ -167,7 +167,7 @@ export class SwaggerSpecSplit implements SwaggerSpec {
     }
 
     return Object.keys(this.swaggerSpecConsolidated)
-      .filter((k) => ['tags', 'parameters', 'paths', 'definitions'].indexOf(k.toLowerCase()) < 0)
+      .filter((k) => !['tags', 'parameters', 'paths', 'definitions'].includes(k.toLowerCase()))
       .reduce<{ [k: string]: any }>((acc, k) => {
         acc[k] = this.swaggerSpecConsolidated[k];
         return acc;

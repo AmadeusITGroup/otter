@@ -100,8 +100,7 @@ export abstract class Cascading {
    * @param username User name used for git commands
    * @param email Email used for git commands
    */
-  constructor(public logger: BaseLogger, public username = 'Auto Cascading', public email = 'cascading@otter.com') {
-  }
+  constructor(public logger: BaseLogger, public username = 'Auto Cascading', public email = 'cascading@otter.com') {}
 
   /**
    * Parse Pull Request context from the body
@@ -283,7 +282,9 @@ export abstract class Cascading {
     this.logger.debug(`Run trigger to cascading PR from ${cascadingBranch}`);
     const openPr = await this.findOpenPullRequest(cascadingBranch, targetBranch);
 
-    if (!openPr) {
+    if (openPr) {
+      return this.updatePullRequestWithNewMessage(openPr, openPr.context || { bypassReviewers: config.bypassReviewers, currentBranch, targetBranch, isConflicting: false });
+    } else {
       this.logger.debug(`Will recreate the branch ${cascadingBranch}`);
       try {
         await this.deleteBranch(cascadingBranch);
@@ -293,8 +294,6 @@ export abstract class Cascading {
         this.logger.debug(JSON.stringify(error, null, 2));
       }
       return this.createPullRequestWithMessage(cascadingBranch, currentBranch, targetBranch, config, true);
-    } else {
-      return this.updatePullRequestWithNewMessage(openPr, openPr.context || { bypassReviewers: config.bypassReviewers, currentBranch, targetBranch, isConflicting: false });
     }
   }
 

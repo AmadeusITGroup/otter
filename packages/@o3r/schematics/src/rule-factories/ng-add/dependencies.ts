@@ -128,7 +128,7 @@ export const setupDependencies = (options: SetupDependenciesOptions): Rule => {
     const ngAddToRun = new Set(Object.keys(options.dependencies)
       .filter((dep) => options.ngAddToRun?.some((pattern) => typeof pattern === 'string' ? pattern === dep : pattern.test(dep))));
     const requiringInstallList = new Set(Object.entries(options.dependencies).filter(([, {requireInstall}]) => requireInstall).map(([dep]) => dep));
-    const isInstallNeeded = () => options.skipInstall !== undefined ? !options.skipInstall : (ngAddToRun.size > 0 || requiringInstallList.size > 0);
+    const isInstallNeeded = () => options.skipInstall === undefined ? (ngAddToRun.size > 0 || requiringInstallList.size > 0) : !options.skipInstall;
 
     const editPackageJson = (packageJsonPath: string, packageToInstall: string, dependency: DependencyToAdd, updateLists: boolean): Rule => {
       return (tree, context) => {
@@ -160,8 +160,8 @@ export const setupDependencies = (options: SetupDependenciesOptions): Rule => {
                   ngAddToRun.delete(packageToInstall);
                   requiringInstallList.delete(packageToInstall);
                 }
-                context.logger.warn(`The dependency ${packageToInstall} (${depType}) will not added ` +
-                  `because there is already this dependency with a defined range (${packageJsonContent[depType][packageToInstall]}) in targeted ${packageJsonPath}`);
+                context.logger.warn(`The dependency ${packageToInstall} (${depType}) will not added `
+                + `because there is already this dependency with a defined range (${packageJsonContent[depType][packageToInstall]}) in targeted ${packageJsonPath}`);
               }
             } else {
               packageJsonContent[depType] ||= {};
@@ -204,12 +204,14 @@ export const setupDependencies = (options: SetupDependenciesOptions): Rule => {
 
     const runNgAddSchematics: Rule = (_, context) => {
       const packageManager = options.packageManager || getPackageManager();
-      const installId = isInstallNeeded() ? [
-        context.addTask(new NodePackageInstallTask({ packageManager, quiet: true, workingDirectory: options.workingDirectory }), options.runAfterTasks)
-      ] : undefined;
+      const installId = isInstallNeeded()
+        ? [
+          context.addTask(new NodePackageInstallTask({ packageManager, quiet: true, workingDirectory: options.workingDirectory }), options.runAfterTasks)
+        ]
+        : undefined;
 
       if (installId !== undefined) {
-        context.logger.debug(`Schedule the installation of the workspace (${ngAddToRun.size > 0 ? 'for: ' + [...ngAddToRun].join(', ') : options.skipInstall ? 'skipped' : 'forced'})`);
+        context.logger.debug(`Schedule the installation of the workspace (${ngAddToRun.size > 0 ? 'for: ' + [...ngAddToRun].join(', ') : (options.skipInstall ? 'skipped' : 'forced')})`);
       }
 
       const getOptions = (packageName: string, schema?: Schematic<any, any>) => {

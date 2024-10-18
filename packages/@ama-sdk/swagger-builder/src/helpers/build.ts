@@ -23,11 +23,7 @@ export async function buildSpecs(configuration: BuilderConfiguration, inputs: (s
 
   const specs = await Promise.all(
     [...(configuration.specs || []), ...inputs].map((input) => {
-      if (typeof input === 'string') {
-        return getTargetInformation(input);
-      } else {
-        return new SwaggerSpecSplit(input, 'LocalPath');
-      }
+      return typeof input === 'string' ? getTargetInformation(input) : new SwaggerSpecSplit(input, 'LocalPath');
     })
   );
   const specMerger = new SwaggerSpecMerger(specs);

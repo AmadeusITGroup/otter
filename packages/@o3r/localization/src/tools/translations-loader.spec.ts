@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/restrict-plus-operands, @typescript-eslint/naming-convention */
+/* eslint-disable @typescript-eslint/naming-convention */
 
 import { LocalizationConfiguration } from '../core';
 import { TranslationsLoader } from './translations-loader';
@@ -89,7 +89,7 @@ describe('TranslationsLoader - no endPointUrl', () => {
       global.fetch = jest.fn().mockImplementation((url: string) => {
         const lang = url
           .split('/')
-          .slice(-1)[0]
+          .at(-1)
           .split('.')[0];
         countCall++;
         latestUrls.push(url);

@@ -70,25 +70,29 @@ function generateSdkFn(options: NgGenerateSdkSchema): Rule {
       updateTsConfig(targetPath, projectName, scope),
       cleanStandaloneFiles(targetPath),
       addModuleSpecificFiles(),
-      specPath ? (_host: Tree, c: SchematicContext) => {
-        const installTask = c.addTask(new NodePackageInstallTask());
-        const specUpgradeTask = options.specPackageName ? [
-          c.addTask(new NpmExecTask('amasdk-update-spec-from-npm', [
-            options.specPackageName,
-            ...options.specPackagePath ? ['--package-path', options.specPackagePath] : [],
-            '--output', path.join(process.cwd(), targetPath, `openapi${specExtension}`)
-          ], targetPath), [installTask])
-        ] : [];
-        c.addTask(new RunSchematicTask('@ama-sdk/schematics', 'typescript-core', {
-          ...options,
-          specPath,
-          directory: targetPath,
-          packageManager
-        }), [
-          installTask,
-          ...specUpgradeTask
-        ]);
-      } : noop
+      specPath
+        ? (_host: Tree, c: SchematicContext) => {
+          const installTask = c.addTask(new NodePackageInstallTask());
+          const specUpgradeTask = options.specPackageName
+            ? [
+              c.addTask(new NpmExecTask('amasdk-update-spec-from-npm', [
+                options.specPackageName,
+                ...options.specPackagePath ? ['--package-path', options.specPackagePath] : [],
+                '--output', path.join(process.cwd(), targetPath, `openapi${specExtension}`)
+              ], targetPath), [installTask])
+            ]
+            : [];
+          c.addTask(new RunSchematicTask('@ama-sdk/schematics', 'typescript-core', {
+            ...options,
+            specPath,
+            directory: targetPath,
+            packageManager
+          }), [
+            installTask,
+            ...specUpgradeTask
+          ]);
+        }
+        : noop
     ])(tree, context);
   };
 }

@@ -18,8 +18,7 @@ export default createBuilder<PatternReplacementBuilderSchema>(createBuilderWithM
       error: `${unexistingFile} not found`
     };
   }
-  for (let i = 0; i < fileNames.length; i++) {
-    const filePath = fileNames[i];
+  for (const [i, filePath] of fileNames.entries()) {
     context.reportProgress(i + 1, STEP_NUMBER, `Modifying ${filePath}`);
     const fileContent = await fs.promises.readFile(filePath, {encoding: 'utf8'});
     const newContent = fileContent.replace(new RegExp(options.searchValue, 'g'), options.replaceValue);

@@ -44,7 +44,7 @@ export class MinValidator implements Validator, OnChanges {
 
   /** @inheritDoc */
   public validate(c: AbstractControl): ValidationErrors | null {
-    return this.min != null ? this.validator(c) : null;
+    return this.min == null ? null : this.validator(c);
   }
 
   /** @inheritDoc */

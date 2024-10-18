@@ -42,7 +42,7 @@ export class Locker {
       writeFileSync(this.options.lockFilePath, pid, {flag: this.isLockExpired() ? 'w' : 'wx'});
       // Need to check if the file was created by this process
       return readFileSync(this.options.lockFilePath, {encoding: 'utf8'}) === pid;
-    } catch (ex) {
+    } catch {
       return false;
     }
   }
@@ -70,7 +70,7 @@ export class Locker {
     }
     try {
       return (Date.now() - statSync(this.options.lockFilePath).birthtime.getTime()) > this.options.maxLockAge;
-    } catch (err) {
+    } catch {
       return false;
     }
   }

@@ -36,7 +36,7 @@ export function activate(context: ExtensionContext) {
   const designTokenProviders = designTokenCompletionItemAndHoverProviders();
 
   context.subscriptions.push(
-    languages.registerCompletionItemProvider(['javascript','typescript'], configurationCompletionItemProvider(), configurationCompletionTriggerChar),
+    languages.registerCompletionItemProvider(['javascript', 'typescript'], configurationCompletionItemProvider(), configurationCompletionTriggerChar),
     languages.registerCompletionItemProvider(['scss'], stylingCompletionItemProvider(), stylingCompletionTriggerChar),
     languages.registerCompletionItemProvider(['scss', 'css'], designTokenProviders),
     languages.registerHoverProvider(['scss', 'css'], designTokenProviders),

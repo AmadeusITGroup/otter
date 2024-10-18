@@ -1,4 +1,4 @@
-/* eslint-disable no-shadow */
+
 import { AmaCliModule, EXTRA_COMMON_OPTIONS, MODULE_OPTIONS } from '@ama-terasu/core';
 import { createApplication } from './create-application.command';
 import { createCustomApplication } from './create-custom-application.command';

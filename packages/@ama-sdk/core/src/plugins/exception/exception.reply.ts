@@ -10,8 +10,7 @@ export class ExceptionReply<V extends Record<string, any> | undefined = Record<s
   /**
    * @param callback Function called in case of exception. If provided, this function is responsible for throwing the exception or not
    */
-  constructor(private readonly callback?: (res: V, error: Error | undefined) => V) {
-  }
+  constructor(private readonly callback?: (res: V, error: Error | undefined) => V) {}
 
   public load<K>(context: ReplyPluginContext<K>): PluginRunner<V | Record<string, unknown>, V> {
     return {
@@ -28,9 +27,9 @@ export class ExceptionReply<V extends Record<string, any> | undefined = Record<s
         }
 
         else if (
-          context.apiType === ApiTypes.DAPI &&
-            context.response.status === 200 &&
-            (!res || (!res.data && typeof res.errors !== 'undefined')) // Some DAPI replies have data as optional, so we only throw if response contains errors
+          context.apiType === ApiTypes.DAPI
+          && context.response.status === 200
+          && (!res || (!res.data && typeof res.errors !== 'undefined')) // Some DAPI replies have data as optional, so we only throw if response contains errors
         ) {
           error = new EmptyResponseError<V>(context.response.statusText, res, errorContext);
         }

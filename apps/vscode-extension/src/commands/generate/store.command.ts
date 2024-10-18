@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
+
 import { dirname, relative } from 'node:path';
 import type { ExtensionContext } from 'vscode';
 import * as vscode from 'vscode';
@@ -20,9 +20,9 @@ export function generateStoreGenerateCommand(_context: ExtensionContext, folder?
     const storeType = await vscode.window.showQuickPick(['entity-async', 'simple-async', 'entity-sync', 'simple-sync'], {
       canPickMany: false,
       ignoreFocusOut: true,
-      title: 'Which type of store do you want to create ? \n' +
-        'The entity store contains a collection of items in the state, while the simple one contains only one.\n' +
-        'The async store is designed to interact with an api, and handles the asynchronous call via effects.'
+      title: 'Which type of store do you want to create ? \n'
+      + 'The entity store contains a collection of items in the state, while the simple one contains only one.\n'
+      + 'The async store is designed to interact with an api, and handles the asynchronous call via effects.'
     });
 
     if (!storeType) {

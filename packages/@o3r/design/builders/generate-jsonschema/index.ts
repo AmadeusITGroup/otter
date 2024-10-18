@@ -73,9 +73,7 @@ export default createBuilder<GenerateJsonSchemaSchematicsSchema>(createBuilderWi
     }
   };
 
-  if (!options.watch) {
-    return await execute();
-  } else {
+  if (options.watch) {
     try {
       await import('chokidar')
         .then((chokidar) => chokidar.watch(designTokenFilePatterns.map((p) => resolve(context.workspaceRoot, p))))
@@ -90,5 +88,7 @@ export default createBuilder<GenerateJsonSchemaSchematicsSchema>(createBuilderWi
     } catch (err) {
       return { success: false, error: String(err) };
     }
+  } else {
+    return await execute();
   }
 }));

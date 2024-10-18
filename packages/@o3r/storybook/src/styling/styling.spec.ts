@@ -35,10 +35,10 @@ describe('Styling Helpers', () => {
     if (typeof document === 'undefined') {
       globalThis.document = {
         head: {
-          appendChild: () => { }
+          appendChild: () => {}
         } as any,
-        createElement: () => { },
-        getElementById: () => { }
+        createElement: () => {},
+        getElementById: () => {}
       } as any;
     }
   });

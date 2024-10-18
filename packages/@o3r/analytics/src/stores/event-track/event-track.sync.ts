@@ -4,10 +4,6 @@ import { EventTrackState } from './event-track.state';
 
 export const eventTrackStorageSync: Serializer<EventTrackState> = {
   deserialize: (rawObject: any) => {
-    if (rawObject) {
-      return rawObject as EventTrackState;
-    } else {
-      return eventTrackInitialState;
-    }
+    return rawObject ? rawObject as EventTrackState : eventTrackInitialState;
   }
 };

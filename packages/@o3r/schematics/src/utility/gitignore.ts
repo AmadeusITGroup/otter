@@ -14,7 +14,7 @@ export function ignorePatterns(tree: Tree, patternsToAdd: {description?: string;
     .map(({ description, patterns }) => ({description, patterns: patterns.filter((pattern) => !new RegExp('^' + pattern.replace(/([*/\\.])/g, '\\$1')).test(gitIgnoreFileContent))}))
     .filter(({ patterns }) => patterns.length);
 
-  if (!filteredPatternsToAdd.length) {
+  if (filteredPatternsToAdd.length === 0) {
     return tree;
   }
 

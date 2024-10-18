@@ -60,7 +60,7 @@ interface OtterAuditReport {
  */
 function computeYarn4Report(response: string, severityThreshold: Severity): OtterAuditReport {
   core.info('Computing Report for Yarn 4');
-  const reports = response.split('\n').filter(a => !!a);
+  const reports = response.split('\n').filter((a) => !!a);
   const severityThresholdIndex = severities.indexOf(severityThreshold);
   return reports.reduce((currentReport, currentVulnerability) => {
     const vulnerabilityReport: Yarn4AuditResponse = JSON.parse(currentVulnerability);
@@ -79,8 +79,9 @@ function computeYarn4Report(response: string, severityThreshold: Severity): Otte
         overview: `This issue affects versions ${vulnerabilityReport.children['Vulnerable Versions']}. ${vulnerabilityReport.children.Issue}`
       });
     }
-    currentReport.highestSeverityFound = severities.indexOf(currentReport.highestSeverityFound || 'info') <= severities.indexOf(vulnerabilitySeverity) ?
-      vulnerabilitySeverity : currentReport.highestSeverityFound;
+    currentReport.highestSeverityFound = severities.indexOf(currentReport.highestSeverityFound || 'info') <= severities.indexOf(vulnerabilitySeverity)
+      ? vulnerabilitySeverity
+      : currentReport.highestSeverityFound;
     currentReport.nbVulnerabilities += 1;
     return currentReport;
   }, {nbVulnerabilities: 0, errors: [], warnings: []} as OtterAuditReport);
@@ -133,11 +134,11 @@ async function run(): Promise<void> {
     core.setOutput('reportJSON', report);
     const reportData: OtterAuditReport = version >= 4 ? computeYarn4Report(report, severityConfig) : computeYarn3Report(report, severityConfig);
 
-    if (!reportData.highestSeverityFound) {
+    if (reportData.highestSeverityFound) {
+      core.info(`Highest severity found: ${reportData.highestSeverityFound}`);
+    } else {
       core.info('No vulnerability detected.');
       return;
-    } else {
-      core.info(`Highest severity found: ${reportData.highestSeverityFound}`);
     }
     const isFailed = reportData.errors.length > 0;
 
@@ -154,7 +155,7 @@ ${vulnerability.overview.replaceAll('### ', '#### ')}
 
 `;
 
-    const isVulnerabilityWithKnownSeverity = (advisory: OtterAdvisory) => severities.indexOf(advisory.severity) >= 0;
+    const isVulnerabilityWithKnownSeverity = (advisory: OtterAdvisory) => severities.includes(advisory.severity);
 
     const sortVulnerabilityBySeverity = (advisory1: OtterAdvisory, advisory2: OtterAdvisory) => severities.indexOf(advisory2.severity) - severities.indexOf(advisory1.severity);
 
@@ -162,7 +163,8 @@ ${vulnerability.overview.replaceAll('### ', '#### ')}
 
 ${reportData.nbVulnerabilities} vulnerabilities found.
 
-${reportData.errors.length ? `## Vulnerabilities to be fixed
+${reportData.errors.length > 0
+    ? `## Vulnerabilities to be fixed
 
 ${reportData.errors
     .filter(isVulnerabilityWithKnownSeverity)
@@ -170,8 +172,10 @@ ${reportData.errors
     .map(formatVulnerability)
     .join(os.EOL)
 }
-` : ''}
-${reportData.warnings.length ? `___
+`
+    : ''}
+${reportData.warnings.length > 0
+    ? `___
 
 <details>
 <summary>
@@ -187,7 +191,8 @@ ${reportData.warnings
 }
 
 </details>
-` : ''}
+`
+    : ''}
 `;
     core.setOutput('reportMarkdown', body);
     if (isFailed) {

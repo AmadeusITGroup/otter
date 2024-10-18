@@ -67,8 +67,8 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKShellSchemati
       'yaml-eslint-parser': amaSdkSchematicsPackageJson.generatorDependencies['yaml-eslint-parser'],
       'typedoc': amaSdkSchematicsPackageJson.generatorDependencies.typedoc
     };
-    const openApiSupportedVersion = typeof amaSdkSchematicsPackageJson.openApiSupportedVersion === 'string' &&
-      amaSdkSchematicsPackageJson.openApiSupportedVersion.replace(/\^|~/, '');
+    const openApiSupportedVersion = typeof amaSdkSchematicsPackageJson.openApiSupportedVersion === 'string'
+      && amaSdkSchematicsPackageJson.openApiSupportedVersion.replace(/\^|~/, '');
     context.logger.warn(JSON.stringify(openApiSupportedVersion));
     const engineVersions = {
       'node': amaSdkSchematicsPackageJson.engines!.node,
@@ -104,11 +104,7 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKShellSchemati
       const standaloneYarnRcPath = posix.join(targetPath, '.yarnrc.yml');
 
       let yarnrc;
-      if (tree.exists(workspaceRootYarnRcPath)) {
-        yarnrc = load(tree.readText(workspaceRootYarnRcPath));
-      } else {
-        yarnrc = (load(tree.exists(standaloneYarnRcPath) ? tree.readText(standaloneYarnRcPath) : '') || {}) as any;
-      }
+      yarnrc = tree.exists(workspaceRootYarnRcPath) ? load(tree.readText(workspaceRootYarnRcPath)) : (load(tree.exists(standaloneYarnRcPath) ? tree.readText(standaloneYarnRcPath) : '') || {}) as any;
       yarnrc.nodeLinker ||= 'pnp';
       yarnrc.packageExtensions ||= {};
       yarnrc.packageExtensions['@ama-sdk/schematics@*'] = {
@@ -125,29 +121,27 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKShellSchemati
 
       if (tree.exists(workspaceRootYarnRcPath)) {
         tree.overwrite(workspaceRootYarnRcPath, dump(yarnrc, {indent: 2}));
-      } else if (tree.exists(standaloneYarnRcPath)){
+      } else if (tree.exists(standaloneYarnRcPath)) {
         tree.overwrite(standaloneYarnRcPath, dump(yarnrc, {indent: 2}));
       } else {
         tree.create(standaloneYarnRcPath, dump(yarnrc, {indent: 2}));
       }
-    } else if (properties.packageManager === 'npm') {
-      if (options.specPackageRegistry && specScope) {
-        const workspaceRootNpmrcPath = posix.join(tree.root.path, '.npmrc');
-        const standaloneNpmrcPath = posix.join(targetPath, '.npmrc');
-        let npmrc;
-        if (tree.exists(workspaceRootNpmrcPath)) {
-          npmrc = tree.readText(workspaceRootNpmrcPath);
-        } else {
-          npmrc = tree.exists(standaloneNpmrcPath) ? tree.readText(standaloneNpmrcPath) : '';
-        }
-        npmrc += `\n@${specScope}:registry=${options.specPackageRegistry}\n`;
-        if (tree.exists(workspaceRootNpmrcPath)) {
-          tree.overwrite(workspaceRootNpmrcPath, npmrc);
-        } else if (tree.exists(standaloneNpmrcPath)){
-          tree.overwrite(standaloneNpmrcPath, npmrc);
-        } else {
-          tree.create(standaloneNpmrcPath, npmrc);
-        }
+    } else if (properties.packageManager === 'npm' && options.specPackageRegistry && specScope) {
+      const workspaceRootNpmrcPath = posix.join(tree.root.path, '.npmrc');
+      const standaloneNpmrcPath = posix.join(targetPath, '.npmrc');
+      let npmrc;
+      if (tree.exists(workspaceRootNpmrcPath)) {
+        npmrc = tree.readText(workspaceRootNpmrcPath);
+      } else {
+        npmrc = tree.exists(standaloneNpmrcPath) ? tree.readText(standaloneNpmrcPath) : '';
+      }
+      npmrc += `\n@${specScope}:registry=${options.specPackageRegistry}\n`;
+      if (tree.exists(workspaceRootNpmrcPath)) {
+        tree.overwrite(workspaceRootNpmrcPath, npmrc);
+      } else if (tree.exists(standaloneNpmrcPath)) {
+        tree.overwrite(standaloneNpmrcPath, npmrc);
+      } else {
+        tree.create(standaloneNpmrcPath, npmrc);
       }
     }
 

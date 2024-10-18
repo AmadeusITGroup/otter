@@ -47,7 +47,7 @@ export class O3rElement implements ElementProfile {
   /** @inheritdoc */
   public async getValue() {
     const value = await this.sourceElement.getAttribute('value');
-    return value !== null ? value : undefined;
+    return value === null ? undefined : value;
   }
 
   /** @inheritdoc */
@@ -64,7 +64,7 @@ export class O3rElement implements ElementProfile {
     const currentValue = await this.getValue();
 
     if (currentValue !== undefined) {
-      await this.sourceElement.sendKeys(...Array(currentValue.length + 1).fill(ptor.Key.BACK_SPACE));
+      await this.sourceElement.sendKeys(...Array.from({length: currentValue.length + 1}).fill(ptor.Key.BACK_SPACE));
     }
   }
 
@@ -82,7 +82,7 @@ export class O3rElement implements ElementProfile {
   /** @inheritdoc */
   public async getAttribute(attributeName: string) {
     const attribute = await this.sourceElement.getAttribute(attributeName);
-    return attribute !== null ? attribute : undefined;
+    return attribute === null ? undefined : attribute;
   }
 }
 

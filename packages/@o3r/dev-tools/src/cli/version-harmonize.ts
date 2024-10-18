@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
+
 import { blue, bold, green, grey } from 'chalk';
 import { program } from 'commander';
 import * as globby from 'globby';
@@ -93,8 +93,8 @@ const updatePackageJson = async (packageJsonUpdates: DependencyToUpdate[], bestR
         const packageJson = toUpdate[0].packageJson;
         toUpdate.forEach((update) => {
           (packageJson[update.type] as Record<string, string>)[update.dependencyName] = bestRangeDependencies[update.dependencyName].range;
-          logger.info(`Update ${bold(update.dependencyName)} to ${bold(bestRangeDependencies[update.dependencyName].range)} in ${bold(update.packageJson.name)}` +
-          ` ${grey(`(${path.relative(process.cwd(), update.path)})`)}`);
+          logger.info(`Update ${bold(update.dependencyName)} to ${bold(bestRangeDependencies[update.dependencyName].range)} in ${bold(update.packageJson.name)}`
+          + ` ${grey(`(${path.relative(process.cwd(), update.path)})`)}`);
           logger.debug(`Reason: ${update.reason}`);
         });
         await fs.writeFile(packagePath, JSON.stringify(packageJson, null, 2) + '\n');
@@ -122,7 +122,7 @@ const updatePackageJsonPackageManager = async (packageJsonPaths: string[], packa
 };
 
 void (async () => {
-  // eslint-disable-next-line max-len
+
   logger.warn('This script is deprecated and will be removed in v12, please use the linter rule @o3r/json-dependency-versions-harmonize instead (documentation available https://github.com/AmadeusITGroup/otter/blob/main/docs/linter/eslint-plugin/rules/json-dependency-versions-harmonize.md)');
   const monorepoPackage: PackageJson = JSON.parse(readFileSync(options.monorepo, { encoding: 'utf8' }));
   const { workspaces, packageManager } = monorepoPackage;
@@ -225,10 +225,12 @@ void (async () => {
         .filter((dependency) => dependency.range !== depInfo.range)
         .map((dependency) => ({ ...dependency, reason: 'version harmonize' }));
 
-      const peerDepToFix = options.alignPeerDependencies ? [] : dependencyMaps[depName]
-        .filter((dependency) => dependency.type === 'peerDependencies')
-        .filter((dependency) => !semver.intersects(dependency.range, depInfo.range))
-        .map((dependency) => ({ ...dependency, reason: 'fix peerDependencies' }));
+      const peerDepToFix = options.alignPeerDependencies
+        ? []
+        : dependencyMaps[depName]
+          .filter((dependency) => dependency.type === 'peerDependencies')
+          .filter((dependency) => !semver.intersects(dependency.range, depInfo.range))
+          .map((dependency) => ({ ...dependency, reason: 'fix peerDependencies' }));
 
       return [...acc, ...toAlign, ...peerDepToFix];
     }, []);

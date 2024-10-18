@@ -13,7 +13,7 @@ import * as path from 'node:path';
 import { addMonorepoManager, addWorkspacesToProject, filterPackageJsonScripts } from './helpers/npm-workspace';
 import { generateRenovateConfig } from './helpers/renovate';
 import type { NgAddSchematicsSchema } from './schema';
-import { shouldOtterLinterBeInstalled, isUsingFlatConfig } from './helpers/linter';
+import { isUsingFlatConfig, shouldOtterLinterBeInstalled } from './helpers/linter';
 import { updateGitIgnore } from './helpers/gitignore-update';
 import type { PackageJson } from 'type-fest';
 
@@ -43,7 +43,7 @@ export const prepareProject = (options: NgAddSchematicsSchema): Rule => {
     }
     const installOtterLinter = await shouldOtterLinterBeInstalled(context, tree);
     const internalPackagesToInstallWithNgAdd = Array.from(new Set([
-      ...(installOtterLinter ? [`@o3r/eslint-config${!isUsingFlatConfig(tree) ? '-otter' : ''}`] : []),
+      ...(installOtterLinter ? [`@o3r/eslint-config${isUsingFlatConfig(tree) ? '' : '-otter'}`] : []),
       ...depsInfo.o3rPeerDeps
     ]));
 

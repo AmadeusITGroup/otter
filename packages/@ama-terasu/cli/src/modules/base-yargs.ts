@@ -73,11 +73,11 @@ export const amaYargs = async (argv?: Record<string, any>) => {
           description: 'Specific version to upgrade the dependency to'
         }), async (options) => {
         const moduleToUpdate = modules.find(({ name }) => name === options.package);
-        if (!moduleToUpdate) {
-          baseContext.logger.error(`Module ${options.package} not found`);
-        } else {
+        if (moduleToUpdate) {
           await baseContext.getSpinner(`Updating ${chalk.bold(moduleToUpdate.name)} module...`)
             .fromPromise(installDependency(moduleToUpdate, options.to), `${moduleToUpdate.name} has been installed`, `Failed to install ${moduleToUpdate.name} module`);
+        } else {
+          baseContext.logger.error(`Module ${options.package} not found`);
         }
       })
     );

@@ -24,8 +24,8 @@ type TemplateParserServices = ParserServices & {
  */
 export function isTemplateParserServices(parserServices: any): parserServices is TemplateParserServices {
   return parserServices && (
-    typeof parserServices.convertElementSourceSpanToLoc === 'function' ||
-    typeof parserServices.convertNodeSourceSpanToLoc === 'function'
+    typeof parserServices.convertElementSourceSpanToLoc === 'function'
+    || typeof parserServices.convertNodeSourceSpanToLoc === 'function'
   );
 }
 

@@ -75,7 +75,7 @@ export function getWidgetInformationFromDocComment(docText: string): ConfigPrope
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         acc[paramName] = JSON.parse(valueText);
       } catch (e: any) {
-        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+
         throw new Error(`Invalid JSON format:  ${valueText}\n${e.toString()}`);
       }
 
@@ -84,7 +84,7 @@ export function getWidgetInformationFromDocComment(docText: string): ConfigPrope
 
   return {
     type: widgetType,
-    parameters: Object.keys(widgetParameters || {}).length ? widgetParameters : undefined
+    parameters: Object.keys(widgetParameters || {}).length > 0 ? widgetParameters : undefined
   };
 }
 
@@ -161,7 +161,7 @@ export function getCategoriesFromDocText(docComment: string): CategoryDescriptio
       }
     }
   }
-  return categoriesWithDescription.length ? categoriesWithDescription : undefined;
+  return categoriesWithDescription.length > 0 ? categoriesWithDescription : undefined;
 }
 
 /**

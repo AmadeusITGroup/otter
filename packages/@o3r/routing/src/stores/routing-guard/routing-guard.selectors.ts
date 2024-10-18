@@ -50,7 +50,7 @@ export const selectRoutingGuardEntitiesBlockingReasons = createSelector(
 export const hasNoEntitiesInPendingState = createSelector(
   selectRoutingGuardEntitiesStatusList,
   (statusList: string[]) => {
-    return !statusList.some((status) => status === RegisteredItemStatus.PENDING);
+    return !statusList.includes(RegisteredItemStatus.PENDING);
   }
 );
 
@@ -61,7 +61,7 @@ export const hasNoEntitiesInPendingState = createSelector(
 export const hasNoEntitiesInFailureState = createSelector(
   selectRoutingGuardEntitiesStatusList,
   (statusList: string[]) => {
-    return !statusList.some((status) => status === RegisteredItemStatus.FAILURE);
+    return !statusList.includes(RegisteredItemStatus.FAILURE);
   }
 );
 
@@ -83,6 +83,6 @@ export const hasNoEntityInReadyOrFailureState = createSelector(
 export const hasNoEntityFailureStateWithReasons = createSelector(
   selectRoutingGuardEntitiesBlockingReasons,
   (reasons: RegisteredItemFailureReason[], properties: { blockingReason: RegisteredItemFailureReason }) => {
-    return !reasons.some((reason) => reason === properties.blockingReason);
+    return !reasons.includes(properties.blockingReason);
   }
 );

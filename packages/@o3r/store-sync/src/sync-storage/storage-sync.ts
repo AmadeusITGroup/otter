@@ -119,9 +119,11 @@ export const rehydrateApplicationState = (
 
         const rehydratedState = deserialize ? deserialize(raw) : raw;
 
-        return syncForFeature ? rehydratedState : Object.assign({}, acc, {
-          [key]: rehydratedState
-        });
+        return syncForFeature
+          ? rehydratedState
+          : Object.assign({}, acc, {
+            [key]: rehydratedState
+          });
       }
     }
     return acc;
@@ -272,10 +274,10 @@ const defaultMergeReducer = (state: any, rehydratedState: any, action: any) => {
       // No need to create new object reference if no merge is actually needed
       if (!rehydratedState[key]) {
         return [key, state[key]];
-      } else if (!state[key]) {
-        return [key, rehydratedState[key]];
-      } else {
+      } else if (state[key]) {
         return [key, deepFill(state[key], rehydratedState[key])];
+      } else {
+        return [key, rehydratedState[key]];
       }
     }));
   }
@@ -289,8 +291,8 @@ const defaultMergeReducer = (state: any, rehydratedState: any, action: any) => {
  */
 export const syncStorage = (config: SyncStorageConfig) => (reducer: any) => {
   if (
-    (config.storage === undefined && !config.checkStorageAvailability) ||
-    (config.checkStorageAvailability && checkIsBrowserEnv())
+    (config.storage === undefined && !config.checkStorageAvailability)
+    || (config.checkStorageAvailability && checkIsBrowserEnv())
   ) {
     config.storage = localStorage || window.localStorage;
   }
@@ -322,11 +324,7 @@ export const syncStorage = (config: SyncStorageConfig) => (reducer: any) => {
 
     // If state arrives undefined, we need to let it through the supplied reducer
     // in order to get a complete state as defined by user
-    if (action.type === INIT && !state) {
-      nextState = reducer(state, action);
-    } else {
-      nextState = { ...state };
-    }
+    nextState = action.type === INIT && !state ? reducer(state, action) : { ...state };
 
     // Merge the store state with the rehydrated state using
     // either a user-defined reducer or the default.
@@ -337,10 +335,12 @@ export const syncStorage = (config: SyncStorageConfig) => (reducer: any) => {
     if (action.type !== INIT) {
       syncStateUpdate(
         nextState,
-        (typeof config.syncKeyCondition === 'function') ? stateKeys.filter(key => {
-          const keyName = typeof key === 'object' ? Object.keys(key)[0] : key;
-          return config.syncKeyCondition!(keyName, nextState);
-        }) : stateKeys,
+        (typeof config.syncKeyCondition === 'function')
+          ? stateKeys.filter((key) => {
+            const keyName = typeof key === 'object' ? Object.keys(key)[0] : key;
+            return config.syncKeyCondition!(keyName, nextState);
+          })
+          : stateKeys,
         config.storage,
         config.storageKeySerializer as (key: string | number) => string,
         config.removeOnUndefined,

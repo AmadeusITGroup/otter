@@ -46,9 +46,9 @@ export async function updateDatesInMocks(mock: IMock, inputOptions: Partial<Upda
       fromDate: (date) => date.toString().substring(0, plainDateLength),
       toDate: (input) => {
         input = input.replace(/\.\d+/, '').replace(/Z/, '+00:00');
-        return input.length > plainDateLength ?
-          Temporal.ZonedDateTime.from(`${input.replace(/(\.\d+)/, '')}[${input.replace(/^.*(\+\d{2}:\d{2}).*$/, '$1') || '+00:00'}]`) :
-          Temporal.PlainDate.from(input);
+        return input.length > plainDateLength
+          ? Temporal.ZonedDateTime.from(`${input.replace(/(\.\d+)/, '')}[${input.replace(/^.*(\+\d{2}:\d{2}).*$/, '$1') || '+00:00'}]`)
+          : Temporal.PlainDate.from(input);
       }
     },
     ...inputOptions

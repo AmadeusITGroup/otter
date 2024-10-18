@@ -8,7 +8,7 @@ import { Arguments, terminalWidth } from 'yargs';
  */
 export const formatTitle = (text: string) => {
   const titleDecoratorSize = Math.min(Math.floor((terminalWidth() || 0) / 2) || 80, 80);
-  return `${chalk.grey('---')} ${chalk.bold(text)} ${chalk.grey(new Array(titleDecoratorSize - text.length - 5).fill('-').join(''))}`;
+  return `${chalk.grey('---')} ${chalk.bold(text)} ${chalk.grey(Array.from({length: titleDecoratorSize - text.length - 5}).fill('-').join(''))}`;
 };
 
 const formatHelpOptionsBlocks = (initialMessage: string, groups: string[]) => {
@@ -35,8 +35,8 @@ const formatHelpOptionsBlocks = (initialMessage: string, groups: string[]) => {
           return line
             .substring(0, indexSep)
             .replace(/(([^- ,][^ ,]*)+)/g, chalk.cyan('$1'))
-            .replace(/( -+)/g, chalk.white('$1')) +
-            line.substring(indexSep)
+            .replace(/( -+)/g, chalk.white('$1'))
+            + line.substring(indexSep)
               .replace(/ (\[.+\])[\s]*$/, ' ' + chalk.grey('$1'))
               .replace(/(\[required])(.+)$/g, chalk.red('$1') + chalk.grey('$2'));
         }).join(EOL);
@@ -48,7 +48,7 @@ const formatHelpOptionsBlocks = (initialMessage: string, groups: string[]) => {
 
 const formatHelpCommandsBlock = (message: string, commandContext?: Arguments) => {
   const lines = message.split(/\n\r?/);
-  const firstLine = lines.findIndex((line) => /^Commands:/.test(line)) + 1;
+  const firstLine = lines.findIndex((line) => line.startsWith('Commands:')) + 1;
   if (firstLine) {
     let lineNumber = lines.slice(firstLine).findIndex((line) => /^[^ ]/.test(line));
     if (lineNumber === -1) {
@@ -65,8 +65,8 @@ const formatHelpCommandsBlock = (message: string, commandContext?: Arguments) =>
         }
         return line
           .substring(0, indexSep)
-          .replace(new RegExp(`(${commandContext ? [commandContext.$0, ...commandContext._].join(' ') : ''}) (.*)`), `${chalk.italic('$1')} ${chalk.cyan('$2')}`) +
-          line.substring(indexSep)
+          .replace(new RegExp(`(${commandContext ? [commandContext.$0, ...commandContext._].join(' ') : ''}) (.*)`), `${chalk.italic('$1')} ${chalk.cyan('$2')}`)
+          + line.substring(indexSep)
             .replace(/ (\[.+\])[\s]*$/, ' ' + chalk.grey('$1'));
       }).join(EOL);
   }
@@ -76,7 +76,7 @@ const formatHelpCommandsBlock = (message: string, commandContext?: Arguments) =>
 
 const formatHelpPositionalsBlock = (message: string) => {
   const lines = message.split(/\n\r?/);
-  const firstLine = lines.findIndex((line) => /^Positionals:/.test(line)) + 1;
+  const firstLine = lines.findIndex((line) => line.startsWith('Positionals:')) + 1;
   if (firstLine) {
     let lineNumber = lines.slice(firstLine).findIndex((line) => /^[^ ]/.test(line));
     if (lineNumber === -1) {
@@ -93,8 +93,8 @@ const formatHelpPositionalsBlock = (message: string) => {
         }
         return line
           .substring(0, indexSep)
-          .replace(/(.*)/g, chalk.cyan('$1')) +
-          line.substring(indexSep, line.length - 1)
+          .replace(/(.*)/g, chalk.cyan('$1'))
+          + line.substring(indexSep, line.length - 1)
             .replace(/ (\[.+\])[\s]*$/, ' ' + chalk.grey('$1'));
       }).join(EOL);
   }

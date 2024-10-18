@@ -27,8 +27,8 @@ export class MockInterceptRequest implements RequestPlugin {
         await this.options.adapter.initialize();
 
         if (
-          this.options.disabled ||
-            (this.options.filter && !this.options.filter(data))
+          this.options.disabled
+          || (this.options.filter && !this.options.filter(data))
         ) {
           return data;
         }

@@ -27,8 +27,7 @@ export function updateCmsAdapter(options: { projectName?: string | undefined }, 
     if (tree.exists(pathTsconfigCms)) {
       return tree;
     }
-    const buildTsConfig: string =
-      workspaceProject && workspaceProject.architect && workspaceProject.architect.build && workspaceProject.architect.build.options && workspaceProject.architect.build.options.tsConfig
+    const buildTsConfig: string = workspaceProject && workspaceProject.architect && workspaceProject.architect.build && workspaceProject.architect.build.options && workspaceProject.architect.build.options.tsConfig
       || './tsconfig';
 
     const templateSource = apply(url(getTemplateFolder(rootPath, __dirname)), [

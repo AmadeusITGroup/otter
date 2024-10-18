@@ -45,7 +45,7 @@ export function getPath(requestUrl: string, pathObjects: PathObject[], method?: 
   let nextIndex = -1;
   while (matches.length > 1) {
     matches = matches.reduce<{index: number; segments: string[]; methods: string[]}[]>((newMatches, match) => {
-      let newIndex = match.segments.findIndex((segment) => segment.startsWith('{') && segment.endsWith('}'), lastIndex + 1);
+      let newIndex = match.segments.findIndex((segment) => segment.startsWith('{') && segment.endsWith('}'));
       // Complete static match so use some value that can't be exceeded
       if (newIndex === -1) {
         newIndex = Infinity;

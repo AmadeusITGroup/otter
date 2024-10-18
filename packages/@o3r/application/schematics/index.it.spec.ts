@@ -16,7 +16,7 @@ describe('new Angular application', () => {
   test('should add Otter Application to existing Angular app', () => {
     const { workspacePath, isInWorkspace, appName, o3rVersion } = o3rEnvironment.testEnvironment;
     const execAppOptions = {...getDefaultExecSyncOptions(), cwd: workspacePath};
-    packageManagerExec({script: 'ng', args: ['add', `@o3r/application@${o3rVersion}`,'--project-name', appName, '--skip-confirmation']}, execAppOptions);
+    packageManagerExec({script: 'ng', args: ['add', `@o3r/application@${o3rVersion}`, '--project-name', appName, '--skip-confirmation']}, execAppOptions);
     expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
 
     expect(() => packageManagerRunOnProject(appName, isInWorkspace, {script: 'build'}, execAppOptions)).not.toThrow();

@@ -52,7 +52,7 @@ export class EslintFixTask extends NodePackageInstallTask implements TaskConfigu
           'exec',
           'eslint',
           ...this.files,
-          ...(this.packageName !== 'npm' ? [] : ['--']),
+          ...(this.packageName === 'npm' ? ['--'] : []),
           '--fix',
           ...(this.linterOptions?.hideWarnings ? ['--quiet'] : []),
           ...(this.configFile ? ['--config', this.configFile] : []),

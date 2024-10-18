@@ -5,7 +5,6 @@ import { setupSchematicsParamsForProject, WorkspaceSchematics } from '@o3r/schem
 
 /**
  * Preset Installing the minimum modules to fully administrated the application via CMS
- *
  * @param options
  */
 export function cmsPreset(options: PresetOptions) {

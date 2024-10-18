@@ -11,8 +11,7 @@ import { TrackEventsModule } from './track-events.module';
   template: `
     <button [trackEvents]="['mouseenter', 'mouseleave']" [trackEventContext]="{eventInfo: { eventName: '', pageId: '', timeStamp: ''}}">Click</button>`
 })
-class TestComponent {
-}
+class TestComponent {}
 
 describe('Track events directive:', () => {
   beforeAll(() => getTestBed().platform || TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting(), {

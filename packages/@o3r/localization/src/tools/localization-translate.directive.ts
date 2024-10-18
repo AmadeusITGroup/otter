@@ -41,7 +41,7 @@ export class LocalizationTranslateDirective extends TranslateDirective implement
   }
 
   constructor(private readonly localizationService: LocalizationService, translateService: TranslateService, element: ElementRef, _ref: ChangeDetectorRef,
-              @Inject(LOCALIZATION_CONFIGURATION_TOKEN) private readonly localizationConfig: LocalizationConfiguration) {
+    @Inject(LOCALIZATION_CONFIGURATION_TOKEN) private readonly localizationConfig: LocalizationConfiguration) {
     super(translateService, element, _ref);
 
     if (localizationConfig.enableTranslationDeactivation) {
@@ -59,7 +59,7 @@ export class LocalizationTranslateDirective extends TranslateDirective implement
    */
   public setContent(node: any, content: string): void {
     const key = node.originalContent;
-    const newContent = this.showKeys ? key : this.localizationConfig.debugMode && key ? `${key as string} - ${content}` : content;
+    const newContent = this.showKeys ? key : (this.localizationConfig.debugMode && key ? `${key as string} - ${content}` : content);
     if (typeof node.textContent !== 'undefined' && node.textContent !== null) {
       node.textContent = newContent;
     } else {

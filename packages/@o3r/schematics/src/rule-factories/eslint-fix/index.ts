@@ -1,5 +1,5 @@
 import { DirEntry, noop, type Rule, SchematicContext, type TaskId, type Tree } from '@angular-devkit/schematics';
-import { dirname, join, extname } from 'node:path';
+import { dirname, extname, join } from 'node:path';
 import { EslintFixTask, LinterOptions } from '../../tasks/index';
 
 interface ApplyEslintFixOption extends LinterOptions {
@@ -79,7 +79,7 @@ You can consider to run later the following command to add otter linter rules: n
       filesToBeLint.filter((filePath) => filePath.startsWith(dir.path.substring(1)))
     );
 
-    if (files.size) {
+    if (files.size > 0) {
       context.addTask(
         new EslintFixTask(
           Array.from(files),

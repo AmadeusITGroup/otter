@@ -139,7 +139,7 @@ export default createBuilder<AggregateMigrationScriptsSchema>(createBuilderWithM
     let stepNumber = 1;
     context.reportProgress(stepNumber, STEPS.length, STEPS[stepNumber - 1]);
     const migrationFiles = await getMigrationFiles(options.migrationDataPath);
-    if (migrationFiles.length < 1) {
+    if (migrationFiles.length === 0) {
       context.logger.info(`No migration files found, skipping aggregation`);
       return {
         success: true
@@ -150,7 +150,7 @@ export default createBuilder<AggregateMigrationScriptsSchema>(createBuilderWithM
     context.reportProgress(stepNumber, STEPS.length, STEPS[stepNumber - 1]);
     const libResolver = options.librariesDirectory ? (lib: string) => posix.join(options.librariesDirectory!, lib) : require.resolve.bind(require);
     const librariesVersions = getLibrariesVersions(migrationFiles);
-    if (Object.keys(librariesVersions).length < 1) {
+    if (Object.keys(librariesVersions).length === 0) {
       return {
         success: true
       };

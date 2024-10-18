@@ -15,7 +15,7 @@ export function defaultPresetRuleFactory(moduleToInstall: string[], options: Pre
   return (tree, _context) => {
     const corePackageJsonContent = JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', '..', '..', 'package.json'), { encoding: 'utf8' })) as PackageJson;
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
-    if (!moduleToInstall.length) {
+    if (moduleToInstall.length === 0) {
       return tree;
     }
 
@@ -37,10 +37,12 @@ export function defaultPresetRuleFactory(moduleToInstall: string[], options: Pre
       };
     }
 
-    return options.dependenciesSetupConfig ? noop : setupDependencies({
-      projectName: options.projectName,
-      dependencies,
-      ngAddToRun: moduleToInstall
-    });
+    return options.dependenciesSetupConfig
+      ? noop
+      : setupDependencies({
+        projectName: options.projectName,
+        dependencies,
+        ngAddToRun: moduleToInstall
+      });
   };
 }

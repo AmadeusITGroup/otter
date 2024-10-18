@@ -1,9 +1,8 @@
 import * as chalk from 'chalk';
 import { exec } from 'node:child_process';
-import { existsSync, promises as fs } from 'node:fs';
+import { existsSync, promises as fs, readFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { promisify } from 'node:util';
-import { readFileSync } from 'node:fs';
 import type { PackageJson } from 'type-fest';
 import { getAvailableModules, NpmRegistryPackage } from '@o3r/schematics';
 import { dependencies, devDependencies, peerDependencies } from '../../package.json';
@@ -144,8 +143,8 @@ export const isOfficialModule = (pck: MinimalPackageInformation & { name: string
  * Retrieve the list of all the dependencies
  */
 export const getLocalDependencies = async (): Promise<Record<string, string>> => {
-  const dynDependencies: Record<string, string> = existsSync(resolve(dynamicDependenciesPath, 'package.json')) &&
-    JSON.parse(await fs.readFile(resolve(dynamicDependenciesPath, 'package.json'), { encoding: 'utf8' })).dependencies || {};
+  const dynDependencies: Record<string, string> = existsSync(resolve(dynamicDependenciesPath, 'package.json'))
+    && JSON.parse(await fs.readFile(resolve(dynamicDependenciesPath, 'package.json'), { encoding: 'utf8' })).dependencies || {};
   return {
     ...dynDependencies,
     ...peerDependencies,
@@ -192,7 +191,7 @@ export const getCliModules = async (options: { localOnly: boolean } = { localOnl
     });
   }
 
-  return [ ...map.values() ];
+  return [...map.values()];
 };
 
 /**
@@ -208,7 +207,7 @@ export const isInstalled = (pck: ModuleDiscovery): pck is ModuleDiscovery & Inst
  * @param pck package to get name from
  */
 export const getFormattedDescription = (pck: ModuleDiscovery): string => {
-  return (isInstalled(pck) ? '' : `${chalk.grey.italic('(remote)')} `) + (pck.description || '<Missing description>') + (pck.isOfficialModule ? ` ${chalk.blue(String.fromCharCode(0x00AE))}` : '');
+  return (isInstalled(pck) ? '' : `${chalk.grey.italic('(remote)')} `) + (pck.description || '<Missing description>') + (pck.isOfficialModule ? ` ${chalk.blue(String.fromCharCode(0x00_AE))}` : '');
 };
 
 /**

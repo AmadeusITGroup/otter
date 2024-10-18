@@ -23,7 +23,7 @@ const dependencyTypes = ['dependencies', 'devDependencies', 'peerDependencies'];
 program
   .description('[DEPRECATED] Checks that the dependencies imported in the code are declared in the package.json file')
   .option<string>('--root <directory>', 'Project root directory', (p) => resolve(process.cwd(), p), process.cwd())
-  // eslint-disable-next-line max-len
+
   .option<string[]>('--ignore <...patterns>', 'Path patters to ignore', (p, previous) => ([...previous, ...p.split(',')]), ['**/node_modules/**', '**/dist/**', '**/dist-*/**', '**/mocks/**', '**/templates/**', '**/*.template'])
   .option('--ignore-workspace', 'Ignore the workspace and only check from the root directory')
   .option('--fail-on-error', 'Return a non-null status in case of dependency issue found')
@@ -31,9 +31,9 @@ program
 
 const {root, ignore, ignoreWorkspace, failOnError} = program.opts();
 
-const packagePatterns: string[] = ignoreWorkspace ?
-  join(root, 'package.json').replace(/\\/g, '/') :
-  (JSON.parse(readFileSync(join(root, 'package.json'), { encoding: 'utf8' })).workspaces?.map((p: string) => join(p, 'package.json').replace(/\\/g, '/')) || []);
+const packagePatterns: string[] = ignoreWorkspace
+  ? join(root, 'package.json').replace(/\\/g, '/')
+  : (JSON.parse(readFileSync(join(root, 'package.json'), { encoding: 'utf8' })).workspaces?.map((p: string) => join(p, 'package.json').replace(/\\/g, '/')) || []);
 
 void (async () => {
   logger.warn('This script is deprecated, will be removed in Otter v12');
@@ -92,7 +92,7 @@ void (async () => {
       ]))
         .flat()
         // get module name only
-        .map((dep) => !dep.startsWith('@') ? dep.split('/')[0] : dep.split('/').slice(0, 2).join('/'))
+        .map((dep) => dep.startsWith('@') ? dep.split('/').slice(0, 2).join('/') : dep.split('/')[0])
         // filter node modules
         .filter((dep) => !dep.startsWith('node:') && !nodeWellKnownModules.includes(dep))
         // filter auto-reference
@@ -102,7 +102,7 @@ void (async () => {
 
       deps
         .filter((dep) => !dependencyTypes.some((type) => !!(packageJson[type]?.[dep] || packageJson[type]?.[`@types/${dep}`])))
-        .forEach((dep) =>{
+        .forEach((dep) => {
           fixFound = true;
           logger.warn(`${bold(packageName)} is missing a dependency to ${bold(dep)}`);
         });

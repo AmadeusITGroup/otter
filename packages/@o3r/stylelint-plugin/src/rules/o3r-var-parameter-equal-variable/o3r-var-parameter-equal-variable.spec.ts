@@ -10,7 +10,7 @@ const config = {
 };
 
 describe('o3r-var-parameter-equal-variable', () => {
-  test('should import otter styling with alias', async ()=> {
+  test('should import otter styling with alias', async () => {
     const res = await lint({
       config,
       code: `@use '@o3r/styling' as otter;

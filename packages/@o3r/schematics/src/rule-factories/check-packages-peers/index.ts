@@ -27,7 +27,7 @@ function getPackagesToInstallOrUpdate(packageName: string) {
   try {
     const packageJsonNamePath = require.resolve(`${packageName}${path.posix.sep}package.json`);
     installedPackage = JSON.parse(readFileSync(packageJsonNamePath, { encoding: 'utf8' }));
-  } catch (err) {
+  } catch {
     throw new O3rCliError(`The provided package is not installed: ${packageName}`);
   }
 
@@ -49,7 +49,7 @@ function getPackagesToInstallOrUpdate(packageName: string) {
     try {
       const packageJsonNamePath = require.resolve(`${pName}${path.posix.sep}package.json`);
       installedPackageVersion = JSON.parse(readFileSync(packageJsonNamePath, { encoding: 'utf8' })).version;
-    } catch (err) {
+    } catch {
       packagesToInstall.push({ packageName: pName, version: pVersion! });
     }
     if (installedPackageVersion && !satisfies(installedPackageVersion, pVersion!)) {
@@ -70,10 +70,10 @@ function checkPackagesToInstallOrUpdate(packageName: string, logger: LoggerApi, 
   const packageManager = getPackageManager({ workspaceConfig: angularJsonString });
   const { packagesToInstall, packagesWrongVersion } = getPackagesToInstallOrUpdate(packageName);
 
-  if (packagesWrongVersion.length) {
+  if (packagesWrongVersion.length > 0) {
     logger.warn('');
     logger.warn(`The following packages have a mismatch version installed to satisfy "${packageName}" needed versions:`);
-    packagesWrongVersion.forEach(dep => {
+    packagesWrongVersion.forEach((dep) => {
       logger.warn(`${dep.packageName} found version is ${dep.foundVersion!}. "${packageName}" needs ${dep.version}`);
     });
     logger.warn('');
@@ -81,14 +81,14 @@ function checkPackagesToInstallOrUpdate(packageName: string, logger: LoggerApi, 
     packagesWrongVersion.forEach((dep) => logger.warn(`${packageManager} run ng update ${dep.packageName}@${dep.version}`));
   }
 
-  if (packagesToInstall.length) {
+  if (packagesToInstall.length > 0) {
     logger.error('');
     logger.error(`The following packages need to be installed to have "${packageName}" working. Run the commands one by one:`);
     packagesToInstall.forEach((dep) => logger.error(`${packageManager} run ng add ${dep.packageName}@${dep.version}`));
     throw new O3rCliError('Missing peer dependencies');
   }
 
-  if (!packagesToInstall.length && !packagesWrongVersion.length) {
+  if (packagesToInstall.length === 0 && packagesWrongVersion.length === 0) {
     logger.info(`The package ${packageName} has all peer deps installed.\n`);
   }
 

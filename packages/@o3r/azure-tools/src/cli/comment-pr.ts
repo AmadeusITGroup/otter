@@ -23,7 +23,7 @@ program
   .option('-I, --threadIdentifier <threadIdentifier>', 'Thread identifier', undefined)
   .requiredOption('-T, --accessToken <accessToken>', 'Access token')
   .action((actionComment: string) => {
-    // eslint-disable-next-line no-import-assign
+
     comment = actionComment;
   })
   .parse(process.argv);
@@ -42,18 +42,18 @@ void (async () => {
     throw new Error('A comment must be provided');
   }
   if (!process.env.SYSTEM_TEAMPROJECT) {
-    throw Error('System.TeamProject must be provided');
+    throw new Error('System.TeamProject must be provided');
   }
   if (!process.env.BUILD_REPOSITORY_NAME) {
-    throw Error('Build.Repository.Name must be provided');
+    throw new Error('Build.Repository.Name must be provided');
   }
   if (!process.env.SYSTEM_PULLREQUEST_PULLREQUESTID) {
-    throw Error('System.PullRequest.PullRequestId must be provided');
+    throw new Error('System.PullRequest.PullRequestId must be provided');
   } else if (isNaN(+process.env.SYSTEM_PULLREQUEST_PULLREQUESTID)) {
-    throw Error('System.PullRequest.PullRequestId must be a number');
+    throw new Error('System.PullRequest.PullRequestId must be a number');
   }
   if (!process.env.SYSTEM_TEAMFOUNDATIONCOLLECTIONURI) {
-    throw Error('System.TeamFoundationCollectionUri must be provided');
+    throw new Error('System.TeamFoundationCollectionUri must be provided');
   }
 
   const project = process.env.SYSTEM_TEAMPROJECT;
@@ -65,9 +65,9 @@ void (async () => {
   const threads = opts.threadIdentifier ? await prService.findThreadsByIdentifier(repositoryId, pullRequestId, opts.threadIdentifier) : [];
 
   if (opts.mode === 'Replace') {
-    await Promise.all(threads.filter(thread => !!thread.id).map((thread) => prService.deleteThread(repositoryId, pullRequestId, thread.id!)));
+    await Promise.all(threads.filter((thread) => !!thread.id).map((thread) => prService.deleteThread(repositoryId, pullRequestId, thread.id!)));
   }
-  if (opts.mode === 'Replace' || threads.length < 1) {
+  if (opts.mode === 'Replace' || threads.length === 0) {
     await prService.addThread(repositoryId, pullRequestId, comment, opts.commentStatus, opts.threadIdentifier);
   } else if (opts.mode === 'Add') {
     await Promise.all(

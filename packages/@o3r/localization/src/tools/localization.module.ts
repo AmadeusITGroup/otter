@@ -21,7 +21,7 @@ import { TextDirectionality } from './text-directionality.service';
 export function createLocalizationConfiguration(configuration?: Partial<LocalizationConfiguration>): LocalizationConfiguration {
   return {
     ...DEFAULT_LOCALIZATION_CONFIGURATION,
-    ...(configuration || {})
+    ...configuration
   };
 }
 
@@ -67,10 +67,12 @@ export class LocalizationModule {
       ngModule: LocalizationModule,
       providers: [
         LocalizationService,
-        ...(configuration ? [{
-          provide: CUSTOM_LOCALIZATION_CONFIGURATION_TOKEN,
-          useFactory: configuration
-        }] : [])
+        ...(configuration
+          ? [{
+            provide: CUSTOM_LOCALIZATION_CONFIGURATION_TOKEN,
+            useFactory: configuration
+          }]
+          : [])
       ]
     };
   }

@@ -41,8 +41,8 @@ describe('new otter application with configuration', () => {
     expect(diff.added).toContain(path.posix.join(relativeApplicationPath, 'src/components/test-component/test-component.config.ts').replace(/[\\/]+/g, '/'));
     expect(diff.added).toContain(path.posix.join(relativeApplicationPath, 'src/components/test-signal/test-signal.config.ts').replace(/[\\/]+/g, '/'));
 
-    [libraryPath, ...untouchedProjectsPaths].forEach(untouchedProject => {
-      expect(diff.all.some(file => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
+    [libraryPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
+      expect(diff.all.some((file) => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
     });
 
     expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
@@ -71,8 +71,8 @@ describe('new otter application with configuration', () => {
     expect(diff.added).toContain(path.posix.join(relativeLibraryPath, 'src/components/test-component/test-component.config.ts').replace(/[\\/]+/g, '/'));
     expect(diff.added).toContain(path.posix.join(relativeLibraryPath, 'src/components/test-signal/test-signal.config.ts').replace(/[\\/]+/g, '/'));
 
-    [applicationPath, ...untouchedProjectsPaths].forEach(untouchedProject => {
-      expect(diff.all.some(file => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
+    [applicationPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
+      expect(diff.all.some((file) => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
     });
 
     expect(() => packageManagerInstall(execAppOptions)).not.toThrow();

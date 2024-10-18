@@ -8,5 +8,5 @@ export const OTTER_CONFIGURATION_DEVTOOLS_DEFAULT_OPTIONS: ConfigurationDevtools
   isActivatedOnBootstrapWhenCMSContext: true
 };
 
-// eslint-disable-next-line max-len
+
 export const OTTER_CONFIGURATION_DEVTOOLS_OPTIONS: InjectionToken<ConfigurationDevtoolsServiceOptions> = new InjectionToken<ConfigurationDevtoolsServiceOptions>('Otter Configuration Devtools options');

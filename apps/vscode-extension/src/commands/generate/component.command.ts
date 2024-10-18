@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
+
 import type { ExtensionContext } from 'vscode';
 import * as vscode from 'vscode';
 import { getCurrentFolder, getPackageScriptRunner, getSchematicDefaultOptions, stringifyOptions } from '../helpers';

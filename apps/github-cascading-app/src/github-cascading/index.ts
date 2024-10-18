@@ -11,10 +11,10 @@ azureApp.http('github-cascading', {
       id: req.headers.get('X-GitHub-Delivery') || req.headers.get('x-github-delivery')!,
       name: req.headers.get('X-GitHub-Event') || req.headers.get('x-github-event') as any,
       signature:
-        req.headers.get('X-Hub-Signature-256') ||
-        req.headers.get('x-hub-signature-256') ||
-        req.headers.get('X-Hub-Signature') ||
-        req.headers.get('x-hub-signature')!,
+        req.headers.get('X-Hub-Signature-256')
+        || req.headers.get('x-hub-signature-256')
+        || req.headers.get('X-Hub-Signature')
+        || req.headers.get('x-hub-signature')!,
       payload: await req.text()
     });
 

@@ -41,7 +41,6 @@ const getMethodName = (selector: string, method: MethodType) => {
 
 /**
  * Get the signature of the function
- *
  * @param methodType the type of the method
  * @param selector query selector
  * @returns the signature of the function
@@ -81,7 +80,6 @@ export const getSignature = (
 
 /**
  * Get the implementation of the function
- *
  * @param methodType  the type of the method
  * @param classPropSelector the selector class property
  * @returns the implementation of the function

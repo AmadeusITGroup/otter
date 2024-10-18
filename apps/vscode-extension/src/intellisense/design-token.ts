@@ -50,8 +50,7 @@ const getDesignTokens = async (currentFile: string, cache: Map<string, DesignTok
   const lastExtractionTimestamp = Date.now();
   const filesPatterns = vscode.workspace.getConfiguration('otter.design').get<string[]>('filesPatterns', await getFilesPatternsFromProjectConfiguration(currentFile) || ['**/*.token.json']);
   const uris = (await Promise.all(filesPatterns
-    .map((pattern) => vscode.workspace.findFiles(pattern))))
-    .reduce((acc, curr) => acc.concat(curr), []);
+    .map((pattern) => vscode.workspace.findFiles(pattern)))).flat();
 
   return (await Promise.all(uris
     .map(async (uri) => {
@@ -72,7 +71,7 @@ const getDesignTokens = async (currentFile: string, cache: Map<string, DesignTok
           || (
             token.extensions.o3rTargetFile
             && token.context?.basePath
-            && currentFile === path.join(token.context?.basePath , token.extensions.o3rTargetFile)
+            && currentFile === path.join(token.context?.basePath, token.extensions.o3rTargetFile)
           )
         )
         .forEach((token) => acc.set(token.getKey(), token));
@@ -89,7 +88,7 @@ const getTokenDetail = (token: DesignTokenVariableStructure, tokens: DesignToken
   ...(token.extensions.o3rMetadata?.tags?.length ? [`Tags: [${token.extensions.o3rMetadata.tags.join(', ')}]`] : [])
 ].join('\n\n');
 
-export const designTokenCompletionItemAndHoverProviders = (cache: Map<string, DesignTokenCache> = new Map()) : CompletionItemProvider<CompletionItem> & HoverProvider => {
+export const designTokenCompletionItemAndHoverProviders = (cache: Map<string, DesignTokenCache> = new Map()): CompletionItemProvider<CompletionItem> & HoverProvider => {
   const renderer = getCssTokenValueRenderer();
   return {
     provideCompletionItems: async (document, position) => {

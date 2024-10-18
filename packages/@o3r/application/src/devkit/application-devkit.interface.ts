@@ -92,10 +92,10 @@ export type AvailableApplicationMessageContents =
  */
 export const isApplicationMessage = (message: any): message is AvailableApplicationMessageContents => {
   return message && (
-    message.dataType === 'toggleVisualTesting' ||
-    message.dataType === 'stateSelection' ||
-    message.dataType === 'applicationInformation' ||
-    message.dataType === 'unselectState' ||
-    message.dataType === 'requestMessages' ||
-    message.dataType === 'connect');
+    message.dataType === 'toggleVisualTesting'
+    || message.dataType === 'stateSelection'
+    || message.dataType === 'applicationInformation'
+    || message.dataType === 'unselectState'
+    || message.dataType === 'requestMessages'
+    || message.dataType === 'connect');
 };

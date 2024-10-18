@@ -16,7 +16,7 @@ export function setupLocalRegistry() {
   beforeAll(async () => {
     try {
       await pidFromPort(4873);
-    } catch (ex) {
+    } catch {
       shouldHandleVerdaccio = true;
       execSync('yarn verdaccio:start', {cwd: rootFolder, stdio: 'inherit'});
       execSync('yarn verdaccio:publish', {cwd: rootFolder, stdio: 'inherit'});

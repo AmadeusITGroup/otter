@@ -49,7 +49,7 @@ program.action(async (inputs: string[] = []) => {
         });
     });
 
-  if (Object.keys(reports).length) {
+  if (Object.keys(reports).length > 0) {
     process.exit(1);
   }
 });

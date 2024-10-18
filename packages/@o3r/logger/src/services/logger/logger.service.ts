@@ -58,7 +58,7 @@ export class LoggerService implements Logger {
    * @param client
    */
   public registerClient(client: LoggerClient) {
-    if (this.clients.indexOf(client) > -1) {
+    if (this.clients.includes(client)) {
       this.warn(`Client ${client.constructor.name} already registered`);
       return;
     }

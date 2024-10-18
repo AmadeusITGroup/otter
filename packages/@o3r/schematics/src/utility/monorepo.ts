@@ -79,6 +79,6 @@ export function getPackagesBaseRootFolder(tree: Tree, context: SchematicContext,
 
   const schematicConfigDir = configName && getSchematicOptions(config, context)?.[configName];
 
-  // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+
   return schematicConfigDir || nxExplicitDir || ((projectType && configName) ? DEFAULT_ROOT_FOLDERS[configName] : '.');
 }

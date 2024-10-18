@@ -149,7 +149,7 @@ export class RequestParametersService implements ParamsType {
    * @param paramsToClear the list on key that you want to clear in get parameters
    */
   public clearQueryParameters(paramsToClear?: string[]) {
-    const newQuery = (paramsToClear ? Object.keys(this._query).filter((key) => paramsToClear.indexOf(key) === -1) : [])
+    const newQuery = (paramsToClear ? Object.keys(this._query).filter((key) => !paramsToClear.includes(key)) : [])
       .reduce<{[k: string]: string}>((acc, key) => {
         acc[key] = this._query[key];
         return acc;
@@ -165,7 +165,7 @@ export class RequestParametersService implements ParamsType {
    * @param paramsToClear the list on key that you want to clean in post parameters
    */
   public clearPostParameters(paramsToClear?: string[]) {
-    const newPost = (paramsToClear ? Object.keys(this._post).filter((key) => paramsToClear.indexOf(key) === -1) : [])
+    const newPost = (paramsToClear ? Object.keys(this._post).filter((key) => !paramsToClear.includes(key)) : [])
       .reduce<{[k: string]: string}>((acc, key) => {
         acc[key] = this._post[key];
         return acc;
@@ -195,7 +195,7 @@ export class RequestParametersService implements ParamsType {
       return params;
     }
     return Object.keys(params)
-      .filter((key) => paramstoFilter.indexOf(key) === -1)
+      .filter((key) => !paramstoFilter.includes(key))
       .reduce<{ [k: string]: string }>((acc, key) => {
         acc[key] = params[key];
         return acc;

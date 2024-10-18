@@ -54,7 +54,8 @@ export const createBuilderWithMetrics: BuilderWrapper = (builderFn, sendData = d
                 projectName: context.target.project,
                 configuration: context.target.configuration
               }
-            } : {}
+            }
+            : {}
           )
         },
         error

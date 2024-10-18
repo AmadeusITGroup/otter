@@ -14,7 +14,6 @@ import { NgGenerateComponentSchematicsSchema } from './schema';
 
 /**
  * Execute component container schematic with provided options
- *
  * @param options
  */
 function generateComponentContainer(options: NgGenerateComponentSchematicsSchema): Rule {
@@ -29,7 +28,6 @@ function generateComponentContainer(options: NgGenerateComponentSchematicsSchema
 
 /**
  * Execute component presenter schematic with provided options
- *
  * @param options
  */
 function generateComponentPresenter(options: NgGenerateComponentSchematicsSchema): Rule {

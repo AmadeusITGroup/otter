@@ -28,9 +28,9 @@ export function updateStorybook(options: { projectName?: string | null | undefin
     // update gitignore
     if (tree.exists('/.gitignore')) {
       let gitignoreContent = tree.read('/.gitignore')!.toString();
-      if (gitignoreContent.indexOf('/storybook-static') === -1) {
-        gitignoreContent +=
-          `
+      if (!gitignoreContent.includes('/storybook-static')) {
+        gitignoreContent
+          += `
 
 # Storybook
 /.storybook/style.metadata.json
@@ -103,10 +103,10 @@ export function updateStorybook(options: { projectName?: string | null | undefin
       packageJson.scripts = packageJson.scripts || {};
       const compodoc = packageJson.scripts['doc:generate'] ? 'doc:generate' : 'compodoc';
       packageJson.scripts['doc:json'] = packageJson.scripts['doc:json'] || `${packageManagerRunner} ${compodoc} -e json -d .`;
-      packageJson.scripts.storybook = packageJson.scripts.storybook ||
-        `${packageManagerRunner} doc:json && ${packageManagerRunner} cms-adapters:metadata${isLibrary ? ' && ng run storybook:extract-style' : ''} && start-storybook -p 6006`;
-      packageJson.scripts['build:storybook'] = packageJson.scripts['build:storybook'] ||
-        `${packageManagerRunner} doc:json && ${packageManagerRunner} cms-adapters:metadata${isLibrary ? ' && ng run storybook:extract-style' : ''} && build-storybook`;
+      packageJson.scripts.storybook = packageJson.scripts.storybook
+      || `${packageManagerRunner} doc:json && ${packageManagerRunner} cms-adapters:metadata${isLibrary ? ' && ng run storybook:extract-style' : ''} && start-storybook -p 6006`;
+      packageJson.scripts['build:storybook'] = packageJson.scripts['build:storybook']
+      || `${packageManagerRunner} doc:json && ${packageManagerRunner} cms-adapters:metadata${isLibrary ? ' && ng run storybook:extract-style' : ''} && build-storybook`;
       tree.overwrite('/package.json', JSON.stringify(packageJson, null, 2));
     }
 

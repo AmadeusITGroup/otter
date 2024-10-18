@@ -14,12 +14,12 @@ program
     'Artifact repositories to clean up (comma separated) ex: \'repo1,repo2\'',
     (repos: string) => repos.split(',')
   )
-  .option('-d, --duration-kept <durationKept>', 'All artifacts older than this value (in ms) will be deleted. (Default: 604800000 ms, i.e., 7 days)', (v) => +v, 604800000)
+  .option('-d, --duration-kept <durationKept>', 'All artifacts older than this value (in ms) will be deleted. (Default: 604800000 ms, i.e., 7 days)', (v) => +v, 604_800_000)
   .option(
     '-t, --type-filter <typeFilter>',
     'List of artifact types that should be deleted (comma separated) ex: \'jar,tgz\' (Default: [\'tgz\',\'json\'])',
     (type: string) => type.split(','),
-    ['tgz','json']
+    ['tgz', 'json']
   )
   .option('--dry-run <dryRun>', 'List all files that would be deleted without actually deleting them', false)
   .parse(process.argv);
@@ -55,8 +55,8 @@ const options = {
   }
 } as const satisfies RequestInit;
 const limitTimestampToKeepOldArtifact = Date.now() - opts.durationKept;
-url += (url.endsWith('/') ? '' : '/') +
-  `api/search/usage?notUsedSince=${limitTimestampToKeepOldArtifact}&createdBefore=${limitTimestampToKeepOldArtifact}&repos=${(opts.repositories as string[]).join(',')}`;
+url += (url.endsWith('/') ? '' : '/')
++ `api/search/usage?notUsedSince=${limitTimestampToKeepOldArtifact}&createdBefore=${limitTimestampToKeepOldArtifact}&repos=${(opts.repositories as string[]).join(',')}`;
 
 logger.info(`Url called : ${url}`);
 

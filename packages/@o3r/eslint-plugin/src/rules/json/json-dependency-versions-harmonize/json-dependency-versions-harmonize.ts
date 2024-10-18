@@ -115,9 +115,9 @@ export default createRule<[Options, ...any], 'versionUpdate' | 'error'>({
                 .forEach((depGroup) => {
                   const report = (name: string, resolvedName: string, dep: AST.JSONProperty, range: string | undefined, bestRange: string | undefined) => {
                     if (bestRange && bestRange !== range) {
-                      if (!options.alignPeerDependencies && depGroup.parent.type === 'JSONProperty' && range &&
-                        (depGroup.parent.key.type === 'JSONLiteral' ? depGroup.parent.key.value.toString() : depGroup.parent.key.name) === 'peerDependencies' &&
-                        semver.subset(bestRange, range)) {
+                      if (!options.alignPeerDependencies && depGroup.parent.type === 'JSONProperty' && range
+                        && (depGroup.parent.key.type === 'JSONLiteral' ? depGroup.parent.key.value.toString() : depGroup.parent.key.name) === 'peerDependencies'
+                        && semver.subset(bestRange, range)) {
                         return;
                       }
                       context.report({
@@ -143,8 +143,8 @@ export default createRule<[Options, ...any], 'versionUpdate' | 'error'>({
                   };
 
                   depGroup.properties.forEach((dependencyNode) => {
-                    const isResolutionsField = options.alignResolutions && depGroup.parent.type === 'JSONProperty' &&
-                      resolutionsFields.includes(depGroup.parent.key.type === 'JSONLiteral' ? depGroup.parent.key.value.toString() : depGroup.parent.key.name);
+                    const isResolutionsField = options.alignResolutions && depGroup.parent.type === 'JSONProperty'
+                      && resolutionsFields.includes(depGroup.parent.key.type === 'JSONLiteral' ? depGroup.parent.key.value.toString() : depGroup.parent.key.name);
 
                     const getNodeDetails = (dep: AST.JSONProperty): void => {
                       const name = dep.key.type === 'JSONLiteral' ? dep.key.value.toString() : dep.key.name;

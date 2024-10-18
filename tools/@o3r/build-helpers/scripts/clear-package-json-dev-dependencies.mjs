@@ -9,7 +9,7 @@ import { join, resolve } from 'node:path';
 const argv = minimist(process.argv.slice(2));
 const root = argv.root ? resolve(process.cwd(), argv.root) : process.cwd();
 
-const distPaths = argv._.length
+const distPaths = argv._.length > 0
   ? argv._
   : [resolve(root, appendPath || 'dist')];
 
@@ -18,4 +18,4 @@ distPaths.forEach((distPath) => {
   const packageJson = JSON.parse(readFileSync(packageJsonPath, { encoding: 'utf-8' }));
   delete packageJson.devDependencies;
   writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
-})
+});

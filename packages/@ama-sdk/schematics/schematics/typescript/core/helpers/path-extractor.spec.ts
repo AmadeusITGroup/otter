@@ -38,7 +38,7 @@ describe('generateOperationFinderFromSingleFile', () => {
             }
           }
         },
-        // eslint-disable-next-line @typescript-eslint/naming-convention
+
         '/pet/{petId}': {
           get: {
             description: 'Returns a single pet',

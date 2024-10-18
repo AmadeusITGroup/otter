@@ -37,6 +37,7 @@ const ngrxRouterStoreDevToolDep = '@ngrx/store-devtools';
  * @param projectType
  * @param options.dependenciesSetupConfig
  * @param options.workingDirector
+ * @param options.exactO3rVersion
  */
 export function updateStore(
   options: { projectName?: string | undefined; workingDirector?: string | undefined; dependenciesSetupConfig: SetupDependenciesOptions; exactO3rVersion?: boolean },

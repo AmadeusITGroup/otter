@@ -59,10 +59,10 @@ export class O3rElement implements ElementProfile {
   public async getValue() {
     try {
       return await this.sourceElement.element.inputValue();
-    } catch (error) {
+    } catch {
       console.warn('Failed to retrieve input value');
       const valueByAttribute = await this.sourceElement.element.getAttribute('value');
-      return valueByAttribute !== null ? valueByAttribute : undefined;
+      return valueByAttribute === null ? undefined : valueByAttribute;
     }
   }
 
@@ -91,7 +91,7 @@ export class O3rElement implements ElementProfile {
   /** @inheritdoc */
   public async getAttribute(attributeName: string) {
     const attribute = await this.sourceElement.element.getAttribute(attributeName);
-    return attribute !== null ? attribute : undefined;
+    return attribute === null ? undefined : attribute;
   }
 }
 

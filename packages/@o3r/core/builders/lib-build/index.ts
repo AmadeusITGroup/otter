@@ -23,9 +23,9 @@ export default createBuilder<LibraryBuilderSchema>(createBuilderWithMetricsIfIns
   const [project, target, configuration] = options.target.split(':');
   const nextBuildTarget = { project, target, configuration };
 
-  const opts = Object.entries(options)
+  const opts = Object.fromEntries(Object.entries(options)
     .filter(([key]) => !libBuildOptions.includes(key))
-    .reduce<JsonObject>((acc, [key, value]) => ({ ...acc, [key]: value }), {});
+    .map<JsonObject>(([key, value]) => [key, value]));
   const build = await context.scheduleTarget(nextBuildTarget, opts);
   const buildResult = await build.result;
 
@@ -61,10 +61,10 @@ export default createBuilder<LibraryBuilderSchema>(createBuilderWithMetricsIfIns
     }
   };
 
-  return options.watch ?
-    new Promise((resolve) => process.once('SIGINT', async () => {
+  return options.watch
+    ? new Promise((resolve) => process.once('SIGINT', async () => {
       await tearDown();
       resolve(buildResult);
-    })) :
-    tearDown().then(() => buildResult);
+    }))
+    : tearDown().then(() => buildResult);
 }));

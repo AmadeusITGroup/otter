@@ -22,7 +22,7 @@ export function prepareVisualTesting(ignoreClass = 'e2e-ignore') {
       top: 0;
   }`;
 
-  document.head.appendChild(visualTestingCss);
+  document.head.append(visualTestingCss);
 }
 
 /**

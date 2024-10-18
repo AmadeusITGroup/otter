@@ -13,11 +13,10 @@ import type { PackageJson } from 'type-fest';
 export function getExternalDependenciesVersionRange<T extends string>(packageNames: T[], packageJsonPath: string, logger: logging.LoggerApi): Record<T, string> {
   const packageJsonContent = JSON.parse(fs.readFileSync(packageJsonPath, {encoding: 'utf8'})) as PackageJson & { generatorDependencies: Record<string, string> };
   return packageNames.reduce((acc: Partial<Record<T, string>>, packageName) => {
-    acc[packageName] =
-      packageJsonContent.generatorDependencies?.[packageName] ||
-      packageJsonContent.peerDependencies?.[packageName] ||
-      packageJsonContent.dependencies?.[packageName] ||
-      packageJsonContent.devDependencies?.[packageName];
+    acc[packageName] = packageJsonContent.generatorDependencies?.[packageName]
+    || packageJsonContent.peerDependencies?.[packageName]
+    || packageJsonContent.dependencies?.[packageName]
+    || packageJsonContent.devDependencies?.[packageName];
     if (!acc[packageName]) {
       logger.warn(`Unable to retrieve version for ${packageName} in ${packageJsonPath}. Version set to "latest".`);
       acc[packageName] = 'latest';

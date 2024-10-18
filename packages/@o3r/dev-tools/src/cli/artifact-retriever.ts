@@ -112,7 +112,7 @@ async function retrieveArtifactFromJFrog() {
 
   url += (url.endsWith('/') ? '' : '/') + `api/search/gavc?a=${name}&g=${artifactGroupId}`;
 
-  if (opts.artifactRepos && opts.artifactRepos.length) {
+  if (opts.artifactRepos && opts.artifactRepos.length > 0) {
     url += `&repos=${(opts.artifactRepos as string[]).join(',')}`;
   }
 
@@ -122,7 +122,7 @@ async function retrieveArtifactFromJFrog() {
   let responseSearch;
   try {
     responseSearch = await request.get(url, options).promise();
-  } catch (err) {
+  } catch {
     logger.warn('First call to get artifact information failed, retries');
     responseSearch = await request.get(url, options).promise();
   }
@@ -141,7 +141,7 @@ async function retrieveArtifactFromJFrog() {
       return 0;
     });
 
-  if (uris.length) {
+  if (uris.length > 0) {
     const artifactUrl = uris[0];
     logger.info(`Call to ${artifactUrl}`);
     const gavcResponse: string = await request.get(artifactUrl, options).promise();
@@ -180,7 +180,7 @@ function getLatestVersion(packages: Record<string, any>[], artifactName: string)
   const normalizedArtifactName = `${artifactGroupId}:${artifactName}`.toLowerCase();
   for (const pckg of packages) {
     if (pckg.normalizedName === artifactName || pckg.normalizedName === normalizedArtifactName) {
-      const latestVersion = (pckg.versions as {isLatest: boolean; version: string}[]).find(v => v.isLatest);
+      const latestVersion = (pckg.versions as {isLatest: boolean; version: string}[]).find((v) => v.isLatest);
       if (!latestVersion) {
         throw new Error(`No latest version found for ${artifactName}`);
       }
@@ -196,13 +196,13 @@ function getLatestVersion(packages: Record<string, any>[], artifactName: string)
 async function retrieveArtifactFromAzure() {
   try {
     if (version.startsWith('0.0.0')) {
-      // eslint-disable-next-line max-len
+
       const res = await request.get(`https://feeds.dev.azure.com/${opts.organization as string}/${opts.project as string}/_apis/packaging/feeds/${opts.feed as string}/packages?api-version=6.0-preview.1`, options).promise();
       version = getLatestVersion(JSON.parse(res).value, name);
     }
     logger.info(`Searching for ${name}@${version}`);
 
-    // eslint-disable-next-line max-len
+
     url = `https://pkgs.dev.azure.com/${opts.organization as string}/${opts.project as string}/_apis/packaging/feeds/${opts.feed as string}/maven/${opts.artifactGroupId as string}/${name}/${version}/${name}-${version}.jar/content?api-version=6.0-preview.1`;
 
     logger.info(`Call to ${url}`);

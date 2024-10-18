@@ -1,5 +1,5 @@
-export * from './renovate/index';
+export * from './gitignore-update';
 export * from './linter';
 export * from './npm-workspace';
 export * from './npm-workspace';
-export * from './gitignore-update';
+export * from './renovate/index';
