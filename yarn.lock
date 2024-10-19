@@ -3786,9 +3786,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@design-factory/design-factory@npm:~18.0.3":
-  version: 18.0.5
-  resolution: "@design-factory/design-factory@npm:18.0.5"
+"@design-factory/design-factory@npm:~18.1.0":
+  version: 18.1.1
+  resolution: "@design-factory/design-factory@npm:18.1.1"
   dependencies:
     tslib: "npm:^2.0.0"
   peerDependencies:
@@ -3812,7 +3812,7 @@ __metadata:
       optional: true
     "@ng-bootstrap/ng-bootstrap":
       optional: true
-  checksum: 10/b26deaa6b5e0360efa66ad194024feee81fc837f04fbe1b2e7bbef3abe0b166640c0095251a085fd61a19c021e9b2d2b16372321f17adff8892d37b281440c8f
+  checksum: 10/242b16046eb6e811a3582a4177c336cfed35a2f4f09f3b5dc26b779d65bda7bde1d30265479d4913219af31920fa6c4232886a0ce72ae1e99dd1b188f226e483
   languageName: node
   linkType: hard
 
@@ -7378,7 +7378,7 @@ __metadata:
     "@angular/platform-browser": "npm:~18.2.0"
     "@angular/platform-browser-dynamic": "npm:~18.2.0"
     "@angular/router": "npm:~18.2.0"
-    "@design-factory/design-factory": "npm:~18.0.3"
+    "@design-factory/design-factory": "npm:~18.1.0"
     "@ng-bootstrap/ng-bootstrap": "npm:^17.0.0"
     "@ng-select/ng-select": "npm:~13.9.0"
     "@ngrx/entity": "npm:~18.0.0"
@@ -8490,7 +8490,7 @@ __metadata:
     "@commitlint/cli": "npm:^19.0.0"
     "@commitlint/config-conventional": "npm:^19.0.0"
     "@compodoc/compodoc": "npm:^1.1.19"
-    "@design-factory/design-factory": "npm:~18.0.3"
+    "@design-factory/design-factory": "npm:~18.1.0"
     "@ng-bootstrap/ng-bootstrap": "npm:^17.0.0"
     "@ng-select/ng-select": "npm:~13.9.0"
     "@ngrx/effects": "npm:~18.0.0"
@@ -9340,7 +9340,7 @@ __metadata:
     "@angular/platform-browser": "npm:~18.2.0"
     "@angular/platform-browser-dynamic": "npm:~18.2.0"
     "@angular/router": "npm:~18.2.0"
-    "@design-factory/design-factory": "npm:~18.0.3"
+    "@design-factory/design-factory": "npm:~18.1.0"
     "@formatjs/intl-numberformat": "npm:~8.12.0"
     "@ng-bootstrap/ng-bootstrap": "npm:^17.0.0"
     "@ng-select/ng-select": "npm:~13.9.0"
