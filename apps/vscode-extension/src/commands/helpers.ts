@@ -72,7 +72,7 @@ export const getPackageScriptRunner = async (): Promise<string> => {
 };
 
 const toSnakeCase = (str: string) => str
-  .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
+  .match(/[A-Z]{2,}(?=[A-Z][a-z]+\d*|\b)|[A-Z]?[a-z]+\d*|[A-Z]|\d+/g)
   ?.map((x) => x.toLowerCase())
   .join('-') || '';
 

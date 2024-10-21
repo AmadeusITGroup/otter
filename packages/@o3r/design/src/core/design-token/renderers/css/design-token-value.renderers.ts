@@ -65,7 +65,7 @@ export const getCssTokenValueRenderer = (options?: CssTokenValueRendererOptions)
   };
 
   const defaultUnregisteredReferenceRenderer = (variableName: string, _variableSet: Map<string, DesignTokenVariableStructure>): string => {
-    const cssVarName = `var(--${variableName.replace(/[. ]+/g, '-')})`;
+    const cssVarName = `var(--${variableName.replace(/[\s.]+/g, '-')})`;
     options?.logger?.debug?.(`Variable "${variableName}" not registered, will be renderer as "${cssVarName}"`);
     return cssVarName;
   };
@@ -76,7 +76,7 @@ export const getCssTokenValueRenderer = (options?: CssTokenValueRendererOptions)
   const renderer = (variable: DesignTokenVariableStructure, variableSet: Map<string, DesignTokenVariableStructure>, enforceReferenceRendering = false) => {
     let variableValue = enforceReferenceRendering
       ? referenceRenderer(variable, variableSet)
-      : variable.getCssRawValue(variableSet).replaceAll(/\{([^}]*)\}/g, (_defaultValue, matcher: string) =>
+      : variable.getCssRawValue(variableSet).replaceAll(/{([^}]*)}/g, (_defaultValue, matcher: string) =>
         (variableSet.has(matcher) ? referenceRenderer(variableSet.get(matcher)!, variableSet) : unregisteredReferenceRenderer(matcher, variableSet))
       );
     variableValue += variableValue && variable.extensions.o3rImportant ? ' !important' : '';

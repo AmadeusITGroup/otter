@@ -274,7 +274,7 @@ export class BuildStatsPlugin implements WebpackPluginInstance {
     const actualLoader: string = loader.loader || loader;
     return actualLoader.replace(/\\/g, '/')
       .replace(
-        /^.*\/node_modules\/(@[a-z0-9][\w-.]+\/[a-z0-9][\w-.]*|[^\\/]+).*$/,
+        /^.*\/node_modules\/(@[\da-z][\w-.]+\/[\da-z][\w-.]*|[^/\\]+).*$/,
         (_, m) => m
       );
   }

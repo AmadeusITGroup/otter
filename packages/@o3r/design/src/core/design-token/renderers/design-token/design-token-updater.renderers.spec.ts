@@ -35,8 +35,8 @@ describe('getDesignTokenStyleContentUpdater', () => {
     expect(variable).toBeDefined();
     expect(result).toBeDefined();
     expect(() => JSON.parse(result)).not.toThrow();
-    expect(result.replace(/[\n\r ]*/g, '')).toContain(variables[0].replace(/^\{(.*)}$/, '$1').replace(/[\n\r ]*/g, ''));
-    expect(result.replace(/[\n\r ]*/g, '')).toContain(variables[1].replace(/^\{(.*)}$/, '$1').replace(/[\n\r ]*/g, ''));
+    expect(result.replace(/\s*/g, '')).toContain(variables[0].replace(/^{(.*)}$/, '$1').replace(/[\n\r ]*/g, ''));
+    expect(result.replace(/\s*/g, '')).toContain(variables[1].replace(/^{(.*)}$/, '$1').replace(/[\n\r ]*/g, ''));
   });
 
   test('should merge node', () => {

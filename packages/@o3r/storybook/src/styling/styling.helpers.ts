@@ -11,7 +11,7 @@ import {
 } from './style-configs.interface';
 
 /** RegExp to check if the value is a color*/
-const colorRegExp = /^(#[a-fA-F0-9]{3,8}|rgba?\([^)]+\))\s*;?$/;
+const colorRegExp = /^(#[\dA-Fa-f]{3,8}|rgba?\([^)]+\))\s*;?$/;
 
 /**
  * Inject CSS variable into the DOM

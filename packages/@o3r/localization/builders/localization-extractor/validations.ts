@@ -39,8 +39,8 @@ export function checkParentheses(str: string) {
  * @param str translation
  */
 export function checkOtherInPlural(str: string) {
-  if (/\{[^,]*, *plural *, *.*\}/.test(str)) {
-    return /\{.*other.*\}/.test(str);
+  if (/{[^,]*, *plural *, *.*}/.test(str)) {
+    return /{.*other.*}/.test(str);
   }
   return true;
 }

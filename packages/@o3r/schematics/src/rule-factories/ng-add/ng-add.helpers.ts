@@ -41,7 +41,7 @@ export function ngAddPackages(packages: string[], options?: Omit<NgAddPackageOpt
   if (packages.length === 0) {
     return noop;
   }
-  const cwd = process.cwd().replace(/[\\/]+/g, '/');
+  const cwd = process.cwd().replace(/[/\\]+/g, '/');
   // FileSystem working directory might be different from Tree working directory (when using `yarn workspace` for example)
   const fsWorkingDirectory = (options?.workingDirectory && !cwd.endsWith(options.workingDirectory)) ? options.workingDirectory : '.';
   const versions = Object.fromEntries(packages.map<[string, string | undefined]>((packageName, index) =>

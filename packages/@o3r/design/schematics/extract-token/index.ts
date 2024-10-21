@@ -50,7 +50,7 @@ function extractTokenFn(options: ExtractTokenSchematicsSchema): Rule {
       const { CssVariableExtractor } = await import('@o3r/styling/builders/style-extractor/helpers');
       const { filter } = await import('minimatch');
       const filterFunctions = options.componentFilePatterns.map((pattern) => filter(
-        '/' + pattern.replace(/[\\/]+/g, '/'),
+        '/' + pattern.replace(/[/\\]+/g, '/'),
         { dot: true }
       ));
       const sassParser = new CssVariableExtractor();
@@ -80,7 +80,7 @@ function extractTokenFn(options: ExtractTokenSchematicsSchema): Rule {
               targetNode = (targetNode as DesignTokenGroup)[name] as DesignTokenGroup | DesignToken;
             });
 
-            const valueWithVariable = [...variable.defaultValue.matchAll(/var\(--([^,)]+),?[^)]*\)/g)]
+            const valueWithVariable = [...variable.defaultValue.matchAll(/var\(--([^),]+),?[^)]*\)/g)]
               .reduce((acc, [variableString, variableName]) => {
                 return acc.replaceAll(variableString, `{${variableName.replaceAll('-', '.')}}`);
               }, variable.defaultValue);

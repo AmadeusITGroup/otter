@@ -133,7 +133,7 @@ export class ConfigurationDevtoolsConsoleService implements DevtoolsServiceInter
     const content = await this.configurationDevtools.getConfiguration();
 
     console.log('BOOKMARK');
-    console.log(`javascript:window._OTTER_DEVTOOLS_.updateConfigurations('${JSON.stringify(content).replace(/[']/g, '\\\'')}')`);
+    console.log(`javascript:window._OTTER_DEVTOOLS_.updateConfigurations('${JSON.stringify(content).replace(/'/g, '\\\'')}')`);
   }
 
   /**

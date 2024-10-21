@@ -34,7 +34,7 @@ const messageTagMaps = {
     /^(bug)?fix(es)?\b/
   ],
   'breaking change': [
-    /\bbreaking([\- ]changes?)?\b/
+    /\bbreaking([ \-]changes?)?\b/
   ],
   documentation: [
     /\bdoc(s|umentation)?\b/,

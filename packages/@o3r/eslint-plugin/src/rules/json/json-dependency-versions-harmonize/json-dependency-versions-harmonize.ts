@@ -108,7 +108,7 @@ export default createRule<[Options, ...any], 'versionUpdate' | 'error'>({
     const workspace = findWorkspacePackageJsons(dirname);
     const dependencyTypesWithInterest = [...options.dependencyTypes!, ...(options.alignEngines ? [enginesField] : [])];
     const bestRanges = workspace && getBestRanges(dependencyTypesWithInterest, workspace.packages.filter(({ content }) => !content.name || !options.ignoredPackages!.includes(content.name)));
-    const ignoredDependencies = options.ignoredDependencies!.map((dep) => new RegExp(dep.replace(/[.+?^${}()|[\]\\]/g, '\\$&').replace(/\*/g, '.*')));
+    const ignoredDependencies = options.ignoredDependencies!.map((dep) => new RegExp(dep.replace(/[$()+.?[\\\]^{|}]/g, '\\$&').replace(/\*/g, '.*')));
     const dependencyTypes = [...dependencyTypesWithInterest, ...(options.alignResolutions ? resolutionsFields : [])];
 
     if (parserServices.isJSON) {

@@ -83,8 +83,8 @@ void (async () => {
               return [
                 ...acc,
                 ...[
-                  ...content.matchAll(/^import .* from ['"]([^.].*)['"];?/mg),
-                  ...content.matchAll(/ ?= ?require\(['"]([^.].*)['"]\);?$/mg)
+                  ...content.matchAll(/^import .* from ["']([^.].*)["'];?/gm),
+                  ...content.matchAll(/ ?= ?require\(["']([^.].*)["']\);?$/gm)
                 ].map(([, dep]) => dep)
               ];
             }, []);
@@ -95,7 +95,7 @@ void (async () => {
             .reduce<string[]>((acc, content) => {
               return [
                 ...acc,
-                ...[...content.matchAll(/^@import ['"]~?([^.].*)['"];?$/mg)]
+                ...[...content.matchAll(/^@import ["']~?([^.].*)["'];?$/gm)]
                   .map(([, dep]) => dep)
                   .filter((dep) => !dep.startsWith('http'))
               ];

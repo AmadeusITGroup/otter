@@ -73,8 +73,8 @@ describe('aggregate migration scripts', () => {
     const builderConfig = {
       builder: '@o3r/extractors:aggregate-migration-scripts',
       options: {
-        migrationDataPath: relative(workspacePath, `${migrationDataSrcPath}/migration-*.json`).replace(/[\\/]/g, '/'),
-        outputDirectory: relative(workspacePath, migrationDataDestPath).replace(/[\\/]/g, '/')
+        migrationDataPath: relative(workspacePath, `${migrationDataSrcPath}/migration-*.json`).replace(/[/\\]/g, '/'),
+        outputDirectory: relative(workspacePath, migrationDataDestPath).replace(/[/\\]/g, '/')
       }
     };
     angularJson.projects[appName].architect['aggregate-migration-scripts'] = builderConfig;

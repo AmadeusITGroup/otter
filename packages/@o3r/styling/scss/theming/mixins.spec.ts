@@ -17,7 +17,7 @@ describe('Theming mixins', () => {
           @include o3r.var('--test-color-2', #fff, (description: 'test description'));
         }`;
       const result = compileString(mock, { url });
-      expect(result.css.replaceAll(/[\n\r\s]/g, '')).toEqual(':root{--test-color-1:#000;--test-color-2:#fff;}');
+      expect(result.css.replaceAll(/\s+/g, '')).toEqual(':root{--test-color-1:#000;--test-color-2:#fff;}');
     });
 
     it('should override previous metadata', () => {
@@ -27,7 +27,7 @@ describe('Theming mixins', () => {
           @include o3r.var('test-color-1', #fff, (description: 'new description'));
         }`;
       const result = compileString(mock, { url });
-      expect(result.css.replaceAll(/[\n\r\s]/g, '')).toEqual(':root{--test-color-1:#000;--test-color-1:#fff;}');
+      expect(result.css.replaceAll(/\s+/g, '')).toEqual(':root{--test-color-1:#000;--test-color-1:#fff;}');
     });
 
     it('should not generate null variable', () => {
@@ -37,7 +37,7 @@ describe('Theming mixins', () => {
           @include o3r.var('test-color-1', null, (description: 'new description'));
         }`;
       const result = compileString(mock, { url });
-      expect(result.css.replaceAll(/[\n\r\s]/g, '')).toEqual(':root{--test-color-1:#000;}');
+      expect(result.css.replaceAll(/\s+/g, '')).toEqual(':root{--test-color-1:#000;}');
     });
   });
 });

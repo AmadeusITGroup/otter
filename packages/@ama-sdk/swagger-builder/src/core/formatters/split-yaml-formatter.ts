@@ -171,7 +171,7 @@ export class SplitYamlFormatter implements Formatter {
    */
   private generateJsonFile(products: string[]) {
     return this.writeFileJson(this.filePath, {
-      $schema: path.relative(this.cwd, path.resolve(__dirname, '..', '..', 'schemas', 'api-configuration.schema.json')).replace(/[\\/]/g, '/'),
+      $schema: path.relative(this.cwd, path.resolve(__dirname, '..', '..', 'schemas', 'api-configuration.schema.json')).replace(/[/\\]/g, '/'),
       swaggerTemplate: `./${path.basename(this.filePath, '.json')}.yaml`,
       products: products.map((product) => `${product} API`)
     });

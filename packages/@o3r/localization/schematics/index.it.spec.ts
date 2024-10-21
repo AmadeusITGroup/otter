@@ -30,8 +30,8 @@ describe('ng add otter localization', () => {
     const diff = getGitDiff(workspacePath);
     expect(diff.modified.length).toBe(9);
     expect(diff.added.length).toBe(16);
-    expect(diff.added).toContain(path.join(relativeApplicationPath, 'src/components/test-component/test-component.localization.json').replace(/[\\/]+/g, '/'));
-    expect(diff.added).toContain(path.join(relativeApplicationPath, 'src/components/test-component/test-component.translation.ts').replace(/[\\/]+/g, '/'));
+    expect(diff.added).toContain(path.join(relativeApplicationPath, 'src/components/test-component/test-component.localization.json').replace(/[/\\]+/g, '/'));
+    expect(diff.added).toContain(path.join(relativeApplicationPath, 'src/components/test-component/test-component.translation.ts').replace(/[/\\]+/g, '/'));
 
     [libraryPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
       expect(diff.all.some((file) => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
@@ -53,8 +53,8 @@ describe('ng add otter localization', () => {
 
     const diff = getGitDiff(workspacePath);
     const modifiedFiles = [
-      path.join(relativeLibraryPath, '.gitignore').replace(/[\\/]+/g, '/'),
-      path.join(relativeLibraryPath, 'package.json').replace(/[\\/]+/g, '/'),
+      path.join(relativeLibraryPath, '.gitignore').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'package.json').replace(/[/\\]+/g, '/'),
       '.gitignore',
       'angular.json',
       'package.json',
@@ -65,8 +65,8 @@ describe('ng add otter localization', () => {
     });
     expect(diff.modified.length).toBe(modifiedFiles.length);
     const addedFiles = [
-      path.join(relativeLibraryPath, 'src/components/test-component/test-component.localization.json').replace(/[\\/]+/g, '/'),
-      path.join(relativeLibraryPath, 'src/components/test-component/test-component.translation.ts').replace(/[\\/]+/g, '/')
+      path.join(relativeLibraryPath, 'src/components/test-component/test-component.localization.json').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test-component/test-component.translation.ts').replace(/[/\\]+/g, '/')
     ];
     addedFiles.forEach((addedFile) => {
       expect(diff.added).toContain(addedFile);

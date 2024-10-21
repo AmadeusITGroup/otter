@@ -42,7 +42,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       );
       const dapiSdkCodeImports = sourceFile.statements.filter((node): node is ts.ImportDeclaration =>
         ts.isImportDeclaration(node)
-        && !!/['"]@dapi\/sdk-core['"]/.test(node.moduleSpecifier.getText())
+        && !!/["']@dapi\/sdk-core["']/.test(node.moduleSpecifier.getText())
       );
       if (dapiSdkCodeImports.length > 0) {
         const recorder = tree.beginUpdate(file);

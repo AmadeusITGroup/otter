@@ -109,7 +109,7 @@ export const designTokenCompletionItemAndHoverProviders = (cache: Map<string, De
         const key = token.getKey();
         const value = renderer(token, tokens, true);
         const documentation = getTokenDetail(token, tokens);
-        if (/var\([^,)]*$/.test(lineUntilPosition)) {
+        if (/var\([^),]*$/.test(lineUntilPosition)) {
           const variableItem = new CompletionItem({ label: `--${key}` }, CompletionItemKind.Variable);
           variableItem.insertText = value.replace(/^var\((.*)\)$/, '$1');
           variableItem.documentation = documentation;

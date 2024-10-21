@@ -28,7 +28,7 @@ export function adjustPath(frameworkName: 'playwright' | 'protractor', customTra
       return Reflect.apply(originalRequire, this, [newId]);
     } catch {
       const paths = ([] as string[])
-        .concat(this.paths, this.paths.map((i) => i.replace(/[\\/]node_modules$/, '')));
+        .concat(this.paths, this.paths.map((i) => i.replace(/[/\\]node_modules$/, '')));
 
       const filePath = require.resolve(newId, { paths });
       if (!modulesCache[filePath]) {

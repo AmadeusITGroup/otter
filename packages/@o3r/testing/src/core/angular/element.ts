@@ -37,7 +37,7 @@ export class O3rElement implements ElementProfile {
   /** @inheritdoc */
   public getPlainText() {
     const innerText = this.text;
-    return Promise.resolve(innerText ? innerText.replace(/(?:\r\n|\r|\n)/g, ' ').replace(/\s\s+/g, ' ').trim() : undefined);
+    return Promise.resolve(innerText ? innerText.replace(/\r\n|\r|\n/g, ' ').replace(/\s\s+/g, ' ').trim() : undefined);
   }
 
   /** @inheritdoc */

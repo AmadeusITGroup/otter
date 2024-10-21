@@ -132,7 +132,7 @@ const aggregateLibrariesChangesIntoMigrationFiles = async (migrationFiles: Migra
           const previousLibVersion = librariesVersions[lib][libIndex - 1].libVersion;
           if (previousLibVersion !== newLibVersion) {
             const libRange = new semver.Range(`>${previousLibVersion} <=${newLibVersion}`);
-            const libPath = dirname(resolver(`${lib}/package.json`)).replace(/[\\/]/g, '/');
+            const libPath = dirname(resolver(`${lib}/package.json`)).replace(/[/\\]/g, '/');
             if (!fs.existsSync(libPath)) {
               throw new Error(`Library ${lib} not found at ${libPath}`);
             }

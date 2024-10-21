@@ -12,7 +12,7 @@ import {
   SassImportExposedElement
 } from './list-of-vars';
 
-const imports = new RegExp(/^@import\s+['"]~?@(o3r|otter)\/styling.*\s*/, 'gm');
+const imports = new RegExp(/^@import\s+["']~?@(o3r|otter)\/styling.*\s*/, 'gm');
 
 /**
  * Update SASS imports to use a scoped dependency

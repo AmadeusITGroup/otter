@@ -20,9 +20,9 @@ function base64EncodeUnicode(str: string) {
   // encodeURI escape all non-ASCII characters but we don't want to escape latin non-ascii characters
   // (charCode between 128 and 255).
   return window.btoa(encodeURI(str)
-    .replace(/%C2%([89AB][0-9A-F])/g, (_match, p1: string) => String.fromCharCode(Number.parseInt('0x' + p1, 16)))
-    .replace(/%C3%([89AB][0-9A-F])/g, (_match, p1: string) => String.fromCharCode(Number.parseInt('0xc0', 16) + Number.parseInt('0x' + p1, 16) - Number.parseInt('0x80', 16)))
-    .replace(/%([0-9A-F]{2})/g, (_match, p1: string) => String.fromCharCode(Number.parseInt('0x' + p1, 16))));
+    .replace(/%C2%([89AB][\dA-F])/g, (_match, p1: string) => String.fromCharCode(Number.parseInt('0x' + p1, 16)))
+    .replace(/%C3%([89AB][\dA-F])/g, (_match, p1: string) => String.fromCharCode(Number.parseInt('0xc0', 16) + Number.parseInt('0x' + p1, 16) - Number.parseInt('0x80', 16)))
+    .replace(/%([\dA-F]{2})/g, (_match, p1: string) => String.fromCharCode(Number.parseInt('0x' + p1, 16))));
 }
 
 /**

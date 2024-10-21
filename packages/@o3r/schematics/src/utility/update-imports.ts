@@ -54,7 +54,7 @@ export function updateImportsInFile(
   // First we look for all imports lines targeting an Otter package for which we know a mapping
   findNodes(sourceFile, ts.SyntaxKind.ImportDeclaration).map((nodeImp) => {
     const imp = nodeImp as ts.ImportDeclaration;
-    const importFrom = imp.moduleSpecifier.getText().replace(/['"]/g, '');
+    const importFrom = imp.moduleSpecifier.getText().replace(/["']/g, '');
 
     const renamePackageMatch = importFrom.match(renamePackagesRegexp);
 
@@ -108,7 +108,7 @@ export function updateImportsInFile(
   }, {} as Record<string, string[]>);
 
   let fileContent = tree.readText(sourceFile.fileName);
-  const escapeRegExp = (str: string) => str.replace(/[-[\]/{}()*+?.\\^$|]/g, '\\$&');
+  const escapeRegExp = (str: string) => str.replace(/[$()*+./?[\\\]^{|}-]/g, '\\$&');
 
   // Remove captured imports
   fileContent = fileContent.replace(new RegExp(`(${importNodes.map((node) => escapeRegExp(node.getText())).join('|')})[\\n\\r]*`, 'g'), '');

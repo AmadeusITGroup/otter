@@ -48,7 +48,7 @@ describe('ng add testing', () => {
     await addImportToAppModule(applicationPath, 'TestComponentContModule', 'src/components/test-component');
 
     const diff = getGitDiff(execAppOptions.cwd);
-    expect(diff.added).toContain(path.join(relativeApplicationPath, 'src/components/test-component/container/test-component-cont.fixture.ts').replace(/[\\/]+/g, '/'));
+    expect(diff.added).toContain(path.join(relativeApplicationPath, 'src/components/test-component/container/test-component-cont.fixture.ts').replace(/[/\\]+/g, '/'));
 
     [libraryPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
       expect(diff.all.some((file) => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
@@ -91,7 +91,7 @@ describe('ng add testing', () => {
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/testing:add-fixture', '--path', componentPath] }, execAppOptions);
 
     const diff = getGitDiff(execAppOptions.cwd);
-    expect(diff.added).toContain(path.join(relativeLibraryPath, 'src/components/test-component/container/test-component-cont.fixture.ts').replace(/[\\/]+/g, '/'));
+    expect(diff.added).toContain(path.join(relativeLibraryPath, 'src/components/test-component/container/test-component-cont.fixture.ts').replace(/[/\\]+/g, '/'));
     expect(diff.added.length).toBe(18);
     expect(diff.modified.length).toBe(6);
 

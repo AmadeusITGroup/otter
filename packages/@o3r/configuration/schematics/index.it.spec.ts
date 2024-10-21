@@ -38,8 +38,8 @@ describe('new otter application with configuration', () => {
     expect(diff.added.length).toEqual(20);
     expect(diff.modified.length).toEqual(6);
     expect(diff.modified).toContain('package.json');
-    expect(diff.added).toContain(path.posix.join(relativeApplicationPath, 'src/components/test-component/test-component.config.ts').replace(/[\\/]+/g, '/'));
-    expect(diff.added).toContain(path.posix.join(relativeApplicationPath, 'src/components/test-signal/test-signal.config.ts').replace(/[\\/]+/g, '/'));
+    expect(diff.added).toContain(path.posix.join(relativeApplicationPath, 'src/components/test-component/test-component.config.ts').replace(/[/\\]+/g, '/'));
+    expect(diff.added).toContain(path.posix.join(relativeApplicationPath, 'src/components/test-signal/test-signal.config.ts').replace(/[/\\]+/g, '/'));
 
     [libraryPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
       expect(diff.all.some((file) => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
@@ -68,8 +68,8 @@ describe('new otter application with configuration', () => {
     expect(diff.added.length).toEqual(20);
     expect(diff.modified.length).toEqual(7);
     expect(diff.modified).toContain('package.json');
-    expect(diff.added).toContain(path.posix.join(relativeLibraryPath, 'src/components/test-component/test-component.config.ts').replace(/[\\/]+/g, '/'));
-    expect(diff.added).toContain(path.posix.join(relativeLibraryPath, 'src/components/test-signal/test-signal.config.ts').replace(/[\\/]+/g, '/'));
+    expect(diff.added).toContain(path.posix.join(relativeLibraryPath, 'src/components/test-component/test-component.config.ts').replace(/[/\\]+/g, '/'));
+    expect(diff.added).toContain(path.posix.join(relativeLibraryPath, 'src/components/test-signal/test-signal.config.ts').replace(/[/\\]+/g, '/'));
 
     [applicationPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
       expect(diff.all.some((file) => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);

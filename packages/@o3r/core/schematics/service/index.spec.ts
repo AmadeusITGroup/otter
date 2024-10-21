@@ -29,7 +29,7 @@ describe('Service generator', () => {
     }, initialTree);
 
     expect(tree.files.filter((file) => /test-service/.test(file)).length).toEqual(9);
-    expect(tree.files.some((file) => /^[\\/]?test-service[\\/]test-base[\\/]test-service\.test-base\.module\.ts$/i.test(file))).toBeTruthy();
+    expect(tree.files.some((file) => /^[/\\]?test-service[/\\]test-base[/\\]test-service\.test-base\.module\.ts$/i.test(file))).toBeTruthy();
   });
 
   it('should generate service in default folder', async () => {
@@ -42,7 +42,7 @@ describe('Service generator', () => {
     }, initialTree);
 
     expect(tree.files.filter((file) => /test-service/.test(file)).length).toEqual(9);
-    expect(tree.files.some((file) => /^[\\/]?src[\\/]services[\\/]test-service[\\/]test-base[\\/]test-service\.test-base\.module\.ts$/i.test(file))).toBeTruthy();
+    expect(tree.files.some((file) => /^[/\\]?src[/\\]services[/\\]test-service[/\\]test-base[/\\]test-service\.test-base\.module\.ts$/i.test(file))).toBeTruthy();
   });
 
   // TODO enable when https://github.com/jestjs/jest/issues/9543 fixed
@@ -57,6 +57,6 @@ describe('Service generator', () => {
     }, initialTree);
 
     expect(tree.files.filter((file) => /test-service/.test(file)).length).toEqual(12);
-    expect(tree.files.some((file) => /^[\\/]?src[\\/]services[\\/]test-service[\\/]test-base[\\/]test-service\.test-base\.module\.ts$/i.test(file))).toBeTruthy();
+    expect(tree.files.some((file) => /^[/\\]?src[/\\]services[/\\]test-service[/\\]test-base[/\\]test-service\.test-base\.module\.ts$/i.test(file))).toBeTruthy();
   });
 });

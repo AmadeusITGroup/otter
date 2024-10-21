@@ -82,7 +82,7 @@ export function updateCustomizationEnvironment(rootPath: string, o3rCoreVersion?
       return tree;
     }
 
-    const fileContent = tree.readText(fileInfo.moduleFilePath).replace(/[\r\n ]*/g, '');
+    const fileContent = tree.readText(fileInfo.moduleFilePath).replace(/\s*/g, '');
     const recorder = tree.beginUpdate(fileInfo.moduleFilePath);
     const moduleIndex = fileInfo.moduleIndex;
 

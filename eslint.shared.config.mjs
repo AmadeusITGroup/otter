@@ -123,7 +123,6 @@ export default [
     files: ['**/*'],
     rules: {
       '@stylistic/comma-dangle': 'off',
-      'unicorn/better-regex': 'off',
       '@stylistic/quote-props': 'off'
     }
   }

@@ -25,8 +25,8 @@ describe('getCssStyleContentUpdater', () => {
     const result = renderer(variables, '/');
 
     expect(result).toBeDefined();
-    expect(result.replace(/[\r\n]*/g, '').indexOf(':root {' + startTag)).toEqual(0);
-    expect(result.replace(/[\r\n]*/g, '').indexOf(endTag) + (endTag + '}').length).toBe(result.replace(/[\r\n]*/g, '').length);
+    expect(result.replace(/[\n\r]*/g, '').indexOf(':root {' + startTag)).toEqual(0);
+    expect(result.replace(/[\n\r]*/g, '').indexOf(endTag) + (endTag + '}').length).toBe(result.replace(/[\n\r]*/g, '').length);
   });
 
   test('should only update within tag part', () => {

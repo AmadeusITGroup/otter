@@ -7,7 +7,7 @@ import {
   isExtendingConfiguration
 } from '../../utils';
 
-const separatorRegExp = /\s*[|&]\s*/;
+const separatorRegExp = /\s*[&|]\s*/;
 
 export interface NoMultipleTypeConfigurationPropertyOption {
   supportedInterfaceNames?: string[];

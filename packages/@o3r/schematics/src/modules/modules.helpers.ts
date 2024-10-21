@@ -6,13 +6,15 @@ import type {
   IncomingMessage
 } from 'node:http';
 import {
-get
-} from 'node:https'
+  get
+} from 'node:https';
 import {
-EOL
-} from 'node:os'
+  EOL
+} from 'node:os';
 import * as path from 'node:path';
-import { promisify } from 'node:util';
+import {
+  promisify
+} from 'node:util';
 import type {
   logging
 } from '@angular-devkit/core';

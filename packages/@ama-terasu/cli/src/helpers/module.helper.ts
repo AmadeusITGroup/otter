@@ -148,7 +148,7 @@ export const getInstalledInformation = async (dep: MinimalPackageInformation & {
  * @param pck package to get name from
  */
 export const getSimplifiedName = (pck: MinimalPackageInformation & { name: string }) => {
-  return /(?:@[^/]+[/])?(?:amaterasu-)?(.*)/.exec(pck.name)?.[1] || pck.name;
+  return /(?:@[^/]+\/)?(?:amaterasu-)?(.*)/.exec(pck.name)?.[1] || pck.name;
 };
 
 /**

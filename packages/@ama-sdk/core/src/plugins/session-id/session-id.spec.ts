@@ -60,7 +60,7 @@ describe('Session ID Request Plugin', () => {
 
     await runner.transform(options);
 
-    expect(sessionId).toMatch(/[a-zA-Z0-9-]{10,48}/);
+    expect(sessionId).toMatch(/[\dA-Za-z-]{10,48}/);
     expect(options.headers.get('Ama-Client-Ref')).toMatch(new RegExp(sessionId + ':[0-9a-zA-Z]{1,10}'));
   });
 
@@ -71,7 +71,7 @@ describe('Session ID Request Plugin', () => {
 
     await runner.transform(options);
 
-    expect(sessionId).toMatch(/[a-zA-Z0-9-]{10,48}/);
+    expect(sessionId).toMatch(/[\dA-Za-z-]{10,48}/);
     expect(options.headers.get(TEST_KEY)).toEqual(sessionId);
   });
 });

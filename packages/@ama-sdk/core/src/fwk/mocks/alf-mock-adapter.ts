@@ -25,7 +25,7 @@ const correlationIdRegex = new RegExp(/CorrID=([^,]*),/);
 /**
  * a request is logged with its HTTP method and the path targetted on a new line, ex: "GET /1ASIUAIRFAC/v2/shopping..."
  */
-const requestRegex = new RegExp(/^(POST|GET|PATCH|DELETE) \/([^\s]*)/m);
+const requestRegex = new RegExp(/^(POST|GET|PATCH|DELETE) \/(\S*)/m);
 
 /**
  * a request is logged with its HTTP version and the HTTP status on a new line, ex: "HTTP/1.1 200 OK"

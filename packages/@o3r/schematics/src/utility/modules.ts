@@ -45,7 +45,7 @@ export function getAppModuleFilePath(tree: Tree, context: SchematicContext, proj
   const mainFilePath: string = workspaceProject.architect!.build.options.main ?? workspaceProject.architect!.build.options.browser;
   const mainFile = tree.read(mainFilePath)!.toString();
 
-  const bootstrapModuleRegexpResult = mainFile.match(/(?:bootstrapModule|bootstrapApplication)\((?:[^,)]*,)*\s*([^,) ]*)\s*\)/m);
+  const bootstrapModuleRegexpResult = mainFile.match(/(?:bootstrapModule|bootstrapApplication)\((?:[^),]*,)*\s*([^ ),]*)\s*\)/m);
   if (!bootstrapModuleRegexpResult || !bootstrapModuleRegexpResult[1]) {
     throw new SchematicsException('Could not find bootstrap module or appConfig');
   }
@@ -83,7 +83,7 @@ export function getAppModuleFilePath(tree: Tree, context: SchematicContext, proj
 
   if (bootstrapModuleSymbol) {
     const pathPlusModuleString = checker.getFullyQualifiedName(bootstrapModuleSymbol);
-    const filePath = pathPlusModuleString?.replace(new RegExp(`.${bootstrapModule}`), '').replace(/['"]/g, '');
+    const filePath = pathPlusModuleString?.replace(new RegExp(`.${bootstrapModule}`), '').replace(/["']/g, '');
     const relativeFilePath = filePath ? path.relative(path.dirname(mainFilePath), `${filePath}.ts`) : undefined;
     const filePathInTree = relativeFilePath ? path.join(path.dirname(mainFilePath), relativeFilePath) : undefined;
     if (filePathInTree && tree.exists(filePathInTree) && tree.read(filePathInTree)!.toString().match(exportAppModuleClassRegExp)) {
@@ -120,8 +120,8 @@ export function getMainFilePath(tree: Tree, context: SchematicContext, projectNa
  */
 export function isApplicationThatUsesRouterModule(tree: Tree, options: { projectName?: string | undefined }) {
   const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
-  const cwd = process.cwd().replace(/[\\/]+/g, '/');
-  const root = (workspaceProject?.root && cwd.endsWith(workspaceProject.root)) ? workspaceProject.root.replace(/[^\\/]+/g, '..') : '.';
+  const cwd = process.cwd().replace(/[/\\]+/g, '/');
+  const root = (workspaceProject?.root && cwd.endsWith(workspaceProject.root)) ? workspaceProject.root.replace(/[^/\\]+/g, '..') : '.';
   return workspaceProject?.sourceRoot
     && globbySync(path.posix.join(root, workspaceProject.sourceRoot, '**', '*.ts')).some((filePath) => {
       const fileContent = fs.readFileSync(filePath).toString();
@@ -224,7 +224,7 @@ export function addProviderToModuleFile(name: string, file: string, sourceFile: 
  * @param moduleIndex
  */
 export function insertBeforeModule(line: string, file: string, recorder: UpdateRecorder, moduleIndex: number) {
-  if (!file.includes(line.replace(/[\r\n ]*/g, ''))) {
+  if (!file.includes(line.replace(/\s*/g, ''))) {
     return recorder.insertLeft(moduleIndex - 1, `${line}\n\n`);
   }
   return recorder;
