@@ -1,6 +1,6 @@
 <% if (projectDescription) { %># <%=projectDescription%><% } %>
 
-### Based on OpenAPI spec 0.0.0
+### Based on SDK spec version 0.0.0 (using OpenAPI 0.0.0)
 
 The SDK contains 2 different parts:
 
