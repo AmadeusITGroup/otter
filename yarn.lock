@@ -29598,6 +29598,35 @@ __metadata:
   languageName: node
   linkType: hard
 
+"release-gh-action@workspace:tools/github-actions/release":
+  version: 0.0.0-use.local
+  resolution: "release-gh-action@workspace:tools/github-actions/release"
+  dependencies:
+    "@angular-eslint/eslint-plugin": "npm:~18.3.0"
+    "@nx/eslint-plugin": "npm:~19.5.0"
+    "@o3r/eslint-config-otter": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@types/minimist": "npm:^1.2.2"
+    "@types/node": "npm:^20.0.0"
+    "@types/semver": "npm:^7.3.13"
+    "@typescript-eslint/eslint-plugin": "npm:^7.14.1"
+    "@typescript-eslint/parser": "npm:^7.14.1"
+    "@typescript-eslint/utils": "npm:^7.14.1"
+    "@vercel/ncc": "npm:~0.38.0"
+    eslint: "npm:^8.57.0"
+    eslint-plugin-jest: "npm:~28.8.0"
+    eslint-plugin-jsdoc: "npm:~48.11.0"
+    eslint-plugin-prefer-arrow: "npm:~1.2.3"
+    eslint-plugin-unicorn: "npm:^54.0.0"
+    jsonc-eslint-parser: "npm:~2.4.0"
+    minimist: "npm:^1.2.6"
+    semver: "npm:^7.5.2"
+    tslib: "npm:^2.6.2"
+    typescript: "npm:~5.5.4"
+  languageName: unknown
+  linkType: soft
+
 "remove-trailing-separator@npm:^1.1.0":
   version: 1.1.0
   resolution: "remove-trailing-separator@npm:1.1.0"

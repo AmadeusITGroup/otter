@@ -7401,7 +7401,7 @@ function onceStrict (fn) {
 
 /***/ }),
 
-/***/ 2105:
+/***/ 9668:
 /***/ ((module) => {
 
 /******************************************************************************
@@ -7450,6 +7450,7 @@ var __classPrivateFieldIn;
 var __createBinding;
 var __addDisposableResource;
 var __disposeResources;
+var __rewriteRelativeImportExtension;
 (function (factory) {
     var root = typeof global === "object" ? global : typeof self === "object" ? self : typeof this === "object" ? this : {};
     if (typeof define === "function" && define.amd) {
@@ -7801,6 +7802,15 @@ var __disposeResources;
         return next();
     };
 
+    __rewriteRelativeImportExtension = function (path, preserveJsx) {
+        if (typeof path === "string" && /^\.\.?\//.test(path)) {
+            return path.replace(/\.(tsx)$|((?:\.d)?)((?:\.[^./]+?)?)\.([cm]?)ts$/i, function (m, tsx, d, ext, cm) {
+                return tsx ? preserveJsx ? ".jsx" : ".js" : d && (!ext || !cm) ? m : (d + ext + "." + cm.toLowerCase() + "js");
+            });
+        }
+        return path;
+    };
+
     exporter("__extends", __extends);
     exporter("__assign", __assign);
     exporter("__rest", __rest);
@@ -7832,7 +7842,10 @@ var __disposeResources;
     exporter("__classPrivateFieldIn", __classPrivateFieldIn);
     exporter("__addDisposableResource", __addDisposableResource);
     exporter("__disposeResources", __disposeResources);
+    exporter("__rewriteRelativeImportExtension", __rewriteRelativeImportExtension);
 });
+
+0 && (0);
 
 
 /***/ }),
@@ -30350,7 +30363,7 @@ function wrappy (fn, cb) {
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Cascading = void 0;
-const tslib_1 = __nccwpck_require__(2105);
+const tslib_1 = __nccwpck_require__(9668);
 const node_child_process_1 = __nccwpck_require__(1421);
 const node_util_1 = __nccwpck_require__(7975);
 const helpers_1 = __nccwpck_require__(4376);
@@ -32635,7 +32648,7 @@ var __webpack_exports__ = {};
 var exports = __webpack_exports__;
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-const tslib_1 = __nccwpck_require__(2105);
+const tslib_1 = __nccwpck_require__(9668);
 const core = tslib_1.__importStar(__nccwpck_require__(8016));
 const github_1 = __nccwpck_require__(7220);
 const github = tslib_1.__importStar(__nccwpck_require__(7220));
