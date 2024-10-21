@@ -26,7 +26,7 @@ export enum PaletteVariant {
  */
 export const DEFAULT_PALETTE_VARIANT: PaletteVariant = PaletteVariant.V500;
 
-/* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable @typescript-eslint/naming-convention -- palette variant name can start with number */
 const SATURATION_VALUES: Record<PaletteVariant, number> = {
   '50': 0.91,
   '100': 0.98,
@@ -109,11 +109,7 @@ export const getAccessibilityContrastScore = (color1: string, color2: string, te
   if (readability >= 7) {
     return 'AAA';
   } else if (readability >= 4.5) {
-    if (textSize === 'small') {
-      return 'AA';
-    } else {
-      return 'AAA';
-    }
+    return textSize === 'small' ? 'AA' : 'AAA';
   } else if (readability >= 3 && textSize === 'large') {
     return 'AA';
   }

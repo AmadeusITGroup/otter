@@ -1,9 +1,28 @@
-import { AsyncPipe, TitleCasePipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, type OnDestroy, ViewEncapsulation } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Subscription } from 'rxjs';
-import { ChromeExtensionConnectionService } from '../../services/connection.service';
-import { DebugPanelService } from './debug-panel.service';
+import {
+  AsyncPipe,
+  TitleCasePipe
+} from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  type OnDestroy,
+  ViewEncapsulation
+} from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule
+} from '@angular/forms';
+import {
+  Subscription
+} from 'rxjs';
+import {
+  ChromeExtensionConnectionService
+} from '../../services/connection.service';
+import {
+  DebugPanelService
+} from './debug-panel.service';
 
 type PlaceholderMode = 'normal' | 'debug' | 'pending';
 

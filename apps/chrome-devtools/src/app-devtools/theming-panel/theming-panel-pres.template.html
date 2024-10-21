@@ -28,22 +28,22 @@
           <h3 ngbAccordionHeader>
             <button ngbAccordionButton>
               @if (group.isPalette && group.defaultVariable) {
-                <div (click)="$event.stopPropagation();">
+                <!-- stopPropagation is needed because we are in the accordion header button and we don't want to trigger the accordion when the input is clicked -->
+                <div tabindex="-1" (click)="$event.stopPropagation();" (keyup.enter)="$event.stopPropagation();">
                   <input [style.width]="'40px'" class="form-control form-control-color" [id]="group.name" type="color" [value]="resolvedVariables()[group.defaultVariable.name] | hexColor" (change)="onPaletteChange(group, $event)" />
                 </div>
                 <label class="form-label text-nowrap fw-semibold my-0 ms-4" [for]="group.name">{{ group.name }}</label>
                 @if (themingActiveStateOverrides()[group.defaultVariable.name] || themingLocalStateOverrides()[group.defaultVariable.name]) {
-                  <i class="form-text text-warning fa-undo position-absolute end-0 me-10"
-                    [ngbTooltip]="
-                      activeStateName() && themingActiveStateOverrides()[group.defaultVariable.name] !== themingLocalStateOverrides()[group.defaultVariable.name]
-                      ? 'Reset all colors of ' + group.name + ' to the ones of ' + activeStateName()
-                      : 'Reset all colors of ' + group.name + ' to the default ones from metadata'
-                    "
-                    (click)="onPaletteReset(group, $event)">
-                  </i>
+                  @let text = activeStateName() && themingActiveStateOverrides()[group.defaultVariable.name] !== themingLocalStateOverrides()[group.defaultVariable.name]
+                    ? 'Reset all colors of ' + group.name + ' to the ones of ' + activeStateName()
+                    : 'Reset all colors of ' + group.name + ' to the default ones from metadata';
+                  <button class="btn btn-outline-primary df-btn-icononly df-btn-tertiary form-text text-warning fa-undo position-absolute end-0 me-10"
+                    [attr.aria-label]="text"
+                    [ngbTooltip]="text"
+                    (click)="onPaletteReset(group, $event)"></button>
                 }
               } @else {
-                <label class="form-label text-nowrap fw-semibold my-0">{{ group.name }}</label>
+                <label class="form-label text-nowrap fw-semibold my-0" [for]="group.name">{{ group.name }}</label>
               }
             </button>
           </h3>
@@ -97,14 +97,13 @@
                             </ng-template>
                             <input [id]="variable.name" type="text" class="form-control w-100 pe-6" [formControlName]="variable.name" [ngbTypeahead]="variableSearch | memoize : variable" [resultTemplate]="resultTemplate" />
                             @if (themingActiveStateOverrides()[variable.name] || themingLocalStateOverrides()[variable.name]) {
-                              <i class="form-text text-warning fa-undo position-absolute end-0 me-3"
-                                [ngbTooltip]="
-                                  activeStateName() && themingActiveStateOverrides()[variable.name] !== themingLocalStateOverrides()[variable.name]
-                                    ? 'Reset value to the one from ' + activeStateName() + ': ' + (themingActiveStateOverrides()[variable.name] || variable.defaultValue)
-                                    : 'Reset value to the default one from metadata: ' + variable.defaultValue
-                                "
-                                (click)="onColorReset(variable)">
-                              </i>
+                              @let text = activeStateName() && themingActiveStateOverrides()[variable.name] !== themingLocalStateOverrides()[variable.name]
+                              ? 'Reset value to the one from ' + activeStateName() + ': ' + (themingActiveStateOverrides()[variable.name] || variable.defaultValue)
+                              : 'Reset value to the default one from metadata: ' + variable.defaultValue;
+                              <button class="btn btn-outline-primary df-btn-icononly df-btn-tertiary form-text text-warning fa-undo position-absolute end-0 me-3"
+                                [attr.aria-label]="text"
+                                [ngbTooltip]="text"
+                                (click)="onColorReset(variable)"></button>
                             }
                           </div>
                           @if (variable.description) {

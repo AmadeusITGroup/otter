@@ -96,7 +96,7 @@
     "@angular-eslint/template-parser": "~18.3.0",
     "@angular/cli": "~18.2.0",
     "@angular/compiler-cli": "~18.2.0",
-    "@eslint-community/eslint-plugin-eslint-comments": "^3.2.0",
+    "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@nx/eslint-plugin": "~19.5.0",
     "@o3r/design": "workspace:^",
     "@o3r/eslint-config": "workspace:^",

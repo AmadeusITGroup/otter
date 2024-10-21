@@ -8,9 +8,14 @@
     "outDir": "dist",
     "module": "ES2020",
     "moduleResolution": "Node",
-    "tsBuildInfoFile": "build/extension.tsbuildinfo"
+    "tsBuildInfoFile": "build/extension.tsbuildinfo",
+    "composite": true
   },
   "include": [
-    "src/extension/**/*.ts"
+    "src/extension/**/*.ts",
+    "src/shared/**/*.ts",
+  ],
+  "exclude": [
+    "**/*.spec.ts"
   ]
 }

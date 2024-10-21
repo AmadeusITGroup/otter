@@ -1,22 +1,71 @@
-import { AsyncPipe, JsonPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, effect, inject } from '@angular/core';
-import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
-import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DfSelectModule, DfTooltipModule } from '@design-factory/design-factory';
-import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
-import { RulesetHistoryPresModule } from '@o3r/rules-engine';
-import { AppConnectionComponent } from '../components/app-connection/app-connection.component';
-import type { State } from '../extension/interface';
-import { StateService } from '../services';
-import { ChromeExtensionConnectionService, isApplicationInformationMessage } from '../services/connection.service';
-import { RulesetHistoryService } from '../services/ruleset-history.service';
-import { ComponentPanelPresComponent } from './component-panel/component-panel-pres.component';
-import { ConfigPanelPresComponent } from './config-panel/config-panel-pres.component';
-import { DebugPanelPresComponent } from './debug-panel/debug-panel-pres.component';
-import { DebugPanelService } from './debug-panel/debug-panel.service';
-import { LocalizationPanelPresComponent } from './localization-panel/localization-panel-pres.component';
-import { StatePanelComponent } from './state-panel/state-panel.component';
-import { ThemingPanelPresComponent } from './theming-panel/theming-panel-pres.component';
+import {
+  AsyncPipe,
+  JsonPipe
+} from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  effect,
+  inject
+} from '@angular/core';
+import {
+  takeUntilDestroyed,
+  toSignal
+} from '@angular/core/rxjs-interop';
+import {
+  FormBuilder,
+  FormControl,
+  FormsModule,
+  ReactiveFormsModule
+} from '@angular/forms';
+import {
+  DfSelectModule,
+  DfTooltipModule
+} from '@design-factory/design-factory';
+import {
+  NgbNavModule
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  RulesetHistoryPresModule
+} from '@o3r/rules-engine';
+import {
+  AppConnectionComponent
+} from '../components/app-connection/app-connection.component';
+import type {
+  State
+} from '../extension/interface';
+import {
+  StateService
+} from '../services';
+import {
+  ChromeExtensionConnectionService,
+  isApplicationInformationMessage
+} from '../services/connection.service';
+import {
+  RulesetHistoryService
+} from '../services/ruleset-history.service';
+import {
+  ComponentPanelPresComponent
+} from './component-panel/component-panel-pres.component';
+import {
+  ConfigPanelPresComponent
+} from './config-panel/config-panel-pres.component';
+import {
+  DebugPanelPresComponent
+} from './debug-panel/debug-panel-pres.component';
+import {
+  DebugPanelService
+} from './debug-panel/debug-panel.service';
+import {
+  LocalizationPanelPresComponent
+} from './localization-panel/localization-panel-pres.component';
+import {
+  StatePanelComponent
+} from './state-panel/state-panel.component';
+import {
+  ThemingPanelPresComponent
+} from './theming-panel/theming-panel-pres.component';
 
 @Component({
   selector: 'app-root',

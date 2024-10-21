@@ -1,4 +1,9 @@
-import type { applicationMessageTarget, ConnectContentMessage, OtterMessage } from '@o3r/core';
+/* eslint-disable no-console -- this file will be injected in the app and cannot have dependencies */
+import type {
+  applicationMessageTarget,
+  ConnectContentMessage,
+  OtterMessage
+} from '@o3r/core';
 /*
 This script is injected into the page by the Otter Devtools extension.
 It listens for messages from the application and sends them to the background service.
@@ -13,17 +18,20 @@ window.postMessage({
   }
 } as OtterMessage<ConnectContentMessage, typeof applicationMessageTarget>, '*');
 
+declare namespace globalThis {
+  let localMessageListener: ((this: Window, ev: MessageEvent<any>) => any) | undefined;
+}
+
 // Remove previous listener (if the script is reloaded by a previous extension instance)
-if ((globalThis as any).localMessageListener) {
-  window.removeEventListener('message', (globalThis as any).localMessageListener);
+if (globalThis.localMessageListener) {
+  window.removeEventListener('message', globalThis.localMessageListener);
 }
 
 /**
  * Listener for messages from the page
  * @param event
  */
-// eslint-disable-next-line prefer-arrow/prefer-arrow-functions
-(globalThis as any).localMessageListener = function (event: MessageEvent<any>) {
+function messageListener(event: MessageEvent<any>) {
   let message: any;
   try {
     message = typeof event.data === 'string' ? JSON.parse(event.data) : event.data;
@@ -36,10 +44,14 @@ if ((globalThis as any).localMessageListener) {
       void chrome.runtime.sendMessage(message);
     } catch (e) {
       console.warn('Chrome devtool could not send message', e);
-      window.removeEventListener('message', (globalThis as any).localMessageListener);
+      if (globalThis.localMessageListener) {
+        window.removeEventListener('message', globalThis.localMessageListener);
+      }
     }
   }
-};
+}
+
+globalThis.localMessageListener = messageListener;
 
 // Listen for messages from the application
-window.addEventListener('message', (globalThis as any).localMessageListener);
+window.addEventListener('message', globalThis.localMessageListener);

@@ -1,6 +1,8 @@
 @if (isComponentSelectionAvailable$ | async) {
   <div class="d-flex p-2 border-bottom align-items-center gap-2">
-    <i (click)="toggleInspector()" class="fa-external-link-square" [class.text-primary]="inspectorRunning"></i>
+    <button class="btn btn-outline-primary df-btn-icononly df-btn-tertiary fa-external-link-square"
+      [attr.aria-label]="inspectorRunning ? 'Stop inspecting' : 'Start inspection'"
+      (click)="toggleInspector()"></button>
     @if ((isLookingToContainer$ | async) || (selectedComponentInfo$ | async)?.container) {
       <button class="btn btn-primary" (click)="toggleContainerPresenter()">
         Switch to {{(isLookingToContainer$ | async) ? 'Presenter' : 'Container'}}

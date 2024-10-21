@@ -39,18 +39,23 @@
           <input type="color" formControlName="color" class="form-control form-control-color" />
           <input type="text" formControlName="name" class="form-control" />
         </div>
+        @let updateText = activeState()?.name !== state.key ? 'Only the selected state can be saved' : 'Save changes';
         <button type="button" class="ms-auto btn btn-outline-primary df-btn-icononly fa-save"
           (click)="updateState(state.key)"
-          [ngbTooltip]="activeState()?.name !== state.key ? 'Only the selected state can be saved' : 'Save changes'"
+          [ngbTooltip]="updateText"
+          [attr.aria-label]="updateText"
           [disabled]="activeState()?.name !== state.key"
         ></button>
         <button type="button" class="ms-auto btn btn-outline-primary df-btn-icononly fa-share-square"
           (click)="exportState(state.key)"
           ngbTooltip="Share"
+          aria-label="Share"
         ></button>
+        @let deleteText = activeState()?.name === state.key ? 'Selected state cannot be deleted' : 'Delete';
         <button type="button" class="ms-auto btn btn-outline-primary df-btn-icononly fa-trash-alt"
           (click)="deleteState(state.key)"
-          [ngbTooltip]="activeState()?.name === state.key ? 'Selected state cannot be deleted' : 'Delete'"
+          [ngbTooltip]="deleteText"
+          [attr.aria-label]="deleteText"
           [disabled]="activeState()?.name === state.key"
         ></button>
       </li>
