@@ -7432,7 +7432,7 @@ __metadata:
     "@popperjs/core": "npm:^2.11.5"
     "@schematics/angular": "npm:~18.2.0"
     "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
-    "@types/chrome": "npm:^0.0.277"
+    "@types/chrome": "npm:^0.0.278"
     "@types/color": "npm:^3.0.6"
     "@types/jest": "npm:~29.5.2"
     "@types/tinycolor2": "npm:^1.4.6"
@@ -7538,7 +7538,7 @@ __metadata:
     jest-preset-angular: "npm:~14.2.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     jsonpath-plus: "npm:~10.0.0"
-    memfs: "npm:~4.13.0"
+    memfs: "npm:~4.14.0"
     nx: "npm:~19.5.0"
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
@@ -7778,7 +7778,7 @@ __metadata:
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.2.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    memfs: "npm:~4.13.0"
+    memfs: "npm:~4.14.0"
     minimist: "npm:^1.2.6"
     nx: "npm:~19.5.0"
     pid-from-port: "npm:^1.1.3"
@@ -8750,7 +8750,7 @@ __metadata:
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.2.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    memfs: "npm:~4.13.0"
+    memfs: "npm:~4.14.0"
     nx: "npm:~19.5.0"
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
@@ -9196,7 +9196,7 @@ __metadata:
     jest-preset-angular: "npm:~14.2.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     jsonpath-plus: "npm:~10.0.0"
-    memfs: "npm:~4.13.0"
+    memfs: "npm:~4.14.0"
     nx: "npm:~19.5.0"
     pid-from-port: "npm:^1.1.3"
     rimraf: "npm:^5.0.1"
@@ -9743,7 +9743,7 @@ __metadata:
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.2.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    memfs: "npm:~4.13.0"
+    memfs: "npm:~4.14.0"
     nx: "npm:~19.5.0"
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
@@ -9903,7 +9903,7 @@ __metadata:
     jest-environment-node: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    memfs: "npm:~4.13.0"
+    memfs: "npm:~4.14.0"
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
@@ -9917,7 +9917,7 @@ __metadata:
     "@angular-devkit/schematics": ~18.2.0
     "@o3r/schematics": "workspace:^"
     jest-environment-node: ~29.7.0
-    memfs: ~4.13.0
+    memfs: ~4.14.0
     pid-from-port: ^1.1.3
     unionfs: ~4.5.1
   peerDependenciesMeta:
@@ -12825,13 +12825,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/chrome@npm:^0.0.277":
-  version: 0.0.277
-  resolution: "@types/chrome@npm:0.0.277"
+"@types/chrome@npm:^0.0.278":
+  version: 0.0.278
+  resolution: "@types/chrome@npm:0.0.278"
   dependencies:
     "@types/filesystem": "npm:*"
     "@types/har-format": "npm:*"
-  checksum: 10/20240bcea798b6f58703cd34b498802d69c446d01563f1ca8ba97f6227befa3939480be97e2a71e9aa99fbfcffd76bcd2fd14244ca0c0e49c1f22b793b09a5f7
+  checksum: 10/8fa2e68bd28b28f14599aee36ecd40f32f42fd68e4012145205930f4bf2d62f57b1b0b5af033e15d0fbdeadb211fd51c14f8ef3caf34176f8c5d127ac3fe8641
   languageName: node
   linkType: hard
 
@@ -25429,7 +25429,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"memfs@npm:^4.6.0":
+"memfs@npm:^4.6.0, memfs@npm:~4.14.0":
   version: 4.14.0
   resolution: "memfs@npm:4.14.0"
   dependencies:
@@ -25438,18 +25438,6 @@ __metadata:
     tree-dump: "npm:^1.0.1"
     tslib: "npm:^2.0.0"
   checksum: 10/d1a5a38fb8e97cbdff012e47d05c92852484f37a03e9c57b252fdc180c4ffe35ee7ec83acea3be8950e1f13f9152db4d5478124b43f9673f4653e741ba26d584
-  languageName: node
-  linkType: hard
-
-"memfs@npm:~4.13.0":
-  version: 4.13.0
-  resolution: "memfs@npm:4.13.0"
-  dependencies:
-    "@jsonjoy.com/json-pack": "npm:^1.0.3"
-    "@jsonjoy.com/util": "npm:^1.3.0"
-    tree-dump: "npm:^1.0.1"
-    tslib: "npm:^2.0.0"
-  checksum: 10/0278e6993e89909e896a481c85eb92fe647585bbb8cdc12d9cfab118e0936dee1556f87002611f2bcaabc9ba1808526546a52809788fde4ee359b54bed662e58
   languageName: node
   linkType: hard
 
