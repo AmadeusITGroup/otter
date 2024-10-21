@@ -1,9 +1,10 @@
 import type { DesignTokenVariableSet, DesignTokenVariableStructure } from '../parsers/design-token-parser.interface';
 import { getCssTokenDefinitionRenderer } from './css/design-token-definition.renderers';
 import { getCssStyleContentUpdater } from './css/design-token-updater.renderers';
-import { existsSync, promises as fs } from 'node:fs';
+import type { Logger } from '@o3r/core';
+import type { promises as fs } from 'node:fs';
 import { isAbsolute, resolve } from 'node:path';
-import type { DesignTokenRendererOptions, TokenListTransform } from './design-token.renderer.interface';
+import type { DesignTokenListTransform, DesignTokenRendererOptions } from './design-token.renderer.interface';
 
 /**
  * Retrieve the function that determines which file to update for a given token
@@ -28,16 +29,33 @@ export const compareVariableByName = (a: DesignTokenVariableStructure, b: Design
 
 /**
  * Sort Token variable by name using the local alphabetical order
- * @param _variableSet Complete set of the parsed Design Token
+ * @param _variables Complete set of the parsed Design Token
+ * @param options Parameters of the Design Token list transform function
  */
-export const getTokenSorterByName: TokenListTransform = (_variableSet) => (tokens) => tokens.sort((a, b) => a.getKey().localeCompare(b.getKey()));
+export const getTokenSorterByName: DesignTokenListTransform = (_variables, options) => {
+  const splitNameRegExp = /^(.*?)(\d+)$/;
+  return (tokens) => tokens.sort((a, b) => {
+    const keyA = a.getKey(options?.tokenVariableNameRenderer);
+    const keyB = b.getKey(options?.tokenVariableNameRenderer);
+    const splitA = splitNameRegExp.exec(keyA);
+    const splitB = splitNameRegExp.exec(keyB);
+    if (splitA && splitB) {
+      const [, nameA, gradeA] = splitA;
+      const [, nameB, gradeB] = splitB;
+      if (nameA === nameB) {
+        return +gradeA - +gradeB;
+      }
+    }
+    return keyA.localeCompare(keyB);
+  });
+};
 
 
 /**
  * Reorganize the Tokens to ensure that all the Tokens with references have they references definition before in the order
  * @param variableSet Complete set of the parsed Design Token
  */
-export const getTokenSorterByRef: TokenListTransform = (variableSet) => {
+export const getTokenSorterByRef: DesignTokenListTransform = (variableSet) => {
   /**
    * Get the maximum number of reference levels for a Design Token, following its references
    * @param token Design Token
@@ -81,6 +99,31 @@ export const getTokenSorterByRef: TokenListTransform = (variableSet) => {
 };
 
 /**
+ * Retrieve default file writer (based on Node `fs.promise.writeFile` interface)
+ * @param existsFile Function determining if the file exists
+ * @param logger Custom Logger
+ * @returns
+ */
+export const getDefaultFileWriter = (existsFile: (file: string) => boolean, logger?: Logger): typeof fs.writeFile => {
+  return async (file, ...args) => {
+    // eslint-disable-next-line @typescript-eslint/no-base-to-string -- The file path is always proposing the `toString` method
+    const fileString = file.toString();
+    const { writeFile, mkdir } = await import('node:fs/promises');
+    if (!existsFile(fileString)) {
+      const { dirname } = await import('node:path');
+      try {
+        await mkdir(dirname(fileString), { recursive: true });
+      } catch {
+        // ignore folder creation failure
+      }
+    }
+    const res = await writeFile(file, ...args);
+    logger?.info?.(`Updated ${fileString} with Design Token content.`);
+    return res;
+  };
+};
+
+/**
  * Process the parsed Design Token variables and render them according to the given options and renderers
  * @param variableSet Complete list of the parsed Design Token
  * @param options Parameters of the Design Token renderer
@@ -96,11 +139,11 @@ export const getTokenSorterByRef: TokenListTransform = (variableSet) => {
  * ```
  */
 export const renderDesignTokens = async (variableSet: DesignTokenVariableSet, options?: DesignTokenRendererOptions) => {
-  const readFile = options?.readFile || ((filePath: string) => fs.readFile(filePath, {encoding: 'utf8'}));
-  const writeFile = options?.writeFile || fs.writeFile;
-  const existsFile = options?.existsFile || existsSync;
+  const readFile = options?.readFile || (async (filePath: string) => (await import('node:fs/promises')).readFile(filePath, { encoding: 'utf8' }));
+  const existsFile = options?.existsFile || (await import('node:fs')).existsSync;
+  const writeFile = options?.writeFile || getDefaultFileWriter(existsFile, options?.logger);
   const determineFileToUpdate = options?.determineFileToUpdate || computeFileToUpdatePath();
-  const tokenDefinitionRenderer = options?.tokenDefinitionRenderer || getCssTokenDefinitionRenderer();
+  const tokenDefinitionRenderer = options?.tokenDefinitionRenderer || getCssTokenDefinitionRenderer(options);
   const styleContentUpdater = options?.styleContentUpdater || getCssStyleContentUpdater();
   const tokenPerFile = Array.from(variableSet.values())
     .reduce((acc, designToken) => {
@@ -114,7 +157,7 @@ export const renderDesignTokens = async (variableSet: DesignTokenVariableSet, op
     Object.entries(tokenPerFile)
       .map(([file, designTokens]) => {
         designTokens = options?.variableSortComparator ? designTokens.sort(options.variableSortComparator) : designTokens;
-        designTokens = (options?.tokenListTransforms?.map((transform) => transform(variableSet)) || [getTokenSorterByName(variableSet)])
+        designTokens = (options?.tokenListTransforms?.map((transform) => transform(variableSet, options)) || [getTokenSorterByName(variableSet, options)])
           .reduce((acc, transform) => transform(acc), designTokens);
         return [
           file,

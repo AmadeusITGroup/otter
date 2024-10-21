@@ -1,4 +1,4 @@
-import type { DesignTokenVariableSet, DesignTokenVariableStructure } from '../parsers';
+import type { DesignTokenVariableSet, DesignTokenVariableStructure, TokenKeyRenderer } from '../parsers';
 import type { Logger } from '@o3r/core';
 
 /**
@@ -18,9 +18,19 @@ export type DesignContentFileUpdater = (variables: string[], file: string, style
 export type TokenDefinitionRenderer = (tokenStructure: DesignTokenVariableStructure, variableSet: Map<string, DesignTokenVariableStructure>) => string | undefined;
 
 /**
+ * Options of the Design Token list transform function
+ */
+export interface DesignTTokenListTransformOptions {
+  /**
+   * Renderer the name of generated variable (without the prefix required by the target language)
+   */
+  tokenVariableNameRenderer?: TokenKeyRenderer;
+}
+
+/**
  * Function defining the way the variable should be sorted before being generated
  */
-export type TokenListTransform = (variableSet: DesignTokenVariableSet) => (tokens: DesignTokenVariableStructure[]) => DesignTokenVariableStructure[];
+export type DesignTokenListTransform = (variableSet: DesignTokenVariableSet, options?: DesignTTokenListTransformOptions) => (tokens: DesignTokenVariableStructure[]) => DesignTokenVariableStructure[];
 
 /**
  * Options of the Design Token Renderer value
@@ -38,10 +48,15 @@ export interface DesignTokenRendererOptions {
    * List of tokens transform functions. The transformation will be applied per file.
    * Note: the order of the output array will be kept when generating the code
    */
-  tokenListTransforms?: TokenListTransform[];
+  tokenListTransforms?: DesignTokenListTransform[];
 
   /** Custom Style Content updated function */
   styleContentUpdater?: DesignContentFileUpdater;
+
+  /**
+   * Renderer the name of generated variable (without the prefix required by the target language)
+   */
+  tokenVariableNameRenderer?: TokenKeyRenderer;
 
   /**
    * Custom function to determine the file to update for a given Design Token

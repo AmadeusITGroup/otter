@@ -1,4 +1,3 @@
-import { promises as fs } from 'node:fs';
 import type { DesignTokenVariableSet, DesignTokenVariableStructure, NodeReference, ParentReference } from './design-token-parser.interface';
 import type {
   DesignToken,
@@ -226,7 +225,7 @@ export const parseDesignToken = (specification: DesignTokenSpecification): Desig
 interface ParseDesignTokenFileOptions {
   /**
    * Custom function to read a file required by the token renderer
-   * @default {@see fs.promises.readFile}
+   * @default {@see import('node:fs/promises').readFile}
    * @param filePath Path to the file to read
    */
   readFile?: (filePath: string) => string | Promise<string>;
@@ -241,7 +240,7 @@ interface ParseDesignTokenFileOptions {
  * @param options
  */
 export const parseDesignTokenFile = async (specificationFilePath: string, options?: ParseDesignTokenFileOptions) => {
-  const readFile = options?.readFile || ((filePath: string) => fs.readFile(filePath, { encoding: 'utf8' }));
+  const readFile = options?.readFile || (async (filePath: string) => (await import('node:fs/promises')).readFile(filePath, { encoding: 'utf8' }));
   const context: DesignTokenContext = {
     basePath: dirname(specificationFilePath),
     ...options?.specificationContext
