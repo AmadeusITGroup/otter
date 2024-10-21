@@ -19,7 +19,6 @@ import {
 } from '../../../src/public_api';
 import type { GenerateStyleSchematicsSchema } from '../schema';
 import { resolve } from 'node:path';
-import { writeFile } from 'node:fs/promises';
 
 export const getStyleRendererOptions = (tokenVariableNameRenderer: TokenKeyRenderer | undefined , options: GenerateStyleSchematicsSchema, context: BuilderContext): DesignTokenRendererOptions => {
 
@@ -40,18 +39,6 @@ export const getStyleRendererOptions = (tokenVariableNameRenderer: TokenKeyRende
 
   /** Builder logger */
   const logger = context.logger;
-
-  /**
-   * File writer with logging when writing file
-   * @param file
-   * @param {...any} args
-   */
-  const writeFileWithLogger: typeof writeFile = async (file, ...args) => {
-    const res = await writeFile(file, ...args);
-    // eslint-disable-next-line @typescript-eslint/no-base-to-string
-    logger.info(`Updated ${file.toString()} with Design Token content.`);
-    return res;
-  };
 
   /** Render for the private variables if specified */
   const privateDefinitionRenderer = options.renderPrivateVariableTo === 'sass' ? getSassTokenDefinitionRenderer({
@@ -141,7 +128,6 @@ export const getStyleRendererOptions = (tokenVariableNameRenderer: TokenKeyRende
   /** Option to be used by the style renderer */
   return {
     tokenListTransforms,
-    writeFile: writeFileWithLogger,
     styleContentUpdater,
     determineFileToUpdate,
     tokenDefinitionRenderer,

@@ -1,7 +1,7 @@
 import * as parser from '../parsers/design-token.parser';
 import { promises as fs } from 'node:fs';
 import { resolve } from 'node:path';
-import type { DesignTokenSpecification } from '../design-token-specification.interface';
+import type { DesignTokenGroup, DesignTokenSpecification } from '../design-token-specification.interface';
 import type { DesignTokenVariableSet } from '../parsers';
 import { computeFileToUpdatePath, getTokenSorterByName, getTokenSorterByRef, renderDesignTokens } from './design-token-style.renderer';
 
@@ -154,6 +154,49 @@ describe('Design Token Renderer', () => {
         .toBeLessThan(list.findIndex(({ tokenReferenceName }) => tokenReferenceName === 'example.var1'));
       expect(sortedTokens.findIndex(({ tokenReferenceName }) => tokenReferenceName === 'example.post-ref'))
         .toBeGreaterThan(sortedTokens.findIndex(({ tokenReferenceName }) => tokenReferenceName === 'example.var1'));
+    });
+  });
+
+  describe('getTokenSorterByName', () => {
+    let designTokensToSort!: DesignTokenVariableSet;
+    beforeEach(() => {
+      /* eslint-disable @typescript-eslint/naming-convention -- Mock purpose */
+      designTokensToSort = parser.parseDesignToken({ document: {
+        'to-sort': {
+          'var-100': {
+            '$value': '{example.var1}'
+          },
+          'var-1': {
+            '$value': '{example.var1}'
+          },
+          'var-10': {
+            '$value': '{example.var1}'
+          },
+          'var-5': {
+            '$value': '{example.var1}'
+          },
+          'first-var': {
+            '$value': '{example.var1}'
+          }
+        }
+      } as DesignTokenGroup });
+      /* eslint-enable @typescript-eslint/naming-convention */
+    });
+
+    it('should sort properly variables with grade number', () => {
+      const list = Array.from(designTokensToSort.values());
+      const sortedTokens = getTokenSorterByName(designTokensToSort)(list);
+      const result = sortedTokens
+        .map(({ tokenReferenceName }) => tokenReferenceName)
+        .join(',');
+
+      expect(result).toBe([
+        'to-sort.first-var',
+        'to-sort.var-1',
+        'to-sort.var-5',
+        'to-sort.var-10',
+        'to-sort.var-100'
+      ].join(','));
     });
   });
 });
