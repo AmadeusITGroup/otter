@@ -14,7 +14,7 @@ The component only has 1 input and supports a *content value*.
 
 ## Supported features
 
-- HTML limited to behaviour supported by Angular sanitizer
+- HTML limited to behavior supported by Angular sanitizer
 - URLs (relative ones will be processed to add the `dynamic-media-path`)
 - Facts references
 - Dynamic translation
