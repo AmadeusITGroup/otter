@@ -10,6 +10,10 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Previous release tag
+      if:  ${{!contains( inputs.version, '-' )) && endsWith( inputs.version, '0' )}}
+      shell: bash
+      run: echo "PREVIOUS_VERSION_TAG=$(gh release list --exclude-drafts --exclude-pre-releases --json tagName --limit 1 --jq '.[].tagName')" >> $GITHUB_ENV
     - name: Create release
       shell: bash
-      run: gh release create v${{ inputs.version }} --generate-notes ${{ contains( inputs.version, '-' ) && '--prerelease' || '' }} --target ${{ inputs.target }}
+      run: gh release create v${{ inputs.version }} --generate-notes ${{ contains( inputs.version, '-' ) && '--prerelease' || '' }} --target ${{ inputs.target }} ${{ env.PREVIOUS_VERSION_TAG != '' && format('--notes-start-tag {0}', env.PREVIOUS_VERSION_TAG) || '' }}
