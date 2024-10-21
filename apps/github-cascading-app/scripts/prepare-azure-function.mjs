@@ -12,7 +12,7 @@ import {
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 void (async () => {
-  const pck = JSON.parse(await fs.readFile(resolve(__dirname, '..', 'package.json'), { encoding: 'utf-8' }));
+  const pck = JSON.parse(await fs.readFile(resolve(__dirname, '..', 'package.json'), { encoding: 'utf8' }));
   delete pck.devDependencies;
   delete pck.scripts;
   await fs.writeFile(resolve(__dirname, '..', 'dist', 'package.json'), JSON.stringify(pck, null, 2));

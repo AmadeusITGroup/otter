@@ -89,11 +89,13 @@ const configArray = [
   {
     // Name added for debugging purpose with @eslint/config-inspector
     name: 'import/recommended',
+    files: ['**/*.{c,m,}{t,j}s'],
     ...importPlugin.flatConfigs.recommended
   },
   {
     // Name added for debugging purpose with @eslint/config-inspector
     name: 'import/typescript',
+    files: ['**/*.{c,m,}ts'],
     ...importPlugin.flatConfigs.typescript
   },
   comments.recommended,
@@ -126,6 +128,18 @@ const configArray = [
           jsx: false
         }
       }
+    }
+  },
+  {
+    name: '@o3r/angular-components-files',
+    files: ['**/*.component.ts'],
+    rules: {
+      // TODO re-enable this rule once it support arrow function in `computed` Angular signal computation
+      // No opened issue on their side yet
+      'unicorn/consistent-function-scoping': [
+        'error',
+        { checkArrowFunctions: false }
+      ]
     }
   }
 ];

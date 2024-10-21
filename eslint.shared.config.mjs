@@ -107,8 +107,8 @@ export default [
     }
   },
   {
-    name: '@o3r/eslint-config',
-    files: ['**/eslint*.config.mjs'],
+    name: '@o3r/mjs-files',
+    files: ['**/*.mjs'],
     rules: {
       'no-underscore-dangle': [
         'error',
@@ -123,7 +123,8 @@ export default [
     files: ['**/*'],
     rules: {
       '@stylistic/comma-dangle': 'off',
-      '@stylistic/quote-props': 'off'
+      '@stylistic/quote-props': 'off',
+      'jsdoc/require-param-description': 'off'
     }
   }
 ];

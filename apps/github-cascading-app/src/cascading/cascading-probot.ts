@@ -47,7 +47,7 @@ export class CascadingProbot extends Cascading {
       }).catch(() => null)));
 
     const configFileValidResponses = configFileResponses
-      .map((res) => res && !Array.isArray(res.data) && res.data || null)
+      .map((res) => (res && !Array.isArray(res.data) && res.data) || null)
       .filter((res) => !!res);
 
     const configFileResponse = configFileValidResponses[0];
@@ -56,8 +56,8 @@ export class CascadingProbot extends Cascading {
       this.logger.warn(`Several configuration files have been found (${configFileValidResponses.map((c) => c?.path).join(', ')}). The files will be ignored.`);
     } else if (configFileResponse) {
       try {
-        const configFileResponseWithContent: { content?: string; encoding?: 'utf8' | 'utf-8' | 'base64' } = configFileResponse as unknown as any;
-        const parsedConfig = configFileResponseWithContent.content && JSON.parse(Buffer.from(configFileResponseWithContent.content, configFileResponseWithContent.encoding || 'base64').toString());
+        const configFileResponseWithContent = configFileResponse as { content?: string; encoding?: 'utf8' | 'base64' };
+        const parsedConfig = JSON.parse(Buffer.from(configFileResponseWithContent.content || '{}', configFileResponseWithContent.encoding || 'base64').toString()) as Partial<CascadingConfiguration>;
         if (parsedConfig) {
           this.logger.debug(`Found configuration on ${configFileResponse.url}`);
           remoteConfig = parsedConfig;
@@ -80,7 +80,8 @@ export class CascadingProbot extends Cascading {
 
     if (!config.defaultBranch) {
       this.logger.debug('No default branch, will be retrieve from Github');
-      config.defaultBranch = (await this.options.octokit.repos.get(this.options.repo)).data.default_branch;
+      const { data } = await this.options.octokit.repos.get(this.options.repo);
+      config.defaultBranch = data.default_branch;
     }
 
     this.logger.debug('Configuration');
@@ -90,11 +91,15 @@ export class CascadingProbot extends Cascading {
 
   /** @inheritdoc */
   protected async isCascadingPullRequest(id: string | number) {
-    return this.options.appId !== undefined && (await this.options.octokit.pulls.get({
-      ...this.options.repo,
-      // eslint-disable-next-line @typescript-eslint/naming-convention, camelcase
-      pull_number: +id
-    })).data.user?.id === +this.options.appId;
+    if (this.options.appId !== undefined) {
+      const { data } = await this.options.octokit.pulls.get({
+        ...this.options.repo,
+        // eslint-disable-next-line @typescript-eslint/naming-convention, camelcase -- naming convention imposed by octokit
+        pull_number: +id
+      });
+      return data.user?.id === +this.options.appId;
+    }
+    return false;
   }
 
   /** @inheritdoc */
@@ -105,11 +110,12 @@ export class CascadingProbot extends Cascading {
 
   /** @inheritdoc */
   protected async mergePullRequest(id: string | number) {
-    return (await this.options.octokit.pulls.merge({
+    const { data } = await this.options.octokit.pulls.merge({
       ...this.options.repo,
-      // eslint-disable-next-line @typescript-eslint/naming-convention, camelcase
+      // eslint-disable-next-line @typescript-eslint/naming-convention, camelcase -- naming convention imposed by octokit
       pull_number: +id
-    })).data.merged;
+    });
+    return data.merged;
   }
 
   /** @inheritdoc */
@@ -120,16 +126,17 @@ export class CascadingProbot extends Cascading {
         this.options.octokit.repos.getBranch({
           ...this.options.repo,
           branch: `refs/heads/${branch}`
-        }).then(({ data }) => data.commit.sha)
+        }).then((res) => res.data.commit.sha)
       )
     );
 
-    /* eslint-disable @typescript-eslint/naming-convention, camelcase */
-    const { ahead_by, behind_by } = (await this.options.octokit.repos.compareCommits({
+    const { data } = (await this.options.octokit.repos.compareCommits({
       ...this.options.repo,
       base,
       head
-    })).data;
+    }));
+    /* eslint-disable @typescript-eslint/naming-convention, camelcase -- naming convention imposed by octokit */
+    const { ahead_by, behind_by } = data;
     this.logger.debug(`${baseBranch} is ahead by ${ahead_by} and behind by ${behind_by} compare to ${targetBranch}`);
     return ahead_by > 0;
     /* eslint-enable @typescript-eslint/naming-convention, camelcase */
@@ -138,7 +145,7 @@ export class CascadingProbot extends Cascading {
   /** @inheritdoc */
   protected async getBranches() {
     this.logger.debug('List remote branches');
-    /* eslint-disable camelcase, @typescript-eslint/naming-convention */
+    /* eslint-disable camelcase, @typescript-eslint/naming-convention -- naming convention imposed by octokit */
     const per_page = 100;
     let pageIndex = 1;
     let getCurrentPage = true;
@@ -158,10 +165,11 @@ export class CascadingProbot extends Cascading {
 
   /** @inheritdoc */
   protected async createBranch(branchName: string, baseBranch: string) {
-    const sha = (await this.options.octokit.repos.getBranch({
+    const { data } = (await this.options.octokit.repos.getBranch({
       ...this.options.repo,
       branch: `refs/heads/${baseBranch}`
-    })).data.commit.sha;
+    }));
+    const sha = data.commit.sha;
     await this.options.octokit.git.createRef({
       ...this.options.repo,
       ref: `refs/heads/${branchName}`,
@@ -205,7 +213,7 @@ export class CascadingProbot extends Cascading {
       const id = data.number;
       await this.options.octokit.issues.addLabels({
         ...this.options.repo,
-        // eslint-disable-next-line @typescript-eslint/naming-convention, camelcase
+        // eslint-disable-next-line @typescript-eslint/naming-convention, camelcase -- naming convention imposed by octokit
         issue_number: id,
         labels
       });
@@ -224,7 +232,7 @@ export class CascadingProbot extends Cascading {
   protected async updatePullRequestMessage(id: string | number, body: string, title?: string): Promise<CascadingPullRequestInfo> {
     const { data } = await this.options.octokit.pulls.update({
       ...this.options.repo,
-      // eslint-disable-next-line @typescript-eslint/naming-convention, camelcase
+      // eslint-disable-next-line @typescript-eslint/naming-convention, camelcase -- naming convention imposed by octokit
       pull_number: +id,
       body,
       title
@@ -241,7 +249,8 @@ export class CascadingProbot extends Cascading {
 
   /** @inheritdoc */
   protected async getPullRequests(baseBranch?: string, targetBranch?: string) {
-    return (await this.options.octokit.pulls.list(this.options.repo)).data
+    const { data } = await this.options.octokit.pulls.list(this.options.repo);
+    return data
       .filter(({ head, base }) => (!targetBranch || base.ref === targetBranch) && (!baseBranch || head.ref === baseBranch))
       .sort((prA, prB) => (Date.parse(prA.created_at) - Date.parse(prB.created_at)))
       .map((pr): CascadingPullRequestInfo => ({
@@ -259,7 +268,7 @@ export class CascadingProbot extends Cascading {
   protected async getPullRequestFromId(id: string | number): Promise<CascadingPullRequestInfo> {
     const { data } = await this.options.octokit.pulls.get({
       ...this.options.repo,
-      // eslint-disable-next-line @typescript-eslint/naming-convention, camelcase
+      // eslint-disable-next-line @typescript-eslint/naming-convention, camelcase -- naming convention imposed by octokit
       pull_number: +id
     });
     return {
