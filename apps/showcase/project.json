@@ -69,6 +69,7 @@
         "assets": [
           "apps/showcase/src/favicon.ico",
           "apps/showcase/src/favicon.svg",
+          "apps/showcase/src/coi-serviceworker.js",
           "apps/showcase/src/assets",
           "apps/showcase/src/custom-assets",
           {
