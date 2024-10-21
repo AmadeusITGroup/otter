@@ -1,10 +1,32 @@
-import { KeyValuePipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, OnChanges, Pipe, PipeTransform, SimpleChanges } from '@angular/core';
-import { NgbAccordionModule, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
-import type { OtterLikeComponentInfo } from '@o3r/components';
-import type { ConfigurationModel } from '@o3r/configuration';
-import { type RulesetExecutionDebug, RulesetHistoryPresModule } from '@o3r/rules-engine';
-import { ConfigFormComponent } from '../config-form/config-form.component';
+import {
+  KeyValuePipe
+} from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnChanges,
+  Pipe,
+  PipeTransform,
+  SimpleChanges
+} from '@angular/core';
+import {
+  NgbAccordionModule,
+  NgbNavModule
+} from '@ng-bootstrap/ng-bootstrap';
+import type {
+  OtterLikeComponentInfo
+} from '@o3r/components';
+import type {
+  ConfigurationModel
+} from '@o3r/configuration';
+import {
+  type RulesetExecutionDebug,
+  RulesetHistoryPresModule
+} from '@o3r/rules-engine';
+import {
+  ConfigFormComponent
+} from '../config-form/config-form.component';
 
 const isRecordOfArray = (value?: object | null): value is Record<string, any[]> => {
   return value ? Object.values(value || {}).every(Array.isArray) : false;
@@ -33,14 +55,15 @@ export class NbPropPipe implements PipeTransform {
 })
 export class ListPipe implements PipeTransform {
   public transform(value: string[]) {
-    return value.length > 1 ? `${
-      value.splice(0, -1).join(', ')
-    } and ${
-      value[value.length - 1]
-    }` : value[0] || '';
+    return value.length > 1
+      ? `${
+        value.splice(0, -1).join(', ')
+      } and ${
+        value.at(-1)
+      }`
+      : value[0] || '';
   }
 }
-
 
 @Component({
   selector: 'app-otter-component',
@@ -85,7 +108,7 @@ export class OtterComponentComponent implements OnChanges {
           .flatMap((execution) => {
             const linkedComponent = execution.rulesetInformation?.linkedComponent;
             const linkedComponents = execution.rulesetInformation?.linkedComponents?.or;
-            return (linkedComponents?.map(lc => lc.library) || [linkedComponent?.library]).filter((lib): lib is string => !!lib);
+            return (linkedComponents?.map((lc) => lc.library) || [linkedComponent?.library]).filter((lib): lib is string => !!lib);
           })
         )
       )];

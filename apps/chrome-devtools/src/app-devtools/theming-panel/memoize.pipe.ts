@@ -1,4 +1,7 @@
-import { Pipe, type PipeTransform } from '@angular/core';
+import {
+  Pipe,
+  type PipeTransform
+} from '@angular/core';
 
 @Pipe({ name: 'memoize', standalone: true })
 export class MemoizePipe implements PipeTransform {

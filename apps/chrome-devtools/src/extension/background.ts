@@ -1,8 +1,22 @@
-import type { InjectContentMessage, OtterMessage, OtterMessageContent, otterMessageType } from '@o3r/core';
-import type { ApplicationInformationContentMessage } from '@o3r/application';
-import type { scriptToInject as ScriptToInject } from '../services/connection.service';
-import type { ACTIVE_STATE_NAME_KEY as ActivateStateNameKey, ExtensionMessage, State, STATES_KEY as StatesKey, WHITELISTED_HOSTS_KEY as WhitelistedHostsKey } from './interface';
-
+import type {
+  ApplicationInformationContentMessage
+} from '@o3r/application';
+import type {
+  InjectContentMessage,
+  OtterMessage,
+  OtterMessageContent,
+  otterMessageType
+} from '@o3r/core';
+import type {
+  scriptToInject as ScriptToInject
+} from '../services/connection.service';
+import type {
+  ACTIVE_STATE_NAME_KEY as ActivateStateNameKey,
+  ExtensionMessage,
+  State,
+  STATES_KEY as StatesKey,
+  WHITELISTED_HOSTS_KEY as WhitelistedHostsKey
+} from './interface';
 
 /** Type of a message exchanged with the Otter Chrome DevTools extension */
 const postMessageType: typeof otterMessageType = 'otter';
@@ -39,7 +53,6 @@ const isInjectionContentMessage = (content: any): content is InjectContentMessag
 
 /**
  * determinate if the message contains application information to share in the global panel
- *
  * @param data
  */
 const isApplicationInformationMessage = (data?: OtterMessageContent): data is ApplicationInformationContentMessage => data?.dataType === 'applicationInformation';
@@ -48,7 +61,6 @@ const activeStateAppliedOn = new Set<number>();
 
 /**
  * List of host which can access to the Chrome Extension store
- *
  * @param url
  */
 const isWhitelistedHost = async (url?: string) => {
@@ -63,7 +75,6 @@ const isWhitelistedHost = async (url?: string) => {
 /**
  * Retrieve a state and send a message to the Otter application connected to the DevTool that they should apply this
  * state.
- *
  * @param appName
  * @param tabId
  */
@@ -98,7 +109,7 @@ const applyActivateState = async (appName: string, tabId: number) => {
         key, value, lang
       }));
     });
-    if (Object.keys(activeState.stylingVariables || {}).length) {
+    if (Object.keys(activeState.stylingVariables || {}).length > 0) {
       void sendMessage('updateStylingVariables', {
         variables: activeState.stylingVariables
       });
@@ -162,8 +173,8 @@ chrome.runtime.onConnect.addListener((port) => {
     if (tabId) {
       const ports = connections.get(tabId);
       if (ports) {
-        const newPorts = ports.filter(p => p !== port);
-        if (newPorts.length) {
+        const newPorts = ports.filter((p) => p !== port);
+        if (newPorts.length > 0) {
           connections.set(tabId, newPorts);
         } else {
           connections.delete(tabId);

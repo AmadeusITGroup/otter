@@ -109,11 +109,7 @@ export const getAccessibilityContrastScore = (color1: string, color2: string, te
   if (readability >= 7) {
     return 'AAA';
   } else if (readability >= 4.5) {
-    if (textSize === 'small') {
-      return 'AA';
-    } else {
-      return 'AAA';
-    }
+    return textSize === 'small' ? 'AA' : 'AAA';
   } else if (readability >= 3 && textSize === 'large') {
     return 'AA';
   }

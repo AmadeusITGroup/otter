@@ -1,9 +1,29 @@
-import { KeyValuePipe, NgClass } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
-import { FormControl, FormsModule, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
-import { ConfigurationModel } from '@o3r/configuration';
-import { ChromeExtensionConnectionService } from '../../services/connection.service';
-import { StateService } from '../../services';
+import {
+  KeyValuePipe,
+  NgClass
+} from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  input
+} from '@angular/core';
+import {
+  FormControl,
+  FormsModule,
+  ReactiveFormsModule,
+  UntypedFormGroup
+} from '@angular/forms';
+import {
+  ConfigurationModel
+} from '@o3r/configuration';
+import {
+  StateService
+} from '../../services';
+import {
+  ChromeExtensionConnectionService
+} from '../../services/connection.service';
 
 type ControlsType = Record<string, 'boolean' | 'string' | 'number'>;
 

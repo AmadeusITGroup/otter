@@ -1,8 +1,34 @@
-import { ApplicationRef, Injectable, OnDestroy, signal } from '@angular/core';
-import type { Dictionary } from '@ngrx/entity';
-import type { ConfigurationModel } from '@o3r/configuration';
-import { otterMessageType } from '@o3r/core';
-import {type Observable, of, ReplaySubject, Subscription} from 'rxjs';
+import {
+  ApplicationRef,
+  Injectable,
+  OnDestroy,
+  signal
+} from '@angular/core';
+import type {
+  Dictionary
+} from '@ngrx/entity';
+import type {
+  ApplicationInformationContentMessage
+} from '@o3r/application';
+import type {
+  SelectedComponentInfoMessage
+} from '@o3r/components';
+import type {
+  ConfigurationModel,
+  ConfigurationsMessage
+} from '@o3r/configuration';
+import {
+  otterMessageType
+} from '@o3r/core';
+import type {
+  RulesEngineDebugEventsContentMessage
+} from '@o3r/rules-engine';
+import {
+  type Observable,
+  of,
+  ReplaySubject,
+  Subscription
+} from 'rxjs';
 import {
   catchError,
   debounceTime,
@@ -14,12 +40,9 @@ import {
   take,
   timeout
 } from 'rxjs/operators';
-import type { AvailableMessageContents } from './message.interface';
-
-import type { ApplicationInformationContentMessage } from '@o3r/application';
-import type { SelectedComponentInfoMessage } from '@o3r/components';
-import type { ConfigurationsMessage } from '@o3r/configuration';
-import type { RulesEngineDebugEventsContentMessage } from '@o3r/rules-engine';
+import type {
+  AvailableMessageContents
+} from './message.interface';
 
 /**
  * Path to the script that is injected into the page.
@@ -63,11 +86,11 @@ export const filterAndMapMessage = <T extends AvailableMessageContents, R>(
   filterFn: (message: AvailableMessageContents) => message is T,
   mapFn: (message: T) => R
 ) => (message$: Observable<AvailableMessageContents>) => message$.pipe(
-    filter(filterFn),
-    map(mapFn),
-    distinctUntilChanged(),
-    shareReplay({ refCount: true, bufferSize: 1 })
-  );
+  filter(filterFn),
+  map(mapFn),
+  distinctUntilChanged(),
+  shareReplay({ refCount: true, bufferSize: 1 })
+);
 
 export type AppState = 'loading' | 'timeout' | 'connected';
 
@@ -76,7 +99,6 @@ export type AppState = 'loading' | 'timeout' | 'connected';
  */
 @Injectable({ providedIn: 'root' })
 export class ChromeExtensionConnectionService implements OnDestroy {
-
   private backgroundPageConnection?: chrome.runtime.Port;
   private readonly messageSubject = new ReplaySubject<AvailableMessageContents>(1);
   private readonly subscription = new Subscription();
@@ -92,7 +114,6 @@ export class ChromeExtensionConnectionService implements OnDestroy {
     timeout(3000),
     catchError(() => of('timeout' as AppState))
   );
-
 
   private readonly configurations = new ReplaySubject<Dictionary<ConfigurationModel>>(1);
   public configurations$ = this.configurations.asObservable();
@@ -113,7 +134,7 @@ export class ChromeExtensionConnectionService implements OnDestroy {
       this.isDisconnected.set(true);
     });
 
-    this.sendMessage('inject', {scriptToInject});
+    this.sendMessage('inject', { scriptToInject });
   }
 
   /**

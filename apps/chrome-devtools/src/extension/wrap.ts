@@ -1,4 +1,8 @@
-import type { applicationMessageTarget, ConnectContentMessage, OtterMessage } from '@o3r/core';
+import type {
+  applicationMessageTarget,
+  ConnectContentMessage,
+  OtterMessage
+} from '@o3r/core';
 /*
 This script is injected into the page by the Otter Devtools extension.
 It listens for messages from the application and sends them to the background service.

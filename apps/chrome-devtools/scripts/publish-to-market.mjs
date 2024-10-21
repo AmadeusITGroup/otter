@@ -1,8 +1,12 @@
+import {
+  createWriteStream
+} from 'node:fs';
+import {
+  resolve
+} from 'node:path';
+import * as url from 'node:url';
 import archiver from 'archiver';
 import chromeWebstoreUpload from 'chrome-webstore-upload';
-import { resolve } from 'node:path';
-import { createWriteStream } from 'node:fs';
-import * as url from 'url';
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 

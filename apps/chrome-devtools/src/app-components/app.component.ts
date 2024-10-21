@@ -1,5 +1,11 @@
-import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import {
+  AsyncPipe
+} from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component
+} from '@angular/core';
 import {
   getAnalyticEvents as devkitGetAnalyticEvents,
   getTranslations as devkitGetTranslations,
@@ -8,18 +14,40 @@ import {
   Ng,
   OtterLikeComponentInfo
 } from '@o3r/components';
-import type { ConfigurationModel } from '@o3r/configuration';
-import {otterComponentInfoPropertyName} from '@o3r/core';
+import type {
+  ConfigurationModel
+} from '@o3r/configuration';
+import {
+  otterComponentInfoPropertyName
+} from '@o3r/core';
 import type {
   OtterComponentInfo
 } from '@o3r/core';
-import type { RulesetExecutionDebug } from '@o3r/rules-engine';
-import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
-import { filter, map, startWith } from 'rxjs/operators';
-import { AppConnectionComponent } from '../components/app-connection/app-connection.component';
-import { OtterComponentComponent } from '../components/otter-component/otter-component.component';
-import { RulesetHistoryService } from '../services/ruleset-history.service';
-import { ChromeExtensionConnectionService } from '../services/connection.service';
+import type {
+  RulesetExecutionDebug
+} from '@o3r/rules-engine';
+import {
+  BehaviorSubject,
+  combineLatest,
+  Observable
+} from 'rxjs';
+import {
+  filter,
+  map,
+  startWith
+} from 'rxjs/operators';
+import {
+  AppConnectionComponent
+} from '../components/app-connection/app-connection.component';
+import {
+  OtterComponentComponent
+} from '../components/otter-component/otter-component.component';
+import {
+  ChromeExtensionConnectionService
+} from '../services/connection.service';
+import {
+  RulesetHistoryService
+} from '../services/ruleset-history.service';
 
 /**
  * Retrieve component information
@@ -103,8 +131,8 @@ export class AppComponent {
     ]).pipe(
       map(([info, executions]) =>
         executions.filter((execution) =>
-          (execution.rulesetInformation?.linkedComponent?.name === info.componentName) ||
-          (execution.rulesetInformation?.linkedComponents?.or.some(linkedComp => linkedComp.name === info.componentName))
+          (execution.rulesetInformation?.linkedComponent?.name === info.componentName)
+          || (execution.rulesetInformation?.linkedComponents?.or.some((linkedComp) => linkedComp.name === info.componentName))
         )
       )
     );
@@ -113,11 +141,11 @@ export class AppComponent {
   private requestSelectedComponentInfo() {
     chrome.devtools.inspectedWindow.eval<OtterLikeComponentInfo | undefined>(
       // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-      `function getTranslations(node){ return (${getTranslationsRec})(node, getTranslations); } ` +
+      `function getTranslations(node){ return (${getTranslationsRec})(node, getTranslations); } `
       // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-      `function getAnalyticEvents(node){ return (${getAnalyticEventsRec})(node, getAnalyticEvents); } ` +
+      + `function getAnalyticEvents(node){ return (${getAnalyticEventsRec})(node, getAnalyticEvents); } `
       // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-      `(${getSelectedComponentInfo})(getTranslations, getAnalyticEvents);`,
+      + `(${getSelectedComponentInfo})(getTranslations, getAnalyticEvents);`,
       this.updateSelectedComponentInfoCallback
     );
   }
