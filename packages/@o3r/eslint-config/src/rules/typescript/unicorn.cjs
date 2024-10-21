@@ -36,6 +36,7 @@ const config = [
       'unicorn/no-useless-promise-resolve-reject': 'off',
       'unicorn/prefer-set-has': 'off',
       'unicorn/prefer-string-slice': 'off',
+      'unicorn/prefer-top-level-await': 'off',
       'unicorn/prefer-type-error': 'off',
       'unicorn/no-useless-undefined': 'off'
     }

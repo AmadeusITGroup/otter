@@ -111,6 +111,7 @@ export abstract class Cascading {
   protected abstract isBranchAhead(baseBranch: string, targetBranch: string): Promise<boolean>;
 
   /**
+   * Constructor of the Cascading class
    * @param logger Logger
    * @param username User name used for git commands
    * @param email Email used for git commands
@@ -129,7 +130,7 @@ export abstract class Cascading {
       return;
     }
 
-    return JSON.parse(match[1]);
+    return JSON.parse(match[1]) as PullRequestContext;
   }
 
   /**
@@ -143,10 +144,8 @@ export abstract class Cascading {
       canBeMerged: pullRequest?.mergeable ?? true,
       id: pullRequest?.id || '',
       originBranchName: pullRequest?.originBranchName || '',
-      // eslint-disable-next-line @typescript-eslint/naming-convention
-      CANCEL_RETRIGGER_CASCADING_MARK,
-      // eslint-disable-next-line @typescript-eslint/naming-convention
-      CANCEL_BYPASS_REVIEWERS_MARK
+      cancelRetriggerCascadingMark: CANCEL_RETRIGGER_CASCADING_MARK,
+      cancelBypassReviewersMark: CANCEL_BYPASS_REVIEWERS_MARK
     });
   }
 
@@ -318,7 +317,6 @@ export abstract class Cascading {
    * @param currentBranch name of the base branch of the cascading process
    * @param targetBranch name of the branch target (base of the pull request)
    * @param config
-   * @param shouldAddUpdateMessage Determine if the body of the new pull request should add the update request message
    * @param isConflicting
    */
   protected async createPullRequestWithMessage(cascadingBranch: string, currentBranch: string, targetBranch: string, config: CascadingConfiguration, isConflicting = false) {

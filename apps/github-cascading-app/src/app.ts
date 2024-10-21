@@ -69,7 +69,7 @@ export = (app: Probot) => {
             const branch = head.ref.replace(/^refs\/heads\//, '');
             await cascadingPlugin.mergeCascadingPullRequest({ id }, branch, context.payload.check_suite.conclusion);
           } catch (error: any) {
-            context.octokit.log.error(`Caught an error during the merge execution on PR ${id}`, error);
+            context.octokit.log.error(`Caught an error during the merge execution on PR ${id}\n${error instanceof Error ? error.stack : error}`);
           }
         })
     );
