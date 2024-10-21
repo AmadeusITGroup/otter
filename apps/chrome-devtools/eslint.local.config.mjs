@@ -24,5 +24,12 @@ export default [
         ]
       }
     }
+  },
+  {
+    name: '@o3r/chrome-devtools/local',
+    rules: {
+      '@typescript-eslint/no-unsafe-assignment': 'off',
+      '@typescript-eslint/no-unsafe-member-access': 'off'
+    }
   }
 ];

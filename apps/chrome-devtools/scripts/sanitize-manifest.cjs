@@ -4,10 +4,10 @@ const { platform } = require('node:os');
 const { join } = require('node:path');
 const { watch } = require('chokidar');
 const minimist = require('minimist');
+const { version } = require('../package.json');
 
 const manifestPath = join(__dirname, '..', 'dist', 'manifest.json');
 const argv = minimist(process.argv.slice(2));
-const { version } = require('../package.json');
 
 /**
  * Remove $schema field from manifest.json and align version with the package.json
@@ -16,7 +16,7 @@ const { version } = require('../package.json');
 const removeSchema = async (file) => {
   if (existsSync(file)) {
     const content = JSON.parse(await readFile(file, { encoding: 'utf8' }));
-    content.version = version.replace(/[A-Za-z\-].*$/, '');
+    content.version = version.replace(/[A-Za-z-].*$/, '');
     if (content.$schema) {
       delete content.$schema;
     }

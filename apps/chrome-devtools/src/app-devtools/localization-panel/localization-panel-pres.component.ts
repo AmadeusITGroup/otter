@@ -80,6 +80,7 @@ export class LocalizationPanelPresComponent implements OnDestroy {
   public readonly languages = this.localizationService.languages;
   public readonly hasSeveralLanguages: Signal<boolean>;
   public readonly isTruncated: Signal<boolean>;
+
   public readonly localizationActiveStateOverridesForCurrentLang = computed(() => {
     const lang = this.currentLanguage();
     if (!lang) {

@@ -29,7 +29,7 @@ import {
 } from '../config-form/config-form.component';
 
 const isRecordOfArray = (value?: object | null): value is Record<string, any[]> => {
-  return value ? Object.values(value || {}).every(Array.isArray) : false;
+  return value ? Object.values(value || {}).every((element) => Array.isArray(element)) : false;
 };
 
 @Pipe({

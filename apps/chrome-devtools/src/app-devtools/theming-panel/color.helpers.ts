@@ -26,7 +26,7 @@ export enum PaletteVariant {
  */
 export const DEFAULT_PALETTE_VARIANT: PaletteVariant = PaletteVariant.V500;
 
-/* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable @typescript-eslint/naming-convention -- palette variant name can start with number */
 const SATURATION_VALUES: Record<PaletteVariant, number> = {
   '50': 0.91,
   '100': 0.98,

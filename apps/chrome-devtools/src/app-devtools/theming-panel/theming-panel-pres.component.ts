@@ -125,8 +125,11 @@ export interface VariableGroup {
 })
 export class ThemingPanelPresComponent implements OnDestroy {
   private readonly stateService = inject(StateService);
+
   public readonly activeStateName = computed(() => this.stateService.activeState()?.name);
+
   public readonly themingActiveStateOverrides = computed(() => this.stateService.activeState()?.stylingVariables || {});
+
   public readonly themingLocalStateOverrides = computed(() => this.stateService.localState()?.stylingVariables || {});
   public readonly resolvedVariables: Signal<Record<string, string>>;
   public readonly variablesMap: Signal<Record<string, StylingVariable>>;
@@ -361,7 +364,6 @@ export class ThemingPanelPresComponent implements OnDestroy {
   /**
    * Handler for palette color reset
    * @param palette
-   * @param resetValue
    * @param event
    */
   public onPaletteReset(palette: VariableGroup, event: UIEvent) {

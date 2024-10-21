@@ -40,14 +40,10 @@ import {
   take,
   timeout
 } from 'rxjs/operators';
-import type {
-  AvailableMessageContents
-} from './message.interface';
-
-/**
- * Path to the script that is injected into the page.
- */
-export const scriptToInject = 'extension/wrap.js';
+import {
+  type AvailableMessageContents,
+  scriptToInject
+} from '../shared/index';
 
 /**
  * Determine if the message is an ApplicationInformationContentMessage
@@ -127,8 +123,7 @@ export class ChromeExtensionConnectionService implements OnDestroy {
   public activate() {
     this.isDisconnected.set(false);
     this.backgroundPageConnection = chrome.runtime.connect();
-    // eslint-disable-next-line @typescript-eslint/require-await
-    this.backgroundPageConnection.onMessage.addListener(async (message) => this.messageSubject.next(message.content));
+    this.backgroundPageConnection.onMessage.addListener((message: { content: AvailableMessageContents }) => this.messageSubject.next(message.content));
 
     this.backgroundPageConnection.onDisconnect.addListener(() => {
       this.isDisconnected.set(true);

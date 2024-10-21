@@ -49,6 +49,11 @@ import {
   RulesetHistoryService
 } from '../services/ruleset-history.service';
 
+declare namespace window {
+  let ng: Ng | undefined;
+  let $0: Element | undefined;
+}
+
 /**
  * Retrieve component information
  * of the component selected in the Elements panel of Chrome DevTools
@@ -56,12 +61,13 @@ import {
  * @param getAnalyticEvents Function to retrieve analytic events
  */
 function getSelectedComponentInfo(getTranslations: typeof devkitGetTranslations, getAnalyticEvents: typeof devkitGetAnalyticEvents): OtterLikeComponentInfo | undefined {
-  const angularDevTools: Ng | undefined = (window as any).ng;
-  const selectedElement = (window as any).$0;
+  const angularDevTools = window.ng;
+  const selectedElement = window.$0;
   const o3rInfoProperty: typeof otterComponentInfoPropertyName = '__otter-info__';
   if (!angularDevTools || !selectedElement) {
     return;
   }
+  /* eslint-disable @typescript-eslint/no-unsafe-argument -- expected type is `any` */
   let componentClassInstance = angularDevTools.getComponent(selectedElement) || angularDevTools.getOwningComponent(selectedElement);
 
   let info: OtterLikeComponentInfo | undefined;
@@ -70,7 +76,7 @@ function getSelectedComponentInfo(getTranslations: typeof devkitGetTranslations,
     return;
   }
   do {
-    compInfo = componentClassInstance[o3rInfoProperty];
+    compInfo = componentClassInstance[o3rInfoProperty] as OtterComponentInfo | undefined;
     if (compInfo) {
       info = {
         configId: compInfo.configId,
@@ -82,6 +88,8 @@ function getSelectedComponentInfo(getTranslations: typeof devkitGetTranslations,
       componentClassInstance = angularDevTools.getOwningComponent(componentClassInstance);
     }
   } while (!compInfo && componentClassInstance);
+  /* eslint-enable-next-line @typescript-eslint/no-unsafe-assignment */
+
   return info;
 }
 
@@ -139,15 +147,14 @@ export class AppComponent {
   }
 
   private requestSelectedComponentInfo() {
+    /* eslint-disable @typescript-eslint/restrict-template-expressions -- we want to print the content of the functions */
     chrome.devtools.inspectedWindow.eval<OtterLikeComponentInfo | undefined>(
-      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       `function getTranslations(node){ return (${getTranslationsRec})(node, getTranslations); } `
-      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       + `function getAnalyticEvents(node){ return (${getAnalyticEventsRec})(node, getAnalyticEvents); } `
-      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       + `(${getSelectedComponentInfo})(getTranslations, getAnalyticEvents);`,
       this.updateSelectedComponentInfoCallback
     );
+    /* eslint-enable @typescript-eslint/restrict-template-expressions */
   }
 
   private updateSelectedComponentInfo(info?: OtterLikeComponentInfo) {

@@ -6,7 +6,10 @@ import {
 } from 'node:path';
 import * as url from 'node:url';
 import archiver from 'archiver';
+// eslint-disable-next-line import/namespace, import/default, import/no-named-as-default, import/no-named-as-default-member -- issue with the parser on this module
 import chromeWebstoreUpload from 'chrome-webstore-upload';
+
+const logger = console;
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
@@ -30,15 +33,15 @@ archive.on('end', () => {
     refreshToken: process.env.CHROME_REFRESH_TOKEN
   });
   store.uploadExisting(buffer).then((resUpload) => {
-    console.debug(resUpload);
+    logger.debug(resUpload);
 
     store.publish().then((resPublish) => {
-      console.debug(resPublish);
+      logger.debug(resPublish);
     }).catch((err) => {
-      console.error('Failed to publish Otter Chrome Devtools', err);
+      logger.error('Failed to publish Otter Chrome Devtools', err);
     });
   }).catch((err) => {
-    console.error('Failed to upload Otter Chrome Devtools', err);
+    logger.error('Failed to upload Otter Chrome Devtools', err);
   });
 });
 

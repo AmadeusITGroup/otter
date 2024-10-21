@@ -1,10 +1,11 @@
 import type {
+  Configuration,
   OtterMessage,
   OtterMessageContent
 } from '@o3r/core';
 import type {
   AvailableMessageContents
-} from '../services/message.interface';
+} from '../shared/index';
 
 /** Message from the DevTools message */
 export interface ExtensionMessage<T extends OtterMessageContent = AvailableMessageContents> extends OtterMessage<T> {
@@ -17,7 +18,7 @@ export interface StateOverride {
    * Key is the configuration identifier
    * Value is the new configuration value
    */
-  configurations?: Record<string, any>;
+  configurations?: Record<string, Configuration>;
   /**
    * First key is the language
    * Second key is the localization key

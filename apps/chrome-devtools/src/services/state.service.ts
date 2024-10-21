@@ -57,7 +57,7 @@ export class StateService {
     effect(async () => {
       const key = this.statesStorageKey();
       if (key) {
-        const states = (await chrome.storage.sync.get(key))[key] as Record<string, State> | undefined;
+        const { [key]: states } = (await chrome.storage.sync.get(key)) as Record<string, Record<string, State> | undefined>;
         if (states) {
           this.states.set(states);
         }
@@ -77,7 +77,7 @@ export class StateService {
     effect(async () => {
       const key = this.activeStateNameStorageKey();
       if (key) {
-        const name = (await chrome.storage.sync.get(key))[key] as string | undefined;
+        const { [key]: name } = (await chrome.storage.sync.get(key)) as Record<string, string | undefined>;
         if (name) {
           this.activeStateName.set(name);
         }

@@ -77,6 +77,7 @@ const duplicateNameValidator: ValidatorFn = (control: AbstractControl<string>): 
   return null;
 };
 
+// eslint-disable-next-line @typescript-eslint/unbound-method -- Validators are bound methods
 const stateNameValidators = [Validators.required, duplicateNameValidator];
 
 const createStateForm = (name: string, color?: string | null) => new FormGroup<StateForm>({
