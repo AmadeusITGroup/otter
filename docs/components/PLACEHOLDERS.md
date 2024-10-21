@@ -14,10 +14,10 @@ The component only has 1 input and supports a *content value*.
 
 ## Supported features
 
-* HTML limited to behaviour supported by Angular sanitizer
-* URLs (relative ones will be processed to add the `dynamic-media-path`)
-* Facts references
-* Dynamic translation
+- HTML limited to behaviour supported by Angular sanitizer
+- URLs (relative ones will be processed to add the `dynamic-media-path`)
+- Facts references
+- Dynamic translation
 
 ## How it works
 
@@ -25,7 +25,6 @@ Based on the `id` provided to the placeholder component, it will register itself
 and will display the template corresponding to its ID in the store.
 
 > [!IMPORTANT]
-> 
 > It is **strongly encouraged** to use the placeholder mechanism in concert with the [Rules Engine](../rules-engine/README.md).
 
 ## How to define a placeholder template
@@ -89,6 +88,7 @@ export class MyComponentModule {
 export class MyComponent {
 }
 ```
+
 The loading message is provided by projection. Feel free to provide a spinner if you need.
 
 ### How to generate placeholder metadata
@@ -204,7 +204,7 @@ Then, let's create a new localization key for each of your supported languages:
 
 ```json
 {
-  "o3r-increment-key": "Cela fait {increment, plural, =1 {1 seconde}} other {{{increment} secondes} que tu as ouvert cette page"
+  "o3r-increment-key": "Cela fait {increment, plural, =1 {1 seconde} other {{{increment}} secondes}} que tu as ouvert cette page"
 }
 ```
 
@@ -297,7 +297,6 @@ Thanks to the parameters map you can use fact variables with JSONPath in localiz
 ```
 
 #### Variable support for localization variables (DEPRECATED)
-
 
 Before, localization variables could reference facts via variables instead of parameters. This feature is currently deprecated and will be removed from Otter v12 as it is replaced by the parameters explained above.
 
@@ -408,7 +407,6 @@ displayed in descending order of priority.
 The placeholder component waits for all the calls to be resolved (not pending) to display the content.
 The placeholder component ignores a template if the application failed to retrieve it.
 
-
 ## Reference CSS classes from an external styling file
 
 You need to reference one or several CSS files from your application in the `cms.json` file:
@@ -437,7 +435,6 @@ You can include this file in your application using the style loader service in 
 ```typescript
 this.styleLoader.asyncLoadStyleFromDynamicContent({id: 'placeholders-styling', href: 'assets/rules/placeholders.css'});
 ```
-
 
 ## Investigate issues
 
