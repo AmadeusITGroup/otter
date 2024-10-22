@@ -55,7 +55,7 @@
     "@yarnpkg/plugin-npm": "^3.0.1",
     "@yarnpkg/plugin-pack": "^4.0.0",
     "rxjs": "^7.8.1",
-    "sass": "~1.79.0",
+    "sass": "~1.80.0",
     "semver": "^7.5.2"
   },
   "peerDependenciesMeta": {
@@ -179,7 +179,7 @@
     "nx": "~19.5.0",
     "pid-from-port": "^1.1.3",
     "rxjs": "^7.8.1",
-    "sass": "~1.79.0",
+    "sass": "~1.80.0",
     "semver": "^7.5.2",
     "stylelint": "^16.0.2",
     "stylelint-scss": "^6.0.0",

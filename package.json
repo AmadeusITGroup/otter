@@ -255,7 +255,7 @@
     "react-dom": "^18.0.0",
     "replace-in-files-cli": "^2.2.0",
     "rimraf": "^5.0.1",
-    "sass": "~1.79.0",
+    "sass": "~1.80.0",
     "sass-loader": "^14.0.0",
     "semver": "^7.5.2",
     "stylelint": "^16.0.2",
