@@ -1,13 +1,45 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, ViewEncapsulation } from '@angular/core';
-import type { IsComponentSelectionAvailableMessage, OtterLikeComponentInfo } from '@o3r/components';
-import { ConfigurationModel } from '@o3r/configuration';
-import type { RulesetExecutionDebug } from '@o3r/rules-engine';
-import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
-import { filter, map, shareReplay, startWith } from 'rxjs/operators';
-import { OtterComponentComponent } from '../../components/otter-component/otter-component.component';
-import { RulesetHistoryService } from '../../services/ruleset-history.service';
-import { ChromeExtensionConnectionService, isSelectedComponentInfoMessage } from '../../services/connection.service';
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe
+} from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  ViewEncapsulation
+} from '@angular/core';
+import type {
+  IsComponentSelectionAvailableMessage,
+  OtterLikeComponentInfo
+} from '@o3r/components';
+import {
+  ConfigurationModel
+} from '@o3r/configuration';
+import type {
+  RulesetExecutionDebug
+} from '@o3r/rules-engine';
+import {
+  BehaviorSubject,
+  combineLatest,
+  Observable,
+  Subscription
+} from 'rxjs';
+import {
+  filter,
+  map,
+  shareReplay,
+  startWith
+} from 'rxjs/operators';
+import {
+  OtterComponentComponent
+} from '../../components/otter-component/otter-component.component';
+import {
+  ChromeExtensionConnectionService,
+  isSelectedComponentInfoMessage
+} from '../../services/connection.service';
+import {
+  RulesetHistoryService
+} from '../../services/ruleset-history.service';
 
 @Component({
   selector: 'o3r-component-panel-pres',
@@ -54,7 +86,7 @@ export class ComponentPanelPresComponent implements OnDestroy {
       map((data) => data.available),
       startWith(false)
     );
-    const selectedComponentInfoMessage$ = connectionService.message$.pipe(filter(isSelectedComponentInfoMessage), shareReplay({bufferSize: 1, refCount: true}));
+    const selectedComponentInfoMessage$ = connectionService.message$.pipe(filter(isSelectedComponentInfoMessage), shareReplay({ bufferSize: 1, refCount: true }));
     this.hasContainer$ = selectedComponentInfoMessage$.pipe(map((info) => !!info.container));
     this.subscription.add(
       selectedComponentInfoMessage$.subscribe((info) => {
@@ -67,7 +99,7 @@ export class ComponentPanelPresComponent implements OnDestroy {
       this.isLookingToContainer$
     ]).pipe(
       map(([info, isLookingToContainer]) => isLookingToContainer ? info.container : info),
-      shareReplay({bufferSize: 1, refCount: true})
+      shareReplay({ bufferSize: 1, refCount: true })
     );
 
     this.config$ = combineLatest([
@@ -83,8 +115,8 @@ export class ComponentPanelPresComponent implements OnDestroy {
     ]).pipe(
       map(([info, executions]) =>
         executions.filter((execution) =>
-          (execution.rulesetInformation?.linkedComponent?.name === info.componentName) ||
-          (execution.rulesetInformation?.linkedComponents?.or.some(linkedComp => linkedComp.name === info.componentName))
+          (execution.rulesetInformation?.linkedComponent?.name === info.componentName)
+          || (execution.rulesetInformation?.linkedComponents?.or.some((linkedComp) => linkedComp.name === info.componentName))
         )
       )
     );

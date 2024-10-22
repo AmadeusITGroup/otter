@@ -4741,18 +4741,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint-community/eslint-plugin-eslint-comments@npm:^3.2.0":
-  version: 3.2.1
-  resolution: "@eslint-community/eslint-plugin-eslint-comments@npm:3.2.1"
-  dependencies:
-    escape-string-regexp: "npm:^1.0.5"
-    ignore: "npm:^5.2.4"
-  peerDependencies:
-    eslint: ">=4.19.1"
-  checksum: 10/d74485250123f63b105551e3c1c387ef094c8d4c6986cf35972936182ff4678341df2a2a3cb682bc12984bbc3148310faefd224f5309ecbe96c26fd4b49c25b1
-  languageName: node
-  linkType: hard
-
 "@eslint-community/eslint-plugin-eslint-comments@npm:^4.4.0":
   version: 4.4.0
   resolution: "@eslint-community/eslint-plugin-eslint-comments@npm:4.4.0"
@@ -7596,7 +7584,7 @@ __metadata:
     "@angular/platform-browser-dynamic": "npm:~18.2.0"
     "@angular/router": "npm:~18.2.0"
     "@design-factory/design-factory": "npm:~18.0.3"
-    "@eslint-community/eslint-plugin-eslint-comments": "npm:^3.2.0"
+    "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@ng-bootstrap/ng-bootstrap": "npm:^17.0.0"
     "@ng-select/ng-select": "npm:~13.7.0"
     "@ngrx/entity": "npm:~18.0.0"
@@ -9787,7 +9775,7 @@ __metadata:
     "@angular/platform-browser-dynamic": "npm:~18.2.0"
     "@angular/router": "npm:~18.2.0"
     "@design-factory/design-factory": "npm:~18.0.3"
-    "@eslint-community/eslint-plugin-eslint-comments": "npm:^3.2.0"
+    "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@formatjs/intl-numberformat": "npm:~8.10.0"
     "@ng-bootstrap/ng-bootstrap": "npm:^17.0.0"
     "@ng-select/ng-select": "npm:~13.7.0"

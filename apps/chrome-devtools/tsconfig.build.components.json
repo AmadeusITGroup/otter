@@ -1,5 +1,8 @@
 {
   "extends": "./tsconfig.build",
+  "compilerOptions": {
+    "composite": true
+  },
   "include": ["src/**/*.ts"],
   "exclude": ["**/*.spec.ts", "src/app-devtools*.ts", "src/app-devtools/**/*.ts", "src/extension/**/*.ts"]
 }

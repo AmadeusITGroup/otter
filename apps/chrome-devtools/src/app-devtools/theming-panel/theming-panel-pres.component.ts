@@ -1,20 +1,81 @@
-import { ChangeDetectionStrategy, Component, computed, effect, inject, type OnDestroy, type Signal, untracked, ViewEncapsulation } from '@angular/core';
-import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DfTooltipModule } from '@design-factory/design-factory';
-import { NgbAccordionModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
-import { computeItemIdentifier } from '@o3r/core';
-import { type GetStylingVariableContentMessage, PALETTE_TAG_NAME, type StylingVariable, THEME_TAG_NAME } from '@o3r/styling';
-import { combineLatest, Observable, Subscription } from 'rxjs';
-import { map, startWith, throttleTime } from 'rxjs/operators';
-import { ChromeExtensionConnectionService, filterAndMapMessage, StateService } from '../../services';
-import { DEFAULT_PALETTE_VARIANT, getPaletteColors } from './color.helpers';
-import { AccessibilityConstrastScorePipe, ConstrastPipe, HexColorPipe } from './color.pipe';
-import { getVariant, resolveVariable, searchFn } from './common';
-import { IsRefPipe } from './is-ref.pipe';
-import { MemoizePipe } from './memoize.pipe';
-import { VariableLabelPipe } from './variable-label.pipe';
-import { VariableNamePipe } from './variable-name.pipe';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  effect,
+  inject,
+  type OnDestroy,
+  type Signal,
+  untracked,
+  ViewEncapsulation
+} from '@angular/core';
+import {
+  takeUntilDestroyed,
+  toSignal
+} from '@angular/core/rxjs-interop';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule
+} from '@angular/forms';
+import {
+  DfTooltipModule
+} from '@design-factory/design-factory';
+import {
+  NgbAccordionModule,
+  NgbTypeaheadModule
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  computeItemIdentifier
+} from '@o3r/core';
+import {
+  type GetStylingVariableContentMessage,
+  PALETTE_TAG_NAME,
+  type StylingVariable,
+  THEME_TAG_NAME
+} from '@o3r/styling';
+import {
+  combineLatest,
+  Observable,
+  Subscription
+} from 'rxjs';
+import {
+  map,
+  startWith,
+  throttleTime
+} from 'rxjs/operators';
+import {
+  ChromeExtensionConnectionService,
+  filterAndMapMessage,
+  StateService
+} from '../../services';
+import {
+  DEFAULT_PALETTE_VARIANT,
+  getPaletteColors
+} from './color.helpers';
+import {
+  AccessibilityConstrastScorePipe,
+  ConstrastPipe,
+  HexColorPipe
+} from './color.pipe';
+import {
+  getVariant,
+  resolveVariable,
+  searchFn
+} from './common';
+import {
+  IsRefPipe
+} from './is-ref.pipe';
+import {
+  MemoizePipe
+} from './memoize.pipe';
+import {
+  VariableLabelPipe
+} from './variable-label.pipe';
+import {
+  VariableNamePipe
+} from './variable-name.pipe';
 
 const THROTTLE_TIME = 100;
 
@@ -64,8 +125,11 @@ export interface VariableGroup {
 })
 export class ThemingPanelPresComponent implements OnDestroy {
   private readonly stateService = inject(StateService);
+
   public readonly activeStateName = computed(() => this.stateService.activeState()?.name);
+
   public readonly themingActiveStateOverrides = computed(() => this.stateService.activeState()?.stylingVariables || {});
+
   public readonly themingLocalStateOverrides = computed(() => this.stateService.localState()?.stylingVariables || {});
   public readonly resolvedVariables: Signal<Record<string, string>>;
   public readonly variablesMap: Signal<Record<string, StylingVariable>>;
@@ -112,7 +176,9 @@ export class ThemingPanelPresComponent implements OnDestroy {
       variables.forEach((variable) => {
         const initialValue = variable.runtimeValue ?? variable.defaultValue;
         const control = variablesControl.controls[variable.name];
-        if (!control) {
+        if (control) {
+          control.setValue(initialValue, { emitEvent: false });
+        } else {
           const newControl = new FormControl(initialValue);
           variablesControl.addControl(variable.name, newControl);
           this.subscription.add(
@@ -120,7 +186,7 @@ export class ThemingPanelPresComponent implements OnDestroy {
               throttleTime(THROTTLE_TIME, undefined, { trailing: true })
             ).subscribe((newValue) => {
               const update = {
-                [variable.name]: (newValue !== variable.defaultValue ? newValue : null) ?? null
+                [variable.name]: (newValue === variable.defaultValue ? null : newValue) ?? null
               };
               if (update[variable.name] !== null) {
                 this.stateService.updateLocalState({
@@ -132,8 +198,6 @@ export class ThemingPanelPresComponent implements OnDestroy {
               }
             })
           );
-        } else {
-          control.setValue(initialValue, { emitEvent: false });
         }
       });
     });
@@ -248,7 +312,7 @@ export class ThemingPanelPresComponent implements OnDestroy {
           && currentVariable.type === variable.type
           && typeof resolveVariable(variable.name, runtimeValues, variables) !== 'undefined'
           && searchFn(variable, term))
-        .map(({name}: StylingVariable) => `var(--${name})`)
+        .map(({ name }: StylingVariable) => `var(--${name})`)
       : [])
   );
 
@@ -300,7 +364,6 @@ export class ThemingPanelPresComponent implements OnDestroy {
   /**
    * Handler for palette color reset
    * @param palette
-   * @param resetValue
    * @param event
    */
   public onPaletteReset(palette: VariableGroup, event: UIEvent) {

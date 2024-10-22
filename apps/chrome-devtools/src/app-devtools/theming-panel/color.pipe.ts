@@ -1,6 +1,12 @@
-import { Pipe, type PipeTransform } from '@angular/core';
+import {
+  Pipe,
+  type PipeTransform
+} from '@angular/core';
 import TinyColor from 'tinycolor2';
-import { getAccessibilityContrastScore, getBestColorContrast } from './color.helpers';
+import {
+  getAccessibilityContrastScore,
+  getBestColorContrast
+} from './color.helpers';
 
 /**
  * Convert the color to hexadecimal format
