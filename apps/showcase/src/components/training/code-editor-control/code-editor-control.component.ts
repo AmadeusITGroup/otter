@@ -9,7 +9,9 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
+import {toSignal} from '@angular/core/rxjs-interop';
 import {NgbNav, NgbNavContent, NgbNavItem, NgbNavLink, NgbNavOutlet} from '@ng-bootstrap/ng-bootstrap';
+import {distinctUntilChanged, map, of, repeat, Subject, throttleTime, timeout} from 'rxjs';
 import {WebContainerService} from '../../../services';
 import {CodeEditorTerminalComponent} from '../code-editor-terminal';
 
@@ -55,6 +57,23 @@ export class CodeEditorControlComponent implements OnDestroy, AfterViewInit {
    * Current tab displayed
    */
   public activeTab: 'preview' | 'output' | 'terminal' = 'preview';
+
+  /**
+   * Subject that will emit everytime there is activity in the terminal
+   */
+  public readonly terminalActivity = new Subject<void>();
+
+  /**
+   * Signal with value `true` if the terminal is active, `false` if idle
+   * The terminal is considered idle if no activity is received for 2 seconds.
+   */
+  public readonly isTerminalActive = toSignal(this.terminalActivity.asObservable().pipe(
+    throttleTime(50),
+    map(() => true),
+    timeout({each: 2000, with: () => of(false)}),
+    distinctUntilChanged(),
+    repeat()
+  ));
 
   /**
    * @inheritDoc
