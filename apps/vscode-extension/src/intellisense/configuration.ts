@@ -1,3 +1,10 @@
+import type {
+  O3rCategoriesTagsRuleOption,
+  O3rWidgetTagsRuleOption
+} from '@o3r/eslint-plugin';
+import type {
+  TSESLint
+} from '@typescript-eslint/utils';
 import {
   ESLint
 } from 'eslint';
@@ -37,9 +44,9 @@ const finWidgetParamNamesInComment = (comment: string) => {
   return new Set(Array.from(comment.matchAll(/@o3rWidgetParam (\w+)/g)).map((match) => match[1]));
 };
 
-const getConfigurationTagsFromEslintConfig = (eslintConfig: any, comment: string, fileText: string): Record<string, ConfigurationTags> => {
-  const o3rWidgetsTagsRulesConfig = eslintConfig.rules?.['@o3r/o3r-widgets-tags']?.[1] || {};
-  const o3rCategoriesTagsRulesConfig = eslintConfig.rules?.['@o3r/o3r-categories-tags']?.[1] || {};
+const getConfigurationTagsFromEslintConfig = (eslintConfig: TSESLint.FlatConfig.Config, comment: string, fileText: string): Record<string, ConfigurationTags> => {
+  const o3rWidgetsTagsRulesConfig = ((eslintConfig.rules?.['@o3r/o3r-widgets-tags'] as TSESLint.FlatConfig.RuleLevelAndOptions | undefined)?.[1] || {}) as O3rWidgetTagsRuleOption;
+  const o3rCategoriesTagsRulesConfig = ((eslintConfig.rules?.['@o3r/o3r-categories-tags'] as TSESLint.FlatConfig.RuleLevelAndOptions | undefined)?.[1] || {}) as O3rCategoriesTagsRuleOption;
 
   const configurationTags = {
     tags: {
@@ -76,7 +83,7 @@ const getConfigurationTagsFromEslintConfig = (eslintConfig: any, comment: string
     }
   };
 
-  if (Object.keys(o3rWidgetsTagsRulesConfig?.widgets || {}).length === 0) {
+  if (!o3rWidgetsTagsRulesConfig?.widgets || Object.keys(o3rWidgetsTagsRulesConfig.widgets).length === 0) {
     return configurationTags;
   }
 
@@ -143,7 +150,7 @@ export const configurationCompletionItemProvider = (): CompletionItemProvider<Co
         return [];
       }
 
-      const config = await eslint.calculateConfigForFile(doc.fileName);
+      const config = (await eslint.calculateConfigForFile(doc.fileName)) as TSESLint.FlatConfig.Config;
       const configurationTags = getConfigurationTagsFromEslintConfig(config, match[0], fileText);
 
       return getCompletionsItemsFromConfigurationTags(configurationTags);

@@ -42,6 +42,18 @@ const config = [
       'unicorn/no-useless-undefined': 'off',
       'unicorn/no-useless-switch-case': 'off' // Handled by `@typescript-eslint/switch-exhaustiveness-check`
     }
+  },
+  {
+    name: '@o3r/overrides/unicorn/angular-components-files',
+    files: ['**/*.component.ts'],
+    rules: {
+      // TODO re-enable this rule once it support arrow function in `computed` Angular signal computation
+      // No opened issue on their side yet
+      'unicorn/consistent-function-scoping': [
+        'error',
+        { checkArrowFunctions: false }
+      ]
+    }
   }
 ];
 
