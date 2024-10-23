@@ -64,7 +64,7 @@ describe('Wait For Fetch Plugin', () => {
 
     const runner = plugin.load(defaultContext);
     const response: any = { test: true };
-    const fetchCall = Promise.reject(response);
+    const fetchCall = Promise.reject(new Error(response.toString()));
     try {
       await runner.transform(fetchCall);
     } catch {}

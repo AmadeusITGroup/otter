@@ -74,7 +74,7 @@ describe('Tokenizer Request Plugin', () => {
     expect(result.queryParams.classicParam).toEqual('classicParamValue');
     expect(result.queryParams.sensitiveParam).toEqual('sensitiveParamValue');
     expect(result.headers.get('ama-client-facts')).toBeNull();
-    // eslint-disable-next-line no-console
+    // eslint-disable-next-line no-console -- not calling console.error but expect if it has been called or not
     expect(console.error).toHaveBeenCalled();
   });
 
@@ -88,7 +88,7 @@ describe('Tokenizer Request Plugin', () => {
     expect(result.queryParams.classicParam).toEqual('classicParamValue');
     expect(result.queryParams.sensitiveParam).toEqual('sensitiveParamValue');
     expect(result.headers.get('ama-client-facts')).toBeNull();
-    // eslint-disable-next-line no-console
+    // eslint-disable-next-line no-console -- not calling console.error but expect if it has been called or not
     expect(console.error).not.toHaveBeenCalled();
   });
 
@@ -117,7 +117,7 @@ describe('Tokenizer Request Plugin', () => {
 
     const result = await runner.transform({ ...options, tokenizedOptions });
     const expectedJwePayload = {
-      // eslint-disable-next-line @typescript-eslint/naming-convention
+      // eslint-disable-next-line @typescript-eslint/naming-convention -- naming convention imposed for Amadeus JWE
       'ama-tokens': {
         $pathParamToken$: 'pathParamValue',
         $sensitiveParamToken$: 'sensitiveParamValue'
@@ -144,7 +144,7 @@ describe('Tokenizer Request Plugin', () => {
     await expect(runner.transform({ ...options, tokenizedOptions })).rejects.toThrow();
     expect(mockJweEncoder).toHaveBeenCalled();
 
-    // eslint-disable-next-line no-console
+    // eslint-disable-next-line no-console -- not calling console.error but expect if it has been called or not
     expect(console.error).not.toHaveBeenCalled();
   });
 
@@ -158,7 +158,7 @@ describe('Tokenizer Request Plugin', () => {
 
     await expect(runner.transform({ ...options, tokenizedOptions })).resolves.toBeDefined();
     expect(mockJweEncoder).toHaveBeenCalled();
-    // eslint-disable-next-line no-console
+    // eslint-disable-next-line no-console -- not calling console.error but expect if it has been called or not
     expect(console.error).toHaveBeenCalled();
   });
 
@@ -177,7 +177,7 @@ describe('Tokenizer Request Plugin', () => {
     expect(result.queryParams.classicParam).toEqual('classicParamValue');
     expect(result.queryParams.sensitiveParam).toEqual('$sensitiveParamToken$');
     expect(result.headers.get('ama-client-facts')).toEqual('myDeepLinkToken');
-    // eslint-disable-next-line no-console
+    // eslint-disable-next-line no-console -- not calling console.error but expect if it has been called or not
     expect(console.error).not.toHaveBeenCalled();
   });
 

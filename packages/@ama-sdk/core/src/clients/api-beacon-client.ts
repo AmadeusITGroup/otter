@@ -44,8 +44,7 @@ const DEFAULT_OPTIONS: Omit<BaseApiBeaconClientOptions, 'basePath'> = {
  * Determine if the given value is a promise
  * @param value The value to test
  */
-// NOTE: the `extends unknown` is required for ESM build with TSC
-// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-constraint
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-constraint -- the `extends unknown` is required for ESM build with TSC
 const isPromise = <T extends unknown>(value: T | Promise<T>): value is Promise<T> => value instanceof Promise;
 
 /**

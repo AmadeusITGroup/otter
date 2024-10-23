@@ -66,7 +66,6 @@ function ngGenerateJavaClientCoreFn(options: NgGenerateJavaClientCoreSchematicsS
   /**
    * rule to update readme and generate mandatory code source
    * @param tree
-   * @param _context
    */
   const generateSource = async (tree: Tree) => {
     const specContent = await fs.readFile(path.resolve(process.cwd(), options.specPath), { encoding: 'utf8' });

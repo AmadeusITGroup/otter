@@ -28,7 +28,7 @@ export function createJwtPiiEncoder(applicationId: string, expirationDelay = 360
       iat: timestamp,
       exp: timestamp + expirationDelay,
       iss: applicationId,
-      // eslint-disable-next-line @typescript-eslint/naming-convention
+      // eslint-disable-next-line @typescript-eslint/naming-convention -- naming convention imposed for Amadeus JWE
       'ama-tokens': values
     };
   };
@@ -62,7 +62,7 @@ export function createJwePiiEncoder(
       iat: timestamp,
       exp: timestamp + expirationDelay,
       iss: applicationId,
-      // eslint-disable-next-line @typescript-eslint/naming-convention
+      // eslint-disable-next-line @typescript-eslint/naming-convention -- naming convention imposed for Amadeus JWE
       'ama-tokens': values
     };
   };
@@ -196,7 +196,9 @@ export class PiiTokenizerRequest implements RequestPlugin {
     this.tokensHeader = options.headerName || 'ama-client-facts';
     this.challengeHeader = options.challengeHeaderName || 'ama-client-facts-challenge';
     this.silent = options.silent || false;
-    this.tokenEncoder = options.key ? createJwePiiEncoder(options.applicationId, options.expirationDelay, options.key, options.publicProperties || ['iss', 'sub'], options.useHeaderAsAdditionalAuthenticatedData) : createJwtPiiEncoder(options.applicationId, options.expirationDelay);
+    this.tokenEncoder = options.key
+      ? createJwePiiEncoder(options.applicationId, options.expirationDelay, options.key, options.publicProperties || ['iss', 'sub'], options.useHeaderAsAdditionalAuthenticatedData)
+      : createJwtPiiEncoder(options.applicationId, options.expirationDelay);
   }
 
   /**

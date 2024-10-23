@@ -68,7 +68,7 @@ export abstract class CodeGenerator<T extends CodegenTaskOptions> {
   private registerGeneratorExecutor(factoryOptions: { rootDirectory?: string }) {
     return (tree: Tree, context: SchematicContext) => {
       // workaround for issue https://github.com/angular/angular-cli/issues/12678
-      // eslint-disable-next-line no-underscore-dangle
+      // eslint-disable-next-line no-underscore-dangle -- accessing to a private field for the workaround
       const host = (context.engine as any)._host as NodeModulesEngineHost;
       host.registerTaskExecutor<T>({
         name: this.generatorName,
@@ -91,7 +91,7 @@ export abstract class CodeGenerator<T extends CodegenTaskOptions> {
    */
   protected runCodeGeneratorFactory(_factoryOptions: { rootDirectory?: string } = {}): TaskExecutor<T> {
     return (_options?: T) => {
-      return Promise.reject('No implementation, please target an implementation');
+      return Promise.reject(new Error('No implementation, please target an implementation'));
     };
   }
 

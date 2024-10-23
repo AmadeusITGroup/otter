@@ -40,11 +40,12 @@ export class Validator implements PostProcess {
       await SwaggerParser.validate(tmp);
       return swaggerSpec;
     } catch (error: any) {
-      /* eslint-disable no-console */
+      /* eslint-disable no-console -- no logger available */
       console.error('Error while validating the swagger spec:');
       console.error(error.message);
       console.error(error.stack);
       /* eslint-enable no-console */
+      // eslint-disable-next-line unicorn/no-process-exit -- false positive it will be executed in a cli
       process.exit(1);
     }
   }

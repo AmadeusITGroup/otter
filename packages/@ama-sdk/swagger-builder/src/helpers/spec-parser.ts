@@ -39,7 +39,7 @@ export async function findReferences(startingNode: any, startingField?: string):
     if (currentNode !== undefined && currentNode !== null) {
       if (field === '$ref' && typeof currentNode === 'string') {
         const [refType, refName] = currentNode.replace(/^#\//, '').split('/');
-        if (!references.find(({ type, name }) => type === refType && name === refName)) {
+        if (!references.some(({ type, name }) => type === refType && name === refName)) {
           references.push({ name: refName, type: refType });
         }
       } else if (Array.isArray(currentNode)) {
@@ -97,8 +97,9 @@ export function getDiscriminatorLinks(spec: any): DiscriminatorRefs {
  * @param discriminatorRefs
  */
 export async function getDefinitionsDeeplyAccessibleFromPaths(spec: any, discriminatorRefs: DiscriminatorRefs) {
+  const references = await findReferences(spec.paths);
   // init with definitions directly accessible from paths
-  const accessibleDefinitions = new Set((await findReferences(spec.paths))
+  const accessibleDefinitions = new Set(references
     .filter((ref) => ref.type === 'definitions')
     .map((ref) => ref.name)
   );
@@ -106,8 +107,8 @@ export async function getDefinitionsDeeplyAccessibleFromPaths(spec: any, discrim
   // compute definitions directly accessible for all the definitions
   const definitionDescendants: Record<string, string[]> = {};
   for (const definitionName of Object.keys(spec.definitions)) {
-    definitionDescendants[definitionName] = (await findReferences(spec.definitions[definitionName]))
-      .map((ref) => ref.name);
+    const defRefs = await findReferences(spec.definitions[definitionName]);
+    definitionDescendants[definitionName] = defRefs.map((ref) => ref.name);
   }
 
   // recursively add all the definitions directly accessible until no new definition is added

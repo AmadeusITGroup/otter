@@ -24,7 +24,7 @@ import {
 } from '../interfaces/builder-configuration';
 
 process.on('unhandledRejection', (err) => {
-  // eslint-disable-next-line no-console
+  // eslint-disable-next-line no-console -- no logger available
   console.error(err);
   process.exit(1);
 });

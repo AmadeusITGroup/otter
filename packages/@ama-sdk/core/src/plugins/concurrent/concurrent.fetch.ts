@@ -58,9 +58,6 @@ export class ConcurrentFetch implements FetchPlugin {
         try {
           const fetchResponse = await fetchCall;
           return fetchResponse;
-        // eslint-disable-next-line no-useless-catch
-        } catch (e) {
-          throw e;
         } finally {
           this.pool = this.pool.filter((call) => call !== fetchCall);
           this.poolSize--;

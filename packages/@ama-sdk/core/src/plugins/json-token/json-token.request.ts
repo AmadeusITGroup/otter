@@ -25,7 +25,7 @@ export class JsonTokenRequest implements RequestPlugin {
     return {
       transform: (data: RequestOptions) => {
         // Handle Authorization Tokens
-        const token = (typeof sessionStorage === 'undefined') ? this.sharedMemory[this.storageTokenKey] : sessionStorage.getItem(this.storageTokenKey);
+        const token = (typeof sessionStorage === 'undefined' ? this.sharedMemory[this.storageTokenKey] : sessionStorage.getItem(this.storageTokenKey)) as string | undefined;
         if (token) {
           data.credentials = 'same-origin';
           data.headers.append('Authorization', token);

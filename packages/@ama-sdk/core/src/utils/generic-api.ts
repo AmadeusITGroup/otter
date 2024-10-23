@@ -35,8 +35,7 @@ export class GenericApi implements Api {
 
   /**
    * Initialize your interface
-   * @param apiClient
-   * @params apiClient Client used to process call to the API
+   * @param apiClient Client used to process call to the API
    */
   constructor(apiClient: ApiClient) {
     this.client = apiClient;
@@ -49,10 +48,10 @@ export class GenericApi implements Api {
   public async request<T>(requestOptions: GenericRequestOptions<T>): Promise<T> {
     const metadataHeaderAccept = requestOptions.metadata?.headerAccept || 'application/json';
     const headers: { [key: string]: string | undefined } = {
-      // eslint-disable-next-line @typescript-eslint/naming-convention
+      /* eslint-disable @typescript-eslint/naming-convention -- naming convention imposed for headers */
       'Content-Type': requestOptions.metadata?.headerContentType || 'application/json',
-      // eslint-disable-next-line @typescript-eslint/naming-convention
       ...(metadataHeaderAccept ? { 'Accept': metadataHeaderAccept } : {})
+      /* eslint-enable @typescript-eslint/naming-convention */
     };
 
     const requestParameters: RequestOptionsParameters = {

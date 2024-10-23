@@ -194,7 +194,7 @@ export class SwaggerSpecSplit implements SwaggerSpec {
     if (!this.isParsed) {
       await this.parse();
     }
-    return this.swaggerSpecConsolidated && this.swaggerSpecConsolidated.definitions || {};
+    return (this.swaggerSpecConsolidated && this.swaggerSpecConsolidated.definitions) || {};
   }
 
   /** @inheritdoc */
@@ -202,7 +202,7 @@ export class SwaggerSpecSplit implements SwaggerSpec {
     if (!this.isParsed) {
       await this.parse();
     }
-    return this.swaggerSpecConsolidated && this.swaggerSpecConsolidated.responses || {};
+    return (this.swaggerSpecConsolidated && this.swaggerSpecConsolidated.responses) || {};
   }
 
   /** @inheritdoc */
@@ -210,7 +210,7 @@ export class SwaggerSpecSplit implements SwaggerSpec {
     if (!this.isParsed) {
       await this.parse();
     }
-    return this.swaggerSpecConsolidated && this.swaggerSpecConsolidated.parameters || {};
+    return (this.swaggerSpecConsolidated && this.swaggerSpecConsolidated.parameters) || {};
   }
 
   /** @inheritdoc */
@@ -218,7 +218,7 @@ export class SwaggerSpecSplit implements SwaggerSpec {
     if (!this.isParsed) {
       await this.parse();
     }
-    return this.swaggerSpecConsolidated && this.swaggerSpecConsolidated.paths || {};
+    return (this.swaggerSpecConsolidated && this.swaggerSpecConsolidated.paths) || {};
   }
 
   /** @inheritdoc */
@@ -226,6 +226,6 @@ export class SwaggerSpecSplit implements SwaggerSpec {
     if (!this.isParsed) {
       await this.parse();
     }
-    return this.swaggerSpecConsolidated && this.swaggerSpecConsolidated.tags || [];
+    return (this.swaggerSpecConsolidated && this.swaggerSpecConsolidated.tags) || [];
   }
 }

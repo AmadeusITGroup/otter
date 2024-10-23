@@ -138,5 +138,17 @@ export default [
       '@typescript-eslint/no-unsafe-member-access': 'warn',
       '@typescript-eslint/no-unsafe-return': 'warn'
     }
+  },
+  {
+    name: '@o3r/it-tests',
+    files: ['**/*.it.spec.ts'],
+    rules: {
+      'jsdoc/check-tag-names': [
+        'error',
+        {
+          definedTags: ['jest-environment', 'jest-environment-o3r-app-folder', 'jest-environment-o3r-type']
+        }
+      ]
+    }
   }
 ];

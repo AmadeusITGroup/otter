@@ -33,6 +33,7 @@ export type ReviverType<T, V extends { [key: string]: any } = { [key: string]: a
 /**
  * Used in case of maps (dictionaries): All values of the map must be of the same type. reviveWithType will be called
  * for each of these elements.
+ * @param data
  * @param dictionaries
  * @param reviver
  * @param options Reviver options
@@ -44,8 +45,7 @@ export function reviveMap<T>(data: { [key: string]: any }, dictionaries: any = n
 
   const revived: { [key: string]: any } = {};
   for (const key in data) {
-    // eslint-disable-next-line no-prototype-builtins
-    if (data.hasOwnProperty(key)) {
+    if (Object.prototype.hasOwnProperty.call(data, key)) {
       revived[key] = reviver(data[key], dictionaries, options);
     }
   }

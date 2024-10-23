@@ -162,12 +162,10 @@ export class ApiFetchClient implements ApiClient {
 
       const canStart = await Promise.all(loadedPlugins.map((plugin) => !plugin.canStart || plugin.canStart()));
       const isCanceledBy = canStart.indexOf(false);
-      if (isCanceledBy >= 0) {
+      asyncResponse = isCanceledBy >= 0
         // One of the fetch plugins cancelled the execution of the call
-        asyncResponse = Promise.reject(new CanceledCallError(`Is canceled by the plugin ${isCanceledBy}`, isCanceledBy, this.options.fetchPlugins[isCanceledBy], { apiName, operationId, url, origin }));
-      } else {
-        asyncResponse = fetch(url, options);
-      }
+        ? Promise.reject(new CanceledCallError(`Is canceled by the plugin ${isCanceledBy}`, isCanceledBy, this.options.fetchPlugins[isCanceledBy], { apiName, operationId, url, origin }))
+        : fetch(url, options);
 
       for (const plugin of loadedPlugins) {
         asyncResponse = plugin.transform(asyncResponse);
@@ -183,9 +181,10 @@ export class ApiFetchClient implements ApiClient {
     try {
       root = body ? JSON.parse(body) : undefined;
     } catch (e: any) {
-      exception = new ResponseJSONParseError(e.message || 'Fail to parse response body', response && response.status || 0, body, { apiName, operationId, url, origin });
+      exception = new ResponseJSONParseError(e.message || 'Fail to parse response body', (response && response.status) || 0, body, { apiName, operationId, url, origin });
     }
-    // eslint-disable-next-line no-console
+
+    // eslint-disable-next-line no-console -- `console.error` is supposed to be the default value if the `options` argument is not provided, can be removed in Otter v12.
     const reviver = getResponseReviver(revivers, response, operationId, { disableFallback: this.options.disableFallback, log: console.error });
     const replyPlugins = this.options.replyPlugins
       ? this.options.replyPlugins.map((plugin) => plugin.load<T>({

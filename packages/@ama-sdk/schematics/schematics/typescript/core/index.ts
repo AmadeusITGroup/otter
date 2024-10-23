@@ -180,7 +180,8 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKCoreSchematic
 
     let specContent!: string;
     if (URL.canParse(generatorOptions.specPath) && (new URL(generatorOptions.specPath)).protocol.startsWith('http')) {
-      specContent = await (await fetch(generatorOptions.specPath)).text();
+      const res = await fetch(generatorOptions.specPath);
+      specContent = await res.text();
       specContent = updateLocalRelativeRefs(specContent, path.dirname(generatorOptions.specPath));
     } else {
       const specPath = path.isAbsolute(generatorOptions.specPath) || !options.directory
@@ -225,7 +226,13 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKCoreSchematic
     };
 
     const generateOperationFinder = async (): Promise<PathObject[]> => {
-      const specification: any = isJson ? tree.readJson(specDefaultPath) : (await import('js-yaml')).load(tree.readText(specDefaultPath));
+      let specification;
+      if (isJson) {
+        specification = tree.readJson(specDefaultPath);
+      } else {
+        const jsYaml = await import('js-yaml');
+        specification = jsYaml.load(tree.readText(specDefaultPath)) as any;
+      }
       const extraction = generateOperationFinderFromSingleFile(specification);
       return extraction || [];
     };
