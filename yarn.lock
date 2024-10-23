@@ -719,7 +719,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ama-sdk/showcase-sdk@workspace:packages/@ama-sdk/showcase-sdk"
   dependencies:
-    "@ama-sdk/client-fetch": "workspace:^"
     "@ama-sdk/core": "workspace:^"
     "@ama-sdk/schematics": "workspace:^"
     "@angular-devkit/core": "npm:~18.2.0"
@@ -768,12 +767,9 @@ __metadata:
     typedoc: "npm:~0.26.0"
     typescript: "npm:~5.5.4"
   peerDependencies:
-    "@ama-sdk/client-fetch": "workspace:^"
     "@ama-sdk/core": "workspace:^"
     isomorphic-fetch: ~3.0.0
   peerDependenciesMeta:
-    "@ama-sdk/client-fetch":
-      optional: true
     isomorphic-fetch:
       optional: true
   languageName: unknown
