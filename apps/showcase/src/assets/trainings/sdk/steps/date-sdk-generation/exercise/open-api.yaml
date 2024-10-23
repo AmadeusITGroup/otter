@@ -1,0 +1,25 @@
+# TEMPLATE: This is a template spec file to be used to complete the exercise in your local environment
+openapi: 3.0.2
+info:
+  description: This is a sample SDK for the Otter training
+  version: 1.0.0
+  title: Otter Training SDK
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: dummy
+    description: Dummy operations
+paths:
+  /dummy:
+    get:
+      tags:
+        - "dummy"
+      operationId: dummy
+      responses:
+        200:
+          description: "Successful operation"
+components:
+  schemas:
+    Flight:
+    # Complete these specifications with the provided instructions

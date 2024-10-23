@@ -1,0 +1,75 @@
+<p>
+  If your specification file includes dates, there are multiple options for the generation of your SDK.
+</p>
+<p>
+  For this exercise, let's consider a specific use case. Imagine your SDK is used on a flight booking site, including international travel.
+  A user who is currently in France is planning a round trip from Paris to New York City. These cities are in different timezones, which needs
+  to be taken into account when the user books their flights. The outbound and return flights must be relative to the timezones of the airports.
+</p>
+<p>
+  To do so, the dates of the flights must be of type <code>utils.DateTime</code>.
+</p>
+<p>
+  Also, for this flight booking site, each flight has an expiration date-time for the payment, which is relative to the user's timezone.
+</p>
+
+<h3>Exercise</h3>
+<p>
+  <i>
+    This exercise should be done in your local environment (such as the SDK repository you created in the previous step).
+    We have provided the template and the solution on the right.
+    (Due to a Java constraint, you won't be able to generate your own SDK in the code editor provided on the right.)
+  </i>
+</p>
+<p>
+  Let's create a specification file for our flight booking site. This SDK should contain a definition with the properties to book a flight:
+</p>
+<ul>
+  <li>Origin location code</li>
+  <li>Destination location code</li>
+  <li>Departure date-time</li>
+  <li>Payment expiration date</li>
+</ul>
+<p>
+  As mentioned above, the type of the departure date-time should be <code>utils.DateTime</code> after generation, which can be defined by setting the
+  type of the property to <code>string</code> and adding the <code>x-local-timezone</code> vendor (more information on how to do this in the
+  <a href="https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/schematics/schematics/typescript/shell/templates/base#manage-dates" target="_blank">documentation</a>).
+  Once your specification file is created, you can generate your SDK using the command below or the corresponding script in your <code>package.json</code> file.
+</p>
+<pre class="w-100 bg-body-tertiary px-5 pre-whitespace">
+  <code>
+yarn schematics @ama-sdk/schematics:typescript-core --spec-path ./path/to/openapi.yaml
+  </code>
+</pre>
+<p>
+  As you may notice, the generated date object is of type <code>string</code> instead of <code>Date</code>. This is normal since the default configuration
+  of the SDK generator has an option <code>stringifyDate</code> that is set to <code>true</code>. To ensure that the date object is generated correctly,
+  this option needs to be set to false either through the command line or in <code>openapitools.json</code>.
+</p>
+<p>For example:</p>
+<pre class="w-100 bg-body-tertiary px-5 pre-whitespace">
+  <code>
+yarn schematics @ama-sdk/schematics:typescript-core --spec-path ./path/to/openapi.yaml --global-property stringifyDate=false
+  </code>
+</pre>
+<p>or</p>
+<pre class="w-100 bg-body-tertiary px-5 pre-whitespace">
+  <code>
+"generators": {
+  "training-project-training-sdk": {
+    "generatorName": "typescriptFetch",
+    "output": ".",
+    "inputSpec": "./open-api.yaml"
+    "globalProperty": {
+      "stringifyDate": false
+    }
+  }
+}
+  </code>
+</pre>
+<p>
+  <i><u>Note:</u> The <code>stringifyDate</code> option does not impact the generation of a <code>utils.Date</code> object.</i>
+</p>
+<p>
+  To make sure you have generated the correct SDK locally, check out the file <code>src/models/base/flight/flight.ts</code> of the solution.
+</p>
