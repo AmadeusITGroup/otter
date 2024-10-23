@@ -363,7 +363,8 @@
         "{projectRoot}/action.yml",
         "{projectRoot}/LICENSE"
       ],
-      "outputs": ["{projectRoot}/packaged-action"]
+      "outputs": ["{projectRoot}/packaged-action"],
+      "dependsOn": ["build"]
     }
   },
   "generators": {

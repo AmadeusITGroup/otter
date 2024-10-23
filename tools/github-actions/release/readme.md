@@ -4,6 +4,9 @@
 
 GitHub Action for creating a new release on GitHub.
 
+A release note is automatically generated with the release thanks to the [Github Release Notes mechanism](https://docs.github.com/en/repositories/releasing-projects-on-github/automatically-generated-release-notes).\
+In order to generate a better release note, in case of **major** and **minor** release, the note will contains all the changes from the latest **patch** before this new version.
+
 > [!NOTE]
 > This action requires `contents: write` [permission](https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/controlling-permissions-for-github_token) in order to create the release.
 
