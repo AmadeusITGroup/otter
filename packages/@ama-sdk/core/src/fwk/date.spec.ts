@@ -24,6 +24,7 @@ describe('DateTime', () => {
 
   it('should support json conversions', () => {
     const originalDate = new utils.DateTime(new Date());
+    // eslint-disable-next-line unicorn/prefer-structured-clone -- we test the JSON conversion
     const jsonDate = JSON.parse(JSON.stringify(originalDate));
 
     expect(new utils.DateTime(jsonDate)).toEqual(originalDate);
@@ -94,6 +95,7 @@ describe('Date', () => {
 
   it('should support json conversions', () => {
     const originalDate = new utils.Date(new Date());
+    // eslint-disable-next-line unicorn/prefer-structured-clone -- we test the JSON conversion
     const jsonDate = JSON.parse(JSON.stringify(originalDate));
 
     expect(new utils.Date(jsonDate)).toEqual(originalDate);

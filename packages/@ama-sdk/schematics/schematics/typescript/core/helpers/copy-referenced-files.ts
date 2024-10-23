@@ -58,13 +58,14 @@ async function extractRefPathRecursive(specFilePath: string, referenceFilePath: 
   return [];
 }
 
+const formatPath = (inputPath: string) => (inputPath.startsWith('.') ? inputPath : `./${inputPath}`).replace(/\\+/g, '/');
+
 /**
  * Replace all the local relative references using the new base relative path
  * @param specContent
  * @param newBaseRelativePath
  */
 export function updateLocalRelativeRefs(specContent: string, newBaseRelativePath: string) {
-  const formatPath = (inputPath: string) => (inputPath.startsWith('.') ? inputPath : `./${inputPath}`).replace(/\\+/g, '/');
   return specContent.replace(refMatcher, (match, ref: string) => {
     const refPath = ref.replace(/["']/g, '');
     return refPath.startsWith('.')

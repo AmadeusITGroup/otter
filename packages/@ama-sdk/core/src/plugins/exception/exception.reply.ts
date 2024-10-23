@@ -16,6 +16,7 @@ import {
  */
 export class ExceptionReply<V extends Record<string, any> | undefined = Record<string, any>> implements ReplyPlugin<V | Record<string, unknown>, V> {
   /**
+   * ExceptionReply constructor
    * @param callback Function called in case of exception. If provided, this function is responsible for throwing the exception or not
    */
   constructor(private readonly callback?: (res: V, error: Error | undefined) => V) {}

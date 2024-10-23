@@ -84,10 +84,11 @@ describe('Mock intercept', () => {
       };
       const loaded = plugin.load();
       const transformed = await loaded.transform(originalRequest);
-      const res = await (await fetch(transformed.basePath, transformed)).text();
+      const res = await fetch(transformed.basePath, transformed);
+      const text = res.text();
 
       expect(getMockSpy).toHaveBeenCalled();
-      expect(res).toBe(JSON.stringify(testMock.mockData));
+      expect(text).toBe(JSON.stringify(testMock.mockData));
       expect(initializeSpy).toHaveBeenCalled();
     });
   });

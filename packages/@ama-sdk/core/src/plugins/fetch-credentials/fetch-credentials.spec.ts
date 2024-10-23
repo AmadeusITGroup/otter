@@ -13,7 +13,7 @@ describe('Fetch API credentials Request Plugin', () => {
     const runner = plugin.load();
 
     await runner.transform(options);
-    const cred = (await plugin.load().transform(options)).credentials;
+    const { credentials: cred } = (await plugin.load().transform(options));
 
     expect(cred).toBe('same-origin');
   });
@@ -23,7 +23,7 @@ describe('Fetch API credentials Request Plugin', () => {
     const runner = plugin.load();
 
     await runner.transform(options);
-    const cred = (await plugin.load().transform(options)).credentials;
+    const { credentials: cred } = (await plugin.load().transform(options));
 
     expect(cred).toBe('include');
   });

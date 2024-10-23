@@ -57,7 +57,7 @@ export const updatePackageJsonScripts: Rule = (tree, context) => {
         acc[scriptName] = cmd
           .replace(
             // Remove swagger config path if it is the default value
-
+            // eslint-disable-next-line @stylistic/max-len -- regexp cannot be splitted
             / --(swagger-config-path|swaggerConfigPath)[ =]?(\.\/)?node_modules\/@ama-sdk\/generator-sdk\/src\/generators\/java-client-core\/templates\/swagger-codegen-java-client\/config\/swagger-codegen-config.json/,
             ''
           )
@@ -109,7 +109,7 @@ const createOpenApiToolsConfig: Rule = (tree) => {
     tree.create(openApiConfigPath, JSON.stringify({
       $schema: 'https://raw.githubusercontent.com/OpenAPITools/openapi-generator-cli/master/apps/generator-cli/src/config.schema.json',
       spaces: 2,
-      // eslint-disable-next-line @typescript-eslint/naming-convention
+      // eslint-disable-next-line @typescript-eslint/naming-convention -- naming convention imposed by OpenAPI
       'generator-cli': {
         version: openApiGeneratorVersion,
         storageDir: openApiDefaultStorageDir
@@ -128,7 +128,7 @@ const installOpenApiToolsCli: Rule = async (tree, context) => {
   const packageJsonContent = tree.readJson(packageJsonPath) as PackageJson;
   const amaSdkSchematicsPackageJsonContent = JSON.parse(readFileSync(path.resolve(__dirname, '..', '..', 'package.json'), { encoding: 'utf8' })) as PackageJson & { openApiSupportedVersion: string };
   const amaSdkSchematicsOpenApiCliVersion = amaSdkSchematicsPackageJsonContent.peerDependencies?.['@openapitools/openapi-generator-cli'] || '';
-  // eslint-disable-next-line @typescript-eslint/naming-convention
+  // eslint-disable-next-line @typescript-eslint/naming-convention -- name of a package does not follow the naming convention
   packageJsonContent.devDependencies = { ...packageJsonContent.devDependencies, '@openapitools/openapi-generator-cli': amaSdkSchematicsOpenApiCliVersion };
   context.addTask(new DevInstall({
     packageName: `@openapitools/openapi-generator-cli@${amaSdkSchematicsOpenApiCliVersion}`,

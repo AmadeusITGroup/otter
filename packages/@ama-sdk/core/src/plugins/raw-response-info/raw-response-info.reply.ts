@@ -41,7 +41,6 @@ export class RawResponseInfoReply<V = { [key: string]: any } | undefined> implem
 
   /**
    * Initialize your plugin
-   * @param customInfo Custom information to add to the reply
    */
   constructor() {}
 

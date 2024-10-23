@@ -221,7 +221,8 @@ export class PerformanceMetricPlugin implements FetchPlugin {
           this.closeMark(markId, response);
           return response;
         } catch (exception: any) {
-          this.closeMarkWithError(markId, exception);
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access -- type is explicitly `any`
+          this.closeMarkWithError(markId, exception instanceof Error ? exception : new Error(exception.toString()));
           throw exception;
         }
       }

@@ -24,7 +24,7 @@ describe('BotProtectionFingerprint', () => {
       };
 
       const protectionReject: ImpervaProtection = {
-        token: () => Promise.reject('error')
+        token: () => Promise.reject(new Error('error'))
       };
 
       const registerEvent = (protection, delay = 0) => {
@@ -54,7 +54,7 @@ describe('BotProtectionFingerprint', () => {
         const promise = retriever();
         await jest.runAllTimersAsync();
         expect(await promise).toBeUndefined();
-        // eslint-disable-next-line no-console
+        // eslint-disable-next-line no-console -- console.error is not called here
         expect(console.error).toHaveBeenCalledTimes(1);
       });
 
@@ -64,7 +64,7 @@ describe('BotProtectionFingerprint', () => {
         const promise = retriever();
         await jest.runAllTimersAsync();
         expect(await promise).toBeUndefined();
-        // eslint-disable-next-line no-console
+        // eslint-disable-next-line no-console -- console.error is not called here
         expect(console.error).toHaveBeenCalledTimes(1);
       });
 
@@ -73,7 +73,7 @@ describe('BotProtectionFingerprint', () => {
         const promise = retriever();
         await jest.runAllTimersAsync();
         expect(await promise).toBeUndefined();
-        // eslint-disable-next-line no-console
+        // eslint-disable-next-line no-console -- console.error is not called here
         expect(console.error).toHaveBeenCalledTimes(1);
       });
 
@@ -89,7 +89,7 @@ describe('BotProtectionFingerprint', () => {
         const newPromise = retriever();
         await jest.runAllTimersAsync();
         expect(await newPromise).toBe(tokenValue);
-        // eslint-disable-next-line no-console
+        // eslint-disable-next-line no-console -- console.error is not called here
         expect(console.error).not.toHaveBeenCalled();
       });
     });
@@ -98,17 +98,17 @@ describe('BotProtectionFingerprint', () => {
       it('Should return undefined if bmak object doesn\'t exist.', () => {
         expect(akamaiTelemetryRetrieverFactory()()).toBeUndefined();
         expect(akamaiTelemetryRetrieverFactory({} as any)()).toBeUndefined();
-        // eslint-disable-next-line @typescript-eslint/naming-convention,camelcase
+        // eslint-disable-next-line @typescript-eslint/naming-convention -- naming convention imposed by Akamai
         expect(akamaiTelemetryRetrieverFactory({ get_telemetry: 'test' } as any)()).toBeUndefined();
       });
 
       it('Should return telemetry', () => {
-        // eslint-disable-next-line @typescript-eslint/naming-convention,camelcase
+        // eslint-disable-next-line @typescript-eslint/naming-convention -- naming convention imposed by Akamai
         expect(akamaiTelemetryRetrieverFactory({ get_telemetry: () => {
           return 'telemetryValue';
         } })()).toBe('telemetryValue');
         global.window = {};
-        // eslint-disable-next-line @typescript-eslint/naming-convention,camelcase
+        // eslint-disable-next-line @typescript-eslint/naming-convention -- naming convention imposed by Akamai
         global.window.bmak = { get_telemetry: () => {
           return 'telemetryValue2';
         } };

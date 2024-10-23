@@ -1,6 +1,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import yaml from 'js-yaml';
+import {
+  dump as yamlDump
+} from 'js-yaml';
 import {
   Formatter
 } from './formatter.interface';
@@ -36,7 +38,7 @@ export class SplitYamlFormatter implements Formatter {
    */
   private async writeFileYaml(filePath: string, content: any) {
     await fs.promises.mkdir(path.dirname(filePath), { recursive: true });
-    await fs.promises.writeFile(filePath, yaml.dump(content, { indent: 2 }));
+    await fs.promises.writeFile(filePath, yamlDump(content, { indent: 2 }));
   }
 
   /**
@@ -185,7 +187,7 @@ export class SplitYamlFormatter implements Formatter {
     await this.generateParameterFile(writableSpec);
     const products = await this.generateProductFiles(writableSpec);
     await this.generateJsonFile(products);
-    // eslint-disable-next-line no-console
+    // eslint-disable-next-line no-console -- no logger available
     console.info(`Spec generated to ${this.filePath}`);
   }
 
@@ -197,7 +199,7 @@ export class SplitYamlFormatter implements Formatter {
       ...generatePackageJson(artifactName, spec),
       main: path.relative(this.cwd, this.filePath),
       exports: {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
+        // eslint-disable-next-line @typescript-eslint/naming-convention -- key is a path to a file
         './openapi.yaml': {
           default: path.relative(this.cwd, this.filePath)
         }
@@ -205,7 +207,7 @@ export class SplitYamlFormatter implements Formatter {
     }, null, 2);
 
     await fs.promises.writeFile(path.resolve(this.cwd, 'package.json'), content);
-    // eslint-disable-next-line no-console
+    // eslint-disable-next-line no-console -- no logger available
     console.info(`Artifact generated for ${this.filePath}`);
   }
 }

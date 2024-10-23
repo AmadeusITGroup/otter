@@ -130,7 +130,6 @@ export class SwaggerSpecMerger {
           break;
         }
 
-        case 'paths':
         default: {
           throw new Error(`${resourceType} targeting is not supported`);
         }
@@ -202,7 +201,7 @@ export class SwaggerSpecMerger {
       return;
     } else if (field === '$ref') {
       if (isOuterRefPath(currentNode)) {
-        // eslint-disable-next-line prefer-const
+        // eslint-disable-next-line prefer-const -- innerPath is not a const
         let [swaggerPath, innerPath] = currentNode.split('#');
         if (!this.ignoredSwaggerPath.includes(swaggerPath)) {
           if (!this.additionalSpecs[swaggerPath] && !this.specs.some((s) => s.sourcePath === swaggerPath)) {
@@ -232,9 +231,9 @@ export class SwaggerSpecMerger {
    * @param currentNode Node to inspect in the Swagger spec object
    * @param replace Reference to replace
    * @param replace.swaggerPath
-   * @param field Field of the node
    * @param replace.innerPath
    * @param replace.newPath
+   * @param field Field of the node
    */
   private async replaceOuterRef(currentNode: any, replace: { swaggerPath: string; innerPath: string; newPath: string }, field?: string): Promise<any> {
     if (currentNode === undefined) {
@@ -342,7 +341,7 @@ export class SwaggerSpecMerger {
         if (conflicts.length > 0) {
           if (ignoreConflict) {
             Object.keys(conflictMethods)
-              // eslint-disable-next-line no-console
+              // eslint-disable-next-line no-console -- no logger available
               .forEach((url) => console.log(`The Path "${url}" will override the default method${conflictMethods[url].length > 1 ? 's' : ''} ${conflictMethods[url].join(', ')}`));
           } else {
             throw new Error(`The path${conflicts.length > 1 ? 's' : ''} ${Object.keys(conflictMethods)

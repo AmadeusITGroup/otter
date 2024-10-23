@@ -42,6 +42,7 @@ export class MockInterceptAngular implements AngularPlugin {
 
             let originalCall = call;
 
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access -- type of options is explicitly `any`
             if (!context.options.headers || !(context.options.headers instanceof Headers) || !(context.options.headers as Headers).has(CUSTOM_MOCK_OPERATION_ID_HEADER)) {
               return originalCall;
             }
@@ -57,6 +58,7 @@ export class MockInterceptAngular implements AngularPlugin {
               originalCall = originalCall.pipe(delay(delayTime));
             }
 
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access -- type of options is explicitly `any`
             const operationId = (context.options.headers as Headers).get(CUSTOM_MOCK_OPERATION_ID_HEADER)!;
             try {
               const mock = this.options.adapter.getLatestMock(operationId);
@@ -68,6 +70,7 @@ export class MockInterceptAngular implements AngularPlugin {
               const response = mock.getResponse();
               return originalCall.pipe(
                 mergeMap(async (res) => {
+                  /* eslint-disable @typescript-eslint/no-unsafe-assignment -- type of body is explicitly `any` */
                   const body = await response.json();
                   const responseCloned = res.clone();
                   return new HttpResponse<any>({
@@ -75,6 +78,7 @@ export class MockInterceptAngular implements AngularPlugin {
                     body,
                     url: responseCloned.url || undefined
                   });
+                  /* eslint-enable-next-line @typescript-eslint/no-unsafe-assignment */
                 })
               );
             } catch {

@@ -57,27 +57,17 @@ export function filterUndefinedValues(object?: { [key: string]: string | undefin
  * Encodes this object to match application/x-www-urlencoded or multipart/form-data
  * @param data
  * @param type
- * @param data
- * @param type
  */
 export function processFormData(data: any, type: string): FormData | string {
   let encodedData: FormData | string;
 
-  /* eslint-disable guard-for-in */
   if (type === 'multipart/form-data') {
     const formData: FormData = new FormData();
-    for (const i in data) {
-      formData.append(i, data[i]);
-    }
+    Object.entries(data).forEach(([key, value]) => formData.append(key, value as any));
     encodedData = formData;
   } else {
-    const formData: string[] = [];
-    for (const i in data) {
-      formData.push(`${i}=${encodeURIComponent(data[i])}`);
-    }
-    encodedData = formData.join('&');
+    encodedData = Object.entries(data).map(([key, value]) => `${key}=${encodeURIComponent(value as any)}`).join('&');
   }
-  /* eslint-enable guard-for-in */
 
   return encodedData;
 }
@@ -121,17 +111,21 @@ export function tokenizeRequestOptions(tokenizedUrl: string, queryParameters: { 
  * Fallback to the lowest status code's reviver.
  * Does not try to match non-successful responses as error are handled separately
  * @param revivers
- * @param endpoint
  * @param response
- * @param options
- * @param options.disableFallback
- * @param options.log
+ * @param endpoint
+ * @param options `{ disableFallback: false, log: console.error }` by default
+ * @param options.disableFallback `false` by default
+ * @param options.log `() => {}` by default -- warning: default value will change to `console.error` in Otter v12.
  */
-export function getResponseReviver<T>(revivers: { [statusCode: number]: ReviverType<T> | undefined } | undefined | ReviverType<T>, response: Pick<Response, 'ok' | 'status'> | undefined,
-  // eslint-disable-next-line no-console
-  endpoint?: string, options: { disableFallback?: boolean; log?: (...args: any[]) => void } = { disableFallback: false, log: console.error }): ReviverType<T> | undefined {
+export function getResponseReviver<T>(
+  revivers: { [statusCode: number]: ReviverType<T> | undefined } | undefined | ReviverType<T>,
+  response: Pick<Response, 'ok' | 'status'> | undefined,
+  endpoint?: string,
+  options?: { disableFallback?: boolean; log?: (...args: any[]) => void }
+): ReviverType<T> | undefined {
+  // eslint-disable-next-line no-console -- set as default value
+  const { disableFallback = false, log: logMsg = options ? () => {} : console.error } = options ?? {};
   const logPrefix = `API status code error for ${endpoint || 'unknown'} endpoint`;
-  const logMsg = options.log || (() => {});
   if (!response || !response.ok) {
     return undefined;
   }
@@ -141,7 +135,7 @@ export function getResponseReviver<T>(revivers: { [statusCode: number]: ReviverT
   if (response.status && Object.keys(revivers).includes(`${response.status}`)) {
     return revivers[response.status];
   }
-  if (options?.disableFallback) {
+  if (disableFallback) {
     logMsg(`${logPrefix} - Missing ${response.status} from API specification - fallback is deactivated, no revive will run on this response`);
     return undefined;
   }

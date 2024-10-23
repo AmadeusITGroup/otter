@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-/* eslint-disable camelcase */
-
 import {
   chain,
   Rule
@@ -26,6 +23,7 @@ import {
 /**
  * update of Otter library V10.0
  */
+// eslint-disable-next-line @typescript-eslint/naming-convention -- function name contains the version
 export function updateV10_0(): Rule {
   const updateRules: Rule[] = [
     updateScriptPackageJson(),
@@ -39,6 +37,7 @@ export function updateV10_0(): Rule {
 /**
  * Update of Ama-sdk library V10.1
  */
+// eslint-disable-next-line @typescript-eslint/naming-convention -- function name contains the version
 export function updateV10_1(): Rule {
   const updateRules: Rule[] = [
     addPresetsRenovate()
@@ -50,6 +49,7 @@ export function updateV10_1(): Rule {
 /**
  * Update of Ama-sdk library V10.3
  */
+// eslint-disable-next-line @typescript-eslint/naming-convention -- function name contains the version
 export function updateV10_3(): Rule {
   const updateRules: Rule[] = [
     updateOpenApiVersionInProject()
@@ -61,6 +61,7 @@ export function updateV10_3(): Rule {
 /**
  * Update of Ama-sdk library V11
  */
+// eslint-disable-next-line @typescript-eslint/naming-convention -- function name contains the version
 export function updateV11_0(): Rule {
   const updateRules: Rule[] = [
     updateRegenScript,
