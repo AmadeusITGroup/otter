@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import {
   spawn,
   SpawnOptionsWithoutStdio
@@ -23,8 +22,10 @@ export interface SpawnOptions extends SpawnOptionsWithoutStdio {
 export const promiseSpawn = (command: string, opt?: Partial<SpawnOptions>) => {
   const options: SpawnOptions = {
     cwd: process.cwd(),
-    stdoutLogger: opt?.logger?.debug || console.debug,
-    stderrLogger: opt?.logger?.error || console.error,
+    // eslint-disable-next-line no-console -- console is here as default value
+    stdoutLogger: (...args: any[]) => (opt?.logger?.debug || console.debug)(...args),
+    // eslint-disable-next-line no-console -- console is here as default value
+    stderrLogger: (...args: any[]) => (opt?.logger?.error || console.error)(...args),
     env: process.env,
     shell: true,
     stdio: [undefined, 'pipe', 'pipe'],

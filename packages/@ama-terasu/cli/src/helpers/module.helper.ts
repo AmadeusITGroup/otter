@@ -84,7 +84,6 @@ const dynamicDependenciesPath = resolve(__dirname, '..', '..', DYNAMIC_DEPENDENC
 /**
  * Find the closest package.json file in parent folders
  * @param currentPath current path to inspect
- * @returns
  */
 export const findClosestPackageJson = (currentPath: string): string | undefined => {
   const dir = dirname(currentPath);
@@ -121,7 +120,10 @@ export const getInstalledInformation = async (dep: MinimalPackageInformation & {
     let fsDiscoveredPath: string | undefined;
     if (useFsToSearch) {
       const localPath = resolve(dynModule, dep.name, 'package.json');
-      fsDiscoveredPath = existsSync(localPath) ? resolve(dynModule, dep.name, JSON.parse(await fs.readFile(localPath, { encoding: 'utf8' })).main) : undefined;
+      if (existsSync(localPath)) {
+        const packageJsonContent = await fs.readFile(localPath, { encoding: 'utf8' });
+        fsDiscoveredPath = resolve(dynModule, dep.name, JSON.parse(packageJsonContent).main as string);
+      }
     }
     const resolutionPath = fsDiscoveredPath || require.resolve(dep.name, {
       paths: [
@@ -163,8 +165,11 @@ export const isOfficialModule = (pck: MinimalPackageInformation & { name: string
  * Retrieve the list of all the dependencies
  */
 export const getLocalDependencies = async (): Promise<Record<string, string>> => {
-  const dynDependencies: Record<string, string> = existsSync(resolve(dynamicDependenciesPath, 'package.json'))
-    && JSON.parse(await fs.readFile(resolve(dynamicDependenciesPath, 'package.json'), { encoding: 'utf8' })).dependencies || {};
+  let dynDependencies: Record<string, string> = {};
+  if (existsSync(resolve(dynamicDependenciesPath, 'package.json'))) {
+    const content = await fs.readFile(resolve(dynamicDependenciesPath, 'package.json'), { encoding: 'utf8' });
+    dynDependencies = JSON.parse(content).dependencies || {};
+  }
   return {
     ...dynDependencies,
     ...peerDependencies,
@@ -179,7 +184,8 @@ export const getLocalDependencies = async (): Promise<Record<string, string>> =>
  * @param options.localOnly Resolve module locally only
  * @returns list of modules to load
  */
-export const getCliModules = async (options: { localOnly: boolean } = { localOnly: false }): Promise<ModuleDiscovery[]> => {
+export const getCliModules = async (options?: { localOnly: boolean }): Promise<ModuleDiscovery[]> => {
+  const { localOnly = false } = options || {};
   let remoteModules: NpmRegistryPackage[] = [];
   const localDependencies = await getLocalDependencies();
   const explicitModules = Object.keys(localDependencies)
@@ -189,10 +195,11 @@ export const getCliModules = async (options: { localOnly: boolean } = { localOnl
       return !!keywords && keywords.includes(MODULES_KEYWORD);
     });
 
-  if (!options.localOnly) {
+  if (!localOnly) {
     try {
       remoteModules = await getAvailableModules(MODULES_KEYWORD, moduleScopeWhitelist);
     } catch {
+      // eslint-disable-next-line no-console -- no logger available
       console.warn('Failed to execute `npm search`, will contains only installed packages');
     }
   }

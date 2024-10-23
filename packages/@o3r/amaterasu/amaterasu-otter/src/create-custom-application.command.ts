@@ -18,7 +18,7 @@ export interface CreateCustomAppOptions {
    */
   yes?: boolean;
   /** Otter generator version to use */
-  // eslint-disable-next-line @typescript-eslint/naming-convention
+  // eslint-disable-next-line @typescript-eslint/naming-convention -- CLI options are in kebab-case
   'otter-version': string;
   /** RefX Flavour */
   flavour: string;
@@ -38,7 +38,11 @@ export const createCustomApplication = async (context: Context, options: CreateC
 
   await context.getSpinner('Generating a new custom application...').fromPromise(
 
-    promiseSpawn(`npx -p @o3r/customization@${options['otter-version']} -p @angular-devkit/schematics-cli schematics @o3r/customization:generate --airlineCode ${options.airline} --checkoutTag ${options.tag} --refxFlavour ${options.flavour}`, { cwd, stderrLogger: logger.debug, logger }),
+    promiseSpawn(
+      // eslint-disable-next-line @stylistic/max-len -- keep the command on the same line
+      `npx -p @o3r/customization@${options['otter-version']} -p @angular-devkit/schematics-cli schematics @o3r/customization:generate --airlineCode ${options.airline} --checkoutTag ${options.tag} --refxFlavour ${options.flavour}`,
+      { cwd, stderrLogger: (...args: any[]) => logger.debug(...args), logger }
+    ),
     `Application generated (in ${cwd})`
   );
 

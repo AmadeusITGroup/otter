@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 import {
   promises as fs,
   readFileSync
@@ -23,6 +22,7 @@ export interface CreateExtensionOptions {
   /** Digital Api type */
   type: string;
   /** Version of the base digital spec */
+  // eslint-disable-next-line @typescript-eslint/naming-convention -- format imposed
   'spec-version': string;
 }
 
@@ -39,20 +39,32 @@ export const createExtension = async (context: Context, options: CreateExtension
 
   const npmrcFile = 'tmp.npmrc';
   const deps = {
+    // eslint-disable-next-line @typescript-eslint/naming-convention -- keys are package names
     '@ama-sdk/schematics': version === '0.0.0-placeholder' ? 'latest' : version,
     yo: 'latest'
   };
 
   await context.getSpinner('Generating extension module...').fromPromise(
     (async () => {
-      await promiseSpawn('npm init -y', { cwd, stderrLogger: logger.debug, logger });
-      await promiseSpawn(`npm install --userconfig ${npmrcFile} --include dev ${Object.entries<string>(deps).map(([n, v]) => `${n}@${v}`).join(' ')}`, { cwd, stderrLogger: logger.debug, logger });
+      await promiseSpawn('npm init -y', { cwd, stderrLogger: (...args: any[]) => logger.debug(...args), logger });
+      await promiseSpawn(
+        `npm install --userconfig ${npmrcFile} --include dev ${Object.entries<string>(deps).map(([n, v]) => `${n}@${v}`).join(' ')}`,
+        { cwd, stderrLogger: (...args: any[]) => logger.debug(...args), logger }
+      );
 
-      await promiseSpawn(`npx -p @angular-devkit/schematics-cli schematics @ama-sdk/schematics:api-extension --name "${options.name}" --core-type ${options.type.replace(/^core-/, '')} --core-version "${options['spec-version']}"`, { cwd, stderrLogger: logger.debug, logger });
+      await promiseSpawn(
+        // eslint-disable-next-line @stylistic/max-len -- keep the command on the same line
+        `npx -p @angular-devkit/schematics-cli schematics @ama-sdk/schematics:api-extension --name "${options.name}" --core-type ${options.type.replace(/^core-/, '')} --core-version "${options['spec-version']}"`,
+        { cwd, stderrLogger: (...args: any[]) => logger.debug(...args), logger }
+      );
     })(),
     // TODO: simplify to the following line when migrated to schematics generation
 
-    // promiseSpawn(`npx ${Object.entries(deps).map(([n, v]) => `-p ${n}@${v}`).join(' ')} --userconfig ${npmrcFile} yo${options.yes ? ' --force=true' : ''} @ama-sdk/sdk:api-extension --name "${options.name}" --coreType ${options.type.replace(/^core-/, '')} --coreVersion "${options['spec-version']}"`, { cwd, stderrLogger: logger.debug, logger }),
+    // promiseSpawn(
+    // eslint-disable-next-line @stylistic/max-len -- keep the command on the same line
+    //   `npx ${Object.entries(deps).map(([n, v]) => `-p ${n}@${v}`).join(' ')} --userconfig ${npmrcFile} yo${options.yes ? ' --force=true' : ''} @ama-sdk/sdk:api-extension --name "${options.name}" --coreType ${options.type.replace(/^core-/, '')} --coreVersion "${options['spec-version']}"`,
+    //   { cwd, stderrLogger: logger.debug, logger }
+    // ),
     `API Extension generated (in ${cwd})`
   );
 
