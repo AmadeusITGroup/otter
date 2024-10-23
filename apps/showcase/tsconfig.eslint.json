@@ -1,9 +1,11 @@
 {
   "extends": "./tsconfig.app",
+  "exclude": [],
   "include": [
     ".eslintrc.js",
     "jest.config.js",
     "e2e*playwright/**/*",
-    "testing/setup-jest.ts"
+    "testing/setup-jest.ts",
+    "src/assets/**/*.ts"
   ]
 }
