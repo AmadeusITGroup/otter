@@ -1,0 +1,44 @@
+<p>
+  As previously explained, dates can be generated differently based on the specifications and the generator options.
+  The possible types include:
+</p>
+<ul>
+  <li><code>Date</code></li>
+  <li><code>string</code></li>
+  <li><code>utils.Date</code></li>
+  <li><code>utils.DateTime</code></li>
+</ul>
+<p>
+  For this exercise, we will focus on the types <code>Date</code> and <code>utils.DateTime</code> to compare how
+  these are impacted by timezones.
+</p>
+
+<h3>Exercise</h3>
+<p>
+  As you can see on the right, we have provided a template component file to be filled. There are three variables to update:
+</p>
+<ul>
+  <li><code>dateValue</code> : A stringified date value that will be used to initialize the other two variables</li>
+  <li><code>date</code> : Date variable of type <code>Date</code></li>
+  <li><code>utils.Date</code> : Date variable of type <code>utils.DateTime</code></li>
+</ul>
+<p>
+  Start by setting <code>dateValue</code>, which should respect the following format that includes the timezone:
+  <b>YYYY-MM-DDTHH:MM:SS+HH:MM</b>. It is best to set a timezone different than your local environment to notice a
+  difference between the two variables later on.
+</p>
+<p>
+  Next, initialize the values of <code>date</code> and <code>dateTime</code> in the function <code>updateValues()</code>.
+  This function is called in the constructor and can be triggered when clicking the <b>"Update Values"</b> button in the
+  preview of the application.
+</p>
+<p>
+  If correctly set, you should see the values appear in the table of the application. Since you have set the date value in
+  a timezone different from your local environment, you can see that the values of the two variables are different.
+  This is normal since <code>utils.DateTime</code> ignores the timezone of the date value (as explained in its documentation).
+</p>
+<p>
+  You can play around with these values to see how they are impacted by changing the timezone of your local environment
+  and clicking on the <b>"Update Values"</b> button (do not refresh the page). You should observe that the <code>Date</code>
+  value is updated while the <code>utils.DateTime</code> value is not impacted.
+</p>

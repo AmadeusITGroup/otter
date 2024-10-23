@@ -3,6 +3,7 @@
 
 module.exports = {
   'root': true,
+  'ignorePatterns': ['/src/assets/trainings/sdk'],
   'overrides': [
     {
       'files': [
