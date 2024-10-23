@@ -120,11 +120,21 @@ export default [
   },
   {
     name: '@o3r/disabled-for-discussion',
-    files: ['**/*'],
+    files: ['**/*.{c,m,}{t,j}s'],
     rules: {
       '@stylistic/comma-dangle': 'off',
       '@stylistic/quote-props': 'off',
       'jsdoc/require-param-description': 'off'
+    }
+  },
+  {
+    name: '@o3r/warn-until-migration-completed',
+    files: ['**/*.ts', '**/*.tsx', '**/*.mts', '**/*.cts'],
+    rules: {
+      '@typescript-eslint/no-unsafe-assignment': 'warn',
+      '@typescript-eslint/no-unsafe-call': 'warn',
+      '@typescript-eslint/no-unsafe-member-access': 'warn',
+      '@typescript-eslint/no-unsafe-return': 'warn'
     }
   }
 ];
