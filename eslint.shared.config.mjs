@@ -124,13 +124,15 @@ export default [
     rules: {
       '@stylistic/comma-dangle': 'off',
       '@stylistic/quote-props': 'off',
-      'jsdoc/require-param-description': 'off'
+      'jsdoc/require-param-description': 'off',
+      'unicorn/no-await-expression-member': 'off'
     }
   },
   {
     name: '@o3r/warn-until-migration-completed',
     files: ['**/*.ts', '**/*.tsx', '**/*.mts', '**/*.cts'],
     rules: {
+      '@typescript-eslint/no-unsafe-argument': 'warn',
       '@typescript-eslint/no-unsafe-assignment': 'warn',
       '@typescript-eslint/no-unsafe-call': 'warn',
       '@typescript-eslint/no-unsafe-member-access': 'warn',
