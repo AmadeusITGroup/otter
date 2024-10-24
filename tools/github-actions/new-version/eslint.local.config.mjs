@@ -22,5 +22,11 @@ export default [
         ]
       }
     }
+  },
+  {
+    name: 'audit-gh-action/ignores',
+    ignores: [
+      '**/packaged-action/**'
+    ]
   }
 ];
