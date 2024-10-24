@@ -283,7 +283,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
     "@schematics/angular": "npm:~18.2.0"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@swc/cli": "npm:~0.4.0"
     "@swc/core": "npm:~1.7.0"
     "@swc/helpers": "npm:~0.5.0"
@@ -356,7 +356,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
     "@schematics/angular": "npm:~18.2.0"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@swc/cli": "npm:~0.4.0"
     "@swc/core": "npm:~1.7.0"
     "@swc/helpers": "npm:~0.5.0"
@@ -428,7 +428,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
     "@schematics/angular": "npm:~18.2.0"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@swc/cli": "npm:~0.4.0"
     "@swc/core": "npm:~1.7.0"
     "@swc/helpers": "npm:~0.5.0"
@@ -503,7 +503,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
     "@schematics/angular": "npm:~18.2.0"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@swc/cli": "npm:~0.4.0"
     "@swc/core": "npm:~1.7.0"
     "@swc/helpers": "npm:~0.5.0"
@@ -589,7 +589,7 @@ __metadata:
     "@o3r/test-helpers": "workspace:^"
     "@openapitools/openapi-generator-cli": "npm:~2.14.0"
     "@schematics/angular": "npm:~18.2.0"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@types/jest": "npm:~29.5.2"
     "@types/minimist": "npm:^1.2.2"
     "@types/node": "npm:^20.0.0"
@@ -647,7 +647,7 @@ __metadata:
     "@o3r/test-helpers": "workspace:^"
     "@openapitools/openapi-generator-cli": "npm:~2.14.0"
     "@schematics/angular": "npm:~18.2.0"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@types/jest": "npm:~29.5.2"
     "@types/js-yaml": "npm:^4.0.5"
     "@types/minimatch": "npm:^5.1.2"
@@ -737,7 +737,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:^"
     "@openapitools/openapi-generator-cli": "npm:~2.14.0"
     "@schematics/angular": "npm:~18.2.0"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@swc/cli": "npm:~0.4.0"
     "@swc/core": "npm:~1.7.0"
     "@swc/helpers": "npm:~0.5.0"
@@ -789,7 +789,7 @@ __metadata:
     "@nx/jest": "npm:~19.5.0"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@types/glob": "npm:^8.0.0"
     "@types/jest": "npm:~29.5.2"
     "@types/js-yaml": "npm:^4.0.5"
@@ -850,7 +850,7 @@ __metadata:
     "@o3r/schematics": "workspace:^"
     "@o3r/telemetry": "workspace:^"
     "@schematics/angular": "npm:~18.2.0"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@types/jest": "npm:~29.5.2"
     "@types/minimist": "npm:^1.2.2"
     "@types/node": "npm:^20.0.0"
@@ -914,7 +914,7 @@ __metadata:
     "@nx/jest": "npm:~19.5.0"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@types/jest": "npm:~29.5.2"
     "@types/minimist": "npm:^1.2.2"
     "@types/node": "npm:^20.0.0"
@@ -957,7 +957,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@schematics/angular": "npm:~18.2.0"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
     "@typescript-eslint/eslint-plugin": "npm:^7.14.1"
@@ -6865,7 +6865,7 @@ __metadata:
     "@nx/jest": "npm:~19.5.0"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@types/jest": "npm:~29.5.2"
     "@types/js-yaml": "npm:^4.0.5"
     "@types/node": "npm:^20.0.0"
@@ -6903,7 +6903,7 @@ __metadata:
     "@nx/jest": "npm:~19.5.0"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
     "@types/tar": "npm:~6.1.1"
@@ -6944,7 +6944,7 @@ __metadata:
     "@nx/jest": "npm:~19.5.0"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@types/jest": "npm:~29.5.2"
     "@types/js-yaml": "npm:^4.0.5"
     "@types/node": "npm:^20.0.0"
@@ -6986,7 +6986,7 @@ __metadata:
     "@nx/jest": "npm:~19.5.0"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@types/jest": "npm:~29.5.2"
     "@types/js-yaml": "npm:^4.0.5"
     "@types/node": "npm:^20.0.0"
@@ -7044,7 +7044,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
     "@schematics/angular": "npm:~18.2.0"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@types/jasmine": "npm:~5.1.0"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
@@ -7129,7 +7129,7 @@ __metadata:
     "@o3r/schematics": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
     "@schematics/angular": "npm:~18.2.0"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
     "@typescript-eslint/eslint-plugin": "npm:^7.14.1"
@@ -7209,7 +7209,7 @@ __metadata:
     "@o3r/test-helpers": "workspace:^"
     "@o3r/testing": "workspace:^"
     "@schematics/angular": "npm:~18.2.0"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
     "@typescript-eslint/eslint-plugin": "npm:^7.14.1"
@@ -7273,7 +7273,7 @@ __metadata:
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/telemetry": "workspace:^"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@types/fs-extra": "npm:^11.0.0"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
@@ -7318,7 +7318,7 @@ __metadata:
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/telemetry": "workspace:^"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
     "@typescript-eslint/eslint-plugin": "npm:^7.14.1"
@@ -7353,7 +7353,7 @@ __metadata:
     "@angular-eslint/eslint-plugin": "npm:~18.3.0"
     "@nx/eslint-plugin": "npm:~19.5.0"
     "@o3r/eslint-plugin": "workspace:^"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@types/node": "npm:^20.0.0"
     "@typescript-eslint/eslint-plugin": "npm:^7.14.1"
     "@typescript-eslint/parser": "npm:^7.14.1"
@@ -7432,7 +7432,7 @@ __metadata:
     "@o3r/styling": "workspace:^"
     "@popperjs/core": "npm:^2.11.5"
     "@schematics/angular": "npm:~18.2.0"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@types/chrome": "npm:^0.0.278"
     "@types/color": "npm:^3.0.6"
     "@types/jest": "npm:~29.5.2"
@@ -7512,7 +7512,7 @@ __metadata:
     "@o3r/test-helpers": "workspace:^"
     "@o3r/testing": "workspace:^"
     "@schematics/angular": "npm:~18.2.0"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
     "@types/semver": "npm:^7.3.13"
@@ -7661,7 +7661,7 @@ __metadata:
     "@o3r/test-helpers": "workspace:^"
     "@o3r/testing": "workspace:^"
     "@schematics/angular": "npm:~18.2.0"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@types/cheerio": "npm:~0.22.35"
     "@types/jasmine": "npm:~5.1.0"
     "@types/jest": "npm:~29.5.2"
@@ -7756,7 +7756,7 @@ __metadata:
     "@o3r/telemetry": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
     "@schematics/angular": "npm:~18.2.0"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@types/jest": "npm:~29.5.2"
     "@types/minimist": "npm:^1.2.2"
     "@types/node": "npm:^20.0.0"
@@ -7852,7 +7852,7 @@ __metadata:
     "@o3r/schematics": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
     "@schematics/angular": "npm:~18.2.0"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@types/jest": "npm:~29.5.2"
     "@types/minimist": "npm:^1.2.2"
     "@types/node": "npm:^20.0.0"
@@ -7923,7 +7923,7 @@ __metadata:
     "@o3r/telemetry": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
     "@schematics/angular": "npm:~18.2.0"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@types/jest": "npm:~29.5.2"
     "@types/minimist": "npm:^1.2.2"
     "@types/node": "npm:^20.0.0"
@@ -8003,7 +8003,7 @@ __metadata:
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/workspace": "workspace:^"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@types/fs-extra": "npm:^11.0.0"
     "@types/glob": "npm:^8.0.0"
     "@types/jest": "npm:~29.5.2"
@@ -8090,7 +8090,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@schematics/angular": "npm:~18.2.0"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@types/cheerio": "npm:~0.22.35"
     "@types/jasmine": "npm:~5.1.0"
     "@types/jest": "npm:~29.5.2"
@@ -8161,7 +8161,7 @@ __metadata:
     "@o3r/schematics": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
     "@schematics/angular": "npm:~18.2.0"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
     "@typescript-eslint/eslint-plugin": "npm:^7.14.1"
@@ -8196,7 +8196,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@schematics/angular": ~18.2.0
-    "@stylistic/eslint-plugin-ts": ~2.4.0
+    "@stylistic/eslint-plugin-ts": ~2.9.0
     "@typescript-eslint/eslint-plugin": ^7.14.1
     "@typescript-eslint/parser": ^7.14.1
     "@typescript-eslint/utils": ^7.14.1
@@ -8250,7 +8250,7 @@ __metadata:
     "@nx/jest": "npm:~19.5.0"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@types/eslint": "npm:~9.6.0"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
@@ -8282,7 +8282,7 @@ __metadata:
     "@angular-eslint/template-parser": ~18.3.0
     "@angular-eslint/test-utils": ~18.3.0
     "@angular/compiler": ~18.2.0
-    "@stylistic/eslint-plugin-ts": ~2.4.0
+    "@stylistic/eslint-plugin-ts": ~2.9.0
     "@typescript-eslint/eslint-plugin": ^7.0.1
     "@typescript-eslint/parser": ^7.14.1
     "@typescript-eslint/rule-tester": ^7.11.0
@@ -8331,7 +8331,7 @@ __metadata:
     "@o3r/telemetry": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
     "@schematics/angular": "npm:~18.2.0"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@types/inquirer": "npm:~8.2.10"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
@@ -8445,7 +8445,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@schematics/angular": "npm:~18.2.0"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
     "@typescript-eslint/eslint-plugin": "npm:^7.14.1"
@@ -8548,7 +8548,7 @@ __metadata:
     "@playwright/test": "npm:~1.48.0"
     "@popperjs/core": "npm:^2.11.5"
     "@schematics/angular": "npm:~18.2.0"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@swc-node/register": "npm:^1.9.2"
     "@swc/core": "npm:~1.7.0"
     "@swc/helpers": "npm:~0.5.0"
@@ -8652,7 +8652,7 @@ __metadata:
     "@nx/js": "npm:~19.5.0"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@types/ejs": "npm:^3.1.2"
     "@types/express-serve-static-core": "npm:^4.19.5"
     "@types/jest": "npm:~29.5.2"
@@ -8724,7 +8724,7 @@ __metadata:
     "@o3r/schematics": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
     "@schematics/angular": "npm:~18.2.0"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
     "@types/semver": "npm:^7.3.13"
@@ -8858,7 +8858,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@schematics/angular": "npm:~18.2.0"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
     "@typescript-eslint/eslint-plugin": "npm:^7.14.1"
@@ -8951,7 +8951,7 @@ __metadata:
     "@o3r/schematics": "workspace:^"
     "@o3r/store-sync": "workspace:^"
     "@schematics/angular": "npm:~18.2.0"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
     "@types/node-fetch": "npm:^2.6.2"
@@ -9025,7 +9025,7 @@ __metadata:
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
     "@types/semver": "npm:^7.3.13"
@@ -9069,7 +9069,7 @@ __metadata:
     "@o3r/telemetry": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
     "@schematics/angular": "npm:~18.2.0"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@types/jest": "npm:~29.5.2"
     "@types/js-yaml": "npm:^4.0.5"
     "@types/node": "npm:^20.0.0"
@@ -9141,7 +9141,7 @@ __metadata:
     "@o3r/routing": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@schematics/angular": "npm:~18.2.0"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@types/jasmine": "npm:~5.1.0"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
@@ -9229,7 +9229,7 @@ __metadata:
     "@o3r/test-helpers": "workspace:^"
     "@o3r/testing": "workspace:^"
     "@schematics/angular": "npm:~18.2.0"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@types/jasmine": "npm:~5.1.0"
     "@types/jest": "npm:~29.5.2"
     "@types/json-schema": "npm:^7.0.9"
@@ -9338,7 +9338,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/telemetry": "workspace:^"
     "@schematics/angular": "npm:~18.2.0"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@types/inquirer": "npm:~8.2.10"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
@@ -9461,7 +9461,7 @@ __metadata:
     "@playwright/test": "npm:~1.48.0"
     "@popperjs/core": "npm:^2.11.5"
     "@schematics/angular": "npm:~18.2.0"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@types/bootstrap": "npm:^5.2.10"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
@@ -9539,7 +9539,7 @@ __metadata:
     "@o3r/logger": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@schematics/angular": "npm:~18.2.0"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
     "@typescript-eslint/eslint-plugin": "npm:^7.14.1"
@@ -9625,7 +9625,7 @@ __metadata:
     "@storybook/angular": "npm:~8.1.0"
     "@storybook/api": "npm:^7.6.16"
     "@storybook/components": "npm:~8.1.0"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@types/color": "npm:^3.0.6"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
@@ -9702,7 +9702,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
     "@schematics/angular": "npm:~18.2.0"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
     "@typescript-eslint/eslint-plugin": "npm:^7.14.1"
@@ -9775,7 +9775,7 @@ __metadata:
     "@o3r/schematics": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
     "@schematics/angular": "npm:~18.2.0"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
     "@types/semver": "npm:^7.3.13"
@@ -9890,7 +9890,7 @@ __metadata:
     "@nx/js": "npm:~19.5.0"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@types/jest": "npm:~29.5.2"
     "@types/minimist": "npm:^1.2.2"
     "@types/node": "npm:^20.0.0"
@@ -9944,7 +9944,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@schematics/angular": "npm:~18.2.0"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
     "@types/pid-from-port": "npm:^1.1.0"
@@ -10027,7 +10027,7 @@ __metadata:
     "@o3r/test-helpers": "workspace:^"
     "@playwright/test": "npm:~1.48.0"
     "@schematics/angular": "npm:~18.2.0"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
     "@types/pixelmatch": "npm:^5.2.3"
@@ -10148,7 +10148,7 @@ __metadata:
     "@o3r/schematics": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
     "@schematics/angular": "npm:~18.2.0"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
     "@types/uuid": "npm:^9.0.0"
@@ -10222,7 +10222,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@schematics/angular": "npm:~18.2.0"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@swc/cli": "npm:~0.4.0"
     "@swc/core": "npm:~1.7.0"
     "@swc/helpers": "npm:~0.5.0"
@@ -10284,7 +10284,7 @@ __metadata:
     "@angular-eslint/eslint-plugin": "npm:~18.3.0"
     "@nx/eslint-plugin": "npm:~19.5.0"
     "@o3r/eslint-plugin": "workspace:^"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@types/node": "npm:^20.0.0"
     "@typescript-eslint/eslint-plugin": "npm:^7.14.1"
     "@typescript-eslint/parser": "npm:^7.14.1"
@@ -10345,7 +10345,7 @@ __metadata:
     "@o3r/schematics": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
     "@schematics/angular": "npm:~18.2.0"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@types/jest": "npm:~29.5.2"
     "@types/minimist": "npm:^1.2.2"
     "@types/node": "npm:^20.0.0"
@@ -12466,30 +12466,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@stylistic/eslint-plugin-js@npm:2.4.0":
-  version: 2.4.0
-  resolution: "@stylistic/eslint-plugin-js@npm:2.4.0"
+"@stylistic/eslint-plugin-ts@npm:~2.9.0":
+  version: 2.9.0
+  resolution: "@stylistic/eslint-plugin-ts@npm:2.9.0"
   dependencies:
-    "@types/eslint": "npm:^9.6.0"
-    acorn: "npm:^8.12.1"
-    eslint-visitor-keys: "npm:^4.0.0"
-    espree: "npm:^10.1.0"
+    "@typescript-eslint/utils": "npm:^8.8.0"
+    eslint-visitor-keys: "npm:^4.1.0"
+    espree: "npm:^10.2.0"
   peerDependencies:
     eslint: ">=8.40.0"
-  checksum: 10/9efccd6c59404f8ec2cc93261380df1c60126ee1f7972456e3f1501ab1d5387f93ea8a83d2e8910c9788cfc262837af85bd4dabf6052474afa5bf6a0e9cd1016
-  languageName: node
-  linkType: hard
-
-"@stylistic/eslint-plugin-ts@npm:~2.4.0":
-  version: 2.4.0
-  resolution: "@stylistic/eslint-plugin-ts@npm:2.4.0"
-  dependencies:
-    "@stylistic/eslint-plugin-js": "npm:2.4.0"
-    "@types/eslint": "npm:^9.6.0"
-    "@typescript-eslint/utils": "npm:^7.17.0"
-  peerDependencies:
-    eslint: ">=8.40.0"
-  checksum: 10/c613fe011c88cba84217afcb3016f631eaec556a4ac464b7c48312067d37e10875377a369b2477f3b7a0e3aa0edb5e17ce7d39ab86bc3928f0fb5b738125e878
+  checksum: 10/f689bdb8047abbe80fad506dae884cf840254a60f943c60fbfa4d338fbcc2146458d5acd97f427293649a0b14dd1ccb30510cce30fa503f050e18001571352aa
   languageName: node
   linkType: hard
 
@@ -13017,7 +13003,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/eslint@npm:^9.6.0, @types/eslint@npm:~9.6.0":
+"@types/eslint@npm:~9.6.0":
   version: 9.6.1
   resolution: "@types/eslint@npm:9.6.1"
   dependencies:
@@ -13796,13 +13782,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/scope-manager@npm:8.10.0":
-  version: 8.10.0
-  resolution: "@typescript-eslint/scope-manager@npm:8.10.0"
+"@typescript-eslint/scope-manager@npm:8.11.0":
+  version: 8.11.0
+  resolution: "@typescript-eslint/scope-manager@npm:8.11.0"
   dependencies:
-    "@typescript-eslint/types": "npm:8.10.0"
-    "@typescript-eslint/visitor-keys": "npm:8.10.0"
-  checksum: 10/02cf2afc57bd048639d876030f6826e7b522bf36db40b7dd7b8e1b8c6f853e8c41b41044b7a32f118bac1b721aff4dfe660d5891e0a9ee103ef87c5ee1792b4c
+    "@typescript-eslint/types": "npm:8.11.0"
+    "@typescript-eslint/visitor-keys": "npm:8.11.0"
+  checksum: 10/8f1e776fc0687f86cf7246c94098121224d0a69ffcaeb9a207b672889a4c42b94304664ed45d0b982c542bf7737bcec3649470d3db281b625a1e77736308ae37
   languageName: node
   linkType: hard
 
@@ -13830,10 +13816,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/types@npm:8.10.0":
-  version: 8.10.0
-  resolution: "@typescript-eslint/types@npm:8.10.0"
-  checksum: 10/2701711c87181553b68cdeba9d8ea55e0ae8ac441b5fe9667ee8be1dbac20386698930239a0e210b73d14961110ab128559a162abaed6e890a851543b6617c97
+"@typescript-eslint/types@npm:8.11.0":
+  version: 8.11.0
+  resolution: "@typescript-eslint/types@npm:8.11.0"
+  checksum: 10/424986bae7c48677a843ff2dee5cb0fed293f7bebd71803901c8fc80ddeed65e4857f77083f17775d0bfd6dab5092ef556f354e7420ea4fd6c7861d0368d002e
   languageName: node
   linkType: hard
 
@@ -13856,12 +13842,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/typescript-estree@npm:8.10.0":
-  version: 8.10.0
-  resolution: "@typescript-eslint/typescript-estree@npm:8.10.0"
+"@typescript-eslint/typescript-estree@npm:8.11.0":
+  version: 8.11.0
+  resolution: "@typescript-eslint/typescript-estree@npm:8.11.0"
   dependencies:
-    "@typescript-eslint/types": "npm:8.10.0"
-    "@typescript-eslint/visitor-keys": "npm:8.10.0"
+    "@typescript-eslint/types": "npm:8.11.0"
+    "@typescript-eslint/visitor-keys": "npm:8.11.0"
     debug: "npm:^4.3.4"
     fast-glob: "npm:^3.3.2"
     is-glob: "npm:^4.0.3"
@@ -13871,11 +13857,11 @@ __metadata:
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 10/7513fbc43a0d5f06f45e20d18b6855a3e52bd4124283a4b704bb53c6d2c7edfa783cd4fa2c35217bf8562a6bc80892067fa4780aec97d99580624cbd05cde471
+  checksum: 10/cec7c5768c4e6cceb095fe8fbd57098d16d226a981143a335a62c6f30d8a1707974e86eeabe5ad33bfb4dd4eb582cba1d4f2e7cec65f71871d7d559ff9bec5f9
   languageName: node
   linkType: hard
 
-"@typescript-eslint/utils@npm:7.18.0, @typescript-eslint/utils@npm:^7.14.1, @typescript-eslint/utils@npm:^7.16.0, @typescript-eslint/utils@npm:^7.17.0":
+"@typescript-eslint/utils@npm:7.18.0, @typescript-eslint/utils@npm:^7.14.1, @typescript-eslint/utils@npm:^7.16.0":
   version: 7.18.0
   resolution: "@typescript-eslint/utils@npm:7.18.0"
   dependencies:
@@ -13889,17 +13875,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/utils@npm:^6.0.0 || ^7.0.0 || ^8.0.0":
-  version: 8.10.0
-  resolution: "@typescript-eslint/utils@npm:8.10.0"
+"@typescript-eslint/utils@npm:^6.0.0 || ^7.0.0 || ^8.0.0, @typescript-eslint/utils@npm:^8.8.0":
+  version: 8.11.0
+  resolution: "@typescript-eslint/utils@npm:8.11.0"
   dependencies:
     "@eslint-community/eslint-utils": "npm:^4.4.0"
-    "@typescript-eslint/scope-manager": "npm:8.10.0"
-    "@typescript-eslint/types": "npm:8.10.0"
-    "@typescript-eslint/typescript-estree": "npm:8.10.0"
+    "@typescript-eslint/scope-manager": "npm:8.11.0"
+    "@typescript-eslint/types": "npm:8.11.0"
+    "@typescript-eslint/typescript-estree": "npm:8.11.0"
   peerDependencies:
     eslint: ^8.57.0 || ^9.0.0
-  checksum: 10/a28f9fbec67b92bfb9c58445f9cfeb3208d48ecfda4c3ce649e70291af1d23a05466ce76bae9f6aff1270f40a434c8b6a7a71267108b6c32b1c059758f879cc0
+  checksum: 10/1b80312a15313b549ff5906da2189d0ad60abe9c6d02d65366156e00a97644e2af313ce3fb7424417b4b63b6de25a2dd8c2cf17ab8152fbd5d2a8ca3593a4df5
   languageName: node
   linkType: hard
 
@@ -13913,13 +13899,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/visitor-keys@npm:8.10.0":
-  version: 8.10.0
-  resolution: "@typescript-eslint/visitor-keys@npm:8.10.0"
+"@typescript-eslint/visitor-keys@npm:8.11.0":
+  version: 8.11.0
+  resolution: "@typescript-eslint/visitor-keys@npm:8.11.0"
   dependencies:
-    "@typescript-eslint/types": "npm:8.10.0"
+    "@typescript-eslint/types": "npm:8.11.0"
     eslint-visitor-keys: "npm:^3.4.3"
-  checksum: 10/637d4f2a812e5dcf12b2342ebb296fda5e87e425430623c31660d60e09f87fc8dc9843cc0d9b81fe4963e25ce9a44a4418e8b7878b73773f4c1375fb68006b16
+  checksum: 10/8d2bed15cc17c3de67414afb343a2b5974ab4120a9bb4759f3d42accbc3f247d14d3c824772da1d452b99fd42b3d9856c04fb836be50ffbff4aa7323eca197c6
   languageName: node
   linkType: hard
 
@@ -15023,7 +15009,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"acorn@npm:^8.1.0, acorn@npm:^8.11.0, acorn@npm:^8.12.0, acorn@npm:^8.12.1, acorn@npm:^8.4.1, acorn@npm:^8.5.0, acorn@npm:^8.7.1, acorn@npm:^8.8.1, acorn@npm:^8.8.2, acorn@npm:^8.9.0":
+"acorn@npm:^8.1.0, acorn@npm:^8.11.0, acorn@npm:^8.12.0, acorn@npm:^8.4.1, acorn@npm:^8.5.0, acorn@npm:^8.7.1, acorn@npm:^8.8.1, acorn@npm:^8.8.2, acorn@npm:^8.9.0":
   version: 8.13.0
   resolution: "acorn@npm:8.13.0"
   bin:
@@ -15636,7 +15622,7 @@ __metadata:
     "@nx/eslint-plugin": "npm:~19.5.0"
     "@o3r/eslint-config-otter": "workspace:~"
     "@o3r/eslint-plugin": "workspace:~"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
     "@typescript-eslint/eslint-plugin": "npm:^7.14.1"
@@ -16563,7 +16549,7 @@ __metadata:
     "@nx/eslint-plugin": "npm:~19.5.0"
     "@o3r/eslint-config-otter": "workspace:~"
     "@o3r/eslint-plugin": "workspace:~"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
     "@typescript-eslint/eslint-plugin": "npm:^7.14.1"
@@ -20016,7 +20002,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-visitor-keys@npm:^4.0.0, eslint-visitor-keys@npm:^4.1.0":
+"eslint-visitor-keys@npm:^4.1.0":
   version: 4.1.0
   resolution: "eslint-visitor-keys@npm:4.1.0"
   checksum: 10/3fb5bd1b2f36db89d0ac57ddd66d36ccd3b1e3cddb2a55a0f9f6f1c85268cfcc1cc32e7eda4990e3423107a120dd254fb6cb52d6154cf81d344d8c3fa671f7c2
@@ -20071,7 +20057,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"espree@npm:^10.0.1, espree@npm:^10.1.0":
+"espree@npm:^10.0.1, espree@npm:^10.1.0, espree@npm:^10.2.0":
   version: 10.2.0
   resolution: "espree@npm:10.2.0"
   dependencies:
@@ -21261,7 +21247,7 @@ __metadata:
     "@nx/eslint-plugin": "npm:~19.5.0"
     "@o3r/eslint-config-otter": "workspace:~"
     "@o3r/eslint-plugin": "workspace:~"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@types/node": "npm:^20.0.0"
     "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/eslint-plugin": "npm:^7.14.1"
@@ -26247,7 +26233,7 @@ __metadata:
     "@o3r/eslint-config-otter": "workspace:~"
     "@o3r/eslint-plugin": "workspace:~"
     "@o3r/new-version": "workspace:~"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
     "@types/semver": "npm:^7.3.13"
@@ -27222,7 +27208,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@schematics/angular": "npm:~18.2.0"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@types/eslint": "npm:~9.6.0"
     "@types/glob": "npm:^8.0.0"
     "@types/jest": "npm:~29.5.2"
@@ -29645,7 +29631,7 @@ __metadata:
     "@nx/eslint-plugin": "npm:~19.5.0"
     "@o3r/eslint-config-otter": "workspace:~"
     "@o3r/eslint-plugin": "workspace:~"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.9.0"
     "@types/minimist": "npm:^1.2.2"
     "@types/node": "npm:^20.0.0"
     "@types/semver": "npm:^7.3.13"
