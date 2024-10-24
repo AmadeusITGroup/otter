@@ -50,7 +50,7 @@ const matchFilter = (fullUrl: string, types: string[]) => {
 let url = opts.artifactoryUrl as string;
 const options = {
   headers: {
-    // eslint-disable-next-line @typescript-eslint/naming-convention
+    // eslint-disable-next-line @typescript-eslint/naming-convention -- naming convention required by HTTP
     Authorization: 'Basic ' + (opts.basicAuth as string)
   }
 } as const satisfies RequestInit;

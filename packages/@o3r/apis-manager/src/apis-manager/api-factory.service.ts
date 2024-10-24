@@ -54,7 +54,7 @@ export class ApiFactoryService {
       return cache as T;
     }
 
-    // eslint-disable-next-line new-cap
+    // eslint-disable-next-line new-cap -- argument of function getApi is lowercase
     const instance = new apiClass(this.getConfigFor(apiClass));
     this.loadedApis[apiClass.apiName] = instance;
     return instance;
@@ -78,7 +78,7 @@ export class ApiFactoryService {
       ...this.loadedApis,
       ...Object.entries(newItems)
         .reduce<Record<string, Api>>((acc, [apiName, api]) => {
-          // eslint-disable-next-line new-cap
+          // eslint-disable-next-line new-cap -- parameter of reduce is lowercase
           acc[apiName] = this.isApiClass(api) ? new api(this.getConfigFor(api)) : api;
           return acc;
         }, {})

@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import {
   Inject,
   Injectable,
@@ -42,16 +41,18 @@ export class ApplicationDevtoolsConsoleService implements DevtoolsServiceInterfa
   /** @inheritDoc */
   public activate() {
     const windowWithDevtools: WindowWithDevtools = window;
-    // eslint-disable-next-line no-underscore-dangle
+    // eslint-disable-next-line no-underscore-dangle -- naming convention
     windowWithDevtools._OTTER_DEVTOOLS_ ||= {};
-    // eslint-disable-next-line no-underscore-dangle
+    // eslint-disable-next-line no-underscore-dangle -- naming convention
     windowWithDevtools._OTTER_DEVTOOLS_[ApplicationDevtoolsConsoleService.windowModuleName] = this;
 
+    // eslint-disable-next-line no-console -- no logger available
     console.info(`Otter Application Devtools is now accessible via the _OTTER_DEVTOOLS_.${ApplicationDevtoolsConsoleService.windowModuleName} variable`);
   }
 
   /** Display the information relative to the running application */
   public displayApplicationInfo() {
+    // eslint-disable-next-line no-console -- no logger available
     console.info('Application info', this.applicationDevtools.getApplicationInformation());
   }
 }

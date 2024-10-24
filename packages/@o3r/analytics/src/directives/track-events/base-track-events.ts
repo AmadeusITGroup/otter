@@ -70,7 +70,7 @@ export abstract class BaseTrackEvents implements OnDestroy {
     // Usage of an observable from event was not possible because the ngOnDestroy with the unsubscribe was called before the ui event was handled
     return this.renderer.listen(this.el.nativeElement, event, (nativeEvent) => {
       if (this.trackEventContextConstructor) {
-        // eslint-disable-next-line new-cap
+        // eslint-disable-next-line new-cap -- ref to constructor in current file, no need for uppercase
         this.trackEventsService.addUiEvent({ nativeEvent, context: new this.trackEventContextConstructor(this.trackEventContextConstructorParameters) });
       } else if (this.trackEventContext) {
         this.trackEventsService.addUiEvent({ nativeEvent, context: this.trackEventContext });

@@ -53,7 +53,7 @@ void (async () => {
   }
   if (!process.env.SYSTEM_PULLREQUEST_PULLREQUESTID) {
     throw new Error('System.PullRequest.PullRequestId must be provided');
-  } else if (isNaN(+process.env.SYSTEM_PULLREQUEST_PULLREQUESTID)) {
+  } else if (Number.isNaN(+process.env.SYSTEM_PULLREQUEST_PULLREQUESTID)) {
     throw new Error('System.PullRequest.PullRequestId must be a number');
   }
   if (!process.env.SYSTEM_TEAMFOUNDATIONCOLLECTIONURI) {
