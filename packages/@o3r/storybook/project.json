@@ -50,15 +50,22 @@
       "options": {
         "script": "build:wrapper"
       },
-      "dependsOn": ["^build", "compile"]
+      "dependsOn": ["compile"]
     },
     "build-react": {
       "executor": "nx:run-script",
+      "inputs": [
+        "{projectRoot}/tsconfig.build.react.json",
+        "{projectRoot}/addon/**/*.ts",
+        "!{projectRoot}/addon/**/*.spec.ts",
+        "source",
+        "^source"
+      ],
       "outputs": ["{projectRoot}/dist/addon"],
       "options": {
         "script": "build:react"
       },
-      "dependsOn": ["^build", "compile"]
+      "dependsOn": ["compile"]
     },
     "lint": {
       "options": {

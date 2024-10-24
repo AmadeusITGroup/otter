@@ -17,51 +17,92 @@
     }
   },
   "namedInputs": {
-    "global": [
-      "{workspaceRoot}/yarn.lock",
+    "workspace": [
       "{workspaceRoot}/package.json",
-      "{workspaceRoot}/tsconfig.base.json",
-      "{workspaceRoot}/tsconfig.build.json",
       "{workspaceRoot}/nx.json",
-      "{workspaceRoot}/tools/@o3r/build-helpers/scripts/*.mjs"
+      "{workspaceRoot}/.nxignore",
+      "{workspaceRoot}/tools/@o3r/workspace-helpers/scripts/*.mjs",
+      "{workspaceRoot}/jest.config.js"
     ],
-    "default": [
-      "global",
-      "{projectRoot}/tsconfig*",
-      "{projectRoot}/src/**/*",
-      "{projectRoot}/scss/**/*",
+    "project": [
       "{projectRoot}/package.json",
       "{projectRoot}/project.json"
     ],
-    "jasmine-fixtures": ["global", "{projectRoot}/**/fixtures/jasmine/**/*.ts"],
-    "jest-fixtures": ["global", "{projectRoot}/**/fixtures/jasmine/**/*.ts"],
-    "builders": [
-      "global",
+    "base": [
+      "project",
+      "{workspaceRoot}/yarn.lock",
+      "{workspaceRoot}/tsconfig.base.json",
+      "{workspaceRoot}/nx.json",
+      "{workspaceRoot}/.nxignore",
+      "{workspaceRoot}/tools/@o3r/build-helpers/scripts/*.mjs"
+    ],
+    "base-build": [
+      "base",
+      "{workspaceRoot}/tsconfig.build.json"
+    ],
+    "source": [
+      "base-build",
+      "{projectRoot}/tsconfig.build.json",
+      "{projectRoot}/tsconfig.build.*.json",
+      "{projectRoot}/src/**/*",
+      "!{projectRoot}/**/*.spec.ts",
+      "!{projectRoot}/**/*.spec.scss"
+    ],
+    "jasmine-fixtures": [
+      "base-build",
+      "{projectRoot}/tsconfig.build.json",
+      "{projectRoot}/tsconfig.build.*.json",
+      "{projectRoot}/tsconfig.fixture.jasmine.json",
+      "{projectRoot}/**/fixtures/jasmine/**/*.ts"
+    ],
+    "jest-fixtures": [
+      "base-build",
+      "{projectRoot}/tsconfig.build.json",
+      "{projectRoot}/tsconfig.build.*.json",
+      "{projectRoot}/tsconfig.fixture.jest.json",
+      "{projectRoot}/**/fixtures/jest/**/*.ts"
+    ],
+    "builders-only": [
+      "base",
+      "{projectRoot}/tsconfig.builders.json",
       "{projectRoot}/builders.json",
       "{projectRoot}/builders/**/*",
-      "{projectRoot}/package.json"
+      "!{projectRoot}/**/*.spec.ts"
     ],
-    "schematics": [
-      "global",
+    "builders": [
+      "builders-only",
+      "source"
+    ],
+    "schematics-only": [
+      "base",
+      "{projectRoot}/tsconfig.builders.json",
       "{projectRoot}/migration.json",
       "{projectRoot}/collection.json",
       "{projectRoot}/schematics/**/*",
-      "{projectRoot}/package.json"
+      "!{projectRoot}/**/*.spec.ts"
+    ],
+    "schematics": [
+      "schematics-only",
+      "source"
+    ],
+    "cli-only": [
+      "base",
+      "{projectRoot}/tsconfig.cli.json",
+      "{projectRoot}/cli/**/*",
+      "!{projectRoot}/**/*.spec.ts"
     ],
     "cli": [
-      "global",
-      "{projectRoot}/tsconfig*",
-      "{projectRoot}/cli/**/*",
-      "{projectRoot}/package.json",
-      "{projectRoot}/project.json"
+      "cli-only",
+      "source"
     ],
     "middlewares": [
-      "global",
+      "base",
       "{projectRoot}/middlewares/**/*",
-      "{projectRoot}/package.json"
+      "{projectRoot}/tsconfig.builders.json",
+      "!{projectRoot}/**/*.spec.ts"
     ],
     "lint": [
-      "default",
+      "base",
       "{projectRoot}/.eslintignore",
       "{projectRoot}/.eslintrc.js",
       "{projectRoot}/**/*.ts",
@@ -76,43 +117,32 @@
       "{workspaceRoot}/packages/@o3r/eslint-plugin/src/**/*.ts"
     ],
     "specs": [
-      "default",
+      "base",
       "{projectRoot}/**/*.spec.ts",
       "{projectRoot}/jest.config.*",
       "{projectRoot}/testing/**/*",
       "{projectRoot}/mocks/**/*",
-      "{workspaceRoot}/jest.config.js"
+      "{workspaceRoot}/jest.config.ut.js"
     ],
     "integration-test": [
-      "default",
+      "base",
       "{workspaceRoot}/jest.config.it.js",
       "{workspaceRoot}/packages/*/create/src/*.ts",
-      "{workspaceRoot}/packages/@o3r/create/src/*.ts",
-      "!{workspaceRoot}/packages/@o3r/create/src/*.spec.ts",
+      "!{workspaceRoot}/packages/*/create/src/*.spec.ts",
       "{workspaceRoot}/packages/@o3r/test-helpers/src/**/*.ts",
       "!{workspaceRoot}/packages/@o3r/test-helpers/src/**/*.spec.ts"
     ],
-    "source": [
-      "default",
-      "!{projectRoot}/**/*.spec.ts",
-      "!{projectRoot}/**/*.spec.scss"
-    ],
     "plugins": [
-      "global",
+      "base",
       "{projectRoot}/plugins/**/*",
-      "{projectRoot}/package.json"
+      "{projectRoot}/tsconfig.plugins.json",
+      "!{projectRoot}/**/*.spec.ts"
     ],
-    "source-and-cli": [
+    "build": [
       "source",
-      "cli"
-    ],
-    "source-and-builders": [
-      "source",
-      "builders"
-    ],
-    "source-and-schematics": [
-      "source",
-      "schematics"
+      "schematics",
+      "builders",
+      "middlewares"
     ]
   },
   "targetDefaults": {
@@ -134,8 +164,7 @@
         },
         "builders",
         "schematics",
-        "specs",
-        "{workspaceRoot}/jest.config.ut.js"
+        "specs"
       ],
       "outputs": ["{projectRoot}/dist-test/ut-report.xml"],
       "options": {
@@ -161,11 +190,11 @@
         {
           "env": "PREPARE_TEST_ENV_TYPE"
         },
-        "default",
+        "source",
         "schematics",
         "specs",
         "integration-test",
-        "^source-and-schematics"
+        "^schematics"
       ],
       "outputs": [
         "{projectRoot}/dist-test/it-report.xml"
@@ -183,13 +212,19 @@
       "cache": true
     },
     "prepare-publish": {
+      "cache": false,
       "outputs": ["{projectRoot}/dist/package.json"]
     },
-    "publish-extension": {},
+    "publish-extension": {
+      "cache": false
+    },
     "build": {
       "dependsOn": ["^build"],
       "outputs": [],
-      "inputs": ["default", "^default"],
+      "inputs": [
+        "build",
+        "^cli"
+      ],
       "cache": true
     },
     "compile": {
@@ -227,7 +262,10 @@
     },
     "prepare-build-builders": {
       "dependsOn": ["compile"],
-      "inputs": ["builders", "schematics", "middlewares", "^source"],
+      "inputs": [
+        "build",
+        "^cli"
+      ],
       "outputs": [
         "{projectRoot}/dist/builders.json",
         "{projectRoot}/dist/migration.json",
@@ -242,7 +280,10 @@
     },
     "build-cli": {
       "dependsOn": ["compile"],
-      "inputs": ["cli", "^source"],
+      "inputs": [
+        "cli",
+        "^source"
+      ],
       "outputs": [
         "{projectRoot}/dist/cli/package.json",
         "{projectRoot}/dist/cli/**/*.cjs",
@@ -289,7 +330,16 @@
       "cache": true
     },
     "prepare": {
-      "cache": true
+      "cache": true,
+      "inputs": [
+        "base"
+      ],
+      "outputs": [
+        "{projectRoot}/src/package.json"
+      ],
+      "options": {
+        "script": "prepare:compile"
+      }
     },
     "build-cjs": {
       "cache": true,

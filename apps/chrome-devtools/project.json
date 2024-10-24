@@ -164,7 +164,7 @@
         "{projectRoot}/dist/options.html"
       ],
       "inputs": [
-        "global",
+        "base",
         "{projectRoot}/src/assets/**",
         "{projectRoot}/src/manifest.json",
         "{projectRoot}/src/devtools.html",
