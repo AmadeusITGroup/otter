@@ -12,7 +12,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
   const schematicsDependencies = ['@angular-devkit/architect', '@angular-devkit/schematics', '@angular-devkit/core', '@schematics/angular', 'globby'];
   return async (_, context) => {
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
-    const { getExternalDependenciesVersionRange, setupDependencies } = await import('@o3r/schematics');
+    const { getExternalDependenciesVersionRange, setupDependencies } = await import('../../src/public_api');
     const dependencies = Object.entries(getExternalDependenciesVersionRange(schematicsDependencies, packageJsonPath, context.logger)).reduce((acc, [dep, range]) => {
       acc[dep] = {
         inManifest: [{
@@ -44,7 +44,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
  * @param options
  */
 export const ngAdd = (options: NgAddSchematicsSchema): Rule => async () => {
-  const { createSchematicWithMetricsIfInstalled } = await import('@o3r/schematics');
+  const { createSchematicWithMetricsIfInstalled } = await import('../../src/public_api');
   return createSchematicWithMetricsIfInstalled(ngAddFn)(options);
 };
 
