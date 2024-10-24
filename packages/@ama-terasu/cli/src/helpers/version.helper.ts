@@ -31,7 +31,6 @@ export const getPackageFormattedVersion = (pck: ModuleDiscovery): string => {
 
 /**
  * Get message of the --version command which includes all the modules versions
- * @param packageName Name of a dependency package
  * @param cliModules
  * @returns the package version or undefined if not found
  */

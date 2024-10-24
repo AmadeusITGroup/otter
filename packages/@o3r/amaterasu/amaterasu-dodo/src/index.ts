@@ -32,8 +32,6 @@ const destFolder = resolve(__dirname, '..', 'cli');
 
 /**
  * Download Dodo CLI
- * @param platform
- * @param dodoVersion
  */
 const downloadDodoCli = async () => {
   const dodoVersion: string = JSON.parse(await fs.readFile(resolve(__dirname, '..', 'package.json'), { encoding: 'utf8' })).dodo.version;
@@ -66,7 +64,7 @@ const downloadDodoCli = async () => {
       });
       call.on('error', reject);
     });
-    // eslint-disable-next-line @typescript-eslint/naming-convention
+    // eslint-disable-next-line @typescript-eslint/naming-convention -- naming convention imposed by tar
     await extract({ file: destZipFilePath, C: destFolder });
     await fs.unlink(destZipFilePath);
   }

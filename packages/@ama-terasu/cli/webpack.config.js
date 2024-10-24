@@ -1,7 +1,8 @@
 const path = require('node:path');
 const webpack = require('webpack');
 
-const /** @type import('webpack').Configuration */ config = {
+/** @type {import('webpack').Configuration} */
+const config = {
   entry: './src/cli/ama.ts',
   mode: 'production',
   target: 'node',

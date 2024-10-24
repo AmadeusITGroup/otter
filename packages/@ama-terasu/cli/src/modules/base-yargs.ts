@@ -50,7 +50,7 @@ export const amaYargs = async (argv?: Record<string, any>) => {
     .config('config', 'Path to a JSON configuration file', (configPath) => {
       const fullPath = resolve(process.cwd(), configPath);
       if (existsSync(fullPath)) {
-        return JSON.parse(readFileSync(fullPath, 'utf-8'));
+        return JSON.parse(readFileSync(fullPath, 'utf8'));
       } else {
         throw new Error('Configuration file not found');
       }

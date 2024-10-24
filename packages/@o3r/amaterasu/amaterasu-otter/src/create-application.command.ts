@@ -23,7 +23,7 @@ export interface CreateApplicationOptions {
    */
   yes?: boolean;
   /** Otter generator version to use */
-  // eslint-disable-next-line @typescript-eslint/naming-convention
+  // eslint-disable-next-line @typescript-eslint/naming-convention -- CLI options are in kebab-case
   'otter-version': string;
   /**
    * use yarn instead of npm
@@ -60,24 +60,27 @@ export const createApplication = async (context: Context, options: CreateApplica
 
   await context.getSpinner('Creating a new Angular application...').fromPromise(
 
-    promiseSpawn(`npx -p @angular/cli@${ngVersion} ng new "${options.name}" --style=scss --defaults=${defaults} --directory=${directory} --package-manager=${options.yarn ? 'yarn' : 'npm'} --routing`, { cwd, logger, stderrLogger: logger.debug }),
+    promiseSpawn(
+      `npx -p @angular/cli@${ngVersion} ng new "${options.name}" --style=scss --defaults=${defaults} --directory=${directory} --package-manager=${options.yarn ? 'yarn' : 'npm'} --routing`,
+      { cwd, logger, stderrLogger: (...args: any[]) => logger.debug(...args) }
+    ),
     `Application created (in ${path.resolve(cwd, directory)})`
   );
   cwd = path.resolve(cwd, directory);
 
   await context.getSpinner('Installing NPM dependencies...').fromPromise(
-    promiseSpawn(`${npmClient} install`, { cwd, logger, stderrLogger: logger.debug }),
+    promiseSpawn(`${npmClient} install`, { cwd, logger, stderrLogger: (...args: any[]) => logger.debug(...args) }),
     `NPM dependencies installed (with ${npmClient})`
   );
 
   await context.getSpinner('Adding Otter dependencies...').fromPromise(
-    promiseSpawn(`${npmRunner} ng add @o3r/core@${options['otter-version']} --defaults=${defaults} --skip-confirmation`, { cwd, logger, stderrLogger: logger.debug }),
+    promiseSpawn(`${npmRunner} ng add @o3r/core@${options['otter-version']} --defaults=${defaults} --skip-confirmation`, { cwd, logger, stderrLogger: (...args: any[]) => logger.debug(...args) }),
     'Otter dependencies registered'
   );
 
   if (options.material) {
     await context.getSpinner('Adding Material Dependency...').fromPromise(
-      promiseSpawn(`${npmRunner} ng add @angular/material --defaults=${defaults} --skip-confirmation`, { cwd, logger, stderrLogger: logger.debug }),
+      promiseSpawn(`${npmRunner} ng add @angular/material --defaults=${defaults} --skip-confirmation`, { cwd, logger, stderrLogger: (...args: any[]) => logger.debug(...args) }),
       'Material Design library registered'
     );
 
@@ -85,7 +88,8 @@ export const createApplication = async (context: Context, options: CreateApplica
     updateStyleTask.start();
     const stylingFile = path.resolve(cwd, 'src/styles.scss');
     if (existsSync(stylingFile)) {
-      const style = (await fs.readFile(stylingFile, { encoding: 'utf8' }))
+      const content = await fs.readFile(stylingFile, { encoding: 'utf8' });
+      const style = content
         .replace('// @include mat-core', '@include mat-core')
         .replace('// @include angular-material-typography', '@include angular-material-typography')
         .replace('// @include angular-material-theme', '@include angular-material-theme');
