@@ -58,6 +58,7 @@
     "intl-messageformat": "~10.7.0",
     "rxjs": "^7.8.1",
     "semver": "^7.5.2",
+    "type-fest": "^4.10.2",
     "typescript": "~5.5.4"
   },
   "peerDependenciesMeta": {
@@ -101,6 +102,9 @@
       "optional": true
     },
     "semver": {
+      "optional": true
+    },
+    "type-fest": {
       "optional": true
     },
     "typescript": {

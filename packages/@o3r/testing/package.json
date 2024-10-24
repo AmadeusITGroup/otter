@@ -95,6 +95,7 @@
   },
   "peerDependencies": {
     "@amadeus-it-group/kassette": "^1.7.0",
+    "@angular-devkit/core": "~18.2.0",
     "@angular-devkit/schematics": "~18.2.0",
     "@angular/animations": "~18.2.0",
     "@angular/cli": "~18.2.0",
@@ -115,10 +116,14 @@
     "protractor": "^7.0.0",
     "rxjs": "^7.8.1",
     "temporal-polyfill": "^0.2.0",
+    "type-fest": "^4.10.2",
     "typescript": "~5.5.4"
   },
   "peerDependenciesMeta": {
     "@amadeus-it-group/kassette": {
+      "optional": true
+    },
+    "@angular-devkit/core": {
       "optional": true
     },
     "@angular-devkit/schematics": {
@@ -158,6 +163,9 @@
       "optional": true
     },
     "temporal-polyfill": {
+      "optional": true
+    },
+    "type-fest": {
       "optional": true
     }
   },

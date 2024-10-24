@@ -39,7 +39,9 @@
     "@schematics/angular": "~18.2.0",
     "chokidar": "^3.5.2",
     "globby": "^11.1.0",
+    "minimist": "^1.2.6",
     "rxjs": "^7.8.1",
+    "type-fest": "^4.10.2",
     "typescript": "~5.5.4"
   },
   "peerDependenciesMeta": {
@@ -65,6 +67,12 @@
       "optional": true
     },
     "globby": {
+      "optional": true
+    },
+    "minimist": {
+      "optional": true
+    },
+    "type-fest": {
       "optional": true
     }
   },

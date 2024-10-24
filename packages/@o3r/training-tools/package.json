@@ -31,6 +31,8 @@
     }
   },
   "peerDependencies": {
+    "@angular-devkit/schematics": "~18.2.0",
+    "@o3r/schematics": "workspace:^",
     "@schematics/angular": "~18.2.0",
     "@webcontainer/api": "~1.4.0",
     "eslint": "^8.57.0",
@@ -45,7 +47,13 @@
     "@angular-devkit/core": {
       "optional": true
     },
+    "@angular-devkit/schematics": {
+      "optional": true
+    },
     "@angular/cli": {
+      "optional": true
+    },
+    "@o3r/schematics": {
       "optional": true
     },
     "eslint": {

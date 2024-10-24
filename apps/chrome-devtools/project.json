@@ -165,6 +165,7 @@
       ],
       "inputs": [
         "base",
+        "!{workspaceRoot}/tsconfig.base.json",
         "{projectRoot}/src/assets/**",
         "{projectRoot}/src/manifest.json",
         "{projectRoot}/src/devtools.html",
