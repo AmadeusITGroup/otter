@@ -691,12 +691,13 @@ __metadata:
   peerDependencies:
     "@ama-sdk/core": "workspace:^"
     "@angular-devkit/core": ~18.2.0
-    "@angular-devkit/schematics": ~18.2.0
     "@angular-devkit/schematics-cli": ^18.0.5
     "@angular/cli": ~18.2.0
     "@o3r/schematics": "workspace:^"
     "@openapitools/openapi-generator-cli": ~2.14.0
     "@schematics/angular": ~18.2.0
+    openapi-types: ^12.0.0
+    type-fest: ^4.10.2
   peerDependenciesMeta:
     "@ama-sdk/core":
       optional: true
@@ -707,6 +708,10 @@ __metadata:
     "@angular/compiler":
       optional: true
     "@openapitools/openapi-generator-cli":
+      optional: true
+    openapi-types:
+      optional: true
+    type-fest:
       optional: true
   bin:
     amasdk-clear-index: ./dist/cli/clear-index.cjs
@@ -7076,6 +7081,7 @@ __metadata:
     zone.js: "npm:~0.14.2"
   peerDependencies:
     "@ama-sdk/core": "workspace:^"
+    "@angular-devkit/schematics": ~18.2.0
     "@angular/common": ~18.2.0
     "@angular/core": ~18.2.0
     "@angular/platform-browser": ~18.2.0
@@ -7087,13 +7093,18 @@ __metadata:
     "@schematics/angular": ~18.2.0
     jasmine: ^5.0.0
     rxjs: ^7.8.1
+    typescript: ~5.5.4
     webpack: ~5.95.0
   peerDependenciesMeta:
+    "@angular-devkit/schematics":
+      optional: true
     "@o3r/schematics":
       optional: true
     "@schematics/angular":
       optional: true
     jasmine:
+      optional: true
+    typescript:
       optional: true
     webpack:
       optional: true
@@ -7297,6 +7308,11 @@ __metadata:
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.5.4"
     winston: "npm:^3.8.2"
+  peerDependencies:
+    "@angular-devkit/schematics": ~18.2.0
+  peerDependenciesMeta:
+    "@angular-devkit/schematics":
+      optional: true
   bin:
     o3r-artifact-cleaner: ./dist/src/cli/artifact-cleaner.js
     o3r-pr-artifact-cleaner: ./dist/src/cli/pr-artifact-cleaner.js
@@ -7341,6 +7357,11 @@ __metadata:
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.5.4"
     winston: "npm:^3.8.2"
+  peerDependencies:
+    "@angular-devkit/schematics": ~18.2.0
+  peerDependenciesMeta:
+    "@angular-devkit/schematics":
+      optional: true
   bin:
     o3r-comment-pr: ./dist/src/cli/comment-pr.js
   languageName: unknown
@@ -7553,6 +7574,7 @@ __metadata:
     zone.js: "npm:~0.14.2"
   peerDependencies:
     "@angular-devkit/architect": ~0.1802.0
+    "@angular-devkit/core": ~18.2.0
     "@angular-devkit/schematics": ~18.2.0
     "@angular/cdk": ~18.2.0
     "@angular/common": ~18.2.0
@@ -7586,6 +7608,8 @@ __metadata:
     semver: ^7.5.2
     typescript: ~5.5.4
   peerDependenciesMeta:
+    "@angular-devkit/core":
+      optional: true
     "@angular-devkit/schematics":
       optional: true
     "@ngx-translate/core":
@@ -7692,6 +7716,7 @@ __metadata:
     typescript: "npm:~5.5.4"
     zone.js: "npm:~0.14.2"
   peerDependencies:
+    "@angular-devkit/schematics": ~18.2.0
     "@angular/core": ~18.2.0
     "@angular/platform-browser-dynamic": ~18.2.0
     "@ngrx/entity": ~18.0.0
@@ -7707,6 +7732,8 @@ __metadata:
     rxjs: ^7.8.1
     typescript: ~5.5.4
   peerDependenciesMeta:
+    "@angular-devkit/schematics":
+      optional: true
     "@o3r/schematics":
       optional: true
     "@schematics/angular":
@@ -7810,7 +7837,9 @@ __metadata:
     "@schematics/angular": ~18.2.0
     chokidar: ^3.5.2
     globby: ^11.1.0
+    minimist: ^1.2.6
     rxjs: ^7.8.1
+    type-fest: ^4.10.2
     typescript: ~5.5.4
   peerDependenciesMeta:
     "@angular/cli":
@@ -7828,6 +7857,10 @@ __metadata:
     chokidar:
       optional: true
     globby:
+      optional: true
+    minimist:
+      optional: true
+    type-fest:
       optional: true
   languageName: unknown
   linkType: soft
@@ -7958,6 +7991,8 @@ __metadata:
     typescript: "npm:~5.5.4"
     zone.js: "npm:~0.14.2"
   peerDependencies:
+    "@angular-devkit/architect": ~0.1802.0
+    "@angular-devkit/schematics": ~18.2.0
     "@o3r/core": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@o3r/styling": "workspace:^"
@@ -7966,6 +8001,10 @@ __metadata:
     globby: ^11.1.0
     sass: ~1.80.0
   peerDependenciesMeta:
+    "@angular-devkit/architect":
+      optional: true
+    "@angular-devkit/schematics":
+      optional: true
     "@o3r/core":
       optional: true
     "@o3r/schematics":
@@ -8045,6 +8084,11 @@ __metadata:
     type-fest: "npm:^4.10.2"
     typescript: "npm:~5.5.4"
     winston: "npm:^3.8.2"
+  peerDependencies:
+    "@angular-devkit/schematics": ~18.2.0
+  peerDependenciesMeta:
+    "@angular-devkit/schematics":
+      optional: true
   bin:
     artifact-cleaner: ./dist/src/cli/artifact-cleaner.js
     artifact-retriever: ./dist/src/cli/artifact-retriever.js
@@ -8120,6 +8164,7 @@ __metadata:
     zone.js: "npm:~0.14.2"
   peerDependencies:
     "@angular-devkit/architect": ~0.1802.0
+    "@angular-devkit/schematics": ~18.2.0
     "@angular/compiler-cli": ~18.2.0
     "@angular/core": ~18.2.0
     "@angular/platform-browser-dynamic": ~18.2.0
@@ -8132,6 +8177,8 @@ __metadata:
     jasmine: ^5.0.0
     rxjs: ^7.8.1
   peerDependenciesMeta:
+    "@angular-devkit/schematics":
+      optional: true
     "@o3r/schematics":
       optional: true
     "@schematics/angular":
@@ -8279,6 +8326,7 @@ __metadata:
     typescript: "npm:~5.5.4"
     yaml-eslint-parser: "npm:^1.2.2"
   peerDependencies:
+    "@angular-devkit/schematics": ~18.2.0
     "@angular-eslint/template-parser": ~18.3.0
     "@angular-eslint/test-utils": ~18.3.0
     "@angular/compiler": ~18.2.0
@@ -8290,6 +8338,8 @@ __metadata:
     jsonc-eslint-parser: ~2.4.0
     yaml-eslint-parser: ^1.2.2
   peerDependenciesMeta:
+    "@angular-devkit/schematics":
+      optional: true
     "@angular-eslint/template-parser":
       optional: true
     jsonc-eslint-parser:
@@ -8376,6 +8426,7 @@ __metadata:
   peerDependencies:
     "@angular-devkit/architect": ~0.1802.0
     "@angular-devkit/core": ~18.2.0
+    "@angular-devkit/schematics": ~18.2.0
     "@o3r/core": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@o3r/telemetry": "workspace:^"
@@ -8390,6 +8441,8 @@ __metadata:
     type-fest: ^4.10.2
     typescript: ~5.5.4
   peerDependenciesMeta:
+    "@angular-devkit/schematics":
+      optional: true
     "@o3r/telemetry":
       optional: true
     "@schematics/angular":
@@ -8472,6 +8525,7 @@ __metadata:
     zone.js: "npm:~0.14.2"
   peerDependencies:
     "@ama-sdk/core": "workspace:^"
+    "@angular-devkit/schematics": ~18.2.0
     "@angular/common": ~18.2.0
     "@angular/core": ~18.2.0
     "@angular/forms": ~18.2.0
@@ -8482,6 +8536,8 @@ __metadata:
     "@schematics/angular": ~18.2.0
     rxjs: ^7.8.1
   peerDependenciesMeta:
+    "@angular-devkit/schematics":
+      optional: true
     "@o3r/schematics":
       optional: true
     "@schematics/angular":
@@ -8635,6 +8691,7 @@ __metadata:
     "@actions/github": "npm:^6.0.0"
     "@angular-devkit/build-angular": "npm:~18.2.0"
     "@angular-devkit/core": "npm:~18.2.0"
+    "@angular-devkit/schematics": "npm:~18.2.0"
     "@angular-eslint/builder": "npm:~18.3.0"
     "@angular-eslint/eslint-plugin": "npm:~18.3.0"
     "@angular-eslint/eslint-plugin-template": "npm:~18.3.0"
@@ -8792,6 +8849,7 @@ __metadata:
     intl-messageformat: ~10.7.0
     rxjs: ^7.8.1
     semver: ^7.5.2
+    type-fest: ^4.10.2
     typescript: ~5.5.4
   peerDependenciesMeta:
     "@angular-devkit/core":
@@ -8821,6 +8879,8 @@ __metadata:
     globby:
       optional: true
     semver:
+      optional: true
+    type-fest:
       optional: true
     typescript:
       optional: true
@@ -8888,6 +8948,7 @@ __metadata:
     typescript: "npm:~5.5.4"
     zone.js: "npm:~0.14.2"
   peerDependencies:
+    "@angular-devkit/schematics": ~18.2.0
     "@angular/core": ~18.2.0
     "@angular/platform-browser-dynamic": ~18.2.0
     "@fullstory/browser": ^2.0.0
@@ -8900,6 +8961,8 @@ __metadata:
     rxjs: ^7.8.1
     smartlook-client: ^9.0.0
   peerDependenciesMeta:
+    "@angular-devkit/schematics":
+      optional: true
     "@fullstory/browser":
       optional: true
     "@o3r/schematics":
@@ -9048,6 +9111,14 @@ __metadata:
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.5.4"
+  peerDependencies:
+    "@angular-devkit/schematics": ~18.2.0
+    "@o3r/schematics": "workspace:^"
+  peerDependenciesMeta:
+    "@angular-devkit/schematics":
+      optional: true
+    "@o3r/schematics":
+      optional: true
   languageName: unknown
   linkType: soft
 
@@ -9096,12 +9167,18 @@ __metadata:
     type-fest: "npm:^4.10.2"
     typescript: "npm:~5.5.4"
   peerDependencies:
+    "@angular-devkit/schematics": ~18.2.0
     "@o3r/schematics": "workspace:^"
     "@o3r/telemetry": "workspace:^"
+    type-fest: ^4.10.2
   peerDependenciesMeta:
+    "@angular-devkit/schematics":
+      optional: true
     "@o3r/schematics":
       optional: true
     "@o3r/telemetry":
+      optional: true
+    type-fest:
       optional: true
   languageName: unknown
   linkType: soft
@@ -9168,6 +9245,7 @@ __metadata:
     typescript: "npm:~5.5.4"
     zone.js: "npm:~0.14.2"
   peerDependencies:
+    "@angular-devkit/schematics": ~18.2.0
     "@angular/common": ~18.2.0
     "@angular/core": ~18.2.0
     "@angular/platform-browser-dynamic": ~18.2.0
@@ -9183,6 +9261,8 @@ __metadata:
     jasmine: ^5.0.0
     rxjs: ^7.8.1
   peerDependenciesMeta:
+    "@angular-devkit/schematics":
+      optional: true
     "@o3r/schematics":
       optional: true
     "@schematics/angular":
@@ -9574,6 +9654,7 @@ __metadata:
     "@o3r/core": "workspace:^"
     "@o3r/logger": "workspace:^"
     "@o3r/schematics": "workspace:^"
+    "@schematics/angular": ~18.2.0
     fast-deep-equal: ^3.1.3
     rxjs: ^7.8.1
   peerDependenciesMeta:
@@ -9582,6 +9663,8 @@ __metadata:
     "@angular-devkit/schematics":
       optional: true
     "@o3r/schematics":
+      optional: true
+    "@schematics/angular":
       optional: true
   languageName: unknown
   linkType: soft
@@ -9730,11 +9813,17 @@ __metadata:
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.5.4"
   peerDependencies:
+    "@angular-devkit/schematics": ~18.2.0
+    "@o3r/schematics": "workspace:^"
     "@schematics/angular": ~18.2.0
     postcss: ^8.4.5
     postcss-scss: ^4.0.9
     stylelint: ^16.0.2
   peerDependenciesMeta:
+    "@angular-devkit/schematics":
+      optional: true
+    "@o3r/schematics":
+      optional: true
     "@schematics/angular":
       optional: true
   languageName: unknown
@@ -9834,9 +9923,12 @@ __metadata:
     "@yarnpkg/fslib": ^3.1.0
     "@yarnpkg/plugin-npm": ^3.0.1
     "@yarnpkg/plugin-pack": ^4.0.0
+    chokidar: ^3.5.2
+    globby: ^11.1.0
     rxjs: ^7.8.1
     sass: ~1.80.0
     semver: ^7.5.2
+    typescript: ~5.5.4
   peerDependenciesMeta:
     "@angular-devkit/architect":
       optional: true
@@ -9870,9 +9962,15 @@ __metadata:
       optional: true
     "@yarnpkg/plugin-pack":
       optional: true
+    chokidar:
+      optional: true
+    globby:
+      optional: true
     sass:
       optional: true
     semver:
+      optional: true
+    typescript:
       optional: true
   languageName: unknown
   linkType: soft
@@ -10067,6 +10165,7 @@ __metadata:
     zone.js: "npm:~0.14.2"
   peerDependencies:
     "@amadeus-it-group/kassette": ^1.7.0
+    "@angular-devkit/core": ~18.2.0
     "@angular-devkit/schematics": ~18.2.0
     "@angular/animations": ~18.2.0
     "@angular/cli": ~18.2.0
@@ -10087,9 +10186,12 @@ __metadata:
     protractor: ^7.0.0
     rxjs: ^7.8.1
     temporal-polyfill: ^0.2.0
+    type-fest: ^4.10.2
     typescript: ~5.5.4
   peerDependenciesMeta:
     "@amadeus-it-group/kassette":
+      optional: true
+    "@angular-devkit/core":
       optional: true
     "@angular-devkit/schematics":
       optional: true
@@ -10116,6 +10218,8 @@ __metadata:
     protractor:
       optional: true
     temporal-polyfill:
+      optional: true
+    type-fest:
       optional: true
   languageName: unknown
   linkType: soft
@@ -10184,6 +10288,7 @@ __metadata:
     "@o3r/schematics": "workspace:^"
     "@schematics/angular": ~18.2.0
     rxjs: ^7.8.1
+    typescript: ~5.5.4
   peerDependenciesMeta:
     "@angular-devkit/schematics":
       optional: true
@@ -10192,6 +10297,8 @@ __metadata:
     "@o3r/schematics":
       optional: true
     "@schematics/angular":
+      optional: true
+    typescript:
       optional: true
   languageName: unknown
   linkType: soft
@@ -10255,6 +10362,8 @@ __metadata:
     typescript: "npm:~5.5.4"
     zone.js: "npm:~0.14.2"
   peerDependencies:
+    "@angular-devkit/schematics": ~18.2.0
+    "@o3r/schematics": "workspace:^"
     "@schematics/angular": ~18.2.0
     "@webcontainer/api": ~1.4.0
     eslint: ^8.57.0
@@ -10266,7 +10375,11 @@ __metadata:
       optional: true
     "@angular-devkit/core":
       optional: true
+    "@angular-devkit/schematics":
+      optional: true
     "@angular/cli":
+      optional: true
+    "@o3r/schematics":
       optional: true
     eslint:
       optional: true
@@ -10391,11 +10504,14 @@ __metadata:
     "@angular/core": ~18.2.0
     "@o3r/telemetry": "workspace:^"
     "@schematics/angular": ~18.2.0
+    type-fest: ^4.10.2
     typescript: ~5.5.4
   peerDependenciesMeta:
     "@angular/cli":
       optional: true
     "@o3r/telemetry":
+      optional: true
+    type-fest:
       optional: true
   bin:
     o3r-set-version: ./dist/src/cli/set-version.cjs

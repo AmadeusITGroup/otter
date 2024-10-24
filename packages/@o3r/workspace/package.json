@@ -31,6 +31,7 @@
     "@angular/core": "~18.2.0",
     "@o3r/telemetry": "workspace:^",
     "@schematics/angular": "~18.2.0",
+    "type-fest": "^4.10.2",
     "typescript": "~5.5.4"
   },
   "peerDependenciesMeta": {
@@ -38,6 +39,9 @@
       "optional": true
     },
     "@o3r/telemetry": {
+      "optional": true
+    },
+    "type-fest": {
       "optional": true
     }
   },

@@ -56,6 +56,14 @@
     "type-fest": "^4.10.2",
     "winston": "^3.8.2"
   },
+  "peerDependencies": {
+    "@angular-devkit/schematics": "~18.2.0"
+  },
+  "peerDependenciesMeta": {
+    "@angular-devkit/schematics": {
+      "optional": true
+    }
+  },
   "devDependencies": {
     "@angular-devkit/core": "~18.2.0",
     "@angular-devkit/schematics": "~18.2.0",

@@ -23,6 +23,7 @@
   "peerDependencies": {
     "@angular-devkit/architect": "~0.1802.0",
     "@angular-devkit/core": "~18.2.0",
+    "@angular-devkit/schematics": "~18.2.0",
     "@o3r/core": "workspace:^",
     "@o3r/schematics": "workspace:^",
     "@o3r/telemetry": "workspace:^",
@@ -38,6 +39,9 @@
     "typescript": "~5.5.4"
   },
   "peerDependenciesMeta": {
+    "@angular-devkit/schematics": {
+      "optional": true
+    },
     "@o3r/telemetry": {
       "optional": true
     },

@@ -22,6 +22,18 @@
     "semver": "^7.5.2",
     "tslib": "^2.6.2"
   },
+  "peerDependencies": {
+    "@angular-devkit/schematics": "~18.2.0",
+    "@o3r/schematics": "workspace:^"
+  },
+  "peerDependenciesMeta": {
+    "@angular-devkit/schematics": {
+      "optional": true
+    },
+    "@o3r/schematics": {
+      "optional": true
+    }
+  },
   "devDependencies": {
     "@angular-devkit/core": "~18.2.0",
     "@angular-devkit/schematics": "~18.2.0",
