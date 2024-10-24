@@ -23,10 +23,11 @@
       "{workspaceRoot}/tsconfig.base.json",
       "{workspaceRoot}/tsconfig.build.json",
       "{workspaceRoot}/nx.json",
-      "{workspaceRoot}/tools/@o3r/build-helpers/scripts/*.mjs"
+      "{workspaceRoot}/tools/@o3r/workspace-helpers/scripts/*.mjs"
     ],
     "default": [
       "global",
+      "{workspaceRoot}/tools/@o3r/build-helpers/scripts/*.mjs",
       "{projectRoot}/tsconfig*",
       "{projectRoot}/src/**/*",
       "{projectRoot}/scss/**/*",
