@@ -1,6 +1,6 @@
 import { sync } from 'globby';
 import { dirname, relative } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import shared from './eslint.shared.config.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -17,7 +17,7 @@ const addPrefix = (prefix, pathGlob = '**/*') => pathGlob.replace(/^(!?)(\.?\/)?
 
 /**
  * Merge ESLint config
- * @param {string | string[]} globs List of globs to findpath ESLint config
+ * @param {string | string[]} globs List of globs to find ESLint config path
  * @returns {Promise<import('@typescript-eslint/utils').TSESLint.FlatConfig.ConfigArray>}
  */
 const mergeESLintConfigs = async (globs) => {
@@ -25,7 +25,7 @@ const mergeESLintConfigs = async (globs) => {
   /** @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.ConfigArray} */
   let localConfigs = [];
   for (const localConfigFile of localConfigFiles) {
-    const module = await import(localConfigFile);
+    const module = await import(pathToFileURL(localConfigFile));
     const moduleConfig = await (module.default ?? module);
     /** @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.ConfigArray} */
     const configArray = Array.isArray(moduleConfig) ? moduleConfig : [moduleConfig];

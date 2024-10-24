@@ -117,11 +117,11 @@
     "lint": {
       "options": {
         "cwd": "{projectRoot}",
-        "command": "yarn eslint '**/*.{m,c,}{j,t}s' '**/*.html' '**/*.json' --no-error-on-unmatched-pattern"
+        "command": "yarn eslint \"**/*.{m,c,}{j,t}s\" \"**/*.html\" \"**/*.json\" --no-error-on-unmatched-pattern"
       },
       "configurations": {
         "ci": {
-          "command": "yarn eslint '**/*.{m,c,}{j,t}s' '**/*.html' '**/*.json' --quiet --cache-location .cache/eslint --no-error-on-unmatched-pattern"
+          "command": "yarn eslint \"**/*.{m,c,}{j,t}s\" \"**/*.html\" \"**/*.json\" --quiet --cache-location .cache/eslint --no-error-on-unmatched-pattern"
         }
       },
       "executor": "nx:run-commands",
