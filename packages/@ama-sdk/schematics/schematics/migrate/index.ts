@@ -29,7 +29,7 @@ import {
   MigrateSchematicsSchemaOptions
 } from './schema';
 
-/* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable @typescript-eslint/naming-convention -- keys are package versions */
 const tsMigrationMap: MigrationRulesMap = {
   '~10.3.2': updateOpenApiVersionInProject(),
   '11.0.*': [
@@ -51,7 +51,7 @@ function migrateFn(options: MigrateSchematicsSchemaOptions): Rule {
       context.logger.warn(`The specified range "${to}" has a minimum supported version higher than the current version of @ama-sdk/schematics (${currentVersion}).`
       + ' The migration may not have any effect.');
     }
-    const workingDirectory = options?.projectName && getWorkspaceConfig(tree)?.projects[options.projectName]?.root || '/';
+    const workingDirectory = (options?.projectName && getWorkspaceConfig(tree)?.projects[options.projectName]?.root) || '/';
     const runMigrateSchematic = isTypescriptSdk(tree, workingDirectory) ? getMigrationRuleRunner(tsMigrationMap, { logger: context.logger }) : undefined;
     return runMigrateSchematic?.({ from: options.from, to });
   };

@@ -9,7 +9,7 @@ import {
 } from '../core/utils';
 
 /**
- *
+ * Report errors with dictionaries references
  * @param specificationPaths
  */
 export async function checkDictionaries(specificationPaths: string[]) {

@@ -72,7 +72,7 @@ describe('Exception Reply Plugin', () => {
       reviver,
       apiType: ApiTypes.DAPI,
       response: { ok: false, status: 444, statusText: 'test' } as any,
-      exception: new Error()
+      exception: new Error('error')
     });
     const data = { data: {} };
 

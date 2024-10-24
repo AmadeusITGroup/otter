@@ -8,7 +8,6 @@ export interface ApiConfiguration {
    * Every properties that are redefined at API configuration level will
    * override the ones from the global file.
    */
-  // eslint-disable-next-line @typescript-eslint/ban-types
   swaggerTemplate: object | string | string[];
 
   /**

@@ -21,6 +21,7 @@ describe('Api Key Request Plugin', () => {
 
     await runner.transform(options);
 
+    // eslint-disable-next-line @typescript-eslint/unbound-method -- method is not called here, we use reference for the spy
     expect(options.headers.append).toHaveBeenCalledWith('testKey', 'test');
   });
 
@@ -30,6 +31,7 @@ describe('Api Key Request Plugin', () => {
 
     await runner.transform(options);
 
+    // eslint-disable-next-line @typescript-eslint/unbound-method -- method is not called here, we use reference for the spy
     expect(options.headers.append).toHaveBeenCalledWith('testKey', 'test');
   });
 });

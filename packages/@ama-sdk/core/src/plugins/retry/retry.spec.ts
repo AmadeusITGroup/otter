@@ -39,7 +39,7 @@ describe('Retry Fetch Plugin', () => {
 
     const runner = plugin.load({ url: 'not an url', fetchPlugins: runners } as any);
     runners.push(runner);
-    const call = Promise.reject({ text: 'test', ok: true });
+    const call = Promise.reject(new Error(JSON.stringify({ text: 'test', ok: true })));
 
     const callback = jest.fn();
     runner.transform(call as any).catch(callback);
@@ -56,7 +56,7 @@ describe('Retry Fetch Plugin', () => {
 
     const runner = plugin.load({ url: 'not an url', fetchPlugins: runners } as any);
     runners.push(runner);
-    const call = Promise.reject({ text: 'test', ok: true });
+    const call = Promise.reject(new Error(JSON.stringify({ text: 'test', ok: true })));
 
     const callback = jest.fn();
     runner.transform(call as any).catch(callback);

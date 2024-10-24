@@ -56,8 +56,10 @@ export class SessionIdRequest implements RequestPlugin {
   }
 
   private logSessionId(sessionId: string, date: string, logger?: Logger) {
+    /* eslint-disable no-console -- console are default value */
     (logger?.info || logger?.log || console.info).bind(logger || console)(`Your debug ID associated to the header "${this.sessionIdHeader}" is: ${sessionId}.`);
     (logger?.info || logger?.log || console.info).bind(logger || console)(`Generated at: ${date}`);
+    /* eslint-enable no-console */
   }
 
   /** @inheritdoc */
@@ -87,11 +89,11 @@ export class SessionIdRequest implements RequestPlugin {
 
       if (sessionIdObjectFromStorage) {
         try {
-          const parsedSessionIdObject = JSON.parse(sessionIdObjectFromStorage);
+          const parsedSessionIdObject = JSON.parse(sessionIdObjectFromStorage) as { id: string; generatedTime: string };
           // update the shared memory and log the ID to the user
           SessionIdRequest.sharedMemory[this.sessionIdHeader] = parsedSessionIdObject.id;
           this.logSessionId(parsedSessionIdObject.id, parsedSessionIdObject.generatedTime, logger);
-          return parsedSessionIdObject.id as string;
+          return parsedSessionIdObject.id;
         } catch { /* if the content of the session storage was corrupted somehow we'll just generate a new one */ }
       }
     }
@@ -119,7 +121,7 @@ export class SessionIdRequest implements RequestPlugin {
 
     // Check if we already have a request count in the shared memory or session storage
     if (SessionIdRequest.sharedMemory[requestCountKey] !== undefined) {
-      requestCount = SessionIdRequest.sharedMemory[requestCountKey];
+      requestCount = SessionIdRequest.sharedMemory[requestCountKey] as number;
     } else if (typeof sessionStorage !== 'undefined') {
       requestCount = +(sessionStorage.getItem(requestCountKey) || Number.NaN);
     }

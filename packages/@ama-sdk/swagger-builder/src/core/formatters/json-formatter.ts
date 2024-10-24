@@ -24,7 +24,7 @@ export class JsonFormatter implements Formatter {
     const content = JSON.stringify(spec, null, 2);
     await fs.promises.mkdir(path.dirname(this.filePath), { recursive: true });
     const res = await fs.promises.writeFile(this.filePath, content);
-    // eslint-disable-next-line no-console
+    // eslint-disable-next-line no-console -- no logger available
     console.info(`Swagger spec generated: ${this.filePath}`);
     return res;
   }
@@ -37,7 +37,7 @@ export class JsonFormatter implements Formatter {
       ...generatePackageJson(artifactName, spec),
       main: path.relative(this.cwd, this.filePath),
       exports: {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
+        // eslint-disable-next-line @typescript-eslint/naming-convention -- key is a path to a file
         './openapi.json': {
           default: path.relative(this.cwd, this.filePath)
         }
@@ -45,7 +45,7 @@ export class JsonFormatter implements Formatter {
     }, null, 2);
 
     const res = await fs.promises.writeFile(path.resolve(this.cwd, 'package.json'), content);
-    // eslint-disable-next-line no-console
+    // eslint-disable-next-line no-console -- no logger available
     console.info(`Artifact generated for ${this.filePath}`);
     return res;
   }

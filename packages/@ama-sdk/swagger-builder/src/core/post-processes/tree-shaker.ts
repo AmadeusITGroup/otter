@@ -31,7 +31,8 @@ export class TreeShaker implements PostProcess {
    * @private
    */
   private async removeUnusedParameters(spec: any) {
-    const parameterReferences = (await findReferences(spec.paths)).filter((ref) => ref.type === 'parameters');
+    const references = await findReferences(spec.paths);
+    const parameterReferences = references.filter((ref) => ref.type === 'parameters');
     spec.parameters = Object.fromEntries(Object.entries(spec.parameters)
       .filter(([parameterName]) => parameterReferences.some((ref) => ref.name === parameterName))
     );

@@ -25,6 +25,6 @@ export interface OpenApiToolsGeneratorCli {
 /** Global configuration of Open API Tools */
 export interface OpenApiToolsConfiguration {
   /** Generators CLI configuration */
-  // eslint-disable-next-line @typescript-eslint/naming-convention
+  // eslint-disable-next-line @typescript-eslint/naming-convention -- naming convention imposed by OpenAPI
   'generator-cli': OpenApiToolsGeneratorCli;
 }

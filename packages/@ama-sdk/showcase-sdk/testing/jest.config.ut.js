@@ -9,9 +9,7 @@ module.exports = {
   displayName: require('../package.json').name,
   rootDir,
   moduleNameMapper: {
-    // eslint-disable-next-line @typescript-eslint/naming-convention
     '^@ama-sdk/showcase-sdk$': ['<rootDir>/dist/cjs', '<rootDir>/src'],
-    // eslint-disable-next-line @typescript-eslint/naming-convention
     '^@ama-sdk/showcase-sdk/(.*)$': ['<rootDir>/dist/cjs/$1', '<rootDir>/src/$1']
   }
 };

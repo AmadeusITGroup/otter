@@ -104,12 +104,6 @@ const config = [
       ],
       'no-unreachable': 'error',
       'no-unsafe-negation': 'error',
-      'no-use-before-define': [
-        'error',
-        {
-          classes: false
-        }
-      ],
       'object-shorthand': 'off',
       'one-var': [
         'error',

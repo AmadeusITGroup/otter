@@ -18,16 +18,19 @@ import type {
 
 const argv = minimist(process.argv.slice(2));
 const distFolder = argv.dist || 'dist';
-const baseDir = argv.cwd && path.resolve(process.cwd(), argv.cwd) || process.cwd();
-const { help, watch, noExports } = argv;
+const baseDir = (argv.cwd && path.resolve(process.cwd(), argv.cwd)) || process.cwd();
+const { help, watch, noExports, quiet } = argv;
+const noop = () => {};
+const logger = quiet ? { error: noop, warn: noop, log: noop, info: noop, debug: noop } : console;
 
 if (help) {
-  // eslint-disable-next-line no-console
+  // eslint-disable-next-line no-console -- even if we call the CLI with `--quiet` we want to log the help information
   console.log(`Prepare the dist folder for publication. This will copy necessary files from src and update the exports in package.json.
-  Usage: amasdk-files-pack [--exports] [--watch]
+  Usage: amasdk-files-pack [--exports] [--watch] [--quiet]
 
     --exports    Update the exports in package.json. (Default: true)
     --watch      Watch for files changes and run the updates
+    --quiet      Don't log anything
   `);
   process.exit(0);
 }
@@ -60,7 +63,7 @@ const updateExports = async () => {
       packageJson.exports[folder].main = packageJson.exports[folder].import || packageJson.exports[folder].require;
     } catch (e) {
       if (watch) {
-        console.warn(`Exception in ${packageJsonFile}`, e);
+        logger.warn(`Exception in ${packageJsonFile}`, e);
       } else {
         throw e;
       }
@@ -73,8 +76,7 @@ const updateExports = async () => {
 void (async () => {
   const copyToDist = (file: string, cwdForCopy: string) => {
     const distFile = path.resolve(baseDir, distFolder, path.relative(cwdForCopy, file));
-    // eslint-disable-next-line no-console
-    console.log(`${file} copied to ${distFile}`);
+    logger.log(`${file} copied to ${distFile}`);
     try {
       mkdirSync(path.dirname(distFile), { recursive: true });
     } catch { /* ignore error */ }

@@ -1,3 +1,5 @@
+/* eslint-disable @stylistic/brace-style -- explication with inline comments */
+/* eslint-disable no-bitwise -- working on bytes */
 // The content of this file is inspired from https://github.com/inexorabletash/text-encoding/blob/master/lib/encoding.js
 // in order to support UTF8 strings encoding in case TextEncoder is not available
 
@@ -10,13 +12,13 @@ class Stream {
   private readonly tokens: number[];
 
   constructor(tokens: Uint8Array | number[]) {
-    this.tokens = Array.prototype.slice.call(tokens);
+    this.tokens = [...tokens];
     // Reversed as push/pop is more efficient than shift/unshift.
     this.tokens.reverse();
   }
 
   /**
-   * @returns True if end-of-stream has been hit.
+   * True if end-of-stream has been hit.
    */
   public get endOfStream() {
     return this.tokens.length === 0;
@@ -73,8 +75,7 @@ class Stream {
 
 /**
  * Returns the byte equivalent given a string
- * @param string Input string of UTF-16 code units.
- * @param s
+ * @param s Input string of UTF-16 code units.
  * @returns Code points.
  */
 function stringToCodePoints(s: string) {
@@ -122,16 +123,16 @@ function stringToCodePoints(s: string) {
         // 2. If 0xDC00 ≤ d ≤ 0xDFFF, then:
         if (0xDC_00 <= d && d <= 0xDF_FF) {
           // 1. Let a be c & 0x3FF.
-          // eslint-disable-next-line no-bitwise
+
           const a = c & 0x3_FF;
 
           // 2. Let b be d & 0x3FF.
-          // eslint-disable-next-line no-bitwise
+
           const b = d & 0x3_FF;
 
           // 3. Append to U the Unicode character with code point
           // 2^16+2^10*a+b.
-          // eslint-disable-next-line no-bitwise
+
           u.push(0x1_00_00 + (a << 10) + b);
 
           // 4. Set i to i+1.
@@ -172,10 +173,10 @@ export class Encoder {
   }
 
   /**
+   * True if a >= min and a <= max.
    * @param a The number to test.
    * @param min The minimum value in the range, inclusive.
    * @param max The maximum value in the range, inclusive.
-   * @returns {boolean} True if a >= min and a <= max.
    */
   private inRange(a: number, min: number, max: number) {
     return min <= a && a <= max;
@@ -213,17 +214,14 @@ export class Encoder {
 
     // 4. Let bytes be a byte sequence whose first byte is (code
     // point >> (6 × count)) + offset.
-    // eslint-disable-next-line no-bitwise
     const bytes = [(codePoint >> (6 * count)) + offset];
 
     // 5. Run these substeps while count is greater than 0:
     while (count > 0) {
       // 1. Set temp to code point >> (6 × (count − 1)).
-      // eslint-disable-next-line no-bitwise
       const temp = codePoint >> (6 * (count - 1));
 
       // 2. Append to bytes 0x80 | (temp & 0x3F).
-      // eslint-disable-next-line no-bitwise
       bytes.push(0x80 | (temp & 0x3F));
 
       // 3. Decrease count by one.

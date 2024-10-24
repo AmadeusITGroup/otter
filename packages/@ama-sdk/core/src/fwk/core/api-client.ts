@@ -70,7 +70,7 @@ export interface ApiClient {
   /**
    * Returns tokenized request options:
    * URL/query parameters for which sensitive parameters are replaced by tokens and the corresponding token-value associations
-   * @param tokenizedUrl URL for which parameters containing PII have been replaced by tokens
+   * @param url URL for which parameters containing PII have been replaced by tokens
    * @param queryParameters Original query parameters
    * @param piiParamTokens Tokens of the parameters containing PII
    * @param data Data to provide to the API call
@@ -94,11 +94,12 @@ export interface ApiClient {
  * @param client object to check
  */
 export function isApiClient(client: any): client is ApiClient {
-  return client
-    && !!client.options
-    && typeof client.extractQueryParams === 'function'
-    && typeof client.getRequestOptions === 'function'
-    && typeof client.prepareUrl === 'function'
-    && typeof client.processFormData === 'function'
-    && typeof client.processCall === 'function';
+  const apiClient: ApiClient | undefined = client;
+  return !!apiClient
+    && !!apiClient.options
+    && typeof apiClient.extractQueryParams === 'function'
+    && typeof apiClient.getRequestOptions === 'function'
+    && typeof apiClient.prepareUrl === 'function'
+    && typeof apiClient.processFormData === 'function'
+    && typeof apiClient.processCall === 'function';
 }
