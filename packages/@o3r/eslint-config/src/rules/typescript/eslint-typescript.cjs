@@ -111,6 +111,13 @@ const config = [
       '@typescript-eslint/prefer-for-of': 'error',
       '@typescript-eslint/prefer-function-type': 'error',
       '@typescript-eslint/prefer-regexp-exec': 'off',
+      '@typescript-eslint/switch-exhaustiveness-check': [
+        'error',
+        {
+          allowDefaultCaseForExhaustiveSwitch: false,
+          requireDefaultForNonUnion: true
+        }
+      ],
       '@typescript-eslint/triple-slash-reference': [
         'error',
         {

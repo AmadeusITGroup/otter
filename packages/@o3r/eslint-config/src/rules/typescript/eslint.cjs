@@ -12,7 +12,6 @@ const config = [
     ],
     rules: {
       ...convertWarningsToErrors(eslint.configs.recommended),
-      'camelcase': 'error',
       'complexity': 'off',
       'constructor-super': 'error',
       'curly': 'error',

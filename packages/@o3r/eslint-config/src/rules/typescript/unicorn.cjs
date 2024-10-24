@@ -34,11 +34,13 @@ const config = [
       'unicorn/prevent-abbreviations': 'off',
       'unicorn/catch-error-name': 'off',
       'unicorn/no-useless-promise-resolve-reject': 'off',
+      'unicorn/prefer-code-point': 'off',
       'unicorn/prefer-set-has': 'off',
       'unicorn/prefer-string-slice': 'off',
       'unicorn/prefer-top-level-await': 'off',
       'unicorn/prefer-type-error': 'off',
-      'unicorn/no-useless-undefined': 'off'
+      'unicorn/no-useless-undefined': 'off',
+      'unicorn/no-useless-switch-case': 'off' // Handled by `@typescript-eslint/switch-exhaustiveness-check`
     }
   }
 ];
