@@ -28,16 +28,7 @@
       }
     },
     "prepare": {
-      "executor": "nx:run-script",
-      "inputs": [
-        "global",
-        "{projectRoot}/package.json"
-      ],
-      "outputs": ["{projectRoot}/src/package.json"],
-      "dependsOn": ["^build"],
-      "options": {
-        "script": "prepare:compile"
-      }
+      "executor": "nx:run-script"
     },
     "extract-rules-engine": {
       "executor": "@o3r/rules-engine:extractor",
