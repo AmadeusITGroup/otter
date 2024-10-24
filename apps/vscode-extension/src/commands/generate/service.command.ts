@@ -12,18 +12,17 @@ import {
   stringifyOptions
 } from '../helpers';
 
+const getCurrentFolder = () => {
+  const currentlyOpenTabfilePath = vscode.window.activeTextEditor?.document.fileName;
+  return currentlyOpenTabfilePath && relative(vscode.workspace.workspaceFolders?.[0]?.uri?.fsPath || '.', dirname(currentlyOpenTabfilePath));
+};
+
 /**
  * Generate service command
  * @param _context
  * @param folder
- * @returns
  */
 export function generateServiceGenerateCommand(_context: ExtensionContext, folder?: string) {
-  const getCurrentFolder = () => {
-    const currentlyOpenTabfilePath = vscode.window.activeTextEditor?.document.fileName;
-    return currentlyOpenTabfilePath && relative(vscode.workspace.workspaceFolders?.[0]?.uri?.fsPath || '.', dirname(currentlyOpenTabfilePath));
-  };
-
   return async () => {
     const name = await vscode.window.showInputBox({
       title: 'Service name',
@@ -35,7 +34,7 @@ export function generateServiceGenerateCommand(_context: ExtensionContext, folde
       return;
     }
 
-    const defaultOptions = await getSchematicDefaultOptions('@o3r/core:service');
+    const defaultOptions = await getSchematicDefaultOptions('@o3r/core:service') as Partial<{ featureName: string; path: string }>;
 
     const featureName = defaultOptions.featureName || await vscode.window.showInputBox({
       title: 'Name of the service feature',

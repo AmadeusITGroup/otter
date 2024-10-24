@@ -36,7 +36,7 @@ export default [
         buildTargets: ['build', 'build-builders', 'compile', 'test'],
         checkObsoleteDependencies: false,
         checkVersionMismatches: false,
-        ignoredDependencies: ['ora', '@o3r/test-helpers', '@o3r/schematics'],
+        ignoredDependencies: ['ora', '@o3r/test-helpers', '@o3r/schematics', '@o3r/eslint-plugin', '@typescript-eslint/utils'],
         ignoredFiles: ['**/*.spec.ts']
       }]
     }

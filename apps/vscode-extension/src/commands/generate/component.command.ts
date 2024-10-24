@@ -13,7 +13,6 @@ import {
  * Generate component command
  * @param _context
  * @param folder
- * @returns
  */
 export function generateComponentGenerateCommand(_context: ExtensionContext, folder?: string) {
   return async () => {
@@ -27,11 +26,13 @@ export function generateComponentGenerateCommand(_context: ExtensionContext, fol
       return;
     }
 
-    const defaultOptions = await getSchematicDefaultOptions('@o3r/core:component');
+    const defaultOptions = await getSchematicDefaultOptions('@o3r/core:component') as Partial<{ path: string }>;
 
     const componentPath = folder || await vscode.window.showInputBox({
       title: 'Path to your component',
-      value: getCurrentFolder() || defaultOptions.path || vscode.workspace.workspaceFolders?.[0]?.uri?.fsPath,
+      value: getCurrentFolder()
+      || defaultOptions.path
+      || vscode.workspace.workspaceFolders?.[0]?.uri?.fsPath,
       ignoreFocusOut: true
     });
 

@@ -25,7 +25,6 @@ const isHTMLTemplateDocument = (doc: vscode.TextDocument | undefined) => {
 /**
  * Generate component command
  * @param _context
- * @returns
  */
 export function generateFixtureGenerateCommand(_context: ExtensionContext) {
   return async () => {

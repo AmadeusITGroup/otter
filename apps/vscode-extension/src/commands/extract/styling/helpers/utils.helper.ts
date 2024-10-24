@@ -143,7 +143,6 @@ export function getClassRuleName(document: TextDocument, line: TextLine) {
  * Generate the name of the variable based on filename, block rule and property name
  * @param document
  * @param line
- * @param endPos
  */
 export function generateVariableName(document: TextDocument, line: TextLine) {
   const documentNamePart = basename(document.fileName, '.scss').replace(/\.?(styling|style|theme)$/, '').replace('_', '');

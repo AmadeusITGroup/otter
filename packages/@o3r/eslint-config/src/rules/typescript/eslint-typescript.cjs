@@ -129,6 +129,14 @@ const config = [
       '@typescript-eslint/unified-signatures': 'error',
       '@typescript-eslint/prefer-readonly': 'error'
     }
+  },
+  {
+    name: '@o3r/overrides/typescript-eslint',
+    files: ['**/*.spec.ts'],
+    rules: {
+      '@typescript-eslint/no-unsafe-assignment': 'off',
+      '@typescript-eslint/no-unsafe-call': 'off'
+    }
   }
 ];
 
