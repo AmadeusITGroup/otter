@@ -91,7 +91,6 @@ export class ApplicationDevtoolsMessageService implements OnDestroy, DevtoolsSer
 
   /**
    * Function to handle the incoming messages from Otter Chrome DevTools extension
-   * @param event Event coming from the Otter Chrome DevTools extension
    * @param message
    */
   private handleEvents(message: AvailableApplicationMessageContents) {

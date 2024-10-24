@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+/* eslint-disable no-console -- purpose of the service is to log in the console */
 import {
   Inject,
   Injectable,

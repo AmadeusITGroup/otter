@@ -8,7 +8,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 <% } else { %>
   const { sync } = require('globby');
-  const { dirname, relative } from 'node:path';
+  const { dirname, posix, relative, sep } from 'node:path';
   cons shared from './eslint.shared.config.<%= extension %>';
 <% } %>
 
@@ -18,7 +18,7 @@ const __dirname = dirname(__filename);
  * @param {string | undefined} pathGlob
  * @returns {string}
  */
-const addPrefix = (prefix, pathGlob = '**/*') => pathGlob.replace(/^(!?)(\.?\/)?/, `$1${prefix}/`);
+const addPrefix = (prefix, pathGlob = '**/*') => pathGlob.replace(/^(!?)(\.?\/)?/, `$1${prefix}/`).replaceAll(sep, posix.sep);
 
 /**
  * Merge ESLint config

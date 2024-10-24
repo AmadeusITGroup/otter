@@ -26,7 +26,7 @@ export interface SetHeroComponentTTIPayload {
   /**
    * The TTI measure for the hero component
    */
-  // eslint-disable-next-line @typescript-eslint/naming-convention
+  // eslint-disable-next-line @typescript-eslint/naming-convention -- naming convention imposed by Lighthouse
   TTI: number;
 
   /**

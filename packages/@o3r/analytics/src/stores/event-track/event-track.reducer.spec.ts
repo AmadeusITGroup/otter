@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 import * as actions from './event-track.actions';
 import {
   eventTrackInitialState,

@@ -52,8 +52,8 @@ if (programOptions.basicAuth && programOptions.apiKey) {
   process.exit(1);
 }
 const authHeader: RequestInit['headers'] = programOptions.basicAuth
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  ? { Authorization: `Basic ${programOptions.basicAuth as string}` } : { 'X-JFrog-Art-Api': programOptions.apiKey as string };
+  ? { Authorization: `Basic ${programOptions.basicAuth as string}` }
+  : { 'X-JFrog-Art-Api': programOptions.apiKey as string };
 let url: string = programOptions.artifactoryUrl;
 url += (url.endsWith('/') ? '' : '/') + 'api/search/aql';
 const ageInDays: number = programOptions.durationKept;
@@ -80,8 +80,7 @@ const fetchOptions = {
 logger.debug(`AQL search executed : ${fetchOptions.body}`);
 logger.info(`Url called : ${url}`);
 
-// eslint-disable-next-line @typescript-eslint/no-floating-promises
-(async () => {
+void (async () => {
   logger.info(`Requesting old artifacts using  ${url}`);
   let responseSearch: any;
   let responseSearchObj: { results: { repo: string; path: string; name: string }[] };

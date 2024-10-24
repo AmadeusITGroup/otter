@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable @typescript-eslint/naming-convention -- naming convention for DOM, FP, and FMP imposed by Lighthouse */
 import type {
   Mark
 } from '@ama-sdk/core';
@@ -292,9 +292,10 @@ export class EventTrackService {
     if (serverMark.response) {
       const clonedResponse = serverMark.response.clone();
       const amaRequestId = clonedResponse.headers.get('ama-request-id');
+      const blob = await clonedResponse.blob();
       serverCallMetric = {
         ...serverCallMetric,
-        responseSize: (await clonedResponse.blob()).size,
+        responseSize: blob.size,
         requestId: amaRequestId || undefined
       };
     }
