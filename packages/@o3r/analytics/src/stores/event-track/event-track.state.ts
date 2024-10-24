@@ -7,7 +7,7 @@
 // eslint-disable-next-line no-use-before-define
 export interface HeroComponent extends RegisterHeroComponentPayload {
   /** The Time To Interactive(TTI) measure for the component */
-  // eslint-disable-next-line @typescript-eslint/naming-convention
+  // eslint-disable-next-line @typescript-eslint/naming-convention -- naming convention imposed by Lighthouse
   TTI: number;
 
   /**

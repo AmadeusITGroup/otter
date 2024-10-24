@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable @typescript-eslint/naming-convention -- naming convention for TTI imposed by Lighthouse */
 import * as actions from './event-track.actions';
 import {
   eventTrackInitialState,

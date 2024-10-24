@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-
 /**
  * Category
  */
@@ -121,12 +119,14 @@ export interface PerceivedEvents {
    * Mark the time from the navigation start until the loading indicator triggers
    * {@link https://developers.google.com/web/tools/lighthouse/audits/first-contentful-paint|FP}
    */
+  // eslint-disable-next-line @typescript-eslint/naming-convention -- naming convention imposed by Lighthouse
   FP?: EventTiming;
   /**
    * Marks the time when the page appears to be meaningfully complete
    * This is essentially the paint after which the biggest above-the-fold layout change has happened, and web fonts have loaded.
    * {@link https://developers.google.com/web/tools/lighthouse/audits/first-meaningful-paint|FMP}
    */
+  // eslint-disable-next-line @typescript-eslint/naming-convention -- naming convention imposed by Lighthouse
   FMP?: EventTiming;
   /** Marks the time when the page considers it has all the data to become interactive  */
   dataReady?: EventTiming;
@@ -167,6 +167,7 @@ export interface FirstLoadDataPayload {
   /** The duration while the response is received in ms; from the first byte from response received to the last one */
   response: number;
   /** DOM loading. Time between browser resources received and DOM rendered in ms */
+  // eslint-disable-next-line @typescript-eslint/naming-convention -- naming convention imposed by Lighthouse
   DOM: number;
   /** The total page load time in ms */
   total: number;

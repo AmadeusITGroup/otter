@@ -67,7 +67,7 @@ const checkAnalytics = (componentPath: string, tree: Tree, baseFileName: string)
     ts.isClassDeclaration(statement)
     && isO3rClassComponent(statement)
   )!;
-  if (o3rClassDeclaration.members.find((classElement) =>
+  if (o3rClassDeclaration.members.some((classElement) =>
     ts.isPropertyDeclaration(classElement)
     && ts.isIdentifier(classElement.name)
     && analyticsProperties.includes(classElement.name.escapedText.toString())
@@ -135,7 +135,7 @@ export function ngAddAnalyticsFn(options: NgAddAnalyticsSchematicsSchema): Rule 
                 public readonly analyticsEvents: ${properties.componentAnalytics} = analyticsEvents;
               `);
 
-                  const ngDecorator = (ts.getDecorators(node) || []).find(isNgClassDecorator)!;
+                  const ngDecorator = (ts.getDecorators(node) || []).find((decorator) => isNgClassDecorator(decorator))!;
                   const importInitializer = standalone ? getPropertyFromDecoratorFirstArgument(ngDecorator, 'imports') : undefined;
                   const importsList = importInitializer && ts.isArrayLiteralExpression(importInitializer) ? [...importInitializer.elements] : [];
                   const newNgDecorator = standalone
@@ -160,7 +160,6 @@ export function ngAddAnalyticsFn(options: NgAddAnalyticsSchematicsSchema): Rule 
 
                   const newModifiers = (ts.getDecorators(node) || []).filter((decorator) => !isNgClassDecorator(decorator))
                     .concat([newNgDecorator])
-                    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
                     .concat((ts.getModifiers(node) || []) as any) as any[] as ts.Modifier[];
 
                   const newMembers = node.members
