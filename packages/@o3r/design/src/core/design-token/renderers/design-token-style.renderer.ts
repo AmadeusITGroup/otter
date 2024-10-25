@@ -25,6 +25,7 @@ import type {
  * @param root Root path used if no base path
  * @param defaultFile Default file if not requested by the Token
  */
+// eslint-disable-next-line no-undef -- will be fixed with the rebase on main
 export const computeFileToUpdatePath = (root = process.cwd(), defaultFile = 'styles.scss') => (token: DesignTokenVariableStructure) => {
   if (token.extensions.o3rTargetFile) {
     return isAbsolute(token.extensions.o3rTargetFile) ? token.extensions.o3rTargetFile : resolve(token.context?.basePath || root, token.extensions.o3rTargetFile);

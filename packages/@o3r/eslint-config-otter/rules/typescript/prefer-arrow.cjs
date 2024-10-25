@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-
 module.exports = {
   plugins: [
     'prefer-arrow'

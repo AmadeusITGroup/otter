@@ -38,7 +38,7 @@ const resolvePrivateReferences = (refs: DesignTokenVariableStructure[], variable
   return [
     ...refs.filter((node) => !isO3rPrivateVariable(node)),
     ...refs
-      .filter(isO3rPrivateVariable)
+      .filter((node) => isO3rPrivateVariable(node))
       .flatMap((node) => resolvePrivateReferences(node.getReferencesNode(variableSet), variableSet))
   ];
 };

@@ -17,10 +17,22 @@ export default [
       parserOptions: {
         tsconfigRootDir: __dirname,
         project: [
-          'tsconfig.build.json',
           'tsconfig.builders.json',
           'tsconfig.eslint.json',
           'tsconfig.spec.json'
+        ]
+      }
+    }
+  },
+  {
+    name: '@o3r/eslint-config/projects/commonjs',
+    files: ['**/*.cjs'],
+    languageOptions: {
+      sourceType: 'commonjs',
+      parserOptions: {
+        tsconfigRootDir: __dirname,
+        project: [
+          'tsconfig.build.json'
         ]
       }
     }

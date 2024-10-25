@@ -18,7 +18,7 @@ export function getLocalizationFileFromAngularElement(node: ts.ClassDeclaration)
         !ts.isDecorator(decorator)
         || !ts.isCallExpression(decorator.expression)
         || !ts.isIdentifier(decorator.expression.expression)
-        || decorator.expression.expression.escapedText !== localizationDecoratorName
+        || decorator.expression.expression.escapedText.toString() !== localizationDecoratorName
       ) {
         return;
       }

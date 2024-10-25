@@ -1,3 +1,4 @@
+'use strict';
 const typescript = require('typescript-eslint');
 const { convertWarningsToErrors } = require('../utils.cjs');
 

@@ -22,7 +22,6 @@ describe('Design Token Parser', () => {
     test('should support single root key', () => {
       const result = parser.parseDesignToken({
         document: {
-          // eslint-disable-next-line @typescript-eslint/naming-convention
           'my.variable': {
             $value: '{external}'
           }

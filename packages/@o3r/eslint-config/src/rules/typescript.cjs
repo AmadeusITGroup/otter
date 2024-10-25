@@ -1,3 +1,4 @@
+'use strict';
 const eslint = require('@eslint/js');
 const comments = require('@eslint-community/eslint-plugin-eslint-comments/configs');
 const o3r = require('@o3r/eslint-plugin');
@@ -24,7 +25,7 @@ const unusedImportsConfig = require('./typescript/unused-imports.cjs');
 /**
  * Get the jest config if dependency is present
  * @param {'recommended' | 'overrides'} type
- * @returns {import('@typescript-eslint/utils').TSESLint.FlatConfig.ConfigArray}
+ * @returns {import('@typescript-eslint/utils').TSESLint.FlatConfig.ConfigArray} config
  */
 const getJestConfig = (type) => {
   try {

@@ -112,7 +112,7 @@ export default [
   },
   {
     name: '@o3r/framework/setup-jest',
-    files: ['**/setup-jest.ts'],
+    files: ['**/setup-jest.ts', '**/setup-jest.*.ts'],
     rules: {
       'unicorn/no-empty-file': 'off',
     }

@@ -46,8 +46,7 @@ program
     logger.warn(`This CLI is deprecated, please use ${bold('o3r-set-version')} from the package ${bold('@o3r/workspace')}`);
 
     if (!cleanVersion) {
-      // eslint-disable-next-line no-console
-      console.error(`The version "${version}" is invalid`);
+      logger.error(`The version "${version}" is invalid`);
       return process.exit(1);
     }
     replaceVersion = cleanVersion;

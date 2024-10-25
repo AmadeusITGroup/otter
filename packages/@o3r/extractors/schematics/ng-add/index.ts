@@ -37,7 +37,6 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       getO3rPeerDeps,
       getWorkspaceConfig
     } = await import('@o3r/schematics');
-    // eslint-disable-next-line @typescript-eslint/naming-convention
     const { NodeDependencyType } = await import('@schematics/angular/utility/dependencies');
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
     const depsInfo = getO3rPeerDeps(packageJsonPath);

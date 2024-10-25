@@ -1,3 +1,4 @@
+'use strict';
 const importPlugin = require('eslint-plugin-import');
 const { convertWarningsToErrors } = require('../utils.cjs');
 

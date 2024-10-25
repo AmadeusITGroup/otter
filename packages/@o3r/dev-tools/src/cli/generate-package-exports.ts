@@ -58,8 +58,7 @@ program
 
 logger.warn('This script is deprecated, will be removed in Otter v12.');
 
-// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-const { cwd, pattern, exportTypes, ...options } = program.opts() as Options;
+const { cwd, pattern, exportTypes, ...options } = program.opts<Options>();
 const srcDir = path.resolve(cwd, options.srcDir);
 const outDir = path.resolve(cwd, options.outDir);
 

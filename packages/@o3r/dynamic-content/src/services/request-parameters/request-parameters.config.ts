@@ -7,13 +7,13 @@
  */
 
 export enum StorageStrategy {
-  // eslint-disable-next-line @typescript-eslint/naming-convention
+  // eslint-disable-next-line @typescript-eslint/naming-convention -- required naming convention
   Rehydrate = 0,
-  // eslint-disable-next-line @typescript-eslint/naming-convention
+  // eslint-disable-next-line @typescript-eslint/naming-convention -- required naming convention
   Merge = 1,
-  // eslint-disable-next-line @typescript-eslint/naming-convention
+  // eslint-disable-next-line @typescript-eslint/naming-convention -- required naming convention
   Replace = 2,
-  // eslint-disable-next-line @typescript-eslint/naming-convention
+  // eslint-disable-next-line @typescript-eslint/naming-convention -- required naming convention
   ReplaceIfNotEmpty = 3
 }
 
@@ -42,6 +42,6 @@ export interface RequestParametersConfig {
 export const defaultRequestParametersConfig: RequestParametersConfig = {
   storage: (typeof window === 'undefined') ? undefined : window.sessionStorage,
   strategy: StorageStrategy.Rehydrate,
-  queryParamsValue: typeof document !== 'undefined' && document.body && document.body.dataset && document.body.dataset.query || '{}',
-  postParamsValue: typeof document !== 'undefined' && document.body && document.body.dataset && document.body.dataset.post || '{}'
+  queryParamsValue: (typeof document !== 'undefined' && document.body?.dataset?.query) || '{}',
+  postParamsValue: (typeof document !== 'undefined' && document.body?.dataset?.post) || '{}'
 };

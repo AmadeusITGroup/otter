@@ -24,8 +24,8 @@ import type {
 function generateCssFn(options: GenerateCssSchematicsSchema): Rule {
   return async (tree, context) => {
     const writeFile = (filePath: string, content: string) => tree.exists(filePath) ? tree.overwrite(filePath, content) : tree.create(filePath, content);
-    const readFile = tree.readText;
-    const existsFile = tree.exists;
+    const readFile = tree.readText.bind(tree);
+    const existsFile = tree.exists.bind(tree);
     const determineFileToUpdate = options.output
       ? () => options.output!
       : (token: DesignTokenVariableStructure) => {

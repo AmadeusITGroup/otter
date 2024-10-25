@@ -23,7 +23,7 @@ import {
 function runAndThrowOnError(command: string, spawnOptions: SpawnSyncOptionsWithStringEncoding): SpawnSyncReturns<string> {
   const cmdOutput = spawnSync(command, spawnOptions);
   if (cmdOutput.error || cmdOutput.status !== 0) {
-    throw cmdOutput.stderr;
+    throw new Error(cmdOutput.stderr);
   }
   return cmdOutput;
 }

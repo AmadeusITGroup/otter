@@ -31,7 +31,6 @@ describe('update vscode', () => {
   it('should update vscode settings', async () => {
     const initialTree = Tree.empty();
     initialTree.create(extensionFile, JSON.stringify({ recommendations: [] }));
-    // eslint-disable-next-line @typescript-eslint/naming-convention
     initialTree.create(settingFile, JSON.stringify({ 'eslint.useFlatConfig': false, 'editor.defaultFormatter': 'prettier' }));
     const runner = new SchematicTestRunner('schematics', collectionPath);
 

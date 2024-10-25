@@ -1,7 +1,7 @@
 import * as querystring from 'node:querystring';
 import * as cheerio from 'cheerio';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore -- no type are provided for express-interceptor
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment -- no type are provided for express-interceptor
+// @ts-ignore
 import * as expressInterceptor from 'express-interceptor';
 
 let previousPostParams = {};
@@ -23,7 +23,8 @@ const middleware = () => expressInterceptor((req: { [x: string]: any }, res: { [
 }));
 
 /**
- *
+ * Set up application
+ * @param app
  */
 export function setup(app: { [x: string]: any }) {
   app.post('*', (req: { [x: string]: any }, res: { [x: string]: any }) => {

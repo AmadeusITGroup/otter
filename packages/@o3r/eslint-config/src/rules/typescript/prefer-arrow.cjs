@@ -1,3 +1,4 @@
+'use strict';
 const preferArrowPlugin = require('eslint-plugin-prefer-arrow');
 
 /** @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.ConfigArray} */

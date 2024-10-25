@@ -1,9 +1,10 @@
+'use strict';
 const o3rBaseConfig = require('../base.cjs');
 
 /**
  * Get the @o3r typescript recommended rules
  * @param {import('@typescript-eslint/utils').TSESLint.FlatConfig.Plugin} plugin
- * @returns {import('@typescript-eslint/utils').TSESLint.FlatConfig.Config}
+ * @returns {import('@typescript-eslint/utils').TSESLint.FlatConfig.Config} config
  */
 const o3rTypescriptRecommended = (plugin) => [
   o3rBaseConfig(plugin),

@@ -1,3 +1,4 @@
+'use strict';
 const o3r = require('@o3r/eslint-plugin');
 const angular = require('angular-eslint');
 const angularOverrideConfig = require('./template/angular.cjs');

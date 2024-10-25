@@ -36,7 +36,6 @@ $breadcrumb-pres-item-other-color: o3r.variable('breadcrumb-pres-item-other-colo
 
   beforeAll(() => {
     jest.mock('@o3r/styling/builders/style-extractor/helpers', () => ({
-      // eslint-disable-next-line @typescript-eslint/naming-convention
       CssVariableExtractor: class {
         public extractFileContent = jest.fn<CssVariable[], any>().mockReturnValue([
           {

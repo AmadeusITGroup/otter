@@ -23,8 +23,10 @@ import type {
   GenerateJsonSchemaSchematicsSchema
 } from './schema';
 
+const noopBuilder: BuilderWrapper = (fn) => fn;
+
 const createBuilderWithMetricsIfInstalled: BuilderWrapper = (builderFn) => async (opts, ctx) => {
-  let wrapper: BuilderWrapper = (fn) => fn;
+  let wrapper: BuilderWrapper = noopBuilder;
   try {
     const { createBuilderWithMetrics } = await import('@o3r/telemetry');
     wrapper = createBuilderWithMetrics;

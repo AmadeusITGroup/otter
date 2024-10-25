@@ -64,8 +64,7 @@ const applyConversion = (token: DesignTokenVariableStructure, value: string) => 
 
   return newValue;
 };
-// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
-const renderCssTypeStrokeStyleValue = (value: DesignTokenTypeStrokeStyleValue | string) => isTokenTypeStrokeStyleValueComplex(value) ? `${value.lineCap} ${value.dashArray.join(' ')}` : value;
+const renderCssTypeStrokeStyleValue = (value: DesignTokenTypeStrokeStyleValue) => isTokenTypeStrokeStyleValueComplex(value) ? `${value.lineCap} ${value.dashArray.join(' ')}` : value;
 const sanitizeStringValue = (value: string) => value.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
 const sanitizeKeyName = (name: string) => name.replace(/[ .]+/g, '-').replace(/[()[\]]+/g, '');
 const getCssRawValue = (variableSet: DesignTokenVariableSet, token: DesignTokenVariableStructure) => {
@@ -192,8 +191,8 @@ const walkThroughDesignTokenNodes = (
       },
       getType: function (variableSet = mem, followReference = true) {
         return node.$type
-          || followReference && this.getIsAlias(variableSet) && this.getReferencesNode(variableSet)[0]?.getType(variableSet, followReference)
-          || followReference && this.parent?.name && variableSet.get(this.parent.name)?.getType(variableSet, followReference)
+          || (followReference && this.getIsAlias(variableSet) && this.getReferencesNode(variableSet)[0]?.getType(variableSet, followReference))
+          || (followReference && this.parent?.name && variableSet.get(this.parent.name)?.getType(variableSet, followReference))
           || undefined;
       },
       getKey: function (keyRenderer) {

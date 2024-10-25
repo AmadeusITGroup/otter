@@ -43,8 +43,10 @@ import type {
   GenerateCssSchematicsSchema
 } from './schema';
 
+const noopBuilder: BuilderWrapper = (fn) => fn;
+
 const createBuilderWithMetricsIfInstalled: BuilderWrapper = (builderFn) => async (opts, ctx) => {
-  let wrapper: BuilderWrapper = (fn) => fn;
+  let wrapper: BuilderWrapper = noopBuilder;
   try {
     const { createBuilderWithMetrics } = await import('@o3r/telemetry');
     wrapper = createBuilderWithMetrics;
@@ -57,9 +59,7 @@ const createBuilderWithMetricsIfInstalled: BuilderWrapper = (builderFn) => async
  * @param options
  */
 export default createBuilder<GenerateCssSchematicsSchema>(createBuilderWithMetricsIfInstalled(async (options, context): Promise<BuilderOutput> => {
-  const templateFilePaths = options.templateFile
-    && (typeof options.templateFile === 'string' ? [options.templateFile] : options.templateFile)
-    || undefined;
+  const templateFilePaths = (options.templateFile && (typeof options.templateFile === 'string' ? [options.templateFile] : options.templateFile)) || undefined;
   const designTokenFilePatterns = Array.isArray(options.designTokenFilePatterns) ? options.designTokenFilePatterns : [options.designTokenFilePatterns];
   const determineFileToUpdate = options.output
     ? () => resolve(context.workspaceRoot, options.output!)
@@ -78,10 +78,9 @@ export default createBuilder<GenerateCssSchematicsSchema>(createBuilderWithMetri
     tokenVariableNameRenderer: (v) => (options?.prefixPrivate || '') + tokenVariableNameSassRenderer(v),
     logger
   });
-  const writeFileWithLogger: typeof writeFile = async (file, ...args) => {
-    const res = await writeFile(file, ...args);
-    // eslint-disable-next-line @typescript-eslint/no-base-to-string
-    logger.info(`Updated ${file.toString()} with Design Token content.`);
+  const writeFileWithLogger: DesignTokenRendererOptions['writeFile'] = async (file, content) => {
+    const res = await writeFile(file, content);
+    logger.info(`Updated ${file} with Design Token content.`);
     return res;
   };
   const renderDesignTokenOptionsCss: DesignTokenRendererOptions = {
