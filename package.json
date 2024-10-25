@@ -30,7 +30,7 @@
     "update-yarn-sdks": "node -e \"'pnp' !== '$(yarn config get nodeLinker)' || process.exit(1)\" || yarn dlx @yarnpkg/sdks",
     "build:storybook": "yarn doc:generate:json && yarn ng run storybook:extract-style && build-storybook",
     "clear": "rimraf -g './{packages,tools,apps}/{@*/,}{amaterasu/,}*/{dist,build,dist-*}/'",
-    "set:version": "yarn o3r-set-version --placeholder 0.0.0-placeholder --include '{apps,packages}/**/dist/package.json'",
+    "set:version": "yarn o3r-set-version --placeholder 0.0.0-placeholder --include '{apps,packages}/**/dist/{package,manifest}.json'",
     "harmonize:version": "eslint '**/package.json*' '.yarnrc.yml' --quiet --fix",
     "doc:packages": "yarn nx run-many --target=documentation --parallel $(yarn get:cpus-number)",
     "doc:root": "yarn prepare-doc-root-menu-template && yarn update-doc-summary ./docs && yarn compodoc",
