@@ -1,3 +1,4 @@
+/* eslint-disable jest/no-done-callback -- test with subscriptions */
 import {
   getTestBed,
   TestBed

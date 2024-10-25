@@ -80,6 +80,7 @@ export class StorageSync {
    * Returns a meta reducer that handles storage sync
    */
   public localStorageSync = () => {
+    // eslint-disable-next-line unicorn/consistent-function-scoping -- higher-order function
     const base = (reducer: any) => syncStorage({
       ...this.options,
       rehydrate: false,

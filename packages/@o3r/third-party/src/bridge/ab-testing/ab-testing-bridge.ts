@@ -73,6 +73,7 @@ export class AbTestBridge<T> implements AbTestBridgeInterface<T> {
   public experiments$: Observable<T[]>;
 
   /**
+   * AbTestBridge constructor
    * @param isExperimentEqual check two different experiments match to identify an experiment to start or to stop
    * @param options configure the communication with the A/B testing third party provider
    */
@@ -110,8 +111,10 @@ export class AbTestBridge<T> implements AbTestBridgeInterface<T> {
     const currentProfile = this.experimentSubject$.getValue();
     this.experimentSubject$.next([
       ...currentProfile,
-      ...(Array.isArray(experiments) ? experiments : [experiments]).filter((exp) =>
-        !currentProfile.find((expB: T) => this.isExperimentEqual(exp, expB)))
+      ...(Array.isArray(experiments)
+        ? experiments
+        : [experiments]).filter((exp) => !currentProfile.some((expB: T) => this.isExperimentEqual(exp, expB))
+      )
     ]);
   }
 

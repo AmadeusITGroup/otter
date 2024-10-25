@@ -74,7 +74,7 @@ describe('Builder with metrics', () => {
   });
 
   it('should throw if the builder function is a rejected Promise', async () => {
-    const originalBuilderFn = jest.fn(() => Promise.reject('rejected'));
+    const originalBuilderFn = jest.fn(() => Promise.reject(new Error('rejected')));
     const builder = createBuilder(createBuilderWithMetrics(originalBuilderFn));
     architectHost.addBuilder('.:builder', builder);
     const options = { example: 'test' };
@@ -86,6 +86,7 @@ describe('Builder with metrics', () => {
   it('should works if we chain builder wrapper', async () => {
     const expectedOutput = { success: true };
     const originalBuilderFn = jest.fn((): BuilderOutput => expectedOutput);
+    // eslint-disable-next-line unicorn/consistent-function-scoping -- higher-order function
     const noopBuilderWrapper: BuilderWrapper = (builderFn) => (opts, ctx) => builderFn(opts, ctx);
     const builder = createBuilder(noopBuilderWrapper(createBuilderWithMetrics(originalBuilderFn)));
     architectHost.addBuilder('.:builder', builder);

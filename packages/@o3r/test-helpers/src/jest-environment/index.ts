@@ -29,7 +29,7 @@ import {
 export type TestEnvironment = Awaited<ReturnType<typeof prepareTestEnv>>;
 
 declare global {
-  // eslint-disable-next-line no-var
+  // eslint-disable-next-line no-var -- need to use var to add the variable as a member of globalThis (window)
   var o3rEnvironment: { testEnvironment: TestEnvironment };
 }
 

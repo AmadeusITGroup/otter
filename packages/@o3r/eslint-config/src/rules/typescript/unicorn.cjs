@@ -41,24 +41,13 @@ const config = [
       'unicorn/prefer-type-error': 'off',
       'unicorn/no-useless-undefined': 'off'
     }
-  },
-  {
-    name: '@o3r/eslint-config/unicorn/angular-components-files',
-    files: ['**/*.component.ts'],
+  }, {
+    name: '@o3r/eslint-config/unicorn/consistent-function-scoping',
+    files: ['**/*.component.ts', '**/*.effect.ts'],
     rules: {
-      // TODO re-enable this rule once it support arrow function in `computed` Angular signal computation
-      // No opened issue on their side yet
-      'unicorn/consistent-function-scoping': [
-        'error',
-        { checkArrowFunctions: false }
-      ]
-    }
-  },
-  {
-    name: '@o3r/eslint-config/unicorn/angular-components-files',
-    files: ['**/*.component.ts'],
-    rules: {
-      // TODO re-enable this rule once it support arrow function in `computed` Angular signal computation
+      // TODO re-enable this rule once it supports:
+      //  - arrow function in `computed` for Angular signal computation
+      //  - arrow function in `createEffect` for NgRX effects
       // No opened issue on their side yet
       'unicorn/consistent-function-scoping': [
         'error',

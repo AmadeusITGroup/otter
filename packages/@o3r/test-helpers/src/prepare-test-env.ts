@@ -39,8 +39,7 @@ export type PrepareTestEnvType = 'blank' | 'o3r-project-with-app';
 
 /**
  * Retrieve the version used by yarn and setup at root level
- * @param rootFolderPath: path to the folder where to take the configuration from
- * @param rootFolderPath
+ * @param rootFolderPath path to the folder where to take the configuration from
  */
 export function getYarnVersionFromRoot(rootFolderPath: string) {
   const o3rPackageJson: PackageJson & { generatorDependencies?: Record<string, string> } = JSON.parse(readFileSync(path.join(rootFolderPath, 'package.json')).toString());
@@ -77,7 +76,6 @@ export async function prepareTestEnv(folderName: string, options?: PrepareTestEn
   const execAppOptions: ExecSyncOptions = {
     cwd: workspacePath,
     stdio: 'inherit',
-    // eslint-disable-next-line @typescript-eslint/naming-convention
     env: { ...process.env, NODE_OPTIONS: '', CI: 'true' }
   };
 

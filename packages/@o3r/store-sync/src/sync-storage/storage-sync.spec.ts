@@ -1,3 +1,5 @@
+/* eslint-disable unicorn/consistent-function-scoping -- lot of arrow functions with the same name that are dedicated only for their test */
+/* eslint-disable @typescript-eslint/unbound-method -- revivers have no context */
 import {
   INIT
 } from '@ngrx/store';
@@ -61,7 +63,7 @@ class MockStorage implements Storage {
   }
 
   public getItem(key: string): string | null {
-    return (this as any)[key] ? (this as any)[key] : null;
+    return (this as any)[key] || null;
   }
 
   public key(_index: number): string | null {
@@ -846,7 +848,6 @@ describe('ngrxLocalStorage', () => {
     });
   });
 
-  /* eslint-disable @typescript-eslint/naming-convention, camelcase */
   it('should save targeted infinite depth to localStorage', () => {
     // Configure to only save feature1.slice11.slice11_1 and feature2.slice12,
     // ignore all other properties
@@ -918,5 +919,4 @@ describe('ngrxLocalStorage', () => {
       slice22: 'fourth_good_value'
     });
   });
-  /* eslint-enable @typescript-eslint/naming-convention, camelcase */
 });

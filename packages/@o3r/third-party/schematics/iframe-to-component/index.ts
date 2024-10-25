@@ -44,7 +44,7 @@ const checkIframePresence = (componentPath: string, tree: Tree) => {
     ts.ScriptTarget.ES2020,
     true
   );
-  const classStatement = sourceFile.statements.find(ts.isClassDeclaration);
+  const classStatement = sourceFile.statements.find((statement) => ts.isClassDeclaration(statement));
   if (
     classStatement?.members.find((classElement) =>
       ts.isPropertyDeclaration(classElement)

@@ -77,6 +77,7 @@ describe('createSchematicWithMetricsIfInstalled', () => {
     const rule = jest.fn((tree: Tree) => tree);
 
     const originalSchematic = jest.fn((_opts: any): Rule => rule);
+    // eslint-disable-next-line unicorn/consistent-function-scoping -- higher-order function
     const noopSchematicWrapper: SchematicWrapper = (schematicFn) => (opts) => schematicFn(opts);
     const schematic = noopSchematicWrapper(createSchematicWithMetrics(originalSchematic));
     const options = {
@@ -114,7 +115,7 @@ describe('createSchematicWithMetricsIfInstalled', () => {
   });
 
   it('should throw if the rule is a rejected Promise', async () => {
-    const rule = jest.fn(() => Promise.reject('rejected'));
+    const rule = jest.fn(() => Promise.reject(new Error('rejected')));
 
     const originalSchematic = jest.fn((_opts: any): Rule => rule);
     const schematic = createSchematicWithMetrics(originalSchematic);

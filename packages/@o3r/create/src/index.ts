@@ -121,14 +121,12 @@ let packageManager = supportedPackageManagerRegExp.test(argvPackageManager) ? ar
 if (argvPackageManager && supportedPackageManagerRegExp.test(argvPackageManager)) {
   packageManager = argvPackageManager;
 } else if (argvPackageManager) {
-  // eslint-disable-next-line no-console
   console.error(`The package manager option supports only npm and yarn, you provided "${argvPackageManager}"`);
   process.exit(-1);
 }
 const exactO3rVersion = !!argv['exact-o3r-version'];
 
 if (argv._.length === 0) {
-  // eslint-disable-next-line no-console
   console.error('The project name is mandatory');
   process.exit(-1);
 }
@@ -158,7 +156,6 @@ const INSTALL_PROCESS_ERROR_CODE = 6;
 const exitProcessIfErrorInSpawnSync = (exitCode: number, { error, status }: ReturnType<typeof spawnSync>) => {
   if (error || status !== 0) {
     if (error) {
-      // eslint-disable-next-line no-console
       console.error(error);
     }
     process.exit(exitCode);
@@ -167,7 +164,7 @@ const exitProcessIfErrorInSpawnSync = (exitCode: number, { error, status }: Retu
 
 const schematicsCliOptions: any[][] = Object.entries(argv)
   .filter(([key]) => key !== '_' && !optionsList.includes(key))
-  .map(([key, value]) => value === true && [key] || value === false && key.length > 1 && [`no-${key}`] || [key, value])
+  .map(([key, value]) => value === true ? [key] : (value === false && key.length > 1 ? [`no-${key}`] : [key, value]))
   .map(([key, value]) => {
     const optionKey = key.length > 1 ? `--${key}` : `-${key}`;
     return typeof value === 'undefined' ? [optionKey] : [optionKey, value];
@@ -281,11 +278,12 @@ const addOtterFramework = (relativeDirectory = '.', projectPackageManager = 'npm
       stdio: 'inherit',
       cwd,
       shell: true,
-      env: exactO3rVersion && projectPackageManager === 'npm' ? {
-        ...process.env,
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        NPM_CONFIG_SAVE_EXACT: 'true'
-      } : undefined
+      env: exactO3rVersion && projectPackageManager === 'npm'
+        ? {
+          ...process.env,
+          NPM_CONFIG_SAVE_EXACT: 'true'
+        }
+        : undefined
     }
   ));
 };

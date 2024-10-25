@@ -17,7 +17,7 @@ import {
 } from 'rxjs/operators';
 
 /**
- * Data to inject to the route parameter to specifiy preloading strategy
+ * Data to inject to the route parameter to specify preloading strategy
  */
 export interface O3rOnDemandPreloadingData {
   /** List of page reached that trigger preloading */
@@ -49,8 +49,7 @@ export class O3rOnNavigationPreloadingStrategy implements PreloadingStrategy {
   /**
    * Check if the module should be preloaded based on the data preload array of routes or regex value
    * @param data Route data
-   * @param url
-   * @url url URL of current page
+   * @param url URL of current page
    */
   private isUrlMatchingPreloadConfig(data: any, url: string): boolean {
     return (Array.isArray(data.preloadOn) && data.preloadOn.includes(url))
