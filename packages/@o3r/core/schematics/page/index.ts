@@ -187,20 +187,16 @@ function ngGeneratePageFn(options: NgGeneratePageSchematicsSchema): Rule {
         path: componentPath,
         skipLinter: options.skipLinter,
         componentType: 'Page'
-      })
-    );
-
-    rules.push(mergeWith(apply(url('./templates'), [
-      template({
-        ...strings,
-        ...options,
-        pageName
       }),
-      renameTemplateFiles(),
-      move(pagePath)
-    ]), MergeStrategy.Overwrite));
-
-    rules.push(
+      mergeWith(apply(url('./templates'), [
+        template({
+          ...strings,
+          ...options,
+          pageName
+        }),
+        renameTemplateFiles(),
+        move(pagePath)
+      ]), MergeStrategy.Overwrite),
       getAddConfigurationRules(
         componentPath,
         options
@@ -259,7 +255,7 @@ function ngGeneratePageFn(options: NgGeneratePageSchematicsSchema): Rule {
           && ts.isStringLiteral(statement.moduleSpecifier)
           && !!statement.importClause?.namedBindings
           && ts.isNamedImports(statement.importClause.namedBindings)
-          && statement.importClause.namedBindings.elements.some((element) => element.name.escapedText === routeVariableName)
+          && statement.importClause.namedBindings.elements.some((element) => element.name.escapedText.toString() === routeVariableName)
         );
         const importRouteVariablePath = (importStatement?.moduleSpecifier as ts.StringLiteral | undefined)?.text;
         // If importRouteVariablePath is undefined it is because the variable is defined in this file

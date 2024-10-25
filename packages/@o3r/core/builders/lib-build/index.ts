@@ -45,7 +45,7 @@ export default createBuilder<LibraryBuilderSchema>(createBuilderWithMetricsIfIns
   const patchJasmineFixtures = async () => {
     const tsConfig = (await context.getTargetOptions(nextBuildTarget)).tsConfig as string || undefined;
     const tsconfigPath = tsConfig && path.resolve(context.workspaceRoot, tsConfig);
-    const configFile = tsconfigPath && ts.readConfigFile(tsconfigPath, ts.sys.readFile);
+    const configFile = tsconfigPath && ts.readConfigFile(tsconfigPath, (p) => ts.sys.readFile(p));
     const compilerOptions = configFile ? ts.parseJsonConfigFileContent(configFile.config, ts.sys, context.currentDirectory) : undefined;
     const outDir = compilerOptions?.options?.outDir;
     if (!outDir) {

@@ -69,33 +69,27 @@ export type WithRequestId<T> = T & Partial<AsyncRequest>;
 export interface SetAsyncStoreItemActionPayload<T> extends SetActionPayload<T>, Partial<AsyncRequest> {}
 
 /** Payload to update entities actions from async */
-// eslint-disable-next-line @typescript-eslint/ban-types
 export interface UpdateAsyncStoreItemEntitiesActionPayload<T extends object, K extends keyof T> extends UpdateEntitiesActionPayload<T, K>, Partial<AsyncRequest> {}
 
 /** Payload to update entities actions from async with a field ID */
 export interface UpdateAsyncStoreItemEntitiesActionPayloadWithId<T extends { id: string | number }> extends UpdateEntitiesActionPayloadWithId<T>, Partial<AsyncRequest> {}
 
 /** Payload to update entity actions from async */
-// eslint-disable-next-line @typescript-eslint/ban-types
 export interface UpdateAsyncStoreItemEntityActionPayload<T extends object, K extends keyof T> extends UpdateEntityActionPayload<T, K>, Partial<AsyncRequest> {}
 
 /** Payload to update entity actions from async with a field ID */
 export interface UpdateAsyncStoreItemEntityActionPayloadWithId<T extends { id: string | number }> extends UpdateEntityActionPayloadWithId<T>, Partial<AsyncRequest> {}
 
 /** Payload to set/upsert entities actions from async */
-// eslint-disable-next-line @typescript-eslint/ban-types
 export interface SetAsyncStoreItemEntitiesActionPayload<T extends object> extends SetEntitiesActionPayload<T>, Partial<AsyncRequest> {}
 
 /** Payload to set/upsert entity actions from async */
-// eslint-disable-next-line @typescript-eslint/ban-types
 export interface SetAsyncStoreItemEntityActionPayload<T extends object> extends SetEntityActionPayload<T>, Partial<AsyncRequest> {}
 
 /** Payload to fail entity actions from async */
-// eslint-disable-next-line @typescript-eslint/ban-types
 export interface FailAsyncStoreItemEntityActionPayload<T extends object> extends FailActionPayload<T>, Partial<AsyncRequest> {}
 
 /** Payload to fail entities actions from async */
-// eslint-disable-next-line @typescript-eslint/ban-types
 export interface FailAsyncStoreItemEntitiesActionPayload<T extends object> extends FailEntitiesActionPayload<T>, Partial<AsyncRequest> {}
 
 /** Status for all the elements inside a cart */

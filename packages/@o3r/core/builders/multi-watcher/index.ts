@@ -36,6 +36,7 @@ export default createBuilder<MultiWatcherBuilderSchema>(createBuilderWithMetrics
   const firstStopped = Promise.race(
     builds.map((build) =>
       new Promise<BuilderOutput>((_resolve, reject) => {
+        // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors -- forwarding catch error
         build.result.catch((e) => reject(e));
       })
     )

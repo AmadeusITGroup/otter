@@ -22,11 +22,6 @@ import {
 
 const collectionPath = path.join(__dirname, '..', '..', '..', 'collection.json');
 
-/**
- * @param componentName
- * @param fileName
- * @param componentStructure
- */
 function getGeneratedComponentPath(componentName: string, fileName: string, componentStructure: string) {
   return `/${TYPES_DEFAULT_FOLDER['@o3r/core:component'].app}/${strings.dasherize(componentName)}/${componentStructure === 'full' ? CONTAINER_FOLDER + '/' : ''}${fileName}`;
 }
@@ -202,6 +197,7 @@ describe('Component container', () => {
     const externalCollection = {
       createSchematic: () => externalSchematicsSpy
     } as any;
+    // eslint-disable-next-line @typescript-eslint/unbound-method -- method call with the context
     const createCollectionOriginal = runner.engine.createCollection;
     const createCollectionSpy = jest.spyOn(runner.engine, 'createCollection')
       .mockImplementation((name, requester) => name === '@o3r/rules-engine'

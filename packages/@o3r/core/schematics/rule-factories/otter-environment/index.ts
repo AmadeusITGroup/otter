@@ -21,16 +21,26 @@ import {
 import generateEnvironments from '@schematics/angular/environments/index';
 import * as ts from 'typescript';
 
+const editTsConfigJson = (tree: Tree) => {
+  if (tree.exists('/tsconfig.json')) {
+    const tsConfig = ts.parseConfigFileTextToJson('/tsconfig.json', tree.readText('/tsconfig.json')).config;
+    if (tsConfig.compilerOptions?.noPropertyAccessFromIndexSignature) {
+      delete tsConfig.compilerOptions.noPropertyAccessFromIndexSignature;
+    }
+    tree.overwrite('/tsconfig.json', JSON.stringify(tsConfig, null, 2));
+  }
+  return tree;
+};
+
 /**
  * Update Otter environment variable for schematics
  * @param options @see RuleFactory.options
- * @param rootPath @see RuleFactory.rootPath
  * @param options.projectName
  * @param options.enableStorybook
  * @param options.enableStyling
  * @param options.enableAnalytics
  * @param options.workingDirectory
- * @param _rootPath
+ * @param _rootPath @see RuleFactory.rootPath
  */
 export function updateOtterEnvironmentAdapter(
   options: {
@@ -45,7 +55,6 @@ export function updateOtterEnvironmentAdapter(
   /**
    * Add Configuration for schematics
    * @param tree
-   * @param _context
    * @param context
    */
   const editAngularJson = (tree: Tree, context: SchematicContext) => {
@@ -93,17 +102,6 @@ export function updateOtterEnvironmentAdapter(
     workspace.cli.analytics = false;
 
     tree.overwrite('/angular.json', JSON.stringify(workspace, null, 2));
-    return tree;
-  };
-
-  const editTsConfigJson = (tree: Tree) => {
-    if (tree.exists('/tsconfig.json')) {
-      const tsConfig = ts.parseConfigFileTextToJson('/tsconfig.json', tree.readText('/tsconfig.json')).config;
-      if (tsConfig.compilerOptions?.noPropertyAccessFromIndexSignature) {
-        delete tsConfig.compilerOptions.noPropertyAccessFromIndexSignature;
-      }
-      tree.overwrite('/tsconfig.json', JSON.stringify(tsConfig, null, 2));
-    }
     return tree;
   };
 

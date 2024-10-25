@@ -54,10 +54,11 @@ export function filterMessageContent<T extends Event | MessageEvent, S extends O
  */
 
 /**
- *
+ * Operator to get only Otter messages that match the predicate
  * @param predicate
  */
-export function filterMessageContent<T extends Event | MessageEvent, S extends OtterMessageContent>(predicate?: (message: any) => message is S): (source$: Observable<T>) => Observable<OtterMessageContent<string> | S> {
+export function filterMessageContent<T extends Event | MessageEvent, S extends OtterMessageContent>(predicate?: (message: any) => message is S):
+(source$: Observable<T>) => Observable<OtterMessageContent<string> | S> {
   return (source$: Observable<T>) => {
     const obs = source$.pipe(
       map((event) => {

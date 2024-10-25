@@ -20,7 +20,6 @@ import {
  * of similar components.
  * @param delayMs Delay between data emits
  * @param concurrency Amount of elements that should be emitted at once
- * @returns
  */
 export function lazyArray<T>(delayMs = 0, concurrency = 2) {
   let isFirstEmission = true;

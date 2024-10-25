@@ -118,7 +118,9 @@ export function createEntityAsyncRequestAdapter<T extends AsyncStoreItem>(adapte
       }
       ), state);
 
-  const failRequestMany: <V extends EntityState<T> & AsyncStoreItem>(state: V, ids?: (string | number)[], requestId?: string) => V = <V extends EntityState<T> & AsyncStoreItem>(state: V, ids: (string | number)[] = [], requestId?: string): V => {
+  const failRequestMany: <V extends EntityState<T> & AsyncStoreItem>
+  (state: V, ids?: (string | number)[], requestId?: string) => V = <V extends EntityState<T> & AsyncStoreItem>
+  (state: V, ids: (string | number)[] = [], requestId?: string): V => {
     if (ids.length > 0 && !ids.some((id) => state.entities[id] === undefined)) {
       return adapter.updateMany(ids.map((id) => ({
         id,

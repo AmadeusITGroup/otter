@@ -11,7 +11,13 @@ const config = [
       '**/*.{c,m,}{t,j}s'
     ],
     rules: {
-      ...convertWarningsToErrors(jest.configs['flat/recommended'])
+      ...convertWarningsToErrors(jest.configs['flat/recommended']),
+      'jest/expect-expect': [
+        'error',
+        {
+          'assertFunctionNames': ['expect', 'expectObservable']
+        }
+      ]
     }
   }
 ];

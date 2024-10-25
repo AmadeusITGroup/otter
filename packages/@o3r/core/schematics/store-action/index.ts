@@ -21,20 +21,20 @@ import {
 } from './schema';
 
 /**
+ * Compute action name based on action type and given name
+ * @param aType
+ * @param aName
+ */
+const computeActionName = (aType: string, aName: string) => {
+  const names = aType.split('-');
+  return `${names[0]}-${aName}` + (names[1] ? `-${names[1]}` : '');
+};
+
+/**
  * Add an Action to an Otter Store
  * @param options
  */
 function ngGenerateStoreActionFn(options: NgGenerateStoreActionSchematicsSchema): Rule {
-  /**
-   * Compute action name based on action type and given name
-   * @param aType
-   * @param aName
-   */
-  const computeActionName = (aType: string, aName: string) => {
-    const names = aType.split('-');
-    return `${names[0]}-${aName}` + (names[1] ? `-${names[1]}` : '');
-  };
-
   /**
    * Edit .actions.ts file
    * @param actionFilePath

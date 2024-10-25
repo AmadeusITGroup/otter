@@ -55,7 +55,7 @@ function ngGenerateEntitySyncStoreFn(options: NgGenerateEntitySyncStoreSchematic
       hasCustomId: !!options.modelIdPropName && options.modelIdPropName !== 'id',
       storeModelName: options.sdkPackage ? `${strings.classify(options.modelName)}Model` : `${strings.classify(options.storeName)}Model`,
       payloadModelName: options.sdkPackage ? options.modelName : `${strings.classify(options.storeName)}Model`,
-      modelIdPropName: options.modelIdPropName ? options.modelIdPropName : 'id',
+      modelIdPropName: options.modelIdPropName || 'id',
       reviverModelName: `revive${options.modelName}`,
       fileName: strings.dasherize(options.storeName)
     };
@@ -67,23 +67,26 @@ function ngGenerateEntitySyncStoreFn(options: NgGenerateEntitySyncStoreSchematic
       tree.delete(barrelPath);
     }
     const rules: Rule[] = [];
-    rules.push(mergeWith(apply(commonTemplates, [
-      template({
-        ...strings,
-        ...options,
-        ...formattedProperties,
-        currentStoreIndex
-      }),
-      move(`${destination}/${strings.dasherize(options.storeName)}`)]), MergeStrategy.Overwrite));
-
-    rules.push(mergeWith(apply(syncEntityTemplates, [
-      template({
-        ...strings,
-        ...options,
-        ...formattedProperties,
-        currentStoreIndex
-      }),
-      move(`${destination}/${strings.dasherize(options.storeName)}`)]), MergeStrategy.Overwrite));
+    rules.push(
+      mergeWith(apply(commonTemplates, [
+        template({
+          ...strings,
+          ...options,
+          ...formattedProperties,
+          currentStoreIndex
+        }),
+        move(`${destination}/${strings.dasherize(options.storeName)}`)
+      ]), MergeStrategy.Overwrite),
+      mergeWith(apply(syncEntityTemplates, [
+        template({
+          ...strings,
+          ...options,
+          ...formattedProperties,
+          currentStoreIndex
+        }),
+        move(`${destination}/${strings.dasherize(options.storeName)}`)
+      ]), MergeStrategy.Overwrite)
+    );
 
     if (moduleHasSubEntryPoints(tree, destination)) {
       writeSubEntryPointPackageJson(tree, destination, strings.dasherize(options.storeName));

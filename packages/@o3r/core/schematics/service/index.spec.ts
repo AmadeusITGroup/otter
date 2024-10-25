@@ -45,8 +45,7 @@ describe('Service generator', () => {
     expect(tree.files.some((file) => /^[/\\]?src[/\\]services[/\\]test-service[/\\]test-base[/\\]test-service\.test-base\.module\.ts$/i.test(file))).toBeTruthy();
   });
 
-  // TODO enable when https://github.com/jestjs/jest/issues/9543 fixed
-  // eslint-disable-next-line jest/no-disabled-tests
+  // eslint-disable-next-line jest/no-disabled-tests -- TODO enable when https://github.com/jestjs/jest/issues/9543 fixed
   it.skip('should generate service with fixtures for jest if installed', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runExternalSchematic('schematics', 'service', {

@@ -10,21 +10,12 @@ import {
   fromApiEffectSwitchMapById
 } from './async.operators';
 
-/**
- * @param delay
- */
 function later(delay: number) {
   return new Promise<void>((resolve) => {
     setTimeout(resolve, delay);
   });
 }
 
-/**
- * @param id
- * @param delay
- * @param name
- * @param requestId
- */
 function createAction(
   id: string,
   delay: number,

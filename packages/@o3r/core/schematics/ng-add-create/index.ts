@@ -48,9 +48,9 @@ function updateTemplatesFn(options: NgGenerateUpdateSchematicsSchema): Rule {
       const otterVersion = o3rCorePackageJson.dependencies!['@o3r/schematics'];
       const packageManagerRunner = getPackageManagerRunner();
       packageJson.scripts ||= {};
+      // eslint-disable-next-line @stylistic/max-len -- keep the command on the same line
       packageJson.scripts['build:schematics'] = `tsc -b tsconfig.builders.json --pretty && ${packageManagerRunner} cpy 'schematics/**/*.json' dist/schematics && ${packageManagerRunner} cpy 'collection.json' dist`;
-      // eslint-disable-next-line @typescript-eslint/dot-notation, dot-notation
-      packageJson['schematics'] = './collection.json';
+      packageJson.schematics = './collection.json';
       packageJson.peerDependencies ||= {};
       packageJson.peerDependencies['@angular-devkit/schematics'] = angularVersion;
       packageJson.peerDependencies['@angular-devkit/core'] = angularVersion;
