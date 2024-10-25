@@ -59,8 +59,7 @@ const getFilesPatternsFromProjectConfiguration = async (currentFile: string): Pr
 const getDesignTokens = async (currentFile: string, cache: Map<string, DesignTokenCache>) => {
   const lastExtractionTimestamp = Date.now();
   const filesPatterns = vscode.workspace.getConfiguration('otter.design').get<string[]>('filesPatterns', await getFilesPatternsFromProjectConfiguration(currentFile) || ['**/*.token.json']);
-  const uris = (await Promise.all(filesPatterns
-    .map((pattern) => vscode.workspace.findFiles(pattern)))).flat();
+  const uris = (await Promise.all(filesPatterns.map((pattern) => vscode.workspace.findFiles(pattern)))).flat();
 
   return (await Promise.all(uris
     .map(async (uri) => {

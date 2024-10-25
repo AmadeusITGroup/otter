@@ -12,18 +12,17 @@ import {
   stringifyOptions
 } from '../helpers';
 
+const getCurrentFolder = () => {
+  const currentlyOpenTabfilePath = vscode.window.activeTextEditor?.document.fileName;
+  return currentlyOpenTabfilePath && relative(vscode.workspace.workspaceFolders?.[0]?.uri?.fsPath || '.', dirname(currentlyOpenTabfilePath));
+};
+
 /**
  * Generate store command
  * @param _context
  * @param folder
- * @returns
  */
 export function generateStoreGenerateCommand(_context: ExtensionContext, folder?: string) {
-  const getCurrentFolder = () => {
-    const currentlyOpenTabfilePath = vscode.window.activeTextEditor?.document.fileName;
-    return currentlyOpenTabfilePath && relative(vscode.workspace.workspaceFolders?.[0]?.uri?.fsPath || '.', dirname(currentlyOpenTabfilePath));
-  };
-
   return async () => {
     const storeType = await vscode.window.showQuickPick(['entity-async', 'simple-async', 'entity-sync', 'simple-sync'], {
       canPickMany: false,
@@ -71,7 +70,7 @@ export function generateStoreGenerateCommand(_context: ExtensionContext, folder?
       modelIdPropName = 'id';
     }
 
-    const defaultOptions = await getSchematicDefaultOptions('@o3r/core:service');
+    const defaultOptions = await getSchematicDefaultOptions('@o3r/core:store') as Partial<{ path: string }>;
 
     const storePath = folder || await vscode.window.showInputBox({
       title: 'Path to your store folder',

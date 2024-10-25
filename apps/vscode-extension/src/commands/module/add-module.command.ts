@@ -33,8 +33,8 @@ async function promiseGetRequest<T>(url: string) {
 
   return new Promise<T>((resolve, reject) => {
     const data: Buffer[] = [];
-    res.on('data', (chunk) => data.push(chunk));
-    res.on('end', () => resolve(JSON.parse(Buffer.concat(data).toString())));
+    res.on('data', (chunk: Buffer) => data.push(chunk));
+    res.on('end', () => resolve(JSON.parse(Buffer.concat(data).toString()) as T));
     res.on('error', reject);
   });
 }
@@ -72,10 +72,7 @@ async function getAvailableModules(keyword: string, scopeWhitelist: string[] | r
 
 /**
  * Add modules to the current workspace
- * @param context
- * @param folder
  * @param _context
- * @returns
  */
 export function generateModuleAddCommand(_context: ExtensionContext) {
   return async () => {
