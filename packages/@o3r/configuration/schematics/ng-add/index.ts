@@ -52,22 +52,16 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
     }, getPackageInstallConfig(packageJsonPath, tree, options.projectName, false, !!options.exactO3rVersion));
     context.logger.info(`The package ${depsInfo.packageName as string} comes with a debug mechanism`);
     context.logger.info('Get more information on the following page: https://github.com/AmadeusITGroup/otter/tree/main/docs/configuration/OVERVIEW.md#Runtime-debugging');
+    const schematicsDefaultOptions = Object.fromEntries(
+      [
+        '@o3r/core:component',
+        '@o3r/core:component-container',
+        '@o3r/core:component-presenter'
+      ].map((e) => [e, { useOtterConfig: undefined }])
+    );
     return () => chain([
       registerPackageCollectionSchematics(packageJson),
-      setupSchematicsParamsForProject({
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        '@o3r/core:component': {
-          useOtterConfig: undefined
-        },
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        '@o3r/core:component-container': {
-          useOtterConfig: undefined
-        },
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        '@o3r/core:component-presenter': {
-          useOtterConfig: undefined
-        }
-      }, options.projectName),
+      setupSchematicsParamsForProject(schematicsDefaultOptions, options.projectName),
       setupDependencies({
         projectName: options.projectName,
         dependencies,

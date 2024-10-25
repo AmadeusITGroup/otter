@@ -78,8 +78,7 @@ export class ConfigurationDevtoolsMessageService implements OnDestroy, DevtoolsS
 
   /**
    * Function to handle the incoming messages from Otter Chrome DevTools extension
-   * @param event Event coming from the Otter Chrome DevTools extension
-   * @param message
+   * @param message message coming from the Otter Chrome DevTools extension
    */
   private async handleEvents(message: AvailableConfigurationMessageContents) {
     this.logger.debug('Message handling by the configuration service', message);

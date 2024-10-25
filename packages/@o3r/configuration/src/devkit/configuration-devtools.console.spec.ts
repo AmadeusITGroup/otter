@@ -40,7 +40,7 @@ describe('Configuration DevTools console', () => {
             configuration: {
               ids: ['@scope/package#componentTest'],
               entities: {
-                // eslint-disable-next-line @typescript-eslint/naming-convention
+                // eslint-disable-next-line @typescript-eslint/naming-convention -- id
                 '@scope/package#componentTest': {
                   configEx1: 'test',
                   configEx2: true,
@@ -59,7 +59,6 @@ describe('Configuration DevTools console', () => {
   it('should be activated', () => {
     service.activate();
 
-    // eslint-disable-next-line no-underscore-dangle
     expect((window as any)._OTTER_DEVTOOLS_?.[ConfigurationDevtoolsConsoleService.windowModuleName]).toBeDefined();
   });
 
@@ -87,10 +86,10 @@ describe('Configuration DevTools console', () => {
   });
 
   it('should set new configuration', () => {
-    mockStore.dispatch = jest.fn();
+    const spy = jest.spyOn(mockStore, 'dispatch');
     service.setDynamicConfig('@scope/package#componentTest', 'lolProp', 123);
 
-    expect(mockStore.dispatch).toHaveBeenCalledWith(expect.objectContaining({
+    expect(spy).toHaveBeenCalledWith(expect.objectContaining({
       id: '@scope/package#componentTest',
       configuration: {
         lolProp: 123
@@ -99,13 +98,13 @@ describe('Configuration DevTools console', () => {
   });
 
   it('should upsert new configurations', () => {
-    mockStore.dispatch = jest.fn();
+    const spy = jest.spyOn(mockStore, 'dispatch');
     service.updateConfigurations('[{"library":"@scope/package","name":"componentTest","config":{"lolProp":123}}]');
 
-    expect(mockStore.dispatch).toHaveBeenCalledWith(expect.objectContaining(
+    expect(spy).toHaveBeenCalledWith(expect.objectContaining(
       {
         entities: {
-          // eslint-disable-next-line @typescript-eslint/naming-convention
+          // eslint-disable-next-line @typescript-eslint/naming-convention -- id
           '@scope/package#componentTest': {
             id: '@scope/package#componentTest',
             lolProp: 123

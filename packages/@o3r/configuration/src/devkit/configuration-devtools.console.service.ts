@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+/* eslint-disable no-console -- service to log message in the console */
 import {
   Inject,
   Injectable,
@@ -80,9 +80,7 @@ export class ConfigurationDevtoolsConsoleService implements DevtoolsServiceInter
   /** @inheritDoc */
   public activate() {
     const windowWithDevtools: WindowWithDevtools = window;
-    // eslint-disable-next-line no-underscore-dangle
     windowWithDevtools._OTTER_DEVTOOLS_ ||= {};
-    // eslint-disable-next-line no-underscore-dangle
     windowWithDevtools._OTTER_DEVTOOLS_[ConfigurationDevtoolsConsoleService.windowModuleName] = this;
 
     console.info(`Otter Configuration Devtools is now accessible via the _OTTER_DEVTOOLS_.${ConfigurationDevtoolsConsoleService.windowModuleName} variable`);

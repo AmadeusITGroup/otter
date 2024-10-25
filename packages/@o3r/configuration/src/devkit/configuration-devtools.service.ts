@@ -60,13 +60,10 @@ export class OtterConfigurationDevtools {
         Object.values(entities)
           .filter((entity): entity is ConfigurationModel => !!entity)
           .map((entity) => {
-            const { id, ...configuration } = entity;
-            const parsedConfigurationName = parseConfigurationName(id);
-            const libraryName = parsedConfigurationName && parsedConfigurationName.library || this.options.defaultLibraryName;
-            const name = parsedConfigurationName && parsedConfigurationName.componentName || id;
-            return { name, config: configuration, library: libraryName } as CustomConfig;
+            const { id, ...config } = entity;
+            const { library = this.options.defaultLibraryName, componentName: name = id } = parseConfigurationName(id) || {};
+            return { name, config, library } satisfies CustomConfig;
           })
-          .filter((conf): conf is CustomConfig => !!conf)
       ),
       shareReplay(1)
     );

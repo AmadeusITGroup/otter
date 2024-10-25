@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 import {
   getTestBed,
   TestBed
@@ -63,6 +62,7 @@ const mySecondComponentConfiguration: MySecondConfigToTest = {
   secondString: 'myNewComponent'
 };
 
+/* eslint-disable @typescript-eslint/naming-convention -- ids */
 const componentsConfigurations = {
   MY_COMPONENT_TEST_CONFIG: myInitialConfiguration,
   MY_SECOND_COMPONENT: mySecondComponentConfiguration
@@ -71,6 +71,7 @@ const componentsConfigurations = {
 const updatedComponentsConfiguration = {
   MY_SECOND_COMPONENT: mySecondUpdateConfiguration
 };
+/* eslint-enable @typescript-eslint/naming-convention */
 
 const componentsConfigurationsModel = (Object.keys(componentsConfigurations) as (keyof typeof updatedComponentsConfiguration)[]).map((id) => ({ id, ...componentsConfigurations[id] }));
 

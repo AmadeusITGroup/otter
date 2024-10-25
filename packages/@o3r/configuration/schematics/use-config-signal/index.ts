@@ -89,9 +89,11 @@ function ngUseConfigSignalFn(options: NgUseConfigSignalSchematicsSchema): Rule {
                   !member.name
                   || (
                     ts.isIdentifier(member.name)
-                    && member.name.escapedText !== 'config$'
-                    && member.name.escapedText !== 'config'
-                    && member.name.escapedText !== 'dynamicConfig$'
+                    && ![
+                      'config$',
+                      'config',
+                      'dynamicConfig$'
+                    ].includes(member.name.escapedText.toString())
                   )
                 )
               );

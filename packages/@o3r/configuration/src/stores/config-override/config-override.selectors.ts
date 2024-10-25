@@ -16,6 +16,5 @@ export const selectConfigOverride = createSelector(selectConfigOverrideState, (s
 /**
  * Get the override for given component identifier
  * @param componentId
- * @returns
  */
 export const selectComponentOverrideConfig = (componentId: string) => createSelector(selectConfigOverride, (configOverrides) => configOverrides[componentId] || {});

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 import {
   getTestBed,
   TestBed
@@ -44,7 +43,7 @@ const additionalConfig = {
   additionalField: 10
 };
 
-const globalConfig = { 'demo-cabinCodeEco': 'ECO1', 'priceDisplay': 'short' };
+const globalConfig = { demoCabinCodeEco: 'ECO1', priceDisplay: 'short' };
 
 const staticConfig: CustomConfig[] = [{
   name: 'SearchTypePresenter',
@@ -53,12 +52,13 @@ const staticConfig: CustomConfig[] = [{
 },
 {
   name: 'global',
-  config: { 'demo-minNbAdults': 4 }
+  config: { demoMinNbAdults: 4 }
 }];
 
 describe('ConfigurationBaseService', () => {
   let service: ConfigurationBaseService;
   let mockStore: MockStore<ConfigurationStore>;
+  let mockDispatch: jest.SpyInstance;
 
   beforeAll(() => getTestBed().platform || TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting(), {
     teardown: { destroyAfterEach: false }
@@ -74,25 +74,25 @@ describe('ConfigurationBaseService', () => {
 
     service = TestBed.inject(ConfigurationBaseService);
     mockStore = TestBed.inject(MockStore);
-    jest.spyOn(mockStore, 'dispatch');
+    mockDispatch = jest.spyOn(mockStore, 'dispatch');
   });
 
   it('should add globalconfig config', () => {
     service.upsertConfiguration(globalConfig);
 
-    expect(mockStore.dispatch).toHaveBeenCalledWith(upsertConfigurationEntity({ id: 'global', configuration: globalConfig }));
+    expect(mockDispatch).toHaveBeenCalledWith(upsertConfigurationEntity({ id: 'global', configuration: globalConfig }));
   });
 
   it('should update a specific component config', () => {
     service.upsertConfiguration(myInitialConfiguration, 'INITIAL_CONFIG');
 
-    expect(mockStore.dispatch).toHaveBeenCalledWith(upsertConfigurationEntity({ id: 'INITIAL_CONFIG', configuration: myInitialConfiguration }));
+    expect(mockDispatch).toHaveBeenCalledWith(upsertConfigurationEntity({ id: 'INITIAL_CONFIG', configuration: myInitialConfiguration }));
   });
 
   it('should extend the existing config and not touch the existing fields', () => {
     service.extendConfiguration(additionalConfig, 'MY_COMPONENT_TEST_CONFIG');
 
-    expect(mockStore.dispatch).toHaveBeenCalledWith(upsertConfigurationEntity({ id: 'MY_COMPONENT_TEST_CONFIG', configuration: { additionalField: additionalConfig.additionalField } }));
+    expect(mockDispatch).toHaveBeenCalledWith(upsertConfigurationEntity({ id: 'MY_COMPONENT_TEST_CONFIG', configuration: { additionalField: additionalConfig.additionalField } }));
   });
 
   it('should get the configuration from body tag', () => {
@@ -107,11 +107,12 @@ describe('ConfigurationBaseService', () => {
   it('should put the configuration from body tag in the store', () => {
     service.computeConfiguration(staticConfig);
 
-    expect(mockStore.dispatch).toHaveBeenCalledWith(
+    expect(mockDispatch).toHaveBeenCalledWith(
       upsertConfigurationEntities({
         entities: {
+          // eslint-disable-next-line @typescript-eslint/naming-convention -- id
           '@otter/components#SearchTypePresenter': { showComplexBtn: true, id: '@otter/components#SearchTypePresenter' },
-          global: { 'demo-minNbAdults': 4, id: 'global' }
+          global: { demoMinNbAdults: 4, id: 'global' }
         }
       })
     );
@@ -139,6 +140,7 @@ describe('ConfigurationBaseService', () => {
     it('should not emit if we do not change the INITIAL_CONFIG value', () => {
       mockStore.overrideSelector(selectConfigurationEntities, {
         [configId]: configInitialValue,
+        // eslint-disable-next-line @typescript-eslint/naming-convention -- id
         ANOTHER_CONFIG: {
           id: 'ANOTHER_CONFIG',
           prop: 'value1'
