@@ -1,4 +1,6 @@
-import {InjectionToken} from '@angular/core';
+import {
+  InjectionToken
+} from '@angular/core';
 
 /** The C11n injection token */
 export const C11N_PRESENTERS_MAP_TOKEN: InjectionToken<string> = new InjectionToken('C11n injection token');

@@ -1,6 +1,9 @@
-import {Pipe, PipeTransform} from '@angular/core';
+import {
+  Pipe,
+  PipeTransform
+} from '@angular/core';
 
-const escapeRegExp = (str: string) => str.replace(/[-[\]/{}()*+?.\\^$|]/g, '\\$&');
+const escapeRegExp = (str: string) => str.replace(/[$()*+./?[\\\]^{|}-]/g, '\\$&');
 
 @Pipe({
   name: 'o3rReplaceWithBold',

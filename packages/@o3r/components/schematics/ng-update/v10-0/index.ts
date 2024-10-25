@@ -1,6 +1,17 @@
-/* eslint-disable camelcase, @typescript-eslint/naming-convention */
-import { chain, noop, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { addImportsRule, createSchematicWithMetricsIfInstalled, findFilesInTree, PipeReplacementInfo, updatePipes } from '@o3r/schematics';
+import {
+  chain,
+  noop,
+  Rule,
+  SchematicContext,
+  Tree
+} from '@angular-devkit/schematics';
+import {
+  addImportsRule,
+  createSchematicWithMetricsIfInstalled,
+  findFilesInTree,
+  PipeReplacementInfo,
+  updatePipes
+} from '@o3r/schematics';
 
 const pipeReplacementInfo: PipeReplacementInfo = {
   capitalize: {
@@ -51,9 +62,9 @@ const updateC11nPresenterDeclaration: Rule = (tree) => {
 /**
  * Update of Otter library V10.0
  */
+// eslint-disable-next-line @typescript-eslint/naming-convention -- version contained in the function name
 function updateV10_0Fn(): Rule {
   return (tree: Tree, context: SchematicContext) => {
-
     const updateRules: Rule[] = [
       updatePipes(pipeReplacementInfo),
       updateC11nPresenterDeclaration
@@ -66,4 +77,5 @@ function updateV10_0Fn(): Rule {
 /**
  * Update of Otter library V10.0
  */
+// eslint-disable-next-line @typescript-eslint/naming-convention -- version contained in the function name
 export const updateV10_0 = createSchematicWithMetricsIfInstalled(updateV10_0Fn);

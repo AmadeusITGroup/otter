@@ -1,24 +1,41 @@
-import { logging } from '@angular-devkit/core';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
+import {
+  logging
+} from '@angular-devkit/core';
 import type {
   ComponentClassOutput,
   ComponentConfigOutput,
   ComponentOutput,
-  ComponentStructure, ConfigProperty, PlaceholdersMetadata
+  ComponentStructure,
+  ConfigProperty,
+  PlaceholdersMetadata
 } from '@o3r/components';
-import { CmsMetadataData, getLibraryCmsMetadata } from '@o3r/extractors';
-import { O3rCliError } from '@o3r/schematics';
-import * as fs from 'node:fs';
-import * as path from 'node:path';
-import type { ComponentExtractorBuilderSchema } from '../../index';
-import { ComponentInformation } from './component-class.extractor';
-import { ConfigurationInformation, ConfigurationInformationWrapper } from './component-config.extractor';
-import { ParserOutput } from './component.parser';
+import {
+  CmsMetadataData,
+  getLibraryCmsMetadata
+} from '@o3r/extractors';
+import {
+  O3rCliError
+} from '@o3r/schematics';
+import type {
+  ComponentExtractorBuilderSchema
+} from '../../index';
+import {
+  ComponentInformation
+} from './component-class.extractor';
+import {
+  ConfigurationInformation,
+  ConfigurationInformationWrapper
+} from './component-config.extractor';
+import {
+  ParserOutput
+} from './component.parser';
 
 /**
  * Extracts components metadata
  */
 export class ComponentExtractor {
-
   /** List of libraries to extract component metadata from */
   private readonly libraries: CmsMetadataData[];
 
@@ -29,6 +46,7 @@ export class ComponentExtractor {
   private libComponentClassOutputs?: ComponentClassOutput[][];
 
   /**
+   * Extracts components metadata constructor
    * @param libraryName The name of the library/app on which the extractor is run
    * @param libraries List of libraries to extract metadata from
    * @param logger
@@ -66,7 +84,6 @@ export class ComponentExtractor {
 
   /**
    * Indicates if the given component is referencing configuration from a library.
-   *
    * @param component
    */
   private isLibConfigRef(component: ComponentInformation) {
@@ -76,7 +93,6 @@ export class ComponentExtractor {
 
   /**
    * Returns a ComponentConfigOutput model built using the given ConfigurationInformation, filePath and type as well as the library being processed.
-   *
    * @param configuration
    * @param filePath
    * @param type
@@ -98,18 +114,15 @@ export class ComponentExtractor {
 
   /**
    * Return a hash of the config output without the path
-   *
    * @param config
    */
   private hashConfiguration(config: ComponentConfigOutput) {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { path: configFilePath, ...rest } = config;
     return Buffer.from(JSON.stringify(rest)).toString('base64');
   }
 
   /**
    * Add NestedConfiguration to map
-   *
    * @param nestedConfigurations Map
    * @param configurationInformationWrapper configurations to be added
    * @param filePath
@@ -126,7 +139,6 @@ export class ComponentExtractor {
 
   /**
    * Consolidate the configuration data to the final format.
-   *
    * @param parsedData Data extracted from the source code
    */
   private consolidateConfig(parsedData: ParserOutput): ComponentConfigOutput[] {
@@ -172,7 +184,6 @@ export class ComponentExtractor {
 
   /**
    * Consolidate the components data to the final format
-   *
    * @param parsedData Data extracted from the source code
    * @param placeholdersMetadataFile
    */
@@ -182,14 +193,18 @@ export class ComponentExtractor {
     const res: ComponentClassOutput[] = Object.keys(parsedData.components)
       .map((componentUrl): ComponentClassOutput => {
         const parsedItemRef = parsedData.components[componentUrl];
-        const context = parsedItemRef.component.contextName ? {
-          library,
-          name: parsedItemRef.component.contextName
-        } : undefined;
-        const config = parsedItemRef.component.configName ? {
-          library: this.isLibConfigRef(parsedItemRef.component) ? parsedItemRef.component.configPath! : library,
-          name: parsedItemRef.component.configName
-        } : undefined;
+        const context = parsedItemRef.component.contextName
+          ? {
+            library,
+            name: parsedItemRef.component.contextName
+          }
+          : undefined;
+        const config = parsedItemRef.component.configName
+          ? {
+            library: this.isLibConfigRef(parsedItemRef.component) ? parsedItemRef.component.configPath! : library,
+            name: parsedItemRef.component.configName
+          }
+          : undefined;
         return {
           library,
           name: parsedItemRef.component.name,
@@ -201,30 +216,27 @@ export class ComponentExtractor {
           linkableToRuleset: parsedItemRef.component.linkableToRuleset,
           localizationKeys: parsedItemRef.component.localizationKeys
         };
-
       });
     return placeholdersMetadataFile ? this.addPlaceholdersToComponent(res, placeholdersMetadataFile) : res;
   }
 
   /**
    * Merge placeholders metadata information into the components metadata
-   *
    * @param componentClassOutputs
    * @param placeholdersMetadata
    * @private
    */
   private addPlaceholdersToComponent(componentClassOutputs: ComponentClassOutput[], placeholdersMetadata: PlaceholdersMetadata[]): ComponentClassOutput[] {
     return componentClassOutputs.map((componentClassOutput) => {
-      const placeholdersToBeAdded: PlaceholdersMetadata | undefined = placeholdersMetadata.find(placeholderMetadata =>
+      const placeholdersToBeAdded: PlaceholdersMetadata | undefined = placeholdersMetadata.find((placeholderMetadata) =>
         placeholderMetadata.name === componentClassOutput.name && placeholderMetadata.library === placeholderMetadata.library
       );
-      return placeholdersToBeAdded ? {...componentClassOutput, placeholders: placeholdersToBeAdded.placeholders} : componentClassOutput;
+      return placeholdersToBeAdded ? { ...componentClassOutput, placeholders: placeholdersToBeAdded.placeholders } : componentClassOutput;
     });
   }
 
   /**
    * Filters out config not supported by CMS
-   *
    * @param configs
    * @param options
    * @private
@@ -255,14 +267,14 @@ export class ComponentExtractor {
         propertiesWithDefaultValue: [],
         propertiesWithoutDefaultValue: []
       });
-      if (propertiesWithoutDefaultValue.length) {
+      if (propertiesWithoutDefaultValue.length > 0) {
         const message = `"${config.library}#${config.name}" has no default value for ${
           propertiesWithoutDefaultValue.map((prop) => prop.name).join(', ')
         }. Excluding ${propertiesWithoutDefaultValue.length > 1 ? 'them' : 'it'}`;
-        if (!this.strictMode) {
-          this.logger.warn(message);
-        } else {
+        if (this.strictMode) {
           throw new O3rCliError(message);
+        } else {
+          this.logger.warn(message);
         }
         const configWithoutIncompatibleProperties: ComponentConfigOutput = {
           ...config,
@@ -273,12 +285,10 @@ export class ComponentExtractor {
 
       return acc.concat(config);
     }, []);
-
   }
 
   /**
    * Extract components metadata from a parser output
-   *
    * @param parserOutput Data extracted from the source code
    * @param options
    */
@@ -300,8 +310,8 @@ export class ComponentExtractor {
 
     await this.loadLibraryComponentClassOutputs();
     const components = this.consolidateComponents(parserOutput, placeholderMetadataFile);
-    (this.libComponentClassOutputs || []).forEach((componentClassOutputs)=> components.push(...componentClassOutputs));
+    (this.libComponentClassOutputs || []).forEach((componentClassOutputs) => components.push(...componentClassOutputs));
 
-    return {configurations, components};
+    return { configurations, components };
   }
 }

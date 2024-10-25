@@ -1,4 +1,7 @@
-import {DurationPipe, O3rDurationPipe} from './duration.pipe';
+import {
+  DurationPipe,
+  O3rDurationPipe
+} from './duration.pipe';
 
 describe('DurationPipe', () => {
   const pipe = new O3rDurationPipe();
@@ -20,13 +23,13 @@ describe('DurationPipe', () => {
   });
 
   it('transforms 90000s to "25:00" (duration exceeds 24 hours)', () => {
-    expect(pipe.transform(90000)).toBe('25:00');
-    expect(deprecatedPipe.transform(90000)).toBe('25:00');
+    expect(pipe.transform(90_000)).toBe('25:00');
+    expect(deprecatedPipe.transform(90_000)).toBe('25:00');
   });
 
   it('transforms 360000s to "100:00" (hours are 3 digits long)', () => {
-    expect(pipe.transform(360000)).toBe('100:00');
-    expect(deprecatedPipe.transform(360000)).toBe('100:00');
+    expect(pipe.transform(360_000)).toBe('100:00');
+    expect(deprecatedPipe.transform(360_000)).toBe('100:00');
   });
 
   it('transforms 120s to 0h02m', () => {
@@ -45,18 +48,18 @@ describe('DurationPipe', () => {
   });
 
   it('transforms 86399s to 0d23h59m', () => {
-    expect(pipe.transform(86399, '{d}d{h}h{mm}m')).toBe('0d23h59m');
-    expect(deprecatedPipe.transform(86399, '{d}d{h}h{mm}m')).toBe('0d23h59m');
+    expect(pipe.transform(86_399, '{d}d{h}h{mm}m')).toBe('0d23h59m');
+    expect(deprecatedPipe.transform(86_399, '{d}d{h}h{mm}m')).toBe('0d23h59m');
   });
 
   it('transforms 86399s to 0d86399s', () => {
-    expect(pipe.transform(86399, '{d}d{s}s')).toBe('0d86399s');
-    expect(deprecatedPipe.transform(86399, '{d}d{s}s')).toBe('0d86399s');
+    expect(pipe.transform(86_399, '{d}d{s}s')).toBe('0d86399s');
+    expect(deprecatedPipe.transform(86_399, '{d}d{s}s')).toBe('0d86399s');
   });
 
   it('transforms 93675s to an object "{"d": 1, "h": 2, "m": 1, "s": 15}"', () => {
-    expect(pipe.transform(93675, '{"d": {d}, "h": {h}, "m": {m}, "s": {s}}')).toBe('{"d": 1, "h": 2, "m": 1, "s": 15}');
-    expect(deprecatedPipe.transform(93675, '{"d": {d}, "h": {h}, "m": {m}, "s": {s}}')).toBe('{"d": 1, "h": 2, "m": 1, "s": 15}');
+    expect(pipe.transform(93_675, '{"d": {d}, "h": {h}, "m": {m}, "s": {s}}')).toBe('{"d": 1, "h": 2, "m": 1, "s": 15}');
+    expect(deprecatedPipe.transform(93_675, '{"d": {d}, "h": {h}, "m": {m}, "s": {s}}')).toBe('{"d": 1, "h": 2, "m": 1, "s": 15}');
   });
 
   it('returns pattern when regex not respected', () => {

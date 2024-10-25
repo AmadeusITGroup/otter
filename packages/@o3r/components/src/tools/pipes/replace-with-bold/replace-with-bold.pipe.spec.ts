@@ -1,4 +1,7 @@
-import {O3rReplaceWithBoldPipe, ReplaceWithBoldPipe} from './replace-with-bold.pipe';
+import {
+  O3rReplaceWithBoldPipe,
+  ReplaceWithBoldPipe
+} from './replace-with-bold.pipe';
 
 describe('Replace with bold pipe', () => {
   let pipe: O3rReplaceWithBoldPipe;
@@ -43,5 +46,4 @@ describe('Replace with bold pipe', () => {
     expect(pipe.transform('Finland (HEL)', '   (H E')).toEqual('Finland (HEL)');
     expect(deprecatedPipe.transform('Finland (HEL)', '   (H E')).toEqual('Finland (HEL)');
   });
-
 });

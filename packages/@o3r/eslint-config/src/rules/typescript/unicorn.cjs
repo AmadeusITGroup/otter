@@ -41,7 +41,8 @@ const config = [
       'unicorn/prefer-type-error': 'off',
       'unicorn/no-useless-undefined': 'off'
     }
-  }, {
+  },
+  {
     name: '@o3r/eslint-config/unicorn/consistent-function-scoping',
     files: ['**/*.component.ts', '**/*.effect.ts'],
     rules: {

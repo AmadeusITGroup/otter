@@ -1,10 +1,18 @@
-import {createFeatureSelector, createSelector} from '@ngrx/store';
-import {PLACEHOLDER_REQUEST_STORE_NAME, PlaceholderRequestState} from './placeholder-request.state';
-import {placeholderRequestAdapter} from './placeholder-request.reducer';
+import {
+  createFeatureSelector,
+  createSelector
+} from '@ngrx/store';
+import {
+  placeholderRequestAdapter
+} from './placeholder-request.reducer';
+import {
+  PLACEHOLDER_REQUEST_STORE_NAME,
+  PlaceholderRequestState
+} from './placeholder-request.state';
 
 export const selectPlaceholderRequestState = createFeatureSelector<PlaceholderRequestState>(PLACEHOLDER_REQUEST_STORE_NAME);
 
-const {selectEntities} = placeholderRequestAdapter.getSelectors();
+const { selectEntities } = placeholderRequestAdapter.getSelectors();
 
 /** Select the dictionary of PlaceholderRequest entities */
 export const selectPlaceholderRequestEntities = createSelector(selectPlaceholderRequestState, (state) => state && selectEntities(state));
