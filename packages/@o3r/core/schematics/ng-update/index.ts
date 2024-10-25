@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-/* eslint-disable camelcase */
-
 import {
   chain,
   Rule,
@@ -21,6 +18,7 @@ import {
 /**
  * Update of Otter library V8.2
  */
+// eslint-disable-next-line @typescript-eslint/naming-convention -- version is in the function name
 function updateV8_2Fn(): Rule {
   return (tree: Tree, context: SchematicContext) => {
     const updateRules: Rule[] = [
@@ -34,11 +32,13 @@ function updateV8_2Fn(): Rule {
 /**
  * Update of Otter library V8.2
  */
+// eslint-disable-next-line @typescript-eslint/naming-convention -- version is in the function name
 export const updateV8_2 = createSchematicWithMetricsIfInstalled(updateV8_2Fn);
 
 /**
  * Update of Otter library V10.0
  */
+// eslint-disable-next-line @typescript-eslint/naming-convention -- version is in the function name
 function updateV10_0Fn(): Rule {
   return (tree: Tree, context: SchematicContext) => {
     const updateRules: Rule[] = [
@@ -54,4 +54,5 @@ function updateV10_0Fn(): Rule {
 /**
  * Update of Otter library V10.0
  */
+// eslint-disable-next-line @typescript-eslint/naming-convention -- version is in the function name
 export const updateV10_0 = createSchematicWithMetricsIfInstalled(updateV10_0Fn);

@@ -99,7 +99,7 @@ function ngGenerateComponentContainerFn(options: NgGenerateComponentContainerSch
   const generateFiles = (tree: Tree, context: SchematicContext) => {
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
 
-    const properties = getTemplateProperties(options, ComponentStructureDef.Cont, options.prefix ? options.prefix : workspaceProject?.prefix);
+    const properties = getTemplateProperties(options, ComponentStructureDef.Cont, options.prefix || workspaceProject?.prefix);
 
     const destination = getDestinationPath('@o3r/core:component', options.path, tree, options.projectName);
     const componentDestination = path.posix.join(destination, fullStructureRequested ? path.posix.join(properties.folderName, CONTAINER_FOLDER) : properties.folderName);

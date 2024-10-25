@@ -19,11 +19,6 @@ import {
 
 const collectionPath = path.join(__dirname, '..', '..', '..', 'collection.json');
 
-/**
- * @param componentName
- * @param fileName
- * @param componentStructure
- */
 function getGeneratedComponentPath(componentName: string, fileName: string, componentStructure: string) {
   return `/${TYPES_DEFAULT_FOLDER['@o3r/core:component'].app}/${strings.dasherize(componentName)}/${componentStructure === 'full' ? PRESENTER_FOLDER + '/' : ''}${fileName}`;
 }

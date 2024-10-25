@@ -19,7 +19,6 @@ export function padNumber(val: number, digits = 2): string {
  * @returns TRUE if bootstrap config environment is production FALSE otherwise
  */
 export function isProductionEnvironment(dataset: Dataset): boolean {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const bootstrapConfig: BootstrapConfig = dataset.bootstrapconfig && JSON.parse(dataset.bootstrapconfig);
   return bootstrapConfig?.environment === 'prod';
 }

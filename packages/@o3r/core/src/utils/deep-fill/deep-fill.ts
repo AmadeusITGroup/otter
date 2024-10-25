@@ -13,7 +13,7 @@ export interface PrimitiveReviverMapper<T = any> {
 
 const defaultConstruct = (data: any) => data;
 
-const isDate = (data: any) => data instanceof Date && !isNaN(data as any);
+const isDate = (data: any) => data instanceof Date && !Number.isNaN(data as any);
 
 /**
  * Check if an object is not an array or a date
@@ -42,7 +42,6 @@ export function immutablePrimitive(obj: any, additionalMappers?: PrimitiveRevive
   if (isDate(obj)) {
     return new Date(obj);
   } else if (obj instanceof Object) {
-    // eslint-disable-next-line no-use-before-define
     return deepFill(obj, obj, additionalMappers);
   } else {
     return obj;

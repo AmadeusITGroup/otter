@@ -37,7 +37,6 @@ export interface AsyncStoreItemAdapter {
    * @param entityItem
    * @returns Given item improved with AsyncStoreItem properties
    */
-  // eslint-disable-next-line @typescript-eslint/ban-types
   initialize<T extends object>(entityItem: T): T & AsyncStoreItem;
 
   /**

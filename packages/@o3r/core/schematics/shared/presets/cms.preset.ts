@@ -31,7 +31,7 @@ export function cmsPreset(options: PresetOptions) {
   return {
     modules,
     rule: chain([
-      // eslint-disable-next-line @typescript-eslint/naming-convention
+      // eslint-disable-next-line @typescript-eslint/naming-convention -- schematics identifier pattern
       setupSchematicsParamsForProject({ '*:ng-add': { enableMetadataExtract: true } } as WorkspaceSchematics, options.projectName),
       rule
     ])

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable @typescript-eslint/naming-convention -- exception for `BuildTimeProperties` */
 
 /**
  * Library build time properties

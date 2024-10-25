@@ -190,10 +190,7 @@ function ngGenerateComponentPresenterFn(options: NgGenerateComponentSchematicsSc
       schematic('convert-component', {
         path: componentPath,
         skipLinter: options.skipLinter
-      })
-    );
-
-    rules.push(
+      }),
       getAddConfigurationRules(
         componentPath,
         options

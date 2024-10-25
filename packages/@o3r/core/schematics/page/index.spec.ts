@@ -18,18 +18,18 @@ jest.mock('@o3r/schematics', () => {
 
 const collectionPath = path.join(__dirname, '..', '..', 'collection.json');
 
+const getInitialTree = () => {
+  const initialTree = Tree.empty();
+  initialTree.create('angular.json', fs.readFileSync(path.resolve(__dirname, '..', '..', 'testing', 'mocks', 'angular.mocks.json')));
+  initialTree.create('package.json', fs.readFileSync(path.resolve(__dirname, '..', '..', 'testing', 'mocks', 'package.mocks.json')));
+  initialTree.create('.eslintrc.json', fs.readFileSync(path.resolve(__dirname, '..', '..', 'testing', 'mocks', '__dot__eslintrc.mocks.json')));
+  initialTree.create('app.routing.module.ts', fs.readFileSync(path.resolve(__dirname, '..', '..', 'testing', 'mocks', 'app.routing.module.mocks.ts')));
+
+  return initialTree;
+};
+
 describe('Page', () => {
   let tree: UnitTestTree;
-
-  const getInitialTree = () => {
-    const initialTree = Tree.empty();
-    initialTree.create('angular.json', fs.readFileSync(path.resolve(__dirname, '..', '..', 'testing', 'mocks', 'angular.mocks.json')));
-    initialTree.create('package.json', fs.readFileSync(path.resolve(__dirname, '..', '..', 'testing', 'mocks', 'package.mocks.json')));
-    initialTree.create('.eslintrc.json', fs.readFileSync(path.resolve(__dirname, '..', '..', 'testing', 'mocks', '__dot__eslintrc.mocks.json')));
-    initialTree.create('app.routing.module.ts', fs.readFileSync(path.resolve(__dirname, '..', '..', 'testing', 'mocks', 'app.routing.module.mocks.ts')));
-
-    return initialTree;
-  };
 
   describe('Default parameters', () => {
     beforeAll(async () => {

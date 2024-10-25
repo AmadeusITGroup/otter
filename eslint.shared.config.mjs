@@ -107,6 +107,19 @@ export default [
     }
   },
   {
+    name: '@o3r/framework/no-underscore-dangle',
+    rules: {
+      'no-underscore-dangle': [
+        'error',
+        {
+          allow: [
+            '_OTTER_DEVTOOLS_'
+          ]
+        }
+      ]
+    }
+  },
+  {
     name: '@o3r/mjs-files',
     files: ['**/*.mjs'],
     rules: {

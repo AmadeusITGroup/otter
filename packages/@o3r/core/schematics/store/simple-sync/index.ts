@@ -58,23 +58,26 @@ function ngGenerateSimpleSyncStoreFn(options: NgGenerateSimpleSyncStoreSchematic
       tree.delete(barrelPath);
     }
     const rules: Rule[] = [];
-    rules.push(mergeWith(apply(commonTemplates, [
-      template({
-        ...strings,
-        ...options,
-        ...formattedProperties,
-        currentStoreIndex
-      }),
-      move(`${destination}/${strings.dasherize(options.storeName)}`)]), MergeStrategy.Overwrite));
-
-    rules.push(mergeWith(apply(syncEntityTemplates, [
-      template({
-        ...strings,
-        ...options,
-        ...formattedProperties,
-        currentStoreIndex
-      }),
-      move(`${destination}/${strings.dasherize(options.storeName)}`)]), MergeStrategy.Overwrite));
+    rules.push(
+      mergeWith(apply(commonTemplates, [
+        template({
+          ...strings,
+          ...options,
+          ...formattedProperties,
+          currentStoreIndex
+        }),
+        move(`${destination}/${strings.dasherize(options.storeName)}`)
+      ]), MergeStrategy.Overwrite),
+      mergeWith(apply(syncEntityTemplates, [
+        template({
+          ...strings,
+          ...options,
+          ...formattedProperties,
+          currentStoreIndex
+        }),
+        move(`${destination}/${strings.dasherize(options.storeName)}`)
+      ]), MergeStrategy.Overwrite)
+    );
 
     if (moduleHasSubEntryPoints(tree, destination)) {
       writeSubEntryPointPackageJson(tree, destination, strings.dasherize(options.storeName));

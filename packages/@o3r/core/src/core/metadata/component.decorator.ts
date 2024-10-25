@@ -35,7 +35,7 @@ export const otterComponentInfoPropertyName = '__otter-info__';
  * @param info Information to define the Otter component
  * @returns the component with the information
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
+// eslint-disable-next-line @typescript-eslint/naming-convention -- decorator should be PascalCase
 export function O3rComponent(info: OtterComponentInfoToProvide) {
   return <T extends new (...args: any[]) => object>(constructor: T) => {
     const componentName = constructor.name;

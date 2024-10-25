@@ -45,7 +45,6 @@ const isPromise = <U>(object: U | Promise<U>): object is Promise<U> => object &&
  * @param errorHandler function that returns the action to emit in case the FromApi call fails
  * @param cancelRequestActionFactory function that returns the action to emit in case the FromApi action is 'cancelled' because a new action was received by the switchMap
  */
-// eslint-disable-next-line @typescript-eslint/ban-types
 export function fromApiEffectSwitchMap<T extends FromApiActionPayload<any>, S extends ExtractFromApiActionPayloadType<T>, U extends Action, V extends Action, W extends Action>(
     successHandler: (result: S, action: T) => U | Observable<U> | Promise<U>,
     errorHandler?: (error: any, action: T) => Observable<V>,

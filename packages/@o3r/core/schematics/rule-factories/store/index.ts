@@ -42,20 +42,18 @@ const ngrxRouterStoreDevToolDep = '@ngrx/store-devtools';
 /**
  * Add Redux Store support
  * @param options @see RuleFactory.options
- * @param rootPath @see RuleFactory.rootPath
  * @param options.projectName
- * @param options.workingDirectory
- * @param projectType
- * @param options.dependenciesSetupConfig
  * @param options.workingDirector
+ * @param options.dependenciesSetupConfig
  * @param options.exactO3rVersion
+ * @param projectType
  */
 export function updateStore(
   options: { projectName?: string | undefined; workingDirector?: string | undefined; dependenciesSetupConfig: SetupDependenciesOptions; exactO3rVersion?: boolean },
   projectType?: WorkspaceProject['projectType']): Rule {
   const addStoreModules: Rule = (tree) => {
     const workspaceConfig = getWorkspaceConfig(tree);
-    const workspaceProject = options.projectName && workspaceConfig?.projects?.[options.projectName] || undefined;
+    const workspaceProject = (options.projectName && workspaceConfig?.projects?.[options.projectName]) || undefined;
 
     const storeSyncPackageName = '@o3r/store-sync';
 
@@ -76,7 +74,7 @@ export function updateStore(
    */
   const updatePackageJson: Rule = (tree: Tree, context: SchematicContext) => {
     const workspaceConfig = getWorkspaceConfig(tree);
-    const workspaceProject = options.projectName && workspaceConfig?.projects?.[options.projectName] || undefined;
+    const workspaceProject = (options.projectName && workspaceConfig?.projects?.[options.projectName]) || undefined;
 
     const appDeps = [ngrxEffectsDep, ngrxRouterStore, ngrxRouterStoreDevToolDep];
     const corePeerDeps = [ngrxEntityDep, ngrxStoreDep];
