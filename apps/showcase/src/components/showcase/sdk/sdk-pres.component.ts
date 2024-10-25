@@ -1,5 +1,5 @@
-import { PetApi, Tag } from '@ama-sdk/showcase-sdk';
-import type { Pet } from '@ama-sdk/showcase-sdk';
+import { PetApi, Tag } from '@o3r-training/showcase-sdk';
+import type { Pet } from '@o3r-training/showcase-sdk';
 import { ChangeDetectionStrategy, Component, computed, inject, signal, ViewEncapsulation } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';

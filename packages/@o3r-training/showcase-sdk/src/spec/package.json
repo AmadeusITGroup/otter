@@ -1,5 +1,5 @@
 {
-  "name": "@ama-sdk/showcase-sdk/spec",
+  "name": "@o3r-training/showcase-sdk/spec",
   "main": "../cjs/spec/index.js",
   "module": "../esm2020/spec/index.js",
   "es2020": "../esm2020/spec/index.js",

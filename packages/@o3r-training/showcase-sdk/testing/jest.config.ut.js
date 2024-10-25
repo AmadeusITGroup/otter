@@ -9,8 +9,8 @@ module.exports = {
   rootDir,
   moduleNameMapper: {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    '^@ama-sdk/showcase-sdk$': ['<rootDir>/dist/cjs', '<rootDir>/src'],
+    '^@o3r-training/showcase-sdk$': ['<rootDir>/dist/cjs', '<rootDir>/src'],
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    '^@ama-sdk/showcase-sdk/(.*)$': ['<rootDir>/dist/cjs/$1', '<rootDir>/src/$1']
+    '^@o3r-training/showcase-sdk/(.*)$': ['<rootDir>/dist/cjs/$1', '<rootDir>/src/$1']
   }
 };
