@@ -39,8 +39,19 @@ const config = [
       'unicorn/prefer-string-slice': 'off',
       'unicorn/prefer-top-level-await': 'off',
       'unicorn/prefer-type-error': 'off',
-      'unicorn/no-useless-undefined': 'off',
-      'unicorn/no-useless-switch-case': 'off' // Handled by `@typescript-eslint/switch-exhaustiveness-check`
+      'unicorn/no-useless-undefined': 'off'
+    }
+  },
+  {
+    name: '@o3r/overrides/unicorn/angular-components-files',
+    files: ['**/*.component.ts'],
+    rules: {
+      // TODO re-enable this rule once it support arrow function in `computed` Angular signal computation
+      // No opened issue on their side yet
+      'unicorn/consistent-function-scoping': [
+        'error',
+        { checkArrowFunctions: false }
+      ]
     }
   },
   {

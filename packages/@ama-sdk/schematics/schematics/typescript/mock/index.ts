@@ -18,11 +18,6 @@ import {
   NgGenerateMockSchematicsSchema
 } from './schema';
 
-/**
- * @param singular
- * @param matches
- * @param excludes
- */
 function endsWith(singular: string, matches: string[], excludes: string[] = []): boolean {
   return matches.some((match) =>
     singular.endsWith(match)
@@ -30,9 +25,6 @@ function endsWith(singular: string, matches: string[], excludes: string[] = []):
   );
 }
 
-/**
- * @param singular
- */
 function plurialize(singular: string): string {
   // If the singular form is already pluralized do nothing
   if (endsWith(singular, ['data', 'ies', 'es', 's'], ['us', 'ss'])) {

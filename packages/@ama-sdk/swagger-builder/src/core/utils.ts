@@ -179,6 +179,7 @@ export function addItemToSpecObj(swaggerSpec: Partial<Spec>, nodeType: keyof Spe
       (swaggerSpec[nodeType] as any)[itemName] = item;
     } else if (!ignoreConflict) {
       const newItemName = calculatePrefix(itemName, swaggerPath) + itemName;
+      // eslint-disable-next-line no-console -- no logger available
       console.warn(`The ${nodeType} "${itemName}"${swaggerPath ? ` from "${swaggerPath}"` : ''} is conflicting, "${newItemName}" will be used instead.`);
       return addItemToSpecObj(swaggerSpec, nodeType, newItemName, { ...item, [X_VENDOR_CONFLICT_TAG]: true }, swaggerPath);
     }
@@ -233,15 +234,14 @@ export function addParameterToSpecObj(swaggerSpec: Partial<Spec>, parameterName:
 /**
  * Get the validity of a given JSON object
  * @param jsonObject Object to check
- * @param schema Json Schema to apply to the obejct
+ * @param schema Json Schema to apply to the object
  * @param errorMessage Error message display to the error
  */
-// eslint-disable-next-line @typescript-eslint/ban-types
 export function checkJson(jsonObject: object, schema: Record<string, unknown>, errorMessage = 'invalid format'): void {
   const validator = new Validator();
   const validation = validator.validate(jsonObject, schema);
   if (!validation.valid) {
-    // eslint-disable-next-line no-console
+    // eslint-disable-next-line no-console -- no logger available
     console.error(...validation.errors.map((err) => err.message));
     throw new Error(errorMessage);
   }

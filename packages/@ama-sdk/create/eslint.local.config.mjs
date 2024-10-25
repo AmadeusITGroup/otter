@@ -23,5 +23,11 @@ export default [
         ]
       }
     }
+  },
+  {
+    name: '@ama-sdk/create/override',
+    rules: {
+      'no-console': 'off'
+    }
   }
 ];

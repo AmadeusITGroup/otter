@@ -36,6 +36,7 @@ export class MockInterceptRequest implements RequestPlugin {
 
         if (
           this.options.disabled
+          // eslint-disable-next-line unicorn/no-array-callback-reference -- filter is not an array callback here
           || (this.options.filter && !this.options.filter(data))
         ) {
           return data;

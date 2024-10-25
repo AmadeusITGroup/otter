@@ -36,7 +36,7 @@ const argv = minimist(process.argv.slice(2));
 const packageName = argv._[0];
 const { help, output, 'package-path': packagePath, quiet } = argv;
 const openApiConfigDefaultPath = './openapitools.json';
-const noop = () => undefined;
+const noop = () => {};
 const logger = quiet ? { error: noop, warn: noop, log: noop, info: noop, debug: noop } : console;
 const SPEC_YML_EXTENSION = 'yml';
 const DEFAULT_SPEC_EXPORT_PATH_IN_NPM_MODULE = 'openapi';
@@ -44,7 +44,7 @@ const DEFAULT_SPEC_EXPORT_PATH_IN_NPM_MODULE = 'openapi';
 const supportedExtensions = [SPEC_JSON_EXTENSION, SPEC_YAML_EXTENSION, SPEC_YML_EXTENSION];
 
 if (help) {
-  // eslint-disable-next-line no-console
+  // eslint-disable-next-line no-console -- even if we call the CLI with `--quiet` we want to log the help information
   console.log(`This script can be used to update your local spec file from a given locally installed npm package.
   Usage: amasdk-update-spec-from-npm <package-name> [--package-path] [--output] [--quiet]
 

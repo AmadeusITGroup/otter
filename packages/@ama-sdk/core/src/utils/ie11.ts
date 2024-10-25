@@ -24,6 +24,7 @@ export interface MsCrypto {
 export function promisifyMsCrypto<T>(cryptoOutput: CryptoFunctionOutput<T>) {
   return new Promise<T>((resolve, reject) => {
     cryptoOutput.oncomplete = (e) => resolve(e.target.result);
+    // eslint-disable-next-line unicorn/prefer-add-event-listener -- false positive
     cryptoOutput.onerror = (e) => reject(e);
   });
 }

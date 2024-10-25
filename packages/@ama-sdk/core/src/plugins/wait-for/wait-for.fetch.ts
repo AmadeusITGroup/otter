@@ -97,10 +97,10 @@ export class WaitForFetch<T = any> implements FetchPlugin {
     let data: T | undefined;
 
     return {
-      // eslint-disable-next-line no-async-promise-executor
+      // eslint-disable-next-line no-async-promise-executor -- all await are handled with a try-catch block
       canStart: () => new Promise<boolean>(async (resolve) => {
         let didTimeOut = false;
-        let timer: any;
+        let timer: ReturnType<typeof setTimeout> | undefined;
 
         if (this.timeout) {
           timer = setTimeout(() => {

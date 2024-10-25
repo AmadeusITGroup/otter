@@ -101,7 +101,7 @@ function isResponse(log: string): boolean {
  */
 function getData(log: string): string {
   const match = log.match(requestResponseJsonRegexp);
-  return match && match[1] || '';
+  return (match && match[1]) || '';
 }
 
 /**
@@ -168,6 +168,7 @@ function buildMockMap(log: string, operationAdapter: PathObject[]): MockMap {
     }
 
     mockMap[alfCall.operationId!].push({
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- type is explicitly `any`
       mockData: alfCall.response ? JSON.parse(alfCall.response) : ''
     });
     return mockMap;

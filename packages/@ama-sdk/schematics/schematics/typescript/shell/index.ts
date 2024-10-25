@@ -45,7 +45,7 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKShellSchemati
   const setupRule = async (tree: Tree, context: SchematicContext) => {
     const amaSdkSchematicsPackageJson = await readPackageJson();
 
-    /* eslint-disable @typescript-eslint/naming-convention */
+    /* eslint-disable @typescript-eslint/naming-convention -- package names are not following naming convention */
     const versions = {
       'tslib': amaSdkSchematicsPackageJson.dependencies!.tslib,
       '@commitlint/cli': amaSdkSchematicsPackageJson.generatorDependencies['@commitlint/cli'],
@@ -117,8 +117,9 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKShellSchemati
       const workspaceRootYarnRcPath = posix.join(tree.root.path, '.yarnrc.yml');
       const standaloneYarnRcPath = posix.join(targetPath, '.yarnrc.yml');
 
-      let yarnrc;
-      yarnrc = tree.exists(workspaceRootYarnRcPath) ? load(tree.readText(workspaceRootYarnRcPath)) : (load(tree.exists(standaloneYarnRcPath) ? tree.readText(standaloneYarnRcPath) : '') || {}) as any;
+      const yarnrc = tree.exists(workspaceRootYarnRcPath)
+        ? load(tree.readText(workspaceRootYarnRcPath))
+        : (load(tree.exists(standaloneYarnRcPath) ? tree.readText(standaloneYarnRcPath) : '') || {}) as any;
       yarnrc.nodeLinker ||= 'pnp';
       yarnrc.packageExtensions ||= {};
       yarnrc.packageExtensions['@ama-sdk/schematics@*'] = {

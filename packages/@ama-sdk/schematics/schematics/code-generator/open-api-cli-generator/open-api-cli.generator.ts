@@ -94,7 +94,7 @@ export class OpenApiCliGenerator extends CodeGenerator<OpenApiCliOptions> {
       : process.cwd();
     return async (generatorOptions?: OpenApiCliOptions) => {
       if (!generatorOptions) {
-        return Promise.reject('Missing options to run open api generator');
+        return Promise.reject(new Error('Missing options to run open api generator'));
       }
       const spawnOptions: SpawnOptions = {
         stdio: 'inherit',

@@ -33,7 +33,7 @@ export type ClientFactsFactory<T extends PublicFacts = PublicFacts> = (request: 
 export interface ClientFactsRequestPluginOptions<T extends PublicFacts = PublicFacts> {
   /**
    * Name of the header where to store the encoded facts
-   * @defaultValue 'ama-client-facts'
+   * @default 'ama-client-facts'
    */
   headerName?: string;
 
@@ -53,16 +53,16 @@ export interface ClientFactsRequestPluginOptions<T extends PublicFacts = PublicF
   factsFactory?: ClientFactsFactory<T>;
 }
 
+const jwtPayload = (data: PublicFacts) => ({
+  sub: 'fact',
+  ...data
+});
+
 /**
  * Creates a JWT encoding function which transforms the provided Facts as a unsecured JWT format https://tools.ietf.org/html/rfc7519#section-6
  */
 export function createJwtFactsEncoder() {
   const jwtEncoder = createJwtEncoder();
-
-  const jwtPayload = (data: PublicFacts) => ({
-    sub: 'fact',
-    ...data
-  });
 
   return (data: PublicFacts) => jwtEncoder(jwtPayload(data));
 }

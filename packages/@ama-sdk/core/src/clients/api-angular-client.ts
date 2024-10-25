@@ -165,13 +165,14 @@ export class ApiAngularClient implements ApiClient {
 
         const subscription = httpRequest.subscribe({
           next: (res) => data = res,
+          // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors -- subscription forwards the error from the httpRequest to asyncResponse promise
           error: (err) => reject(err),
           complete: () => resolve(data)
         });
         metadataSignal?.throwIfAborted();
         metadataSignal?.addEventListener('abort', () => {
           subscription.unsubscribe();
-          reject(metadataSignal.reason);
+          reject(metadataSignal.reason instanceof Error ? metadataSignal.reason : new Error(metadataSignal.reason.toString()));
         });
       });
       response = await asyncResponse;
@@ -180,7 +181,7 @@ export class ApiAngularClient implements ApiClient {
       exception = new EmptyResponseError(e.message || 'Fail to Fetch', undefined, { apiName, operationId, url, origin });
     }
 
-    // eslint-disable-next-line no-console
+    // eslint-disable-next-line no-console -- `console.error` is supposed to be the default value if the `options` argument is not provided, can be removed in Otter v12.
     const reviver = getResponseReviver(revivers, response, operationId, { disableFallback: this.options.disableFallback, log: console.error });
     const replyPlugins = this.options.replyPlugins
       ? this.options.replyPlugins.map((plugin) => plugin.load<T>({

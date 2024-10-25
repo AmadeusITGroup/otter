@@ -15,7 +15,7 @@ import {
 } from '../helpers/dictionary-check';
 
 process.on('unhandledRejection', (err) => {
-  // eslint-disable-next-line no-console
+  // eslint-disable-next-line no-console -- no logger available
   console.error(err);
   process.exit(1);
 });
@@ -41,14 +41,14 @@ program.action(async (inputs: string[] = []) => {
 
   Object.keys(reports)
     .forEach((spec) => {
-      // eslint-disable-next-line no-console
+      // eslint-disable-next-line no-console -- no logger available
       console.error(`issue on Swagger specification ${spec} :`);
       reports[spec]
         .forEach((error) => {
-          // eslint-disable-next-line no-console
+          // eslint-disable-next-line no-console -- no logger available
           console.error(error.message);
           if (error.details) {
-            // eslint-disable-next-line no-console
+            // eslint-disable-next-line no-console -- no logger available
             error.details.forEach((detail) => console.warn(detail));
           }
         });

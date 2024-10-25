@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-/* eslint-disable camelcase */
-
 import type {
   Rule
 } from '@angular-devkit/schematics';
@@ -17,6 +14,7 @@ import {
 /**
  * update of Otter library V10.0
  */
+// eslint-disable-next-line @typescript-eslint/naming-convention -- function name contains the version
 export function updateV10_0(): Rule {
   return (tree, context) => {
     if (isTypescriptSdk(tree)) {
@@ -30,6 +28,7 @@ export function updateV10_0(): Rule {
 /**
  * update of Otter library V10.1
  */
+// eslint-disable-next-line @typescript-eslint/naming-convention -- function name contains the version
 export function updateV10_1(): Rule {
   return (tree, context) => {
     if (isTypescriptSdk(tree)) {
@@ -43,6 +42,7 @@ export function updateV10_1(): Rule {
 /**
  * update of Otter library V10.3
  */
+// eslint-disable-next-line @typescript-eslint/naming-convention -- function name contains the version
 export function updateV10_3(): Rule {
   return (tree, context) => {
     if (isTypescriptSdk(tree)) {
@@ -56,6 +56,7 @@ export function updateV10_3(): Rule {
 /**
  * update of Otter library V11.0
  */
+// eslint-disable-next-line @typescript-eslint/naming-convention -- function name contains the version
 export function updateV11_0(): Rule {
   return (tree, context) => {
     if (isTypescriptSdk(tree)) {

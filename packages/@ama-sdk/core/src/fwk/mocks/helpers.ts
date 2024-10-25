@@ -44,9 +44,8 @@ export function getPath(requestUrl: string, pathObjects: PathObject[], method?: 
   }, []);
 
   let lastIndex = -1;
-  let nextIndex = -1;
   while (matches.length > 1) {
-    matches = matches.reduce<{ index: number; segments: string[]; methods: string[] }[]>((newMatches, match) => {
+    const result = matches.reduce(({ matches: newMatches, nextIndex }: { matches: { index: number; segments: string[]; methods: string[] }[]; nextIndex: number }, match) => {
       let newIndex = match.segments.findIndex((segment) => segment.startsWith('{') && segment.endsWith('}'));
       // Complete static match so use some value that can't be exceeded
       if (newIndex === -1) {
@@ -60,12 +59,14 @@ export function getPath(requestUrl: string, pathObjects: PathObject[], method?: 
         newMatches.push(match);
       }
 
-      return newMatches;
-    }, []);
+      return { matches: newMatches, nextIndex };
+    }, { matches: [], nextIndex: -1 });
+    const next = result.nextIndex;
+    matches = result.matches;
 
     // At this point we have tried to filter the matches but there are multiple matches that are identical and cannot
     // be filtered further. Trying to filter on the HTTP method if provided, then choose the first match.
-    if (lastIndex === nextIndex) {
+    if (lastIndex === next) {
       if (method) {
         // Try to filter the multiple matches based on the HTTP method
         matches.splice(0, matches.findIndex((match) => match.methods.includes(method.toLowerCase())));
@@ -73,7 +74,7 @@ export function getPath(requestUrl: string, pathObjects: PathObject[], method?: 
       matches.splice(1);
     }
 
-    lastIndex = nextIndex;
+    lastIndex = next;
   }
 
   return matches.length > 0 ? pathObjects[matches[0].index] : undefined;
