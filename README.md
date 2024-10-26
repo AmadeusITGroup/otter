@@ -6,7 +6,10 @@
 ## Description
 
 [![Stable Version](https://img.shields.io/npm/v/@o3r/core?style=for-the-badge)](https://www.npmjs.com/package/@o3r/core)
+[![Chrome Extension](https://img.shields.io/chrome-web-store/v/aejabgendbpckkdnjaphhlifbhepmbne?style=for-the-badge&label=Chrome%20Extension&color=%23F2C146)](https://chromewebstore.google.com/detail/otter-devtools/aejabgendbpckkdnjaphhlifbhepmbne)
+[![VSCode Extension](https://img.shields.io/visual-studio-marketplace/v/AmadeusITGroup.otter-devtools?style=for-the-badge&label=VSCode%20Extension&color=%2352A6E7)](https://marketplace.visualstudio.com/items?itemName=AmadeusITGroup.otter-devtools)
 [![downloads](https://img.shields.io/npm/dm/@o3r/core?style=for-the-badge)](https://www.npmjs.com/package/@o3r/core)
+
 
 The **Otter** project is a highly modular framework whose goal is to provide a common platform to accelerate and facilitate the development on Angular web applications.
 It is split into several units to cover different aspects of these applications (localization, testing, customization, etc.).
@@ -63,24 +66,24 @@ Any bug of feature request can be addressed via [issue](https://github.com/Amade
 These documents describe how to set up your development environment to build and test the framework.
 It also explains the basic mechanics of using `git`, `node`, and `npm`.
 
-* [Description](#description)
-* [Built With](#built-with)
-* [Get Started](#get-started)
-* [Contributing](#contributing)
-* [Versioning](#versioning)
-* [License](#license)
-* [Acknowledgments](#acknowledgments)
-* [Developer](#developer)
-  * [Building and Testing library](#building-and-testing-library)
-    * [Prerequisite Software](#prerequisite-software)
-    * [Getting the sources](#getting-the-sources)
-    * [Installing NPM modules](#installing-npm-modules)
-    * [Build command](#build-command)
-    * [Running tests locally](#running-tests-locally)
-    * [Manage task cache](#manage-task-cache)
-    * [Debugging with Visual Studio Code](#debugging-with-visual-studio-code)
-    * [Link local packages](#link-local-packages)
-    * [SSL Certificate issue (behind proxy)](#ssl-certificate-issue-behind-proxy)
+- [Description](#description)
+- [Built With](#built-with)
+- [Get Started](#get-started)
+- [Contributing](#contributing)
+- [Versioning](#versioning)
+- [License](#license)
+- [Acknowledgments](#acknowledgments)
+- [Developer](#developer)
+  - [Building and Testing library](#building-and-testing-library)
+    - [Prerequisite Software](#prerequisite-software)
+    - [Getting the sources](#getting-the-sources)
+    - [Installing NPM modules](#installing-npm-modules)
+    - [Build command](#build-command)
+    - [Running tests locally](#running-tests-locally)
+    - [Manage task cache](#manage-task-cache)
+    - [Debugging with Visual Studio Code](#debugging-with-visual-studio-code)
+    - [Link local packages](#link-local-packages)
+    - [SSL Certificate issue (behind proxy)](#ssl-certificate-issue-behind-proxy)
 
 Refer to the [contribution guidelines](./CONTRIBUTING.md)
 if you'd like to contribute to the framework.
