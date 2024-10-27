@@ -55,7 +55,7 @@ jobs:
         with:
           install-jdk: 'true'
       - name: Cache Jest
-        uses: actions/cache@3624ceb22c1c5a301c8db4169662070a689d9ea8 # v4.1.1
+        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.1.2
         env:
           hash: ${{ hashFiles('package.json', 'tsconfig.base.json', 'tsconfig.build.json', 'nx.json') }}
         with:
@@ -92,7 +92,7 @@ jobs:
       - name: Setup
         uses: ./tools/github-actions/setup
       - name: Cache Eslint
-        uses: actions/cache@3624ceb22c1c5a301c8db4169662070a689d9ea8 # v4.1.1
+        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.1.2
         with:
           path: .cache/eslint
           key: ${{ runner.os }}-eslint-${{ hashFiles('yarn.lock') }}
