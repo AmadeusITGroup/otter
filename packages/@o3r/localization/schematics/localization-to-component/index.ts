@@ -71,7 +71,7 @@ const checkLocalization = (componentPath: string, tree: Tree, baseFileName: stri
     ts.isClassDeclaration(statement)
     && isO3rClassComponent(statement)
   )!;
-  if (o3rClassDeclaration.members.find((classElement) =>
+  if (o3rClassDeclaration.members.some((classElement) =>
     ts.isPropertyDeclaration(classElement)
     && ts.isIdentifier(classElement.name)
     && localizationProperties.includes(classElement.name.escapedText.toString())

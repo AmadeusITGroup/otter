@@ -105,7 +105,9 @@ export default [
     name: '@o3r/framework/spec',
     files: ['**/*.spec.ts'],
     rules: {
-      '@typescript-eslint/no-require-imports': 'off' // required by Jest to mock the imports
+      '@typescript-eslint/no-require-imports': 'off', // required by Jest to mock the imports
+      '@typescript-eslint/unbound-method': 'off',
+      'jest/unbound-method': 'error'
     }
   },
   {

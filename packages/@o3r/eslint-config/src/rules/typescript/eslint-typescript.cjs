@@ -72,7 +72,8 @@ const config = [
         {
           selector: 'property',
           modifiers: ['readonly'],
-          format: ['camelCase', 'UPPER_CASE']
+          format: ['camelCase', 'UPPER_CASE'],
+          leadingUnderscore: 'allow'
         },
         {
           selector: 'enumMember',

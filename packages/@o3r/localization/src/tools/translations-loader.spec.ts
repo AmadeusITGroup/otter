@@ -1,4 +1,5 @@
-/* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable jest/no-done-callback -- test made with observables */
+/* eslint-disable @typescript-eslint/naming-convention -- localization keys are not following the naming convention */
 
 import {
   LocalizationConfiguration
@@ -7,9 +8,6 @@ import {
   TranslationsLoader
 } from './translations-loader';
 
-/**
- * @param body
- */
 function mockSuccessApiResponse(body = {}) {
   return new Response(JSON.stringify(body), {
     status: 200,
@@ -17,9 +15,6 @@ function mockSuccessApiResponse(body = {}) {
   });
 }
 
-/**
- * @param body
- */
 function mockFailApiResponse(body = {}) {
   return new Response(JSON.stringify(body), {
     status: 404,
@@ -27,17 +22,17 @@ function mockFailApiResponse(body = {}) {
   });
 }
 
-interface TranslationsDictionnary {
+interface TranslationsDictionary {
   'good.morning': string;
   'good.evening': string;
 }
 
-const responseEN: TranslationsDictionnary = {
+const responseEN: TranslationsDictionary = {
   'good.morning': 'Good Morning',
   'good.evening': 'Good Evening'
 };
 
-const responseFR: TranslationsDictionnary = {
+const responseFR: TranslationsDictionary = {
   'good.morning': 'Bonjour',
   'good.evening': 'Bonsoir'
 };
@@ -98,6 +93,7 @@ describe('TranslationsLoader - no endPointUrl', () => {
         countCall++;
         latestUrls.push(url);
         if (lang === configuration.language) {
+          // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors -- reject with a 404 response
           return Promise.reject(mockFailApiResponse());
         }
         return Promise.resolve(mockSuccessApiResponse(responseEN));
@@ -135,6 +131,7 @@ describe('TranslationsLoader - no endPointUrl', () => {
       let countCall = 0;
       global.fetch = jest.fn().mockImplementation(() => {
         countCall++;
+        // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors -- reject with a 404 response
         return Promise.reject(mockFailApiResponse({}));
       });
 
@@ -229,6 +226,7 @@ describe('TranslationsLoader - with endPointUrl', () => {
         latestUrls.push(url);
         if (endPointUrl === url) {
           // fail with fr on endPoint
+          // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors -- reject with a 404 response
           return Promise.reject(mockFailApiResponse());
         }
         return Promise.resolve(mockSuccessApiResponse(responseFR));
@@ -261,9 +259,11 @@ describe('TranslationsLoader - with endPointUrl', () => {
         latestUrls.push(url);
         if (endPointUrl === url) {
           // fail with fr on endPoint
+          // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors -- reject with a 404 response
           return Promise.reject(mockFailApiResponse());
         } else if (localLangUrl === url) {
           // success if fr local
+          // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors -- reject with a 404 response
           return Promise.reject(mockFailApiResponse());
         }
         return Promise.resolve(mockSuccessApiResponse(responseEN));

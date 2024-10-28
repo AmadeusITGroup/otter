@@ -63,7 +63,6 @@ export function updateLocalization(options: { projectName?: string | null | unde
   /**
    * Generate locales folder
    * @param tree
-   * @param context
    */
   const generateLocalesFolder: Rule = (tree: Tree) => {
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
@@ -94,8 +93,11 @@ export function updateLocalization(options: { projectName?: string | null | unde
       && workspaceProject.architect.build
       && workspaceProject.architect.build.options
       && (
-        workspaceProject.architect.build.configurations && workspaceProject.architect.build.configurations.production && workspaceProject.architect.build.configurations.production.outputPath
-        || workspaceProject.architect.build.options.outputPath
+        (
+          workspaceProject.architect.build.configurations
+          && workspaceProject.architect.build.configurations.production
+          && workspaceProject.architect.build.configurations.production.outputPath
+        ) || workspaceProject.architect.build.options.outputPath
       )
     ) || './dist';
 
@@ -142,7 +144,9 @@ export function updateLocalization(options: { projectName?: string | null | unde
     };
     const projectType = workspaceProject?.projectType || 'application';
     if (projectType === 'application' && workspaceProject.architect.build) {
-      const alreadyExistingBuildOption = workspaceProject.architect.build.options?.assets?.map((a: { glob: string; input: string; output: string }) => a.output).find((output: string) => output === '/localizations');
+      const alreadyExistingBuildOption = workspaceProject.architect.build.options?.assets
+        ?.map((a: { glob: string; input: string; output: string }) => a.output)
+        .find((output: string) => output === '/localizations');
 
       if (!alreadyExistingBuildOption) {
         workspaceProject.architect.build.options ||= {};
@@ -152,7 +156,9 @@ export function updateLocalization(options: { projectName?: string | null | unde
     }
 
     if (workspaceProject.architect.test) {
-      const alreadyExistingTestOption = workspaceProject.architect.test.options?.assets?.map((a: { glob: string; input: string; output: string }) => a.output).find((output: string) => output === '/localizations');
+      const alreadyExistingTestOption = workspaceProject.architect.test.options?.assets
+        ?.map((a: { glob: string; input: string; output: string }) => a.output)
+        .find((output: string) => output === '/localizations');
       if (!alreadyExistingTestOption) {
         workspaceProject.architect.test.options ||= {};
         workspaceProject.architect.test.options.assets ||= [];
@@ -463,11 +469,6 @@ export function updateLocalization(options: { projectName?: string | null | unde
   ]);
 }
 
-/**
- *
- * @param options
- * @param options.projectName
- */
 function updateI18nFn(options: { projectName?: string | undefined }): Rule {
   if (!options.projectName) {
     return noop;

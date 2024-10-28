@@ -8,7 +8,7 @@ import {
  * Decorator to pass localization url
  * @param _url
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
+// eslint-disable-next-line @typescript-eslint/naming-convention -- decorator should start with a capital letter
 export function Localization(_url: string) {
   return (target: any, key: string) => {
     const privateField = _url || `_${key}`;

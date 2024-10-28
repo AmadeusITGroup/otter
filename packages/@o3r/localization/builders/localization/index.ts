@@ -439,7 +439,6 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<LocalizationBui
   };
 
   /** Timeout to handle nodejs issue (#1970) */
-  // eslint-disable-next-line no-undef
   const fsTimeout: { [file: string]: NodeJS.Timeout | number | null } = {};
 
   /**

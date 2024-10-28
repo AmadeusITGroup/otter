@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+/* eslint-disable no-console -- This is the purpose of this service */
 import {
   Inject,
   Injectable,
@@ -47,9 +47,9 @@ export class LocalizationDevtoolsConsoleService implements DevtoolsServiceInterf
   /** @inheritDoc */
   public activate() {
     const windowWithDevtools: WindowWithDevtools = window;
-    // eslint-disable-next-line no-underscore-dangle
+
     windowWithDevtools._OTTER_DEVTOOLS_ ||= {};
-    // eslint-disable-next-line no-underscore-dangle
+
     windowWithDevtools._OTTER_DEVTOOLS_[LocalizationDevtoolsConsoleService.windowModuleName] = this;
 
     console.info(`Otter localization Devtools is now accessible via the _OTTER_DEVTOOLS_.${LocalizationDevtoolsConsoleService.windowModuleName} variable`);

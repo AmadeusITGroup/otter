@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-/* eslint-disable camelcase */
-
 import * as fs from 'node:fs';
 import * as FormData from 'form-data';
 import fetch from 'node-fetch';
@@ -66,7 +63,6 @@ export class PCloudyApi {
     const { result } = await (
       await fetch(`${this.server}/api/access`, {
         headers: {
-
           Authorization: 'Basic ' + Buffer.from(username + ':' + apiKey).toString('base64')
         }
       })).json() as { result: { code: number; token: string } };
@@ -126,6 +122,7 @@ export class PCloudyApi {
    * @param rid Reservation id returned by {@link bookDevice}
    */
   public async getDevicePageUrl(rid: number): Promise<string> {
+    // eslint-disable-next-line @typescript-eslint/naming-convention -- naming convention imposed by PCloudy
     const result = await this.postCallToPCloudy<{ URL: string }>('/api/get_device_url', { rid });
     return result.URL;
   }
@@ -198,6 +195,7 @@ export class PCloudyApi {
    * @returns the token to follow the process
    */
   public async resignIosApp(filename: string) {
+    // eslint-disable-next-line @typescript-eslint/naming-convention -- naming convention imposed by PCloudy
     const result = await this.postCallToPCloudy<{ resign_token: string }>('/api/resign/initiate', {
       filename
     });
@@ -210,6 +208,7 @@ export class PCloudyApi {
    * @param resignToken
    */
   public async getAppResigningProgress(filename: string, resignToken: string) {
+    // eslint-disable-next-line @typescript-eslint/naming-convention -- naming convention imposed by PCloudy
     const result = await this.postCallToPCloudy<{ resign_status: number }>('/api/resign/progress', {
       filename,
       resign_token: resignToken
@@ -224,6 +223,7 @@ export class PCloudyApi {
    * @param resignToken returned by {@link resignIosApp}
    */
   public async downloadResignedApp(filename: string, resignToken: string) {
+    // eslint-disable-next-line @typescript-eslint/naming-convention -- naming convention imposed by PCloudy
     const result = await this.postCallToPCloudy<{ resign_file: string }>('/api/resign/download', {
       filename,
       resign_token: resignToken

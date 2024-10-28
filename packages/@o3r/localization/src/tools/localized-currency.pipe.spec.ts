@@ -31,25 +31,6 @@ import {
   LocalizedCurrencyPipe
 } from './localized-currency.pipe';
 
-/**
- * Fixture for ChangeDetectorRef
- */
-class ChangeDetectorRefFixture implements Readonly<ChangeDetectorRef> {
-  public markForCheck: jest.Mock<any, any>;
-  public detach: jest.Mock<any, any>;
-  public detectChanges: jest.Mock<any, any>;
-  public checkNoChanges: jest.Mock<any, any>;
-  public reattach: jest.Mock<any, any>;
-
-  constructor() {
-    this.markForCheck = jest.fn();
-    this.detach = jest.fn();
-    this.detectChanges = jest.fn();
-    this.checkNoChanges = jest.fn();
-    this.reattach = jest.fn();
-  }
-}
-
 describe('LocalizedCurrencyPipe', () => {
   beforeAll(() => getTestBed().platform || TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting(), {
     teardown: { destroyAfterEach: false }
@@ -67,7 +48,6 @@ describe('LocalizedCurrencyPipe', () => {
         TranslateModule.forRoot()
       ],
       providers: [
-        { provide: ChangeDetectorRef, useClass: ChangeDetectorRefFixture },
         {
           provide: LOCALIZATION_CONFIGURATION_TOKEN,
           useFactory: () => createLocalizationConfiguration({ enableTranslationDeactivation: true, supportedLocales: ['en', 'fr'], fallbackLanguage: 'fr' })
@@ -90,7 +70,8 @@ describe('LocalizedCurrencyPipe', () => {
 
   it('should mark for check when the language changes', () => {
     localizationService.useLanguage('en');
+    const spy = jest.spyOn(changeDetectorRef, 'markForCheck');
 
-    expect(changeDetectorRef.markForCheck).toHaveBeenCalled();
+    expect(spy).toHaveBeenCalled();
   });
 });

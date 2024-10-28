@@ -4,6 +4,7 @@ import {
 import {
   fileURLToPath
 } from 'node:url';
+import globals from 'globals';
 
 const __filename = fileURLToPath(import.meta.url);
 // __dirname is not defined in ES module scope
@@ -23,6 +24,15 @@ export default [
           'tsconfig.eslint.json',
           'tsconfig.pcloudy.json'
         ]
+      }
+    }
+  },
+  {
+    name: '@o3r/mobile/pcloudy',
+    files: ['**/pcloudy/**'],
+    languageOptions: {
+      globals: {
+        ...globals.node
       }
     }
   }

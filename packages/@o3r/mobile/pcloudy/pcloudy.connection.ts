@@ -94,8 +94,7 @@ program
   .option('--pretty', 'Prettify logs ')
   .action(async (options) => {
     const logger = getLogger(options.verbose, options.pretty);
-    /* eslint-disable-next-line no-console */
-    console.log(await uploadApp(options.username, options.password, options.application, options.override, logger));
+    logger.info(await uploadApp(options.username, options.password, options.application, options.override, logger));
   });
 
 program
@@ -123,8 +122,7 @@ program
   .option('--pretty', 'Prettify logs ')
   .action(async (options) => {
     const logger = getLogger(options.verbose, options.pretty);
-    /* eslint-disable-next-line no-console */
-    console.log(await getAvailableDevices(options.username, options.password, options.devicePlatform, options.minVersion, logger));
+    logger.info(await getAvailableDevices(options.username, options.password, options.devicePlatform, options.minVersion, logger));
   });
 
 program.parse(process.argv);

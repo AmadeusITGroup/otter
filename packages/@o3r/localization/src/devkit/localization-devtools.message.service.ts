@@ -101,8 +101,7 @@ export class LocalizationDevtoolsMessageService implements OnDestroy {
 
   /**
    * Function to handle the incoming messages from Otter Chrome DevTools extension
-   * @param event Event coming from the Otter Chrome DevTools extension
-   * @param message
+   * @param message Message coming from the Otter Chrome DevTools extension
    */
   private handleEvents(message: AvailableLocalizationMessageContents) {
     this.logger.debug('Message handling by the localization service', message);

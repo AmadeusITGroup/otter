@@ -17,6 +17,7 @@ import {
 
 describe('LocalizationService', () => {
   describe('default configuration', () => {
+    // eslint-disable-next-line unicorn/consistent-function-scoping -- higher-order function
     const configurationFactory: () => LocalizationConfiguration = () => ({
       ...DEFAULT_LOCALIZATION_CONFIGURATION
     });
@@ -44,6 +45,7 @@ describe('LocalizationService', () => {
   });
 
   describe('fallbackLocalesMap configuration unavailable', () => {
+    // eslint-disable-next-line unicorn/consistent-function-scoping -- higher-order function
     const configurationFactory: () => LocalizationConfiguration = () => ({
       ...DEFAULT_LOCALIZATION_CONFIGURATION,
       supportedLocales: ['en-GB', 'fr-FR', 'fr-CA', 'ar-AR'],
@@ -105,6 +107,7 @@ describe('LocalizationService', () => {
   });
 
   describe('language to use is specified in the configuration and supported', () => {
+    // eslint-disable-next-line unicorn/consistent-function-scoping -- higher-order function
     const configurationFactory: () => LocalizationConfiguration = () => ({
       ...DEFAULT_LOCALIZATION_CONFIGURATION,
       supportedLocales: ['en-GB', 'fr-FR', 'fr-CA', 'ar-AR'],
@@ -136,6 +139,7 @@ describe('LocalizationService', () => {
   });
 
   describe('language to use is specified in the configuration and not supported', () => {
+    // eslint-disable-next-line unicorn/consistent-function-scoping -- higher-order function
     const configurationFactory: () => LocalizationConfiguration = () => ({
       ...DEFAULT_LOCALIZATION_CONFIGURATION,
       supportedLocales: ['en-GB', 'fr-FR', 'fr-CA', 'ar-AR'],
@@ -167,10 +171,10 @@ describe('LocalizationService', () => {
   });
 
   describe('fallbackLocalesMap configuration available', () => {
+    // eslint-disable-next-line unicorn/consistent-function-scoping -- higher-order function
     const configurationFactory: () => LocalizationConfiguration = () => ({
       ...DEFAULT_LOCALIZATION_CONFIGURATION,
       supportedLocales: ['en-GB', 'en-US', 'fr-FR', 'ar-AR'],
-      /* eslint-disable @typescript-eslint/naming-convention */
       fallbackLocalesMap: {
         'en-CA': 'en-US',
         'fr-CA': 'fr-FR',
@@ -180,7 +184,6 @@ describe('LocalizationService', () => {
         hi: 'en-GB',
         zh: 'en-GB'
       },
-      /* eslint-enable @typescript-eslint/naming-convention */
       fallbackLanguage: 'fr-FR'
     });
 
@@ -244,7 +247,7 @@ describe('LocalizationService', () => {
     });
 
     it(`should translate to the nearest supported language, when un-supported language provided,
-        fallback locale map doen't have the mapped language`, () => {
+        fallback locale map doesn't have the mapped language`, () => {
       const actualLanguage = 'en-AU';
       const expectedLanguage = 'en-GB';
 

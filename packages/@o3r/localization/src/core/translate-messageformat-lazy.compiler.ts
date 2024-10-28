@@ -94,7 +94,6 @@ export class TranslateMessageFormatLazyCompiler extends TranslateCompiler {
         return acc;
       };
 
-    return Object.keys(translations)
-      .reduce<CompiledTranslationMap>(compilingStrategy, {});
+    return Object.keys(translations).reduce<CompiledTranslationMap>((acc, key) => compilingStrategy(acc, key), {});
   }
 }
