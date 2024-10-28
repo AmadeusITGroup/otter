@@ -5048,14 +5048,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@formatjs/intl-numberformat@npm:~8.12.0":
-  version: 8.12.0
-  resolution: "@formatjs/intl-numberformat@npm:8.12.0"
+"@formatjs/intl-numberformat@npm:~8.13.0":
+  version: 8.13.0
+  resolution: "@formatjs/intl-numberformat@npm:8.13.0"
   dependencies:
     "@formatjs/ecma402-abstract": "npm:2.2.0"
     "@formatjs/intl-localematcher": "npm:0.5.5"
     tslib: "npm:^2.7.0"
-  checksum: 10/f8e39177a850696690b7d7a4c3af3134094dfd657554e44ecc454fe59d34fd446063d27c5ece2ed6812266139da14a33823207ab406cbb31abe57892bd5e9343
+  checksum: 10/c1c5ebcf559137978332045e56d228b4851a7ab96063a07a9ceef51e4f41c034f549d9c0ab21fa7d11f5b19f97a9ca5114d4367636bf22f7a23fd7e22c5e2412
   languageName: node
   linkType: hard
 
@@ -9612,7 +9612,7 @@ __metadata:
     "@angular/platform-browser-dynamic": "npm:~18.2.0"
     "@angular/router": "npm:~18.2.0"
     "@design-factory/design-factory": "npm:~18.1.0"
-    "@formatjs/intl-numberformat": "npm:~8.12.0"
+    "@formatjs/intl-numberformat": "npm:~8.13.0"
     "@ng-bootstrap/ng-bootstrap": "npm:^17.0.0"
     "@ng-select/ng-select": "npm:~13.9.0"
     "@ngrx/effects": "npm:~18.0.0"
