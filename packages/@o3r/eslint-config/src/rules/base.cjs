@@ -4,7 +4,7 @@
  * @returns {import('@typescript-eslint/utils').TSESLint.FlatConfig.Config}
  */
 const base = (plugin) => ({
-  name: '@o3r/base',
+  name: '@o3r/eslint-config/base',
   languageOptions: {
     sourceType: 'module'
   },

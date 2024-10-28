@@ -5,7 +5,7 @@ const sortExportAll = require('eslint-plugin-sort-export-all');
  */
 const config = [
   {
-    name: '@o3r/overrides/sort-export-all',
+    name: '@o3r/eslint-config/sort-export-all',
     plugins: {
       'sort-export-all': sortExportAll
     },

@@ -6,7 +6,7 @@ const { convertWarningsToErrors } = require('../utils.cjs');
  */
 const config = [
   {
-    name: '@o3r/overrides/stylistic',
+    name: '@o3r/eslint-config/stylistic',
     files: [
       '**/*.{c,m,}{t,j}s'
     ],

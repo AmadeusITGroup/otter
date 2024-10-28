@@ -23,7 +23,7 @@ export default [
     }
   },
   {
-    name: '@o3r/parser/yaml',
+    name: '@o3r/framework/parser/yaml',
     files: ['**/*.y{a,}ml'],
     languageOptions: {
       parser: yamlParser

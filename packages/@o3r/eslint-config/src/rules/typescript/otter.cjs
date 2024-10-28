@@ -8,7 +8,7 @@ const o3rBaseConfig = require('../base.cjs');
 const o3rTypescriptRecommended = (plugin) => [
   o3rBaseConfig(plugin),
   {
-    name: '@o3r/typescript-recommended',
+    name: '@o3r/eslint-config/typescript-recommended',
     // Same files as the ones asked by `typescript-eslint` recommendation
     files: ['**/*.ts', '**/*.tsx', '**/*.mts', '**/*.cts'],
     rules: {

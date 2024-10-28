@@ -3,7 +3,7 @@ const unusedImportsPlugin = require('eslint-plugin-unused-imports');
 /** @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.ConfigArray} */
 const config = [
   {
-    name: '@o3r/overrides/unused-imports',
+    name: '@o3r/eslint-config/unused-imports',
     files: [
       '**/*.{c,m,}{t,j}s'
     ],
