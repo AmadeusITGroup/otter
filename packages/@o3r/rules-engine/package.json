@@ -49,7 +49,7 @@
     "@schematics/angular": "~18.2.0",
     "globby": "^11.1.0",
     "jasmine": "^5.0.0",
-    "jsonpath-plus": "~10.1.0",
+    "jsonpath-plus": "^9.0.0 || ^10.0.0",
     "rxjs": "^7.8.1",
     "typescript": "~5.5.4",
     "typescript-json-schema": "~0.65.0"
