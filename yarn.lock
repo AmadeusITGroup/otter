@@ -7614,7 +7614,7 @@ __metadata:
     "@popperjs/core": "npm:^2.11.5"
     "@schematics/angular": "npm:~18.2.0"
     "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
-    "@types/chrome": "npm:^0.0.278"
+    "@types/chrome": "npm:^0.0.279"
     "@types/color": "npm:^3.0.6"
     "@types/jest": "npm:~29.5.2"
     "@types/tinycolor2": "npm:^1.4.6"
@@ -7719,7 +7719,7 @@ __metadata:
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.2.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    jsonpath-plus: "npm:~10.0.0"
+    jsonpath-plus: "npm:~10.1.0"
     memfs: "npm:~4.14.0"
     nx: "npm:~19.5.0"
     pid-from-port: "npm:^1.1.3"
@@ -7762,7 +7762,7 @@ __metadata:
     "@yarnpkg/plugin-pack": ^4.0.0
     chokidar: ^3.5.2
     globby: ^11.1.0
-    jsonpath-plus: ^9.0.0 || ~10.0.0
+    jsonpath-plus: ^9.0.0 || ^10.0.0
     rxjs: ^7.8.1
     semver: ^7.5.2
     typescript: ~5.5.4
@@ -8768,7 +8768,7 @@ __metadata:
     jest-preset-angular: "npm:~14.2.0"
     js-yaml: "npm:^4.1.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    jsonpath-plus: "npm:~10.0.0"
+    jsonpath-plus: "npm:~10.1.0"
     lighthouse: "npm:~12.2.0"
     lint-staged: "npm:^15.0.0"
     minimist: "npm:^1.2.6"
@@ -9433,7 +9433,7 @@ __metadata:
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.2.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    jsonpath-plus: "npm:~10.0.0"
+    jsonpath-plus: "npm:~10.1.0"
     memfs: "npm:~4.14.0"
     nx: "npm:~19.5.0"
     pid-from-port: "npm:^1.1.3"
@@ -9466,7 +9466,7 @@ __metadata:
     "@schematics/angular": ~18.2.0
     globby: ^11.1.0
     jasmine: ^5.0.0
-    jsonpath-plus: ^9.0.0 || ~10.0.0
+    jsonpath-plus: ^9.0.0 || ^10.0.0
     rxjs: ^7.8.1
     typescript: ~5.5.4
     typescript-json-schema: ~0.65.0
@@ -13114,13 +13114,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/chrome@npm:^0.0.278":
-  version: 0.0.278
-  resolution: "@types/chrome@npm:0.0.278"
+"@types/chrome@npm:^0.0.279":
+  version: 0.0.279
+  resolution: "@types/chrome@npm:0.0.279"
   dependencies:
     "@types/filesystem": "npm:*"
     "@types/har-format": "npm:*"
-  checksum: 10/8fa2e68bd28b28f14599aee36ecd40f32f42fd68e4012145205930f4bf2d62f57b1b0b5af033e15d0fbdeadb211fd51c14f8ef3caf34176f8c5d127ac3fe8641
+  checksum: 10/c2f2287036b3bad1ea04545976c5e71a55582dcbfae1a7f7aaa8ceca39432fc86f04bed9eb042d74cd98c023a888ed3e4fd18ef5c95f415dd96e9382e3f06703
   languageName: node
   linkType: hard
 
@@ -24356,9 +24356,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jsonpath-plus@npm:~10.0.0":
-  version: 10.0.7
-  resolution: "jsonpath-plus@npm:10.0.7"
+"jsonpath-plus@npm:~10.1.0":
+  version: 10.1.0
+  resolution: "jsonpath-plus@npm:10.1.0"
   dependencies:
     "@jsep-plugin/assignment": "npm:^1.2.1"
     "@jsep-plugin/regex": "npm:^1.0.3"
@@ -24366,7 +24366,7 @@ __metadata:
   bin:
     jsonpath: bin/jsonpath-cli.js
     jsonpath-plus: bin/jsonpath-cli.js
-  checksum: 10/49c97e16707dccf4b750a47d2577667fc5e416e767198b80d145ff9c1ddcd7a4103feedce3645024e51addfd9af8721d01dcaf492e57ab2a0154a61d8a3454ca
+  checksum: 10/d872af63b667c43e7563095b4c88f61be5b298c1ddc1d019b3684f0ba1addcba24857e78058b00c52511f52044e3dfea16f83869facfd6ced7430ebd6257f7ab
   languageName: node
   linkType: hard
 
