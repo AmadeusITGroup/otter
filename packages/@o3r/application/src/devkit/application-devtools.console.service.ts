@@ -42,9 +42,7 @@ export class ApplicationDevtoolsConsoleService implements DevtoolsServiceInterfa
   /** @inheritDoc */
   public activate() {
     const windowWithDevtools: WindowWithDevtools = window;
-    // eslint-disable-next-line no-underscore-dangle
     windowWithDevtools._OTTER_DEVTOOLS_ ||= {};
-    // eslint-disable-next-line no-underscore-dangle
     windowWithDevtools._OTTER_DEVTOOLS_[ApplicationDevtoolsConsoleService.windowModuleName] = this;
 
     console.info(`Otter Application Devtools is now accessible via the _OTTER_DEVTOOLS_.${ApplicationDevtoolsConsoleService.windowModuleName} variable`);

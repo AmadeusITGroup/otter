@@ -65,7 +65,7 @@ const checkConfiguration = (componentPath: string, tree: Tree) => {
       ts.isClassDeclaration(statement)
       && isO3rClassComponent(statement)
     )!;
-  if (o3rClassDeclaration.members.find((classElement) =>
+  if (o3rClassDeclaration.members.some((classElement) =>
     ts.isPropertyDeclaration(classElement)
     && ts.isIdentifier(classElement.name)
     && configProperties.includes(classElement.name.escapedText.toString())
@@ -208,7 +208,7 @@ export function ngAddConfigFn(options: NgAddConfigSchematicsSchema): Rule {
                     && ts.isIdentifier(classElement.name)
                     && classElement.name.escapedText.toString() === 'ngOnChanges';
 
-                  const ngOnChangesMethod = node.members.find(isNgOnChangesMethod);
+                  const ngOnChangesMethod = node.members.find((member) => isNgOnChangesMethod(member));
 
                   const changesVariableName = ngOnChangesMethod?.parameters[0].name.getText() || 'changes';
 
@@ -249,7 +249,7 @@ export function ngAddConfigFn(options: NgAddConfigSchematicsSchema): Rule {
                     );
 
                   const decorators = ts.getDecorators(node)!;
-                  const o3rDecorator = decorators.find(isO3rClassDecorator)!;
+                  const o3rDecorator = decorators.find((decorator) => isO3rClassDecorator(decorator))!;
                   const firstArg = o3rDecorator.expression.arguments[0];
                   const shouldUpdateDecorator = options.exposeComponent && ts.isObjectLiteralExpression(firstArg) && firstArg.properties.find((prop) =>
                     ts.isPropertyAssignment(prop)
@@ -366,7 +366,7 @@ export function ngAddConfigFn(options: NgAddConfigSchematicsSchema): Rule {
   public readonly configSignal = configSignal(this.config, ${properties.configKey}_CONFIG_ID, ${properties.configKey}_DEFAULT_CONFIG);`);
 
                   const decorators = ts.getDecorators(node)!;
-                  const o3rDecorator = decorators.find(isO3rClassDecorator)!;
+                  const o3rDecorator = decorators.find((decorator) => isO3rClassDecorator(decorator))!;
                   const firstArg = o3rDecorator.expression.arguments[0];
                   const shouldUpdateDecorator = options.exposeComponent && ts.isObjectLiteralExpression(firstArg) && firstArg.properties.find((prop) =>
                     ts.isPropertyAssignment(prop)

@@ -46,10 +46,10 @@ export function configSignal<T extends Configuration>(
   configInput: InputSignal<Partial<T> | undefined>,
   configId: string,
   defaultConfig: T,
-  // eslint-disable-next-line @typescript-eslint/unified-signatures
+  // eslint-disable-next-line @typescript-eslint/unified-signatures -- deprecated will be removed in v12
   configurationService?: ConfigurationBaseService | null
 ): ConfigurationSignal<T>;
-// eslint-disable-next-line jsdoc/require-jsdoc
+// eslint-disable-next-line jsdoc/require-jsdoc -- overload signature will be removed in v12
 export function configSignal<T extends Configuration>(
   configInput: InputSignal<Partial<T> | undefined>,
   configId: string,

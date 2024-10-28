@@ -17,10 +17,7 @@ const PACKAGE_NAME: string = JSON.parse(readFileSync(path.resolve(__dirname, '..
 
 /**
  * Register Devtools to the application
- * @param tree
- * @param context
  * @param options
- * @param options.projectName
  */
 export const registerDevtools = async (options: NgAddSchematicsSchema): Promise<Rule> => {
   const { registerDevtoolsToApplication } = await import('@o3r/schematics');

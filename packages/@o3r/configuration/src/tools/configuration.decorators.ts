@@ -33,7 +33,7 @@ const decorator = (target: any, key: string) => {
  * Decorator to identify the configuration observer
  * @deprecated please use O3rConfig, will be removed in v12
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
+// eslint-disable-next-line @typescript-eslint/naming-convention -- decorator should be PascalCase
 export function ConfigObserver() {
   return decorator;
 }
@@ -41,7 +41,7 @@ export function ConfigObserver() {
 /**
  * Decorator to identify the component's configuration
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
+// eslint-disable-next-line @typescript-eslint/naming-convention -- decorator should be PascalCase
 export function O3rConfig() {
   return decorator;
 }

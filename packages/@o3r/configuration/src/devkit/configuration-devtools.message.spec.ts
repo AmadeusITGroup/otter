@@ -56,7 +56,7 @@ describe('Configuration DevTools message', () => {
             configuration: {
               ids: ['@scope/package#componentTest'],
               entities: {
-                // eslint-disable-next-line @typescript-eslint/naming-convention
+                // eslint-disable-next-line @typescript-eslint/naming-convention -- id
                 '@scope/package#componentTest': {
                   configEx1: 'test',
                   configEx2: true,
