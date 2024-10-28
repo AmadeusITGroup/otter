@@ -69,8 +69,7 @@ const applyConversion = (token: DesignTokenVariableStructure, value: string) => 
 
   return newValue;
 };
-// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
-const renderCssTypeStrokeStyleValue = (value: DesignTokenTypeStrokeStyleValue | string) => isTokenTypeStrokeStyleValueComplex(value) ? `${value.lineCap} ${value.dashArray.join(' ')}` : value;
+const renderCssTypeStrokeStyleValue = (value: DesignTokenTypeStrokeStyleValue) => isTokenTypeStrokeStyleValueComplex(value) ? `${value.lineCap} ${value.dashArray.join(' ')}` : value;
 const sanitizeStringValue = (value: string) => value.replace(/[\\]/g, '\\\\').replace(/"/g, '\\"');
 const sanitizeKeyName = (name: string) => name.replace(/[ .]+/g, '-').replace(/[()[\]]+/g, '');
 const getCssRawValue = (variableSet: DesignTokenVariableSet, token: DesignTokenVariableStructure) => {
