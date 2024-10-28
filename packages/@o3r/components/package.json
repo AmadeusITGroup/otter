@@ -32,6 +32,7 @@
   },
   "peerDependencies": {
     "@angular-devkit/architect": "~0.1802.0",
+    "@angular-devkit/core": "~18.2.0",
     "@angular-devkit/schematics": "~18.2.0",
     "@angular/cdk": "~18.2.0",
     "@angular/common": "~18.2.0",
@@ -66,6 +67,9 @@
     "typescript": "~5.5.4"
   },
   "peerDependenciesMeta": {
+    "@angular-devkit/core": {
+      "optional": true
+    },
     "@angular-devkit/schematics": {
       "optional": true
     },
