@@ -1,4 +1,7 @@
-import type { ItemIdentifier, RulesEngineAction } from '@o3r/core';
+import type {
+  ItemIdentifier,
+  RulesEngineAction
+} from '@o3r/core';
 
 export type NativeTypes = string | boolean | number;
 /** Generic operand */
@@ -37,17 +40,17 @@ export interface BinaryOperation {
 }
 
 /** Nested Condition */
-// eslint-disable-next-line no-use-before-define
+
 export type NestedCondition = UnaryOperation | BinaryOperation | TopLevelCondition;
 /** All Condition */
-// eslint-disable-next-line id-blacklist
-export type AllConditions = {all: NestedCondition[]; any?: never; not?: never};
+
+export type AllConditions = { all: NestedCondition[]; any?: never; not?: never };
 /** Any Condition */
-// eslint-disable-next-line id-blacklist
-export type AnyConditions = {any: NestedCondition[]; all?: never; not?: never};
+
+export type AnyConditions = { any: NestedCondition[]; all?: never; not?: never };
 /** Not Condition */
-// eslint-disable-next-line id-blacklist
-export type NotCondition = {not: NestedCondition; all?: never; any?: never};
+
+export type NotCondition = { not: NestedCondition; all?: never; any?: never };
 /** Top level Condition in the rule definition */
 export type TopLevelCondition = AllConditions | AnyConditions | NotCondition | UnaryOperation | BinaryOperation;
 
@@ -72,7 +75,7 @@ export interface Rule {
   /** Name of the rule*/
   name: string;
   /** rootElement of the rule, that contains either a block, either an action list */
-  // eslint-disable-next-line no-use-before-define
+
   rootElement: AllBlock;
 }
 
@@ -112,7 +115,7 @@ export interface RuleBlock extends RuleElement {
 
 /** All supported blocks (supporting nested structure) */
 export type AllBlock =
-// eslint-disable-next-line no-use-before-define
+
   IfElseBlock
   | (ActionBlock & Record<string, any>);
 
@@ -135,13 +138,13 @@ export interface Ruleset {
   /** List of rules associated to the ruleset */
   rules: Rule[];
   /** Optional date range where the ruleset will be executed*/
-  validityRange?: {from?: string; to?: string};
+  validityRange?: { from?: string; to?: string };
   /**
    * Components linked to the ruleset. If present the ruleset will not be active by default.
    * 'or' condition: If at least one component has subscribed, the ruleset will become active.
    * If provided, the {@link linkedComponent} property will not be taken into consideration
    */
-  linkedComponents?: {or: ItemIdentifier[]};
+  linkedComponents?: { or: ItemIdentifier[] };
   /**
    * Component linked to the ruleset, if set it will disable the ruleset execution per default, waiting to a subscription
    * @deprecated It will be removed in v12, use {@link linkedComponents} instead

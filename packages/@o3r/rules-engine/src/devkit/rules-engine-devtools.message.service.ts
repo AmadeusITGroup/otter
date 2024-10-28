@@ -1,12 +1,39 @@
-import { Inject, Injectable, OnDestroy, Optional } from '@angular/core';
-import { DevtoolsServiceInterface, filterMessageContent, sendOtterMessage } from '@o3r/core';
-import { LoggerService } from '@o3r/logger';
-import { BehaviorSubject, combineLatest, fromEvent, Subscription } from 'rxjs';
-import type { DebugEvent } from '../engine';
-import { AvailableRulesEngineMessageContents, RulesEngineDevtoolsServiceOptions, RulesEngineMessageDataTypes } from './rules-engine-devkit.interface';
-import { isRulesEngineMessage } from './rules-engine-devkit.interface';
-import { OtterRulesEngineDevtools } from './rules-engine-devtools.service';
-import { OTTER_RULES_ENGINE_DEVTOOLS_DEFAULT_OPTIONS, OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS } from './rules-engine-devtools.token';
+import {
+  Inject,
+  Injectable,
+  OnDestroy,
+  Optional
+} from '@angular/core';
+import {
+  DevtoolsServiceInterface,
+  filterMessageContent,
+  sendOtterMessage
+} from '@o3r/core';
+import {
+  LoggerService
+} from '@o3r/logger';
+import {
+  BehaviorSubject,
+  combineLatest,
+  fromEvent,
+  Subscription
+} from 'rxjs';
+import type {
+  DebugEvent
+} from '../engine';
+import {
+  AvailableRulesEngineMessageContents,
+  isRulesEngineMessage,
+  RulesEngineDevtoolsServiceOptions,
+  RulesEngineMessageDataTypes
+} from './rules-engine-devkit.interface';
+import {
+  OtterRulesEngineDevtools
+} from './rules-engine-devtools.service';
+import {
+  OTTER_RULES_ENGINE_DEVTOOLS_DEFAULT_OPTIONS,
+  OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS
+} from './rules-engine-devtools.token';
 
 @Injectable({
   providedIn: 'root'
@@ -94,7 +121,7 @@ export class RulesEngineDevtoolsMessageService implements OnDestroy, DevtoolsSer
       this.subscriptions.add(
         combineLatest([this.forceEmitRulesEngineReport, this.rulesEngineDevtools.rulesEngineReport$]).subscribe(
           ([,report]) => {
-            const sanitizedReport = {...report, events: report.events.map((reportEvents) => this.serializeReportEvent(reportEvents))};
+            const sanitizedReport = { ...report, events: report.events.map((reportEvents) => this.serializeReportEvent(reportEvents)) };
             this.sendMessage('rulesEngineEvents', sanitizedReport);
           }
         )

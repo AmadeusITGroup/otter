@@ -1,15 +1,28 @@
 /* eslint-disable no-console */
-import { Inject, Injectable, Optional } from '@angular/core';
-import type { DevtoolsServiceInterface, WindowWithDevtools } from '@o3r/core';
-import { RulesEngineDevtoolsServiceOptions } from './rules-engine-devkit.interface';
-import { OtterRulesEngineDevtools } from './rules-engine-devtools.service';
-import { OTTER_RULES_ENGINE_DEVTOOLS_DEFAULT_OPTIONS, OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS } from './rules-engine-devtools.token';
+import {
+  Inject,
+  Injectable,
+  Optional
+} from '@angular/core';
+import type {
+  DevtoolsServiceInterface,
+  WindowWithDevtools
+} from '@o3r/core';
+import {
+  RulesEngineDevtoolsServiceOptions
+} from './rules-engine-devkit.interface';
+import {
+  OtterRulesEngineDevtools
+} from './rules-engine-devtools.service';
+import {
+  OTTER_RULES_ENGINE_DEVTOOLS_DEFAULT_OPTIONS,
+  OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS
+} from './rules-engine-devtools.token';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RulesEngineDevtoolsConsoleService implements DevtoolsServiceInterface {
-
   /** Name of the Window property to access to the devtools */
   public static readonly windowModuleName = 'rulesEngine';
 
@@ -32,11 +45,10 @@ export class RulesEngineDevtoolsConsoleService implements DevtoolsServiceInterfa
   /** @inheritDoc */
   public activate() {
     const windowWithDevtools: WindowWithDevtools = window;
-    // eslint-disable-next-line no-underscore-dangle
-    windowWithDevtools._OTTER_DEVTOOLS_ ||= {};
-    // eslint-disable-next-line no-underscore-dangle
-    windowWithDevtools._OTTER_DEVTOOLS_[RulesEngineDevtoolsConsoleService.windowModuleName] = this;
 
+    windowWithDevtools._OTTER_DEVTOOLS_ ||= {};
+
+    windowWithDevtools._OTTER_DEVTOOLS_[RulesEngineDevtoolsConsoleService.windowModuleName] = this;
 
     console.info(`Otter rules engine Devtools is now accessible via the _OTTER_DEVTOOLS_.${RulesEngineDevtoolsConsoleService.windowModuleName} variable`);
   }

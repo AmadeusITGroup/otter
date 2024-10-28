@@ -1,4 +1,6 @@
-import type { Ruleset } from '@o3r/rules-engine';
+import type {
+  Ruleset
+} from '@o3r/rules-engine';
 
 export const jsonOneRulesetOneRuleReexecution: { ruleSets: Ruleset[] } = {
   'ruleSets': [

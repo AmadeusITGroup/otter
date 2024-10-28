@@ -1,6 +1,8 @@
-import { Ruleset } from '../../src/engine/structure';
+import {
+  Ruleset
+} from '../../src/engine/structure';
 
-export const rulesetsObj: {rulesets: Ruleset[]} = {
+export const rulesetsObj: { rulesets: Ruleset[] } = {
   'rulesets': [
     {
       'id': 'e5th46e84-5e4th-54eth65seth46se8th2',
@@ -148,7 +150,7 @@ export const rulesetsObj: {rulesets: Ruleset[]} = {
                 'value': false
               }
             ],
-            'failureElements': [ ]
+            'failureElements': []
           }
         }
       ]

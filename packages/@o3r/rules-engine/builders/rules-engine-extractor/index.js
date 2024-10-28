@@ -5,9 +5,9 @@ It should not be part of the package.
 
 */
 
-const {resolve} = require('node:path');
+const { resolve } = require('node:path');
 
 require('ts-node').register({ project: resolve(__dirname, '..', '..', 'tsconfig.builders.json') });
-require('ts-node').register = () => { };
+require('ts-node').register = () => {};
 
 module.exports = require('./index.ts');

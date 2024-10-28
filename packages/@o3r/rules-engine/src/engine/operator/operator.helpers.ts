@@ -1,5 +1,11 @@
-import {DateInput, Operator, SupportedSimpleTypes} from './operator.interface';
-import type {Facts} from '../fact';
+import type {
+  Facts
+} from '../fact';
+import {
+  DateInput,
+  Operator,
+  SupportedSimpleTypes
+} from './operator.interface';
 
 /**
  * Execute Operator
@@ -46,11 +52,11 @@ export function numberValidator(operand: unknown): operand is number | string {
  * @param operatorInput value of one of the operands
  */
 export function isRangeNumber(operatorInput: unknown): operatorInput is [number | string, number | string] {
-  return Array.isArray(operatorInput) &&
-    operatorInput.length === 2 &&
-    numberValidator(operatorInput[0]) &&
-    numberValidator(operatorInput[1]) &&
-    operatorInput[0] <= operatorInput[1];
+  return Array.isArray(operatorInput)
+    && operatorInput.length === 2
+    && numberValidator(operatorInput[0])
+    && numberValidator(operatorInput[1])
+    && operatorInput[0] <= operatorInput[1];
 }
 
 /**
@@ -78,11 +84,11 @@ export const isValidDateInput = (operatorInput: any): operatorInput is DateInput
  * @param operatorInput
  */
 export const isValidDateRange = (operatorInput: any): operatorInput is [DateInput, DateInput] => {
-  return Array.isArray(operatorInput) &&
-    operatorInput.length === 2 &&
-    isValidDateInput(operatorInput[0]) &&
-    isValidDateInput(operatorInput[1]) &&
-    new Date(operatorInput[0]) <= new Date(operatorInput[1]);
+  return Array.isArray(operatorInput)
+    && operatorInput.length === 2
+    && isValidDateInput(operatorInput[0])
+    && isValidDateInput(operatorInput[1])
+    && new Date(operatorInput[0]) <= new Date(operatorInput[1]);
 };
 
 /**

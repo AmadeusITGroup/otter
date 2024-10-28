@@ -1,4 +1,6 @@
-import { executeOperator } from '..';
+import {
+  executeOperator
+} from '..';
 import {
   dateAfter,
   dateBefore,
@@ -49,16 +51,14 @@ describe('Operators', () => {
       expect(() => executeOperator(null as any, [] as any, dateInNextMinutes)).toThrow();
       expect(() => executeOperator(yesterday, 'invalid date', dateInNextMinutes)).toThrow();
       expect(() => executeOperator(yesterday, -1, dateInNextMinutes)).toThrow();
-
     });
 
     it('should correctly check date in next minutes', () => {
-      expect(executeOperator(tomorrow, (24 * 60 + 1), dateInNextMinutes, {o3rCurrentTime: now.getTime()})).toBeTruthy();
+      expect(executeOperator(tomorrow, (24 * 60 + 1), dateInNextMinutes, { o3rCurrentTime: now.getTime() })).toBeTruthy();
       // for past events, the operator should return false
-      expect(executeOperator(yesterday, 0, dateInNextMinutes, {o3rCurrentTime: now.getTime()})).toBeFalsy();
+      expect(executeOperator(yesterday, 0, dateInNextMinutes, { o3rCurrentTime: now.getTime() })).toBeFalsy();
       // range is from now to +24h but event is in two days. The operator returns false
-      expect(executeOperator(inTwoDays, (24 * 60 + 1), dateInNextMinutes, {o3rCurrentTime: now.getTime()})).toBeFalsy();
-
+      expect(executeOperator(inTwoDays, (24 * 60 + 1), dateInNextMinutes, { o3rCurrentTime: now.getTime() })).toBeFalsy();
     });
 
     it('should throw error when no operatorFactValues is provided', () => {
@@ -67,27 +67,27 @@ describe('Operators', () => {
 
     it('should correctly check the edge case of current time', () => {
       // Considering the exact current time as the leftDate, it should still be true if the range is 0 minutes
-      expect(executeOperator(now, 0, dateInNextMinutes, {o3rCurrentTime: now.getTime()})).toBeTruthy();
+      expect(executeOperator(now, 0, dateInNextMinutes, { o3rCurrentTime: now.getTime() })).toBeTruthy();
 
       // Considering the exact current time but with 1 minute in the future, it should be true
-      expect(executeOperator(now, 1, dateInNextMinutes, {o3rCurrentTime: now.getTime()})).toBeTruthy();
+      expect(executeOperator(now, 1, dateInNextMinutes, { o3rCurrentTime: now.getTime() })).toBeTruthy();
     });
 
     it('should correctly check the edge case of exact target date time', () => {
       const oneHourLater = new Date(now.getTime() + 60 * 60 * 1000); // 1 hour later from now
-      expect(executeOperator(oneHourLater, 60, dateInNextMinutes, {o3rCurrentTime: now.getTime()})).toBeTruthy();
+      expect(executeOperator(oneHourLater, 60, dateInNextMinutes, { o3rCurrentTime: now.getTime() })).toBeTruthy();
 
       const oneMinuteLater = new Date(now.getTime() + 60 * 1000); // 1 minute later from now
-      expect(executeOperator(oneMinuteLater, 1, dateInNextMinutes, {o3rCurrentTime: now.getTime()})).toBeTruthy();
+      expect(executeOperator(oneMinuteLater, 1, dateInNextMinutes, { o3rCurrentTime: now.getTime() })).toBeTruthy();
     });
 
     it('should return false for dates just beyond the specified range', () => {
       const oneMinutePastTarget = new Date(new Date(now).setMinutes(now.getMinutes() + 6)); // 6 minutes from now
-      expect(executeOperator(oneMinutePastTarget, 5, dateInNextMinutes, {o3rCurrentTime: now.getTime()})).toBeFalsy();
+      expect(executeOperator(oneMinutePastTarget, 5, dateInNextMinutes, { o3rCurrentTime: now.getTime() })).toBeFalsy();
     });
 
     it('should validate rhs as numbers', () => {
-      expect(() => executeOperator(now, 'invalid' as any, dateInNextMinutes, {o3rCurrentTime: now.getTime()})).toThrow();
+      expect(() => executeOperator(now, 'invalid' as any, dateInNextMinutes, { o3rCurrentTime: now.getTime() })).toThrow();
     });
   });
 
@@ -105,11 +105,11 @@ describe('Operators', () => {
 
     it('should correctly check date not in next minutes', () => {
       // event occuring tomorrow is not in 0 minutes from now
-      expect(executeOperator(tomorrow, 0, dateNotInNextMinutes, {o3rCurrentTime: now.getTime()})).toBeTruthy();
+      expect(executeOperator(tomorrow, 0, dateNotInNextMinutes, { o3rCurrentTime: now.getTime() })).toBeTruthy();
       // event occuring in two days is not in 24h from now
-      expect(executeOperator(inTwoDays, 24 * 60 + 1, dateNotInNextMinutes, {o3rCurrentTime: now.getTime()})).toBeTruthy();
+      expect(executeOperator(inTwoDays, 24 * 60 + 1, dateNotInNextMinutes, { o3rCurrentTime: now.getTime() })).toBeTruthy();
       // event that occured yesterday is not in 10 minutes from now
-      expect(executeOperator(yesterday, 10, dateNotInNextMinutes, {o3rCurrentTime: now.getTime()})).toBeFalsy();
+      expect(executeOperator(yesterday, 10, dateNotInNextMinutes, { o3rCurrentTime: now.getTime() })).toBeFalsy();
     });
 
     it('should throw error when no operatorFactValues is provided', () => {
@@ -119,29 +119,29 @@ describe('Operators', () => {
     it('should correctly check for events exactly at the edge of the range', () => {
       // Event occurring exactly 1 minute from now should return false, as it is within the range
       const oneMinuteFromNow = new Date(now.getTime() + 60 * 1000);
-      expect(executeOperator(oneMinuteFromNow, 1, dateNotInNextMinutes, {o3rCurrentTime: now.getTime()})).toBeFalsy();
+      expect(executeOperator(oneMinuteFromNow, 1, dateNotInNextMinutes, { o3rCurrentTime: now.getTime() })).toBeFalsy();
 
       // Event occurring just after 1 minute from now should return true, as it is outside the range
       const slightlyAfterOneMinuteFromNow = new Date(oneMinuteFromNow.getTime() + 1);
-      expect(executeOperator(slightlyAfterOneMinuteFromNow, 1, dateNotInNextMinutes, {o3rCurrentTime: now.getTime()})).toBeTruthy();
+      expect(executeOperator(slightlyAfterOneMinuteFromNow, 1, dateNotInNextMinutes, { o3rCurrentTime: now.getTime() })).toBeTruthy();
     });
 
     it('should return false for events within the specified range', () => {
       const halfHourFromNow = new Date(now.getTime() + 30 * 60 * 1000);
-      expect(executeOperator(halfHourFromNow, 60, dateNotInNextMinutes, {o3rCurrentTime: now.getTime()})).toBeFalsy();
+      expect(executeOperator(halfHourFromNow, 60, dateNotInNextMinutes, { o3rCurrentTime: now.getTime() })).toBeFalsy();
     });
 
     it('should validate rhs as numbers', () => {
-      expect(() => executeOperator(now, 'invalid' as any, dateNotInNextMinutes, {o3rCurrentTime: now.getTime()})).toThrow();
+      expect(() => executeOperator(now, 'invalid' as any, dateNotInNextMinutes, { o3rCurrentTime: now.getTime() })).toThrow();
     });
     it('should return true for events happening way into the future', () => {
       const nextYear = new Date(new Date().setFullYear(now.getFullYear() + 1));
-      expect(executeOperator(nextYear, 60, dateNotInNextMinutes, {o3rCurrentTime: now.getTime()})).toBeTruthy();
+      expect(executeOperator(nextYear, 60, dateNotInNextMinutes, { o3rCurrentTime: now.getTime() })).toBeTruthy();
     });
 
     it('should return false for dates way in the past', () => {
       const lastYear = new Date(new Date().setFullYear(now.getFullYear() - 1));
-      expect(executeOperator(lastYear, 60, dateNotInNextMinutes, {o3rCurrentTime: now.getTime()})).toBeFalsy();
+      expect(executeOperator(lastYear, 60, dateNotInNextMinutes, { o3rCurrentTime: now.getTime() })).toBeFalsy();
     });
   });
 

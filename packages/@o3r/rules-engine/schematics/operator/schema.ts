@@ -1,13 +1,15 @@
-import type { SchematicOptionObject } from '@o3r/schematics';
+import type {
+  SchematicOptionObject
+} from '@o3r/schematics';
 
 type SupportedSimpleTypes =
-   | 'string'
-   | 'boolean'
-   | 'Date'
-   | 'number'
-   | 'null'
-   | 'undefined'
-   | 'unknown';
+  | 'string'
+  | 'boolean'
+  | 'Date'
+  | 'number'
+  | 'null'
+  | 'undefined'
+  | 'unknown';
 
 export interface NgGenerateOperatorSchematicsSchema extends SchematicOptionObject {
   /** Facts services Folder */

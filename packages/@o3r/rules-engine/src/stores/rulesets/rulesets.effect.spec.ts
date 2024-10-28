@@ -1,9 +1,25 @@
-import {getTestBed, TestBed} from '@angular/core/testing';
-import {BrowserDynamicTestingModule, platformBrowserDynamicTesting} from '@angular/platform-browser-dynamic/testing';
-import {provideMockActions} from '@ngrx/effects/testing';
-import {Store} from '@ngrx/store';
-import {ReplaySubject, Subject, Subscription} from 'rxjs';
-import {RulesetsEffect} from './rulesets.effect';
+import {
+  getTestBed,
+  TestBed
+} from '@angular/core/testing';
+import {
+  BrowserDynamicTestingModule,
+  platformBrowserDynamicTesting
+} from '@angular/platform-browser-dynamic/testing';
+import {
+  provideMockActions
+} from '@ngrx/effects/testing';
+import {
+  Store
+} from '@ngrx/store';
+import {
+  ReplaySubject,
+  Subject,
+  Subscription
+} from 'rxjs';
+import {
+  RulesetsEffect
+} from './rulesets.effect';
 
 describe('Rules Engine Effects', () => {
   beforeAll(() => getTestBed().platform || TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting(), {
@@ -28,7 +44,7 @@ describe('Rules Engine Effects', () => {
       providers: [
         provideMockActions(() => actions),
         RulesetsEffect,
-        {provide: Store, useValue: mockStore}
+        { provide: Store, useValue: mockStore }
       ]
     }).compileComponents();
 

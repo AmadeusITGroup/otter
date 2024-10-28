@@ -1,9 +1,31 @@
-import { BehaviorSubject, firstValueFrom, Subject, Subscription } from 'rxjs';
-import { reduce, skip, take } from 'rxjs/operators';
-import { rulesetsObj } from '../../../testing/mocks/two-rulesets';
-import { RulesEngine } from '../engine';
-import { ActiveRulesetsEvent, AllActionsEvent, AvailableRulesets, DebugEvent, RulesEngineOptions, RulesetExecutionEvent } from '../engine.interface';
-import { EngineDebugger } from './engine.debug';
+import {
+  BehaviorSubject,
+  firstValueFrom,
+  Subject,
+  Subscription
+} from 'rxjs';
+import {
+  reduce,
+  skip,
+  take
+} from 'rxjs/operators';
+import {
+  rulesetsObj
+} from '../../../testing/mocks/two-rulesets';
+import {
+  RulesEngine
+} from '../engine';
+import {
+  ActiveRulesetsEvent,
+  AllActionsEvent,
+  AvailableRulesets,
+  DebugEvent,
+  RulesEngineOptions,
+  RulesetExecutionEvent
+} from '../engine.interface';
+import {
+  EngineDebugger
+} from './engine.debug';
 
 class MockPerformanceObserver {
   public static readonly supportedEntryTypes: string[] = ['mark', 'measure'];
@@ -30,9 +52,9 @@ describe('Rules engine debug', () => {
     destinationLocationCode$ = new BehaviorSubject<string | undefined>('');
 
     const facts = [
-      {id: 'isMobileDevice', value$: isMobileDevice$},
-      {id: 'pageUrl', value$: pageUrl$},
-      {id: 'destinationLocationCode', value$: destinationLocationCode$}
+      { id: 'isMobileDevice', value$: isMobileDevice$ },
+      { id: 'pageUrl', value$: pageUrl$ },
+      { id: 'destinationLocationCode', value$: destinationLocationCode$ }
     ];
 
     marks = [];
@@ -45,7 +67,7 @@ describe('Rules engine debug', () => {
       facts,
       debugger: engineDebugger,
       rulesEngineInstanceName: 'testRuleEngine',
-      performance: {mark, measure}
+      performance: { mark, measure }
     };
 
     rulesEngine = new RulesEngine(options);
@@ -53,7 +75,7 @@ describe('Rules engine debug', () => {
   });
 
   afterEach(() => {
-    subscriptions.forEach(s => s.unsubscribe());
+    subscriptions.forEach((s) => s.unsubscribe());
   });
 
   it('should handle initialization events', async () => {
@@ -112,7 +134,7 @@ describe('Rules engine debug', () => {
 
     const ruleOneSecondRulesetId = rulesetsObj.rulesets[1].rules[0].id;
     const ruleTwoSecondRulesetId = rulesetsObj.rulesets[1].rules[1].id;
-    // eslint-disable-next-line no-use-before-define
+
     expectForFirstExecutionAfterInitial(events, ruleOneSecondRulesetId, ruleTwoSecondRulesetId);
 
     expect(mark).toHaveBeenCalledTimes(4 * 2); // 4 start events and 4 end events
@@ -192,7 +214,6 @@ describe('Rules engine debug', () => {
     const ruleOneSecondRulesetId = rulesetsObj.rulesets[1].rules[0].id;
     const ruleTwoSecondRulesetId = rulesetsObj.rulesets[1].rules[1].id;
 
-    // eslint-disable-next-line no-use-before-define
     expectForFirstExecutionAfterInitial(events, ruleOneSecondRulesetId, ruleTwoSecondRulesetId);
 
     expect(events[2].type).toBe('RulesetExecution');
@@ -202,16 +223,15 @@ describe('Rules engine debug', () => {
     expect((events[2] as RulesetExecutionEvent).triggers[ruleOneSecondRulesetId].destinationLocationCode.newValue).toBe('LON');
     expect((events[2] as RulesetExecutionEvent).triggers[ruleOneSecondRulesetId].pageUrl).not.toBeDefined();
 
-    const cachedRuleEvaluation = (events[0] as RulesetExecutionEvent).rulesEvaluations.find(ev => ev.rule.id === ruleTwoSecondRulesetId);
+    const cachedRuleEvaluation = (events[0] as RulesetExecutionEvent).rulesEvaluations.find((ev) => ev.rule.id === ruleTwoSecondRulesetId);
 
     expect(cachedRuleEvaluation.cached).toBe(true);
     expect(cachedRuleEvaluation.outputActions.length).toBe(1); // cached rule one action emitted
 
-    const ruleEvaluated = (events[0] as RulesetExecutionEvent).rulesEvaluations.find(ev => ev.rule.id === ruleOneSecondRulesetId);
+    const ruleEvaluated = (events[0] as RulesetExecutionEvent).rulesEvaluations.find((ev) => ev.rule.id === ruleOneSecondRulesetId);
 
     expect(ruleEvaluated.cached).not.toBeDefined();
     expect(ruleEvaluated.outputActions.length).toBe(0); // new evaluation for rule - 4 actions emitted
-
 
     expect((events[2] as RulesetExecutionEvent).outputActions.length).toBe(5); // ruleset total 5 action emitted
 
@@ -227,20 +247,19 @@ describe('Rules engine debug', () => {
     const initialFactsValues = await rulesEngine.engineDebug.getFactsSnapshot(factsNames);
 
     expect(initialFactsValues.length).toBe(3);
-    expect(initialFactsValues.find(f => f.factName === 'isMobileDevice').value).toBe(false);
-    expect(initialFactsValues.find(f => f.factName === 'destinationLocationCode').value).toBe('');
-    expect(initialFactsValues.find(f => f.factName === 'pageUrl').value).toBe('');
+    expect(initialFactsValues.find((f) => f.factName === 'isMobileDevice').value).toBe(false);
+    expect(initialFactsValues.find((f) => f.factName === 'destinationLocationCode').value).toBe('');
+    expect(initialFactsValues.find((f) => f.factName === 'pageUrl').value).toBe('');
 
     isMobileDevice$.next(true);
     destinationLocationCode$.next('NCE');
     const newFactsValues = await rulesEngine.engineDebug.getFactsSnapshot(factsNames);
 
     expect(newFactsValues.length).toBe(3);
-    expect(newFactsValues.find(f => f.factName === 'isMobileDevice').value).toBe(true);
-    expect(newFactsValues.find(f => f.factName === 'destinationLocationCode').value).toBe('NCE');
-    expect(newFactsValues.find(f => f.factName === 'pageUrl').value).toBe('');
+    expect(newFactsValues.find((f) => f.factName === 'isMobileDevice').value).toBe(true);
+    expect(newFactsValues.find((f) => f.factName === 'destinationLocationCode').value).toBe('NCE');
+    expect(newFactsValues.find((f) => f.factName === 'pageUrl').value).toBe('');
   });
-
 });
 
 /**
@@ -256,11 +275,11 @@ function expectForFirstExecutionAfterInitial(events: DebugEvent[], ruleOneSecond
   expect((events[0] as RulesetExecutionEvent).triggers[ruleOneSecondRulesetId].pageUrl.oldValue).toBe('');
   expect((events[0] as RulesetExecutionEvent).triggers[ruleOneSecondRulesetId].pageUrl.newValue).toBe('/upsell');
 
-  const cachedRuleEvaluation = (events[0] as RulesetExecutionEvent).rulesEvaluations.find(ev => ev.rule.id === ruleTwoSecondRulesetId);
+  const cachedRuleEvaluation = (events[0] as RulesetExecutionEvent).rulesEvaluations.find((ev) => ev.rule.id === ruleTwoSecondRulesetId);
   expect(cachedRuleEvaluation.cached).toBe(true);
   expect(cachedRuleEvaluation.outputActions.length).toBe(1); // cached rule one action emitted
 
-  const ruleEvaluated = (events[0] as RulesetExecutionEvent).rulesEvaluations.find(ev => ev.rule.id === ruleOneSecondRulesetId);
+  const ruleEvaluated = (events[0] as RulesetExecutionEvent).rulesEvaluations.find((ev) => ev.rule.id === ruleOneSecondRulesetId);
   expect(ruleEvaluated.cached).not.toBeDefined();
   expect(ruleEvaluated.outputActions.length).toBe(0); // new evaluation for rule - 0 actions emitted
 
@@ -269,4 +288,3 @@ function expectForFirstExecutionAfterInitial(events: DebugEvent[], ruleOneSecond
   expect(events[1].type).toBe('AllActions'); // second emit output actions
   expect((events[1] as AllActionsEvent).actions.length).toBe(2); // rules engine overall 2 actions emitted
 }
-

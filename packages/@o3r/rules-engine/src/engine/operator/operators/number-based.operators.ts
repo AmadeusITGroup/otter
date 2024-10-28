@@ -1,5 +1,9 @@
-import { numberValidator } from '../operator.helpers';
-import { Operator } from '../operator.interface';
+import {
+  numberValidator
+} from '../operator.helpers';
+import {
+  Operator
+} from '../operator.interface';
 
 /**
  * Check if the number variable is greater or equal to a specific value

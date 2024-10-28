@@ -1,6 +1,15 @@
-import { asyncStoreItemAdapter, Serializer } from '@o3r/core';
-import { rulesetsAdapter, rulesetsInitialState } from './rulesets.reducer';
-import { RulesetsModel, RulesetsState } from './rulesets.state';
+import {
+  asyncStoreItemAdapter,
+  Serializer
+} from '@o3r/core';
+import {
+  rulesetsAdapter,
+  rulesetsInitialState
+} from './rulesets.reducer';
+import {
+  RulesetsModel,
+  RulesetsState
+} from './rulesets.state';
 
 export const rulesetsStorageSerializer = (state: RulesetsState) => {
   return asyncStoreItemAdapter.clearAsyncStoreItem(state);

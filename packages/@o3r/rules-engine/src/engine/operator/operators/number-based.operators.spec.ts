@@ -1,4 +1,9 @@
-import { greaterThan, greaterThanOrEqual, lessOrEqual, lessThan } from './number-based.operators';
+import {
+  greaterThan,
+  greaterThanOrEqual,
+  lessOrEqual,
+  lessThan
+} from './number-based.operators';
 
 describe('Number based operator', () => {
   describe('greaterThanOrEqual', () => {

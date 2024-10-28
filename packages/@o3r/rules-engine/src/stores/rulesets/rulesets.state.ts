@@ -1,6 +1,12 @@
-import { EntityState } from '@ngrx/entity';
-import { AsyncStoreItem } from '@o3r/core';
-import type { Ruleset } from '../../engine';
+import {
+  EntityState
+} from '@ngrx/entity';
+import {
+  AsyncStoreItem
+} from '@o3r/core';
+import type {
+  Ruleset
+} from '../../engine';
 
 /**
  * Rulesets model

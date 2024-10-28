@@ -1,10 +1,22 @@
-import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { computeItemIdentifier } from '@o3r/core';
-import type { Ruleset } from '../../engine';
-import { rulesetsAdapter } from './rulesets.reducer';
-import { RULESETS_STORE_NAME, RulesetsState } from './rulesets.state';
+import {
+  createFeatureSelector,
+  createSelector
+} from '@ngrx/store';
+import {
+  computeItemIdentifier
+} from '@o3r/core';
+import type {
+  Ruleset
+} from '../../engine';
+import {
+  rulesetsAdapter
+} from './rulesets.reducer';
+import {
+  RULESETS_STORE_NAME,
+  RulesetsState
+} from './rulesets.state';
 
-const {selectIds, selectEntities, selectAll, selectTotal} = rulesetsAdapter.getSelectors();
+const { selectIds, selectEntities, selectAll, selectTotal } = rulesetsAdapter.getSelectors();
 
 /** Select Rulesets State */
 export const selectRulesetsState = createFeatureSelector<RulesetsState>(RULESETS_STORE_NAME);
@@ -38,7 +50,6 @@ const isValidDate = (d: any) => !isNaN(d) && d instanceof Date;
 export const selectActiveRuleSets = createSelector(
   selectAllRulesets,
   (ruleSets) => ruleSets.filter((ruleSet: Ruleset) => {
-
     if (ruleSet.linkedComponents?.or?.length || ruleSet.linkedComponent) {
       return false;
     }
@@ -83,7 +94,6 @@ function linkComponentToRuleset(compName: string, library: string, ruleSetId: st
   acc[ruleSetId].push(configName);
 }
 
-
 /**
  * Select the map of ruleSet to activate based on the component computed name
  * @deprecated use {@link selectComponentsLinkedToRuleset} instead. It will be removed in v12
@@ -97,7 +107,7 @@ export const selectRuleSetLinkComponents = createSelector(
           return acc;
         }
         if (ruleSet.linkedComponents?.or?.length) {
-          ruleSet.linkedComponents.or.forEach(linkComp => {
+          ruleSet.linkedComponents.or.forEach((linkComp) => {
             linkRulesetToComponent(linkComp.name, linkComp.library, ruleSet.id, acc);
           });
           return acc;
@@ -116,12 +126,12 @@ export const selectComponentsLinkedToRuleset = createSelector(
   selectAllRulesets,
   (ruleSets) =>
     ruleSets
-      .reduce((acc: {or: {[key: string]: string[]}}, ruleSet: Ruleset) => {
+      .reduce((acc: { or: { [key: string]: string[] } }, ruleSet: Ruleset) => {
         if ((!ruleSet.linkedComponents?.or || ruleSet.linkedComponents.or.length === 0) && !ruleSet.linkedComponent) {
           return acc;
         }
         if (ruleSet.linkedComponents?.or?.length) {
-          ruleSet.linkedComponents.or.forEach(linkComp => {
+          ruleSet.linkedComponents.or.forEach((linkComp) => {
             linkComponentToRuleset(linkComp.name, linkComp.library, ruleSet.id, acc.or);
           });
           return acc;
@@ -130,6 +140,5 @@ export const selectComponentsLinkedToRuleset = createSelector(
           linkComponentToRuleset(ruleSet.linkedComponent.name, ruleSet.linkedComponent.library, ruleSet.id, acc.or);
         }
         return acc;
-      }, {or: {}})
+      }, { or: {} })
 );
-

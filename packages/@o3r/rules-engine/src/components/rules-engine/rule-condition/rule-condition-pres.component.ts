@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  ViewEncapsulation
+} from '@angular/core';
 import type {
   BinaryOperation,
   GenericOperand,
@@ -15,7 +20,6 @@ import type {
   encapsulation: ViewEncapsulation.None
 })
 export class RuleConditionPresComponent {
-
   private _condition?: TopLevelCondition;
 
   /**
@@ -45,8 +49,7 @@ export class RuleConditionPresComponent {
   }
 
   private getOperandName(operand: GenericOperand): string {
-    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     const value = `${operand.value ?? 'MISSING_VALUE'}`;
-    return (operand as OperandFact).path ? (operand as OperandFact).path!.replace(/^[$]/, value) : value;
+    return (operand as OperandFact).path ? (operand as OperandFact).path!.replace(/^\$/, value) : value;
   }
 }

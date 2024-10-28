@@ -1,18 +1,27 @@
 import {
+  createAction,
+  props
+} from '@ngrx/store';
+import {
   asyncProps,
   AsyncRequest,
-  FromApiActionPayload,
-  SetAsyncStoreItemEntitiesActionPayload,
-  UpdateAsyncStoreItemEntitiesActionPayloadWithId,
   FailAsyncStoreItemEntitiesActionPayload,
+  FromApiActionPayload,
   SetActionPayload,
+  SetAsyncStoreItemEntitiesActionPayload,
+  SetAsyncStoreItemEntityActionPayload,
   UpdateActionPayload,
-  SetAsyncStoreItemEntityActionPayload
+  UpdateAsyncStoreItemEntitiesActionPayloadWithId
 } from '@o3r/core';
-import {ShoppingCart} from './shopping-cart.model';
-import {createAction, props} from '@ngrx/store';
-import {ShoppingCartStateDetails} from './shopping-cart.state';
-import { XmasHamper } from '../../xmas-hamper.mock';
+import {
+  XmasHamper
+} from '../../xmas-hamper.mock';
+import {
+  ShoppingCart
+} from './shopping-cart.model';
+import {
+  ShoppingCartStateDetails
+} from './shopping-cart.state';
 
 const ACTION_SET_XMAS_HAMPERS_IN_CART = '[ShoppingCart] [XmasHampers] set';
 
@@ -50,11 +59,10 @@ export const resetShoppingCart = createAction(ACTION_RESET);
 export const cancelShoppingCartRequest = createAction(ACTION_CANCEL_REQUEST, props<AsyncRequest>());
 
 /** Action to clear all shoppingCart and fill the store with the payload */
-export const setShoppingCartEntities  = createAction(ACTION_SET_ENTITIES, props<SetAsyncStoreItemEntitiesActionPayload<ShoppingCart>>());
+export const setShoppingCartEntities = createAction(ACTION_SET_ENTITIES, props<SetAsyncStoreItemEntitiesActionPayload<ShoppingCart>>());
 
 /** Action to insert a Cart */
 export const setShoppingCartEntity = createAction(ACTION_SET_ENTITY, props<SetAsyncStoreItemEntityActionPayload<ShoppingCart>>());
-
 
 /** Action to update shoppingCart with known IDs, ignore the new ones */
 export const updateShoppingCartEntities = createAction(ACTION_UPDATE_ENTITIES, props<UpdateAsyncStoreItemEntitiesActionPayloadWithId<ShoppingCart>>());
@@ -97,14 +105,12 @@ export interface CartIdPayload {
  */
 export const selectShoppingCart = createAction(ACTION_SELECT, props<CartIdPayload>());
 
-
 /** Payload for actions that set or upsert a collection of Hampers to an entity */
 export interface SetXmasHampersInCartPayload extends Partial<CartIdPayload>, Partial<AsyncRequest> {
 
   /** Gifts from Santa */
   xmasHampers: XmasHamper[];
 }
-
 
 /**
  * Sets Christmas hampers inside an existing Cart

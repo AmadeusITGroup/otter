@@ -1,5 +1,6 @@
-import type { FactDefinitions } from '../../engine';
-
+import type {
+  FactDefinitions
+} from '../../engine';
 
 /**
  * Operator facts that provide the current time

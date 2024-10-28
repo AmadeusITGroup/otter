@@ -1,5 +1,9 @@
-import type { Rule } from '@angular-devkit/schematics';
-import { updateImports } from '@o3r/schematics';
+import type {
+  Rule
+} from '@angular-devkit/schematics';
+import {
+  updateImports
+} from '@o3r/schematics';
 
 /**
  * Update the Rule Engine service name

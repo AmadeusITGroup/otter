@@ -1,9 +1,13 @@
-import {RulesetsModel, RulesetsState} from './rulesets.state';
+import {
+  computeItemIdentifier
+} from '@o3r/core';
 import * as selectors from './rulesets.selectors';
-import {computeItemIdentifier} from '@o3r/core';
+import {
+  RulesetsModel,
+  RulesetsState
+} from './rulesets.state';
 
 describe('RuleSets Selector tests', () => {
-
   const today = new Date();
   const beforeYesterday = new Date(today);
   const afterTomorrow = new Date(today);
@@ -255,6 +259,4 @@ describe('RuleSets Selector tests', () => {
     };
     expect(selectors.selectComponentsLinkedToRuleset.projector(allRuleSetsArray)).toEqual(componentsWithRulesets);
   });
-
 });
-

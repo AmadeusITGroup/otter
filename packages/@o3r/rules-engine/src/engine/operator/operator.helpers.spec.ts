@@ -1,10 +1,23 @@
-import {of} from 'rxjs';
-import {executeOperator, isRangeNumber, isString, isSupportedSimpleTypes, isValidDate, isValidDateInput, isValidDateRange, numberValidator, parseRegExp} from './operator.helpers';
-import {Operator} from './operator.interface';
+import {
+  of
+} from 'rxjs';
+import {
+  executeOperator,
+  isRangeNumber,
+  isString,
+  isSupportedSimpleTypes,
+  isValidDate,
+  isValidDateInput,
+  isValidDateRange,
+  numberValidator,
+  parseRegExp
+} from './operator.helpers';
+import {
+  Operator
+} from './operator.interface';
 
 describe('Operator helpers', () => {
   describe('execute', () => {
-
     test('should validate both left hand and right hand operands', () => {
       const operator: Operator = {
         name: 'test',
@@ -22,7 +35,6 @@ describe('Operator helpers', () => {
     });
 
     test('should not evaluate the condition if the checks are not passed', () => {
-
       const operatorLhs: Operator = {
         name: 'test',
         validateLhs: jest.fn().mockReturnValue(false),
@@ -48,7 +60,6 @@ describe('Operator helpers', () => {
     });
 
     test('should report unchecked operand value to the logger as warning', () => {
-
       const operatorLhs: Operator = {
         name: 'test',
         validateLhs: jest.fn().mockReturnValue(false),
@@ -142,7 +153,7 @@ describe('Operator helpers', () => {
   describe('isValidDate', () => {
     class FakeDate {
       public getTime() {
-        return 1651069701964;
+        return 1_651_069_701_964;
       }
     }
 
@@ -169,8 +180,8 @@ describe('Operator helpers', () => {
       expect(isValidDateInput(new Date())).toBeTruthy();
       expect(isValidDateInput(new FakeDate())).toBeTruthy();
       expect(isValidDateInput('2012-12-12')).toBeTruthy();
-      expect(isValidDateInput(123456789)).toBeTruthy();
-      expect(isValidDateInput(NaN)).toBeFalsy();
+      expect(isValidDateInput(123_456_789)).toBeTruthy();
+      expect(isValidDateInput(Number.NaN)).toBeFalsy();
     });
   });
 
@@ -179,7 +190,7 @@ describe('Operator helpers', () => {
       expect(isValidDateRange(null)).toBeFalsy();
       expect(isValidDateRange('test')).toBeFalsy();
       expect(isValidDateRange([3, 1])).toBeFalsy();
-      expect(isValidDateRange([1, NaN])).toBeFalsy();
+      expect(isValidDateRange([1, Number.NaN])).toBeFalsy();
 
       expect(isValidDateRange([1, 2])).toBeTruthy();
       expect(isValidDateRange(['2012-12-12', '2013-03-03'])).toBeTruthy();
@@ -189,7 +200,7 @@ describe('Operator helpers', () => {
 
   describe('isSupportedSimpleTypes', () => {
     it('should validate input properly', () => {
-      expect(isSupportedSimpleTypes({random: 'object'})).toBeFalsy();
+      expect(isSupportedSimpleTypes({ random: 'object' })).toBeFalsy();
       expect(isSupportedSimpleTypes({})).toBeFalsy();
       expect(isSupportedSimpleTypes(['random', 'array'])).toBeFalsy();
       expect(isSupportedSimpleTypes([])).toBeFalsy();
@@ -208,7 +219,7 @@ describe('Operator helpers', () => {
 
   describe('isString', () => {
     it('should validate input properly', () => {
-      expect(isString({random: 'object'})).toBeFalsy();
+      expect(isString({ random: 'object' })).toBeFalsy();
       expect(isString({})).toBeFalsy();
       expect(isString(['random', 'array'])).toBeFalsy();
       expect(isString([])).toBeFalsy();

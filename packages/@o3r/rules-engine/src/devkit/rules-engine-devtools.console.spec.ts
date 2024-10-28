@@ -1,12 +1,23 @@
-/* eslint-disable no-console */
-import { getTestBed, TestBed } from '@angular/core/testing';
-import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
-import { RulesEngineDevtoolsConsoleService } from './rules-engine-devtools.console.service';
-import { OTTER_RULES_ENGINE_DEVTOOLS_DEFAULT_OPTIONS, OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS } from './rules-engine-devtools.token';
-import { OtterRulesEngineDevtools } from './rules-engine-devtools.service';
+import {
+  getTestBed,
+  TestBed
+} from '@angular/core/testing';
+import {
+  BrowserDynamicTestingModule,
+  platformBrowserDynamicTesting
+} from '@angular/platform-browser-dynamic/testing';
+import {
+  RulesEngineDevtoolsConsoleService
+} from './rules-engine-devtools.console.service';
+import {
+  OtterRulesEngineDevtools
+} from './rules-engine-devtools.service';
+import {
+  OTTER_RULES_ENGINE_DEVTOOLS_DEFAULT_OPTIONS,
+  OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS
+} from './rules-engine-devtools.token';
 
 describe('Rules Engine DevTools console', () => {
-
   beforeAll(() => getTestBed().platform || TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting(), {
     teardown: { destroyAfterEach: false }
   }));
@@ -28,7 +39,6 @@ describe('Rules Engine DevTools console', () => {
   it('should be activated', () => {
     service.activate();
 
-    // eslint-disable-next-line no-underscore-dangle
     expect((window as any)._OTTER_DEVTOOLS_?.[RulesEngineDevtoolsConsoleService.windowModuleName]).toBeDefined();
   });
 });

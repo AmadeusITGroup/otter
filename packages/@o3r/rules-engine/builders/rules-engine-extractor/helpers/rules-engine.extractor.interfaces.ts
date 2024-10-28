@@ -32,7 +32,7 @@ export interface ArrayMetadataFact extends BaseMetadataFact {
   /** @inheritdoc */
   type: 'array';
   /** Items in array */
-  // eslint-disable-next-line no-use-before-define
+
   items: MetadataFact;
 }
 
@@ -59,11 +59,10 @@ export interface MetadataOperand {
   types: (MetadataOperatorSupportedTypes | 'unknown')[];
   /**
    * List of items supported by the operand
-   *
    * @description
    * -1 for an array with undefined number of items
    * 1 for an non-array item
-   **/
+   */
   nbValues: number;
 }
 

@@ -1,4 +1,6 @@
-import type { ActionBlock } from '../engine/index';
+import type {
+  ActionBlock
+} from '../engine/index';
 
 /**
  * Content of action that updates the configuration

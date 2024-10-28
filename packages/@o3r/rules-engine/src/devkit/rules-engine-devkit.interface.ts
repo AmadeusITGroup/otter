@@ -1,5 +1,14 @@
-import type { ConnectContentMessage, DevtoolsCommonOptions, MessageDataTypes, OtterMessageContent, RequestMessagesContentMessage } from '@o3r/core';
-import type { DebugEvent, Ruleset } from '../engine';
+import type {
+  ConnectContentMessage,
+  DevtoolsCommonOptions,
+  MessageDataTypes,
+  OtterMessageContent,
+  RequestMessagesContentMessage
+} from '@o3r/core';
+import type {
+  DebugEvent,
+  Ruleset
+} from '../engine';
 
 export interface RulesEngineDevtoolsServiceOptions extends DevtoolsCommonOptions {
   /** Size of events list emitted by rules engine; When undefined all history will be kept */
@@ -28,8 +37,8 @@ export type AvailableRulesEngineMessageContents =
 
 export const isRulesEngineMessage = (message: any): message is AvailableRulesEngineMessageContents => {
   return message && (
-    message.dataType === 'rulesEngineEvents' ||
-    message.dataType === 'requestMessages' ||
-    message.dataType === 'connect'
+    message.dataType === 'rulesEngineEvents'
+    || message.dataType === 'requestMessages'
+    || message.dataType === 'connect'
   );
 };

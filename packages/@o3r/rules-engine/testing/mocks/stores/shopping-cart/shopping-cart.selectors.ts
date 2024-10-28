@@ -1,8 +1,17 @@
-import {createFeatureSelector, createSelector} from '@ngrx/store';
-import {shoppingCartAdapter} from './shopping-cart.reducer';
-import {SHOPPING_CART_STORE_NAME, ShoppingCartState, ShoppingCartModel} from './shopping-cart.state';
+import {
+  createFeatureSelector,
+  createSelector
+} from '@ngrx/store';
+import {
+  shoppingCartAdapter
+} from './shopping-cart.reducer';
+import {
+  SHOPPING_CART_STORE_NAME,
+  ShoppingCartModel,
+  ShoppingCartState
+} from './shopping-cart.state';
 
-const {selectIds, selectEntities, selectAll, selectTotal} = shoppingCartAdapter.getSelectors();
+const { selectIds, selectEntities, selectAll, selectTotal } = shoppingCartAdapter.getSelectors();
 
 /** Select ShoppingCart State */
 export const selectShoppingCartState = createFeatureSelector<ShoppingCartState>(SHOPPING_CART_STORE_NAME);
@@ -29,5 +38,4 @@ export const selectCurrentShoppingCartId = createSelector(selectShoppingCartStat
 export const selectCartEntities = createSelector(selectShoppingCartState, selectEntities);
 
 /** Select the Cart associated to the selectedCartId */
-export const selectCurrentShoppingCart =
-  createSelector(selectCartEntities, selectCurrentShoppingCartId, (carts, id): ShoppingCartModel | null => id && carts[id] ? carts[id]! : null);
+export const selectCurrentShoppingCart = createSelector(selectCartEntities, selectCurrentShoppingCartId, (carts, id): ShoppingCartModel | null => id && carts[id] ? carts[id] : null);
