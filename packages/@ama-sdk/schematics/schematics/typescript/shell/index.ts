@@ -133,20 +133,19 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKShellSchemati
       if (options.specPackageRegistry && specScope) {
         const workspaceRootNpmrcPath = posix.join(tree.root.path, '.npmrc');
         const standaloneNpmrcPath = posix.join(targetPath, '.npmrc');
-        let npmrc;
-        if (tree.exists(workspaceRootNpmrcPath)) {
-          npmrc = tree.readText(workspaceRootNpmrcPath);
-        } else {
-          npmrc = tree.exists(standaloneNpmrcPath) ? tree.readText(standaloneNpmrcPath) : '';
-        }
-        npmrc += `\n@${specScope}:registry=${options.specPackageRegistry}\n`;
-        if (tree.exists(workspaceRootNpmrcPath)) {
-          tree.overwrite(workspaceRootNpmrcPath, npmrc);
-        } else if (tree.exists(standaloneNpmrcPath)){
-          tree.overwrite(standaloneNpmrcPath, npmrc);
-        } else {
-          tree.create(standaloneNpmrcPath, npmrc);
-        }
+        const editNpmrc = (npmrcPath: string, create = false) => {
+          const exists = tree.exists(npmrcPath);
+          let npmrc = exists ? tree.readText(npmrcPath) : '';
+          npmrc = `@${specScope}:registry=${options.specPackageRegistry}\n` + npmrc;
+          if (exists) {
+            tree.overwrite(npmrcPath, npmrc);
+          } else if (create) {
+            tree.create(npmrcPath, npmrc);
+          }
+          return exists;
+        };
+        const workspaceRootNpmrcExists = editNpmrc(workspaceRootNpmrcPath);
+        editNpmrc(standaloneNpmrcPath, !workspaceRootNpmrcExists);
       }
     }
 
