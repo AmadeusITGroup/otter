@@ -43,7 +43,7 @@
     "@angular/platform-browser-dynamic": "~18.2.0",
     "@angular/router": "~18.2.0",
     "@design-factory/design-factory": "~18.1.0",
-    "@formatjs/intl-numberformat": "~8.13.0",
+    "@formatjs/intl-numberformat": "~8.14.0",
     "@ng-bootstrap/ng-bootstrap": "^17.0.0",
     "@ng-select/ng-select": "~13.9.0",
     "@ngrx/effects": "~18.0.0",
