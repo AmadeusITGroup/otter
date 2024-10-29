@@ -60,6 +60,12 @@ const config = [
           trailingUnderscore: 'allow'
         },
         {
+          selector: 'memberLike',
+          modifiers: ['private'],
+          format: ['camelCase', 'UPPER_CASE'],
+          leadingUnderscore: 'allow'
+        },
+        {
           selector: 'typeLike',
           format: ['PascalCase']
         },
@@ -75,6 +81,15 @@ const config = [
         {
           selector: 'import',
           format: ['camelCase', 'PascalCase']
+        },
+        {
+          selector: 'objectLiteralProperty',
+          format: null
+        },
+        {
+          selector: 'variable',
+          modifiers: ['destructured'],
+          format: null
         }
       ],
       '@typescript-eslint/no-dupe-class-members': 'error',

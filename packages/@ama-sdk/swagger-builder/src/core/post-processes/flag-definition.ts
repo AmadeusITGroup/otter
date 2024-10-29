@@ -12,7 +12,6 @@ export class FlagDefinition implements PostProcess {
       definitions: Object.entries(swaggerSpec.definitions).reduce((definitions, [definitionName, definition]) => {
         definitions[definitionName] = {
           ...definition as any,
-          // eslint-disable-next-line @typescript-eslint/naming-convention -- naming convention imposed for x-api-ref
           'x-api-ref': definitionName
         };
         return definitions;

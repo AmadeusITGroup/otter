@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention -- status code are not following the naming convention */
 /* eslint-disable no-console -- only using the reference */
 import {
   getResponseReviver,

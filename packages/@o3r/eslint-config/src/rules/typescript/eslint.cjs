@@ -1,6 +1,34 @@
 const eslint = require('@eslint/js');
 const { convertWarningsToErrors } = require('../utils.cjs');
 
+const defaultNewCapOptions = {
+  newIsCap: true,
+  capIsNew: true,
+  properties: true,
+  capIsNewExceptions: [
+    'AsyncInput',
+    'Component',
+    'Directive',
+    'HostBinding',
+    'HostListener',
+    'Inject',
+    'Injectable',
+    'Input',
+    'Localization',
+    'NgModule',
+    'Optional',
+    'Output',
+    'Pipe',
+    'ViewChild',
+    'ViewChildren',
+    'SkipSelf',
+    'Host',
+    'ContentChildren',
+    'O3rComponent',
+    'ConfigObserver',
+    'O3rConfig'
+  ]
+};
 /**
  * @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.ConfigArray}
  */
@@ -36,34 +64,7 @@ const config = [
       'max-classes-per-file': 'off',
       'new-cap': [
         'error',
-        {
-          newIsCap: true,
-          capIsNew: true,
-          properties: true,
-          capIsNewExceptions: [
-            'AsyncInput',
-            'Component',
-            'Directive',
-            'HostBinding',
-            'HostListener',
-            'Inject',
-            'Injectable',
-            'Input',
-            'Localization',
-            'NgModule',
-            'Optional',
-            'Output',
-            'Pipe',
-            'ViewChild',
-            'ViewChildren',
-            'SkipSelf',
-            'Host',
-            'ContentChildren',
-            'O3rComponent',
-            'ConfigObserver',
-            'O3rConfig'
-          ]
-        }
+        defaultNewCapOptions
       ],
       'no-alert': 'error',
       'no-bitwise': 'error',
@@ -121,6 +122,21 @@ const config = [
       'strict': [
         'error',
         'global'
+      ]
+    }
+  },
+  {
+    name: '@o3r/eslint-config/eslint-js/typescript',
+    files: [
+      '**/*.{c,m,}ts'
+    ],
+    rules: {
+      'new-cap': [
+        'error',
+        {
+          ...defaultNewCapOptions,
+          newIsCap: false
+        }
       ]
     }
   }

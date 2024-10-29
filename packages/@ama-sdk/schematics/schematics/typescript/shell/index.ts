@@ -45,7 +45,6 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKShellSchemati
   const setupRule = async (tree: Tree, context: SchematicContext) => {
     const amaSdkSchematicsPackageJson = await readPackageJson();
 
-    /* eslint-disable @typescript-eslint/naming-convention -- package names are not following naming convention */
     const versions = {
       'tslib': amaSdkSchematicsPackageJson.dependencies!.tslib,
       '@commitlint/cli': amaSdkSchematicsPackageJson.generatorDependencies['@commitlint/cli'],

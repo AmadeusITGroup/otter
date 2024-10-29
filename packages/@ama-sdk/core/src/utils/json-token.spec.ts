@@ -34,7 +34,6 @@ describe('JSON token utils', () => {
 
 describe('JSON Web Encryption Token', () => {
   it('should generate a proper JWE Token', async () => {
-    /* eslint-disable @typescript-eslint/naming-convention -- naming convention imposed for Amadeus JWE */
     const expectedJwePayload = {
       iat: 0,
       exp: 3600,
@@ -45,7 +44,6 @@ describe('JSON Web Encryption Token', () => {
         '{lastName}': 'Doe'
       }
     };
-    /* eslint-enable @typescript-eslint/naming-convention */
     const expectedJweHeader = {
       alg: 'RSA-OAEP-256',
       enc: 'A256GCM',

@@ -98,7 +98,6 @@ describe('BotProtectionFingerprint', () => {
       it('Should return undefined if bmak object doesn\'t exist.', () => {
         expect(akamaiTelemetryRetrieverFactory()()).toBeUndefined();
         expect(akamaiTelemetryRetrieverFactory({} as any)()).toBeUndefined();
-        // eslint-disable-next-line @typescript-eslint/naming-convention -- naming convention imposed by Akamai
         expect(akamaiTelemetryRetrieverFactory({ get_telemetry: 'test' } as any)()).toBeUndefined();
       });
 

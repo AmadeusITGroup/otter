@@ -94,7 +94,7 @@ export class CascadingProbot extends Cascading {
     if (this.options.appId !== undefined) {
       const { data } = await this.options.octokit.pulls.get({
         ...this.options.repo,
-        // eslint-disable-next-line @typescript-eslint/naming-convention, camelcase -- naming convention imposed by octokit
+
         pull_number: +id
       });
       return data.user?.id === +this.options.appId;
@@ -112,7 +112,7 @@ export class CascadingProbot extends Cascading {
   protected async mergePullRequest(id: string | number) {
     const { data } = await this.options.octokit.pulls.merge({
       ...this.options.repo,
-      // eslint-disable-next-line @typescript-eslint/naming-convention, camelcase -- naming convention imposed by octokit
+
       pull_number: +id
     });
     return data.merged;
@@ -135,32 +135,29 @@ export class CascadingProbot extends Cascading {
       base,
       head
     }));
-    /* eslint-disable @typescript-eslint/naming-convention, camelcase -- naming convention imposed by octokit */
+
     const { ahead_by, behind_by } = data;
     this.logger.debug(`${baseBranch} is ahead by ${ahead_by} and behind by ${behind_by} compare to ${targetBranch}`);
     return ahead_by > 0;
-    /* eslint-enable @typescript-eslint/naming-convention, camelcase */
   }
 
   /** @inheritdoc */
   protected async getBranches() {
     this.logger.debug('List remote branches');
-    /* eslint-disable camelcase, @typescript-eslint/naming-convention -- naming convention imposed by octokit */
-    const per_page = 100;
+    const perPage = 100;
     let pageIndex = 1;
     let getCurrentPage = true;
     const branchNames: string[] = [];
     while (getCurrentPage && pageIndex <= 20) {
       const res = await this.options.octokit.repos.listBranches({
         ...this.options.repo,
-        per_page,
+        per_page: perPage,
         page: pageIndex++
       });
       branchNames.push(...res.data.map(({ name }) => name));
-      getCurrentPage = res.data.length === per_page;
+      getCurrentPage = res.data.length === perPage;
     }
     return branchNames;
-    /* eslint-enable camelcase, @typescript-eslint/naming-convention */
   }
 
   /** @inheritdoc */
@@ -213,7 +210,7 @@ export class CascadingProbot extends Cascading {
       const id = data.number;
       await this.options.octokit.issues.addLabels({
         ...this.options.repo,
-        // eslint-disable-next-line @typescript-eslint/naming-convention, camelcase -- naming convention imposed by octokit
+
         issue_number: id,
         labels
       });
@@ -232,7 +229,7 @@ export class CascadingProbot extends Cascading {
   protected async updatePullRequestMessage(id: string | number, body: string, title?: string): Promise<CascadingPullRequestInfo> {
     const { data } = await this.options.octokit.pulls.update({
       ...this.options.repo,
-      // eslint-disable-next-line @typescript-eslint/naming-convention, camelcase -- naming convention imposed by octokit
+
       pull_number: +id,
       body,
       title
@@ -268,7 +265,7 @@ export class CascadingProbot extends Cascading {
   protected async getPullRequestFromId(id: string | number): Promise<CascadingPullRequestInfo> {
     const { data } = await this.options.octokit.pulls.get({
       ...this.options.repo,
-      // eslint-disable-next-line @typescript-eslint/naming-convention, camelcase -- naming convention imposed by octokit
+
       pull_number: +id
     });
     return {

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention -- status code and api paths are not following the naming-convention */
 import type {
   OpenAPIV2,
   OpenAPIV3

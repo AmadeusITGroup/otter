@@ -117,7 +117,6 @@ describe('Tokenizer Request Plugin', () => {
 
     const result = await runner.transform({ ...options, tokenizedOptions });
     const expectedJwePayload = {
-      // eslint-disable-next-line @typescript-eslint/naming-convention -- naming convention imposed for Amadeus JWE
       'ama-tokens': {
         $pathParamToken$: 'pathParamValue',
         $sensitiveParamToken$: 'sensitiveParamValue'
