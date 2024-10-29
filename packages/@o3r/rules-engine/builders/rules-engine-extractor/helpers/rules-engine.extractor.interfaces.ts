@@ -32,7 +32,6 @@ export interface ArrayMetadataFact extends BaseMetadataFact {
   /** @inheritdoc */
   type: 'array';
   /** Items in array */
-
   items: MetadataFact;
 }
 

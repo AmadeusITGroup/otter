@@ -93,7 +93,6 @@ import {
 
 describe('Rules engine service', () => {
   let service: RulesEngineRunnerService;
-
   let store: Store<ShoppingCartStore & RulesetsStore>;
   let foieGrasPriceFact$: Observable<string | undefined>;
   let cartFact$: Observable<ShoppingCart | null>;
@@ -160,6 +159,7 @@ describe('Rules engine service', () => {
     expect(actions[0].actionType).toBe('UPDATE_LOCALISATION');
   });
 
+  // eslint-disable-next-line jest/no-done-callback -- eventually rewrite the test
   it('should handle linked components and validity range properly', (done) => {
     service.events$.pipe(take(1)).subscribe((actions) => {
       expect(actions.length).toBe(1);
@@ -384,18 +384,15 @@ describe('Rules engine service', () => {
       value$: aNumberSubj
     }]);
     store.dispatch(setRulesetsEntities({ entities: jsonOneRulesetTwoRules.ruleSets }));
-
     expect(consoleSpy).toHaveBeenCalled();
     const actions = await firstValueFrom(service.events$);
     expect(actions.length).toBe(1);
     // Fake emit of same value from sNumber fact, should not do anything
     aNumberSubj.next(undefined);
-
     expect(consoleSpy).toHaveBeenCalledTimes(1);
     // Fake emit of new value from sNumber fact, should trigger error, but not the events$
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- test trigger of error
     aNumberSubj.next(null as any);
-
     expect(consoleSpy).toHaveBeenCalledTimes(2);
     // Fake emit of new value from sNumber fact, should not trigger error, and trigger events$
     aNumberSubj.next(4);

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 import {
   RuleEvaluation,
   RuleEvaluationOutput
@@ -17,7 +16,8 @@ const currentEvaluationsOutput = [
   {
     'actions': [],
     'evaluation': {
-      'timestamp': 1_639_037_495_870,
+      // eslint-disable-next-line unicorn/numeric-separators-style -- timestamp
+      'timestamp': 1639037495870,
       'outputActions': [],
       'id': 'first ruleset - rule zero',
       'triggers': {
@@ -47,7 +47,8 @@ const currentEvaluationsOutput = [
       }
     ],
     'evaluation': {
-      'timestamp': 1_639_033_679_719,
+      // eslint-disable-next-line unicorn/numeric-separators-style -- timestamp
+      'timestamp': 1639033679719,
       'outputActions': [
         {
           'elementType': 'ACTION',
@@ -82,7 +83,8 @@ const prevEvaluationsOutput = [
   {
     'actions': [],
     'evaluation': {
-      'timestamp': 1_639_033_680_955,
+      // eslint-disable-next-line unicorn/numeric-separators-style -- timestamp
+      'timestamp': 1639033680955,
       'outputActions': [],
       'id': 'first ruleset - rule zero',
       'triggers': {
@@ -112,7 +114,8 @@ const prevEvaluationsOutput = [
       }
     ],
     'evaluation': {
-      'timestamp': 1_639_033_679_719,
+      // eslint-disable-next-line unicorn/numeric-separators-style -- timestamp
+      'timestamp': 1639033679719,
       'outputActions': [
         {
           'elementType': 'ACTION',

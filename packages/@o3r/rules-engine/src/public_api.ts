@@ -1,6 +1,5 @@
 export * from './components/index';
 export * from './devkit/index';
-export * from './devkit/index';
 export * from './engine/index';
 export * from './fact/index';
 export * from './inner-facts/index';

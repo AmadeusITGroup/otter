@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+/* eslint-disable no-console -- purpose of the service is to log in the console */
 import {
   Inject,
   Injectable,
@@ -45,9 +45,7 @@ export class RulesEngineDevtoolsConsoleService implements DevtoolsServiceInterfa
   /** @inheritDoc */
   public activate() {
     const windowWithDevtools: WindowWithDevtools = window;
-
     windowWithDevtools._OTTER_DEVTOOLS_ ||= {};
-
     windowWithDevtools._OTTER_DEVTOOLS_[RulesEngineDevtoolsConsoleService.windowModuleName] = this;
 
     console.info(`Otter rules engine Devtools is now accessible via the _OTTER_DEVTOOLS_.${RulesEngineDevtoolsConsoleService.windowModuleName} variable`);

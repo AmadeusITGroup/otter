@@ -60,8 +60,7 @@ export const notStringContains: Operator<string, string> = {
  */
 export const allEqual: Operator<SupportedSimpleTypes[], SupportedSimpleTypes> = {
   name: 'allEqual',
-  // eslint-disable-next-line eqeqeq
-  evaluator: (array, value) => array.every((elementValue) => elementValue == value),
+  evaluator: (array, value) => array.every((elementValue) => elementValue === value),
   validateLhs: Array.isArray,
   validateRhs: isSupportedSimpleTypes
 };
@@ -142,8 +141,7 @@ export const allRangeNumber: Operator<number[], [number | string, number | strin
  */
 export const oneEquals: Operator<SupportedSimpleTypes[], SupportedSimpleTypes> = {
   name: 'oneEquals',
-  // eslint-disable-next-line eqeqeq
-  evaluator: (array, value) => array.some((elementValue) => elementValue == value),
+  evaluator: (array, value) => array.includes(value),
   validateLhs: Array.isArray,
   validateRhs: isSupportedSimpleTypes
 };

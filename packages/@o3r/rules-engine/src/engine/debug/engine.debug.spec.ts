@@ -263,6 +263,7 @@ describe('Rules engine debug', () => {
 });
 
 /**
+ * Expect for first execution after initial
  * @param events
  * @param ruleOneSecondRulesetId
  * @param ruleTwoSecondRulesetId

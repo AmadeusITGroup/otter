@@ -88,7 +88,6 @@ export class RulesEngine {
   /**
    * Rules engine
    * @param options rules engine options
-   * @param logger
    */
   constructor(options?: RulesEngineOptions) {
     this.performance = options?.performance || (typeof window === 'undefined' ? undefined : window.performance);
@@ -119,7 +118,6 @@ export class RulesEngine {
 
   /**
    * Attach debug events to actions stream if debug engine is activated
-   * @param actionsStream
    */
   private handleActionsStreamOutput<T extends ActionBlock = ActionBlock>(): (actionsStream$: Observable<T[]>) => Observable<T[]> {
     return (actionsStream$: Observable<T[]>) => this.engineDebug ? actionsStream$.pipe(tap((allActions) => this.engineDebug!.allActionsChange(allActions))) : actionsStream$;
@@ -192,7 +190,6 @@ export class RulesEngine {
 
   /**
    * Update or insert rule in rules engine
-   * @param rules rule list to add / update
    * @param rulesets
    */
   public upsertRulesets(rulesets: Ruleset[]) {

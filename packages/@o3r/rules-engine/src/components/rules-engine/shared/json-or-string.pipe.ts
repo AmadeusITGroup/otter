@@ -11,7 +11,7 @@ export class O3rJsonOrStringPipe implements PipeTransform {
   /**
    * @inheritDoc
    */
-  transform(value: any): string {
+  public transform(value: any): string {
     if (typeof value === 'string') {
       return value;
     }

@@ -107,7 +107,7 @@ export class EngineDebugger {
         subscriber.next(list.getEntries() as PerformanceMeasure[]);
       });
       performanceObserver.observe({ entryTypes: ['measure'] });
-      return performanceObserver.disconnect;
+      return performanceObserver.disconnect();
     }).pipe(startWith([]), shareReplay(1));
   }
 
@@ -264,7 +264,6 @@ export class EngineDebugger {
    * @param runtimeFactValues
    * @param rulesetTriggers
    * @param rulesExecutions
-   * @param retrieveFactFunc
    */
   public addRulesetExecutionEvent(ruleset: Ruleset, executionCounter: number,
     rulesetInputFacts: string[], allOutputActions: ActionBlock[], runtimeFactValues: Record<string, Facts>,
@@ -282,7 +281,6 @@ export class EngineDebugger {
    * @param runtimeFactValues
    * @param rulesetTriggers
    * @param rulesExecutions
-   * @param retrieveFactFunc
    */
   public addRulesetExecutionErrorEvent(
     ruleset: Ruleset,

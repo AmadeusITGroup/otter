@@ -1,6 +1,6 @@
 import {
   executeOperator
-} from '..';
+} from '../operator.helpers';
 import {
   dateAfter,
   dateBefore,

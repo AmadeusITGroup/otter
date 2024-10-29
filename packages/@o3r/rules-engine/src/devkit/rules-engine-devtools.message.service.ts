@@ -73,7 +73,6 @@ export class RulesEngineDevtoolsMessageService implements OnDestroy, DevtoolsSer
 
   /**
    * Function to handle the incoming messages from Otter Chrome DevTools extension
-   * @param event Event coming from the Otter Chrome DevTools extension
    * @param message
    */
   private handleEvents(message: AvailableRulesEngineMessageContents) {
@@ -94,12 +93,13 @@ export class RulesEngineDevtoolsMessageService implements OnDestroy, DevtoolsSer
     }
   }
 
+  private readonly serializeError = (error: any) => error instanceof Error ? error.toString() : error;
+
   /**
    * Serialize exceptions in a way that will display the error message after a JSON.stringify()
    * @param debugEvent
    */
   private serializeReportEvent(debugEvent: DebugEvent) {
-    const serializeError = (error: any) => error instanceof Error ? error.toString() : error;
     if (debugEvent.type !== 'RulesetExecutionError') {
       return debugEvent;
     }
@@ -107,9 +107,10 @@ export class RulesEngineDevtoolsMessageService implements OnDestroy, DevtoolsSer
       ...debugEvent,
       rulesEvaluations: debugEvent.rulesEvaluations.map((ruleEvaluation) => ({
         ...ruleEvaluation,
-        error: serializeError(ruleEvaluation.error)
+        error: this.serializeError(ruleEvaluation.error)
       })),
-      errors: debugEvent.errors.map(serializeError)
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return -- type is explicitly `any`
+      errors: debugEvent.errors.map((error) => this.serializeError(error))
     };
   }
 

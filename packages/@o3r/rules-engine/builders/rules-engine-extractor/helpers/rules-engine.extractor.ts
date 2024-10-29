@@ -61,7 +61,7 @@ export class RulesEngineExtractor {
   private readonly commentParser = new ConfigDocParser();
 
   constructor(tsconfigPath: string, private readonly basePath: string, private readonly logger: LoggerApi) {
-    const { config } = ts.readConfigFile(tsconfigPath, ts.sys.readFile);
+    const { config } = ts.readConfigFile(tsconfigPath, (p) => ts.sys.readFile(p));
     this.tsconfig = config;
   }
 
@@ -201,7 +201,7 @@ export class RulesEngineExtractor {
       if (ts.isInterfaceDeclaration(node) && node.heritageClauses?.some((clause) => clause.types.some((type) => type.getText(source) === RulesEngineExtractor.FACT_DEFINITIONS_INTERFACE))) {
         facts.push(
           ...node.members
-            .filter(ts.isPropertySignature)
+            .filter((memberNode) => ts.isPropertySignature(memberNode))
             .filter((prop) => {
               const name = prop.name.getText(source);
               if (RulesEngineExtractor.RESERVED_FACT_NAMES.includes(name)) {
@@ -214,7 +214,7 @@ export class RulesEngineExtractor {
               const name = prop.name.getText(source);
               const description = this.commentParser.parseConfigDocFromNode(source, prop)?.description;
 
-              if (!prop.type || !this.isNativeType(prop.type) && !ts.isTypeReferenceNode(prop.type) && !ts.isUnionTypeNode(prop.type)) {
+              if (!prop.type || (!this.isNativeType(prop.type) && !ts.isTypeReferenceNode(prop.type) && !ts.isUnionTypeNode(prop.type))) {
                 throw new O3rCliError(`The fact ${name} has an unsupported type "${prop.type?.getText(source) || 'unknown'}" in ${sourceFile}`);
               }
 
@@ -262,7 +262,7 @@ export class RulesEngineExtractor {
                     fact = {
                       ...fact,
                       type: 'string',
-                      // eslint-disable-next-line @typescript-eslint/no-base-to-string
+                      // eslint-disable-next-line @typescript-eslint/no-base-to-string -- convert non-null values to string
                       enum: schema.enum?.filter((value): value is JSONSchema7Type => !!value).map((v) => v!.toString())
                     } as EnumMetadataFact;
                   } else {
@@ -296,7 +296,7 @@ export class RulesEngineExtractor {
    */
   public isNativeType(type: ts.TypeNode) {
     return [ts.SyntaxKind.BooleanKeyword, ts.SyntaxKind.NumberKeyword, ts.SyntaxKind.StringKeyword].some(
-      (typeKind) => typeKind === type.kind || ts.isArrayTypeNode(type) && type.elementType.kind === typeKind
+      (typeKind) => typeKind === type.kind || (ts.isArrayTypeNode(type) && type.elementType.kind === typeKind)
     );
   }
 
@@ -393,9 +393,9 @@ export class RulesEngineExtractor {
             .forEach((tNode) => {
               if (tNode.expression.getText(source) === RulesEngineExtractor.OPERATOR_ACTIONS_INTERFACE && tNode.typeArguments) {
                 tNode.typeArguments
-                  .filter(ts.isTypeLiteralNode)
+                  .filter((argNode) => ts.isTypeLiteralNode(argNode))
                   .forEach((argNode) => argNode.members
-                    .filter(ts.isPropertySignature)
+                    .filter((memberNode) => ts.isPropertySignature(memberNode))
                     .forEach((memberNode) => {
                       if (memberNode.name && memberNode.type) {
                         parameters ||= {};
@@ -408,7 +408,7 @@ export class RulesEngineExtractor {
         });
 
         const type = node.members
-          .filter(ts.isPropertyDeclaration)
+          .filter((methodNode) => ts.isPropertyDeclaration(methodNode))
           .find((methodNode) => methodNode.name.getText(source) === 'name')
           ?.initializer?.getText(source).replace(/^["'](.*)["']$/, '$1');
 

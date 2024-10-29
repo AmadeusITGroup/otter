@@ -44,12 +44,15 @@ export interface BinaryOperation {
 export type NestedCondition = UnaryOperation | BinaryOperation | TopLevelCondition;
 /** All Condition */
 
+// eslint-disable-next-line id-denylist -- `any` is a conditional keyword enforced by the rule interface
 export type AllConditions = { all: NestedCondition[]; any?: never; not?: never };
 /** Any Condition */
 
+// eslint-disable-next-line id-denylist -- `any` is a conditional keyword enforced by the rule interface
 export type AnyConditions = { any: NestedCondition[]; all?: never; not?: never };
 /** Not Condition */
 
+// eslint-disable-next-line id-denylist -- `any` is a conditional keyword enforced by the rule interface
 export type NotCondition = { not: NestedCondition; all?: never; any?: never };
 /** Top level Condition in the rule definition */
 export type TopLevelCondition = AllConditions | AnyConditions | NotCondition | UnaryOperation | BinaryOperation;
@@ -75,7 +78,6 @@ export interface Rule {
   /** Name of the rule*/
   name: string;
   /** rootElement of the rule, that contains either a block, either an action list */
-
   rootElement: AllBlock;
 }
 
@@ -115,7 +117,6 @@ export interface RuleBlock extends RuleElement {
 
 /** All supported blocks (supporting nested structure) */
 export type AllBlock =
-
   IfElseBlock
   | (ActionBlock & Record<string, any>);
 

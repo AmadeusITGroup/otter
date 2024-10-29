@@ -43,8 +43,7 @@ export function executeOperator<L = unknown, R = unknown>(lhs: L, rhs: R, operat
  * @param operand value of one of the operands
  */
 export function numberValidator(operand: unknown): operand is number | string {
-  // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-  return operand !== '' && !Array.isArray(operand) && !isNaN(+`${operand}`);
+  return operand !== '' && !Array.isArray(operand) && !Number.isNaN(Number(operand));
 }
 
 /**
@@ -68,7 +67,7 @@ export const isValidDate = (operatorInput: any): operatorInput is Date => {
     return false;
   }
   const getTimeResult = operatorInput.getTime();
-  return typeof getTimeResult === 'number' && !isNaN(getTimeResult);
+  return typeof getTimeResult === 'number' && !Number.isNaN(getTimeResult);
 };
 
 /**
@@ -76,7 +75,7 @@ export const isValidDate = (operatorInput: any): operatorInput is Date => {
  * @param operatorInput
  */
 export const isValidDateInput = (operatorInput: any): operatorInput is DateInput => {
-  return operatorInput === 0 || !!operatorInput && isValidDate(new Date(operatorInput));
+  return operatorInput === 0 || (!!operatorInput && isValidDate(new Date(operatorInput)));
 };
 
 /**
@@ -109,8 +108,6 @@ export function isString(value: unknown): value is string {
 
 /**
  * Parse input to return RegExp
- * @param value value to test whether pattern exists (can be string or array of strings)
- * @param inputString regexp pattern
  * @param inputRegExp
  */
 export function parseRegExp(inputRegExp: string) {

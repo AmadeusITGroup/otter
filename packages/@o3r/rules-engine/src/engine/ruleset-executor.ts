@@ -140,7 +140,7 @@ export class RulesetExecutor {
       return undefined;
     } else if (isOperandFact(operand)) {
       const factValue = factsValue[operand.value];
-      // eslint-disable-next-line new-cap
+      // eslint-disable-next-line new-cap -- convention for JSONPath
       return operand.path ? factValue && JSONPath({ wrap: false, json: factValue, path: operand.path }) : factValue;
     } else if (isOperandLiteral(operand)) {
       return operand.value;
@@ -167,9 +167,9 @@ export class RulesetExecutor {
    * Recursively process a block to extract all the actions keeping the order
    * Note that runtimeFactValues will be mutated by all the runtime facts actions executed
    * @param element
-   * @param actions
    * @param factsValue
    * @param runtimeFactValues This runtime fact map will be mutated by all the runtime facts actions executed
+   * @param actions
    * @protected
    */
   protected evaluateBlock(element: AllBlock, factsValue: Record<string, Facts | undefined>, runtimeFactValues: Record<string, Facts>, actions: ActionBlock[] = []) {
@@ -235,22 +235,27 @@ export class RulesetExecutor {
     }
     if (nestedCondition.all || nestedCondition.any) {
       const evaluate = (condition: NestedCondition) => this.evaluateCondition(condition, factsValue, runtimeFactValues);
-      return isAllConditions(nestedCondition) ? nestedCondition.all.every(evaluate) : nestedCondition.any.some(evaluate);
+      return isAllConditions(nestedCondition) ? nestedCondition.all.every((element) => evaluate(element)) : nestedCondition.any.some((element) => evaluate(element));
     }
     throw new Error(`Unknown condition block met : ${JSON.stringify(nestedCondition)}`);
   }
+
+  /**
+   * Find rule input facts
+   * @param obj
+   */
+  protected readonly findRuleInputFacts = (obj: AllBlock): string[] => {
+    const ruleInputFacts = new Set<string>();
+    this.collectRuleInputFacts(obj, ruleInputFacts);
+    return Array.from(ruleInputFacts);
+  };
 
   /**
    * Plug ruleset to fact streams and trigger a first evaluation
    */
   protected plugRuleset() {
     const inputFactsForRule: Record<string, string[]> = {};
-    const findRuleInputFacts = (obj: AllBlock): string[] => {
-      const ruleInputFacts = new Set<string>();
-      this.collectRuleInputFacts(obj, ruleInputFacts);
-      return Array.from(ruleInputFacts);
-    };
-    this.ruleset.rules.forEach((rule) => inputFactsForRule[rule.id] = findRuleInputFacts(rule.rootElement));
+    this.ruleset.rules.forEach((rule) => inputFactsForRule[rule.id] = this.findRuleInputFacts(rule.rootElement));
     const factsThatRerunEverything: string[] = [];
     this.ruleset.rules.forEach((rule) => {
       if (rule.outputRuntimeFacts.length > 0 || rule.inputRuntimeFacts.length > 0) {

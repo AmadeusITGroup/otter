@@ -3,6 +3,8 @@
  * @jest-environment @o3r/test-helpers/jest-environment
  * @jest-environment-o3r-app-folder test-app-rules-engine
  */
+const o3rEnvironment = globalThis.o3rEnvironment;
+
 import * as path from 'node:path';
 import {
   addImportToAppModule,
@@ -12,8 +14,6 @@ import {
   packageManagerInstall,
   packageManagerRunOnProject
 } from '@o3r/test-helpers';
-
-const o3rEnvironment = globalThis.o3rEnvironment;
 
 describe('ng add rules-engine', () => {
   test('should add rules engine to an application', async () => {

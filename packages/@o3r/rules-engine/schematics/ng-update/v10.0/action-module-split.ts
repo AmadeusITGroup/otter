@@ -9,7 +9,6 @@ import {
  * Update the Rule Engine service name
  */
 export function updateRuleEngineService(): Rule {
-  /* eslint-disable @typescript-eslint/naming-convention */
   return updateImports({
     '@o3r/rules-engine': {
       RulesEngineService: {
@@ -22,5 +21,4 @@ export function updateRuleEngineService(): Rule {
       }
     }
   }, undefined, true);
-  /* eslint-enable @typescript-eslint/naming-convention */
 }

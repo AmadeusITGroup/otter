@@ -40,7 +40,7 @@ export const selectRulesetsStorePendingStatus = createSelector(selectRulesetsSta
  * Check if the given value is a valid date
  * @param d
  */
-const isValidDate = (d: any) => !isNaN(d) && d instanceof Date;
+const isValidDate = (d: any) => !Number.isNaN(d) && d instanceof Date;
 
 /**
  * Returns only the rulesets ids which are not onDemand and in the validity range
@@ -55,14 +55,14 @@ export const selectActiveRuleSets = createSelector(
     }
 
     const validity = ruleSet.validityRange;
-    if (!validity || !validity.from && !validity.to) {
+    if (!validity || (!validity.from && !validity.to)) {
       return true;
     }
 
     const from = validity.from && new Date(validity.from);
     const to = validity.to && new Date(validity.to);
 
-    if (to && !isValidDate(to) || from && !isValidDate(from)) {
+    if ((to && !isValidDate(to)) || (from && !isValidDate(from))) {
       return false;
     }
     const time = Date.now();

@@ -153,6 +153,7 @@ describe('Filter rulesets event operator', () => {
 
   const rulesetsMapSubject$ = new BehaviorSubject<Record<string, RulesetExecutor>>(firstValue);
 
+  // eslint-disable-next-line jest/no-done-callback -- eventually rewrite the test
   test('should consider only first ruleset', (done) => {
     rulesetsMapSubject$.pipe(
       filterRulesetsEventStream(['ruleset1'])
@@ -162,6 +163,7 @@ describe('Filter rulesets event operator', () => {
     });
   });
 
+  // eslint-disable-next-line jest/no-done-callback -- eventually rewrite the test
   test('should consider only second ruleset', (done) => {
     rulesetsMapSubject$.pipe(
       filterRulesetsEventStream(['ruleset2'])
@@ -171,6 +173,7 @@ describe('Filter rulesets event operator', () => {
     });
   });
 
+  // eslint-disable-next-line jest/no-done-callback -- eventually rewrite the test
   test('should consider all rulesets by not passing any filter', (done) => {
     rulesetsMapSubject$.pipe(
       filterRulesetsEventStream()
@@ -180,6 +183,7 @@ describe('Filter rulesets event operator', () => {
     });
   });
 
+  // eslint-disable-next-line jest/no-done-callback -- eventually rewrite the test
   test('should consider all rulesets ids passed', (done) => {
     rulesetsMapSubject$.pipe(
       filterRulesetsEventStream(['ruleset1', 'ruleset2'])

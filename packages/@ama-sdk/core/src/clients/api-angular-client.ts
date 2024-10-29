@@ -28,7 +28,7 @@ import {
 } from '../fwk/errors';
 import {
   ReviverType
-} from '../fwk/Reviver';
+} from '../fwk/reviver';
 import type {
   AngularCall,
   AngularPlugin,

@@ -12,7 +12,7 @@ import type {
 } from '../api.interface';
 import type {
   ReviverType
-} from '../Reviver';
+} from '../reviver';
 import type {
   BaseApiClientOptions
 } from './base-api-constructor';

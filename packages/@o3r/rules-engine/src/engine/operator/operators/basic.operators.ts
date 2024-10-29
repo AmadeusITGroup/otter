@@ -15,7 +15,7 @@ import {
  */
 export const equals: Operator = {
   name: 'equals',
-  // eslint-disable-next-line
+  // eslint-disable-next-line eqeqeq -- possibility of comparing string and number values
   evaluator: (firstValue, secondValue) => firstValue == secondValue
 };
 
@@ -25,7 +25,7 @@ export const equals: Operator = {
  */
 export const notEquals: Operator = {
   name: 'notEquals',
-  // eslint-disable-next-line eqeqeq
+  // eslint-disable-next-line eqeqeq -- possibility of comparing string and number values
   evaluator: (firstValue, secondValue) => firstValue != secondValue
 };
 
