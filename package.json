@@ -136,7 +136,8 @@
   "resolutions": {
     "@sinonjs/fake-timers": "^13.0.0",
     "@types/node": "^20.0.0",
-    "typescript-json-schema/typescript": "~5.5.4"
+    "typescript-json-schema/typescript": "~5.5.4",
+    "esbuild": "~0.24.0"
   },
   "dependencies": {
     "@angular/core": "~18.2.0",
