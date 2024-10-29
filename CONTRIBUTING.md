@@ -43,7 +43,8 @@ Those are common examples, for more information don't hesitate to have a look at
 When contributing, please keep in mind the following rules:
 
 - Make only non-breaking changes in minor versions. Enhancements to existing code are possible - please discuss it beforehand with the Otter team via a [feature request](#feature-requests).
-- If the new feature you are adding is replacing an existing one, please deprecate the old code in minor versions. Add the @deprecated tag in the JSDoc while mentioning the major version when it will be removed. Note that only **even** major Otter versions allow breaking changes. This means we only allow breaking changes in `n+2` major versions.
+- If the new feature you are adding is replacing an existing one, please deprecate the old code in minor versions. Add the `@deprecated` tag in the *JSDoc* while mentioning the major version when it will be removed. Note that only **even** major Otter versions allow **costly breaking changes**. The cost of the breaking change will be determined by the responsible team at code review time (see [Versioning rules](./SECURITY.md)).\
+  A breaking change can be effective only from the major version `n + 2` **after the deprecation.**
 - Please ensure that you are submitting quality code, specifically make sure that the changes comply with our [code styling convention](#style-guide).
 
 ### Style guide
