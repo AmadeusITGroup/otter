@@ -8,7 +8,7 @@ const o3rBaseConfig = require('../base.cjs');
 const o3rTemplateRecommended = (plugin) => [
   o3rBaseConfig(plugin),
   {
-    name: '@o3r/template-recommended',
+    name: '@o3r/eslint-config/template-recommended',
     files: ['**/*.html'],
     rules: {
       '@o3r/template-async-number-limitation': 'error'

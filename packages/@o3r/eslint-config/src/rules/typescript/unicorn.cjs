@@ -6,7 +6,7 @@ const { convertWarningsToErrors } = require('../utils.cjs');
  */
 const config = [
   {
-    name: '@o3r/overrides/unicorn',
+    name: '@o3r/eslint-config/unicorn',
     files: [
       '**/*.{c,m,}{t,j}s'
     ],
@@ -43,7 +43,7 @@ const config = [
     }
   },
   {
-    name: '@o3r/overrides/unicorn/angular-components-files',
+    name: '@o3r/eslint-config/unicorn/angular-components-files',
     files: ['**/*.component.ts'],
     rules: {
       // TODO re-enable this rule once it support arrow function in `computed` Angular signal computation
@@ -55,7 +55,7 @@ const config = [
     }
   },
   {
-    name: '@o3r/overrides/unicorn/angular-components-files',
+    name: '@o3r/eslint-config/unicorn/angular-components-files',
     files: ['**/*.component.ts'],
     rules: {
       // TODO re-enable this rule once it support arrow function in `computed` Angular signal computation

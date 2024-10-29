@@ -9,7 +9,7 @@ export default [
   ...o3rConfig,
   ...o3rTemplate,
   {
-    name: '@o3r/ignores',
+    name: '@o3r/framework/ignores',
     ignores: [
       '.cache/**/*',
       '.yarn/**/*',
@@ -25,35 +25,43 @@ export default [
     ]
   },
   {
-    name: '@o3r/report-unused-disable-directives',
+    name: '@o3r/framework/report-unused-disable-directives',
     linterOptions: {
       reportUnusedDisableDirectives: 'error'
     }
   },
   {
-    name: '@o3r/globals',
-    languageOptions: {
-      globals: {
-        ...globals.browser,
-        ...globals.node,
-        ...globals.webextensions,
-        globalThis: true
-      },
-      ecmaVersion: 12
-    },
+    name: '@o3r/framework/settings',
     settings: {
       'import/resolver': 'node'
+    },
+    languageOptions: {
+      ecmaVersion: 12
     }
   },
   {
-    name: '@o3r/parser/json',
+    name: '@o3r/framework/node',
+    files: [
+      '**/{cli,builders,schematics,scripts,testing,tools}/**',
+      '**/*.spec.ts'
+    ],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+        NodeJS: true,
+        globalThis: true
+      }
+    }
+  },
+  {
+    name: '@o3r/framework/parser/json',
     files: ['**/*.json'],
     languageOptions: {
       parser: jsonParser
     }
   },
   {
-    name: '@o3r/jasmine',
+    name: '@o3r/framework/jasmine',
     files: ['**/*{.,-}jasmine.ts'],
     rules: {
       'jest/no-jasmine-globals': 'off'
@@ -65,21 +73,21 @@ export default [
     }
   },
   {
-    name: '@o3r/spec',
+    name: '@o3r/framework/spec',
     files: ['**/*.spec.ts'],
     rules: {
       '@typescript-eslint/no-require-imports': 'off' // required by Jest to mock the imports
     }
   },
   {
-    name: '@o3r/setup-jest',
+    name: '@o3r/framework/setup-jest',
     files: ['**/setup-jest.ts'],
     rules: {
       'unicorn/no-empty-file': 'off',
     }
   },
   {
-    name: '@o3r/package-json',
+    name: '@o3r/framework/package-json',
     files: ['package.json'],
     plugins: {
       '@nx': nxPlugin,
@@ -120,7 +128,7 @@ export default [
     }
   },
   {
-    name: '@o3r/mjs-files',
+    name: '@o3r/framework/mjs-files',
     files: ['**/*.mjs'],
     rules: {
       'no-underscore-dangle': [
@@ -132,7 +140,7 @@ export default [
     }
   },
   {
-    name: '@o3r/disabled-for-discussion',
+    name: '@o3r/framework/disabled-for-discussion',
     files: ['**/*.{c,m,}{t,j}s'],
     rules: {
       '@stylistic/comma-dangle': 'off',
@@ -142,7 +150,7 @@ export default [
     }
   },
   {
-    name: '@o3r/warn-until-migration-completed',
+    name: '@o3r/framework/warn-until-migration-completed',
     files: ['**/*.ts', '**/*.tsx', '**/*.mts', '**/*.cts'],
     rules: {
       '@typescript-eslint/no-unsafe-argument': 'warn',
@@ -153,7 +161,7 @@ export default [
     }
   },
   {
-    name: '@o3r/it-tests',
+    name: '@o3r/framework/it-tests',
     files: ['**/*.it.spec.ts'],
     rules: {
       'jsdoc/check-tag-names': [

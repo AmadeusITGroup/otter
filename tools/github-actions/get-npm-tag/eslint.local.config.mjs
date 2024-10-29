@@ -11,7 +11,7 @@ const __dirname = dirname(__filename);
 
 export default [
   {
-    name: 'get-npm-tag-gh-action/projects',
+    name: '@o3r/get-npm-tag-gh-action/projects',
     languageOptions: {
       sourceType: 'module',
       parserOptions: {
@@ -24,7 +24,7 @@ export default [
     }
   },
   {
-    name: 'audit-gh-action/ignores',
+    name: '@o3r/audit-gh-action/ignores',
     ignores: [
       '**/packaged-action/**'
     ]

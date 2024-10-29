@@ -3,7 +3,7 @@ const importNewlinesPlugin = require('eslint-plugin-import-newlines');
 /** @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.ConfigArray} */
 const config = [
   {
-    name: '@o3r/overrides/import-newlines',
+    name: '@o3r/eslint-config/import-newlines',
     files: [
       '**/*.{c,m,}{t,j}s'
     ],

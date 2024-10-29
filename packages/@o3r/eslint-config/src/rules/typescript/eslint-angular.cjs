@@ -6,7 +6,7 @@ const { convertWarningsToErrors } = require('../utils.cjs');
  */
 const config = [
   {
-    name: '@o3r/overrides/angular-eslint',
+    name: '@o3r/eslint-config/angular-eslint',
     // Same files as the ones asked by `typescript-eslint/eslint-recommended`
     files: ['**/*.ts', '**/*.tsx', '**/*.mts', '**/*.cts'],
     rules: {

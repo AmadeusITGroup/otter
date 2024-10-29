@@ -6,7 +6,7 @@ const { convertWarningsToErrors } = require('../utils.cjs');
  */
 const config = [
   {
-    name: '@o3r/overrides/eslint-comments',
+    name: '@o3r/eslint-config/eslint-comments',
     files: [
       '**/*.{c,m,}{t,j}s'
     ],

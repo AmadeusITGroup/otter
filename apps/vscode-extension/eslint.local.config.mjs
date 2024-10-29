@@ -5,6 +5,7 @@ import {
   fileURLToPath
 } from 'node:url';
 import nxPlugin from '@nx/eslint-plugin';
+import globals from 'globals';
 
 const __filename = fileURLToPath(import.meta.url);
 // __dirname is not defined in ES module scope
@@ -12,7 +13,7 @@ const __dirname = dirname(__filename);
 
 export default [
   {
-    name: 'otter-devtools/projects',
+    name: '@o3r/vscode-extension/projects',
     languageOptions: {
       sourceType: 'module',
       parserOptions: {
@@ -26,7 +27,15 @@ export default [
     }
   },
   {
-    name: 'otter-devtools/package-json-file',
+    name: '@o3r/vscode-extension/globals',
+    languageOptions: {
+      globals: {
+        ...globals.node
+      }
+    }
+  },
+  {
+    name: '@o3r/vscode-extension/package-json-file',
     files: ['**/package.json'],
     plugins: {
       '@nx': nxPlugin

@@ -115,7 +115,7 @@ const configArray = [
   ...unusedImportsConfig,
   ...otterConfig(o3r),
   {
-    name: '@o3r/typescript/language-options',
+    name: '@o3r/eslint-config/typescript/language-options',
     files: [
       '**/*.{c,m,}{t,j}s'
     ],
