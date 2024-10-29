@@ -2889,7 +2889,6 @@ async function main() {
         }
         return acc;
     }, undefined);
-    // process all the data and write it back to stdout
     process.stdout.write(previousVersion?.tag || '');
 }
 void main();
