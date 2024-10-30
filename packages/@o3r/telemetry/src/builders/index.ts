@@ -71,7 +71,7 @@ export const createBuilderWithMetrics: BuilderWrapper = (builderFn, sendData = d
       };
       context.logger.debug(JSON.stringify(data, null, 2));
       const packageJsonPath = path.join(context.currentDirectory, 'package.json');
-      const packageJson = existsSync(packageJsonPath) ? JSON.parse(readFileSync(packageJsonPath, 'utf-8')) : {};
+      const packageJson = existsSync(packageJsonPath) ? JSON.parse(readFileSync(packageJsonPath, 'utf8')) : {};
       const shouldSendData = !!(
         (options as any).o3rMetrics
         ?? ((process.env.O3R_METRICS || '').length > 0 ? process.env.O3R_METRICS !== 'false' : undefined)

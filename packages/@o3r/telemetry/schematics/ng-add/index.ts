@@ -10,7 +10,6 @@ import type {
 
 /**
  * Add Otter telemetry to an Otter Project
- * @param options
  * @param _options
  */
 export function ngAdd(_options: NgAddSchematicsSchema): Rule {

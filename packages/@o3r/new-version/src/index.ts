@@ -24,7 +24,7 @@ export interface NewVersionOptions<T extends BaseLogger> {
   /** If the branching model supports a default branch on top of usual release branches, the branch name */
   defaultBranch?: string;
 
-  /** Regexp of versionned branches */
+  /** Regexp of versioned branches */
   releaseBranchRegExp: RegExp;
 
   /**
@@ -122,8 +122,9 @@ export class NewVersion {
     if (branchReleaseMatches) {
       this.options.logger.info(JSON.stringify(branchReleaseMatches));
     }
-    return this.isDefaultBranch && this.options.defaultBranchVersionMask
-      || branchReleaseMatches?.length && `${branchReleaseMatches[1]}.${branchReleaseMatches[2]}${branchReleaseMatches[3] || ''}` || '';
+    return this.isDefaultBranch
+      ? this.options.defaultBranchVersionMask || ''
+      : (branchReleaseMatches?.length ? `${branchReleaseMatches[1]}.${branchReleaseMatches[2]}${branchReleaseMatches[3] || ''}` : '');
   }
 
   /**
@@ -133,10 +134,11 @@ export class NewVersion {
    * @param versionMask
    */
   public computeNewVersion(tags: string[], versionMask: string) {
+    const regexpVersionMask = new RegExp(`^(?:v)?${versionMask}`);
     // Sort tags in descending order and exclude next major in preparation
     let parsedSortedTags = tags
       .map((tag) => semver.parse(tag.replace('V', 'v')))
-      .filter((tag): tag is semver.SemVer => !!tag && !!tag.raw.match(`^(?:v)?${versionMask}`))
+      .filter((tag): tag is semver.SemVer => !!tag && !!regexpVersionMask.test(tag.raw))
       .sort((v1, v2) => semver.compare(v2, v1));
 
     this.options.logger.debug('Parsed and sorted tags:');
@@ -187,7 +189,7 @@ export class NewVersion {
       // If it's a pull-request build, we do not increment but instead add the 'pr' flag and build number to the version
       return `${baseVersion}${this.options.prPreReleaseTag ? '-' + this.options.prPreReleaseTag : ''}.${this.options.buildId}`;
     }
-    if (!latest || this.isDefaultBranch && latest.prerelease.every((releaseTag) => releaseTag !== this.defaultBranchPrereleaseName)) {
+    if (!latest || (this.isDefaultBranch && latest.prerelease.every((releaseTag) => releaseTag !== this.defaultBranchPrereleaseName))) {
       // If this is a new release or a new minor of a default branch, we don't bump since they are initialised as .0
       return baseVersion;
     }

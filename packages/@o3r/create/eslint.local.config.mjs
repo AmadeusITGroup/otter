@@ -27,5 +27,11 @@ export default [
         ...globals.node
       }
     }
+  },
+  {
+    name: '@o3r/create/override',
+    rules: {
+      'no-console': 'off'
+    }
   }
 ];

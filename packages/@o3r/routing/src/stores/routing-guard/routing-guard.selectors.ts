@@ -81,7 +81,7 @@ export const hasNoEntitiesInFailureState = createSelector(
  */
 export const hasNoEntityInReadyOrFailureState = createSelector(
   selectRoutingGuardEntitiesStatusList,
-  (statusList: string[]) => {
+  (statusList: RegisteredItemStatus[]) => {
     return !statusList.some((status) => status === RegisteredItemStatus.READY || status === RegisteredItemStatus.FAILURE);
   }
 );

@@ -48,7 +48,6 @@ export async function createTestEnvironmentBlank(inputOptions: Partial<CreateTes
     const execAppOptions: ExecSyncOptions = {
       cwd: appFolderPath,
       stdio: 'inherit',
-      // eslint-disable-next-line @typescript-eslint/naming-convention
       env: { ...process.env, NODE_OPTIONS: '', CI: 'true' }
     };
 

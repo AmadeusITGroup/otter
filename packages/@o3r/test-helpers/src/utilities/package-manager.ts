@@ -19,7 +19,7 @@ import {
 declare global {
   namespace NodeJS {
     interface ProcessEnv {
-      // eslint-disable-next-line @typescript-eslint/naming-convention
+      // eslint-disable-next-line @typescript-eslint/naming-convention -- environment variable name
       ENFORCED_PACKAGE_MANAGER?: string;
     }
   }
@@ -108,7 +108,7 @@ function execCmd(args: string[], execOptions: ExecSyncOptions) {
     const startTime = performance.now();
     const [runner, ...options] = args.filter((arg) => !!arg);
     const output = execFileSync(runner, options, { ...execOptions, shell: process.platform === 'win32', stdio: 'pipe', encoding: 'utf8' });
-    // eslint-disable-next-line no-console
+    // eslint-disable-next-line no-console -- no logger available
     console.log(`${args.join(' ')} [${Math.ceil(performance.now() - startTime)}ms]\n${output}`);
     return output;
   } catch (err: any) {
@@ -161,7 +161,6 @@ export function packageManagerVersion(version: string, args: string[], options: 
 
 /**
  * Publish a package to the npm registry
- * @param version
  * @param args
  * @param options
  */

@@ -1,5 +1,4 @@
-// Disable the `no-unnecessary-type-assertion` rule due to a wrong-positive on ngrx Dictionary type
-/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
+/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion -- wrong-positive on ngrx Dictionary type */
 import * as actions from './routing-guard.actions';
 import {
   routingGuardInitialState,

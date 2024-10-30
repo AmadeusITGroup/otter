@@ -5,11 +5,10 @@ import {
 } from './index';
 
 const mockLogger: BaseLogger = {
-  debug: console.debug,
-  // eslint-disable-next-line no-console
-  error: console.error,
-  info: console.info,
-  warning: console.warn
+  debug: jest.fn(),
+  error: jest.fn(),
+  info: jest.fn(),
+  warning: jest.fn()
 };
 
 describe('New Version', () => {

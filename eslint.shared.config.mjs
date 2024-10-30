@@ -6,7 +6,8 @@ import globals from 'globals';
 import jsonParser from 'jsonc-eslint-parser';
 
 const nodeFiles = [
-  '**/{builders,cli,schematics,scripts,testing,tools}/**/*.{c,m,}{j,t}s',
+  '**/{builders,cli,schematics,scripts,testing}/**/*.{c,m,}{j,t}s',
+  '**/tools/{@o3r,github-actions}/*.{c,m,}{j,t}s',
   '**/*.spec.ts',
   '**/jest.config*.js',
   '**/eslint*.config.mjs'
