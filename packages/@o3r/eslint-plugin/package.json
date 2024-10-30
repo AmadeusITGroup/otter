@@ -31,6 +31,9 @@
     "type-fest": "^4.10.2"
   },
   "peerDependenciesMeta": {
+    "@angular-devkit/schematics": {
+      "optional": true
+    },
     "@angular-eslint/template-parser": {
       "optional": true
     },
@@ -42,6 +45,7 @@
     }
   },
   "peerDependencies": {
+    "@angular-devkit/schematics": "~18.2.0",
     "@angular-eslint/template-parser": "~18.3.0",
     "@angular-eslint/test-utils": "~18.3.0",
     "@angular/compiler": "~18.2.0",
