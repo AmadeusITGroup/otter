@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-/* eslint-disable camelcase */
-
 import {
   chain,
   Rule
@@ -12,6 +9,7 @@ import {
 /**
  * update of Otter library V10.0
  */
+// eslint-disable-next-line @typescript-eslint/naming-convention -- function name contains the version
 export function updateV10_0(): Rule {
   const updateRules: Rule[] = [
     updateCmsJsonFile()

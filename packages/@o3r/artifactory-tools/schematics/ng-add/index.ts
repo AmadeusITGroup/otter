@@ -7,7 +7,6 @@ import type {
 
 /**
  * Add Otter artifactory-tools to an Angular Project
- * @param options
  */
 export function ngAdd(): Rule {
   /* ng add rules */

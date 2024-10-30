@@ -4,6 +4,7 @@ import {
 import {
   fileURLToPath
 } from 'node:url';
+import globals from 'globals';
 
 const __filename = fileURLToPath(import.meta.url);
 // __dirname is not defined in ES module scope
@@ -22,6 +23,16 @@ export default [
           'tsconfig.builders.json',
           'tsconfig.eslint.json'
         ]
+      }
+    }
+  },
+  {
+    name: '@o3r/apis-manager/test',
+    files: ['**/*.spec.ts'],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+        ...globals.browser
       }
     }
   }

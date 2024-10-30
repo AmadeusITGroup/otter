@@ -151,7 +151,7 @@ export class BuildStatsPlugin implements WebpackPluginInstance {
     if (Reflect.has(instance, 'hooks')) {
       Object.keys(instance.hooks).forEach((hookName) => {
         const hook = instance.hooks[hookName];
-        // eslint-disable-next-line no-underscore-dangle
+        // eslint-disable-next-line no-underscore-dangle -- accessing a private field
         if (hook && !hook._fakeHook) {
           hook.intercept(this.makeInterceptorFor(logLabel)(hookName));
         }
@@ -191,8 +191,7 @@ export class BuildStatsPlugin implements WebpackPluginInstance {
     this.loaderDurations = {};
   }
 
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  private makeNewProfiledTapFn(hook: string, { name, type, fn }: { name: string; type: string; fn: Function }) {
+  private makeNewProfiledTapFn(hook: string, { name, type, fn }: { name: string; type: string; fn: (...args: any[]) => any }) {
     switch (type) {
       case 'promise': {
         return (...args: any) => {
@@ -236,18 +235,17 @@ export class BuildStatsPlugin implements WebpackPluginInstance {
     }
   }
 
+  // eslint-disable-next-line unicorn/consistent-function-scoping -- must keep function to have the correct context
   private readonly makeInterceptorFor = (_instance: string) => (hookName: string) => ({
     register: (tapInfo: any) => {
       const { name, type, fn } = tapInfo;
-      const newFn =
-        // Don't tap our own hooks to ensure stream can close cleanly
-        name === PLUGIN_NAME
-          ? fn
-          : this.makeNewProfiledTapFn(hookName, {
-            name,
-            type,
-            fn
-          });
+      const newFn = name === PLUGIN_NAME // Don't tap our own hooks to ensure stream can close cleanly
+        ? fn
+        : this.makeNewProfiledTapFn(hookName, {
+          name,
+          type,
+          fn
+        });
       return {
         ...tapInfo,
         fn: newFn
