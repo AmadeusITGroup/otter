@@ -33,13 +33,15 @@ export class O3rCheckboxElement extends O3rElement implements CheckboxElementPro
         return element;
       }
     } catch (err) {
+      // eslint-disable-next-line no-console -- no other logger available
       console.warn('Failed to retrieve label of O3rCheckboxElement', err);
       return;
     }
   }
 
   /**
-   * @inheritDoc
+   * Check the checkbox element
+   * @param  value If specified, determine the value of the checkbox button
    * If the element contains a label, the label will be used to (un)check the checkbox.
    */
   public async check(value = true) {
@@ -47,6 +49,7 @@ export class O3rCheckboxElement extends O3rElement implements CheckboxElementPro
     if (labelElement) {
       const currentValue = await this.isChecked();
       if (currentValue === value) {
+        // eslint-disable-next-line no-console -- no other logger available
         console.warn(`Checkbox is already ${currentValue ? 'checked' : 'unchecked'}`);
         return Promise.resolve();
       }

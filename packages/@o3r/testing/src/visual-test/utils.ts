@@ -2,7 +2,7 @@
  * Prepare css rule to hide specific blocks
  *
  * Should be called only once during the visual test.
- * @note: this function is evaluated in the context of the page and should not use external variables
+ * @note this function is evaluated in the context of the page and should not use external variables
  * @param ignoreClass
  */
 export function prepareVisualTesting(ignoreClass = 'e2e-ignore') {
@@ -35,7 +35,7 @@ export function isVisualTestingEnabled() {
 
 /**
  * Toggle the visual testing view : if it is active, will hide tagged components as grey blocks.
- * @note: this function is evaluated in the context of the page and cannot use external code
+ * @note this function is evaluated in the context of the page and cannot use external code
  * @param enabled
  */
 export function toggleVisualTestingRender(enabled: boolean) {

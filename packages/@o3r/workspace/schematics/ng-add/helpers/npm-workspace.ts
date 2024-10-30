@@ -44,7 +44,6 @@ export function addWorkspacesToProject(directories: WorkspaceLayout = DEFAULT_RO
     return tree;
   };
 
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   const updateAngularJson = setupSchematicsParamsForProject({ '*:*': directories } as WorkspaceSchematics);
 
   const updateNxWorkspaceLayout = (tree: Tree, _context: SchematicContext) => {

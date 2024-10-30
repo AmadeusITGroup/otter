@@ -34,7 +34,7 @@ function isOutputNode(node: ts.Node, source: ts.SourceFile): node is ts.Decorato
  * @param source Typescript source file
  */
 function getIOName(currentNode: ts.Node, decorator: ts.Decorator, source: ts.SourceFile): string | undefined {
-  const nameInDecorator = decorator.getText(source).match(/@(input|ouput) *\( *(["'](.*)["'])? *\) */i);
+  const nameInDecorator = decorator.getText(source).match(/@(input|output) *\( *(["'](.*)["'])? *\) */i);
   if (nameInDecorator && nameInDecorator[3]) {
     return nameInDecorator[3];
   } else {
@@ -129,8 +129,7 @@ function getSelector(parentNode: ts.Node, source: ts.SourceFile, isInDecorator =
  * class MockComponent extends generateMockComponent('hero.component.ts') {}
  * ```
  */
-// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-constraint
-export function generateMockComponent<T extends unknown = Record<string, unknown>>(componentPath: string, config?: { template?: string; isControlValueAccessor?: boolean }): Type<T> {
+export function generateMockComponent<T = Record<string, unknown>>(componentPath: string, config?: { template?: string; isControlValueAccessor?: boolean }): Type<T> {
   const program = ts.createProgram([componentPath], {});
   const source = program.getSourceFile(componentPath);
   if (!source) {
@@ -155,7 +154,7 @@ export function generateMockComponent<T extends unknown = Record<string, unknown
   };
 
   return Component({
-    template: config && config.template || '',
+    template: config?.template || '',
     selector: getSelector(source, source) || '',
     inputs,
     outputs,

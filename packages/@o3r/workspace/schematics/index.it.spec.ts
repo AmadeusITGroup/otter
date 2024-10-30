@@ -3,6 +3,9 @@
  * @jest-environment @o3r/test-helpers/jest-environment
  * @jest-environment-o3r-app-folder test-app-workspace
  */
+/* eslint-disable import/first -- for it test we want to have `o3rEnvironment` linked to the jsdoc of the jest environment setup */
+const o3rEnvironment = globalThis.o3rEnvironment;
+
 import {
   existsSync,
   promises as fs
@@ -19,8 +22,6 @@ import {
 import type {
   PackageJson
 } from 'type-fest';
-
-const o3rEnvironment = globalThis.o3rEnvironment;
 
 const mocksFolder = path.join(__dirname, '..', 'testing', 'mocks');
 
@@ -120,7 +121,7 @@ describe('new otter workspace', () => {
   test('should generate a monorepo setup', async () => {
     const { workspacePath } = o3rEnvironment.testEnvironment;
     const defaultOptions = getDefaultExecSyncOptions();
-    // eslint-disable-next-line @typescript-eslint/naming-convention
+
     const execAppOptions = { ...defaultOptions, cwd: workspacePath, env: { ...defaultOptions.env, NX_CLOUD_ACCESS_TOKEN: '' } };
     expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
     const rootPackageJson = JSON.parse(await fs.readFile(path.join(workspacePath, 'package.json'), 'utf8')) as PackageJson;

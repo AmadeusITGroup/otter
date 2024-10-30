@@ -1,4 +1,3 @@
-/* eslint-disable new-cap */
 import {
   By
 } from '@angular/platform-browser';
@@ -104,8 +103,11 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
       timeout?: number;
     } = {}
   ): Promise<T | O3rElement | undefined> {
-    let element: T | O3rElement | undefined;
-    element = await (options.index === undefined ? this.query(selector, elementConstructor as any) : this.queryNth(selector, options.index, elementConstructor as any));
+    const element: T | O3rElement | undefined = await (
+      options.index === undefined
+        ? this.query(selector, elementConstructor as any)
+        : this.queryNth(selector, options.index, elementConstructor as any)
+    );
     if (options.shouldThrowIfNotPresent) {
       return this.throwOnUndefinedElement<O3rElement>(element, options.timeout);
     }

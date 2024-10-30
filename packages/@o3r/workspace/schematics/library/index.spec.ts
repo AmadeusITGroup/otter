@@ -10,6 +10,7 @@ jest.mock('@angular-devkit/schematics', () => {
   const originalModule = jest.requireActual('@angular-devkit/schematics');
   return {
     ...originalModule,
+    // eslint-disable-next-line unicorn/consistent-function-scoping -- higher-order function
     externalSchematic: jest.fn().mockImplementation(() => (tree: Tree) => {
       return tree;
     })
@@ -61,7 +62,7 @@ describe('New module generator', () => {
     expect(tree.files.length).toBeGreaterThanOrEqual(9);
   });
 
-  // TODO: Should be re-enable when the following issue #2066 is fixed
+  // eslint-disable-next-line jest/no-disabled-tests -- TODO: Should be re-enable when the following issue #2066 is fixed
   describe.skip('in NX monorepo', () => {
     it('should generate Nx project.json with given name', async () => {
       initialTree.create('nx.json', '{"workspaceLayout": { "libsDir": "packages-test" } }');

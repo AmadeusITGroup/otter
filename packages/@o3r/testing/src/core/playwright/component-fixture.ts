@@ -1,4 +1,3 @@
-/* eslint-disable new-cap */
 import {
   FixtureUsageError
 } from '../../errors/index';
@@ -86,8 +85,7 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
       timeout?: number;
     } = {}
   ): Promise<O3rElement> {
-    let element: O3rElement;
-    element = await (options.index === undefined ? this.query(selector, elementConstructor as any) : this.queryNth(selector, options.index, elementConstructor as any));
+    const element: O3rElement = await (options.index === undefined ? this.query(selector, elementConstructor as any) : this.queryNth(selector, options.index, elementConstructor as any));
     if (options.shouldThrowIfNotPresent) {
       return this.throwOnUndefinedElement<O3rElement>(element, options.timeout);
     }
@@ -209,6 +207,7 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
 
       return elements;
     } catch (err) {
+      // eslint-disable-next-line no-console -- no other logger available
       console.warn(`Failed to query all ${selector}`, err);
       return Promise.resolve([]);
     }
