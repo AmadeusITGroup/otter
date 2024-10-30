@@ -27,7 +27,7 @@ function findFilesInTreeRec(memory: Set<FileEntry>, directory: DirEntry, fileMat
   }
 
   directory.subfiles
-    .filter(fileMatchesCriteria)
+    .filter((file) => fileMatchesCriteria(file))
     .forEach((file) => memory.add(directory.file(file)!));
 
   directory.subdirs
@@ -119,8 +119,8 @@ export function getTemplateFolder(rootPath: string, currentPath: string, templat
 
 /**
  * Get the path of all the files in the Tree
- * @param basePath Base path from which starting the list
  * @param tree Schematics file tree
+ * @param basePath Base path from which starting the list
  * @param excludes Array of globs to be ignored
  * @param recursive determine if the function will walk through the sub folders
  */

@@ -131,8 +131,6 @@ export const injectServiceInMain = (options: DevtoolRegisterOptions): Rule => (t
 
 /**
  * Register Devtools to the application
- * @param tree
- * @param context
  * @param options
  */
 export const registerDevtoolsToApplication = (options: DevtoolRegisterOptions): Rule => (tree, context) => {

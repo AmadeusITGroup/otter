@@ -23,7 +23,6 @@ import {
  * @param tree
  * @param files List of files to look for, the first of the list will be used
  * @param originPath Path from where to calculate the relative path
- * @returns
  */
 export function findConfigFileRelativePath(tree: Tree, files: string[], originPath: string) {
   const foundFile = files.find((file) => tree.exists(`/${file}`));

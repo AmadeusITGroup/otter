@@ -37,19 +37,12 @@ export const OTTER_ITEM_TYPES: GeneratedItemType[] = [
 
 /** List of the default destination paths for each generated entity */
 export const TYPES_DEFAULT_FOLDER: { [key in GeneratedItemType]: { app?: string; lib?: string } } = {
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   '@o3r/core:component': { app: 'src/components', lib: 'src/components' },
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   '@o3r/core:page': { app: 'src/app' },
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   '@o3r/core:service': { app: 'src/services', lib: 'src/services' },
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   '@o3r/core:store': { app: 'src/store', lib: 'src/store' },
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   '@o3r/core:schematics-update': { app: 'src/schematics', lib: 'src/schematics' },
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   '@o3r/testing:playwright-scenario': { app: 'e2e-playwright/scenarios' },
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   '@o3r/testing:playwright-sanity': { app: 'e2e-playwright/sanity' }
 };
 
@@ -65,16 +58,12 @@ export function getDestinationPath(typeOfItem: GeneratedItemType, directory: str
     return directory;
   }
 
-  /**
-   * @param generatorName
-   * @param propTree
-   * @param propProject
-   */
   const getSchematicsProperty = <T extends { [x: string]: JsonValue } = { [x: string]: JsonValue }>(generatorName: GeneratedItemType, propTree: Tree, propProject?: string | null): T | null => {
     const workspace = getWorkspaceConfig(propTree);
     const [collection, schematicName] = generatorName.split(':');
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-    return workspace && getDefaultOptionsForSchematic(workspace, collection, schematicName, { projectName: propProject || undefined }) as any as T | undefined || null;
+    return (
+      workspace && getDefaultOptionsForSchematic(workspace, collection, schematicName, { projectName: propProject || undefined }) as T | undefined
+    ) || null;
   };
 
   const config = getSchematicsProperty(typeOfItem, tree, project);

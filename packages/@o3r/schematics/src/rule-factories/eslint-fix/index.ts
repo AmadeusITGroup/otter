@@ -23,8 +23,7 @@ interface ApplyEslintFixOption extends LinterOptions {
 
 /**
  * Apply EsLint fix
- * @param prootPath Root path
- * @param _prootPath
+ * @param _prootPath Root path
  * @param extension List of file extensions to lint
  * @param options Linter options
  */

@@ -31,7 +31,7 @@ export const isO3rClassDecorator = (node: ts.Node): node is DecoratorWithArg =>
  * Returns true if `classDeclaration` is an Otter component
  * @param classDeclaration
  */
-export const isNgClassComponent = (classDeclaration: ts.ClassDeclaration) => (ts.getDecorators(classDeclaration) || []).some(isNgClassDecorator);
+export const isNgClassComponent = (classDeclaration: ts.ClassDeclaration) => (ts.getDecorators(classDeclaration) || []).some((decorator) => isNgClassDecorator(decorator));
 
 /**
  * Returns true if `classDeclaration` is an Otter component
@@ -39,7 +39,7 @@ export const isNgClassComponent = (classDeclaration: ts.ClassDeclaration) => (ts
  */
 export const isO3rClassComponent = (classDeclaration: ts.ClassDeclaration) =>
   isNgClassComponent(classDeclaration)
-  && (ts.getDecorators(classDeclaration) || []).some(isO3rClassDecorator);
+  && (ts.getDecorators(classDeclaration) || []).some((decorator) => isO3rClassDecorator(decorator));
 
 export const askConfirmationToConvertComponent = async () =>
   (await import('@angular/cli/src/utilities/prompt')).askConfirmation('Component found is not an Otter component. Would you like to convert it?', true);

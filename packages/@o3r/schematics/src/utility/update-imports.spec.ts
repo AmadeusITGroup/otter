@@ -30,7 +30,7 @@ describe('updateImportsInFile', () => {
     const sourceFile = ts.createSourceFile(fileName, originalFileContent, ts.ScriptTarget.ES2015, true);
     const importsRegexp = /^MyVeryOldService$/;
     const renamePackagesRegexp = /^my-decent-package$/;
-    /* eslint-disable @typescript-eslint/naming-convention */
+
     const mapImports = {
       'my-decent-package': {
         MyVeryOldService: {
@@ -40,7 +40,6 @@ describe('updateImportsInFile', () => {
       }
     };
     const renamedPackages = {};
-    /* eslint-enable @typescript-eslint/naming-convention */
 
     const unresolvedImports = updateImportsInFile(logger, tree, sourceFile, importsRegexp, renamePackagesRegexp, mapImports, renamedPackages);
     const finalFileContent = tree.readText(fileName);
@@ -64,7 +63,6 @@ describe('updateImportsInFile', () => {
     const sourceFile = ts.createSourceFile(fileName, originalFileContent, ts.ScriptTarget.ES2015, true);
     const importsRegexp = /^MyVeryOldService$/;
     const renamePackagesRegexp = /^my-decent-package$/;
-    /* eslint-disable @typescript-eslint/naming-convention */
     const mapImports = {
       'my-decent-package': {
         MyVeryOldService: {
@@ -76,7 +74,6 @@ describe('updateImportsInFile', () => {
     const renamedPackages = {
       'my-decent-package': 'my-slightly-better-package'
     };
-    /* eslint-enable @typescript-eslint/naming-convention */
 
     const unresolvedImports = updateImportsInFile(logger, tree, sourceFile, importsRegexp, renamePackagesRegexp, mapImports, renamedPackages);
     const finalFileContent = tree.readText(fileName);
@@ -99,7 +96,6 @@ describe('updateImportsInFile', () => {
     const sourceFile = ts.createSourceFile(fileName, originalFileContent, ts.ScriptTarget.ES2015, true);
     const importsRegexp = /^SomethingElse$/;
     const renamePackagesRegexp = /^leave-me-alone/;
-    /* eslint-disable @typescript-eslint/naming-convention */
     const mapImports = {
       'leave-me-alone': {
         SomethingElse: {
@@ -108,7 +104,6 @@ describe('updateImportsInFile', () => {
       }
     };
     const renamedPackages = {};
-    /* eslint-enable @typescript-eslint/naming-convention */
 
     const unresolvedImports = updateImportsInFile(logger, tree, sourceFile, importsRegexp, renamePackagesRegexp, mapImports, renamedPackages);
     const finalFileContent = tree.readText(fileName);

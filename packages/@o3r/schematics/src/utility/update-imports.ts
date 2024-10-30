@@ -28,6 +28,8 @@ export interface ImportsMapping {
   [packageName: string]: { [importName: string]: { newPackage: string; newValue?: string } };
 }
 
+const escapeRegExp = (str: string) => str.replace(/[$()*+./?[\\\]^{|}-]/g, '\\$&');
+
 /**
  * Update the imports of a given file according to replace mapping
  * @param logger Logger to report messages
@@ -91,8 +93,9 @@ export function updateImportsInFile(
   // If no mapping is found, we keep the original import location
   const resolvedImports = Object.entries(oldImportedSymbolsPerPackage).reduce((acc, [oldPackageName, importsFromOldPackage]) => {
     importsFromOldPackage.forEach((importSymbol) => {
-      let newPackageNameImport;
-      newPackageNameImport = renamedPackages[oldPackageName] ? importSymbol.location.replace(oldPackageName, renamedPackages[oldPackageName]) : mapImports[oldPackageName]?.[importSymbol.symbol]?.newPackage;
+      const newPackageNameImport = renamedPackages[oldPackageName]
+        ? importSymbol.location.replace(oldPackageName, renamedPackages[oldPackageName])
+        : mapImports[oldPackageName]?.[importSymbol.symbol]?.newPackage;
 
       const importFrom = newPackageNameImport || importSymbol.location;
       if (!newPackageNameImport) {
@@ -108,7 +111,6 @@ export function updateImportsInFile(
   }, {} as Record<string, string[]>);
 
   let fileContent = tree.readText(sourceFile.fileName);
-  const escapeRegExp = (str: string) => str.replace(/[$()*+./?[\\\]^{|}-]/g, '\\$&');
 
   // Remove captured imports
   fileContent = fileContent.replace(new RegExp(`(${importNodes.map((node) => escapeRegExp(node.getText())).join('|')})[\\n\\r]*`, 'g'), '');

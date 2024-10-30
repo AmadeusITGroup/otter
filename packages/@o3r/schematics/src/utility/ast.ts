@@ -382,7 +382,7 @@ export const addImportsAndCodeBlockStatementAtSpecInitializationTransformerFacto
   (ctx) => (rootNode: ts.Node) => {
     const { factory } = ctx;
     const visit = (node: ts.Node): ts.Node => {
-      if (ts.isBlock(node) && !!node.statements.find(isTestBedConfiguration)) {
+      if (ts.isBlock(node) && node.statements.some((statement) => isTestBedConfiguration(statement))) {
         return factory.updateBlock(
           node,
           node.statements

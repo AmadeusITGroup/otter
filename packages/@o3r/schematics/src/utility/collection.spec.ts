@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 import type {
   WorkspaceSchema
 } from '../interfaces';
@@ -43,18 +42,18 @@ const angularJsonNoGeneric: WorkspaceSchema = {
   } as any
 };
 
-describe('Get schematics options', () => {
-  const createFakeContext = (collection: string, name: string): any => ({
-    schematic: {
-      description: {
-        collection: {
-          name: collection
-        },
-        name
-      }
+const createFakeContext = (collection: string, name: string): any => ({
+  schematic: {
+    description: {
+      collection: {
+        name: collection
+      },
+      name
     }
-  });
+  }
+});
 
+describe('Get schematics options', () => {
   it('should return the ng-add generic options followed by overall generic options', () => {
     const options = getSchematicOptions(angularJsonGenericNgAdd, createFakeContext('@o3r/core', 'ng-add'));
     expect(Object.keys(options)[0]).toBe('enableMetadataExtract');

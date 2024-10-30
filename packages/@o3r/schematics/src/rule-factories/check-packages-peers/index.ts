@@ -75,8 +75,8 @@ function getPackagesToInstallOrUpdate(packageName: string) {
 /**
  * Log an instruction with the packages to install or update to match a package peer dependencies
  * @param packageName
- * @param angularJsonString
  * @param logger
+ * @param angularJsonString
  */
 function checkPackagesToInstallOrUpdate(packageName: string, logger: LoggerApi, angularJsonString?: string | null) {
   const packageManager = getPackageManager({ workspaceConfig: angularJsonString });
