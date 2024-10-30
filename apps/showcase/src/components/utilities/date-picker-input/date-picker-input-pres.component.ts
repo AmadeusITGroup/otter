@@ -1,9 +1,30 @@
-import { ChangeDetectionStrategy, Component, forwardRef, Input, signal, ViewEncapsulation } from '@angular/core';
-import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { CloseInputDatePickerDirective, DfInputIconDirective } from '@design-factory/design-factory';
-import { NgbDate, NgbInputDatepicker } from '@ng-bootstrap/ng-bootstrap';
-import { O3rComponent } from '@o3r/core';
-import { DatePickerInputPresContext } from './date-picker-input-pres.context';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  forwardRef,
+  Input,
+  signal,
+  ViewEncapsulation
+} from '@angular/core';
+import {
+  ControlValueAccessor,
+  FormsModule,
+  NG_VALUE_ACCESSOR
+} from '@angular/forms';
+import {
+  CloseInputDatePickerDirective,
+  DfInputIconDirective
+} from '@design-factory/design-factory';
+import {
+  NgbDate,
+  NgbInputDatepicker
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  O3rComponent
+} from '@o3r/core';
+import {
+  DatePickerInputPresContext
+} from './date-picker-input-pres.context';
 
 @O3rComponent({ componentType: 'ExposedComponent' })
 @Component({
@@ -79,8 +100,7 @@ export class DatePickerInputPresComponent implements ControlValueAccessor, DateP
     if (typeof obj === 'string' && /\d{4}-\d{2}-\d{2}/.test(obj)) {
       const [year, month, day] = obj.split('-', 3);
       this.selectedDate.set(NgbDate.from({ year: +year, month: +month, day: +day }));
-    }
-    else {
+    } else {
       this.selectedDate.set(null);
     }
   }

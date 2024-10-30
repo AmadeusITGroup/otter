@@ -1,6 +1,10 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { DynamicContentPresComponent } from './dynamic-content-pres.component';
+import {
+  ComponentFixture,
+  TestBed
+} from '@angular/core/testing';
+import {
+  DynamicContentPresComponent
+} from './dynamic-content-pres.component';
 
 describe('DynamicContentPresComponent', () => {
   let component: DynamicContentPresComponent;

@@ -14,7 +14,7 @@ const argv = minimist(process.argv.slice(2));
 
 const absolutePathFromRoot = path.resolve(__dirname, '..', '..', '..', '..');
 
-const relativePathFromRoot = path.relative(absolutePathFromRoot, __dirname).replace(/[\\/]+/g, '/');
+const relativePathFromRoot = path.relative(absolutePathFromRoot, __dirname).replace(/[/\\]+/g, '/');
 
 // The path to mount the local repository inside the container
 const mountPath = '/tests';
@@ -43,7 +43,7 @@ const args = [
   '/bin/bash',
   pathToPodmanScript,
   ipAddresses.join(',')
-]
+];
 console.log(`Executing: ${script} ${args.join(' ')}`);
 
 // Execute the script

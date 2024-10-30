@@ -1,11 +1,39 @@
-import { formatDate } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, Input, OnDestroy, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { O3rComponent } from '@o3r/core';
-import { Localization, LocalizationModule, LocalizationService, Translatable } from '@o3r/localization';
-import { DatePickerInputPresComponent } from '../../utilities';
-import { LocalizationPresTranslation, translations } from './localization-pres.translation';
-import { Subscription } from 'rxjs';
+import {
+  formatDate
+} from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  Input,
+  OnDestroy,
+  ViewEncapsulation
+} from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule
+} from '@angular/forms';
+import {
+  O3rComponent
+} from '@o3r/core';
+import {
+  Localization,
+  LocalizationModule,
+  LocalizationService,
+  Translatable
+} from '@o3r/localization';
+import {
+  Subscription
+} from 'rxjs';
+import {
+  DatePickerInputPresComponent
+} from '../../utilities';
+import {
+  LocalizationPresTranslation,
+  translations
+} from './localization-pres.translation';
 
 const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
 

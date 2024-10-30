@@ -1,5 +1,10 @@
-import { computeItemIdentifier } from '@o3r/core';
-import type {Configuration, NestedConfiguration} from '@o3r/core';
+import {
+  computeItemIdentifier
+} from '@o3r/core';
+import type {
+  Configuration,
+  NestedConfiguration
+} from '@o3r/core';
 
 /** Configuration of a destination */
 export interface DestinationConfiguration extends NestedConfiguration {

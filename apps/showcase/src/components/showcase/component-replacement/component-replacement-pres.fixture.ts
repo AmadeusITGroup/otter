@@ -1,4 +1,8 @@
-import { ComponentFixtureProfile, O3rComponentFixture, O3rElement } from '@o3r/testing/core';
+import {
+  ComponentFixtureProfile,
+  O3rComponentFixture,
+  O3rElement
+} from '@o3r/testing/core';
 
 /**
  * A component fixture abstracts all the interaction you can have with the component's DOM

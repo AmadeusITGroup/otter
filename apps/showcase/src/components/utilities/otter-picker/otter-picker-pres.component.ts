@@ -1,8 +1,24 @@
-import { ChangeDetectionStrategy, Component, forwardRef, Input, signal, ViewEncapsulation } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
-import { O3rComponent } from '@o3r/core';
-import { OTTER_ICONS } from './otter-icons';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  forwardRef,
+  Input,
+  signal,
+  ViewEncapsulation
+} from '@angular/core';
+import {
+  ControlValueAccessor,
+  NG_VALUE_ACCESSOR
+} from '@angular/forms';
+import {
+  NgbDropdownModule
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  O3rComponent
+} from '@o3r/core';
+import {
+  OTTER_ICONS
+} from './otter-icons';
 
 @O3rComponent({ componentType: 'Component' })
 @Component({
@@ -80,5 +96,4 @@ export class OtterPickerPresComponent implements ControlValueAccessor {
   public writeValue(obj: any): void {
     this.selectedOtter.set(obj);
   }
-
 }

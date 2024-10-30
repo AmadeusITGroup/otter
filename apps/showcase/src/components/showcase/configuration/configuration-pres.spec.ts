@@ -1,7 +1,13 @@
-import { AsyncPipe } from '@angular/common';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ConfigurationPresComponent } from './configuration-pres.component';
+import {
+  AsyncPipe
+} from '@angular/common';
+import {
+  ComponentFixture,
+  TestBed
+} from '@angular/core/testing';
+import {
+  ConfigurationPresComponent
+} from './configuration-pres.component';
 
 describe('ConfigurationPresComponent', () => {
   let component: ConfigurationPresComponent;

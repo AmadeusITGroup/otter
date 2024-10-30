@@ -1,8 +1,22 @@
-import { FileSystem, getFilesTree } from '@o3r/training-tools';
-import { DirectoryNode, FileNode, WebContainer, WebContainerProcess } from '@webcontainer/api';
-import { Terminal } from '@xterm/xterm';
-import { MonacoTreeElement } from 'ngx-monaco-tree';
-import { BehaviorSubject } from 'rxjs';
+import {
+  FileSystem,
+  getFilesTree
+} from '@o3r/training-tools';
+import {
+  DirectoryNode,
+  FileNode,
+  WebContainer,
+  WebContainerProcess
+} from '@webcontainer/api';
+import {
+  Terminal
+} from '@xterm/xterm';
+import {
+  MonacoTreeElement
+} from 'ngx-monaco-tree';
+import {
+  BehaviorSubject
+} from 'rxjs';
 
 /**
  * Convert the given path and node to a MonacoTreeElement

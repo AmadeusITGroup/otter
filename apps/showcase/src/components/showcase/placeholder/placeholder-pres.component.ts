@@ -1,12 +1,37 @@
-import { formatDate } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, type OnDestroy, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { PlaceholderModule } from '@o3r/components';
-import { O3rComponent } from '@o3r/core';
-import { RulesEngineRunnerModule } from '@o3r/rules-engine';
-import { Subscription } from 'rxjs';
-import { TripFactsService } from '../../../facts/trip/trip.facts';
-import { DatePickerInputPresComponent } from '../../utilities';
+import {
+  formatDate
+} from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  type OnDestroy,
+  ViewEncapsulation
+} from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule
+} from '@angular/forms';
+import {
+  PlaceholderModule
+} from '@o3r/components';
+import {
+  O3rComponent
+} from '@o3r/core';
+import {
+  RulesEngineRunnerModule
+} from '@o3r/rules-engine';
+import {
+  Subscription
+} from 'rxjs';
+import {
+  TripFactsService
+} from '../../../facts/trip/trip.facts';
+import {
+  DatePickerInputPresComponent
+} from '../../utilities';
 
 const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
 

@@ -11,8 +11,13 @@ import {
   ViewContainerRef,
   ViewEncapsulation
 } from '@angular/core';
-import { NgbScrollSpyModule, NgbScrollSpyService } from '@ng-bootstrap/ng-bootstrap';
-import { O3rComponent } from '@o3r/core';
+import {
+  NgbScrollSpyModule,
+  NgbScrollSpyService
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  O3rComponent
+} from '@o3r/core';
 
 export interface InPageNavLink {
   id: string;

@@ -1,9 +1,26 @@
-import { inject, Injectable } from '@angular/core';
-import { FileSystemTree } from '@webcontainer/api';
-import { MonacoTreeElement } from 'ngx-monaco-tree';
-import { BehaviorSubject, distinctUntilChanged, map, share } from 'rxjs';
-import { WebContainerRunner } from './webcontainer-runner';
-import { convertTreeRec, getFilesTreeFromContainer } from './webcontainer.helpers';
+import {
+  inject,
+  Injectable
+} from '@angular/core';
+import {
+  FileSystemTree
+} from '@webcontainer/api';
+import {
+  MonacoTreeElement
+} from 'ngx-monaco-tree';
+import {
+  BehaviorSubject,
+  distinctUntilChanged,
+  map,
+  share
+} from 'rxjs';
+import {
+  WebContainerRunner
+} from './webcontainer-runner';
+import {
+  convertTreeRec,
+  getFilesTreeFromContainer
+} from './webcontainer.helpers';
 
 /** List of files or directories to exclude from the file tree */
 const EXCLUDED_FILES_OR_DIRECTORY = ['node_modules', '.angular', '.vscode'];
@@ -19,6 +36,7 @@ export class WebContainerService {
     distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
     share()
   );
+
   public isReady$ = this.monacoTree$.pipe(
     map((tree) => tree.length > 0)
   );
@@ -77,8 +95,8 @@ export class WebContainerService {
    */
   public async isFile(filePath: string) {
     const instance = await this.runner.instancePromise;
-    const parent = filePath.replace(/^([^/])/, '/$1').replace(/[/][^/]*$/, '');
-    const fileEntries = await instance.fs.readdir(parent, {encoding: 'utf8', withFileTypes: true});
+    const parent = filePath.replace(/^([^/])/, '/$1').replace(/\/[^/]*$/, '');
+    const fileEntries = await instance.fs.readdir(parent, { encoding: 'utf8', withFileTypes: true });
     const fileEntry = fileEntries.find((file) => filePath.split('/').pop() === file.name);
     return !!fileEntry?.isFile();
   }
