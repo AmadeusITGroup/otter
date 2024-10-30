@@ -7,7 +7,7 @@
     "nx": "nx",
     "ng": "yarn nx",
     "amaterasu": "node packages/@ama-terasu/cli/dist/src/cli/ama.js",
-    "get:cpus-number": "node -e 'process.stdout.write(`${Math.max(require(\"os\").cpus().length - 1, 2)}`);'",
+    "get:cpus-number": "node -e 'process.stdout.write(`${process.env.NX_PARALLEL || Math.max(require(\"os\").cpus().length - 1, 2)}`);'",
     "get:current-dir": "node -e 'process.stdout.write(process.cwd());'",
     "create:scope": "yarn create-monorepo-scope",
     "build": "yarn nx run-many --target=build --parallel $(yarn get:cpus-number)",
