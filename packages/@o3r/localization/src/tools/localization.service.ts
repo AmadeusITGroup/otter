@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-types */
 import {
   Inject,
   Injectable,
@@ -49,7 +48,6 @@ export class LocalizationService {
   /**
    * Internal subject that we use to track changes between keys only and translation mode
    */
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   private readonly _showKeys$ = new BehaviorSubject(false);
 
   /**
@@ -87,9 +85,9 @@ export class LocalizationService {
     if (language && !this.configuration.supportedLocales.includes(language)) {
       const closestSupportedLanguageCode = this.getFirstClosestSupportedLanguageCode(language);
       const fallbackForLanguage = this.getFallbackMapLangCode(language);
-      const fallbackStrategyDebug = fallbackForLanguage && ' associated fallback language '
-        || closestSupportedLanguageCode && ' closest supported language '
-        || this.configuration.fallbackLanguage && ' configured default language ';
+      const fallbackStrategyDebug = (fallbackForLanguage && ' associated fallback language ')
+        || (closestSupportedLanguageCode && ' closest supported language ')
+        || (this.configuration.fallbackLanguage && ' configured default language ');
       const fallbackLang = fallbackForLanguage || closestSupportedLanguageCode || this.configuration.fallbackLanguage || language;
       if (language !== fallbackLang) {
         this.logger.debug(`Non supported languages ${language} will fallback to ${fallbackStrategyDebug} ${fallbackLang}`);
@@ -227,7 +225,7 @@ export class LocalizationService {
   public getKey(requestedKey: string) {
     return this.keyMapping$
       ? this.keyMapping$.pipe(
-        map((keyMapping) => keyMapping && keyMapping[requestedKey] || requestedKey),
+        map((keyMapping) => keyMapping?.[requestedKey] || requestedKey),
         distinctUntilChanged()
       )
       : of(requestedKey);

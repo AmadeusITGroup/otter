@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+/* eslint-disable no-console -- this is the purpose of this logger */
 import type {
   Action,
   ActionReducer,
@@ -23,5 +23,6 @@ export const noopLogger: LoggerClient = {
   debug: console.debug,
   info: console.info,
   log: console.log,
+  // eslint-disable-next-line unicorn/consistent-function-scoping -- higher-order function
   createMetaReducer: (): MetaReducer<any, Action> => (reducer: ActionReducer<any>): ActionReducer<any> => reducer
 };

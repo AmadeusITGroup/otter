@@ -3,6 +3,9 @@
  * @jest-environment @o3r/test-helpers/jest-environment
  * @jest-environment-o3r-app-folder test-app-localization-metadata-check
  */
+/* eslint-disable import/first -- for it test we want to have `o3rEnvironment` linked to the jsdoc of the jest environment setup */
+const o3rEnvironment = globalThis.o3rEnvironment;
+
 import {
   existsSync,
   promises,
@@ -37,8 +40,6 @@ import {
 import type {
   MigrationLocalizationMetadata
 } from './helpers/localization-metadata-comparison.helper';
-
-const o3rEnvironment = globalThis.o3rEnvironment;
 
 const baseVersion = '1.2.0';
 const version = '1.3.0';
@@ -194,12 +195,14 @@ describe('check metadata migration', () => {
       packageManagerExec({ script: 'ng', args: ['run', `${appName}:check-metadata`] }, execAppOptionsWorkspace);
       throw new Error('should have thrown before');
     } catch (e: any) {
+      /* eslint-disable jest/no-conditional-expect -- catch block always reached */
       expect(e.message).not.toBe('should have thrown before');
       previousLocalizationMetadata.slice(1).forEach(({ key: id }) => {
         expect(e.message).toContain(`Property ${id} has been modified but is not documented in the migration document`);
         expect(e.message).not.toContain(`Property ${id} has been modified but the new property is not present in the new metadata`);
         expect(e.message).not.toContain(`Property ${id} is not present in the new metadata and breaking changes are not allowed`);
       });
+      /* eslint-enable jest/no-conditional-expect */
     }
   });
 
@@ -226,12 +229,14 @@ describe('check metadata migration', () => {
       packageManagerExec({ script: 'ng', args: ['run', `${appName}:check-metadata`] }, execAppOptionsWorkspace);
       throw new Error('should have thrown before');
     } catch (e: any) {
+      /* eslint-disable jest/no-conditional-expect -- catch block always reached */
       expect(e.message).not.toBe('should have thrown before');
       previousLocalizationMetadata.slice(1).forEach(({ key: id }) => {
         expect(e.message).not.toContain(`Property ${id} has been modified but is not documented in the migration document`);
         expect(e.message).toContain(`Property ${id} has been modified but the new property is not present in the new metadata`);
         expect(e.message).not.toContain(`Property ${id} is not present in the new metadata and breaking changes are not allowed`);
       });
+      /* eslint-enable jest/no-conditional-expect */
     }
   });
 
@@ -252,12 +257,14 @@ describe('check metadata migration', () => {
       packageManagerExec({ script: 'ng', args: ['run', `${appName}:check-metadata`] }, execAppOptionsWorkspace);
       throw new Error('should have thrown before');
     } catch (e: any) {
+      /* eslint-disable jest/no-conditional-expect -- catch block always reached */
       expect(e.message).not.toBe('should have thrown before');
       previousLocalizationMetadata.slice(1).forEach(({ key: id }) => {
         expect(e.message).not.toContain(`Property ${id} has been modified but is not documented in the migration document`);
         expect(e.message).not.toContain(`Property ${id} has been modified but the new property is not present in the new metadata`);
         expect(e.message).toContain(`Property ${id} is not present in the new metadata and breaking changes are not allowed`);
       });
+      /* eslint-enable jest/no-conditional-expect */
     }
   });
 });

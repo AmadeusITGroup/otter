@@ -47,7 +47,6 @@ describe('Localization DevTools console', () => {
   it('should be activated', () => {
     service.activate();
 
-    // eslint-disable-next-line no-underscore-dangle
     expect((window as any)._OTTER_DEVTOOLS_?.[LocalizationDevtoolsConsoleService.windowModuleName]).toBeDefined();
   });
 });

@@ -2,7 +2,6 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as builder from './index';
 
-/* eslint-disable camelcase, @typescript-eslint/naming-convention */
 const filesPerLanguage = {
   en_US: [path.join(__dirname, '../../testing/mocks', 'test-resources', 'en_US.json')],
   fr_FR: [path.join(__dirname, '../../testing/mocks', 'test-resources', 'fr_FR.json')],

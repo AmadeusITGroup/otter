@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable @typescript-eslint/naming-convention -- naming convention imposed by PCloudy */
 
 /**
  * File stored on the pCloudy cloud.
@@ -56,7 +56,7 @@ export interface PCloudyBaseResponse {
 
 /**
  * Response from PCloudy post api call.
- * @typeParam T the specific response data type expected for the call
+ * @param T the specific response data type expected for the call
  * @example To get application call will return the standard {@link PCloudyBaseResponse} and the application data
  * ```typescript
  * // The type shall be

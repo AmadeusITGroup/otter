@@ -50,7 +50,6 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
     const depsInfo = getO3rPeerDeps(packageJsonPath);
     context.logger.info(`The package ${depsInfo.packageName as string} comes with a debug mechanism`);
     context.logger.info('Get information on https://github.com/AmadeusITGroup/otter/tree/main/docs/localization/LOCALIZATION.md#Debugging');
-    // eslint-disable-next-line @typescript-eslint/naming-convention
     const { NodeDependencyType } = await import('@schematics/angular/utility/dependencies');
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
     const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
@@ -72,6 +71,9 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       };
     });
     const registerDevtoolRule = await registerDevtools(options);
+    const schematicDefaultOptions = Object.fromEntries(['@o3r/core:component*'].map((name) => [name, {
+      useLocalization: true
+    }]));
     return chain([
       updateLocalization(options, __dirname),
       updateI18n(options),
@@ -83,12 +85,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       }),
       updateCmsAdapter(options),
       registerPackageCollectionSchematics(packageJson),
-      setupSchematicsParamsForProject({
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        '@o3r/core:component*': {
-          useLocalization: true
-        }
-      }, options.projectName),
+      setupSchematicsParamsForProject(schematicDefaultOptions, options.projectName),
       registerDevtoolRule
     ]);
   };

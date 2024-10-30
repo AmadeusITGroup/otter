@@ -81,7 +81,7 @@ const getLocalizationInformation = (componentPath: string, tree: Tree) => {
   }
 
   if (!defaultTranslationVariableName) {
-    const constructor = o3rClass.members.find(ts.isConstructorDeclaration);
+    const constructor = o3rClass.members.find((member) => ts.isConstructorDeclaration(member));
     if (constructor?.body) {
       constructor.body.statements.forEach((statement) => {
         if (
@@ -107,7 +107,7 @@ const getLocalizationInformation = (componentPath: string, tree: Tree) => {
     && !!statement.importClause
     && !!statement.importClause.namedBindings
     && ts.isNamedImports(statement.importClause.namedBindings)
-    && !!statement.importClause.namedBindings.elements.find((element) => ts.isIdentifier(element.name) && element.name.escapedText.toString() === defaultTranslationVariableName)
+    && statement.importClause.namedBindings.elements.some((element) => ts.isIdentifier(element.name) && element.name.escapedText.toString() === defaultTranslationVariableName)
   );
   if (!importDeclaration) {
     throw new O3rCliError(`Unable to find import declaration of ${defaultTranslationVariableName} in ${componentPath}`);

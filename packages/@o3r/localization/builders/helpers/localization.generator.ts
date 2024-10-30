@@ -226,11 +226,12 @@ export class LocalizationExtractor {
 
   /** Get the list of patterns from tsconfig.json */
   public getPatternsFromTsConfig() {
-    const tsconfigResult = ts.readConfigFile(this.tsconfigPath, ts.sys.readFile);
+    const tsconfigResult = ts.readConfigFile(this.tsconfigPath, (p) => ts.sys.readFile(p));
 
     if (tsconfigResult.error) {
-      // eslint-disable-next-line @typescript-eslint/no-base-to-string
-      const stringError = tsconfigResult.error.messageText.toString();
+      const stringError = typeof tsconfigResult.error.messageText === 'string'
+        ? tsconfigResult.error.messageText
+        : tsconfigResult.error.messageText.messageText;
       this.logger.error(stringError);
       throw new O3rCliError(stringError);
     }

@@ -126,7 +126,7 @@ export class PCloudyService {
       timeoutProgressCheck = setTimeout(() => {
         clearInterval(progressCheckInterval);
         if (progress < 100) {
-          reject(`Failed to re-sign ios application ${appName} before timeout - progress stuck at ${progress}`);
+          reject(new Error(`Failed to re-sign ios application ${appName} before timeout - progress stuck at ${progress}`));
         }
       }, 10_000);
     });

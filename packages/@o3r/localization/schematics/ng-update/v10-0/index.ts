@@ -1,4 +1,3 @@
-/* eslint-disable camelcase, @typescript-eslint/naming-convention */
 import {
   chain,
   Rule,
@@ -23,6 +22,7 @@ const pipeReplacementInfo: PipeReplacementInfo = {
 /**
  * Update of Otter library V10.0
  */
+// eslint-disable-next-line @typescript-eslint/naming-convention -- contains the version number
 function updateV10_0Fn(): Rule {
   return (tree: Tree, context: SchematicContext) => {
     const updateRules: Rule[] = [
@@ -36,4 +36,5 @@ function updateV10_0Fn(): Rule {
 /**
  * Update of Otter library V10.0
  */
+// eslint-disable-next-line @typescript-eslint/naming-convention -- contains the version number
 export const updateV10_0 = createSchematicWithMetricsIfInstalled(updateV10_0Fn);

@@ -10,6 +10,7 @@ import {
 } from './helpers';
 
 /**
+ * Mock capacitor platform
  * @param platform the device platform: ios, android or web
  */
 function setCapacitorPlatform(platform: CapacitorPlatforms) {

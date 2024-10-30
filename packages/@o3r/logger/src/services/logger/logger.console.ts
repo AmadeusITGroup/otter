@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+/* eslint-disable no-console -- this is the purpose of this logger */
 import {
   Action,
   ActionReducer,
@@ -31,7 +31,7 @@ export class ConsoleLogger implements LoggerClient {
   /** @inheritdoc */
   public identify(uuid: string) {
     this.debug('logging identify function called');
-    this.log(`Identify userd ${uuid}`);
+    this.log(`Identify user id ${uuid}`);
   }
 
   /** @inheritdoc */

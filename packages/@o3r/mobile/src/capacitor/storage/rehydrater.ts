@@ -22,6 +22,8 @@ import {
  */
 export const STORAGE_SYNC_OPTIONS = new InjectionToken<Partial<StorageSyncOptions>>('STORAGE_SYNC_OPTIONS');
 
+const noopDeserializer = (raw: string) => raw;
+
 @Injectable()
 export class CapacitorRehydrater {
   private readonly options: StorageSyncOptions;
@@ -46,7 +48,7 @@ export class CapacitorRehydrater {
         const storeName = Object.keys(key)[0];
         const storeSynchronizer = (key as any)[storeName];
         let reviver = this.options.restoreDates ? dateReviver : undefined;
-        let deserialize: (raw: string) => any = (raw: string) => raw;
+        let deserialize = noopDeserializer;
 
         if (isSerializer(storeSynchronizer)) {
           if (storeSynchronizer.reviver) {
