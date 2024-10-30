@@ -59,7 +59,6 @@ async function promiseGetRequest<T extends JsonObject>(url: string) {
 /**
  * Execute NPM search command if not run with other client
  * @param search search text
- * @param packageManager Package manager to use, determined automatically if not specified
  * @param packageManagerOptions
  * @param logger
  */

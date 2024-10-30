@@ -73,7 +73,7 @@ export function getRoutesDeclaration(tree: Tree, context: SchematicContext, appR
   return sourceFile.statements
     .filter((statement) => statement.kind === ts.SyntaxKind.VariableStatement)
     .map((statement) => (statement as ts.VariableStatement).declarationList.declarations)
-    .map((declarations) => declarations.filter(isRoutesDeclaration))
+    .map((declarations) => declarations.filter((route) => isRoutesDeclaration(route)))
     .reduce((declaration, declarations) =>
       declarations.length > 0 ? declarations[0] : declaration,
     null as ts.VariableDeclaration | null

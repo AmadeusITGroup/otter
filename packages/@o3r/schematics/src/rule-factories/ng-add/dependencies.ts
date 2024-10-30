@@ -205,7 +205,7 @@ export const setupDependencies = (options: SetupDependenciesOptions): Rule => {
 
     const addDependencies: Rule = (tree) => {
       const workspaceConfig = getWorkspaceConfig(tree);
-      const workspaceProject = options.projectName && workspaceConfig?.projects?.[options.projectName] || undefined;
+      const workspaceProject = (options.projectName && workspaceConfig?.projects?.[options.projectName]) || undefined;
       const projectDirectory = workspaceProject?.root;
       return chain(Object.entries(options.dependencies)
         .map(([packageName, dependencyDetails]) => {

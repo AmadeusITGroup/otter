@@ -31,6 +31,22 @@ import {
   getPackageManager
 } from '../../utility/index';
 
+const getNgAddSchema = (packageName: string, context: SchematicContext) => {
+  try {
+    const collection = context.engine.createCollection(packageName);
+    return collection.createSchematic('ng-add');
+  } catch {
+    context.logger.warn(`No ng-add found for ${packageName}`);
+    return undefined;
+  }
+};
+
+const sortDependencies = (packageJson: PackageJson, depType: 'dependencies' | 'devDependencies' | 'peerDependencies') => {
+  packageJson[depType] = packageJson[depType]
+    ? Object.fromEntries(Object.entries(packageJson[depType] || {}).sort(([key1, _val1], [key2, _val2]) => key1.localeCompare(key2)))
+    : undefined;
+};
+
 /**
  * Install via `ng add` a list of npm packages.
  * @param packages List of packages to be installed via `ng add`
@@ -75,16 +91,6 @@ export function ngAddPackages(packages: string[], options?: Omit<NgAddPackageOpt
     return versionFound;
   };
 
-  const getNgAddSchema = (packageName: string, context: SchematicContext) => {
-    try {
-      const collection = context.engine.createCollection(packageName);
-      return collection.createSchematic('ng-add');
-    } catch {
-      context.logger.warn(`No ng-add found for ${packageName}`);
-      return undefined;
-    }
-  };
-
   const getOptions = (schema: Schematic<any, any>) => {
     const schemaOptions = schema.description.schemaJson?.properties || {};
     return Object.entries(options || {}).reduce<Record<string, any>>((accOptions, [key, value]: [string, any]) => {
@@ -104,11 +110,6 @@ export function ngAddPackages(packages: string[], options?: Omit<NgAddPackageOpt
   return chain([
     // Update package.json in tree
     (tree) => {
-      const sortDependencies = (packageJson: PackageJson, depType: 'dependencies' | 'devDependencies' | 'peerDependencies') => {
-        packageJson[depType] = packageJson[depType]
-          ? Object.fromEntries(Object.entries(packageJson[depType] || {}).sort(([key1, _val1], [key2, _val2]) => key1.localeCompare(key2)))
-          : undefined;
-      };
       for (const filePath of new Set([packageJsonPath, './package.json'])) {
         const packageJson: PackageJson = tree.readJson(filePath) as PackageJson;
         packages.forEach((packageName) => {

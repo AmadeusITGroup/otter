@@ -30,7 +30,12 @@ export function registerCollectionSchematics(workspace: WorkspaceSchema, collect
  * @param options
  * @param options.projectName
  */
-export function getDefaultOptionsForSchematic<T extends WorkspaceSchematics['*:*'] = WorkspaceSchematics['*:*']>(workspace: WorkspaceSchema | null, collection: string, schematicName: string, options?: { projectName?: string | undefined }): T {
+export function getDefaultOptionsForSchematic<T extends WorkspaceSchematics['*:*'] = WorkspaceSchematics['*:*']>(
+  workspace: WorkspaceSchema | null,
+  collection: string,
+  schematicName: string,
+  options?: { projectName?: string | undefined }
+): T {
   if (!workspace) {
     return {} as T;
   }
@@ -61,7 +66,6 @@ export function getDefaultOptionsForSchematic<T extends WorkspaceSchematics['*:*
 export function getSchematicOptions<T extends WorkspaceSchematics['*:*'] = WorkspaceSchematics['*:*']>(config: WorkspaceSchema, context: SchematicContext): T | undefined {
   const schematicName = `${context.schematic.description.collection.name}:${context.schematic.description.name}`;
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const options = config.schematics && Object.entries(config.schematics)
     .filter(([name]) => new RegExp(name.replace(/\*/g, '.*')).test(schematicName))
     .sort(([a], [b]) => ((a.match(/\*/g)?.length || 0) - (b.match(/\*/g)?.length || 0)))

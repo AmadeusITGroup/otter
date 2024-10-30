@@ -44,10 +44,9 @@ const setupO3rMetricsInPackageJson: (activated: boolean) => Rule = (activated) =
 
 const setupTelemetry: (opts: { workingDirectory?: string; runNgAdd?: boolean; exactO3rVersion?: boolean }) => Rule = ({ workingDirectory, runNgAdd, exactO3rVersion }) => (_, context) => {
   const taskIdsFromContext = hasSetupInformation(context) ? context.setupDependencies.taskIds : undefined;
-  const version = JSON.parse(readFileSync(path.join(__dirname, '..', '..', 'package.json'), 'utf-8')).version;
+  const version = JSON.parse(readFileSync(path.join(__dirname, '..', '..', 'package.json'), 'utf8')).version;
   return setupDependencies({
     dependencies: {
-      // eslint-disable-next-line @typescript-eslint/naming-convention
       '@o3r/telemetry': {
         inManifest: [{
           range: `${exactO3rVersion ? '' : '~'}${version}`,

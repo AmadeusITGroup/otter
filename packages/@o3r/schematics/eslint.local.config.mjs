@@ -4,6 +4,7 @@ import {
 import {
   fileURLToPath
 } from 'node:url';
+import globals from 'globals';
 
 const __filename = fileURLToPath(import.meta.url);
 // __dirname is not defined in ES module scope
@@ -23,6 +24,9 @@ export default [
           'tsconfig.eslint.json',
           'tsconfig.cli.json'
         ]
+      },
+      globals: {
+        ...globals.node
       }
     }
   }

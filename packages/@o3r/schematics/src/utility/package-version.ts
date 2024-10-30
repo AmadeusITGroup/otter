@@ -28,14 +28,13 @@ export function getPackageVersion(packageJsonPath: string) {
  * Note: It is using file system if no tree provided
  * @param currentPath current path to inspect
  * @param tree current path to inspect
- * @returns
  */
 export const findClosestPackageJson = (currentPath: string, tree?: Tree): string | undefined => {
-  const dir = (tree ? posix.dirname : dirname)(currentPath);
+  const dir = (tree ? posix.dirname.bind(posix) : dirname)(currentPath);
   if (dir === currentPath || currentPath === '/') {
     return undefined;
   }
 
-  const packageJsonPath = (tree ? posix.join : join)(dir, 'package.json');
-  return (tree ? tree.exists : existsSync)(packageJsonPath) ? packageJsonPath : findClosestPackageJson(dir, tree);
+  const packageJsonPath = (tree ? posix.join.bind(posix) : join)(dir, 'package.json');
+  return (tree ? tree.exists.bind(tree) : existsSync)(packageJsonPath) ? packageJsonPath : findClosestPackageJson(dir, tree);
 };

@@ -12,7 +12,7 @@ import {
   SassImportExposedElement
 } from './list-of-vars';
 
-const imports = new RegExp(/^@import\s+["']~?@(o3r|otter)\/styling.*\s*/, 'gm');
+const imports = new RegExp(/^@import\s+["']~?@(o3r|otter)\/styling.*\s*/, 'm');
 
 /**
  * Update SASS imports to use a scoped dependency
@@ -26,7 +26,7 @@ export function updateSassImports(alias: string, dependencyName = '@o3r/styling'
     const files = fromRoot ? getFilesWithExtensionFromTree(tree, 'scss') : getFilesFromRootOfWorkspaceProjects(tree, 'scss');
     files.forEach((file) => {
       let content = tree.read(file)!.toString();
-      if (content.match(imports)) {
+      if (imports.test(content)) {
         const contentWithoutImports = content.replace(imports, '');
         content = `@use '${dependencyName}' as ${alias};\n${contentWithoutImports}`;
         exposedElements.forEach((elem) => {

@@ -108,7 +108,7 @@ export const updatePipes = (pipeReplacementInfo: PipeReplacementInfo): Rule => (
           ts.isClassDeclaration(statement)
           && isNgClassComponent(statement)
         );
-        const ngDecorator = ((ngClass && ts.getDecorators(ngClass)) || []).find(isNgClassDecorator);
+        const ngDecorator = ((ngClass && ts.getDecorators(ngClass)) || []).find((decorator) => isNgClassDecorator(decorator));
         if (ngDecorator) {
           applyChanges(pipeReplacementInfo, ngDecorator, matchers, componentFile, file.path, tree, context);
         }
@@ -121,9 +121,9 @@ export const updatePipes = (pipeReplacementInfo: PipeReplacementInfo): Rule => (
         );
         const ngModuleClass = moduleSourceFile.statements.find((statement): statement is ts.ClassDeclaration =>
           ts.isClassDeclaration(statement)
-          && !!(ts.getDecorators(statement) || []).find(isNgModuleDecorator)
+          && (ts.getDecorators(statement) || []).some((decorator) => isNgModuleDecorator(decorator))
         );
-        const ngDecorator = ((ngModuleClass && ts.getDecorators(ngModuleClass)) || []).find(isNgModuleDecorator);
+        const ngDecorator = ((ngModuleClass && ts.getDecorators(ngModuleClass)) || []).find((decorator) => isNgModuleDecorator(decorator));
         if (ngDecorator && isDecoratorWithArg(ngDecorator)) {
           applyChanges(pipeReplacementInfo, ngDecorator, matchers, moduleFile, file.path, tree, context);
         }
