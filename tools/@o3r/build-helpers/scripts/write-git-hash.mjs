@@ -22,8 +22,10 @@ try {
   const data = readFileSync(packageJsonPath, { encoding: 'utf-8' });
   const packageJson = JSON.parse(data);
 
-  packageJson.o3rConfig = packageJson.o3rConfig || {};
-  packageJson.o3rConfig.commitHash = commitHash;
+
+  packageJson.config ||= {};
+  packageJson.config.o3r ||= {};
+  packageJson.config.o3r.commitHash = commitHash;
 
   writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2), { encoding: 'utf-8' });
   console.log(`package.json updated successfully with commit hash '${commitHash}'`);

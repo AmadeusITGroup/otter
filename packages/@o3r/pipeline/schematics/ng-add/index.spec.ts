@@ -46,4 +46,22 @@ describe('ng-add', () => {
 
   });
 
+  it('should generate a GitHub workflow with custom parameters when npmrc exists', async () => {
+    const runner = new SchematicTestRunner('@o3r/pipeline', collectionPath);
+    initialTree.create('.npmrc', 'registry=http://public.registry.com');
+    const tree = await runner.runSchematic('ng-add', {
+      toolchain: 'github',
+      runner: 'windows-latest',
+      npmRegistry: 'http://private.registry.com'
+    } as NgAddSchematicsSchema, initialTree);
+
+    expect(tree.exists('.github/actions/setup/action.yml')).toBe(true);
+    expect(tree.exists('.github/workflows/main.yml')).toBe(true);
+    expect(tree.exists('.npmrc')).toBe(true);
+
+    expect(tree.readText('.github/workflows/main.yml')).toContain('windows-latest');
+    expect(tree.readText('.npmrc')).toBe('registry=http://private.registry.com');
+
+  });
+
 });
