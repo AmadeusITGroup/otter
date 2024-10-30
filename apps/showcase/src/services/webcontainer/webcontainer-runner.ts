@@ -66,7 +66,7 @@ export class WebContainerRunner {
 
   constructor() {
     this.instancePromise = WebContainer.boot().then((instance) => {
-      // eslint-disable-next-line no-console
+      // eslint-disable-next-line no-console -- only logger available
       instance.on('error', console.error);
       return instance;
     });
@@ -114,7 +114,7 @@ export class WebContainerRunner {
       try {
         await writer.write(`cd ${instance.workdir}/${processCwd} && clear \n`);
       } catch (e) {
-        // eslint-disable-next-line no-console
+        // eslint-disable-next-line no-console -- only logger available
         console.error(e, processCwd);
       }
     });
@@ -135,12 +135,11 @@ export class WebContainerRunner {
       }),
       takeUntilDestroyed()
     ).subscribe(({ process, terminal }) => {
-      const cb = (data: string) => {
+      void process.output.pipeTo(createTerminalStream(terminal, (data: string) => {
         if (['CREATE', 'UPDATE', 'RENAME', 'DELETE'].some((action) => data.includes(action))) {
           this.treeUpdateCallback();
         }
-      };
-      void process.output.pipeTo(createTerminalStream(terminal, cb));
+      }));
       this.shell.writer.next(makeProcessWritable(process, terminal));
       this.shell.process.next(process);
     });

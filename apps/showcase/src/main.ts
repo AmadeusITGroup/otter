@@ -1,14 +1,10 @@
 import {
-  platformBrowserDynamic
-} from '@angular/platform-browser-dynamic';
-import {
-  AppModule
-} from './app/app.module';
-import '@angular/localize/init';
-import {
   inject,
   runInInjectionContext
 } from '@angular/core';
+import {
+  platformBrowserDynamic
+} from '@angular/platform-browser-dynamic';
 import {
   ApplicationDevtoolsConsoleService,
   ApplicationDevtoolsMessageService
@@ -31,6 +27,10 @@ import {
 import {
   StylingDevtoolsMessageService
 } from '@o3r/styling';
+import {
+  AppModule
+} from './app/app.module';
+import '@angular/localize/init';
 
 document.body.dataset.dynamiccontentpath = localStorage.getItem('dynamicPath') || '';
 platformBrowserDynamic().bootstrapModule(AppModule)
@@ -48,5 +48,5 @@ platformBrowserDynamic().bootstrapModule(AppModule)
       inject(StylingDevtoolsMessageService);
     });
   })
-  // eslint-disable-next-line no-console
+  // eslint-disable-next-line no-console -- only logger available
   .catch((err) => console.error(err));

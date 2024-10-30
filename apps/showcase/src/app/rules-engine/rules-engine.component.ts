@@ -14,11 +14,7 @@ import {
   RouterModule
 } from '@angular/router';
 import {
-  NgbNav,
-  NgbNavContent,
-  NgbNavItem,
-  NgbNavLink,
-  NgbNavOutlet
+  NgbNavModule
 } from '@ng-bootstrap/ng-bootstrap';
 import {
   ApplicationDevtoolsModule
@@ -108,11 +104,7 @@ import {
     CopyTextPresComponent,
     RouterModule,
     IN_PAGE_NAV_PRES_DIRECTIVES,
-    NgbNav,
-    NgbNavItem,
-    NgbNavLink,
-    NgbNavContent,
-    NgbNavOutlet,
+    NgbNavModule,
     AsyncPipe
   ],
   templateUrl: './rules-engine.template.html',

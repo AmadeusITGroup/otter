@@ -19,7 +19,7 @@ const config = [
       'jsdoc/check-tag-names': [
         'error',
         {
-          definedTags: ['note', 'title', 'o3rCategory', 'o3rWidget', 'o3rWidgetParam', 'o3rRequired']
+          definedTags: ['note', 'title', 'o3rCategory', 'o3rCategories', 'o3rWidget', 'o3rWidgetParam', 'o3rRequired']
         }
       ],
       'jsdoc/no-defaults': 'off',

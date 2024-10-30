@@ -110,7 +110,7 @@ export class SdkPresComponent {
         (pet.id && matchString.test(String(pet.id)))
         || matchString.test(pet.name)
         || (pet.category?.name && matchString.test(pet.category.name))
-        || (pet.tags && pet.tags.some(matchTag)));
+        || (pet.tags && pet.tags.some((tag) => matchTag(tag))));
     }
     return pets;
   });
@@ -150,7 +150,7 @@ export class SdkPresComponent {
     this.isLoading.set(true);
     this.hasErrors.set(false);
     return this.petStoreApi.findPetsByStatus({ status: 'available' }).then((pets) => {
-      this.pets.set(pets.filter((p) => p.category?.name === 'otter').sort((a, b) => a.id && b.id && a.id - b.id || 0));
+      this.pets.set(pets.filter((p) => p.category?.name === 'otter').sort((a, b) => (a.id && b.id && (a.id - b.id)) || 0));
       this.isLoading.set(false);
     }).catch(() => {
       this.isLoading.set(false);

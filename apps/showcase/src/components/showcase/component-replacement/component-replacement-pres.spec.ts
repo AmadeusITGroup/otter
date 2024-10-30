@@ -28,7 +28,7 @@ let componentFixture: ComponentReplacementPresFixtureComponent;
 
 @Directive({
   selector: '[c11n]',
-  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property -- mock in test
   inputs: ['config', 'component', 'inputs', 'outputs', 'formControl'],
   providers: [
     {
