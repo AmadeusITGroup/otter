@@ -3,6 +3,9 @@
  * @jest-environment @o3r/test-helpers/jest-environment
  * @jest-environment-o3r-app-folder test-app-styling-metadata-check
  */
+/* eslint-disable import/first -- for it test we want to have `o3rEnvironment` linked to the jsdoc of the jest environment setup */
+const o3rEnvironment = globalThis.o3rEnvironment;
+
 import {
   existsSync,
   promises,
@@ -38,8 +41,6 @@ import type {
   MigrationStylingData
 } from './helpers/styling-metadata-comparison.helper';
 
-const o3rEnvironment = globalThis.o3rEnvironment;
-
 const baseVersion = '1.2.0';
 const version = '1.3.0';
 const migrationDataFileName = `migration-scripts/MIGRATION-${version}.json`;
@@ -67,7 +68,6 @@ const createCssVar = (name: string): CssVariable => ({
 
 const unchangedVariableName = 'css-var-name0';
 
-/* eslint-disable @typescript-eslint/naming-convention */
 const previousStylingMetadata: CssMetadata = {
   variables: {
     [unchangedVariableName]: createCssVar(unchangedVariableName),
@@ -82,7 +82,6 @@ const newStylingMetadata: CssMetadata = {
     'new-css-var-name1': createCssVar('new-css-var-name1')
   }
 };
-/* eslint-enable @typescript-eslint/naming-convention */
 
 async function writeFileAsJSON(path: string, content: object) {
   if (!existsSync(dirname(path))) {
@@ -201,12 +200,14 @@ describe('check metadata migration', () => {
       packageManagerExec({ script: 'ng', args: ['run', `${appName}:check-metadata`] }, execAppOptionsWorkspace);
       throw new Error('should have thrown before');
     } catch (e: any) {
+      /* eslint-disable jest/no-conditional-expect -- catch block always called */
       expect(e.message).not.toBe('should have thrown before');
       Object.values(previousStylingMetadata.variables).slice(1).forEach(({ name: id }) => {
         expect(e.message).toContain(`Property ${id} has been modified but is not documented in the migration document`);
         expect(e.message).not.toContain(`Property ${id} has been modified but the new property is not present in the new metadata`);
         expect(e.message).not.toContain(`Property ${id} is not present in the new metadata and breaking changes are not allowed`);
       });
+      /* eslint-enable jest/no-conditional-expect */
     }
   });
 
@@ -237,12 +238,14 @@ describe('check metadata migration', () => {
       packageManagerExec({ script: 'ng', args: ['run', `${appName}:check-metadata`] }, execAppOptionsWorkspace);
       throw new Error('should have thrown before');
     } catch (e: any) {
+      /* eslint-disable jest/no-conditional-expect -- catch block always called */
       expect(e.message).not.toBe('should have thrown before');
       Object.values(previousStylingMetadata.variables).slice(1).forEach(({ name: id }) => {
         expect(e.message).not.toContain(`Property ${id} has been modified but is not documented in the migration document`);
         expect(e.message).toContain(`Property ${id} has been modified but the new property is not present in the new metadata`);
         expect(e.message).not.toContain(`Property ${id} is not present in the new metadata and breaking changes are not allowed`);
       });
+      /* eslint-enable jest/no-conditional-expect */
     }
   });
 
@@ -263,12 +266,14 @@ describe('check metadata migration', () => {
       packageManagerExec({ script: 'ng', args: ['run', `${appName}:check-metadata`] }, execAppOptionsWorkspace);
       throw new Error('should have thrown before');
     } catch (e: any) {
+      /* eslint-disable jest/no-conditional-expect -- catch block always called */
       expect(e.message).not.toBe('should have thrown before');
       Object.values(previousStylingMetadata.variables).slice(1).forEach(({ name: id }) => {
         expect(e.message).not.toContain(`Property ${id} has been modified but is not documented in the migration document`);
         expect(e.message).not.toContain(`Property ${id} has been modified but the new property is not present in the new metadata`);
         expect(e.message).toContain(`Property ${id} is not present in the new metadata and breaking changes are not allowed`);
       });
+      /* eslint-enable jest/no-conditional-expect */
     }
   });
 });

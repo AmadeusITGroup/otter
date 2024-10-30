@@ -31,7 +31,7 @@ import {
   template: '<ng-content></ng-content>',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-// eslint-disable-next-line @angular-eslint/component-class-suffix
+// eslint-disable-next-line @angular-eslint/component-class-suffix -- legacy code
 export class ComponentWrapper implements OnDestroy {
   private readonly subscription = new Subscription();
 

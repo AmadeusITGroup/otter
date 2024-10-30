@@ -1,3 +1,4 @@
+/* eslint-disable no-console -- this is the purpose of this service */
 import {
   Inject,
   Injectable,
@@ -119,8 +120,7 @@ export class StylingDevtoolsMessageService implements OnDestroy {
 
   /**
    * Function to handle the incoming messages from Otter Chrome DevTools extension
-   * @param event Event coming from the Otter Chrome DevTools extension
-   * @param message
+   * @param message Message coming from the Otter Chrome DevTools extension
    */
   private handleEvents(message: AvailableStylingMessageContents) {
     this.logger.debug('Message handling by the styling service', message);

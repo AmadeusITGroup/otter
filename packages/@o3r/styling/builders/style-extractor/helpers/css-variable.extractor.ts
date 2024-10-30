@@ -154,8 +154,7 @@ export class CssVariableExtractor {
           const packageJsonPath = require.resolve(`${moduleName}/package.json`);
           const packagePath = path.dirname(packageJsonPath);
           const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' }));
-          let computedPathUrl;
-          computedPathUrl = subEntry !== '.' && packageJson.exports?.[subEntry]
+          const computedPathUrl = subEntry !== '.' && packageJson.exports?.[subEntry]
             ? path.join(packagePath, packageJson.exports[subEntry].sass
             || packageJson.exports[subEntry].scss || packageJson.exports[subEntry].css
             || packageJson.exports[subEntry].default)
@@ -166,7 +165,7 @@ export class CssVariableExtractor {
         }
       }],
       functions: {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
+        // eslint-disable-next-line @typescript-eslint/naming-convention -- format imposed by sass loader
         'metadata-report($name, $value, $details: null)': (args: Value[]) => {
           let contextTags: string[] | undefined;
           const varName = args[0];
@@ -210,6 +209,7 @@ export class CssVariableExtractor {
                       break;
                     }
                     default: {
+                      // eslint-disable-next-line no-console -- no other logger available
                       console.warn(`Unsupported property: ${key.text}`);
                       break;
                     }
@@ -249,6 +249,7 @@ export class CssVariableExtractor {
             if (invalidIndexes.length > 0) {
               const message = `Invalid value in the list (indexes: ${invalidIndexes.join(', ')}) for variable ${varName.text}.`;
               if (this.builderOptions?.ignoreInvalidValue ?? true) {
+                // eslint-disable-next-line no-console -- no other logger available
                 console.warn(`${message} It will be ignored.`);
               } else {
                 throw new O3rCliError(message);
@@ -259,6 +260,7 @@ export class CssVariableExtractor {
           } else if (varValue.realNull) {
             const message = `Invalid value for variable ${varName.text}.`;
             if (this.builderOptions?.ignoreInvalidValue ?? true) {
+              // eslint-disable-next-line no-console -- no other logger available
               console.warn(`${message} It will be ignored.`);
               return new SassString(`[METADATA:VARIABLE] ${varName.text} : invalid value`);
             } else {
@@ -266,6 +268,7 @@ export class CssVariableExtractor {
             }
           } else {
             if (!details) {
+              // eslint-disable-next-line no-console -- no other logger available
               console.warn(`The value "null" of ${varName.text} is available only for details override`);
               return new SassString(`[METADATA:VARIABLE] ${varName.text} : invalid Null value`);
             }

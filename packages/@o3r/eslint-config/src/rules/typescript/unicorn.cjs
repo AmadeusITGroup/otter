@@ -17,7 +17,7 @@ const config = [
         {
           case: 'kebabCase',
           ignore: [
-            '^public_api.ts$'
+            '^public_api.[cm]?ts$'
           ]
         }
       ],

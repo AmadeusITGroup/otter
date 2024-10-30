@@ -6,7 +6,6 @@ import plugins from '../../index.mts';
 const config = {
   plugins,
   'rules': {
-    // eslint-disable-next-line @typescript-eslint/naming-convention
     '@o3r/o3r-var-parameter-equal-variable': true
   }
 };

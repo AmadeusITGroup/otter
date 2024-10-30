@@ -17,9 +17,9 @@ import {
 
 /**
  * Added styling support
+ * @param rootPath @see RuleFactory.rootPath
  * @param options @see RuleFactory.options
  * @param options.projectName
- * @param rootPath @see RuleFactory.rootPath
  */
 export function updateThemeFiles(rootPath: string, options: { projectName?: string | null | undefined }): Rule {
   return async (tree: Tree, context: SchematicContext) => {
@@ -71,11 +71,12 @@ export function updateThemeFiles(rootPath: string, options: { projectName?: stri
   };
 }
 
+type Asset = { glob: string; input: string; output: string };
+
 /**
  * Update assets list in angular.json for styling
  * @param options
  * @param options.projectName
- * @returns
  */
 export function removeV7OtterAssetsInAngularJson(options: { projectName?: string | null | undefined }): Rule {
   return async (tree: Tree, context: SchematicContext) => {
@@ -91,7 +92,7 @@ export function removeV7OtterAssetsInAngularJson(options: { projectName?: string
     }
 
     if (workspaceProject.architect?.build?.options?.assets) {
-      workspaceProject.architect.build.options.assets = workspaceProject.architect.build.options.assets.filter((a: { glob: string; input: string; output: string }) => !a.input || !a.input.includes('node_modules/@otter/styling/assets'));
+      workspaceProject.architect.build.options.assets = workspaceProject.architect.build.options.assets.filter((a: Asset) => !a.input || !a.input.includes('node_modules/@otter/styling/assets'));
     }
 
     workspace.projects[projectName] = workspaceProject;

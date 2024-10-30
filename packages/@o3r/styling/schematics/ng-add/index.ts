@@ -51,7 +51,6 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
     } = await import('@o3r/schematics');
     options = { ...getDefaultOptionsForSchematic(getWorkspaceConfig(tree), '@o3r/styling', 'ng-add', options), ...options };
     const { updateThemeFiles, removeV7OtterAssetsInAngularJson } = await import('./theme-files');
-    // eslint-disable-next-line @typescript-eslint/naming-convention
     const { NodeDependencyType } = await import('@schematics/angular/utility/dependencies');
     const depsInfo = getO3rPeerDeps(packageJsonPath);
     if (options.enableMetadataExtract) {
@@ -98,11 +97,9 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       }),
       registerPackageCollectionSchematics(JSON.parse(fs.readFileSync(packageJsonPath).toString())),
       setupSchematicsParamsForProject({
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         '@o3r/core:component': {
           useOtterTheming: undefined
         },
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         '@o3r/core:component-presenter': {
           useOtterTheming: undefined
         }
