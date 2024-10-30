@@ -29,14 +29,13 @@ import {
   MigrateSchematicsSchemaOptions
 } from './schema';
 
-/* eslint-disable @typescript-eslint/naming-convention -- keys are package versions */
 const tsMigrationMap: MigrationRulesMap = {
   '~10.3.2': updateOpenApiVersionInProject(),
   '11.0.*': [
     updateRegenScript
   ]
 };
-/* eslint-enable @typescript-eslint/naming-convention */
+
 /**
  * Facilitate the migration of a version to another by the run of migration rules
  * @param options

@@ -31,7 +31,6 @@ export default [
     languageOptions: {
       globals: {
         ...globals.webextensions,
-        ...globals.browser,
         globalThis: true
       }
     }

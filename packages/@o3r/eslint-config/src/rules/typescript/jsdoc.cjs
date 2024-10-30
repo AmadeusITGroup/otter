@@ -36,6 +36,15 @@ const config = [
       'jsdoc/require-returns': 'off',
       'jsdoc/require-returns-type': 'off'
     }
+  },
+  {
+    name: '@o3r/eslint-config/jsdoc/js',
+    files: ['**/*.{c,m,}js'],
+    rules: {
+      'jsdoc/require-param-type': 'error',
+      'jsdoc/require-returns-type': 'error',
+      'jsdoc/require-returns-description': 'off',
+    }
   }
 ];
 

@@ -86,7 +86,6 @@ describe('Json Token', () => {
       const runner = plugin.load({
         reviver,
         apiType: ApiTypes.DEFAULT,
-        // eslint-disable-next-line @typescript-eslint/naming-convention -- naming conventions for Headers
         response: { headers: new Headers({ Authorization: tokenValue }) } as any
       });
       const data = {};

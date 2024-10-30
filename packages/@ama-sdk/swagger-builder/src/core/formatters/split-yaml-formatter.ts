@@ -199,7 +199,6 @@ export class SplitYamlFormatter implements Formatter {
       ...generatePackageJson(artifactName, spec),
       main: path.relative(this.cwd, this.filePath),
       exports: {
-        // eslint-disable-next-line @typescript-eslint/naming-convention -- key is a path to a file
         './openapi.yaml': {
           default: path.relative(this.cwd, this.filePath)
         }

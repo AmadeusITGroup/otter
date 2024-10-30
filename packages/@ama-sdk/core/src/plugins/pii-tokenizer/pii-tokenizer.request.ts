@@ -28,7 +28,6 @@ export function createJwtPiiEncoder(applicationId: string, expirationDelay = 360
       iat: timestamp,
       exp: timestamp + expirationDelay,
       iss: applicationId,
-      // eslint-disable-next-line @typescript-eslint/naming-convention -- naming convention imposed for Amadeus JWE
       'ama-tokens': values
     };
   };
@@ -62,7 +61,6 @@ export function createJwePiiEncoder(
       iat: timestamp,
       exp: timestamp + expirationDelay,
       iss: applicationId,
-      // eslint-disable-next-line @typescript-eslint/naming-convention -- naming convention imposed for Amadeus JWE
       'ama-tokens': values
     };
   };

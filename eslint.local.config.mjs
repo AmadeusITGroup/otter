@@ -15,7 +15,7 @@ export default [
   {
     name: '@o3r/framework/projects',
     languageOptions: {
-      sourceType: 'commonjs',
+      sourceType: 'module',
       parserOptions: {
         tsconfigRootDir: __dirname,
         project: ['tsconfig.eslint.json']

@@ -37,7 +37,6 @@ export class JsonFormatter implements Formatter {
       ...generatePackageJson(artifactName, spec),
       main: path.relative(this.cwd, this.filePath),
       exports: {
-        // eslint-disable-next-line @typescript-eslint/naming-convention -- key is a path to a file
         './openapi.json': {
           default: path.relative(this.cwd, this.filePath)
         }

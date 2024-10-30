@@ -5,6 +5,13 @@ import o3rPlugin from '@o3r/eslint-plugin';
 import globals from 'globals';
 import jsonParser from 'jsonc-eslint-parser';
 
+const nodeFiles = [
+  '**/{builders,cli,schematics,scripts,testing,tools}/**/*.{c,m,}{j,t}s',
+  '**/*.spec.ts',
+  '**/jest.config*.js',
+  '**/eslint*.config.mjs'
+];
+
 export default [
   ...o3rConfig,
   ...o3rTemplate,
@@ -17,6 +24,7 @@ export default [
       '**/test/',
       '**/tmp/',
       '**/templates/',
+      '**/.attachments/',
       '**/generated-doc/',
       '**/packaged-action/',
       '.pnp.js',
@@ -36,20 +44,40 @@ export default [
       'import/resolver': 'node'
     },
     languageOptions: {
+      sourceType: 'module',
       ecmaVersion: 12
     }
   },
   {
+    name: '@o3r/framework/commonjs',
+    files: ['**/*.cjs'],
+    languageOptions: {
+      sourceType: 'commonjs',
+      globals: {
+        ...globals.commonjs
+      }
+    }
+  },
+  {
     name: '@o3r/framework/node',
-    files: [
-      '**/{cli,builders,schematics,scripts,testing,tools}/**',
-      '**/*.spec.ts'
-    ],
+    files: nodeFiles,
     languageOptions: {
       globals: {
         ...globals.node,
         NodeJS: true,
         globalThis: true
+      }
+    }
+  },
+  {
+    name: '@o3r/framework/browser',
+    files: [
+      '**/*.{c,m,}{j,t}s'
+    ],
+    ignores: nodeFiles,
+    languageOptions: {
+      globals: {
+        ...globals.browser
       }
     }
   },
@@ -120,6 +148,7 @@ export default [
       'no-underscore-dangle': [
         'error',
         {
+          allowAfterThis: true,
           allow: [
             '_OTTER_DEVTOOLS_'
           ]
@@ -134,6 +163,7 @@ export default [
       'no-underscore-dangle': [
         'error',
         {
+          allowAfterThis: true,
           allow: ['__filename', '__dirname']
         }
       ]

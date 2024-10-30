@@ -1,7 +1,17 @@
-import { sync } from 'globby';
-import { dirname, relative } from 'node:path';
-import { fileURLToPath, pathToFileURL } from 'node:url';
+import {
+  dirname,
+  posix,
+  relative,
+  sep
+} from 'node:path';
+import {
+  fileURLToPath,
+  pathToFileURL
+} from 'node:url';
 import shared from './eslint.shared.config.mjs';
+import {
+  sync
+} from 'globby';
 
 const __filename = fileURLToPath(import.meta.url);
 // __dirname is not defined in ES module scope
@@ -13,7 +23,7 @@ const __dirname = dirname(__filename);
  * @param {string | undefined} pathGlob
  * @returns {string}
  */
-const addPrefix = (prefix, pathGlob = '**/*') => pathGlob.replace(/^(!?)(\.?\/)?/, `$1${prefix}/`);
+const addPrefix = (prefix, pathGlob = '**/*') => pathGlob.replace(/^(!?)(\.?\/)?/, `$1${prefix}/`).replaceAll(sep, posix.sep).replace(/^\//, '');
 
 /**
  * Merge ESLint config
@@ -30,19 +40,13 @@ const mergeESLintConfigs = async (globs) => {
     /** @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.ConfigArray} */
     const configArray = Array.isArray(moduleConfig) ? moduleConfig : [moduleConfig];
     const directory = relative(__dirname, dirname(localConfigFile));
-    /**
-     * Add the directory as prefix to the glob
-     * @param {string} pathGlob
-     * @returns {string}
-     */
-    const addDirectoryFn = (pathGlob) => addPrefix(directory, pathGlob);
     localConfigs = localConfigs.concat(
       configArray.map((config) => ({
         ...config,
-        files: (config.files || ['**/*']).flat().map(addDirectoryFn),
+        files: (config.files || ['**/*']).flat().map((pathGlob) => addPrefix(directory, pathGlob)),
         ...(
           config.ignores
-            ? { ignores: config.ignores.map(addDirectoryFn) }
+            ? { ignores: config.ignores.map((pathGlob) => addPrefix(directory, pathGlob)) }
             : {}
         )
       }))
@@ -55,5 +59,4 @@ const mergeESLintConfigs = async (globs) => {
   ];
 };
 
-// eslint-disable-next-line unicorn/prefer-top-level-await
 export default mergeESLintConfigs('**/eslint.local.config.mjs');
