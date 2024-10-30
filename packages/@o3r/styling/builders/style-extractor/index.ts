@@ -66,15 +66,13 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<StyleExtractorB
 
   const cssVariableExtractor = new CssVariableExtractor({ logger: sassLogger }, options);
 
-  const execute = async (files: string[], previousMetadata: CssMetadata = {
-    variables: {}
-  }): Promise<BuilderOutput> => {
+  const execute = async (files: string[], previousMetadata?: CssMetadata): Promise<BuilderOutput> => {
     /** Maximum number of steps */
     const STEP_NUMBER = files.length + 1;
     /** List of SCSS files for which the extraction failed */
     const hasFailedFiles: { file: string; error: Error }[] = [];
     /** Copy of previous metadata file generated */
-    const initialPreviousMetadata = { ...previousMetadata };
+    const initialPreviousMetadata = { variables: {}, ...previousMetadata };
     /** CSS Metadata file to write */
     let cssMetadata = (
       // extract metadata for each file
@@ -118,14 +116,13 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<StyleExtractorB
           acc.variables[item.name] = item;
         });
       return acc;
-    }, previousMetadata);
+    }, initialPreviousMetadata);
 
     // exit on failure
     if (hasFailedFiles.length > 0) {
       return {
         success: false,
-        // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-        error: hasFailedFiles.reduce((acc, errorCss) => acc + '\n' + errorCss.file + '\n' + errorCss.error, '')
+        error: hasFailedFiles.reduce((acc, errorCss) => acc + '\n' + errorCss.file + '\n' + (errorCss.error.stack || errorCss.error.message), '')
       };
     } else {
       context.reportProgress(STEP_NUMBER - 1, STEP_NUMBER, 'Read libraries Metadata');

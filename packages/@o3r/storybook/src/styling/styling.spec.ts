@@ -18,7 +18,6 @@ describe('Styling Metadata setup', () => {
       globalThis.window = {} as any;
     }
 
-    // eslint-disable-next-line no-underscore-dangle
     delete window.__OTTER_STORYBOOK_STYLE_METADATA__;
   });
 
@@ -26,13 +25,11 @@ describe('Styling Metadata setup', () => {
     const mockMetadata = { variables: { test: 'fakeValue' } } as any;
     setStyleMetadata(mockMetadata);
 
-    // eslint-disable-next-line no-underscore-dangle
     expect(window.__OTTER_STORYBOOK_STYLE_METADATA__).toBe(mockMetadata);
   });
 
   it('should retrieve the metadata', () => {
     const mockMetadata = { variables: { test: 'fakeValue' } } as any;
-    // eslint-disable-next-line no-underscore-dangle
     window.__OTTER_STORYBOOK_STYLE_METADATA__ = mockMetadata;
 
     expect(getStyleMetadata()).toBe(mockMetadata);
@@ -106,7 +103,6 @@ describe('Styling Helpers', () => {
     });
   });
 
-  /* eslint-disable @typescript-eslint/naming-convention */
   describe('extractStyling', () => {
     it('should extract component variable', () => {
       const result = extractStyling('test-component-', { variables: {
@@ -204,7 +200,6 @@ describe('Styling Helpers', () => {
           tags: ['theme']
         }
       } });
-      /* eslint-enable @typescript-eslint/naming-convention */
 
       expect(Object.keys(result).length).toBe(1);
       expect(result['primary-600']).toBe('#0056B1');

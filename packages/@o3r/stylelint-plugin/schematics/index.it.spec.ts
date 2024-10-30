@@ -3,6 +3,9 @@
  * @jest-environment @o3r/test-helpers/jest-environment
  * @jest-environment-o3r-app-folder test-app-stylelint-plugin
  */
+/* eslint-disable import/first -- for it test we want to have `o3rEnvironment` linked to the jsdoc of the jest environment setup */
+const o3rEnvironment = globalThis.o3rEnvironment;
+
 import {
   writeFile
 } from 'node:fs/promises';
@@ -16,8 +19,6 @@ import {
   packageManagerInstall,
   packageManagerRunOnProject
 } from '@o3r/test-helpers';
-
-const o3rEnvironment = globalThis.o3rEnvironment;
 
 describe('ng add stylelint-plugin', () => {
   test('should add stylelint-plugin to an application', async () => {
@@ -45,7 +46,6 @@ describe('ng add stylelint-plugin', () => {
       ],
       customSyntax: 'postcss-scss',
       rules: {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         '@o3r/o3r-var-parameter-equal-variable': true
       }
     }, null, 2));
@@ -82,7 +82,6 @@ describe('ng add stylelint-plugin', () => {
       ],
       customSyntax: 'postcss-scss',
       rules: {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         '@o3r/o3r-var-parameter-equal-variable': true
       }
     }, null, 2));

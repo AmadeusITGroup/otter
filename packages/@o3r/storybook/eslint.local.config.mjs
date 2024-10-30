@@ -25,6 +25,10 @@ export default [
           'tsconfig.spec.json',
           'tsconfig.eslint.json'
         ]
+      },
+      globals: {
+        ...globals.node,
+        ...globals.browser
       }
     }
   },
@@ -45,7 +49,7 @@ export default [
   {
     name: '@o3r/storybook/spec/globals',
     files: [
-      '*{.,-}spec.ts'
+      '**/*{.,-}spec.ts'
     ],
     languageOptions: {
       globals: {
@@ -61,6 +65,9 @@ export default [
         tsconfigRootDir: __dirname,
         project: ['tsconfig.spec.json']
       }
+    },
+    rules: {
+      'strict': 'off'
     }
   }
 ];

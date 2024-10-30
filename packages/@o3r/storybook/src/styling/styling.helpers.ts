@@ -20,7 +20,7 @@ const colorRegExp = /^(#[\dA-Fa-f]{3,8}|rgba?\([^)]+\))\s*;?$/;
  * @param styleElementId ID of the HTML Style element where to inject the css variable
  */
 export function setCssVariable(variableName: string, value: string, styleElementId = 'storybook-css-variable-injection') {
-  const styleElement = document.getElementById(styleElementId);
+  const styleElement = document.querySelector(`#${styleElementId}`);
   if (styleElement) {
     const content = styleElement.innerHTML;
     const regExpVariable = new RegExp(`${variableName}\\s*:\\s*[^;]*;`);
@@ -60,7 +60,7 @@ export function getTypeAndValue(data: CssVariable, metadata: CssMetadata, mem: s
       const isCircular = mem.includes(referTo);
       mem.push(referTo);
       if (isCircular) {
-        // eslint-disable-next-line no-console
+        // eslint-disable-next-line no-console -- no other logger available
         console.error(`CSS Variable circular reference: ${mem.join('->')}. "${mem[0]}" variable will be fallback to string type input.`);
         return {
           type: 'text',

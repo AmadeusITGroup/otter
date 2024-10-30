@@ -62,7 +62,7 @@ export function updateStorybook(options: { projectName?: string | null | undefin
     // update tsconfig
     if (tree.exists('/tsconfig.json')) {
       const tsconfig = ts.parseConfigFileTextToJson('/tsconfig.json', tree.readText('/tsconfig.json')).config;
-      if (!tsconfig.compilerOptions.lib.find((l: string) => l === 'scripthost')) {
+      if (!tsconfig.compilerOptions.lib.includes('scripthost')) {
         tsconfig.compilerOptions.lib = [...tsconfig.compilerOptions.lib, 'scripthost'];
         tree.overwrite('/tsconfig.json', JSON.stringify(tsconfig, null, 2));
       }
@@ -98,7 +98,6 @@ export function updateStorybook(options: { projectName?: string | null | undefin
               ]
             }
           },
-          // eslint-disable-next-line @typescript-eslint/naming-convention
           'extract-style': {
             builder: '@o3r/styling:extractor',
             options: {
@@ -160,15 +159,15 @@ export function updateStorybook(options: { projectName?: string | null | undefin
               .forEach((build) => {
                 switch (build.builder as string) {
                   case '@o3r/localization:extractor': {
-                    localizationMetadata = build.options?.outputFile && `../${build.options?.outputFile as string}` || localizationMetadata;
+                    localizationMetadata = (build.options?.outputFile && `../${build.options?.outputFile as string}`) || localizationMetadata;
                     break;
                   }
                   case '@o3r/components:extractor': {
-                    configMetadata = build.options?.configOutputFile && `../${build.options?.configOutputFile as string}` || configMetadata;
+                    configMetadata = (build.options?.configOutputFile && `../${build.options?.configOutputFile as string}`) || configMetadata;
                     break;
                   }
                   case '@o3r/styling:extractor': {
-                    styleMetadata = !workspace.projects.storybook && build.options?.outputFile && `../${build.options?.outputFile as string}` || styleMetadata;
+                    styleMetadata = (!workspace.projects.storybook && build.options?.outputFile && `../${build.options?.outputFile as string}`) || styleMetadata;
                     break;
                   }
                 }

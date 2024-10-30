@@ -15,7 +15,6 @@ describe('Localization Metadata setup', () => {
     if (typeof window === 'undefined') {
       globalThis.window = {} as any;
     }
-    // eslint-disable-next-line no-underscore-dangle
     delete window.__OTTER_STORYBOOK_LOCALIZATION_METADATA__;
   });
 
@@ -23,13 +22,11 @@ describe('Localization Metadata setup', () => {
     const mockMetadata = { test: 'fakeValue' } as any;
     setLocalizationMetadata(mockMetadata);
 
-    // eslint-disable-next-line no-underscore-dangle
     expect(window.__OTTER_STORYBOOK_LOCALIZATION_METADATA__).toBe(mockMetadata);
   });
 
   it('should retrieve the metadata', () => {
     const mockMetadata = { test: 'fakeValue' } as any;
-    // eslint-disable-next-line no-underscore-dangle
     window.__OTTER_STORYBOOK_LOCALIZATION_METADATA__ = mockMetadata;
 
     expect(getLocalizationMetadata()).toBe(mockMetadata);
