@@ -13,7 +13,6 @@ import {
    * PostMessageInterceptor permits to intercept calls to postMessage.
    */
   const postMessageInterceptor = class PostMessageInterceptor {
-    // eslint-disable-next-line no-use-before-define
     private static _instance: PostMessageInterceptor;
     private lastCalls: PostMessageCall[];
     private nativeMethod: any;
@@ -31,7 +30,7 @@ import {
      * @param {...any} args
      */
     private log(message: string, ...args: any[]) {
-      // eslint-disable-next-line no-console
+      // eslint-disable-next-line no-console -- this is the purpose of this method
       console.log(`#postMessageInterceptor: ${message}`, ...args);
     }
 
@@ -119,7 +118,7 @@ import {
       this.reset();
 
       if (conditionFnString) {
-        // eslint-disable-next-line no-eval
+        // eslint-disable-next-line no-eval -- done on purpose
         this.conditionFn = eval(conditionFnString) as ConditionFn;
       }
       this.listening = true;

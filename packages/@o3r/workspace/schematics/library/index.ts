@@ -57,7 +57,6 @@ function generateModuleFn(options: NgGenerateModuleSchema): Rule {
     const extendedOptions = { ...options, targetPath, name: cleanName, packageJsonName: packageJsonName };
 
     const dependencies: Record<string, DependencyToAdd> = {
-      // eslint-disable-next-line @typescript-eslint/naming-convention
       '@o3r/core': {
         inManifest: [
           {

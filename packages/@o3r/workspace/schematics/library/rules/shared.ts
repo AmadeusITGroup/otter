@@ -26,7 +26,6 @@ export function updatePackageDependenciesFactory(
     o3rCorePackageJson: PackageJson & { generatorDependencies?: Record<string, string> },
     options: NgGenerateModuleSchema): Rule {
   return (tree) => {
-    /* eslint-disable @typescript-eslint/naming-convention */
     const packageJson = tree.readJson(path.posix.join(targetPath, 'package.json')) as PackageJson;
     const runner = getPackageManagerRunner(getWorkspaceConfig(tree));
     packageJson.description = options.description || packageJson.description;
@@ -73,7 +72,6 @@ export function updatePackageDependenciesFactory(
       'typescript': o3rCorePackageJson.peerDependencies!.typescript,
       'zone.js': o3rCorePackageJson.generatorDependencies!['zone.js']
     };
-    /* eslint-enable @typescript-eslint/naming-convention */
     tree.overwrite(path.posix.join(targetPath, 'package.json'), JSON.stringify(packageJson, null, 2));
     return tree;
   };

@@ -24,10 +24,10 @@ export class MatSelect extends O3rElement implements MatSelectProfile {
   /** @inheritdoc */
   public async selectByIndex(index: number, _timeout?: number) {
     await this.click();
-    // eslint-disable-next-line no-underscore-dangle
+    // eslint-disable-next-line no-underscore-dangle -- naming convention imposed by Playwright
     const options: ElementFinder[] = await element.all(By.css('mat-option')).asElementFinders_();
     if (typeof options[index] === 'undefined') {
-      return Promise.reject(`Option with index ${index} not found in select element.`);
+      return Promise.reject(new Error(`Option with index ${index} not found in select element.`));
     } else {
       const option = new O3rElement(options[index]);
       return option.click();
@@ -37,7 +37,7 @@ export class MatSelect extends O3rElement implements MatSelectProfile {
   /** @inheritdoc */
   public async selectByValue(value: string, _timeout?: number) {
     await this.click();
-    // eslint-disable-next-line no-underscore-dangle
+    // eslint-disable-next-line no-underscore-dangle -- naming convention imposed by Playwright
     const options: ElementFinder[] = await element.all(By.css('mat-option')).asElementFinders_();
 
     for (const opt of options) {
@@ -47,13 +47,13 @@ export class MatSelect extends O3rElement implements MatSelectProfile {
       }
     }
 
-    return Promise.reject(`Option with value ${value} not found in select element.`);
+    return Promise.reject(new Error(`Option with value ${value} not found in select element.`));
   }
 
   /** @inheritdoc */
   public async selectByLabel(label: string, _timeout?: number) {
     await this.click();
-    // eslint-disable-next-line no-underscore-dangle
+    // eslint-disable-next-line no-underscore-dangle -- naming convention imposed by Playwright
     const options: ElementFinder[] = await element.all(By.css('mat-option')).asElementFinders_();
 
     for (const opt of options) {
@@ -63,11 +63,12 @@ export class MatSelect extends O3rElement implements MatSelectProfile {
       }
     }
 
-    return Promise.reject(`Option with label ${label} not found in select element.`);
+    return Promise.reject(new Error(`Option with label ${label} not found in select element.`));
   }
 
   /** @inheritDoc */
   public getValue() {
+    // eslint-disable-next-line no-console -- no other logger available
     console.warn('Usage of "getValue" is not recommended on Material Select elements. Use "getPlainText()" instead.');
     return super.getValue();
   }

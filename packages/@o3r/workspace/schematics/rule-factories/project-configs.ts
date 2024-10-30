@@ -16,7 +16,8 @@ import * as ts from 'typescript';
  * @param tsconfigName
  * @param options
  */
-export function updateProjectTsConfig(targetPath: string, tsconfigName: string, options = { updateInputFiles: false }): Rule {
+export function updateProjectTsConfig(targetPath: string, tsconfigName: string, options?: Partial<{ updateInputFiles: boolean }>): Rule {
+  const { updateInputFiles = false } = options || {};
   return (tree, context) => {
     const tsconfigPath = path.posix.join(targetPath, tsconfigName);
     if (!tree.exists(tsconfigPath)) {
@@ -30,7 +31,7 @@ export function updateProjectTsConfig(targetPath: string, tsconfigName: string, 
       return tree;
     }
 
-    if (options?.updateInputFiles) {
+    if (updateInputFiles) {
       tsconfig.config = Object.fromEntries(Object.entries(tsconfig.config).filter(([propName, _]) => propName !== 'files'));
       tsconfig.config.exclude = ['**/*.spec.ts', '**/fixture/', '**/*.fixture.ts', '**/fixtures.ts'];
       tsconfig.config.include = ['./src/**/*.ts'];

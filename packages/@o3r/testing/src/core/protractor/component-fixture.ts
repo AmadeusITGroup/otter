@@ -1,4 +1,3 @@
-/* eslint-disable new-cap */
 import {
   browser,
   By,
@@ -97,8 +96,11 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
       timeout?: number;
     } = {}
   ): Promise<O3rElement | undefined> {
-    let queryElement: O3rElement | undefined;
-    queryElement = await (options.index === undefined ? this.query(selector, elementConstructor as any) : this.queryNth(selector, options.index, elementConstructor as any));
+    const queryElement: O3rElement | undefined = await (
+      options.index === undefined
+        ? this.query(selector, elementConstructor as any)
+        : this.queryNth(selector, options.index, elementConstructor as any)
+    );
     if (options.shouldThrowIfNotPresent) {
       return this.throwOnUndefinedElement<O3rElement>(queryElement, options.timeout);
     }
@@ -173,9 +175,9 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
   public async query<T extends O3rElement>(selector: string, returnType: O3rElementConstructor<T> | undefined): Promise<T | O3rElement | undefined> {
     const sourceElement = this.rootElement && this.rootElement.sourceElement;
     const cssSelector = By.css(selector);
-    // eslint-disable-next-line @typescript-eslint/no-misused-promises
-    const isElPresent = await (sourceElement! || browser).isElementPresent(cssSelector);
+    const isElPresent = await (sourceElement ? sourceElement.isElementPresent(cssSelector) : browser.isElementPresent(cssSelector));
     if (!isElPresent) {
+      // eslint-disable-next-line no-console -- no other logger available
       console.warn(`No component matching ${selector} found`);
       return;
     }
@@ -190,6 +192,7 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
     const sourceElement = this.rootElement && this.rootElement.sourceElement;
     const item = (sourceElement || element).all(By.css(selector)).get(index);
     if (!(await item.isPresent())) {
+      // eslint-disable-next-line no-console -- no other logger available
       console.warn(`No component matching ${selector}:nth(${index}) found`);
       return;
     }

@@ -107,7 +107,6 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
           installJest = await askConfirmation('No test framework detected. Do you want to setup Jest test framework?', true, false);
           break;
         }
-        case 'other':
         default: {
           installJest = false;
           break;
@@ -133,15 +132,12 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
         }),
         registerPackageCollectionSchematics(packageJson),
         setupSchematicsParamsForProject({
-          // eslint-disable-next-line @typescript-eslint/naming-convention
           '@o3r/core:component': {
             useComponentFixtures: undefined
           },
-          // eslint-disable-next-line @typescript-eslint/naming-convention
           '@o3r/core:component-container': {
             useComponentFixtures: undefined
           },
-          // eslint-disable-next-line @typescript-eslint/naming-convention
           '@o3r/core:component-presenter': {
             useComponentFixtures: undefined
           }

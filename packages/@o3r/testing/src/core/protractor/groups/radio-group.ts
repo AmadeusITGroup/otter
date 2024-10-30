@@ -24,6 +24,7 @@ export class O3rRadioGroup extends O3rGroup<O3rRadioElement> implements RadioGro
     for (const item of this.items) {
       const itemName = await item.getAttribute('name');
       if (name !== '' && name !== itemName) {
+        // eslint-disable-next-line no-console -- no other logger available
         console.warn(`Items in this radio group are not consistent, incompatible input names found ${name} and ${itemName || 'undefined'}`);
         return false;
       }

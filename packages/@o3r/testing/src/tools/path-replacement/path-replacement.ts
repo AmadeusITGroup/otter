@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import * as fs from 'node:fs';
 import {
   Module
@@ -57,7 +56,7 @@ export function adjustPath(frameworkName: 'playwright' | 'protractor', customTra
             useCurrentGlobal: true
           });
         } catch (ex) {
-          // eslint-disable-next-line no-console
+          // eslint-disable-next-line no-console -- no other logger available
           console.error(ex);
         }
       }

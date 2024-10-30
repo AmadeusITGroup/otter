@@ -12,14 +12,14 @@ import {
 
 /**
  * Get the list of Jest Projects in the workspace
- * @param rootPackageJson Path to the root package.json
- * @param rootDir
+ * @param rootDir Path to the root
  * @param jestConfigPattern Pattern to the jest config files
  * @returns list of Jest projects
  */
 export const getJestProjects = (rootDir = process.cwd(), jestConfigPattern = 'jest.config.{j,t}s') => {
   const rootPackageJson = resolve(rootDir, 'package.json');
   if (!existsSync(rootPackageJson)) {
+    // eslint-disable-next-line no-console -- no other logger available
     console.warn(`No package.json found in ${rootDir}`);
     return [];
   }

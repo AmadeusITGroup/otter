@@ -49,7 +49,7 @@ export function updatePlaywright(options: NgAddPackageOptions, dependencies: Rec
   };
 
   return (tree: Tree, context: SchematicContext) => {
-    const workingDirectory = options?.projectName && getWorkspaceConfig(tree)?.projects[options.projectName]?.root || '.';
+    const workingDirectory = (options?.projectName && getWorkspaceConfig(tree)?.projects[options.projectName]?.root) || '.';
 
     // update gitignore
     const gitignorePath = '.gitignore';

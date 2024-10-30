@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 import type {
   ImportsMapping
 } from '@o3r/schematics';

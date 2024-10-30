@@ -41,7 +41,7 @@ program
   .action((version: string) => {
     const cleanVersion = clean(version);
     if (!cleanVersion) {
-      // eslint-disable-next-line no-console
+      // eslint-disable-next-line no-console -- no other logger available
       console.error(`The version "${version}" is invalid`);
       return process.exit(1);
     }

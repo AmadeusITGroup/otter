@@ -57,8 +57,9 @@ export class O3rSliderElement extends O3rElement implements SliderElementProfile
   }
 
   /**
-   * @inheritdoc
+   * Set the value in an input.
    * inspired from https://github.com/angular/components/blob/main/src/material/slider/slider.spec.ts#L1838
+   * @param value
    */
   public setValue(value: string): Promise<void> {
     const trackNativeElement = this.getTrackElement().nativeElement;

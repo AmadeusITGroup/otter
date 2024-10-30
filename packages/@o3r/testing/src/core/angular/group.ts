@@ -11,7 +11,6 @@ export { GroupProfile } from '../group';
 /**
  * Constructor of a O3rGroup
  */
-// eslint-disable-next-line no-use-before-define
 export type O3rGroupConstructor<T extends GroupProfile<V>, V extends ElementProfile> = new (sourceElement: V[]) => T;
 
 /**

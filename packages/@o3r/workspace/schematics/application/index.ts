@@ -96,7 +96,6 @@ function generateApplicationFn(options: NgGenerateApplicationSchema): Rule {
     const angularOptions = getOptions(angularAppSchema);
 
     const dependencies: Record<string, DependencyToAdd> = {
-      // eslint-disable-next-line @typescript-eslint/naming-convention
       '@o3r/core': {
         inManifest: [
           {
