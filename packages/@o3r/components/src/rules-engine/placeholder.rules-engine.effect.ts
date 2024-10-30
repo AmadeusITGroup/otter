@@ -1,5 +1,15 @@
-import {Injectable, Optional} from '@angular/core';
-import {Actions, createEffect, ofType} from '@ngrx/effects';
+import {
+  Injectable,
+  Optional
+} from '@angular/core';
+import {
+  Actions,
+  createEffect,
+  ofType
+} from '@ngrx/effects';
+import {
+  Store
+} from '@ngrx/store';
 import {
   cancelPlaceholderRequest,
   failPlaceholderRequestEntity,
@@ -9,14 +19,33 @@ import {
   setPlaceholderRequestEntityFromUrl,
   updatePlaceholderRequestEntity
 } from '@o3r/components';
-import {fromApiEffectSwitchMapById} from '@o3r/core';
-import {DynamicContentService} from '@o3r/dynamic-content';
-import {LocalizationService} from '@o3r/localization';
-import {RulesEngineRunnerService} from '@o3r/rules-engine';
-import {combineLatest, EMPTY, Observable, of} from 'rxjs';
-import {distinctUntilChanged, map, switchMap, take} from 'rxjs/operators';
-import {Store} from '@ngrx/store';
-import { JSONPath } from 'jsonpath-plus';
+import {
+  fromApiEffectSwitchMapById
+} from '@o3r/core';
+import {
+  DynamicContentService
+} from '@o3r/dynamic-content';
+import {
+  LocalizationService
+} from '@o3r/localization';
+import {
+  RulesEngineRunnerService
+} from '@o3r/rules-engine';
+import {
+  JSONPath
+} from 'jsonpath-plus';
+import {
+  combineLatest,
+  EMPTY,
+  Observable,
+  of
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  map,
+  switchMap,
+  take
+} from 'rxjs/operators';
 
 /**
  * Service to handle async PlaceholderTemplate actions
@@ -34,25 +63,27 @@ export class PlaceholderTemplateResponseEffect {
       fromApiEffectSwitchMapById(
         (templateResponse, action) => {
           const facts = templateResponse.vars ? Object.entries(templateResponse.vars).filter(([, variable]) => variable.type === 'fact') : [];
-          const factsStreamsList = this.rulesEngineService ? facts.map(([varName, fact]) =>
-            this.rulesEngineService!.engine.retrieveOrCreateFactStream(fact.value).pipe(
-              map((factValue) => ({
-                varName,
-                factName: fact.value,
-                // eslint-disable-next-line new-cap
-                factValue: (fact.path && factValue) ? JSONPath({ wrap: false, json: factValue, path: fact.path }) : factValue
-              })),
-              distinctUntilChanged((previous, current) => previous.factValue === current.factValue)
-            )) : [];
+          const factsStreamsList = this.rulesEngineService
+            ? facts.map(([varName, fact]) =>
+              this.rulesEngineService!.engine.retrieveOrCreateFactStream(fact.value).pipe(
+                map((factValue) => ({
+                  varName,
+                  factName: fact.value,
+                  // eslint-disable-next-line new-cap -- naming convention imposed by jsonpath-plus
+                  factValue: (fact.path && factValue) ? JSONPath({ wrap: false, json: factValue, path: fact.path }) : factValue
+                })),
+                distinctUntilChanged((previous, current) => previous.factValue === current.factValue)
+              ))
+            : [];
 
-          const factsStreamsList$ = factsStreamsList.length ? combineLatest(factsStreamsList) : of([]);
+          const factsStreamsList$ = factsStreamsList.length > 0 ? combineLatest(factsStreamsList) : of([]);
           return combineLatest([factsStreamsList$, this.store.select(selectPlaceholderRequestEntityUsage(action.id)).pipe(distinctUntilChanged())]).pipe(
             switchMap(([factsUsedInTemplate, placeholderRequestUsage]) => {
               if (!placeholderRequestUsage) {
                 return EMPTY;
               }
               return this.getRenderedHTML$(templateResponse.template, templateResponse.vars, factsUsedInTemplate).pipe(
-                map(({renderedTemplate, unknownTypeFound}) =>
+                map(({ renderedTemplate, unknownTypeFound }) =>
                   // Update instead of set because used already set by the update from url action
                   updatePlaceholderRequestEntity({
                     entity: {
@@ -68,8 +99,8 @@ export class PlaceholderTemplateResponseEffect {
               );
             }));
         },
-        (error, action) => of(failPlaceholderRequestEntity({ids: [action.id], error, requestId: action.requestId})),
-        (requestIdPayload, action) => cancelPlaceholderRequest({...requestIdPayload, id: action.id})
+        (error, action) => of(failPlaceholderRequestEntity({ ids: [action.id], error, requestId: action.requestId })),
+        (requestIdPayload, action) => cancelPlaceholderRequest({ ...requestIdPayload, id: action.id })
       )
     )
   );
@@ -79,8 +110,7 @@ export class PlaceholderTemplateResponseEffect {
     private readonly store: Store<PlaceholderRequestStore>,
     @Optional() private readonly rulesEngineService: RulesEngineRunnerService | null,
     @Optional() private readonly dynamicContentService: DynamicContentService | null,
-    @Optional() private readonly translationService: LocalizationService | null) {
-  }
+    @Optional() private readonly translationService: LocalizationService | null) {}
 
   /**
    * Renders the html template, replacing facts and urls and localizationKeys
@@ -108,7 +138,7 @@ export class PlaceholderTemplateResponseEffect {
               replacements$.push(
                 this.dynamicContentService?.getMediaPathStream(vars[varName].value).pipe(
                   take(1),
-                  map((value: string) => ({ejsVar, value}))
+                  map((value: string) => ({ ejsVar, value }))
                 ) || of({ ejsVar, value: vars[varName].value })
               );
               break;
@@ -132,11 +162,11 @@ export class PlaceholderTemplateResponseEffect {
                 return acc;
               }, linkedVars);
               replacements$.push(
-                this.translationService ?
-                  this.translationService.translate(vars[varName].value, linkedParams).pipe(
+                this.translationService
+                  ? this.translationService.translate(vars[varName].value, linkedParams).pipe(
                     map((value) => (value ? { ejsVar, value } : null))
-                  ) :
-                  of(null)
+                  )
+                  : of(null)
               );
               break;
             }
@@ -148,8 +178,8 @@ export class PlaceholderTemplateResponseEffect {
         }
       }
     }
-    return replacements$.length > 0 && !!template ?
-      combineLatest(replacements$).pipe(
+    return replacements$.length > 0 && !!template
+      ? combineLatest(replacements$).pipe(
         map((replacements) => ({
           renderedTemplate: replacements.reduce(
             (acc, replacement) =>
@@ -158,6 +188,7 @@ export class PlaceholderTemplateResponseEffect {
           ),
           unknownTypeFound
         }))
-      ) : of({renderedTemplate: template, unknownTypeFound});
+      )
+      : of({ renderedTemplate: template, unknownTypeFound });
   }
 }

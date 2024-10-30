@@ -1,16 +1,25 @@
-import { Directive, Injectable, NgModule } from '@angular/core';
-import {Observable} from 'rxjs';
-import {mapTo} from 'rxjs/operators';
-import {C11nService} from './c11n.service';
+import {
+  Directive,
+  Injectable,
+  NgModule
+} from '@angular/core';
+import {
+  Observable
+} from 'rxjs';
+import {
+  mapTo
+} from 'rxjs/operators';
+import {
+  C11nService
+} from './c11n.service';
 
 /** C11n directive mock */
 @Directive({
   selector: '[c11n]',
-  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property -- mocked directive
   inputs: ['config', 'component', 'inputs', 'outputs']
 })
-export class MockC11nDirective {
-}
+export class MockC11nDirective {}
 
 /** C11n service mock */
 @Injectable()
@@ -27,6 +36,6 @@ export class C11nMockService {
 @NgModule({
   declarations: [MockC11nDirective],
   exports: [MockC11nDirective],
-  providers: [{provide: C11nService, useClass: C11nMockService}]
+  providers: [{ provide: C11nService, useClass: C11nMockService }]
 })
 export class C11nMockModule {}

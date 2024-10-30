@@ -1,4 +1,7 @@
-import {CapitalizePipe, O3rCapitalizePipe} from './capitalize.pipe';
+import {
+  CapitalizePipe,
+  O3rCapitalizePipe
+} from './capitalize.pipe';
 
 describe('CapitalizePipe', () => {
   const pipe = new O3rCapitalizePipe();

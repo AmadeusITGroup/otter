@@ -1,7 +1,16 @@
-import { BehaviorSubject, Observable } from 'rxjs';
-import { Ng } from './ng';
-import { getOtterLikeComponentInfo, INSPECTOR_CLASS, isContainer, OtterLikeComponentInfo } from './otter-inspector.helpers';
-
+import {
+  BehaviorSubject,
+  Observable
+} from 'rxjs';
+import {
+  Ng
+} from './ng';
+import {
+  getOtterLikeComponentInfo,
+  INSPECTOR_CLASS,
+  isContainer,
+  OtterLikeComponentInfo
+} from './otter-inspector.helpers';
 
 interface ComponentInfo extends OtterLikeComponentInfo {
   component: any;
@@ -49,8 +58,7 @@ export class OtterInspectorService {
       ? getOtterLikeComponentInfo(parent, parentHost)
       : undefined;
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { component, host, ...infoToBeSent} = this.selectedComponent;
+    const { component, host, ...infoToBeSent } = this.selectedComponent;
 
     this.otterLikeComponentInfoToBeSent.next({
       ...infoToBeSent,
@@ -61,7 +69,7 @@ export class OtterInspectorService {
   private isOtterLikeComponent(info: OtterLikeComponentInfo) {
     const hasConfigId = !!info.configId;
     const hasTranslations = !!info.translations?.length;
-    const hasAnalytics = !!Object.keys(info.analytics || {}).length;
+    const hasAnalytics = Object.keys(info.analytics || {}).length > 0;
     return hasConfigId || hasTranslations || hasAnalytics;
   }
 
@@ -165,11 +173,12 @@ export class OtterInspectorService {
 
     const inspectorDiv = document.createElement('div');
     const inspectorSpan = document.createElement('span');
-    inspectorDiv.appendChild(inspectorSpan);
+    inspectorDiv.append(inspectorSpan);
     inspectorDiv.classList.add(INSPECTOR_CLASS);
 
-    document.head.appendChild(inspectorCss);
-    this.inspectorDiv = document.body.appendChild(inspectorDiv);
+    document.head.append(inspectorCss);
+    document.body.append(inspectorDiv);
+    this.inspectorDiv = inspectorDiv;
   }
 
   /**

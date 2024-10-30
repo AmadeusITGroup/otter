@@ -1,14 +1,32 @@
-import { BuilderOutput, createBuilder } from '@angular-devkit/architect';
-import type { ComponentConfigOutput } from '@o3r/components';
-import { CmsMetadataData, createBuilderWithMetricsIfInstalled, getLibraryCmsMetadata, validateJson } from '@o3r/extractors';
-import { O3rCliError } from '@o3r/schematics';
-import * as chokidar from 'chokidar';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { ComponentExtractor, ComponentParser } from './helpers/component/index';
-import { ComponentExtractorBuilderSchema } from './schema';
-
-
+import {
+  BuilderOutput,
+  createBuilder
+} from '@angular-devkit/architect';
+import type {
+  LoggerApi
+} from '@angular-devkit/core/src/logger';
+import type {
+  ComponentConfigOutput
+} from '@o3r/components';
+import {
+  CmsMetadataData,
+  createBuilderWithMetricsIfInstalled,
+  getLibraryCmsMetadata,
+  validateJson
+} from '@o3r/extractors';
+import {
+  O3rCliError
+} from '@o3r/schematics';
+import * as chokidar from 'chokidar';
+import {
+  ComponentExtractor,
+  ComponentParser
+} from './helpers/component/index';
+import {
+  ComponentExtractorBuilderSchema
+} from './schema';
 
 export * from './schema';
 
@@ -27,9 +45,10 @@ const STEP_NUMBER = 5;
 /**
  * Ensure that all tuple (library,name) are unique
  * @param configurations
+ * @param logger
  * @param strictMode
  */
-function checkUniquenessLibraryAndName(configurations: ComponentConfigOutput[], strictMode = false) {
+function checkUniquenessLibraryAndName(configurations: ComponentConfigOutput[], logger: LoggerApi, strictMode = false) {
   const setOfLibraryAndName: Set<string> = new Set();
   let errors = '';
   configurations.forEach((configuration) => {
@@ -39,11 +58,11 @@ function checkUniquenessLibraryAndName(configurations: ComponentConfigOutput[], 
       setOfLibraryAndName.add(configuration.library + configuration.name);
     }
   });
-  if (errors.length) {
+  if (errors.length > 0) {
     if (strictMode) {
       throw new O3rCliError(`Duplicate (library, name) tuples are not allowed :\n ${errors}`);
     }
-    console.warn(`Duplicate (library, name) tuples found. Please fix it as it would throw an error in strict mode :\n ${errors}`);
+    logger.warn(`Duplicate (library, name) tuples found. Please fix it as it would throw an error in strict mode :\n ${errors}`);
   }
 }
 
@@ -70,12 +89,7 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<ComponentExtrac
     context.reportProgress(2, STEP_NUMBER, 'Gathering project data');
     const parserOutput = await parser.parse();
 
-    if (!parserOutput) {
-      return {
-        success: false,
-        error: 'Parsing failed'
-      };
-    } else {
+    if (parserOutput) {
       const componentExtractor = new ComponentExtractor(libraryName, options.libraries, context.logger, context.workspaceRoot, options.strictMode);
       try {
         context.reportProgress(3, STEP_NUMBER, 'Extracting component metadata');
@@ -85,7 +99,7 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<ComponentExtrac
         const configurationMetadataSchemaPath = require.resolve('@o3r/configuration/schemas/configuration.metadata.schema.json');
         validateJson(
           componentMetadata.configurations,
-          JSON.parse(fs.readFileSync(configurationMetadataSchemaPath, {encoding: 'utf8'})),
+          JSON.parse(fs.readFileSync(configurationMetadataSchemaPath, { encoding: 'utf8' })),
           'The output of configuration metadata is not valid regarding the json schema, please check the details below : \n',
           options.strictMode
         );
@@ -99,11 +113,11 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<ComponentExtrac
         );
 
         // Ensure that each tuple (library,name) is unique
-        checkUniquenessLibraryAndName(componentMetadata.configurations);
+        checkUniquenessLibraryAndName(componentMetadata.configurations, context.logger);
 
         context.reportProgress(4, STEP_NUMBER, `Writing components in ${options.configOutputFile}`);
         try {
-          await fs.promises.mkdir(path.dirname(path.resolve(context.workspaceRoot, options.componentOutputFile)), {recursive: true});
+          await fs.promises.mkdir(path.dirname(path.resolve(context.workspaceRoot, options.componentOutputFile)), { recursive: true });
         } catch {}
         await fs.promises.writeFile(
           path.resolve(context.workspaceRoot, options.componentOutputFile),
@@ -124,6 +138,11 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<ComponentExtrac
       context.logger.info(
         `Component metadata extracted in ${options.componentOutputFile} and ${options.configOutputFile} ${options.libraries.length > 0 ? ` (imported from ${options.libraries.join(', ')})` : ''}.`
       );
+    } else {
+      return {
+        success: false,
+        error: 'Parsing failed'
+      };
     }
 
     return {
@@ -133,7 +152,6 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<ComponentExtrac
 
   /**
    * Run a component metadata generation and report the result
-   * @param filename File that has changed and requires a regeneration
    */
   const generateWithReport = async () => {
     const result = await execute();
@@ -152,36 +170,33 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<ComponentExtrac
    * @param libraries Libraries to watch
    */
   const watchFiles = (libraries: string[]): chokidar.FSWatcher => {
-    const simpleGlobConfigurationFiles = path.resolve(context.currentDirectory, options.filePattern).replace(/[\\/]/g, '/');
+    const simpleGlobConfigurationFiles = path.resolve(context.currentDirectory, options.filePattern).replace(/[/\\]/g, '/');
     // Get metadata file for each library
     const metadataFiles: CmsMetadataData[] = libraries.map((library) => getLibraryCmsMetadata(library, context.currentDirectory));
     const componentMetadataFiles = metadataFiles
       .filter(({ componentFilePath }) => !!componentFilePath)
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-      .map(({ componentFilePath }) => componentFilePath!.replace(/[\\/]/g, '/'));
+
+      .map(({ componentFilePath }) => componentFilePath!.replace(/[/\\]/g, '/'));
     const configurationMetadataFiles = metadataFiles
       .filter(({ configurationFilePath }) => !!configurationFilePath)
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-      .map(({ configurationFilePath }) => configurationFilePath!.replace(/[\\/]/g, '/'));
+
+      .map(({ configurationFilePath }) => configurationFilePath!.replace(/[/\\]/g, '/'));
 
     return chokidar.watch([...componentMetadataFiles, ...configurationMetadataFiles, simpleGlobConfigurationFiles]);
   };
 
-  if (!options.watch) {
-    return execute();
-
-  } else {
+  if (options.watch) {
     const watcher = watchFiles(options.libraries);
     let currentProcess: Promise<unknown> | undefined;
     watcher
       .on('all', async (eventName, filePath) => {
-        if (!currentProcess) {
+        if (currentProcess) {
+          context.logger.debug(`Ignored action ${eventName} on ${filePath}`);
+        } else {
           context.logger.debug(`Refreshed for action ${eventName} on ${filePath}`);
           currentProcess = generateWithReport();
           await currentProcess;
           currentProcess = undefined;
-        } else {
-          context.logger.debug(`Ignored action ${eventName} on ${filePath}`);
         }
       });
 
@@ -192,5 +207,7 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<ComponentExtrac
       watcher
         .on('error', (err) => reject(err))
     );
+  } else {
+    return execute();
   }
 }));

@@ -1,7 +1,17 @@
-import { getTestBed, TestBed } from '@angular/core/testing';
-import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
-import { mockTranslationModules } from '@o3r/testing/localization';
-import { OtterInspectorService } from './otter-inspector.service';
+import {
+  getTestBed,
+  TestBed
+} from '@angular/core/testing';
+import {
+  BrowserDynamicTestingModule,
+  platformBrowserDynamicTesting
+} from '@angular/platform-browser-dynamic/testing';
+import {
+  mockTranslationModules
+} from '@o3r/testing/localization';
+import {
+  OtterInspectorService
+} from './otter-inspector.service';
 
 const mockElement = {
   appendChild: jest.fn(),

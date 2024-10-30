@@ -1,6 +1,17 @@
-import { chain, noop, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { createSchematicWithMetricsIfInstalled, getPackageManagerRunner, getWorkspaceConfig, readPackageJson } from '@o3r/schematics';
 import * as path from 'node:path';
+import {
+  chain,
+  noop,
+  Rule,
+  SchematicContext,
+  Tree
+} from '@angular-devkit/schematics';
+import {
+  createSchematicWithMetricsIfInstalled,
+  getPackageManagerRunner,
+  getWorkspaceConfig,
+  readPackageJson
+} from '@o3r/schematics';
 
 /**
  * Update CMS adapter tools
@@ -81,7 +92,6 @@ function updateCmsAdapterFn(options: { projectName?: string | undefined }): Rule
     editAngularJson
   ]);
 }
-
 
 /**
  * Update CMS adapter tools

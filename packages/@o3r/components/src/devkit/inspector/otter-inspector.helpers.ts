@@ -1,4 +1,6 @@
-import {otterComponentInfoPropertyName} from '@o3r/core';
+import {
+  otterComponentInfoPropertyName
+} from '@o3r/core';
 
 export interface OtterLikeComponentInfo {
   /** Container information */
@@ -53,7 +55,7 @@ export function getTranslationsRec(node: Element | null, rec: typeof getTranslat
   const translations: Record<string, string[]> = {};
   subTranslations.forEach((s) => {
     Object.entries(s || {}).forEach(([k, v]) => {
-      if (v.length) {
+      if (v.length > 0) {
         translations[k] = v;
       }
     });
@@ -61,11 +63,11 @@ export function getTranslationsRec(node: Element | null, rec: typeof getTranslat
   if (component) {
     const componentName: string = component.constructor.name;
     const componentTranslations = Object.values<string>(component[o3rInfoProperty]?.translations || {}).filter((t) => typeof t === 'string');
-    if (componentTranslations.length) {
+    if (componentTranslations.length > 0) {
       translations[componentName] = componentTranslations;
     }
   }
-  return Object.keys(translations).length ? translations : undefined;
+  return Object.keys(translations).length > 0 ? translations : undefined;
 }
 
 /**
@@ -92,7 +94,7 @@ export function getAnalyticEventsRec(node: Element | null, rec: typeof getAnalyt
   const events: Record<string, string[]> = {};
   subEvents.forEach((s) => {
     Object.entries(s || {}).forEach(([k, v]) => {
-      if (v.length) {
+      if (v.length > 0) {
         events[k] = v;
       }
     });
@@ -100,11 +102,11 @@ export function getAnalyticEventsRec(node: Element | null, rec: typeof getAnalyt
   if (component && component[o3rInfoProperty]) {
     const componentName: string = component.constructor.name;
     const componentEvents: string[] = Object.values<any>(component.analyticsEvents || {}).map((eventConstructor) => eventConstructor.name);
-    if (componentEvents.length) {
+    if (componentEvents.length > 0) {
       events[componentName] = componentEvents;
     }
   }
-  return Object.keys(events).length ? events : undefined;
+  return Object.keys(events).length > 0 ? events : undefined;
 }
 
 /**
