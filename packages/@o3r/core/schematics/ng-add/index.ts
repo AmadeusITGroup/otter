@@ -79,7 +79,6 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
     }
 
     return chain([
-      // eslint-disable-next-line @typescript-eslint/naming-convention -- schematics identifier pattern
       setupSchematicsParamsForProject({ '*:ng-add': { registerDevtool: options.withDevtool } }, options.projectName),
       options.projectName ? prepareProject(options, dependenciesSetupConfig) : noop(),
       registerPackageCollectionSchematics(corePackageJsonContent),

@@ -3,6 +3,8 @@
  * @jest-environment @o3r/test-helpers/jest-environment
  * @jest-environment-o3r-app-folder test-app-extractors-aggregate-migration-scripts
  */
+const o3rEnvironment = globalThis.o3rEnvironment;
+
 import {
   promises,
   readFileSync
@@ -21,8 +23,6 @@ import {
 import {
   inc
 } from 'semver';
-
-const o3rEnvironment = globalThis.o3rEnvironment;
 
 const migrationDataMocksPath = join(__dirname, '..', '..', 'testing', 'mocks', 'migration-scripts');
 

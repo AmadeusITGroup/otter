@@ -5,7 +5,6 @@
  */
 const o3rEnvironment = globalThis.o3rEnvironment;
 
-/* eslint-disable import/first -- for it test we want to have `o3rEnvironment` linked to the jsdoc of the jest environment setup */
 import * as path from 'node:path';
 import {
   getDefaultExecSyncOptions,

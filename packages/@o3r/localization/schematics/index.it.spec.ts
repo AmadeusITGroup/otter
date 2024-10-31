@@ -3,6 +3,8 @@
  * @jest-environment @o3r/test-helpers/jest-environment
  * @jest-environment-o3r-app-folder test-app-localization
  */
+const o3rEnvironment = globalThis.o3rEnvironment;
+
 import * as path from 'node:path';
 import {
   addImportToAppModule,
@@ -12,8 +14,6 @@ import {
   packageManagerInstall,
   packageManagerRunOnProject
 } from '@o3r/test-helpers';
-
-const o3rEnvironment = globalThis.o3rEnvironment;
 
 describe('ng add otter localization', () => {
   test('should add localization to an application', async () => {

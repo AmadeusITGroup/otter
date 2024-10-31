@@ -120,6 +120,9 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
           : options.enablePlaywright;
       }
 
+      const schematicsDefaultOptions = {
+        useComponentFixtures: undefined
+      };
       const rules = [
         updateFixtureConfig(options),
         removePackages(['@otter/testing']),
@@ -132,15 +135,9 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
         }),
         registerPackageCollectionSchematics(packageJson),
         setupSchematicsParamsForProject({
-          '@o3r/core:component': {
-            useComponentFixtures: undefined
-          },
-          '@o3r/core:component-container': {
-            useComponentFixtures: undefined
-          },
-          '@o3r/core:component-presenter': {
-            useComponentFixtures: undefined
-          }
+          '@o3r/core:component': schematicsDefaultOptions,
+          '@o3r/core:component-container': schematicsDefaultOptions,
+          '@o3r/core:component-presenter': schematicsDefaultOptions
         }, options.projectName)
       ];
 

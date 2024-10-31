@@ -205,7 +205,8 @@ export default [
         {
           definedTags: ['jest-environment', 'jest-environment-o3r-app-folder', 'jest-environment-o3r-type']
         }
-      ]
+      ],
+      'import/first': 'off' // We have the jest environment setup first
     }
   }
 ];

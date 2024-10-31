@@ -85,6 +85,9 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
           }]
         };
       });
+    const schematicsDefaultOptions = {
+      useOtterTheming: undefined
+    };
     return chain([
       removePackages(['@otter/styling']),
       updateSassImports('o3r'),
@@ -97,12 +100,8 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       }),
       registerPackageCollectionSchematics(JSON.parse(fs.readFileSync(packageJsonPath).toString())),
       setupSchematicsParamsForProject({
-        '@o3r/core:component': {
-          useOtterTheming: undefined
-        },
-        '@o3r/core:component-presenter': {
-          useOtterTheming: undefined
-        }
+        '@o3r/core:component': schematicsDefaultOptions,
+        '@o3r/core:component-presenter': schematicsDefaultOptions
       }, options.projectName),
       ...(options.enableMetadataExtract ? [updateCmsAdapter(options)] : [])
     ]);

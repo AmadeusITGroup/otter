@@ -3,14 +3,15 @@
  * @jest-environment @o3r/test-helpers/jest-environment
  * @jest-environment-o3r-app-folder test-app-application
  */
+
+const o3rEnvironment = globalThis.o3rEnvironment;
+
 import {
   getDefaultExecSyncOptions,
   packageManagerExec,
   packageManagerInstall,
   packageManagerRunOnProject
 } from '@o3r/test-helpers';
-
-const o3rEnvironment = globalThis.o3rEnvironment;
 
 describe('new Angular application', () => {
   test('should add Otter Application to existing Angular app', () => {

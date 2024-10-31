@@ -3,6 +3,8 @@
  * @jest-environment @o3r/test-helpers/jest-environment
  * @jest-environment-o3r-app-folder test-app-testing
  */
+const o3rEnvironment = globalThis.o3rEnvironment;
+
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {
@@ -13,8 +15,6 @@ import {
   packageManagerInstall,
   packageManagerRunOnProject
 } from '@o3r/test-helpers';
-
-const o3rEnvironment = globalThis.o3rEnvironment;
 
 describe('ng add testing', () => {
   test('should add testing to an application', () => {
