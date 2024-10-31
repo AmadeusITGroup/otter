@@ -90,6 +90,8 @@ export function updateLocalization(options: { projectName?: string | null | unde
       workspaceProject.architect = {};
     }
 
+    const projectBasePath = workspaceProject.root.replace(/[/\\]$/, '');
+
     workspaceProject.architect['generate-translations'] ||= {
       builder: '@o3r/localization:localization',
       options: {
@@ -98,12 +100,12 @@ export function updateLocalization(options: { projectName?: string | null | unde
         locales: [
           'en-GB'
         ],
-        assets: [`${mainAssetsFolder}/locales`],
-        outputPath: `${devResourcesFolder}/localizations`
+        assets: [`${projectBasePath}/${mainAssetsFolder}/locales`],
+        outputPath: `${projectBasePath}/${devResourcesFolder}/localizations`
       },
       configurations: {
         production: {
-          outputPath: `${distFolder}/localizations`
+          outputPath: `${projectBasePath}/${distFolder}/localizations`
         }
       }
     };
@@ -118,7 +120,7 @@ export function updateLocalization(options: { projectName?: string | null | unde
     };
     const localizationAssetsConfig = {
       glob: '**/*.json',
-      input: `${devResourcesFolder}/localizations`,
+      input: `${projectBasePath}/${devResourcesFolder}/localizations`,
       output: '/localizations'
     };
     const projectType = workspaceProject?.projectType || 'application';
