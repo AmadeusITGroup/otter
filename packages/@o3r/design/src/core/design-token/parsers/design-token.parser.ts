@@ -1,3 +1,6 @@
+import {
+  dirname
+} from 'node:path';
 import type {
   DesignToken,
   DesignTokenContext,
@@ -200,8 +203,8 @@ const walkThroughDesignTokenNodes = (
       },
       getType: function (variableSet = mem, followReference = true) {
         return node.$type
-          || followReference && this.getIsAlias(variableSet) && this.getReferencesNode(variableSet)[0]?.getType(variableSet, followReference)
-          || followReference && this.parent?.name && variableSet.get(this.parent.name)?.getType(variableSet, followReference)
+          || (followReference && this.getIsAlias(variableSet) && this.getReferencesNode(variableSet)[0]?.getType(variableSet, followReference))
+          || (followReference && this.parent?.name && variableSet.get(this.parent.name)?.getType(variableSet, followReference))
           || undefined;
       },
       getKey: function (keyRenderer) {

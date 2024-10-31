@@ -20,7 +20,7 @@ export function isJsoncParserServices(parserServices: any): parserServices is Js
 }
 
 /**
- *
+ * Returns true if the node is a JSONProperty
  * @param node
  * @param node.type
  */
@@ -29,7 +29,7 @@ export function isProperty(node?: { type: string }): node is AST.JSONProperty {
 }
 
 /**
- *
+ * Returns true if the node is a JSONObjectExpression
  * @param node
  * @param node.type
  */

@@ -941,6 +941,7 @@ __metadata:
     "@o3r/amaterasu-dodo": "workspace:^"
     "@o3r/amaterasu-otter": "workspace:^"
     "@o3r/amaterasu-sdk": "workspace:^"
+    "@o3r/telemetry": "workspace:^"
   peerDependenciesMeta:
     "@o3r/amaterasu-api-spec":
       optional: true
@@ -949,6 +950,8 @@ __metadata:
     "@o3r/amaterasu-otter":
       optional: true
     "@o3r/amaterasu-sdk":
+      optional: true
+    "@o3r/telemetry":
       optional: true
   bin:
     ama: dist/src/cli/ama.js
@@ -7713,8 +7716,11 @@ __metadata:
     winston: "npm:^3.8.2"
   peerDependencies:
     "@angular-devkit/schematics": ~18.2.0
+    "@o3r/telemetry": "workspace:^"
   peerDependenciesMeta:
     "@angular-devkit/schematics":
+      optional: true
+    "@o3r/telemetry":
       optional: true
   bin:
     o3r-artifact-cleaner: ./dist/src/cli/artifact-cleaner.js
@@ -7769,8 +7775,11 @@ __metadata:
     winston: "npm:^3.8.2"
   peerDependencies:
     "@angular-devkit/schematics": ~18.2.0
+    "@o3r/telemetry": "workspace:^"
   peerDependenciesMeta:
     "@angular-devkit/schematics":
+      optional: true
+    "@o3r/telemetry":
       optional: true
   bin:
     o3r-comment-pr: ./dist/src/cli/comment-pr.js
@@ -8805,6 +8814,7 @@ __metadata:
     typescript: "npm:~5.5.4"
     typescript-eslint: "npm:^8.0.0"
   peerDependencies:
+    "@angular-devkit/core": ~18.2.0
     "@angular-devkit/schematics": ~18.2.0
     "@angular/compiler": ~18.2.0
     "@eslint-community/eslint-plugin-eslint-comments": ^4.4.0
@@ -8833,6 +8843,8 @@ __metadata:
     typescript: ~5.5.4
     typescript-eslint: ^8.0.0
   peerDependenciesMeta:
+    "@angular-devkit/core":
+      optional: true
     "@angular-devkit/schematics":
       optional: true
     "@angular/compiler":

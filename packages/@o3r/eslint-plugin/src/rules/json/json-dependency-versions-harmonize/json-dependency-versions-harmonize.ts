@@ -113,7 +113,7 @@ export default createRule<[Options, ...any], 'versionUpdate' | 'error'>({
 
     if (parserServices.isJSON) {
       return {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
+        // eslint-disable-next-line @typescript-eslint/naming-convention -- naming convention for AST
         'JSONExpressionStatement': (node: AST.JSONExpressionStatement) => {
           if (node.expression.type === 'JSONObjectExpression') {
             const deps = node.expression.properties

@@ -41,7 +41,6 @@ export const createTypescriptSdk = async (context: Context, options: CreateTypes
 
   const npmrcFile = 'tmp.npmrc';
   const deps = {
-    // eslint-disable-next-line @typescript-eslint/naming-convention -- keys are package names
     '@ama-sdk/schematics': version && version !== '0.0.0-placeholder' ? version : 'latest',
     yo: 'latest'
   };

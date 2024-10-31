@@ -62,7 +62,9 @@ export const computeFileToUpdatePath = (root = '.', defaultFile = 'styles.scss')
  */
 export const getFileToUpdatePath = async (root?: string, defaultFile = 'styles.scss') => {
   try {
+    // eslint-disable-next-line @typescript-eslint/unbound-method -- false positive with dynamic import
     const { isAbsolute, resolve } = await import('node:path');
+    // eslint-disable-next-line @typescript-eslint/unbound-method -- false positive with dynamic import
     const { cwd } = await import('node:process');
     root ||= cwd();
     return (token: DesignTokenVariableStructure) => {
@@ -161,7 +163,6 @@ export const getTokenSorterByRef: DesignTokenListTransform = (variableSet) => {
  * Retrieve default file writer (based on Node `fs.promise.writeFile` interface)
  * @param existsFile Function determining if the file exists
  * @param logger Custom Logger
- * @returns
  */
 export const getDefaultFileWriter = (existsFile: (file: string) => boolean, logger?: Logger): typeof fs.writeFile => {
   return async (file, ...args) => {
@@ -169,6 +170,7 @@ export const getDefaultFileWriter = (existsFile: (file: string) => boolean, logg
     const fileString = file.toString();
     const { writeFile, mkdir } = await import('node:fs/promises');
     if (!existsFile(fileString)) {
+      // eslint-disable-next-line @typescript-eslint/unbound-method -- false positive with dynamic import
       const { dirname } = await import('node:path');
       try {
         await mkdir(dirname(fileString), { recursive: true });

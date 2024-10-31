@@ -1,18 +1,24 @@
-import type { BuilderContext } from '@angular-devkit/architect';
+import {
+  resolve
+} from 'node:path';
+import type {
+  BuilderContext
+} from '@angular-devkit/architect';
 import {
   type DesignTokenRendererOptions,
   getMetadataStyleContentUpdater,
   getMetadataTokenDefinitionRenderer,
   type TokenKeyRenderer
 } from '../../../src/public_api';
-import type { GenerateStyleSchematicsSchema } from '../schema';
-import { resolve } from 'node:path';
+import type {
+  GenerateStyleSchematicsSchema
+} from '../schema';
 
 export const getMetadataRenderDesignTokenOptions = (
   tokenVariableNameRenderer: TokenKeyRenderer | undefined,
   options: GenerateStyleSchematicsSchema,
-  context: BuilderContext): DesignTokenRendererOptions => {
-
+  context: BuilderContext
+): DesignTokenRendererOptions => {
   /** Builder logger */
   const logger = context.logger;
 

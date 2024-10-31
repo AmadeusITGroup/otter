@@ -77,9 +77,9 @@ export default createRule<[Required<NoMultipleTypeConfigurationPropertyOption>, 
     };
 
     return {
-      // eslint-disable-next-line @typescript-eslint/naming-convention
+
       TSUnionType: rule,
-      // eslint-disable-next-line @typescript-eslint/naming-convention
+
       TSIntersectionType: rule
     };
   }

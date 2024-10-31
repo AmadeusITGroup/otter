@@ -134,6 +134,7 @@ async function getProject(cwd = process.cwd()) {
   if (!configuration.projectCwd) {
     throw new O3rCliError(`No project found from ${cwd}`);
   }
+  // eslint-disable-next-line unicorn/no-array-method-this-argument -- false positive `Project.find` is not an array method
   const { project } = await Project.find(configuration, configuration.projectCwd);
   return project;
 }
@@ -150,11 +151,9 @@ async function fetchPackage(project: Project, descriptor: Descriptor): Promise<F
   const cache = await Cache.find(project.configuration);
   const report = new ThrowReport();
   const multiResolver = new MultiResolver(
-
     (yarnNpmPlugin.resolvers || []).map((resolver) => new resolver())
   );
   const multiFetcher = new MultiFetcher(
-
     (yarnNpmPlugin.fetchers || []).map((fetcher) => new fetcher())
   );
   const fetchOptions: FetchOptions = { project, cache, checksums: project.storedChecksums, report, fetcher: multiFetcher };

@@ -1,3 +1,4 @@
+'use strict';
 const jest = require('eslint-plugin-jest');
 const { convertWarningsToErrors } = require('../utils.cjs');
 

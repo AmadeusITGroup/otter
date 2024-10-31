@@ -20,19 +20,18 @@ import type {
 export function checkComponentImplementsInterface(node: DocumentationNode, interfaceName: string) {
   return !!(
     node.reflection && node.reflection.implementedTypes
-    && node.reflection.implementedTypes.find((type) => (type as ReferenceType).name === interfaceName));
+    && node.reflection.implementedTypes.some((type) => (type as ReferenceType).name === interfaceName));
 }
 
 /**
  * Check if an interface extends an interface given as a parameter
- * @param DocumentationNode} node
  * @param node
  * @param {string} interfaceName
  */
 export function checkInterfaceExtendsInterface(node: DocumentationNode, interfaceName: string) {
   return !!(
     node.reflection && node.reflection.extendedTypes
-    && node.reflection.extendedTypes.find((type) => (type as ReferenceType).name === interfaceName));
+    && node.reflection.extendedTypes.some((type) => (type as ReferenceType).name === interfaceName));
 }
 
 /**

@@ -34841,7 +34841,7 @@ async function run() {
             .pop();
         const isLatest = latestVersion ? (0, semver_1.compare)(latestVersion, version) <= 0 : true;
         const preRelease = (0, semver_1.prerelease)(version);
-        if (!preRelease || !preRelease.length) {
+        if (!preRelease || preRelease.length === 0) {
             if (isPreRelease) {
                 core.setFailed(`No pre-release found for version ${version}`);
             }
@@ -34856,7 +34856,7 @@ async function run() {
         core.setOutput('tag', preRelease[0]);
     }
     catch (err) {
-        const errorMessage = err instanceof Error ? err.message : typeof err === 'string' ? err : 'Caught an error during NPM tag calculation';
+        const errorMessage = err instanceof Error ? err.message : (typeof err === 'string' ? err : 'Caught an error during NPM tag calculation');
         core.setFailed(errorMessage);
     }
 }

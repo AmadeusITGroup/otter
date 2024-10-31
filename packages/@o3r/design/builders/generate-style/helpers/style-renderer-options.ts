@@ -1,4 +1,9 @@
-import type { BuilderContext } from '@angular-devkit/architect';
+import {
+  resolve
+} from 'node:path';
+import type {
+  BuilderContext
+} from '@angular-devkit/architect';
 import {
   type CssTokenDefinitionRendererOptions,
   type CssTokenValueRendererOptions,
@@ -17,17 +22,14 @@ import {
   type TokenKeyRenderer,
   tokenVariableNameSassRenderer
 } from '../../../src/public_api';
-import type { GenerateStyleSchematicsSchema } from '../schema';
-import { resolve } from 'node:path';
+import type {
+  GenerateStyleSchematicsSchema
+} from '../schema';
 
-export const getStyleRendererOptions = (tokenVariableNameRenderer: TokenKeyRenderer | undefined , options: GenerateStyleSchematicsSchema, context: BuilderContext): DesignTokenRendererOptions => {
-
-  /**
-   * Function to determine files to update based on the Design Token
-   * @param token
-   */
-  const determineFileToUpdate = options.output ? () => resolve(context.workspaceRoot, options.output!) :
-    (token: DesignTokenVariableStructure) => {
+export const getStyleRendererOptions = (tokenVariableNameRenderer: TokenKeyRenderer | undefined, options: GenerateStyleSchematicsSchema, context: BuilderContext): DesignTokenRendererOptions => {
+  const determineFileToUpdate = options.output
+    ? () => resolve(context.workspaceRoot, options.output!)
+    : (token: DesignTokenVariableStructure) => {
       if (token.extensions.o3rTargetFile) {
         return token.context?.basePath && !options.rootPath
           ? resolve(token.context.basePath, token.extensions.o3rTargetFile)
@@ -41,10 +43,12 @@ export const getStyleRendererOptions = (tokenVariableNameRenderer: TokenKeyRende
   const logger = context.logger;
 
   /** Render for the private variables if specified */
-  const privateDefinitionRenderer = options.renderPrivateVariableTo === 'sass' ? getSassTokenDefinitionRenderer({
-    tokenVariableNameRenderer: (v) => (options?.prefixPrivate || '') + tokenVariableNameSassRenderer(v),
-    logger
-  }) : undefined;
+  const privateDefinitionRenderer = options.renderPrivateVariableTo === 'sass'
+    ? getSassTokenDefinitionRenderer({
+      tokenVariableNameRenderer: (v) => (options?.prefixPrivate || '') + tokenVariableNameSassRenderer(v),
+      logger
+    })
+    : undefined;
 
   /** Update of file content based on selected language */
   const styleContentUpdater = ((language) => {
@@ -67,7 +71,11 @@ export const getStyleRendererOptions = (tokenVariableNameRenderer: TokenKeyRende
     const tokenValueRendererOptions: SassTokenValueRendererOptions | CssTokenValueRendererOptions = {
       tokenVariableNameRenderer,
       logger,
-      unregisteredReferenceRenderer: options.failOnMissingReference ? (refName) => { throw new Error(`The Design Token ${refName} is not registered`); } : undefined
+      unregisteredReferenceRenderer: options.failOnMissingReference
+        ? (refName) => {
+          throw new Error(`The Design Token ${refName} is not registered`);
+        }
+        : undefined
     };
     switch (language) {
       case 'css': {
@@ -118,7 +126,6 @@ export const getStyleRendererOptions = (tokenVariableNameRenderer: TokenKeyRende
       case 'sass': {
         return [getTokenSorterByName, getTokenSorterByRef];
       }
-      case 'css':
       default: {
         return [getTokenSorterByName];
       }

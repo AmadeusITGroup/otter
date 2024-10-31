@@ -63,18 +63,9 @@ if (!opts.basicAuth && !opts.apiKey) {
   logger.error('Only one authentication method should be used at a time. Please provide only the apiKey (-a) or the basicAuth (-b) but not both.');
   process.exit(1);
 }
-let authHeader: Headers;
-if (opts.basicAuth) {
-  authHeader = {
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    Authorization: 'Basic ' + (opts.basicAuth as string)
-  };
-} else {
-  authHeader = {
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    'X-JFrog-Art-Api': (opts.apiKey as string)
-  };
-}
+const authHeader: Headers = opts.basicAuth
+  ? { Authorization: 'Basic ' + (opts.basicAuth as string) }
+  : { 'X-JFrog-Art-Api': (opts.apiKey as string) };
 
 let url: string = opts.artifactoryUrl;
 url += (url.endsWith('/') ? '' : '/') + 'api/search/aql';

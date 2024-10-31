@@ -100,7 +100,7 @@ export default createRule<[Options, ...any], 'versionUpdate' | 'error'>({
 
     if (parserServices.isYAML) {
       return {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
+        // eslint-disable-next-line @typescript-eslint/naming-convention -- naming convention for AST
         'YAMLPair': (node: AST.YAMLPair) => {
           if (node.value) {
             const range = getStaticYAMLValue(node.value)?.toString();

@@ -52,7 +52,7 @@ export default createRule<[Options, ...any], 'tooManyAsyncOnTag'>({
     const asyncRegExp = /\| *async\b/g;
 
     return {
-      // eslint-disable-next-line @typescript-eslint/naming-convention
+      // eslint-disable-next-line @typescript-eslint/naming-convention -- naming convention for AST
       'Element$1': ({ attributes, inputs, sourceSpan }: TmplAstElement) => {
         const values: string[] = [
           ...attributes.map(({ value }) => value),

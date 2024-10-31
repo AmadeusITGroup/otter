@@ -245,7 +245,6 @@ export type DesignToken<E extends DesignTokenExtensions = DesignTokenExtensions>
 );
 
 /** Design Token Node (Design Token Group or Item) */
-// eslint-disable-next-line no-use-before-define
 export type DesignTokenNode<E extends DesignTokenExtensions = DesignTokenExtensions, G extends DesignTokenGroupExtensions = E> = DesignTokenGroup<E, G> | DesignToken<E>;
 
 /** Design Token Group */

@@ -63,7 +63,7 @@ export default createRule<Readonly<[O3rCategoriesTagsRuleOption, ...any]>, Messa
   create: (context, [options]: Readonly<[O3rCategoriesTagsRuleOption, ...any]>) => {
     const globalConfigCategories = new Set(options.globalConfigCategories);
     return {
-      // eslint-disable-next-line @typescript-eslint/naming-convention
+      // eslint-disable-next-line @typescript-eslint/naming-convention -- naming convention for AST
       TSPropertySignature: (node) => {
         const sourceCode = context.getSourceCode();
         const comment = getNodeComment(node, sourceCode);
@@ -127,7 +127,7 @@ export default createRule<Readonly<[O3rCategoriesTagsRuleOption, ...any]>, Messa
           });
         }
       },
-      // eslint-disable-next-line @typescript-eslint/naming-convention
+      // eslint-disable-next-line @typescript-eslint/naming-convention -- naming convention for AST
       TSInterfaceDeclaration: (node) => {
         const sourceCode = context.getSourceCode();
         const comment = getNodeComment(node, sourceCode);

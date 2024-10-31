@@ -7,6 +7,6 @@
     "esModuleInterop": true
   },
   "include": [
-    "src/**/*.ts"
-, "src/rules/base.cjs", "src/rules/template/otter.cjs", "src/rules/typescript/eslint-angular.cjs", "src/rules/typescript/eslint-typescript.cjs", "src/rules/typescript/jest.cjs", "src/rules/typescript/eslint.cjs", "src/rules/typescript/jsdoc.cjs", "src/rules/typescript/otter.cjs", "src/rules/typescript/prefer-arrow.cjs", "src/rules/typescript/unicorn.cjs", "src/rules/typescript/stylistic.cjs", "src/rules/template.cjs", "src/rules/typescript.cjs"  ]
+    "src/**/*.cjs"
+  ],
 }

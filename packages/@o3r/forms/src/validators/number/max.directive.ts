@@ -28,7 +28,6 @@ import {
       multi: true
     }
   ],
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   host: { '[attr.max]': 'max ? max : null' }
 })
 export class MaxValidator implements Validator, OnChanges {

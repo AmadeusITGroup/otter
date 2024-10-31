@@ -1,3 +1,4 @@
+'use strict';
 const sortExportAll = require('eslint-plugin-sort-export-all');
 
 /**

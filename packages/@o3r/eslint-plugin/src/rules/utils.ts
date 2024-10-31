@@ -12,10 +12,10 @@ import type {
 } from 'type-fest';
 
 /** Current package version (format: <major>.<minor>)*/
-const version = (JSON.parse(readFileSync(path.resolve(__dirname, '..', '..', 'package.json'), { encoding: 'utf-8' })) as PackageJson).version?.split('.').slice(0, 2).join('.') || '0.0';
+const version = (JSON.parse(readFileSync(path.resolve(__dirname, '..', '..', 'package.json'), { encoding: 'utf8' })) as PackageJson).version?.split('.').slice(0, 2).join('.') || '0.0';
 
 /** ESLint rule generator */
-// eslint-disable-next-line new-cap
+// eslint-disable-next-line new-cap -- naming convention imposed by ESLintUtils
 export const createRule = ESLintUtils.RuleCreator((name) => {
   return `https://github.com/AmadeusITGroup/otter/tree/release/${version === '0.0' ? 'main' : version}/docs/linter/eslint-plugin/rules/${name}.md`;
 });

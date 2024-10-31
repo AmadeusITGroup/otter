@@ -1,3 +1,4 @@
+'use strict';
 const eslint = require('@eslint/js');
 const { convertWarningsToErrors } = require('../utils.cjs');
 

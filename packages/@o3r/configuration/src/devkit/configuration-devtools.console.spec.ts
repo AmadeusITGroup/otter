@@ -40,7 +40,6 @@ describe('Configuration DevTools console', () => {
             configuration: {
               ids: ['@scope/package#componentTest'],
               entities: {
-                // eslint-disable-next-line @typescript-eslint/naming-convention -- id
                 '@scope/package#componentTest': {
                   configEx1: 'test',
                   configEx2: true,
@@ -104,7 +103,6 @@ describe('Configuration DevTools console', () => {
     expect(spy).toHaveBeenCalledWith(expect.objectContaining(
       {
         entities: {
-          // eslint-disable-next-line @typescript-eslint/naming-convention -- id
           '@scope/package#componentTest': {
             id: '@scope/package#componentTest',
             lolProp: 123

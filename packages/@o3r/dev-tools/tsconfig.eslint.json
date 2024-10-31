@@ -4,7 +4,8 @@
     "eslint*.config.mjs",
     "jest.config.js",
     "src/**/*.spec.ts",
-    "src/helpers/**/*.ts"
+    "src/helpers/**/*.ts",
+    "testing/**/*.ts"
   ],
   "exclude": []
 }

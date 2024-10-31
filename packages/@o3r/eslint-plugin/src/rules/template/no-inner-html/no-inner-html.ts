@@ -34,7 +34,7 @@ export default createRule<[], Messages>({
     getTemplateParserServices(context);
 
     return {
-      // eslint-disable-next-line @typescript-eslint/naming-convention
+      // eslint-disable-next-line @typescript-eslint/naming-convention -- naming convention for AST
       'Element$1': (node: TmplAstElement) => {
         const innerHTMLAttribute = node.attributes.find((a) => /innerhtml/i.test(a.name));
         if (innerHTMLAttribute && innerHTMLAttribute.keySpan) {

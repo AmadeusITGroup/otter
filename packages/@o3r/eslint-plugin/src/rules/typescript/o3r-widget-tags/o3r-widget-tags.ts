@@ -113,7 +113,7 @@ export default createRule<[Readonly<O3rWidgetTagsRuleOption>, ...any], O3rWidget
   create: (context, [options]: Readonly<[O3rWidgetTagsRuleOption, ...any]>) => {
     const supportedO3rWidgets = new Set(Object.keys(options.widgets!));
     return {
-      // eslint-disable-next-line @typescript-eslint/naming-convention
+      // eslint-disable-next-line @typescript-eslint/naming-convention -- naming convention for AST
       TSPropertySignature: (node) => {
         const sourceCode = context.getSourceCode();
         const comment = getNodeComment(node, sourceCode);

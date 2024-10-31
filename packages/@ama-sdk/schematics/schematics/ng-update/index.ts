@@ -71,6 +71,7 @@ export function updateV11_0(): Rule {
 /**
  * update of Otter library V11.4
  */
+// eslint-disable-next-line @typescript-eslint/naming-convention -- function name contains the version
 export function updateV11_4(): Rule {
   return (tree, context) => {
     if (isTypescriptSdk(tree)) {

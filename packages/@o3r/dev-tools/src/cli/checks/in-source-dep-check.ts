@@ -8,9 +8,10 @@ import {
   join,
   resolve
 } from 'node:path';
-import {
-  _builtinLibs as nodeWellKnownModules
-} from 'node:repl';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment -- _builtinLibs is not part of repl types (due to the fact it is flagged to internal usage purpose)
+// @ts-ignore
+// eslint-disable-next-line import-newlines/enforce -- needed to have the `@ts-ignore` on the line just above
+import { _builtinLibs as nodeWellKnownModules } from 'node:repl';
 import {
   bold
 } from 'chalk';
@@ -18,8 +19,6 @@ import {
   program
 } from 'commander';
 import * as glob from 'globby';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore -- _builtinLibs is not part of repl types (due to the fact it is flagged to internal usage purpose)
 import * as winston from 'winston';
 
 /** Console logger */
@@ -35,8 +34,11 @@ const dependencyTypes = ['dependencies', 'devDependencies', 'peerDependencies'];
 program
   .description('[DEPRECATED] Checks that the dependencies imported in the code are declared in the package.json file')
   .option<string>('--root <directory>', 'Project root directory', (p) => resolve(process.cwd(), p), process.cwd())
-
-  .option<string[]>('--ignore <...patterns>', 'Path patters to ignore', (p, previous) => ([...previous, ...p.split(',')]), ['**/node_modules/**', '**/dist/**', '**/dist-*/**', '**/mocks/**', '**/templates/**', '**/*.template'])
+  .option<string[]>(
+    '--ignore <...patterns>', 'Path patters to ignore',
+    (p, previous) => ([...previous, ...p.split(',')]),
+    ['**/node_modules/**', '**/dist/**', '**/dist-*/**', '**/mocks/**', '**/templates/**', '**/*.template']
+  )
   .option('--ignore-workspace', 'Ignore the workspace and only check from the root directory')
   .option('--fail-on-error', 'Return a non-null status in case of dependency issue found')
   .parse(process.argv);

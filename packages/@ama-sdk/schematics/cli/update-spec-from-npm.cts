@@ -4,6 +4,27 @@
  * Update the OpenAPI spec from an NPM package
  */
 
+import {
+  existsSync
+} from 'node:fs';
+import {
+  copyFile,
+  readFile
+} from 'node:fs/promises';
+import {
+  createRequire
+} from 'node:module';
+import {
+  extname,
+  posix
+} from 'node:path';
+import {
+  LOCAL_SPEC_FILENAME,
+  type OpenApiToolsConfiguration,
+  type OpenApiToolsGenerator,
+  SPEC_JSON_EXTENSION,
+  SPEC_YAML_EXTENSION
+} from '@ama-sdk/schematics';
 import type {
   CliWrapper
 } from '@o3r/telemetry';

@@ -506,6 +506,7 @@ describe('RequestParametersService', () => {
 
   describe('No storage available', () => {
     beforeEach(async () => {
+      // eslint-disable-next-line unicorn/consistent-function-scoping -- used only in this scope
       const getConfiguration = () => (
         {
           queryParamsValue: queryParams,

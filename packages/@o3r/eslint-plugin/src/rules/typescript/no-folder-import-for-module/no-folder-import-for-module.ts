@@ -22,7 +22,7 @@ export default createRule({
   defaultOptions: [],
   create: (context) => {
     return {
-      // eslint-disable-next-line @typescript-eslint/naming-convention
+      // eslint-disable-next-line @typescript-eslint/naming-convention -- naming convention for AST
       ImportDeclaration: (node) => {
         const importedModules = node.specifiers.filter((specifier) => specifier.local.name.endsWith('Module'));
         const importPath = node.source.value?.toString();

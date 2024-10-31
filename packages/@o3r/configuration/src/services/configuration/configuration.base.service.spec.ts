@@ -110,7 +110,6 @@ describe('ConfigurationBaseService', () => {
     expect(mockDispatch).toHaveBeenCalledWith(
       upsertConfigurationEntities({
         entities: {
-          // eslint-disable-next-line @typescript-eslint/naming-convention -- id
           '@otter/components#SearchTypePresenter': { showComplexBtn: true, id: '@otter/components#SearchTypePresenter' },
           global: { demoMinNbAdults: 4, id: 'global' }
         }
@@ -140,7 +139,6 @@ describe('ConfigurationBaseService', () => {
     it('should not emit if we do not change the INITIAL_CONFIG value', () => {
       mockStore.overrideSelector(selectConfigurationEntities, {
         [configId]: configInitialValue,
-        // eslint-disable-next-line @typescript-eslint/naming-convention -- id
         ANOTHER_CONFIG: {
           id: 'ANOTHER_CONFIG',
           prop: 'value1'

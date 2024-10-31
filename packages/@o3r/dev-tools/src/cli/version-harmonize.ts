@@ -53,8 +53,7 @@ program
   .parse(process.argv);
 
 /** Options from CLI */
-// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-const options = program.opts() as Options;
+const options = program.opts<Options>();
 logger.level = options.verbose ? 'debug' : 'info';
 
 /**
@@ -138,6 +137,7 @@ const updatePackageJsonPackageManager = async (packageJsonPaths: string[], packa
 };
 
 void (async () => {
+  // eslint-disable-next-line @stylistic/max-len -- keep warning on same line
   logger.warn('This script is deprecated and will be removed in v12, please use the linter rule @o3r/json-dependency-versions-harmonize instead (documentation available https://github.com/AmadeusITGroup/otter/blob/main/docs/linter/eslint-plugin/rules/json-dependency-versions-harmonize.md)');
   const monorepoPackage: PackageJson = JSON.parse(readFileSync(options.monorepo, { encoding: 'utf8' }));
   const { workspaces, packageManager } = monorepoPackage;

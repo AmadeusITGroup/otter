@@ -28,10 +28,14 @@
     "winston": "^3.8.2"
   },
   "peerDependencies": {
-    "@angular-devkit/schematics": "~18.2.0"
+    "@angular-devkit/schematics": "~18.2.0",
+    "@o3r/telemetry": "workspace:^"
   },
   "peerDependenciesMeta": {
     "@angular-devkit/schematics": {
+      "optional": true
+    },
+    "@o3r/telemetry": {
       "optional": true
     }
   },

@@ -46,7 +46,6 @@ function extractTokenFn(options: ExtractTokenSchematicsSchema): Rule {
 
   return async (tree, context) => {
     try {
-      // eslint-disable-next-line @typescript-eslint/naming-convention
       const { CssVariableExtractor } = await import('@o3r/styling/builders/style-extractor/helpers');
       const { filter } = await import('minimatch');
       const filterFunctions = options.componentFilePatterns.map((pattern) => filter(
@@ -88,7 +87,7 @@ function extractTokenFn(options: ExtractTokenSchematicsSchema): Rule {
             const targetNodeValue = targetNode as any as DesignToken;
             targetNodeValue.$description = variable.description;
             targetNodeValue.$type = !variable.type || variable.type === 'string'
-              ? (isNaN(+variable.defaultValue) ? undefined : 'number')
+              ? (Number.isNaN(+variable.defaultValue) ? undefined : 'number')
               : variable.type;
             targetNodeValue.$value = targetNodeValue.$type === 'number'
               ? +variable.defaultValue

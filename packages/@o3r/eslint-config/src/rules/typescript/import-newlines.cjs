@@ -1,3 +1,4 @@
+'use strict';
 const importNewlinesPlugin = require('eslint-plugin-import-newlines');
 
 /** @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.ConfigArray} */

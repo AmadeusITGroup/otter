@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-
 /** @deprecated Will be removed in V12 */
 module.exports = {
   'extends': [

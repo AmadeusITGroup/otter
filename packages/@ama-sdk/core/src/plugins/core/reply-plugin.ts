@@ -3,7 +3,7 @@ import type {
 } from '../../fwk/api';
 import type {
   ReviverType
-} from '../../fwk/Reviver';
+} from '../../fwk/reviver';
 import type {
   Plugin,
   PluginContext,

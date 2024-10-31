@@ -1,9 +1,19 @@
+import {
+  promises as fs
+} from 'node:fs';
+import {
+  resolve
+} from 'node:path';
+import type {
+  DesignTokenSpecification
+} from '../../design-token-specification.interface';
+import type {
+  DesignTokenVariableSet
+} from '../../parsers';
 import * as parser from '../../parsers/design-token.parser';
-import { promises as fs } from 'node:fs';
-import { resolve } from 'node:path';
-import type { DesignTokenSpecification } from '../../design-token-specification.interface';
-import type { DesignTokenVariableSet } from '../../parsers';
-import { getSassTokenValueRenderer } from './design-token-value.renderers';
+import {
+  getSassTokenValueRenderer
+} from './design-token-value.renderers';
 
 describe('getSassTokenValueRenderer', () => {
   let exampleVariable!: DesignTokenSpecification;
@@ -47,7 +57,7 @@ describe('getSassTokenValueRenderer', () => {
 
   test('should render invalid reference and raise warning', () => {
     const warn = jest.fn();
-    const renderer = getSassTokenValueRenderer({ logger: { warn }} as any);
+    const renderer = getSassTokenValueRenderer({ logger: { warn } } as any);
     const variable = designTokens.get('example.wrong-ref');
 
     const result = renderer(variable, designTokens);

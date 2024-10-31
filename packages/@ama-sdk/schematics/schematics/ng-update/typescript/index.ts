@@ -77,6 +77,7 @@ export function updateV11_0(): Rule {
 /**
  * Update of Ama-sdk library V11.4
  */
+// eslint-disable-next-line @typescript-eslint/naming-convention -- function name contains the version
 export function updateV11_4(): Rule {
   const updateRules: Rule[] = [
     createGitAttributesFile

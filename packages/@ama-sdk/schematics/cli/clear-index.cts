@@ -4,6 +4,13 @@
  * Remove deleted models' exports
  */
 
+import {
+  statSync
+} from 'node:fs';
+import fs from 'node:fs/promises';
+import {
+  resolve
+} from 'node:path';
 import type {
   CliWrapper
 } from '@o3r/telemetry';

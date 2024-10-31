@@ -3,11 +3,11 @@
 /*
  * Update the Typescript SDK Package to expose the sub modules
  */
-
 import {
   copyFileSync,
   mkdirSync
 } from 'node:fs';
+import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
 import type {
   CliWrapper
@@ -75,16 +75,16 @@ const updateExports = async () => {
   await fs.writeFile(path.join(baseDir, distFolder, 'package.json'), JSON.stringify(packageJson, null, 2));
 };
 
-const run = async () => {
-  const copyToDist = (file: string, cwdForCopy: string) => {
-    const distFile = path.resolve(baseDir, distFolder, path.relative(cwdForCopy, file));
-    logger.log(`${file} copied to ${distFile}`);
-    try {
-      mkdirSync(path.dirname(distFile), { recursive: true });
-    } catch { /* ignore error */ }
-    return copyFileSync(file, distFile);
-  };
+const copyToDist = (file: string, cwdForCopy: string) => {
+  const distFile = path.resolve(baseDir, distFolder, path.relative(cwdForCopy, file));
+  logger.log(`${file} copied to ${distFile}`);
+  try {
+    mkdirSync(path.dirname(distFile), { recursive: true });
+  } catch { /* ignore error */ }
+  return copyFileSync(file, distFile);
+};
 
+const run = async () => {
   // Move files into the dist folder
   const copies = files.map(async ({ glob, cwdForCopy }) => {
     return watch

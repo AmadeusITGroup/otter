@@ -1,11 +1,19 @@
-import { readFile } from 'node:fs/promises';
-import { existsSync } from 'node:fs';
+import {
+  existsSync
+} from 'node:fs';
+import {
+  readFile
+} from 'node:fs/promises';
+import {
+  resolve
+} from 'node:path';
+import type {
+  BuilderContext
+} from '@angular-devkit/architect';
 import {
   type DesignTokenGroupTemplate,
   mergeDesignTokenTemplates
 } from '../../../src/public_api';
-import { resolve } from 'node:path';
-import type { BuilderContext } from '@angular-devkit/architect';
 
 /**
  * Generate template object

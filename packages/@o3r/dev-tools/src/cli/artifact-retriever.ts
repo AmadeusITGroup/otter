@@ -87,10 +87,9 @@ if (!opts.artifactGroupId) {
 let url: string = opts.registry;
 const jar = request.jar();
 const options: { headers?: Headers; jar: CookieJar } = { jar };
-const password = opts.password || opts.password_env_var && process.env[opts.password_env_var];
+const password = opts.password || (opts.password_env_var && process.env[opts.password_env_var]);
 if (opts.username && password) {
   options.headers = {
-    // eslint-disable-next-line @typescript-eslint/naming-convention
     Authorization: 'Basic ' + Buffer.from(`${opts.username as string}:${password as string}`).toString('base64')
   };
 }
@@ -132,8 +131,7 @@ async function retrieveArtifactFromJFrog() {
     logger.warn('First call to get artifact information failed, retries');
     responseSearch = await request.get(url, options).promise();
   }
-  // eslint-disable-next-line no-console
-  console.log(responseSearch);
+  logger.info(responseSearch);
   const responseSearchObj: { results: { uri: string }[] } = JSON.parse(responseSearch);
   const uris = responseSearchObj.results
     .map((res) => res.uri)
@@ -202,12 +200,16 @@ function getLatestVersion(packages: Record<string, any>[], artifactName: string)
 async function retrieveArtifactFromAzure() {
   try {
     if (version.startsWith('0.0.0')) {
-      const res = await request.get(`https://feeds.dev.azure.com/${opts.organization as string}/${opts.project as string}/_apis/packaging/feeds/${opts.feed as string}/packages?api-version=6.0-preview.1`, options).promise();
+      const res = await request.get(
+        `https://feeds.dev.azure.com/${opts.organization as string}/${opts.project as string}/_apis/packaging/feeds/${opts.feed as string}/packages?api-version=6.0-preview.1`,
+        options
+      ).promise();
       version = getLatestVersion(JSON.parse(res).value, name);
     }
     logger.info(`Searching for ${name}@${version}`);
 
-    url = `https://pkgs.dev.azure.com/${opts.organization as string}/${opts.project as string}/_apis/packaging/feeds/${opts.feed as string}/maven/${opts.artifactGroupId as string}/${name}/${version}/${name}-${version}.jar/content?api-version=6.0-preview.1`;
+    url = `https://pkgs.dev.azure.com/${opts.organization as string}/${opts.project as string}/_apis/packaging/feeds/${opts.feed as string}/maven/${opts.artifactGroupId as string}`
+    + `/${name}/${version}/${name}-${version}.jar/content?api-version=6.0-preview.1`;
 
     logger.info(`Call to ${url}`);
     const downloadUri = await new Promise<string | undefined>((resolve, reject) => {
@@ -236,7 +238,6 @@ async function retrieveArtifactFromAzure() {
 }
 /**
  * Download an artifact on the specified artifact repository manager
- * @param registry Registry url
  */
 function retrieveArtifact() {
   switch (opts.repositoryManager) {

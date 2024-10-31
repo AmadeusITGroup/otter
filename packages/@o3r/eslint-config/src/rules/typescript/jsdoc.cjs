@@ -1,3 +1,4 @@
+'use strict';
 const jsdoc = require('eslint-plugin-jsdoc');
 const { convertWarningsToErrors } = require('../utils.cjs');
 

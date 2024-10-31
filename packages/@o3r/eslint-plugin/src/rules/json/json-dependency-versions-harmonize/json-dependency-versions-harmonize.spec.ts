@@ -69,7 +69,7 @@ ruleTester.run('json-dependency-versions-harmonize', jsonDependencyVersionsHarmo
     { code: JSON.stringify({ dependencies: { myDep: '1.0.0' } }), filename: packageToLint, options: [{ ignoredDependencies: ['my*'] }] },
     { code: JSON.stringify({ dependencies: { myOtherDep: '1.0.0' } }), filename: packageToLint, options: [{ ignoredPackages: ['testPackage'] }] },
     { code: JSON.stringify({ peerDependencies: { myOtherDep: '^2.0.0' } }), filename: packageToLint, options: [{ alignPeerDependencies: false }] },
-    // eslint-disable-next-line @typescript-eslint/naming-convention
+
     { code: JSON.stringify({ resolutions: { 'test/sub/myDep': '1.0.0' } }), filename: packageToLint, options: [{ alignResolutions: false }] },
 
     { code: JSON.stringify({ overrides: { test: { myDep: '1.0.0' } } }), filename: packageToLint, options: [{ alignResolutions: false }] },
@@ -151,9 +151,7 @@ ruleTester.run('json-dependency-versions-harmonize', jsonDependencyVersionsHarmo
     },
     {
       filename: packageToLint,
-      // eslint-disable-next-line @typescript-eslint/naming-convention
       output: JSON.stringify({ resolutions: { 'test/sub/myDep': '^2.0.0' } }),
-      // eslint-disable-next-line @typescript-eslint/naming-convention
       code: JSON.stringify({ resolutions: { 'test/sub/myDep': '1.0.0' } }),
       options: [{ alignResolutions: true }],
       errors: [
