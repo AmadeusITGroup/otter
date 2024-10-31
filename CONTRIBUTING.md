@@ -64,6 +64,21 @@ To ease the process, we are providing a set of:
 - [Linters configuration](./packages/@o3r/eslint-config-otter/README.md)
 - [Component generator](./packages/@o3r/core/README.md#generators) (and more)
 
+### Accelerate your build thanks to Nx Cloud
+
+[Nx Cloud](https://nx.dev/nx-cloud) offers a way to accelerate the build of your project locally thanks to [Remote Cache](https://nx.dev/ci/features/remote-cache).
+
+To be able to benefit from this feature, you will need to perform the following steps:
+
+1. Create an account on [Nx Cloud App](https://cloud.nx.app/)
+2. Create a Personal Access Token on [profile page](https://cloud.nx.app/profile/tokens).
+3. Create a local environment variable **NX_CLOUD_ACCESS_TOKEN** with your previously generated PAT *(example on Linux: `export NX_CLOUD_ACCESS_TOKEN=xxxxxxx`)*
+
+When building (`yarn build`) the project on the `main` branch (or another `release/*` branch), the remote cache will be downloaded.
+
+> [!IMPORTANT]
+> This feature is available for `@amadeus.com` email addresses, the Nx Cloud account should be created with an `@amadeus.com` email or it should be set as **main email** on GitHub if the GitHub account is used to register to Nx Cloud.
+
 ### DevTools to create new Otter monorepo elements
 
 To help developers create new items in the Otter monorepo, several scripts have been provided at root level to accelerate development:
