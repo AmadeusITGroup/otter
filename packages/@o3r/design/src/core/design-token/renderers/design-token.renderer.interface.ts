@@ -20,7 +20,7 @@ export type TokenDefinitionRenderer = (tokenStructure: DesignTokenVariableStruct
 /**
  * Options of the Design Token list transform function
  */
-export interface DesignTTokenListTransformOptions {
+export interface DesignTokenListTransformOptions {
   /**
    * Renderer the name of generated variable (without the prefix required by the target language)
    */
@@ -30,7 +30,7 @@ export interface DesignTTokenListTransformOptions {
 /**
  * Function defining the way the variable should be sorted before being generated
  */
-export type DesignTokenListTransform = (variableSet: DesignTokenVariableSet, options?: DesignTTokenListTransformOptions) => (tokens: DesignTokenVariableStructure[]) => DesignTokenVariableStructure[];
+export type DesignTokenListTransform = (variableSet: DesignTokenVariableSet, options?: DesignTokenListTransformOptions) => (tokens: DesignTokenVariableStructure[]) => DesignTokenVariableStructure[];
 
 /**
  * Options of the Design Token Renderer value
