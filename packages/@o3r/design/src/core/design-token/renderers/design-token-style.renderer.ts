@@ -3,20 +3,66 @@ import { getCssTokenDefinitionRenderer } from './css/design-token-definition.ren
 import { getCssStyleContentUpdater } from './css/design-token-updater.renderers';
 import type { Logger } from '@o3r/core';
 import type { promises as fs } from 'node:fs';
-import { isAbsolute, resolve } from 'node:path';
 import type { DesignTokenListTransform, DesignTokenRendererOptions } from './design-token.renderer.interface';
+
+/**
+ * Retrieve the path of a target file based on root path if not absolute
+ * @param targetFile file to target
+ * @param root Root path used to resolve relative targetFile path
+ */
+const getFilePath = (targetFile: string, root = '.') => {
+  const isAbsolutePath = targetFile.startsWith('/') || /^[a-zA-Z]:[/\\]/.test(targetFile);
+  if (isAbsolutePath) {
+    return targetFile;
+  } else {
+    const joinStr = (root + targetFile);
+    const sep = joinStr.includes('/') ? '/' : (joinStr.includes('\\') ? '\\' : '/');
+    const stack = [];
+    for (const part of `${root.replace(/[\\/]$/, '')}${sep}${targetFile}`.split(sep)) {
+      if (part === '..') {
+        stack.pop();
+      } else if (part !== '.') {
+        stack.push(part);
+      }
+    }
+    return stack.join(sep);
+  }
+};
+
+/**
+ * Retrieve the function that determines which file to update for a given token
+ * @param root Root path used if no base path
+ * @param defaultFile Default file if not requested by the Token
+ * @deprecated Use {@link getFileToUpdatePath} instead. Will be removed in v13.
+ */
+export const computeFileToUpdatePath = (root = '.', defaultFile = 'styles.scss') => (token: DesignTokenVariableStructure) => {
+  return token.extensions.o3rTargetFile
+    ? getFilePath(token.extensions.o3rTargetFile, token.context?.basePath || root)
+    : defaultFile;
+};
 
 /**
  * Retrieve the function that determines which file to update for a given token
  * @param root Root path used if no base path
  * @param defaultFile Default file if not requested by the Token
  */
-export const computeFileToUpdatePath = (root = process.cwd(), defaultFile = 'styles.scss') => (token: DesignTokenVariableStructure) => {
-  if (token.extensions.o3rTargetFile) {
-    return isAbsolute(token.extensions.o3rTargetFile) ? token.extensions.o3rTargetFile : resolve(token.context?.basePath || root, token.extensions.o3rTargetFile);
+export const getFileToUpdatePath = async (root?: string, defaultFile = 'styles.scss') => {
+  try {
+    const { isAbsolute, resolve } = await import('node:path');
+    const { cwd } = await import('node:process');
+    root ||= cwd();
+    return (token: DesignTokenVariableStructure) => {
+      return token.extensions.o3rTargetFile
+        ? isAbsolute(token.extensions.o3rTargetFile) ? token.extensions.o3rTargetFile : resolve(token.context?.basePath || root!, token.extensions.o3rTargetFile)
+        : defaultFile;
+    };
+  } catch {
+    return (token: DesignTokenVariableStructure) => {
+      return token.extensions.o3rTargetFile
+        ? getFilePath(token.extensions.o3rTargetFile, token.context?.basePath || root)
+        : defaultFile;
+    };
   }
-
-  return defaultFile;
 };
 
 /**
@@ -142,7 +188,7 @@ export const renderDesignTokens = async (variableSet: DesignTokenVariableSet, op
   const readFile = options?.readFile || (async (filePath: string) => (await import('node:fs/promises')).readFile(filePath, { encoding: 'utf8' }));
   const existsFile = options?.existsFile || (await import('node:fs')).existsSync;
   const writeFile = options?.writeFile || getDefaultFileWriter(existsFile, options?.logger);
-  const determineFileToUpdate = options?.determineFileToUpdate || computeFileToUpdatePath();
+  const determineFileToUpdate = options?.determineFileToUpdate || await getFileToUpdatePath();
   const tokenDefinitionRenderer = options?.tokenDefinitionRenderer || getCssTokenDefinitionRenderer(options);
   const styleContentUpdater = options?.styleContentUpdater || getCssStyleContentUpdater();
   const tokenPerFile = Array.from(variableSet.values())

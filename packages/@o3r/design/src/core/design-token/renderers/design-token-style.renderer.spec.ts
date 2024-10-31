@@ -3,7 +3,9 @@ import { promises as fs } from 'node:fs';
 import { resolve } from 'node:path';
 import type { DesignTokenGroup, DesignTokenSpecification } from '../design-token-specification.interface';
 import type { DesignTokenVariableSet } from '../parsers';
-import { computeFileToUpdatePath, getTokenSorterByName, getTokenSorterByRef, renderDesignTokens } from './design-token-style.renderer';
+import { computeFileToUpdatePath, getFileToUpdatePath, getTokenSorterByName, getTokenSorterByRef, renderDesignTokens } from './design-token-style.renderer';
+
+const rootPath = resolve('/');
 
 describe('Design Token Renderer', () => {
   let exampleVariable!: DesignTokenSpecification;
@@ -19,7 +21,7 @@ describe('Design Token Renderer', () => {
 
   describe('computeFileToUpdatePath', () => {
     const DEFAULT_FILE = 'test-result.json';
-    const fileToUpdate = computeFileToUpdatePath('/', DEFAULT_FILE);
+    const fileToUpdate = computeFileToUpdatePath(rootPath, DEFAULT_FILE);
 
     test('should return default file if not specified', () => {
       const variable = designTokens.get('example.var1');
@@ -34,7 +36,28 @@ describe('Design Token Renderer', () => {
       const result = fileToUpdate(variable);
 
       expect(variable.extensions.o3rTargetFile).toBeDefined();
-      expect(result).toBe(resolve('/', variable.extensions.o3rTargetFile));
+      expect(result).toBe(resolve(rootPath, variable.extensions.o3rTargetFile));
+    });
+  });
+
+  describe('getFileToUpdatePath', () => {
+    const DEFAULT_FILE = 'test-result.json';
+    const fileToUpdate = getFileToUpdatePath(rootPath, DEFAULT_FILE);
+
+    test('should return default file if not specified', async () => {
+      const variable = designTokens.get('example.var1');
+      const result = (await fileToUpdate)(variable);
+
+      expect(variable.extensions.o3rTargetFile).not.toBeDefined();
+      expect(result).toBe(DEFAULT_FILE);
+    });
+
+    test('should return file specified by the token', async () => {
+      const variable = designTokens.get('example.test.var2');
+      const result = (await fileToUpdate)(variable);
+
+      expect(variable.extensions.o3rTargetFile).toBeDefined();
+      expect(result).toBe(resolve(rootPath, variable.extensions.o3rTargetFile));
     });
   });
 
@@ -43,7 +66,7 @@ describe('Design Token Renderer', () => {
       const writeFile = jest.fn();
       const readFile = jest.fn().mockReturnValue('');
       const existsFile = jest.fn().mockReturnValue(true);
-      const determineFileToUpdate = jest.fn().mockReturnValue(computeFileToUpdatePath('.'));
+      const determineFileToUpdate = jest.fn().mockReturnValue(await getFileToUpdatePath('.'));
       const tokenDefinitionRenderer = jest.fn().mockReturnValue('--test: #000;');
 
       await renderDesignTokens(designTokens, {
@@ -64,7 +87,7 @@ describe('Design Token Renderer', () => {
       const writeFile = jest.fn();
       const readFile = jest.fn().mockReturnValue('');
       const existsFile = jest.fn().mockReturnValue(true);
-      const determineFileToUpdate = jest.fn().mockImplementation(computeFileToUpdatePath('.'));
+      const determineFileToUpdate = jest.fn().mockImplementation(await getFileToUpdatePath('.'));
 
       await renderDesignTokens(designTokens, {
         writeFile,
@@ -87,7 +110,7 @@ describe('Design Token Renderer', () => {
         const writeFile = jest.fn().mockImplementation((filename, content) => { result[filename] = content; });
         const readFile = jest.fn().mockReturnValue('');
         const existsFile = jest.fn().mockReturnValue(true);
-        const determineFileToUpdate = jest.fn().mockImplementation(computeFileToUpdatePath('.'));
+        const determineFileToUpdate = jest.fn().mockImplementation(await getFileToUpdatePath('.'));
 
         await renderDesignTokens(designTokens, {
           writeFile,
@@ -106,7 +129,7 @@ describe('Design Token Renderer', () => {
         const writeFile = jest.fn().mockImplementation((filename, content) => { result[filename] = content; });
         const readFile = jest.fn().mockReturnValue('');
         const existsFile = jest.fn().mockReturnValue(true);
-        const determineFileToUpdate = jest.fn().mockImplementation(computeFileToUpdatePath('.'));
+        const determineFileToUpdate = jest.fn().mockImplementation(await getFileToUpdatePath('.'));
 
         await renderDesignTokens(designTokens, {
           writeFile,
@@ -126,7 +149,7 @@ describe('Design Token Renderer', () => {
         const writeFile = jest.fn().mockImplementation((filename, content) => { result[filename] = content; });
         const readFile = jest.fn().mockReturnValue('');
         const existsFile = jest.fn().mockReturnValue(true);
-        const determineFileToUpdate = jest.fn().mockImplementation(computeFileToUpdatePath('.'));
+        const determineFileToUpdate = jest.fn().mockImplementation(await getFileToUpdatePath('.'));
         const tokenListTransform = jest.fn().mockReturnValue([]);
         await renderDesignTokens(designTokens, {
           writeFile,
