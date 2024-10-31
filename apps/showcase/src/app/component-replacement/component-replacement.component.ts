@@ -1,11 +1,36 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, inject, QueryList, ViewChildren, ViewEncapsulation } from '@angular/core';
-import { O3rComponent } from '@o3r/core';
-import { InPageNavLink, InPageNavLinkDirective, InPageNavPresService } from '../../components/utilities/in-page-nav';
-import { IN_PAGE_NAV_PRES_DIRECTIVES, InPageNavPresComponent } from '../../components/utilities/in-page-nav/in-page-nav-pres.component';
-import { AsyncPipe } from '@angular/common';
-import { ComponentReplacementPresComponent } from '../../components/showcase/component-replacement/component-replacement-pres.component';
-import { RouterModule } from '@angular/router';
-import { CopyTextPresComponent } from '../../components/utilities/copy-text/copy-text-pres.component';
+import {
+  AsyncPipe
+} from '@angular/common';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  QueryList,
+  ViewChildren,
+  ViewEncapsulation
+} from '@angular/core';
+import {
+  RouterModule
+} from '@angular/router';
+import {
+  O3rComponent
+} from '@o3r/core';
+import {
+  ComponentReplacementPresComponent
+} from '../../components/showcase/component-replacement/component-replacement-pres.component';
+import {
+  CopyTextPresComponent
+} from '../../components/utilities/copy-text/copy-text-pres.component';
+import {
+  InPageNavLink,
+  InPageNavLinkDirective,
+  InPageNavPresService
+} from '../../components/utilities/in-page-nav';
+import {
+  IN_PAGE_NAV_PRES_DIRECTIVES,
+  InPageNavPresComponent
+} from '../../components/utilities/in-page-nav/in-page-nav-pres.component';
 
 @O3rComponent({ componentType: 'Page' })
 @Component({
@@ -22,6 +47,7 @@ export class ComponentReplacementComponent implements AfterViewInit {
 
   @ViewChildren(InPageNavLinkDirective)
   private readonly inPageNavLinkDirectives!: QueryList<InPageNavLink>;
+
   public links$ = this.inPageNavPresService.links$;
 
   public ngAfterViewInit() {

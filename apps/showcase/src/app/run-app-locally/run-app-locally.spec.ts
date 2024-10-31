@@ -1,6 +1,10 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { RunAppLocallyComponent } from './run-app-locally.component';
+import {
+  ComponentFixture,
+  TestBed
+} from '@angular/core/testing';
+import {
+  RunAppLocallyComponent
+} from './run-app-locally.component';
 
 describe('RunAppLocallyComponent', () => {
   let component: RunAppLocallyComponent;

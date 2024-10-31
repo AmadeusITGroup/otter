@@ -1,6 +1,10 @@
-import { adjustPath } from '@o3r/testing/tools/path-replacement';
-import { defineConfig } from '@playwright/test';
 import * as path from 'node:path';
+import {
+  adjustPath
+} from '@o3r/testing/tools/path-replacement';
+import {
+  defineConfig
+} from '@playwright/test';
 
 adjustPath('playwright');
 
@@ -12,28 +16,30 @@ const config = defineConfig({
   snapshotPathTemplate: '{testDir}/screenshots/{testFilePath}/{arg}{ext}',
   reporter: [
     ['list'],
-    ['junit', {outputFile: path.join(reportsFolder, 'junit', 'reporter.xml')}],
-    ['html', {open: 'never', outputFolder: path.join(reportsFolder, 'html')}]
+    ['junit', { outputFile: path.join(reportsFolder, 'junit', 'reporter.xml') }],
+    ['html', { open: 'never', outputFolder: path.join(reportsFolder, 'html') }]
   ],
   retries: process.env.CI ? 3 : 0,
   forbidOnly: !!process.env.CI,
-  navigationTimeout: 10000,
-  timeout: 60000,
+  navigationTimeout: 10_000,
+  timeout: 60_000,
   use: {
     ignoreHTTPSErrors: true,
     screenshot: 'only-on-failure',
     trace: 'retain-on-failure',
-    ...process.env.USE_MOCKS ? {
-      launchOptions: {
-        proxy: {server: 'http://localhost:4747'},
-        args: ['--remote-debugging-port=9222', '--ignore-certificate-errors']
-      },
-      proxy: {server: 'http://localhost:4747'},
-      serviceWorkers: 'block',
-      ignoreHTTPSErrors: true
-    } : {
-      launchOptions: { args: ['--remote-debugging-port=9222']}
-    }
+    ...process.env.USE_MOCKS
+      ? {
+        launchOptions: {
+          proxy: { server: 'http://localhost:4747' },
+          args: ['--remote-debugging-port=9222', '--ignore-certificate-errors']
+        },
+        proxy: { server: 'http://localhost:4747' },
+        serviceWorkers: 'block',
+        ignoreHTTPSErrors: true
+      }
+      : {
+        launchOptions: { args: ['--remote-debugging-port=9222'] }
+      }
   },
   expect: {
     toHaveScreenshot: {
@@ -41,16 +47,18 @@ const config = defineConfig({
     }
   },
   projects: [
-    {name: 'Chromium', use: {browserName: 'chromium'}}
+    { name: 'Chromium', use: { browserName: 'chromium' } }
   ],
   webServer: [
-    ...process.env.USE_MOCKS ? [{
-      command: `yarn kassette -c ${path.join(__dirname, 'kassette.config.js')}`,
-      cwd: path.join(__dirname, '..'),
-      port: 4747,
-      timeout: 120 * 1000,
-      reuseExistingServer: !process.env.CI
-    }] : []
+    ...process.env.USE_MOCKS
+      ? [{
+        command: `yarn kassette -c ${path.join(__dirname, 'kassette.config.js')}`,
+        cwd: path.join(__dirname, '..'),
+        port: 4747,
+        timeout: 120 * 1000,
+        reuseExistingServer: !process.env.CI
+      }]
+      : []
   ]
 });
 

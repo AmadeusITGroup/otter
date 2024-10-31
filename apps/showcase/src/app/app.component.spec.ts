@@ -1,15 +1,40 @@
-import { Provider } from '@angular/core';
-import { TestBed } from '@angular/core/testing';
-import { EffectsModule } from '@ngrx/effects';
-import { StoreModule } from '@ngrx/store';
-import { provideMockStore } from '@ngrx/store/testing';
-import { TranslateCompiler, TranslateFakeCompiler } from '@ngx-translate/core';
-import { ApplicationDevtoolsModule } from '@o3r/application';
-import { ComponentsDevtoolsModule } from '@o3r/components';
-import { ConfigurationDevtoolsModule } from '@o3r/configuration';
-import { LocalizationDevtoolsModule } from '@o3r/localization';
-import { mockTranslationModules } from '@o3r/testing/localization';
-import { AppComponent } from './app.component';
+import {
+  Provider
+} from '@angular/core';
+import {
+  TestBed
+} from '@angular/core/testing';
+import {
+  EffectsModule
+} from '@ngrx/effects';
+import {
+  StoreModule
+} from '@ngrx/store';
+import {
+  provideMockStore
+} from '@ngrx/store/testing';
+import {
+  TranslateCompiler,
+  TranslateFakeCompiler
+} from '@ngx-translate/core';
+import {
+  ApplicationDevtoolsModule
+} from '@o3r/application';
+import {
+  ComponentsDevtoolsModule
+} from '@o3r/components';
+import {
+  ConfigurationDevtoolsModule
+} from '@o3r/configuration';
+import {
+  LocalizationDevtoolsModule
+} from '@o3r/localization';
+import {
+  mockTranslationModules
+} from '@o3r/testing/localization';
+import {
+  AppComponent
+} from './app.component';
 
 const localizationConfiguration = { language: 'en' };
 const mockTranslations = {

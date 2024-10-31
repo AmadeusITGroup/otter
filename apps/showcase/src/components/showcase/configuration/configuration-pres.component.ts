@@ -1,10 +1,37 @@
-import { AsyncPipe, formatDate } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, effect, inject, input, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
-import { configSignal, DynamicConfigurableWithSignal, O3rConfig } from '@o3r/configuration';
-import { O3rComponent } from '@o3r/core';
-import { DatePickerInputPresComponent } from '../../utilities';
-import { CONFIGURATION_PRES_CONFIG_ID, CONFIGURATION_PRES_DEFAULT_CONFIG, ConfigurationPresConfig } from './configuration-pres.config';
+import {
+  AsyncPipe,
+  formatDate
+} from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  effect,
+  inject,
+  input,
+  ViewEncapsulation
+} from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  ReactiveFormsModule
+} from '@angular/forms';
+import {
+  configSignal,
+  DynamicConfigurableWithSignal,
+  O3rConfig
+} from '@o3r/configuration';
+import {
+  O3rComponent
+} from '@o3r/core';
+import {
+  DatePickerInputPresComponent
+} from '../../utilities';
+import {
+  CONFIGURATION_PRES_CONFIG_ID,
+  CONFIGURATION_PRES_DEFAULT_CONFIG,
+  ConfigurationPresConfig
+} from './configuration-pres.config';
 
 const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
 
@@ -26,10 +53,10 @@ export class ConfigurationPresComponent implements DynamicConfigurableWithSignal
   /** Configuration signal based on the input and the stored configuration */
   @O3rConfig()
   public configSignal = configSignal(
-      this.config,
-      CONFIGURATION_PRES_CONFIG_ID,
-      CONFIGURATION_PRES_DEFAULT_CONFIG
-    );
+    this.config,
+    CONFIGURATION_PRES_CONFIG_ID,
+    CONFIGURATION_PRES_DEFAULT_CONFIG
+  );
 
   public destinations = computed(() => this.configSignal().destinations);
   public shouldProposeRoundTrip = computed(() => this.configSignal().shouldProposeRoundTrip);

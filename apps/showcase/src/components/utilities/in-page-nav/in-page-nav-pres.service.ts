@@ -1,6 +1,20 @@
-import { Injectable, OnDestroy, QueryList } from '@angular/core';
-import { InPageNavLink } from './in-page-nav-pres.component';
-import { delay, map, shareReplay, startWith, Subject, Subscription, switchMap } from 'rxjs';
+import {
+  Injectable,
+  OnDestroy,
+  QueryList
+} from '@angular/core';
+import {
+  delay,
+  map,
+  shareReplay,
+  startWith,
+  Subject,
+  Subscription,
+  switchMap
+} from 'rxjs';
+import {
+  InPageNavLink
+} from './in-page-nav-pres.component';
 
 @Injectable({
   providedIn: 'root'

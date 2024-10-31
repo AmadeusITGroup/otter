@@ -1,17 +1,66 @@
-import { AsyncPipe, formatDate } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, inject, input, Input, type OnDestroy, ViewEncapsulation } from '@angular/core';
-import { toObservable } from '@angular/core/rxjs-interop';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { configSignal, DynamicConfigurableWithSignal, O3rConfig } from '@o3r/configuration';
-import { O3rComponent } from '@o3r/core';
-import { DynamicContentModule } from '@o3r/dynamic-content';
-import { Localization, LocalizationModule, LocalizationService, Translatable } from '@o3r/localization';
-import {RulesEngineRunnerModule, RulesEngineRunnerService} from '@o3r/rules-engine';
-import { Subscription } from 'rxjs';
-import { TripFactsService } from '../../../facts/trip/trip.facts';
-import { DatePickerInputPresComponent } from '../../utilities';
-import { RULES_ENGINE_PRES_CONFIG_ID, RULES_ENGINE_PRES_DEFAULT_CONFIG, RulesEnginePresConfig } from './rules-engine-pres.config';
-import { RulesEnginePresTranslation, translations } from './rules-engine-pres.translation';
+import {
+  AsyncPipe,
+  formatDate
+} from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  Input,
+  input,
+  type OnDestroy,
+  OnInit,
+  ViewEncapsulation
+} from '@angular/core';
+import {
+  toObservable
+} from '@angular/core/rxjs-interop';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule
+} from '@angular/forms';
+import {
+  configSignal,
+  DynamicConfigurableWithSignal,
+  O3rConfig
+} from '@o3r/configuration';
+import {
+  O3rComponent
+} from '@o3r/core';
+import {
+  DynamicContentModule
+} from '@o3r/dynamic-content';
+import {
+  Localization,
+  LocalizationModule,
+  LocalizationService,
+  Translatable
+} from '@o3r/localization';
+import {
+  RulesEngineRunnerModule,
+  RulesEngineRunnerService
+} from '@o3r/rules-engine';
+import {
+  Subscription
+} from 'rxjs';
+import {
+  TripFactsService
+} from '../../../facts/trip/trip.facts';
+import {
+  DatePickerInputPresComponent
+} from '../../utilities';
+import {
+  RULES_ENGINE_PRES_CONFIG_ID,
+  RULES_ENGINE_PRES_DEFAULT_CONFIG,
+  RulesEnginePresConfig
+} from './rules-engine-pres.config';
+import {
+  RulesEnginePresTranslation,
+  translations
+} from './rules-engine-pres.translation';
 
 const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
 
@@ -32,7 +81,7 @@ const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
     AsyncPipe
   ]
 })
-export class RulesEnginePresComponent implements OnDestroy, DynamicConfigurableWithSignal<RulesEnginePresConfig>, Translatable<RulesEnginePresTranslation> {
+export class RulesEnginePresComponent implements OnDestroy, DynamicConfigurableWithSignal<RulesEnginePresConfig>, Translatable<RulesEnginePresTranslation>, OnInit {
   private readonly tripService = inject(TripFactsService);
   private readonly localizationService = inject(LocalizationService);
   private readonly rulesService = inject(RulesEngineRunnerService);
@@ -61,10 +110,10 @@ export class RulesEnginePresComponent implements OnDestroy, DynamicConfigurableW
 
   @O3rConfig()
   public readonly configSignal = configSignal(
-      this.config,
-      RULES_ENGINE_PRES_CONFIG_ID,
-      RULES_ENGINE_PRES_DEFAULT_CONFIG
-    );
+    this.config,
+    RULES_ENGINE_PRES_CONFIG_ID,
+    RULES_ENGINE_PRES_DEFAULT_CONFIG
+  );
 
   constructor() {
     this.subscription.add(this.form.controls.destination.valueChanges.subscribe((destination) => this.tripService.updateDestination(destination)));
@@ -108,14 +157,13 @@ export class RulesEnginePresComponent implements OnDestroy, DynamicConfigurableW
   private formatDate(dateTime: number) {
     return formatDate(dateTime, 'yyyy-MM-dd', 'en-GB');
   }
+
   public ngOnInit() {
     this.rulesService.enableRuleSetFor(RULES_ENGINE_PRES_CONFIG_ID);
-
   }
 
   public ngOnDestroy() {
     this.rulesService.disableRuleSetFor(RULES_ENGINE_PRES_CONFIG_ID);
     this.subscription.unsubscribe();
   }
-
 }

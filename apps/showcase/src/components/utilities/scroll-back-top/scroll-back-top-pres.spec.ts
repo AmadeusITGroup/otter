@@ -1,7 +1,13 @@
-import { AsyncPipe } from '@angular/common';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ScrollBackTopPresComponent } from './scroll-back-top-pres.component';
+import {
+  AsyncPipe
+} from '@angular/common';
+import {
+  ComponentFixture,
+  TestBed
+} from '@angular/core/testing';
+import {
+  ScrollBackTopPresComponent
+} from './scroll-back-top-pres.component';
 
 describe('ScrollBackTopPresComponent', () => {
   let component: ScrollBackTopPresComponent;

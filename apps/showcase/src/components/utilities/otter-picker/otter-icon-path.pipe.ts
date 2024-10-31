@@ -1,5 +1,11 @@
-import { Pipe, PipeTransform } from '@angular/core';
-import { isOtterIcon, OTTER_ICONS } from './otter-icons';
+import {
+  Pipe,
+  PipeTransform
+} from '@angular/core';
+import {
+  isOtterIcon,
+  OTTER_ICONS
+} from './otter-icons';
 
 @Pipe({
   name: 'otterIconPath',

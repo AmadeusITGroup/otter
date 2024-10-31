@@ -1,5 +1,6 @@
 const o3r = require('@o3r/eslint-plugin');
 const angular = require('angular-eslint');
+const angularOverrideConfig = require('./template/angular.cjs');
 const o3rConfig = require('./template/otter.cjs');
 
 /**
@@ -14,6 +15,7 @@ const configArray = [
     files: ['**/*.html'],
     ...config
   })),
+  ...angularOverrideConfig,
   ...o3rConfig(o3r)
 ];
 

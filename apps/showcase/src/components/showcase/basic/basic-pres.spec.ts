@@ -1,6 +1,10 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { BasicPresComponent } from './basic-pres.component';
+import {
+  ComponentFixture,
+  TestBed
+} from '@angular/core/testing';
+import {
+  BasicPresComponent
+} from './basic-pres.component';
 
 describe('BasicPresComponent', () => {
   let component: BasicPresComponent;

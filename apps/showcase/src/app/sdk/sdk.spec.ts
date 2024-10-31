@@ -1,10 +1,22 @@
-import { PetApi } from '@ama-sdk/showcase-sdk';
-import { PetApiFixture } from '@ama-sdk/showcase-sdk/fixtures';
-import { AsyncPipe } from '@angular/common';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterModule } from '@angular/router';
-
-import { SdkComponent } from './sdk.component';
+import {
+  PetApi
+} from '@ama-sdk/showcase-sdk';
+import {
+  PetApiFixture
+} from '@ama-sdk/showcase-sdk/fixtures';
+import {
+  AsyncPipe
+} from '@angular/common';
+import {
+  ComponentFixture,
+  TestBed
+} from '@angular/core/testing';
+import {
+  RouterModule
+} from '@angular/router';
+import {
+  SdkComponent
+} from './sdk.component';
 import '@angular/localize/init';
 
 describe('SdkComponent', () => {
@@ -21,7 +33,7 @@ describe('SdkComponent', () => {
         AsyncPipe
       ],
       providers: [
-        {provide: PetApi, useValue: petApiFixture}
+        { provide: PetApi, useValue: petApiFixture }
       ]
     });
     fixture = TestBed.createComponent(SdkComponent);
