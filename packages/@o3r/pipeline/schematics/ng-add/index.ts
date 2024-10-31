@@ -13,10 +13,10 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
 
   return async (tree, context) => {
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
-    const ownPackageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' })) as PackageJson & { o3rConfig?: { commitHash?: string } };
-    const commitHash = ownPackageJson.o3rConfig?.commitHash;
+    const ownPackageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' })) as PackageJson & { config?: { o3r?: { commitHash?: string } } };
+    const commitHash = ownPackageJson.config?.o3r?.commitHash;
     const ownVersion = ownPackageJson.version;
-    const actionVersionString = commitHash ? `${commitHash} # v${ownVersion}` : ownVersion;
+    const actionVersionString = commitHash ? `${commitHash} # v${ownVersion}` : `v${ownVersion}`;
     let packageManager = 'npm';
     try {
       const schematics = await import('@o3r/schematics');
@@ -52,12 +52,16 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
         }
       } else if (packageManager === 'npm') {
         const npmrcPath = '/.npmrc';
-        const npmRegistry = `registry=${options.npmRegistry}`;
         if (!tree.exists(npmrcPath)) {
-          tree.create(npmrcPath, npmRegistry);
+          tree.create(npmrcPath, `registry=${options.npmRegistry}`);
         } else {
           const npmrcContent = tree.readText(npmrcPath);
-          tree.overwrite(npmrcPath, npmrcContent.concat(`\n${npmRegistry}`));
+          const registryPattern = /^registry=.*$/m;
+          const newRegistryLine = `registry=${options.npmRegistry}`;
+          const newContent = registryPattern.test(npmrcContent)
+            ? npmrcContent.replace(registryPattern, newRegistryLine)
+            : `${npmrcContent}\n${newRegistryLine}`;
+          tree.overwrite(npmrcPath, newContent);
         }
       }
       return tree;
