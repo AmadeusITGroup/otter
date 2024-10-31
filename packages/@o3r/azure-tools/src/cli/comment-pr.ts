@@ -1,5 +1,8 @@
 #!/usr/bin/env node
 
+import type {
+  CliWrapper
+} from '@o3r/telemetry';
 import {
   Option,
   program
@@ -39,7 +42,7 @@ const logger = winston.createLogger({
   transports: new winston.transports.Console()
 });
 
-void (async () => {
+const run = async () => {
   logger.info('Commenting PR...');
 
   if (!comment) {
@@ -78,4 +81,15 @@ void (async () => {
       threads.map((thread) => prService.addCommentToThread(repositoryId, pullRequestId, thread, comment!))
     );
   }
+};
+
+void (async () => {
+  let wrapper: CliWrapper = (fn: any) => fn;
+  try {
+    const { createCliWithMetrics } = await import('@o3r/telemetry');
+    wrapper = createCliWithMetrics;
+  } catch {
+    // Do not throw if `@o3r/telemetry` is not installed
+  }
+  return wrapper(run, '@o3r/azure-tools:comment-pr', { logger, preParsedOptions: opts })();
 })();

@@ -1,144 +1,60 @@
+import * as fs from 'node:fs';
 import * as os from 'node:os';
+import * as path from 'node:path';
 import * as core from '@actions/core';
 import {
   getExecOutput
 } from '@actions/exec';
 import type {
-  GitHubAdvisoryId,
-  NPMAuditReportV1,
   Severity
 } from 'audit-types';
+import {
+  computeNpmReport,
+  computeYarn1Report,
+  computeYarn3Report,
+  computeYarn4Report,
+  OtterAdvisory,
+  OtterAuditReport,
+  OtterAuditReporter,
+  severities
+} from './reports';
 
-type Audit = NPMAuditReportV1.Audit;
-type Advisory = NPMAuditReportV1.Advisory;
-
-/**
- * Severities supported by yarn npm audit from the lowest to the highest criticality
- */
-const severities: Severity[] = ['info', 'low', 'moderate', 'high', 'critical'];
 const colors = ['', 'green', 'yellow', 'orange', 'red'];
-
-/**
- * Interface to describe Yarn 4+ npm audit response.
- * It is not yet covered by audit-types
- */
-interface Yarn4AuditResponse {
-  value: string;
-  children: {
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    ID: string;
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    Issue: string;
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    Severity: Severity;
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    'Vulnerable Versions': string;
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    'Tree Versions': string[];
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    Dependents: string[];
-  };
-}
-
-/**
- * Description of an advisory as it will be displayed in the action summary
- */
-interface OtterAdvisory {
-  severity: Severity;
-  overview: string;
-  moduleName: string;
-}
-
-/**
- * Data to build the action report summary
- */
-interface OtterAuditReport {
-  nbVulnerabilities: number;
-  errors: OtterAdvisory[];
-  warnings: OtterAdvisory[];
-  highestSeverityFound?: Severity;
-}
-
-/**
- * Format the response from yarn 4 npm audit in a common interface that will be used to build the
- * report summary
- * @param response
- * @param severityThreshold
- */
-function computeYarn4Report(response: string, severityThreshold: Severity): OtterAuditReport {
-  core.info('Computing Report for Yarn 4');
-  const reports = response.split('\n').filter((a) => !!a);
-  const severityThresholdIndex = severities.indexOf(severityThreshold);
-  return reports.reduce((currentReport, currentVulnerability) => {
-    const vulnerabilityReport: Yarn4AuditResponse = JSON.parse(currentVulnerability);
-    const vulnerabilitySeverity = vulnerabilityReport.children.Severity || 'info';
-    const severityIndex = severities.indexOf(vulnerabilitySeverity);
-    if (severityIndex >= severityThresholdIndex) {
-      currentReport.errors.push({
-        severity: vulnerabilitySeverity,
-        moduleName: vulnerabilityReport.value,
-        overview: vulnerabilityReport.children.Issue
-      });
-    } else {
-      currentReport.warnings.push({
-        severity: vulnerabilitySeverity,
-        moduleName: vulnerabilityReport.value,
-        overview: `This issue affects versions ${vulnerabilityReport.children['Vulnerable Versions']}. ${vulnerabilityReport.children.Issue}`
-      });
-    }
-    currentReport.highestSeverityFound = severities.indexOf(currentReport.highestSeverityFound || 'info') <= severities.indexOf(vulnerabilitySeverity)
-      ? vulnerabilitySeverity
-      : currentReport.highestSeverityFound;
-    currentReport.nbVulnerabilities += 1;
-    return currentReport;
-  }, { nbVulnerabilities: 0, errors: [], warnings: [] } as OtterAuditReport);
-}
-
-/**
- * Format the response from yarn 3 npm audit in a common interface that will be used to build the
- * report summary
- * @param response
- * @param severityThreshold
- */
-function computeYarn3Report(response: string, severityThreshold: Severity): OtterAuditReport {
-  core.info('Computing Report for Yarn 3');
-  const reportJson = JSON.parse(response) as Audit;
-  core.debug(response);
-  const nbVulnerabilities = Object.values(reportJson.metadata.vulnerabilities as { [key: string]: number } || {}).reduce((acc, curr) => acc + curr, 0);
-  let highestSeverityFound: Severity | undefined;
-  for (let index = severities.length; index >= 0; index--) {
-    const severity: Severity = severities[index];
-    if (reportJson.metadata.vulnerabilities[severity] > 0) {
-      highestSeverityFound = severity;
-      break;
-    }
-  }
-  return Object.values(reportJson.advisories as Readonly<Record<GitHubAdvisoryId, Advisory>>)
-    .reduce<OtterAuditReport>((currentVulnerabilities, advisory: Advisory) => {
-      core.info(`${severities.indexOf(severityThreshold)} - ${severities.indexOf(advisory.severity)}`);
-      if (severities.indexOf(severityThreshold) <= severities.indexOf(advisory.severity)) {
-        currentVulnerabilities.errors.push({ severity: advisory.severity, overview: advisory.overview, moduleName: advisory.module_name });
-      } else {
-        currentVulnerabilities.warnings.push({ severity: advisory.severity, overview: advisory.overview, moduleName: advisory.module_name });
-      }
-      return currentVulnerabilities;
-    }, { errors: [], warnings: [], nbVulnerabilities, highestSeverityFound } as OtterAuditReport);
-}
 
 async function run(): Promise<void> {
   try {
+    const cwd = process.env.GITHUB_WORKSPACE!;
+    const packageManager = fs.existsSync(path.resolve(cwd, 'yarn.lock')) ? 'yarn' : 'npm';
     const severityConfig = core.getInput('severity') as Severity;
     const allWorkspaces = core.getInput('allWorkspaces') === 'true';
     const recursive = core.getInput('recursive') === 'true';
     const environment = core.getInput('environment');
-    const versionOutput = await getExecOutput('yarn --version', [], { cwd: process.env.GITHUB_WORKSPACE });
-    const version = Number.parseInt(versionOutput.stdout.split('.')[0], 10);
-    const command = `yarn npm audit --environment ${environment} ${allWorkspaces ? '--all ' : ''}${recursive ? '--recursive ' : ''}--json`;
+    let auditReporter: OtterAuditReporter;
+    let auditCommand: string;
+    if (packageManager === 'yarn') {
+      const versionOutput = await getExecOutput('yarn --version', [], { cwd: process.env.GITHUB_WORKSPACE });
+      const version = Number.parseInt(versionOutput.stdout.split('.')[0], 10);
+      auditCommand = version <= 1
+        ? `yarn audit ${environment === 'production' ? '--groups "dependencies peerDependencies" ' : ''}--json`
+        : `yarn npm audit --environment ${environment} ${allWorkspaces ? '--all ' : ''}${recursive ? '--recursive ' : ''}--json`;
+      auditReporter = version >= 4 ? computeYarn4Report : (version >= 2 ? computeYarn3Report : computeYarn1Report);
+    } else {
+      auditCommand = `npm audit ${allWorkspaces ? '--workspaces --include-root-workspace ' : ''}--json`;
+      auditReporter = computeNpmReport;
+    }
 
-    const { stdout: report, stderr: err } = await getExecOutput(command, [], { cwd: process.env.GITHUB_WORKSPACE, ignoreReturnCode: true });
+    const { stdout: report, stderr: err } = await getExecOutput(auditCommand, [], {
+      cwd,
+      ignoreReturnCode: true,
+      env: {
+        ...process.env,
+
+        NODE_ENV: environment
+      }
+    });
     core.warning(err);
     core.setOutput('reportJSON', report);
-    const reportData: OtterAuditReport = version >= 4 ? computeYarn4Report(report, severityConfig) : computeYarn3Report(report, severityConfig);
+    const reportData: OtterAuditReport = auditReporter(report, severityConfig);
 
     if (reportData.highestSeverityFound) {
       core.info(`Highest severity found: ${reportData.highestSeverityFound}`);
@@ -173,9 +89,9 @@ ${reportData.errors.length > 0
     ? `## Vulnerabilities to be fixed
 
 ${reportData.errors
-    .filter(isVulnerabilityWithKnownSeverity)
+    .filter((vul) => isVulnerabilityWithKnownSeverity(vul))
     .sort(sortVulnerabilityBySeverity)
-    .map(formatVulnerability)
+    .map((vul) => formatVulnerability(vul))
     .join(os.EOL)
 }
 `
@@ -189,9 +105,9 @@ Vulnerabilities below the threshold: ${severityConfig}
 </summary>
 
 ${reportData.warnings
-    .filter(isVulnerabilityWithKnownSeverity)
+    .filter((vul) => isVulnerabilityWithKnownSeverity(vul))
     .sort(sortVulnerabilityBySeverity)
-    .map(formatVulnerability)
+    .map((vul) => formatVulnerability(vul))
     .join(os.EOL)
     .replaceAll('${', '&#36;{')
 }

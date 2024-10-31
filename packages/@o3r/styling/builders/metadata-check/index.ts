@@ -14,5 +14,5 @@ import type {
 } from './schema';
 
 export default createBuilder<StylingMigrationMetadataCheckBuilderSchema>(createBuilderWithMetricsIfInstalled((options, context): Promise<BuilderOutput> => {
-  return checkMetadataBuilder(options, context, stylingMetadataComparator);
+  return checkMetadataBuilder({...options, packageJsonEntry: 'styleFilePath'}, context, stylingMetadataComparator);
 }));

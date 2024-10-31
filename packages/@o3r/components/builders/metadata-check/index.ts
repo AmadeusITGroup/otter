@@ -14,5 +14,5 @@ import type {
 } from './schema';
 
 export default createBuilder<ConfigMigrationMetadataCheckBuilderSchema>(createBuilderWithMetricsIfInstalled((options, context): Promise<BuilderOutput> => {
-  return checkMetadataBuilder(options, context, configMetadataComparator);
+  return checkMetadataBuilder({ ...options, packageJsonEntry: 'configurationFilePath' }, context, configMetadataComparator);
 }));

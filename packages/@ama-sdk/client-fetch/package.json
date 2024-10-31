@@ -4,7 +4,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "description": "API Request client for @ama-sdk/core based SDK",
+  "description": "Fetch API Request client for @ama-sdk/core based SDK",
   "module": "dist/src/public_api.js",
   "esm2015": "dist/esm2015/public_api.js",
   "esm2020": "dist/src/public_api.js",

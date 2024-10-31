@@ -2,6 +2,9 @@
 
 import * as fs from 'node:fs';
 import * as path from 'node:path';
+import type {
+  CliWrapper
+} from '@o3r/telemetry';
 import {
   program
 } from 'commander';
@@ -52,20 +55,33 @@ program
 const options: any = program.opts();
 logger.level = options.verbose ? 'debug' : 'info';
 
-globbySync(options.include, { cwd: process.cwd() })
-  .map((file: string) => path.join(process.cwd(), file))
-  .map((filePath: string) => ({
-    path: filePath,
-    content: fs.readFileSync(filePath).toString()
-  }))
-  .forEach((pathWithContent: { path: string; content: string }) => {
-    const newContent = pathWithContent.content
-      .replace(new RegExp('"([~^]?)' + (options.placeholder as string).replace(/[$()+.?[\\\]^{|}]/g, '\\$&').replace(/\\*\./g, '\\.') + '"', 'g'), `"$1${replaceVersion}"`)
-      .replace(/"workspace:([^~]?)[^"]*"(,?)$/gm, `"$1${replaceVersion}"$2`);
-    if (newContent === pathWithContent.content) {
-      logger.debug(`No change in ${pathWithContent.path}`);
-    } else {
-      logger.info(`update version in ${pathWithContent.path}`);
-      fs.writeFileSync(pathWithContent.path, newContent);
-    }
-  });
+const cliFn = () => {
+  globbySync(options.include, { cwd: process.cwd() })
+    .map((file: string) => path.join(process.cwd(), file))
+    .map((filePath: string) => ({
+      path: filePath,
+      content: fs.readFileSync(filePath).toString()
+    }))
+    .forEach((pathWithContent: { path: string; content: string }) => {
+      const newContent = pathWithContent.content
+        .replace(new RegExp('"([~^]?)' + (options.placeholder as string).replace(/[$()+.?[\\\]^{|}]/g, '\\$&').replace(/\\*\./g, '\\.') + '"', 'g'), `"$1${replaceVersion}"`)
+        .replace(/"workspace:([^~]?)[^"]*"(,?)$/gm, `"$1${replaceVersion}"$2`);
+      if (newContent === pathWithContent.content) {
+        logger.debug(`No change in ${pathWithContent.path}`);
+      } else {
+        logger.info(`update version in ${pathWithContent.path}`);
+        fs.writeFileSync(pathWithContent.path, newContent);
+      }
+    });
+};
+
+void (async () => {
+  let wrapper: CliWrapper = (fn: any) => fn;
+  try {
+    const { createCliWithMetrics } = await import('@o3r/telemetry');
+    wrapper = createCliWithMetrics;
+  } catch {
+    // Do not throw if `@o3r/telemetry` is not installed
+  }
+  return wrapper(cliFn, '@o3r/workspace:set-version', { logger, preParsedOptions: options })();
+})();

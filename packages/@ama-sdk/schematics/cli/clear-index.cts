@@ -4,13 +4,9 @@
  * Remove deleted models' exports
  */
 
-import {
-  promises as fs,
-  statSync
-} from 'node:fs';
-import {
-  resolve
-} from 'node:path';
+import type {
+  CliWrapper
+} from '@o3r/telemetry';
 import * as minimist from 'minimist';
 
 const argv = minimist(process.argv.slice(2));
@@ -28,7 +24,7 @@ if (help) {
   process.exit(0);
 }
 
-void (async () => {
+const run = async () => {
   const models = await fs.readdir(baseDir);
   const modelsWithRemoveIndex = await Promise.all(
     models
@@ -49,4 +45,15 @@ void (async () => {
         return fs.unlink(resolve(baseDir, model, 'index.ts'));
       })
   );
+};
+
+void (async () => {
+  let wrapper: CliWrapper = (fn: any) => fn;
+  try {
+    const { createCliWithMetrics } = await import('@o3r/telemetry');
+    wrapper = createCliWithMetrics;
+  } catch {
+    // Do not throw if `@o3r/telemetry` is not installed
+  }
+  return wrapper(run, '@ama-sdk/schematics:clear-index')();
 })();

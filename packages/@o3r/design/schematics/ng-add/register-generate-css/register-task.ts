@@ -13,8 +13,8 @@ import {
   url
 } from '@angular-devkit/schematics';
 import type {
-  GenerateCssSchematicsSchema
-} from '../../../builders/generate-css/schema';
+  GenerateStyleSchematicsSchema
+} from '../../../builders/generate-style/schema';
 
 /**
  * Register the Design Token CSS generator
@@ -29,7 +29,8 @@ export const registerGenerateCssBuilder = (projectName?: string, taskName = 'gen
     const workspaceRootPath = workspaceProject?.root || '.';
     const srcBasePath = workspaceProject?.sourceRoot || posix.join(workspaceRootPath, 'src');
     const themeFile = posix.join(srcBasePath, 'style', 'theme.scss');
-    const taskOptions: GenerateCssSchematicsSchema = {
+    const taskOptions: GenerateStyleSchematicsSchema = {
+      language: 'css',
       defaultStyleFile: themeFile,
       templateFile: posix.join(workspaceRootPath, 'design-token.template.json'),
       designTokenFilePatterns: [

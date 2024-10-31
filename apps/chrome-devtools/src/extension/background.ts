@@ -67,7 +67,7 @@ const isWhitelistedHost = async (url?: string) => {
   if (!url) {
     return;
   }
-  const { [WHITELISTED_HOSTS_KEY]: whitelistHosts = ['localhost'] } = (await chrome.storage.sync.get(WHITELISTED_HOSTS_KEY)) as Record<string, string[]>;
+  const { [WHITELISTED_HOSTS_KEY]: whitelistHosts = ['localhost'] } = (await chrome.storage.sync.get<Record<string, string[]>>(WHITELISTED_HOSTS_KEY));
   const { hostname } = new URL(url);
   return whitelistHosts.some((host) => (new RegExp(host)).test(hostname));
 };
@@ -99,9 +99,9 @@ const applyActivateState = async (appName: string, tabId: number) => {
     });
   };
   const statesKey = `${appName}_${STATES_KEY}`;
-  const { [statesKey]: states } = (await chrome.storage.sync.get(statesKey)) as Record<string, Record<string, State> | undefined>;
+  const { [statesKey]: states } = (await chrome.storage.sync.get<Record<string, Record<string, State> | undefined>>(statesKey));
   const activateStateNameKey = `${appName}_${ACTIVE_STATE_NAME_KEY}`;
-  const { [activateStateNameKey]: activateStateName = '' } = (await chrome.storage.sync.get(activateStateNameKey)) as Record<string, string | undefined>;
+  const { [activateStateNameKey]: activateStateName = '' } = (await chrome.storage.sync.get<Record<string, string | undefined>>(activateStateNameKey));
   const activeState = states?.[activateStateName];
   if (activeState) {
     activeStateAppliedOn.add(tabId);

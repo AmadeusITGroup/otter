@@ -1,5 +1,5 @@
 /* eslint-disable unicorn/consistent-function-scoping -- lot of arrow functions with the same name that are dedicated only for their test */
-/* eslint-disable @typescript-eslint/unbound-method -- revivers have no context */
+/* eslint-disable jest/unbound-method -- revivers have no context */
 import {
   INIT
 } from '@ngrx/store';

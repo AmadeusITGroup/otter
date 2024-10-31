@@ -22,15 +22,7 @@
       }
     },
     "prepare": {
-      "executor": "nx:run-script",
-      "outputs": ["{projectRoot}/src/package.json"],
-      "inputs": [
-        "global",
-        "{projectRoot}/package.json"
-      ],
-      "options": {
-        "script": "prepare:compile"
-      }
+      "executor": "nx:run-script"
     },
     "compile": {
       "executor": "@angular-devkit/build-angular:ng-packagr",

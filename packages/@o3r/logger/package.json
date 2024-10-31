@@ -20,6 +20,7 @@
     "prepare:publish": "prepare-publish ./dist"
   },
   "peerDependencies": {
+    "@angular-devkit/schematics": "~18.2.0",
     "@angular/core": "~18.2.0",
     "@angular/platform-browser-dynamic": "~18.2.0",
     "@fullstory/browser": "^2.0.0",
@@ -33,6 +34,9 @@
     "smartlook-client": "^9.0.0"
   },
   "peerDependenciesMeta": {
+    "@angular-devkit/schematics": {
+      "optional": true
+    },
     "@fullstory/browser": {
       "optional": true
     },
@@ -68,8 +72,8 @@
     "@angular/core": "~18.2.0",
     "@angular/platform-browser": "~18.2.0",
     "@angular/platform-browser-dynamic": "~18.2.0",
-    "@babel/core": "~7.25.0",
-    "@babel/preset-typescript": "~7.24.0",
+    "@babel/core": "~7.26.0",
+    "@babel/preset-typescript": "~7.26.0",
     "@compodoc/compodoc": "^1.1.19",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@fullstory/browser": "^2.0.0",

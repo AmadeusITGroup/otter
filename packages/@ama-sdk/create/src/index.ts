@@ -16,6 +16,9 @@ import {
   SPEC_JSON_EXTENSION,
   SPEC_YAML_EXTENSION
 } from '@ama-sdk/schematics';
+import type {
+  CliWrapper
+} from '@o3r/telemetry';
 import * as minimist from 'minimist';
 
 const packageManagerEnv = process.env.npm_config_user_agent?.split('/')[0];
@@ -159,3 +162,14 @@ const run = () => {
 };
 
 run();
+
+void (async () => {
+  let wrapper: CliWrapper = (fn: any) => fn;
+  try {
+    const { createCliWithMetrics } = await import('@o3r/telemetry');
+    wrapper = createCliWithMetrics;
+  } catch {
+    // Do not throw if `@o3r/telemetry` is not installed
+  }
+  return wrapper(run, '@o3r/create:create')();
+})();

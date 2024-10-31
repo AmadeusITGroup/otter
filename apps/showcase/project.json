@@ -150,7 +150,7 @@
         "{options.componentOutputFile}",
         "{options.configOutputFile}"
       ],
-      "inputs": ["source", "^source-and-builders"],
+      "inputs": ["source", "^builders"],
       "options": {
         "tsConfig": "apps/showcase/tsconfig.cms.json",
         "configOutputFile": "apps/showcase/component.config.metadata.json",
@@ -191,9 +191,8 @@
         "{projectRoot}/src/**/*.scss"
       ],
       "inputs": [
-        "global",
         "{projectRoot}/src/style/design-token.*.json",
-        "^source-and-builders"
+        "^builders"
       ],
       "options": {
         "metadataOutput": "apps/showcase/styling.metadata.json",
@@ -217,10 +216,9 @@
         "{options.defaultStyleFile}"
       ],
       "inputs": [
-        "global",
         "{projectRoot}/src/style/dark-theme/dark-theme.*.json",
         "{projectRoot}/src/style/design-token.app.json",
-        "^source-and-builders"
+        "^builders"
       ],
       "options": {
         "defaultStyleFile": "apps/showcase/src/style/dark-theme/dark-theme.scss",
@@ -246,10 +244,9 @@
         "{options.defaultStyleFile}"
       ],
       "inputs": [
-        "global",
         "{projectRoot}/src/style/horizon-theme/horizon-theme.*.json",
         "{projectRoot}/src/style/design-token.app.json",
-        "^source-and-builders"
+        "^builders"
       ],
       "options": {
         "defaultStyleFile": "apps/showcase/src/style/horizon-theme/horizon-theme.scss",
@@ -277,11 +274,11 @@
     "generate-translations": {
       "executor": "@o3r/localization:localization",
       "inputs": [
-        "global",
         "{projectRoot}/src/assets/locales",
         "{projectRoot}/src/assets/locales/*",
         "{projectRoot}/src/components/**/i18n",
-        "{projectRoot}/src/components/**/*.localization.json"
+        "{projectRoot}/src/components/**/*.localization.json",
+        "^builders"
       ],
       "outputs": ["{options.outputPath}"],
       "options": {
@@ -307,7 +304,7 @@
     },
     "extract-translations": {
       "executor": "@o3r/localization:extractor",
-      "inputs": ["source", "^source-and-builders"],
+      "inputs": ["source", "^builders"],
       "outputs": ["{options.outputFile}"],
       "options": {
         "tsConfig": "apps/showcase/tsconfig.cms.json",
@@ -327,8 +324,8 @@
     "i18n": {
       "executor": "@o3r/localization:i18n",
       "inputs": [
-        "global",
-        "{projectRoot}/src/!(i18n)/**/*.localization.json"
+        "{projectRoot}/src/!(i18n)/**/*.localization.json",
+        "^builders"
       ],
       "outputs": ["{projectRoot}/src/!(i18n)/**/i18n/*.json"],
       "options": {

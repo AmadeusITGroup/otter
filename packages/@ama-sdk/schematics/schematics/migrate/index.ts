@@ -20,6 +20,9 @@ import {
   isTypescriptSdk
 } from '../helpers/is-typescript-project';
 import {
+  updateV11_4 as updateV114
+} from '../ng-update/typescript';
+import {
   updateOpenApiVersionInProject
 } from '../ng-update/typescript/v10.3/update-openapiversion';
 import {
@@ -33,6 +36,9 @@ const tsMigrationMap: MigrationRulesMap = {
   '~10.3.2': updateOpenApiVersionInProject(),
   '11.0.*': [
     updateRegenScript
+  ],
+  '11.4.0-alpha.0': [
+    updateV114
   ]
 };
 

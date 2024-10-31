@@ -19,6 +19,9 @@ import {
 import {
   updateRegenScript
 } from './v11.0/update-regen-script';
+import {
+  createGitAttributesFile
+} from './v11.4/create-gitattributes';
 
 /**
  * update of Otter library V10.0
@@ -66,6 +69,17 @@ export function updateV11_0(): Rule {
   const updateRules: Rule[] = [
     updateRegenScript,
     updateOpenapitoolsFile
+  ];
+
+  return chain(updateRules);
+}
+
+/**
+ * Update of Ama-sdk library V11.4
+ */
+export function updateV11_4(): Rule {
+  const updateRules: Rule[] = [
+    createGitAttributesFile
   ];
 
   return chain(updateRules);

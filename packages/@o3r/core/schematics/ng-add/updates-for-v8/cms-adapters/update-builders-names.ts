@@ -20,7 +20,6 @@ const updateAngularJson: Rule = (tree, context) => {
 
   const projectsInAngularJson = Object.keys(workspace.projects);
   const buildersMappingFromV7 = {
-    /* eslint-disable @typescript-eslint/naming-convention -- builder identifier */
     '@otter/cms-adapters:component-extractor': '@o3r/components:extractor',
     '@otter/cms-adapters:localization-extractor': '@o3r/localization:extractor',
     '@otter/cms-adapters:style-extractor': '@o3r/styling:extractor',
@@ -32,8 +31,6 @@ const updateAngularJson: Rule = (tree, context) => {
     '@otter/ng-tools:lib-build': '@o3r/core:lib-build',
     '@otter/ng-tools:ngc': '@o3r/core:ngc',
     '@otter/ng-tools:pattern-replacement': '@o3r/core:pattern-replacement'
-    /* eslint-enable @typescript-eslint/naming-convention */
-
   };
 
   projectsInAngularJson.forEach((projectName) => {

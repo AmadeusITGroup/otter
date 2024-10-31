@@ -45,15 +45,24 @@ import {
   ReviverReply
 } from '../plugins/reviver';
 
-/** @see BaseApiClientOptions */
+/**
+ * @see BaseApiClientOptions
+ * @deprecated Use the one exposed by {@link @ama-sdk/client-angular}, will be removed in v13
+ */
 export interface BaseApiAngularClientOptions extends BaseApiClientOptions {
   /** Angular HTTP Client  */
   httpClient: HttpClient;
-  /** List of plugins to apply to the Angular Http call */
+  /**
+   * List of plugins to apply to the Angular Http call
+   * @deprecated Use the one exposed by {@link @ama-sdk/client-angular}, will be removed in v13
+   */
   angularPlugins: AngularPlugin[];
 }
 
-/** @see BaseApiConstructor */
+/**
+ * @see BaseApiConstructor
+ * @deprecated Use the one exposed by {@link @ama-sdk/client-angular}, will be removed in v13
+ */
 export interface BaseApiAngularClientConstructor extends PartialExcept<BaseApiAngularClientOptions, 'basePath' | 'httpClient'> {
 }
 
@@ -65,7 +74,10 @@ const DEFAULT_OPTIONS: Omit<BaseApiAngularClientOptions, 'basePath' | 'httpClien
   disableFallback: false
 };
 
-/** Client to process the call to the API using Angular API */
+/**
+ * Client to process the call to the API using Angular API
+ * @deprecated Use the one exposed by {@link @ama-sdk/client-angular}, will be removed in v13
+ */
 export class ApiAngularClient implements ApiClient {
   /** @inheritdoc */
   public options: BaseApiAngularClientOptions;

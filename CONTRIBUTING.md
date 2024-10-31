@@ -43,7 +43,8 @@ Those are common examples, for more information don't hesitate to have a look at
 When contributing, please keep in mind the following rules:
 
 - Make only non-breaking changes in minor versions. Enhancements to existing code are possible - please discuss it beforehand with the Otter team via a [feature request](#feature-requests).
-- If the new feature you are adding is replacing an existing one, please deprecate the old code in minor versions. Add the @deprecated tag in the JSDoc while mentioning the major version when it will be removed. Note that only **even** major Otter versions allow breaking changes. This means we only allow breaking changes in `n+2` major versions.
+- If the new feature you are adding is replacing an existing one, please deprecate the old code in minor versions. Add the `@deprecated` tag in the *JSDoc* while mentioning the major version when it will be removed. Note that only **even** major Otter versions allow **costly breaking changes**. The cost of the breaking change will be determined by the responsible team at code review time (see [Versioning rules](./SECURITY.md)).\
+  A breaking change can be effective only from the major version `n + 2` **after the deprecation.**
 - Please ensure that you are submitting quality code, specifically make sure that the changes comply with our [code styling convention](#style-guide).
 
 ### Style guide
@@ -62,6 +63,21 @@ To ease the process, we are providing a set of:
 - [Editors configuration](.editorconfig)
 - [Linters configuration](./packages/@o3r/eslint-config-otter/README.md)
 - [Component generator](./packages/@o3r/core/README.md#generators) (and more)
+
+### Accelerate your build thanks to Nx Cloud
+
+[Nx Cloud](https://nx.dev/nx-cloud) offers a way to accelerate the build of your project locally thanks to [Remote Cache](https://nx.dev/ci/features/remote-cache).
+
+To be able to benefit from this feature, you will need to perform the following steps:
+
+1. Create an account on [Nx Cloud App](https://cloud.nx.app/)
+2. Create a Personal Access Token on [profile page](https://cloud.nx.app/profile/tokens).
+3. Create a local environment variable **NX_CLOUD_ACCESS_TOKEN** with your previously generated PAT *(example on Linux: `export NX_CLOUD_ACCESS_TOKEN=xxxxxxx`)*
+
+When building (`yarn build`) the project on the `main` branch (or another `release/*` branch), the remote cache will be downloaded.
+
+> [!IMPORTANT]
+> This feature is available for `@amadeus.com` email addresses, the Nx Cloud account should be created with an `@amadeus.com` email or it should be set as **main email** on GitHub if the GitHub account is used to register to Nx Cloud.
 
 ### DevTools to create new Otter monorepo elements
 

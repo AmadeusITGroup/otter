@@ -6,7 +6,8 @@
     "outDir": "./dist",
     "module": "CommonJS",
     "rootDir": ".",
-    "tsBuildInfoFile": "build/.tsbuildinfo.cli"
+    "tsBuildInfoFile": "build/.tsbuildinfo.cli",
+    "skipLibCheck": true /* because of @webcontainer/api 1.4.0 */
   },
   "references": [
     {

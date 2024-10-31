@@ -84,7 +84,7 @@ export class Cascading {
     let extractedBranches = extractBranchesFromGitOutput(branchOutput.stdout);
     if (this.options.ignoredPattern) {
       const ignoredPatternRegexp = new RegExp(this.options.ignoredPattern);
-      extractedBranches = extractedBranches.filter((branch) => !ignoredPatternRegexp.exec(branch));
+      extractedBranches = extractedBranches.filter((branch) => !ignoredPatternRegexp.test(branch));
     }
     this.options.logger.info(`Extracted branches from git output : ${JSON.stringify(extractedBranches)}`);
     const sortedBranches = sortBranches(extractedBranches);
@@ -198,7 +198,6 @@ export class Cascading {
       owner: this.ownerName,
       repo: this.repositoryName,
       ref: branchToCascade,
-      // eslint-disable-next-line
       workflow_id: this.options.buildWorkflow
     });
     this.options.logger.debug(JSON.stringify(createWorkflowDispatchResponse, null, 2));
@@ -243,7 +242,6 @@ export class Cascading {
     const commitsResponse = await this.githubClient.rest.pulls.listCommits({
       owner: this.ownerName,
       repo: this.repositoryName,
-      // eslint-disable-next-line
       pull_number: pullRequestNumber
     });
     this.options.logger.debug(JSON.stringify(commitsResponse, null, 2));
@@ -262,7 +260,6 @@ export class Cascading {
     const assignPullRequestResponse = await this.githubClient.rest.issues.addAssignees({
       owner: this.ownerName,
       repo: this.repositoryName,
-      // eslint-disable-next-line
       issue_number: pullRequestNumber,
       assignees: [username]
     });

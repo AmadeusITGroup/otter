@@ -88,7 +88,7 @@ export const prepareProject = (options: NgAddSchematicsSchema): Rule => {
     const workspaceConfig = getWorkspaceConfig(tree);
 
     return () => chain([
-      generateRenovateConfig(ownSchematicsFolder),
+      generateRenovateConfig(__dirname),
       addVsCodeRecommendations(vsCodeExtensions),
       updateGitIgnore(workspaceConfig),
       filterPackageJsonScripts,

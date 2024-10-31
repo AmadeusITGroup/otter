@@ -10,7 +10,7 @@ const saveOptions = () => {
 };
 
 const restoreOptions = async () => {
-  const { [WHITELISTED_HOSTS_KEY]: whitelistHosts = ['localhost'] } = (await chrome.storage.sync.get(WHITELISTED_HOSTS_KEY)) as Record<string, string[] | undefined>;
+  const { [WHITELISTED_HOSTS_KEY]: whitelistHosts = ['localhost'] } = (await chrome.storage.sync.get<Record<string, string[] | undefined>>(WHITELISTED_HOSTS_KEY));
   (document.querySelector('#hosts') as HTMLTextAreaElement).value = whitelistHosts.join('\n');
 };
 

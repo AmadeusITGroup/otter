@@ -150,11 +150,11 @@ async function fetchPackage(project: Project, descriptor: Descriptor): Promise<F
   const cache = await Cache.find(project.configuration);
   const report = new ThrowReport();
   const multiResolver = new MultiResolver(
-    // eslint-disable-next-line new-cap
+
     (yarnNpmPlugin.resolvers || []).map((resolver) => new resolver())
   );
   const multiFetcher = new MultiFetcher(
-    // eslint-disable-next-line new-cap
+
     (yarnNpmPlugin.fetchers || []).map((fetcher) => new fetcher())
   );
   const fetchOptions: FetchOptions = { project, cache, checksums: project.storedChecksums, report, fetcher: multiFetcher };
@@ -186,10 +186,10 @@ export async function getFilesFromRegistry(packageDescriptor: string, paths: str
   const descriptor = getDescriptorFromReference(packageDescriptor);
   const result = await fetchPackage(project, descriptor);
   const extractedFiles = paths.reduce((acc: Record<string, string>, path) => {
-    acc[path] = result.packageFs.readFileSync(
-      npath.toPortablePath(join(result.prefixPath, path)),
-      'utf8'
-    );
+    const portablePath = npath.toPortablePath(join(result.prefixPath, path));
+    if (result.packageFs.existsSync(portablePath)) {
+      acc[path] = result.packageFs.readFileSync(portablePath, 'utf8');
+    }
     return acc;
   }, {});
   if (result.releaseFs) {
