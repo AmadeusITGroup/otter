@@ -31,7 +31,6 @@ const serviceMock: InterfaceOf<DynamicContentService> = {
 };
 
 @Component({
-  // eslint-disable-next-line @typescript-eslint/quotes
   template: `{{'assets.png' | o3rDynamicContent}}{{'deprecatedPipe.png' | dynamicContent}}`
 })
 class HostTestComponent {}

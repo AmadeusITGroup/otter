@@ -85,7 +85,6 @@ export function getWidgetInformationFromDocComment(docText: string): ConfigPrope
       const valueText = text.slice(firstSpaceIndex + 1);
 
       try {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         acc[paramName] = JSON.parse(valueText);
       } catch (e: any) {
         throw new Error(`Invalid JSON format:  ${valueText}\n${e.toString()}`);
@@ -128,7 +127,7 @@ function getLabelFromDocText(docText: string): string | undefined {
  */
 export function getTagsFromDocComment(docComment: DocComment): string[] | undefined {
   const tags = getInlineBlockTagContentFromDocComment(docComment, '@tags');
-  return (tags && tags.indexOf(']') > 0) && tags.split(']')[0].match(/\w+/g) || undefined;
+  return ((tags && tags.indexOf(']') > 0) && tags.split(']')[0].match(/\w+/g)) || undefined;
 }
 
 /**

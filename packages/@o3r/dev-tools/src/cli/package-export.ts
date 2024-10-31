@@ -44,10 +44,7 @@ let files: string[] = [];
 files.push(
   // List the folders in the src/ folder
   ...globbySync('*/', { cwd: path.resolve(process.cwd(), opts.sourceFolder), dot: true, onlyDirectories: true })
-    .map((folder) => folder.replace(/[/\\]$/i, '') + '/')
-);
-
-files.push(
+    .map((folder) => folder.replace(/[/\\]$/i, '') + '/'),
   // List the files in the src/ folder
   ...globbySync('*', { cwd: path.resolve(process.cwd(), opts.sourceFolder), dot: true, onlyFiles: true, ignore: opts.ignore })
     .map((file) => {

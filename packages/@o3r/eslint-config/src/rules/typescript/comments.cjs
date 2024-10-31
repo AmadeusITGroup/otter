@@ -1,3 +1,4 @@
+'use strict';
 const comments = require('@eslint-community/eslint-plugin-eslint-comments/configs');
 const { convertWarningsToErrors } = require('../utils.cjs');
 

@@ -1,3 +1,4 @@
+'use strict';
 /**
  * Convert the rules set as `warn` to `error`
  * @param {import('@typescript-eslint/utils').TSESLint.FlatConfig.Config | import('@typescript-eslint/utils').TSESLint.FlatConfig.ConfigArray} config config to process

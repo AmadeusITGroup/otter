@@ -42,7 +42,6 @@ export const tokenVariableNameSassRenderer: TokenKeyRenderer = (variable) => {
 /**
  * Retrieve the Design Token Variable renderer for Sass
  * @param options
- * @returns
  */
 export const getSassTokenDefinitionRenderer = (options?: SassTokenDefinitionRendererOptions): TokenDefinitionRenderer => {
   const tokenValueRenderer = options?.tokenValueRenderer || getCssTokenValueRenderer({ logger: options?.logger });

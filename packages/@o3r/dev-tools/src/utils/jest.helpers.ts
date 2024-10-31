@@ -54,7 +54,6 @@ const findParentPackageJson = (directory: string, rootDir?: string): string | un
  * @deprecated Please use `pathsToModuleNameMapper` from `ts-jest`, will be removed in Otter v12.
  * @param rootDir Root directory of the jest project
  * @param testingTsconfigPath Path to the tsconfig.json used for test mapping files
- * @returns
  */
 export const getJestModuleNameMapper = (rootDir: string, testingTsconfigPath?: string) => {
   const workspacePackageJsonPath = findParentPackageJson(rootDir);
@@ -62,6 +61,7 @@ export const getJestModuleNameMapper = (rootDir: string, testingTsconfigPath?: s
   testingTsconfigPath ||= resolve(workspacePath, 'tsconfig.base.json');
 
   if (!existsSync(testingTsconfigPath)) {
+    // eslint-disable-next-line no-console -- no logger available
     console.warn(`${testingTsconfigPath} not found`);
     return {};
   }

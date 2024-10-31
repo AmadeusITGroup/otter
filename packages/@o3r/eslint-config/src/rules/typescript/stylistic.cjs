@@ -1,3 +1,4 @@
+'use strict';
 const stylistic = require('@stylistic/eslint-plugin');
 const { convertWarningsToErrors } = require('../utils.cjs');
 

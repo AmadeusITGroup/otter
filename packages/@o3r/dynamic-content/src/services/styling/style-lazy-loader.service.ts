@@ -42,8 +42,8 @@ export class StyleLazyLoader {
    * and the styleId id of the dynamic style in the body tag.
    */
   public loadStyleFromURL(styleUrlConfig: StyleURL) {
-    const elementId = styleUrlConfig.id ? styleUrlConfig.id : this.DEFAULT_STYLE_ELEMENT_ID;
-    let style = document.getElementById(elementId) as HTMLLinkElement | null;
+    const elementId = styleUrlConfig.id || this.DEFAULT_STYLE_ELEMENT_ID;
+    let style = document.querySelector(`#${elementId}`);
 
     if (style === null) {
       style = document.createElement('link');

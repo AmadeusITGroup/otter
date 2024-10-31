@@ -48,7 +48,6 @@ export interface CssTokenDefinitionRendererOptions {
 /**
  * Retrieve the Design Token variable renderer for CSS
  * @param options
- * @returns
  * @example CSS renderer with Sass fallback
  * ```typescript
  * import { getSassTokenDefinitionRenderer } from '@o3r/design';

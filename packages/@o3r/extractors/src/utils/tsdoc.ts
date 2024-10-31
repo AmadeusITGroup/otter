@@ -35,15 +35,10 @@ export function getInlineSummaryFromDocComment(docComment: DocComment): string {
   return getInlineTextFromDocNode(docComment.summarySection);
 }
 
-/*
-* Get block tag content as inline text from given DocComment and tag name.
-*
-* @param docComment The DocComment to get inline block tag content from
-* @param tagName The name of the block tag to get inline content from
-*/
 /**
- * @param docComment
- * @param tagName
+ * Get block tag content as inline text from given DocComment and tag name.
+ * @param docComment The DocComment to get inline block tag content from
+ * @param tagName The name of the block tag to get inline content from
  */
 export function getInlineBlockTagContentFromDocComment(docComment: DocComment, tagName: string): string | undefined {
   const blockTag = docComment.customBlocks.find((block) => block.blockTag.tagName === tagName);

@@ -40,6 +40,7 @@ describe('getSassTokenDefinitionRenderer', () => {
   });
 
   test('should prefix private variable', () => {
+    // eslint-disable-next-line unicorn/consistent-function-scoping -- linked to this test only
     const tokenVariableNameRenderer: TokenKeyRenderer = (v) => '_' + tokenVariableNameSassRenderer(v);
 
     const options = { tokenVariableNameRenderer };

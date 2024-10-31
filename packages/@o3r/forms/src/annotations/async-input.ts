@@ -19,7 +19,7 @@ import {
  * myStream$: Observable<number>;
  * ```
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
+// eslint-disable-next-line @typescript-eslint/naming-convention -- required convention for decorator
 export function AsyncInput(privateFieldName?: string) {
   return (target: any, key: string) => {
     const privateSubjectField = `_subject_${privateFieldName || key}`;

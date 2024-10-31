@@ -23,6 +23,19 @@ import {
 } from '@o3r/schematics';
 
 /**
+ * Update tree with files to ignore in .gitignore
+ * @param tree
+ */
+const updateIgnoredFiles = (tree: Tree) => ignorePatterns(tree, [{ description: 'CMS metadata files', patterns: ['/*.metadata.json'] }]);
+
+/**
+ * Ignore metadata files
+ * @param tree
+ * @param _context
+ */
+const ignoreMetadataFiles = (tree: Tree, _context: SchematicContext) => updateIgnoredFiles(tree);
+
+/**
  * Update CMS adapter tools
  * @param options @see RuleFactory.options
  * @param options.projectName
@@ -45,8 +58,7 @@ export function updateCmsAdapter(options: { projectName?: string | undefined }, 
     if (tree.exists(pathTsconfigCms)) {
       return tree;
     }
-    const buildTsConfig: string = workspaceProject && workspaceProject.architect && workspaceProject.architect.build && workspaceProject.architect.build.options && workspaceProject.architect.build.options.tsConfig
-      || './tsconfig';
+    const buildTsConfig: string = workspaceProject?.architect?.build?.options?.tsConfig || './tsconfig';
 
     const templateSource = apply(url(getTemplateFolder(rootPath, __dirname)), [
       template({
@@ -60,10 +72,6 @@ export function updateCmsAdapter(options: { projectName?: string | undefined }, 
 
     const rule = mergeWith(templateSource, MergeStrategy.AllowOverwriteConflict);
     return rule(tree, context);
-  };
-
-  const ignoreMetadataFiles = (tree: Tree, _context: SchematicContext) => {
-    return ignorePatterns(tree, [{ description: 'CMS metadata files', patterns: ['/*.metadata.json'] }]);
   };
 
   /**

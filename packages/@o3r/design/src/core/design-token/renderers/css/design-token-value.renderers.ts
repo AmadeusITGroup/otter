@@ -56,12 +56,9 @@ export const getCssTokenValueRenderer = (options?: CssTokenValueRendererOptions)
   const tokenVariableNameRenderer = options?.tokenVariableNameRenderer;
 
   const defaultReferenceRenderer = (variable: DesignTokenVariableStructure, variableSet: Map<string, DesignTokenVariableStructure>): string => {
-    if (isPrivateVariable(variable)) {
-      // eslint-disable-next-line no-use-before-define
-      return `var(--${variable.getKey(tokenVariableNameRenderer)}, ${renderer(variable, variableSet)})`;
-    } else {
-      return `var(--${variable.getKey(tokenVariableNameRenderer)})`;
-    }
+    return isPrivateVariable(variable)
+      ? `var(--${variable.getKey(tokenVariableNameRenderer)}, ${renderer(variable, variableSet)})`
+      : `var(--${variable.getKey(tokenVariableNameRenderer)})`;
   };
 
   const defaultUnregisteredReferenceRenderer = (variableName: string, _variableSet: Map<string, DesignTokenVariableStructure>): string => {

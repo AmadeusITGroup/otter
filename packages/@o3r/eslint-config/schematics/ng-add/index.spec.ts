@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 import * as path from 'node:path';
 import {
   Tree
@@ -7,8 +6,10 @@ import {
   SchematicTestRunner
 } from '@angular-devkit/schematics/testing';
 
+// eslint-disable-next-line unicorn/consistent-function-scoping -- mock setupDependencies function, higher-order function
 const setupDependenciesMock = jest.fn(() => () => {});
 const updateVscodeMock = jest.fn(() => {});
+// eslint-disable-next-line unicorn/consistent-function-scoping -- mock updateEslintConfig function, higher-order function
 const updateEslintConfigMock = jest.fn(() => () => {});
 
 jest.mock('@o3r/schematics', () => ({
@@ -59,6 +60,7 @@ describe('ng add eslint-config', () => {
     const initialTree = Tree.empty();
     initialTree.create('angular.json', JSON.stringify({
       projects: {
+
         'project-test': {
           root: 'project-test'
         }

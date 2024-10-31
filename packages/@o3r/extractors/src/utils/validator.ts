@@ -18,6 +18,7 @@ export function validateJson(jsonObject: unknown, schema: Record<string, unknown
     if (strictMode) {
       throw new Error(aggregatedError);
     }
+    // eslint-disable-next-line no-console -- no other logger available
     console.warn(aggregatedError);
   }
 }

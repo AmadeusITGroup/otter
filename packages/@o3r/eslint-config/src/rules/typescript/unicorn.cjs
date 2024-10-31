@@ -1,3 +1,4 @@
+'use strict';
 const unicorn = require('eslint-plugin-unicorn');
 const { convertWarningsToErrors } = require('../utils.cjs');
 

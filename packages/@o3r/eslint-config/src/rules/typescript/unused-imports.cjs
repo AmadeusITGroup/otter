@@ -1,3 +1,4 @@
+'use strict';
 const unusedImportsPlugin = require('eslint-plugin-unused-imports');
 
 /** @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.ConfigArray} */

@@ -71,7 +71,7 @@ export async function updatePeerDependencies(dependencies: string[] = [], packag
     transports: new winston.transports.Console()
   });
 
-  const dependenciesMap = dependencies.map(dependencyParser).filter((dependency): dependency is Dependency => !!dependency);
+  const dependenciesMap = dependencies.map((dependency) => dependencyParser(dependency)).filter((dependency): dependency is Dependency => !!dependency);
 
   const failedDependencies: Dependency[] = [];
   logger.info('Start retrieving package infos.');

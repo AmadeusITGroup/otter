@@ -28,7 +28,6 @@ import {
       multi: true
     }
   ],
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   host: { '[attr.min]': 'min ? min : null' }
 })
 export class MinValidator implements Validator, OnChanges {
