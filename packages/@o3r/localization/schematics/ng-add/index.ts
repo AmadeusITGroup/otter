@@ -71,9 +71,6 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       };
     });
     const registerDevtoolRule = await registerDevtools(options);
-    const schematicDefaultOptions = Object.fromEntries(['@o3r/core:component*'].map((name) => [name, {
-      useLocalization: true
-    }]));
     return chain([
       updateLocalization(options, __dirname),
       updateI18n(options),
@@ -85,7 +82,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       }),
       updateCmsAdapter(options),
       registerPackageCollectionSchematics(packageJson),
-      setupSchematicsParamsForProject(schematicDefaultOptions, options.projectName),
+      setupSchematicsParamsForProject({ '@o3r/core:component*': { useLocalization: true } }, options.projectName),
       registerDevtoolRule
     ]);
   };

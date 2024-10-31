@@ -4,6 +4,8 @@
  * @jest-environment-o3r-app-folder test-create-sdk
  * @jest-environment-o3r-type blank
  */
+const o3rEnvironment = globalThis.o3rEnvironment;
+
 import * as fs from 'node:fs';
 import {
   cpSync,
@@ -21,8 +23,6 @@ import {
   packageManagerInstall,
   packageManagerRun
 } from '@o3r/test-helpers';
-
-const o3rEnvironment = globalThis.o3rEnvironment;
 
 const sdkPackageName = '@my-test/sdk';
 let sdkFolderPath: string;

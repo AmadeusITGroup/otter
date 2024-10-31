@@ -3,6 +3,8 @@
  * @jest-environment @o3r/test-helpers/jest-environment
  * @jest-environment-o3r-app-folder test-app-extractors
  */
+const o3rEnvironment = globalThis.o3rEnvironment;
+
 import * as path from 'node:path';
 import {
   getDefaultExecSyncOptions,
@@ -11,8 +13,6 @@ import {
   packageManagerInstall,
   packageManagerRunOnProject
 } from '@o3r/test-helpers';
-
-const o3rEnvironment = globalThis.o3rEnvironment;
 
 describe('ng add extractors', () => {
   test('should add extractors to an application', () => {

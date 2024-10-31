@@ -3,6 +3,8 @@
  * @jest-environment @o3r/test-helpers/jest-environment
  * @jest-environment-o3r-app-folder test-app-core
  */
+const o3rEnvironment = globalThis.o3rEnvironment;
+
 import {
   execSync,
   spawn
@@ -18,8 +20,6 @@ import {
   packageManagerRunOnProject
 } from '@o3r/test-helpers';
 import getPidFromPort from 'pid-from-port';
-
-const o3rEnvironment = globalThis.o3rEnvironment;
 
 const devServerPort = 4200;
 describe('new otter application', () => {

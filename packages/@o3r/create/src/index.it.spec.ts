@@ -4,6 +4,8 @@
  * @jest-environment-o3r-app-folder test-create-app
  * @jest-environment-o3r-type blank
  */
+const o3rEnvironment = globalThis.o3rEnvironment;
+
 import {
   existsSync,
   promises as fs
@@ -18,8 +20,6 @@ import {
   packageManagerRunOnProject,
   setPackagerManagerConfig
 } from '@o3r/test-helpers';
-
-const o3rEnvironment = globalThis.o3rEnvironment;
 
 const defaultExecOptions = getDefaultExecSyncOptions();
 const workspaceProjectName = 'my-project';

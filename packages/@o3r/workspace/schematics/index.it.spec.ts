@@ -3,7 +3,6 @@
  * @jest-environment @o3r/test-helpers/jest-environment
  * @jest-environment-o3r-app-folder test-app-workspace
  */
-/* eslint-disable import/first -- for it test we want to have `o3rEnvironment` linked to the jsdoc of the jest environment setup */
 const o3rEnvironment = globalThis.o3rEnvironment;
 
 import {

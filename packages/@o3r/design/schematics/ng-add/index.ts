@@ -24,21 +24,15 @@ export function ngAddFn(options: NgAddSchematicsSchema): Rule {
   /* ng add rules */
   return async (tree) => {
     const { getPackageInstallConfig, setupDependencies, setupSchematicsParamsForProject } = await import('@o3r/schematics');
+    const schematicsDefaultOptions = {
+      useOtterDesignToken: true
+    };
     return chain([
       registerGenerateCssBuilder(options.projectName),
       setupSchematicsParamsForProject({
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        '@o3r/core:component': {
-          useOtterDesignToken: true
-        },
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        '@o3r/core:component-presenter': {
-          useOtterDesignToken: true
-        },
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        '*:*': {
-          useOtterDesignToken: true
-        }
+        '@o3r/core:component': schematicsDefaultOptions,
+        '@o3r/core:component-presenter': schematicsDefaultOptions,
+        '*:*': schematicsDefaultOptions
       }, options.projectName),
       setupDependencies({
         projectName: options.projectName,
