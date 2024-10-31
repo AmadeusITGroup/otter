@@ -3,7 +3,13 @@ import { promises as fs } from 'node:fs';
 import { resolve } from 'node:path';
 import type { DesignTokenGroup, DesignTokenSpecification } from '../design-token-specification.interface';
 import type { DesignTokenVariableSet } from '../parsers';
-import { computeFileToUpdatePath, getFileToUpdatePath, getTokenSorterByName, getTokenSorterByRef, renderDesignTokens } from './design-token-style.renderer';
+import {
+  computeFileToUpdatePath,
+  getFileToUpdatePath, getTokenSorterByName,
+  getTokenSorterByRef,
+  getTokenSorterFromRegExpList,
+  renderDesignTokens
+} from './design-token-style.renderer';
 
 const rootPath = resolve('/');
 
@@ -177,6 +183,62 @@ describe('Design Token Renderer', () => {
         .toBeLessThan(list.findIndex(({ tokenReferenceName }) => tokenReferenceName === 'example.var1'));
       expect(sortedTokens.findIndex(({ tokenReferenceName }) => tokenReferenceName === 'example.post-ref'))
         .toBeGreaterThan(sortedTokens.findIndex(({ tokenReferenceName }) => tokenReferenceName === 'example.var1'));
+    });
+  });
+
+  describe('getTokenSorterFromRegExpList', () => {
+    it('should sort properly based on regExps', () => {
+      const regExps = [
+        /override$/,
+        /shadow/
+      ];
+      const list = Array.from(designTokens.values());
+      const sortedTokens = getTokenSorterFromRegExpList(regExps)(designTokens)(list);
+
+      const listShadowIndex = list.findIndex(({ tokenReferenceName }) => tokenReferenceName === 'example.test.shadow');
+      const listVar1Index = list.findIndex(({ tokenReferenceName }) => tokenReferenceName === 'example.var1');
+      const sortedTokenVar1Index = sortedTokens.findIndex(({ tokenReferenceName }) => tokenReferenceName === 'example.var1');
+      const sortedTokenShadowIndex = sortedTokens.findIndex(({ tokenReferenceName }) => tokenReferenceName === 'example.test.shadow');
+
+      expect(list.findIndex(({ tokenReferenceName }) => tokenReferenceName === 'example.var-expect-override'))
+        .toBeGreaterThan(listVar1Index);
+      expect(sortedTokens.findIndex(({ tokenReferenceName }) => tokenReferenceName === 'example.var-expect-override'))
+        .toBeLessThan(sortedTokenVar1Index);
+
+      expect(listShadowIndex).toBeGreaterThan(listVar1Index);
+      expect(sortedTokenShadowIndex).toBeLessThan(sortedTokenVar1Index);
+
+      expect(listShadowIndex)
+        .toBeGreaterThan(list.findIndex(({ tokenReferenceName }) => tokenReferenceName === 'example.example.var-expect-override'));
+      expect(sortedTokenShadowIndex)
+        .toBeGreaterThan(sortedTokens.findIndex(({ tokenReferenceName }) => tokenReferenceName === 'example.example.var-expect-override'));
+    });
+
+    it('should not sort unmatched tokens', () => {
+      const regExps = [
+        /override$/,
+        /shadow/
+      ];
+      const list = Array.from(designTokens.values());
+      const sortedTokens = getTokenSorterFromRegExpList(regExps)(designTokens)(list);
+
+      expect(sortedTokens.length).toBe(list.length);
+      expect(sortedTokens.findIndex(({ tokenReferenceName }) => tokenReferenceName === 'last-group.last-token'))
+        .toBe(sortedTokens.length - 1);
+    });
+
+    it('should be correctly applied', () => {
+      const regExps = [
+        /-shadow/ // matching only the generated key (not the token name)
+      ];
+
+      const list = Array.from(designTokens.values());
+      const sortedTokensBasedOnKeyPart = getTokenSorterFromRegExpList(regExps, false)(designTokens)(list);
+      const sortedTokensBasedOnRenderedKey = getTokenSorterFromRegExpList(regExps, true)(designTokens)(list);
+      const flattenListStr = list.map(({ tokenReferenceName }) => tokenReferenceName).join('');
+
+      expect(flattenListStr).toBe(sortedTokensBasedOnKeyPart.map(({ tokenReferenceName }) => tokenReferenceName).join(''));
+      expect(flattenListStr).not.toBe(sortedTokensBasedOnRenderedKey.map(({ tokenReferenceName }) => tokenReferenceName).join(''));
     });
   });
 

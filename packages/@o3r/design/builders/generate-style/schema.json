@@ -102,6 +102,10 @@
       "type": "boolean",
       "default": false,
       "description": "Determine if the builder should fail if a missing Design Token reference is detected"
+    },
+    "sortOrderPatternsFilePath": {
+      "type": "string",
+      "description": "Path to the JSON file exposing an ordered array of RegExps applied to the token name which will define the priority of the generated variables. (Note: not matching tokens will default to ASC order)"
     }
   },
   "additionalProperties": true,
