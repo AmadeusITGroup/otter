@@ -4,6 +4,7 @@ import { getCssStyleContentUpdater } from './css/design-token-updater.renderers'
 import type { Logger } from '@o3r/core';
 import type { promises as fs } from 'node:fs';
 import type { DesignTokenListTransform, DesignTokenRendererOptions } from './design-token.renderer.interface';
+import { TOKEN_KEY_SEPARATOR } from '../parsers';
 
 /**
  * Retrieve the path of a target file based on root path if not absolute
@@ -142,6 +143,39 @@ export const getTokenSorterByRef: DesignTokenListTransform = (variableSet) => {
 
     return sortToken;
   };
+};
+
+/**
+ * Reorganize the Tokens based on an ordered list of regexps.
+ * Each regexp is applied only to the last part of the Token name (before key rendering).
+ * @param regExps Ordered list of regular expressions defining the order of the Tokens.
+ * @param applyRendererName Determine if the regexps are applied to the rendered Token key. If `false`, it will be applied to the Token key's name (last part of the Token name).
+ */
+export const getTokenSorterFromRegExpList: (regExps: RegExp[], applyRendererName?: boolean) => DesignTokenListTransform = (regExps, applyRendererName = false) => (_variableSet, options) => {
+
+  const applyRegExp = (token: DesignTokenVariableStructure, regExp: RegExp) => (applyRendererName
+    ? token.getKey(options?.tokenVariableNameRenderer)
+    : token.tokenReferenceName.split(TOKEN_KEY_SEPARATOR).at(-1)!
+    // eslint-disable-next-line unicorn/prefer-regexp-test -- to handle the global flag properly
+  ).match(regExp);
+
+  return (tokens) =>
+    tokens
+      .map((token) => ({ index: regExps.findIndex((regExp) => applyRegExp(token, regExp)), token }))
+      .sort((a, b) => {
+        if (a.index === -1) {
+          if (b.index === -1) {
+            return 0;
+          }
+          return 1;
+        } else {
+          if (b.index === -1) {
+            return -1;
+          }
+          return b.index - a.index;
+        }
+      })
+      .map(({token}) => token);
 };
 
 /**

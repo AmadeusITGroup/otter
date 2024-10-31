@@ -2,6 +2,7 @@ import type { BuilderContext } from '@angular-devkit/architect';
 import {
   type CssTokenDefinitionRendererOptions,
   type CssTokenValueRendererOptions,
+  type DesignTokenListTransform,
   type DesignTokenRendererOptions,
   type DesignTokenVariableStructure,
   getCssStyleContentUpdater,
@@ -12,6 +13,7 @@ import {
   getSassTokenValueRenderer,
   getTokenSorterByName,
   getTokenSorterByRef,
+  getTokenSorterFromRegExpList,
   type SassTokenDefinitionRendererOptions,
   type SassTokenValueRendererOptions,
   type TokenKeyRenderer,
@@ -19,6 +21,7 @@ import {
 } from '../../../src/public_api';
 import type { GenerateStyleSchematicsSchema } from '../schema';
 import { resolve } from 'node:path';
+import { readFileSync } from 'node:fs';
 
 export const getStyleRendererOptions = (tokenVariableNameRenderer: TokenKeyRenderer | undefined , options: GenerateStyleSchematicsSchema, context: BuilderContext): DesignTokenRendererOptions => {
 
@@ -113,14 +116,35 @@ export const getStyleRendererOptions = (tokenVariableNameRenderer: TokenKeyRende
 
   /** Sorting strategy of variables based on selected language */
   const tokenListTransforms = ((language) => {
+    const customSorter: DesignTokenListTransform[] = [];
+    if (options.sortOrderPatternsFilePath) {
+      try {
+        const regExps = (JSON.parse(readFileSync(resolve(context.workspaceRoot, options.sortOrderPatternsFilePath), {encoding: 'utf8'})) as string[])
+          .map((item) => new RegExp(item.replace(/^\/(.*)\/$/, '$1')));
+        customSorter.push(getTokenSorterFromRegExpList(regExps));
+      } catch (err: any) {
+        if (err?.code === 'ENOENT') {
+          context.logger.warn(`The specified RegExp file ${options.sortOrderPatternsFilePath} is not found in ${context.workspaceRoot}`);
+        } else {
+          context.logger.warn(`Error during the parsing of ${options.sortOrderPatternsFilePath}.`);
+          if (err instanceof Error) {
+            context.logger.warn(err.message);
+            context.logger.debug(err.stack || 'no stack');
+          } else {
+            context.logger.debug(JSON.stringify(err, null, 2));
+          }
+        }
+        context.logger.warn(`The ordered list will be ignored.`);
+      }
+    }
     switch (language) {
       case 'scss':
       case 'sass': {
-        return [getTokenSorterByName, getTokenSorterByRef];
+        return [getTokenSorterByName, ...customSorter, getTokenSorterByRef];
       }
       case 'css':
       default: {
-        return [getTokenSorterByName];
+        return [getTokenSorterByName, ...customSorter];
       }
     }
   })(options.variableType || options.language);

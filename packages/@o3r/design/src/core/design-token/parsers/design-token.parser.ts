@@ -18,10 +18,13 @@ import {
 } from '../design-token-specification.interface';
 import { dirname } from 'node:path';
 
+/** Separator in Token key parts */
+export const TOKEN_KEY_SEPARATOR = '.';
+
 const tokenReferenceRegExp = /\{([^}]+)\}/g;
 const splitValueNumericRegExp = /^([-+]?[0-9]+[.,]?[0-9]*)\s*([^\s.,;]+)?/;
 
-const getTokenReferenceName = (tokenName: string, parents: string[]) => parents.join('.') + (parents.length ? '.' : '') + tokenName;
+const getTokenReferenceName = (tokenName: string, parents: string[]) => parents.join(TOKEN_KEY_SEPARATOR) + (parents.length ? TOKEN_KEY_SEPARATOR : '') + tokenName;
 const getExtensions = (nodes: NodeReference[], context: DesignTokenContext | undefined) => {
   return nodes.reduce((acc, {tokenNode}, i) => {
     const nodeNames = nodes.slice(0, i + 1).map(({ name }) => name);
