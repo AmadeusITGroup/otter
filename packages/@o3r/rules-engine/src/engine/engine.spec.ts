@@ -1,5 +1,11 @@
-import { firstValueFrom, Observable, Subject } from 'rxjs';
-import { RulesEngine } from './engine';
+import {
+  firstValueFrom,
+  Observable,
+  Subject
+} from 'rxjs';
+import {
+  RulesEngine
+} from './engine';
 
 describe('Rx Rule Engine', () => {
   let engine: RulesEngine;

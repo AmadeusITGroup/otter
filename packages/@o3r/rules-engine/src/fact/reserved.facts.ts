@@ -1,4 +1,6 @@
-import type { FactDefinitions } from '../engine/index';
+import type {
+  FactDefinitions
+} from '../engine/index';
 
 /**
  * Interface that contains the portalFacts definition

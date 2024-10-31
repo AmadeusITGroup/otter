@@ -1,6 +1,8 @@
-import type { Ruleset } from '@o3r/rules-engine';
+import type {
+  Ruleset
+} from '@o3r/rules-engine';
 
-export const jsonTwoRulesetsBothOnDemand: {rulesets: Ruleset[]} = {
+export const jsonTwoRulesetsBothOnDemand: { rulesets: Ruleset[] } = {
   'rulesets': [
     {
       'id': 'e5th46e84-5e4th-54eth65seth46se8Linked',

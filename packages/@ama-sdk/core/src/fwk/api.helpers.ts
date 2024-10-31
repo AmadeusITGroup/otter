@@ -3,7 +3,7 @@ import {
 } from '../plugins/core/request-plugin';
 import type {
   ReviverType
-} from './Reviver';
+} from './reviver';
 
 /**
  * prepares the url to be called

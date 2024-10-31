@@ -1,12 +1,22 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-import { RuleEvaluation, RuleEvaluationOutput } from '../engine.interface';
-import { ActionBlock, Rule } from '../structure';
-import { flagCachedRules, handleRuleEvaluationDebug, retrieveRulesetTriggers } from './helpers';
+import {
+  RuleEvaluation,
+  RuleEvaluationOutput
+} from '../engine.interface';
+import {
+  ActionBlock,
+  Rule
+} from '../structure';
+import {
+  flagCachedRules,
+  handleRuleEvaluationDebug,
+  retrieveRulesetTriggers
+} from './helpers';
 
 const currentEvaluationsOutput = [
   {
     'actions': [],
     'evaluation': {
+      // eslint-disable-next-line unicorn/numeric-separators-style -- timestamp
       'timestamp': 1639037495870,
       'outputActions': [],
       'id': 'first ruleset - rule zero',
@@ -37,6 +47,7 @@ const currentEvaluationsOutput = [
       }
     ],
     'evaluation': {
+      // eslint-disable-next-line unicorn/numeric-separators-style -- timestamp
       'timestamp': 1639033679719,
       'outputActions': [
         {
@@ -72,6 +83,7 @@ const prevEvaluationsOutput = [
   {
     'actions': [],
     'evaluation': {
+      // eslint-disable-next-line unicorn/numeric-separators-style -- timestamp
       'timestamp': 1639033680955,
       'outputActions': [],
       'id': 'first ruleset - rule zero',
@@ -102,6 +114,7 @@ const prevEvaluationsOutput = [
       }
     ],
     'evaluation': {
+      // eslint-disable-next-line unicorn/numeric-separators-style -- timestamp
       'timestamp': 1639033679719,
       'outputActions': [
         {
@@ -135,7 +148,7 @@ const prevEvaluationsOutput = [
 
 const rulesEvaluations = [
   {
-    'timestamp': 1639040241950,
+    'timestamp': 1_639_040_241_950,
     'outputActions': [],
     'id': 'first ruleset - rule zero',
     'triggers': {
@@ -153,7 +166,7 @@ const rulesEvaluations = [
     }
   },
   {
-    'timestamp': 1639040201253,
+    'timestamp': 1_639_040_201_253,
     'outputActions': [
       {
         'elementType': 'ACTION',
@@ -221,12 +234,11 @@ const rule = {
         'value': false
       }
     ],
-    'failureElements': [ ]
+    'failureElements': []
   }
 } as Rule;
 
 describe('Rules engine debug helpers', () => {
-
   it('retrieveRulesetTriggers should remove triggers from old evaluation', () => {
     const rulesetTriggers = retrieveRulesetTriggers(currentEvaluationsOutput, prevEvaluationsOutput);
     const expectedTriggerId = Object.keys(currentEvaluationsOutput[0].evaluation.triggers)[0];
@@ -245,7 +257,7 @@ describe('Rules engine debug helpers', () => {
 
   it('flagCachedRules should add cached property for an old rule evaluation', () => {
     const newEvaluationTriggerId = Object.keys(currentEvaluationsOutput[0].evaluation.triggers)[0];
-    const rulesEvaluationsUpdated = flagCachedRules(rulesEvaluations, {[newEvaluationTriggerId]: currentEvaluationsOutput[0].evaluation.triggers[newEvaluationTriggerId]});
+    const rulesEvaluationsUpdated = flagCachedRules(rulesEvaluations, { [newEvaluationTriggerId]: currentEvaluationsOutput[0].evaluation.triggers[newEvaluationTriggerId] });
 
     expect(rulesEvaluationsUpdated[0].cached).not.toBeDefined();
     expect(rulesEvaluationsUpdated[1].cached).toBe(true);
@@ -269,7 +281,7 @@ describe('Rules engine debug helpers', () => {
   });
 
   it('handleRuleEvaluationDebug should create a rule evaluation object with error', () => {
-    const error = {errorMessage: 'this is an error thrown at rule evaluation'};
+    const error = { errorMessage: 'this is an error thrown at rule evaluation' };
     const ruleEvaluation = handleRuleEvaluationDebug(rule, 'testRuleset', undefined, error, {}, [false], undefined);
 
     expect(ruleEvaluation.outputActions).toBeUndefined();
@@ -286,5 +298,4 @@ describe('Rules engine debug helpers', () => {
     expect(ruleEvaluation.triggers[rule.id].isMobileDevice.oldValue).toBe(false);
     expect(ruleEvaluation.triggers[rule.id].isMobileDevice.newValue).toBe(true);
   });
-
 });

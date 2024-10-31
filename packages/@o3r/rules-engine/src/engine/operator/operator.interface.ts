@@ -1,4 +1,6 @@
-import type { Facts } from '../fact/fact.interfaces';
+import type {
+  Facts
+} from '../fact/fact.interfaces';
 
 /**
  * Rule Engine operator

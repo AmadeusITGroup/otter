@@ -1,23 +1,59 @@
-import {Inject, Injectable, OnDestroy, Optional} from '@angular/core';
-import {select, Store} from '@ngrx/store';
-import {BehaviorSubject, combineLatest, Observable, Subscription} from 'rxjs';
-import {filter, map, shareReplay, switchMap} from 'rxjs/operators';
-import type {ActionBlock, Fact, Operator, Ruleset, UnaryOperator} from '../../engine/index';
-import {EngineDebugger, operatorList, RulesEngine} from '../../engine/index';
-import type {RulesetsStore} from '../../stores';
+import {
+  Inject,
+  Injectable,
+  OnDestroy,
+  Optional
+} from '@angular/core';
+import {
+  select,
+  Store
+} from '@ngrx/store';
+import type {
+  RulesEngineActionHandler
+} from '@o3r/core';
+import {
+  LoggerService
+} from '@o3r/logger';
+import {
+  BehaviorSubject,
+  combineLatest,
+  Observable,
+  Subscription
+} from 'rxjs';
+import {
+  filter,
+  map,
+  shareReplay,
+  switchMap
+} from 'rxjs/operators';
+import type {
+  ActionBlock,
+  Fact,
+  Operator,
+  Ruleset,
+  UnaryOperator
+} from '../../engine/index';
+import {
+  EngineDebugger,
+  operatorList,
+  RulesEngine
+} from '../../engine/index';
+import type {
+  RulesetsStore
+} from '../../stores';
 import {
   selectActiveRuleSets,
   selectAllRulesets,
   selectComponentsLinkedToRuleset,
   setRulesetsEntities
 } from '../../stores';
-import {RULES_ENGINE_OPTIONS, RulesEngineServiceOptions} from '../rules-engine.token';
-import {LoggerService} from '@o3r/logger';
-import type {RulesEngineActionHandler} from '@o3r/core';
+import {
+  RULES_ENGINE_OPTIONS,
+  RulesEngineServiceOptions
+} from '../rules-engine.token';
 
 @Injectable()
 export class RulesEngineRunnerService implements OnDestroy {
-
   protected subscription = new Subscription();
 
   /** Rulesets to restrict the execution of the engine */
@@ -44,7 +80,7 @@ export class RulesEngineRunnerService implements OnDestroy {
     @Optional() @Inject(RULES_ENGINE_OPTIONS) engineConfig?: RulesEngineServiceOptions) {
     this.enabled = !engineConfig?.dryRun;
     this.engine = new RulesEngine({
-      debugger: engineConfig?.debug ? new EngineDebugger({eventsStackLimit: engineConfig?.debugEventsStackLimit}) : undefined,
+      debugger: engineConfig?.debug ? new EngineDebugger({ eventsStackLimit: engineConfig?.debugEventsStackLimit }) : undefined,
       logger: this.logger
     });
     this.ruleSets$ = combineLatest([
@@ -92,7 +128,7 @@ export class RulesEngineRunnerService implements OnDestroy {
   protected async executeActions(actions: ActionBlock[]) {
     const actionHandlers = [...this.actionHandlers];
 
-    const supportedActions = new Set(actionHandlers.map((handler) => handler.supportingActions).flat());
+    const supportedActions = new Set(actionHandlers.flatMap((handler) => handler.supportingActions));
 
     const actionMaps = actions
       .filter((action) => {
@@ -141,7 +177,7 @@ export class RulesEngineRunnerService implements OnDestroy {
    * @param ruleSets
    */
   public upsertRulesets(ruleSets: Ruleset[]) {
-    this.store.dispatch(setRulesetsEntities({entities: ruleSets}));
+    this.store.dispatch(setRulesetsEntities({ entities: ruleSets }));
   }
 
   /** @inheritdoc */

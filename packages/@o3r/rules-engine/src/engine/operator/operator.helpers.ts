@@ -1,5 +1,11 @@
-import {DateInput, Operator, SupportedSimpleTypes} from './operator.interface';
-import type {Facts} from '../fact';
+import type {
+  Facts
+} from '../fact';
+import {
+  DateInput,
+  Operator,
+  SupportedSimpleTypes
+} from './operator.interface';
 
 /**
  * Execute Operator
@@ -37,8 +43,7 @@ export function executeOperator<L = unknown, R = unknown>(lhs: L, rhs: R, operat
  * @param operand value of one of the operands
  */
 export function numberValidator(operand: unknown): operand is number | string {
-  // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-  return operand !== '' && !Array.isArray(operand) && !isNaN(+`${operand}`);
+  return operand !== '' && !Array.isArray(operand) && !Number.isNaN(Number(operand));
 }
 
 /**
@@ -46,11 +51,11 @@ export function numberValidator(operand: unknown): operand is number | string {
  * @param operatorInput value of one of the operands
  */
 export function isRangeNumber(operatorInput: unknown): operatorInput is [number | string, number | string] {
-  return Array.isArray(operatorInput) &&
-    operatorInput.length === 2 &&
-    numberValidator(operatorInput[0]) &&
-    numberValidator(operatorInput[1]) &&
-    operatorInput[0] <= operatorInput[1];
+  return Array.isArray(operatorInput)
+    && operatorInput.length === 2
+    && numberValidator(operatorInput[0])
+    && numberValidator(operatorInput[1])
+    && operatorInput[0] <= operatorInput[1];
 }
 
 /**
@@ -62,7 +67,7 @@ export const isValidDate = (operatorInput: any): operatorInput is Date => {
     return false;
   }
   const getTimeResult = operatorInput.getTime();
-  return typeof getTimeResult === 'number' && !isNaN(getTimeResult);
+  return typeof getTimeResult === 'number' && !Number.isNaN(getTimeResult);
 };
 
 /**
@@ -70,7 +75,7 @@ export const isValidDate = (operatorInput: any): operatorInput is Date => {
  * @param operatorInput
  */
 export const isValidDateInput = (operatorInput: any): operatorInput is DateInput => {
-  return operatorInput === 0 || !!operatorInput && isValidDate(new Date(operatorInput));
+  return operatorInput === 0 || (!!operatorInput && isValidDate(new Date(operatorInput)));
 };
 
 /**
@@ -78,11 +83,11 @@ export const isValidDateInput = (operatorInput: any): operatorInput is DateInput
  * @param operatorInput
  */
 export const isValidDateRange = (operatorInput: any): operatorInput is [DateInput, DateInput] => {
-  return Array.isArray(operatorInput) &&
-    operatorInput.length === 2 &&
-    isValidDateInput(operatorInput[0]) &&
-    isValidDateInput(operatorInput[1]) &&
-    new Date(operatorInput[0]) <= new Date(operatorInput[1]);
+  return Array.isArray(operatorInput)
+    && operatorInput.length === 2
+    && isValidDateInput(operatorInput[0])
+    && isValidDateInput(operatorInput[1])
+    && new Date(operatorInput[0]) <= new Date(operatorInput[1]);
 };
 
 /**
@@ -103,8 +108,6 @@ export function isString(value: unknown): value is string {
 
 /**
  * Parse input to return RegExp
- * @param value value to test whether pattern exists (can be string or array of strings)
- * @param inputString regexp pattern
  * @param inputRegExp
  */
 export function parseRegExp(inputRegExp: string) {

@@ -1,10 +1,26 @@
-import { InjectionToken, ModuleWithProviders, NgModule } from '@angular/core';
-import { Action, ActionReducer, StoreModule } from '@ngrx/store';
-
-import { EffectsModule } from '@ngrx/effects';
-import { RulesetsEffect } from './rulesets.effect';
-import { rulesetsReducer } from './rulesets.reducer';
-import { RULESETS_STORE_NAME, RulesetsState } from './rulesets.state';
+import {
+  InjectionToken,
+  ModuleWithProviders,
+  NgModule
+} from '@angular/core';
+import {
+  EffectsModule
+} from '@ngrx/effects';
+import {
+  Action,
+  ActionReducer,
+  StoreModule
+} from '@ngrx/store';
+import {
+  RulesetsEffect
+} from './rulesets.effect';
+import {
+  rulesetsReducer
+} from './rulesets.reducer';
+import {
+  RULESETS_STORE_NAME,
+  RulesetsState
+} from './rulesets.state';
 
 /** Token of the Rulesets reducer */
 export const RULESETS_REDUCER_TOKEN = new InjectionToken<ActionReducer<RulesetsState, Action>>('Feature Rulesets Reducer');

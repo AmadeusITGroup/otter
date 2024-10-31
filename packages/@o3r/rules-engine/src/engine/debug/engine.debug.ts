@@ -1,11 +1,41 @@
-import { Observable, ReplaySubject } from 'rxjs';
-import { concatMap, share, shareReplay, startWith, tap, withLatestFrom } from 'rxjs/operators';
-import type { RulesEngine } from '../engine';
-import { BaseRulesetExecution, DebugEvent, EvaluationReason, RuleEvaluation, RuleEvaluationOutput, RulesetExecutionErrorEvent, RulesetExecutionEvent } from '../engine.interface';
-import type { Facts } from '../fact';
-import { RulesetExecutor } from '../ruleset-executor';
-import type { ActionBlock, Ruleset } from '../structure';
-import { flagCachedRules, retrieveRulesetTriggers } from './helpers';
+import {
+  Observable,
+  ReplaySubject
+} from 'rxjs';
+import {
+  concatMap,
+  share,
+  shareReplay,
+  startWith,
+  tap,
+  withLatestFrom
+} from 'rxjs/operators';
+import type {
+  RulesEngine
+} from '../engine';
+import {
+  BaseRulesetExecution,
+  DebugEvent,
+  EvaluationReason,
+  RuleEvaluation,
+  RuleEvaluationOutput,
+  RulesetExecutionErrorEvent,
+  RulesetExecutionEvent
+} from '../engine.interface';
+import type {
+  Facts
+} from '../fact';
+import {
+  RulesetExecutor
+} from '../ruleset-executor';
+import type {
+  ActionBlock,
+  Ruleset
+} from '../structure';
+import {
+  flagCachedRules,
+  retrieveRulesetTriggers
+} from './helpers';
 
 export interface EngineDebuggerOptions {
   /**
@@ -19,7 +49,6 @@ export interface EngineDebuggerOptions {
  * Rules engine debugger object to emit debug events
  */
 export class EngineDebugger {
-
   private registeredRuleEngine?: RulesEngine;
 
   private registeredRulesets: Pick<Ruleset, 'name' | 'id'>[] = [];
@@ -54,8 +83,8 @@ export class EngineDebugger {
             const mark = `rules-engine:${
               this.registeredRuleEngine?.rulesEngineInstanceName || ''
             }:${debugEvent.rulesetName}:${rule.rule.name}`;
-            const measures = performanceMeasures.filter(m => m.name === mark);
-            const duration = measures[measures.length - 1]?.duration || 0;
+            const measures = performanceMeasures.filter((m) => m.name === mark);
+            const duration = measures.at(-1)?.duration || 0;
             rule.duration = duration;
             rulesetDuration += duration;
           });
@@ -73,19 +102,18 @@ export class EngineDebugger {
   }
 
   private initializePerformanceObserver() {
-    this.performanceMeasures$ = new Observable<PerformanceMeasure[]>(subscriber => {
+    this.performanceMeasures$ = new Observable<PerformanceMeasure[]>((subscriber) => {
       const performanceObserver = new PerformanceObserver((list) => {
         subscriber.next(list.getEntries() as PerformanceMeasure[]);
       });
       performanceObserver.observe({ entryTypes: ['measure'] });
-      return performanceObserver.disconnect;
+      return performanceObserver.disconnect();
     }).pipe(startWith([]), shareReplay(1));
   }
 
   private async createBaseExecutionOutputObject(ruleset: Ruleset, executionCounter: number,
     rulesetInputFacts: string[], runtimeFactValues: Record<string, Facts>,
     rulesetTriggers: Record<string, Record<string, EvaluationReason>>, rulesExecutions: RuleEvaluation[]) {
-
     const inputFacts = await this.getFactsSnapshot(rulesetInputFacts);
 
     const baseRulesetOutputExecution: BaseRulesetExecution = {
@@ -110,9 +138,7 @@ export class EngineDebugger {
     runtimeFactValues: Record<string, Facts>,
     rulesetTriggers: Record<string, Record<string, EvaluationReason>>,
     rulesExecutions: RuleEvaluation[]) {
-
-    const baseRulesetOutputExecution =
-      await this.createBaseExecutionOutputObject(ruleset, executionCounter, rulesetInputFacts, runtimeFactValues, rulesetTriggers, rulesExecutions);
+    const baseRulesetOutputExecution = await this.createBaseExecutionOutputObject(ruleset, executionCounter, rulesetInputFacts, runtimeFactValues, rulesetTriggers, rulesExecutions);
 
     const rulesetOutputExecution: RulesetExecutionEvent = {
       timestamp,
@@ -133,15 +159,14 @@ export class EngineDebugger {
     rulesetTriggers: Record<string, Record<string, EvaluationReason>>,
     rulesExecutions: RuleEvaluation[]
   ) {
-    const baseRulesetOutputExecution =
-      await this.createBaseExecutionOutputObject(ruleset, executionCounter, rulesetInputFacts, runtimeFactValues, rulesetTriggers, rulesExecutions);
+    const baseRulesetOutputExecution = await this.createBaseExecutionOutputObject(ruleset, executionCounter, rulesetInputFacts, runtimeFactValues, rulesetTriggers, rulesExecutions);
 
-    const rulesExecWithErrors = rulesExecutions.filter(ex => !!ex && !!ex.error);
+    const rulesExecWithErrors = rulesExecutions.filter((ex) => !!ex && !!ex.error);
     const rulesetOutputExecutionSkip: RulesetExecutionErrorEvent = {
       timestamp,
       type: 'RulesetExecutionError',
-      rulesCausingTheError: rulesExecWithErrors.map(e => e.rule) || [],
-      errors: rulesExecWithErrors.map(e => e.error),
+      rulesCausingTheError: rulesExecWithErrors.map((e) => e.rule) || [],
+      errors: rulesExecWithErrors.map((e) => e.error),
       ...baseRulesetOutputExecution
     };
     return rulesetOutputExecutionSkip;
@@ -173,9 +198,8 @@ export class EngineDebugger {
     runtimeFactValues: Record<string, Facts>,
     executionCounter: number,
     ruleset: Ruleset) {
-
     const rulesetTriggers = retrieveRulesetTriggers(currRes, prevRes);
-    const rulesetOutputExecution = currRes.map(r => r.evaluation!);
+    const rulesetOutputExecution = currRes.map((r) => r.evaluation!);
 
     if (!allExecutionsValid) {
       this.addRulesetExecutionErrorEvent(ruleset, rulesetInputFacts, executionCounter, runtimeFactValues, rulesetTriggers, rulesetOutputExecution);
@@ -195,7 +219,7 @@ export class EngineDebugger {
    */
   public addAvailableRulesets(rulesets: Ruleset[]) {
     const timestamp = Date.now();
-    this.registeredRulesets = [...this.registeredRulesets, ...rulesets.map((r) => ({name: r.name, id: r.id}))];
+    this.registeredRulesets = [...this.registeredRulesets, ...rulesets.map((r) => ({ name: r.name, id: r.id }))];
     this.debugEventsSubject$.next(() => ({
       timestamp,
       type: 'AvailableRulesets',
@@ -211,14 +235,14 @@ export class EngineDebugger {
   public activeRulesetsChange(ruleSetExecutorMap: Record<string, RulesetExecutor>, restrictiveRuleSets?: string[]) {
     const timestamp = Date.now();
     const rulesets = Object.keys(ruleSetExecutorMap).map((rulesetId) => ruleSetExecutorMap[rulesetId].engineRuleset);
-    const activeRulesets = restrictiveRuleSets ?
-      Object.values(rulesets).filter((ruleSet) => restrictiveRuleSets.indexOf(ruleSet.id) > -1) :
-      Object.values(rulesets);
+    const activeRulesets = restrictiveRuleSets
+      ? Object.values(rulesets).filter((ruleSet) => restrictiveRuleSets.includes(ruleSet.id))
+      : Object.values(rulesets);
 
     this.debugEventsSubject$.next(() => ({
       timestamp,
       type: 'ActiveRulesets',
-      rulesets: activeRulesets.map(a => ({name: ruleSetExecutorMap[a.id].ruleset.name, id: ruleSetExecutorMap[a.id].ruleset.id}))
+      rulesets: activeRulesets.map((a) => ({ name: ruleSetExecutorMap[a.id].ruleset.name, id: ruleSetExecutorMap[a.id].ruleset.id }))
     }));
   }
 
@@ -228,7 +252,7 @@ export class EngineDebugger {
    */
   public allActionsChange(actions: ActionBlock[]) {
     const timestamp = Date.now();
-    this.debugEventsSubject$.next(() => ({timestamp, type: 'AllActions', actions}));
+    this.debugEventsSubject$.next(() => ({ timestamp, type: 'AllActions', actions }));
   }
 
   /**
@@ -240,7 +264,6 @@ export class EngineDebugger {
    * @param runtimeFactValues
    * @param rulesetTriggers
    * @param rulesExecutions
-   * @param retrieveFactFunc
    */
   public addRulesetExecutionEvent(ruleset: Ruleset, executionCounter: number,
     rulesetInputFacts: string[], allOutputActions: ActionBlock[], runtimeFactValues: Record<string, Facts>,
@@ -258,7 +281,6 @@ export class EngineDebugger {
    * @param runtimeFactValues
    * @param rulesetTriggers
    * @param rulesExecutions
-   * @param retrieveFactFunc
    */
   public addRulesetExecutionErrorEvent(
     ruleset: Ruleset,
@@ -277,12 +299,12 @@ export class EngineDebugger {
    * @param factsNames List of facts names to get the value for
    */
   public async getFactsSnapshot(factsNames: string[]) {
-    const facts: {factName: string; value: any}[] = [];
+    const facts: { factName: string; value: any }[] = [];
     if (!this.registeredRuleEngine) {
       throw new Error('Rule engine not plugged to the debugger');
     }
     for (const factName of factsNames) {
-      facts.push({factName, value: await this.registeredRuleEngine.retrieveFactValue(factName)});
+      facts.push({ factName, value: await this.registeredRuleEngine.retrieveFactValue(factName) });
     }
     return facts;
   }

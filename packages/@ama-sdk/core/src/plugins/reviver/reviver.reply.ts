@@ -1,6 +1,6 @@
 import type {
   ReviverOptions
-} from '../../fwk/Reviver';
+} from '../../fwk/reviver';
 import {
   PluginRunner,
   ReplyPlugin,

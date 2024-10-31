@@ -1,39 +1,98 @@
-import { getTestBed, TestBed } from '@angular/core/testing';
-import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
-
-import { EffectsModule } from '@ngrx/effects';
-import { select, Store, StoreModule } from '@ngrx/store';
-import { computeItemIdentifier } from '@o3r/core';
-import { BehaviorSubject, firstValueFrom, Observable, of, Subject } from 'rxjs';
-import { distinctUntilChanged, map, take } from 'rxjs/operators';
-import { jsonOneRulesetOneRuleNoCondPlaceholder } from '../../../testing/mocks/oneruleset-onerule-nocond-placeholder.mock';
-import { jsonOneRulesetOneRuleNoCond } from '../../../testing/mocks/oneruleset-onerule-nocond.mock';
-import { jsonOneRulesetOneRuleReexecution } from '../../../testing/mocks/oneruleset-onerule-reexecution.mock';
-import { jsonOneRulesetThreeRulesOneThrows } from '../../../testing/mocks/oneruleset-threerules-onethrows.mock';
-import { jsonOneRulesetThreeRulesUndefinedFactUsed } from '../../../testing/mocks/oneruleset-threerules-undefinedfactused.mock';
-import { jsonOneRulesetTwoNestedRules } from '../../../testing/mocks/oneruleset-twonestedrules.mock';
-import { jsonOneRulesetTwoRulesAnyAndAll } from '../../../testing/mocks/oneruleset-tworules-any-and-all.mock';
-import { jsonOneRulesetTwoRules } from '../../../testing/mocks/oneruleset-tworules.mock';
-import { jsonOneRulesetValidOneRuleNoCond } from '../../../testing/mocks/onerulesetvalid-onerule-nocond.mock';
 import {
-  selectCurrentShoppingCart, selectShoppingCart, setShoppingCartEntity,
+  getTestBed,
+  TestBed
+} from '@angular/core/testing';
+import {
+  BrowserDynamicTestingModule,
+  platformBrowserDynamicTesting
+} from '@angular/platform-browser-dynamic/testing';
+import {
+  EffectsModule
+} from '@ngrx/effects';
+import {
+  select,
+  Store,
+  StoreModule
+} from '@ngrx/store';
+import {
+  computeItemIdentifier
+} from '@o3r/core';
+import {
+  BehaviorSubject,
+  firstValueFrom,
+  Observable,
+  of,
+  Subject
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  map,
+  take
+} from 'rxjs/operators';
+import {
+  jsonOneRulesetOneRuleNoCondPlaceholder
+} from '../../../testing/mocks/oneruleset-onerule-nocond-placeholder.mock';
+import {
+  jsonOneRulesetOneRuleNoCond
+} from '../../../testing/mocks/oneruleset-onerule-nocond.mock';
+import {
+  jsonOneRulesetOneRuleReexecution
+} from '../../../testing/mocks/oneruleset-onerule-reexecution.mock';
+import {
+  jsonOneRulesetThreeRulesOneThrows
+} from '../../../testing/mocks/oneruleset-threerules-onethrows.mock';
+import {
+  jsonOneRulesetThreeRulesUndefinedFactUsed
+} from '../../../testing/mocks/oneruleset-threerules-undefinedfactused.mock';
+import {
+  jsonOneRulesetTwoNestedRules
+} from '../../../testing/mocks/oneruleset-twonestedrules.mock';
+import {
+  jsonOneRulesetTwoRulesAnyAndAll
+} from '../../../testing/mocks/oneruleset-tworules-any-and-all.mock';
+import {
+  jsonOneRulesetTwoRules
+} from '../../../testing/mocks/oneruleset-tworules.mock';
+import {
+  jsonOneRulesetValidOneRuleNoCond
+} from '../../../testing/mocks/onerulesetvalid-onerule-nocond.mock';
+import {
+  selectCurrentShoppingCart,
+  selectShoppingCart,
+  setShoppingCartEntity,
   setXmasHampersInCart,
   type ShoppingCartStore,
   ShoppingCartStoreModule
 } from '../../../testing/mocks/stores/shopping-cart/index';
-import { ShoppingCart } from '../../../testing/mocks/stores/shopping-cart/shopping-cart.model';
-import { jsonTwoRulesetsOneOnDemand } from '../../../testing/mocks/tworulesets-one-ondemand';
-import { jsonTwoRulesetTwoRulesNoContext } from '../../../testing/mocks/tworulesets-tworules-nocontext.mock';
-import { jsonTwoRulesetTwoRules } from '../../../testing/mocks/tworulesets-tworules.mock';
-import { xmasHamper } from '../../../testing/mocks/xmas-hamper.mock';
-import { RulesetsStore, RulesetsStoreModule, setRulesetsEntities } from '../../stores/index';
-import { RulesEngineRunnerService } from './rules-engine.runner.service';
-import { jsonTwoRulesetsBothOnDemand } from '../../../testing/mocks/tworulesets-both-ondemand';
+import {
+  ShoppingCart
+} from '../../../testing/mocks/stores/shopping-cart/shopping-cart.model';
+import {
+  jsonTwoRulesetsBothOnDemand
+} from '../../../testing/mocks/tworulesets-both-ondemand';
+import {
+  jsonTwoRulesetsOneOnDemand
+} from '../../../testing/mocks/tworulesets-one-ondemand';
+import {
+  jsonTwoRulesetTwoRulesNoContext
+} from '../../../testing/mocks/tworulesets-tworules-nocontext.mock';
+import {
+  jsonTwoRulesetTwoRules
+} from '../../../testing/mocks/tworulesets-tworules.mock';
+import {
+  xmasHamper
+} from '../../../testing/mocks/xmas-hamper.mock';
+import {
+  RulesetsStore,
+  RulesetsStoreModule,
+  setRulesetsEntities
+} from '../../stores/index';
+import {
+  RulesEngineRunnerService
+} from './rules-engine.runner.service';
 
 describe('Rules engine service', () => {
-
   let service: RulesEngineRunnerService;
-  // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
   let store: Store<ShoppingCartStore & RulesetsStore>;
   let foieGrasPriceFact$: Observable<string | undefined>;
   let cartFact$: Observable<ShoppingCart | null>;
@@ -72,9 +131,9 @@ describe('Rules engine service', () => {
     service = TestBed.inject(RulesEngineRunnerService);
     store = TestBed.inject(Store);
 
-    const createCartAction = setShoppingCartEntity({entity: {id: 'cart1'}});
-    const selectCartAction = selectShoppingCart({id: 'cart1'});
-    const setHamperInCartAction = setXmasHampersInCart({id: 'cart1', xmasHampers: [xmasHamper]});
+    const createCartAction = setShoppingCartEntity({ entity: { id: 'cart1' } });
+    const selectCartAction = selectShoppingCart({ id: 'cart1' });
+    const setHamperInCartAction = setXmasHampersInCart({ id: 'cart1', xmasHampers: [xmasHamper] });
 
     store.dispatch(createCartAction);
     store.dispatch(selectCartAction);
@@ -94,21 +153,21 @@ describe('Rules engine service', () => {
   });
 
   it('Should support Block with no condition', async () => {
-    store.dispatch(setRulesetsEntities({entities: jsonOneRulesetOneRuleNoCond.ruleSets}));
+    store.dispatch(setRulesetsEntities({ entities: jsonOneRulesetOneRuleNoCond.ruleSets }));
     const actions = await firstValueFrom(service.events$);
     expect(actions.length).toBe(1);
     expect(actions[0].actionType).toBe('UPDATE_LOCALISATION');
   });
 
+  // eslint-disable-next-line jest/no-done-callback -- eventually rewrite the test
   it('should handle linked components and validity range properly', (done) => {
     service.events$.pipe(take(1)).subscribe((actions) => {
       expect(actions.length).toBe(1);
       expect(actions[0].actionType).toBe('UPDATE_LOCALISATION');
       done();
     });
-    store.dispatch(setRulesetsEntities({entities: jsonOneRulesetValidOneRuleNoCond.ruleSets}));
+    store.dispatch(setRulesetsEntities({ entities: jsonOneRulesetValidOneRuleNoCond.ruleSets }));
   });
-
 
   it('should have configuration updated in the store', async () => {
     service.engine.upsertFacts<any>([{
@@ -121,7 +180,7 @@ describe('Rules engine service', () => {
     }
     ]);
 
-    store.dispatch(setRulesetsEntities({entities: jsonTwoRulesetTwoRules.ruleSets}));
+    store.dispatch(setRulesetsEntities({ entities: jsonTwoRulesetTwoRules.ruleSets }));
     const actions = await firstValueFrom(service.events$);
     // RunTime fact should be properly propagated to the next rule depending on it, with the proper value
     // Actions should be returned in the correct order
@@ -137,11 +196,11 @@ describe('Rules engine service', () => {
       id: 'isMobileDevice',
       value$: isMobileDevice$
     },
-    {id: 'cart', value$: cartFact$},
-    {id: 'foieGrasPrice', value$: foieGrasPriceFact$}
+    { id: 'cart', value$: cartFact$ },
+    { id: 'foieGrasPrice', value$: foieGrasPriceFact$ }
     ]);
 
-    store.dispatch(setRulesetsEntities({entities: jsonTwoRulesetTwoRulesNoContext.ruleSets}));
+    store.dispatch(setRulesetsEntities({ entities: jsonTwoRulesetTwoRulesNoContext.ruleSets }));
     evaluateRuleFirstRulesetSpy = jest.spyOn((service.engine as any).rulesetMapSubject.value['e5th46e84-5e4th-54eth65seth46se8th4'], 'evaluateRule' as any);
     evaluateRuleSecondRulesetSpy = jest.spyOn((service.engine as any).rulesetMapSubject.value['e5th46e84-5e4th-54eth65seth46se8th1'], 'evaluateRule' as any);
     const actions = await firstValueFrom(service.events$);
@@ -159,10 +218,10 @@ describe('Rules engine service', () => {
       id: 'foieGrasPrice',
       value$: foieGrasPrice$
     },
-    {id: 'pageUrl', value$: of('/search')}
+    { id: 'pageUrl', value$: of('/search') }
     ]);
 
-    store.dispatch(setRulesetsEntities({entities: jsonOneRulesetOneRuleReexecution.ruleSets}));
+    store.dispatch(setRulesetsEntities({ entities: jsonOneRulesetOneRuleReexecution.ruleSets }));
     const actions = await firstValueFrom(service.events$);
     expect(actions.length).toBe(0);
     foieGrasPrice$.next('50');
@@ -175,7 +234,7 @@ describe('Rules engine service', () => {
       id: 'factWithUndefinedValue',
       value$: of(undefined)
     }]);
-    store.dispatch(setRulesetsEntities({entities: jsonOneRulesetThreeRulesUndefinedFactUsed.ruleSets}));
+    store.dispatch(setRulesetsEntities({ entities: jsonOneRulesetThreeRulesUndefinedFactUsed.ruleSets }));
     const actions = await firstValueFrom(service.events$);
     // RunTime fact should be properly propagated to the next rule depending on it, with the proper value
     // Actions should be returned in the correct order
@@ -190,7 +249,7 @@ describe('Rules engine service', () => {
       id: 'factWithUndefinedValue',
       value$: of(undefined)
     }]);
-    store.dispatch(setRulesetsEntities({entities: jsonOneRulesetThreeRulesOneThrows.ruleSets}));
+    store.dispatch(setRulesetsEntities({ entities: jsonOneRulesetThreeRulesOneThrows.ruleSets }));
     const actions = await firstValueFrom(service.events$);
     expect(actions.length).toBe(0);
   });
@@ -199,9 +258,9 @@ describe('Rules engine service', () => {
     service.engine.upsertFacts<any>([{
       id: 'isMobileDevice',
       value$: isMobileDevice$
-    }, {id: 'cart', value$: cartFact$}
+    }, { id: 'cart', value$: cartFact$ }
     ]);
-    store.dispatch(setRulesetsEntities({entities: jsonOneRulesetTwoNestedRules.ruleSets}));
+    store.dispatch(setRulesetsEntities({ entities: jsonOneRulesetTwoNestedRules.ruleSets }));
     const actions = await firstValueFrom(service.events$);
     expect(actions.length).toBe(4);
     expect(actions[0].value).toBe('my.loc.value2.success');
@@ -219,13 +278,13 @@ describe('Rules engine service', () => {
       value$: foieGrasPriceFact$
     }]);
 
-    store.dispatch(setRulesetsEntities({entities: jsonTwoRulesetTwoRulesNoContext.ruleSets}));
+    store.dispatch(setRulesetsEntities({ entities: jsonTwoRulesetTwoRulesNoContext.ruleSets }));
     const actions = await firstValueFrom(service.events$);
     expect(actions.length).toBe(2);
     expect(actions[0].value).toBe('my.loc.value.failure');
     expect(actions[1].value).toBe('my.loc.value2.failure');
 
-    service.engine.upsertFacts<any>([{id: 'cart', value$: cartFact$}]);
+    service.engine.upsertFacts<any>([{ id: 'cart', value$: cartFact$ }]);
     const nextActions = await firstValueFrom(service.events$);
     expect(nextActions.length).toBe(2);
     expect(nextActions[0].value).toBe('my.loc.value.failure');
@@ -237,7 +296,7 @@ describe('Rules engine service', () => {
       id: 'isMobileDevice',
       value$: of(true)
     }]);
-    store.dispatch(setRulesetsEntities({entities: jsonTwoRulesetsOneOnDemand.rulesets}));
+    store.dispatch(setRulesetsEntities({ entities: jsonTwoRulesetsOneOnDemand.rulesets }));
     const actions = await firstValueFrom(service.events$);
     // should execute the actions from active rulesets at bootstrap
     expect(actions.length).toBe(4);
@@ -258,9 +317,9 @@ describe('Rules engine service', () => {
       value$: of(true)
     }]);
     const nextFn = jest.fn();
-    store.dispatch(setRulesetsEntities({entities: jsonTwoRulesetsBothOnDemand.rulesets}));
+    store.dispatch(setRulesetsEntities({ entities: jsonTwoRulesetsBothOnDemand.rulesets }));
     const sub = service.events$.subscribe({
-      next: value => nextFn(value)
+      next: (value) => nextFn(value)
     });
     // should output no actions as all rulesets are on demand
     expect(nextFn).not.toHaveBeenCalled();
@@ -302,7 +361,7 @@ describe('Rules engine service', () => {
       id: 'isMobileDevice',
       value$: of(true)
     }]);
-    store.dispatch(setRulesetsEntities({entities: jsonTwoRulesetsOneOnDemand.rulesets}));
+    store.dispatch(setRulesetsEntities({ entities: jsonTwoRulesetsOneOnDemand.rulesets }));
     const actions = await firstValueFrom(service.events$);
     // should execute the actions from active rulesets at bootstrap
     expect(actions.length).toBe(4);
@@ -324,19 +383,16 @@ describe('Rules engine service', () => {
       id: 'aNumber',
       value$: aNumberSubj
     }]);
-    store.dispatch(setRulesetsEntities({entities: jsonOneRulesetTwoRules.ruleSets}));
-    // eslint-disable-next-line no-console
+    store.dispatch(setRulesetsEntities({ entities: jsonOneRulesetTwoRules.ruleSets }));
     expect(consoleSpy).toHaveBeenCalled();
     const actions = await firstValueFrom(service.events$);
     expect(actions.length).toBe(1);
     // Fake emit of same value from sNumber fact, should not do anything
     aNumberSubj.next(undefined);
-    // eslint-disable-next-line no-console
     expect(consoleSpy).toHaveBeenCalledTimes(1);
     // Fake emit of new value from sNumber fact, should trigger error, but not the events$
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- test trigger of error
     aNumberSubj.next(null as any);
-    // eslint-disable-next-line no-console
     expect(consoleSpy).toHaveBeenCalledTimes(2);
     // Fake emit of new value from sNumber fact, should not trigger error, and trigger events$
     aNumberSubj.next(4);
@@ -344,9 +400,8 @@ describe('Rules engine service', () => {
     expect(newActions.length).toBe(3);
   });
 
-
   it('Placeholder actions should be processed properly', async () => {
-    store.dispatch(setRulesetsEntities({entities: jsonOneRulesetOneRuleNoCondPlaceholder.ruleSets}));
+    store.dispatch(setRulesetsEntities({ entities: jsonOneRulesetOneRuleNoCondPlaceholder.ruleSets }));
     const actions = await firstValueFrom(service.events$);
     expect(actions.length).toBe(1);
     expect(actions[0].actionType).toBe('UPDATE_PLACEHOLDER');
@@ -358,7 +413,7 @@ describe('Rules engine service', () => {
       id: 'foieGrasPrice',
       value$: foieGrasPrice.asObservable()
     }]);
-    store.dispatch(setRulesetsEntities({entities: jsonOneRulesetTwoRulesAnyAndAll.ruleSets}));
+    store.dispatch(setRulesetsEntities({ entities: jsonOneRulesetTwoRulesAnyAndAll.ruleSets }));
     const evaluateConditionSpy = jest.spyOn((service.engine as any).rulesetMapSubject.value['e5th46e84-5e4th-54eth65seth46se8th8'], 'evaluateCondition' as any);
     foieGrasPrice.next(undefined);
     await firstValueFrom(service.events$);

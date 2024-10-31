@@ -1,14 +1,32 @@
-import {Injectable} from '@angular/core';
-import {Actions, createEffect, ofType} from '@ngrx/effects';
-import {from, of} from 'rxjs';
-import {catchError, map, mergeMap} from 'rxjs/operators';
-import {fromApiEffectSwitchMap} from '@o3r/core';
+import {
+  Injectable
+} from '@angular/core';
+import {
+  Actions,
+  createEffect,
+  ofType
+} from '@ngrx/effects';
+import {
+  fromApiEffectSwitchMap
+} from '@o3r/core';
+import {
+  from,
+  of
+} from 'rxjs';
+import {
+  catchError,
+  map,
+  mergeMap
+} from 'rxjs/operators';
 import {
   cancelShoppingCartRequest,
   failShoppingCartEntities,
-  setShoppingCartEntities, setShoppingCartEntitiesFromApi,
-  updateShoppingCartEntities, updateShoppingCartEntitiesFromApi,
-  upsertShoppingCartEntities, upsertShoppingCartEntitiesFromApi
+  setShoppingCartEntities,
+  setShoppingCartEntitiesFromApi,
+  updateShoppingCartEntities,
+  updateShoppingCartEntitiesFromApi,
+  upsertShoppingCartEntities,
+  upsertShoppingCartEntitiesFromApi
 } from './shopping-cart.actions';
 
 /**
@@ -16,7 +34,6 @@ import {
  */
 @Injectable()
 export class ShoppingCartEffect {
-
   /**
    * Set the entities with the reply content, dispatch failShoppingCartEntities if it catches a failure
    */
@@ -24,8 +41,8 @@ export class ShoppingCartEffect {
     this.actions$.pipe(
       ofType(setShoppingCartEntitiesFromApi),
       fromApiEffectSwitchMap(
-        (reply, action) => setShoppingCartEntities({entities: reply, requestId: action.requestId}),
-        (error, action) => of(failShoppingCartEntities({error, requestId: action.requestId})),
+        (reply, action) => setShoppingCartEntities({ entities: reply, requestId: action.requestId }),
+        (error, action) => of(failShoppingCartEntities({ error, requestId: action.requestId })),
         cancelShoppingCartRequest
       )
     )
@@ -39,8 +56,8 @@ export class ShoppingCartEffect {
       ofType(updateShoppingCartEntitiesFromApi),
       mergeMap((payload) =>
         from(payload.call).pipe(
-          map((reply) => updateShoppingCartEntities({entities: reply, requestId: payload.requestId})),
-          catchError((err) => of(failShoppingCartEntities({ids: payload.ids, error: err,  requestId: payload.requestId})))
+          map((reply) => updateShoppingCartEntities({ entities: reply, requestId: payload.requestId })),
+          catchError((err) => of(failShoppingCartEntities({ ids: payload.ids, error: err, requestId: payload.requestId })))
         )
       )
     )
@@ -54,13 +71,12 @@ export class ShoppingCartEffect {
       ofType(upsertShoppingCartEntitiesFromApi),
       mergeMap((payload) =>
         from(payload.call).pipe(
-          map((reply) => upsertShoppingCartEntities({entities: reply, requestId: payload.requestId})),
-          catchError((err) => of(failShoppingCartEntities({error: err,  requestId: payload.requestId})))
+          map((reply) => upsertShoppingCartEntities({ entities: reply, requestId: payload.requestId })),
+          catchError((err) => of(failShoppingCartEntities({ error: err, requestId: payload.requestId })))
         )
       )
     )
   );
 
-  constructor(protected actions$: Actions) {
-  }
+  constructor(protected actions$: Actions) {}
 }

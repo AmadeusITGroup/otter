@@ -1,5 +1,15 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, ViewEncapsulation } from '@angular/core';
-import type { Ruleset, RulesetExecutionErrorEvent, RulesetExecutionEvent } from '../../../engine';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  ViewEncapsulation
+} from '@angular/core';
+import type {
+  Ruleset,
+  RulesetExecutionErrorEvent,
+  RulesetExecutionEvent
+} from '../../../engine';
 
 export type RulesetExecutionStatus = 'Error' | 'Active' | 'Deactivated' | 'NoEffect';
 /**
@@ -10,7 +20,6 @@ export type RulesetExecutionDebug = (RulesetExecutionEvent | RulesetExecutionErr
   status: RulesetExecutionStatus;
   rulesetInformation: Ruleset | undefined;
 };
-
 
 @Component({
   selector: 'o3r-ruleset-history-pres',
@@ -29,8 +38,7 @@ export class RulesetHistoryPresComponent {
    * {'rulesetId': {'ruleset' : true, 'ruleOverview': false}}
    * @note Collapsing a ruleset will not reset the subpanel expansion status
    */
-  public expansionStatus: {[key: string]: {[subpanel: string]: boolean} } = {};
-
+  public expansionStatus: { [key: string]: { [subpanel: string]: boolean } } = {};
 
   @Input()
   public rulesetExecutions: RulesetExecutionDebug[] = [];
@@ -46,10 +54,10 @@ export class RulesetHistoryPresComponent {
    * @param subpanel element to collapse. 'ruleset' will toggle the whole panel but won't reset the subpanels states.
    */
   public toggleExpansion(ruleId: string, subpanel: string) {
-    if (!this.expansionStatus[ruleId]) {
-      this.expansionStatus[ruleId] = {[subpanel]: true};
-    } else {
+    if (this.expansionStatus[ruleId]) {
       this.expansionStatus[ruleId][subpanel] = !this.expansionStatus[ruleId][subpanel];
+    } else {
+      this.expansionStatus[ruleId] = { [subpanel]: true };
     }
     this.cd.detectChanges();
   }

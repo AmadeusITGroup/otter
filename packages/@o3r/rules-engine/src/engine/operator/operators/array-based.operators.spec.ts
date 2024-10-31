@@ -632,8 +632,8 @@ describe('Array based operator', () => {
       expect(oneRangeNumber.validateRhs(undefined as any)).toBeFalsy();
       expect(oneRangeNumber.validateRhs('string' as any)).toBeFalsy();
       expect(oneRangeNumber.validateRhs({} as any)).toBeFalsy();
-      expect(oneRangeNumber.validateRhs({from: 10} as any)).toBeFalsy();
-      expect(oneRangeNumber.validateRhs({to: 20} as any)).toBeFalsy();
+      expect(oneRangeNumber.validateRhs({ from: 10 } as any)).toBeFalsy();
+      expect(oneRangeNumber.validateRhs({ to: 20 } as any)).toBeFalsy();
       expect(oneRangeNumber.validateRhs([20] as any)).toBeFalsy();
       expect(oneRangeNumber.validateRhs([10, 20])).toBeTruthy();
       expect(oneRangeNumber.validateRhs(['10' as any, '20' as any])).toBeTruthy();
@@ -676,8 +676,8 @@ describe('Array based operator', () => {
       expect(lengthEquals.validateRhs(undefined as any)).toBeFalsy();
       expect(lengthEquals.validateRhs('string' as any)).toBeFalsy();
       expect(lengthEquals.validateRhs({} as any)).toBeFalsy();
-      expect(lengthEquals.validateRhs({from: 10} as any)).toBeFalsy();
-      expect(lengthEquals.validateRhs({to: 20} as any)).toBeFalsy();
+      expect(lengthEquals.validateRhs({ from: 10 } as any)).toBeFalsy();
+      expect(lengthEquals.validateRhs({ to: 20 } as any)).toBeFalsy();
       expect(lengthEquals.validateRhs([20] as any)).toBeFalsy();
       expect(lengthEquals.validateRhs(5)).toBeTruthy();
       expect(lengthEquals.validateRhs(0)).toBeTruthy();
@@ -687,7 +687,7 @@ describe('Array based operator', () => {
       const lhs: any[] = [321, 123, '123'];
 
       expect(lengthEquals.evaluator(lhs, 3)).toBeTruthy();
-      expect(lengthEquals.evaluator(lhs,1)).toBeFalsy();
+      expect(lengthEquals.evaluator(lhs, 1)).toBeFalsy();
     });
   });
 
@@ -719,8 +719,8 @@ describe('Array based operator', () => {
       expect(lengthNotEquals.validateRhs(undefined as any)).toBeFalsy();
       expect(lengthNotEquals.validateRhs('string' as any)).toBeFalsy();
       expect(lengthNotEquals.validateRhs({} as any)).toBeFalsy();
-      expect(lengthNotEquals.validateRhs({from: 10} as any)).toBeFalsy();
-      expect(lengthNotEquals.validateRhs({to: 20} as any)).toBeFalsy();
+      expect(lengthNotEquals.validateRhs({ from: 10 } as any)).toBeFalsy();
+      expect(lengthNotEquals.validateRhs({ to: 20 } as any)).toBeFalsy();
       expect(lengthNotEquals.validateRhs([20] as any)).toBeFalsy();
       expect(lengthNotEquals.validateRhs(5)).toBeTruthy();
       expect(lengthNotEquals.validateRhs(0)).toBeTruthy();
@@ -730,7 +730,7 @@ describe('Array based operator', () => {
       const lhs: any[] = [321, 123, '123'];
 
       expect(lengthNotEquals.evaluator(lhs, 1)).toBeTruthy();
-      expect(lengthNotEquals.evaluator(lhs,3)).toBeFalsy();
+      expect(lengthNotEquals.evaluator(lhs, 3)).toBeFalsy();
     });
   });
 
@@ -762,8 +762,8 @@ describe('Array based operator', () => {
       expect(lengthGreaterThanOrEquals.validateRhs(undefined as any)).toBeFalsy();
       expect(lengthGreaterThanOrEquals.validateRhs('string' as any)).toBeFalsy();
       expect(lengthGreaterThanOrEquals.validateRhs({} as any)).toBeFalsy();
-      expect(lengthGreaterThanOrEquals.validateRhs({from: 10} as any)).toBeFalsy();
-      expect(lengthGreaterThanOrEquals.validateRhs({to: 20} as any)).toBeFalsy();
+      expect(lengthGreaterThanOrEquals.validateRhs({ from: 10 } as any)).toBeFalsy();
+      expect(lengthGreaterThanOrEquals.validateRhs({ to: 20 } as any)).toBeFalsy();
       expect(lengthGreaterThanOrEquals.validateRhs([20] as any)).toBeFalsy();
       expect(lengthGreaterThanOrEquals.validateRhs(5)).toBeTruthy();
       expect(lengthGreaterThanOrEquals.validateRhs(0)).toBeTruthy();
@@ -773,8 +773,8 @@ describe('Array based operator', () => {
       const lhs: any[] = [321, 123, '123'];
 
       expect(lengthGreaterThanOrEquals.evaluator(lhs, 1)).toBeTruthy();
-      expect(lengthGreaterThanOrEquals.evaluator(lhs,3)).toBeTruthy();
-      expect(lengthGreaterThanOrEquals.evaluator(lhs,4)).toBeFalsy();
+      expect(lengthGreaterThanOrEquals.evaluator(lhs, 3)).toBeTruthy();
+      expect(lengthGreaterThanOrEquals.evaluator(lhs, 4)).toBeFalsy();
     });
   });
 
@@ -806,8 +806,8 @@ describe('Array based operator', () => {
       expect(lengthGreaterThan.validateRhs(undefined as any)).toBeFalsy();
       expect(lengthGreaterThan.validateRhs('string' as any)).toBeFalsy();
       expect(lengthGreaterThan.validateRhs({} as any)).toBeFalsy();
-      expect(lengthGreaterThan.validateRhs({from: 10} as any)).toBeFalsy();
-      expect(lengthGreaterThan.validateRhs({to: 20} as any)).toBeFalsy();
+      expect(lengthGreaterThan.validateRhs({ from: 10 } as any)).toBeFalsy();
+      expect(lengthGreaterThan.validateRhs({ to: 20 } as any)).toBeFalsy();
       expect(lengthGreaterThan.validateRhs([20] as any)).toBeFalsy();
       expect(lengthGreaterThan.validateRhs(5)).toBeTruthy();
       expect(lengthGreaterThan.validateRhs(0)).toBeTruthy();
@@ -817,8 +817,8 @@ describe('Array based operator', () => {
       const lhs: any[] = [321, 123, '123'];
 
       expect(lengthGreaterThan.evaluator(lhs, 1)).toBeTruthy();
-      expect(lengthGreaterThan.evaluator(lhs,3)).toBeFalsy();
-      expect(lengthGreaterThan.evaluator(lhs,4)).toBeFalsy();
+      expect(lengthGreaterThan.evaluator(lhs, 3)).toBeFalsy();
+      expect(lengthGreaterThan.evaluator(lhs, 4)).toBeFalsy();
     });
   });
 
@@ -850,8 +850,8 @@ describe('Array based operator', () => {
       expect(lengthLessThanOrEquals.validateRhs(undefined as any)).toBeFalsy();
       expect(lengthLessThanOrEquals.validateRhs('string' as any)).toBeFalsy();
       expect(lengthLessThanOrEquals.validateRhs({} as any)).toBeFalsy();
-      expect(lengthLessThanOrEquals.validateRhs({from: 10} as any)).toBeFalsy();
-      expect(lengthLessThanOrEquals.validateRhs({to: 20} as any)).toBeFalsy();
+      expect(lengthLessThanOrEquals.validateRhs({ from: 10 } as any)).toBeFalsy();
+      expect(lengthLessThanOrEquals.validateRhs({ to: 20 } as any)).toBeFalsy();
       expect(lengthLessThanOrEquals.validateRhs([20] as any)).toBeFalsy();
       expect(lengthLessThanOrEquals.validateRhs(5)).toBeTruthy();
       expect(lengthLessThanOrEquals.validateRhs(0)).toBeTruthy();
@@ -861,8 +861,8 @@ describe('Array based operator', () => {
       const lhs: any[] = [321, 123, '123'];
 
       expect(lengthLessThanOrEquals.evaluator(lhs, 4)).toBeTruthy();
-      expect(lengthLessThanOrEquals.evaluator(lhs,3)).toBeTruthy();
-      expect(lengthLessThanOrEquals.evaluator(lhs,1)).toBeFalsy();
+      expect(lengthLessThanOrEquals.evaluator(lhs, 3)).toBeTruthy();
+      expect(lengthLessThanOrEquals.evaluator(lhs, 1)).toBeFalsy();
     });
   });
 
@@ -894,8 +894,8 @@ describe('Array based operator', () => {
       expect(lengthLessThan.validateRhs(undefined as any)).toBeFalsy();
       expect(lengthLessThan.validateRhs('string' as any)).toBeFalsy();
       expect(lengthLessThan.validateRhs({} as any)).toBeFalsy();
-      expect(lengthLessThan.validateRhs({from: 10} as any)).toBeFalsy();
-      expect(lengthLessThan.validateRhs({to: 20} as any)).toBeFalsy();
+      expect(lengthLessThan.validateRhs({ from: 10 } as any)).toBeFalsy();
+      expect(lengthLessThan.validateRhs({ to: 20 } as any)).toBeFalsy();
       expect(lengthLessThan.validateRhs([20] as any)).toBeFalsy();
       expect(lengthLessThan.validateRhs(5)).toBeTruthy();
       expect(lengthLessThan.validateRhs(0)).toBeTruthy();
@@ -905,8 +905,8 @@ describe('Array based operator', () => {
       const lhs: any[] = [321, 123, '123'];
 
       expect(lengthLessThan.evaluator(lhs, 4)).toBeTruthy();
-      expect(lengthLessThan.evaluator(lhs,3)).toBeFalsy();
-      expect(lengthLessThan.evaluator(lhs,1)).toBeFalsy();
+      expect(lengthLessThan.evaluator(lhs, 3)).toBeFalsy();
+      expect(lengthLessThan.evaluator(lhs, 1)).toBeFalsy();
     });
   });
 });

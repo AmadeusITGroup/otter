@@ -1,4 +1,14 @@
-import {equals, inArray, inString, isDefined, isUndefined, matchesPattern, notEquals, notInArray, notInString} from './basic.operators';
+import {
+  equals,
+  inArray,
+  inString,
+  isDefined,
+  isUndefined,
+  matchesPattern,
+  notEquals,
+  notInArray,
+  notInString
+} from './basic.operators';
 
 describe('Basic operator', () => {
   describe('equals', () => {

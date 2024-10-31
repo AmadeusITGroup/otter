@@ -1,4 +1,6 @@
-import type { Ruleset } from '@o3r/rules-engine';
+import type {
+  Ruleset
+} from '@o3r/rules-engine';
 
 // TODO Add a second ruleset in IT test
 export const jsonOneRulesetTwoRules: { ruleSets: Ruleset[] } = {

@@ -1,10 +1,21 @@
-import { Architect } from '@angular-devkit/architect';
-import { TestingArchitectHost } from '@angular-devkit/architect/testing';
-import { schema } from '@angular-devkit/core';
-import { cleanVirtualFileSystem, useVirtualFileSystem } from '@o3r/test-helpers';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { RulesEngineExtractorBuilderSchema } from './schema';
+import {
+  Architect
+} from '@angular-devkit/architect';
+import {
+  TestingArchitectHost
+} from '@angular-devkit/architect/testing';
+import {
+  schema
+} from '@angular-devkit/core';
+import {
+  cleanVirtualFileSystem,
+  useVirtualFileSystem
+} from '@o3r/test-helpers';
+import {
+  RulesEngineExtractorBuilderSchema
+} from './schema';
 
 describe('Rules-engine Extractor Builder', () => {
   const workspaceRoot = path.join('..', '..', '..', '..', '..');
@@ -46,12 +57,12 @@ describe('Rules-engine Extractor Builder', () => {
     expect(output.error).toBeUndefined();
     await run.stop();
 
-    const factsOutput = JSON.parse(virtualFileSystem.readFileSync(path.join(options.outputFactsDirectory, 'rules.facts.metadata.json'), {encoding: 'utf8'}));
+    const factsOutput = JSON.parse(virtualFileSystem.readFileSync(path.join(options.outputFactsDirectory, 'rules.facts.metadata.json'), { encoding: 'utf8' }));
     expect(typeof factsOutput).toBe('object');
     expect(typeof factsOutput.facts).toBe('object');
     expect(typeof factsOutput.facts.length).toBe('number');
 
-    const operatorsOutput = JSON.parse(virtualFileSystem.readFileSync(path.join(options.outputOperatorsDirectory, 'rules.operators.metadata.json'), {encoding: 'utf8'}));
+    const operatorsOutput = JSON.parse(virtualFileSystem.readFileSync(path.join(options.outputOperatorsDirectory, 'rules.operators.metadata.json'), { encoding: 'utf8' }));
     expect(typeof operatorsOutput).toBe('object');
     expect(typeof operatorsOutput.operators).toBe('object');
     expect(typeof operatorsOutput.operators.length).toBe('number');
