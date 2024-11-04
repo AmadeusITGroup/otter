@@ -31,18 +31,22 @@ export async function getFilesFromRegistry(packageDescriptor: string, paths: str
   const tempDirPath = join(tmpdir(), tempDirName);
   let extractedFiles: { [key: string]: string } = {};
   mkdirSync(tempDirPath);
+  const [,packageName,packageRange] = sanitizeInput(packageDescriptor).match(/^(.*?)(?:\b@(.+))?$/) || [];
 
   try {
     const npmViewCmd = runAndThrowOnError(
-      `npm view "${sanitizeInput(packageDescriptor)}" version --json`,
+      `npm view "${packageName}" versions --json`,
       { shell: true, encoding: 'utf8' }
     );
-    const versions = JSON.parse(npmViewCmd.stdout.trim()) as string[] | string;
+    let versions = JSON.parse(npmViewCmd.stdout.trim()) as string[] | string;
     if (typeof versions !== 'string') {
+      if (packageRange) {
+        const range = new semver.Range(packageRange, {includePrerelease: true});
+        versions = versions.filter((v) => range.test(v));
+      }
       versions.sort((a, b) => semver.compare(b, a));
     }
     const latestVersion = typeof versions === 'string' ? versions : versions[0];
-    const packageName = packageDescriptor.replace(/\b@[^@]+$/, '');
 
     const npmPackCmd = runAndThrowOnError(
       `npm pack "${packageName}@${sanitizeInput(latestVersion)}" --pack-destination "${pathToPosix(tempDirPath)}"`,
