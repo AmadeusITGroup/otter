@@ -14,7 +14,7 @@ import {
 } from './otter-inspector.service';
 
 const mockElement = {
-  appendChild: jest.fn(),
+  append: jest.fn(),
   classList: {
     add: jest.fn()
   }
@@ -40,32 +40,32 @@ describe('Otter Inspector Service', () => {
 
   it('should prepare the DOM', () => {
     const createElement = jest.spyOn(document, 'createElement').mockImplementation(() => mockElement);
-    const headAppendChild = jest.spyOn(document.head, 'appendChild').mockImplementation(() => mockElement);
-    const bodyAppendChild = jest.spyOn(document.body, 'appendChild').mockImplementation(() => mockElement);
+    const headAppend = jest.spyOn(document.head, 'append').mockImplementation(() => mockElement);
+    const bodyAppend = jest.spyOn(document.body, 'append').mockImplementation(() => mockElement);
     service.prepareInspector();
 
     expect(createElement).toHaveBeenCalledTimes(3);
     expect(createElement).toHaveBeenCalledWith('div');
     expect(createElement).toHaveBeenCalledWith('style');
     expect(createElement).toHaveBeenCalledWith('span');
-    expect(headAppendChild).toHaveBeenCalled();
-    expect(bodyAppendChild).toHaveBeenCalled();
+    expect(headAppend).toHaveBeenCalled();
+    expect(bodyAppend).toHaveBeenCalled();
   });
 
   it('should not re-prepare the DOM', () => {
     const createElement = jest.spyOn(document, 'createElement').mockImplementation(() => mockElement);
-    const headAppendChild = jest.spyOn(document.head, 'appendChild').mockImplementation(() => mockElement);
-    const bodyAppendChild = jest.spyOn(document.body, 'appendChild').mockImplementation(() => mockElement);
+    const headAppend = jest.spyOn(document.head, 'append').mockImplementation(() => mockElement);
+    const bodyAppend = jest.spyOn(document.body, 'append').mockImplementation(() => mockElement);
     service.prepareInspector();
 
     createElement.mockClear();
-    headAppendChild.mockClear();
-    bodyAppendChild.mockClear();
+    headAppend.mockClear();
+    bodyAppend.mockClear();
     service.prepareInspector();
 
     expect(createElement).not.toHaveBeenCalled();
-    expect(headAppendChild).not.toHaveBeenCalled();
-    expect(bodyAppendChild).not.toHaveBeenCalled();
+    expect(headAppend).not.toHaveBeenCalled();
+    expect(bodyAppend).not.toHaveBeenCalled();
   });
 
   it('should add 3 listeners on window', () => {

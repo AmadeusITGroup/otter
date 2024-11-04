@@ -61,9 +61,9 @@ export function getDestinationPath(typeOfItem: GeneratedItemType, directory: str
   const getSchematicsProperty = <T extends { [x: string]: JsonValue } = { [x: string]: JsonValue }>(generatorName: GeneratedItemType, propTree: Tree, propProject?: string | null): T | null => {
     const workspace = getWorkspaceConfig(propTree);
     const [collection, schematicName] = generatorName.split(':');
-    return (
-      workspace && getDefaultOptionsForSchematic(workspace, collection, schematicName, { projectName: propProject || undefined }) as T | undefined
-    ) || null;
+    return ((
+      workspace && getDefaultOptionsForSchematic<any>(workspace, collection, schematicName, { projectName: propProject || undefined })
+    ) || null) as T | null; // TODO: Check why `getDefaultOptionsForSchematic` expect a type matching `WorkspaceLayout`
   };
 
   const config = getSchematicsProperty(typeOfItem, tree, project);

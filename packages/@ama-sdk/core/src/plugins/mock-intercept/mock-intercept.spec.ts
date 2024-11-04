@@ -85,7 +85,7 @@ describe('Mock intercept', () => {
       const loaded = plugin.load();
       const transformed = await loaded.transform(originalRequest);
       const res = await fetch(transformed.basePath, transformed);
-      const text = res.text();
+      const text = await res.text();
 
       expect(getMockSpy).toHaveBeenCalled();
       expect(text).toBe(JSON.stringify(testMock.mockData));

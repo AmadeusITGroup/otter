@@ -1,9 +1,3 @@
-import {
-  getFilesFromRegistry,
-  getLatestMigrationMetadataFile,
-  getVersionRangeFromLatestVersion
-} from './metadata-files.helper';
-
 const mockBaseName = jest.fn();
 jest.mock('node:path', () => {
   const original = jest.requireActual('node:path');
@@ -30,6 +24,13 @@ const mockYarnGetFilesFromRegistry = jest.fn();
 jest.mock('./package-managers-extractors/yarn2-file-extractor.helper', () => ({
   getFilesFromRegistry: mockYarnGetFilesFromRegistry
 }));
+
+// eslint-disable-next-line import/first -- needed for `jest.mock`
+import {
+  getFilesFromRegistry,
+  getLatestMigrationMetadataFile,
+  getVersionRangeFromLatestVersion
+} from './metadata-files.helper';
 
 const getFakePath = (fileName: string) => `path/${fileName}`;
 

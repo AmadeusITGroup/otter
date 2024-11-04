@@ -43,7 +43,8 @@ export function executeOperator<L = unknown, R = unknown>(lhs: L, rhs: R, operat
  * @param operand value of one of the operands
  */
 export function numberValidator(operand: unknown): operand is number | string {
-  return operand !== '' && !Array.isArray(operand) && !Number.isNaN(Number(operand));
+  // eslint-disable-next-line @typescript-eslint/restrict-template-expressions -- needed to convert any variable in a number (or NaN)
+  return operand !== '' && !Array.isArray(operand) && !Number.isNaN(+`${operand}`);
 }
 
 /**

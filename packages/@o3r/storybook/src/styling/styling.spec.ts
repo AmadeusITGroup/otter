@@ -41,18 +41,18 @@ describe('Styling Helpers', () => {
     if (typeof document === 'undefined') {
       globalThis.document = {
         head: {
-          appendChild: () => {}
+          append: () => {}
         } as any,
         createElement: () => {},
-        getElementById: () => {}
+        querySelector: () => {}
       } as any;
     }
   });
 
   describe('setCssVariable', () => {
     let createElement: jest.SpyInstance;
-    let getElementById: jest.SpyInstance;
-    let appendChild: jest.SpyInstance;
+    let querySelector: jest.SpyInstance;
+    let append: jest.SpyInstance;
 
     afterEach(() => {
       jest.restoreAllMocks();
@@ -60,12 +60,12 @@ describe('Styling Helpers', () => {
 
     it('should create a new style element', () => {
       createElement = jest.spyOn(document, 'createElement').mockReturnValue({} as any);
-      getElementById = jest.spyOn(document, 'getElementById').mockReturnValue(null);
-      appendChild = jest.spyOn(document.head, 'appendChild').mockReturnValue({} as any);
+      querySelector = jest.spyOn(document, 'querySelector').mockReturnValue(null);
+      append = jest.spyOn(document.head, 'append').mockReturnValue({} as any);
       setCssVariable('--test-var', 'myValue', 'styleElementId');
 
       expect(createElement).toHaveBeenCalledTimes(1);
-      expect(appendChild).toHaveBeenCalledWith({
+      expect(append).toHaveBeenCalledWith({
         id: 'styleElementId',
         innerHTML: `
 :root {
@@ -77,12 +77,12 @@ describe('Styling Helpers', () => {
     it('should edit an existing variable', () => {
       const element: any = { innerHTML: ':root {  --test-var: oldValue; }' };
       createElement = jest.spyOn(document, 'createElement').mockReturnValue({} as any);
-      getElementById = jest.spyOn(document, 'getElementById').mockReturnValue(element);
-      appendChild = jest.spyOn(document.head, 'appendChild').mockReturnValue({} as any);
+      querySelector = jest.spyOn(document, 'querySelector').mockReturnValue(element);
+      append = jest.spyOn(document.head, 'append').mockReturnValue({} as any);
       setCssVariable('--test-var', 'myValue', 'styleElementId');
 
       expect(createElement).not.toHaveBeenCalled();
-      expect(getElementById).toHaveBeenCalledTimes(1);
+      expect(querySelector).toHaveBeenCalledTimes(1);
       expect(element.innerHTML).toMatch('--test-var: myValue;');
     });
   });
