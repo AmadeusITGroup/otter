@@ -43,7 +43,7 @@ export class StyleLazyLoader {
    */
   public loadStyleFromURL(styleUrlConfig: StyleURL) {
     const elementId = styleUrlConfig.id || this.DEFAULT_STYLE_ELEMENT_ID;
-    let style = document.querySelector(`#${elementId}`);
+    let style = document.querySelector<HTMLLinkElement>(`#${elementId}`);
 
     if (style === null) {
       style = document.createElement('link');

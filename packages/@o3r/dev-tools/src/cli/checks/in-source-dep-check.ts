@@ -8,9 +8,10 @@ import {
   join,
   resolve
 } from 'node:path';
-import {
-  _builtinLibs as nodeWellKnownModules
-} from 'node:repl';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment -- _builtinLibs is not part of repl types (due to the fact it is flagged to internal usage purpose)
+// @ts-ignore
+// eslint-disable-next-line import-newlines/enforce -- needed to have the `@ts-ignore` working
+import { _builtinLibs as nodeWellKnownModules } from 'node:repl';
 import {
   bold
 } from 'chalk';
@@ -18,8 +19,6 @@ import {
   program
 } from 'commander';
 import * as glob from 'globby';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment -- _builtinLibs is not part of repl types (due to the fact it is flagged to internal usage purpose)
-// @ts-ignore
 import * as winston from 'winston';
 
 /** Console logger */
