@@ -2,8 +2,13 @@
   "extends": "./tsconfig.build",
   "compilerOptions": {
     "tsBuildInfoFile": "build/devtools.tsbuildinfo",
-    "composite": true
+    "composite": false
   },
   "include": ["src/**/*.ts"],
-  "exclude": ["**/*.spec.ts", "src/app-components*.ts", "src/app-components/**/*.ts", "src/extension/**/*.ts"]
+  "exclude": [
+    "**/*.spec.ts",
+    "src/app-components*.ts",
+    "src/app-components/**/*.ts",
+    "src/extension/**/*.ts"
+  ]
 }
