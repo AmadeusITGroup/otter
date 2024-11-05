@@ -153,7 +153,8 @@ describe('Operator helpers', () => {
   describe('isValidDate', () => {
     class FakeDate {
       public getTime() {
-        return 1_651_069_701_964;
+        // eslint-disable-next-line unicorn/numeric-separators-style -- timestamp
+        return 1651069701964;
       }
     }
 
@@ -180,7 +181,8 @@ describe('Operator helpers', () => {
       expect(isValidDateInput(new Date())).toBeTruthy();
       expect(isValidDateInput(new FakeDate())).toBeTruthy();
       expect(isValidDateInput('2012-12-12')).toBeTruthy();
-      expect(isValidDateInput(123_456_789)).toBeTruthy();
+      // eslint-disable-next-line unicorn/numeric-separators-style -- timestamp
+      expect(isValidDateInput(123456789)).toBeTruthy();
       expect(isValidDateInput(Number.NaN)).toBeFalsy();
     });
   });

@@ -20,7 +20,7 @@ describe('Ng add @ama-sdk/core', () => {
     const initialTree = Tree.empty();
     initialTree.create('angular.json', readFileSync(join(__dirname, 'mocks', 'angular.mocks.json')));
     initialTree.create('src/example.ts', readFileSync(join(__dirname, 'mocks', 'example.ts.mock')));
-    const context: any = { addTask: jest.fn(), logger: { debug: jest.fn() }, schematic: { description: { name: 'schematic', collection: { name: '@scope/test' } } } };
+    const context: any = { addTask: jest.fn(), logger: { debug: jest.fn(), error: jest.fn() }, schematic: { description: { name: 'schematic', collection: { name: '@scope/test' } } } };
     const tree = await firstValueFrom(callRule(ngAdd({ projectName: 'projectName' }), initialTree, context));
     const newContent = tree.readText('src/example.ts');
     expect(newContent).not.toContain('@dapi/sdk-core');
