@@ -197,7 +197,6 @@ describe('Component container', () => {
     const externalCollection = {
       createSchematic: () => externalSchematicsSpy
     } as any;
-    // eslint-disable-next-line @typescript-eslint/unbound-method -- method call with the context
     const createCollectionOriginal = runner.engine.createCollection;
     const createCollectionSpy = jest.spyOn(runner.engine, 'createCollection')
       .mockImplementation((name, requester) => name === '@o3r/rules-engine'

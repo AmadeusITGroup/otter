@@ -90,7 +90,7 @@ export class LogRocketClient implements LoggerClient {
    * @inheritdoc
    */
   public stopRecording(): void {
-    // eslint-disable-next-line no-console
+    // eslint-disable-next-line no-console -- we don't want to log this Error on LogRocket as it's when LogRocket is wrongly used
     console.error('Impossible to stop recording with LogRocket');
   }
 
@@ -98,7 +98,7 @@ export class LogRocketClient implements LoggerClient {
    * @inheritdoc
    */
   public resumeRecording(): void {
-    // eslint-disable-next-line no-console
+    // eslint-disable-next-line no-console -- we don't want to log this Error on LogRocket as it's when LogRocket is wrongly used
     console.error('Impossible to restart recording with LogRocket.');
   }
 

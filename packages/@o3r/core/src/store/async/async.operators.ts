@@ -86,6 +86,7 @@ export function fromApiEffectSwitchMap<T extends FromApiActionPayload<any>, S ex
 }
 
 /**
+ * Same as {@link fromApiEffectSwitchMap}, instead one inner subscription is kept by id.
  * @param successHandler
  * @param errorHandler
  * @param cancelRequestActionFactory
