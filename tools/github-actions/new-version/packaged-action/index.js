@@ -9950,7 +9950,7 @@ module.exports = validRange
 
 /***/ }),
 
-/***/ 9668:
+/***/ 6500:
 /***/ ((module) => {
 
 /******************************************************************************
@@ -10267,10 +10267,19 @@ var __rewriteRelativeImportExtension;
         o["default"] = v;
     };
 
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+
     __importStar = function (mod) {
         if (mod && mod.__esModule) return mod;
         var result = {};
-        if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
         __setModuleDefault(result, mod);
         return result;
     };
@@ -34936,7 +34945,7 @@ exports.NewVersion = NewVersion;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-const tslib_1 = __nccwpck_require__(9668);
+const tslib_1 = __nccwpck_require__(6500);
 tslib_1.__exportStar(__nccwpck_require__(343), exports);
 tslib_1.__exportStar(__nccwpck_require__(1461), exports);
 //# sourceMappingURL=public_api.js.map
@@ -34988,7 +34997,7 @@ var __webpack_exports__ = {};
 var exports = __webpack_exports__;
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-const tslib_1 = __nccwpck_require__(9668);
+const tslib_1 = __nccwpck_require__(6500);
 const core = tslib_1.__importStar(__nccwpck_require__(8016));
 const github = tslib_1.__importStar(__nccwpck_require__(7220));
 const new_version_1 = __nccwpck_require__(6047);

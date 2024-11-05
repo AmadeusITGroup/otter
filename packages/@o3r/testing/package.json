@@ -21,7 +21,8 @@
     "prepare:build:builders": "yarn cpy 'schematics/**/*.json' 'schematics/**/templates/**' dist/schematics && yarn cpy '{collection,migration}.json' dist",
     "prepare:publish": "prepare-publish ./dist",
     "build:schematics": "tsc -b tsconfig.schematics.json --pretty && yarn generate-cjs-manifest",
-    "build:tools": "tsc -b tsconfig.tools.json --pretty",
+    "build:tools": "tsc -b tsconfig.build.tools.json --pretty",
+    "build:utils": "tsc -b tsconfig.build.utils.json --pretty && node ./scripts/generate-esm-manifest.cjs",
     "postbuild": "patch-package-json-main"
   },
   "exports": {
@@ -90,7 +91,8 @@
     },
     "./visual-test/utils": {
       "types": "./visual-test/utils.d.ts",
-      "default": "./visual-test/utils.js"
+      "default": "./visual-test/utils.js",
+      "import": "./esm/visual-test/utils.js"
     }
   },
   "peerDependencies": {

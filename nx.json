@@ -447,6 +447,9 @@
     "build-tools": {
       "cache": true
     },
+    "build-utils": {
+      "cache": true
+    },
     "copy-assets": {
       "cache": true
     },
