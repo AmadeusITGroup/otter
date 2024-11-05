@@ -43,7 +43,6 @@
     "@o3r/schematics": "workspace:^",
     "@schematics/angular": "~18.2.0",
     "@stylistic/eslint-plugin": "^2.7.0",
-    "@typescript-eslint/utils": "^7.14.1 || ^8.0.0",
     "angular-eslint": "^18.3.0",
     "eslint": "^8.57.0 || ^9.0.0",
     "eslint-import-resolver-node": "^0.3.4",
@@ -66,7 +65,6 @@
   "devDependencies": {
     "@angular-devkit/core": "~18.2.0",
     "@angular-devkit/schematics": "~18.2.0",
-    "@angular-eslint/eslint-plugin": "~18.3.0",
     "@angular/compiler": "~18.2.0",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@eslint/js": "9.10.0",
@@ -80,9 +78,7 @@
     "@types/eslint__js": "^8.42.3",
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",
-    "@typescript-eslint/eslint-plugin": "^8.0.0",
-    "@typescript-eslint/parser": "^8.0.0",
-    "@typescript-eslint/utils": "^8.0.0",
+    "@typescript-eslint/parser": "~8.12.2",
     "angular-eslint": "~18.3.0",
     "cpy-cli": "^5.0.0",
     "eslint": "^9.0.0",
@@ -109,7 +105,7 @@
     "ts-node": "~10.9.2",
     "tslib": "^2.6.2",
     "typescript": "~5.5.4",
-    "typescript-eslint": "^8.0.0"
+    "typescript-eslint": "~8.12.2"
   },
   "peerDependenciesMeta": {
     "@angular-devkit/schematics": {

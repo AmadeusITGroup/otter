@@ -1,3 +1,4 @@
+import globals from 'globals';
 import {
   dirname
 } from 'node:path';
@@ -21,6 +22,9 @@ export default [
           'tsconfig.eslint.json',
           'tsconfig.spec.json'
         ]
+      },
+      globals: {
+        ...globals.node
       }
     }
   },

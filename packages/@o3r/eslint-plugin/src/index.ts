@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 import jsonDependencyVersionsHarmonize from './rules/json/json-dependency-versions-harmonize/json-dependency-versions-harmonize';
 import noInnerHTML from './rules/template/no-inner-html/no-inner-html';
 import templateAsyncNumberLimitation from './rules/template/template-async-number-limitation/template-async-number-limitation';

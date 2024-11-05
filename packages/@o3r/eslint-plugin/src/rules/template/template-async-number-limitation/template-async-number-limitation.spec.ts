@@ -1,8 +1,10 @@
-import templateParser from '@angular-eslint/template-parser';
 import {
   convertAnnotatedSourceToFailureCase,
   RuleTester
 } from '@angular-eslint/test-utils';
+import {
+  templateParser
+} from 'angular-eslint';
 import templateAsyncNumberLimitation, {
   name
 } from './template-async-number-limitation';
@@ -24,9 +26,9 @@ ruleTester.run(name, templateAsyncNumberLimitation as any /* workaround for 5.9.
     convertAnnotatedSourceToFailureCase({
       description: 'should fail when there are more than 2 async pipes on a single HTML element',
       annotatedSource: `
-        <div ngIf="obs$ | async | async | async"></div>
-        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-      `,
+<div ngIf="obs$ | async | async | async"></div>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      `.trim(),
       options: [{ maximumAsyncOnTag: 2 }],
       messageId: 'tooManyAsyncOnTag',
       data: {
@@ -50,9 +52,11 @@ ruleTester.run(name, templateAsyncNumberLimitation as any /* workaround for 5.9.
       ]
     },
     {
-      code: `<div ngIf="obs$ | async"
-[translate]="translations$ | async">
-</div>`,
+      code: `
+<div ngIf="obs$ | async"
+  [translate]="translations$ | async">
+</div>
+`.trim(),
       options: [{ maximumAsyncOnTag: 1 }],
       errors: [
         {

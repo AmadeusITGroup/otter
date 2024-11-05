@@ -29,10 +29,6 @@
   ],
   "devDependencies": {
     "@angular-devkit/build-angular": "~18.2.0",
-    "@angular-eslint/builder": "~18.3.0",
-    "@angular-eslint/eslint-plugin": "~18.3.0",
-    "@angular-eslint/eslint-plugin-template": "~18.3.0",
-    "@angular-eslint/template-parser": "~18.3.0",
     "@angular/cli": "~18.2.0",
     "@angular/compiler": "~18.2.0",
     "@angular/compiler-cli": "~18.2.0",
@@ -50,10 +46,8 @@
     "@types/chrome": "^0.0.271",
     "@types/jest": "~29.5.2",
     "@types/tinycolor2": "^1.4.6",
-    "@typescript-eslint/eslint-plugin": "^8.0.0",
-    "@typescript-eslint/parser": "^8.0.0",
-    "@typescript-eslint/types": "^8.0.0",
-    "@typescript-eslint/utils": "^8.0.0",
+    "@typescript-eslint/parser": "~8.12.2",
+    "angular-eslint": "~18.3.0",
     "archiver": "^7.0.0",
     "chokidar": "^3.5.2",
     "chrome-webstore-upload": "^3.0.0",
@@ -81,7 +75,8 @@
     "nx": "~19.5.0",
     "rimraf": "^5.0.1",
     "tsc-watch": "^6.0.4",
-    "typescript": "~5.5.4"
+    "typescript": "~5.5.4",
+    "typescript-eslint": "~8.12.2"
   },
   "dependencies": {
     "@agnos-ui/angular-bootstrap": "~0.4.1",

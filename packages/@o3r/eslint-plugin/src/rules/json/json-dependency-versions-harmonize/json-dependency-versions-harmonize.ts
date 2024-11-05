@@ -15,7 +15,7 @@ import {
   getBestRanges
 } from './version-harmonize';
 
-interface Options {
+export interface VersionsHarmonizeOptions {
   /** List of package name to ignore when determining the dependencies versions */
   ignoredPackages?: string[];
   /** List of dependencies to ignore */
@@ -33,7 +33,7 @@ interface Options {
   alignEngines?: boolean;
 }
 
-const defaultOptions: [Required<Options>] = [{
+const defaultOptions: [Required<VersionsHarmonizeOptions>] = [{
   ignoredDependencies: [],
   dependencyTypes: ['optionalDependencies', 'dependencies', 'devDependencies', 'peerDependencies', 'generatorDependencies'],
   alignPeerDependencies: false,
@@ -45,7 +45,7 @@ const defaultOptions: [Required<Options>] = [{
 const resolutionsFields = ['resolutions', 'overrides'];
 const enginesField = 'engines';
 
-export default createRule<[Options, ...any], 'versionUpdate' | 'error'>({
+export default createRule<[VersionsHarmonizeOptions, ...any], 'versionUpdate' | 'error'>({
   name: 'json-dependency-versions-harmonize',
   meta: {
     hasSuggestions: true,
@@ -102,7 +102,7 @@ export default createRule<[Options, ...any], 'versionUpdate' | 'error'>({
     fixable: 'code'
   },
   defaultOptions,
-  create: (context, [options]: Readonly<[Options, ...any]>) => {
+  create: (context, [options]: Readonly<[VersionsHarmonizeOptions, ...any]>) => {
     const parserServices = getJsoncParserServices(context);
     const dirname = path.dirname(context.filename);
     const workspace = findWorkspacePackageJsons(dirname);
@@ -112,76 +112,77 @@ export default createRule<[Options, ...any], 'versionUpdate' | 'error'>({
     const dependencyTypes = [...dependencyTypesWithInterest, ...(options.alignResolutions ? resolutionsFields : [])];
 
     if (parserServices.isJSON) {
-      return {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        'JSONExpressionStatement': (node: AST.JSONExpressionStatement) => {
-          if (node.expression.type === 'JSONObjectExpression') {
-            const deps = node.expression.properties
-              .filter(({ key }) => dependencyTypes.includes(key.type === 'JSONLiteral' ? key.value.toString() : key.name));
-            if (deps.length > 0 && bestRanges) {
-              deps
-                .map((depGroup) => depGroup.value)
-                .filter((depGroup): depGroup is AST.JSONObjectExpression => depGroup.type === 'JSONObjectExpression')
-                .forEach((depGroup) => {
-                  const report = (name: string, resolvedName: string, dep: AST.JSONProperty, range: string | undefined, bestRange: string | undefined) => {
-                    if (bestRange && bestRange !== range) {
-                      if (!options.alignPeerDependencies && depGroup.parent.type === 'JSONProperty' && range
-                        && (depGroup.parent.key.type === 'JSONLiteral' ? depGroup.parent.key.value.toString() : depGroup.parent.key.name) === 'peerDependencies'
-                        && semver.subset(bestRange, range)) {
-                        return;
-                      }
-                      context.report({
-                        loc: dep.value.loc,
-                        messageId: 'error',
-                        data: {
-                          depName: name,
-                          version: bestRange,
-                          packageJsonFile: bestRanges[resolvedName].path
-                        },
-                        fix: (fixer) => fixer.replaceTextRange(dep.value.range, `"${bestRange}"`),
-                        suggest: [
-                          {
-                            messageId: 'versionUpdate',
-                            data: {
-                              version: bestRange
-                            },
-                            fix: (fixer) => fixer.replaceTextRange(dep.value.range, `"${bestRange}"`)
-                          }
-                        ]
-                      });
+      const rule = (node: AST.JSONExpressionStatement) => {
+        if (node.expression.type === 'JSONObjectExpression') {
+          const deps = node.expression.properties
+            .filter(({ key }) => dependencyTypes.includes(key.type === 'JSONLiteral' ? key.value.toString() : key.name));
+          if (deps.length > 0 && bestRanges) {
+            deps
+              .map((depGroup) => depGroup.value)
+              .filter((depGroup): depGroup is AST.JSONObjectExpression => depGroup.type === 'JSONObjectExpression')
+              .forEach((depGroup) => {
+                const report = (name: string, resolvedName: string, dep: AST.JSONProperty, range: string | undefined, bestRange: string | undefined) => {
+                  if (bestRange && bestRange !== range) {
+                    if (!options.alignPeerDependencies && depGroup.parent.type === 'JSONProperty' && range
+                      && (depGroup.parent.key.type === 'JSONLiteral' ? depGroup.parent.key.value.toString() : depGroup.parent.key.name) === 'peerDependencies'
+                      && semver.subset(bestRange, range)) {
+                      return;
                     }
+                    context.report({
+                      loc: dep.value.loc,
+                      messageId: 'error',
+                      data: {
+                        depName: name,
+                        version: bestRange,
+                        packageJsonFile: bestRanges[resolvedName].path
+                      },
+                      fix: (fixer) => fixer.replaceTextRange(dep.value.range, `"${bestRange}"`),
+                      suggest: [
+                        {
+                          messageId: 'versionUpdate',
+                          data: {
+                            version: bestRange
+                          },
+                          fix: (fixer) => fixer.replaceTextRange(dep.value.range, `"${bestRange}"`)
+                        }
+                      ]
+                    });
+                  }
+                };
+
+                depGroup.properties.forEach((dependencyNode) => {
+                  const isResolutionsField = options.alignResolutions && depGroup.parent.type === 'JSONProperty'
+                    && resolutionsFields.includes(depGroup.parent.key.type === 'JSONLiteral' ? depGroup.parent.key.value.toString() : depGroup.parent.key.name);
+
+                  const getNodeDetails = (dep: AST.JSONProperty): void => {
+                    const name = dep.key.type === 'JSONLiteral' ? dep.key.value.toString() : dep.key.name;
+                    const nameParts = name.split('/');
+                    if (ignoredDependencies.some((ignore) => ignore.test(name))) {
+                      return;
+                    }
+
+                    const range = dep.value.type === 'JSONLiteral' ? dep.value.value as string : (dep.value.type === 'JSONIdentifier' ? dep.value.name : undefined);
+                    if (!range && dep.value.type === 'JSONObjectExpression') {
+                      return dep.value.properties
+                        .forEach((prop) => getNodeDetails(prop));
+                    }
+
+                    const resolutionSubNameIndex = isResolutionsField ? nameParts.findIndex((_, i) => !!bestRanges[nameParts.slice(nameParts.length - i).join('/')]) : -1;
+                    const resolvedName = resolutionSubNameIndex > -1 ? nameParts.slice(nameParts.length - resolutionSubNameIndex).join('/') : name;
+                    const bestRange = getBestRange(range, bestRanges[resolvedName]?.range);
+
+                    report(name, resolvedName, dep, range, bestRange);
                   };
 
-                  depGroup.properties.forEach((dependencyNode) => {
-                    const isResolutionsField = options.alignResolutions && depGroup.parent.type === 'JSONProperty'
-                      && resolutionsFields.includes(depGroup.parent.key.type === 'JSONLiteral' ? depGroup.parent.key.value.toString() : depGroup.parent.key.name);
-
-                    const getNodeDetails = (dep: AST.JSONProperty): void => {
-                      const name = dep.key.type === 'JSONLiteral' ? dep.key.value.toString() : dep.key.name;
-                      const nameParts = name.split('/');
-                      if (ignoredDependencies.some((ignore) => ignore.test(name))) {
-                        return;
-                      }
-
-                      const range = dep.value.type === 'JSONLiteral' ? dep.value.value as string : (dep.value.type === 'JSONIdentifier' ? dep.value.name : undefined);
-                      if (!range && dep.value.type === 'JSONObjectExpression') {
-                        return dep.value.properties
-                          .forEach((prop) => getNodeDetails(prop));
-                      }
-
-                      const resolutionSubNameIndex = isResolutionsField ? nameParts.findIndex((_, i) => !!bestRanges[nameParts.slice(nameParts.length - i).join('/')]) : -1;
-                      const resolvedName = resolutionSubNameIndex > -1 ? nameParts.slice(nameParts.length - resolutionSubNameIndex).join('/') : name;
-                      const bestRange = getBestRange(range, bestRanges[resolvedName]?.range);
-
-                      report(name, resolvedName, dep, range, bestRange);
-                    };
-
-                    getNodeDetails(dependencyNode);
-                  });
+                  getNodeDetails(dependencyNode);
                 });
-            }
+              });
           }
         }
+      };
+
+      return {
+        JSONExpressionStatement: rule
       };
     }
     return {};

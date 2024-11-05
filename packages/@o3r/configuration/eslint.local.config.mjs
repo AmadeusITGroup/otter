@@ -1,3 +1,4 @@
+import globals from 'globals';
 import {
   dirname
 } from 'node:path';
@@ -24,6 +25,16 @@ export default [
           'tsconfig.spec.json',
           'tsconfig.eslint.json'
         ]
+      }
+    }
+  },
+  {
+    name: '@o3r/configuration/spec',
+    files: ['**/*.spec.ts'],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+        ...globals.browser
       }
     }
   }

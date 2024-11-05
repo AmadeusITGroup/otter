@@ -1,5 +1,8 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
+import type {
+  TSESTree
+} from '@typescript-eslint/utils';
 import {
   createRule
 } from '../../utils';
@@ -21,57 +24,58 @@ export default createRule({
   },
   defaultOptions: [],
   create: (context) => {
-    return {
-      // eslint-disable-next-line @typescript-eslint/naming-convention
-      ImportDeclaration: (node) => {
-        const importedModules = node.specifiers.filter((specifier) => specifier.local.name.endsWith('Module'));
-        const importPath = node.source.value?.toString();
+    const rule = (node: TSESTree.ImportDeclaration) => {
+      const importedModules = node.specifiers.filter((specifier) => specifier.local.name.endsWith('Module'));
+      const importPath = node.source.value?.toString();
 
-        if (importedModules.length > 0 && importPath && importPath.startsWith('.') && !importPath.endsWith('.module') && !importPath.endsWith('index')) {
-          const dirname = path.dirname(context.getFilename());
-          const importTarget = path.resolve(dirname, importPath);
+      if (importedModules.length > 0 && importPath && importPath.startsWith('.') && !importPath.endsWith('.module') && !importPath.endsWith('index')) {
+        const dirname = path.dirname(context.filename);
+        const importTarget = path.resolve(dirname, importPath);
 
-          if (!fs.existsSync(importTarget) || !fs.statSync(importTarget).isDirectory()) {
-            return;
-          }
-
-          const indexPath = path.resolve(importTarget, 'index.ts');
-          const indexFileExist = fs.existsSync(indexPath);
-          const newIndexFilePath = path.join(importPath, 'index')
-            .replace(/[/\\]/g, '/')
-            .replace(/^([^.])/, './$1');
-          context.report({
-            node,
-            messageId: 'error',
-            fix: indexFileExist
-              ? (fixer) => {
-                return fixer.replaceText(
-                  node.source,
-                  node.source.raw
-                    .replace(importPath, newIndexFilePath)
-                );
-              }
-              : undefined,
-            suggest: indexFileExist
-              ? [
-                {
-                  messageId: 'indexFile',
-                  fix: (fixer) => {
-                    return fixer.replaceText(
-                      node.source,
-                      node.source.raw
-                        .replace(importPath, newIndexFilePath)
-                    );
-                  },
-                  data: {
-                    newIndexFilePath
-                  }
-                }
-              ]
-              : undefined
-          });
+        if (!fs.existsSync(importTarget) || !fs.statSync(importTarget).isDirectory()) {
+          return;
         }
+
+        const indexPath = path.resolve(importTarget, 'index.ts');
+        const indexFileExist = fs.existsSync(indexPath);
+        const newIndexFilePath = path.join(importPath, 'index')
+          .replace(/[/\\]/g, '/')
+          .replace(/^([^.])/, './$1');
+        context.report({
+          node,
+          messageId: 'error',
+          fix: indexFileExist
+            ? (fixer) => {
+              return fixer.replaceText(
+                node.source,
+                node.source.raw
+                  .replace(importPath, newIndexFilePath)
+              );
+            }
+            : undefined,
+          suggest: indexFileExist
+            ? [
+              {
+                messageId: 'indexFile',
+                fix: (fixer) => {
+                  return fixer.replaceText(
+                    node.source,
+                    node.source.raw
+                      .replace(importPath, newIndexFilePath)
+                  );
+                },
+                data: {
+                  newIndexFilePath
+                }
+              }
+            ]
+            : undefined
+        });
       }
+    };
+
+    return {
+      ImportDeclaration: rule
     };
   }
 });

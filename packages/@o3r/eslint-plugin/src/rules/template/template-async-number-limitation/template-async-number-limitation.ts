@@ -50,29 +50,29 @@ export default createRule<[Options, ...any], 'tooManyAsyncOnTag'>({
   create: (context, [options]: Readonly<[Options, ...any]>) => {
     const parserServices = getTemplateParserServices(context);
     const asyncRegExp = /\| *async\b/g;
+    const rule = ({ attributes, inputs, sourceSpan }: TmplAstElement) => {
+      const values: string[] = [
+        ...attributes.map(({ value }) => value),
+        ...inputs.map((attr) => attr.value.toString())
+      ];
+      const asyncNumber = values
+        .reduce((acc, value) => acc + (value.match(asyncRegExp)?.length ?? 0), 0);
+
+      if (asyncNumber > options.maximumAsyncOnTag) {
+        const loc = parserServices.convertNodeSourceSpanToLoc(sourceSpan);
+        context.report({
+          messageId: 'tooManyAsyncOnTag',
+          data: {
+            asyncNumber,
+            maximumAsyncOnTag: options.maximumAsyncOnTag
+          },
+          loc
+        });
+      }
+    };
 
     return {
-      // eslint-disable-next-line @typescript-eslint/naming-convention
-      'Element$1': ({ attributes, inputs, sourceSpan }: TmplAstElement) => {
-        const values: string[] = [
-          ...attributes.map(({ value }) => value),
-          ...inputs.map((attr) => attr.value.toString())
-        ];
-        const asyncNumber = values
-          .reduce((acc, value) => acc + (value.match(asyncRegExp)?.length ?? 0), 0);
-
-        if (asyncNumber > options.maximumAsyncOnTag) {
-          const loc = parserServices.convertNodeSourceSpanToLoc(sourceSpan);
-          context.report({
-            messageId: 'tooManyAsyncOnTag',
-            data: {
-              asyncNumber,
-              maximumAsyncOnTag: options.maximumAsyncOnTag
-            },
-            loc
-          });
-        }
-      }
+      Element$1: rule
     };
   }
 });

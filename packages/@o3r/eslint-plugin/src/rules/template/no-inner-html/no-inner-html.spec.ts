@@ -1,7 +1,9 @@
-import templateParser from '@angular-eslint/template-parser';
 import {
   RuleTester
 } from '@angular-eslint/test-utils';
+import {
+  templateParser
+} from 'angular-eslint';
 import noInnerHTMLRule, {
   name
 } from './no-inner-html';
