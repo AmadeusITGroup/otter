@@ -1,5 +1,6 @@
 import {
-  TSESLint
+  TSESLint,
+  type TSESTree
 } from '@typescript-eslint/utils';
 import {
   createCommentString,
@@ -112,209 +113,211 @@ export default createRule<[Readonly<O3rWidgetTagsRuleOption>, ...any], O3rWidget
   defaultOptions,
   create: (context, [options]: Readonly<[O3rWidgetTagsRuleOption, ...any]>) => {
     const supportedO3rWidgets = new Set(Object.keys(options.widgets!));
-    return {
-      // eslint-disable-next-line @typescript-eslint/naming-convention
-      TSPropertySignature: (node) => {
-        const sourceCode = context.getSourceCode();
-        const comment = getNodeComment(node, sourceCode);
 
-        if (!comment || comment.value.length === 0) {
-          return;
-        }
+    const rule = (node: TSESTree.TSPropertySignature) => {
+      const { sourceCode } = context;
+      const comment = getNodeComment(node, sourceCode);
 
-        const { loc, value: docText } = comment;
-        const widgetTypes = Array.from(docText.matchAll(/@o3rWidget (.*)/g));
+      if (!comment || comment.value.length === 0) {
+        return;
+      }
 
-        if (widgetTypes.length > 1) {
+      const { loc, value: docText } = comment;
+      const widgetTypes = Array.from(docText.matchAll(/@o3rWidget (.*)/g));
+
+      if (widgetTypes.length > 1) {
+        const fix: TSESLint.ReportFixFunction = (fixer) => {
+          return fixer.replaceTextRange(comment.range, createCommentString(comment.value.replace(/(.*(@o3rWidget ).*(\n.*)*)(\n.*)\2.*/, '$1')));
+        };
+        return context.report({
+          messageId: 'onlyOneWidgetAllowed',
+          node,
+          loc,
+          fix,
+          suggest: [{
+            messageId: 'suggestRemoveDuplicatedO3rWidget',
+            fix
+          }]
+        });
+      }
+      const widgetType = widgetTypes[0]?.[1].trim();
+      const widgetParameterTexts = Array.from(docText.matchAll(/@o3rWidgetParam (.*)/g))
+        .map((match) => match[1].trim());
+
+      if (!widgetType) {
+        if (widgetParameterTexts.length > 0) {
           const fix: TSESLint.ReportFixFunction = (fixer) => {
-            return fixer.replaceTextRange(comment.range, createCommentString(comment.value.replace(/(.*(@o3rWidget ).*(\n.*)*)(\n.*)\2.*/, '$1')));
+            return fixer.replaceTextRange(
+              comment.range,
+              createCommentString(comment.value.replace(/((.*)@o3rWidgetParam .*)/, '$2@o3rWidget widgetType\n$1'))
+            );
           };
           return context.report({
-            messageId: 'onlyOneWidgetAllowed',
+            messageId: 'noParamWithoutWidget',
             node,
             loc,
             fix,
             suggest: [{
-              messageId: 'suggestRemoveDuplicatedO3rWidget',
+              messageId: 'suggestAddO3rWidgetTag',
               fix
             }]
           });
         }
-        const widgetType = widgetTypes[0]?.[1].trim();
-        const widgetParameterTexts = Array.from(docText.matchAll(/@o3rWidgetParam (.*)/g))
-          .map((match) => match[1].trim());
+        return;
+      }
 
-        if (!widgetType) {
-          if (widgetParameterTexts.length > 0) {
-            const fix: TSESLint.ReportFixFunction = (fixer) => {
+      const interfaceDeclNode = node.parent?.parent;
+      if (!isExtendingConfiguration(interfaceDeclNode, options.supportedInterfaceNames)) {
+        return context.report({
+          messageId: 'notInConfigurationInterface',
+          node,
+          loc
+        });
+      }
+
+      if (!supportedO3rWidgets.has(widgetType)) {
+        return context.report({
+          messageId: 'notSupportedType',
+          node,
+          loc,
+          data: {
+            o3rWidgetType: widgetType,
+            supportedO3rWidgets: Array.from(supportedO3rWidgets).join(', ')
+          },
+          suggest: Array.from(supportedO3rWidgets).map((suggestedWidget) => ({
+            messageId: 'suggestReplaceO3rWidgetType',
+            data: {
+              currentType: widgetType,
+              suggestedType: suggestedWidget
+            },
+            fix: (fixer) => {
               return fixer.replaceTextRange(
                 comment.range,
-                createCommentString(comment.value.replace(/((.*)@o3rWidgetParam .*)/, '$2@o3rWidget widgetType\n$1'))
+                createCommentString(comment.value.replace(`@o3rWidget ${widgetType}`, `@o3rWidget ${suggestedWidget}`))
               );
-            };
-            return context.report({
-              messageId: 'noParamWithoutWidget',
-              node,
-              loc,
-              fix,
-              suggest: [{
-                messageId: 'suggestAddO3rWidgetTag',
-                fix
-              }]
-            });
-          }
-          return;
-        }
+            }
+          }))
+        });
+      }
 
-        const interfaceDeclNode = node.parent?.parent;
-        if (!isExtendingConfiguration(interfaceDeclNode, options.supportedInterfaceNames)) {
-          return context.report({
-            messageId: 'notInConfigurationInterface',
-            node,
-            loc
-          });
-        }
+      const widgetParameters = widgetParameterTexts.map((text) => {
+        const [name, ...values] = text.split(' ');
+        return {
+          name,
+          textValue: values.join(' ')
+        };
+      });
+      const widgetParameterNames = widgetParameters.map(({ name }) => name);
+      const supportedO3rWidgetParam = new Set(Object.keys(options.widgets![widgetType]));
+      const checkedParam = new Set();
 
-        if (!supportedO3rWidgets.has(widgetType)) {
+      for (const widgetParameterName of widgetParameterNames) {
+        if (checkedParam.has(widgetParameterName)) {
+          const fix: TSESLint.ReportFixFunction = (fixer) => {
+            return fixer.replaceTextRange(
+              comment.range,
+              createCommentString(comment.value.replace(/(.*(@o3rWidgetParam ).*(\n.*)*)(\n.*)\2.*/m, '$1'))
+            );
+          };
           return context.report({
-            messageId: 'notSupportedType',
+            messageId: 'duplicatedParam',
             node,
             loc,
             data: {
-              o3rWidgetType: widgetType,
-              supportedO3rWidgets: Array.from(supportedO3rWidgets).join(', ')
+              o3rWidgetParam: widgetParameterName
             },
-            suggest: Array.from(supportedO3rWidgets).map((suggestedWidget) => ({
+            fix,
+            suggest: [{
+              messageId: 'suggestRemoveDuplicatedO3rWidgetParam',
+              fix
+            }]
+          });
+        }
+        if (!supportedO3rWidgetParam.has(widgetParameterName)) {
+          return context.report({
+            messageId: 'notSupportedParamForType',
+            node,
+            loc,
+            data: {
+              o3rWidgetParam: widgetParameterName,
+              o3rWidgetType: widgetType,
+              supportedO3rWidgetParam: Array.from(supportedO3rWidgetParam).join(', ')
+            },
+            suggest: Array.from(supportedO3rWidgetParam).map((suggestedParam) => ({
               messageId: 'suggestReplaceO3rWidgetType',
               data: {
-                currentType: widgetType,
-                suggestedType: suggestedWidget
+                currentType: widgetParameterName,
+                suggestedType: suggestedParam
               },
               fix: (fixer) => {
                 return fixer.replaceTextRange(
                   comment.range,
-                  createCommentString(comment.value.replace(`@o3rWidget ${widgetType}`, `@o3rWidget ${suggestedWidget}`))
+                  createCommentString(comment.value.replace(`@o3rWidgetParam ${widgetParameterName}`, `@o3rWidgetParam ${suggestedParam}`))
                 );
               }
             }))
           });
         }
+        checkedParam.add(widgetParameterName);
+      }
 
-        const widgetParameters = widgetParameterTexts.map((text) => {
-          const [name, ...values] = text.split(' ');
-          return {
-            name,
-            textValue: values.join(' ')
-          };
-        });
-        const widgetParameterNames = widgetParameters.map(({ name }) => name);
-        const supportedO3rWidgetParam = new Set(Object.keys(options.widgets![widgetType]));
-        const checkedParam = new Set();
-
-        for (const widgetParameterName of widgetParameterNames) {
-          if (checkedParam.has(widgetParameterName)) {
-            const fix: TSESLint.ReportFixFunction = (fixer) => {
-              return fixer.replaceTextRange(
-                comment.range,
-                createCommentString(comment.value.replace(/(.*(@o3rWidgetParam ).*(\n.*)*)(\n.*)\2.*/m, '$1'))
-              );
-            };
-            return context.report({
-              messageId: 'duplicatedParam',
-              node,
-              loc,
-              data: {
-                o3rWidgetParam: widgetParameterName
-              },
-              fix,
-              suggest: [{
-                messageId: 'suggestRemoveDuplicatedO3rWidget',
-                fix
-              }]
-            });
-          }
-          if (!supportedO3rWidgetParam.has(widgetParameterName)) {
-            return context.report({
-              messageId: 'notSupportedParamForType',
-              node,
-              loc,
-              data: {
-                o3rWidgetParam: widgetParameterName,
-                o3rWidgetType: widgetType,
-                supportedO3rWidgetParam: Array.from(supportedO3rWidgetParam).join(', ')
-              },
-              suggest: Array.from(supportedO3rWidgetParam).map((suggestedParam) => ({
-                messageId: 'suggestReplaceO3rWidgetType',
-                data: {
-                  currentType: widgetType,
-                  suggestedType: suggestedParam
-                },
-                fix: (fixer) => {
-                  return fixer.replaceTextRange(
-                    comment.range,
-                    createCommentString(comment.value.replace(`@o3rWidgetParam ${widgetType}`, `@o3rWidgetParam ${suggestedParam}`))
-                  );
-                }
-              }))
-            });
-          }
-          checkedParam.add(widgetParameterName);
-        }
-
-        const firstRequiredParam = Object.entries(options.widgets![widgetType]).find(([param, { required }]) => required && !checkedParam.has(param));
-        if (firstRequiredParam) {
-          const [firstRequiredParamName] = firstRequiredParam;
-          const fix: TSESLint.ReportFixFunction = (fixer) => {
-            return fixer.replaceTextRange(
-              comment.range,
-              createCommentString(comment.value.replace(/((.*)@o3rWidget (.*))/, `$1\n$2@o3rWidgetParam ${firstRequiredParamName} value`))
-            );
-          };
-          return context.report({
-            messageId: 'requiredParamMissing',
-            node,
-            loc,
+      const firstRequiredParam = Object.entries(options.widgets![widgetType]).find(([param, { required }]) => required && !checkedParam.has(param));
+      if (firstRequiredParam) {
+        const [firstRequiredParamName] = firstRequiredParam;
+        const fix: TSESLint.ReportFixFunction = (fixer) => {
+          return fixer.replaceTextRange(
+            comment.range,
+            createCommentString(comment.value.replace(/((.*)@o3rWidget (.*))/, `$1\n$2@o3rWidgetParam ${firstRequiredParamName} value`))
+          );
+        };
+        return context.report({
+          messageId: 'requiredParamMissing',
+          node,
+          loc,
+          data: {
+            o3rWidgetParam: firstRequiredParamName,
+            o3rWidgetType: widgetType
+          },
+          fix,
+          suggest: [{
+            messageId: 'suggestParamMissing',
             data: {
-              o3rWidgetParam: firstRequiredParamName,
-              o3rWidgetType: widgetType
+              o3rWidgetParam: firstRequiredParamName
             },
-            fix,
-            suggest: [{
-              messageId: 'suggestParamMissing',
-              data: {
-                o3rWidgetParam: firstRequiredParamName
-              },
-              fix
-            }]
-          });
-        }
+            fix
+          }]
+        });
+      }
 
-        for (const widgetParameter of widgetParameters) {
-          const { name, textValue } = widgetParameter;
-          const supportedTypeForParam = options.widgets![widgetType][name];
+      for (const widgetParameter of widgetParameters) {
+        const { name, textValue } = widgetParameter;
+        const supportedTypeForParam = options.widgets![widgetType][name];
 
-          try {
-            const value = JSON.parse(textValue);
-            if (supportedTypeForParam.type.endsWith('[]')) {
-              if (Array.isArray(value) && value.every((element) => typeof element === supportedTypeForParam.type.substring(0, -2))) {
-                continue;
-              }
-            } else if (typeof value === supportedTypeForParam.type) {
+        try {
+          const value = JSON.parse(textValue);
+          if (supportedTypeForParam.type.endsWith('[]')) {
+            if (Array.isArray(value) && value.every((element) => typeof element === supportedTypeForParam.type.substring(0, -2))) {
               continue;
             }
-          } catch {}
+          } else if (typeof value === supportedTypeForParam.type) {
+            continue;
+          }
+        } catch {}
 
-          return context.report({
-            messageId: 'invalidParamValueType',
-            node,
-            loc,
-            data: {
-              o3rWidgetParam: name,
-              o3rWidgetParamType: supportedTypeForParam.type
-            }
-          });
-        }
+        return context.report({
+          messageId: 'invalidParamValueType',
+          node,
+          loc,
+          data: {
+            o3rWidgetParam: name,
+            o3rWidgetParamType: supportedTypeForParam.type
+          }
+        });
       }
+    };
+
+    return {
+      TSPropertySignature: rule
     };
   }
 });

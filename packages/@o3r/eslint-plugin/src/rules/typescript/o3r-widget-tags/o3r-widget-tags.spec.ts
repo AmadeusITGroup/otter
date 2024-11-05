@@ -1,4 +1,3 @@
-import typescriptParser from '@typescript-eslint/parser';
 import {
   RuleTester
 } from '@typescript-eslint/rule-tester';
@@ -6,15 +5,7 @@ import o3rWidgetTagsRule, {
   O3rWidgetTagsRuleOption
 } from './o3r-widget-tags';
 
-const ruleTester = new RuleTester({
-  languageOptions: {
-    parser: typescriptParser,
-    parserOptions: {
-      ecmaVersion: 2018,
-      sourceType: 'module'
-    }
-  }
-});
+const ruleTester = new RuleTester();
 
 const code = `
 export interface Config extends Configuration {
@@ -24,7 +15,7 @@ export interface Config extends Configuration {
    */
   prop: string;
 }
-`;
+`.trim();
 
 const options: Readonly<[O3rWidgetTagsRuleOption]> = [{
   widgets: {
@@ -52,7 +43,13 @@ ruleTester.run('o3r-widget-tags', o3rWidgetTagsRule, {
       options,
       errors: [
         {
-          messageId: 'onlyOneWidgetAllowed'
+          messageId: 'onlyOneWidgetAllowed',
+          suggestions: [
+            {
+              messageId: 'suggestRemoveDuplicatedO3rWidget',
+              output: code
+            }
+          ]
         }
       ]
     },
@@ -65,7 +62,13 @@ ruleTester.run('o3r-widget-tags', o3rWidgetTagsRule, {
           messageId: 'duplicatedParam',
           data: {
             o3rWidgetParam: 'supportedParam'
-          }
+          },
+          suggestions: [
+            {
+              messageId: 'suggestRemoveDuplicatedO3rWidgetParam',
+              output: code
+            }
+          ]
         }
       ]
     },
@@ -75,7 +78,13 @@ ruleTester.run('o3r-widget-tags', o3rWidgetTagsRule, {
       options,
       errors: [
         {
-          messageId: 'noParamWithoutWidget'
+          messageId: 'noParamWithoutWidget',
+          suggestions: [
+            {
+              messageId: 'suggestAddO3rWidgetTag',
+              output: code.replace('@o3rWidget', '').replace(/((.*)@o3rWidgetParam .*)/, '$2@o3rWidget widgetType\n$1'),
+            }
+          ]
         }
       ]
     },
@@ -88,7 +97,25 @@ ruleTester.run('o3r-widget-tags', o3rWidgetTagsRule, {
           data: {
             o3rWidgetType: 'unsupportedType',
             supportedO3rWidgets: 'supportedType, widgetWithRequiredParam'
-          }
+          },
+          suggestions: [
+            {
+              messageId: 'suggestReplaceO3rWidgetType',
+              data: {
+                currentType: 'unsupportedType',
+                suggestedType: 'supportedType'
+              },
+              output: code
+            },
+            {
+              messageId: 'suggestReplaceO3rWidgetType',
+              data: {
+                currentType: 'unsupportedType',
+                suggestedType: 'widgetWithRequiredParam'
+              },
+              output: code.replace('supportedType', 'widgetWithRequiredParam')
+            }
+          ]
         }
       ]
     },
@@ -102,7 +129,17 @@ ruleTester.run('o3r-widget-tags', o3rWidgetTagsRule, {
             o3rWidgetParam: 'unsupportedParam',
             o3rWidgetType: 'supportedType',
             supportedO3rWidgetParam: 'supportedParam'
-          }
+          },
+          suggestions: [
+            {
+              messageId: 'suggestReplaceO3rWidgetType',
+              data: {
+                currentType: 'unsupportedParam',
+                suggestedType: 'supportedParam'
+              },
+              output: code
+            }
+          ]
         }
       ]
     },
@@ -130,22 +167,22 @@ ruleTester.run('o3r-widget-tags', o3rWidgetTagsRule, {
     },
     {
       code: `
-        export interface Config extends Configuration {
-          /**
-           * @o3rWidget widgetWithRequiredParam
-           */
-          prop: string;
-        }
-      `,
+export interface Config extends Configuration {
+  /**
+   * @o3rWidget widgetWithRequiredParam
+   */
+  prop: string;
+}
+      `.trim(),
       output: `
-        export interface Config extends Configuration {
-          /**
-           * @o3rWidget widgetWithRequiredParam
-           * @o3rWidgetParam requiredParam value
-           */
-          prop: string;
-        }
-      `,
+export interface Config extends Configuration {
+  /**
+   * @o3rWidget widgetWithRequiredParam
+   * @o3rWidgetParam requiredParam value
+   */
+  prop: string;
+}
+      `.trim(),
       options,
       errors: [
         {
@@ -153,7 +190,24 @@ ruleTester.run('o3r-widget-tags', o3rWidgetTagsRule, {
           data: {
             o3rWidgetType: 'widgetWithRequiredParam',
             o3rWidgetParam: 'requiredParam'
-          }
+          },
+          suggestions: [
+            {
+              messageId: 'suggestParamMissing',
+              data: {
+                o3rWidgetParam: 'requiredParam'
+              },
+              output: `
+export interface Config extends Configuration {
+  /**
+   * @o3rWidget widgetWithRequiredParam
+   * @o3rWidgetParam requiredParam value
+   */
+  prop: string;
+}
+              `.trim()
+            }
+          ]
         }
       ]
     }

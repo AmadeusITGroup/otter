@@ -72,9 +72,6 @@
     "@angular-devkit/core": "~18.2.0",
     "@angular-devkit/schematics": "~18.2.0",
     "@angular-devkit/schematics-cli": "^18.0.5",
-    "@angular-eslint/eslint-plugin": "~18.3.0",
-    "@angular-eslint/eslint-plugin-template": "~18.3.0",
-    "@angular-eslint/utils": "~18.3.0",
     "@angular/compiler": "~18.2.0",
     "@commitlint/cli": "^19.0.0",
     "@commitlint/config-conventional": "^19.0.0",
@@ -90,9 +87,8 @@
     "@swc/core": "~1.7.0",
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",
-    "@typescript-eslint/eslint-plugin": "^8.0.0",
-    "@typescript-eslint/parser": "^8.0.0",
-    "@typescript-eslint/utils": "^8.0.0",
+    "@typescript-eslint/parser": "~8.12.2",
+    "angular-eslint": "~18.3.0",
     "chokidar": "^3.5.2",
     "commit-and-tag-version": "^12.0.0",
     "cpy-cli": "^5.0.0",
@@ -117,7 +113,8 @@
     "ts-jest": "~29.2.0",
     "tsc-watch": "^6.0.4",
     "typedoc": "~0.26.0",
-    "typescript": "~5.5.4"
+    "typescript": "~5.5.4",
+    "typescript-eslint": "~8.12.2"
   },
   "peerDependencies": {
     "@ama-sdk/client-fetch": "workspace:^",

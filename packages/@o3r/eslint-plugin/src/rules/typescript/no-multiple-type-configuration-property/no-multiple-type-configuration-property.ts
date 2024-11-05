@@ -45,7 +45,7 @@ export default createRule<[Required<NoMultipleTypeConfigurationPropertyOption>, 
   }],
   create: (context, [options]: Readonly<[Required<NoMultipleTypeConfigurationPropertyOption>, ...any]>) => {
     const supportedInterfaceNames = options.supportedInterfaceNames;
-    const sourceCode = context.getSourceCode();
+    const { sourceCode } = context;
 
     const rule = (node: TSESTree.TSUnionType | TSESTree.TSIntersectionType) => {
       const interfaceDeclNode = node.parent?.parent?.parent?.parent;
@@ -77,9 +77,7 @@ export default createRule<[Required<NoMultipleTypeConfigurationPropertyOption>, 
     };
 
     return {
-      // eslint-disable-next-line @typescript-eslint/naming-convention
       TSUnionType: rule,
-      // eslint-disable-next-line @typescript-eslint/naming-convention
       TSIntersectionType: rule
     };
   }

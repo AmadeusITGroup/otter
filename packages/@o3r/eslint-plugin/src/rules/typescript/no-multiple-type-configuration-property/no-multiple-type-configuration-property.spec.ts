@@ -1,18 +1,9 @@
-import typescriptParser from '@typescript-eslint/parser';
 import {
   RuleTester
 } from '@typescript-eslint/rule-tester';
 import noMultipleTypeConfigurationPropertyRule from './no-multiple-type-configuration-property';
 
-const ruleTester = new RuleTester({
-  languageOptions: {
-    parser: typescriptParser,
-    parserOptions: {
-      ecmaVersion: 2018,
-      sourceType: 'module'
-    }
-  }
-});
+const ruleTester = new RuleTester();
 
 const code = `
 export interface Config extends Configuration {
@@ -20,7 +11,7 @@ export interface Config extends Configuration {
   prop2: 'a' | 'b' | 'c';
   prop3: 1 | 2 | 3;
 }
-`;
+`.trim();
 
 ruleTester.run('no-multiple-type-configuration-property', noMultipleTypeConfigurationPropertyRule, {
   valid: [

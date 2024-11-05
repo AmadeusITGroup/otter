@@ -1,35 +1,17 @@
+import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
-import {
-  cleanVirtualFileSystem,
-  useVirtualFileSystem
-} from '@o3r/test-helpers';
-import typescriptParser from '@typescript-eslint/parser';
 import {
   RuleTester
 } from '@typescript-eslint/rule-tester';
 import noFolderImportForModule from './no-folder-import-for-module';
 
-const virtualFileSystem = useVirtualFileSystem();
-
-const ruleTester = new RuleTester({
-  languageOptions: {
-    parser: typescriptParser,
-    parserOptions: {
-      ecmaVersion: 2018,
-      sourceType: 'module'
-    }
-  }
-});
+const ruleTester = new RuleTester();
 const fakeFolder = path.resolve('/fake-folder');
 
 beforeAll(async () => {
-  await virtualFileSystem.promises.mkdir(path.join(fakeFolder, 'local'), { recursive: true });
-  await virtualFileSystem.promises.mkdir(path.join(fakeFolder, 'empty-local'), { recursive: true });
-  await virtualFileSystem.promises.writeFile(path.join(fakeFolder, 'local', 'index.ts'), 'export default {};');
-});
-
-afterAll(() => {
-  cleanVirtualFileSystem();
+  await fs.mkdir(path.join(fakeFolder, 'local'), { recursive: true });
+  await fs.mkdir(path.join(fakeFolder, 'empty-local'), { recursive: true });
+  await fs.writeFile(path.join(fakeFolder, 'local', 'index.ts'), 'export default {};');
 });
 
 ruleTester.run('no-folder-import-for-module', noFolderImportForModule, {
@@ -37,7 +19,6 @@ ruleTester.run('no-folder-import-for-module', noFolderImportForModule, {
     'import {myImport} from "library";',
     'import {myImportModule} from "library";',
     'import {myImport} from "./local";',
-    'import {myImportModule} from "./local/index";',
     'import {myImportModule} from "./local/index";'
   ],
   invalid: [
@@ -49,7 +30,16 @@ ruleTester.run('no-folder-import-for-module', noFolderImportForModule, {
         {
           messageId: 'error',
           line: 1,
-          endLine: 1
+          endLine: 1,
+          suggestions: [
+            {
+              messageId: 'indexFile',
+              data: {
+                newIndexFilePath: './local/index'
+              },
+              output: 'import {myImportModule} from "./local/index";',
+            }
+          ]
         }
       ]
     },
@@ -61,7 +51,16 @@ ruleTester.run('no-folder-import-for-module', noFolderImportForModule, {
         {
           messageId: 'error',
           line: 1,
-          endLine: 1
+          endLine: 1,
+          suggestions: [
+            {
+              messageId: 'indexFile',
+              data: {
+                newIndexFilePath: './local/index'
+              },
+              output: 'import {randomImport, myImportModule} from "./local/index";',
+            }
+          ]
         }
       ]
     },
@@ -72,7 +71,8 @@ ruleTester.run('no-folder-import-for-module', noFolderImportForModule, {
         {
           messageId: 'error',
           line: 1,
-          endLine: 1
+          endLine: 1,
+          suggestions: []
         }
       ]
     }

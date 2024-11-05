@@ -64,7 +64,7 @@
             "output": "/localizations"
           },
           {
-            "glob": "**/*.metadata.json",
+            "glob": "*.metadata.json",
             "input": "apps/showcase",
             "output": "/metadata"
           }

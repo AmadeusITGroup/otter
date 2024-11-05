@@ -1,3 +1,6 @@
+import type {
+  TSESTree
+} from '@typescript-eslint/utils';
 import {
   createCommentString,
   createRule,
@@ -62,105 +65,108 @@ export default createRule<Readonly<[O3rCategoriesTagsRuleOption, ...any]>, Messa
   }],
   create: (context, [options]: Readonly<[O3rCategoriesTagsRuleOption, ...any]>) => {
     const globalConfigCategories = new Set(options.globalConfigCategories);
-    return {
-      // eslint-disable-next-line @typescript-eslint/naming-convention
-      TSPropertySignature: (node) => {
-        const sourceCode = context.getSourceCode();
-        const comment = getNodeComment(node, sourceCode);
 
-        if (!comment || comment.value.length === 0) {
-          return;
-        }
+    const ruleForProperties = (node: TSESTree.TSPropertySignature) => {
+      const { sourceCode } = context;
+      const comment = getNodeComment(node, sourceCode);
 
-        const { loc, value: docText } = comment;
-        const categories = Array.from(docText.matchAll(/@o3rCategory (\w+)/g)).map((match) => match[1]);
+      if (!comment || comment.value.length === 0) {
+        return;
+      }
 
-        if (categories.length === 0) {
-          return;
-        } else if (categories.length > 1) {
-          return context.report({
-            messageId: 'onlyOneCategoryAllowed',
-            node,
-            loc
-          });
-        }
+      const { loc, value: docText } = comment;
+      const categories = Array.from(docText.matchAll(/@o3rCategory (\w+)/g)).map((match) => match[1]);
 
-        const category = categories[0];
+      if (categories.length === 0) {
+        return;
+      } else if (categories.length > 1) {
+        return context.report({
+          messageId: 'onlyOneCategoryAllowed',
+          node,
+          loc
+        });
+      }
 
-        const interfaceDeclNode = node.parent?.parent;
-        if (!isExtendingConfiguration(interfaceDeclNode, options.supportedInterfaceNames)) {
-          return context.report({
-            messageId: 'notInConfigurationInterface',
-            node,
-            loc
-          });
-        }
+      const category = categories[0];
 
-        const interfaceComment = getNodeComment(interfaceDeclNode, sourceCode);
-        const supportedO3rCategories = new Set<string>(options.globalConfigCategories);
-        Array.from(
-          interfaceComment?.value.matchAll(/@o3rCategories (\w+)/g) || []
-        ).forEach((match) => supportedO3rCategories.add(match[1]));
+      const interfaceDeclNode = node.parent?.parent;
+      if (!isExtendingConfiguration(interfaceDeclNode, options.supportedInterfaceNames)) {
+        return context.report({
+          messageId: 'notInConfigurationInterface',
+          node,
+          loc
+        });
+      }
 
-        if (!supportedO3rCategories.has(category)) {
-          return context.report({
-            messageId: 'undefinedCategory',
-            node,
-            loc,
+      const interfaceComment = getNodeComment(interfaceDeclNode, sourceCode);
+      const supportedO3rCategories = new Set<string>(options.globalConfigCategories);
+      Array.from(
+        interfaceComment?.value.matchAll(/@o3rCategories (\w+)/g) || []
+      ).forEach((match) => supportedO3rCategories.add(match[1]));
+
+      if (!supportedO3rCategories.has(category)) {
+        return context.report({
+          messageId: 'undefinedCategory',
+          node,
+          loc,
+          data: {
+            currentCategory: category,
+            supportedCategories: Array.from(supportedO3rCategories).join(', ')
+          },
+          suggest: Array.from(supportedO3rCategories).map((suggestedCategory) => ({
+            messageId: 'suggestReplaceO3rCategory',
             data: {
               currentCategory: category,
-              supportedCategories: Array.from(supportedO3rCategories).join(', ')
+              suggestedCategory: suggestedCategory
             },
-            suggest: Array.from(supportedO3rCategories).map((suggestedCategory) => ({
-              messageId: 'suggestReplaceO3rCategory',
-              data: {
-                currentCategory: category,
-                suggestedCategory: suggestedCategory
-              },
-              fix: (fixer) => {
-                return fixer.replaceTextRange(
-                  comment.range,
-                  createCommentString(comment.value.replace(`@o3rCategory ${category}`, `@o3rCategory ${suggestedCategory}`))
-                );
-              }
-            }))
-          });
-        }
-      },
-      // eslint-disable-next-line @typescript-eslint/naming-convention
-      TSInterfaceDeclaration: (node) => {
-        const sourceCode = context.getSourceCode();
-        const comment = getNodeComment(node, sourceCode);
-
-        if (!comment || comment.value.length === 0) {
-          return;
-        }
-
-        const { loc, value: docText } = comment;
-        const categories = Array.from(docText.matchAll(/@o3rCategories (\w+)/g)).map((match) => match[1]);
-        if (categories.length === 0) {
-          return;
-        }
-        if (!isExtendingConfiguration(node, options.supportedInterfaceNames)) {
-          return context.report({
-            messageId: 'notInConfigurationInterface',
-            node,
-            loc
-          });
-        }
-        const alreadyDefined = categories.find((category) => globalConfigCategories.has(category));
-        if (alreadyDefined) {
-          return context.report({
-            messageId: 'alreadyDefined',
-            fix: (fixer) => fixer.replaceTextRange(comment.range, createCommentString(comment.value.replace(new RegExp(`.*@o3rCategories ${alreadyDefined}.*\n`), ''))),
-            data: {
-              currentCategory: alreadyDefined
-            },
-            node,
-            loc
-          });
-        }
+            fix: (fixer) => {
+              return fixer.replaceTextRange(
+                comment.range,
+                createCommentString(comment.value.replace(`@o3rCategory ${category}`, `@o3rCategory ${suggestedCategory}`))
+              );
+            }
+          }))
+        });
       }
+    };
+
+    const ruleForInterface = (node: TSESTree.TSInterfaceDeclaration) => {
+      const { sourceCode } = context;
+      const comment = getNodeComment(node, sourceCode);
+
+      if (!comment || comment.value.length === 0) {
+        return;
+      }
+
+      const { loc, value: docText } = comment;
+      const categories = Array.from(docText.matchAll(/@o3rCategories (\w+)/g)).map((match) => match[1]);
+      if (categories.length === 0) {
+        return;
+      }
+      if (!isExtendingConfiguration(node, options.supportedInterfaceNames)) {
+        return context.report({
+          messageId: 'notInConfigurationInterface',
+          node,
+          loc
+        });
+      }
+      const alreadyDefined = categories.find((category) => globalConfigCategories.has(category));
+      if (alreadyDefined) {
+        return context.report({
+          messageId: 'alreadyDefined',
+          fix: (fixer) => fixer.replaceTextRange(comment.range, createCommentString(comment.value.replace(new RegExp(`.*@o3rCategories ${alreadyDefined}.*\n`), ''))),
+          data: {
+            currentCategory: alreadyDefined
+          },
+          node,
+          loc
+        });
+      }
+    };
+
+    return {
+      TSPropertySignature: ruleForProperties,
+      TSInterfaceDeclaration: ruleForInterface
     };
   }
 });

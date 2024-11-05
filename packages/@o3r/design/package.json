@@ -89,7 +89,6 @@
     "@angular-devkit/build-angular": "~18.2.0",
     "@angular-devkit/core": "~18.2.0",
     "@angular-devkit/schematics": "~18.2.0",
-    "@angular-eslint/eslint-plugin": "~18.3.0",
     "@angular/animations": "~18.2.0",
     "@angular/cli": "~18.2.0",
     "@angular/common": "~18.2.0",
@@ -119,9 +118,8 @@
     "@types/minimist": "^1.2.2",
     "@types/node": "^20.0.0",
     "@types/semver": "^7.3.13",
-    "@typescript-eslint/eslint-plugin": "^8.0.0",
-    "@typescript-eslint/parser": "^8.0.0",
-    "@typescript-eslint/utils": "^8.0.0",
+    "@typescript-eslint/parser": "~8.12.2",
+    "angular-eslint": "~18.3.0",
     "chokidar": "^3.5.2",
     "cpy-cli": "^5.0.0",
     "eslint": "^9.0.0",
@@ -150,6 +148,7 @@
     "ts-node": "~10.9.2",
     "type-fest": "^4.10.2",
     "typescript": "~5.5.4",
+    "typescript-eslint": "~8.12.2",
     "zone.js": "~0.14.2"
   },
   "engines": {

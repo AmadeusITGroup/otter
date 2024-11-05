@@ -32,7 +32,6 @@
   },
   "devDependencies": {
     "@ama-terasu/core": "workspace:^",
-    "@angular-eslint/eslint-plugin": "~18.3.0",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@nx/eslint-plugin": "~19.5.0",
     "@nx/jest": "~19.5.0",
@@ -42,9 +41,8 @@
     "@types/jest": "~29.5.2",
     "@types/js-yaml": "^4.0.5",
     "@types/node": "^20.0.0",
-    "@typescript-eslint/eslint-plugin": "^8.0.0",
-    "@typescript-eslint/parser": "^8.0.0",
-    "@typescript-eslint/utils": "^8.0.0",
+    "@typescript-eslint/parser": "~8.12.2",
+    "angular-eslint": "~18.3.0",
     "eslint": "^9.0.0",
     "eslint-import-resolver-node": "^0.3.9",
     "eslint-import-resolver-typescript": "^3.6.3",
@@ -62,7 +60,8 @@
     "jsonc-eslint-parser": "~2.4.0",
     "nx": "~19.5.0",
     "ts-jest": "~29.2.0",
-    "typescript": "~5.5.4"
+    "typescript": "~5.5.4",
+    "typescript-eslint": "~8.12.2"
   },
   "peerDependencies": {
     "@ama-terasu/core": "workspace:^",

@@ -1,15 +1,10 @@
+import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
-import {
-  cleanVirtualFileSystem,
-  useVirtualFileSystem
-} from '@o3r/test-helpers';
 import {
   RuleTester
 } from '@typescript-eslint/rule-tester';
-import yamlParser from 'yaml-eslint-parser';
+import * as yamlParser from 'yaml-eslint-parser';
 import yamlDependencyVersionsHarmonize from './yarnrc-package-extensions-harmonize';
-
-const virtualFileSystem = useVirtualFileSystem();
 
 const ruleTester = new RuleTester({
   languageOptions: {
@@ -18,7 +13,7 @@ const ruleTester = new RuleTester({
       defaultYAMLVersion: '1.2'
     }
   }
-});
+} as any);
 
 const packageJsonWorkspace = {
   workspaces: [
@@ -50,7 +45,7 @@ packageExtensions:
   "@nx/core@^17.1.1":
     toIgnore:
       "myDep": ~1.0.0
-`;
+`.trim();
 
 const bestVersionYaml = `
 nodeLinker: pnp
@@ -65,22 +60,18 @@ packageExtensions:
   "@nx/core@^17.1.1":
     toIgnore:
       "myDep": ~1.0.0
-`;
+`.trim();
 
 const fakeFolder = path.resolve('/fake-folder');
 const packageToLint = path.join(fakeFolder, 'local', '.yarnrc.yml');
 
 beforeAll(async () => {
-  await virtualFileSystem.promises.mkdir(path.join(fakeFolder, 'local'), { recursive: true });
-  await virtualFileSystem.promises.writeFile(path.join(fakeFolder, 'local', 'package.json'), JSON.stringify(packageJsonWorkspace));
+  await fs.mkdir(path.join(fakeFolder, 'local'), { recursive: true });
+  await fs.writeFile(path.join(fakeFolder, 'local', 'package.json'), JSON.stringify(packageJsonWorkspace));
 
-  await virtualFileSystem.promises.mkdir(path.join(fakeFolder, 'local', 'packages', 'my-package'), { recursive: true });
-  await virtualFileSystem.promises.mkdir(path.join(fakeFolder, 'local', 'packages', 'my-package-2'), { recursive: true });
-  await virtualFileSystem.promises.writeFile(path.join(fakeFolder, 'local', 'packages', 'my-package-2', 'package.json'), JSON.stringify(packageJson2));
-});
-
-afterAll(() => {
-  cleanVirtualFileSystem();
+  await fs.mkdir(path.join(fakeFolder, 'local', 'packages', 'my-package'), { recursive: true });
+  await fs.mkdir(path.join(fakeFolder, 'local', 'packages', 'my-package-2'), { recursive: true });
+  await fs.writeFile(path.join(fakeFolder, 'local', 'packages', 'my-package-2', 'package.json'), JSON.stringify(packageJson2));
 });
 
 ruleTester.run('json-dependency-versions-harmonize', yamlDependencyVersionsHarmonize, {
@@ -116,7 +107,7 @@ packageExtensions:
   "@nx/core@^17.1.1":
     toIgnore:
       "myDep": ~1.0.0
-`,
+`.trim(),
               data: {
                 version: '^2.0.0'
               }
@@ -146,7 +137,7 @@ packageExtensions:
   "@nx/core@^17.1.1":
     toIgnore:
       "myDep": ~1.0.0
-`,
+`.trim(),
               data: {
                 version: '^2.0.0'
               }

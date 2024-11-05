@@ -1,4 +1,3 @@
-import typescriptParser from '@typescript-eslint/parser';
 import {
   RuleTester
 } from '@typescript-eslint/rule-tester';
@@ -6,15 +5,7 @@ import o3rCategoriesTagsRule, {
   O3rCategoriesTagsRuleOption
 } from './o3r-categories-tags';
 
-const ruleTester = new RuleTester({
-  languageOptions: {
-    parser: typescriptParser,
-    parserOptions: {
-      ecmaVersion: 2018,
-      sourceType: 'module'
-    }
-  }
-});
+const ruleTester = new RuleTester();
 
 const code = `
 /**
@@ -30,7 +21,7 @@ export interface Config extends Configuration {
    */
   prop2: string;
 }
-`;
+`.trim();
 
 const options: Readonly<[O3rCategoriesTagsRuleOption]> = [{
   globalConfigCategories: ['global']
@@ -72,7 +63,25 @@ ruleTester.run('o3r-categories-tags', o3rCategoriesTagsRule, {
           data: {
             currentCategory: 'undefinedCategory',
             supportedCategories: 'global, local'
-          }
+          },
+          suggestions: [
+            {
+              messageId: 'suggestReplaceO3rCategory',
+              data: {
+                currentCategory: 'undefinedCategory',
+                suggestedCategory: 'global',
+              },
+              output: code.replace('@o3rCategory local', '@o3rCategory global')
+            },
+            {
+              messageId: 'suggestReplaceO3rCategory',
+              data: {
+                currentCategory: 'undefinedCategory',
+                suggestedCategory: 'local',
+              },
+              output: code
+            }
+          ]
         }
       ]
     },
