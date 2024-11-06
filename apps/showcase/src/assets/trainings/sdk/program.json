@@ -97,7 +97,7 @@
         ],
         "mode": "interactive",
         "commands": [
-          "npm install --legacy-peer-deps --ignore-scripts --force",
+          "npm install --legacy-peer-deps --ignore-scripts --no-audit --prefer-dedupe",
           "npm run ng run sdk:build",
           "npm run ng run tutorial-app:serve"
         ]
@@ -135,7 +135,7 @@
         ],
         "mode": "interactive",
         "commands": [
-          "npm install --legacy-peer-deps --ignore-scripts --force",
+          "npm install --legacy-peer-deps --ignore-scripts --no-audit --prefer-dedupe",
           "npm run ng run app:serve"
         ]
       }
@@ -182,7 +182,7 @@
             "contentUrl": "@o3r-training/training-sdk/structure/src.json"
           },
           {
-            "path": "./libs/sdk/src/models",
+            "path": ".",
             "contentUrl": "./steps/model-extension/exercise.json"
           }
         ],
@@ -194,7 +194,7 @@
         ],
         "mode": "interactive",
         "commands": [
-          "npm install --legacy-peer-deps --ignore-scripts --force",
+          "npm install --legacy-peer-deps --ignore-scripts --no-audit --prefer-dedupe",
           "npm run ng run tutorial-app:serve"
         ]
       }

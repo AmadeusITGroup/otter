@@ -1,4 +1,5 @@
-import { Api, ApiClient, ApiTypes, computePiiParameterTokens,  RequestBody, RequestMetadata, } from '@ama-sdk/core';
+import { Flight, reviveFlight } from '../../models/base/flight/index';
+import { Api, ApiClient, ApiTypes, computePiiParameterTokens, RequestBody, RequestMetadata } from '@ama-sdk/core';
 
 /** Parameters object to DummyApi's dummyGet function */
 export interface DummyApiDummyGetRequestData {
@@ -27,12 +28,12 @@ export class DummyApi implements Api {
   }
 
   /**
-   * 
-   * 
+   *
+   *
    * @param data Data to provide to the API call
    * @param metadata Metadata to pass to the API call
    */
-  public async dummyGet(data: DummyApiDummyGetRequestData, metadata?: RequestMetadata<string, string>): Promise<void> {
+  public async dummyGet(data: DummyApiDummyGetRequestData, metadata?: RequestMetadata<string, 'application/json'>): Promise<Flight> {
     const queryParams = this.client.extractQueryParams<DummyApiDummyGetRequestData>(data, [] as never[]);
     const metadataHeaderAccept = metadata?.headerAccept || 'application/json';
     const headers: { [key: string]: string | undefined } = {
@@ -40,7 +41,7 @@ export class DummyApi implements Api {
       ...(metadataHeaderAccept ? {'Accept': metadataHeaderAccept} : {})
     };
 
-    let body: RequestBody = '';
+    const body: RequestBody = '';
     const basePath = `${this.client.options.basePath}/dummy`;
     const tokenizedUrl = `${this.client.options.basePath}/dummy`;
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
@@ -59,7 +60,7 @@ export class DummyApi implements Api {
     const options = await this.client.getRequestOptions(requestOptions);
     const url = this.client.prepareUrl(options.basePath, options.queryParams);
 
-    const ret = this.client.processCall<void>(url, options, ApiTypes.DEFAULT, DummyApi.apiName, { 200: undefined } , 'dummyGet');
+    const ret = this.client.processCall<Flight>(url, options, ApiTypes.DEFAULT, DummyApi.apiName, { 200: reviveFlight } , 'dummyGet');
     return ret;
   }
 
