@@ -14,4 +14,21 @@ code-editor-control {
     border: 1px solid black;
     height: 100%;
   }
+
+  .terminal-active-indicator {
+    display: inline-block;
+    font-weight: bold;
+    color: var(--df-recommend-warning-color);
+    transform: rotate(0);
+    animation: rotate-animation 1s linear infinite;
+  }
+
+  @keyframes rotate-animation {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
 }

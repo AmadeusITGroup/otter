@@ -3,8 +3,10 @@ import {
   type AfterViewInit,
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   ElementRef,
   EventEmitter,
+  inject,
   type OnDestroy,
   Output,
   ViewChild
@@ -41,6 +43,11 @@ export class CodeEditorTerminalComponent implements OnDestroy, AfterViewChecked,
   @Output()
   public readonly terminalUpdated = new EventEmitter<Terminal>();
   /**
+   * Inform the parent that something got written in the terminal
+   */
+  @Output()
+  public readonly terminalActivity = new EventEmitter<void>();
+  /**
    * Inform the parent that the terminal of the component has been disposed of
    */
   @Output()
@@ -48,6 +55,10 @@ export class CodeEditorTerminalComponent implements OnDestroy, AfterViewChecked,
 
   constructor() {
     this.terminal.loadAddon(this.fitAddon);
+    const disposable = this.terminal.onWriteParsed(() => {
+      this.terminalActivity.emit();
+    });
+    inject(DestroyRef).onDestroy(() => disposable.dispose());
   }
 
   /**
