@@ -37,6 +37,10 @@ h1, h2 {
   color: #1f7e36;
 }
 
+.markdown-clipboard-toolbar button {
+  --df-btn-icononly-size: 1.85em;
+}
+
 // Start overrides of design factory
 .navbar {
   box-shadow: none;

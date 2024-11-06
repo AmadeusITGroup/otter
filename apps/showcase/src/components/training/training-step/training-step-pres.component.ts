@@ -1,11 +1,17 @@
-import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input
+} from '@angular/core';
+import {MarkdownModule, provideMarkdown} from 'ngx-markdown';
 import {CodeEditorViewComponent, EditorMode, TrainingProject} from '../code-editor-view';
 
 @Component({
   selector: 'o3r-training-step-pres',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CodeEditorViewComponent],
+  imports: [CodeEditorViewComponent, MarkdownModule],
+  providers: [provideMarkdown()],
   templateUrl: './training-step-pres.component.html',
   styleUrl: './training-step-pres.component.scss'
 })

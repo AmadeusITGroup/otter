@@ -20,7 +20,6 @@ import {
 import {DynamicContentModule, DynamicContentService} from '@o3r/dynamic-content';
 import {DirectoryNode, FileNode, FileSystemTree} from '@webcontainer/api';
 import {firstValueFrom} from 'rxjs';
-import {CopyTextPresComponent} from '../utilities/copy-text';
 import {EditorMode, TrainingProject} from './code-editor-view';
 import {TrainingStepPresComponent} from './training-step';
 
@@ -78,7 +77,6 @@ const currentStepLocationRegExp = new RegExp(/#([0-9]+)$/);
   standalone: true,
   imports: [
     AsyncPipe,
-    CopyTextPresComponent,
     DynamicContentModule,
     FormsModule,
     JsonPipe,

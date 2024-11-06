@@ -3,7 +3,7 @@ import {PetApi} from '@ama-sdk/showcase-sdk';
 import { registerLocaleData } from '@angular/common';
 import localeEN from '@angular/common/locales/en';
 import localeFR from '@angular/common/locales/fr';
-import { isDevMode, NgModule } from '@angular/core';
+import { isDevMode, NgModule, SecurityContext } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbOffcanvasModule } from '@ng-bootstrap/ng-bootstrap';
@@ -27,10 +27,12 @@ import { ConsoleLogger, Logger, LOGGER_CLIENT_TOKEN, LoggerService } from '@o3r/
 import { OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS, RulesEngineRunnerModule } from '@o3r/rules-engine';
 import { OTTER_STYLING_DEVTOOLS_OPTIONS, StylingDevtoolsModule } from '@o3r/styling';
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
+import { CLIPBOARD_OPTIONS, provideMarkdown } from 'ngx-markdown';
 import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
-import { DatePickerHebrewInputPresComponent, ScrollBackTopPresComponent, SidenavPresComponent } from '../components/utilities';
+import { ClipboardButtonPresComponent, DatePickerHebrewInputPresComponent, ScrollBackTopPresComponent, SidenavPresComponent } from '../components/utilities';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { markedAlert } from '../helpers/marked-alert-extension';
 
 
 const runtimeChecks: Partial<RuntimeChecks> = {
@@ -134,7 +136,18 @@ export function registerCustomComponents(): Map<string, any> {
     {provide: OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS, useValue: {isActivatedOnBootstrap: true}},
     {provide: OTTER_COMPONENTS_DEVTOOLS_OPTIONS, useValue: {isActivatedOnBootstrap: true}},
     {provide: OTTER_APPLICATION_DEVTOOLS_OPTIONS, useValue: {isActivatedOnBootstrap: true, appName: 'showcase'}},
-    {provide: OTTER_STYLING_DEVTOOLS_OPTIONS, useValue: {isActivatedOnBootstrap: true}}
+    {provide: OTTER_STYLING_DEVTOOLS_OPTIONS, useValue: {isActivatedOnBootstrap: true}},
+    provideMarkdown({
+      clipboardOptions: {
+        provide: CLIPBOARD_OPTIONS,
+        useValue: {
+          buttonComponent: ClipboardButtonPresComponent
+        }
+      },
+      markedExtensions: [markedAlert()],
+      /* Templates are only internal, no need to sanitize */
+      sanitize: SecurityContext.NONE
+    })
   ],
   bootstrap: [AppComponent]
 })

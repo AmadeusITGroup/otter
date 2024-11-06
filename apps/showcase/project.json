@@ -102,6 +102,7 @@
           "apps/showcase/src/styles.scss",
           "apps/showcase/training-assets/@vscode/codicons/dist/codicon.css",
           "apps/showcase/training-assets/@xterm/xterm/css/xterm.css",
+          "prism-themes/themes/prism-vsc-dark-plus.css",
           {
             "inject": false,
             "input": "apps/showcase/src/style/dark-theme/dark-theme.scss",
@@ -113,7 +114,19 @@
             "bundleName": "horizon-theme"
           }
         ],
-        "scripts": ["apps/showcase/src/coi-serviceworker.js"]
+        "scripts": [
+          "clipboard",
+          "prismjs",
+          "prismjs/components/prism-bash",
+          "prismjs/components/prism-css",
+          "prismjs/components/prism-json",
+          "prismjs/components/prism-markdown",
+          "prismjs/components/prism-markup",
+          "prismjs/components/prism-regex",
+          "prismjs/components/prism-typescript",
+          "prismjs/components/prism-yaml",
+          "apps/showcase/src/coi-serviceworker.js"
+        ]
       },
       "configurations": {
         "production": {
