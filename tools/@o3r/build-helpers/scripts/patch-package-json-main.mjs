@@ -25,14 +25,14 @@ const srcFields = ['main', 'default', 'module', 'esm2015', 'esm2020', 'schematic
 const fields = [...typeFields, ...srcFields];
 const distPath = resolve(root, distFolder);
 const packageJsonPath = join(distPath, 'package.json');
-const packageJson = JSON.parse(readFileSync(packageJsonPath, { encoding: 'utf-8' }));
+const packageJson = JSON.parse(readFileSync(packageJsonPath, { encoding: 'utf8' }));
 
 const distPrefixRegExp = new RegExp(`^(\\.\\/)?${distFolder}\\/`);
 
 /**
  * Update the Package.json field
- * @param field {string Name of the field
- * @param originalPath {string} Path to the file to target
+ * @param {string} field Name of the field
+ * @param {string} originalPath Path to the file to target
  */
 const updateField = (field, originalPath) => {
   const path = originalPath.replace(distPrefixRegExp, '$1');

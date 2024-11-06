@@ -9,6 +9,7 @@ import {
 } from 'node:fs/promises';
 import {
   dirname,
+  isAbsolute,
   join,
   normalize,
   posix,
@@ -28,8 +29,11 @@ function extractRefPaths(specContent: string, basePath: string): string[] {
   const refs = specContent.match(refMatcher);
   return refs
     ? refs
-      .map((capture) => capture.replace(refMatcher, '$1').replace(/["']/g, ''))
-      .filter((refPath) => refPath.startsWith('.'))
+      .map((capture) => capture.replace(refMatcher, '$1')
+        .replace(/["']/g, '')
+        .trim()
+      )
+      .filter((refPath) => refPath && !isAbsolute(refPath) && !/^https?:\//.test(refPath))
       .map((refPath) => join(basePath, refPath))
     : [];
 }

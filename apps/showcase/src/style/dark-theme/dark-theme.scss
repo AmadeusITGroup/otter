@@ -3,11 +3,11 @@
 :root {
 /* --- BEGIN THEME Auto-generated --- */
 --color-accent: var(--color-accent-500);
+--color-accent-50: #e8f7ff;
 --color-accent-100: #c5eaff;
 --color-accent-200: #9eddff;
 --color-accent-300: #77cfff;
 --color-accent-400: #5ac4ff;
---color-accent-50: #e8f7ff;
 --color-accent-500: #3dbaff;
 --color-accent-600: #37b3ff;
 --color-accent-700: #2fabff;
@@ -18,11 +18,11 @@
 --color-accent-A400: #cbe5ff;
 --color-accent-A700: #b2d8ff;
 --color-highlight: var(--color-highlight-500);
+--color-highlight-50: #f4e5ff;
 --color-highlight-100: #e4beff;
 --color-highlight-200: #d292ff;
 --color-highlight-300: #c066ff;
 --color-highlight-400: #b346ff;
---color-highlight-50: #f4e5ff;
 --color-highlight-500: #a525ff;
 --color-highlight-600: #9d21ff;
 --color-highlight-700: #931bff;
@@ -42,11 +42,11 @@
 --color-out-of-palette-comet: #1b2073;
 --color-out-of-palette-green: #067f28;
 --color-primary: var(--color-primary-500);
+--color-primary-50: #e6edfc;
 --color-primary-100: #c2d3f7;
 --color-primary-200: #99b6f2;
 --color-primary-300: #7098ed;
 --color-primary-400: #5182e9;
---color-primary-50: #e6edfc;
 --color-primary-500: #326ce5;
 --color-primary-600: #2d64e2;
 --color-primary-700: #2659de;
@@ -57,11 +57,11 @@
 --color-primary-A400: #9caeff;
 --color-primary-A700: #839aff;
 --color-warn: var(--color-warn-500);
+--color-warn-50: #fdede4;
 --color-warn-100: #fbd1bb;
 --color-warn-200: #f8b38e;
 --color-warn-300: #f59460;
 --color-warn-400: #f27d3e;
---color-warn-50: #fdede4;
 --color-warn-500: #f0661c;
 --color-warn-600: #ee5e19;
 --color-warn-700: #ec5314;
@@ -85,17 +85,17 @@
 --df-tertiary-bg-green: 51;
 --df-tertiary-bg-red: 51;
 --df-tertiary-bg-rgb: var(--bs-tertiary-bg-red), var(--bs-tertiary-bg-green), var(--bs-tertiary-bg-blue);
---radius-10: 10px;
 --radius-2: 2px;
---radius-25: 25px;
 --radius-5: 5px;
+--radius-10: 10px;
+--radius-25: 25px;
 --spacing-0: 0px;
 --spacing-1: 1px;
+--spacing-5: 5px;
 --spacing-10: 10px;
 --spacing-20: 20px;
 --spacing-30: 30px;
 --spacing-40: 40px;
---spacing-5: 5px;
 /* --- END THEME Auto-generated --- */
 
   .nav.nav-pills .nav-link {

@@ -35,6 +35,7 @@
     "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest"
   },
   "peerDependencies": {
+    "@angular-devkit/core": "~18.2.0",
     "@angular-devkit/schematics": "~18.2.0",
     "@angular/compiler": "~18.2.0",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
@@ -108,6 +109,9 @@
     "typescript-eslint": "~8.12.2"
   },
   "peerDependenciesMeta": {
+    "@angular-devkit/core": {
+      "optional": true
+    },
     "@angular-devkit/schematics": {
       "optional": true
     },

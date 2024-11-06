@@ -18,7 +18,7 @@ export default [
       parserOptions: {
         tsconfigRootDir: __dirname,
         project: [
-          'tsconfig.tools.json',
+          'tsconfig.build.tools.json',
           'tsconfig.schematics.json',
           'tsconfig.build.json',
           'tsconfig.eslint.json',

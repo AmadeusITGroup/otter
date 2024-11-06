@@ -10,6 +10,9 @@ import {
   mkdirSync
 } from 'node:fs';
 import * as path from 'node:path';
+import type {
+  CliWrapper
+} from '@o3r/telemetry';
 import * as globby from 'globby';
 import * as minimist from 'minimist';
 import type {
@@ -73,16 +76,16 @@ const updateExports = async () => {
   await fs.writeFile(path.join(baseDir, distFolder, 'package.json'), JSON.stringify(packageJson, null, 2));
 };
 
-void (async () => {
-  const copyToDist = (file: string, cwdForCopy: string) => {
-    const distFile = path.resolve(baseDir, distFolder, path.relative(cwdForCopy, file));
-    logger.log(`${file} copied to ${distFile}`);
-    try {
-      mkdirSync(path.dirname(distFile), { recursive: true });
-    } catch { /* ignore error */ }
-    return copyFileSync(file, distFile);
-  };
+const copyToDist = (file: string, cwdForCopy: string) => {
+  const distFile = path.resolve(baseDir, distFolder, path.relative(cwdForCopy, file));
+  logger.log(`${file} copied to ${distFile}`);
+  try {
+    mkdirSync(path.dirname(distFile), { recursive: true });
+  } catch { /* ignore error */ }
+  return copyFileSync(file, distFile);
+};
 
+const run = async () => {
   // Move files into the dist folder
   const copies = files.map(async ({ glob, cwdForCopy }) => {
     return watch
@@ -105,4 +108,15 @@ void (async () => {
   if (!noExports && !watch) {
     await updateExports();
   }
+};
+
+void (async () => {
+  let wrapper: CliWrapper = (fn: any) => fn;
+  try {
+    const { createCliWithMetrics } = await import('@o3r/telemetry');
+    wrapper = createCliWithMetrics;
+  } catch {
+    // Do not throw if `@o3r/telemetry` is not installed
+  }
+  return wrapper(run, '@ama-sdk/schematics:files-pack')();
 })();

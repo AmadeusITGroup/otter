@@ -25,5 +25,11 @@ export default [
         ...globals.node
       }
     }
+  },
+  {
+    name: '@o3r/build-helpers/override',
+    rules: {
+      'unicorn/no-process-exit': 'off'
+    }
   }
 ];

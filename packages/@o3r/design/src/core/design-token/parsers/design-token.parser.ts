@@ -1,7 +1,4 @@
 import {
-  promises as fs
-} from 'node:fs';
-import {
   dirname
 } from 'node:path';
 import type {
@@ -11,6 +8,7 @@ import type {
   DesignTokenGroup,
   DesignTokenGroupExtensions,
   DesignTokenGroupTemplate,
+  DesignTokenMetadata,
   DesignTokenNode,
   DesignTokenSpecification
 } from '../design-token-specification.interface';
@@ -27,16 +25,33 @@ import type {
   ParentReference
 } from './design-token-parser.interface';
 
+/** Separator in Token key parts */
+export const TOKEN_KEY_SEPARATOR = '.';
+
 const tokenReferenceRegExp = /{([^}]+)}/g;
 const splitValueNumericRegExp = /^([+-]?\d+[,.]?\d*)\s*([^\s,.;]+)?/;
 
-const getTokenReferenceName = (tokenName: string, parents: string[]) => parents.join('.') + (parents.length > 0 ? '.' : '') + tokenName;
+const getTokenReferenceName = (tokenName: string, parents: string[]) => parents.join(TOKEN_KEY_SEPARATOR) + (parents.length > 0 ? TOKEN_KEY_SEPARATOR : '') + tokenName;
 const getExtensions = (nodes: NodeReference[], context: DesignTokenContext | undefined) => {
   return nodes.reduce((acc, { tokenNode }, i) => {
     const nodeNames = nodes.slice(0, i + 1).map(({ name }) => name);
-    const defaultMetadata = nodeNames.length > 0 ? nodeNames.reduce((accTpl, name) => accTpl?.[name] as DesignTokenGroupTemplate, context?.template) : undefined;
-    const o3rMetadata = { ...defaultMetadata?.$extensions?.o3rMetadata, ...acc.o3rMetadata, ...tokenNode.$extensions?.o3rMetadata };
-    return ({ ...acc, ...defaultMetadata?.$extensions, ...tokenNode.$extensions, o3rMetadata });
+    const defaultMetadata = nodeNames.length > 0
+      ? nodeNames.reduce((accTplList, name) =>
+        accTplList
+          .flatMap((accTpl) => ([accTpl[name], accTpl['*']] as (DesignTokenGroupTemplate | undefined)[]))
+          .filter((accTpl): accTpl is DesignTokenGroupTemplate => !!accTpl)
+      , context?.template ? [context.template] : [])
+      : undefined;
+    const o3rMetadata = {
+      ...defaultMetadata?.reduce((accNode: DesignTokenMetadata, node) => ({ ...accNode, ...node.$extensions?.o3rMetadata }), {}),
+      ...acc.o3rMetadata,
+      ...tokenNode.$extensions?.o3rMetadata
+    };
+    return ({
+      ...acc,
+      ...defaultMetadata?.reduce((accNode, node) => ({ ...accNode, ...node.$extensions }), acc),
+      ...tokenNode.$extensions, o3rMetadata
+    });
   }, {} as DesignTokenGroupExtensions & DesignTokenExtensions);
 };
 const getReferences = (cssRawValue: string) => Array.from(cssRawValue.matchAll(tokenReferenceRegExp)).map(([,tokenRef]) => tokenRef);
@@ -223,7 +238,7 @@ export const parseDesignToken = (specification: DesignTokenSpecification): Desig
 interface ParseDesignTokenFileOptions {
   /**
    * Custom function to read a file required by the token renderer
-   * @default {@see fs.promises.readFile}
+   * @default {@see import('node:fs/promises').readFile}
    * @param filePath Path to the file to read
    */
   readFile?: (filePath: string) => string | Promise<string>;
@@ -238,7 +253,7 @@ interface ParseDesignTokenFileOptions {
  * @param options
  */
 export const parseDesignTokenFile = async (specificationFilePath: string, options?: ParseDesignTokenFileOptions) => {
-  const readFile = options?.readFile || ((filePath: string) => fs.readFile(filePath, { encoding: 'utf8' }));
+  const readFile = options?.readFile || (async (filePath: string) => (await import('node:fs/promises')).readFile(filePath, { encoding: 'utf8' }));
   const context: DesignTokenContext = {
     basePath: dirname(specificationFilePath),
     ...options?.specificationContext

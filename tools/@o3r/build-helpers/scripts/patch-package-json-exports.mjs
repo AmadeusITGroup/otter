@@ -16,7 +16,7 @@ const argv = minimist(process.argv.slice(2));
 const root = argv.root ? resolve(process.cwd(), argv.root) : process.cwd();
 
 const packageJsonPath = join(root, 'dist', 'package.json');
-const packageJson = JSON.parse(readFileSync(packageJsonPath, { encoding: 'utf-8' }));
+const packageJson = JSON.parse(readFileSync(packageJsonPath, { encoding: 'utf8' }));
 
 const srcPrefixRegExp = /^\.\/src\//;
 

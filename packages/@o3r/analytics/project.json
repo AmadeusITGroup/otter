@@ -27,16 +27,7 @@
       }
     },
     "prepare": {
-      "executor": "nx:run-script",
-      "outputs": ["{projectRoot}/src/package.json"],
-      "dependsOn": ["^build"],
-      "inputs": [
-        "global",
-        "{projectRoot}/package.json"
-      ],
-      "options": {
-        "script": "prepare:compile"
-      }
+      "executor": "nx:run-script"
     },
     "build-fixtures": {
       "executor": "nx:noop"

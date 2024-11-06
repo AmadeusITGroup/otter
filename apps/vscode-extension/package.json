@@ -375,7 +375,7 @@
     "@vscode/vsce": "^2.16.0",
     "angular-eslint": "~18.3.0",
     "cpy-cli": "^5.0.0",
-    "esbuild": "~0.23.0",
+    "esbuild": "~0.24.0",
     "eslint-import-resolver-node": "^0.3.9",
     "eslint-import-resolver-typescript": "^3.6.3",
     "eslint-plugin-import": "^2.31.0",

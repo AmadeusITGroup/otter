@@ -24,13 +24,19 @@ import type {
   TokenizedOptions
 } from '../plugins';
 
-/** @see BaseApiClientOptions */
+/**
+ * @see BaseApiClientOptions
+ * @deprecated Use the one exposed by {@link @ama-sdk/client-beacon}, will be removed in v13
+ */
 export interface BaseApiBeaconClientOptions extends BaseApiClientOptions {
   /** @inheritdoc */
   replyPlugins: never[];
 }
 
-/** @see BaseApiConstructor */
+/**
+ * @see BaseApiConstructor
+ * @deprecated Use the one exposed by {@link @ama-sdk/client-beacon}, will be removed in v13
+ */
 export interface BaseApiBeaconClientConstructor extends PartialExcept<Omit<BaseApiBeaconClientOptions, 'replyPlugins'>, 'basePath'> {
 }
 
@@ -42,6 +48,7 @@ const DEFAULT_OPTIONS: Omit<BaseApiBeaconClientOptions, 'basePath'> = {
 
 /**
  * Determine if the given value is a promise
+ * @deprecated Use the one exposed by {@link @ama-sdk/client-beacon}, will be removed in v13
  * @param value The value to test
  */
 // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-constraint -- the `extends unknown` is required for ESM build with TSC

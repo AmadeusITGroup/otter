@@ -36,6 +36,9 @@ import type {
   PackageJson
 } from 'type-fest';
 import type {
+  CmsMetadataData
+} from '../../interfaces';
+import type {
   MetadataComparator,
   MigrationData,
   MigrationFile,
@@ -70,7 +73,7 @@ function checkMetadataFile<MetadataItem, MigrationMetadataItem, MetadataFile>(
         continue;
       }
 
-      const migrationMetadataValue = migrationData.find((metadata) => comparator.isMigrationDataMatch(lastValue, metadata.before));
+      const migrationMetadataValue = migrationData.find((metadata) => metadata.before && comparator.isMigrationDataMatch(lastValue, metadata.before, metadata.contentType));
 
       if (!migrationMetadataValue) {
         errors.push(new Error(`Property ${comparator.getIdentifier(lastValue)} has been modified but is not documented in the migration document`));
@@ -78,7 +81,7 @@ function checkMetadataFile<MetadataItem, MigrationMetadataItem, MetadataFile>(
       }
 
       if (migrationMetadataValue.after) {
-        const isNewValueInNewMetadata = newMetadataArray.some((newValue) => comparator.isMigrationDataMatch(newValue, migrationMetadataValue.after!));
+        const isNewValueInNewMetadata = newMetadataArray.some((newValue) => comparator.isMigrationDataMatch(newValue, migrationMetadataValue.after!, migrationMetadataValue.contentType));
         if (!isNewValueInNewMetadata) {
           errors.push(new Error(`Property ${comparator.getIdentifier(lastValue)} has been modified but the new property is not present in the new metadata`));
           continue;
@@ -170,12 +173,32 @@ Detection of package manager runner will fallback on the one used to execute the
 
   const packageLocator = `${packageJson.name as string}@${previousVersion}`;
   context.logger.info(`Fetching ${packageLocator} from the registry.`);
-  const previousFile = await getFilesFromRegistry(packageLocator, [options.metadataPath], packageManager, context.workspaceRoot);
+  const packageJsonFileName = 'package.json';
+  const previousFile = await getFilesFromRegistry(packageLocator, [options.metadataPath, packageJsonFileName], packageManager, context.workspaceRoot);
+  const previousPackageJson = JSON.parse(previousFile[packageJsonFileName]) as PackageJson & { cmsMetadata: CmsMetadataData };
+  context.logger.info(`Successfully fetched ${packageLocator} with version ${previousPackageJson.version}.`);
+
+  let metadata: MetadataFile;
+  if (previousFile[options.metadataPath]) {
+    metadata = JSON.parse(previousFile[options.metadataPath]) as MetadataFile;
+    context.logger.info(`Resolved metadata from "${options.metadataPath}".`);
+  } else {
+    const previousMetadataEntryFromPackageJson = previousPackageJson.cmsMetadata?.[options.packageJsonEntry];
+    if (previousMetadataEntryFromPackageJson) {
+      const previousFileFromPackageJson = await getFilesFromRegistry(packageLocator, [previousMetadataEntryFromPackageJson], packageManager, context.workspaceRoot);
+      metadata = JSON.parse(previousFileFromPackageJson[previousMetadataEntryFromPackageJson]) as MetadataFile;
+      context.logger.info(`Resolved metadata from "${previousMetadataEntryFromPackageJson}".`);
+    } else {
+      return {
+        success: false,
+        error: `Couldn't find previous metadata file from "${options.metadataPath}".
+          Make sure the path is correct or that the field 'cmsMetadata.${options.packageJsonEntry}' is set in your package.json`
+      };
+    }
+  }
 
   const metadataPathInWorkspace = posix.join(projectRoot, options.metadataPath);
   const newFile = getLocalMetadataFile<MetadataFile>(metadataPathInWorkspace);
-
-  const metadata = JSON.parse(previousFile[options.metadataPath]) as MetadataFile;
 
   const errors = checkMetadataFile<MetadataItem, MigrationMetadataItem, MetadataFile>(metadata, newFile, migrationData.changes, options.allowBreakingChanges, comparator);
 

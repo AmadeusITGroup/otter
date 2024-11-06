@@ -18,7 +18,8 @@
   "dependencies": {
     "@actions/core": "^1.10.0",
     "@actions/exec": "^1.1.1",
-    "@actions/github": "^6.0.0"
+    "@actions/github": "^6.0.0",
+    "tslib": "^2.6.2"
   },
   "devDependencies": {
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",

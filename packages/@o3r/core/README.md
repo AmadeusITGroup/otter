@@ -41,6 +41,9 @@ npm create @o3r my-project
 yarn create @o3r my-project
 ```
 
+> [!TIP]
+> Get more details on [@o3r/create](https://www.npmjs.com/package/@o3r/create).
+
 ### Adding Material design theming
 
 ```shell

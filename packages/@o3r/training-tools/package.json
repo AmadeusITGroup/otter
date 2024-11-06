@@ -31,8 +31,10 @@
     }
   },
   "peerDependencies": {
+    "@angular-devkit/schematics": "~18.2.0",
+    "@o3r/schematics": "workspace:^",
     "@schematics/angular": "~18.2.0",
-    "@webcontainer/api": "~1.2.4",
+    "@webcontainer/api": "~1.4.0",
     "eslint": "^8.57.0",
     "rxjs": "^7.8.1",
     "type-fest": "^4.10.2",
@@ -45,7 +47,13 @@
     "@angular-devkit/core": {
       "optional": true
     },
+    "@angular-devkit/schematics": {
+      "optional": true
+    },
     "@angular/cli": {
+      "optional": true
+    },
+    "@o3r/schematics": {
       "optional": true
     },
     "eslint": {
@@ -71,8 +79,8 @@
     "@angular/core": "~18.2.0",
     "@angular/platform-browser": "~18.2.0",
     "@angular/platform-browser-dynamic": "~18.2.0",
-    "@babel/core": "~7.25.0",
-    "@babel/preset-typescript": "~7.24.0",
+    "@babel/core": "~7.26.0",
+    "@babel/preset-typescript": "~7.26.0",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@nx/eslint": "~19.5.0",
     "@nx/eslint-plugin": "~19.5.0",
@@ -83,7 +91,7 @@
     "@o3r/schematics": "workspace:^",
     "@schematics/angular": "~18.2.0",
     "@stylistic/eslint-plugin-ts": "~2.4.0",
-    "@swc/cli": "~0.4.0",
+    "@swc/cli": "~0.5.0",
     "@swc/core": "~1.7.0",
     "@swc/helpers": "~0.5.0",
     "@types/inquirer": "~8.2.10",
@@ -93,7 +101,7 @@
     "@typescript-eslint/eslint-plugin": "^7.14.1",
     "@typescript-eslint/parser": "^7.14.1",
     "@typescript-eslint/utils": "^7.14.1",
-    "@webcontainer/api": "~1.2.4",
+    "@webcontainer/api": "~1.4.0",
     "angular-eslint": "~18.3.0",
     "cpy-cli": "^5.0.0",
     "eslint": "^8.57.0",

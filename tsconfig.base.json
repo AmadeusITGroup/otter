@@ -193,11 +193,11 @@
       "@o3r/styling": [
         "packages/@o3r/styling/src/public_api"
       ],
-      "@o3r/styling/schemas/*": [
-        "packages/@o3r/styling/schemas/*"
-      ],
       "@o3r/styling/builders/*/helpers": [
         "packages/@o3r/styling/builders/*/helpers/index"
+      ],
+      "@o3r/styling/schemas/*": [
+        "packages/@o3r/styling/schemas/*"
       ],
       "@o3r/telemetry": [
         "packages/@o3r/telemetry/src/public_api"

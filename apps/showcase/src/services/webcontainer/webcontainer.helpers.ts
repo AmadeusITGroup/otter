@@ -3,8 +3,8 @@ import {
   getFilesTree
 } from '@o3r/training-tools';
 import {
-  DirectoryNode,
-  FileNode,
+  type DirectoryNode,
+  type FileSystemTree,
   WebContainer,
   WebContainerProcess
 } from '@webcontainer/api';
@@ -23,7 +23,7 @@ import {
  * @param path
  * @param node
  */
-export function convertTreeRec(path: string, node: DirectoryNode | FileNode): MonacoTreeElement {
+export function convertTreeRec(path: string, node: FileSystemTree[string]): MonacoTreeElement {
   return {
     name: path,
     content: (node as DirectoryNode).directory

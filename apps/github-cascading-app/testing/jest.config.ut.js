@@ -5,7 +5,7 @@ const rootDir = path.join(__dirname, '..');
 
 /** @type {import('ts-jest/dist/types').JestConfigWithTsJest} */
 module.exports = {
-  ...getJestProjectConfig(rootDir, true),
+  ...getJestProjectConfig(rootDir, false),
   displayName: require('../package.json').name,
   rootDir
 };

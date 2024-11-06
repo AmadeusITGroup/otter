@@ -39,6 +39,18 @@ describe('getSassTokenDefinitionRenderer', () => {
     expect(result).toBe('$example-var1: test-value;');
   });
 
+  test('should append default when expecting override', () => {
+    const tokenValueRenderer = jest.fn().mockReturnValue('test-value');
+    const renderer = getSassTokenDefinitionRenderer({ tokenValueRenderer });
+    const variable = designTokens.get('example.var-expect-override');
+
+    const result = renderer(variable, designTokens);
+    expect(variable).toBeDefined();
+    expect(tokenValueRenderer).toHaveBeenCalledTimes(1);
+    expect(result).toBeDefined();
+    expect(result).toBe('$example-var-expect-override: test-value !default;');
+  });
+
   test('should prefix private variable', () => {
     // eslint-disable-next-line unicorn/consistent-function-scoping -- linked to this test only
     const tokenVariableNameRenderer: TokenKeyRenderer = (v) => '_' + tokenVariableNameSassRenderer(v);
@@ -52,6 +64,6 @@ describe('getSassTokenDefinitionRenderer', () => {
     expect(variable).toBeDefined();
     expect(tokenValueRenderer).toHaveBeenCalledTimes(1);
     expect(result).toBeDefined();
-    expect(result).toBe('$_example-var1-private: var(--example-var1-private, #000);');
+    expect(result).toBe('/// @access private\n$_example-var1-private: #000;');
   });
 });

@@ -26,7 +26,8 @@
     "prepare-doc-root-menu-template": "./scripts/prepare-doc-root-menu-template.mjs",
     "prepare-publish": "./scripts/prepare-publish.mjs",
     "update-doc-summary": "./scripts/update-doc-summary.mjs",
-    "update-package": "./scripts/update-package.mjs"
+    "update-package": "./scripts/update-package.mjs",
+    "write-git-hash": "./scripts/write-git-hash.mjs"
   },
   "dependencies": {
     "globby": "^14.0.0",
@@ -58,12 +59,5 @@
     "nx": "~19.5.0",
     "typescript": "~5.5.4",
     "typescript-eslint": "~8.12.2"
-  },
-  "otter": {
-    "versionHarmonize": {
-      "ignore": [
-        "globby"
-      ]
-    }
   }
 }
