@@ -45,8 +45,8 @@ const finWidgetParamNamesInComment = (comment: string) => {
 };
 
 const getConfigurationTagsFromEslintConfig = (eslintConfig: TSESLint.FlatConfig.Config, comment: string, fileText: string): Record<string, ConfigurationTags> => {
-  const o3rWidgetsTagsRulesConfig = ((eslintConfig.rules?.['@o3r/o3r-widgets-tags'] as TSESLint.FlatConfig.RuleLevelAndOptions | undefined)?.[1] || {}) as O3rWidgetTagsRuleOption;
-  const o3rCategoriesTagsRulesConfig = ((eslintConfig.rules?.['@o3r/o3r-categories-tags'] as TSESLint.FlatConfig.RuleLevelAndOptions | undefined)?.[1] || {}) as O3rCategoriesTagsRuleOption;
+  const o3rWidgetsTagsRulesConfig = (eslintConfig.rules?.['@o3r/o3r-widgets-tags']?.[1] || {}) as O3rWidgetTagsRuleOption;
+  const o3rCategoriesTagsRulesConfig = (eslintConfig.rules?.['@o3r/o3r-categories-tags']?.[1] || {}) as O3rCategoriesTagsRuleOption;
 
   const configurationTags = {
     tags: {

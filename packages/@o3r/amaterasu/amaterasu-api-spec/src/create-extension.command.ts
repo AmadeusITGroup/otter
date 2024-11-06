@@ -39,7 +39,6 @@ export const createExtension = async (context: Context, options: CreateExtension
 
   const npmrcFile = 'tmp.npmrc';
   const deps = {
-    // eslint-disable-next-line @typescript-eslint/naming-convention -- keys are package names
     '@ama-sdk/schematics': version === '0.0.0-placeholder' ? 'latest' : version,
     yo: 'latest'
   };

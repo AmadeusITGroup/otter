@@ -87,9 +87,9 @@ export class FullStoryClient implements LoggerClient {
    * @inheritdoc
    */
   public createMetaReducer(): MetaReducer<any, Action> {
-    // eslint-disable-next-line @typescript-eslint/no-this-alias
+    // eslint-disable-next-line @typescript-eslint/no-this-alias, unicorn/no-this-assignment -- TODO check later if we can move to arrow function without regression
     const client: FullStoryClient = this;
-    // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
+    // eslint-disable-next-line prefer-arrow/prefer-arrow-functions -- TODO check later if we can move to arrow function without regression
     return function debug(reducer: ActionReducer<any>): ActionReducer<any> {
       return (state, action) => {
         // Filter @ngrx actions

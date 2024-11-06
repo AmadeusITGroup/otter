@@ -117,7 +117,7 @@ export default createRule<Readonly<[O3rCategoriesTagsRuleOption, ...any]>, Messa
             messageId: 'suggestReplaceO3rCategory',
             data: {
               currentCategory: category,
-              suggestedCategory: suggestedCategory
+              suggestedCategory
             },
             fix: (fixer) => {
               return fixer.replaceTextRange(

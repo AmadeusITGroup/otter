@@ -43,10 +43,8 @@ describe('Json Token', () => {
 
       if (typeof window !== 'undefined' && typeof window.sessionStorage !== 'undefined') {
         /* eslint-disable jest/no-conditional-expect -- the same condition is verified above to set up the checked spy */
-        /* eslint-disable @typescript-eslint/unbound-method -- we are not calling the method */
         expect(window.sessionStorage.getItem).toHaveBeenCalledWith(tokenKey);
         /* eslint-enable jest/no-conditional-expect */
-        /* eslint-enable @typescript-eslint/unbound-method */
       }
 
       expect(result.credentials).toBe('same-origin');
@@ -66,10 +64,8 @@ describe('Json Token', () => {
 
       if (typeof window !== 'undefined' && typeof window.sessionStorage !== 'undefined') {
         /* eslint-disable jest/no-conditional-expect -- the same condition is verified above to set up the checked spy */
-        /* eslint-disable @typescript-eslint/unbound-method -- we are not calling the method */
         expect(window.sessionStorage.getItem).toHaveBeenCalledWith(tokenKey);
         /* eslint-enable jest/no-conditional-expect */
-        /* eslint-enable @typescript-eslint/unbound-method */
       }
 
       expect(result.credentials).toBeUndefined();
@@ -98,10 +94,8 @@ describe('Json Token', () => {
 
       if (typeof window !== 'undefined' && typeof window.sessionStorage !== 'undefined') {
         /* eslint-disable jest/no-conditional-expect -- the same condition is verified above to set up the checked spy */
-        /* eslint-disable @typescript-eslint/unbound-method -- we are not calling the method */
         expect(window.sessionStorage.setItem).toHaveBeenCalledWith(tokenKey, tokenValue);
         /* eslint-enable jest/no-conditional-expect */
-        /* eslint-enable @typescript-eslint/unbound-method */
       }
       expect(memory.testToken).toBe(tokenValue);
     });

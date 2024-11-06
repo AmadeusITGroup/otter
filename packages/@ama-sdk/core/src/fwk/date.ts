@@ -1,4 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/naming-convention -- keep to not introduce breaking change
 export type _NativeDate = Date;
+// eslint-disable-next-line @typescript-eslint/naming-convention, no-underscore-dangle -- keep to not introduce breaking change
 export const _NativeDateClass = Date;
 
 /**
@@ -32,7 +34,6 @@ export class CommonDate extends Date {
         args[0] = args[0].substring(0, idx);
       }
 
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-call -- type is explicitly `any`
       const TIME_ZONE_OFFSET = ((new (Date as any)(...args)) as Date).getTimezoneOffset();
 
       if (idxT > 0) {
@@ -70,13 +71,13 @@ export namespace utils {
         args[0] = `${args[0].getFullYear()}-${pad(args[0].getMonth() + 1)}-${pad(args[0].getDate())}T00:00:00Z`;
       }
 
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- type is explicitly `any`
       super(...args);
     }
 
     /**
      * To ensure that users cannot use a standard Date instead of utils.Date
      */
+    // eslint-disable-next-line @typescript-eslint/naming-convention -- keep to not introduce breaking change
     protected _Date(): void {}
 
     /**
@@ -110,6 +111,7 @@ export namespace utils {
     /**
      * To ensure that users cannot use a standard Date instead of utils.DateTime
      */
+    // eslint-disable-next-line @typescript-eslint/naming-convention -- keep to not introduce breaking change
     protected _DateTime(): void {}
   }
 }

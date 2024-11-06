@@ -123,7 +123,7 @@ export const amaYargs = async (argv?: Record<string, any>) => {
               throw new Error(`Something went wrong with the installation of ${mod.name}`);
             }
           }
-          // eslint-disable-next-line @typescript-eslint/no-require-imports
+          // eslint-disable-next-line @typescript-eslint/no-require-imports -- TODO check later if we can move to `import` without regression
           (require(mod.resolutionPath) as AmaCliModule).init((version ? yargsInstance.version(version) : yargsInstance).usage(generateUsageMessage(mod.moduleName, '<commands...>')), baseContext);
         }
         );

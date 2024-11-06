@@ -64,7 +64,6 @@ const downloadDodoCli = async () => {
       });
       call.on('error', reject);
     });
-    // eslint-disable-next-line @typescript-eslint/naming-convention -- naming convention imposed by tar
     await extract({ file: destZipFilePath, C: destFolder });
     await fs.unlink(destZipFilePath);
   }

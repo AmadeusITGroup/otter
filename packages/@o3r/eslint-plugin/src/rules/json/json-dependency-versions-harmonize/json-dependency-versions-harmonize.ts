@@ -15,6 +15,7 @@ import {
   getBestRanges
 } from './version-harmonize';
 
+/** Options for the ESLint rule @o3r/json-dependency-versions-harmonize */
 export interface VersionsHarmonizeOptions {
   /** List of package name to ignore when determining the dependencies versions */
   ignoredPackages?: string[];

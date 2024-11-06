@@ -8,7 +8,6 @@ import {
 } from '@o3r/schematics';
 
 const generatorsMappingFromV7 = {
-  /* eslint-disable @typescript-eslint/naming-convention -- schematics identifier */
   '@otter/ng-tools:component': '@o3r/core:component',
   '@otter/ng-tools:component-container': '@o3r/core:component-container',
   '@otter/ng-tools:component-presenter': '@o3r/core:component-presenter',
@@ -27,7 +26,6 @@ const generatorsMappingFromV7 = {
   '@otter/ng-tools:iframe-component': '@o3r/components:iframe-component',
   '@otter/ng-tools:playwright-scenario': '@o3r/testing:playwright-scenario',
   '@otter/ng-tools:playwright-sanity': '@o3r/testing:playwright-sanity'
-  /* eslint-enable @typescript-eslint/naming-convention */
 };
 
 function updateGeneratorsPackage(schematicsToUpdate: WorkspaceSchematics) {
