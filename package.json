@@ -44,7 +44,7 @@
     "verdaccio:clean": "rimraf -g \".verdaccio/storage/@{o3r,ama-sdk,ama-terasu}\"",
     "verdaccio:login": "yarn cpy --cwd=./.verdaccio/conf .npmrc . --rename=.npmrc-logged && npx --yes npm-cli-login -u verdaccio -p verdaccio -e test@test.com -r http://127.0.0.1:4873 --config-path \".verdaccio/conf/.npmrc-logged\"",
     "verdaccio:prepare-publish": "yarn verdaccio:clean && yarn set:version 999.0.$(node -e 'process.stdout.write(String(Date.now()))') --include \"!**/!(dist)/package.json\" --include !package.json && yarn verdaccio:login && replace-in-files --regex=\"private(.*)true\" --replacement=private\\$1false '**/dist/package.json' && yarn run prepare:publish",
-    "verdaccio:publish": "yarn run verdaccio:prepare-publish && yarn nx run-many --target=publish --parallel $(yarn get:cpus-number) --nx-bail --userconfig \".verdaccio/conf/.npmrc-logged\" --tag=latest --@o3r:registry=http://127.0.0.1:4873 --@ama-sdk:registry=http://127.0.0.1:4873 --@ama-terasu:registry=http://127.0.0.1:4873",
+    "verdaccio:publish": "yarn run verdaccio:prepare-publish && yarn nx run-many --target=publish --parallel $(yarn get:cpus-number) --nx-bail --userconfig \".verdaccio/conf/.npmrc-logged\" --tag=latest --@o3r:registry=http://127.0.0.1:4873 --@ama-sdk:registry=http://127.0.0.1:4873 --@ama-terasu:registry=http://127.0.0.1:4873 --@o3r-training:registry=http://127.0.0.1:4873",
     "verdaccio:stop": "docker container stop $(docker ps -a -q --filter=\"name=verdaccio\")",
     "verdaccio:all": "yarn verdaccio:stop && yarn verdaccio:start && yarn verdaccio:publish",
     "watch:vscode-extension": "yarn nx run vscode-extension:compile:watch",

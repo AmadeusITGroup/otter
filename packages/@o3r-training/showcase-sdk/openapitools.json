@@ -5,7 +5,7 @@
     "version": "7.4.0",
     "storageDir": ".openapi-generator",
     "generators": {
-      "ama-sdk-showcase-sdk": {
+      "training-showcase-sdk": {
         "generatorName": "typescriptFetch",
         "output": ".",
         "inputSpec": "./openapi.yml",
