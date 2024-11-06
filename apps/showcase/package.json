@@ -133,6 +133,6 @@
     "rimraf": "^5.0.1",
     "ts-jest": "~29.2.0",
     "typescript": "~5.5.4",
-    "webpack": "~5.95.0"
+    "webpack": "~5.96.0"
   }
 }
