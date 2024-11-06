@@ -72,7 +72,7 @@ To be able to benefit from this feature, you will need to perform the following 
 
 1. Create an account on [Nx Cloud App](https://cloud.nx.app/)
 2. Create a Personal Access Token on [profile page](https://cloud.nx.app/profile/tokens).
-3. Create a local environment variable **NX_CLOUD_ACCESS_TOKEN** with your previously generated PAT *(example on Linux: `export NX_CLOUD_ACCESS_TOKEN=xxxxxxx`)*
+3. Follow [Nx Cloud instruction](https://nx.dev/ci/recipes/security/personal-access-tokens) to setup your previously generated PAT.
 
 When building (`yarn build`) the project on the `main` branch (or another `release/*` branch), the remote cache will be downloaded.
 
