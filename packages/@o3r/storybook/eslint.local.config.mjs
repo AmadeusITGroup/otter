@@ -59,7 +59,6 @@ export default [
         ...globals.es6,
         globalThis: true
       },
-      ecmaVersion: 12,
       sourceType: 'commonjs',
       parserOptions: {
         tsconfigRootDir: __dirname,

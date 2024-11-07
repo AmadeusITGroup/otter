@@ -11,7 +11,7 @@ const __dirname = dirname(__filename);
 
 export default [
   {
-    name: '@ama-sdk/showcase-sdk/ignores',
+    name: '@o3r-training/showcase-sdk/ignores',
     ignores: [
       'src/api',
       'src/models/base',
@@ -24,14 +24,13 @@ export default [
     ]
   },
   {
-    name: '@ama-sdk/showcase-sdk/projects',
+    name: '@o3r-training/showcase-sdk/projects',
     languageOptions: {
       sourceType: 'module',
-      ecmaVersion: 12,
       parserOptions: {
-        extraFileExtensions: ['.json'],
         tsconfigRootDir: __dirname,
         project: [
+          'tsconfig.build.json',
           'tsconfig.eslint.json',
           'testing/tsconfig.spec.json',
           'tsconfigs/tsconfig.jasmine.json',
@@ -42,7 +41,7 @@ export default [
     }
   },
   {
-    name: '@ama-sdk/showcase-sdk/typescript-files',
+    name: '@o3r-training/showcase-sdk/typescript-files',
     files: ['**/*.ts'],
     rules: {
       '@typescript-eslint/no-unused-vars': 'off',
@@ -55,21 +54,21 @@ export default [
     }
   },
   {
-    name: '@ama-sdk/showcase-sdk/jasmine-fixture-files',
+    name: '@o3r-training/showcase-sdk/jasmine-fixture-files',
     files: ['**/*.jasmine.fixture.ts', '**/*api.fixture.ts'],
     rules: {
       'jest/no-jasmine-globals': 'off'
     }
   },
   {
-    name: '@ama-sdk/showcase-sdk/helper-files',
+    name: '@o3r-training/showcase-sdk/helper-files',
     files: ['**/*.helper.ts'],
     rules: {
       '@typescript-eslint/explicit-function-return-type': 'error'
     }
   },
   {
-    name: '@ama-sdk/showcase-sdk/javascript-files',
+    name: '@o3r-training/showcase-sdk/javascript-files',
     files: ['**/*.js'],
     rules: {
       '@typescript-eslint/restrict-template-expressions': 'off'
