@@ -1,0 +1,19 @@
+{
+  "$schema": "https://raw.githubusercontent.com/angular/angular-cli/master/packages/angular/cli/lib/config/workspace-schema.json",
+  "version": 1,
+  "newProjectRoot": ".",
+  "cli": {
+    "packageManager": "yarn"
+  },
+  "projects": {
+    "test-project": {
+      "projectType": "application",
+      "root": ".",
+      "sourceRoot": "./src",
+      "prefix": "tst",
+      "architect": {
+
+      }
+    }
+  }
+}

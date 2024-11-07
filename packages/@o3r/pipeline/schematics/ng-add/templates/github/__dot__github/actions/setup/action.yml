@@ -6,16 +6,30 @@ runs:
   steps:
     - uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
       with:
-        node-version: 20
-        cache: <%= packageManager %>
+        node-version: 20<% if (packageManager !== 'yarn') { %>
+        cache: <%= packageManager %><% } %>
     - name: Enable Corepack
       shell: bash
-      run: corepack enable
-    - name: Install
-<% if (npmRegistry) { %>
+      run: corepack enable<% if (packageManager === 'yarn') { %>
+    - name: Get yarn cache directory path
+      shell: bash
+      id: yarn-cache-dir-path
+      run: echo "dir=$(<% if (yarn2) { %>yarn config get cacheFolder<% } else { %>yarn cache dir<% } %>)" >> $GITHUB_OUTPUT
+    - name: Cache dependencies
+      uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.1.2
+      with:
+        path: |
+          ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          <% if (yarn2) { %>.yarn/unplugged
+          .pnp.cjs
+          .pnp.loader.mjs<% } %>
+        key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-yarn
+          ${{ runner.os }}<% } %>
+    - name: Install<% if (npmRegistry) { %>
       env:
         COREPACK_NPM_REGISTRY: <%= npmRegistry %>
-        COREPACK_INTEGRITY_KEYS: ""
-<% } %>
+        COREPACK_INTEGRITY_KEYS: ""<% } %>
       shell: bash
       run: <%= setupCommand %>
