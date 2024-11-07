@@ -8596,7 +8596,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@o3r/eslint-config-otter@workspace:packages/@o3r/eslint-config-otter, @o3r/eslint-config-otter@workspace:~":
+"@o3r/eslint-config-otter@workspace:packages/@o3r/eslint-config-otter":
   version: 0.0.0-use.local
   resolution: "@o3r/eslint-config-otter@workspace:packages/@o3r/eslint-config-otter"
   dependencies:
@@ -31279,28 +31279,33 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "release-gh-action@workspace:tools/github-actions/release"
   dependencies:
-    "@angular-eslint/eslint-plugin": "npm:~18.3.0"
+    "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@nx/eslint-plugin": "npm:~19.5.0"
-    "@o3r/eslint-config-otter": "workspace:~"
+    "@o3r/eslint-config": "workspace:~"
     "@o3r/eslint-plugin": "workspace:~"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin": "npm:~2.7.0"
     "@types/minimist": "npm:^1.2.2"
     "@types/node": "npm:^20.0.0"
     "@types/semver": "npm:^7.3.13"
-    "@typescript-eslint/eslint-plugin": "npm:^7.14.1"
-    "@typescript-eslint/parser": "npm:^7.14.1"
-    "@typescript-eslint/utils": "npm:^7.14.1"
+    "@typescript-eslint/parser": "npm:~8.12.2"
     "@vercel/ncc": "npm:~0.38.0"
-    eslint: "npm:^8.57.0"
+    angular-eslint: "npm:~18.3.0"
+    eslint: "npm:^9.0.0"
+    eslint-plugin-import: "npm:^2.31.0"
+    eslint-plugin-import-newlines: "npm:^1.4.0"
     eslint-plugin-jest: "npm:~28.8.0"
-    eslint-plugin-jsdoc: "npm:~48.11.0"
+    eslint-plugin-jsdoc: "npm:~50.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^54.0.0"
+    eslint-plugin-sort-export-all: "npm:^1.4.1"
+    eslint-plugin-unicorn: "npm:^55.0.0"
+    eslint-plugin-unused-imports: "npm:^4.1.4"
+    globals: "npm:^15.9.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     minimist: "npm:^1.2.6"
     semver: "npm:^7.5.2"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.5.4"
+    typescript-eslint: "npm:~8.12.2"
   languageName: unknown
   linkType: soft
 
