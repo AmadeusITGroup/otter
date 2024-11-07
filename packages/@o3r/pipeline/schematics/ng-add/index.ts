@@ -1,9 +1,22 @@
-import { apply, chain, MergeStrategy, mergeWith, move, Rule, template, url } from '@angular-devkit/schematics';
-import type { NgAddSchematicsSchema } from './schema';
-import {dump, load} from 'js-yaml';
-import * as path from 'node:path';
+import { apply, chain, MergeStrategy, mergeWith, move, Rule, template, type Tree, url } from '@angular-devkit/schematics';
+import { dump, load } from 'js-yaml';
 import * as fs from 'node:fs';
+import * as path from 'node:path';
 import type { PackageJson } from 'type-fest';
+import type { NgAddSchematicsSchema } from './schema';
+
+/**
+ * Determines if the Yarn version is 2 or higher based on the contents of the .yarnrc.yml file.
+ * @param tree tree
+ */
+function isYarn2(tree: Tree) {
+  const yarnrcPath = '/.yarnrc.yml';
+  if (tree.exists(yarnrcPath)) {
+    const { yarnPath } = (load(tree.readText(yarnrcPath)) || {}) as { yarnPath?: string };
+    return !yarnPath || !/yarn-1\./.test(yarnPath);
+  }
+  return false;
+}
 
 /**
  * Add an Otter CI pipeline to an Angular Project
@@ -26,12 +39,14 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
     }
     context.logger.info(`Setting up pipeline for package manager: "${packageManager}" `);
     const setupCommand = packageManager === 'yarn' ? 'yarn install --immutable' : 'npm ci';
+    const yarn2 = packageManager === 'yarn' && isYarn2(tree);
     const baseTemplateSource = apply(url(`./templates/${options.toolchain}`), [
       template({
         ...options,
         packageManager,
         setupCommand,
         actionVersionString,
+        yarn2,
         dot: '.'
       }),
       move(tree.root.path)
@@ -41,16 +56,13 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       if (!options.npmRegistry) {
         return tree;
       }
-      if (packageManager === 'yarn') {
+      if (yarn2) {
         const yarnrcPath = '/.yarnrc.yml';
-        if (!tree.exists(yarnrcPath)) {
-          tree.create(yarnrcPath, dump({'npmRegistryServer': options.npmRegistry}, {indent: 2}));
-        } else {
-          const yarnrcContent = load(tree.readText(yarnrcPath)) as any;
-          yarnrcContent.npmRegistryServer = options.npmRegistry;
-          tree.overwrite(yarnrcPath, dump(yarnrcContent, {indent: 2}));
-        }
-      } else if (packageManager === 'npm') {
+        const yarnrcContent = load(tree.readText(yarnrcPath)) as { npmRegistryServer?: string };
+        yarnrcContent.npmRegistryServer = options.npmRegistry;
+        tree.overwrite(yarnrcPath, dump(yarnrcContent, {indent: 2}));
+      } else {
+        // both npm and yarn 1 use .npmrc for the registry
         const npmrcPath = '/.npmrc';
         if (!tree.exists(npmrcPath)) {
           tree.create(npmrcPath, `registry=${options.npmRegistry}`);
