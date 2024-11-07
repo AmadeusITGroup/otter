@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 /* eslint-disable no-console -- only logger available */
 /*
  * The purpose of this script is to add the git commit hash in package.json

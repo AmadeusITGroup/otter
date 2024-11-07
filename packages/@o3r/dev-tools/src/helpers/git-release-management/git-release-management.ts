@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import {
   exec as cpExec
 } from 'node:child_process';

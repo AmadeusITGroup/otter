@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import {
   EOL
 } from 'node:os';

@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 /*
  * The purpose of this script is to remove the dist/ part of the path in a "main", "types" and "typing" field of the package.json
  */

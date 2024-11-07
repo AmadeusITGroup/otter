@@ -27,11 +27,5 @@ export default [
         ...globals.node
       }
     }
-  },
-  {
-    name: '@ama-terasu/cli/override',
-    rules: {
-      'unicorn/no-process-exit': 'off'
-    }
   }
 ];
