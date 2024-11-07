@@ -1,5 +1,5 @@
 import {
-  readFileSync
+  readFileSync,
 } from 'node:fs';
 import * as path from 'node:path';
 import {
@@ -12,24 +12,24 @@ import {
   renameTemplateFiles,
   Rule,
   template,
-  url
+  url,
 } from '@angular-devkit/schematics';
 import {
-  findConfigFileRelativePath
+  findConfigFileRelativePath,
 } from '@o3r/schematics';
 import type {
   PackageJson,
-  TsConfigJson
+  TsConfigJson,
 } from 'type-fest';
 import {
-  updateProjectTsConfig
+  updateProjectTsConfig,
 } from '../../rule-factories/index';
 import type {
-  NgGenerateModuleSchema
+  NgGenerateModuleSchema,
 } from '../schema';
 import {
   updateNgPackagrFactory,
-  updatePackageDependenciesFactory
+  updatePackageDependenciesFactory,
 } from './shared';
 
 /**

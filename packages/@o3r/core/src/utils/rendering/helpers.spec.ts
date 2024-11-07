@@ -1,8 +1,8 @@
 import {
-  TestScheduler
+  TestScheduler,
 } from 'rxjs/testing';
 import {
-  lazyArray
+  lazyArray,
 } from './rendering.helpers';
 
 describe('Rendering helpers', () => {

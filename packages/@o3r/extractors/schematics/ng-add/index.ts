@@ -1,15 +1,15 @@
 import * as path from 'node:path';
 import {
-  chain
+  chain,
 } from '@angular-devkit/schematics';
 import type {
-  Rule
+  Rule,
 } from '@angular-devkit/schematics';
 import {
-  updateCmsAdapter
+  updateCmsAdapter,
 } from '../cms-adapter';
 import type {
-  NgAddSchematicsSchema
+  NgAddSchematicsSchema,
 } from './schema';
 
 const dependenciesToInstall = [

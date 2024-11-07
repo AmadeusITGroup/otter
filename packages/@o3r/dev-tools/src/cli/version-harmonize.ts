@@ -2,29 +2,29 @@
 
 import {
   promises as fs,
-  readFileSync
+  readFileSync,
 } from 'node:fs';
 import * as path from 'node:path';
 import {
   blue,
   bold,
   green,
-  grey
+  grey,
 } from 'chalk';
 import {
-  program
+  program,
 } from 'commander';
 import * as globby from 'globby';
 import * as semver from 'semver';
 import type {
-  PackageJson
+  PackageJson,
 } from 'type-fest';
 import * as winston from 'winston';
 import {
   DependencyInfo,
   DependencyToUpdate,
   Options,
-  PackageJsonWithOtterConfiguration
+  PackageJsonWithOtterConfiguration,
 } from '../helpers/version-harmonize/interfaces';
 
 /** Console logger */

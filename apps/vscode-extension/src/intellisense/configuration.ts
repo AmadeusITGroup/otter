@@ -1,18 +1,18 @@
 import type {
   O3rCategoriesTagsRuleOption,
-  O3rWidgetTagsRuleOption
+  O3rWidgetTagsRuleOption,
 } from '@o3r/eslint-plugin';
 import type {
-  TSESLint
+  TSESLint,
 } from '@typescript-eslint/utils';
 import {
-  ESLint
+  ESLint,
 } from 'eslint';
 import {
   CompletionItem,
   CompletionItemKind,
   CompletionItemProvider,
-  SnippetString
+  SnippetString,
 } from 'vscode';
 
 interface ConfigurationTags {

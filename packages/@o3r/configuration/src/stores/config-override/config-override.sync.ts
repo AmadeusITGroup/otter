@@ -1,11 +1,11 @@
 import {
-  Serializer
+  Serializer,
 } from '@o3r/core';
 import {
-  configOverrideInitialState
+  configOverrideInitialState,
 } from './config-override.reducer';
 import {
-  ConfigOverrideState
+  ConfigOverrideState,
 } from './config-override.state';
 
 /**

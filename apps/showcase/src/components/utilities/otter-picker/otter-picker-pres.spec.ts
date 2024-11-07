@@ -1,9 +1,9 @@
 import {
   ComponentFixture,
-  TestBed
+  TestBed,
 } from '@angular/core/testing';
 import {
-  OtterPickerPresComponent
+  OtterPickerPresComponent,
 } from './otter-picker-pres.component';
 
 describe('OtterPickerPresComponent', () => {

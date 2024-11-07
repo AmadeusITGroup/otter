@@ -1,8 +1,8 @@
 import type {
-  Output
+  Output,
 } from '@o3r/core';
 import type {
-  Documentation
+  Documentation,
 } from '../interfaces';
 
 /**

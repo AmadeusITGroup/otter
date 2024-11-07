@@ -1,19 +1,19 @@
 import type {
-  CssVariable
+  CssVariable,
 } from '@o3r/styling';
 import type {
   DesignTokenVariableStructure,
   TokenKeyRenderer,
-  TokenValueRenderer
+  TokenValueRenderer,
 } from '../../parsers/design-token-parser.interface';
 import {
-  isO3rPrivateVariable
+  isO3rPrivateVariable,
 } from '../design-token.renderer.helpers';
 import type {
-  TokenDefinitionRenderer
+  TokenDefinitionRenderer,
 } from '../design-token.renderer.interface';
 import {
-  getMetadataTokenValueRenderer
+  getMetadataTokenValueRenderer,
 } from './design-token-value.renderers';
 
 /** Options for {@link getMetadataTokenDefinitionRenderer} */

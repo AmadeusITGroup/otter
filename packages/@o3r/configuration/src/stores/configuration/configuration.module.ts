@@ -1,19 +1,19 @@
 import {
   InjectionToken,
   ModuleWithProviders,
-  NgModule
+  NgModule,
 } from '@angular/core';
 import {
   Action,
   ActionReducer,
-  StoreModule
+  StoreModule,
 } from '@ngrx/store';
 import {
-  configurationReducer
+  configurationReducer,
 } from './configuration.reducer';
 import {
   CONFIGURATION_STORE_NAME,
-  ConfigurationState
+  ConfigurationState,
 } from './configuration.state';
 
 /** Token of the Configuration reducer */

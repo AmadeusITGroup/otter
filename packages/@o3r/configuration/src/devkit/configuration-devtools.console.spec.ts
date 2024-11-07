@@ -1,24 +1,24 @@
 import {
   getTestBed,
-  TestBed
+  TestBed,
 } from '@angular/core/testing';
 import {
   BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting
+  platformBrowserDynamicTesting,
 } from '@angular/platform-browser-dynamic/testing';
 import {
   MockStore,
-  provideMockStore
+  provideMockStore,
 } from '@ngrx/store/testing';
 import {
-  ConfigurationState
+  ConfigurationState,
 } from '../stores';
 import {
-  ConfigurationDevtoolsConsoleService
+  ConfigurationDevtoolsConsoleService,
 } from './configuration-devtools.console.service';
 import {
   OTTER_CONFIGURATION_DEVTOOLS_DEFAULT_OPTIONS,
-  OTTER_CONFIGURATION_DEVTOOLS_OPTIONS
+  OTTER_CONFIGURATION_DEVTOOLS_OPTIONS,
 } from './configuration-devtools.token';
 
 describe('Configuration DevTools console', () => {

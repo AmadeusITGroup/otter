@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import {
-  spawnSync
+  spawnSync,
 } from 'node:child_process';
 
 // eslint-disable-next-line no-console -- keep to warn of package deprecation

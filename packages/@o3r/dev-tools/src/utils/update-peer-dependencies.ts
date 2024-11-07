@@ -1,12 +1,12 @@
 import {
-  exec
+  exec,
 } from 'node:child_process';
 import * as fs from 'node:fs';
 import {
-  promisify
+  promisify,
 } from 'node:util';
 import {
-  readJsonSync
+  readJsonSync,
 } from 'fs-extra';
 import * as semver from 'semver';
 import * as winston from 'winston';

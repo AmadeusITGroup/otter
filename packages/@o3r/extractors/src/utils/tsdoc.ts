@@ -1,7 +1,7 @@
 import {
   DocComment,
   DocExcerpt,
-  DocNode
+  DocNode,
 } from '@microsoft/tsdoc';
 import * as ts from 'typescript';
 

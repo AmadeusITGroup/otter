@@ -1,9 +1,9 @@
 import type {
-  Context
+  Context,
 } from '@o3r/core';
 import type {
   DatePickerInputPresContextInput,
-  DatePickerInputPresContextOutput
+  DatePickerInputPresContextOutput,
 } from '../date-picker-input/index';
 
 /**

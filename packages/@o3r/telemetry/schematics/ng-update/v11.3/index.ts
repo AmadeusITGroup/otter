@@ -1,5 +1,5 @@
 import {
-  type Rule
+  type Rule,
 } from '@angular-devkit/schematics';
 
 export const updateO3rMetricsConfig: Rule = (tree) => {

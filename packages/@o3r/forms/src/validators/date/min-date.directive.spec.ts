@@ -1,11 +1,11 @@
 import {
-  utils
+  utils,
 } from '@ama-sdk/core';
 import {
-  FormControl
+  FormControl,
 } from '@angular/forms';
 import {
-  MinDateValidator
+  MinDateValidator,
 } from './min-date.directive';
 
 describe('Min Date', () => {

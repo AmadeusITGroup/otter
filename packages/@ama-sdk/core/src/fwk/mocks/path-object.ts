@@ -1,5 +1,5 @@
 import {
-  Operation
+  Operation,
 } from './operation';
 
 /** Describes a path on the swagger specification */

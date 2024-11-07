@@ -4,13 +4,13 @@ import type {
   DevtoolsCommonOptions,
   MessageDataTypes,
   OtterMessageContent,
-  RequestMessagesContentMessage
+  RequestMessagesContentMessage,
 } from '@o3r/core';
 import {
-  Subscription
+  Subscription,
 } from 'rxjs';
 import type {
-  LocalizationMetadata
+  LocalizationMetadata,
 } from '../core';
 
 export interface LocalizationDevtoolsServiceOptions extends DevtoolsCommonOptions, ContextualizationDevtoolsCommonOptions {

@@ -1,5 +1,5 @@
 import type {
-  BuilderWrapper
+  BuilderWrapper,
 } from '@o3r/telemetry';
 
 const noopBuilderWrapper: BuilderWrapper = (fn) => fn;

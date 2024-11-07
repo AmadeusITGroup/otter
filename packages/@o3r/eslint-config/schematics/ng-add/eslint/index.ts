@@ -1,6 +1,6 @@
 import * as path from 'node:path';
 import type {
-  JsonObject
+  JsonObject,
 } from '@angular-devkit/core';
 import {
   apply,
@@ -10,10 +10,10 @@ import {
   renameTemplateFiles,
   type Rule,
   template,
-  url
+  url,
 } from '@angular-devkit/schematics';
 import {
-  updateOrAddTsconfigEslint
+  updateOrAddTsconfigEslint,
 } from '../tsconfig/index';
 
 /**

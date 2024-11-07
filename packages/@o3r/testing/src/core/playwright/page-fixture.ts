@@ -1,11 +1,11 @@
 import {
-  PageFixtureProfile
+  PageFixtureProfile,
 } from '../page-fixture';
 import {
-  O3rComponentFixture
+  O3rComponentFixture,
 } from './component-fixture';
 import {
-  O3rElement
+  O3rElement,
 } from './element';
 
 export { PageFixtureProfile } from '../page-fixture';

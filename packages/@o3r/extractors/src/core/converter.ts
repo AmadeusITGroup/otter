@@ -1,5 +1,5 @@
 import type {
-  Output
+  Output,
 } from '@o3r/core';
 
 /**

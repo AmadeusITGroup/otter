@@ -2,11 +2,11 @@ import {
   ChangeDetectionStrategy,
   Component,
   Input,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import type {
   AllBlock,
-  Facts
+  Facts,
 } from '../../../engine';
 
 @Component({

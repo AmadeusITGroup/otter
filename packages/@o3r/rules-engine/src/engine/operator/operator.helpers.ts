@@ -1,10 +1,10 @@
 import type {
-  Facts
+  Facts,
 } from '../fact';
 import {
   DateInput,
   Operator,
-  SupportedSimpleTypes
+  SupportedSimpleTypes,
 } from './operator.interface';
 
 /**

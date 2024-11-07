@@ -1,5 +1,5 @@
 import type {
-  ImportsMapping
+  ImportsMapping,
 } from '@o3r/schematics';
 
 /** Map to be used to double check that localization mocks from o3r testing package are well imported from the /localization subentry */

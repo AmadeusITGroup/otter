@@ -1,14 +1,14 @@
 import {
   Inject,
-  Injectable
+  Injectable,
 } from '@angular/core';
 import {
   defaultRequestParametersConfig,
   RequestParametersConfig,
-  StorageStrategy
+  StorageStrategy,
 } from './request-parameters.config';
 import {
-  REQUEST_PARAMETERS_CONFIG_TOKEN
+  REQUEST_PARAMETERS_CONFIG_TOKEN,
 } from './request-parameters.token';
 
 export type ParamsList = 'query' | 'post';

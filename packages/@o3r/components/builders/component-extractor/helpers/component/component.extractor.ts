@@ -1,7 +1,7 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {
-  logging
+  logging,
 } from '@angular-devkit/core';
 import type {
   ComponentClassOutput,
@@ -9,27 +9,27 @@ import type {
   ComponentOutput,
   ComponentStructure,
   ConfigProperty,
-  PlaceholdersMetadata
+  PlaceholdersMetadata,
 } from '@o3r/components';
 import {
   CmsMetadataData,
-  getLibraryCmsMetadata
+  getLibraryCmsMetadata,
 } from '@o3r/extractors';
 import {
-  O3rCliError
+  O3rCliError,
 } from '@o3r/schematics';
 import type {
-  ComponentExtractorBuilderSchema
+  ComponentExtractorBuilderSchema,
 } from '../../index';
 import {
-  ComponentInformation
+  ComponentInformation,
 } from './component-class.extractor';
 import {
   ConfigurationInformation,
-  ConfigurationInformationWrapper
+  ConfigurationInformationWrapper,
 } from './component-config.extractor';
 import {
-  ParserOutput
+  ParserOutput,
 } from './component.parser';
 
 /**

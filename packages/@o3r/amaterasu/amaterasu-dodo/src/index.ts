@@ -1,32 +1,32 @@
 #!/usr/bin/env node
 import {
-  spawn
+  spawn,
 } from 'node:child_process';
 import {
   createWriteStream,
   existsSync,
-  promises as fs
+  promises as fs,
 } from 'node:fs';
 import * as http from 'node:https';
 import {
-  resolve
+  resolve,
 } from 'node:path';
 import {
-  platform
+  platform,
 } from 'node:process';
 import {
-  AmaCliModule
+  AmaCliModule,
 } from '@ama-terasu/core';
 import {
-  extract
+  extract,
 } from 'tar';
 
 const name = 'dodo';
 
 const osMap: Record<string, string> = {
-  'darwin': 'osx-aarch_64',
-  'win32': 'windows-x86_64',
-  'linux': 'linux-x86_64'
+  darwin: 'osx-aarch_64',
+  win32: 'windows-x86_64',
+  linux: 'linux-x86_64'
 };
 
 const destFolder = resolve(__dirname, '..', 'cli');

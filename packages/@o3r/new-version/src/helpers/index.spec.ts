@@ -1,5 +1,5 @@
 import {
-  formatGitTagsOutput
+  formatGitTagsOutput,
 } from './index';
 
 describe('helpers', () => {

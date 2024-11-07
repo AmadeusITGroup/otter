@@ -1,8 +1,8 @@
 import type {
-  SchematicOptionObject
+  SchematicOptionObject,
 } from '@o3r/schematics';
 import type {
-  PresetNames
+  PresetNames,
 } from '../ng-add/schema';
 
 export interface NgAddModulesSchematicsSchema extends SchematicOptionObject {

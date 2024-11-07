@@ -1,13 +1,13 @@
 import {
   firstValueFrom,
   of,
-  Subject
+  Subject,
 } from 'rxjs';
 import {
-  bufferCount
+  bufferCount,
 } from 'rxjs/operators';
 import {
-  fromApiEffectSwitchMapById
+  fromApiEffectSwitchMapById,
 } from './async.operators';
 
 function later(delay: number) {

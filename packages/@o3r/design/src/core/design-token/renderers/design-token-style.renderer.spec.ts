@@ -1,15 +1,15 @@
 import {
-  promises as fs
+  promises as fs,
 } from 'node:fs';
 import {
-  resolve
+  resolve,
 } from 'node:path';
 import type {
   DesignTokenGroup,
-  DesignTokenSpecification
+  DesignTokenSpecification,
 } from '../design-token-specification.interface';
 import type {
-  DesignTokenVariableSet
+  DesignTokenVariableSet,
 } from '../parsers';
 import * as parser from '../parsers/design-token.parser';
 import {
@@ -18,7 +18,7 @@ import {
   getTokenSorterByName,
   getTokenSorterByRef,
   getTokenSorterFromRegExpList,
-  renderDesignTokens
+  renderDesignTokens,
 } from './design-token-style.renderer';
 
 const rootPath = resolve('/');
@@ -264,19 +264,19 @@ describe('Design Token Renderer', () => {
       designTokensToSort = parser.parseDesignToken({ document: {
         'to-sort': {
           'var-100': {
-            '$value': '{example.var1}'
+            $value: '{example.var1}'
           },
           'var-1': {
-            '$value': '{example.var1}'
+            $value: '{example.var1}'
           },
           'var-10': {
-            '$value': '{example.var1}'
+            $value: '{example.var1}'
           },
           'var-5': {
-            '$value': '{example.var1}'
+            $value: '{example.var1}'
           },
           'first-var': {
-            '$value': '{example.var1}'
+            $value: '{example.var1}'
           }
         }
       } as DesignTokenGroup });

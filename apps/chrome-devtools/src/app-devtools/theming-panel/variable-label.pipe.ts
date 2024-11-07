@@ -1,9 +1,9 @@
 import {
   Pipe,
-  type PipeTransform
+  type PipeTransform,
 } from '@angular/core';
 import type {
-  StylingVariable
+  StylingVariable,
 } from '@o3r/styling';
 
 @Pipe({

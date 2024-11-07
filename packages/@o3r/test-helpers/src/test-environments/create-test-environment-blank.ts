@@ -1,9 +1,9 @@
 import {
-  ExecSyncOptions
+  ExecSyncOptions,
 } from 'node:child_process';
 import {
   existsSync,
-  promises as fs
+  promises as fs,
 } from 'node:fs';
 import * as path from 'node:path';
 import {
@@ -11,7 +11,7 @@ import {
   type CreateWithLockOptions,
   type Logger,
   PackageManagerConfig,
-  setPackagerManagerConfig
+  setPackagerManagerConfig,
 } from '../utilities';
 
 export interface CreateTestEnvironmentBlankOptions extends CreateWithLockOptions, PackageManagerConfig {

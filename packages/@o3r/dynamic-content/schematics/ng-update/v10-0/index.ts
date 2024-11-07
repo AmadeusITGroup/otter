@@ -2,12 +2,12 @@ import {
   chain,
   Rule,
   SchematicContext,
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import {
   createSchematicWithMetricsIfInstalled,
   PipeReplacementInfo,
-  updatePipes
+  updatePipes,
 } from '@o3r/schematics';
 
 const pipeReplacementInfo: PipeReplacementInfo = {

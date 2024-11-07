@@ -1,35 +1,35 @@
 import {
-  readFileSync
+  readFileSync,
 } from 'node:fs';
 import {
-  resolve
+  resolve,
 } from 'node:path';
 import type {
-  Rule
+  Rule,
 } from '@angular-devkit/schematics';
 import {
   getMigrationRuleRunner,
   getWorkspaceConfig,
-  type MigrationRulesMap
+  type MigrationRulesMap,
 } from '@o3r/schematics';
 import {
   gt,
-  minVersion
+  minVersion,
 } from 'semver';
 import {
-  isTypescriptSdk
+  isTypescriptSdk,
 } from '../helpers/is-typescript-project';
 import {
-  updateV11_4 as updateV114
+  updateV11_4 as updateV114,
 } from '../ng-update/typescript';
 import {
-  updateOpenApiVersionInProject
+  updateOpenApiVersionInProject,
 } from '../ng-update/typescript/v10.3/update-openapiversion';
 import {
-  updateRegenScript
+  updateRegenScript,
 } from '../ng-update/typescript/v11.0/update-regen-script';
 import {
-  MigrateSchematicsSchemaOptions
+  MigrateSchematicsSchemaOptions,
 } from './schema';
 
 const tsMigrationMap: MigrationRulesMap = {

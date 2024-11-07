@@ -2,7 +2,7 @@ import type {
   FetchCall,
   FetchPlugin,
   FetchPluginContext,
-  RequestOptions
+  RequestOptions,
 } from '../core';
 
 interface AbortCallbackParameters {

@@ -1,23 +1,23 @@
 import {
   getTestBed,
-  TestBed
+  TestBed,
 } from '@angular/core/testing';
 import {
   BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting
+  platformBrowserDynamicTesting,
 } from '@angular/platform-browser-dynamic/testing';
 import {
-  firstValueFrom
+  firstValueFrom,
 } from 'rxjs';
 import {
-  DynamicContentModule
+  DynamicContentModule,
 } from './dynamic-content.module';
 import {
-  DynamicContentService
+  DynamicContentService,
 } from './dynamic-content.service';
 import {
   CMS_ASSETS_PATH_TOKEN,
-  DYNAMIC_CONTENT_BASE_PATH_TOKEN
+  DYNAMIC_CONTENT_BASE_PATH_TOKEN,
 } from './dynamic-content.token';
 
 let service: DynamicContentService;

@@ -1,11 +1,11 @@
 import {
-  Injectable
+  Injectable,
 } from '@angular/core';
 import type {
-  ApplicationInformationContentMessage
+  ApplicationInformationContentMessage,
 } from '@o3r/application';
 import {
-  ReplaySubject
+  ReplaySubject,
 } from 'rxjs';
 
 export interface ExtendedApplicationInformation {

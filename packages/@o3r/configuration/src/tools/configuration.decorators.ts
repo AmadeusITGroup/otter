@@ -1,12 +1,12 @@
 import {
   Configuration,
-  otterComponentInfoPropertyName
+  otterComponentInfoPropertyName,
 } from '@o3r/core';
 import {
-  ConfigurationObserver
+  ConfigurationObserver,
 } from './configuration.observer';
 import type {
-  ConfigurationSignal
+  ConfigurationSignal,
 } from './configuration.signal';
 
 const decorator = (target: any, key: string) => {

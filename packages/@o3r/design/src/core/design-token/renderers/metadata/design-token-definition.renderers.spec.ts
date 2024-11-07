@@ -1,18 +1,18 @@
 import {
-  promises as fs
+  promises as fs,
 } from 'node:fs';
 import {
-  resolve
+  resolve,
 } from 'node:path';
 import type {
-  DesignTokenSpecification
+  DesignTokenSpecification,
 } from '../../design-token-specification.interface';
 import type {
-  DesignTokenVariableSet
+  DesignTokenVariableSet,
 } from '../../parsers';
 import * as parser from '../../parsers/design-token.parser';
 import {
-  getMetadataTokenDefinitionRenderer
+  getMetadataTokenDefinitionRenderer,
 } from './design-token-definition.renderers';
 
 describe('getMetadataTokenDefinitionRenderer', () => {

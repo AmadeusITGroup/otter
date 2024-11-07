@@ -1,6 +1,6 @@
 import {
   AsyncPipe,
-  formatDate
+  formatDate,
 } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -9,28 +9,28 @@ import {
   effect,
   inject,
   input,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
-  ReactiveFormsModule
+  ReactiveFormsModule,
 } from '@angular/forms';
 import {
   configSignal,
   DynamicConfigurableWithSignal,
-  O3rConfig
+  O3rConfig,
 } from '@o3r/configuration';
 import {
-  O3rComponent
+  O3rComponent,
 } from '@o3r/core';
 import {
-  DatePickerInputPresComponent
+  DatePickerInputPresComponent,
 } from '../../utilities';
 import {
   CONFIGURATION_PRES_CONFIG_ID,
   CONFIGURATION_PRES_DEFAULT_CONFIG,
-  ConfigurationPresConfig
+  ConfigurationPresConfig,
 } from './configuration-pres.config';
 
 const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;

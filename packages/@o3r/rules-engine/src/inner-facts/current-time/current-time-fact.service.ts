@@ -1,17 +1,17 @@
 import {
-  Injectable
+  Injectable,
 } from '@angular/core';
 import {
-  BehaviorSubject
+  BehaviorSubject,
 } from 'rxjs';
 import {
-  FactsService
+  FactsService,
 } from '../../fact';
 import {
-  RulesEngineRunnerService
+  RulesEngineRunnerService,
 } from '../../services';
 import {
-  CurrentTimeFacts
+  CurrentTimeFacts,
 } from './current-time.facts';
 
 @Injectable({

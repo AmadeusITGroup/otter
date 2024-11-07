@@ -2,28 +2,28 @@
 import {
   Inject,
   Injectable,
-  Optional
+  Optional,
 } from '@angular/core';
 import type {
   Configuration,
   ContextualizationDataset,
   CustomConfig,
   DevtoolsServiceInterface,
-  WindowWithDevtools
+  WindowWithDevtools,
 } from '@o3r/core';
 import {
-  firstValueFrom
+  firstValueFrom,
 } from 'rxjs';
 import {
   ConfigurationContextualizationDevtools,
-  ConfigurationDevtoolsServiceOptions
+  ConfigurationDevtoolsServiceOptions,
 } from './configuration-devtools.interface';
 import {
-  OtterConfigurationDevtools
+  OtterConfigurationDevtools,
 } from './configuration-devtools.service';
 import {
   OTTER_CONFIGURATION_DEVTOOLS_DEFAULT_OPTIONS,
-  OTTER_CONFIGURATION_DEVTOOLS_OPTIONS
+  OTTER_CONFIGURATION_DEVTOOLS_OPTIONS,
 } from './configuration-devtools.token';
 
 @Injectable({

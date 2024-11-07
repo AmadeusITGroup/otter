@@ -3,10 +3,10 @@ import {
   DeepLinkOptions,
   RequestMetadata,
   RequestOptions,
-  TokenizedOptions
+  TokenizedOptions,
 } from '../core/request-plugin';
 import {
-  PiiTokenizerRequest
+  PiiTokenizerRequest,
 } from './pii-tokenizer.request';
 
 describe('Tokenizer Request Plugin', () => {

@@ -1,8 +1,8 @@
 import {
-  AdditionalParamsRequest
+  AdditionalParamsRequest,
 } from '../additional-params';
 import {
-  RequestPlugin
+  RequestPlugin,
 } from '../core';
 
 /**

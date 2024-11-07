@@ -1,19 +1,19 @@
 import {
   InjectionToken,
   ModuleWithProviders,
-  NgModule
+  NgModule,
 } from '@angular/core';
 import {
   Action,
   ActionReducer,
-  StoreModule
+  StoreModule,
 } from '@ngrx/store';
 import {
-  routingGuardReducer
+  routingGuardReducer,
 } from './routing-guard.reducer';
 import {
   ROUTING_GUARD_STORE_NAME,
-  RoutingGuardState
+  RoutingGuardState,
 } from './routing-guard.state';
 
 /** Token of the RoutingGuard reducer */

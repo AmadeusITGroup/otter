@@ -1,8 +1,8 @@
 import {
-  utils
+  utils,
 } from '@ama-sdk/core';
 import {
-  deepFillWithDate
+  deepFillWithDate,
 } from './deep-fill';
 
 describe('Deep fill function', () => {

@@ -2,44 +2,44 @@ import {
   Inject,
   Injectable,
   OnDestroy,
-  Optional
+  Optional,
 } from '@angular/core';
 import {
-  Store
+  Store,
 } from '@ngrx/store';
 import {
   DevtoolsServiceInterface,
   filterMessageContent,
-  sendOtterMessage
+  sendOtterMessage,
 } from '@o3r/core';
 import {
-  LoggerService
+  LoggerService,
 } from '@o3r/logger';
 import {
   firstValueFrom,
   fromEvent,
-  Subscription
+  Subscription,
 } from 'rxjs';
 import {
-  filter
+  filter,
 } from 'rxjs/operators';
 import {
   type PlaceholderTemplateState,
-  togglePlaceholderModeTemplate
+  togglePlaceholderModeTemplate,
 } from '../stores';
 import {
   AvailableComponentsMessageContents,
   ComponentsDevtoolsServiceOptions,
   ComponentsMessageDataTypes,
-  isComponentsMessage
+  isComponentsMessage,
 } from './components-devkit.interface';
 import {
   OTTER_COMPONENTS_DEVTOOLS_DEFAULT_OPTIONS,
-  OTTER_COMPONENTS_DEVTOOLS_OPTIONS
+  OTTER_COMPONENTS_DEVTOOLS_OPTIONS,
 } from './components-devtools.token';
 import {
   OtterInspectorService,
-  OtterLikeComponentInfo
+  OtterLikeComponentInfo,
 } from './inspector';
 
 @Injectable({

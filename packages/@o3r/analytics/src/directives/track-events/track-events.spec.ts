@@ -1,30 +1,30 @@
 import {
   Component,
-  DebugElement
+  DebugElement,
 } from '@angular/core';
 import {
   ComponentFixture,
   getTestBed,
-  TestBed
+  TestBed,
 } from '@angular/core/testing';
 import {
-  By
+  By,
 } from '@angular/platform-browser';
 import {
   BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting
+  platformBrowserDynamicTesting,
 } from '@angular/platform-browser-dynamic/testing';
 import {
-  RouterTestingModule
+  RouterTestingModule,
 } from '@angular/router/testing';
 import {
-  UiEventPayload
+  UiEventPayload,
 } from '../../contracts';
 import {
-  EventTrackService
+  EventTrackService,
 } from '../../services/event-track';
 import {
-  TrackEventsModule
+  TrackEventsModule,
 } from './track-events.module';
 
 @Component({

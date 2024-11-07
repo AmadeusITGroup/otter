@@ -1,16 +1,16 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import {
-  SchematicTestRunner
+  SchematicTestRunner,
 } from '@angular-devkit/schematics/testing';
 import {
-  firstValueFrom
+  firstValueFrom,
 } from 'rxjs';
 import {
-  ngAddLocalizationKeyFn
+  ngAddLocalizationKeyFn,
 } from './index';
 
 jest.mock('node:readline', () => ({

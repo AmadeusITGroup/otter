@@ -1,19 +1,19 @@
 import {
   InjectionToken,
   ModuleWithProviders,
-  NgModule
+  NgModule,
 } from '@angular/core';
 import {
   Action,
   ActionReducer,
-  StoreModule
+  StoreModule,
 } from '@ngrx/store';
 import {
-  formErrorMessagesReducer
+  formErrorMessagesReducer,
 } from './form-error-messages.reducer';
 import {
   FORM_ERROR_MESSAGES_STORE_NAME,
-  FormErrorMessagesState
+  FormErrorMessagesState,
 } from './form-error-messages.state';
 
 /** Token of the FormErrorMessages reducer */

@@ -1,9 +1,9 @@
 import {
   ComponentFixture,
-  TestBed
+  TestBed,
 } from '@angular/core/testing';
 import {
-  DynamicContentPresComponent
+  DynamicContentPresComponent,
 } from './dynamic-content-pres.component';
 
 describe('DynamicContentPresComponent', () => {

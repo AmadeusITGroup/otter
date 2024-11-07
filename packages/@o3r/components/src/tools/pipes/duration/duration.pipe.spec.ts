@@ -1,6 +1,6 @@
 import {
   DurationPipe,
-  O3rDurationPipe
+  O3rDurationPipe,
 } from './duration.pipe';
 
 describe('DurationPipe', () => {

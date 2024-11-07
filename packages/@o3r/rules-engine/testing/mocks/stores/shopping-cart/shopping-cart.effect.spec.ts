@@ -1,24 +1,24 @@
 import {
   getTestBed,
-  TestBed
+  TestBed,
 } from '@angular/core/testing';
 import {
   BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting
+  platformBrowserDynamicTesting,
 } from '@angular/platform-browser-dynamic/testing';
 import {
-  provideMockActions
+  provideMockActions,
 } from '@ngrx/effects/testing';
 import {
-  Store
+  Store,
 } from '@ngrx/store';
 import {
   ReplaySubject,
   Subject,
-  Subscription
+  Subscription,
 } from 'rxjs';
 import {
-  ShoppingCartEffect
+  ShoppingCartEffect,
 } from './shopping-cart.effect';
 
 describe('ShoppingCart Effects', () => {

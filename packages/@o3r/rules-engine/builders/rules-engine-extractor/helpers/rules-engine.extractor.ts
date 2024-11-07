@@ -1,29 +1,29 @@
 import {
-  promises as fs
+  promises as fs,
 } from 'node:fs';
 import * as path from 'node:path';
 import {
-  strings
+  strings,
 } from '@angular-devkit/core';
 import type {
-  LoggerApi
+  LoggerApi,
 } from '@angular-devkit/core/src/logger';
 import {
-  ConfigDocParser
+  ConfigDocParser,
 } from '@o3r/extractors';
 import {
-  O3rCliError
+  O3rCliError,
 } from '@o3r/schematics';
 import globby from 'globby';
 import type {
-  JSONSchema7Type
+  JSONSchema7Type,
 } from 'json-schema';
 import {
   lastValueFrom,
-  zip
+  zip,
 } from 'rxjs';
 import {
-  map
+  map,
 } from 'rxjs/operators';
 import * as ts from 'typescript';
 import * as tjs from 'typescript-json-schema';
@@ -38,7 +38,7 @@ import {
   MetadataOperator,
   MetadataOperatorSupportedTypes,
   ObjectMetadataFact,
-  OtherMetadataFact
+  OtherMetadataFact,
 } from './rules-engine.extractor.interfaces';
 
 /**

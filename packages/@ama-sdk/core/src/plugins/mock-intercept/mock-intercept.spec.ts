@@ -2,21 +2,21 @@ import {
   ApiClient,
   Mock,
   MockAdapter,
-  SequentialMockAdapter
+  SequentialMockAdapter,
 } from '../../fwk';
 import {
   RequestOptions,
-  RequestPlugin
+  RequestPlugin,
 } from '../core';
 import {
-  MockInterceptFetch
+  MockInterceptFetch,
 } from './mock-intercept.fetch';
 import {
   CUSTOM_MOCK_OPERATION_ID_HEADER,
-  CUSTOM_MOCK_REQUEST_HEADER
+  CUSTOM_MOCK_REQUEST_HEADER,
 } from './mock-intercept.interface';
 import {
-  MockInterceptRequest
+  MockInterceptRequest,
 } from './mock-intercept.request';
 
 const testMock: Mock<any> = {

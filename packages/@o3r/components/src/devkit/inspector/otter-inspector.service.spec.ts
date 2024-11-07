@@ -1,16 +1,16 @@
 import {
   getTestBed,
-  TestBed
+  TestBed,
 } from '@angular/core/testing';
 import {
   BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting
+  platformBrowserDynamicTesting,
 } from '@angular/platform-browser-dynamic/testing';
 import {
-  mockTranslationModules
+  mockTranslationModules,
 } from '@o3r/testing/localization';
 import {
-  OtterInspectorService
+  OtterInspectorService,
 } from './otter-inspector.service';
 
 const mockElement = {

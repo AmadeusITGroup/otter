@@ -1,27 +1,27 @@
 import {
   Inject,
   Injectable,
-  Optional
+  Optional,
 } from '@angular/core';
 import {
   select,
-  Store
+  Store,
 } from '@ngrx/store';
 import {
-  of
+  of,
 } from 'rxjs';
 import {
   distinctUntilChanged,
   map,
-  shareReplay
+  shareReplay,
 } from 'rxjs/operators';
 import {
   AssetPathOverrideStore,
-  selectAssetPathOverride
+  selectAssetPathOverride,
 } from '../../stores/index';
 import {
   CMS_ASSETS_PATH_TOKEN,
-  DYNAMIC_CONTENT_BASE_PATH_TOKEN
+  DYNAMIC_CONTENT_BASE_PATH_TOKEN,
 } from './dynamic-content.token';
 
 const MEDIA_FOLDER_NAME = 'assets';

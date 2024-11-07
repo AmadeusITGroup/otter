@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
 import {
-  program
+  program,
 } from 'commander';
 import {
   Headers,
-  Options
+  Options,
 } from 'request';
 import * as request from 'request-promise-native';
 import * as winston from 'winston';

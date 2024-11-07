@@ -1,6 +1,6 @@
 import {
   MsCrypto,
-  promisifyMsCrypto
+  promisifyMsCrypto,
 } from './ie11';
 
 declare global {

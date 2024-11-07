@@ -1,37 +1,37 @@
 import {
-  execFile
+  execFile,
 } from 'node:child_process';
 import * as fs from 'node:fs';
 import type {
-  IncomingMessage
+  IncomingMessage,
 } from 'node:http';
 import {
-  get
+  get,
 } from 'node:https';
 import {
-  EOL
+  EOL,
 } from 'node:os';
 import * as path from 'node:path';
 import {
-  promisify
+  promisify,
 } from 'node:util';
 import type {
-  logging
+  logging,
 } from '@angular-devkit/core';
 import * as chalk from 'chalk';
 import {
-  satisfies
+  satisfies,
 } from 'semver';
 import type {
   JsonObject,
-  PackageJson
+  PackageJson,
 } from 'type-fest';
 import {
   getPackageManager,
-  type PackageManagerOptions
+  type PackageManagerOptions,
 } from '../utility/index';
 import {
-  findClosestPackageJson
+  findClosestPackageJson,
 } from '../utility/package-version';
 import {
   NpmRegistryPackage,
@@ -39,7 +39,7 @@ import {
   OTTER_MODULE_KEYWORD,
   OTTER_MODULE_PREFIX,
   OTTER_MODULE_SUPPORTED_SCOPES,
-  OtterModuleTag
+  OtterModuleTag,
 } from './modules.constants';
 
 const DEFAULT_NPM_REGISTRY = 'registry.npmjs.org';

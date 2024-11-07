@@ -1,8 +1,8 @@
 import type {
-  ParserFactory
+  ParserFactory,
 } from '../core';
 import type {
-  ParserConfig
+  ParserConfig,
 } from '../interfaces';
 
 /**

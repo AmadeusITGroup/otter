@@ -1,19 +1,19 @@
 import {
-  v4
+  v4,
 } from 'uuid';
 import {
   base64EncodeUrl,
   createBase64Encoder,
-  createBase64UrlEncoder
+  createBase64UrlEncoder,
 } from '../../utils/json-token';
 import {
   PluginRunner,
   RequestOptions,
-  RequestPlugin
+  RequestPlugin,
 } from '../core';
 import {
   hmacSHA256,
-  sha256
+  sha256,
 } from './mgw-mdw-auth.helpers';
 
 /**

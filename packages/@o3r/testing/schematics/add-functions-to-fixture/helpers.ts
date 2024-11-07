@@ -1,6 +1,6 @@
 import {
   MethodType,
-  returnType
+  returnType,
 } from './models';
 
 const getMethodName = (selector: string, method: MethodType) => {

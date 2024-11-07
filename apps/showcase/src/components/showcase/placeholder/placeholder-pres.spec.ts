@@ -1,18 +1,18 @@
 import {
   ComponentFixture,
-  TestBed
+  TestBed,
 } from '@angular/core/testing';
 import {
-  EffectsModule
+  EffectsModule,
 } from '@ngrx/effects';
 import {
-  StoreModule
+  StoreModule,
 } from '@ngrx/store';
 import {
-  RulesEngineRunnerModule
+  RulesEngineRunnerModule,
 } from '@o3r/rules-engine';
 import {
-  PlaceholderPresComponent
+  PlaceholderPresComponent,
 } from './placeholder-pres.component';
 
 describe('PlaceholderPresComponent', () => {

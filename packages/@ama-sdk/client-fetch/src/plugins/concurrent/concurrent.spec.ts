@@ -1,5 +1,5 @@
 import {
-  ConcurrentFetch
+  ConcurrentFetch,
 } from './concurrent.fetch';
 
 describe('Concurrent Fetch Plugin', () => {

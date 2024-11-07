@@ -1,8 +1,8 @@
 import {
-  numberValidator
+  numberValidator,
 } from '../operator.helpers';
 import {
-  Operator
+  Operator,
 } from '../operator.interface';
 
 /**

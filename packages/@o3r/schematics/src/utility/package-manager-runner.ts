@@ -1,14 +1,14 @@
 import {
-  execSync
+  execSync,
 } from 'node:child_process';
 import {
-  posix
+  posix,
 } from 'node:path';
 import {
-  logging
+  logging,
 } from '@angular-devkit/core';
 import type {
-  WorkspaceSchema
+  WorkspaceSchema,
 } from '../interfaces/angular-workspace';
 
 /** Support NPM package managers */

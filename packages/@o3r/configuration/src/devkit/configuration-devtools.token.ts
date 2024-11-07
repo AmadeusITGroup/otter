@@ -1,8 +1,8 @@
 import {
-  InjectionToken
+  InjectionToken,
 } from '@angular/core';
 import {
-  ConfigurationDevtoolsServiceOptions
+  ConfigurationDevtoolsServiceOptions,
 } from './configuration-devtools.interface';
 
 export const OTTER_CONFIGURATION_DEVTOOLS_DEFAULT_OPTIONS: ConfigurationDevtoolsServiceOptions = {

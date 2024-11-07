@@ -1,24 +1,24 @@
 import * as path from 'node:path';
 import type {
   DirEntry,
-  FileEntry
+  FileEntry,
 } from '@angular-devkit/schematics';
 import {
   SchematicsException,
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import {
-  NodeDependencyType
+  NodeDependencyType,
 } from '@schematics/angular/utility/dependencies';
 import {
-  minimatch
+  minimatch,
 } from 'minimatch';
 import type {
-  PackageJson
+  PackageJson,
 } from 'type-fest';
 import type {
   WorkspaceProject,
-  WorkspaceSchema
+  WorkspaceSchema,
 } from '../interfaces/index';
 
 function findFilesInTreeRec(memory: Set<FileEntry>, directory: DirEntry, fileMatchesCriteria: (file: string) => boolean, ignoreDirectories: string[]) {

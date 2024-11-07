@@ -1,13 +1,13 @@
 import * as fs from 'node:fs';
 import {
-  logging
+  logging,
 } from '@angular-devkit/core';
 import {
   NodeDependency,
-  NodeDependencyType
+  NodeDependencyType,
 } from '@schematics/angular/utility/dependencies';
 import type {
-  PackageJson
+  PackageJson,
 } from 'type-fest';
 
 /**

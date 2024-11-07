@@ -1,18 +1,18 @@
 import {
   execFileSync,
   execSync,
-  type ExecSyncOptions
+  type ExecSyncOptions,
 } from 'node:child_process';
 import {
   existsSync,
-  promises
+  promises,
 } from 'node:fs';
 import {
-  join
+  join,
 } from 'node:path';
 import pidFromPort from 'pid-from-port';
 import {
-  packageManagerPublish
+  packageManagerPublish,
 } from './package-manager';
 
 /**

@@ -1,13 +1,13 @@
 import type {
   CssMetadata,
-  CssVariable
+  CssVariable,
 } from '@o3r/styling';
 import {
-  getStyleMetadata
+  getStyleMetadata,
 } from './metadata-manager';
 import {
   StyleConfigs,
-  STYLING_PREFIX
+  STYLING_PREFIX,
 } from './style-configs.interface';
 
 /** RegExp to check if the value is a color*/

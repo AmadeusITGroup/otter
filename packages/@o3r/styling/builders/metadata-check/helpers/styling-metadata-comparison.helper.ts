@@ -1,9 +1,9 @@
 import type {
-  MetadataComparator
+  MetadataComparator,
 } from '@o3r/extractors';
 import type {
   CssMetadata,
-  CssVariable
+  CssVariable,
 } from '@o3r/styling';
 
 /**

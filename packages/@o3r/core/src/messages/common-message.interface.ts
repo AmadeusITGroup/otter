@@ -1,5 +1,5 @@
 import type {
-  OtterMessageContent
+  OtterMessageContent,
 } from './message.interfaces';
 
 /** Extension connection notification message content */

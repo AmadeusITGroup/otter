@@ -1,12 +1,12 @@
 import {
   createAction,
-  props
+  props,
 } from '@ngrx/store';
 import {
-  SetEntitiesActionPayload
+  SetEntitiesActionPayload,
 } from '@o3r/core';
 import {
-  FormError
+  FormError,
 } from '../../core/index';
 
 /** StateDetailsActions */

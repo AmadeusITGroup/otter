@@ -2,10 +2,10 @@ import {
   Component,
   EventEmitter,
   forwardRef,
-  Type
+  Type,
 } from '@angular/core';
 import {
-  NG_VALUE_ACCESSOR
+  NG_VALUE_ACCESSOR,
 } from '@angular/forms';
 import * as ts from 'typescript';
 

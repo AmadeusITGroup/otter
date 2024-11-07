@@ -1,7 +1,7 @@
 import {
   basename,
   dirname,
-  posix
+  posix,
 } from 'node:path';
 import {
   apply,
@@ -16,7 +16,7 @@ import {
   SchematicContext,
   template,
   Tree,
-  url
+  url,
 } from '@angular-devkit/schematics';
 import {
   addCommentsOnClassProperties,
@@ -32,17 +32,17 @@ import {
   isO3rClassComponent,
   NoOtterComponent,
   O3rCliError,
-  sortClassElement
+  sortClassElement,
 } from '@o3r/schematics';
 import {
-  addImportToModule
+  addImportToModule,
 } from '@schematics/angular/utility/ast-utils';
 import {
-  applyToUpdateRecorder
+  applyToUpdateRecorder,
 } from '@schematics/angular/utility/change';
 import * as ts from 'typescript';
 import type {
-  NgAddAnalyticsSchematicsSchema
+  NgAddAnalyticsSchematicsSchema,
 } from './schema';
 
 const analyticsProperties = [

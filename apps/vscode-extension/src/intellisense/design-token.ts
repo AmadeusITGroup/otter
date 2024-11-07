@@ -3,13 +3,13 @@ import {
   type DesignTokenVariableSet,
   type DesignTokenVariableStructure,
   getCssTokenValueRenderer,
-  parseDesignTokenFile
+  parseDesignTokenFile,
 } from '@o3r/design';
 import {
   CompletionItem,
   CompletionItemKind,
   CompletionItemProvider,
-  HoverProvider
+  HoverProvider,
 } from 'vscode';
 import * as vscode from 'vscode';
 

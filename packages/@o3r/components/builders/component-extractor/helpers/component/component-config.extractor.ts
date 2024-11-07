@@ -1,24 +1,24 @@
 import {
-  readFileSync
+  readFileSync,
 } from 'node:fs';
 import {
-  logging
+  logging,
 } from '@angular-devkit/core';
 import type {
   ConfigProperty,
   ConfigPropertyTypes,
   ConfigType,
-  NestedConfiguration
+  NestedConfiguration,
 } from '@o3r/components';
 import type {
   CategoryDescription,
-  ItemIdentifier
+  ItemIdentifier,
 } from '@o3r/core';
 import {
-  ConfigDocParser
+  ConfigDocParser,
 } from '@o3r/extractors';
 import {
-  O3rCliError
+  O3rCliError,
 } from '@o3r/schematics';
 import * as ts from 'typescript';
 

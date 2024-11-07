@@ -1,6 +1,6 @@
 import {
   createAction,
-  props
+  props,
 } from '@ngrx/store';
 import {
   asyncProps,
@@ -8,11 +8,11 @@ import {
   FailAsyncStoreItemEntitiesActionPayload,
   FromApiActionPayload,
   UpdateAsyncStoreItemEntityActionPayloadWithId,
-  UpdateEntityActionPayloadWithId
+  UpdateEntityActionPayloadWithId,
 } from '@o3r/core';
 import {
   PlaceholderRequestModel,
-  PlaceholderRequestReply
+  PlaceholderRequestReply,
 } from './placeholder-request.state';
 
 const ACTION_FAIL_ENTITIES = '[PlaceholderRequest] fail entities';

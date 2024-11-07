@@ -7,7 +7,7 @@ const o3rEnvironment = globalThis.o3rEnvironment;
 
 import {
   existsSync,
-  promises as fs
+  promises as fs,
 } from 'node:fs';
 import * as path from 'node:path';
 import {
@@ -16,10 +16,10 @@ import {
   packageManagerExec,
   packageManagerInstall,
   packageManagerRun,
-  packageManagerRunOnProject
+  packageManagerRunOnProject,
 } from '@o3r/test-helpers';
 import type {
-  PackageJson
+  PackageJson,
 } from 'type-fest';
 
 const mocksFolder = path.join(__dirname, '..', 'testing', 'mocks');

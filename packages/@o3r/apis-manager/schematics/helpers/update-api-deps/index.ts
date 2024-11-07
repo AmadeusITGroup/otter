@@ -2,25 +2,25 @@ import {
   chain,
   Rule,
   SchematicContext,
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import {
   getAppModuleFilePath,
   getModuleIndex,
   getWorkspaceConfig,
   insertBeforeModule as o3rInsertBeforeModule,
-  insertImportToModuleFile as o3rInsertImportToModuleFile
+  insertImportToModuleFile as o3rInsertImportToModuleFile,
 } from '@o3r/schematics';
 import {
   addRootImport,
-  addRootProvider
+  addRootProvider,
 } from '@schematics/angular/utility';
 import {
-  isImported
+  isImported,
 } from '@schematics/angular/utility/ast-utils';
 import * as ts from 'typescript';
 import type {
-  NgAddSchematicsSchema
+  NgAddSchematicsSchema,
 } from '../../ng-add/schema';
 
 /**

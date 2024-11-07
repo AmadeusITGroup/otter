@@ -1,11 +1,11 @@
 import type {
-  ExtensionContext
+  ExtensionContext,
 } from 'vscode';
 import * as vscode from 'vscode';
 import {
   getPackageScriptRunner,
   getSchematicDefaultOptions,
-  stringifyOptions
+  stringifyOptions,
 } from '../helpers';
 
 const availableMethods: string[] = [

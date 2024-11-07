@@ -1,22 +1,22 @@
 import * as path from 'node:path';
 import {
-  logging
+  logging,
 } from '@angular-devkit/core';
 import type {
-  CategoryDescription
+  CategoryDescription,
 } from '@o3r/core';
 import {
-  O3rCliError
+  O3rCliError,
 } from '@o3r/schematics';
 import globby from 'globby';
 import * as ts from 'typescript';
 import {
   ComponentClassExtractor,
-  ComponentInformation
+  ComponentInformation,
 } from './component-class.extractor';
 import {
   ComponentConfigExtractor,
-  ConfigurationInformationWrapper
+  ConfigurationInformationWrapper,
 } from './component-config.extractor';
 
 /** Output of a file parsing */

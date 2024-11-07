@@ -1,7 +1,7 @@
 import {
   execFileSync,
   ExecFileSyncOptionsWithStringEncoding,
-  execSync
+  execSync,
 } from 'node:child_process';
 
 /**

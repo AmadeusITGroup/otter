@@ -3,7 +3,7 @@ import {
   type ApiClient,
   ApiTypes,
   type RequestOptionsParameters,
-  type ReviverType
+  type ReviverType,
 } from '../fwk';
 
 /**
@@ -49,7 +49,7 @@ export class GenericApi implements Api {
     const metadataHeaderAccept = requestOptions.metadata?.headerAccept || 'application/json';
     const headers: { [key: string]: string | undefined } = {
       'Content-Type': requestOptions.metadata?.headerContentType || 'application/json',
-      ...(metadataHeaderAccept ? { 'Accept': metadataHeaderAccept } : {})
+      ...(metadataHeaderAccept ? { Accept: metadataHeaderAccept } : {})
     };
 
     const requestParameters: RequestOptionsParameters = {

@@ -1,10 +1,10 @@
 import {
   createFeatureSelector,
-  createSelector
+  createSelector,
 } from '@ngrx/store';
 import {
   EVENT_TRACK_STORE_NAME,
-  EventTrackState
+  EventTrackState,
 } from './event-track.state';
 
 /** Select EventTrack State */

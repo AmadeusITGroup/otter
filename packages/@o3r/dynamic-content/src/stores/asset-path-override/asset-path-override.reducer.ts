@@ -2,11 +2,11 @@ import {
   ActionCreator,
   createReducer,
   on,
-  ReducerTypes
+  ReducerTypes,
 } from '@ngrx/store';
 import * as actions from './asset-path-override.actions';
 import {
-  AssetPathOverrideState
+  AssetPathOverrideState,
 } from './asset-path-override.state';
 
 /**

@@ -1,5 +1,5 @@
 import type {
-  WHITELISTED_HOSTS_KEY as Key
+  WHITELISTED_HOSTS_KEY as Key,
 } from './interface';
 
 const WHITELISTED_HOSTS_KEY: typeof Key = 'WHITELISTED_HOSTS';

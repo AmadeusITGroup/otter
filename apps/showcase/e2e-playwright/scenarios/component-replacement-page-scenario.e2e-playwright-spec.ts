@@ -1,15 +1,15 @@
 import {
-  O3rElement
+  O3rElement,
 } from '@o3r/testing/core';
 import {
   expect,
-  test
+  test,
 } from '@playwright/test';
 import {
-  AppFixtureComponent
+  AppFixtureComponent,
 } from '../../src/app/app.fixture';
 import {
-  ComponentReplacementPresFixtureComponent
+  ComponentReplacementPresFixtureComponent,
 } from '../../src/components/showcase/component-replacement/component-replacement-pres.fixture';
 
 test.describe.serial('Test component replacement page', () => {

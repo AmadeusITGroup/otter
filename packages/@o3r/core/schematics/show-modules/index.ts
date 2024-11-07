@@ -1,14 +1,14 @@
 import {
-  Rule
+  Rule,
 } from '@angular-devkit/schematics';
 import {
   createSchematicWithMetricsIfInstalled,
   displayModuleListRule,
   OTTER_MODULE_KEYWORD,
-  OTTER_MODULE_SUPPORTED_SCOPES
+  OTTER_MODULE_SUPPORTED_SCOPES,
 } from '@o3r/schematics';
 import {
-  NgShowModulesSchematicsSchema
+  NgShowModulesSchematicsSchema,
 } from './schema';
 
 /**

@@ -1,13 +1,13 @@
 import type {
-  ApiTypes
+  ApiTypes,
 } from '../../fwk/api';
 import type {
-  ReviverType
+  ReviverType,
 } from '../../fwk/reviver';
 import type {
   Plugin,
   PluginContext,
-  PluginRunner
+  PluginRunner,
 } from './plugin';
 
 /**

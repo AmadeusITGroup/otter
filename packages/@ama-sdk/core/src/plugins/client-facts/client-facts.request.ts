@@ -1,10 +1,10 @@
 import {
-  createJwtEncoder
+  createJwtEncoder,
 } from '../../utils/json-token';
 import {
   PluginRunner,
   RequestOptions,
-  RequestPlugin
+  RequestPlugin,
 } from '../core';
 
 /**

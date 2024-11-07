@@ -2,10 +2,10 @@ import {
   chain,
   Rule,
   SchematicContext,
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import type {
-  TsConfigJson
+  TsConfigJson,
 } from 'type-fest';
 import * as ts from 'typescript';
 

@@ -1,5 +1,5 @@
 import type {
-  SchematicOptionObject
+  SchematicOptionObject,
 } from '@o3r/schematics';
 
 /** Monorepo manager to use */

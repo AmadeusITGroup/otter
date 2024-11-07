@@ -1,5 +1,5 @@
 import type {
-  ImportsMapping
+  ImportsMapping,
 } from '@o3r/schematics';
 
 /** Map containing the import changes in otter packages for the exported elements */

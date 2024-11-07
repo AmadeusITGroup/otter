@@ -1,7 +1,7 @@
 import {
   Injectable,
   OnDestroy,
-  QueryList
+  QueryList,
 } from '@angular/core';
 import {
   delay,
@@ -10,10 +10,10 @@ import {
   startWith,
   Subject,
   Subscription,
-  switchMap
+  switchMap,
 } from 'rxjs';
 import {
-  InPageNavLink
+  InPageNavLink,
 } from './in-page-nav-pres.component';
 
 @Injectable({

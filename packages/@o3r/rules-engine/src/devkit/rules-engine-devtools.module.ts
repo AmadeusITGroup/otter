@@ -1,25 +1,25 @@
 import {
   ModuleWithProviders,
-  NgModule
+  NgModule,
 } from '@angular/core';
 import {
-  StoreModule
+  StoreModule,
 } from '@ngrx/store';
 import {
-  RulesetsStoreModule
+  RulesetsStoreModule,
 } from '../stores/index';
 import type {
-  RulesEngineDevtoolsServiceOptions
+  RulesEngineDevtoolsServiceOptions,
 } from './rules-engine-devkit.interface';
 import {
-  RulesEngineDevtoolsConsoleService
+  RulesEngineDevtoolsConsoleService,
 } from './rules-engine-devtools.console.service';
 import {
-  RulesEngineDevtoolsMessageService
+  RulesEngineDevtoolsMessageService,
 } from './rules-engine-devtools.message.service';
 import {
   OTTER_RULES_ENGINE_DEVTOOLS_DEFAULT_OPTIONS,
-  OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS
+  OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS,
 } from './rules-engine-devtools.token';
 
 @NgModule({

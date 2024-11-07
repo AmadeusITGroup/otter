@@ -1,15 +1,15 @@
 import {
   BehaviorSubject,
-  Observable
+  Observable,
 } from 'rxjs';
 import {
-  Ng
+  Ng,
 } from './ng';
 import {
   getOtterLikeComponentInfo,
   INSPECTOR_CLASS,
   isContainer,
-  OtterLikeComponentInfo
+  OtterLikeComponentInfo,
 } from './otter-inspector.helpers';
 
 interface ComponentInfo extends OtterLikeComponentInfo {

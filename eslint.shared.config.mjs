@@ -179,16 +179,6 @@ export default [
     }
   },
   {
-    name: '@o3r/framework/disabled-for-discussion',
-    files: ['**/*.{c,m,}{t,j}s'],
-    rules: {
-      '@stylistic/comma-dangle': 'off',
-      '@stylistic/quote-props': 'off',
-      'jsdoc/require-param-description': 'off',
-      'unicorn/no-await-expression-member': 'off'
-    }
-  },
-  {
     name: '@o3r/framework/warn-until-migration-completed',
     files: ['**/*.ts', '**/*.tsx', '**/*.mts', '**/*.cts'],
     rules: {

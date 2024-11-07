@@ -1,9 +1,9 @@
 import type {
   Locator,
-  Page
+  Page,
 } from '@playwright/test';
 import {
-  ElementProfile
+  ElementProfile,
 } from '../element';
 
 export { ElementProfile } from '../element';

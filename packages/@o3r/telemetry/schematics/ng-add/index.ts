@@ -1,11 +1,11 @@
 import type {
-  JsonObject
+  JsonObject,
 } from '@angular-devkit/core';
 import type {
-  Rule
+  Rule,
 } from '@angular-devkit/schematics';
 import type {
-  NgAddSchematicsSchema
+  NgAddSchematicsSchema,
 } from './schema';
 
 /**

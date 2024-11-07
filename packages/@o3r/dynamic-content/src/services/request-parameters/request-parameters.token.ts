@@ -1,8 +1,8 @@
 import {
-  InjectionToken
+  InjectionToken,
 } from '@angular/core';
 import {
-  RequestParametersConfig
+  RequestParametersConfig,
 } from './request-parameters.config';
 
 /**

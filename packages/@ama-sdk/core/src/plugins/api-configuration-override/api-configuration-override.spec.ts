@@ -1,8 +1,8 @@
 import {
-  RequestOptions
+  RequestOptions,
 } from '../core/request-plugin';
 import {
-  ApiConfigurationOverride
+  ApiConfigurationOverride,
 } from './api-configuration-override.request';
 
 describe('ApiConfigurationOverride Plugin', () => {

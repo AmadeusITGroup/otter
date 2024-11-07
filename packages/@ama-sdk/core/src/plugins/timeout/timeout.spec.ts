@@ -1,11 +1,11 @@
 import {
   EmptyResponseError,
-  ResponseTimeoutError
+  ResponseTimeoutError,
 } from '../../fwk/errors';
 import {
   impervaCaptchaEventHandlerFactory,
   TimeoutFetch,
-  TimeoutStatus
+  TimeoutStatus,
 } from './timeout.fetch';
 
 describe('Timeout Fetch Plugin', () => {

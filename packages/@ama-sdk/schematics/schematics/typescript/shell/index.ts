@@ -1,7 +1,7 @@
 import {
   isAbsolute,
   posix,
-  relative
+  relative,
 } from 'node:path';
 import {
   apply,
@@ -14,21 +14,21 @@ import {
   SchematicContext,
   template,
   Tree,
-  url
+  url,
 } from '@angular-devkit/schematics';
 import {
   dump,
-  load
+  load,
 } from 'js-yaml';
 import {
   getPackageManagerName,
-  NpmInstall
+  NpmInstall,
 } from '../../helpers/node-install';
 import {
-  readPackageJson
+  readPackageJson,
 } from '../../helpers/read-package';
 import type {
-  NgGenerateTypescriptSDKShellSchematicsSchema
+  NgGenerateTypescriptSDKShellSchematicsSchema,
 } from './schema';
 
 /**
@@ -46,7 +46,7 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKShellSchemati
     const amaSdkSchematicsPackageJson = await readPackageJson();
 
     const versions = {
-      'tslib': amaSdkSchematicsPackageJson.dependencies!.tslib,
+      tslib: amaSdkSchematicsPackageJson.dependencies!.tslib,
       '@commitlint/cli': amaSdkSchematicsPackageJson.generatorDependencies['@commitlint/cli'],
       '@commitlint/config-conventional': amaSdkSchematicsPackageJson.generatorDependencies['@commitlint/config-conventional'],
       '@swc/helpers': amaSdkSchematicsPackageJson.generatorDependencies['@swc/helpers'],
@@ -64,29 +64,29 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKShellSchemati
       'eslint-plugin-jsdoc': amaSdkSchematicsPackageJson.devDependencies!['eslint-plugin-jsdoc'],
       'eslint-plugin-prefer-arrow': amaSdkSchematicsPackageJson.devDependencies!['eslint-plugin-prefer-arrow'],
       'eslint-plugin-unicorn': amaSdkSchematicsPackageJson.devDependencies!['eslint-plugin-unicorn'],
-      'eslint': amaSdkSchematicsPackageJson.devDependencies!.eslint,
-      'globals': amaSdkSchematicsPackageJson.devDependencies!.globals,
-      'globby': amaSdkSchematicsPackageJson.dependencies!.globby,
+      eslint: amaSdkSchematicsPackageJson.devDependencies!.eslint,
+      globals: amaSdkSchematicsPackageJson.devDependencies!.globals,
+      globby: amaSdkSchematicsPackageJson.dependencies!.globby,
       'isomorphic-fetch': amaSdkSchematicsPackageJson.devDependencies!['isomorphic-fetch'],
-      'jest': amaSdkSchematicsPackageJson.devDependencies!.jest,
-      'rxjs': amaSdkSchematicsPackageJson.dependencies!.rxjs,
+      jest: amaSdkSchematicsPackageJson.devDependencies!.jest,
+      rxjs: amaSdkSchematicsPackageJson.dependencies!.rxjs,
       'ts-jest': amaSdkSchematicsPackageJson.devDependencies!['ts-jest'],
-      'typescript': amaSdkSchematicsPackageJson.devDependencies!.typescript,
+      typescript: amaSdkSchematicsPackageJson.devDependencies!.typescript,
       'jest-junit': amaSdkSchematicsPackageJson.generatorDependencies['jest-junit'],
       'lint-staged': amaSdkSchematicsPackageJson.generatorDependencies['lint-staged'],
-      'minimist': amaSdkSchematicsPackageJson.generatorDependencies.minimist,
-      'rimraf': amaSdkSchematicsPackageJson.generatorDependencies.rimraf,
+      minimist: amaSdkSchematicsPackageJson.generatorDependencies.minimist,
+      rimraf: amaSdkSchematicsPackageJson.generatorDependencies.rimraf,
       'tsc-watch': amaSdkSchematicsPackageJson.generatorDependencies['tsc-watch'],
       'yaml-eslint-parser': amaSdkSchematicsPackageJson.generatorDependencies['yaml-eslint-parser'],
-      'typedoc': amaSdkSchematicsPackageJson.generatorDependencies.typedoc
+      typedoc: amaSdkSchematicsPackageJson.generatorDependencies.typedoc
     };
     const openApiSupportedVersion = typeof amaSdkSchematicsPackageJson.openApiSupportedVersion === 'string'
       && amaSdkSchematicsPackageJson.openApiSupportedVersion.replace(/\^|~/, '');
     context.logger.warn(JSON.stringify(openApiSupportedVersion));
     const engineVersions = {
-      'node': amaSdkSchematicsPackageJson.engines!.node,
-      'npm': amaSdkSchematicsPackageJson.engines!.npm,
-      'yarn': amaSdkSchematicsPackageJson.engines!.yarn
+      node: amaSdkSchematicsPackageJson.engines!.node,
+      npm: amaSdkSchematicsPackageJson.engines!.npm,
+      yarn: amaSdkSchematicsPackageJson.engines!.yarn
     };
 
     const properties = {

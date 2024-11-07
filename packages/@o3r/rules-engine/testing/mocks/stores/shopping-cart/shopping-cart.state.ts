@@ -1,12 +1,12 @@
 import {
-  EntityState
+  EntityState,
 } from '@ngrx/entity';
 import {
   AsyncStoreItem,
-  EntityStatus
+  EntityStatus,
 } from '@o3r/core';
 import {
-  ShoppingCart
+  ShoppingCart,
 } from './shopping-cart.model';
 
 /**

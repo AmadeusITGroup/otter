@@ -7,74 +7,74 @@ import {
   type OnDestroy,
   type Signal,
   untracked,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {
   takeUntilDestroyed,
-  toSignal
+  toSignal,
 } from '@angular/core/rxjs-interop';
 import {
   FormControl,
   FormGroup,
   FormsModule,
-  ReactiveFormsModule
+  ReactiveFormsModule,
 } from '@angular/forms';
 import {
-  DfTooltipModule
+  DfTooltipModule,
 } from '@design-factory/design-factory';
 import {
   NgbAccordionModule,
-  NgbTypeaheadModule
+  NgbTypeaheadModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
-  computeItemIdentifier
+  computeItemIdentifier,
 } from '@o3r/core';
 import {
   type GetStylingVariableContentMessage,
   PALETTE_TAG_NAME,
   type StylingVariable,
-  THEME_TAG_NAME
+  THEME_TAG_NAME,
 } from '@o3r/styling';
 import {
   combineLatest,
   Observable,
-  Subscription
+  Subscription,
 } from 'rxjs';
 import {
   map,
   startWith,
-  throttleTime
+  throttleTime,
 } from 'rxjs/operators';
 import {
   ChromeExtensionConnectionService,
   filterAndMapMessage,
-  StateService
+  StateService,
 } from '../../services';
 import {
   DEFAULT_PALETTE_VARIANT,
-  getPaletteColors
+  getPaletteColors,
 } from './color.helpers';
 import {
   AccessibilityConstrastScorePipe,
   ConstrastPipe,
-  HexColorPipe
+  HexColorPipe,
 } from './color.pipe';
 import {
   getVariant,
   resolveVariable,
-  searchFn
+  searchFn,
 } from './common';
 import {
-  IsRefPipe
+  IsRefPipe,
 } from './is-ref.pipe';
 import {
-  MemoizePipe
+  MemoizePipe,
 } from './memoize.pipe';
 import {
-  VariableLabelPipe
+  VariableLabelPipe,
 } from './variable-label.pipe';
 import {
-  VariableNamePipe
+  VariableNamePipe,
 } from './variable-name.pipe';
 
 const THROTTLE_TIME = 100;

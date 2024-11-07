@@ -1,11 +1,11 @@
 import {
   AbstractControl,
   FormGroup,
-  ValidationErrors
+  ValidationErrors,
 } from '@angular/forms';
 import {
   ControlFlatErrors,
-  FlatError
+  FlatError,
 } from './flat-errors';
 
 /**

@@ -1,36 +1,36 @@
 import {
-  formatDate
+  formatDate,
 } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
   inject,
   type OnDestroy,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
   FormGroup,
-  ReactiveFormsModule
+  ReactiveFormsModule,
 } from '@angular/forms';
 import {
-  PlaceholderModule
+  PlaceholderModule,
 } from '@o3r/components';
 import {
-  O3rComponent
+  O3rComponent,
 } from '@o3r/core';
 import {
-  RulesEngineRunnerModule
+  RulesEngineRunnerModule,
 } from '@o3r/rules-engine';
 import {
-  Subscription
+  Subscription,
 } from 'rxjs';
 import {
-  TripFactsService
+  TripFactsService,
 } from '../../../facts/trip/trip.facts';
 import {
-  DatePickerInputPresComponent
+  DatePickerInputPresComponent,
 } from '../../utilities';
 
 const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;

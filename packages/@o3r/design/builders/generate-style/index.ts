@@ -1,40 +1,40 @@
 import {
-  EOL
+  EOL,
 } from 'node:os';
 import {
-  resolve
+  resolve,
 } from 'node:path';
 import {
   BuilderOutput,
-  createBuilder
+  createBuilder,
 } from '@angular-devkit/architect';
 import type {
-  BuilderWrapper
+  BuilderWrapper,
 } from '@o3r/telemetry';
 import {
-  sync
+  sync,
 } from 'globby';
 import type {
   DesignTokenRendererOptions,
   DesignTokenVariableSet,
   DesignTokenVariableStructure,
-  TokenKeyRenderer
+  TokenKeyRenderer,
 } from '../../src/public_api';
 import {
   parseDesignTokenFile,
-  renderDesignTokens
+  renderDesignTokens,
 } from '../../src/public_api';
 import {
-  getMetadataRenderDesignTokenOptions
+  getMetadataRenderDesignTokenOptions,
 } from './helpers/metadata-renderer-options';
 import {
-  getStyleRendererOptions
+  getStyleRendererOptions,
 } from './helpers/style-renderer-options';
 import {
-  generateTemplate
+  generateTemplate,
 } from './helpers/token-template';
 import type {
-  GenerateStyleSchematicsSchema
+  GenerateStyleSchematicsSchema,
 } from './schema';
 
 const noop: BuilderWrapper = (fn) => fn;

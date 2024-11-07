@@ -1,11 +1,11 @@
 import type {
-  Rule
+  Rule,
 } from '@angular-devkit/schematics';
 import type {
-  NgGenerateComponentSchematicsSchema
+  NgGenerateComponentSchematicsSchema,
 } from '../../component/schema';
 import {
-  askQuestionsToGetRulesOrThrowIfPackageNotAvailable
+  askQuestionsToGetRulesOrThrowIfPackageNotAvailable,
 } from './common';
 
 export const getAddFixtureRules = (

@@ -1,24 +1,24 @@
 import {
   INIT,
-  UPDATE
+  UPDATE,
 } from '@ngrx/store';
 import equal from 'fast-deep-equal';
 import {
-  deepFillWithDate
+  deepFillWithDate,
 } from '../deep-fill/deep-fill';
 import {
-  syncStorage
+  syncStorage,
 } from '../sync-storage';
 import type {
-  StorageSyncOptions
+  StorageSyncOptions,
 } from './interfaces';
 import {
-  StorageSyncConstructorOptions
+  StorageSyncConstructorOptions,
 } from './interfaces';
 import {
   isLocalStorageConfig,
   isSerializer,
-  rehydrateAction
+  rehydrateAction,
 } from './storage-sync.helpers';
 
 /**
@@ -80,7 +80,6 @@ export class StorageSync {
    * Returns a meta reducer that handles storage sync
    */
   public localStorageSync = () => {
-    // eslint-disable-next-line unicorn/consistent-function-scoping -- higher-order function
     const base = (reducer: any) => syncStorage({
       ...this.options,
       rehydrate: false,

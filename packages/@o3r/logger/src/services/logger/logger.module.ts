@@ -1,18 +1,18 @@
 import {
   ModuleWithProviders,
-  NgModule
+  NgModule,
 } from '@angular/core';
 import {
-  LoggerClient
+  LoggerClient,
 } from './logger.client';
 import {
-  ConsoleLogger
+  ConsoleLogger,
 } from './logger.console';
 import {
-  LoggerService
+  LoggerService,
 } from './logger.service';
 import {
-  LOGGER_CLIENT_TOKEN
+  LOGGER_CLIENT_TOKEN,
 } from './logger.token';
 
 @NgModule({

@@ -1,17 +1,17 @@
 import {
   spawn,
-  SpawnOptions
+  SpawnOptions,
 } from 'node:child_process';
 import * as path from 'node:path';
 import {
-  getPackageManagerName
+  getPackageManagerName,
 } from '../../helpers/node-install';
 import {
-  CodeGenerator
+  CodeGenerator,
 } from '../code-generator';
 import {
   defaultTypescriptGeneratorOptions,
-  OpenApiCliOptions
+  OpenApiCliOptions,
 } from './open-api-cli.options';
 
 /**

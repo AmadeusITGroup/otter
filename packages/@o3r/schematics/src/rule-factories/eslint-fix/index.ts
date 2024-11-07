@@ -1,7 +1,7 @@
 import {
   dirname,
   extname,
-  join
+  join,
 } from 'node:path';
 import {
   DirEntry,
@@ -9,11 +9,11 @@ import {
   type Rule,
   SchematicContext,
   type TaskId,
-  type Tree
+  type Tree,
 } from '@angular-devkit/schematics';
 import {
   EslintFixTask,
-  LinterOptions
+  LinterOptions,
 } from '../../tasks/index';
 
 interface ApplyEslintFixOption extends LinterOptions {

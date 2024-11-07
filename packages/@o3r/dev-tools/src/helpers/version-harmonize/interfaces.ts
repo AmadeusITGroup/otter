@@ -1,5 +1,5 @@
 import type {
-  PackageJson
+  PackageJson,
 } from 'type-fest';
 
 /** Configuration  in a package.json to indication specification to this package */

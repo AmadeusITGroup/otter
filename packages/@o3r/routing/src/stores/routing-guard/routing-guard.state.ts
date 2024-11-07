@@ -1,5 +1,5 @@
 import {
-  EntityState
+  EntityState,
 } from '@ngrx/entity';
 
 /** Identifies the status of a registered block */

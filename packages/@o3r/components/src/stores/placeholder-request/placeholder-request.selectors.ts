@@ -1,13 +1,13 @@
 import {
   createFeatureSelector,
-  createSelector
+  createSelector,
 } from '@ngrx/store';
 import {
-  placeholderRequestAdapter
+  placeholderRequestAdapter,
 } from './placeholder-request.reducer';
 import {
   PLACEHOLDER_REQUEST_STORE_NAME,
-  PlaceholderRequestState
+  PlaceholderRequestState,
 } from './placeholder-request.state';
 
 export const selectPlaceholderRequestState = createFeatureSelector<PlaceholderRequestState>(PLACEHOLDER_REQUEST_STORE_NAME);

@@ -1,6 +1,6 @@
 import SwaggerParser from '@apidevtools/swagger-parser';
 import {
-  PostProcess
+  PostProcess,
 } from './post-process.interface';
 
 /**

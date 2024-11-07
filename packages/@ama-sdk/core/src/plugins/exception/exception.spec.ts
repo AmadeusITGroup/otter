@@ -1,12 +1,12 @@
 import {
-  ApiTypes
+  ApiTypes,
 } from '../../fwk/api';
 import {
   EmptyResponseError,
-  RequestFailedError
+  RequestFailedError,
 } from '../../fwk/errors';
 import {
-  ExceptionReply
+  ExceptionReply,
 } from './exception.reply';
 
 describe('Exception Reply Plugin', () => {

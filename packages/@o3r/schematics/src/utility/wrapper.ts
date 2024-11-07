@@ -1,29 +1,29 @@
 import {
-  readFileSync
+  readFileSync,
 } from 'node:fs';
 import * as path from 'node:path';
 import type {
-  JsonObject
+  JsonObject,
 } from '@angular-devkit/core';
 import {
   applyToSubtree,
   chain,
   noop,
-  type Rule
+  type Rule,
 } from '@angular-devkit/schematics';
 import type {
-  SchematicWrapper
+  SchematicWrapper,
 } from '@o3r/telemetry';
 import {
-  NodeDependencyType
+  NodeDependencyType,
 } from '@schematics/angular/utility/dependencies';
 import {
   prompt,
-  Question
+  Question,
 } from 'inquirer';
 import {
   hasSetupInformation,
-  setupDependencies
+  setupDependencies,
 } from '../rule-factories';
 
 const noopSchematicWrapper: SchematicWrapper = (fn) => fn;

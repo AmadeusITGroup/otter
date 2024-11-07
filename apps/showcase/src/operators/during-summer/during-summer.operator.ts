@@ -1,7 +1,7 @@
 import {
   DateInput,
   inRangeDate,
-  UnaryOperator
+  UnaryOperator,
 } from '@o3r/rules-engine';
 
 /**

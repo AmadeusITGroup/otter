@@ -1,27 +1,27 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import {
-  sync as globbySync
+  sync as globbySync,
 } from 'globby';
 import type {
-  Spec
+  Spec,
 } from 'swagger-schema-official';
 import {
-  BuilderApiConfiguration
+  BuilderApiConfiguration,
 } from '../../interfaces/apis-configuration';
 import {
-  SwaggerSpecMerger
+  SwaggerSpecMerger,
 } from '../swagger-spec-merger';
 import {
   checkJson,
   getTargetInformation,
-  isGlobPattern
+  isGlobPattern,
 } from '../utils';
 import {
-  SwaggerSpecObject
+  SwaggerSpecObject,
 } from './swagger-spec-object';
 import {
-  SwaggerSpec
+  SwaggerSpec,
 } from './swagger-spec.interface';
 
 const apiConfigurationSchema = JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', '..', 'schemas', 'api-configuration.schema.json'), { encoding: 'utf8' }));

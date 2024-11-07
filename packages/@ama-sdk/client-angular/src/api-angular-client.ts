@@ -6,7 +6,7 @@ import type {
   RequestOptions,
   RequestOptionsParameters,
   ReviverType,
-  TokenizedOptions
+  TokenizedOptions,
 } from '@ama-sdk/core';
 import {
   EmptyResponseError,
@@ -17,16 +17,16 @@ import {
   prepareUrl,
   processFormData,
   ReviverReply,
-  tokenizeRequestOptions
+  tokenizeRequestOptions,
 } from '@ama-sdk/core';
 import type {
   HttpClient,
-  HttpResponse
+  HttpResponse,
 } from '@angular/common/http';
 import type {
   AngularCall,
   AngularPlugin,
-  PluginObservableRunner
+  PluginObservableRunner,
 } from './angular-plugin';
 
 /** @see BaseApiClientOptions */

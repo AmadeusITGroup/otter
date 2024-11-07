@@ -1,20 +1,20 @@
 import {
   Inject,
   Injectable,
-  InjectionToken
+  InjectionToken,
 } from '@angular/core';
 import {
-  Store
+  Store,
 } from '@ngrx/store';
 import {
-  LoggerService
+  LoggerService,
 } from '@o3r/logger';
 import {
   dateReviver,
   isLocalStorageConfig,
   isSerializer,
   rehydrateAction,
-  StorageSyncOptions
+  StorageSyncOptions,
 } from '@o3r/store-sync';
 
 /**

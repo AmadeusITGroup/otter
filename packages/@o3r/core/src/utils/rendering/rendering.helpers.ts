@@ -3,7 +3,7 @@ import {
   from,
   Observable,
   observeOn,
-  of
+  of,
 } from 'rxjs';
 import {
   bufferCount,
@@ -11,7 +11,7 @@ import {
   delay,
   mergeMap,
   scan,
-  tap
+  tap,
 } from 'rxjs/operators';
 
 /**

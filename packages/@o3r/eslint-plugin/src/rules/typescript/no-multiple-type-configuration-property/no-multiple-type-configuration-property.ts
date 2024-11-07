@@ -1,10 +1,10 @@
 import {
-  TSESTree
+  TSESTree,
 } from '@typescript-eslint/utils';
 import {
   createRule,
   defaultSupportedInterfaceNames,
-  isExtendingConfiguration
+  isExtendingConfiguration,
 } from '../../utils';
 
 const separatorRegExp = /\s*[&|]\s*/;

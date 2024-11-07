@@ -1,5 +1,5 @@
 import type {
-  Facts
+  Facts,
 } from '../fact/fact.interfaces';
 
 /**

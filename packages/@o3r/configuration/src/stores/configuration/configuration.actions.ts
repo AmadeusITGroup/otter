@@ -1,9 +1,9 @@
 import {
   createAction,
-  props
+  props,
 } from '@ngrx/store';
 import {
-  Configuration
+  Configuration,
 } from '@o3r/core';
 
 export interface SetConfigurationEntitiesPayload {

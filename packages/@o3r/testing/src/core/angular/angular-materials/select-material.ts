@@ -1,14 +1,14 @@
 import {
-  DebugElement
+  DebugElement,
 } from '@angular/core';
 import {
-  By
+  By,
 } from '@angular/platform-browser';
 import {
-  MatSelectProfile
+  MatSelectProfile,
 } from '../../angular-materials';
 import {
-  O3rElement
+  O3rElement,
 } from '../element';
 
 export { SelectElementProfile } from '../../elements';

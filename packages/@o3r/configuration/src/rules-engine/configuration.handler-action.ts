@@ -1,23 +1,23 @@
 import {
-  Injectable
+  Injectable,
 } from '@angular/core';
 import {
-  Store
+  Store,
 } from '@ngrx/store';
 import {
   ConfigurationStore,
   PropertyOverride,
-  setConfigOverride
+  setConfigOverride,
 } from '@o3r/configuration';
 import type {
-  RulesEngineActionHandler
+  RulesEngineActionHandler,
 } from '@o3r/core';
 import {
-  computeItemIdentifier
+  computeItemIdentifier,
 } from '@o3r/core';
 import {
   ActionUpdateConfigBlock,
-  RULES_ENGINE_CONFIGURATION_UPDATE_ACTION_TYPE
+  RULES_ENGINE_CONFIGURATION_UPDATE_ACTION_TYPE,
 } from './configuration.interfaces';
 
 /**

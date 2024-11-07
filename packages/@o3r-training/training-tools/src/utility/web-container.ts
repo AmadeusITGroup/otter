@@ -1,7 +1,7 @@
 import type {
   BufferEncoding,
   DirEnt,
-  FileSystemTree
+  FileSystemTree,
 } from '@webcontainer/api';
 
 /**

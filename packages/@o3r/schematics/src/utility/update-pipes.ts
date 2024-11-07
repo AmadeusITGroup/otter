@@ -1,25 +1,25 @@
 import {
   basename,
   dirname,
-  join
+  join,
 } from 'node:path';
 import {
   Rule,
   SchematicContext,
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import * as ts from 'typescript';
 import {
   DecoratorWithArg,
-  isDecoratorWithArg
+  isDecoratorWithArg,
 } from './ast';
 import {
   getO3rComponentInfoOrThrowIfNotFound,
   isNgClassComponent,
-  isNgClassDecorator
+  isNgClassDecorator,
 } from './component';
 import {
-  findFilesInTree
+  findFilesInTree,
 } from './loaders';
 
 /** Dictionary of pipes to be updated */

@@ -1,12 +1,12 @@
 import {
-  ComponentConfigOutput
+  ComponentConfigOutput,
 } from '@o3r/components';
 import {
   CONFIGURATION_PREFIX,
-  ConfigurationConfigs
+  ConfigurationConfigs,
 } from './configuration-configs.interface';
 import {
-  getConfigurationMetadata
+  getConfigurationMetadata,
 } from './metadata-manager';
 
 /**

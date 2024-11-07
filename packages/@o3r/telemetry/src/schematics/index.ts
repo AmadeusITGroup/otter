@@ -1,19 +1,19 @@
 import {
-  performance
+  performance,
 } from 'node:perf_hooks';
 import type {
-  JsonObject
+  JsonObject,
 } from '@angular-devkit/core';
 import type {
-  Rule
+  Rule,
 } from '@angular-devkit/schematics';
 import {
-  getEnvironmentInfo
+  getEnvironmentInfo,
 } from '../environment/index';
 import {
   sendData as defaultSendData,
   SchematicMetricData,
-  type SendDataFn
+  type SendDataFn,
 } from '../sender';
 
 /**

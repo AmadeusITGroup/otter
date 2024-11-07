@@ -1,9 +1,9 @@
 import {
   configurationAdapter,
-  configurationInitialState
+  configurationInitialState,
 } from './configuration.reducer';
 import {
-  ConfigurationState
+  ConfigurationState,
 } from './configuration.state';
 
 export const configurationStorageSync = {

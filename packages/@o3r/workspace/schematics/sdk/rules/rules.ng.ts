@@ -1,13 +1,13 @@
 import * as path from 'node:path';
 import type {
-  Rule
+  Rule,
 } from '@angular-devkit/schematics';
 import {
   getWorkspaceConfig,
-  WorkspaceProject
+  WorkspaceProject,
 } from '@o3r/schematics';
 import type {
-  NgGenerateSdkSchema
+  NgGenerateSdkSchema,
 } from '../schema';
 
 /**

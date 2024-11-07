@@ -1,9 +1,9 @@
 import {
   ComponentFixture,
-  TestBed
+  TestBed,
 } from '@angular/core/testing';
 import {
-  HomeComponent
+  HomeComponent,
 } from './home.component';
 
 describe('HomeComponent', () => {

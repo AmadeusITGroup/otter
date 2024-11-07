@@ -13,13 +13,13 @@ const config = [
     ],
     rules: {
       ...convertWarningsToErrors(comments.recommended),
+      '@eslint-community/eslint-comments/disable-enable-pair': 'off',
       '@eslint-community/eslint-comments/require-description': [
         'error',
         {
           ignore: ['eslint-enable']
         }
-      ],
-      '@eslint-community/eslint-comments/disable-enable-pair': 'off'
+      ]
     }
   }
 ];

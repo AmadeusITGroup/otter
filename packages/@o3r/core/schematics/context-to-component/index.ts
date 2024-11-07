@@ -1,7 +1,7 @@
 import {
   basename,
   dirname,
-  posix
+  posix,
 } from 'node:path';
 import {
   apply,
@@ -16,7 +16,7 @@ import {
   SchematicContext,
   template,
   Tree,
-  url
+  url,
 } from '@angular-devkit/schematics';
 import {
   addImportsRule,
@@ -27,11 +27,11 @@ import {
   getO3rComponentInfoOrThrowIfNotFound,
   isO3rClassComponent,
   NoOtterComponent,
-  O3rCliError
+  O3rCliError,
 } from '@o3r/schematics';
 import * as ts from 'typescript';
 import type {
-  NgAddConfigSchematicsSchema
+  NgAddConfigSchematicsSchema,
 } from './schema';
 
 const checkContext = (componentPath: string, tree: Tree) => {

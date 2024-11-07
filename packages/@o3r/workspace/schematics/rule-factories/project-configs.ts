@@ -1,9 +1,9 @@
 import * as path from 'node:path';
 import type {
-  Rule
+  Rule,
 } from '@angular-devkit/schematics';
 import {
-  findConfigFileRelativePath
+  findConfigFileRelativePath,
 } from '@o3r/schematics';
 import * as ts from 'typescript';
 

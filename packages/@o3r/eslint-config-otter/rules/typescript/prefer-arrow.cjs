@@ -6,7 +6,7 @@ module.exports = {
     'prefer-arrow/prefer-arrow-functions': [
       'error',
       {
-        'allowStandaloneDeclarations': true
+        allowStandaloneDeclarations: true
       }
     ]
   }

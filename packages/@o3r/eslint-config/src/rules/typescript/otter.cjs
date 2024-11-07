@@ -14,8 +14,8 @@ const o3rTypescriptRecommended = (plugin) => [
     files: ['**/*.ts', '**/*.tsx', '**/*.mts', '**/*.cts'],
     rules: {
       '@o3r/matching-configuration-name': 'error',
-      '@o3r/no-multiple-type-configuration-property': 'error',
       '@o3r/no-folder-import-for-module': 'error',
+      '@o3r/no-multiple-type-configuration-property': 'error',
       '@o3r/o3r-categories-tags': 'error'
     }
   }

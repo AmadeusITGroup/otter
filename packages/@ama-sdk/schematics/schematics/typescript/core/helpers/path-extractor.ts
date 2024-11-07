@@ -1,10 +1,10 @@
 import type {
-  PathObject
+  PathObject,
 } from '@ama-sdk/core';
 import type {
   OpenAPIV2,
   OpenAPIV3,
-  OpenAPIV3_1
+  OpenAPIV3_1,
 } from 'openapi-types';
 
 /**

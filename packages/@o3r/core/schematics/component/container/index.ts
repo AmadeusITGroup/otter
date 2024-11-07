@@ -13,7 +13,7 @@ import {
   SchematicContext,
   template,
   Tree,
-  url
+  url,
 } from '@angular-devkit/schematics';
 import {
   addImportsAndCodeBlockStatementAtSpecInitializationTransformerFactory,
@@ -28,37 +28,37 @@ import {
   getComponentSelectorWithoutSuffix,
   getDestinationPath,
   getInputComponentName,
-  getWorkspaceConfig
+  getWorkspaceConfig,
 } from '@o3r/schematics';
 import {
   addImportToModule,
-  insertImport
+  insertImport,
 } from '@schematics/angular/utility/ast-utils';
 import {
   applyToUpdateRecorder,
-  InsertChange
+  InsertChange,
 } from '@schematics/angular/utility/change';
 import * as ts from 'typescript';
 import {
-  getAddConfigurationRules
+  getAddConfigurationRules,
 } from '../../rule-factories/component/configuration';
 import {
-  getAddContextRules
+  getAddContextRules,
 } from '../../rule-factories/component/context';
 import {
-  getAddFixtureRules
+  getAddFixtureRules,
 } from '../../rule-factories/component/fixture';
 import {
-  getAddRulesEngineRules
+  getAddRulesEngineRules,
 } from '../../rule-factories/component/rules-engine';
 import {
-  PRESENTER_FOLDER
+  PRESENTER_FOLDER,
 } from '../presenter';
 import {
-  ComponentStructureDef
+  ComponentStructureDef,
 } from '../structures.types';
 import {
-  NgGenerateComponentContainerSchematicsSchema
+  NgGenerateComponentContainerSchematicsSchema,
 } from './schema';
 
 export const CONTAINER_FOLDER = 'container';

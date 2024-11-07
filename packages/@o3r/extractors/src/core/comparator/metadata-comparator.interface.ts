@@ -1,11 +1,11 @@
 import type {
-  JsonObject
+  JsonObject,
 } from '@angular-devkit/core';
 import type {
-  SupportedPackageManagers
+  SupportedPackageManagers,
 } from '@o3r/schematics';
 import type {
-  CmsMetadataData
+  CmsMetadataData,
 } from '../../interfaces';
 
 /**

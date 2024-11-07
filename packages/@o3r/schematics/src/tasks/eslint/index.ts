@@ -1,19 +1,19 @@
 import {
   TaskConfiguration,
-  TaskConfigurationGenerator
+  TaskConfigurationGenerator,
 } from '@angular-devkit/schematics';
 import {
-  NodePackageInstallTask
+  NodePackageInstallTask,
 } from '@angular-devkit/schematics/tasks';
 import {
   NodePackageName,
-  NodePackageTaskOptions
+  NodePackageTaskOptions,
 } from '@angular-devkit/schematics/tasks/package-manager/options';
 import type {
-  WorkspaceSchema
+  WorkspaceSchema,
 } from '../../interfaces';
 import {
-  getPackageManager
+  getPackageManager,
 } from '../../utility/package-manager-runner';
 
 /**

@@ -2,7 +2,7 @@ import * as fs from 'node:fs';
 import * as os from 'node:os';
 import * as semver from 'semver';
 import {
-  getPackageManagerInfo
+  getPackageManagerInfo,
 } from './package-manager-runner';
 
 /**

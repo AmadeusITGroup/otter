@@ -1,5 +1,5 @@
 import {
-  AsyncPipe
+  AsyncPipe,
 } from '@angular/common';
 import {
   AfterViewInit,
@@ -8,16 +8,16 @@ import {
   inject,
   QueryList,
   ViewChildren,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {
-  RouterModule
+  RouterModule,
 } from '@angular/router';
 import {
-  O3rComponent
+  O3rComponent,
 } from '@o3r/core';
 import {
-  DynamicContentModule
+  DynamicContentModule,
 } from '@o3r/dynamic-content';
 import {
   CopyTextPresComponent,
@@ -25,7 +25,7 @@ import {
   IN_PAGE_NAV_PRES_DIRECTIVES,
   InPageNavLink,
   InPageNavLinkDirective,
-  InPageNavPresService
+  InPageNavPresService,
 } from '../../components/index';
 
 @O3rComponent({ componentType: 'Page' })

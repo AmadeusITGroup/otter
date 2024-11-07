@@ -1,7 +1,7 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {
-  buildSpecs
+  buildSpecs,
 } from '../src/helpers/build';
 
 const expectPath = path.resolve(__dirname, 'mocks-build');

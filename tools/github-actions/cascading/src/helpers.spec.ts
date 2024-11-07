@@ -2,7 +2,7 @@ import {
   extractBranchesFromGitOutput,
   extractPackageLine,
   extractPackages,
-  sortBranches
+  sortBranches,
 } from './helpers';
 
 describe('helpers', () => {

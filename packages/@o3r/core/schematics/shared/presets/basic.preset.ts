@@ -1,5 +1,5 @@
 import {
-  defaultPresetRuleFactory
+  defaultPresetRuleFactory,
 } from './helpers';
 
 /**

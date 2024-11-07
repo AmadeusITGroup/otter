@@ -20,7 +20,7 @@ module.exports = {
     'jsdoc/check-tag-names': [
       'warn',
       {
-        'definedTags': ['note', 'title', 'o3rCategory', 'o3rCategories', 'o3rWidget', 'o3rWidgetParam', 'o3rRequired']
+        definedTags: ['note', 'title', 'o3rCategory', 'o3rCategories', 'o3rWidget', 'o3rWidgetParam', 'o3rRequired']
       }
     ],
     'jsdoc/check-types': 'warn',
@@ -40,7 +40,7 @@ module.exports = {
     'jsdoc/require-jsdoc': [
       'error',
       {
-        'publicOnly': true
+        publicOnly: true
       }
     ],
     'jsdoc/require-param': 'warn',

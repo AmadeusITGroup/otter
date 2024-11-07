@@ -1,6 +1,6 @@
 import {
   Observable,
-  ReplaySubject
+  ReplaySubject,
 } from 'rxjs';
 import {
   concatMap,
@@ -8,10 +8,10 @@ import {
   shareReplay,
   startWith,
   tap,
-  withLatestFrom
+  withLatestFrom,
 } from 'rxjs/operators';
 import type {
-  RulesEngine
+  RulesEngine,
 } from '../engine';
 import {
   BaseRulesetExecution,
@@ -20,21 +20,21 @@ import {
   RuleEvaluation,
   RuleEvaluationOutput,
   RulesetExecutionErrorEvent,
-  RulesetExecutionEvent
+  RulesetExecutionEvent,
 } from '../engine.interface';
 import type {
-  Facts
+  Facts,
 } from '../fact';
 import {
-  RulesetExecutor
+  RulesetExecutor,
 } from '../ruleset-executor';
 import type {
   ActionBlock,
-  Ruleset
+  Ruleset,
 } from '../structure';
 import {
   flagCachedRules,
-  retrieveRulesetTriggers
+  retrieveRulesetTriggers,
 } from './helpers';
 
 export interface EngineDebuggerOptions {

@@ -1,5 +1,5 @@
 import {
-  generateThemeCss
+  generateThemeCss,
 } from './helpers';
 
 describe('generateThemeCss', () => {

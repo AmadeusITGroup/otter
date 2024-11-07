@@ -1,6 +1,6 @@
 import {
   createAction,
-  props
+  props,
 } from '@ngrx/store';
 import {
   asyncProps,
@@ -9,11 +9,11 @@ import {
   FromApiActionPayload,
   SetActionPayload,
   SetAsyncStoreItemEntitiesActionPayload,
-  UpdateActionPayload
+  UpdateActionPayload,
 } from '@o3r/core';
 import {
   RulesetsModel,
-  RulesetsStateDetails
+  RulesetsStateDetails,
 } from './rulesets.state';
 
 /** StateDetailsActions */

@@ -2,13 +2,13 @@ import * as path from 'node:path';
 import {
   chain,
   noop,
-  Rule
+  Rule,
 } from '@angular-devkit/schematics';
 import {
-  NodeDependencyType
+  NodeDependencyType,
 } from '@schematics/angular/utility/dependencies';
 import type {
-  NgAddSchematicsSchema
+  NgAddSchematicsSchema,
 } from './schema';
 
 const devDependenciesToInstall = [

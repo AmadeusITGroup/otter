@@ -1,15 +1,15 @@
 import type {
-  cssClasses
+  cssClasses,
 } from '@material/slider';
 import type {
-  MatSliderProfile
+  MatSliderProfile,
 } from '../../angular-materials';
 import {
   O3rElement,
-  type PlaywrightSourceElement
+  type PlaywrightSourceElement,
 } from '../element';
 import {
-  O3rSliderElement
+  O3rSliderElement,
 } from '../elements';
 
 const TRACK_CLASS: typeof cssClasses.TRACK = 'mdc-slider__track';

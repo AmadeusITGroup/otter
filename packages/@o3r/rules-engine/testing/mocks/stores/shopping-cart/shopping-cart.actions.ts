@@ -1,6 +1,6 @@
 import {
   createAction,
-  props
+  props,
 } from '@ngrx/store';
 import {
   asyncProps,
@@ -11,16 +11,16 @@ import {
   SetAsyncStoreItemEntitiesActionPayload,
   SetAsyncStoreItemEntityActionPayload,
   UpdateActionPayload,
-  UpdateAsyncStoreItemEntitiesActionPayloadWithId
+  UpdateAsyncStoreItemEntitiesActionPayloadWithId,
 } from '@o3r/core';
 import {
-  XmasHamper
+  XmasHamper,
 } from '../../xmas-hamper.mock';
 import {
-  ShoppingCart
+  ShoppingCart,
 } from './shopping-cart.model';
 import {
-  ShoppingCartStateDetails
+  ShoppingCartStateDetails,
 } from './shopping-cart.state';
 
 const ACTION_SET_XMAS_HAMPERS_IN_CART = '[ShoppingCart] [XmasHampers] set';

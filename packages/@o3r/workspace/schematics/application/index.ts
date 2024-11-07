@@ -12,7 +12,7 @@ import {
   Schematic,
   strings,
   template,
-  url
+  url,
 } from '@angular-devkit/schematics';
 import {
   createSchematicWithMetricsIfInstalled,
@@ -20,25 +20,25 @@ import {
   getPackagesBaseRootFolder,
   getWorkspaceConfig,
   isNxContext,
-  setupDependencies
+  setupDependencies,
 } from '@o3r/schematics';
 import {
-  type Schema as ApplicationOptions
+  type Schema as ApplicationOptions,
 } from '@schematics/angular/application/schema';
 import {
-  Style
+  Style,
 } from '@schematics/angular/application/schema';
 import {
-  NodeDependencyType
+  NodeDependencyType,
 } from '@schematics/angular/utility/dependencies';
 import type {
-  PackageJson
+  PackageJson,
 } from 'type-fest';
 import {
-  updateProjectTsConfig
+  updateProjectTsConfig,
 } from '../rule-factories/index';
 import type {
-  NgGenerateApplicationSchema
+  NgGenerateApplicationSchema,
 } from './schema';
 
 /**

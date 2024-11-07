@@ -1,28 +1,28 @@
 import {
   chain,
-  Rule
+  Rule,
 } from '@angular-devkit/schematics';
 import {
   insertImport,
-  isImported
+  isImported,
 } from '@schematics/angular/utility/ast-utils';
 import {
   applyToUpdateRecorder,
-  InsertChange
+  InsertChange,
 } from '@schematics/angular/utility/change';
 import * as ts from 'typescript';
 import type {
-  WorkspaceSchematics
+  WorkspaceSchematics,
 } from '../../interfaces';
 import {
-  addImportToModuleFile as o3rAddImportToModuleFile
+  addImportToModuleFile as o3rAddImportToModuleFile,
 } from '../../utility';
 import {
   getAppModuleFilePath,
   getDefaultOptionsForSchematic,
   getMainFilePath,
   getModuleIndex,
-  getWorkspaceConfig
+  getWorkspaceConfig,
 } from '../../utility/index';
 
 /** Options for the devtools register rule factory */

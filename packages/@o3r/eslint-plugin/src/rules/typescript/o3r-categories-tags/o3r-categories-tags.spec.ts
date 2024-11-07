@@ -1,8 +1,8 @@
 import {
-  RuleTester
+  RuleTester,
 } from '@typescript-eslint/rule-tester';
 import o3rCategoriesTagsRule, {
-  O3rCategoriesTagsRuleOption
+  O3rCategoriesTagsRuleOption,
 } from './o3r-categories-tags';
 
 const ruleTester = new RuleTester();
@@ -69,7 +69,7 @@ ruleTester.run('o3r-categories-tags', o3rCategoriesTagsRule, {
               messageId: 'suggestReplaceO3rCategory',
               data: {
                 currentCategory: 'undefinedCategory',
-                suggestedCategory: 'global',
+                suggestedCategory: 'global'
               },
               output: code.replace('@o3rCategory local', '@o3rCategory global')
             },
@@ -77,7 +77,7 @@ ruleTester.run('o3r-categories-tags', o3rCategoriesTagsRule, {
               messageId: 'suggestReplaceO3rCategory',
               data: {
                 currentCategory: 'undefinedCategory',
-                suggestedCategory: 'local',
+                suggestedCategory: 'local'
               },
               output: code
             }

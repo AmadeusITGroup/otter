@@ -1,8 +1,8 @@
 import {
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import {
-  ignorePatterns
+  ignorePatterns,
 } from './gitignore';
 
 const gitIgnoreFileName = '/.gitignore';

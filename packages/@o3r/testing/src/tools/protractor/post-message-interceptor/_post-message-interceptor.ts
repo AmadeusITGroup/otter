@@ -4,7 +4,7 @@
 
 import {
   ConditionFn,
-  PostMessageCall
+  PostMessageCall,
 } from './core';
 
 // TODO: Move to PollyJS when the winter comes

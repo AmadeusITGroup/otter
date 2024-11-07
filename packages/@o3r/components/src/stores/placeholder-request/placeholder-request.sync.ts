@@ -1,14 +1,14 @@
 import {
   asyncEntitySerializer,
-  Serializer
+  Serializer,
 } from '@o3r/core';
 import {
   placeholderRequestAdapter,
-  placeholderRequestInitialState
+  placeholderRequestInitialState,
 } from './placeholder-request.reducer';
 import {
   PlaceholderRequestModel,
-  PlaceholderRequestState
+  PlaceholderRequestState,
 } from './placeholder-request.state';
 
 export const placeholderRequestStorageSerializer = asyncEntitySerializer;

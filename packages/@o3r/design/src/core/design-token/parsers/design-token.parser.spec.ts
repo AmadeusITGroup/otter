@@ -1,12 +1,12 @@
 import {
-  promises as fs
+  promises as fs,
 } from 'node:fs';
 import {
-  resolve
+  resolve,
 } from 'node:path';
 import type {
   DesignTokenGroupTemplate,
-  DesignTokenSpecification
+  DesignTokenSpecification,
 } from '../design-token-specification.interface';
 import * as parser from './design-token.parser';
 

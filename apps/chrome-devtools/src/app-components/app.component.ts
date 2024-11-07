@@ -1,10 +1,10 @@
 import {
-  AsyncPipe
+  AsyncPipe,
 } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  Component
+  Component,
 } from '@angular/core';
 import {
   getAnalyticEvents as devkitGetAnalyticEvents,
@@ -12,41 +12,41 @@ import {
   getAnalyticEventsRec,
   getTranslationsRec,
   Ng,
-  OtterLikeComponentInfo
+  OtterLikeComponentInfo,
 } from '@o3r/components';
 import type {
-  ConfigurationModel
+  ConfigurationModel,
 } from '@o3r/configuration';
 import {
-  otterComponentInfoPropertyName
+  otterComponentInfoPropertyName,
 } from '@o3r/core';
 import type {
-  OtterComponentInfo
+  OtterComponentInfo,
 } from '@o3r/core';
 import type {
-  RulesetExecutionDebug
+  RulesetExecutionDebug,
 } from '@o3r/rules-engine';
 import {
   BehaviorSubject,
   combineLatest,
-  Observable
+  Observable,
 } from 'rxjs';
 import {
   filter,
   map,
-  startWith
+  startWith,
 } from 'rxjs/operators';
 import {
-  AppConnectionComponent
+  AppConnectionComponent,
 } from '../components/app-connection/app-connection.component';
 import {
-  OtterComponentComponent
+  OtterComponentComponent,
 } from '../components/otter-component/otter-component.component';
 import {
-  ChromeExtensionConnectionService
+  ChromeExtensionConnectionService,
 } from '../services/connection.service';
 import {
-  RulesetHistoryService
+  RulesetHistoryService,
 } from '../services/ruleset-history.service';
 
 declare namespace window {

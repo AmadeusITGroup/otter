@@ -5,34 +5,34 @@
  */
 
 import {
-  existsSync
+  existsSync,
 } from 'node:fs';
 import {
   copyFile,
-  readFile
+  readFile,
 } from 'node:fs/promises';
 import {
-  createRequire
+  createRequire,
 } from 'node:module';
 import {
   extname,
-  posix
+  posix,
 } from 'node:path';
 import type {
   OpenApiToolsConfiguration,
-  OpenApiToolsGenerator
+  OpenApiToolsGenerator,
 } from '@ama-sdk/schematics';
 import {
   LOCAL_SPEC_FILENAME,
   SPEC_JSON_EXTENSION,
-  SPEC_YAML_EXTENSION
+  SPEC_YAML_EXTENSION,
 } from '@ama-sdk/schematics';
 import type {
-  CliWrapper
+  CliWrapper,
 } from '@o3r/telemetry';
 import * as minimist from 'minimist';
 import type {
-  PackageJson
+  PackageJson,
 } from 'type-fest';
 
 const argv = minimist(process.argv.slice(2));

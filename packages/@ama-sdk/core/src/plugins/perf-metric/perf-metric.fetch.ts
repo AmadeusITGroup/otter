@@ -1,10 +1,10 @@
 import {
-  v4
+  v4,
 } from 'uuid';
 import {
   FetchCall,
   FetchPlugin,
-  FetchPluginContext
+  FetchPluginContext,
 } from '../core';
 
 /**

@@ -1,8 +1,8 @@
 import type {
-  Type
+  Type,
 } from '@angular/core';
 import type {
-  Context
+  Context,
 } from '@o3r/core';
 
 /** Interface for grouping the arrays needed for custom component registration */

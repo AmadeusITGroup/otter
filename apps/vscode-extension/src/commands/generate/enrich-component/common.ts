@@ -1,11 +1,11 @@
 import {
-  relative
+  relative,
 } from 'node:path';
 import * as vscode from 'vscode';
 import {
   getPackageScriptRunner,
   getSchematicDefaultOptions,
-  stringifyOptions
+  stringifyOptions,
 } from '../../helpers';
 
 const executeSchematic = async (componentPath: string, schematicName: string, getExtraOptions: () => Promise<string[]> = () => Promise.resolve([])) => {

@@ -1,17 +1,17 @@
 import {
-  Injectable
+  Injectable,
 } from '@angular/core';
 import {
-  takeUntilDestroyed
+  takeUntilDestroyed,
 } from '@angular/core/rxjs-interop';
 import {
   type FileSystemTree,
   type IFSWatcher,
   WebContainer,
-  type WebContainerProcess
+  type WebContainerProcess,
 } from '@webcontainer/api';
 import {
-  Terminal
+  Terminal,
 } from '@xterm/xterm';
 import {
   BehaviorSubject,
@@ -21,16 +21,16 @@ import {
   from,
   map,
   Observable,
-  switchMap
+  switchMap,
 } from 'rxjs';
 import {
-  withLatestFrom
+  withLatestFrom,
 } from 'rxjs/operators';
 import {
   createTerminalStream,
   doesFolderExist,
   killTerminal,
-  makeProcessWritable
+  makeProcessWritable,
 } from './webcontainer.helpers';
 
 @Injectable({

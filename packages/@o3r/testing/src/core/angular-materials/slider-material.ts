@@ -1,8 +1,8 @@
 import {
-  O3rElement
+  O3rElement,
 } from '../element';
 import type {
-  SliderElementProfile
+  SliderElementProfile,
 } from '../elements';
 
 /**

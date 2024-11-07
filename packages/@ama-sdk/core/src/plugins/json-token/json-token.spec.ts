@@ -1,14 +1,14 @@
 import {
-  ApiTypes
+  ApiTypes,
 } from '../../fwk/api';
 import {
-  RequestOptions
+  RequestOptions,
 } from '../core/request-plugin';
 import {
-  JsonTokenReply
+  JsonTokenReply,
 } from './json-token.reply';
 import {
-  JsonTokenRequest
+  JsonTokenRequest,
 } from './json-token.request';
 
 describe('Json Token', () => {

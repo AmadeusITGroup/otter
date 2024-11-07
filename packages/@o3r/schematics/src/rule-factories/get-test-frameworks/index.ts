@@ -1,17 +1,17 @@
 import type {
-  SchematicContext
+  SchematicContext,
 } from '@angular-devkit/schematics';
 import type {
   AvailableTestFrameworks,
-  WorkspaceSchema
+  WorkspaceSchema,
 } from '../../interfaces';
 import {
-  getSchematicOptions
+  getSchematicOptions,
 } from '../../utility/index';
 
 const testPackageMaps: Record<AvailableTestFrameworks, string[]> = {
-  'jest': ['jest'],
-  'jasmine': ['jasmine-core']
+  jest: ['jest'],
+  jasmine: ['jasmine-core']
 };
 
 /**

@@ -1,13 +1,13 @@
 import type {
   Schema,
-  Spec
+  Spec,
 } from 'swagger-schema-official';
 import type {
   AvailableSwaggerSpecTargets,
-  SwaggerSpec
+  SwaggerSpec,
 } from './swagger-spec.interface';
 import {
-  sanitizeDefinition
+  sanitizeDefinition,
 } from './utils';
 
 export class SwaggerSpecObject implements SwaggerSpec {

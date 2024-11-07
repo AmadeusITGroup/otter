@@ -10,14 +10,14 @@ import {
   existsSync,
   readdirSync,
   readFileSync,
-  writeFileSync
+  writeFileSync,
 } from 'node:fs';
 import {
   delimiter,
   dirname,
   join,
   normalize,
-  resolve
+  resolve,
 } from 'node:path';
 import minimist from 'minimist';
 

@@ -2,13 +2,13 @@ import * as path from 'node:path';
 import {
   chain,
   noop,
-  type Rule
+  type Rule,
 } from '@angular-devkit/schematics';
 import type {
-  DependencyToAdd
+  DependencyToAdd,
 } from '@o3r/schematics';
 import type {
-  NgAddSchematicsSchema
+  NgAddSchematicsSchema,
 } from './schema';
 
 const doCustomAction: Rule = (tree, _context) => {

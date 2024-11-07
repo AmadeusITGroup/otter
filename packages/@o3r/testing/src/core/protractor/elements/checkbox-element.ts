@@ -1,11 +1,11 @@
 import {
-  ElementFinder
+  ElementFinder,
 } from 'protractor';
 import {
-  CheckboxElementProfile
+  CheckboxElementProfile,
 } from '../../elements';
 import {
-  O3rElement
+  O3rElement,
 } from '../element';
 
 /**

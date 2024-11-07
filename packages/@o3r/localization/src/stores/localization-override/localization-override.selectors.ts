@@ -1,10 +1,10 @@
 import {
   createFeatureSelector,
-  createSelector
+  createSelector,
 } from '@ngrx/store';
 import {
   LOCALIZATION_OVERRIDE_STORE_NAME,
-  LocalizationOverrideState
+  LocalizationOverrideState,
 } from './localization-override.state';
 
 /** Select LocalizationOverride State */

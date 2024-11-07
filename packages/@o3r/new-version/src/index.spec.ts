@@ -1,7 +1,7 @@
 import {
   BaseLogger,
   NewVersion,
-  NewVersionOptions
+  NewVersionOptions,
 } from './index';
 
 const mockLogger: BaseLogger = {

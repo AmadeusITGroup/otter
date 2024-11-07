@@ -1,15 +1,15 @@
 import {
   ComponentFixture,
-  TestBed
+  TestBed,
 } from '@angular/core/testing';
 import {
-  PetApi
+  PetApi,
 } from '@o3r-training/showcase-sdk';
 import {
-  PetApiFixture
+  PetApiFixture,
 } from '@o3r-training/showcase-sdk/fixtures';
 import {
-  SdkPresComponent
+  SdkPresComponent,
 } from './sdk-pres.component';
 import '@angular/localize/init';
 

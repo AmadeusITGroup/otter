@@ -1,5 +1,5 @@
 import {
-  dirname
+  dirname,
 } from 'node:path';
 import type {
   DesignToken,
@@ -10,19 +10,19 @@ import type {
   DesignTokenGroupTemplate,
   DesignTokenMetadata,
   DesignTokenNode,
-  DesignTokenSpecification
+  DesignTokenSpecification,
 } from '../design-token-specification.interface';
 import {
   DesignTokenTypeStrokeStyleValue,
   isDesignToken,
   isDesignTokenGroup,
-  isTokenTypeStrokeStyleValueComplex
+  isTokenTypeStrokeStyleValueComplex,
 } from '../design-token-specification.interface';
 import type {
   DesignTokenVariableSet,
   DesignTokenVariableStructure,
   NodeReference,
-  ParentReference
+  ParentReference,
 } from './design-token-parser.interface';
 
 /** Separator in Token key parts */

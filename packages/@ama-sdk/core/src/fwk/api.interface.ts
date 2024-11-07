@@ -1,5 +1,5 @@
 import {
-  ApiClient
+  ApiClient,
 } from './core/api-client';
 
 /** Identified API interface */

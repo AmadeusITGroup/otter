@@ -1,7 +1,7 @@
 import type {
   Rule,
   SchematicContext,
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 
 /**

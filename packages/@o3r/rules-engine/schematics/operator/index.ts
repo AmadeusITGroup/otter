@@ -1,7 +1,7 @@
 import * as path from 'node:path';
 import {
   classify,
-  dasherize
+  dasherize,
 } from '@angular-devkit/core/src/utils/strings';
 import {
   apply,
@@ -13,14 +13,14 @@ import {
   renameTemplateFiles,
   Rule,
   template,
-  url
+  url,
 } from '@angular-devkit/schematics';
 import {
   applyEsLintFix,
-  createSchematicWithMetricsIfInstalled
+  createSchematicWithMetricsIfInstalled,
 } from '@o3r/schematics';
 import type {
-  NgGenerateOperatorSchematicsSchema
+  NgGenerateOperatorSchematicsSchema,
 } from './schema';
 
 /**

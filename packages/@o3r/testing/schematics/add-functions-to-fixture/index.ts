@@ -2,23 +2,23 @@ import {
   chain,
   noop,
   Rule,
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import {
   applyEsLintFix,
   createSchematicWithMetricsIfInstalled,
-  O3rCliError
+  O3rCliError,
 } from '@o3r/schematics';
 import * as ts from 'typescript';
 import {
   getImplementation,
-  getSignature
+  getSignature,
 } from './helpers';
 import {
-  description
+  description,
 } from './models';
 import {
-  NgAddFunctionsToFixtureSchematicsSchema
+  NgAddFunctionsToFixtureSchematicsSchema,
 } from './schema';
 
 /**

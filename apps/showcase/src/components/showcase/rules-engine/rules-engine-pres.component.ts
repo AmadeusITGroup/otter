@@ -1,6 +1,6 @@
 import {
   AsyncPipe,
-  formatDate
+  formatDate,
 } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -11,55 +11,55 @@ import {
   input,
   type OnDestroy,
   OnInit,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {
-  toObservable
+  toObservable,
 } from '@angular/core/rxjs-interop';
 import {
   FormBuilder,
   FormControl,
   FormGroup,
-  ReactiveFormsModule
+  ReactiveFormsModule,
 } from '@angular/forms';
 import {
   configSignal,
   DynamicConfigurableWithSignal,
-  O3rConfig
+  O3rConfig,
 } from '@o3r/configuration';
 import {
-  O3rComponent
+  O3rComponent,
 } from '@o3r/core';
 import {
-  DynamicContentModule
+  DynamicContentModule,
 } from '@o3r/dynamic-content';
 import {
   Localization,
   LocalizationModule,
   LocalizationService,
-  Translatable
+  Translatable,
 } from '@o3r/localization';
 import {
   RulesEngineRunnerModule,
-  RulesEngineRunnerService
+  RulesEngineRunnerService,
 } from '@o3r/rules-engine';
 import {
-  Subscription
+  Subscription,
 } from 'rxjs';
 import {
-  TripFactsService
+  TripFactsService,
 } from '../../../facts/trip/trip.facts';
 import {
-  DatePickerInputPresComponent
+  DatePickerInputPresComponent,
 } from '../../utilities';
 import {
   RULES_ENGINE_PRES_CONFIG_ID,
   RULES_ENGINE_PRES_DEFAULT_CONFIG,
-  RulesEnginePresConfig
+  RulesEnginePresConfig,
 } from './rules-engine-pres.config';
 import {
   RulesEnginePresTranslation,
-  translations
+  translations,
 } from './rules-engine-pres.translation';
 
 const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;

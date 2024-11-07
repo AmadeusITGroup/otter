@@ -1,6 +1,6 @@
 import * as path from 'node:path';
 import {
-  CodegenTaskOptions
+  CodegenTaskOptions,
 } from '../code-generator';
 
 /**

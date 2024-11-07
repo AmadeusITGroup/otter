@@ -1,10 +1,10 @@
 import {
-  Configuration
+  Configuration,
 } from '@o3r/core';
 import {
   Observable,
   ReplaySubject,
-  Subject
+  Subject,
 } from 'rxjs';
 
 export class ComponentWrapperService {

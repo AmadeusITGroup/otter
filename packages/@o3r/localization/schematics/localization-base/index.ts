@@ -12,7 +12,7 @@ import {
   SchematicContext,
   template,
   Tree,
-  url
+  url,
 } from '@angular-devkit/schematics';
 import {
   createSchematicWithMetricsIfInstalled,
@@ -29,21 +29,21 @@ import {
   insertImportToModuleFile as o3rInsertImportToModuleFile,
   readPackageJson,
   setupDependencies,
-  writeAngularJson
+  writeAngularJson,
 } from '@o3r/schematics';
 import {
   addRootImport,
-  addRootProvider
+  addRootProvider,
 } from '@schematics/angular/utility';
 import {
   insertImport,
-  isImported
+  isImported,
 } from '@schematics/angular/utility/ast-utils';
 import {
-  InsertChange
+  InsertChange,
 } from '@schematics/angular/utility/change';
 import type {
-  PackageJson
+  PackageJson,
 } from 'type-fest';
 import * as ts from 'typescript';
 

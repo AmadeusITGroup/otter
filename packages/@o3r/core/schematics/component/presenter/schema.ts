@@ -1,8 +1,8 @@
 import type {
-  SchematicOptionObject
+  SchematicOptionObject,
 } from '@o3r/schematics';
 import type {
-  ComponentStructure
+  ComponentStructure,
 } from '../structures.types';
 
 export interface NgGenerateComponentPresenterSchematicsSchema extends SchematicOptionObject {

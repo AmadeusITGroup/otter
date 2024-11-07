@@ -2,13 +2,13 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {
   BuilderOutput,
-  createBuilder
+  createBuilder,
 } from '@angular-devkit/architect';
 import {
-  createBuilderWithMetricsIfInstalled
+  createBuilderWithMetricsIfInstalled,
 } from '../utils';
 import {
-  PatternReplacementBuilderSchema
+  PatternReplacementBuilderSchema,
 } from './schema';
 
 export default createBuilder<PatternReplacementBuilderSchema>(createBuilderWithMetricsIfInstalled(async (options, context): Promise<BuilderOutput> => {

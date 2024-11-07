@@ -1,6 +1,6 @@
 import * as path from 'node:path';
 import {
-  strings
+  strings,
 } from '@angular-devkit/core';
 import {
   apply,
@@ -14,7 +14,7 @@ import {
   SchematicContext,
   template,
   Tree,
-  url
+  url,
 } from '@angular-devkit/schematics';
 import {
   applyEsLintFix,
@@ -24,10 +24,10 @@ import {
   getWorkspaceConfig,
   moduleHasSubEntryPoints,
   O3rCliError,
-  writeSubEntryPointPackageJson
+  writeSubEntryPointPackageJson,
 } from '@o3r/schematics';
 import {
-  NgGenerateServiceSchematicsSchema
+  NgGenerateServiceSchematicsSchema,
 } from './schema';
 
 /**

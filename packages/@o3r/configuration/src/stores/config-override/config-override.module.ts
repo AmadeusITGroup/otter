@@ -1,19 +1,19 @@
 import {
   InjectionToken,
   ModuleWithProviders,
-  NgModule
+  NgModule,
 } from '@angular/core';
 import {
   Action,
   ActionReducer,
-  StoreModule
+  StoreModule,
 } from '@ngrx/store';
 import {
-  configOverrideReducer
+  configOverrideReducer,
 } from './config-override.reducer';
 import {
   CONFIG_OVERRIDE_STORE_NAME,
-  ConfigOverrideState
+  ConfigOverrideState,
 } from './config-override.state';
 
 /** Token of the ConfigOverride reducer */

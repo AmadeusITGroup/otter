@@ -1,7 +1,7 @@
 import type {
   FetchCall,
   FetchPlugin,
-  FetchPluginContext
+  FetchPluginContext,
 } from '../../fetch-plugin';
 
 /** Callback function type */

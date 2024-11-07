@@ -1,12 +1,12 @@
 import {
-  readFileSync
+  readFileSync,
 } from 'node:fs';
 import * as path from 'node:path';
 import {
-  satisfies
+  satisfies,
 } from 'semver';
 import {
-  PackageJson
+  PackageJson,
 } from 'type-fest';
 
 /**

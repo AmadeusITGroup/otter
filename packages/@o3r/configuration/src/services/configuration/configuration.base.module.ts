@@ -1,11 +1,11 @@
 import {
-  NgModule
+  NgModule,
 } from '@angular/core';
 import {
-  LoggerModule
+  LoggerModule,
 } from '@o3r/logger';
 import {
-  ConfigurationStoreModule
+  ConfigurationStoreModule,
 } from '../../stores/index';
 
 @NgModule({

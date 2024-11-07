@@ -2,7 +2,7 @@ import {
   chain,
   noop,
   Rule,
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import {
   addImportsIntoComponentDecoratorTransformerFactory,
@@ -17,19 +17,19 @@ import {
   getO3rComponentInfoOrThrowIfNotFound,
   getSimpleUpdatedMethod,
   O3rCliError,
-  sortClassElement
+  sortClassElement,
 } from '@o3r/schematics';
 import {
   addImportToModule,
-  insertImport
+  insertImport,
 } from '@schematics/angular/utility/ast-utils';
 import {
   applyToUpdateRecorder,
-  Change
+  Change,
 } from '@schematics/angular/utility/change';
 import * as ts from 'typescript';
 import {
-  NgGenerateRulesEngineToComponentSchematicsSchema
+  NgGenerateRulesEngineToComponentSchematicsSchema,
 } from './schema';
 
 const rulesEngineProperties = ['rulesEngineService'];

@@ -1,28 +1,28 @@
 import {
   CommonModule,
-  JsonPipe
+  JsonPipe,
 } from '@angular/common';
 import {
-  NgModule
+  NgModule,
 } from '@angular/core';
 import {
-  RuleActionsPresComponent
+  RuleActionsPresComponent,
 } from '../rule-actions/rule-actions-pres.component';
 import {
-  RuleConditionPresComponent
+  RuleConditionPresComponent,
 } from '../rule-condition/rule-condition-pres.component';
 import {
-  RuleKeyValuePresComponent
+  RuleKeyValuePresComponent,
 } from '../rule-key-value/rule-key-value-pres.component';
 import {
-  RuleTreePresComponent
+  RuleTreePresComponent,
 } from '../rule-tree/rule-tree-pres.component';
 import {
   O3rFallbackToPipe,
-  O3rJsonOrStringPipe
+  O3rJsonOrStringPipe,
 } from '../shared/index';
 import {
-  RulesetHistoryPresComponent
+  RulesetHistoryPresComponent,
 } from './ruleset-history-pres.component';
 
 @NgModule({

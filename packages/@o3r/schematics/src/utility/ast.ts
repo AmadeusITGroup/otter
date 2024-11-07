@@ -1,5 +1,5 @@
 import {
-  findNodes
+  findNodes,
 } from '@schematics/angular/utility/ast-utils';
 import * as ts from 'typescript';
 

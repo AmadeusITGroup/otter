@@ -5,22 +5,22 @@ import path from 'node:path';
 import process from 'node:process';
 import commander from 'commander';
 import {
-  sync as globbySync
+  sync as globbySync,
 } from 'globby';
 import semver from 'semver';
 import {
   checkJson,
-  isGlobPattern
+  isGlobPattern,
 } from '../core/utils';
 import {
-  buildSpecs
+  buildSpecs,
 } from '../helpers/build';
 import {
   ApisConfiguration,
-  BuilderApiConfiguration
+  BuilderApiConfiguration,
 } from '../interfaces/apis-configuration';
 import {
-  BuilderConfiguration
+  BuilderConfiguration,
 } from '../interfaces/builder-configuration';
 
 process.on('unhandledRejection', (err) => {

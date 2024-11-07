@@ -2,10 +2,10 @@
 /* eslint-disable @typescript-eslint/naming-convention -- localization keys are not following the naming convention */
 
 import {
-  LocalizationConfiguration
+  LocalizationConfiguration,
 } from '../core';
 import {
-  TranslationsLoader
+  TranslationsLoader,
 } from './translations-loader';
 
 function mockSuccessApiResponse(body = {}) {

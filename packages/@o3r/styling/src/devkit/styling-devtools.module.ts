@@ -1,19 +1,19 @@
 import {
   ModuleWithProviders,
-  NgModule
+  NgModule,
 } from '@angular/core';
 import type {
-  StylingDevtoolsServiceOptions
+  StylingDevtoolsServiceOptions,
 } from './styling-devkit.interface';
 import {
-  StylingDevtoolsMessageService
+  StylingDevtoolsMessageService,
 } from './styling-devtools.message.service';
 import {
-  OtterStylingDevtools
+  OtterStylingDevtools,
 } from './styling-devtools.service';
 import {
   OTTER_STYLING_DEVTOOLS_DEFAULT_OPTIONS,
-  OTTER_STYLING_DEVTOOLS_OPTIONS
+  OTTER_STYLING_DEVTOOLS_OPTIONS,
 } from './styling-devtools.token';
 
 @NgModule({

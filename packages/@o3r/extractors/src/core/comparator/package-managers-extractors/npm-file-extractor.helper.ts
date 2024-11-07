@@ -1,24 +1,24 @@
 import {
   spawnSync,
   SpawnSyncOptionsWithStringEncoding,
-  SpawnSyncReturns
+  SpawnSyncReturns,
 } from 'node:child_process';
 import {
-  randomBytes
+  randomBytes,
 } from 'node:crypto';
 import {
   existsSync,
   mkdirSync,
   readFileSync,
-  rmSync
+  rmSync,
 } from 'node:fs';
 import {
-  tmpdir
+  tmpdir,
 } from 'node:os';
 import {
   join,
   posix,
-  sep
+  sep,
 } from 'node:path';
 
 function runAndThrowOnError(command: string, spawnOptions: SpawnSyncOptionsWithStringEncoding): SpawnSyncReturns<string> {

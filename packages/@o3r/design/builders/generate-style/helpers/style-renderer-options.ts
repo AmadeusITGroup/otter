@@ -1,11 +1,11 @@
 import {
-  readFileSync
+  readFileSync,
 } from 'node:fs';
 import {
-  resolve
+  resolve,
 } from 'node:path';
 import type {
-  BuilderContext
+  BuilderContext,
 } from '@angular-devkit/architect';
 import {
   type CssTokenDefinitionRendererOptions,
@@ -25,10 +25,10 @@ import {
   type SassTokenDefinitionRendererOptions,
   type SassTokenValueRendererOptions,
   type TokenKeyRenderer,
-  tokenVariableNameSassRenderer
+  tokenVariableNameSassRenderer,
 } from '../../../src/public_api';
 import type {
-  GenerateStyleSchematicsSchema
+  GenerateStyleSchematicsSchema,
 } from '../schema';
 
 export const getStyleRendererOptions = (tokenVariableNameRenderer: TokenKeyRenderer | undefined, options: GenerateStyleSchematicsSchema, context: BuilderContext): DesignTokenRendererOptions => {

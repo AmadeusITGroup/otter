@@ -1,12 +1,12 @@
 import type {
-  Rule
+  Rule,
 } from '@angular-devkit/schematics';
 import {
-  chain
+  chain,
 } from '@angular-devkit/schematics';
 import {
   getWorkspaceConfig,
-  globInTree
+  globInTree,
 } from '@o3r/schematics';
 import * as semver from 'semver';
 

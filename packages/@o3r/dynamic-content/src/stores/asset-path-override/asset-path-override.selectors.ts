@@ -1,10 +1,10 @@
 import {
   createFeatureSelector,
-  createSelector
+  createSelector,
 } from '@ngrx/store';
 import {
   ASSET_PATH_OVERRIDE_STORE_NAME,
-  AssetPathOverrideState
+  AssetPathOverrideState,
 } from './asset-path-override.state';
 
 /** Select AssetPathOverride State */

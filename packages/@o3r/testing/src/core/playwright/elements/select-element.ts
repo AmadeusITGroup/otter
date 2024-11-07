@@ -1,6 +1,6 @@
 import {
   O3rElement,
-  PlaywrightSourceElement
+  PlaywrightSourceElement,
 } from '../element';
 
 /**

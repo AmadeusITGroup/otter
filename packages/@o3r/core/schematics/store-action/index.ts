@@ -1,23 +1,23 @@
 import * as path from 'node:path';
 import {
-  strings
+  strings,
 } from '@angular-devkit/core';
 import {
   chain,
   noop,
   Rule,
   SchematicContext,
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import {
   applyEsLintFix,
   createSchematicWithMetricsIfInstalled,
   findLastNodeOfKind,
-  getDestinationPath
+  getDestinationPath,
 } from '@o3r/schematics';
 import * as ts from 'typescript';
 import {
-  NgGenerateStoreActionSchematicsSchema
+  NgGenerateStoreActionSchematicsSchema,
 } from './schema';
 
 /**

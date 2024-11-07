@@ -1,12 +1,12 @@
 import {
   Rule,
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import {
-  insertImport
+  insertImport,
 } from '@schematics/angular/utility/ast-utils';
 import {
-  InsertChange
+  InsertChange,
 } from '@schematics/angular/utility/change';
 import * as ts from 'typescript';
 

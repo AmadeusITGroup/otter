@@ -1,5 +1,5 @@
 import type {
-  RulesEngineRunnerService
+  RulesEngineRunnerService,
 } from '@o3r/rules-engine';
 
 /** Jasmine Fixture class for RulesEngineRunnerService */

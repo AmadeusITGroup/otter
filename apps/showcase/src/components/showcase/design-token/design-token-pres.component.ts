@@ -1,5 +1,5 @@
 import {
-  AsyncPipe
+  AsyncPipe,
 } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -7,27 +7,27 @@ import {
   DestroyRef,
   inject,
   OnDestroy,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
   FormGroup,
   FormsModule,
-  ReactiveFormsModule
+  ReactiveFormsModule,
 } from '@angular/forms';
 import {
-  O3rComponent
+  O3rComponent,
 } from '@o3r/core';
 import {
   StyleLazyLoader,
-  StyleLazyLoaderModule
+  StyleLazyLoaderModule,
 } from '@o3r/dynamic-content';
 import {
-  Subscription
+  Subscription,
 } from 'rxjs';
 import {
-  DatePickerInputPresComponent
+  DatePickerInputPresComponent,
 } from '../../utilities';
 
 @O3rComponent({ componentType: 'Component' })

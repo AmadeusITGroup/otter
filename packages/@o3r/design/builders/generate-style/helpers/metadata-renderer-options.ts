@@ -1,17 +1,17 @@
 import {
-  resolve
+  resolve,
 } from 'node:path';
 import type {
-  BuilderContext
+  BuilderContext,
 } from '@angular-devkit/architect';
 import {
   type DesignTokenRendererOptions,
   getMetadataStyleContentUpdater,
   getMetadataTokenDefinitionRenderer,
-  type TokenKeyRenderer
+  type TokenKeyRenderer,
 } from '../../../src/public_api';
 import type {
-  GenerateStyleSchematicsSchema
+  GenerateStyleSchematicsSchema,
 } from '../schema';
 
 export const getMetadataRenderDesignTokenOptions = (

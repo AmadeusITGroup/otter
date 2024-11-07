@@ -1,16 +1,16 @@
 import * as path from 'node:path';
 import {
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import {
   SchematicTestRunner,
-  UnitTestTree
+  UnitTestTree,
 } from '@angular-devkit/schematics/testing';
 import {
-  lastValueFrom
+  lastValueFrom,
 } from 'rxjs';
 import {
-  updateO3rMetricsConfig
+  updateO3rMetricsConfig,
 } from './index';
 
 describe('Update v11.3', () => {

@@ -1,16 +1,15 @@
 import * as path from 'node:path';
 import {
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import {
-  SchematicTestRunner
+  SchematicTestRunner,
 } from '@angular-devkit/schematics/testing';
 
 jest.mock('@angular-devkit/schematics', () => {
   const originalModule = jest.requireActual('@angular-devkit/schematics');
   return {
     ...originalModule,
-    // eslint-disable-next-line unicorn/consistent-function-scoping -- higher-order function
     externalSchematic: jest.fn().mockImplementation(() => (tree: Tree) => {
       return tree;
     })

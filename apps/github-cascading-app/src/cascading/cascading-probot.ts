@@ -1,15 +1,15 @@
 import {
-  ProbotOctokit
+  ProbotOctokit,
 } from 'probot';
 import {
-  Cascading
+  Cascading,
 } from './cascading';
 import {
   BaseLogger,
   CascadingConfiguration,
   CascadingPullRequestInfo,
   CheckConclusion,
-  DEFAULT_CONFIGURATION
+  DEFAULT_CONFIGURATION,
 } from './interfaces';
 
 export interface CascadingProbotOptions {

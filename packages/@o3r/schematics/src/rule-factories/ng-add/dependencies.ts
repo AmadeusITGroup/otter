@@ -1,5 +1,5 @@
 import {
-  readFileSync
+  readFileSync,
 } from 'node:fs';
 import * as path from 'node:path';
 import {
@@ -8,24 +8,24 @@ import {
   Schematic,
   type SchematicContext,
   type TaskId,
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import {
   NodePackageInstallTask,
-  RunSchematicTask
+  RunSchematicTask,
 } from '@angular-devkit/schematics/tasks';
 import {
-  NodeDependencyType
+  NodeDependencyType,
 } from '@schematics/angular/utility/dependencies';
 import * as semver from 'semver';
 import type {
-  PackageJson
+  PackageJson,
 } from 'type-fest';
 import {
   getPackageManager,
   getProjectNewDependenciesTypes,
   getWorkspaceConfig,
-  SupportedPackageManagers
+  SupportedPackageManagers,
 } from '../../utility';
 
 /**

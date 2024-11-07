@@ -1,8 +1,8 @@
 module.exports = {
-  'extends': [
+  extends: [
     'plugin:@angular-eslint/template/recommended'
   ],
-  'rules': {
+  rules: {
     'max-len': 'off'
   }
 };

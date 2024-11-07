@@ -1,5 +1,5 @@
 import {
-  strings
+  strings,
 } from '@angular-devkit/core';
 
 /**

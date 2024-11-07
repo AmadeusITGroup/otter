@@ -1,40 +1,40 @@
 #!/usr/bin/env node
 import {
   existsSync,
-  readFileSync
+  readFileSync,
 } from 'node:fs';
 import {
-  EOL
+  EOL,
 } from 'node:os';
 import {
-  resolve
+  resolve,
 } from 'node:path';
 import {
   AmaCliModule,
-  yargsAmaCli
+  yargsAmaCli,
 } from '@ama-terasu/core';
 import * as chalk from 'chalk';
 import {
-  error
+  error,
 } from 'loglevel';
 import {
-  terminalWidth
+  terminalWidth,
 } from 'yargs';
 import {
   formatHelpMessage,
   getPackageFormattedVersion,
-  getPackageVersion
+  getPackageVersion,
 } from '../helpers/index';
 import {
   getCliModules,
   getFormattedDescription,
   getInstalledInformation,
   installDependency,
-  isInstalled
+  isInstalled,
 } from '../helpers/module.helper';
 import {
   baseContext,
-  generateUsageMessage
+  generateUsageMessage,
 } from './base-context';
 
 export const amaYargs = async (argv?: Record<string, any>) => {

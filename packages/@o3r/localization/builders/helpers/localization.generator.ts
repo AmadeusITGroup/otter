@@ -1,23 +1,23 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {
-  logging
+  logging,
 } from '@angular-devkit/core';
 import {
   getLibraryCmsMetadata,
-  getLocalizationFileFromAngularElement
+  getLocalizationFileFromAngularElement,
 } from '@o3r/extractors';
 import type {
   JSONLocalization,
-  LocalizationMetadata
+  LocalizationMetadata,
 } from '@o3r/localization';
 import {
-  O3rCliError
+  O3rCliError,
 } from '@o3r/schematics';
 import * as glob from 'globby';
 import * as ts from 'typescript';
 import type {
-  LocalizationExtractorBuilderSchema
+  LocalizationExtractorBuilderSchema,
 } from '../localization-extractor/schema';
 
 /** List of Angular decorator to look for */
@@ -50,7 +50,7 @@ export interface LocalizationJsonFile {
 }
 
 type LocalizationJsonFileContent = LocalizationJsonFile & {
-  '$schema'?: string;
+  $schema?: string;
 };
 
 /** Localization file mapping */

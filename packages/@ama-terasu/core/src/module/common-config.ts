@@ -1,9 +1,9 @@
 import yargs, {
   ArgumentsCamelCase,
-  Argv
+  Argv,
 } from 'yargs';
 import {
-  hideBin
+  hideBin,
 } from 'yargs/helpers';
 
 /** global CLI options */

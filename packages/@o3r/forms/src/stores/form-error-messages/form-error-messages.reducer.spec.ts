@@ -1,10 +1,10 @@
 import * as actions from './form-error-messages.actions';
 import {
   formErrorMessagesInitialState,
-  formErrorMessagesReducer
+  formErrorMessagesReducer,
 } from './form-error-messages.reducer';
 import {
-  FormErrorMessagesState
+  FormErrorMessagesState,
 } from './form-error-messages.state';
 
 describe('FormErrorMessages Store reducer', () => {

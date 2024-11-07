@@ -1,22 +1,22 @@
 import {
   ModuleWithProviders,
-  NgModule
+  NgModule,
 } from '@angular/core';
 import {
-  StoreModule
+  StoreModule,
 } from '@ngrx/store';
 import {
-  PlaceholderTemplateStoreModule
+  PlaceholderTemplateStoreModule,
 } from '../stores/placeholder-template/placeholder-template.module';
 import type {
-  ComponentsDevtoolsServiceOptions
+  ComponentsDevtoolsServiceOptions,
 } from './components-devkit.interface';
 import {
-  ComponentsDevtoolsMessageService
+  ComponentsDevtoolsMessageService,
 } from './components-devtools.message.service';
 import {
   OTTER_COMPONENTS_DEVTOOLS_DEFAULT_OPTIONS,
-  OTTER_COMPONENTS_DEVTOOLS_OPTIONS
+  OTTER_COMPONENTS_DEVTOOLS_OPTIONS,
 } from './components-devtools.token';
 
 @NgModule({

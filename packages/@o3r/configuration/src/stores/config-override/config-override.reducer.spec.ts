@@ -1,10 +1,10 @@
 import * as actions from './config-override.actions';
 import {
   configOverrideInitialState,
-  configOverrideReducer
+  configOverrideReducer,
 } from './config-override.reducer';
 import {
-  ConfigOverrideState
+  ConfigOverrideState,
 } from './config-override.state';
 
 describe('ConfigOverride Store reducer', () => {

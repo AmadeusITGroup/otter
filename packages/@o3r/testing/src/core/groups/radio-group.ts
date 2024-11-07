@@ -1,13 +1,13 @@
 import {
-  TranspilationPurposeOnlyError
+  TranspilationPurposeOnlyError,
 } from '../../errors/index';
 import {
   O3rRadioElement,
-  RadioElementProfile
+  RadioElementProfile,
 } from '../elements/radio-element';
 import {
   GroupProfile,
-  O3rGroup
+  O3rGroup,
 } from '../group';
 
 /**

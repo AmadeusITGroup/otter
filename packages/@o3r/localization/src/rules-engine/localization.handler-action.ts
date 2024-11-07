@@ -1,19 +1,19 @@
 import {
-  Injectable
+  Injectable,
 } from '@angular/core';
 import {
-  Store
+  Store,
 } from '@ngrx/store';
 import type {
-  RulesEngineActionHandler
+  RulesEngineActionHandler,
 } from '@o3r/core';
 import {
   LocalizationOverrideStore,
-  setLocalizationOverride
+  setLocalizationOverride,
 } from '@o3r/localization';
 import {
   ActionUpdateLocalisationBlock,
-  RULES_ENGINE_LOCALISATION_UPDATE_ACTION_TYPE
+  RULES_ENGINE_LOCALISATION_UPDATE_ACTION_TYPE,
 } from './localization.interfaces';
 
 /**

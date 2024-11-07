@@ -7,10 +7,10 @@ import {
   Rule,
   template,
   Tree,
-  url
+  url,
 } from '@angular-devkit/schematics';
 import {
-  NgGenerateApiExtensionSchematicsSchema
+  NgGenerateApiExtensionSchematicsSchema,
 } from './schema';
 
 /**

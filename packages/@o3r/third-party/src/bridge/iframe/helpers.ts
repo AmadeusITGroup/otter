@@ -1,6 +1,6 @@
 import {
   IFrameBridgeOptions,
-  InternalIframeMessage
+  InternalIframeMessage,
 } from './contracts';
 
 /**

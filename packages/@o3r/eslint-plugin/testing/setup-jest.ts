@@ -1,6 +1,6 @@
 import {
   cleanVirtualFileSystem,
-  useVirtualFileSystem
+  useVirtualFileSystem,
 } from '@o3r/test-helpers';
 
 useVirtualFileSystem();

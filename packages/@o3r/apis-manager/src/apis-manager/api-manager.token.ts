@@ -1,8 +1,8 @@
 import {
-  InjectionToken
+  InjectionToken,
 } from '@angular/core';
 import {
-  ApiManager
+  ApiManager,
 } from './api-manager';
 
 /**

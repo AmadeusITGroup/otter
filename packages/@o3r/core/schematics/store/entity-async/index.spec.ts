@@ -1,43 +1,43 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import {
-  SchematicTestRunner
+  SchematicTestRunner,
 } from '@angular-devkit/schematics/testing';
 import {
-  commonModuleContent
+  commonModuleContent,
 } from '../common/mocks/example-module';
 import {
-  commonIndexContent
+  commonIndexContent,
 } from '../common/mocks/index';
 import {
-  asyncEntityActionsContent
+  asyncEntityActionsContent,
 } from './mocks/example-actions';
 import {
-  asyncEntityEffectContent
+  asyncEntityEffectContent,
 } from './mocks/example-effect';
 import {
-  asyncEntityEffectSpecContent
+  asyncEntityEffectSpecContent,
 } from './mocks/example-effect-spec';
 import {
-  asyncEntityReducerContent
+  asyncEntityReducerContent,
 } from './mocks/example-reducer';
 import {
-  asyncEntityReducerSpecContent
+  asyncEntityReducerSpecContent,
 } from './mocks/example-reducer-spec';
 import {
-  asyncEntitySelectorsContent
+  asyncEntitySelectorsContent,
 } from './mocks/example-selectors';
 import {
-  asyncEntitySelectorsSpecContent
+  asyncEntitySelectorsSpecContent,
 } from './mocks/example-selectors-spec';
 import {
-  asyncEntityStateContent
+  asyncEntityStateContent,
 } from './mocks/example-state';
 import {
-  asyncEntitySyncContent
+  asyncEntitySyncContent,
 } from './mocks/example-sync';
 
 const collectionPath = path.join(__dirname, '..', '..', '..', 'collection.json');

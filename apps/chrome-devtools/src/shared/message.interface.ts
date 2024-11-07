@@ -1,23 +1,23 @@
 import type {
-  AvailableApplicationMessageContents
+  AvailableApplicationMessageContents,
 } from '@o3r/application';
 import type {
-  AvailableComponentsMessageContents
+  AvailableComponentsMessageContents,
 } from '@o3r/components';
 import type {
-  AvailableConfigurationMessageContents
+  AvailableConfigurationMessageContents,
 } from '@o3r/configuration';
 import type {
-  CommonContentMessages
+  CommonContentMessages,
 } from '@o3r/core';
 import type {
-  AvailableLocalizationMessageContents
+  AvailableLocalizationMessageContents,
 } from '@o3r/localization';
 import type {
-  AvailableRulesEngineMessageContents
+  AvailableRulesEngineMessageContents,
 } from '@o3r/rules-engine';
 import type {
-  AvailableStylingMessageContents
+  AvailableStylingMessageContents,
 } from '@o3r/styling';
 
 export type AvailableMessageContents =

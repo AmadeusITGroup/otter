@@ -1,10 +1,10 @@
 import {
-  ResponseTimeoutError
+  ResponseTimeoutError,
 } from '../../fwk/errors';
 import {
   FetchCall,
   FetchPlugin,
-  FetchPluginContext
+  FetchPluginContext,
 } from '../core';
 
 /**

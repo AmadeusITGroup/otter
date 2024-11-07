@@ -1,13 +1,13 @@
 import {
-  readFileSync
+  readFileSync,
 } from 'node:fs';
 import * as path from 'node:path';
 import {
   chain,
-  Rule
+  Rule,
 } from '@angular-devkit/schematics';
 import type {
-  NgAddSchematicsSchema
+  NgAddSchematicsSchema,
 } from '../schema';
 
 const DEVTOOL_MODULE_NAME = 'LocalizationDevtoolsModule';

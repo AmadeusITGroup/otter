@@ -1,14 +1,14 @@
 import {
   FullStory as fullStory,
-  init
+  init,
 } from '@fullstory/browser';
 import {
   Action,
   ActionReducer,
-  MetaReducer
+  MetaReducer,
 } from '@ngrx/store';
 import type {
-  LoggerClient
+  LoggerClient,
 } from '@o3r/logger';
 
 /**

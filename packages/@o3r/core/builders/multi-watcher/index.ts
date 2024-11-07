@@ -1,13 +1,13 @@
 import {
   BuilderOutput,
   createBuilder,
-  Target
+  Target,
 } from '@angular-devkit/architect';
 import {
-  createBuilderWithMetricsIfInstalled
+  createBuilderWithMetricsIfInstalled,
 } from '../utils';
 import {
-  MultiWatcherBuilderSchema
+  MultiWatcherBuilderSchema,
 } from './schema';
 
 export default createBuilder<MultiWatcherBuilderSchema>(createBuilderWithMetricsIfInstalled(async (options, context): Promise<BuilderOutput> => {

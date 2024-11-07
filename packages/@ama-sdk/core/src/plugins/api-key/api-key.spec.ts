@@ -1,8 +1,8 @@
 import {
-  RequestOptions
+  RequestOptions,
 } from '../core/request-plugin';
 import {
-  ApiKeyRequest
+  ApiKeyRequest,
 } from './api-key.request';
 
 describe('Api Key Request Plugin', () => {

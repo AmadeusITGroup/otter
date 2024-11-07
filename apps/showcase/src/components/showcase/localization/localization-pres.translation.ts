@@ -1,5 +1,5 @@
 import type {
-  Translation
+  Translation,
 } from '@o3r/core';
 
 export interface LocalizationPresTranslation extends Translation {

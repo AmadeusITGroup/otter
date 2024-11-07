@@ -1,12 +1,12 @@
 import {
-  logging
+  logging,
 } from '@angular-devkit/core';
 import {
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import * as ts from 'typescript';
 import {
-  updateImportsInFile
+  updateImportsInFile,
 } from '@o3r/schematics';
 
 describe('updateImportsInFile', () => {

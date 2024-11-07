@@ -3,27 +3,27 @@ import {
   mkdir,
   readFile,
   rm,
-  writeFile
+  writeFile,
 } from 'node:fs/promises';
 import {
   basename,
   dirname,
   join,
   posix,
-  resolve
+  resolve,
 } from 'node:path';
 import {
   BuilderOutput,
-  createBuilder
+  createBuilder,
 } from '@angular-devkit/architect';
 import * as globby from 'globby';
 import * as semver from 'semver';
 import {
-  AggregateMigrationScriptsSchema
+  AggregateMigrationScriptsSchema,
 } from './schema';
 import {
   createBuilderWithMetricsIfInstalled,
-  type MigrationFile
+  type MigrationFile,
 } from '@o3r/extractors';
 
 const STEPS = [

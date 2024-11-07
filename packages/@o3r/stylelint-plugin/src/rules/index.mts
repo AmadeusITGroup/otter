@@ -1,5 +1,5 @@
 import {
-  rule as o3rVarParameterEqualVariableRule
+  rule as o3rVarParameterEqualVariableRule,
 } from './o3r-var-parameter-equal-variable/o3r-var-parameter-equal-variable.mjs';
 
 export const rules = {

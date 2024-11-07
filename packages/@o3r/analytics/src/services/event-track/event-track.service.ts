@@ -1,23 +1,23 @@
 /* eslint-disable @typescript-eslint/naming-convention -- naming convention for DOM, FP, and FMP imposed by Lighthouse */
 import type {
-  Mark
+  Mark,
 } from '@ama-sdk/core';
 import {
   Inject,
   Injectable,
   NgZone,
-  Optional
+  Optional,
 } from '@angular/core';
 import {
   NavigationEnd,
-  Router
+  Router,
 } from '@angular/router';
 import {
   BehaviorSubject,
   combineLatest,
   fromEvent,
   Observable,
-  ReplaySubject
+  ReplaySubject,
 } from 'rxjs';
 import {
   delay,
@@ -26,7 +26,7 @@ import {
   skipWhile,
   take,
   takeWhile,
-  withLatestFrom
+  withLatestFrom,
 } from 'rxjs/operators';
 import {
   CustomEventMarks,
@@ -35,12 +35,12 @@ import {
   FirstLoadDataPayload,
   PerfEventPayload,
   ServerCallMetric,
-  UiEventPayload
+  UiEventPayload,
 } from '../../contracts';
 import {
   defaultEventTrackConfiguration,
   EVENT_TRACK_SERVICE_CONFIGURATION,
-  EventTrackConfiguration
+  EventTrackConfiguration,
 } from './event-track.configuration';
 
 /** The initial value of the performance measurements */

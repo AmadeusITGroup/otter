@@ -1,23 +1,23 @@
 import {
   CUSTOM_MOCK_OPERATION_ID_HEADER,
-  MockInterceptRequest
+  MockInterceptRequest,
 } from '@ama-sdk/core';
 import {
-  HttpResponse
+  HttpResponse,
 } from '@angular/common/http';
 import {
   delay,
   from,
-  mergeMap
+  mergeMap,
 } from 'rxjs';
 import type {
   AngularCall,
   AngularPlugin,
   AngularPluginContext,
-  PluginObservableRunner
+  PluginObservableRunner,
 } from '../../angular-plugin';
 import type {
-  MockInterceptAngularParameters
+  MockInterceptAngularParameters,
 } from './mock-intercept.interface';
 
 /**

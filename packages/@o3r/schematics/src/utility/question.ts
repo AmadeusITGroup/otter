@@ -1,5 +1,5 @@
 import {
-  createInterface
+  createInterface,
 } from 'node:readline';
 
 /**

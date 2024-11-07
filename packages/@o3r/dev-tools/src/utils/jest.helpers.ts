@@ -1,18 +1,18 @@
 import {
   existsSync,
-  readFileSync
+  readFileSync,
 } from 'node:fs';
 import {
   dirname,
   normalize,
   relative,
-  resolve
+  resolve,
 } from 'node:path';
 import {
-  sync as globbySync
+  sync as globbySync,
 } from 'globby';
 import type {
-  TsConfigJson
+  TsConfigJson,
 } from 'type-fest';
 
 /**

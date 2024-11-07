@@ -1,9 +1,9 @@
 import {
-  MockAdapter
+  MockAdapter,
 } from '../../fwk/index';
 import {
   FetchPluginContext,
-  RequestOptions
+  RequestOptions,
 } from '../core/index';
 
 /**

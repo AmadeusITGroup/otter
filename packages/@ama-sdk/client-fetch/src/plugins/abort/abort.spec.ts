@@ -1,5 +1,5 @@
 import {
-  AbortFetch
+  AbortFetch,
 } from './abort.fetch';
 
 describe('Abort Plugin', () => {

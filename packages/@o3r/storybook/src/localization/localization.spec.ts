@@ -1,13 +1,13 @@
 import {
-  LOCALIZATION_PREFIX
+  LOCALIZATION_PREFIX,
 } from './localization-configs.interface';
 import {
   extractLocalization,
-  getLocalizations
+  getLocalizations,
 } from './localization.helpers';
 import {
   getLocalizationMetadata,
-  setLocalizationMetadata
+  setLocalizationMetadata,
 } from './metadata-manager';
 
 describe('Localization Metadata setup', () => {

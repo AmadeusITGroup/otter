@@ -1,20 +1,20 @@
 import {
   ApplicationRef,
-  Injectable
+  Injectable,
 } from '@angular/core';
 import {
-  TranslateCompiler
+  TranslateCompiler,
 } from '@ngx-translate/core';
 import {
   firstValueFrom,
   lastValueFrom,
-  Subscription
+  Subscription,
 } from 'rxjs';
 import type {
-  TranslateMessageFormatLazyCompiler
+  TranslateMessageFormatLazyCompiler,
 } from '../core';
 import {
-  LocalizationService
+  LocalizationService,
 } from '../tools';
 
 @Injectable()

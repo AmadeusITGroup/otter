@@ -2,21 +2,21 @@ import path from 'node:path';
 import process from 'node:process';
 import type {
   Path,
-  Spec
+  Spec,
 } from 'swagger-schema-official';
 import {
-  SwaggerSpec
+  SwaggerSpec,
 } from './swagger-spec-wrappers/swagger-spec.interface';
 import {
   isOuterRefPath,
-  isUrlRefPath
+  isUrlRefPath,
 } from './swagger-spec-wrappers/utils';
 import {
   addDefinitionToSpecObj,
   addParameterToSpecObj,
   addResponseToSpecObj,
   addTagToSpecObj,
-  getTargetInformation
+  getTargetInformation,
 } from './utils';
 
 /**

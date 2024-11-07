@@ -1,14 +1,14 @@
 import {
   getPersonalAccessTokenHandler,
-  WebApi
+  WebApi,
 } from 'azure-devops-node-api';
 import {
   Comment,
   CommentThreadStatus,
-  GitPullRequestCommentThread
+  GitPullRequestCommentThread,
 } from 'azure-devops-node-api/interfaces/GitInterfaces';
 import {
-  Logger
+  Logger,
 } from 'winston';
 
 /**

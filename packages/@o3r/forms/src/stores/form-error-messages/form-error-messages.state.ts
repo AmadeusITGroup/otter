@@ -1,8 +1,8 @@
 import {
-  EntityState
+  EntityState,
 } from '@ngrx/entity';
 import {
-  FormError
+  FormError,
 } from '../../core/index';
 
 /**

@@ -4,13 +4,13 @@ import {
   chain,
   Rule,
   SchematicContext,
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import {
-  registerDevtools
+  registerDevtools,
 } from './helpers/devtools-registration';
 import type {
-  NgAddSchematicsSchema
+  NgAddSchematicsSchema,
 } from './schema';
 
 const reportMissingSchematicsDep = (logger: { error: (message: string) => any }) => (reason: any) => {

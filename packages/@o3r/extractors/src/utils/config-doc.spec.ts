@@ -1,6 +1,6 @@
 import {
   getCategoriesFromDocText,
-  getWidgetInformationFromDocComment
+  getWidgetInformationFromDocComment,
 } from './config-doc';
 
 describe('config doc', () => {

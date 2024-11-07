@@ -1,19 +1,19 @@
 import {
-  Injectable
+  Injectable,
 } from '@angular/core';
 import {
-  Store
+  Store,
 } from '@ngrx/store';
 import type {
-  RulesEngineActionHandler
+  RulesEngineActionHandler,
 } from '@o3r/core';
 import {
   AssetPathOverrideStore,
-  setAssetPathOverride
+  setAssetPathOverride,
 } from '@o3r/dynamic-content';
 import {
   ActionUpdateAssetBlock,
-  RULES_ENGINE_ASSET_UPDATE_ACTION_TYPE
+  RULES_ENGINE_ASSET_UPDATE_ACTION_TYPE,
 } from './asset.interfaces';
 
 /**

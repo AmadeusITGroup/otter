@@ -116,6 +116,7 @@ const config = [
           hoist: 'all'
         }
       ],
+      '@typescript-eslint/no-use-before-define': 'off',
       '@typescript-eslint/no-unused-vars': [
         'error',
         {
@@ -124,9 +125,9 @@ const config = [
           ignoreRestSiblings: true
         }
       ],
-      '@typescript-eslint/no-use-before-define': 'off',
       '@typescript-eslint/prefer-for-of': 'error',
       '@typescript-eslint/prefer-function-type': 'error',
+      '@typescript-eslint/prefer-readonly': 'error',
       '@typescript-eslint/prefer-regexp-exec': 'off',
       '@typescript-eslint/triple-slash-reference': [
         'error',
@@ -136,8 +137,7 @@ const config = [
           lib: 'always'
         }
       ],
-      '@typescript-eslint/unified-signatures': 'error',
-      '@typescript-eslint/prefer-readonly': 'error'
+      '@typescript-eslint/unified-signatures': 'error'
     }
   }
 ];

@@ -1,46 +1,46 @@
 import {
-  TestBed
+  TestBed,
 } from '@angular/core/testing';
 import {
-  provideMockActions
+  provideMockActions,
 } from '@ngrx/effects/testing';
 import type {
-  Action
+  Action,
 } from '@ngrx/store';
 import {
-  Store
+  Store,
 } from '@ngrx/store';
 import type {
   PlaceholderRequestModel,
-  PlaceholderRequestReply
+  PlaceholderRequestReply,
 } from '@o3r/components';
 import {
-  UpdateAsyncStoreItemEntityActionPayloadWithId
+  UpdateAsyncStoreItemEntityActionPayloadWithId,
 } from '@o3r/core';
 import {
-  DynamicContentService
+  DynamicContentService,
 } from '@o3r/dynamic-content';
 import {
-  LocalizationService
+  LocalizationService,
 } from '@o3r/localization';
 import {
-  RulesEngineRunnerService
+  RulesEngineRunnerService,
 } from '@o3r/rules-engine';
 import {
   firstValueFrom,
   of,
   ReplaySubject,
   Subject,
-  Subscription
+  Subscription,
 } from 'rxjs';
 import {
-  shareReplay
+  shareReplay,
 } from 'rxjs/operators';
 import {
-  setPlaceholderRequestEntityFromUrl
+  setPlaceholderRequestEntityFromUrl,
 } from '../stores';
 import {
-  PlaceholderTemplateResponseEffect
+  PlaceholderTemplateResponseEffect,
 } from './placeholder.rules-engine.effect';
 
 describe('Rules Engine Effects', () => {
@@ -143,7 +143,7 @@ describe('Rules Engine Effects', () => {
     }));
     factsStream.myFact.next('ignored');
     factsStream.parameter.next('success');
-    factsStream.factInTemplate.next({ 'myKey': 'Outstanding fact' });
+    factsStream.factInTemplate.next({ myKey: 'Outstanding fact' });
 
     const result = (await firstValueFrom(setPlaceholderEffect$)) as UpdateAsyncStoreItemEntityActionPayloadWithId<PlaceholderRequestModel>
       & Action<'[PlaceholderRequest] update entity'>;
@@ -189,7 +189,7 @@ describe('Rules Engine Effects', () => {
     }));
     factsStream.myFact.next('ignored');
     factsStream.parameter.next('User');
-    factsStream.user.next({ 'phone': '1234', 'email': 'test@mail.com' });
+    factsStream.user.next({ phone: '1234', email: 'test@mail.com' });
 
     const result = (await firstValueFrom(setPlaceholderEffect$)) as UpdateAsyncStoreItemEntityActionPayloadWithId<PlaceholderRequestModel>
       & Action<'[PlaceholderRequest] update entity'>;

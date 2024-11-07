@@ -1,20 +1,20 @@
 import {
-  promises as fs
+  promises as fs,
 } from 'node:fs';
 import * as path from 'node:path';
 import {
   BuilderOutput,
-  createBuilder
+  createBuilder,
 } from '@angular-devkit/architect';
 import {
-  sync as globbySync
+  sync as globbySync,
 } from 'globby';
 import * as ts from 'typescript';
 import {
-  createBuilderWithMetricsIfInstalled
+  createBuilderWithMetricsIfInstalled,
 } from '../utils';
 import {
-  LibraryBuilderSchema
+  LibraryBuilderSchema,
 } from './schema';
 
 /** List of option dedicated to this build which should not be propagated to target build */

@@ -7,16 +7,16 @@
 import {
   copyFileSync,
   promises as fs,
-  mkdirSync
+  mkdirSync,
 } from 'node:fs';
 import * as path from 'node:path';
 import type {
-  CliWrapper
+  CliWrapper,
 } from '@o3r/telemetry';
 import * as globby from 'globby';
 import * as minimist from 'minimist';
 import type {
-  PackageJson
+  PackageJson,
 } from 'type-fest';
 
 const argv = minimist(process.argv.slice(2));

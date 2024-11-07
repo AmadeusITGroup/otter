@@ -1,23 +1,23 @@
 import {
-  Injectable
+  Injectable,
 } from '@angular/core';
 import {
   Actions,
   createEffect,
-  ofType
+  ofType,
 } from '@ngrx/effects';
 import {
   BaseRouterStoreState,
   ROUTER_NAVIGATED,
   ROUTER_REQUEST,
-  RouterRequestAction
+  RouterRequestAction,
 } from '@ngrx/router-store';
 import {
   filter,
-  map
+  map,
 } from 'rxjs/operators';
 import {
-  clearRoutingGuardEntities
+  clearRoutingGuardEntities,
 } from '../routing-guard.actions';
 
 /**

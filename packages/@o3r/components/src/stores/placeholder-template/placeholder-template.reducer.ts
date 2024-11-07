@@ -1,16 +1,16 @@
 import {
-  createEntityAdapter
+  createEntityAdapter,
 } from '@ngrx/entity';
 import {
   ActionCreator,
   createReducer,
   on,
-  ReducerTypes
+  ReducerTypes,
 } from '@ngrx/store';
 import * as actions from './placeholder-template.actions';
 import {
   PlaceholderTemplateModel,
-  PlaceholderTemplateState
+  PlaceholderTemplateState,
 } from './placeholder-template.state';
 
 /**

@@ -1,5 +1,5 @@
 import {
-  AsyncPipe
+  AsyncPipe,
 } from '@angular/common';
 import {
   AfterViewInit,
@@ -10,16 +10,16 @@ import {
   QueryList,
   signal,
   ViewChildren,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {
-  RouterModule
+  RouterModule,
 } from '@angular/router';
 import {
-  ConfigurationBaseServiceModule
+  ConfigurationBaseServiceModule,
 } from '@o3r/configuration';
 import {
-  O3rComponent
+  O3rComponent,
 } from '@o3r/core';
 import {
   ConfigurationPresComponent,
@@ -27,10 +27,10 @@ import {
   IN_PAGE_NAV_PRES_DIRECTIVES,
   InPageNavLink,
   InPageNavLinkDirective,
-  InPageNavPresService
+  InPageNavPresService,
 } from '../../components/index';
 import {
-  ConfigurationPresConfig
+  ConfigurationPresConfig,
 } from '../../components/showcase/configuration/configuration-pres.config';
 
 const CONFIG_OVERRIDE: ConfigurationPresConfig = {

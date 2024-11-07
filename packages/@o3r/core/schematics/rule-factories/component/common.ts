@@ -1,6 +1,6 @@
 import {
   askConfirmation,
-  askQuestion
+  askQuestion,
 } from '@angular/cli/src/utilities/prompt';
 import {
   chain,
@@ -9,15 +9,15 @@ import {
   Rule,
   schematic,
   SchematicContext,
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import {
   O3rCliError,
   SchematicOptionObject,
-  setupSchematicsParamsForProject
+  setupSchematicsParamsForProject,
 } from '@o3r/schematics';
 import type {
-  PackageJson
+  PackageJson,
 } from 'type-fest';
 
 /**

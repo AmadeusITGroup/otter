@@ -1,7 +1,7 @@
 import {
   PluginRunner,
   RequestOptions,
-  RequestPlugin
+  RequestPlugin,
 } from '@ama-sdk/core';
 
 /**

@@ -1,12 +1,12 @@
 import type {
-  Logger
+  Logger,
 } from '@o3r/core';
 import type {
   DesignTokenVariableStructure,
   TokenKeyRenderer,
   TokenReferenceRenderer,
   TokenValueRenderer,
-  UnregisteredTokenReferenceRenderer
+  UnregisteredTokenReferenceRenderer,
 } from '../../parsers/design-token-parser.interface';
 
 /** Options for {@link getSassTokenValueRenderer} */

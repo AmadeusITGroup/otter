@@ -3,7 +3,7 @@ import type {
   DesignTokenContext,
   DesignTokenExtensions,
   DesignTokenGroup,
-  DesignTokenGroupExtensions
+  DesignTokenGroupExtensions,
 } from '../design-token-specification.interface';
 
 /** Reference to a parent node */

@@ -1,19 +1,19 @@
 import {
   existsSync,
-  readFileSync
+  readFileSync,
 } from 'node:fs';
 import path from 'node:path';
 import minimist from 'minimist';
 import type {
-  Opts as MinimistOptions
+  Opts as MinimistOptions,
 } from 'minimist';
 import {
-  getEnvironmentInfo
+  getEnvironmentInfo,
 } from '../environment';
 import {
   type CliMetricData,
   sendData as defaultSendData,
-  type SendDataFn
+  type SendDataFn,
 } from '../sender';
 
 /** Simple Logger interface */

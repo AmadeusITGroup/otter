@@ -1,17 +1,17 @@
 import {
-  readFileSync
+  readFileSync,
 } from 'node:fs';
 import {
-  resolve
+  resolve,
 } from 'node:path';
 import {
-  type Rule
+  type Rule,
 } from '@angular-devkit/schematics';
 import {
-  setupDependencies
+  setupDependencies,
 } from '@o3r/schematics';
 import {
-  NodeDependencyType
+  NodeDependencyType,
 } from '@schematics/angular/utility/dependencies';
 
 /**

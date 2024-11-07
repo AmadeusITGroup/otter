@@ -1,17 +1,17 @@
 import {
-  exec
+  exec,
 } from 'node:child_process';
 import {
   inspect,
-  promisify
+  promisify,
 } from 'node:util';
 import * as core from '@actions/core';
 import {
-  getOctokit
+  getOctokit,
 } from '@actions/github';
 import * as github from '@actions/github';
 import {
-  Cascading
+  Cascading,
 } from './cascading';
 
 const promisifiedExec = promisify(exec);

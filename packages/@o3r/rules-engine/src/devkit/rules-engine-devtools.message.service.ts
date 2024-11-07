@@ -2,37 +2,37 @@ import {
   Inject,
   Injectable,
   OnDestroy,
-  Optional
+  Optional,
 } from '@angular/core';
 import {
   DevtoolsServiceInterface,
   filterMessageContent,
-  sendOtterMessage
+  sendOtterMessage,
 } from '@o3r/core';
 import {
-  LoggerService
+  LoggerService,
 } from '@o3r/logger';
 import {
   BehaviorSubject,
   combineLatest,
   fromEvent,
-  Subscription
+  Subscription,
 } from 'rxjs';
 import type {
-  DebugEvent
+  DebugEvent,
 } from '../engine';
 import {
   AvailableRulesEngineMessageContents,
   isRulesEngineMessage,
   RulesEngineDevtoolsServiceOptions,
-  RulesEngineMessageDataTypes
+  RulesEngineMessageDataTypes,
 } from './rules-engine-devkit.interface';
 import {
-  OtterRulesEngineDevtools
+  OtterRulesEngineDevtools,
 } from './rules-engine-devtools.service';
 import {
   OTTER_RULES_ENGINE_DEVTOOLS_DEFAULT_OPTIONS,
-  OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS
+  OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS,
 } from './rules-engine-devtools.token';
 
 @Injectable({

@@ -1,21 +1,21 @@
 import {
-  EOL
+  EOL,
 } from 'node:os';
 import type {
-  Rule
+  Rule,
 } from '@angular-devkit/schematics';
 import {
   getPackageManagerExecutor,
-  getWorkspaceConfig
+  getWorkspaceConfig,
 } from '../utility/index';
 import {
   OTTER_KEYWORD_CMS,
   OTTER_MODULE_KEYWORD,
-  OTTER_MODULE_SUPPORTED_SCOPES
+  OTTER_MODULE_SUPPORTED_SCOPES,
 } from './modules.constants';
 import {
   formatModuleDescription,
-  getAvailableModulesWithLatestPackage
+  getAvailableModulesWithLatestPackage,
 } from './modules.helpers';
 
 /** Options for the Display Module rule */

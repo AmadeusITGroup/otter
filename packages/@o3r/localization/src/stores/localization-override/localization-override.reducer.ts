@@ -2,11 +2,11 @@ import {
   ActionCreator,
   createReducer,
   on,
-  ReducerTypes
+  ReducerTypes,
 } from '@ngrx/store';
 import * as actions from './localization-override.actions';
 import {
-  LocalizationOverrideState
+  LocalizationOverrideState,
 } from './localization-override.state';
 
 /**

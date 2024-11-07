@@ -1,8 +1,8 @@
 import {
-  noop
+  noop,
 } from '@angular-devkit/schematics';
 import type {
-  Rule
+  Rule,
 } from '@angular-devkit/schematics';
 
 /**

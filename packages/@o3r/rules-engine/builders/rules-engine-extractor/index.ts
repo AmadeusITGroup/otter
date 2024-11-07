@@ -1,29 +1,29 @@
 import {
   existsSync,
-  promises as fs
+  promises as fs,
 } from 'node:fs';
 import {
   dirname,
-  resolve
+  resolve,
 } from 'node:path';
 import {
   BuilderOutput,
-  createBuilder
+  createBuilder,
 } from '@angular-devkit/architect';
 import {
   CmsMetadataData,
   createBuilderWithMetricsIfInstalled,
-  getLibraryCmsMetadata
+  getLibraryCmsMetadata,
 } from '@o3r/extractors';
 import globby from 'globby';
 import {
   MetadataFact,
   MetadataOperator,
   ObjectMetadataFact,
-  RulesEngineExtractor
+  RulesEngineExtractor,
 } from './helpers';
 import {
-  RulesEngineExtractorBuilderSchema
+  RulesEngineExtractorBuilderSchema,
 } from './schema';
 
 export * from './schema';
@@ -114,13 +114,13 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<RulesEngineExtr
     await fs.mkdir(dirname(outputOperatorsFile), { recursive: true });
   } catch {}
   await fs.writeFile(outputFactsFile, JSON.stringify({
-    'facts': [
+    facts: [
       ...librariesFacts,
       ...newFactList
     ]
   }, null, 2));
   await fs.writeFile(outputOperatorsFile, JSON.stringify({
-    'operators': [
+    operators: [
       ...librariesOperators,
       ...newOperatorList
     ]

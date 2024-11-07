@@ -1,10 +1,10 @@
 import {
-  CanceledCallError
+  CanceledCallError,
 } from '../../fwk/errors';
 import {
   FetchCall,
   FetchPlugin,
-  FetchPluginContext
+  FetchPluginContext,
 } from '../core';
 
 /**

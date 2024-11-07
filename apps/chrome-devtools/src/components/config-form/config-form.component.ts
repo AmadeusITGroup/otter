@@ -1,29 +1,29 @@
 import {
   KeyValuePipe,
-  NgClass
+  NgClass,
 } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
   computed,
   inject,
-  input
+  input,
 } from '@angular/core';
 import {
   FormControl,
   FormsModule,
   ReactiveFormsModule,
-  UntypedFormGroup
+  UntypedFormGroup,
 } from '@angular/forms';
 import type {
   Configuration,
-  ConfigurationModel
+  ConfigurationModel,
 } from '@o3r/configuration';
 import {
-  StateService
+  StateService,
 } from '../../services';
 import {
-  ChromeExtensionConnectionService
+  ChromeExtensionConnectionService,
 } from '../../services/connection.service';
 
 type ControlsType = Record<string, 'boolean' | 'string' | 'number'>;

@@ -4,36 +4,36 @@ import {
   BuilderContext,
   BuilderOutput,
   createBuilder,
-  Target
+  Target,
 } from '@angular-devkit/architect';
 import {
-  LogEntry
+  LogEntry,
 } from '@angular-devkit/core/src/logger';
 import {
-  createBuilderWithMetricsIfInstalled
+  createBuilderWithMetricsIfInstalled,
 } from '@o3r/extractors';
 import type {
-  JSONLocalization
+  JSONLocalization,
 } from '@o3r/localization';
 import {
-  O3rCliError
+  O3rCliError,
 } from '@o3r/schematics';
 import {
-  sync as globbySync
+  sync as globbySync,
 } from 'globby';
 import {
   firstValueFrom,
   from,
-  merge
+  merge,
 } from 'rxjs';
 import {
-  filter
+  filter,
 } from 'rxjs/operators';
 import type {
-  LocalizationExtractorBuilderSchema
+  LocalizationExtractorBuilderSchema,
 } from '../localization-extractor/schema';
 import {
-  LocalizationBuilderSchema
+  LocalizationBuilderSchema,
 } from './schema';
 
 /** Maximum number of steps */

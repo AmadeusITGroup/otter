@@ -1,6 +1,6 @@
 import {
   AsyncStoreItem,
-  EntityStatus
+  EntityStatus,
 } from './async.interfaces';
 
 /**

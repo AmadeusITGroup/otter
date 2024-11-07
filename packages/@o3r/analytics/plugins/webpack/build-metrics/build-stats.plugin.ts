@@ -1,5 +1,5 @@
 import {
-  randomUUID
+  randomUUID,
 } from 'node:crypto';
 import * as os from 'node:os';
 import {
@@ -8,12 +8,12 @@ import {
   JavascriptModulesPlugin,
   NormalModule,
   Parser,
-  WebpackPluginInstance
+  WebpackPluginInstance,
 } from 'webpack';
 import type {
   ReportData,
   Reporter,
-  Timing
+  Timing,
 } from './reporters.interface';
 
 /**
@@ -235,7 +235,6 @@ export class BuildStatsPlugin implements WebpackPluginInstance {
     }
   }
 
-  // eslint-disable-next-line unicorn/consistent-function-scoping -- must keep function to have the correct context
   private readonly makeInterceptorFor = (_instance: string) => (hookName: string) => ({
     register: (tapInfo: any) => {
       const { name, type, fn } = tapInfo;

@@ -1,5 +1,5 @@
 import {
-  PullRequestService as PrService
+  PullRequestService as PrService,
 } from '@o3r/azure-tools';
 
 /**

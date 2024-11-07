@@ -1,6 +1,6 @@
 import {
   KeepWhiteSpacePipe,
-  O3rKeepWhiteSpacePipe
+  O3rKeepWhiteSpacePipe,
 } from './keep-white-space.pipe';
 
 describe('Keep white space pipe', () => {

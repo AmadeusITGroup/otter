@@ -5,13 +5,13 @@ import path from 'node:path';
 import process from 'node:process';
 import commander from 'commander';
 import {
-  sync as globbySync
+  sync as globbySync,
 } from 'globby';
 import {
-  isGlobPattern
+  isGlobPattern,
 } from '../core/utils';
 import {
-  checkDictionaries
+  checkDictionaries,
 } from '../helpers/dictionary-check';
 
 process.on('unhandledRejection', (err) => {

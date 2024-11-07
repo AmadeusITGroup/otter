@@ -2,7 +2,7 @@ import type {
   Fact,
   Operator,
   RulesEngineRunnerService,
-  UnaryOperator
+  UnaryOperator,
 } from '@o3r/rules-engine';
 
 /** Jest Fixture class for RulesEngineRunnerService */

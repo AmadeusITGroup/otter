@@ -1,5 +1,5 @@
 import {
-  otterComponentInfoPropertyName
+  otterComponentInfoPropertyName,
 } from '@o3r/core';
 
 export interface OtterLikeComponentInfo {

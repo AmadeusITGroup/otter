@@ -1,12 +1,12 @@
 import {
   Device,
-  DeviceInfo
+  DeviceInfo,
 } from '@capacitor/device';
 import {
   CapacitorPlatforms,
   getBaseUrl,
   getCapacitorPlatform,
-  isCapacitorContext
+  isCapacitorContext,
 } from './helpers';
 
 /**

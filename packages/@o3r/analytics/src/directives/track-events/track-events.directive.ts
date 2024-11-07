@@ -4,20 +4,20 @@ import {
   Input,
   OnChanges,
   Renderer2,
-  SimpleChanges
+  SimpleChanges,
 } from '@angular/core';
 import {
   AnalyticsEvent,
   ConstructorAnalyticsEvent,
   ConstructorAnalyticsEventParameters,
   EventContext,
-  TrackEventName
+  TrackEventName,
 } from '../../contracts';
 import {
-  EventTrackService
+  EventTrackService,
 } from '../../services/event-track/event-track.service';
 import {
-  BaseTrackEvents
+  BaseTrackEvents,
 } from './base-track-events';
 
 /**

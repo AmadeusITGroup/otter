@@ -1,6 +1,6 @@
 import {
   readFileSync,
-  writeFileSync
+  writeFileSync,
 } from 'node:fs';
 
 /**

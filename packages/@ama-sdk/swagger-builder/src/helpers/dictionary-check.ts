@@ -1,11 +1,11 @@
 import {
-  Report
+  Report,
 } from '../core/checkers/checker.interface';
 import {
-  DictionaryChecker
+  DictionaryChecker,
 } from '../core/checkers/dictionary-checker';
 import {
-  getTargetInformation
+  getTargetInformation,
 } from '../core/utils';
 
 /**

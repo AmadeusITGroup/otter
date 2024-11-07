@@ -1,23 +1,23 @@
 import {
   inject,
   type InputSignal,
-  type Signal
+  type Signal,
 } from '@angular/core';
 import {
   toObservable,
-  toSignal
+  toSignal,
 } from '@angular/core/rxjs-interop';
 import type {
-  Configuration
+  Configuration,
 } from '@o3r/core';
 import {
-  shareReplay
+  shareReplay,
 } from 'rxjs';
 import {
-  getConfiguration
+  getConfiguration,
 } from '../core';
 import {
-  ConfigurationBaseService
+  ConfigurationBaseService,
 } from '../services';
 
 /** Configuration signal */

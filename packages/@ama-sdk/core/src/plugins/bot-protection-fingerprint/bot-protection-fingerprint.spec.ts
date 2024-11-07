@@ -1,12 +1,12 @@
 import {
-  RequestOptions
+  RequestOptions,
 } from '../core';
 import {
   akamaiTelemetryRetrieverFactory,
   BotProtectionFingerprintRequest,
   BotProtectionFingerprintRetriever,
   ImpervaProtection,
-  impervaProtectionRetrieverFactory
+  impervaProtectionRetrieverFactory,
 } from './bot-protection-fingerprint.request';
 
 declare let global: any;

@@ -1,5 +1,5 @@
 import {
-  PathObject
+  PathObject,
 } from './path-object';
 
 /**

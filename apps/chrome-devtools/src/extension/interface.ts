@@ -1,10 +1,10 @@
 import type {
   Configuration,
   OtterMessage,
-  OtterMessageContent
+  OtterMessageContent,
 } from '@o3r/core';
 import type {
-  AvailableMessageContents
+  AvailableMessageContents,
 } from '../shared/index';
 
 /** Message from the DevTools message */

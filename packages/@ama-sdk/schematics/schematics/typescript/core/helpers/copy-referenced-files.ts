@@ -1,11 +1,11 @@
 import {
-  existsSync
+  existsSync,
 } from 'node:fs';
 import {
   copyFile,
   mkdir,
   readFile,
-  rm
+  rm,
 } from 'node:fs/promises';
 import {
   dirname,
@@ -15,7 +15,7 @@ import {
   posix,
   relative,
   resolve,
-  sep
+  sep,
 } from 'node:path';
 
 const refMatcher = /\B["']?\$ref["']?\s*:\s*([^\n#]+)/g;

@@ -1,16 +1,16 @@
 import {
   Directive,
   Injectable,
-  NgModule
+  NgModule,
 } from '@angular/core';
 import {
-  Observable
+  Observable,
 } from 'rxjs';
 import {
-  mapTo
+  mapTo,
 } from 'rxjs/operators';
 import {
-  C11nService
+  C11nService,
 } from './c11n.service';
 
 /** C11n directive mock */

@@ -2,14 +2,14 @@ import {
   ChangeDetectionStrategy,
   Component,
   Input,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import type {
   BinaryOperation,
   GenericOperand,
   OperandFact,
   TopLevelCondition,
-  UnaryOperation
+  UnaryOperation,
 } from '../../../engine';
 
 @Component({

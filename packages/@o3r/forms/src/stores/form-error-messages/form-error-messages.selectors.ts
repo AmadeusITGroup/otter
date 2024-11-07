@@ -1,17 +1,17 @@
 import {
   createFeatureSelector,
-  createSelector
+  createSelector,
 } from '@ngrx/store';
 import {
   ElementError,
-  ErrorMessageObject
+  ErrorMessageObject,
 } from '../../core/index';
 import {
-  formErrorMessagesAdapter
+  formErrorMessagesAdapter,
 } from './form-error-messages.reducer';
 import {
   FORM_ERROR_MESSAGES_STORE_NAME,
-  FormErrorMessagesState
+  FormErrorMessagesState,
 } from './form-error-messages.state';
 
 const { selectIds, selectEntities, selectAll, selectTotal } = formErrorMessagesAdapter.getSelectors();

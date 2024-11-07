@@ -1,6 +1,6 @@
 import * as path from 'node:path';
 import type {
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 
 /**

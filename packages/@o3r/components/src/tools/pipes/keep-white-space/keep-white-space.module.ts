@@ -1,8 +1,8 @@
 import {
-  NgModule
+  NgModule,
 } from '@angular/core';
 import {
-  KeepWhiteSpacePipe
+  KeepWhiteSpacePipe,
 } from './keep-white-space.pipe';
 
 /**

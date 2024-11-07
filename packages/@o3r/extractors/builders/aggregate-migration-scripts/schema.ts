@@ -1,5 +1,5 @@
 import type {
-  JsonObject
+  JsonObject,
 } from '@angular-devkit/core';
 
 /** Combine the local migration scripts of the current project with all the migration scripts of its dependencies. */

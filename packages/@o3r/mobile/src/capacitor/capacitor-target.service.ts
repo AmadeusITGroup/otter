@@ -1,16 +1,16 @@
 import {
   Injectable,
-  OnDestroy
+  OnDestroy,
 } from '@angular/core';
 import {
-  Browser
+  Browser,
 } from '@capacitor/browser';
 import {
   fromEvent,
-  Subscription
+  Subscription,
 } from 'rxjs';
 import {
-  isCapacitorContext
+  isCapacitorContext,
 } from './helpers';
 
 @Injectable({

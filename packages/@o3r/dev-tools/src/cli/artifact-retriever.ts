@@ -4,17 +4,17 @@ import * as http from 'node:http';
 import * as https from 'node:https';
 import * as path from 'node:path';
 import {
-  program
+  program,
 } from 'commander';
 import * as fse from 'fs-extra';
 import {
   CookieJar,
-  Headers
+  Headers,
 } from 'request';
 import * as request from 'request-promise-native';
 import * as winston from 'winston';
 import {
-  GavcResponse
+  GavcResponse,
 } from '../helpers/gavc-response';
 
 const SUPPORTED_REPOSITORY_MANAGERS = ['JFrog', 'Azure Artifacts'];

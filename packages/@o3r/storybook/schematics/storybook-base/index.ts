@@ -1,9 +1,9 @@
 import {
-  readFileSync
+  readFileSync,
 } from 'node:fs';
 import * as path from 'node:path';
 import {
-  strings
+  strings,
 } from '@angular-devkit/core';
 import {
   apply,
@@ -14,17 +14,17 @@ import {
   SchematicContext,
   template,
   Tree,
-  url
+  url,
 } from '@angular-devkit/schematics';
 import {
   getPackageManagerRunner,
   getTemplateFolder,
-  getWorkspaceConfig
+  getWorkspaceConfig,
 } from '@o3r/schematics';
 import {
   addPackageJsonDependency,
   getPackageJsonDependency,
-  NodeDependencyType
+  NodeDependencyType,
 } from '@schematics/angular/utility/dependencies';
 import * as ts from 'typescript';
 

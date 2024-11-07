@@ -16,7 +16,7 @@ const config = [
       'jest/expect-expect': [
         'error',
         {
-          'assertFunctionNames': ['expect', 'expectObservable']
+          assertFunctionNames: ['expect', 'expectObservable']
         }
       ]
     }

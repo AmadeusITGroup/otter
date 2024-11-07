@@ -1,10 +1,10 @@
 import {
   ComponentFixtureProfile,
-  O3rComponentFixture
+  O3rComponentFixture,
 } from '@o3r/testing/core';
 import {
   SidenavPresFixture,
-  SidenavPresFixtureComponent
+  SidenavPresFixtureComponent,
 } from '../components/utilities/sidenav/sidenav-pres.fixture';
 
 /**

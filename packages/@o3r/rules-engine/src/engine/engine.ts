@@ -1,12 +1,12 @@
 import type {
-  Logger
+  Logger,
 } from '@o3r/logger';
 import {
   BehaviorSubject,
   firstValueFrom,
   merge,
   Observable,
-  of
+  of,
 } from 'rxjs';
 import {
   delay,
@@ -14,33 +14,33 @@ import {
   shareReplay,
   switchMap,
   takeUntil,
-  tap
+  tap,
 } from 'rxjs/operators';
 import {
-  EngineDebugger
+  EngineDebugger,
 } from './debug/engine.debug';
 import {
   FactObject,
-  RulesEngineOptions
+  RulesEngineOptions,
 } from './engine.interface';
 import type {
   Fact,
-  Facts
+  Facts,
 } from './fact/index';
 import {
-  filterRulesetsEventStream
+  filterRulesetsEventStream,
 } from './helpers/filter-ruleset-event.operator';
 import {
   Operator,
   operatorList,
-  UnaryOperator
+  UnaryOperator,
 } from './operator/index';
 import {
-  RulesetExecutor
+  RulesetExecutor,
 } from './ruleset-executor';
 import {
   ActionBlock,
-  Ruleset
+  Ruleset,
 } from './structure';
 
 /** Rules engine */

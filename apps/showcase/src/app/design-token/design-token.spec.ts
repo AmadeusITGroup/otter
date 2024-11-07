@@ -1,12 +1,12 @@
 import {
   ComponentFixture,
-  TestBed
+  TestBed,
 } from '@angular/core/testing';
 import {
-  RouterModule
+  RouterModule,
 } from '@angular/router';
 import {
-  DesignTokenComponent
+  DesignTokenComponent,
 } from './design-token.component';
 
 describe('DesignTokenComponent', () => {

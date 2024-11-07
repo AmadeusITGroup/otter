@@ -1,20 +1,20 @@
 import {
-  createEntityAdapter
+  createEntityAdapter,
 } from '@ngrx/entity';
 import {
   ActionCreator,
   createReducer,
   on,
-  ReducerTypes
+  ReducerTypes,
 } from '@ngrx/store';
 import {
-  asyncStoreItemAdapter
+  asyncStoreItemAdapter,
 } from '@o3r/core';
 import * as actions from './rulesets.actions';
 import {
   RulesetsModel,
   RulesetsState,
-  RulesetsStateDetails
+  RulesetsStateDetails,
 } from './rulesets.state';
 
 /**

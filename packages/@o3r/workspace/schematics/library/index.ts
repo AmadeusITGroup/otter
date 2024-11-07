@@ -4,10 +4,10 @@ import {
   chain,
   noop,
   Rule,
-  strings
+  strings,
 } from '@angular-devkit/schematics';
 import {
-  RunSchematicTask
+  RunSchematicTask,
 } from '@angular-devkit/schematics/tasks';
 import {
   applyEsLintFix,
@@ -17,22 +17,22 @@ import {
   getWorkspaceConfig,
   isNxContext,
   O3rCliError,
-  setupDependencies
+  setupDependencies,
 } from '@o3r/schematics';
 import {
-  NodeDependencyType
+  NodeDependencyType,
 } from '@schematics/angular/utility/dependencies';
 import {
-  PackageJson
+  PackageJson,
 } from 'type-fest';
 import {
-  ngGenerateModule
+  ngGenerateModule,
 } from './rules/rules.ng';
 import {
-  nxGenerateModule
+  nxGenerateModule,
 } from './rules/rules.nx';
 import {
-  NgGenerateModuleSchema
+  NgGenerateModuleSchema,
 } from './schema';
 
 /**

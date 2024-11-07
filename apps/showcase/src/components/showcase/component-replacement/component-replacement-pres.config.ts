@@ -1,8 +1,8 @@
 import type {
-  Configuration
+  Configuration,
 } from '@o3r/core';
 import {
-  computeItemIdentifier
+  computeItemIdentifier,
 } from '@o3r/core';
 
 /**

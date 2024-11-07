@@ -1,12 +1,12 @@
 import type {
-  LocalizationMetadata
+  LocalizationMetadata,
 } from '@o3r/localization';
 import {
   LOCALIZATION_PREFIX,
-  LocalizationConfigs
+  LocalizationConfigs,
 } from './localization-configs.interface';
 import {
-  getLocalizationMetadata
+  getLocalizationMetadata,
 } from './metadata-manager';
 
 /**

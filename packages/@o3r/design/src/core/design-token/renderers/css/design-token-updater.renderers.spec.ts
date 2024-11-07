@@ -1,5 +1,5 @@
 import {
-  getCssStyleContentUpdater
+  getCssStyleContentUpdater,
 } from './design-token-updater.renderers';
 
 describe('getCssStyleContentUpdater', () => {

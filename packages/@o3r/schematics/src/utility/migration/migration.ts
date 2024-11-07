@@ -1,14 +1,14 @@
 import type {
-  LoggerApi
+  LoggerApi,
 } from '@angular-devkit/core/src/logger';
 import {
   chain,
-  type Rule
+  type Rule,
 } from '@angular-devkit/schematics';
 import {
   intersects,
   Range,
-  validRange
+  validRange,
 } from 'semver';
 
 /** Create the migration  */

@@ -1,7 +1,7 @@
 import {
   ElementError,
   ErrorMessageObject,
-  FormError
+  FormError,
 } from '../../core/index';
 import * as selectors from './form-error-messages.selectors';
 

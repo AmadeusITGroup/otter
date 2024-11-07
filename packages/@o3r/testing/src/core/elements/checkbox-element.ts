@@ -1,9 +1,9 @@
 import {
-  TranspilationPurposeOnlyError
+  TranspilationPurposeOnlyError,
 } from '../../errors/index';
 import {
   ElementProfile,
-  O3rElement
+  O3rElement,
 } from '../element';
 
 /**

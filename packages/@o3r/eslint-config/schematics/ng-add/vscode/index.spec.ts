@@ -1,15 +1,15 @@
 import * as path from 'node:path';
 import {
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import {
-  SchematicTestRunner
+  SchematicTestRunner,
 } from '@angular-devkit/schematics/testing';
 import {
-  firstValueFrom
+  firstValueFrom,
 } from 'rxjs';
 import {
-  updateVscode
+  updateVscode,
 } from './index';
 
 const collectionPath = path.join(__dirname, '..', '..', '..', 'collection.json');

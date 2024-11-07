@@ -5,7 +5,7 @@ import {
   createBase64Encoder,
   createBase64UrlDecoder,
   createBase64UrlEncoder,
-  createJweEncoder
+  createJweEncoder,
 } from './json-token';
 
 describe('JSON token utils', () => {

@@ -2,11 +2,11 @@ import type {
   DebugEvent,
   Ruleset,
   RulesetExecutionErrorEvent,
-  RulesetExecutionEvent
+  RulesetExecutionEvent,
 } from '../../../engine';
 import type {
   RulesetExecutionDebug,
-  RulesetExecutionStatus
+  RulesetExecutionStatus,
 } from '../ruleset-history/ruleset-history-pres.component';
 
 /**

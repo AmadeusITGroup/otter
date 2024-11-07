@@ -1,15 +1,15 @@
 import {
   createFeatureSelector,
-  createSelector
+  createSelector,
 } from '@ngrx/store';
 import {
-  routingGuardAdapter
+  routingGuardAdapter,
 } from './routing-guard.reducer';
 import {
   RegisteredItemFailureReason,
   RegisteredItemStatus,
   ROUTING_GUARD_STORE_NAME,
-  RoutingGuardState
+  RoutingGuardState,
 } from './routing-guard.state';
 
 const { selectIds, selectEntities, selectAll, selectTotal } = routingGuardAdapter.getSelectors();

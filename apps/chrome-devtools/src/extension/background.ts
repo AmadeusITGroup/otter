@@ -1,21 +1,21 @@
 import type {
-  ApplicationInformationContentMessage
+  ApplicationInformationContentMessage,
 } from '@o3r/application';
 import type {
   InjectContentMessage,
   OtterMessage,
   OtterMessageContent,
-  otterMessageType
+  otterMessageType,
 } from '@o3r/core';
 import type {
-  scriptToInject as ScriptToInject
+  scriptToInject as ScriptToInject,
 } from '../shared/index';
 import type {
   ACTIVE_STATE_NAME_KEY as ActivateStateNameKey,
   ExtensionMessage,
   State,
   STATES_KEY as StatesKey,
-  WHITELISTED_HOSTS_KEY as WhitelistedHostsKey
+  WHITELISTED_HOSTS_KEY as WhitelistedHostsKey,
 } from './interface';
 
 /** Type of a message exchanged with the Otter Chrome DevTools extension */

@@ -1,8 +1,8 @@
 import type {
-  ComponentType
+  ComponentType,
 } from '@o3r/core';
 import type {
-  SchematicOptionObject
+  SchematicOptionObject,
 } from '@o3r/schematics';
 
 export interface ConvertToO3rComponentSchematicsSchema extends SchematicOptionObject {

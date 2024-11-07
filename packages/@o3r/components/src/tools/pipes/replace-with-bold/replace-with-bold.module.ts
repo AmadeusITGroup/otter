@@ -1,8 +1,8 @@
 import {
-  NgModule
+  NgModule,
 } from '@angular/core';
 import {
-  ReplaceWithBoldPipe
+  ReplaceWithBoldPipe,
 } from './replace-with-bold.pipe';
 
 /**

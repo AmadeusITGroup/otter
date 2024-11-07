@@ -1,5 +1,5 @@
 import type {
-  Translation
+  Translation,
 } from '../interfaces';
 
 /** Type of component */

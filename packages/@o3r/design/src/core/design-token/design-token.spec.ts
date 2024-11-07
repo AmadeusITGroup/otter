@@ -1,18 +1,18 @@
 import {
-  promises as fs
+  promises as fs,
 } from 'node:fs';
 import {
-  resolve
+  resolve,
 } from 'node:path';
 import {
-  validate
+  validate,
 } from 'jsonschema';
 import type {
-  DesignTokenSpecification
+  DesignTokenSpecification,
 } from './design-token-specification.interface';
 import {
   parseDesignToken,
-  TokenKeyRenderer
+  TokenKeyRenderer,
 } from './parsers/index';
 import {
   computeFileToUpdatePath,
@@ -22,7 +22,7 @@ import {
   getMetadataStyleContentUpdater,
   getMetadataTokenDefinitionRenderer,
   getSassTokenDefinitionRenderer,
-  renderDesignTokens
+  renderDesignTokens,
 } from './renderers/index';
 
 describe('Design Token generator', () => {

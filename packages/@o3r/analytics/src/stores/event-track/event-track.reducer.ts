@@ -2,12 +2,12 @@ import {
   ActionCreator,
   createReducer,
   on,
-  ReducerTypes
+  ReducerTypes,
 } from '@ngrx/store';
 import * as actions from './event-track.actions';
 import {
   EventTrackState,
-  HeroComponent
+  HeroComponent,
 } from './event-track.state';
 
 /** The initial value of the Hero component */

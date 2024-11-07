@@ -1,5 +1,5 @@
 import {
-  of
+  of,
 } from 'rxjs';
 import {
   executeOperator,
@@ -10,10 +10,10 @@ import {
   isValidDateInput,
   isValidDateRange,
   numberValidator,
-  parseRegExp
+  parseRegExp,
 } from './operator.helpers';
 import {
-  Operator
+  Operator,
 } from './operator.interface';
 
 describe('Operator helpers', () => {

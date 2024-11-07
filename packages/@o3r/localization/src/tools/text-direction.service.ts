@@ -1,24 +1,24 @@
 import {
-  Directionality
+  Directionality,
 } from '@angular/cdk/bidi';
 import {
   Inject,
   Injectable,
   Renderer2,
-  RendererFactory2
+  RendererFactory2,
 } from '@angular/core';
 import {
   LangChangeEvent,
-  TranslateService
+  TranslateService,
 } from '@ngx-translate/core';
 import {
-  Subscription
+  Subscription,
 } from 'rxjs';
 import {
-  LocalizationConfiguration
+  LocalizationConfiguration,
 } from '../core';
 import {
-  LOCALIZATION_CONFIGURATION_TOKEN
+  LOCALIZATION_CONFIGURATION_TOKEN,
 } from './localization.token';
 
 /**

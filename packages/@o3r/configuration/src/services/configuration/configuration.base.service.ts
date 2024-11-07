@@ -1,29 +1,29 @@
 import {
-  Injectable
+  Injectable,
 } from '@angular/core';
 import {
   select,
-  Store
+  Store,
 } from '@ngrx/store';
 import {
   Configuration,
   CustomConfig,
-  deepFill
+  deepFill,
 } from '@o3r/core';
 import {
   combineLatest,
   Observable,
-  of
+  of,
 } from 'rxjs';
 import {
   distinctUntilChanged,
   map,
   switchMap,
-  take
+  take,
 } from 'rxjs/operators';
 import {
   ConfigOverrideStore,
-  selectComponentOverrideConfig
+  selectComponentOverrideConfig,
 } from '../../stores/config-override/index';
 import {
   computeConfiguration,
@@ -34,10 +34,10 @@ import {
   selectGlobalConfiguration,
   updateConfigurationEntity,
   upsertConfigurationEntities,
-  upsertConfigurationEntity
+  upsertConfigurationEntity,
 } from '../../stores/index';
 import {
-  ConfigurationBaseServiceModule
+  ConfigurationBaseServiceModule,
 } from './configuration.base.module';
 
 const jsonStringifyDiff = (obj1: any, obj2: any) => JSON.stringify(obj1) === JSON.stringify(obj2);

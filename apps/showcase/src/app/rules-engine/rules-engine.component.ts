@@ -1,5 +1,5 @@
 import {
-  AsyncPipe
+  AsyncPipe,
 } from '@angular/common';
 import {
   AfterViewInit,
@@ -8,47 +8,47 @@ import {
   inject,
   QueryList,
   ViewChildren,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {
-  RouterModule
+  RouterModule,
 } from '@angular/router';
 import {
-  NgbNavModule
+  NgbNavModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
-  ApplicationDevtoolsModule
+  ApplicationDevtoolsModule,
 } from '@o3r/application';
 import {
-  ComponentsDevtoolsModule
+  ComponentsDevtoolsModule,
 } from '@o3r/components';
 import {
   ConfigOverrideStoreModule,
   ConfigurationBaseServiceModule,
-  ConfigurationDevtoolsModule
+  ConfigurationDevtoolsModule,
 } from '@o3r/configuration';
 import {
   ConfigurationRulesEngineActionHandler,
-  ConfigurationRulesEngineActionModule
+  ConfigurationRulesEngineActionModule,
 } from '@o3r/configuration/rules-engine';
 import {
-  O3rComponent
+  O3rComponent,
 } from '@o3r/core';
 import {
   AssetPathOverrideStoreModule,
   DynamicContentModule,
-  DynamicContentService
+  DynamicContentService,
 } from '@o3r/dynamic-content';
 import {
   AssetRulesEngineActionHandler,
-  AssetRulesEngineActionModule
+  AssetRulesEngineActionModule,
 } from '@o3r/dynamic-content/rules-engine';
 import {
-  LocalizationOverrideStoreModule
+  LocalizationOverrideStoreModule,
 } from '@o3r/localization';
 import {
   LocalizationRulesEngineActionHandler,
-  LocalizationRulesEngineActionModule
+  LocalizationRulesEngineActionModule,
 } from '@o3r/localization/rules-engine';
 import {
   CurrentTimeFactsService,
@@ -59,10 +59,10 @@ import {
   RulesEngineRunnerModule,
   RulesEngineRunnerService,
   Ruleset,
-  UnaryOperator
+  UnaryOperator,
 } from '@o3r/rules-engine';
 import {
-  firstValueFrom
+  firstValueFrom,
 } from 'rxjs';
 import {
   CopyTextPresComponent,
@@ -70,16 +70,16 @@ import {
   InPageNavLink,
   InPageNavLinkDirective,
   InPageNavPresService,
-  RulesEnginePresComponent
+  RulesEnginePresComponent,
 } from '../../components/index';
 import {
-  environment
+  environment,
 } from '../../environments/environment.development';
 import {
-  TripFactsService
+  TripFactsService,
 } from '../../facts/index';
 import {
-  duringSummer
+  duringSummer,
 } from '../../operators/index';
 
 @O3rComponent({ componentType: 'Page' })

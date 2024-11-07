@@ -1,20 +1,20 @@
 import {
-  FixtureUsageError
+  FixtureUsageError,
 } from '../../errors/index';
 import type {
-  ComponentFixtureProfile
+  ComponentFixtureProfile,
 } from '../component-fixture';
 import {
-  withTimeout
+  withTimeout,
 } from '../helpers';
 import {
   O3rElement,
   O3rElementConstructor,
-  PlaywrightSourceElement
+  PlaywrightSourceElement,
 } from './element';
 import {
   O3rGroup,
-  O3rGroupConstructor
+  O3rGroupConstructor,
 } from './group';
 
 export type { ComponentFixtureProfile, Constructable, FixtureWithCustom } from '../component-fixture';

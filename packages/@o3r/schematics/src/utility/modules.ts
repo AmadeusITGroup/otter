@@ -4,27 +4,27 @@ import {
   SchematicContext,
   SchematicsException,
   Tree,
-  UpdateRecorder
+  UpdateRecorder,
 } from '@angular-devkit/schematics';
 import {
   addImportToModule,
   addProviderToModule,
   getRouterModuleDeclaration,
   insertImport,
-  isImported
+  isImported,
 } from '@schematics/angular/utility/ast-utils';
 import {
-  InsertChange
+  InsertChange,
 } from '@schematics/angular/utility/change';
 import {
-  sync as globbySync
+  sync as globbySync,
 } from 'globby';
 import * as ts from 'typescript';
 import {
-  getExportedSymbolsFromFile
+  getExportedSymbolsFromFile,
 } from './ast';
 import {
-  getWorkspaceConfig
+  getWorkspaceConfig,
 } from './loaders';
 
 /**

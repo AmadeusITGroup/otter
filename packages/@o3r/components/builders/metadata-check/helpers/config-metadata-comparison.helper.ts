@@ -1,8 +1,8 @@
 import type {
-  ComponentConfigOutput
+  ComponentConfigOutput,
 } from '@o3r/components';
 import type {
-  MetadataComparator
+  MetadataComparator,
 } from '@o3r/extractors';
 
 /**

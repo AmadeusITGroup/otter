@@ -1,8 +1,8 @@
 import type {
-  DesignTokenGroupTemplate
+  DesignTokenGroupTemplate,
 } from '../..';
 import {
-  mergeDesignTokenTemplates
+  mergeDesignTokenTemplates,
 } from './design-token-template.helpers';
 
 describe('mergeDesignTokenTemplates function', () => {

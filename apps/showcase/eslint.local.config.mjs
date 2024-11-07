@@ -1,8 +1,8 @@
 import {
-  dirname
+  dirname,
 } from 'node:path';
 import {
-  fileURLToPath
+  fileURLToPath,
 } from 'node:url';
 import globals from 'globals';
 
@@ -32,7 +32,7 @@ export default [
           'tsconfig.spec.json'
         ]
       }
-    },
+    }
   },
   {
     name: '@o3r/showcase/playwright',
@@ -50,19 +50,19 @@ export default [
       '@o3r/o3r-widget-tags': [
         'error',
         {
-          'widgets': {
-            'DESTINATION_ARRAY': {
-              'minItems': {
-                'type': 'number'
+          widgets: {
+            DESTINATION_ARRAY: {
+              minItems: {
+                type: 'number'
               },
-              'allDestinationsDifferent': {
-                'type': 'boolean'
+              allDestinationsDifferent: {
+                type: 'boolean'
               },
-              'atLeastOneDestinationAvailable': {
-                'type': 'boolean'
+              atLeastOneDestinationAvailable: {
+                type: 'boolean'
               },
-              'destinationPattern': {
-                'type': 'string'
+              destinationPattern: {
+                type: 'string'
               }
             }
           }

@@ -1,14 +1,14 @@
 import {
-  arrayBasedOperators
+  arrayBasedOperators,
 } from './array-based.operators';
 import {
-  basicOperators
+  basicOperators,
 } from './basic.operators';
 import {
-  dateBasedOperators
+  dateBasedOperators,
 } from './date-based.operators';
 import {
-  numberBasedOperators
+  numberBasedOperators,
 } from './number-based.operators';
 
 export * from './array-based.operators';

@@ -1,22 +1,22 @@
 import {
   existsSync,
-  readFileSync
+  readFileSync,
 } from 'node:fs';
 import * as path from 'node:path';
 import {
-  performance
+  performance,
 } from 'node:perf_hooks';
 import type {
   BuilderContext,
-  BuilderOutput
+  BuilderOutput,
 } from '@angular-devkit/architect';
 import {
-  getEnvironmentInfo
+  getEnvironmentInfo,
 } from '../environment/index';
 import {
   BuilderMetricData,
   sendData as defaultSendData,
-  type SendDataFn
+  type SendDataFn,
 } from '../sender';
 
 type BuilderWrapperFn<S, O extends BuilderOutput = BuilderOutput> =

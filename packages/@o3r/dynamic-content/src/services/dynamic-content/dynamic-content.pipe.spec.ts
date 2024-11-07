@@ -1,27 +1,27 @@
 import {
-  Component
+  Component,
 } from '@angular/core';
 import {
   ComponentFixture,
   getTestBed,
-  TestBed
+  TestBed,
 } from '@angular/core/testing';
 import {
   BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting
+  platformBrowserDynamicTesting,
 } from '@angular/platform-browser-dynamic/testing';
 import {
-  InterfaceOf
+  InterfaceOf,
 } from '@o3r/core';
 import {
-  of
+  of,
 } from 'rxjs';
 import {
   DynamicContentPipe,
-  O3rDynamicContentPipe
+  O3rDynamicContentPipe,
 } from './dynamic-content.pipe';
 import {
-  DynamicContentService
+  DynamicContentService,
 } from './dynamic-content.service';
 
 const serviceMock: InterfaceOf<DynamicContentService> = {

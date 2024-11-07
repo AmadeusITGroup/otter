@@ -1,25 +1,25 @@
 import {
   firstValueFrom,
   fromEvent,
-  Observable
+  Observable,
 } from 'rxjs';
 import {
   filter,
   map,
   share,
-  timeout
+  timeout,
 } from 'rxjs/operators';
 import {
-  v4
+  v4,
 } from 'uuid';
 import {
   IFrameBridgeOptions,
   IframeMessage,
-  InternalIframeMessage
+  InternalIframeMessage,
 } from './contracts';
 import {
   IFRAME_BRIDGE_DEFAULT_OPTIONS,
-  isSupportedMessage
+  isSupportedMessage,
 } from './helpers';
 
 /**

@@ -1,9 +1,9 @@
 import {
   chain,
-  Rule
+  Rule,
 } from '@angular-devkit/schematics';
 import {
-  updateRuleEngineService
+  updateRuleEngineService,
 } from './v10.0/action-module-split';
 
 /**

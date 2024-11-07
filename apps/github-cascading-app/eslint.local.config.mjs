@@ -1,8 +1,8 @@
 import {
-  dirname
+  dirname,
 } from 'node:path';
 import {
-  fileURLToPath
+  fileURLToPath,
 } from 'node:url';
 import globals from 'globals';
 
@@ -34,5 +34,5 @@ export default [
         globalThis: true
       }
     }
-  },
+  }
 ];

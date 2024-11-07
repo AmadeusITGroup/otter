@@ -1,16 +1,16 @@
 import type {
-  CssVariable
+  CssVariable,
 } from '@o3r/styling';
 import type {
   DesignTokenVariableStructure,
   TokenKeyRenderer,
-  TokenValueRenderer
+  TokenValueRenderer,
 } from '../../parsers/design-token-parser.interface';
 import {
-  getCssTokenValueRenderer
+  getCssTokenValueRenderer,
 } from '../css';
 import {
-  isO3rPrivateVariable
+  isO3rPrivateVariable,
 } from '../design-token.renderer.helpers';
 
 /** Options for {@link getMetadataTokenValueRenderer} */

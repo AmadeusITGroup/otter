@@ -41,11 +41,11 @@ const config = [
     ],
     rules: {
       ...convertWarningsToErrors(eslint.configs.recommended),
-      'complexity': 'off',
+      complexity: 'off',
       'constructor-super': 'error',
-      'curly': 'error',
+      curly: 'error',
       'dot-notation': 'error',
-      'eqeqeq': [
+      eqeqeq: [
         'error',
         'smart'
       ],
@@ -111,7 +111,7 @@ const config = [
         'error',
         'never'
       ],
-      'radix': 'error',
+      radix: 'error',
       'sort-imports': [
         'error',
         {
@@ -120,7 +120,7 @@ const config = [
           ignoreCase: true
         }
       ],
-      'strict': [
+      strict: [
         'error',
         'global'
       ]

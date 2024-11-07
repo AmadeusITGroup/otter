@@ -1,19 +1,19 @@
 import {
-  Injectable
+  Injectable,
 } from '@angular/core';
 import {
   NavigationEnd,
   PreloadingStrategy,
   Route,
-  Router
+  Router,
 } from '@angular/router';
 import {
   Observable,
-  of
+  of,
 } from 'rxjs';
 import {
   filter,
-  switchMap
+  switchMap,
 } from 'rxjs/operators';
 
 /**

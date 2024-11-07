@@ -1,18 +1,18 @@
 import {
   INIT,
-  UPDATE
+  UPDATE,
 } from '@ngrx/store';
 import {
-  deepFill
+  deepFill,
 } from '@o3r/core';
 import type {
-  Logger
+  Logger,
 } from '@o3r/core';
 import type {
   StorageKeyConfiguration,
   StorageKeys,
   SyncStorageConfig,
-  SyncStorageSyncOptions
+  SyncStorageSyncOptions,
 } from './interfaces';
 
 /**

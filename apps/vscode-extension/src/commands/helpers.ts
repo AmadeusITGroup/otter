@@ -1,14 +1,14 @@
 import {
-  lstatSync
+  lstatSync,
 } from 'node:fs';
 import {
   basename,
   dirname,
   posix,
-  relative
+  relative,
 } from 'node:path';
 import type {
-  WorkspaceSchema
+  WorkspaceSchema,
 } from '@o3r/schematics';
 import * as vscode from 'vscode';
 

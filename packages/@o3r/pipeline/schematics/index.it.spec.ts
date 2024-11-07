@@ -6,14 +6,14 @@
 const o3rEnvironment = globalThis.o3rEnvironment;
 
 import {
-  execSync
+  execSync,
 } from 'node:child_process';
 import * as path from 'node:path';
 import {
   getDefaultExecSyncOptions,
   getGitDiff,
   packageManagerExec,
-  packageManagerInstall
+  packageManagerInstall,
 } from '@o3r/test-helpers';
 
 describe('new otter project', () => {

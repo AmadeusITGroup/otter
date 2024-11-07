@@ -6,8 +6,8 @@ module.exports = {
     '@stylistic/ts/key-spacing': [
       'warn',
       {
-        'beforeColon': false,
-        'afterColon': true
+        beforeColon: false,
+        afterColon: true
       }
     ],
     '@stylistic/ts/keyword-spacing': 'error',
@@ -20,29 +20,29 @@ module.exports = {
     '@stylistic/ts/space-before-function-paren': [
       'error',
       {
-        'anonymous': 'always',
-        'named': 'never',
-        'asyncArrow': 'always'
+        anonymous: 'always',
+        named: 'never',
+        asyncArrow: 'always'
       }
     ],
     '@stylistic/ts/quotes': [
       'error',
       'single',
       {
-        'avoidEscape': true,
-        'allowTemplateLiterals': true
+        avoidEscape: true,
+        allowTemplateLiterals: true
       }
     ],
     '@stylistic/ts/member-delimiter-style': [
       'error',
       {
-        'multiline': {
-          'delimiter': 'semi',
-          'requireLast': true
+        multiline: {
+          delimiter: 'semi',
+          requireLast: true
         },
-        'singleline': {
-          'delimiter': 'semi',
-          'requireLast': false
+        singleline: {
+          delimiter: 'semi',
+          requireLast: false
         }
       }
     ]

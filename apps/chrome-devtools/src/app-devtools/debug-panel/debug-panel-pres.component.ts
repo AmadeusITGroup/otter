@@ -1,27 +1,27 @@
 import {
   AsyncPipe,
-  TitleCasePipe
+  TitleCasePipe,
 } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
   type OnDestroy,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {
   FormControl,
   FormGroup,
   FormsModule,
-  ReactiveFormsModule
+  ReactiveFormsModule,
 } from '@angular/forms';
 import {
-  Subscription
+  Subscription,
 } from 'rxjs';
 import {
-  ChromeExtensionConnectionService
+  ChromeExtensionConnectionService,
 } from '../../services/connection.service';
 import {
-  DebugPanelService
+  DebugPanelService,
 } from './debug-panel.service';
 
 type PlaceholderMode = 'normal' | 'debug' | 'pending';

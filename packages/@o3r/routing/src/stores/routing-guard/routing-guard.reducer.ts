@@ -1,18 +1,18 @@
 import {
   createEntityAdapter,
-  EntityAdapter
+  EntityAdapter,
 } from '@ngrx/entity';
 import {
   ActionCreator,
   createReducer,
   on,
-  ReducerTypes
+  ReducerTypes,
 } from '@ngrx/store';
 import * as actions from './routing-guard.actions';
 import {
   RegisteredItemStatus,
   RoutingGuardModel,
-  RoutingGuardState
+  RoutingGuardState,
 } from './routing-guard.state';
 
 /**

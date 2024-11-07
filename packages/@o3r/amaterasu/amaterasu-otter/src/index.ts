@@ -1,13 +1,13 @@
 import {
   AmaCliModule,
   EXTRA_COMMON_OPTIONS,
-  MODULE_OPTIONS
+  MODULE_OPTIONS,
 } from '@ama-terasu/core';
 import {
-  createApplication
+  createApplication,
 } from './create-application.command';
 import {
-  createCustomApplication
+  createCustomApplication,
 } from './create-custom-application.command';
 
 const name = 'otter';

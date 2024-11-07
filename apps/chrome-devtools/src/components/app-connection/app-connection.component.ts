@@ -1,19 +1,19 @@
 import {
-  AsyncPipe
+  AsyncPipe,
 } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
   inject,
-  OnDestroy
+  OnDestroy,
 } from '@angular/core';
 import {
   Observable,
-  Subscription
+  Subscription,
 } from 'rxjs';
 import {
   AppState,
-  ChromeExtensionConnectionService
+  ChromeExtensionConnectionService,
 } from '../../services/connection.service';
 
 @Component({

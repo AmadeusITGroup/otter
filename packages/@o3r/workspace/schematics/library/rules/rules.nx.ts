@@ -1,5 +1,5 @@
 import {
-  readFileSync
+  readFileSync,
 } from 'node:fs';
 import * as path from 'node:path';
 import {
@@ -13,22 +13,22 @@ import {
   Rule,
   template,
   Tree,
-  url
+  url,
 } from '@angular-devkit/schematics';
 import {
   findConfigFileRelativePath,
   getPackageManagerRunner,
-  getWorkspaceConfig
+  getWorkspaceConfig,
 } from '@o3r/schematics';
 import type {
-  PackageJson
+  PackageJson,
 } from 'type-fest';
 import type {
-  NgGenerateModuleSchema
+  NgGenerateModuleSchema,
 } from '../schema';
 import {
   updateNgPackagrFactory,
-  updatePackageDependenciesFactory
+  updatePackageDependenciesFactory,
 } from './shared';
 
 /**

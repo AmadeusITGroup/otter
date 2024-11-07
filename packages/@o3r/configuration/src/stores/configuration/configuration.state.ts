@@ -1,8 +1,8 @@
 import type {
-  EntityState
+  EntityState,
 } from '@ngrx/entity';
 import type {
-  Configuration
+  Configuration,
 } from '@o3r/core';
 
 /**

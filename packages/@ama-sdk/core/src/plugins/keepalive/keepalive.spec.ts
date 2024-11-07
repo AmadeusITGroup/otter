@@ -1,8 +1,8 @@
 import {
-  RequestOptions
+  RequestOptions,
 } from '../core/request-plugin';
 import {
-  KeepaliveRequest
+  KeepaliveRequest,
 } from './keepalive.request';
 
 describe('Keepalive Request Plugin', () => {

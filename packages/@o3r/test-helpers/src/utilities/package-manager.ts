@@ -1,19 +1,19 @@
 import {
   execFileSync,
-  ExecSyncOptions
+  ExecSyncOptions,
 } from 'node:child_process';
 import {
   existsSync,
-  rmSync
+  rmSync,
 } from 'node:fs';
 import {
-  join
+  join,
 } from 'node:path';
 import {
-  performance
+  performance,
 } from 'node:perf_hooks';
 import {
-  type SupportedPackageManagers
+  type SupportedPackageManagers,
 } from '@o3r/schematics';
 
 declare global {

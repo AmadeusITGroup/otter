@@ -1,26 +1,26 @@
 import {
   askConfirmation,
-  askQuestion
+  askQuestion,
 } from '@angular/cli/src/utilities/prompt';
 import {
   chain,
   externalSchematic,
   noop,
-  Rule
+  Rule,
 } from '@angular-devkit/schematics';
 import {
   createSchematicWithMetricsIfInstalled,
   getAvailableModulesWithLatestPackage,
   getWorkspaceConfig,
   OTTER_MODULE_KEYWORD,
-  OTTER_MODULE_SUPPORTED_SCOPES
+  OTTER_MODULE_SUPPORTED_SCOPES,
 } from '@o3r/schematics';
 import {
   getExternalPreset,
-  presets
+  presets,
 } from '../shared/presets';
 import type {
-  NgAddModulesSchematicsSchema
+  NgAddModulesSchematicsSchema,
 } from './schema';
 
 /**

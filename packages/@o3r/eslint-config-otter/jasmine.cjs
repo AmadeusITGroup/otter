@@ -1,10 +1,10 @@
 /** @deprecated Will be removed in V12 */
 module.exports = {
-  'extends': [
+  extends: [
     './typescript.cjs',
     'plugin:eslint-plugin-jasmine/recommended'
   ],
-  'plugins': [
+  plugins: [
     'eslint-plugin-jasmine'
   ]
 };

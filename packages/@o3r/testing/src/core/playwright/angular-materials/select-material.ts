@@ -1,9 +1,9 @@
 import {
-  MatSelectProfile
+  MatSelectProfile,
 } from '../../angular-materials';
 import {
   O3rElement,
-  PlaywrightSourceElement
+  PlaywrightSourceElement,
 } from '../element';
 
 export { SelectElementProfile } from '../../elements';

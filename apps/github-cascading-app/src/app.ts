@@ -1,8 +1,8 @@
 import type {
-  Probot
+  Probot,
 } from 'probot';
 import {
-  CascadingProbot
+  CascadingProbot,
 } from './cascading/cascading-probot';
 
 export = (app: Probot) => {

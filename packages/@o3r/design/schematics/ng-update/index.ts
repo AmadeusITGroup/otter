@@ -2,13 +2,13 @@ import {
   chain,
   Rule,
   SchematicContext,
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import {
-  createSchematicWithMetricsIfInstalled
+  createSchematicWithMetricsIfInstalled,
 } from '@o3r/schematics';
 import {
-  migrateBuilderToGenerateStyle
+  migrateBuilderToGenerateStyle,
 } from './v11.3/builder-migration';
 
 /**

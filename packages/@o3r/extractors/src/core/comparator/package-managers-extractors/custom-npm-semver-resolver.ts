@@ -3,17 +3,17 @@ import {
   miscUtils,
   Package,
   ResolveOptions,
-  structUtils
+  structUtils,
 } from '@yarnpkg/core';
 import {
   npmHttpUtils,
   NpmSemverFetcher,
-  NpmSemverResolver
+  NpmSemverResolver,
 } from '@yarnpkg/plugin-npm';
 import {
   Range,
   SemVer,
-  valid
+  valid,
 } from 'semver';
 
 /**

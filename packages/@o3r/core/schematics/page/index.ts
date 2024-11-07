@@ -1,6 +1,6 @@
 import * as path from 'node:path';
 import {
-  strings
+  strings,
 } from '@angular-devkit/core';
 import {
   apply,
@@ -16,7 +16,7 @@ import {
   SchematicContext,
   template,
   Tree,
-  url
+  url,
 } from '@angular-devkit/schematics';
 import {
   addImportToModuleFile,
@@ -28,23 +28,23 @@ import {
   getWorkspaceConfig,
   insertRoute,
   O3rCliError,
-  Route
+  Route,
 } from '@o3r/schematics';
 import * as ts from 'typescript';
 import {
-  getAddConfigurationRules
+  getAddConfigurationRules,
 } from '../rule-factories/component/configuration';
 import {
-  getAddFixtureRules
+  getAddFixtureRules,
 } from '../rule-factories/component/fixture';
 import {
-  getAddLocalizationRules
+  getAddLocalizationRules,
 } from '../rule-factories/component/localization';
 import {
-  getAddThemingRules
+  getAddThemingRules,
 } from '../rule-factories/component/theming';
 import {
-  NgGeneratePageSchematicsSchema
+  NgGeneratePageSchematicsSchema,
 } from './schema';
 
 /**

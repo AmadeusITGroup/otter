@@ -4,10 +4,10 @@ import {
   TaskConfiguration,
   TaskConfigurationGenerator,
   TaskExecutor,
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import {
-  NodeModulesEngineHost
+  NodeModulesEngineHost,
 } from '@angular-devkit/schematics/tools';
 
 /**

@@ -1,13 +1,13 @@
 import {
   SchematicContext,
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import {
-  getDecoratorMetadata
+  getDecoratorMetadata,
 } from '@schematics/angular/utility/ast-utils';
 import * as ts from 'typescript';
 import {
-  getAppModuleFilePath
+  getAppModuleFilePath,
 } from './modules';
 
 /**

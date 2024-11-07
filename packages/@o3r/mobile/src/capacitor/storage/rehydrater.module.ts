@@ -1,19 +1,19 @@
 import {
   ModuleWithProviders,
-  NgModule
+  NgModule,
 } from '@angular/core';
 import {
-  StoreModule
+  StoreModule,
 } from '@ngrx/store';
 import {
-  LoggerModule
+  LoggerModule,
 } from '@o3r/logger';
 import type {
-  StorageSyncOptions
+  StorageSyncOptions,
 } from '@o3r/store-sync';
 import {
   CapacitorRehydrater,
-  STORAGE_SYNC_OPTIONS
+  STORAGE_SYNC_OPTIONS,
 } from './rehydrater';
 
 @NgModule({

@@ -1,6 +1,6 @@
 import {
   type ParserServices,
-  TSESLint
+  TSESLint,
 } from '@typescript-eslint/utils';
 
 /** Position in source code */

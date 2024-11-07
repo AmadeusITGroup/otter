@@ -1,11 +1,11 @@
 import {
-  TranspilationPurposeOnlyError
+  TranspilationPurposeOnlyError,
 } from '../../errors/index';
 import {
-  O3rElement
+  O3rElement,
 } from '../element';
 import {
-  SelectElementProfile
+  SelectElementProfile,
 } from '../elements';
 
 /**

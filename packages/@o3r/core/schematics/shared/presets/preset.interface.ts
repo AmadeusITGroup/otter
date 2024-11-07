@@ -1,12 +1,12 @@
 import type {
-  Rule
+  Rule,
 } from '@angular-devkit/schematics';
 import type {
   SchematicOptionObject,
-  SetupDependenciesOptions
+  SetupDependenciesOptions,
 } from '@o3r/schematics';
 import type {
-  PresetNames
+  PresetNames,
 } from '../../ng-add/schema';
 
 /** Options of the preset runner  */

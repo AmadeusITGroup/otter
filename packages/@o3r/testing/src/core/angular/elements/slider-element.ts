@@ -1,14 +1,14 @@
 import {
-  DebugElement
+  DebugElement,
 } from '@angular/core';
 import {
-  By
+  By,
 } from '@angular/platform-browser';
 import type {
-  SliderElementProfile
+  SliderElementProfile,
 } from '../../elements';
 import {
-  O3rElement
+  O3rElement,
 } from '../element';
 
 /**

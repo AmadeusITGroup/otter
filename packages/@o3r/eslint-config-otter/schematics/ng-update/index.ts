@@ -1,12 +1,12 @@
 import {
   chain,
-  type Rule
+  type Rule,
 } from '@angular-devkit/schematics';
 import {
-  createSchematicWithMetricsIfInstalled
+  createSchematicWithMetricsIfInstalled,
 } from '@o3r/schematics';
 import {
-  addStylistic
+  addStylistic,
 } from './v10.0/stylistic';
 
 /**

@@ -1,9 +1,9 @@
 import {
   dirname,
-  posix
+  posix,
 } from 'node:path';
 import {
-  askConfirmation
+  askConfirmation,
 } from '@angular/cli/src/utilities/prompt';
 import {
   chain,
@@ -12,7 +12,7 @@ import {
   Rule,
   schematic,
   SchematicContext,
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import {
   applyEsLintFix,
@@ -22,11 +22,11 @@ import {
   getO3rComponentInfoOrThrowIfNotFound,
   isO3rClassComponent,
   NoOtterComponent,
-  O3rCliError
+  O3rCliError,
 } from '@o3r/schematics';
 import * as ts from 'typescript';
 import type {
-  NgAddLocalizationKeySchematicsSchema
+  NgAddLocalizationKeySchematicsSchema,
 } from './schema';
 
 class NoLocalizationArchitecture extends Error {

@@ -1,8 +1,8 @@
 import {
-  NgModule
+  NgModule,
 } from '@angular/core';
 import {
-  DynamicContentModule
+  DynamicContentModule,
 } from '@o3r/dynamic-content';
 
 /**

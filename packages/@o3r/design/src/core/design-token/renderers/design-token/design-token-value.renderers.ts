@@ -1,9 +1,9 @@
 import type {
-  DesignToken
+  DesignToken,
 } from '../../design-token-specification.interface';
 import type {
   DesignTokenVariableStructure,
-  TokenValueRenderer
+  TokenValueRenderer,
 } from '../../parsers/design-token-parser.interface';
 
 /** Options for {@link getDesignTokenTokenValueRenderer} */

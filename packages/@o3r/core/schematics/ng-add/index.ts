@@ -1,39 +1,39 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {
-  askConfirmation
+  askConfirmation,
 } from '@angular/cli/src/utilities/prompt';
 import {
   chain,
   noop,
-  Rule
+  Rule,
 } from '@angular-devkit/schematics';
 import {
   createSchematicWithMetricsIfInstalled,
   displayModuleListRule,
   registerPackageCollectionSchematics,
-  setupSchematicsParamsForProject
+  setupSchematicsParamsForProject,
 } from '@o3r/schematics';
 import {
   type DependencyToAdd,
   setupDependencies,
-  type SetupDependenciesOptions
+  type SetupDependenciesOptions,
 } from '@o3r/schematics';
 import {
-  NodeDependencyType
+  NodeDependencyType,
 } from '@schematics/angular/utility/dependencies';
 import type {
-  PackageJson
+  PackageJson,
 } from 'type-fest';
 import {
   getExternalPreset,
-  presets
+  presets,
 } from '../shared/presets';
 import {
-  prepareProject
+  prepareProject,
 } from './project-setup/index';
 import {
-  NgAddSchematicsSchema
+  NgAddSchematicsSchema,
 } from './schema';
 
 const workspacePackageName = '@o3r/workspace';

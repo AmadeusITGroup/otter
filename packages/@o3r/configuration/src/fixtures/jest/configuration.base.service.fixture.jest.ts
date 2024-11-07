@@ -1,5 +1,5 @@
 import type {
-  ConfigurationBaseService
+  ConfigurationBaseService,
 } from '@o3r/configuration';
 
 /**

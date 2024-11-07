@@ -1,15 +1,15 @@
 import {
-  MockMap
+  MockMap,
 } from './base-mock-adapter';
 import {
   getOperationId,
-  getPath
+  getPath,
 } from './helpers';
 import {
-  PathObject
+  PathObject,
 } from './path-object';
 import {
-  SequentialMockAdapter
+  SequentialMockAdapter,
 } from './sequential-mock-adapter';
 
 /**

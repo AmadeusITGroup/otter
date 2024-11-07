@@ -2,11 +2,11 @@ import {
   Injectable,
   Injector,
   OnDestroy,
-  Optional
+  Optional,
 } from '@angular/core';
 import {
   select,
-  Store
+  Store,
 } from '@ngrx/store';
 import {
   deletePlaceholderTemplateEntity,
@@ -16,19 +16,19 @@ import {
   selectPlaceholderTemplateEntities,
   setPlaceholderRequestEntityFromUrl,
   setPlaceholderTemplateEntity,
-  updatePlaceholderRequestEntity
+  updatePlaceholderRequestEntity,
 } from '@o3r/components';
 import type {
-  RulesEngineActionHandler
+  RulesEngineActionHandler,
 } from '@o3r/core';
 import {
-  DynamicContentService
+  DynamicContentService,
 } from '@o3r/dynamic-content';
 import {
-  LocalizationService
+  LocalizationService,
 } from '@o3r/localization';
 import {
-  LoggerService
+  LoggerService,
 } from '@o3r/logger';
 import {
   combineLatest,
@@ -39,11 +39,11 @@ import {
   startWith,
   Subject,
   Subscription,
-  withLatestFrom
+  withLatestFrom,
 } from 'rxjs';
 import {
   ActionUpdatePlaceholderBlock,
-  RULES_ENGINE_PLACEHOLDER_UPDATE_ACTION_TYPE
+  RULES_ENGINE_PLACEHOLDER_UPDATE_ACTION_TYPE,
 } from './placeholder.interfaces';
 
 /**

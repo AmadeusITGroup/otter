@@ -1,25 +1,25 @@
 import {
   inject,
-  Injectable
+  Injectable,
 } from '@angular/core';
 import {
-  FileSystemTree
+  FileSystemTree,
 } from '@webcontainer/api';
 import {
-  MonacoTreeElement
+  MonacoTreeElement,
 } from 'ngx-monaco-tree';
 import {
   BehaviorSubject,
   distinctUntilChanged,
   map,
-  share
+  share,
 } from 'rxjs';
 import {
-  WebContainerRunner
+  WebContainerRunner,
 } from './webcontainer-runner';
 import {
   convertTreeRec,
-  getFilesTreeFromContainer
+  getFilesTreeFromContainer,
 } from './webcontainer.helpers';
 
 /** List of files or directories to exclude from the file tree */

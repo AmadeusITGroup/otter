@@ -1,14 +1,14 @@
 import {
   EvaluationReason,
   RuleEvaluation,
-  RuleEvaluationOutput
+  RuleEvaluationOutput,
 } from '../engine.interface';
 import type {
-  Facts
+  Facts,
 } from '../fact';
 import {
   ActionBlock,
-  Rule
+  Rule,
 } from '../structure';
 
 /**

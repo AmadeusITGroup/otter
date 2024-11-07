@@ -1,17 +1,17 @@
 import {
-  DatePipe
+  DatePipe,
 } from '@angular/common';
 import {
   ChangeDetectorRef,
   OnDestroy,
   Pipe,
-  PipeTransform
+  PipeTransform,
 } from '@angular/core';
 import {
-  Subscription
+  Subscription,
 } from 'rxjs';
 import {
-  LocalizationService
+  LocalizationService,
 } from './localization.service';
 
 /**

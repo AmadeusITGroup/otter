@@ -1,5 +1,5 @@
 import {
-  TranspilationPurposeOnlyError
+  TranspilationPurposeOnlyError,
 } from '../errors/index';
 
 /**

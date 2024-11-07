@@ -1,13 +1,13 @@
 import {
   existsSync,
-  readFileSync
+  readFileSync,
 } from 'node:fs';
 import * as path from 'node:path';
 import {
-  URL
+  URL,
 } from 'node:url';
 import type {
-  PathObject
+  PathObject,
 } from '@ama-sdk/core';
 import {
   apply,
@@ -20,39 +20,39 @@ import {
   SchematicContext,
   template,
   Tree,
-  url
+  url,
 } from '@angular-devkit/schematics';
 import * as semver from 'semver';
 import type {
-  JsonObject
+  JsonObject,
 } from 'type-fest';
 import {
-  OpenApiCliGenerator
+  OpenApiCliGenerator,
 } from '../../code-generator/open-api-cli-generator/open-api-cli.generator';
 import {
-  OpenApiCliOptions
+  OpenApiCliOptions,
 } from '../../code-generator/open-api-cli-generator/open-api-cli.options';
 import {
   LOCAL_SPEC_FILENAME,
   SPEC_JSON_EXTENSION,
-  SPEC_YAML_EXTENSION
+  SPEC_YAML_EXTENSION,
 } from '../../helpers/generators';
 import type {
   OpenApiToolsConfiguration,
-  OpenApiToolsGenerator
+  OpenApiToolsGenerator,
 } from '../../helpers/open-api-tools-configuration';
 import {
-  treeGlob
+  treeGlob,
 } from '../../helpers/tree-glob';
 import {
   copyReferencedFiles,
-  updateLocalRelativeRefs
+  updateLocalRelativeRefs,
 } from './helpers/copy-referenced-files';
 import {
-  generateOperationFinderFromSingleFile
+  generateOperationFinderFromSingleFile,
 } from './helpers/path-extractor';
 import {
-  NgGenerateTypescriptSDKCoreSchematicsSchema
+  NgGenerateTypescriptSDKCoreSchematicsSchema,
 } from './schema';
 
 const JAVA_OPTIONS = ['specPath', 'specConfigPath', 'globalProperty', 'outputPath'];

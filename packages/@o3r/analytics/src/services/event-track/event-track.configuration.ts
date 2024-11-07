@@ -1,5 +1,5 @@
 import {
-  InjectionToken
+  InjectionToken,
 } from '@angular/core';
 
 /** Controls the activation of mesurements and ui events tracking */

@@ -1,9 +1,9 @@
 import {
   chain,
-  Rule
+  Rule,
 } from '@angular-devkit/schematics';
 import {
-  getWorkspaceConfig
+  getWorkspaceConfig,
 } from '@o3r/schematics';
 /**
  * Change otter builders names into angular.json

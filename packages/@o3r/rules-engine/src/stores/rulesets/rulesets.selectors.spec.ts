@@ -1,10 +1,10 @@
 import {
-  computeItemIdentifier
+  computeItemIdentifier,
 } from '@o3r/core';
 import * as selectors from './rulesets.selectors';
 import {
   RulesetsModel,
-  RulesetsState
+  RulesetsState,
 } from './rulesets.state';
 
 describe('RuleSets Selector tests', () => {
@@ -108,8 +108,8 @@ describe('RuleSets Selector tests', () => {
     const state: RulesetsState = {
       ids: [r1.id, r2.id],
       entities: {
-        'r1': r1,
-        'r2': r2
+        r1: r1,
+        r2: r2
       },
       requestIds: []
     };
@@ -122,8 +122,8 @@ describe('RuleSets Selector tests', () => {
     const state: RulesetsState = {
       ids: [r3.id, r2.id],
       entities: {
-        'r3': r3,
-        'r2': r2
+        r3: r3,
+        r2: r2
       },
       requestIds: []
     };
@@ -136,8 +136,8 @@ describe('RuleSets Selector tests', () => {
     const state: RulesetsState = {
       ids: [r3.id, r4.id],
       entities: {
-        'r3': r3,
-        'r4': r4
+        r3: r3,
+        r4: r4
       },
       requestIds: []
     };
@@ -150,8 +150,8 @@ describe('RuleSets Selector tests', () => {
     const state: RulesetsState = {
       ids: [r2.id, r4.id],
       entities: {
-        'r2': r2,
-        'r4': r4
+        r2: r2,
+        r4: r4
       },
       requestIds: []
     };
@@ -164,9 +164,9 @@ describe('RuleSets Selector tests', () => {
     const state: RulesetsState = {
       ids: [r2.id, r4.id, r5.id],
       entities: {
-        'r2': r2,
-        'r4': r4,
-        'r5': r5
+        r2: r2,
+        r4: r4,
+        r5: r5
       },
       requestIds: []
     };
@@ -179,9 +179,9 @@ describe('RuleSets Selector tests', () => {
     const state: RulesetsState = {
       ids: [r2.id, r4.id, r6.id],
       entities: {
-        'r2': r2,
-        'r4': r4,
-        'r6': r6
+        r2: r2,
+        r4: r4,
+        r6: r6
       },
       requestIds: []
     };
@@ -194,9 +194,9 @@ describe('RuleSets Selector tests', () => {
     const state: RulesetsState = {
       ids: [r2.id, r4.id, r7.id],
       entities: {
-        'r2': r2,
-        'r4': r4,
-        'r7': r7
+        r2: r2,
+        r4: r4,
+        r7: r7
       },
       requestIds: []
     };
@@ -209,9 +209,9 @@ describe('RuleSets Selector tests', () => {
     const state: RulesetsState = {
       ids: [r2.id, r4.id, r8.id],
       entities: {
-        'r2': r2,
-        'r4': r4,
-        'r8': r8
+        r2: r2,
+        r4: r4,
+        r8: r8
       },
       requestIds: []
     };
@@ -224,9 +224,9 @@ describe('RuleSets Selector tests', () => {
     const state: RulesetsState = {
       ids: [r2.id, r4.id, r8.id],
       entities: {
-        'r2': r2,
-        'r4': r4,
-        'r8': r8
+        r2: r2,
+        r4: r4,
+        r8: r8
       },
       requestIds: []
     };
@@ -242,9 +242,9 @@ describe('RuleSets Selector tests', () => {
     const state: RulesetsState = {
       ids: [r2.id, r4.id, r8.id],
       entities: {
-        'r2': r2,
-        'r4': r4,
-        'r8': r8
+        r2: r2,
+        r4: r4,
+        r8: r8
       },
       requestIds: []
     };

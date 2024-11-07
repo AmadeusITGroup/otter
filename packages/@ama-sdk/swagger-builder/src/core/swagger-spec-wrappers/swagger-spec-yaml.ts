@@ -1,15 +1,15 @@
 import fs from 'node:fs';
 import {
-  load as yamlLoad
+  load as yamlLoad,
 } from 'js-yaml';
 import {
-  SwaggerSpecFile
+  SwaggerSpecFile,
 } from './swagger-spec-file';
 import {
-  SwaggerSpec
+  SwaggerSpec,
 } from './swagger-spec.interface';
 import {
-  sanitizeDefinition
+  sanitizeDefinition,
 } from './utils';
 
 export class SwaggerSpecYaml extends SwaggerSpecFile implements SwaggerSpec {

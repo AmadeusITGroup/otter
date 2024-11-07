@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 
 import type {
-  CliWrapper
+  CliWrapper,
 } from '@o3r/telemetry';
 import * as minimist from 'minimist';
 import * as prompts from 'prompts';
 import {
-  amaYargs
+  amaYargs,
 } from '../modules/base-yargs';
 
 const run = async () => {

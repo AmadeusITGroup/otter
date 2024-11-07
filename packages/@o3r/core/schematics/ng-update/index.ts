@@ -2,17 +2,17 @@ import {
   chain,
   Rule,
   SchematicContext,
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import {
   createSchematicWithMetricsIfInstalled,
-  updateImports
+  updateImports,
 } from '@o3r/schematics';
 import {
-  updateConfiguration
+  updateConfiguration,
 } from './v10.0/configuration';
 import {
-  mapImportAsyncStore
+  mapImportAsyncStore,
 } from './v8.2/import-map';
 
 /**

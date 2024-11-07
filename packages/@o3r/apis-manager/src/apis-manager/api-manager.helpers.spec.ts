@@ -1,5 +1,5 @@
 import {
-  appendPreconnect
+  appendPreconnect,
 } from './api-manager.helpers';
 
 describe('appendPreconnect', () => {

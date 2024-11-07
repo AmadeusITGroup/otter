@@ -1,10 +1,10 @@
 import {
-  EOL
+  EOL,
 } from 'node:os';
 import * as chalk from 'chalk';
 import {
   Arguments,
-  terminalWidth
+  terminalWidth,
 } from 'yargs';
 
 /**

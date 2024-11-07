@@ -1,15 +1,15 @@
 import {
-  chain
+  chain,
 } from '@angular-devkit/schematics';
 import {
   setupSchematicsParamsForProject,
-  WorkspaceSchematics
+  WorkspaceSchematics,
 } from '@o3r/schematics';
 import {
-  defaultPresetRuleFactory
+  defaultPresetRuleFactory,
 } from './helpers';
 import type {
-  PresetOptions
+  PresetOptions,
 } from './preset.interface';
 
 /**

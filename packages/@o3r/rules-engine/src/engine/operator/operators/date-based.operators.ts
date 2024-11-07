@@ -1,11 +1,11 @@
 import {
   isValidDateInput,
   isValidDateRange,
-  numberValidator
+  numberValidator,
 } from '../operator.helpers';
 import {
   DateInput,
-  Operator
+  Operator,
 } from '../operator.interface';
 
 /**

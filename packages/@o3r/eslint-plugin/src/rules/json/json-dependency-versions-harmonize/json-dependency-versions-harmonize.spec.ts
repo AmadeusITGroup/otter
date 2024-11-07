@@ -1,11 +1,11 @@
 import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
 import {
-  RuleTester
+  RuleTester,
 } from '@typescript-eslint/rule-tester';
 import * as jsonParser from 'jsonc-eslint-parser';
 import jsonDependencyVersionsHarmonize, {
-  VersionsHarmonizeOptions
+  VersionsHarmonizeOptions,
 } from './json-dependency-versions-harmonize';
 
 const ruleTester = new RuleTester({

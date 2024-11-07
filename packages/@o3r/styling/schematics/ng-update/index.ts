@@ -1,9 +1,9 @@
 import {
   chain,
-  Rule
+  Rule,
 } from '@angular-devkit/schematics';
 import {
-  updateScssImports
+  updateScssImports,
 } from './v10.0/update-scss-imports';
 
 /**

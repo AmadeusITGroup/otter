@@ -1,5 +1,5 @@
 import type {
-  PackageJson
+  PackageJson,
 } from 'type-fest';
 
 /** Package as return by the NPM Registry */

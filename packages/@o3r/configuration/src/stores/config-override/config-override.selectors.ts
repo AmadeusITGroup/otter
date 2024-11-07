@@ -1,10 +1,10 @@
 import {
   createFeatureSelector,
-  createSelector
+  createSelector,
 } from '@ngrx/store';
 import {
   CONFIG_OVERRIDE_STORE_NAME,
-  ConfigOverrideState
+  ConfigOverrideState,
 } from './config-override.state';
 
 /** Select ConfigOverride State */

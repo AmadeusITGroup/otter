@@ -8,17 +8,17 @@ import {
   move,
   Rule,
   template,
-  url
+  url,
 } from '@angular-devkit/schematics';
 import {
   dump,
-  load
+  load,
 } from 'js-yaml';
 import type {
-  PackageJson
+  PackageJson,
 } from 'type-fest';
 import type {
-  NgAddSchematicsSchema
+  NgAddSchematicsSchema,
 } from './schema';
 
 /**

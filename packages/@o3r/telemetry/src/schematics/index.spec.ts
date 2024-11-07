@@ -2,14 +2,14 @@ import {
   callRule,
   Rule,
   SchematicContext,
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import {
-  lastValueFrom
+  lastValueFrom,
 } from 'rxjs';
 import {
   createSchematicWithMetrics,
-  SchematicWrapper
+  SchematicWrapper,
 } from './index';
 
 jest.mock('../environment/index', () => {
@@ -77,7 +77,6 @@ describe('createSchematicWithMetricsIfInstalled', () => {
     const rule = jest.fn((tree: Tree) => tree);
 
     const originalSchematic = jest.fn((_opts: any): Rule => rule);
-    // eslint-disable-next-line unicorn/consistent-function-scoping -- higher-order function
     const noopSchematicWrapper: SchematicWrapper = (schematicFn) => (opts) => schematicFn(opts);
     const schematic = noopSchematicWrapper(createSchematicWithMetrics(originalSchematic));
     const options = {

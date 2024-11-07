@@ -5,13 +5,13 @@
 import {
   existsSync,
   readFileSync,
-  writeFileSync
+  writeFileSync,
 } from 'node:fs';
 import {
   join,
   posix,
   relative,
-  resolve
+  resolve,
 } from 'node:path';
 import minimist from 'minimist';
 

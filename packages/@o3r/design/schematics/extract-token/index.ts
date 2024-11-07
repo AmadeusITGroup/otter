@@ -1,22 +1,22 @@
 import {
   posix,
-  resolve
+  resolve,
 } from 'node:path';
 import type {
-  Rule
+  Rule,
 } from '@angular-devkit/schematics';
 import type {
-  createSchematicWithMetricsIfInstalled
+  createSchematicWithMetricsIfInstalled,
 } from '@o3r/schematics';
 import {
   AUTO_GENERATED_END,
   AUTO_GENERATED_START,
   DesignToken,
   DesignTokenGroup,
-  DesignTokenNode
+  DesignTokenNode,
 } from '../../src/public_api';
 import type {
-  ExtractTokenSchematicsSchema
+  ExtractTokenSchematicsSchema,
 } from './schema';
 
 const patternToDetect = 'o3r.var';

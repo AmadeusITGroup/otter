@@ -1,6 +1,6 @@
 import * as path from 'node:path';
 import {
-  checkDictionaries
+  checkDictionaries,
 } from '../src/helpers/dictionary-check';
 
 const resourcePath = path.resolve(__dirname, 'mocks-dictionary-check');

@@ -7,7 +7,7 @@ import {
   matchesPattern,
   notEquals,
   notInArray,
-  notInString
+  notInString,
 } from './basic.operators';
 
 describe('Basic operator', () => {

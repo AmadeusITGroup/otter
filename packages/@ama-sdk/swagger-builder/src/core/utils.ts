@@ -3,35 +3,35 @@ import https from 'node:https';
 import path from 'node:path';
 import process from 'node:process';
 import {
-  load
+  load,
 } from 'js-yaml';
 import {
-  Validator
+  Validator,
 } from 'jsonschema';
 import {
-  pascalCase
+  pascalCase,
 } from 'pascal-case';
 import type {
-  Spec
+  Spec,
 } from 'swagger-schema-official';
 import {
-  SwaggerSpecJson
+  SwaggerSpecJson,
 } from './swagger-spec-wrappers/swagger-spec-json';
 import {
-  SwaggerSpecObject
+  SwaggerSpecObject,
 } from './swagger-spec-wrappers/swagger-spec-object';
 import {
-  SwaggerSpecSplit
+  SwaggerSpecSplit,
 } from './swagger-spec-wrappers/swagger-spec-split';
 import {
-  SwaggerSpecYaml
+  SwaggerSpecYaml,
 } from './swagger-spec-wrappers/swagger-spec-yaml';
 import {
   AvailableSwaggerSpecTargets,
-  SwaggerSpec
+  SwaggerSpec,
 } from './swagger-spec-wrappers/swagger-spec.interface';
 import {
-  isUrlRefPath
+  isUrlRefPath,
 } from './swagger-spec-wrappers/utils';
 
 /** X Vendor to indicate that the definition is generated because of reference conflict */

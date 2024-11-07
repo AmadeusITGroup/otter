@@ -1,14 +1,14 @@
 import type {
-  Rule
+  Rule,
 } from '@angular-devkit/schematics';
 import {
-  findFilesInTree
+  findFilesInTree,
 } from '@o3r/schematics';
 import type {
-  PackageJson
+  PackageJson,
 } from 'type-fest';
 import {
-  LOCAL_SPEC_FILENAME
+  LOCAL_SPEC_FILENAME,
 } from '../../../helpers/generators';
 
 const SCRIPT_REGEN_LABEL = 'spec:regen';

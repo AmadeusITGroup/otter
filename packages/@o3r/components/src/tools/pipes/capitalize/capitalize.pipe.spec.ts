@@ -1,6 +1,6 @@
 import {
   CapitalizePipe,
-  O3rCapitalizePipe
+  O3rCapitalizePipe,
 } from './capitalize.pipe';
 
 describe('CapitalizePipe', () => {

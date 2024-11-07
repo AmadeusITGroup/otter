@@ -1,6 +1,6 @@
 import {
   AsyncRequest,
-  FromApiActionPayload
+  FromApiActionPayload,
 } from './async.interfaces';
 
 /**

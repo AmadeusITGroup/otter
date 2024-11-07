@@ -1,5 +1,5 @@
 import {
-  utils
+  utils,
 } from './date';
 
 describe('DateTime', () => {

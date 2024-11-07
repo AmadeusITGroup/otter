@@ -1,36 +1,35 @@
 import type {
-  Mark
+  Mark,
 } from '@ama-sdk/core';
 import {
   getTestBed,
-  TestBed
+  TestBed,
 } from '@angular/core/testing';
 import {
   BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting
+  platformBrowserDynamicTesting,
 } from '@angular/platform-browser-dynamic/testing';
 import {
   NavigationEnd,
-  Router
+  Router,
 } from '@angular/router';
 import {
   firstValueFrom,
-  Observable
+  Observable,
 } from 'rxjs';
 import {
-  skip
+  skip,
 } from 'rxjs/operators';
 import {
-  EVENT_TRACK_SERVICE_CONFIGURATION
+  EVENT_TRACK_SERVICE_CONFIGURATION,
 } from './event-track.configuration';
 import {
-  EventTrackService
+  EventTrackService,
 } from './event-track.service';
 
 class MockRouter {
   public p1 = new NavigationEnd(0, '/page1', '/page1');
   public p2 = new NavigationEnd(1, '/page2', '/page2');
-  // eslint-disable-next-line unicorn/consistent-function-scoping -- keep for readability
   public events = new Observable((observer) => {
     observer.next(this.p1);
     setTimeout(() => {

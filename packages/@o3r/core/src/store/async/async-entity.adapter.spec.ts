@@ -1,12 +1,12 @@
 import {
   createEntityAdapter,
-  EntityState
+  EntityState,
 } from '@ngrx/entity';
 import {
-  createEntityAsyncRequestAdapter
+  createEntityAsyncRequestAdapter,
 } from './async-entity.adapter';
 import {
-  AsyncStoreItem
+  AsyncStoreItem,
 } from './async.interfaces';
 
 describe('createEntityAsyncRequestAdapter tests', () => {

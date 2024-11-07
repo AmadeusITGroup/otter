@@ -2,7 +2,7 @@ import * as selectors from './routing-guard.selectors';
 import {
   RegisteredItemFailureReason,
   RegisteredItemStatus,
-  RoutingGuardState
+  RoutingGuardState,
 } from './routing-guard.state';
 
 describe('RoutingGuard Selectors tests', () => {

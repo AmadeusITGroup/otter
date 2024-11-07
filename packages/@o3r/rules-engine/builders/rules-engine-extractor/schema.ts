@@ -1,5 +1,5 @@
 import type {
-  JsonObject
+  JsonObject,
 } from '@angular-devkit/core';
 
 export interface RulesEngineExtractorBuilderSchema extends JsonObject {

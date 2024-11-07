@@ -1,9 +1,9 @@
 import {
   ComponentFixture,
-  TestBed
+  TestBed,
 } from '@angular/core/testing';
 import {
-  DatePickerHebrewInputPresComponent
+  DatePickerHebrewInputPresComponent,
 } from './date-picker-input-hebrew-pres.component';
 
 describe('DatePickerHebrewInputPresComponent', () => {

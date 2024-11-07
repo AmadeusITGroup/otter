@@ -1,52 +1,52 @@
 import {
-  ApiFetchClient
+  ApiFetchClient,
 } from '@ama-sdk/client-fetch';
 import {
-  registerLocaleData
+  registerLocaleData,
 } from '@angular/common';
 import localeEN from '@angular/common/locales/en';
 import localeFR from '@angular/common/locales/fr';
 import {
   isDevMode,
-  NgModule
+  NgModule,
 } from '@angular/core';
 import {
-  BrowserModule
+  BrowserModule,
 } from '@angular/platform-browser';
 import {
-  BrowserAnimationsModule
+  BrowserAnimationsModule,
 } from '@angular/platform-browser/animations';
 import {
-  NgbOffcanvasModule
+  NgbOffcanvasModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
-  EffectsModule
+  EffectsModule,
 } from '@ngrx/effects';
 import {
   RuntimeChecks,
-  StoreModule
+  StoreModule,
 } from '@ngrx/store';
 import {
-  StoreDevtoolsModule
+  StoreDevtoolsModule,
 } from '@ngrx/store-devtools';
 import {
   TranslateCompiler,
-  TranslateModule
+  TranslateModule,
 } from '@ngx-translate/core';
 import {
   ApplicationDevtoolsModule,
   OTTER_APPLICATION_DEVTOOLS_OPTIONS,
-  prefersReducedMotion
+  prefersReducedMotion,
 } from '@o3r/application';
 import {
   C11nModule,
   ComponentsDevtoolsModule,
   OTTER_COMPONENTS_DEVTOOLS_OPTIONS,
-  registerCustomComponent
+  registerCustomComponent,
 } from '@o3r/components';
 import {
   ConfigurationDevtoolsModule,
-  OTTER_CONFIGURATION_DEVTOOLS_OPTIONS
+  OTTER_CONFIGURATION_DEVTOOLS_OPTIONS,
 } from '@o3r/configuration';
 import {
   LocalizationConfiguration,
@@ -55,40 +55,40 @@ import {
   MESSAGE_FORMAT_CONFIG,
   OTTER_LOCALIZATION_DEVTOOLS_OPTIONS,
   translateLoaderProvider,
-  TranslateMessageFormatLazyCompiler
+  TranslateMessageFormatLazyCompiler,
 } from '@o3r/localization';
 import {
   ConsoleLogger,
   Logger,
   LOGGER_CLIENT_TOKEN,
-  LoggerService
+  LoggerService,
 } from '@o3r/logger';
 import {
   OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS,
-  RulesEngineRunnerModule
+  RulesEngineRunnerModule,
 } from '@o3r/rules-engine';
 import {
   OTTER_STYLING_DEVTOOLS_OPTIONS,
-  StylingDevtoolsModule
+  StylingDevtoolsModule,
 } from '@o3r/styling';
 import {
-  PetApi
+  PetApi,
 } from '@o3r-training/showcase-sdk';
 import {
-  HIGHLIGHT_OPTIONS
+  HIGHLIGHT_OPTIONS,
 } from 'ngx-highlightjs';
 import {
   ScrollBackTopPresComponent,
-  SidenavPresComponent
+  SidenavPresComponent,
 } from '../components/index';
 import {
-  DatePickerHebrewInputPresComponent
+  DatePickerHebrewInputPresComponent,
 } from '../components/utilities/date-picker-input-hebrew';
 import {
-  AppRoutingModule
+  AppRoutingModule,
 } from './app-routing.module';
 import {
-  AppComponent
+  AppComponent,
 } from './app.component';
 
 const runtimeChecks: Partial<RuntimeChecks> = {

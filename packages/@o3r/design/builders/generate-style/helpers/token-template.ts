@@ -1,18 +1,18 @@
 import {
-  existsSync
+  existsSync,
 } from 'node:fs';
 import {
-  readFile
+  readFile,
 } from 'node:fs/promises';
 import {
-  resolve
+  resolve,
 } from 'node:path';
 import type {
-  BuilderContext
+  BuilderContext,
 } from '@angular-devkit/architect';
 import {
   type DesignTokenGroupTemplate,
-  mergeDesignTokenTemplates
+  mergeDesignTokenTemplates,
 } from '../../../src/public_api';
 
 /**

@@ -1,5 +1,5 @@
 import type {
-  FactDefinitions
+  FactDefinitions,
 } from '../engine/index';
 
 /**

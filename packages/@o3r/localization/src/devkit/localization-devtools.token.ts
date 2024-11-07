@@ -1,8 +1,8 @@
 import {
-  InjectionToken
+  InjectionToken,
 } from '@angular/core';
 import {
-  LocalizationDevtoolsServiceOptions
+  LocalizationDevtoolsServiceOptions,
 } from './localization-devkit.interface';
 
 export const OTTER_LOCALIZATION_DEVTOOLS_DEFAULT_OPTIONS: LocalizationDevtoolsServiceOptions = {

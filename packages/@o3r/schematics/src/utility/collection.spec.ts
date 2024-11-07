@@ -1,8 +1,8 @@
 import type {
-  WorkspaceSchema
+  WorkspaceSchema,
 } from '../interfaces';
 import {
-  getSchematicOptions
+  getSchematicOptions,
 } from './collection';
 
 const angularJsonGenericNgAdd: WorkspaceSchema = {

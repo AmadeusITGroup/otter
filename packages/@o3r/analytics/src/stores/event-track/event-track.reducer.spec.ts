@@ -1,11 +1,11 @@
 import * as actions from './event-track.actions';
 import {
   eventTrackInitialState,
-  eventTrackReducer
+  eventTrackReducer,
 } from './event-track.reducer';
 import {
   EventTrackState,
-  RegisterHeroComponentPayload
+  RegisterHeroComponentPayload,
 } from './event-track.state';
 
 describe('EventTrack Store reducer', () => {

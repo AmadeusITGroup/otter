@@ -1,23 +1,23 @@
 import {
-  readFileSync
+  readFileSync,
 } from 'node:fs';
 import * as path from 'node:path';
 import type {
-  LoggerApi
+  LoggerApi,
 } from '@angular-devkit/core/src/logger';
 import type {
   SchematicContext,
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import {
-  satisfies
+  satisfies,
 } from 'semver';
 import type {
-  PackageJson
+  PackageJson,
 } from 'type-fest';
 import {
   getPackageManager,
-  O3rCliError
+  O3rCliError,
 } from '../../utility/index';
 
 /** Interface containing a npm package name, needed version and optionally found version */

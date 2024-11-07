@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import {
   execSync,
-  spawnSync
+  spawnSync,
 } from 'node:child_process';
 import {
   dirname,
@@ -9,15 +9,15 @@ import {
   join,
   parse,
   relative,
-  resolve
+  resolve,
 } from 'node:path';
 import {
   LOCAL_SPEC_FILENAME,
   SPEC_JSON_EXTENSION,
-  SPEC_YAML_EXTENSION
+  SPEC_YAML_EXTENSION,
 } from '@ama-sdk/schematics';
 import type {
-  CliWrapper
+  CliWrapper,
 } from '@o3r/telemetry';
 import * as minimist from 'minimist';
 

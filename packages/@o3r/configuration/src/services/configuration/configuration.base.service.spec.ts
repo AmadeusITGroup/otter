@@ -1,21 +1,21 @@
 import {
   getTestBed,
-  TestBed
+  TestBed,
 } from '@angular/core/testing';
 import {
   BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting
+  platformBrowserDynamicTesting,
 } from '@angular/platform-browser-dynamic/testing';
 import {
   MockStore,
-  provideMockStore
+  provideMockStore,
 } from '@ngrx/store/testing';
 import {
   Configuration,
-  CustomConfig
+  CustomConfig,
 } from '@o3r/core';
 import {
-  Subscription
+  Subscription,
 } from 'rxjs';
 import {
   ConfigurationStore,
@@ -23,10 +23,10 @@ import {
   selectConfigOverride,
   selectConfigurationEntities,
   upsertConfigurationEntities,
-  upsertConfigurationEntity
+  upsertConfigurationEntity,
 } from '../../stores/index';
 import {
-  ConfigurationBaseService
+  ConfigurationBaseService,
 } from './configuration.base.service';
 
 interface MyConfigToTest extends Configuration {

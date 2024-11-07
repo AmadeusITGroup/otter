@@ -1,12 +1,12 @@
 import {
   existsSync,
   promises as fs,
-  readFileSync
+  readFileSync,
 } from 'node:fs';
 import * as path from 'node:path';
 import {
   Context,
-  promiseSpawn
+  promiseSpawn,
 } from '@ama-terasu/core';
 
 const { peerDependencies } = JSON.parse(readFileSync(path.resolve(__dirname, '..', 'package.json'), { encoding: 'utf8' }));

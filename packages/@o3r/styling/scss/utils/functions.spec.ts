@@ -1,9 +1,9 @@
 import {
-  resolve
+  resolve,
 } from 'node:path';
 import {
   compileString,
-  Logger
+  Logger,
 } from 'sass';
 
 const url = new URL('.', 'file://' + resolve(__dirname, 'test.scss'));

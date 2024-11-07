@@ -2,21 +2,21 @@
 import {
   Inject,
   Injectable,
-  Optional
+  Optional,
 } from '@angular/core';
 import type {
   DevtoolsServiceInterface,
-  WindowWithDevtools
+  WindowWithDevtools,
 } from '@o3r/core';
 import {
-  ApplicationDevtoolsServiceOptions
+  ApplicationDevtoolsServiceOptions,
 } from './application-devkit.interface';
 import {
-  OtterApplicationDevtools
+  OtterApplicationDevtools,
 } from './application-devtools.service';
 import {
   OTTER_APPLICATION_DEVTOOLS_DEFAULT_OPTIONS,
-  OTTER_APPLICATION_DEVTOOLS_OPTIONS
+  OTTER_APPLICATION_DEVTOOLS_OPTIONS,
 } from './application-devtools.token';
 
 @Injectable({

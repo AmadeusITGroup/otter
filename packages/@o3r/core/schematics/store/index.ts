@@ -1,12 +1,12 @@
 import {
   Rule,
-  schematic
+  schematic,
 } from '@angular-devkit/schematics';
 import {
-  createSchematicWithMetricsIfInstalled
+  createSchematicWithMetricsIfInstalled,
 } from '@o3r/schematics';
 import {
-  NgGenerateStoreSchematicsSchema
+  NgGenerateStoreSchematicsSchema,
 } from './schema';
 
 /**

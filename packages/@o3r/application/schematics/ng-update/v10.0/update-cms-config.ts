@@ -1,8 +1,8 @@
 import {
-  basename
+  basename,
 } from 'node:path';
 import type {
-  Rule
+  Rule,
 } from '@angular-devkit/schematics';
 
 /**

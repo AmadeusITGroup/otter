@@ -2,13 +2,13 @@ import {
   findReferences,
   getDefinitionsDeeplyAccessibleFromPaths,
   getDiscriminatorLinks,
-  getTags
+  getTags,
 } from '../../helpers/spec-parser';
 import {
-  TreeShakingStrategy
+  TreeShakingStrategy,
 } from '../../interfaces/builder-configuration';
 import {
-  PostProcess
+  PostProcess,
 } from './post-process.interface';
 
 /**

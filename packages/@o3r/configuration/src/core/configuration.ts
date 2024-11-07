@@ -1,14 +1,14 @@
 import {
   computeItemIdentifier,
-  deepFill
+  deepFill,
 } from '@o3r/core';
 import {
-  Observable
+  Observable,
 } from 'rxjs';
 import {
   distinctUntilChanged,
   map,
-  shareReplay
+  shareReplay,
 } from 'rxjs/operators';
 
 /**

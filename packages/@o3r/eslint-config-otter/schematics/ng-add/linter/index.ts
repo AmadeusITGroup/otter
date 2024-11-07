@@ -1,5 +1,5 @@
 import {
-  posix
+  posix,
 } from 'node:path';
 import {
   apply,
@@ -12,7 +12,7 @@ import {
   SchematicContext,
   template,
   Tree,
-  url
+  url,
 } from '@angular-devkit/schematics';
 
 /**

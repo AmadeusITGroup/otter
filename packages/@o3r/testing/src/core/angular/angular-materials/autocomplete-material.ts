@@ -1,11 +1,11 @@
 import {
-  DebugElement
+  DebugElement,
 } from '@angular/core';
 import {
-  MatAutocompleteProfile
+  MatAutocompleteProfile,
 } from '../../angular-materials';
 import {
-  O3rElement
+  O3rElement,
 } from '../element';
 
 export { SelectElementProfile } from '../../elements';

@@ -1,12 +1,12 @@
 import {
   callRule,
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import {
-  lastValueFrom
+  lastValueFrom,
 } from 'rxjs';
 import {
-  injectServiceInMain
+  injectServiceInMain,
 } from './devtools-registration';
 
 const projectName = 'projectName';

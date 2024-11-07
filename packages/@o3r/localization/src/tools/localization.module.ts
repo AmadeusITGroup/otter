@@ -1,57 +1,57 @@
 import {
   BidiModule,
-  Directionality
+  Directionality,
 } from '@angular/cdk/bidi';
 import {
   CommonModule,
   CurrencyPipe,
   DatePipe,
-  DecimalPipe
+  DecimalPipe,
 } from '@angular/common';
 import {
   InjectionToken,
   LOCALE_ID,
   ModuleWithProviders,
   NgModule,
-  Optional
+  Optional,
 } from '@angular/core';
 import {
-  TranslateModule
+  TranslateModule,
 } from '@ngx-translate/core';
 import {
-  DynamicContentModule
+  DynamicContentModule,
 } from '@o3r/dynamic-content';
 import {
   DEFAULT_LOCALIZATION_CONFIGURATION,
-  LocalizationConfiguration
+  LocalizationConfiguration,
 } from '../core';
 import {
-  LocalizationTranslateDirective
+  LocalizationTranslateDirective,
 } from './localization-translate.directive';
 import {
   LocalizationTranslatePipe,
-  O3rLocalizationTranslatePipe
+  O3rLocalizationTranslatePipe,
 } from './localization-translate.pipe';
 import {
-  LocalizationService
+  LocalizationService,
 } from './localization.service';
 import {
-  LOCALIZATION_CONFIGURATION_TOKEN
+  LOCALIZATION_CONFIGURATION_TOKEN,
 } from './localization.token';
 import {
-  LocalizedCurrencyPipe
+  LocalizedCurrencyPipe,
 } from './localized-currency.pipe';
 import {
-  LocalizedDatePipe
+  LocalizedDatePipe,
 } from './localized-date.pipe';
 import {
-  LocalizedDecimalPipe
+  LocalizedDecimalPipe,
 } from './localized-decimal.pipe';
 import {
-  TextDirectionService
+  TextDirectionService,
 } from './text-direction.service';
 import {
-  TextDirectionality
+  TextDirectionality,
 } from './text-directionality.service';
 
 /**

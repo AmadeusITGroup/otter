@@ -1,14 +1,14 @@
 import {
   asyncStoreItemAdapter,
-  Serializer
+  Serializer,
 } from '@o3r/core';
 import {
   rulesetsAdapter,
-  rulesetsInitialState
+  rulesetsInitialState,
 } from './rulesets.reducer';
 import {
   RulesetsModel,
-  RulesetsState
+  RulesetsState,
 } from './rulesets.state';
 
 export const rulesetsStorageSerializer = (state: RulesetsState) => {

@@ -1,9 +1,9 @@
 import {
   ComponentFixture,
-  TestBed
+  TestBed,
 } from '@angular/core/testing';
 import {
-  RunAppLocallyComponent
+  RunAppLocallyComponent,
 } from './run-app-locally.component';
 
 describe('RunAppLocallyComponent', () => {

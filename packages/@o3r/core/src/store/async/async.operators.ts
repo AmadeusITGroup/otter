@@ -1,5 +1,5 @@
 import {
-  Action
+  Action,
 } from '@ngrx/store';
 import {
   BehaviorSubject,
@@ -11,7 +11,7 @@ import {
   Observable,
   of,
   OperatorFunction,
-  Subject
+  Subject,
 } from 'rxjs';
 import {
   catchError,
@@ -21,15 +21,15 @@ import {
   pairwise,
   startWith,
   switchMap,
-  tap
+  tap,
 } from 'rxjs/operators';
 import {
-  isIdentifiedCallAction
+  isIdentifiedCallAction,
 } from './async.helpers';
 import {
   AsyncRequest,
   ExtractFromApiActionPayloadType,
-  FromApiActionPayload
+  FromApiActionPayload,
 } from './async.interfaces';
 
 /**

@@ -1,7 +1,7 @@
 import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
 import {
-  RuleTester
+  RuleTester,
 } from '@typescript-eslint/rule-tester';
 import noFolderImportForModule from './no-folder-import-for-module';
 
@@ -37,7 +37,7 @@ ruleTester.run('no-folder-import-for-module', noFolderImportForModule, {
               data: {
                 newIndexFilePath: './local/index'
               },
-              output: 'import {myImportModule} from "./local/index";',
+              output: 'import {myImportModule} from "./local/index";'
             }
           ]
         }
@@ -58,7 +58,7 @@ ruleTester.run('no-folder-import-for-module', noFolderImportForModule, {
               data: {
                 newIndexFilePath: './local/index'
               },
-              output: 'import {randomImport, myImportModule} from "./local/index";',
+              output: 'import {randomImport, myImportModule} from "./local/index";'
             }
           ]
         }

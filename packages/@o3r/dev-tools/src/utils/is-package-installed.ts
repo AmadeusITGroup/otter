@@ -1,5 +1,5 @@
 import {
-  posix
+  posix,
 } from 'node:path';
 
 /**

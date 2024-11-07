@@ -1,5 +1,5 @@
 import {
-  RuleTester
+  RuleTester,
 } from '@typescript-eslint/rule-tester';
 import matchingConfigurationNameRule from './matching-configuration-name';
 
@@ -63,7 +63,7 @@ export const MY_CONFIG_ID = computeConfigurationName('MyConfig', '@example/confi
 export interface MyConfig extends Configuration {}
 
 export const MY_CONFIG_ID = computeConfigurationName('MyConfig', '@example/config');
-      `.trim(),
+      `.trim()
     }, {
       code: `
 export interface MyFirstConfig extends Configuration {}

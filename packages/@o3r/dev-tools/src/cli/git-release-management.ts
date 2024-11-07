@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 import {
-  program
+  program,
 } from 'commander';
 import {
   parse,
-  SemVer
+  SemVer,
 } from 'semver';
 import * as winston from 'winston';
 import {
@@ -17,7 +17,7 @@ import {
   createReleaseBranch,
   deleteCrtRcBranch,
   deleteCurrentAlphaOrNextBranch,
-  deletePreviousReleaseBranch
+  deletePreviousReleaseBranch,
 } from '../helpers';
 
 program

@@ -1,5 +1,5 @@
 import type {
-  ItemIdentifier
+  ItemIdentifier,
 } from '@o3r/core';
 
 export type CssVariableType = 'string' | 'color';

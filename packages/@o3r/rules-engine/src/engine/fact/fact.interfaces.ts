@@ -1,5 +1,5 @@
 import {
-  Observable
+  Observable,
 } from 'rxjs';
 
 /** Represents all the supported facts types TOCHECK utils.Date vs Date */

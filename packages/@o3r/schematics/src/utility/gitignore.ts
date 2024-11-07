@@ -1,5 +1,5 @@
 import type {
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 
 /**

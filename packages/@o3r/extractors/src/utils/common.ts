@@ -1,15 +1,15 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {
-  O3rCliError
+  O3rCliError,
 } from '@o3r/schematics';
 import type {
   DeclarationReflection,
-  ReferenceType
+  ReferenceType,
 } from 'typedoc';
 import type {
   CmsMetadataData,
-  DocumentationNode
+  DocumentationNode,
 } from '../interfaces';
 
 /**

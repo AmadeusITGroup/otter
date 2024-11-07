@@ -1,16 +1,16 @@
 import {
   type BuilderOutput,
-  createBuilder
+  createBuilder,
 } from '@angular-devkit/architect';
 import {
   checkMetadataBuilder,
-  createBuilderWithMetricsIfInstalled
+  createBuilderWithMetricsIfInstalled,
 } from '@o3r/extractors';
 import {
-  localizationMetadataComparator
+  localizationMetadataComparator,
 } from './helpers';
 import type {
-  LocalizationMigrationMetadataCheckBuilderSchema
+  LocalizationMigrationMetadataCheckBuilderSchema,
 } from './schema';
 
 export default createBuilder<LocalizationMigrationMetadataCheckBuilderSchema>(createBuilderWithMetricsIfInstalled((options, context): Promise<BuilderOutput> => {

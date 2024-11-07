@@ -1,13 +1,13 @@
 import {
-  APP_BASE_HREF
+  APP_BASE_HREF,
 } from '@angular/common';
 import {
   InjectionToken,
   ModuleWithProviders,
-  NgModule
+  NgModule,
 } from '@angular/core';
 import type {
-  BuildTimeProperties
+  BuildTimeProperties,
 } from '@o3r/core';
 
 /**

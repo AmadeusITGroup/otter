@@ -1,11 +1,11 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import {
   SchematicTestRunner,
-  UnitTestTree
+  UnitTestTree,
 } from '@angular-devkit/schematics/testing';
 
 jest.mock('@o3r/schematics', () => ({
@@ -20,9 +20,7 @@ jest.mock('@angular-devkit/schematics', () => {
   const originalModule = jest.requireActual('@angular-devkit/schematics');
   return {
     ...originalModule,
-    // eslint-disable-next-line unicorn/consistent-function-scoping -- higher-order function
     externalSchematic: jest.fn().mockImplementation(() => (tree: Tree) => tree),
-    // eslint-disable-next-line unicorn/consistent-function-scoping -- higher-order function
     schematic: jest.fn().mockImplementation(() => (tree: Tree) => tree)
   };
 });

@@ -1,23 +1,23 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {
-  main
+  main,
 } from '@angular/compiler-cli/src/main';
 import {
   NodeJSFileSystem,
-  setFileSystem
+  setFileSystem,
 } from '@angular/compiler-cli/src/ngtsc/file_system';
 import {
   BuilderOutput,
-  createBuilder
+  createBuilder,
 } from '@angular-devkit/architect';
 import * as chokidar from 'chokidar';
 import * as ts from 'typescript';
 import {
-  createBuilderWithMetricsIfInstalled
+  createBuilderWithMetricsIfInstalled,
 } from '../utils';
 import {
-  NgcBuilderSchema
+  NgcBuilderSchema,
 } from './schema';
 
 export * from './schema';

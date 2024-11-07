@@ -1,9 +1,9 @@
 import {
   chain,
-  Rule
+  Rule,
 } from '@angular-devkit/schematics';
 import {
-  updateConfigurationExtractorCategories
+  updateConfigurationExtractorCategories,
 } from './configuration-extractor-categories/configuration-extractor-categories';
 
 /**

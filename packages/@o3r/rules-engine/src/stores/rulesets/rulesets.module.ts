@@ -1,25 +1,25 @@
 import {
   InjectionToken,
   ModuleWithProviders,
-  NgModule
+  NgModule,
 } from '@angular/core';
 import {
-  EffectsModule
+  EffectsModule,
 } from '@ngrx/effects';
 import {
   Action,
   ActionReducer,
-  StoreModule
+  StoreModule,
 } from '@ngrx/store';
 import {
-  RulesetsEffect
+  RulesetsEffect,
 } from './rulesets.effect';
 import {
-  rulesetsReducer
+  rulesetsReducer,
 } from './rulesets.reducer';
 import {
   RULESETS_STORE_NAME,
-  RulesetsState
+  RulesetsState,
 } from './rulesets.state';
 
 /** Token of the Rulesets reducer */

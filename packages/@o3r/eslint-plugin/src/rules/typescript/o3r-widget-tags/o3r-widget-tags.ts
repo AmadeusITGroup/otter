@@ -1,13 +1,13 @@
 import {
   TSESLint,
-  type TSESTree
+  type TSESTree,
 } from '@typescript-eslint/utils';
 import {
   createCommentString,
   createRule,
   defaultSupportedInterfaceNames,
   getNodeComment,
-  isExtendingConfiguration
+  isExtendingConfiguration,
 } from '../../utils';
 
 const o3rWidgetParameterPattern = '^[a-zA-Z0-9-_:.]+$';

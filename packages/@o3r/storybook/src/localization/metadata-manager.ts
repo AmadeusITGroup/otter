@@ -1,5 +1,5 @@
 import type {
-  LocalizationMetadata
+  LocalizationMetadata,
 } from '@o3r/localization';
 
 declare global {

@@ -1,26 +1,26 @@
 import {
-  formatDate
+  formatDate,
 } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
   inject,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
   FormGroup,
-  ReactiveFormsModule
+  ReactiveFormsModule,
 } from '@angular/forms';
 import {
-  O3rComponent
+  O3rComponent,
 } from '@o3r/core';
 import {
-  DynamicContentModule
+  DynamicContentModule,
 } from '@o3r/dynamic-content';
 import {
-  DatePickerInputPresComponent
+  DatePickerInputPresComponent,
 } from '../../utilities';
 
 const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;

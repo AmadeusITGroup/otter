@@ -1,24 +1,24 @@
 import {
   FactoryProvider,
-  Optional
+  Optional,
 } from '@angular/core';
 import {
-  TranslateLoader
+  TranslateLoader,
 } from '@ngx-translate/core';
 import {
-  DynamicContentService
+  DynamicContentService,
 } from '@o3r/dynamic-content';
 import {
-  LoggerService
+  LoggerService,
 } from '@o3r/logger';
 import {
-  LocalizationConfiguration
+  LocalizationConfiguration,
 } from '../core';
 import {
-  LOCALIZATION_CONFIGURATION_TOKEN
+  LOCALIZATION_CONFIGURATION_TOKEN,
 } from './localization.token';
 import {
-  TranslationsLoader
+  TranslationsLoader,
 } from './translations-loader';
 
 /**

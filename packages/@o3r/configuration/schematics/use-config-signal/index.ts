@@ -2,7 +2,7 @@ import {
   chain,
   noop,
   type Rule,
-  type Tree
+  type Tree,
 } from '@angular-devkit/schematics';
 import {
   addCommentsOnClassProperties,
@@ -12,11 +12,11 @@ import {
   createSchematicWithMetricsIfInstalled,
   generateClassElementsFromString,
   isO3rClassComponent,
-  O3rCliError
+  O3rCliError,
 } from '@o3r/schematics';
 import * as ts from 'typescript';
 import type {
-  NgUseConfigSignalSchematicsSchema
+  NgUseConfigSignalSchematicsSchema,
 } from './schema';
 
 const configObserverRegexp = /.*new ConfigurationObserver<(?<configName>\w+)>\(\s*(?<configId>\w+),\s*(?<defaultConfig>\w+)(,\s*\w+)?\s*\);/;

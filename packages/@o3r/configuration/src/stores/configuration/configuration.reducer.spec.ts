@@ -1,31 +1,31 @@
 import {
   getTestBed,
-  TestBed
+  TestBed,
 } from '@angular/core/testing';
 import {
   BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting
+  platformBrowserDynamicTesting,
 } from '@angular/platform-browser-dynamic/testing';
 import {
-  Dictionary
+  Dictionary,
 } from '@ngrx/entity';
 import type {
-  Configuration
+  Configuration,
 } from '@o3r/core';
 import {
   clearConfigurationEntities,
   updateConfigurationEntities,
   updateConfigurationEntity,
   upsertConfigurationEntities,
-  upsertConfigurationEntity
+  upsertConfigurationEntity,
 } from './configuration.actions';
 import {
   configurationAdapter,
   configurationInitialState,
-  configurationReducer
+  configurationReducer,
 } from './configuration.reducer';
 import type {
-  ConfigurationModel
+  ConfigurationModel,
 } from './configuration.state';
 
 interface MyConfigToTest extends Configuration {

@@ -1,15 +1,15 @@
 import {
   createAction,
-  props
+  props,
 } from '@ngrx/store';
 import type {
-  Serializer
+  Serializer,
 } from '@o3r/core';
 import type {
-  SyncStorageConfig
+  SyncStorageConfig,
 } from '../sync-storage';
 import type {
-  StorageSyncOptions
+  StorageSyncOptions,
 } from './interfaces';
 
 /**

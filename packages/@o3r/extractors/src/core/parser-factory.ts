@@ -1,5 +1,5 @@
 import {
-  ParserConfig
+  ParserConfig,
 } from '../interfaces/parser/parser-config';
 
 /**

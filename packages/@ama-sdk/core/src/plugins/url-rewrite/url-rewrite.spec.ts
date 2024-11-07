@@ -1,8 +1,8 @@
 import {
-  RequestOptions
+  RequestOptions,
 } from '../core/request-plugin';
 import {
-  UrlRewriteRequest
+  UrlRewriteRequest,
 } from './url-rewrite.request';
 
 describe('URL Rewrite Request Plugin', () => {

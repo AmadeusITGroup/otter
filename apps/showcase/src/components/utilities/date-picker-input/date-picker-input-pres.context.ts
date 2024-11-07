@@ -1,5 +1,5 @@
 import type {
-  Context
+  Context,
 } from '@o3r/core';
 
 /**

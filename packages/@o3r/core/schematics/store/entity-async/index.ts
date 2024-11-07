@@ -1,6 +1,6 @@
 import * as path from 'node:path';
 import {
-  strings
+  strings,
 } from '@angular-devkit/core';
 import {
   apply,
@@ -14,20 +14,20 @@ import {
   SchematicContext,
   template,
   Tree,
-  url
+  url,
 } from '@angular-devkit/schematics';
 import {
   applyEsLintFix,
   createSchematicWithMetricsIfInstalled,
   getDestinationPath,
   moduleHasSubEntryPoints,
-  writeSubEntryPointPackageJson
+  writeSubEntryPointPackageJson,
 } from '@o3r/schematics';
 import {
-  ExtraFormattedProperties
+  ExtraFormattedProperties,
 } from '../common/helpers';
 import {
-  NgGenerateEntityAsyncStoreSchematicsSchema
+  NgGenerateEntityAsyncStoreSchematicsSchema,
 } from './schema';
 
 /**

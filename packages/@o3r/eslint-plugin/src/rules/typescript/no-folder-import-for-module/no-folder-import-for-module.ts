@@ -1,10 +1,10 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import type {
-  TSESTree
+  TSESTree,
 } from '@typescript-eslint/utils';
 import {
-  createRule
+  createRule,
 } from '../../utils';
 
 export default createRule({

@@ -1,14 +1,14 @@
 import type {
   EntityAdapter,
   EntityState,
-  Update
+  Update,
 } from '@ngrx/entity';
 import {
-  asyncStoreItemAdapter
+  asyncStoreItemAdapter,
 } from './async.adapter';
 import {
   AsyncStoreItem,
-  EntityWithoutAsyncStoreItem
+  EntityWithoutAsyncStoreItem,
 } from './async.interfaces';
 
 /** Adapter for Asynchronous Entity Store */

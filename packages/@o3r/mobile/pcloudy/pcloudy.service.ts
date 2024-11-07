@@ -1,12 +1,12 @@
 import * as path from 'node:path';
 import {
-  Logger
+  Logger,
 } from 'winston';
 import {
-  PCloudyApi
+  PCloudyApi,
 } from './pcloudy.api';
 import {
-  BookedData
+  BookedData,
 } from './pcloudy.interfaces';
 
 export class PCloudyService {

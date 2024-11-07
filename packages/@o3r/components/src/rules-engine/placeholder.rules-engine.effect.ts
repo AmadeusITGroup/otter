@@ -1,14 +1,14 @@
 import {
   Injectable,
-  Optional
+  Optional,
 } from '@angular/core';
 import {
   Actions,
   createEffect,
-  ofType
+  ofType,
 } from '@ngrx/effects';
 import {
-  Store
+  Store,
 } from '@ngrx/store';
 import {
   cancelPlaceholderRequest,
@@ -17,34 +17,34 @@ import {
   PlaceholderVariable,
   selectPlaceholderRequestEntityUsage,
   setPlaceholderRequestEntityFromUrl,
-  updatePlaceholderRequestEntity
+  updatePlaceholderRequestEntity,
 } from '@o3r/components';
 import {
-  fromApiEffectSwitchMapById
+  fromApiEffectSwitchMapById,
 } from '@o3r/core';
 import {
-  DynamicContentService
+  DynamicContentService,
 } from '@o3r/dynamic-content';
 import {
-  LocalizationService
+  LocalizationService,
 } from '@o3r/localization';
 import {
-  RulesEngineRunnerService
+  RulesEngineRunnerService,
 } from '@o3r/rules-engine';
 import {
-  JSONPath
+  JSONPath,
 } from 'jsonpath-plus';
 import {
   combineLatest,
   EMPTY,
   Observable,
-  of
+  of,
 } from 'rxjs';
 import {
   distinctUntilChanged,
   map,
   switchMap,
-  take
+  take,
 } from 'rxjs/operators';
 
 /**

@@ -1,8 +1,8 @@
 import {
-  InjectionToken
+  InjectionToken,
 } from '@angular/core';
 import type {
-  StylingDevtoolsServiceOptions
+  StylingDevtoolsServiceOptions,
 } from './styling-devkit.interface';
 
 /**

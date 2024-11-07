@@ -2,25 +2,25 @@ import {
   chain,
   noop,
   Rule,
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import {
   applyEsLintFix,
   createSchematicWithMetricsIfInstalled,
   isNgClassComponent,
   isO3rClassComponent,
-  O3rCliError
+  O3rCliError,
 } from '@o3r/schematics';
 import {
-  insertImport
+  insertImport,
 } from '@schematics/angular/utility/ast-utils';
 import {
   applyToUpdateRecorder,
-  InsertChange
+  InsertChange,
 } from '@schematics/angular/utility/change';
 import * as ts from 'typescript';
 import {
-  ConvertToO3rComponentSchematicsSchema
+  ConvertToO3rComponentSchematicsSchema,
 } from './schema';
 
 /**

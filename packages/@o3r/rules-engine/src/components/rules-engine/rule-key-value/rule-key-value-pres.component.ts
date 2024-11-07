@@ -4,16 +4,16 @@ import {
   Input,
   OnChanges,
   SimpleChanges,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {
   of,
-  Subject
+  Subject,
 } from 'rxjs';
 import {
   delay,
   startWith,
-  switchMap
+  switchMap,
 } from 'rxjs/operators';
 
 /**

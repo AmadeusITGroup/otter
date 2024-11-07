@@ -1,32 +1,32 @@
 import {
-  AwsCompatConverter
+  AwsCompatConverter,
 } from '../core/post-processes/aws-compat';
 import {
-  PathsBlacklister
+  PathsBlacklister,
 } from '../core/post-processes/blacklist-paths';
 import {
-  FlagDefinition
+  FlagDefinition,
 } from '../core/post-processes/flag-definition';
 import {
-  FlattenConflictedAllOf
+  FlattenConflictedAllOf,
 } from '../core/post-processes/flatten-conflicted-allof';
 import {
-  PropagateXvendor
+  PropagateXvendor,
 } from '../core/post-processes/propagate-xvendor';
 import {
-  ResolveDiscriminator
+  ResolveDiscriminator,
 } from '../core/post-processes/resolve-discriminator';
 import {
-  TreeShaker
+  TreeShaker,
 } from '../core/post-processes/tree-shaker';
 import {
-  Validator
+  Validator,
 } from '../core/post-processes/validate';
 import {
-  PathsWhitelister
+  PathsWhitelister,
 } from '../core/post-processes/whitelist-paths';
 import {
-  BuilderConfiguration
+  BuilderConfiguration,
 } from '../interfaces/builder-configuration';
 
 /**

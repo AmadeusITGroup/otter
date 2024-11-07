@@ -2,29 +2,29 @@ import {
   inject,
   Injectable,
   signal,
-  type Signal
+  type Signal,
 } from '@angular/core';
 import {
   takeUntilDestroyed,
   toObservable,
-  toSignal
+  toSignal,
 } from '@angular/core/rxjs-interop';
 import type {
   GetTranslationValuesContentMessage,
   IsTranslationDeactivationEnabledContentMessage,
   LanguagesContentMessage,
   LocalizationsContentMessage,
-  SwitchLanguageContentMessage
+  SwitchLanguageContentMessage,
 } from '@o3r/localization';
 import {
   distinctUntilChanged,
   filter,
   map,
-  switchMap
+  switchMap,
 } from 'rxjs/operators';
 import {
   ChromeExtensionConnectionService,
-  filterAndMapMessage
+  filterAndMapMessage,
 } from './connection.service';
 
 @Injectable({ providedIn: 'root' })

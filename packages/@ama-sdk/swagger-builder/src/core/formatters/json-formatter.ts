@@ -1,10 +1,10 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import {
-  Formatter
+  Formatter,
 } from './formatter.interface';
 import {
-  generatePackageJson
+  generatePackageJson,
 } from './utils';
 
 /**

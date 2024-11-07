@@ -1,7 +1,7 @@
 import {
   mkdirSync,
   readFileSync,
-  writeFileSync
+  writeFileSync,
 } from 'node:fs';
 import * as path from 'node:path';
 import {
@@ -10,25 +10,25 @@ import {
   noop,
   Rule,
   Schematic,
-  SchematicContext
+  SchematicContext,
 } from '@angular-devkit/schematics';
 import {
-  NodePackageInstallTask
+  NodePackageInstallTask,
 } from '@angular-devkit/schematics/tasks';
 import {
-  NodeDependencyType
+  NodeDependencyType,
 } from '@schematics/angular/utility/dependencies';
 import {
-  lastValueFrom
+  lastValueFrom,
 } from 'rxjs';
 import type {
-  PackageJson
+  PackageJson,
 } from 'type-fest';
 import type {
-  NgAddPackageOptions
+  NgAddPackageOptions,
 } from '../../tasks/index';
 import {
-  getPackageManager
+  getPackageManager,
 } from '../../utility/index';
 
 const getNgAddSchema = (packageName: string, context: SchematicContext) => {

@@ -1,18 +1,18 @@
 import {
   SchematicContext,
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import {
   getAvailableModules,
   getWorkspaceConfig,
   OTTER_MODULE_PRESET_PREFIX,
-  OTTER_MODULE_SUPPORTED_SCOPES
+  OTTER_MODULE_SUPPORTED_SCOPES,
 } from '@o3r/schematics';
 import {
-  defaultPresetRuleFactory
+  defaultPresetRuleFactory,
 } from './helpers';
 import type {
-  PresetFactory
+  PresetFactory,
 } from './preset.interface';
 
 /**

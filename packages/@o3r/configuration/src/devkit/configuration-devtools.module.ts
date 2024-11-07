@@ -1,28 +1,28 @@
 import {
   ModuleWithProviders,
-  NgModule
+  NgModule,
 } from '@angular/core';
 import {
-  StoreModule
+  StoreModule,
 } from '@ngrx/store';
 import {
-  ConfigurationStoreModule
+  ConfigurationStoreModule,
 } from '../stores/index';
 import {
-  ConfigurationDevtoolsConsoleService
+  ConfigurationDevtoolsConsoleService,
 } from './configuration-devtools.console.service';
 import type {
-  ConfigurationDevtoolsServiceOptions
+  ConfigurationDevtoolsServiceOptions,
 } from './configuration-devtools.interface';
 import {
-  ConfigurationDevtoolsMessageService
+  ConfigurationDevtoolsMessageService,
 } from './configuration-devtools.message.service';
 import {
-  OtterConfigurationDevtools
+  OtterConfigurationDevtools,
 } from './configuration-devtools.service';
 import {
   OTTER_CONFIGURATION_DEVTOOLS_DEFAULT_OPTIONS,
-  OTTER_CONFIGURATION_DEVTOOLS_OPTIONS
+  OTTER_CONFIGURATION_DEVTOOLS_OPTIONS,
 } from './configuration-devtools.token';
 
 @NgModule({

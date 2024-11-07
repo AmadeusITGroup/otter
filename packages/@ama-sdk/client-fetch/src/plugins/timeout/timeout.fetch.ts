@@ -1,10 +1,10 @@
 import {
-  ResponseTimeoutError
+  ResponseTimeoutError,
 } from '@ama-sdk/core';
 import type {
   FetchCall,
   FetchPlugin,
-  FetchPluginContext
+  FetchPluginContext,
 } from '../../fetch-plugin';
 
 /**

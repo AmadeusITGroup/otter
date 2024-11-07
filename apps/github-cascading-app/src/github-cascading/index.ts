@@ -1,10 +1,10 @@
 import {
   app as azureApp,
-  type HttpRequest
+  type HttpRequest,
 } from '@azure/functions';
 import {
   createProbot,
-  type Probot
+  type Probot,
 } from 'probot';
 import app from '../app';
 

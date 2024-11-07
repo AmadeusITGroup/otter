@@ -1,5 +1,5 @@
 import {
-  ArgTypes
+  ArgTypes,
 } from '@storybook/angular';
 
 /** Configuration of Storybook stories */

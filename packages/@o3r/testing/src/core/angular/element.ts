@@ -1,8 +1,8 @@
 import {
-  DebugElement
+  DebugElement,
 } from '@angular/core';
 import {
-  ElementProfile
+  ElementProfile,
 } from '../element';
 
 export { ElementProfile } from '../element';

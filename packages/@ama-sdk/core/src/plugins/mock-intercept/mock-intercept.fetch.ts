@@ -3,14 +3,14 @@ import {
   FetchPlugin,
   FetchPluginContext,
   PluginAsyncRunner,
-  PluginAsyncStarter
+  PluginAsyncStarter,
 } from '../core';
 import {
   CUSTOM_MOCK_OPERATION_ID_HEADER,
-  MockInterceptFetchParameters
+  MockInterceptFetchParameters,
 } from './mock-intercept.interface';
 import {
-  MockInterceptRequest
+  MockInterceptRequest,
 } from './mock-intercept.request';
 
 /**

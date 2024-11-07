@@ -1,60 +1,60 @@
 import {
   getTestBed,
-  TestBed
+  TestBed,
 } from '@angular/core/testing';
 import {
   BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting
+  platformBrowserDynamicTesting,
 } from '@angular/platform-browser-dynamic/testing';
 import {
-  EffectsModule
+  EffectsModule,
 } from '@ngrx/effects';
 import {
   select,
   Store,
-  StoreModule
+  StoreModule,
 } from '@ngrx/store';
 import {
-  computeItemIdentifier
+  computeItemIdentifier,
 } from '@o3r/core';
 import {
   BehaviorSubject,
   firstValueFrom,
   Observable,
   of,
-  Subject
+  Subject,
 } from 'rxjs';
 import {
   distinctUntilChanged,
   map,
-  take
+  take,
 } from 'rxjs/operators';
 import {
-  jsonOneRulesetOneRuleNoCondPlaceholder
+  jsonOneRulesetOneRuleNoCondPlaceholder,
 } from '../../../testing/mocks/oneruleset-onerule-nocond-placeholder.mock';
 import {
-  jsonOneRulesetOneRuleNoCond
+  jsonOneRulesetOneRuleNoCond,
 } from '../../../testing/mocks/oneruleset-onerule-nocond.mock';
 import {
-  jsonOneRulesetOneRuleReexecution
+  jsonOneRulesetOneRuleReexecution,
 } from '../../../testing/mocks/oneruleset-onerule-reexecution.mock';
 import {
-  jsonOneRulesetThreeRulesOneThrows
+  jsonOneRulesetThreeRulesOneThrows,
 } from '../../../testing/mocks/oneruleset-threerules-onethrows.mock';
 import {
-  jsonOneRulesetThreeRulesUndefinedFactUsed
+  jsonOneRulesetThreeRulesUndefinedFactUsed,
 } from '../../../testing/mocks/oneruleset-threerules-undefinedfactused.mock';
 import {
-  jsonOneRulesetTwoNestedRules
+  jsonOneRulesetTwoNestedRules,
 } from '../../../testing/mocks/oneruleset-twonestedrules.mock';
 import {
-  jsonOneRulesetTwoRulesAnyAndAll
+  jsonOneRulesetTwoRulesAnyAndAll,
 } from '../../../testing/mocks/oneruleset-tworules-any-and-all.mock';
 import {
-  jsonOneRulesetTwoRules
+  jsonOneRulesetTwoRules,
 } from '../../../testing/mocks/oneruleset-tworules.mock';
 import {
-  jsonOneRulesetValidOneRuleNoCond
+  jsonOneRulesetValidOneRuleNoCond,
 } from '../../../testing/mocks/onerulesetvalid-onerule-nocond.mock';
 import {
   selectCurrentShoppingCart,
@@ -62,33 +62,33 @@ import {
   setShoppingCartEntity,
   setXmasHampersInCart,
   type ShoppingCartStore,
-  ShoppingCartStoreModule
+  ShoppingCartStoreModule,
 } from '../../../testing/mocks/stores/shopping-cart/index';
 import {
-  ShoppingCart
+  ShoppingCart,
 } from '../../../testing/mocks/stores/shopping-cart/shopping-cart.model';
 import {
-  jsonTwoRulesetsBothOnDemand
+  jsonTwoRulesetsBothOnDemand,
 } from '../../../testing/mocks/tworulesets-both-ondemand';
 import {
-  jsonTwoRulesetsOneOnDemand
+  jsonTwoRulesetsOneOnDemand,
 } from '../../../testing/mocks/tworulesets-one-ondemand';
 import {
-  jsonTwoRulesetTwoRulesNoContext
+  jsonTwoRulesetTwoRulesNoContext,
 } from '../../../testing/mocks/tworulesets-tworules-nocontext.mock';
 import {
-  jsonTwoRulesetTwoRules
+  jsonTwoRulesetTwoRules,
 } from '../../../testing/mocks/tworulesets-tworules.mock';
 import {
-  xmasHamper
+  xmasHamper,
 } from '../../../testing/mocks/xmas-hamper.mock';
 import {
   RulesetsStore,
   RulesetsStoreModule,
-  setRulesetsEntities
+  setRulesetsEntities,
 } from '../../stores/index';
 import {
-  RulesEngineRunnerService
+  RulesEngineRunnerService,
 } from './rules-engine.runner.service';
 
 describe('Rules engine service', () => {

@@ -1,7 +1,7 @@
 import {
   PluginRunner,
   ReplyPlugin,
-  ReplyPluginContext
+  ReplyPluginContext,
 } from '../core';
 
 /**

@@ -1,17 +1,17 @@
 import type {
-  SchematicOptionObject
+  SchematicOptionObject,
 } from '@o3r/schematics';
 import {
-  NgGenerateEntityAsyncStoreSchematicsSchema
+  NgGenerateEntityAsyncStoreSchematicsSchema,
 } from './entity-async/schema';
 import {
-  NgGenerateEntitySyncStoreSchematicsSchema
+  NgGenerateEntitySyncStoreSchematicsSchema,
 } from './entity-sync/schema';
 import {
-  NgGenerateSimpleAsyncStoreSchematicsSchema
+  NgGenerateSimpleAsyncStoreSchematicsSchema,
 } from './simple-async/schema';
 import {
-  NgGenerateSimpleSyncStoreSchematicsSchema
+  NgGenerateSimpleSyncStoreSchematicsSchema,
 } from './simple-sync/schema';
 
 /**

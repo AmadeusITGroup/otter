@@ -1,9 +1,9 @@
 import {
   Action,
-  MetaReducer
+  MetaReducer,
 } from '@ngrx/store';
 import type {
-  Logger
+  Logger,
 } from '@o3r/core';
 
 /**

@@ -1,7 +1,7 @@
 import {
   deepFill,
   immutablePrimitive,
-  isObject
+  isObject,
 } from './deep-fill';
 
 describe('Deep fill function', () => {

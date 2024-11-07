@@ -1,16 +1,16 @@
 import {
   createFeatureSelector,
-  createSelector
+  createSelector,
 } from '@ngrx/store';
 import {
-  selectPlaceholderRequestState
+  selectPlaceholderRequestState,
 } from '../placeholder-request';
 import {
-  placeholderTemplateAdapter
+  placeholderTemplateAdapter,
 } from './placeholder-template.reducer';
 import {
   PLACEHOLDER_TEMPLATE_STORE_NAME,
-  PlaceholderTemplateState
+  PlaceholderTemplateState,
 } from './placeholder-template.state';
 
 const { selectEntities } = placeholderTemplateAdapter.getSelectors();

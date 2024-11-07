@@ -2,34 +2,34 @@ import {
   Inject,
   Injectable,
   OnDestroy,
-  Optional
+  Optional,
 } from '@angular/core';
 import {
   filterMessageContent,
-  sendOtterMessage
+  sendOtterMessage,
 } from '@o3r/core';
 import {
-  LoggerService
+  LoggerService,
 } from '@o3r/logger';
 import {
   firstValueFrom,
   fromEvent,
-  Subscription
+  Subscription,
 } from 'rxjs';
 import {
-  LocalizationService
+  LocalizationService,
 } from '../tools';
 import {
   type AvailableLocalizationMessageContents,
   LocalizationDevtoolsServiceOptions,
-  type LocalizationMessageDataTypes
+  type LocalizationMessageDataTypes,
 } from './localization-devkit.interface';
 import {
-  OtterLocalizationDevtools
+  OtterLocalizationDevtools,
 } from './localization-devtools.service';
 import {
   OTTER_LOCALIZATION_DEVTOOLS_DEFAULT_OPTIONS,
-  OTTER_LOCALIZATION_DEVTOOLS_OPTIONS
+  OTTER_LOCALIZATION_DEVTOOLS_OPTIONS,
 } from './localization-devtools.token';
 
 const isLocalizationMessage = (message: any): message is AvailableLocalizationMessageContents => {

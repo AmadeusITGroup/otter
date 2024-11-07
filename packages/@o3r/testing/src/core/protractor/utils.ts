@@ -1,5 +1,5 @@
 import {
-  promise as pPromise
+  promise as pPromise,
 } from 'protractor';
 
 /**

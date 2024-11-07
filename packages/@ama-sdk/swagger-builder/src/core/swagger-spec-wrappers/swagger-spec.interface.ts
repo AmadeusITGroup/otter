@@ -3,7 +3,7 @@ import type {
   Path,
   QueryParameter,
   Schema,
-  Tag
+  Tag,
 } from 'swagger-schema-official';
 
 /** Swagger spec available as target of $ref field */

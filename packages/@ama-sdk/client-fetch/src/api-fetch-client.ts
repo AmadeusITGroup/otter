@@ -7,7 +7,7 @@ import type {
   RequestOptions,
   RequestOptionsParameters,
   ReviverType,
-  TokenizedOptions
+  TokenizedOptions,
 } from '@ama-sdk/core';
 import {
   CanceledCallError,
@@ -20,12 +20,12 @@ import {
   processFormData,
   ResponseJSONParseError,
   ReviverReply,
-  tokenizeRequestOptions
+  tokenizeRequestOptions,
 } from '@ama-sdk/core';
 import type {
   FetchCall,
   FetchPlugin,
-  PluginAsyncStarter
+  PluginAsyncStarter,
 } from './fetch-plugin';
 
 /** @see BaseApiClientOptions */

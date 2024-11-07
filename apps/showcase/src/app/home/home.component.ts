@@ -1,16 +1,16 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {
-  O3rComponent
+  O3rComponent,
 } from '@o3r/core';
 import {
-  DynamicContentModule
+  DynamicContentModule,
 } from '@o3r/dynamic-content';
 import {
-  CopyTextPresComponent
+  CopyTextPresComponent,
 } from '../../components';
 
 @O3rComponent({ componentType: 'Page' })

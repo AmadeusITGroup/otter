@@ -1,5 +1,5 @@
 import type {
-  CssMetadata
+  CssMetadata,
 } from '@o3r/styling';
 
 declare global {

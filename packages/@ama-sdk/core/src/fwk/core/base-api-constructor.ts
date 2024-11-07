@@ -1,9 +1,9 @@
 import {
   ReplyPlugin,
-  RequestPlugin
+  RequestPlugin,
 } from '../../plugins';
 import type {
-  Logger
+  Logger,
 } from '../logger';
 
 /** Interface of the constructor configuration object */

@@ -3,10 +3,10 @@ import {
   encryptPayload,
   generateContentEncryptionKey,
   generateIV,
-  wrapContentEncryptionKey
+  wrapContentEncryptionKey,
 } from './crypto';
 import {
-  Encoder
+  Encoder,
 } from './encoder';
 
 /**

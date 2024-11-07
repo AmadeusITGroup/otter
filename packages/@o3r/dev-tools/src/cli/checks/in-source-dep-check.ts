@@ -1,22 +1,22 @@
 #!/usr/bin/env node
 
 import {
-  readFileSync
+  readFileSync,
 } from 'node:fs';
 import {
   dirname,
   join,
-  resolve
+  resolve,
 } from 'node:path';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment -- _builtinLibs is not part of repl types (due to the fact it is flagged to internal usage purpose)
 // @ts-ignore
 // eslint-disable-next-line import-newlines/enforce -- needed to have the `@ts-ignore` working
 import { _builtinLibs as nodeWellKnownModules } from 'node:repl';
 import {
-  bold
+  bold,
 } from 'chalk';
 import {
-  program
+  program,
 } from 'commander';
 import * as glob from 'globby';
 import * as winston from 'winston';

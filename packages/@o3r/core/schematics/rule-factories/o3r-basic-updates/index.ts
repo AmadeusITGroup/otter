@@ -1,15 +1,15 @@
 import {
   Rule,
   SchematicContext,
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import {
   getWorkspaceConfig,
   readPackageJson,
-  WorkspaceProject
+  WorkspaceProject,
 } from '@o3r/schematics';
 import type {
-  PackageJson
+  PackageJson,
 } from 'type-fest';
 
 const ngUpdateScript = (tree: Tree, packageJsonObj: PackageJson, packageJsonPath = '/package.json') => {

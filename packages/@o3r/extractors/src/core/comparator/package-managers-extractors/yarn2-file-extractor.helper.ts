@@ -1,8 +1,8 @@
 import {
-  join
+  join,
 } from 'node:path';
 import {
-  O3rCliError
+  O3rCliError,
 } from '@o3r/schematics';
 import {
   Cache,
@@ -18,14 +18,14 @@ import {
   ResolveOptions,
   Resolver,
   structUtils,
-  ThrowReport
+  ThrowReport,
 } from '@yarnpkg/core';
 import {
-  npath
+  npath,
 } from '@yarnpkg/fslib';
 import yarnNpmPlugin from '@yarnpkg/plugin-npm';
 import {
-  CustomNpmSemverResolver
+  CustomNpmSemverResolver,
 } from './custom-npm-semver-resolver';
 
 // Class copied from https://github.com/yarnpkg/berry/blob/master/packages/yarnpkg-core/sources/MultiResolver.ts

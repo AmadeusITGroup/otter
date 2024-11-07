@@ -7,36 +7,36 @@ import {
   OnDestroy,
   OnInit,
   type Signal,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {
-  Store
+  Store,
 } from '@ngrx/store';
 import {
-  sendOtterMessage
+  sendOtterMessage,
 } from '@o3r/core';
 import {
   BehaviorSubject,
   ReplaySubject,
   sample,
   Subject,
-  Subscription
+  Subscription,
 } from 'rxjs';
 import {
   distinctUntilChanged,
   filter,
   map,
-  switchMap
+  switchMap,
 } from 'rxjs/operators';
 import {
   type PlaceholderMode,
   PlaceholderTemplateStore,
   selectPlaceholderTemplateMode,
-  selectSortedTemplates
+  selectSortedTemplates,
 } from '../../stores/placeholder-template';
 import {
   PlaceholderLoadingStatus,
-  PlaceholderLoadingStatusMessage
+  PlaceholderLoadingStatusMessage,
 } from './placeholder.interface';
 
 /**
