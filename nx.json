@@ -112,8 +112,10 @@
     "specs": [
       "base",
       "{projectRoot}/**/*.spec.ts",
+      "!{projectRoot}/**/*.it.spec.ts",
       "{projectRoot}/jest.config.*",
       "{projectRoot}/testing/**/*",
+      "!{projectRoot}/testing/jest.config.it.js",
       "{projectRoot}/mocks/**/*",
       "{workspaceRoot}/jest.config.ut.js"
     ],
@@ -161,6 +163,7 @@
         },
         "builders",
         "schematics",
+        "source",
         "specs"
       ],
       "outputs": [
