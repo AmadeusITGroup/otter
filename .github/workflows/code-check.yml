@@ -70,7 +70,7 @@ jobs:
         env:
           testCmd: ${{ inputs.affected && format('test:affected --base=remotes/origin/{0}', github.base_ref || github.ref_name) || 'test'}}
           NODE_OPTIONS: ${{ runner.os == 'Windows' && '--max_old_space_size=4096' || '' }}
-        run: yarn ${{ env.testCmd }}
+        run: yarn ${{ env.testCmd }} --collect-coverage
       - name: Publish tests reports
         if: always()
         uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 # v4.4.3

@@ -8,7 +8,6 @@ const getJestProjectConfig = require('./jest.config.ut').getJestProjectConfig;
  */
 module.exports.getJestConfig = (rootDir, options) => ({
   ...getJestProjectConfig(rootDir, false, options),
-  rootDir: '..',
   setupFilesAfterEnv: null,
   testPathIgnorePatterns: [
     '<rootDir>/.*/templates/.*'

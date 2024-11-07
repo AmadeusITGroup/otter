@@ -6,8 +6,7 @@ module.exports = {
   displayName: require('./package.json').name,
   testPathIgnorePatterns: [
     '<rootDir>/dist',
-    '<rootDir>/.*/templates/.*',
-    '\\.it\\.spec\\.ts$'
+    '<rootDir>/.*/templates/.*'
   ]
 };
 
