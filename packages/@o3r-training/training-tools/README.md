@@ -12,13 +12,13 @@ This package is a module to be used for Otter training purposes.
 [![Stable Version](https://img.shields.io/npm/v/@o3r/schematics?style=for-the-badge)](https://www.npmjs.com/package/@o3r/schematics)
 [![Bundle Size](https://img.shields.io/bundlephobia/min/@o3r/schematics?color=green&style=for-the-badge)](https://www.npmjs.com/package/@o3r/schematics)
 
-This module provides basic utilities to use the Otter training such as: 
+This module provides basic utilities to use the Otter training such as:
 - A code source extractor to generate JSON files compatible with [WebContainer](https://webcontainers.io/guides/working-with-the-file-system).
 
 ## How to install
 
 ```shell
-ng add @o3r/training-tools
+ng add @o3r-training/training-tools
 ```
 
 ## How to use

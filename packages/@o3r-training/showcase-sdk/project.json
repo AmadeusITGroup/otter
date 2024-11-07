@@ -1,8 +1,8 @@
 {
-  "name": "ama-sdk-showcase-sdk",
+  "name": "training-showcase-sdk",
   "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
   "projectType": "library",
-  "sourceRoot": "packages/@ama-sdk/showcase-sdk/src",
+  "sourceRoot": "packages/@o3r-training/showcase-sdk/src",
   "prefix": "o3r",
   "targets": {
     "build": {
@@ -28,7 +28,7 @@
     "publish": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "npm publish packages/@ama-sdk/showcase-sdk/dist"
+        "command": "npm publish packages/@o3r-training/showcase-sdk/dist"
       }
     }
   },

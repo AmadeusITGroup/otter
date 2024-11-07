@@ -2,9 +2,6 @@ import {
   ApiFetchClient
 } from '@ama-sdk/client-fetch';
 import {
-  PetApi
-} from '@ama-sdk/showcase-sdk';
-import {
   registerLocaleData
 } from '@angular/common';
 import localeEN from '@angular/common/locales/en';
@@ -74,6 +71,9 @@ import {
   OTTER_STYLING_DEVTOOLS_OPTIONS,
   StylingDevtoolsModule
 } from '@o3r/styling';
+import {
+  PetApi
+} from '@o3r-training/showcase-sdk';
 import {
   HIGHLIGHT_OPTIONS
 } from 'ngx-highlightjs';

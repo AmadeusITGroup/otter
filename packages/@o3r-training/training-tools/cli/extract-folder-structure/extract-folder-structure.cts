@@ -1,5 +1,5 @@
 import {lstat, readdir, readFile, writeFile} from 'node:fs/promises';
-import {type FileSystem, getFilesTree} from '@o3r/training-tools';
+import {type FileSystem, getFilesTree} from '../../src/public_api';
 import {join, resolve} from 'node:path';
 import {program} from 'commander';
 

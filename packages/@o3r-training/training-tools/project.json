@@ -2,7 +2,7 @@
   "name": "training-tools",
   "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
   "projectType": "library",
-  "sourceRoot": "packages/@o3r/training-tools/src",
+  "sourceRoot": "packages/@o3r-training/training-tools/src",
   "prefix": "o3r",
   "targets": {
     "build": {
@@ -44,17 +44,17 @@
     },
     "lint": {
       "options": {
-        "eslintConfig": "packages/@o3r/training-tools/.eslintrc.js",
+        "eslintConfig": "packages/@o3r-training/training-tools/.eslintrc.js",
         "lintFilePatterns": [
-          "packages/@o3r/training-tools/src/**/*.ts",
-          "packages/@o3r/training-tools/package.json"
+          "packages/@o3r-training/training-tools/src/**/*.ts",
+          "packages/@o3r-training/training-tools/package.json"
         ]
       }
     },
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "packages/@o3r/training-tools/jest.config.js"
+        "jestConfig": "packages/@o3r-training/training-tools/jest.config.js"
       }
     }
   },

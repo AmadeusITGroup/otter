@@ -313,7 +313,7 @@ export function setPackagerManagerConfig(options: PackageManagerConfig, execAppO
   execFileSync('npm', ['config', 'set', 'ignore-scripts=true', '-L=project'], execOptions);
 
   if (options.globalFolderPath) {
-    execFileSync('npm', ['config', 'set', `cache=${options.globalFolderPath}/npm-cache`, '-L=project'], execOptions);
+    execFileSync('npm', ['config', 'set', `cache=${join(options.globalFolderPath, 'npm-cache')}`, '-L=project'], execOptions);
   }
 
   if (shouldCleanPackageJson && existsSync(packageJsonPath)) {

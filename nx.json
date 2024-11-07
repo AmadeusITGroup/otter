@@ -516,5 +516,14 @@
     "appsDir": "apps"
   },
   "useDaemonProcess": false,
-  "cacheDirectory": ".cache/nx"
+  "cacheDirectory": ".cache/nx",
+  "nxCloudId": "63e6951e043da20dd8321aec",
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "nx-cloud",
+      "options": {
+        "nxCloudId": "63e6951e043da20dd8321aec"
+      }
+    }
+  }
 }

@@ -1,10 +1,4 @@
 import {
-  PetApi
-} from '@ama-sdk/showcase-sdk';
-import {
-  PetApiFixture
-} from '@ama-sdk/showcase-sdk/fixtures';
-import {
   AsyncPipe
 } from '@angular/common';
 import {
@@ -14,6 +8,12 @@ import {
 import {
   RouterModule
 } from '@angular/router';
+import {
+  PetApi
+} from '@o3r-training/showcase-sdk';
+import {
+  PetApiFixture
+} from '@o3r-training/showcase-sdk/fixtures';
 import {
   SdkComponent
 } from './sdk.component';

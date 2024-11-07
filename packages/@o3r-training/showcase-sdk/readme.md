@@ -1,7 +1,7 @@
 # Showcase SDK
 
->Note:
-This package is intended for **testing purposes only**. It is not suitable for production use.
+> [!NOTE]
+> This package is intended for **testing purposes only**. It is not suitable for production use.
 
 ### Based on openapi specs 3.0.2
 
@@ -129,6 +129,7 @@ For example, you want to be able to display that the flight is in X hours.
 You will need to compute this information with the two timezones -- the airport's and the user's.
 
 ### Solution proposed to remove the timezone: utils.DateTime
+
 The Otter framework has introduced the `utils.Date` and `utils.DateTime` objects to replace the `Date` implementation and convert the date returned by the API as if it were in the
 timezone of the user.
 
@@ -152,7 +153,9 @@ Simple example:
         description: If this vendor extension is present send dates without their timezone
         format: date-time
 ```
+
 Base model generated
+
 ```typescript
 // flight.ts generated in base models
 export interface Flight {

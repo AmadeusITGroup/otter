@@ -755,73 +755,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@ama-sdk/showcase-sdk@workspace:^, @ama-sdk/showcase-sdk@workspace:packages/@ama-sdk/showcase-sdk":
-  version: 0.0.0-use.local
-  resolution: "@ama-sdk/showcase-sdk@workspace:packages/@ama-sdk/showcase-sdk"
-  dependencies:
-    "@ama-sdk/client-fetch": "workspace:^"
-    "@ama-sdk/core": "workspace:^"
-    "@ama-sdk/schematics": "workspace:^"
-    "@angular-devkit/core": "npm:~18.2.0"
-    "@angular-devkit/schematics": "npm:~18.2.0"
-    "@angular-devkit/schematics-cli": "npm:^18.0.5"
-    "@angular/compiler": "npm:~18.2.0"
-    "@commitlint/cli": "npm:^19.0.0"
-    "@commitlint/config-conventional": "npm:^19.0.0"
-    "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@nx/eslint-plugin": "npm:~19.5.0"
-    "@nx/jest": "npm:~19.5.0"
-    "@o3r/eslint-config": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@openapitools/openapi-generator-cli": "npm:~2.15.0"
-    "@schematics/angular": "npm:~18.2.0"
-    "@stylistic/eslint-plugin": "npm:~2.7.0"
-    "@swc/cli": "npm:~0.5.0"
-    "@swc/core": "npm:~1.7.0"
-    "@swc/helpers": "npm:~0.5.0"
-    "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:^20.0.0"
-    "@typescript-eslint/parser": "npm:~8.12.2"
-    angular-eslint: "npm:~18.3.0"
-    chokidar: "npm:^3.5.2"
-    commit-and-tag-version: "npm:^12.0.0"
-    cpy-cli: "npm:^5.0.0"
-    eslint: "npm:^9.0.0"
-    eslint-plugin-import: "npm:^2.31.0"
-    eslint-plugin-import-newlines: "npm:^1.4.0"
-    eslint-plugin-jest: "npm:~28.8.0"
-    eslint-plugin-jsdoc: "npm:~50.2.0"
-    eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-sort-export-all: "npm:^1.4.1"
-    eslint-plugin-unicorn: "npm:^55.0.0"
-    eslint-plugin-unused-imports: "npm:^4.1.4"
-    globals: "npm:^15.9.0"
-    globby: "npm:^11.1.0"
-    isomorphic-fetch: "npm:~3.0.0"
-    jest: "npm:~29.7.0"
-    jest-junit: "npm:~16.0.0"
-    jsonc-eslint-parser: "npm:~2.4.0"
-    lint-staged: "npm:^15.0.0"
-    minimist: "npm:^1.2.6"
-    rimraf: "npm:^5.0.1"
-    ts-jest: "npm:~29.2.0"
-    tsc-watch: "npm:^6.0.4"
-    tslib: "npm:^2.6.2"
-    typedoc: "npm:~0.26.0"
-    typescript: "npm:~5.5.4"
-    typescript-eslint: "npm:~8.12.2"
-  peerDependencies:
-    "@ama-sdk/client-fetch": "workspace:^"
-    "@ama-sdk/core": "workspace:^"
-    isomorphic-fetch: ~3.0.0
-  peerDependenciesMeta:
-    "@ama-sdk/client-fetch":
-      optional: true
-    isomorphic-fetch:
-      optional: true
-  languageName: unknown
-  linkType: soft
-
 "@ama-sdk/swagger-builder@workspace:packages/@ama-sdk/swagger-builder":
   version: 0.0.0-use.local
   resolution: "@ama-sdk/swagger-builder@workspace:packages/@ama-sdk/swagger-builder"
@@ -6768,6 +6701,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nrwl/nx-cloud@npm:19.1.0":
+  version: 19.1.0
+  resolution: "@nrwl/nx-cloud@npm:19.1.0"
+  dependencies:
+    nx-cloud: "npm:19.1.0"
+  checksum: 10/ecae86aa0af80fb5d82f7f1cfc8e985231624f19b0131237a891895804def6f20a3c69fb2dbab020889b0351361ba9e9108a104c6f40243b029a7f98868a0042
+  languageName: node
+  linkType: hard
+
 "@nrwl/tao@npm:19.5.9":
   version: 19.5.9
   resolution: "@nrwl/tao@npm:19.5.9"
@@ -7139,6 +7081,165 @@ __metadata:
   checksum: 10/308d9d1ac15b40c1a7f6bd04c21610fc40703e8448902282015c288faaa2d64b55d2c15c70b3266b105df002812bfb596c4a639b29d3b0cf6e0bf4e05421bc5f
   languageName: node
   linkType: hard
+
+"@o3r-training/showcase-sdk@workspace:^, @o3r-training/showcase-sdk@workspace:packages/@o3r-training/showcase-sdk":
+  version: 0.0.0-use.local
+  resolution: "@o3r-training/showcase-sdk@workspace:packages/@o3r-training/showcase-sdk"
+  dependencies:
+    "@ama-sdk/client-fetch": "workspace:^"
+    "@ama-sdk/core": "workspace:^"
+    "@ama-sdk/schematics": "workspace:^"
+    "@angular-devkit/core": "npm:~18.2.0"
+    "@angular-devkit/schematics": "npm:~18.2.0"
+    "@angular-devkit/schematics-cli": "npm:^18.0.5"
+    "@angular/compiler": "npm:~18.2.0"
+    "@commitlint/cli": "npm:^19.0.0"
+    "@commitlint/config-conventional": "npm:^19.0.0"
+    "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
+    "@nx/eslint-plugin": "npm:~19.5.0"
+    "@nx/jest": "npm:~19.5.0"
+    "@o3r/eslint-config": "workspace:^"
+    "@o3r/eslint-plugin": "workspace:^"
+    "@openapitools/openapi-generator-cli": "npm:~2.15.0"
+    "@schematics/angular": "npm:~18.2.0"
+    "@stylistic/eslint-plugin": "npm:~2.7.0"
+    "@swc/cli": "npm:~0.5.0"
+    "@swc/core": "npm:~1.7.0"
+    "@swc/helpers": "npm:~0.5.0"
+    "@types/jest": "npm:~29.5.2"
+    "@types/node": "npm:^20.0.0"
+    "@typescript-eslint/parser": "npm:~8.12.2"
+    angular-eslint: "npm:~18.3.0"
+    chokidar: "npm:^3.5.2"
+    commit-and-tag-version: "npm:^12.0.0"
+    cpy-cli: "npm:^5.0.0"
+    eslint: "npm:^9.0.0"
+    eslint-plugin-import: "npm:^2.31.0"
+    eslint-plugin-import-newlines: "npm:^1.4.0"
+    eslint-plugin-jest: "npm:~28.8.0"
+    eslint-plugin-jsdoc: "npm:~50.2.0"
+    eslint-plugin-prefer-arrow: "npm:~1.2.3"
+    eslint-plugin-sort-export-all: "npm:^1.4.1"
+    eslint-plugin-unicorn: "npm:^55.0.0"
+    eslint-plugin-unused-imports: "npm:^4.1.4"
+    globals: "npm:^15.9.0"
+    globby: "npm:^11.1.0"
+    isomorphic-fetch: "npm:~3.0.0"
+    jest: "npm:~29.7.0"
+    jest-junit: "npm:~16.0.0"
+    jsonc-eslint-parser: "npm:~2.4.0"
+    lint-staged: "npm:^15.0.0"
+    minimist: "npm:^1.2.6"
+    rimraf: "npm:^5.0.1"
+    ts-jest: "npm:~29.2.0"
+    tsc-watch: "npm:^6.0.4"
+    tslib: "npm:^2.6.2"
+    typedoc: "npm:~0.26.0"
+    typescript: "npm:~5.5.4"
+    typescript-eslint: "npm:~8.12.2"
+  peerDependencies:
+    "@ama-sdk/client-fetch": "workspace:^"
+    "@ama-sdk/core": "workspace:^"
+    isomorphic-fetch: ~3.0.0
+  peerDependenciesMeta:
+    "@ama-sdk/client-fetch":
+      optional: true
+    isomorphic-fetch:
+      optional: true
+  languageName: unknown
+  linkType: soft
+
+"@o3r-training/training-tools@workspace:^, @o3r-training/training-tools@workspace:packages/@o3r-training/training-tools":
+  version: 0.0.0-use.local
+  resolution: "@o3r-training/training-tools@workspace:packages/@o3r-training/training-tools"
+  dependencies:
+    "@angular-devkit/build-angular": "npm:~18.2.0"
+    "@angular-devkit/core": "npm:~18.2.0"
+    "@angular-devkit/schematics": "npm:~18.2.0"
+    "@angular/animations": "npm:~18.2.0"
+    "@angular/cli": "npm:~18.2.0"
+    "@angular/common": "npm:~18.2.0"
+    "@angular/compiler": "npm:~18.2.0"
+    "@angular/compiler-cli": "npm:~18.2.0"
+    "@angular/core": "npm:~18.2.0"
+    "@angular/platform-browser": "npm:~18.2.0"
+    "@angular/platform-browser-dynamic": "npm:~18.2.0"
+    "@babel/core": "npm:~7.26.0"
+    "@babel/preset-typescript": "npm:~7.26.0"
+    "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
+    "@nx/eslint": "npm:~19.5.0"
+    "@nx/eslint-plugin": "npm:~19.5.0"
+    "@nx/jest": "npm:~19.5.0"
+    "@nx/js": "npm:~19.5.0"
+    "@o3r/build-helpers": "workspace:^"
+    "@o3r/eslint-plugin": "workspace:^"
+    "@o3r/schematics": "workspace:^"
+    "@schematics/angular": "npm:~18.2.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@swc/cli": "npm:~0.5.0"
+    "@swc/core": "npm:~1.7.0"
+    "@swc/helpers": "npm:~0.5.0"
+    "@types/inquirer": "npm:~8.2.10"
+    "@types/jest": "npm:~29.5.2"
+    "@types/node": "npm:^20.0.0"
+    "@types/semver": "npm:^7.3.13"
+    "@typescript-eslint/eslint-plugin": "npm:^7.14.1"
+    "@typescript-eslint/parser": "npm:^7.14.1"
+    "@typescript-eslint/utils": "npm:^7.14.1"
+    "@webcontainer/api": "npm:~1.4.0"
+    angular-eslint: "npm:~18.3.0"
+    commander: "npm:^12.0.0"
+    cpy-cli: "npm:^5.0.0"
+    eslint: "npm:^8.57.0"
+    eslint-import-resolver-node: "npm:^0.3.9"
+    eslint-import-resolver-typescript: "npm:^3.6.3"
+    eslint-plugin-import: "npm:^2.31.0"
+    eslint-plugin-import-newlines: "npm:^1.4.0"
+    eslint-plugin-jest: "npm:~28.8.0"
+    eslint-plugin-jsdoc: "npm:~48.11.0"
+    eslint-plugin-prefer-arrow: "npm:~1.2.3"
+    eslint-plugin-sort-export-all: "npm:^1.4.1"
+    eslint-plugin-unicorn: "npm:^54.0.0"
+    jest: "npm:~29.7.0"
+    jest-junit: "npm:~16.0.0"
+    jsonc-eslint-parser: "npm:~2.4.0"
+    jsonschema: "npm:~1.4.1"
+    nx: "npm:~19.5.0"
+    rxjs: "npm:^7.8.1"
+    ts-jest: "npm:~29.2.0"
+    ts-node: "npm:~10.9.2"
+    tslib: "npm:^2.6.2"
+    type-fest: "npm:^4.10.2"
+    typescript: "npm:~5.5.4"
+    zone.js: "npm:~0.14.2"
+  peerDependencies:
+    "@angular-devkit/schematics": ~18.2.0
+    "@o3r/schematics": "workspace:^"
+    "@schematics/angular": ~18.2.0
+    "@webcontainer/api": ~1.4.0
+    eslint: ^8.57.0
+    rxjs: ^7.8.1
+    type-fest: ^4.10.2
+    typescript: ~5.5.4
+  peerDependenciesMeta:
+    "@angular-devkit/architect":
+      optional: true
+    "@angular-devkit/core":
+      optional: true
+    "@angular-devkit/schematics":
+      optional: true
+    "@angular/cli":
+      optional: true
+    "@o3r/schematics":
+      optional: true
+    eslint:
+      optional: true
+    type-fest:
+      optional: true
+  bin:
+    o3r-extract-folder-structure: ./dist/cli/extract-folder-structure/extract-folder-structure.cjs
+  languageName: unknown
+  linkType: soft
 
 "@o3r/amaterasu-api-spec@workspace:^, @o3r/amaterasu-api-spec@workspace:packages/@o3r/amaterasu/amaterasu-api-spec":
   version: 0.0.0-use.local
@@ -7797,7 +7898,7 @@ __metadata:
     "@popperjs/core": "npm:^2.11.5"
     "@schematics/angular": "npm:~18.2.0"
     "@stylistic/eslint-plugin": "npm:~2.7.0"
-    "@types/chrome": "npm:^0.0.279"
+    "@types/chrome": "npm:^0.0.280"
     "@types/color": "npm:^3.0.6"
     "@types/jest": "npm:~29.5.2"
     "@types/tinycolor2": "npm:^1.4.6"
@@ -9144,6 +9245,7 @@ __metadata:
     ngx-highlightjs: "npm:^12.0.0"
     npm-run-all2: "npm:^6.0.0"
     nx: "npm:~19.5.0"
+    nx-cloud: "npm:^19.1.0"
     pixelmatch: "npm:^5.2.1"
     playwright-lighthouse: "npm:~4.0.0"
     pngjs: "npm:^7.0.0"
@@ -10033,7 +10135,6 @@ __metadata:
     "@ama-sdk/client-fetch": "workspace:^"
     "@ama-sdk/core": "workspace:^"
     "@ama-sdk/schematics": "workspace:^"
-    "@ama-sdk/showcase-sdk": "workspace:^"
     "@amadeus-it-group/kassette": "npm:^1.7.0"
     "@amadeus-it-group/tansu": "npm:~1.0.0"
     "@angular-devkit/architect": "npm:~0.1802.0"
@@ -10064,6 +10165,8 @@ __metadata:
     "@ngx-translate/core": "npm:~15.0.0"
     "@nx/eslint-plugin": "npm:~19.5.0"
     "@nx/jest": "npm:~19.5.0"
+    "@o3r-training/showcase-sdk": "workspace:^"
+    "@o3r-training/training-tools": "workspace:^"
     "@o3r/application": "workspace:^"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/components": "workspace:^"
@@ -10080,7 +10183,6 @@ __metadata:
     "@o3r/schematics": "workspace:^"
     "@o3r/styling": "workspace:^"
     "@o3r/testing": "workspace:^"
-    "@o3r/training-tools": "workspace:^"
     "@playwright/test": "npm:~1.48.0"
     "@popperjs/core": "npm:^2.11.5"
     "@schematics/angular": "npm:~18.2.0"
@@ -10890,98 +10992,6 @@ __metadata:
       optional: true
     typescript:
       optional: true
-  languageName: unknown
-  linkType: soft
-
-"@o3r/training-tools@workspace:^, @o3r/training-tools@workspace:packages/@o3r/training-tools":
-  version: 0.0.0-use.local
-  resolution: "@o3r/training-tools@workspace:packages/@o3r/training-tools"
-  dependencies:
-    "@angular-devkit/build-angular": "npm:~18.2.0"
-    "@angular-devkit/core": "npm:~18.2.0"
-    "@angular-devkit/schematics": "npm:~18.2.0"
-    "@angular/animations": "npm:~18.2.0"
-    "@angular/cli": "npm:~18.2.0"
-    "@angular/common": "npm:~18.2.0"
-    "@angular/compiler": "npm:~18.2.0"
-    "@angular/compiler-cli": "npm:~18.2.0"
-    "@angular/core": "npm:~18.2.0"
-    "@angular/platform-browser": "npm:~18.2.0"
-    "@angular/platform-browser-dynamic": "npm:~18.2.0"
-    "@babel/core": "npm:~7.26.0"
-    "@babel/preset-typescript": "npm:~7.26.0"
-    "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@nx/eslint": "npm:~19.5.0"
-    "@nx/eslint-plugin": "npm:~19.5.0"
-    "@nx/jest": "npm:~19.5.0"
-    "@nx/js": "npm:~19.5.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/schematics": "workspace:^"
-    "@schematics/angular": "npm:~18.2.0"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
-    "@swc/cli": "npm:~0.5.0"
-    "@swc/core": "npm:~1.7.0"
-    "@swc/helpers": "npm:~0.5.0"
-    "@types/inquirer": "npm:~8.2.10"
-    "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:^20.0.0"
-    "@types/semver": "npm:^7.3.13"
-    "@typescript-eslint/eslint-plugin": "npm:^7.14.1"
-    "@typescript-eslint/parser": "npm:^7.14.1"
-    "@typescript-eslint/utils": "npm:^7.14.1"
-    "@webcontainer/api": "npm:~1.4.0"
-    angular-eslint: "npm:~18.3.0"
-    commander: "npm:^12.0.0"
-    cpy-cli: "npm:^5.0.0"
-    eslint: "npm:^8.57.0"
-    eslint-import-resolver-node: "npm:^0.3.9"
-    eslint-import-resolver-typescript: "npm:^3.6.3"
-    eslint-plugin-import: "npm:^2.31.0"
-    eslint-plugin-import-newlines: "npm:^1.4.0"
-    eslint-plugin-jest: "npm:~28.8.0"
-    eslint-plugin-jsdoc: "npm:~48.11.0"
-    eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-sort-export-all: "npm:^1.4.1"
-    eslint-plugin-unicorn: "npm:^54.0.0"
-    jest: "npm:~29.7.0"
-    jest-junit: "npm:~16.0.0"
-    jsonc-eslint-parser: "npm:~2.4.0"
-    jsonschema: "npm:~1.4.1"
-    nx: "npm:~19.5.0"
-    rxjs: "npm:^7.8.1"
-    ts-jest: "npm:~29.2.0"
-    ts-node: "npm:~10.9.2"
-    tslib: "npm:^2.6.2"
-    type-fest: "npm:^4.10.2"
-    typescript: "npm:~5.5.4"
-    zone.js: "npm:~0.14.2"
-  peerDependencies:
-    "@angular-devkit/schematics": ~18.2.0
-    "@o3r/schematics": "workspace:^"
-    "@schematics/angular": ~18.2.0
-    "@webcontainer/api": ~1.4.0
-    eslint: ^8.57.0
-    rxjs: ^7.8.1
-    type-fest: ^4.10.2
-    typescript: ~5.5.4
-  peerDependenciesMeta:
-    "@angular-devkit/architect":
-      optional: true
-    "@angular-devkit/core":
-      optional: true
-    "@angular-devkit/schematics":
-      optional: true
-    "@angular/cli":
-      optional: true
-    "@o3r/schematics":
-      optional: true
-    eslint:
-      optional: true
-    type-fest:
-      optional: true
-  bin:
-    o3r-extract-folder-structure: ./dist/cli/extract-folder-structure/extract-folder-structure.cjs
   languageName: unknown
   linkType: soft
 
@@ -13686,13 +13696,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/chrome@npm:^0.0.279":
-  version: 0.0.279
-  resolution: "@types/chrome@npm:0.0.279"
+"@types/chrome@npm:^0.0.280":
+  version: 0.0.280
+  resolution: "@types/chrome@npm:0.0.280"
   dependencies:
     "@types/filesystem": "npm:*"
     "@types/har-format": "npm:*"
-  checksum: 10/c2f2287036b3bad1ea04545976c5e71a55582dcbfae1a7f7aaa8ceca39432fc86f04bed9eb042d74cd98c023a888ed3e4fd18ef5c95f415dd96e9382e3f06703
+  checksum: 10/81aed88de06e264049b8fdfefa54d6ce930dfc44aaea11eb95743fd6b856edf6e9a9974914ccf64359eee30808c0b3368e6ae2a1be97b2195962b3fbcdcc3138
   languageName: node
   linkType: hard
 
@@ -16733,7 +16743,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:1.7.7, axios@npm:^1.6.7, axios@npm:^1.7.2":
+"axios@npm:1.7.7, axios@npm:^1.6.0, axios@npm:^1.6.7, axios@npm:^1.7.2":
   version: 1.7.7
   resolution: "axios@npm:1.7.7"
   dependencies:
@@ -20093,6 +20103,13 @@ __metadata:
   version: 16.4.5
   resolution: "dotenv@npm:16.4.5"
   checksum: 10/55a3134601115194ae0f924e54473459ed0d9fc340ae610b676e248cca45aa7c680d86365318ea964e6da4e2ea80c4514c1adab5adb43d6867fb57ff068f95c8
+  languageName: node
+  linkType: hard
+
+"dotenv@npm:~10.0.0":
+  version: 10.0.0
+  resolution: "dotenv@npm:10.0.0"
+  checksum: 10/55f701ae213e3afe3f4232fae5edfb6e0c49f061a363ff9f1c5a0c2bf3fb990a6e49aeada11b2a116efb5fdc3bc3f1ef55ab330be43033410b267f7c0809a9dc
   languageName: node
   linkType: hard
 
@@ -28099,7 +28116,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-machine-id@npm:1.1.12":
+"node-machine-id@npm:1.1.12, node-machine-id@npm:^1.1.12":
   version: 1.1.12
   resolution: "node-machine-id@npm:1.1.12"
   checksum: 10/46bf3d4fab8d0e63b24c42bcec2b6975c7ec5bc16e53d7a589d095668d0fdf0bfcbcdc28246dd1ef74cf95a37fbd774cd4b17b41f518d79dfad7fdc99f995903
@@ -28355,6 +28372,26 @@ __metadata:
   version: 2.2.13
   resolution: "nwsapi@npm:2.2.13"
   checksum: 10/f7f30a236f2ee513ea8042f1a987481dc2b900167c47f7163882f0fcfe7ccb57b5c8daaf2c91008dc20a204fcd79e050aee25001433ad99990bbed5a8c74121c
+  languageName: node
+  linkType: hard
+
+"nx-cloud@npm:19.1.0, nx-cloud@npm:^19.1.0":
+  version: 19.1.0
+  resolution: "nx-cloud@npm:19.1.0"
+  dependencies:
+    "@nrwl/nx-cloud": "npm:19.1.0"
+    axios: "npm:^1.6.0"
+    chalk: "npm:^4.1.0"
+    dotenv: "npm:~10.0.0"
+    fs-extra: "npm:^11.1.0"
+    ini: "npm:4.1.3"
+    node-machine-id: "npm:^1.1.12"
+    open: "npm:~8.4.0"
+    tar: "npm:6.2.1"
+    yargs-parser: "npm:>=21.1.1"
+  bin:
+    nx-cloud: bin/nx-cloud.js
+  checksum: 10/c4cfaac8b048580e6d0b18d1cc6c94107762c91fc9530806465a7286f2fff924bc98914883ddb052c53c4066fbe2bfe19674f69729e28fe4928e25dd1e911828
   languageName: node
   linkType: hard
 
@@ -28664,7 +28701,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"open@npm:^8.0.0, open@npm:^8.0.4, open@npm:^8.0.9, open@npm:^8.4.0":
+"open@npm:^8.0.0, open@npm:^8.0.4, open@npm:^8.0.9, open@npm:^8.4.0, open@npm:~8.4.0":
   version: 8.4.2
   resolution: "open@npm:8.4.2"
   dependencies:
@@ -33483,7 +33520,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tar@npm:^6.0.5, tar@npm:^6.1.11, tar@npm:^6.2.1":
+"tar@npm:6.2.1, tar@npm:^6.0.5, tar@npm:^6.1.11, tar@npm:^6.2.1":
   version: 6.2.1
   resolution: "tar@npm:6.2.1"
   dependencies:
@@ -36143,7 +36180,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yargs-parser@npm:21.1.1, yargs-parser@npm:^21.0.0, yargs-parser@npm:^21.1.1":
+"yargs-parser@npm:21.1.1, yargs-parser@npm:>=21.1.1, yargs-parser@npm:^21.0.0, yargs-parser@npm:^21.1.1":
   version: 21.1.1
   resolution: "yargs-parser@npm:21.1.1"
   checksum: 10/9dc2c217ea3bf8d858041252d43e074f7166b53f3d010a8c711275e09cd3d62a002969a39858b92bbda2a6a63a585c7127014534a560b9c69ed2d923d113406e

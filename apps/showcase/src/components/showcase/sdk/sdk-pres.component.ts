@@ -1,11 +1,4 @@
 import {
-  PetApi,
-  Tag
-} from '@ama-sdk/showcase-sdk';
-import type {
-  Pet
-} from '@ama-sdk/showcase-sdk';
-import {
   ChangeDetectionStrategy,
   Component,
   computed,
@@ -30,6 +23,13 @@ import {
 import {
   O3rComponent
 } from '@o3r/core';
+import type {
+  Pet
+} from '@o3r-training/showcase-sdk';
+import {
+  PetApi,
+  Tag
+} from '@o3r-training/showcase-sdk';
 import {
   OtterIconPathPipe,
   OtterPickerPresComponent

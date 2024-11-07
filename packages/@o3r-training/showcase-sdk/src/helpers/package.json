@@ -1,5 +1,5 @@
 {
-  "name": "@ama-sdk/showcase-sdk/helpers",
+  "name": "@o3r-training/showcase-sdk/helpers",
   "main": "../cjs/helpers/index.js",
   "module": "../esm2020/helpers/index.js",
   "es2020": "../esm2020/helpers/index.js",
