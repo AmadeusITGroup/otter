@@ -27,11 +27,5 @@ export default [
         ...globals.node
       }
     }
-  },
-  {
-    name: '@o3r/amaterasu/amaterasu-dodo/override',
-    rules: {
-      'unicorn/no-process-exit': 'off'
-    }
   }
 ];
