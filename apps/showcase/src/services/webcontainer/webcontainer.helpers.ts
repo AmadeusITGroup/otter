@@ -1,7 +1,7 @@
 import {
   FileSystem,
   getFilesTree
-} from '@o3r/training-tools';
+} from '@o3r-training/training-tools';
 import {
   type DirectoryNode,
   type FileSystemTree,

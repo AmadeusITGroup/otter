@@ -126,7 +126,7 @@ export class PerformanceMetricPlugin implements FetchPlugin {
 
   constructor(options?: Partial<PerformanceMetricOptions>) {
     this.getPerformanceTag = options?.getPerformanceTag || this.getPerformanceTag;
-    this.performance = options?.performance || window?.performance;
+    this.performance = options?.performance || (typeof window === 'undefined' ? undefined : window.performance);
     this.onMarkComplete = options ? options.onMarkComplete : this.onMarkComplete;
     this.onMarkError = options ? options.onMarkError : this.onMarkError;
     this.onMarkOpen = options ? options.onMarkOpen : this.onMarkOpen;

@@ -143,6 +143,7 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKShellSchemati
     } else if (properties.packageManager === 'npm' && options.specPackageRegistry && specScope) {
       const workspaceRootNpmrcPath = posix.join(tree.root.path, '.npmrc');
       const standaloneNpmrcPath = posix.join(targetPath, '.npmrc');
+
       const editNpmrc = (npmrcPath: string, create = false) => {
         const exists = tree.exists(npmrcPath);
         let npmrc = exists ? tree.readText(npmrcPath) : '';

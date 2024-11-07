@@ -20,8 +20,7 @@ export default [
       'dist',
       'build',
       'scripts',
-      'jest.config.js',
-      'eslint.config.js'
+      'jest.config.js'
     ]
   },
   {
@@ -50,6 +49,7 @@ export default [
       '@typescript-eslint/naming-convention': 'off',
       '@typescript-eslint/restrict-template-expressions': 'off',
       'max-len': 'off',
+      'no-redeclare': 'off',
       'no-use-before-define': 'off',
       'no-useless-escape': 'off'
     }

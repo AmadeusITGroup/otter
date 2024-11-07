@@ -69,6 +69,15 @@ const updateRenovateGroup = async (scopeName) => {
   await writeFile(renovateGroupPath, JSON.stringify(renovateGroup, null, 2) + '\n');
 };
 
+/**
+ * @param {string} scopeName
+ */
+const updatePackageJson = async (scopeName) => {
+  const packageJson = JSON.parse(await readFile(resolve(root, 'package.json'), { encoding: 'utf8' }));
+  packageJson.workspaces.push(`packages/@${scopeName}/*`);
+  packageJson.scripts['verdaccio:publish'] += ` --@${scopeName}:registry=http://127.0.0.1:4873`;
+};
+
 (() => {
   if (!scopeName) {
     throw new Error('No scope name provided');
@@ -78,6 +87,7 @@ const updateRenovateGroup = async (scopeName) => {
     updateVerdaccioConfig(scopeName),
     updateItTestWorkflow(scopeName),
     updateNpmrcPr(scopeName),
-    updateRenovateGroup(scopeName)
+    updateRenovateGroup(scopeName),
+    updatePackageJson(scopeName)
   ]);
 })();
