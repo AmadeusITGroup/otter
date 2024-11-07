@@ -3,10 +3,14 @@
   "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "packages/@o3r/build-helpers/scripts",
+  "tags": [],
   "targets": {
     "lint": {
       "executor": "nx:run-commands"
+    },
+    "build": {
+      "executor": "nx:noop",
+      "dependsOn": []
     }
-  },
-  "tags": []
+  }
 }

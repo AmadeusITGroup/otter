@@ -1,0 +1,37 @@
+{
+  "name": "github-actions-release",
+  "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "tools/github-actions/release",
+  "prefix": "o3r",
+  "targets": {
+    "build": {
+      "executor": "nx:noop",
+      "dependsOn": [
+        "compile-github-action"
+      ]
+    },
+    "compile-github-action": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "build"
+      }
+    },
+    "package-github-action": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "package"
+      }
+    },
+    "lint": {
+      "options": {
+        "eslintConfig": "tools/github-actions/release/.eslintrc.js",
+        "lintFilePatterns": [
+          "tools/github-actions/release/src/**/*.ts",
+          "tools/github-actions/release/package.json"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

@@ -8,6 +8,9 @@ import {
   normalize,
   resolve
 } from 'node:path';
+import type {
+  CliWrapper
+} from '@o3r/telemetry';
 import * as minimist from 'minimist';
 import {
   parseDesignTokenFile,
@@ -20,7 +23,7 @@ import type {
 
 const args = minimist(process.argv.splice(2));
 
-void (async () => {
+const run = async () => {
   const renderDesignTokenOptions: DesignTokenRendererOptions = {};
 
   const output = args.o || args.output;
@@ -51,4 +54,15 @@ void (async () => {
   }, new Map());
 
   await renderDesignTokens(tokens, renderDesignTokenOptions);
+};
+
+void (async () => {
+  let wrapper: CliWrapper = (fn: any) => fn;
+  try {
+    const { createCliWithMetrics } = await import('@o3r/telemetry');
+    wrapper = createCliWithMetrics;
+  } catch {
+    // Do not throw if `@o3r/telemetry` is not installed
+  }
+  return wrapper(run, '@o3r/design:build-design-token')();
 })();

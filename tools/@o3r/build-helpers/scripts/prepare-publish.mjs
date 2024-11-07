@@ -33,7 +33,7 @@ const appendPath = argv.append && normalize(argv.append);
 const findPrivatePackage = (currentFolder) => {
   const inspectedPackage = resolve(currentFolder, 'package.json');
   if (existsSync(inspectedPackage)) {
-    const pck = JSON.parse(readFileSync(inspectedPackage, { encoding: 'utf-8' }));
+    const pck = JSON.parse(readFileSync(inspectedPackage, { encoding: 'utf8' }));
     if (pck.private) {
       return {
         content: pck,
@@ -85,7 +85,7 @@ function preparePublish(rootPath, distPath, packageJsonPath) {
     throw new Error('No private package.json found');
   }
 
-  const packageJson = JSON.parse(readFileSync(distPackageJson, { encoding: 'utf-8' }));
+  const packageJson = JSON.parse(readFileSync(distPackageJson, { encoding: 'utf8' }));
   fields.forEach((field) => packageJson[field] ||= privatePackageJson.content[field]);
 
   writeFileSync(distPackageJson, JSON.stringify(packageJson, null, 2));
@@ -101,6 +101,7 @@ function preparePublish(rootPath, distPath, packageJsonPath) {
   if (readmeBasePath) {
     copyFileSync(readmeBasePath, readmeDistPath);
   } else {
+    // eslint-disable-next-line no-console -- only logger available
     console.warn(`No README.md file found for ${distPath}`);
   }
 }

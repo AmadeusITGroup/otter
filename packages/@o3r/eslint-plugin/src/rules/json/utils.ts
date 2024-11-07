@@ -2,9 +2,6 @@ import {
   type ParserServices,
   TSESLint
 } from '@typescript-eslint/utils';
-import type {
-  AST
-} from 'jsonc-eslint-parser';
 
 /** Basic interface for the Parser Services object provided by jsonc-eslint-parser */
 type JsoncParserServices = ParserServices & {
@@ -17,24 +14,6 @@ type JsoncParserServices = ParserServices & {
  */
 export function isJsoncParserServices(parserServices: any): parserServices is JsoncParserServices {
   return !!parserServices && typeof parserServices.isJSON !== 'undefined';
-}
-
-/**
- * True if the node is of type JSONProperty
- * @param node
- * @param node.type
- */
-export function isProperty(node?: { type: string }): node is AST.JSONProperty {
-  return !!node && node.type !== 'JSONProperty';
-}
-
-/**
- * True if the node is of type JSONObjectExpression
- * @param node
- * @param node.type
- */
-export function isObjectExpression(node?: { type: string }): node is AST.JSONObjectExpression {
-  return !!node && node.type !== 'JSONObjectExpression';
 }
 
 /**

@@ -4,13 +4,9 @@ import {
 import type {
   JsonObject
 } from '@angular-devkit/core';
-import {
-  callRule,
+import type {
   Rule
 } from '@angular-devkit/schematics';
-import {
-  lastValueFrom
-} from 'rxjs';
 import {
   getEnvironmentInfo
 } from '../environment/index';
@@ -41,6 +37,8 @@ export const createSchematicWithMetrics: SchematicWrapper = (schematicFn, sendDa
   let error: any;
   try {
     const rule = schematicFn(options);
+    const { callRule } = await import('@angular-devkit/schematics');
+    const { lastValueFrom } = await import('rxjs');
     await lastValueFrom(callRule(rule, tree, context));
   } catch (e: any) {
     const err = e instanceof Error ? e : new Error(e.toString());

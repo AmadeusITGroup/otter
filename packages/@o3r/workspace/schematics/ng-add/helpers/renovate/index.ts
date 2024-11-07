@@ -10,6 +10,7 @@ import {
   url
 } from '@angular-devkit/schematics';
 import {
+  getPackageManager,
   getTemplateFolder
 } from '@o3r/schematics';
 
@@ -24,7 +25,8 @@ export function generateRenovateConfig(rootPath: string): Rule {
     }
     const templateSource = apply(url(getTemplateFolder(rootPath, __dirname)), [
       template({
-        dot: '.'
+        dot: '.',
+        packageManager: getPackageManager()
       }),
       renameTemplateFiles()
     ]);

@@ -55,4 +55,15 @@ describe('getMetadataTokenDefinitionRenderer', () => {
     expect(result2).toContain('$test');
     expect(privateDefinitionRenderer).toHaveBeenCalledTimes(1);
   });
+
+  test('should enforce reference when expecting override', () => {
+    const tokenValueRenderer = jest.fn().mockReturnValue(JSON.stringify({ name: 'test-var', value: 'test-value' }));
+    const renderer = getCssTokenDefinitionRenderer({ tokenValueRenderer });
+    const variable = designTokens.get('example.var-expect-override');
+
+    renderer(variable, designTokens);
+    expect(variable).toBeDefined();
+    expect(tokenValueRenderer).toHaveBeenCalledTimes(1);
+    expect(tokenValueRenderer).toHaveBeenCalledWith(expect.objectContaining({}), expect.objectContaining({}), true);
+  });
 });

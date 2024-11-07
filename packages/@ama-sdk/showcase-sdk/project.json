@@ -14,7 +14,7 @@
       "options": {
         "script": "build"
       },
-      "inputs": ["source", "^source-and-cli"]
+      "inputs": ["source", "^cli"]
     },
     "regen": {
       "executor": "nx:run-script",

@@ -77,9 +77,13 @@ export const selectActiveRuleSets = createSelector(
     return to && to.getTime() >= time;
   }).map((ruleSet: Ruleset) => ruleSet.id));
 
-/*
+/**
  * Assign rulesetId to a component
- * @deprecated; It will be rmeoved in v12 with the selector using it
+ * @param compName
+ * @param library
+ * @param ruleSetId
+ * @param acc
+ * @deprecated It will be replaced by the selector using it, will be removed in v12.
  */
 function linkRulesetToComponent(compName: string, library: string, ruleSetId: string, acc: Record<string, string[]> = {}) {
   const configName = computeItemIdentifier(compName, library);
@@ -87,7 +91,13 @@ function linkRulesetToComponent(compName: string, library: string, ruleSetId: st
   acc[configName].push(ruleSetId);
 }
 
-/* Assign component to RulesetIds Map */
+/**
+ * Assign component to RulesetIds Map
+ * @param compName
+ * @param library
+ * @param ruleSetId
+ * @param acc
+ */
 function linkComponentToRuleset(compName: string, library: string, ruleSetId: string, acc: Record<string, string[]> = {}) {
   const configName = computeItemIdentifier(compName, library);
   acc[ruleSetId] ||= [];

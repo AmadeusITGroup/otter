@@ -42,8 +42,9 @@ const getConfigurationArray = (content: ComponentConfigOutput[]): ComponentConfi
 
 const getConfigurationPropertyName = (config: ComponentConfigOutput) => `${config.library}#${config.name}` + (config.properties.length > 0 ? ` ${config.properties[0].name}` : '');
 
-const isMigrationConfigurationDataMatch = (config: ComponentConfigOutput, migrationData: MigrationConfigData) =>
-  migrationData.libraryName === config.library
+const isMigrationConfigurationDataMatch = (config: ComponentConfigOutput, migrationData: MigrationConfigData, metadataType: string) =>
+  metadataType === 'CONFIG'
+  && migrationData.libraryName === config.library
   && (!migrationData.configName || migrationData.configName === config.name)
   && (!migrationData.propertyName || config.properties[0]?.name === migrationData.propertyName);
 

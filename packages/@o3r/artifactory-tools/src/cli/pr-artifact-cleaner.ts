@@ -1,5 +1,8 @@
 #!/usr/bin/env node
 
+import type {
+  CliWrapper
+} from '@o3r/telemetry';
 import {
   program
 } from 'commander';
@@ -80,7 +83,7 @@ const fetchOptions = {
 logger.debug(`AQL search executed : ${fetchOptions.body}`);
 logger.info(`Url called : ${url}`);
 
-void (async () => {
+const run = async () => {
   logger.info(`Requesting old artifacts using  ${url}`);
   let responseSearch: any;
   let responseSearchObj: { results: { repo: string; path: string; name: string }[] };
@@ -150,4 +153,15 @@ void (async () => {
       logger.info(response);
     }
   }
+};
+
+void (async () => {
+  let wrapper: CliWrapper = (fn: any) => fn;
+  try {
+    const { createCliWithMetrics } = await import('@o3r/telemetry');
+    wrapper = createCliWithMetrics;
+  } catch {
+    // Do not throw if `@o3r/telemetry` is not installed
+  }
+  return wrapper(run, '@o3r/artifactory-tools:pr-artifact-cleaner', { logger, preParsedOptions: programOptions })();
 })();

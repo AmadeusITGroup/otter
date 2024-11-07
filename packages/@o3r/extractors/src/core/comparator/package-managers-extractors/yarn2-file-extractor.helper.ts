@@ -185,10 +185,10 @@ export async function getFilesFromRegistry(packageDescriptor: string, paths: str
   const descriptor = getDescriptorFromReference(packageDescriptor);
   const result = await fetchPackage(project, descriptor);
   const extractedFiles = paths.reduce((acc: Record<string, string>, path) => {
-    acc[path] = result.packageFs.readFileSync(
-      npath.toPortablePath(join(result.prefixPath, path)),
-      'utf8'
-    );
+    const portablePath = npath.toPortablePath(join(result.prefixPath, path));
+    if (result.packageFs.existsSync(portablePath)) {
+      acc[path] = result.packageFs.readFileSync(portablePath, 'utf8');
+    }
     return acc;
   }, {});
   if (result.releaseFs) {

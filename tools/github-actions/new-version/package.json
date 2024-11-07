@@ -20,7 +20,8 @@
     "@actions/exec": "^1.1.1",
     "@actions/github": "^6.0.0",
     "@o3r/new-version": "workspace:~",
-    "semver": "^7.5.2"
+    "semver": "^7.5.2",
+    "tslib": "^2.6.2"
   },
   "devDependencies": {
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",

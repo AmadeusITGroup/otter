@@ -50,7 +50,10 @@ export default [
       '@o3r/json-dependency-versions-harmonize': [
         'error',
         {
-          ignoredPackages: ['@o3r/build-helpers'],
+          ignoredPackages: [
+            '@o3r/build-helpers',
+            '@o3r/workspace-helpers'
+          ],
           ignoredDependencies: ['npm'],
           alignPeerDependencies: false,
           alignEngines: true

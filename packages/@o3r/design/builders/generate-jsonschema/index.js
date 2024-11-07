@@ -1,6 +1,6 @@
 /*
 
-This files is used to allow the usage of the builder within @o3r/framework mono-repository.
+This file is used to allow the use of the builder in the @o3r/framework mono-repository.
 It should not be part of the package.
 
 */

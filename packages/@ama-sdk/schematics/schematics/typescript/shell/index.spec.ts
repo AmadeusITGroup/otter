@@ -26,6 +26,7 @@ const baseFileList = [
   '/.commitlintrc.json',
   '/.editorconfig',
   '/eslint.config.mjs',
+  '/.gitattributes',
   '/.gitignore',
   '/.openapi-generator-ignore',
   '/.renovaterc.json',

@@ -98,6 +98,28 @@ describe('Design Token Parser', () => {
         expect(item).toBeDefined();
         expect(item.extensions.o3rImportant).toBe(false);
       });
+
+      test('should generate a variable with template when the token matches star', () => {
+        const result = parser.parseDesignToken({
+          ...exampleVariableWithContext,
+          context: {
+            template: {
+              example: {
+                '*': {
+                  $extensions: {
+                    o3rImportant: true
+                  }
+                }
+              }
+            } as DesignTokenGroupTemplate
+          }
+        });
+        const item = result.get('example.var1');
+
+        expect(item).toBeDefined();
+        expect(item.extensions.o3rImportant).toBe(true);
+        expect(item.extensions.o3rPrivate).toBeFalsy();
+      });
     });
 
     test('should generate a complex variable', () => {

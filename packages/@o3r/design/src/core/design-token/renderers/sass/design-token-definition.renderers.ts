@@ -7,11 +7,14 @@ import type {
   TokenValueRenderer
 } from '../../parsers/design-token-parser.interface';
 import {
-  getCssTokenValueRenderer
-} from '../css/design-token-value.renderers';
+  isO3rPrivateVariable
+} from '../design-token.renderer.helpers';
 import type {
   TokenDefinitionRenderer
 } from '../design-token.renderer.interface';
+import {
+  getSassTokenValueRenderer
+} from './design-token-value.renderers';
 
 export interface SassTokenDefinitionRendererOptions {
 
@@ -23,6 +26,12 @@ export interface SassTokenDefinitionRendererOptions {
    * @default {@see tokenVariableNameSassRenderer}
    */
   tokenVariableNameRenderer?: TokenKeyRenderer;
+
+  /**
+   * Determine if the variable is private and should not be rendered
+   * @default {@see isO3rPrivateVariable}
+   */
+  isPrivateVariable?: (variable: DesignTokenVariableStructure) => boolean;
 
   /**
    * Custom logger
@@ -44,11 +53,20 @@ export const tokenVariableNameSassRenderer: TokenKeyRenderer = (variable) => {
  * @param options
  */
 export const getSassTokenDefinitionRenderer = (options?: SassTokenDefinitionRendererOptions): TokenDefinitionRenderer => {
-  const tokenValueRenderer = options?.tokenValueRenderer || getCssTokenValueRenderer({ logger: options?.logger });
+  const tokenValueRenderer = options?.tokenValueRenderer || getSassTokenValueRenderer({ logger: options?.logger });
   const keyRenderer = options?.tokenVariableNameRenderer || tokenVariableNameSassRenderer;
+  const isPrivateVariable = options?.isPrivateVariable || isO3rPrivateVariable;
 
   const renderer = (variable: DesignTokenVariableStructure, variableSet: Map<string, DesignTokenVariableStructure>) => {
-    return `$${variable.getKey(keyRenderer)}: ${tokenValueRenderer(variable, variableSet, true)};`;
+    let variableString = `$${variable.getKey(keyRenderer)}: ${tokenValueRenderer(variable, variableSet)}${variable.extensions.o3rExpectOverride ? ' !default' : ''};`;
+    if (isPrivateVariable(variable)) {
+      variableString = '/// @access private\n' + variableString;
+    }
+    if (variable.description) {
+      variableString = variable.description.split(/[\n\r]+/).map((line) => `/// ${line}`).join('\n') + '\n' + variableString;
+    }
+
+    return variableString;
   };
   return renderer;
 };

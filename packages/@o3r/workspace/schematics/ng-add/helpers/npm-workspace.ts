@@ -97,7 +97,7 @@ export function filterPackageJsonScripts(tree: Tree, _context: SchematicContext)
  */
 export function addMonorepoManager(o3rWorkspacePackageJson: PackageJson & { generatorDependencies: Record<string, string> }, manager: MonorepoManager): Rule {
   return (tree: Tree, _context: SchematicContext) => {
-    if (manager === 'lerna') {
+    if (manager === 'lerna' && !tree.exists('/lerna.json')) {
       const rootPackageJsonPath = '/package.json';
       if (!tree.exists(rootPackageJsonPath)) {
         throw new SchematicsException('Root package.json does not exist');

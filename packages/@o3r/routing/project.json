@@ -22,16 +22,7 @@
       }
     },
     "prepare": {
-      "executor": "nx:run-script",
-      "outputs": ["{projectRoot}/src/package.json"],
-      "inputs": [
-        "global",
-        "{projectRoot}/package.json"
-      ],
-      "dependsOn": ["^build"],
-      "options": {
-        "script": "prepare:compile"
-      }
+      "executor": "nx:run-script"
     },
     "lint": {
       "executor": "nx:run-commands"

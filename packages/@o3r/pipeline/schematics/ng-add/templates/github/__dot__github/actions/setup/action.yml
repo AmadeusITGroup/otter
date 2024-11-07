@@ -1,0 +1,21 @@
+name: Setup and Install
+description: Sets up Node.js and installs dependencies
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
+      with:
+        node-version: 20
+        cache: <%= packageManager %>
+    - name: Enable Corepack
+      shell: bash
+      run: corepack enable
+    - name: Install
+<% if (npmRegistry) { %>
+      env:
+        COREPACK_NPM_REGISTRY: <%= npmRegistry %>
+        COREPACK_INTEGRITY_KEYS: ""
+<% } %>
+      shell: bash
+      run: <%= setupCommand %>

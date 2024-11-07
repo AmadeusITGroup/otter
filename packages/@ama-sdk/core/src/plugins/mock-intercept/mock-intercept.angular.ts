@@ -25,6 +25,7 @@ import {
  *
  * This plugin should be used only with the MockInterceptRequest Plugin.
  * It will allow the user to delay the response or to handle the getResponse function provided with the mock (if present).
+ * @deprecated Use the one exposed by {@link @ama-sdk/client-angular}, will be removed in v13
  */
 export class MockInterceptAngular implements AngularPlugin {
   constructor(protected options: MockInterceptFetchParameters) {}
