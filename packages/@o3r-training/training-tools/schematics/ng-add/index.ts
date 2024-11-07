@@ -1,6 +1,10 @@
-import type { Rule } from '@angular-devkit/schematics';
 import * as path from 'node:path';
-import type { NgAddSchematicsSchema } from './schema';
+import type {
+  Rule
+} from '@angular-devkit/schematics';
+import type {
+  NgAddSchematicsSchema
+} from './schema';
 
 /**
  * Add Otter training tools to an Angular Project
@@ -25,4 +29,3 @@ export const ngAdd = (options: NgAddSchematicsSchema): Rule => async () => {
   const { createSchematicWithMetricsIfInstalled } = await import('@o3r/schematics');
   return createSchematicWithMetricsIfInstalled(ngAddFn)(options);
 };
-

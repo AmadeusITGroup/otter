@@ -7172,10 +7172,12 @@ __metadata:
     "@nx/jest": "npm:~19.5.0"
     "@nx/js": "npm:~19.5.0"
     "@o3r/build-helpers": "workspace:^"
+    "@o3r/eslint-config": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@schematics/angular": "npm:~18.2.0"
-    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@stylistic/eslint-plugin": "npm:~2.7.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.7.0"
     "@swc/cli": "npm:~0.5.0"
     "@swc/core": "npm:~1.7.0"
     "@swc/helpers": "npm:~0.5.0"
@@ -7183,23 +7185,20 @@ __metadata:
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
     "@types/semver": "npm:^7.3.13"
-    "@typescript-eslint/eslint-plugin": "npm:^7.14.1"
-    "@typescript-eslint/parser": "npm:^7.14.1"
-    "@typescript-eslint/utils": "npm:^7.14.1"
+    "@typescript-eslint/parser": "npm:~8.12.2"
     "@webcontainer/api": "npm:~1.4.0"
     angular-eslint: "npm:~18.3.0"
     commander: "npm:^12.0.0"
     cpy-cli: "npm:^5.0.0"
-    eslint: "npm:^8.57.0"
-    eslint-import-resolver-node: "npm:^0.3.9"
-    eslint-import-resolver-typescript: "npm:^3.6.3"
+    eslint: "npm:^9.0.0"
     eslint-plugin-import: "npm:^2.31.0"
     eslint-plugin-import-newlines: "npm:^1.4.0"
     eslint-plugin-jest: "npm:~28.8.0"
-    eslint-plugin-jsdoc: "npm:~48.11.0"
+    eslint-plugin-jsdoc: "npm:~50.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-sort-export-all: "npm:^1.4.1"
-    eslint-plugin-unicorn: "npm:^54.0.0"
+    eslint-plugin-unicorn: "npm:^55.0.0"
+    eslint-plugin-unused-imports: "npm:^4.1.4"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
@@ -7211,13 +7210,13 @@ __metadata:
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.10.2"
     typescript: "npm:~5.5.4"
+    typescript-eslint: "npm:~8.12.2"
     zone.js: "npm:~0.14.2"
   peerDependencies:
     "@angular-devkit/schematics": ~18.2.0
     "@o3r/schematics": "workspace:^"
     "@schematics/angular": ~18.2.0
     "@webcontainer/api": ~1.4.0
-    eslint: ^8.57.0
     rxjs: ^7.8.1
     type-fest: ^4.10.2
     typescript: ~5.5.4
@@ -7231,8 +7230,6 @@ __metadata:
     "@angular/cli":
       optional: true
     "@o3r/schematics":
-      optional: true
-    eslint:
       optional: true
     type-fest:
       optional: true
