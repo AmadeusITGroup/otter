@@ -1,4 +1,6 @@
-import { PerformanceMetricPlugin } from './perf-metric.fetch';
+import {
+  PerformanceMetricPlugin
+} from './perf-metric.fetch';
 
 let perfPlugin: PerformanceMetricPlugin;
 describe('PerformanceMetricPlugin', () => {
@@ -6,7 +8,7 @@ describe('PerformanceMetricPlugin', () => {
 
   beforeEach(() => {
     onMarkOpen = jest.fn();
-    perfPlugin = new PerformanceMetricPlugin({onMarkOpen});
+    perfPlugin = new PerformanceMetricPlugin({ onMarkOpen });
   });
 
   it('should generate new mark ids', () => {
@@ -15,7 +17,7 @@ describe('PerformanceMetricPlugin', () => {
 
   it('should include a new mark when closing', () => {
     const markId = perfPlugin.openMark('my-url', {});
-    const ret = new Promise<void>((resolve) =>{
+    const ret = new Promise<void>((resolve) => {
       perfPlugin.onMarkComplete = (mark) => {
         expect(mark).toBeDefined();
         expect(mark.markId).toBe(markId);

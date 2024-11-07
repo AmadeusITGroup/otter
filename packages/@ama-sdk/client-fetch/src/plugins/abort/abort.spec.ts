@@ -1,7 +1,8 @@
-import { AbortFetch } from './abort.fetch';
+import {
+  AbortFetch
+} from './abort.fetch';
 
 describe('Abort Plugin', () => {
-
   it('should trigger the callback', async () => {
     const fn = jest.fn();
     const plugin = new AbortFetch(fn);

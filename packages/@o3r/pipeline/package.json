@@ -62,7 +62,6 @@
     "@angular-devkit/architect": "~0.1802.0",
     "@angular-devkit/core": "~18.2.0",
     "@angular-devkit/schematics": "~18.2.0",
-    "@angular-eslint/eslint-plugin": "~18.3.0",
     "@compodoc/compodoc": "^1.1.19",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@nx/eslint-plugin": "~19.5.0",

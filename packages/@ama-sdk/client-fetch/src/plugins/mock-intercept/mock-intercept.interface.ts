@@ -1,5 +1,9 @@
-import type { MockAdapter } from '@ama-sdk/core';
-import type { FetchPluginContext } from '../../fetch-plugin';
+import type {
+  MockAdapter
+} from '@ama-sdk/core';
+import type {
+  FetchPluginContext
+} from '../../fetch-plugin';
 
 /** Mock Fetch Plugin options */
 export interface MockInterceptFetchParameters {
