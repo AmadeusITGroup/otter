@@ -1,7 +1,11 @@
-import type { FetchCall, FetchPlugin, FetchPluginContext } from '../../fetch-plugin';
+import type {
+  FetchCall,
+  FetchPlugin,
+  FetchPluginContext
+} from '../../fetch-plugin';
 
 /** Callback function type */
-export type CallbackFunction<T> = (context: FetchPluginContext & {data: T | undefined}, fetchCall: FetchCall, response?: Response) => void;
+export type CallbackFunction<T> = (context: FetchPluginContext & { data: T | undefined }, fetchCall: FetchCall, response?: Response) => void;
 
 /** Result of the condition function */
 export interface CanStartConditionResult<T = any> {
@@ -59,7 +63,6 @@ export type CanStartConditionFunction<T = any> = (context: FetchPluginContext) =
  * ```
  */
 export class WaitForFetch<T = any> implements FetchPlugin {
-
   /** Condition to wait to start the call */
   public canStartCondition: CanStartConditionFunction<T>;
 
@@ -81,13 +84,12 @@ export class WaitForFetch<T = any> implements FetchPlugin {
     this.callback = callback;
   }
 
-
   /** @inheritDoc */
   public load(context: FetchPluginContext) {
     let data: T | undefined;
 
     return {
-      // eslint-disable-next-line no-async-promise-executor
+      // eslint-disable-next-line no-async-promise-executor -- all await are handled with a try-catch block
       canStart: () => new Promise<boolean>(async (resolve) => {
         let didTimeOut = false;
         let timer: any;
@@ -107,7 +109,7 @@ export class WaitForFetch<T = any> implements FetchPlugin {
           if (!didTimeOut) {
             resolve(canStart);
           }
-        } catch (ex) {
+        } catch {
           if (!didTimeOut) {
             resolve(false);
           }
@@ -135,5 +137,4 @@ export class WaitForFetch<T = any> implements FetchPlugin {
       }
     };
   }
-
 }

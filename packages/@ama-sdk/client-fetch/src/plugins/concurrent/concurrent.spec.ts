@@ -1,7 +1,8 @@
-import {ConcurrentFetch} from './concurrent.fetch';
+import {
+  ConcurrentFetch
+} from './concurrent.fetch';
 
 describe('Concurrent Fetch Plugin', () => {
-
   it('should start if the limit is not reach', async () => {
     const plugin = new ConcurrentFetch(3);
 
@@ -30,7 +31,7 @@ describe('Concurrent Fetch Plugin', () => {
 
     const call0: any = new Promise<any>((resolve) => resolves[0] = resolve);
     const call1: any = new Promise<any>((resolve) => resolves[1] = resolve);
-    const result = {res: false};
+    const result = { res: false };
 
     void plugin.load({} as any).transform(call0);
     const runner1 = plugin.load({} as any);

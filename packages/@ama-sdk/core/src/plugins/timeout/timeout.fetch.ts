@@ -135,7 +135,6 @@ export class TimeoutFetch implements FetchPlugin {
               resolve(response);
             }
           } catch (ex: any) {
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access -- type is explicitly `any`
             reject(ex instanceof Error ? ex : new Error(ex.toString()));
           } finally {
             if (timer) {

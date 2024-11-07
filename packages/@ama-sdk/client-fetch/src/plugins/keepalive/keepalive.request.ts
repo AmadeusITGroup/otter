@@ -1,10 +1,13 @@
-import { PluginRunner, RequestOptions, RequestPlugin } from '@ama-sdk/core';
+import {
+  PluginRunner,
+  RequestOptions,
+  RequestPlugin
+} from '@ama-sdk/core';
 
 /**
  * Plugin to add the keepalive flag to the request
  */
 export class KeepaliveRequest implements RequestPlugin {
-
   private active: boolean | undefined;
 
   constructor(force = false) {
@@ -26,9 +29,9 @@ export class KeepaliveRequest implements RequestPlugin {
     const customHeaders = new Headers();
     customHeaders.set('Content-Type', 'application/json');
     try {
-      await fetch('', {headers: customHeaders, keepalive: true});
+      await fetch('', { headers: customHeaders, keepalive: true });
       this.active = true;
-    } catch (e) {
+    } catch {
       this.active = false;
     }
   }
@@ -36,7 +39,7 @@ export class KeepaliveRequest implements RequestPlugin {
   public load(): PluginRunner<RequestOptions, RequestOptions> {
     return {
       transform: (data: RequestOptions) => {
-        return {...data, keepalive: this.active};
+        return { ...data, keepalive: this.active };
       }
     };
   }

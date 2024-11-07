@@ -1,5 +1,11 @@
-import { ResponseTimeoutError } from '@ama-sdk/core';
-import type { FetchCall, FetchPlugin, FetchPluginContext } from '../../fetch-plugin';
+import {
+  ResponseTimeoutError
+} from '@ama-sdk/core';
+import type {
+  FetchCall,
+  FetchPlugin,
+  FetchPluginContext
+} from '../../fetch-plugin';
 
 /**
  * Representation of an Imperva Captcha message
@@ -26,9 +32,10 @@ export type TimeoutStatus = 'timeoutStopped' | 'timeoutStarted';
  * @param message
  */
 function isImpervaCaptchaMessage(message: any): message is ImpervaCaptchaMessageData {
-  return !!message && Object.prototype.hasOwnProperty.call(message, 'impervaChallenge') &&
-    Object.prototype.hasOwnProperty.call(message.impervaChallenge, 'status') &&
-    Object.prototype.hasOwnProperty.call(message.impervaChallenge, 'type') && message.impervaChallenge.type === 'captcha';
+  return !!message && Object.prototype.hasOwnProperty.call(message, 'impervaChallenge')
+    && Object.prototype.hasOwnProperty.call(message.impervaChallenge, 'status')
+    && Object.prototype.hasOwnProperty.call(message.impervaChallenge, 'type')
+    && message.impervaChallenge.type === 'captcha';
 }
 
 /**
@@ -44,15 +51,14 @@ export type TimeoutPauseEventHandlerFactory<T> = (config?: Partial<T>) => Timeou
 /**
  * Captures Imperva captcha events and calls the event callback
  * It can only be used for browser's integrating imperva captcha
- * @param config: list of host names that can trigger a captcha event
- * @param config
+ * @param config list of host names that can trigger a captcha event
  * @returns removeEventListener
  */
 export const impervaCaptchaEventHandlerFactory: TimeoutPauseEventHandlerFactory<{ whiteListedHostNames: string[] }> = (config) =>
   (timeoutPauseCallback: (timeoutStatus: TimeoutStatus) => void) => {
-    const onImpervaCaptcha = ((event: MessageEvent<any>) => {
+    const onImpervaCaptcha = (event: MessageEvent<any>) => {
       const originHostname = (new URL(event.origin)).hostname;
-      if (originHostname !== location.hostname && (config?.whiteListedHostNames || []).indexOf(originHostname) === -1) {
+      if (originHostname !== location.hostname && !(config?.whiteListedHostNames || []).includes(originHostname)) {
         return;
       }
       let message = event.data;
@@ -66,7 +72,7 @@ export const impervaCaptchaEventHandlerFactory: TimeoutPauseEventHandlerFactory<
       if (typeof message === 'object' && isImpervaCaptchaMessage(message)) {
         timeoutPauseCallback(message.impervaChallenge.status === 'started' ? 'timeoutStopped' : 'timeoutStarted');
       }
-    });
+    };
     addEventListener('message', onImpervaCaptcha);
     return () => {
       removeEventListener('message', onImpervaCaptcha);
@@ -77,7 +83,6 @@ export const impervaCaptchaEventHandlerFactory: TimeoutPauseEventHandlerFactory<
  * Plugin to fire an exception on timeout
  */
 export class TimeoutFetch implements FetchPlugin {
-
   /** Fetch timeout (in millisecond) */
   public timeout: number;
   private timerSubscription: ((pauseStatus: TimeoutStatus) => void)[] = [];
@@ -88,7 +93,7 @@ export class TimeoutFetch implements FetchPlugin {
    * @param timeout Timeout in millisecond
    * @param timeoutPauseEvent Event that will trigger the pause and reset of the timeout
    */
-  constructor(timeout = 60000, private readonly timeoutPauseEvent?: TimeoutPauseEventHandler) {
+  constructor(timeout = 60_000, private readonly timeoutPauseEvent?: TimeoutPauseEventHandler) {
     this.timeout = timeout;
     if (this.timeoutPauseEvent) {
       this.timeoutPauseEvent((pausedStatus: TimeoutStatus) => {
@@ -101,7 +106,7 @@ export class TimeoutFetch implements FetchPlugin {
   public load(context: FetchPluginContext) {
     return {
       transform: (fetchCall: FetchCall) =>
-        // eslint-disable-next-line no-async-promise-executor
+        // eslint-disable-next-line no-async-promise-executor -- all await are handled with a try-catch block
         new Promise<Response>(async (resolve, reject) => {
           const timeoutCallback = () => {
             reject(new ResponseTimeoutError(`in ${this.timeout}ms`));
@@ -126,13 +131,13 @@ export class TimeoutFetch implements FetchPlugin {
             if (!context.controller.signal.aborted) {
               resolve(response);
             }
-          } catch (ex) {
-            reject(ex);
+          } catch (ex: any) {
+            reject(ex instanceof Error ? ex : new Error(ex.toString()));
           } finally {
             if (timer) {
               clearTimeout(timer);
             }
-            this.timerSubscription = this.timerSubscription.filter(callback => timerCallback !== callback);
+            this.timerSubscription = this.timerSubscription.filter((callback) => timerCallback !== callback);
           }
         })
     };

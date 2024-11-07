@@ -9,7 +9,9 @@ import {
   RequestPlugin,
   SequentialMockAdapter
 } from '@ama-sdk/core';
-import { MockInterceptFetch } from './mock-intercept.fetch';
+import {
+  MockInterceptFetch
+} from './mock-intercept.fetch';
 
 const testMock: Mock<any> = {
   mockData: {}
@@ -25,7 +27,7 @@ const testMockAdapter: MockAdapter = {
   retrieveOperationId: retrieveOperationIdSpy
 };
 
-const requestPlugins: RequestPlugin[] = [new MockInterceptRequest({adapter: new SequentialMockAdapter([], {})})];
+const requestPlugins: RequestPlugin[] = [new MockInterceptRequest({ adapter: new SequentialMockAdapter([], {}) })];
 const apiClient = {
   options: {
     requestPlugins,
@@ -42,7 +44,7 @@ describe('Mock intercept', () => {
       const plugin = new MockInterceptRequest({ disabled: true, adapter: testMockAdapter });
       const originalRequest: RequestOptions = {
         method: 'get',
-        headers: new Headers({test: 'true'}),
+        headers: new Headers({ test: 'true' }),
         basePath: 'myurl'
       };
       const loaded = plugin.load();
@@ -70,7 +72,7 @@ describe('Mock intercept', () => {
       // Disabled because Blob URL is not supported on NodeJS
       const plugin = new MockInterceptRequest({ adapter: testMockAdapter });
       const originalRequest: RequestOptions = {
-        headers: new Headers({test: 'true'}),
+        headers: new Headers({ test: 'true' }),
         basePath: 'myurl',
         method: 'PATCH'
       };
@@ -96,7 +98,7 @@ describe('Mock intercept', () => {
           getLatestMock: getLatestMockSpy,
           retrieveOperationId: retrieveOperationIdSpy
         };
-        plugin = new MockInterceptFetch({adapter: asyncMockAdapter});
+        plugin = new MockInterceptFetch({ adapter: asyncMockAdapter });
       });
 
       it('should call initialize fn', async () => {
@@ -111,7 +113,7 @@ describe('Mock intercept', () => {
             })
           }
         });
-        const testData: any = {test: true};
+        const testData: any = { test: true };
         await loadedPlugin.transform(Promise.resolve(testData));
 
         expect(initializeSpy).toHaveBeenCalled();

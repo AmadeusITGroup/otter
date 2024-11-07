@@ -1,7 +1,19 @@
-import type { PluginAsyncRunner } from '@ama-sdk/core';
-import { MockInterceptFetchParameters } from './mock-intercept.interface';
-import { CUSTOM_MOCK_OPERATION_ID_HEADER, MockInterceptRequest } from '@ama-sdk/core';
-import type { FetchCall, FetchPlugin, FetchPluginContext, PluginAsyncStarter } from '../../fetch-plugin';
+import type {
+  PluginAsyncRunner
+} from '@ama-sdk/core';
+import {
+  CUSTOM_MOCK_OPERATION_ID_HEADER,
+  MockInterceptRequest
+} from '@ama-sdk/core';
+import type {
+  FetchCall,
+  FetchPlugin,
+  FetchPluginContext,
+  PluginAsyncStarter
+} from '../../fetch-plugin';
+import {
+  MockInterceptFetchParameters
+} from './mock-intercept.interface';
 
 /**
  * Plugin to mock and intercept the fetch of SDK
@@ -10,11 +22,9 @@ import type { FetchCall, FetchPlugin, FetchPluginContext, PluginAsyncStarter } f
  * It will allow the user to delay the response or to handle the getResponse function provided with the mock (if present).
  */
 export class MockInterceptFetch implements FetchPlugin {
-
   constructor(protected options: MockInterceptFetchParameters) {}
 
   public load(context: FetchPluginContext): PluginAsyncRunner<Response, Promise<Response>> & PluginAsyncStarter {
-
     if (!context.apiClient.options.requestPlugins.some((plugin) => plugin instanceof MockInterceptRequest)) {
       throw new Error('MockInterceptFetch plugin should be used only with the MockInterceptRequest plugin');
     }
@@ -24,8 +34,7 @@ export class MockInterceptFetch implements FetchPlugin {
         await this.options.adapter.initialize();
 
         let responsePromise = fetchCall;
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-        if (!context.options.headers || !(context.options.headers instanceof Headers) || !(context.options.headers as Headers).has(CUSTOM_MOCK_OPERATION_ID_HEADER)) {
+        if (!context.options.headers || !(context.options.headers instanceof Headers) || !context.options.headers.has(CUSTOM_MOCK_OPERATION_ID_HEADER)) {
           return responsePromise;
         }
 
@@ -35,8 +44,7 @@ export class MockInterceptFetch implements FetchPlugin {
           responsePromise = new Promise<Response>((resolve) => setTimeout(resolve, delay)).then(() => resp);
         }
 
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-        const operationId = (context.options.headers as Headers).get(CUSTOM_MOCK_OPERATION_ID_HEADER)!;
+        const operationId = context.options.headers.get(CUSTOM_MOCK_OPERATION_ID_HEADER)!;
         try {
           const mock = this.options.adapter.getLatestMock(operationId);
 
@@ -46,7 +54,6 @@ export class MockInterceptFetch implements FetchPlugin {
 
           const response = mock.getResponse();
           return responsePromise.then(() => response);
-
         } catch {
           (context.logger || console).error(`Failed to retrieve the latest mock for Operation ID ${operationId}, fallback to default mock`);
           return responsePromise;
@@ -54,5 +61,4 @@ export class MockInterceptFetch implements FetchPlugin {
       }
     };
   }
-
 }
