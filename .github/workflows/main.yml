@@ -95,6 +95,7 @@ jobs:
     uses: ./.github/workflows/it-tests.yml
     secrets:
       NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
+      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
     needs: [yarn_lock_check, build]
     with:
       skipNxCache: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release') }}

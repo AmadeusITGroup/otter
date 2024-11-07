@@ -73,10 +73,11 @@ jobs:
         env:
           testCmd: ${{ inputs.affected && format('test:affected --base=remotes/origin/{0}', github.base_ref || github.ref_name) || 'test'}}
           NODE_OPTIONS: ${{ runner.os == 'Windows' && '--max_old_space_size=4096' || '' }}
-        run: yarn ${{ env.testCmd }} --collect-coverage
+        run: yarn ${{ env.testCmd }} --collectCoverage
       - name: Upload results to Codecov
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@b9fd7d16f6d7d1b5d2bec1a2887e65ceed900238 # v4.6.0
         with:
+          flags: unittests
           token: ${{ secrets.CODECOV_TOKEN }}
       - name: Publish tests reports
         if: always()

@@ -12,6 +12,9 @@ on:
       NX_CLOUD_ACCESS_TOKEN:
         required: false
         description: Token to use Nx Cloud token
+      CODECOV_TOKEN:
+        required: false
+        description: Token Report to Codecov
 
 env:
   NX_SKIP_NX_CACHE: ${{ inputs.skipNxCache }}
@@ -106,7 +109,12 @@ jobs:
         shell: bash
       - name: Test
         id: it-tests
-        run: yarn test-int
+        run: yarn test-int --collectCoverage
+      - name: Upload results to Codecov
+        uses: codecov/codecov-action@b9fd7d16f6d7d1b5d2bec1a2887e65ceed900238 # v4.6.0
+        with:
+          flags: integration
+          token: ${{ secrets.CODECOV_TOKEN }}
       - name: Zip generated app on failure
         if: failure() && steps.it-tests.conclusion == 'failure'
         run: |

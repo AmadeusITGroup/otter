@@ -20,5 +20,6 @@ module.exports.getJestConfig = (rootDir, options) => ({
     ['jest-junit', {outputDirectory: '<rootDir>/dist-test', outputName: 'it-report.xml'}],
     'github-actions'
   ],
+  coverageReporters: ['cobertura'],
   testTimeout: 30 * 60 * 1000
 });
