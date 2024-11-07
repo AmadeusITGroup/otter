@@ -14,7 +14,7 @@
     <div class="d-flex gap-3">
       <div ngbDropdown>
         <button type="button" class="btn btn-outline-primary" id="training-exercise-selection" ngbDropdownToggle>
-          {{currentStep.description.title}}
+          {{currentStep.description.stepTitle}}
         </button>
         <div ngbDropdownMenu aria-labelledby="training-exercise-selection">
           @for (label of stepNames(); track label; let id = $index) {
@@ -34,7 +34,7 @@
     class="flex-fill overflow-hidden mb-5"
     [class.constrained]="!!(currentStep.dynamicContent.solutionProject() || currentStep.dynamicContent.project())"
     [instructions]="currentStep.dynamicContent.htmlContent()"
-    [title]="currentStep.description.title"
+    [title]="currentStep.description.stepTitle"
     [project]="showSolution() ? currentStep.dynamicContent.solutionProject() : currentStep.dynamicContent.project()"
     [editorMode]="currentStep.description.filesConfiguration?.mode">
   </o3r-training-step-pres>

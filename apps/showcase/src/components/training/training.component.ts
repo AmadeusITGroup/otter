@@ -18,15 +18,23 @@ import {
   NgbDropdownToggle
 } from '@ng-bootstrap/ng-bootstrap';
 import {DynamicContentModule, DynamicContentService} from '@o3r/dynamic-content';
-import {DirectoryNode, FileNode, FileSystemTree} from '@webcontainer/api';
+import type {DirectoryNode, FileNode, FileSystemTree, SymlinkNode} from '@webcontainer/api';
 import {firstValueFrom} from 'rxjs';
 import {EditorMode, TrainingProject} from './code-editor-view';
 import {TrainingStepPresComponent} from './training-step';
 
+/** Step project content and its corresponding path */
+interface StepProjectUrl {
+  /** Path in step project */
+  path: string;
+  /** URL of content */
+  contentUrl: string;
+}
+
 /** Description of training step */
 interface TrainingStepDescription {
   /** Step title */
-  title: string;
+  stepTitle: string;
   /** URL to step instructions (HTML content) */
   htmlContentUrl: string;
   /** Step files configuration */
@@ -38,12 +46,18 @@ interface TrainingStepDescription {
     /** Commands to run in the project */
     commands: string[];
     /** URLs of step project */
-    urls: { [key: string]: string };
+    urls: StepProjectUrl[];
     /** URLs of step solution project */
-    solutionUrls?: { [key: string]: string };
+    solutionUrls?: StepProjectUrl[];
     /** Mode of the Code Editor */
     mode: EditorMode;
   };
+}
+
+/** Training program */
+interface TrainingProgram {
+  /** Steps of the training program */
+  trainingSteps: TrainingStepDescription[];
 }
 
 /** Training step - consists of its description and its dynamic content */
@@ -71,6 +85,83 @@ type Resource = {
 
 /** RegExp of current step index at the end of the location URL (example: http://url/#/fragment#3) */
 const currentStepLocationRegExp = new RegExp(/#([0-9]+)$/);
+
+/**
+ * Node is of type FileNode
+ * @param node Node from FileSystemTree
+ */
+const isFileNode = (node: DirectoryNode | FileNode | SymlinkNode): node is FileNode | SymlinkNode => !!(node as FileNode).file;
+
+/**
+ * Deep merge of directories
+ * @param dirBase Base directory
+ * @param dirOverride Directory to override base
+ */
+const mergeDirectories = (dirBase: DirectoryNode, dirOverride: DirectoryNode): DirectoryNode => {
+  const merge = structuredClone(dirBase);
+  Object.entries(dirOverride.directory).forEach(([path, node]) => {
+    const baseNode = merge.directory[path];
+    if (!baseNode || (isFileNode(node) && isFileNode(baseNode))) {
+      // Not present in base directory
+      // Or present in both as file
+      merge.directory[path] = node;
+    } else if (!isFileNode(node) && !isFileNode(baseNode)) {
+      // Present in both as directory
+      merge.directory[path] = mergeDirectories(baseNode, node);
+    } else {
+      throw new Error('Cannot merge file and directory together');
+    }
+  });
+  return merge;
+};
+
+/**
+ * Predicate to check if fileSystem can be typed as a `DirectoryNode`
+ * @param fileSystem
+ */
+const isDirectory = (fileSystem: DirectoryNode | FileNode | SymlinkNode): fileSystem is DirectoryNode => {
+  return 'directory' in fileSystem;
+};
+
+/**
+ * Merge a sub file system into another
+ * @param fileSystemTree Original file system.
+ * @param fileSystemOverride File system that should be merged with the original. Its files take precedence over the original one.
+ * @param path Location in mergeFolder where fileSystemOverride should be merged.
+ */
+function overrideFileSystemTree(fileSystemTree: FileSystemTree, fileSystemOverride: FileSystemTree, path: string[]): FileSystemTree {
+  const key = path.shift() as string;
+  const target = fileSystemTree[key] || { directory: {} };
+  if (path.length === 0 && isDirectory(target)) {
+    // Exploration of file system is done, we can merge the directories
+    fileSystemTree[key] = mergeDirectories(target, { directory: fileSystemOverride });
+  } else if (isDirectory(target)) {
+    fileSystemTree[key] = {
+      directory: {
+        ...target.directory,
+        ...overrideFileSystemTree(target.directory, fileSystemOverride, path)
+      }
+    };
+  } else {
+    throw new Error(`Cannot override the file ${key} with a folder`);
+  }
+  return fileSystemTree;
+}
+
+/**
+ * Generate a file system tree composed of the deep merge of all the resources passed in parameters
+ * @param resources Sorted list of path and content to load. If a file is defined several time, the last occurrence
+ * overrides the others
+ */
+function getFilesContent(resources: Resource[]) {
+  return (resources.reduce((fileSystemTree: FileSystemTree, resource) => {
+    const sanitizedPath = `./${resource.path.replace(new RegExp('^[.]/?'), '')}`;
+    const parsedPath = sanitizedPath.split('/').filter((pathEl) => !!pathEl);
+    overrideFileSystemTree(fileSystemTree, JSON.parse(resource.content) as FileSystemTree, parsedPath);
+    return fileSystemTree;
+  }, {} as FileSystemTree)['.'] as DirectoryNode).directory;
+}
+
 
 @Component({
   selector: 'o3r-training',
@@ -101,7 +192,7 @@ export class TrainingComponent implements OnInit {
   public steps = signal<TrainingStep[]>([]);
   /** Training step names for the dropdown menu */
   public stepNames = computed(() =>
-    this.steps().map((step) => step.description.title)
+    this.steps().map((step) => step.description.stepTitle)
   );
 
   /** Path to the training assets */
@@ -118,16 +209,21 @@ export class TrainingComponent implements OnInit {
   private async loadStepContent(step: TrainingStep) {
     if (!step.dynamicContent.htmlContent()) {
       const content = await this.loadResource(step.description.htmlContentUrl);
+      if (!content) {
+        // eslint-disable-next-line no-console
+        console.error('No step found');
+        return;
+      }
       step.dynamicContent.htmlContent.set(content);
     }
     const fileConfiguration = step.description.filesConfiguration;
     if (fileConfiguration?.urls && !step.dynamicContent.project()?.files) {
-      await this.updateStepDynamicContent(step, Object.entries(fileConfiguration.urls).map(([path, url])=> ({path, url})));
+      await this.updateStepDynamicContent(step, fileConfiguration.urls);
     }
     if (fileConfiguration?.urls && fileConfiguration?.solutionUrls && !step.dynamicContent.solutionProject()?.files) {
       await this.updateStepDynamicContent(step, [
-        ...Object.entries(fileConfiguration.urls).map(([path, url]) => ({path, url})),
-        ...Object.entries(fileConfiguration.solutionUrls).map(([path, url]) => ({path, url}))
+        ...fileConfiguration.urls,
+        ...fileConfiguration.solutionUrls
       ],
       true);
     }
@@ -137,9 +233,15 @@ export class TrainingComponent implements OnInit {
    * Load the training steps, including their description and dynamic content
    */
   private async loadSteps() {
-    const program: TrainingStepDescription[] = JSON.parse(await this.loadResource(`${this.trainingPath()}/program.json`));
+    const programFiles = await this.loadResource(`${this.trainingPath()}/program.json`);
+    if (!programFiles) {
+      // eslint-disable-next-line no-console
+      console.error('No training program found');
+      return;
+    }
+    const program = JSON.parse(programFiles) as TrainingProgram;
     const stepsToLoad: TrainingStep[] = [];
-    program.forEach((desc) => {
+    program.trainingSteps.forEach((desc) => {
       const step: TrainingStep = {
         description: desc,
         dynamicContent: {
@@ -158,51 +260,13 @@ export class TrainingComponent implements OnInit {
   }
 
   /**
-   * Convert the resources into a file system tree
-   * @param resources Training step resources including their paths and content
-   */
-  private getFilesContent(resources: Resource[]) {
-    return resources.reduce((fileSystemTree: FileSystemTree, resource) => {
-      if (resource.path === './' || resource.path === '.') {
-        return {...fileSystemTree, ...JSON.parse(resource.content)} as FileSystemTree;
-      }
-      const sanitizedPath = resource.path.replace(new RegExp('^[.]/?'), '');
-      const parsedPath = sanitizedPath.split('/');
-      parsedPath.reduce((pointer, path, index) => {
-        if (path.indexOf('.') > -1) {
-          const parsedContent = JSON.parse(resource.content);
-          pointer[path] = {file: {contents: parsedContent[path].file.contents}} as FileNode;
-          return pointer;
-        }
-        if (index === parsedPath.length - 1) {
-          if (pointer[path] && 'file' in pointer[path]) {
-            throw new Error('Cannot override a file with a folder');
-          }
-          pointer[path] ||= {directory: {}};
-          const pathDirectory = (pointer[path]).directory;
-          const overrides = Object.entries(JSON.parse(resource.content) as {[key: string]: FileNode | DirectoryNode});
-          overrides.forEach(([key, content]) =>
-            pathDirectory[key] = (pathDirectory[key] && 'directory' in pathDirectory[key])
-              ? {...(pathDirectory[key]).directory, ...content}
-              : content
-          );
-          return pathDirectory;
-        }
-        pointer[path] = pointer[path] && 'directory' in pointer[path] ? pointer[path] : {directory: {}};
-        return (pointer[path]).directory;
-      }, fileSystemTree);
-      return fileSystemTree;
-    }, {} as FileSystemTree);
-  }
-
-  /**
    * Load the resource using the provided URL
    * @param url
    */
   private async loadResource(url: string) {
     const resourceUrl = url.startsWith('./') ? `${this.trainingPath()}/${url.substring(2)}` : url;
     const response = await fetch(await firstValueFrom(this.dynamicContentService.getMediaPathStream(resourceUrl)));
-    return response.text();
+    return response.ok ? response.text() : undefined;
   }
 
   /**
@@ -211,15 +275,15 @@ export class TrainingComponent implements OnInit {
    * @param urls URLs of the step project or solution project
    * @param solutionProject Boolean indicating if the dynamic content is the project or solution project of the step
    */
-  private async updateStepDynamicContent(step: TrainingStep, urls: { url: string; path: string }[], solutionProject = false) {
-    const resourcesPromise: Promise<Resource[]> = Promise.all(urls.map(
-      async ({path, url}) => ({
-        path,
-        content: await this.loadResource(url)
-      })
-    ));
-    const resources = await resourcesPromise;
-    const filesContent = this.getFilesContent(resources);
+  private async updateStepDynamicContent(step: TrainingStep, urls: StepProjectUrl[], solutionProject = false) {
+    const resources = (await Promise.all(
+      urls.map(
+        async ({path, contentUrl}) => ({
+          path,
+          content: await this.loadResource(contentUrl)
+        })
+      ))).filter((resource): resource is Resource => !!resource.content);
+    const filesContent = getFilesContent(resources);
     step.dynamicContent[solutionProject ? 'solutionProject' : 'project'].set({
       startingFile: step.description.filesConfiguration!.startingFile || '',
       commands: step.description.filesConfiguration!.commands || [],
