@@ -34,6 +34,7 @@ header {
   max-height: calc(100vh - 4rem);
   overflow-y: auto;
   flex-grow: 1;
+  border-inline-end: 1px solid var(--df-gray-300);
 }
 
 .page-content {

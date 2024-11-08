@@ -1,8 +1,21 @@
 @if (steps()[currentStepIndex()]; as currentStep){
-  <div class="mt-7 mb-3 d-flex justify-content-between">
-    <div class="align-self-center">
-      <h1 class="m-0">{{title()}}</h1>
-      <div ngbDropdown class="mt-2">
+  <div class="mt-5 mb-3 d-flex justify-content-between align-items-center gap-3 flex-wrap">
+    <h1 class="m-0 flex-grow-1">{{title()}}</h1>
+    <div class="d-flex gap-3">
+      @if (currentStep.dynamicContent.project() || currentStep.dynamicContent.solutionProject()) {
+        <button type="button" class="btn btn-outline-primary" (click)="toggleDisplayInstructions()">
+          {{showInstructions() ? 'Hide instructions' : 'Show instructions'}}
+        </button>
+        <button type="button" class="btn btn-outline-danger"
+                (click)="toggleDisplaySolution()"
+                [disabled]="!showSolution() && !currentStep.dynamicContent.solutionProject() || showSolution() && !currentStep.dynamicContent.project()"
+        >
+          {{showSolution() ? 'Show exercise' : 'Show solution'}}
+        </button>
+      }
+    </div>
+    <div class="d-flex gap-3">
+      <div ngbDropdown>
         <button type="button" class="btn btn-outline-primary" id="training-exercise-selection" ngbDropdownToggle>
           {{currentStep.description.title}}
         </button>
@@ -14,25 +27,10 @@
           }
         </div>
       </div>
-    </div>
-    <div class="align-self-center d-flex flex-wrap">
-      @if (currentStep.dynamicContent.project() || currentStep.dynamicContent.solutionProject()) {
-        <button type="button" class="btn btn-outline-primary mb-2 mb-md-0 me-5" (click)="toggleDisplayInstructions()">
-          {{showInstructions() ? 'Hide instructions' : 'Show instructions'}}
-        </button>
-        <button type="button" class="btn btn-outline-danger mb-2 mb-md-0 me-5"
-                (click)="toggleDisplaySolution()"
-                [disabled]="!showSolution() && !currentStep.dynamicContent.solutionProject() || showSolution() && !currentStep.dynamicContent.project()"
-        >
-          {{showSolution() ? 'Show exercise' : 'Show solution'}}
-        </button>
-      }
-      <div>
-        <button type="button" class="btn btn-outline-secondary df-btn-icononly fa-chevron-left me-2" [disabled]="currentStepIndex() <= 0"
-                aria-label="Previous step" (click)="setCurrentStep(currentStepIndex() - 1)"></button>
-        <button type="button" class="btn btn-outline-secondary df-btn-icononly fa-chevron-right ms-2" [disabled]="currentStepIndex() >= steps().length - 1"
-                aria-label="Next step" (click)="setCurrentStep(currentStepIndex() + 1)"></button>
-      </div>
+      <button type="button" class="btn btn-outline-secondary df-btn-icononly fa-chevron-left" [disabled]="currentStepIndex() <= 0"
+              aria-label="Previous step" (click)="setCurrentStep(currentStepIndex() - 1)"></button>
+      <button type="button" class="btn btn-outline-secondary df-btn-icononly fa-chevron-right" [disabled]="currentStepIndex() >= steps().length - 1"
+              aria-label="Next step" (click)="setCurrentStep(currentStepIndex() + 1)"></button>
     </div>
   </div>
   <o3r-training-step-pres

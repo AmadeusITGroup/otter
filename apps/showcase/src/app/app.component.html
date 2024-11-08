@@ -10,7 +10,7 @@
       <div class="d-none d-sm-block">Otter Showcase</div>
     </div>
   </header>
-  <div class="flex-fill container">
+  <div class="flex-fill container-fluid">
     <div class="row">
       <div class="left-nav pt-5 col-2 d-none d-xl-block">
         <o3r-sidenav-pres
@@ -18,7 +18,7 @@
         [activeUrl]="activeUrl$ | async"
         ></o3r-sidenav-pres>
       </div>
-      <div class="page-content col-12 col-xl-10">
+      <div class="page-content col-12 col-xl-10 px-3 px-md-6 px-lg-9">
         <router-outlet></router-outlet>
       </div>
     </div>
