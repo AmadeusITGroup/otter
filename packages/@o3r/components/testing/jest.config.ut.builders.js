@@ -3,21 +3,20 @@ const getJestProjectConfig = require('../../../../jest.config.ut').getJestProjec
 
 const rootDir = path.join(__dirname, '..');
 
+const baseConfig = getJestProjectConfig(rootDir, false);
+
 /** @type {import('ts-jest/dist/types').JestConfigWithTsJest} */
 module.exports = {
-  ...getJestProjectConfig(rootDir, false),
+  ...baseConfig,
   displayName: `${require('../package.json').name}/builders`,
-  rootDir,
   setupFilesAfterEnv: ['<rootDir>/testing/setup-jest.builders.ts'],
   fakeTimers: {
-    enableGlobally: true,
+    ...baseConfig.fakeTimers,
     // This is needed to prevent timeout on builders tests
     advanceTimers: true
   },
   testPathIgnorePatterns: [
-    '<rootDir>/dist',
-    '<rootDir>/.*/templates/.*',
-    '<rootDir>/src/.*',
-    '\\.it\\.spec\\.ts$'
+    ...baseConfig.testPathIgnorePatterns,
+    '<rootDir>/src/.*'
   ]
 };

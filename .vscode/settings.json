@@ -28,7 +28,10 @@
   "typescript.preferences.preferTypeOnlyAutoImports": true,
   "jest.jestCommandLine": "yarn jest",
   "jest.debugMode": true,
-  "jest.runMode": "on-save",
+  "jest.runMode": {
+    "type": "on-save",
+    "coverage": true
+  },
   "testing.openTesting": "neverOpen",
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.patterns": {

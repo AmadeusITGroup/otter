@@ -8,17 +8,14 @@ const defaultConfig = getJestProjectConfig(rootDir, true);
 module.exports = {
   ...defaultConfig,
   displayName: require('../package.json').name,
-  rootDir,
   moduleNameMapper: {
     ...defaultConfig.moduleNameMapper,
     '^@o3r/testing/core$': ['<rootDir>/../../@o3r/testing/src/core/angular'],
     '^@o3r/testing/core/(.*)$': ['<rootDir>/../../@o3r/testing/src/core/angular/$1']
   },
   testPathIgnorePatterns: [
-    '<rootDir>/dist',
-    '<rootDir>/.*/templates/.*',
+    ...defaultConfig.testPathIgnorePatterns,
     '<rootDir>/builders/.*',
-    '<rootDir>/schematics/.*',
-    '\\.it\\.spec\\.ts$'
+    '<rootDir>/schematics/.*'
   ]
 };

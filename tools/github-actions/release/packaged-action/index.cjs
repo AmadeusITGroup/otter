@@ -2867,15 +2867,17 @@ var __webpack_exports__ = {};
 var exports = __webpack_exports__;
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-const semver_1 = __nccwpck_require__(997);
 const minimist = __nccwpck_require__(588);
+const semver_1 = __nccwpck_require__(997);
 const argv = minimist(process.argv.slice(2));
 const version = (0, semver_1.valid)(argv._.at(0));
 let data = '';
 async function main() {
-    for await (const chunk of process.stdin)
+    for await (const chunk of process.stdin) {
         data += chunk;
+    }
     if (!version) {
+        // eslint-disable-next-line no-console -- only logger available
         console.error('Invalid version provided');
         process.exit(1);
     }

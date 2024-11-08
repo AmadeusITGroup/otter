@@ -3,20 +3,20 @@ const getJestProjectConfig = require('../../../../jest.config.ut').getJestProjec
 
 const rootDir = path.join(__dirname, '..');
 
+const baseConfig = getJestProjectConfig(rootDir, false);
+
 /** @type {import('ts-jest/dist/types').JestConfigWithTsJest} */
 module.exports = {
-  ...getJestProjectConfig(rootDir, false),
+  ...baseConfig,
   displayName: require('../package.json').name,
-  rootDir,
   resolver: '<rootDir>/testing/mjs-resolver.js',
   testEnvironmentOptions: {
     // workaround to use stylelint CommonJs interface
     customExportConditions: ['require']
   },
   testPathIgnorePatterns: [
-    '<rootDir>/.*/templates/.*',
+    ...baseConfig.testPathIgnorePatterns,
     '<rootDir>/builders/.*',
-    '<rootDir>/schematics/.*',
-    '\\.it\\.spec\\.ts$'
+    '<rootDir>/schematics/.*'
   ]
 };

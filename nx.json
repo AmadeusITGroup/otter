@@ -110,18 +110,24 @@
     "specs": [
       "base",
       "{projectRoot}/**/*.spec.ts",
+      "!{projectRoot}/**/*.it.spec.ts",
       "{projectRoot}/jest.config.*",
       "{projectRoot}/testing/**/*",
+      "!{projectRoot}/testing/jest.config.it.js",
       "{projectRoot}/mocks/**/*",
-      "{workspaceRoot}/jest.config.ut.js"
+      "{workspaceRoot}/jest.config.ut.js",
+      "{workspaceRoot}/codecov.yml"
     ],
     "integration-test": [
       "base",
+      "{projectRoot}/testing/jest.config.it.js",
+      "{projectRoot}/**/*.it.spec.ts",
       "{workspaceRoot}/jest.config.it.js",
       "{workspaceRoot}/packages/*/create/src/*.ts",
       "!{workspaceRoot}/packages/*/create/src/*.spec.ts",
       "{workspaceRoot}/packages/@o3r/test-helpers/src/**/*.ts",
-      "!{workspaceRoot}/packages/@o3r/test-helpers/src/**/*.spec.ts"
+      "!{workspaceRoot}/packages/@o3r/test-helpers/src/**/*.spec.ts",
+      "{workspaceRoot}/codecov.yml"
     ],
     "plugins": [
       "base",
@@ -162,10 +168,12 @@
         },
         "builders",
         "schematics",
+        "source",
         "specs"
       ],
       "outputs": [
-        "{projectRoot}/dist-test/ut-report.xml"
+        "{projectRoot}/dist-test/ut-report.xml",
+        "{projectRoot}/coverage/cobertura-coverage.xml"
       ],
       "options": {
         "passWithNoTests": false,
@@ -192,12 +200,12 @@
         },
         "source",
         "schematics",
-        "specs",
         "integration-test",
         "^schematics"
       ],
       "outputs": [
-        "{projectRoot}/dist-test/it-report.xml"
+        "{projectRoot}/dist-test/it-report.xml",
+        "{projectRoot}/coverage/cobertura-coverage.xml"
       ],
       "options": {
         "quiet": false,

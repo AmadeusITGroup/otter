@@ -66,3 +66,69 @@ describe('ng-add', () => {
     expect(tree.readText('.npmrc')).toBe('registry=http://private.registry.com');
   });
 });
+
+describe('ng-add with yarn should generate a GitHub workflow', () => {
+  let initialTree: Tree;
+
+  beforeEach(() => {
+    initialTree = Tree.empty();
+    initialTree.create('angular.json', fs.readFileSync(path.resolve(__dirname, '..', '..', 'testing', 'mocks', 'angular.mocks.yarn.json')));
+  });
+
+  it('when no yarnrc.yml', async () => {
+    const runner = new SchematicTestRunner('@o3r/pipeline', collectionPath);
+    const tree = await runner.runSchematic('ng-add', {
+      toolchain: 'github'
+    } as NgAddSchematicsSchema, initialTree);
+
+    expect(tree.exists('.github/actions/setup/action.yml')).toBe(true);
+    expect(tree.exists('.github/workflows/main.yml')).toBe(true);
+    expect(tree.exists('.npmrc')).toBe(false);
+
+    expect(tree.readText('.github/actions/setup/action.yml')).toContain('(yarn cache dir)');
+  });
+
+  it('with yarnrc.yml without yarnPath', async () => {
+    const runner = new SchematicTestRunner('@o3r/pipeline', collectionPath);
+    initialTree.create('.yarnrc.yml', '');
+    const tree = await runner.runSchematic('ng-add', {
+      toolchain: 'github'
+    } as NgAddSchematicsSchema, initialTree);
+
+    expect(tree.exists('.github/actions/setup/action.yml')).toBe(true);
+    expect(tree.exists('.github/workflows/main.yml')).toBe(true);
+    expect(tree.exists('.npmrc')).toBe(false);
+
+    expect(tree.readText('.github/actions/setup/action.yml')).toContain('(yarn config get cacheFolder)');
+  });
+
+  it('with yarnrc.yml with yarnPath v1', async () => {
+    const runner = new SchematicTestRunner('@o3r/pipeline', collectionPath);
+    initialTree.create('.yarnrc.yml', 'yarnPath: .yarn/releases/yarn-1.2.3.cjs');
+    const tree = await runner.runSchematic('ng-add', {
+      toolchain: 'github'
+    } as NgAddSchematicsSchema, initialTree);
+
+    expect(tree.exists('.github/actions/setup/action.yml')).toBe(true);
+    expect(tree.exists('.github/workflows/main.yml')).toBe(true);
+    expect(tree.exists('.npmrc')).toBe(false);
+
+    expect(tree.readText('.github/actions/setup/action.yml')).toContain('(yarn cache dir)');
+    expect(tree.readText('.github/actions/setup/action.yml')).not.toContain('.yarn/unplugged');
+  });
+
+  it('with yarnrc.yml with yarnPath v2', async () => {
+    const runner = new SchematicTestRunner('@o3r/pipeline', collectionPath);
+    initialTree.create('.yarnrc.yml', 'yarnPath: .yarn/releases/yarn-3.2.1.cjs');
+    const tree = await runner.runSchematic('ng-add', {
+      toolchain: 'github'
+    } as NgAddSchematicsSchema, initialTree);
+
+    expect(tree.exists('.github/actions/setup/action.yml')).toBe(true);
+    expect(tree.exists('.github/workflows/main.yml')).toBe(true);
+    expect(tree.exists('.npmrc')).toBe(false);
+
+    expect(tree.readText('.github/actions/setup/action.yml')).toContain('(yarn config get cacheFolder)');
+    expect(tree.readText('.github/actions/setup/action.yml')).toContain('.yarn/unplugged');
+  });
+});

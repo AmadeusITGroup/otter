@@ -3,9 +3,10 @@ const getJestProjectConfig = require('../../../jest.config.ut').getJestProjectCo
 
 const rootDir = path.join(__dirname, '..');
 
+const baseConfig = getJestProjectConfig(rootDir, true);
+
 /** @type {import('ts-jest/dist/types').JestConfigWithTsJest} */
 module.exports = {
-  ...getJestProjectConfig(rootDir, true),
+  ...baseConfig,
   displayName: require('../package.json').name,
-  rootDir
 };
