@@ -17,7 +17,9 @@ import {
   O3rComponent,
 } from '@o3r/core';
 import {
-  CopyTextPresComponent,
+  MarkdownModule,
+} from 'ngx-markdown';
+import {
   IN_PAGE_NAV_PRES_DIRECTIVES,
   InPageNavLink,
   InPageNavLinkDirective,
@@ -32,9 +34,9 @@ import {
   imports: [
     RouterModule,
     LocalizationPresComponent,
-    CopyTextPresComponent,
     IN_PAGE_NAV_PRES_DIRECTIVES,
-    AsyncPipe
+    AsyncPipe,
+    MarkdownModule
   ],
   templateUrl: './localization.template.html',
   styleUrls: ['./localization.style.scss'],

@@ -80,6 +80,7 @@
         ],
         "styles": [
           "apps/showcase/src/styles.scss",
+          "prism-themes/themes/prism-vsc-dark-plus.css",
           {
             "inject": false,
             "input": "apps/showcase/src/style/dark-theme/dark-theme.scss",
@@ -91,7 +92,18 @@
             "bundleName": "horizon-theme"
           }
         ],
-        "scripts": []
+        "scripts": [
+          "clipboard",
+          "prismjs",
+          "prismjs/components/prism-bash",
+          "prismjs/components/prism-css",
+          "prismjs/components/prism-json",
+          "prismjs/components/prism-markdown",
+          "prismjs/components/prism-markup",
+          "prismjs/components/prism-regex",
+          "prismjs/components/prism-typescript",
+          "prismjs/components/prism-yaml"
+        ]
       },
       "configurations": {
         "production": {

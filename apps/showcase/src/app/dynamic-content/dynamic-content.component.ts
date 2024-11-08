@@ -20,7 +20,9 @@ import {
   DynamicContentModule,
 } from '@o3r/dynamic-content';
 import {
-  CopyTextPresComponent,
+  MarkdownModule,
+} from 'ngx-markdown';
+import {
   DynamicContentPresComponent,
   IN_PAGE_NAV_PRES_DIRECTIVES,
   InPageNavLink,
@@ -37,8 +39,8 @@ import {
     DynamicContentModule,
     IN_PAGE_NAV_PRES_DIRECTIVES,
     DynamicContentPresComponent,
-    CopyTextPresComponent,
-    AsyncPipe
+    AsyncPipe,
+    MarkdownModule
   ],
   templateUrl: './dynamic-content.template.html',
   styleUrls: ['./dynamic-content.style.scss'],
