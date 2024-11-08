@@ -1,8 +1,8 @@
 import type {
-  JsonObject
+  JsonObject,
 } from '@angular-devkit/core';
 import type {
-  CategoryDescription
+  CategoryDescription,
 } from '@o3r/core';
 
 export interface ComponentExtractorBuilderSchema extends JsonObject {

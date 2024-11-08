@@ -1,25 +1,25 @@
 import type {
-  ExecSyncOptions
+  ExecSyncOptions,
 } from 'node:child_process';
 import {
   cpSync,
   existsSync,
   mkdirSync,
   readFileSync,
-  rmSync
+  rmSync,
 } from 'node:fs';
 import * as path from 'node:path';
 import {
-  O3rCliError
+  O3rCliError,
 } from '@o3r/schematics';
 import type {
-  PackageJson
+  PackageJson,
 } from 'type-fest';
 import {
-  createTestEnvironmentBlank
+  createTestEnvironmentBlank,
 } from './test-environments/create-test-environment-blank';
 import {
-  createTestEnvironmentOtterProjectWithAppAndLib
+  createTestEnvironmentOtterProjectWithAppAndLib,
 } from './test-environments/create-test-environment-otter-project';
 import {
   createWithLock,
@@ -28,7 +28,7 @@ import {
   type Logger,
   packageManagerInstallWithFrozenLock,
   setPackagerManagerConfig,
-  setupGit
+  setupGit,
 } from './utilities/index';
 
 /**

@@ -1,15 +1,15 @@
 import {
   Rule,
   SchematicContext,
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import {
   getFilesFromRootOfWorkspaceProjects,
-  getFilesWithExtensionFromTree
+  getFilesWithExtensionFromTree,
 } from '../../utility/index';
 import {
   listOfExposedElements,
-  SassImportExposedElement
+  SassImportExposedElement,
 } from './list-of-vars';
 
 const imports = new RegExp(/^@import\s+["']~?@(o3r|otter)\/styling.*\s*/, 'gm');

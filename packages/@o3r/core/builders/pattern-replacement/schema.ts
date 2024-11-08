@@ -1,5 +1,5 @@
 import type {
-  JsonObject
+  JsonObject,
 } from '@angular-devkit/core';
 
 /** Replace a given pattern in a list of files */

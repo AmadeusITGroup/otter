@@ -1,18 +1,18 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {
-  pathToFileURL
+  pathToFileURL,
 } from 'node:url';
 import {
-  getLibraryCmsMetadata
+  getLibraryCmsMetadata,
 } from '@o3r/extractors';
 import {
-  O3rCliError
+  O3rCliError,
 } from '@o3r/schematics';
 import type {
   CssMetadata,
   CssVariable,
-  CssVariableType
+  CssVariableType,
 } from '@o3r/styling';
 import {
   compileString,
@@ -23,10 +23,10 @@ import {
   SassNumber,
   SassString,
   StringOptions,
-  Value
+  Value,
 } from 'sass';
 import type {
-  StyleExtractorBuilderSchema
+  StyleExtractorBuilderSchema,
 } from '../schema';
 
 /**

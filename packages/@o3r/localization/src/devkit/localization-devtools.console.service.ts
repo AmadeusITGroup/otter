@@ -2,26 +2,26 @@
 import {
   Inject,
   Injectable,
-  Optional
+  Optional,
 } from '@angular/core';
 import type {
   ContextualizationDataset,
   DevtoolsServiceInterface,
-  WindowWithDevtools
+  WindowWithDevtools,
 } from '@o3r/core';
 import {
-  Subscription
+  Subscription,
 } from 'rxjs';
 import {
   LocalizationContextualizationDevtools,
-  LocalizationDevtoolsServiceOptions
+  LocalizationDevtoolsServiceOptions,
 } from './localization-devkit.interface';
 import {
-  OtterLocalizationDevtools
+  OtterLocalizationDevtools,
 } from './localization-devtools.service';
 import {
   OTTER_LOCALIZATION_DEVTOOLS_DEFAULT_OPTIONS,
-  OTTER_LOCALIZATION_DEVTOOLS_OPTIONS
+  OTTER_LOCALIZATION_DEVTOOLS_OPTIONS,
 } from './localization-devtools.token';
 
 @Injectable()

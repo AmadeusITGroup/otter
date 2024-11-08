@@ -1,37 +1,37 @@
 import * as fs from 'node:fs';
 import {
-  EOL
+  EOL,
 } from 'node:os';
 import * as path from 'node:path';
 import {
   BuilderOutput,
-  createBuilder
+  createBuilder,
 } from '@angular-devkit/architect';
 import {
   CmsMetadataData,
   createBuilderWithMetricsIfInstalled,
   getLibraryCmsMetadata,
-  validateJson
+  validateJson,
 } from '@o3r/extractors';
 import {
-  isO3rClassComponent
+  isO3rClassComponent,
 } from '@o3r/schematics';
 import type {
-  CssMetadata
+  CssMetadata,
 } from '@o3r/styling';
 import * as chokidar from 'chokidar';
 import {
-  sync as globbySync
+  sync as globbySync,
 } from 'globby';
 import type {
-  Logger
+  Logger,
 } from 'sass';
 import * as ts from 'typescript';
 import {
-  CssVariableExtractor
+  CssVariableExtractor,
 } from './helpers/index';
 import {
-  StyleExtractorBuilderSchema
+  StyleExtractorBuilderSchema,
 } from './schema';
 
 export * from './schema';

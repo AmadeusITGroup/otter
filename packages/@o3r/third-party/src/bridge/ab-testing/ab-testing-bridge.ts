@@ -1,10 +1,10 @@
 import type {
-  Logger
+  Logger,
 } from '@o3r/core';
 import {
   BehaviorSubject,
   distinctUntilChanged,
-  Observable
+  Observable,
 } from 'rxjs';
 
 /**

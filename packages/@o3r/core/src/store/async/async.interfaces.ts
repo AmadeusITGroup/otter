@@ -7,7 +7,7 @@ import {
   UpdateEntitiesActionPayload,
   UpdateEntitiesActionPayloadWithId,
   UpdateEntityActionPayload,
-  UpdateEntityActionPayloadWithId
+  UpdateEntityActionPayloadWithId,
 } from '../types';
 
 export type RequestId = string;

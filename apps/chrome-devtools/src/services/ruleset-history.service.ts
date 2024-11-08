@@ -1,30 +1,30 @@
 import {
   effect,
   inject,
-  Injectable
+  Injectable,
 } from '@angular/core';
 import {
-  toSignal
+  toSignal,
 } from '@angular/core/rxjs-interop';
 import type {
   RulesEngineDebugEventsContentMessage,
-  RulesetExecutionDebug
+  RulesetExecutionDebug,
 } from '@o3r/rules-engine';
 import {
-  rulesetReportToHistory
+  rulesetReportToHistory,
 } from '@o3r/rules-engine';
 import {
   filter,
   map,
   Observable,
-  ReplaySubject
+  ReplaySubject,
 } from 'rxjs';
 import {
-  shareReplay
+  shareReplay,
 } from 'rxjs/operators';
 import {
   ChromeExtensionConnectionService,
-  isRuleEngineEventsMessage
+  isRuleEngineEventsMessage,
 } from './connection.service';
 
 @Injectable({

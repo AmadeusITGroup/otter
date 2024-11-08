@@ -1,13 +1,13 @@
 import {
   createAction,
-  props
+  props,
 } from '@ngrx/store';
 import {
-  SetEntityActionPayload
+  SetEntityActionPayload,
 } from '@o3r/core';
 import {
   type PlaceholderMode,
-  PlaceholderTemplateModel
+  PlaceholderTemplateModel,
 } from './placeholder-template.state';
 
 const ACTION_DELETE_ENTITY = '[PlaceholderTemplate] delete entity';

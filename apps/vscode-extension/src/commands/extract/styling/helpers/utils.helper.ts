@@ -1,8 +1,8 @@
 import {
-  EOL
+  EOL,
 } from 'node:os';
 import {
-  basename
+  basename,
 } from 'node:path';
 import {
   Position,
@@ -10,11 +10,11 @@ import {
   TextDocument,
   TextEditorEdit,
   TextLine,
-  workspace
+  workspace,
 } from 'vscode';
 import * as vscode from 'vscode';
 import {
-  regExp
+  regExp,
 } from './regex.helper';
 
 /**

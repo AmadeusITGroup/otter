@@ -1,24 +1,24 @@
 import {
   getTestBed,
-  TestBed
+  TestBed,
 } from '@angular/core/testing';
 import {
   BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting
+  platformBrowserDynamicTesting,
 } from '@angular/platform-browser-dynamic/testing';
 import {
-  provideMockActions
+  provideMockActions,
 } from '@ngrx/effects/testing';
 import {
-  Store
+  Store,
 } from '@ngrx/store';
 import {
   ReplaySubject,
   Subject,
-  Subscription
+  Subscription,
 } from 'rxjs';
 import {
-  RulesetsEffect
+  RulesetsEffect,
 } from './rulesets.effect';
 
 describe('Rules Engine Effects', () => {

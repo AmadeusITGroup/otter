@@ -1,8 +1,8 @@
 import {
-  ValidationErrors
+  ValidationErrors,
 } from '@angular/forms';
 import {
-  ErrorMessageObject
+  ErrorMessageObject,
 } from './errors';
 
 /** Flat representation of Angular's ValidationError */

@@ -1,23 +1,23 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {
-  strings
+  strings,
 } from '@angular-devkit/core';
 import {
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import {
-  SchematicTestRunner
+  SchematicTestRunner,
 } from '@angular-devkit/schematics/testing';
 import {
   getComponentSelectorWithoutSuffix,
-  TYPES_DEFAULT_FOLDER
+  TYPES_DEFAULT_FOLDER,
 } from '@o3r/schematics';
 import type {
-  PackageJson
+  PackageJson,
 } from 'type-fest';
 import {
-  CONTAINER_FOLDER
+  CONTAINER_FOLDER,
 } from './index';
 
 const collectionPath = path.join(__dirname, '..', '..', '..', 'collection.json');

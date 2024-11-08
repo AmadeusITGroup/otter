@@ -7,7 +7,7 @@ const o3rEnvironment = globalThis.o3rEnvironment;
 
 import {
   execSync,
-  spawn
+  spawn,
 } from 'node:child_process';
 import * as path from 'node:path';
 import {
@@ -17,7 +17,7 @@ import {
   packageManagerExec,
   packageManagerExecOnProject,
   packageManagerInstall,
-  packageManagerRunOnProject
+  packageManagerRunOnProject,
 } from '@o3r/test-helpers';
 import getPidFromPort from 'pid-from-port';
 

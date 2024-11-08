@@ -1,5 +1,5 @@
 import type {
-  MigrationMetadataCheckBuilderOptions
+  MigrationMetadataCheckBuilderOptions,
 } from '@o3r/extractors';
 
 /** Migration metadata check builder schema */

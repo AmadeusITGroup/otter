@@ -5,14 +5,14 @@ import type {
   PartialExcept,
   RequestOptions,
   RequestOptionsParameters,
-  TokenizedOptions
+  TokenizedOptions,
 } from '@ama-sdk/core';
 import {
   extractQueryParams,
   filterUndefinedValues,
   prepareUrl,
   processFormData,
-  tokenizeRequestOptions
+  tokenizeRequestOptions,
 } from '@ama-sdk/core';
 
 /** @see BaseApiClientOptions */

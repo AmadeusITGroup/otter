@@ -1,14 +1,14 @@
 import {
   combineLatest,
-  Observable
+  Observable,
 } from 'rxjs';
 import {
   map,
   shareReplay,
-  switchMap
+  switchMap,
 } from 'rxjs/operators';
 import {
-  RulesetExecutor
+  RulesetExecutor,
 } from '../ruleset-executor';
 
 /**

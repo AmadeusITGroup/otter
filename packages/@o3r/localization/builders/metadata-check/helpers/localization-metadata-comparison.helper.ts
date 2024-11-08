@@ -1,9 +1,9 @@
 import type {
-  MetadataComparator
+  MetadataComparator,
 } from '@o3r/extractors';
 import type {
   JSONLocalization,
-  LocalizationMetadata
+  LocalizationMetadata,
 } from '@o3r/localization';
 
 /**

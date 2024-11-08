@@ -1,8 +1,8 @@
 import {
-  ApiTypes
+  ApiTypes,
 } from '../../fwk/api';
 import {
-  ReviverReply
+  ReviverReply,
 } from './reviver.reply';
 
 describe('Reviver Reply Plugin', () => {

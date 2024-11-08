@@ -1,5 +1,5 @@
 import {
-  strings
+  strings,
 } from '@angular-devkit/core';
 import {
   apply,
@@ -11,16 +11,16 @@ import {
   SchematicContext,
   template,
   Tree,
-  url
+  url,
 } from '@angular-devkit/schematics';
 import {
   createSchematicWithMetricsIfInstalled,
   getDestinationPath,
   getWorkspaceConfig,
-  O3rCliError
+  O3rCliError,
 } from '@o3r/schematics';
 import {
-  NgGeneratePlaywrightScenarioSchematicsSchema
+  NgGeneratePlaywrightScenarioSchematicsSchema,
 } from './schema';
 
 /**

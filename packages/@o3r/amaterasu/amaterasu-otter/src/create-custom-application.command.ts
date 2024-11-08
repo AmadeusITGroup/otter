@@ -1,9 +1,9 @@
 import {
-  resolve
+  resolve,
 } from 'node:path';
 import {
   Context,
-  promiseSpawn
+  promiseSpawn,
 } from '@ama-terasu/core';
 
 /** Option to create a Custom Application */

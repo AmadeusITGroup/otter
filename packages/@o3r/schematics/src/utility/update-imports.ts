@@ -1,11 +1,11 @@
 import {
-  logging
+  logging,
 } from '@angular-devkit/core';
 import type {
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import {
-  findNodes
+  findNodes,
 } from '@schematics/angular/utility/ast-utils';
 import * as ts from 'typescript';
 

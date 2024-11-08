@@ -1,8 +1,8 @@
 import {
-  RequestOptions
+  RequestOptions,
 } from '../core/request-plugin';
 import {
-  FetchCredentialsRequest
+  FetchCredentialsRequest,
 } from './fetch-credentials.request';
 
 describe('Fetch API credentials Request Plugin', () => {

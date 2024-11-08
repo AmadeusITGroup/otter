@@ -1,5 +1,5 @@
 import {
-  AsyncPipe
+  AsyncPipe,
 } from '@angular/common';
 import {
   type AfterViewInit,
@@ -8,47 +8,47 @@ import {
   inject,
   type QueryList,
   ViewChildren,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {
-  RouterModule
+  RouterModule,
 } from '@angular/router';
 import {
-  Store
+  Store,
 } from '@ngrx/store';
 import {
   PlaceholderRulesEngineActionHandler,
-  PlaceholderRulesEngineActionModule
+  PlaceholderRulesEngineActionModule,
 } from '@o3r/components/rules-engine';
 import {
-  O3rComponent
+  O3rComponent,
 } from '@o3r/core';
 import {
   DynamicContentModule,
-  DynamicContentService
+  DynamicContentService,
 } from '@o3r/dynamic-content';
 import {
   RulesEngineDevtoolsModule,
   RulesEngineRunnerModule,
   RulesEngineRunnerService,
   RulesetsStore,
-  setRulesetsEntities
+  setRulesetsEntities,
 } from '@o3r/rules-engine';
 import {
-  firstValueFrom
+  firstValueFrom,
 } from 'rxjs';
 import {
   IN_PAGE_NAV_PRES_DIRECTIVES,
   type InPageNavLink,
   InPageNavLinkDirective,
   InPageNavPresService,
-  PlaceholderPresComponent
+  PlaceholderPresComponent,
 } from '../../components';
 import {
-  environment
+  environment,
 } from '../../environments/environment.development';
 import {
-  TripFactsService
+  TripFactsService,
 } from '../../facts';
 
 @O3rComponent({ componentType: 'Page' })

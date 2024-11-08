@@ -4,13 +4,13 @@ import {
   noop,
   Rule,
   SchematicContext,
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import {
   createSchematicWithMetricsIfInstalled,
   getPackageManagerRunner,
   getWorkspaceConfig,
-  readPackageJson
+  readPackageJson,
 } from '@o3r/schematics';
 
 /**

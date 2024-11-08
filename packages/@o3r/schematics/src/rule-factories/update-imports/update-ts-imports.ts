@@ -1,12 +1,12 @@
 import {
-  Rule
+  Rule,
 } from '@angular-devkit/schematics';
 import * as ts from 'typescript';
 import {
   getFilesWithExtensionFromTree,
   getSourceFilesFromWorkspaceProjects,
   ImportsMapping,
-  updateImportsInFile
+  updateImportsInFile,
 } from '../../utility/index';
 
 const escapeRegExp = (str: string) => str.replace(/[$()*+./?[\\\]^{|}-]/g, '\\$&');

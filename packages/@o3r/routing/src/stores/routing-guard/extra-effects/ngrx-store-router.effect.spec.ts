@@ -1,33 +1,33 @@
 /* eslint-disable jest/no-done-callback -- test with subscriptions */
 import {
   getTestBed,
-  TestBed
+  TestBed,
 } from '@angular/core/testing';
 import {
   BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting
+  platformBrowserDynamicTesting,
 } from '@angular/platform-browser-dynamic/testing';
 import {
-  EventType
+  EventType,
 } from '@angular/router';
 import {
-  provideMockActions
+  provideMockActions,
 } from '@ngrx/effects/testing';
 import {
   BaseRouterStoreState,
   ROUTER_NAVIGATED,
   ROUTER_REQUEST,
   RouterNavigatedAction,
-  RouterRequestAction
+  RouterRequestAction,
 } from '@ngrx/router-store';
 import {
   ReplaySubject,
   Subject,
-  Subscription
+  Subscription,
 } from 'rxjs';
 import * as actions from '../routing-guard.actions';
 import {
-  NgrxStoreRouterEffect
+  NgrxStoreRouterEffect,
 } from './ngrx-store-router.effect';
 
 describe('Routing guard effects', () => {

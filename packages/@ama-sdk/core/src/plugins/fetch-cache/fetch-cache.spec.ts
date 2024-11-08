@@ -1,8 +1,8 @@
 import {
-  RequestOptions
+  RequestOptions,
 } from '../core/request-plugin';
 import {
-  FetchCacheRequest
+  FetchCacheRequest,
 } from './fetch-cache.request';
 
 describe('Fetch API cache Request Plugin', () => {

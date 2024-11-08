@@ -1,13 +1,13 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {
-  O3rComponent
+  O3rComponent,
 } from '@o3r/core';
 import {
-  CopyTextPresComponent
+  CopyTextPresComponent,
 } from '../../components/index';
 
 @O3rComponent({ componentType: 'Page' })

@@ -1,39 +1,39 @@
 import {
   Inject,
   Injectable,
-  Optional
+  Optional,
 } from '@angular/core';
 import {
   select,
-  Store
+  Store,
 } from '@ngrx/store';
 import {
-  TranslateService
+  TranslateService,
 } from '@ngx-translate/core';
 import {
-  LoggerService
+  LoggerService,
 } from '@o3r/logger';
 import {
   BehaviorSubject,
   combineLatest,
   Observable,
-  of
+  of,
 } from 'rxjs';
 import {
   distinctUntilChanged,
   map,
   shareReplay,
-  switchMap
+  switchMap,
 } from 'rxjs/operators';
 import {
-  LocalizationConfiguration
+  LocalizationConfiguration,
 } from '../core/localization.configuration';
 import {
   LocalizationOverrideStore,
-  selectLocalizationOverride
+  selectLocalizationOverride,
 } from '../stores/index';
 import {
-  LOCALIZATION_CONFIGURATION_TOKEN
+  LOCALIZATION_CONFIGURATION_TOKEN,
 } from './localization.token';
 
 /**

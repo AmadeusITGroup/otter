@@ -1,22 +1,22 @@
 import {
-  Provider
+  Provider,
 } from '@angular/core';
 import {
   ComponentFixture,
-  TestBed
+  TestBed,
 } from '@angular/core/testing';
 import {
   TranslateCompiler,
-  TranslateFakeCompiler
+  TranslateFakeCompiler,
 } from '@ngx-translate/core';
 import {
-  LocalizationService
+  LocalizationService,
 } from '@o3r/localization';
 import {
-  mockTranslationModules
+  mockTranslationModules,
 } from '@o3r/testing/localization';
 import {
-  LocalizationPresComponent
+  LocalizationPresComponent,
 } from './localization-pres.component';
 
 const localizationConfiguration = { language: 'en' };

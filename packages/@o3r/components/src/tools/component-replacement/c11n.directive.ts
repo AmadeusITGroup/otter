@@ -12,7 +12,7 @@ import {
   SimpleChange,
   SimpleChanges,
   Type,
-  ViewContainerRef
+  ViewContainerRef,
 } from '@angular/core';
 import {
   AbstractControl,
@@ -20,17 +20,17 @@ import {
   FormControl,
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
-  NgControl
+  NgControl,
 } from '@angular/forms';
 import type {
   BaseContextOutput,
   Configuration,
   Context,
   ContextInput,
-  Functionify
+  Functionify,
 } from '@o3r/core';
 import {
-  Subscription
+  Subscription,
 } from 'rxjs';
 
 @Directive({

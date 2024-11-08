@@ -1,12 +1,12 @@
 import type {
-  InterfaceOf
+  InterfaceOf,
 } from '@o3r/core';
 import type {
   RequestParametersConfig,
-  RequestParametersService
+  RequestParametersService,
 } from '@o3r/dynamic-content';
 import {
-  StorageStrategy
+  StorageStrategy,
 } from '@o3r/dynamic-content';
 
 /**

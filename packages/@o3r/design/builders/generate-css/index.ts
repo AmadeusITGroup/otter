@@ -1,25 +1,25 @@
 import {
-  existsSync
+  existsSync,
 } from 'node:fs';
 import {
   readFile,
-  writeFile
+  writeFile,
 } from 'node:fs/promises';
 import {
-  EOL
+  EOL,
 } from 'node:os';
 import {
-  resolve
+  resolve,
 } from 'node:path';
 import {
   BuilderOutput,
-  createBuilder
+  createBuilder,
 } from '@angular-devkit/architect';
 import type {
-  BuilderWrapper
+  BuilderWrapper,
 } from '@o3r/telemetry';
 import {
-  sync
+  sync,
 } from 'globby';
 import {
   getCssTokenDefinitionRenderer,
@@ -30,17 +30,17 @@ import {
   mergeDesignTokenTemplates,
   parseDesignTokenFile,
   renderDesignTokens,
-  tokenVariableNameSassRenderer
+  tokenVariableNameSassRenderer,
 } from '../../src/public_api';
 import type {
   DesignTokenGroupTemplate,
   DesignTokenRendererOptions,
   DesignTokenVariableSet,
   DesignTokenVariableStructure,
-  TokenKeyRenderer
+  TokenKeyRenderer,
 } from '../../src/public_api';
 import type {
-  GenerateCssSchematicsSchema
+  GenerateCssSchematicsSchema,
 } from './schema';
 
 const noopBuilder: BuilderWrapper = (fn) => fn;

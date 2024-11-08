@@ -1,15 +1,15 @@
 import {
   ModuleWithProviders,
-  NgModule
+  NgModule,
 } from '@angular/core';
 import {
-  C11nDirective
+  C11nDirective,
 } from './c11n.directive';
 import {
-  C11nService
+  C11nService,
 } from './c11n.service';
 import {
-  C11N_REGISTER_FUNC_TOKEN
+  C11N_REGISTER_FUNC_TOKEN,
 } from './c11n.token';
 
 /**

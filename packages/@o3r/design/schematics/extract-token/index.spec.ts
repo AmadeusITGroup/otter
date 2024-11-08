@@ -1,22 +1,22 @@
 import * as fs from 'node:fs';
 import {
-  resolve
+  resolve,
 } from 'node:path';
 import {
   callRule,
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import type {
-  CssVariable
+  CssVariable,
 } from '@o3r/styling';
 import {
-  validate
+  validate,
 } from 'jsonschema';
 import {
-  firstValueFrom
+  firstValueFrom,
 } from 'rxjs';
 import {
-  extractToken
+  extractToken,
 } from './index';
 
 describe('Extract Token schematic', () => {

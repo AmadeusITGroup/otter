@@ -8,22 +8,22 @@ const o3rEnvironment = globalThis.o3rEnvironment;
 import {
   existsSync,
   promises,
-  readFileSync
+  readFileSync,
 } from 'node:fs';
 import {
   dirname,
-  join
+  join,
 } from 'node:path';
 import type {
-  MigrationFile
+  MigrationFile,
 } from '@o3r/extractors';
 import {
   getExternalDependenciesVersionRange,
-  getPackageManager
+  getPackageManager,
 } from '@o3r/schematics';
 import type {
   CssMetadata,
-  CssVariable
+  CssVariable,
 } from '@o3r/styling';
 import {
   getDefaultExecSyncOptions,
@@ -31,13 +31,13 @@ import {
   packageManagerAdd,
   packageManagerExec,
   packageManagerVersion,
-  publishToVerdaccio
+  publishToVerdaccio,
 } from '@o3r/test-helpers';
 import {
-  inc
+  inc,
 } from 'semver';
 import type {
-  MigrationStylingData
+  MigrationStylingData,
 } from './helpers/styling-metadata-comparison.helper';
 
 const baseVersion = '1.2.0';
@@ -49,12 +49,12 @@ const defaultMigrationData: MigrationFile<MigrationStylingData> = {
   version,
   changes: [
     { // Rename key name
-      'contentType': 'STYLE',
-      'before': {
-        'name': 'css-var-name1'
+      contentType: 'STYLE',
+      before: {
+        name: 'css-var-name1'
       },
-      'after': {
-        'name': 'new-css-var-name1'
+      after: {
+        name: 'new-css-var-name1'
       }
     }
   ]

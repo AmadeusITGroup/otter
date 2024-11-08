@@ -1,8 +1,8 @@
 import type {
-  Rule
+  Rule,
 } from '@angular-devkit/schematics';
 import {
-  updateImports
+  updateImports,
 } from '@o3r/schematics';
 
 /**

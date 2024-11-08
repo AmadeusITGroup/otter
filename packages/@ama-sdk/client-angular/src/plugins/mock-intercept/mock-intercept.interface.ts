@@ -1,8 +1,8 @@
 import type {
-  MockAdapter
+  MockAdapter,
 } from '@ama-sdk/core';
 import type {
-  AngularPluginContext
+  AngularPluginContext,
 } from '../../angular-plugin';
 
 /**

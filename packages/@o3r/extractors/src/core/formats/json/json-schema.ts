@@ -1,8 +1,8 @@
 import type {
-  Output
+  Output,
 } from '@o3r/core';
 import {
-  JSONDefinition
+  JSONDefinition,
 } from './json-definition';
 
 export interface JSONSchema extends Output {

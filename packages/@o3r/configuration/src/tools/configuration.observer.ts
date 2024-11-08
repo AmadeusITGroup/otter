@@ -1,20 +1,20 @@
 import type {
-  Configuration
+  Configuration,
 } from '@o3r/core';
 import {
   BehaviorSubject,
   type Observable,
   type Observer,
-  type Subject
+  type Subject,
 } from 'rxjs';
 import {
-  shareReplay
+  shareReplay,
 } from 'rxjs/operators';
 import {
-  getConfiguration
+  getConfiguration,
 } from '../core';
 import {
-  ConfigurationBaseService
+  ConfigurationBaseService,
 } from '../services/configuration/configuration.base.service';
 
 export class ConfigurationObserver<T extends Configuration> implements Observer<Partial<T> | undefined>, Pick<Subject<T>, 'asObservable'> {

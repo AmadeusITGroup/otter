@@ -1,6 +1,6 @@
 import {
   CommonModule,
-  formatDate
+  formatDate,
 } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -9,36 +9,36 @@ import {
   input,
   type Signal,
   Type,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {
   toObservable,
-  toSignal
+  toSignal,
 } from '@angular/core/rxjs-interop';
 import {
   FormControl,
-  ReactiveFormsModule
+  ReactiveFormsModule,
 } from '@angular/forms';
 import {
   C11nModule,
-  C11nService
+  C11nService,
 } from '@o3r/components';
 import {
   configSignal,
   DynamicConfigurableWithSignal,
-  O3rConfig
+  O3rConfig,
 } from '@o3r/configuration';
 import {
-  O3rComponent
+  O3rComponent,
 } from '@o3r/core';
 import {
   DatePickerInputPresComponent,
-  DatePickerInputPresContext
+  DatePickerInputPresContext,
 } from '../../utilities/index';
 import {
   COMPONENT_REPLACEMENT_PRES_CONFIG_ID,
   COMPONENT_REPLACEMENT_PRES_DEFAULT_CONFIG,
-  ComponentReplacementPresConfig
+  ComponentReplacementPresConfig,
 } from './component-replacement-pres.config';
 
 const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;

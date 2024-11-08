@@ -1,13 +1,13 @@
 import {
-  readFile
+  readFile,
 } from 'node:fs/promises';
 import {
   dirname,
-  join
+  join,
 } from 'node:path';
 import {
   cleanVirtualFileSystem,
-  useVirtualFileSystem
+  useVirtualFileSystem,
 } from '@o3r/test-helpers';
 
 describe('Specs processing', () => {

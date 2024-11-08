@@ -11,18 +11,18 @@ import {
   SchematicContext,
   template,
   Tree,
-  url
+  url,
 } from '@angular-devkit/schematics';
 import {
   createSchematicWithMetricsIfInstalled,
   findConfigFileRelativePath,
-  getPackageManagerRunner
+  getPackageManagerRunner,
 } from '@o3r/schematics';
 import type {
-  PackageJson
+  PackageJson,
 } from 'type-fest';
 import {
-  NgGenerateUpdateSchematicsSchema
+  NgGenerateUpdateSchematicsSchema,
 } from './schema';
 
 /**

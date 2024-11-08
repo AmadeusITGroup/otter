@@ -2,11 +2,11 @@ import {
   ActionCreator,
   createReducer,
   on,
-  ReducerTypes
+  ReducerTypes,
 } from '@ngrx/store';
 import * as actions from './config-override.actions';
 import {
-  ConfigOverrideState
+  ConfigOverrideState,
 } from './config-override.state';
 
 /**

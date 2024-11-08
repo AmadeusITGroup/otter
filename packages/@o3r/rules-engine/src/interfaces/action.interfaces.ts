@@ -1,5 +1,5 @@
 import type {
-  ActionBlock
+  ActionBlock,
 } from '../engine/index';
 
 /**

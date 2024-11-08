@@ -1,25 +1,25 @@
 import type {
   ItemIdentifier,
-  Logger
+  Logger,
 } from '@o3r/core';
 import {
   BehaviorSubject,
-  Observable
+  Observable,
 } from 'rxjs';
 import type {
-  EngineDebugger
+  EngineDebugger,
 } from './debug/engine.debug';
 import type {
   Fact,
-  Facts
+  Facts,
 } from './fact';
 import type {
-  Operator
+  Operator,
 } from './operator';
 import {
   ActionBlock,
   Rule,
-  Ruleset
+  Ruleset,
 } from './structure';
 
 /** Performance object supporting NodeJs Performance and Web Performance reporting  */

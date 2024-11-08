@@ -1,10 +1,10 @@
 import * as actions from './shopping-cart.actions';
 import {
   shoppingCartInitialState,
-  shoppingCartReducer
+  shoppingCartReducer,
 } from './shopping-cart.reducer';
 import {
-  ShoppingCartState
+  ShoppingCartState,
 } from './shopping-cart.state';
 
 describe('ShoppingCart Store reducer', () => {

@@ -1,19 +1,19 @@
 import {
   getTestBed,
-  TestBed
+  TestBed,
 } from '@angular/core/testing';
 import {
   BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting
+  platformBrowserDynamicTesting,
 } from '@angular/platform-browser-dynamic/testing';
 import {
-  StorageStrategy
+  StorageStrategy,
 } from './request-parameters.config';
 import {
-  RequestParametersModule
+  RequestParametersModule,
 } from './request-parameters.module';
 import {
-  RequestParametersService
+  RequestParametersService,
 } from './request-parameters.service';
 
 class FakeStorage implements Storage {
@@ -506,12 +506,10 @@ describe('RequestParametersService', () => {
 
   describe('No storage available', () => {
     beforeEach(async () => {
-      // eslint-disable-next-line unicorn/consistent-function-scoping -- used only in this scope
-      const getConfiguration = () => (
-        {
-          queryParamsValue: queryParams,
-          postParamsValue: postParams
-        });
+      const getConfiguration = () => ({
+        queryParamsValue: queryParams,
+        postParamsValue: postParams
+      });
       await TestBed.configureTestingModule({
         imports: [RequestParametersModule.forRoot(getConfiguration)]
       }).compileComponents();

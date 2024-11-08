@@ -3,12 +3,12 @@ import {
   ChangeDetectorRef,
   Component,
   Input,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import type {
   Ruleset,
   RulesetExecutionErrorEvent,
-  RulesetExecutionEvent
+  RulesetExecutionEvent,
 } from '../../../engine';
 
 export type RulesetExecutionStatus = 'Error' | 'Active' | 'Deactivated' | 'NoEffect';

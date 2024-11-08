@@ -2,18 +2,18 @@ import {
   lstat,
   readdir,
   readFile,
-  writeFile
+  writeFile,
 } from 'node:fs/promises';
 import {
   join,
-  resolve
+  resolve,
 } from 'node:path';
 import {
-  program
+  program,
 } from 'commander';
 import {
   type FileSystem,
-  getFilesTree
+  getFilesTree,
 } from '../../src/public_api';
 
 program

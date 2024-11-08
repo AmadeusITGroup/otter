@@ -1,5 +1,5 @@
 import {
-  formatDate
+  formatDate,
 } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -7,32 +7,32 @@ import {
   inject,
   Input,
   OnDestroy,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
   FormGroup,
-  ReactiveFormsModule
+  ReactiveFormsModule,
 } from '@angular/forms';
 import {
-  O3rComponent
+  O3rComponent,
 } from '@o3r/core';
 import {
   Localization,
   LocalizationModule,
   LocalizationService,
-  Translatable
+  Translatable,
 } from '@o3r/localization';
 import {
-  Subscription
+  Subscription,
 } from 'rxjs';
 import {
-  DatePickerInputPresComponent
+  DatePickerInputPresComponent,
 } from '../../utilities';
 import {
   LocalizationPresTranslation,
-  translations
+  translations,
 } from './localization-pres.translation';
 
 const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;

@@ -1,34 +1,34 @@
 import {
   inject,
-  runInInjectionContext
+  runInInjectionContext,
 } from '@angular/core';
 import {
-  platformBrowserDynamic
+  platformBrowserDynamic,
 } from '@angular/platform-browser-dynamic';
 import {
   ApplicationDevtoolsConsoleService,
-  ApplicationDevtoolsMessageService
+  ApplicationDevtoolsMessageService,
 } from '@o3r/application';
 import {
-  ComponentsDevtoolsMessageService
+  ComponentsDevtoolsMessageService,
 } from '@o3r/components';
 import {
   ConfigurationDevtoolsConsoleService,
-  ConfigurationDevtoolsMessageService
+  ConfigurationDevtoolsMessageService,
 } from '@o3r/configuration';
 import {
   LocalizationDevtoolsConsoleService,
-  LocalizationDevtoolsMessageService
+  LocalizationDevtoolsMessageService,
 } from '@o3r/localization';
 import {
   RulesEngineDevtoolsConsoleService,
-  RulesEngineDevtoolsMessageService
+  RulesEngineDevtoolsMessageService,
 } from '@o3r/rules-engine';
 import {
-  StylingDevtoolsMessageService
+  StylingDevtoolsMessageService,
 } from '@o3r/styling';
 import {
-  AppModule
+  AppModule,
 } from './app/app.module';
 import '@angular/localize/init';
 

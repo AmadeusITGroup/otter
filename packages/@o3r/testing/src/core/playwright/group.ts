@@ -1,9 +1,9 @@
 import {
-  GroupProfile
+  GroupProfile,
 } from '../group';
 import {
   ElementProfile,
-  O3rElement
+  O3rElement,
 } from './element';
 
 export { GroupProfile } from '../group';

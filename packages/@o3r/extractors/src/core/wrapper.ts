@@ -1,20 +1,20 @@
 import {
-  execFileSync
+  execFileSync,
 } from 'node:child_process';
 import {
   existsSync,
-  promises
+  promises,
 } from 'node:fs';
 import * as path from 'node:path';
 import {
-  getPackageManagerRunner
+  getPackageManagerRunner,
 } from '@o3r/schematics';
 import type {
-  BuilderWrapper
+  BuilderWrapper,
 } from '@o3r/telemetry';
 import {
   prompt,
-  Question
+  Question,
 } from 'inquirer';
 
 const noopBuilderWrapper: BuilderWrapper = (fn) => fn;

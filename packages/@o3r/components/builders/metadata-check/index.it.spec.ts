@@ -8,22 +8,22 @@ const o3rEnvironment = globalThis.o3rEnvironment;
 import {
   existsSync,
   promises,
-  readFileSync
+  readFileSync,
 } from 'node:fs';
 import {
   dirname,
-  join
+  join,
 } from 'node:path';
 import type {
   ComponentConfigOutput,
-  ConfigProperty
+  ConfigProperty,
 } from '@o3r/components';
 import type {
-  MigrationFile
+  MigrationFile,
 } from '@o3r/extractors';
 import {
   getExternalDependenciesVersionRange,
-  getPackageManager
+  getPackageManager,
 } from '@o3r/schematics';
 import {
   getDefaultExecSyncOptions,
@@ -31,13 +31,13 @@ import {
   packageManagerAdd,
   packageManagerExec,
   packageManagerVersion,
-  publishToVerdaccio
+  publishToVerdaccio,
 } from '@o3r/test-helpers';
 import {
-  inc
+  inc,
 } from 'semver';
 import type {
-  MigrationConfigData
+  MigrationConfigData,
 } from './helpers/config-metadata-comparison.helper';
 
 const baseVersion = '1.2.0';
@@ -49,112 +49,112 @@ const defaultMigrationData: MigrationFile<MigrationConfigData> = {
   version,
   changes: [
     { // Rename property name
-      'contentType': 'CONFIG',
-      'before': {
-        'libraryName': '@o3r/lib1',
-        'configName': 'MyConfig1',
-        'propertyName': 'prop1'
+      contentType: 'CONFIG',
+      before: {
+        libraryName: '@o3r/lib1',
+        configName: 'MyConfig1',
+        propertyName: 'prop1'
       },
-      'after': {
-        'libraryName': '@o3r/lib1',
-        'configName': 'MyConfig1',
-        'propertyName': 'newProp1Name'
+      after: {
+        libraryName: '@o3r/lib1',
+        configName: 'MyConfig1',
+        propertyName: 'newProp1Name'
       }
     },
     { // Move property to a new config3
-      'contentType': 'CONFIG',
-      'before': {
-        'libraryName': '@o3r/lib2',
-        'configName': 'MyConfig2',
-        'propertyName': 'prop2'
+      contentType: 'CONFIG',
+      before: {
+        libraryName: '@o3r/lib2',
+        configName: 'MyConfig2',
+        propertyName: 'prop2'
       },
-      'after': {
-        'libraryName': '@o3r/lib2',
-        'configName': 'NewConfig2',
-        'propertyName': 'prop2'
+      after: {
+        libraryName: '@o3r/lib2',
+        configName: 'NewConfig2',
+        propertyName: 'prop2'
       }
     },
     { // Move property to a new config and rename property name
-      'contentType': 'CONFIG',
-      'before': {
-        'libraryName': '@o3r/lib3',
-        'configName': 'MyConfig3',
-        'propertyName': 'prop3'
+      contentType: 'CONFIG',
+      before: {
+        libraryName: '@o3r/lib3',
+        configName: 'MyConfig3',
+        propertyName: 'prop3'
       },
-      'after': {
-        'libraryName': '@o3r/lib3',
-        'configName': 'NewConfig3',
-        'propertyName': 'newProp3Name'
+      after: {
+        libraryName: '@o3r/lib3',
+        configName: 'NewConfig3',
+        propertyName: 'newProp3Name'
       }
     },
     { // Move property to a new library
-      'contentType': 'CONFIG',
-      'before': {
-        'libraryName': '@o3r/lib4',
-        'configName': 'MyConfig4',
-        'propertyName': 'prop4'
+      contentType: 'CONFIG',
+      before: {
+        libraryName: '@o3r/lib4',
+        configName: 'MyConfig4',
+        propertyName: 'prop4'
       },
-      'after': {
-        'libraryName': '@new/lib4',
-        'configName': 'MyConfig4',
-        'propertyName': 'prop4'
+      after: {
+        libraryName: '@new/lib4',
+        configName: 'MyConfig4',
+        propertyName: 'prop4'
       }
     },
     { // Move property to a new library and rename property name
-      'contentType': 'CONFIG',
-      'before': {
-        'libraryName': '@o3r/lib5',
-        'configName': 'MyConfig5',
-        'propertyName': 'prop5'
+      contentType: 'CONFIG',
+      before: {
+        libraryName: '@o3r/lib5',
+        configName: 'MyConfig5',
+        propertyName: 'prop5'
       },
-      'after': {
-        'libraryName': '@new/lib5',
-        'configName': 'MyConfig5',
-        'propertyName': 'newProp5Name'
+      after: {
+        libraryName: '@new/lib5',
+        configName: 'MyConfig5',
+        propertyName: 'newProp5Name'
       }
     },
     { // Move property to a new library and to a new config and rename property name
-      'contentType': 'CONFIG',
-      'before': {
-        'libraryName': '@o3r/lib6',
-        'configName': 'MyConfig6',
-        'propertyName': 'prop6'
+      contentType: 'CONFIG',
+      before: {
+        libraryName: '@o3r/lib6',
+        configName: 'MyConfig6',
+        propertyName: 'prop6'
       },
-      'after': {
-        'libraryName': '@new/lib6',
-        'configName': 'NewConfig6',
-        'propertyName': 'newProp6Name'
+      after: {
+        libraryName: '@new/lib6',
+        configName: 'NewConfig6',
+        propertyName: 'newProp6Name'
       }
     },
     { // Rename configuration name for all properties
-      'contentType': 'CONFIG',
-      'before': {
-        'libraryName': '@o3r/lib7',
-        'configName': 'MyConfig7'
+      contentType: 'CONFIG',
+      before: {
+        libraryName: '@o3r/lib7',
+        configName: 'MyConfig7'
       },
-      'after': {
-        'libraryName': '@o3r/lib7',
-        'configName': 'NewConfig7'
+      after: {
+        libraryName: '@o3r/lib7',
+        configName: 'NewConfig7'
       }
     },
     { // Rename library name for all configurations
-      'contentType': 'CONFIG',
-      'before': {
-        'libraryName': '@o3r/lib8'
+      contentType: 'CONFIG',
+      before: {
+        libraryName: '@o3r/lib8'
       },
-      'after': {
-        'libraryName': '@new/lib8'
+      after: {
+        libraryName: '@new/lib8'
       }
     },
     { // Move configuration to a new library
-      'contentType': 'CONFIG',
-      'before': {
-        'libraryName': '@o3r/lib9',
-        'configName': 'MyConfig9'
+      contentType: 'CONFIG',
+      before: {
+        libraryName: '@o3r/lib9',
+        configName: 'MyConfig9'
       },
-      'after': {
-        'libraryName': '@new/lib9',
-        'configName': 'MyConfig9'
+      after: {
+        libraryName: '@new/lib9',
+        configName: 'MyConfig9'
       }
     }
   ]

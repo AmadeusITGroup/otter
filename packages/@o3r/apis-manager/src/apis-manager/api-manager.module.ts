@@ -1,15 +1,15 @@
 import {
   ModuleWithProviders,
-  NgModule
+  NgModule,
 } from '@angular/core';
 import {
-  ApiFactoryService
+  ApiFactoryService,
 } from './api-factory.service';
 import {
-  ApiManager
+  ApiManager,
 } from './api-manager';
 import {
-  API_TOKEN
+  API_TOKEN,
 } from './api-manager.token';
 
 // Module that needs to be imported by the application to instantiate an SDK configuration.

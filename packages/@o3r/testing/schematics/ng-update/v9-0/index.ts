@@ -1,15 +1,15 @@
 import {
   chain,
-  Rule
+  Rule,
 } from '@angular-devkit/schematics';
 import {
-  createSchematicWithMetricsIfInstalled
+  createSchematicWithMetricsIfInstalled,
 } from '@o3r/schematics';
 import {
-  updateLocalizationImports
+  updateLocalizationImports,
 } from './localization-imports/localization-imports';
 import {
-  updateThrowOnUndefinedCalls
+  updateThrowOnUndefinedCalls,
 } from './throw-on-undefined/throw-on-undefined';
 
 /**

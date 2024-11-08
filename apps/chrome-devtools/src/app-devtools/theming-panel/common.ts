@@ -1,5 +1,5 @@
 import type {
-  StylingVariable
+  StylingVariable,
 } from '@o3r/styling';
 
 /** RegExp to find a variable and get the variable name in the first group */

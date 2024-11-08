@@ -2,16 +2,16 @@ import path from 'node:path';
 import {
   callRule,
   SchematicContext,
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import {
-  SchematicTestRunner
+  SchematicTestRunner,
 } from '@angular-devkit/schematics/testing';
 import {
-  lastValueFrom
+  lastValueFrom,
 } from 'rxjs';
 import {
-  updateLinterConfigs
+  updateLinterConfigs,
 } from './index';
 
 const collectionPath = path.join(__dirname, '..', '..', '..', 'collection.json');
@@ -39,7 +39,7 @@ describe('Generate linter files', () => {
     const tree = await lastValueFrom(callRule(updateLinterConfigs({}, path.join(__dirname, '..')), initialTree, context));
 
     expect(tree.readText('.eslintignore')).toBe('I am inevitable');
-    expect(tree.readJson('.eslintrc.json')).toEqual({ 'extends': ['@o3r/eslint-config-otter'] });
+    expect(tree.readJson('.eslintrc.json')).toEqual({ extends: ['@o3r/eslint-config-otter'] });
   });
 
   it('should not overwrite linter files', async () => {

@@ -32,6 +32,7 @@ const config = [
           publicOnly: true
         }
       ],
+      'jsdoc/require-param-description': 'off',
       'jsdoc/require-param-type': 'off',
       'jsdoc/require-property-type': 'off',
       'jsdoc/require-returns': 'off',
@@ -43,8 +44,8 @@ const config = [
     files: ['**/*.{c,m,}js'],
     rules: {
       'jsdoc/require-param-type': 'error',
-      'jsdoc/require-returns-type': 'error',
       'jsdoc/require-returns-description': 'off',
+      'jsdoc/require-returns-type': 'error'
     }
   }
 ];

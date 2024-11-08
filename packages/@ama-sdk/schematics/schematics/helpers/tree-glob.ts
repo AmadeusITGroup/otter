@@ -1,6 +1,6 @@
 import {
   DirEntry,
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import * as minimatch from 'minimatch';
 

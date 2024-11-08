@@ -3,19 +3,19 @@ import {
   ElementRef,
   Input,
   OnInit,
-  Renderer2
+  Renderer2,
 } from '@angular/core';
 import {
   AnalyticsEvent,
   ConstructorAnalyticsEvent,
   ConstructorAnalyticsEventParameters,
-  EventContext
+  EventContext,
 } from '../../../contracts/index';
 import {
-  EventTrackService
+  EventTrackService,
 } from '../../../services/event-track/event-track.service';
 import {
-  BaseTrackEvents
+  BaseTrackEvents,
 } from '../base-track-events';
 
 /**

@@ -1,14 +1,14 @@
 import {
   spawn,
-  SpawnOptions
+  SpawnOptions,
 } from 'node:child_process';
 import * as path from 'node:path';
 import {
-  CodeGenerator
+  CodeGenerator,
 } from '../code-generator';
 import {
   defaultOptions,
-  JavaGeneratorTaskOptions
+  JavaGeneratorTaskOptions,
 } from './swagger-java.options';
 
 /**

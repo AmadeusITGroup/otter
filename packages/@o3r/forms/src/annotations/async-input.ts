@@ -1,9 +1,9 @@
 import {
   BehaviorSubject,
-  Observable
+  Observable,
 } from 'rxjs';
 import {
-  switchMap
+  switchMap,
 } from 'rxjs/operators';
 
 /**

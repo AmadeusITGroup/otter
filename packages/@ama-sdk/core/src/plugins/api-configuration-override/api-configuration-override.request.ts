@@ -2,7 +2,7 @@ import {
   AsyncPluginInput,
   PluginRunner,
   RequestOptions,
-  RequestPlugin
+  RequestPlugin,
 } from '../core';
 
 /**

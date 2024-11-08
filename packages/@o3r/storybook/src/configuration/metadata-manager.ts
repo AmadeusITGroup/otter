@@ -1,5 +1,5 @@
 import type {
-  ComponentConfigOutput
+  ComponentConfigOutput,
 } from '@o3r/components';
 
 declare global {

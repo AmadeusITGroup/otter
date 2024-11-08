@@ -1,11 +1,11 @@
 import {
   EmptyResponseError,
-  ResponseTimeoutError
+  ResponseTimeoutError,
 } from '@ama-sdk/core';
 import {
   impervaCaptchaEventHandlerFactory,
   TimeoutFetch,
-  TimeoutStatus
+  TimeoutStatus,
 } from './timeout.fetch';
 
 describe('Timeout Fetch Plugin', () => {

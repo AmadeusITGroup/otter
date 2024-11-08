@@ -1,5 +1,5 @@
 import type {
-  OtterMessageContent
+  OtterMessageContent,
 } from '@o3r/core';
 
 /**

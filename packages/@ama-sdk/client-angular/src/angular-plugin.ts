@@ -1,13 +1,13 @@
 import type {
   ApiClient,
   PluginContext,
-  RequestOptions
+  RequestOptions,
 } from '@ama-sdk/core';
 import type {
-  HttpResponse
+  HttpResponse,
 } from '@angular/common/http';
 import type {
-  Observable
+  Observable,
 } from 'rxjs';
 
 /**

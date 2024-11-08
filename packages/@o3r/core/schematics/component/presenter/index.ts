@@ -13,7 +13,7 @@ import {
   SchematicContext,
   template,
   Tree,
-  url
+  url,
 } from '@angular-devkit/schematics';
 import {
   applyEsLintFix,
@@ -25,34 +25,34 @@ import {
   getDestinationPath,
   getInputComponentName,
   getLibraryNameFromPath,
-  getWorkspaceConfig
+  getWorkspaceConfig,
 } from '@o3r/schematics';
 import {
-  getAddAnalyticsRules
+  getAddAnalyticsRules,
 } from '../../rule-factories/component/analytics';
 import {
-  getAddConfigurationRules
+  getAddConfigurationRules,
 } from '../../rule-factories/component/configuration';
 import {
-  getAddContextRules
+  getAddContextRules,
 } from '../../rule-factories/component/context';
 import {
-  getAddDesignTokenRules
+  getAddDesignTokenRules,
 } from '../../rule-factories/component/design-token';
 import {
-  getAddFixtureRules
+  getAddFixtureRules,
 } from '../../rule-factories/component/fixture';
 import {
-  getAddLocalizationRules
+  getAddLocalizationRules,
 } from '../../rule-factories/component/localization';
 import {
-  getAddThemingRules
+  getAddThemingRules,
 } from '../../rule-factories/component/theming';
 import {
-  NgGenerateComponentSchematicsSchema
+  NgGenerateComponentSchematicsSchema,
 } from '../schema';
 import {
-  ComponentStructureDef
+  ComponentStructureDef,
 } from '../structures.types';
 
 export const PRESENTER_FOLDER = 'presenter';

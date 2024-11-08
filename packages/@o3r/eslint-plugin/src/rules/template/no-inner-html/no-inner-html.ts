@@ -1,11 +1,11 @@
 import type {
-  TmplAstElement
+  TmplAstElement,
 } from '@angular/compiler';
 import {
-  createRule
+  createRule,
 } from '../../utils';
 import {
-  getTemplateParserServices
+  getTemplateParserServices,
 } from '../utils';
 
 /** Rule Name */

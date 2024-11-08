@@ -2,20 +2,20 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {
   Architect,
-  createBuilder
+  createBuilder,
 } from '@angular-devkit/architect';
 import {
-  TestingArchitectHost
+  TestingArchitectHost,
 } from '@angular-devkit/architect/testing';
 import {
-  schema
+  schema,
 } from '@angular-devkit/core';
 import {
   cleanVirtualFileSystem,
-  useVirtualFileSystem
+  useVirtualFileSystem,
 } from '@o3r/test-helpers';
 import {
-  AppVersionBuilderSchema
+  AppVersionBuilderSchema,
 } from './schema';
 
 describe('App version Builder', () => {

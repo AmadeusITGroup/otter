@@ -1,8 +1,8 @@
 import {
-  ApiTypes
+  ApiTypes,
 } from '../../fwk/api';
 import {
-  RawResponseInfoReply
+  RawResponseInfoReply,
 } from './raw-response-info.reply';
 
 describe('Raw response info Reply plugin', () => {

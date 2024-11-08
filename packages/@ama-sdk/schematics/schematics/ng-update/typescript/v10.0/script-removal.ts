@@ -1,21 +1,20 @@
 import {
   noop,
-  type Rule
+  type Rule,
 } from '@angular-devkit/schematics';
 import type {
-  PackageJson
+  PackageJson,
 } from 'type-fest';
 import {
-  DevInstall
+  DevInstall,
 } from '../../../helpers/node-install';
 import {
-  readPackageJson
+  readPackageJson,
 } from '../../../helpers/read-package';
 
 /**
  * Update the scrips from package.json
  */
-// eslint-disable-next-line unicorn/consistent-function-scoping -- higher-order function
 export const updateScriptPackageJson = (): Rule => (tree, context) => {
   if (!tree.exists('/package.json')) {
     context.logger.warn('Can not find package.json, update process will be skipped');
@@ -40,7 +39,6 @@ export const updateScriptPackageJson = (): Rule => (tree, context) => {
 /**
  * Deprecate the scripts folder
  */
-// eslint-disable-next-line unicorn/consistent-function-scoping -- higher-order function
 export const deprecateScriptsFolder = (): Rule => (tree) => {
   if (tree.exists('/scripts')) {
     tree.create('/scripts/readme.md', `## Deprecation
@@ -59,7 +57,6 @@ The following scripts of this folder are not used anymore, if there is no custom
 /**
  * Add the CPY dependencies
  */
-// eslint-disable-next-line unicorn/consistent-function-scoping -- higher-order function
 export const addCpyDependencies = (): Rule => async (_, context) => {
   const amaSdkSchematicsPackageJson = await readPackageJson();
   context.addTask(new DevInstall({ packageName: `globby@${amaSdkSchematicsPackageJson.dependencies!.globby as string}` }));

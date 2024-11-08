@@ -1,12 +1,12 @@
 import {
   createAction,
-  props
+  props,
 } from '@ngrx/store';
 import type {
-  SetStateActionPayload
+  SetStateActionPayload,
 } from '@o3r/core';
 import {
-  AssetPathOverrideState
+  AssetPathOverrideState,
 } from './asset-path-override.state';
 
 /** Actions */

@@ -1,11 +1,11 @@
 import type {
   Rule,
   SchematicContext,
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import {
   getPackageManager,
-  WorkspaceSchema
+  WorkspaceSchema,
 } from '@o3r/schematics';
 
 /**

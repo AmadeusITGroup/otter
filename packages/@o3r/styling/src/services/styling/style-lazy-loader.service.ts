@@ -1,14 +1,14 @@
 import {
-  Injectable
+  Injectable,
 } from '@angular/core';
 import {
-  DynamicContentService
+  DynamicContentService,
 } from '@o3r/dynamic-content';
 import {
-  firstValueFrom
+  firstValueFrom,
 } from 'rxjs';
 import {
-  StyleLazyLoaderModule
+  StyleLazyLoaderModule,
 } from './style-lazy-loader.module';
 
 /**

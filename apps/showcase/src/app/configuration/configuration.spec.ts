@@ -1,24 +1,24 @@
 import {
-  AsyncPipe
+  AsyncPipe,
 } from '@angular/common';
 import {
   ComponentFixture,
-  TestBed
+  TestBed,
 } from '@angular/core/testing';
 import {
-  RouterModule
+  RouterModule,
 } from '@angular/router';
 import {
-  StoreModule
+  StoreModule,
 } from '@ngrx/store';
 import {
-  O3rElement
+  O3rElement,
 } from '@o3r/testing/core';
 import {
-  ConfigurationComponent
+  ConfigurationComponent,
 } from './configuration.component';
 import {
-  ConfigurationFixtureComponent
+  ConfigurationFixtureComponent,
 } from './configuration.fixture';
 
 let componentFixture: ConfigurationFixtureComponent;

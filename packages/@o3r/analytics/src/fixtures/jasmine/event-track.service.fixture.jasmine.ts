@@ -1,5 +1,5 @@
 import type {
-  EventTrackService
+  EventTrackService,
 } from '@o3r/analytics';
 
 /**

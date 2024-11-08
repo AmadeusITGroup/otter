@@ -1,12 +1,12 @@
 import type {
-  EntityState
+  EntityState,
 } from '@ngrx/entity';
 import {
-  asyncStoreItemAdapter
+  asyncStoreItemAdapter,
 } from './async.adapter';
 import {
   AsyncStoreItem,
-  EntityStatus
+  EntityStatus,
 } from './async.interfaces';
 
 /**

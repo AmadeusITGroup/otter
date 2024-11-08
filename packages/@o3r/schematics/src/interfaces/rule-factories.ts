@@ -1,5 +1,5 @@
 import type {
-  Rule
+  Rule,
 } from '@angular-devkit/schematics';
 
 /** Rule Factory prototype */

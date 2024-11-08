@@ -1,11 +1,11 @@
 /** Ruleset executor */
 import {
-  JSONPath
+  JSONPath,
 } from 'jsonpath-plus';
 import {
   combineLatest,
   Observable,
-  of
+  of,
 } from 'rxjs';
 import {
   distinctUntilChanged,
@@ -14,28 +14,28 @@ import {
   shareReplay,
   startWith,
   switchMap,
-  tap
+  tap,
 } from 'rxjs/operators';
 import {
-  handleRuleEvaluationDebug
+  handleRuleEvaluationDebug,
 } from './debug/helpers';
 import type {
-  RulesEngine
+  RulesEngine,
 } from './engine';
 import {
   EngineRuleset,
   EvaluationReason,
   RuleEvaluation,
-  RuleEvaluationOutput
+  RuleEvaluationOutput,
 } from './engine.interface';
 import type {
-  Facts
+  Facts,
 } from './fact';
 import {
-  executeOperator
+  executeOperator,
 } from './operator/operator.helpers';
 import {
-  Operator
+  Operator,
 } from './operator/operator.interface';
 import {
   isAllConditions,
@@ -43,7 +43,7 @@ import {
   isNotCondition,
   isOperandFact,
   isOperandLiteral,
-  isOperandRuntimeFact
+  isOperandRuntimeFact,
 } from './rule/rule.helpers';
 import {
   ActionBlock,
@@ -53,7 +53,7 @@ import {
   IfElseBlock,
   NestedCondition,
   Rule,
-  Ruleset
+  Ruleset,
 } from './structure';
 
 /** Type of the retrieve fact function */

@@ -1,7 +1,7 @@
 import {
   filter,
   map,
-  Observable
+  Observable,
 } from 'rxjs';
 import {
   applicationMessageTarget,
@@ -9,7 +9,7 @@ import {
   FilterMessageToApplication,
   OtterMessage,
   OtterMessageContent,
-  otterMessageType
+  otterMessageType,
 } from './message.interfaces';
 
 /**

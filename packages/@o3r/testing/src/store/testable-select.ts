@@ -1,15 +1,15 @@
 import {
-  select as baseSelect
+  select as baseSelect,
 } from '@ngrx/store';
 import {
   Observable,
-  of
+  of,
 } from 'rxjs';
 import {
   FakeSelectCall,
   isSelectorSpyCall,
   SelectorFunction,
-  SelectorSpy
+  SelectorSpy,
 } from './typings';
 
 // eslint-disable-next-line import/export -- legacy code

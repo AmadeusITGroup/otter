@@ -1,21 +1,21 @@
 import {
-  createEntityAdapter
+  createEntityAdapter,
 } from '@ngrx/entity';
 import {
   ActionCreator,
   createReducer,
   on,
-  ReducerTypes
+  ReducerTypes,
 } from '@ngrx/store';
 import {
   asyncStoreItemAdapter,
-  createEntityAsyncRequestAdapter
+  createEntityAsyncRequestAdapter,
 } from '@o3r/core';
 import * as actions from './placeholder-request.actions';
 import {
   PlaceholderRequestModel,
   PlaceholderRequestState,
-  PlaceholderRequestStateDetails
+  PlaceholderRequestStateDetails,
 } from './placeholder-request.state';
 
 /**

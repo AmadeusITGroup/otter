@@ -1,11 +1,11 @@
 import type {
-  Serializer
+  Serializer,
 } from '@o3r/core';
 import {
-  eventTrackInitialState
+  eventTrackInitialState,
 } from './event-track.reducer';
 import {
-  EventTrackState
+  EventTrackState,
 } from './event-track.state';
 
 export const eventTrackStorageSync: Serializer<EventTrackState> = {

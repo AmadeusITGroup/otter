@@ -1,15 +1,15 @@
 import {
-  NgModule
+  NgModule,
 } from '@angular/core';
 import {
-  ConfigurationStoreModule
+  ConfigurationStoreModule,
 } from '@o3r/configuration';
 import {
-  ComponentWrapper
+  ComponentWrapper,
 } from './component-wrapper.component';
 import {
   ComponentWrapperService,
-  wrapperService
+  wrapperService,
 } from './component-wrapper.service';
 
 @NgModule({

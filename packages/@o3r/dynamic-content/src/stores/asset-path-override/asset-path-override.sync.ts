@@ -1,11 +1,11 @@
 import type {
-  Serializer
+  Serializer,
 } from '@o3r/core';
 import {
-  assetPathOverrideInitialState
+  assetPathOverrideInitialState,
 } from './asset-path-override.reducer';
 import {
-  AssetPathOverrideState
+  AssetPathOverrideState,
 } from './asset-path-override.state';
 
 /**

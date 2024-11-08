@@ -1,34 +1,34 @@
 import {
-  Formatter
+  Formatter,
 } from '../core/formatters/formatter.interface';
 import {
-  JsonFormatter
+  JsonFormatter,
 } from '../core/formatters/json-formatter';
 import {
-  SplitYamlFormatter
+  SplitYamlFormatter,
 } from '../core/formatters/split-yaml-formatter';
 import {
-  YamlFormatter
+  YamlFormatter,
 } from '../core/formatters/yaml-formatter';
 import {
-  SwaggerSpecMerger
+  SwaggerSpecMerger,
 } from '../core/swagger-spec-merger';
 import {
-  SwaggerSpecSplit
+  SwaggerSpecSplit,
 } from '../core/swagger-spec-wrappers/swagger-spec-split';
 import {
   getCurrentArtifactVersion,
-  getTargetInformation
+  getTargetInformation,
 } from '../core/utils';
 import {
-  BuilderApiConfiguration
+  BuilderApiConfiguration,
 } from '../interfaces/apis-configuration';
 import {
   BuilderConfiguration,
-  OutputFormat
+  OutputFormat,
 } from '../interfaces/builder-configuration';
 import {
-  applyPostProcess
+  applyPostProcess,
 } from './post-process';
 
 /**

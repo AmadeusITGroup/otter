@@ -1,22 +1,22 @@
 import {
   ModuleWithProviders,
-  NgModule
+  NgModule,
 } from '@angular/core';
 import type {
-  ApplicationDevtoolsServiceOptions
+  ApplicationDevtoolsServiceOptions,
 } from './application-devkit.interface';
 import {
-  ApplicationDevtoolsConsoleService
+  ApplicationDevtoolsConsoleService,
 } from './application-devtools.console.service';
 import {
-  ApplicationDevtoolsMessageService
+  ApplicationDevtoolsMessageService,
 } from './application-devtools.message.service';
 import {
-  OtterApplicationDevtools
+  OtterApplicationDevtools,
 } from './application-devtools.service';
 import {
   OTTER_APPLICATION_DEVTOOLS_DEFAULT_OPTIONS,
-  OTTER_APPLICATION_DEVTOOLS_OPTIONS
+  OTTER_APPLICATION_DEVTOOLS_OPTIONS,
 } from './application-devtools.token';
 
 @NgModule({

@@ -1,7 +1,7 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {
-  askConfirmation
+  askConfirmation,
 } from '@angular/cli/src/utilities/prompt';
 import {
   apply,
@@ -15,7 +15,7 @@ import {
   SchematicContext,
   template,
   Tree,
-  url
+  url,
 } from '@angular-devkit/schematics';
 import {
   addVsCodeRecommendations,
@@ -30,22 +30,22 @@ import {
   registerPackageCollectionSchematics,
   removePackages,
   setupDependencies,
-  setupSchematicsParamsForProject
+  setupSchematicsParamsForProject,
 } from '@o3r/schematics';
 import {
-  NodeDependencyType
+  NodeDependencyType,
 } from '@schematics/angular/utility/dependencies';
 import type {
-  PackageJson
+  PackageJson,
 } from 'type-fest';
 import type {
-  NgAddSchematicsSchema
+  NgAddSchematicsSchema,
 } from '../../schematics/ng-add/schema';
 import {
-  updateFixtureConfig
+  updateFixtureConfig,
 } from './fixture';
 import {
-  updatePlaywright
+  updatePlaywright,
 } from './playwright';
 
 const devDependenciesToInstall = [

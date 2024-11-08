@@ -1,10 +1,10 @@
 import * as actions from './localization-override.actions';
 import {
   localizationOverrideInitialState,
-  localizationOverrideReducer
+  localizationOverrideReducer,
 } from './localization-override.reducer';
 import {
-  LocalizationOverrideState
+  LocalizationOverrideState,
 } from './localization-override.state';
 
 describe('LocalizationOverride Store reducer', () => {

@@ -1,13 +1,13 @@
 import {
-  CONFIGURATION_PREFIX
+  CONFIGURATION_PREFIX,
 } from './configuration-configs.interface';
 import {
   extractConfiguration,
-  retrieveConfigFromProps
+  retrieveConfigFromProps,
 } from './configuration.helpers';
 import {
   getConfigurationMetadata,
-  setConfigurationMetadata
+  setConfigurationMetadata,
 } from './metadata-manager';
 
 describe('Configuration Metadata setup', () => {

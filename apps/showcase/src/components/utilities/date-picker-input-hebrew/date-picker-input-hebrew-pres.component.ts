@@ -7,17 +7,17 @@ import {
   Pipe,
   type PipeTransform,
   signal,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {
   ControlValueAccessor,
   FormsModule,
-  NG_VALUE_ACCESSOR
+  NG_VALUE_ACCESSOR,
 } from '@angular/forms';
 import {
   CloseInputDatePickerDirective,
   DfDatePickerModule,
-  DfInputIconDirective
+  DfInputIconDirective,
 } from '@design-factory/design-factory';
 import {
   NgbCalendar,
@@ -26,13 +26,13 @@ import {
   NgbDatepickerI18n,
   NgbDatepickerI18nHebrew,
   type NgbDateStruct,
-  NgbInputDatepicker
+  NgbInputDatepicker,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
-  O3rComponent
+  O3rComponent,
 } from '@o3r/core';
 import {
-  DatePickerInputHebrewPresContext
+  DatePickerInputHebrewPresContext,
 } from './date-picker-input-hebrew-pres.context';
 
 @Pipe({

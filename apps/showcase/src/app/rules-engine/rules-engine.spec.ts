@@ -1,37 +1,37 @@
 import {
-  AsyncPipe
+  AsyncPipe,
 } from '@angular/common';
 import {
-  Provider
+  Provider,
 } from '@angular/core';
 import {
   ComponentFixture,
-  TestBed
+  TestBed,
 } from '@angular/core/testing';
 import {
-  RouterModule
+  RouterModule,
 } from '@angular/router';
 import {
-  EffectsModule
+  EffectsModule,
 } from '@ngrx/effects';
 import {
-  StoreModule
+  StoreModule,
 } from '@ngrx/store';
 import {
   TranslateCompiler,
-  TranslateFakeCompiler
+  TranslateFakeCompiler,
 } from '@ngx-translate/core';
 import {
-  LocalizationService
+  LocalizationService,
 } from '@o3r/localization';
 import {
-  RulesEngineRunnerModule
+  RulesEngineRunnerModule,
 } from '@o3r/rules-engine';
 import {
-  mockTranslationModules
+  mockTranslationModules,
 } from '@o3r/testing/localization';
 import {
-  RulesEngineComponent
+  RulesEngineComponent,
 } from './rules-engine.component';
 
 const localizationConfiguration = { language: 'en' };

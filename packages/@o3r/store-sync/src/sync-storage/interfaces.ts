@@ -1,5 +1,5 @@
 import type {
-  Logger
+  Logger,
 } from '@o3r/core';
 
 /**

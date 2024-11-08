@@ -1,27 +1,27 @@
 import {
   Directive,
-  forwardRef
+  forwardRef,
 } from '@angular/core';
 import {
   ComponentFixture,
-  TestBed
+  TestBed,
 } from '@angular/core/testing';
 import {
-  NG_VALUE_ACCESSOR
+  NG_VALUE_ACCESSOR,
 } from '@angular/forms';
 import {
   C11nMockService,
   C11nModule,
-  C11nService
+  C11nService,
 } from '@o3r/components';
 import {
-  O3rElement
+  O3rElement,
 } from '@o3r/testing/core';
 import {
-  ComponentReplacementPresComponent
+  ComponentReplacementPresComponent,
 } from './component-replacement-pres.component';
 import {
-  ComponentReplacementPresFixtureComponent
+  ComponentReplacementPresFixtureComponent,
 } from './component-replacement-pres.fixture';
 
 let componentFixture: ComponentReplacementPresFixtureComponent;

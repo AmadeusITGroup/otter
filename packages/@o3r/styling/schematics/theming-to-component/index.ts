@@ -1,6 +1,6 @@
 import {
   basename,
-  dirname
+  dirname,
 } from 'node:path';
 import {
   apply,
@@ -13,18 +13,18 @@ import {
   SchematicContext,
   template,
   Tree,
-  url
+  url,
 } from '@angular-devkit/schematics';
 import {
   createSchematicWithMetricsIfInstalled,
-  O3rCliError
+  O3rCliError,
 } from '@o3r/schematics';
 import {
   applyToUpdateRecorder,
-  InsertChange
+  InsertChange,
 } from '@schematics/angular/utility/change';
 import type {
-  NgAddThemingSchematicsSchema
+  NgAddThemingSchematicsSchema,
 } from './schema';
 
 const checkTheming = (stylePath: string, tree: Tree) => {

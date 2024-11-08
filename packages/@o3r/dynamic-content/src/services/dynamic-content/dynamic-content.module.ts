@@ -1,17 +1,17 @@
 import {
   ModuleWithProviders,
-  NgModule
+  NgModule,
 } from '@angular/core';
 import {
   DynamicContentPipe,
-  O3rDynamicContentPipe
+  O3rDynamicContentPipe,
 } from './dynamic-content.pipe';
 import {
-  DynamicContentService
+  DynamicContentService,
 } from './dynamic-content.service';
 import {
   CMS_ASSETS_PATH_TOKEN,
-  DYNAMIC_CONTENT_BASE_PATH_TOKEN
+  DYNAMIC_CONTENT_BASE_PATH_TOKEN,
 } from './dynamic-content.token';
 
 /**

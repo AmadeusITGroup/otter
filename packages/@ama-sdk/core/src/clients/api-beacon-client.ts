@@ -1,27 +1,27 @@
 import type {
-  ApiTypes
+  ApiTypes,
 } from '../fwk/api';
 import {
   extractQueryParams,
   filterUndefinedValues,
   prepareUrl,
   processFormData,
-  tokenizeRequestOptions
+  tokenizeRequestOptions,
 } from '../fwk/api.helpers';
 import type {
-  PartialExcept
+  PartialExcept,
 } from '../fwk/api.interface';
 import type {
   ApiClient,
-  RequestOptionsParameters
+  RequestOptionsParameters,
 } from '../fwk/core/api-client';
 import type {
-  BaseApiClientOptions
+  BaseApiClientOptions,
 } from '../fwk/core/base-api-constructor';
 import type {
   RequestBody,
   RequestOptions,
-  TokenizedOptions
+  TokenizedOptions,
 } from '../plugins';
 
 /**

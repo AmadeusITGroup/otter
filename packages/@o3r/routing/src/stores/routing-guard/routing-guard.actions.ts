@@ -1,9 +1,9 @@
 import {
   createAction,
-  props
+  props,
 } from '@ngrx/store';
 import {
-  RegisteredItemFailureReason
+  RegisteredItemFailureReason,
 } from './routing-guard.state';
 
 /** Entity Actions */

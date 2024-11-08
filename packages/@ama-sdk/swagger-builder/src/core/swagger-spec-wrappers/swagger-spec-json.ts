@@ -1,12 +1,12 @@
 import fs from 'node:fs';
 import {
-  SwaggerSpecFile
+  SwaggerSpecFile,
 } from './swagger-spec-file';
 import {
-  SwaggerSpec
+  SwaggerSpec,
 } from './swagger-spec.interface';
 import {
-  sanitizeDefinition
+  sanitizeDefinition,
 } from './utils';
 
 export class SwaggerSpecJson extends SwaggerSpecFile implements SwaggerSpec {

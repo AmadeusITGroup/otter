@@ -1,15 +1,13 @@
 import * as path from 'node:path';
 import {
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import {
-  SchematicTestRunner
+  SchematicTestRunner,
 } from '@angular-devkit/schematics/testing';
 
-// eslint-disable-next-line unicorn/consistent-function-scoping -- mock setupDependencies function, higher-order function
 const setupDependenciesMock = jest.fn(() => () => {});
 const updateVscodeMock = jest.fn(() => {});
-// eslint-disable-next-line unicorn/consistent-function-scoping -- mock updateEslintConfig function, higher-order function
 const updateEslintConfigMock = jest.fn(() => () => {});
 
 jest.mock('@o3r/schematics', () => ({
@@ -41,11 +39,11 @@ describe('ng add eslint-config', () => {
         '@o3r/eslint-plugin': expect.objectContaining({}),
         '@stylistic/eslint-plugin': expect.objectContaining({}),
         'angular-eslint': expect.objectContaining({}),
-        'eslint': expect.objectContaining({}),
+        eslint: expect.objectContaining({}),
         'eslint-plugin-jsdoc': expect.objectContaining({}),
         'eslint-plugin-prefer-arrow': expect.objectContaining({}),
         'eslint-plugin-unicorn': expect.objectContaining({}),
-        'globby': expect.objectContaining({}),
+        globby: expect.objectContaining({}),
         'jsonc-eslint-parser': expect.objectContaining({}),
         'typescript-eslint': expect.objectContaining({})
       }),

@@ -1,20 +1,20 @@
 import {
-  promises as fs
+  promises as fs,
 } from 'node:fs';
 import {
-  resolve
+  resolve,
 } from 'node:path';
 import type {
-  DesignTokenSpecification
+  DesignTokenSpecification,
 } from '../../design-token-specification.interface';
 import type {
   DesignTokenVariableSet,
-  TokenKeyRenderer
+  TokenKeyRenderer,
 } from '../../parsers';
 import * as parser from '../../parsers/design-token.parser';
 import {
   getSassTokenDefinitionRenderer,
-  tokenVariableNameSassRenderer
+  tokenVariableNameSassRenderer,
 } from './design-token-definition.renderers';
 
 describe('getSassTokenDefinitionRenderer', () => {
@@ -52,7 +52,6 @@ describe('getSassTokenDefinitionRenderer', () => {
   });
 
   test('should prefix private variable', () => {
-    // eslint-disable-next-line unicorn/consistent-function-scoping -- linked to this test only
     const tokenVariableNameRenderer: TokenKeyRenderer = (v) => '_' + tokenVariableNameSassRenderer(v);
 
     const options = { tokenVariableNameRenderer };

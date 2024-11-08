@@ -1,22 +1,22 @@
 import {
   join,
-  posix
+  posix,
 } from 'node:path';
 import type {
-  PackageManager
+  PackageManager,
 } from '@angular/cli/lib/config/workspace-schema';
 import {
   chain,
   Rule,
   SchematicContext,
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import {
   getPackageManager,
   getWorkspaceConfig,
   OTTER_ITEM_TYPES,
   registerCollectionSchematics,
-  TYPES_DEFAULT_FOLDER
+  TYPES_DEFAULT_FOLDER,
 } from '@o3r/schematics';
 import generateEnvironments from '@schematics/angular/environments/index';
 import * as ts from 'typescript';

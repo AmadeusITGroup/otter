@@ -8,22 +8,22 @@ const o3rEnvironment = globalThis.o3rEnvironment;
 import {
   existsSync,
   promises,
-  readFileSync
+  readFileSync,
 } from 'node:fs';
 import {
   dirname,
-  join
+  join,
 } from 'node:path';
 import type {
-  MigrationFile
+  MigrationFile,
 } from '@o3r/extractors';
 import type {
   JSONLocalization,
-  LocalizationMetadata
+  LocalizationMetadata,
 } from '@o3r/localization';
 import {
   getExternalDependenciesVersionRange,
-  getPackageManager
+  getPackageManager,
 } from '@o3r/schematics';
 import {
   getDefaultExecSyncOptions,
@@ -31,13 +31,13 @@ import {
   packageManagerAdd,
   packageManagerExec,
   packageManagerVersion,
-  publishToVerdaccio
+  publishToVerdaccio,
 } from '@o3r/test-helpers';
 import {
-  inc
+  inc,
 } from 'semver';
 import type {
-  MigrationLocalizationMetadata
+  MigrationLocalizationMetadata,
 } from './helpers/localization-metadata-comparison.helper';
 
 const baseVersion = '1.2.0';
@@ -49,12 +49,12 @@ const defaultMigrationData: MigrationFile<MigrationLocalizationMetadata> = {
   version,
   changes: [
     { // Rename key name
-      'contentType': 'LOCALIZATION',
-      'before': {
-        'key': 'localization.key1'
+      contentType: 'LOCALIZATION',
+      before: {
+        key: 'localization.key1'
       },
-      'after': {
-        'key': 'new-localization.key1'
+      after: {
+        key: 'new-localization.key1'
       }
     }
   ]

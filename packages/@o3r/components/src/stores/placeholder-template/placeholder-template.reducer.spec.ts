@@ -1,7 +1,7 @@
 import * as actions from './placeholder-template.actions';
 import {
   placeholderTemplateInitialState,
-  placeholderTemplateReducer
+  placeholderTemplateReducer,
 } from './placeholder-template.reducer';
 
 describe('PlaceholderTemplate Store reducer', () => {

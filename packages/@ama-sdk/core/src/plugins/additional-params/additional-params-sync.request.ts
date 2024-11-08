@@ -1,10 +1,10 @@
 import {
   PluginSyncRunner,
   RequestOptions,
-  RequestPlugin
+  RequestPlugin,
 } from '../core';
 import {
-  isStringOrUndefined
+  isStringOrUndefined,
 } from './additional-params.request';
 
 export interface AdditionalParametersSync {

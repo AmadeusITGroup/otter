@@ -1,11 +1,11 @@
 import type {
-  DeclarationReflection
+  DeclarationReflection,
 } from 'typedoc';
 import {
-  CommonDocumentationNode
+  CommonDocumentationNode,
 } from './common';
 import {
-  DocumentationNodeType
+  DocumentationNodeType,
 } from './enums';
 
 /**

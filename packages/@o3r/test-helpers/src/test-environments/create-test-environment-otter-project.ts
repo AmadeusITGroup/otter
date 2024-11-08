@@ -1,12 +1,12 @@
 import {
-  ExecSyncOptions
+  ExecSyncOptions,
 } from 'node:child_process';
 import {
   existsSync,
   mkdirSync,
   readFileSync,
   rmSync,
-  writeFileSync
+  writeFileSync,
 } from 'node:fs';
 import * as path from 'node:path';
 import {
@@ -18,7 +18,7 @@ import {
   packageManagerCreate,
   packageManagerExec,
   packageManagerInstall,
-  setPackagerManagerConfig
+  setPackagerManagerConfig,
 } from '../utilities';
 
 export interface CreateTestEnvironmentOtterProjectWithAppAndLibOptions extends CreateWithLockOptions, PackageManagerConfig {

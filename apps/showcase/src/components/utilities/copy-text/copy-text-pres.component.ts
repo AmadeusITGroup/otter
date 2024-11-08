@@ -1,19 +1,19 @@
 import {
   Clipboard,
-  ClipboardModule
+  ClipboardModule,
 } from '@angular/cdk/clipboard';
 import {
   ChangeDetectionStrategy,
   Component,
   inject,
   Input,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {
-  O3rComponent
+  O3rComponent,
 } from '@o3r/core';
 import {
-  HighlightModule
+  HighlightModule,
 } from 'ngx-highlightjs';
 
 @O3rComponent({ componentType: 'Component' })

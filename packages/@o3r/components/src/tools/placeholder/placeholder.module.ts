@@ -1,20 +1,20 @@
 import {
-  CommonModule
+  CommonModule,
 } from '@angular/common';
 import {
-  NgModule
+  NgModule,
 } from '@angular/core';
 import {
-  StoreModule
+  StoreModule,
 } from '@ngrx/store';
 import {
-  PlaceholderRequestStoreModule
+  PlaceholderRequestStoreModule,
 } from '../../stores/placeholder-request/index';
 import {
-  PlaceholderTemplateStoreModule
+  PlaceholderTemplateStoreModule,
 } from '../../stores/placeholder-template/index';
 import {
-  PlaceholderComponent
+  PlaceholderComponent,
 } from './placeholder.component';
 
 @NgModule({

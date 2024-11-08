@@ -1,9 +1,9 @@
 import {
   type CssStyleContentUpdaterOptions,
-  getCssStyleContentUpdater
+  getCssStyleContentUpdater,
 } from '../css';
 import type {
-  DesignContentFileUpdater
+  DesignContentFileUpdater,
 } from '../design-token.renderer.interface';
 
 /** Options for {@link getSassStyleContentUpdater} */

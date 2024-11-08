@@ -2,14 +2,14 @@ import {
   Inject,
   Injectable,
   InjectionToken,
-  Optional
+  Optional,
 } from '@angular/core';
 import {
-  TranslateCompiler
+  TranslateCompiler,
 } from '@ngx-translate/core';
 import {
   IntlMessageFormat,
-  Options
+  Options,
 } from 'intl-messageformat';
 
 /**

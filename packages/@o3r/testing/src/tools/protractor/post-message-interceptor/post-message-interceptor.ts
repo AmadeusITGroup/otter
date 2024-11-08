@@ -1,11 +1,11 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {
-  browser
+  browser,
 } from 'protractor';
 import {
   ConditionFn,
-  PostMessageCall
+  PostMessageCall,
 } from './core';
 
 /**

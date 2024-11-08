@@ -2,10 +2,10 @@
 import type {
   Action,
   ActionReducer,
-  MetaReducer
+  MetaReducer,
 } from '@ngrx/store';
 import type {
-  LoggerClient
+  LoggerClient,
 } from './logger.client';
 
 /**
@@ -23,6 +23,5 @@ export const noopLogger: LoggerClient = {
   debug: console.debug,
   info: console.info,
   log: console.log,
-  // eslint-disable-next-line unicorn/consistent-function-scoping -- higher-order function
   createMetaReducer: (): MetaReducer<any, Action> => (reducer: ActionReducer<any>): ActionReducer<any> => reducer
 };

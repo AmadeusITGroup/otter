@@ -1,14 +1,14 @@
 import * as path from 'node:path';
 import {
   chain,
-  type Rule
+  type Rule,
 } from '@angular-devkit/schematics';
 import {
-  NodePackageInstallTask
+  NodePackageInstallTask,
 } from '@angular-devkit/schematics/tasks';
 import * as ts from 'typescript';
 import type {
-  NgAddSchematicsSchema
+  NgAddSchematicsSchema,
 } from './schema';
 
 const reportMissingSchematicsDep = (logger: { error: (message: string) => any }) => (reason: any) => {

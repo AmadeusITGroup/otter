@@ -3,7 +3,7 @@ import type {
   DevtoolsCommonOptions,
   MessageDataTypes,
   OtterMessageContent,
-  RequestMessagesContentMessage
+  RequestMessagesContentMessage,
 } from '@o3r/core';
 
 export interface ApplicationDevtoolsServiceOptions extends DevtoolsCommonOptions {

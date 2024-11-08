@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 import {
-  exec as cpExec
+  exec as cpExec,
 } from 'node:child_process';
 import * as fs from 'node:fs';
 import * as fsPromises from 'node:fs/promises';
 import * as path from 'node:path';
 import * as util from 'node:util';
 import {
-  SemVer
+  SemVer,
 } from 'semver';
 import * as winston from 'winston';
 

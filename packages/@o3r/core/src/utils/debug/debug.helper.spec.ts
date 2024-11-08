@@ -1,6 +1,6 @@
 import {
   isProductionEnvironment,
-  padNumber
+  padNumber,
 } from './debug.helper';
 
 describe('debug helper', () => {

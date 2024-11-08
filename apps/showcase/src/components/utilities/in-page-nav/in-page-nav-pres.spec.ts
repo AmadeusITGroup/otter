@@ -1,9 +1,9 @@
 import {
   ComponentFixture,
-  TestBed
+  TestBed,
 } from '@angular/core/testing';
 import {
-  InPageNavPresComponent
+  InPageNavPresComponent,
 } from './in-page-nav-pres.component';
 
 describe('InPageNavPresComponent', () => {

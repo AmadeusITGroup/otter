@@ -1,15 +1,15 @@
 import {
   getStyleMetadata,
-  setStyleMetadata
+  setStyleMetadata,
 } from './metadata-manager';
 import {
-  STYLING_PREFIX
+  STYLING_PREFIX,
 } from './style-configs.interface';
 import {
   extractStyling,
   getThemeVariables,
   getTypeAndValue,
-  setCssVariable
+  setCssVariable,
 } from './styling.helpers';
 
 describe('Styling Metadata setup', () => {

@@ -3,14 +3,14 @@ import {
   noop,
   Rule,
   SchematicContext,
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import {
   addImportsRule,
   createSchematicWithMetricsIfInstalled,
   findFilesInTree,
   PipeReplacementInfo,
-  updatePipes
+  updatePipes,
 } from '@o3r/schematics';
 
 const pipeReplacementInfo: PipeReplacementInfo = {

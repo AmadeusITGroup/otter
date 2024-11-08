@@ -15,6 +15,13 @@ const config = [
       ...convertWarningsToErrors(stylistic.configs['recommended-flat']),
       '@stylistic/arrow-parens': ['error', 'always'],
       '@stylistic/brace-style': ['error', '1tbs'],
+      '@stylistic/comma-dangle': ['error', {
+        arrays: 'never',
+        objects: 'never',
+        imports: 'always-multiline',
+        exports: 'always-multiline',
+        functions: 'never'
+      }],
       '@stylistic/indent': [
         'error',
         2,
@@ -58,6 +65,13 @@ const config = [
       ],
       '@stylistic/no-extra-semi': 'error',
       '@stylistic/no-multiple-empty-lines': 'error',
+      '@stylistic/operator-linebreak': [
+        'error',
+        'before',
+        {
+          overrides: { '=': 'none' }
+        }
+      ],
       '@stylistic/quotes': [
         'error',
         'single',
@@ -65,6 +79,10 @@ const config = [
           avoidEscape: true,
           allowTemplateLiterals: true
         }
+      ],
+      '@stylistic/quote-props': [
+        'error',
+        'as-needed'
       ],
       '@stylistic/semi': [
         'error',
@@ -90,13 +108,6 @@ const config = [
       '@stylistic/wrap-iife': [
         'error',
         'inside'
-      ],
-      '@stylistic/operator-linebreak': [
-        'error',
-        'before',
-        {
-          'overrides': { '=': 'none' }
-        }
       ]
     }
   }

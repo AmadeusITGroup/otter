@@ -1,19 +1,19 @@
 import {
   createFeatureSelector,
-  createSelector
+  createSelector,
 } from '@ngrx/store';
 import {
-  computeItemIdentifier
+  computeItemIdentifier,
 } from '@o3r/core';
 import type {
-  Ruleset
+  Ruleset,
 } from '../../engine';
 import {
-  rulesetsAdapter
+  rulesetsAdapter,
 } from './rulesets.reducer';
 import {
   RULESETS_STORE_NAME,
-  RulesetsState
+  RulesetsState,
 } from './rulesets.state';
 
 const { selectIds, selectEntities, selectAll, selectTotal } = rulesetsAdapter.getSelectors();

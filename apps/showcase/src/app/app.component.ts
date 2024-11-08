@@ -2,18 +2,18 @@ import {
   Component,
   inject,
   OnDestroy,
-  TemplateRef
+  TemplateRef,
 } from '@angular/core';
 import {
   NavigationEnd,
-  Router
+  Router,
 } from '@angular/router';
 import {
   NgbOffcanvas,
-  NgbOffcanvasRef
+  NgbOffcanvasRef,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
-  O3rComponent
+  O3rComponent,
 } from '@o3r/core';
 import {
   filter,
@@ -21,10 +21,10 @@ import {
   Observable,
   share,
   shareReplay,
-  Subscription
+  Subscription,
 } from 'rxjs';
 import {
-  SideNavLinksGroup
+  SideNavLinksGroup,
 } from '../components/index';
 
 @O3rComponent({ componentType: 'Component' })

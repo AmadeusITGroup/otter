@@ -4,25 +4,25 @@ import {
   chain,
   Rule,
   SchematicContext,
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import {
-  RepositoryInitializerTask
+  RepositoryInitializerTask,
 } from '@angular-devkit/schematics/tasks';
 import {
   createSchematicWithMetricsIfInstalled,
   getPackageManagerExecutor,
   getWorkspaceConfig,
-  registerPackageCollectionSchematics
+  registerPackageCollectionSchematics,
 } from '@o3r/schematics';
 import type {
-  PackageJson
+  PackageJson,
 } from 'type-fest';
 import {
-  prepareProject
+  prepareProject,
 } from './project-setup';
 import type {
-  NgAddSchematicsSchema
+  NgAddSchematicsSchema,
 } from './schema';
 
 /**

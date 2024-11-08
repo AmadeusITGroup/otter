@@ -1,9 +1,9 @@
 import {
   chain,
-  Rule
+  Rule,
 } from '@angular-devkit/schematics';
 import {
-  getFilesInFolderFromWorkspaceProjectsInTree
+  getFilesInFolderFromWorkspaceProjectsInTree,
 } from '@o3r/schematics';
 
 const update: Rule = (tree) => {

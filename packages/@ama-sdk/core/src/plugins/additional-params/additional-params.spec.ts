@@ -1,11 +1,11 @@
 import {
-  RequestOptions
+  RequestOptions,
 } from '../core/request-plugin';
 import {
-  AdditionalParamsSyncRequest
+  AdditionalParamsSyncRequest,
 } from './additional-params-sync.request';
 import {
-  AdditionalParamsRequest
+  AdditionalParamsRequest,
 } from './additional-params.request';
 
 describe('Additional Params Request Plugin', () => {

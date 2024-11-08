@@ -1,11 +1,11 @@
 import {
   chain,
-  SchematicsException
+  SchematicsException,
 } from '@angular-devkit/schematics';
 import type {
   Rule,
   SchematicContext,
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import {
   DEFAULT_ROOT_FOLDERS,
@@ -13,13 +13,13 @@ import {
   isNxContext,
   setupSchematicsParamsForProject,
   WorkspaceLayout,
-  WorkspaceSchematics
+  WorkspaceSchematics,
 } from '@o3r/schematics';
 import type {
-  PackageJson
+  PackageJson,
 } from 'type-fest';
 import type {
-  MonorepoManager
+  MonorepoManager,
 } from '../schema';
 
 /**
@@ -106,18 +106,18 @@ export function addMonorepoManager(o3rWorkspacePackageJson: PackageJson & { gene
       const rootPackageJsonObject = tree.readJson(rootPackageJsonPath) as PackageJson;
       rootPackageJsonObject.devDependencies = {
         ...rootPackageJsonObject.devDependencies,
-        'lerna': o3rWorkspacePackageJson.generatorDependencies.lerna
+        lerna: o3rWorkspacePackageJson.generatorDependencies.lerna
       };
       rootPackageJsonObject.scripts = {
         ...rootPackageJsonObject.scripts,
-        'build': 'lerna run build',
-        'test': 'lerna run test',
-        'lint': 'lerna run lint'
+        build: 'lerna run build',
+        test: 'lerna run test',
+        lint: 'lerna run lint'
       };
 
       const lernaJson: { $schema: string; version: string; npmClient?: string } = {
-        '$schema': 'https://github.com/lerna/lerna/blob/main/packages/lerna/schemas/lerna-schema.json',
-        'version': rootPackageJsonObject.version || '0.0.0-placeholder'
+        $schema: 'https://github.com/lerna/lerna/blob/main/packages/lerna/schemas/lerna-schema.json',
+        version: rootPackageJsonObject.version || '0.0.0-placeholder'
       };
       if (getPackageManager() === 'yarn') {
         lernaJson.npmClient = 'yarn';

@@ -1,26 +1,26 @@
 import {
   chain,
-  Rule
+  Rule,
 } from '@angular-devkit/schematics';
 import {
   addCpyDependencies,
   deprecateScriptsFolder,
-  updateScriptPackageJson
+  updateScriptPackageJson,
 } from './v10.0/script-removal';
 import {
-  addPresetsRenovate
+  addPresetsRenovate,
 } from './v10.1/add-presets-renovate';
 import {
-  updateOpenApiVersionInProject
+  updateOpenApiVersionInProject,
 } from './v10.3/update-openapiversion';
 import {
-  updateOpenapitoolsFile
+  updateOpenapitoolsFile,
 } from './v11.0/update-openapitools';
 import {
-  updateRegenScript
+  updateRegenScript,
 } from './v11.0/update-regen-script';
 import {
-  createGitAttributesFile
+  createGitAttributesFile,
 } from './v11.4/create-gitattributes';
 
 /**

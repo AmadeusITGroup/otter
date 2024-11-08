@@ -2,28 +2,28 @@ import {
   ApplicationRef,
   Inject,
   Injectable,
-  Optional
+  Optional,
 } from '@angular/core';
 import {
   select,
-  Store
+  Store,
 } from '@ngrx/store';
 import {
   Configuration,
-  CustomConfig
+  CustomConfig,
 } from '@o3r/core';
 import {
   firstValueFrom,
-  Observable
+  Observable,
 } from 'rxjs';
 import {
   filter,
   map,
-  shareReplay
+  shareReplay,
 } from 'rxjs/operators';
 import {
   computeConfigurationName,
-  parseConfigurationName
+  parseConfigurationName,
 } from '../core';
 import {
   computeConfiguration,
@@ -32,14 +32,14 @@ import {
   selectConfigurationEntities,
   selectConfigurationIds,
   upsertConfigurationEntities,
-  upsertConfigurationEntity
+  upsertConfigurationEntity,
 } from '../stores';
 import {
-  ConfigurationDevtoolsServiceOptions
+  ConfigurationDevtoolsServiceOptions,
 } from './configuration-devtools.interface';
 import {
   OTTER_CONFIGURATION_DEVTOOLS_DEFAULT_OPTIONS,
-  OTTER_CONFIGURATION_DEVTOOLS_OPTIONS
+  OTTER_CONFIGURATION_DEVTOOLS_OPTIONS,
 } from './configuration-devtools.token';
 
 @Injectable({ providedIn: 'root' })

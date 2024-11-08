@@ -1,21 +1,21 @@
 import {
-  resolve
+  resolve,
 } from 'node:path';
 import {
-  renderFile
+  renderFile,
 } from 'ejs';
 import {
   coerce,
   compare,
   parse,
-  valid
+  valid,
 } from 'semver';
 import {
   BaseLogger,
   CascadingConfiguration,
   CascadingPullRequestInfo,
   CheckConclusion,
-  PullRequestContext
+  PullRequestContext,
 } from './interfaces';
 
 /** Mark of the template to determine if the users cancelled the cascading retrigger */

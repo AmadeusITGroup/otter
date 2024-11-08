@@ -1,18 +1,18 @@
 import {
   browser,
-  ElementFinder
+  ElementFinder,
 } from 'protractor';
 import {
-  protractor as ptor
+  protractor as ptor,
 } from 'protractor/built/ptor';
 import {
-  waitForOtterStable
+  waitForOtterStable,
 } from '../../tools/protractor';
 import {
-  ElementProfile
+  ElementProfile,
 } from '../element';
 import {
-  convertPromise
+  convertPromise,
 } from './utils';
 
 export { ElementProfile } from '../element';

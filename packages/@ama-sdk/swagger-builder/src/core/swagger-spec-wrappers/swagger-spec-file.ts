@@ -1,12 +1,12 @@
 import type {
-  Spec
+  Spec,
 } from 'swagger-schema-official';
 import {
-  SwaggerSpec
+  SwaggerSpec,
 } from './swagger-spec.interface';
 import {
   getYamlFullPath,
-  isOuterRefPath
+  isOuterRefPath,
 } from './utils';
 
 export abstract class SwaggerSpecFile implements SwaggerSpec {

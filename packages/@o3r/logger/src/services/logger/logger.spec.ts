@@ -1,25 +1,25 @@
 import {
   getTestBed,
-  TestBed
+  TestBed,
 } from '@angular/core/testing';
 import {
   BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting
+  platformBrowserDynamicTesting,
 } from '@angular/platform-browser-dynamic/testing';
 import {
-  LoggerClient
+  LoggerClient,
 } from './logger.client';
 import {
-  ConsoleLogger
+  ConsoleLogger,
 } from './logger.console';
 import {
-  LoggerModule
+  LoggerModule,
 } from './logger.module';
 import {
-  LoggerService
+  LoggerService,
 } from './logger.service';
 import {
-  LOGGER_CLIENT_TOKEN
+  LOGGER_CLIENT_TOKEN,
 } from './logger.token';
 
 describe('Logger service', () => {

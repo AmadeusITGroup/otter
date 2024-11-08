@@ -1,26 +1,26 @@
 import {
-  resolve
+  resolve,
 } from 'node:path';
 import {
   BuilderOutput,
-  createBuilder
+  createBuilder,
 } from '@angular-devkit/architect';
 import type {
-  BuilderWrapper
+  BuilderWrapper,
 } from '@o3r/telemetry';
 import * as globby from 'globby';
 import type {
   DesignTokenVariableSet,
-  DesignTokenVariableStructure
+  DesignTokenVariableStructure,
 } from '../../src/public_api';
 import {
   getJsonSchemaStyleContentUpdater,
   getJsonSchemaTokenDefinitionRenderer,
   parseDesignTokenFile,
-  renderDesignTokens
+  renderDesignTokens,
 } from '../../src/public_api';
 import type {
-  GenerateJsonSchemaSchematicsSchema
+  GenerateJsonSchemaSchematicsSchema,
 } from './schema';
 
 const noopBuilder: BuilderWrapper = (fn) => fn;

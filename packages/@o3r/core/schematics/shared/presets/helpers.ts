@@ -2,19 +2,19 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {
   noop,
-  type Rule
+  type Rule,
 } from '@angular-devkit/schematics';
 import {
   type DependencyToAdd,
   getProjectNewDependenciesTypes,
   getWorkspaceConfig,
-  setupDependencies
+  setupDependencies,
 } from '@o3r/schematics';
 import type {
-  PackageJson
+  PackageJson,
 } from 'type-fest';
 import type {
-  PresetOptions
+  PresetOptions,
 } from './preset.interface';
 
 /**

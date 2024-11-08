@@ -1,5 +1,5 @@
 import {
-  InjectionToken
+  InjectionToken,
 } from '@angular/core';
 
 /** The C11n injection token */

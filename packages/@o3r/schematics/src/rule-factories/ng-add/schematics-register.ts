@@ -1,16 +1,16 @@
 import type {
-  Rule
+  Rule,
 } from '@angular-devkit/schematics';
 import type {
-  PackageJson
+  PackageJson,
 } from 'type-fest';
 import type {
-  SchematicOptionObject
+  SchematicOptionObject,
 } from '../../interfaces/index';
 import {
   getWorkspaceConfig,
   registerCollectionSchematics,
-  writeAngularJson
+  writeAngularJson,
 } from '../../utility';
 
 /**

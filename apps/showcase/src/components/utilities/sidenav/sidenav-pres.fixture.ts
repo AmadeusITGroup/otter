@@ -1,6 +1,6 @@
 import {
   ComponentFixtureProfile,
-  O3rComponentFixture
+  O3rComponentFixture,
 } from '@o3r/testing/core';
 
 /**

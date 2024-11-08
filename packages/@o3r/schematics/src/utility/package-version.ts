@@ -1,17 +1,17 @@
 import * as fs from 'node:fs';
 import {
-  existsSync
+  existsSync,
 } from 'node:fs';
 import {
   dirname,
   join,
-  posix
+  posix,
 } from 'node:path';
 import {
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import type {
-  PackageJson
+  PackageJson,
 } from 'type-fest';
 
 /**

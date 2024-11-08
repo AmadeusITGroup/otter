@@ -1,7 +1,7 @@
 import {
   basename,
   dirname,
-  posix
+  posix,
 } from 'node:path';
 import {
   apply,
@@ -17,7 +17,7 @@ import {
   strings,
   template,
   Tree,
-  url
+  url,
 } from '@angular-devkit/schematics';
 import {
   addCommentsOnClassProperties,
@@ -35,11 +35,11 @@ import {
   isO3rClassDecorator,
   NoOtterComponent,
   O3rCliError,
-  sortClassElement
+  sortClassElement,
 } from '@o3r/schematics';
 import * as ts from 'typescript';
 import type {
-  NgAddConfigSchematicsSchema
+  NgAddConfigSchematicsSchema,
 } from './schema';
 
 const configProperties = [

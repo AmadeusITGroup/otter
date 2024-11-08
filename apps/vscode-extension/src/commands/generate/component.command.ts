@@ -1,12 +1,12 @@
 import type {
-  ExtensionContext
+  ExtensionContext,
 } from 'vscode';
 import * as vscode from 'vscode';
 import {
   getCurrentFolder,
   getPackageScriptRunner,
   getSchematicDefaultOptions,
-  stringifyOptions
+  stringifyOptions,
 } from '../helpers';
 
 /**

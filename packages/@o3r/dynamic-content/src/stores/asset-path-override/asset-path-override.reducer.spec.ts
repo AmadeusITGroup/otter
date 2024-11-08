@@ -1,10 +1,10 @@
 import * as actions from './asset-path-override.actions';
 import {
   assetPathOverrideInitialState,
-  assetPathOverrideReducer
+  assetPathOverrideReducer,
 } from './asset-path-override.reducer';
 import {
-  AssetPathOverrideState
+  AssetPathOverrideState,
 } from './asset-path-override.state';
 
 describe('AssetPathOverride Store reducer', () => {

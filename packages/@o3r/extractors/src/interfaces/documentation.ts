@@ -1,8 +1,8 @@
 import {
-  CommonDocumentation
+  CommonDocumentation,
 } from './common';
 import {
-  DocumentationNode
+  DocumentationNode,
 } from './documentation-node';
 
 /**

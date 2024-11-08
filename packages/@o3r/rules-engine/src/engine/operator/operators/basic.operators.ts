@@ -1,12 +1,12 @@
 import {
   isString,
   isSupportedSimpleTypes,
-  parseRegExp
+  parseRegExp,
 } from '../operator.helpers';
 import {
   Operator,
   SupportedSimpleTypes,
-  UnaryOperator
+  UnaryOperator,
 } from '../operator.interface';
 
 /**

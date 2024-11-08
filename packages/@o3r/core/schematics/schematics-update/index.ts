@@ -1,5 +1,5 @@
 import {
-  readFileSync
+  readFileSync,
 } from 'node:fs';
 import * as path from 'node:path';
 import {
@@ -7,18 +7,18 @@ import {
   noop,
   Rule,
   SchematicContext,
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import {
   applyEsLintFix,
   createSchematicWithMetricsIfInstalled,
-  getDestinationPath
+  getDestinationPath,
 } from '@o3r/schematics';
 import {
-  updateOtterEnvironmentAdapter
+  updateOtterEnvironmentAdapter,
 } from '../rule-factories/otter-environment';
 import {
-  NgGenerateUpdateSchematicsSchema
+  NgGenerateUpdateSchematicsSchema,
 } from './schema';
 
 /**

@@ -1,6 +1,6 @@
 import type {
   ItemIdentifier,
-  RulesEngineAction
+  RulesEngineAction,
 } from '@o3r/core';
 
 export type NativeTypes = string | boolean | number;

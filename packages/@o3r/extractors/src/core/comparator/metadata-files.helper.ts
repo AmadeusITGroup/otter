@@ -1,15 +1,15 @@
 import {
-  readFileSync
+  readFileSync,
 } from 'node:fs';
 import {
-  basename
+  basename,
 } from 'node:path';
 import {
   O3rCliError,
-  type SupportedPackageManagers
+  type SupportedPackageManagers,
 } from '@o3r/schematics';
 import type {
-  MigrationCheckGranularity
+  MigrationCheckGranularity,
 } from './metadata-comparator.interface';
 
 /**

@@ -1,5 +1,5 @@
 import {
-  Breakpoints
+  Breakpoints,
 } from '@angular/cdk/layout';
 
 /**

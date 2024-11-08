@@ -2,17 +2,17 @@ import * as path from 'node:path';
 import * as semver from 'semver';
 import {
   type AST,
-  getStaticYAMLValue
+  getStaticYAMLValue,
 } from 'yaml-eslint-parser';
 import {
   findWorkspacePackageJsons,
-  getBestRanges
+  getBestRanges,
 } from '../../json/json-dependency-versions-harmonize/version-harmonize';
 import {
-  createRule
+  createRule,
 } from '../../utils';
 import {
-  getYamlParserServices
+  getYamlParserServices,
 } from '../utils';
 
 interface Options {

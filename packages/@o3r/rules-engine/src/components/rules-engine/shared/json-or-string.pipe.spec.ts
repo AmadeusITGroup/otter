@@ -1,5 +1,5 @@
 import {
-  O3rJsonOrStringPipe
+  O3rJsonOrStringPipe,
 } from './json-or-string.pipe';
 
 describe('O3rJsonOrStringPipe', () => {

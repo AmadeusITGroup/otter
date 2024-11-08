@@ -3,11 +3,11 @@ import {
   isString,
   isSupportedSimpleTypes,
   numberValidator,
-  parseRegExp
+  parseRegExp,
 } from '../operator.helpers';
 import {
   Operator,
-  SupportedSimpleTypes
+  SupportedSimpleTypes,
 } from '../operator.interface';
 
 /**

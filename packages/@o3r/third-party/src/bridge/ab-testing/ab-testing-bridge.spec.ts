@@ -1,9 +1,9 @@
 import {
-  firstValueFrom
+  firstValueFrom,
 } from 'rxjs';
 import {
   AbTestBridge,
-  AbTestBridgeInterface
+  AbTestBridgeInterface,
 } from './ab-testing-bridge';
 
 describe('A/B testing bridge', () => {

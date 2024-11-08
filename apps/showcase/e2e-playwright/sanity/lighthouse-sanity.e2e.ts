@@ -1,16 +1,16 @@
 import {
-  O3rElement
+  O3rElement,
 } from '@o3r/testing/core';
 import {
   type Page,
   test,
-  type TestInfo
+  type TestInfo,
 } from '@playwright/test';
 import {
-  type playwrightLighthouseConfig
+  type playwrightLighthouseConfig,
 } from 'playwright-lighthouse';
 import {
-  AppFixtureComponent
+  AppFixtureComponent,
 } from '../../src/app/app.fixture';
 
 const baseUrl = process.env.PLAYWRIGHT_TARGET_URL || 'http://localhost:4200/';

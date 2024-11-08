@@ -1,8 +1,8 @@
 import {
-  BaseMockAdapter
+  BaseMockAdapter,
 } from './base-mock-adapter';
 import {
-  Mock
+  Mock,
 } from './mock';
 
 /**

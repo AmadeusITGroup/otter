@@ -1,10 +1,10 @@
 import {
-  MatAutocompleteProfile
+  MatAutocompleteProfile,
 } from '../../angular-materials';
 import {
   getPlainText,
   O3rElement,
-  PlaywrightSourceElement
+  PlaywrightSourceElement,
 } from '../element';
 
 export { SelectElementProfile } from '../../elements';

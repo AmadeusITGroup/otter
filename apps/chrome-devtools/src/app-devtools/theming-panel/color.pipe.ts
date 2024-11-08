@@ -1,11 +1,11 @@
 import {
   Pipe,
-  type PipeTransform
+  type PipeTransform,
 } from '@angular/core';
 import TinyColor from 'tinycolor2';
 import {
   getAccessibilityContrastScore,
-  getBestColorContrast
+  getBestColorContrast,
 } from './color.helpers';
 
 /**

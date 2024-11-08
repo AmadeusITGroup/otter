@@ -1,11 +1,11 @@
 import type {
-  Logger
+  Logger,
 } from '../../fwk/logger';
 import {
   PluginRunner,
   RequestOptions,
   RequestPlugin,
-  RequestPluginContext
+  RequestPluginContext,
 } from '../core';
 
 /**

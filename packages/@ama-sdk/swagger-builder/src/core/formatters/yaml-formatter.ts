@@ -4,10 +4,10 @@ import {
   dump as yamlDump,
 } from 'js-yaml';
 import {
-  Formatter
+  Formatter,
 } from './formatter.interface';
 import {
-  generatePackageJson
+  generatePackageJson,
 } from './utils';
 
 /**

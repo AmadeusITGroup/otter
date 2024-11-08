@@ -1,8 +1,8 @@
 import {
-  InjectionToken
+  InjectionToken,
 } from '@angular/core';
 import {
-  ApplicationDevtoolsServiceOptions
+  ApplicationDevtoolsServiceOptions,
 } from './application-devkit.interface';
 
 export const OTTER_APPLICATION_DEVTOOLS_DEFAULT_OPTIONS: ApplicationDevtoolsServiceOptions = {

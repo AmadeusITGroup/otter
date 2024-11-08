@@ -1,7 +1,7 @@
 import * as actions from './placeholder-request.actions';
 import {
   placeholderRequestInitialState,
-  placeholderRequestReducer
+  placeholderRequestReducer,
 } from './placeholder-request.reducer';
 
 describe('PlaceholderRequest Store reducer', () => {
@@ -16,7 +16,7 @@ describe('PlaceholderRequest Store reducer', () => {
 
   it('Cancel request should work properly', () => {
     const initialState = placeholderRequestReducer(placeholderRequestInitialState, actions.setPlaceholderRequestEntityFromUrl({
-      call: Promise.resolve({ 'template': '<div>Template3</div>' }),
+      call: Promise.resolve({ template: '<div>Template3</div>' }),
       id: 'www.url3.com/[LANG]',
       resolvedUrl: 'www.url3.com/en',
       requestId: 'id1'
@@ -34,7 +34,7 @@ describe('PlaceholderRequest Store reducer', () => {
   describe('Entity actions', () => {
     it('ACTION_UPDATE_ENTITY_SYNC action should not touch existing properties not provided in the payload', () => {
       const initialState = placeholderRequestReducer(placeholderRequestInitialState, actions.setPlaceholderRequestEntityFromUrl({
-        call: Promise.resolve({ 'template': '<div>Template3</div>' }),
+        call: Promise.resolve({ template: '<div>Template3</div>' }),
         id: 'www.url3.com/[LANG]',
         resolvedUrl: 'www.url3.com/en',
         requestId: 'id1'
@@ -54,7 +54,7 @@ describe('PlaceholderRequest Store reducer', () => {
 
     it('ACTION_UPDATE_ENTITY action should not touch existing properties not provided in the payload and update the pending status', () => {
       const initialState = placeholderRequestReducer(placeholderRequestInitialState, actions.setPlaceholderRequestEntityFromUrl({
-        call: Promise.resolve({ 'template': '<div>Template3</div>' }),
+        call: Promise.resolve({ template: '<div>Template3</div>' }),
         id: 'www.url3.com/[LANG]',
         resolvedUrl: 'www.url3.com/en',
         requestId: 'id1'
@@ -74,7 +74,7 @@ describe('PlaceholderRequest Store reducer', () => {
 
     it('FAIL_ENTITIES action should update the global isPending to false in case there are some newIds in the payload', () => {
       const initialState = placeholderRequestReducer(placeholderRequestInitialState, actions.setPlaceholderRequestEntityFromUrl({
-        call: Promise.resolve({ 'template': '<div>Template3</div>' }),
+        call: Promise.resolve({ template: '<div>Template3</div>' }),
         id: 'www.url3.com/[LANG]',
         resolvedUrl: 'www.url3.com/en',
         requestId: 'id1'
@@ -98,7 +98,7 @@ describe('PlaceholderRequest Store reducer', () => {
   describe('API call actions', () => {
     it('SET_ENTITY_FROM_URL action should clear current entities and set new ones', () => {
       const firstState = placeholderRequestReducer(placeholderRequestInitialState, actions.setPlaceholderRequestEntityFromUrl({
-        call: Promise.resolve({ 'template': '<div>Template3</div>' }),
+        call: Promise.resolve({ template: '<div>Template3</div>' }),
         id: 'www.url3.com/[LANG]',
         resolvedUrl: 'www.url3.com/en',
         requestId: 'id1'

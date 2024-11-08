@@ -1,6 +1,6 @@
 import * as selectors from './placeholder-request.selectors';
 import {
-  PlaceholderRequestState
+  PlaceholderRequestState,
 } from './placeholder-request.state';
 
 const entity = { id: 'www.google.com', resolvedUrl: 'www.google.com', template: '<span>ok</span>', requestIds: [] as any[], vars: {} };

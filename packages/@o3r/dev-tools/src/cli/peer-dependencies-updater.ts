@@ -2,11 +2,11 @@
 
 import * as path from 'node:path';
 import {
-  program
+  program,
 } from 'commander';
 import * as winston from 'winston';
 import {
-  updatePeerDependencies
+  updatePeerDependencies,
 } from '../utils/update-peer-dependencies';
 
 const pathingCalculation = (value: string) => path.resolve(process.cwd(), value);

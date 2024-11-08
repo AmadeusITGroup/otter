@@ -1,18 +1,18 @@
 import * as path from 'node:path';
 import type {
-  AST
+  AST,
 } from 'jsonc-eslint-parser';
 import * as semver from 'semver';
 import {
-  createRule
+  createRule,
 } from '../../utils';
 import {
-  getJsoncParserServices
+  getJsoncParserServices,
 } from '../utils';
 import {
   findWorkspacePackageJsons,
   getBestRange,
-  getBestRanges
+  getBestRanges,
 } from './version-harmonize';
 
 /** Options for the ESLint rule @o3r/json-dependency-versions-harmonize */

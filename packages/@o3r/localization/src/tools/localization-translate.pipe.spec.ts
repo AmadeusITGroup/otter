@@ -1,36 +1,36 @@
 import {
-  ChangeDetectorRef
+  ChangeDetectorRef,
 } from '@angular/core';
 import {
   getTestBed,
-  TestBed
+  TestBed,
 } from '@angular/core/testing';
 import {
   BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting
+  platformBrowserDynamicTesting,
 } from '@angular/platform-browser-dynamic/testing';
 import {
   TranslateLoader,
   TranslateModule,
-  TranslateService
+  TranslateService,
 } from '@ngx-translate/core';
 import {
   Observable,
-  of
+  of,
 } from 'rxjs';
 import {
   LocalizationTranslatePipe,
-  O3rLocalizationTranslatePipe
+  O3rLocalizationTranslatePipe,
 } from './localization-translate.pipe';
 import {
   createLocalizationConfiguration,
-  LocalizationModule
+  LocalizationModule,
 } from './localization.module';
 import {
-  LocalizationService
+  LocalizationService,
 } from './localization.service';
 import {
-  LOCALIZATION_CONFIGURATION_TOKEN
+  LOCALIZATION_CONFIGURATION_TOKEN,
 } from './localization.token';
 
 const translations: any = {

@@ -1,9 +1,9 @@
 import type {
   HttpClient,
-  HttpResponse
+  HttpResponse,
 } from '@angular/common/http';
 import {
-  ApiTypes
+  ApiTypes,
 } from '../fwk/api';
 import {
   extractQueryParams,
@@ -11,38 +11,38 @@ import {
   getResponseReviver,
   prepareUrl,
   processFormData,
-  tokenizeRequestOptions
+  tokenizeRequestOptions,
 } from '../fwk/api.helpers';
 import type {
-  PartialExcept
+  PartialExcept,
 } from '../fwk/api.interface';
 import type {
   ApiClient,
-  RequestOptionsParameters
+  RequestOptionsParameters,
 } from '../fwk/core/api-client';
 import {
-  BaseApiClientOptions
+  BaseApiClientOptions,
 } from '../fwk/core/base-api-constructor';
 import {
-  EmptyResponseError
+  EmptyResponseError,
 } from '../fwk/errors';
 import {
-  ReviverType
+  ReviverType,
 } from '../fwk/reviver';
 import type {
   AngularCall,
   AngularPlugin,
-  PluginObservableRunner
+  PluginObservableRunner,
 } from '../plugins/core/angular-plugin';
 import type {
   RequestOptions,
-  TokenizedOptions
+  TokenizedOptions,
 } from '../plugins/core/index';
 import {
-  ExceptionReply
+  ExceptionReply,
 } from '../plugins/exception';
 import {
-  ReviverReply
+  ReviverReply,
 } from '../plugins/reviver';
 
 /**

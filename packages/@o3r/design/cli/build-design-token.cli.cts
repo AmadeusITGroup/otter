@@ -2,25 +2,25 @@
 
 import {
   existsSync,
-  promises as fs
+  promises as fs,
 } from 'node:fs';
 import {
   isAbsolute,
   normalize,
-  resolve
+  resolve,
 } from 'node:path';
 import type {
-  CliWrapper
+  CliWrapper,
 } from '@o3r/telemetry';
 import * as minimist from 'minimist';
 import {
   getDesignTokenTokenDefinitionRenderer,
   parseDesignTokenFile,
-  renderDesignTokens
+  renderDesignTokens,
 } from '../src/public_api';
 import type {
   DesignTokenRendererOptions,
-  DesignTokenVariableSet
+  DesignTokenVariableSet,
 } from '../src/public_api';
 
 const args = minimist(process.argv.splice(2));

@@ -1,15 +1,15 @@
 import type {
-  Logger
+  Logger,
 } from '../../fwk/logger';
 import {
   createJweEncoder,
-  createJwtEncoder
+  createJwtEncoder,
 } from '../../utils/json-token';
 import {
   PluginRunner,
   RequestOptions,
   RequestPlugin,
-  RequestPluginContext
+  RequestPluginContext,
 } from '../core';
 
 /**

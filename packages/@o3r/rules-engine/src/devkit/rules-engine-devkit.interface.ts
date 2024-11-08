@@ -3,11 +3,11 @@ import type {
   DevtoolsCommonOptions,
   MessageDataTypes,
   OtterMessageContent,
-  RequestMessagesContentMessage
+  RequestMessagesContentMessage,
 } from '@o3r/core';
 import type {
   DebugEvent,
-  Ruleset
+  Ruleset,
 } from '../engine';
 
 export interface RulesEngineDevtoolsServiceOptions extends DevtoolsCommonOptions {

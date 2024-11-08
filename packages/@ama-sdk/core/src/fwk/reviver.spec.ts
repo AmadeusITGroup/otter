@@ -1,7 +1,7 @@
 import {
   reviveArray,
   reviveDictionarizedArray,
-  reviveMap
+  reviveMap,
 } from './reviver';
 
 describe('Revivers :', () => {

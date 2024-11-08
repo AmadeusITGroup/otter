@@ -1,13 +1,13 @@
 import {
   PluginRunner,
   RequestOptions,
-  RequestPlugin
+  RequestPlugin,
 } from '../core';
 import {
   CUSTOM_MOCK_OPERATION_ID_HEADER,
   CUSTOM_MOCK_REQUEST_HEADER,
   MockInterceptFetchParameters,
-  MockInterceptRequestParameters
+  MockInterceptRequestParameters,
 } from './mock-intercept.interface';
 
 /**

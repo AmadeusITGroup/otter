@@ -1,23 +1,23 @@
 import {
   AsyncPipe,
   DOCUMENT,
-  ViewportScroller
+  ViewportScroller,
 } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
   inject,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {
-  takeUntilDestroyed
+  takeUntilDestroyed,
 } from '@angular/core/rxjs-interop';
 import {
-  O3rComponent
+  O3rComponent,
 } from '@o3r/core';
 import {
   fromEvent,
-  map
+  map,
 } from 'rxjs';
 
 @O3rComponent({ componentType: 'Component' })

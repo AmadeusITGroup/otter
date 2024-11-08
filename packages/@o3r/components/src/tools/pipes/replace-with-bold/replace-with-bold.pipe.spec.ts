@@ -1,6 +1,6 @@
 import {
   O3rReplaceWithBoldPipe,
-  ReplaceWithBoldPipe
+  ReplaceWithBoldPipe,
 } from './replace-with-bold.pipe';
 
 describe('Replace with bold pipe', () => {

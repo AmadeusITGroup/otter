@@ -4,29 +4,29 @@ import {
   inject,
   Injectable,
   type Signal,
-  signal
+  signal,
 } from '@angular/core';
 import {
   takeUntilDestroyed,
   toObservable,
-  toSignal
+  toSignal,
 } from '@angular/core/rxjs-interop';
 import {
-  combineLatest
+  combineLatest,
 } from 'rxjs';
 import {
   ACTIVE_STATE_NAME_KEY,
   type State,
   type StateOverride,
-  STATES_KEY
+  STATES_KEY,
 } from '../extension/interface';
 import {
   ChromeExtensionConnectionService,
   filterAndMapMessage,
-  isApplicationInformationMessage
+  isApplicationInformationMessage,
 } from './connection.service';
 import {
-  LocalizationService
+  LocalizationService,
 } from './localization.service';
 
 @Injectable({ providedIn: 'root' })

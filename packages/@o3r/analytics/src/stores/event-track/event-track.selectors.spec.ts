@@ -1,9 +1,9 @@
 import {
-  eventTrackInitialState
+  eventTrackInitialState,
 } from './event-track.reducer';
 import * as selectors from './event-track.selectors';
 import {
-  EventTrackState
+  EventTrackState,
 } from './event-track.state';
 
 describe('EventTrack Selectors tests', () => {

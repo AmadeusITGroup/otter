@@ -1,23 +1,23 @@
 import {
   Inject,
   Injectable,
-  Optional
+  Optional,
 } from '@angular/core';
 import {
   Action,
-  MetaReducer
+  MetaReducer,
 } from '@ngrx/store';
 import type {
-  Logger
+  Logger,
 } from '@o3r/core';
 import {
-  LoggerClient
+  LoggerClient,
 } from './logger.client';
 import {
-  ConsoleLogger
+  ConsoleLogger,
 } from './logger.console';
 import {
-  LOGGER_CLIENT_TOKEN
+  LOGGER_CLIENT_TOKEN,
 } from './logger.token';
 
 /**

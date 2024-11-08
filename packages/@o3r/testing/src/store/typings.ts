@@ -1,5 +1,5 @@
 import {
-  Observable
+  Observable,
 } from 'rxjs';
 
 /** Specifies a fake select call */

@@ -2,25 +2,25 @@
 
 import {
   spawnSync,
-  type SpawnSyncOptionsWithBufferEncoding
+  type SpawnSyncOptionsWithBufferEncoding,
 } from 'node:child_process';
 import {
   readFileSync,
-  writeFileSync
+  writeFileSync,
 } from 'node:fs';
 import {
   join,
-  resolve
+  resolve,
 } from 'node:path';
 import type {
-  CliWrapper
+  CliWrapper,
 } from '@o3r/telemetry';
 import * as minimist from 'minimist';
 import {
-  quote
+  quote,
 } from 'shell-quote';
 import type {
-  PackageJson
+  PackageJson,
 } from 'type-fest';
 
 const { properties } = JSON.parse(

@@ -1,14 +1,14 @@
 import {
-  readFileSync
+  readFileSync,
 } from 'node:fs';
 import * as path from 'node:path';
 import {
   ESLintUtils,
   TSESLint,
-  TSESTree
+  TSESTree,
 } from '@typescript-eslint/utils';
 import type {
-  PackageJson
+  PackageJson,
 } from 'type-fest';
 
 /** Current package version (format: <major>.<minor>)*/

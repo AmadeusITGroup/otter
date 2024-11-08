@@ -1,23 +1,23 @@
 import {
-  HttpResponse
+  HttpResponse,
 } from '@angular/common/http';
 import {
   delay,
   from,
-  mergeMap
+  mergeMap,
 } from 'rxjs';
 import type {
   AngularCall,
   AngularPlugin,
   AngularPluginContext,
-  PluginObservableRunner
+  PluginObservableRunner,
 } from '../core/angular-plugin';
 import {
   CUSTOM_MOCK_OPERATION_ID_HEADER,
-  MockInterceptFetchParameters
+  MockInterceptFetchParameters,
 } from './mock-intercept.interface';
 import {
-  MockInterceptRequest
+  MockInterceptRequest,
 } from './mock-intercept.request';
 
 /**

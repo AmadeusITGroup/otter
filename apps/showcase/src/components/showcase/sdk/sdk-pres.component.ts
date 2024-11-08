@@ -4,35 +4,35 @@ import {
   computed,
   inject,
   signal,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {
-  toSignal
+  toSignal,
 } from '@angular/core/rxjs-interop';
 import {
-  FormsModule
+  FormsModule,
 } from '@angular/forms';
 import {
-  DfMedia
+  DfMedia,
 } from '@design-factory/design-factory';
 import {
   NgbHighlight,
   NgbPagination,
-  NgbPaginationPages
+  NgbPaginationPages,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
-  O3rComponent
+  O3rComponent,
 } from '@o3r/core';
 import type {
-  Pet
+  Pet,
 } from '@o3r-training/showcase-sdk';
 import {
   PetApi,
-  Tag
+  Tag,
 } from '@o3r-training/showcase-sdk';
 import {
   OtterIconPathPipe,
-  OtterPickerPresComponent
+  OtterPickerPresComponent,
 } from '../../utilities';
 
 const FILTER_PAG_REGEX = /\D/g;

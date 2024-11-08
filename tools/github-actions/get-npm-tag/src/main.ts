@@ -1,13 +1,13 @@
 import * as core from '@actions/core';
 import {
-  getOctokit
+  getOctokit,
 } from '@actions/github';
 import {
   clean,
   compare,
   major,
   prerelease,
-  valid
+  valid,
 } from 'semver';
 
 async function run(): Promise<void> {

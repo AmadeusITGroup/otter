@@ -1,31 +1,31 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import {
-  SchematicTestRunner
+  SchematicTestRunner,
 } from '@angular-devkit/schematics/testing';
 import {
-  asyncSimpleActionsContent
+  asyncSimpleActionsContent,
 } from './mocks/example-actions';
 import {
-  asyncSimpleEffectContent
+  asyncSimpleEffectContent,
 } from './mocks/example-effect';
 import {
-  asyncSimpleEffectSpecContent
+  asyncSimpleEffectSpecContent,
 } from './mocks/example-effect-spec';
 import {
-  asyncSimpleReducerContent
+  asyncSimpleReducerContent,
 } from './mocks/example-reducer';
 import {
-  asyncSimpleReducerSpecContent
+  asyncSimpleReducerSpecContent,
 } from './mocks/example-reducer-spec';
 import {
-  asyncSimpleStateContent
+  asyncSimpleStateContent,
 } from './mocks/example-state';
 import {
-  asyncSimpleSyncContent
+  asyncSimpleSyncContent,
 } from './mocks/example-sync';
 
 const collectionPath = path.join(__dirname, '..', '..', '..', 'collection.json');

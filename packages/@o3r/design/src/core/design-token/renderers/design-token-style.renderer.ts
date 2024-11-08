@@ -1,25 +1,25 @@
 import type {
-  promises as fs
+  promises as fs,
 } from 'node:fs';
 import type {
-  Logger
+  Logger,
 } from '@o3r/core';
 import {
-  TOKEN_KEY_SEPARATOR
+  TOKEN_KEY_SEPARATOR,
 } from '../parsers';
 import type {
   DesignTokenVariableSet,
-  DesignTokenVariableStructure
+  DesignTokenVariableStructure,
 } from '../parsers/design-token-parser.interface';
 import {
-  getCssTokenDefinitionRenderer
+  getCssTokenDefinitionRenderer,
 } from './css/design-token-definition.renderers';
 import {
-  getCssStyleContentUpdater
+  getCssStyleContentUpdater,
 } from './css/design-token-updater.renderers';
 import type {
   DesignTokenListTransform,
-  DesignTokenRendererOptions
+  DesignTokenRendererOptions,
 } from './design-token.renderer.interface';
 
 /**

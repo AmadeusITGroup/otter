@@ -1,5 +1,5 @@
 import {
-  RuleTester
+  RuleTester,
 } from '@typescript-eslint/rule-tester';
 import noMultipleTypeConfigurationPropertyRule from './no-multiple-type-configuration-property';
 

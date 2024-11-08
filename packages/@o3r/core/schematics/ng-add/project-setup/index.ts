@@ -3,7 +3,7 @@ import * as path from 'node:path';
 import {
   chain,
   noop,
-  type Rule
+  type Rule,
 } from '@angular-devkit/schematics';
 import {
   applyEsLintFix,
@@ -11,30 +11,30 @@ import {
   getProjectNewDependenciesTypes,
   getWorkspaceConfig,
   removePackages,
-  type SetupDependenciesOptions
+  type SetupDependenciesOptions,
 } from '@o3r/schematics';
 import {
   o3rBasicUpdates,
   updateAdditionalModules,
   updateCustomizationEnvironment,
   updateOtterEnvironmentAdapter,
-  updateStore
+  updateStore,
 } from '../../rule-factories/index';
 import type {
-  NgAddSchematicsSchema
+  NgAddSchematicsSchema,
 } from '../schema';
 import {
-  updateBuildersNames
+  updateBuildersNames,
 } from '../updates-for-v8/cms-adapters/update-builders-names';
 import {
-  updateOtterGeneratorsNames
+  updateOtterGeneratorsNames,
 } from '../updates-for-v8/generators/update-generators-names';
 import {
-  packagesToRemove
+  packagesToRemove,
 } from '../updates-for-v8/replaced-packages';
 import {
   isUsingFlatConfig,
-  shouldOtterLinterBeInstalled
+  shouldOtterLinterBeInstalled,
 } from '../utils/index';
 
 /**

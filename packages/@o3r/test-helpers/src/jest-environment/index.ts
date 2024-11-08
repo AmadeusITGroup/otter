@@ -1,26 +1,26 @@
 import {
-  execSync
+  execSync,
 } from 'node:child_process';
 import {
-  rm
+  rm,
 } from 'node:fs/promises';
 import {
-  join
+  join,
 } from 'node:path';
 import type {
   EnvironmentContext,
-  JestEnvironmentConfig
+  JestEnvironmentConfig,
 } from '@jest/environment';
 import type {
-  Circus
+  Circus,
 } from '@jest/types';
 import {
-  TestEnvironment as NodeTestEnvironment
+  TestEnvironment as NodeTestEnvironment,
 } from 'jest-environment-node';
 import pidFromPort from 'pid-from-port';
 import {
   prepareTestEnv,
-  type PrepareTestEnvType
+  type PrepareTestEnvType,
 } from '../prepare-test-env';
 
 /**

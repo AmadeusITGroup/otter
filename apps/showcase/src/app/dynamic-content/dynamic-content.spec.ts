@@ -1,21 +1,21 @@
 import {
-  AsyncPipe
+  AsyncPipe,
 } from '@angular/common';
 import {
   ComponentFixture,
-  TestBed
+  TestBed,
 } from '@angular/core/testing';
 import {
-  RouterModule
+  RouterModule,
 } from '@angular/router';
 import {
-  O3rElement
+  O3rElement,
 } from '@o3r/testing/core';
 import {
-  DynamicContentComponent
+  DynamicContentComponent,
 } from './dynamic-content.component';
 import {
-  DynamicContentFixtureComponent
+  DynamicContentFixtureComponent,
 } from './dynamic-content.fixture';
 
 let componentFixture: DynamicContentFixtureComponent;

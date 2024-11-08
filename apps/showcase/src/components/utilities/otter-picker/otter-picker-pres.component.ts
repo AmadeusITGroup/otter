@@ -4,20 +4,20 @@ import {
   forwardRef,
   Input,
   signal,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {
   ControlValueAccessor,
-  NG_VALUE_ACCESSOR
+  NG_VALUE_ACCESSOR,
 } from '@angular/forms';
 import {
-  NgbDropdownModule
+  NgbDropdownModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
-  O3rComponent
+  O3rComponent,
 } from '@o3r/core';
 import {
-  OTTER_ICONS
+  OTTER_ICONS,
 } from './otter-icons';
 
 @O3rComponent({ componentType: 'Component' })

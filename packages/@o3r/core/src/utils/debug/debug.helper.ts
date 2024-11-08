@@ -1,6 +1,6 @@
 import type {
   BootstrapConfig,
-  Dataset
+  Dataset,
 } from '../../core/application/dgp.interfaces';
 
 /**

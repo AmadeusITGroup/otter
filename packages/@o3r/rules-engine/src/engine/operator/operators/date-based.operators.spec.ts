@@ -1,5 +1,5 @@
 import {
-  executeOperator
+  executeOperator,
 } from '../operator.helpers';
 import {
   dateAfter,
@@ -8,7 +8,7 @@ import {
   dateInNextMinutes,
   dateNotEquals,
   dateNotInNextMinutes,
-  inRangeDate
+  inRangeDate,
 } from './date-based.operators';
 
 describe('Operators', () => {

@@ -19,7 +19,7 @@ jest.mock('node:perf_hooks', () => {
 });
 
 import {
-  createCliWithMetrics
+  createCliWithMetrics,
 } from './index';
 
 const expectedOutput = { success: true };

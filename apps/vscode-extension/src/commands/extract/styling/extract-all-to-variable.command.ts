@@ -1,17 +1,17 @@
 import {
-  EOL
+  EOL,
 } from 'node:os';
 import {
   ExtensionContext,
   Position,
   Range,
   TextEditor,
-  window
+  window,
 } from 'vscode';
 import {
   generateVariableName,
   insertVariable,
-  isPropertyValue
+  isPropertyValue,
 } from './helpers/utils.helper';
 
 /**

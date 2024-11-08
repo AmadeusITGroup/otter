@@ -2,12 +2,12 @@
 import * as actions from './routing-guard.actions';
 import {
   routingGuardInitialState,
-  routingGuardReducer
+  routingGuardReducer,
 } from './routing-guard.reducer';
 import {
   RegisteredItemFailureReason,
   RegisteredItemStatus,
-  RoutingGuardState
+  RoutingGuardState,
 } from './routing-guard.state';
 
 describe('RoutingGuard Store reducer', () => {

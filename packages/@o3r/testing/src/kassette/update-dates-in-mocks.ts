@@ -1,8 +1,8 @@
 import type {
-  IMock
+  IMock,
 } from '@amadeus-it-group/kassette';
 import {
-  Temporal
+  Temporal,
 } from 'temporal-polyfill';
 
 /**

@@ -11,7 +11,7 @@ import {
   cpSync,
   existsSync,
   mkdirSync,
-  renameSync
+  renameSync,
 } from 'node:fs';
 import * as path from 'node:path';
 import {
@@ -21,7 +21,7 @@ import {
   packageManagerCreate,
   packageManagerExec,
   packageManagerInstall,
-  packageManagerRun
+  packageManagerRun,
 } from '@o3r/test-helpers';
 
 const sdkPackageName = '@my-test/sdk';

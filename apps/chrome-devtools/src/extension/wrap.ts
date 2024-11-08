@@ -2,7 +2,7 @@
 import type {
   applicationMessageTarget,
   ConnectContentMessage,
-  OtterMessage
+  OtterMessage,
 } from '@o3r/core';
 /*
 This script is injected into the page by the Otter Devtools extension.

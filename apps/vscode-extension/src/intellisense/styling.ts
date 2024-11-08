@@ -3,7 +3,7 @@ import {
   CompletionItemKind,
   CompletionItemProvider,
   SnippetString,
-  workspace
+  workspace,
 } from 'vscode';
 
 const importStyling = /@use '@o3r\/styling'( as (?<lib>\w+))?;/;

@@ -1,14 +1,14 @@
 import {
   createFeatureSelector,
-  createSelector
+  createSelector,
 } from '@ngrx/store';
 import {
-  shoppingCartAdapter
+  shoppingCartAdapter,
 } from './shopping-cart.reducer';
 import {
   SHOPPING_CART_STORE_NAME,
   ShoppingCartModel,
-  ShoppingCartState
+  ShoppingCartState,
 } from './shopping-cart.state';
 
 const { selectIds, selectEntities, selectAll, selectTotal } = shoppingCartAdapter.getSelectors();

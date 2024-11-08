@@ -1,5 +1,5 @@
 import {
-  StorybookStoryConfiguration
+  StorybookStoryConfiguration,
 } from '../types';
 
 /** Style argument name prefix */

@@ -1,5 +1,5 @@
 import {
-  AsyncPipe
+  AsyncPipe,
 } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -11,39 +11,39 @@ import {
   type Signal,
   untracked,
   viewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {
-  toSignal
+  toSignal,
 } from '@angular/core/rxjs-interop';
 import {
   FormControl,
   FormGroup,
   FormsModule,
-  ReactiveFormsModule
+  ReactiveFormsModule,
 } from '@angular/forms';
 import {
-  DfTooltipModule
+  DfTooltipModule,
 } from '@design-factory/design-factory';
 import {
   NgbAccordionDirective,
-  NgbAccordionModule
+  NgbAccordionModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import type {
   JSONLocalization,
-  LocalizationMetadata
+  LocalizationMetadata,
 } from '@o3r/localization';
 import {
-  Subscription
+  Subscription,
 } from 'rxjs';
 import {
   map,
-  throttleTime
+  throttleTime,
 } from 'rxjs/operators';
 import {
   ChromeExtensionConnectionService,
   LocalizationService,
-  StateService
+  StateService,
 } from '../../services';
 
 const THROTTLE_TIME = 100;

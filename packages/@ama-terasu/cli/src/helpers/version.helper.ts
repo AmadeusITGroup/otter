@@ -1,17 +1,17 @@
 import {
-  EOL
+  EOL,
 } from 'node:os';
 import * as chalk from 'chalk';
 import {
   name,
-  version
+  version,
 } from '../../package.json';
 import {
-  formatTitle
+  formatTitle,
 } from './format.helper';
 import {
   isInstalled,
-  ModuleDiscovery
+  ModuleDiscovery,
 } from './module.helper';
 
 /**

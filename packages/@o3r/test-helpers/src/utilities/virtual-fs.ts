@@ -1,12 +1,12 @@
 import * as actualFileSystem from 'node:fs';
 import {
-  Volume
+  Volume,
 } from 'memfs';
 import type {
-  Volume as VolumeInterface
+  Volume as VolumeInterface,
 } from 'memfs/lib/volume';
 import {
-  Union
+  Union,
 } from 'unionfs';
 
 /**

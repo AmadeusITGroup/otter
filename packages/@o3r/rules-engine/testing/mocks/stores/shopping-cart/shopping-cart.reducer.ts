@@ -1,29 +1,29 @@
 import {
-  createEntityAdapter
+  createEntityAdapter,
 } from '@ngrx/entity';
 import {
   ActionCreator,
   createReducer,
   on,
-  ReducerTypes
+  ReducerTypes,
 } from '@ngrx/store';
 import {
   AsyncRequest,
   asyncStoreItemAdapter,
   createEntityAsyncRequestAdapter,
-  EntityStatus
+  EntityStatus,
 } from '@o3r/core';
 import * as actions from './shopping-cart.actions';
 import {
-  CartIdPayload
+  CartIdPayload,
 } from './shopping-cart.actions';
 import {
-  ShoppingCart
+  ShoppingCart,
 } from './shopping-cart.model';
 import {
   ShoppingCartModel,
   ShoppingCartState,
-  ShoppingCartStateDetails
+  ShoppingCartStateDetails,
 } from './shopping-cart.state';
 
 /**

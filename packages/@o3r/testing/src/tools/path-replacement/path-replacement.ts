@@ -1,14 +1,14 @@
 import * as fs from 'node:fs';
 import {
-  Module
+  Module,
 } from 'node:module';
 import * as path from 'node:path';
 import {
   TransformOptions,
-  transformSync
+  transformSync,
 } from 'esbuild';
 import {
-  requireFromString
+  requireFromString,
 } from 'module-from-string';
 /**
  * Switch to the needed implementation of core testing, when running e2e tests

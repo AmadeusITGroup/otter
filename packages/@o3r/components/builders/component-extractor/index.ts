@@ -2,30 +2,30 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {
   BuilderOutput,
-  createBuilder
+  createBuilder,
 } from '@angular-devkit/architect';
 import type {
-  LoggerApi
+  LoggerApi,
 } from '@angular-devkit/core/src/logger';
 import type {
-  ComponentConfigOutput
+  ComponentConfigOutput,
 } from '@o3r/components';
 import {
   CmsMetadataData,
   createBuilderWithMetricsIfInstalled,
   getLibraryCmsMetadata,
-  validateJson
+  validateJson,
 } from '@o3r/extractors';
 import {
-  O3rCliError
+  O3rCliError,
 } from '@o3r/schematics';
 import * as chokidar from 'chokidar';
 import {
   ComponentExtractor,
-  ComponentParser
+  ComponentParser,
 } from './helpers/component/index';
 import {
-  ComponentExtractorBuilderSchema
+  ComponentExtractorBuilderSchema,
 } from './schema';
 
 export * from './schema';

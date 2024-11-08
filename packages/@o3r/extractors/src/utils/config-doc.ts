@@ -3,18 +3,18 @@ import {
   TSDocConfiguration,
   TSDocParser,
   TSDocTagDefinition,
-  TSDocTagSyntaxKind
+  TSDocTagSyntaxKind,
 } from '@microsoft/tsdoc';
 import type {
   CategoryDescription,
   ConfigPropertyWidget,
-  ConfigPropertyWidgetParameters
+  ConfigPropertyWidgetParameters,
 } from '@o3r/core';
 import * as ts from 'typescript';
 import {
   getInlineBlockTagContentFromDocComment,
   getInlineSummaryFromDocComment,
-  getTsDocTextFromNode
+  getTsDocTextFromNode,
 } from './tsdoc';
 
 /** Configuration information extracted from the TSDoc */

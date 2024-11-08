@@ -1,7 +1,7 @@
 import type {
   Projects as NgWorkspaceProject,
   Schema as NgWorkspaceSchema,
-  SchematicOptions
+  SchematicOptions,
 } from '@angular/cli/lib/config/workspace-schema';
 
 /**

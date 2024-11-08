@@ -1,9 +1,9 @@
 import {
-  SchematicContext
+  SchematicContext,
 } from '@angular-devkit/schematics';
 import type {
   WorkspaceSchema,
-  WorkspaceSchematics
+  WorkspaceSchematics,
 } from '../interfaces';
 
 /**

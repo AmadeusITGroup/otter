@@ -1,13 +1,13 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import {
-  dump as yamlDump
+  dump as yamlDump,
 } from 'js-yaml';
 import {
-  Formatter
+  Formatter,
 } from './formatter.interface';
 import {
-  generatePackageJson
+  generatePackageJson,
 } from './utils';
 
 /**

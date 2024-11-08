@@ -1,20 +1,20 @@
 import {
   getTestBed,
-  TestBed
+  TestBed,
 } from '@angular/core/testing';
 import {
   BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting
+  platformBrowserDynamicTesting,
 } from '@angular/platform-browser-dynamic/testing';
 import {
-  RulesEngineDevtoolsConsoleService
+  RulesEngineDevtoolsConsoleService,
 } from './rules-engine-devtools.console.service';
 import {
-  OtterRulesEngineDevtools
+  OtterRulesEngineDevtools,
 } from './rules-engine-devtools.service';
 import {
   OTTER_RULES_ENGINE_DEVTOOLS_DEFAULT_OPTIONS,
-  OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS
+  OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS,
 } from './rules-engine-devtools.token';
 
 describe('Rules Engine DevTools console', () => {

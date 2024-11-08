@@ -2,18 +2,18 @@ import {
   BehaviorSubject,
   firstValueFrom,
   Subject,
-  Subscription
+  Subscription,
 } from 'rxjs';
 import {
   reduce,
   skip,
-  take
+  take,
 } from 'rxjs/operators';
 import {
-  rulesetsObj
+  rulesetsObj,
 } from '../../../testing/mocks/two-rulesets';
 import {
-  RulesEngine
+  RulesEngine,
 } from '../engine';
 import {
   ActiveRulesetsEvent,
@@ -21,10 +21,10 @@ import {
   AvailableRulesets,
   DebugEvent,
   RulesEngineOptions,
-  RulesetExecutionEvent
+  RulesetExecutionEvent,
 } from '../engine.interface';
 import {
-  EngineDebugger
+  EngineDebugger,
 } from './engine.debug';
 
 class MockPerformanceObserver {

@@ -1,21 +1,21 @@
 import {
   Inject,
   Injectable,
-  Type
+  Type,
 } from '@angular/core';
 import type {
   Configuration,
-  Context
+  Context,
 } from '@o3r/core';
 import {
-  Observable
+  Observable,
 } from 'rxjs';
 import {
   distinctUntilChanged,
-  map
+  map,
 } from 'rxjs/operators';
 import {
-  C11N_PRESENTERS_MAP_TOKEN
+  C11N_PRESENTERS_MAP_TOKEN,
 } from './c11n.token';
 
 @Injectable()

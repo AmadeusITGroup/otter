@@ -3,30 +3,30 @@ import {
   Inject,
   Injectable,
   OnDestroy,
-  Optional
+  Optional,
 } from '@angular/core';
 import {
   filterMessageContent,
-  sendOtterMessage
+  sendOtterMessage,
 } from '@o3r/core';
 import {
-  LoggerService
+  LoggerService,
 } from '@o3r/logger';
 import {
   fromEvent,
-  Subscription
+  Subscription,
 } from 'rxjs';
 import {
   AvailableStylingMessageContents,
   StylingDevtoolsServiceOptions,
-  StylingMessageDataTypes
+  StylingMessageDataTypes,
 } from './styling-devkit.interface';
 import {
-  OtterStylingDevtools
+  OtterStylingDevtools,
 } from './styling-devtools.service';
 import {
   OTTER_STYLING_DEVTOOLS_DEFAULT_OPTIONS,
-  OTTER_STYLING_DEVTOOLS_OPTIONS
+  OTTER_STYLING_DEVTOOLS_OPTIONS,
 } from './styling-devtools.token';
 
 const isStylingMessage = (message: any): message is AvailableStylingMessageContents => {

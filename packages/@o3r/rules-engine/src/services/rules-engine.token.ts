@@ -1,5 +1,5 @@
 import {
-  InjectionToken
+  InjectionToken,
 } from '@angular/core';
 
 /** Determine if the action should be executed */

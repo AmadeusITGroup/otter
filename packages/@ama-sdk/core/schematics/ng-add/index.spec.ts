@@ -1,18 +1,18 @@
 import {
-  readFileSync
+  readFileSync,
 } from 'node:fs';
 import {
-  join
+  join,
 } from 'node:path';
 import {
   callRule,
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import {
-  firstValueFrom
+  firstValueFrom,
 } from 'rxjs';
 import {
-  ngAdd
+  ngAdd,
 } from './index';
 
 describe('Ng add @ama-sdk/core', () => {

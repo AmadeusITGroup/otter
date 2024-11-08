@@ -1,15 +1,15 @@
 import {
-  O3rElement
+  O3rElement,
 } from '@o3r/testing/core';
 import {
   expect,
-  test
+  test,
 } from '@playwright/test';
 import {
-  AppFixtureComponent
+  AppFixtureComponent,
 } from '../../src/app/app.fixture';
 import {
-  ConfigurationFixtureComponent
+  ConfigurationFixtureComponent,
 } from '../../src/app/configuration/configuration.fixture';
 
 test.describe.serial('Test configuration page', () => {

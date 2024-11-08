@@ -1,30 +1,30 @@
 import {
-  CommonModule
+  CommonModule,
 } from '@angular/common';
 import {
-  Component
+  Component,
 } from '@angular/core';
 import {
   ComponentFixture,
   getTestBed,
-  TestBed
+  TestBed,
 } from '@angular/core/testing';
 import {
-  By
+  By,
 } from '@angular/platform-browser';
 import {
   BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting
+  platformBrowserDynamicTesting,
 } from '@angular/platform-browser-dynamic/testing';
 import {
-  Store
+  Store,
 } from '@ngrx/store';
 import {
   ReplaySubject,
-  Subject
+  Subject,
 } from 'rxjs';
 import {
-  PlaceholderComponent
+  PlaceholderComponent,
 } from './placeholder.component';
 
 /**

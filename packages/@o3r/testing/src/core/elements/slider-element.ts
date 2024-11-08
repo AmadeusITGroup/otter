@@ -1,6 +1,6 @@
 import {
   ElementProfile,
-  O3rElement
+  O3rElement,
 } from '../element';
 
 /**

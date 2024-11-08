@@ -12,9 +12,14 @@ const config = [
     files: ['**/*.ts', '**/*.tsx', '**/*.mts', '**/*.cts'],
     rules: {
       ...convertWarningsToErrors(angular.configs.tsRecommended),
-      '@angular-eslint/no-input-rename': 'off',
+      '@angular-eslint/component-selector': [
+        'error',
+        {
+          type: 'element',
+          style: 'kebab-case'
+        }
+      ],
       '@angular-eslint/directive-class-suffix': 'off',
-      '@angular-eslint/no-empty-lifecycle-method': 'off',
       '@angular-eslint/directive-selector': [
         'error',
         {
@@ -22,13 +27,8 @@ const config = [
           style: 'camelCase'
         }
       ],
-      '@angular-eslint/component-selector': [
-        'error',
-        {
-          type: 'element',
-          style: 'kebab-case'
-        }
-      ]
+      '@angular-eslint/no-empty-lifecycle-method': 'off',
+      '@angular-eslint/no-input-rename': 'off'
     }
   }
 ];

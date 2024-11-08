@@ -2,10 +2,10 @@
 import {
   Action,
   ActionReducer,
-  MetaReducer
+  MetaReducer,
 } from '@ngrx/store';
 import type {
-  LoggerClient
+  LoggerClient,
 } from './logger.client';
 
 /**

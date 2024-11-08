@@ -1,10 +1,10 @@
 import {
   firstValueFrom,
   Observable,
-  Subject
+  Subject,
 } from 'rxjs';
 import {
-  RulesEngine
+  RulesEngine,
 } from './engine';
 
 describe('Rx Rule Engine', () => {

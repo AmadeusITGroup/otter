@@ -1,17 +1,17 @@
 import type {
-  JsonValue
+  JsonValue,
 } from '@angular-devkit/core';
 import type {
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import {
-  getDefaultOptionsForSchematic
+  getDefaultOptionsForSchematic,
 } from './collection';
 import {
-  O3rCliError
+  O3rCliError,
 } from './error';
 import {
-  getWorkspaceConfig
+  getWorkspaceConfig,
 } from './loaders';
 
 /** Type of generated item */

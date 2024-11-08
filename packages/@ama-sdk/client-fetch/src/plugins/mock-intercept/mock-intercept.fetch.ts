@@ -1,18 +1,18 @@
 import type {
-  PluginAsyncRunner
+  PluginAsyncRunner,
 } from '@ama-sdk/core';
 import {
   CUSTOM_MOCK_OPERATION_ID_HEADER,
-  MockInterceptRequest
+  MockInterceptRequest,
 } from '@ama-sdk/core';
 import type {
   FetchCall,
   FetchPlugin,
   FetchPluginContext,
-  PluginAsyncStarter
+  PluginAsyncStarter,
 } from '../../fetch-plugin';
 import {
-  MockInterceptFetchParameters
+  MockInterceptFetchParameters,
 } from './mock-intercept.interface';
 
 /**

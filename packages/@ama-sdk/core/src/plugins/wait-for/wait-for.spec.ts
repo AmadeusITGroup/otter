@@ -1,5 +1,5 @@
 import {
-  WaitForFetch
+  WaitForFetch,
 } from './wait-for.fetch';
 
 describe('Wait For Fetch Plugin', () => {

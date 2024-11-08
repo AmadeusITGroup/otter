@@ -1,5 +1,5 @@
 import type {
-  Dictionary
+  Dictionary,
 } from '@ngrx/entity';
 import type {
   Configuration,
@@ -9,10 +9,10 @@ import type {
   DevtoolsCommonOptions,
   MessageDataTypes,
   OtterMessageContent,
-  RequestMessagesContentMessage
+  RequestMessagesContentMessage,
 } from '@o3r/core';
 import type {
-  ConfigurationModel
+  ConfigurationModel,
 } from '../stores/index';
 
 /** Option for Configuration devtools service */

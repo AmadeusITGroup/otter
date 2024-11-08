@@ -1,5 +1,5 @@
 import {
-  existsSync
+  existsSync,
 } from 'node:fs';
 import * as path from 'node:path';
 import {
@@ -16,11 +16,11 @@ import {
   strings,
   template,
   Tree,
-  url
+  url,
 } from '@angular-devkit/schematics';
 import {
   NodePackageInstallTask,
-  RunSchematicTask
+  RunSchematicTask,
 } from '@angular-devkit/schematics/tasks';
 import {
   createSchematicWithMetricsIfInstalled,
@@ -29,22 +29,22 @@ import {
   getWorkspaceConfig,
   isNxContext,
   NpmExecTask,
-  O3rCliError
+  O3rCliError,
 } from '@o3r/schematics';
 import {
-  cleanStandaloneFiles
+  cleanStandaloneFiles,
 } from './rules/clean-standalone.rule';
 import {
-  ngRegisterProjectTasks
+  ngRegisterProjectTasks,
 } from './rules/rules.ng';
 import {
-  nxRegisterProjectTasks
+  nxRegisterProjectTasks,
 } from './rules/rules.nx';
 import {
-  updateTsConfig
+  updateTsConfig,
 } from './rules/update-ts-paths.rule';
 import {
-  NgGenerateSdkSchema
+  NgGenerateSdkSchema,
 } from './schema';
 
 /**

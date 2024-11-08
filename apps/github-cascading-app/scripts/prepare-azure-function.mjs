@@ -1,12 +1,12 @@
 import {
-  promises as fs
+  promises as fs,
 } from 'node:fs';
 import {
   dirname,
-  resolve
+  resolve,
 } from 'node:path';
 import {
-  fileURLToPath
+  fileURLToPath,
 } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));

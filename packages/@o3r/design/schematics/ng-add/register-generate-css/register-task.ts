@@ -1,5 +1,5 @@
 import {
-  posix
+  posix,
 } from 'node:path';
 import {
   apply,
@@ -10,10 +10,10 @@ import {
   renameTemplateFiles,
   type Rule,
   template,
-  url
+  url,
 } from '@angular-devkit/schematics';
 import type {
-  GenerateStyleSchematicsSchema
+  GenerateStyleSchematicsSchema,
 } from '../../../builders/generate-style/schema';
 
 /**

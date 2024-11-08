@@ -1,11 +1,11 @@
 import {
-  utils
+  utils,
 } from '@ama-sdk/core';
 import {
-  FormControl
+  FormControl,
 } from '@angular/forms';
 import {
-  MaxDateValidator
+  MaxDateValidator,
 } from './max-date.directive';
 
 describe('Max Date', () => {

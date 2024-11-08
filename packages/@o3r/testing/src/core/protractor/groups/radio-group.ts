@@ -1,11 +1,11 @@
 import {
-  RadioGroupProfile
+  RadioGroupProfile,
 } from '../../groups/radio-group';
 import {
-  O3rRadioElement
+  O3rRadioElement,
 } from '../elements/radio-element';
 import {
-  O3rGroup
+  O3rGroup,
 } from '../group';
 
 /**

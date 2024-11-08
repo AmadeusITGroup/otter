@@ -1,9 +1,9 @@
 import {
-  RadioElementProfile
+  RadioElementProfile,
 } from '../../elements';
 import {
   O3rElement,
-  PlaywrightSourceElement
+  PlaywrightSourceElement,
 } from '../element';
 
 /**

@@ -1,5 +1,5 @@
 import {
-  CodegenTaskOptions
+  CodegenTaskOptions,
 } from '../code-generator';
 
 /**

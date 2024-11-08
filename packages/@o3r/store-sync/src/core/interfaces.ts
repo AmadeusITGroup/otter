@@ -1,8 +1,8 @@
 import type {
-  Serializer
+  Serializer,
 } from '@o3r/core';
 import type {
-  SyncStorageConfig
+  SyncStorageConfig,
 } from '../sync-storage';
 
 /**

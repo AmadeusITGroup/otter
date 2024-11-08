@@ -1,14 +1,14 @@
 import {
-  Injectable
+  Injectable,
 } from '@angular/core';
 import {
   FactDefinitions,
   FactsService,
-  RulesEngineRunnerService
+  RulesEngineRunnerService,
 } from '@o3r/rules-engine';
 import {
   BehaviorSubject,
-  distinctUntilChanged
+  distinctUntilChanged,
 } from 'rxjs';
 
 /** Facts for a trip */

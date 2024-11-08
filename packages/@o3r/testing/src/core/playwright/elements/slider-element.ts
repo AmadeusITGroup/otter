@@ -1,9 +1,9 @@
 import type {
-  SliderElementProfile
+  SliderElementProfile,
 } from '../../elements';
 import {
   O3rElement,
-  type PlaywrightSourceElement
+  type PlaywrightSourceElement,
 } from '../element';
 
 /**

@@ -1,9 +1,9 @@
 import type {
   OpenAPIV2,
-  OpenAPIV3
+  OpenAPIV3,
 } from 'openapi-types';
 import {
-  generateOperationFinderFromSingleFile
+  generateOperationFinderFromSingleFile,
 } from './path-extractor';
 
 describe('generateOperationFinderFromSingleFile', () => {
@@ -62,10 +62,10 @@ describe('generateOperationFinderFromSingleFile', () => {
     const result = generateOperationFinderFromSingleFile(spec);
     expect(result).toEqual([
       {
-        path: '/pet', regexp: new RegExp('^/pet(?:/(?=$))?$'), operations: [{ 'method': 'post', 'operationId': 'addPet' }, { 'method': 'put', 'operationId': 'updatePet' }]
+        path: '/pet', regexp: new RegExp('^/pet(?:/(?=$))?$'), operations: [{ method: 'post', operationId: 'addPet' }, { method: 'put', operationId: 'updatePet' }]
       },
       {
-        path: '/pet/{petId}', regexp: new RegExp('^/pet/((?:[^/]+?))(?:/(?=$))?$'), operations: [{ 'method': 'get', 'operationId': 'getPetById' }]
+        path: '/pet/{petId}', regexp: new RegExp('^/pet/((?:[^/]+?))(?:/(?=$))?$'), operations: [{ method: 'get', operationId: 'getPetById' }]
       }
     ]);
   });
@@ -103,7 +103,7 @@ describe('generateOperationFinderFromSingleFile', () => {
     const result = generateOperationFinderFromSingleFile(spec);
     expect(result).toEqual([
       {
-        path: '/pet', regexp: new RegExp('^/pet(?:/(?=$))?$'), operations: [{ 'method': 'post', 'operationId': 'addPet' }]
+        path: '/pet', regexp: new RegExp('^/pet(?:/(?=$))?$'), operations: [{ method: 'post', operationId: 'addPet' }]
       }
     ]);
   });
@@ -142,7 +142,7 @@ describe('generateOperationFinderFromSingleFile', () => {
     const result1 = generateOperationFinderFromSingleFile(spec1);
     expect(result1).toEqual([
       {
-        path: '/pet', regexp: new RegExp('^/v2/pet(?:/(?=$))?$'), operations: [{ 'method': 'post', 'operationId': 'addPet' }]
+        path: '/pet', regexp: new RegExp('^/v2/pet(?:/(?=$))?$'), operations: [{ method: 'post', operationId: 'addPet' }]
       }
     ]);
 
@@ -154,7 +154,7 @@ describe('generateOperationFinderFromSingleFile', () => {
     const result2 = generateOperationFinderFromSingleFile(spec2);
     expect(result2).toEqual([
       {
-        path: '/pet', regexp: new RegExp('^/v3/pet(?:/(?=$))?$'), operations: [{ 'method': 'post', 'operationId': 'addPet' }]
+        path: '/pet', regexp: new RegExp('^/v3/pet(?:/(?=$))?$'), operations: [{ method: 'post', operationId: 'addPet' }]
       }
     ]);
 
@@ -166,7 +166,7 @@ describe('generateOperationFinderFromSingleFile', () => {
     const result3 = generateOperationFinderFromSingleFile(spec3);
     expect(result3).toEqual([
       {
-        path: '/pet', regexp: new RegExp('^/pet(?:/(?=$))?$'), operations: [{ 'method': 'post', 'operationId': 'addPet' }]
+        path: '/pet', regexp: new RegExp('^/pet(?:/(?=$))?$'), operations: [{ method: 'post', operationId: 'addPet' }]
       }
     ]);
   });

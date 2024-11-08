@@ -1,8 +1,8 @@
 import {
-  Preferences as CapacitorStorage
+  Preferences as CapacitorStorage,
 } from '@capacitor/preferences';
 import type {
-  AsyncStorage
+  AsyncStorage,
 } from '@o3r/store-sync';
 
 /**

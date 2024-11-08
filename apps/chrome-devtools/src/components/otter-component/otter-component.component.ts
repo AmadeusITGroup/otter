@@ -1,5 +1,5 @@
 import {
-  KeyValuePipe
+  KeyValuePipe,
 } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -8,24 +8,24 @@ import {
   OnChanges,
   Pipe,
   PipeTransform,
-  SimpleChanges
+  SimpleChanges,
 } from '@angular/core';
 import {
   NgbAccordionModule,
-  NgbNavModule
+  NgbNavModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import type {
-  OtterLikeComponentInfo
+  OtterLikeComponentInfo,
 } from '@o3r/components';
 import type {
-  ConfigurationModel
+  ConfigurationModel,
 } from '@o3r/configuration';
 import {
   type RulesetExecutionDebug,
-  RulesetHistoryPresModule
+  RulesetHistoryPresModule,
 } from '@o3r/rules-engine';
 import {
-  ConfigFormComponent
+  ConfigFormComponent,
 } from '../config-form/config-form.component';
 
 const isRecordOfArray = (value?: object | null): value is Record<string, any[]> => {

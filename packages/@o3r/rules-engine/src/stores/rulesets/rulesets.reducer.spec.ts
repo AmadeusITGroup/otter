@@ -1,10 +1,10 @@
 import * as actions from './rulesets.actions';
 import {
   rulesetsInitialState,
-  rulesetsReducer
+  rulesetsReducer,
 } from './rulesets.reducer';
 import {
-  RulesetsState
+  RulesetsState,
 } from './rulesets.state';
 
 describe('Rulesets Store reducer', () => {

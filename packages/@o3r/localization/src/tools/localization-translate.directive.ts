@@ -4,23 +4,23 @@ import {
   ElementRef,
   Inject,
   Input,
-  OnDestroy
+  OnDestroy,
 } from '@angular/core';
 import {
   TranslateDirective,
-  TranslateService
+  TranslateService,
 } from '@ngx-translate/core';
 import {
-  Subscription
+  Subscription,
 } from 'rxjs';
 import {
-  LocalizationConfiguration
+  LocalizationConfiguration,
 } from '../core';
 import {
-  LocalizationService
+  LocalizationService,
 } from './localization.service';
 import {
-  LOCALIZATION_CONFIGURATION_TOKEN
+  LOCALIZATION_CONFIGURATION_TOKEN,
 } from './localization.token';
 /**
  * TranslateDirective class adding debug functionality

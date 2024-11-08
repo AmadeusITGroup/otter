@@ -1,8 +1,8 @@
 import {
-  ApiTypes
+  ApiTypes,
 } from '../../fwk/api';
 import {
-  CustomInfoReply
+  CustomInfoReply,
 } from './custom-info.reply';
 
 describe('Custom info reply plugin', () => {

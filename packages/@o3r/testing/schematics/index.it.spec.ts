@@ -13,7 +13,7 @@ import {
   getGitDiff,
   packageManagerExec,
   packageManagerInstall,
-  packageManagerRunOnProject
+  packageManagerRunOnProject,
 } from '@o3r/test-helpers';
 
 describe('ng add testing', () => {

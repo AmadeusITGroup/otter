@@ -2,19 +2,19 @@ import {
   base64EncodeUrl,
   createBase64Decoder,
   createBase64UrlDecoder,
-  createBase64UrlEncoder
+  createBase64UrlEncoder,
 } from '../../utils/json-token';
 import {
-  RequestOptions
+  RequestOptions,
 } from '../core';
 import {
   hmacSHA256,
-  sha256
+  sha256,
 } from './mgw-mdw-auth.helpers';
 import {
   JsonTokenPayload,
   MicroGatewayMiddlewareAuthenticationRequest,
-  MicroGatewayMiddlewareAuthenticationRequestConstructor
+  MicroGatewayMiddlewareAuthenticationRequestConstructor,
 } from './mgw-mdw-auth.request';
 
 const authHeaderKey = 'Authorization';

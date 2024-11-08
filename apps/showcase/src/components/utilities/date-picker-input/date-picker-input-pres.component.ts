@@ -4,26 +4,26 @@ import {
   forwardRef,
   Input,
   signal,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {
   ControlValueAccessor,
   FormsModule,
-  NG_VALUE_ACCESSOR
+  NG_VALUE_ACCESSOR,
 } from '@angular/forms';
 import {
   CloseInputDatePickerDirective,
-  DfInputIconDirective
+  DfInputIconDirective,
 } from '@design-factory/design-factory';
 import {
   NgbDate,
-  NgbInputDatepicker
+  NgbInputDatepicker,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
-  O3rComponent
+  O3rComponent,
 } from '@o3r/core';
 import {
-  DatePickerInputPresContext
+  DatePickerInputPresContext,
 } from './date-picker-input-pres.context';
 
 @O3rComponent({ componentType: 'ExposedComponent' })

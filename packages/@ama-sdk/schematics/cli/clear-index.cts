@@ -6,13 +6,13 @@
 
 import {
   promises as fs,
-  statSync
+  statSync,
 } from 'node:fs';
 import {
-  resolve
+  resolve,
 } from 'node:path';
 import type {
-  CliWrapper
+  CliWrapper,
 } from '@o3r/telemetry';
 import * as minimist from 'minimist';
 

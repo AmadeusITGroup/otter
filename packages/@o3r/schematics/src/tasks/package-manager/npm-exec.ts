@@ -1,13 +1,13 @@
 import {
   TaskConfiguration,
-  TaskConfigurationGenerator
+  TaskConfigurationGenerator,
 } from '@angular-devkit/schematics';
 import {
   NodePackageName,
-  NodePackageTaskOptions
+  NodePackageTaskOptions,
 } from '@angular-devkit/schematics/tasks/package-manager/options';
 import {
-  getPackageManager
+  getPackageManager,
 } from '../../utility/package-manager-runner';
 
 /**

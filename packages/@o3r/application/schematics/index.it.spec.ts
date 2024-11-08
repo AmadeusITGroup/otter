@@ -10,7 +10,7 @@ import {
   getDefaultExecSyncOptions,
   packageManagerExec,
   packageManagerInstall,
-  packageManagerRunOnProject
+  packageManagerRunOnProject,
 } from '@o3r/test-helpers';
 
 describe('new Angular application', () => {

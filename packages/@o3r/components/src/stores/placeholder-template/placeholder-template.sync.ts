@@ -1,13 +1,13 @@
 import {
-  Serializer
+  Serializer,
 } from '@o3r/core';
 import {
   placeholderTemplateAdapter,
-  placeholderTemplateInitialState
+  placeholderTemplateInitialState,
 } from './placeholder-template.reducer';
 import {
   PlaceholderTemplateModel,
-  PlaceholderTemplateState
+  PlaceholderTemplateState,
 } from './placeholder-template.state';
 
 export const placeholderTemplateStorageDeserializer = (rawObject: any) => {

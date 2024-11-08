@@ -1,44 +1,44 @@
 import {
-  AsyncPipe
+  AsyncPipe,
 } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   OnDestroy,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import type {
   IsComponentSelectionAvailableMessage,
-  OtterLikeComponentInfo
+  OtterLikeComponentInfo,
 } from '@o3r/components';
 import {
-  ConfigurationModel
+  ConfigurationModel,
 } from '@o3r/configuration';
 import type {
-  RulesetExecutionDebug
+  RulesetExecutionDebug,
 } from '@o3r/rules-engine';
 import {
   BehaviorSubject,
   combineLatest,
   Observable,
-  Subscription
+  Subscription,
 } from 'rxjs';
 import {
   filter,
   map,
   shareReplay,
-  startWith
+  startWith,
 } from 'rxjs/operators';
 import {
-  OtterComponentComponent
+  OtterComponentComponent,
 } from '../../components/otter-component/otter-component.component';
 import {
   ChromeExtensionConnectionService,
-  isSelectedComponentInfoMessage
+  isSelectedComponentInfoMessage,
 } from '../../services/connection.service';
 import {
-  RulesetHistoryService
+  RulesetHistoryService,
 } from '../../services/ruleset-history.service';
 
 @Component({

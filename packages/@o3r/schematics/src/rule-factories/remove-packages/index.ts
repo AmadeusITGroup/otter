@@ -1,9 +1,9 @@
 import type {
   SchematicContext,
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import type {
-  PackageJson
+  PackageJson,
 } from 'type-fest';
 
 /**

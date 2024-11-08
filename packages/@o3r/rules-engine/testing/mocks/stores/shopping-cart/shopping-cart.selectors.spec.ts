@@ -1,5 +1,5 @@
 import {
-  shoppingCartInitialState
+  shoppingCartInitialState,
 } from './shopping-cart.reducer';
 import * as selectors from './shopping-cart.selectors';
 

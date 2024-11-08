@@ -1,12 +1,12 @@
 import {
-  DOCUMENT
+  DOCUMENT,
 } from '@angular/common';
 import {
   inject,
-  Injectable
+  Injectable,
 } from '@angular/core';
 import type {
-  CssMetadata
+  CssMetadata,
 } from '../core/index';
 
 /**

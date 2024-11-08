@@ -1,9 +1,9 @@
 import {
-  promises as fs
+  promises as fs,
 } from 'node:fs';
 import * as path from 'node:path';
 import type {
-  PackageJson
+  PackageJson,
 } from 'type-fest';
 
 /** Get generator package.json */

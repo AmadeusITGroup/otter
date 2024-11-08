@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
 import type {
-  CliWrapper
+  CliWrapper,
 } from '@o3r/telemetry';
 import {
-  program
+  program,
 } from 'commander';
 import * as winston from 'winston';
 

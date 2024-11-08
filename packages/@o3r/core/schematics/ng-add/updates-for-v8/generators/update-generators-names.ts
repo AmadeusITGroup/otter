@@ -1,10 +1,10 @@
 import {
   chain,
-  Rule
+  Rule,
 } from '@angular-devkit/schematics';
 import {
   getWorkspaceConfig,
-  WorkspaceSchematics
+  WorkspaceSchematics,
 } from '@o3r/schematics';
 
 const generatorsMappingFromV7 = {

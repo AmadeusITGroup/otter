@@ -1,5 +1,5 @@
 import {
-  CommonDocumentationNode
+  CommonDocumentationNode,
 } from './common-documentation-node';
 
 /**

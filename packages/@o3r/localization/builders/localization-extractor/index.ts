@@ -2,29 +2,29 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {
   BuilderOutput,
-  createBuilder
+  createBuilder,
 } from '@angular-devkit/architect';
 import {
   createBuilderWithMetricsIfInstalled,
-  validateJson
+  validateJson,
 } from '@o3r/extractors';
 import {
-  O3rCliError
+  O3rCliError,
 } from '@o3r/schematics';
 import * as chokidar from 'chokidar';
 import {
-  sync as globbySync
+  sync as globbySync,
 } from 'globby';
 import {
   LibraryMetadataMap,
   LocalizationExtractor,
-  LocalizationFileMap
+  LocalizationFileMap,
 } from '../helpers/localization.generator';
 import {
-  LocalizationExtractorBuilderSchema
+  LocalizationExtractorBuilderSchema,
 } from './schema';
 import {
-  validators
+  validators,
 } from './validations';
 
 export * from './schema';

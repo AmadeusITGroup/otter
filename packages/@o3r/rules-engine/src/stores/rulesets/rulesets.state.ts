@@ -1,11 +1,11 @@
 import {
-  EntityState
+  EntityState,
 } from '@ngrx/entity';
 import {
-  AsyncStoreItem
+  AsyncStoreItem,
 } from '@o3r/core';
 import type {
-  Ruleset
+  Ruleset,
 } from '../../engine';
 
 /**

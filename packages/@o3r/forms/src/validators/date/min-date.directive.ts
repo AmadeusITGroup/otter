@@ -1,19 +1,19 @@
 import {
-  utils
+  utils,
 } from '@ama-sdk/core';
 import {
   Directive,
   forwardRef,
   Input,
   OnChanges,
-  SimpleChanges
+  SimpleChanges,
 } from '@angular/core';
 import {
   AbstractControl,
   NG_VALIDATORS,
   ValidationErrors,
   Validator,
-  ValidatorFn
+  ValidatorFn,
 } from '@angular/forms';
 
 /**

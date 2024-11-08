@@ -1,5 +1,5 @@
 import {
-  NgGenerateCommonStoreSchematicsSchema
+  NgGenerateCommonStoreSchematicsSchema,
 } from '../common/schema';
 
 /**

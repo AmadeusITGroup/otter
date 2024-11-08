@@ -29,7 +29,7 @@ jest.mock('./package-managers-extractors/yarn2-file-extractor.helper', () => ({
 import {
   getFilesFromRegistry,
   getLatestMigrationMetadataFile,
-  getVersionRangeFromLatestVersion
+  getVersionRangeFromLatestVersion,
 } from './metadata-files.helper';
 
 const getFakePath = (fileName: string) => `path/${fileName}`;

@@ -1,24 +1,24 @@
 import {
   getTestBed,
-  TestBed
+  TestBed,
 } from '@angular/core/testing';
 import {
   BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting
+  platformBrowserDynamicTesting,
 } from '@angular/platform-browser-dynamic/testing';
 import {
   LocalizationModule,
-  LocalizationService
+  LocalizationService,
 } from '../tools/index';
 import {
-  LocalizationDevtoolsConsoleService
+  LocalizationDevtoolsConsoleService,
 } from './localization-devtools.console.service';
 import {
-  OtterLocalizationDevtools
+  OtterLocalizationDevtools,
 } from './localization-devtools.service';
 import {
   OTTER_LOCALIZATION_DEVTOOLS_DEFAULT_OPTIONS,
-  OTTER_LOCALIZATION_DEVTOOLS_OPTIONS
+  OTTER_LOCALIZATION_DEVTOOLS_OPTIONS,
 } from './localization-devtools.token';
 
 describe('Localization DevTools console', () => {

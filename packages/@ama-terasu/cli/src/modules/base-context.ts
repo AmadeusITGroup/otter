@@ -1,30 +1,30 @@
 #!/usr/bin/env node
 import {
-  EOL
+  EOL,
 } from 'node:os';
 import type {
   Context,
   RootContext,
   ProgressBar as SimpleProgressBar,
-  Task
+  Task,
 } from '@ama-terasu/core';
 import * as chalk from 'chalk';
 import * as logger from 'loglevel';
 import {
-  error
+  error,
 } from 'loglevel';
 import {
   default as ora,
-  oraPromise
+  oraPromise,
 } from 'ora';
 import ProgressBar from 'progress';
 import {
   Arguments,
   Argv,
-  terminalWidth
+  terminalWidth,
 } from 'yargs';
 import {
-  formatHelpMessage
+  formatHelpMessage,
 } from '../helpers';
 
 /**

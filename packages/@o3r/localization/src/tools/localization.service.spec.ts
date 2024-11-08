@@ -1,23 +1,22 @@
 import {
-  TestBed
+  TestBed,
 } from '@angular/core/testing';
 import {
-  TranslateModule
+  TranslateModule,
 } from '@ngx-translate/core';
 import {
   DEFAULT_LOCALIZATION_CONFIGURATION,
-  LocalizationConfiguration
+  LocalizationConfiguration,
 } from '../core';
 import {
-  LocalizationModule
+  LocalizationModule,
 } from './localization.module';
 import {
-  LocalizationService
+  LocalizationService,
 } from './localization.service';
 
 describe('LocalizationService', () => {
   describe('default configuration', () => {
-    // eslint-disable-next-line unicorn/consistent-function-scoping -- higher-order function
     const configurationFactory: () => LocalizationConfiguration = () => ({
       ...DEFAULT_LOCALIZATION_CONFIGURATION
     });
@@ -45,7 +44,6 @@ describe('LocalizationService', () => {
   });
 
   describe('fallbackLocalesMap configuration unavailable', () => {
-    // eslint-disable-next-line unicorn/consistent-function-scoping -- higher-order function
     const configurationFactory: () => LocalizationConfiguration = () => ({
       ...DEFAULT_LOCALIZATION_CONFIGURATION,
       supportedLocales: ['en-GB', 'fr-FR', 'fr-CA', 'ar-AR'],
@@ -107,7 +105,6 @@ describe('LocalizationService', () => {
   });
 
   describe('language to use is specified in the configuration and supported', () => {
-    // eslint-disable-next-line unicorn/consistent-function-scoping -- higher-order function
     const configurationFactory: () => LocalizationConfiguration = () => ({
       ...DEFAULT_LOCALIZATION_CONFIGURATION,
       supportedLocales: ['en-GB', 'fr-FR', 'fr-CA', 'ar-AR'],
@@ -139,7 +136,6 @@ describe('LocalizationService', () => {
   });
 
   describe('language to use is specified in the configuration and not supported', () => {
-    // eslint-disable-next-line unicorn/consistent-function-scoping -- higher-order function
     const configurationFactory: () => LocalizationConfiguration = () => ({
       ...DEFAULT_LOCALIZATION_CONFIGURATION,
       supportedLocales: ['en-GB', 'fr-FR', 'fr-CA', 'ar-AR'],
@@ -171,7 +167,6 @@ describe('LocalizationService', () => {
   });
 
   describe('fallbackLocalesMap configuration available', () => {
-    // eslint-disable-next-line unicorn/consistent-function-scoping -- higher-order function
     const configurationFactory: () => LocalizationConfiguration = () => ({
       ...DEFAULT_LOCALIZATION_CONFIGURATION,
       supportedLocales: ['en-GB', 'en-US', 'fr-FR', 'ar-AR'],

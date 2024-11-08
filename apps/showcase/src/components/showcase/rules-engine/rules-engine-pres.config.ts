@@ -1,9 +1,9 @@
 import {
-  computeItemIdentifier
+  computeItemIdentifier,
 } from '@o3r/core';
 import type {
   Configuration,
-  NestedConfiguration
+  NestedConfiguration,
 } from '@o3r/core';
 
 /** Configuration of a destination */

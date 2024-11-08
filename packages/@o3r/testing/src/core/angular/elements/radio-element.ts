@@ -1,11 +1,11 @@
 import {
-  DebugElement
+  DebugElement,
 } from '@angular/core';
 import {
-  RadioElementProfile
+  RadioElementProfile,
 } from '../../elements';
 import {
-  O3rElement
+  O3rElement,
 } from '../element';
 
 /**

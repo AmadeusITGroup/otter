@@ -6,20 +6,20 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  OnDestroy
+  OnDestroy,
 } from '@angular/core';
 import {
-  Store
+  Store,
 } from '@ngrx/store';
 import {
   ConfigurationStore,
-  upsertConfigurationEntity
+  upsertConfigurationEntity,
 } from '@o3r/configuration';
 import {
-  Subscription
+  Subscription,
 } from 'rxjs';
 import {
-  ComponentWrapperService
+  ComponentWrapperService,
 } from './component-wrapper.service';
 
 /**

@@ -1,11 +1,11 @@
 import {
   FormControl,
-  FormGroup
+  FormGroup,
 } from '@angular/forms';
 import {
   getFlatControlErrors,
   markAllControlsDirtyAndTouched,
-  markAllControlsPristineAndUntouched
+  markAllControlsPristineAndUntouched,
 } from './helpers';
 
 describe('Form helpers', () => {

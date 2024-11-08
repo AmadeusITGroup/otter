@@ -5,17 +5,17 @@ import path from 'node:path';
 import process from 'node:process';
 import commander from 'commander';
 import {
-  sync as globbySync
+  sync as globbySync,
 } from 'globby';
 import {
-  Report
+  Report,
 } from '../core/checkers/checker.interface';
 import {
-  MultiSuccessChecker
+  MultiSuccessChecker,
 } from '../core/checkers/multi-success-checker';
 import {
   getTargetInformation,
-  isGlobPattern
+  isGlobPattern,
 } from '../core/utils';
 
 process.on('unhandledRejection', (err) => {

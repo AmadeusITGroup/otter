@@ -1,8 +1,8 @@
 import type {
-  RequestOptions
+  RequestOptions,
 } from '@ama-sdk/core';
 import {
-  KeepaliveRequest
+  KeepaliveRequest,
 } from './keepalive.request';
 
 describe('Keepalive Request Plugin', () => {

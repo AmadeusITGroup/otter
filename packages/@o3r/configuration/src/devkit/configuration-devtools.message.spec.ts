@@ -1,30 +1,30 @@
 import {
   getTestBed,
-  TestBed
+  TestBed,
 } from '@angular/core/testing';
 import {
   BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting
+  platformBrowserDynamicTesting,
 } from '@angular/platform-browser-dynamic/testing';
 import {
-  provideMockStore
+  provideMockStore,
 } from '@ngrx/store/testing';
 import {
   applicationMessageTarget,
   ConnectContentMessage,
   OtterMessage,
-  otterMessageType
+  otterMessageType,
 } from '@o3r/core';
 import {
   LoggerModule,
-  noopLogger
+  noopLogger,
 } from '@o3r/logger';
 import {
-  ConfigurationDevtoolsMessageService
+  ConfigurationDevtoolsMessageService,
 } from './configuration-devtools.message.service';
 import {
   OTTER_CONFIGURATION_DEVTOOLS_DEFAULT_OPTIONS,
-  OTTER_CONFIGURATION_DEVTOOLS_OPTIONS
+  OTTER_CONFIGURATION_DEVTOOLS_OPTIONS,
 } from './configuration-devtools.token';
 
 const connectMessage: OtterMessage<ConnectContentMessage, typeof applicationMessageTarget> = {

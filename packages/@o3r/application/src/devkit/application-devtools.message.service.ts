@@ -1,43 +1,43 @@
 import {
-  DOCUMENT
+  DOCUMENT,
 } from '@angular/common';
 import {
   inject,
   Inject,
   Injectable,
   OnDestroy,
-  Optional
+  Optional,
 } from '@angular/core';
 import {
   DevtoolsServiceInterface,
   filterMessageContent,
-  sendOtterMessage
+  sendOtterMessage,
 } from '@o3r/core';
 import {
-  LoggerService
+  LoggerService,
 } from '@o3r/logger';
 import {
   isVisualTestingEnabled,
   prepareVisualTesting,
-  toggleVisualTestingRender
+  toggleVisualTestingRender,
 } from '@o3r/testing/visual-test/utils';
 import {
   fromEvent,
-  Subscription
+  Subscription,
 } from 'rxjs';
 import {
   type ApplicationDevtoolsServiceOptions,
   type ApplicationMessageDataTypes,
   type AvailableApplicationMessageContents,
   isApplicationMessage,
-  type StateSelectionContentMessage
+  type StateSelectionContentMessage,
 } from './application-devkit.interface';
 import {
-  OtterApplicationDevtools
+  OtterApplicationDevtools,
 } from './application-devtools.service';
 import {
   OTTER_APPLICATION_DEVTOOLS_DEFAULT_OPTIONS,
-  OTTER_APPLICATION_DEVTOOLS_OPTIONS
+  OTTER_APPLICATION_DEVTOOLS_OPTIONS,
 } from './application-devtools.token';
 
 const OTTER_STATE_RIBBON_ID = 'otter-devtools-state-ribbon';

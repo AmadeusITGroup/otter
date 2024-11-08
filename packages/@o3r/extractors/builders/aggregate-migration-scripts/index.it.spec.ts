@@ -7,21 +7,21 @@ const o3rEnvironment = globalThis.o3rEnvironment;
 
 import {
   promises,
-  readFileSync
+  readFileSync,
 } from 'node:fs';
 import {
   join,
-  relative
+  relative,
 } from 'node:path';
 import {
   getDefaultExecSyncOptions,
   getLatestPackageVersion,
   packageManagerAdd,
   packageManagerExec,
-  publishToVerdaccio
+  publishToVerdaccio,
 } from '@o3r/test-helpers';
 import {
-  inc
+  inc,
 } from 'semver';
 
 const migrationDataMocksPath = join(__dirname, '..', '..', 'testing', 'mocks', 'migration-scripts');

@@ -1,5 +1,5 @@
 import type {
-  SchematicOptionObject
+  SchematicOptionObject,
 } from '../../src/public_api';
 
 export interface NgAddSchematicsSchema extends SchematicOptionObject {

@@ -1,20 +1,20 @@
 import {
-  exec
+  exec,
 } from 'node:child_process';
 import {
-  promisify
+  promisify,
 } from 'node:util';
 import * as github from '@actions/github';
 import * as Context from '@actions/github/lib/context';
 import {
-  GitHub
+  GitHub,
 } from '@actions/github/lib/utils';
 import {
   extractBranchesFromGitOutput,
   extractPackageChanges,
   handlePromisifiedExecLog,
   notIgnorablePackages,
-  sortBranches
+  sortBranches,
 } from './helpers';
 
 const promisifiedExec = promisify(exec);

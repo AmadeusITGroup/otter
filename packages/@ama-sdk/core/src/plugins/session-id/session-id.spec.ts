@@ -1,8 +1,8 @@
 import {
-  RequestOptions
+  RequestOptions,
 } from '../core/request-plugin';
 import {
-  SessionIdRequest
+  SessionIdRequest,
 } from './session-id.request';
 
 describe('Session ID Request Plugin', () => {

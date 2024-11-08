@@ -1,6 +1,6 @@
 import {
   type JsonArray,
-  type JsonObject
+  type JsonObject,
 } from '@angular-devkit/core';
 import {
   apply,
@@ -9,7 +9,7 @@ import {
   renameTemplateFiles,
   type Rule,
   template,
-  url
+  url,
 } from '@angular-devkit/schematics';
 
 /**

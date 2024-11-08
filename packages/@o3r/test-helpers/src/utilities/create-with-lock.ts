@@ -1,17 +1,17 @@
 import {
   existsSync,
-  readFileSync
+  readFileSync,
 } from 'node:fs';
 import * as path from 'node:path';
 import {
-  satisfies
+  satisfies,
 } from 'semver';
 import type {
-  PackageJson
+  PackageJson,
 } from 'type-fest';
 import {
   Locker,
-  LockerOptions
+  LockerOptions,
 } from './locker';
 
 export interface CreateWithLockOptions extends Partial<LockerOptions> {

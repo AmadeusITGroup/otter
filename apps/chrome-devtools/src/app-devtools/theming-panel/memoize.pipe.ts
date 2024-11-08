@@ -1,6 +1,6 @@
 import {
   Pipe,
-  type PipeTransform
+  type PipeTransform,
 } from '@angular/core';
 
 @Pipe({ name: 'memoize', standalone: true })

@@ -3,10 +3,10 @@ import * as os from 'node:os';
 import * as path from 'node:path';
 import * as core from '@actions/core';
 import {
-  getExecOutput
+  getExecOutput,
 } from '@actions/exec';
 import type {
-  Severity
+  Severity,
 } from 'audit-types';
 import {
   computeNpmReport,
@@ -16,7 +16,7 @@ import {
   OtterAdvisory,
   OtterAuditReport,
   OtterAuditReporter,
-  severities
+  severities,
 } from './reports';
 
 const colors = ['', 'green', 'yellow', 'orange', 'red'];

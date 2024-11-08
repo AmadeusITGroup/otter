@@ -1,9 +1,9 @@
 import {
   FactDefinitions,
-  FactSet
+  FactSet,
 } from '../engine/index';
 import {
-  RulesEngineRunnerService
+  RulesEngineRunnerService,
 } from '../services/runner/rules-engine.runner.service';
 
 /** Abstract fact set service */

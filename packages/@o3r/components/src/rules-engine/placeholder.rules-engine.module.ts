@@ -1,18 +1,18 @@
 import {
-  NgModule
+  NgModule,
 } from '@angular/core';
 import {
-  EffectsModule
+  EffectsModule,
 } from '@ngrx/effects';
 import {
   PlaceholderRequestStoreModule,
-  PlaceholderTemplateStoreModule
+  PlaceholderTemplateStoreModule,
 } from '@o3r/components';
 import {
-  PlaceholderRulesEngineActionHandler
+  PlaceholderRulesEngineActionHandler,
 } from './placeholder.action-handler';
 import {
-  PlaceholderTemplateResponseEffect
+  PlaceholderTemplateResponseEffect,
 } from './placeholder.rules-engine.effect';
 
 @NgModule({

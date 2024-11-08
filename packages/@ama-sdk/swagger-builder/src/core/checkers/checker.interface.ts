@@ -1,5 +1,5 @@
 import {
-  SwaggerSpec
+  SwaggerSpec,
 } from '../swagger-spec-wrappers/swagger-spec.interface';
 
 /** Checker Error */

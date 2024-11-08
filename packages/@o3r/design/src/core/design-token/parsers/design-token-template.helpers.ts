@@ -1,6 +1,6 @@
 import type {
   DesignTokenGroupExtensions,
-  DesignTokenGroupTemplate
+  DesignTokenGroupTemplate,
 } from '../design-token-specification.interface';
 
 /**

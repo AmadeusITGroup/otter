@@ -1,6 +1,6 @@
 import type {
   Api,
-  ApiClient
+  ApiClient,
 } from '@ama-sdk/core';
 
 /**

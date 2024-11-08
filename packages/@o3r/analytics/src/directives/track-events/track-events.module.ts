@@ -1,14 +1,14 @@
 import {
-  NgModule
+  NgModule,
 } from '@angular/core';
 import {
-  TrackClickDirective
+  TrackClickDirective,
 } from './track-click/track-click.directive';
 import {
-  TrackEventsDirective
+  TrackEventsDirective,
 } from './track-events.directive';
 import {
-  TrackFocusDirective
+  TrackFocusDirective,
 } from './track-focus/track-focus.directive';
 
 @NgModule({

@@ -3,41 +3,41 @@ import * as path from 'node:path';
 import {
   chain,
   noop,
-  Rule
+  Rule,
 } from '@angular-devkit/schematics';
 import {
   addVsCodeRecommendations,
   applyEsLintFix,
   getO3rPeerDeps,
   getWorkspaceConfig,
-  setupDependencies
+  setupDependencies,
 } from '@o3r/schematics';
 import type {
-  DependencyToAdd
+  DependencyToAdd,
 } from '@o3r/schematics';
 import {
-  NodeDependencyType
+  NodeDependencyType,
 } from '@schematics/angular/utility/dependencies';
 import type {
-  PackageJson
+  PackageJson,
 } from 'type-fest';
 import {
-  updateGitIgnore
+  updateGitIgnore,
 } from './helpers/gitignore-update';
 import {
   isUsingFlatConfig,
-  shouldOtterLinterBeInstalled
+  shouldOtterLinterBeInstalled,
 } from './helpers/linter';
 import {
   addMonorepoManager,
   addWorkspacesToProject,
-  filterPackageJsonScripts
+  filterPackageJsonScripts,
 } from './helpers/npm-workspace';
 import {
-  generateRenovateConfig
+  generateRenovateConfig,
 } from './helpers/renovate';
 import type {
-  NgAddSchematicsSchema
+  NgAddSchematicsSchema,
 } from './schema';
 
 /**

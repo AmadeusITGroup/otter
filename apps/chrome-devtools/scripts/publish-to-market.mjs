@@ -1,8 +1,8 @@
 import {
-  createWriteStream
+  createWriteStream,
 } from 'node:fs';
 import {
-  resolve
+  resolve,
 } from 'node:path';
 import * as url from 'node:url';
 import archiver from 'archiver';

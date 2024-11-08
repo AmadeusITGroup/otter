@@ -1,16 +1,16 @@
 import {
   commands,
   ExtensionContext,
-  languages
+  languages,
 } from 'vscode';
 import {
-  extractAllToVariable
+  extractAllToVariable,
 } from './commands/extract/styling/extract-all-to-variable.command';
 import {
-  extractToVariable
+  extractToVariable,
 } from './commands/extract/styling/extract-to-variable.command';
 import {
-  generateComponentGenerateCommand
+  generateComponentGenerateCommand,
 } from './commands/generate/component.command';
 import {
   generateAddAnalyticsToComponentCommand,
@@ -22,36 +22,36 @@ import {
   generateAddLocalizationToComponentCommand,
   generateAddRulesEngineToComponentCommand,
   generateAddThemingToComponentCommand,
-  generateConvertComponentCommand
+  generateConvertComponentCommand,
 } from './commands/generate/enrich-component';
 import {
-  generateFixtureGenerateCommand
+  generateFixtureGenerateCommand,
 } from './commands/generate/fixture.command';
 import {
-  generateModuleGenerateCommand
+  generateModuleGenerateCommand,
 } from './commands/generate/module.command';
 import {
-  generateServiceGenerateCommand
+  generateServiceGenerateCommand,
 } from './commands/generate/service.command';
 import {
-  generateStoreGenerateCommand
+  generateStoreGenerateCommand,
 } from './commands/generate/store.command';
 import {
-  wrapCommandWhenExplorerContext
+  wrapCommandWhenExplorerContext,
 } from './commands/helpers';
 import {
-  generateModuleAddCommand
+  generateModuleAddCommand,
 } from './commands/module/add-module.command';
 import {
   configurationCompletionItemProvider,
-  configurationCompletionTriggerChar
+  configurationCompletionTriggerChar,
 } from './intellisense/configuration';
 import {
-  designTokenCompletionItemAndHoverProviders
+  designTokenCompletionItemAndHoverProviders,
 } from './intellisense/design-token';
 import {
   stylingCompletionItemProvider,
-  stylingCompletionTriggerChar
+  stylingCompletionTriggerChar,
 } from './intellisense/styling';
 
 /**

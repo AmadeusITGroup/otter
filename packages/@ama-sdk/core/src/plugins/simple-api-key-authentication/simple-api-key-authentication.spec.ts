@@ -1,11 +1,11 @@
 import {
-  createBase64UrlDecoder
+  createBase64UrlDecoder,
 } from '../../utils/json-token';
 import {
-  RequestOptions
+  RequestOptions,
 } from '../core/request-plugin';
 import {
-  SimpleApiKeyAuthenticationRequest
+  SimpleApiKeyAuthenticationRequest,
 } from './simple-api-key-authentication.request';
 
 const base64UrlDecoder = createBase64UrlDecoder();

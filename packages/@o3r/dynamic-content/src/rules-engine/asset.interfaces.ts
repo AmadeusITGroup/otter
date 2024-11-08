@@ -1,5 +1,5 @@
 import type {
-  RulesEngineAction
+  RulesEngineAction,
 } from '@o3r/core';
 
 /** ActionUpdateAssetBlock  */

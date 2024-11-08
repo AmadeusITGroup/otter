@@ -1,9 +1,9 @@
 import {
   chain,
-  Rule
+  Rule,
 } from '@angular-devkit/schematics';
 import {
-  updateO3rMetricsConfig
+  updateO3rMetricsConfig,
 } from './v11.3/index';
 
 /**

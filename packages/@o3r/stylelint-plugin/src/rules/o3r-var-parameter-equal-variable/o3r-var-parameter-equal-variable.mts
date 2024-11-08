@@ -2,11 +2,11 @@ import type * as PostCSS from 'postcss';
 import type {
   PostcssResult,
   Problem,
-  RuleContext
+  RuleContext,
 } from 'stylelint';
 import stylelint from 'stylelint';
 import {
-  getNamespacedRuleName
+  getNamespacedRuleName,
 } from '../../utils/get-namespaced-rule-name.mjs';
 
 const { utils } = stylelint;

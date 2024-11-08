@@ -1,6 +1,6 @@
 import {
   dirname,
-  posix
+  posix,
 } from 'node:path';
 import {
   chain,
@@ -8,7 +8,7 @@ import {
   noop,
   Rule,
   SchematicContext,
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import {
   addCommentsOnClassProperties,
@@ -25,11 +25,11 @@ import {
   getSimpleUpdatedMethod,
   NoOtterComponent,
   O3rCliError,
-  sortClassElement
+  sortClassElement,
 } from '@o3r/schematics';
 import * as ts from 'typescript';
 import type {
-  NgAddIframeSchematicsSchema
+  NgAddIframeSchematicsSchema,
 } from './schema';
 
 const iframeProperties = [

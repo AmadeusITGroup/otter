@@ -1,19 +1,19 @@
 import {
   InjectionToken,
   ModuleWithProviders,
-  NgModule
+  NgModule,
 } from '@angular/core';
 import {
   Action,
   ActionReducer,
-  StoreModule
+  StoreModule,
 } from '@ngrx/store';
 import {
-  placeholderTemplateReducer
+  placeholderTemplateReducer,
 } from './placeholder-template.reducer';
 import {
   PLACEHOLDER_TEMPLATE_STORE_NAME,
-  PlaceholderTemplateState
+  PlaceholderTemplateState,
 } from './placeholder-template.state';
 
 /** Token of the PlaceholderTemplate reducer */

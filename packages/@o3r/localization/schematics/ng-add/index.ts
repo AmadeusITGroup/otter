@@ -3,16 +3,16 @@ import * as path from 'node:path';
 import {
   chain,
   noop,
-  Rule
+  Rule,
 } from '@angular-devkit/schematics';
 import {
-  updateCmsAdapter
+  updateCmsAdapter,
 } from '../cms-adapter';
 import {
-  registerDevtools
+  registerDevtools,
 } from './helpers/devtools-registration';
 import type {
-  NgAddSchematicsSchema
+  NgAddSchematicsSchema,
 } from './schema';
 
 const dependenciesToInstall = [

@@ -1,9 +1,9 @@
 import {
-  existsSync
+  existsSync,
 } from 'node:fs';
 import {
   readFile,
-  writeFile
+  writeFile,
 } from 'node:fs/promises';
 import * as path from 'node:path';
 

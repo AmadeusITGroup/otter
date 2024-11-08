@@ -1,13 +1,13 @@
 import type {
-  ApiClient
+  ApiClient,
 } from '../../fwk/core/api-client';
 import type {
   Plugin,
   PluginAsyncRunner,
-  PluginContext
+  PluginContext,
 } from './plugin';
 import type {
-  RequestOptions
+  RequestOptions,
 } from './request-plugin';
 
 /**

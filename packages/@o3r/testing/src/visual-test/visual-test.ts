@@ -2,12 +2,12 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as pixelmatch from 'pixelmatch';
 import {
-  PNG
+  PNG,
 } from 'pngjs';
 
 export {
   prepareVisualTesting,
-  toggleVisualTestingRender
+  toggleVisualTestingRender,
 } from './utils';
 
 /** Error types returned by visual testing comparison */

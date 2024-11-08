@@ -1,18 +1,18 @@
 import {
-  EncodedApiRequest
+  EncodedApiRequest,
 } from './encoded-api-request';
 import {
   getOperationId,
-  getPath
+  getPath,
 } from './helpers';
 import {
-  Mock
+  Mock,
 } from './mock';
 import {
-  MockAdapter
+  MockAdapter,
 } from './mock-adapter';
 import {
-  PathObject
+  PathObject,
 } from './path-object';
 
 export type MockMap = { [operationID: string]: Mock<any>[] };

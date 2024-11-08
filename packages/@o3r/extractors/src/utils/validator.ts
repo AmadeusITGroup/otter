@@ -1,5 +1,5 @@
 import {
-  Validator
+  Validator,
 } from 'jsonschema';
 
 /**

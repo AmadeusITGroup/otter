@@ -1,5 +1,5 @@
 import {
-  pad
+  pad,
 } from './string';
 
 describe('String utils', () => {

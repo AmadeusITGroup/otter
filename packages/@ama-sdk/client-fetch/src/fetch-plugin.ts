@@ -3,7 +3,7 @@ import type {
   Plugin,
   PluginAsyncRunner,
   PluginContext,
-  RequestOptions
+  RequestOptions,
 } from '@ama-sdk/core';
 
 /** Fetch Call Response type */

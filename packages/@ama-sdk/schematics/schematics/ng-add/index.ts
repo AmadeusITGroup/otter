@@ -1,32 +1,32 @@
 import {
-  readFileSync
+  readFileSync,
 } from 'node:fs';
 import * as path from 'node:path';
 import {
-  isJsonObject
+  isJsonObject,
 } from '@angular-devkit/core';
 import {
   chain,
   externalSchematic,
   Rule,
   SchematicContext,
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import {
-  lastValueFrom
+  lastValueFrom,
 } from 'rxjs';
 import type {
   JsonObject,
-  PackageJson
+  PackageJson,
 } from 'type-fest';
 import {
-  DevInstall
+  DevInstall,
 } from '../helpers/node-install';
 import type {
-  OpenApiToolsConfiguration
+  OpenApiToolsConfiguration,
 } from '../helpers/open-api-tools-configuration';
 import type {
-  NgAddSchematicsSchema
+  NgAddSchematicsSchema,
 } from './schema';
 
 const packageJsonPath = '/package.json';

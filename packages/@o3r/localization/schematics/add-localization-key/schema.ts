@@ -1,5 +1,5 @@
 import type {
-  SchematicOptionObject
+  SchematicOptionObject,
 } from '@o3r/schematics';
 
 export interface NgAddLocalizationKeySchematicsSchema extends SchematicOptionObject {

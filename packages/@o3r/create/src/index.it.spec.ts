@@ -8,7 +8,7 @@ const o3rEnvironment = globalThis.o3rEnvironment;
 
 import {
   existsSync,
-  promises as fs
+  promises as fs,
 } from 'node:fs';
 import * as path from 'node:path';
 import {
@@ -18,7 +18,7 @@ import {
   packageManagerExec,
   packageManagerInstall,
   packageManagerRunOnProject,
-  setPackagerManagerConfig
+  setPackagerManagerConfig,
 } from '@o3r/test-helpers';
 
 const defaultExecOptions = getDefaultExecSyncOptions();

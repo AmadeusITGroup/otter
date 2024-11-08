@@ -1,8 +1,8 @@
 import type {
-  Rule
+  Rule,
 } from '@angular-devkit/schematics';
 import {
-  getFilesWithExtensionFromTree
+  getFilesWithExtensionFromTree,
 } from '@o3r/schematics';
 
 export const updateScssImports = (): Rule => {

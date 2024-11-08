@@ -1,9 +1,9 @@
 import stylelint from 'stylelint';
 import {
-  rules
+  rules,
 } from './rules/index.mjs';
 import {
-  getNamespacedRuleName
+  getNamespacedRuleName,
 } from './utils/get-namespaced-rule-name.mjs';
 
 const { createPlugin } = stylelint;

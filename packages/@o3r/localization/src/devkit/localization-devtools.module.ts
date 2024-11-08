@@ -1,25 +1,25 @@
 import {
   ModuleWithProviders,
-  NgModule
+  NgModule,
 } from '@angular/core';
 import {
-  LocalizationModule
+  LocalizationModule,
 } from '../tools/index';
 import type {
-  LocalizationDevtoolsServiceOptions
+  LocalizationDevtoolsServiceOptions,
 } from './localization-devkit.interface';
 import {
-  LocalizationDevtoolsConsoleService
+  LocalizationDevtoolsConsoleService,
 } from './localization-devtools.console.service';
 import {
-  LocalizationDevtoolsMessageService
+  LocalizationDevtoolsMessageService,
 } from './localization-devtools.message.service';
 import {
-  OtterLocalizationDevtools
+  OtterLocalizationDevtools,
 } from './localization-devtools.service';
 import {
   OTTER_LOCALIZATION_DEVTOOLS_DEFAULT_OPTIONS,
-  OTTER_LOCALIZATION_DEVTOOLS_OPTIONS
+  OTTER_LOCALIZATION_DEVTOOLS_OPTIONS,
 } from './localization-devtools.token';
 
 @NgModule({

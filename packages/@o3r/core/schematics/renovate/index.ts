@@ -1,5 +1,5 @@
 import {
-  strings
+  strings,
 } from '@angular-devkit/core';
 import {
   apply,
@@ -10,13 +10,13 @@ import {
   SchematicContext,
   template,
   Tree,
-  url
+  url,
 } from '@angular-devkit/schematics';
 import {
-  createSchematicWithMetricsIfInstalled
+  createSchematicWithMetricsIfInstalled,
 } from '@o3r/schematics';
 import {
-  NgGenerateRenovateBotSchematicsSchema
+  NgGenerateRenovateBotSchematicsSchema,
 } from './schema';
 
 /**

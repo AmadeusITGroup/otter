@@ -1,12 +1,12 @@
 import {
   BehaviorSubject,
-  Subject
+  Subject,
 } from 'rxjs';
 import {
-  RulesEngineRunnerService
+  RulesEngineRunnerService,
 } from '../services/runner/rules-engine.runner.service';
 import {
-  FactsService
+  FactsService,
 } from './fact.abstract-service';
 
 class FakeFactsService extends FactsService<any> {

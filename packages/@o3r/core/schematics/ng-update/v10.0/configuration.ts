@@ -1,9 +1,9 @@
 import type {
   Rule,
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import {
-  getFilesWithExtensionFromTree
+  getFilesWithExtensionFromTree,
 } from '@o3r/schematics';
 
 const matchingRegex = /(Configuration)<\s*["'](?:strict|legacy)["']\s*>/g;

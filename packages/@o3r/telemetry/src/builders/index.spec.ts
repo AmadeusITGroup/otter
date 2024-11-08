@@ -1,17 +1,17 @@
 import {
   Architect,
   BuilderOutput,
-  createBuilder
+  createBuilder,
 } from '@angular-devkit/architect';
 import {
-  TestingArchitectHost
+  TestingArchitectHost,
 } from '@angular-devkit/architect/testing';
 import {
-  schema
+  schema,
 } from '@angular-devkit/core';
 import {
   BuilderWrapper,
-  createBuilderWithMetrics
+  createBuilderWithMetrics,
 } from './index';
 
 jest.mock('../environment/index', () => {
@@ -86,7 +86,6 @@ describe('Builder with metrics', () => {
   it('should works if we chain builder wrapper', async () => {
     const expectedOutput = { success: true };
     const originalBuilderFn = jest.fn((): BuilderOutput => expectedOutput);
-    // eslint-disable-next-line unicorn/consistent-function-scoping -- higher-order function
     const noopBuilderWrapper: BuilderWrapper = (builderFn) => (opts, ctx) => builderFn(opts, ctx);
     const builder = createBuilder(noopBuilderWrapper(createBuilderWithMetrics(originalBuilderFn)));
     architectHost.addBuilder('.:builder', builder);

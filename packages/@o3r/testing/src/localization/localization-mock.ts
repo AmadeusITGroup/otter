@@ -3,19 +3,19 @@ import {
   NgModule,
   Pipe,
   PipeTransform,
-  Provider
+  Provider,
 } from '@angular/core';
 import {
   TranslateLoader,
-  TranslateModule
+  TranslateModule,
 } from '@ngx-translate/core';
 import {
   LocalizationConfiguration,
   LocalizationModule,
-  LocalizationTranslatePipe
+  LocalizationTranslatePipe,
 } from '@o3r/localization';
 import {
-  of
+  of,
 } from 'rxjs';
 
 const defaultLocalizationConfiguration: Partial<LocalizationConfiguration> = {

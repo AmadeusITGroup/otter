@@ -1,9 +1,9 @@
 import {
   Pipe,
-  type PipeTransform
+  type PipeTransform,
 } from '@angular/core';
 import {
-  varRegExp
+  varRegExp,
 } from './common';
 
 @Pipe({

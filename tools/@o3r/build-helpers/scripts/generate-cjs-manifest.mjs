@@ -4,7 +4,7 @@
 
 import {
   existsSync,
-  promises as fs
+  promises as fs,
 } from 'node:fs';
 import * as path from 'node:path';
 import minimist from 'minimist';

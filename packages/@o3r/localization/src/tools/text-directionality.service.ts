@@ -1,16 +1,16 @@
 import {
   DIR_DOCUMENT,
   Direction,
-  Directionality
+  Directionality,
 } from '@angular/cdk/bidi';
 import {
   Inject,
   Injectable,
   OnDestroy,
-  Optional
+  Optional,
 } from '@angular/core';
 import {
-  startWith
+  startWith,
 } from 'rxjs/operators';
 
 @Injectable()

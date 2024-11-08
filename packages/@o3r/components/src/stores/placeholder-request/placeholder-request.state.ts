@@ -1,8 +1,8 @@
 import {
-  EntityState
+  EntityState,
 } from '@ngrx/entity';
 import {
-  AsyncStoreItem
+  AsyncStoreItem,
 } from '@o3r/core';
 
 /**

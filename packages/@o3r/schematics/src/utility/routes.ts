@@ -1,6 +1,6 @@
 import type {
   SchematicContext,
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import * as ts from 'typescript';
 

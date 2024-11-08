@@ -1,8 +1,8 @@
 import {
-  InjectionToken
+  InjectionToken,
 } from '@angular/core';
 import {
-  LocalizationConfiguration
+  LocalizationConfiguration,
 } from '../core';
 
 /** Localization Configuration Token */

@@ -1,8 +1,8 @@
 import {
-  render
+  render,
 } from 'ejs';
 import {
-  Cascading
+  Cascading,
 } from './cascading';
 import {
   BaseLogger,
@@ -10,7 +10,7 @@ import {
   CascadingPullRequestInfo,
   CheckConclusion,
   DEFAULT_CONFIGURATION,
-  PullRequestContext
+  PullRequestContext,
 } from './interfaces';
 
 const mockBasicTemplate = `

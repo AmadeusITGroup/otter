@@ -1,20 +1,20 @@
 import type {
-  Rule
+  Rule,
 } from '@angular-devkit/schematics';
 import {
   parseDesignTokenFile,
-  renderDesignTokens
+  renderDesignTokens,
 } from '@o3r/design';
 import type {
   DesignTokenRendererOptions,
   DesignTokenVariableSet,
-  DesignTokenVariableStructure
+  DesignTokenVariableStructure,
 } from '@o3r/design';
 import type {
-  createSchematicWithMetricsIfInstalled
+  createSchematicWithMetricsIfInstalled,
 } from '@o3r/schematics';
 import type {
-  GenerateCssSchematicsSchema
+  GenerateCssSchematicsSchema,
 } from './schema';
 
 /**

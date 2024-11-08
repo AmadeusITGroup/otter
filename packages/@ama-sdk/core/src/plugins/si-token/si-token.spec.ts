@@ -1,8 +1,8 @@
 import {
-  RequestOptions
+  RequestOptions,
 } from '../core/request-plugin';
 import {
-  SiTokenRequest
+  SiTokenRequest,
 } from './si-token.request';
 
 describe('SI Token Request Plugin', () => {

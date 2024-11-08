@@ -2,7 +2,7 @@ import {
   AbstractControl,
   ValidationErrors,
   Validator,
-  ValidatorFn
+  ValidatorFn,
 } from '@angular/forms';
 
 export abstract class ExtendedValidator implements Validator {

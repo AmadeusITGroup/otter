@@ -3,13 +3,13 @@ import type {
   DevtoolsCommonOptions,
   MessageDataTypes,
   OtterMessageContent,
-  RequestMessagesContentMessage
+  RequestMessagesContentMessage,
 } from '@o3r/core';
 import type {
-  PlaceholderMode
+  PlaceholderMode,
 } from '../stores';
 import {
-  OtterLikeComponentInfo
+  OtterLikeComponentInfo,
 } from './inspector';
 
 /**

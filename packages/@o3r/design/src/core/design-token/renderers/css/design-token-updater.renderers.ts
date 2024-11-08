@@ -1,5 +1,5 @@
 import type {
-  DesignContentFileUpdater
+  DesignContentFileUpdater,
 } from '../design-token.renderer.interface';
 
 const SANITIZE_TAG_INPUTS_REGEXP = /[$()*+.?[\\\]^{|}]/g;

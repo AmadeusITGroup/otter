@@ -2,32 +2,32 @@ import {
   ApplicationRef,
   Injectable,
   OnDestroy,
-  signal
+  signal,
 } from '@angular/core';
 import type {
-  Dictionary
+  Dictionary,
 } from '@ngrx/entity';
 import type {
-  ApplicationInformationContentMessage
+  ApplicationInformationContentMessage,
 } from '@o3r/application';
 import type {
-  SelectedComponentInfoMessage
+  SelectedComponentInfoMessage,
 } from '@o3r/components';
 import type {
   ConfigurationModel,
-  ConfigurationsMessage
+  ConfigurationsMessage,
 } from '@o3r/configuration';
 import {
-  otterMessageType
+  otterMessageType,
 } from '@o3r/core';
 import type {
-  RulesEngineDebugEventsContentMessage
+  RulesEngineDebugEventsContentMessage,
 } from '@o3r/rules-engine';
 import {
   type Observable,
   of,
   ReplaySubject,
-  Subscription
+  Subscription,
 } from 'rxjs';
 import {
   catchError,
@@ -38,11 +38,11 @@ import {
   shareReplay,
   startWith,
   take,
-  timeout
+  timeout,
 } from 'rxjs/operators';
 import {
   type AvailableMessageContents,
-  scriptToInject
+  scriptToInject,
 } from '../shared/index';
 
 /**

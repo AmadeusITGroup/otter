@@ -1,8 +1,8 @@
 import {
-  TokenizedOptions
+  TokenizedOptions,
 } from '../plugins/core/request-plugin';
 import type {
-  ReviverType
+  ReviverType,
 } from './reviver';
 
 /**

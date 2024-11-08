@@ -1,14 +1,14 @@
 import type {
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import * as ts from 'typescript';
 import {
   DecoratorWithArg,
   getPropertyFromDecoratorFirstArgument,
-  isDecoratorWithArg
+  isDecoratorWithArg,
 } from './ast';
 import {
-  O3rCliError
+  O3rCliError,
 } from './error';
 
 /**

@@ -5,7 +5,7 @@ module.exports = {
   plugins: [
     'jest'
   ],
-  'rules': {
+  rules: {
     'jest/no-conditional-expect': 'warn',
     'jest/no-done-callback': 'warn'
   }

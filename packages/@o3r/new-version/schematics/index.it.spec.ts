@@ -8,7 +8,7 @@ const o3rEnvironment = globalThis.o3rEnvironment;
 import {
   getDefaultExecSyncOptions,
   packageManagerExec,
-  packageManagerInstall
+  packageManagerInstall,
 } from '@o3r/test-helpers';
 
 test('should add Otter Application to existing Angular app', () => {

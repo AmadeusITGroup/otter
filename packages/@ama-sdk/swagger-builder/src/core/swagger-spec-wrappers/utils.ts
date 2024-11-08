@@ -1,6 +1,6 @@
 import path from 'node:path';
 import type {
-  Spec
+  Spec,
 } from 'swagger-schema-official';
 
 /**

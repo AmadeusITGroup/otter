@@ -2,7 +2,7 @@ import {
   DOCUMENT,
   JsonPipe,
   KeyValuePipe,
-  NgClass
+  NgClass,
 } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -15,10 +15,10 @@ import {
   untracked,
   viewChild,
   ViewEncapsulation,
-  WritableSignal
+  WritableSignal,
 } from '@angular/core';
 import {
-  toSignal
+  toSignal,
 } from '@angular/core/rxjs-interop';
 import {
   type AbstractControl,
@@ -29,24 +29,24 @@ import {
   ReactiveFormsModule,
   type ValidationErrors,
   type ValidatorFn,
-  Validators
+  Validators,
 } from '@angular/forms';
 import {
   DfTooltipModule,
-  DfTriggerClickDirective
+  DfTriggerClickDirective,
 } from '@design-factory/design-factory';
 import {
   combineLatest,
-  map
+  map,
 } from 'rxjs';
 import type {
-  State
+  State,
 } from '../../extension/interface';
 import {
-  StateService
+  StateService,
 } from '../../services';
 import {
-  getBestColorContrast
+  getBestColorContrast,
 } from '../theming-panel/color.helpers';
 
 type StateForm = {

@@ -1,12 +1,12 @@
 import {
   createAction,
-  props
+  props,
 } from '@ngrx/store';
 import {
-  SetStateActionPayload
+  SetStateActionPayload,
 } from '@o3r/core';
 import {
-  LocalizationOverrideState
+  LocalizationOverrideState,
 } from './localization-override.state';
 
 /** Actions */

@@ -1,8 +1,8 @@
 import {
-  DocumentationOptions
+  DocumentationOptions,
 } from './documentation-options';
 import {
-  FileOptions
+  FileOptions,
 } from './file-options';
 
 /**

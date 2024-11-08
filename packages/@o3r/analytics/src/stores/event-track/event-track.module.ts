@@ -1,19 +1,19 @@
 import {
   InjectionToken,
   ModuleWithProviders,
-  NgModule
+  NgModule,
 } from '@angular/core';
 import {
   Action,
   ActionReducer,
-  StoreModule
+  StoreModule,
 } from '@ngrx/store';
 import {
-  eventTrackReducer
+  eventTrackReducer,
 } from './event-track.reducer';
 import {
   EVENT_TRACK_STORE_NAME,
-  EventTrackState
+  EventTrackState,
 } from './event-track.state';
 
 /** Token of the EventTrack reducer */

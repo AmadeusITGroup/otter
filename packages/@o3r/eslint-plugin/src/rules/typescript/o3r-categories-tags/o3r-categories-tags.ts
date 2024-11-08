@@ -1,12 +1,12 @@
 import type {
-  TSESTree
+  TSESTree,
 } from '@typescript-eslint/utils';
 import {
   createCommentString,
   createRule,
   defaultSupportedInterfaceNames,
   getNodeComment,
-  isExtendingConfiguration
+  isExtendingConfiguration,
 } from '../../utils';
 
 export interface O3rCategoriesTagsRuleOption {

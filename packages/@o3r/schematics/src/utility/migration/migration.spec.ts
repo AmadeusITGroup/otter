@@ -1,12 +1,12 @@
 import {
   callRule,
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import {
-  firstValueFrom
+  firstValueFrom,
 } from 'rxjs';
 import {
-  getMigrationRuleRunner
+  getMigrationRuleRunner,
 } from './migration';
 
 describe('getMigrationRuleRunner', () => {

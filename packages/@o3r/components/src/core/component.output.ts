@@ -2,7 +2,7 @@ import type {
   CategoryDescription,
   ConfigPropertyWidget,
   ItemIdentifier,
-  Output
+  Output,
 } from '@o3r/core';
 
 /** Types of components config */

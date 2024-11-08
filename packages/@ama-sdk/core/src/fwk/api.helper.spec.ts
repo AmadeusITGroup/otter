@@ -1,7 +1,7 @@
 /* eslint-disable no-console -- only using the reference */
 import {
   getResponseReviver,
-  ReviverType
+  ReviverType,
 } from '@ama-sdk/core';
 
 describe('getResponseReviver - revivers by status code', () => {

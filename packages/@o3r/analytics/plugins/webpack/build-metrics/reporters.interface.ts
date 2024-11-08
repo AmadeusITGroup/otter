@@ -1,8 +1,8 @@
 import {
-  CpuInfo
+  CpuInfo,
 } from 'node:os';
 import type {
-  Logger
+  Logger,
 } from '@o3r/core';
 
 /** Map of timings */

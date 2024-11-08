@@ -1,16 +1,16 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {
-  logging
+  logging,
 } from '@angular-devkit/core';
 import type {
-  ComponentStructure
+  ComponentStructure,
 } from '@o3r/components';
 import {
-  getLocalizationFileFromAngularElement
+  getLocalizationFileFromAngularElement,
 } from '@o3r/extractors';
 import {
-  isO3rClassComponent
+  isO3rClassComponent,
 } from '@o3r/schematics';
 import * as ts from 'typescript';
 

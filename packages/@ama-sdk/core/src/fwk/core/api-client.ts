@@ -2,19 +2,19 @@ import type {
   RequestBody,
   RequestMetadata,
   RequestOptions,
-  TokenizedOptions
+  TokenizedOptions,
 } from '../../plugins/index';
 import type {
-  ApiTypes
+  ApiTypes,
 } from '../api';
 import type {
-  Api
+  Api,
 } from '../api.interface';
 import type {
-  ReviverType
+  ReviverType,
 } from '../reviver';
 import type {
-  BaseApiClientOptions
+  BaseApiClientOptions,
 } from './base-api-constructor';
 
 /** Parameters to the request the call options */

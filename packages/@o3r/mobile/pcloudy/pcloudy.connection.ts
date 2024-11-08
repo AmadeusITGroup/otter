@@ -1,17 +1,17 @@
 #!/usr/bin/env node
 
 import {
-  program
+  program,
 } from 'commander';
 import * as winston from 'winston';
 import {
-  Logger
+  Logger,
 } from 'winston';
 import {
-  PCloudyApi
+  PCloudyApi,
 } from './pcloudy.api';
 import {
-  PCloudyService
+  PCloudyService,
 } from './pcloudy.service';
 
 /**

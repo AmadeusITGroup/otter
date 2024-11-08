@@ -1,5 +1,5 @@
 import {
-  ExecSyncOptions
+  ExecSyncOptions,
 } from 'node:child_process';
 
 /**

@@ -9,14 +9,14 @@ import {
   OnDestroy,
   SimpleChanges,
   ViewContainerRef,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {
   NgbScrollSpyModule,
-  NgbScrollSpyService
+  NgbScrollSpyService,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
-  O3rComponent
+  O3rComponent,
 } from '@o3r/core';
 
 export interface InPageNavLink {

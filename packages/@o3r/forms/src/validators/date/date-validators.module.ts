@@ -1,14 +1,14 @@
 import {
-  CommonModule
+  CommonModule,
 } from '@angular/common';
 import {
-  NgModule
+  NgModule,
 } from '@angular/core';
 import {
-  MaxDateValidator
+  MaxDateValidator,
 } from './max-date.directive';
 import {
-  MinDateValidator
+  MinDateValidator,
 } from './min-date.directive';
 
 @NgModule({

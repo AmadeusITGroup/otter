@@ -1,16 +1,16 @@
 import {
-  createSelector
+  createSelector,
 } from '@ngrx/store';
 import {
-  Configuration
+  Configuration,
 } from '@o3r/core';
 import {
-  configurationAdapter
+  configurationAdapter,
 } from './configuration.reducer';
 import {
   CONFIGURATION_STORE_NAME,
   ConfigurationState,
-  globalConfigurationId
+  globalConfigurationId,
 } from './configuration.state';
 
 const { selectIds, selectEntities, selectAll, selectTotal } = configurationAdapter.getSelectors();

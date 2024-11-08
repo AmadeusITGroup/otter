@@ -1,5 +1,5 @@
 import {
-  posix
+  posix,
 } from 'node:path';
 import {
   apply,
@@ -13,7 +13,7 @@ import {
   template,
   Tree,
   UpdateRecorder,
-  url
+  url,
 } from '@angular-devkit/schematics';
 import {
   getFileInfo,
@@ -21,17 +21,17 @@ import {
   getWorkspaceConfig,
   ngAddPackages,
   insertBeforeModule as o3rInsertBeforeModule,
-  insertImportToModuleFile as o3rInsertImportToModuleFile
+  insertImportToModuleFile as o3rInsertImportToModuleFile,
 } from '@o3r/schematics';
 import {
   addRootImport,
-  addRootProvider
+  addRootProvider,
 } from '@schematics/angular/utility';
 import {
-  isImported
+  isImported,
 } from '@schematics/angular/utility/ast-utils';
 import {
-  NodeDependencyType
+  NodeDependencyType,
 } from '@schematics/angular/utility/dependencies';
 
 /**

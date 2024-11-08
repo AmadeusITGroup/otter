@@ -1,7 +1,7 @@
 import {
   FetchCall,
   FetchPlugin,
-  FetchPluginContext
+  FetchPluginContext,
 } from '../core';
 
 /**

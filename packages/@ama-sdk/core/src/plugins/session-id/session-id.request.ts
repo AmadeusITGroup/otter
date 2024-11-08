@@ -1,14 +1,14 @@
 import {
-  v4
+  v4,
 } from 'uuid';
 import type {
-  Logger
+  Logger,
 } from '../../fwk/logger';
 import {
   PluginRunner,
   RequestOptions,
   RequestPlugin,
-  RequestPluginContext
+  RequestPluginContext,
 } from '../core';
 
 /**

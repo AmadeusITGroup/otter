@@ -1,10 +1,10 @@
 import type {
   Rule,
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import {
   createSchematicWithMetricsIfInstalled,
-  findFilesInTree
+  findFilesInTree,
 } from '@o3r/schematics';
 
 const configObserverRegExp = /\bConfigObserver\b/g;

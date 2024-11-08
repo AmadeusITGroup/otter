@@ -1,18 +1,18 @@
 import {
-  AsyncPipe
+  AsyncPipe,
 } from '@angular/common';
 import {
   ComponentFixture,
-  TestBed
+  TestBed,
 } from '@angular/core/testing';
 import {
-  RouterModule
+  RouterModule,
 } from '@angular/router';
 import {
-  ComponentReplacementPresComponent
+  ComponentReplacementPresComponent,
 } from '../../components/showcase/component-replacement/component-replacement-pres.component';
 import {
-  ComponentReplacementComponent
+  ComponentReplacementComponent,
 } from './component-replacement.component';
 
 describe('ComponentReplacementComponent', () => {

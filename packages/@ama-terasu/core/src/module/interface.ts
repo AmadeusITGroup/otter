@@ -1,13 +1,13 @@
 import type {
-  Logger
+  Logger,
 } from 'loglevel';
 import {
   Arguments,
-  Argv
+  Argv,
 } from 'yargs';
 import {
   CommonOptions,
-  yargsAmaCli
+  yargsAmaCli,
 } from './common-config';
 
 /** Progress bar update options */

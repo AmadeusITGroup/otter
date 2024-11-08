@@ -1,72 +1,73 @@
+/* eslint-disable id-denylist -- `any` is a conditional keyword enforced by the rule interface */
 import {
   BehaviorSubject,
-  of
+  of,
 } from 'rxjs';
 import {
-  Operator
+  Operator,
 } from '../operator/operator.interface';
 import {
-  operatorList
+  operatorList,
 } from '../operator/operators/index';
 import {
-  RulesetExecutor
+  RulesetExecutor,
 } from '../ruleset-executor';
 import {
   ActionBlock,
-  Ruleset
+  Ruleset,
 } from '../structure';
 import {
-  filterRulesetsEventStream
+  filterRulesetsEventStream,
 } from './filter-ruleset-event.operator';
 
 describe('Filter rulesets event operator', () => {
   const rulesets: Ruleset[] = [
     {
-      'id': 'ruleset1',
-      'name': 'the first ruleset',
-      'rules': [
+      id: 'ruleset1',
+      name: 'the first ruleset',
+      rules: [
         {
-          'id': '6e8t54h6s4e-6erth46sre8th4-d46t8s13t5j1',
-          'name': 'the first rule',
-          'inputRuntimeFacts': [],
-          'inputFacts': [],
-          'outputRuntimeFacts': [
+          id: '6e8t54h6s4e-6erth46sre8th4-d46t8s13t5j1',
+          name: 'the first rule',
+          inputRuntimeFacts: [],
+          inputFacts: [],
+          outputRuntimeFacts: [
             'UI_FACT_2'
           ],
-          'rootElement': {
-            'elementType': 'RULE_BLOCK',
-            'blockType': 'IF_ELSE',
-            'condition': {
-              'any': [
+          rootElement: {
+            elementType: 'RULE_BLOCK',
+            blockType: 'IF_ELSE',
+            condition: {
+              any: [
                 {
-                  'lhs': {
-                    'type': 'LITERAL',
-                    'value': true
+                  lhs: {
+                    type: 'LITERAL',
+                    value: true
                   },
-                  'operator': 'equals',
-                  'rhs': {
-                    'type': 'LITERAL',
-                    'value': true
+                  operator: 'equals',
+                  rhs: {
+                    type: 'LITERAL',
+                    value: true
                   }
                 }
               ]
             },
-            'successElements': [
+            successElements: [
               {
-                'elementType': 'ACTION',
-                'actionType': 'UPDATE_CONFIG',
-                'component': 'o3r-simple-header-pres',
-                'library': '@otter/demo-components',
-                'property': 'showLanguageSelector',
-                'value': false
+                elementType: 'ACTION',
+                actionType: 'UPDATE_CONFIG',
+                component: 'o3r-simple-header-pres',
+                library: '@otter/demo-components',
+                property: 'showLanguageSelector',
+                value: false
               },
               {
-                'elementType': 'ACTION',
-                'actionType': 'UPDATE_CONFIG',
-                'component': 'o3r-simple-header-pres',
-                'library': '@otter/demo-components',
-                'property': 'showLanguageSelector',
-                'value': false
+                elementType: 'ACTION',
+                actionType: 'UPDATE_CONFIG',
+                component: 'o3r-simple-header-pres',
+                library: '@otter/demo-components',
+                property: 'showLanguageSelector',
+                value: false
               }
             ],
             failureElements: []
@@ -75,64 +76,64 @@ describe('Filter rulesets event operator', () => {
       ]
     },
     {
-      'id': 'ruleset2',
-      'name': 'the second ruleset',
-      'rules': [
+      id: 'ruleset2',
+      name: 'the second ruleset',
+      rules: [
         {
-          'id': '6e8t54h6s4e-6erth46sre8th4-d46t8s13t5j3',
-          'name': 'the first rule',
-          'inputRuntimeFacts': [],
-          'inputFacts': [],
-          'outputRuntimeFacts': [
+          id: '6e8t54h6s4e-6erth46sre8th4-d46t8s13t5j3',
+          name: 'the first rule',
+          inputRuntimeFacts: [],
+          inputFacts: [],
+          outputRuntimeFacts: [
             'UI_FACT_2',
             'UI_FACT_4'
           ],
-          'rootElement': {
-            'elementType': 'RULE_BLOCK',
-            'blockType': 'IF_ELSE',
-            'condition': {
-              'any': [
+          rootElement: {
+            elementType: 'RULE_BLOCK',
+            blockType: 'IF_ELSE',
+            condition: {
+              any: [
                 {
-                  'lhs': {
-                    'type': 'LITERAL',
-                    'value': true
+                  lhs: {
+                    type: 'LITERAL',
+                    value: true
                   },
-                  'operator': 'equals',
-                  'rhs': {
-                    'type': 'LITERAL',
-                    'value': true
+                  operator: 'equals',
+                  rhs: {
+                    type: 'LITERAL',
+                    value: true
                   }
                 }
               ]
             },
-            'successElements': [
+            successElements: [
               {
-                'elementType': 'ACTION',
-                'actionType': 'UPDATE_CONFIG',
-                'component': 'o3r-simple-header-pres',
-                'library': '@otter/demo-components',
-                'property': 'showLanguageSelector',
-                'value': false
+                elementType: 'ACTION',
+                actionType: 'UPDATE_CONFIG',
+                component: 'o3r-simple-header-pres',
+                library: '@otter/demo-components',
+                property: 'showLanguageSelector',
+                value: false
               },
               {
-                'elementType': 'ACTION',
-                'actionType': 'SET_FACT',
-                'fact': 'UI_FACT_2',
-                'value': true
+                elementType: 'ACTION',
+                actionType: 'SET_FACT',
+                fact: 'UI_FACT_2',
+                value: true
               },
               {
-                'elementType': 'ACTION',
-                'actionType': 'SET_FACT',
-                'fact': 'UI_FACT_4',
-                'value': true
+                elementType: 'ACTION',
+                actionType: 'SET_FACT',
+                fact: 'UI_FACT_4',
+                value: true
               }
             ],
-            'failureElements': [
+            failureElements: [
               {
-                'elementType': 'ACTION',
-                'actionType': 'SET_FACT',
-                'fact': 'UI_FACT_2',
-                'value': false
+                elementType: 'ACTION',
+                actionType: 'SET_FACT',
+                fact: 'UI_FACT_2',
+                value: false
               }
             ]
           }

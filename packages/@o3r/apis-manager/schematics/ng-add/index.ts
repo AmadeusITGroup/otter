@@ -2,10 +2,10 @@ import * as path from 'node:path';
 import {
   chain,
   noop,
-  type Rule
+  type Rule,
 } from '@angular-devkit/schematics';
 import type {
-  NgAddSchematicsSchema
+  NgAddSchematicsSchema,
 } from './schema';
 
 const reportMissingSchematicsDep = (logger: { error: (message: string) => any }) => (reason: any) => {

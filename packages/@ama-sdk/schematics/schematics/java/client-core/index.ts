@@ -1,21 +1,21 @@
 import {
-  promises as fs
+  promises as fs,
 } from 'node:fs';
 import * as path from 'node:path';
 import {
   chain,
   Rule,
   SchematicContext,
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import {
-  SwaggerJavaGenerator
+  SwaggerJavaGenerator,
 } from '../../code-generator/swagger-java-generator/swagger-java.generator';
 import {
-  treeGlob
+  treeGlob,
 } from '../../helpers/tree-glob';
 import {
-  NgGenerateJavaClientCoreSchematicsSchema
+  NgGenerateJavaClientCoreSchematicsSchema,
 } from './schema';
 
 /** Base path where to find codegen jars */

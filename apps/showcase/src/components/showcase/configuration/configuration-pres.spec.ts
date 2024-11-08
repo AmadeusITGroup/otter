@@ -1,12 +1,12 @@
 import {
-  AsyncPipe
+  AsyncPipe,
 } from '@angular/common';
 import {
   ComponentFixture,
-  TestBed
+  TestBed,
 } from '@angular/core/testing';
 import {
-  ConfigurationPresComponent
+  ConfigurationPresComponent,
 } from './configuration-pres.component';
 
 describe('ConfigurationPresComponent', () => {

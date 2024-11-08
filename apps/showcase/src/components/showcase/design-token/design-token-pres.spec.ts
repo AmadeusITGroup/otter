@@ -1,9 +1,9 @@
 import {
   ComponentFixture,
-  TestBed
+  TestBed,
 } from '@angular/core/testing';
 import {
-  DesignTokenPresComponent
+  DesignTokenPresComponent,
 } from './design-token-pres.component';
 
 describe('DesignTokenPresComponent', () => {

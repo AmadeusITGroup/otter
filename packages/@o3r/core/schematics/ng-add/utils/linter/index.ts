@@ -1,9 +1,9 @@
 import {
-  askConfirmation
+  askConfirmation,
 } from '@angular/cli/src/utilities/prompt';
 import {
   SchematicContext,
-  type Tree
+  type Tree,
 } from '@angular-devkit/schematics';
 
 /**

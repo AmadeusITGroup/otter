@@ -6,7 +6,7 @@
 const o3rEnvironment = globalThis.o3rEnvironment;
 
 import {
-  writeFile
+  writeFile,
 } from 'node:fs/promises';
 import * as path from 'node:path';
 import {
@@ -16,7 +16,7 @@ import {
   packageManagerExec,
   packageManagerExecOnProject,
   packageManagerInstall,
-  packageManagerRunOnProject
+  packageManagerRunOnProject,
 } from '@o3r/test-helpers';
 
 describe('ng add stylelint-plugin', () => {

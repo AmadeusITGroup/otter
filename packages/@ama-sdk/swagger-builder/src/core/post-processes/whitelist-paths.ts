@@ -1,5 +1,5 @@
 import {
-  PostProcess
+  PostProcess,
 } from './post-process.interface';
 
 /**

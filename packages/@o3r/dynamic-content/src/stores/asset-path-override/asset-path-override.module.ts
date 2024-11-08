@@ -1,19 +1,19 @@
 import {
   InjectionToken,
   ModuleWithProviders,
-  NgModule
+  NgModule,
 } from '@angular/core';
 import {
   Action,
   ActionReducer,
-  StoreModule
+  StoreModule,
 } from '@ngrx/store';
 import {
-  assetPathOverrideReducer
+  assetPathOverrideReducer,
 } from './asset-path-override.reducer';
 import {
   ASSET_PATH_OVERRIDE_STORE_NAME,
-  AssetPathOverrideState
+  AssetPathOverrideState,
 } from './asset-path-override.state';
 
 /** Token of the AssetPathOverride reducer */

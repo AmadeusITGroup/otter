@@ -3,11 +3,11 @@
  */
 
 import {
-  promises as fs
+  promises as fs,
 } from 'node:fs';
 import * as path from 'node:path';
 import {
-  globby as glob
+  globby as glob,
 } from 'globby';
 import minimist from 'minimist';
 

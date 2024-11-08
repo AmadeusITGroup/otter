@@ -4,7 +4,7 @@ import {
   rmSync,
   statSync,
   watch,
-  writeFileSync
+  writeFileSync,
 } from 'node:fs';
 import * as path from 'node:path';
 

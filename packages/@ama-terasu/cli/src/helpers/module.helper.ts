@@ -1,31 +1,31 @@
 import {
-  exec
+  exec,
 } from 'node:child_process';
 import {
   existsSync,
   promises as fs,
-  readFileSync
+  readFileSync,
 } from 'node:fs';
 import {
   dirname,
   join,
-  resolve
+  resolve,
 } from 'node:path';
 import {
-  promisify
+  promisify,
 } from 'node:util';
 import {
   getAvailableModules,
-  NpmRegistryPackage
+  NpmRegistryPackage,
 } from '@o3r/schematics';
 import * as chalk from 'chalk';
 import type {
-  PackageJson
+  PackageJson,
 } from 'type-fest';
 import {
   dependencies,
   devDependencies,
-  peerDependencies
+  peerDependencies,
 } from '../../package.json';
 
 const moduleScopeWhitelist = ['@o3r', '@ama-sdk', '@ama-des'];

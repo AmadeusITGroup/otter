@@ -4,29 +4,29 @@ import {
   chain,
   Rule,
   SchematicContext,
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import {
   getAppModuleFilePath,
   getProjectNewDependenciesTypes,
   getWorkspaceConfig,
-  type SetupDependenciesOptions
+  type SetupDependenciesOptions,
 } from '@o3r/schematics';
 import {
-  addRootImport
+  addRootImport,
 } from '@schematics/angular/utility';
 import {
   insertImport,
-  isImported
+  isImported,
 } from '@schematics/angular/utility/ast-utils';
 import {
-  InsertChange
+  InsertChange,
 } from '@schematics/angular/utility/change';
 import {
-  NodeDependencyType
+  NodeDependencyType,
 } from '@schematics/angular/utility/dependencies';
 import type {
-  PackageJson
+  PackageJson,
 } from 'type-fest';
 import * as ts from 'typescript';
 

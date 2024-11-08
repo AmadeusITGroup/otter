@@ -1,14 +1,14 @@
 import {
-  TranspilationPurposeOnlyError
+  TranspilationPurposeOnlyError,
 } from '../errors/index';
 import {
   ElementProfile,
   O3rElement,
-  O3rElementConstructor
+  O3rElementConstructor,
 } from './element';
 import {
   GroupProfile,
-  O3rGroupConstructor
+  O3rGroupConstructor,
 } from './group';
 
 /**

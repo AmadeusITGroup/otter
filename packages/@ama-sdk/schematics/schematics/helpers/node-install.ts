@@ -1,11 +1,11 @@
 import {
-  NodePackageInstallTask
+  NodePackageInstallTask,
 } from '@angular-devkit/schematics/tasks';
 import {
-  NodePackageName
+  NodePackageName,
 } from '@angular-devkit/schematics/tasks/package-manager/options';
 import type {
-  SupportedPackageManagers
+  SupportedPackageManagers,
 } from '@o3r/schematics';
 
 /**

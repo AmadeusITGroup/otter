@@ -1,8 +1,8 @@
 import {
-  DocumentationNode
+  DocumentationNode,
 } from '../documentation-node';
 import {
-  BaseEntity
+  BaseEntity,
 } from './base-entity';
 
 /**

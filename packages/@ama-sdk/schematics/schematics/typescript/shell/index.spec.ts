@@ -1,17 +1,17 @@
 import * as path from 'node:path';
 import type {
-  OpenApiToolsConfiguration
+  OpenApiToolsConfiguration,
 } from '@ama-sdk/schematics';
 import {
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import {
   SchematicTestRunner,
-  UnitTestTree
+  UnitTestTree,
 } from '@angular-devkit/schematics/testing';
 import type {
   JsonObject,
-  PackageJson
+  PackageJson,
 } from 'type-fest';
 
 const collectionPath = path.join(__dirname, '..', '..', '..', 'collection.json');

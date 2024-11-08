@@ -1,70 +1,70 @@
 import {
   AsyncPipe,
-  JsonPipe
+  JsonPipe,
 } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
   computed,
   effect,
-  inject
+  inject,
 } from '@angular/core';
 import {
   takeUntilDestroyed,
-  toSignal
+  toSignal,
 } from '@angular/core/rxjs-interop';
 import {
   FormBuilder,
   FormControl,
   FormsModule,
-  ReactiveFormsModule
+  ReactiveFormsModule,
 } from '@angular/forms';
 import {
   DfSelectModule,
-  DfTooltipModule
+  DfTooltipModule,
 } from '@design-factory/design-factory';
 import {
-  NgbNavModule
+  NgbNavModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
-  RulesetHistoryPresModule
+  RulesetHistoryPresModule,
 } from '@o3r/rules-engine';
 import {
-  AppConnectionComponent
+  AppConnectionComponent,
 } from '../components/app-connection/app-connection.component';
 import type {
-  State
+  State,
 } from '../extension/interface';
 import {
-  StateService
+  StateService,
 } from '../services';
 import {
   ChromeExtensionConnectionService,
-  isApplicationInformationMessage
+  isApplicationInformationMessage,
 } from '../services/connection.service';
 import {
-  RulesetHistoryService
+  RulesetHistoryService,
 } from '../services/ruleset-history.service';
 import {
-  ComponentPanelPresComponent
+  ComponentPanelPresComponent,
 } from './component-panel/component-panel-pres.component';
 import {
-  ConfigPanelPresComponent
+  ConfigPanelPresComponent,
 } from './config-panel/config-panel-pres.component';
 import {
-  DebugPanelPresComponent
+  DebugPanelPresComponent,
 } from './debug-panel/debug-panel-pres.component';
 import {
-  DebugPanelService
+  DebugPanelService,
 } from './debug-panel/debug-panel.service';
 import {
-  LocalizationPanelPresComponent
+  LocalizationPanelPresComponent,
 } from './localization-panel/localization-panel-pres.component';
 import {
-  StatePanelComponent
+  StatePanelComponent,
 } from './state-panel/state-panel.component';
 import {
-  ThemingPanelPresComponent
+  ThemingPanelPresComponent,
 } from './theming-panel/theming-panel-pres.component';
 
 @Component({

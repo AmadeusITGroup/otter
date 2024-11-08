@@ -1,8 +1,8 @@
 import {
-  NgModule
+  NgModule,
 } from '@angular/core';
 import {
-  DurationPipe
+  DurationPipe,
 } from './duration.pipe';
 
 /**

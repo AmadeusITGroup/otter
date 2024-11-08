@@ -1,5 +1,5 @@
 import type {
-  BaseLogger
+  BaseLogger,
 } from './cascading';
 
 /**

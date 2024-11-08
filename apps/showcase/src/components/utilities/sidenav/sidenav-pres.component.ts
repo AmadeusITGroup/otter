@@ -2,13 +2,13 @@ import {
   ChangeDetectionStrategy,
   Component,
   Input,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {
-  RouterModule
+  RouterModule,
 } from '@angular/router';
 import {
-  O3rComponent
+  O3rComponent,
 } from '@o3r/core';
 
 /** Link information */

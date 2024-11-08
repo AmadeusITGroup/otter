@@ -1,38 +1,38 @@
 import {
-  AsyncPipe
+  AsyncPipe,
 } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {
   FormControl,
   FormGroup,
   FormsModule,
-  ReactiveFormsModule
+  ReactiveFormsModule,
 } from '@angular/forms';
 import {
-  NgbAccordionModule
+  NgbAccordionModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
-  ConfigurationModel
+  ConfigurationModel,
 } from '@o3r/configuration';
 import {
   combineLatest,
-  Observable
+  Observable,
 } from 'rxjs';
 import {
   map,
-  startWith
+  startWith,
 } from 'rxjs/operators';
 import {
-  ConfigFormComponent
+  ConfigFormComponent,
 } from '../../components/config-form/config-form.component';
 import {
   ChromeExtensionConnectionService,
   filterAndMapMessage,
-  isConfigurationsMessage
+  isConfigurationsMessage,
 } from '../../services/connection.service';
 
 @Component({

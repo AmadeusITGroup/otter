@@ -1,13 +1,13 @@
 import {
-  TranspilationPurposeOnlyError
+  TranspilationPurposeOnlyError,
 } from '../errors/index';
 import {
   ComponentFixtureProfile,
-  O3rComponentFixture
+  O3rComponentFixture,
 } from './component-fixture';
 import {
   ElementProfile,
-  O3rElement
+  O3rElement,
 } from './element';
 
 /**

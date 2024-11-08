@@ -1,16 +1,16 @@
 import type {
-  Configuration
+  Configuration,
 } from '@o3r/core';
 import {
   BehaviorSubject,
   firstValueFrom,
-  Subject
+  Subject,
 } from 'rxjs';
 import {
-  take
+  take,
 } from 'rxjs/operators';
 import {
-  getConfiguration
+  getConfiguration,
 } from './configuration';
 
 describe('Configuration operators getConfiguration', () => {

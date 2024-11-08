@@ -1,5 +1,5 @@
 import {
-  RetryFetch
+  RetryFetch,
 } from './retry.fetch';
 
 describe('Retry Fetch Plugin', () => {

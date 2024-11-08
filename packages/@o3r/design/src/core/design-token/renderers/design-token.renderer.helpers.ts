@@ -1,5 +1,5 @@
 import type {
-  DesignTokenVariableStructure
+  DesignTokenVariableStructure,
 } from '../parsers';
 
 /**

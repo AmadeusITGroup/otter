@@ -1,12 +1,12 @@
 import type {
   DesignTokenVariableStructure,
-  TokenValueRenderer
+  TokenValueRenderer,
 } from '../../parsers/design-token-parser.interface';
 import type {
-  TokenDefinitionRenderer
+  TokenDefinitionRenderer,
 } from '../design-token.renderer.interface';
 import {
-  getJsonSchemaTokenValueRenderer
+  getJsonSchemaTokenValueRenderer,
 } from './design-token-value.renderers';
 
 /** Options for {@link getJsonSchemaTokenDefinitionRenderer} */

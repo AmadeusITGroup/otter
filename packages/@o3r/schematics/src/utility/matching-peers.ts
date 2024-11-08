@@ -1,6 +1,6 @@
 import * as fs from 'node:fs';
 import type {
-  PackageJson
+  PackageJson,
 } from 'type-fest';
 
 /**

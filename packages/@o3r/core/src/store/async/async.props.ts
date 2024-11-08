@@ -1,11 +1,11 @@
 import {
-  v4
+  v4,
 } from 'uuid';
 import {
-  isAsyncRequest
+  isAsyncRequest,
 } from './async.helpers';
 import {
-  AsyncRequest
+  AsyncRequest,
 } from './async.interfaces';
 
 /**

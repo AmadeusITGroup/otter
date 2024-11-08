@@ -1,11 +1,11 @@
 import {
-  resolve
+  resolve,
 } from 'node:path';
 import {
-  Logger
+  Logger,
 } from 'sass';
 import {
-  CssVariableExtractor
+  CssVariableExtractor,
 } from './css-variable.extractor';
 
 const file = resolve(__dirname, '..', '..', '..', 'test.scss');

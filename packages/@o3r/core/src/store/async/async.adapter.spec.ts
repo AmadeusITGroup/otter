@@ -1,9 +1,9 @@
 import {
-  asyncStoreItemAdapter
+  asyncStoreItemAdapter,
 } from './async.adapter';
 import {
   AsyncStoreItem,
-  EntityStatus
+  EntityStatus,
 } from './async.interfaces';
 
 describe('AsyncStoreItemAdapter tests', () => {

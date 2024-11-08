@@ -1,7 +1,7 @@
 import {
   basename,
   dirname,
-  posix
+  posix,
 } from 'node:path';
 import {
   apply,
@@ -16,7 +16,7 @@ import {
   SchematicContext,
   template,
   Tree,
-  url
+  url,
 } from '@angular-devkit/schematics';
 import {
   addImportsRule,
@@ -25,15 +25,15 @@ import {
   createSchematicWithMetricsIfInstalled,
   getO3rComponentInfoOrThrowIfNotFound,
   NoOtterComponent,
-  O3rCliError
+  O3rCliError,
 } from '@o3r/schematics';
 import {
   applyToUpdateRecorder,
-  InsertChange
+  InsertChange,
 } from '@schematics/angular/utility/change';
 import * as ts from 'typescript';
 import type {
-  NgAddFixtureSchematicsSchema
+  NgAddFixtureSchematicsSchema,
 } from './schema';
 
 const checkFixture = (componentPath: string, tree: Tree, baseFileName: string) => {

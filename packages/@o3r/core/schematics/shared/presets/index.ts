@@ -1,14 +1,14 @@
 import {
-  allPreset
+  allPreset,
 } from './all.preset';
 import {
-  basicPreset
+  basicPreset,
 } from './basic.preset';
 import {
-  cmsPreset
+  cmsPreset,
 } from './cms.preset';
 import type {
-  Presets
+  Presets,
 } from './preset.interface';
 
 export * from './external.preset';

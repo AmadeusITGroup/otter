@@ -3,16 +3,16 @@ import * as path from 'node:path';
 import {
   BuilderContext,
   BuilderOutput,
-  createBuilder
+  createBuilder,
 } from '@angular-devkit/architect';
 import {
-  createBuilderWithMetricsIfInstalled
+  createBuilderWithMetricsIfInstalled,
 } from '@o3r/extractors';
 import {
-  sync as globbySync
+  sync as globbySync,
 } from 'globby';
 import {
-  I18nBuilderSchema
+  I18nBuilderSchema,
 } from './schema';
 
 export default createBuilder(createBuilderWithMetricsIfInstalled<I18nBuilderSchema>((options: I18nBuilderSchema, context: BuilderContext): BuilderOutput => {

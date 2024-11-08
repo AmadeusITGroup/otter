@@ -1,25 +1,25 @@
 import {
   InjectionToken,
   ModuleWithProviders,
-  NgModule
+  NgModule,
 } from '@angular/core';
 import {
-  EffectsModule
+  EffectsModule,
 } from '@ngrx/effects';
 import {
   Action,
   ActionReducer,
-  StoreModule
+  StoreModule,
 } from '@ngrx/store';
 import {
-  ShoppingCartEffect
+  ShoppingCartEffect,
 } from './shopping-cart.effect';
 import {
-  shoppingCartReducer
+  shoppingCartReducer,
 } from './shopping-cart.reducer';
 import {
   SHOPPING_CART_STORE_NAME,
-  ShoppingCartState
+  ShoppingCartState,
 } from './shopping-cart.state';
 
 /** Token of the ShoppingCart reducer */

@@ -1,10 +1,10 @@
 import {
-  RequestOptions
+  RequestOptions,
 } from '../core';
 import {
   ClientFactsRequestPlugin,
   createJwtFactsEncoder,
-  PublicFacts
+  PublicFacts,
 } from './client-facts.request';
 
 const defaultFacts: PublicFacts = {

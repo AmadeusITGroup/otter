@@ -1,5 +1,5 @@
 import type {
-  NodeDependencyType
+  NodeDependencyType,
 } from '@schematics/angular/utility/dependencies';
 
 /**

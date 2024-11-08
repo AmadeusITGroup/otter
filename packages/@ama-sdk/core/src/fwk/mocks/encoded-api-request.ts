@@ -1,5 +1,5 @@
 import {
-  RequestBody
+  RequestBody,
 } from '../../plugins/index';
 
 /**

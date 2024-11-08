@@ -1,7 +1,7 @@
 import {
   deepFill,
   immutablePrimitive,
-  otterComponentInfoPropertyName
+  otterComponentInfoPropertyName,
 } from '@o3r/core';
 
 /**

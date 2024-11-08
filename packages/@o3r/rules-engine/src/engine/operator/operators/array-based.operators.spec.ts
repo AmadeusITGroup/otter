@@ -21,7 +21,7 @@ import {
   oneLower,
   oneMatches,
   oneRangeNumber,
-  stringContains
+  stringContains,
 } from './array-based.operators';
 
 describe('Array based operator', () => {

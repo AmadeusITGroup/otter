@@ -1,9 +1,9 @@
 import {
-  relative
+  relative,
 } from 'node:path';
 import * as vscode from 'vscode';
 import {
-  findPathAndExecuteSchematic
+  findPathAndExecuteSchematic,
 } from './common';
 
 const getExtraOptions = async (): Promise<string[]> => {

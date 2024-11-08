@@ -2,13 +2,13 @@ import {
   ChangeDetectorRef,
   OnDestroy,
   Pipe,
-  PipeTransform
+  PipeTransform,
 } from '@angular/core';
 import {
-  Subscription
+  Subscription,
 } from 'rxjs';
 import {
-  DynamicContentService
+  DynamicContentService,
 } from './dynamic-content.service';
 
 @Pipe({ name: 'o3rDynamicContent', pure: false })

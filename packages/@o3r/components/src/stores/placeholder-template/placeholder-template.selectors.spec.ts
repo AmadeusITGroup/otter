@@ -1,9 +1,9 @@
 import {
-  PlaceholderRequestState
+  PlaceholderRequestState,
 } from '@o3r/components';
 import * as selectors from './placeholder-template.selectors';
 import {
-  PlaceholderTemplateState
+  PlaceholderTemplateState,
 } from './placeholder-template.state';
 
 let placeholderRequestState: PlaceholderRequestState;

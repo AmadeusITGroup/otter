@@ -20,7 +20,7 @@ const config = [
       'import/no-unresolved': 'off',
       'import/order': ['error', {
         'newlines-between': 'never',
-        'alphabetize': { order: 'asc', caseInsensitive: true }
+        alphabetize: { order: 'asc', caseInsensitive: true }
       }]
     }
   }

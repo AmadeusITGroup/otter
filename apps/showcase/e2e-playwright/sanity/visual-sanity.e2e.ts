@@ -1,12 +1,12 @@
 import {
-  O3rElement
+  O3rElement,
 } from '@o3r/testing/core';
 import {
   expect,
-  test
+  test,
 } from '@playwright/test';
 import {
-  AppFixtureComponent
+  AppFixtureComponent,
 } from '../../src/app/app.fixture';
 
 test.describe.serial('Sanity test', () => {

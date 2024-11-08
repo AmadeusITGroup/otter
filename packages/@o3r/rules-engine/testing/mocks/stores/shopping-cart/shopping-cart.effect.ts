@@ -1,22 +1,22 @@
 import {
-  Injectable
+  Injectable,
 } from '@angular/core';
 import {
   Actions,
   createEffect,
-  ofType
+  ofType,
 } from '@ngrx/effects';
 import {
-  fromApiEffectSwitchMap
+  fromApiEffectSwitchMap,
 } from '@o3r/core';
 import {
   from,
-  of
+  of,
 } from 'rxjs';
 import {
   catchError,
   map,
-  mergeMap
+  mergeMap,
 } from 'rxjs/operators';
 import {
   cancelShoppingCartRequest,
@@ -26,7 +26,7 @@ import {
   updateShoppingCartEntities,
   updateShoppingCartEntitiesFromApi,
   upsertShoppingCartEntities,
-  upsertShoppingCartEntitiesFromApi
+  upsertShoppingCartEntitiesFromApi,
 } from './shopping-cart.actions';
 
 /**

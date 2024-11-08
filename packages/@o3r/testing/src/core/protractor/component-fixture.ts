@@ -2,27 +2,27 @@ import {
   browser,
   By,
   element,
-  ElementFinder
+  ElementFinder,
 } from 'protractor';
 import {
-  FixtureUsageError
+  FixtureUsageError,
 } from '../../errors/index';
 import type {
-  ComponentFixtureProfile
+  ComponentFixtureProfile,
 } from '../component-fixture';
 import {
-  withTimeout
+  withTimeout,
 } from '../helpers';
 import {
   O3rElement,
-  O3rElementConstructor
+  O3rElementConstructor,
 } from './element';
 import {
   O3rGroup,
-  O3rGroupConstructor
+  O3rGroupConstructor,
 } from './group';
 import {
-  convertPromise
+  convertPromise,
 } from './utils';
 
 /**

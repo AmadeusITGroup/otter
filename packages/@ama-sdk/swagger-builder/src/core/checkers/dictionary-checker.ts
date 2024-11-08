@@ -1,9 +1,9 @@
 import {
-  SwaggerSpec
+  SwaggerSpec,
 } from '../swagger-spec-wrappers/swagger-spec.interface';
 import {
   Checker,
-  Report
+  Report,
 } from './checker.interface';
 
 /** Dictionary reference object */

@@ -1,9 +1,9 @@
 import {
-  CheckboxElementProfile
+  CheckboxElementProfile,
 } from '../../elements';
 import {
   O3rElement,
-  PlaywrightSourceElement
+  PlaywrightSourceElement,
 } from '../element';
 
 /**

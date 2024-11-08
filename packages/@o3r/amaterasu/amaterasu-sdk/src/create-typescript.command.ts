@@ -1,13 +1,13 @@
 import {
   promises as fs,
-  readFileSync
+  readFileSync,
 } from 'node:fs';
 import {
-  resolve
+  resolve,
 } from 'node:path';
 import {
   Context,
-  promiseSpawn
+  promiseSpawn,
 } from '@ama-terasu/core';
 
 /** Option to create an application */

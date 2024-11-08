@@ -1,39 +1,39 @@
 import {
-  Provider
+  Provider,
 } from '@angular/core';
 import {
-  TestBed
+  TestBed,
 } from '@angular/core/testing';
 import {
-  EffectsModule
+  EffectsModule,
 } from '@ngrx/effects';
 import {
-  StoreModule
+  StoreModule,
 } from '@ngrx/store';
 import {
-  provideMockStore
+  provideMockStore,
 } from '@ngrx/store/testing';
 import {
   TranslateCompiler,
-  TranslateFakeCompiler
+  TranslateFakeCompiler,
 } from '@ngx-translate/core';
 import {
-  ApplicationDevtoolsModule
+  ApplicationDevtoolsModule,
 } from '@o3r/application';
 import {
-  ComponentsDevtoolsModule
+  ComponentsDevtoolsModule,
 } from '@o3r/components';
 import {
-  ConfigurationDevtoolsModule
+  ConfigurationDevtoolsModule,
 } from '@o3r/configuration';
 import {
-  LocalizationDevtoolsModule
+  LocalizationDevtoolsModule,
 } from '@o3r/localization';
 import {
-  mockTranslationModules
+  mockTranslationModules,
 } from '@o3r/testing/localization';
 import {
-  AppComponent
+  AppComponent,
 } from './app.component';
 
 const localizationConfiguration = { language: 'en' };

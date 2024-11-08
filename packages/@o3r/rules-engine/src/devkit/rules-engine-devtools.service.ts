@@ -1,21 +1,21 @@
 import {
   Inject,
   Injectable,
-  Optional
+  Optional,
 } from '@angular/core';
 import {
   select,
-  Store
+  Store,
 } from '@ngrx/store';
 import {
   combineLatest,
   firstValueFrom,
-  Observable
+  Observable,
 } from 'rxjs';
 import {
   map,
   scan,
-  shareReplay
+  shareReplay,
 } from 'rxjs/operators';
 import type {
   ActiveRulesetsEvent,
@@ -24,22 +24,22 @@ import type {
   DebugEvent,
   Ruleset,
   RulesetExecutionErrorEvent,
-  RulesetExecutionEvent
+  RulesetExecutionEvent,
 } from '../engine';
 import {
-  RulesEngineRunnerService
+  RulesEngineRunnerService,
 } from '../services';
 import {
   RulesetsModel,
   RulesetsStore,
-  selectRulesetsEntities
+  selectRulesetsEntities,
 } from '../stores';
 import {
-  RulesEngineDevtoolsServiceOptions
+  RulesEngineDevtoolsServiceOptions,
 } from './rules-engine-devkit.interface';
 import {
   OTTER_RULES_ENGINE_DEVTOOLS_DEFAULT_OPTIONS,
-  OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS
+  OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS,
 } from './rules-engine-devtools.token';
 
 @Injectable({

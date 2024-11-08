@@ -2,12 +2,12 @@ import * as fs from 'node:fs';
 import * as FormData from 'form-data';
 import fetch from 'node-fetch';
 import {
-  Logger
+  Logger,
 } from 'winston';
 import {
   AppFile,
   Device,
-  PCloudyResponse
+  PCloudyResponse,
 } from './pcloudy.interfaces';
 
 /**

@@ -1,7 +1,7 @@
 import {
   basename,
   dirname,
-  relative
+  relative,
 } from 'node:path';
 import {
   apply,
@@ -11,13 +11,13 @@ import {
   renameTemplateFiles,
   Rule,
   template,
-  url
+  url,
 } from '@angular-devkit/schematics';
 import type {
-  createSchematicWithMetricsIfInstalled
+  createSchematicWithMetricsIfInstalled,
 } from '@o3r/schematics';
 import type {
-  NgAddDesignTokenSchematicsSchema
+  NgAddDesignTokenSchematicsSchema,
 } from './schema';
 
 /**

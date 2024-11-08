@@ -1,7 +1,7 @@
 import * as core from '@actions/core';
 import * as github from '@actions/github';
 import {
-  NewVersion
+  NewVersion,
 } from '@o3r/new-version';
 
 async function run(): Promise<void> {

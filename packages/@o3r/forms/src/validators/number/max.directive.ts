@@ -3,7 +3,7 @@ import {
   forwardRef,
   Input,
   OnChanges,
-  SimpleChanges
+  SimpleChanges,
 } from '@angular/core';
 import {
   AbstractControl,
@@ -11,7 +11,7 @@ import {
   ValidationErrors,
   Validator,
   ValidatorFn,
-  Validators
+  Validators,
 } from '@angular/forms';
 
 /**

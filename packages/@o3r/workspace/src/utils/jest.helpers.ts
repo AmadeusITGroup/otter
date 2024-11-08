@@ -1,13 +1,13 @@
 import {
   existsSync,
-  readFileSync
+  readFileSync,
 } from 'node:fs';
 import {
   posix,
-  resolve
+  resolve,
 } from 'node:path';
 import {
-  sync as globbySync
+  sync as globbySync,
 } from 'globby';
 
 /**

@@ -1,10 +1,10 @@
 import {
   ApiFetchClient,
-  BaseApiFetchClientConstructor
+  BaseApiFetchClientConstructor,
 } from '@ama-sdk/client-fetch';
 import {
   ApiClient,
-  isApiClient
+  isApiClient,
 } from '@ama-sdk/core';
 import * as api from '../api';
 

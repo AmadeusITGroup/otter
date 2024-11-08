@@ -2,54 +2,54 @@ import {
   Inject,
   Injectable,
   OnDestroy,
-  Optional
+  Optional,
 } from '@angular/core';
 import {
   select,
-  Store
+  Store,
 } from '@ngrx/store';
 import type {
-  RulesEngineActionHandler
+  RulesEngineActionHandler,
 } from '@o3r/core';
 import {
-  LoggerService
+  LoggerService,
 } from '@o3r/logger';
 import {
   BehaviorSubject,
   combineLatest,
   Observable,
-  Subscription
+  Subscription,
 } from 'rxjs';
 import {
   filter,
   map,
   shareReplay,
-  switchMap
+  switchMap,
 } from 'rxjs/operators';
 import type {
   ActionBlock,
   Fact,
   Operator,
   Ruleset,
-  UnaryOperator
+  UnaryOperator,
 } from '../../engine/index';
 import {
   EngineDebugger,
   operatorList,
-  RulesEngine
+  RulesEngine,
 } from '../../engine/index';
 import type {
-  RulesetsStore
+  RulesetsStore,
 } from '../../stores';
 import {
   selectActiveRuleSets,
   selectAllRulesets,
   selectComponentsLinkedToRuleset,
-  setRulesetsEntities
+  setRulesetsEntities,
 } from '../../stores';
 import {
   RULES_ENGINE_OPTIONS,
-  RulesEngineServiceOptions
+  RulesEngineServiceOptions,
 } from '../rules-engine.token';
 
 @Injectable()

@@ -1,10 +1,10 @@
 import {
   createAction,
-  props
+  props,
 } from '@ngrx/store';
 import {
   EventTrackState,
-  RegisterHeroComponentPayload
+  RegisterHeroComponentPayload,
 } from './event-track.state';
 
 /** StateActions */

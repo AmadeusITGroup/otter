@@ -1,6 +1,6 @@
 import {
   spawn,
-  SpawnOptionsWithoutStdio
+  SpawnOptionsWithoutStdio,
 } from 'node:child_process';
 import type * as logger from 'loglevel';
 

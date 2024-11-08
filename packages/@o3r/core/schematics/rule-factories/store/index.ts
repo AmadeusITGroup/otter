@@ -4,7 +4,7 @@ import {
   chain,
   Rule,
   SchematicContext,
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import {
   getAppModuleFilePath,
@@ -15,16 +15,16 @@ import {
   isApplicationThatUsesRouterModule,
   insertBeforeModule as o3rInsertBeforeModule,
   insertImportToModuleFile as o3rInsertImportToModuleFile,
-  type SetupDependenciesOptions
+  type SetupDependenciesOptions,
 } from '@o3r/schematics';
 import {
-  WorkspaceProject
+  WorkspaceProject,
 } from '@o3r/schematics';
 import {
-  addRootImport
+  addRootImport,
 } from '@schematics/angular/utility';
 import {
-  isImported
+  isImported,
 } from '@schematics/angular/utility/ast-utils';
 import * as ts from 'typescript';
 

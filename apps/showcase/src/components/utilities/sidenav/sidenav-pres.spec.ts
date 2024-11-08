@@ -1,15 +1,15 @@
 import {
   ComponentFixture,
-  TestBed
+  TestBed,
 } from '@angular/core/testing';
 import {
-  O3rElement
+  O3rElement,
 } from '@o3r/testing/core';
 import {
-  SidenavPresComponent
+  SidenavPresComponent,
 } from './sidenav-pres.component';
 import {
-  SidenavPresFixtureComponent
+  SidenavPresFixtureComponent,
 } from './sidenav-pres.fixture';
 
 let componentFixture: SidenavPresFixtureComponent;

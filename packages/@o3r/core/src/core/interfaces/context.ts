@@ -1,11 +1,11 @@
 import type {
-  EventEmitter
+  EventEmitter,
 } from '@angular/core';
 import type {
-  FormControl
+  FormControl,
 } from '@angular/forms';
 import type {
-  Translation
+  Translation,
 } from './translation';
 
 /**

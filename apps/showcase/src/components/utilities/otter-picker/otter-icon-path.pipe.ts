@@ -1,10 +1,10 @@
 import {
   Pipe,
-  PipeTransform
+  PipeTransform,
 } from '@angular/core';
 import {
   isOtterIcon,
-  OTTER_ICONS
+  OTTER_ICONS,
 } from './otter-icons';
 
 @Pipe({

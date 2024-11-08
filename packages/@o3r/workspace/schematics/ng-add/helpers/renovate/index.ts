@@ -7,11 +7,11 @@ import {
   SchematicContext,
   template,
   Tree,
-  url
+  url,
 } from '@angular-devkit/schematics';
 import {
   getPackageManager,
-  getTemplateFolder
+  getTemplateFolder,
 } from '@o3r/schematics';
 
 /**

@@ -1,7 +1,7 @@
 import {
   PluginRunner,
   RequestOptions,
-  RequestPlugin
+  RequestPlugin,
 } from '../core';
 /**
  * Plugin to set the cache option of the fetch API for every request it is applied to.

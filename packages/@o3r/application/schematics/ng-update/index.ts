@@ -1,9 +1,9 @@
 import {
   chain,
-  Rule
+  Rule,
 } from '@angular-devkit/schematics';
 import {
-  updateCmsJsonFile
+  updateCmsJsonFile,
 } from './v10.0/update-cms-config';
 
 /**

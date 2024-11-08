@@ -1,16 +1,16 @@
 import {
   dirname,
   relative,
-  resolve
+  resolve,
 } from 'node:path';
 import type {
-  ExtensionContext
+  ExtensionContext,
 } from 'vscode';
 import * as vscode from 'vscode';
 import {
   getPackageScriptRunner,
   getSchematicDefaultOptions,
-  stringifyOptions
+  stringifyOptions,
 } from '../helpers';
 
 const getCurrentFolder = () => {

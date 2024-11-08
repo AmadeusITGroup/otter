@@ -1,10 +1,10 @@
 import type {
-  Logger
+  Logger,
 } from '@o3r/core';
 import type {
   DesignTokenVariableSet,
   DesignTokenVariableStructure,
-  TokenKeyRenderer
+  TokenKeyRenderer,
 } from '../parsers';
 
 /**

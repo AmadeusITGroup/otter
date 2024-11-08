@@ -2,20 +2,20 @@ import {
   Directive,
   ElementRef,
   OnDestroy,
-  Renderer2
+  Renderer2,
 } from '@angular/core';
 import {
-  Subscription
+  Subscription,
 } from 'rxjs';
 import {
   AnalyticsEvent,
   ConstructorAnalyticsEvent,
   ConstructorAnalyticsEventParameters,
   EventContext,
-  TrackEventName
+  TrackEventName,
 } from '../../contracts';
 import {
-  EventTrackService
+  EventTrackService,
 } from '../../services/event-track';
 
 @Directive()

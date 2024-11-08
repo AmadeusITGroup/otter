@@ -1,11 +1,11 @@
 import {
-  lint
+  lint,
 } from 'stylelint';
 import plugins from '../../index.mts';
 
 const config = {
   plugins,
-  'rules': {
+  rules: {
     '@o3r/o3r-var-parameter-equal-variable': true
   }
 };

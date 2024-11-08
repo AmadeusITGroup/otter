@@ -1,15 +1,15 @@
 import * as path from 'node:path';
 import type {
-  Rule
+  Rule,
 } from '@angular-devkit/schematics';
 import {
-  NodeDependencyType
+  NodeDependencyType,
 } from '@schematics/angular/utility/dependencies';
 import type {
-  NgAddSchematicsSchema
+  NgAddSchematicsSchema,
 } from './schema';
 import type {
-  DependencyToAdd
+  DependencyToAdd,
 } from '@o3r/schematics';
 
 /**

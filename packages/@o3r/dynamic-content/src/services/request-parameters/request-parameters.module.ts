@@ -1,15 +1,15 @@
 import {
   ModuleWithProviders,
-  NgModule
+  NgModule,
 } from '@angular/core';
 import {
-  RequestParametersConfig
+  RequestParametersConfig,
 } from './request-parameters.config';
 import {
-  RequestParametersService
+  RequestParametersService,
 } from './request-parameters.service';
 import {
-  REQUEST_PARAMETERS_CONFIG_TOKEN
+  REQUEST_PARAMETERS_CONFIG_TOKEN,
 } from './request-parameters.token';
 
 /**

@@ -1,21 +1,21 @@
 import {
   FileSystem,
-  getFilesTree
+  getFilesTree,
 } from '@o3r-training/training-tools';
 import {
   type DirectoryNode,
   type FileSystemTree,
   WebContainer,
-  WebContainerProcess
+  WebContainerProcess,
 } from '@webcontainer/api';
 import {
-  Terminal
+  Terminal,
 } from '@xterm/xterm';
 import {
-  MonacoTreeElement
+  MonacoTreeElement,
 } from 'ngx-monaco-tree';
 import {
-  BehaviorSubject
+  BehaviorSubject,
 } from 'rxjs';
 
 /**

@@ -1,8 +1,8 @@
 import {
-  NgModule
+  NgModule,
 } from '@angular/core';
 import {
-  CapitalizePipe
+  CapitalizePipe,
 } from './capitalize.pipe';
 
 /**

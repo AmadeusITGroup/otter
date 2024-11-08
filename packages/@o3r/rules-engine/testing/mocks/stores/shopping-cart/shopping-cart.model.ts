@@ -1,5 +1,5 @@
 import {
-  XmasHamper
+  XmasHamper,
 } from '../../xmas-hamper.mock';
 
 /**

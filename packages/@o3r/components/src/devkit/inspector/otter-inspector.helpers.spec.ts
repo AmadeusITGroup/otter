@@ -1,30 +1,30 @@
 import {
-  Component
+  Component,
 } from '@angular/core';
 import {
   ComponentFixture,
-  TestBed
+  TestBed,
 } from '@angular/core/testing';
 import {
-  BrowserModule
+  BrowserModule,
 } from '@angular/platform-browser';
 import type {
   AnalyticsEvent,
   AnalyticsEvents,
-  EventInfo
+  EventInfo,
 } from '@o3r/analytics';
 import {
-  ConfigurationObserver
+  ConfigurationObserver,
 } from '@o3r/configuration';
 import {
-  Translation
+  Translation,
 } from '@o3r/localization';
 import {
   getAnalyticEvents,
   getConfigId,
   getOtterLikeComponentInfo,
   getTranslations,
-  isContainer
+  isContainer,
 } from './otter-inspector.helpers';
 
 class MockEvent implements AnalyticsEvent {

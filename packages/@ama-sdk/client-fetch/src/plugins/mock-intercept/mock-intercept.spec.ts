@@ -7,10 +7,10 @@ import {
   MockInterceptRequest,
   RequestOptions,
   RequestPlugin,
-  SequentialMockAdapter
+  SequentialMockAdapter,
 } from '@ama-sdk/core';
 import {
-  MockInterceptFetch
+  MockInterceptFetch,
 } from './mock-intercept.fetch';
 
 const testMock: Mock<any> = {

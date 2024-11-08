@@ -1,8 +1,8 @@
 import {
-  dirname
+  dirname,
 } from 'node:path';
 import {
-  fileURLToPath
+  fileURLToPath,
 } from 'node:url';
 import nxPlugin from '@nx/eslint-plugin';
 import globals from 'globals';

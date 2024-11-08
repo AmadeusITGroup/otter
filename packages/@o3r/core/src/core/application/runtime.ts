@@ -1,5 +1,5 @@
 import {
-  Configuration
+  Configuration,
 } from '../interfaces/configuration';
 /**
  * Application config

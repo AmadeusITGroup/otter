@@ -2,7 +2,7 @@ import {
   greaterThan,
   greaterThanOrEqual,
   lessOrEqual,
-  lessThan
+  lessThan,
 } from './number-based.operators';
 
 describe('Number based operator', () => {

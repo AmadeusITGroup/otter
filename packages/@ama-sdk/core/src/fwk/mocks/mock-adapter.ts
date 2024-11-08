@@ -1,8 +1,8 @@
 import {
-  EncodedApiRequest
+  EncodedApiRequest,
 } from './encoded-api-request';
 import {
-  Mock
+  Mock,
 } from './mock';
 
 /** Describes an adapter for mocking */

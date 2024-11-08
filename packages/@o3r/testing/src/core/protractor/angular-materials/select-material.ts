@@ -1,13 +1,13 @@
 import {
   By,
   element,
-  ElementFinder
+  ElementFinder,
 } from 'protractor';
 import {
-  MatSelectProfile
+  MatSelectProfile,
 } from '../../angular-materials';
 import {
-  O3rElement
+  O3rElement,
 } from '../element';
 
 export { SelectElementProfile } from '../../elements';

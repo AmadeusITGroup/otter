@@ -5,7 +5,7 @@ import type {
   NPMAuditReportV2,
   Severity,
   YarnAudit,
-  YarnNpmAuditReport
+  YarnNpmAuditReport,
 } from 'audit-types';
 
 type Audit = NPMAuditReportV1.Audit;

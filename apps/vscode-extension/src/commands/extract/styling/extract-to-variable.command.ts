@@ -1,16 +1,16 @@
 import {
-  EOL
+  EOL,
 } from 'node:os';
 import {
   ExtensionContext,
   Range,
   TextEditor,
-  window
+  window,
 } from 'vscode';
 import {
   generateVariableName,
   insertVariable,
-  isPropertyValue
+  isPropertyValue,
 } from './helpers/utils.helper';
 /**
  * Extract a single prop/value scss line to an otter variable

@@ -1,8 +1,8 @@
 import {
-  RuleTester
+  RuleTester,
 } from '@typescript-eslint/rule-tester';
 import o3rWidgetTagsRule, {
-  O3rWidgetTagsRuleOption
+  O3rWidgetTagsRuleOption,
 } from './o3r-widget-tags';
 
 const ruleTester = new RuleTester();
@@ -82,7 +82,7 @@ ruleTester.run('o3r-widget-tags', o3rWidgetTagsRule, {
           suggestions: [
             {
               messageId: 'suggestAddO3rWidgetTag',
-              output: code.replace('@o3rWidget', '').replace(/((.*)@o3rWidgetParam .*)/, '$2@o3rWidget widgetType\n$1'),
+              output: code.replace('@o3rWidget', '').replace(/((.*)@o3rWidgetParam .*)/, '$2@o3rWidget widgetType\n$1')
             }
           ]
         }

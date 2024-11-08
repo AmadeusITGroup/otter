@@ -1,9 +1,9 @@
 import type {
   InputSignal,
-  Signal
+  Signal,
 } from '@angular/core';
 import type {
-  Observable
+  Observable,
 } from 'rxjs';
 
 /**

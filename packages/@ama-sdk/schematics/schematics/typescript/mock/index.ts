@@ -1,6 +1,6 @@
 import * as path from 'node:path';
 import {
-  strings
+  strings,
 } from '@angular-devkit/core';
 import {
   apply,
@@ -12,10 +12,10 @@ import {
   SchematicContext,
   template,
   Tree,
-  url
+  url,
 } from '@angular-devkit/schematics';
 import {
-  NgGenerateMockSchematicsSchema
+  NgGenerateMockSchematicsSchema,
 } from './schema';
 
 function endsWith(singular: string, matches: string[], excludes: string[] = []): boolean {

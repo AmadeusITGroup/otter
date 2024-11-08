@@ -1,10 +1,10 @@
 import type {
-  RequestOptions
+  RequestOptions,
 } from '@ama-sdk/core';
 import type {
   FetchCall,
   FetchPlugin,
-  FetchPluginContext
+  FetchPluginContext,
 } from '../../fetch-plugin';
 
 interface AbortCallbackParameters {

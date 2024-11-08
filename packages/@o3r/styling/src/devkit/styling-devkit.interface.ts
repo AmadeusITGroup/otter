@@ -3,10 +3,10 @@ import type {
   DevtoolsCommonOptions,
   MessageDataTypes,
   OtterMessageContent,
-  RequestMessagesContentMessage
+  RequestMessagesContentMessage,
 } from '@o3r/core';
 import {
-  CssVariable
+  CssVariable,
 } from '../core/index';
 
 /**

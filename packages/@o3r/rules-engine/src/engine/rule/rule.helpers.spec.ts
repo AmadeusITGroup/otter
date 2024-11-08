@@ -2,7 +2,7 @@ import {
   AllConditions,
   BinaryOperation,
   NotCondition,
-  OperandFact
+  OperandFact,
 } from '../structure';
 import {
   isAllConditions,
@@ -11,7 +11,7 @@ import {
   isNotCondition,
   isOperandFact,
   isOperandLiteral,
-  isOperandRuntimeFact
+  isOperandRuntimeFact,
 } from './rule.helpers';
 
 describe('Rule helpers', () => {

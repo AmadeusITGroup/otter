@@ -1,15 +1,15 @@
 #!/usr/bin/env node
 
 import type {
-  CliWrapper
+  CliWrapper,
 } from '@o3r/telemetry';
 import {
   Option,
-  program
+  program,
 } from 'commander';
 import * as winston from 'winston';
 import {
-  PullRequestService
+  PullRequestService,
 } from '../helpers/index';
 
 let comment: string | undefined;

@@ -1,8 +1,8 @@
 import type {
-  SchematicOptionObject
+  SchematicOptionObject,
 } from '@o3r/schematics';
 import {
-  MethodType
+  MethodType,
 } from './models';
 
 export interface NgAddFunctionsToFixtureSchematicsSchema extends SchematicOptionObject {

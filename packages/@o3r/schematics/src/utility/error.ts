@@ -1,5 +1,5 @@
 import {
-  getEnvironmentInfoStringify
+  getEnvironmentInfoStringify,
 } from './environment';
 
 /**

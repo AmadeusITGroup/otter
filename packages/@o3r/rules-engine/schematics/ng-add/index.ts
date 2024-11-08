@@ -2,23 +2,23 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {
   chain,
-  type Rule
+  type Rule,
 } from '@angular-devkit/schematics';
 import {
-  addRootImport
+  addRootImport,
 } from '@schematics/angular/utility';
 import {
-  isImported
+  isImported,
 } from '@schematics/angular/utility/ast-utils';
 import * as ts from 'typescript';
 import {
-  updateCmsAdapter
+  updateCmsAdapter,
 } from '../cms-adapter';
 import {
-  registerDevtools
+  registerDevtools,
 } from './helpers/devtools-registration';
 import type {
-  NgAddSchematicsSchema
+  NgAddSchematicsSchema,
 } from './schema';
 
 const devDependenciesToInstall = [

@@ -1,10 +1,10 @@
 import {
   Pipe,
-  PipeTransform
+  PipeTransform,
 } from '@angular/core';
 import {
   defaultTimeUnits,
-  TimeUnit
+  TimeUnit,
 } from './duration.model';
 
 /**

@@ -1,12 +1,12 @@
 import {
-  posix
+  posix,
 } from 'node:path';
 import {
   chain,
-  type Rule
+  type Rule,
 } from '@angular-devkit/schematics';
 import type {
-  PackageJson
+  PackageJson,
 } from 'type-fest';
 
 const deleteIfExists = (paths: string[]): Rule => (tree, context) => {

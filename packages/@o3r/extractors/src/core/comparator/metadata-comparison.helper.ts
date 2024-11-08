@@ -1,54 +1,54 @@
 import {
   existsSync,
   promises,
-  readFileSync
+  readFileSync,
 } from 'node:fs';
 import {
-  EOL
+  EOL,
 } from 'node:os';
 import {
   join,
-  posix
+  posix,
 } from 'node:path';
 import type {
   BuilderContext,
-  BuilderOutput
+  BuilderOutput,
 } from '@angular-devkit/architect';
 import type {
-  JsonObject
+  JsonObject,
 } from '@angular-devkit/core';
 import {
   getPackageManagerInfo,
   O3rCliError,
   type PackageManagerOptions,
   type SupportedPackageManagers,
-  type WorkspaceSchema
+  type WorkspaceSchema,
 } from '@o3r/schematics';
 import {
-  sync as globbySync
+  sync as globbySync,
 } from 'globby';
 import {
   coerce,
   Range,
-  satisfies
+  satisfies,
 } from 'semver';
 import type {
-  PackageJson
+  PackageJson,
 } from 'type-fest';
 import type {
-  CmsMetadataData
+  CmsMetadataData,
 } from '../../interfaces';
 import type {
   MetadataComparator,
   MigrationData,
   MigrationFile,
-  MigrationMetadataCheckBuilderOptions
+  MigrationMetadataCheckBuilderOptions,
 } from './metadata-comparator.interface';
 import {
   getFilesFromRegistry,
   getLatestMigrationMetadataFile,
   getLocalMetadataFile,
-  getVersionRangeFromLatestVersion
+  getVersionRangeFromLatestVersion,
 } from './metadata-files.helper';
 
 function checkMetadataFile<MetadataItem, MigrationMetadataItem, MetadataFile>(

@@ -1,23 +1,23 @@
 import {
   ModuleWithProviders,
-  NgModule
+  NgModule,
 } from '@angular/core';
 import {
-  StoreModule
+  StoreModule,
 } from '@ngrx/store';
 import {
-  LoggerModule
+  LoggerModule,
 } from '@o3r/logger';
 import {
-  RulesetsStoreModule
+  RulesetsStoreModule,
 } from '../../stores/index';
 import {
   DEFAULT_RULES_ENGINE_OPTIONS,
   RULES_ENGINE_OPTIONS,
-  RulesEngineServiceOptions
+  RulesEngineServiceOptions,
 } from '../rules-engine.token';
 import {
-  RulesEngineRunnerService
+  RulesEngineRunnerService,
 } from './rules-engine.runner.service';
 
 @NgModule({

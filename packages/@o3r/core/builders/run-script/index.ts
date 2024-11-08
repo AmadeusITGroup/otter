@@ -1,23 +1,23 @@
 import {
-  execSync
+  execSync,
 } from 'node:child_process';
 import * as fs from 'node:fs';
 import {
   join,
-  resolve
+  resolve,
 } from 'node:path';
 import {
   BuilderOutput,
-  createBuilder
+  createBuilder,
 } from '@angular-devkit/architect';
 import {
-  getPackageManagerRunner
+  getPackageManagerRunner,
 } from '@o3r/schematics';
 import {
-  createBuilderWithMetricsIfInstalled
+  createBuilderWithMetricsIfInstalled,
 } from '../utils';
 import type {
-  RunScriptBuilderSchema
+  RunScriptBuilderSchema,
 } from './schema';
 
 export default createBuilder<RunScriptBuilderSchema>(createBuilderWithMetricsIfInstalled(async (options, context): Promise<BuilderOutput> => {

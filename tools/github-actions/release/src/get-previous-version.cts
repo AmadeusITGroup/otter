@@ -3,7 +3,7 @@ import * as minimist from 'minimist';
 import {
   gt,
   lt,
-  valid
+  valid,
 } from 'semver';
 
 const argv = minimist(process.argv.slice(2));

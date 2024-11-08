@@ -2,19 +2,19 @@ import * as path from 'node:path';
 import type {
   Rule,
   SchematicContext,
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import {
-  chain
+  chain,
 } from '@angular-devkit/schematics';
 import {
-  addRootImport
+  addRootImport,
 } from '@schematics/angular/utility';
 import {
-  registerDevtools
+  registerDevtools,
 } from './helpers/devtools-registration';
 import type {
-  NgAddSchematicsSchema
+  NgAddSchematicsSchema,
 } from './schema';
 
 const reportMissingSchematicsDep = (logger: { error: (message: string) => any }) => (reason: any) => {

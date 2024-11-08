@@ -1,5 +1,5 @@
 import type {
-  ItemIdentifier
+  ItemIdentifier,
 } from '@o3r/core';
 
 /** Metadata information added in the design token extension for Metadata extraction */

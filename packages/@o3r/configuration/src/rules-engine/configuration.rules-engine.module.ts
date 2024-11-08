@@ -1,11 +1,11 @@
 import {
-  NgModule
+  NgModule,
 } from '@angular/core';
 import {
-  ConfigurationStoreModule
+  ConfigurationStoreModule,
 } from '@o3r/configuration';
 import {
-  ConfigurationRulesEngineActionHandler
+  ConfigurationRulesEngineActionHandler,
 } from './configuration.handler-action';
 
 @NgModule({

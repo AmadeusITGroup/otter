@@ -1,11 +1,11 @@
 import {
-  RuleTester
+  RuleTester,
 } from '@angular-eslint/test-utils';
 import {
-  templateParser
+  templateParser,
 } from 'angular-eslint';
 import noInnerHTMLRule, {
-  name
+  name,
 } from './no-inner-html';
 
 const ruleTester = new RuleTester({

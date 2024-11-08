@@ -1,8 +1,8 @@
 import {
-  X_VENDOR_CONFLICT_TAG
+  X_VENDOR_CONFLICT_TAG,
 } from '../utils';
 import {
-  PostProcess
+  PostProcess,
 } from './post-process.interface';
 
 /**

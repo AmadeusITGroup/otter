@@ -1,11 +1,11 @@
 import type {
-  Rule
+  Rule,
 } from '@angular-devkit/schematics';
 import {
-  findFilesInTree
+  findFilesInTree,
 } from '@o3r/schematics';
 import {
-  LOCAL_SPEC_FILENAME
+  LOCAL_SPEC_FILENAME,
 } from '../../../helpers/generators';
 
 /**
