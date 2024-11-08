@@ -54,5 +54,5 @@ export async function getVersionRangeFromLatestVersion(latestMigrationVersion: s
   if (!semver) {
     throw new O3rCliError(`${latestMigrationVersion} is not a valid version.`);
   }
-  return `<${semver.major}.${granularity === 'minor' ? semver.minor : 0}.0`;
+  return `<${semver.major}.${granularity === 'minor' ? semver.minor : 0}.0-a`;
 }
