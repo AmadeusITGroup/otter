@@ -32,14 +32,6 @@ const config = [
           SwitchCase: 1
         }
       ],
-      '@stylistic/key-spacing': [
-        'error',
-        {
-          beforeColon: false,
-          afterColon: true
-        }
-      ],
-      '@stylistic/keyword-spacing': 'error',
       '@stylistic/linebreak-style': [
         'error',
         'unix'
@@ -87,13 +79,6 @@ const config = [
       '@stylistic/semi': [
         'error',
         'always'
-      ],
-      '@stylistic/semi-spacing': [
-        'error',
-        {
-          before: false,
-          after: true
-        }
       ],
       '@stylistic/space-unary-ops': 'error',
       '@stylistic/spaced-comment': [
