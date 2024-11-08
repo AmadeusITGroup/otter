@@ -61,7 +61,7 @@ When contributing, please keep in mind the following rules:
 To ease the process, we are providing a set of:
 
 - [Editors configuration](.editorconfig)
-- [Linters configuration](./packages/@o3r/eslint-config-otter/README.md)
+- [Linters configuration](./packages/@o3r/eslint-config/README.md)
 - [Component generator](./packages/@o3r/core/README.md#generators) (and more)
 
 ### Accelerate your build thanks to Nx Cloud

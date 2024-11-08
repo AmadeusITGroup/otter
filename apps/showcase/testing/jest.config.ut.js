@@ -8,5 +8,5 @@ const baseConfig = getJestProjectConfig(rootDir, true);
 /** @type {import('ts-jest/dist/types').JestConfigWithTsJest} */
 module.exports = {
   ...baseConfig,
-  displayName: require('../package.json').name,
+  displayName: require('../package.json').name
 };
