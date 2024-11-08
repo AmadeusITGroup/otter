@@ -1,6 +1,5 @@
 import * as path from 'node:path';
 import {
-  applyToSubtree,
   chain,
   noop,
   type Rule,
@@ -23,25 +22,71 @@ You need to install '@o3r/schematics' package to be able to use the eslint-confi
   throw reason;
 };
 
+const handleOtterEslintErrors = (projectName: string): Rule => async (tree: Tree, context: SchematicContext) => {
+  if (!projectName) {
+    return;
+  }
+  const { getWorkspaceConfig } = await import('@o3r/schematics');
+  const workspace = getWorkspaceConfig(tree);
+  if (!workspace) {
+    return;
+  }
+  const workspaceProject = workspace.projects[projectName];
+
+  if (!workspaceProject) {
+    context.logger.warn('No project detected, linter task can not be added.');
+    return;
+  }
+  const projectRoot = workspaceProject.root;
+  const mainTsPath = path.posix.join(projectRoot, 'src/main.ts');
+  if (tree.exists(mainTsPath)) {
+    const mainTsContent = tree.readText(mainTsPath);
+    tree.overwrite(mainTsPath, '/* eslint-disable no-console -- console.error is used to log error in the browser while initializing the Angular application */\n' + mainTsContent);
+  }
+  const appComponentPath = path.posix.join(projectRoot, 'src/app/app.component.ts');
+  if (tree.exists(appComponentPath)) {
+    const appComponentContent = tree.readText(appComponentPath);
+    tree.overwrite(appComponentPath, appComponentContent.replace(/^(\s+)(title =)/m, '$1public $2'));
+  }
+  context.logger.warn('Linter errors may occur and should be fixed by hand or by running the linter with the option `--fix`.');
+};
+
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
   /* ng add rules */
   return async (tree: Tree, context: SchematicContext) => {
+    let installJestPlugin = false;
+    try {
+      require.resolve('jest');
+      installJestPlugin = true;
+    } catch {}
+
     const devDependenciesToInstall = [
+      '@eslint-community/eslint-plugin-eslint-comments',
+      '@eslint/js',
+      '@o3r/eslint-plugin',
       '@stylistic/eslint-plugin',
+      '@typescript-eslint/parser',
+      '@typescript-eslint/utils',
+      '@typescript-eslint/types',
       'angular-eslint',
       'eslint',
+      'eslint-import-resolver-node',
       'eslint-import-resolver-typescript',
       'eslint-plugin-import',
-      '@eslint-community/eslint-plugin-eslint-comments',
-      'eslint-plugin-sort-export-all',
       'eslint-plugin-import-newlines',
-      'eslint-plugin-unused-imports',
+      ...(installJestPlugin ? ['eslint-plugin-jest'] : []),
       'eslint-plugin-jsdoc',
       'eslint-plugin-prefer-arrow',
+      'eslint-plugin-sort-export-all',
       'eslint-plugin-unicorn',
+      'eslint-plugin-unused-imports',
       'globby',
+      'globals',
+      'jsonc-eslint-parser',
       'typescript-eslint',
-      'jsonc-eslint-parser'
+      // TODO could be removed once #2482 is fixed
+      'yaml-eslint-parser',
+      ...(options.projectName ? ['@angular-eslint/builder'] : [])
     ];
 
     const {
@@ -52,7 +97,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       getProjectNewDependenciesTypes,
       getPackageInstallConfig
     } = await import('@o3r/schematics');
-    const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'), true, /^@(?:o3r|ama-sdk|eslint-)/);
+    const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'), true, /^@(?:o3r|ama-sdk)/);
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
     const { NodeDependencyType } = await import('@schematics/angular/utility/dependencies');
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
@@ -83,9 +128,12 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
         ngAddToRun: depsInfo.o3rPeerDeps
       }),
       updateVscode,
-      updateEslintConfig(),
+      updateEslintConfig(__dirname),
       options.projectName && workspaceProject?.root
-        ? applyToSubtree(workspaceProject.root, [updateEslintConfig(false)])
+        ? chain([
+          updateEslintConfig(__dirname, options.projectName),
+          options.fix ? handleOtterEslintErrors(options.projectName) : noop()
+        ])
         : noop()
     ])(tree, context);
   };

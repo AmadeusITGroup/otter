@@ -21,7 +21,7 @@ describe('update tsconfig', () => {
   it('should create a tsconfig eslint', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
 
-    let tree = await firstValueFrom(callRule(updateOrAddTsconfigEslint(), Tree.empty(), runner.engine.createContext(context as any)));
+    let tree = await firstValueFrom(callRule(updateOrAddTsconfigEslint(__dirname, undefined), Tree.empty(), runner.engine.createContext(context as any)));
     expect(tree.readJson(tsconfigEslintPath)).toEqual(expect.objectContaining({
       extends: './tsconfig',
       include: [
@@ -29,7 +29,7 @@ describe('update tsconfig', () => {
       ]
     }));
 
-    tree = await firstValueFrom(callRule(updateOrAddTsconfigEslint('tsconfig.custom'), Tree.empty(), runner.engine.createContext(context as any)));
+    tree = await firstValueFrom(callRule(updateOrAddTsconfigEslint(__dirname, 'tsconfig.custom'), Tree.empty(), runner.engine.createContext(context as any)));
     expect(tree.readJson(tsconfigEslintPath)).toEqual(expect.objectContaining({
       extends: './tsconfig.custom',
       include: [
@@ -43,7 +43,7 @@ describe('update tsconfig', () => {
     initialTree.create(tsconfigEslintPath, JSON.stringify({ extends: './tsconfig', include: ['include-path'] }, null, 2));
     const runner = new SchematicTestRunner('schematics', collectionPath);
 
-    const tree = await firstValueFrom(callRule(updateOrAddTsconfigEslint('tsconfig.custom'), initialTree, runner.engine.createContext(context as any)));
+    const tree = await firstValueFrom(callRule(updateOrAddTsconfigEslint(__dirname, 'tsconfig.custom'), initialTree, runner.engine.createContext(context as any)));
     expect(tree.readJson(tsconfigEslintPath)).toEqual(expect.objectContaining({
       extends: './tsconfig',
       include: [
