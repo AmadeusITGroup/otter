@@ -78,6 +78,26 @@ A lot of rules have been deprecated in favor of the [TypeScript](https://typescr
 ### Stylistic ESLint rules
 
 Previously, the rules of [`@stylistic/eslint-plugin-ts`](https://eslint.style/packages/ts) were used. We now use those of [`@stylistic/eslint-plugin`](https://eslint.style/packages/default#stylistic-eslint-plugin) as recommended.
+Before, we used three rules from @stylistic. We now use their [recommended configuration](https://github.com/eslint-stylistic/eslint-stylistic/blob/main/packages/eslint-plugin/configs/customize.ts) with some customization.
+
+#### Customized
+
+- [`@stylistic/arrow-parens`](https://eslint.style/rules/default/arrow-parens)
+- [`@stylistic/brace-style`](https://eslint.style/rules/default/brace-style)
+- [`@stylistic/comma-dangle`](https://eslint.style/rules/default/comma-dangle)
+- [`@stylistic/indent`](https://eslint.style/rules/default/indent)
+- [`@stylistic/linebreak-style`](https://eslint.style/rules/default/linebreak-style)
+- [`@stylistic/max-len`](https://eslint.style/rules/default/max-len)
+- [`@stylistic/member-delimiter-style`](https://eslint.style/rules/default/member-delimiter-style)
+- [`@stylistic/no-multiple-empty-lines`](https://eslint.style/rules/default/no-multiple-empty-lines)
+- [`@stylistic/operator-linebreak`](https://eslint.style/rules/default/operator-linebreak)
+- [`@stylistic/quote-props`](https://eslint.style/rules/default/quote-props)
+- [`@stylistic/quotes`](https://eslint.style/rules/default/quotes)
+- [`@stylistic/semi`](https://eslint.style/rules/default/semi)
+- [`@stylistic/semi-spacing`](https://eslint.style/rules/default/semi-spacing)
+- [`@stylistic/space-unary-ops`](https://eslint.style/rules/default/space-unary-ops)
+- [`@stylistic/spaced-comment`](https://eslint.style/rules/default/spaced-comment)
+- [`@stylistic/wrap-iife`](https://eslint.style/rules/default/wrap-iife)
 
 
 ### Unicorn ESLint rules
@@ -92,6 +112,7 @@ Before, we used three rules from unicorn. We now use their [recommended configur
 #### Deactivated
 
 - [`unicorn/import-style`](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/import-style.md)
+- [`unicorn/no-await-expression-member`](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-await-expression-member.md)
 - [`unicorn/no-array-for-each`](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-array-for-each.md)
 - [`unicorn/no-array-reduce`](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-array-reduce.md)
 - [`unicorn/no-null`](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-null.md)
