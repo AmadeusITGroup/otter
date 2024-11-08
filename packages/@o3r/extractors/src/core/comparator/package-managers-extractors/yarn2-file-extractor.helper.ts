@@ -18,6 +18,7 @@ import { npath } from '@yarnpkg/fslib';
 import yarnNpmPlugin from '@yarnpkg/plugin-npm';
 import { join } from 'node:path';
 import { O3rCliError } from '@o3r/schematics';
+import { CustomNpmSemverResolver } from './custom-npm-semver-resolver';
 
 // Class copied from https://github.com/yarnpkg/berry/blob/master/packages/yarnpkg-core/sources/MultiResolver.ts
 // because it is not exposed in @yarnpkg/core
@@ -146,7 +147,7 @@ async function fetchPackage(project: Project, descriptor: Descriptor): Promise<F
   const report = new ThrowReport();
   const multiResolver = new MultiResolver(
     // eslint-disable-next-line new-cap
-    (yarnNpmPlugin.resolvers || []).map((resolver) => new resolver())
+    ([CustomNpmSemverResolver, ...yarnNpmPlugin.resolvers || []]).map((resolver) => new resolver())
   );
   const multiFetcher = new MultiFetcher(
     // eslint-disable-next-line new-cap
