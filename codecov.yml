@@ -1,0 +1,12 @@
+codecov:
+  require_ci_to_pass: false
+
+comment:
+  layout: "condensed_header, condensed_files, condensed_footer"
+  behavior: default
+
+component_management:
+  default_rules:
+    statuses:
+      - type: project
+        target: auto
