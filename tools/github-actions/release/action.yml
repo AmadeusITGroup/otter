@@ -1,0 +1,23 @@
+name: Create a new GitHub Release
+description: Creates a new GitHub Release for a given version
+inputs:
+  version:
+    description: 'The version to create the release for'
+    required: true
+  target:
+    description: 'The branch to target'
+    required: true
+  previousVersionsLimit:
+    description: 'Limit of previous versions to consider for the release notes'
+    required: false
+    default: '100'
+runs:
+  using: "composite"
+  steps:
+    - name: Previous release tag
+      if:  ${{(!contains( inputs.version, '-' )) && endsWith( inputs.version, '.0' )}}
+      shell: bash
+      run: echo "PREVIOUS_VERSION_TAG=$(gh release list --exclude-drafts --exclude-pre-releases --limit ${{ inputs.previousVersionsLimit }} --json tagName --template '[{{range .}}"{{.tagName}}",{{end}}""]{{"\n"}}' | node ./packaged-action/index.cjs ${{ inputs.version }})" >> $GITHUB_ENV
+    - name: Create release
+      shell: bash
+      run: gh release create v${{ inputs.version }} --generate-notes ${{ contains( inputs.version, '-' ) && '--prerelease' || '' }} --target ${{ inputs.target }} ${{ env.PREVIOUS_VERSION_TAG != '' && format('--notes-start-tag {0}', env.PREVIOUS_VERSION_TAG) || '' }}

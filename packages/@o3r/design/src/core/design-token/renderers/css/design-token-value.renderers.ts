@@ -1,4 +1,4 @@
-import type { DesignTokenVariableStructure, TokenKeyRenderer, TokenReferenceRender, TokenValueRenderer, UnregisteredTokenReferenceRender } from '../../parsers/design-token-parser.interface';
+import type { DesignTokenVariableStructure, TokenKeyRenderer, TokenReferenceRenderer, TokenValueRenderer, UnregisteredTokenReferenceRenderer } from '../../parsers/design-token-parser.interface';
 import { isO3rPrivateVariable } from '../design-token.renderer.helpers';
 import type { Logger } from '@o3r/core';
 
@@ -18,13 +18,13 @@ export interface CssTokenValueRendererOptions {
   /**
    * Render for the reference to Design Token
    */
-  referenceRenderer?: TokenReferenceRender;
+  referenceRenderer?: TokenReferenceRenderer;
 
   /**
    * Render for the reference to unregistered Design Token
    * Note: the default renderer display a warning message when called
    */
-  unregisteredReferenceRenderer?: UnregisteredTokenReferenceRender;
+  unregisteredReferenceRenderer?: UnregisteredTokenReferenceRenderer;
 
   /**
    * Custom logger
@@ -45,9 +45,9 @@ export const getCssTokenValueRenderer = (options?: CssTokenValueRendererOptions)
   const isPrivateVariable = options?.isPrivateVariable || isO3rPrivateVariable;
   const tokenVariableNameRenderer = options?.tokenVariableNameRenderer;
 
-  const defaultReferenceRenderer = (variable: DesignTokenVariableStructure, variableSet: Map<string, DesignTokenVariableStructure>): string => {
+  const defaultReferenceRenderer: TokenReferenceRenderer = (variable, variableSet, defaultValue): string => {
     if (!isPrivateVariable(variable)) {
-      return `var(--${variable.getKey(tokenVariableNameRenderer)})`;
+      return `var(--${variable.getKey(tokenVariableNameRenderer)}${defaultValue ? ', ' + defaultValue : ''})`;
     } else {
       // eslint-disable-next-line no-use-before-define
       return `var(--${variable.getKey(tokenVariableNameRenderer)}, ${renderer(variable, variableSet)})`;
@@ -56,7 +56,7 @@ export const getCssTokenValueRenderer = (options?: CssTokenValueRendererOptions)
 
   const defaultUnregisteredReferenceRenderer = (variableName: string, _variableSet: Map<string, DesignTokenVariableStructure>): string => {
     const cssVarName = `var(--${variableName.replace(/[. ]+/g, '-')})`;
-    options?.logger?.debug?.(`Variable "${variableName}" not registered, will be renderer as "${cssVarName}"`);
+    options?.logger?.debug?.(`Variable "${variableName}" is not registered, it will be rendered as "${cssVarName}"`);
     return cssVarName;
   };
 
@@ -64,9 +64,12 @@ export const getCssTokenValueRenderer = (options?: CssTokenValueRendererOptions)
   const unregisteredReferenceRenderer = options?.unregisteredReferenceRenderer || defaultUnregisteredReferenceRenderer;
 
   const renderer = (variable: DesignTokenVariableStructure, variableSet: Map<string, DesignTokenVariableStructure>, enforceReferenceRendering = false) => {
-    let variableValue = enforceReferenceRendering ? referenceRenderer(variable, variableSet) : variable.getCssRawValue(variableSet).replaceAll(/\{([^}]*)\}/g, (_defaultValue, matcher: string) =>
+    let variableValue = variable.getCssRawValue(variableSet).replaceAll(/\{([^}]*)\}/g, (_defaultValue, matcher: string) =>
       (variableSet.has(matcher) ? referenceRenderer(variableSet.get(matcher)!, variableSet) : unregisteredReferenceRenderer(matcher, variableSet))
     );
+    if (enforceReferenceRendering) {
+      variableValue = referenceRenderer(variable, variableSet, variableValue);
+    }
     variableValue += variableValue && variable.extensions.o3rImportant ? ' !important' : '';
     return variableValue;
   };
