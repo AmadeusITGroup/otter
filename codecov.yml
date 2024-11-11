@@ -2,7 +2,7 @@ codecov:
   require_ci_to_pass: false
 
 ignore:
- # Package Manager files
+  # Package Manager files
   - '.yarn/**/*'
   - '.pnp.*'
   - '.cache/**/*'
@@ -29,3 +29,28 @@ component_management:
     statuses:
       - type: project
         target: auto
+
+  individual_components:
+    - component_id: otter
+      name: Otter Modules
+      paths:
+        - packages/@o3r/**
+    - component_id: otter-tools
+      name: Otter developer tools
+      paths:
+        - apps/chrome-devtools/**
+        - apps/github-cascading-app/**
+        - apps/intellij-extension/**
+        - apps/vscode-extension/**
+    - component_id: otter-github-actions
+      name: Otter Github shared Actions
+      paths:
+        - tools/github-actions/**
+    - component_id: training
+      name: Training modules
+      paths:
+        - packages/@o3r-training/**
+    - component_id: sdk
+      name: SDK Tooling
+      paths:
+        - packages/@ama-sdk/**
