@@ -1,17 +1,20 @@
 {
   "recommendations": [
+    "amadeusitgroup.otter-devtools",
+    "angular.ng-template",
+    "arcanis.vscode-zipfs",
+    "bierner.emojisense",
+    "bierner.markdown-emoji",
     "dbaeumer.vscode-eslint",
     "EditorConfig.EditorConfig",
-    "angular.ng-template",
-    "Orta.vscode-jest",
-    "arcanis.vscode-zipfs",
-    "stylelint.vscode-stylelint",
-    "nrwl.angular-console",
-    "esbenp.prettier-vscode",
     "GitHub.codespaces",
-    "GitHub.vscode-pull-request-github",
     "GitHub.vscode-github-actions",
-    "amadeusitgroup.otter-devtools",
-    "mrmlnc.vscode-scss"
+    "GitHub.vscode-pull-request-github",
+    "Gruntfuggly.todo-tree",
+    "jasonnutter.vscode-codeowners",
+    "mrmlnc.vscode-scss",
+    "nrwl.angular-console",
+    "Orta.vscode-jest",
+    "stylelint.vscode-stylelint"
   ]
 }
