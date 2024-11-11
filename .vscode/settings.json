@@ -11,14 +11,19 @@
   },
   "files.exclude": {
     "**/.git": true,
-    "**/.svn": true,
-    "**/.hg": true,
-    "**/CVS": true,
     "**/.DS_Store": true,
     "**/Thumbs.db": true
   },
   "files.associations": {
     "*.json5": "jsonc"
+  },
+  "files.watcherExclude": {
+    "**/.pnp.*": true,
+    "**/.git/**": true,
+    "**/.yarn/**": true,
+    "**/.cache/**": true,
+    "**/dist/**": true,
+    "**/node_modules/**": true
   },
   "npm.packageManager": "yarn",
   "typescript.tsdk": ".yarn/sdks/typescript/lib",
