@@ -1,5 +1,5 @@
 const {readdir, readFile, writeFile} = require('node:fs/promises');
-const {getFilesTree} = require('@o3r/training-tools');
+const {getFilesTree} = require('@o3r-training/training-tools');
 const {dirname, join, resolve} = require('node:path');
 const glob = require('globby');
 

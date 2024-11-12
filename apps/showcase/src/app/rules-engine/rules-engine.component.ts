@@ -1,7 +1,7 @@
 import { AsyncPipe } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, Component, inject, QueryList, ViewChildren, ViewEncapsulation } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { NgbNav, NgbNavContent, NgbNavItem, NgbNavLink, NgbNavOutlet } from '@ng-bootstrap/ng-bootstrap';
+import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { ApplicationDevtoolsModule } from '@o3r/application';
 import { ComponentsDevtoolsModule } from '@o3r/components';
 import { ConfigOverrideStoreModule, ConfigurationBaseServiceModule, ConfigurationDevtoolsModule } from '@o3r/configuration';
@@ -55,11 +55,7 @@ import { duringSummer } from '../../operators/index';
     CopyTextPresComponent,
     RouterModule,
     IN_PAGE_NAV_PRES_DIRECTIVES,
-    NgbNav,
-    NgbNavItem,
-    NgbNavLink,
-    NgbNavContent,
-    NgbNavOutlet,
+    NgbNavModule,
     AsyncPipe
   ],
   templateUrl: './rules-engine.template.html',

@@ -1,5 +1,5 @@
-import {MonacoTreeElement} from 'ngx-monaco-tree';
-import {DirectoryNode, FileNode} from '@webcontainer/api';
+import type {MonacoTreeElement} from 'ngx-monaco-tree';
+import type {DirectoryNode, FileNode, SymlinkNode} from '@webcontainer/api';
 
 /**
  * Check if the monaco tree contains the path in parameters
@@ -23,7 +23,7 @@ export function checkIfPathInMonacoTree(tree: MonacoTreeElement[], path: string[
  * @param path
  * @param node
  */
-export function convertTreeRec(path: string, node: DirectoryNode | FileNode): MonacoTreeElement {
+export function convertTreeRec(path: string, node: DirectoryNode | FileNode | SymlinkNode): MonacoTreeElement {
   return {
     name: path,
     content: (node as DirectoryNode).directory

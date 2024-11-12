@@ -9,6 +9,7 @@ export interface BaseMetricData {
   /** Error message */
   error?: string;
 }
+
 export interface BuilderMetricData extends BaseMetricData {
   /** Builder information */
   builder: {
@@ -40,10 +41,20 @@ export interface SchematicMetricData extends BaseMetricData {
   };
 }
 
+export interface CliMetricData extends BaseMetricData {
+  /** CLI information */
+  cli: {
+    /** Name of the CLI */
+    name: string;
+    /** CLI options */
+    options?: any;
+  };
+}
+
 /**
  * Different kinds of metrics
  */
-export type MetricData = BuilderMetricData | SchematicMetricData;
+export type MetricData = BuilderMetricData | SchematicMetricData | CliMetricData;
 
 /**
  * Function sending metrics to the server
@@ -55,19 +66,32 @@ export type SendDataFn = (data: MetricData, logger?: { error: (msg: string) => v
 /**
  * Send metric to a Amadeus Log Server
  * @param data Metrics to report
- * @param _logger Optional logger to provide to the function
- * @param _logger.error
+ * @param logger Optional logger to provide to the function
  */
-export const sendData: SendDataFn = async (data: MetricData, _logger?: { error: (msg: string) => void }) => {
-  const message = JSON.stringify(data);
-  const body = JSON.stringify({
-    messages: [{
-      applicationName: 'OTTER',
-      message
-    }]
-  });
-  await fetch('https://uat.digital-logging.saas.amadeus.com/postUILogs', {
-    method: 'POST',
-    body
-  });
+export const sendData: SendDataFn = (data, logger) => {
+  let body!: string;
+  try {
+    const message = JSON.stringify(data);
+    body = JSON.stringify({
+      messages: [{
+        applicationName: 'OTTER',
+        message
+      }]
+    });
+  } catch (e: any) {
+    return Promise.reject(e);
+  }
+
+  setTimeout(() => {
+    void fetch('https://uat.digital-logging.saas.amadeus.com/postUILogs', {
+      method: 'POST',
+      body
+    }).catch((e) => {
+      const err = (e instanceof Error ? e : new Error(e));
+      logger?.error(err.stack || err.toString());
+    });
+  }, 1).unref();
+
+  return Promise.resolve();
 };
+

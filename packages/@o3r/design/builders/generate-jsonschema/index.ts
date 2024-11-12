@@ -1,5 +1,6 @@
 import type { GenerateJsonSchemaSchematicsSchema } from './schema';
 import { BuilderOutput, createBuilder } from '@angular-devkit/architect';
+import type { BuilderWrapper } from '@o3r/telemetry';
 import {
   getJsonSchemaStyleContentUpdater,
   getJsonSchemaTokenDefinitionRenderer,
@@ -10,11 +11,21 @@ import type { DesignTokenVariableSet, DesignTokenVariableStructure } from '../..
 import { resolve } from 'node:path';
 import * as globby from 'globby';
 
+
+const createBuilderWithMetricsIfInstalled: BuilderWrapper = (builderFn) => async (opts, ctx) => {
+  let wrapper: BuilderWrapper = (fn) => fn;
+  try {
+    const { createBuilderWithMetrics } = await import('@o3r/telemetry');
+    wrapper = createBuilderWithMetrics;
+  } catch {}
+  return wrapper(builderFn)(opts, ctx);
+};
+
 /**
  * Generate Json Schema from Design Token files
  * @param options
  */
-export default createBuilder<GenerateJsonSchemaSchematicsSchema>(async (options, context): Promise<BuilderOutput> => {
+export default createBuilder<GenerateJsonSchemaSchematicsSchema>(createBuilderWithMetricsIfInstalled(async (options, context): Promise<BuilderOutput> => {
   const designTokenFilePatterns = Array.isArray(options.designTokenFilePatterns) ? options.designTokenFilePatterns : [options.designTokenFilePatterns];
 
   const execute = async (): Promise<BuilderOutput> => {
@@ -80,4 +91,4 @@ export default createBuilder<GenerateJsonSchemaSchematicsSchema>(async (options,
       return { success: false, error: String(err) };
     }
   }
-});
+}));

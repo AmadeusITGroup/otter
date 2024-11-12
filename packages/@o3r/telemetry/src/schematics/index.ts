@@ -1,7 +1,6 @@
 import type { JsonObject } from '@angular-devkit/core';
-import { callRule, Rule } from '@angular-devkit/schematics';
+import type { Rule } from '@angular-devkit/schematics';
 import { performance } from 'node:perf_hooks';
-import { lastValueFrom } from 'rxjs';
 import { getEnvironmentInfo } from '../environment/index';
 import { sendData as defaultSendData, SchematicMetricData, type SendDataFn } from '../sender';
 
@@ -27,6 +26,8 @@ export const createSchematicWithMetrics: SchematicWrapper =
     let error: any;
     try {
       const rule = schematicFn(options);
+      const { callRule } = await import('@angular-devkit/schematics');
+      const { lastValueFrom } = await import('rxjs');
       await lastValueFrom(callRule(rule, tree, context));
     }
     catch (e: any) {
@@ -54,12 +55,19 @@ export const createSchematicWithMetrics: SchematicWrapper =
       const shouldSendData = !!(
         (options as any).o3rMetrics
         ?? ((process.env.O3R_METRICS || '').length > 0 ? process.env.O3R_METRICS !== 'false' : undefined)
-        ?? (packageJson.config as JsonObject)?.o3rMetrics
+        ?? ((packageJson.config as JsonObject)?.o3r as JsonObject)?.telemetry
+        ?? (packageJson.config as JsonObject)?.o3rMetrics // deprecated will be removed in v13
       );
+      if (typeof (packageJson.config as JsonObject)?.o3rMetrics !== 'undefined') {
+        context.logger.warn([
+          '`config.o3rMetrics` is deprecated and will be removed in v13, please use `config.o3r.telemetry` instead.',
+          'You can run `ng update @o3r/telemetry` to have the automatic update.'
+        ].join('\n'));
+      }
       if (shouldSendData) {
         if (typeof ((options as any).o3rMetrics ?? process.env.O3R_METRICS) === 'undefined') {
           context.logger.info(
-            'Telemetry is globally activated for the project (`config.o3rMetrics` in package.json). '
+            'Telemetry is globally activated for the project (`config.o3r.telemetry` in package.json). '
             + 'If you personally don\'t want to send telemetry, you can deactivate it by setting `O3R_METRICS` to false in your environment variables, '
             + 'or by calling the schematic with `--no-o3r-metrics`.'
           );

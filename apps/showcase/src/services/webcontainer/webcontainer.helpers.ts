@@ -1,4 +1,4 @@
-import { FileSystem, getFilesTree } from '@o3r/training-tools';
+import { FileSystem, getFilesTree } from '@o3r-training/training-tools';
 import { WebContainer, WebContainerProcess } from '@webcontainer/api';
 import { Terminal } from '@xterm/xterm';
 import { BehaviorSubject } from 'rxjs';
@@ -48,8 +48,6 @@ export const createTerminalStream = (terminal: Terminal, cb?: (data: string) => 
  */
 export const makeProcessWritable = (process: WebContainerProcess, terminal: Terminal) => {
   const input = process.input.getWriter();
-  terminal.onData((data) => {
-    return input.write(data);
-  });
+  terminal.onData((data) => input.write(data));
   return input;
 };

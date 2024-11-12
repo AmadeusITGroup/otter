@@ -16,8 +16,8 @@ This module provides a rules engine that can run on your user's browser to custo
 [//]: # (Should we target placeholder or the component npmjs, and we add a section on the placeholder there?)
 [placeholders](https://github.com/AmadeusITGroup/otter/blob/main/docs/components/PLACEHOLDERS.md) and [configurations](https://www.npmjs.com/package/@o3r/configuration)) of your application at runtime.
 
-The rules engine interprets a list of [actions](https://github.com/AmadeusITGroup/otter/tree/main/docs/rules-engine/README.md#action) to execute based on the evaluation of [Rulesets](https://github.com/AmadeusITGroup/otter/tree/main/docs/rules-engine/README.md#ruleset) 
-and their conditions. Conditions are logical expressions relying on [operators](https://github.com/AmadeusITGroup/otter/tree/main/docs/rules-engine/README.md#operator) and variables we call 
+The rules engine interprets a list of [actions](https://github.com/AmadeusITGroup/otter/tree/main/docs/rules-engine/README.md#action) to execute based on the evaluation of [Rulesets](https://github.com/AmadeusITGroup/otter/tree/main/docs/rules-engine/README.md#ruleset)
+and their conditions. Conditions are logical expressions relying on [operators](https://github.com/AmadeusITGroup/otter/tree/main/docs/rules-engine/README.md#operator) and variables we call
 [facts](https://github.com/AmadeusITGroup/otter/tree/main/docs/rules-engine/README.md#fact).
 
 You can store your list of Rulesets on a static JSON file.
@@ -29,7 +29,7 @@ For example, you could consider leveraging this feature to display assets based 
 A/B testing on your components.
 
 You will find more information on the concepts behind the rules engine in its [dedicated documentation](https://github.com/AmadeusITGroup/otter/tree/main/docs/rules-engine/README.md).
-For a demonstration of the rules engine capabilities, you can refer to the [live example](https://amadeusitgroup.github.io/otter/#/rules-engine) 
+For a demonstration of the rules engine capabilities, you can refer to the [live example](https://amadeusitgroup.github.io/otter/#/rules-engine)
 in the Otter showcase.
 
 ## How to install
@@ -44,7 +44,7 @@ ng add @o3r/rules-engine
 ## How to use
 
 The package exposes the ``RulesEngineRunnerService`` that can drive all the Otter customization-based services
-in order to personalize the user experience. 
+in order to personalize the user experience.
 On its own, the service will do nothing and will need __action handlers__ to register with the list of supported actions
 and their implementation.
 
@@ -59,7 +59,6 @@ Several examples of the rules engine usage are available on the following links:
 
 - [Basic rule](https://github.com/AmadeusITGroup/otter/tree/main/docs/rules-engine/examples/basic-rule.md)
 - [Rule with complex fact](https://github.com/AmadeusITGroup/otter/tree/main/docs/rules-engine/examples/complex-fact.md)
-- [Rule with custom operator](https://github.com/AmadeusITGroup/otter/tree/main/docs/rules-engine/examples/custom-operator.md)
 - [Rule with Nested Conditions](https://github.com/AmadeusITGroup/otter/tree/main/docs/rules-engine/examples/nested-conditions.md)
 - [Rule using runtime facts](https://github.com/AmadeusITGroup/otter/tree/main/docs/rules-engine/examples/runtime-facts.md)
 
@@ -78,7 +77,7 @@ Otter framework provides a set of code generators based on [Angular schematics](
 A whole section of the [Otter Chrome Devtool extension](https://chromewebstore.google.com/detail/otter-devtools/aejabgendbpckkdnjaphhlifbhepmbne) is dedicated to the debug of the rules engine with
 a visual representation of your Rulesets and a history of the run, conditions met and actions applied.
 
-Find more information on the tool in the [Otter Chrome Devtool extension documentation](https://github.com/AmadeusITGroup/otter/blob/main/docs/dev-tools/chrome-devtools.md) 
+Find more information on the tool in the [Otter Chrome Devtool extension documentation](https://github.com/AmadeusITGroup/otter/blob/main/docs/dev-tools/chrome-devtools.md)
 and its [dedicated section in the rules engine documentation](https://github.com/AmadeusITGroup/otter/blob/main/docs/rules-engine/how-to-use/chrome-extension.md).
 
 ## External links

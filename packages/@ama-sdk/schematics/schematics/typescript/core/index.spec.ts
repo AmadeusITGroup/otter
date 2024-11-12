@@ -13,7 +13,7 @@ describe('Typescript Core Generator', () => {
   beforeEach(async () => {
     const runner = new SchematicTestRunner('@ama-sdk/schematics', collectionPath);
     const tree = Tree.empty();
-    tree.create('/readme.md', 'Based on OpenAPI spec 0.1.0');
+    tree.create('/readme.md', 'Based on API specification version 0.1.0 (using OpenAPI 0.0.0)');
     baseTree = await runner.runSchematic('typescript-shell', {
       name: 'test-sdk',
       package: 'sdk',
@@ -27,7 +27,7 @@ describe('Typescript Core Generator', () => {
       specPath: path.join(__dirname, '..', '..', '..', 'testing', 'MOCK_swagger.yaml')
     }, baseTree);
 
-    expect(tree.readContent('/readme.md')).toContain('Based on OpenAPI spec 1.0.0');
+    expect(tree.readContent('/readme.md')).toContain('Based on API specification version 1.0.0 (using swagger 2.0)');
   });
 
   it('should update openapitools file with yaml', async () => {
