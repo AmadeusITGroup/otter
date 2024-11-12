@@ -143,7 +143,7 @@ export class CssVariableExtractor {
           const subEntry = cleanedUrl.replace(moduleName, '.');
           const packageJsonPath = require.resolve(`${moduleName}/package.json`);
           const packagePath = path.dirname(packageJsonPath);
-          const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf-8' }));
+          const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' }));
           let computedPathUrl;
           if (subEntry !== '.' && packageJson.exports?.[subEntry]) {
             computedPathUrl = path.join(packagePath, packageJson.exports[subEntry].sass ||
@@ -302,7 +302,7 @@ export class CssVariableExtractor {
    * @param sassFilePath SCSS file to parse
    */
   public extractFile(sassFilePath: string): CssVariable[] {
-    const sassFileContent = fs.readFileSync(sassFilePath, {encoding: 'utf-8'});
+    const sassFileContent = fs.readFileSync(sassFilePath, {encoding: 'utf8'});
     return this.extractFileContent(sassFilePath, sassFileContent);
   }
 

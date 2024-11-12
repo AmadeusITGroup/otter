@@ -75,7 +75,7 @@ export const updatePackageJsonScripts: Rule = (tree, context) => {
  * @param tree
  */
 const createOpenApiToolsConfig: Rule = (tree) => {
-  const amaSdkSchematicsPackageJsonContent = JSON.parse(readFileSync(path.resolve(__dirname, '..', '..', 'package.json'), {encoding: 'utf-8'})) as PackageJson & { openApiSupportedVersion: string };
+  const amaSdkSchematicsPackageJsonContent = JSON.parse(readFileSync(path.resolve(__dirname, '..', '..', 'package.json'), {encoding: 'utf8'})) as PackageJson & { openApiSupportedVersion: string };
   const openApiGeneratorVersion = amaSdkSchematicsPackageJsonContent.openApiSupportedVersion.replace(/\^|~/, '');
   const openApiDefaultStorageDir = '.openapi-generator';
   if (tree.exists(openApiConfigPath)) {
@@ -104,7 +104,7 @@ const createOpenApiToolsConfig: Rule = (tree) => {
  */
 const installOpenApiToolsCli: Rule = async (tree, context) => {
   const packageJsonContent = tree.readJson(packageJsonPath) as PackageJson;
-  const amaSdkSchematicsPackageJsonContent = JSON.parse(readFileSync(path.resolve(__dirname, '..', '..', 'package.json'), {encoding: 'utf-8'})) as PackageJson & { openApiSupportedVersion: string };
+  const amaSdkSchematicsPackageJsonContent = JSON.parse(readFileSync(path.resolve(__dirname, '..', '..', 'package.json'), {encoding: 'utf8'})) as PackageJson & { openApiSupportedVersion: string };
   const amaSdkSchematicsOpenApiCliVersion = amaSdkSchematicsPackageJsonContent.peerDependencies?.['@openapitools/openapi-generator-cli'] || '';
   // eslint-disable-next-line @typescript-eslint/naming-convention
   packageJsonContent.devDependencies = {...packageJsonContent.devDependencies, '@openapitools/openapi-generator-cli': amaSdkSchematicsOpenApiCliVersion};
@@ -135,7 +135,7 @@ const registerPackageSchematics = async (tree: Tree, context: SchematicContext) 
   if (!tree.exists('angular.json')) {
     return () => tree;
   }
-  const amaSdkSchematicsPackageJsonContent = JSON.parse(readFileSync(path.resolve(__dirname, '..', '..', 'package.json'), {encoding: 'utf-8'})) as PackageJson;
+  const amaSdkSchematicsPackageJsonContent = JSON.parse(readFileSync(path.resolve(__dirname, '..', '..', 'package.json'), {encoding: 'utf8'})) as PackageJson;
   const amaSdkSchematicsVersion = amaSdkSchematicsPackageJsonContent.version?.replace(/^v/, '');
   const schematicsDependencies = ['@o3r/schematics'];
   for (const dependency of schematicsDependencies) {

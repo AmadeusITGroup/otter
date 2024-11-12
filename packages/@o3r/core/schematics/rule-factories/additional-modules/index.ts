@@ -15,7 +15,7 @@ import type { PackageJson } from 'type-fest';
 import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
 
 const packageJsonPath = path.resolve(__dirname, '..', '..', '..', 'package.json');
-const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf-8' })) as PackageJson & { generatorDependencies: Record<string, string> };
+const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' })) as PackageJson & { generatorDependencies: Record<string, string> };
 const ngrxStoreDevtoolsDep = '@ngrx/store-devtools';
 
 /**

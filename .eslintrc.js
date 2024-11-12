@@ -27,6 +27,24 @@ module.exports = {
     },
 
     {
+      'files': [
+        '*.spec.ts'
+      ],
+      'rules': {
+        '@typescript-eslint/no-require-imports': 'off' // required by Jest to mock the imports
+      }
+    },
+
+    {
+      'files': [
+        '*{.,-}jasmine.ts'
+      ],
+      'rules': {
+        'jest/no-jasmine-globals': 'off'
+      }
+    },
+
+    {
       'parser': require.resolve('jsonc-eslint-parser'),
       'files': [
         '**/*.json'

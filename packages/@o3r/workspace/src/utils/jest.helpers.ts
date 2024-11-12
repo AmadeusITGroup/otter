@@ -1,5 +1,5 @@
 import { sync as globbySync } from 'globby';
-import { existsSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { posix, resolve } from 'node:path';
 
 /**
@@ -15,7 +15,7 @@ export const getJestProjects = (rootDir = process.cwd(), jestConfigPattern = 'je
     console.warn(`No package.json found in ${rootDir}`);
     return [];
   }
-  const jestConfigPatterns: string[] | undefined = require(rootPackageJson).workspaces?.map((packagePath: string) => posix.join(packagePath, jestConfigPattern));
+  const jestConfigPatterns: string[] | undefined = JSON.parse(readFileSync(rootPackageJson, { encoding: 'utf8' })).workspaces?.map((packagePath: string) => posix.join(packagePath, jestConfigPattern));
   const jestConfigFileLists = jestConfigPatterns?.map((pattern) => globbySync(pattern, { cwd: rootDir }));
   return jestConfigFileLists
     ?.flat()

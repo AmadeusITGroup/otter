@@ -196,7 +196,7 @@ interface ParseDesignTokenFileOptions {
  * @param options
  */
 export const parseDesignTokenFile = async (specificationFilePath: string, options?: ParseDesignTokenFileOptions) => {
-  const readFile = options?.readFile || ((filePath: string) => fs.readFile(filePath, { encoding: 'utf-8' }));
+  const readFile = options?.readFile || ((filePath: string) => fs.readFile(filePath, { encoding: 'utf8' }));
   const context: DesignTokenContext = {
     basePath: dirname(specificationFilePath),
     ...options?.specificationContext

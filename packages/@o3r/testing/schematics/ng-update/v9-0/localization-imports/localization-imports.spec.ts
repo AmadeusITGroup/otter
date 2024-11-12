@@ -21,7 +21,7 @@ describe('Localization mocks imports', () => {
     const runner = new SchematicTestRunner('migrations', collectionPath);
     const tree = await lastValueFrom(runner.callRule(updateLocalizationImports(), initialTree));
 
-    expect(tree.readText('/src/my-component.ts')).toBe(fs.readFileSync(path.resolve(__dirname, 'mocks', 'my-component-updated.ts.template'), {encoding: 'utf-8'}));
+    expect(tree.readText('/src/my-component.ts')).toBe(fs.readFileSync(path.resolve(__dirname, 'mocks', 'my-component-updated.ts.template'), {encoding: 'utf8'}));
   });
 
 });

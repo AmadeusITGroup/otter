@@ -1,7 +1,6 @@
 {
   "extends": "<%= tsconfigBuildPath %>",
   "compilerOptions": {
-    "skipLibCheck": true,
     "incremental": true,
     "composite": true,
     "outDir": "./dist",

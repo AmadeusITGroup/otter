@@ -9,7 +9,7 @@ import type { PackageJson } from 'type-fest';
  * @param packageJsonPath
  */
 export function getPackageVersion(packageJsonPath: string) {
-  const packageJsonContent: PackageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf-8' }));
+  const packageJsonContent: PackageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' }));
   return packageJsonContent.version;
 }
 

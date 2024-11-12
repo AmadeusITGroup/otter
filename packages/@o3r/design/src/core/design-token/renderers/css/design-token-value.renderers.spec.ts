@@ -10,7 +10,7 @@ describe('getCssTokenValueRenderer', () => {
   let designTokens!: DesignTokenVariableSet;
 
   beforeAll(async () => {
-    const file = await fs.readFile(resolve(__dirname, '../../../../../testing/mocks/design-token-theme.json'), { encoding: 'utf-8' });
+    const file = await fs.readFile(resolve(__dirname, '../../../../../testing/mocks/design-token-theme.json'), { encoding: 'utf8' });
     exampleVariable = { document: JSON.parse(file) };
     designTokens = parser.parseDesignToken(exampleVariable);
   });

@@ -13,7 +13,7 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<I18nBuilderSche
     const fileNames = globbySync(config.localizationFiles.map((files: string) => path.posix.join(posixWorkspaceRoot, files)));
 
     fileNames.forEach((filePath) => {
-      const localizationJson: Record<string, any> = JSON.parse(fs.readFileSync(filePath, {encoding: 'utf-8'}));
+      const localizationJson: Record<string, any> = JSON.parse(fs.readFileSync(filePath, {encoding: 'utf8'}));
 
       const newContent = JSON.stringify(
         Object.entries(localizationJson)
