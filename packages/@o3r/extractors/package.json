@@ -16,49 +16,86 @@
     "ng": "yarn nx",
     "build": "yarn nx build extractors",
     "postbuild": "patch-package-json-main",
-    "prepare:build:builders": "yarn cpy 'schematics/**/*.json' 'schematics/**/templates/**' dist/schematics && yarn cpy '{collection,migration}.json' dist",
+    "prepare:build:builders": "yarn cpy 'builders/**/*.json' dist/builders && yarn cpy 'schematics/**/*.json' 'schematics/**/templates/**' dist/schematics && yarn cpy '{builders,collection,migration}.json' dist && yarn cpy 'schemas/*.json' 'dist/schemas'",
     "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest",
     "prepare:publish": "prepare-publish ./dist"
   },
   "peerDependencies": {
-    "@angular-devkit/core": "~17.3.0",
+    "@angular-devkit/architect": "~0.1800.0",
+    "@angular-devkit/core": "~18.0.0",
     "@o3r/core": "workspace:^",
     "@o3r/schematics": "workspace:^",
     "@o3r/telemetry": "workspace:^",
+    "@schematics/angular": "~18.0.0",
+    "@yarnpkg/cli": "^4.0.0",
+    "@yarnpkg/core": "^4.1.1",
+    "@yarnpkg/fslib": "^3.1.0",
+    "@yarnpkg/plugin-npm": "^3.0.1",
+    "@yarnpkg/plugin-pack": "^4.0.0",
+    "globby": "^11.1.0",
+    "semver": "^7.5.2",
+    "type-fest": "^4.10.2",
     "typescript": "~5.4.2"
   },
   "peerDependenciesMeta": {
     "@o3r/telemetry": {
       "optional": true
+    },
+    "@schematics/angular": {
+      "optional": true
+    },
+    "@yarnpkg/cli": {
+      "optional": true
+    },
+    "@yarnpkg/core": {
+      "optional": true
+    },
+    "@yarnpkg/fslib": {
+      "optional": true
+    },
+    "@yarnpkg/plugin-npm": {
+      "optional": true
+    },
+    "@yarnpkg/plugin-pack": {
+      "optional": true
+    },
+    "globby": {
+      "optional": true
+    },
+    "semver": {
+      "optional": true
+    },
+    "type-fest": {
+      "optional": true
     }
   },
   "dependencies": {
-    "@microsoft/tsdoc": "~0.14.1",
+    "@microsoft/tsdoc": "~0.15.0",
     "inquirer": "~8.2.6",
     "jsonschema": "~1.4.1",
     "tslib": "^2.6.2",
-    "typedoc": "~0.25.0"
+    "typedoc": "~0.26.0"
   },
   "devDependencies": {
-    "@angular-devkit/architect": "~0.1703.0",
-    "@angular-devkit/build-angular": "~17.3.0",
-    "@angular-devkit/core": "~17.3.0",
-    "@angular-devkit/schematics": "~17.3.0",
-    "@angular-eslint/eslint-plugin": "~17.5.0",
-    "@angular/animations": "~17.3.0",
-    "@angular/common": "~17.3.0",
-    "@angular/compiler": "~17.3.0",
-    "@angular/compiler-cli": "~17.3.0",
-    "@angular/core": "~17.3.0",
-    "@angular/platform-browser": "~17.3.0",
-    "@angular/platform-browser-dynamic": "~17.3.0",
+    "@angular-devkit/architect": "~0.1800.0",
+    "@angular-devkit/build-angular": "~18.0.0",
+    "@angular-devkit/core": "~18.0.0",
+    "@angular-devkit/schematics": "~18.0.0",
+    "@angular-eslint/eslint-plugin": "~18.0.0",
+    "@angular/animations": "~18.0.0",
+    "@angular/common": "~18.0.0",
+    "@angular/compiler": "~18.0.0",
+    "@angular/compiler-cli": "~18.0.0",
+    "@angular/core": "~18.0.0",
+    "@angular/platform-browser": "~18.0.0",
+    "@angular/platform-browser-dynamic": "~18.0.0",
     "@babel/core": "~7.24.0",
     "@babel/preset-typescript": "~7.24.0",
     "@compodoc/compodoc": "^1.1.19",
-    "@nx/eslint": "~18.3.0",
-    "@nx/eslint-plugin": "~18.3.0",
-    "@nx/jest": "~18.3.0",
-    "@nx/js": "~18.3.0",
+    "@nx/eslint": "~19.3.0",
+    "@nx/eslint-plugin": "~19.3.0",
+    "@nx/jest": "~19.3.0",
+    "@nx/js": "~19.3.0",
     "@o3r/build-helpers": "workspace:^",
     "@o3r/core": "workspace:^",
     "@o3r/eslint-config-otter": "workspace:^",
@@ -66,26 +103,35 @@
     "@o3r/schematics": "workspace:^",
     "@o3r/telemetry": "workspace:^",
     "@o3r/test-helpers": "workspace:^",
-    "@stylistic/eslint-plugin-ts": "^1.5.4",
+    "@schematics/angular": "~18.0.0",
+    "@stylistic/eslint-plugin-ts": "~2.4.0",
     "@types/inquirer": "~8.2.10",
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",
-    "@typescript-eslint/eslint-plugin": "^7.2.0",
-    "@typescript-eslint/parser": "^7.2.0",
+    "@types/semver": "^7.3.13",
+    "@typescript-eslint/eslint-plugin": "^7.14.1",
+    "@typescript-eslint/parser": "^7.14.1",
+    "@typescript-eslint/utils": "^7.14.1",
+    "@yarnpkg/cli": "^4.3.1",
+    "@yarnpkg/core": "^4.1.1",
+    "@yarnpkg/fslib": "^3.1.0",
+    "@yarnpkg/plugin-npm": "^3.0.1",
+    "@yarnpkg/plugin-pack": "^4.0.0",
     "cpy-cli": "^5.0.0",
     "eslint": "^8.57.0",
     "eslint-import-resolver-node": "^0.3.9",
-    "eslint-plugin-jest": "~27.9.0",
-    "eslint-plugin-jsdoc": "~48.2.1",
+    "eslint-plugin-jest": "~28.6.0",
+    "eslint-plugin-jsdoc": "~48.4.0",
     "eslint-plugin-prefer-arrow": "~1.2.3",
-    "eslint-plugin-unicorn": "^51.0.1",
+    "eslint-plugin-unicorn": "^54.0.0",
+    "globby": "^11.1.0",
     "intl-messageformat": "~10.5.1",
     "jest": "~29.7.0",
     "jest-environment-jsdom": "~29.7.0",
     "jest-junit": "~16.0.0",
     "jest-preset-angular": "~14.1.0",
     "jsonc-eslint-parser": "~2.4.0",
-    "nx": "~18.3.0",
+    "nx": "~19.3.0",
     "pid-from-port": "^1.1.3",
     "rimraf": "^5.0.1",
     "rxjs": "^7.8.1",
@@ -94,12 +140,13 @@
     "ts-node": "~10.9.2",
     "type-fest": "^4.10.2",
     "typescript": "~5.4.2",
-    "typescript-json-schema": "~0.63.0",
+    "typescript-json-schema": "~0.64.0",
     "zone.js": "~0.14.2"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": "^18.19.1 || ^20.11.1 || >=22.0.0"
   },
+  "builders": "./builders.json",
   "schematics": "./collection.json",
   "ng-update": {
     "migrations": "./migration.json"

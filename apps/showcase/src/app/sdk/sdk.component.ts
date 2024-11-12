@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, Component, QueryList, ViewChildren, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, inject, QueryList, ViewChildren, ViewEncapsulation } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { O3rComponent } from '@o3r/core';
 import {
@@ -28,11 +28,11 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SdkComponent implements AfterViewInit {
+  private readonly inPageNavPresService = inject(InPageNavPresService);
+
   @ViewChildren(InPageNavLinkDirective)
   private readonly inPageNavLinkDirectives!: QueryList<InPageNavLink>;
   public links$ = this.inPageNavPresService.links$;
-
-  constructor(private readonly inPageNavPresService: InPageNavPresService) {}
 
   public ngAfterViewInit() {
     this.inPageNavPresService.initialize(this.inPageNavLinkDirectives);

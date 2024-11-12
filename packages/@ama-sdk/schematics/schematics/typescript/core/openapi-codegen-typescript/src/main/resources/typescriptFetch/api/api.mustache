@@ -11,24 +11,20 @@ import { Api, ApiClient, ApiTypes, computePiiParameterTokens, isJsonMimeType, Re
   {{#operation}}
     {{#allParams}}
       {{#isEnum}}
-export type {{#uppercaseFirst}}{{nickname}}{{/uppercaseFirst}}{{#uppercaseFirst}}{{paramName}}{{/uppercaseFirst}}Enum = {{#trimPipe}}{{#allowableValues}}{{#values}}'{{.}}' | {{/values}}{{/allowableValues}}{{/trimPipe}};
+/** Enum {{paramName}} used in the {{classname}}'s {{nickname}} function parameter */
+export type {{classname}}{{#uppercaseFirst}}{{nickname}}{{/uppercaseFirst}}{{#uppercaseFirst}}{{paramName}}{{/uppercaseFirst}}Enum = {{#trimPipe}}{{#allowableValues}}{{#values}}'{{.}}' | {{/values}}{{/allowableValues}}{{/trimPipe}};
+
       {{/isEnum}}
     {{/allParams}}
   {{/operation}}
   {{#operation}}
-export interface {{#uppercaseFirst}}{{nickname}}{{/uppercaseFirst}}RequestData {
+/** Parameters object to {{classname}}'s {{nickname}} function */
+export interface {{classname}}{{#uppercaseFirst}}{{nickname}}{{/uppercaseFirst}}RequestData {
     {{#allParams}}
   /** {{#description}}{{{description}}}{{/description}}{{^description}}{{#isArray}}List of {{#plurialize}}{{#noArrayInType}}{{{dataType}}}{{/noArrayInType}}{{/plurialize}}{{/isArray}}{{/description}} */
-  '{{baseName}}'{{^required}}?{{/required}}{{#required}}{{#defaultValue}}?{{/defaultValue}}{{/required}}: {{#isEnum}}{{#uppercaseFirst}}{{nickname}}{{/uppercaseFirst}}{{#uppercaseFirst}}{{paramName}}{{/uppercaseFirst}}Enum{{#isArray}}[]{{/isArray}}{{/isEnum}}{{^isEnum}}{{#isBodyParam}}{{{baseType}}}{{#isArray}}[]{{/isArray}}{{/isBodyParam}}{{^isBodyParam}}{{{dataType}}}{{/isBodyParam}}{{/isEnum}};
+  '{{baseName}}'{{^required}}?{{/required}}{{#required}}{{#defaultValue}}?{{/defaultValue}}{{/required}}: {{#isEnum}}{{classname}}{{#uppercaseFirst}}{{nickname}}{{/uppercaseFirst}}{{#uppercaseFirst}}{{paramName}}{{/uppercaseFirst}}Enum{{#isArray}}[]{{/isArray}}{{/isEnum}}{{^isEnum}}{{#isBodyParam}}{{{baseType}}}{{#isArray}}[]{{/isArray}}{{/isBodyParam}}{{^isBodyParam}}{{{dataType}}}{{/isBodyParam}}{{/isEnum}};
     {{/allParams}}
 }
-  {{/operation}}
-  {{#operation}}
-/**
- * @Deprecated, please use {{#uppercaseFirst}}{{nickname}}{{/uppercaseFirst}}RequestData
- */
-export interface {{#uppercaseFirst}}{{nickname}}{{/uppercaseFirst}} extends {{#uppercaseFirst}}{{nickname}}{{/uppercaseFirst}}RequestData {}
-
   {{/operation}}
   {{#description}}
 /**
@@ -68,13 +64,13 @@ export class {{classname}} implements Api {
    * @param data Data to provide to the API call
    * @param metadata Metadata to pass to the API call
    */
-  public async {{nickname}}(data: {{#uppercaseFirst}}{{nickname}}{{/uppercaseFirst}}RequestData, metadata?: RequestMetadata<{{#consumes}}'{{mediaType}}'{{^-last}} | {{/-last}}{{/consumes}}{{^consumes}}string{{/consumes}}, {{#produces}}'{{mediaType}}'{{^-last}} | {{/-last}}{{/produces}}{{^produces}}string{{/produces}}>): Promise<{{#vendorExtensions}}{{#responses2xxReturnTypes}}{{.}}{{^-last}} | {{/-last}}{{/responses2xxReturnTypes}}{{^responses2xxReturnTypes}}never{{/responses2xxReturnTypes}}{{/vendorExtensions}}> {
+  public async {{nickname}}(data: {{classname}}{{#uppercaseFirst}}{{nickname}}{{/uppercaseFirst}}RequestData, metadata?: RequestMetadata<{{#consumes}}'{{mediaType}}'{{^-last}} | {{/-last}}{{/consumes}}{{^consumes}}string{{/consumes}}, {{#produces}}'{{mediaType}}'{{^-last}} | {{/-last}}{{/produces}}{{^produces}}string{{/produces}}>): Promise<{{#vendorExtensions}}{{#responses2xxReturnTypes}}{{.}}{{^-last}} | {{/-last}}{{/responses2xxReturnTypes}}{{^responses2xxReturnTypes}}never{{/responses2xxReturnTypes}}{{/vendorExtensions}}> {
     {{#allParams}}
       {{#defaultValue}}
     data['{{baseName}}'] = data['{{baseName}}'] !== undefined ? data['{{baseName}}'] : {{#isString}}'{{/isString}}{{defaultValue}}{{#isString}}'{{/isString}};
       {{/defaultValue}}
     {{/allParams}}
-    const queryParams = this.client.extractQueryParams<{{#uppercaseFirst}}{{nickname}}{{/uppercaseFirst}}RequestData>(data, [{{#trimComma}}{{#queryParams}}'{{baseName}}', {{/queryParams}}{{/trimComma}}]{{^queryParams}} as never[]{{/queryParams}});
+    const queryParams = this.client.extractQueryParams<{{classname}}{{#uppercaseFirst}}{{nickname}}{{/uppercaseFirst}}RequestData>(data, [{{#trimComma}}{{#queryParams}}'{{baseName}}', {{/queryParams}}{{/trimComma}}]{{^queryParams}} as never[]{{/queryParams}});
     const metadataHeaderAccept = metadata?.headerAccept || '{{#headerJsonMimeType}}{{#produces}}{{mediaType}}{{^-last}}, {{/-last}}{{/produces}}{{/headerJsonMimeType}}';
     const headers: { [key: string]: string | undefined } = {
   {{#trimComma}}    'Content-Type': metadata?.headerContentType || '{{#headerJsonMimeType}}{{#consumes}}{{mediaType}}{{^-last}}, {{/-last}}{{/consumes}}{{/headerJsonMimeType}}',
@@ -118,7 +114,7 @@ export class {{classname}} implements Api {
       api: this
     };
 
-    const options = this.client.getRequestOptions ? await this.client.getRequestOptions(requestOptions) : await this.client.prepareOptions(basePath, '{{httpMethod}}', queryParams, headers, body || undefined, tokenizedOptions, metadata);
+    const options = await this.client.getRequestOptions(requestOptions);
     const url = this.client.prepareUrl(options.basePath, options.queryParams);
 
     const ret = this.client.processCall<{{#vendorExtensions}}{{#responses2xxReturnTypes}}{{.}}{{^-last}} | {{/-last}}{{/responses2xxReturnTypes}}{{^responses2xxReturnTypes}}never{{/responses2xxReturnTypes}}{{/vendorExtensions}}>(url, options, {{#tags.0.extensions.x-api-type}}ApiTypes.{{tags.0.extensions.x-api-type}}{{/tags.0.extensions.x-api-type}}{{^tags.0.extensions.x-api-type}}ApiTypes.DEFAULT{{/tags.0.extensions.x-api-type}}, {{classname}}.apiName,{{#keepRevivers}}{{#vendorExtensions}}{{#responses2xx}}{{#-first}} { {{/-first}}{{code}}: {{^primitiveType}}revive{{baseType}}{{/primitiveType}}{{#primitiveType}}undefined{{/primitiveType}}{{^-last}}, {{/-last}}{{#-last}} } {{/-last}}{{/responses2xx}}{{^responses2xx}} undefined{{/responses2xx}}{{/vendorExtensions}}{{/keepRevivers}}{{^keepRevivers}} undefined{{/keepRevivers}}, '{{nickname}}');

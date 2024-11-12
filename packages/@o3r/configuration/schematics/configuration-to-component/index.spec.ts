@@ -91,7 +91,7 @@ export class NgComponent {}
     const componentFileContent = tree.readText(o3rComponentPath);
     expect(componentFileContent).toContain('DynamicConfigurableWithSignal<TestConfig>');
     expect(componentFileContent).toContain('public config = input<Partial<TestConfig>>()');
-    expect(componentFileContent).toContain('public readonly configSignal = configSignal(this.config, TEST_CONFIG_ID, TEST_DEFAULT_CONFIG, this.configurationService)');
+    expect(componentFileContent).toContain('public readonly configSignal = configSignal(this.config, TEST_CONFIG_ID, TEST_DEFAULT_CONFIG)');
   });
 
   it('should not expose the component', async () => {

@@ -15,29 +15,62 @@ import {
 } from '@o3r/test-helpers';
 import * as path from 'node:path';
 
-describe('new otter application with analytics', () => {
-  test('should add analytics to existing application', async () => {
-    const { projectPath, workspacePath, projectName, isInWorkspace, untouchedProjectPath, o3rVersion } = o3rEnvironment.testEnvironment;
+describe('ng add analytics', () => {
+  test('should add analytics to an application', async () => {
+    const { applicationPath, workspacePath, appName, isInWorkspace, isYarnTest, untouchedProjectsPaths, o3rVersion, libraryPath } = o3rEnvironment.testEnvironment;
     const execAppOptions = {...getDefaultExecSyncOptions(), cwd: workspacePath};
-    const relativeProjectPath = path.relative(workspacePath, projectPath);
-    packageManagerExec({script: 'ng', args: ['add', `@o3r/analytics@${o3rVersion}`, '--project-name', projectName, '--skip-confirmation']}, execAppOptions);
+    const relativeApplicationPath = path.relative(workspacePath, applicationPath);
+    expect(() => packageManagerExec({script: 'ng', args: ['add', `@o3r/analytics@${o3rVersion}`, '--project-name', appName, '--skip-confirmation']}, execAppOptions)).not.toThrow();
 
-    packageManagerExec({script: 'ng', args: ['g', '@o3r/core:component', 'test-component', '--use-otter-analytics', 'false', '--project-name', projectName]}, execAppOptions);
-    const componentPath = path.normalize(path.join(relativeProjectPath, 'src/components/test-component/test-component.component.ts'));
+    packageManagerExec({script: 'ng', args: ['g', '@o3r/core:component', 'test-component', '--use-otter-analytics', 'false', '--project-name', appName]}, execAppOptions);
+    const componentPath = path.normalize(path.posix.join(relativeApplicationPath, 'src/components/test-component/test-component.component.ts'));
     packageManagerExec({script: 'ng', args: ['g', '@o3r/analytics:add-analytics', '--path', componentPath]}, execAppOptions);
-    await addImportToAppModule(projectPath, 'TestComponentModule', 'src/components/test-component');
+    await addImportToAppModule(applicationPath, 'TestComponentModule', 'src/components/test-component');
 
     const diff = getGitDiff(workspacePath);
-    expect(diff.all.some((file) => /projects[\\/]dont-modify-me/.test(file))).toBe(false);
-    expect(diff.modified).toContain(path.join(relativeProjectPath, 'package.json').replace(/[\\/]+/g, '/'));
-    expect(diff.added).toContain(path.join(relativeProjectPath, 'src/components/test-component/test-component.analytics.ts').replace(/[\\/]+/g, '/'));
 
-    if (untouchedProjectPath) {
-      const relativeUntouchedProjectPath = path.relative(workspacePath, untouchedProjectPath);
-      expect(diff.all.filter((file) => new RegExp(relativeUntouchedProjectPath.replace(/[\\/]+/g, '[\\\\/]')).test(file)).length).toBe(0);
-    }
+    expect(diff.added).toContain(path.join(relativeApplicationPath, 'src/components/test-component/test-component.analytics.ts').replace(/[\\/]+/g, '/'));
+    expect(diff.added.length).toBe(10);
+    expect(diff.modified.sort()).toEqual([
+      'angular.json',
+      'apps/test-app/package.json',
+      'apps/test-app/src/app/app.component.ts',
+      'package.json',
+      isYarnTest ? 'yarn.lock' : 'package-lock.json'
+    ].sort());
 
+    [libraryPath, ...untouchedProjectsPaths].forEach(untouchedProject => {
+      expect(diff.all.some(file => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
+    });
     expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
-    expect(() => packageManagerRunOnProject(projectName, isInWorkspace, {script: 'build'}, execAppOptions)).not.toThrow();
+    expect(() => packageManagerRunOnProject(appName, isInWorkspace, {script: 'build'}, execAppOptions)).not.toThrow();
+  });
+
+  test('should add analytics to a library', () => {
+    const { applicationPath, workspacePath, libName, isInWorkspace, isYarnTest, o3rVersion, libraryPath, untouchedProjectsPaths } = o3rEnvironment.testEnvironment;
+    const execAppOptions = {...getDefaultExecSyncOptions(), cwd: workspacePath};
+    const relativeLibraryPath = path.relative(workspacePath, libraryPath);
+    expect(() => packageManagerExec({script: 'ng', args: ['add', `@o3r/analytics@${o3rVersion}`, '--project-name', libName, '--skip-confirmation']}, execAppOptions)).not.toThrow();
+
+    packageManagerExec({script: 'ng', args: ['g', '@o3r/core:component', 'test-component', '--use-otter-analytics', 'false', '--project-name', libName]}, execAppOptions);
+    const componentPath = path.normalize(path.posix.join(relativeLibraryPath, 'src/components/test-component/test-component.component.ts'));
+    packageManagerExec({script: 'ng', args: ['g', '@o3r/analytics:add-analytics', '--path', componentPath]}, execAppOptions);
+
+    const diff = getGitDiff(workspacePath);
+
+    expect(diff.added).toContain(path.join(relativeLibraryPath, 'src/components/test-component/test-component.analytics.ts').replace(/[\\/]+/g, '/'));
+    expect(diff.added.length).toBe(10);
+    expect(diff.modified.sort()).toEqual([
+      'angular.json',
+      'libs/test-lib/package.json',
+      'package.json',
+      isYarnTest ? 'yarn.lock' : 'package-lock.json'
+    ].sort());
+
+    [ applicationPath, ...untouchedProjectsPaths].forEach(untouchedProject => {
+      expect(diff.all.some(file => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
+    });
+    expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
+    expect(() => packageManagerRunOnProject(libName, isInWorkspace, {script: 'build'}, execAppOptions)).not.toThrow();
   });
 });
