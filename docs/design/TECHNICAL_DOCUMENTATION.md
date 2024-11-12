@@ -19,8 +19,66 @@ Both of these features can be customized at different levels. They can be custom
 
 ### Parsers
 
-Currently the [o3r/design](https://github.com/AmadeusITGroup/otter/tree/main/packages/@o3r/design) package provides only a single [parser](https://github.com/AmadeusITGroup/otter/tree/main/packages/@o3r/design/src/core/design-token/parsers).
+Currently the [@o3r/design](https://github.com/AmadeusITGroup/otter/tree/main/packages/@o3r/design) package provides only a single [parser](https://github.com/AmadeusITGroup/otter/tree/main/packages/@o3r/design/src/core/design-token/parsers).
 This parser handles Design Token specifications (as a JSON file or a loaded object resulting from the parsing of a JSON file) to generate an object facilitating the tree navigation and the value computed by the renderers.
+
+#### Template feature
+
+In addition of parsing Design Token specifications, the parser also offers the feature to enhance the specifications thanks to a *template* that can be provided via the parser context.
+The purpose of the *template* is to provide default values to `$extensions` and `$description` to any nodes of the specification.
+
+Example:
+
+```json5
+// The template to apply (at application/library level):
+{
+  "color": {
+    "$extension": {
+      "o3rMetadata": {
+        "category": "theming" // set the property o3rMetadata.category to "theming" for all `color.*` tokens
+      }
+    },
+    "background": {
+      "$extension": {
+        "o3rPrivate": true // will turn the `color.background.*` tokens to private
+      }
+    }
+  }
+}
+```
+
+when applied to the following Design Token specification:
+
+```json5
+{
+  "color.primary.500": { // will inherit of `o3rPrivate: true` and `o3rMetadata.category: "theming"`
+    "$value": "#aaa"
+  },
+  "color.secondary.500": { // will inherit of `o3rPrivate: true` only
+    "$value": "#aaa",
+    "$extension": {
+      "o3rMetadata": {
+        "category": "supp"
+      }
+    }
+  },
+  "color.ternary.500": { // will not be changed
+    "$value": "#aaa",
+    "$extension": {
+      "private": false,
+      "o3rMetadata": {
+        "category": "supp"
+      }
+    }
+  },
+  "sizing.spacer.10": { // will not be changed`
+    "$value": "64px"
+  },
+}
+```
+
+> [!TIP]
+> When using the [generate-css builder](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40o3r/design/README.md#generate-css), the *template* can be provided as JSON file via the **templateFile** option.
 
 ### Renderers
 

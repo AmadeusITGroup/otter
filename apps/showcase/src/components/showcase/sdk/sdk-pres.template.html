@@ -70,7 +70,7 @@
           <tr>
             <td>
               @if (pet.photoUrls?.[0]; as icon) {
-                <img width="34" height="34" [src]="baseUrl+icon" alt="{{icon}}" />
+                <img width="34" height="34" [src]="icon | otterIconPath" alt="{{icon}}" />
               }
             </td>
             <th scope="row">

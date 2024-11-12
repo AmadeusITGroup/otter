@@ -26,6 +26,12 @@
         ]
       }
     },
+    "test-int": {
+      "executor": "@nx/jest:jest",
+      "options": {
+        "jestConfig": "packages/@o3r/third-party/testing/jest.config.it.js"
+      }
+    },
     "test": {
       "executor": "@nx/jest:jest",
       "options": {

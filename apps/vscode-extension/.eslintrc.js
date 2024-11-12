@@ -17,5 +17,18 @@ module.exports = {
   },
   'extends': [
     '../../.eslintrc.js'
+  ],
+  'overrides': [
+    {
+      'files': ['**/package.json'],
+      'rules': {
+        '@nx/dependency-checks': ['error', {
+          'buildTargets': ['build', 'build-builders', 'compile', 'test'],
+          'checkObsoleteDependencies': false,
+          'checkVersionMismatches': false,
+          'ignoredDependencies': ['ora', '@o3r/test-helpers', '@o3r/schematics']
+        }]
+      }
+    }
   ]
 };

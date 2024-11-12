@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Directive, ElementRef, Inject, Input } from '@angular/core';
+import { ChangeDetectorRef, Directive, ElementRef, Inject, Input, OnDestroy } from '@angular/core';
 import { TranslateDirective, TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { LocalizationConfiguration } from '../core';
@@ -10,7 +10,7 @@ import { LOCALIZATION_CONFIGURATION_TOKEN } from './localization.token';
 @Directive({
   selector: '[translate],[ngx-translate]'
 })
-export class LocalizationTranslateDirective extends TranslateDirective {
+export class LocalizationTranslateDirective extends TranslateDirective implements OnDestroy {
   /**
    * Internal subscription to the LocalizationService showKeys mode changes
    */

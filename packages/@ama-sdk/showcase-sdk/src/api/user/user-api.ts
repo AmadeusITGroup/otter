@@ -82,7 +82,6 @@ export class UserApi implements Api {
 
   /**
    * Initialize your interface
-   *
    * @param apiClient Client used to process call to the API
    */
   constructor(apiClient: ApiClient) {
@@ -212,7 +211,6 @@ export class UserApi implements Api {
 
   /**
    * Get user by user name
-   *
    * @param data Data to provide to the API call
    * @param metadata Metadata to pass to the API call
    */
@@ -249,7 +247,6 @@ export class UserApi implements Api {
 
   /**
    * Logs user into the system
-   *
    * @param data Data to provide to the API call
    * @param metadata Metadata to pass to the API call
    */
@@ -286,7 +283,6 @@ export class UserApi implements Api {
 
   /**
    * Logs out current logged in user session
-   *
    * @param data Data to provide to the API call
    * @param metadata Metadata to pass to the API call
    */

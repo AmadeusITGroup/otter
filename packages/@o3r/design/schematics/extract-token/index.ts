@@ -1,7 +1,8 @@
 import type { Rule } from '@angular-devkit/schematics';
-import type { ExtractTokenSchematicsSchema } from './schema';
+import type { createSchematicWithMetricsIfInstalled } from '@o3r/schematics';
 import { posix, resolve } from 'node:path';
 import { AUTO_GENERATED_END, AUTO_GENERATED_START, DesignToken, DesignTokenGroup, DesignTokenNode } from '../../src/public_api';
+import type { ExtractTokenSchematicsSchema } from './schema';
 
 const patternToDetect = 'o3r.var';
 
@@ -9,7 +10,7 @@ const patternToDetect = 'o3r.var';
  * Extract the token from o3r mixin sass file
  * @param options
  */
-export function extractToken(options: ExtractTokenSchematicsSchema): Rule {
+function extractTokenFn(options: ExtractTokenSchematicsSchema): Rule {
 
   const updateFileContent = (content: string): string => {
     const start = content.indexOf(patternToDetect);
@@ -104,3 +105,20 @@ export function extractToken(options: ExtractTokenSchematicsSchema): Rule {
     }
   };
 }
+
+/**
+ * Extract the token from o3r mixin sass file
+ * @param options
+ */
+export const extractToken = (options: ExtractTokenSchematicsSchema) => async () => {
+  let createSchematicWithMetrics: typeof createSchematicWithMetricsIfInstalled | undefined;
+  try {
+    ({ createSchematicWithMetricsIfInstalled: createSchematicWithMetrics } = await import('@o3r/schematics'));
+  } catch {
+    // No @o3r/schematics detected
+  }
+  if (!createSchematicWithMetrics) {
+    return extractTokenFn(options);
+  }
+  return createSchematicWithMetrics(extractTokenFn)(options);
+};

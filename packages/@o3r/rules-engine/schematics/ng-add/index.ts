@@ -1,9 +1,12 @@
 import { chain, type Rule } from '@angular-devkit/schematics';
-import { updateCmsAdapter } from '../cms-adapter';
-import type { NgAddSchematicsSchema } from './schema';
+import { addRootImport } from '@schematics/angular/utility';
 import * as path from 'node:path';
 import * as fs from 'node:fs';
+import * as ts from 'typescript';
+import { updateCmsAdapter } from '../cms-adapter';
 import { registerDevtools } from './helpers/devtools-registration';
+import type { NgAddSchematicsSchema } from './schema';
+import { isImported } from '@schematics/angular/utility/ast-utils';
 
 const devDependenciesToInstall = [
   'jsonpath-plus'
@@ -14,6 +17,33 @@ const reportMissingSchematicsDep = (logger: { error: (message: string) => any })
 If the error is related to missing @o3r dependencies you need to install '@o3r/core' to be able to use the rules-engine package. Please run 'ng add @o3r/core' .
 Otherwise, use the error message as guidance.`);
   throw reason;
+};
+
+const updateAppModuleOrAppConfig = (projectName: string | undefined): Rule => async (tree, context) => {
+  const {
+    getAppModuleFilePath
+  } = await import('@o3r/schematics');
+  const moduleFilePath = getAppModuleFilePath(tree, context, projectName);
+  if (!moduleFilePath) {
+    return () => tree;
+  }
+
+  const sourceFileContent = tree.readText(moduleFilePath);
+  const sourceFile = ts.createSourceFile(
+    moduleFilePath,
+    sourceFileContent,
+    ts.ScriptTarget.ES2015,
+    true
+  );
+
+  if (isImported(sourceFile, 'RulesEngineRunnerModule', '@o3r/rules-engine')) {
+    return () => tree;
+  }
+
+  return addRootImport(
+    projectName!,
+    ({code, external}) => code`\n${external('RulesEngineRunnerModule', '@o3r/rules-engine')}.forRoot()`
+  );
 };
 
 /**
@@ -81,7 +111,8 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
         ngAddToRun: depsInfo.o3rPeerDeps
       }),
       ...(options.enableMetadataExtract ? [updateCmsAdapter(options)] : []),
-      await registerDevtools(options)
+      await registerDevtools(options),
+      updateAppModuleOrAppConfig(options.projectName)
     ]);
 
     context.logger.info(`The package ${depsInfo.packageName!} comes with a debug mechanism`);
