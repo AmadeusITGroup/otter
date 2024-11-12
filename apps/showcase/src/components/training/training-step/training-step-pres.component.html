@@ -2,7 +2,7 @@
   @if (instructions) {
     <div class="instructions h-100 col overflow-auto">
       <h2>{{title}}</h2>
-      <div [innerHTML]="instructions"></div>
+      <markdown clipboard [data]="instructions"></markdown>
     </div>
   }
   @if (project) {
