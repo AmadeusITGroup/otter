@@ -49,11 +49,6 @@ export class CodeEditorControlComponent implements OnDestroy, AfterViewInit {
   public readonly webContainerService = inject(WebContainerService);
 
   /**
-   * Whether to show the panels - if set to false, hide all the panels and only display the tab bar
-   */
-  public show = true;
-
-  /**
    * Current tab displayed
    */
   public activeTab: 'preview' | 'output' | 'terminal' = 'preview';

@@ -1,10 +1,4 @@
 code-editor-control {
-  transition: min-height 100ms ease;
-
-  &:has(.command-panel.d-none) {
-    min-height: 3rem;
-  }
-
   .tab-content {
     --df-tabs-content-tab-pane-padding: 0;
     overflow: hidden;

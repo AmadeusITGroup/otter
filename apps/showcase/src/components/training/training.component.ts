@@ -95,8 +95,6 @@ const currentStepLocationRegExp = new RegExp(/#([0-9]+)$/);
 export class TrainingComponent implements OnInit {
   /** Index of the training step to display */
   public currentStepIndex = signal(0);
-  /** Display instructions */
-  public showInstructions = signal(true);
   /** Display exercise solution */
   public showSolution = signal(false);
   /** Training steps */
@@ -249,13 +247,6 @@ export class TrainingComponent implements OnInit {
       : `${location.hash}#${this.currentStepIndex()}`;
     history.pushState(null, '', newHash);
     this.showSolution.set(false);
-  }
-
-  /**
-   * Update the display of instructions and the corresponding button label
-   */
-  public toggleDisplayInstructions() {
-    this.showInstructions.set(!this.showInstructions());
   }
 
   /**

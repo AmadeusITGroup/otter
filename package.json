@@ -221,6 +221,7 @@
     "@yarnpkg/sdks": "^3.2.0",
     "ag-grid-angular": "~32.3.0",
     "ag-grid-community": "~32.3.0",
+    "angular-split": "^18.0.0",
     "babel-loader": "^9.0.0",
     "bootstrap": "5.3.3",
     "bootstrap-icons": "^1.11.3",

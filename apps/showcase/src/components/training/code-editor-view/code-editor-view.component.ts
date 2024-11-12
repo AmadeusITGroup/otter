@@ -11,6 +11,7 @@ import {
 } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {FileSystemTree} from '@webcontainer/api';
+import {AngularSplitModule} from 'angular-split';
 import {MonacoEditorModule} from 'ngx-monaco-editor-v2';
 import {MonacoTreeElement, NgxMonacoTreeComponent} from 'ngx-monaco-tree';
 import {
@@ -65,7 +66,8 @@ export interface TrainingProject {
     JsonPipe,
     MonacoEditorModule,
     NgxMonacoTreeComponent,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AngularSplitModule
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
