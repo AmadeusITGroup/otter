@@ -29,7 +29,7 @@ export const getJsonSchemaTokenValueRenderer = (options?: JsonSchemaTokenValueRe
     const cssType = variable.getType(variableSet);
     const variableValue: any = {
       description: variable.description,
-      default: variable.node.$value
+      default: variable.getCssRawValue(variableSet)
     };
     if (!cssType) {
       variableValue.$ref = referenceUrl();

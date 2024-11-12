@@ -6,6 +6,7 @@ export {SelectElementProfile} from '../../elements';
 
 /**
  * Implementation dedicated to Protractor.
+ * @deprecated Will be removed in v13, please use Playwright instead
  */
 export class O3rSelectElement extends O3rElement implements SelectElementProfile {
   constructor(sourceElement: ElementFinder | O3rElement) {

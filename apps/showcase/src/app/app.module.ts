@@ -1,4 +1,4 @@
-import {ApiClient, ApiFetchClient} from '@ama-sdk/core';
+import { ApiFetchClient } from '@ama-sdk/client-fetch';
 import {PetApi} from '@ama-sdk/showcase-sdk';
 import { registerLocaleData } from '@angular/common';
 import localeEN from '@angular/common/locales/en';
@@ -46,7 +46,7 @@ registerLocaleData(localeEN, 'en-GB');
 registerLocaleData(localeFR, 'fr-FR');
 
 function petApiFactory(logger: Logger) {
-  const apiConfig: ApiClient = new ApiFetchClient(
+  const apiConfig = new ApiFetchClient(
     {
       basePath: 'https://petstore3.swagger.io/api/v3',
       requestPlugins: [],

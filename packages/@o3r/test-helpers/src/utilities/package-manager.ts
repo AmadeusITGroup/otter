@@ -19,6 +19,7 @@ type Command =
   | 'exec'
   | 'info'
   | 'install'
+  | 'ci'
   | 'publish'
   | 'run'
   | 'version'
@@ -28,6 +29,7 @@ type Command =
 const PACKAGE_MANAGERS_CMD: {[packageManager in SupportedPackageManagers]: {[command in Command]: string[]}} = {
   npm: {
     add: ['npm', 'install'],
+    ci: ['npm', 'ci'],
     create: ['npm', 'create'],
     exec: ['npm', 'exec'],
     info: ['npm', 'info'],
@@ -40,6 +42,7 @@ const PACKAGE_MANAGERS_CMD: {[packageManager in SupportedPackageManagers]: {[com
   },
   yarn: {
     add: ['yarn', 'add'],
+    ci: ['yarn', 'install', '--immutable'],
     create: ['yarn', 'create'],
     exec: ['yarn'],
     info: ['yarn', 'info'],
@@ -194,6 +197,14 @@ export function packageManagerInstall(options: ExecSyncOptions) {
 }
 
 /**
+ * Install the dependencies without updating lock file (npm ci / yarn install --frozen-lockfile)
+ * @param options
+ */
+export function packageManagerInstallWithFrozenLock(options: ExecSyncOptions) {
+  return execCmd(PACKAGE_MANAGERS_CMD[getPackageManager()].ci, options);
+}
+
+/**
  * Execute a script from the package.json (npm run / yarn run)
  * @param command
  * @param options
@@ -285,6 +296,7 @@ export function setPackagerManagerConfig(options: PackageManagerConfig, execAppO
 
   execFileSync('npm', ['config', 'set', 'audit=false', '-L=project'], execOptions);
   execFileSync('npm', ['config', 'set', 'fund=false', '-L=project'], execOptions);
+  execFileSync('npm', ['config', 'set', 'prefer-dedupe=true', '-L=project'], execOptions);
   execFileSync('npm', ['config', 'set', 'prefer-offline=false', '-L=project'], execOptions);
   execFileSync('npm', ['config', 'set', 'ignore-scripts=true', '-L=project'], execOptions);
 

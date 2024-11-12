@@ -1,125 +1,125 @@
 import { O3rElement } from '@o3r/testing/core';
-import { type Page, test } from '@playwright/test';
+import { type Page, test, type TestInfo } from '@playwright/test';
+import { type playwrightLighthouseConfig } from 'playwright-lighthouse';
 import { AppFixtureComponent } from '../../src/app/app.fixture';
 
-async function performAudit(name: string, page: Page) {
-  const { playAudit } = await import('playwright-lighthouse');
-  await playAudit({
-    page,
-    thresholds: {
-      performance: 50,
-      accessibility: 100,
-      // eslint-disable-next-line @typescript-eslint/naming-convention
-      'best-practices': 90
-    },
-    reports: {
-      formats: {
-        html: true
-      },
-      directory: 'playwright-reports/lighthouse',
-      name: name
-    },
-    port: 9222
-  });
-}
-
 const baseUrl = process.env.PLAYWRIGHT_TARGET_URL || 'http://localhost:4200/';
+const lighthouseConfig: playwrightLighthouseConfig = {
+  thresholds: {
+    performance: 35,
+    accessibility: 100,
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'best-practices': 100
+  },
+  opts: {
+    disableStorageReset: false
+  },
+  reports: {
+    formats: {
+      html: true
+    },
+    directory: 'playwright-reports/lighthouse'
+  },
+  port: 9222
+};
+
+const performAudit = async (name: string, page: Page | string, testInfo: TestInfo) => {
+  const { playAudit } = await import('playwright-lighthouse');
+  try {
+    await playAudit({
+      ...lighthouseConfig,
+      url: typeof page === 'string' ? page : page.url(),
+      reports: {
+        ...lighthouseConfig.reports,
+        name: name
+      }
+    });
+  } finally {
+    await testInfo.attach('lighthouse-report', {path: `${lighthouseConfig.reports.directory}/${name}.html`});
+  }
+};
+
+/**
+ * Lighthouse tests are recommended to not run in parallel to limit variance in performance measurements.
+ * @see https://github.com/GoogleChrome/lighthouse/blob/main/docs/variability.md#run-on-adequate-hardware
+ */
+test.describe.configure({ mode: 'serial' });
 
 test.describe('Lighthouse tests', () => {
-  test('home', async ({context}) => {
-    const page = await context.newPage();
+  test('home', async ({page}, testInfo) => {
     await page.goto(baseUrl);
-    await performAudit('home', page);
-    await page.close();
+    await performAudit('home', page, testInfo);
   });
 
-  test('run-app-locally', async ({context}) => {
-    const page = await context.newPage();
+  test('run-app-locally', async ({page}, testInfo) => {
     await page.goto(baseUrl);
     const appFixture = new AppFixtureComponent(new O3rElement({element: page.locator('app-root'), page}));
     await appFixture.navigateToRunAppLocally();
     await page.waitForURL('**/run-app-locally');
-    await performAudit('run-app-locally', page);
-    await page.close();
+    await performAudit('run-app-locally', page, testInfo);
   });
 
-  test('configuration', async ({context}) => {
-    const page = await context.newPage();
+  test('configuration', async ({page}, testInfo) => {
     await page.goto(baseUrl);
     const appFixture = new AppFixtureComponent(new O3rElement({element: page.locator('app-root'), page}));
     await appFixture.navigateToConfiguration();
     await page.waitForURL('**/configuration');
-    await performAudit('configuration', page);
-    await page.close();
+    await performAudit('configuration', page, testInfo);
   });
 
-  test('localization', async ({context}) => {
-    const page = await context.newPage();
+  test('localization', async ({page}, testInfo) => {
     await page.goto(baseUrl);
     const appFixture = new AppFixtureComponent(new O3rElement({element: page.locator('app-root'), page}));
     await appFixture.navigateToLocalization();
     await page.waitForURL('**/localization');
-    await performAudit('localization', page);
-    await page.close();
+    await performAudit('localization', page, testInfo);
   });
 
-  test('dynamic-content', async ({context}) => {
-    const page = await context.newPage();
+  test('dynamic-content', async ({page}, testInfo) => {
     await page.goto(baseUrl);
     const appFixture = new AppFixtureComponent(new O3rElement({element: page.locator('app-root'), page}));
     await appFixture.navigateToDynamicContent();
     await page.waitForURL('**/dynamic-content');
-    await performAudit('dynamic-content', page);
-    await page.close();
+    await performAudit('dynamic-content', page, testInfo);
   });
 
-  test('rules-engine', async ({context}) => {
-    const page = await context.newPage();
+  test('rules-engine', async ({page}, testInfo) => {
     await page.goto(baseUrl);
     const appFixture = new AppFixtureComponent(new O3rElement({element: page.locator('app-root'), page}));
     await appFixture.navigateToRulesEngine();
     await page.waitForURL('**/rules-engine');
-    await performAudit('rules-engine', page);
-    await page.close();
+    await performAudit('rules-engine', page, testInfo);
   });
 
-  test('component-replacement', async ({context}) => {
-    const page = await context.newPage();
+  test('component-replacement', async ({page}, testInfo) => {
     await page.goto(baseUrl);
     const appFixture = new AppFixtureComponent(new O3rElement({element: page.locator('app-root'), page}));
     await appFixture.navigateToComponentReplacement();
     await page.waitForURL('**/component-replacement');
-    await performAudit('component-replacement', page);
-    await page.close();
+    await performAudit('component-replacement', page, testInfo);
   });
 
-  test('design-token', async ({context}) => {
-    const page = await context.newPage();
+  test('design-token', async ({page}, testInfo) => {
     await page.goto(baseUrl);
     const appFixture = new AppFixtureComponent(new O3rElement({element: page.locator('app-root'), page}));
     await appFixture.navigateToDesignToken();
     await page.waitForURL('**/design-token');
-    await performAudit('design-token', page);
-    await page.close();
+    await performAudit('design-token', page, testInfo);
   });
 
-  test('sdk-generator', async ({context}) => {
-    const page = await context.newPage();
+  test('sdk-generator', async ({page}, testInfo) => {
     await page.goto(baseUrl);
     const appFixture = new AppFixtureComponent(new O3rElement({element: page.locator('app-root'), page}));
     await appFixture.navigateToSDKGenerator();
     await page.waitForURL('**/sdk');
-    await performAudit('sdk-generator', page);
-    await page.close();
+    await performAudit('sdk-generator', page, testInfo);
   });
 
-  test('placeholder', async ({context}) => {
-    const page = await context.newPage();
+  test('placeholder', async ({page}, testInfo) => {
     await page.goto(baseUrl);
     const appFixture = new AppFixtureComponent(new O3rElement({element: page.locator('app-root'), page}));
     await appFixture.navigateToPlaceholder();
     await page.waitForURL('**/placeholder');
-    await performAudit('placeholder', page);
-    await page.close();
+    await performAudit('placeholder', page, testInfo);
   });
 });

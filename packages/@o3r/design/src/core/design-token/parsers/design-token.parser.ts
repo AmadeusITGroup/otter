@@ -19,6 +19,7 @@ import {
 import { dirname } from 'node:path';
 
 const tokenReferenceRegExp = /\{([^}]+)\}/g;
+const splitValueNumericRegExp = /^([-+]?[0-9]+[.,]?[0-9]*)\s*([^\s.,;]+)?/;
 
 const getTokenReferenceName = (tokenName: string, parents: string[]) => parents.join('.') + (parents.length ? '.' : '') + tokenName;
 const getExtensions = (nodes: NodeReference[], context: DesignTokenContext | undefined) => {
@@ -30,11 +31,36 @@ const getExtensions = (nodes: NodeReference[], context: DesignTokenContext | und
   }, {} as DesignTokenGroupExtensions & DesignTokenExtensions);
 };
 const getReferences = (cssRawValue: string) => Array.from(cssRawValue.matchAll(tokenReferenceRegExp)).map(([,tokenRef]) => tokenRef);
+const applyConversion = (token: DesignTokenVariableStructure, value: string) => {
+  if (typeof token.extensions.o3rUnit === 'undefined' || typeof token.extensions.o3rRatio === 'undefined') {
+    return value;
+  }
+
+  const splitValue = splitValueNumericRegExp.exec(value);
+  if (!splitValue) {
+    return value;
+  }
+
+  const [, floatValue, unit] = splitValue;
+
+  const newValue = value.replace(floatValue, (parseFloat((parseFloat(floatValue) * token.extensions.o3rRatio).toFixed(3))).toString());
+
+  if (unit) {
+    return newValue.replace(unit, token.extensions.o3rUnit);
+  }
+
+  if (floatValue === value) {
+    return newValue + token.extensions.o3rUnit;
+  }
+
+  return newValue;
+};
 // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
 const renderCssTypeStrokeStyleValue = (value: DesignTokenTypeStrokeStyleValue | string) => isTokenTypeStrokeStyleValueComplex(value) ? `${value.lineCap} ${value.dashArray.join(' ')}` : value;
 const sanitizeStringValue = (value: string) => value.replace(/[\\]/g, '\\\\').replace(/"/g, '\\"');
 const sanitizeKeyName = (name: string) => name.replace(/[ .]+/g, '-').replace(/[()[\]]+/g, '');
-const getCssRawValue = (variableSet: DesignTokenVariableSet, {node, getType}: DesignTokenVariableStructure) => {
+const getCssRawValue = (variableSet: DesignTokenVariableSet, token: DesignTokenVariableStructure) => {
+  const { node, getType } = token;
   const nodeType = getType(variableSet, false);
   if (!nodeType && node.$value) {
     return typeof node.$value.toString !== 'undefined' ? (node.$value as any).toString() : JSON.stringify(node.$value);
@@ -46,7 +72,7 @@ const getCssRawValue = (variableSet: DesignTokenVariableSet, {node, getType}: De
 
   switch (checkNode.$type) {
     case 'string': {
-      return `"${sanitizeStringValue(checkNode.$value.toString())}"`;
+      return `"${applyConversion(token, sanitizeStringValue(checkNode.$value.toString()))}"`;
     }
     case 'color':
     case 'number':
@@ -54,18 +80,20 @@ const getCssRawValue = (variableSet: DesignTokenVariableSet, {node, getType}: De
     case 'fontWeight':
     case 'fontFamily':
     case 'dimension': {
-      return checkNode.$value.toString();
+      return applyConversion(token, checkNode.$value.toString());
     }
     case 'strokeStyle': {
       return renderCssTypeStrokeStyleValue(checkNode.$value);
     }
     case 'cubicBezier': {
       return typeof checkNode.$value === 'string' ? checkNode.$value :
-        checkNode.$value.join(', ');
+        checkNode.$value
+          .map((value) => applyConversion(token, value.toString()))
+          .join(', ');
     }
     case 'border': {
       return typeof checkNode.$value === 'string' ? checkNode.$value :
-        `${checkNode.$value.width} ${renderCssTypeStrokeStyleValue(checkNode.$value.style)} ${checkNode.$value.color}`;
+        `${applyConversion(token, checkNode.$value.width)} ${renderCssTypeStrokeStyleValue(checkNode.$value.style)} ${checkNode.$value.color}`;
     }
     case 'gradient': {
       if (typeof checkNode.$value === 'string') {
@@ -83,17 +111,19 @@ const getCssRawValue = (variableSet: DesignTokenVariableSet, {node, getType}: De
 
       const values = Array.isArray(checkNode.$value) ? checkNode.$value : [checkNode.$value];
       return values
-        .map((value) => `${value.offsetX} ${value.offsetY} ${value.blur}  ${value.spread} ${value.color}`)
+        .map((value) => `${applyConversion(token, value.offsetX)} ${applyConversion(token, value.offsetY)} ${applyConversion(token, value.blur)}  ${applyConversion(token, value.spread)}`
+          + ` ${value.color}`)
         .join(', ');
     }
     case 'transition': {
       return typeof checkNode.$value === 'string' ? checkNode.$value :
         typeof checkNode.$value.timingFunction === 'string' ? checkNode.$value.timingFunction : checkNode.$value.timingFunction.join(' ') +
-          ` ${checkNode.$value.duration} ${checkNode.$value.delay}`;
+          ` ${applyConversion(token, checkNode.$value.duration)} ${applyConversion(token, checkNode.$value.delay)}`;
     }
     case 'typography': {
       return typeof checkNode.$value === 'string' ? checkNode.$value :
-        `${checkNode.$value.fontWeight} ${checkNode.$value.fontFamily} ${checkNode.$value.fontSize} ${checkNode.$value.letterSpacing} ${checkNode.$value.lineHeight}`;
+        `${applyConversion(token, checkNode.$value.fontWeight.toString())} ${checkNode.$value.fontFamily}`
+        + ` ${applyConversion(token, checkNode.$value.fontSize)} ${applyConversion(token, checkNode.$value.letterSpacing)} ${applyConversion(token, checkNode.$value.lineHeight.toString())}`;
     }
     // TODO: Add support for Grid type when available in the Design Token Standard
     default: {

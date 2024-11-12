@@ -8,10 +8,14 @@ import { O3rElement, O3rElementConstructor } from './element';
 import { O3rGroup, O3rGroupConstructor } from './group';
 import { convertPromise } from './utils';
 
+/**
+ * @deprecated Will be removed in v13, please use Playwright instead
+ */
 export type { ComponentFixtureProfile, Constructable, FixtureWithCustom } from '../component-fixture';
 
 /**
  * Implementation of the fixture dedicated to protractor, hence using the webdriver to interact with the dom.
+ * @deprecated Will be removed in v13, please use Playwright instead
  */
 export class O3rComponentFixture<V extends O3rElement = O3rElement> implements ComponentFixtureProfile<V> {
   /**

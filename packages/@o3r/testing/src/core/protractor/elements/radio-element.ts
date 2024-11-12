@@ -4,6 +4,7 @@ import {O3rElement} from '../element';
 
 /**
  * Implementation dedicated to karma / TestBed.
+ * @deprecated Will be removed in v13, please use Playwright instead
  */
 export class O3rRadioElement extends O3rElement implements RadioElementProfile {
   constructor(sourceElement: ElementFinder) {

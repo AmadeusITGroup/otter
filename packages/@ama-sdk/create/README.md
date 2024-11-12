@@ -44,7 +44,7 @@ npm create @ama-sdk typescript <project-name> -- --package-manager=yarn [...opti
 
 - `--spec-path`: Path to the swagger/open-api specification used to generate the SDK
 - `--spec-package-name`: The npm package name where the spec file can be fetched
-- `--spec-package-path`: The export path inside the package.json where to find the spec file. Defaults to _./openapi.[yml|yaml|json]_
+- `--spec-package-path`: The export path inside the package.json where to find the spec file. Defaults to *./openapi.[yml|yaml|json]*
 - `--spec-package-version`: The version to target for the npm package where the spec file can be fetched
 - `--spec-package-registry`: The npm registry where the spec file can be fetched
 
@@ -52,4 +52,4 @@ npm create @ama-sdk typescript <project-name> -- --package-manager=yarn [...opti
 > If `--spec-path` or `--spec-package-name` is specified, the SDK will be generated based on this specification at the creation time.
 
 > [!NOTE]
-> > `--spec-package-registry` option assumes that the authentication is set up globally (See [npm setup](https://docs.npmjs.com/cli/v8/configuring-npm/npmrc#auth-related-configuration), [yarn setup](https://yarnpkg.com/configuration/yarnrc#npmRegistries))
+> `--spec-package-registry` option assumes that the authentication is set up globally (See [npm setup](https://docs.npmjs.com/cli/v8/configuring-npm/npmrc#auth-related-configuration), [yarn setup](https://yarnpkg.com/configuration/yarnrc#npmRegistries))

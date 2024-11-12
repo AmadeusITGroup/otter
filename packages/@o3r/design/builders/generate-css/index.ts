@@ -17,6 +17,7 @@ import { resolve } from 'node:path';
 import { sync } from 'globby';
 import { EOL } from 'node:os';
 import { readFile, writeFile } from 'node:fs/promises';
+import { existsSync } from 'node:fs';
 
 const createBuilderWithMetricsIfInstalled: BuilderWrapper = (builderFn) => async (opts, ctx) => {
   let wrapper: BuilderWrapper = (fn) => fn;
@@ -33,7 +34,7 @@ const createBuilderWithMetricsIfInstalled: BuilderWrapper = (builderFn) => async
  */
 export default createBuilder<GenerateCssSchematicsSchema>(createBuilderWithMetricsIfInstalled(async (options, context): Promise<BuilderOutput> => {
   const templateFilePaths = options.templateFile
-    && (typeof options.templateFile === 'string' ? [options.templateFile] : options.templateFile).map((templateFile) => resolve(context.workspaceRoot, templateFile))
+    && (typeof options.templateFile === 'string' ? [options.templateFile] : options.templateFile)
     || undefined;
   const designTokenFilePatterns = Array.isArray(options.designTokenFilePatterns) ? options.designTokenFilePatterns : [options.designTokenFilePatterns];
   const determineFileToUpdate = options.output ? () => resolve(context.workspaceRoot, options.output!) :
@@ -95,7 +96,17 @@ export default createBuilder<GenerateCssSchematicsSchema>(createBuilderWithMetri
     if (templateFilePaths) {
       const templateFiles = await Promise.all(
         templateFilePaths
-          .map(async (templateFile) => JSON.parse(await readFile(templateFile, { encoding: 'utf8' })) as DesignTokenGroupTemplate)
+          .map(async (templateFile) => {
+            let templateFilePath = resolve(context.workspaceRoot, templateFile);
+            if (!existsSync(templateFilePath)) {
+              try {
+                templateFilePath = require.resolve(templateFile);
+              } catch {
+                context.logger.error(`Cannot resolve the template file at '${templateFile}'`);
+              }
+            }
+            return JSON.parse(await readFile(templateFilePath, { encoding: 'utf8' })) as DesignTokenGroupTemplate;
+          })
       );
       template = templateFiles.reduce((acc, cur) => mergeDesignTokenTemplates(acc, cur), {});
     }
