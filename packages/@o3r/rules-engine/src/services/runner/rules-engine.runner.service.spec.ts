@@ -5,7 +5,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { select, Store, StoreModule } from '@ngrx/store';
 import { computeItemIdentifier } from '@o3r/core';
 import { BehaviorSubject, firstValueFrom, Observable, of, Subject } from 'rxjs';
-import { distinctUntilChanged, map, take } from 'rxjs/operators';
+import { distinctUntilChanged, map } from 'rxjs/operators';
 import { jsonOneRulesetOneRuleNoCondPlaceholder } from '../../../testing/mocks/oneruleset-onerule-nocond-placeholder.mock';
 import { jsonOneRulesetOneRuleNoCond } from '../../../testing/mocks/oneruleset-onerule-nocond.mock';
 import { jsonOneRulesetOneRuleReexecution } from '../../../testing/mocks/oneruleset-onerule-reexecution.mock';
@@ -100,15 +100,25 @@ describe('Rules engine service', () => {
     expect(actions[0].actionType).toBe('UPDATE_LOCALISATION');
   });
 
-  it('should handle linked components and validity range properly', (done) => {
-    service.events$.pipe(take(1)).subscribe((actions) => {
-      expect(actions.length).toBe(1);
-      expect(actions[0].actionType).toBe('UPDATE_LOCALISATION');
-      done();
-    });
+  it('should handle linked components and validity range properly', async () => {
     store.dispatch(setRulesetsEntities({entities: jsonOneRulesetValidOneRuleNoCond.ruleSets}));
-  });
+    const actions = await firstValueFrom(service.events$);
+    expect(actions.length).toBe(1);
+    expect(actions[0].actionType).toBe('UPDATE_LOCALISATION');
+    expect(actions[0].value).toBe('my.custom.ssci.loc.key2');
+    service.enableRuleSetFor(computeItemIdentifier('TestComponent', '@otter/comps'));
+    const nextActions = await firstValueFrom(service.events$);
+    expect(nextActions.length).toBe(2);
+    expect(nextActions[1].actionType).toBe('UPDATE_LOCALISATION');
+    expect(nextActions[1].value).toBe('my.custom.ssci.loc.key3');
+    // out of range validity for ruleset linked to TestComponent2
+    service.enableRuleSetFor(computeItemIdentifier('TestComponent2', '@otter/comps'));
+    const lastActions = await firstValueFrom(service.events$);
+    expect(lastActions.length).toBe(2);
+    expect(lastActions[1].actionType).toBe('UPDATE_LOCALISATION');
+    expect(lastActions[1].value).toBe('my.custom.ssci.loc.key3');
 
+  });
 
   it('should have configuration updated in the store', async () => {
     service.engine.upsertFacts<any>([{
