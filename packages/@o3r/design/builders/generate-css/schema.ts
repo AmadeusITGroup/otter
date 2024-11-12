@@ -38,7 +38,7 @@ export interface GenerateCssSchematicsSchema extends SchematicOptionObject {
   /** Prefix to happen to generated variables */
   prefix?: string;
 
-  /** Generate the Private Variable to the given language */
+  /** Generate the private variable to the given language */
   renderPrivateVariableTo?: 'sass';
 
   /** Prefix to happen to generated private variables */

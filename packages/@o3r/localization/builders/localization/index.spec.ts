@@ -34,7 +34,7 @@ describe('Localization Builder', () => {
     cleanVirtualFileSystem();
   });
 
-  it('should genere the localizations', async () => {
+  it('should generate the localizations', async () => {
     const options: LocalizationBuilderSchema = {
       browserTarget: 'showcase:compile',
       localizationExtracterTarget: 'showcase:extract-translations',

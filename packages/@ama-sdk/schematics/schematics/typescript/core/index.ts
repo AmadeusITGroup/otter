@@ -227,10 +227,14 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKCoreSchematic
       const readmeFile = path.posix.join(targetPath, 'readme.md');
       if (tree.exists(readmeFile)) {
         const specVersion = /version: *([0-9]+\.[0-9]+\.[0-9]+(?:-[^ ]+)?)/.exec(specContent);
+        const generatorVersion = /(openapi|swagger): *['"]?([0-9]+(?:\.[0-9]+){1,2}(?:-[^ ]+)?)['"]?/.exec(specContent);
 
-        if (specVersion) {
+        if (specVersion && generatorVersion) {
           const readmeContent = tree.read(readmeFile)!.toString('utf8');
-          tree.overwrite(readmeFile, readmeContent.replace(/Based on (.+) spec .*/i, `Based on $1 spec ${specVersion[1]}`));
+          tree.overwrite(
+            readmeFile,
+            readmeContent.replace(/Based on .+ spec.*/i, `Based on API specification version ${specVersion[1] || '0.0.0'} (using ${generatorVersion[1]} ${generatorVersion[2]})`)
+          );
         }
       }
       return tree;
