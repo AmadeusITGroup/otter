@@ -109,13 +109,7 @@ jobs:
         shell: bash
       - name: Test
         id: it-tests
-        run: yarn test-int --collectCoverage
-      # TODO: re-activate IT coverage publishing when #2455 is fixed
-      # - name: Upload results to Codecov
-      #   uses: codecov/codecov-action@b9fd7d16f6d7d1b5d2bec1a2887e65ceed900238 # v4.6.0
-      #   with:
-      #     flags: integration
-      #     token: ${{ secrets.CODECOV_TOKEN }}
+        run: yarn test-int
       - name: Zip generated app on failure
         if: failure() && steps.it-tests.conclusion == 'failure'
         run: |
