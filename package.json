@@ -26,6 +26,7 @@
     "test:affected": "yarn nx affected --target=test --parallel $(yarn get:cpus-number) --cacheDirectory=$(yarn get:current-dir)/.cache/jest",
     "test-e2e": "yarn nx run-many --target=test-e2e --parallel $(yarn get:cpus-number)",
     "test-int": "yarn nx run-many --target=test-int --parallel $(yarn get:cpus-number)",
+    "test-int:affected": "yarn nx affected --target=test-int",
     "postinstall": "husky && yarn build:lint && yarn harmonize:version && yarn update-yarn-sdks",
     "update-yarn-sdks": "node -e \"'pnp' !== '$(yarn config get nodeLinker)' || process.exit(1)\" || yarn dlx @yarnpkg/sdks",
     "build:storybook": "yarn doc:generate:json && yarn ng run storybook:extract-style && build-storybook",
