@@ -1,4 +1,3 @@
-import { promises as fs } from 'node:fs';
 import type { DesignTokenVariableSet, DesignTokenVariableStructure, NodeReference, ParentReference } from './design-token-parser.interface';
 import type {
   DesignToken,
@@ -7,6 +6,7 @@ import type {
   DesignTokenGroup,
   DesignTokenGroupExtensions,
   DesignTokenGroupTemplate,
+  DesignTokenMetadata,
   DesignTokenNode,
   DesignTokenSpecification
 } from '../design-token-specification.interface';
@@ -18,23 +18,65 @@ import {
 } from '../design-token-specification.interface';
 import { dirname } from 'node:path';
 
-const tokenReferenceRegExp = /\{([^}]+)\}/g;
+/** Separator in Token key parts */
+export const TOKEN_KEY_SEPARATOR = '.';
 
-const getTokenReferenceName = (tokenName: string, parents: string[]) => parents.join('.') + (parents.length ? '.' : '') + tokenName;
+const tokenReferenceRegExp = /\{([^}]+)\}/g;
+const splitValueNumericRegExp = /^([-+]?[0-9]+[.,]?[0-9]*)\s*([^\s.,;]+)?/;
+
+const getTokenReferenceName = (tokenName: string, parents: string[]) => parents.join(TOKEN_KEY_SEPARATOR) + (parents.length ? TOKEN_KEY_SEPARATOR : '') + tokenName;
 const getExtensions = (nodes: NodeReference[], context: DesignTokenContext | undefined) => {
   return nodes.reduce((acc, {tokenNode}, i) => {
     const nodeNames = nodes.slice(0, i + 1).map(({ name }) => name);
-    const defaultMetadata = nodeNames.length ? nodeNames.reduce((accTpl, name) => accTpl?.[name] as DesignTokenGroupTemplate, context?.template) : undefined;
-    const o3rMetadata = { ...defaultMetadata?.$extensions?.o3rMetadata, ...acc.o3rMetadata, ...tokenNode.$extensions?.o3rMetadata };
-    return ({ ...acc, ...defaultMetadata?.$extensions, ...tokenNode.$extensions, o3rMetadata });
+    const defaultMetadata = nodeNames.length
+      ? nodeNames.reduce((accTplList, name) =>
+        accTplList
+          .flatMap((accTpl) => ([accTpl[name], accTpl['*']] as (DesignTokenGroupTemplate | undefined)[]))
+          .filter((accTpl): accTpl is DesignTokenGroupTemplate => !!accTpl)
+      , context?.template ? [context.template] : [])
+      : undefined;
+    const o3rMetadata = {
+      ...defaultMetadata?.reduce((accNode: DesignTokenMetadata, node) => ({...accNode, ...node.$extensions?.o3rMetadata}), {}),
+      ...acc.o3rMetadata,
+      ...tokenNode.$extensions?.o3rMetadata
+    };
+    return ({
+      ...acc,
+      ...defaultMetadata?.reduce((accNode, node) => ({ ...accNode, ...node.$extensions }), acc),
+      ...tokenNode.$extensions, o3rMetadata
+    });
   }, {} as DesignTokenGroupExtensions & DesignTokenExtensions);
 };
 const getReferences = (cssRawValue: string) => Array.from(cssRawValue.matchAll(tokenReferenceRegExp)).map(([,tokenRef]) => tokenRef);
-// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
-const renderCssTypeStrokeStyleValue = (value: DesignTokenTypeStrokeStyleValue | string) => isTokenTypeStrokeStyleValueComplex(value) ? `${value.lineCap} ${value.dashArray.join(' ')}` : value;
+const applyConversion = (token: DesignTokenVariableStructure, value: string) => {
+  if (typeof token.extensions.o3rUnit === 'undefined' || typeof token.extensions.o3rRatio === 'undefined') {
+    return value;
+  }
+
+  const splitValue = splitValueNumericRegExp.exec(value);
+  if (!splitValue) {
+    return value;
+  }
+
+  const [, floatValue, unit] = splitValue;
+
+  const newValue = value.replace(floatValue, (parseFloat((parseFloat(floatValue) * token.extensions.o3rRatio).toFixed(3))).toString());
+
+  if (unit) {
+    return newValue.replace(unit, token.extensions.o3rUnit);
+  }
+
+  if (floatValue === value) {
+    return newValue + token.extensions.o3rUnit;
+  }
+
+  return newValue;
+};
+const renderCssTypeStrokeStyleValue = (value: DesignTokenTypeStrokeStyleValue) => isTokenTypeStrokeStyleValueComplex(value) ? `${value.lineCap} ${value.dashArray.join(' ')}` : value;
 const sanitizeStringValue = (value: string) => value.replace(/[\\]/g, '\\\\').replace(/"/g, '\\"');
 const sanitizeKeyName = (name: string) => name.replace(/[ .]+/g, '-').replace(/[()[\]]+/g, '');
-const getCssRawValue = (variableSet: DesignTokenVariableSet, {node, getType}: DesignTokenVariableStructure) => {
+const getCssRawValue = (variableSet: DesignTokenVariableSet, token: DesignTokenVariableStructure) => {
+  const { node, getType } = token;
   const nodeType = getType(variableSet, false);
   if (!nodeType && node.$value) {
     return typeof node.$value.toString !== 'undefined' ? (node.$value as any).toString() : JSON.stringify(node.$value);
@@ -46,7 +88,7 @@ const getCssRawValue = (variableSet: DesignTokenVariableSet, {node, getType}: De
 
   switch (checkNode.$type) {
     case 'string': {
-      return `"${sanitizeStringValue(checkNode.$value.toString())}"`;
+      return `"${applyConversion(token, sanitizeStringValue(checkNode.$value.toString()))}"`;
     }
     case 'color':
     case 'number':
@@ -54,18 +96,20 @@ const getCssRawValue = (variableSet: DesignTokenVariableSet, {node, getType}: De
     case 'fontWeight':
     case 'fontFamily':
     case 'dimension': {
-      return checkNode.$value.toString();
+      return applyConversion(token, checkNode.$value.toString());
     }
     case 'strokeStyle': {
       return renderCssTypeStrokeStyleValue(checkNode.$value);
     }
     case 'cubicBezier': {
       return typeof checkNode.$value === 'string' ? checkNode.$value :
-        checkNode.$value.join(', ');
+        checkNode.$value
+          .map((value) => applyConversion(token, value.toString()))
+          .join(', ');
     }
     case 'border': {
       return typeof checkNode.$value === 'string' ? checkNode.$value :
-        `${checkNode.$value.width} ${renderCssTypeStrokeStyleValue(checkNode.$value.style)} ${checkNode.$value.color}`;
+        `${applyConversion(token, checkNode.$value.width)} ${renderCssTypeStrokeStyleValue(checkNode.$value.style)} ${checkNode.$value.color}`;
     }
     case 'gradient': {
       if (typeof checkNode.$value === 'string') {
@@ -83,17 +127,19 @@ const getCssRawValue = (variableSet: DesignTokenVariableSet, {node, getType}: De
 
       const values = Array.isArray(checkNode.$value) ? checkNode.$value : [checkNode.$value];
       return values
-        .map((value) => `${value.offsetX} ${value.offsetY} ${value.blur}  ${value.spread} ${value.color}`)
+        .map((value) => `${applyConversion(token, value.offsetX)} ${applyConversion(token, value.offsetY)} ${applyConversion(token, value.blur)}  ${applyConversion(token, value.spread)}`
+          + ` ${value.color}`)
         .join(', ');
     }
     case 'transition': {
       return typeof checkNode.$value === 'string' ? checkNode.$value :
         typeof checkNode.$value.timingFunction === 'string' ? checkNode.$value.timingFunction : checkNode.$value.timingFunction.join(' ') +
-          ` ${checkNode.$value.duration} ${checkNode.$value.delay}`;
+          ` ${applyConversion(token, checkNode.$value.duration)} ${applyConversion(token, checkNode.$value.delay)}`;
     }
     case 'typography': {
       return typeof checkNode.$value === 'string' ? checkNode.$value :
-        `${checkNode.$value.fontWeight} ${checkNode.$value.fontFamily} ${checkNode.$value.fontSize} ${checkNode.$value.letterSpacing} ${checkNode.$value.lineHeight}`;
+        `${applyConversion(token, checkNode.$value.fontWeight.toString())} ${checkNode.$value.fontFamily}`
+        + ` ${applyConversion(token, checkNode.$value.fontSize)} ${applyConversion(token, checkNode.$value.letterSpacing)} ${applyConversion(token, checkNode.$value.lineHeight.toString())}`;
     }
     // TODO: Add support for Grid type when available in the Design Token Standard
     default: {
@@ -181,7 +227,7 @@ export const parseDesignToken = (specification: DesignTokenSpecification): Desig
 interface ParseDesignTokenFileOptions {
   /**
    * Custom function to read a file required by the token renderer
-   * @default {@see fs.promises.readFile}
+   * @default {@see import('node:fs/promises').readFile}
    * @param filePath Path to the file to read
    */
   readFile?: (filePath: string) => string | Promise<string>;
@@ -196,7 +242,7 @@ interface ParseDesignTokenFileOptions {
  * @param options
  */
 export const parseDesignTokenFile = async (specificationFilePath: string, options?: ParseDesignTokenFileOptions) => {
-  const readFile = options?.readFile || ((filePath: string) => fs.readFile(filePath, { encoding: 'utf8' }));
+  const readFile = options?.readFile || (async (filePath: string) => (await import('node:fs/promises')).readFile(filePath, { encoding: 'utf8' }));
   const context: DesignTokenContext = {
     basePath: dirname(specificationFilePath),
     ...options?.specificationContext

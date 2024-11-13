@@ -7,8 +7,7 @@
   ],
   "timezone": "Europe/Paris",
   "ignorePaths": [
-    "**/node_modules/**",
-    "**/templates/**"
+    "**/node_modules/**"
   ],
   "enabledManagers": [
     "npm",
@@ -115,7 +114,7 @@
       "enabled": false
     }
   ],
-  customManagers: [
+  "customManagers": [
     {
       "customType": "regex",
       "datasourceTemplate": "maven",
@@ -127,5 +126,10 @@
         "\"openApiSupportedVersion\": \"~(?<currentValue>[^\"]+)\""
       ]
     }
-  ]
+  ],
+  "github-actions": {
+    "fileMatch": [
+      "/__dot__github/.*/.+\\.ya?ml$"
+    ]
+  }
 }

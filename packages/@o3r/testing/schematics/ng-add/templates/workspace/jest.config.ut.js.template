@@ -28,7 +28,7 @@ module.exports.getJestProjectConfig = (rootDir, isAngularSetup) => {
   return {
     preset: 'ts-jest',
     setupFilesAfterEnv: ['<rootDir>/testing/setup-jest.ts'],
-    rootDir: '.',
+    rootDir,
     moduleNameMapper,
     modulePathIgnorePatterns: [
       '<rootDir>/dist'
@@ -72,8 +72,19 @@ module.exports.getJestProjectConfig = (rootDir, isAngularSetup) => {
   };
 };
 
-module.exports.getJestGlobalConfig = () => {
+/**
+* @param rootDir {string} Root directory, default to '.'
+* @returns {import('ts-jest/dist/types').JestConfigWithTsJest}
+*/
+module.exports.getJestGlobalConfig = (rootDir) => {
   return {
+    rootDir: rootDir || '.',
+    testMatch: [
+      '<rootDir>/**/*.spec.ts'
+    ],
+    testPathIgnorePatterns: [
+      '\\.spec\\.ts$'
+    ],
     reporters: [
       'default',
       ['jest-junit', {outputDirectory: '<rootDir>/dist-test', outputName: 'ut-report.xml'}],

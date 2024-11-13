@@ -1,31 +1,10 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:base",
-    "github>AmadeusITGroup/otter//tools/renovate/base",
-    "github>AmadeusITGroup/otter//tools/renovate/otter-project"
-  ],
-  "prConcurrentLimit": 0,
-  "prHourlyLimit": 0,
-  "baseBranches": [
-    "main"
-  ],
-  "platform": "azure",
-  "enabledManagers": [
-    "npm"
-  ],
-  "labels": [
-    "upgrade"
-  ],
-  "updateInternalDeps": true,
-  "automerge": true,
-  "platformAutomerge": true,
-  "packageRules": [
-    {
-      "matchPackageNames": [
-        "@o3r/*"
-      ],
-      "automergeType": "patch"
-    }
+    "github>AmadeusITGroup/otter//tools/renovate/base",<% if (packageManager == 'yarn') { %>
+    "github>AmadeusITGroup/otter//tools/renovate/otter-project"<% } else { %>
+    "github>AmadeusITGroup/otter//tools/renovate/group/otter",
+    "github>AmadeusITGroup/otter//tools/renovate/tasks/base",
+    "github>AmadeusITGroup/otter//tools/renovate/tasks/otter-ng-update(npm)"<% } %>
   ]
 }

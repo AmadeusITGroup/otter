@@ -10,6 +10,6 @@ generated-doc/
 /apps/*/**/templates/**
 /.pnp.js
 /.vscode
-/tools/github-actions/*/packaged-action/
+/tools/github-actions/*/packaged-action/**
 /**/src/**/package.json
 !/.yarnrc.yml

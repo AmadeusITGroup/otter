@@ -8,7 +8,6 @@ const getJestProjectConfig = require('./jest.config.ut').getJestProjectConfig;
  */
 module.exports.getJestConfig = (rootDir, options) => ({
   ...getJestProjectConfig(rootDir, false, options),
-  rootDir: '..',
   setupFilesAfterEnv: null,
   testPathIgnorePatterns: [
     '<rootDir>/.*/templates/.*'
@@ -21,5 +20,6 @@ module.exports.getJestConfig = (rootDir, options) => ({
     ['jest-junit', {outputDirectory: '<rootDir>/dist-test', outputName: 'it-report.xml'}],
     'github-actions'
   ],
+  coverageReporters: ['cobertura'],
   testTimeout: 30 * 60 * 1000
 });

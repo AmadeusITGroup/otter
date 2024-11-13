@@ -46,12 +46,6 @@
       "@ama-sdk/schematics": [
         "packages/@ama-sdk/schematics/src/public_api"
       ],
-      "@ama-sdk/showcase-sdk": [
-        "packages/@ama-sdk/showcase-sdk/src"
-      ],
-      "@ama-sdk/showcase-sdk/fixtures": [
-        "packages/@ama-sdk/showcase-sdk/src/fixtures/jest"
-      ],
       "@ama-sdk/swagger-builder": [
         "packages/@ama-sdk/swagger-builder"
       ],
@@ -63,6 +57,18 @@
       ],
       "@ama-terasu/schematics": [
         "packages/@ama-terasu/schematics/src"
+      ],
+      "@o3r-training/showcase-sdk": [
+        "packages/@o3r-training/showcase-sdk/src"
+      ],
+      "@o3r-training/showcase-sdk/fixtures": [
+        "packages/@o3r-training/showcase-sdk/src/fixtures/jest"
+      ],
+      "@o3r-training/training-sdk": [
+        "packages/@o3r-training/training-sdk/src"
+      ],
+      "@o3r-training/training-tools": [
+        "packages/@o3r-training/training-tools/src/public_api"
       ],
       "@o3r/amaterasu-api-spec": [
         "packages/@o3r/amaterasu/amaterasu-api-spec/src"
@@ -190,11 +196,11 @@
       "@o3r/styling": [
         "packages/@o3r/styling/src/public_api"
       ],
-      "@o3r/styling/schemas/*": [
-        "packages/@o3r/styling/schemas/*"
-      ],
       "@o3r/styling/builders/*/helpers": [
         "packages/@o3r/styling/builders/*/helpers/index"
+      ],
+      "@o3r/styling/schemas/*": [
+        "packages/@o3r/styling/schemas/*"
       ],
       "@o3r/telemetry": [
         "packages/@o3r/telemetry/src/public_api"
@@ -219,12 +225,6 @@
       ],
       "@o3r/third-party": [
         "packages/@o3r/third-party/src"
-      ],
-      "@o3r/training-sdk": [
-        "packages/@o3r/training-sdk/src"
-      ],
-      "@o3r/training-tools": [
-        "packages/@o3r/training-tools/src/public_api"
       ],
       "@o3r/workspace": [
         "packages/@o3r/workspace/src/public_api"

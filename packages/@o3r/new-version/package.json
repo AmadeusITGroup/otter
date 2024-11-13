@@ -22,12 +22,24 @@
     "semver": "^7.5.2",
     "tslib": "^2.6.2"
   },
+  "peerDependencies": {
+    "@angular-devkit/schematics": "~18.2.0",
+    "@o3r/schematics": "workspace:^"
+  },
+  "peerDependenciesMeta": {
+    "@angular-devkit/schematics": {
+      "optional": true
+    },
+    "@o3r/schematics": {
+      "optional": true
+    }
+  },
   "devDependencies": {
     "@angular-devkit/core": "~18.2.0",
     "@angular-devkit/schematics": "~18.2.0",
     "@angular-eslint/eslint-plugin": "~18.3.0",
-    "@babel/core": "~7.25.0",
-    "@babel/preset-typescript": "~7.24.0",
+    "@babel/core": "~7.26.0",
+    "@babel/preset-typescript": "~7.26.0",
     "@compodoc/compodoc": "^1.1.19",
     "@nx/eslint-plugin": "~19.5.0",
     "@nx/jest": "~19.5.0",

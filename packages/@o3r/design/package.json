@@ -20,7 +20,7 @@
     "prepare:build:builders": "yarn cpy 'builders/**/schema.json' dist/builders && yarn cpy '{builders,collection,migration}.json' dist && yarn cpy 'schematics/**/schema.json' dist/schematics && yarn copy:templates",
     "prepare:publish": "prepare-publish ./dist",
     "build:source": "tsc -b tsconfig.build.json && yarn cpy package.json dist/",
-    "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn copy:templates && generate-cjs-manifest",
+    "build:builders": "tsc -b tsconfig.builders.json --pretty && generate-cjs-manifest",
     "build": "yarn nx build design",
     "postbuild": "yarn copy:schemas && patch-package-json-main"
   },
@@ -53,14 +53,23 @@
     "tslib": "^2.6.2"
   },
   "peerDependencies": {
+    "@angular-devkit/architect": "~0.1802.0",
+    "@angular-devkit/schematics": "~18.2.0",
     "@o3r/core": "workspace:^",
     "@o3r/schematics": "workspace:^",
     "@o3r/styling": "workspace:^",
+    "@o3r/telemetry": "workspace:^",
     "chokidar": "^3.5.2",
     "globby": "^11.1.0",
-    "sass": "~1.78.0"
+    "sass": "~1.80.0"
   },
   "peerDependenciesMeta": {
+    "@angular-devkit/architect": {
+      "optional": true
+    },
+    "@angular-devkit/schematics": {
+      "optional": true
+    },
     "@o3r/core": {
       "optional": true
     },
@@ -68,6 +77,9 @@
       "optional": true
     },
     "@o3r/styling": {
+      "optional": true
+    },
+    "@o3r/telemetry": {
       "optional": true
     },
     "chokidar": {
@@ -94,8 +106,8 @@
     "@angular/core": "~18.2.0",
     "@angular/platform-browser": "~18.2.0",
     "@angular/platform-browser-dynamic": "~18.2.0",
-    "@babel/core": "~7.25.0",
-    "@babel/preset-typescript": "~7.24.0",
+    "@babel/core": "~7.26.0",
+    "@babel/preset-typescript": "~7.26.0",
     "@compodoc/compodoc": "^1.1.19",
     "@nx/eslint": "~19.5.0",
     "@nx/eslint-plugin": "~19.5.0",
@@ -106,6 +118,7 @@
     "@o3r/eslint-plugin": "workspace:^",
     "@o3r/schematics": "workspace:^",
     "@o3r/styling": "workspace:^",
+    "@o3r/telemetry": "workspace:^",
     "@o3r/test-helpers": "workspace:^",
     "@schematics/angular": "~18.2.0",
     "@stylistic/eslint-plugin-ts": "~2.4.0",
@@ -132,7 +145,7 @@
     "nx": "~19.5.0",
     "pid-from-port": "^1.1.3",
     "rxjs": "^7.8.1",
-    "sass": "~1.78.0",
+    "sass": "~1.80.0",
     "semver": "^7.5.2",
     "ts-jest": "~29.2.0",
     "ts-node": "~10.9.2",

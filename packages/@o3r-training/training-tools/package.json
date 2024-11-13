@@ -1,0 +1,127 @@
+{
+  "name": "@o3r-training/training-tools",
+  "version": "0.0.0-placeholder",
+  "private": true,
+  "description": "Otter training tools",
+  "keywords": [
+    "utilities",
+    "otter-training"
+  ],
+  "scripts": {
+    "nx": "nx",
+    "ng": "yarn nx",
+    "build": "yarn nx build training-tools",
+    "test": "yarn nx test training-tools",
+    "postbuild": "yarn cpy 'package.json' dist && patch-package-json-main",
+    "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist",
+    "build:source": "tsc -b tsconfig.build.json --pretty",
+    "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest",
+    "build:cli": "tsc -b tsconfig.cli.json --pretty && yarn generate-cjs-manifest"
+  },
+  "bin": {
+    "o3r-extract-folder-structure": "./dist/cli/extract-folder-structure/extract-folder-structure.cjs"
+  },
+  "exports": {
+    "./package.json": {
+      "default": "./package.json"
+    },
+    ".": {
+      "default": "./dist/public_api.js",
+      "typings": "./dist/public_api.d.ts"
+    }
+  },
+  "peerDependencies": {
+    "@angular-devkit/schematics": "~18.2.0",
+    "@o3r/schematics": "workspace:^",
+    "@schematics/angular": "~18.2.0",
+    "@webcontainer/api": "~1.4.0",
+    "eslint": "^8.57.0",
+    "rxjs": "^7.8.1",
+    "type-fest": "^4.10.2",
+    "typescript": "~5.5.4"
+  },
+  "peerDependenciesMeta": {
+    "@angular-devkit/architect": {
+      "optional": true
+    },
+    "@angular-devkit/core": {
+      "optional": true
+    },
+    "@angular-devkit/schematics": {
+      "optional": true
+    },
+    "@angular/cli": {
+      "optional": true
+    },
+    "@o3r/schematics": {
+      "optional": true
+    },
+    "eslint": {
+      "optional": true
+    },
+    "type-fest": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "commander": "^12.0.0",
+    "tslib": "^2.6.2"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "~18.2.0",
+    "@angular-devkit/core": "~18.2.0",
+    "@angular-devkit/schematics": "~18.2.0",
+    "@angular-eslint/eslint-plugin": "~18.3.0",
+    "@angular/animations": "~18.2.0",
+    "@angular/cli": "~18.2.0",
+    "@angular/common": "~18.2.0",
+    "@angular/compiler": "~18.2.0",
+    "@angular/compiler-cli": "~18.2.0",
+    "@angular/core": "~18.2.0",
+    "@angular/platform-browser": "~18.2.0",
+    "@angular/platform-browser-dynamic": "~18.2.0",
+    "@babel/core": "~7.26.0",
+    "@babel/preset-typescript": "~7.26.0",
+    "@nx/eslint": "~19.5.0",
+    "@nx/eslint-plugin": "~19.5.0",
+    "@nx/jest": "~19.5.0",
+    "@nx/js": "~19.5.0",
+    "@o3r/build-helpers": "workspace:^",
+    "@o3r/eslint-plugin": "workspace:^",
+    "@o3r/schematics": "workspace:^",
+    "@schematics/angular": "~18.2.0",
+    "@stylistic/eslint-plugin-ts": "~2.4.0",
+    "@swc/cli": "~0.5.0",
+    "@swc/core": "~1.9.0",
+    "@swc/helpers": "~0.5.0",
+    "@types/inquirer": "~8.2.10",
+    "@types/jest": "~29.5.2",
+    "@types/node": "^20.0.0",
+    "@types/semver": "^7.3.13",
+    "@typescript-eslint/eslint-plugin": "^7.14.1",
+    "@typescript-eslint/parser": "^7.14.1",
+    "@typescript-eslint/utils": "^7.14.1",
+    "@webcontainer/api": "~1.4.0",
+    "cpy-cli": "^5.0.0",
+    "eslint": "^8.57.0",
+    "eslint-import-resolver-node": "^0.3.9",
+    "eslint-plugin-jest": "~28.8.0",
+    "eslint-plugin-jsdoc": "~48.11.0",
+    "eslint-plugin-prefer-arrow": "~1.2.3",
+    "eslint-plugin-unicorn": "^54.0.0",
+    "jest": "~29.7.0",
+    "jest-junit": "~16.0.0",
+    "jsonc-eslint-parser": "~2.4.0",
+    "jsonschema": "~1.4.1",
+    "nx": "~19.5.0",
+    "rxjs": "^7.8.1",
+    "ts-jest": "~29.2.0",
+    "ts-node": "~10.9.2",
+    "type-fest": "^4.10.2",
+    "typescript": "~5.5.4",
+    "zone.js": "~0.14.2"
+  },
+  "engines": {
+    "node": "^18.19.1 || ^20.11.1 || >=22.0.0"
+  }
+}

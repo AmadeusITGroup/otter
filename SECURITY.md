@@ -6,22 +6,26 @@ A minor version is released every month.
 
 Two major versions are released per year:
 
-- A technical version is released during summer to upgrade the Otter library peer dependencies, such as:
-  - Angular
-  - Typescript
-  - RxJS
-  - NgRx
-  - etc...
+- A technical version is released during summer which can include:
+  - Upgrades of the Otter library peer dependencies, such as:
+    - Angular
+    - Typescript
+    - RxJS
+    - NgRx
+    - etc...
+  - Breaking changes covered by `ng update` code patching
+  - Breaking changes with a **very low migration cost** can be exceptionally accepted, the code review will determine its acceptance.
 
 - Another one to deliver new features of the Otter library, released at the beginning of the year.
 
 ## Release version support
 
-The team will provide support on the latest minor version of major versions __N (current)__, __N-1__ and __N-2__.
+The team will provide support on the latest minor version of major versions **N (current)**, **N-1** and **N-2**.
 
 A major version will be supported as long as it relies on a [non deprecated version of Angular](https://angular.io/guide/releases#support-policy-and-schedule).
 
-> __Note__: It is also important to note that Otter supports the same browser versions as Angular.
+> [!NOTE]
+> It is also important to note that Otter supports the same browser versions as Angular.
 
 The following table provides the status of the Otter versions under support and each of their corresponding Angular version:
 

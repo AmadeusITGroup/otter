@@ -41,7 +41,8 @@
       "es6",
       "dom",
       "dom.iterable"
-    ]
+    ],
+    "skipLibCheck": true /* because of @webcontainer/api 1.4.0 */
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

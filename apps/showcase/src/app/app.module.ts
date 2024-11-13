@@ -1,5 +1,5 @@
 import { ApiFetchClient } from '@ama-sdk/client-fetch';
-import {PetApi} from '@ama-sdk/showcase-sdk';
+import {PetApi} from '@o3r-training/showcase-sdk';
 import { registerLocaleData } from '@angular/common';
 import localeEN from '@angular/common/locales/en';
 import localeFR from '@angular/common/locales/fr';

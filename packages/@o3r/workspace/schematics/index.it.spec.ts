@@ -66,7 +66,7 @@ describe('new otter workspace', () => {
       'g',
       'sdk',
       '@my-sdk/sdk',
-      '--spec-package-name', '@ama-sdk/showcase-sdk',
+      '--spec-package-name', '@o3r-training/showcase-sdk',
       '--spec-package-path', './openapi.yml',
       '--spec-package-registry', registry,
       '--spec-package-version', o3rVersion
@@ -126,5 +126,6 @@ describe('new otter workspace', () => {
     expect(() => packageManagerRun({script: 'lint'}, execAppOptions)).not.toThrow();
     expect(rootPackageJson.workspaces).toContain('libs/*');
     expect(rootPackageJson.workspaces).toContain('apps/*');
+    expect(existsSync(path.join(workspacePath, '.renovaterc.json'))).toBe(true);
   });
 });

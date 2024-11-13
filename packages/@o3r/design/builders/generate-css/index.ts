@@ -1,5 +1,6 @@
 import type { GenerateCssSchematicsSchema } from './schema';
 import { BuilderOutput, createBuilder } from '@angular-devkit/architect';
+import type { BuilderWrapper } from '@o3r/telemetry';
 import {
   getCssTokenDefinitionRenderer,
   getCssTokenValueRenderer,
@@ -18,11 +19,20 @@ import { EOL } from 'node:os';
 import { readFile, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 
+const createBuilderWithMetricsIfInstalled: BuilderWrapper = (builderFn) => async (opts, ctx) => {
+  let wrapper: BuilderWrapper = (fn) => fn;
+  try {
+    const { createBuilderWithMetrics } = await import('@o3r/telemetry');
+    wrapper = createBuilderWithMetrics;
+  } catch {}
+  return wrapper(builderFn)(opts, ctx);
+};
+
 /**
  * Generate CSS from Design Token files
  * @param options
  */
-export default createBuilder<GenerateCssSchematicsSchema>(async (options, context): Promise<BuilderOutput> => {
+export default createBuilder<GenerateCssSchematicsSchema>(createBuilderWithMetricsIfInstalled(async (options, context): Promise<BuilderOutput> => {
   const templateFilePaths = options.templateFile
     && (typeof options.templateFile === 'string' ? [options.templateFile] : options.templateFile)
     || undefined;
@@ -181,4 +191,4 @@ export default createBuilder<GenerateCssSchematicsSchema>(async (options, contex
       return { success: false, error: String(err) };
     }
   }
-});
+}));

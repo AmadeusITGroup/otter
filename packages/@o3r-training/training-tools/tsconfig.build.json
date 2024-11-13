@@ -1,0 +1,15 @@
+{
+  "extends": "../../../tsconfig.build.json",
+  "compilerOptions": {
+    "sourceMap": true,
+    "incremental": true,
+    "composite": true,
+    "rootDir": ".",
+    "module": "CommonJS",
+    "tsBuildInfoFile": "./build/tsconfig.tsbuildinfo",
+    "outDir": "./dist",
+    "skipLibCheck": true /* because of @webcontainer/api 1.4.0 */
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["**/*.spec.ts"]
+}
