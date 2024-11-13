@@ -149,7 +149,6 @@ export function packageManagerVersion(version: string, args: string[], options: 
 
 /**
  * Publish a package to the npm registry
- * @param version
  * @param args
  * @param options
  */
@@ -302,7 +301,7 @@ export function setPackagerManagerConfig(options: PackageManagerConfig, execAppO
   execFileSync('npm', ['config', 'set', 'ignore-scripts=true', '-L=project'], execOptions);
 
   if (options.globalFolderPath) {
-    execFileSync('npm', ['config', 'set', `cache=${options.globalFolderPath}/npm-cache`, '-L=project'], execOptions);
+    execFileSync('npm', ['config', 'set', `cache=${join(options.globalFolderPath, 'npm-cache')}`, '-L=project'], execOptions);
   }
 
   if (shouldCleanPackageJson && existsSync(packageJsonPath)) {

@@ -39,14 +39,22 @@
     "tslib": "^2.6.2"
   },
   "peerDependencies": {
+    "@angular-devkit/schematics": "~18.2.0",
     "@o3r/schematics": "workspace:^",
-    "@o3r/telemetry": "workspace:^"
+    "@o3r/telemetry": "workspace:^",
+    "type-fest": "^4.10.2"
   },
   "peerDependenciesMeta": {
+    "@angular-devkit/schematics": {
+      "optional": true
+    },
     "@o3r/schematics": {
       "optional": true
     },
     "@o3r/telemetry": {
+      "optional": true
+    },
+    "type-fest": {
       "optional": true
     }
   },
