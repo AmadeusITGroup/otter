@@ -27,12 +27,6 @@
         </code-editor-terminal>
       </ng-template>
     </li>
-  <button type="button" class="btn btn-outline-secondary df-btn-icononly align-self-center ms-auto"
-          [class.fa-chevron-down]="!show"
-          [class.fa-chevron-up]="show"
-          (click)="show = !show">
-    <span class="visually-hidden">{{show ? 'Hide' : 'Show'}}</span>
-  </button>
 </ul>
-<div class="h-100 command-panel" [class.d-none]="!show" [ngbNavOutlet]="nav"></div>
+<div class="h-100 command-panel" [ngbNavOutlet]="nav"></div>
 

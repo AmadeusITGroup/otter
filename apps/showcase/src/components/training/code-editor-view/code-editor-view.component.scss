@@ -1,11 +1,12 @@
 monaco-tree {
-  max-width: 250px;
   background: #1d1d1d;
 
   .monaco-tree {
     display: flex;
     flex-direction: column;
     overflow: unset !important;
+    min-width: 100%;
+    min-height: 100%;
   }
 
   monaco-tree-icons {
@@ -22,8 +23,4 @@ ngx-monaco-editor {
     max-width: 100%;
     max-height: 100% !important;
   }
-}
-
-code-editor-control {
-  min-height: 50%;
 }

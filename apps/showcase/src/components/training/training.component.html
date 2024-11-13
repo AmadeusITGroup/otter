@@ -3,9 +3,6 @@
     <h1 class="m-0 flex-grow-1">{{title()}}</h1>
     <div class="d-flex gap-3">
       @if (currentStep.dynamicContent.project() || currentStep.dynamicContent.solutionProject()) {
-        <button type="button" class="btn btn-outline-primary" (click)="toggleDisplayInstructions()">
-          {{showInstructions() ? 'Hide instructions' : 'Show instructions'}}
-        </button>
         <button type="button" class="btn btn-outline-danger"
                 (click)="toggleDisplaySolution()"
                 [disabled]="!showSolution() && !currentStep.dynamicContent.solutionProject() || showSolution() && !currentStep.dynamicContent.project()"
@@ -36,7 +33,7 @@
   <o3r-training-step-pres
     class="flex-fill overflow-hidden mb-5"
     [class.constrained]="!!(currentStep.dynamicContent.solutionProject() || currentStep.dynamicContent.project())"
-    [instructions]="showInstructions() ? currentStep.dynamicContent.htmlContent() : ''"
+    [instructions]="currentStep.dynamicContent.htmlContent()"
     [title]="currentStep.description.title"
     [project]="showSolution() ? currentStep.dynamicContent.solutionProject() : currentStep.dynamicContent.project()"
     [editorMode]="currentStep.description.filesConfiguration?.mode">
