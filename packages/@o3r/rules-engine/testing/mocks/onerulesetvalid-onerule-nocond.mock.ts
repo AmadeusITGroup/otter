@@ -31,6 +31,9 @@ export const jsonOneRulesetValidOneRuleNoCond : {ruleSets: Ruleset[]} = {
     {
       'id': 'e5th46e84-5e4th-54eth65seth46se8th2',
       'name': 'the second ruleset',
+      'validityRange': {
+        'to': '2025-07-23T18:25:43.511Z'
+      },
       'linkedComponent': {
         'library': '@otter/comps',
         'name': 'TestComponent'
@@ -50,7 +53,7 @@ export const jsonOneRulesetValidOneRuleNoCond : {ruleSets: Ruleset[]} = {
                 'elementType': 'ACTION',
                 'actionType': 'UPDATE_LOCALISATION',
                 'key': 'my.ssci.loc.key',
-                'value': 'my.custom.ssci.loc.key2'
+                'value': 'my.custom.ssci.loc.key3'
               }
             ],
             'failureElements': []
@@ -63,6 +66,10 @@ export const jsonOneRulesetValidOneRuleNoCond : {ruleSets: Ruleset[]} = {
       'name': 'the third ruleset',
       'validityRange': {
         'from': '2100-07-23T18:25:43.511Z'
+      },
+      'linkedComponent': {
+        'library': '@otter/comps',
+        'name': 'TestComponent2'
       },
       'rules': [
         {

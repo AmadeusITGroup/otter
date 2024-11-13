@@ -1,5 +1,5 @@
 import { AsyncPipe, formatDate } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, inject, input, Input, type OnDestroy, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, Input, input, type OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { configSignal, DynamicConfigurableWithSignal, O3rConfig } from '@o3r/configuration';
@@ -32,7 +32,7 @@ const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
     AsyncPipe
   ]
 })
-export class RulesEnginePresComponent implements OnDestroy, DynamicConfigurableWithSignal<RulesEnginePresConfig>, Translatable<RulesEnginePresTranslation> {
+export class RulesEnginePresComponent implements OnDestroy, DynamicConfigurableWithSignal<RulesEnginePresConfig>, Translatable<RulesEnginePresTranslation>, OnInit {
   private readonly tripService = inject(TripFactsService);
   private readonly localizationService = inject(LocalizationService);
   private readonly rulesService = inject(RulesEngineRunnerService);
