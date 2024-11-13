@@ -7019,7 +7019,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:^7.14.1"
     "@typescript-eslint/parser": "npm:^7.14.1"
     "@typescript-eslint/utils": "npm:^7.14.1"
-    "@webcontainer/api": "npm:~1.4.0"
+    "@webcontainer/api": "npm:~1.5.0"
     commander: "npm:^12.0.0"
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:^8.57.0"
@@ -7044,7 +7044,7 @@ __metadata:
     "@angular-devkit/schematics": ~18.2.0
     "@o3r/schematics": "workspace:^"
     "@schematics/angular": ~18.2.0
-    "@webcontainer/api": ~1.4.0
+    "@webcontainer/api": ~1.5.0
     eslint: ^8.57.0
     rxjs: ^7.8.1
     type-fest: ^4.10.2
@@ -9751,7 +9751,7 @@ __metadata:
     "@typescript-eslint/types": "npm:^7.14.1"
     "@typescript-eslint/utils": "npm:^7.14.1"
     "@vscode/codicons": "npm:^0.0.36"
-    "@webcontainer/api": "npm:~1.4.0"
+    "@webcontainer/api": "npm:~1.5.0"
     "@xterm/addon-fit": "npm:^0.10.0"
     "@xterm/xterm": "npm:^5.0.0"
     ag-grid-angular: "npm:~32.3.0"
@@ -14503,10 +14503,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@webcontainer/api@npm:~1.4.0":
-  version: 1.4.0
-  resolution: "@webcontainer/api@npm:1.4.0"
-  checksum: 10/db75707fe4b46b2a1b6eae1c8e25684b234061f3aab17e1925fe3a6fd983ccf33005286a308dd026764a1de3551221dce9bfcf9edff7504dc723cf8d902a29b7
+"@webcontainer/api@npm:~1.5.0":
+  version: 1.5.0
+  resolution: "@webcontainer/api@npm:1.5.0"
+  checksum: 10/f8e0615fc14939bd40c40f12d7d12133b9e38f9b90c3c5c91782d4eed6f0adade0abfa571842ab004acaa749acffbca640b4b5ec2a6bb3b66047b25889fbae17
   languageName: node
   linkType: hard
 
