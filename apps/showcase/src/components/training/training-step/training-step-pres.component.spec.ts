@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideMarkdown } from 'ngx-markdown';
 import { TrainingStepPresComponent } from './training-step-pres.component';
 
 describe('TrainingStepComponent', () => {
@@ -7,7 +8,8 @@ describe('TrainingStepComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TrainingStepPresComponent]
+      imports: [TrainingStepPresComponent],
+      providers: [provideMarkdown()]
     }).compileComponents();
 
     fixture = TestBed.createComponent(TrainingStepPresComponent);
