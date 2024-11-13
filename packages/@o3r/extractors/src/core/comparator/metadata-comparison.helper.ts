@@ -15,40 +15,51 @@ function checkMetadataFile<MetadataItem, MigrationMetadataItem, MetadataFile>(
   lastMetadataFile: MetadataFile,
   newMetadataFile: MetadataFile,
   migrationData: MigrationData<MigrationMetadataItem>[],
-  isBreakingChangeAllowed: boolean,
-  comparator: MetadataComparator<MetadataItem, MigrationMetadataItem, MetadataFile>
+  comparator: MetadataComparator<MetadataItem, MigrationMetadataItem, MetadataFile>,
+  options?: {allowBreakingChanges?: boolean; shouldCheckUnusedMigrationData?: boolean}
 ): Error[] {
+  const { allowBreakingChanges = false, shouldCheckUnusedMigrationData = false } = options || {};
   const errors: Error[] = [];
   const newMetadataArray = comparator.getArray(newMetadataFile);
   const lastMetadataArray = comparator.getArray(lastMetadataFile);
-  for (const lastValue of lastMetadataArray) {
-    const isInNewMetadata = newMetadataArray.some((newValue) =>
-      comparator.isSame
-        ? comparator.isSame(newValue, lastValue)
-        : comparator.getIdentifier(newValue) === comparator.getIdentifier(lastValue)
-    );
-    if (!isInNewMetadata) {
-      if (!isBreakingChangeAllowed) {
-        errors.push(new Error(`Property ${comparator.getIdentifier(lastValue)} is not present in the new metadata and breaking changes are not allowed`));
-        continue;
-      }
+  const relevantMigrationData = migrationData.filter((migrationItem) =>
+    comparator.isRelevantContentType(migrationItem.contentType));
+  const unusedMigrationData = new Set(relevantMigrationData);
+  const isSameMetadata = (a: MetadataItem, b: MetadataItem) => comparator.isSame
+    ? comparator.isSame(a, b)
+    : comparator.getIdentifier(a) === comparator.getIdentifier(b);
+  const removedMetadata = lastMetadataArray.filter((lastMetadata) =>
+    !newMetadataArray.some((newMetadata) => isSameMetadata(lastMetadata, newMetadata)));
 
-      const migrationMetadataValue = migrationData.find((metadata) => metadata.before && comparator.isMigrationDataMatch(lastValue, metadata.before, metadata.contentType));
+  // Check that removed metadata are properly documented
+  if (!allowBreakingChanges) {
+    errors.push(...removedMetadata.map((removedItem) =>
+      new Error(`Property ${comparator.getIdentifier(removedItem)} is not present in the new metadata and breaking changes are not allowed`)));
+  } else {
+    for (const removedItem of removedMetadata) {
+      const migrationMetadataValue = relevantMigrationData.find((metadata) =>
+        metadata.before && comparator.isMigrationDataMatch(removedItem, metadata.before));
 
-      if (!migrationMetadataValue) {
-        errors.push(new Error(`Property ${comparator.getIdentifier(lastValue)} has been modified but is not documented in the migration document`));
-        continue;
-      }
-
-      if (migrationMetadataValue.after) {
-        const isNewValueInNewMetadata = newMetadataArray.some((newValue) => comparator.isMigrationDataMatch(newValue, migrationMetadataValue.after!, migrationMetadataValue.contentType));
-        if (!isNewValueInNewMetadata) {
-          errors.push(new Error(`Property ${comparator.getIdentifier(lastValue)} has been modified but the new property is not present in the new metadata`));
-          continue;
+      if (migrationMetadataValue) {
+        unusedMigrationData.delete(migrationMetadataValue);
+        if (migrationMetadataValue.after) {
+          const isNewValueInNewMetadata = newMetadataArray.some((newValue) => comparator.isMigrationDataMatch(newValue, migrationMetadataValue.after!));
+          if (!isNewValueInNewMetadata) {
+            errors.push(new Error(`Property ${comparator.getIdentifier(removedItem)} has been modified but the new property is not present in the new metadata`));
+          }
         }
+      } else {
+        errors.push(new Error(`Property ${comparator.getIdentifier(removedItem)} has been modified but is not documented in the migration document`));
       }
     }
   }
+  // Check that migration data match metadata changes
+  if (shouldCheckUnusedMigrationData) {
+    for (const unusedMigrationItem of unusedMigrationData) {
+      errors.push(new Error(`The following migration data has been documented but no corresponding metadata change was found: ${JSON.stringify(unusedMigrationItem, null, 2)}`));
+    }
+  }
+
   return errors;
 }
 
@@ -161,7 +172,7 @@ Detection of package manager runner will fallback on the one used to execute the
   const newFile = getLocalMetadataFile<MetadataFile>(metadataPathInWorkspace);
 
 
-  const errors = checkMetadataFile<MetadataItem, MigrationMetadataItem, MetadataFile>(metadata, newFile, migrationData.changes, options.allowBreakingChanges, comparator);
+  const errors = checkMetadataFile<MetadataItem, MigrationMetadataItem, MetadataFile>(metadata, newFile, migrationData.changes, comparator, options);
 
   if (errors.length) {
     return {
