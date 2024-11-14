@@ -76,8 +76,9 @@ To be able to benefit from this feature, you will need to perform the following 
 
 When building (`yarn build`) the project on the `main` branch (or another `release/*` branch), the remote cache will be downloaded.
 
-> [!IMPORTANT]
-> This feature is available for `@amadeus.com` email addresses, the Nx Cloud account should be created with an `@amadeus.com` email or it should be set as **main email** on GitHub if the GitHub account is used to register to Nx Cloud.
+> [!NOTE]
+> Only Otter Team members can write Remote Cache on Nx Cloud, logged in user will be able to use Remote Cache in readonly access.
+> The Local Cache is available for all users (logged or not to Nx Cloud).
 
 ### DevTools to create new Otter monorepo elements
 
