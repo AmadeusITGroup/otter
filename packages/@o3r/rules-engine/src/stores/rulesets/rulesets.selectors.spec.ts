@@ -87,6 +87,19 @@ describe('RuleSets Selector tests', () => {
     }
   };
 
+  const r9: RulesetsModel = {
+    id: 'r9',
+    name: 'r9_name',
+    rules: [],
+    validityRange: {
+      from: afterTomorrow.toISOString()
+    },
+    linkedComponent: {
+      library: '@mylibrary',
+      name: 'thisComponentWillBeIgnored'
+    }
+  };
+
   it('should return the ruleset in range', () => {
     const state: RulesetsState = {
       ids: [r1.id, r2.id],
@@ -97,8 +110,9 @@ describe('RuleSets Selector tests', () => {
       requestIds: []
     };
     const allRuleSetsArray = selectors.selectAllRulesets.projector(state);
+    const rulesetsInRange = selectors.selectRuleSetsInRange.projector(allRuleSetsArray);
 
-    expect(selectors.selectActiveRuleSets.projector(allRuleSetsArray)).toEqual(['r1']);
+    expect(selectors.selectActiveRuleSets.projector(rulesetsInRange)).toEqual(['r1']);
   });
 
   it('should return the rulest with no validity or on demand', () => {
@@ -111,8 +125,9 @@ describe('RuleSets Selector tests', () => {
       requestIds: []
     };
     const allRuleSetsArray = selectors.selectAllRulesets.projector(state);
+    const rulesetsInRange = selectors.selectRuleSetsInRange.projector(allRuleSetsArray);
 
-    expect(selectors.selectActiveRuleSets.projector(allRuleSetsArray)).toEqual(['r3']);
+    expect(selectors.selectActiveRuleSets.projector(rulesetsInRange)).toEqual(['r3']);
   });
 
   it('should exclude the one not in validity range', () => {
@@ -125,8 +140,9 @@ describe('RuleSets Selector tests', () => {
       requestIds: []
     };
     const allRuleSetsArray = selectors.selectAllRulesets.projector(state);
+    const rulesetsInRange = selectors.selectRuleSetsInRange.projector(allRuleSetsArray);
 
-    expect(selectors.selectActiveRuleSets.projector(allRuleSetsArray)).toEqual(['r3']);
+    expect(selectors.selectActiveRuleSets.projector(rulesetsInRange)).toEqual(['r3']);
   });
 
   it('should not find valid rulesets', () => {
@@ -139,8 +155,9 @@ describe('RuleSets Selector tests', () => {
       requestIds: []
     };
     const allRuleSetsArray = selectors.selectAllRulesets.projector(state);
+    const rulesetsInRange = selectors.selectRuleSetsInRange.projector(allRuleSetsArray);
 
-    expect(selectors.selectActiveRuleSets.projector(allRuleSetsArray)).toEqual([]);
+    expect(selectors.selectActiveRuleSets.projector(rulesetsInRange)).toEqual([]);
   });
 
   it('should find a ruleset valid starting from a date in the past', () => {
@@ -154,8 +171,9 @@ describe('RuleSets Selector tests', () => {
       requestIds: []
     };
     const allRuleSetsArray = selectors.selectAllRulesets.projector(state);
+    const rulesetsInRange = selectors.selectRuleSetsInRange.projector(allRuleSetsArray);
 
-    expect(selectors.selectActiveRuleSets.projector(allRuleSetsArray)).toEqual(['r5']);
+    expect(selectors.selectActiveRuleSets.projector(rulesetsInRange)).toEqual(['r5']);
   });
 
   it('should find a ruleset valid until a date in the future', () => {
@@ -169,8 +187,9 @@ describe('RuleSets Selector tests', () => {
       requestIds: []
     };
     const allRuleSetsArray = selectors.selectAllRulesets.projector(state);
+    const rulesetsInRange = selectors.selectRuleSetsInRange.projector(allRuleSetsArray);
 
-    expect(selectors.selectActiveRuleSets.projector(allRuleSetsArray)).toEqual(['r6']);
+    expect(selectors.selectActiveRuleSets.projector(rulesetsInRange)).toEqual(['r6']);
   });
 
   it('should consider valid a ruleset with validity empty', () => {
@@ -184,8 +203,9 @@ describe('RuleSets Selector tests', () => {
       requestIds: []
     };
     const allRuleSetsArray = selectors.selectAllRulesets.projector(state);
+    const rulesetsInRange = selectors.selectRuleSetsInRange.projector(allRuleSetsArray);
 
-    expect(selectors.selectActiveRuleSets.projector(allRuleSetsArray)).toEqual(['r7']);
+    expect(selectors.selectActiveRuleSets.projector(rulesetsInRange)).toEqual(['r7']);
   });
 
   it('onDemand should take precedence over validity', () => {
@@ -199,9 +219,44 @@ describe('RuleSets Selector tests', () => {
       requestIds: []
     };
     const allRuleSetsArray = selectors.selectAllRulesets.projector(state);
+    const rulesetsInRange = selectors.selectRuleSetsInRange.projector(allRuleSetsArray);
 
-    expect(selectors.selectActiveRuleSets.projector(allRuleSetsArray)).toEqual([]);
+    expect(selectors.selectActiveRuleSets.projector(rulesetsInRange)).toEqual([]);
   });
 
+  it('should filter out the linked components rulesets outside the validity range', () => {
+    const state: RulesetsState = {
+      ids: [r9.id],
+      entities: {
+        'r9': r9
+      },
+      requestIds: []
+    };
+    const allRuleSetsArray = selectors.selectAllRulesets.projector(state);
+    const rulesetsInRange = selectors.selectRuleSetsInRange.projector(allRuleSetsArray);
+
+    expect(selectors.selectRuleSetLinkComponents.projector(rulesetsInRange)).toEqual({});
+  });
+
+  it('selectRuleSetsInRange should filter out rulesets outside of the validity range', () => {
+    const state: RulesetsState = {
+      ids: [r1.id, r2.id, r3.id, r4.id, r5.id, r6.id, r7.id, r8.id, r9.id],
+      entities: {
+        'r1': r1,
+        'r2': r2,
+        'r3': r3,
+        'r4': r4,
+        'r5': r5,
+        'r6': r6,
+        'r7': r7,
+        'r8': r8,
+        'r9': r9
+      },
+      requestIds: []
+    };
+    const allRuleSetsArray = selectors.selectAllRulesets.projector(state);
+
+    expect(selectors.selectRuleSetsInRange.projector(allRuleSetsArray)).toEqual([r1, r2, r3, r5, r6, r7, r8]);
+  });
 });
 
