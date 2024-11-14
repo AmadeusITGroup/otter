@@ -4,7 +4,7 @@ import {
   Input
 } from '@angular/core';
 import {AngularSplitModule} from 'angular-split';
-import {MarkdownModule, provideMarkdown} from 'ngx-markdown';
+import {MarkdownModule} from 'ngx-markdown';
 import {CodeEditorViewComponent, EditorMode, TrainingProject} from '../code-editor-view';
 
 @Component({
@@ -12,7 +12,6 @@ import {CodeEditorViewComponent, EditorMode, TrainingProject} from '../code-edit
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [AngularSplitModule, CodeEditorViewComponent, MarkdownModule],
-  providers: [provideMarkdown()],
   templateUrl: './training-step-pres.component.html',
   styleUrl: './training-step-pres.component.scss'
 })
