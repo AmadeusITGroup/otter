@@ -26,6 +26,11 @@
       "description": "Are breaking changes allowed.",
       "default": false
     },
+    "shouldCheckUnusedMigrationData": {
+      "type": "boolean",
+      "description": "Whether to throw an error in case of a migration item that is not used during metadata checks",
+      "default": false
+    },
     "packageManager": {
       "type": "string",
       "description": "Override of the package manager, otherwise it will be computed from the project setup."
