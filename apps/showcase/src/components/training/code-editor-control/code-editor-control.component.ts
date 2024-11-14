@@ -10,7 +10,7 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import {toSignal} from '@angular/core/rxjs-interop';
-import {NgbNav, NgbNavContent, NgbNavItem, NgbNavLink, NgbNavOutlet} from '@ng-bootstrap/ng-bootstrap';
+import {NgbNavModule} from '@ng-bootstrap/ng-bootstrap';
 import {distinctUntilChanged, map, of, repeat, Subject, throttleTime, timeout} from 'rxjs';
 import {WebContainerService} from '../../../services';
 import {CodeEditorTerminalComponent} from '../code-editor-terminal';
@@ -20,11 +20,7 @@ import {CodeEditorTerminalComponent} from '../code-editor-terminal';
   standalone: true,
   imports: [
     CodeEditorTerminalComponent,
-    NgbNav,
-    NgbNavContent,
-    NgbNavItem,
-    NgbNavLink,
-    NgbNavOutlet
+    NgbNavModule
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
