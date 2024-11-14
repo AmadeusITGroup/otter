@@ -37,11 +37,11 @@ Also, to customize an application, metadata can be extracted from the applicatio
 
 ## Get Started
 
-A new application can be set up with this simple command:
+To set up a new Otter project with a monorepo structure, use the following simple command:
 
 ```shell
-# Starting a new Otter application
-npm create @o3r my-app
+# Creating a new Otter monorepo
+npm create @o3r my-project
 ```
 
 > [!TIP]

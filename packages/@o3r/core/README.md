@@ -32,13 +32,12 @@ during the installation of the `@o3r/core`.
 npm install --global yarn
 ```
 
-### Creating a new Otter application
+### Creating a new Otter project
 
 ```shell
-# Create new application
 npm create @o3r my-project
-# Or
-yarn create @o3r my-project
+# Or a project using the yarn package manager
+npm create @o3r my-project -- --package-manager=yarn
 ```
 
 > [!TIP]
