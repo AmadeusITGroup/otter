@@ -755,7 +755,6 @@ __metadata:
     jsonc-eslint-parser: "npm:~2.4.0"
     jsonschema: "npm:~1.4.1"
     openapi-types: "npm:^12.0.0"
-    pascal-case: "npm:^3.1.1"
     semver: "npm:^7.5.2"
     swagger-schema-official: "npm:~2.0.0-bab6bed"
     ts-jest: "npm:~29.2.0"
@@ -27984,7 +27983,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pascal-case@npm:^3.1.1, pascal-case@npm:^3.1.2":
+"pascal-case@npm:^3.1.2":
   version: 3.1.2
   resolution: "pascal-case@npm:3.1.2"
   dependencies:
