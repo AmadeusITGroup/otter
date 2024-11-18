@@ -73,4 +73,10 @@ export interface GenerateStyleSchematicsSchema extends SchematicOptionObject {
    * Note: not matching tokens will default to ASC order.
    */
   sortOrderPatternsFilePath?: string;
+
+  /**
+   * Tags to surround the generated code in the outputted file.
+   * It is used to detect the code to replace
+   */
+  codeEditTags?: {end: string; start: string};
 }

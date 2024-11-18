@@ -106,6 +106,22 @@
     "sortOrderPatternsFilePath": {
       "type": "string",
       "description": "Path to the JSON file exposing an ordered array of RegExps applied to the token name which will define the priority of the generated variables. (Note: not matching tokens will default to ASC order)"
+    },
+    "codeEditTags": {
+      "description": "Tags to surround the generated code in the outputted file. It is used to detect the code to replace. Note: the tag should be valid in the selected language.",
+      "type": "object",
+      "properties": {
+        "start": {
+          "description": "Starting tag",
+          "type": "string"
+        },
+        "end": {
+          "description": "Ending tag",
+          "type": "string"
+        }
+      },
+      "additionalItems": false,
+      "required": ["start", "end"]
     }
   },
   "additionalProperties": true,
