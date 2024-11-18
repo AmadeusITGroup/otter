@@ -2820,6 +2820,67 @@ const validRange = (range, options) => {
 module.exports = validRange
 
 
+/***/ }),
+
+/***/ 268:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.getPreviousVersion = getPreviousVersion;
+const semver_1 = __nccwpck_require__(997);
+async function getPreviousVersion(versionInput) {
+    const version = (0, semver_1.valid)(versionInput);
+    let data = '';
+    for await (const chunk of process.stdin)
+        data += chunk;
+    if (!version) {
+        console.error('Invalid version provided');
+        process.exit(1);
+    }
+    const previousVersion = JSON.parse(data)
+        .filter((tag) => !!tag)
+        .map((tag) => ({ tag, version: (0, semver_1.valid)(tag) }))
+        .filter((item) => !!item.version)
+        .reduce((acc, item) => {
+        if ((0, semver_1.lt)(item.version, version) && (!acc || (0, semver_1.gt)(item.version, acc.version))) {
+            acc = item;
+        }
+        return acc;
+    }, undefined);
+    process.stdout.write(previousVersion?.tag || '');
+}
+//# sourceMappingURL=get-previous-version.cjs.map
+
+/***/ }),
+
+/***/ 87:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.isLatest = isLatest;
+const semver_1 = __nccwpck_require__(997);
+async function isLatest(versionInput) {
+    const newVersion = (0, semver_1.valid)(versionInput);
+    let data = '';
+    for await (const chunk of process.stdin)
+        data += chunk;
+    if (!newVersion) {
+        console.error('Invalid version provided');
+        process.exit(1);
+    }
+    const isLatest = JSON.parse(data)
+        .filter((tag) => !!tag)
+        .map((tag) => ({ tag, version: (0, semver_1.valid)(tag) }))
+        .filter((item) => !!item.version)
+        .every(({ version }) => (0, semver_1.lt)(version, newVersion));
+    process.stdout.write(isLatest ? 'true' : 'false');
+}
+//# sourceMappingURL=is-latest.cjs.map
+
 /***/ })
 
 /******/ 	});
@@ -2867,32 +2928,21 @@ var __webpack_exports__ = {};
 var exports = __webpack_exports__;
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-const semver_1 = __nccwpck_require__(997);
 const minimist = __nccwpck_require__(588);
+const get_previous_version_cjs_1 = __nccwpck_require__(268);
+const is_latest_cjs_1 = __nccwpck_require__(87);
 const argv = minimist(process.argv.slice(2));
-const version = (0, semver_1.valid)(argv._.at(0));
-let data = '';
-async function main() {
-    for await (const chunk of process.stdin)
-        data += chunk;
-    if (!version) {
-        console.error('Invalid version provided');
-        process.exit(1);
-    }
-    const previousVersion = JSON.parse(data)
-        .filter((tag) => !!tag)
-        .map((tag) => ({ tag, version: (0, semver_1.valid)(tag) }))
-        .filter((item) => !!item.version)
-        .reduce((acc, item) => {
-        if ((0, semver_1.lt)(item.version, version) && (!acc || (0, semver_1.gt)(item.version, acc.version))) {
-            acc = item;
-        }
-        return acc;
-    }, undefined);
-    process.stdout.write(previousVersion?.tag || '');
+const cmd = argv._.at(0);
+if (cmd === 'previous-version') {
+    void (0, get_previous_version_cjs_1.getPreviousVersion)(argv._.at(1));
 }
-void main();
-//# sourceMappingURL=get-previous-version.cjs.map
+else if (cmd === 'is-latest') {
+    void (0, is_latest_cjs_1.isLatest)(argv._.at(1));
+}
+else {
+    throw new Error(`Unknown command ${cmd}`);
+}
+//# sourceMappingURL=main.cjs.map
 })();
 
 module.exports = __webpack_exports__;
