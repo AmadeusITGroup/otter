@@ -157,7 +157,7 @@ function getFilesContent(resources: Resource[]) {
   return (resources.reduce((fileSystemTree: FileSystemTree, resource) => {
     const sanitizedPath = `./${resource.path.replace(new RegExp('^[.]/?'), '')}`;
     const parsedPath = sanitizedPath.split('/').filter((pathEl) => !!pathEl);
-    overrideFileSystemTree(fileSystemTree, JSON.parse(resource.content) as FileSystemTree, parsedPath);
+    overrideFileSystemTree(fileSystemTree, JSON.parse(resource.content).fileSystemTree as FileSystemTree, parsedPath);
     return fileSystemTree;
   }, {} as FileSystemTree)['.'] as DirectoryNode).directory;
 }

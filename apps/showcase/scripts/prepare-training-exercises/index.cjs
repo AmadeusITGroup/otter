@@ -22,7 +22,9 @@ void (async () => {
     const exerciseStructure = await getFilesTree([{isDir: true, path: `${filePath}`}], {readdir, readFile});
     const [_, commonPath, folderName] = folder.match('(.*)/(exercise|solution)');
     const targetPath = join(commonPath, `${folderName}.json`);
-    const content = JSON.stringify(exerciseStructure);
+    const content = JSON.stringify({
+      fileSystemTree: exerciseStructure
+    });
     await writeFile(targetPath, content);
   }
 })();
