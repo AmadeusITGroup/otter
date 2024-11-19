@@ -21,7 +21,7 @@ The issue creation template requires:
 - NodeJS version
 - a fix suggestion, if possible
 
-If you already have a fix for the problem don't hesitate to [open a pull request](#creating-a-pull-request). Each pull request should be assign to an issue, so please create the issue and link it to the PR.
+If you already have a fix for the problem don't hesitate to [open a pull request](#creating-a-pull-request). Each pull request should be assigned to an issue, so please create the issue and link it to the PR.
 
 ## Creating a pull request
 
@@ -53,6 +53,7 @@ When contributing, please keep in mind the following rules:
 - A description comment must use the pattern `/** [Your comment] */`
 - Linter tasks must pass
 - Add relevant Unit Tests
+- E2E tests must pass (check [how to update screenshots for visual testing](./apps/showcase/scripts/update-screenshots/readme.md))
 - Any change should be followed by changes in the generator whenever it's applicable
 - Properties should have the most restricted type possible
 
@@ -72,12 +73,12 @@ To be able to benefit from this feature, you will need to perform the following 
 
 1. Create an account on [Nx Cloud App](https://cloud.nx.app/)
 2. Create a Personal Access Token on [profile page](https://cloud.nx.app/profile/tokens).
-3. Follow [Nx Cloud instruction](https://nx.dev/ci/recipes/security/personal-access-tokens) to setup your previously generated PAT.
+3. Follow [Nx Cloud instruction](https://nx.dev/ci/recipes/security/personal-access-tokens) to set up your previously generated PAT.
 
 When building (`yarn build`) the project on the `main` branch (or another `release/*` branch), the remote cache will be downloaded.
 
 > [!NOTE]
-> Only Otter Team members can write Remote Cache on Nx Cloud, logged in user will be able to use Remote Cache in readonly access.
+> Only Otter Team members can write Remote Cache on Nx Cloud, logged-in users will be able to use Remote Cache in readonly mode.
 > The Local Cache is available for all users (logged or not to Nx Cloud).
 
 ### DevTools to create new Otter monorepo elements
@@ -103,6 +104,6 @@ As a reviewer, please follow these guidelines:
 - Always stay polite and professional in your comments.
 - The purpose of comments is to suggest improvements, ask a question or request for a change.
 - Comments should be constructive and suggest ways to improve things.
-- `Request changes` option should't be used if the comments consist only of questions.
+- `Request changes` option shouldn't be used if the comments consist only of questions.
 
 Thanks in advance for your contribution, and we look forward to hearing from you :)
