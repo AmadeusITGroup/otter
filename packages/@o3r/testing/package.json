@@ -110,7 +110,6 @@
     "@ngx-translate/core": "~15.0.0",
     "@o3r/core": "workspace:^",
     "@o3r/localization": "workspace:^",
-    "@o3r/schematics": "workspace:^",
     "@playwright/test": "~1.48.0",
     "@schematics/angular": "~18.2.0",
     "pixelmatch": "^5.2.1",
@@ -146,9 +145,6 @@
     "@o3r/localization": {
       "optional": true
     },
-    "@o3r/schematics": {
-      "optional": true
-    },
     "@playwright/test": {
       "optional": true
     },
@@ -172,6 +168,7 @@
     }
   },
   "dependencies": {
+    "@o3r/schematics": "workspace:^",
     "esbuild": "~0.24.0",
     "module-from-string": "^3.2.0",
     "tslib": "^2.6.2"
@@ -202,7 +199,6 @@
     "@o3r/core": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
     "@o3r/localization": "workspace:^",
-    "@o3r/schematics": "workspace:^",
     "@o3r/test-helpers": "workspace:^",
     "@playwright/test": "~1.48.0",
     "@schematics/angular": "~18.2.0",

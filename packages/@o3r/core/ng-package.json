@@ -6,6 +6,6 @@
     "entryFile": "src/public_api.ts"
   },
   "allowedNonPeerDependencies": [
-    "tslib", "uuid", "@o3r/schematics"
+    "uuid", "@o3r/schematics"
   ]
 }

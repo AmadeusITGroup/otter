@@ -1,7 +1,13 @@
 import { chain, noop, Rule } from '@angular-devkit/schematics';
 import type { NgAddSchematicsSchema } from './schema';
 import * as path from 'node:path';
-import type { DependencyToAdd } from '@o3r/schematics';
+import {
+  type DependencyToAdd,
+  getProjectNewDependenciesTypes,
+  getPackageInstallConfig,
+  applyEsLintFix,
+  install
+} from '@o3r/schematics';
 
 const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
 
@@ -18,22 +24,14 @@ const dependenciesToNgAdd = [
   // Add the dependencies to install with NgAdd here
 ];
 
-const reportMissingSchematicsDep = (logger: { error: (message: string) => any }) => (reason: any) => {
-  logger.error(`[ERROR]: Adding <%= featureName %> has failed.
-If the error is related to missing @o3r dependencies you need to install '@o3r/core' to be able to use the <%= featureName %> package. Please run 'ng add @o3r/core' .
-Otherwise, use the error message as guidance.`);
-  throw reason;
-};
-
 /**
  * Add Otter <%= featureName %> to an Otter Project
  *
  * @param options
  */
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
-  return async (tree, context) => {
+  return (tree, context) => {
     // use dynamic import to properly raise an exception if it is not an Otter project.
-    const { getProjectNewDependenciesTypes, getPackageInstallConfig, applyEsLintFix, install } = await import('@o3r/schematics');
     // current package version
     const version = JSON.stringify(fs.readFileSync(packageJsonPath)).version;
     const dependencies = [...dependenciesToInstall, ...dependenciesToNgAdd].reduce((acc, dep) => {
@@ -63,7 +61,4 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
  * Add module to an Angular Project
  * @param options ng add options
  */
-export const ngAdd = (options: NgAddSchematicsSchema): Rule => async (_, { logger }) => {
-  const { createSchematicWithMetricsIfInstalled } = await import('@o3r/schematics').catch(reportMissingSchematicsDep(logger));
-  return createSchematicWithMetricsIfInstalled(ngAddFn)(options);
-};
+export const ngAdd = (options: NgAddSchematicsSchema): Rule => createSchematicWithMetricsIfInstalled(ngAddFn)(options);

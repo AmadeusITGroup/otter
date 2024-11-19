@@ -51,7 +51,6 @@
     "@o3r/localization": "workspace:^",
     "@o3r/logger": "workspace:^",
     "@o3r/rules-engine": "workspace:^",
-    "@o3r/schematics": "workspace:^",
     "@o3r/testing": "workspace:^",
     "@schematics/angular": "~18.2.0",
     "@yarnpkg/cli": "^4.0.0",
@@ -94,9 +93,6 @@
     "@o3r/rules-engine": {
       "optional": true
     },
-    "@o3r/schematics": {
-      "optional": true
-    },
     "@schematics/angular": {
       "optional": true
     },
@@ -132,6 +128,7 @@
     }
   },
   "dependencies": {
+    "@o3r/schematics": "workspace:^",
     "tslib": "^2.6.2"
   },
   "devDependencies": {
@@ -166,7 +163,6 @@
     "@o3r/localization": "workspace:^",
     "@o3r/logger": "workspace:^",
     "@o3r/rules-engine": "workspace:^",
-    "@o3r/schematics": "workspace:^",
     "@o3r/test-helpers": "workspace:^",
     "@o3r/testing": "workspace:^",
     "@schematics/angular": "~18.2.0",

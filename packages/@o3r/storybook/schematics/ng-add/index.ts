@@ -1,15 +1,18 @@
 import { chain, noop, type Rule } from '@angular-devkit/schematics';
 import * as path from 'node:path';
 import type { NgAddSchematicsSchema } from './schema';
+import {
+  applyEsLintFix,
+  createSchematicWithMetricsIfInstalled,
+  getO3rPeerDeps,
+  getPackageInstallConfig,
+  getProjectNewDependenciesTypes,
+  getWorkspaceConfig,
+  removePackages,
+  setupDependencies
+} from '@o3r/schematics';
 
 const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
-
-const reportMissingSchematicsDep = (logger: { error: (message: string) => any }) => (reason: any) => {
-  logger.error(`[ERROR]: Adding @o3r/storybook has failed.
-If the error is related to missing @o3r dependencies you need to install '@o3r/core' to be able to use the storybook package. Please run 'ng add @o3r/core' .
-Otherwise, use the error message as guidance.`);
-  throw reason;
-};
 
 /**
  * Add Otter storybook to an Angular Project
@@ -17,7 +20,6 @@ Otherwise, use the error message as guidance.`);
  */
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
   return async (tree) => {
-    const { applyEsLintFix, getPackageInstallConfig, setupDependencies, getO3rPeerDeps, getProjectNewDependenciesTypes, getWorkspaceConfig, removePackages } = await import('@o3r/schematics');
     const { updateStorybook } = await import('../storybook-base');
     const depsInfo = getO3rPeerDeps(packageJsonPath);
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
@@ -48,7 +50,4 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
  * Add Otter storybook to an Angular Project
  * @param options
  */
-export const ngAdd = (options: NgAddSchematicsSchema): Rule => async (_, { logger }) => {
-  const { createSchematicWithMetricsIfInstalled } = await import('@o3r/schematics').catch(reportMissingSchematicsDep(logger));
-  return createSchematicWithMetricsIfInstalled(ngAddFn)(options);
-};
+export const ngAdd = (options: NgAddSchematicsSchema): Rule => createSchematicWithMetricsIfInstalled(ngAddFn)(options);

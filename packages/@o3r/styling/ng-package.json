@@ -5,6 +5,9 @@
   "lib": {
     "entryFile": "src/public_api.ts"
   },
+  "allowedNonPeerDependencies": [
+    "@o3r/schematics"
+  ],
   "assets": [
     "schemas/*.json",
     "scss/**/*",

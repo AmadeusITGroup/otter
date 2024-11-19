@@ -8,9 +8,9 @@ import {
   isApplicationThatUsesRouterModule,
   insertBeforeModule as o3rInsertBeforeModule,
   insertImportToModuleFile as o3rInsertImportToModuleFile,
-  type SetupDependenciesOptions
+  type SetupDependenciesOptions,
+  WorkspaceProject
 } from '@o3r/schematics';
-import { WorkspaceProject } from '@o3r/schematics';
 import { addRootImport } from '@schematics/angular/utility';
 import { isImported } from '@schematics/angular/utility/ast-utils';
 import * as path from 'node:path';
@@ -37,6 +37,7 @@ const ngrxRouterStoreDevToolDep = '@ngrx/store-devtools';
  * @param projectType
  * @param options.dependenciesSetupConfig
  * @param options.workingDirector
+ * @param options.exactO3rVersion
  */
 export function updateStore(
   options: { projectName?: string | undefined; workingDirector?: string | undefined; dependenciesSetupConfig: SetupDependenciesOptions; exactO3rVersion?: boolean },

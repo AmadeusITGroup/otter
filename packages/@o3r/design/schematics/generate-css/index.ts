@@ -1,6 +1,6 @@
 import type { GenerateCssSchematicsSchema } from './schema';
 import type { Rule } from '@angular-devkit/schematics';
-import type { createSchematicWithMetricsIfInstalled } from '@o3r/schematics';
+import { createSchematicWithMetricsIfInstalled, globInTree } from '@o3r/schematics';
 import { parseDesignTokenFile, renderDesignTokens } from '@o3r/design';
 import type { DesignTokenRendererOptions, DesignTokenVariableSet, DesignTokenVariableStructure } from '@o3r/design';
 
@@ -29,8 +29,6 @@ function generateCssFn(options: GenerateCssSchematicsSchema): Rule {
       logger: context.logger
     };
 
-    const { globInTree } = await import('@o3r/schematics');
-
     const files = globInTree(tree, Array.isArray(options.designTokenFilePatterns) ? options.designTokenFilePatterns : [options.designTokenFilePatterns]);
 
     const duplicatedToken: DesignTokenVariableStructure[] = [];
@@ -55,15 +53,4 @@ function generateCssFn(options: GenerateCssSchematicsSchema): Rule {
  * Generate CSS from Design Token files
  * @param options
  */
-export const generateCss = (options: GenerateCssSchematicsSchema) => async () => {
-  let createSchematicWithMetrics: typeof createSchematicWithMetricsIfInstalled | undefined;
-  try {
-    ({ createSchematicWithMetricsIfInstalled: createSchematicWithMetrics } = await import('@o3r/schematics'));
-  } catch {
-    // No @o3r/schematics detected
-  }
-  if (!createSchematicWithMetrics) {
-    return generateCssFn(options);
-  }
-  return createSchematicWithMetrics(generateCssFn)(options);
-};
+export const generateCss = (options: GenerateCssSchematicsSchema) => createSchematicWithMetricsIfInstalled(generateCssFn)(options);

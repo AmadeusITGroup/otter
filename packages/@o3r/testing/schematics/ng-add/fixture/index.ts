@@ -1,6 +1,10 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import type { TsConfigJson } from 'type-fest';
+import {
+  getTestFramework,
+  getWorkspaceConfig
+} from '@o3r/schematics';
 
 import * as ts from 'typescript';
 
@@ -18,8 +22,7 @@ export function updateFixtureConfig(options: { projectName?: string | null | und
    * @param tree
    * @param context
    */
-  const updateTestTsconfig: Rule = async (tree: Tree, context: SchematicContext) => {
-    const { getTestFramework, getWorkspaceConfig } = await import('@o3r/schematics');
+  const updateTestTsconfig: Rule = (tree: Tree, context: SchematicContext) => {
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
 
     if (!workspaceProject) {

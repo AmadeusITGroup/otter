@@ -6,6 +6,10 @@ import { readFileSync } from 'node:fs';
 import { lastValueFrom } from 'rxjs';
 import type { JsonObject, PackageJson } from 'type-fest';
 import { DevInstall } from '../helpers/node-install';
+import {
+  createSchematicWithMetricsIfInstalled,
+  registerPackageCollectionSchematics
+} from '@o3r/schematics';
 
 const packageJsonPath = '/package.json';
 const swaggerIgnorePath = '/.swagger-codegen-ignore';
@@ -151,10 +155,7 @@ const registerPackageSchematics = async (tree: Tree, context: SchematicContext) 
   }
   return () => chain([
     ...schematicsDependencies.map((dep) => externalSchematic(dep, 'ng-add', {})),
-    async (t, c) => {
-      const {registerPackageCollectionSchematics} = await import('@o3r/schematics');
-      return () => registerPackageCollectionSchematics(amaSdkSchematicsPackageJsonContent)(t, c);
-    }
+    (t, c) => registerPackageCollectionSchematics(amaSdkSchematicsPackageJsonContent)(t, c)
   ]);
 };
 
@@ -177,7 +178,4 @@ function ngAddFn(): Rule {
 /**
  * Add Otter ama-sdk-schematics to a Project
  */
-export const ngAdd = (): Rule => async () => {
-  const { createSchematicWithMetricsIfInstalled } = await import('@o3r/schematics');
-  return createSchematicWithMetricsIfInstalled(ngAddFn)(undefined);
-};
+export const ngAdd = (): Rule => createSchematicWithMetricsIfInstalled(ngAddFn)(undefined);

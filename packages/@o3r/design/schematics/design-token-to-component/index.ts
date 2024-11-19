@@ -10,7 +10,9 @@ import {
 } from '@angular-devkit/schematics';
 import { basename, dirname, relative } from 'node:path';
 import type { NgAddDesignTokenSchematicsSchema } from './schema';
-import type { createSchematicWithMetricsIfInstalled } from '@o3r/schematics';
+import {
+  createSchematicWithMetricsIfInstalled
+} from '@o3r/schematics';
 
 /**
  * Add Design Token to an existing component
@@ -37,15 +39,4 @@ export function ngAddDesignTokenFn(options: NgAddDesignTokenSchematicsSchema): R
  * Add Design Token to an existing component
  * @param options
  */
-export const ngAddDesignToken = (options: NgAddDesignTokenSchematicsSchema) => async () => {
-  let createSchematicWithMetrics: typeof createSchematicWithMetricsIfInstalled | undefined;
-  try {
-    ({ createSchematicWithMetricsIfInstalled: createSchematicWithMetrics } = await import('@o3r/schematics'));
-  } catch {
-    // No @o3r/schematics detected
-  }
-  if (!createSchematicWithMetrics) {
-    return ngAddDesignTokenFn(options);
-  }
-  return createSchematicWithMetrics(ngAddDesignTokenFn)(options);
-};
+export const ngAddDesignToken = (options: NgAddDesignTokenSchematicsSchema) => createSchematicWithMetricsIfInstalled(ngAddDesignTokenFn)(options);

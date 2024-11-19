@@ -1,6 +1,10 @@
 import { apply, chain, MergeStrategy, mergeWith, move, renameTemplateFiles, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
 import { posix } from 'node:path';
-
+import {
+  getAllFilesInTree,
+  getTemplateFolder,
+  getWorkspaceConfig
+} from '@o3r/schematics';
 /**
  * Add or update the Linter configuration
  * @param options @see RuleFactory.options
@@ -14,7 +18,7 @@ export function updateLinterConfigs(options: { projectName?: string | null | und
    * @param tree
    * @param context
    */
-  const updateTslintExtend: Rule = async (tree: Tree, context: SchematicContext) => {
+  const updateTslintExtend: Rule = (tree: Tree, context: SchematicContext) => {
     const eslintFilePath = '/.eslintrc.json';
 
     if (tree.exists(eslintFilePath)) {
@@ -28,7 +32,6 @@ export function updateLinterConfigs(options: { projectName?: string | null | und
 
       tree.overwrite(eslintFilePath, JSON.stringify(eslintFile, null, 2));
     } else {
-      const { getAllFilesInTree, getTemplateFolder } = await import('@o3r/schematics');
       const eslintConfigFiles = getAllFilesInTree(tree, '/', ['**/.eslintrc.js'], false).filter((file) => /\.eslintrc/i.test(file));
       if (!eslintConfigFiles.length) {
         return mergeWith(apply(url(getTemplateFolder(rootPath, __dirname, 'templates/workspace')), [
@@ -50,11 +53,10 @@ export function updateLinterConfigs(options: { projectName?: string | null | und
    * @param tree
    * @param context
    */
-  const createProjectFiles: Rule = async (tree: Tree, context: SchematicContext) => {
+  const createProjectFiles: Rule = (tree: Tree, context: SchematicContext) => {
     if (!options.projectName) {
       return;
     }
-    const { getWorkspaceConfig } = await import('@o3r/schematics');
     const workspace = getWorkspaceConfig(tree);
     if (!workspace) {
       return;
@@ -73,7 +75,6 @@ export function updateLinterConfigs(options: { projectName?: string | null | und
       context.logger.info(`${eslintFilePath} already exists.`);
       return;
     } else {
-      const { getTemplateFolder } = await import('@o3r/schematics');
       const rootRelativePath = posix.relative(projectRoot, tree.root.path.replace(/^\//, './'));
       return mergeWith(apply(url(getTemplateFolder(rootPath, __dirname, 'templates/project')), [
         template({
@@ -91,8 +92,7 @@ export function updateLinterConfigs(options: { projectName?: string | null | und
    * @param tree
    * @param context
    */
-  const editAngularJson: Rule = async (tree: Tree, context: SchematicContext) => {
-    const { getWorkspaceConfig } = await import('@o3r/schematics');
+  const editAngularJson: Rule = (tree: Tree, context: SchematicContext) => {
     const workspace = getWorkspaceConfig(tree);
     if (!workspace) {
       return;
@@ -124,11 +124,10 @@ export function updateLinterConfigs(options: { projectName?: string | null | und
    * @param tree
    * @param context
    */
-  const handleOtterEslintErrors: Rule = async (tree: Tree, context: SchematicContext) => {
+  const handleOtterEslintErrors: Rule = (tree: Tree, context: SchematicContext) => {
     if (!options.projectName) {
       return;
     }
-    const { getWorkspaceConfig } = await import('@o3r/schematics');
     const workspace = getWorkspaceConfig(tree);
     if (!workspace) {
       return;

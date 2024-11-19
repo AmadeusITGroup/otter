@@ -9,6 +9,9 @@ import {
   url
 } from '@angular-devkit/schematics';
 import { NgGenerateApiExtensionSchematicsSchema } from './schema';
+import {
+  createSchematicWithMetricsIfInstalled
+} from '@o3r/schematics';
 
 /**
  * Generate a Extension of a API core definition
@@ -31,7 +34,4 @@ function ngGenerateApiExtensionFn(options: NgGenerateApiExtensionSchematicsSchem
  * Generate a Extension of a API core definition
  * @param options
  */
-export const ngGenerateApiExtension = (options: NgGenerateApiExtensionSchematicsSchema) => async () => {
-  const { createSchematicWithMetricsIfInstalled } = await import('@o3r/schematics');
-  return createSchematicWithMetricsIfInstalled(ngGenerateApiExtensionFn)(options);
-};
+export const ngGenerateApiExtension = (options: NgGenerateApiExtensionSchematicsSchema) => createSchematicWithMetricsIfInstalled(ngGenerateApiExtensionFn)(options);

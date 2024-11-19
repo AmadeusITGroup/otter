@@ -1,8 +1,9 @@
 import type { Rule } from '@angular-devkit/schematics';
-import type { createSchematicWithMetricsIfInstalled } from '@o3r/schematics';
+import { createSchematicWithMetricsIfInstalled } from '@o3r/schematics';
 import { posix, resolve } from 'node:path';
 import { AUTO_GENERATED_END, AUTO_GENERATED_START, DesignToken, DesignTokenGroup, DesignTokenNode } from '../../src/public_api';
 import type { ExtractTokenSchematicsSchema } from './schema';
+import { filter } from 'minimatch';
 
 const patternToDetect = 'o3r.var';
 
@@ -34,7 +35,6 @@ function extractTokenFn(options: ExtractTokenSchematicsSchema): Rule {
     try {
       // eslint-disable-next-line @typescript-eslint/naming-convention
       const { CssVariableExtractor } = await import('@o3r/styling/builders/style-extractor/helpers');
-      const { filter } = await import('minimatch');
       const filterFunctions = options.componentFilePatterns.map((pattern) => filter(
         '/' + pattern.replace(/[\\/]+/g, '/'),
         { dot: true }
@@ -110,15 +110,4 @@ function extractTokenFn(options: ExtractTokenSchematicsSchema): Rule {
  * Extract the token from o3r mixin sass file
  * @param options
  */
-export const extractToken = (options: ExtractTokenSchematicsSchema) => async () => {
-  let createSchematicWithMetrics: typeof createSchematicWithMetricsIfInstalled | undefined;
-  try {
-    ({ createSchematicWithMetricsIfInstalled: createSchematicWithMetrics } = await import('@o3r/schematics'));
-  } catch {
-    // No @o3r/schematics detected
-  }
-  if (!createSchematicWithMetrics) {
-    return extractTokenFn(options);
-  }
-  return createSchematicWithMetrics(extractTokenFn)(options);
-};
+export const extractToken = (options: ExtractTokenSchematicsSchema) => createSchematicWithMetricsIfInstalled(extractTokenFn)(options);

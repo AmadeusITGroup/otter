@@ -25,7 +25,6 @@
     "@angular-devkit/core": "~18.2.0",
     "@angular-devkit/schematics": "~18.2.0",
     "@o3r/core": "workspace:^",
-    "@o3r/schematics": "workspace:^",
     "@o3r/telemetry": "workspace:^",
     "@schematics/angular": "~18.2.0",
     "@yarnpkg/cli": "^4.0.0",

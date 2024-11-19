@@ -8,6 +8,9 @@ import { gt, minVersion } from 'semver';
 import { isTypescriptSdk } from '../helpers/is-typescript-project';
 import {updateOpenApiVersionInProject} from '../ng-update/typescript/v10.3/update-openapiversion';
 import { updateV11_4 as updateV114 } from '../ng-update/typescript';
+import {
+  createSchematicWithMetricsIfInstalled
+} from '@o3r/schematics';
 
 /* eslint-disable @typescript-eslint/naming-convention */
 const tsMigrationMap: MigrationRulesMap = {
@@ -45,7 +48,4 @@ function migrateFn(options: MigrateSchematicsSchemaOptions): Rule {
  * Facilitate the migration of a version to another by the run of migration rules
  * @param options
  */
-export const migrate = (options: MigrateSchematicsSchemaOptions) => async () => {
-  const { createSchematicWithMetricsIfInstalled } = await import('@o3r/schematics');
-  return createSchematicWithMetricsIfInstalled(migrateFn)(options);
-};
+export const migrate = (options: MigrateSchematicsSchemaOptions) => createSchematicWithMetricsIfInstalled(migrateFn)(options);

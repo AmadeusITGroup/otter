@@ -3,6 +3,21 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { updateCmsAdapter } from '../cms-adapter';
 import type { NgAddSchematicsSchema } from './schema';
+import type { NodeDependencyType } from '@schematics/angular/utility/dependencies';
+import {
+  createSchematicWithMetricsIfInstalled,
+  getDefaultOptionsForSchematic,
+  getExternalDependenciesVersionRange,
+  getO3rPeerDeps,
+  getPackageInstallConfig,
+  getProjectNewDependenciesTypes,
+  getWorkspaceConfig,
+  registerPackageCollectionSchematics,
+  removePackages,
+  setupDependencies,
+  setupSchematicsParamsForProject,
+  updateSassImports
+} from '@o3r/schematics';
 
 const devDependenciesToInstall = [
   'chokidar',
@@ -14,14 +29,6 @@ const dependenciesToInstall = [
   '@angular/cdk'
 ];
 
-
-const reportMissingSchematicsDep = (logger: { error: (message: string) => any }) => (reason: any) => {
-  logger.error(`[ERROR]: Adding @o3r/styling has failed.
-If the error is related to missing @o3r dependencies you need to install '@o3r/core' to be able to use the styling package. Please run 'ng add @o3r/core' .
-Otherwise, use the error message as guidance.`);
-  throw reason;
-};
-
 /**
  * Add Otter styling to an Angular Project
  * Update the styling if the app/lib used otter v7
@@ -30,23 +37,10 @@ Otherwise, use the error message as guidance.`);
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
   return async (tree, context) => {
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
-    const {
-      getDefaultOptionsForSchematic,
-      getPackageInstallConfig,
-      getO3rPeerDeps,
-      getProjectNewDependenciesTypes,
-      getWorkspaceConfig,
-      setupDependencies,
-      removePackages,
-      registerPackageCollectionSchematics,
-      setupSchematicsParamsForProject,
-      updateSassImports,
-      getExternalDependenciesVersionRange
-    } = await import('@o3r/schematics');
     options = {...getDefaultOptionsForSchematic(getWorkspaceConfig(tree), '@o3r/styling', 'ng-add', options), ...options};
     const {updateThemeFiles, removeV7OtterAssetsInAngularJson} = await import('./theme-files');
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    const {NodeDependencyType} = await import('@schematics/angular/utility/dependencies');
+    const { NodeDependencyType } = await import('@schematics/angular/utility/dependencies').catch(() => ({ NodeDependencyType: { Dev: 'devDependencies' as NodeDependencyType.Dev } }));
     const depsInfo = getO3rPeerDeps(packageJsonPath);
     if (options.enableMetadataExtract) {
       depsInfo.o3rPeerDeps = [...depsInfo.o3rPeerDeps , '@o3r/extractors'];
@@ -111,7 +105,4 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
  * Update the styling if the app/lib used otter v7
  * @param options for the dependency installations
  */
-export const ngAdd = (options: NgAddSchematicsSchema): Rule => async (_, { logger }) => {
-  const { createSchematicWithMetricsIfInstalled } = await import('@o3r/schematics').catch(reportMissingSchematicsDep(logger));
-  return createSchematicWithMetricsIfInstalled(ngAddFn)(options);
-};
+export const ngAdd = (options: NgAddSchematicsSchema): Rule => createSchematicWithMetricsIfInstalled(ngAddFn)(options);

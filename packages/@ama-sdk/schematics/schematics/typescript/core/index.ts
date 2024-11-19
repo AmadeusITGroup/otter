@@ -26,6 +26,9 @@ import { NgGenerateTypescriptSDKCoreSchematicsSchema } from './schema';
 import { OpenApiCliGenerator } from '../../code-generator/open-api-cli-generator/open-api-cli.generator';
 import { copyReferencedFiles, updateLocalRelativeRefs } from './helpers/copy-referenced-files';
 import { generateOperationFinderFromSingleFile } from './helpers/path-extractor';
+import {
+  createSchematicWithMetricsIfInstalled
+} from '@o3r/schematics';
 
 const JAVA_OPTIONS = ['specPath', 'specConfigPath', 'globalProperty', 'outputPath'];
 const OPEN_API_TOOLS_OPTIONS = ['generatorName', 'output', 'inputSpec', 'config', 'globalProperty'];
@@ -281,7 +284,4 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKCoreSchematic
  * Generate a typescript SDK source code base on swagger specification
  * @param options
  */
-export const ngGenerateTypescriptSDK = (options: NgGenerateTypescriptSDKCoreSchematicsSchema) => async () => {
-  const { createSchematicWithMetricsIfInstalled } = await import('@o3r/schematics');
-  return createSchematicWithMetricsIfInstalled(ngGenerateTypescriptSDKFn)(options);
-};
+export const ngGenerateTypescriptSDK = (options: NgGenerateTypescriptSDKCoreSchematicsSchema) => createSchematicWithMetricsIfInstalled(ngGenerateTypescriptSDKFn)(options);

@@ -8,7 +8,6 @@ import { NgGenerateUpdateSchematicsSchema } from './schema';
 
 /**
  * Rule factory to include `ng add` skeleton
- *
  * @param options
  */
 function updateTemplatesFn(options: NgGenerateUpdateSchematicsSchema): Rule {
@@ -26,7 +25,7 @@ function updateTemplatesFn(options: NgGenerateUpdateSchematicsSchema): Rule {
         return tree;
       }
       const o3rCorePackageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
-      const o3rCorePackageJson: PackageJson & { generatorDependencies?: Record<string, string> } = JSON.parse(fs.readFileSync(o3rCorePackageJsonPath)!.toString());
+      const o3rCorePackageJson: PackageJson & { generatorDependencies?: Record<string, string> } = JSON.parse(fs.readFileSync(o3rCorePackageJsonPath).toString());
       // prepare needed deps for schematics
       const angularVersion = packageJson.devDependencies?.['@angular/cli'] || packageJson.devDependencies?.['@angular/core'];
       const otterVersion = o3rCorePackageJson.dependencies!['@o3r/schematics'];
@@ -39,16 +38,15 @@ function updateTemplatesFn(options: NgGenerateUpdateSchematicsSchema): Rule {
       packageJson.peerDependencies ||= {};
       packageJson.peerDependencies['@angular-devkit/schematics'] = angularVersion;
       packageJson.peerDependencies['@angular-devkit/core'] = angularVersion;
-      packageJson.peerDependencies['@o3r/schematics'] = otterVersion;
       packageJson.peerDependenciesMeta ||= {};
       packageJson.peerDependenciesMeta['@angular-devkit/schematics'] = {optional: true};
       packageJson.peerDependenciesMeta['@angular-devkit/core'] = { optional: true };
       packageJson.peerDependenciesMeta['@schematics/angular'] = { optional: true };
-      packageJson.peerDependenciesMeta['@o3r/schematics'] = {optional: true};
       packageJson.devDependencies['@angular-devkit/schematics'] = angularVersion;
       packageJson.devDependencies['@angular-devkit/core'] = angularVersion;
-      packageJson.devDependencies['@o3r/schematics'] = otterVersion;
       packageJson.devDependencies['cpy-cli'] = o3rCorePackageJson.generatorDependencies!['cpy-cli'];
+      packageJson.dependencies ||= {};
+      packageJson.dependencies['@o3r/schematics'] = otterVersion;
 
       tree.overwrite(packageJsonPath, JSON.stringify(packageJson, null, 2));
     }
@@ -71,14 +69,12 @@ function updateTemplatesFn(options: NgGenerateUpdateSchematicsSchema): Rule {
 
 /**
  * Rule factory to include `ng add` skeleton
- *
  * @param options
  */
 export const updateTemplates = createSchematicWithMetricsIfInstalled(updateTemplatesFn);
 
 /**
  * add a new ngUpdate function
- *
  * @param options
  */
 function ngAddCreateFn(options: NgGenerateUpdateSchematicsSchema): Rule {
@@ -89,7 +85,6 @@ function ngAddCreateFn(options: NgGenerateUpdateSchematicsSchema): Rule {
 
 /**
  * add a new ngUpdate function
- *
  * @param options
  */
 export const ngAddCreate = createSchematicWithMetricsIfInstalled(ngAddCreateFn);

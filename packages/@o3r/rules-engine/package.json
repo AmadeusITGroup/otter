@@ -45,7 +45,6 @@
     "@o3r/core": "workspace:^",
     "@o3r/extractors": "workspace:^",
     "@o3r/logger": "workspace:^",
-    "@o3r/schematics": "workspace:^",
     "@schematics/angular": "~18.2.0",
     "globby": "^11.1.0",
     "jasmine": "^5.0.0",
@@ -62,9 +61,6 @@
       "optional": true
     },
     "@o3r/extractors": {
-      "optional": true
-    },
-    "@o3r/schematics": {
       "optional": true
     },
     "@schematics/angular": {
@@ -84,6 +80,7 @@
     }
   },
   "dependencies": {
+    "@o3r/schematics": "workspace:^",
     "tslib": "^2.6.2"
   },
   "devDependencies": {

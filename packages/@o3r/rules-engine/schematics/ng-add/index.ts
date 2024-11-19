@@ -7,22 +7,26 @@ import { updateCmsAdapter } from '../cms-adapter';
 import { registerDevtools } from './helpers/devtools-registration';
 import type { NgAddSchematicsSchema } from './schema';
 import { isImported } from '@schematics/angular/utility/ast-utils';
+import {
+  createSchematicWithMetricsIfInstalled,
+  getAppModuleFilePath,
+  getDefaultOptionsForSchematic,
+  getExternalDependenciesVersionRange,
+  getO3rPeerDeps,
+  getPackageInstallConfig,
+  getProjectNewDependenciesTypes,
+  getWorkspaceConfig,
+  registerPackageCollectionSchematics,
+  removePackages,
+  setupDependencies,
+  setupSchematicsParamsForProject
+} from '@o3r/schematics';
 
 const devDependenciesToInstall = [
   'jsonpath-plus'
 ];
 
-const reportMissingSchematicsDep = (logger: { error: (message: string) => any }) => (reason: any) => {
-  logger.error(`[ERROR]: Adding @o3r/rules-engine has failed.
-If the error is related to missing @o3r dependencies you need to install '@o3r/core' to be able to use the rules-engine package. Please run 'ng add @o3r/core' .
-Otherwise, use the error message as guidance.`);
-  throw reason;
-};
-
-const updateAppModuleOrAppConfig = (projectName: string | undefined): Rule => async (tree, context) => {
-  const {
-    getAppModuleFilePath
-  } = await import('@o3r/schematics');
+const updateAppModuleOrAppConfig = (projectName: string | undefined): Rule => (tree, context) => {
   const moduleFilePath = getAppModuleFilePath(tree, context, projectName);
   if (!moduleFilePath) {
     return () => tree;
@@ -52,19 +56,7 @@ const updateAppModuleOrAppConfig = (projectName: string | undefined): Rule => as
  */
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
   /* ng add rules */
-  return async (tree, context) => {
-    const {
-      setupDependencies,
-      getPackageInstallConfig,
-      getDefaultOptionsForSchematic,
-      getO3rPeerDeps,
-      getProjectNewDependenciesTypes,
-      getWorkspaceConfig,
-      getExternalDependenciesVersionRange,
-      removePackages,
-      setupSchematicsParamsForProject,
-      registerPackageCollectionSchematics
-    } = await import('@o3r/schematics');
+  return (tree, context) => {
     options = {...getDefaultOptionsForSchematic(getWorkspaceConfig(tree), '@o3r/rules-engine', 'ng-add', options), ...options};
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
     const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' }));
@@ -111,7 +103,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
         ngAddToRun: depsInfo.o3rPeerDeps
       }),
       ...(options.enableMetadataExtract ? [updateCmsAdapter(options)] : []),
-      await registerDevtools(options),
+      registerDevtools(options),
       updateAppModuleOrAppConfig(options.projectName)
     ]);
 
@@ -126,7 +118,4 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
  * Add Otter rules-engine to an Angular Project
  * @param options
  */
-export const ngAdd = (options: NgAddSchematicsSchema): Rule => async (_, { logger }) => {
-  const { createSchematicWithMetricsIfInstalled } = await import('@o3r/schematics').catch(reportMissingSchematicsDep(logger));
-  return createSchematicWithMetricsIfInstalled(ngAddFn)(options);
-};
+export const ngAdd = (options: NgAddSchematicsSchema): Rule => createSchematicWithMetricsIfInstalled(ngAddFn)(options);

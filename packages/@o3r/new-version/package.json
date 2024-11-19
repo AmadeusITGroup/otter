@@ -19,18 +19,15 @@
     "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest"
   },
   "dependencies": {
+    "@o3r/schematics": "workspace:^",
     "semver": "^7.5.2",
     "tslib": "^2.6.2"
   },
   "peerDependencies": {
-    "@angular-devkit/schematics": "~18.2.0",
-    "@o3r/schematics": "workspace:^"
+    "@angular-devkit/schematics": "~18.2.0"
   },
   "peerDependenciesMeta": {
     "@angular-devkit/schematics": {
-      "optional": true
-    },
-    "@o3r/schematics": {
       "optional": true
     }
   },

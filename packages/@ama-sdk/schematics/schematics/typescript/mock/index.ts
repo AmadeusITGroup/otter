@@ -13,6 +13,9 @@ import {
 } from '@angular-devkit/schematics';
 import * as path from 'node:path';
 import {NgGenerateMockSchematicsSchema} from './schema';
+import {
+  createSchematicWithMetricsIfInstalled
+} from '@o3r/schematics';
 
 
 /**
@@ -101,7 +104,4 @@ function ngGenerateMockFn(options: NgGenerateMockSchematicsSchema): Rule {
  * Add mock
  * @param options
  */
-export const ngGenerateMock = (options: NgGenerateMockSchematicsSchema) => async () => {
-  const { createSchematicWithMetricsIfInstalled } = await import('@o3r/schematics');
-  return createSchematicWithMetricsIfInstalled(ngGenerateMockFn)(options);
-};
+export const ngGenerateMock = (options: NgGenerateMockSchematicsSchema) => createSchematicWithMetricsIfInstalled(ngGenerateMockFn)(options);

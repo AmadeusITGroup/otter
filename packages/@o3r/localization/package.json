@@ -46,7 +46,6 @@
     "@o3r/dynamic-content": "workspace:^",
     "@o3r/extractors": "workspace:^",
     "@o3r/logger": "workspace:^",
-    "@o3r/schematics": "workspace:^",
     "@schematics/angular": "~18.2.0",
     "@yarnpkg/cli": "^4.3.1",
     "@yarnpkg/core": "^4.1.1",
@@ -63,9 +62,6 @@
   },
   "peerDependenciesMeta": {
     "@angular-devkit/core": {
-      "optional": true
-    },
-    "@angular-devkit/schematics": {
       "optional": true
     },
     "@angular/cli": {
@@ -112,6 +108,7 @@
     }
   },
   "dependencies": {
+    "@o3r/schematics": "workspace:^",
     "tslib": "^2.6.2"
   },
   "devDependencies": {
@@ -145,7 +142,6 @@
     "@o3r/eslint-plugin": "workspace:^",
     "@o3r/extractors": "workspace:^",
     "@o3r/logger": "workspace:^",
-    "@o3r/schematics": "workspace:^",
     "@o3r/test-helpers": "workspace:^",
     "@schematics/angular": "~18.2.0",
     "@stylistic/eslint-plugin-ts": "~2.4.0",

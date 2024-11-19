@@ -6,6 +6,6 @@
     "entryFile": "src/public_api.ts"
   },
   "allowedNonPeerDependencies": [
-    "commander", "winston", "form-data", "node-fetch"
+    "commander", "winston", "form-data", "node-fetch", "@o3r/schematics"
   ]
 }

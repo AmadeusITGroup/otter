@@ -1,6 +1,11 @@
 import { strings } from '@angular-devkit/core';
 import { apply, MergeStrategy, mergeWith, move, noop, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
 import * as path from 'node:path';
+import {
+  getTemplateFolder,
+  getWorkspaceConfig,
+  writeAngularJson
+} from '@o3r/schematics';
 
 /**
  * Added styling support
@@ -9,8 +14,7 @@ import * as path from 'node:path';
  * @param rootPath @see RuleFactory.rootPath
  */
 export function updateThemeFiles(rootPath: string, options: { projectName?: string | null | undefined }): Rule {
-  return async (tree: Tree, context: SchematicContext) => {
-    const { getTemplateFolder, getWorkspaceConfig } = await import('@o3r/schematics');
+  return (tree: Tree, context: SchematicContext) => {
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
     if (!workspaceProject || workspaceProject.projectType === 'library') {
       return noop;
@@ -68,8 +72,7 @@ export function updateThemeFiles(rootPath: string, options: { projectName?: stri
  */
 export function removeV7OtterAssetsInAngularJson(options: { projectName?: string | null | undefined }): Rule {
 
-  return async (tree: Tree, context: SchematicContext) => {
-    const { writeAngularJson, getWorkspaceConfig } = await import('@o3r/schematics');
+  return (tree: Tree, context: SchematicContext) => {
     const workspace = getWorkspaceConfig(tree);
     const projectName = options.projectName;
     const workspaceProject = options.projectName ? workspace?.projects[options.projectName] : undefined;

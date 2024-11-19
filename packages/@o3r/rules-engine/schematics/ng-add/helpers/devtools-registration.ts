@@ -2,6 +2,7 @@ import { chain, Rule } from '@angular-devkit/schematics';
 import * as path from 'node:path';
 import type { NgAddSchematicsSchema } from '../schema';
 import { readFileSync } from 'node:fs';
+import { registerDevtoolsToApplication } from '@o3r/schematics';
 
 const DEVTOOL_MODULE_NAME = 'RulesEngineDevtoolsModule';
 const MESSAGE_DEVTOOL_SERVICE_NAME = 'RulesEngineDevtoolsMessageService';
@@ -15,8 +16,7 @@ const PACKAGE_NAME: string = JSON.parse(readFileSync(path.resolve(__dirname, '..
  * @param options
  * @param options.projectName
  */
-export const registerDevtools = async (options: NgAddSchematicsSchema): Promise<Rule> => {
-  const { registerDevtoolsToApplication } = await import('@o3r/schematics');
+export const registerDevtools = (options: NgAddSchematicsSchema): Rule => {
   return chain([
     registerDevtoolsToApplication({
       moduleName: DEVTOOL_MODULE_NAME,

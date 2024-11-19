@@ -24,7 +24,6 @@
     "@angular-devkit/schematics": "~18.2.0",
     "@angular/common": "~18.2.0",
     "@angular/core": "~18.2.0",
-    "@o3r/schematics": "workspace:^",
     "@schematics/angular": "~18.2.0",
     "rxjs": "^7.8.1",
     "typescript": "~5.5.4"
@@ -36,14 +35,12 @@
     "@angular-devkit/schematics": {
       "optional": true
     },
-    "@o3r/schematics": {
-      "optional": true
-    },
     "@schematics/angular": {
       "optional": true
     }
   },
   "dependencies": {
+    "@o3r/schematics": "workspace:^",
     "tslib": "^2.6.2"
   },
   "devDependencies": {
@@ -69,7 +66,6 @@
     "@nx/js": "~19.5.0",
     "@o3r/build-helpers": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
-    "@o3r/schematics": "workspace:^",
     "@o3r/test-helpers": "workspace:^",
     "@schematics/angular": "~18.2.0",
     "@stylistic/eslint-plugin-ts": "~2.4.0",

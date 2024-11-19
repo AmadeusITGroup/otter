@@ -15,6 +15,9 @@ import {isAbsolute, posix, relative} from 'node:path';
 import {getPackageManagerName, NpmInstall} from '../../helpers/node-install';
 import {readPackageJson} from '../../helpers/read-package';
 import type {NgGenerateTypescriptSDKShellSchematicsSchema} from './schema';
+import {
+  createSchematicWithMetricsIfInstalled
+} from '@o3r/schematics';
 
 /**
  * Generate Typescript SDK shell
@@ -169,7 +172,4 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKShellSchemati
  * Generate Typescript SDK shell
  * @param options
  */
-export const ngGenerateTypescriptSDK = (options: NgGenerateTypescriptSDKShellSchematicsSchema) => async () => {
-  const { createSchematicWithMetricsIfInstalled } = await import('@o3r/schematics');
-  return createSchematicWithMetricsIfInstalled(ngGenerateTypescriptSDKFn)(options);
-};
+export const ngGenerateTypescriptSDK = (options: NgGenerateTypescriptSDKShellSchematicsSchema) => createSchematicWithMetricsIfInstalled(ngGenerateTypescriptSDKFn)(options);

@@ -9,10 +9,11 @@ This package is a module to be used for Otter training purposes.
 
 ## Description
 
-[![Stable Version](https://img.shields.io/npm/v/@o3r/schematics?style=for-the-badge)](https://www.npmjs.com/package/@o3r/schematics)
-[![Bundle Size](https://img.shields.io/bundlephobia/min/@o3r/schematics?color=green&style=for-the-badge)](https://www.npmjs.com/package/@o3r/schematics)
+[![Stable Version](https://img.shields.io/npm/v/@o3r-training/training-tools?style=for-the-badge)](https://www.npmjs.com/package/@o3r-training/training-tools)
+[![Bundle Size](https://img.shields.io/bundlephobia/min/@o3r-training/training-tools?color=green&style=for-the-badge)](https://www.npmjs.com/package/@o3r-training/training-tools)
 
 This module provides basic utilities to use the Otter training such as:
+
 - A code source extractor to generate JSON files compatible with [WebContainer](https://webcontainers.io/guides/working-with-the-file-system).
 
 ## How to install
@@ -22,11 +23,15 @@ ng add @o3r-training/training-tools
 ```
 
 ## How to use
+
 You can use the extractor via the CLI to extract a folder from your file system:
+
 ```shell
 o3r-extract-folder-structure --files \".\path-to-source-folder\" -o webcontainer-folder-structure.js
 ```
+
 You can also use the `getFilesTree` function with the `WebContainer` file system to serialize its tree:
+
 ```typescript
 const serializedFiles = await getFilesTree([{
     path,

@@ -42,6 +42,7 @@
     }
   },
   "dependencies": {
+    "@o3r/schematics": "workspace:^",
     "color": "^4.2.3",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
@@ -57,7 +58,6 @@
     "@o3r/core": "workspace:^",
     "@o3r/localization": "workspace:^",
     "@o3r/logger": "workspace:^",
-    "@o3r/schematics": "workspace:^",
     "@o3r/styling": "workspace:^",
     "@schematics/angular": "~18.2.0",
     "@storybook/addons": "^7.5.3",
@@ -69,9 +69,6 @@
   },
   "peerDependenciesMeta": {
     "@angular-devkit/schematics": {
-      "optional": true
-    },
-    "@o3r/schematics": {
       "optional": true
     }
   },
@@ -103,7 +100,6 @@
     "@o3r/eslint-plugin": "workspace:^",
     "@o3r/localization": "workspace:^",
     "@o3r/logger": "workspace:^",
-    "@o3r/schematics": "workspace:^",
     "@o3r/styling": "workspace:^",
     "@o3r/test-helpers": "workspace:^",
     "@schematics/angular": "~18.2.0",

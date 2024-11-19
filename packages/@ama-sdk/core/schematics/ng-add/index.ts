@@ -3,13 +3,13 @@ import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 import * as path from 'node:path';
 import * as ts from 'typescript';
 import type { NgAddSchematicsSchema } from './schema';
-
-const reportMissingSchematicsDep = (logger: { error: (message: string) => any }) => (reason: any) => {
-  logger.error(`[ERROR]: Adding @ama-sdk/core has failed.
-      If the error is related to missing @o3r dependencies you need to install '@o3r/schematics' to be able to use the @ama-sdk/core ng add. Please run 'ng add @o3r/schematics' .
-      Otherwise, use the error message as guidance.`);
-  throw reason;
-};
+import {
+  createSchematicWithMetricsIfInstalled,
+  getFilesInFolderFromWorkspaceProjectsInTree,
+  getPeerDepWithPattern,
+  getWorkspaceConfig,
+  removePackages
+} from '@o3r/schematics';
 
 /**
  * Rule to import all the necessary dependency to run an @ama-sdk based application
@@ -19,13 +19,11 @@ const reportMissingSchematicsDep = (logger: { error: (message: string) => any })
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
 
   const removeImports: Rule = async () => {
-    const {removePackages} = await import('@o3r/schematics');
     return removePackages(['@dapi/sdk-core']);
   };
 
   /* ng add rules */
-  const updateImports: Rule = async (tree) => {
-    const {getFilesInFolderFromWorkspaceProjectsInTree} = await import('@o3r/schematics');
+  const updateImports: Rule = (tree) => {
     const files = getFilesInFolderFromWorkspaceProjectsInTree(tree, '', 'ts');
     files.forEach((file) => {
       const sourceFile = ts.createSourceFile(
@@ -51,8 +49,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
   };
 
 
-  const addMandatoryPeerDeps: Rule = async (tree, context) => {
-    const { getPeerDepWithPattern, getWorkspaceConfig } = await import('@o3r/schematics');
+  const addMandatoryPeerDeps: Rule = (tree, context) => {
     const workingDirectory = options?.projectName && getWorkspaceConfig(tree)?.projects[options.projectName]?.root || '.';
     const peerDepToInstall = getPeerDepWithPattern(path.resolve(__dirname, '..', '..', 'package.json'));
     context.addTask(new NodePackageInstallTask({
@@ -78,7 +75,4 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
  * Helps to migrate from previous versions with an import replacement
  * @param options
  */
-export const ngAdd = (options: NgAddSchematicsSchema): Rule => async (_, context) => {
-  const { createSchematicWithMetricsIfInstalled } = await import('@o3r/schematics').catch(reportMissingSchematicsDep(context.logger));
-  return createSchematicWithMetricsIfInstalled(ngAddFn)(options);
-};
+export const ngAdd = (options: NgAddSchematicsSchema): Rule => createSchematicWithMetricsIfInstalled(ngAddFn)(options);

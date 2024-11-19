@@ -26,7 +26,6 @@
     "@fullstory/browser": "^2.0.0",
     "@ngrx/store": "~18.0.0",
     "@o3r/core": "workspace:^",
-    "@o3r/schematics": "workspace:^",
     "@schematics/angular": "~18.2.0",
     "logrocket": "~8.1.0",
     "logrocket-ngrx": "~0.2.1",
@@ -38,9 +37,6 @@
       "optional": true
     },
     "@fullstory/browser": {
-      "optional": true
-    },
-    "@o3r/schematics": {
       "optional": true
     },
     "@schematics/angular": {
@@ -57,6 +53,7 @@
     }
   },
   "dependencies": {
+    "@o3r/schematics": "workspace:^",
     "tslib": "^2.6.2"
   },
   "devDependencies": {
@@ -85,7 +82,6 @@
     "@o3r/core": "workspace:^",
     "@o3r/eslint-config-otter": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
-    "@o3r/schematics": "workspace:^",
     "@schematics/angular": "~18.2.0",
     "@stylistic/eslint-plugin-ts": "~2.4.0",
     "@types/jest": "~29.5.2",

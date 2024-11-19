@@ -13,7 +13,6 @@ import {
   Tree,
   url
 } from '@angular-devkit/schematics';
-import { getPropertyFromDecoratorFirstArgument, O3rCliError } from '@o3r/schematics';
 import {
   addCommentsOnClassProperties,
   addImportsRule,
@@ -23,9 +22,11 @@ import {
   createSchematicWithMetricsIfInstalled,
   generateClassElementsFromString,
   getO3rComponentInfoOrThrowIfNotFound,
+  getPropertyFromDecoratorFirstArgument,
   isNgClassDecorator,
   isO3rClassComponent,
   NoOtterComponent,
+  O3rCliError,
   sortClassElement
 } from '@o3r/schematics';
 import { addImportToModule } from '@schematics/angular/utility/ast-utils';

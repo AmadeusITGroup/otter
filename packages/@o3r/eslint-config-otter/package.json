@@ -49,6 +49,9 @@
     "prepare:build:builders": "yarn cpy 'schematics/**/*.json' 'schematics/**/templates/**' dist/schematics && yarn cpy '{collection,migration}.json' dist",
     "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest"
   },
+  "dependencies": {
+    "@o3r/schematics": "workspace:^"
+  },
   "peerDependencies": {
     "@angular-devkit/schematics": "~18.2.0",
     "@angular-eslint/builder": "~18.3.0",
@@ -57,7 +60,6 @@
     "@angular-eslint/template-parser": "~18.3.0",
     "@angular/compiler": "~18.2.0",
     "@o3r/eslint-plugin": "workspace:^",
-    "@o3r/schematics": "workspace:^",
     "@schematics/angular": "~18.2.0",
     "@stylistic/eslint-plugin-ts": "~2.4.0",
     "@typescript-eslint/eslint-plugin": "^7.14.1",
@@ -82,7 +84,6 @@
     "@nx/eslint-plugin": "~19.5.0",
     "@o3r/build-helpers": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
-    "@o3r/schematics": "workspace:^",
     "@o3r/test-helpers": "workspace:^",
     "@schematics/angular": "~18.2.0",
     "@stylistic/eslint-plugin-ts": "~2.4.0",
@@ -125,9 +126,6 @@
       "optional": true
     },
     "@angular/compiler": {
-      "optional": true
-    },
-    "@o3r/schematics": {
       "optional": true
     },
     "@schematics/angular": {

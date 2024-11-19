@@ -3,17 +3,20 @@ import type { Rule } from '@angular-devkit/schematics';
 import * as path from 'node:path';
 import { updateCmsAdapter } from '../cms-adapter';
 import type { NgAddSchematicsSchema } from './schema';
+import type { NodeDependencyType } from '@schematics/angular/utility/dependencies';
+import {
+  createSchematicWithMetricsIfInstalled,
+  getExternalDependenciesVersionRange,
+  getO3rPeerDeps,
+  getPackageInstallConfig,
+  getProjectNewDependenciesTypes,
+  getWorkspaceConfig,
+  setupDependencies
+} from '@o3r/schematics';
 
 const dependenciesToInstall = [
   'semver'
 ];
-
-const reportMissingSchematicsDep = (logger: { error: (message: string) => any }) => (reason: any) => {
-  logger.error(`[ERROR]: Adding @o3r/extractors has failed.
-If the error is related to missing @o3r dependencies you need to install '@o3r/core' to be able to use the localization package. Please run 'ng add @o3r/core' .
-Otherwise, use the error message as guidance.`);
-  throw reason;
-};
 
 /**
  * Add Otter extractors to an Angular Project
@@ -21,16 +24,8 @@ Otherwise, use the error message as guidance.`);
  */
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
   return async (tree, context) => {
-    const {
-      getExternalDependenciesVersionRange,
-      getPackageInstallConfig,
-      getProjectNewDependenciesTypes,
-      setupDependencies,
-      getO3rPeerDeps,
-      getWorkspaceConfig
-    } = await import('@o3r/schematics');
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    const { NodeDependencyType } = await import('@schematics/angular/utility/dependencies');
+    const { NodeDependencyType } = await import('@schematics/angular/utility/dependencies').catch(() => ({ NodeDependencyType: { Dev: 'devDependencies' as NodeDependencyType.Dev } }));
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
     const depsInfo = getO3rPeerDeps(packageJsonPath);
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
@@ -67,7 +62,4 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
  * Add Otter extractors to an Angular Project
  * @param options
  */
-export const ngAdd = (options: NgAddSchematicsSchema): Rule => async (_, { logger }) => {
-  const { createSchematicWithMetricsIfInstalled } = await import('@o3r/schematics').catch(reportMissingSchematicsDep(logger));
-  return createSchematicWithMetricsIfInstalled(ngAddFn)(options);
-};
+export const ngAdd = (options: NgAddSchematicsSchema): Rule => createSchematicWithMetricsIfInstalled(ngAddFn)(options);
