@@ -154,6 +154,7 @@
       "defaultConfiguration": "production",
       "dependsOn": [
         "^build",
+        "^extract-folder-structure",
         "generate-translations",
         "generate-theme",
         "generate-dark-theme",
@@ -176,6 +177,7 @@
       "dependsOn": [
         "^build-builders",
         "^build",
+        "^extract-folder-structure",
         "copy-training-assets",
         "prepare-training"
       ]

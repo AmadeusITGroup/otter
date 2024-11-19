@@ -23,9 +23,11 @@ void (async () => {
     readdir: readdir,
     readFile: readFile
   } as FileSystem);
-  const content = JSON.stringify(folderStructure);
+  const content = JSON.stringify({
+    fileSystemTree: folderStructure
+  });
 
-  const targetPath = options.output.replace(/\\/g, "/");
+  const targetPath = options.output.replace(/\\/g, '/');
   const parsedPath = parse(options.output);
   if (parsedPath.dir) {
     await mkdir(parsedPath.dir, {recursive: true});
