@@ -7,7 +7,40 @@
     },
     {
       "stepTitle": "How to use the Otter SDK?",
-      "htmlContentUrl": "./steps/typescript-sdk/instructions.md"
+      "htmlContentUrl": "./steps/typescript-sdk/instructions.md",
+      "filesConfiguration": {
+        "name": "how-to-use-otter-sdk",
+        "startingFile": "apps/tutorial-app/src/app/app.component.ts",
+        "urls": [
+          {
+            "path": ".",
+            "contentUrl": "./shared/monorepo-template.json"
+          },
+          {
+            "path": "./libs/sdk",
+            "contentUrl": "@o3r-training/showcase-sdk/structure/spec.json"
+          },
+          {
+            "path": "./libs/sdk/src",
+            "contentUrl": "@o3r-training/showcase-sdk/structure/src.json"
+          },
+          {
+            "path": "./apps/tutorial-app/src/app",
+            "contentUrl": "./steps/typescript-sdk/exercise.json"
+          }
+        ],
+        "solutionUrls": [
+          {
+            "path": "./apps/tutorial-app/src/app",
+            "contentUrl": "./steps/typescript-sdk/solution.json"
+          }
+        ],
+        "mode": "interactive",
+        "commands": [
+          "npm install --legacy-peer-deps --ignore-scripts --force",
+          "npm run ng run tutorial-app:serve"
+        ]
+      }
     },
     {
       "stepTitle": "Customize your fetch client with plugins",
