@@ -1,5 +1,4 @@
 @if (cwdTree$ | async; as tree) {
-  @if (tree.length) {
     <as-split direction="vertical">
       <as-split-area [size]="50">
         <form [formGroup]="form" class="editor overflow-hidden h-100">
@@ -27,9 +26,7 @@
         </as-split-area>
       }
     </as-split>
-  }
 }
-@if (!(cwdTree$ | async)?.length) {
+@else {
   <div class="spinner-border" role="status"></div>
 }
-
