@@ -10524,6 +10524,7 @@ __metadata:
   bin:
     create-monorepo-scope: ./scripts/create-monorepo-scope.mjs
     doc-links: ./scripts/doc-links.mjs
+    jest-vscode-extension-command: ./scripts/jest-vscode-extension-command.mjs
     pr-labels: ./scripts/pr-labels.mjs
     prepare-doc-root-menu-template: ./scripts/prepare-doc-root-menu-template.mjs
     report-deprecates: ./scripts/report-deprecates.mjs

@@ -31,7 +31,7 @@
   "typescript.preferences.quoteStyle": "single",
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "typescript.preferences.preferTypeOnlyAutoImports": true,
-  "jest.jestCommandLine": "yarn jest",
+  "jest.jestCommandLine": "yarn jest-vscode-extension-command",
   "jest.debugMode": true,
   "jest.runMode": {
     "type": "on-save",
