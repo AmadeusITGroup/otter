@@ -68,5 +68,11 @@ test.describe.serial('Sanity test', () => {
       await page.waitForURL('**/placeholder');
       await expect(page).toHaveScreenshot([browserName, 'placeholder.png'], {fullPage: true, mask: [page.locator('.visual-testing-ignore')]});
     });
+
+    await test.step('sdk-intro', async () => {
+      await appFixture.navigateToSDKIntro();
+      await page.waitForURL('**/sdk-intro');
+      await expect(page).toHaveScreenshot([browserName, 'sdk-intro.png'], {fullPage: true, mask: [page.locator('.visual-testing-ignore')]});
+    });
   });
 });

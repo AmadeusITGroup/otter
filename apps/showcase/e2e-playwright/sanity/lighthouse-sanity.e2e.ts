@@ -122,4 +122,13 @@ test.describe('Lighthouse tests', () => {
     await page.waitForURL('**/placeholder');
     await performAudit('placeholder', page, testInfo);
   });
+
+  test('sdk-intro', async ({page}, testInfo) => {
+    await page.goto(baseUrl);
+    const appFixture = new AppFixtureComponent(new O3rElement({element: page.locator('app-root'), page}));
+    await appFixture.navigateToSDKIntro();
+    await page.waitForURL('**/sdk-intro');
+    await performAudit('sdk-intro', page, testInfo);
+  });
+
 });
