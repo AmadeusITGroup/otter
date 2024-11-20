@@ -8,6 +8,9 @@
     },
     {
       "pattern": "https://img.shields.io/bundlephobia/*"
+    },
+    {
+      "pattern": "^https?://(127.0.0.1|localhost)[:/].*"
     }
   ],
   "replacementPatterns": [
