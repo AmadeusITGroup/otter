@@ -42,7 +42,6 @@ export class WebContainerService {
    * @param exerciseName
    */
   public async loadProject(files: FileSystemTree, commands: string[], exerciseName: string) {
-    this.monacoTree.next([]);
     this.runner.registerTreeUpdateCallback(async () => {
       const tree = await this.getMonacoTree('./');
       this.monacoTree.next(tree);

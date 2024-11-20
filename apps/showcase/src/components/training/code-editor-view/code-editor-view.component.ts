@@ -24,6 +24,7 @@ import {
   map,
   Observable,
   of,
+  share,
   skip,
   startWith,
   switchMap
@@ -37,6 +38,7 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 const editorOptionsLanguage: Record<string, string> = {
   html: 'xml',
   json: 'json',
+  md: 'markdown',
   ts: 'typescript',
   js: 'javascript'
 };
@@ -107,7 +109,9 @@ export class CodeEditorViewComponent implements OnDestroy, OnChanges {
       cwd ? this.webContainerService.monacoTree$.pipe(
         map((tree) => tree.find((treeElement) => treeElement.name === cwd)?.content || [])
       ) : of([])
-    )
+    ),
+    filter((tree) => tree.length > 0),
+    share()
   );
   /**
    * Form with the selected file and its content which can be edited in the Monaco Editor
@@ -155,7 +159,7 @@ export class CodeEditorViewComponent implements OnDestroy, OnChanges {
     this.form.controls.file.valueChanges.pipe(
       combineLatestWith(this.cwdTree$),
       filter(([path, monacoTree]) => !!path && checkIfPathInMonacoTree(monacoTree, path.split('/'))),
-      switchMap(([path]) => from(this.webContainerService.readFile(`${this.project!.cwd}/${path}`))),
+      switchMap(([path]) => from(this.webContainerService.readFile(`${this.project!.cwd}/${path}`).catch(() => ''))),
       takeUntilDestroyed()
     ).subscribe((content) => this.form.controls.code.setValue(content));
   }
