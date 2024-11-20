@@ -32,6 +32,7 @@
     ],
     "source": [
       "base",
+      "{projectRoot}/ng-package.json",
       "{projectRoot}/tsconfig.build.json",
       "{projectRoot}/tsconfig.build.*.json",
       "{projectRoot}/src/**/*",

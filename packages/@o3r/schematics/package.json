@@ -53,6 +53,9 @@
     "eslint": {
       "optional": true
     },
+    "rxjs": {
+      "optional": true
+    },
     "type-fest": {
       "optional": true
     }
