@@ -23,5 +23,30 @@ export default [
         ]
       }
     }
+  },
+  {
+    name: '@o3r/eslint-config-otter/overrides',
+    rules: {
+      '@o3r/json-dependency-versions-harmonize': [
+        'error',
+        {
+          // TODO should be removed in Otter v12
+          ignoredDependencies: [
+            'eslint',
+            '@typescript-eslint/eslint-plugin',
+            '@typescript-eslint/parser',
+            '@typescript-eslint/utils',
+            'eslint-plugin-jsdoc',
+            'eslint-plugin-unicorn'
+          ],
+          ignoredPackages: [
+            '@o3r/build-helpers',
+            '@o3r/workspace-helpers'
+          ],
+          alignPeerDependencies: false,
+          alignEngines: true
+        }
+      ]
+    }
   }
 ];

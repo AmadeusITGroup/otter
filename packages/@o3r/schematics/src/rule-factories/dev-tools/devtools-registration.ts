@@ -3,7 +3,6 @@ import {
   Rule,
 } from '@angular-devkit/schematics';
 import {
-  insertImport,
   isImported,
 } from '@schematics/angular/utility/ast-utils';
 import {
@@ -24,6 +23,9 @@ import {
   getModuleIndex,
   getWorkspaceConfig,
 } from '../../utility/index';
+import {
+  addImportsRule,
+} from '../add-imports';
 
 /** Options for the devtools register rule factory */
 export interface DevtoolRegisterOptions {
@@ -96,37 +98,52 @@ export const injectServiceInMain = (options: DevtoolRegisterOptions): Rule => (t
     return tree;
   }
 
+  const recorder = tree.beginUpdate(mainFilePath);
+  const changes = [];
+
+  changes.push(
+    new InsertChange(
+      mainFilePath,
+      match.index + match[0].length,
+      `
+  .then((m) => {
+    runInInjectionContext(m.injector, () => {
+      inject(${options.serviceName});
+    });
+    return m;
+  })`
+    )
+  );
+
+  applyToUpdateRecorder(recorder, changes);
+  tree.commitUpdate(recorder);
   const sourceFile = ts.createSourceFile(
     mainFilePath,
     content,
     ts.ScriptTarget.ES2015,
     true
   );
-
-  const recorder = tree.beginUpdate(mainFilePath);
-  const changes = [];
+  const importsToAdd = new Map<string, string[]>();
 
   if (!isImported(sourceFile, options.serviceName, options.packageName)) {
-    changes.push(insertImport(sourceFile, mainFilePath, options.serviceName, options.packageName));
+    importsToAdd.set(options.packageName, [options.serviceName]);
   }
   if (!isImported(sourceFile, 'inject', '@angular/core')) {
-    changes.push(insertImport(sourceFile, mainFilePath, 'inject', '@angular/core'));
+    importsToAdd.set('@angular/core', ['inject']);
   }
   if (!isImported(sourceFile, 'runInInjectionContext', '@angular/core')) {
-    changes.push(insertImport(sourceFile, mainFilePath, 'runInInjectionContext', '@angular/core'));
+    const angularCoreImportsToAdd = importsToAdd.get('@angular/core');
+    if (angularCoreImportsToAdd) {
+      angularCoreImportsToAdd.push('runInInjectionContext');
+    } else {
+      importsToAdd.set('@angular/core', ['runInInjectionContext']);
+    }
   }
-
-  changes.push(
-    new InsertChange(
-      mainFilePath,
-      match.index + match[0].length,
-      `\n  .then((m) => { runInInjectionContext(m.injector, () => { inject(${options.serviceName}); }); return m; })`
-    )
-  );
-
-  applyToUpdateRecorder(recorder, changes);
-  tree.commitUpdate(recorder);
-  return tree;
+  return addImportsRule(
+    mainFilePath,
+    [...importsToAdd.entries()]
+      .map(([from, importNames]) => ({ from, importNames }))
+  )(tree, context);
 };
 
 /**

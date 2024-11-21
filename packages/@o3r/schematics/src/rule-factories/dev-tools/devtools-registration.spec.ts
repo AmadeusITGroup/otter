@@ -41,7 +41,12 @@ platformBrowserDynamic().bootstrapModule(AppModule).catch(err => console.error(e
         fakeContext
       )
     );
-    expect(tree.readText(mainFilePath)).toContain(`.then((m) => { runInInjectionContext(m.injector, () => { inject(${serviceName}); }); return m; })`);
+    expect(tree.readText(mainFilePath)).toContain(`.then((m) => {
+    runInInjectionContext(m.injector, () => {
+      inject(${serviceName});
+    });
+    return m;
+  })`);
   });
 
   it('should inject a service if `bootstrapApplication` found', async () => {
@@ -66,7 +71,12 @@ bootstrapApplication(AppComponent, appConfig)
         fakeContext
       )
     );
-    expect(tree.readText(mainFilePath)).toContain(`.then((m) => { runInInjectionContext(m.injector, () => { inject(${serviceName}); }); return m; })`);
+    expect(tree.readText(mainFilePath)).toContain(`.then((m) => {
+    runInInjectionContext(m.injector, () => {
+      inject(${serviceName});
+    });
+    return m;
+  })`);
   });
 
   it('should not reinject a service', async () => {

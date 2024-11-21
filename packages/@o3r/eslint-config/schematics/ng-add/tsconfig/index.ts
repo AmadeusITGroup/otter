@@ -14,10 +14,10 @@ import {
 
 /**
  * Update or add tsconfig.eslint.json file
- * @param projectTsConfig
  * @param rootPath
+ * @param projectTsConfig
  */
-export const updateOrAddTsconfigEslint = (projectTsConfig = 'tsconfig', rootPath = __dirname): Rule => async (tree) => {
+export const updateOrAddTsconfigEslint = (rootPath: string, projectTsConfig = 'tsconfig'): Rule => async (tree) => {
   const tsconfigPath = 'tsconfig.eslint.json';
   if (tree.exists(tsconfigPath)) {
     const tsconfig = tree.readJson(tsconfigPath) as JsonObject;

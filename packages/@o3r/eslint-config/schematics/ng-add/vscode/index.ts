@@ -46,7 +46,7 @@ type VScodeSettings = JsonObject & EditorSettings & ESLintSettings;
 export const updateVscode: Rule = async () => {
   const { addVsCodeRecommendations } = await import('@o3r/schematics');
   return chain([
-    addVsCodeRecommendations(['dbaeumer.vscode-eslint', 'stylelint.vscode-stylelint']),
+    addVsCodeRecommendations(['dbaeumer.vscode-eslint']),
     (tree) => {
       const vscodeSettingsPath = '.vscode/settings.json';
       const settings = (tree.exists(vscodeSettingsPath) ? (tree.readJson(vscodeSettingsPath) || {}) : {}) as VScodeSettings;

@@ -1,6 +1,6 @@
 {
   "extends": "./<%= projectTsConfig %>",
   "include": [
-    "eslint*.config.mjs"
+    ".eslintrc.js"
   ]
 }

@@ -23,7 +23,7 @@ describe('update vscode', () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
 
     const tree = await firstValueFrom(runner.callRule(updateVscode, initialTree, { interactive: false }));
-    expect((tree.readJson(extensionFile) as any).recommendations).toEqual(expect.arrayContaining(['dbaeumer.vscode-eslint', 'stylelint.vscode-stylelint']));
+    expect((tree.readJson(extensionFile) as any).recommendations).toEqual(expect.arrayContaining(['dbaeumer.vscode-eslint']));
     expect((tree.readJson(settingFile) as any)['eslint.useFlatConfig']).toBe(true);
     expect((tree.readJson(settingFile) as any)['editor.defaultFormatter']).toBe('dbaeumer.vscode-eslint');
   });

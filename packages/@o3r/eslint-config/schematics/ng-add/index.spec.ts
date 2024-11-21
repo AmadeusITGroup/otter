@@ -36,13 +36,23 @@ describe('ng add eslint-config', () => {
     await runner.runSchematic('ng-add', {}, Tree.empty());
     expect(setupDependenciesMock).toHaveBeenCalledWith(expect.objectContaining({
       dependencies: expect.objectContaining({
+        '@eslint-community/eslint-plugin-eslint-comments': expect.objectContaining({}),
+        '@eslint/js': expect.objectContaining({}),
         '@o3r/eslint-plugin': expect.objectContaining({}),
         '@stylistic/eslint-plugin': expect.objectContaining({}),
+        '@typescript-eslint/parser': expect.objectContaining({}),
         'angular-eslint': expect.objectContaining({}),
         eslint: expect.objectContaining({}),
+        'eslint-import-resolver-node': expect.objectContaining({}),
+        'eslint-import-resolver-typescript': expect.objectContaining({}),
+        'eslint-plugin-import': expect.objectContaining({}),
+        'eslint-plugin-import-newlines': expect.objectContaining({}),
+        'eslint-plugin-jest': expect.objectContaining({}),
         'eslint-plugin-jsdoc': expect.objectContaining({}),
         'eslint-plugin-prefer-arrow': expect.objectContaining({}),
+        'eslint-plugin-sort-export-all': expect.objectContaining({}),
         'eslint-plugin-unicorn': expect.objectContaining({}),
+        'eslint-plugin-unused-imports': expect.objectContaining({}),
         globby: expect.objectContaining({}),
         'jsonc-eslint-parser': expect.objectContaining({}),
         'typescript-eslint': expect.objectContaining({})
@@ -58,7 +68,6 @@ describe('ng add eslint-config', () => {
     const initialTree = Tree.empty();
     initialTree.create('angular.json', JSON.stringify({
       projects: {
-
         'project-test': {
           root: 'project-test'
         }
@@ -69,7 +78,7 @@ describe('ng add eslint-config', () => {
     expect(setupDependenciesMock).toHaveBeenCalled();
     expect(updateVscodeMock).toHaveBeenCalled();
     expect(updateEslintConfigMock).toHaveBeenCalledTimes(2);
-    expect(updateEslintConfigMock).toHaveBeenCalledWith();
-    expect(updateEslintConfigMock).toHaveBeenCalledWith(false);
+    expect(updateEslintConfigMock).toHaveBeenCalledWith(__dirname);
+    expect(updateEslintConfigMock).toHaveBeenCalledWith(__dirname, 'project-test');
   });
 });
