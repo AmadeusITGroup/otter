@@ -86,8 +86,8 @@ describe('metadata files helpers', () => {
       const major = 1;
       const minor = 3;
       mockCoerce.mockReturnValue({ major, minor });
-      await expect(getVersionRangeFromLatestVersion(`${major}.${minor}.14`, 'major')).resolves.toBe(`<${major}.0.0`);
-      await expect(getVersionRangeFromLatestVersion(`${major}.${minor}.14`, 'minor')).resolves.toBe(`<${major}.${minor}.0`);
+      await expect(getVersionRangeFromLatestVersion(`${major}.${minor}.14`, 'major')).resolves.toBe(`<${major}.0.0-a`);
+      await expect(getVersionRangeFromLatestVersion(`${major}.${minor}.14`, 'minor')).resolves.toBe(`<${major}.${minor}.0-a`);
     });
   });
 

@@ -1,7 +1,5 @@
-import {
-  RuleTester,
-} from '@typescript-eslint/rule-tester';
 import noMultipleTypeConfigurationPropertyRule from './no-multiple-type-configuration-property';
+const { RuleTester } = require('@typescript-eslint/rule-tester');
 
 const ruleTester = new RuleTester();
 

@@ -172,7 +172,7 @@
         "specs"
       ],
       "outputs": [
-        "{projectRoot}/dist-test/ut-report.xml",
+        "{projectRoot}/dist-test/junit.xml",
         "{projectRoot}/coverage/cobertura-coverage.xml"
       ],
       "options": {

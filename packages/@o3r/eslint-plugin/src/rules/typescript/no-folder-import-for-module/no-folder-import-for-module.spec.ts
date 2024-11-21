@@ -1,9 +1,9 @@
 import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
-import {
-  RuleTester,
-} from '@typescript-eslint/rule-tester';
 import noFolderImportForModule from './no-folder-import-for-module';
+const {
+  RuleTester
+} = require('@typescript-eslint/rule-tester');
 
 const ruleTester = new RuleTester();
 const fakeFolder = path.resolve('/fake-folder');

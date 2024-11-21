@@ -33,10 +33,10 @@
     },
     ".": {
       "es2020": "./dist/src/public_api.js",
-      "default": "./dist/src/public_api.js",
       "typings": "./dist/src/public_api.d.ts",
       "node": "./dist/src/public_api.js",
-      "require": "./dist/src/public_api.js"
+      "require": "./dist/src/public_api.js",
+      "default": "./dist/src/public_api.js"
     },
     "./cli/*": {
       "default": "./dist/cli/*"
@@ -61,7 +61,7 @@
     "@o3r/telemetry": "workspace:^",
     "chokidar": "^3.5.2",
     "globby": "^11.1.0",
-    "sass": "~1.80.0"
+    "sass": "~1.81.0"
   },
   "peerDependenciesMeta": {
     "@angular-devkit/architect": {
@@ -150,7 +150,7 @@
     "nx": "~19.5.0",
     "pid-from-port": "^1.1.3",
     "rxjs": "^7.8.1",
-    "sass": "~1.80.0",
+    "sass": "~1.81.0",
     "semver": "^7.5.2",
     "ts-jest": "~29.2.0",
     "ts-node": "~10.9.2",

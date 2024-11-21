@@ -119,8 +119,8 @@ let defaultPackageManager = supportedPackageManager[0];
 if (packageManagerEnv && supportedPackageManager.includes(packageManagerEnv)) {
   defaultPackageManager = packageManagerEnv;
 }
-const argvPackageManager = argv['package-manager'];
-let packageManager = supportedPackageManagerRegExp.test(argvPackageManager) ? argv['package-manager'] : defaultPackageManager;
+const argvPackageManager = argv['package-manager'] || (argv.yarn && 'yarn');
+let packageManager = supportedPackageManagerRegExp.test(argvPackageManager) ? argvPackageManager : defaultPackageManager;
 if (argvPackageManager && supportedPackageManagerRegExp.test(argvPackageManager)) {
   packageManager = argvPackageManager;
 } else if (argvPackageManager) {

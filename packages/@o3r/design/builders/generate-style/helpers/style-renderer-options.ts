@@ -8,6 +8,7 @@ import type {
   BuilderContext,
 } from '@angular-devkit/architect';
 import {
+  type CssStyleContentUpdaterOptions,
   type CssTokenDefinitionRendererOptions,
   type CssTokenValueRendererOptions,
   type DesignTokenListTransform,
@@ -22,6 +23,7 @@ import {
   getTokenSorterByName,
   getTokenSorterByRef,
   getTokenSorterFromRegExpList,
+  type SassStyleContentUpdaterOptions,
   type SassTokenDefinitionRendererOptions,
   type SassTokenValueRendererOptions,
   type TokenKeyRenderer,
@@ -57,13 +59,15 @@ export const getStyleRendererOptions = (tokenVariableNameRenderer: TokenKeyRende
 
   /** Update of file content based on selected language */
   const styleContentUpdater = ((language) => {
+    const updaterOptions = options.codeEditTags
+      && { startTag: options.codeEditTags.start, endTag: options.codeEditTags.end } as const satisfies CssStyleContentUpdaterOptions & SassStyleContentUpdaterOptions;
     switch (language) {
       case 'css': {
-        return getCssStyleContentUpdater();
+        return getCssStyleContentUpdater(updaterOptions);
       }
       case 'scss':
       case 'sass': {
-        return getSassStyleContentUpdater();
+        return getSassStyleContentUpdater(updaterOptions);
       }
       default: {
         throw new Error(`No available updater for "${language as string}"`);

@@ -37,7 +37,8 @@ npm create @ama-sdk typescript <project-name> -- --package-manager=yarn [...opti
 
 ## Options list
 
-- `--package-manager`: Node package manager to be used (`npm` and `yarn` are available).
+- `--package-manager`: Node package manager to be used (`npm` and `yarn` are available). If not specified, the automatically detected one will be used.
+- `--yarn`: Enforce `yarn` package manager. This option will be ignored if `--package-manager` is already specified.
 - `--debug --no-dry-run`: Enable schematics debug mode (dry-run is not currently supported).
 - `--o3r-metrics`: Enable or disable the collection of anonymous data for Otter
 - `--exact-o3r-version` : use a pinned version for [otter packages](https://github.com/AmadeusITGroup/otter/blob/main/docs/README.md).

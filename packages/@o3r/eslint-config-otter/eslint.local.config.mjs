@@ -26,6 +26,7 @@ export default [
   },
   {
     name: '@o3r/eslint-config-otter/overrides',
+    files: ['package.json'],
     rules: {
       '@o3r/json-dependency-versions-harmonize': [
         'error',

@@ -32,17 +32,20 @@ during the installation of the `@o3r/core`.
 npm install --global yarn
 ```
 
-### Creating a new Otter application
+### Creating a new Otter project
 
 ```shell
-# Create new application
 npm create @o3r my-project
-# Or
-yarn create @o3r my-project
+# Or a project using the yarn package manager
+npm create @o3r my-project -- --package-manager=yarn
 ```
 
 > [!TIP]
 > Get more details on [@o3r/create](https://www.npmjs.com/package/@o3r/create).
+
+> [!NOTE]
+> If you want to add o3r to an existing project, you will first need to install @o3r/schematics via
+> `ng add @o3r/schematics` and then `ng add @o3r/core`.
 
 ### Adding Material design theming
 

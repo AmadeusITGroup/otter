@@ -212,9 +212,17 @@ const initTest = async (
   newMetadata: ComponentConfigOutput[],
   migrationData: MigrationFile<MigrationConfigData>,
   packageNameSuffix: string,
-  options?: { allowBreakingChanges?: boolean; prerelease?: string }
+  options?: {
+    allowBreakingChanges?: boolean;
+    shouldCheckUnusedMigrationData?: boolean;
+    prerelease?: string;
+  }
 ) => {
-  const { allowBreakingChanges = false, prerelease } = options || {};
+  const {
+    allowBreakingChanges = false,
+    shouldCheckUnusedMigrationData = false,
+    prerelease
+  } = options || {};
   const { workspacePath, appName, applicationPath, o3rVersion, isYarnTest } = o3rEnvironment.testEnvironment;
   const execAppOptions = { ...getDefaultExecSyncOptions(), cwd: applicationPath };
   const execAppOptionsWorkspace = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
@@ -247,6 +255,7 @@ const initTest = async (
     builder: '@o3r/components:check-config-migration-metadata',
     options: {
       allowBreakingChanges,
+      shouldCheckUnusedMigrationData,
       migrationDataPath: `apps/test-app/migration-scripts/MIGRATION-*.json`
     }
   };
@@ -295,7 +304,7 @@ describe('check metadata migration', () => {
       newConfigurationMetadata,
       defaultMigrationData,
       'allow-breaking-changes',
-      { allowBreakingChanges: true }
+      { allowBreakingChanges: true, shouldCheckUnusedMigrationData: false }
     );
     const { workspacePath, appName } = o3rEnvironment.testEnvironment;
     const execAppOptionsWorkspace = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
@@ -308,7 +317,7 @@ describe('check metadata migration', () => {
       newConfigurationMetadata,
       defaultMigrationData,
       'allow-breaking-changes-prerelease',
-      { allowBreakingChanges: true, prerelease: 'rc' }
+      { allowBreakingChanges: true, shouldCheckUnusedMigrationData: false, prerelease: 'rc' }
     );
     const { workspacePath, appName } = o3rEnvironment.testEnvironment;
     const execAppOptionsWorkspace = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
@@ -324,7 +333,7 @@ describe('check metadata migration', () => {
         changes: []
       },
       'no-migration-data',
-      { allowBreakingChanges: true }
+      { allowBreakingChanges: true, shouldCheckUnusedMigrationData: false }
     );
     const { workspacePath, appName } = o3rEnvironment.testEnvironment;
     const execAppOptionsWorkspace = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
@@ -359,7 +368,7 @@ describe('check metadata migration', () => {
         }))
       },
       'invalid-data',
-      { allowBreakingChanges: true }
+      { allowBreakingChanges: true, shouldCheckUnusedMigrationData: false }
     );
     const { workspacePath, appName } = o3rEnvironment.testEnvironment;
     const execAppOptionsWorkspace = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
@@ -388,7 +397,7 @@ describe('check metadata migration', () => {
         changes: []
       },
       'breaking-changes',
-      { allowBreakingChanges: false }
+      { allowBreakingChanges: false, shouldCheckUnusedMigrationData: false }
     );
     const { workspacePath, appName } = o3rEnvironment.testEnvironment;
     const execAppOptionsWorkspace = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
@@ -405,6 +414,39 @@ describe('check metadata migration', () => {
         expect(e.message).not.toContain(`Property ${id} has been modified but the new property is not present in the new metadata`);
         expect(e.message).toContain(`Property ${id} is not present in the new metadata and breaking changes are not allowed`);
       });
+      /* eslint-enable jest/no-conditional-expect */
+    }
+  });
+
+  test('should throw because of unused migration data', async () => {
+    const unusedMigrationItem = {
+      contentType: 'CONFIG',
+      before: {
+        libraryName: 'fake-remove'
+      }
+    };
+    await initTest(
+      newConfigurationMetadata,
+      {
+        ...defaultMigrationData,
+        changes: [
+          ...defaultMigrationData.changes,
+          unusedMigrationItem
+        ]
+      },
+      'unused-migration-data',
+      { allowBreakingChanges: true, shouldCheckUnusedMigrationData: true }
+    );
+    const { workspacePath, appName } = o3rEnvironment.testEnvironment;
+    const execAppOptionsWorkspace = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
+
+    try {
+      packageManagerExec({ script: 'ng', args: ['run', `${appName}:check-metadata`] }, execAppOptionsWorkspace);
+      throw new Error('should have thrown before');
+    } catch (e: any) {
+      /* eslint-disable jest/no-conditional-expect -- catch block always called */
+      expect(e.message).not.toBe('should have thrown before');
+      expect(e.message).toContain(`The following migration data has been documented but no corresponding metadata change was found: ${JSON.stringify(unusedMigrationItem, null, 2)}`);
       /* eslint-enable jest/no-conditional-expect */
     }
   });
