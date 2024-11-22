@@ -97,6 +97,8 @@
     "lint": [
       "base",
       "{projectRoot}/eslint*.config.mjs",
+      "{projectRoot}/**/package.json",
+      "{projectRoot}/**/*.html",
       "{projectRoot}/**/*.ts",
       "{projectRoot}/**/*.cts",
       "{projectRoot}/**/*.mts",

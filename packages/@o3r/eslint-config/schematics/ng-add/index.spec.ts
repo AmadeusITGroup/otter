@@ -50,7 +50,8 @@ describe('ng add eslint-config', () => {
         'eslint-plugin-jest': expect.objectContaining({}),
         'eslint-plugin-jsdoc': expect.objectContaining({}),
         'eslint-plugin-prefer-arrow': expect.objectContaining({}),
-        'eslint-plugin-sort-export-all': expect.objectContaining({}),
+        // TODO: reactivate once https://github.com/nirtamir2/eslint-plugin-sort-export-all/issues/18 is fixed
+        // 'eslint-plugin-sort-export-all': expect.objectContaining({}),
         'eslint-plugin-unicorn': expect.objectContaining({}),
         'eslint-plugin-unused-imports': expect.objectContaining({}),
         globby: expect.objectContaining({}),

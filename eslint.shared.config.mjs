@@ -114,12 +114,12 @@ export default [
     name: '@o3r/framework/setup-jest',
     files: ['**/setup-jest.ts', '**/setup-jest.*.ts'],
     rules: {
-      'unicorn/no-empty-file': 'off',
+      'unicorn/no-empty-file': 'off'
     }
   },
   {
     name: '@o3r/framework/package-json',
-    files: ['package.json'],
+    files: ['**/package.json'],
     plugins: {
       '@nx': nxPlugin,
       '@o3r': o3rPlugin
