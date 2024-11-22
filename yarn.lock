@@ -8664,7 +8664,7 @@ __metadata:
     "@o3r/schematics": "workspace:^"
     "@schematics/angular": ~18.2.0
     "@stylistic/eslint-plugin-ts": ^2.7.0
-    "@typescript-eslint/eslint-plugin": ^7.14.1
+    "@typescript-eslint/eslint-plugin": ^7.14.1 || ^8.0.0
     "@typescript-eslint/parser": ^7.14.1 || ^8.0.0
     "@typescript-eslint/utils": ^7.14.1 || ^8.0.0
     eslint: ">=8.57.0 <9.15.0"

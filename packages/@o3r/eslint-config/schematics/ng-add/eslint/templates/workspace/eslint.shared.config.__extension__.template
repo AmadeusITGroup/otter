@@ -12,6 +12,19 @@ const o3rTemplate = require('@o3r/eslint-config/template');
     linterOptions: {
       reportUnusedDisableDirectives: 'error'
     }
+  },
+  {
+    name: '<%= packageName %>/settings',
+    settings: {
+      'import/resolver': {
+        node: true,
+        typescript: {
+          project: [
+<%= detectedTsConfigs.map((tsconfig) => `            '${tsconfig}'`).join(',\n') %>
+          ]
+        }
+      }
+    }
   }<% if (extension === 'mjs') { %>,
   {
     name: '<%= packageName %>/eslint-config',

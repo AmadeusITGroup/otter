@@ -13,7 +13,7 @@ const __dirname = dirname(__filename);
       parserOptions: {
         tsconfigRootDir: __dirname,
         project: [
-<%= detectedTsConfigs.map((tsconfig) => `          '${tsconfig}'`).join(', ') %>
+<%= detectedTsConfigs.map((tsconfig) => `          '${tsconfig}'`).join(',\n') %>
         ]
       }
     }
