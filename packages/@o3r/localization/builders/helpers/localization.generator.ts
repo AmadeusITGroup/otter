@@ -7,10 +7,6 @@ import {
   getLibraryCmsMetadata,
   getLocalizationFileFromAngularElement,
 } from '@o3r/extractors';
-import type {
-  JSONLocalization,
-  LocalizationMetadata,
-} from '@o3r/localization';
 import {
   O3rCliError,
 } from '@o3r/schematics';
@@ -19,6 +15,10 @@ import * as ts from 'typescript';
 import type {
   LocalizationExtractorBuilderSchema,
 } from '../localization-extractor/schema';
+import type {
+  JSONLocalization,
+  LocalizationMetadata,
+} from '@o3r/localization';
 
 /** List of Angular decorator to look for */
 const ANGULAR_ANNOTATION = ['Component', 'Injectable', 'Pipe'];

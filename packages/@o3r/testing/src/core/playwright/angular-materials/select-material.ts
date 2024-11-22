@@ -6,8 +6,6 @@ import {
   PlaywrightSourceElement,
 } from '../element';
 
-export { SelectElementProfile } from '../../elements';
-
 /**
  * Implementation dedicated to Playwright.
  */

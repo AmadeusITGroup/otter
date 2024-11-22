@@ -3,7 +3,7 @@ import {
 } from '@angular/core';
 import {
   ConfigurationStoreModule,
-} from '@o3r/configuration';
+} from '../stores/index';
 import {
   ConfigurationRulesEngineActionHandler,
 } from './configuration.handler-action';

@@ -11,15 +11,6 @@ import {
   Store,
 } from '@ngrx/store';
 import {
-  cancelPlaceholderRequest,
-  failPlaceholderRequestEntity,
-  PlaceholderRequestStore,
-  PlaceholderVariable,
-  selectPlaceholderRequestEntityUsage,
-  setPlaceholderRequestEntityFromUrl,
-  updatePlaceholderRequestEntity,
-} from '@o3r/components';
-import {
   fromApiEffectSwitchMapById,
 } from '@o3r/core';
 import {
@@ -46,6 +37,15 @@ import {
   switchMap,
   take,
 } from 'rxjs/operators';
+import {
+  cancelPlaceholderRequest,
+  failPlaceholderRequestEntity,
+  type PlaceholderRequestStore,
+  type PlaceholderVariable,
+  selectPlaceholderRequestEntityUsage,
+  setPlaceholderRequestEntityFromUrl,
+  updatePlaceholderRequestEntity,
+} from '../stores';
 
 /**
  * Service to handle async PlaceholderTemplate actions

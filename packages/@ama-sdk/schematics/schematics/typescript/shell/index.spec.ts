@@ -1,7 +1,4 @@
 import * as path from 'node:path';
-import type {
-  OpenApiToolsConfiguration,
-} from '@ama-sdk/schematics';
 import {
   Tree,
 } from '@angular-devkit/schematics';
@@ -13,6 +10,9 @@ import type {
   JsonObject,
   PackageJson,
 } from 'type-fest';
+import type {
+  OpenApiToolsConfiguration,
+} from '@ama-sdk/schematics';
 
 const collectionPath = path.join(__dirname, '..', '..', '..', 'collection.json');
 

@@ -16,9 +16,6 @@ import {
 import {
   isO3rClassComponent,
 } from '@o3r/schematics';
-import type {
-  CssMetadata,
-} from '@o3r/styling';
 import * as chokidar from 'chokidar';
 import {
   sync as globbySync,
@@ -33,6 +30,9 @@ import {
 import {
   StyleExtractorBuilderSchema,
 } from './schema';
+import type {
+  CssMetadata,
+} from '@o3r/styling';
 
 export * from './schema';
 

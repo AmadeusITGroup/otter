@@ -17,10 +17,6 @@ import {
 import type {
   MigrationFile,
 } from '@o3r/extractors';
-import type {
-  JSONLocalization,
-  LocalizationMetadata,
-} from '@o3r/localization';
 import {
   getExternalDependenciesVersionRange,
   getPackageManager,
@@ -39,6 +35,10 @@ import {
 import type {
   MigrationLocalizationMetadata,
 } from './helpers/localization-metadata-comparison.helper';
+import type {
+  JSONLocalization,
+  LocalizationMetadata,
+} from '@o3r/localization';
 
 const baseVersion = '1.2.0';
 const version = '1.3.0';

@@ -3,9 +3,6 @@ import * as path from 'node:path';
 import {
   logging,
 } from '@angular-devkit/core';
-import type {
-  ComponentStructure,
-} from '@o3r/components';
 import {
   getLocalizationFileFromAngularElement,
 } from '@o3r/extractors';
@@ -13,6 +10,9 @@ import {
   isO3rClassComponent,
 } from '@o3r/schematics';
 import * as ts from 'typescript';
+import type {
+  ComponentStructure,
+} from '@o3r/components';
 
 /** Information extracted from a component file */
 export interface ComponentInformation {

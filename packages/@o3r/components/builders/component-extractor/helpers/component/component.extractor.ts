@@ -3,14 +3,6 @@ import * as path from 'node:path';
 import {
   logging,
 } from '@angular-devkit/core';
-import type {
-  ComponentClassOutput,
-  ComponentConfigOutput,
-  ComponentOutput,
-  ComponentStructure,
-  ConfigProperty,
-  PlaceholdersMetadata,
-} from '@o3r/components';
 import {
   CmsMetadataData,
   getLibraryCmsMetadata,
@@ -31,6 +23,14 @@ import {
 import {
   ParserOutput,
 } from './component.parser';
+import type {
+  ComponentClassOutput,
+  ComponentConfigOutput,
+  ComponentOutput,
+  ComponentStructure,
+  ConfigProperty,
+  PlaceholdersMetadata,
+} from '@o3r/components';
 
 /**
  * Extracts components metadata

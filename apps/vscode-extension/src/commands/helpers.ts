@@ -7,10 +7,10 @@ import {
   posix,
   relative,
 } from 'node:path';
+import * as vscode from 'vscode';
 import type {
   WorkspaceSchema,
 } from '@o3r/schematics';
-import * as vscode from 'vscode';
 
 /**
  * Get the local path of the folder of the current open file

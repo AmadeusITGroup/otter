@@ -8,16 +8,6 @@ import {
   select,
   Store,
 } from '@ngrx/store';
-import {
-  deletePlaceholderTemplateEntity,
-  PlaceholderRequestReply,
-  PlaceholderTemplateStore,
-  selectPlaceholderRequestEntities,
-  selectPlaceholderTemplateEntities,
-  setPlaceholderRequestEntityFromUrl,
-  setPlaceholderTemplateEntity,
-  updatePlaceholderRequestEntity,
-} from '@o3r/components';
 import type {
   RulesEngineActionHandler,
 } from '@o3r/core';
@@ -41,6 +31,16 @@ import {
   Subscription,
   withLatestFrom,
 } from 'rxjs';
+import {
+  deletePlaceholderTemplateEntity,
+  PlaceholderRequestReply,
+  PlaceholderTemplateStore,
+  selectPlaceholderRequestEntities,
+  selectPlaceholderTemplateEntities,
+  setPlaceholderRequestEntityFromUrl,
+  setPlaceholderTemplateEntity,
+  updatePlaceholderRequestEntity,
+} from '../stores/index';
 import {
   ActionUpdatePlaceholderBlock,
   RULES_ENGINE_PLACEHOLDER_UPDATE_ACTION_TYPE,

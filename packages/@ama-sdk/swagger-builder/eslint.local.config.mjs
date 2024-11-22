@@ -27,5 +27,11 @@ export default [
         ...globals.node
       }
     }
+  },
+  {
+    name: '@ama-sdk/swagger-builder/overrides',
+    rules: {
+      'import/no-cycle': 'off'
+    }
   }
 ];

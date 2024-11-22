@@ -19,21 +19,21 @@ import {
   posix,
 } from 'node:path';
 import type {
-  OpenApiToolsConfiguration,
-  OpenApiToolsGenerator,
-} from '@ama-sdk/schematics';
-import {
-  LOCAL_SPEC_FILENAME,
-  SPEC_JSON_EXTENSION,
-  SPEC_YAML_EXTENSION,
-} from '@ama-sdk/schematics';
-import type {
   CliWrapper,
 } from '@o3r/telemetry';
 import * as minimist from 'minimist';
 import type {
   PackageJson,
 } from 'type-fest';
+import {
+  LOCAL_SPEC_FILENAME,
+  SPEC_JSON_EXTENSION,
+  SPEC_YAML_EXTENSION,
+} from '@ama-sdk/schematics';
+import type {
+  OpenApiToolsConfiguration,
+  OpenApiToolsGenerator,
+} from '@ama-sdk/schematics';
 
 const argv = minimist(process.argv.slice(2));
 const packageName = argv._[0];

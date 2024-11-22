@@ -21,10 +21,6 @@ import {
   getExternalDependenciesVersionRange,
   getPackageManager,
 } from '@o3r/schematics';
-import type {
-  CssMetadata,
-  CssVariable,
-} from '@o3r/styling';
 import {
   getDefaultExecSyncOptions,
   getLatestPackageVersion,
@@ -39,6 +35,10 @@ import {
 import type {
   MigrationStylingData,
 } from './helpers/styling-metadata-comparison.helper';
+import type {
+  CssMetadata,
+  CssVariable,
+} from '@o3r/styling';
 
 const baseVersion = '1.2.0';
 const version = '1.3.0';

@@ -7,7 +7,7 @@ import {
 import {
   PlaceholderRequestStoreModule,
   PlaceholderTemplateStoreModule,
-} from '@o3r/components';
+} from '../stores/index';
 import {
   PlaceholderRulesEngineActionHandler,
 } from './placeholder.action-handler';

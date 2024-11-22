@@ -107,7 +107,7 @@
       "{projectRoot}/src/**/*.cjs",
       "{workspaceRoot}/eslint*.config.mjs",
       "{workspaceRoot}/packages/@o3r/eslint-config/src/**/*.ts",
-      "{workspaceRoot}/packages/@o3r/eslint-plugin/src/**/*.ts"
+      "{workspaceRoot}/packages/@o3r/eslint-plugin/src/**/*.cjs"
     ],
     "specs": [
       "base",

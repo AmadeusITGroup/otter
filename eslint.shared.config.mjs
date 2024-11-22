@@ -1,6 +1,6 @@
-import o3rTemplate from '@o3r/eslint-config/template';
 import nxPlugin from '@nx/eslint-plugin';
 import o3rConfig from '@o3r/eslint-config';
+import o3rTemplate from '@o3r/eslint-config/template';
 import o3rPlugin from '@o3r/eslint-plugin';
 import globals from 'globals';
 import jsonParser from 'jsonc-eslint-parser';
@@ -42,11 +42,23 @@ export default [
   {
     name: '@o3r/framework/settings',
     settings: {
-      'import/resolver': 'node'
+      'import/resolver': {
+        node: true,
+        typescript: {
+          project: './tsconfig.base.json'
+        }
+      }
     },
     languageOptions: {
       sourceType: 'module',
       ecmaVersion: 12
+    }
+  },
+  {
+    name: '@o3r/framework/setup-jest-files',
+    files: ['**/setup-jest.ts'],
+    settings: {
+      'import/core-modules': ['isomorphic-fetch']
     }
   },
   {

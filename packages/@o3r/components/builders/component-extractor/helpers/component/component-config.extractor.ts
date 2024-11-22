@@ -5,12 +5,6 @@ import {
   logging,
 } from '@angular-devkit/core';
 import type {
-  ConfigProperty,
-  ConfigPropertyTypes,
-  ConfigType,
-  NestedConfiguration,
-} from '@o3r/components';
-import type {
   CategoryDescription,
   ItemIdentifier,
 } from '@o3r/core';
@@ -21,6 +15,12 @@ import {
   O3rCliError,
 } from '@o3r/schematics';
 import * as ts from 'typescript';
+import type {
+  ConfigProperty,
+  ConfigPropertyTypes,
+  ConfigType,
+  NestedConfiguration,
+} from '@o3r/components';
 
 /** Information extracted from a configuration file */
 export interface ConfigurationInformation {

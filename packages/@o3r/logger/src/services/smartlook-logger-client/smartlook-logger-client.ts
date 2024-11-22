@@ -3,10 +3,10 @@ import {
   ActionReducer,
   MetaReducer,
 } from '@ngrx/store';
+import SmartLook from 'smartlook-client';
 import type {
   LoggerClient,
-} from '@o3r/logger';
-import SmartLook from 'smartlook-client';
+} from '../logger/index';
 
 /**
  * SmartLook client.

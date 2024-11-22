@@ -12,9 +12,6 @@ import {
 import {
   createBuilderWithMetricsIfInstalled,
 } from '@o3r/extractors';
-import type {
-  JSONLocalization,
-} from '@o3r/localization';
 import {
   O3rCliError,
 } from '@o3r/schematics';
@@ -35,6 +32,9 @@ import type {
 import {
   LocalizationBuilderSchema,
 } from './schema';
+import type {
+  JSONLocalization,
+} from '@o3r/localization';
 
 /** Maximum number of steps */
 const STEP_NUMBER = 5;

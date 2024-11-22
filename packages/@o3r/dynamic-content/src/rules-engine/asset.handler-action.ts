@@ -10,7 +10,7 @@ import type {
 import {
   AssetPathOverrideStore,
   setAssetPathOverride,
-} from '@o3r/dynamic-content';
+} from '../stores/index';
 import {
   ActionUpdateAssetBlock,
   RULES_ENGINE_ASSET_UPDATE_ACTION_TYPE,

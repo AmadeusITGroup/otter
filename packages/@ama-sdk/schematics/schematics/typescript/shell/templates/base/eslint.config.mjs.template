@@ -44,7 +44,12 @@ export default [
       ecmaVersion: 12
     },
     settings: {
-      'import/resolver': 'node'
+      'import/resolver': {
+        node: true,
+        typescript: {
+          project: './tsconfig.base.json'
+        }
+      }
     }
   },
   {
@@ -59,6 +64,20 @@ export default [
       '/scripts',
       '/jest.config.js'
     ]
+  },
+  {
+    name: '@o3r-training/showcase-sdk/typescript-files',
+    files: ['**/*.ts'],
+    rules: {
+      '@typescript-eslint/no-unused-vars': 'off',
+      '@typescript-eslint/naming-convention': 'off',
+      '@typescript-eslint/restrict-template-expressions': 'off',
+      'max-len': 'off',
+      'no-redeclare': 'off',
+      'no-use-before-define': 'off',
+      'no-useless-escape': 'off',
+      'import/export': 'off'
+    }
   },
   {
     name: '<%= projectPackageName %>/helpers',

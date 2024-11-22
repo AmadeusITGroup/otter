@@ -21,12 +21,16 @@ import * as semver from 'semver';
 import type {
   PackageJson,
 } from 'type-fest';
-import {
-  getPackageManager,
-  getProjectNewDependenciesTypes,
-  getWorkspaceConfig,
+import type {
   SupportedPackageManagers,
 } from '../../utility';
+import {
+  getProjectNewDependenciesTypes,
+  getWorkspaceConfig,
+} from '../../utility/loaders';
+import {
+  getPackageManager,
+} from '../../utility/package-manager-runner';
 
 /**
  * Options to be passed to the ng add task

@@ -23,6 +23,9 @@ export default [
           'tsconfig.eslint.json'
         ]
       }
+    },
+    settings: {
+      'import/core-modules': ['cheerio', 'express-interceptor']
     }
   }
 ];

@@ -16,9 +16,11 @@ import type {
   PackageJson,
 } from 'type-fest';
 import {
-  getPackageManager,
   O3rCliError,
-} from '../../utility/index';
+} from '../../utility/error';
+import {
+  getPackageManager,
+} from '../../utility/package-manager-runner';
 
 /** Interface containing a npm package name, needed version and optionally found version */
 interface PackageVersion {

@@ -29,7 +29,6 @@ export default [
       parser: yamlParser
     }
   },
-
   {
     name: '@o3r/framework/yarnrc',
     files: ['.yarnrc.yml'],
