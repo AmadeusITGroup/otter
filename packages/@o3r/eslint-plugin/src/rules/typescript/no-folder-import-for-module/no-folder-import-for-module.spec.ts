@@ -7,6 +7,7 @@ const {
 
 const ruleTester = new RuleTester();
 const fakeFolder = path.resolve('/fake-folder');
+const relativeFakeFolder = path.relative(process.cwd(), fakeFolder);
 
 beforeAll(async () => {
   await fs.mkdir(path.join(fakeFolder, 'local'), { recursive: true });
@@ -23,7 +24,7 @@ ruleTester.run('no-folder-import-for-module', noFolderImportForModule, {
   ],
   invalid: [
     {
-      filename: path.join(fakeFolder, 'test.ts'),
+      filename: path.join(relativeFakeFolder, 'test.ts'),
       output: 'import {myImportModule} from "./local/index";',
       code: 'import {myImportModule} from "./local";',
       errors: [
@@ -44,7 +45,7 @@ ruleTester.run('no-folder-import-for-module', noFolderImportForModule, {
       ]
     },
     {
-      filename: path.join(fakeFolder, 'test.ts'),
+      filename: path.join(relativeFakeFolder, 'test.ts'),
       output: 'import {randomImport, myImportModule} from "./local/index";',
       code: 'import {randomImport, myImportModule} from "./local";',
       errors: [
@@ -65,7 +66,7 @@ ruleTester.run('no-folder-import-for-module', noFolderImportForModule, {
       ]
     },
     {
-      filename: path.join(fakeFolder, 'test.ts'),
+      filename: path.join(relativeFakeFolder, 'test.ts'),
       code: 'import {myImportModule} from "./empty-local";',
       errors: [
         {

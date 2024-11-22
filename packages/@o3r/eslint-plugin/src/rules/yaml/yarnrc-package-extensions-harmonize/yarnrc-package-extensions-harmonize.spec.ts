@@ -63,7 +63,8 @@ packageExtensions:
 `.trim();
 
 const fakeFolder = path.resolve('/fake-folder');
-const packageToLint = path.join(fakeFolder, 'local', '.yarnrc.yml');
+const relativeFakeFolder = path.relative(process.cwd(), fakeFolder);
+const packageToLint = path.join(relativeFakeFolder, 'local', '.yarnrc.yml');
 
 beforeAll(async () => {
   await fs.mkdir(path.join(fakeFolder, 'local'), { recursive: true });

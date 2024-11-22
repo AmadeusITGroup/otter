@@ -33,7 +33,8 @@ const packageJson2 = {
   }
 };
 const fakeFolder = path.resolve('/fake-folder');
-const packageToLint = path.join(fakeFolder, 'local', 'packages', 'my-package', 'package.json');
+const relativeFakeFolder = path.relative(process.cwd(), fakeFolder);
+const packageToLint = path.join(relativeFakeFolder, 'local', 'packages', 'my-package', 'package.json');
 beforeAll(async () => {
   await fs.mkdir(path.join(fakeFolder, 'local'), { recursive: true });
   await fs.writeFile(path.join(fakeFolder, 'local', 'package.json'), JSON.stringify(packageJsonWorkspace));

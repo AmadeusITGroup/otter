@@ -76,7 +76,7 @@ export const updateEslintConfig = (rootPath: string, projectName?: string): Rule
     codeBeforeConfig: '',
     codeAfterConfig: '',
     oldConfig: '',
-    relativePathToRoot: path.relative(projectRootPath, '.'),
+    relativePathToRoot: path.posix.relative(projectRootPath, '.'),
     packageName: (tree.readJson(workingDir.file(fragment('package.json'))?.path || 'package.json') as JsonObject).name,
     detectedTsConfigs: findFilesInTree(workingDir, (f) => /tsconfig\..*\.json/.test(f)).map((entry) => path.basename(entry.path)).concat('tsconfig.eslint.json'),
     isApp: workspaceProject?.projectType === 'application'
