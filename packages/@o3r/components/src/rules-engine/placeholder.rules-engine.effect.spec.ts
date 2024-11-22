@@ -32,14 +32,14 @@ import {
 import {
   shareReplay,
 } from 'rxjs/operators';
-import type {
-  PlaceholderRequestModel,
-  PlaceholderRequestReply,
-  setPlaceholderRequestEntityFromUrl,
-} from '../stores/index';
 import {
   PlaceholderTemplateResponseEffect,
 } from './placeholder.rules-engine.effect';
+import {
+  type PlaceholderRequestModel,
+  type PlaceholderRequestReply,
+  setPlaceholderRequestEntityFromUrl,
+} from '@o3r/components';
 
 describe('Rules Engine Effects', () => {
   let effect: PlaceholderTemplateResponseEffect;

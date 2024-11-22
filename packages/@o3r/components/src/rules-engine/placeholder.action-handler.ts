@@ -32,6 +32,10 @@ import {
   withLatestFrom,
 } from 'rxjs';
 import {
+  ActionUpdatePlaceholderBlock,
+  RULES_ENGINE_PLACEHOLDER_UPDATE_ACTION_TYPE,
+} from './placeholder.interfaces';
+import {
   deletePlaceholderTemplateEntity,
   PlaceholderRequestReply,
   PlaceholderTemplateStore,
@@ -40,11 +44,7 @@ import {
   setPlaceholderRequestEntityFromUrl,
   setPlaceholderTemplateEntity,
   updatePlaceholderRequestEntity,
-} from '../stores/index';
-import {
-  ActionUpdatePlaceholderBlock,
-  RULES_ENGINE_PLACEHOLDER_UPDATE_ACTION_TYPE,
-} from './placeholder.interfaces';
+} from '@o3r/components';
 
 /**
  * Service to handle async PlaceholderTemplate actions

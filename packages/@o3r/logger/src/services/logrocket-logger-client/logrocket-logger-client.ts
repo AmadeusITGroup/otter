@@ -8,7 +8,7 @@ import createNgrxMiddleware, {
 } from 'logrocket-ngrx';
 import type {
   LoggerClient,
-} from '../logger/index';
+} from '@o3r/logger';
 
 /**
  * LogRocket client.

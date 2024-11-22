@@ -6,7 +6,7 @@ import {
 import SmartLook from 'smartlook-client';
 import type {
   LoggerClient,
-} from '../logger/index';
+} from '@o3r/logger';
 
 /**
  * SmartLook client.

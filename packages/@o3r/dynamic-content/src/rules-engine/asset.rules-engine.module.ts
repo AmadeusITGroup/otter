@@ -2,11 +2,11 @@ import {
   NgModule,
 } from '@angular/core';
 import {
-  AssetPathOverrideStoreModule,
-} from '../stores/index';
-import {
   AssetRulesEngineActionHandler,
 } from './asset.handler-action';
+import {
+  AssetPathOverrideStoreModule,
+} from '@o3r/dynamic-content';
 
 @NgModule({
   imports: [

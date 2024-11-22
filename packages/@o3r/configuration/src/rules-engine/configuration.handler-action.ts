@@ -11,14 +11,14 @@ import {
   computeItemIdentifier,
 } from '@o3r/core';
 import {
-  ConfigurationStore,
-  PropertyOverride,
-  setConfigOverride,
-} from '../stores/index';
-import {
   ActionUpdateConfigBlock,
   RULES_ENGINE_CONFIGURATION_UPDATE_ACTION_TYPE,
 } from './configuration.interfaces';
+import {
+  ConfigurationStore,
+  PropertyOverride,
+  setConfigOverride,
+} from '@o3r/configuration';
 
 /**
  * Service to handle async Configuration actions

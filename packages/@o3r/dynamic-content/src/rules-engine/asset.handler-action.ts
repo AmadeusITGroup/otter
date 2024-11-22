@@ -8,13 +8,13 @@ import type {
   RulesEngineActionHandler,
 } from '@o3r/core';
 import {
-  AssetPathOverrideStore,
-  setAssetPathOverride,
-} from '../stores/index';
-import {
   ActionUpdateAssetBlock,
   RULES_ENGINE_ASSET_UPDATE_ACTION_TYPE,
 } from './asset.interfaces';
+import {
+  AssetPathOverrideStore,
+  setAssetPathOverride,
+} from '@o3r/dynamic-content';
 
 /**
  * Service to handle async Asset actions

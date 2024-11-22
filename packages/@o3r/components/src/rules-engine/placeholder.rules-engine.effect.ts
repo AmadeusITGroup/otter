@@ -45,7 +45,7 @@ import {
   selectPlaceholderRequestEntityUsage,
   setPlaceholderRequestEntityFromUrl,
   updatePlaceholderRequestEntity,
-} from '../stores';
+} from '@o3r/components';
 
 /**
  * Service to handle async PlaceholderTemplate actions

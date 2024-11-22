@@ -2,11 +2,11 @@ import {
   NgModule,
 } from '@angular/core';
 import {
-  LocalizationOverrideStoreModule,
-} from '../stores/index';
-import {
   LocalizationRulesEngineActionHandler,
 } from './localization.handler-action';
+import {
+  LocalizationOverrideStoreModule,
+} from '@o3r/localization';
 
 @NgModule({
   imports: [
