@@ -28,5 +28,12 @@ export default [
         ...globals.node
       }
     }
+  },
+  {
+    name: '@o3r/eslint-plugin/tests',
+    files: ['**/*.spec.ts'],
+    rules: {
+      'import/newline-after-import': 'off'
+    }
   }
 ];

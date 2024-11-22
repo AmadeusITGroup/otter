@@ -1,17 +1,18 @@
 #!/usr/bin/env node
-import * as minimist from 'minimist';
 import {
   gt,
   lt,
   valid,
 } from 'semver';
 
-const argv = minimist(process.argv.slice(2));
-const version = valid(argv._.at(0));
+/**
+ * Returns the previous version
+ * @param versionInput
+ */
+export async function getPreviousVersion(versionInput?: string) {
+  const version = valid(versionInput);
+  let data = '';
 
-let data = '';
-
-async function main() {
   for await (const chunk of process.stdin) {
     data += chunk;
   }
@@ -35,5 +36,3 @@ async function main() {
 
   process.stdout.write(previousVersion?.tag || '');
 }
-
-void main();

@@ -1,9 +1,5 @@
 {
   "extends": "../../../tsconfig.jest",
-  "compilerOptions": {
-    "moduleResolution": "NodeNext",
-    "module": "NodeNext"
-  },
   "references": [
     {
       "path": "./tsconfig.build.json"

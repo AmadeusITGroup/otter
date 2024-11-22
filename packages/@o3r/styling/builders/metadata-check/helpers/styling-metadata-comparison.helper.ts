@@ -21,8 +21,10 @@ const getCssVariablesArray = (content: CssMetadata): CssVariable[] => Object.key
 
 const getCssVariableName = (cssVariable: CssVariable) => cssVariable.name;
 
-const isMigrationCssVariableDataMatch = (cssVariable: CssVariable, migrationData: MigrationStylingData, metadataType: string) =>
-  metadataType === 'STYLE' && getCssVariableName(cssVariable) === migrationData.name;
+const isRelevantContentType = (contentType: string) => contentType === 'STYLE';
+
+const isMigrationCssVariableDataMatch = (cssVariable: CssVariable, migrationData: MigrationStylingData) =>
+  getCssVariableName(cssVariable) === migrationData.name;
 
 /**
  * Comparator used to compare one version of styling metadata with another
@@ -30,5 +32,6 @@ const isMigrationCssVariableDataMatch = (cssVariable: CssVariable, migrationData
 export const stylingMetadataComparator: MetadataComparator<CssVariable, MigrationStylingData, CssMetadata> = {
   getArray: getCssVariablesArray,
   getIdentifier: getCssVariableName,
+  isRelevantContentType,
   isMigrationDataMatch: isMigrationCssVariableDataMatch
 };

@@ -38,7 +38,7 @@ const winstonOptions = {
           info.message = JSON.stringify(info.message, null, 3);
         }
 
-        return info.message;
+        return info.message as string;
       })
     )
   }

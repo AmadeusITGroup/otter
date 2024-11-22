@@ -1,12 +1,12 @@
 import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
-import {
-  RuleTester,
-} from '@typescript-eslint/rule-tester';
 import * as jsonParser from 'jsonc-eslint-parser';
 import jsonDependencyVersionsHarmonize, {
   VersionsHarmonizeOptions,
 } from './json-dependency-versions-harmonize';
+const {
+  RuleTester
+} = require('@typescript-eslint/rule-tester');
 
 const ruleTester = new RuleTester({
   languageOptions: {

@@ -79,15 +79,19 @@ jobs:
         with:
           flags: unittests
           token: ${{ secrets.CODECOV_TOKEN }}
+      - name: Upload test results to Codecov
+        uses: codecov/test-results-action@9739113ad922ea0a9abb4b2c0f8bf6a4aa8ef820 # 1.0.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
       - name: Publish tests reports
         if: always()
         uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 # v4.4.3
         with:
           name: ut-reports-${{ matrix.os }}
           path: |
-            apps/**/dist-test/ut-report.xml
-            packages/**/dist-test/ut-report.xml
-            tools/**/dist-test/ut-report.xml
+            apps/**/dist-test/junit.xml
+            packages/**/dist-test/junit.xml
+            tools/**/dist-test/junit.xml
   lint:
     runs-on: ubuntu-latest
     steps:
@@ -98,9 +102,11 @@ jobs:
         uses: ./tools/github-actions/setup
       - name: Cache Eslint
         uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.1.2
+        env:
+          hash: ${{ hashFiles('yarn.lock') }}
         with:
           path: .cache/eslint
-          key: ${{ runner.os }}-eslint-${{ hashFiles('yarn.lock') }}
+          key: ${{ runner.os }}-eslint-${{ env.hash }}
           restore-keys: |
             ${{ runner.os }}-eslint-${{ env.hash }}
             ${{ runner.os }}-eslint

@@ -27,7 +27,6 @@ import {
 import {
   distinctUntilChanged,
   map,
-  take,
 } from 'rxjs/operators';
 import {
   jsonOneRulesetOneRuleNoCondPlaceholder,
@@ -159,14 +158,23 @@ describe('Rules engine service', () => {
     expect(actions[0].actionType).toBe('UPDATE_LOCALISATION');
   });
 
-  // eslint-disable-next-line jest/no-done-callback -- eventually rewrite the test
-  it('should handle linked components and validity range properly', (done) => {
-    service.events$.pipe(take(1)).subscribe((actions) => {
-      expect(actions.length).toBe(1);
-      expect(actions[0].actionType).toBe('UPDATE_LOCALISATION');
-      done();
-    });
+  it('should handle linked components and validity range properly', async () => {
     store.dispatch(setRulesetsEntities({ entities: jsonOneRulesetValidOneRuleNoCond.ruleSets }));
+    const actions = await firstValueFrom(service.events$);
+    expect(actions.length).toBe(1);
+    expect(actions[0].actionType).toBe('UPDATE_LOCALISATION');
+    expect(actions[0].value).toBe('my.custom.ssci.loc.key2');
+    service.enableRuleSetFor(computeItemIdentifier('TestComponent', '@otter/comps'));
+    const nextActions = await firstValueFrom(service.events$);
+    expect(nextActions.length).toBe(2);
+    expect(nextActions[1].actionType).toBe('UPDATE_LOCALISATION');
+    expect(nextActions[1].value).toBe('my.custom.ssci.loc.key3');
+    // out of range validity for ruleset linked to TestComponent2
+    service.enableRuleSetFor(computeItemIdentifier('TestComponent2', '@otter/comps'));
+    const lastActions = await firstValueFrom(service.events$);
+    expect(lastActions.length).toBe(2);
+    expect(lastActions[1].actionType).toBe('UPDATE_LOCALISATION');
+    expect(lastActions[1].value).toBe('my.custom.ssci.loc.key3');
   });
 
   it('should have configuration updated in the store', async () => {

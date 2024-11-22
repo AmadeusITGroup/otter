@@ -8,9 +8,6 @@ import {
 import {
   Validator,
 } from 'jsonschema';
-import {
-  pascalCase,
-} from 'pascal-case';
 import type {
   Spec,
 } from 'swagger-schema-official';
@@ -93,7 +90,12 @@ export function getTargetPath(targetedSwaggerSpec: string, currentDirectory: str
  * @param swaggerPath Path to the swagger spec the item come from
  */
 export function calculatePrefix(name: string, swaggerPath?: string) {
-  let prefix = swaggerPath ? pascalCase(path.basename(swaggerPath).replace(/\.[^.]*$/, '')) : 'Base';
+  let prefix = swaggerPath
+    ? path.basename(swaggerPath)
+      .replace(/\.[^.]*$/, '')
+      .replace(/\w+/g, (word) => word[0].toUpperCase() + word.slice(1).toLowerCase())
+      .replace(/\W/g, '')
+    : 'Base';
   prefix = name.startsWith(prefix) ? 'Base' : prefix;
   return `_${prefix}`;
 }

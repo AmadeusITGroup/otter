@@ -1,7 +1,5 @@
-import {
-  RuleTester,
-} from '@typescript-eslint/rule-tester';
 import matchingConfigurationNameRule from './matching-configuration-name';
+const { RuleTester } = require('@typescript-eslint/rule-tester');
 
 const ruleTester = new RuleTester();
 

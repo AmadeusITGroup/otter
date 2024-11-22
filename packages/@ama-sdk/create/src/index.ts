@@ -31,7 +31,7 @@ if (packageManagerEnv && ['npm', 'yarn'].includes(packageManagerEnv)) {
   defaultPackageManager = packageManagerEnv;
 }
 
-const packageManager: string = argv['package-manager'] || defaultPackageManager;
+const packageManager: string = argv['package-manager'] || (argv.yarn && 'yarn') || defaultPackageManager;
 
 if (argv._.length < 2) {
   console.error('The SDK type and project name are mandatory');

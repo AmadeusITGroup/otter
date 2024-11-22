@@ -87,7 +87,7 @@ module.exports.getJestGlobalConfig = (rootDir) => {
     coverageReporters: ['cobertura'],
     reporters: [
       'default',
-      ['jest-junit', { outputDirectory: '<rootDir>/dist-test', outputName: 'ut-report.xml' }],
+      ['jest-junit', { outputDirectory: '<rootDir>/dist-test', outputName: 'junit.xml', classNameTemplate: '{filepath}' }],
       'github-actions'
     ],
     rootDir,

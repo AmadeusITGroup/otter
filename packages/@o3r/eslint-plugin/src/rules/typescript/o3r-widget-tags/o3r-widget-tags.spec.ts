@@ -1,9 +1,9 @@
-import {
-  RuleTester,
-} from '@typescript-eslint/rule-tester';
 import o3rWidgetTagsRule, {
   O3rWidgetTagsRuleOption,
 } from './o3r-widget-tags';
+const {
+  RuleTester
+} = require('@typescript-eslint/rule-tester');
 
 const ruleTester = new RuleTester();
 

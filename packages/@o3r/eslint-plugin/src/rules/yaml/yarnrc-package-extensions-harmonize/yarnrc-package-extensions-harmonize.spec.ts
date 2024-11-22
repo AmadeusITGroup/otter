@@ -1,10 +1,10 @@
 import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
-import {
-  RuleTester,
-} from '@typescript-eslint/rule-tester';
 import * as yamlParser from 'yaml-eslint-parser';
 import yamlDependencyVersionsHarmonize from './yarnrc-package-extensions-harmonize';
+const {
+  RuleTester
+} = require('@typescript-eslint/rule-tester');
 
 const ruleTester = new RuleTester({
   languageOptions: {
