@@ -25,16 +25,13 @@
       "project",
       "{workspaceRoot}/yarn.lock",
       "{workspaceRoot}/tsconfig.base.json",
+      "{workspaceRoot}/tsconfig.build.json",
       "{workspaceRoot}/nx.json",
       "{workspaceRoot}/.nxignore",
       "{workspaceRoot}/tools/@o3r/build-helpers/scripts/*.mjs"
     ],
-    "base-build": [
-      "base",
-      "{workspaceRoot}/tsconfig.build.json"
-    ],
     "source": [
-      "base-build",
+      "base",
       "{projectRoot}/tsconfig.build.json",
       "{projectRoot}/tsconfig.build.*.json",
       "{projectRoot}/src/**/*",
@@ -42,18 +39,21 @@
       "!{projectRoot}/**/*.spec.scss"
     ],
     "jasmine-fixtures": [
-      "base-build",
+      "base",
       "{projectRoot}/tsconfig.build.json",
       "{projectRoot}/tsconfig.build.*.json",
       "{projectRoot}/tsconfig.fixture.jasmine.json",
       "{projectRoot}/**/fixtures/jasmine/**/*.ts"
     ],
     "jest-fixtures": [
-      "base-build",
+      "base",
       "{projectRoot}/tsconfig.build.json",
       "{projectRoot}/tsconfig.build.*.json",
       "{projectRoot}/tsconfig.fixture.jest.json",
       "{projectRoot}/**/fixtures/jest/**/*.ts"
+    ],
+    "schemas": [
+      "{projectRoot}/schemas/*.json"
     ],
     "builders-only": [
       "base",
@@ -238,6 +238,22 @@
       ],
       "cache": true
     },
+    "expose-schemas": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "copy:schemas"
+      },
+      "dependsOn": [
+        "compile"
+      ],
+      "inputs": [
+        "schemas"
+      ],
+      "outputs": [
+        "{projectRoot}/dist/schemas/*.json"
+      ],
+      "cache": true
+    },
     "compile": {
       "dependsOn": [
         "^build"
@@ -346,7 +362,8 @@
     "build-builders": {
       "dependsOn": [
         "^build",
-        "prepare-build-builders"
+        "prepare-build-builders",
+        "compile"
       ],
       "inputs": [
         "builders",
@@ -370,7 +387,8 @@
         "{projectRoot}/dist/middlewares/**/*.js",
         "{projectRoot}/dist/middlewares/**/*.d.ts",
         "{projectRoot}/dist/middlewares/**/*.d.ts.map",
-        "{projectRoot}/build/.tsbuildinfo.builders"
+        "{projectRoot}/build/.tsbuildinfo.builders",
+        "{projectRoot}/build/.tsbuildinfo.schematics"
       ],
       "cache": true
     },
@@ -397,7 +415,7 @@
       "cache": true
     },
     "prepare": {
-      "cache": true,
+      "executor": "nx:run-script",
       "inputs": [
         "base"
       ],
@@ -406,7 +424,8 @@
       ],
       "options": {
         "script": "prepare:compile"
-      }
+      },
+      "cache": true
     },
     "build-cjs": {
       "cache": true,
