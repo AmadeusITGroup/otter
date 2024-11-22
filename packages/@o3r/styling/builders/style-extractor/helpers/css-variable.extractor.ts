@@ -9,11 +9,6 @@ import {
 import {
   O3rCliError,
 } from '@o3r/schematics';
-import type {
-  CssMetadata,
-  CssVariable,
-  CssVariableType,
-} from '@o3r/styling';
 import {
   compileString,
   SassBoolean,
@@ -28,6 +23,11 @@ import {
 import type {
   StyleExtractorBuilderSchema,
 } from '../schema';
+import type {
+  CssMetadata,
+  CssVariable,
+  CssVariableType,
+} from '@o3r/styling';
 
 /**
  * SassCalculation interface

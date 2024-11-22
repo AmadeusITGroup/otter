@@ -15,7 +15,7 @@ import {
   getYamlParserServices,
 } from '../utils';
 
-interface Options {
+export interface YarnrcPackageExtensionsHarmonizeOptions {
   /** List of package.json to ignore when determining the dependencies versions */
   excludePackages: string[];
 
@@ -29,14 +29,14 @@ interface Options {
   yarnrcDependencyTypes: string[];
 }
 
-const defaultOptions: [Options] = [{
+const defaultOptions: [YarnrcPackageExtensionsHarmonizeOptions] = [{
   ignoredDependencies: [],
   excludePackages: [],
   yarnrcDependencyTypes: ['peerDependencies', 'dependencies'],
   dependencyTypesInPackages: ['optionalDependencies', 'dependencies', 'devDependencies', 'peerDependencies', 'generatorDependencies']
 }];
 
-export default createRule<[Options, ...any], 'versionUpdate' | 'error'>({
+export default createRule<[YarnrcPackageExtensionsHarmonizeOptions, ...any], 'versionUpdate' | 'error'>({
   name: 'yarnrc-package-extensions-harmonize',
   meta: {
     hasSuggestions: true,
@@ -89,7 +89,7 @@ export default createRule<[Options, ...any], 'versionUpdate' | 'error'>({
     fixable: 'code'
   },
   defaultOptions,
-  create: (context, [options]: Readonly<[Options, ...any]>) => {
+  create: (context, [options]: Readonly<[YarnrcPackageExtensionsHarmonizeOptions, ...any]>) => {
     const parserServices = getYamlParserServices(context);
     const dirname = path.dirname(context.filename);
     const workspace = findWorkspacePackageJsons(dirname);

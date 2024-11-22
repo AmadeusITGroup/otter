@@ -7,16 +7,16 @@ import {
 import {
   posix,
 } from 'node:path';
+import * as vscode from 'vscode';
+import type {
+  ExtensionContext,
+} from 'vscode';
 import type {
   NpmRegistryPackage,
   NPMRegistrySearchResponse,
   OTTER_MODULE_KEYWORD as OTTER_MODULE_KEYWORD_TYPE,
   OTTER_MODULE_SUPPORTED_SCOPES as OTTER_MODULE_SUPPORTED_SCOPES_TYPE,
 } from '@o3r/schematics';
-import * as vscode from 'vscode';
-import type {
-  ExtensionContext,
-} from 'vscode';
 import {
   getPackageScriptRunner,
 } from '../helpers';

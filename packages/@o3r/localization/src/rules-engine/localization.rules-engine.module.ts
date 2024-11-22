@@ -3,7 +3,7 @@ import {
 } from '@angular/core';
 import {
   LocalizationOverrideStoreModule,
-} from '@o3r/localization';
+} from '../stores/index';
 import {
   LocalizationRulesEngineActionHandler,
 } from './localization.handler-action';

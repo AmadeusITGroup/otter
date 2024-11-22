@@ -1,4 +1,4 @@
-import {
+import type {
   EncodedApiRequest,
 } from './encoded-api-request';
 import {

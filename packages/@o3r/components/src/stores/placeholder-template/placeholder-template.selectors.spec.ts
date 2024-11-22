@@ -1,6 +1,6 @@
-import {
+import type {
   PlaceholderRequestState,
-} from '@o3r/components';
+} from '../placeholder-request';
 import * as selectors from './placeholder-template.selectors';
 import {
   PlaceholderTemplateState,

@@ -14,15 +14,19 @@ import type {
   WorkspaceSchematics,
 } from '../../interfaces';
 import {
-  addImportToModuleFile as o3rAddImportToModuleFile,
-} from '../../utility';
+  getDefaultOptionsForSchematic,
+} from '../../utility/collection';
+import {
+  getModuleIndex,
+} from '../../utility/file-info';
+import {
+  getWorkspaceConfig,
+} from '../../utility/loaders';
 import {
   getAppModuleFilePath,
-  getDefaultOptionsForSchematic,
   getMainFilePath,
-  getModuleIndex,
-  getWorkspaceConfig,
-} from '../../utility/index';
+  addImportToModuleFile as o3rAddImportToModuleFile,
+} from '../../utility/modules';
 import {
   addImportsRule,
 } from '../add-imports';

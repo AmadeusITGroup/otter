@@ -8,13 +8,13 @@ import type {
   RulesEngineActionHandler,
 } from '@o3r/core';
 import {
-  LocalizationOverrideStore,
-  setLocalizationOverride,
-} from '@o3r/localization';
-import {
   ActionUpdateLocalisationBlock,
   RULES_ENGINE_LOCALISATION_UPDATE_ACTION_TYPE,
 } from './localization.interfaces';
+import {
+  LocalizationOverrideStore,
+  setLocalizationOverride,
+} from '@o3r/localization';
 
 /**
  * Service to handle async Localization actions

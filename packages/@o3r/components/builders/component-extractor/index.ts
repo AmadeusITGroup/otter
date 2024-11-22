@@ -7,9 +7,6 @@ import {
 import type {
   LoggerApi,
 } from '@angular-devkit/core/src/logger';
-import type {
-  ComponentConfigOutput,
-} from '@o3r/components';
 import {
   CmsMetadataData,
   createBuilderWithMetricsIfInstalled,
@@ -27,6 +24,9 @@ import {
 import {
   ComponentExtractorBuilderSchema,
 } from './schema';
+import type {
+  ComponentConfigOutput,
+} from '@o3r/components';
 
 export * from './schema';
 

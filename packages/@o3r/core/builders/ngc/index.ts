@@ -2,10 +2,12 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {
   main,
+  // eslint-disable-next-line import/no-unresolved -- deep import
 } from '@angular/compiler-cli/src/main';
 import {
   NodeJSFileSystem,
   setFileSystem,
+  // eslint-disable-next-line import/no-unresolved -- deep import
 } from '@angular/compiler-cli/src/ngtsc/file_system';
 import {
   BuilderOutput,

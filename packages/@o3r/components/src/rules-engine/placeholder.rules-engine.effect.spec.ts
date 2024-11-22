@@ -10,10 +10,6 @@ import type {
 import {
   Store,
 } from '@ngrx/store';
-import type {
-  PlaceholderRequestModel,
-  PlaceholderRequestReply,
-} from '@o3r/components';
 import {
   UpdateAsyncStoreItemEntityActionPayloadWithId,
 } from '@o3r/core';
@@ -36,9 +32,11 @@ import {
 import {
   shareReplay,
 } from 'rxjs/operators';
-import {
+import type {
+  PlaceholderRequestModel,
+  PlaceholderRequestReply,
   setPlaceholderRequestEntityFromUrl,
-} from '../stores';
+} from '../stores/index';
 import {
   PlaceholderTemplateResponseEffect,
 } from './placeholder.rules-engine.effect';

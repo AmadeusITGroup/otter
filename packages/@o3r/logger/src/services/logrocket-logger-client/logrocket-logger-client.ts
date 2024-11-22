@@ -2,13 +2,13 @@ import {
   Action,
   MetaReducer,
 } from '@ngrx/store';
-import type {
-  LoggerClient,
-} from '@o3r/logger';
 import * as LogRocket from 'logrocket';
 import createNgrxMiddleware, {
   Options,
 } from 'logrocket-ngrx';
+import type {
+  LoggerClient,
+} from '../logger/index';
 
 /**
  * LogRocket client.

@@ -3,7 +3,7 @@ import {
 } from '@angular/core';
 import {
   AssetPathOverrideStoreModule,
-} from '@o3r/dynamic-content';
+} from '../stores/index';
 import {
   AssetRulesEngineActionHandler,
 } from './asset.handler-action';

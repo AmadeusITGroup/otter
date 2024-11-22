@@ -1,3 +1,9 @@
+import {
+  CompletionItem,
+  CompletionItemKind,
+  CompletionItemProvider,
+  SnippetString,
+} from 'vscode';
 import type {
   O3rCategoriesTagsRuleOption,
   O3rWidgetTagsRuleOption,
@@ -8,12 +14,6 @@ import type {
 import {
   ESLint,
 } from 'eslint';
-import {
-  CompletionItem,
-  CompletionItemKind,
-  CompletionItemProvider,
-  SnippetString,
-} from 'vscode';
 
 interface ConfigurationTags {
   /** @see CompletionItem.documentation */

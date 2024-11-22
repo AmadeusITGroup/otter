@@ -11,8 +11,6 @@ import {
   O3rElement,
 } from '../element';
 
-export { SelectElementProfile } from '../../elements';
-
 /**
  * Implementation dedicated to angular / TestBed.
  */

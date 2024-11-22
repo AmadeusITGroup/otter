@@ -4,17 +4,17 @@ import {
 import {
   Store,
 } from '@ngrx/store';
-import {
-  ConfigurationStore,
-  PropertyOverride,
-  setConfigOverride,
-} from '@o3r/configuration';
 import type {
   RulesEngineActionHandler,
 } from '@o3r/core';
 import {
   computeItemIdentifier,
 } from '@o3r/core';
+import {
+  ConfigurationStore,
+  PropertyOverride,
+  setConfigOverride,
+} from '../stores/index';
 import {
   ActionUpdateConfigBlock,
   RULES_ENGINE_CONFIGURATION_UPDATE_ACTION_TYPE,

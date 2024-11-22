@@ -1,4 +1,3 @@
-export * from '../interfaces/rule-factories';
 export * from './add-imports/index';
 export * from './check-packages-peers/index';
 export * from './dev-tools/index';

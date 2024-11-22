@@ -17,7 +17,7 @@ const config = [
       'import/first': 'error',
       'import/newline-after-import': 'error',
       'import/no-cycle': 'error',
-      'import/no-unresolved': 'off',
+      'import/no-unresolved': 'error',
       'import/order': ['error', {
         'newlines-between': 'never',
         alphabetize: { order: 'asc', caseInsensitive: true }

@@ -15,10 +15,6 @@ import {
   join,
 } from 'node:path';
 import type {
-  ComponentConfigOutput,
-  ConfigProperty,
-} from '@o3r/components';
-import type {
   MigrationFile,
 } from '@o3r/extractors';
 import {
@@ -39,6 +35,10 @@ import {
 import type {
   MigrationConfigData,
 } from './helpers/config-metadata-comparison.helper';
+import type {
+  ComponentConfigOutput,
+  ConfigProperty,
+} from '@o3r/components';
 
 const baseVersion = '1.2.0';
 const version = '1.3.0';

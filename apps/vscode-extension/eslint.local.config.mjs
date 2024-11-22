@@ -23,6 +23,9 @@ export default [
           'tsconfig.spec.json'
         ]
       }
+    },
+    settings: {
+      'import/core-modules': ['vscode']
     }
   },
   {

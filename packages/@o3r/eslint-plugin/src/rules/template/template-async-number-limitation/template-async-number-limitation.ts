@@ -8,18 +8,18 @@ import {
   getTemplateParserServices,
 } from '../utils';
 
-interface Options {
+export interface TemplateAsyncNumberLimitationOptions {
   maximumAsyncOnTag: number;
 }
 
 /** Rule Name */
 export const name = 'template-async-number-limitation';
 
-const defaultOptions: [Options] = [{
+const defaultOptions: [TemplateAsyncNumberLimitationOptions] = [{
   maximumAsyncOnTag: 5
 }];
 
-export default createRule<[Options, ...any], 'tooManyAsyncOnTag'>({
+export default createRule<[TemplateAsyncNumberLimitationOptions, ...any], 'tooManyAsyncOnTag'>({
   name,
   meta: {
     type: 'problem',
@@ -47,7 +47,7 @@ export default createRule<[Options, ...any], 'tooManyAsyncOnTag'>({
 
   defaultOptions,
 
-  create: (context, [options]: Readonly<[Options, ...any]>) => {
+  create: (context, [options]: Readonly<[TemplateAsyncNumberLimitationOptions, ...any]>) => {
     const parserServices = getTemplateParserServices(context);
     const asyncRegExp = /\| *async\b/g;
     const rule = ({ attributes, inputs, sourceSpan }: TmplAstElement) => {

@@ -1,9 +1,9 @@
 import type {
-  ComponentConfigOutput,
-} from '@o3r/components';
-import type {
   MetadataComparator,
 } from '@o3r/extractors';
+import type {
+  ComponentConfigOutput,
+} from '@o3r/components';
 
 /**
  * Interface describing a config migration element

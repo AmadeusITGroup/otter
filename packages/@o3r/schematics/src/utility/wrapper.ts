@@ -24,7 +24,7 @@ import {
 import {
   hasSetupInformation,
   setupDependencies,
-} from '../rule-factories';
+} from '../rule-factories/ng-add/dependencies';
 
 const noopSchematicWrapper: SchematicWrapper = (fn) => fn;
 
