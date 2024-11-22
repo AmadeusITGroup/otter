@@ -2,7 +2,13 @@
     <li ngbNavItem class="nav-item" role="presentation" [destroyOnHide]="false">
       <a ngbNavLink class="nav-link" [class.active]="activeTab === 'preview'" (click)="activeTab = 'preview'">Preview</a>
       <ng-template ngbNavContent>
-        <iframe class="w-100 h-100" #iframe allow="cross-origin-isolated" [srcdoc]="'Loading...'"></iframe>
+        @let isLoading = percentProgress() < 100;
+        @if (isLoading) {
+          <div class="w-100 h-100 d-flex align-items-center justify-content-center p-2">
+            <df-progressbar [value]="percentProgress()" [text]="progressLabel()"></df-progressbar>
+          </div>
+        }
+        <iframe class="w-100 h-100" #iframe allow="cross-origin-isolated" [srcdoc]="'Loading...'" [class.invisible]="isLoading"></iframe>
       </ng-template>
     </li>
     <li ngbNavItem class="nav-item" role="presentation" [destroyOnHide]="false">

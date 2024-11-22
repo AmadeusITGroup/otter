@@ -2,6 +2,7 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
+  computed,
   ElementRef,
   inject,
   Input,
@@ -10,6 +11,7 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import {toSignal} from '@angular/core/rxjs-interop';
+import {DfProgressbarModule} from '@design-factory/design-factory';
 import {NgbNavModule} from '@ng-bootstrap/ng-bootstrap';
 import {distinctUntilChanged, map, of, repeat, Subject, throttleTime, timeout} from 'rxjs';
 import {WebContainerService} from '../../../services';
@@ -20,7 +22,8 @@ import {CodeEditorTerminalComponent} from '../code-editor-terminal';
   standalone: true,
   imports: [
     CodeEditorTerminalComponent,
-    NgbNavModule
+    NgbNavModule,
+    DfProgressbarModule
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
@@ -53,6 +56,19 @@ export class CodeEditorControlComponent implements OnDestroy, AfterViewInit {
    * Subject that will emit everytime there is activity in the terminal
    */
   public readonly terminalActivity = new Subject<void>();
+
+  /**
+   * Loading progression (between 0 and 100)
+   */
+  public readonly percentProgress = computed(() => {
+    const { currentStep, totalSteps } = this.webContainerService.runner.progress();
+    return Math.round(100 * currentStep / totalSteps);
+  });
+
+  /**
+   * Label to use on the load indicator
+   */
+  public readonly progressLabel = computed(() => this.webContainerService.runner.progress().label);
 
   /**
    * Signal with value `true` if the terminal is active, `false` if idle

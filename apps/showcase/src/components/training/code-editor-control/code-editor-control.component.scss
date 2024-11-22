@@ -9,6 +9,10 @@ code-editor-control {
     height: 100%;
   }
 
+  df-progressbar {
+    min-width: 15em;
+  }
+
   .terminal-active-indicator {
     display: inline-block;
     font-weight: bold;

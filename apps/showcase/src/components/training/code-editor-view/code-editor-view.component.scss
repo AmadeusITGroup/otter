@@ -1,6 +1,4 @@
 monaco-tree {
-  background: #1d1d1d;
-
   .monaco-tree {
     display: flex;
     flex-direction: column;
@@ -23,4 +21,8 @@ ngx-monaco-editor {
     max-width: 100%;
     max-height: 100% !important;
   }
+}
+
+.editor-view {
+  background: #1d1d1d;
 }
