@@ -86,8 +86,8 @@
   },
   "exports": {
     ".": {
-      "default": "./dist/src/public_api.js",
-      "typings": "./dist/src/public_api.d.ts"
+      "typings": "./dist/src/public_api.d.ts",
+      "default": "./dist/src/public_api.js"
     },
     "./package.json": {
       "default": "./package.json"
