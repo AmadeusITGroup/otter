@@ -4,7 +4,6 @@ import {
 import {
   fileURLToPath,
 } from 'node:url';
-import nxPlugin from '@nx/eslint-plugin';
 import globals from 'globals';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -36,10 +35,7 @@ export default [
   },
   {
     name: '@o3r/vscode-extension/package-json-file',
-    files: ['**/package.json'],
-    plugins: {
-      '@nx': nxPlugin
-    },
+    files: ['package.json'],
     rules: {
       '@nx/dependency-checks': ['error', {
         buildTargets: ['build', 'build-builders', 'compile', 'test'],

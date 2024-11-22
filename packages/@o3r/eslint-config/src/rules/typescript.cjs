@@ -17,7 +17,8 @@ const importConfig = require('./typescript/import.cjs');
 const jsdocConfigOverrides = require('./typescript/jsdoc.cjs');
 const otterConfig = require('./typescript/otter.cjs');
 const preferArrowConfig = require('./typescript/prefer-arrow.cjs');
-const sortExportAll = require('./typescript/sort-export-all.cjs');
+// TODO: reactivate once https://github.com/nirtamir2/eslint-plugin-sort-export-all/issues/18 is fixed
+// const sortExportAll = require('./typescript/sort-export-all.cjs');
 const stylisticConfig = require('./typescript/stylistic.cjs');
 const unicornConfig = require('./typescript/unicorn.cjs');
 const unusedImportsConfig = require('./typescript/unused-imports.cjs');
@@ -112,7 +113,8 @@ const configArray = [
   ...unicornConfig,
   ...importConfig,
   ...importNewlinesConfig,
-  ...sortExportAll,
+  // TODO: reactivate once https://github.com/nirtamir2/eslint-plugin-sort-export-all/issues/18 is fixed
+  // ...sortExportAll,
   ...unusedImportsConfig,
   ...otterConfig(o3r),
   {

@@ -77,7 +77,8 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       ...(installJestPlugin ? ['eslint-plugin-jest'] : []),
       'eslint-plugin-jsdoc',
       'eslint-plugin-prefer-arrow',
-      'eslint-plugin-sort-export-all',
+      // TODO: reactivate once https://github.com/nirtamir2/eslint-plugin-sort-export-all/issues/18 is fixed
+      // 'eslint-plugin-sort-export-all',
       'eslint-plugin-unicorn',
       'eslint-plugin-unused-imports',
       'globby',
