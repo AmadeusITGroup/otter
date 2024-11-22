@@ -47,7 +47,7 @@
       "executor": "nx:run-script",
       "outputs": ["{projectRoot}/dist/src/tools/protractor"],
       "inputs": [
-        "base-build",
+        "base",
         "{projectRoot}/tsconfig.build.tools.json",
         "{projectRoot}/src/tools/protractor/fetch-manager/_fetch-manager.ts",
         "{projectRoot}/src/tools/protractor/post-message-interceptor/_post-message-interceptor.ts"
@@ -63,7 +63,7 @@
         "{projectRoot}/dist/esm"
       ],
       "inputs": [
-        "base-build",
+        "base",
         "{projectRoot}/tsconfig.build.utils.json",
         "{projectRoot}/src/visual-test/utils.ts"
       ],

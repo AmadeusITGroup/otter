@@ -16,7 +16,8 @@
         "build-builders",
         "compile",
         "build-fixtures",
-        "extract-rules-engine"
+        "extract-rules-engine",
+        "expose-schemas"
       ]
     },
     "compile": {
@@ -26,6 +27,9 @@
         "project": "packages/@o3r/rules-engine/src/ng-package.json",
         "tsConfig": "packages/@o3r/rules-engine/tsconfig.build.json"
       }
+    },
+    "expose-schemas": {
+      "executor": "nx:run-script"
     },
     "prepare": {
       "executor": "nx:run-script"
