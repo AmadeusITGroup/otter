@@ -26205,7 +26205,7 @@ const colors = ['', 'green', 'yellow', 'orange', 'red'];
  */
 function computeYarn4Report(response, severityThreshold) {
     core.info('Computing Report for Yarn 4');
-    const reports = response.split('\n').filter((a) => !!a);
+    const reports = response.split('\n').filter(a => !!a);
     const severityThresholdIndex = severities.indexOf(severityThreshold);
     return reports.reduce((currentReport, currentVulnerability) => {
         const vulnerabilityReport = JSON.parse(currentVulnerability);
@@ -26225,9 +26225,8 @@ function computeYarn4Report(response, severityThreshold) {
                 overview: `This issue affects versions ${vulnerabilityReport.children['Vulnerable Versions']}. ${vulnerabilityReport.children.Issue}`
             });
         }
-        currentReport.highestSeverityFound = severities.indexOf(currentReport.highestSeverityFound || 'info') <= severities.indexOf(vulnerabilitySeverity)
-            ? vulnerabilitySeverity
-            : currentReport.highestSeverityFound;
+        currentReport.highestSeverityFound = severities.indexOf(currentReport.highestSeverityFound || 'info') <= severities.indexOf(vulnerabilitySeverity) ?
+            vulnerabilitySeverity : currentReport.highestSeverityFound;
         currentReport.nbVulnerabilities += 1;
         return currentReport;
     }, { nbVulnerabilities: 0, errors: [], warnings: [] });
@@ -26276,12 +26275,12 @@ async function run() {
         core.warning(err);
         core.setOutput('reportJSON', report);
         const reportData = version >= 4 ? computeYarn4Report(report, severityConfig) : computeYarn3Report(report, severityConfig);
-        if (reportData.highestSeverityFound) {
-            core.info(`Highest severity found: ${reportData.highestSeverityFound}`);
-        }
-        else {
+        if (!reportData.highestSeverityFound) {
             core.info('No vulnerability detected.');
             return;
+        }
+        else {
+            core.info(`Highest severity found: ${reportData.highestSeverityFound}`);
         }
         const isFailed = reportData.errors.length > 0;
         const getBadge = (sev) => `![${sev}](https://img.shields.io/static/v1?label=&logo=npm&message=${sev}&color=${colors[severities.indexOf(sev)]})`;
@@ -26295,24 +26294,21 @@ ${vulnerability.overview.replaceAll('### ', '#### ')}
 </details>
 
 `;
-        const isVulnerabilityWithKnownSeverity = (advisory) => severities.includes(advisory.severity);
+        const isVulnerabilityWithKnownSeverity = (advisory) => severities.indexOf(advisory.severity) >= 0;
         const sortVulnerabilityBySeverity = (advisory1, advisory2) => severities.indexOf(advisory2.severity) - severities.indexOf(advisory1.severity);
         const body = `# Audit report ${isFailed ? ':x:' : ':white_check_mark:'}
 
 ${reportData.nbVulnerabilities} vulnerabilities found.
 
-${reportData.errors.length > 0
-            ? `## Vulnerabilities to be fixed
+${reportData.errors.length ? `## Vulnerabilities to be fixed
 
 ${reportData.errors
-                .filter(isVulnerabilityWithKnownSeverity)
-                .sort(sortVulnerabilityBySeverity)
-                .map(formatVulnerability)
-                .join(os.EOL)}
-`
-            : ''}
-${reportData.warnings.length > 0
-            ? `___
+            .filter(isVulnerabilityWithKnownSeverity)
+            .sort(sortVulnerabilityBySeverity)
+            .map(formatVulnerability)
+            .join(os.EOL)}
+` : ''}
+${reportData.warnings.length ? `___
 
 <details>
 <summary>
@@ -26320,15 +26316,14 @@ Vulnerabilities below the threshold: ${severityConfig}
 </summary>
 
 ${reportData.warnings
-                .filter(isVulnerabilityWithKnownSeverity)
-                .sort(sortVulnerabilityBySeverity)
-                .map(formatVulnerability)
-                .join(os.EOL)
-                .replaceAll('${', '&#36;{')}
+            .filter(isVulnerabilityWithKnownSeverity)
+            .sort(sortVulnerabilityBySeverity)
+            .map(formatVulnerability)
+            .join(os.EOL)
+            .replaceAll('${', '&#36;{')}
 
 </details>
-`
-            : ''}
+` : ''}
 `;
         core.setOutput('reportMarkdown', body);
         if (isFailed) {

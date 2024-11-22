@@ -85,4 +85,7 @@ export interface MigrationMetadataCheckBuilderOptions extends JsonObject {
 
   /** Entry to check for previous metadata in the `package.json` file under `cmsMetadata`. */
   packageJsonEntry: keyof Omit<CmsMetadataData, 'libraryName'>;
+
+  /** Whether to check the items set in "after" property in the migration file. */
+  checkAfterItems: boolean;
 }

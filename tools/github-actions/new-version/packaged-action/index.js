@@ -34123,8 +34123,8 @@ class NewVersion {
         if (branchReleaseMatches) {
             this.options.logger.info(JSON.stringify(branchReleaseMatches));
         }
-        return this.isDefaultBranch && this.options.defaultBranchVersionMask
-            || branchReleaseMatches?.length && `${branchReleaseMatches[1]}.${branchReleaseMatches[2]}${branchReleaseMatches[3] || ''}` || '';
+        return this.isDefaultBranch && this.options.defaultBranchVersionMask ||
+            branchReleaseMatches?.length && `${branchReleaseMatches[1]}.${branchReleaseMatches[2]}${branchReleaseMatches[3] || ''}` || '';
     }
     /**
      * Compute the next version following the version mask.
@@ -34141,13 +34141,13 @@ class NewVersion {
         this.options.logger.debug('Parsed and sorted tags:');
         this.options.logger.debug(JSON.stringify(parsedSortedTags));
         this.options.logger.info(`Version mask: ${versionMask}`);
-        if (this.isDefaultBranch) {
-            const releaseTags = [...this.defaultBranchPrereleaseName ? [this.defaultBranchPrereleaseName] : [], 'prerelease', 'rc'];
-            parsedSortedTags = parsedSortedTags.filter((parsedTag) => parsedTag.prerelease.length === 0 || releaseTags.includes(`${parsedTag.prerelease[0]}`));
-        }
-        else {
+        if (!this.isDefaultBranch) {
             // If release branch, we filter all versions that do not satisfy the branch name to exclude 3.6.0-alpha.2 when building branch release/3.6 for example
             parsedSortedTags = parsedSortedTags.filter((parsedTag) => semver.satisfies(parsedTag, `~${versionMask}`));
+        }
+        else {
+            const releaseTags = [...this.defaultBranchPrereleaseName ? [this.defaultBranchPrereleaseName] : [], 'prerelease', 'rc'];
+            parsedSortedTags = parsedSortedTags.filter((parsedTag) => parsedTag.prerelease.length === 0 || releaseTags.includes(`${parsedTag.prerelease[0]}`));
         }
         this.options.logger.debug('Tags after filtering:');
         this.options.logger.debug(JSON.stringify(parsedSortedTags));
@@ -34159,7 +34159,7 @@ class NewVersion {
                 // If we couldn't find a label after filtering, create a new one using the version mask given
                 baseVersion = `${semver.minVersion(versionMask).version}-${this.defaultBranchPrereleaseName}.0`;
             }
-            else if (latest.prerelease.includes(this.defaultBranchPrereleaseName || '')) {
+            else if (latest.prerelease.some((releaseTag) => releaseTag === this.defaultBranchPrereleaseName)) {
                 // If the latest label is a default branch label, we will simply bump it
                 this.options.logger.info(`Bumping patch ${this.defaultBranchPrereleaseName || ''}`);
                 baseVersion = latest.raw;
@@ -34275,11 +34275,12 @@ async function run() {
         const buildId = `${github.context.runId}`;
         const isPullRequest = buildReason === 'pull_request';
         // If we are on a pull request, major.minor will be extracted from the target branch
-        const baseBranch = isPullRequest ? process.env.GITHUB_BASE_REF.replace('refs/heads/', '') : buildSourceBranch.replace('refs/heads/', '');
+        const baseBranch = !isPullRequest ? buildSourceBranch.replace('refs/heads/', '') : process.env.GITHUB_BASE_REF.replace('refs/heads/', '');
         core.info('Compute new-version options from Github environment variables');
         core.info(`-- build source branch: ${buildSourceBranch}`);
         core.info(`-- build reason: ${buildReason}`);
         core.info(`-- repository URL: ${authenticatedGitUrl}`);
+        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
         core.info(`-- is pull request: ${isPullRequest}`);
         core.info(`-- build ID: ${buildId}`);
         core.info(`-- baseBranch: ${baseBranch}`);
@@ -34307,12 +34308,13 @@ async function run() {
         }
         catch (error) {
             core.error('Caught an error during the plug-in execution');
-            const errorMessage = error instanceof Error ? error.message : (typeof error === 'string' ? error : 'Caught an error during the plug-in execution');
+            const errorMessage = error instanceof Error ? error.message : typeof error === 'string' ? error : 'Caught an error during the plug-in execution';
             core.setFailed(errorMessage);
         }
     }
     catch (err) {
-        const errorMessage = err instanceof Error ? err.message : (typeof err === 'string' ? err : 'Caught an error during input parsing');
+        // eslint-disable-next-line no-console
+        const errorMessage = err instanceof Error ? err.message : typeof err === 'string' ? err : 'Caught an error during input parsing';
         core.error(errorMessage);
         core.setFailed(errorMessage);
     }
