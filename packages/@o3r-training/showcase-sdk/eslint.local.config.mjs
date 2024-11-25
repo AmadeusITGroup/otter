@@ -13,14 +13,10 @@ export default [
   {
     name: '@o3r-training/showcase-sdk/ignores',
     ignores: [
-      'src/api',
-      'src/models/base',
-      'src/spec/api-mocks.ts',
-      'src/spec/operation-adapter.ts',
-      'dist',
-      'build',
-      'scripts',
-      'jest.config.js'
+      'src/api/',
+      'src/models/base/',
+      'src/spec/api-mock.ts',
+      'src/spec/operation-adapter.ts'
     ]
   },
   {
