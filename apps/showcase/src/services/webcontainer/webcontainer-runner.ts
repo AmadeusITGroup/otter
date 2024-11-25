@@ -1,16 +1,22 @@
-import { DestroyRef, inject, Injectable } from '@angular/core';
+import { DestroyRef, inject, Injectable, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { type FileSystemTree, type IFSWatcher, WebContainer, type WebContainerProcess } from '@webcontainer/api';
 import { Terminal } from '@xterm/xterm';
 import {
   BehaviorSubject,
+  combineLatest,
   combineLatestWith,
   distinctUntilChanged,
   filter,
   from,
+  fromEvent,
   map,
   Observable,
-  switchMap
+  of,
+  skip,
+  switchMap,
+  take,
+  timeout
 } from 'rxjs';
 import { withLatestFrom } from 'rxjs/operators';
 import { createTerminalStream, killTerminal, makeProcessWritable } from './webcontainer.helpers';
@@ -43,9 +49,17 @@ export class WebContainerRunner {
   };
   private watcher: IFSWatcher | null = null;
 
+  private readonly progressWritable = signal({currentStep: 0, totalSteps: 3, label: 'Initializing web-container'});
+
+  /**
+   * Progress indicator of the loading of a project.
+   */
+  public readonly progress = this.progressWritable.asReadonly();
+
   constructor() {
     const destroyRef = inject(DestroyRef);
     this.instancePromise = WebContainer.boot().then((instance) => {
+      this.progressWritable.update(({totalSteps}) => ({currentStep: 1, totalSteps, label: 'Loading project'}));
       // eslint-disable-next-line no-console
       const unsubscribe = instance.on('error', console.error);
       destroyRef.onDestroy(() => unsubscribe());
@@ -60,20 +74,33 @@ export class WebContainerRunner {
       void this.runCommand(commandElements[0], commandElements.slice(1), cwd);
     });
 
-    this.iframe.pipe(
-      filter((iframe): iframe is HTMLIFrameElement => !!iframe),
-      distinctUntilChanged(),
-      withLatestFrom(this.instancePromise),
-      switchMap(([iframe, instance]) => new Observable((subscriber) => {
+    combineLatest([
+      this.iframe.pipe(
+        filter((iframe): iframe is HTMLIFrameElement => !!iframe),
+        distinctUntilChanged()
+      ),
+      this.instancePromise
+    ]).pipe(
+      switchMap(([iframe, instance]) => new Observable<[typeof iframe, typeof instance, boolean]>((subscriber) => {
+        let shouldSkipFirstLoadEvent = true;
         const serverReadyUnsubscribe = instance.on('server-ready', (_port: number, url: string) => {
+          this.progressWritable.update(({totalSteps}) => ({currentStep: totalSteps - 1, totalSteps, label: 'Bootstrapping application...'}));
           iframe.removeAttribute('srcdoc');
           iframe.src = url;
-          subscriber.next(url);
+          subscriber.next([iframe, instance, shouldSkipFirstLoadEvent]);
+          shouldSkipFirstLoadEvent = false;
         });
         return () => serverReadyUnsubscribe();
       })),
+      switchMap(([iframe, _instance, shouldSkipFirstLoadEvent]) => fromEvent(iframe, 'load').pipe(
+        skip(shouldSkipFirstLoadEvent ? 1 : 0),
+        timeout({each: 20000, with: () => of([])}),
+        take(1)
+      )),
       takeUntilDestroyed()
-    ).subscribe();
+    ).subscribe(() => {
+      this.progressWritable.update(({totalSteps}) => ({currentStep: totalSteps, totalSteps, label: 'Ready!'}));
+    });
 
     this.commandOutput.process.pipe(
       filter((process): process is WebContainerProcess => !!process && !process.output.locked),
@@ -147,10 +174,35 @@ export class WebContainerRunner {
     const process = await instance.spawn(command, args, {cwd: cwd});
     this.commandOutput.process.next(process);
     const exitCode = await process.exit;
-    if (exitCode !== 0) {
+    if (exitCode === 0) {
+      // The process has ended successfully
+      this.progressWritable.update(({currentStep, totalSteps}) => ({
+        currentStep: currentStep + 1,
+        totalSteps,
+        label: this.getCommandLabel(this.commands.value.queue[1])
+      }));
+      this.commands.next({queue: this.commands.value.queue.slice(1), cwd});
+    } else if (exitCode === 143) {
+      // The process was killed by switching to a new project
+      return;
+    } else {
+      // The process has ended with an error
       throw new Error(`Command ${[command, ...args].join(' ')} failed with ${exitCode}!`);
     }
-    this.commands.next({queue: this.commands.value.queue.slice(1), cwd});
+  }
+
+  private getCommandLabel(command: string) {
+    if (!command) {
+      return 'Waiting for server to start...';
+    } else {
+      if (/(npm|yarn) install/.test(command)) {
+        return 'Installing dependencies...';
+      } else if (/^(npm|yarn) (run .*:(build|serve)|(run )?build)/.test(command)) {
+        return 'Building application...';
+      } else {
+        return `Executing \`${command}\``;
+      }
+    }
   }
 
   /**
@@ -177,6 +229,7 @@ export class WebContainerRunner {
       await instance.mount({[projectFolder]: {directory: files}});
     }
     this.treeUpdateCallback();
+    this.progressWritable.set({currentStep: 2, totalSteps: 3 + commands.length, label: this.getCommandLabel(commands[0])});
     this.commands.next({queue: commands, cwd: projectFolder});
     this.watcher = instance.fs.watch(`/${projectFolder}`, {encoding: 'utf8'}, this.treeUpdateCallback);
   }
