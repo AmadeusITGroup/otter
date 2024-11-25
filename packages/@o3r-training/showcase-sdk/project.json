@@ -7,7 +7,7 @@
   "targets": {
     "build": {
       "executor": "nx:noop",
-      "dependsOn": ["compile"]
+      "dependsOn": ["compile", "extract-folder-structure"]
     },
     "compile": {
       "executor": "nx:run-script",
@@ -36,6 +36,22 @@
       "options": {
         "command": "npm publish packages/@o3r-training/showcase-sdk/dist"
       }
+    },
+    "extract-folder-structure": {
+      "cache": true,
+      "executor": "nx:run-script",
+      "options": {
+        "script": "extract"
+      },
+      "inputs": [
+        "source",
+        "^cli",
+        "{projectRoot}/package.json",
+        "{projectRoot}/openapi.yml",
+        "{projectRoot}/openapitools.json"
+      ],
+      "outputs": ["{projectRoot}/dist/structure"],
+      "dependsOn": ["^build", "compile"]
     }
   },
   "tags": ["showcase"]

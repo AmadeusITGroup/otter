@@ -7033,6 +7033,7 @@ __metadata:
     "@commitlint/config-conventional": "npm:^19.0.0"
     "@nx/eslint-plugin": "npm:~19.5.0"
     "@nx/jest": "npm:~19.5.0"
+    "@o3r-training/training-tools": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@openapitools/openapi-generator-cli": "npm:~2.15.0"

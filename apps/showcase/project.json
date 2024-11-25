@@ -96,6 +96,11 @@
             "glob": "*.json",
             "input": "packages/@o3r-training/training-sdk/dist/structure",
             "output": "/assets/@o3r-training/training-sdk/structure"
+          },
+          {
+            "glob": "*.json",
+            "input": "packages/@o3r-training/showcase-sdk/dist/structure",
+            "output": "/assets/@o3r-training/showcase-sdk/structure"
           }
         ],
         "styles": [
