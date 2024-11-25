@@ -3,8 +3,7 @@ const getPluginVersion = () => {
     const { version } = JSON.parse(require.resolve('@typescript-eslint/eslint-plugin/package.json'));
     return version;
   } catch {}
-}
-
+};
 
 module.exports = {
   extends: [
@@ -23,40 +22,43 @@ module.exports = {
       }
     ],
     '@typescript-eslint/ban-ts-comment': 'error',
-    ...(getPluginVersion()?.startsWith('7.') ? {
-      '@typescript-eslint/ban-types': [
-        'error',
-        {
-          types: {
-            '{}': {
-              message: 'Use object instead',
-              fixWith: 'object'
-            },
-            Object: {
-              message: 'Avoid using the `Object` type. Did you mean `object`?'
-            },
-            Function: {
-              message: 'Avoid using the `Function` type. Prefer a specific function type, like `() => void`.'
-            },
-            // eslint-disable-next-line id-denylist -- key for ESLint configuration
-            Boolean: {
-              message: 'Avoid using the `Boolean` type. Did you mean `boolean`?'
-            },
-            // eslint-disable-next-line id-denylist -- key for ESLint configuration
-            Number: {
-              message: 'Avoid using the `Number` type. Did you mean `number`?'
-            },
-            // eslint-disable-next-line id-denylist -- key for ESLint configuration
-            String: {
-              message: 'Avoid using the `String` type. Did you mean `string`?'
-            },
-            Symbol: {
-              message: 'Avoid using the `Symbol` type. Did you mean `symbol`?'
+    ...(getPluginVersion()?.startsWith('7.')
+      ? {
+        '@typescript-eslint/ban-types': [
+          'error',
+          {
+            types: {
+              '{}': {
+                message: 'Use object instead',
+                fixWith: 'object'
+              },
+              Object: {
+                message: 'Avoid using the `Object` type. Did you mean `object`?'
+              },
+              Function: {
+                message: 'Avoid using the `Function` type. Prefer a specific function type, like `() => void`.'
+              },
+              // eslint-disable-next-line id-denylist -- key for ESLint configuration
+              Boolean: {
+                message: 'Avoid using the `Boolean` type. Did you mean `boolean`?'
+              },
+              // eslint-disable-next-line id-denylist -- key for ESLint configuration
+              Number: {
+                message: 'Avoid using the `Number` type. Did you mean `number`?'
+              },
+              // eslint-disable-next-line id-denylist -- key for ESLint configuration
+              String: {
+                message: 'Avoid using the `String` type. Did you mean `string`?'
+              },
+              Symbol: {
+                message: 'Avoid using the `Symbol` type. Did you mean `symbol`?'
+              }
             }
           }
-        }
-      ]
-    } : {}),
+        ]
+      }
+      : {}
+    ),
     '@typescript-eslint/consistent-type-assertions': 'error',
     '@typescript-eslint/dot-notation': 'error',
     '@typescript-eslint/explicit-member-accessibility': [
