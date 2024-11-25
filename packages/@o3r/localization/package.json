@@ -58,6 +58,7 @@
     "intl-messageformat": "~10.7.0",
     "rxjs": "^7.8.1",
     "semver": "^7.5.2",
+    "type-fest": "^4.10.2",
     "typescript": "~5.5.4"
   },
   "peerDependenciesMeta": {
@@ -103,6 +104,9 @@
     "semver": {
       "optional": true
     },
+    "type-fest": {
+      "optional": true
+    },
     "typescript": {
       "optional": true
     }
@@ -125,8 +129,8 @@
     "@angular/core": "~18.2.0",
     "@angular/platform-browser": "~18.2.0",
     "@angular/platform-browser-dynamic": "~18.2.0",
-    "@babel/core": "~7.25.0",
-    "@babel/preset-typescript": "~7.25.0",
+    "@babel/core": "~7.26.0",
+    "@babel/preset-typescript": "~7.26.0",
     "@compodoc/compodoc": "^1.1.19",
     "@ngrx/store": "~18.0.0",
     "@ngx-translate/core": "~15.0.0",

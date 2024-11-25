@@ -1,0 +1,56 @@
+codecov:
+  require_ci_to_pass: true
+
+ignore:
+  # Package Manager files
+  - '.yarn/**/*'
+  - '.pnp.*'
+  - '.cache/**/*'
+  - 'tmp/**/*'
+  - '**/node_modules/**/*'
+
+  # Distribution folders
+  - 'packages/@*/*/dist/**/*'
+  - 'tools/@*/*/dist/**/*'
+  - 'apps/@*/*/dist/**/*'
+
+  # Generated files
+  - 'packages/@o3r-training/showcase-sdk/src/api/**/*'
+  - 'packages/@o3r-training/showcase-sdk/src/models/base/**/*'
+  - 'packages/@o3r-training/showcase-sdk/src/spec/**/*'
+  - 'tools/github-actions/*/packaged-action/**/*'
+
+comment:
+  layout: "condensed_header, condensed_files, condensed_footer"
+  behavior: default
+
+component_management:
+  default_rules:
+    statuses:
+      - type: project
+        target: auto
+
+  individual_components:
+    - component_id: otter
+      name: Otter Modules
+      paths:
+        - packages/@o3r/**
+    - component_id: otter-tools
+      name: Otter developer tools
+      paths:
+        - apps/chrome-devtools/**
+        - apps/github-cascading-app/**
+        - apps/intellij-extension/**
+        - apps/vscode-extension/**
+    - component_id: otter-github-actions
+      name: Otter Github shared Actions
+      paths:
+        - tools/github-actions/**
+    - component_id: training
+      name: Training modules
+      paths:
+        - packages/@o3r-training/**
+    - component_id: sdk
+      name: SDK Tooling
+      paths:
+        - packages/@ama-sdk/**

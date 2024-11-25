@@ -11,14 +11,19 @@
   },
   "files.exclude": {
     "**/.git": true,
-    "**/.svn": true,
-    "**/.hg": true,
-    "**/CVS": true,
     "**/.DS_Store": true,
     "**/Thumbs.db": true
   },
   "files.associations": {
     "*.json5": "jsonc"
+  },
+  "files.watcherExclude": {
+    "**/.pnp.*": true,
+    "**/.git/**": true,
+    "**/.yarn/**": true,
+    "**/.cache/**": true,
+    "**/dist/**": true,
+    "**/node_modules/**": true
   },
   "npm.packageManager": "yarn",
   "typescript.tsdk": ".yarn/sdks/typescript/lib",
@@ -28,7 +33,10 @@
   "typescript.preferences.preferTypeOnlyAutoImports": true,
   "jest.jestCommandLine": "yarn jest",
   "jest.debugMode": true,
-  "jest.runMode": "on-save",
+  "jest.runMode": {
+    "type": "on-save",
+    "coverage": true
+  },
   "testing.openTesting": "neverOpen",
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.patterns": {
@@ -77,17 +85,17 @@
     "**/.yarn/**": true,
     "**/node_modules/**": true,
     "tools/github-actions/*/packaged-action/**": true,
-    "packages/@ama-sdk/*sdk/src/api/**/*.ts": true,
-    "packages/@ama-sdk/*sdk/src/models/base/**/*.ts": true,
-    "packages/@ama-sdk/*sdk/src/spec/api-mock.ts": true,
-    "packages/@ama-sdk/*sdk/src/spec/operation-adapter.ts": true
+    "packages/@o3r-training/*sdk/src/api/**/*.ts": true,
+    "packages/@o3r-training/*sdk/src/models/base/**/*.ts": true,
+    "packages/@o3r-training/*sdk/src/spec/api-mock.ts": true,
+    "packages/@o3r-training/*sdk/src/spec/operation-adapter.ts": true
   },
   "files.readonlyExclude": {
-    "packages/@ama-sdk/*sdk/src/api/*/index.ts": true,
-    "packages/@ama-sdk/*sdk/src/models/base/*/index.ts": true
+    "packages/@o3r-training/*sdk/src/api/*/index.ts": true,
+    "packages/@o3r-training/*sdk/src/models/base/*/index.ts": true
   },
   "files.trimTrailingWhitespace": true,
   "files.trimFinalNewlines": false,
   "otter.extract.styling.prefix": "o3r",
-  "typescript.tsserver.experimental.useVsCodeWatcher": false
+  "typescript.tsserver.watchOptions": "vscode"
 }

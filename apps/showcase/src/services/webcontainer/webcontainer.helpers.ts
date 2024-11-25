@@ -1,4 +1,4 @@
-import { FileSystem, getFilesTree } from '@o3r/training-tools';
+import { FileSystem, getFilesTree } from '@o3r-training/training-tools';
 import { type DirectoryNode, type FileSystemTree, WebContainer, WebContainerProcess } from '@webcontainer/api';
 import { Terminal } from '@xterm/xterm';
 import { MonacoTreeElement } from 'ngx-monaco-tree';
