@@ -44,7 +44,40 @@
     },
     {
       "stepTitle": "Customize your fetch client with plugins",
-      "htmlContentUrl": "./steps/plugins/instructions.md"
+      "htmlContentUrl": "./steps/plugins/instructions.md",
+      "filesConfiguration": {
+        "name": "plugins",
+        "startingFile": "apps/tutorial-app/src/app/app.config.ts",
+        "urls": [
+          {
+            "path": ".",
+            "contentUrl": "./shared/monorepo-template.json"
+          },
+          {
+            "path": "./libs/sdk",
+            "contentUrl": "@o3r-training/showcase-sdk/structure/spec.json"
+          },
+          {
+            "path": "./libs/sdk/src",
+            "contentUrl": "@o3r-training/showcase-sdk/structure/src.json"
+          },
+          {
+            "path": "./apps/tutorial-app/src/app",
+            "contentUrl": "./steps/plugins/exercise.json"
+          }
+        ],
+        "solutionUrls": [
+          {
+            "path": "./apps/tutorial-app/src/app",
+            "contentUrl": "./steps/plugins/solution.json"
+          }
+        ],
+        "mode": "interactive",
+        "commands": [
+          "npm install --legacy-peer-deps --ignore-scripts --force",
+          "npm run ng run tutorial-app:serve"
+        ]
+      }
     },
     {
       "stepTitle": "Integrate your SDK in Angular",
@@ -113,7 +146,7 @@
         "urls": [
           {
             "path": ".",
-            "contentUrl": "./shared/monorepo-with-app.json"
+            "contentUrl": "./shared/monorepo-template.json"
           },
           {
             "path": "./apps/app/src/app",
