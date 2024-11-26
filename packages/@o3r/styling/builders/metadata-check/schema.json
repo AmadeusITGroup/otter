@@ -34,6 +34,11 @@
       "type": "string",
       "description": "Path of the styling metadata file.",
       "default": "./style.metadata.json"
+    },
+    "checkAfterItems": {
+      "type": "boolean",
+      "description": "Whether after items should be checked.",
+      "default": true
     }
   },
   "additionalProperties": false,

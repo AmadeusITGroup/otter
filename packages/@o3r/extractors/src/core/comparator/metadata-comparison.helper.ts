@@ -16,6 +16,7 @@ function checkMetadataFile<MetadataItem, MigrationMetadataItem, MetadataFile>(
   newMetadataFile: MetadataFile,
   migrationData: MigrationData<MigrationMetadataItem>[],
   isBreakingChangeAllowed: boolean,
+  checkAfterItems: boolean,
   comparator: MetadataComparator<MetadataItem, MigrationMetadataItem, MetadataFile>
 ): Error[] {
   const errors: Error[] = [];
@@ -40,7 +41,7 @@ function checkMetadataFile<MetadataItem, MigrationMetadataItem, MetadataFile>(
         continue;
       }
 
-      if (migrationMetadataValue.after) {
+      if (checkAfterItems && migrationMetadataValue.after) {
         const isNewValueInNewMetadata = newMetadataArray.some((newValue) => comparator.isMigrationDataMatch(newValue, migrationMetadataValue.after!, migrationMetadataValue.contentType));
         if (!isNewValueInNewMetadata) {
           errors.push(new Error(`Property ${comparator.getIdentifier(lastValue)} has been modified but the new property is not present in the new metadata`));
@@ -161,7 +162,7 @@ Detection of package manager runner will fallback on the one used to execute the
   const newFile = getLocalMetadataFile<MetadataFile>(metadataPathInWorkspace);
 
 
-  const errors = checkMetadataFile<MetadataItem, MigrationMetadataItem, MetadataFile>(metadata, newFile, migrationData.changes, options.allowBreakingChanges, comparator);
+  const errors = checkMetadataFile<MetadataItem, MigrationMetadataItem, MetadataFile>(metadata, newFile, migrationData.changes, options.allowBreakingChanges, options.checkAfterItems, comparator);
 
   if (errors.length) {
     return {
