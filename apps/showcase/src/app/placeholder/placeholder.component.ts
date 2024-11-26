@@ -43,7 +43,7 @@ export class PlaceholderComponent implements AfterViewInit {
     // We recommend to do the next lines in the AppComponent
     // Here we do it for the sake of the example
     inject(TripFactsService).register();
-    inject(RulesEngineRunnerService).actionHandlers.add(inject(PlaceholderRulesEngineActionHandler));
+    inject(RulesEngineRunnerService).registerActionHandlers(inject(PlaceholderRulesEngineActionHandler));
     void this.loadRuleSet();
   }
 
