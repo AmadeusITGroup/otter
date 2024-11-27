@@ -1,6 +1,6 @@
 <as-split direction="vertical">
   <as-split-area [size]="50">
-    <form [formGroup]="form" class="editor overflow-hidden h-100">
+    <form [formGroup]="form" class="editor h-100">
       <as-split direction="horizontal">
         <as-split-area [size]="25">
           <monaco-tree (clickFile)="onClickFile($event)"
@@ -11,6 +11,7 @@
                        class="w-100 editor-view"></monaco-tree>
         </as-split-area>
         <as-split-area [size]="75" class="editor-view">
+            <div class="monaco-editor monaco-overflow-widgets position-absolute" #monacoOverflowWidgets></div>
           @let editorOptions = editorOptions$ | async;
           @if (editorOptions) {
             <ngx-monaco-editor class="h-100 position-relative"

@@ -26,3 +26,7 @@ ngx-monaco-editor {
 .editor-view {
   background: #1d1d1d;
 }
+
+.monaco-overflow-widgets {
+  z-index: var(--o3r-header-zindex);
+}
