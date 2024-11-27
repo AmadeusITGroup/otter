@@ -5,20 +5,21 @@ import { Terminal } from '@xterm/xterm';
 import {
   BehaviorSubject,
   combineLatest,
+  from,
+  fromEvent,
+  Observable,
+  of
+} from 'rxjs';
+import {
   combineLatestWith,
   distinctUntilChanged,
   filter,
-  from,
-  fromEvent,
   map,
-  Observable,
-  of,
   skip,
   switchMap,
   take,
   timeout
-} from 'rxjs';
-import { withLatestFrom } from 'rxjs/operators';
+} from 'rxjs/operators';
 import { createTerminalStream, killTerminal, makeProcessWritable } from './webcontainer.helpers';
 
 @Injectable({
@@ -119,7 +120,7 @@ export class WebContainerRunner {
       combineLatestWith(
         this.shell.cwd.pipe(filter((cwd): cwd is string => !!cwd))
       ),
-      withLatestFrom(this.instancePromise),
+      combineLatestWith(this.instancePromise),
       takeUntilDestroyed()
     ).subscribe(async ([[writer, processCwd], instance]) => {
       try {
@@ -134,7 +135,7 @@ export class WebContainerRunner {
       combineLatestWith(
         this.shell.terminal.pipe(filter((terminal): terminal is Terminal => !!terminal))
       ),
-      withLatestFrom(this.instancePromise),
+      combineLatestWith(this.instancePromise),
       switchMap(([[_, terminal], instance]) => {
         // eslint-disable-next-line @typescript-eslint/naming-convention
         const spawn = instance.spawn('jsh', [], {env: {O3R_METRICS: false}});
