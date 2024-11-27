@@ -71,8 +71,8 @@ export class WebContainerRunner {
       return instance;
     });
     this.commandOnRun$.pipe(
-      filter((currentCommand): currentCommand is { command: string; cwd: string } => !!currentCommand),
-      takeUntilDestroyed()
+      takeUntilDestroyed(),
+      filter((currentCommand): currentCommand is { command: string; cwd: string } => !!currentCommand)
     ).subscribe(({ command, cwd }) => {
       // TODO: support commands that contain spaces
       const commandElements = command.split(' ');
@@ -80,10 +80,10 @@ export class WebContainerRunner {
     });
 
     this.iframe.pipe(
+      takeUntilDestroyed(),
       filter((iframe): iframe is HTMLIFrameElement => !!iframe),
       distinctUntilChanged(),
-      withLatestFrom(this.instancePromise),
-      takeUntilDestroyed()
+      withLatestFrom(this.instancePromise)
     ).subscribe(([iframe, instance]) =>
       instance.on('server-ready', (_port: number, url: string) => {
         iframe.removeAttribute('srcdoc');
@@ -92,24 +92,24 @@ export class WebContainerRunner {
     );
 
     this.commandOutput.process.pipe(
+      takeUntilDestroyed(),
       filter((process): process is WebContainerProcess => !!process && !process.output.locked),
       combineLatestWith(
         this.commandOutput.terminal.pipe(
           filter((terminal): terminal is Terminal => !!terminal)
         )
       ),
-      filter(([process]) => !process.output.locked),
-      takeUntilDestroyed()
+      filter(([process]) => !process.output.locked)
     ).subscribe(([process, terminal]) =>
       void process.output.pipeTo(createTerminalStream(terminal))
     );
     this.shell.writer.pipe(
+      takeUntilDestroyed(),
       filter((writer): writer is WritableStreamDefaultWriter => !!writer),
       combineLatestWith(
         this.shell.cwd.pipe(filter((cwd): cwd is string => !!cwd))
       ),
-      withLatestFrom(this.instancePromise),
-      takeUntilDestroyed()
+      withLatestFrom(this.instancePromise)
     ).subscribe(async ([[writer, processCwd], instance]) => {
       try {
         await writer.write(`cd ${instance.workdir}/${processCwd} && clear \n`);
@@ -119,6 +119,7 @@ export class WebContainerRunner {
       }
     });
     this.shell.process.pipe(
+      takeUntilDestroyed(),
       filter((process): process is null => !process),
       combineLatestWith(
         this.shell.terminal.pipe(filter((terminal): terminal is Terminal => !!terminal))
@@ -132,8 +133,7 @@ export class WebContainerRunner {
             terminal
           }))
         );
-      }),
-      takeUntilDestroyed()
+      })
     ).subscribe(({ process, terminal }) => {
       void process.output.pipeTo(createTerminalStream(terminal, (data: string) => {
         if (['CREATE', 'UPDATE', 'RENAME', 'DELETE'].some((action) => data.includes(action))) {

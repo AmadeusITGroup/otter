@@ -3,12 +3,17 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  DestroyRef,
+  inject,
   Input,
   OnDestroy,
   OnInit,
   type Signal,
   ViewEncapsulation,
 } from '@angular/core';
+import {
+  takeUntilDestroyed,
+} from '@angular/core/rxjs-interop';
 import {
   Store,
 } from '@ngrx/store';
@@ -20,7 +25,6 @@ import {
   ReplaySubject,
   sample,
   Subject,
-  Subscription,
 } from 'rxjs';
 import {
   distinctUntilChanged,
@@ -56,8 +60,6 @@ import {
   }
 })
 export class PlaceholderComponent implements OnInit, OnDestroy, AfterViewChecked {
-  private readonly subscription = new Subscription();
-
   public readonly id$ = new BehaviorSubject<string | undefined>(undefined);
 
   private readonly afterViewInit$ = new Subject<void>();
@@ -72,6 +74,8 @@ export class PlaceholderComponent implements OnInit, OnDestroy, AfterViewChecked
 
   public mode: Signal<PlaceholderMode>;
 
+  private readonly destroyRef = inject(DestroyRef);
+
   /** template identify */
   @Input()
   public set id(value: string) {
@@ -84,41 +88,40 @@ export class PlaceholderComponent implements OnInit, OnDestroy, AfterViewChecked
 
   /** @inheritdoc */
   public ngOnInit() {
-    this.subscription.add(
-      this.id$.pipe(
-        filter((id): id is string => !!id),
-        distinctUntilChanged(),
-        switchMap((id: string) =>
-          this.store.select(selectSortedTemplates(id)).pipe(
-            map((placeholders) => ({
-              id,
-              orderedTemplates: placeholders?.orderedTemplates,
-              isPending: placeholders?.isPending
-            })),
-            distinctUntilChanged((previous, current) =>
-              previous.id === current.id
-              && previous.isPending === current.isPending
-              && previous.orderedTemplates?.map((placeholder) => placeholder.renderedTemplate).join('')
-              === current.orderedTemplates?.map((placeholder) => placeholder.renderedTemplate).join('')
-            )
+    this.id$.pipe(
+      filter((id): id is string => !!id),
+      distinctUntilChanged(),
+      switchMap((id: string) =>
+        this.store.select(selectSortedTemplates(id)).pipe(
+          map((placeholders) => ({
+            id,
+            orderedTemplates: placeholders?.orderedTemplates,
+            isPending: placeholders?.isPending
+          })),
+          distinctUntilChanged((previous, current) =>
+            previous.id === current.id
+            && previous.isPending === current.isPending
+            && previous.orderedTemplates?.map((placeholder) => placeholder.renderedTemplate).join('')
+            === current.orderedTemplates?.map((placeholder) => placeholder.renderedTemplate).join('')
           )
         )
-      ).subscribe(({ id, orderedTemplates, isPending }) => {
-        this.isPending = isPending;
-        this.template = orderedTemplates?.length
-          // Concatenates the list of templates
-          ? orderedTemplates.map((placeholder) => placeholder.renderedTemplate).join('')
-          : undefined;
-        if (this.isPending === false) {
-          this.messages$.next({
-            templateIds: this.isPending ? [] : (orderedTemplates || []).map((placeholder) => placeholder.resolvedUrl),
-            placeholderId: id
-          });
-        }
-        this.cd.markForCheck();
-      })
-    );
+      )
+    ).subscribe(({ id, orderedTemplates, isPending }) => {
+      this.isPending = isPending;
+      this.template = orderedTemplates?.length
+        // Concatenates the list of templates
+        ? orderedTemplates.map((placeholder) => placeholder.renderedTemplate).join('')
+        : undefined;
+      if (this.isPending === false) {
+        this.messages$.next({
+          templateIds: this.isPending ? [] : (orderedTemplates || []).map((placeholder) => placeholder.resolvedUrl),
+          placeholderId: id
+        });
+      }
+      this.cd.markForCheck();
+    });
     this.messages$.pipe(
+      takeUntilDestroyed(this.destroyRef),
       sample(this.afterViewInit$),
       distinctUntilChanged((previous, current) => JSON.stringify(current) === JSON.stringify(previous))
     ).subscribe({
@@ -139,8 +142,8 @@ export class PlaceholderComponent implements OnInit, OnDestroy, AfterViewChecked
 
   /** @inheritdoc */
   public ngOnDestroy() {
+    this.id$.complete();
     this.messages$.complete();
     this.afterViewInit$.complete();
-    this.subscription.unsubscribe();
   }
 }

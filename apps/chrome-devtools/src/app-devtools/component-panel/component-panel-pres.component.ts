@@ -5,9 +5,11 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  OnDestroy,
   ViewEncapsulation,
 } from '@angular/core';
+import {
+  takeUntilDestroyed,
+} from '@angular/core/rxjs-interop';
 import type {
   IsComponentSelectionAvailableMessage,
   OtterLikeComponentInfo,
@@ -22,7 +24,6 @@ import {
   BehaviorSubject,
   combineLatest,
   Observable,
-  Subscription,
 } from 'rxjs';
 import {
   filter,
@@ -52,7 +53,7 @@ import {
     AsyncPipe
   ]
 })
-export class ComponentPanelPresComponent implements OnDestroy {
+export class ComponentPanelPresComponent {
   /** Stream of configuration value */
   public config$: Observable<ConfigurationModel | undefined>;
 
@@ -74,8 +75,6 @@ export class ComponentPanelPresComponent implements OnDestroy {
   /** Determines if the component selection is available */
   public isComponentSelectionAvailable$: Observable<boolean>;
 
-  private readonly subscription: Subscription = new Subscription();
-
   constructor(
     private readonly connectionService: ChromeExtensionConnectionService,
     rulesetHistoryService: RulesetHistoryService,
@@ -86,14 +85,17 @@ export class ComponentPanelPresComponent implements OnDestroy {
       map((data) => data.available),
       startWith(false)
     );
-    const selectedComponentInfoMessage$ = connectionService.message$.pipe(filter(isSelectedComponentInfoMessage), shareReplay({ bufferSize: 1, refCount: true }));
-    this.hasContainer$ = selectedComponentInfoMessage$.pipe(map((info) => !!info.container));
-    this.subscription.add(
-      selectedComponentInfoMessage$.subscribe((info) => {
-        this.toggleInspector();
-        this.isLookingToContainer$.next(!!info.container);
-      })
+    const selectedComponentInfoMessage$ = connectionService.message$.pipe(
+      filter(isSelectedComponentInfoMessage),
+      shareReplay({ bufferSize: 1, refCount: true })
     );
+    this.hasContainer$ = selectedComponentInfoMessage$.pipe(map((info) => !!info.container));
+    selectedComponentInfoMessage$.pipe(
+      takeUntilDestroyed()
+    ).subscribe((info) => {
+      this.toggleInspector();
+      this.isLookingToContainer$.next(!!info.container);
+    });
     this.selectedComponentInfo$ = combineLatest([
       selectedComponentInfoMessage$,
       this.isLookingToContainer$
@@ -137,9 +139,5 @@ export class ComponentPanelPresComponent implements OnDestroy {
   public toggleContainerPresenter() {
     this.isLookingToContainer$.next(!this.isLookingToContainer$.value);
     this.cd.detectChanges();
-  }
-
-  public ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 }

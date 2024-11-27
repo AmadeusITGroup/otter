@@ -5,9 +5,11 @@ import {
   ChangeDetectionStrategy,
   Component,
   inject,
-  type OnDestroy,
   ViewEncapsulation,
 } from '@angular/core';
+import {
+  takeUntilDestroyed,
+} from '@angular/core/rxjs-interop';
 import {
   FormBuilder,
   FormControl,
@@ -23,9 +25,6 @@ import {
 import {
   RulesEngineRunnerModule,
 } from '@o3r/rules-engine';
-import {
-  Subscription,
-} from 'rxjs';
 import {
   TripFactsService,
 } from '../../../facts/trip/trip.facts';
@@ -50,9 +49,8 @@ const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
     DatePickerInputPresComponent
   ]
 })
-export class PlaceholderPresComponent implements OnDestroy {
+export class PlaceholderPresComponent {
   private readonly tripService = inject(TripFactsService);
-  private readonly subscription = new Subscription();
 
   /**
    * Form group
@@ -63,15 +61,11 @@ export class PlaceholderPresComponent implements OnDestroy {
   });
 
   constructor() {
-    this.subscription.add(this.form.controls.destination.valueChanges.subscribe((destination) => this.tripService.updateDestination(destination)));
-    this.subscription.add(this.form.controls.outboundDate.valueChanges.subscribe((outboundDate) => this.tripService.updateOutboundDate(outboundDate)));
+    this.form.controls.destination.valueChanges.pipe(takeUntilDestroyed()).subscribe((destination) => this.tripService.updateDestination(destination));
+    this.form.controls.outboundDate.valueChanges.pipe(takeUntilDestroyed()).subscribe((outboundDate) => this.tripService.updateOutboundDate(outboundDate));
   }
 
   private formatDate(dateTime: number) {
     return formatDate(dateTime, 'yyyy-MM-dd', 'en-GB');
-  }
-
-  public ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 }

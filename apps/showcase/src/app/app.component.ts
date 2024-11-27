@@ -1,9 +1,12 @@
 import {
   Component,
+  DestroyRef,
   inject,
-  OnDestroy,
   TemplateRef,
 } from '@angular/core';
+import {
+  takeUntilDestroyed,
+} from '@angular/core/rxjs-interop';
 import {
   NavigationEnd,
   Router,
@@ -21,7 +24,6 @@ import {
   Observable,
   share,
   shareReplay,
-  Subscription,
 } from 'rxjs';
 import {
   SideNavLinksGroup,
@@ -33,7 +35,7 @@ import {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnDestroy {
+export class AppComponent {
   public title = 'showcase';
 
   public linksGroups: SideNavLinksGroup[] = [
@@ -68,13 +70,13 @@ export class AppComponent implements OnDestroy {
 
   private offcanvasRef: NgbOffcanvasRef | undefined;
 
-  private readonly subscriptions = new Subscription();
-
   private readonly router = inject(Router);
   private readonly offcanvasService = inject(NgbOffcanvas);
+  private readonly destroyRef = inject(DestroyRef);
 
   constructor() {
     const onNavigationEnd$ = this.router.events.pipe(
+      takeUntilDestroyed(),
       filter((event): event is NavigationEnd => event instanceof NavigationEnd),
       share()
     );
@@ -82,7 +84,7 @@ export class AppComponent implements OnDestroy {
       map((event) => event.urlAfterRedirects),
       shareReplay({ bufferSize: 1, refCount: true })
     );
-    this.subscriptions.add(onNavigationEnd$.subscribe((event) => {
+    onNavigationEnd$.subscribe((event) => {
       if (this.offcanvasRef) {
         this.offcanvasRef.dismiss();
       }
@@ -90,17 +92,13 @@ export class AppComponent implements OnDestroy {
         localStorage.removeItem('dynamicPath');
         location.reload();
       }
-    }));
+    });
   }
 
   public open(content: TemplateRef<any>) {
     this.offcanvasRef = this.offcanvasService.open(content, { ariaLabelledBy: 'offcanvas-basic-title' });
-    this.subscriptions.add(this.offcanvasRef.dismissed.subscribe(() => {
+    this.offcanvasRef.dismissed.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
       this.offcanvasRef = undefined;
-    }));
-  }
-
-  public ngOnDestroy() {
-    this.subscriptions.unsubscribe();
+    });
   }
 }
