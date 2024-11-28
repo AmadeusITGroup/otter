@@ -112,32 +112,6 @@
       "htmlContentUrl": "./steps/sdk-generation/instructions.md"
     },
     {
-      "stepTitle": "SDK with Dates - Generation",
-      "htmlContentUrl": "./steps/date-sdk-generation/instructions.md",
-      "filesConfiguration": {
-        "name": "generate-date-sdk",
-        "startingFile": "open-api.yaml",
-        "urls": [
-          {
-            "path": ".",
-            "contentUrl": "./steps/date-sdk-generation/exercise.json"
-          }
-        ],
-        "solutionUrls": [
-          {
-            "path": ".",
-            "contentUrl": "@o3r-training/training-sdk/structure/spec.json"
-          },
-          {
-            "path": "./src",
-            "contentUrl": "@o3r-training/training-sdk/structure/src.json"
-          }
-        ],
-        "mode": "readonly",
-        "commands": []
-      }
-    },
-    {
       "stepTitle": "SDK with Dates - How to use",
       "htmlContentUrl": "./steps/date/instructions.md",
       "filesConfiguration": {
@@ -164,6 +138,32 @@
           "npm install --legacy-peer-deps --ignore-scripts --force",
           "npm run ng run app:serve"
         ]
+      }
+    },
+    {
+      "stepTitle": "SDK with Dates - Generation",
+      "htmlContentUrl": "./steps/date-sdk-generation/instructions.md",
+      "filesConfiguration": {
+        "name": "generate-date-sdk",
+        "startingFile": "open-api.yaml",
+        "urls": [
+          {
+            "path": ".",
+            "contentUrl": "./steps/date-sdk-generation/exercise.json"
+          }
+        ],
+        "solutionUrls": [
+          {
+            "path": ".",
+            "contentUrl": "@o3r-training/training-sdk/structure/spec.json"
+          },
+          {
+            "path": "./src",
+            "contentUrl": "@o3r-training/training-sdk/structure/src.json"
+          }
+        ],
+        "mode": "readonly",
+        "commands": []
       }
     },
     {

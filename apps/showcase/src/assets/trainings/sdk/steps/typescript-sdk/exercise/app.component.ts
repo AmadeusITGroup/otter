@@ -13,8 +13,8 @@ export class AppComponent {
   public title = 'tutorial-app';
 
   private readonly petStoreApi = inject(PetApi);
-  readonly #pets = signal<Pet[]>([]);
-  public readonly pets = this.#pets.asReadonly();
+  private readonly petsWritable = signal<Pet[]>([]);
+  public readonly pets = this.petsWritable.asReadonly();
 
   constructor() {
     void this.setPets();
