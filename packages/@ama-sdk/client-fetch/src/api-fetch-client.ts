@@ -131,10 +131,10 @@ export class ApiFetchClient implements ApiClient {
 
       const canStart = await Promise.all(loadedPlugins.map((plugin) => !plugin.canStart || plugin.canStart()));
       const isCanceledBy = canStart.indexOf(false);
-      asyncResponse = isCanceledBy >= 0
+      asyncResponse = isCanceledBy === -1
         // One of the fetch plugins cancelled the execution of the call
-        ? Promise.reject(new CanceledCallError(`Is canceled by the plugin ${isCanceledBy}`, isCanceledBy, this.options.fetchPlugins[isCanceledBy], { apiName, operationId, url, origin }))
-        : fetch(url, options);
+        ? fetch(url, options)
+        : Promise.reject(new CanceledCallError(`Is canceled by the plugin ${isCanceledBy}`, isCanceledBy, this.options.fetchPlugins[isCanceledBy], { apiName, operationId, url, origin }));
 
       for (const plugin of loadedPlugins) {
         asyncResponse = plugin.transform(asyncResponse);

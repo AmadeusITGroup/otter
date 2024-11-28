@@ -53,7 +53,7 @@ export function getModuleIndex(sourceFile: ts.SourceFile, sourceContent: string)
       };
     } else {
       const index = sourceContent.indexOf(`@${decorator.name}`);
-      if (index >= 0) {
+      if (index !== -1) {
         return {
           ngModulesMetadata: undefined,
           moduleIndex: index,

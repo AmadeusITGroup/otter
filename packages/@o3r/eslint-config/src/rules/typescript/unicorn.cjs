@@ -34,6 +34,7 @@ const config = [
       'unicorn/no-useless-promise-resolve-reject': 'off',
       'unicorn/prefer-code-point': 'off',
       'unicorn/prefer-dom-node-text-content': 'off',
+      'unicorn/prefer-global-this': 'off',
       'unicorn/prefer-module': 'off',
       'unicorn/prefer-set-has': 'off',
       'unicorn/prefer-spread': 'off',

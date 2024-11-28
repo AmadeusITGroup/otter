@@ -72,7 +72,10 @@ function keepOnlyUsedSelector(css: string, selectors: string[]): string[] {
   copySelectors.forEach((element) => {
     let numberOfBracket = 0;
     const selectorIndexInCssString = css.indexOf(element);
-    if (selectorIndexInCssString >= 0) {
+    if (selectorIndexInCssString === -1) {
+      selectors.splice(indexOfCurrentElement, 1);
+      indexOfCurrentElement--;
+    } else {
       for (let i = selectorIndexInCssString; i < css.length; i++) {
         if (css.charAt(i) === '{') {
           numberOfBracket++;
@@ -93,9 +96,6 @@ function keepOnlyUsedSelector(css: string, selectors: string[]): string[] {
           }
         }
       }
-    } else {
-      selectors.splice(indexOfCurrentElement, 1);
-      indexOfCurrentElement--;
     }
     // Allows you to advance through the list of selectors or to return to the location of
     // the selector removed in the previous cycle

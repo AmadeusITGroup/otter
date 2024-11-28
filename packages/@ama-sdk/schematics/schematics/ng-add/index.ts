@@ -72,7 +72,6 @@ export const updatePackageJsonScripts: Rule = (tree, context) => {
             '@ama-sdk/schematics/schematics'
           ) // Change relative path for swaggerConfigPath
           .replace(
-            // eslint-disable-next-line unicorn/better-regex -- This regex is more readable
             /(@ama-sdk\/schematics\/schematics\/)java-client-core/g,
             '$1java/client-core'
           ) // Change java client core path

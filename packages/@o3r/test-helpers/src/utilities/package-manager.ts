@@ -97,7 +97,7 @@ export function addDashesForNpmCommand(args?: string[], packageManager = getPack
     return args;
   }
   const firstArgIndex = args.findIndex((arg) => arg.startsWith('-'));
-  if (firstArgIndex < 0) {
+  if (firstArgIndex === -1) {
     return args;
   }
   return [...args.slice(0, firstArgIndex), '--', ...args.slice(firstArgIndex)];

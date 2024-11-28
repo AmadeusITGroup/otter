@@ -286,7 +286,7 @@ export class CssVariableExtractor {
           };
           if (parsedValue === undefined) {
             const cssVariableIndex = cssVariables.findIndex(({ name }) => name === cssVariableObj.name);
-            if (cssVariableIndex > -1) {
+            if (cssVariableIndex !== -1) {
               cssVariables[cssVariableIndex] = {
                 ...cssVariables[cssVariableIndex],
                 ...cssVariableDetails

@@ -147,7 +147,7 @@ export function addTagToSpecObj(swaggerSpec: Partial<Spec>, tag: any): any {
 
   if (swaggerSpec.tags) {
     const idx = (swaggerSpec.tags as any[]).findIndex((t) => t.name === tag.name);
-    if (idx < 0) {
+    if (idx === -1) {
       swaggerSpec.tags.push(tag);
     } else {
       swaggerSpec.tags[idx] = tag;

@@ -143,11 +143,11 @@ export const getTokenSorterByRef: DesignTokenListTransform = (variableSet) => {
       const tmpSortToken: DesignTokenVariableStructure[] = [];
       for (const token of sortToken) {
         const firstRef = tmpSortToken.findIndex((t) => t.getReferences(variableSet).includes(token.tokenReferenceName));
-        if (firstRef > -1) {
+        if (firstRef === -1) {
+          tmpSortToken.push(token);
+        } else {
           tmpSortToken.splice(firstRef, 0, token);
           hasChanged = true;
-        } else {
-          tmpSortToken.push(token);
         }
       }
       sortToken = tmpSortToken;

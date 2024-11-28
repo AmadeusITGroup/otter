@@ -379,7 +379,7 @@ export abstract class Cascading {
     const cascadingBranches = this.getOrderedCascadingBranches(branches, config);
     const branchIndex = cascadingBranches.findIndex(({ branch }) => branch === currentBranchName);
 
-    if (branchIndex < 0) {
+    if (branchIndex === -1) {
       this.logger.error(`The branch ${currentBranchName} is not part of the list of cascading branch. The process will stop.`);
       return;
     }

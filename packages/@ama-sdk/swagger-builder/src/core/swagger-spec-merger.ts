@@ -286,10 +286,10 @@ export class SwaggerSpecMerger {
       tags
         .forEach((tag) => {
           const idx = acc.findIndex((t) => t.name === tag.name);
-          if (idx >= 0) {
-            Object.assign(acc[idx], tag);
-          } else {
+          if (idx === -1) {
             acc.push(tag);
+          } else {
+            Object.assign(acc[idx], tag);
           }
         });
       return acc;

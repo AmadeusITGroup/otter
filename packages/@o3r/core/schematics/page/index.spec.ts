@@ -46,7 +46,6 @@ describe('Page', () => {
 
     it('should generate files', () => {
       expect(tree.files.filter((file) => /test-page/.test(file)).length).toEqual(7);
-      // eslint-disable-next-line unicorn/better-regex -- This regex is more readable
       expect(tree.files.some((file) => /^[\\/]?src[\\/]app[\\/]test-page[\\/]test-page\.module\.ts$/i.test(file))).toBeTruthy();
       expect(tree.readContent('/src/app/test-page/test-page.module.ts')).toContain('RouterModule.forChild([{path: \'\', component: TestPageComponent}])');
     });
@@ -101,7 +100,7 @@ describe('Page', () => {
 
     it('should generate files with default parameters', () => {
       expect(tree.files.filter((file) => /test-page/.test(file)).length).toEqual(7);
-      // eslint-disable-next-line unicorn/better-regex -- This regex is more readable
+
       expect(tree.files.some((file) => /^[\\/]?custom[\\/]test-scope[\\/]test-page[\\/]test-page\.module\.ts$/i.test(file))).toBeTruthy();
     });
 
