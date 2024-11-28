@@ -240,7 +240,7 @@ export class LocalizationService {
   public translate(key: string, interpolateParams?: object) {
     return this.getKey(key).pipe(
       switchMap((translationKey) => this.getTranslationStream(translationKey, interpolateParams)),
-      shareReplay(1)
+      shareReplay({ refCount: true, bufferSize: 1 })
     );
   }
 }

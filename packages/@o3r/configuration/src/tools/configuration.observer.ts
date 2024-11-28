@@ -40,7 +40,7 @@ export class ConfigurationObserver<T extends Configuration> implements Observer<
     this.observable = this.subscriber
       .pipe(
         configurationService ? configurationService.getComponentConfig(configId, defaultConfig) : getConfiguration(defaultConfig),
-        shareReplay(1)
+        shareReplay({ refCount: true, bufferSize: 1 })
       );
   }
 

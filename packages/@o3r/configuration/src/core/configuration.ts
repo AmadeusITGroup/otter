@@ -67,6 +67,6 @@ export function getConfiguration<T extends Record<string, unknown>>(defaultValue
         return deepFill(defaultValue, configOverride);
       }),
       distinctUntilChanged((prev, current) => JSON.stringify(prev) === JSON.stringify(current)),
-      shareReplay(1)
+      shareReplay({ refCount: true, bufferSize: 1 })
     );
 }

@@ -132,9 +132,11 @@ export class RulesEngineComponent implements AfterViewInit {
   constructor() {
     // We recommend to do the next lines in the AppComponent
     // Here we do it for the sake of the example
-    this.rulesEngineService.actionHandlers.add(inject(ConfigurationRulesEngineActionHandler));
-    this.rulesEngineService.actionHandlers.add(inject(AssetRulesEngineActionHandler));
-    this.rulesEngineService.actionHandlers.add(inject(LocalizationRulesEngineActionHandler));
+    this.rulesEngineService.registerActionHandlers(
+      inject(ConfigurationRulesEngineActionHandler),
+      inject(AssetRulesEngineActionHandler),
+      inject(LocalizationRulesEngineActionHandler)
+    );
     this.rulesEngineService.engine.upsertOperators([duringSummer] as UnaryOperator[]);
     this.rulesEngineService.engine.upsertOperators([dateInNextMinutes] as Operator[]);
     inject(TripFactsService).register();

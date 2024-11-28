@@ -71,7 +71,10 @@ export class RulesEngineRunnerService implements OnDestroy {
   /** Enable action execution on new state change */
   public enabled: boolean;
 
-  /** List of action handlers */
+  /**
+   * List of action handlers
+   * @deprecated will become protected in Otter v13, instead use {@link registerActionHandlers}
+   */
   public readonly actionHandlers = new Set<RulesEngineActionHandler>();
 
   constructor(
@@ -155,7 +158,7 @@ export class RulesEngineRunnerService implements OnDestroy {
   }
 
   /**
-   * Update or insert fact in rules engine
+   * Update or insert fact in the rules engine
    * @param facts fact list to add / update
    */
   public upsertFacts(facts: Fact<unknown> | Fact<unknown>[]) {
@@ -163,7 +166,7 @@ export class RulesEngineRunnerService implements OnDestroy {
   }
 
   /**
-   * Update or insert operator in rules engine
+   * Update or insert operator in the rules engine
    * @param operators operator list to add / update
    */
   public upsertOperators(operators: (Operator<any, any> | UnaryOperator<any>)[]) {
@@ -171,11 +174,27 @@ export class RulesEngineRunnerService implements OnDestroy {
   }
 
   /**
-   * Upsert a list of RuleSets to be run in the engine
+   * Upsert a list of RuleSets to be run in the rules engine
    * @param ruleSets
    */
   public upsertRulesets(ruleSets: Ruleset[]) {
     this.store.dispatch(setRulesetsEntities({ entities: ruleSets }));
+  }
+
+  /**
+   * Add action handlers in the rules engine
+   * @param actionHandlers
+   */
+  public registerActionHandlers(...actionHandlers: RulesEngineActionHandler[]) {
+    actionHandlers.forEach((actionHandler) => this.actionHandlers.add(actionHandler));
+  }
+
+  /**
+   * Remove action handlers in the rules engine
+   * @param actionHandlers
+   */
+  public unregisterActionHandlers(...actionHandlers: RulesEngineActionHandler[]) {
+    actionHandlers.forEach((actionHandler) => this.actionHandlers.delete(actionHandler));
   }
 
   /** @inheritdoc */
