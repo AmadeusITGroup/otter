@@ -2,11 +2,13 @@ import {AsyncPipe, JsonPipe} from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  ElementRef,
   inject,
   Input,
   OnChanges,
   OnDestroy,
   SimpleChanges,
+  ViewChild,
   ViewEncapsulation
 } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -87,6 +89,9 @@ export class CodeEditorViewComponent implements OnDestroy, OnChanges {
    */
   private readonly cwd$ = new BehaviorSubject('');
 
+  @ViewChild('monacoOverflowWidgets')
+  private readonly monacoOverflowWidgets!: ElementRef;
+
   /**
    * Allow to edit the code in the monaco editor
    */
@@ -134,7 +139,8 @@ export class CodeEditorViewComponent implements OnDestroy, OnChanges {
       language: editorOptionsLanguage[filePath.split('.').pop() || 'ts'] || editorOptionsLanguage.ts,
       readOnly: (this.editorMode === 'readonly'),
       automaticLayout: true,
-      scrollBeyondLastLine: false
+      scrollBeyondLastLine: false,
+      overflowWidgetsDomNode: this.monacoOverflowWidgets.nativeElement
     }))
   );
 

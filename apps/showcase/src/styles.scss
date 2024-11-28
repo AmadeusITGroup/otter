@@ -2,6 +2,10 @@
 @import "highlight.js/styles/github.css";
 @import "./style/theme.scss";
 
+:root {
+  --o3r-header-zindex: 1021;
+}
+
 code {
   font-family: 'Consolas', monospace;
 }
