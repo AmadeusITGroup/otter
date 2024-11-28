@@ -1,4 +1,6 @@
-import type { Rule } from '@angular-devkit/schematics';
+import type {
+  Rule,
+} from '@angular-devkit/schematics';
 
 /**
  * Create a default git attributes file (if it does not already exist)

@@ -1,22 +1,27 @@
-import * as core from '@actions/core';
-import { getExecOutput } from '@actions/exec';
-import type { Severity } from 'audit-types';
 import * as fs from 'node:fs';
 import * as os from 'node:os';
 import * as path from 'node:path';
+import * as core from '@actions/core';
 import {
-  computeNpmReport, computeYarn1Report,
+  getExecOutput,
+} from '@actions/exec';
+import type {
+  Severity,
+} from 'audit-types';
+import {
+  computeNpmReport,
+  computeYarn1Report,
   computeYarn3Report,
   computeYarn4Report,
   OtterAdvisory,
-  OtterAuditReport, OtterAuditReporter,
-  severities
+  OtterAuditReport,
+  OtterAuditReporter,
+  severities,
 } from './reports';
 
 const colors = ['', 'green', 'yellow', 'orange', 'red'];
 
 async function run(): Promise<void> {
-
   try {
     const cwd = process.env.GITHUB_WORKSPACE!;
     const packageManager = fs.existsSync(path.resolve(cwd, 'yarn.lock')) ? 'yarn' : 'npm';
@@ -27,23 +32,22 @@ async function run(): Promise<void> {
     let auditReporter: OtterAuditReporter;
     let auditCommand: string;
     if (packageManager === 'yarn') {
-      const versionOutput = await getExecOutput('yarn --version', [], {cwd: process.env.GITHUB_WORKSPACE});
+      const versionOutput = await getExecOutput('yarn --version', [], { cwd: process.env.GITHUB_WORKSPACE });
       const version = Number.parseInt(versionOutput.stdout.split('.')[0], 10);
-      auditCommand = version <= 1 ?
-        `yarn audit ${environment === 'production' ? '--groups "dependencies peerDependencies" ' : ''}--json` :
-        `yarn npm audit --environment ${environment} ${allWorkspaces ? '--all ' : ''}${recursive ? '--recursive ' : ''}--json`;
-      auditReporter = version >= 4 ? computeYarn4Report : version >= 2 ? computeYarn3Report : computeYarn1Report;
+      auditCommand = version <= 1
+        ? `yarn audit ${environment === 'production' ? '--groups "dependencies peerDependencies" ' : ''}--json`
+        : `yarn npm audit --environment ${environment} ${allWorkspaces ? '--all ' : ''}${recursive ? '--recursive ' : ''}--json`;
+      auditReporter = version >= 4 ? computeYarn4Report : (version >= 2 ? computeYarn3Report : computeYarn1Report);
     } else {
       auditCommand = `npm audit ${allWorkspaces ? '--workspaces --include-root-workspace ' : ''}--json`;
       auditReporter = computeNpmReport;
     }
 
-    const {stdout: report, stderr: err} = await getExecOutput(auditCommand, [], {
+    const { stdout: report, stderr: err } = await getExecOutput(auditCommand, [], {
       cwd,
       ignoreReturnCode: true,
       env: {
         ...process.env,
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         NODE_ENV: environment
       }
     });
@@ -51,11 +55,11 @@ async function run(): Promise<void> {
     core.setOutput('reportJSON', report);
     const reportData: OtterAuditReport = auditReporter(report, severityConfig);
 
-    if (!reportData.highestSeverityFound) {
+    if (reportData.highestSeverityFound) {
+      core.info(`Highest severity found: ${reportData.highestSeverityFound}`);
+    } else {
       core.info('No vulnerability detected.');
       return;
-    } else {
-      core.info(`Highest severity found: ${reportData.highestSeverityFound}`);
     }
     const isFailed = reportData.errors.length > 0;
 
@@ -72,7 +76,7 @@ ${vulnerability.overview.replaceAll('### ', '#### ')}
 
 `;
 
-    const isVulnerabilityWithKnownSeverity = (advisory: OtterAdvisory) => severities.indexOf(advisory.severity) >= 0;
+    const isVulnerabilityWithKnownSeverity = (advisory: OtterAdvisory) => severities.includes(advisory.severity);
 
     const sortVulnerabilityBySeverity = (advisory1: OtterAdvisory, advisory2: OtterAdvisory) => severities.indexOf(advisory2.severity) - severities.indexOf(advisory1.severity);
 
@@ -80,16 +84,19 @@ ${vulnerability.overview.replaceAll('### ', '#### ')}
 
 ${reportData.nbVulnerabilities} vulnerabilities found.
 
-${reportData.errors.length ? `## Vulnerabilities to be fixed
+${reportData.errors.length > 0
+    ? `## Vulnerabilities to be fixed
 
 ${reportData.errors
-    .filter(isVulnerabilityWithKnownSeverity)
+    .filter((vul) => isVulnerabilityWithKnownSeverity(vul))
     .sort(sortVulnerabilityBySeverity)
-    .map(formatVulnerability)
+    .map((vul) => formatVulnerability(vul))
     .join(os.EOL)
 }
-` : ''}
-${reportData.warnings.length ? `___
+`
+    : ''}
+${reportData.warnings.length > 0
+    ? `___
 
 <details>
 <summary>
@@ -97,15 +104,16 @@ Vulnerabilities below the threshold: ${severityConfig}
 </summary>
 
 ${reportData.warnings
-    .filter(isVulnerabilityWithKnownSeverity)
+    .filter((vul) => isVulnerabilityWithKnownSeverity(vul))
     .sort(sortVulnerabilityBySeverity)
-    .map(formatVulnerability)
+    .map((vul) => formatVulnerability(vul))
     .join(os.EOL)
     .replaceAll('${', '&#36;{')
 }
 
 </details>
-` : ''}
+`
+    : ''}
 `;
     core.setOutput('reportMarkdown', body);
     if (isFailed) {

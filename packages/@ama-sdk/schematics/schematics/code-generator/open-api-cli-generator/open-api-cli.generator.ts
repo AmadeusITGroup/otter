@@ -1,14 +1,23 @@
-import {CodeGenerator} from '../code-generator';
-import {spawn, SpawnOptions} from 'node:child_process';
-import {defaultTypescriptGeneratorOptions, OpenApiCliOptions} from './open-api-cli.options';
+import {
+  spawn,
+  SpawnOptions,
+} from 'node:child_process';
 import * as path from 'node:path';
-import { getPackageManagerName } from '../../helpers/node-install';
+import {
+  getPackageManagerName,
+} from '../../helpers/node-install';
+import {
+  CodeGenerator,
+} from '../code-generator';
+import {
+  defaultTypescriptGeneratorOptions,
+  OpenApiCliOptions,
+} from './open-api-cli.options';
 
 /**
  * Manage the schematic to generate a sdk using the @openapitools/openapi-generator-cli
  */
 export class OpenApiCliGenerator extends CodeGenerator<OpenApiCliOptions> {
-
   protected readonly packageManager: 'npm' | 'yarn';
   protected get packageManagerRunner(): 'npx' | 'yarn' {
     return this.packageManager === 'npm' ? 'npx' : 'yarn';
@@ -53,8 +62,9 @@ export class OpenApiCliGenerator extends CodeGenerator<OpenApiCliOptions> {
       'generate',
       generatorOptions.generatorCustomPath ? `--custom-generator=${generatorOptions.generatorCustomPath}` : '',
       ...generatorOptions.openapiNormalizer ? ['--openapi-normalizer', generatorOptions.openapiNormalizer] : [],
-      ...generatorOptions.generatorKey ? ['--generator-key', generatorOptions.generatorKey] :
-        [
+      ...generatorOptions.generatorKey
+        ? ['--generator-key', generatorOptions.generatorKey]
+        : [
           '-g', generatorOptions.generatorName,
           '-i', generatorOptions.specPath,
           ...generatorOptions.specConfigPath ? ['-c', generatorOptions.specConfigPath] : [],
@@ -79,12 +89,12 @@ export class OpenApiCliGenerator extends CodeGenerator<OpenApiCliOptions> {
 
   /** @inheritDoc */
   protected runCodeGeneratorFactory = (factoryOptions: { rootDirectory?: string } = {}) => {
-    const rootDirectory = factoryOptions.rootDirectory ?
-      (path.isAbsolute(factoryOptions.rootDirectory) ? factoryOptions.rootDirectory : path.resolve(process.cwd(), factoryOptions.rootDirectory)) :
-      process.cwd();
+    const rootDirectory = factoryOptions.rootDirectory
+      ? (path.isAbsolute(factoryOptions.rootDirectory) ? factoryOptions.rootDirectory : path.resolve(process.cwd(), factoryOptions.rootDirectory))
+      : process.cwd();
     return async (generatorOptions?: OpenApiCliOptions) => {
       if (!generatorOptions) {
-        return Promise.reject('Missing options to run open api generator');
+        return Promise.reject(new Error('Missing options to run open api generator'));
       }
       const spawnOptions: SpawnOptions = {
         stdio: 'inherit',

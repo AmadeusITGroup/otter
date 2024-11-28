@@ -1,4 +1,7 @@
-import type { Api, ApiClient } from '@ama-sdk/core';
+import type {
+  Api,
+  ApiClient,
+} from '@ama-sdk/core';
 
 /**
  * Api manager is responsible to provide an api configuration to a service factory, so that it could instantiate an API
@@ -12,10 +15,10 @@ export class ApiManager {
 
   /**
    * Map of registered Api Client associated to specific API
-   * @warning This should not be used to get the ApiClient for an API, the function getConfiguration() should be used instead
+   * Warning: This should not be used to get the ApiClient for an API, the function getConfiguration() should be used instead
    */
   public get registeredApiConfigurations() {
-    return {...this.apiConfigurations} as const;
+    return { ...this.apiConfigurations } as const;
   }
 
   /**
@@ -32,7 +35,7 @@ export class ApiManager {
    * @param api API to get the configuration for
    */
   public getConfiguration(api?: string | Api): ApiClient {
-    return api && this.apiConfigurations[typeof api === 'string' ? api : api.apiName] || this.defaultConfiguration;
+    return (api && this.apiConfigurations[typeof api === 'string' ? api : api.apiName]) || this.defaultConfiguration;
   }
 
   /**

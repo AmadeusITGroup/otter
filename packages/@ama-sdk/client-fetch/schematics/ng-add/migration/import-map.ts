@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 const currentPackage = {
   newPackage: '@ama-sdk/client-fetch'
 };
@@ -32,5 +31,5 @@ export const mapMigrationFromCoreImports = {
     'CanStartConditionResult',
     'CanStartConditionFunction',
     'WaitForFetch'
-  ].reduce((acc, name) => ({...acc, [name]: currentPackage}), {} as Record<string, typeof currentPackage>)
+  ].reduce((acc, name) => ({ ...acc, [name]: currentPackage }), {} as Record<string, typeof currentPackage>)
 };

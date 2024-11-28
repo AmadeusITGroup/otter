@@ -10,9 +10,7 @@ module.exports = {
   displayName: require('../package.json').name,
   moduleNameMapper: {
     ...defaultConfig.moduleNameMapper,
-    // eslint-disable-next-line @typescript-eslint/naming-convention
     '^@o3r/testing/core$': ['<rootDir>/../../@o3r/testing/src/core/angular'],
-    // eslint-disable-next-line @typescript-eslint/naming-convention
     '^@o3r/testing/core/(.*)$': ['<rootDir>/../../@o3r/testing/src/core/angular/$1']
   },
   testPathIgnorePatterns: [

@@ -1,8 +1,10 @@
-import { generateThemeCss } from './helpers';
+import {
+  generateThemeCss,
+} from './helpers';
 
 describe('generateThemeCss', () => {
   it('should generate a css file', () => {
-    const result = generateThemeCss({'--test-var': '#000'});
+    const result = generateThemeCss({ '--test-var': '#000' });
 
     expect(result).toMatch('--test-var: #000;');
   });

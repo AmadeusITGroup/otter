@@ -1,12 +1,19 @@
-import { chain, Rule } from '@angular-devkit/schematics';
-import { createSchematicWithMetricsIfInstalled } from '@o3r/schematics';
-import { updateRuleEngineService } from './v10.0/action-module-split';
-import { useRegisterActionHandlers } from './v11.6/use-register-action-handlers';
-
+import {
+  chain,
+  Rule,
+} from '@angular-devkit/schematics';
+import {
+  createSchematicWithMetricsIfInstalled,
+} from '@o3r/schematics';
+import {
+  updateRuleEngineService,
+} from './v10.0/action-module-split';
+import {
+  useRegisterActionHandlers,
+} from './v11.6/use-register-action-handlers';
 
 function updateV100Fn(): Rule {
   return (tree, context) => {
-
     const updateRules: Rule[] = [
       updateRuleEngineService(),
       (_, ctx) => {
@@ -24,10 +31,7 @@ function updateV100Fn(): Rule {
  */
 export const updateV100 = createSchematicWithMetricsIfInstalled(updateV100Fn);
 
-/**
- *
- */
-export function updateV116Fn(): Rule {
+function updateV116Fn(): Rule {
   return chain([
     useRegisterActionHandlers
   ]);

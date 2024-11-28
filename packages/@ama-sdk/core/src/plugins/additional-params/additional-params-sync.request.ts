@@ -1,11 +1,17 @@
-import { PluginSyncRunner, RequestOptions, RequestPlugin } from '../core';
-import { isStringOrUndefined } from './additional-params.request';
+import {
+  PluginSyncRunner,
+  RequestOptions,
+  RequestPlugin,
+} from '../core';
+import {
+  isStringOrUndefined,
+} from './additional-params.request';
 
 export interface AdditionalParametersSync {
   /** Additional headers */
-  headers?: {[key: string]: string} | ((headers: Headers) => {[key: string]: string});
+  headers?: { [key: string]: string } | ((headers: Headers) => { [key: string]: string });
   /** Additional query params */
-  queryParams?: {[key: string]: string} | ((defaultValues?: {[key: string]: string}) => {[key: string]: string});
+  queryParams?: { [key: string]: string } | ((defaultValues?: { [key: string]: string }) => { [key: string]: string });
   /** Additional body params */
   body?: (defaultValues?: string) => string | null;
 }
@@ -14,7 +20,6 @@ export interface AdditionalParametersSync {
  * Plugin to add (or change) the request parameters
  */
 export class AdditionalParamsSyncRequest implements RequestPlugin {
-
   private readonly additionalParams: AdditionalParametersSync;
 
   /**
@@ -33,7 +38,7 @@ export class AdditionalParamsSyncRequest implements RequestPlugin {
         const body = this.additionalParams.body && isStringOrUndefined(data.body) ? this.additionalParams.body(data.body) : undefined;
 
         if (queryParams) {
-          data.queryParams = {...data.queryParams, ...queryParams};
+          data.queryParams = { ...data.queryParams, ...queryParams };
         }
 
         if (body !== undefined) {

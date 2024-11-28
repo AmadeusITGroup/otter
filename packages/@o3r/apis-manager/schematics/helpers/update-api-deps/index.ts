@@ -1,22 +1,33 @@
-import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+import {
+  chain,
+  Rule,
+  SchematicContext,
+  Tree,
+} from '@angular-devkit/schematics';
 import {
   getAppModuleFilePath,
   getModuleIndex,
   getWorkspaceConfig,
   insertBeforeModule as o3rInsertBeforeModule,
-  insertImportToModuleFile as o3rInsertImportToModuleFile
+  insertImportToModuleFile as o3rInsertImportToModuleFile,
 } from '@o3r/schematics';
-import { isImported } from '@schematics/angular/utility/ast-utils';
-import { addRootImport, addRootProvider } from '@schematics/angular/utility';
+import {
+  addRootImport,
+  addRootProvider,
+} from '@schematics/angular/utility';
+import {
+  isImported,
+} from '@schematics/angular/utility/ast-utils';
 import * as ts from 'typescript';
-import type { NgAddSchematicsSchema } from '../../ng-add/schema';
+import type {
+  NgAddSchematicsSchema,
+} from '../../ng-add/schema';
 
 /**
  * Update app.module file with api manager, if needed
  * @param options
  */
 export function updateApiDependencies(options: NgAddSchematicsSchema): Rule {
-
   const updateAppModule: Rule = (tree: Tree, context: SchematicContext) => {
     const additionalRules: Rule[] = [];
     const moduleFilePath = getAppModuleFilePath(tree, context, options.projectName);
@@ -40,14 +51,14 @@ export function updateApiDependencies(options: NgAddSchematicsSchema): Rule {
     const { moduleIndex } = getModuleIndex(sourceFile, sourceFileContent);
 
     const addImportToModuleFile = (name: string, file: string, moduleFunction?: string) => additionalRules.push(
-      addRootImport(options.projectName!, ({code, external}) => code`${external(name, file)}${moduleFunction}`)
+      addRootImport(options.projectName!, ({ code, external }) => code`${external(name, file)}${moduleFunction}`)
     );
 
     const insertImportToModuleFile = (name: string, file: string, isDefault?: boolean) =>
       o3rInsertImportToModuleFile(name, file, sourceFile, recorder, moduleFilePath, isDefault);
 
     const addProviderToModuleFile = (name: string, file: string, customProvider: string) => additionalRules.push(
-      addRootProvider(options.projectName!, ({code, external}) =>
+      addRootProvider(options.projectName!, ({ code, external }) =>
         code`{provide: ${external(name, file)}, ${customProvider}}`)
     );
 
@@ -88,12 +99,11 @@ export function apiManagerFactory(): ApiManager {
 
   const updateTsConfig: Rule = (tree: Tree, context: SchematicContext) => {
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
-    const tsconfig: string | undefined =
-      workspaceProject &&
-      workspaceProject.architect &&
-      workspaceProject.architect.build &&
-      workspaceProject.architect.build.options &&
-      workspaceProject.architect.build.options.tsConfig;
+    const tsconfig: string | undefined = workspaceProject
+      && workspaceProject.architect
+      && workspaceProject.architect.build
+      && workspaceProject.architect.build.options
+      && workspaceProject.architect.build.options.tsConfig;
 
     if (!tsconfig) {
       context.logger.warn('No tsconfig found in build target');
@@ -110,10 +120,8 @@ export function apiManagerFactory(): ApiManager {
       tsconfigObj.compilerOptions.lib = [];
     }
 
-    tsconfigObj.compilerOptions.lib.push('scripthost');
-    tsconfigObj.compilerOptions.lib.push('es2020');
-    tsconfigObj.compilerOptions.lib.push('dom');
-    tsconfigObj.compilerOptions.lib = tsconfigObj.compilerOptions.lib.reduce((acc: string[], lib: string) => acc.indexOf(lib) >= 0 ? acc : [...acc, lib], []);
+    tsconfigObj.compilerOptions.lib.push('scripthost', 'es2020', 'dom');
+    tsconfigObj.compilerOptions.lib = tsconfigObj.compilerOptions.lib.reduce((acc: string[], lib: string) => acc.includes(lib) ? acc : [...acc, lib], []);
 
     tree.overwrite(tsconfig, JSON.stringify(tsconfigObj, null, 2));
     return tree;

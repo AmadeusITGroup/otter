@@ -1,8 +1,18 @@
-import type { Observable } from 'rxjs';
-import type { HttpResponse } from '@angular/common/http';
-import type { ApiClient } from '../../fwk/core/api-client';
-import type { PluginContext } from './plugin';
-import type { RequestOptions } from './request-plugin';
+import type {
+  HttpResponse,
+} from '@angular/common/http';
+import type {
+  Observable,
+} from 'rxjs';
+import type {
+  ApiClient,
+} from '../../fwk/core/api-client';
+import type {
+  PluginContext,
+} from './plugin';
+import type {
+  RequestOptions,
+} from './request-plugin';
 
 /**
  * Interface of an async runnable plugin

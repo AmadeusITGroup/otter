@@ -1,7 +1,11 @@
-import {MatAutocompleteProfile} from '../../angular-materials';
-import {getPlainText, O3rElement, PlaywrightSourceElement} from '../element';
-
-export {SelectElementProfile} from '../../elements';
+import {
+  MatAutocompleteProfile,
+} from '../../angular-materials';
+import {
+  getPlainText,
+  O3rElement,
+  PlaywrightSourceElement,
+} from '../element';
 
 /**
  * Implementation dedicated to Playwright.
@@ -17,7 +21,7 @@ export class MatAutocomplete extends O3rElement implements MatAutocompleteProfil
     await this.click();
     const element = this.sourceElement.page;
     const matOptions = element.locator('.mat-option, mat-option');
-    await matOptions.first().waitFor({state: 'attached', timeout});
+    await matOptions.first().waitFor({ state: 'attached', timeout });
     const matOptionsCount = await matOptions.count();
     const options: (string | undefined)[] = [];
     if (matOptionsCount > 1) {
@@ -27,11 +31,11 @@ export class MatAutocomplete extends O3rElement implements MatAutocompleteProfil
       throw new Error(`MatAutocomplete selectByValue works only for filtered autocomplete. Found multiple values: ${options.join(', ')}`);
     }
     if (matOptionsCount === 1) {
-      const selectedOption: PlaywrightSourceElement = {element: matOptions.nth(0), page: this.sourceElement.page};
+      const selectedOption: PlaywrightSourceElement = { element: matOptions.nth(0), page: this.sourceElement.page };
       await new O3rElement(selectedOption).click();
       return this.sourceElement.element.press('Tab');
     }
 
-    return Promise.reject('Element with selector .mat-option, mat-option not found.');
+    return Promise.reject(new Error('Element with selector .mat-option, mat-option not found.'));
   }
 }

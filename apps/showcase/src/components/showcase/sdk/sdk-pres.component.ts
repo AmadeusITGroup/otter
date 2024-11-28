@@ -1,14 +1,41 @@
-import { PetApi, Tag } from '@o3r-training/showcase-sdk';
-import type { Pet } from '@o3r-training/showcase-sdk';
-import { ChangeDetectionStrategy, Component, computed, inject, signal, ViewEncapsulation } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { FormsModule } from '@angular/forms';
-import { DfMedia } from '@design-factory/design-factory';
-import { NgbHighlight, NgbPagination, NgbPaginationPages } from '@ng-bootstrap/ng-bootstrap';
-import { O3rComponent } from '@o3r/core';
-import { OtterIconPathPipe, OtterPickerPresComponent } from '../../utilities';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  signal,
+  ViewEncapsulation,
+} from '@angular/core';
+import {
+  toSignal,
+} from '@angular/core/rxjs-interop';
+import {
+  FormsModule,
+} from '@angular/forms';
+import {
+  DfMedia,
+} from '@design-factory/design-factory';
+import {
+  NgbHighlight,
+  NgbPagination,
+  NgbPaginationPages,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  O3rComponent,
+} from '@o3r/core';
+import type {
+  Pet,
+} from '@o3r-training/showcase-sdk';
+import {
+  PetApi,
+  Tag,
+} from '@o3r-training/showcase-sdk';
+import {
+  OtterIconPathPipe,
+  OtterPickerPresComponent,
+} from '../../utilities';
 
-const FILTER_PAG_REGEX = /[^0-9]/g;
+const FILTER_PAG_REGEX = /\D/g;
 
 @O3rComponent({ componentType: 'Component' })
 @Component({
@@ -77,13 +104,13 @@ export class SdkPresComponent {
   public filteredPets = computed(() => {
     let pets = this.pets();
     if (this.searchTerm()) {
-      const matchString = new RegExp(this.searchTerm().replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&'), 'i');
+      const matchString = new RegExp(this.searchTerm().replace(/[\s#$()*+,.?[\\\]^{|}-]/g, '\\$&'), 'i');
       const matchTag = (tag: Tag) => tag.name && matchString.test(tag.name);
       pets = pets.filter((pet) =>
-        (pet.id && matchString.test(String(pet.id))) ||
-        matchString.test(pet.name) ||
-        (pet.category?.name && matchString.test(pet.category.name)) ||
-        (pet.tags && pet.tags.some(matchTag)));
+        (pet.id && matchString.test(String(pet.id)))
+        || matchString.test(pet.name)
+        || (pet.category?.name && matchString.test(pet.category.name))
+        || (pet.tags && pet.tags.some((tag) => matchTag(tag))));
     }
     return pets;
   });
@@ -122,8 +149,8 @@ export class SdkPresComponent {
   public reload() {
     this.isLoading.set(true);
     this.hasErrors.set(false);
-    return this.petStoreApi.findPetsByStatus({status: 'available'}).then((pets) => {
-      this.pets.set(pets.filter((p) => p.category?.name === 'otter').sort((a, b) => a.id && b.id && a.id - b.id || 0));
+    return this.petStoreApi.findPetsByStatus({ status: 'available' }).then((pets) => {
+      this.pets.set(pets.filter((p) => p.category?.name === 'otter').sort((a, b) => (a.id && b.id && (a.id - b.id)) || 0));
       this.isLoading.set(false);
     }).catch(() => {
       this.isLoading.set(false);
@@ -138,22 +165,22 @@ export class SdkPresComponent {
     const pet: Pet = {
       id: this.getNextId(),
       name: this.petName(),
-      category: {name: 'otter'},
-      tags: [{name: 'otter'}],
+      category: { name: 'otter' },
+      tags: [{ name: 'otter' }],
       status: 'available',
       photoUrls: this.petName() ? [this.petImage()] : []
     };
     this.isLoading.set(true);
     await this.petStoreApi.addPet({
-      // eslint-disable-next-line @typescript-eslint/naming-convention
+
       Pet: pet
     });
-    if (pet.photoUrls.length) {
+    if (pet.photoUrls.length > 0) {
       const filePath = `${this.baseUrl}${pet.photoUrls[0]}`;
       const blob = await (await fetch(filePath)).blob();
       await this.petStoreApi.uploadFile({
         petId: pet.id!,
-        body: new File([blob], filePath, {type: blob.type})
+        body: new File([blob], filePath, { type: blob.type })
       });
     }
     await this.reload();
@@ -163,8 +190,8 @@ export class SdkPresComponent {
     if (petToDelete.id) {
       this.isLoading.set(true);
       try {
-        await this.petStoreApi.deletePet({petId: petToDelete.id});
-      } catch (ex) {
+        await this.petStoreApi.deletePet({ petId: petToDelete.id });
+      } catch {
         // The backend respond with incorrect header application/json while the response is just a string
       }
       await this.reload();

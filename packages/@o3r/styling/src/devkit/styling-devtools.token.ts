@@ -1,5 +1,9 @@
-import { InjectionToken } from '@angular/core';
-import type { StylingDevtoolsServiceOptions } from './styling-devkit.interface';
+import {
+  InjectionToken,
+} from '@angular/core';
+import type {
+  StylingDevtoolsServiceOptions,
+} from './styling-devkit.interface';
 
 /**
  * Default value for styling devtools

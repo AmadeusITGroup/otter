@@ -32,6 +32,7 @@
       <a href="https://github.com/AmadeusITGroup/otter/blob/main/apps/showcase/src/components/showcase/rules-engine" target="_blank" rel="noopener">Source code</a>
       <ul ngbNav #nav="ngbNav" class="nav nav-tabs mt-3">
         <li ngbNavItem class="nav-item">
+          <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -- handled by the directive ngbNavLink -->
           <a ngbNavLink class="nav-link" [class.active]="activeRuleTab === 'configuration'" (click)="activateRuleTab('configuration')">Configuration rule</a>
           <ng-template ngbNavContent>
             <p>
@@ -46,6 +47,7 @@
           </ng-template>
         </li>
         <li ngbNavItem class="nav-item">
+          <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -- handled by the directive ngbNavLink -->
           <a ngbNavLink class="nav-link" [class.active]="activeRuleTab === 'localization'" (click)="activateRuleTab('localization')">Localization rule</a>
           <ng-template ngbNavContent>
             <p>
@@ -55,6 +57,7 @@
           </ng-template>
         </li>
         <li ngbNavItem class="nav-item">
+          <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -- handled by the directive ngbNavLink -->
           <a ngbNavLink class="nav-link" [class.active]="activeRuleTab === 'dynamic-content'" (click)="activateRuleTab('dynamic-content')">Dynamic content rule</a>
           <ng-template ngbNavContent>
             <p>
@@ -66,6 +69,7 @@
           </ng-template>
         </li>
         <li ngbNavItem class="nav-item">
+          <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -- handled by the directive ngbNavLink -->
           <a ngbNavLink class="nav-link" [class.active]="activeRuleTab === 'operator-fact'" (click)="activateRuleTab('operator-fact')">Operator fact</a>
           <ng-template ngbNavContent>
             <p>

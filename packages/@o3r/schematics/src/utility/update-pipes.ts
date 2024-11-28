@@ -1,9 +1,26 @@
-import { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { basename, dirname, join } from 'node:path';
+import {
+  basename,
+  dirname,
+  join,
+} from 'node:path';
+import {
+  Rule,
+  SchematicContext,
+  Tree,
+} from '@angular-devkit/schematics';
 import * as ts from 'typescript';
-import { DecoratorWithArg, isDecoratorWithArg } from './ast';
-import { getO3rComponentInfoOrThrowIfNotFound, isNgClassComponent, isNgClassDecorator } from './component';
-import { findFilesInTree } from './loaders';
+import {
+  DecoratorWithArg,
+  isDecoratorWithArg,
+} from './ast';
+import {
+  getO3rComponentInfoOrThrowIfNotFound,
+  isNgClassComponent,
+  isNgClassDecorator,
+} from './component';
+import {
+  findFilesInTree,
+} from './loaders';
 
 /** Dictionary of pipes to be updated */
 export type PipeReplacementInfo = Record<string, { new: { name: string; import?: string }; import: string }>;
@@ -20,9 +37,9 @@ const applyChanges = (
   if (ts.isObjectLiteralExpression(ngDecorator.expression.arguments[0])) {
     const importsProp = ngDecorator.expression.arguments[0].properties.find((prop): prop is ts.PropertyAssignment & { initializer: ts.ArrayLiteralExpression } =>
       ts.isPropertyAssignment(prop)
-              && ts.isIdentifier(prop.name)
-              && prop.name.text === 'imports'
-              && ts.isArrayLiteralExpression(prop.initializer)
+      && ts.isIdentifier(prop.name)
+      && prop.name.text === 'imports'
+      && ts.isArrayLiteralExpression(prop.initializer)
     );
     if (importsProp) {
       matchers.forEach((matcher) => {
@@ -68,7 +85,7 @@ export const updatePipes = (pipeReplacementInfo: PipeReplacementInfo): Rule => (
     const matchers = Array.from(
       file.content.toString().matchAll(pipeRegex)
     ).filter((matcher) => !!pipeReplacementInfo[matcher[1]]);
-    if (matchers.length) {
+    if (matchers.length > 0) {
       const directory = dirname(file.path);
       const baseFileName = basename(basename(file.path, '.html'), '.template');
       const componentFile = join(directory, `${baseFileName}.component.ts`);
@@ -87,11 +104,11 @@ export const updatePipes = (pipeReplacementInfo: PipeReplacementInfo): Rule => (
           ts.ScriptTarget.ES2020,
           true
         );
-        const [ngClass] = componentSourceFile.statements.filter((statement): statement is ts.ClassDeclaration =>
+        const ngClass = componentSourceFile.statements.find((statement): statement is ts.ClassDeclaration =>
           ts.isClassDeclaration(statement)
           && isNgClassComponent(statement)
         );
-        const [ngDecorator] = ((ngClass && ts.getDecorators(ngClass)) || []).filter(isNgClassDecorator);
+        const ngDecorator = ((ngClass && ts.getDecorators(ngClass)) || []).find((decorator) => isNgClassDecorator(decorator));
         if (ngDecorator) {
           applyChanges(pipeReplacementInfo, ngDecorator, matchers, componentFile, file.path, tree, context);
         }
@@ -104,9 +121,9 @@ export const updatePipes = (pipeReplacementInfo: PipeReplacementInfo): Rule => (
         );
         const ngModuleClass = moduleSourceFile.statements.find((statement): statement is ts.ClassDeclaration =>
           ts.isClassDeclaration(statement)
-          && !!(ts.getDecorators(statement) || []).find(isNgModuleDecorator)
+          && (ts.getDecorators(statement) || []).some((decorator) => isNgModuleDecorator(decorator))
         );
-        const ngDecorator = ((ngModuleClass && ts.getDecorators(ngModuleClass)) || []).find(isNgModuleDecorator);
+        const ngDecorator = ((ngModuleClass && ts.getDecorators(ngModuleClass)) || []).find((decorator) => isNgModuleDecorator(decorator));
         if (ngDecorator && isDecoratorWithArg(ngDecorator)) {
           applyChanges(pipeReplacementInfo, ngDecorator, matchers, moduleFile, file.path, tree, context);
         }

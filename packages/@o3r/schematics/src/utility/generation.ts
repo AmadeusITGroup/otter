@@ -1,8 +1,18 @@
-import type { JsonValue } from '@angular-devkit/core';
-import type { Tree } from '@angular-devkit/schematics';
-import { O3rCliError } from './error';
-import { getWorkspaceConfig } from './loaders';
-import { getDefaultOptionsForSchematic } from './collection';
+import type {
+  JsonValue,
+} from '@angular-devkit/core';
+import type {
+  Tree,
+} from '@angular-devkit/schematics';
+import {
+  getDefaultOptionsForSchematic,
+} from './collection';
+import {
+  O3rCliError,
+} from './error';
+import {
+  getWorkspaceConfig,
+} from './loaders';
 
 /** Type of generated item */
 export type GeneratedItemType =
@@ -26,20 +36,13 @@ export const OTTER_ITEM_TYPES: GeneratedItemType[] = [
 ];
 
 /** List of the default destination paths for each generated entity */
-export const TYPES_DEFAULT_FOLDER: { [key in GeneratedItemType] : {app?: string; lib?: string} } = {
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  '@o3r/core:component': {app: 'src/components', lib: 'src/components'},
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  '@o3r/core:page': {app: 'src/app'},
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  '@o3r/core:service': {app: 'src/services', lib: 'src/services'},
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  '@o3r/core:store': {app: 'src/store', lib: 'src/store'},
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  '@o3r/core:schematics-update': {app: 'src/schematics', lib: 'src/schematics'},
-  // eslint-disable-next-line @typescript-eslint/naming-convention
+export const TYPES_DEFAULT_FOLDER: { [key in GeneratedItemType]: { app?: string; lib?: string } } = {
+  '@o3r/core:component': { app: 'src/components', lib: 'src/components' },
+  '@o3r/core:page': { app: 'src/app' },
+  '@o3r/core:service': { app: 'src/services', lib: 'src/services' },
+  '@o3r/core:store': { app: 'src/store', lib: 'src/store' },
+  '@o3r/core:schematics-update': { app: 'src/schematics', lib: 'src/schematics' },
   '@o3r/testing:playwright-scenario': { app: 'e2e-playwright/scenarios' },
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   '@o3r/testing:playwright-sanity': { app: 'e2e-playwright/sanity' }
 };
 
@@ -55,16 +58,12 @@ export function getDestinationPath(typeOfItem: GeneratedItemType, directory: str
     return directory;
   }
 
-  /**
-   * @param generatorName
-   * @param propTree
-   * @param propProject
-   */
   const getSchematicsProperty = <T extends { [x: string]: JsonValue } = { [x: string]: JsonValue }>(generatorName: GeneratedItemType, propTree: Tree, propProject?: string | null): T | null => {
     const workspace = getWorkspaceConfig(propTree);
     const [collection, schematicName] = generatorName.split(':');
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-    return workspace && getDefaultOptionsForSchematic(workspace, collection, schematicName, { projectName: propProject || undefined }) as any as T | undefined || null;
+    return ((
+      workspace && getDefaultOptionsForSchematic<any>(workspace, collection, schematicName, { projectName: propProject || undefined })
+    ) || null) as T | null; // TODO: Check why `getDefaultOptionsForSchematic` expect a type matching `WorkspaceLayout`
   };
 
   const config = getSchematicsProperty(typeOfItem, tree, project);

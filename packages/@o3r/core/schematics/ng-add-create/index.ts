@@ -1,23 +1,39 @@
-import { chain, move, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import * as path from 'node:path';
 import * as fs from 'node:fs';
-import type {PackageJson} from 'type-fest';
-import { createSchematicWithMetricsIfInstalled, findConfigFileRelativePath, getPackageManagerRunner } from '@o3r/schematics';
-import { apply, MergeStrategy, mergeWith, renameTemplateFiles, template, url } from '@angular-devkit/schematics';
-import { NgGenerateUpdateSchematicsSchema } from './schema';
+import * as path from 'node:path';
+import {
+  apply,
+  chain,
+  MergeStrategy,
+  mergeWith,
+  move,
+  renameTemplateFiles,
+  Rule,
+  SchematicContext,
+  template,
+  Tree,
+  url,
+} from '@angular-devkit/schematics';
+import {
+  createSchematicWithMetricsIfInstalled,
+  findConfigFileRelativePath,
+  getPackageManagerRunner,
+} from '@o3r/schematics';
+import type {
+  PackageJson,
+} from 'type-fest';
+import {
+  NgGenerateUpdateSchematicsSchema,
+} from './schema';
 
 /**
  * Rule factory to include `ng add` skeleton
- *
  * @param options
  */
 function updateTemplatesFn(options: NgGenerateUpdateSchematicsSchema): Rule {
-
   const targetPath = options.path ? path.posix.join('/', options.path) : '/';
   const packageJsonPath = path.posix.join(targetPath, 'package.json');
 
   return (tree: Tree, context: SchematicContext) => {
-
     // register scripts
     if (tree.exists(packageJsonPath)) {
       const packageJson: PackageJson = JSON.parse(tree.read(packageJsonPath)!.toString());
@@ -26,25 +42,24 @@ function updateTemplatesFn(options: NgGenerateUpdateSchematicsSchema): Rule {
         return tree;
       }
       const o3rCorePackageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
-      const o3rCorePackageJson: PackageJson & { generatorDependencies?: Record<string, string> } = JSON.parse(fs.readFileSync(o3rCorePackageJsonPath)!.toString());
+      const o3rCorePackageJson: PackageJson & { generatorDependencies?: Record<string, string> } = JSON.parse(fs.readFileSync(o3rCorePackageJsonPath).toString());
       // prepare needed deps for schematics
       const angularVersion = packageJson.devDependencies?.['@angular/cli'] || packageJson.devDependencies?.['@angular/core'];
       const otterVersion = o3rCorePackageJson.dependencies!['@o3r/schematics'];
       const packageManagerRunner = getPackageManagerRunner();
       packageJson.scripts ||= {};
-      packageJson.scripts['build:schematics'] =
-        `tsc -b tsconfig.builders.json --pretty && ${packageManagerRunner} cpy 'schematics/**/*.json' dist/schematics && ${packageManagerRunner} cpy 'collection.json' dist`;
-      // eslint-disable-next-line @typescript-eslint/dot-notation, dot-notation
-      packageJson['schematics'] = './collection.json';
+      // eslint-disable-next-line @stylistic/max-len -- keep the command on the same line
+      packageJson.scripts['build:schematics'] = `tsc -b tsconfig.builders.json --pretty && ${packageManagerRunner} cpy 'schematics/**/*.json' dist/schematics && ${packageManagerRunner} cpy 'collection.json' dist`;
+      packageJson.schematics = './collection.json';
       packageJson.peerDependencies ||= {};
       packageJson.peerDependencies['@angular-devkit/schematics'] = angularVersion;
       packageJson.peerDependencies['@angular-devkit/core'] = angularVersion;
       packageJson.peerDependencies['@o3r/schematics'] = otterVersion;
       packageJson.peerDependenciesMeta ||= {};
-      packageJson.peerDependenciesMeta['@angular-devkit/schematics'] = {optional: true};
+      packageJson.peerDependenciesMeta['@angular-devkit/schematics'] = { optional: true };
       packageJson.peerDependenciesMeta['@angular-devkit/core'] = { optional: true };
       packageJson.peerDependenciesMeta['@schematics/angular'] = { optional: true };
-      packageJson.peerDependenciesMeta['@o3r/schematics'] = {optional: true};
+      packageJson.peerDependenciesMeta['@o3r/schematics'] = { optional: true };
       packageJson.devDependencies['@angular-devkit/schematics'] = angularVersion;
       packageJson.devDependencies['@angular-devkit/core'] = angularVersion;
       packageJson.devDependencies['@o3r/schematics'] = otterVersion;
@@ -71,14 +86,12 @@ function updateTemplatesFn(options: NgGenerateUpdateSchematicsSchema): Rule {
 
 /**
  * Rule factory to include `ng add` skeleton
- *
  * @param options
  */
 export const updateTemplates = createSchematicWithMetricsIfInstalled(updateTemplatesFn);
 
 /**
  * add a new ngUpdate function
- *
  * @param options
  */
 function ngAddCreateFn(options: NgGenerateUpdateSchematicsSchema): Rule {
@@ -89,7 +102,6 @@ function ngAddCreateFn(options: NgGenerateUpdateSchematicsSchema): Rule {
 
 /**
  * add a new ngUpdate function
- *
  * @param options
  */
 export const ngAddCreate = createSchematicWithMetricsIfInstalled(ngAddCreateFn);

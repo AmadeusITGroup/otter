@@ -1,11 +1,27 @@
-import type { EnvironmentContext, JestEnvironmentConfig } from '@jest/environment';
-import type { Circus } from '@jest/types';
-import { TestEnvironment as NodeTestEnvironment } from 'jest-environment-node';
-import { execSync } from 'node:child_process';
+import {
+  execSync,
+} from 'node:child_process';
+import {
+  rm,
+} from 'node:fs/promises';
+import {
+  join,
+} from 'node:path';
+import type {
+  EnvironmentContext,
+  JestEnvironmentConfig,
+} from '@jest/environment';
+import type {
+  Circus,
+} from '@jest/types';
+import {
+  TestEnvironment as NodeTestEnvironment,
+} from 'jest-environment-node';
 import pidFromPort from 'pid-from-port';
-import { rm } from 'node:fs/promises';
-import { join } from 'node:path';
-import { prepareTestEnv, type PrepareTestEnvType } from '../prepare-test-env';
+import {
+  prepareTestEnv,
+  type PrepareTestEnvType,
+} from '../prepare-test-env';
 
 /**
  *  Return type of prepareTestEnv
@@ -13,8 +29,8 @@ import { prepareTestEnv, type PrepareTestEnvType } from '../prepare-test-env';
 export type TestEnvironment = Awaited<ReturnType<typeof prepareTestEnv>>;
 
 declare global {
-  // eslint-disable-next-line no-var
-  var o3rEnvironment: {testEnvironment: TestEnvironment};
+  // eslint-disable-next-line no-var -- need to use var to add the variable as a member of globalThis (window)
+  var o3rEnvironment: { testEnvironment: TestEnvironment };
 }
 
 const rootFolder = join(__dirname, '..', '..', '..', '..');
@@ -62,10 +78,10 @@ export class JestEnvironmentO3r extends NodeTestEnvironment {
   private async startVerdaccio() {
     try {
       await pidFromPort(4873);
-    } catch (ex) {
+    } catch {
       this.shouldHandleVerdaccio = true;
-      execSync('yarn verdaccio:start', {cwd: rootFolder, stdio: 'inherit'});
-      execSync('yarn verdaccio:publish', {cwd: rootFolder, stdio: 'inherit'});
+      execSync('yarn verdaccio:start', { cwd: rootFolder, stdio: 'inherit' });
+      execSync('yarn verdaccio:publish', { cwd: rootFolder, stdio: 'inherit' });
     }
   }
 
@@ -74,7 +90,7 @@ export class JestEnvironmentO3r extends NodeTestEnvironment {
    */
   private stopVerdaccio() {
     if (this.shouldHandleVerdaccio) {
-      execSync('yarn verdaccio:stop', {cwd: rootFolder, stdio: 'inherit'});
+      execSync('yarn verdaccio:stop', { cwd: rootFolder, stdio: 'inherit' });
     }
   }
 
@@ -87,13 +103,14 @@ export class JestEnvironmentO3r extends NodeTestEnvironment {
     // Create test environment before test starts
     if (event.name === 'test_start') {
       const appFolder = `${this.appFolder}${this.appIndex++ || ''}`;
-      this.testEnvironments[event.test.name] = await prepareTestEnv(appFolder, {type: this.prepareTestEnvType});
+      this.testEnvironments[event.test.name] = await prepareTestEnv(appFolder, { type: this.prepareTestEnvType });
       this.global.o3rEnvironment.testEnvironment = this.testEnvironments[event.test.name];
     }
     // Cleanup test environment after test succeeds
     if (event.name === 'test_fn_success' && this.testEnvironments[event.test.name]?.workspacePath) {
-      try { await rm(this.testEnvironments[event.test.name].workspacePath, { recursive: true }); }
-      catch { /* ignore error */ }
+      try {
+        await rm(this.testEnvironments[event.test.name].workspacePath, { recursive: true });
+      } catch { /* ignore error */ }
     }
   }
 

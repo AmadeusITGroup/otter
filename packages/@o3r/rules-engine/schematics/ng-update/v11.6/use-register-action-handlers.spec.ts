@@ -1,6 +1,14 @@
-import { callRule, type SchematicContext, Tree } from '@angular-devkit/schematics';
-import { lastValueFrom } from 'rxjs';
-import { useRegisterActionHandlers } from './use-register-action-handlers';
+import {
+  callRule,
+  type SchematicContext,
+  Tree,
+} from '@angular-devkit/schematics';
+import {
+  lastValueFrom,
+} from 'rxjs';
+import {
+  useRegisterActionHandlers,
+} from './use-register-action-handlers';
 
 let initialTree: Tree;
 let tree: Tree;

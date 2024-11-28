@@ -5,7 +5,7 @@ import {
   NotCondition,
   Operand,
   OperandFact,
-  UnaryOperation
+  UnaryOperation,
 } from '../structure';
 
 /**

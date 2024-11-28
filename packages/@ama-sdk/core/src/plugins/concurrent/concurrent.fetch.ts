@@ -1,11 +1,14 @@
-import { FetchCall, FetchPlugin, FetchPluginContext } from '../core';
+import {
+  FetchCall,
+  FetchPlugin,
+  FetchPluginContext,
+} from '../core';
 
 /**
  * Plugin to limit the number of concurrent call
  * @deprecated Use the one exposed by {@link @ama-sdk/client-fetch}, will be removed in v13
  */
 export class ConcurrentFetch implements FetchPlugin {
-
   /** Maximum number of concurrent call */
   public maxConcurrentPoolSize: number;
 
@@ -37,7 +40,7 @@ export class ConcurrentFetch implements FetchPlugin {
    * Unstack and resolve the promise stopping the call to start
    */
   private unstackResolve() {
-    if (this.canStart() && this.waitingResolvers.length) {
+    if (this.canStart() && this.waitingResolvers.length > 0) {
       this.waitingResolvers.shift()!(true);
     }
   }
@@ -55,11 +58,7 @@ export class ConcurrentFetch implements FetchPlugin {
         try {
           const fetchResponse = await fetchCall;
           return fetchResponse;
-        // eslint-disable-next-line no-useless-catch
-        } catch (e) {
-          throw e;
         } finally {
-          // eslint-disable-next-line @typescript-eslint/no-floating-promises
           this.pool = this.pool.filter((call) => call !== fetchCall);
           this.poolSize--;
           this.unstackResolve();
@@ -67,5 +66,4 @@ export class ConcurrentFetch implements FetchPlugin {
       }
     };
   }
-
 }

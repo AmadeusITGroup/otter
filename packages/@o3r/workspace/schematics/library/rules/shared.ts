@@ -1,8 +1,17 @@
 import * as path from 'node:path';
-import type { Rule } from '@angular-devkit/schematics';
-import type { PackageJson } from 'type-fest';
-import { NgGenerateModuleSchema } from '../schema';
-import { getPackageManagerRunner, getWorkspaceConfig } from '@o3r/schematics';
+import type {
+  Rule,
+} from '@angular-devkit/schematics';
+import {
+  getPackageManagerRunner,
+  getWorkspaceConfig,
+} from '@o3r/schematics';
+import type {
+  PackageJson,
+} from 'type-fest';
+import {
+  NgGenerateModuleSchema,
+} from '../schema';
 
 /**
  * Generate rule to update generated package.json file
@@ -14,10 +23,9 @@ import { getPackageManagerRunner, getWorkspaceConfig } from '@o3r/schematics';
 export function updatePackageDependenciesFactory(
     targetPath: string,
     otterVersion: string,
-    o3rCorePackageJson: PackageJson & { generatorDependencies?: Record<string, string>},
+    o3rCorePackageJson: PackageJson & { generatorDependencies?: Record<string, string> },
     options: NgGenerateModuleSchema): Rule {
   return (tree) => {
-    /* eslint-disable @typescript-eslint/naming-convention */
     const packageJson = tree.readJson(path.posix.join(targetPath, 'package.json')) as PackageJson;
     const runner = getPackageManagerRunner(getWorkspaceConfig(tree));
     packageJson.description = options.description || packageJson.description;
@@ -50,21 +58,20 @@ export function updatePackageDependenciesFactory(
       '@typescript-eslint/eslint-plugin': o3rCorePackageJson.generatorDependencies!['@typescript-eslint/parser'],
       '@typescript-eslint/parser': o3rCorePackageJson.generatorDependencies!['@typescript-eslint/parser'],
       'cpy-cli': o3rCorePackageJson.generatorDependencies!['cpy-cli'],
-      'eslint': o3rCorePackageJson.generatorDependencies!.eslint,
+      eslint: o3rCorePackageJson.generatorDependencies!.eslint,
       'eslint-import-resolver-node': o3rCorePackageJson.generatorDependencies!['eslint-import-resolver-node'],
       'eslint-plugin-jest': o3rCorePackageJson.generatorDependencies!['eslint-plugin-jest'],
       'eslint-plugin-jsdoc': o3rCorePackageJson.generatorDependencies!['eslint-plugin-jsdoc'],
       'eslint-plugin-prefer-arrow': o3rCorePackageJson.generatorDependencies!['eslint-plugin-prefer-arrow'],
       'eslint-plugin-unicorn': o3rCorePackageJson.generatorDependencies!['eslint-plugin-unicorn'],
-      'jest': o3rCorePackageJson.generatorDependencies!.jest,
+      jest: o3rCorePackageJson.generatorDependencies!.jest,
       'jest-environment-jsdom': o3rCorePackageJson.generatorDependencies!.jest,
       'jest-junit': o3rCorePackageJson.generatorDependencies!['jest-junit'],
       'jest-preset-angular': o3rCorePackageJson.generatorDependencies!['jest-preset-angular'],
-      'rxjs': o3rCorePackageJson.peerDependencies!.rxjs,
-      'typescript': o3rCorePackageJson.peerDependencies!.typescript,
+      rxjs: o3rCorePackageJson.peerDependencies!.rxjs,
+      typescript: o3rCorePackageJson.peerDependencies!.typescript,
       'zone.js': o3rCorePackageJson.generatorDependencies!['zone.js']
     };
-    /* eslint-enable @typescript-eslint/naming-convention */
     tree.overwrite(path.posix.join(targetPath, 'package.json'), JSON.stringify(packageJson, null, 2));
     return tree;
   };

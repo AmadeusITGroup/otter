@@ -1,6 +1,12 @@
-import type {DeclarationReflection} from 'typedoc';
-import {DocumentationNodeType} from './enums';
-import {CommonDocumentationNode} from './common';
+import type {
+  DeclarationReflection,
+} from 'typedoc';
+import {
+  CommonDocumentationNode,
+} from './common';
+import {
+  DocumentationNodeType,
+} from './enums';
 
 /**
  * Documentation node

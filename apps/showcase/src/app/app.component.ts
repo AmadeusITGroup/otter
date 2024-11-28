@@ -1,9 +1,31 @@
-import { Component, inject, OnDestroy, TemplateRef } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
-import { NgbOffcanvas, NgbOffcanvasRef } from '@ng-bootstrap/ng-bootstrap';
-import { O3rComponent } from '@o3r/core';
-import { filter, map, Observable, share, shareReplay, Subscription } from 'rxjs';
-import { SideNavLinksGroup } from '../components/index';
+import {
+  Component,
+  inject,
+  OnDestroy,
+  TemplateRef,
+} from '@angular/core';
+import {
+  NavigationEnd,
+  Router,
+} from '@angular/router';
+import {
+  NgbOffcanvas,
+  NgbOffcanvasRef,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  O3rComponent,
+} from '@o3r/core';
+import {
+  filter,
+  map,
+  Observable,
+  share,
+  shareReplay,
+  Subscription,
+} from 'rxjs';
+import {
+  SideNavLinksGroup,
+} from '../components/index';
 
 @O3rComponent({ componentType: 'Component' })
 @Component({

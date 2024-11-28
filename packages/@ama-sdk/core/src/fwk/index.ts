@@ -7,4 +7,4 @@ export * from './errors';
 export * from './ignore-enum.type';
 export * from './logger';
 export * from './mocks/index';
-export * from './Reviver';
+export * from './reviver';

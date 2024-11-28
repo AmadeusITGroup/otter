@@ -1,4 +1,6 @@
-import { Observable } from 'rxjs';
+import {
+  Observable,
+} from 'rxjs';
 
 /** Represents all the supported facts types TOCHECK utils.Date vs Date */
 export type Facts = string | number | boolean | null | Date | Record<string, unknown> | unknown[];

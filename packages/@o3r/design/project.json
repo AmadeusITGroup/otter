@@ -47,16 +47,7 @@
       }
     },
     "lint": {
-      "options": {
-        "eslintConfig": "packages/@o3r/design/.eslintrc.js",
-        "lintFilePatterns": [
-          "packages/@o3r/design/src/**/*.ts",
-          "packages/@o3r/design/schematics/**/*.ts",
-          "packages/@o3r/design/cli/**/*.ts",
-          "packages/@o3r/design/builders/**/*.ts",
-          "packages/@o3r/design/package.json"
-        ]
-      }
+      "executor": "nx:run-commands"
     },
     "test": {
       "executor": "@nx/jest:jest",

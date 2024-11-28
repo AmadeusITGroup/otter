@@ -1,5 +1,11 @@
-import type { RequestOptions } from '@ama-sdk/core';
-import type { FetchCall, FetchPlugin, FetchPluginContext } from '../../fetch-plugin';
+import type {
+  RequestOptions,
+} from '@ama-sdk/core';
+import type {
+  FetchCall,
+  FetchPlugin,
+  FetchPluginContext,
+} from '../../fetch-plugin';
 
 interface AbortCallbackParameters {
   /** URL targeted */
@@ -64,14 +70,11 @@ export type AbortCallback = (controller?: AbortCallbackParameters) => void | boo
 
 /** Plugin to abort a Fetch request */
 export class AbortFetch implements FetchPlugin {
-
   /**
    * Abort Fetch plugin
    * @param abortCallback Condition that should be passed to start the call
    */
-  constructor(public abortCallback: AbortCallback) {
-  }
-
+  constructor(public abortCallback: AbortCallback) {}
 
   /** @inheritDoc */
   public load(context: FetchPluginContext) {

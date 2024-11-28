@@ -1,5 +1,10 @@
-import type { Rule, Tree } from '@angular-devkit/schematics';
-import { findFilesInTree } from '@o3r/schematics';
+import type {
+  Rule,
+  Tree,
+} from '@angular-devkit/schematics';
+import {
+  findFilesInTree,
+} from '@o3r/schematics';
 
 /**
  * Replace `actionHandlers.add` or `actionHandlers.delete` by `registerActionHandlers` or `unregisterActionHandlers` in file

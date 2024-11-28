@@ -1,10 +1,26 @@
-import { O3rCliError } from '@o3r/schematics';
-import type { ExecSyncOptions } from 'node:child_process';
-import { cpSync, existsSync, mkdirSync, readFileSync, rmSync } from 'node:fs';
+import type {
+  ExecSyncOptions,
+} from 'node:child_process';
+import {
+  cpSync,
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  rmSync,
+} from 'node:fs';
 import * as path from 'node:path';
-import type { PackageJson } from 'type-fest';
-import { createTestEnvironmentBlank } from './test-environments/create-test-environment-blank';
-import { createTestEnvironmentOtterProjectWithAppAndLib } from './test-environments/create-test-environment-otter-project';
+import {
+  O3rCliError,
+} from '@o3r/schematics';
+import type {
+  PackageJson,
+} from 'type-fest';
+import {
+  createTestEnvironmentBlank,
+} from './test-environments/create-test-environment-blank';
+import {
+  createTestEnvironmentOtterProjectWithAppAndLib,
+} from './test-environments/create-test-environment-otter-project';
 import {
   createWithLock,
   getLatestPackageVersion,
@@ -12,7 +28,7 @@ import {
   type Logger,
   packageManagerInstallWithFrozenLock,
   setPackagerManagerConfig,
-  setupGit
+  setupGit,
 } from './utilities/index';
 
 /**
@@ -23,12 +39,10 @@ export type PrepareTestEnvType = 'blank' | 'o3r-project-with-app';
 
 /**
  * Retrieve the version used by yarn and setup at root level
- * @param rootFolderPath: path to the folder where to take the configuration from
- * @param rootFolderPath
+ * @param rootFolderPath path to the folder where to take the configuration from
  */
 export function getYarnVersionFromRoot(rootFolderPath: string) {
-  const o3rPackageJson: PackageJson & { generatorDependencies?: Record<string, string> } =
-    JSON.parse(readFileSync(path.join(rootFolderPath, 'package.json')).toString());
+  const o3rPackageJson: PackageJson & { generatorDependencies?: Record<string, string> } = JSON.parse(readFileSync(path.join(rootFolderPath, 'package.json')).toString());
   return o3rPackageJson?.packageManager?.split('@')?.[1] || 'latest';
 }
 
@@ -62,8 +76,7 @@ export async function prepareTestEnv(folderName: string, options?: PrepareTestEn
   const execAppOptions: ExecSyncOptions = {
     cwd: workspacePath,
     stdio: 'inherit',
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    env: {...process.env, NODE_OPTIONS: '', CI: 'true'}
+    env: { ...process.env, NODE_OPTIONS: '', CI: 'true' }
   };
 
   const packageManagerConfig = {
@@ -77,9 +90,9 @@ export async function prepareTestEnv(folderName: string, options?: PrepareTestEn
     logger.debug?.(`Creating it-tests folder`);
     await createWithLock(() => {
       mkdirSync(itTestsFolderPath);
-      setPackagerManagerConfig(packageManagerConfig, {...execAppOptions, cwd: itTestsFolderPath}, 'npm');
+      setPackagerManagerConfig(packageManagerConfig, { ...execAppOptions, cwd: itTestsFolderPath }, 'npm');
       return Promise.resolve();
-    }, {lockFilePath: `${itTestsFolderPath}.lock`, cwd: path.join(rootFolderPath, '..'), appDirectory: 'it-tests'});
+    }, { lockFilePath: `${itTestsFolderPath}.lock`, cwd: path.join(rootFolderPath, '..'), appDirectory: 'it-tests' });
   }
   const o3rExactVersion = getLatestPackageVersion('@o3r/create', {
     ...execAppOptions,
@@ -89,7 +102,7 @@ export async function prepareTestEnv(folderName: string, options?: PrepareTestEn
 
   // Remove existing app
   if (existsSync(workspacePath)) {
-    rmSync(workspacePath, {recursive: true});
+    rmSync(workspacePath, { recursive: true });
   }
 
   const prepareFinalApp = (baseApp: string) => {
@@ -99,8 +112,8 @@ export async function prepareTestEnv(folderName: string, options?: PrepareTestEn
       recursive: true,
       dereference: true,
       filter: (source) =>
-        !/(?:^|[\\/])node_modules(?:[\\/]|$)/.test(source) &&
-        !/(?:^|[\\/])\.git(?:[\\/]|$)/.test(source)
+        !/(?:^|[/\\])node_modules(?:[/\\]|$)/.test(source)
+        && !/(?:^|[/\\])\.git(?:[/\\]|$)/.test(source)
     });
     if (existsSync(path.join(workspacePath, 'package.json'))) {
       packageManagerInstallWithFrozenLock(execAppOptions);

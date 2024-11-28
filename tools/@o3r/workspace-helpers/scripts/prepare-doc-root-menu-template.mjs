@@ -6,10 +6,12 @@
  * @param packagesVariableValueIdentifier Identifier to be replaced by the packages value
  */
 
-import { globby as glob } from 'globby';
-import minimist from 'minimist';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
+import {
+  globby as glob
+} from 'globby';
+import minimist from 'minimist';
 
 const argv = minimist(process.argv.slice(2));
 
@@ -25,7 +27,7 @@ const findCompodocrcConfig = async (compodocGlobFiles) => {
       return;
     }
   }).filter((config) => !!config);
-}
+};
 
 void (async () => {
   const menuTemplateFile = path.resolve(process.cwd(), argv.menuTemplateFile || 'compodoc-templates/root/partials/menu.hbs');

@@ -43,13 +43,7 @@
       }
     },
     "lint": {
-      "options": {
-        "eslintConfig": "packages/@o3r/telemetry/.eslintrc.js",
-        "lintFilePatterns": [
-          "packages/@o3r/telemetry/src/**/*.ts",
-          "packages/@o3r/telemetry/package.json"
-        ]
-      }
+      "executor": "nx:run-commands"
     },
     "test": {
       "executor": "@nx/jest:jest",

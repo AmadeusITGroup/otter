@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-
 module.exports = {
   extends: [
     'plugin:@o3r/template-recommended'

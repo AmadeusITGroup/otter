@@ -1,8 +1,7 @@
 {
   "include": [
-    "src/**/*.spec.ts",
     "jest.config.js",
-    ".eslintrc.js",
+    "eslint*.config.mjs",
     "testing/*"
   ],
   "exclude": []

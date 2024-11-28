@@ -77,13 +77,7 @@
       }
     },
     "lint": {
-      "options": {
-        "eslintConfig": "packages/@o3r/rules-engine/.eslintrc.js",
-        "lintFilePatterns": [
-          "packages/@o3r/rules-engine/src/**/*.ts",
-          "packages/@o3r/rules-engine/package.json"
-        ]
-      }
+      "executor": "nx:run-commands"
     },
     "test": {
       "executor": "@nx/jest:jest",

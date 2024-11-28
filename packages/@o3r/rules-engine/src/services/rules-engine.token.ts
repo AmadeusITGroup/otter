@@ -1,4 +1,6 @@
-import { InjectionToken } from '@angular/core';
+import {
+  InjectionToken,
+} from '@angular/core';
 
 /** Determine if the action should be executed */
 export const RULES_ENGINE_OPTIONS = new InjectionToken<boolean>('Rules Engine Options');

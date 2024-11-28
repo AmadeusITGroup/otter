@@ -1,10 +1,23 @@
-import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import * as path from 'node:path';
 import * as fs from 'node:fs';
-import { updateCmsAdapter } from '../cms-adapter';
-import type { NgAddSchematicsSchema } from './schema';
-import { registerDevtools } from './helpers/devtools-registration';
-import type { DependencyToAdd } from '@o3r/schematics';
+import * as path from 'node:path';
+import {
+  chain,
+  Rule,
+  SchematicContext,
+  Tree,
+} from '@angular-devkit/schematics';
+import type {
+  DependencyToAdd,
+} from '@o3r/schematics';
+import {
+  updateCmsAdapter,
+} from '../cms-adapter';
+import {
+  registerDevtools,
+} from './helpers/devtools-registration';
+import type {
+  NgAddSchematicsSchema,
+} from './schema';
 
 const reportMissingSchematicsDep = (logger: { error: (message: string) => any }) => (reason: any) => {
   logger.error(`[ERROR]: Adding @o3r/components has failed.
@@ -30,14 +43,13 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       registerPackageCollectionSchematics,
       getPackageInstallConfig
     } = await import('@o3r/schematics');
-    // eslint-disable-next-line @typescript-eslint/naming-convention
     const { NodeDependencyType } = await import('@schematics/angular/utility/dependencies');
-    options = {...getDefaultOptionsForSchematic(getWorkspaceConfig(tree), '@o3r/components', 'ng-add', options), ...options};
+    options = { ...getDefaultOptionsForSchematic(getWorkspaceConfig(tree), '@o3r/components', 'ng-add', options), ...options };
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
     const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' }));
     const depsInfo = getO3rPeerDeps(packageJsonPath);
     if (options.enableMetadataExtract) {
-      depsInfo.o3rPeerDeps = [...depsInfo.o3rPeerDeps , '@o3r/extractors'];
+      depsInfo.o3rPeerDeps = [...depsInfo.o3rPeerDeps, '@o3r/extractors'];
     }
 
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;

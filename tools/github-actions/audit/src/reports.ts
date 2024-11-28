@@ -5,8 +5,9 @@ import type {
   NPMAuditReportV2,
   Severity,
   YarnAudit,
-  YarnNpmAuditReport
+  YarnNpmAuditReport,
 } from 'audit-types';
+
 type Audit = NPMAuditReportV1.Audit;
 type Advisory = NPMAuditReportV1.Advisory;
 
@@ -91,7 +92,7 @@ export const computeNpmV1Report: OtterAuditReporter = (response, severityThresho
         overview: advisory.overview,
         moduleName: advisory.module_name
       })
-    , {errors: [], warnings: [], nbVulnerabilities, highestSeverityFound});
+    , { errors: [], warnings: [], nbVulnerabilities, highestSeverityFound });
 };
 
 /**
@@ -111,7 +112,7 @@ export const computeNpmV2Report: OtterAuditReporter = (response, severityThresho
         moduleName: advisory.name,
         overview: typeof advisory.via[0] === 'string' ? advisory.via[0] : advisory.via[0].title
       })
-    , {errors: [], warnings: [], nbVulnerabilities, highestSeverityFound});
+    , { errors: [], warnings: [], nbVulnerabilities, highestSeverityFound });
 };
 
 /**
@@ -123,11 +124,7 @@ export const computeNpmV2Report: OtterAuditReporter = (response, severityThresho
 export const computeNpmReport: OtterAuditReporter = (response, severityThreshold) => {
   core.info('Computing Report for Npm');
   const reportJson = JSON.parse(response) as NPMAuditReportV2.Audit | NPMAuditReportV1.Audit;
-  if ('auditReportVersion' in reportJson && reportJson.auditReportVersion === 2) {
-    return computeNpmV2Report(response, severityThreshold);
-  } else {
-    return computeNpmV1Report(response, severityThreshold);
-  }
+  return 'auditReportVersion' in reportJson && reportJson.auditReportVersion === 2 ? computeNpmV2Report(response, severityThreshold) : computeNpmV1Report(response, severityThreshold);
 };
 
 /**
@@ -138,10 +135,10 @@ export const computeNpmReport: OtterAuditReporter = (response, severityThreshold
  */
 export const computeYarn1Report: OtterAuditReporter = (response, severityThreshold) => {
   core.info('Computing Report for Yarn 1');
-  const reports = response.split('\n').filter(a => !!a).map((report) => JSON.parse(report)) as YarnAudit.AuditResponse[];
-  const reportSummary = reports.filter((report): report is YarnAudit.AuditSummary => report.type === 'auditSummary')[0];
+  const reports = response.split('\n').filter((a) => !!a).map((report) => JSON.parse(report)) as YarnAudit.AuditResponse[];
+  const reportSummary = reports.find((report): report is YarnAudit.AuditSummary => report.type === 'auditSummary');
   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access -- Wrong typings in 'audit-types'
-  const { nbVulnerabilities, highestSeverityFound } = computeTotalsForSeverities((severity) => (reportSummary.data as any).vulnerabilities[severity]);
+  const { nbVulnerabilities, highestSeverityFound } = computeTotalsForSeverities((severity) => (reportSummary?.data as any).vulnerabilities[severity]);
   return reports.filter((report): report is YarnAudit.AuditAdvisory => report.type === 'auditAdvisory')
     .reduce<OtterAuditReport>((currentVulnerabilities, advisory) =>
       updateReportWithVulnerability(currentVulnerabilities, severityThreshold, {
@@ -149,7 +146,7 @@ export const computeYarn1Report: OtterAuditReporter = (response, severityThresho
         moduleName: advisory.data.advisory.module_name,
         overview: advisory.data.advisory.overview
       })
-    , {errors: [], warnings: [], nbVulnerabilities, highestSeverityFound});
+    , { errors: [], warnings: [], nbVulnerabilities, highestSeverityFound });
 };
 
 /**
@@ -171,7 +168,7 @@ export const computeYarn3Report: OtterAuditReporter = (response, severityThresho
  */
 export const computeYarn4Report: OtterAuditReporter = (response, severityThreshold) => {
   core.info('Computing Report for Yarn 4');
-  const reports = response.split('\n').filter(a => !!a);
+  const reports = response.split('\n').filter((a) => !!a);
   return reports.reduce((currentReport, currentVulnerability) => {
     const vulnerabilityReport = JSON.parse(currentVulnerability) as YarnNpmAuditReport.AuditResponse;
     const vulnerabilitySeverity = vulnerabilityReport.children.Severity || 'info';
@@ -180,9 +177,10 @@ export const computeYarn4Report: OtterAuditReporter = (response, severityThresho
       moduleName: vulnerabilityReport.value,
       overview: `This issue affects versions ${vulnerabilityReport.children['Vulnerable Versions']}. ${vulnerabilityReport.children.Issue}`
     });
-    currentReport.highestSeverityFound = severities.indexOf(currentReport.highestSeverityFound || 'info') <= severities.indexOf(vulnerabilitySeverity) ?
-      vulnerabilitySeverity : currentReport.highestSeverityFound;
+    currentReport.highestSeverityFound = severities.indexOf(currentReport.highestSeverityFound || 'info') <= severities.indexOf(vulnerabilitySeverity)
+      ? vulnerabilitySeverity
+      : currentReport.highestSeverityFound;
     currentReport.nbVulnerabilities += 1;
     return currentReport;
-  }, {nbVulnerabilities: 0, errors: [], warnings: []} as OtterAuditReport);
+  }, { nbVulnerabilities: 0, errors: [], warnings: [] } as OtterAuditReport);
 };

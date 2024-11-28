@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-
 module.exports = {
   extends: [
     'plugin:@angular-eslint/recommended'
@@ -13,15 +11,15 @@ module.exports = {
     '@angular-eslint/directive-selector': [
       'error',
       {
-        'type': 'attribute',
-        'style': 'camelCase'
+        type: 'attribute',
+        style: 'camelCase'
       }
     ],
     '@angular-eslint/component-selector': [
       'error',
       {
-        'type': 'element',
-        'style': 'kebab-case'
+        type: 'element',
+        style: 'kebab-case'
       }
     ]
   }

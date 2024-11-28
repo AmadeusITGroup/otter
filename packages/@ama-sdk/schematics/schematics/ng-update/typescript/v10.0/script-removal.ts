@@ -1,7 +1,16 @@
-import { noop, type Rule } from '@angular-devkit/schematics';
-import type { PackageJson } from 'type-fest';
-import { readPackageJson } from '../../../helpers/read-package';
-import { DevInstall } from '../../../helpers/node-install';
+import {
+  noop,
+  type Rule,
+} from '@angular-devkit/schematics';
+import type {
+  PackageJson,
+} from 'type-fest';
+import {
+  DevInstall,
+} from '../../../helpers/node-install';
+import {
+  readPackageJson,
+} from '../../../helpers/read-package';
 
 /**
  * Update the scrips from package.json

@@ -1,10 +1,25 @@
-import {INIT, UPDATE} from '@ngrx/store';
-import { deepFillWithDate } from '../deep-fill/deep-fill';
+import {
+  INIT,
+  UPDATE,
+} from '@ngrx/store';
 import equal from 'fast-deep-equal';
-import type {StorageSyncOptions} from './interfaces';
-import {isLocalStorageConfig, isSerializer, rehydrateAction} from './storage-sync.helpers';
-import {syncStorage} from '../sync-storage';
-import {StorageSyncConstructorOptions} from './interfaces';
+import {
+  deepFillWithDate,
+} from '../deep-fill/deep-fill';
+import {
+  syncStorage,
+} from '../sync-storage';
+import type {
+  StorageSyncOptions,
+} from './interfaces';
+import {
+  StorageSyncConstructorOptions,
+} from './interfaces';
+import {
+  isLocalStorageConfig,
+  isSerializer,
+  rehydrateAction,
+} from './storage-sync.helpers';
 
 /**
  * Storage synchronizer
@@ -16,21 +31,23 @@ export class StorageSync {
 
   public options: StorageSyncOptions;
 
-  constructor(options?: StorageSyncConstructorOptions, extraOptions?: {disableSmartSync: boolean}) {
+  constructor(options?: StorageSyncConstructorOptions, extraOptions?: { disableSmartSync: boolean }) {
     this.options = {
       keys: [],
-      ...(extraOptions?.disableSmartSync ? {} : {
-        syncKeyCondition: (key, state) => !equal(this.storeImage[key], state[key]),
-        postProcess: (state) => {
-          this.options.keys.forEach(key => {
-            const keyName: string = typeof key === 'object' ? Object.keys(key)[0] : key;
-            this.storeImage[keyName] = state[keyName];
-          });
-        }
-      }),
+      ...(extraOptions?.disableSmartSync
+        ? {}
+        : {
+          syncKeyCondition: (key, state) => !equal(this.storeImage[key], state[key]),
+          postProcess: (state) => {
+            this.options.keys.forEach((key) => {
+              const keyName: string = typeof key === 'object' ? Object.keys(key)[0] : key;
+              this.storeImage[keyName] = state[keyName];
+            });
+          }
+        }),
       ...options,
       storage: options?.storage as unknown as Storage,
-      mergeReducer: typeof options?.mergeReducer !== 'function' ? this.mergeReducer : options.mergeReducer
+      mergeReducer: typeof options?.mergeReducer === 'function' ? options.mergeReducer : this.mergeReducer
     };
   }
 
@@ -48,14 +65,12 @@ export class StorageSync {
         state = deepFillWithDate(state, rehydratedState);
       }
       if (action.type === UPDATE && Array.isArray(action.features)) {
-
         const notHandledFeatures = action.features.filter((featName: string) => !this.alreadyHydratedStoreSlices.has(featName));
 
         notHandledFeatures.filter((featName: string) => !!rehydratedState[featName]).forEach((fName: string) => {
           state[fName] = state[fName] ? deepFillWithDate(state[fName], rehydratedState[fName]) : rehydratedState[fName];
           this.alreadyHydratedStoreSlices.add(fName);
         });
-
       }
     }
     return state;
@@ -76,7 +91,6 @@ export class StorageSync {
       if (isLocalStorageConfig(this.options)) {
         return syncStorage(this.options)(reducer);
       }
-
 
       return (state: any, action: any) => {
         let hydratedState = state;
@@ -102,7 +116,7 @@ export class StorageSync {
               return acc;
             }, {});
           }
-          if (Object.keys(overrides).length) {
+          if (Object.keys(overrides).length > 0) {
             hydratedState = { ...state, ...overrides };
           }
         }

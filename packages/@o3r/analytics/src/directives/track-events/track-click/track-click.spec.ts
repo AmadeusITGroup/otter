@@ -1,13 +1,33 @@
-import { Component, DebugElement } from '@angular/core';
-import { ComponentFixture, getTestBed, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { UiEventPayload } from '../../../contracts';
-import { EventTrackService } from '../../../services/event-track';
-import { TrackEventsModule } from '../track-events.module';
+import {
+  Component,
+  DebugElement,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  getTestBed,
+  TestBed,
+} from '@angular/core/testing';
+import {
+  By,
+} from '@angular/platform-browser';
+import {
+  BrowserDynamicTestingModule,
+  platformBrowserDynamicTesting,
+} from '@angular/platform-browser-dynamic/testing';
+import {
+  RouterTestingModule,
+} from '@angular/router/testing';
+import {
+  UiEventPayload,
+} from '../../../contracts';
+import {
+  EventTrackService,
+} from '../../../services/event-track';
+import {
+  TrackEventsModule,
+} from '../track-events.module';
 
-const dummyEventContext = {eventInfo: { eventName: '', pageId: '', timeStamp: ''}};
+const dummyEventContext = { eventInfo: { eventName: '', pageId: '', timeStamp: '' } };
 
 @Component({
   template: '<button trackClick [trackEventContext]="eventModel">Click</button>'
@@ -52,7 +72,7 @@ describe('Track click directive:', () => {
     fixture.detectChanges();
     const dummyEvent = new Event('click');
     buttonElement.triggerEventHandler('click', dummyEvent);
-    const expectedEventPayload: UiEventPayload = {nativeEvent: dummyEvent, context: dummyEventContext};
+    const expectedEventPayload: UiEventPayload = { nativeEvent: dummyEvent, context: dummyEventContext };
 
     expect(addEventSpy).toHaveBeenCalledWith(expectedEventPayload);
   });
@@ -79,7 +99,7 @@ describe('Track click directive:', () => {
     fixture.detectChanges();
     buttonElement.triggerEventHandler('click', null);
 
-    expect(addEventSpy).toHaveBeenCalledWith({nativeEvent: null, context: component.eventModel});
+    expect(addEventSpy).toHaveBeenCalledWith({ nativeEvent: null, context: component.eventModel });
 
     const newModel = {
       ...dummyEventContext,
@@ -92,6 +112,6 @@ describe('Track click directive:', () => {
     fixture.detectChanges();
     buttonElement.triggerEventHandler('click', null);
 
-    expect(addEventSpy).toHaveBeenCalledWith({nativeEvent: null, context: newModel});
+    expect(addEventSpy).toHaveBeenCalledWith({ nativeEvent: null, context: newModel });
   });
 });

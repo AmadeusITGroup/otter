@@ -5,14 +5,14 @@ import type {
   PartialExcept,
   RequestOptions,
   RequestOptionsParameters,
-  TokenizedOptions
+  TokenizedOptions,
 } from '@ama-sdk/core';
 import {
   extractQueryParams,
   filterUndefinedValues,
   prepareUrl,
   processFormData,
-  tokenizeRequestOptions
+  tokenizeRequestOptions,
 } from '@ama-sdk/core';
 
 /** @see BaseApiClientOptions */
@@ -35,8 +35,7 @@ const DEFAULT_OPTIONS: Omit<BaseApiBeaconClientOptions, 'basePath'> = {
  * Determine if the given value is a promise
  * @param value The value to test
  */
-// NOTE: the `extends unknown` is required for ESM build with TSC
-// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-constraint
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-constraint -- the `extends unknown` is required for ESM build with TSC
 const isPromise = <T extends unknown>(value: T | Promise<T>): value is Promise<T> => value instanceof Promise;
 
 /**
@@ -44,7 +43,6 @@ const isPromise = <T extends unknown>(value: T | Promise<T>): value is Promise<T
  * The Beacon API is a low-level API that allows you to send message synchronously. It can be used to send request on window unload or before unload events.
  */
 export class ApiBeaconClient implements ApiClient {
-
   /** @inheritdoc */
   public options: BaseApiBeaconClientOptions;
 
@@ -53,7 +51,6 @@ export class ApiBeaconClient implements ApiClient {
    * @param options Configuration of the API Client
    */
   constructor(options: BaseApiBeaconClientConstructor) {
-
     if (typeof navigator === 'undefined' || !navigator.sendBeacon) {
       throw new Error('Beacon API is not supported in this context');
     }
@@ -71,7 +68,6 @@ export class ApiBeaconClient implements ApiClient {
 
   /** @inheritdoc */
   public getRequestOptions(options: RequestOptionsParameters): Promise<RequestOptions> {
-
     if (options.method.toUpperCase() !== 'POST') {
       throw new Error(`Unsupported method: ${options.method}. The beacon API only supports POST.`);
     }

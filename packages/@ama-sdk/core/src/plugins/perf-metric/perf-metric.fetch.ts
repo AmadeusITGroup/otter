@@ -1,5 +1,11 @@
-import { v4 } from 'uuid';
-import { FetchCall, FetchPlugin, FetchPluginContext } from '../core';
+import {
+  v4,
+} from 'uuid';
+import {
+  FetchCall,
+  FetchPlugin,
+  FetchPluginContext,
+} from '../core';
 
 /**
  * Performance metric mark associated to a call.
@@ -107,7 +113,7 @@ export class PerformanceMetricPlugin implements FetchPlugin {
   /**
    * Opened marks.
    */
-  protected readonly openMarks: {[markId: string]: Mark} = {};
+  protected readonly openMarks: { [markId: string]: Mark } = {};
 
   /**
    * Performance reporter to use for performance measurements.
@@ -123,7 +129,7 @@ export class PerformanceMetricPlugin implements FetchPlugin {
 
   constructor(options?: Partial<PerformanceMetricOptions>) {
     this.getPerformanceTag = options?.getPerformanceTag || this.getPerformanceTag;
-    this.performance = options?.performance || (typeof window !== 'undefined' ? window.performance : undefined);
+    this.performance = options?.performance || (typeof window === 'undefined' ? undefined : window.performance);
     this.onMarkComplete = options ? options.onMarkComplete : this.onMarkComplete;
     this.onMarkError = options ? options.onMarkError : this.onMarkError;
     this.onMarkOpen = options ? options.onMarkOpen : this.onMarkOpen;
@@ -135,7 +141,6 @@ export class PerformanceMetricPlugin implements FetchPlugin {
    * @param markId Mark ID
    */
   protected getPerformanceTag = (status: string, markId: string) => `sdk:${status}:${markId}`;
-
 
   /**
    * Opens a mark associated to a call.
@@ -216,7 +221,8 @@ export class PerformanceMetricPlugin implements FetchPlugin {
           this.closeMark(markId, response);
           return response;
         } catch (exception: any) {
-          this.closeMarkWithError(markId, exception);
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access -- type is explicitly `any`
+          this.closeMarkWithError(markId, exception instanceof Error ? exception : new Error(exception.toString()));
           throw exception;
         }
       }
