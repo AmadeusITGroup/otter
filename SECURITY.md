@@ -20,9 +20,22 @@ Two major versions are released per year:
 
 ## Release version support
 
-The team will provide support on the latest minor version of major versions **N (current)**, **N-1** and **N-2**.
+The "support" of a released version includes the following aspects:
 
-A major version will be supported as long as it relies on a [non deprecated version of Angular](https://angular.io/guide/releases#support-policy-and-schedule).
+- Handling bug fixes when requested via the [Github Issue page](https://github.com/AmadeusITGroup/otter/issues).
+- Reviewing contributions to bugfix pull requests (and handling their merging).
+- Cascading bugfixes when they are implemented in an inferior released version.
+- Handling bugfix cherry-picking on a specific version demand.
+
+> [!WARNING]
+> Only **bugfixes** are accepted on supported versions. New features are allowed exclusively on the `main` (latest *prerelease* version) and the `next` branches.
+> Note that **breaking changes** should always target a `next` branch.
+
+The team will support the latest minor version of major versions **N (current)**, **N-1** and **N-2**.\
+All the minor versions of the major **N (current)** are also supported until a new major version is created.
+The major version becoming **N-3** will also be flagged as unsupported.
+
+A major version will be supported as long as it relies on a [non-deprecated version of Angular](https://angular.io/guide/releases#support-policy-and-schedule) and is included in the previously listed major versions.
 
 > [!NOTE]
 > It is also important to note that Otter supports the same browser versions as Angular.
