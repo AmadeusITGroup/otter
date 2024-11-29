@@ -14,7 +14,7 @@
       "dependsOn": ["compile"]
     },
     "compile": {
-      "executor": "@nx/js:tsc",
+      "executor": "@o3r/nx-helpers:tsc",
       "options": {
         "main": "packages/@ama-terasu/schematics/src/public_api.ts",
         "tsConfig": "packages/@ama-terasu/schematics/tsconfig.build.json",

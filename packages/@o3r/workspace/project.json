@@ -23,7 +23,7 @@
       }
     },
     "compile": {
-      "executor": "@nx/js:tsc",
+      "executor": "@o3r/nx-helpers:tsc",
       "options": {
         "main": "packages/@o3r/workspace/src/public_api.ts",
         "tsConfig": "packages/@o3r/workspace/tsconfig.build.json",

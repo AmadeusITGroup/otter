@@ -1,0 +1,32 @@
+{
+  "name": "@o3r/nx-helpers",
+  "version": "0.0.0-placeholder",
+  "description": "Nx helpers",
+  "private": true,
+  "scripts": {
+    "build": "tsc -b tsconfig.build.json --pretty",
+    "postbuild": "yarn run cpy 'executors.json' 'package.json' dist && patch-package-json-main"
+  },
+  "dependencies": {
+    "@nx/js": "~19.8.0",
+    "@nx/workspace": "~19.8.0",
+    "@swc/helpers": "~0.5.0",
+    "nx": "~19.8.0",
+    "tslib": "^2.6.2"
+  },
+  "peerDependencies": {
+    "typescript": "~5.5.4"
+  },
+  "devDependencies": {
+    "@nx/jest": "~19.8.0",
+    "@o3r/build-helpers": "workspace:^",
+    "@types/jest": "~29.5.2",
+    "@types/node": "^20.0.0",
+    "cpy-cli": "^5.0.0",
+    "jest": "~29.7.0",
+    "jest-junit": "~16.0.0",
+    "ts-jest": "~29.2.0",
+    "typescript": "~5.5.4"
+  },
+  "executors": "./executors.json"
+}

@@ -14,7 +14,7 @@
       "dependsOn": ["compile"]
     },
     "compile": {
-      "executor": "@nx/js:tsc",
+      "executor": "@o3r/nx-helpers:tsc",
       "outputs": ["{projectRoot}/dist", "{projectRoot}/build/.tsbuildinfo"],
       "options": {
         "main": "packages/@ama-terasu/cli/src/public_api.ts",

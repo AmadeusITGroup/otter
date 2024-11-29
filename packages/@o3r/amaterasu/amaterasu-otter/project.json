@@ -14,7 +14,7 @@
       "dependsOn": ["compile"]
     },
     "compile": {
-      "executor": "@nx/js:tsc",
+      "executor": "@o3r/nx-helpers:tsc",
       "options": {
         "main": "packages/@o3r/amaterasu/amaterasu-otter/src/index.ts",
         "tsConfig": "packages/@o3r/amaterasu/amaterasu-otter/tsconfig.build.json",

@@ -19,7 +19,7 @@
       ]
     },
     "compile": {
-      "executor": "@nx/js:tsc",
+      "executor": "@o3r/nx-helpers:tsc",
       "options": {
         "rootDir": "packages/@o3r/testing/src",
         "main": "packages/@o3r/testing/src/public_api.ts",

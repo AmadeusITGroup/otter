@@ -26,7 +26,7 @@
       }
     },
     "compile": {
-      "executor": "@nx/js:tsc",
+      "executor": "@o3r/nx-helpers:tsc",
       "options": {
         "main": "packages/@o3r/new-version/src/public_api.ts",
         "tsConfig": "packages/@o3r/new-version/tsconfig.build.json",
