@@ -26,13 +26,9 @@
       }
     },
     "compile": {
-      "executor": "@nx/js:tsc",
+      "executor": "nx:run-script",
       "options": {
-        "main": "packages/@o3r/azure-tools/src/public_api.ts",
-        "tsConfig": "packages/@o3r/azure-tools/tsconfig.build.json",
-        "outputPath": "packages/@o3r/azure-tools/dist",
-        "assets": ["packages/@o3r/azure-tools/configs/*.json"],
-        "clean": false
+        "script": "build:source"
       }
     },
     "lint": {

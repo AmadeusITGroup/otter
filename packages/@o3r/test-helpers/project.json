@@ -23,11 +23,9 @@
       ]
     },
     "compile": {
-      "executor": "@nx/js:tsc",
+      "executor": "nx:run-script",
       "options": {
-        "main": "packages/@o3r/test-helpers/src/public_api.ts",
-        "tsConfig": "packages/@o3r/test-helpers/tsconfig.build.json",
-        "outputPath": "packages/@o3r/test-helpers/dist"
+        "script": "build:source"
       }
     },
     "prepare-build-builders": {

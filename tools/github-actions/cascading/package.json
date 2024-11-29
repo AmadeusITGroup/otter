@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
-    "@nx/eslint-plugin": "~19.5.0",
+    "@nx/eslint-plugin": "~19.8.0",
     "@o3r/eslint-config": "workspace:~",
     "@o3r/eslint-plugin": "workspace:~",
     "@stylistic/eslint-plugin": "~2.7.0",
