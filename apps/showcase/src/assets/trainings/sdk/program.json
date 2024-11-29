@@ -80,25 +80,38 @@
       }
     },
     {
-      "stepTitle": "Integrate your SDK in Angular",
-      "htmlContentUrl": "./steps/angular-integration/instructions.md",
+      "stepTitle": "Integrate the API Manager Module",
+      "htmlContentUrl": "./steps/api-manager/instructions.md",
       "filesConfiguration": {
-        "name": "angular-integration",
-        "startingFile": "apps/tutorial-app/src/app/app.component.ts",
+        "name": "api-manager",
+        "startingFile": "apps/tutorial-app/src/app/app.config.ts",
         "urls": [
           {
             "path": ".",
             "contentUrl": "./shared/monorepo-template.json"
           },
           {
+            "path": "./libs/sdk",
+            "contentUrl": "@o3r-training/showcase-sdk/structure/spec.json"
+          },
+          {
             "path": "./libs/sdk/src",
-            "contentUrl": "@o3r-training/training-sdk/structure/src.json"
+            "contentUrl": "@o3r-training/showcase-sdk/structure/src.json"
+          },
+          {
+            "path": "./apps/tutorial-app/src/app",
+            "contentUrl": "./steps/api-manager/exercise.json"
+          }
+        ],
+        "solutionUrls": [
+          {
+            "path": "./apps/tutorial-app/src/app",
+            "contentUrl": "./steps/api-manager/solution.json"
           }
         ],
         "mode": "interactive",
         "commands": [
           "npm install --legacy-peer-deps --ignore-scripts --no-audit --prefer-dedupe",
-          "npm run ng run sdk:build",
           "npm run ng run tutorial-app:serve"
         ]
       }
