@@ -62,9 +62,6 @@
   "peerDependenciesMeta": {
     "isomorphic-fetch": {
       "optional": true
-    },
-    "@ama-sdk/client-fetch": {
-      "optional": true
     }
   },
   "devDependencies": {
@@ -80,7 +77,6 @@
     "@schematics/angular": "<%= angularVersion %>",
     "@commitlint/config-conventional": "<%= versions['@commitlint/config-conventional'] %>",
     "@ama-sdk/schematics": "<%= sdkCoreRange %>",
-    "@ama-sdk/client-fetch": "<%= sdkCoreRange %>",
     "@ama-sdk/core": "<%= sdkCoreRange %>",
     "@o3r/eslint-config": "<%= sdkCoreRange %>",
     "@o3r/eslint-plugin": "<%= sdkCoreRange %>",
@@ -121,7 +117,6 @@
     "@o3r/schematics": "<%= sdkCoreRange %>"
   },<% } %>
   "peerDependencies": {
-    "@ama-sdk/client-fetch": "<%= sdkCoreRange %>",
     "@ama-sdk/core": "~<%= sdkCoreVersion %>",
     "isomorphic-fetch": "<%= versions['isomorphic-fetch'] %>"
   },
