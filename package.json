@@ -51,14 +51,8 @@
     "workspaces:list": "yarn workspaces list --no-private --json | yarn node -e 'let data=\"\"; process.openStdin().on(\"data\", (c) => data+=c).on(\"end\", () => process.stdout.write(data.split(/[\\n\\r]+/).filter((l) => !!l).map((l) => JSON.parse(l).location).join(require(\"node:path\").delimiter)));'"
   },
   "lint-staged": {
-    "*.ts": [
-      "eslint --quiet --fix"
-    ],
-    "**/package.json": [
-      "eslint --quiet --fix"
-    ],
-    "**/.yarnrc.yml": [
-      "eslint --quiet --fix"
+    "**/{package.json,.yarnrc.yml,*.ts,*.mts,*.cts*.js,*.mjs,*.cjs,*.html}": [
+      "eslint --quiet --fix --cache-location .cache/eslint"
     ],
     "*": [
       "editorconfig-checker -exclude \".*[\\\\/]templates[\\\\/].*\" -ignore-defaults --verbose"
