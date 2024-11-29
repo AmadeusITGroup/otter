@@ -26,6 +26,7 @@ module.exports.getJestProjectConfig = (rootDir, isAngularSetup) => {
   moduleNameMapper['^@o3r/testing/core$'] = [require.resolve('@o3r/testing/core/angular')];
   moduleNameMapper['^@o3r/testing/core/(.*)'] = [join(require.resolve('@o3r/testing/core/angular'), '$1')];
   return {
+    testEnvironment: 'jsdom',
     preset: 'ts-jest',
     setupFilesAfterEnv: ['<rootDir>/testing/setup-jest.ts'],
     rootDir,

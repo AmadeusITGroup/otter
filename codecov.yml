@@ -20,6 +20,11 @@ ignore:
   - 'packages/@o3r-training/showcase-sdk/src/spec/**/*'
   - 'tools/github-actions/*/packaged-action/**/*'
 
+  # Templating files
+  - '**/*.tpl'
+  - '**/templates/**/*.{ts,js,cjs,mjs}'
+
+
 comment:
   layout: "condensed_header, condensed_files, condensed_footer"
   behavior: default
