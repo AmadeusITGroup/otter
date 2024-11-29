@@ -1,5 +1,13 @@
 codecov:
   require_ci_to_pass: true
+  max_report_age: off
+
+coverage:
+  status:
+    default_rules:
+      flag_coverage_not_uploaded_behavior: exclude
+    project:
+      default: false
 
 ignore:
   # Package Manager files
