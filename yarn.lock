@@ -9346,7 +9346,7 @@ __metadata:
     ng-packagr: "npm:~18.2.0"
     ngx-markdown: "npm:^18.1.0"
     ngx-monaco-editor-v2: "npm:^18.0.0"
-    ngx-monaco-tree: "npm:^18.1.0"
+    ngx-monaco-tree: "npm:^18.3.0"
     npm-run-all2: "npm:^6.0.0"
     nx: "npm:~19.5.0"
     nx-cloud: "npm:^19.1.0"
@@ -10331,7 +10331,7 @@ __metadata:
     monaco-editor: "npm:~0.50.0"
     ngx-markdown: "npm:^18.1.0"
     ngx-monaco-editor-v2: "npm:^18.0.0"
-    ngx-monaco-tree: "npm:^18.1.0"
+    ngx-monaco-tree: "npm:^18.3.0"
     pixelmatch: "npm:^5.2.1"
     playwright-lighthouse: "npm:~4.0.0"
     pngjs: "npm:^7.0.0"
@@ -29107,7 +29107,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ngx-monaco-tree@npm:^18.1.0":
+"ngx-monaco-tree@npm:^18.3.0":
   version: 18.3.0
   resolution: "ngx-monaco-tree@npm:18.3.0"
   dependencies:
