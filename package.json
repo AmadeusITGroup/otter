@@ -250,7 +250,7 @@
     "ng-packagr": "~18.2.0",
     "ngx-markdown": "^18.1.0",
     "ngx-monaco-editor-v2": "^18.0.0",
-    "ngx-monaco-tree": "^18.1.0",
+    "ngx-monaco-tree": "^18.4.0",
     "npm-run-all2": "^6.0.0",
     "nx": "~19.5.0",
     "nx-cloud": "^19.1.0",
