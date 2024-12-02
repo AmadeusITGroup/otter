@@ -7,7 +7,11 @@ coverage:
     default_rules:
       flag_coverage_not_uploaded_behavior: exclude
     project:
-      default: false
+      default:
+        target: auto
+        threshold: 5%
+        base: auto
+        if_ci_failed: error
 
 ignore:
   # Package Manager files
