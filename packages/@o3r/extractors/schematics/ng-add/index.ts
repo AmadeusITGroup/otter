@@ -5,6 +5,9 @@ import {
 import type {
   Rule,
 } from '@angular-devkit/schematics';
+import type {
+  NodeDependencyType as NodeDependencyTypeEnum,
+} from '@schematics/angular/utility/dependencies';
 import {
   updateCmsAdapter,
 } from '../cms-adapter';
@@ -37,7 +40,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       getO3rPeerDeps,
       getWorkspaceConfig
     } = await import('@o3r/schematics');
-    const { NodeDependencyType } = await import('@schematics/angular/utility/dependencies');
+    const { NodeDependencyType } = await import('@schematics/angular/utility/dependencies').catch(() => ({ NodeDependencyType: { Dev: 'devDependencies' as NodeDependencyTypeEnum.Dev } }));
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
     const depsInfo = getO3rPeerDeps(packageJsonPath);
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
