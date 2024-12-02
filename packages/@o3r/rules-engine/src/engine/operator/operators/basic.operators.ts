@@ -1,5 +1,13 @@
-import { isString, isSupportedSimpleTypes, parseRegExp } from '../operator.helpers';
-import { Operator, SupportedSimpleTypes, UnaryOperator } from '../operator.interface';
+import {
+  isString,
+  isSupportedSimpleTypes,
+  parseRegExp,
+} from '../operator.helpers';
+import {
+  Operator,
+  SupportedSimpleTypes,
+  UnaryOperator,
+} from '../operator.interface';
 
 /**
  * Check if a variable is equal to a specific value
@@ -7,7 +15,7 @@ import { Operator, SupportedSimpleTypes, UnaryOperator } from '../operator.inter
  */
 export const equals: Operator = {
   name: 'equals',
-  // eslint-disable-next-line
+  // eslint-disable-next-line eqeqeq -- possibility of comparing string and number values
   evaluator: (firstValue, secondValue) => firstValue == secondValue
 };
 
@@ -17,7 +25,7 @@ export const equals: Operator = {
  */
 export const notEquals: Operator = {
   name: 'notEquals',
-  // eslint-disable-next-line eqeqeq
+  // eslint-disable-next-line eqeqeq -- possibility of comparing string and number values
   evaluator: (firstValue, secondValue) => firstValue != secondValue
 };
 
@@ -27,7 +35,7 @@ export const notEquals: Operator = {
  */
 export const inArray: Operator<SupportedSimpleTypes, SupportedSimpleTypes[]> = {
   name: 'inArray',
-  evaluator: (value, array) => array.indexOf(value) > -1,
+  evaluator: (value, array) => array.includes(value),
   validateLhs: isSupportedSimpleTypes,
   validateRhs: Array.isArray
 };
@@ -38,7 +46,7 @@ export const inArray: Operator<SupportedSimpleTypes, SupportedSimpleTypes[]> = {
  */
 export const notInArray: Operator<SupportedSimpleTypes, SupportedSimpleTypes[]> = {
   name: 'notInArray',
-  evaluator: (value, array) => array.indexOf(value) === -1,
+  evaluator: (value, array) => !array.includes(value),
   validateLhs: isSupportedSimpleTypes,
   validateRhs: Array.isArray
 };
@@ -49,7 +57,7 @@ export const notInArray: Operator<SupportedSimpleTypes, SupportedSimpleTypes[]> 
  */
 export const inString: Operator<string, string> = {
   name: 'inString',
-  evaluator: (value, inputString) => inputString.indexOf(value) > -1,
+  evaluator: (value, inputString) => inputString.includes(value),
   validateLhs: isString,
   validateRhs: isString
 };
@@ -60,7 +68,7 @@ export const inString: Operator<string, string> = {
  */
 export const notInString: Operator<string, string> = {
   name: 'notInString',
-  evaluator: (value, inputString) => inputString.indexOf(value) === -1,
+  evaluator: (value, inputString) => !inputString.includes(value),
   validateLhs: isString,
   validateRhs: isString
 };

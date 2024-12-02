@@ -1,5 +1,11 @@
-import { v4 } from 'uuid';
-import type { FetchCall, FetchPlugin, FetchPluginContext } from '../../fetch-plugin';
+import {
+  v4,
+} from 'uuid';
+import type {
+  FetchCall,
+  FetchPlugin,
+  FetchPluginContext,
+} from '../../fetch-plugin';
 
 /**
  * Performance metric mark associated to a call.
@@ -104,7 +110,7 @@ export class PerformanceMetricPlugin implements FetchPlugin {
   /**
    * Opened marks.
    */
-  protected readonly openMarks: {[markId: string]: Mark} = {};
+  protected readonly openMarks: { [markId: string]: Mark } = {};
 
   /**
    * Performance reporter to use for performance measurements.
@@ -120,7 +126,7 @@ export class PerformanceMetricPlugin implements FetchPlugin {
 
   constructor(options?: Partial<PerformanceMetricOptions>) {
     this.getPerformanceTag = options?.getPerformanceTag || this.getPerformanceTag;
-    this.performance = options?.performance || (typeof window !== 'undefined' ? window.performance : undefined);
+    this.performance = options?.performance || (typeof window === 'undefined' ? undefined : window.performance);
     this.onMarkComplete = options ? options.onMarkComplete : this.onMarkComplete;
     this.onMarkError = options ? options.onMarkError : this.onMarkError;
     this.onMarkOpen = options ? options.onMarkOpen : this.onMarkOpen;
@@ -132,7 +138,6 @@ export class PerformanceMetricPlugin implements FetchPlugin {
    * @param markId Mark ID
    */
   protected getPerformanceTag = (status: string, markId: string) => `sdk:${status}:${markId}`;
-
 
   /**
    * Opens a mark associated to a call.

@@ -1,14 +1,19 @@
-import { Action, MetaReducer } from '@ngrx/store';
-import type { LoggerClient } from '@o3r/logger';
-
+import {
+  Action,
+  MetaReducer,
+} from '@ngrx/store';
 import * as LogRocket from 'logrocket';
-import createNgrxMiddleware, { Options } from 'logrocket-ngrx';
+import createNgrxMiddleware, {
+  Options,
+} from 'logrocket-ngrx';
+import type {
+  LoggerClient,
+} from '@o3r/logger';
 
 /**
  * LogRocket client.
  */
 export class LogRocketClient implements LoggerClient {
-
   /**
    * Meta reducer configuration to change what store related items LogRocket records
    */
@@ -25,23 +30,23 @@ export class LogRocketClient implements LoggerClient {
       network: {
         requestSanitizer: (request: Request) => {
           // if the url contains '/purchase/orders'
-          if (request.url.toLowerCase().indexOf('/purchase/orders') !== -1) {
+          if (request.url.toLowerCase().includes('/purchase/orders')) {
             // scrub out the body
-            return {...request, body: ''};
+            return { ...request, body: '' };
           }
           return request;
         }
       }
     };
 
-    LogRocket.init(appId, {...defaultOptions, ...initOptions});
+    LogRocket.init(appId, { ...defaultOptions, ...initOptions });
     this.metaReducerOptions = metaReducerOptions;
   }
 
   /**
    * @inheritdoc
    */
-  public identify(uid: string, vars?: {[key: string]: string}): void {
+  public identify(uid: string, vars?: { [key: string]: string }): void {
     LogRocket.identify(uid, vars);
   }
 
@@ -85,7 +90,7 @@ export class LogRocketClient implements LoggerClient {
    * @inheritdoc
    */
   public stopRecording(): void {
-    // eslint-disable-next-line no-console
+    // eslint-disable-next-line no-console -- we don't want to log this Error on LogRocket as it's when LogRocket is wrongly used
     console.error('Impossible to stop recording with LogRocket');
   }
 
@@ -93,7 +98,7 @@ export class LogRocketClient implements LoggerClient {
    * @inheritdoc
    */
   public resumeRecording(): void {
-    // eslint-disable-next-line no-console
+    // eslint-disable-next-line no-console -- we don't want to log this Error on LogRocket as it's when LogRocket is wrongly used
     console.error('Impossible to restart recording with LogRocket.');
   }
 
@@ -110,6 +115,6 @@ export class LogRocketClient implements LoggerClient {
         return action;
       }
     };
-    return createNgrxMiddleware(LogRocket, {...defaultOptions, ...this.metaReducerOptions});
+    return createNgrxMiddleware(LogRocket, { ...defaultOptions, ...this.metaReducerOptions });
   }
 }

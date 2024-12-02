@@ -1,9 +1,13 @@
 #!/usr/bin/env node
 
-import { program } from 'commander';
-import { sync as globbySync } from 'globby';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
+import {
+  program,
+} from 'commander';
+import {
+  sync as globbySync,
+} from 'globby';
 import * as winston from 'winston';
 
 const collect = (pattern: string, patterns: string[]) => {
@@ -20,7 +24,6 @@ program
   .option('-S, --source-folder <path>', 'Source folder', 'src/')
   .option('--verbose', 'Display debug log message')
   .action((actionPackageJsonPath = 'package.json') => {
-    // eslint-disable-next-line no-import-assign
     packageJsonPath = path.resolve(process.cwd(), actionPackageJsonPath);
   })
   .parse(process.argv);
@@ -40,13 +43,10 @@ logger.warn('This script is deprecated, will be removed in Otter v12.');
 let files: string[] = [];
 files.push(
   // List the folders in the src/ folder
-  ...globbySync('*/', {cwd: path.resolve(process.cwd(), opts.sourceFolder), dot: true, onlyDirectories: true})
-    .map((folder) => folder.replace(/[\\/]$/i, '') + '/')
-);
-
-files.push(
+  ...globbySync('*/', { cwd: path.resolve(process.cwd(), opts.sourceFolder), dot: true, onlyDirectories: true })
+    .map((folder) => folder.replace(/[/\\]$/i, '') + '/'),
   // List the files in the src/ folder
-  ...globbySync('*', {cwd: path.resolve(process.cwd(), opts.sourceFolder), dot: true, onlyFiles: true, ignore: opts.ignore})
+  ...globbySync('*', { cwd: path.resolve(process.cwd(), opts.sourceFolder), dot: true, onlyFiles: true, ignore: opts.ignore })
     .map((file) => {
       const ext = path.extname(file);
       // replace extension by ".*"
@@ -59,12 +59,12 @@ const packageJson: { [x: string]: any } = JSON.parse(fs.readFileSync(packageJson
 
 files.push(
   // Keep the patterns already defined in package.json
-  ...packageJson.files.filter((file: string) => files.indexOf(file) === -1)
+  ...packageJson.files.filter((file: string) => !files.includes(file))
 );
 
 // remove duplicate RegExps
 files = files.reduce((acc, file) => {
-  const reg = new RegExp('^' + file.replace(/\\*\./ig, '\\.').replace(/\\*\*/ig, '[^\\/]*') + '$');
+  const reg = new RegExp('^' + file.replace(/\\*\./gi, '\\.').replace(/\\*\*/gi, '[^\\/]*') + '$');
   return acc.filter((f) => f === file || !reg.test(f));
 }, [...files]);
 

@@ -139,6 +139,9 @@
       "@o3r/dynamic-content/*": [
         "packages/@o3r/dynamic-content/src/*/public_api"
       ],
+      "@o3r/eslint-config": [
+        "packages/@o3r/eslint-config"
+      ],
       "@o3r/eslint-config-otter": [
         "packages/@o3r/eslint-config-otter"
       ],

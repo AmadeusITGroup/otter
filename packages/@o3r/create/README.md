@@ -25,14 +25,17 @@ npm create @o3r <project-name> -- [...options]
 
 ### Custom package manager
 
-You can generate an environment with a specific package manager thanks to the `--package-manager` options:
+By default, the `npm` package manager will be used to generate the project, but you can generate an environment with a specific package manager using the `--package-manager` option:
 
 ```shell
 npm create @o3r <project-name> -- --package-manager=yarn [...options]
 ```
 
+> [!TIP]
+> The option `--package-manager=yarn` can be simplified to `--yarn`.
+
 > [!NOTE]
-> At the moment, the ``package-manager`` option only supports `yarn` and `npm`.
+> At the moment, the `package-manager` option only supports `yarn` and `npm`.
 
 ### Custom registry
 
@@ -50,5 +53,6 @@ If the specified package manager is `yarn`, it will also configure the `.yarnrc.
 The generator accepts all the configurations from the Angular `ng new` command, see the [options list](https://angular.io/cli/new#options).
 On top of them, the following options can be provided to the initializer:
 
+- `--yarn`: Enforce `yarn` package manager. This option will be ignored if `--package-manager` is already specified.
 - `--yarn-version`: specify the version of yarn to use (default: `latest`)
 - `--exact-o3r-version`: use a pinned version for [Otter packages](https://github.com/AmadeusITGroup/otter/blob/main/docs/README.md).

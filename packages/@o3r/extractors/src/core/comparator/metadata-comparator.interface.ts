@@ -1,6 +1,12 @@
-import type { JsonObject } from '@angular-devkit/core';
-import type { SupportedPackageManagers } from '@o3r/schematics';
-import type { CmsMetadataData } from '../../interfaces';
+import type {
+  JsonObject,
+} from '@angular-devkit/core';
+import type {
+  SupportedPackageManagers,
+} from '@o3r/schematics';
+import type {
+  CmsMetadataData,
+} from '../../interfaces';
 
 /**
  * Interface of the comparator used to compare 2 different versions of the same metadata file.
@@ -26,12 +32,17 @@ export interface MetadataComparator<MetadataItem, MigrationMetadataItem, Metadat
   isSame?: (item1: MetadataItem, item2: MetadataItem) => boolean;
 
   /**
+   * Returns true is the contentType is supported by the comparator
+   * @param contentType Content type of the migration item
+   */
+  isRelevantContentType: (contentType: string) => boolean;
+
+  /**
    * Returns true if a migration item matches a metadata item.
    * @param metadataItem Metadata item
    * @param migrationItem Migration item
-   * @param metadataType Type of the metadata
    */
-  isMigrationDataMatch: (metadataItem: MetadataItem, migrationItem: MigrationMetadataItem, metadataType: string) => boolean;
+  isMigrationDataMatch: (metadataItem: MetadataItem, migrationItem: MigrationMetadataItem) => boolean;
 }
 
 /**
@@ -76,6 +87,9 @@ export interface MigrationMetadataCheckBuilderOptions extends JsonObject {
 
   /** Whether breaking changes are allowed.*/
   allowBreakingChanges: boolean;
+
+  /** Whether to throw an error in case of a migration item that is not used during metadata checks */
+  shouldCheckUnusedMigrationData: boolean;
 
   /** Override of the package manager, otherwise it will be determined from the project. */
   packageManager: SupportedPackageManagers;

@@ -1,15 +1,49 @@
-import type { HttpClient, HttpResponse } from '@angular/common/http';
-import type { RequestOptions, TokenizedOptions } from '../plugins/core/index';
-import { ExceptionReply } from '../plugins/exception';
-import { ReviverReply } from '../plugins/reviver';
-import { ApiTypes } from '../fwk/api';
-import { extractQueryParams, filterUndefinedValues, getResponseReviver, prepareUrl, processFormData, tokenizeRequestOptions } from '../fwk/api.helpers';
-import type { PartialExcept } from '../fwk/api.interface';
-import type { ApiClient,RequestOptionsParameters } from '../fwk/core/api-client';
-import { BaseApiClientOptions } from '../fwk/core/base-api-constructor';
-import { EmptyResponseError } from '../fwk/errors';
-import { ReviverType } from '../fwk/Reviver';
-import type { AngularCall, AngularPlugin, PluginObservableRunner } from '../plugins/core/angular-plugin';
+import type {
+  HttpClient,
+  HttpResponse,
+} from '@angular/common/http';
+import {
+  ApiTypes,
+} from '../fwk/api';
+import {
+  extractQueryParams,
+  filterUndefinedValues,
+  getResponseReviver,
+  prepareUrl,
+  processFormData,
+  tokenizeRequestOptions,
+} from '../fwk/api.helpers';
+import type {
+  PartialExcept,
+} from '../fwk/api.interface';
+import type {
+  ApiClient,
+  RequestOptionsParameters,
+} from '../fwk/core/api-client';
+import {
+  BaseApiClientOptions,
+} from '../fwk/core/base-api-constructor';
+import {
+  EmptyResponseError,
+} from '../fwk/errors';
+import {
+  ReviverType,
+} from '../fwk/reviver';
+import type {
+  AngularCall,
+  AngularPlugin,
+  PluginObservableRunner,
+} from '../plugins/core/angular-plugin';
+import type {
+  RequestOptions,
+  TokenizedOptions,
+} from '../plugins/core/index';
+import {
+  ExceptionReply,
+} from '../plugins/exception';
+import {
+  ReviverReply,
+} from '../plugins/reviver';
 
 /**
  * @see BaseApiClientOptions
@@ -45,7 +79,6 @@ const DEFAULT_OPTIONS: Omit<BaseApiAngularClientOptions, 'basePath' | 'httpClien
  * @deprecated Use the one exposed by {@link @ama-sdk/client-angular}, will be removed in v13
  */
 export class ApiAngularClient implements ApiClient {
-
   /** @inheritdoc */
   public options: BaseApiAngularClientOptions;
 
@@ -104,8 +137,7 @@ export class ApiAngularClient implements ApiClient {
   public async processCall<T>(url: string, options: RequestOptions, apiType: ApiTypes, apiName: string, revivers: ReviverType<T> | { [statusCode: number]: ReviverType<T> | undefined },
     operationId?: string): Promise<T>;
   public async processCall<T>(url: string, options: RequestOptions, apiType: ApiTypes | string, apiName: string,
-    revivers?: ReviverType<T> | undefined | { [statusCode: number]: ReviverType<T> | undefined }, operationId?: string): Promise<T> {
-
+    revivers?: ReviverType<T> | { [statusCode: number]: ReviverType<T> | undefined }, operationId?: string): Promise<T> {
     let response: HttpResponse<any> | undefined;
     let root: any;
     let exception: Error | undefined;
@@ -145,13 +177,14 @@ export class ApiAngularClient implements ApiClient {
 
         const subscription = httpRequest.subscribe({
           next: (res) => data = res,
+          // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors -- subscription forwards the error from the httpRequest to asyncResponse promise
           error: (err) => reject(err),
           complete: () => resolve(data)
         });
         metadataSignal?.throwIfAborted();
         metadataSignal?.addEventListener('abort', () => {
           subscription.unsubscribe();
-          reject(metadataSignal.reason);
+          reject(metadataSignal.reason instanceof Error ? metadataSignal.reason : new Error(metadataSignal.reason.toString()));
         });
       });
       response = await asyncResponse;
@@ -160,10 +193,10 @@ export class ApiAngularClient implements ApiClient {
       exception = new EmptyResponseError(e.message || 'Fail to Fetch', undefined, { apiName, operationId, url, origin });
     }
 
-    // eslint-disable-next-line no-console
+    // eslint-disable-next-line no-console -- `console.error` is supposed to be the default value if the `options` argument is not provided, can be removed in Otter v12.
     const reviver = getResponseReviver(revivers, response, operationId, { disableFallback: this.options.disableFallback, log: console.error });
-    const replyPlugins = this.options.replyPlugins ?
-      this.options.replyPlugins.map((plugin) => plugin.load<T>({
+    const replyPlugins = this.options.replyPlugins
+      ? this.options.replyPlugins.map((plugin) => plugin.load<T>({
         dictionaries: root && root.dictionaries,
         response: response && {
           ...response,
@@ -180,7 +213,8 @@ export class ApiAngularClient implements ApiClient {
         url,
         origin,
         logger: this.options.logger
-      })) : [];
+      }))
+      : [];
 
     let parsedData = root;
     for (const pluginRunner of replyPlugins) {

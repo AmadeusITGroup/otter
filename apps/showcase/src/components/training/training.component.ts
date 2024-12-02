@@ -1,4 +1,8 @@
-import {AsyncPipe, JsonPipe, NgComponentOutlet} from '@angular/common';
+import {
+  AsyncPipe,
+  JsonPipe,
+  NgComponentOutlet,
+} from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -7,21 +11,41 @@ import {
   input,
   OnInit,
   signal,
-  WritableSignal
+  WritableSignal,
 } from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {
+  FormsModule,
+} from '@angular/forms';
 import {
   NgbAccordionModule,
   NgbDropdown,
   NgbDropdownItem,
   NgbDropdownMenu,
-  NgbDropdownToggle
+  NgbDropdownToggle,
 } from '@ng-bootstrap/ng-bootstrap';
-import {DynamicContentModule, DynamicContentService} from '@o3r/dynamic-content';
-import type {DirectoryNode, FileNode, FileSystemTree, SymlinkNode} from '@webcontainer/api';
-import {firstValueFrom} from 'rxjs';
-import {EditorMode, TrainingProject} from './code-editor-view';
-import {TrainingStepPresComponent} from './training-step';
+import {
+  DynamicContentModule,
+  DynamicContentService,
+} from '@o3r/dynamic-content';
+import {
+  LoggerService,
+} from '@o3r/logger';
+import type {
+  DirectoryNode,
+  FileNode,
+  FileSystemTree,
+  SymlinkNode,
+} from '@webcontainer/api';
+import {
+  firstValueFrom,
+} from 'rxjs';
+import {
+  EditorMode,
+  TrainingProject,
+} from './code-editor-view';
+import {
+  TrainingStepPresComponent,
+} from './training-step';
 
 /** Step project content and its corresponding path */
 interface StepProjectUrl {
@@ -157,11 +181,10 @@ function getFilesContent(resources: Resource[]) {
   return (resources.reduce((fileSystemTree: FileSystemTree, resource) => {
     const sanitizedPath = `./${resource.path.replace(new RegExp('^[.]/?'), '')}`;
     const parsedPath = sanitizedPath.split('/').filter((pathEl) => !!pathEl);
-    overrideFileSystemTree(fileSystemTree, JSON.parse(resource.content).fileSystemTree as FileSystemTree, parsedPath);
+    overrideFileSystemTree(fileSystemTree, (JSON.parse(resource.content) as { fileSystemTree: FileSystemTree }).fileSystemTree, parsedPath);
     return fileSystemTree;
   }, {} as FileSystemTree)['.'] as DirectoryNode).directory;
 }
-
 
 @Component({
   selector: 'o3r-training',
@@ -201,6 +224,7 @@ export class TrainingComponent implements OnInit {
   public title = input('');
 
   private readonly dynamicContentService = inject(DynamicContentService);
+  private readonly loggerService = inject(LoggerService);
 
   /**
    * Load the dynamic content of the specified training step
@@ -210,8 +234,7 @@ export class TrainingComponent implements OnInit {
     if (!step.dynamicContent.htmlContent()) {
       const content = await this.loadResource(step.description.htmlContentUrl);
       if (!content) {
-        // eslint-disable-next-line no-console
-        console.error('No step found');
+        this.loggerService.error('No step found');
         return;
       }
       step.dynamicContent.htmlContent.set(content);
@@ -235,8 +258,7 @@ export class TrainingComponent implements OnInit {
   private async loadSteps() {
     const programFiles = await this.loadResource(`${this.trainingPath()}/program.json`);
     if (!programFiles) {
-      // eslint-disable-next-line no-console
-      console.error('No training program found');
+      this.loggerService.error('No training program found');
       return;
     }
     const program = JSON.parse(programFiles) as TrainingProgram;
@@ -278,7 +300,7 @@ export class TrainingComponent implements OnInit {
   private async updateStepDynamicContent(step: TrainingStep, urls: StepProjectUrl[], solutionProject = false) {
     const resources = (await Promise.all(
       urls.map(
-        async ({path, contentUrl}) => ({
+        async ({ path, contentUrl }) => ({
           path,
           content: await this.loadResource(contentUrl)
         })
@@ -306,7 +328,7 @@ export class TrainingComponent implements OnInit {
     }
     this.currentStepIndex.set(index);
 
-    const newHash = location.hash.match(currentStepLocationRegExp)
+    const newHash = currentStepLocationRegExp.test(location.hash)
       ? location.hash.replace(currentStepLocationRegExp, `#${this.currentStepIndex()}`)
       : `${location.hash}#${this.currentStepIndex()}`;
     history.pushState(null, '', newHash);

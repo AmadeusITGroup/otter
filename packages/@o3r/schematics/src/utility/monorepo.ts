@@ -1,16 +1,28 @@
-import type { SchematicContext, Tree } from '@angular-devkit/schematics';
 import * as path from 'node:path';
-import type { WorkspaceLayout, WorkspaceProject, WorkspaceSchema } from '../interfaces/index';
-import { getSchematicOptions } from './collection';
-import type { PackageJson } from 'type-fest';
-import { getWorkspaceConfig } from './loaders';
+import type {
+  SchematicContext,
+  Tree,
+} from '@angular-devkit/schematics';
+import type {
+  PackageJson,
+} from 'type-fest';
+import type {
+  WorkspaceLayout,
+  WorkspaceProject,
+  WorkspaceSchema,
+} from '../interfaces/index';
+import {
+  getSchematicOptions,
+} from './collection';
+import {
+  getWorkspaceConfig,
+} from './loaders';
 
 /**
  * Find the relative path to a configuration file at the monorepo root
  * @param tree
  * @param files List of files to look for, the first of the list will be used
  * @param originPath Path from where to calculate the relative path
- * @returns
  */
 export function findConfigFileRelativePath(tree: Tree, files: string[], originPath: string) {
   const foundFile = files.find((file) => tree.exists(`/${file}`));
@@ -79,6 +91,5 @@ export function getPackagesBaseRootFolder(tree: Tree, context: SchematicContext,
 
   const schematicConfigDir = configName && getSchematicOptions(config, context)?.[configName];
 
-  // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
   return schematicConfigDir || nxExplicitDir || ((projectType && configName) ? DEFAULT_ROOT_FOLDERS[configName] : '.');
 }

@@ -1,14 +1,21 @@
 #!/usr/bin/env node
-import { program } from 'commander';
-import * as fse from 'fs-extra';
+import * as fs from 'node:fs';
 import * as http from 'node:http';
 import * as https from 'node:https';
-import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { CookieJar, Headers } from 'request';
+import {
+  program,
+} from 'commander';
+import * as fse from 'fs-extra';
+import {
+  CookieJar,
+  Headers,
+} from 'request';
 import * as request from 'request-promise-native';
 import * as winston from 'winston';
-import { GavcResponse } from '../helpers/gavc-response';
+import {
+  GavcResponse,
+} from '../helpers/gavc-response';
 
 const SUPPORTED_REPOSITORY_MANAGERS = ['JFrog', 'Azure Artifacts'];
 
@@ -79,11 +86,10 @@ if (!opts.artifactGroupId) {
 
 let url: string = opts.registry;
 const jar = request.jar();
-const options: {headers?: Headers; jar: CookieJar} = {jar};
-const password = opts.password || opts.password_env_var && process.env[opts.password_env_var];
+const options: { headers?: Headers; jar: CookieJar } = { jar };
+const password = opts.password || (opts.password_env_var && process.env[opts.password_env_var]);
 if (opts.username && password) {
   options.headers = {
-    // eslint-disable-next-line @typescript-eslint/naming-convention
     Authorization: 'Basic ' + Buffer.from(`${opts.username as string}:${password as string}`).toString('base64')
   };
 }
@@ -103,7 +109,6 @@ const reportError = (e: Error) => {
   logger.error(e);
 };
 
-
 /**
  * Download the specified Artifact on JFrog
  */
@@ -112,7 +117,7 @@ async function retrieveArtifactFromJFrog() {
 
   url += (url.endsWith('/') ? '' : '/') + `api/search/gavc?a=${name}&g=${artifactGroupId}`;
 
-  if (opts.artifactRepos && opts.artifactRepos.length) {
+  if (opts.artifactRepos && opts.artifactRepos.length > 0) {
     url += `&repos=${(opts.artifactRepos as string[]).join(',')}`;
   }
 
@@ -122,13 +127,12 @@ async function retrieveArtifactFromJFrog() {
   let responseSearch;
   try {
     responseSearch = await request.get(url, options).promise();
-  } catch (err) {
+  } catch {
     logger.warn('First call to get artifact information failed, retries');
     responseSearch = await request.get(url, options).promise();
   }
-  // eslint-disable-next-line no-console
-  console.log(responseSearch);
-  const responseSearchObj: {results: {uri: string}[]} = JSON.parse(responseSearch);
+  logger.info(responseSearch);
+  const responseSearchObj: { results: { uri: string }[] } = JSON.parse(responseSearch);
   const uris = responseSearchObj.results
     .map((res) => res.uri)
     .filter((uri) => uri.endsWith('.jar'))
@@ -141,7 +145,7 @@ async function retrieveArtifactFromJFrog() {
       return 0;
     });
 
-  if (uris.length) {
+  if (uris.length > 0) {
     const artifactUrl = uris[0];
     logger.info(`Call to ${artifactUrl}`);
     const gavcResponse: string = await request.get(artifactUrl, options).promise();
@@ -154,7 +158,7 @@ async function retrieveArtifactFromJFrog() {
     file.on('error', reportError);
 
     const cookieString = jar.getCookieString(url);
-    const httpOptions = {headers: options.headers ? {...options.headers, cookie: cookieString} : undefined};
+    const httpOptions = { headers: options.headers ? { ...options.headers, cookie: cookieString } : undefined };
 
     if (artifactUrl.startsWith('https')) {
       https.get(downloadUri, httpOptions, (response) => response.pipe(file)).on('error', reportError);
@@ -180,7 +184,7 @@ function getLatestVersion(packages: Record<string, any>[], artifactName: string)
   const normalizedArtifactName = `${artifactGroupId}:${artifactName}`.toLowerCase();
   for (const pckg of packages) {
     if (pckg.normalizedName === artifactName || pckg.normalizedName === normalizedArtifactName) {
-      const latestVersion = (pckg.versions as {isLatest: boolean; version: string}[]).find(v => v.isLatest);
+      const latestVersion = (pckg.versions as { isLatest: boolean; version: string }[]).find((v) => v.isLatest);
       if (!latestVersion) {
         throw new Error(`No latest version found for ${artifactName}`);
       }
@@ -196,14 +200,16 @@ function getLatestVersion(packages: Record<string, any>[], artifactName: string)
 async function retrieveArtifactFromAzure() {
   try {
     if (version.startsWith('0.0.0')) {
-      // eslint-disable-next-line max-len
-      const res = await request.get(`https://feeds.dev.azure.com/${opts.organization as string}/${opts.project as string}/_apis/packaging/feeds/${opts.feed as string}/packages?api-version=6.0-preview.1`, options).promise();
+      const res = await request.get(
+        `https://feeds.dev.azure.com/${opts.organization as string}/${opts.project as string}/_apis/packaging/feeds/${opts.feed as string}/packages?api-version=6.0-preview.1`,
+        options
+      ).promise();
       version = getLatestVersion(JSON.parse(res).value, name);
     }
     logger.info(`Searching for ${name}@${version}`);
 
-    // eslint-disable-next-line max-len
-    url = `https://pkgs.dev.azure.com/${opts.organization as string}/${opts.project as string}/_apis/packaging/feeds/${opts.feed as string}/maven/${opts.artifactGroupId as string}/${name}/${version}/${name}-${version}.jar/content?api-version=6.0-preview.1`;
+    url = `https://pkgs.dev.azure.com/${opts.organization as string}/${opts.project as string}/_apis/packaging/feeds/${opts.feed as string}/maven/${opts.artifactGroupId as string}`
+    + `/${name}/${version}/${name}-${version}.jar/content?api-version=6.0-preview.1`;
 
     logger.info(`Call to ${url}`);
     const downloadUri = await new Promise<string | undefined>((resolve, reject) => {
@@ -232,7 +238,6 @@ async function retrieveArtifactFromAzure() {
 }
 /**
  * Download an artifact on the specified artifact repository manager
- * @param registry Registry url
  */
 function retrieveArtifact() {
   switch (opts.repositoryManager) {

@@ -1,4 +1,6 @@
-import { ArgTypes } from '@storybook/angular';
+import {
+  ArgTypes,
+} from '@storybook/angular';
 
 /** Configuration of Storybook stories */
 export interface StorybookStoryConfiguration {

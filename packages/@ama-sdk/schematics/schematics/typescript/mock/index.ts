@@ -1,4 +1,7 @@
-import {strings} from '@angular-devkit/core';
+import * as path from 'node:path';
+import {
+  strings,
+} from '@angular-devkit/core';
 import {
   apply,
   chain,
@@ -9,17 +12,12 @@ import {
   SchematicContext,
   template,
   Tree,
-  url
+  url,
 } from '@angular-devkit/schematics';
-import * as path from 'node:path';
-import {NgGenerateMockSchematicsSchema} from './schema';
+import {
+  NgGenerateMockSchematicsSchema,
+} from './schema';
 
-
-/**
- * @param singular
- * @param matches
- * @param excludes
- */
 function endsWith(singular: string, matches: string[], excludes: string[] = []): boolean {
   return matches.some((match) =>
     singular.endsWith(match)
@@ -27,9 +25,6 @@ function endsWith(singular: string, matches: string[], excludes: string[] = []):
   );
 }
 
-/**
- * @param singular
- */
 function plurialize(singular: string): string {
   // If the singular form is already pluralized do nothing
   if (endsWith(singular, ['data', 'ies', 'es', 's'], ['us', 'ss'])) {
@@ -86,7 +81,6 @@ function ngGenerateMockFn(options: NgGenerateMockSchematicsSchema): Rule {
       }),
       move(mockDestination)
     ]), MergeStrategy.Overwrite)(tree, context);
-
   };
 
   const rules = [

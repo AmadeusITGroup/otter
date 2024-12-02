@@ -1,7 +1,17 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
-import { O3rComponent } from '@o3r/core';
-import { DynamicContentModule } from '@o3r/dynamic-content';
-import { CopyTextPresComponent } from '../../components';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ViewEncapsulation,
+} from '@angular/core';
+import {
+  O3rComponent,
+} from '@o3r/core';
+import {
+  DynamicContentModule,
+} from '@o3r/dynamic-content';
+import {
+  CopyTextPresComponent,
+} from '../../components';
 
 @O3rComponent({ componentType: 'Page' })
 @Component({
@@ -13,6 +23,4 @@ import { CopyTextPresComponent } from '../../components';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HomeComponent {
-
-}
+export class HomeComponent {}

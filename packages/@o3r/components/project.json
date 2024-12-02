@@ -11,7 +11,10 @@
       "options": {
         "script": "postbuild"
       },
-      "dependsOn": ["build-builders", "compile"]
+      "dependsOn": ["build-builders", "compile", "expose-schemas"]
+    },
+    "expose-schemas": {
+      "executor": "nx:run-script"
     },
     "prepare": {
       "executor": "nx:run-script"
@@ -40,13 +43,7 @@
       }
     },
     "lint": {
-      "options": {
-        "eslintConfig": "packages/@o3r/components/.eslintrc.js",
-        "lintFilePatterns": [
-          "packages/@o3r/components/src/**/*.ts",
-          "packages/@o3r/components/package.json"
-        ]
-      }
+      "executor": "nx:run-commands"
     },
     "test": {
       "executor": "@nx/jest:jest",

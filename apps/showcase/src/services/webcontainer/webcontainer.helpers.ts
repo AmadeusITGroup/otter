@@ -1,7 +1,17 @@
-import { FileSystem, getFilesTree } from '@o3r-training/training-tools';
-import { WebContainer, WebContainerProcess } from '@webcontainer/api';
-import { Terminal } from '@xterm/xterm';
-import { BehaviorSubject } from 'rxjs';
+import {
+  FileSystem,
+  getFilesTree,
+} from '@o3r-training/training-tools';
+import {
+  WebContainer,
+  WebContainerProcess,
+} from '@webcontainer/api';
+import {
+  Terminal,
+} from '@xterm/xterm';
+import {
+  BehaviorSubject,
+} from 'rxjs';
 
 /**
  * Get the file tree from the path of the File System of the given WebContainer instance
@@ -32,7 +42,7 @@ export function killTerminal(terminalSubject: BehaviorSubject<Terminal | null>, 
  * @param terminal
  * @param cb
  */
-export const createTerminalStream = (terminal: Terminal, cb?: (data: string) => void | Promise<void>) => new WritableStream({
+export const createTerminalStream = (terminal: Terminal, cb?: (data: string) => void | Promise<void>) => new WritableStream<string>({
   write: (data) => {
     if (cb) {
       void cb(data);

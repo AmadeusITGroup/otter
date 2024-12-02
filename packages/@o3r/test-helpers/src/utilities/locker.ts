@@ -1,4 +1,11 @@
-import { existsSync, readFileSync, rmSync, statSync, watch, writeFileSync } from 'node:fs';
+import {
+  existsSync,
+  readFileSync,
+  rmSync,
+  statSync,
+  watch,
+  writeFileSync,
+} from 'node:fs';
 import * as path from 'node:path';
 
 export interface LockerOptions {
@@ -39,10 +46,10 @@ export class Locker {
   public lock(): boolean {
     const pid = String(process.pid);
     try {
-      writeFileSync(this.options.lockFilePath, pid, {flag: this.isLockExpired() ? 'w' : 'wx'});
+      writeFileSync(this.options.lockFilePath, pid, { flag: this.isLockExpired() ? 'w' : 'wx' });
       // Need to check if the file was created by this process
-      return readFileSync(this.options.lockFilePath, {encoding: 'utf8'}) === pid;
-    } catch (ex) {
+      return readFileSync(this.options.lockFilePath, { encoding: 'utf8' }) === pid;
+    } catch {
       return false;
     }
   }
@@ -70,7 +77,7 @@ export class Locker {
     }
     try {
       return (Date.now() - statSync(this.options.lockFilePath).birthtime.getTime()) > this.options.maxLockAge;
-    } catch (err) {
+    } catch {
       return false;
     }
   }
@@ -101,7 +108,7 @@ export class Locker {
         }
       };
       try {
-        watcher = watch(this.options.lockFilePath, {persistent: false}, check);
+        watcher = watch(this.options.lockFilePath, { persistent: false }, check);
         watcher.on('error', check);
       } catch {
         check();

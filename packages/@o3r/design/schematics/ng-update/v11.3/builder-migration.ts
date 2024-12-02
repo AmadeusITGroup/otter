@@ -1,5 +1,9 @@
-import type { Rule } from '@angular-devkit/schematics';
-import { basename } from 'node:path';
+import {
+  basename,
+} from 'node:path';
+import type {
+  Rule,
+} from '@angular-devkit/schematics';
 
 const getNodeBuilder = (obj: any, refs: any[] = []): any[] => {
   if (Object.keys(obj).includes('builder') && obj.builder === '@o3r/design:generate-css') {
@@ -25,7 +29,7 @@ export const migrateBuilderToGenerateStyle: Rule = (tree, context) => {
       try {
         const contentObj: any = tree.readJson(path);
         const refs = getNodeBuilder(contentObj);
-        if (!refs.length) {
+        if (refs.length === 0) {
           return;
         }
 

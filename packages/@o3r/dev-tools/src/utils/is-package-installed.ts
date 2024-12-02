@@ -1,4 +1,6 @@
-import { posix } from 'node:path';
+import {
+  posix,
+} from 'node:path';
 
 /**
  * Check if an npm package is installed

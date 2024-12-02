@@ -1,23 +1,59 @@
-import {Inject, Injectable, OnDestroy, Optional} from '@angular/core';
-import {select, Store} from '@ngrx/store';
-import {BehaviorSubject, combineLatest, Observable, Subscription} from 'rxjs';
-import {filter, map, shareReplay, switchMap} from 'rxjs/operators';
-import type {ActionBlock, Fact, Operator, Ruleset, UnaryOperator} from '../../engine/index';
-import {EngineDebugger, operatorList, RulesEngine} from '../../engine/index';
-import type {RulesetsStore} from '../../stores';
+import {
+  Inject,
+  Injectable,
+  OnDestroy,
+  Optional,
+} from '@angular/core';
+import {
+  select,
+  Store,
+} from '@ngrx/store';
+import type {
+  RulesEngineActionHandler,
+} from '@o3r/core';
+import {
+  LoggerService,
+} from '@o3r/logger';
+import {
+  BehaviorSubject,
+  combineLatest,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  filter,
+  map,
+  shareReplay,
+  switchMap,
+} from 'rxjs/operators';
+import type {
+  ActionBlock,
+  Fact,
+  Operator,
+  Ruleset,
+  UnaryOperator,
+} from '../../engine/index';
+import {
+  EngineDebugger,
+  operatorList,
+  RulesEngine,
+} from '../../engine/index';
+import type {
+  RulesetsStore,
+} from '../../stores';
 import {
   selectActiveRuleSets,
   selectAllRulesets,
   selectComponentsLinkedToRuleset,
-  setRulesetsEntities
+  setRulesetsEntities,
 } from '../../stores';
-import {RULES_ENGINE_OPTIONS, RulesEngineServiceOptions} from '../rules-engine.token';
-import {LoggerService} from '@o3r/logger';
-import type {RulesEngineActionHandler} from '@o3r/core';
+import {
+  RULES_ENGINE_OPTIONS,
+  RulesEngineServiceOptions,
+} from '../rules-engine.token';
 
 @Injectable()
 export class RulesEngineRunnerService implements OnDestroy {
-
   protected subscription = new Subscription();
 
   /** Rulesets to restrict the execution of the engine */
@@ -35,7 +71,10 @@ export class RulesEngineRunnerService implements OnDestroy {
   /** Enable action execution on new state change */
   public enabled: boolean;
 
-  /** List of action handlers */
+  /**
+   * List of action handlers
+   * @deprecated will become protected in Otter v13, instead use {@link registerActionHandlers}
+   */
   public readonly actionHandlers = new Set<RulesEngineActionHandler>();
 
   constructor(
@@ -44,7 +83,7 @@ export class RulesEngineRunnerService implements OnDestroy {
     @Optional() @Inject(RULES_ENGINE_OPTIONS) engineConfig?: RulesEngineServiceOptions) {
     this.enabled = !engineConfig?.dryRun;
     this.engine = new RulesEngine({
-      debugger: engineConfig?.debug ? new EngineDebugger({eventsStackLimit: engineConfig?.debugEventsStackLimit}) : undefined,
+      debugger: engineConfig?.debug ? new EngineDebugger({ eventsStackLimit: engineConfig?.debugEventsStackLimit }) : undefined,
       logger: this.logger
     });
     this.ruleSets$ = combineLatest([
@@ -90,7 +129,7 @@ export class RulesEngineRunnerService implements OnDestroy {
   protected async executeActions(actions: ActionBlock[]) {
     const actionHandlers = [...this.actionHandlers];
 
-    const supportedActions = new Set(actionHandlers.map((handler) => handler.supportingActions).flat());
+    const supportedActions = new Set(actionHandlers.flatMap((handler) => handler.supportingActions));
 
     const actionMaps = actions
       .filter((action) => {
@@ -119,7 +158,7 @@ export class RulesEngineRunnerService implements OnDestroy {
   }
 
   /**
-   * Update or insert fact in rules engine
+   * Update or insert fact in the rules engine
    * @param facts fact list to add / update
    */
   public upsertFacts(facts: Fact<unknown> | Fact<unknown>[]) {
@@ -127,7 +166,7 @@ export class RulesEngineRunnerService implements OnDestroy {
   }
 
   /**
-   * Update or insert operator in rules engine
+   * Update or insert operator in the rules engine
    * @param operators operator list to add / update
    */
   public upsertOperators(operators: (Operator<any, any> | UnaryOperator<any>)[]) {
@@ -135,11 +174,27 @@ export class RulesEngineRunnerService implements OnDestroy {
   }
 
   /**
-   * Upsert a list of RuleSets to be run in the engine
+   * Upsert a list of RuleSets to be run in the rules engine
    * @param ruleSets
    */
   public upsertRulesets(ruleSets: Ruleset[]) {
-    this.store.dispatch(setRulesetsEntities({entities: ruleSets}));
+    this.store.dispatch(setRulesetsEntities({ entities: ruleSets }));
+  }
+
+  /**
+   * Add action handlers in the rules engine
+   * @param actionHandlers
+   */
+  public registerActionHandlers(...actionHandlers: RulesEngineActionHandler[]) {
+    actionHandlers.forEach((actionHandler) => this.actionHandlers.add(actionHandler));
+  }
+
+  /**
+   * Remove action handlers in the rules engine
+   * @param actionHandlers
+   */
+  public unregisterActionHandlers(...actionHandlers: RulesEngineActionHandler[]) {
+    actionHandlers.forEach((actionHandler) => this.actionHandlers.delete(actionHandler));
   }
 
   /** @inheritdoc */

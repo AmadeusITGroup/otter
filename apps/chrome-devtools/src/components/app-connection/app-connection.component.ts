@@ -1,7 +1,20 @@
-import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, OnDestroy } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
-import { AppState, ChromeExtensionConnectionService } from '../../services/connection.service';
+import {
+  AsyncPipe,
+} from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnDestroy,
+} from '@angular/core';
+import {
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  AppState,
+  ChromeExtensionConnectionService,
+} from '../../services/connection.service';
 
 @Component({
   selector: 'app-connection',

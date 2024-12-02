@@ -1,6 +1,10 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ClipboardButtonPresComponent } from './clipboard-button-pres.component';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import {
+  ClipboardButtonPresComponent,
+} from './clipboard-button-pres.component';
 
 describe('ClipboardButtonPresComponent', () => {
   let component: ClipboardButtonPresComponent;

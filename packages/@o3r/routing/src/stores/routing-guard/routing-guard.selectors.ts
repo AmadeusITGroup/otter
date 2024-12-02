@@ -1,8 +1,18 @@
-import {createFeatureSelector, createSelector} from '@ngrx/store';
-import {routingGuardAdapter} from './routing-guard.reducer';
-import {RegisteredItemFailureReason, RegisteredItemStatus, ROUTING_GUARD_STORE_NAME, RoutingGuardState} from './routing-guard.state';
+import {
+  createFeatureSelector,
+  createSelector,
+} from '@ngrx/store';
+import {
+  routingGuardAdapter,
+} from './routing-guard.reducer';
+import {
+  RegisteredItemFailureReason,
+  RegisteredItemStatus,
+  ROUTING_GUARD_STORE_NAME,
+  RoutingGuardState,
+} from './routing-guard.state';
 
-const {selectIds, selectEntities, selectAll, selectTotal} = routingGuardAdapter.getSelectors();
+const { selectIds, selectEntities, selectAll, selectTotal } = routingGuardAdapter.getSelectors();
 
 /** Select RoutingGuard State */
 export const selectRoutingGuardState = createFeatureSelector<RoutingGuardState>(ROUTING_GUARD_STORE_NAME);
@@ -50,7 +60,7 @@ export const selectRoutingGuardEntitiesBlockingReasons = createSelector(
 export const hasNoEntitiesInPendingState = createSelector(
   selectRoutingGuardEntitiesStatusList,
   (statusList: string[]) => {
-    return !statusList.some((status) => status === RegisteredItemStatus.PENDING);
+    return !statusList.includes(RegisteredItemStatus.PENDING);
   }
 );
 
@@ -61,7 +71,7 @@ export const hasNoEntitiesInPendingState = createSelector(
 export const hasNoEntitiesInFailureState = createSelector(
   selectRoutingGuardEntitiesStatusList,
   (statusList: string[]) => {
-    return !statusList.some((status) => status === RegisteredItemStatus.FAILURE);
+    return !statusList.includes(RegisteredItemStatus.FAILURE);
   }
 );
 
@@ -71,7 +81,7 @@ export const hasNoEntitiesInFailureState = createSelector(
  */
 export const hasNoEntityInReadyOrFailureState = createSelector(
   selectRoutingGuardEntitiesStatusList,
-  (statusList: string[]) => {
+  (statusList: RegisteredItemStatus[]) => {
     return !statusList.some((status) => status === RegisteredItemStatus.READY || status === RegisteredItemStatus.FAILURE);
   }
 );
@@ -83,6 +93,6 @@ export const hasNoEntityInReadyOrFailureState = createSelector(
 export const hasNoEntityFailureStateWithReasons = createSelector(
   selectRoutingGuardEntitiesBlockingReasons,
   (reasons: RegisteredItemFailureReason[], properties: { blockingReason: RegisteredItemFailureReason }) => {
-    return !reasons.some((reason) => reason === properties.blockingReason);
+    return !reasons.includes(properties.blockingReason);
   }
 );

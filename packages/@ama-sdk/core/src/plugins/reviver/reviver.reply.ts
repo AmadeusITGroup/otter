@@ -1,18 +1,21 @@
-import type { ReviverOptions } from '../../fwk/Reviver';
-import { PluginRunner, ReplyPlugin, ReplyPluginContext } from '../core';
+import type {
+  ReviverOptions,
+} from '../../fwk/reviver';
+import {
+  PluginRunner,
+  ReplyPlugin,
+  ReplyPluginContext,
+} from '../core';
 
 /**
  * Plugin to revive a reply from the SDK
  */
-export class ReviverReply<V = {[key: string]: any}> implements ReplyPlugin<undefined, V> {
-
+export class ReviverReply<V = { [key: string]: any }> implements ReplyPlugin<undefined, V> {
   /**
    * Instance a plugin to revive a reply from the SDK
    * @param options Reviver options
    */
-  constructor(public readonly options?: ReviverOptions) {
-
-  }
+  constructor(public readonly options?: ReviverOptions) {}
 
   public load<K>(context: ReplyPluginContext<K>): PluginRunner<K | undefined, V> {
     const options: ReviverOptions = {
@@ -27,5 +30,4 @@ export class ReviverReply<V = {[key: string]: any}> implements ReplyPlugin<undef
       }
     };
   }
-
 }

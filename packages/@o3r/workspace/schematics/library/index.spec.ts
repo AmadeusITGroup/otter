@@ -1,6 +1,10 @@
-import { Tree } from '@angular-devkit/schematics';
-import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
 import * as path from 'node:path';
+import {
+  Tree,
+} from '@angular-devkit/schematics';
+import {
+  SchematicTestRunner,
+} from '@angular-devkit/schematics/testing';
 
 jest.mock('@angular-devkit/schematics', () => {
   const originalModule = jest.requireActual('@angular-devkit/schematics');
@@ -15,7 +19,6 @@ jest.mock('@angular-devkit/schematics', () => {
 const collectionPath = path.join(__dirname, '..', '..', 'collection.json');
 
 describe('New module generator', () => {
-
   let initialTree: Tree;
 
   beforeEach(() => {
@@ -58,7 +61,7 @@ describe('New module generator', () => {
     expect(tree.files.length).toBeGreaterThanOrEqual(9);
   });
 
-  // TODO: Should be re-enable when the following issue #2066 is fixed
+  // eslint-disable-next-line jest/no-disabled-tests -- TODO: Should be re-enable when the following issue #2066 is fixed
   describe.skip('in NX monorepo', () => {
     it('should generate Nx project.json with given name', async () => {
       initialTree.create('nx.json', '{"workspaceLayout": { "libsDir": "packages-test" } }');

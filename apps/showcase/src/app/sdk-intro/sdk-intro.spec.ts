@@ -1,5 +1,10 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { SdkIntroComponent } from './sdk-intro.component';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import {
+  SdkIntroComponent,
+} from './sdk-intro.component';
 
 describe('SdkComponent', () => {
   let component: SdkIntroComponent;

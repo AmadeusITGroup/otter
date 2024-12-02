@@ -1,10 +1,33 @@
-import { Inject, Injectable, OnDestroy, Optional } from '@angular/core';
-import { filterMessageContent, sendOtterMessage } from '@o3r/core';
-import { LoggerService } from '@o3r/logger';
-import { fromEvent, Subscription } from 'rxjs';
-import { AvailableStylingMessageContents, StylingDevtoolsServiceOptions, StylingMessageDataTypes } from './styling-devkit.interface';
-import { OtterStylingDevtools } from './styling-devtools.service';
-import { OTTER_STYLING_DEVTOOLS_DEFAULT_OPTIONS, OTTER_STYLING_DEVTOOLS_OPTIONS } from './styling-devtools.token';
+/* eslint-disable no-console -- this is the purpose of this service */
+import {
+  Inject,
+  Injectable,
+  OnDestroy,
+  Optional,
+} from '@angular/core';
+import {
+  filterMessageContent,
+  sendOtterMessage,
+} from '@o3r/core';
+import {
+  LoggerService,
+} from '@o3r/logger';
+import {
+  fromEvent,
+  Subscription,
+} from 'rxjs';
+import {
+  AvailableStylingMessageContents,
+  StylingDevtoolsServiceOptions,
+  StylingMessageDataTypes,
+} from './styling-devkit.interface';
+import {
+  OtterStylingDevtools,
+} from './styling-devtools.service';
+import {
+  OTTER_STYLING_DEVTOOLS_DEFAULT_OPTIONS,
+  OTTER_STYLING_DEVTOOLS_OPTIONS,
+} from './styling-devtools.token';
 
 const isStylingMessage = (message: any): message is AvailableStylingMessageContents => {
   return message && (
@@ -58,14 +81,13 @@ const getCSSVariableValue = (variableName: string, cssRules: CSSStyleRule[]) => 
  */
 @Injectable()
 export class StylingDevtoolsMessageService implements OnDestroy {
-
   private readonly subscriptions = new Subscription();
 
   private readonly sendMessage = sendOtterMessage<AvailableStylingMessageContents>;
 
   constructor(
-      private readonly logger: LoggerService,
-      private readonly stylingDevTools: OtterStylingDevtools,
+    private readonly logger: LoggerService,
+    private readonly stylingDevTools: OtterStylingDevtools,
     @Optional() @Inject(OTTER_STYLING_DEVTOOLS_OPTIONS) private readonly options: StylingDevtoolsServiceOptions = OTTER_STYLING_DEVTOOLS_DEFAULT_OPTIONS) {
     this.options = {
       ...OTTER_STYLING_DEVTOOLS_DEFAULT_OPTIONS,
@@ -98,8 +120,7 @@ export class StylingDevtoolsMessageService implements OnDestroy {
 
   /**
    * Function to handle the incoming messages from Otter Chrome DevTools extension
-   * @param event Event coming from the Otter Chrome DevTools extension
-   * @param message
+   * @param message Message coming from the Otter Chrome DevTools extension
    */
   private handleEvents(message: AvailableStylingMessageContents) {
     this.logger.debug('Message handling by the styling service', message);

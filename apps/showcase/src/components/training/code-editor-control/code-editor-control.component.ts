@@ -8,14 +8,32 @@ import {
   Input,
   OnDestroy,
   ViewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
-import {toSignal} from '@angular/core/rxjs-interop';
-import {DfProgressbarModule} from '@design-factory/design-factory';
-import {NgbNavModule} from '@ng-bootstrap/ng-bootstrap';
-import {distinctUntilChanged, map, of, repeat, Subject, throttleTime, timeout} from 'rxjs';
-import {WebContainerService} from '../../../services';
-import {CodeEditorTerminalComponent} from '../code-editor-terminal';
+import {
+  toSignal,
+} from '@angular/core/rxjs-interop';
+import {
+  DfProgressbarModule,
+} from '@design-factory/design-factory';
+import {
+  NgbNavModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  distinctUntilChanged,
+  map,
+  of,
+  repeat,
+  Subject,
+  throttleTime,
+  timeout,
+} from 'rxjs';
+import {
+  WebContainerService,
+} from '../../../services';
+import {
+  CodeEditorTerminalComponent,
+} from '../code-editor-terminal';
 
 @Component({
   selector: 'code-editor-control',
@@ -77,7 +95,7 @@ export class CodeEditorControlComponent implements OnDestroy, AfterViewInit {
   public readonly isTerminalActive = toSignal(this.terminalActivity.asObservable().pipe(
     throttleTime(50),
     map(() => true),
-    timeout({each: 2000, with: () => of(false)}),
+    timeout({ each: 2000, with: () => of(false) }),
     distinctUntilChanged(),
     repeat()
   ));

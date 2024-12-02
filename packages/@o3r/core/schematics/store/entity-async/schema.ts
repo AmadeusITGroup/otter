@@ -1,4 +1,6 @@
-import { NgGenerateCommonStoreSchematicsSchema } from '../common/schema';
+import {
+  NgGenerateCommonStoreSchematicsSchema,
+} from '../common/schema';
 
 /**
  * Properties associated to an Otter entity async store

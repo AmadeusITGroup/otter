@@ -2,7 +2,10 @@
  * Note: This file is not part of the running script, it is injected in the browser while running e2e tests.
  */
 
-import { ConditionFn, PostMessageCall } from './core';
+import {
+  ConditionFn,
+  PostMessageCall,
+} from './core';
 
 // TODO: Move to PollyJS when the winter comes
 (() => {
@@ -10,7 +13,6 @@ import { ConditionFn, PostMessageCall } from './core';
    * PostMessageInterceptor permits to intercept calls to postMessage.
    */
   const postMessageInterceptor = class PostMessageInterceptor {
-    // eslint-disable-next-line no-use-before-define
     private static _instance: PostMessageInterceptor;
     private lastCalls: PostMessageCall[];
     private nativeMethod: any;
@@ -28,7 +30,7 @@ import { ConditionFn, PostMessageCall } from './core';
      * @param {...any} args
      */
     private log(message: string, ...args: any[]) {
-      // eslint-disable-next-line no-console
+      // eslint-disable-next-line no-console -- this is the purpose of this method
       console.log(`#postMessageInterceptor: ${message}`, ...args);
     }
 
@@ -65,14 +67,14 @@ import { ConditionFn, PostMessageCall } from './core';
     private registerFetchInterceptor() {
       const nativeMethod = window.postMessage;
       this.nativeMethod = nativeMethod;
-      Object.assign(window, {postMessage: (...args: any[]) => this.interceptor(this, nativeMethod, ...args)});
+      Object.assign(window, { postMessage: (...args: any[]) => this.interceptor(this, nativeMethod, ...args) });
     }
 
     /**
      * Unregister the interceptor from the window object
      */
     private unregisterFetchInterceptor() {
-      Object.assign(window, {postMessage: this.nativeMethod});
+      Object.assign(window, { postMessage: this.nativeMethod });
     }
 
     /**
@@ -116,7 +118,7 @@ import { ConditionFn, PostMessageCall } from './core';
       this.reset();
 
       if (conditionFnString) {
-        // eslint-disable-next-line no-eval
+        // eslint-disable-next-line no-eval -- done on purpose
         this.conditionFn = eval(conditionFnString) as ConditionFn;
       }
       this.listening = true;
@@ -155,5 +157,5 @@ import { ConditionFn, PostMessageCall } from './core';
       activeMessageWatch(retries);
     }
   };
-  Object.assign(window, {postMessageInterceptor});
+  Object.assign(window, { postMessageInterceptor });
 })();

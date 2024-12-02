@@ -1,7 +1,22 @@
-import { coerce, compare, parse, valid } from 'semver';
-import { BaseLogger, CascadingConfiguration, CascadingPullRequestInfo, CheckConclusion, PullRequestContext } from './interfaces';
-import { renderFile } from 'ejs';
-import { resolve } from 'node:path';
+import {
+  resolve,
+} from 'node:path';
+import {
+  renderFile,
+} from 'ejs';
+import {
+  coerce,
+  compare,
+  parse,
+  valid,
+} from 'semver';
+import {
+  BaseLogger,
+  CascadingConfiguration,
+  CascadingPullRequestInfo,
+  CheckConclusion,
+  PullRequestContext,
+} from './interfaces';
 
 /** Mark of the template to determine if the users cancelled the cascading retrigger */
 export const CANCEL_RETRIGGER_CASCADING_MARK = '!cancel re-cascading!';
@@ -96,12 +111,12 @@ export abstract class Cascading {
   protected abstract isBranchAhead(baseBranch: string, targetBranch: string): Promise<boolean>;
 
   /**
+   * Constructor of the Cascading class
    * @param logger Logger
    * @param username User name used for git commands
    * @param email Email used for git commands
    */
-  constructor(public logger: BaseLogger, public username = 'Auto Cascading', public email = 'cascading@otter.com') {
-  }
+  constructor(public logger: BaseLogger, public username = 'Auto Cascading', public email = 'cascading@otter.com') {}
 
   /**
    * Parse Pull Request context from the body
@@ -109,13 +124,13 @@ export abstract class Cascading {
    * @returns {undefined} if the context is not found
    */
   protected retrieveContext(content: string): PullRequestContext | undefined {
-    const match = content.match(/<!--\s*(\{.*?\})\s*-->/s);
+    const match = content.match(/<!--\s*({.*?})\s*-->/s);
     if (!match || !match[1]) {
       this.logger.warn('Failed to parse ');
       return;
     }
 
-    return JSON.parse(match[1]);
+    return JSON.parse(match[1]) as PullRequestContext;
   }
 
   /**
@@ -129,10 +144,8 @@ export abstract class Cascading {
       canBeMerged: pullRequest?.mergeable ?? true,
       id: pullRequest?.id || '',
       originBranchName: pullRequest?.originBranchName || '',
-      // eslint-disable-next-line @typescript-eslint/naming-convention
-      CANCEL_RETRIGGER_CASCADING_MARK,
-      // eslint-disable-next-line @typescript-eslint/naming-convention
-      CANCEL_BYPASS_REVIEWERS_MARK
+      cancelRetriggerCascadingMark: CANCEL_RETRIGGER_CASCADING_MARK,
+      cancelBypassReviewersMark: CANCEL_BYPASS_REVIEWERS_MARK
     });
   }
 
@@ -171,7 +184,7 @@ export abstract class Cascading {
           };
         }
       })
-      .filter(({branch, semver}) => {
+      .filter(({ branch, semver }) => {
         if (semver === null) {
           this.logger.warn(`Failed to parse the branch ${branch}, it will be skipped from cascading`);
           return false;
@@ -188,7 +201,7 @@ export abstract class Cascading {
         return compare(branchObjectA.semver, branchObjectB.semver);
       });
 
-    this.logger.debug('Discovered following branches to cascade ' + JSON.stringify(branchesToCascade.map(({branch}) => branch), null, 2));
+    this.logger.debug('Discovered following branches to cascade ' + JSON.stringify(branchesToCascade.map(({ branch }) => branch), null, 2));
     return branchesToCascade;
   }
 
@@ -283,7 +296,9 @@ export abstract class Cascading {
     this.logger.debug(`Run trigger to cascading PR from ${cascadingBranch}`);
     const openPr = await this.findOpenPullRequest(cascadingBranch, targetBranch);
 
-    if (!openPr) {
+    if (openPr) {
+      return this.updatePullRequestWithNewMessage(openPr, openPr.context || { bypassReviewers: config.bypassReviewers, currentBranch, targetBranch, isConflicting: false });
+    } else {
       this.logger.debug(`Will recreate the branch ${cascadingBranch}`);
       try {
         await this.deleteBranch(cascadingBranch);
@@ -293,8 +308,6 @@ export abstract class Cascading {
         this.logger.debug(JSON.stringify(error, null, 2));
       }
       return this.createPullRequestWithMessage(cascadingBranch, currentBranch, targetBranch, config, true);
-    } else {
-      return this.updatePullRequestWithNewMessage(openPr, openPr.context || { bypassReviewers: config.bypassReviewers, currentBranch, targetBranch, isConflicting: false });
     }
   }
 
@@ -304,7 +317,6 @@ export abstract class Cascading {
    * @param currentBranch name of the base branch of the cascading process
    * @param targetBranch name of the branch target (base of the pull request)
    * @param config
-   * @param shouldAddUpdateMessage Determine if the body of the new pull request should add the update request message
    * @param isConflicting
    */
   protected async createPullRequestWithMessage(cascadingBranch: string, currentBranch: string, targetBranch: string, config: CascadingConfiguration, isConflicting = false) {
@@ -367,7 +379,7 @@ export abstract class Cascading {
     const cascadingBranches = this.getOrderedCascadingBranches(branches, config);
     const branchIndex = cascadingBranches.findIndex(({ branch }) => branch === currentBranchName);
 
-    if (branchIndex < 0) {
+    if (branchIndex === -1) {
       this.logger.error(`The branch ${currentBranchName} is not part of the list of cascading branch. The process will stop.`);
       return;
     }

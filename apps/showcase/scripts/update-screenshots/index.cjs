@@ -4,17 +4,17 @@
  * Generate the screenshots for the E2E tests of the showcase app using a docker image running on ubuntu
  * The goal is to make sure everybody generate the screenshots using the same platform to prevent mismatches
  */
-const playwrightVersion = require('@playwright/test/package.json').version;
 const childProcess = require('node:child_process');
 const os = require('node:os');
 const path = require('node:path');
+const playwrightVersion = require('@playwright/test/package.json').version;
 const minimist = require('minimist');
 
 const argv = minimist(process.argv.slice(2));
 
 const absolutePathFromRoot = path.resolve(__dirname, '..', '..', '..', '..');
 
-const relativePathFromRoot = path.relative(absolutePathFromRoot, __dirname).replace(/[\\/]+/g, '/');
+const relativePathFromRoot = path.relative(absolutePathFromRoot, __dirname).replace(/[/\\]+/g, '/');
 
 // The path to mount the local repository inside the container
 const mountPath = '/tests';
@@ -43,7 +43,9 @@ const args = [
   '/bin/bash',
   pathToPodmanScript,
   ipAddresses.join(',')
-]
+];
+
+// eslint-disable-next-line no-console -- no other logger available
 console.log(`Executing: ${script} ${args.join(' ')}`);
 
 // Execute the script

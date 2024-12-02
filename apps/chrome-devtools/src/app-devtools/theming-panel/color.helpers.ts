@@ -5,20 +5,20 @@ import TinyColor from 'tinycolor2';
  * Material palette variants
  */
 export enum PaletteVariant {
-  'V50' = '50',
-  'V100' = '100',
-  'V200' = '200',
-  'V300' = '300',
-  'V400' = '400',
-  'V500' = '500',
-  'V600' = '600',
-  'V700' = '700',
-  'V800' = '800',
-  'V900' = '900',
-  'A100' = 'A100',
-  'A200' = 'A200',
-  'A400' = 'A400',
-  'A700' = 'A700'
+  V50 = '50',
+  V100 = '100',
+  V200 = '200',
+  V300 = '300',
+  V400 = '400',
+  V500 = '500',
+  V600 = '600',
+  V700 = '700',
+  V800 = '800',
+  V900 = '900',
+  A100 = 'A100',
+  A200 = 'A200',
+  A400 = 'A400',
+  A700 = 'A700'
 }
 
 /**
@@ -26,41 +26,39 @@ export enum PaletteVariant {
  */
 export const DEFAULT_PALETTE_VARIANT: PaletteVariant = PaletteVariant.V500;
 
-/* eslint-disable @typescript-eslint/naming-convention */
 const SATURATION_VALUES: Record<PaletteVariant, number> = {
-  '50': 0.91,
-  '100': 0.98,
-  '200': 0.96,
-  '300': 0.95,
-  '400': 0.96,
-  '500': 1,
-  '600': 1,
-  '700': 0.99,
-  '800': 0.89,
-  '900': 0.86,
-  'A100': 1,
-  'A200': 1,
-  'A400': 1,
-  'A700': 1
+  50: 0.91,
+  100: 0.98,
+  200: 0.96,
+  300: 0.95,
+  400: 0.96,
+  500: 1,
+  600: 1,
+  700: 0.99,
+  800: 0.89,
+  900: 0.86,
+  A100: 1,
+  A200: 1,
+  A400: 1,
+  A700: 1
 };
 
 const LIGHTNESS_VALUES: Record<PaletteVariant, number> = {
-  '50': 0.12,
-  '100': 0.3,
-  '200': 0.5,
-  '300': 0.7,
-  '400': 0.86,
-  '500': 1,
-  '600': 0.87,
-  '700': 0.66,
-  '800': 0.45,
-  '900': 0.16,
-  'A100': 0.76,
-  'A200': 0.64,
-  'A400': 0.49,
-  'A700': 0.44
+  50: 0.12,
+  100: 0.3,
+  200: 0.5,
+  300: 0.7,
+  400: 0.86,
+  500: 1,
+  600: 0.87,
+  700: 0.66,
+  800: 0.45,
+  900: 0.16,
+  A100: 0.76,
+  A200: 0.64,
+  A400: 0.49,
+  A700: 0.44
 };
-/* eslint-enable @typescript-eslint/naming-convention */
 
 /**
  * Returns palette colors from one color
@@ -109,11 +107,7 @@ export const getAccessibilityContrastScore = (color1: string, color2: string, te
   if (readability >= 7) {
     return 'AAA';
   } else if (readability >= 4.5) {
-    if (textSize === 'small') {
-      return 'AA';
-    } else {
-      return 'AAA';
-    }
+    return textSize === 'small' ? 'AA' : 'AAA';
   } else if (readability >= 3 && textSize === 'large') {
     return 'AA';
   }

@@ -1,10 +1,34 @@
-import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnDestroy, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { O3rComponent } from '@o3r/core';
-import { StyleLazyLoader, StyleLazyLoaderModule } from '@o3r/dynamic-content';
-import { Subscription } from 'rxjs';
-import { DatePickerInputPresComponent } from '../../utilities';
+import {
+  AsyncPipe,
+} from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  inject,
+  OnDestroy,
+  ViewEncapsulation,
+} from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import {
+  O3rComponent,
+} from '@o3r/core';
+import {
+  StyleLazyLoader,
+  StyleLazyLoaderModule,
+} from '@o3r/dynamic-content';
+import {
+  Subscription,
+} from 'rxjs';
+import {
+  DatePickerInputPresComponent,
+} from '../../utilities';
 
 @O3rComponent({ componentType: 'Component' })
 @Component({
@@ -38,7 +62,7 @@ export class DesignTokenPresComponent implements OnDestroy {
     let style: HTMLElement | null = null;
     const cleanUpStyle = () => {
       if (style?.parentNode) {
-        style.parentNode.removeChild(style);
+        style.remove();
         style = null;
       }
     };
@@ -46,9 +70,9 @@ export class DesignTokenPresComponent implements OnDestroy {
       this.form.valueChanges.subscribe((value) => {
         cleanUpStyle();
         if (value.theme === 'dark') {
-          style = this.styleLoader.loadStyleFromURL({href: 'dark-theme.css'});
+          style = this.styleLoader.loadStyleFromURL({ href: 'dark-theme.css' });
         } else if (value.theme === 'horizon') {
-          style = this.styleLoader.loadStyleFromURL({href: 'horizon-theme.css'});
+          style = this.styleLoader.loadStyleFromURL({ href: 'horizon-theme.css' });
         }
       })
     );

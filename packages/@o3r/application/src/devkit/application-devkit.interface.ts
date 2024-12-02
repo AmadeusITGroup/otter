@@ -1,4 +1,10 @@
-import type { ConnectContentMessage, DevtoolsCommonOptions, MessageDataTypes, OtterMessageContent, RequestMessagesContentMessage } from '@o3r/core';
+import type {
+  ConnectContentMessage,
+  DevtoolsCommonOptions,
+  MessageDataTypes,
+  OtterMessageContent,
+  RequestMessagesContentMessage,
+} from '@o3r/core';
 
 export interface ApplicationDevtoolsServiceOptions extends DevtoolsCommonOptions {
   /**
@@ -53,7 +59,6 @@ export interface ToggleVisualTestingMessage extends OtterMessageContent<'toggleV
   toggle?: boolean;
 }
 
-
 /** Application Information Message Content */
 export interface ApplicationInformationContentMessage extends ApplicationInformation, OtterMessageContent<'applicationInformation'> {
 }
@@ -92,10 +97,10 @@ export type AvailableApplicationMessageContents =
  */
 export const isApplicationMessage = (message: any): message is AvailableApplicationMessageContents => {
   return message && (
-    message.dataType === 'toggleVisualTesting' ||
-    message.dataType === 'stateSelection' ||
-    message.dataType === 'applicationInformation' ||
-    message.dataType === 'unselectState' ||
-    message.dataType === 'requestMessages' ||
-    message.dataType === 'connect');
+    message.dataType === 'toggleVisualTesting'
+    || message.dataType === 'stateSelection'
+    || message.dataType === 'applicationInformation'
+    || message.dataType === 'unselectState'
+    || message.dataType === 'requestMessages'
+    || message.dataType === 'connect');
 };

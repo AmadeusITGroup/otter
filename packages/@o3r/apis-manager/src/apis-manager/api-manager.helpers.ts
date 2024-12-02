@@ -10,5 +10,5 @@ export function appendPreconnect(baseUrl: string, supportCrossOrigin = true): vo
   if (supportCrossOrigin) {
     preConnectLink.setAttribute('crossorigin', '');
   }
-  document.head.appendChild(preConnectLink);
+  document.head.append(preConnectLink);
 }

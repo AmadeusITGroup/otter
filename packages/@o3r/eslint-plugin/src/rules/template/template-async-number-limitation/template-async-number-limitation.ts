@@ -1,19 +1,25 @@
-import type { TmplAstElement } from '@angular/compiler';
-import { getTemplateParserServices } from '../utils';
-import { createRule } from '../../utils';
+import type {
+  TmplAstElement,
+} from '@angular/compiler';
+import {
+  createRule,
+} from '../../utils';
+import {
+  getTemplateParserServices,
+} from '../utils';
 
-interface Options {
+export interface TemplateAsyncNumberLimitationOptions {
   maximumAsyncOnTag: number;
 }
 
 /** Rule Name */
 export const name = 'template-async-number-limitation';
 
-const defaultOptions: [Options] = [{
+const defaultOptions: [TemplateAsyncNumberLimitationOptions] = [{
   maximumAsyncOnTag: 5
 }];
 
-export default createRule<[Options, ...any], 'tooManyAsyncOnTag'>({
+export default createRule<[TemplateAsyncNumberLimitationOptions, ...any], 'tooManyAsyncOnTag'>({
   name,
   meta: {
     type: 'problem',
@@ -41,33 +47,32 @@ export default createRule<[Options, ...any], 'tooManyAsyncOnTag'>({
 
   defaultOptions,
 
-  create: (context, [options]: Readonly<[Options, ...any]>) => {
+  create: (context, [options]: Readonly<[TemplateAsyncNumberLimitationOptions, ...any]>) => {
     const parserServices = getTemplateParserServices(context);
     const asyncRegExp = /\| *async\b/g;
+    const rule = ({ attributes, inputs, sourceSpan }: TmplAstElement) => {
+      const values: string[] = [
+        ...attributes.map(({ value }) => value),
+        ...inputs.map((attr) => attr.value.toString())
+      ];
+      const asyncNumber = values
+        .reduce((acc, value) => acc + (value.match(asyncRegExp)?.length ?? 0), 0);
 
+      if (asyncNumber > options.maximumAsyncOnTag) {
+        const loc = parserServices.convertNodeSourceSpanToLoc(sourceSpan);
+        context.report({
+          messageId: 'tooManyAsyncOnTag',
+          data: {
+            asyncNumber,
+            maximumAsyncOnTag: options.maximumAsyncOnTag
+          },
+          loc
+        });
+      }
+    };
 
     return {
-      // eslint-disable-next-line @typescript-eslint/naming-convention
-      'Element$1': ({ attributes, inputs, sourceSpan }: TmplAstElement) => {
-        const values: string[] = [
-          ...attributes.map(({ value }) => value),
-          ...inputs.map((attr) => attr.value.toString())
-        ];
-        const asyncNumber = values
-          .reduce((acc, value) => acc + (value.match(asyncRegExp)?.length ?? 0), 0);
-
-        if (asyncNumber > options.maximumAsyncOnTag) {
-          const loc = parserServices.convertNodeSourceSpanToLoc(sourceSpan);
-          context.report({
-            messageId: 'tooManyAsyncOnTag',
-            data: {
-              asyncNumber,
-              maximumAsyncOnTag: options.maximumAsyncOnTag
-            },
-            loc
-          });
-        }
-      }
+      Element$1: rule
     };
   }
 });

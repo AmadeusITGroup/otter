@@ -1,4 +1,6 @@
-import type { DesignContentFileUpdater } from '../design-token.renderer.interface';
+import type {
+  DesignContentFileUpdater,
+} from '../design-token.renderer.interface';
 
 /** Options for {@link getDesignTokenStyleContentUpdater} */
 export interface DesignTokenStyleContentUpdaterOptions {
@@ -19,7 +21,7 @@ const mergeValue = (tokenObject: Record<string, any>, newValue: Record<string, a
 export const getDesignTokenStyleContentUpdater = (_options?: DesignTokenStyleContentUpdaterOptions): DesignContentFileUpdater => {
   return (variables: string[]) => {
     const nodes: Record<string, any>[] = JSON.parse(`[${variables.join(',')}]`);
-    const res = nodes.reduce(mergeValue, {} as Record<string, any>);
+    const res = nodes.reduce((accumulator, element) => mergeValue(accumulator, element), {} as Record<string, any>);
     return JSON.stringify(res, null, 2);
   };
 };

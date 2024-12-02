@@ -1,4 +1,6 @@
-import type { DesignContentFileUpdater } from '../design-token.renderer.interface';
+import type {
+  DesignContentFileUpdater,
+} from '../design-token.renderer.interface';
 
 /** Options for {@link getJsonSchemaStyleContentUpdater} */
 export interface JsonSchemaStyleContentUpdaterOptions {

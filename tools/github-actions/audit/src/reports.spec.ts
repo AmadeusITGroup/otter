@@ -1,6 +1,15 @@
-import { readFile } from 'node:fs/promises';
-import { join } from 'node:path';
-import { computeNpmReport, computeYarn1Report, computeYarn3Report, computeYarn4Report } from './reports';
+import {
+  readFile,
+} from 'node:fs/promises';
+import {
+  join,
+} from 'node:path';
+import {
+  computeNpmReport,
+  computeYarn1Report,
+  computeYarn3Report,
+  computeYarn4Report,
+} from './reports';
 
 jest.mock('@actions/core');
 

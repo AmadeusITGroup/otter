@@ -1,6 +1,16 @@
-import type { DesignTokenVariableStructure, TokenKeyRenderer, TokenReferenceRenderer, TokenValueRenderer, UnregisteredTokenReferenceRenderer } from '../../parsers/design-token-parser.interface';
-import { isO3rPrivateVariable } from '../design-token.renderer.helpers';
-import type { Logger } from '@o3r/core';
+import type {
+  Logger,
+} from '@o3r/core';
+import type {
+  DesignTokenVariableStructure,
+  TokenKeyRenderer,
+  TokenReferenceRenderer,
+  TokenValueRenderer,
+  UnregisteredTokenReferenceRenderer,
+} from '../../parsers/design-token-parser.interface';
+import {
+  isO3rPrivateVariable,
+} from '../design-token.renderer.helpers';
 
 /** Options for {@link getCssTokenValueRenderer} */
 export interface CssTokenValueRendererOptions {
@@ -46,16 +56,13 @@ export const getCssTokenValueRenderer = (options?: CssTokenValueRendererOptions)
   const tokenVariableNameRenderer = options?.tokenVariableNameRenderer;
 
   const defaultReferenceRenderer: TokenReferenceRenderer = (variable, variableSet, defaultValue): string => {
-    if (!isPrivateVariable(variable)) {
-      return `var(--${variable.getKey(tokenVariableNameRenderer)}${defaultValue ? ', ' + defaultValue : ''})`;
-    } else {
-      // eslint-disable-next-line no-use-before-define
-      return `var(--${variable.getKey(tokenVariableNameRenderer)}, ${renderer(variable, variableSet)})`;
-    }
+    return isPrivateVariable(variable)
+      ? `var(--${variable.getKey(tokenVariableNameRenderer)}, ${renderer(variable, variableSet)})`
+      : `var(--${variable.getKey(tokenVariableNameRenderer)}${defaultValue ? ', ' + defaultValue : ''})`;
   };
 
   const defaultUnregisteredReferenceRenderer = (variableName: string, _variableSet: Map<string, DesignTokenVariableStructure>): string => {
-    const cssVarName = `var(--${variableName.replace(/[. ]+/g, '-')})`;
+    const cssVarName = `var(--${variableName.replace(/[ .]+/g, '-')})`;
     options?.logger?.debug?.(`Variable "${variableName}" is not registered, it will be rendered as "${cssVarName}"`);
     return cssVarName;
   };
@@ -64,7 +71,7 @@ export const getCssTokenValueRenderer = (options?: CssTokenValueRendererOptions)
   const unregisteredReferenceRenderer = options?.unregisteredReferenceRenderer || defaultUnregisteredReferenceRenderer;
 
   const renderer = (variable: DesignTokenVariableStructure, variableSet: Map<string, DesignTokenVariableStructure>, enforceReferenceRendering = false) => {
-    let variableValue = variable.getCssRawValue(variableSet).replaceAll(/\{([^}]*)\}/g, (_defaultValue, matcher: string) =>
+    let variableValue = variable.getCssRawValue(variableSet).replaceAll(/{([^}]*)}/g, (_defaultValue, matcher: string) =>
       (variableSet.has(matcher) ? referenceRenderer(variableSet.get(matcher)!, variableSet) : unregisteredReferenceRenderer(matcher, variableSet))
     );
     if (enforceReferenceRendering) {

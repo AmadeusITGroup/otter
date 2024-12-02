@@ -1,13 +1,46 @@
-import { Inject, Injectable, OnDestroy, Optional } from '@angular/core';
-import { DevtoolsServiceInterface, filterMessageContent, sendOtterMessage } from '@o3r/core';
-import { LoggerService } from '@o3r/logger';
-import { Store } from '@ngrx/store';
-import { firstValueFrom, fromEvent, Subscription } from 'rxjs';
-import { filter } from 'rxjs/operators';
-import { type PlaceholderTemplateState, togglePlaceholderModeTemplate } from '../stores';
-import { AvailableComponentsMessageContents, ComponentsDevtoolsServiceOptions, ComponentsMessageDataTypes, isComponentsMessage } from './components-devkit.interface';
-import { OTTER_COMPONENTS_DEVTOOLS_DEFAULT_OPTIONS, OTTER_COMPONENTS_DEVTOOLS_OPTIONS } from './components-devtools.token';
-import { OtterInspectorService, OtterLikeComponentInfo } from './inspector';
+import {
+  Inject,
+  Injectable,
+  OnDestroy,
+  Optional,
+} from '@angular/core';
+import {
+  Store,
+} from '@ngrx/store';
+import {
+  DevtoolsServiceInterface,
+  filterMessageContent,
+  sendOtterMessage,
+} from '@o3r/core';
+import {
+  LoggerService,
+} from '@o3r/logger';
+import {
+  firstValueFrom,
+  fromEvent,
+  Subscription,
+} from 'rxjs';
+import {
+  filter,
+} from 'rxjs/operators';
+import {
+  type PlaceholderTemplateState,
+  togglePlaceholderModeTemplate,
+} from '../stores';
+import {
+  AvailableComponentsMessageContents,
+  ComponentsDevtoolsServiceOptions,
+  ComponentsMessageDataTypes,
+  isComponentsMessage,
+} from './components-devkit.interface';
+import {
+  OTTER_COMPONENTS_DEVTOOLS_DEFAULT_OPTIONS,
+  OTTER_COMPONENTS_DEVTOOLS_OPTIONS,
+} from './components-devtools.token';
+import {
+  OtterInspectorService,
+  OtterLikeComponentInfo,
+} from './inspector';
 
 @Injectable({
   providedIn: 'root'
@@ -78,8 +111,7 @@ export class ComponentsDevtoolsMessageService implements OnDestroy, DevtoolsServ
 
   /**
    * Function to handle the incoming messages from Otter Chrome DevTools extension
-   * @param event Event coming from the Otter Chrome DevTools extension
-   * @param message
+   * @param message message coming from the Otter Chrome DevTools extension
    */
   private async handleEvents(message: AvailableComponentsMessageContents) {
     this.logger.debug('Message handling by the components service', message);

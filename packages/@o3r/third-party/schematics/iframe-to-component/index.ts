@@ -1,10 +1,14 @@
 import {
+  dirname,
+  posix,
+} from 'node:path';
+import {
   chain,
   externalSchematic,
   noop,
   Rule,
   SchematicContext,
-  Tree
+  Tree,
 } from '@angular-devkit/schematics';
 import {
   addCommentsOnClassProperties,
@@ -21,11 +25,12 @@ import {
   getSimpleUpdatedMethod,
   NoOtterComponent,
   O3rCliError,
-  sortClassElement
+  sortClassElement,
 } from '@o3r/schematics';
-import { dirname, posix } from 'node:path';
 import * as ts from 'typescript';
-import type { NgAddIframeSchematicsSchema } from './schema';
+import type {
+  NgAddIframeSchematicsSchema,
+} from './schema';
 
 const iframeProperties = [
   'frame',
@@ -39,7 +44,7 @@ const checkIframePresence = (componentPath: string, tree: Tree) => {
     ts.ScriptTarget.ES2020,
     true
   );
-  const classStatement = sourceFile.statements.find(ts.isClassDeclaration);
+  const classStatement = sourceFile.statements.find((statement) => ts.isClassDeclaration(statement));
   if (
     classStatement?.members.find((classElement) =>
       ts.isPropertyDeclaration(classElement)
@@ -88,7 +93,6 @@ export function ngAddIframeFn(options: NgAddIframeSchematicsSchema): Rule {
           }
         ]),
         () => {
-
           const sourceFile = ts.createSourceFile(
             options.path,
             tree.readText(options.path),
@@ -126,13 +130,11 @@ export function ngAddIframeFn(options: NgAddIframeSchematicsSchema): Rule {
                     && classElement.name.escapedText.toString() === 'subscriptions'
                   );
 
-                  /* eslint-disable indent */
                   const propertiesToAdd = generateClassElementsFromString(`
                     private frame = viewChild.required<ElementRef<HTMLIFrameElement>>('frame');
                     private bridge?: IframeBridge;
-                    ${!hasSubscriptions ? 'private subscriptions: Subscription[] = [];' : ''}
+                    ${hasSubscriptions ? '' : 'private subscriptions: Subscription[] = [];'}
                   `);
-                  /* eslint-disable indent */
 
                   const newNgAfterViewInit = getSimpleUpdatedMethod(node, factory, 'ngAfterViewInit', generateBlockStatementsFromString(`
                   const nativeElem = this.frame().nativeElement;
@@ -166,7 +168,7 @@ export function ngAddIframeFn(options: NgAddIframeSchematicsSchema): Rule {
                   const newMembers = node.members
                     .filter((classElement) => !(
                       findMethodByName('ngAfterViewInit')(classElement)
-                    || (!hasSubscriptions && findMethodByName('ngOnDestroy')(classElement))
+                      || (!hasSubscriptions && findMethodByName('ngOnDestroy')(classElement))
                     ))
                     .concat(
                       propertiesToAdd,

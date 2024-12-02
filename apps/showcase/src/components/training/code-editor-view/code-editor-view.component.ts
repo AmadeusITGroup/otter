@@ -1,4 +1,7 @@
-import {AsyncPipe, JsonPipe} from '@angular/common';
+import {
+  AsyncPipe,
+  JsonPipe,
+} from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -9,13 +12,34 @@ import {
   OnDestroy,
   SimpleChanges,
   ViewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {FileSystemTree} from '@webcontainer/api';
-import {AngularSplitModule} from 'angular-split';
-import {MonacoEditorModule} from 'ngx-monaco-editor-v2';
-import {MonacoTreeElement, NgxMonacoTreeComponent} from 'ngx-monaco-tree';
+import {
+  takeUntilDestroyed,
+} from '@angular/core/rxjs-interop';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import {
+  LoggerService,
+} from '@o3r/logger';
+import {
+  FileSystemTree,
+} from '@webcontainer/api';
+import {
+  AngularSplitModule,
+} from 'angular-split';
+import {
+  MonacoEditorModule,
+} from 'ngx-monaco-editor-v2';
+import {
+  MonacoTreeElement,
+  NgxMonacoTreeComponent,
+} from 'ngx-monaco-tree';
 import {
   BehaviorSubject,
   combineLatestWith,
@@ -29,12 +53,17 @@ import {
   share,
   skip,
   startWith,
-  switchMap
+  switchMap,
 } from 'rxjs';
-import {WebContainerService} from '../../../services';
-import {checkIfPathInMonacoTree} from '../../../helpers/monaco-tree.helper';
-import {CodeEditorControlComponent} from '../code-editor-control';
-import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {
+  checkIfPathInMonacoTree,
+} from '../../../helpers/monaco-tree.helper';
+import {
+  WebContainerService,
+} from '../../../services';
+import {
+  CodeEditorControlComponent,
+} from '../code-editor-control';
 
 /** ngx-monaco-editor options language - determined based on file extension */
 const editorOptionsLanguage: Record<string, string> = {
@@ -89,6 +118,11 @@ export class CodeEditorViewComponent implements OnDestroy, OnChanges {
    */
   private readonly cwd$ = new BehaviorSubject('');
 
+  /**
+   * Logger service that will manage which logger should be used
+   */
+  private readonly loggerService = inject(LoggerService);
+
   @ViewChild('monacoOverflowWidgets')
   private readonly monacoOverflowWidgets!: ElementRef;
 
@@ -111,13 +145,16 @@ export class CodeEditorViewComponent implements OnDestroy, OnChanges {
    */
   public cwdTree$: Observable<MonacoTreeElement[]> = this.cwd$.pipe(
     switchMap((cwd) =>
-      cwd ? this.webContainerService.monacoTree$.pipe(
-        map((tree) => tree.find((treeElement) => treeElement.name === cwd)?.content || [])
-      ) : of([])
+      cwd
+        ? this.webContainerService.monacoTree$.pipe(
+          map((tree) => tree.find((treeElement) => treeElement.name === cwd)?.content || [])
+        )
+        : of([])
     ),
     filter((tree) => tree.length > 0),
     share()
   );
+
   /**
    * Form with the selected file and its content which can be edited in the Monaco Editor
    */
@@ -128,6 +165,7 @@ export class CodeEditorViewComponent implements OnDestroy, OnChanges {
       code: '',
       file: ''
     });
+
   /**
    * Configuration for the Monaco Editor
    */
@@ -153,13 +191,11 @@ export class CodeEditorViewComponent implements OnDestroy, OnChanges {
       takeUntilDestroyed()
     ).subscribe((text: string) => {
       if (!this.project) {
-        // eslint-disable-next-line no-console
-        console.error('No project found');
+        this.loggerService.error('No project found');
         return;
       }
       const path = `${this.project.cwd}/${this.form.controls.file.value}`;
-      // eslint-disable-next-line no-console
-      console.log('Writing file', path);
+      this.loggerService.log('Writing file', path);
       void this.webContainerService.writeFile(path, text);
     });
     this.form.controls.file.valueChanges.pipe(

@@ -1,6 +1,15 @@
-import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
-import { O3rComponent } from '@o3r/core';
-import { RouterModule } from '@angular/router';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  ViewEncapsulation,
+} from '@angular/core';
+import {
+  RouterModule,
+} from '@angular/router';
+import {
+  O3rComponent,
+} from '@o3r/core';
 
 /** Link information */
 export interface SideNavLink {

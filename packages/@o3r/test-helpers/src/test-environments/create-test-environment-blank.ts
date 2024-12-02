@@ -1,7 +1,18 @@
-import { ExecSyncOptions } from 'node:child_process';
-import { existsSync, promises as fs } from 'node:fs';
+import {
+  ExecSyncOptions,
+} from 'node:child_process';
+import {
+  existsSync,
+  promises as fs,
+} from 'node:fs';
 import * as path from 'node:path';
-import { createWithLock, type CreateWithLockOptions, type Logger, PackageManagerConfig, setPackagerManagerConfig } from '../utilities';
+import {
+  createWithLock,
+  type CreateWithLockOptions,
+  type Logger,
+  PackageManagerConfig,
+  setPackagerManagerConfig,
+} from '../utilities';
 
 export interface CreateTestEnvironmentBlankOptions extends CreateWithLockOptions, PackageManagerConfig {
   /**
@@ -13,7 +24,6 @@ export interface CreateTestEnvironmentBlankOptions extends CreateWithLockOptions
    * Working directory
    */
   cwd: string;
-
 
   /** Logger to use for logging */
   logger?: Logger;
@@ -38,16 +48,15 @@ export async function createTestEnvironmentBlank(inputOptions: Partial<CreateTes
     const execAppOptions: ExecSyncOptions = {
       cwd: appFolderPath,
       stdio: 'inherit',
-      // eslint-disable-next-line @typescript-eslint/naming-convention
-      env: {...process.env, NODE_OPTIONS: '', CI: 'true'}
+      env: { ...process.env, NODE_OPTIONS: '', CI: 'true' }
     };
 
     // Prepare folder
     if (existsSync(appFolderPath)) {
-      await fs.rm(appFolderPath, {recursive: true});
+      await fs.rm(appFolderPath, { recursive: true });
     }
 
-    await fs.mkdir(appFolderPath, {recursive: true});
+    await fs.mkdir(appFolderPath, { recursive: true });
 
     setPackagerManagerConfig(options, { ...execAppOptions, cwd: options.cwd });
     setPackagerManagerConfig(options, execAppOptions);
@@ -59,6 +68,5 @@ export async function createTestEnvironmentBlank(inputOptions: Partial<CreateTes
     if (existsSync(path.join(appFolderPath, 'yarn.lock'))) {
       await fs.rm(path.join(appFolderPath, 'yarn.lock'));
     }
-
   }, { lockFilePath: path.join(options.cwd, `${options.appDirectory}-ongoing.lock`), ...options });
 }

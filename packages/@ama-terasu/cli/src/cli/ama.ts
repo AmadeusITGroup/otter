@@ -1,9 +1,13 @@
 #!/usr/bin/env node
 
-import type { CliWrapper } from '@o3r/telemetry';
-import * as prompts from 'prompts';
-import { amaYargs } from '../modules/base-yargs';
+import type {
+  CliWrapper,
+} from '@o3r/telemetry';
 import * as minimist from 'minimist';
+import * as prompts from 'prompts';
+import {
+  amaYargs,
+} from '../modules/base-yargs';
 
 const run = async () => {
   const override = await amaYargs(minimist(process.argv.slice(2)));
