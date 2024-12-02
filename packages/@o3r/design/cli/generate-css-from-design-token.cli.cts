@@ -1,11 +1,25 @@
 #!/usr/bin/env node
 
-import type { CliWrapper } from '@o3r/telemetry';
-import { isAbsolute, normalize, resolve } from 'node:path';
-import { existsSync } from 'node:fs';
-import { parseDesignTokenFile, renderDesignTokens } from '../src/public_api';
-import type { DesignTokenRendererOptions, DesignTokenVariableSet } from '../src/public_api';
+import {
+  existsSync,
+} from 'node:fs';
+import {
+  isAbsolute,
+  normalize,
+  resolve,
+} from 'node:path';
+import type {
+  CliWrapper,
+} from '@o3r/telemetry';
 import * as minimist from 'minimist';
+import {
+  parseDesignTokenFile,
+  renderDesignTokens,
+} from '../src/public_api';
+import type {
+  DesignTokenRendererOptions,
+  DesignTokenVariableSet,
+} from '../src/public_api';
 
 const args = minimist(process.argv.splice(2));
 
@@ -31,6 +45,7 @@ const run = async () => {
   )).reduce<DesignTokenVariableSet>((acc, { file, parsed }) => {
     parsed.forEach((variable, key) => {
       if (acc.has(key)) {
+        // eslint-disable-next-line no-console -- no logger available
         console.warn(`A duplication of the variable ${key} is found in ${file}.`);
       }
       acc.set(key, variable);

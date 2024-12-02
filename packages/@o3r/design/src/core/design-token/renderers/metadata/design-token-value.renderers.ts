@@ -1,7 +1,17 @@
-import type { DesignTokenVariableStructure, TokenKeyRenderer, TokenValueRenderer } from '../../parsers/design-token-parser.interface';
-import type { CssVariable } from '@o3r/styling';
-import { getCssTokenValueRenderer } from '../css';
-import { isO3rPrivateVariable } from '../design-token.renderer.helpers';
+import type {
+  CssVariable,
+} from '@o3r/styling';
+import type {
+  DesignTokenVariableStructure,
+  TokenKeyRenderer,
+  TokenValueRenderer,
+} from '../../parsers/design-token-parser.interface';
+import {
+  getCssTokenValueRenderer,
+} from '../css';
+import {
+  isO3rPrivateVariable,
+} from '../design-token.renderer.helpers';
 
 /** Options for {@link getMetadataTokenValueRenderer} */
 export interface MetadataTokenValueRendererOptions {
@@ -28,7 +38,7 @@ const resolvePrivateReferences = (refs: DesignTokenVariableStructure[], variable
   return [
     ...refs.filter((node) => !isO3rPrivateVariable(node)),
     ...refs
-      .filter(isO3rPrivateVariable)
+      .filter((node) => isO3rPrivateVariable(node))
       .flatMap((node) => resolvePrivateReferences(node.getReferencesNode(variableSet), variableSet))
   ];
 };
@@ -39,7 +49,7 @@ const resolvePrivateReferences = (refs: DesignTokenVariableStructure[], variable
  */
 export const getMetadataTokenValueRenderer = (options?: MetadataTokenValueRendererOptions): TokenValueRenderer => {
   const tokenVariableNameRenderer = options?.tokenVariableNameRenderer;
-  const cssValueRenderer = options?.cssValueRenderer || getCssTokenValueRenderer({tokenVariableNameRenderer});
+  const cssValueRenderer = options?.cssValueRenderer || getCssTokenValueRenderer({ tokenVariableNameRenderer });
 
   const renderer = (variable: DesignTokenVariableStructure, variableSet: Map<string, DesignTokenVariableStructure>) => {
     const cssType = variable.getType(variableSet);
@@ -48,9 +58,9 @@ export const getMetadataTokenValueRenderer = (options?: MetadataTokenValueRender
       name: variable.getKey(tokenVariableNameRenderer),
       defaultValue: cssValueRenderer(variable, variableSet),
       description: variable.description,
-      references: (!options?.ignorePrivateVariable ? references : resolvePrivateReferences(references, variableSet))
+      references: (options?.ignorePrivateVariable ? resolvePrivateReferences(references, variableSet) : references)
         .map((node) => JSON.parse(renderer(node, variableSet))),
-      type: cssType !== 'color' ? 'string' : 'color',
+      type: cssType === 'color' ? 'color' : 'string',
       ...variable.extensions.o3rMetadata
     };
 

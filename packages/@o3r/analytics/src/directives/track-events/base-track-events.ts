@@ -1,14 +1,22 @@
-import {Directive, ElementRef, OnDestroy, Renderer2} from '@angular/core';
-import {Subscription} from 'rxjs';
-
+import {
+  Directive,
+  ElementRef,
+  OnDestroy,
+  Renderer2,
+} from '@angular/core';
+import {
+  Subscription,
+} from 'rxjs';
 import {
   AnalyticsEvent,
   ConstructorAnalyticsEvent,
   ConstructorAnalyticsEventParameters,
   EventContext,
-  TrackEventName
+  TrackEventName,
 } from '../../contracts';
-import {EventTrackService} from '../../services/event-track';
+import {
+  EventTrackService,
+} from '../../services/event-track';
 
 @Directive()
 export abstract class BaseTrackEvents implements OnDestroy {
@@ -62,10 +70,9 @@ export abstract class BaseTrackEvents implements OnDestroy {
     // Usage of an observable from event was not possible because the ngOnDestroy with the unsubscribe was called before the ui event was handled
     return this.renderer.listen(this.el.nativeElement, event, (nativeEvent) => {
       if (this.trackEventContextConstructor) {
-        // eslint-disable-next-line new-cap
-        this.trackEventsService.addUiEvent({nativeEvent, context: new this.trackEventContextConstructor(this.trackEventContextConstructorParameters)});
+        this.trackEventsService.addUiEvent({ nativeEvent, context: new this.trackEventContextConstructor(this.trackEventContextConstructorParameters) });
       } else if (this.trackEventContext) {
-        this.trackEventsService.addUiEvent({nativeEvent, context: this.trackEventContext});
+        this.trackEventsService.addUiEvent({ nativeEvent, context: this.trackEventContext });
       }
     });
   }

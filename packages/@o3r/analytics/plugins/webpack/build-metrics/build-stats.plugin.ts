@@ -1,8 +1,20 @@
+import {
+  randomUUID,
+} from 'node:crypto';
 import * as os from 'node:os';
-import {Compilation, Compiler, JavascriptModulesPlugin, NormalModule, Parser, WebpackPluginInstance } from 'webpack';
-import type { ReportData, Reporter, Timing } from './reporters.interface';
-import { randomUUID } from 'node:crypto';
-
+import {
+  Compilation,
+  Compiler,
+  JavascriptModulesPlugin,
+  NormalModule,
+  Parser,
+  WebpackPluginInstance,
+} from 'webpack';
+import type {
+  ReportData,
+  Reporter,
+  Timing,
+} from './reporters.interface';
 
 /**
  * BuildStats Plugin Options
@@ -21,7 +33,7 @@ export interface BuildStatsPluginOptions {
 const defaultOptions: BuildStatsPluginOptions = {
   threshold: 50,
   appName: 'Test',
-  reporters: [ console ],
+  reporters: [console],
   sessionId: randomUUID()
 };
 
@@ -70,7 +82,6 @@ export class BuildStatsPlugin implements WebpackPluginInstance {
             normalModule.loaders.forEach((loader) => {
               const name = this.getLoaderName(loader);
               performance.mark(`loader-${name}`);
-
             });
           }
         });
@@ -116,6 +127,7 @@ export class BuildStatsPlugin implements WebpackPluginInstance {
       this.reportData(buildData);
     });
   }
+
   private interceptAllParserHooks(moduleFactory: any) {
     const moduleTypes = [
       'javascript/auto',
@@ -126,7 +138,7 @@ export class BuildStatsPlugin implements WebpackPluginInstance {
       'webassembly/sync'
     ];
 
-    moduleTypes.forEach(moduleType => {
+    moduleTypes.forEach((moduleType) => {
       moduleFactory.hooks.parser
         .for(moduleType)
         .tap(PLUGIN_NAME, (parser: Parser, _parserOpts: any) => {
@@ -134,11 +146,12 @@ export class BuildStatsPlugin implements WebpackPluginInstance {
         });
     });
   }
+
   private interceptAllHooksFor(instance: any, logLabel: any) {
     if (Reflect.has(instance, 'hooks')) {
-      Object.keys(instance.hooks).forEach(hookName => {
+      Object.keys(instance.hooks).forEach((hookName) => {
         const hook = instance.hooks[hookName];
-        // eslint-disable-next-line no-underscore-dangle
+        // eslint-disable-next-line no-underscore-dangle -- accessing a private field
         if (hook && !hook._fakeHook) {
           hook.intercept(this.makeInterceptorFor(logLabel)(hookName));
         }
@@ -160,7 +173,7 @@ export class BuildStatsPlugin implements WebpackPluginInstance {
 
   private filterTimingsForThreshold(): { [key: string]: number } {
     const filtered: { [key: string]: number } = {};
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+
     const limit = this.options.threshold ?? defaultOptions.threshold!;
     for (const key of Object.keys(this.pluginDurations)) {
       if (this.pluginDurations[key] > limit) {
@@ -169,6 +182,7 @@ export class BuildStatsPlugin implements WebpackPluginInstance {
     }
     return filtered;
   }
+
   private resetStats() {
     performance.clearMeasures();
     performance.clearMarks();
@@ -177,10 +191,7 @@ export class BuildStatsPlugin implements WebpackPluginInstance {
     this.loaderDurations = {};
   }
 
-
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  private makeNewProfiledTapFn(hook: string, { name, type, fn }: { name: string; type: string; fn: Function }) {
-
+  private makeNewProfiledTapFn(hook: string, { name, type, fn }: { name: string; type: string; fn: (...args: any[]) => any }) {
     switch (type) {
       case 'promise': {
         return (...args: any) => {
@@ -203,7 +214,6 @@ export class BuildStatsPlugin implements WebpackPluginInstance {
       }
       case 'sync': {
         return (...args: any) => {
-
           if (name === PLUGIN_NAME) {
             return fn(...args);
           }
@@ -224,25 +234,23 @@ export class BuildStatsPlugin implements WebpackPluginInstance {
       }
     }
   }
+
   private readonly makeInterceptorFor = (_instance: string) => (hookName: string) => ({
     register: (tapInfo: any) => {
       const { name, type, fn } = tapInfo;
-      const newFn =
-        // Don't tap our own hooks to ensure stream can close cleanly
-        name === PLUGIN_NAME
-          ? fn
-          : this.makeNewProfiledTapFn(hookName, {
-            name,
-            type,
-            fn
-          });
+      const newFn = name === PLUGIN_NAME // Don't tap our own hooks to ensure stream can close cleanly
+        ? fn
+        : this.makeNewProfiledTapFn(hookName, {
+          name,
+          type,
+          fn
+        });
       return {
         ...tapInfo,
         fn: newFn
       };
     }
   });
-
 
   private recordPluginEnd(name: string, hook: string) {
     try {
@@ -260,11 +268,10 @@ export class BuildStatsPlugin implements WebpackPluginInstance {
   }
 
   private getLoaderName(loader: any): string {
-
     const actualLoader: string = loader.loader || loader;
     return actualLoader.replace(/\\/g, '/')
       .replace(
-        /^.*\/node_modules\/(@[a-z0-9][\w-.]+\/[a-z0-9][\w-.]*|[^\\/]+).*$/,
+        /^.*\/node_modules\/(@[\da-z][\w-.]+\/[\da-z][\w-.]*|[^/\\]+).*$/,
         (_, m) => m
       );
   }

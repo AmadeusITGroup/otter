@@ -1,4 +1,8 @@
-import type { BufferEncoding, DirEnt, FileSystemTree } from '@webcontainer/api';
+import type {
+  BufferEncoding,
+  DirEnt,
+  FileSystemTree,
+} from '@webcontainer/api';
 
 /**
  * Function to read a directory in the file system
@@ -15,7 +19,7 @@ export type ReadDirFn = (root: string, options: {
  * @param root Path of the file
  * @param encoding Encoding of the file
  */
-export type ReadFileFn = (root: string, encoding?: BufferEncoding | null | undefined) => Promise<string>;
+export type ReadFileFn = (root: string, encoding?: BufferEncoding | null) => Promise<string>;
 
 /**
  * File system operations
@@ -35,7 +39,7 @@ export type FileSystem = {
  * @param exclusionList
  */
 const readDirRec = async (entry: DirEnt<string>, path: string, fileSystem: FileSystem, exclusionList: string[] = []):
-  Promise<FileSystemTree | undefined> => {
+Promise<FileSystemTree | undefined> => {
   if (exclusionList.includes(entry.name)) {
     return;
   }
@@ -64,9 +68,9 @@ const readDirRec = async (entry: DirEnt<string>, path: string, fileSystem: FileS
  * @param fileSystem
  * @param exclusionList
  */
-export const getFilesTree = async (files: {isDir: boolean; path: string}[], fileSystem: FileSystem, exclusionList: string[] = []) => {
+export const getFilesTree = async (files: { isDir: boolean; path: string }[], fileSystem: FileSystem, exclusionList: string[] = []) => {
   const tree: FileSystemTree = {};
-  for (const {isDir, path} of files) {
+  for (const { isDir, path } of files) {
     if (isDir) {
       const dirEntries = await fileSystem.readdir(path, { encoding: 'utf8', withFileTypes: true });
       for (const entry of dirEntries) {
@@ -76,7 +80,7 @@ export const getFilesTree = async (files: {isDir: boolean; path: string}[], file
         }
       }
     } else {
-      const name = path.replaceAll('\\','/').split('/').pop();
+      const name = path.replaceAll('\\', '/').split('/').pop();
       if (name) {
         tree[name] = {
           file: { contents: await fileSystem.readFile(path, 'utf8') }

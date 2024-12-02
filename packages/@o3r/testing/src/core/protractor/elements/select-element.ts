@@ -1,8 +1,13 @@
-import {By, ElementFinder} from 'protractor';
-import {SelectElementProfile} from '../../elements';
-import {O3rElement} from '../element';
-
-export {SelectElementProfile} from '../../elements';
+import {
+  By,
+  ElementFinder,
+} from 'protractor';
+import {
+  SelectElementProfile,
+} from '../../elements';
+import {
+  O3rElement,
+} from '../element';
 
 /**
  * Implementation dedicated to Protractor.

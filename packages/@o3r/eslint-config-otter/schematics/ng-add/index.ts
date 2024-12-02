@@ -1,7 +1,16 @@
-import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import type { NgAddSchematicsSchema } from './schema';
 import * as path from 'node:path';
-import { updateLinterConfigs } from './linter';
+import {
+  chain,
+  Rule,
+  SchematicContext,
+  Tree,
+} from '@angular-devkit/schematics';
+import {
+  updateLinterConfigs,
+} from './linter';
+import type {
+  NgAddSchematicsSchema,
+} from './schema';
 
 const reportMissingSchematicsDep = (logger: { error: (message: string) => any }) => (reason: any) => {
   logger.error(`[ERROR]: Adding @o3r/eslint-config-otter has failed.
@@ -46,8 +55,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
     const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'), true, /^@(?:o3r|ama-sdk|eslint-)/);
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
     const linterSchematicsFolder = __dirname;
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    const {NodeDependencyType} = await import('@schematics/angular/utility/dependencies');
+    const { NodeDependencyType } = await import('@schematics/angular/utility/dependencies');
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
     const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
       acc[dep] = {

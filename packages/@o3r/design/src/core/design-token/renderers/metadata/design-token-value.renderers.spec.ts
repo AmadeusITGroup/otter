@@ -1,9 +1,19 @@
+import {
+  promises as fs,
+} from 'node:fs';
+import {
+  resolve,
+} from 'node:path';
+import type {
+  DesignTokenSpecification,
+} from '../../design-token-specification.interface';
+import type {
+  DesignTokenVariableSet,
+} from '../../parsers';
 import * as parser from '../../parsers/design-token.parser';
-import { promises as fs } from 'node:fs';
-import { resolve } from 'node:path';
-import type { DesignTokenSpecification } from '../../design-token-specification.interface';
-import type { DesignTokenVariableSet } from '../../parsers';
-import { getMetadataTokenValueRenderer } from './design-token-value.renderers';
+import {
+  getMetadataTokenValueRenderer,
+} from './design-token-value.renderers';
 
 describe('getMetadataTokenValueRenderer', () => {
   let exampleVariable!: DesignTokenSpecification;
@@ -39,7 +49,7 @@ describe('getMetadataTokenValueRenderer', () => {
   });
 
   test('should correctly remove private variables from generation', () => {
-    const renderer = getMetadataTokenValueRenderer({ignorePrivateVariable: true});
+    const renderer = getMetadataTokenValueRenderer({ ignorePrivateVariable: true });
     const variable = designTokens.get('example.var-private-ref-to-public-var');
 
     const result = renderer(variable, designTokens);

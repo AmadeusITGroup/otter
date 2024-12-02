@@ -1,8 +1,19 @@
-import { execFileSync, execSync, type ExecSyncOptions } from 'node:child_process';
-import { existsSync, promises } from 'node:fs';
-import { join } from 'node:path';
+import {
+  execFileSync,
+  execSync,
+  type ExecSyncOptions,
+} from 'node:child_process';
+import {
+  existsSync,
+  promises,
+} from 'node:fs';
+import {
+  join,
+} from 'node:path';
 import pidFromPort from 'pid-from-port';
-import { packageManagerPublish } from './package-manager';
+import {
+  packageManagerPublish,
+} from './package-manager';
 
 /**
  * Set up a local npm registry inside a docker image before the tests.
@@ -16,16 +27,16 @@ export function setupLocalRegistry() {
   beforeAll(async () => {
     try {
       await pidFromPort(4873);
-    } catch (ex) {
+    } catch {
       shouldHandleVerdaccio = true;
-      execSync('yarn verdaccio:start', {cwd: rootFolder, stdio: 'inherit'});
-      execSync('yarn verdaccio:publish', {cwd: rootFolder, stdio: 'inherit'});
+      execSync('yarn verdaccio:start', { cwd: rootFolder, stdio: 'inherit' });
+      execSync('yarn verdaccio:publish', { cwd: rootFolder, stdio: 'inherit' });
     }
   });
 
   afterAll(() => {
     if (shouldHandleVerdaccio) {
-      execSync('yarn verdaccio:stop', {cwd: rootFolder, stdio: 'inherit'});
+      execSync('yarn verdaccio:stop', { cwd: rootFolder, stdio: 'inherit' });
     }
   });
 }
@@ -54,7 +65,7 @@ export async function publishToVerdaccio(options: ExecSyncOptions) {
       '-e', 'test@test.com',
       '-r', registry,
       '--config-path', npmrcLoggedTarget
-    ], {...options, shell: true});
+    ], { ...options, shell: true });
   }
   packageManagerPublish([
     '--registry', registry,

@@ -1,4 +1,8 @@
-import { DocComment, DocExcerpt, DocNode } from '@microsoft/tsdoc';
+import {
+  DocComment,
+  DocExcerpt,
+  DocNode,
+} from '@microsoft/tsdoc';
 import * as ts from 'typescript';
 
 /**
@@ -15,7 +19,7 @@ export function getInlineTextFromDocNode(docNode: DocNode): string {
       break;
     }
     const renderedChild = getInlineTextFromDocNode(childNode);
-    if (renderedChild.length) {
+    if (renderedChild.length > 0) {
       result += ' ' + renderedChild;
     }
   }
@@ -31,18 +35,13 @@ export function getInlineSummaryFromDocComment(docComment: DocComment): string {
   return getInlineTextFromDocNode(docComment.summarySection);
 }
 
-/*
-* Get block tag content as inline text from given DocComment and tag name.
-*
-* @param docComment The DocComment to get inline block tag content from
-* @param tagName The name of the block tag to get inline content from
-*/
 /**
- * @param docComment
- * @param tagName
+ * Get block tag content as inline text from given DocComment and tag name.
+ * @param docComment The DocComment to get inline block tag content from
+ * @param tagName The name of the block tag to get inline content from
  */
 export function getInlineBlockTagContentFromDocComment(docComment: DocComment, tagName: string): string | undefined {
-  const blockTag = docComment.customBlocks.find(block => block.blockTag.tagName === tagName);
+  const blockTag = docComment.customBlocks.find((block) => block.blockTag.tagName === tagName);
   return blockTag && getInlineTextFromDocNode(blockTag.content);
 }
 
@@ -54,9 +53,8 @@ export function getInlineBlockTagContentFromDocComment(docComment: DocComment, t
 export function getTsDocTextFromNode(source: ts.SourceFile, node: ts.Node): string | undefined {
   const fullText = source.getFullText();
   const commentRanges = ts.getLeadingCommentRanges(fullText, node.getFullStart());
-  if (commentRanges && commentRanges.length) {
-    const jsDocRange = commentRanges[commentRanges.length - 1];
+  if (commentRanges && commentRanges.length > 0) {
+    const jsDocRange = commentRanges.at(-1)!;
     return fullText.slice(jsDocRange.pos, jsDocRange.end);
   }
 }
-

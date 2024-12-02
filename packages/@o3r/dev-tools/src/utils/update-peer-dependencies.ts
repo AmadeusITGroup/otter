@@ -1,8 +1,14 @@
-import { readJsonSync } from 'fs-extra';
-import { exec } from 'node:child_process';
+import {
+  exec,
+} from 'node:child_process';
 import * as fs from 'node:fs';
+import {
+  promisify,
+} from 'node:util';
+import {
+  readJsonSync,
+} from 'fs-extra';
 import * as semver from 'semver';
-import { promisify } from 'node:util';
 import * as winston from 'winston';
 
 interface Dependency {
@@ -48,7 +54,6 @@ const dependencyParser = (value: string): Dependency | undefined => {
   }
 };
 
-
 /**
  * Update a package.json with the given dependencies versions and their respective peer dependencies.
  * Relies on npm info to retrieve package information.
@@ -60,14 +65,13 @@ const dependencyParser = (value: string): Dependency | undefined => {
  * @param silent
  */
 export async function updatePeerDependencies(dependencies: string[] = [], packageJsonPath: string, verbose = false, silent = true) {
-
   const logger = winston.createLogger({
     level: verbose ? 'debug' : 'info',
     format: winston.format.simple(),
     transports: new winston.transports.Console()
   });
 
-  const dependenciesMap = dependencies.map(dependencyParser).filter((dependency): dependency is Dependency => !!dependency);
+  const dependenciesMap = dependencies.map((dependency) => dependencyParser(dependency)).filter((dependency): dependency is Dependency => !!dependency);
 
   const failedDependencies: Dependency[] = [];
   logger.info('Start retrieving package infos.');
@@ -89,10 +93,11 @@ export async function updatePeerDependencies(dependencies: string[] = [], packag
       }
 
       const infoOutput: PackageInfo | PackageInfo[] = JSON.parse(execOutput);
-      const packageInfo = Array.isArray(infoOutput) ?
-        infoOutput.reduce((latestPackage, currentPackage) =>
+      const packageInfo = Array.isArray(infoOutput)
+        ? infoOutput.reduce((latestPackage, currentPackage) =>
           semver.gt(latestPackage.version, currentPackage.version) ? latestPackage : currentPackage
-        ) : infoOutput;
+        )
+        : infoOutput;
 
       logger.debug(JSON.stringify(packageInfo, undefined, 2));
 
@@ -104,7 +109,7 @@ export async function updatePeerDependencies(dependencies: string[] = [], packag
       // aggregate the requested version + the package peer dependencies as a base we will use to update our package.json
       return {
         [dependency.packageName]: dependency.version,
-        ...(packageInfo.peerDependencies || {})
+        ...packageInfo.peerDependencies
       };
     } catch (error: any) {
       logger.error(`Failed retrieving information for package: ${dependency.packageName}`);

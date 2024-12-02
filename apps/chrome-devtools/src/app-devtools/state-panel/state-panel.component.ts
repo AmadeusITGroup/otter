@@ -1,4 +1,9 @@
-import { DOCUMENT, JsonPipe, KeyValuePipe, NgClass } from '@angular/common';
+import {
+  DOCUMENT,
+  JsonPipe,
+  KeyValuePipe,
+  NgClass,
+} from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -9,15 +14,40 @@ import {
   type Signal,
   untracked,
   viewChild,
-  ViewEncapsulation, WritableSignal
+  ViewEncapsulation,
+  WritableSignal,
 } from '@angular/core';
-import { type AbstractControl, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, type ValidationErrors, type ValidatorFn, Validators } from '@angular/forms';
-import { DfTooltipModule, DfTriggerClickDirective } from '@design-factory/design-factory';
-import { StateService } from '../../services';
-import { getBestColorContrast } from '../theming-panel/color.helpers';
-import type { State } from '../../extension/interface';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { combineLatest, map } from 'rxjs';
+import {
+  toSignal,
+} from '@angular/core/rxjs-interop';
+import {
+  type AbstractControl,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  type ValidationErrors,
+  type ValidatorFn,
+  Validators,
+} from '@angular/forms';
+import {
+  DfTooltipModule,
+  DfTriggerClickDirective,
+} from '@design-factory/design-factory';
+import {
+  combineLatest,
+  map,
+} from 'rxjs';
+import type {
+  State,
+} from '../../extension/interface';
+import {
+  StateService,
+} from '../../services';
+import {
+  getBestColorContrast,
+} from '../theming-panel/color.helpers';
 
 type StateForm = {
   name: FormControl<string | null | undefined>;
@@ -47,6 +77,7 @@ const duplicateNameValidator: ValidatorFn = (control: AbstractControl<string>): 
   return null;
 };
 
+// eslint-disable-next-line @typescript-eslint/unbound-method -- Validators are bound methods
 const stateNameValidators = [Validators.required, duplicateNameValidator];
 
 const createStateForm = (name: string, color?: string | null) => new FormGroup<StateForm>({
@@ -144,9 +175,9 @@ export class StatePanelComponent {
         newStateNameControl.statusChanges
       ]).pipe(
         map(() => newStateNameControl.errors
-          ? newStateNameControl.errors.required
+          ? (newStateNameControl.errors.required
             ? 'Please provide a state name.'
-            : 'Please provide a unique name.'
+            : 'Please provide a unique name.')
           : null
         )
       ),
@@ -197,7 +228,6 @@ export class StatePanelComponent {
   /**
    * Remove a state from the Chrome Extension application and store.
    * Note that the active store cannot be deleted.
-   *
    * @param stateName
    */
   public deleteState(stateName: string) {
@@ -208,7 +238,6 @@ export class StatePanelComponent {
 
   /**
    * Download a state as a json file
-   *
    * @param stateName
    */
   public exportState(stateName: string) {
@@ -225,7 +254,6 @@ export class StatePanelComponent {
 
   /**
    * Download a state file, add it to the state list and share it .
-   *
    * @param event
    */
   public async onFileChange(event: InputEvent) {
@@ -272,7 +300,7 @@ export class StatePanelComponent {
           )
         )
       ) {
-        if (Object.keys(this.states()).some((stateName) => stateName === state.name)) {
+        if (Object.keys(this.states()).includes(state.name)) {
           throw new Error(`${state.name} already exists`);
         }
         this.stateService.updateState(

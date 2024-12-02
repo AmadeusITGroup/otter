@@ -1,4 +1,10 @@
 import {
+  join,
+} from 'node:path';
+import {
+  O3rCliError,
+} from '@o3r/schematics';
+import {
   Cache,
   Configuration,
   Descriptor,
@@ -12,13 +18,15 @@ import {
   ResolveOptions,
   Resolver,
   structUtils,
-  ThrowReport
+  ThrowReport,
 } from '@yarnpkg/core';
-import { npath } from '@yarnpkg/fslib';
+import {
+  npath,
+} from '@yarnpkg/fslib';
 import yarnNpmPlugin from '@yarnpkg/plugin-npm';
-import { join } from 'node:path';
-import { O3rCliError } from '@o3r/schematics';
-import { CustomNpmSemverResolver } from './custom-npm-semver-resolver';
+import {
+  CustomNpmSemverResolver,
+} from './custom-npm-semver-resolver';
 
 // Class copied from https://github.com/yarnpkg/berry/blob/master/packages/yarnpkg-core/sources/MultiResolver.ts
 // because it is not exposed in @yarnpkg/core
@@ -129,6 +137,7 @@ async function getProject(cwd = process.cwd()) {
   if (!configuration.projectCwd) {
     throw new O3rCliError(`No project found from ${cwd}`);
   }
+  // eslint-disable-next-line unicorn/no-array-method-this-argument -- false positive `Project.find` is not an array method
   const { project } = await Project.find(configuration, configuration.projectCwd);
   return project;
 }
@@ -142,15 +151,12 @@ function getDescriptorFromReference(packageReference: string) {
 }
 
 async function fetchPackage(project: Project, descriptor: Descriptor): Promise<FetchResult> {
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   const cache = await Cache.find(project.configuration);
   const report = new ThrowReport();
   const multiResolver = new MultiResolver(
-    // eslint-disable-next-line new-cap
     ([CustomNpmSemverResolver, ...yarnNpmPlugin.resolvers || []]).map((resolver) => new resolver())
   );
   const multiFetcher = new MultiFetcher(
-    // eslint-disable-next-line new-cap
     (yarnNpmPlugin.fetchers || []).map((fetcher) => new fetcher())
   );
   const fetchOptions: FetchOptions = { project, cache, checksums: project.storedChecksums, report, fetcher: multiFetcher };
@@ -184,7 +190,7 @@ export async function getFilesFromRegistry(packageDescriptor: string, paths: str
   const extractedFiles = paths.reduce((acc: Record<string, string>, path) => {
     const portablePath = npath.toPortablePath(join(result.prefixPath, path));
     if (result.packageFs.existsSync(portablePath)) {
-      acc[path] = result.packageFs.readFileSync(portablePath, 'utf-8');
+      acc[path] = result.packageFs.readFileSync(portablePath, 'utf8');
     }
     return acc;
   }, {});

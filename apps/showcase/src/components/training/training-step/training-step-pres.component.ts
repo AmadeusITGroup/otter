@@ -1,11 +1,19 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input
+  Input,
 } from '@angular/core';
-import {AngularSplitModule} from 'angular-split';
-import {MarkdownModule} from 'ngx-markdown';
-import {CodeEditorViewComponent, EditorMode, TrainingProject} from '../code-editor-view';
+import {
+  AngularSplitModule,
+} from 'angular-split';
+import {
+  MarkdownModule,
+} from 'ngx-markdown';
+import {
+  CodeEditorViewComponent,
+  EditorMode,
+  TrainingProject,
+} from '../code-editor-view';
 
 @Component({
   selector: 'o3r-training-step-pres',

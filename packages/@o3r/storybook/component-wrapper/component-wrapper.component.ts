@@ -3,11 +3,24 @@
  * The file is in typescript as it needs to be built with the storybook application
  */
 
-import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { ConfigurationStore, upsertConfigurationEntity } from '@o3r/configuration';
-import { Subscription } from 'rxjs';
-import { ComponentWrapperService } from './component-wrapper.service';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+} from '@angular/core';
+import {
+  Store,
+} from '@ngrx/store';
+import {
+  ConfigurationStore,
+  upsertConfigurationEntity,
+} from '@o3r/configuration';
+import {
+  Subscription,
+} from 'rxjs';
+import {
+  ComponentWrapperService,
+} from './component-wrapper.service';
 
 /**
  * Component which wraps the component to be displayed in Storybook
@@ -18,15 +31,14 @@ import { ComponentWrapperService } from './component-wrapper.service';
   template: '<ng-content></ng-content>',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-// eslint-disable-next-line @angular-eslint/component-class-suffix
+// eslint-disable-next-line @angular-eslint/component-class-suffix -- legacy code
 export class ComponentWrapper implements OnDestroy {
-
   private readonly subscription = new Subscription();
 
   constructor(store: Store<ConfigurationStore>, wrapper: ComponentWrapperService) {
     this.subscription.add(
       wrapper.configChange$.subscribe((change) => {
-        store.dispatch(upsertConfigurationEntity({id: change.componentId, configuration: change.props}));
+        store.dispatch(upsertConfigurationEntity({ id: change.componentId, configuration: change.props }));
       })
     );
   }

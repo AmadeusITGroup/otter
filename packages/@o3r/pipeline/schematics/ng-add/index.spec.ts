@@ -1,13 +1,18 @@
-import { Tree } from '@angular-devkit/schematics';
-import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
-import type { NgAddSchematicsSchema } from './schema';
-import * as path from 'node:path';
 import * as fs from 'node:fs';
+import * as path from 'node:path';
+import {
+  Tree,
+} from '@angular-devkit/schematics';
+import {
+  SchematicTestRunner,
+} from '@angular-devkit/schematics/testing';
+import type {
+  NgAddSchematicsSchema,
+} from './schema';
 
 const collectionPath = path.join(__dirname, '..', '..', 'collection.json');
 
 describe('ng-add', () => {
-
   let initialTree: Tree;
 
   beforeEach(() => {
@@ -26,7 +31,6 @@ describe('ng-add', () => {
     expect(tree.exists('.npmrc')).toBe(false);
 
     expect(tree.readText('.github/workflows/main.yml')).toContain('ubuntu-latest');
-
   });
 
   it('should generate a GitHub workflow with custom parameters', async () => {
@@ -43,7 +47,6 @@ describe('ng-add', () => {
 
     expect(tree.readText('.github/workflows/main.yml')).toContain('windows-latest');
     expect(tree.readText('.npmrc')).toContain('registry=private.registry.com');
-
   });
 
   it('should generate a GitHub workflow with custom parameters when npmrc exists', async () => {
@@ -61,13 +64,10 @@ describe('ng-add', () => {
 
     expect(tree.readText('.github/workflows/main.yml')).toContain('windows-latest');
     expect(tree.readText('.npmrc')).toBe('registry=http://private.registry.com');
-
   });
-
 });
 
 describe('ng-add with yarn should generate a GitHub workflow', () => {
-
   let initialTree: Tree;
 
   beforeEach(() => {
@@ -86,7 +86,6 @@ describe('ng-add with yarn should generate a GitHub workflow', () => {
     expect(tree.exists('.npmrc')).toBe(false);
 
     expect(tree.readText('.github/actions/setup/action.yml')).toContain('(yarn cache dir)');
-
   });
 
   it('with yarnrc.yml without yarnPath', async () => {

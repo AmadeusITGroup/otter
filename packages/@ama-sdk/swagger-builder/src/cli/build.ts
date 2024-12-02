@@ -1,26 +1,37 @@
 #!/usr/bin/env node
 
-import commander from 'commander';
 import fs from 'node:fs';
-import { sync as globbySync } from 'globby';
 import path from 'node:path';
 import process from 'node:process';
+import commander from 'commander';
+import {
+  sync as globbySync,
+} from 'globby';
 import semver from 'semver';
-
-import { checkJson, isGlobPattern } from '../core/utils';
-import { buildSpecs } from '../helpers/build';
-import { ApisConfiguration, BuilderApiConfiguration } from '../interfaces/apis-configuration';
-import { BuilderConfiguration } from '../interfaces/builder-configuration';
+import {
+  checkJson,
+  isGlobPattern,
+} from '../core/utils';
+import {
+  buildSpecs,
+} from '../helpers/build';
+import {
+  ApisConfiguration,
+  BuilderApiConfiguration,
+} from '../interfaces/apis-configuration';
+import {
+  BuilderConfiguration,
+} from '../interfaces/builder-configuration';
 
 process.on('unhandledRejection', (err) => {
-  // eslint-disable-next-line no-console
+  // eslint-disable-next-line no-console -- no logger available
   console.error(err);
   process.exit(1);
 });
 
 const apisConfigurationSchema = JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', 'schemas', 'apis-configuration.schema.json'), { encoding: 'utf8' }));
 const buildConfigurationSchema = JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', 'schemas', 'builder-configuration.schema.json'), { encoding: 'utf8' }));
-const myPackageJson: {version: string} = JSON.parse(fs.readFileSync(path.resolve(__dirname, '..' , '..', 'package.json'), 'utf8'));
+const myPackageJson: { version: string } = JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', '..', 'package.json'), 'utf8'));
 
 const program = new commander.Command('swagger-build');
 program.version(myPackageJson.version);
@@ -64,7 +75,7 @@ program.arguments('[(swagger-spec|api-configuration|npm-package|glob)...]');
 program.action(async (inputs: string[] = []) => {
   inputs = inputs.reduce<string[]>((acc, cur) => {
     if (isGlobPattern(cur)) {
-      acc.push(...globbySync(cur, {cwd: process.cwd(), onlyFiles: false}));
+      acc.push(...globbySync(cur, { cwd: process.cwd(), onlyFiles: false }));
     } else {
       acc.push(cur);
     }

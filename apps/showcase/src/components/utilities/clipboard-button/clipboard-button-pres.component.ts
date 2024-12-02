@@ -1,5 +1,11 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
-import { O3rComponent } from '@o3r/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ViewEncapsulation,
+} from '@angular/core';
+import {
+  O3rComponent,
+} from '@o3r/core';
 
 @O3rComponent({ componentType: 'Component' })
 @Component({

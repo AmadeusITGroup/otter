@@ -9,10 +9,14 @@ import {
   inject,
   type OnDestroy,
   Output,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
-import {FitAddon} from '@xterm/addon-fit';
-import {Terminal} from '@xterm/xterm';
+import {
+  FitAddon,
+} from '@xterm/addon-fit';
+import {
+  Terminal,
+} from '@xterm/xterm';
 
 @Component({
   selector: 'code-editor-terminal',
@@ -25,7 +29,7 @@ export class CodeEditorTerminalComponent implements OnDestroy, AfterViewChecked,
   /**
    * Terminal component that can be used as input/output element for a webcontainer process
    */
-  private readonly terminal = new Terminal({convertEol: true});
+  private readonly terminal = new Terminal({ convertEol: true });
   /**
    * Plugin to handle resizing of a Terminal component
    */
@@ -36,17 +40,20 @@ export class CodeEditorTerminalComponent implements OnDestroy, AfterViewChecked,
    */
   @ViewChild('terminal')
   public terminalEl!: ElementRef<HTMLDivElement>;
+
   /**
    * Inform the parent that the terminal of the component has been created and is ready to use as input/output
    * of a process
    */
   @Output()
   public readonly terminalUpdated = new EventEmitter<Terminal>();
+
   /**
    * Inform the parent that something got written in the terminal
    */
   @Output()
   public readonly terminalActivity = new EventEmitter<void>();
+
   /**
    * Inform the parent that the terminal of the component has been disposed of
    */

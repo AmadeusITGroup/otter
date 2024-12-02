@@ -1,7 +1,12 @@
 #!/usr/bin/env node
-import { program } from 'commander';
+import {
+  program,
+} from 'commander';
+import {
+  parse,
+  SemVer,
+} from 'semver';
 import * as winston from 'winston';
-import {parse, SemVer} from 'semver';
 import {
   checkoutCrtRcBranch,
   checkoutCurrentAlphaOrNextBranch,
@@ -12,12 +17,12 @@ import {
   createReleaseBranch,
   deleteCrtRcBranch,
   deleteCurrentAlphaOrNextBranch,
-  deletePreviousReleaseBranch
+  deletePreviousReleaseBranch,
 } from '../helpers';
 
 program
   .description('[DEPRECATED] Creates next minor/major branches and delete previous ones')
-  .requiredOption('--release-version <releaseVersion>', 'Version to create RC or final release for (x.y.z format)', (v) => (/^([0-9]+)\.([0-9]+)\.([0-9]+)$/.test(v) ? v : undefined))
+  .requiredOption('--release-version <releaseVersion>', 'Version to create RC or final release for (x.y.z format)', (v) => (/^(\d+)\.(\d+)\.(\d+)$/.test(v) ? v : undefined))
   .requiredOption('--release-action <releaseAction>', 'Action that needs to be performed by the cli : rcRelease or finalRelease')
   .option('--renovate-path <path>', 'Will update renovate file if found ad the given path')
   .option('--delete-previous-release', 'If true, will delete previous released branch', false)

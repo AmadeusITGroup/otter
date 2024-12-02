@@ -141,7 +141,7 @@ bootstrapApplication(AppComponent, appConfig)
   .then((m) => {
     runInInjectionContext(m.injector, () => {
       inject(RulesEngineRunnerService);
-      ruleEngine.actionHandlers.add(inject(PopupActionHandler));
+      ruleEngine.registerActionHandlers(inject(PopupActionHandler));
     });
   })
   // eslint-disable-next-line no-console

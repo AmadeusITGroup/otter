@@ -1,7 +1,13 @@
-import { Tree } from '@angular-devkit/schematics';
-import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
+import {
+  Tree,
+} from '@angular-devkit/schematics';
+import {
+  SchematicTestRunner,
+  UnitTestTree,
+} from '@angular-devkit/schematics/testing';
+
 const mockGetAppModuleFilePath = jest.fn();
 jest.mock('@o3r/schematics', () => {
   return {
@@ -12,18 +18,18 @@ jest.mock('@o3r/schematics', () => {
 
 const collectionPath = path.join(__dirname, '..', '..', 'collection.json');
 
+const getInitialTree = () => {
+  const initialTree = Tree.empty();
+  initialTree.create('angular.json', fs.readFileSync(path.resolve(__dirname, '..', '..', 'testing', 'mocks', 'angular.mocks.json')));
+  initialTree.create('package.json', fs.readFileSync(path.resolve(__dirname, '..', '..', 'testing', 'mocks', 'package.mocks.json')));
+  initialTree.create('.eslintrc.json', fs.readFileSync(path.resolve(__dirname, '..', '..', 'testing', 'mocks', '__dot__eslintrc.mocks.json')));
+  initialTree.create('app.routing.module.ts', fs.readFileSync(path.resolve(__dirname, '..', '..', 'testing', 'mocks', 'app.routing.module.mocks.ts')));
+
+  return initialTree;
+};
+
 describe('Page', () => {
   let tree: UnitTestTree;
-
-  const getInitialTree = () => {
-    const initialTree = Tree.empty();
-    initialTree.create('angular.json', fs.readFileSync(path.resolve(__dirname, '..', '..', 'testing', 'mocks', 'angular.mocks.json')));
-    initialTree.create('package.json', fs.readFileSync(path.resolve(__dirname, '..', '..', 'testing', 'mocks', 'package.mocks.json')));
-    initialTree.create('.eslintrc.json', fs.readFileSync(path.resolve(__dirname, '..', '..', 'testing', 'mocks', '__dot__eslintrc.mocks.json')));
-    initialTree.create('app.routing.module.ts', fs.readFileSync(path.resolve(__dirname, '..', '..', 'testing', 'mocks', 'app.routing.module.mocks.ts')));
-
-    return initialTree;
-  };
 
   describe('Default parameters', () => {
     beforeAll(async () => {
@@ -69,7 +75,7 @@ describe('Page', () => {
 
     it('should generate files', () => {
       expect(tree.files.filter((file) => /test-page/.test(file)).length).toEqual(6);
-      expect(tree.files.some((file) => /^[\\/]?src[\\/]app[\\/]test-page[\\/]test-page\.module\.ts$/i.test(file))).toBeFalsy();
+      expect(tree.files.some((file) => /^[/\\]?src[/\\]ap{2}(?:[/\\]test-page){2}\.module\.ts$/i.test(file))).toBeFalsy();
     });
 
     it('should insert page route in App Routing Module', () => {
@@ -94,6 +100,7 @@ describe('Page', () => {
 
     it('should generate files with default parameters', () => {
       expect(tree.files.filter((file) => /test-page/.test(file)).length).toEqual(7);
+
       expect(tree.files.some((file) => /^[\\/]?custom[\\/]test-scope[\\/]test-page[\\/]test-page\.module\.ts$/i.test(file))).toBeTruthy();
     });
 

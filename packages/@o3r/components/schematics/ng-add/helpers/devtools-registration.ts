@@ -1,16 +1,20 @@
-import { Rule } from '@angular-devkit/schematics';
+import {
+  readFileSync,
+} from 'node:fs';
 import * as path from 'node:path';
-import type { NgAddSchematicsSchema } from '../schema';
-import { readFileSync } from 'node:fs';
+import {
+  Rule,
+} from '@angular-devkit/schematics';
+import type {
+  NgAddSchematicsSchema,
+} from '../schema';
 
 const DEVTOOL_MODULE_NAME = 'ComponentsDevtoolsModule';
 const DEVTOOL_SERVICE_NAME = 'ComponentsDevtoolsMessageService';
-const PACKAGE_NAME: string = JSON.parse(readFileSync(path.resolve(__dirname, '..', '..', '..', 'package.json'), {encoding: 'utf8'})).name;
+const PACKAGE_NAME: string = JSON.parse(readFileSync(path.resolve(__dirname, '..', '..', '..', 'package.json'), { encoding: 'utf8' })).name;
 
 /**
  * Register Devtools to the application
- * @param tree
- * @param context
  * @param options
  */
 export const registerDevtools = async (options: NgAddSchematicsSchema): Promise<Rule> => {

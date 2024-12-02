@@ -1,9 +1,14 @@
-import * as fsPromises from 'node:fs/promises';
+#!/usr/bin/env node
+import {
+  exec as cpExec,
+} from 'node:child_process';
 import * as fs from 'node:fs';
+import * as fsPromises from 'node:fs/promises';
 import * as path from 'node:path';
-import { SemVer } from 'semver';
 import * as util from 'node:util';
-import { exec as cpExec } from 'node:child_process';
+import {
+  SemVer,
+} from 'semver';
 import * as winston from 'winston';
 
 const exec = util.promisify(cpExec);
@@ -91,7 +96,7 @@ export async function updateRenovateBaseBranch(branchName: string, renovatePath:
     // Extract npm tag (rc | alpha)
     const suffix = branchName.split('-')[1];
     const suffixRegExp = new RegExp(`${suffix}$`);
-    const renovateRc = JSON.parse(await fsPromises.readFile(renovateRcPath, {encoding: 'utf8'}));
+    const renovateRc = JSON.parse(await fsPromises.readFile(renovateRcPath, { encoding: 'utf8' }));
     logger.info(`Current base branches : ${(renovateRc.baseBranches || []).join(' ') as string}`);
     // Filters branching with same npm tag than the one being created
     // For example, [release/7.0.0-next release/6.1.0-rc release/6.2.0-alpha] will become [release/7.0.0-next release/6.2.0-alpha]
@@ -117,7 +122,7 @@ export async function createRcBranch(version: SemVer, logger: winston.Logger) {
   try {
     await exec(`git show-branch remotes/origin/${rcBranch}`);
     logger.info(`${rcBranch} already exists.`);
-  } catch (e) {
+  } catch {
     logger.info(`Creating release candidate branch ${rcBranch}.`);
     await exec(`git checkout -b ${rcBranch}`);
     await exec(`git push --set-upstream origin ${rcBranch}`);
@@ -137,7 +142,7 @@ export async function createNextAlphaBranch(version: SemVer, logger: winston.Log
   try {
     await exec(`git show-branch remotes/origin/${alphaBranch}`);
     logger.info(`${alphaBranch} already exists.`);
-  } catch (e) {
+  } catch {
     logger.info(`Creating alpha branch ${alphaBranch}.`);
     await exec(`git checkout -b ${alphaBranch}`);
     if (renovatePath) {
@@ -159,7 +164,7 @@ export async function createNextMajorBranch(version: SemVer, logger: winston.Log
   try {
     await exec(`git show-branch remotes/origin/${nextBranchName}`);
     logger.info(`${nextBranchName} already exists.`);
-  } catch (e) {
+  } catch {
     logger.info(`Creating -next branch for next major version ${nextBranchName}.`);
     await exec(`git checkout -b ${nextBranchName}`);
     if (renovatePath) {
@@ -212,7 +217,7 @@ export async function createReleaseBranch(version: SemVer, logger: winston.Logge
   try {
     await exec(`git show-branch remotes/origin/${releaseBranch}`);
     logger.info(`${releaseBranch} already exists.`);
-  } catch (e) {
+  } catch {
     logger.info(`Creating release branch ${releaseBranch}.`);
     await exec(`git checkout -b ${releaseBranch}`);
     await exec(`git push --set-upstream origin ${releaseBranch}`);

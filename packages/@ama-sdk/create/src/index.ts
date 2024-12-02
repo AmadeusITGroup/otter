@@ -1,11 +1,25 @@
 #!/usr/bin/env node
-/* eslint-disable no-console */
-
-import { execSync, spawnSync } from 'node:child_process';
-import { dirname, extname, join, parse, relative, resolve } from 'node:path';
+import {
+  execSync,
+  spawnSync,
+} from 'node:child_process';
+import {
+  dirname,
+  extname,
+  join,
+  parse,
+  relative,
+  resolve,
+} from 'node:path';
+import {
+  LOCAL_SPEC_FILENAME,
+  SPEC_JSON_EXTENSION,
+  SPEC_YAML_EXTENSION,
+} from '@ama-sdk/schematics';
+import type {
+  CliWrapper,
+} from '@o3r/telemetry';
 import * as minimist from 'minimist';
-import { LOCAL_SPEC_FILENAME, SPEC_JSON_EXTENSION, SPEC_YAML_EXTENSION } from '@ama-sdk/schematics';
-import type { CliWrapper } from '@o3r/telemetry';
 
 const packageManagerEnv = process.env.npm_config_user_agent?.split('/')[0];
 const binPath = resolve(require.resolve('@angular-devkit/schematics-cli/package.json'), '../bin/schematics.js');
@@ -17,7 +31,7 @@ if (packageManagerEnv && ['npm', 'yarn'].includes(packageManagerEnv)) {
   defaultPackageManager = packageManagerEnv;
 }
 
-const packageManager: string = argv['package-manager'] || defaultPackageManager;
+const packageManager: string = argv['package-manager'] || (argv.yarn && 'yarn') || defaultPackageManager;
 
 if (argv._.length < 2) {
   console.error('The SDK type and project name are mandatory');
@@ -33,7 +47,7 @@ if (sdkType !== 'typescript') {
 }
 
 const fullPackage = argv._[1];
-const packageMatch = /^(?:@([^@/]+)\/)?([^@/]+)$/.exec(fullPackage);
+const packageMatch = /^(?:@([^/@]+)\/)?([^/@]+)$/.exec(fullPackage);
 if (!packageMatch) {
   console.error('Invalid package name');
   process.exit(-3);
@@ -51,9 +65,7 @@ const getYarnVersion = () => {
       env: {
         ...process.env,
         //  NPM updater notifier will prevents the child process from closing until it timeout after 3 minutes.
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         NO_UPDATE_NOTIFIER: '1',
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         NPM_CONFIG_UPDATE_NOTIFIER: 'false'
       }
     }).trim();
@@ -76,13 +88,13 @@ if (argv['spec-package-name']) {
 }
 
 const commonSchematicArgs = [
-  argv.debug !== undefined ? `--debug=${argv.debug as string}` : '--debug=false', // schematics enable debug mode per default when using schematics with relative path
+  argv.debug === undefined ? '--debug=false' : `--debug=${argv.debug as string}`, // schematics enable debug mode per default when using schematics with relative path
   ...(name ? ['--name', name] : []),
   '--package', pck,
   '--package-manager', packageManager,
   ...(argv['exact-o3r-version'] ? ['--exact-o3r-version'] : []),
-  ...(typeof argv['dry-run'] !== 'undefined' ? [`--${!argv['dry-run'] || argv['dry-run'] === 'false' ? 'no-' : ''}dry-run`] : []),
-  ...(typeof argv['o3r-metrics'] !== 'undefined' ? [`--${!argv['o3r-metrics'] || argv['o3r-metrics'] === 'false' ? 'no-' : ''}o3r-metrics`] : [])
+  ...(typeof argv['dry-run'] === 'undefined' ? [] : [`--${!argv['dry-run'] || argv['dry-run'] === 'false' ? 'no-' : ''}dry-run`]),
+  ...(typeof argv['o3r-metrics'] === 'undefined' ? [] : [`--${!argv['o3r-metrics'] || argv['o3r-metrics'] === 'false' ? 'no-' : ''}o3r-metrics`])
 ];
 
 const resolveTargetDirectory = resolve(process.cwd(), targetDirectory);
@@ -110,33 +122,37 @@ const run = () => {
         ? [{ runner, args: ['set', 'version', getYarnVersion()], cwd: resolveTargetDirectory }]
         : []
     ),
-    ...(argv['spec-package-name'] ? [{
-      runner,
-      args: [
-        'exec',
-        'amasdk-update-spec-from-npm',
-        argv['spec-package-name'],
-        ...packageManager === 'npm' ? ['--'] : [],
-        '--package-path', argv['spec-package-path']
-      ],
-      cwd: resolveTargetDirectory
-    }] : []),
-    ...((argv['spec-path'] || argv['spec-package-name']) ? [{
-      args: [
-        binPath,
-        `${schematicsPackage}:typescript-core`,
-        ...coreSchematicArgs
-      ],
-      cwd: resolveTargetDirectory
-    }] : [])
+    ...(argv['spec-package-name']
+      ? [{
+        runner,
+        args: [
+          'exec',
+          'amasdk-update-spec-from-npm',
+          argv['spec-package-name'],
+          ...packageManager === 'npm' ? ['--'] : [],
+          '--package-path', argv['spec-package-path']
+        ],
+        cwd: resolveTargetDirectory
+      }]
+      : []),
+    ...((argv['spec-path'] || argv['spec-package-name'])
+      ? [{
+        args: [
+          binPath,
+          `${schematicsPackage}:typescript-core`,
+          ...coreSchematicArgs
+        ],
+        cwd: resolveTargetDirectory
+      }]
+      : [])
   ];
 
   const errors = steps
     .map((step) => spawnSync(step.runner || `"${process.execPath}"`, step.args, { stdio: 'inherit', cwd: step.cwd || process.cwd(), shell: true }))
-    .filter(({error, status}) => (error || status !== 0));
+    .filter(({ error, status }) => (error || status !== 0));
 
   if (errors.length > 0) {
-    errors.forEach(({error}) => {
+    errors.forEach(({ error }) => {
       if (error) {
         console.error(error);
       }

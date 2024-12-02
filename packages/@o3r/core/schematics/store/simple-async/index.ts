@@ -1,16 +1,40 @@
-import { strings } from '@angular-devkit/core';
-import { apply, chain, MergeStrategy, mergeWith, move, noop, renameTemplateFiles, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
-import { applyEsLintFix, createSchematicWithMetricsIfInstalled, getDestinationPath, moduleHasSubEntryPoints, writeSubEntryPointPackageJson } from '@o3r/schematics';
 import * as path from 'node:path';
-import { ExtraFormattedProperties } from '../common/helpers';
-import { NgGenerateSimpleAsyncStoreSchematicsSchema } from './schema';
+import {
+  strings,
+} from '@angular-devkit/core';
+import {
+  apply,
+  chain,
+  MergeStrategy,
+  mergeWith,
+  move,
+  noop,
+  renameTemplateFiles,
+  Rule,
+  SchematicContext,
+  template,
+  Tree,
+  url,
+} from '@angular-devkit/schematics';
+import {
+  applyEsLintFix,
+  createSchematicWithMetricsIfInstalled,
+  getDestinationPath,
+  moduleHasSubEntryPoints,
+  writeSubEntryPointPackageJson,
+} from '@o3r/schematics';
+import {
+  ExtraFormattedProperties,
+} from '../common/helpers';
+import {
+  NgGenerateSimpleAsyncStoreSchematicsSchema,
+} from './schema';
 
 /**
  * Create an Otter friendly simple async store
  * @param options
  */
 function ngGenerateSimpleAsyncStoreFn(options: NgGenerateSimpleAsyncStoreSchematicsSchema): Rule {
-
   const generateFiles: Rule = (tree: Tree, context: SchematicContext) => {
     const destination = getDestinationPath('@o3r/core:store', options.path, tree, options.projectName);
 
@@ -40,25 +64,28 @@ function ngGenerateSimpleAsyncStoreFn(options: NgGenerateSimpleAsyncStoreSchemat
       tree.delete(barrelPath);
     }
     const rules: Rule[] = [];
-    rules.push(mergeWith(apply(commonTemplates, [
-      template({
-        ...strings,
-        ...options,
-        ...formattedProperties,
-        currentStoreIndex
-      }),
-      renameTemplateFiles(),
-      move(`${destination}/${strings.dasherize(options.storeName)}`)]), MergeStrategy.Overwrite));
-
-    rules.push(mergeWith(apply(syncEntityTemplates, [
-      template({
-        ...strings,
-        ...options,
-        ...formattedProperties,
-        currentStoreIndex
-      }),
-      renameTemplateFiles(),
-      move(`${destination}/${strings.dasherize(options.storeName)}`)]), MergeStrategy.Overwrite));
+    rules.push(
+      mergeWith(apply(commonTemplates, [
+        template({
+          ...strings,
+          ...options,
+          ...formattedProperties,
+          currentStoreIndex
+        }),
+        renameTemplateFiles(),
+        move(`${destination}/${strings.dasherize(options.storeName)}`)
+      ]), MergeStrategy.Overwrite),
+      mergeWith(apply(syncEntityTemplates, [
+        template({
+          ...strings,
+          ...options,
+          ...formattedProperties,
+          currentStoreIndex
+        }),
+        renameTemplateFiles(),
+        move(`${destination}/${strings.dasherize(options.storeName)}`)
+      ]), MergeStrategy.Overwrite)
+    );
 
     if (moduleHasSubEntryPoints(tree, destination)) {
       writeSubEntryPointPackageJson(tree, destination, strings.dasherize(options.storeName));

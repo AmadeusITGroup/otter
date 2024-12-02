@@ -1,18 +1,33 @@
-import type { DirEntry, FileEntry } from '@angular-devkit/schematics';
-import { SchematicsException, Tree } from '@angular-devkit/schematics';
-import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
-import { minimatch } from 'minimatch';
 import * as path from 'node:path';
-import type { PackageJson } from 'type-fest';
-import type { WorkspaceProject, WorkspaceSchema } from '../interfaces/index';
+import type {
+  DirEntry,
+  FileEntry,
+} from '@angular-devkit/schematics';
+import {
+  SchematicsException,
+  Tree,
+} from '@angular-devkit/schematics';
+import {
+  NodeDependencyType,
+} from '@schematics/angular/utility/dependencies';
+import {
+  minimatch,
+} from 'minimatch';
+import type {
+  PackageJson,
+} from 'type-fest';
+import type {
+  WorkspaceProject,
+  WorkspaceSchema,
+} from '../interfaces/index';
 
 function findFilesInTreeRec(memory: Set<FileEntry>, directory: DirEntry, fileMatchesCriteria: (file: string) => boolean, ignoreDirectories: string[]) {
-  if (ignoreDirectories.some(i => directory.path.split(path.posix.sep).includes(i))) {
+  if (ignoreDirectories.some((i) => directory.path.split(path.posix.sep).includes(i))) {
     return memory;
   }
 
   directory.subfiles
-    .filter(fileMatchesCriteria)
+    .filter((file) => fileMatchesCriteria(file))
     .forEach((file) => memory.add(directory.file(file)!));
 
   directory.subdirs
@@ -89,19 +104,19 @@ export function getProjectNewDependenciesTypes(project?: WorkspaceProject): Node
  * @param templateFolder Folder containing the templates
  */
 export function getTemplateFolder(rootPath: string, currentPath: string, templateFolder = 'templates') {
-  const templateFolderPath = path.resolve(currentPath, templateFolder).replace(/[\\]/g, '/');
+  const templateFolderPath = path.resolve(currentPath, templateFolder).replace(/\\/g, '/');
   return path.relative(rootPath, templateFolderPath);
 }
 
 /**
  * Get the path of all the files in the Tree
- * @param basePath Base path from which starting the list
  * @param tree Schematics file tree
+ * @param basePath Base path from which starting the list
  * @param excludes Array of globs to be ignored
  * @param recursive determine if the function will walk through the sub folders
  */
 export function getAllFilesInTree(tree: Tree, basePath = '/', excludes: string[] = [], recursive = true): string[] {
-  if (excludes.length && excludes.some((e) => minimatch(basePath, e, {dot: true}))) {
+  if (excludes.some((e) => minimatch(basePath, e, { dot: true }))) {
     return [];
   }
   return [
@@ -135,7 +150,6 @@ export function getFilesInFolderFromWorkspaceProjectsInTree(tree: Tree, folderIn
     .filter((filePath) => extensionMatcher.test(filePath));
 }
 
-
 /**
  * Get all files with specific extension from the tree
  * @param tree
@@ -165,7 +179,6 @@ export function getFilesFromRootOfWorkspaceProjects(tree: Tree, extension: strin
 export function getFilesFromWorkspaceProjects(tree: Tree, extension: string) {
   return getFilesInFolderFromWorkspaceProjectsInTree(tree, 'src', extension);
 }
-
 
 /**
  * Get all the typescript files from the src folder for all the projects described in the workspace

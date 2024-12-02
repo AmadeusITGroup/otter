@@ -1,4 +1,7 @@
-import {type MarkedExtension, type Tokens} from 'marked';
+import {
+  type MarkedExtension,
+  type Tokens,
+} from 'marked';
 
 const variants = ['note', 'tip', 'important', 'warning', 'caution'];
 const cssVariantMapping: Record<string, string> = {

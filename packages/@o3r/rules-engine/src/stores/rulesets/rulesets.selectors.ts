@@ -1,10 +1,22 @@
-import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { computeItemIdentifier } from '@o3r/core';
-import type { Ruleset } from '../../engine';
-import { rulesetsAdapter } from './rulesets.reducer';
-import { RULESETS_STORE_NAME, RulesetsState } from './rulesets.state';
+import {
+  createFeatureSelector,
+  createSelector,
+} from '@ngrx/store';
+import {
+  computeItemIdentifier,
+} from '@o3r/core';
+import type {
+  Ruleset,
+} from '../../engine';
+import {
+  rulesetsAdapter,
+} from './rulesets.reducer';
+import {
+  RULESETS_STORE_NAME,
+  RulesetsState,
+} from './rulesets.state';
 
-const {selectIds, selectEntities, selectAll, selectTotal} = rulesetsAdapter.getSelectors();
+const { selectIds, selectEntities, selectAll, selectTotal } = rulesetsAdapter.getSelectors();
 
 /** Select Rulesets State */
 export const selectRulesetsState = createFeatureSelector<RulesetsState>(RULESETS_STORE_NAME);
@@ -28,30 +40,23 @@ export const selectRulesetsStorePendingStatus = createSelector(selectRulesetsSta
  * Check if the given value is a valid date
  * @param d
  */
-const isValidDate = (d: any) => !isNaN(d) && d instanceof Date;
+const isValidDate = (d: any) => !Number.isNaN(d) && d instanceof Date;
 
 /**
- * Returns only the rulesets ids which are not onDemand and in the validity range
- * OnDemand takes precedence over validity range.
- * Only if the ruleset is NOT onDemand (this means it is taken into consideration for the runs), the validity is checked
+ * Returns the rulesets which are in the validity range, if provided
  */
-export const selectActiveRuleSets = createSelector(
+export const selectRuleSetsInRange = createSelector(
   selectAllRulesets,
   (ruleSets) => ruleSets.filter((ruleSet: Ruleset) => {
-
-    if (ruleSet.linkedComponents?.or?.length || ruleSet.linkedComponent) {
-      return false;
-    }
-
     const validity = ruleSet.validityRange;
-    if (!validity || !validity.from && !validity.to) {
+    if (!validity || (!validity.from && !validity.to)) {
       return true;
     }
 
     const from = validity.from && new Date(validity.from);
     const to = validity.to && new Date(validity.to);
 
-    if (to && !isValidDate(to) || from && !isValidDate(from)) {
+    if ((to && !isValidDate(to)) || (from && !isValidDate(from))) {
       return false;
     }
     const time = Date.now();
@@ -62,17 +67,26 @@ export const selectActiveRuleSets = createSelector(
     if (from) {
       return from.getTime() <= time;
     }
-
     return to && to.getTime() >= time;
-  }).map((ruleSet: Ruleset) => ruleSet.id));
+  })
+);
+
+/**
+ * Returns the rulesets ids which are not onDemand and in the validity range
+ */
+export const selectActiveRuleSets = createSelector(
+  selectRuleSetsInRange,
+  (ruleSets) => ruleSets
+    .filter((ruleSet: Ruleset) => (!(ruleSet.linkedComponents?.or?.length || ruleSet.linkedComponent)))
+    .map((ruleSet: Ruleset) => ruleSet.id));
 
 /**
  * Assign rulesetId to a component
+ * @deprecated It will be removed in v12 with the selector using it
  * @param compName
  * @param library
  * @param ruleSetId
  * @param acc
- * @deprecated It will be replaced by the selector using it, will be removed in v12.
  */
 function linkRulesetToComponent(compName: string, library: string, ruleSetId: string, acc: Record<string, string[]> = {}) {
   const configName = computeItemIdentifier(compName, library);
@@ -93,13 +107,12 @@ function linkComponentToRuleset(compName: string, library: string, ruleSetId: st
   acc[ruleSetId].push(configName);
 }
 
-
 /**
  * Select the map of ruleSet to activate based on the component computed name
  * @deprecated use {@link selectComponentsLinkedToRuleset} instead. It will be removed in v12
  */
 export const selectRuleSetLinkComponents = createSelector(
-  selectAllRulesets,
+  selectRuleSetsInRange,
   (ruleSets) =>
     ruleSets
       .reduce((acc: Record<string, string[]>, ruleSet: Ruleset) => {
@@ -107,7 +120,7 @@ export const selectRuleSetLinkComponents = createSelector(
           return acc;
         }
         if (ruleSet.linkedComponents?.or?.length) {
-          ruleSet.linkedComponents.or.forEach(linkComp => {
+          ruleSet.linkedComponents.or.forEach((linkComp) => {
             linkRulesetToComponent(linkComp.name, linkComp.library, ruleSet.id, acc);
           });
           return acc;
@@ -123,15 +136,15 @@ export const selectRuleSetLinkComponents = createSelector(
  * Select the map of ruleSets to activate based on linked components
  */
 export const selectComponentsLinkedToRuleset = createSelector(
-  selectAllRulesets,
+  selectRuleSetsInRange,
   (ruleSets) =>
     ruleSets
-      .reduce((acc: {or: {[key: string]: string[]}}, ruleSet: Ruleset) => {
+      .reduce((acc: { or: { [key: string]: string[] } }, ruleSet: Ruleset) => {
         if ((!ruleSet.linkedComponents?.or || ruleSet.linkedComponents.or.length === 0) && !ruleSet.linkedComponent) {
           return acc;
         }
         if (ruleSet.linkedComponents?.or?.length) {
-          ruleSet.linkedComponents.or.forEach(linkComp => {
+          ruleSet.linkedComponents.or.forEach((linkComp) => {
             linkComponentToRuleset(linkComp.name, linkComp.library, ruleSet.id, acc.or);
           });
           return acc;
@@ -140,6 +153,5 @@ export const selectComponentsLinkedToRuleset = createSelector(
           linkComponentToRuleset(ruleSet.linkedComponent.name, ruleSet.linkedComponent.library, ruleSet.id, acc.or);
         }
         return acc;
-      }, {or: {}})
+      }, { or: {} })
 );
-

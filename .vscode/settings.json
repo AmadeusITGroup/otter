@@ -47,6 +47,7 @@
     "package.json": "ng-package.json, project.json, yarn.lock, .yarnrc.yml, .npmrc, .npmrc.*, .pnp.*",
     "nx.json": ".nxignore",
     ".eslintrc.*": ".eslintignore, .eslintrc-*",
+    "eslint.config.mjs": "eslint.*.config.mjs",
     "jest.config.js": "jest.config.*",
     "Dockerfile*": ".dockerignore"
   },
@@ -97,5 +98,23 @@
   "files.trimTrailingWhitespace": true,
   "files.trimFinalNewlines": false,
   "otter.extract.styling.prefix": "o3r",
-  "typescript.tsserver.watchOptions": "vscode"
+  "typescript.tsserver.watchOptions": "vscode",
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+  "editor.foldingImportsByDefault": true,
+  "eslint.useFlatConfig": true,
+  "eslint.rules.customizations": [
+    {
+      "rule": "@stylistic/*",
+      "fixable": true,
+      "severity": "off"
+    },
+    {
+      "rule": "!@stylistic/*",
+      "fixable": true,
+      "severity": "info"
+    }
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  }
 }

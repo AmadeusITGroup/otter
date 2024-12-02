@@ -1,14 +1,22 @@
 import path from 'node:path';
 import process from 'node:process';
-import type { Path, Spec } from 'swagger-schema-official';
-import { SwaggerSpec } from './swagger-spec-wrappers/swagger-spec.interface';
-import { isOuterRefPath, isUrlRefPath } from './swagger-spec-wrappers/utils';
+import type {
+  Path,
+  Spec,
+} from 'swagger-schema-official';
+import {
+  SwaggerSpec,
+} from './swagger-spec-wrappers/swagger-spec.interface';
+import {
+  isOuterRefPath,
+  isUrlRefPath,
+} from './swagger-spec-wrappers/utils';
 import {
   addDefinitionToSpecObj,
   addParameterToSpecObj,
   addResponseToSpecObj,
   addTagToSpecObj,
-  getTargetInformation
+  getTargetInformation,
 } from './utils';
 
 /**
@@ -28,7 +36,6 @@ type OverrideItems = { definitions: string[]; parameters: string[]; paths: { url
  * Tool to merge several Swagger Spec (YAML or Split Spec)
  */
 export class SwaggerSpecMerger {
-
   /** List of references to items from another file  */
   private outerReferences: { swaggerPath: string; innerPath: string }[] = [];
 
@@ -47,8 +54,7 @@ export class SwaggerSpecMerger {
   /** List of additional spec required to consolidate the spec merged */
   public additionalSpecs: { [path: string]: SwaggerSpec } = {};
 
-  constructor(public specs: SwaggerSpec[], public ignoredSwaggerPath: string[] = []) {
-  }
+  constructor(public specs: SwaggerSpec[], public ignoredSwaggerPath: string[] = []) {}
 
   /**
    * Reset the temporary field before generating the final Swagger Spec
@@ -56,7 +62,7 @@ export class SwaggerSpecMerger {
   private async reset() {
     this.outerReferences = [];
     this.alreadyResolvedList = [];
-    this.overrideItems = {definitions: [], parameters: [], paths: [], responses: [], tags: []};
+    this.overrideItems = { definitions: [], parameters: [], paths: [], responses: [], tags: [] };
     const ignoredSpecs = [...this.ignoredSwaggerPath, ...this.specs.map((s) => s.sourcePath)];
     for (const spec of this.specs) {
       await spec.parse(ignoredSpecs);
@@ -72,7 +78,7 @@ export class SwaggerSpecMerger {
   private async editSpecWithReferences(swaggerSpec: Partial<Spec>, swaggerPath: string, innerPath: string) {
     const originalSpec = this.specs.find((spec) => spec.sourcePath === swaggerPath);
     const [resourceType, resourcePath] = innerPath.replace(/^\//, '').split('/') as [keyof OverrideItems, any];
-    const isOverride = originalSpec && this.overrideItems[resourceType] && this.overrideItems[resourceType].indexOf(resourcePath) > -1;
+    const isOverride = originalSpec && this.overrideItems[resourceType] && this.overrideItems[resourceType].includes(resourcePath);
     let newPath = innerPath;
 
     const additionalSpec = isOverride ? originalSpec : this.additionalSpecs[swaggerPath];
@@ -124,14 +130,13 @@ export class SwaggerSpecMerger {
           break;
         }
 
-        case 'paths':
         default: {
           throw new Error(`${resourceType} targeting is not supported`);
         }
       }
     }
 
-    const replacement = alreadyResolved || {swaggerPath, innerPath, newPath};
+    const replacement = alreadyResolved || { swaggerPath, innerPath, newPath };
     if (!alreadyResolved) {
       this.alreadyResolvedList.push(replacement);
     }
@@ -155,7 +160,6 @@ export class SwaggerSpecMerger {
       return await Promise.all(
         currentNode.map((n) => this.convertLocalRefToOuterRef(n, swaggerPath))
       );
-
     } else if (typeof currentNode === 'object') {
       const res: Record<string, unknown> = {};
       for (const k of Object.keys(currentNode)) {
@@ -173,9 +177,9 @@ export class SwaggerSpecMerger {
   private async applyExternalRefItems(swaggerSpec: Partial<Spec>): Promise<Partial<Spec>> {
     const outerReferences = this.outerReferences
       // remove duplicate
-      .reduce<{ swaggerPath: string; innerPath: string }[]>((acc, {swaggerPath, innerPath}) => {
+      .reduce<{ swaggerPath: string; innerPath: string }[]>((acc, { swaggerPath, innerPath }) => {
         if (!acc.some((item) => item.innerPath === innerPath && item.swaggerPath === swaggerPath)) {
-          acc.push({swaggerPath, innerPath});
+          acc.push({ swaggerPath, innerPath });
         }
         return acc;
       }, []);
@@ -197,9 +201,9 @@ export class SwaggerSpecMerger {
       return;
     } else if (field === '$ref') {
       if (isOuterRefPath(currentNode)) {
-        // eslint-disable-next-line prefer-const
+        // eslint-disable-next-line prefer-const -- innerPath is not a const
         let [swaggerPath, innerPath] = currentNode.split('#');
-        if (this.ignoredSwaggerPath.indexOf(swaggerPath) === -1) {
+        if (!this.ignoredSwaggerPath.includes(swaggerPath)) {
           if (!this.additionalSpecs[swaggerPath] && !this.specs.some((s) => s.sourcePath === swaggerPath)) {
             this.additionalSpecs[swaggerPath] = await getTargetInformation(isUrlRefPath(swaggerPath) ? swaggerPath : path.relative(process.cwd(), swaggerPath));
           }
@@ -207,7 +211,7 @@ export class SwaggerSpecMerger {
             innerPath = `definitions/${Object.keys(await this.additionalSpecs[swaggerPath].getDefinitions())[0]}`;
           }
           if (!this.outerReferences.some((outerRef) => outerRef.innerPath === innerPath && outerRef.swaggerPath === swaggerPath)) {
-            this.outerReferences.push({innerPath, swaggerPath});
+            this.outerReferences.push({ innerPath, swaggerPath });
           }
         }
       }
@@ -215,7 +219,6 @@ export class SwaggerSpecMerger {
       await Promise.all(
         currentNode.map((n) => this.extractOuterRef(n))
       );
-
     } else if (typeof currentNode === 'object') {
       for (const k of Object.keys(currentNode)) {
         await this.extractOuterRef(currentNode[k], k);
@@ -228,9 +231,9 @@ export class SwaggerSpecMerger {
    * @param currentNode Node to inspect in the Swagger spec object
    * @param replace Reference to replace
    * @param replace.swaggerPath
-   * @param field Field of the node
    * @param replace.innerPath
    * @param replace.newPath
+   * @param field Field of the node
    */
   private async replaceOuterRef(currentNode: any, replace: { swaggerPath: string; innerPath: string; newPath: string }, field?: string): Promise<any> {
     if (currentNode === undefined) {
@@ -264,7 +267,7 @@ export class SwaggerSpecMerger {
     const envelops = await Promise.all(this.specs.map((s) => s.getEnvelop()));
     return envelops
       .reduce<Record<string, unknown>>((acc, e) => {
-        const info = {...(acc.info as Record<string, unknown> || {}), ...(e.info || {})};
+        const info = { ...acc.info as (Record<string, unknown> | undefined), ...e.info };
         acc = {
           ...acc,
           ...e,
@@ -283,10 +286,10 @@ export class SwaggerSpecMerger {
       tags
         .forEach((tag) => {
           const idx = acc.findIndex((t) => t.name === tag.name);
-          if (idx >= 0) {
-            Object.assign(acc[idx], tag);
-          } else {
+          if (idx === -1) {
             acc.push(tag);
+          } else {
+            Object.assign(acc[idx], tag);
           }
         });
       return acc;
@@ -303,7 +306,7 @@ export class SwaggerSpecMerger {
       .reduce<{ [k: string]: any }>((acc, e) => {
         const props = Object.keys(acc);
         this.overrideItems.parameters.push(
-          ...Object.keys(e).filter((param) => props.indexOf(param) >= 0)
+          ...Object.keys(e).filter((param) => props.includes(param))
         );
         Object.assign(acc, e);
         return acc;
@@ -318,12 +321,12 @@ export class SwaggerSpecMerger {
     const paths = await Promise.all(this.specs.map((s) => s.getPaths()));
     return paths
       .filter((e) => !!e)
-      .reduce<{ [k: string]: {[i in keyof Path]: any} }>((acc, e) => {
+      .reduce<{ [k: string]: { [i in keyof Path]: any } }>((acc, e) => {
         const props = Object.keys(acc);
         const conflicts = Object.keys(e)
           .filter((url) =>
-            props.indexOf(url) >= 0 &&
-            Object.keys(acc[url]).some((method) => Object.keys(e[url]).some((m) => m === method))
+            props.includes(url)
+            && Object.keys(acc[url]).some((method) => Object.keys(e[url]).includes(method))
           );
         const conflictMethods = conflicts.reduce<{ [url: string]: string[] }>((accConflict, url) => {
           accConflict[url] = Object.keys(acc[url]).filter((method) => !!e[url][method as keyof Path]);
@@ -331,29 +334,29 @@ export class SwaggerSpecMerger {
         }, {});
         this.overrideItems.paths.push(
           ...Object.keys(conflictMethods).reduce<{ url: string; method: string }[]>((a, url) => {
-            a.push(...conflictMethods[url].map((method) => ({url, method})));
+            a.push(...conflictMethods[url].map((method) => ({ url, method })));
             return a;
           }, [])
         );
         if (conflicts.length > 0) {
-          if (!ignoreConflict) {
+          if (ignoreConflict) {
+            Object.keys(conflictMethods)
+              // eslint-disable-next-line no-console -- no logger available
+              .forEach((url) => console.log(`The Path "${url}" will override the default method${conflictMethods[url].length > 1 ? 's' : ''} ${conflictMethods[url].join(', ')}`));
+          } else {
             throw new Error(`The path${conflicts.length > 1 ? 's' : ''} ${Object.keys(conflictMethods)
               .map((url) => `${url} (${conflictMethods[url].join(', ')})`)
               .join(', ')} ${conflicts.length > 1 ? 'are' : 'is'} conflicting`);
-          } else {
-            Object.keys(conflictMethods)
-              // eslint-disable-next-line no-console
-              .forEach((url) => console.log(`The Path "${url}" will override the default method${conflictMethods[url].length > 1 ? 's' : ''} ${conflictMethods[url].join(', ')}`));
           }
         }
 
         const mergedProps = Object.keys(e)
           .reduce<typeof e>((accProp, url) => {
-            accProp[url] = acc[url] ? {...acc[url], ...e[url]} : e[url];
+            accProp[url] = acc[url] ? { ...acc[url], ...e[url] } : e[url];
             return accProp;
           }, {});
 
-        return {...acc, ...mergedProps};
+        return { ...acc, ...mergedProps };
       }, {});
   }
 
@@ -367,7 +370,7 @@ export class SwaggerSpecMerger {
       .reduce<{ [k: string]: any }>((acc, e) => {
         const props = Object.keys(acc);
         this.overrideItems.definitions.push(
-          ...Object.keys(e).filter((param) => props.indexOf(param) >= 0)
+          ...Object.keys(e).filter((param) => props.includes(param))
         );
         Object.assign(acc, e);
         return acc;
@@ -384,7 +387,7 @@ export class SwaggerSpecMerger {
       .reduce<{ [k: string]: any }>((acc, e) => {
         const props = Object.keys(acc);
         this.overrideItems.responses.push(
-          ...Object.keys(e).filter((param) => props.indexOf(param) >= 0)
+          ...Object.keys(e).filter((param) => props.includes(param))
         );
         Object.assign(acc, e);
         return acc;
@@ -401,12 +404,12 @@ export class SwaggerSpecMerger {
       return swaggerSpec;
     }
 
-    if (!swaggerSpec.info) {
+    if (swaggerSpec.info) {
+      swaggerSpec.info.version = version;
+    } else {
       swaggerSpec.info = {
         version
       };
-    } else {
-      swaggerSpec.info.version = version;
     }
     return swaggerSpec;
   }
@@ -424,7 +427,7 @@ export class SwaggerSpecMerger {
     const definitions = await this.buildDefinitions();
     const responses = await this.buildResponses();
 
-    let basicSwaggerSpec: Partial<Spec> = {...envelop, tags, parameters, paths, definitions, responses};
+    let basicSwaggerSpec: Partial<Spec> = { ...envelop, tags, parameters, paths, definitions, responses };
 
     do {
       this.outerReferences = [];
@@ -437,11 +440,10 @@ export class SwaggerSpecMerger {
       basicSwaggerSpec = this.setVersion(basicSwaggerSpec, options.setVersion);
     }
 
-    if (basicSwaggerSpec.responses && Object.keys(basicSwaggerSpec.responses).length < 1) {
+    if (basicSwaggerSpec.responses && Object.keys(basicSwaggerSpec.responses).length === 0) {
       delete basicSwaggerSpec.responses;
     }
 
     return basicSwaggerSpec as Spec;
   }
-
 }

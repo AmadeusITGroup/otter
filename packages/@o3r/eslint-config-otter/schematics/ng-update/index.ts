@@ -1,13 +1,19 @@
-import { chain, type Rule } from '@angular-devkit/schematics';
-import { createSchematicWithMetricsIfInstalled } from '@o3r/schematics';
-import { addStylistic } from './v10.0/stylistic';
+import {
+  chain,
+  type Rule,
+} from '@angular-devkit/schematics';
+import {
+  createSchematicWithMetricsIfInstalled,
+} from '@o3r/schematics';
+import {
+  addStylistic,
+} from './v10.0/stylistic';
 
 /**
  * Update of Otter library V10.0
  */
 function updateV100fn(): Rule {
   return (tree, context) => {
-
     const updateRules: Rule[] = [
       addStylistic
     ];

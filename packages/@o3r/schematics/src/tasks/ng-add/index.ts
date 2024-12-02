@@ -1,4 +1,6 @@
-import type { NodeDependencyType } from '@schematics/angular/utility/dependencies';
+import type {
+  NodeDependencyType,
+} from '@schematics/angular/utility/dependencies';
 
 /**
  * Options to be passed to the ng add task

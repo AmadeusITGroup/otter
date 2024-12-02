@@ -1,9 +1,21 @@
-import { getPackageManagerRunner } from '@o3r/schematics';
-import type { BuilderWrapper } from '@o3r/telemetry';
-import { prompt, Question } from 'inquirer';
-import { execFileSync } from 'node:child_process';
-import { existsSync, promises } from 'node:fs';
+import {
+  execFileSync,
+} from 'node:child_process';
+import {
+  existsSync,
+  promises,
+} from 'node:fs';
 import * as path from 'node:path';
+import {
+  getPackageManagerRunner,
+} from '@o3r/schematics';
+import type {
+  BuilderWrapper,
+} from '@o3r/telemetry';
+import {
+  prompt,
+  Question,
+} from 'inquirer';
 
 const noopBuilderWrapper: BuilderWrapper = (fn) => fn;
 
@@ -15,7 +27,7 @@ const noopBuilderWrapper: BuilderWrapper = (fn) => fn;
 export const createBuilderWithMetricsIfInstalled: BuilderWrapper = (builderFn) => async (opts, ctx) => {
   const packageJsonPath = path.join(ctx.workspaceRoot, 'package.json');
   const packageJson = existsSync(packageJsonPath)
-    ? JSON.parse(await promises.readFile(packageJsonPath, {encoding: 'utf8'}))
+    ? JSON.parse(await promises.readFile(packageJsonPath, { encoding: 'utf8' }))
     : {};
   let wrapper: BuilderWrapper = noopBuilderWrapper;
   try {
@@ -56,7 +68,7 @@ For more details and instructions on how to change these settings, see https://g
         const pmr = getPackageManagerRunner(packageJson);
 
         try {
-          const version = JSON.parse(await promises.readFile(path.join(__dirname, '..', '..', 'package.json'), 'utf-8')).version;
+          const version = JSON.parse(await promises.readFile(path.join(__dirname, '..', '..', 'package.json'), 'utf8')).version;
           execFileSync(`${pmr} ng add @o3r/telemetry@${version}`);
         } catch {
           ctx.logger.warn('Failed to install `@o3r/telemetry`.');

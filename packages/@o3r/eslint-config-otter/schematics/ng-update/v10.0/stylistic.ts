@@ -1,8 +1,18 @@
-import { type Rule } from '@angular-devkit/schematics';
-import { setupDependencies } from '@o3r/schematics';
-import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
-import { readFileSync } from 'node:fs';
-import { resolve } from 'node:path';
+import {
+  readFileSync,
+} from 'node:fs';
+import {
+  resolve,
+} from 'node:path';
+import {
+  type Rule,
+} from '@angular-devkit/schematics';
+import {
+  setupDependencies,
+} from '@o3r/schematics';
+import {
+  NodeDependencyType,
+} from '@schematics/angular/utility/dependencies';
 
 /**
  * Add Stylistic package in the dependencies

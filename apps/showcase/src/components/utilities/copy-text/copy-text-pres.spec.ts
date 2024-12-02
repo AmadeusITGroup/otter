@@ -1,6 +1,10 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { CopyTextPresComponent } from './copy-text-pres.component';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import {
+  CopyTextPresComponent,
+} from './copy-text-pres.component';
 
 describe('CopyTextPresComponent', () => {
   let component: CopyTextPresComponent;

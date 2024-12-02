@@ -1,5 +1,10 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {TrainingComponent} from '../../components';
+import {
+  ChangeDetectionStrategy,
+  Component,
+} from '@angular/core';
+import {
+  TrainingComponent,
+} from '../../components';
 
 @Component({
   selector: 'o3r-sdk-training',

@@ -1,5 +1,9 @@
-import type { ComponentConfigOutput } from '@o3r/components';
-import type { MetadataComparator } from '@o3r/extractors';
+import type {
+  MetadataComparator,
+} from '@o3r/extractors';
+import type {
+  ComponentConfigOutput,
+} from '@o3r/components';
 
 /**
  * Interface describing a config migration element
@@ -32,14 +36,15 @@ export interface MigrationConfigData {
  */
 const getConfigurationArray = (content: ComponentConfigOutput[]): ComponentConfigOutput[] => content.flatMap((config) =>
   config.properties.length > 1
-    ? config.properties.map((prop) => ({...config, properties: [prop]}))
+    ? config.properties.map((prop) => ({ ...config, properties: [prop] }))
     : [config]
 );
 
-const getConfigurationPropertyName = (config: ComponentConfigOutput) => `${config.library}#${config.name}` + (config.properties.length ? ` ${config.properties[0].name}` : '');
+const getConfigurationPropertyName = (config: ComponentConfigOutput) => `${config.library}#${config.name}` + (config.properties.length > 0 ? ` ${config.properties[0].name}` : '');
 
-const isMigrationConfigurationDataMatch = (config: ComponentConfigOutput, migrationData: MigrationConfigData, metadataType: string) =>
-  metadataType === 'CONFIG' &&
+const isRelevantContentType = (contentType: string) => contentType === 'CONFIG';
+
+const isMigrationConfigurationDataMatch = (config: ComponentConfigOutput, migrationData: MigrationConfigData) =>
   migrationData.libraryName === config.library
   && (!migrationData.configName || migrationData.configName === config.name)
   && (!migrationData.propertyName || config.properties[0]?.name === migrationData.propertyName);
@@ -50,5 +55,6 @@ const isMigrationConfigurationDataMatch = (config: ComponentConfigOutput, migrat
 export const configMetadataComparator: MetadataComparator<ComponentConfigOutput, MigrationConfigData, ComponentConfigOutput[]> = {
   getArray: getConfigurationArray,
   getIdentifier: getConfigurationPropertyName,
+  isRelevantContentType,
   isMigrationDataMatch: isMigrationConfigurationDataMatch
 };

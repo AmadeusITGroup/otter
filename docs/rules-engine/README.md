@@ -6,7 +6,7 @@ This document describes the various concepts and models that are part of the [Ot
 It serves as an introduction course before you can integrate it within your application following the
 [rules engine implementation guide](./how-to-use/README.md).
 
-As covered in the [package documentation](https://www.npmjs.com/package/@o3r/rules-engine), the rules engine is a 
+As covered in the [package documentation](https://www.npmjs.com/package/@o3r/rules-engine), the rules engine is a
 client-based mechanism that evaluates a list of [Rulesets](#ruleset) to define [actions](#action) to apply based on the
 application's context.
 
@@ -17,8 +17,11 @@ application's context.
 The `Ruleset` object exposes a sorted list of rules to process one after the other.
 
 It may include optional conditions to enable or disable the whole Ruleset based on simple triggers such as:
- - `validityRange`: whether the date of execution of the Ruleset is part of the date range of execution
- - `linkedComponents`: whether specific components are part of the page (see [linked components](./how-to-use/dedicated-component-ruleset.md))
+- `validityRange`: whether the date of execution of the Ruleset is part of the date range of execution
+- `linkedComponents`: whether specific components are part of the page (see [linked components](./how-to-use/dedicated-component-ruleset.md))
+
+The two conditions work together: if a ruleset has both `validityRange` and `linkedComponents` the ruleset
+will not be executed if the component is part of the page but the date is outside the validity range.
 
 If any of the rules belonging to the same ruleset fails due to an error, none of the resulting actions from any of these
 rules will be executed as they may be deeply linked.
@@ -27,16 +30,16 @@ Rulesets are described by the [ruleset schema](https://github.com/AmadeusITGroup
 
 ### Rule
 
-A `Rule` contains a set of conditions that outputs a list of [actions](#action) after processing. 
+A `Rule` contains a set of conditions that outputs a list of [actions](#action) after processing.
 
-These conditions and actions are referred to as blocks and follow a tree architecture: 
+These conditions and actions are referred to as blocks and follow a tree architecture:
 a block can be an `IfElseBlock` (branch of the tree) or an `ActionBlock` (leaf of the tree).
 
-The `IfElseBlock` contains conditions to meet as well as the blocks to execute depending on the success or failure of 
-the condition. 
+The `IfElseBlock` contains conditions to meet as well as the blocks to execute depending on the success or failure of
+the condition.
 The conditions can be linked via `AND` and `OR` expressions.
 
-An `IfElseBlock` can result in another `IfElseBlock` or an `ActionBlock`. 
+An `IfElseBlock` can result in another `IfElseBlock` or an `ActionBlock`.
 
 This allows for nested conditions as demonstrated by the [nested condition Ruleset example](./examples/nested-conditions.md).
 
@@ -61,8 +64,8 @@ Each condition in an `IfElseBlock` can contain up to three different parts:
 The operator is a method that will evaluate whether a condition is met. It can take up to two operands.
 
 While the Otter framework already provides a set of operators ready for use, it is also possible to use your own operator
-that will fit your needs. You can check on the [custom operator documentation](./how-to-use/custom-operator.md) as well 
-as the [ruleset generation documentation](./how-to-use/industrialize-ruleset-generation.md) if you want to generate metadata 
+that will fit your needs. You can check on the [custom operator documentation](./how-to-use/custom-operator.md) as well
+as the [ruleset generation documentation](./how-to-use/industrialize-ruleset-generation.md) if you want to generate metadata
 for your own operators.
 
 The exhaustive list of exposed operators is available in the `rules.operators.metadata.json`.
@@ -82,13 +85,13 @@ which is why it is only available in the npm artifact.
 
 ### Action
 
-The ActionBlock defines the action to be executed. 
+The ActionBlock defines the action to be executed.
 Each Action is identified by a unique ID, specifying the process to trigger and any associated payload.
 
 The Otter framework provides a few built-in actions linked to Otter-specific features:
 * `UPDATE_CONFIG` modifies the configuration of a configurable component
 (provided by [@o3r/configuration](https://www.npmjs.com/package/@o3r/configuration))
-* `UPDATE_ASSET` overrides the path of an asset which uses the `o3rDynamicContent` pipe 
+* `UPDATE_ASSET` overrides the path of an asset which uses the `o3rDynamicContent` pipe
 (provided by [@o3r/dynamic-content](https://www.npmjs.com/package/@o3r/dynamic-content))
 * `UPDATE_LOCALISATION` substitutes the translation of a key with the one from another key.
 ([@o3r/localization](https://www.npmjs.com/package/@o3r/localization))
@@ -113,14 +116,14 @@ This allows a big optimization since the rules engine will react to a fact chang
 of rules that relies on this fact.
 
 Facts can be defined inside the code of the application, as described in the [custom fact documentation](./how-to-use/custom-fact.md),
-or can be defined by the ruleset itself. 
+or can be defined by the ruleset itself.
 
 In that case, we call it a [runtime fact](#runtime-fact).
 
 > [!WARNING]
-> A rule depending on a fact will be re-evaluated whenever this fact is updated. 
+> A rule depending on a fact will be re-evaluated whenever this fact is updated.
 > If you use a fact that will be updated a lot in a short time frame, you may encounter performance issues.
-> 
+>
 > You can avoid this by:
 > * disabling the ruleset if the component impacted by the rule is missing from the page (see [linkedComponents](./how-to-use/dedicated-component-ruleset.md))
 > * avoiding timer facts with a high frequency (1s for example)
@@ -129,13 +132,13 @@ In that case, we call it a [runtime fact](#runtime-fact).
 
 A runtime fact is a temporary fact that is only available in the Ruleset it is used in. It can be the result of a rule
 `SET_FACT` action providing it has been declared in the rule `outputRuntimeFacts`.
-The runtime fact can then be used as an input for another rule condition provided it has been declared in the rule's 
+The runtime fact can then be used as an input for another rule condition provided it has been declared in the rule's
 `inputRuntimeFacts`.
 
 You can follow the [runtime-facts](./examples/runtime-facts.md) example to help you use it in your Ruleset.
 
 > [!WARNING]
-> The runtime fact is only accessible in the Ruleset where it has been defined. If you create two runtime facts in 
+> The runtime fact is only accessible in the Ruleset where it has been defined. If you create two runtime facts in
 > two different Rulesets, they will be two different entities isolated from each other.
 > The runtime fact's value is reset between two executions of the Ruleset.
 

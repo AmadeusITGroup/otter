@@ -1,9 +1,10 @@
-import { utils } from './date';
+import {
+  utils,
+} from './date';
 
 describe('DateTime', () => {
-
   it('should support timestamp', () => {
-    const ts = (new Date()).getTime();
+    const ts = Date.now();
     const dateUtils = new utils.DateTime(ts);
 
     expect(dateUtils.getTime()).toEqual(ts);
@@ -23,6 +24,7 @@ describe('DateTime', () => {
 
   it('should support json conversions', () => {
     const originalDate = new utils.DateTime(new Date());
+    // eslint-disable-next-line unicorn/prefer-structured-clone -- we test the JSON conversion
     const jsonDate = JSON.parse(JSON.stringify(originalDate));
 
     expect(new utils.DateTime(jsonDate)).toEqual(originalDate);
@@ -71,11 +73,9 @@ describe('DateTime', () => {
   });
 });
 
-
 describe('Date', () => {
-
   it('should support timestamp', () => {
-    const ts = (new Date()).getTime();
+    const ts = Date.now();
     const dateUtils = new utils.Date(ts);
 
     expect(dateUtils.getTime()).toEqual(ts);
@@ -93,9 +93,9 @@ describe('Date', () => {
     expect(new utils.Date(originalDate)).toEqual(originalDate);
   });
 
-
   it('should support json conversions', () => {
     const originalDate = new utils.Date(new Date());
+    // eslint-disable-next-line unicorn/prefer-structured-clone -- we test the JSON conversion
     const jsonDate = JSON.parse(JSON.stringify(originalDate));
 
     expect(new utils.Date(jsonDate)).toEqual(originalDate);

@@ -1,13 +1,30 @@
-import { spawnSync, SpawnSyncOptionsWithStringEncoding, SpawnSyncReturns } from 'node:child_process';
-import { existsSync, mkdirSync, readFileSync, rmSync } from 'node:fs';
-import { randomBytes } from 'node:crypto';
-import { tmpdir } from 'node:os';
-import { join, posix, sep } from 'node:path';
+import {
+  spawnSync,
+  SpawnSyncOptionsWithStringEncoding,
+  SpawnSyncReturns,
+} from 'node:child_process';
+import {
+  randomBytes,
+} from 'node:crypto';
+import {
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  rmSync,
+} from 'node:fs';
+import {
+  tmpdir,
+} from 'node:os';
+import {
+  join,
+  posix,
+  sep,
+} from 'node:path';
 
 function runAndThrowOnError(command: string, spawnOptions: SpawnSyncOptionsWithStringEncoding): SpawnSyncReturns<string> {
   const cmdOutput = spawnSync(command, spawnOptions);
   if (cmdOutput.error || cmdOutput.status !== 0) {
-    throw cmdOutput.stderr;
+    throw new Error(cmdOutput.stderr);
   }
   return cmdOutput;
 }
@@ -17,7 +34,7 @@ function pathToPosix(path: string): string {
 }
 
 function sanitizeInput(input: string) {
-  return input.replace(/[^\w/\\:@^~=<> .-]/g, '');
+  return input.replace(/[^\w ./:<=>@\\^~-]/g, '');
 }
 
 /**
@@ -31,7 +48,7 @@ export async function getFilesFromRegistry(packageDescriptor: string, paths: str
   const tempDirPath = join(tmpdir(), tempDirName);
   let extractedFiles: { [key: string]: string } = {};
   mkdirSync(tempDirPath);
-  const [,packageName,packageRange] = sanitizeInput(packageDescriptor).match(/^(.*?)(?:\b@(.+))?$/) || [];
+  const [,packageName, packageRange] = sanitizeInput(packageDescriptor).match(/^(.*?)(?:\b@(.+))?$/) || [];
 
   try {
     const npmViewCmd = runAndThrowOnError(
@@ -41,7 +58,7 @@ export async function getFilesFromRegistry(packageDescriptor: string, paths: str
     let versions = JSON.parse(npmViewCmd.stdout.trim()) as string[] | string;
     if (typeof versions !== 'string') {
       if (packageRange) {
-        const range = new semver.Range(packageRange, {includePrerelease: true});
+        const range = new semver.Range(packageRange, { includePrerelease: true });
         versions = versions.filter((v) => range.test(v));
       }
       versions.sort((a, b) => semver.compare(b, a));

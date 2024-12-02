@@ -1,8 +1,21 @@
-import type { GenerateCssSchematicsSchema } from './schema';
-import type { Rule } from '@angular-devkit/schematics';
-import type { createSchematicWithMetricsIfInstalled } from '@o3r/schematics';
-import { parseDesignTokenFile, renderDesignTokens } from '@o3r/design';
-import type { DesignTokenRendererOptions, DesignTokenVariableSet, DesignTokenVariableStructure } from '@o3r/design';
+import type {
+  Rule,
+} from '@angular-devkit/schematics';
+import type {
+  createSchematicWithMetricsIfInstalled,
+} from '@o3r/schematics';
+import type {
+  GenerateCssSchematicsSchema,
+} from './schema';
+import {
+  parseDesignTokenFile,
+  renderDesignTokens,
+} from '@o3r/design';
+import type {
+  DesignTokenRendererOptions,
+  DesignTokenVariableSet,
+  DesignTokenVariableStructure,
+} from '@o3r/design';
 
 /**
  * Generate CSS from Design Token files
@@ -11,10 +24,11 @@ import type { DesignTokenRendererOptions, DesignTokenVariableSet, DesignTokenVar
 function generateCssFn(options: GenerateCssSchematicsSchema): Rule {
   return async (tree, context) => {
     const writeFile = (filePath: string, content: string) => tree.exists(filePath) ? tree.overwrite(filePath, content) : tree.create(filePath, content);
-    const readFile = tree.readText;
-    const existsFile = tree.exists;
-    const determineFileToUpdate = options.output ? () => options.output! :
-      (token: DesignTokenVariableStructure) => {
+    const readFile = tree.readText.bind(tree);
+    const existsFile = tree.exists.bind(tree);
+    const determineFileToUpdate = options.output
+      ? () => options.output!
+      : (token: DesignTokenVariableStructure) => {
         if (token.extensions.o3rTargetFile && tree.exists(token.extensions.o3rTargetFile)) {
           return token.extensions.o3rTargetFile;
         }

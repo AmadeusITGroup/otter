@@ -1,6 +1,12 @@
-import { Injectable } from '@angular/core';
-import type { ApplicationInformationContentMessage } from '@o3r/application';
-import { ReplaySubject } from 'rxjs';
+import {
+  Injectable,
+} from '@angular/core';
+import type {
+  ApplicationInformationContentMessage,
+} from '@o3r/application';
+import {
+  ReplaySubject,
+} from 'rxjs';
 
 export interface ExtendedApplicationInformation {
   appName: string;
@@ -15,7 +21,6 @@ export interface ExtendedApplicationInformation {
   providedIn: 'root'
 })
 export class DebugPanelService {
-
   private readonly applicationInformationSubject = new ReplaySubject<ExtendedApplicationInformation>(1);
 
   /** Application information stream */

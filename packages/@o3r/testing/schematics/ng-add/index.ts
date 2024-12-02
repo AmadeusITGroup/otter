@@ -1,4 +1,22 @@
-import { apply, chain, MergeStrategy, mergeWith, move, noop, renameTemplateFiles, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
+import {
+  askConfirmation,
+} from '@angular/cli/src/utilities/prompt';
+import {
+  apply,
+  chain,
+  MergeStrategy,
+  mergeWith,
+  move,
+  noop,
+  renameTemplateFiles,
+  Rule,
+  SchematicContext,
+  template,
+  Tree,
+  url,
+} from '@angular-devkit/schematics';
 import {
   addVsCodeRecommendations,
   createSchematicWithMetricsIfInstalled,
@@ -10,17 +28,25 @@ import {
   getWorkspaceConfig,
   O3rCliError,
   registerPackageCollectionSchematics,
-  removePackages, setupDependencies,
-  setupSchematicsParamsForProject
+  removePackages,
+  setupDependencies,
+  setupSchematicsParamsForProject,
 } from '@o3r/schematics';
-import { askConfirmation } from '@angular/cli/src/utilities/prompt';
-import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
-import * as fs from 'node:fs';
-import * as path from 'node:path';
-import type { PackageJson } from 'type-fest';
-import type { NgAddSchematicsSchema } from '../../schematics/ng-add/schema';
-import { updateFixtureConfig } from './fixture';
-import { updatePlaywright } from './playwright';
+import {
+  NodeDependencyType,
+} from '@schematics/angular/utility/dependencies';
+import type {
+  PackageJson,
+} from 'type-fest';
+import type {
+  NgAddSchematicsSchema,
+} from '../../schematics/ng-add/schema';
+import {
+  updateFixtureConfig,
+} from './fixture';
+import {
+  updatePlaywright,
+} from './playwright';
 
 const devDependenciesToInstall = [
   'pixelmatch',
@@ -81,7 +107,6 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
           installJest = await askConfirmation('No test framework detected. Do you want to setup Jest test framework?', true, false);
           break;
         }
-        case 'other':
         default: {
           installJest = false;
           break;
@@ -90,11 +115,14 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
 
       let installPlaywright = false;
       if (projectType === 'application') {
-        installPlaywright = options.enablePlaywright !== undefined ?
-          options.enablePlaywright :
-          await askConfirmation('Do you want to setup Playwright test framework for E2E?', true);
+        installPlaywright = options.enablePlaywright === undefined
+          ? await askConfirmation('Do you want to setup Playwright test framework for E2E?', true)
+          : options.enablePlaywright;
       }
 
+      const schematicsDefaultOptions = {
+        useComponentFixtures: undefined
+      };
       const rules = [
         updateFixtureConfig(options),
         removePackages(['@otter/testing']),
@@ -107,23 +135,16 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
         }),
         registerPackageCollectionSchematics(packageJson),
         setupSchematicsParamsForProject({
-          // eslint-disable-next-line @typescript-eslint/naming-convention
-          '@o3r/core:component': {
-            useComponentFixtures: undefined
-          },
-          // eslint-disable-next-line @typescript-eslint/naming-convention
-          '@o3r/core:component-container': {
-            useComponentFixtures: undefined
-          },
-          // eslint-disable-next-line @typescript-eslint/naming-convention
-          '@o3r/core:component-presenter': {
-            useComponentFixtures: undefined
-          }
+          '@o3r/core:component': schematicsDefaultOptions,
+          '@o3r/core:component-container': schematicsDefaultOptions,
+          '@o3r/core:component-presenter': schematicsDefaultOptions
         }, options.projectName)
       ];
 
       if (installJest) {
-        if (workingDirectory !== undefined) {
+        if (workingDirectory === undefined) {
+          throw new O3rCliError(`Could not find working directory for project ${options.projectName || ''}`);
+        } else {
           const packageJsonFile = tree.readJson(`${workingDirectory}/package.json`) as PackageJson;
           packageJsonFile.scripts ||= {};
           packageJsonFile.scripts.test = 'jest';
@@ -150,14 +171,10 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
             jestConfigFilesForProject,
             jestConfigFilesForWorkspace
           );
-        } else {
-          throw new O3rCliError(`Could not find working directory for project ${options.projectName || ''}`);
         }
       }
 
-
       return () => chain(rules)(tree, context);
-
     } catch (e) {
       context.logger.error(`[ERROR]: Adding @o3r/testing has failed.
       If the error is related to missing @o3r dependencies you need to install '@o3r/core' or '@o3r/schematics' to be able to use the testing package.

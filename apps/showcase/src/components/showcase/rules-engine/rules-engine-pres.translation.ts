@@ -1,4 +1,6 @@
-import type { Translation } from '@o3r/core';
+import type {
+  Translation,
+} from '@o3r/core';
 
 export interface RulesEnginePresTranslation extends Translation {
   /**

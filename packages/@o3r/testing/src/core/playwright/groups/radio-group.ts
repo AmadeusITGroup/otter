@@ -1,6 +1,12 @@
-import {RadioGroupProfile} from '../../groups/radio-group';
-import {O3rRadioElement} from '../elements/radio-element';
-import {O3rGroup} from '../group';
+import {
+  RadioGroupProfile,
+} from '../../groups/radio-group';
+import {
+  O3rRadioElement,
+} from '../elements/radio-element';
+import {
+  O3rGroup,
+} from '../group';
 
 /**
  * Group element to manage a radio group

@@ -1,11 +1,13 @@
 import type {
+  Logger,
+} from '@o3r/core';
+import type {
   DesignTokenVariableStructure,
   TokenKeyRenderer,
   TokenReferenceRenderer,
   TokenValueRenderer,
-  UnregisteredTokenReferenceRenderer
+  UnregisteredTokenReferenceRenderer,
 } from '../../parsers/design-token-parser.interface';
-import type { Logger } from '@o3r/core';
 
 /** Options for {@link getSassTokenValueRenderer} */
 export interface SassTokenValueRendererOptions {
@@ -49,7 +51,7 @@ export const getSassTokenReferenceRenderer = (options?: SassTokenValueRendererOp
  */
 export const getSassTokenValueRenderer = (options?: SassTokenValueRendererOptions): TokenValueRenderer => {
   const defaultUnregisteredReferenceRenderer = (variableName: string, _variableSet: Map<string, DesignTokenVariableStructure>): string => {
-    const sassVarName = variableName.replace(/[. ]+/g, '-');
+    const sassVarName = variableName.replace(/[ .]+/g, '-');
     options?.logger?.warn?.(`Variable "${variableName}" is not registered, $${sassVarName} will be rendered with a check`);
     return `if(variable-exists(${sassVarName}), $${sassVarName}, null)`;
   };
@@ -61,14 +63,13 @@ export const getSassTokenValueRenderer = (options?: SassTokenValueRendererOption
     let variableValue = '';
     if (enforceReferenceRendering) {
       variableValue = referenceRenderer(variable, variableSet);
-    }
-    else if (variable.getIsAlias(variableSet)) {
+    } else if (variable.getIsAlias(variableSet)) {
       const ref = variable.getReferencesNode(variableSet)[0];
       variableValue = ref
         ? referenceRenderer(ref, variableSet)
         : defaultUnregisteredReferenceRenderer(variable.getReferences(variableSet)[0], variableSet);
     } else {
-      variableValue = variable.getCssRawValue(variableSet).replaceAll(/\{([^}]*)\}/g, (_defaultValue, matcher: string) =>
+      variableValue = variable.getCssRawValue(variableSet).replaceAll(/{([^}]*)}/g, (_defaultValue, matcher: string) =>
         `#{${(variableSet.has(matcher) ? referenceRenderer(variableSet.get(matcher)!, variableSet) : unregisteredReferenceRenderer(matcher, variableSet))}}`
       );
     }

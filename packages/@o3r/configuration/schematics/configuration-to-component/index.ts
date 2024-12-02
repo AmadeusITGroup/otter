@@ -1,4 +1,9 @@
 import {
+  basename,
+  dirname,
+  posix,
+} from 'node:path';
+import {
   apply,
   chain,
   externalSchematic,
@@ -12,7 +17,7 @@ import {
   strings,
   template,
   Tree,
-  url
+  url,
 } from '@angular-devkit/schematics';
 import {
   addCommentsOnClassProperties,
@@ -30,11 +35,12 @@ import {
   isO3rClassDecorator,
   NoOtterComponent,
   O3rCliError,
-  sortClassElement
+  sortClassElement,
 } from '@o3r/schematics';
-import { basename, dirname, posix } from 'node:path';
 import * as ts from 'typescript';
-import type { NgAddConfigSchematicsSchema } from './schema';
+import type {
+  NgAddConfigSchematicsSchema,
+} from './schema';
 
 const configProperties = [
   'dynamicConfig$', 'config', 'config$', 'configSignal'
@@ -59,7 +65,7 @@ const checkConfiguration = (componentPath: string, tree: Tree) => {
       ts.isClassDeclaration(statement)
       && isO3rClassComponent(statement)
     )!;
-  if (o3rClassDeclaration.members.find((classElement) =>
+  if (o3rClassDeclaration.members.some((classElement) =>
     ts.isPropertyDeclaration(classElement)
     && ts.isIdentifier(classElement.name)
     && configProperties.includes(classElement.name.escapedText.toString())
@@ -154,17 +160,17 @@ export function ngAddConfigFn(options: NgAddConfigSchematicsSchema): Rule {
                   const constructorDeclaration = node.members.find((classElement): classElement is ts.ConstructorDeclaration => ts.isConstructorDeclaration(classElement));
                   const configurationService = constructorDeclaration?.parameters.find((parameter): parameter is ts.ParameterDeclaration & { name: ts.Identifier } =>
                     !!parameter.type
-              && ts.isTypeReferenceNode(parameter.type)
-              && ts.isIdentifier(parameter.type.typeName)
-              && parameter.type.typeName.escapedText.toString() === 'ConfigurationBaseService'
-              && ts.isIdentifier(parameter.name)
+                    && ts.isTypeReferenceNode(parameter.type)
+                    && ts.isIdentifier(parameter.type.typeName)
+                    && parameter.type.typeName.escapedText.toString() === 'ConfigurationBaseService'
+                    && ts.isIdentifier(parameter.name)
                   );
                   if (
                     !configurationService
-              && constructorDeclaration?.parameters.find((parameter) =>
-                ts.isIdentifier(parameter.name)
-                && parameter.name.escapedText.toString() === 'configurationService'
-              )
+                    && constructorDeclaration?.parameters.find((parameter) =>
+                      ts.isIdentifier(parameter.name)
+                      && parameter.name.escapedText.toString() === 'configurationService'
+                    )
                   ) {
                     throw new O3rCliError(`Unable to add configurationService because there is already a constructor's parameter with this name in ${componentPath}.`);
                   }
@@ -185,10 +191,13 @@ export function ngAddConfigFn(options: NgAddConfigSchematicsSchema): Rule {
                       constructorDeclaration,
                       ts.getModifiers(constructorDeclaration) || [],
                       constructorDeclaration.parameters.concat(configurationService ? [] : configServiceParameter),
-                      constructorDeclaration.body ? factory.updateBlock(
-                        constructorDeclaration.body, constructorDeclaration.body.statements.concat(configConstructorBlockStatements)
-                      ) : factory.createBlock(configConstructorBlockStatements, true)
-                    ) : factory.createConstructorDeclaration(
+                      constructorDeclaration.body
+                        ? factory.updateBlock(
+                          constructorDeclaration.body, constructorDeclaration.body.statements.concat(configConstructorBlockStatements)
+                        )
+                        : factory.createBlock(configConstructorBlockStatements, true)
+                    )
+                    : factory.createConstructorDeclaration(
                       [],
                       configServiceParameter,
                       factory.createBlock(configConstructorBlockStatements, true)
@@ -196,10 +205,10 @@ export function ngAddConfigFn(options: NgAddConfigSchematicsSchema): Rule {
 
                   const isNgOnChangesMethod = (classElement: ts.ClassElement): classElement is ts.MethodDeclaration =>
                     ts.isMethodDeclaration(classElement)
-              && ts.isIdentifier(classElement.name)
-              && classElement.name.escapedText.toString() === 'ngOnChanges';
+                    && ts.isIdentifier(classElement.name)
+                    && classElement.name.escapedText.toString() === 'ngOnChanges';
 
-                  const ngOnChangesMethod = node.members.find(isNgOnChangesMethod);
+                  const ngOnChangesMethod = node.members.find((member) => isNgOnChangesMethod(member));
 
                   const changesVariableName = ngOnChangesMethod?.parameters[0].name.getText() || 'changes';
 
@@ -225,8 +234,10 @@ export function ngAddConfigFn(options: NgAddConfigSchematicsSchema): Rule {
                         ? factory.updateBlock(
                           ngOnChangesMethod.body,
                           ngOnChangesMethod.body.statements.concat(ifStatementToAdd)
-                        ) : factory.createBlock(ifStatementToAdd, true)
-                    ) : factory.createMethodDeclaration(
+                        )
+                        : factory.createBlock(ifStatementToAdd, true)
+                    )
+                    : factory.createMethodDeclaration(
                       [factory.createToken(ts.SyntaxKind.PublicKeyword)],
                       undefined,
                       factory.createIdentifier('ngOnChanges'),
@@ -238,28 +249,29 @@ export function ngAddConfigFn(options: NgAddConfigSchematicsSchema): Rule {
                     );
 
                   const decorators = ts.getDecorators(node)!;
-                  const o3rDecorator = decorators.find(isO3rClassDecorator)!;
+                  const o3rDecorator = decorators.find((decorator) => isO3rClassDecorator(decorator))!;
                   const firstArg = o3rDecorator.expression.arguments[0];
                   const shouldUpdateDecorator = options.exposeComponent && ts.isObjectLiteralExpression(firstArg) && firstArg.properties.find((prop) =>
                     ts.isPropertyAssignment(prop)
-              && prop.name?.getText() === 'componentType'
-              && ts.isStringLiteral(prop.initializer)
-              && prop.initializer.text === 'Component'
+                    && prop.name?.getText() === 'componentType'
+                    && ts.isStringLiteral(prop.initializer)
+                    && prop.initializer.text === 'Component'
                   );
-                  const newO3rDecorator = shouldUpdateDecorator ? factory.updateDecorator(
-                    o3rDecorator,
-                    factory.updateCallExpression(
-                      o3rDecorator.expression,
-                      o3rDecorator.expression.expression,
-                      o3rDecorator.expression.typeArguments,
-                      [
-                        factory.createObjectLiteralExpression([
-                          ...(o3rDecorator.expression.arguments[0] as ts.ObjectLiteralExpression).properties.filter((prop) => prop.name?.getText() !== 'componentType'),
-                          factory.createPropertyAssignment('componentType', factory.createStringLiteral('ExposedComponent', true))
-                        ])
-                      ]
+                  const newO3rDecorator = shouldUpdateDecorator
+                    ? factory.updateDecorator(
+                      o3rDecorator,
+                      factory.updateCallExpression(
+                        o3rDecorator.expression,
+                        o3rDecorator.expression.expression,
+                        o3rDecorator.expression.typeArguments,
+                        [
+                          factory.createObjectLiteralExpression([
+                            ...(o3rDecorator.expression.arguments[0] as ts.ObjectLiteralExpression).properties.filter((prop) => prop.name?.getText() !== 'componentType'),
+                            factory.createPropertyAssignment('componentType', factory.createStringLiteral('ExposedComponent', true))
+                          ])
+                        ]
+                      )
                     )
-                  )
                     : o3rDecorator;
 
                   const newModifiers = [newO3rDecorator]
@@ -354,28 +366,29 @@ export function ngAddConfigFn(options: NgAddConfigSchematicsSchema): Rule {
   public readonly configSignal = configSignal(this.config, ${properties.configKey}_CONFIG_ID, ${properties.configKey}_DEFAULT_CONFIG);`);
 
                   const decorators = ts.getDecorators(node)!;
-                  const o3rDecorator = decorators.find(isO3rClassDecorator)!;
+                  const o3rDecorator = decorators.find((decorator) => isO3rClassDecorator(decorator))!;
                   const firstArg = o3rDecorator.expression.arguments[0];
                   const shouldUpdateDecorator = options.exposeComponent && ts.isObjectLiteralExpression(firstArg) && firstArg.properties.find((prop) =>
                     ts.isPropertyAssignment(prop)
-              && prop.name?.getText() === 'componentType'
-              && ts.isStringLiteral(prop.initializer)
-              && prop.initializer.text === 'Component'
+                    && prop.name?.getText() === 'componentType'
+                    && ts.isStringLiteral(prop.initializer)
+                    && prop.initializer.text === 'Component'
                   );
-                  const newO3rDecorator = shouldUpdateDecorator ? factory.updateDecorator(
-                    o3rDecorator,
-                    factory.updateCallExpression(
-                      o3rDecorator.expression,
-                      o3rDecorator.expression.expression,
-                      o3rDecorator.expression.typeArguments,
-                      [
-                        factory.createObjectLiteralExpression([
-                          ...(o3rDecorator.expression.arguments[0] as ts.ObjectLiteralExpression).properties.filter((prop) => prop.name?.getText() !== 'componentType'),
-                          factory.createPropertyAssignment('componentType', factory.createStringLiteral('ExposedComponent', true))
-                        ])
-                      ]
+                  const newO3rDecorator = shouldUpdateDecorator
+                    ? factory.updateDecorator(
+                      o3rDecorator,
+                      factory.updateCallExpression(
+                        o3rDecorator.expression,
+                        o3rDecorator.expression.expression,
+                        o3rDecorator.expression.typeArguments,
+                        [
+                          factory.createObjectLiteralExpression([
+                            ...(o3rDecorator.expression.arguments[0] as ts.ObjectLiteralExpression).properties.filter((prop) => prop.name?.getText() !== 'componentType'),
+                            factory.createPropertyAssignment('componentType', factory.createStringLiteral('ExposedComponent', true))
+                          ])
+                        ]
+                      )
                     )
-                  )
                     : o3rDecorator;
 
                   const newModifiers = [newO3rDecorator]

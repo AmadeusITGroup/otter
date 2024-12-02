@@ -1,19 +1,54 @@
-import { AsyncPipe } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, Component, inject, QueryList, ViewChildren, ViewEncapsulation } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
-import { ApplicationDevtoolsModule } from '@o3r/application';
-import { ComponentsDevtoolsModule } from '@o3r/components';
-import { ConfigOverrideStoreModule, ConfigurationBaseServiceModule, ConfigurationDevtoolsModule } from '@o3r/configuration';
-import { O3rComponent } from '@o3r/core';
-import { AssetPathOverrideStoreModule, DynamicContentService } from '@o3r/dynamic-content';
-import { ConfigurationRulesEngineActionHandler, ConfigurationRulesEngineActionModule } from '@o3r/configuration/rules-engine';
-import { DynamicContentModule } from '@o3r/dynamic-content';
-import { AssetRulesEngineActionHandler, AssetRulesEngineActionModule } from '@o3r/dynamic-content/rules-engine';
-import { LocalizationOverrideStoreModule } from '@o3r/localization';
+import {
+  AsyncPipe,
+} from '@angular/common';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  QueryList,
+  ViewChildren,
+  ViewEncapsulation,
+} from '@angular/core';
+import {
+  RouterModule,
+} from '@angular/router';
+import {
+  NgbNavModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  ApplicationDevtoolsModule,
+} from '@o3r/application';
+import {
+  ComponentsDevtoolsModule,
+} from '@o3r/components';
+import {
+  ConfigOverrideStoreModule,
+  ConfigurationBaseServiceModule,
+  ConfigurationDevtoolsModule,
+} from '@o3r/configuration';
+import {
+  ConfigurationRulesEngineActionHandler,
+  ConfigurationRulesEngineActionModule,
+} from '@o3r/configuration/rules-engine';
+import {
+  O3rComponent,
+} from '@o3r/core';
+import {
+  AssetPathOverrideStoreModule,
+  DynamicContentModule,
+  DynamicContentService,
+} from '@o3r/dynamic-content';
+import {
+  AssetRulesEngineActionHandler,
+  AssetRulesEngineActionModule,
+} from '@o3r/dynamic-content/rules-engine';
+import {
+  LocalizationOverrideStoreModule,
+} from '@o3r/localization';
 import {
   LocalizationRulesEngineActionHandler,
-  LocalizationRulesEngineActionModule
+  LocalizationRulesEngineActionModule,
 } from '@o3r/localization/rules-engine';
 import {
   CurrentTimeFactsService,
@@ -24,14 +59,30 @@ import {
   RulesEngineRunnerModule,
   RulesEngineRunnerService,
   Ruleset,
-  UnaryOperator
+  UnaryOperator,
 } from '@o3r/rules-engine';
-import { firstValueFrom } from 'rxjs';
-import { RulesEnginePresComponent } from '../../components/showcase/rules-engine';
-import { CopyTextPresComponent, IN_PAGE_NAV_PRES_DIRECTIVES, InPageNavLink, InPageNavLinkDirective, InPageNavPresService } from '../../components/utilities';
-import { environment } from '../../environments/environment.development';
-import { TripFactsService } from '../../facts/index';
-import { duringSummer } from '../../operators/index';
+import {
+  firstValueFrom,
+} from 'rxjs';
+import {
+  RulesEnginePresComponent,
+} from '../../components/showcase/rules-engine/index';
+import {
+  CopyTextPresComponent,
+  IN_PAGE_NAV_PRES_DIRECTIVES,
+  InPageNavLink,
+  InPageNavLinkDirective,
+  InPageNavPresService,
+} from '../../components/utilities/index';
+import {
+  environment,
+} from '../../environments/environment.development';
+import {
+  TripFactsService,
+} from '../../facts/index';
+import {
+  duringSummer,
+} from '../../operators/index';
 
 @O3rComponent({ componentType: 'Page' })
 @Component({
@@ -75,6 +126,7 @@ export class RulesEngineComponent implements AfterViewInit {
 
   @ViewChildren(InPageNavLinkDirective)
   private readonly inPageNavLinkDirectives!: QueryList<InPageNavLink>;
+
   public links$ = this.inPageNavPresService.links$;
 
   public activeRuleTab = 'configuration';
@@ -82,9 +134,11 @@ export class RulesEngineComponent implements AfterViewInit {
   constructor() {
     // We recommend to do the next lines in the AppComponent
     // Here we do it for the sake of the example
-    this.rulesEngineService.actionHandlers.add(inject(ConfigurationRulesEngineActionHandler));
-    this.rulesEngineService.actionHandlers.add(inject(AssetRulesEngineActionHandler));
-    this.rulesEngineService.actionHandlers.add(inject(LocalizationRulesEngineActionHandler));
+    this.rulesEngineService.registerActionHandlers(
+      inject(ConfigurationRulesEngineActionHandler),
+      inject(AssetRulesEngineActionHandler),
+      inject(LocalizationRulesEngineActionHandler)
+    );
     this.rulesEngineService.engine.upsertOperators([duringSummer] as UnaryOperator[]);
     this.rulesEngineService.engine.upsertOperators([dateInNextMinutes] as Operator[]);
     inject(TripFactsService).register();
@@ -104,12 +158,12 @@ export class RulesEngineComponent implements AfterViewInit {
   private async loadRuleSet() {
     const path = await firstValueFrom(
       this.dynamicContentService.getContentPathStream(
-        `${!environment.production ? 'assets/' : ''}rules/rulesets.json`
+        `${environment.production ? '' : 'assets/'}rules/rulesets.json`
       )
     );
 
     const resultCall = await fetch(path);
-    const result = await resultCall.json() as {rulesets: Ruleset[]};
+    const result = await resultCall.json() as { rulesets: Ruleset[] };
 
     this.rulesEngineService.upsertRulesets(result.rulesets);
     const [

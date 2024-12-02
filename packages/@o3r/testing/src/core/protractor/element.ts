@@ -1,10 +1,21 @@
-import {browser, ElementFinder} from 'protractor';
-import {protractor as ptor} from 'protractor/built/ptor';
-import {waitForOtterStable} from '../../tools/protractor';
-import {ElementProfile} from '../element';
-import {convertPromise} from './utils';
+import {
+  browser,
+  ElementFinder,
+} from 'protractor';
+import {
+  protractor as ptor,
+} from 'protractor/built/ptor';
+import {
+  waitForOtterStable,
+} from '../../tools/protractor';
+import {
+  ElementProfile,
+} from '../element';
+import {
+  convertPromise,
+} from './utils';
 
-export {ElementProfile} from '../element';
+export { ElementProfile } from '../element';
 
 /**
  * Implementation dedicated to protractor.
@@ -26,7 +37,7 @@ export class O3rElement implements ElementProfile {
   /** @inheritdoc */
   public async getPlainText() {
     const innerText = await this.getText();
-    return Promise.resolve(innerText ? innerText.replace(/(?:\r\n|\r|\n)/g, ' ').replace(/\s\s+/g, ' ').trim() : undefined);
+    return Promise.resolve(innerText ? innerText.replace(/\r\n|\r|\n/g, ' ').replace(/\s\s+/g, ' ').trim() : undefined);
   }
 
   /** @inheritdoc */
@@ -47,7 +58,7 @@ export class O3rElement implements ElementProfile {
   /** @inheritdoc */
   public async getValue() {
     const value = await this.sourceElement.getAttribute('value');
-    return value !== null ? value : undefined;
+    return value === null ? undefined : value;
   }
 
   /** @inheritdoc */
@@ -64,7 +75,8 @@ export class O3rElement implements ElementProfile {
     const currentValue = await this.getValue();
 
     if (currentValue !== undefined) {
-      await this.sourceElement.sendKeys(...Array(currentValue.length + 1).fill(ptor.Key.BACK_SPACE));
+      // eslint-disable-next-line unicorn/no-new-array -- Required for array initialization purpose
+      await this.sourceElement.sendKeys(...(new Array<string>(currentValue.length + 1).fill(ptor.Key.BACK_SPACE)));
     }
   }
 
@@ -82,7 +94,7 @@ export class O3rElement implements ElementProfile {
   /** @inheritdoc */
   public async getAttribute(attributeName: string) {
     const attribute = await this.sourceElement.getAttribute(attributeName);
-    return attribute !== null ? attribute : undefined;
+    return attribute === null ? undefined : attribute;
   }
 }
 

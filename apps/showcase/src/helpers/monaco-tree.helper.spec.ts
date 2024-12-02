@@ -1,6 +1,13 @@
-import {checkIfPathInMonacoTree, convertTreeRec} from './monaco-tree.helper';
-import {MonacoTreeElement} from 'ngx-monaco-tree';
-import {DirectoryNode} from '@webcontainer/api';
+import {
+  DirectoryNode,
+} from '@webcontainer/api';
+import {
+  MonacoTreeElement,
+} from 'ngx-monaco-tree';
+import {
+  checkIfPathInMonacoTree,
+  convertTreeRec,
+} from './monaco-tree.helper';
 
 const tree: MonacoTreeElement[] = [{
   name: 'first-node',
@@ -23,37 +30,35 @@ describe('checkIfPathInMonacoTree', () => {
   });
   it('should return false if the path does not match the tree at all', () => {
     expect(checkIfPathInMonacoTree(tree, ['no-match', 'leaf'])).toBe(false);
-
   });
   it('should return false if the path only matches part of the tree', () => {
-    expect(checkIfPathInMonacoTree(tree, ['first-node','no-match'])).toBe(false);
-
+    expect(checkIfPathInMonacoTree(tree, ['first-node', 'no-match'])).toBe(false);
   });
   it('should return false if the path matches a node of the tree', () => {
-    expect(checkIfPathInMonacoTree(tree, ['first-node','second-node'])).toBe(false);
+    expect(checkIfPathInMonacoTree(tree, ['first-node', 'second-node'])).toBe(false);
   });
   it('should return true if the path matches a leaf of the tree', () => {
-    expect(checkIfPathInMonacoTree(tree, ['first-node','second-node', 'second-leaf'])).toBe(true);
+    expect(checkIfPathInMonacoTree(tree, ['first-node', 'second-node', 'second-leaf'])).toBe(true);
   });
 });
 
 describe('convertTreeRec', () => {
   const directoryNode: DirectoryNode = {
     directory: {
-      'myFile': {file: {contents: 'Hello world'}},
-      'myFolder': {
+      myFile: { file: { contents: 'Hello world' } },
+      myFolder: {
         directory: {
-          'fileInMyFolder': {
-            file: {contents: 'This is a file;'}
+          fileInMyFolder: {
+            file: { contents: 'This is a file;' }
           },
-          'subFolder': {
+          subFolder: {
             directory: {
-              'fileInSubfolder': {
-                file: {contents: 'This is a file in the subfolder'}
+              fileInSubfolder: {
+                file: { contents: 'This is a file in the subfolder' }
               }
             }
           },
-          'emptySubFolder': {
+          emptySubFolder: {
             directory: {}
           }
         }

@@ -1,17 +1,25 @@
 #!/usr/bin/env node
 
-import commander from 'commander';
 import fs from 'node:fs';
-import { sync as globbySync } from 'globby';
 import path from 'node:path';
 import process from 'node:process';
-
-import { Report } from '../core/checkers/checker.interface';
-import { OperationIdChecker } from '../core/checkers/operation-id-checker';
-import { getTargetInformation, isGlobPattern } from '../core/utils';
+import commander from 'commander';
+import {
+  sync as globbySync,
+} from 'globby';
+import {
+  Report,
+} from '../core/checkers/checker.interface';
+import {
+  OperationIdChecker,
+} from '../core/checkers/operation-id-checker';
+import {
+  getTargetInformation,
+  isGlobPattern,
+} from '../core/utils';
 
 process.on('unhandledRejection', (err) => {
-  // eslint-disable-next-line no-console
+  // eslint-disable-next-line no-console -- no logger available
   console.error(err);
   process.exit(1);
 });
@@ -38,27 +46,27 @@ program.action(async (inputs: string[] = []) => {
   for (const specPath of inputs) {
     const spec = await getTargetInformation(specPath);
     const report = await checker.check(spec);
-    if (report && report.length) {
+    if (report && report.length > 0) {
       reports[specPath] = report;
     }
   }
 
   Object.keys(reports)
     .forEach((spec) => {
-      // eslint-disable-next-line no-console
+      // eslint-disable-next-line no-console -- no logger available
       console.error(`issue on Swagger specification ${spec} :`);
       reports[spec]
         .forEach((error) => {
-          // eslint-disable-next-line no-console
+          // eslint-disable-next-line no-console -- no logger available
           console.error(error.message);
           if (error.details) {
-            // eslint-disable-next-line no-console
+            // eslint-disable-next-line no-console -- no logger available
             error.details.forEach((detail) => console.warn(`  ${detail}`));
           }
         });
     });
 
-  if (Object.keys(reports).length) {
+  if (Object.keys(reports).length > 0) {
     process.exit(1);
   }
 });

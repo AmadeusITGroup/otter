@@ -1,5 +1,9 @@
-import type {Configuration} from '@o3r/core';
-import {computeItemIdentifier} from '@o3r/core';
+import type {
+  Configuration,
+} from '@o3r/core';
+import {
+  computeItemIdentifier,
+} from '@o3r/core';
 
 /**
  * Configuration of component replacement base component

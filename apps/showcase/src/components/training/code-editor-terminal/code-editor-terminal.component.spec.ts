@@ -1,6 +1,10 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { CodeEditorTerminalComponent } from './code-editor-terminal.component';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import {
+  CodeEditorTerminalComponent,
+} from './code-editor-terminal.component';
 
 describe('ViewComponent', () => {
   let component: CodeEditorTerminalComponent;

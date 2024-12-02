@@ -1,5 +1,9 @@
-import type { Serializer } from '@o3r/core';
-import type { SyncStorageConfig } from '../sync-storage';
+import type {
+  Serializer,
+} from '@o3r/core';
+import type {
+  SyncStorageConfig,
+} from '../sync-storage';
 
 /**
  * Format of a key in `StoreSyncConfig`

@@ -6,6 +6,14 @@
  */
 const o3rEnvironment = globalThis.o3rEnvironment;
 
+import * as fs from 'node:fs';
+import {
+  cpSync,
+  existsSync,
+  mkdirSync,
+  renameSync,
+} from 'node:fs';
+import * as path from 'node:path';
 import {
   getDefaultExecSyncOptions,
   getPackageManager,
@@ -13,11 +21,8 @@ import {
   packageManagerCreate,
   packageManagerExec,
   packageManagerInstall,
-  packageManagerRun
+  packageManagerRun,
 } from '@o3r/test-helpers';
-import * as fs from 'node:fs';
-import { cpSync, existsSync, mkdirSync, renameSync } from 'node:fs';
-import * as path from 'node:path';
 
 const sdkPackageName = '@my-test/sdk';
 let sdkFolderPath: string;
@@ -38,9 +43,9 @@ describe('Create new sdk command', () => {
       packageManagerInstall(execAppOptions);
 
       // copy yarnrc config to generated SDK
-      mkdirSync(sdkPackagePath, {recursive: true});
+      mkdirSync(sdkPackagePath, { recursive: true });
       cpSync(path.join(sdkFolderPath, '.yarnrc.yml'), path.join(sdkPackagePath, '.yarnrc.yml'));
-      cpSync(path.join(sdkFolderPath, '.yarn'), path.join(sdkPackagePath, '.yarn'), {recursive: true});
+      cpSync(path.join(sdkFolderPath, '.yarn'), path.join(sdkPackagePath, '.yarn'), { recursive: true });
       fs.writeFileSync(path.join(sdkPackagePath, 'yarn.lock'), '');
     } else {
       // copy npmrc config to generated SDK
@@ -61,7 +66,7 @@ describe('Create new sdk command', () => {
         args: ['typescript', sdkPackageName, '--package-manager', packageManager, '--spec-path', path.join(sdkFolderPath, 'swagger-spec.yml')]
       }, execAppOptions)
     ).not.toThrow();
-    expect(() => packageManagerRun({script: 'build'}, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
+    expect(() => packageManagerRun({ script: 'build' }, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
     expect(existsSync(path.join(sdkPackagePath, 'src', 'models', 'base', 'pet', 'pet.reviver.ts'))).toBeFalsy();
   });
 
@@ -76,9 +81,9 @@ describe('Create new sdk command', () => {
           '--spec-path', path.join(sdkFolderPath, 'swagger-spec-with-date.yml')]
       }, execAppOptions)
     ).not.toThrow();
-    expect(() => packageManagerRun({script: 'build'}, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
+    expect(() => packageManagerRun({ script: 'build' }, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
     expect(existsSync(path.join(sdkPackagePath, 'src', 'models', 'base', 'pet', 'pet.reviver.ts'))).toBeTruthy();
-    expect(() => packageManagerRun({script: 'spec:upgrade'}, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
+    expect(() => packageManagerRun({ script: 'spec:upgrade' }, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
   });
 
   test('should generate a full SDK when the specification is provided as npm dependency', () => {
@@ -96,10 +101,10 @@ describe('Create new sdk command', () => {
         ]
       }, execAppOptions)
     ).not.toThrow();
-    expect(() => packageManagerRun({script: 'build'}, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
+    expect(() => packageManagerRun({ script: 'build' }, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
     expect(existsSync(path.join(sdkPackagePath, 'src', 'models', 'base', 'pet', 'pet.ts'))).toBeTruthy();
     expect(existsSync(path.join(sdkPackagePath, 'src', 'models', 'base', 'pet', 'pet.reviver.ts'))).toBeFalsy();
-    expect(() => packageManagerRun({script: 'spec:upgrade'}, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
+    expect(() => packageManagerRun({ script: 'spec:upgrade' }, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
   });
 
   test('should generate an SDK with no package scope', () => {
@@ -112,27 +117,27 @@ describe('Create new sdk command', () => {
         args: ['typescript', packageName, '--package-manager', packageManager, '--spec-path', path.join(sdkFolderPath, 'swagger-spec.yml')]
       }, execAppOptions)
     ).not.toThrow();
-    expect(() => packageManagerRun({script: 'build'}, { ...execAppOptions, cwd: newSdkPackagePath })).not.toThrow();
+    expect(() => packageManagerRun({ script: 'build' }, { ...execAppOptions, cwd: newSdkPackagePath })).not.toThrow();
   });
 
   test('should generate an empty SDK ready to be used', () => {
-    expect(() => packageManagerCreate({script: '@ama-sdk', args: ['typescript', sdkPackageName]}, execAppOptions)).not.toThrow();
-    expect(() => packageManagerRun({script: 'build'}, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
+    expect(() => packageManagerCreate({ script: '@ama-sdk', args: ['typescript', sdkPackageName] }, execAppOptions)).not.toThrow();
+    expect(() => packageManagerRun({ script: 'build' }, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
     expect(() =>
       packageManagerExec({
         script: 'schematics',
         args: ['@ama-sdk/schematics:typescript-core', '--spec-path', path.join(path.relative(sdkPackagePath, sdkFolderPath), 'swagger-spec.yml')]
       }, { ...execAppOptions, cwd: sdkPackagePath })
     ).not.toThrow();
-    expect(() => packageManagerRun({script: 'build'}, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
-    expect(() => packageManagerRun({script: 'doc:generate'}, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
+    expect(() => packageManagerRun({ script: 'build' }, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
+    expect(() => packageManagerRun({ script: 'doc:generate' }, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
   });
 
   test('should fail when there is an error', () => {
     expect(() =>
       packageManagerCreate({
         script: '@ama-sdk',
-        args: ['typescript', sdkPackageName, '--package-manager', packageManager, '--spec-path','./missing-file.yml']
+        args: ['typescript', sdkPackageName, '--package-manager', packageManager, '--spec-path', './missing-file.yml']
       }, execAppOptions)
     ).toThrow();
   });
@@ -144,8 +149,8 @@ describe('Create new sdk command', () => {
         args: ['typescript', sdkPackageName, '--exact-o3r-version', '--package-manager', packageManager, '--spec-path', path.join(sdkFolderPath, 'swagger-spec.yml')]
       }, execAppOptions)
     ).not.toThrow();
-    expect(() => packageManagerRun({script: 'build'}, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
-    const packageJson = JSON.parse(fs.readFileSync(path.join(sdkPackagePath, 'package.json'), 'utf-8'));
+    expect(() => packageManagerRun({ script: 'build' }, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
+    const packageJson = JSON.parse(fs.readFileSync(path.join(sdkPackagePath, 'package.json'), 'utf8'));
     const resolutions = packageManager === 'yarn' ? packageJson.resolutions : packageJson.overrides;
     // all otter dependencies in package.json must be pinned:
     [

@@ -1,5 +1,11 @@
-import { ComponentFixtureProfile, O3rComponentFixture } from '@o3r/testing/core';
-import { SidenavPresFixture, SidenavPresFixtureComponent } from '../components/utilities/sidenav/sidenav-pres.fixture';
+import {
+  ComponentFixtureProfile,
+  O3rComponentFixture,
+} from '@o3r/testing/core';
+import {
+  SidenavPresFixture,
+  SidenavPresFixtureComponent,
+} from '../components/utilities/sidenav/sidenav-pres.fixture';
 
 /**
  * A component fixture abstracts all the interaction you can have with the component's DOM
@@ -93,5 +99,4 @@ export class AppFixtureComponent extends O3rComponentFixture implements AppFixtu
   public async navigateToSDKGenerator() {
     await (await this.getSideNav()).clickOnLink(10);
   }
-
 }

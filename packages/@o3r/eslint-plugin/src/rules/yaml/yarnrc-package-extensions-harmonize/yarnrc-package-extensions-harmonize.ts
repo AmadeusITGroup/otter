@@ -1,11 +1,21 @@
 import * as path from 'node:path';
 import * as semver from 'semver';
-import { createRule } from '../../utils';
-import { getYamlParserServices } from '../utils';
-import { type AST, getStaticYAMLValue } from 'yaml-eslint-parser';
-import { findWorkspacePackageJsons, /* getBestRange,*/ getBestRanges } from '../../json/json-dependency-versions-harmonize/version-harmonize';
+import {
+  type AST,
+  getStaticYAMLValue,
+} from 'yaml-eslint-parser';
+import {
+  findWorkspacePackageJsons,
+  getBestRanges,
+} from '../../json/json-dependency-versions-harmonize/version-harmonize';
+import {
+  createRule,
+} from '../../utils';
+import {
+  getYamlParserServices,
+} from '../utils';
 
-interface Options {
+export interface YarnrcPackageExtensionsHarmonizeOptions {
   /** List of package.json to ignore when determining the dependencies versions */
   excludePackages: string[];
 
@@ -19,14 +29,14 @@ interface Options {
   yarnrcDependencyTypes: string[];
 }
 
-const defaultOptions: [Options] = [{
+const defaultOptions: [YarnrcPackageExtensionsHarmonizeOptions] = [{
   ignoredDependencies: [],
   excludePackages: [],
   yarnrcDependencyTypes: ['peerDependencies', 'dependencies'],
   dependencyTypesInPackages: ['optionalDependencies', 'dependencies', 'devDependencies', 'peerDependencies', 'generatorDependencies']
 }];
 
-export default createRule<[Options, ...any], 'versionUpdate' | 'error'>({
+export default createRule<[YarnrcPackageExtensionsHarmonizeOptions, ...any], 'versionUpdate' | 'error'>({
   name: 'yarnrc-package-extensions-harmonize',
   meta: {
     hasSuggestions: true,
@@ -79,58 +89,58 @@ export default createRule<[Options, ...any], 'versionUpdate' | 'error'>({
     fixable: 'code'
   },
   defaultOptions,
-  create: (context, [options]: Readonly<[Options, ...any]>) => {
+  create: (context, [options]: Readonly<[YarnrcPackageExtensionsHarmonizeOptions, ...any]>) => {
     const parserServices = getYamlParserServices(context);
-    const dirname = path.dirname(context.getFilename());
+    const dirname = path.dirname(context.filename);
     const workspace = findWorkspacePackageJsons(dirname);
-    const bestRanges = workspace ?
-      getBestRanges(options.dependencyTypesInPackages, workspace.packages.filter(({ content }) => !content.name || !options.excludePackages.includes(content.name))) :
-      {};
-    const ignoredDependencies = options.ignoredDependencies.map((dep) => new RegExp(dep.replace(/[.+?^${}()|[\]\\]/g, '\\$&').replace(/\*/g, '.*')));
+    const bestRanges = workspace
+      ? getBestRanges(options.dependencyTypesInPackages, workspace.packages.filter(({ content }) => !content.name || !options.excludePackages.includes(content.name)))
+      : {};
+    const ignoredDependencies = options.ignoredDependencies.map((dep) => new RegExp(dep.replace(/[$()+.?[\\\]^{|}]/g, '\\$&').replace(/\*/g, '.*')));
 
     if (parserServices.isYAML) {
-      return {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        'YAMLPair': (node: AST.YAMLPair) => {
-
-          if (node.value) {
-            const range = getStaticYAMLValue(node.value)?.toString();
-            const parent = node.parent.parent && node.parent.parent.type === 'YAMLPair' && getStaticYAMLValue(node.parent.parent.key!)?.toString();
-            const baseNode = node.parent.parent.parent.parent?.parent?.parent;
-            const isCorrectNode = baseNode && baseNode.type === 'YAMLPair' && getStaticYAMLValue(baseNode.key!)?.toString() === 'packageExtensions';
-            if (isCorrectNode && semver.validRange(range) && parent && options.yarnrcDependencyTypes.some((t) => t === parent)) {
-              const depName = node.key && getStaticYAMLValue(node.key)?.toString();
-              if (!depName || !bestRanges[depName] || ignoredDependencies.some((ignore) => ignore.test(depName))) {
-                return;
-              }
-              const minYarnrcVersion = semver.minVersion(range!);
-              const minBestRangeVersion = semver.minVersion(bestRanges[depName].range);
-              if (minYarnrcVersion && minBestRangeVersion && semver.lt(minYarnrcVersion, minBestRangeVersion)) {
-                const version = bestRanges[depName].range;
-                const packageJsonFile = bestRanges[depName].path;
-                context.report({
-                  loc: node.value.loc,
-                  messageId: 'error',
-                  data: {
-                    depName,
-                    version,
-                    packageJsonFile
-                  },
-                  fix: (fixer) => fixer.replaceTextRange(node.value!.range, `${version}`),
-                  suggest: [
-                    {
-                      messageId: 'versionUpdate',
-                      data: {
-                        version
-                      },
-                      fix: (fixer) => fixer.replaceTextRange(node.value!.range, `${version}`)
-                    }
-                  ]
-                });
-              }
+      const rule = (node: AST.YAMLPair) => {
+        if (node.value) {
+          const range = getStaticYAMLValue(node.value)?.toString();
+          const parent = node.parent.parent && node.parent.parent.type === 'YAMLPair' && getStaticYAMLValue(node.parent.parent.key!)?.toString();
+          const baseNode = node.parent.parent.parent.parent?.parent?.parent;
+          const isCorrectNode = baseNode && baseNode.type === 'YAMLPair' && getStaticYAMLValue(baseNode.key!)?.toString() === 'packageExtensions';
+          if (isCorrectNode && semver.validRange(range) && parent && options.yarnrcDependencyTypes.includes(parent)) {
+            const depName = node.key && getStaticYAMLValue(node.key)?.toString();
+            if (!depName || !bestRanges[depName] || ignoredDependencies.some((ignore) => ignore.test(depName))) {
+              return;
+            }
+            const minYarnrcVersion = semver.minVersion(range!);
+            const minBestRangeVersion = semver.minVersion(bestRanges[depName].range);
+            if (minYarnrcVersion && minBestRangeVersion && semver.lt(minYarnrcVersion, minBestRangeVersion)) {
+              const version = bestRanges[depName].range;
+              const packageJsonFile = bestRanges[depName].path;
+              context.report({
+                loc: node.value.loc,
+                messageId: 'error',
+                data: {
+                  depName,
+                  version,
+                  packageJsonFile
+                },
+                fix: (fixer) => fixer.replaceTextRange(node.value!.range, `${version}`),
+                suggest: [
+                  {
+                    messageId: 'versionUpdate',
+                    data: {
+                      version
+                    },
+                    fix: (fixer) => fixer.replaceTextRange(node.value!.range, `${version}`)
+                  }
+                ]
+              });
             }
           }
         }
+      };
+
+      return {
+        YAMLPair: rule
       };
     }
     return {};

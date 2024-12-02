@@ -1,6 +1,14 @@
-import type { PathObject } from '@ama-sdk/core';
-import type { OpenApiToolsConfiguration, OpenApiToolsGenerator } from '../../helpers/open-api-tools-configuration';
-import { LOCAL_SPEC_FILENAME, SPEC_JSON_EXTENSION, SPEC_YAML_EXTENSION } from '../../helpers/generators';
+import {
+  existsSync,
+  readFileSync,
+} from 'node:fs';
+import * as path from 'node:path';
+import {
+  URL,
+} from 'node:url';
+import type {
+  PathObject,
+} from '@ama-sdk/core';
 import {
   apply,
   chain,
@@ -12,20 +20,40 @@ import {
   SchematicContext,
   template,
   Tree,
-  url
+  url,
 } from '@angular-devkit/schematics';
-import { existsSync, readFileSync } from 'node:fs';
-import * as path from 'node:path';
-import { URL } from 'node:url';
 import * as semver from 'semver';
-import type { JsonObject } from 'type-fest';
-
-import { OpenApiCliOptions } from '../../code-generator/open-api-cli-generator/open-api-cli.options';
-import { treeGlob } from '../../helpers/tree-glob';
-import { NgGenerateTypescriptSDKCoreSchematicsSchema } from './schema';
-import { OpenApiCliGenerator } from '../../code-generator/open-api-cli-generator/open-api-cli.generator';
-import { copyReferencedFiles, updateLocalRelativeRefs } from './helpers/copy-referenced-files';
-import { generateOperationFinderFromSingleFile } from './helpers/path-extractor';
+import type {
+  JsonObject,
+} from 'type-fest';
+import {
+  OpenApiCliGenerator,
+} from '../../code-generator/open-api-cli-generator/open-api-cli.generator';
+import {
+  OpenApiCliOptions,
+} from '../../code-generator/open-api-cli-generator/open-api-cli.options';
+import {
+  LOCAL_SPEC_FILENAME,
+  SPEC_JSON_EXTENSION,
+  SPEC_YAML_EXTENSION,
+} from '../../helpers/generators';
+import type {
+  OpenApiToolsConfiguration,
+  OpenApiToolsGenerator,
+} from '../../helpers/open-api-tools-configuration';
+import {
+  treeGlob,
+} from '../../helpers/tree-glob';
+import {
+  copyReferencedFiles,
+  updateLocalRelativeRefs,
+} from './helpers/copy-referenced-files';
+import {
+  generateOperationFinderFromSingleFile,
+} from './helpers/path-extractor';
+import {
+  NgGenerateTypescriptSDKCoreSchematicsSchema,
+} from './schema';
 
 const JAVA_OPTIONS = ['specPath', 'specConfigPath', 'globalProperty', 'outputPath'];
 const OPEN_API_TOOLS_OPTIONS = ['generatorName', 'output', 'inputSpec', 'config', 'globalProperty'];
@@ -84,7 +112,7 @@ const getGeneratorOptions = (tree: Tree, context: SchematicContext, options: NgG
     throw new Error('Path to the swagger/open-api specification is undefined');
   }
 
-  const generatorOptions: Partial<OpenApiCliOptions> = {specPath};
+  const generatorOptions: Partial<OpenApiCliOptions> = { specPath };
 
   const packageJsonFile: { openApiSupportedVersion?: string } = JSON.parse((readFileSync(path.join(__dirname, '..', '..', '..', 'package.json'))).toString());
   const packageOpenApiSupportedVersionRange = packageJsonFile.openApiSupportedVersion;
@@ -129,11 +157,11 @@ const getGeneratorOptions = (tree: Tree, context: SchematicContext, options: NgG
   }
   return {
     ...generatorOptions,
-    ...(outputPath ? {outputPath} : {}),
-    ...(specConfigPath ? {specConfigPath} : {}),
-    ...(globalProperty ? {globalProperty} : {}),
-    ...(openapiNormalizer ? {openapiNormalizer} : {}),
-    ...(options.generatorCustomPath ? {generatorCustomPath: options.generatorCustomPath} : {})
+    ...(outputPath ? { outputPath } : {}),
+    ...(specConfigPath ? { specConfigPath } : {}),
+    ...(globalProperty ? { globalProperty } : {}),
+    ...(openapiNormalizer ? { openapiNormalizer } : {}),
+    ...(options.generatorCustomPath ? { generatorCustomPath: options.generatorCustomPath } : {})
   };
 };
 
@@ -142,7 +170,6 @@ const getGeneratorOptions = (tree: Tree, context: SchematicContext, options: NgG
  * @param options
  */
 function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKCoreSchematicsSchema): Rule {
-
   return async (tree, context) => {
     const targetPath = options.directory || '';
     const generatorOptions = getGeneratorOptions(tree, context, options);
@@ -153,12 +180,14 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKCoreSchematic
 
     let specContent!: string;
     if (URL.canParse(generatorOptions.specPath) && (new URL(generatorOptions.specPath)).protocol.startsWith('http')) {
-      specContent = await (await fetch(generatorOptions.specPath)).text();
+      const res = await fetch(generatorOptions.specPath);
+      specContent = await res.text();
       specContent = updateLocalRelativeRefs(specContent, path.dirname(generatorOptions.specPath));
     } else {
-      const specPath = path.isAbsolute(generatorOptions.specPath) || !options.directory ?
-        generatorOptions.specPath : path.join(options.directory, generatorOptions.specPath);
-      specContent = readFileSync(specPath, {encoding: 'utf8'}).toString();
+      const specPath = path.isAbsolute(generatorOptions.specPath) || !options.directory
+        ? generatorOptions.specPath
+        : path.join(options.directory, generatorOptions.specPath);
+      specContent = readFileSync(specPath, { encoding: 'utf8' }).toString();
 
       if (path.relative(process.cwd(), specPath).startsWith('..')) {
         // TODO would be better to create files on tree instead of FS
@@ -173,7 +202,7 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKCoreSchematic
     try {
       JSON.parse(specContent);
       isJson = true;
-    } catch (e) {
+    } catch {
       isJson = false;
     }
     const defaultFileName = `${LOCAL_SPEC_FILENAME}.${isJson ? SPEC_JSON_EXTENSION : SPEC_YAML_EXTENSION}`;
@@ -197,7 +226,13 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKCoreSchematic
     };
 
     const generateOperationFinder = async (): Promise<PathObject[]> => {
-      const specification: any = isJson ? tree.readJson(specDefaultPath) : (await import('js-yaml')).load(tree.readText(specDefaultPath));
+      let specification;
+      if (isJson) {
+        specification = tree.readJson(specDefaultPath);
+      } else {
+        const jsYaml = await import('js-yaml');
+        specification = jsYaml.load(tree.readText(specDefaultPath)) as any;
+      }
       const extraction = generateOperationFinderFromSingleFile(specification);
       return extraction || [];
     };
@@ -226,14 +261,14 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKCoreSchematic
     const updateSpecVersion: Rule = () => {
       const readmeFile = path.posix.join(targetPath, 'readme.md');
       if (tree.exists(readmeFile)) {
-        const specVersion = /version: *([0-9]+\.[0-9]+\.[0-9]+(?:-[^ ]+)?)/.exec(specContent);
-        const generatorVersion = /(openapi|swagger): *['"]?([0-9]+(?:\.[0-9]+){1,2}(?:-[^ ]+)?)['"]?/.exec(specContent);
+        const specVersion = /version: *(\d+\.\d+\.\d+(?:-[^ ]+)?)/.exec(specContent);
+        const generatorVersion = /(openapi|swagger): *["']?(\d+(?:\.\d+){1,2}(?:-[^ ]+)?)["']?/.exec(specContent);
 
         if (specVersion && generatorVersion) {
           const readmeContent = tree.read(readmeFile)!.toString('utf8');
           tree.overwrite(
             readmeFile,
-            readmeContent.replace(/Based on .+ spec.*/i, `Based on API specification version ${specVersion[1] || '0.0.0'} (using ${generatorVersion[1]} ${generatorVersion[2]})`)
+            readmeContent.replace(/based on .+ spec.*/i, `Based on API specification version ${specVersion[1] || '0.0.0'} (using ${generatorVersion[1]} ${generatorVersion[2]})`)
           );
         }
       }
@@ -257,13 +292,14 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKCoreSchematic
 
     const runGeneratorRule: Rule = () => {
       return (new OpenApiCliGenerator(options)).getGeneratorRunSchematic(
-        (options.generatorKey && JAVA_OPTIONS.every((optionName) => options[optionName] === undefined)) ?
-          {
+        (options.generatorKey && JAVA_OPTIONS.every((optionName) => options[optionName] === undefined))
+          ? {
             generatorKey: options.generatorKey,
-            ...(generatorOptions.generatorVersion ? {generatorVersion: generatorOptions.generatorVersion} : {}),
-            ...(options.openapiNormalizer ? {openapiNormalizer: options.openapiNormalizer} : {})
-          } : generatorOptions,
-        {rootDirectory: options.directory || undefined}
+            ...(generatorOptions.generatorVersion ? { generatorVersion: generatorOptions.generatorVersion } : {}),
+            ...(options.openapiNormalizer ? { openapiNormalizer: options.openapiNormalizer } : {})
+          }
+          : generatorOptions,
+        { rootDirectory: options.directory || undefined }
       );
     };
 

@@ -5,22 +5,40 @@
  */
 const o3rEnvironment = globalThis.o3rEnvironment;
 
-import type { MigrationFile } from '@o3r/extractors';
-import { getPackageManager } from '@o3r/schematics';
+import {
+  existsSync,
+  promises,
+  readFileSync,
+} from 'node:fs';
+import {
+  dirname,
+  join,
+} from 'node:path';
+import type {
+  MigrationFile,
+} from '@o3r/extractors';
+import {
+  getExternalDependenciesVersionRange,
+  getPackageManager,
+} from '@o3r/schematics';
 import {
   getDefaultExecSyncOptions,
   getLatestPackageVersion,
   packageManagerAdd,
   packageManagerExec,
   packageManagerVersion,
-  publishToVerdaccio
+  publishToVerdaccio,
 } from '@o3r/test-helpers';
-import { existsSync, promises, readFileSync } from 'node:fs';
-import { dirname, join } from 'node:path';
-import { inc } from 'semver';
-import type { JSONLocalization, LocalizationMetadata } from '@o3r/localization';
-import type { MigrationLocalizationMetadata } from './helpers/localization-metadata-comparison.helper';
-import { getExternalDependenciesVersionRange } from '@o3r/schematics';
+import {
+  inc,
+} from 'semver';
+import type {
+  MigrationLocalizationMetadata,
+} from './helpers/localization-metadata-comparison.helper';
+import type {
+  JSONLocalization,
+  LocalizationMetadata,
+} from '@o3r/localization';
 
 const baseVersion = '1.2.0';
 const version = '1.3.0';
@@ -31,12 +49,12 @@ const defaultMigrationData: MigrationFile<MigrationLocalizationMetadata> = {
   version,
   changes: [
     { // Rename key name
-      'contentType': 'LOCALIZATION',
-      'before': {
-        'key': 'localization.key1'
+      contentType: 'LOCALIZATION',
+      before: {
+        key: 'localization.key1'
       },
-      'after': {
-        'key': 'new-localization.key1'
+      after: {
+        key: 'new-localization.key1'
       }
     }
   ]
@@ -61,7 +79,7 @@ const newLocalizationMetadata: LocalizationMetadata = [
 
 async function writeFileAsJSON(path: string, content: object) {
   if (!existsSync(dirname(path))) {
-    await promises.mkdir(dirname(path), {recursive: true});
+    await promises.mkdir(dirname(path), { recursive: true });
   }
   await promises.writeFile(path, JSON.stringify(content), { encoding: 'utf8' });
 }
@@ -70,23 +88,33 @@ const initTest = async (
   newMetadata: LocalizationMetadata,
   migrationData: MigrationFile<MigrationLocalizationMetadata>,
   packageNameSuffix: string,
-  options?: { allowBreakingChanges?: boolean; prerelease?: string }
+  options?: {
+    allowBreakingChanges?: boolean;
+    shouldCheckUnusedMigrationData?: boolean;
+    prerelease?: string;
+  }
 ) => {
-  const { allowBreakingChanges = false, prerelease } = options || {};
+  const {
+    allowBreakingChanges = false,
+    shouldCheckUnusedMigrationData = false,
+    prerelease
+  } = options || {};
   const { workspacePath, appName, applicationPath, o3rVersion, isYarnTest } = o3rEnvironment.testEnvironment;
   const execAppOptions = { ...getDefaultExecSyncOptions(), cwd: applicationPath };
   const execAppOptionsWorkspace = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
-  packageManagerExec({script: 'ng', args: ['add', `@o3r/extractors@${o3rVersion}`, '--skip-confirmation', '--project-name', appName]}, execAppOptionsWorkspace);
-  packageManagerExec({script: 'ng', args: ['add', `@o3r/localization@${o3rVersion}`, '--skip-confirmation', '--project-name', appName]}, execAppOptionsWorkspace);
+  packageManagerExec({ script: 'ng', args: ['add', `@o3r/extractors@${o3rVersion}`, '--skip-confirmation', '--project-name', appName] }, execAppOptionsWorkspace);
+  packageManagerExec({ script: 'ng', args: ['add', `@o3r/localization@${o3rVersion}`, '--skip-confirmation', '--project-name', appName] }, execAppOptionsWorkspace);
   const versions = getExternalDependenciesVersionRange([
     'semver',
-    ...(isYarnTest ? [
-      '@yarnpkg/core',
-      '@yarnpkg/fslib',
-      '@yarnpkg/plugin-npm',
-      '@yarnpkg/plugin-pack',
-      '@yarnpkg/cli'
-    ] : [])
+    ...(isYarnTest
+      ? [
+        '@yarnpkg/core',
+        '@yarnpkg/fslib',
+        '@yarnpkg/plugin-npm',
+        '@yarnpkg/plugin-pack',
+        '@yarnpkg/cli'
+      ]
+      : [])
   ], join(__dirname, '..', '..', 'package.json'), {
     warn: jest.fn()
   } as any);
@@ -103,6 +131,7 @@ const initTest = async (
     builder: '@o3r/localization:check-localization-migration-metadata',
     options: {
       allowBreakingChanges,
+      shouldCheckUnusedMigrationData,
       migrationDataPath: `apps/test-app/migration-scripts/MIGRATION-*.json`
     }
   };
@@ -151,7 +180,7 @@ describe('check metadata migration', () => {
       newLocalizationMetadata,
       defaultMigrationData,
       'allow-breaking-changes',
-      { allowBreakingChanges: true }
+      { allowBreakingChanges: true, shouldCheckUnusedMigrationData: false }
     );
     const { workspacePath, appName } = o3rEnvironment.testEnvironment;
     const execAppOptionsWorkspace = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
@@ -164,7 +193,7 @@ describe('check metadata migration', () => {
       newLocalizationMetadata,
       defaultMigrationData,
       'allow-breaking-changes-prerelease',
-      { allowBreakingChanges: true, prerelease: 'rc' }
+      { allowBreakingChanges: true, shouldCheckUnusedMigrationData: false, prerelease: 'rc' }
     );
     const { workspacePath, appName } = o3rEnvironment.testEnvironment;
     const execAppOptionsWorkspace = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
@@ -180,7 +209,7 @@ describe('check metadata migration', () => {
         changes: []
       },
       'no-migration-data',
-      { allowBreakingChanges: true }
+      { allowBreakingChanges: true, shouldCheckUnusedMigrationData: false }
     );
     const { workspacePath, appName } = o3rEnvironment.testEnvironment;
     const execAppOptionsWorkspace = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
@@ -189,12 +218,14 @@ describe('check metadata migration', () => {
       packageManagerExec({ script: 'ng', args: ['run', `${appName}:check-metadata`] }, execAppOptionsWorkspace);
       throw new Error('should have thrown before');
     } catch (e: any) {
+      /* eslint-disable jest/no-conditional-expect -- catch block always reached */
       expect(e.message).not.toBe('should have thrown before');
       previousLocalizationMetadata.slice(1).forEach(({ key: id }) => {
         expect(e.message).toContain(`Property ${id} has been modified but is not documented in the migration document`);
         expect(e.message).not.toContain(`Property ${id} has been modified but the new property is not present in the new metadata`);
         expect(e.message).not.toContain(`Property ${id} is not present in the new metadata and breaking changes are not allowed`);
       });
+      /* eslint-enable jest/no-conditional-expect */
     }
   });
 
@@ -212,7 +243,7 @@ describe('check metadata migration', () => {
         }))
       },
       'invalid-data',
-      { allowBreakingChanges: true }
+      { allowBreakingChanges: true, shouldCheckUnusedMigrationData: false }
     );
     const { workspacePath, appName } = o3rEnvironment.testEnvironment;
     const execAppOptionsWorkspace = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
@@ -221,12 +252,14 @@ describe('check metadata migration', () => {
       packageManagerExec({ script: 'ng', args: ['run', `${appName}:check-metadata`] }, execAppOptionsWorkspace);
       throw new Error('should have thrown before');
     } catch (e: any) {
+      /* eslint-disable jest/no-conditional-expect -- catch block always reached */
       expect(e.message).not.toBe('should have thrown before');
       previousLocalizationMetadata.slice(1).forEach(({ key: id }) => {
         expect(e.message).not.toContain(`Property ${id} has been modified but is not documented in the migration document`);
         expect(e.message).toContain(`Property ${id} has been modified but the new property is not present in the new metadata`);
         expect(e.message).not.toContain(`Property ${id} is not present in the new metadata and breaking changes are not allowed`);
       });
+      /* eslint-enable jest/no-conditional-expect */
     }
   });
 
@@ -238,7 +271,7 @@ describe('check metadata migration', () => {
         changes: []
       },
       'breaking-changes',
-      { allowBreakingChanges: false }
+      { allowBreakingChanges: false, shouldCheckUnusedMigrationData: false }
     );
     const { workspacePath, appName } = o3rEnvironment.testEnvironment;
     const execAppOptionsWorkspace = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
@@ -247,12 +280,47 @@ describe('check metadata migration', () => {
       packageManagerExec({ script: 'ng', args: ['run', `${appName}:check-metadata`] }, execAppOptionsWorkspace);
       throw new Error('should have thrown before');
     } catch (e: any) {
+      /* eslint-disable jest/no-conditional-expect -- catch block always reached */
       expect(e.message).not.toBe('should have thrown before');
       previousLocalizationMetadata.slice(1).forEach(({ key: id }) => {
         expect(e.message).not.toContain(`Property ${id} has been modified but is not documented in the migration document`);
         expect(e.message).not.toContain(`Property ${id} has been modified but the new property is not present in the new metadata`);
         expect(e.message).toContain(`Property ${id} is not present in the new metadata and breaking changes are not allowed`);
       });
+      /* eslint-enable jest/no-conditional-expect */
+    }
+  });
+
+  test('should throw because of unused migration data', async () => {
+    const unusedMigrationItem = {
+      contentType: 'LOCALIZATION',
+      before: {
+        key: 'fake-remove'
+      }
+    };
+    await initTest(
+      newLocalizationMetadata,
+      {
+        ...defaultMigrationData,
+        changes: [
+          ...defaultMigrationData.changes,
+          unusedMigrationItem
+        ]
+      },
+      'unused-migration-data',
+      { allowBreakingChanges: true, shouldCheckUnusedMigrationData: true }
+    );
+    const { workspacePath, appName } = o3rEnvironment.testEnvironment;
+    const execAppOptionsWorkspace = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
+
+    try {
+      packageManagerExec({ script: 'ng', args: ['run', `${appName}:check-metadata`] }, execAppOptionsWorkspace);
+      throw new Error('should have thrown before');
+    } catch (e: any) {
+      /* eslint-disable jest/no-conditional-expect -- catch block always called */
+      expect(e.message).not.toBe('should have thrown before');
+      expect(e.message).toContain(`The following migration data has been documented but no corresponding metadata change was found: ${JSON.stringify(unusedMigrationItem, null, 2)}`);
+      /* eslint-enable jest/no-conditional-expect */
     }
   });
 });

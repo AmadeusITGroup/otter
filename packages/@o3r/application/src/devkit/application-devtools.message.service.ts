@@ -1,18 +1,44 @@
-import { DOCUMENT } from '@angular/common';
-import { inject, Inject, Injectable, OnDestroy, Optional } from '@angular/core';
-import { DevtoolsServiceInterface, filterMessageContent, sendOtterMessage } from '@o3r/core';
-import { LoggerService } from '@o3r/logger';
-import { isVisualTestingEnabled, prepareVisualTesting,toggleVisualTestingRender } from '@o3r/testing/visual-test/utils';
-import { fromEvent, Subscription } from 'rxjs';
+import {
+  DOCUMENT,
+} from '@angular/common';
+import {
+  inject,
+  Inject,
+  Injectable,
+  OnDestroy,
+  Optional,
+} from '@angular/core';
+import {
+  DevtoolsServiceInterface,
+  filterMessageContent,
+  sendOtterMessage,
+} from '@o3r/core';
+import {
+  LoggerService,
+} from '@o3r/logger';
+import {
+  isVisualTestingEnabled,
+  prepareVisualTesting,
+  toggleVisualTestingRender,
+} from '@o3r/testing/visual-test/utils';
+import {
+  fromEvent,
+  Subscription,
+} from 'rxjs';
 import {
   type ApplicationDevtoolsServiceOptions,
   type ApplicationMessageDataTypes,
   type AvailableApplicationMessageContents,
   isApplicationMessage,
-  type StateSelectionContentMessage
+  type StateSelectionContentMessage,
 } from './application-devkit.interface';
-import { OtterApplicationDevtools } from './application-devtools.service';
-import { OTTER_APPLICATION_DEVTOOLS_DEFAULT_OPTIONS, OTTER_APPLICATION_DEVTOOLS_OPTIONS } from './application-devtools.token';
+import {
+  OtterApplicationDevtools,
+} from './application-devtools.service';
+import {
+  OTTER_APPLICATION_DEVTOOLS_DEFAULT_OPTIONS,
+  OTTER_APPLICATION_DEVTOOLS_OPTIONS,
+} from './application-devtools.token';
 
 const OTTER_STATE_RIBBON_ID = 'otter-devtools-state-ribbon';
 
@@ -28,9 +54,9 @@ export class ApplicationDevtoolsMessageService implements OnDestroy, DevtoolsSer
   private readonly sendMessage = sendOtterMessage<AvailableApplicationMessageContents>;
 
   constructor(
-      private readonly logger: LoggerService,
-      private readonly applicationDevtools: OtterApplicationDevtools,
-      @Optional() @Inject(OTTER_APPLICATION_DEVTOOLS_OPTIONS) options?: ApplicationDevtoolsServiceOptions) {
+    private readonly logger: LoggerService,
+    private readonly applicationDevtools: OtterApplicationDevtools,
+    @Optional() @Inject(OTTER_APPLICATION_DEVTOOLS_OPTIONS) options?: ApplicationDevtoolsServiceOptions) {
     this.options = {
       ...OTTER_APPLICATION_DEVTOOLS_DEFAULT_OPTIONS,
       ...options
@@ -65,7 +91,6 @@ export class ApplicationDevtoolsMessageService implements OnDestroy, DevtoolsSer
 
   /**
    * Function to handle the incoming messages from Otter Chrome DevTools extension
-   * @param event Event coming from the Otter Chrome DevTools extension
    * @param message
    */
   private handleEvents(message: AvailableApplicationMessageContents) {
@@ -110,7 +135,7 @@ export class ApplicationDevtoolsMessageService implements OnDestroy, DevtoolsSer
     if (!ribbonElement) {
       ribbonElement = this.document.createElement('div');
       ribbonElement.id = OTTER_STATE_RIBBON_ID;
-      this.document.body.appendChild(ribbonElement);
+      this.document.body.append(ribbonElement);
     }
     if (message.stateName) {
       ribbonElement.innerHTML = message.stateName;

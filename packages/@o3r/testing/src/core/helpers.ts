@@ -1,4 +1,3 @@
-
 /**
  * Determine if the given item is a promise
  * @param item Item to check
@@ -9,7 +8,7 @@ export const isPromise = <T>(item: T | Promise<T>): item is Promise<T> => !!item
  * Error raised when promise timeout
  */
 export class TimeoutError extends Error {
-  constructor(message?: string | undefined) {
+  constructor(message?: string) {
     super(message || 'Timeout of the promise');
   }
 }

@@ -1,6 +1,10 @@
-import type { Rule } from '@angular-devkit/schematics';
-import type { NgAddSchematicsSchema } from './schema';
 import * as path from 'node:path';
+import type {
+  Rule,
+} from '@angular-devkit/schematics';
+import type {
+  NgAddSchematicsSchema,
+} from './schema';
 
 const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
 
@@ -19,7 +23,6 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
     });
   };
 }
-
 
 export const ngAdd = (options: NgAddSchematicsSchema): Rule => async () => {
   const { createSchematicWithMetricsIfInstalled } = await import('@o3r/schematics');

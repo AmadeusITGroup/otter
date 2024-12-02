@@ -1,10 +1,20 @@
-import { base64EncodeUrl, createBase64Decoder, createBase64UrlDecoder, createBase64UrlEncoder } from '../../utils/json-token';
-import { RequestOptions } from '../core';
-import { hmacSHA256, sha256 } from './mgw-mdw-auth.helpers';
+import {
+  base64EncodeUrl,
+  createBase64Decoder,
+  createBase64UrlDecoder,
+  createBase64UrlEncoder,
+} from '../../utils/json-token';
+import {
+  RequestOptions,
+} from '../core';
+import {
+  hmacSHA256,
+  sha256,
+} from './mgw-mdw-auth.helpers';
 import {
   JsonTokenPayload,
   MicroGatewayMiddlewareAuthenticationRequest,
-  MicroGatewayMiddlewareAuthenticationRequestConstructor
+  MicroGatewayMiddlewareAuthenticationRequestConstructor,
 } from './mgw-mdw-auth.request';
 
 const authHeaderKey = 'Authorization';
@@ -40,7 +50,6 @@ const hmacSHA256NodeImplementation = (value: string, secretKey: string) => {
 };
 
 describe('JSON auth token request plugin', () => {
-
   beforeEach(() => {
     options = {
       basePath: `${baseUrl}${routePath}`,
@@ -128,9 +137,8 @@ describe('JSON auth token request plugin', () => {
     const payload: JsonTokenPayload = JSON.parse(base64URLDecoder(tokenParts[1]));
     const signature = tokenParts[2];
 
-    // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
     const secretKey = await sha256(jsonAuthTokenOptions.apiKey + (await sha256(jsonAuthTokenOptions.secret + payload.jti + payload.iat + routePath)));
-    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+
     const message = `${base64UrlEncoder(JSON.stringify(header))}.${base64UrlEncoder(JSON.stringify(payload))}`;
     const signCheck = base64EncodeUrl(await hmacSHA256(message, secretKey));
 
@@ -149,9 +157,8 @@ describe('JSON auth token request plugin', () => {
     const header = JSON.parse(base64URLDecoder(tokenParts[0]));
     const payload: JsonTokenPayload = JSON.parse(base64URLDecoder(tokenParts[1]));
 
-    // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
     const secretKey = await sha256(jsonAuthTokenOptions.apiKey + (await sha256(jsonAuthTokenOptions.secret + payload.jti + payload.iat + routePath)));
-    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+
     const message = `${base64UrlEncoder(JSON.stringify(header))}.${base64UrlEncoder(JSON.stringify(payload))}`;
 
     await expect(hmacSHA256(message, secretKey)).resolves.toBe(hmacSHA256NodeImplementation(message, secretKey));

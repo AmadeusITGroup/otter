@@ -1,6 +1,10 @@
-import type { Rule } from '@angular-devkit/schematics';
-import type { NgAddSchematicsSchema } from './schema';
 import * as path from 'node:path';
+import type {
+  Rule,
+} from '@angular-devkit/schematics';
+import type {
+  NgAddSchematicsSchema,
+} from './schema';
 
 const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
 const dependenciesToInstall = [
@@ -31,7 +35,6 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       getWorkspaceConfig,
       setupDependencies
     } = await import('@o3r/schematics');
-    // eslint-disable-next-line @typescript-eslint/naming-convention
     const { NodeDependencyType } = await import('@schematics/angular/utility/dependencies');
     const depsInfo = getO3rPeerDeps(packageJsonPath);
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;

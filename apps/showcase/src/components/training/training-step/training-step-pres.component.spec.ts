@@ -1,6 +1,13 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideMarkdown } from 'ngx-markdown';
-import { TrainingStepPresComponent } from './training-step-pres.component';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import {
+  provideMarkdown,
+} from 'ngx-markdown';
+import {
+  TrainingStepPresComponent,
+} from './training-step-pres.component';
 
 describe('TrainingStepComponent', () => {
   let component: TrainingStepPresComponent;

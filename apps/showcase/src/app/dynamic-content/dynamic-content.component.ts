@@ -1,10 +1,34 @@
-import { AsyncPipe } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, Component, inject, QueryList, ViewChildren, ViewEncapsulation } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { O3rComponent } from '@o3r/core';
-import { DynamicContentModule } from '@o3r/dynamic-content';
-import { DynamicContentPresComponent } from '../../components/showcase/dynamic-content';
-import { CopyTextPresComponent, IN_PAGE_NAV_PRES_DIRECTIVES, InPageNavLink, InPageNavLinkDirective, InPageNavPresService } from '../../components/utilities';
+import {
+  AsyncPipe,
+} from '@angular/common';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  QueryList,
+  ViewChildren,
+  ViewEncapsulation,
+} from '@angular/core';
+import {
+  RouterModule,
+} from '@angular/router';
+import {
+  O3rComponent,
+} from '@o3r/core';
+import {
+  DynamicContentModule,
+} from '@o3r/dynamic-content';
+import {
+  DynamicContentPresComponent,
+} from '../../components/showcase/dynamic-content';
+import {
+  CopyTextPresComponent,
+  IN_PAGE_NAV_PRES_DIRECTIVES,
+  InPageNavLink,
+  InPageNavLinkDirective,
+  InPageNavPresService,
+} from '../../components/utilities';
 
 @O3rComponent({ componentType: 'Page' })
 @Component({
@@ -28,6 +52,7 @@ export class DynamicContentComponent implements AfterViewInit {
 
   @ViewChildren(InPageNavLinkDirective)
   private readonly inPageNavLinkDirectives!: QueryList<InPageNavLink>;
+
   public links$ = this.inPageNavPresService.links$;
 
   public bodyDynamicContentPath = document.body.dataset.dynamiccontentpath;

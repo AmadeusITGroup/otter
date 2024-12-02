@@ -1,8 +1,17 @@
-import { Tree } from '@angular-devkit/schematics';
-import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
 import * as path from 'node:path';
-import { lastValueFrom } from 'rxjs';
-import { updateO3rMetricsConfig } from './index';
+import {
+  Tree,
+} from '@angular-devkit/schematics';
+import {
+  SchematicTestRunner,
+  UnitTestTree,
+} from '@angular-devkit/schematics/testing';
+import {
+  lastValueFrom,
+} from 'rxjs';
+import {
+  updateO3rMetricsConfig,
+} from './index';
 
 describe('Update v11.3', () => {
   const collectionPath = path.join(__dirname, '../../../migration.json');
@@ -13,7 +22,6 @@ describe('Update v11.3', () => {
   });
 
   describe('Update o3r metrics config', () => {
-
     it('should update only package.json files with o3rMetrics', async () => {
       initialTree.create('/source.ts', 'code');
       const rootPackageJson = { name: 'root', config: { o3rMetrics: true } };
@@ -54,7 +62,7 @@ describe('Update v11.3', () => {
       expect(updatedLib4PackageJson).toEqual(lib4PackageJson);
 
       [updatedRootPackageJson, updatedLib1PackageJson, updatedLib2PackageJson, updatedLib3PackageJson].forEach((packageJson) => {
-        expect(packageJson).toEqual(expect.not.objectContaining({ config: expect.objectContaining({ o3rMetrics: expect.anything() })}));
+        expect(packageJson).toEqual(expect.not.objectContaining({ config: expect.objectContaining({ o3rMetrics: expect.anything() }) }));
       });
     });
   });

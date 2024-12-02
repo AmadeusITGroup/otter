@@ -1,17 +1,32 @@
 import fs from 'node:fs';
-import { sync as globbySync } from 'globby';
 import path from 'node:path';
-import type { Spec } from 'swagger-schema-official';
-import { BuilderApiConfiguration } from '../../interfaces/apis-configuration';
-import { SwaggerSpecMerger } from '../swagger-spec-merger';
-import { checkJson, getTargetInformation, isGlobPattern } from '../utils';
-import { SwaggerSpecObject } from './swagger-spec-object';
-import { SwaggerSpec } from './swagger-spec.interface';
+import {
+  sync as globbySync,
+} from 'globby';
+import type {
+  Spec,
+} from 'swagger-schema-official';
+import {
+  BuilderApiConfiguration,
+} from '../../interfaces/apis-configuration';
+import {
+  SwaggerSpecMerger,
+} from '../swagger-spec-merger';
+import {
+  checkJson,
+  getTargetInformation,
+  isGlobPattern,
+} from '../utils';
+import {
+  SwaggerSpecObject,
+} from './swagger-spec-object';
+import {
+  SwaggerSpec,
+} from './swagger-spec.interface';
 
 const apiConfigurationSchema = JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', '..', 'schemas', 'api-configuration.schema.json'), { encoding: 'utf8' }));
 
 export class SwaggerSpecSplit implements SwaggerSpec {
-
   /**
    * Determine if the given Json file is a Split Swagger Configuration file
    * @param sourcePath Json file to test
@@ -140,7 +155,7 @@ export class SwaggerSpecSplit implements SwaggerSpec {
   public async parse(ignoredSwaggerPath?: string[]): Promise<void> {
     if (!this.apiConfiguration) {
       if (fs.existsSync(this.sourcePath)) {
-        this.apiConfiguration = JSON.parse(await fs.promises.readFile(this.sourcePath, {encoding: 'utf8'}));
+        this.apiConfiguration = JSON.parse(await fs.promises.readFile(this.sourcePath, { encoding: 'utf8' }));
         checkJson(this.apiConfiguration!, apiConfigurationSchema, `${this.sourcePath} is invalid`);
       } else {
         throw new Error(`The Swagger ${this.sourcePath} does not exist`);
@@ -167,7 +182,7 @@ export class SwaggerSpecSplit implements SwaggerSpec {
     }
 
     return Object.keys(this.swaggerSpecConsolidated)
-      .filter((k) => ['tags', 'parameters', 'paths', 'definitions'].indexOf(k.toLowerCase()) < 0)
+      .filter((k) => !['tags', 'parameters', 'paths', 'definitions'].includes(k.toLowerCase()))
       .reduce<{ [k: string]: any }>((acc, k) => {
         acc[k] = this.swaggerSpecConsolidated[k];
         return acc;
@@ -179,7 +194,7 @@ export class SwaggerSpecSplit implements SwaggerSpec {
     if (!this.isParsed) {
       await this.parse();
     }
-    return this.swaggerSpecConsolidated && this.swaggerSpecConsolidated.definitions || {};
+    return (this.swaggerSpecConsolidated && this.swaggerSpecConsolidated.definitions) || {};
   }
 
   /** @inheritdoc */
@@ -187,7 +202,7 @@ export class SwaggerSpecSplit implements SwaggerSpec {
     if (!this.isParsed) {
       await this.parse();
     }
-    return this.swaggerSpecConsolidated && this.swaggerSpecConsolidated.responses || {};
+    return (this.swaggerSpecConsolidated && this.swaggerSpecConsolidated.responses) || {};
   }
 
   /** @inheritdoc */
@@ -195,7 +210,7 @@ export class SwaggerSpecSplit implements SwaggerSpec {
     if (!this.isParsed) {
       await this.parse();
     }
-    return this.swaggerSpecConsolidated && this.swaggerSpecConsolidated.parameters || {};
+    return (this.swaggerSpecConsolidated && this.swaggerSpecConsolidated.parameters) || {};
   }
 
   /** @inheritdoc */
@@ -203,7 +218,7 @@ export class SwaggerSpecSplit implements SwaggerSpec {
     if (!this.isParsed) {
       await this.parse();
     }
-    return this.swaggerSpecConsolidated && this.swaggerSpecConsolidated.paths || {};
+    return (this.swaggerSpecConsolidated && this.swaggerSpecConsolidated.paths) || {};
   }
 
   /** @inheritdoc */
@@ -211,6 +226,6 @@ export class SwaggerSpecSplit implements SwaggerSpec {
     if (!this.isParsed) {
       await this.parse();
     }
-    return this.swaggerSpecConsolidated && this.swaggerSpecConsolidated.tags || [];
+    return (this.swaggerSpecConsolidated && this.swaggerSpecConsolidated.tags) || [];
   }
 }

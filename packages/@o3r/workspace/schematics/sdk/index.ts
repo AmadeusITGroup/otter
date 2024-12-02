@@ -1,5 +1,27 @@
-import { apply, chain, externalSchematic, MergeStrategy, mergeWith, move, noop, renameTemplateFiles, Rule, SchematicContext, strings, template, Tree, url } from '@angular-devkit/schematics';
+import {
+  existsSync,
+} from 'node:fs';
 import * as path from 'node:path';
+import {
+  apply,
+  chain,
+  externalSchematic,
+  MergeStrategy,
+  mergeWith,
+  move,
+  noop,
+  renameTemplateFiles,
+  Rule,
+  SchematicContext,
+  strings,
+  template,
+  Tree,
+  url,
+} from '@angular-devkit/schematics';
+import {
+  NodePackageInstallTask,
+  RunSchematicTask,
+} from '@angular-devkit/schematics/tasks';
 import {
   createSchematicWithMetricsIfInstalled,
   getPackageManager,
@@ -7,15 +29,23 @@ import {
   getWorkspaceConfig,
   isNxContext,
   NpmExecTask,
-  O3rCliError
+  O3rCliError,
 } from '@o3r/schematics';
-import { NgGenerateSdkSchema } from './schema';
-import { ngRegisterProjectTasks } from './rules/rules.ng';
-import { nxRegisterProjectTasks } from './rules/rules.nx';
-import { updateTsConfig } from './rules/update-ts-paths.rule';
-import { cleanStandaloneFiles } from './rules/clean-standalone.rule';
-import { NodePackageInstallTask, RunSchematicTask } from '@angular-devkit/schematics/tasks';
-import {existsSync} from 'node:fs';
+import {
+  cleanStandaloneFiles,
+} from './rules/clean-standalone.rule';
+import {
+  ngRegisterProjectTasks,
+} from './rules/rules.ng';
+import {
+  nxRegisterProjectTasks,
+} from './rules/rules.nx';
+import {
+  updateTsConfig,
+} from './rules/update-ts-paths.rule';
+import {
+  NgGenerateSdkSchema,
+} from './schema';
 
 /**
  * Add an Otter compatible SDK to a monorepo
@@ -70,25 +100,29 @@ function generateSdkFn(options: NgGenerateSdkSchema): Rule {
       updateTsConfig(targetPath, projectName, scope),
       cleanStandaloneFiles(targetPath),
       addModuleSpecificFiles(),
-      specPath ? (_host: Tree, c: SchematicContext) => {
-        const installTask = c.addTask(new NodePackageInstallTask());
-        const specUpgradeTask = options.specPackageName ? [
-          c.addTask(new NpmExecTask('amasdk-update-spec-from-npm', [
-            options.specPackageName,
-            ...options.specPackagePath ? ['--package-path', options.specPackagePath] : [],
-            '--output', path.join(process.cwd(), targetPath, `openapi${specExtension}`)
-          ], targetPath), [installTask])
-        ] : [];
-        c.addTask(new RunSchematicTask('@ama-sdk/schematics', 'typescript-core', {
-          ...options,
-          specPath,
-          directory: targetPath,
-          packageManager
-        }), [
-          installTask,
-          ...specUpgradeTask
-        ]);
-      } : noop
+      specPath
+        ? (_host: Tree, c: SchematicContext) => {
+          const installTask = c.addTask(new NodePackageInstallTask());
+          const specUpgradeTask = options.specPackageName
+            ? [
+              c.addTask(new NpmExecTask('amasdk-update-spec-from-npm', [
+                options.specPackageName,
+                ...options.specPackagePath ? ['--package-path', options.specPackagePath] : [],
+                '--output', path.join(process.cwd(), targetPath, `openapi${specExtension}`)
+              ], targetPath), [installTask])
+            ]
+            : [];
+          c.addTask(new RunSchematicTask('@ama-sdk/schematics', 'typescript-core', {
+            ...options,
+            specPath,
+            directory: targetPath,
+            packageManager
+          }), [
+            installTask,
+            ...specUpgradeTask
+          ]);
+        }
+        : noop
     ])(tree, context);
   };
 }

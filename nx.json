@@ -25,16 +25,13 @@
       "project",
       "{workspaceRoot}/yarn.lock",
       "{workspaceRoot}/tsconfig.base.json",
+      "{workspaceRoot}/tsconfig.build.json",
       "{workspaceRoot}/nx.json",
       "{workspaceRoot}/.nxignore",
       "{workspaceRoot}/tools/@o3r/build-helpers/scripts/*.mjs"
     ],
-    "base-build": [
-      "base",
-      "{workspaceRoot}/tsconfig.build.json"
-    ],
     "source": [
-      "base-build",
+      "base",
       "{projectRoot}/tsconfig.build.json",
       "{projectRoot}/tsconfig.build.*.json",
       "{projectRoot}/src/**/*",
@@ -42,18 +39,21 @@
       "!{projectRoot}/**/*.spec.scss"
     ],
     "jasmine-fixtures": [
-      "base-build",
+      "base",
       "{projectRoot}/tsconfig.build.json",
       "{projectRoot}/tsconfig.build.*.json",
       "{projectRoot}/tsconfig.fixture.jasmine.json",
       "{projectRoot}/**/fixtures/jasmine/**/*.ts"
     ],
     "jest-fixtures": [
-      "base-build",
+      "base",
       "{projectRoot}/tsconfig.build.json",
       "{projectRoot}/tsconfig.build.*.json",
       "{projectRoot}/tsconfig.fixture.jest.json",
       "{projectRoot}/**/fixtures/jest/**/*.ts"
+    ],
+    "schemas": [
+      "{projectRoot}/schemas/*.json"
     ],
     "builders-only": [
       "base",
@@ -103,18 +103,18 @@
     ],
     "lint": [
       "base",
-      "{projectRoot}/.eslintignore",
-      "{projectRoot}/.eslintrc.js",
+      "{projectRoot}/eslint*.config.mjs",
+      "{projectRoot}/**/package.json",
+      "{projectRoot}/**/*.html",
       "{projectRoot}/**/*.ts",
       "{projectRoot}/**/*.cts",
       "{projectRoot}/**/*.mts",
       "{projectRoot}/src/**/*.js",
       "{projectRoot}/src/**/*.mjs",
       "{projectRoot}/src/**/*.cjs",
-      "{workspaceRoot}/.eslintrc.js",
-      "{workspaceRoot}/.eslintignore",
-      "{workspaceRoot}/packages/@o3r/eslint-config-otter/*.cjs",
-      "{workspaceRoot}/packages/@o3r/eslint-plugin/src/**/*.ts"
+      "{workspaceRoot}/eslint*.config.mjs",
+      "{workspaceRoot}/packages/@o3r/eslint-config/src/**/*.ts",
+      "{workspaceRoot}/packages/@o3r/eslint-plugin/src/**/*.cjs"
     ],
     "specs": [
       "base",
@@ -155,13 +155,16 @@
   },
   "targetDefaults": {
     "lint": {
+      "options": {
+        "cwd": "{projectRoot}",
+        "command": "yarn eslint \"**/*.{m,c,}{j,t}s\" \"**/*.html\" \"**/*.json\" --no-error-on-unmatched-pattern"
+      },
       "configurations": {
         "ci": {
-          "quiet": true,
-          "cacheLocation": ".cache/eslint"
+          "command": "yarn eslint \"**/*.{m,c,}{j,t}s\" \"**/*.html\" \"**/*.json\" --quiet --cache-location .cache/eslint --no-error-on-unmatched-pattern"
         }
       },
-      "executor": "@nx/eslint:lint",
+      "executor": "nx:run-commands",
       "inputs": [
         "lint"
       ],
@@ -178,7 +181,7 @@
         "specs"
       ],
       "outputs": [
-        "{projectRoot}/dist-test/ut-report.xml",
+        "{projectRoot}/dist-test/junit.xml",
         "{projectRoot}/coverage/cobertura-coverage.xml"
       ],
       "options": {
@@ -242,6 +245,22 @@
       "inputs": [
         "build",
         "^cli"
+      ],
+      "cache": true
+    },
+    "expose-schemas": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "copy:schemas"
+      },
+      "dependsOn": [
+        "compile"
+      ],
+      "inputs": [
+        "schemas"
+      ],
+      "outputs": [
+        "{projectRoot}/dist/schemas/*.json"
       ],
       "cache": true
     },
@@ -353,7 +372,8 @@
     "build-builders": {
       "dependsOn": [
         "^build",
-        "prepare-build-builders"
+        "prepare-build-builders",
+        "compile"
       ],
       "inputs": [
         "builders",
@@ -377,7 +397,8 @@
         "{projectRoot}/dist/middlewares/**/*.js",
         "{projectRoot}/dist/middlewares/**/*.d.ts",
         "{projectRoot}/dist/middlewares/**/*.d.ts.map",
-        "{projectRoot}/build/.tsbuildinfo.builders"
+        "{projectRoot}/build/.tsbuildinfo.builders",
+        "{projectRoot}/build/.tsbuildinfo.schematics"
       ],
       "cache": true
     },
@@ -404,7 +425,7 @@
       "cache": true
     },
     "prepare": {
-      "cache": true,
+      "executor": "nx:run-script",
       "inputs": [
         "base"
       ],
@@ -413,7 +434,8 @@
       ],
       "options": {
         "script": "prepare:compile"
-      }
+      },
+      "cache": true
     },
     "build-cjs": {
       "cache": true,
