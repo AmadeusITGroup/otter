@@ -9,6 +9,7 @@ import localeFR from '@angular/common/locales/fr';
 import {
   isDevMode,
   NgModule,
+  SecurityContext,
 } from '@angular/core';
 import {
   BrowserModule,
@@ -75,15 +76,20 @@ import {
   PetApi,
 } from '@o3r-training/showcase-sdk';
 import {
-  HIGHLIGHT_OPTIONS,
-} from 'ngx-highlightjs';
+  CLIPBOARD_OPTIONS,
+  provideMarkdown,
+} from 'ngx-markdown';
 import {
+  ClipboardButtonPresComponent,
   ScrollBackTopPresComponent,
   SidenavPresComponent,
 } from '../components/index';
 import {
   DatePickerHebrewInputPresComponent,
 } from '../components/utilities/date-picker-input-hebrew';
+import {
+  markedAlert,
+} from '../helpers/marked-alert-extension';
 import {
   AppRoutingModule,
 } from './app-routing.module';
@@ -171,19 +177,6 @@ export function registerCustomComponents(): Map<string, any> {
   ],
   providers: [
     { provide: MESSAGE_FORMAT_CONFIG, useValue: {} },
-    {
-      provide: HIGHLIGHT_OPTIONS,
-      useValue: {
-        coreLibraryLoader: () => import('highlight.js/lib/core'),
-        languages: {
-          bash: () => import('highlight.js/lib/languages/bash'),
-          css: () => import('highlight.js/lib/languages/css'),
-          json: () => import('highlight.js/lib/languages/json'),
-          typescript: () => import('highlight.js/lib/languages/typescript'),
-          xml: () => import('highlight.js/lib/languages/xml')
-        }
-      }
-    },
     { provide: LOGGER_CLIENT_TOKEN, useValue: new ConsoleLogger() },
     { provide: PetApi, useFactory: petApiFactory, deps: [LoggerService] },
     { provide: OTTER_CONFIGURATION_DEVTOOLS_OPTIONS, useValue: { isActivatedOnBootstrap: true } },
@@ -191,7 +184,18 @@ export function registerCustomComponents(): Map<string, any> {
     { provide: OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS, useValue: { isActivatedOnBootstrap: true } },
     { provide: OTTER_COMPONENTS_DEVTOOLS_OPTIONS, useValue: { isActivatedOnBootstrap: true } },
     { provide: OTTER_APPLICATION_DEVTOOLS_OPTIONS, useValue: { isActivatedOnBootstrap: true, appName: 'showcase' } },
-    { provide: OTTER_STYLING_DEVTOOLS_OPTIONS, useValue: { isActivatedOnBootstrap: true } }
+    { provide: OTTER_STYLING_DEVTOOLS_OPTIONS, useValue: { isActivatedOnBootstrap: true } },
+    provideMarkdown({
+      clipboardOptions: {
+        provide: CLIPBOARD_OPTIONS,
+        useValue: {
+          buttonComponent: ClipboardButtonPresComponent
+        }
+      },
+      markedExtensions: [markedAlert()],
+      /* Templates are only internal, no need to sanitize */
+      sanitize: SecurityContext.NONE
+    })
   ],
   bootstrap: [AppComponent]
 })

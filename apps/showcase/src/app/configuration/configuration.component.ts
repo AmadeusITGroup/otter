@@ -22,8 +22,10 @@ import {
   O3rComponent,
 } from '@o3r/core';
 import {
+  MarkdownModule,
+} from 'ngx-markdown';
+import {
   ConfigurationPresComponent,
-  CopyTextPresComponent,
   IN_PAGE_NAV_PRES_DIRECTIVES,
   InPageNavLink,
   InPageNavLinkDirective,
@@ -51,9 +53,9 @@ const CONFIG_OVERRIDE = {
     RouterModule,
     ConfigurationPresComponent,
     ConfigurationBaseServiceModule,
-    CopyTextPresComponent,
     IN_PAGE_NAV_PRES_DIRECTIVES,
-    AsyncPipe
+    AsyncPipe,
+    MarkdownModule
   ],
   templateUrl: './configuration.template.html',
   styleUrls: ['./configuration.style.scss'],

@@ -17,7 +17,9 @@ import {
   O3rComponent,
 } from '@o3r/core';
 import {
-  CopyTextPresComponent,
+  MarkdownModule,
+} from 'ngx-markdown';
+import {
   DesignTokenPresComponent,
   IN_PAGE_NAV_PRES_DIRECTIVES,
   InPageNavLink,
@@ -31,10 +33,10 @@ import {
   standalone: true,
   imports: [
     AsyncPipe,
-    CopyTextPresComponent,
     DesignTokenPresComponent,
     RouterLink,
-    IN_PAGE_NAV_PRES_DIRECTIVES
+    IN_PAGE_NAV_PRES_DIRECTIVES,
+    MarkdownModule
   ],
   templateUrl: './design-token.template.html',
   styleUrl: './design-token.style.scss',

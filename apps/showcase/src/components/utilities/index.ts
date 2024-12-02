@@ -1,4 +1,4 @@
-export * from './copy-text/index';
+export * from './clipboard-button/index';
 export * from './date-picker-input-hebrew/index';
 export * from './date-picker-input/index';
 export * from './in-page-nav/index';
