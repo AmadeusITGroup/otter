@@ -53,13 +53,11 @@ import {
 import {
   CurrentTimeFactsService,
   dateInNextMinutes,
-  Operator,
   Rule,
   RulesEngineDevtoolsModule,
   RulesEngineRunnerModule,
   RulesEngineRunnerService,
   Ruleset,
-  UnaryOperator,
 } from '@o3r/rules-engine';
 import {
   firstValueFrom,
@@ -137,8 +135,8 @@ export class RulesEngineComponent implements AfterViewInit {
       inject(AssetRulesEngineActionHandler),
       inject(LocalizationRulesEngineActionHandler)
     );
-    this.rulesEngineService.engine.upsertOperators([duringSummer] as UnaryOperator[]);
-    this.rulesEngineService.engine.upsertOperators([dateInNextMinutes] as Operator[]);
+    this.rulesEngineService.engine.upsertOperators([duringSummer]);
+    this.rulesEngineService.engine.upsertOperators([dateInNextMinutes]);
     inject(TripFactsService).register();
     const currentTimeFactsService = inject(CurrentTimeFactsService);
     currentTimeFactsService.register();

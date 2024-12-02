@@ -66,14 +66,14 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       };
       return acc;
     }, getPackageInstallConfig(packageJsonPath, tree, options.projectName, false, !!options.exactO3rVersion));
-    const devDependencies: Record<string, DependencyToAdd> = {
+    const devDependencies = {
       chokidar: {
         inManifest: [{
           range: packageJson.peerDependencies.chokidar,
           types: [NodeDependencyType.Dev]
         }]
       }
-    };
+    } as const satisfies Record<string, DependencyToAdd>;
     const rule = chain([
       removePackages(['@otter/components']),
       setupDependencies({

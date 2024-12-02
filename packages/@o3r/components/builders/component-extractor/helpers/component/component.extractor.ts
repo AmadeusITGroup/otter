@@ -276,10 +276,10 @@ export class ComponentExtractor {
         } else {
           this.logger.warn(message);
         }
-        const configWithoutIncompatibleProperties: ComponentConfigOutput = {
+        const configWithoutIncompatibleProperties = {
           ...config,
           properties: propertiesWithDefaultValue
-        };
+        } as const satisfies ComponentConfigOutput;
         return acc.concat(configWithoutIncompatibleProperties);
       }
 

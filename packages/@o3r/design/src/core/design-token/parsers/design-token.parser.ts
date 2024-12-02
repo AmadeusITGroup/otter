@@ -182,7 +182,7 @@ const walkThroughDesignTokenNodes = (
     const parentNames = ancestors.map(({ name }) => name);
     const tokenReferenceName = getTokenReferenceName(nodeName, parentNames);
 
-    const tokenVariable: DesignTokenVariableStructure = {
+    const tokenVariable = {
       context,
       extensions: getExtensions([...ancestors, { name: nodeName, tokenNode: node }], context),
       node,
@@ -213,7 +213,7 @@ const walkThroughDesignTokenNodes = (
       getKey: function (keyRenderer) {
         return keyRenderer ? keyRenderer(this) : sanitizeKeyName(this.tokenReferenceName);
       }
-    };
+    } as const satisfies DesignTokenVariableStructure;
 
     mem.set(tokenReferenceName, tokenVariable);
   } else if (!isDesignTokenGroup(node)) {
@@ -254,9 +254,9 @@ interface ParseDesignTokenFileOptions {
  */
 export const parseDesignTokenFile = async (specificationFilePath: string, options?: ParseDesignTokenFileOptions) => {
   const readFile = options?.readFile || (async (filePath: string) => (await import('node:fs/promises')).readFile(filePath, { encoding: 'utf8' }));
-  const context: DesignTokenContext = {
+  const context = {
     basePath: dirname(specificationFilePath),
     ...options?.specificationContext
-  };
+  } as const satisfies DesignTokenContext;
   return parseDesignToken({ document: JSON.parse(await readFile(specificationFilePath)), context });
 };

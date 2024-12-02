@@ -33,7 +33,7 @@ export interface LocalizationPresTranslation extends Translation {
   cityName: string;
 }
 
-export const translations: LocalizationPresTranslation = {
+export const translations: Readonly<LocalizationPresTranslation> = {
   welcome: 'o3r-localization-pres.welcome',
   welcomeWithCityName: 'o3r-localization-pres.welcomeWithCityName',
   question: 'o3r-localization-pres.question',
@@ -41,4 +41,4 @@ export const translations: LocalizationPresTranslation = {
   departureLabel: 'o3r-localization-pres.departureLabel',
   cityName: 'o3r-localization-pres.cityName',
   destinationPlaceholder: 'o3r-localization-pres.destinationPlaceholder'
-};
+} as const;
