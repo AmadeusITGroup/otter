@@ -7,7 +7,6 @@ import {
   ElementRef,
   EventEmitter,
   inject,
-  type OnDestroy,
   Output,
   ViewChild,
 } from '@angular/core';
@@ -25,7 +24,7 @@ import {
   imports: [],
   template: '<div #terminal class="h-100"></div>'
 })
-export class CodeEditorTerminalComponent implements OnDestroy, AfterViewChecked, AfterViewInit {
+export class CodeEditorTerminalComponent implements AfterViewChecked, AfterViewInit {
   /**
    * Terminal component that can be used as input/output element for a webcontainer process
    */
@@ -65,7 +64,11 @@ export class CodeEditorTerminalComponent implements OnDestroy, AfterViewChecked,
     const disposable = this.terminal.onWriteParsed(() => {
       this.terminalActivity.emit();
     });
-    inject(DestroyRef).onDestroy(() => disposable.dispose());
+    inject(DestroyRef).onDestroy(() => {
+      disposable.dispose();
+      this.terminal.dispose();
+      this.disposed.emit();
+    });
   }
 
   /**
@@ -88,13 +91,5 @@ export class CodeEditorTerminalComponent implements OnDestroy, AfterViewChecked,
    */
   public ngAfterViewChecked() {
     this.fitAddon.fit();
-  }
-
-  /**
-   * @inheritDoc
-   */
-  public ngOnDestroy() {
-    this.terminal.dispose();
-    this.disposed.emit();
   }
 }
