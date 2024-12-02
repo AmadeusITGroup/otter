@@ -30,7 +30,8 @@ export default [
       '**/packaged-action/',
       '.pnp.js',
       '.vscode',
-      '**/src/**/package.json'
+      '**/src/**/package.json',
+      'tools/@o3r/nx-helpers/**/*'
     ]
   },
   {

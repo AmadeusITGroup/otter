@@ -27,7 +27,7 @@
       }
     },
     "compile": {
-      "executor": "@nx/js:tsc",
+      "executor": "@o3r/nx-helpers:tsc",
       "options": {
         "main": "packages/@o3r/artifactory-tools/src/public_api.ts",
         "tsConfig": "packages/@o3r/artifactory-tools/tsconfig.build.json",

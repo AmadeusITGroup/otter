@@ -28,7 +28,7 @@
     "typescript": "~5.5.4"
   },
   "devDependencies": {
-    "@nx/eslint-plugin": "~19.5.0",
+    "@nx/eslint-plugin": "~19.8.0",
     "@o3r/eslint-plugin": "workspace:^",
     "@stylistic/eslint-plugin-ts": "~2.7.0",
     "@types/node": "^20.0.0",
@@ -41,7 +41,7 @@
     "eslint-plugin-jsdoc": "~50.2.0",
     "eslint-plugin-prefer-arrow": "~1.2.3",
     "eslint-plugin-unicorn": "^56.0.0",
-    "nx": "~19.5.0",
+    "nx": "~19.8.0",
     "typescript": "~5.5.4"
   }
 }
