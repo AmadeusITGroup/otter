@@ -150,11 +150,11 @@
     "lint": {
       "options": {
         "cwd": "{projectRoot}",
-        "command": "yarn eslint \"**/*.{m,c,}{j,t}s\" \"**/*.html\" \"**/*.json\" --no-error-on-unmatched-pattern"
+        "command": "yarn eslint \"**/*.{m,c,}{j,t}s\" \"**/*.json\""
       },
       "configurations": {
         "ci": {
-          "command": "yarn eslint \"**/*.{m,c,}{j,t}s\" \"**/*.html\" \"**/*.json\" --quiet --cache-location .cache/eslint --no-error-on-unmatched-pattern"
+          "command": "yarn eslint \"**/*.{m,c,}{j,t}s\" \"**/*.json\" --quiet --cache-location .cache/eslint"
         }
       },
       "executor": "nx:run-commands",
