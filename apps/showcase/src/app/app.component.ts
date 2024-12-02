@@ -26,6 +26,9 @@ import {
 import {
   SideNavLinksGroup,
 } from '../components/index';
+import {
+  HighlightService,
+} from '../services/highlight';
 
 @O3rComponent({ componentType: 'Component' })
 @Component({
@@ -35,6 +38,8 @@ import {
 })
 export class AppComponent implements OnDestroy {
   public title = 'showcase';
+
+  public readonly service = inject(HighlightService);
 
   public linksGroups: SideNavLinksGroup[] = [
     {
