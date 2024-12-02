@@ -1,4 +1,4 @@
-If your specification file includes dates, there are multiple options for the generation of your SDK.
+As previously explained, dates can be generated differently based on the specifications and the generator options.
 
 For this exercise, let's consider a specific use case. Imagine your SDK is used on a flight booking site, including international travel.
 A user who is currently in France is planning a round trip from Paris to New York City. These cities are in different timezones, which needs

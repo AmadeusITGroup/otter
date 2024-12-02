@@ -1,4 +1,4 @@
-As previously explained, dates can be generated differently based on the specifications and the generator options.
+If your specification file includes dates, there are multiple options for the generation of your SDK.
 The possible types include:
 - `Date`
 - `string`

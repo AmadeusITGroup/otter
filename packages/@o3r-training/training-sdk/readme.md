@@ -1,6 +1,6 @@
 
 
-### Based on SDK spec version 1.0.0 (using openapi 3.0.2)
+### Based on API specification version 1.0.0 (using openapi 3.0.2)
 
 The SDK contains 2 different parts:
 
