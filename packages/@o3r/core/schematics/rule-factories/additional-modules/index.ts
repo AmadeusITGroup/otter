@@ -1,18 +1,34 @@
-import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
+import {
+  chain,
+  Rule,
+  SchematicContext,
+  Tree,
+} from '@angular-devkit/schematics';
 import {
   getAppModuleFilePath,
   getProjectNewDependenciesTypes,
   getWorkspaceConfig,
-  type SetupDependenciesOptions
+  type SetupDependenciesOptions,
 } from '@o3r/schematics';
+import {
+  addRootImport,
+} from '@schematics/angular/utility';
+import {
+  insertImport,
+  isImported,
+} from '@schematics/angular/utility/ast-utils';
+import {
+  InsertChange,
+} from '@schematics/angular/utility/change';
+import {
+  NodeDependencyType,
+} from '@schematics/angular/utility/dependencies';
+import type {
+  PackageJson,
+} from 'type-fest';
 import * as ts from 'typescript';
-import { addRootImport } from '@schematics/angular/utility';
-import { insertImport, isImported } from '@schematics/angular/utility/ast-utils';
-import { InsertChange } from '@schematics/angular/utility/change';
-import * as path from 'node:path';
-import * as fs from 'node:fs';
-import type { PackageJson } from 'type-fest';
-import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
 
 const packageJsonPath = path.resolve(__dirname, '..', '..', '..', 'package.json');
 const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' })) as PackageJson & { generatorDependencies: Record<string, string> };
@@ -75,7 +91,7 @@ export function updateAdditionalModules(options: { projectName?: string | undefi
     }
 
     const addImportToModuleFile = (name: string, file: string, moduleFunction?: string) => additionalRules.push(
-      addRootImport(options.projectName!, ({code, external}) => code`\n${external(name, file)}${moduleFunction}`)
+      addRootImport(options.projectName!, ({ code, external }) => code`\n${external(name, file)}${moduleFunction}`)
     );
 
     addImportToModuleFile(
@@ -92,7 +108,6 @@ export function updateAdditionalModules(options: { projectName?: string | undefi
    * @param context
    */
   const registerDevAdditionalModules: Rule = (tree: Tree, context: SchematicContext) => {
-
     const moduleFilePath = getAppModuleFilePath(tree, context, options.projectName);
     if (!moduleFilePath) {
       return tree;

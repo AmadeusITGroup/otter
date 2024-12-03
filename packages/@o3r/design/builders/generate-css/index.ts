@@ -1,6 +1,26 @@
-import type { GenerateCssSchematicsSchema } from './schema';
-import { BuilderOutput, createBuilder } from '@angular-devkit/architect';
-import type { BuilderWrapper } from '@o3r/telemetry';
+import {
+  existsSync,
+} from 'node:fs';
+import {
+  readFile,
+  writeFile,
+} from 'node:fs/promises';
+import {
+  EOL,
+} from 'node:os';
+import {
+  resolve,
+} from 'node:path';
+import {
+  BuilderOutput,
+  createBuilder,
+} from '@angular-devkit/architect';
+import type {
+  BuilderWrapper,
+} from '@o3r/telemetry';
+import {
+  sync,
+} from 'globby';
 import {
   getCssTokenDefinitionRenderer,
   getCssTokenValueRenderer,
@@ -10,17 +30,23 @@ import {
   mergeDesignTokenTemplates,
   parseDesignTokenFile,
   renderDesignTokens,
-  tokenVariableNameSassRenderer
+  tokenVariableNameSassRenderer,
 } from '../../src/public_api';
-import type { DesignTokenGroupTemplate, DesignTokenRendererOptions, DesignTokenVariableSet, DesignTokenVariableStructure, TokenKeyRenderer } from '../../src/public_api';
-import { resolve } from 'node:path';
-import { sync } from 'globby';
-import { EOL } from 'node:os';
-import { readFile, writeFile } from 'node:fs/promises';
-import { existsSync } from 'node:fs';
+import type {
+  DesignTokenGroupTemplate,
+  DesignTokenRendererOptions,
+  DesignTokenVariableSet,
+  DesignTokenVariableStructure,
+  TokenKeyRenderer,
+} from '../../src/public_api';
+import type {
+  GenerateCssSchematicsSchema,
+} from './schema';
+
+const noopBuilder: BuilderWrapper = (fn) => fn;
 
 const createBuilderWithMetricsIfInstalled: BuilderWrapper = (builderFn) => async (opts, ctx) => {
-  let wrapper: BuilderWrapper = (fn) => fn;
+  let wrapper: BuilderWrapper = noopBuilder;
   try {
     const { createBuilderWithMetrics } = await import('@o3r/telemetry');
     wrapper = createBuilderWithMetrics;
@@ -33,16 +59,15 @@ const createBuilderWithMetricsIfInstalled: BuilderWrapper = (builderFn) => async
  * @param options
  */
 export default createBuilder<GenerateCssSchematicsSchema>(createBuilderWithMetricsIfInstalled(async (options, context): Promise<BuilderOutput> => {
-  const templateFilePaths = options.templateFile
-    && (typeof options.templateFile === 'string' ? [options.templateFile] : options.templateFile)
-    || undefined;
+  const templateFilePaths = (options.templateFile && (typeof options.templateFile === 'string' ? [options.templateFile] : options.templateFile)) || undefined;
   const designTokenFilePatterns = Array.isArray(options.designTokenFilePatterns) ? options.designTokenFilePatterns : [options.designTokenFilePatterns];
-  const determineFileToUpdate = options.output ? () => resolve(context.workspaceRoot, options.output!) :
-    (token: DesignTokenVariableStructure) => {
+  const determineFileToUpdate = options.output
+    ? () => resolve(context.workspaceRoot, options.output!)
+    : (token: DesignTokenVariableStructure) => {
       if (token.extensions.o3rTargetFile) {
-        return token.context?.basePath && !options.rootPath ?
-          resolve(token.context.basePath, token.extensions.o3rTargetFile) :
-          resolve(context.workspaceRoot, options.rootPath || '', token.extensions.o3rTargetFile);
+        return token.context?.basePath && !options.rootPath
+          ? resolve(token.context.basePath, token.extensions.o3rTargetFile)
+          : resolve(context.workspaceRoot, options.rootPath || '', token.extensions.o3rTargetFile);
       }
 
       return resolve(context.workspaceRoot, options.defaultStyleFile);
@@ -53,13 +78,12 @@ export default createBuilder<GenerateCssSchematicsSchema>(createBuilderWithMetri
     tokenVariableNameRenderer: (v) => (options?.prefixPrivate || '') + tokenVariableNameSassRenderer(v),
     logger
   });
-  const writeFileWithLogger: typeof writeFile = async (file, ...args) => {
-    const res = await writeFile(file, ...args);
-    // eslint-disable-next-line @typescript-eslint/no-base-to-string
-    logger.info(`Updated ${file.toString()} with Design Token content.`);
+  const writeFileWithLogger: DesignTokenRendererOptions['writeFile'] = async (file, content) => {
+    const res = await writeFile(file, content);
+    logger.info(`Updated ${file} with Design Token content.`);
     return res;
   };
-  const renderDesignTokenOptionsCss: DesignTokenRendererOptions = {
+  const renderDesignTokenOptionsCss = {
     writeFile: writeFileWithLogger,
     determineFileToUpdate,
     tokenDefinitionRenderer: getCssTokenDefinitionRenderer({
@@ -67,14 +91,18 @@ export default createBuilder<GenerateCssSchematicsSchema>(createBuilderWithMetri
       privateDefinitionRenderer: options.renderPrivateVariableTo === 'sass' ? sassRenderer : undefined,
       tokenValueRenderer: getCssTokenValueRenderer({
         tokenVariableNameRenderer,
-        unregisteredReferenceRenderer: options.failOnMissingReference ? (refName) => { throw new Error(`The Design Token ${refName} is not registered`); } : undefined
+        unregisteredReferenceRenderer: options.failOnMissingReference
+          ? (refName) => {
+            throw new Error(`The Design Token ${refName} is not registered`);
+          }
+          : undefined
       }),
       logger
     }),
     logger
-  };
+  } as const satisfies DesignTokenRendererOptions;
 
-  const renderDesignTokenOptionsSass: DesignTokenRendererOptions = {
+  const renderDesignTokenOptionsSass = {
     writeFile: writeFileWithLogger,
     determineFileToUpdate,
     tokenDefinitionRenderer: getSassTokenDefinitionRenderer({
@@ -82,14 +110,14 @@ export default createBuilder<GenerateCssSchematicsSchema>(createBuilderWithMetri
       logger
     }),
     logger
-  };
+  } as const satisfies DesignTokenRendererOptions;
 
-  const renderDesignTokenOptionsMetadata: DesignTokenRendererOptions = {
+  const renderDesignTokenOptionsMetadata = {
     determineFileToUpdate: () => resolve(context.workspaceRoot, options.metadataOutput!),
     styleContentUpdater: getMetadataStyleContentUpdater(),
     tokenDefinitionRenderer: getMetadataTokenDefinitionRenderer({ tokenVariableNameRenderer, ignorePrivateVariable: options.metadataIgnorePrivate }),
     logger
-  };
+  } as const satisfies DesignTokenRendererOptions;
 
   const execute = async (renderDesignTokenOptions: DesignTokenRendererOptions): Promise<BuilderOutput> => {
     let template: DesignTokenGroupTemplate | undefined;
@@ -126,8 +154,8 @@ export default createBuilder<GenerateCssSchematicsSchema>(createBuilderWithMetri
 
     try {
       const duplicatedToken: DesignTokenVariableStructure[] = [];
-      const tokens = (await Promise.all(files.map(async (file) => ({file, parsed: await parseDesignTokenFile(file, { specificationContext: { template } })}))))
-        .reduce<DesignTokenVariableSet>((acc, {file, parsed}) => {
+      const tokens = (await Promise.all(files.map(async (file) => ({ file, parsed: await parseDesignTokenFile(file, { specificationContext: { template } }) }))))
+        .reduce<DesignTokenVariableSet>((acc, { file, parsed }) => {
           parsed.forEach((variable, key) => {
             if (acc.has(key)) {
               context.logger[options.failOnDuplicate ? 'error' : 'warn'](`A duplication of the variable ${key} is found in ${file}`);
@@ -162,7 +190,7 @@ export default createBuilder<GenerateCssSchematicsSchema>(createBuilderWithMetri
         acc.success = false;
         if (res.reason) {
           acc.error ||= '';
-          // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+
           acc.error += EOL + res.reason;
         }
       }
@@ -170,9 +198,7 @@ export default createBuilder<GenerateCssSchematicsSchema>(createBuilderWithMetri
     }, { success: true } as BuilderOutput);
   };
 
-  if (!options.watch) {
-    return await executeMultiRenderer();
-  } else {
+  if (options.watch) {
     try {
       await import('chokidar')
         .then((chokidar) => chokidar.watch([
@@ -190,5 +216,7 @@ export default createBuilder<GenerateCssSchematicsSchema>(createBuilderWithMetri
     } catch (err) {
       return { success: false, error: String(err) };
     }
+  } else {
+    return await executeMultiRenderer();
   }
 }));

@@ -1,9 +1,26 @@
-import { apply, chain, MergeStrategy, mergeWith, move, Rule, template, type Tree, url } from '@angular-devkit/schematics';
-import { dump, load } from 'js-yaml';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import type { PackageJson } from 'type-fest';
-import type { NgAddSchematicsSchema } from './schema';
+import {
+  apply,
+  chain,
+  MergeStrategy,
+  mergeWith,
+  move,
+  Rule,
+  template,
+  type Tree,
+  url,
+} from '@angular-devkit/schematics';
+import {
+  dump,
+  load,
+} from 'js-yaml';
+import type {
+  PackageJson,
+} from 'type-fest';
+import type {
+  NgAddSchematicsSchema,
+} from './schema';
 
 /**
  * Determines if the Yarn version is 2 or higher based on the contents of the .yarnrc.yml file.
@@ -23,7 +40,6 @@ function isYarn2(tree: Tree) {
  * @param options
  */
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
-
   return async (tree, context) => {
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
     const ownPackageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' })) as PackageJson & { config?: { o3r?: { commitHash?: string } } };
@@ -60,13 +76,11 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
         const yarnrcPath = '/.yarnrc.yml';
         const yarnrcContent = load(tree.readText(yarnrcPath)) as { npmRegistryServer?: string };
         yarnrcContent.npmRegistryServer = options.npmRegistry;
-        tree.overwrite(yarnrcPath, dump(yarnrcContent, {indent: 2}));
+        tree.overwrite(yarnrcPath, dump(yarnrcContent, { indent: 2 }));
       } else {
         // both npm and yarn 1 use .npmrc for the registry
         const npmrcPath = '/.npmrc';
-        if (!tree.exists(npmrcPath)) {
-          tree.create(npmrcPath, `registry=${options.npmRegistry}`);
-        } else {
+        if (tree.exists(npmrcPath)) {
           const npmrcContent = tree.readText(npmrcPath);
           const registryPattern = /^registry=.*$/m;
           const newRegistryLine = `registry=${options.npmRegistry}`;
@@ -74,6 +88,8 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
             ? npmrcContent.replace(registryPattern, newRegistryLine)
             : `${npmrcContent}\n${newRegistryLine}`;
           tree.overwrite(npmrcPath, newContent);
+        } else {
+          tree.create(npmrcPath, `registry=${options.npmRegistry}`);
         }
       }
       return tree;
@@ -84,7 +100,6 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       npmRegistryRule
     ];
     return () => chain(rules)(tree, context);
-
   };
 }
 

@@ -1,13 +1,45 @@
-import { apply, chain, externalSchematic, MergeStrategy, mergeWith, move, renameTemplateFiles, Rule, Schematic, strings, template, url } from '@angular-devkit/schematics';
-import { createSchematicWithMetricsIfInstalled, type DependencyToAdd, getPackagesBaseRootFolder, getWorkspaceConfig, isNxContext, setupDependencies } from '@o3r/schematics';
-import * as path from 'node:path';
-import type { NgGenerateApplicationSchema } from './schema';
-import type { PackageJson } from 'type-fest';
-import { type Schema as ApplicationOptions } from '@schematics/angular/application/schema';
-import { Style } from '@schematics/angular/application/schema';
-import { updateProjectTsConfig } from '../rule-factories/index';
-import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
 import * as fs from 'node:fs';
+import * as path from 'node:path';
+import {
+  apply,
+  chain,
+  externalSchematic,
+  MergeStrategy,
+  mergeWith,
+  move,
+  renameTemplateFiles,
+  Rule,
+  Schematic,
+  strings,
+  template,
+  url,
+} from '@angular-devkit/schematics';
+import {
+  createSchematicWithMetricsIfInstalled,
+  type DependencyToAdd,
+  getPackagesBaseRootFolder,
+  getWorkspaceConfig,
+  isNxContext,
+  setupDependencies,
+} from '@o3r/schematics';
+import {
+  type Schema as ApplicationOptions,
+} from '@schematics/angular/application/schema';
+import {
+  Style,
+} from '@schematics/angular/application/schema';
+import {
+  NodeDependencyType,
+} from '@schematics/angular/utility/dependencies';
+import type {
+  PackageJson,
+} from 'type-fest';
+import {
+  updateProjectTsConfig,
+} from '../rule-factories/index';
+import type {
+  NgGenerateApplicationSchema,
+} from './schema';
 
 /**
  * Add an Otter application to a monorepo
@@ -19,7 +51,6 @@ function generateApplicationFn(options: NgGenerateApplicationSchema): Rule {
   const cleanName = packageJsonName.replace(/^@/, '').replaceAll(/\//g, '-');
 
   const addProjectSpecificFiles = (targetPath: string, rootDependencies: Record<string, string | undefined>) => {
-
     return mergeWith(apply(url('./templates'), [
       template({
         ...options,
@@ -32,7 +63,6 @@ function generateApplicationFn(options: NgGenerateApplicationSchema): Rule {
   };
 
   const ngCliUpdate: Rule = (tree, context) => {
-
     if (options.style && options.style !== 'scss') {
       context.logger.warn('The provided "style" option will be ignored. "SCSS" will be used.');
     }
@@ -65,8 +95,7 @@ function generateApplicationFn(options: NgGenerateApplicationSchema): Rule {
     };
     const angularOptions = getOptions(angularAppSchema);
 
-    const dependencies: Record<string, DependencyToAdd> = {
-      // eslint-disable-next-line @typescript-eslint/naming-convention
+    const dependencies = {
       '@o3r/core': {
         inManifest: [
           {
@@ -76,16 +105,16 @@ function generateApplicationFn(options: NgGenerateApplicationSchema): Rule {
         ],
         ngAddOptions: { exactO3rVersion: options.exactO3rVersion }
       }
-    };
+    } as const satisfies Record<string, DependencyToAdd>;
 
     return chain([
       externalSchematic<Partial<ApplicationOptions>>('@schematics/angular', 'application', {
-        ...Object.entries(extendedOptions).reduce((acc, [key, value]) => (angularOptions.includes(key) ? {...acc, [key]: value} : acc), {}),
+        ...Object.entries(extendedOptions).reduce((acc, [key, value]) => (angularOptions.includes(key) ? { ...acc, [key]: value } : acc), {}),
         name: cleanName,
         projectRoot,
-        style: Style.Scss}),
+        style: Style.Scss }),
       addProjectSpecificFiles(targetPath, rootDependencies),
-      updateProjectTsConfig(targetPath, 'tsconfig.app.json', {updateInputFiles: true}),
+      updateProjectTsConfig(targetPath, 'tsconfig.app.json', { updateInputFiles: true }),
       setupDependencies({
         dependencies,
         skipInstall: options.skipInstall,
@@ -96,9 +125,7 @@ function generateApplicationFn(options: NgGenerateApplicationSchema): Rule {
   };
 
   return ngCliUpdate;
-
 }
-
 
 /**
  * Add an Otter application to a monorepo

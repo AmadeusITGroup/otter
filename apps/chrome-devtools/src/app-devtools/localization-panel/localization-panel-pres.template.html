@@ -59,14 +59,12 @@
                         <input [attr.aria-describedby]="localization.key" class="form-control" type="text" [formControlName]="localization.key" />
                       </ng-container>
                       @if (localizationActiveStateOverridesForCurrentLang()[localization.key] || localizationLocalStateOverridesForCurrentLang()[localization.key]) {
-                        <i class="form-text text-warning fa-undo position-absolute end-0 me-3"
-                          [ngbTooltip]="
-                            activeStateName() && localizationActiveStateOverridesForCurrentLang()[localization.key] !== localizationLocalStateOverridesForCurrentLang()[localization.key]
-                              ? 'Reset value to the one from ' + activeStateName() + ': ' + (localizationActiveStateOverridesForCurrentLang()[localization.key] || localization.value)
-                              : 'Reset value to the default one from metadata: ' + localization.value
-                          "
-                          (click)="onLocalizationReset(localization)">
-                        </i>
+                        @let text = activeStateName() && localizationActiveStateOverridesForCurrentLang()[localization.key] !== localizationLocalStateOverridesForCurrentLang()[localization.key]
+                          ? 'Reset value to the one from ' + activeStateName() + ': ' + (localizationActiveStateOverridesForCurrentLang()[localization.key] || localization.value)
+                          : 'Reset value to the default one from metadata: ' + localization.value;
+                        <button class="btn btn-outline-primary df-btn-icononly df-btn-tertiary form-text text-warning fa-undo position-absolute end-0 me-3"
+                          [attr.aria-label]="text"
+                          (click)="onLocalizationReset(localization)"></button>
                       }
                     </div>
                     <div [id]="localization.key" class="form-text">{{localization.description}}</div>

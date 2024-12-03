@@ -1,12 +1,15 @@
-import { Tree } from '@angular-devkit/schematics';
-import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
-import * as path from 'node:path';
 import * as fs from 'node:fs';
+import * as path from 'node:path';
+import {
+  Tree,
+} from '@angular-devkit/schematics';
+import {
+  SchematicTestRunner,
+} from '@angular-devkit/schematics/testing';
 
 const collectionPath = path.join(__dirname, '..', '..', 'collection.json');
 
 describe('ng-add', () => {
-
   let initialTree: Tree;
 
   beforeEach(() => {
@@ -16,7 +19,7 @@ describe('ng-add', () => {
 
   it('should generate the template files', async () => {
     const runner = new SchematicTestRunner('@o3r/design', collectionPath);
-    const tree = await runner.runSchematic('ng-add',{
+    const tree = await runner.runSchematic('ng-add', {
       projectName: 'test-project'
     }, initialTree);
 

@@ -1,8 +1,21 @@
-import { DocComment, TSDocConfiguration, TSDocParser, TSDocTagDefinition, TSDocTagSyntaxKind } from '@microsoft/tsdoc';
-import type { CategoryDescription, ConfigPropertyWidget, ConfigPropertyWidgetParameters } from '@o3r/core';
+import {
+  DocComment,
+  TSDocConfiguration,
+  TSDocParser,
+  TSDocTagDefinition,
+  TSDocTagSyntaxKind,
+} from '@microsoft/tsdoc';
+import type {
+  CategoryDescription,
+  ConfigPropertyWidget,
+  ConfigPropertyWidgetParameters,
+} from '@o3r/core';
 import * as ts from 'typescript';
-import { getInlineBlockTagContentFromDocComment, getInlineSummaryFromDocComment, getTsDocTextFromNode } from './tsdoc';
-
+import {
+  getInlineBlockTagContentFromDocComment,
+  getInlineSummaryFromDocComment,
+  getTsDocTextFromNode,
+} from './tsdoc';
 
 /** Configuration information extracted from the TSDoc */
 export interface ConfigDocInformation {
@@ -72,10 +85,8 @@ export function getWidgetInformationFromDocComment(docText: string): ConfigPrope
       const valueText = text.slice(firstSpaceIndex + 1);
 
       try {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         acc[paramName] = JSON.parse(valueText);
       } catch (e: any) {
-        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
         throw new Error(`Invalid JSON format:  ${valueText}\n${e.toString()}`);
       }
 
@@ -84,7 +95,7 @@ export function getWidgetInformationFromDocComment(docText: string): ConfigPrope
 
   return {
     type: widgetType,
-    parameters: Object.keys(widgetParameters || {}).length ? widgetParameters : undefined
+    parameters: Object.keys(widgetParameters || {}).length > 0 ? widgetParameters : undefined
   };
 }
 
@@ -116,7 +127,7 @@ function getLabelFromDocText(docText: string): string | undefined {
  */
 export function getTagsFromDocComment(docComment: DocComment): string[] | undefined {
   const tags = getInlineBlockTagContentFromDocComment(docComment, '@tags');
-  return (tags && tags.indexOf(']') > 0) && tags.split(']')[0].match(/\w+/g) || undefined;
+  return ((tags && tags.indexOf(']') > 0) && tags.split(']')[0].match(/\w+/g)) || undefined;
 }
 
 /**
@@ -153,15 +164,15 @@ export function getCategoriesFromDocText(docComment: string): CategoryDescriptio
       if (firstSpaceIndex === -1) {
         const categoryName = category;
         const categoryLabel = category.charAt(0).toUpperCase() + category.slice(1);
-        categoriesWithDescription.push({name: categoryName, label: categoryLabel});
+        categoriesWithDescription.push({ name: categoryName, label: categoryLabel });
       } else {
         const categoryName = category.slice(0, firstSpaceIndex);
         const categoryLabel = category.slice(firstSpaceIndex + 1);
-        categoriesWithDescription.push({name: categoryName, label: categoryLabel});
+        categoriesWithDescription.push({ name: categoryName, label: categoryLabel });
       }
     }
   }
-  return categoriesWithDescription.length ? categoriesWithDescription : undefined;
+  return categoriesWithDescription.length > 0 ? categoriesWithDescription : undefined;
 }
 
 /**

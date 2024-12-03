@@ -1,13 +1,18 @@
-import { ApiClient, isApiClient } from '@ama-sdk/core';
-import { ApiFetchClient, BaseApiFetchClientConstructor } from '@ama-sdk/client-fetch';
-
+import {
+  ApiFetchClient,
+  BaseApiFetchClientConstructor,
+} from '@ama-sdk/client-fetch';
+import {
+  ApiClient,
+  isApiClient,
+} from '@ama-sdk/core';
 import * as api from '../api';
 
 /**
  * Base path for the mock server
  */
 export const MOCK_SERVER_BASE_PATH = 'http://localhost:10010/v2';
-const MOCK_SERVER = new ApiFetchClient({basePath: MOCK_SERVER_BASE_PATH});
+const MOCK_SERVER = new ApiFetchClient({ basePath: MOCK_SERVER_BASE_PATH });
 
 export interface Api {
   petApi: api.PetApi;
@@ -24,7 +29,6 @@ export const myApi: Api = {
   storeApi: new api.StoreApi(MOCK_SERVER),
   userApi: new api.UserApi(MOCK_SERVER)
 };
-
 
 /**
  * Retrieve mocked SDK Apis
@@ -50,7 +54,7 @@ export function getMockedApi(apiClient: ApiClient): Api;
 export function getMockedApi(config?: string | BaseApiFetchClientConstructor | ApiClient): Api {
   let apiConfigObj: ApiClient = MOCK_SERVER;
   if (typeof config === 'string') {
-    apiConfigObj = new ApiFetchClient({basePath: config});
+    apiConfigObj = new ApiFetchClient({ basePath: config });
   } else if (isApiClient(config)) {
     apiConfigObj = config;
   } else if (config) {

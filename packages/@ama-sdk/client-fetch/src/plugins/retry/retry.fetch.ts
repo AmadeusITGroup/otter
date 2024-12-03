@@ -1,5 +1,11 @@
-import { CanceledCallError } from '@ama-sdk/core';
-import type { FetchCall, FetchPlugin, FetchPluginContext } from '../../fetch-plugin';
+import {
+  CanceledCallError,
+} from '@ama-sdk/core';
+import type {
+  FetchCall,
+  FetchPlugin,
+  FetchPluginContext,
+} from '../../fetch-plugin';
 
 /**
  * Function to run to determine if we need to retry the call
@@ -65,10 +71,9 @@ export class RetryFetch implements FetchPlugin {
   }
 
   private async delay(countDown: number) {
-    // eslint-disable-next-line no-async-promise-executor
-    return new Promise(async (resolve) => setTimeout(resolve, await this.sleepBetweenRetry(countDown)));
+    const time = await this.sleepBetweenRetry(countDown);
+    return new Promise((resolve) => setTimeout(resolve, time));
   }
-
 
   private async waitAndRetry(context: FetchPluginContext, countDown: number) {
     await this.delay(countDown);

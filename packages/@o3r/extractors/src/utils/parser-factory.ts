@@ -1,5 +1,9 @@
-import type { ParserFactory } from '../core';
-import type { ParserConfig } from '../interfaces';
+import type {
+  ParserFactory,
+} from '../core';
+import type {
+  ParserConfig,
+} from '../interfaces';
 
 /**
  * Common parser factory. Used for creating a parser configuration.

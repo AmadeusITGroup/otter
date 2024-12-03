@@ -1,10 +1,33 @@
-import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnDestroy, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { O3rComponent } from '@o3r/core';
-import { StyleLazyLoader, StyleLazyLoaderModule } from '@o3r/dynamic-content';
-import { Subscription } from 'rxjs';
-import { DatePickerInputPresComponent } from '../../utilities';
+import {
+  AsyncPipe,
+} from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  inject,
+  ViewEncapsulation,
+} from '@angular/core';
+import {
+  takeUntilDestroyed,
+} from '@angular/core/rxjs-interop';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import {
+  O3rComponent,
+} from '@o3r/core';
+import {
+  StyleLazyLoader,
+  StyleLazyLoaderModule,
+} from '@o3r/dynamic-content';
+import {
+  DatePickerInputPresComponent,
+} from '../../utilities';
 
 @O3rComponent({ componentType: 'Component' })
 @Component({
@@ -22,7 +45,7 @@ import { DatePickerInputPresComponent } from '../../utilities';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DesignTokenPresComponent implements OnDestroy {
+export class DesignTokenPresComponent {
   private readonly styleLoader = inject(StyleLazyLoader);
 
   /**
@@ -32,30 +55,22 @@ export class DesignTokenPresComponent implements OnDestroy {
     theme: new FormControl<string | null>('')
   });
 
-  private readonly subscription = new Subscription();
-
   constructor() {
     let style: HTMLElement | null = null;
     const cleanUpStyle = () => {
       if (style?.parentNode) {
-        style.parentNode.removeChild(style);
+        style.remove();
         style = null;
       }
     };
-    this.subscription.add(
-      this.form.valueChanges.subscribe((value) => {
-        cleanUpStyle();
-        if (value.theme === 'dark') {
-          style = this.styleLoader.loadStyleFromURL({href: 'dark-theme.css'});
-        } else if (value.theme === 'horizon') {
-          style = this.styleLoader.loadStyleFromURL({href: 'horizon-theme.css'});
-        }
-      })
-    );
+    this.form.valueChanges.pipe(takeUntilDestroyed()).subscribe((value) => {
+      cleanUpStyle();
+      if (value.theme === 'dark') {
+        style = this.styleLoader.loadStyleFromURL({ href: 'dark-theme.css' });
+      } else if (value.theme === 'horizon') {
+        style = this.styleLoader.loadStyleFromURL({ href: 'horizon-theme.css' });
+      }
+    });
     inject(DestroyRef).onDestroy(cleanUpStyle);
-  }
-
-  public ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 }

@@ -1,9 +1,25 @@
-import { chain, noop, Rule, Tree } from '@angular-devkit/schematics';
-import { applyEsLintFix, createSchematicWithMetricsIfInstalled, O3rCliError } from '@o3r/schematics';
+import {
+  chain,
+  noop,
+  Rule,
+  Tree,
+} from '@angular-devkit/schematics';
+import {
+  applyEsLintFix,
+  createSchematicWithMetricsIfInstalled,
+  O3rCliError,
+} from '@o3r/schematics';
 import * as ts from 'typescript';
-import { getImplementation, getSignature } from './helpers';
-import { description } from './models';
-import { NgAddFunctionsToFixtureSchematicsSchema } from './schema';
+import {
+  getImplementation,
+  getSignature,
+} from './helpers';
+import {
+  description,
+} from './models';
+import {
+  NgAddFunctionsToFixtureSchematicsSchema,
+} from './schema';
 
 /**
  * Generate fixture
@@ -39,19 +55,19 @@ function ngAddFunctionsToFixtureFn(options: NgAddFunctionsToFixtureSchematicsSch
 
         sourceFile.forEachChild((node) => {
           if (ts.isInterfaceDeclaration(node)) {
-            const methodSignatures = node.getChildren().filter(ts.isMethodSignature);
-            const lastMethodSignature = methodSignatures[methodSignatures.length - 1];
+            const methodSignatures = node.getChildren().filter((child) => ts.isMethodSignature(child));
+            const lastMethodSignature = methodSignatures.at(-1);
             const posForSignature = lastMethodSignature ? lastMethodSignature.end + 1 : node.end - 1;
             recorder.insertLeft(posForSignature, codeForInterface);
           } else if (ts.isClassDeclaration(node)) {
             if (index === 0) {
-              const propDeclarations = node.members.filter(ts.isPropertyDeclaration);
-              const lastPropDecl = propDeclarations[propDeclarations.length - 1];
+              const propDeclarations = node.members.filter((child) => ts.isPropertyDeclaration(child));
+              const lastPropDecl = propDeclarations.at(-1);
               const posForSelectorProp = lastPropDecl ? lastPropDecl.end + 1 : node.end - 1;
               recorder.insertLeft(posForSelectorProp, codeForSelectorProp);
             }
-            const methodDeclarations = node.getChildren().filter(ts.isMethodDeclaration);
-            const lastMethodDecl = methodDeclarations[methodDeclarations.length - 1];
+            const methodDeclarations = node.getChildren().filter((child) => ts.isMethodDeclaration(child));
+            const lastMethodDecl = methodDeclarations.at(-1);
             const posForImplem = lastMethodDecl ? lastMethodDecl.end + 1 : node.end - 1;
             recorder.insertLeft(posForImplem, codeForImplem);
           }
@@ -59,7 +75,6 @@ function ngAddFunctionsToFixtureFn(options: NgAddFunctionsToFixtureSchematicsSch
 
         tree.commitUpdate(recorder);
       });
-
     },
 
     options.skipLinter ? noop() : applyEsLintFix()

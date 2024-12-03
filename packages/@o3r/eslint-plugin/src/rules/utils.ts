@@ -1,18 +1,23 @@
-import { ESLintUtils, TSESLint, TSESTree } from '@typescript-eslint/utils';
-import { readFileSync } from 'node:fs';
+import {
+  readFileSync,
+} from 'node:fs';
 import * as path from 'node:path';
-import type { PackageJson } from 'type-fest';
+import {
+  ESLintUtils,
+  TSESLint,
+  TSESTree,
+} from '@typescript-eslint/utils';
+import type {
+  PackageJson,
+} from 'type-fest';
 
 /** Current package version (format: <major>.<minor>)*/
-const version = (JSON.parse(readFileSync(path.resolve(__dirname, '..', '..', 'package.json'), { encoding: 'utf-8' })) as PackageJson).version?.split('.').slice(0,2).join('.') || '0.0';
+const version = (JSON.parse(readFileSync(path.resolve(__dirname, '..', '..', 'package.json'), { encoding: 'utf8' })) as PackageJson).version?.split('.').slice(0, 2).join('.') || '0.0';
 
 /** ESLint rule generator */
-// eslint-disable-next-line new-cap
+// eslint-disable-next-line new-cap -- naming convention imposed by typescript-eslint
 export const createRule = ESLintUtils.RuleCreator((name) => {
-  if (version === '0.0') {
-    return 'file:' + path.resolve(__dirname, '..', '..', '..', '..', '..', 'docs', 'linter', 'eslint-plugin', 'rules', `${name}.md`);
-  }
-  return `https://github.com/AmadeusITGroup/otter/tree/release/${version}/docs/linter/eslint-plugin/rules/${name}.md`;
+  return `https://github.com/AmadeusITGroup/otter/tree/release/${version === '0.0' ? 'main' : version}/docs/linter/eslint-plugin/rules/${name}.md`;
 });
 
 /** Default supported interface names */
@@ -49,4 +54,4 @@ export const getNodeComment = (node: TSESTree.Node, sourceCode: TSESLint.SourceC
  * Wraps `commentValue` into a comment
  * @param commentValue
  */
-export const createCommentString = (commentValue: string) => `/*${ commentValue.replace(/\*\//g, '*\\/') }*/`;
+export const createCommentString = (commentValue: string) => `/*${commentValue.replace(/\*\//g, '*\\/')}*/`;

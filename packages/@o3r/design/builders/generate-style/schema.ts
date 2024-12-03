@@ -1,4 +1,6 @@
-import type { SchematicOptionObject } from '@o3r/schematics';
+import type {
+  SchematicOptionObject,
+} from '@o3r/schematics';
 
 /** Available style languages */
 export type AvailableLanguage = 'css' | 'sass' | 'scss';
@@ -78,5 +80,5 @@ export interface GenerateStyleSchematicsSchema extends SchematicOptionObject {
    * Tags to surround the generated code in the outputted file.
    * It is used to detect the code to replace
    */
-  codeEditTags?: {end: string; start: string};
+  codeEditTags?: { end: string; start: string };
 }

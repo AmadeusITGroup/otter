@@ -1,32 +1,41 @@
-import { MockMap } from './base-mock-adapter';
-import { getOperationId, getPath } from './helpers';
-import { PathObject } from './path-object';
-import { SequentialMockAdapter } from './sequential-mock-adapter';
+import {
+  MockMap,
+} from './base-mock-adapter';
+import {
+  getOperationId,
+  getPath,
+} from './helpers';
+import {
+  PathObject,
+} from './path-object';
+import {
+  SequentialMockAdapter,
+} from './sequential-mock-adapter';
 
 /**
  * a new call is detected thanks to the timestamp printed by ALF on a new line, ex: "2021/12/16 18:21:28.312472 "
  */
-const logNewCallRegex = RegExp(/^\d{4}\/\d{2}\/\d{2} \d{2}:\d{2}:\d{2}\.\d{6}\b/gm);
+const logNewCallRegex = new RegExp(/^\d{4}\/\d{2}\/\d{2} \d{2}:\d{2}:\d{2}\.\d{6}\b/gm);
 
 /**
  * the correlation Id is printed this way by ALF, ex: CorrID=0001W37ZH480AJ,
  */
-const correlationIdRegex = RegExp(/CorrID=([^,]*),/);
+const correlationIdRegex = new RegExp(/CorrID=([^,]*),/);
 
 /**
  * a request is logged with its HTTP method and the path targetted on a new line, ex: "GET /1ASIUAIRFAC/v2/shopping..."
  */
-const requestRegex = RegExp(/^(POST|GET|PATCH|DELETE) \/([^\s]*)/m);
+const requestRegex = new RegExp(/^(POST|GET|PATCH|DELETE) \/(\S*)/m);
 
 /**
  * a request is logged with its HTTP version and the HTTP status on a new line, ex: "HTTP/1.1 200 OK"
  */
-const responseRegex = RegExp(/^(HTTP\/1.1 \d{3})/m);
+const responseRegex = new RegExp(/^(HTTP\/1.1 \d{3})/m);
 
 /**
  * the response data is logged with its JSON content on a new line
  */
-const requestResponseJsonRegexp = RegExp(/(^{.*}$)/m);
+const requestResponseJsonRegexp = new RegExp(/(^{.*}$)/m);
 
 /**
  * Interface for any call found in the ALF traces
@@ -61,7 +70,7 @@ function getRequest(log: string, corrId: string, operationAdapter: PathObject[])
   if (match && match[1] && match[2]) {
     // the match looks like this 1ASIUAIRFAC/v2/shopping/carts/19DXNCKB931CYX3S?refresh=true
     // so we remove the SAP information at the beginning and URL parameters at the end if any
-    const requestUrl = match[2].substring(match[2].indexOf('/'), match[2].indexOf('?') > -1 ? match[2].indexOf('?') : match[2].length);
+    const requestUrl = match[2].substring(match[2].indexOf('/'), match[2].includes('?') ? match[2].indexOf('?') : match[2].length);
     const method = match[1];
     const pathObject = getPath(requestUrl, operationAdapter, method);
     if (pathObject) {
@@ -92,7 +101,7 @@ function isResponse(log: string): boolean {
  */
 function getData(log: string): string {
   const match = log.match(requestResponseJsonRegexp);
-  return match && match[1] || '';
+  return (match && match[1]) || '';
 }
 
 /**
@@ -121,7 +130,7 @@ function buildAlfCalls(log: string, operationAdapter: PathObject[]): AlfCall[] {
     const response = isResponse(callMatch);
     if ((request || response) && corrId) {
       // we check if there were already a call with this correlationId
-      const alfCall = alfCalls.find(value => value.corrId === corrId);
+      const alfCall = alfCalls.find((value) => value.corrId === corrId);
       const data = getData(callMatch);
       if (alfCall && response) {
         // this is a response and there were already an alfCall with this correlationId
@@ -159,6 +168,7 @@ function buildMockMap(log: string, operationAdapter: PathObject[]): MockMap {
     }
 
     mockMap[alfCall.operationId!].push({
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- type is explicitly `any`
       mockData: alfCall.response ? JSON.parse(alfCall.response) : ''
     });
     return mockMap;

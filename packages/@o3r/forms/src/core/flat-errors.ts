@@ -1,5 +1,9 @@
-import { ValidationErrors } from '@angular/forms';
-import { ErrorMessageObject } from './errors';
+import {
+  ValidationErrors,
+} from '@angular/forms';
+import {
+  ErrorMessageObject,
+} from './errors';
 
 /** Flat representation of Angular's ValidationError */
 export interface FlatError {

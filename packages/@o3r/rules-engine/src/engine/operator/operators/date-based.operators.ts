@@ -1,5 +1,12 @@
-import {isValidDateInput, isValidDateRange, numberValidator} from '../operator.helpers';
-import {DateInput, Operator} from '../operator.interface';
+import {
+  isValidDateInput,
+  isValidDateRange,
+  numberValidator,
+} from '../operator.helpers';
+import {
+  DateInput,
+  Operator,
+} from '../operator.interface';
 
 /**
  * Check if a date variable is in a specified date range
@@ -14,7 +21,6 @@ export const inRangeDate: Operator<Date, [DateInput, DateInput], DateInput> = {
   validateLhs: isValidDateInput,
   validateRhs: isValidDateRange
 };
-
 
 /**
  * Check if the value of the variable is in the next x minutes
@@ -31,7 +37,7 @@ export const dateInNextMinutes: Operator<Date, string | number, DateInput> = {
       throw new Error('o3rCurrentTime value is not a number');
     }
     const currentTimeValue = operatorFactValues.o3rCurrentTime;
-    return inRangeDate.evaluator(leftDateInput, [currentTimeValue, currentTimeValue + +minutes * 60000]);
+    return inRangeDate.evaluator(leftDateInput, [currentTimeValue, currentTimeValue + +minutes * 60_000]);
   },
   factImplicitDependencies: ['o3rCurrentTime'],
   validateLhs: isValidDateInput,
@@ -70,8 +76,8 @@ export const dateNotInNextMinutes: Operator<Date, string | number, DateInput> = 
 export const dateBefore: Operator<Date, DateInput, DateInput> = {
   name: 'dateBefore',
   evaluator: (leftDate, rightDate) => {
-    const firstDateTime = new Date(leftDate).setHours(0,0,0,0);
-    const secondDateTime = new Date(rightDate).setHours(0,0,0,0);
+    const firstDateTime = new Date(leftDate).setHours(0, 0, 0, 0);
+    const secondDateTime = new Date(rightDate).setHours(0, 0, 0, 0);
     return firstDateTime < secondDateTime;
   },
   validateLhs: isValidDateInput,
@@ -85,8 +91,8 @@ export const dateBefore: Operator<Date, DateInput, DateInput> = {
 export const dateAfter: Operator<Date, DateInput, DateInput> = {
   name: 'dateAfter',
   evaluator: (leftDate, rightDate) => {
-    const firstDateTime = new Date(leftDate).setHours(0,0,0,0);
-    const secondDateTime = new Date(rightDate).setHours(0,0,0,0);
+    const firstDateTime = new Date(leftDate).setHours(0, 0, 0, 0);
+    const secondDateTime = new Date(rightDate).setHours(0, 0, 0, 0);
     return firstDateTime > secondDateTime;
   },
   validateLhs: isValidDateInput,

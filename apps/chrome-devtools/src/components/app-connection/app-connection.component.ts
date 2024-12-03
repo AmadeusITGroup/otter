@@ -1,7 +1,18 @@
-import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, OnDestroy } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
-import { AppState, ChromeExtensionConnectionService } from '../../services/connection.service';
+import {
+  AsyncPipe,
+} from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+} from '@angular/core';
+import {
+  Observable,
+} from 'rxjs';
+import {
+  AppState,
+  ChromeExtensionConnectionService,
+} from '../../services/connection.service';
 
 @Component({
   selector: 'app-connection',
@@ -12,8 +23,7 @@ import { AppState, ChromeExtensionConnectionService } from '../../services/conne
     AsyncPipe
   ]
 })
-export class AppConnectionComponent implements OnDestroy {
-  private readonly subscription = new Subscription();
+export class AppConnectionComponent {
   private readonly connectionService = inject(ChromeExtensionConnectionService);
 
   /** Stream of application's state */
@@ -21,10 +31,5 @@ export class AppConnectionComponent implements OnDestroy {
 
   constructor() {
     this.connectionService.activate();
-  }
-
-  /** @inheritDoc */
-  public ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 }

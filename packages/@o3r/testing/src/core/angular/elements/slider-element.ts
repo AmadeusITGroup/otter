@@ -1,7 +1,15 @@
-import { DebugElement } from '@angular/core';
-import { By } from '@angular/platform-browser';
-import type { SliderElementProfile } from '../../elements';
-import { O3rElement } from '../element';
+import {
+  DebugElement,
+} from '@angular/core';
+import {
+  By,
+} from '@angular/platform-browser';
+import type {
+  SliderElementProfile,
+} from '../../elements';
+import {
+  O3rElement,
+} from '../element';
 
 /**
  * Implementation dedicated to angular / TestBed.
@@ -49,8 +57,9 @@ export class O3rSliderElement extends O3rElement implements SliderElementProfile
   }
 
   /**
-   * @inheritdoc
+   * Set the value in an input.
    * inspired from https://github.com/angular/components/blob/main/src/material/slider/slider.spec.ts#L1838
+   * @param value
    */
   public setValue(value: string): Promise<void> {
     const trackNativeElement = this.getTrackElement().nativeElement;

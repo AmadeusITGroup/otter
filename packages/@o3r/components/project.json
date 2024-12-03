@@ -43,12 +43,15 @@
       }
     },
     "lint": {
+      "executor": "nx:run-commands",
       "options": {
-        "eslintConfig": "packages/@o3r/components/.eslintrc.js",
-        "lintFilePatterns": [
-          "packages/@o3r/components/src/**/*.ts",
-          "packages/@o3r/components/package.json"
-        ]
+        "cwd": "{projectRoot}",
+        "command": "yarn eslint \"**/*.{m,c,}{j,t}s\" \"**/*.json\" \"**/*.html\""
+      },
+      "configurations": {
+        "ci": {
+          "command": "yarn eslint \"**/*.{m,c,}{j,t}s\" \"**/*.json\" \"**/*.html\" --quiet --cache-location .cache/eslint"
+        }
       }
     },
     "test": {

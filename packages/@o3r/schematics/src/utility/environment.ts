@@ -1,7 +1,9 @@
 import * as fs from 'node:fs';
 import * as os from 'node:os';
 import * as semver from 'semver';
-import { getPackageManagerInfo } from './package-manager-runner';
+import {
+  getPackageManagerInfo,
+} from './package-manager-runner';
 
 /**
  * Get all environment information

@@ -76,13 +76,7 @@
       ]
     },
     "lint": {
-      "options": {
-        "eslintConfig": "packages/@o3r/testing/.eslintrc.js",
-        "lintFilePatterns": [
-          "packages/@o3r/testing/src/**/*.ts",
-          "packages/@o3r/testing/package.json"
-        ]
-      }
+      "executor": "nx:run-commands"
     },
     "test": {
       "executor": "@nx/jest:jest",

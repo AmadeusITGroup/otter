@@ -1,25 +1,46 @@
-import type { GenerateStyleSchematicsSchema } from './schema';
-import { BuilderOutput, createBuilder } from '@angular-devkit/architect';
-import type { BuilderWrapper } from '@o3r/telemetry';
 import {
-  parseDesignTokenFile,
-  renderDesignTokens
-} from '../../src/public_api';
+  EOL,
+} from 'node:os';
+import {
+  resolve,
+} from 'node:path';
+import {
+  BuilderOutput,
+  createBuilder,
+} from '@angular-devkit/architect';
+import type {
+  BuilderWrapper,
+} from '@o3r/telemetry';
+import {
+  sync,
+} from 'globby';
 import type {
   DesignTokenRendererOptions,
   DesignTokenVariableSet,
   DesignTokenVariableStructure,
-  TokenKeyRenderer
+  TokenKeyRenderer,
 } from '../../src/public_api';
-import { resolve } from 'node:path';
-import { sync } from 'globby';
-import { EOL } from 'node:os';
-import { generateTemplate } from './helpers/token-template';
-import { getStyleRendererOptions } from './helpers/style-renderer-options';
-import { getMetadataRenderDesignTokenOptions } from './helpers/metadata-renderer-options';
+import {
+  parseDesignTokenFile,
+  renderDesignTokens,
+} from '../../src/public_api';
+import {
+  getMetadataRenderDesignTokenOptions,
+} from './helpers/metadata-renderer-options';
+import {
+  getStyleRendererOptions,
+} from './helpers/style-renderer-options';
+import {
+  generateTemplate,
+} from './helpers/token-template';
+import type {
+  GenerateStyleSchematicsSchema,
+} from './schema';
+
+const noop: BuilderWrapper = (fn) => fn;
 
 const createBuilderWithMetricsIfInstalled: BuilderWrapper = (builderFn) => async (opts, ctx) => {
-  let wrapper: BuilderWrapper = (fn) => fn;
+  let wrapper: BuilderWrapper = noop;
   try {
     const { createBuilderWithMetrics } = await import('@o3r/telemetry');
     wrapper = createBuilderWithMetrics;
@@ -33,9 +54,10 @@ const createBuilderWithMetricsIfInstalled: BuilderWrapper = (builderFn) => async
  */
 export default createBuilder<GenerateStyleSchematicsSchema>(createBuilderWithMetricsIfInstalled(async (options, context): Promise<BuilderOutput> => {
   /** List of template files */
-  const templateFilePaths = options.templateFile
+  const templateFilePaths = (
+    options.templateFile
     && (typeof options.templateFile === 'string' ? [options.templateFile] : options.templateFile)
-    || undefined;
+  ) || undefined;
 
   /** Template object */
   const template = templateFilePaths && await generateTemplate(templateFilePaths, context);
@@ -75,8 +97,8 @@ export default createBuilder<GenerateStyleSchematicsSchema>(createBuilderWithMet
 
     try {
       const duplicatedToken: DesignTokenVariableStructure[] = [];
-      const tokens = (await Promise.all(files.map(async (file) => ({file, parsed: await parseDesignTokenFile(file, { specificationContext: { template } })}))))
-        .reduce<DesignTokenVariableSet>((acc, {file, parsed}) => {
+      const tokens = (await Promise.all(files.map(async (file) => ({ file, parsed: await parseDesignTokenFile(file, { specificationContext: { template } }) }))))
+        .reduce<DesignTokenVariableSet>((acc, { file, parsed }) => {
           parsed.forEach((variable, key) => {
             if (acc.has(key)) {
               context.logger[options.failOnDuplicate ? 'error' : 'warn'](`A duplication of the variable ${key} is found in ${file}`);
@@ -96,7 +118,6 @@ export default createBuilder<GenerateStyleSchematicsSchema>(createBuilderWithMet
     }
   };
 
-
   /** Runner for all the renderers based on options */
   const executeMultiRenderer = async (): Promise<BuilderOutput> => {
     return (await Promise.allSettled<Promise<BuilderOutput>[]>([
@@ -113,7 +134,7 @@ export default createBuilder<GenerateStyleSchematicsSchema>(createBuilderWithMet
         acc.success = false;
         if (res.reason) {
           acc.error ||= '';
-          // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+
           acc.error += EOL + res.reason;
         }
       }
@@ -121,9 +142,7 @@ export default createBuilder<GenerateStyleSchematicsSchema>(createBuilderWithMet
     }, { success: true } as BuilderOutput);
   };
 
-  if (!options.watch) {
-    return await executeMultiRenderer();
-  } else {
+  if (options.watch) {
     try {
       await import('chokidar')
         .then((chokidar) => chokidar.watch([
@@ -141,5 +160,7 @@ export default createBuilder<GenerateStyleSchematicsSchema>(createBuilderWithMet
     } catch (err) {
       return { success: false, error: String(err) };
     }
+  } else {
+    return await executeMultiRenderer();
   }
 }));

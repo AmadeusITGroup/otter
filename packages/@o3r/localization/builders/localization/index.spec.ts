@@ -1,10 +1,22 @@
-import {Architect, createBuilder} from '@angular-devkit/architect';
-import { TestingArchitectHost } from '@angular-devkit/architect/testing';
-import { schema } from '@angular-devkit/core';
-import { cleanVirtualFileSystem, useVirtualFileSystem } from '@o3r/test-helpers';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { LocalizationBuilderSchema } from './schema';
+import {
+  Architect,
+  createBuilder,
+} from '@angular-devkit/architect';
+import {
+  TestingArchitectHost,
+} from '@angular-devkit/architect/testing';
+import {
+  schema,
+} from '@angular-devkit/core';
+import {
+  cleanVirtualFileSystem,
+  useVirtualFileSystem,
+} from '@o3r/test-helpers';
+import {
+  LocalizationBuilderSchema,
+} from './schema';
 
 describe('Localization Builder', () => {
   const workspaceRoot = path.join('..', '..', '..', '..', '..');
@@ -20,14 +32,14 @@ describe('Localization Builder', () => {
     architectHost = new TestingArchitectHost(path.resolve(__dirname, workspaceRoot), __dirname);
     architect = new Architect(architectHost, registry);
     architectHost.addBuilder('.:localization', require('./index').default);
-    architectHost.addBuilder('noop', createBuilder(() => ({success: true})));
-    architectHost.addTarget({project: 'showcase', target: 'compile'}, 'noop', {
+    architectHost.addBuilder('noop', createBuilder(() => ({ success: true })));
+    architectHost.addTarget({ project: 'showcase', target: 'compile' }, 'noop', {
       outputPath: path.resolve(__dirname, `${workspaceRoot}/apps/showcase/dist`)
     });
-    architectHost.addTarget({project: 'showcase', target: 'extract-translations'}, 'noop', {
+    architectHost.addTarget({ project: 'showcase', target: 'extract-translations' }, 'noop', {
       outputFile: path.resolve(__dirname, `${workspaceRoot}/apps/showcase/localisation.metadata.json`)
     });
-    await virtualFileSystem.promises.mkdir(path.resolve(__dirname, `${workspaceRoot}/apps/showcase`), {recursive: true});
+    await virtualFileSystem.promises.mkdir(path.resolve(__dirname, `${workspaceRoot}/apps/showcase`), { recursive: true });
     await virtualFileSystem.promises.writeFile(path.resolve(__dirname, `${workspaceRoot}/apps/showcase/localisation.metadata.json`), '[]');
   });
   afterEach(() => {
@@ -55,7 +67,7 @@ describe('Localization Builder', () => {
       ignoreReferencesIfNotDefault: false,
       useMetadataAsDefault: true
     };
-    await virtualFileSystem.promises.mkdir(options.outputPath, {recursive: true});
+    await virtualFileSystem.promises.mkdir(options.outputPath, { recursive: true });
     const run = await architect.scheduleBuilder('.:localization', options);
     const output = await run.result;
     expect(output.error).toBeUndefined();

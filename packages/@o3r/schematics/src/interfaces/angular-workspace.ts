@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 import type {
   Projects as NgWorkspaceProject,
   Schema as NgWorkspaceSchema,
-  SchematicOptions
+  SchematicOptions,
 } from '@angular/cli/lib/config/workspace-schema';
 
 /**
@@ -26,8 +25,8 @@ export interface WorkspaceLayout {
   appsDir: string;
 }
 
-
 export interface WorkspaceSchematics extends SchematicOptions {
+  /* eslint-disable @typescript-eslint/naming-convention -- schematics identifier */
   '@o3r/core:component'?: {
     path: string;
   } & WorkspaceSchematics['*:*'];
@@ -48,6 +47,7 @@ export interface WorkspaceSchematics extends SchematicOptions {
     /** in addition to the WorkspaceLayout, an optional testFramework attribute is available */
     testFramework?: AvailableTestFrameworks;
   };
+  /** eslint-enable @typescript-eslint/naming-convention */
 }
 export interface WorkspaceProject extends NgWorkspaceProject {
   name?: string;
@@ -67,4 +67,3 @@ export interface WorkspaceSchema extends NgWorkspaceSchema {
   };
   schematics?: WorkspaceSchematics;
 }
-

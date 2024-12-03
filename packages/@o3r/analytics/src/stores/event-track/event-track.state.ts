@@ -4,10 +4,9 @@
  * its children. Each child can have its own hero components. The TTI for the page
  * would be computed using a bottom-up approach starting from the children at the bottom (leaf nodes).
  */
-// eslint-disable-next-line no-use-before-define
 export interface HeroComponent extends RegisterHeroComponentPayload {
   /** The Time To Interactive(TTI) measure for the component */
-  // eslint-disable-next-line @typescript-eslint/naming-convention
+  // eslint-disable-next-line @typescript-eslint/naming-convention -- naming convention imposed by Lighthouse
   TTI: number;
 
   /**

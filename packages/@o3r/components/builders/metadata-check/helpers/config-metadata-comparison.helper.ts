@@ -1,5 +1,9 @@
-import type { ComponentConfigOutput } from '@o3r/components';
-import type { MetadataComparator } from '@o3r/extractors';
+import type {
+  MetadataComparator,
+} from '@o3r/extractors';
+import type {
+  ComponentConfigOutput,
+} from '@o3r/components';
 
 /**
  * Interface describing a config migration element
@@ -32,11 +36,11 @@ export interface MigrationConfigData {
  */
 const getConfigurationArray = (content: ComponentConfigOutput[]): ComponentConfigOutput[] => content.flatMap((config) =>
   config.properties.length > 1
-    ? config.properties.map((prop) => ({...config, properties: [prop]}))
+    ? config.properties.map((prop) => ({ ...config, properties: [prop] }))
     : [config]
 );
 
-const getConfigurationPropertyName = (config: ComponentConfigOutput) => `${config.library}#${config.name}` + (config.properties.length ? ` ${config.properties[0].name}` : '');
+const getConfigurationPropertyName = (config: ComponentConfigOutput) => `${config.library}#${config.name}` + (config.properties.length > 0 ? ` ${config.properties[0].name}` : '');
 
 const isRelevantContentType = (contentType: string) => contentType === 'CONFIG';
 
@@ -48,9 +52,9 @@ const isMigrationConfigurationDataMatch = (config: ComponentConfigOutput, migrat
 /**
  * Comparator used to compare one version of config metadata with another
  */
-export const configMetadataComparator: MetadataComparator<ComponentConfigOutput, MigrationConfigData, ComponentConfigOutput[]> = {
+export const configMetadataComparator: Readonly<MetadataComparator<ComponentConfigOutput, MigrationConfigData, ComponentConfigOutput[]>> = {
   getArray: getConfigurationArray,
   getIdentifier: getConfigurationPropertyName,
   isRelevantContentType,
   isMigrationDataMatch: isMigrationConfigurationDataMatch
-};
+} as const;

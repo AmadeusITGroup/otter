@@ -38,16 +38,7 @@
       "outputs": ["{projectRoot}/dist/src"]
     },
     "lint": {
-      "options": {
-        "eslintConfig": "packages/@ama-sdk/client-angular/.eslintrc.js",
-        "lintFilePatterns": [
-          "packages/@ama-sdk/client-angular/src/**/*.ts",
-          "packages/@ama-sdk/client-angular/package.json"
-        ]
-      },
-      "dependsOn": [
-        "build"
-      ]
+      "executor": "nx:run-commands"
     },
     "test": {
       "executor": "@nx/jest:jest",

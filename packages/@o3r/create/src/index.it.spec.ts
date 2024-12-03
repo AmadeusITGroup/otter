@@ -7,16 +7,19 @@
 const o3rEnvironment = globalThis.o3rEnvironment;
 
 import {
+  existsSync,
+  promises as fs,
+} from 'node:fs';
+import * as path from 'node:path';
+import {
   getDefaultExecSyncOptions,
   getPackageManager,
   packageManagerCreate,
   packageManagerExec,
   packageManagerInstall,
   packageManagerRunOnProject,
-  setPackagerManagerConfig
+  setPackagerManagerConfig,
 } from '@o3r/test-helpers';
-import { existsSync, promises as fs } from 'node:fs';
-import * as path from 'node:path';
 
 const defaultExecOptions = getDefaultExecSyncOptions();
 const workspaceProjectName = 'my-project';
@@ -25,8 +28,8 @@ describe('Create new otter project command', () => {
   test('should generate a project with an application', async () => {
     const { workspacePath, packageManagerConfig, o3rVersion } = o3rEnvironment.testEnvironment;
     const inProjectPath = path.join(workspacePath, workspaceProjectName);
-    const execWorkspaceOptions = {...defaultExecOptions, cwd: workspacePath };
-    const execInAppOptions = {...defaultExecOptions, cwd: inProjectPath };
+    const execWorkspaceOptions = { ...defaultExecOptions, cwd: workspacePath };
+    const execInAppOptions = { ...defaultExecOptions, cwd: inProjectPath };
     const createOptions = ['--package-manager', getPackageManager(), '--skip-confirmation', ...(packageManagerConfig.yarnVersion ? ['--yarn-version', packageManagerConfig.yarnVersion] : [])];
 
     // TODO: remove it when fixing #1356
@@ -49,8 +52,8 @@ describe('Create new otter project command', () => {
   test('should generate a project with a library', async () => {
     const { workspacePath, packageManagerConfig, o3rVersion } = o3rEnvironment.testEnvironment;
     const inProjectPath = path.join(workspacePath, workspaceProjectName);
-    const execWorkspaceOptions = {...defaultExecOptions, cwd: workspacePath };
-    const execInAppOptions = {...defaultExecOptions, cwd: inProjectPath };
+    const execWorkspaceOptions = { ...defaultExecOptions, cwd: workspacePath };
+    const execInAppOptions = { ...defaultExecOptions, cwd: inProjectPath };
     const createOptions = ['--package-manager', getPackageManager(), '--skip-confirmation', ...(packageManagerConfig.yarnVersion ? ['--yarn-version', packageManagerConfig.yarnVersion] : [])];
 
     // TODO: remove it when fixing #1356
@@ -71,8 +74,8 @@ describe('Create new otter project command', () => {
   test('should generate a project with an application with --exact-o3r-version', async () => {
     const { workspacePath, packageManagerConfig, o3rExactVersion } = o3rEnvironment.testEnvironment;
     const inProjectPath = path.join(workspacePath, workspaceProjectName);
-    const execWorkspaceOptions = {...defaultExecOptions, cwd: workspacePath };
-    const execInAppOptions = {...defaultExecOptions, cwd: inProjectPath };
+    const execWorkspaceOptions = { ...defaultExecOptions, cwd: workspacePath };
+    const execInAppOptions = { ...defaultExecOptions, cwd: inProjectPath };
     const packageManager = getPackageManager();
     const createOptions = ['--package-manager', packageManager, '--skip-confirmation', '--exact-o3r-version',
       ...(packageManagerConfig.yarnVersion ? ['--yarn-version', packageManagerConfig.yarnVersion] : [])];

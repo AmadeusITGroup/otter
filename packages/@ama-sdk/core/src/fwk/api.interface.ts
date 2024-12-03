@@ -1,4 +1,6 @@
-import { ApiClient } from './core/api-client';
+import {
+  ApiClient,
+} from './core/api-client';
 
 /** Identified API interface */
 export interface ApiName {

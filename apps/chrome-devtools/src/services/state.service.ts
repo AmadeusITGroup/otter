@@ -1,15 +1,35 @@
-import { computed, effect, inject, Injectable, type Signal, signal } from '@angular/core';
-import { takeUntilDestroyed, toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { combineLatest } from 'rxjs';
+import {
+  computed,
+  effect,
+  inject,
+  Injectable,
+  type Signal,
+  signal,
+} from '@angular/core';
+import {
+  takeUntilDestroyed,
+  toObservable,
+  toSignal,
+} from '@angular/core/rxjs-interop';
+import {
+  combineLatest,
+} from 'rxjs';
+import {
+  ACTIVE_STATE_NAME_KEY,
+  type State,
+  type StateOverride,
+  STATES_KEY,
+} from '../extension/interface';
 import {
   ChromeExtensionConnectionService,
   filterAndMapMessage,
-  isApplicationInformationMessage
+  isApplicationInformationMessage,
 } from './connection.service';
-import { ACTIVE_STATE_NAME_KEY, type State, type StateOverride, STATES_KEY } from '../extension/interface';
-import { LocalizationService } from './localization.service';
+import {
+  LocalizationService,
+} from './localization.service';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class StateService {
   private readonly connectionService = inject(ChromeExtensionConnectionService);
   private readonly localizationService = inject(LocalizationService);
@@ -37,7 +57,7 @@ export class StateService {
     effect(async () => {
       const key = this.statesStorageKey();
       if (key) {
-        const states = (await chrome.storage.sync.get(key))[key] as Record<string, State> | undefined;
+        const { [key]: states } = (await chrome.storage.sync.get<Record<string, Record<string, State> | undefined>>(key));
         if (states) {
           this.states.set(states);
         }
@@ -57,7 +77,7 @@ export class StateService {
     effect(async () => {
       const key = this.activeStateNameStorageKey();
       if (key) {
-        const name = (await chrome.storage.sync.get(key))[key] as string | undefined;
+        const { [key]: name } = (await chrome.storage.sync.get<Record<string, string | undefined>>(key));
         if (name) {
           this.activeStateName.set(name);
         }
@@ -88,7 +108,7 @@ export class StateService {
       // TODO reset configuration (is it possible? based on default value from metadata if present?)
       // Reset all styling variables before applying override of the new state
       this.connectionService.sendMessage('resetStylingVariables', {});
-      languages.forEach((lang) => this.connectionService.sendMessage('reloadLocalizationKeys', {lang}));
+      languages.forEach((lang) => this.connectionService.sendMessage('reloadLocalizationKeys', { lang }));
       if (!state) {
         this.connectionService.sendMessage('unselectState', {});
         return;
@@ -103,7 +123,7 @@ export class StateService {
           });
         });
       });
-      if (state.stylingVariables && Object.keys(state.stylingVariables).length) {
+      if (state.stylingVariables && Object.keys(state.stylingVariables).length > 0) {
         this.connectionService.sendMessage('updateStylingVariables', {
           variables: state.stylingVariables
         });
@@ -142,7 +162,6 @@ export class StateService {
   }
 
   public updateState(oldStateName: string, state: State) {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     this.states.update(({ [oldStateName]: oldState, ...remainingStates }) => ({
       ...remainingStates,
       [state.name]: state
@@ -150,7 +169,6 @@ export class StateService {
   }
 
   public deleteState(stateName: string) {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     this.states.update(({ [stateName]: state, ...remainingStates }) => remainingStates);
   }
 
@@ -189,11 +207,11 @@ export class StateService {
         ...(override ? undefined : state.stylingVariables),
         ...changes.stylingVariables
       }).filter((entry): entry is [string, string] => entry[1] !== null));
-      const stateOverrides: StateOverride = {
-        configurations: Object.keys(configurationOverrides).length ? configurationOverrides : undefined,
-        localizations: Object.keys(localizationOverrides || {}).length ? localizationOverrides : undefined,
-        stylingVariables: Object.keys(stylingOverrides).length ? stylingOverrides : undefined
-      };
+      const stateOverrides = {
+        configurations: Object.keys(configurationOverrides).length > 0 ? configurationOverrides : undefined,
+        localizations: Object.keys(localizationOverrides || {}).length > 0 ? localizationOverrides : undefined,
+        stylingVariables: Object.keys(stylingOverrides).length > 0 ? stylingOverrides : undefined
+      } as const satisfies StateOverride;
       return {
         ...state,
         ...stateOverrides

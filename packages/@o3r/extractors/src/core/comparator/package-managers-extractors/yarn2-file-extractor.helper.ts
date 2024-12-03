@@ -1,4 +1,10 @@
 import {
+  join,
+} from 'node:path';
+import {
+  O3rCliError,
+} from '@o3r/schematics';
+import {
   Cache,
   Configuration,
   Descriptor,
@@ -12,13 +18,15 @@ import {
   ResolveOptions,
   Resolver,
   structUtils,
-  ThrowReport
+  ThrowReport,
 } from '@yarnpkg/core';
-import { npath } from '@yarnpkg/fslib';
+import {
+  npath,
+} from '@yarnpkg/fslib';
 import yarnNpmPlugin from '@yarnpkg/plugin-npm';
-import { join } from 'node:path';
-import { O3rCliError } from '@o3r/schematics';
-import { CustomNpmSemverResolver } from './custom-npm-semver-resolver';
+import {
+  CustomNpmSemverResolver,
+} from './custom-npm-semver-resolver';
 
 // Class copied from https://github.com/yarnpkg/berry/blob/master/packages/yarnpkg-core/sources/MultiResolver.ts
 // because it is not exposed in @yarnpkg/core
@@ -129,6 +137,7 @@ async function getProject(cwd = process.cwd()) {
   if (!configuration.projectCwd) {
     throw new O3rCliError(`No project found from ${cwd}`);
   }
+  // eslint-disable-next-line unicorn/no-array-method-this-argument -- false positive `Project.find` is not an array method
   const { project } = await Project.find(configuration, configuration.projectCwd);
   return project;
 }
@@ -142,19 +151,16 @@ function getDescriptorFromReference(packageReference: string) {
 }
 
 async function fetchPackage(project: Project, descriptor: Descriptor): Promise<FetchResult> {
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   const cache = await Cache.find(project.configuration);
   const report = new ThrowReport();
   const multiResolver = new MultiResolver(
-    // eslint-disable-next-line new-cap
     ([CustomNpmSemverResolver, ...yarnNpmPlugin.resolvers || []]).map((resolver) => new resolver())
   );
   const multiFetcher = new MultiFetcher(
-    // eslint-disable-next-line new-cap
     (yarnNpmPlugin.fetchers || []).map((fetcher) => new fetcher())
   );
-  const fetchOptions: FetchOptions = { project, cache, checksums: project.storedChecksums, report, fetcher: multiFetcher };
-  const resolveOptions: ResolveOptions = { project, report, resolver: multiResolver, fetchOptions };
+  const fetchOptions = { project, cache, checksums: project.storedChecksums, report, fetcher: multiFetcher } as const satisfies FetchOptions;
+  const resolveOptions = { project, report, resolver: multiResolver, fetchOptions } as const satisfies ResolveOptions;
 
   const normalizedDescriptor = project.configuration.normalizeDependency(descriptor);
   const candidate = await multiResolver.getCandidates(normalizedDescriptor, {}, resolveOptions);
@@ -167,7 +173,7 @@ async function fetchPackage(project: Project, descriptor: Descriptor): Promise<F
   if (!isSupported) {
     throw new O3rCliError(`Fetcher does not support ${descriptorStringify}`);
   }
-  return multiFetcher.fetch(candidate[0], resolveOptions.fetchOptions!);
+  return multiFetcher.fetch(candidate[0], resolveOptions.fetchOptions);
 }
 
 /**

@@ -1,7 +1,9 @@
 export interface Ng {
   /**
    * Retrieves the component instance associated with a given DOM element.
-   * @usageNotes
+   *
+   * Usage:
+   *
    * Given the following DOM structure:
    * ```html
    * <my-app>
@@ -20,7 +22,6 @@ export interface Ng {
    */
   getComponent<T = any>(element: Element): T | null;
 
-
   /**
    * Retrieves the component instance whose view contains the DOM element.
    *
@@ -33,7 +34,6 @@ export interface Ng {
    *    part of a component view.
    */
   getOwningComponent<T = any>(elementOrDir: Element | object): T | null;
-
 
   /**
    * Retrieves the host element of a component or directive instance.

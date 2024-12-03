@@ -1,7 +1,18 @@
-import {CurrencyPipe} from '@angular/common';
-import {ChangeDetectorRef, OnDestroy, Pipe, PipeTransform} from '@angular/core';
-import {Subscription} from 'rxjs';
-import {LocalizationService} from './localization.service';
+import {
+  CurrencyPipe,
+} from '@angular/common';
+import {
+  ChangeDetectorRef,
+  OnDestroy,
+  Pipe,
+  PipeTransform,
+} from '@angular/core';
+import {
+  Subscription,
+} from 'rxjs';
+import {
+  LocalizationService,
+} from './localization.service';
 
 /**
  * Native angular CurrencyPipe taking the current lang into consideration
@@ -26,8 +37,7 @@ export class LocalizedCurrencyPipe extends CurrencyPipe implements OnDestroy, Pi
   public transform(value: number | string, currencyCode?: string, display?: string | boolean, digitsInfo?: string, locale?: string): string | null;
   public transform(value: null | undefined, currencyCode?: string, display?: string | boolean, digitsInfo?: string, locale?: string): null;
   public transform(
-    // Expose same signatures as angular CurencyPipe
-    // eslint-disable-next-line @typescript-eslint/unified-signatures
+    // eslint-disable-next-line @typescript-eslint/unified-signatures -- Expose same signatures as angular CurrencyPipe
     value: number | string | null | undefined, currencyCode?: string, display?: string | boolean, digitsInfo?: string, locale?: string): string | null;
   public transform(
     value: number | string | null | undefined, currencyCode?: string, display?: string | boolean, digitsInfo?: string, locale?: string): string | null {

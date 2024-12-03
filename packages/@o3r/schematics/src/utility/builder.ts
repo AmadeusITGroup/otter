@@ -1,4 +1,7 @@
-import type { SchematicOptionObject, WorkspaceProject } from '../interfaces';
+import type {
+  SchematicOptionObject,
+  WorkspaceProject,
+} from '../interfaces';
 
 /**
  * Register the builder to the workspace

@@ -1,7 +1,15 @@
+import {
+  spawn,
+  SpawnOptions,
+} from 'node:child_process';
 import * as path from 'node:path';
-import { spawn, SpawnOptions } from 'node:child_process';
-import { CodeGenerator } from '../code-generator';
-import { defaultOptions, JavaGeneratorTaskOptions } from './swagger-java.options';
+import {
+  CodeGenerator,
+} from '../code-generator';
+import {
+  defaultOptions,
+  JavaGeneratorTaskOptions,
+} from './swagger-java.options';
 
 /**
  * Manage the schematic to generate a sdk using the Swagger 2 Generator
@@ -18,13 +26,13 @@ export class SwaggerJavaGenerator extends CodeGenerator<JavaGeneratorTaskOptions
     const rootDirectory = factoryOptions.rootDirectory || process.cwd();
     return async (generatorOptions?: JavaGeneratorTaskOptions) => {
       if (!generatorOptions) {
-        return Promise.reject('Missing options');
+        return Promise.reject(new Error('Missing options'));
       }
-      const spawnOptions: SpawnOptions = {
+      const spawnOptions = {
         stdio: 'inherit',
         shell: true,
         cwd: rootDirectory
-      };
+      } as const satisfies SpawnOptions;
       const codegenPath = path.join(generatorOptions.targetFolder, `${generatorOptions.codegenLanguage}-${generatorOptions.codegenFileName}`);
       const cliPath = path.resolve(__dirname, '..', '..', 'resources', generatorOptions.cliFilename);
 

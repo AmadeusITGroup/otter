@@ -1,6 +1,12 @@
-import {ElementFinder} from 'protractor';
-import {CheckboxElementProfile} from '../../elements';
-import {O3rElement} from '../element';
+import {
+  ElementFinder,
+} from 'protractor';
+import {
+  CheckboxElementProfile,
+} from '../../elements';
+import {
+  O3rElement,
+} from '../element';
 
 /**
  * Implementation dedicated to karma / TestBed.

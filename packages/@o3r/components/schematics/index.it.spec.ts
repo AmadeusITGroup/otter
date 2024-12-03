@@ -5,21 +5,21 @@
  */
 const o3rEnvironment = globalThis.o3rEnvironment;
 
+import * as path from 'node:path';
 import {
   getDefaultExecSyncOptions,
   getGitDiff,
   packageManagerExec,
   packageManagerInstall,
-  packageManagerRunOnProject
+  packageManagerRunOnProject,
 } from '@o3r/test-helpers';
-import * as path from 'node:path';
 
 describe('ng add components', () => {
   test('should add components to an application', () => {
     const { workspacePath, appName, isInWorkspace, o3rVersion, libraryPath, untouchedProjectsPaths } = o3rEnvironment.testEnvironment;
-    const execAppOptions = {...getDefaultExecSyncOptions(), cwd: workspacePath};
-    expect(() => packageManagerExec({script: 'ng',args: ['add', `@o3r/components@${o3rVersion}`,
-      '--skip-confirmation', '--enable-metadata-extract', '--project-name', appName]}, execAppOptions)).not.toThrow();
+    const execAppOptions = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
+    expect(() => packageManagerExec({ script: 'ng', args: ['add', `@o3r/components@${o3rVersion}`,
+      '--skip-confirmation', '--enable-metadata-extract', '--project-name', appName] }, execAppOptions)).not.toThrow();
 
     const diff = getGitDiff(workspacePath);
     expect(diff.modified).toContain('package.json');
@@ -32,19 +32,19 @@ describe('ng add components', () => {
     expect(diff.added).toContain('apps/test-app/migration-scripts/README.md');
     expect(diff.added.length).toBe(4);
 
-    [libraryPath, ...untouchedProjectsPaths].forEach(untouchedProject => {
-      expect(diff.all.some(file => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
+    [libraryPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
+      expect(diff.all.some((file) => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
     });
 
     expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
-    expect(() => packageManagerRunOnProject(appName, isInWorkspace, {script: 'build'}, execAppOptions)).not.toThrow();
+    expect(() => packageManagerRunOnProject(appName, isInWorkspace, { script: 'build' }, execAppOptions)).not.toThrow();
   });
 
   test('should add components to a library', () => {
     const { workspacePath, libName, isInWorkspace, o3rVersion, applicationPath, untouchedProjectsPaths } = o3rEnvironment.testEnvironment;
-    const execAppOptions = {...getDefaultExecSyncOptions(), cwd: workspacePath};
-    expect(() => packageManagerExec({script: 'ng',args: ['add', `@o3r/components@${o3rVersion}`,
-      '--skip-confirmation', '--enable-metadata-extract', '--project-name', libName]}, execAppOptions)).not.toThrow();
+    const execAppOptions = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
+    expect(() => packageManagerExec({ script: 'ng', args: ['add', `@o3r/components@${o3rVersion}`,
+      '--skip-confirmation', '--enable-metadata-extract', '--project-name', libName] }, execAppOptions)).not.toThrow();
 
     const diff = getGitDiff(workspacePath);
     expect(diff.modified).toContain('package.json');
@@ -57,11 +57,11 @@ describe('ng add components', () => {
     expect(diff.added).toContain('libs/test-lib/migration-scripts/README.md');
     expect(diff.added.length).toBe(4);
 
-    [applicationPath, ...untouchedProjectsPaths].forEach(untouchedProject => {
-      expect(diff.all.some(file => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
+    [applicationPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
+      expect(diff.all.some((file) => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
     });
 
     expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
-    expect(() => packageManagerRunOnProject(libName, isInWorkspace, {script: 'build'}, execAppOptions)).not.toThrow();
+    expect(() => packageManagerRunOnProject(libName, isInWorkspace, { script: 'build' }, execAppOptions)).not.toThrow();
   });
 });

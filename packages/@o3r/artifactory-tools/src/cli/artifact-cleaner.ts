@@ -1,8 +1,11 @@
 #!/usr/bin/env node
 
-
-import type { CliWrapper } from '@o3r/telemetry';
-import { program } from 'commander';
+import type {
+  CliWrapper,
+} from '@o3r/telemetry';
+import {
+  program,
+} from 'commander';
 import * as winston from 'winston';
 
 program
@@ -14,12 +17,12 @@ program
     'Artifact repositories to clean up (comma separated) ex: \'repo1,repo2\'',
     (repos: string) => repos.split(',')
   )
-  .option('-d, --duration-kept <durationKept>', 'All artifacts older than this value (in ms) will be deleted. (Default: 604800000 ms, i.e., 7 days)', (v) => +v, 604800000)
+  .option('-d, --duration-kept <durationKept>', 'All artifacts older than this value (in ms) will be deleted. (Default: 604800000 ms, i.e., 7 days)', (v) => +v, 604_800_000)
   .option(
     '-t, --type-filter <typeFilter>',
     'List of artifact types that should be deleted (comma separated) ex: \'jar,tgz\' (Default: [\'tgz\',\'json\'])',
     (type: string) => type.split(','),
-    ['tgz','json']
+    ['tgz', 'json']
   )
   .option('--dry-run <dryRun>', 'List all files that would be deleted without actually deleting them', false)
   .parse(process.argv);
@@ -50,13 +53,12 @@ const matchFilter = (fullUrl: string, types: string[]) => {
 let url = opts.artifactoryUrl as string;
 const options = {
   headers: {
-    // eslint-disable-next-line @typescript-eslint/naming-convention
     Authorization: 'Basic ' + (opts.basicAuth as string)
   }
 } as const satisfies RequestInit;
 const limitTimestampToKeepOldArtifact = Date.now() - opts.durationKept;
-url += (url.endsWith('/') ? '' : '/') +
-  `api/search/usage?notUsedSince=${limitTimestampToKeepOldArtifact}&createdBefore=${limitTimestampToKeepOldArtifact}&repos=${(opts.repositories as string[]).join(',')}`;
+url += (url.endsWith('/') ? '' : '/')
++ `api/search/usage?notUsedSince=${limitTimestampToKeepOldArtifact}&createdBefore=${limitTimestampToKeepOldArtifact}&repos=${(opts.repositories as string[]).join(',')}`;
 
 logger.info(`Url called : ${url}`);
 
@@ -79,7 +81,7 @@ const run = async () => {
   for (const uri of uris) {
     logger.info(`Deleting ${uri}...`);
     if (!opts.dryRun) {
-      const response = await fetch(uri, {...options, method: 'DELETE'});
+      const response = await fetch(uri, { ...options, method: 'DELETE' });
       logger.info(response);
     }
   }

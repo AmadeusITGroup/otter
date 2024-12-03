@@ -1,9 +1,8 @@
 {
   "extends": "./tsconfig.build",
   "include": [
-    ".eslintrc.js",
+    "eslint*.config.mjs",
     "jest.config.js",
-    "testing/*",
-    "src/**/*.ts"
+    "testing/*"
   ]
 }

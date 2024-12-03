@@ -1,9 +1,20 @@
-import { EOL } from 'node:os';
-import { spawnSync } from 'node:child_process';
-import { promises as fs, existsSync, rmSync } from 'node:fs';
-import { tmpdir } from 'node:os';
-import { join, resolve } from 'node:path';
-import minimist from 'minimist'
+import {
+  spawnSync
+} from 'node:child_process';
+import {
+  existsSync,
+  promises as fs,
+  rmSync
+} from 'node:fs';
+import {
+  EOL,
+  tmpdir
+} from 'node:os';
+import {
+  join,
+  resolve
+} from 'node:path';
+import minimist from 'minimist';
 
 /** Default configuration */
 const defaultConfig = {
@@ -23,7 +34,7 @@ const messageTagMaps = {
     /^(bug)?fix(es)?\b/
   ],
   'breaking change': [
-    /\bbreaking([\- ]changes?)?\b/
+    /\bbreaking([ \-]changes?)?\b/
   ],
   documentation: [
     /\bdoc(s|umentation)?\b/,
@@ -36,9 +47,9 @@ const messageTagMaps = {
 
 /**
  * Get labels from the git log output command
- *
  * @param {string} targetBranch
- * @return {string[]}
+ * @param config
+ * @returns {string[]}
  */
 function getLabelsFromMessage(targetBranch, config) {
   if (!config.enableCommitMessageLabel) {
@@ -60,8 +71,8 @@ function getLabelsFromMessage(targetBranch, config) {
 
 /**
  * Get labels from project names
- *
  * @param {string} targetBranch
+ * @param config
  * @returns {Promise<string[]>}
  */
 async function getLabelsFromProjects(targetBranch, config) {
@@ -74,13 +85,13 @@ async function getLabelsFromProjects(targetBranch, config) {
     .map((file) => file.replace(/\\/g, '/')) || [];
 
   const tempDirPath = join(tmpdir(), 'pr-labels');
-  const graphJsonPath = join(tempDirPath, 'graph.json')
+  const graphJsonPath = join(tempDirPath, 'graph.json');
   spawnSync('yarn', ['nx', 'graph', '--file', graphJsonPath], { encoding: 'utf-8', shell: true });
   const { graph } = JSON.parse(await fs.readFile(graphJsonPath, { encoding: 'utf-8' }));
   rmSync(tempDirPath, { recursive: true });
   const projects = Object.entries(graph.nodes);
   const labels = [];
-  for(const [projectName, { data: project }] of projects) {
+  for (const [projectName, { data: project }] of projects) {
     if (listTouchedFiles.some((file) => file.startsWith(project.root))) {
       const packageJson = join(project.root, 'package.json');
       const /** @type {string | undefined} */ packageName = JSON.parse(await fs.readFile(packageJson, { encoding: 'utf-8' })).name;
@@ -108,7 +119,7 @@ async function getConfig() {
     return defaultConfig;
   }
 
-  const config = JSON.parse(await fs.readFile(configPath, {encoding: 'utf-8'}));
+  const config = JSON.parse(await fs.readFile(configPath, { encoding: 'utf-8' }));
 
   return {
     ...defaultConfig,
@@ -116,19 +127,18 @@ async function getConfig() {
   };
 }
 
-void(async () => {
-  const /** @type {{target: string | undefined}} */ args = minimist(process.argv.slice(2))
+void (async () => {
+  const /** @type {{target: string | undefined}} */ args = minimist(process.argv.slice(2));
   if (!args.target) {
     throw new Error('No Target provided');
   }
 
-
   const config = await getConfig();
   const target = `remotes/origin/${args.target}`;
   const labelFromMessage = getLabelsFromMessage(target, config);
-  const labelFromProject =  !config.ignoreProjectForLabels.some((label) => labelFromMessage.includes(label)) ?
-    await getLabelsFromProjects(target, config) :
-    [];
+  const labelFromProject = config.ignoreProjectForLabels.some((label) => labelFromMessage.includes(label))
+    ? []
+    : await getLabelsFromProjects(target, config);
 
   process.stdout.write(JSON.stringify([...(new Set([...labelFromMessage, ...labelFromProject]))]));
 })();

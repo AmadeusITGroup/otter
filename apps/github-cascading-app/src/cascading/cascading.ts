@@ -1,7 +1,24 @@
-import { coerce, compare, parse, valid } from 'semver';
-import { BaseLogger, CascadingConfiguration, CascadingPullRequestInfo, CheckConclusion, PullRequestContext } from './interfaces';
-import { renderFile } from 'ejs';
-import { resolve } from 'node:path';
+import {
+  resolve,
+} from 'node:path';
+import {
+  renderFile,
+} from 'ejs';
+import {
+  coerce,
+  compare,
+  lte,
+  parse,
+  type SemVer,
+  valid,
+} from 'semver';
+import {
+  BaseLogger,
+  CascadingConfiguration,
+  CascadingPullRequestInfo,
+  CheckConclusion,
+  PullRequestContext,
+} from './interfaces';
 
 /** Mark of the template to determine if the users cancelled the cascading retrigger */
 export const CANCEL_RETRIGGER_CASCADING_MARK = '!cancel re-cascading!';
@@ -14,6 +31,9 @@ export const CASCADING_BRANCH_PREFIX = 'cascading';
 
 /** Time (in ms) to wait before re-checking the mergeable status of a PR */
 export const RETRY_MERGEAGLE_STATUS_CHECK_TIMING = 3000;
+
+/** Object representing a branch with the version determined from its name */
+type BranchObject = { branch: string; semver: SemVer | undefined };
 
 /**
  * Handles the cascading to the next branch
@@ -96,12 +116,12 @@ export abstract class Cascading {
   protected abstract isBranchAhead(baseBranch: string, targetBranch: string): Promise<boolean>;
 
   /**
+   * Constructor of the Cascading class
    * @param logger Logger
    * @param username User name used for git commands
    * @param email Email used for git commands
    */
-  constructor(public logger: BaseLogger, public username = 'Auto Cascading', public email = 'cascading@otter.com') {
-  }
+  constructor(public logger: BaseLogger, public username = 'Auto Cascading', public email = 'cascading@otter.com') {}
 
   /**
    * Parse Pull Request context from the body
@@ -109,13 +129,13 @@ export abstract class Cascading {
    * @returns {undefined} if the context is not found
    */
   protected retrieveContext(content: string): PullRequestContext | undefined {
-    const match = content.match(/<!--\s*(\{.*?\})\s*-->/s);
+    const match = content.match(/<!--\s*({.*?})\s*-->/s);
     if (!match || !match[1]) {
       this.logger.warn('Failed to parse ');
       return;
     }
 
-    return JSON.parse(match[1]);
+    return JSON.parse(match[1]) as PullRequestContext;
   }
 
   /**
@@ -129,10 +149,8 @@ export abstract class Cascading {
       canBeMerged: pullRequest?.mergeable ?? true,
       id: pullRequest?.id || '',
       originBranchName: pullRequest?.originBranchName || '',
-      // eslint-disable-next-line @typescript-eslint/naming-convention
-      CANCEL_RETRIGGER_CASCADING_MARK,
-      // eslint-disable-next-line @typescript-eslint/naming-convention
-      CANCEL_BYPASS_REVIEWERS_MARK
+      cancelRetriggerCascadingMark: CANCEL_RETRIGGER_CASCADING_MARK,
+      cancelBypassReviewersMark: CANCEL_BYPASS_REVIEWERS_MARK
     });
   }
 
@@ -171,7 +189,8 @@ export abstract class Cascading {
           };
         }
       })
-      .filter(({branch, semver}) => {
+      .filter((branchObject): branchObject is BranchObject => {
+        const { branch, semver } = branchObject;
         if (semver === null) {
           this.logger.warn(`Failed to parse the branch ${branch}, it will be skipped from cascading`);
           return false;
@@ -188,12 +207,12 @@ export abstract class Cascading {
         return compare(branchObjectA.semver, branchObjectB.semver);
       });
 
-    this.logger.debug('Discovered following branches to cascade ' + JSON.stringify(branchesToCascade.map(({branch}) => branch), null, 2));
+    this.logger.debug('Discovered following branches to cascade ' + JSON.stringify(branchesToCascade.map(({ branch }) => branch), null, 2));
     return branchesToCascade;
   }
 
   /**
-   * Generate teh cascading branch name
+   * Generate the cascading branch name
    * @param baseVersion Version extracted from the base branch
    * @param targetVersion Version extracted from the target branch
    * @param configurations
@@ -283,7 +302,9 @@ export abstract class Cascading {
     this.logger.debug(`Run trigger to cascading PR from ${cascadingBranch}`);
     const openPr = await this.findOpenPullRequest(cascadingBranch, targetBranch);
 
-    if (!openPr) {
+    if (openPr) {
+      return this.updatePullRequestWithNewMessage(openPr, openPr.context || { bypassReviewers: config.bypassReviewers, currentBranch, targetBranch, isConflicting: false });
+    } else {
       this.logger.debug(`Will recreate the branch ${cascadingBranch}`);
       try {
         await this.deleteBranch(cascadingBranch);
@@ -293,8 +314,6 @@ export abstract class Cascading {
         this.logger.debug(JSON.stringify(error, null, 2));
       }
       return this.createPullRequestWithMessage(cascadingBranch, currentBranch, targetBranch, config, true);
-    } else {
-      return this.updatePullRequestWithNewMessage(openPr, openPr.context || { bypassReviewers: config.bypassReviewers, currentBranch, targetBranch, isConflicting: false });
     }
   }
 
@@ -304,7 +323,6 @@ export abstract class Cascading {
    * @param currentBranch name of the base branch of the cascading process
    * @param targetBranch name of the branch target (base of the pull request)
    * @param config
-   * @param shouldAddUpdateMessage Determine if the body of the new pull request should add the update request message
    * @param isConflicting
    */
   protected async createPullRequestWithMessage(cascadingBranch: string, currentBranch: string, targetBranch: string, config: CascadingConfiguration, isConflicting = false) {
@@ -340,6 +358,36 @@ export abstract class Cascading {
     return !checkboxLine?.[0]?.match(/^ *- \[x]/i);
   }
 
+  protected getTargetBranch(cascadingBranches: BranchObject[], currentBranchName: string, config: CascadingConfiguration) {
+    const branchIndex = cascadingBranches.findIndex(({ branch }) => branch === currentBranchName);
+    if (branchIndex === -1) {
+      this.logger.error(`The branch ${currentBranchName} is not part of the list of cascading branch. The process will stop.`);
+      return;
+    }
+
+    if (branchIndex === cascadingBranches.length - 1) {
+      this.logger.info(`The branch ${currentBranchName} is the last branch of the cascading. The process will stop.`);
+      return;
+    }
+
+    const targetBranchIndex = branchIndex + 1;
+    if (!config.onlyCascadeOnHighestMinors) {
+      return cascadingBranches[targetBranchIndex];
+    }
+
+    for (let i = targetBranchIndex; i < cascadingBranches.length; i++) {
+      const targetBranch = cascadingBranches[i];
+      const { semver } = targetBranch;
+      if (!semver) {
+        return targetBranch;
+      }
+
+      if (cascadingBranches.slice(i + 1).every((otherBranch) => otherBranch.semver?.major !== semver.major || (otherBranch.semver && lte(otherBranch.semver, semver)))) {
+        return targetBranch;
+      }
+    }
+  }
+
   /**
    * Launch the cascading process
    * @param currentBranchName name of the branch to cascade (ex: release/8.0)
@@ -365,20 +413,14 @@ export abstract class Cascading {
     this.logger.info('Cascading plugin execution');
     const branches = await this.getBranches();
     const cascadingBranches = this.getOrderedCascadingBranches(branches, config);
-    const branchIndex = cascadingBranches.findIndex(({ branch }) => branch === currentBranchName);
+    const targetBranch = this.getTargetBranch(cascadingBranches, currentBranchName, config);
 
-    if (branchIndex < 0) {
-      this.logger.error(`The branch ${currentBranchName} is not part of the list of cascading branch. The process will stop.`);
+    if (!targetBranch) {
+      this.logger.info(`No target branch found for the cascading from ${currentBranchName}. The process will stop.`);
       return;
     }
 
-    if (branchIndex === cascadingBranches.length - 1) {
-      this.logger.info(`The branch ${currentBranchName} is the last branch of the cascading. The process will stop.`);
-      return;
-    }
-
-    const currentBranch = cascadingBranches[branchIndex];
-    const targetBranch = cascadingBranches[branchIndex + 1];
+    const currentBranch = cascadingBranches.find(({ branch }) => branch === currentBranchName)!;
     const cascadingBranch = this.determineCascadingBranchName(currentBranch.semver?.format() || currentBranch.branch, targetBranch.semver?.format() || targetBranch.branch, config);
     const isAhead = await this.isBranchAhead(currentBranch.branch, targetBranch.branch);
 
