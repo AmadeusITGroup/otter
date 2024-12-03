@@ -195,27 +195,68 @@ export function ngAddLocalizationKeyFn(options: NgAddLocalizationKeySchematicsSc
             }
             if (
               ts.isVariableDeclaration(node)
-              && node.type && ts.isTypeReferenceNode(node.type)
-              && ts.isIdentifier(node.type.typeName)
-              && node.type.typeName.escapedText.toString() === translationsVariableType
+              && node.type
+              && (
+                (
+                  ts.isTypeReferenceNode(node.type)
+                  && ts.isIdentifier(node.type.typeName)
+                  && node.type.typeName.escapedText.toString() === translationsVariableType
+                )
+                || (
+                  ts.isTypeReferenceNode(node.type)
+                  && ts.isIdentifier(node.type.typeName)
+                  && node.type.typeName.escapedText.toString() === 'Readonly'
+                  && node.type.typeArguments?.[0]
+                  && ts.isTypeReferenceNode(node.type.typeArguments[0])
+                  && ts.isIdentifier(node.type.typeArguments[0].typeName)
+                  && node.type.typeArguments[0].typeName.escapedText.toString() === translationsVariableType
+                )
+              )
               && node.initializer
-              && ts.isObjectLiteralExpression(node.initializer)
             ) {
-              return factory.updateVariableDeclaration(
-                node,
-                node.name,
-                node.exclamationToken,
-                node.type,
-                factory.updateObjectLiteralExpression(
-                  node.initializer,
-                  node.initializer.properties.concat(
-                    factory.createPropertyAssignment(
-                      factory.createIdentifier(properties.keyName),
-                      factory.createStringLiteral(properties.keyValue, true)
+              if (ts.isObjectLiteralExpression(node.initializer)) {
+                return factory.updateVariableDeclaration(
+                  node,
+                  node.name,
+                  node.exclamationToken,
+                  node.type,
+                  factory.updateObjectLiteralExpression(
+                    node.initializer,
+                    node.initializer.properties.concat(
+                      factory.createPropertyAssignment(
+                        factory.createIdentifier(properties.keyName),
+                        factory.createStringLiteral(properties.keyValue, true)
+                      )
                     )
                   )
-                )
-              );
+                );
+              } else if (
+                ts.isAsExpression(node.initializer)
+                && ts.isTypeReferenceNode(node.initializer.type)
+                && ts.isIdentifier(node.initializer.type.typeName)
+                && node.initializer.type.typeName.escapedText.toString() === 'const'
+                && ts.isObjectLiteralExpression(node.initializer.expression)
+              ) {
+                return factory.updateVariableDeclaration(
+                  node,
+                  node.name,
+                  node.exclamationToken,
+                  node.type,
+                  factory.updateAsExpression(
+                    node.initializer,
+                    factory.updateObjectLiteralExpression(
+                      node.initializer.expression,
+                      node.initializer.expression.properties.concat(
+                        factory.createPropertyAssignment(
+                          factory.createIdentifier(properties.keyName),
+                          factory.createStringLiteral(properties.keyValue, true)
+                        )
+                      )
+                    ),
+                    node.initializer.type
+                  )
+                );
+              }
             }
             return ts.visitEachChild(node, visit, ctx);
           };
