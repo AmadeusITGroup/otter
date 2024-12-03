@@ -18,6 +18,10 @@ paths:
       responses:
         200:
           description: "Successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Flight'
 components:
   schemas:
     Flight:
