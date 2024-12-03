@@ -6,9 +6,11 @@ import {
   Component,
   inject,
   Input,
-  OnDestroy,
   ViewEncapsulation,
 } from '@angular/core';
+import {
+  takeUntilDestroyed,
+} from '@angular/core/rxjs-interop';
 import {
   FormBuilder,
   FormControl,
@@ -24,9 +26,6 @@ import {
   LocalizationService,
   Translatable,
 } from '@o3r/localization';
-import {
-  Subscription,
-} from 'rxjs';
 import {
   DatePickerInputPresComponent,
 } from '../../utilities';
@@ -49,7 +48,7 @@ const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
     LocalizationModule, ReactiveFormsModule, DatePickerInputPresComponent
   ]
 })
-export class LocalizationPresComponent implements Translatable<LocalizationPresTranslation>, OnDestroy {
+export class LocalizationPresComponent implements Translatable<LocalizationPresTranslation> {
   private readonly localizationService = inject(LocalizationService);
 
   /**
@@ -65,32 +64,24 @@ export class LocalizationPresComponent implements Translatable<LocalizationPresT
   @Localization('./localization-pres.localization.json')
   public translations: LocalizationPresTranslation = translations;
 
-  private readonly subscription = new Subscription();
-
   constructor() {
-    this.subscription.add(
-      this.form.controls.destination.valueChanges.subscribe((value) => {
-        let language = 'en-GB';
-        switch (value) {
-          case 'PAR': {
-            language = 'fr-FR';
-            break;
-          }
-          case 'NYC': {
-            language = 'en-US';
-            break;
-          }
+    this.form.controls.destination.valueChanges.pipe(takeUntilDestroyed()).subscribe((value) => {
+      let language = 'en-GB';
+      switch (value) {
+        case 'PAR': {
+          language = 'fr-FR';
+          break;
         }
-        this.localizationService.useLanguage(language);
-      })
-    );
+        case 'NYC': {
+          language = 'en-US';
+          break;
+        }
+      }
+      this.localizationService.useLanguage(language);
+    });
   }
 
   private formatDate(dateTime: number) {
     return formatDate(dateTime, 'yyyy-MM-dd', 'en-GB');
-  }
-
-  public ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 }

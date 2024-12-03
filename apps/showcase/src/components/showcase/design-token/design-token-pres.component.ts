@@ -6,9 +6,11 @@ import {
   Component,
   DestroyRef,
   inject,
-  OnDestroy,
   ViewEncapsulation,
 } from '@angular/core';
+import {
+  takeUntilDestroyed,
+} from '@angular/core/rxjs-interop';
 import {
   FormBuilder,
   FormControl,
@@ -23,9 +25,6 @@ import {
   StyleLazyLoader,
   StyleLazyLoaderModule,
 } from '@o3r/dynamic-content';
-import {
-  Subscription,
-} from 'rxjs';
 import {
   DatePickerInputPresComponent,
 } from '../../utilities';
@@ -46,7 +45,7 @@ import {
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DesignTokenPresComponent implements OnDestroy {
+export class DesignTokenPresComponent {
   private readonly styleLoader = inject(StyleLazyLoader);
 
   /**
@@ -56,8 +55,6 @@ export class DesignTokenPresComponent implements OnDestroy {
     theme: new FormControl<string | null>('')
   });
 
-  private readonly subscription = new Subscription();
-
   constructor() {
     let style: HTMLElement | null = null;
     const cleanUpStyle = () => {
@@ -66,20 +63,14 @@ export class DesignTokenPresComponent implements OnDestroy {
         style = null;
       }
     };
-    this.subscription.add(
-      this.form.valueChanges.subscribe((value) => {
-        cleanUpStyle();
-        if (value.theme === 'dark') {
-          style = this.styleLoader.loadStyleFromURL({ href: 'dark-theme.css' });
-        } else if (value.theme === 'horizon') {
-          style = this.styleLoader.loadStyleFromURL({ href: 'horizon-theme.css' });
-        }
-      })
-    );
+    this.form.valueChanges.pipe(takeUntilDestroyed()).subscribe((value) => {
+      cleanUpStyle();
+      if (value.theme === 'dark') {
+        style = this.styleLoader.loadStyleFromURL({ href: 'dark-theme.css' });
+      } else if (value.theme === 'horizon') {
+        style = this.styleLoader.loadStyleFromURL({ href: 'horizon-theme.css' });
+      }
+    });
     inject(DestroyRef).onDestroy(cleanUpStyle);
-  }
-
-  public ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 }

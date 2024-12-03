@@ -1,9 +1,11 @@
 import {
   Inject,
   Injectable,
-  OnDestroy,
   Optional,
 } from '@angular/core';
+import {
+  takeUntilDestroyed,
+} from '@angular/core/rxjs-interop';
 import {
   select,
   Store,
@@ -18,7 +20,6 @@ import {
   BehaviorSubject,
   combineLatest,
   Observable,
-  Subscription,
 } from 'rxjs';
 import {
   filter,
@@ -53,9 +54,7 @@ import {
 } from '../rules-engine.token';
 
 @Injectable()
-export class RulesEngineRunnerService implements OnDestroy {
-  protected subscription = new Subscription();
-
+export class RulesEngineRunnerService {
   /** Rulesets to restrict the execution of the engine */
   protected ruleSets$: Observable<string[] | undefined>;
 
@@ -109,17 +108,13 @@ export class RulesEngineRunnerService implements OnDestroy {
 
     this.upsertOperators(operatorList);
 
-    this.subscription.add(
-      this.store.pipe(
-        select(selectAllRulesets)
-      ).subscribe((rulesets: Ruleset[]) => this.engine.upsertRulesets(rulesets))
-    );
-
-    this.subscription.add(
-      this.events$.pipe(filter(() => this.enabled)).subscribe(async (events) => {
-        await this.executeActions(events);
-      })
-    );
+    this.store.pipe(
+      select(selectAllRulesets),
+      takeUntilDestroyed()
+    ).subscribe((rulesets: Ruleset[]) => this.engine.upsertRulesets(rulesets));
+    this.events$.pipe(takeUntilDestroyed(), filter(() => this.enabled)).subscribe((events) => {
+      void this.executeActions(events);
+    });
   }
 
   /**
@@ -195,11 +190,6 @@ export class RulesEngineRunnerService implements OnDestroy {
    */
   public unregisterActionHandlers(...actionHandlers: RulesEngineActionHandler[]) {
     actionHandlers.forEach((actionHandler) => this.actionHandlers.delete(actionHandler));
-  }
-
-  /** @inheritdoc */
-  public ngOnDestroy(): void {
-    this.subscription.unsubscribe();
   }
 
   /**

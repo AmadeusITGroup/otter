@@ -1,9 +1,13 @@
 import {
+  DestroyRef,
+  inject,
   Inject,
   Injectable,
-  OnDestroy,
   Optional,
 } from '@angular/core';
+import {
+  takeUntilDestroyed,
+} from '@angular/core/rxjs-interop';
 import {
   filterMessageContent,
   sendOtterMessage,
@@ -14,7 +18,6 @@ import {
 import {
   firstValueFrom,
   fromEvent,
-  Subscription,
 } from 'rxjs';
 import {
   LocalizationService,
@@ -48,10 +51,9 @@ const isLocalizationMessage = (message: any): message is AvailableLocalizationMe
 };
 
 @Injectable()
-export class LocalizationDevtoolsMessageService implements OnDestroy {
-  private readonly subscriptions = new Subscription();
-
+export class LocalizationDevtoolsMessageService {
   private readonly sendMessage = sendOtterMessage<AvailableLocalizationMessageContents>;
+  private readonly destroyRef = inject(DestroyRef);
 
   constructor(
     private readonly logger: LoggerService,
@@ -148,13 +150,9 @@ export class LocalizationDevtoolsMessageService implements OnDestroy {
 
   /** @inheritDoc */
   public activate() {
-    this.subscriptions.add(
-      fromEvent(window, 'message').pipe(filterMessageContent(isLocalizationMessage)).subscribe((e) => this.handleEvents(e))
-    );
-  }
-
-  /** @inheritDoc */
-  public ngOnDestroy() {
-    this.subscriptions.unsubscribe();
+    fromEvent(window, 'message').pipe(
+      takeUntilDestroyed(this.destroyRef),
+      filterMessageContent(isLocalizationMessage)
+    ).subscribe((e) => this.handleEvents(e));
   }
 }
