@@ -7,7 +7,9 @@ import {
 import {
   coerce,
   compare,
+  lte,
   parse,
+  type SemVer,
   valid,
 } from 'semver';
 import {
@@ -29,6 +31,9 @@ export const CASCADING_BRANCH_PREFIX = 'cascading';
 
 /** Time (in ms) to wait before re-checking the mergeable status of a PR */
 export const RETRY_MERGEAGLE_STATUS_CHECK_TIMING = 3000;
+
+/** Object representing a branch with the version determined from its name */
+type BranchObject = { branch: string; semver: SemVer | undefined };
 
 /**
  * Handles the cascading to the next branch
@@ -184,7 +189,8 @@ export abstract class Cascading {
           };
         }
       })
-      .filter(({ branch, semver }) => {
+      .filter((branchObject): branchObject is BranchObject => {
+        const { branch, semver } = branchObject;
         if (semver === null) {
           this.logger.warn(`Failed to parse the branch ${branch}, it will be skipped from cascading`);
           return false;
@@ -206,7 +212,7 @@ export abstract class Cascading {
   }
 
   /**
-   * Generate teh cascading branch name
+   * Generate the cascading branch name
    * @param baseVersion Version extracted from the base branch
    * @param targetVersion Version extracted from the target branch
    * @param configurations
@@ -352,6 +358,36 @@ export abstract class Cascading {
     return !checkboxLine?.[0]?.match(/^ *- \[x]/i);
   }
 
+  protected getTargetBranch(cascadingBranches: BranchObject[], currentBranchName: string, config: CascadingConfiguration) {
+    const branchIndex = cascadingBranches.findIndex(({ branch }) => branch === currentBranchName);
+    if (branchIndex === -1) {
+      this.logger.error(`The branch ${currentBranchName} is not part of the list of cascading branch. The process will stop.`);
+      return;
+    }
+
+    if (branchIndex === cascadingBranches.length - 1) {
+      this.logger.info(`The branch ${currentBranchName} is the last branch of the cascading. The process will stop.`);
+      return;
+    }
+
+    const targetBranchIndex = branchIndex + 1;
+    if (!config.onlyCascadeOnHighestMinors) {
+      return cascadingBranches[targetBranchIndex];
+    }
+
+    for (let i = targetBranchIndex; i < cascadingBranches.length; i++) {
+      const targetBranch = cascadingBranches[i];
+      const { semver } = targetBranch;
+      if (!semver) {
+        return targetBranch;
+      }
+
+      if (cascadingBranches.slice(i + 1).every((otherBranch) => otherBranch.semver?.major !== semver.major || (otherBranch.semver && lte(otherBranch.semver, semver)))) {
+        return targetBranch;
+      }
+    }
+  }
+
   /**
    * Launch the cascading process
    * @param currentBranchName name of the branch to cascade (ex: release/8.0)
@@ -377,20 +413,14 @@ export abstract class Cascading {
     this.logger.info('Cascading plugin execution');
     const branches = await this.getBranches();
     const cascadingBranches = this.getOrderedCascadingBranches(branches, config);
-    const branchIndex = cascadingBranches.findIndex(({ branch }) => branch === currentBranchName);
+    const targetBranch = this.getTargetBranch(cascadingBranches, currentBranchName, config);
 
-    if (branchIndex === -1) {
-      this.logger.error(`The branch ${currentBranchName} is not part of the list of cascading branch. The process will stop.`);
+    if (!targetBranch) {
+      this.logger.info(`No target branch found for the cascading from ${currentBranchName}. The process will stop.`);
       return;
     }
 
-    if (branchIndex === cascadingBranches.length - 1) {
-      this.logger.info(`The branch ${currentBranchName} is the last branch of the cascading. The process will stop.`);
-      return;
-    }
-
-    const currentBranch = cascadingBranches[branchIndex];
-    const targetBranch = cascadingBranches[branchIndex + 1];
+    const currentBranch = cascadingBranches.find(({ branch }) => branch === currentBranchName)!;
     const cascadingBranch = this.determineCascadingBranchName(currentBranch.semver?.format() || currentBranch.branch, targetBranch.semver?.format() || targetBranch.branch, config);
     const isAhead = await this.isBranchAhead(currentBranch.branch, targetBranch.branch);
 
