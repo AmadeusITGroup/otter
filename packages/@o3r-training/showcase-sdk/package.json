@@ -13,9 +13,7 @@
   "types": "index.d.ts",
   "sideEffects": false,
   "deprecated": "This package is intended for testing purposes only.",
-  "publishConfig": {
-    "access": "public"
-  },
+  "private": true,
   "exports": {
     "./package.json": {
       "default": "./package.json"
@@ -48,7 +46,6 @@
     "spec:regen": "yarn run generate --no-dry-run && amasdk-clear-index",
     "files:pack": "yarn amasdk-files-pack",
     "test": "jest --passWithNoTests",
-    "publish:package": "npm publish ./dist",
     "generate:mock": "schematics ../../@ama-sdk/schematics:mock",
     "doc:generate": "node scripts/override-readme.js && typedoc && node scripts/restore-readme.js",
     "tools:changelog": "commit-and-tag-version"
