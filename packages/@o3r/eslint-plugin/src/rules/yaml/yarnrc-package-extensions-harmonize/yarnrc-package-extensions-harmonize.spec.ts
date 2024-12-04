@@ -75,9 +75,18 @@ beforeAll(async () => {
   await fs.writeFile(path.join(fakeFolder, 'local', 'packages', 'my-package-2', 'package.json'), JSON.stringify(packageJson2));
 });
 
-ruleTester.run('json-dependency-versions-harmonize', yamlDependencyVersionsHarmonize, {
+ruleTester.run('yarnrc-dependency-versions-harmonize', yamlDependencyVersionsHarmonize, {
   valid: [
-    { code: bestVersionYaml, filename: packageToLint }
+    { code: bestVersionYaml, filename: packageToLint },
+    {
+      filename: packageToLint,
+      code: yamlToUpdate,
+      options: [{
+        ignoredDependencies: ['myDep']
+      }]
+    },
+    { filename: packageToLint, code: '' },
+    { filename: 'not/a/yaml.txt', code: 'not a yaml' }
   ],
   invalid: [
     {
