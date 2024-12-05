@@ -21,7 +21,6 @@ export class AppComponent {
   }
 
   public async setPets() {
-    /* Get the first 10 pets whose status is 'available' */
     const availablePets = await this.petStoreApi.findPetsByStatus({status: 'available'});
     this.petsWritable.set(availablePets.slice(0, 10));
   }
