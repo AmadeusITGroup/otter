@@ -1,2 +1,7 @@
 Revived flight:
 <pre>{{flight() | json }}</pre>
+
+@if (error()) {
+  Error:
+  {{ error() }}
+}
