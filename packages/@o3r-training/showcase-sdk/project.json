@@ -24,6 +24,12 @@
     },
     "lint": {
       "executor": "nx:run-commands"
+    },
+    "publish": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm publish packages/@o3r-training/showcase-sdk/dist"
+      }
     }
   },
   "tags": ["private", "showcase"]
