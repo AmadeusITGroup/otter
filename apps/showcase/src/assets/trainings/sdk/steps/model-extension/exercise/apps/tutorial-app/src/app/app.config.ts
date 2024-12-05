@@ -17,7 +17,7 @@ function dummyApiFactory(logger: Logger) {
           adapter: new SequentialMockAdapter(
             OPERATION_ADAPTER,
             {
-              '/dummy_get': [{
+              'dummyGet': [{
                 mockData: {
                   originLocationCode: 'PAR',
                   destinationLocationCode: 'NYC'

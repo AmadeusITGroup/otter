@@ -17,12 +17,19 @@ export class AppComponent {
 
   public readonly flight = signal<Flight | undefined>(undefined);
 
+  public readonly error = signal('');
+
   constructor() {
     void this.loadDummyData();
   }
 
   async loadDummyData() {
-    const dummyData = await this.dummyApi.dummyGet({});
-    this.flight.set(dummyData);
+    this.error.set('');
+    try {
+      const dummyData = await this.dummyApi.dummyGet({});
+      this.flight.set(dummyData);
+    } catch (err: any) {
+      this.error.set(err);
+    }
   }
 }
