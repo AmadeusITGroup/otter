@@ -1,5 +1,5 @@
-/* TODO create the type FlightCoreIfy which extends Flight, imported from the ../base folder */
-/*   Add an extra field `id: string` */
+// TODO Create the type FlightCoreIfy which extends Flight, imported from the ../base folder
+// TODO Add an extra field `id: string`
 
 /**
  * Extended type for Flight

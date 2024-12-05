@@ -12,7 +12,7 @@ export class AppComponent {
   /** Title of the application */
   public title = 'tutorial-app';
 
-  /** Date value used to initialize the two date variables */
+  /** Date value used to initialize the variables date and dateTime */
   public dateValue = '';
   /** Date variable of type Date */
   public date: Date | null = null;
@@ -24,6 +24,6 @@ export class AppComponent {
   }
 
   public updateValues() {
-    /* Set the values of the two variables here */
+    // TODO Set the values of the variables date and dateTime here
   }
 }

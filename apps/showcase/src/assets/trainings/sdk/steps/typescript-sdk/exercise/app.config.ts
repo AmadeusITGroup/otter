@@ -6,7 +6,7 @@ import { routes } from './app.routes';
 
 
 function petApiFactory() {
-  /* Create an ApiFetchClient and return a PetApi object */
+  // TODO Create an ApiFetchClient and return a PetApi object
 }
 
 export const appConfig: ApplicationConfig = {

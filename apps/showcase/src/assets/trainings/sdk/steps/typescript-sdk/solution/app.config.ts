@@ -6,7 +6,6 @@ import { routes } from './app.routes';
 
 
 function petApiFactory() {
-  /* Create an ApiFetchClient and return a PetApi object */
   const apiFetchClient = new ApiFetchClient(
     {
       basePath: 'https://petstore3.swagger.io/api/v3',

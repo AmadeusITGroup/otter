@@ -21,6 +21,6 @@ export class AppComponent {
   }
 
   public async setPets() {
-    /* Get the first 10 pets whose status is 'available' */
+    // TODO Get the first 10 pets whose status is 'available'
   }
 }

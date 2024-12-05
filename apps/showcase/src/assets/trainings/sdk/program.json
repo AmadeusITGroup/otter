@@ -129,27 +129,27 @@
       "htmlContentUrl": "./steps/date/instructions.md",
       "filesConfiguration": {
         "name": "utils-date",
-        "startingFile": "apps/app/src/app/app.component.ts",
+        "startingFile": "apps/tutorial-app/src/app/app.component.ts",
         "urls": [
           {
             "path": ".",
             "contentUrl": "./shared/monorepo-template.json"
           },
           {
-            "path": "./apps/app/src/app",
+            "path": "./apps/tutorial-app/src/app",
             "contentUrl": "./steps/date/exercise.json"
           }
         ],
         "solutionUrls": [
           {
-            "path": "./apps/app/src/app",
+            "path": "./apps/tutorial-app/src/app",
             "contentUrl": "./steps/date/solution.json"
           }
         ],
         "mode": "interactive",
         "commands": [
           "npm install --legacy-peer-deps --ignore-scripts --no-audit --prefer-dedupe",
-          "npm run ng run app:serve"
+          "npm run ng run tutorial-app:serve"
         ]
       }
     },

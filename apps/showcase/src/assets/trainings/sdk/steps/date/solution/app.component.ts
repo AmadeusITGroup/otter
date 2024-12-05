@@ -12,7 +12,7 @@ export class AppComponent {
   /** Title of the application */
   public title = 'tutorial-app';
 
-  /** Date value used to initialize the two date variables */
+  /** Date value used to initialize the variables date and dateTime */
   public dateValue = '2024-09-01T10:00:00+02:00';
   /** Date variable of type Date */
   public date: Date | null = null;
@@ -24,7 +24,6 @@ export class AppComponent {
   }
 
   public updateValues() {
-    /* Set the values of the two variables here */
     this.date = new Date(this.dateValue);
     this.dateTime = new utils.DateTime(this.dateValue);
   }

@@ -22,4 +22,4 @@ paths:
 components:
   schemas:
     Flight:
-    # Complete these specifications with the provided instructions
+    # TODO Complete these specifications with the provided instructions
