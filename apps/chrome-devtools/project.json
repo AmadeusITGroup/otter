@@ -138,7 +138,16 @@
       "dependsOn": ["^build"]
     },
     "lint": {
-      "executor": "nx:run-commands"
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "{projectRoot}",
+        "command": "yarn eslint \"**/*.{m,c,}{j,t}s\" \"**/*.json\" \"**/*.html\""
+      },
+      "configurations": {
+        "ci": {
+          "command": "yarn eslint \"**/*.{m,c,}{j,t}s\" \"**/*.json\" \"**/*.html\" --quiet --cache-location .cache/eslint"
+        }
+      }
     },
     "test": {
       "executor": "@nx/jest:jest",

@@ -160,7 +160,7 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
   public query<T extends O3rElement>(selector: string, returnType: O3rElementConstructor<T> | undefined): Promise<T | O3rElement> {
     const elements = this.rootElement.sourceElement.element.locator(selector);
     const element = elements.first();
-    const selectedElement: PlaywrightSourceElement = { element: element, page: this.rootElement.sourceElement.page };
+    const selectedElement = { element: element, page: this.rootElement.sourceElement.page } as const satisfies PlaywrightSourceElement;
     return Promise.resolve(new (returnType || O3rElement)(selectedElement));
   }
 
@@ -170,7 +170,7 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
   public queryNth<T extends O3rElement>(selector: string, index: number, returnType: O3rElementConstructor<T> | undefined): Promise<T | O3rElement> {
     const elements = this.rootElement.sourceElement.element.locator(selector);
     const element = elements.nth(index);
-    const selectedElement: PlaywrightSourceElement = { element: element, page: this.rootElement.sourceElement.page };
+    const selectedElement = { element: element, page: this.rootElement.sourceElement.page } as const satisfies PlaywrightSourceElement;
     return Promise.resolve(new (returnType || O3rElement)(selectedElement));
   }
 

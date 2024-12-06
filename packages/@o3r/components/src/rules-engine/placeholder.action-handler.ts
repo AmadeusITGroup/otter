@@ -1,9 +1,11 @@
 import {
   Injectable,
   Injector,
-  OnDestroy,
   Optional,
 } from '@angular/core';
+import {
+  takeUntilDestroyed,
+} from '@angular/core/rxjs-interop';
 import {
   select,
   Store,
@@ -28,7 +30,6 @@ import {
   of,
   startWith,
   Subject,
-  Subscription,
   withLatestFrom,
 } from 'rxjs';
 import {
@@ -50,9 +51,7 @@ import {
  * Service to handle async PlaceholderTemplate actions
  */
 @Injectable()
-export class PlaceholderRulesEngineActionHandler implements OnDestroy, RulesEngineActionHandler<ActionUpdatePlaceholderBlock> {
-  protected subscription = new Subscription();
-
+export class PlaceholderRulesEngineActionHandler implements RulesEngineActionHandler<ActionUpdatePlaceholderBlock> {
   protected placeholdersActions$: Subject<{ placeholderId: string; templateUrl: string; priority: number }[]> = new Subject();
 
   /** @inheritdoc */
@@ -148,7 +147,7 @@ export class PlaceholderRulesEngineActionHandler implements OnDestroy, RulesEngi
         };
       })
     );
-    this.subscription.add(filteredActions$.subscribe((placeholdersUpdates) => {
+    filteredActions$.pipe(takeUntilDestroyed()).subscribe((placeholdersUpdates) => {
       placeholdersUpdates.placeholdersTemplatesToBeCleanedUp.forEach((placeholderId) =>
         store.dispatch(deletePlaceholderTemplateEntity({
           id: placeholderId
@@ -170,7 +169,7 @@ export class PlaceholderRulesEngineActionHandler implements OnDestroy, RulesEngi
           call: this.retrieveTemplate(placeholderNewRequest.resolvedUrl)
         }));
       });
-    }));
+    });
   }
 
   /**
@@ -204,10 +203,5 @@ export class PlaceholderRulesEngineActionHandler implements OnDestroy, RulesEngi
     }));
 
     this.placeholdersActions$.next(templates);
-  }
-
-  /** @inheritdoc */
-  public ngOnDestroy(): void {
-    this.subscription.unsubscribe();
   }
 }

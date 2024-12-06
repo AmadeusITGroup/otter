@@ -1,13 +1,16 @@
 import {
+  DestroyRef,
+  inject,
   Injectable,
-  OnDestroy,
 } from '@angular/core';
+import {
+  takeUntilDestroyed,
+} from '@angular/core/rxjs-interop';
 import {
   Browser,
 } from '@capacitor/browser';
 import {
   fromEvent,
-  Subscription,
 } from 'rxjs';
 import {
   isCapacitorContext,
@@ -16,8 +19,9 @@ import {
 @Injectable({
   providedIn: 'root'
 })
-export class CapacitorTargetService implements OnDestroy {
-  private readonly subscriptions: Subscription[] = [];
+export class CapacitorTargetService {
+  private readonly destroyRef = inject(DestroyRef);
+  private hijackDone = false;
 
   private async openInCapacitorBrowser(element: EventTarget | null, event: Event) {
     if (await isCapacitorContext() && element instanceof Element) {
@@ -38,15 +42,12 @@ export class CapacitorTargetService implements OnDestroy {
    * Instead of the default action, it will open the URL using the CapacitorJS Browser plugin.
    */
   public hijackClick(): void {
-    if (this.subscriptions.length === 0) {
-      this.subscriptions.push(fromEvent(document, 'click').subscribe(async (event) => {
+    if (!this.hijackDone) {
+      fromEvent(document, 'click').pipe(takeUntilDestroyed(this.destroyRef)).subscribe(async (event) => {
         const element: EventTarget | null = event.target;
         await this.openInCapacitorBrowser(element, event);
-      }));
+      });
+      this.hijackDone = true;
     }
-  }
-
-  public ngOnDestroy() {
-    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 }

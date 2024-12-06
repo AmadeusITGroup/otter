@@ -30,9 +30,9 @@ const isMigrationLocalizationDataMatch = (localization: JSONLocalization, migrat
 /**
  * Comparator used to compare one version of localization metadata with another
  */
-export const localizationMetadataComparator: MetadataComparator<JSONLocalization, MigrationLocalizationMetadata, LocalizationMetadata> = {
+export const localizationMetadataComparator: Readonly<MetadataComparator<JSONLocalization, MigrationLocalizationMetadata, LocalizationMetadata>> = {
   getArray: getLocalizationArray,
   getIdentifier: getLocalizationName,
   isRelevantContentType,
   isMigrationDataMatch: isMigrationLocalizationDataMatch
-};
+} as const;

@@ -1,6 +1,5 @@
 import {
   Injectable,
-  OnDestroy,
   QueryList,
 } from '@angular/core';
 import {
@@ -9,7 +8,6 @@ import {
   shareReplay,
   startWith,
   Subject,
-  Subscription,
   switchMap,
 } from 'rxjs';
 import {
@@ -19,8 +17,7 @@ import {
 @Injectable({
   providedIn: 'root'
 })
-export class InPageNavPresService implements OnDestroy {
-  private readonly subscription = new Subscription();
+export class InPageNavPresService {
   private readonly linksSubject = new Subject<QueryList<InPageNavLink>>();
 
   /** Observable of links */
@@ -39,9 +36,5 @@ export class InPageNavPresService implements OnDestroy {
    */
   public initialize(inPageNavLinkDirectives: QueryList<InPageNavLink>) {
     this.linksSubject.next(inPageNavLinkDirectives);
-  }
-
-  public ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 }

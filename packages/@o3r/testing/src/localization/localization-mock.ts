@@ -18,12 +18,12 @@ import {
   of,
 } from 'rxjs';
 
-const defaultLocalizationConfiguration: Partial<LocalizationConfiguration> = {
+const defaultLocalizationConfiguration = {
   supportedLocales: ['en'],
   language: 'en',
   endPointUrl: '',
   fallbackLanguage: 'en'
-};
+} as const satisfies Partial<LocalizationConfiguration>;
 
 @Pipe({ name: 'translate' })
 export class TranslatePipeMock implements PipeTransform {

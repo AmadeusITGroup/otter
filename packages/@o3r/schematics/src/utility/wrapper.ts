@@ -85,7 +85,7 @@ export const createSchematicWithMetricsIfInstalled: SchematicWrapper = (schemati
     ) {
       context.logger.debug('`@o3r/telemetry` is not available.\nAsking to add the dependency\n' + e.toString());
 
-      const question: Question = {
+      const question = {
         type: 'confirm',
         name: 'isReplyPositive',
         message: `
@@ -94,7 +94,7 @@ It will help us to improve our tools.
 For more details and instructions on how to change these settings, see https://github.com/AmadeusITGroup/otter/blob/main/docs/telemetry/PRIVACY_NOTICE.md.
         `,
         default: false
-      };
+      } as const satisfies Question;
       const { isReplyPositive } = await prompt([question]);
       shouldInstallTelemetry = isReplyPositive;
     }

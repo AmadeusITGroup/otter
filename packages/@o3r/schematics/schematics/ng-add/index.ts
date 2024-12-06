@@ -5,15 +5,15 @@ import type {
 import {
   NodeDependencyType,
 } from '@schematics/angular/utility/dependencies';
-import type {
-  NgAddSchematicsSchema,
-} from './schema';
 import {
   createSchematicWithMetricsIfInstalled,
   type DependencyToAdd,
   getExternalDependenciesVersionRange,
   setupDependencies,
-} from '@o3r/schematics';
+} from '../../src/public_api';
+import type {
+  NgAddSchematicsSchema,
+} from './schema';
 
 /**
  * Add Otter schematics to an Angular Project

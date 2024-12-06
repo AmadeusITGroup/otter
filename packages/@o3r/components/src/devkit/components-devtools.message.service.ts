@@ -1,9 +1,13 @@
 import {
+  DestroyRef,
+  inject,
   Inject,
   Injectable,
-  OnDestroy,
   Optional,
 } from '@angular/core';
+import {
+  takeUntilDestroyed,
+} from '@angular/core/rxjs-interop';
 import {
   Store,
 } from '@ngrx/store';
@@ -18,7 +22,6 @@ import {
 import {
   firstValueFrom,
   fromEvent,
-  Subscription,
 } from 'rxjs';
 import {
   filter,
@@ -45,13 +48,11 @@ import {
 @Injectable({
   providedIn: 'root'
 })
-export class ComponentsDevtoolsMessageService implements OnDestroy, DevtoolsServiceInterface {
+export class ComponentsDevtoolsMessageService implements DevtoolsServiceInterface {
   private readonly options: ComponentsDevtoolsServiceOptions;
-
-  private readonly subscriptions = new Subscription();
   private readonly inspectorService: OtterInspectorService;
-
   private readonly sendMessage = sendOtterMessage<AvailableComponentsMessageContents>;
+  private readonly destroyRef = inject(DestroyRef);
 
   constructor(
     private readonly logger: LoggerService,
@@ -141,23 +142,15 @@ export class ComponentsDevtoolsMessageService implements OnDestroy, DevtoolsServ
 
   /** @inheritDoc */
   public activate() {
-    this.subscriptions.add(
-      fromEvent(window, 'message').pipe(filterMessageContent(isComponentsMessage)).subscribe((e) => this.handleEvents(e))
-    );
+    fromEvent(window, 'message').pipe(takeUntilDestroyed(this.destroyRef), filterMessageContent(isComponentsMessage)).subscribe((e) => this.handleEvents(e));
 
     this.inspectorService.prepareInspector();
-    this.subscriptions.add(
-      this.inspectorService.otterLikeComponentInfoToBeSent$
-        .pipe(
-          filter((info): info is OtterLikeComponentInfo => !!info)
-        ).subscribe(
-          (info) => this.sendMessage('selectedComponentInfo', info)
-        )
-    );
-  }
-
-  /** @inheritDoc */
-  public ngOnDestroy() {
-    this.subscriptions.unsubscribe();
+    this.inspectorService.otterLikeComponentInfoToBeSent$
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        filter((info): info is OtterLikeComponentInfo => !!info)
+      ).subscribe(
+        (info) => this.sendMessage('selectedComponentInfo', info)
+      );
   }
 }

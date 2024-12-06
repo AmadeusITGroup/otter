@@ -42,7 +42,7 @@
     "@o3r/eslint-plugin": "workspace:^",
     "@stylistic/eslint-plugin": "~2.7.0",
     "@types/node": "^20.0.0",
-    "@typescript-eslint/parser": "~8.12.2",
+    "@typescript-eslint/parser": "~8.16.0",
     "angular-eslint": "~18.4.0",
     "eslint": "~9.14.0",
     "eslint-import-resolver-node": "^0.3.9",
@@ -57,6 +57,6 @@
     "globals": "^15.9.0",
     "nx": "~19.5.0",
     "typescript": "~5.5.4",
-    "typescript-eslint": "~8.12.2"
+    "typescript-eslint": "~8.16.0"
   }
 }

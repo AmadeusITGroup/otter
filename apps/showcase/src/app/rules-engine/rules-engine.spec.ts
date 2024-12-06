@@ -31,6 +31,9 @@ import {
   mockTranslationModules,
 } from '@o3r/testing/localization';
 import {
+  provideMarkdown,
+} from 'ngx-markdown';
+import {
   RulesEngineComponent,
 } from './rules-engine.component';
 
@@ -57,7 +60,8 @@ describe('RulesEngineComponent', () => {
         RouterModule.forRoot([]),
         ...mockTranslationModules(localizationConfiguration, mockTranslations, mockTranslationsCompilerProvider),
         AsyncPipe
-      ]
+      ],
+      providers: [provideMarkdown()]
     });
     global.fetch = jest.fn(() =>
       Promise.resolve({

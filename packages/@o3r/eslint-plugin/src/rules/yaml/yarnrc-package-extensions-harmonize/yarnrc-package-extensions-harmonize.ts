@@ -1,8 +1,7 @@
 import * as path from 'node:path';
 import * as semver from 'semver';
-import {
-  type AST,
-  getStaticYAMLValue,
+import type {
+  AST,
 } from 'yaml-eslint-parser';
 import {
   findWorkspacePackageJsons,
@@ -28,6 +27,14 @@ export interface YarnrcPackageExtensionsHarmonizeOptions {
   /** List of dependency types to validate in .yarnrc.yml */
   yarnrcDependencyTypes: string[];
 }
+
+const isYAMLScalar = (node: AST.YAMLWithMeta | AST.YAMLContent | null): node is AST.YAMLScalar => node?.type === 'YAMLScalar';
+
+const getStaticYAMLValue = (node: AST.YAMLWithMeta | AST.YAMLContent | null) => {
+  return isYAMLScalar(node)
+    ? node.value?.toString()
+    : undefined;
+};
 
 const defaultOptions: [YarnrcPackageExtensionsHarmonizeOptions] = [{
   ignoredDependencies: [],
@@ -99,48 +106,47 @@ export default createRule<[YarnrcPackageExtensionsHarmonizeOptions, ...any], 've
     const ignoredDependencies = options.ignoredDependencies.map((dep) => new RegExp(dep.replace(/[$()+.?[\\\]^{|}]/g, '\\$&').replace(/\*/g, '.*')));
 
     if (parserServices.isYAML) {
-      const rule = (node: AST.YAMLPair) => {
-        if (node.value) {
-          const range = getStaticYAMLValue(node.value)?.toString();
-          const parent = node.parent.parent && node.parent.parent.type === 'YAMLPair' && getStaticYAMLValue(node.parent.parent.key!)?.toString();
-          const baseNode = node.parent.parent.parent.parent?.parent?.parent;
-          const isCorrectNode = baseNode && baseNode.type === 'YAMLPair' && getStaticYAMLValue(baseNode.key!)?.toString() === 'packageExtensions';
-          if (isCorrectNode && semver.validRange(range) && parent && options.yarnrcDependencyTypes.includes(parent)) {
-            const depName = node.key && getStaticYAMLValue(node.key)?.toString();
-            if (!depName || !bestRanges[depName] || ignoredDependencies.some((ignore) => ignore.test(depName))) {
-              return;
-            }
-            const minYarnrcVersion = semver.minVersion(range!);
-            const minBestRangeVersion = semver.minVersion(bestRanges[depName].range);
-            if (minYarnrcVersion && minBestRangeVersion && semver.lt(minYarnrcVersion, minBestRangeVersion)) {
-              const version = bestRanges[depName].range;
-              const packageJsonFile = bestRanges[depName].path;
-              context.report({
-                loc: node.value.loc,
-                messageId: 'error',
-                data: {
-                  depName,
-                  version,
-                  packageJsonFile
-                },
-                fix: (fixer) => fixer.replaceTextRange(node.value!.range, `${version}`),
-                suggest: [
-                  {
-                    messageId: 'versionUpdate',
-                    data: {
-                      version
-                    },
-                    fix: (fixer) => fixer.replaceTextRange(node.value!.range, `${version}`)
-                  }
-                ]
-              });
+      return {
+        // eslint-disable-next-line @typescript-eslint/naming-convention -- name required by Yaml Eslint parser
+        YAMLPair: (node: AST.YAMLPair) => {
+          if (node.value) {
+            const range = getStaticYAMLValue(node.value)?.toString();
+            const parent = node.parent.parent && node.parent.parent.type === 'YAMLPair' && getStaticYAMLValue(node.parent.parent.key)?.toString();
+            const baseNode = node.parent.parent.parent.parent?.parent?.parent;
+            const isCorrectNode = baseNode && baseNode.type === 'YAMLPair' && getStaticYAMLValue(baseNode.key)?.toString() === 'packageExtensions';
+            if (isCorrectNode && semver.validRange(range) && parent && options.yarnrcDependencyTypes.includes(parent)) {
+              const depName = node.key && getStaticYAMLValue(node.key)?.toString();
+              if (!depName || !bestRanges[depName] || ignoredDependencies.some((ignore) => ignore.test(depName))) {
+                return;
+              }
+              const minYarnrcVersion = semver.minVersion(range!);
+              const minBestRangeVersion = semver.minVersion(bestRanges[depName].range);
+              if (minYarnrcVersion && minBestRangeVersion && semver.lt(minYarnrcVersion, minBestRangeVersion)) {
+                const version = bestRanges[depName].range;
+                const packageJsonFile = bestRanges[depName].path;
+                context.report({
+                  loc: node.value.loc,
+                  messageId: 'error',
+                  data: {
+                    depName,
+                    version,
+                    packageJsonFile
+                  },
+                  fix: (fixer) => fixer.replaceTextRange(node.value!.range, `${version}`),
+                  suggest: [
+                    {
+                      messageId: 'versionUpdate',
+                      data: {
+                        version
+                      },
+                      fix: (fixer) => fixer.replaceTextRange(node.value!.range, `${version}`)
+                    }
+                  ]
+                });
+              }
             }
           }
         }
-      };
-
-      return {
-        YAMLPair: rule
       };
     }
     return {};

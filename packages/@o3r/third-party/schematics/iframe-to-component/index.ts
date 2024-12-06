@@ -73,9 +73,16 @@ export function ngAddIframeFn(options: NgAddIframeSchematicsSchema): Rule {
             from: '@angular/core',
             importNames: [
               'AfterViewInit',
+              'DestroyRef',
               'ElementRef',
-              'OnDestroy',
+              'inject',
               'viewChild'
+            ]
+          },
+          {
+            from: '@angular/core/rxjs-interop',
+            importNames: [
+              'takeUntilDestroyed'
             ]
           },
           {
@@ -83,12 +90,6 @@ export function ngAddIframeFn(options: NgAddIframeSchematicsSchema): Rule {
             importNames: [
               'generateIFrameContent',
               'IframeBridge'
-            ]
-          },
-          {
-            from: 'rxjs',
-            importNames: [
-              'Subscription'
             ]
           }
         ]),
@@ -105,7 +106,7 @@ export function ngAddIframeFn(options: NgAddIframeSchematicsSchema): Rule {
               const visit = (node: ts.Node): ts.Node => {
                 if (ts.isClassDeclaration(node)) {
                   const implementsClauses = node.heritageClauses?.find((heritageClause) => heritageClause.token === ts.SyntaxKind.ImplementsKeyword);
-                  const interfaceToImplements = generateImplementsExpressionWithTypeArguments('OnDestroy, AfterViewInit');
+                  const interfaceToImplements = generateImplementsExpressionWithTypeArguments('AfterViewInit');
 
                   const deduplicateHeritageClauses = (clauses: any[]) =>
                     clauses.filter((h, i) =>
@@ -124,64 +125,47 @@ export function ngAddIframeFn(options: NgAddIframeSchematicsSchema): Rule {
                     .concat(ts.getDecorators(node) || [])
                     .concat(ts.getModifiers(node) || []);
 
-                  const hasSubscriptions = node.members.find((classElement) =>
-                    ts.isPropertyDeclaration(classElement)
-                    && ts.isIdentifier(classElement.name)
-                    && classElement.name.escapedText.toString() === 'subscriptions'
-                  );
-
                   const propertiesToAdd = generateClassElementsFromString(`
-                    private frame = viewChild.required<ElementRef<HTMLIFrameElement>>('frame');
-                    private bridge?: IframeBridge;
-                    ${hasSubscriptions ? '' : 'private subscriptions: Subscription[] = [];'}
+  private frame = viewChild.required<ElementRef<HTMLIFrameElement>>('frame');
+  private bridge?: IframeBridge;
+  private readonly destroyRef = inject(DestroyRef);
                   `);
 
                   const newNgAfterViewInit = getSimpleUpdatedMethod(node, factory, 'ngAfterViewInit', generateBlockStatementsFromString(`
-                  const nativeElem = this.frame().nativeElement;
-                  if (nativeElem.contentDocument) {
-                    nativeElem.contentDocument.write(
-                      generateIFrameContent(
-                        '', // third-party-script-url
-                        '' // third-party-html-headers-to-add
-                      )
-                    );
-                    nativeElem.contentDocument.close();
-                  }
-                  if (nativeElem.contentWindow) {
-                    this.bridge = new IframeBridge(window, nativeElem);
-                    this.subscriptions.push(
-                      this.bridge.messages$.subscribe((message) => {
-                        switch (message.action) {
-                          // custom logic based on received message
-                          default:
-                            console.warn('Received unsupported action: ', message.action);
-                        }
-                      })
-                    );
-                  }
+    const nativeElem = this.frame().nativeElement;
+    if (nativeElem.contentDocument) {
+      nativeElem.contentDocument.write(
+        generateIFrameContent(
+          '', // third-party-script-url
+          '' // third-party-html-headers-to-add
+        )
+      );
+      nativeElem.contentDocument.close();
+    }
+    if (nativeElem.contentWindow) {
+      this.bridge = new IframeBridge(window, nativeElem);
+      this.bridge.messages$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((message) => {
+        switch (message.action) {
+          // custom logic based on received message
+          default:
+            console.warn('Received unsupported action: ', message.action);
+        }
+      });
+    }
                 `));
 
-                  const newNgOnDestroy = getSimpleUpdatedMethod(node, factory, 'ngOnDestroy', generateBlockStatementsFromString(`
-                    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
-                  `));
-
                   const newMembers = node.members
-                    .filter((classElement) => !(
-                      findMethodByName('ngAfterViewInit')(classElement)
-                      || (!hasSubscriptions && findMethodByName('ngOnDestroy')(classElement))
-                    ))
+                    .filter((classElement) => !findMethodByName('ngAfterViewInit')(classElement))
                     .concat(
                       propertiesToAdd,
-                      newNgAfterViewInit,
-                      ...(hasSubscriptions ? [] : [newNgOnDestroy])
+                      newNgAfterViewInit
                     )
                     .sort(sortClassElement);
 
                   addCommentsOnClassProperties(
                     newMembers,
                     {
-                      bridge: 'Iframe object template reference',
-                      subscriptions: 'List of subscriptions to unsubscribe on destroy'
+                      bridge: 'Iframe object template reference'
                     }
                   );
 

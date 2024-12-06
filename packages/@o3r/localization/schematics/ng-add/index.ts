@@ -50,6 +50,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
     const depsInfo = getO3rPeerDeps(packageJsonPath);
     context.logger.info(`The package ${depsInfo.packageName as string} comes with a debug mechanism`);
     context.logger.info('Get information on https://github.com/AmadeusITGroup/otter/tree/main/docs/localization/LOCALIZATION.md#Debugging');
+
     const { NodeDependencyType } = await import('@schematics/angular/utility/dependencies');
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
     const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {

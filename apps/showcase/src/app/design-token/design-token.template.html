@@ -37,11 +37,23 @@
       <a href="https://github.com/AmadeusITGroup/otter/blob/main/apps/showcase/src/components/showcase/design" target="_blank" rel="noopener">Source code</a>
     </div>
     <h2 id="design-token-install">How to install</h2>
-    <o3r-copy-text-pres [wrap]="true" language="bash" text="ng add @o3r/design"></o3r-copy-text-pres>
+    <markdown clipboard ngPreserveWhitespaces>
+      ```bash
+      ng add &#64;o3r/design
+      ```
+    </markdown>
     <h2 id="configuration-add-config-later">How to add design-tokens to a component</h2>
-    <o3r-copy-text-pres [wrap]="true" language="bash" text="ng g design-token-to-component --path='path/to/the/component/class/file'"></o3r-copy-text-pres>
-    <h2 id="design-token-install">How to extract design-tokens from Sass files</h2>
-    <o3r-copy-text-pres [wrap]="true" language="bash" text="ng g extract-token --component-file-patterns='path/to/the/components/**/*.scss'"></o3r-copy-text-pres>
+    <markdown clipboard ngPreserveWhitespaces>
+      ```bash
+      ng g design-token-to-component --path='path/to/the/component/class/file'
+      ```
+    </markdown>
+    <h2 id="design-token-extract">How to extract design-tokens from Sass files</h2>
+    <markdown clipboard ngPreserveWhitespaces>
+      ```bash
+      ng g extract-token --component-file-patterns='path/to/the/components/**/*.scss'
+      ```
+    </markdown>
     <h2 id="design-token-references">References</h2>
     <div>
       <ul>

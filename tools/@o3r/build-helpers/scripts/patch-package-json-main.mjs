@@ -42,12 +42,12 @@ const updateField = (field, originalPath) => {
         .map((ext) => resolve(distPath, path.replace(/\.ts$/, `.${ext}`)))
         .find((newPath) => existsSync(newPath));
       if (newSourcePath) {
-        return { field, path: './' + posix.normalize(relative(distFolder, newSourcePath)) };
+        return { field, path: './' + posix.normalize(relative(distFolder, newSourcePath)).replace(/\\+/g, '/') };
       }
     } else if (typeFields.includes(field)) {
       const newTypePath = resolve(distPath, path.replace(/\.ts$/, '.d.ts'));
       if (existsSync(newTypePath)) {
-        return { field, path: './' + posix.normalize(relative(distFolder, newTypePath)) };
+        return { field, path: './' + posix.normalize(relative(distFolder, newTypePath)).replace(/\\+/g, '/') };
       }
     }
   }

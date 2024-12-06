@@ -76,9 +76,6 @@ import {
   PetApi,
 } from '@o3r-training/showcase-sdk';
 import {
-  HIGHLIGHT_OPTIONS,
-} from 'ngx-highlightjs';
-import {
   CLIPBOARD_OPTIONS,
   provideMarkdown,
 } from 'ngx-markdown';
@@ -101,14 +98,14 @@ import {
   AppComponent,
 } from './app.component';
 
-const runtimeChecks: Partial<RuntimeChecks> = {
+const runtimeChecks = {
   strictActionImmutability: false,
   strictActionSerializability: false,
   strictActionTypeUniqueness: !isDevMode(),
   strictActionWithinNgZone: !isDevMode(),
   strictStateImmutability: !isDevMode(),
   strictStateSerializability: false
-};
+} as const satisfies Partial<RuntimeChecks>;
 
 registerLocaleData(localeEN, 'en-GB');
 registerLocaleData(localeFR, 'fr-FR');
@@ -182,19 +179,6 @@ export function registerCustomComponents(): Map<string, any> {
   ],
   providers: [
     { provide: MESSAGE_FORMAT_CONFIG, useValue: {} },
-    {
-      provide: HIGHLIGHT_OPTIONS,
-      useValue: {
-        coreLibraryLoader: () => import('highlight.js/lib/core'),
-        languages: {
-          bash: () => import('highlight.js/lib/languages/bash'),
-          css: () => import('highlight.js/lib/languages/css'),
-          json: () => import('highlight.js/lib/languages/json'),
-          typescript: () => import('highlight.js/lib/languages/typescript'),
-          xml: () => import('highlight.js/lib/languages/xml')
-        }
-      }
-    },
     { provide: LOGGER_CLIENT_TOKEN, useValue: new ConsoleLogger() },
     { provide: PetApi, useFactory: petApiFactory, deps: [LoggerService] },
     { provide: OTTER_CONFIGURATION_DEVTOOLS_OPTIONS, useValue: { isActivatedOnBootstrap: true } },

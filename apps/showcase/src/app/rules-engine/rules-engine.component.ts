@@ -53,14 +53,15 @@ import {
 import {
   CurrentTimeFactsService,
   dateInNextMinutes,
-  Operator,
   Rule,
   RulesEngineDevtoolsModule,
   RulesEngineRunnerModule,
   RulesEngineRunnerService,
   Ruleset,
-  UnaryOperator,
 } from '@o3r/rules-engine';
+import {
+  MarkdownModule,
+} from 'ngx-markdown';
 import {
   firstValueFrom,
 } from 'rxjs';
@@ -68,7 +69,6 @@ import {
   RulesEnginePresComponent,
 } from '../../components/showcase/rules-engine/index';
 import {
-  CopyTextPresComponent,
   IN_PAGE_NAV_PRES_DIRECTIVES,
   InPageNavLink,
   InPageNavLinkDirective,
@@ -103,11 +103,11 @@ import {
     ConfigOverrideStoreModule,
     AssetPathOverrideStoreModule,
     LocalizationOverrideStoreModule,
-    CopyTextPresComponent,
     RouterModule,
     IN_PAGE_NAV_PRES_DIRECTIVES,
     NgbNavModule,
-    AsyncPipe
+    AsyncPipe,
+    MarkdownModule
   ],
   templateUrl: './rules-engine.template.html',
   styleUrls: ['./rules-engine.style.scss'],
@@ -139,8 +139,8 @@ export class RulesEngineComponent implements AfterViewInit {
       inject(AssetRulesEngineActionHandler),
       inject(LocalizationRulesEngineActionHandler)
     );
-    this.rulesEngineService.engine.upsertOperators([duringSummer] as UnaryOperator[]);
-    this.rulesEngineService.engine.upsertOperators([dateInNextMinutes] as Operator[]);
+    this.rulesEngineService.engine.upsertOperators([duringSummer]);
+    this.rulesEngineService.engine.upsertOperators([dateInNextMinutes]);
     inject(TripFactsService).register();
     const currentTimeFactsService = inject(CurrentTimeFactsService);
     currentTimeFactsService.register();

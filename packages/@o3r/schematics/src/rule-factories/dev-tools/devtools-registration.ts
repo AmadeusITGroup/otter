@@ -1,6 +1,6 @@
 import {
   chain,
-  Rule,
+  type Rule,
 } from '@angular-devkit/schematics';
 import {
   isImported,

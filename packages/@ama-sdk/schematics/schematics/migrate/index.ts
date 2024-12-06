@@ -32,7 +32,7 @@ import {
   MigrateSchematicsSchemaOptions,
 } from './schema';
 
-const tsMigrationMap: MigrationRulesMap = {
+const tsMigrationMap = {
   '~10.3.2': updateOpenApiVersionInProject(),
   '11.0.*': [
     updateRegenScript
@@ -40,7 +40,7 @@ const tsMigrationMap: MigrationRulesMap = {
   '11.4.0-alpha.0': [
     updateV114
   ]
-};
+} as const satisfies MigrationRulesMap;
 
 /**
  * Facilitate the migration of a version to another by the run of migration rules

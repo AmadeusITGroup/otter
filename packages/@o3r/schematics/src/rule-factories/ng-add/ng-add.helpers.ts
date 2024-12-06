@@ -8,9 +8,9 @@ import {
   chain,
   externalSchematic,
   noop,
-  Rule,
-  Schematic,
-  SchematicContext,
+  type Rule,
+  type Schematic,
+  type SchematicContext,
 } from '@angular-devkit/schematics';
 import {
   NodePackageInstallTask,
@@ -18,9 +18,6 @@ import {
 import {
   NodeDependencyType,
 } from '@schematics/angular/utility/dependencies';
-import {
-  lastValueFrom,
-} from 'rxjs';
 import type {
   PackageJson,
 } from 'type-fest';
@@ -145,7 +142,10 @@ export function ngAddPackages(packages: string[], options?: Omit<NgAddPackageOpt
         hideOutput: false,
         quiet: false
       } as any));
-      await lastValueFrom(context.engine.executePostTasks());
+
+      await new Promise<void>((resolve, reject) =>
+        context.engine.executePostTasks().subscribe({ next: () => { /* don't store data */ }, complete: () => resolve(), error: (errors: Error) => reject(errors) })
+      );
 
       const ngAddsToApply = packagesToInstall
         .map((packageName) => ({ packageName, ngAddCollection: getNgAddSchema(packageName, context) }))

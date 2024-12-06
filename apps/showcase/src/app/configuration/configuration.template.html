@@ -28,7 +28,7 @@
       </p>
       <o3r-configuration-pres [config]="config()"></o3r-configuration-pres>
       <div class="row">
-        <o3r-copy-text-pres language="html" [text]="codeConfig()" class="col-12 col-md-8 col-lg-9"></o3r-copy-text-pres>
+        <markdown clipboard ngPreserveWhitespaces [data]="codeConfig() | language: 'html'" class="col-12 col-md-8 col-lg-9"></markdown>
         <div class="d-flex gap-2 align-self-start mt-md-2 pb-3 col-12 col-md-4 col-lg-3">
           <button type="button" class="btn btn-primary" id="btn-override-config" [disabled]="!!config()"
                   [class.disabled]="config()" (click)="toggleConfig()">Override</button>
@@ -43,19 +43,39 @@
     </div>
     <h2 id="configuration-install">How to install</h2>
     <div>
-      <o3r-copy-text-pres [wrap]="true" language="bash" text="ng add @o3r/configuration"></o3r-copy-text-pres>
+      <markdown clipboard ngPreserveWhitespaces>
+        ```bash
+        ng add &#64;o3r/configuration
+        ```
+      </markdown>
     </div>
     <h2 id="configuration-component-generation">How to generate a configurable component</h2>
-    <o3r-copy-text-pres [wrap]="true" language="bash" text="ng g component ComponentName --use-otter-config"></o3r-copy-text-pres>
+    <markdown clipboard ngPreserveWhitespaces>
+      ```bash
+      ng g component ComponentName --use-otter-config
+      ```
+    </markdown>
     <h2 id="configuration-add-config-later">How to add configuration to a component</h2>
-    <o3r-copy-text-pres [wrap]="true" language="bash" text="ng g configuration-to-component --path='path/to/the/component/class/file'"></o3r-copy-text-pres>
+    <markdown clipboard ngPreserveWhitespaces>
+      ```bash
+      ng g configuration-to-component --path='path/to/the/component/class/file'
+      ```
+    </markdown>
     <h2 id="configuration-metadata">Metadata</h2>
     <div>
       <h3>How to extract</h3>
-      <o3r-copy-text-pres [wrap]="true" language="bash" text="ng run project-name:extract-components"></o3r-copy-text-pres>
+      <markdown clipboard ngPreserveWhitespaces>
+        ```bash
+        ng run project-name:extract-components
+        ```
+      </markdown>
       <p>It will extract components' configuration and generate the two following files: <code>component.config.metadata.json</code> and <code>component.class.metadata.json</code></p>
       <p>Check the list of options available by running:</p>
-      <o3r-copy-text-pres [wrap]="true" language="bash" text="ng run project-name:extract-components --help"></o3r-copy-text-pres>
+      <markdown clipboard ngPreserveWhitespaces>
+        ```bash
+        ng run project-name:extract-components --help
+        ```
+      </markdown>
     </div>
     <h2 id="configuration-references">References</h2>
     <div>

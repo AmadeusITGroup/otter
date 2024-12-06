@@ -229,11 +229,11 @@ function ngGeneratePageFn(options: NgGeneratePageSchematicsSchema): Rule {
    */
   const updateAppRoutingModule: Rule = (tree: Tree, context: SchematicContext) => {
     const indexFilePath = path.posix.join(strings.dasherize(options.scope), strings.dasherize(options.name), 'index');
-    const route: Route = {
+    const route = {
       path: strings.dasherize(options.name),
       import: `./${indexFilePath.replace(/[/\\]/g, '/')}`,
       module: `${pageName}${options.standalone ? 'Component' : 'Module'}`
-    };
+    } as const satisfies Route;
     if (options.appRoutingModulePath) {
       return insertRoute(tree, context, options.appRoutingModulePath, route, options.standalone);
     }

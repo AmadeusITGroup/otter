@@ -34,11 +34,11 @@ export function applyEsLintFix(_prootPath = '/', extension: string[] = ['ts'], o
     return noop();
   }
 
-  const linterOptions: LinterOptions = {
+  const linterOptions = {
     continueOnError: true,
     hideWarnings: true,
     ...options
-  };
+  } as const satisfies LinterOptions;
 
   return (tree: Tree, context: SchematicContext) => {
     const filesToBeLint = tree.actions

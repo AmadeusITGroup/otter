@@ -22,8 +22,10 @@ import {
   O3rComponent,
 } from '@o3r/core';
 import {
+  MarkdownModule,
+} from 'ngx-markdown';
+import {
   ConfigurationPresComponent,
-  CopyTextPresComponent,
   IN_PAGE_NAV_PRES_DIRECTIVES,
   InPageNavLink,
   InPageNavLinkDirective,
@@ -33,7 +35,7 @@ import {
   ConfigurationPresConfig,
 } from '../../components/showcase/configuration/configuration-pres.config';
 
-const CONFIG_OVERRIDE: ConfigurationPresConfig = {
+const CONFIG_OVERRIDE = {
   inXDays: 30,
   destinations: [
     { cityName: 'Manchester', available: true },
@@ -41,7 +43,7 @@ const CONFIG_OVERRIDE: ConfigurationPresConfig = {
     { cityName: 'Dallas', available: true }
   ],
   shouldProposeRoundTrip: true
-};
+} as const satisfies ConfigurationPresConfig;
 
 @O3rComponent({ componentType: 'Page' })
 @Component({
@@ -51,9 +53,9 @@ const CONFIG_OVERRIDE: ConfigurationPresConfig = {
     RouterModule,
     ConfigurationPresComponent,
     ConfigurationBaseServiceModule,
-    CopyTextPresComponent,
     IN_PAGE_NAV_PRES_DIRECTIVES,
-    AsyncPipe
+    AsyncPipe,
+    MarkdownModule
   ],
   templateUrl: './configuration.template.html',
   styleUrls: ['./configuration.style.scss'],

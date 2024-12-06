@@ -4,20 +4,20 @@
       1. [Submit from page](#page-submit)
       2. [Submit from presenter](#presenter-submit)
   1. [Handle inline errors at submit](#handle-inline-error-submit)
-      
+
 <a name="form-submit"></a>
-# Forms Submit and Intercommunication 
+# Forms Submit and Intercommunication
 
 <a name="container-presenter"></a>
 ### Container presenter communication
 
 Having the __presenter__ implementing [ControlValueAccessor](https://angular.io/api/forms/ControlValueAccessor), it will __propagate__ all the __value/status changes__ done inside the __presenter form object__ to the parent, in our case the container.
-In this way it will behave as an __HTML input element__ on which we can __bind__ a [FormControl](https://angular.io/api/forms/FormControl#description).   
-Also, the presenter is implementing [Validator](https://angular.io/api/forms/Validator) interface, if your form validators are only synchronous or [AsyncValidator](https://angular.io/api/forms/AsyncValidator) interface if the form needs asynchronous validators. See [FORM_VALIDATION](./FORM_VALIDATION.md) for more details about validation in Otter.  
-Implementing this interface gives us the possibility to define, in the __validate__ method, the error object model which will be __propagated__ to the parent/container. See [FORM_ERRORS](./FORM_ERRORS.md) for details.  
+In this way it will behave as an __HTML input element__ on which we can __bind__ a [FormControl](https://angular.io/api/forms/FormControl#description).
+Also, the presenter is implementing [Validator](https://angular.io/api/forms/Validator) interface, if your form validators are only synchronous or [AsyncValidator](https://angular.io/api/forms/AsyncValidator) interface if the form needs asynchronous validators. See [FORM_VALIDATION](./FORM_VALIDATION.md) for more details about validation in Otter.
+Implementing this interface gives us the possibility to define, in the __validate__ method, the error object model which will be __propagated__ to the parent/container. See [FORM_ERRORS](./FORM_ERRORS.md) for details.
 
 The container will apply the [Form Control Directive](https://angular.io/api/forms/FormControlDirective) to the presenter html tag in order to:
-   * __set the default value__ for the presenter form object. 
+   * __set the default value__ for the presenter form object.
    * __listen to the valueChanges__
    * __listen status changes__
    * easily __get the errors propagated__ by the presenter
@@ -37,11 +37,11 @@ export interface FormsPocPresConfig extends Configuration {
   /** Configuration to show/hide the submit button */
   showSubmitButton: boolean;
   ...
-}  
-```    
-In both cases the submit logic is handled in the container. 
-When submit is triggered either by the presenter or the page, it is only notifying the container that a submit action was fired. The event is captured in the container and it is calling the execution of submit logic.  
-The container will handle business logic at submit and when it has finished, it will emit an event (__submitted__) with a boolean value (`true` if the submit is considered successful, `false` otherwise) which can be intercepted at page level.   
+}
+```
+In both cases the submit logic is handled in the container.
+When submit is triggered either by the presenter or the page, it is only notifying the container that a submit action was fired. The event is captured in the container and it is calling the execution of submit logic.
+The container will handle business logic at submit and when it has finished, it will emit an event (__submitted__) with a boolean value (`true` if the submit is considered successful, `false` otherwise) which can be intercepted at page level.
 
 <a name="page-submit"></a>
 #### Submit from page
@@ -50,8 +50,8 @@ We propose a way of notifying the container that a submission has been triggered
 
 * __Passing an observable as an input to the container__
   * Page component template
-  
-The _submitTrigger$_ observable is passed as input to the container.  
+
+The _submitTrigger$_ observable is passed as input to the container.
   ```typescript
   <o3r-forms-poc-cont
     [config]="{presFormsPocConfig: {showSubmitButton: false}}"
@@ -74,53 +74,53 @@ The _submitTrigger$_ observable is passed as input to the container.
     ...
   }
   ```
-  * In the container we receive the observable as an input, and each time the observable emits we execute the submit logic.  
+  * In the container we receive the observable as an input, and each time the observable emits we execute the submit logic.
   Note that we have put in place an [@AsyncInput](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40o3r/forms/src/annotations/async-input.ts) decorator in __@o3r/forms__ to make sure that we will not have unhandled subscriptions if the reference of the input observable changes.
   ```typescript
   ...
-  import { AsyncInput ...} from '@o3r/forms';   
+  import { AsyncInput ...} from '@o3r/forms';
   ...
     /** Observable used to notify the component that a submit has been fired from the page */
     @Input()
     @AsyncInput()
     public submitTrigger$: Observable<boolean>;
-  
+
     /**
      * Emit an event when the submit has been fired from the component (block)
      */
     @Output() onSubmitForm: EventEmitter<void> = new EventEmitter<void>();
-  
+
     /**
      * Emit an event at the end of the submit executed logic
      */
     @Output() onSubmitted: EventEmitter<boolean> = new EventEmitter<boolean>();
-  
+
+    private readonly destroyRef = inject(DestroyRef);
+
     ...
     ngOnInit() {
       this.formsPocPresContext$.next(this.getFormsPocPresContext({}));
-  
+
       if (this.submitTrigger$) {
-        this.subscriptions.push(
-          this.submitTrigger$.subscribe((_value) => {
-            this.submitAction();
-          })
-        );
+        this.submitTrigger$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((_value) => {
+          this.submitAction();
+        });
       }
     }
-  
+
     submitAction() {
       // this contains the logic executed at submit
-      ... 
+      ...
       // Emit an event at the end of the submit logic execution
       const isValid = true; // means that the submit logic is successful
       this.onSubmitted.emit(isValid);
     }
   ```
-  
-<a name="presenter-submit"></a>  
+
+<a name="presenter-submit"></a>
 #### Submit from presenter
-An event will be emitted when the submit of the form is fired (click on submit button, ENTER key ...), notifying the container about this. No logic is done at presenter level.  
-As in the page submit, the submit logic will be handled inside the container.  
+An event will be emitted when the submit of the form is fired (click on submit button, ENTER key ...), notifying the container about this. No logic is done at presenter level.
+As in the page submit, the submit logic will be handled inside the container.
 In the following example we are using the same function to execute the logic as in the page submit.
 
 * Container component
@@ -134,7 +134,7 @@ In the following example we are using the same function to execute the logic as 
     this.traveler = {firstName: '', lastName: 'TestUser', dateOfBirth: new utils.Date()};
     this.mainFormControl = new FormControl(this.traveler);
   }
-  ...  
+  ...
 /** Submit event received from the presenter */
   onSubmit() {
     this.onSubmitForm.emit();
@@ -170,11 +170,11 @@ In the following example we are using the same function to execute the logic as 
 <a name="handle-inline-error-submit"></a>
 ### Handle inline errors at submit, before interacting with the form
 At the first display of the form there is no inline error shown. If there is no interaction with the form and submit is triggered, all invalid fields should display inline errors.
-For this we have to mark the controls as touched and dirty before doing the submission.  
-If the submit button is in the presenter, we mark the controls as dirty and touched before doing the submission.  
+For this we have to mark the controls as touched and dirty before doing the submission.
+If the submit button is in the presenter, we mark the controls as dirty and touched before doing the submission.
 
-When the submit is done from the page we execute the submitAction in the container, and we have no access to the controls in the presenter.  
-We need to __register a function__ to be called __to mark the controls__ from the presenter as __dirty and touched__. So we emit an event with the callback function at the initialization of the presenter component after we have the form object (travelerForm here) created. This function will be called in the container before executing the submit logic. 
+When the submit is done from the page we execute the submitAction in the container, and we have no access to the controls in the presenter.
+We need to __register a function__ to be called __to mark the controls__ from the presenter as __dirty and touched__. So we emit an event with the callback function at the initialization of the presenter component after we have the form object (travelerForm here) created. This function will be called in the container before executing the submit logic.
 * Presenter component
 ```typescript
   ...
@@ -196,7 +196,7 @@ We have provided a helper called [markAllControlsDirtyAndTouched](https://github
   ...
   /** The form control object bind to the presenter */
   mainFormControl: FormControl;
-  
+
   /** This will store the function to make the child form as dirty and touched */
   _markInteraction: () => void;
   ...
@@ -205,7 +205,7 @@ We have provided a helper called [markAllControlsDirtyAndTouched](https://github
     this.traveler = {firstName: '', lastName: 'TestUser', dateOfBirth: new utils.Date()};
     this.mainFormControl = new FormControl(this.traveler);
   }
-  ...  
+  ...
 /** Submit event received from the presenter */
   onSubmit() {
     this.onSubmitForm.emit();
@@ -237,12 +237,12 @@ We have provided a helper called [markAllControlsDirtyAndTouched](https://github
     }
     this.onSubmitted.emit(isValid);
   }
-  
+
   /** Register the function to be called to mark the presenter as touched and dirty */
   registerInteraction(fn: () => void) {
     this._markInteraction = fn;
   }
-  
+
   getFormsPocPresContext(overrideContext: Partial<FormsPocPresContextInput>): TemplateContext<FormsPocPresConfig, FormsPocPresContextInput, FormsPocPresContextOutput> {
     return {
       ...

@@ -17,7 +17,7 @@ import type {
  * @param projectName Name of the project
  */
 export function ngRegisterProjectTasks(_options: NgGenerateSdkSchema, targetPath: string, projectName: string): Rule {
-  const project: WorkspaceProject = {
+  const project = {
     projectType: 'library',
     root: targetPath,
     sourceRoot: path.posix.join(targetPath, 'src'),
@@ -42,7 +42,7 @@ export function ngRegisterProjectTasks(_options: NgGenerateSdkSchema, targetPath
         }
       }
     }
-  };
+  } as const satisfies WorkspaceProject;
 
   return (tree, context) => {
     const angularJson = getWorkspaceConfig(tree);

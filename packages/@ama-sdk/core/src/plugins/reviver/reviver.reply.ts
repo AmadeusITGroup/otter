@@ -18,10 +18,10 @@ export class ReviverReply<V = { [key: string]: any }> implements ReplyPlugin<und
   constructor(public readonly options?: ReviverOptions) {}
 
   public load<K>(context: ReplyPluginContext<K>): PluginRunner<K | undefined, V> {
-    const options: ReviverOptions = {
+    const options = {
       logger: context.logger,
       ...this.options
-    };
+    } as const satisfies ReviverOptions;
 
     return {
       transform: (data?: V) => {

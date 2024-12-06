@@ -6,6 +6,9 @@ import {
   RouterModule,
 } from '@angular/router';
 import {
+  provideMarkdown,
+} from 'ngx-markdown';
+import {
   DesignTokenComponent,
 } from './design-token.component';
 
@@ -18,7 +21,8 @@ describe('DesignTokenComponent', () => {
       imports: [
         DesignTokenComponent,
         RouterModule.forRoot([])
-      ]
+      ],
+      providers: [provideMarkdown()]
     })
       .compileComponents();
 

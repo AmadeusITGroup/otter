@@ -49,7 +49,7 @@ export abstract class CodeGenerator<T extends CodegenTaskOptions> {
    */
   private getTaskConfiguration(options: Partial<T>): TaskConfigurationGenerator<T> {
     const name = this.generatorName;
-    const opts: T = { ...this.getDefaultOptions(), ...options };
+    const opts = { ...this.getDefaultOptions(), ...options } as const satisfies T;
     return new (class implements TaskConfigurationGenerator<T> {
       public toConfiguration(): TaskConfiguration<T> {
         return {

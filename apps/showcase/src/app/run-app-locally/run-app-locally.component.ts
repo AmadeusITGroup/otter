@@ -7,14 +7,14 @@ import {
   O3rComponent,
 } from '@o3r/core';
 import {
-  CopyTextPresComponent,
-} from '../../components/utilities/copy-text';
+  MarkdownModule,
+} from 'ngx-markdown';
 
 @O3rComponent({ componentType: 'Page' })
 @Component({
   selector: 'o3r-run-app-locally',
   standalone: true,
-  imports: [CopyTextPresComponent],
+  imports: [MarkdownModule],
   templateUrl: './run-app-locally.template.html',
   styleUrls: ['./run-app-locally.style.scss'],
   encapsulation: ViewEncapsulation.None,

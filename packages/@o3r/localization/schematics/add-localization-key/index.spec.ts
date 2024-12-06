@@ -90,7 +90,7 @@ describe('Add Localization', () => {
 
         export interface TestTranslation extends Translation {}
 
-        export const translations: TestTranslation = {}
+        export const translations: Readonly<TestTranslation> = {} as const;
       `);
       initialTree.create('.eslintrc.json', fs.readFileSync(path.resolve(__dirname, '..', '..', 'testing', 'mocks', '__dot__eslintrc.mocks.json')));
     });

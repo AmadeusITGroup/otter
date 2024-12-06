@@ -207,7 +207,7 @@ export class RulesEngine {
    * Update or insert operator in rules engine
    * @param operators operator list to add / update
    */
-  public upsertOperators(operators: (Operator | UnaryOperator)[]) {
+  public upsertOperators(operators: (Operator<any, any> | UnaryOperator<any>)[]) {
     this.operators = operators.reduce((acc, operator) => {
       acc[operator.name] = operator;
       return acc;

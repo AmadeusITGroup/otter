@@ -1,8 +1,12 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  signal,
   ViewEncapsulation,
 } from '@angular/core';
+import {
+  DfToastModule,
+} from '@design-factory/design-factory';
 import {
   O3rComponent,
 } from '@o3r/core';
@@ -11,16 +15,14 @@ import {
 @Component({
   selector: 'o3r-clipboard-button-pres',
   standalone: true,
+  imports: [
+    DfToastModule
+  ],
   templateUrl: './clipboard-button-pres.template.html',
   styleUrls: ['./clipboard-button-pres.style.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ClipboardButtonPresComponent {
-  /**
-   * Copy the text into the clipboard
-   */
-  public copy() {
-    // TODO snackbar
-  }
+  public readonly shouldDisplayToast = signal(false);
 }

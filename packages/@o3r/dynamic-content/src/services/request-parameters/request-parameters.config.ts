@@ -39,9 +39,9 @@ export interface RequestParametersConfig {
   postParamsValue: string;
 }
 
-export const defaultRequestParametersConfig: RequestParametersConfig = {
+export const defaultRequestParametersConfig: Readonly<RequestParametersConfig> = {
   storage: (typeof window === 'undefined') ? undefined : window.sessionStorage,
   strategy: StorageStrategy.Rehydrate,
   queryParamsValue: (typeof document !== 'undefined' && document.body?.dataset?.query) || '{}',
   postParamsValue: (typeof document !== 'undefined' && document.body?.dataset?.post) || '{}'
-};
+} as const;

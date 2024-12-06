@@ -5,6 +5,11 @@
       "version": "10.0.0-alpha.0",
       "description": "Updates of @o3r/localization to v10.0.*",
       "factory": "./schematics/ng-update/v10-0/index#updateV10_0"
+    },
+    "migration-v11_6": {
+      "version": "11.6.0-prerelease.0",
+      "description": "Updates of @o3r/localization to v11.6.*",
+      "factory": "./schematics/ng-update/v11-6/index#updateV116"
     }
   }
 }

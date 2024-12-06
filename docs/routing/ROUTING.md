@@ -67,9 +67,9 @@ export class AppRoutingModule {}
 ```
 
 ## Back navigation
-In order to align the routing navigation with the back browser history, we recommend the usage of the [Location](https://angular.io/api/common/Location) 
+In order to align the routing navigation with the back browser history, we recommend the usage of the [Location](https://angular.io/api/common/Location)
 service provided by Angular.
-When your page is triggering a back navigation, it should call the method `back` from the Location service, as 
+When your page is triggering a back navigation, it should call the method `back` from the Location service, as
 shown in the example below
 
 ```typescript
@@ -98,15 +98,15 @@ aligned with browser history).
 - It is mandatory to use the `RoutingGuard` store.
 
 ## Guard
-To make sure that the navigation is not triggered in case of error or wrong context, or if you need to retrieve data 
+To make sure that the navigation is not triggered in case of error or wrong context, or if you need to retrieve data
 before navigating , you should use [route guards](https://angular.io/guide/router#milestone-5-route-guards).
 
 ### Managing guard in the scope of form submission
 In some cases a page will host multiple blocks, where each block implements a form.
-The problem we face in such situation, is how to authorize the user to land on the next page 
+The problem we face in such situation, is how to authorize the user to land on the next page
 only when all API calls are successful, and block him when at least one call is failing.
 Blocks and pages should not be aware of each other's context.
-A solution to share with the page the status of the API calls is to use the `RoutingGuardStore` provided by the 
+A solution to share with the page the status of the API calls is to use the `RoutingGuardStore` provided by the
 Otter Library.
 
 How will it work in your application:
@@ -116,10 +116,10 @@ How will it work in your application:
 - Once there's no remaining blocks in READY or FAILURE state the navigation starts and the canDeactivate guard
 is triggered.
 - The guard will wait for the blocks to be in a final state (either in READY, FAILURE or SUCCESS state) before deciding if the page can be deactivated or not
-- If no block is in FAILURE the can canDeactivate guard authorize the user to navigate to the next page. But if at 
+- If no block is in FAILURE the can canDeactivate guard authorize the user to navigate to the next page. But if at
 least one block is in FAILURE, the user will stay on the page.
 
-Now that we have a global overview of the strategy, let's check how you should implement it in your application. 
+Now that we have a global overview of the strategy, let's check how you should implement it in your application.
 
 #### RoutingGuardStore
 The `RoutingGuardStore` works as a bridge between the page and block components.
@@ -136,17 +136,17 @@ And an action to clear all the registered blocks
 - `ClearRoutingGuardEntities`
 
 ##### RoutingGuardStore effect
-The `RoutingGuardStore` exposes an extra effect which reacts on `NgRx/router-store` `ROUTER_REQUEST` action and 
+The `RoutingGuardStore` exposes an extra effect which reacts on `NgRx/router-store` `ROUTER_REQUEST` action and
 `NgRx/router-store` `ROUTER_NAVIGATED` action.
 
-`ROUTER_REQUEST` action is triggered at the start of each navigation, and before the execution of any guards or 
+`ROUTER_REQUEST` action is triggered at the start of each navigation, and before the execution of any guards or
 resolvers.
 In the payload of the action, we check that the navigation was triggered by a popstate event. This event is fired only
-when the user has clicked on the browser back button or when the `back` method from the history has been called 
+when the user has clicked on the browser back button or when the `back` method from the history has been called
 programmatically.
 In such case we clear the registered block list from the store to avoid being blocked by the `CanDeactivateRoutingGuard`.
 
-`ROUTER_NAVIGATED` action is triggered at the end of all successful navigation. We take this opportunity to clear 
+`ROUTER_NAVIGATED` action is triggered at the end of all successful navigation. We take this opportunity to clear
 the registered block list from the store to make sure that the next page context is clean.
 
 To use this extra effect, add it as shown in the example below
@@ -173,13 +173,13 @@ The `RoutingGuardStore` exposes the below selectors:
 - `hasNoEntitiesInFailureState`: used to authorize or not the navigation in the RoutingGuard.
 
 #### CanDeactivateRoutingGuard
-`CanDeactivateRoutingGuard` is a generic guard which aims at tracking the registered block status to authorize or not the 
+`CanDeactivateRoutingGuard` is a generic guard which aims at tracking the registered block status to authorize or not the
 navigation to the next page.
-The guard will wait until no item from the store is in PENDING state before analysing the `RoutingGuardStore` state.
-It will then authorize the navigation to the next page only if no registered item in the `RoutingGuardStore` 
+The guard will wait until no item from the store is in PENDING state before analyzing the `RoutingGuardStore` state.
+It will then authorize the navigation to the next page only if no registered item in the `RoutingGuardStore`
 is in FAILURE state.
 
-To use it you will have to first import the `CanDeactivateRoutingGuardModule` in your page module, and provide the 
+To use it you will have to first import the `CanDeactivateRoutingGuardModule` in your page module, and provide the
 `CanDeactivateRoutingGuard` in your page routing path definition as below:
 ```typescript
 @NgModule({
@@ -209,7 +209,7 @@ import { v4 as uuidGenerate } from 'uuid';
 ...
 export class YourBlockContComponent {
   private readonly routingGuardId: string;
-  
+
   constructor(..., private store: Store<RoutingGuardStore>) {
     // We define a unique ID which will be used to identify the registered form
     this.routingGuardId = 'myForm-' + uuidGenerate();
@@ -217,7 +217,7 @@ export class YourBlockContComponent {
   ...
 }
 ```
-At the initialisation of the component, you will have to register to the `RoutingGuardStore`. This step is necessary to make 
+At the initialization of the component, you will have to register to the `RoutingGuardStore`. This step is necessary to make
 sure that the API calls triggered by your block are taken into account in the CanDeactivateFormPage guard.
 ```typescript
 ...
@@ -225,7 +225,7 @@ import { v4 as uuidGenerate } from 'uuid';
 ...
 export class YourBlockContComponent implements OnInit {
   private readonly routingGuardId: string;
-  
+
   constructor(..., private store: Store<RoutingGuardStore>) {
     // We define a unique ID which will be used to identify the registered form
     this.routingGuardId = 'myForm-' + uuidGenerate();
@@ -238,42 +238,39 @@ export class YourBlockContComponent implements OnInit {
   ...
 }
 ```
-In order to synchronise the block API calls with the `RoutingGuardStore` state, we create an Observable which will only emit 
+In order to synchronize the block API calls with the `RoutingGuardStore` state, we create an Observable which will only emit
 when the block state is PENDING.
-We will then subscribe to this new Observable to update the state of the block in the `RoutingGuardStore` based on the API call 
+We will then subscribe to this new Observable to update the state of the block in the `RoutingGuardStore` based on the API call
 status.
 ```typescript
 ...
 import { v4 as uuidGenerate } from 'uuid';
 ...
-export class YourBlockContComponent implements OnInit, OnDestroy {
-  
+export class YourBlockContComponent implements OnInit {
+
   private myBlockStatus$: Observable<AsyncItem | undefined>;
-  
+
   private readonly routingGuardId: string;
-  
-  private subscriptions: Subscription[] = [];
-  
+
   constructor(..., private store: Store<RoutingGuardStore>) {
     // We define a unique ID which will be used to identify the registered form
     this.routingGuardId = 'myForm-' + uuidGenerate();
-    
+
     // We bind the registered form status on the block status
     this.myBlockStatus$ = this.store.select(selectMyBlockStatus).pipe(
+      takeUntilDestroyed(),
       skipWhile((myBlockStatus: AsyncItem) => myBlockStatus.isPending !== true)
     );
 
-    this.subscriptions.push(
-      this.myBlockStatus$.subscribe((myBlockStatus: AsyncItem) => {
-        if (myBlockStatus.isPending) {
-          this.store.dispatch(new SetRoutingGuardEntityAsPending({id: this.routingGuardId}));
-        } else if (myBlockStatus.isFailure) {
-          this.store.dispatch(new SetRoutingGuardEntityAsFailure({id: this.routingGuardId}));
-        } else {
-          this.store.dispatch(new SetRoutingGuardEntityAsSuccess({id: this.routingGuardId}));
-        }
-      })
-    );
+    this.myBlockStatus$.subscribe((myBlockStatus: AsyncItem) => {
+      if (myBlockStatus.isPending) {
+        this.store.dispatch(new SetRoutingGuardEntityAsPending({id: this.routingGuardId}));
+      } else if (myBlockStatus.isFailure) {
+        this.store.dispatch(new SetRoutingGuardEntityAsFailure({id: this.routingGuardId}));
+      } else {
+        this.store.dispatch(new SetRoutingGuardEntityAsSuccess({id: this.routingGuardId}));
+      }
+    });
   }
   ngOnInit() {
     // We register the component as an actor of the routing navigation management
@@ -281,16 +278,13 @@ export class YourBlockContComponent implements OnInit, OnDestroy {
     ...
   }
   ...
-  ngOnDestroy() {
-    this.subscriptions.forEach((s) => s.unsubscribe());
-  }
 }
 ```
-That's it! Your block is all set to share its state with the application. 
+That's it! Your block is all set to share its state with the application.
 
 #### How to update your page component
-To benefit from the `RoutingGuardStore` in your page component definition, you will have to first import the 
-`RoutingGuardStoreModule` in your page module, and provide the `CanDeactivateRoutingGuard` as explained in the 
+To benefit from the `RoutingGuardStore` in your page component definition, you will have to first import the
+`RoutingGuardStoreModule` in your page module, and provide the `CanDeactivateRoutingGuard` as explained in the
 dedicated section.
 ```typescript
 @NgModule({
@@ -317,15 +311,15 @@ This means that all API calls have been performed.
 ```typescript
 export class YourPageComponent {
   private hasNoEntityInReadyOrFailureState$: Observable<boolean>;
-  
+
   constructor(..., private store: Store<RoutingGuardStore>) {
     ...
     this.hasNoEntityInReadyOrFailureState$ = this.store.select(hasNoEntityInReadyOrFailureState);
   }
-  
+
   goNext(submittables: Submittable[]) {
     ...
-  
+
     // We trigger the navigation only once all missing calls are triggered (no blocks in READY or FAILURE state)
     this.hasNoEntityInReadyOrFailureState$
       .pipe(
@@ -350,14 +344,14 @@ You would target the profile page directly and provide the profileId as a query 
 
 But to make sure that your flow is not broken, you will have to set the context properly, so you can continue your navigation based on the retrieved profile.
 
-There are two different ways of achieving this goal. Either you use a resolver which will fetch the data and block 
-the navigation until the data has been fetched, or you don't want to block the navigation and display your page with 
+There are two different ways of achieving this goal. Either you use a resolver which will fetch the data and block
+the navigation until the data has been fetched, or you don't want to block the navigation and display your page with
 the appropriate loading indicator (spinner or skeleton screen).
 
 ### [Resolve](https://angular.io/guide/router#resolve-pre-fetching-component-data)
-A resolver is used to pre-fetch data before the route is activated. This means that the navigation will be blocked 
+A resolver is used to pre-fetch data before the route is activated. This means that the navigation will be blocked
 until mandatory data has been retrieved.
-To do so you will have to create a resolver as shown below (our example will be based on the retrieval of an existing 
+To do so you will have to create a resolver as shown below (our example will be based on the retrieval of an existing
 cart).
 ```typescript
 import {Injectable} from '@angular/core';
@@ -393,15 +387,15 @@ export class ProfileResolver implements Resolve<ProfileModel | null> {
   }
 }
 ```
-In our implementation, when the resolver needs to resolve data, it will first check if a profile id has been provided as 
+In our implementation, when the resolver needs to resolve data, it will first check if a profile id has been provided as
 query parameter. If so, it will retrieve the corresponding profile.
 
-__NOTE:__ In our example we have to test the existence of the query parameter, because the resolver is also used in the 
+__NOTE:__ In our example we have to test the existence of the query parameter, because the resolver is also used in the
 standard flow (we have to wait for the profile to be available in the store before leaving the previous page).
 
 The resolver will unlock the navigation once the profile state is not pending anymore (the API call has been performed).
 
-To make sure that your resolver is taken into consideration during the navigation, you have to reference your 
+To make sure that your resolver is taken into consideration during the navigation, you have to reference your
 resolver in the route configuration, and provide it in your module definition:
 ```typescript
 @NgModule({
@@ -416,18 +410,18 @@ export class ProfileModule {}
 ```
 
 ### [ActivatedRoute](https://angular.io/api/router/ActivatedRoute)
-If you don't want to block the navigation and display your page with the appropriate loading indicator 
-(spinner or skeleton screen), you could inject in your page component the  [ActivatedRoute](https://angular.io/api/router/ActivatedRoute) 
+If you don't want to block the navigation and display your page with the appropriate loading indicator
+(spinner or skeleton screen), you could inject in your page component the  [ActivatedRoute](https://angular.io/api/router/ActivatedRoute)
 and make the call in the page constructor.
 
-It will give you the ability to access the query parameters from the route snapshot, set your context (retrieving a 
+It will give you the ability to access the query parameters from the route snapshot, set your context (retrieving a
 profile) and display the loading indicator.
 ```typescript
 ...
 import {ActivatedRoute} from '@angular/router';
 ...
 export class myPageComponent {
-  
+
   constructor(..., private route: ActivatedRoute) {
     const profileId = this.route.snapshot.queryParams.profileId;
     if (profileId) {
@@ -436,5 +430,5 @@ export class myPageComponent {
   }
 }
 ```
-My page can then display a loading information (based on the profile status in the store) until the profile has been 
+My page can then display a loading information (based on the profile status in the store) until the profile has been
 retrieved.

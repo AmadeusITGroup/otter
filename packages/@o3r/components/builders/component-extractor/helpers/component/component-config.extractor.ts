@@ -365,10 +365,36 @@ export class ComponentConfigExtractor {
           if (ts.isVariableDeclaration(declarationNode)) {
             let isConfigImplementation = false;
             declarationNode.forEachChild((vNode) => {
-              if (ts.isTypeReferenceNode(vNode) && configurationInformationWrapper.configurationInformation!.name === vNode.getText(this.source)) {
+              if (
+                ts.isTypeReferenceNode(vNode)
+                && ts.isIdentifier(vNode.typeName)
+                && (
+                  vNode.typeName.escapedText.toString() === configurationInformationWrapper.configurationInformation!.name
+                  || (
+                    vNode.typeName.escapedText.toString() === 'Readonly'
+                    && vNode.typeArguments?.[0]
+                    && ts.isTypeReferenceNode(vNode.typeArguments?.[0])
+                    && ts.isIdentifier(vNode.typeArguments?.[0].typeName)
+                    && vNode.typeArguments[0].typeName.escapedText.toString() === configurationInformationWrapper.configurationInformation!.name
+                  )
+                )
+              ) {
                 isConfigImplementation = true;
-              } else if (isConfigImplementation && ts.isObjectLiteralExpression(vNode)) {
-                vNode.forEachChild((propertyNode) => {
+              } else if (
+                isConfigImplementation
+                && (
+                  ts.isObjectLiteralExpression(vNode)
+                  || (
+                    ts.isAsExpression(vNode)
+                    && ts.isTypeReferenceNode(vNode.type)
+                    && ts.isIdentifier(vNode.type.typeName)
+                    && vNode.type.typeName.escapedText.toString() === 'const'
+                    && ts.isObjectLiteralExpression(vNode.expression)
+                  )
+                )
+              ) {
+                const objectExpression = ts.isObjectLiteralExpression(vNode) ? vNode : vNode.expression;
+                objectExpression.forEachChild((propertyNode) => {
                   if (ts.isPropertyAssignment(propertyNode)) {
                     let identifier: string | undefined;
                     propertyNode.forEachChild((fieldNode) => {

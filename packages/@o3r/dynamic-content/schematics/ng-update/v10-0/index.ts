@@ -10,14 +10,14 @@ import {
   updatePipes,
 } from '@o3r/schematics';
 
-const pipeReplacementInfo: PipeReplacementInfo = {
+const pipeReplacementInfo = {
   dynamicContent: {
     new: {
       name: 'o3rDynamicContent'
     },
     import: 'DynamicContentModule'
   }
-};
+} as const satisfies PipeReplacementInfo;
 
 /**
  * Update of Otter library V10.0

@@ -1,9 +1,13 @@
 import {
+  DestroyRef,
+  inject,
   Inject,
   Injectable,
-  OnDestroy,
   Optional,
 } from '@angular/core';
+import {
+  takeUntilDestroyed,
+} from '@angular/core/rxjs-interop';
 import {
   select,
   Store,
@@ -19,7 +23,6 @@ import {
 import {
   firstValueFrom,
   fromEvent,
-  Subscription,
 } from 'rxjs';
 import {
   ConfigurationStore,
@@ -42,10 +45,9 @@ import {
 @Injectable({
   providedIn: 'root'
 })
-export class ConfigurationDevtoolsMessageService implements OnDestroy, DevtoolsServiceInterface {
-  private readonly subscriptions = new Subscription();
-
+export class ConfigurationDevtoolsMessageService implements DevtoolsServiceInterface {
   private readonly sendMessage = sendOtterMessage<AvailableConfigurationMessageContents>;
+  private readonly destroyRef = inject(DestroyRef);
 
   constructor(
     private readonly store: Store<ConfigurationStore>,
@@ -115,22 +117,14 @@ export class ConfigurationDevtoolsMessageService implements OnDestroy, DevtoolsS
 
   /** @inheritDoc */
   public activate() {
-    this.subscriptions.add(
-      fromEvent(window, 'message').pipe(filterMessageContent(isConfigurationMessage)).subscribe((e) => this.handleEvents(e))
-    );
+    fromEvent(window, 'message').pipe(
+      takeUntilDestroyed(this.destroyRef),
+      filterMessageContent(isConfigurationMessage)
+    ).subscribe((e) => this.handleEvents(e));
 
-    this.subscriptions.add(
-      this.store.pipe(select(selectConfigurationEntities))
-        .subscribe((configurations) => {
-          this.sendMessage('configurations', {
-            configurations
-          });
-        })
-    );
-  }
-
-  /** @inheritDoc */
-  public ngOnDestroy() {
-    this.subscriptions.unsubscribe();
+    this.store.pipe(
+      select(selectConfigurationEntities),
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe((configurations) => this.sendMessage('configurations', { configurations }));
   }
 }

@@ -7,13 +7,13 @@ import {
   computed,
   effect,
   inject,
-  type OnDestroy,
   type Signal,
   untracked,
   viewChild,
   ViewEncapsulation,
 } from '@angular/core';
 import {
+  takeUntilDestroyed,
   toSignal,
 } from '@angular/core/rxjs-interop';
 import {
@@ -33,9 +33,6 @@ import type {
   JSONLocalization,
   LocalizationMetadata,
 } from '@o3r/localization';
-import {
-  Subscription,
-} from 'rxjs';
 import {
   map,
   throttleTime,
@@ -65,11 +62,10 @@ type LangTranslationsControl = FormGroup<Record<string, TranslationControl>>;
     AsyncPipe
   ]
 })
-export class LocalizationPanelPresComponent implements OnDestroy {
+export class LocalizationPanelPresComponent {
   private readonly connectionService = inject(ChromeExtensionConnectionService);
   private readonly localizationService = inject(LocalizationService);
   private readonly stateService = inject(StateService);
-  private readonly subscription = new Subscription();
   private readonly maxItemDisplayed = 20;
 
   public readonly isTranslationDeactivationEnabled = this.localizationService.isTranslationDeactivationEnabled;
@@ -140,18 +136,14 @@ export class LocalizationPanelPresComponent implements OnDestroy {
         this.form.controls.lang.setValue(lang);
       }
     });
-    this.subscription.add(
-      this.form.controls.lang.valueChanges.subscribe((language) => {
-        // Else refresh issue (maybe can be solved differently)
-        this.accordion()?.collapseAll();
-        this.localizationService.switchLanguage(language);
-      })
-    );
-    this.subscription.add(
-      this.form.controls.showKeys.valueChanges.subscribe((value) => {
-        this.connectionService.sendMessage('displayLocalizationKeys', { toggle: !!value });
-      })
-    );
+    this.form.controls.lang.valueChanges.pipe(takeUntilDestroyed()).subscribe((language) => {
+      // Else refresh issue (maybe can be solved differently)
+      this.accordion()?.collapseAll();
+      this.localizationService.switchLanguage(language);
+    });
+    this.form.controls.showKeys.valueChanges.pipe(takeUntilDestroyed()).subscribe((value) => {
+      this.connectionService.sendMessage('displayLocalizationKeys', { toggle: !!value });
+    });
     effect(() => {
       const translations = this.filteredLocalizations();
       const lang = untracked(this.currentLanguage);
@@ -193,13 +185,12 @@ export class LocalizationPanelPresComponent implements OnDestroy {
     if (!control) {
       const newControl = new FormControl<string>(controlValue);
       langControl.addControl(key, newControl);
-      this.subscription.add(
-        newControl.valueChanges.pipe(
-          throttleTime(THROTTLE_TIME, undefined, { trailing: true })
-        ).subscribe((newValue) => {
-          this.onLocalizationChange(key, newValue ?? '');
-        })
-      );
+      newControl.valueChanges.pipe(
+        takeUntilDestroyed(),
+        throttleTime(THROTTLE_TIME, undefined, { trailing: true })
+      ).subscribe((newValue) => {
+        this.onLocalizationChange(key, newValue ?? '');
+      });
     } else if (control.value !== controlValue) {
       control.setValue(controlValue);
     }
@@ -267,9 +258,5 @@ export class LocalizationPanelPresComponent implements OnDestroy {
         ]
       }
     );
-  }
-
-  public ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 }

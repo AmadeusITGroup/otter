@@ -2,12 +2,15 @@ import {
   DOCUMENT,
 } from '@angular/common';
 import {
+  DestroyRef,
   inject,
   Inject,
   Injectable,
-  OnDestroy,
   Optional,
 } from '@angular/core';
+import {
+  takeUntilDestroyed,
+} from '@angular/core/rxjs-interop';
 import {
   DevtoolsServiceInterface,
   filterMessageContent,
@@ -23,7 +26,6 @@ import {
 } from '@o3r/testing/visual-test/utils';
 import {
   fromEvent,
-  Subscription,
 } from 'rxjs';
 import {
   type ApplicationDevtoolsServiceOptions,
@@ -45,13 +47,11 @@ const OTTER_STATE_RIBBON_ID = 'otter-devtools-state-ribbon';
 @Injectable({
   providedIn: 'root'
 })
-export class ApplicationDevtoolsMessageService implements OnDestroy, DevtoolsServiceInterface {
+export class ApplicationDevtoolsMessageService implements DevtoolsServiceInterface {
   private readonly document = inject(DOCUMENT);
   private readonly options: ApplicationDevtoolsServiceOptions;
-
-  private readonly subscriptions = new Subscription();
-
   private readonly sendMessage = sendOtterMessage<AvailableApplicationMessageContents>;
+  private readonly destroyRef = inject(DestroyRef);
 
   constructor(
     private readonly logger: LoggerService,
@@ -163,15 +163,11 @@ export class ApplicationDevtoolsMessageService implements OnDestroy, DevtoolsSer
 
   /** @inheritDoc */
   public activate() {
-    this.subscriptions.add(
-      fromEvent(window, 'message').pipe(filterMessageContent(isApplicationMessage)).subscribe((e) => this.handleEvents(e))
-    );
+    fromEvent(window, 'message').pipe(
+      takeUntilDestroyed(this.destroyRef),
+      filterMessageContent(isApplicationMessage)
+    ).subscribe((e) => this.handleEvents(e));
     prepareVisualTesting(this.options.e2eIgnoreClass);
     this.sendApplicationInformation();
-  }
-
-  /** @inheritDoc */
-  public ngOnDestroy() {
-    this.subscriptions.unsubscribe();
   }
 }

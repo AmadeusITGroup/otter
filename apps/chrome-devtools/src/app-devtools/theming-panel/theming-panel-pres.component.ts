@@ -4,7 +4,6 @@ import {
   computed,
   effect,
   inject,
-  type OnDestroy,
   type Signal,
   untracked,
   ViewEncapsulation,
@@ -38,7 +37,6 @@ import {
 import {
   combineLatest,
   Observable,
-  Subscription,
 } from 'rxjs';
 import {
   map,
@@ -123,7 +121,7 @@ export interface VariableGroup {
     VariableNamePipe
   ]
 })
-export class ThemingPanelPresComponent implements OnDestroy {
+export class ThemingPanelPresComponent {
   private readonly stateService = inject(StateService);
 
   public readonly activeStateName = computed(() => this.stateService.activeState()?.name);
@@ -144,7 +142,6 @@ export class ThemingPanelPresComponent implements OnDestroy {
   });
 
   private readonly variables$: Observable<StylingVariable[]>;
-  private readonly subscription = new Subscription();
   private readonly runtimeValues$ = this.form.controls.variables.valueChanges.pipe(startWith({}));
   private readonly runtimeValues = toSignal(this.runtimeValues$, { initialValue: {} });
 
@@ -181,23 +178,22 @@ export class ThemingPanelPresComponent implements OnDestroy {
         } else {
           const newControl = new FormControl(initialValue);
           variablesControl.addControl(variable.name, newControl);
-          this.subscription.add(
-            newControl.valueChanges.pipe(
-              throttleTime(THROTTLE_TIME, undefined, { trailing: true })
-            ).subscribe((newValue) => {
-              const update = {
-                [variable.name]: (newValue === variable.defaultValue ? null : newValue) ?? null
-              };
-              if (update[variable.name] !== null) {
-                this.stateService.updateLocalState({
-                  stylingVariables: update
-                });
-                connectionService.sendMessage('updateStylingVariables', {
-                  variables: update
-                });
-              }
-            })
-          );
+          newControl.valueChanges.pipe(
+            takeUntilDestroyed(),
+            throttleTime(THROTTLE_TIME, undefined, { trailing: true })
+          ).subscribe((newValue) => {
+            const update = {
+              [variable.name]: (newValue === variable.defaultValue ? null : newValue) ?? null
+            };
+            if (update[variable.name] !== null) {
+              this.stateService.updateLocalState({
+                stylingVariables: update
+              });
+              connectionService.sendMessage('updateStylingVariables', {
+                variables: update
+              });
+            }
+          });
         }
       });
     });
@@ -291,10 +287,6 @@ export class ThemingPanelPresComponent implements OnDestroy {
 
   private changeColor(variableName: string, value: string | null) {
     this.form.controls.variables.controls[variableName].setValue(value);
-  }
-
-  public ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 
   /**

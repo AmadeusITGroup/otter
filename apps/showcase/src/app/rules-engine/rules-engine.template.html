@@ -43,7 +43,7 @@
               <br>
               You can check that New-York will be available if you select dates during the summer (between June 21st and September 21st).
             </p>
-            <o3r-copy-text-pres language="json" [text]="newYorkAvailableRule"></o3r-copy-text-pres>
+            <markdown clipboard [data]="newYorkAvailableRule | language: 'json'"></markdown>
           </ng-template>
         </li>
         <li ngbNavItem class="nav-item">
@@ -53,7 +53,7 @@
             <p>
               When a destination is selected, the text will change from "Where do you want to go?" to "When do you want to go?". We have created the following rule to change the localization key.
             </p>
-            <o3r-copy-text-pres language="json" [text]="helloNewYorkRule"></o3r-copy-text-pres>
+            <markdown clipboard [data]="helloNewYorkRule | language: 'json'"></markdown>
           </ng-template>
         </li>
         <li ngbNavItem class="nav-item">
@@ -65,7 +65,7 @@
               <br>
               You can check that the image changes if you select dates during the summer (between June 21st and September 21st).
             </p>
-            <o3r-copy-text-pres language="json" [text]="summerOtterRule"></o3r-copy-text-pres>
+            <markdown clipboard [data]="summerOtterRule | language: 'json'"></markdown>
           </ng-template>
         </li>
         <li ngbNavItem class="nav-item">
@@ -77,7 +77,7 @@
               <br>
               It is using the `inNextMinutes` operator which is based on the current time.
             </p>
-            <o3r-copy-text-pres language="json" [text]="lateOtterRule"></o3r-copy-text-pres>
+            <markdown clipboard [data]="lateOtterRule | language: 'json'"></markdown>
           </ng-template>
         </li>
       </ul>
@@ -85,23 +85,43 @@
     </div>
     <h2 id="rules-engine-install">How to install</h2>
     <div>
-      <o3r-copy-text-pres [wrap]="true" language="bash" text="ng add @o3r/rules-engine"></o3r-copy-text-pres>
+      <markdown clipboard ngPreserveWhitespaces>
+        ```bash
+        ng add &#64;o3r/rules-engine
+        ```
+      </markdown>
     </div>
     <h2 id="rules-engine-fact-creation">How to create a new fact</h2>
     <div>
-      <o3r-copy-text-pres [wrap]="true" language="bash" text="ng g facts-service FactsName"></o3r-copy-text-pres>
+      <markdown clipboard ngPreserveWhitespaces>
+        ```bash
+        ng g facts-service FactsName
+        ```
+      </markdown>
     </div>
     <h2 id="rules-engine-operator-creation">How to create a new operator</h2>
     <div>
-      <o3r-copy-text-pres [wrap]="true" language="bash" text="ng g operator OperatorName"></o3r-copy-text-pres>
+      <markdown clipboard ngPreserveWhitespaces>
+        ```bash
+        ng g operator OperatorName
+        ```
+      </markdown>
     </div>
     <h2 id="rules-engine-metadata">Metadata</h2>
     <div>
       <h3>How to extract</h3>
-      <o3r-copy-text-pres [wrap]="true" language="bash" text="ng run project-name:extract-rules-engine"></o3r-copy-text-pres>
+      <markdown clipboard ngPreserveWhitespaces>
+        ```bash
+        ng run project-name:extract-rules-engine
+        ```
+      </markdown>
       <p>It will extract application facts and operators in the following files: <code>rules.facts.metadata.json</code> and <code>rules.operators.metadata.json</code></p>
       <p>Check the list of options available by running:</p>
-      <o3r-copy-text-pres [wrap]="true" language="bash" text="ng run project-name:extract-rules-engine --help"></o3r-copy-text-pres>
+      <markdown clipboard ngPreserveWhitespaces>
+        ```bash
+        ng run project-name:extract-rules-engine --help
+        ```
+      </markdown>
     </div>
     <h2 id="rules-engine-references">References</h2>
     <ul>

@@ -32,10 +32,10 @@ export interface LazyMessageFormatConfig extends Options {
 /**
  * Message format configuration default value
  */
-export const lazyMessageDefaultConfig: LazyMessageFormatConfig = {
+export const lazyMessageDefaultConfig: Readonly<LazyMessageFormatConfig> = {
   enableCache: true,
   ignoreTag: true
-};
+} as const;
 
 /** Message Format configuration Token */
 export const MESSAGE_FORMAT_CONFIG = new InjectionToken<LazyMessageFormatConfig>('Message Format configuration');

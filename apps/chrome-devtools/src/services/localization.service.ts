@@ -100,11 +100,11 @@ export class LocalizationService {
       }
     });
     this.connectionService.message$.pipe(
+      takeUntilDestroyed(),
       filterAndMapMessage(
         (message): message is SwitchLanguageContentMessage => message.dataType === 'switchLanguage',
         (message) => message.language
-      ),
-      takeUntilDestroyed()
+      )
     ).subscribe((lang) => {
       this.lang.set(lang);
     });

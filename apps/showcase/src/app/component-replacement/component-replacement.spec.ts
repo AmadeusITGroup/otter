@@ -9,6 +9,9 @@ import {
   RouterModule,
 } from '@angular/router';
 import {
+  provideMarkdown,
+} from 'ngx-markdown';
+import {
   ComponentReplacementPresComponent,
 } from '../../components/showcase/component-replacement/component-replacement-pres.component';
 import {
@@ -21,9 +24,12 @@ describe('ComponentReplacementComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ComponentReplacementComponent,
+      imports: [
+        ComponentReplacementComponent,
         RouterModule.forRoot([]),
-        AsyncPipe]
+        AsyncPipe
+      ],
+      providers: [provideMarkdown()]
     }).overrideComponent(ComponentReplacementComponent, {
       remove: { imports: [ComponentReplacementPresComponent] }
     }).compileComponents();

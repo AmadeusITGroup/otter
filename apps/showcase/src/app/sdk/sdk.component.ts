@@ -17,7 +17,9 @@ import {
   O3rComponent,
 } from '@o3r/core';
 import {
-  CopyTextPresComponent,
+  MarkdownModule,
+} from 'ngx-markdown';
+import {
   IN_PAGE_NAV_PRES_DIRECTIVES,
   InPageNavLink,
   InPageNavLinkDirective,
@@ -30,11 +32,11 @@ import {
   selector: 'o3r-sdk',
   standalone: true,
   imports: [
-    CopyTextPresComponent,
     RouterLink,
     SdkPresComponent,
     IN_PAGE_NAV_PRES_DIRECTIVES,
-    AsyncPipe
+    AsyncPipe,
+    MarkdownModule
   ],
   templateUrl: './sdk.template.html',
   styleUrls: ['./sdk.style.scss'],

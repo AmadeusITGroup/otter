@@ -15,6 +15,9 @@ import {
   O3rElement,
 } from '@o3r/testing/core';
 import {
+  provideMarkdown,
+} from 'ngx-markdown';
+import {
   ConfigurationComponent,
 } from './configuration.component';
 import {
@@ -34,7 +37,8 @@ describe('ConfigurationComponent', () => {
         StoreModule.forRoot(),
         RouterModule.forRoot([]),
         AsyncPipe
-      ]
+      ],
+      providers: [provideMarkdown()]
     });
     fixture = TestBed.createComponent(ConfigurationComponent);
     component = fixture.componentInstance;

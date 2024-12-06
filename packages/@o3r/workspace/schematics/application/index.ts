@@ -95,7 +95,7 @@ function generateApplicationFn(options: NgGenerateApplicationSchema): Rule {
     };
     const angularOptions = getOptions(angularAppSchema);
 
-    const dependencies: Record<string, DependencyToAdd> = {
+    const dependencies = {
       '@o3r/core': {
         inManifest: [
           {
@@ -105,7 +105,7 @@ function generateApplicationFn(options: NgGenerateApplicationSchema): Rule {
         ],
         ngAddOptions: { exactO3rVersion: options.exactO3rVersion }
       }
-    };
+    } as const satisfies Record<string, DependencyToAdd>;
 
     return chain([
       externalSchematic<Partial<ApplicationOptions>>('@schematics/angular', 'application', {

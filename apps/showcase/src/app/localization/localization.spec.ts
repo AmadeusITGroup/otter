@@ -22,6 +22,9 @@ import {
   mockTranslationModules,
 } from '@o3r/testing/localization';
 import {
+  provideMarkdown,
+} from 'ngx-markdown';
+import {
   LocalizationComponent,
 } from './localization.component';
 
@@ -44,7 +47,8 @@ describe('LocalizationComponent', () => {
         LocalizationComponent,
         ...mockTranslationModules(localizationConfiguration, mockTranslations, mockTranslationsCompilerProvider),
         AsyncPipe
-      ]
+      ],
+      providers: [provideMarkdown()]
     });
     fixture = TestBed.createComponent(LocalizationComponent);
     component = fixture.componentInstance;

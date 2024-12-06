@@ -39,7 +39,16 @@
       ]
     },
     "lint": {
-      "executor": "nx:run-commands"
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "{projectRoot}",
+        "command": "yarn eslint \"**/*.{m,c,}{j,t}s\" \"**/*.json\" \"**/*.html\""
+      },
+      "configurations": {
+        "ci": {
+          "command": "yarn eslint \"**/*.{m,c,}{j,t}s\" \"**/*.json\" \"**/*.html\" --quiet --cache-location .cache/eslint"
+        }
+      }
     },
     "compile": {
       "executor": "@angular-devkit/build-angular:application",
@@ -99,9 +108,9 @@
         ],
         "styles": [
           "apps/showcase/src/styles.scss",
+          "prism-themes/themes/prism-vsc-dark-plus.css",
           "apps/showcase/training-assets/@vscode/codicons/dist/codicon.css",
           "apps/showcase/training-assets/@xterm/xterm/css/xterm.css",
-          "prism-themes/themes/prism-vsc-dark-plus.css",
           {
             "inject": false,
             "input": "apps/showcase/src/style/dark-theme/dark-theme.scss",

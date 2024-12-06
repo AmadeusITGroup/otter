@@ -12,6 +12,9 @@ import {
   O3rElement,
 } from '@o3r/testing/core';
 import {
+  provideMarkdown,
+} from 'ngx-markdown';
+import {
   DynamicContentComponent,
 } from './dynamic-content.component';
 import {
@@ -30,7 +33,8 @@ describe('DynamicContentComponent', () => {
         DynamicContentComponent,
         RouterModule.forRoot([]),
         AsyncPipe
-      ]
+      ],
+      providers: [provideMarkdown()]
     });
     fixture = TestBed.createComponent(DynamicContentComponent);
     component = fixture.componentInstance;
