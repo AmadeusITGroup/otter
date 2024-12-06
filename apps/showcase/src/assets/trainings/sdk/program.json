@@ -201,7 +201,7 @@
         ],
         "solutionUrls": [
           {
-            "path": "./libs/sdk/src/models",
+            "path": "./libs/sdk",
             "contentUrl": "./steps/model-extension/solution.json"
           }
         ],
