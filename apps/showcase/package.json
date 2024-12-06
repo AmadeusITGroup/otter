@@ -55,6 +55,7 @@
     "@nx/jest": "~19.5.0",
     "@o3r-training/showcase-sdk": "workspace:^",
     "@o3r-training/training-tools": "workspace:^",
+    "@o3r/apis-manager": "workspace:^",
     "@o3r/application": "workspace:^",
     "@o3r/components": "workspace:^",
     "@o3r/configuration": "workspace:^",
@@ -90,8 +91,7 @@
     "rxjs": "^7.8.1",
     "sass-loader": "^14.0.0",
     "tslib": "^2.6.2",
-    "zone.js": "~0.14.2",
-    "@o3r/apis-manager": "0.0.0-placeholder"
+    "zone.js": "~0.14.2"
   },
   "devDependencies": {
     "@amadeus-it-group/kassette": "^1.7.0",
