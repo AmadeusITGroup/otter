@@ -20,7 +20,7 @@ We added the [recommended rules for template accessibility](https://github.com/a
 
 #### Removed
 
-- [`@angular-eslint/no-host-metadata-property`](https://github.com/angular-eslint/angular-eslint/blob/main/packages/eslint-plugin/docs/rules/no-host-metadata-property.md) is deprecated and was already set to `off`.
+- [`@angular-eslint/no-host-metadata-property`](https://github.com/angular-eslint/angular-eslint/blob/17.5.x/packages/eslint-plugin/docs/rules/no-host-metadata-property.md) is deprecated and was already set to `off`.
 
 ### TypeScript ESLint rules
 
@@ -122,4 +122,4 @@ Before, we used three rules from unicorn. We now use their [recommended configur
 - [`unicorn/prefer-spread`](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-spread.md)
 - [`unicorn/prefer-string-raw`](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-string-raw.md)
 - [`unicorn/prefer-string-replace-all`](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-string-replace-all.md)
-- [`unicorn/prevent-abbreviation`](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prevent-abbreviation.md)
+- [`unicorn/prevent-abbreviation`](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prevent-abbreviations.md)
