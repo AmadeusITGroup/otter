@@ -14,6 +14,7 @@ import {
 /**
  * Manage the schematic to generate a sdk using the Swagger 2 Generator
  * Note: a working java setup compatible with Swagger 2 Generator is required to use this class
+ * @deprecated to be removed in v12
  */
 export class SwaggerJavaGenerator extends CodeGenerator<JavaGeneratorTaskOptions> {
   /** @inheritDoc */
