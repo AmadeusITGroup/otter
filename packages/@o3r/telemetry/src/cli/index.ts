@@ -66,7 +66,7 @@ export const createCliWithMetrics: CliWrapper = (cliFn, cliName, options) => asy
     logger.info(`${cliName} run in ${duration}ms`);
     const environment = await getEnvironmentInfo();
     const argv = minimist(process.argv.slice(2), { ...options?.minimistOptions, alias: { o3rMetrics: ['o3r-metrics'] } });
-    const data: CliMetricData = {
+    const data = {
       environment,
       duration,
       cli: {
@@ -74,7 +74,7 @@ export const createCliWithMetrics: CliWrapper = (cliFn, cliName, options) => asy
         options: options?.preParsedOptions ?? argv
       },
       error
-    };
+    } as const satisfies CliMetricData;
     logger.debug(JSON.stringify(data, null, 2));
     const packageJsonPath = path.join(process.cwd(), 'package.json');
     const packageJson = existsSync(packageJsonPath) ? JSON.parse(readFileSync(packageJsonPath, 'utf8')) : {};

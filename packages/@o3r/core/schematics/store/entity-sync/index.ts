@@ -45,7 +45,7 @@ function ngGenerateEntitySyncStoreFn(options: NgGenerateEntitySyncStoreSchematic
     options.modelIdPropName = options.modelIdPropName?.trim();
 
     // Add extra formatted properties
-    const formattedProperties: ExtraFormattedProperties = {
+    const formattedProperties = {
       isAsync: false,
       isEntity: true,
       storeName: strings.classify(options.storeName),
@@ -58,7 +58,7 @@ function ngGenerateEntitySyncStoreFn(options: NgGenerateEntitySyncStoreSchematic
       modelIdPropName: options.modelIdPropName || 'id',
       reviverModelName: `revive${options.modelName}`,
       fileName: strings.dasherize(options.storeName)
-    };
+    } as const satisfies ExtraFormattedProperties;
     let currentStoreIndex = '';
     const barrelPath = path.join(destination, options.storeName, 'index.ts');
     if (tree.exists(barrelPath)) {

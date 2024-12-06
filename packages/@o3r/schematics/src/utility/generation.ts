@@ -25,7 +25,7 @@ export type GeneratedItemType =
   '@o3r/testing:playwright-sanity';
 
 /** List of Otter items types */
-export const OTTER_ITEM_TYPES: GeneratedItemType[] = [
+export const OTTER_ITEM_TYPES = [
   '@o3r/core:component',
   '@o3r/core:page',
   '@o3r/core:service',
@@ -33,7 +33,7 @@ export const OTTER_ITEM_TYPES: GeneratedItemType[] = [
   '@o3r/core:schematics-update',
   '@o3r/testing:playwright-scenario',
   '@o3r/testing:playwright-sanity'
-];
+] as const satisfies GeneratedItemType[];
 
 /** List of the default destination paths for each generated entity */
 export const TYPES_DEFAULT_FOLDER: { [key in GeneratedItemType]: { app?: string; lib?: string } } = {

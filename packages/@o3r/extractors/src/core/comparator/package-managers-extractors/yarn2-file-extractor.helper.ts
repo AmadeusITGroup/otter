@@ -159,8 +159,8 @@ async function fetchPackage(project: Project, descriptor: Descriptor): Promise<F
   const multiFetcher = new MultiFetcher(
     (yarnNpmPlugin.fetchers || []).map((fetcher) => new fetcher())
   );
-  const fetchOptions: FetchOptions = { project, cache, checksums: project.storedChecksums, report, fetcher: multiFetcher };
-  const resolveOptions: ResolveOptions = { project, report, resolver: multiResolver, fetchOptions };
+  const fetchOptions = { project, cache, checksums: project.storedChecksums, report, fetcher: multiFetcher } as const satisfies FetchOptions;
+  const resolveOptions = { project, report, resolver: multiResolver, fetchOptions } as const satisfies ResolveOptions;
 
   const normalizedDescriptor = project.configuration.normalizeDependency(descriptor);
   const candidate = await multiResolver.getCandidates(normalizedDescriptor, {}, resolveOptions);
@@ -173,7 +173,7 @@ async function fetchPackage(project: Project, descriptor: Descriptor): Promise<F
   if (!isSupported) {
     throw new O3rCliError(`Fetcher does not support ${descriptorStringify}`);
   }
-  return multiFetcher.fetch(candidate[0], resolveOptions.fetchOptions!);
+  return multiFetcher.fetch(candidate[0], resolveOptions.fetchOptions);
 }
 
 /**

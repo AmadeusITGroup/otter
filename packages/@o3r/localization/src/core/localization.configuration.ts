@@ -51,7 +51,7 @@ export interface LocalizationConfiguration {
 /**
  * Default configuration for LocalizationModule
  */
-export const DEFAULT_LOCALIZATION_CONFIGURATION: LocalizationConfiguration = {
+export const DEFAULT_LOCALIZATION_CONFIGURATION: Readonly<LocalizationConfiguration> = {
   supportedLocales: [],
   endPointUrl: '',
   useDynamicContent: false,
@@ -61,4 +61,4 @@ export const DEFAULT_LOCALIZATION_CONFIGURATION: LocalizationConfiguration = {
   debugMode: false,
   enableTranslationDeactivation: false,
   mergeWithLocalTranslations: false
-};
+} as const;

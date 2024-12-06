@@ -1,10 +1,14 @@
 /* eslint-disable no-console -- this is the purpose of this service */
 import {
+  DestroyRef,
+  inject,
   Inject,
   Injectable,
-  OnDestroy,
   Optional,
 } from '@angular/core';
+import {
+  takeUntilDestroyed,
+} from '@angular/core/rxjs-interop';
 import {
   filterMessageContent,
   sendOtterMessage,
@@ -14,7 +18,6 @@ import {
 } from '@o3r/logger';
 import {
   fromEvent,
-  Subscription,
 } from 'rxjs';
 import {
   AvailableStylingMessageContents,
@@ -80,10 +83,9 @@ const getCSSVariableValue = (variableName: string, cssRules: CSSStyleRule[]) => 
  * Service to handle communication between application and chrome extension for styling
  */
 @Injectable()
-export class StylingDevtoolsMessageService implements OnDestroy {
-  private readonly subscriptions = new Subscription();
-
+export class StylingDevtoolsMessageService {
   private readonly sendMessage = sendOtterMessage<AvailableStylingMessageContents>;
+  private readonly destroyRef = inject(DestroyRef);
 
   constructor(
     private readonly logger: LoggerService,
@@ -157,13 +159,9 @@ export class StylingDevtoolsMessageService implements OnDestroy {
 
   /** @inheritDoc */
   public activate() {
-    this.subscriptions.add(
-      fromEvent(window, 'message').pipe(filterMessageContent(isStylingMessage)).subscribe((e) => this.handleEvents(e))
-    );
-  }
-
-  /** @inheritDoc */
-  public ngOnDestroy() {
-    this.subscriptions.unsubscribe();
+    fromEvent(window, 'message').pipe(
+      takeUntilDestroyed(this.destroyRef),
+      filterMessageContent(isStylingMessage)
+    ).subscribe((e) => this.handleEvents(e));
   }
 }

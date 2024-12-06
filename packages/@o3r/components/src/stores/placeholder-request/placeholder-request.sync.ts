@@ -24,7 +24,7 @@ export const placeholderRequestStorageDeserializer = (rawObject: any) => {
   return storeObject;
 };
 
-export const placeholderRequestStorageSync: Serializer<PlaceholderRequestState> = {
+export const placeholderRequestStorageSync: Readonly<Serializer<PlaceholderRequestState>> = {
   serialize: placeholderRequestStorageSerializer,
   deserialize: placeholderRequestStorageDeserializer
-};
+} as const;

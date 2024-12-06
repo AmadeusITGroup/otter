@@ -1,1 +1,11 @@
-<button class="btn btn-secondary ms-auto df-btn-icononly fa-copy" (click)="copy()" title="Click to copy"></button>
+<div class="text-end">
+  <button class="btn btn-secondary ms-auto df-btn-icononly fa-copy" (click)="shouldDisplayToast.set(true)" title="Click to copy"></button>
+  @if (shouldDisplayToast()) {
+    <ngb-toast dfInsertToastIcon
+               class="df-toast-subtle toast-success text-start"
+               [autohide]="true" [delay]="4000"
+               (hidden)="shouldDisplayToast.set(false)">
+      Copied to clipboard
+    </ngb-toast>
+  }
+</div>

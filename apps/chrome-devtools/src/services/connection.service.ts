@@ -4,6 +4,9 @@ import {
   OnDestroy,
   signal,
 } from '@angular/core';
+import {
+  takeUntilDestroyed,
+} from '@angular/core/rxjs-interop';
 import type {
   Dictionary,
 } from '@ngrx/entity';
@@ -27,7 +30,6 @@ import {
   type Observable,
   of,
   ReplaySubject,
-  Subscription,
 } from 'rxjs';
 import {
   catchError,
@@ -97,7 +99,6 @@ export type AppState = 'loading' | 'timeout' | 'connected';
 export class ChromeExtensionConnectionService implements OnDestroy {
   private backgroundPageConnection?: chrome.runtime.Port;
   private readonly messageSubject = new ReplaySubject<AvailableMessageContents>(1);
-  private readonly subscription = new Subscription();
   private readonly isDisconnected = signal(false);
 
   /** Stream of messages received from the service worker */
@@ -115,8 +116,8 @@ export class ChromeExtensionConnectionService implements OnDestroy {
   public configurations$ = this.configurations.asObservable();
 
   constructor(appRef: ApplicationRef) {
-    this.subscription.add(this.message$.pipe(debounceTime(100)).subscribe(() => appRef.tick()));
-    this.subscription.add(this.message$.pipe(filter(isConfigurationsMessage), map((data) => data.configurations)).subscribe((configurations) => this.configurations.next(configurations)));
+    this.message$.pipe(takeUntilDestroyed(), debounceTime(100)).subscribe(() => appRef.tick());
+    this.message$.pipe(takeUntilDestroyed(), filter(isConfigurationsMessage), map((data) => data.configurations)).subscribe((configurations) => this.configurations.next(configurations));
   }
 
   /** Initialize connection to the service worker to dialog with the page */
@@ -154,6 +155,5 @@ export class ChromeExtensionConnectionService implements OnDestroy {
   /** @inheritDoc */
   public ngOnDestroy() {
     this.backgroundPageConnection?.disconnect();
-    this.subscription.unsubscribe();
   }
 }

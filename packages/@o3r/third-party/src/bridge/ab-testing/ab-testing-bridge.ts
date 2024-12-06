@@ -45,11 +45,11 @@ export interface AbTestBridgeConfig {
 /**
  * Default options that will represent the interface
  */
-const defaultOptions: AbTestBridgeConfig = {
+const defaultOptions = {
   bridgeName: 'abTestBridge',
   readyEventName: 'ab-test-ready',
   logger: console
-};
+} as const satisfies AbTestBridgeConfig;
 
 /**
  * Bridge between the application and a third party A/B testing provider.

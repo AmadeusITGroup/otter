@@ -30,12 +30,12 @@ export interface BuildStatsPluginOptions {
   sessionId: string;
 }
 
-const defaultOptions: BuildStatsPluginOptions = {
+const defaultOptions = {
   threshold: 50,
   appName: 'Test',
   reporters: [console],
   sessionId: randomUUID()
-};
+} as const satisfies BuildStatsPluginOptions;
 
 const PLUGIN_NAME = 'OtterBuildStatsPlugin';
 
@@ -109,7 +109,7 @@ export class BuildStatsPlugin implements WebpackPluginInstance {
       if (stats.compilation.endTime === undefined || stats.compilation.startTime === undefined) {
         return;
       }
-      const buildData: ReportData = {
+      const buildData = {
         compileTime: stats.compilation.endTime - stats.compilation.startTime,
         buildType: compiler.modifiedFiles?.size ? 'watch' : 'full',
         loadersAndCompilation: this.timingData,
@@ -123,7 +123,7 @@ export class BuildStatsPlugin implements WebpackPluginInstance {
         hostName: os.hostname(),
         appName: this.options.appName,
         sessionId: this.options.sessionId
-      };
+      } as const satisfies ReportData;
       this.reportData(buildData);
     });
   }
@@ -174,7 +174,7 @@ export class BuildStatsPlugin implements WebpackPluginInstance {
   private filterTimingsForThreshold(): { [key: string]: number } {
     const filtered: { [key: string]: number } = {};
 
-    const limit = this.options.threshold ?? defaultOptions.threshold!;
+    const limit = this.options.threshold ?? defaultOptions.threshold;
     for (const key of Object.keys(this.pluginDurations)) {
       if (this.pluginDurations[key] > limit) {
         filtered[key] = this.pluginDurations[key];
