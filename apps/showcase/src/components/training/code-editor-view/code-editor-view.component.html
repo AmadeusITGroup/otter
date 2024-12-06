@@ -5,7 +5,7 @@
         <as-split-area [size]="25">
           <monaco-tree (clickFile)="onClickFile($event)"
                        [tree]="(cwdTree$ | async) || []"
-                       [currentFile]="project?.startingFile"
+                       [currentFile]="form.controls.file.value || project?.startingFile"
                        [width]="'auto'"
                        [height]="'auto'"
                        class="w-100 editor-view"></monaco-tree>
@@ -16,7 +16,9 @@
           @if (editorOptions) {
             <ngx-monaco-editor class="h-100 position-relative"
                                [options]="editorOptions"
+                               [model]="model()"
                                (keydown)="onEditorKeyDown($event)"
+                               (onInit)="monacoReady.next()"
                                formControlName="code">
             </ngx-monaco-editor>
           }
