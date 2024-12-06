@@ -16,6 +16,7 @@
           @if (editorOptions) {
             <ngx-monaco-editor class="h-100 position-relative"
                                [options]="editorOptions"
+                               (keydown)="onEditorKeyDown($event)"
                                formControlName="code">
             </ngx-monaco-editor>
           }

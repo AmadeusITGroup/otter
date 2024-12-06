@@ -112,6 +112,7 @@ export class CodeEditorViewComponent implements OnDestroy, OnChanges {
    * @see {FormBuilder}
    */
   private readonly formBuilder = inject(FormBuilder);
+
   /**
    * Stream of the working directory for this component to use it to compute the monaco tree from the
    * {@link WebContainerService} tree
@@ -204,6 +205,14 @@ export class CodeEditorViewComponent implements OnDestroy, OnChanges {
       switchMap(([path]) => from(this.webContainerService.readFile(`${this.project!.cwd}/${path}`).catch(() => ''))),
       takeUntilDestroyed()
     ).subscribe((content) => this.form.controls.code.setValue(content));
+  }
+
+  public onEditorKeyDown(event: KeyboardEvent) {
+    const ctrlKey = /mac/i.test(navigator.userAgent) ? event.metaKey : event.ctrlKey;
+    if (ctrlKey && event.key.toLowerCase() === 's') {
+      event.stopPropagation();
+      event.preventDefault();
+    }
   }
 
   /**
