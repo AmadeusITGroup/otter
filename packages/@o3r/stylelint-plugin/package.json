@@ -27,9 +27,9 @@
     "tslib": "^2.6.2"
   },
   "peerDependencies": {
-    "@angular-devkit/schematics": "~18.2.0",
+    "@angular-devkit/schematics": "^18.2.0",
     "@o3r/schematics": "workspace:^",
-    "@schematics/angular": "~18.2.0",
+    "@schematics/angular": "^18.2.0",
     "postcss": "^8.4.5",
     "postcss-scss": "^4.0.9",
     "stylelint": "^16.0.2"

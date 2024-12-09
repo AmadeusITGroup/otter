@@ -36,19 +36,19 @@
     }
   },
   "peerDependencies": {
-    "@angular-devkit/architect": "~0.1802.0",
-    "@angular-devkit/core": "~18.2.0",
-    "@angular-devkit/schematics": "~18.2.0",
-    "@angular/cdk": "~18.2.0",
-    "@angular/common": "~18.2.0",
-    "@angular/core": "~18.2.0",
-    "@angular/material": "~18.2.0",
+    "@angular-devkit/architect": "^0.1802.0",
+    "@angular-devkit/core": "^18.2.0",
+    "@angular-devkit/schematics": "^18.2.0",
+    "@angular/cdk": "^18.2.0",
+    "@angular/common": "^18.2.0",
+    "@angular/core": "^18.2.0",
+    "@angular/material": "^18.2.0",
     "@o3r/core": "workspace:^",
     "@o3r/dynamic-content": "workspace:^",
     "@o3r/extractors": "workspace:^",
     "@o3r/logger": "workspace:^",
     "@o3r/schematics": "workspace:^",
-    "@schematics/angular": "~18.2.0",
+    "@schematics/angular": "^18.2.0",
     "@yarnpkg/cli": "^4.3.1",
     "@yarnpkg/core": "^4.1.1",
     "@yarnpkg/fslib": "^3.1.0",
@@ -57,9 +57,9 @@
     "chokidar": "^3.5.2",
     "globby": "^11.1.0",
     "rxjs": "^7.8.1",
-    "sass": "~1.81.0",
+    "sass": "^1.81.0",
     "semver": "^7.5.2",
-    "typescript": "~5.5.4"
+    "typescript": "^5.5.4"
   },
   "peerDependenciesMeta": {
     "@angular-devkit/architect": {

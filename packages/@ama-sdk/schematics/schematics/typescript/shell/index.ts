@@ -45,7 +45,9 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKShellSchemati
   const setupRule = async (tree: Tree, context: SchematicContext) => {
     const amaSdkSchematicsPackageJson = await readPackageJson();
 
-    const versions = {
+    const { enforceTildeRange } = await import('@o3r/schematics');
+
+    const versions = Object.fromEntries(Object.entries({
       tslib: amaSdkSchematicsPackageJson.dependencies!.tslib,
       '@commitlint/cli': amaSdkSchematicsPackageJson.generatorDependencies['@commitlint/cli'],
       '@commitlint/config-conventional': amaSdkSchematicsPackageJson.generatorDependencies['@commitlint/config-conventional'],
@@ -79,7 +81,8 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKShellSchemati
       'tsc-watch': amaSdkSchematicsPackageJson.generatorDependencies['tsc-watch'],
       'yaml-eslint-parser': amaSdkSchematicsPackageJson.generatorDependencies['yaml-eslint-parser'],
       typedoc: amaSdkSchematicsPackageJson.generatorDependencies.typedoc
-    };
+    }).map(([key, range]) => ([key, enforceTildeRange(range)])));
+
     const openApiSupportedVersion = typeof amaSdkSchematicsPackageJson.openApiSupportedVersion === 'string'
       && amaSdkSchematicsPackageJson.openApiSupportedVersion.replace(/\^|~/, '');
     context.logger.warn(JSON.stringify(openApiSupportedVersion));
