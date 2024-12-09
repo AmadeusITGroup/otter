@@ -67,52 +67,54 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@agnos-ui/angular-bootstrap@npm:~0.4.1":
-  version: 0.4.4
-  resolution: "@agnos-ui/angular-bootstrap@npm:0.4.4"
+"@agnos-ui/angular-bootstrap@npm:~0.5.0":
+  version: 0.5.0
+  resolution: "@agnos-ui/angular-bootstrap@npm:0.5.0"
   dependencies:
-    "@agnos-ui/angular-headless": "npm:0.4.4"
-    "@agnos-ui/core-bootstrap": "npm:0.4.4"
-    tslib: "npm:^2.6.3"
+    "@agnos-ui/angular-headless": "npm:0.5.0"
+    "@agnos-ui/core-bootstrap": "npm:0.5.0"
+    tslib: "npm:^2.8.0"
   peerDependencies:
     "@amadeus-it-group/tansu": ^1.0.0
-    "@angular/common": ^18.1.2
-    "@angular/core": ^18.1.2
-  checksum: 10/8a38b6bf9af730c80defddea1e06e8356c7972a2290ed5f4ed1c5cc452a986903da9313bd8975d4ff1f0f9cb0a8f4dd6c3e1c4dea2965e5c8586338acc87f6f6
+    "@angular/common": ^18.2.9
+    "@angular/core": ^18.2.9
+  checksum: 10/a1c0475c370f3f322e83ca0954fde976655ca5608cd5648150d0557505ff70fa62e3f58de4f9b1fab950e2ae6ed2917e4145f7f63c4c594a8fb493948272d72b
   languageName: node
   linkType: hard
 
-"@agnos-ui/angular-headless@npm:0.4.4":
-  version: 0.4.4
-  resolution: "@agnos-ui/angular-headless@npm:0.4.4"
+"@agnos-ui/angular-headless@npm:0.5.0":
+  version: 0.5.0
+  resolution: "@agnos-ui/angular-headless@npm:0.5.0"
   dependencies:
-    "@agnos-ui/core": "npm:0.4.4"
-    tslib: "npm:^2.6.3"
+    "@agnos-ui/core": "npm:0.5.0"
+    tslib: "npm:^2.8.0"
   peerDependencies:
     "@amadeus-it-group/tansu": ^1.0.0
-    "@angular/common": ^18.1.2
-    "@angular/core": ^18.1.2
-  checksum: 10/814d261034cd905723ddc0e602f4a911c2ee9150b606295207c63324c46e9e291f173617dda937ccb704f34a38ceccd71df8ddf2721f8e95486b1ae9e63b4588
+    "@angular/common": ^18.2.9
+    "@angular/core": ^18.2.9
+  checksum: 10/9447ed70fe22ffb92107f7f1eb0fb941fcf8d3566ff4968d2d332c37b3a09bb5571f64d3c497ac5fb5710f8901045c3ff78179ceeb619bb2694790aa2e9ad839
   languageName: node
   linkType: hard
 
-"@agnos-ui/core-bootstrap@npm:0.4.4, @agnos-ui/core-bootstrap@npm:~0.4.1":
-  version: 0.4.4
-  resolution: "@agnos-ui/core-bootstrap@npm:0.4.4"
+"@agnos-ui/core-bootstrap@npm:0.5.0, @agnos-ui/core-bootstrap@npm:~0.5.0":
+  version: 0.5.0
+  resolution: "@agnos-ui/core-bootstrap@npm:0.5.0"
   dependencies:
-    "@agnos-ui/core": "npm:0.4.4"
-  checksum: 10/5238d708d7d74ef3c0c3196bb1cd6b165ab7057780b8d281806bbad8cf6c3b7eaad55476ec52baa07790099c878249ec118a6794f46d0e524c9e1d506138a529
+    "@agnos-ui/core": "npm:0.5.0"
+  peerDependencies:
+    "@amadeus-it-group/tansu": ^1.0.0
+  checksum: 10/8932495d42471986e50d764c097e255b460c5d5f11dd3aed2567925ba236acddff9307d16a5ca5f4ce97b83ce532918476299bb9971c17d9ce85e4b32120c661
   languageName: node
   linkType: hard
 
-"@agnos-ui/core@npm:0.4.4":
-  version: 0.4.4
-  resolution: "@agnos-ui/core@npm:0.4.4"
+"@agnos-ui/core@npm:0.5.0":
+  version: 0.5.0
+  resolution: "@agnos-ui/core@npm:0.5.0"
   peerDependencies:
     "@amadeus-it-group/tansu": ^1.0.0
-    "@floating-ui/dom": ^1.6.8
-    esm-env: ^1.0.0
-  checksum: 10/b2f0fb71c0cac5285f522c828edc716d05e348651eb389a3bd019f405667ec0adf02b65e1a6f4cd6e32bc2d1b257334bd3641d50712e5d46ae1bf0691804f967
+    "@floating-ui/dom": ^1.6.12
+    esm-env: ^1.1.4
+  checksum: 10/3b8b4beee53902cd7c3507eb97651778b5eab89384aeb1612285bf017086875583847a9b15e4b2786030cee1346ca1bf3cfcff801a619c9f7e6987ae3dee9e6d
   languageName: node
   linkType: hard
 
@@ -7889,8 +7891,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/chrome-devtools@workspace:apps/chrome-devtools"
   dependencies:
-    "@agnos-ui/angular-bootstrap": "npm:~0.4.1"
-    "@agnos-ui/core-bootstrap": "npm:~0.4.1"
+    "@agnos-ui/angular-bootstrap": "npm:~0.5.0"
+    "@agnos-ui/core-bootstrap": "npm:~0.5.0"
     "@amadeus-it-group/tansu": "npm:~1.0.0"
     "@angular-devkit/build-angular": "npm:~18.2.0"
     "@angular/animations": "npm:~18.2.0"
@@ -9177,8 +9179,8 @@ __metadata:
     "@actions/core": "npm:^1.10.0"
     "@actions/exec": "npm:^1.1.1"
     "@actions/github": "npm:^6.0.0"
-    "@agnos-ui/angular-bootstrap": "npm:~0.4.1"
-    "@agnos-ui/core-bootstrap": "npm:~0.4.1"
+    "@agnos-ui/angular-bootstrap": "npm:~0.5.0"
+    "@agnos-ui/core-bootstrap": "npm:~0.5.0"
     "@amadeus-it-group/tansu": "npm:~1.0.0"
     "@angular-devkit/architect": "npm:~0.1802.0"
     "@angular-devkit/build-angular": "npm:~18.2.0"
@@ -10162,8 +10164,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/showcase@workspace:apps/showcase"
   dependencies:
-    "@agnos-ui/angular-bootstrap": "npm:~0.4.1"
-    "@agnos-ui/core-bootstrap": "npm:~0.4.1"
+    "@agnos-ui/angular-bootstrap": "npm:~0.5.0"
+    "@agnos-ui/core-bootstrap": "npm:~0.5.0"
     "@ama-sdk/client-fetch": "workspace:^"
     "@ama-sdk/core": "workspace:^"
     "@ama-sdk/schematics": "workspace:^"
