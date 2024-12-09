@@ -94,5 +94,17 @@
     "@o3r/core:*"
   ],
   "otter.extract.styling.prefix": "o3r",
+  "search.exclude": {
+    "**/.yarn": true,
+    "**/.pnp.*": true,
+    "**/dist/": true,
+    "**/build/": true,
+    "**/node_modules": true,
+    "**/.cache": true,
+    "**/src/package.json": true,
+    "tools/github-actions/*/packaged-action/**": true
+  },
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "typescript.tsdk": ".yarn/sdks/typescript/lib",
   "typescript.tsserver.watchOptions": "vscode"
 }
