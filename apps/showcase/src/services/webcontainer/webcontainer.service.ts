@@ -15,10 +15,12 @@ import {
   share,
 } from 'rxjs';
 import {
+  convertTreeRec,
+} from '../../helpers/monaco-tree.helper';
+import {
   WebContainerRunner,
 } from './webcontainer-runner';
 import {
-  convertTreeRec,
   getFilesTreeFromContainer,
 } from './webcontainer.helpers';
 
@@ -44,7 +46,6 @@ export class WebContainerService {
   /**
    * Get the Monaco file tree from the given root path
    * @param rootPath
-   * @private
    */
   private async getMonacoTree(rootPath: string): Promise<MonacoTreeElement[]> {
     const instance = await this.runner.instancePromise;
@@ -60,12 +61,12 @@ export class WebContainerService {
    * @param exerciseName
    */
   public async loadProject(files: FileSystemTree, commands: string[], exerciseName: string) {
-    this.monacoTree.next([]);
     this.runner.registerTreeUpdateCallback(async () => {
-      const tree = await this.getMonacoTree(`/${exerciseName}`);
+      const tree = await this.getMonacoTree('./');
       this.monacoTree.next(tree);
     });
-    return this.runner.runProject(files, commands, exerciseName);
+    const filesToLoad = await this.doesFolderExist(exerciseName) ? null : files;
+    return this.runner.runProject(filesToLoad, commands, exerciseName);
   }
 
   /**
@@ -75,7 +76,6 @@ export class WebContainerService {
    */
   public async writeFile(file: string, content: string) {
     const instance = await this.runner.instancePromise;
-
     return instance.fs.writeFile(file, content);
   }
 
@@ -85,7 +85,6 @@ export class WebContainerService {
    */
   public async readFile(file: string): Promise<string> {
     const instance = await this.runner.instancePromise;
-
     return instance.fs.readFile(file, 'utf8');
   }
 
@@ -94,19 +93,37 @@ export class WebContainerService {
    * @param filePath - absolute path in the file system (relative path not supported)
    */
   public async isFile(filePath: string) {
-    const instance = await this.runner.instancePromise;
-    const parent = filePath.replace(/^([^/])/, '/$1').replace(/\/[^/]*$/, '');
-    const fileEntries = await instance.fs.readdir(parent, { encoding: 'utf8', withFileTypes: true });
-    const fileEntry = fileEntries.find((file) => filePath.split('/').pop() === file.name);
-    return !!fileEntry?.isFile();
+    try {
+      const instance = await this.runner.instancePromise;
+      const parent = filePath.replace(/^([^/])/, '/$1').replace(/\/[^/]*$/, '');
+      const fileEntries = await instance.fs.readdir(parent, { encoding: 'utf8', withFileTypes: true });
+      const fileEntry = fileEntries.find((file) => filePath.split('/').pop() === file.name);
+      return !!fileEntry?.isFile();
+    } catch {
+      return false;
+    }
   }
 
   /**
-   * Log the file tree of the current instance (for debugging purposes)
+   * Checks if the folder exists at the root of the WebContainer instance
+   * @param folderName
    */
-  public async logTree() {
+  public async doesFolderExist(folderName: string) {
+    try {
+      const instance = await this.runner.instancePromise;
+      await instance.fs.readdir(folderName);
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  /**
+   * Get the file tree of the current instance (for debugging purposes)
+   */
+  public async getTree() {
     const instance = await this.runner.instancePromise;
-    // eslint-disable-next-line no-console -- for debugging purposes
-    console.log(await getFilesTreeFromContainer(instance, EXCLUDED_FILES_OR_DIRECTORY));
+
+    return getFilesTreeFromContainer(instance, EXCLUDED_FILES_OR_DIRECTORY);
   }
 }

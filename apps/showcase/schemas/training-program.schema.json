@@ -1,0 +1,121 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "type": "object",
+  "$id": "TrainingProgramSchema",
+  "title": "Training program",
+  "description": "Training program steps and their descriptions",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "trainingSteps": {
+      "type": "array",
+      "description": "Steps of the training program",
+      "items": {
+        "type": "object",
+        "properties": {
+          "stepTitle": {
+            "type": "string",
+            "description": "Step title"
+          },
+          "htmlContentUrl": {
+            "type": "string",
+            "description": "URL to step instructions (HTML content)"
+          },
+          "filesConfiguration": {
+            "type": "object",
+            "description": "Step files configuration",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Name of directory in which files will be put"
+              },
+              "startingFile": {
+                "type": "string",
+                "description": "Starting file to be displayed in the project"
+              },
+              "commands": {
+                "type": "array",
+                "description": "Commands to run in the project",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "urls": {
+                "type": "array",
+                "description": "URLs of step project",
+                "items": {
+                  "type": "object",
+                  "description": "Step project content and its corresponding path",
+                  "properties": {
+                    "path": {
+                      "type": "string",
+                      "description": "Path in step project"
+                    },
+                    "contentUrl": {
+                      "type": "string",
+                      "description": "URL of content"
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "path",
+                    "contentUrl"
+                  ]
+                }
+              },
+              "solutionUrls": {
+                "type": "array",
+                "description": "URLs of step solution project",
+                "items": {
+                  "type": "object",
+                  "description": "Step project content and its corresponding path",
+                  "properties": {
+                    "path": {
+                      "type": "string",
+                      "description": "Path in step project"
+                    },
+                    "contentUrl": {
+                      "type": "string",
+                      "description": "URL of content"
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "path",
+                    "contentUrl"
+                  ]
+                }
+              },
+              "mode": {
+                "type": "string",
+                "description": "Mode of the Code Editor",
+                "enum": [
+                  "readonly",
+                  "interactive"
+                ]
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "name",
+              "startingFile",
+              "commands",
+              "urls",
+              "mode"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "stepTitle",
+          "htmlContentUrl"
+        ]
+      }
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "trainingSteps"
+  ]
+}

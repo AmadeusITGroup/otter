@@ -94,5 +94,11 @@
     "@o3r/core:*"
   ],
   "otter.extract.styling.prefix": "o3r",
-  "typescript.tsserver.watchOptions": "vscode"
+  "typescript.tsserver.watchOptions": "vscode",
+  "search.exclude": {
+    "**/.yarn": true,
+    "**/.pnp.*": true
+  },
+  "typescript.tsdk": ".yarn/sdks/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true
 }

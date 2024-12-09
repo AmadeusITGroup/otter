@@ -1,0 +1,32 @@
+code-editor-control {
+  .tab-content {
+    --df-tabs-content-tab-pane-padding: 0;
+    overflow: hidden;
+  }
+
+  .tab-pane {
+    border: 1px solid black;
+    height: 100%;
+  }
+
+  df-progressbar {
+    min-width: 15em;
+  }
+
+  .terminal-active-indicator {
+    display: inline-block;
+    font-weight: bold;
+    color: var(--df-recommend-warning-color);
+    transform: rotate(0);
+    animation: rotate-animation 1s linear infinite;
+  }
+
+  @keyframes rotate-animation {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}
