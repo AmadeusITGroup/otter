@@ -48,11 +48,10 @@ const mergeESLintConfigs = async (globs) => {
     localConfigs = localConfigs.concat(
       configArray.map((config) => ({
         ...config,
-        files: (config.files || ['**/*']).flat().map((pathGlob) => addPrefix(directory, pathGlob)),
         ...(
           config.ignores
             ? { ignores: config.ignores.map((pathGlob) => addPrefix(directory, pathGlob)) }
-            : {}
+            : { files: (config.files || ['**/*']).flat().map((pathGlob) => addPrefix(directory, pathGlob)) }
         )
       }))
     );
