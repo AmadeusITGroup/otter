@@ -31,7 +31,8 @@
     "logrocket": "^8.1.0",
     "logrocket-ngrx": "^0.2.1",
     "rxjs": "^7.8.1",
-    "smartlook-client": "^9.0.0"
+    "smartlook-client": "^9.0.0",
+    "ts-node": "~10.9.2"
   },
   "peerDependenciesMeta": {
     "@angular-devkit/schematics": {
