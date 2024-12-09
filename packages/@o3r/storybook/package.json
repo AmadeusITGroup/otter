@@ -48,10 +48,10 @@
     "tslib": "^2.6.2"
   },
   "peerDependencies": {
-    "@angular-devkit/core": "~18.2.0",
-    "@angular-devkit/schematics": "~18.2.0",
-    "@angular/core": "~18.2.0",
-    "@ngrx/store": "~18.0.0",
+    "@angular-devkit/core": "^18.2.0",
+    "@angular-devkit/schematics": "^18.2.0",
+    "@angular/core": "^18.2.0",
+    "@ngrx/store": "^18.0.0",
     "@o3r/components": "workspace:^",
     "@o3r/configuration": "workspace:^",
     "@o3r/core": "workspace:^",
@@ -59,13 +59,13 @@
     "@o3r/logger": "workspace:^",
     "@o3r/schematics": "workspace:^",
     "@o3r/styling": "workspace:^",
-    "@schematics/angular": "~18.2.0",
+    "@schematics/angular": "^18.2.0",
     "@storybook/addons": "^7.5.3",
     "@storybook/angular": "^8.0.0",
     "@storybook/api": "^7.5.3",
     "@storybook/components": "^8.0.0",
     "rxjs": "^7.8.1",
-    "typescript": "~5.5.4"
+    "typescript": "^5.5.4"
   },
   "peerDependenciesMeta": {
     "@angular-devkit/schematics": {

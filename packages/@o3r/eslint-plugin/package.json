@@ -45,12 +45,12 @@
     }
   },
   "peerDependencies": {
-    "@angular-devkit/schematics": "~18.2.0",
-    "@angular-eslint/template-parser": "~18.4.0",
-    "@angular-eslint/test-utils": "~18.4.0",
-    "@angular/compiler": "~18.2.0",
-    "eslint": "^8.57.0 || ~9.14.0",
-    "jsonc-eslint-parser": "~2.4.0",
+    "@angular-devkit/schematics": "^18.2.0",
+    "@angular-eslint/template-parser": "^18.4.0",
+    "@angular-eslint/test-utils": "^18.4.0",
+    "@angular/compiler": "^18.2.0",
+    "eslint": ">=8.57.0 <9.15.0",
+    "jsonc-eslint-parser": "^2.4.0",
     "yaml-eslint-parser": "^1.2.2"
   },
   "devDependencies": {

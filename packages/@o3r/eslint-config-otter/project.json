@@ -32,11 +32,7 @@
       "options": {
         "script": "build"
       },
-      "dependsOn": [],
-      "inputs": [
-        "{projectRoot}/rules/**/*",
-        "!{projectRoot}/**/*.spec.ts"
-      ]
+      "dependsOn": []
     },
     "prepare-build-builders": {
       "executor": "nx:run-script",

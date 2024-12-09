@@ -31,13 +31,13 @@
     }
   },
   "peerDependencies": {
-    "@angular-devkit/schematics": "~18.2.0",
+    "@angular-devkit/schematics": "^18.2.0",
     "@o3r/schematics": "workspace:^",
-    "@schematics/angular": "~18.2.0",
-    "@webcontainer/api": "~1.5.0",
+    "@schematics/angular": "^18.2.0",
+    "@webcontainer/api": "^1.5.0",
     "rxjs": "^7.8.1",
     "type-fest": "^4.10.2",
-    "typescript": "~5.5.4"
+    "typescript": "^5.5.4"
   },
   "peerDependenciesMeta": {
     "@angular-devkit/architect": {
