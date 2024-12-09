@@ -93,6 +93,7 @@ function ngGenerateJavaClientCoreFn(options: NgGenerateJavaClientCoreSchematicsS
 
 /**
  * Generate a Java client SDK source code base on swagger specification
+ * @deprecated Remove in otter v12
  * @param options
  */
 export const ngGenerateJavaClientCore = (options: NgGenerateJavaClientCoreSchematicsSchema) => async () => {

@@ -13,7 +13,9 @@
   "types": "index.d.ts",
   "sideEffects": false,
   "deprecated": "This package is intended for testing purposes only.",
-  "private": true,
+  "publishConfig": {
+    "access": "public"
+  },
   "exports": {
     "./package.json": {
       "default": "./package.json"
@@ -55,6 +57,7 @@
     "spec:regen": "yarn run generate --no-dry-run && amasdk-clear-index",
     "files:pack": "yarn amasdk-files-pack",
     "test": "jest --passWithNoTests",
+    "publish:package": "npm publish ./dist",
     "generate:mock": "schematics ../../@ama-sdk/schematics:mock",
     "doc:generate": "node scripts/override-readme.js && typedoc && node scripts/restore-readme.js",
     "tools:changelog": "commit-and-tag-version"
@@ -91,10 +94,10 @@
     "@schematics/angular": "~18.2.0",
     "@stylistic/eslint-plugin": "~2.7.0",
     "@swc/cli": "~0.5.0",
-    "@swc/core": "~1.9.0",
+    "@swc/core": "~1.10.0",
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",
-    "@typescript-eslint/parser": "~8.16.0",
+    "@typescript-eslint/parser": "~8.17.0",
     "angular-eslint": "~18.4.0",
     "chokidar": "^3.5.2",
     "commit-and-tag-version": "^12.0.0",
@@ -120,7 +123,7 @@
     "tsc-watch": "^6.0.4",
     "typedoc": "~0.26.0",
     "typescript": "~5.5.4",
-    "typescript-eslint": "~8.16.0"
+    "typescript-eslint": "~8.17.0"
   },
   "peerDependencies": {
     "@ama-sdk/client-fetch": "workspace:^",

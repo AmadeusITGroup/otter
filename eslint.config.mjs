@@ -2,15 +2,15 @@ import {
   dirname,
   posix,
   relative,
-  sep
+  sep,
 } from 'node:path';
 import {
   fileURLToPath,
-  pathToFileURL
+  pathToFileURL,
 } from 'node:url';
 import shared from './eslint.shared.config.mjs';
 import {
-  sync
+  sync,
 } from 'globby';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -43,11 +43,10 @@ const mergeESLintConfigs = async (globs) => {
     localConfigs = localConfigs.concat(
       configArray.map((config) => ({
         ...config,
-        files: (config.files || ['**/*']).flat().map((pathGlob) => addPrefix(directory, pathGlob)),
         ...(
           config.ignores
             ? { ignores: config.ignores.map((pathGlob) => addPrefix(directory, pathGlob)) }
-            : {}
+            : { files: (config.files || ['**/*']).flat().map((pathGlob) => addPrefix(directory, pathGlob)) }
         )
       }))
     );

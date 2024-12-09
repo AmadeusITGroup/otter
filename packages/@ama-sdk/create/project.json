@@ -4,6 +4,9 @@
   "projectType": "library",
   "sourceRoot": "packages/@ama-sdk/create/src",
   "prefix": "o3r",
+  "implicitDependencies": [
+    "training-showcase-sdk"
+  ],
   "targets": {
     "build": {
       "executor": "nx:run-script",
