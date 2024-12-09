@@ -51,14 +51,8 @@
     "workspaces:list": "yarn workspaces list --no-private --json | yarn node -e 'let data=\"\"; process.openStdin().on(\"data\", (c) => data+=c).on(\"end\", () => process.stdout.write(data.split(/[\\n\\r]+/).filter((l) => !!l).map((l) => JSON.parse(l).location).join(require(\"node:path\").delimiter)));'"
   },
   "lint-staged": {
-    "*.ts": [
-      "eslint --quiet --fix"
-    ],
-    "**/package.json": [
-      "eslint --quiet --fix"
-    ],
-    "**/.yarnrc.yml": [
-      "eslint --quiet --fix"
+    "**/{package.json,.yarnrc.yml,*.ts,*.mts,*.cts*.js,*.mjs,*.cjs,*.html}": [
+      "eslint --quiet --fix --cache-location .cache/eslint"
     ],
     "*": [
       "editorconfig-checker -exclude \".*[\\\\/]templates[\\\\/].*\" -ignore-defaults --verbose"
@@ -209,8 +203,8 @@
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",
     "@types/semver": "^7.3.13",
-    "@typescript-eslint/parser": "~8.12.2",
-    "@typescript-eslint/rule-tester": "~8.12.2",
+    "@typescript-eslint/parser": "~8.16.0",
+    "@typescript-eslint/rule-tester": "~8.16.0",
     "@webcontainer/api": "~1.5.0",
     "@xterm/addon-fit": "^0.10.0",
     "@xterm/xterm": "^5.0.0",
@@ -240,7 +234,6 @@
     "eslint-plugin-unused-imports": "^4.1.4",
     "globals": "^15.9.0",
     "globby": "^11.1.0",
-    "highlight.js": "^11.8.0",
     "husky": "~9.1.0",
     "intl-messageformat": "~10.7.0",
     "isomorphic-fetch": "~3.0.0",
@@ -254,7 +247,6 @@
     "marked": "^12.0.0",
     "minimist": "^1.2.6",
     "ng-packagr": "~18.2.0",
-    "ngx-highlightjs": "^12.0.0",
     "ngx-markdown": "^18.1.0",
     "ngx-monaco-editor-v2": "^18.0.0",
     "ngx-monaco-tree": "^18.1.0",
@@ -279,7 +271,7 @@
     "ts-node": "~10.9.2",
     "tsc-watch": "^6.0.4",
     "typescript": "~5.5.4",
-    "typescript-eslint": "~8.12.2",
+    "typescript-eslint": "~8.16.0",
     "uuid": "^10.0.0",
     "webpack": "~5.96.0",
     "winston": "^3.8.2",
@@ -306,5 +298,5 @@
     "tools/@*/*",
     "apps/*"
   ],
-  "packageManager": "yarn@4.5.2"
+  "packageManager": "yarn@4.5.3"
 }

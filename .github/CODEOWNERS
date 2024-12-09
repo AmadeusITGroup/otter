@@ -11,7 +11,14 @@
 
 ## Default reviewers for AEM Plugin JSON Schemas
 # /packages/@o3r/application/schemas/ @guillaume-goulet
+# /packages/@o3r/localization/schemas/ @guillaume-goulet
+# /packages/@o3r/configuration/schemas/ @guillaume-goulet
+# /packages/@o3r/components/schemas/ @guillaume-goulet
+# /packages/@o3r/dynamic-content/schemas/ @guillaume-goulet
+# /packages/@o3r/extractors/schemas/ @guillaume-goulet
+# /packages/@o3r/rules-engine/schemas/ @guillaume-goulet
 
-## Default reviewers for Intellij extension
+
+# Default reviewers for Intellij extension
 /apps/intellij-extension/ @OxyFlax
 /apps/intellij-extension/build.gradle.kts @AmadeusITGroup/otter_admins

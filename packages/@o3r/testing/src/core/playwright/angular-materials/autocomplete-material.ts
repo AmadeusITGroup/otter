@@ -31,7 +31,7 @@ export class MatAutocomplete extends O3rElement implements MatAutocompleteProfil
       throw new Error(`MatAutocomplete selectByValue works only for filtered autocomplete. Found multiple values: ${options.join(', ')}`);
     }
     if (matOptionsCount === 1) {
-      const selectedOption: PlaywrightSourceElement = { element: matOptions.nth(0), page: this.sourceElement.page };
+      const selectedOption = { element: matOptions.nth(0), page: this.sourceElement.page } as const satisfies PlaywrightSourceElement;
       await new O3rElement(selectedOption).click();
       return this.sourceElement.element.press('Tab');
     }

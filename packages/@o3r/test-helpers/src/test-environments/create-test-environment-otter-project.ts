@@ -56,7 +56,7 @@ const o3rVersion = '~999';
  * @param inputOptions
  */
 export async function createTestEnvironmentOtterProjectWithAppAndLib(inputOptions: Partial<CreateTestEnvironmentOtterProjectWithAppAndLibOptions>) {
-  const options: CreateTestEnvironmentOtterProjectWithAppAndLibOptions = {
+  const options = {
     appName: 'test-app',
     libName: 'test-lib',
     appDirectory: 'test-app',
@@ -67,15 +67,15 @@ export async function createTestEnvironmentOtterProjectWithAppAndLib(inputOption
     lockTimeout: 10 * 60 * 1000,
     replaceExisting: true,
     ...inputOptions
-  };
+  } as const satisfies CreateTestEnvironmentOtterProjectWithAppAndLibOptions;
 
   await createWithLock(() => {
     const appFolderPath = path.join(options.cwd, options.appDirectory);
-    const execAppOptions: ExecSyncOptions = {
+    const execAppOptions = {
       cwd: appFolderPath,
       stdio: 'inherit',
       env: { ...process.env, NODE_OPTIONS: '', CI: 'true' }
-    };
+    } as const satisfies ExecSyncOptions;
 
     // Prepare folder
     if (existsSync(appFolderPath)) {

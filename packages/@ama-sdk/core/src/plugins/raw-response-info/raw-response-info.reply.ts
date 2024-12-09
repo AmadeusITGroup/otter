@@ -51,13 +51,13 @@ export class RawResponseInfoReply<V = { [key: string]: any } | undefined> implem
           return data;
         }
 
-        const responseInfo: RawResponseReply = {
+        const responseInfo = {
           responseInfo: {
             ...context.response,
             apiType: context.apiType,
             apiName: context.apiName
           }
-        };
+        } as const satisfies RawResponseReply;
 
         return data ? Object.assign(data, responseInfo) : responseInfo as V & RawResponseReply;
       }

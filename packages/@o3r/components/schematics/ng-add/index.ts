@@ -9,6 +9,9 @@ import {
 import type {
   DependencyToAdd,
 } from '@o3r/schematics';
+import type {
+  NodeDependencyType as NodeDependencyTypeEnum,
+} from '@schematics/angular/utility/dependencies';
 import {
   updateCmsAdapter,
 } from '../cms-adapter';
@@ -43,7 +46,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       registerPackageCollectionSchematics,
       getPackageInstallConfig
     } = await import('@o3r/schematics');
-    const { NodeDependencyType } = await import('@schematics/angular/utility/dependencies');
+    const { NodeDependencyType } = await import('@schematics/angular/utility/dependencies').catch(() => ({ NodeDependencyType: { Dev: 'devDependencies' as NodeDependencyTypeEnum.Dev } }));
     options = { ...getDefaultOptionsForSchematic(getWorkspaceConfig(tree), '@o3r/components', 'ng-add', options), ...options };
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
     const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' }));
@@ -63,14 +66,14 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       };
       return acc;
     }, getPackageInstallConfig(packageJsonPath, tree, options.projectName, false, !!options.exactO3rVersion));
-    const devDependencies: Record<string, DependencyToAdd> = {
+    const devDependencies = {
       chokidar: {
         inManifest: [{
           range: packageJson.peerDependencies.chokidar,
           types: [NodeDependencyType.Dev]
         }]
       }
-    };
+    } as const satisfies Record<string, DependencyToAdd>;
     const rule = chain([
       removePackages(['@otter/components']),
       setupDependencies({

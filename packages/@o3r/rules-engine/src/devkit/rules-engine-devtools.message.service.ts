@@ -1,9 +1,13 @@
 import {
+  DestroyRef,
+  inject,
   Inject,
   Injectable,
-  OnDestroy,
   Optional,
 } from '@angular/core';
+import {
+  takeUntilDestroyed,
+} from '@angular/core/rxjs-interop';
 import {
   DevtoolsServiceInterface,
   filterMessageContent,
@@ -16,7 +20,6 @@ import {
   BehaviorSubject,
   combineLatest,
   fromEvent,
-  Subscription,
 } from 'rxjs';
 import type {
   DebugEvent,
@@ -38,14 +41,11 @@ import {
 @Injectable({
   providedIn: 'root'
 })
-export class RulesEngineDevtoolsMessageService implements OnDestroy, DevtoolsServiceInterface {
+export class RulesEngineDevtoolsMessageService implements DevtoolsServiceInterface {
   private readonly options: RulesEngineDevtoolsServiceOptions;
-
-  private readonly subscriptions = new Subscription();
-
   private readonly forceEmitRulesEngineReport = new BehaviorSubject<void>(undefined);
-
   private readonly sendMessage = sendOtterMessage<AvailableRulesEngineMessageContents>;
+  private readonly destroyRef = inject(DestroyRef);
 
   constructor(
     private readonly rulesEngineDevtools: OtterRulesEngineDevtools,
@@ -119,13 +119,14 @@ export class RulesEngineDevtoolsMessageService implements OnDestroy, DevtoolsSer
    */
   private startRulesEngineReport() {
     if (this.rulesEngineDevtools.rulesEngineReport$) {
-      this.subscriptions.add(
-        combineLatest([this.forceEmitRulesEngineReport, this.rulesEngineDevtools.rulesEngineReport$]).subscribe(
-          ([,report]) => {
-            const sanitizedReport = { ...report, events: report.events.map((reportEvents) => this.serializeReportEvent(reportEvents)) };
-            this.sendMessage('rulesEngineEvents', sanitizedReport);
-          }
-        )
+      combineLatest([
+        this.forceEmitRulesEngineReport,
+        this.rulesEngineDevtools.rulesEngineReport$
+      ]).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(
+        ([,report]) => {
+          const sanitizedReport = { ...report, events: report.events.map((reportEvents) => this.serializeReportEvent(reportEvents)) };
+          this.sendMessage('rulesEngineEvents', sanitizedReport);
+        }
       );
     }
   }
@@ -142,13 +143,9 @@ export class RulesEngineDevtoolsMessageService implements OnDestroy, DevtoolsSer
   public activate() {
     this.startRulesEngineReport();
 
-    this.subscriptions.add(
-      fromEvent(window, 'message').pipe(filterMessageContent(isRulesEngineMessage)).subscribe((e) => this.handleEvents(e))
-    );
-  }
-
-  /** @inheritDoc */
-  public ngOnDestroy() {
-    this.subscriptions.unsubscribe();
+    fromEvent(window, 'message').pipe(
+      takeUntilDestroyed(this.destroyRef),
+      filterMessageContent(isRulesEngineMessage)
+    ).subscribe((e) => this.handleEvents(e));
   }
 }

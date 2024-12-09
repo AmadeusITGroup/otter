@@ -41,13 +41,13 @@ export interface BaseApiAngularClientOptions extends BaseApiClientOptions {
 export interface BaseApiAngularClientConstructor extends PartialExcept<BaseApiAngularClientOptions, 'basePath' | 'httpClient'> {
 }
 
-const DEFAULT_OPTIONS: Omit<BaseApiAngularClientOptions, 'basePath' | 'httpClient'> = {
+const DEFAULT_OPTIONS = {
   replyPlugins: [new ReviverReply(), new ExceptionReply()],
   angularPlugins: [],
   requestPlugins: [],
   enableTokenization: false,
   disableFallback: false
-};
+} as const satisfies Omit<BaseApiAngularClientOptions, 'basePath' | 'httpClient'>;
 
 /** Client to process the call to the API using Angular API */
 export class ApiAngularClient implements ApiClient {

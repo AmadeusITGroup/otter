@@ -52,7 +52,7 @@ export class RulesEngineExtractor {
   /** Interface of an action definition */
   public static readonly OPERATOR_ACTIONS_INTERFACE = 'RulesEngineAction';
   /** Reserved fact names that will be filtered out of metadata */
-  public static readonly RESERVED_FACT_NAMES: readonly string[] = ['portalFacts'];
+  public static readonly RESERVED_FACT_NAMES = ['portalFacts'];
 
   /** TSConfig to parse the code  */
   private readonly tsconfig: any;
@@ -83,11 +83,11 @@ export class RulesEngineExtractor {
       : [];
     internalLibFiles.push(sourceFile);
     const program = tjs.getProgramFromFiles(internalLibFiles, this.tsconfig.compilerOptions, this.basePath);
-    const settings: tjs.PartialArgs = {
+    const settings = {
       required: true,
       aliasRef: this.tsconfig.compilerOptions?.paths,
       ignoreErrors: true
-    };
+    } as const satisfies tjs.PartialArgs;
     const schema = tjs.generateSchema(program, type, settings);
     if (schema?.definitions?.['utils.Date']) {
       schema.definitions['utils.Date'] = { type: 'string', format: 'date' };

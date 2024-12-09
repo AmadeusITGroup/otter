@@ -1,12 +1,11 @@
 import {
   Directive,
   ElementRef,
-  OnDestroy,
   Renderer2,
 } from '@angular/core';
 import {
-  Subscription,
-} from 'rxjs';
+  takeUntilDestroyed,
+} from '@angular/core/rxjs-interop';
 import {
   AnalyticsEvent,
   ConstructorAnalyticsEvent,
@@ -19,7 +18,7 @@ import {
 } from '../../services/event-track';
 
 @Directive()
-export abstract class BaseTrackEvents implements OnDestroy {
+export abstract class BaseTrackEvents {
   /**
    * Custom object to be stored when the click event is captured
    */
@@ -47,11 +46,8 @@ export abstract class BaseTrackEvents implements OnDestroy {
   /** Flag for the tracking mode */
   protected isTrackingActive = false;
 
-  /** Tracking mode subscription */
-  private readonly subscription: Subscription;
-
   protected constructor(protected el: ElementRef, protected trackEventsService: EventTrackService, protected renderer: Renderer2) {
-    this.subscription = this.trackEventsService.uiTrackingActive$.subscribe((isActive) => {
+    this.trackEventsService.uiTrackingActive$.pipe(takeUntilDestroyed()).subscribe((isActive) => {
       this.isTrackingActive = isActive;
       if (isActive) {
         this.listen();
@@ -98,10 +94,5 @@ export abstract class BaseTrackEvents implements OnDestroy {
     if (this.isTrackingActive) {
       this.unlistenFns.push(this.nativeListen(event));
     }
-  }
-
-  /** Unsubscribe from the activate tracking subscription */
-  public ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 }

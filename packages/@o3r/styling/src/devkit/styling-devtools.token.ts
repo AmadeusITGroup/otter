@@ -8,12 +8,12 @@ import type {
 /**
  * Default value for styling devtools
  */
-export const OTTER_STYLING_DEVTOOLS_DEFAULT_OPTIONS: StylingDevtoolsServiceOptions = {
+export const OTTER_STYLING_DEVTOOLS_DEFAULT_OPTIONS: Readonly<StylingDevtoolsServiceOptions> = {
   isActivatedOnBootstrap: false,
   stylingMetadataPath: './metadata/styling.metadata.json'
-};
+} as const;
 
 /**
  * Token for styling devtools
  */
-export const OTTER_STYLING_DEVTOOLS_OPTIONS: InjectionToken<StylingDevtoolsServiceOptions> = new InjectionToken<StylingDevtoolsServiceOptions>('Otter Styling Devtools options');
+export const OTTER_STYLING_DEVTOOLS_OPTIONS = new InjectionToken<StylingDevtoolsServiceOptions>('Otter Styling Devtools options');

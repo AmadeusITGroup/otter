@@ -6,8 +6,10 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  OnDestroy,
 } from '@angular/core';
+import {
+  takeUntilDestroyed,
+} from '@angular/core/rxjs-interop';
 import {
   Store,
 } from '@ngrx/store';
@@ -15,9 +17,6 @@ import {
   ConfigurationStore,
   upsertConfigurationEntity,
 } from '@o3r/configuration';
-import {
-  Subscription,
-} from 'rxjs';
 import {
   ComponentWrapperService,
 } from './component-wrapper.service';
@@ -32,18 +31,10 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 // eslint-disable-next-line @angular-eslint/component-class-suffix -- legacy code
-export class ComponentWrapper implements OnDestroy {
-  private readonly subscription = new Subscription();
-
+export class ComponentWrapper {
   constructor(store: Store<ConfigurationStore>, wrapper: ComponentWrapperService) {
-    this.subscription.add(
-      wrapper.configChange$.subscribe((change) => {
-        store.dispatch(upsertConfigurationEntity({ id: change.componentId, configuration: change.props }));
-      })
-    );
-  }
-
-  public ngOnDestroy() {
-    this.subscription.unsubscribe();
+    wrapper.configChange$.pipe(takeUntilDestroyed()).subscribe((change) => {
+      store.dispatch(upsertConfigurationEntity({ id: change.componentId, configuration: change.props }));
+    });
   }
 }

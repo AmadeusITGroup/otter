@@ -83,6 +83,7 @@
     "@nx/jest": "~19.5.0",
     "@o3r/build-helpers": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
+    "@o3r/schematics": "workspace:^",
     "@o3r/test-helpers": "workspace:^",
     "@schematics/angular": "~18.2.0",
     "@stylistic/eslint-plugin": "~2.7.0",
@@ -92,7 +93,7 @@
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",
     "@types/uuid": "^9.0.0",
-    "@typescript-eslint/parser": "~8.12.2",
+    "@typescript-eslint/parser": "~8.16.0",
     "angular-eslint": "~18.4.0",
     "cpy-cli": "^5.0.0",
     "eslint": "~9.14.0",
@@ -117,7 +118,7 @@
     "ts-node": "~10.9.2",
     "type-fest": "^4.10.2",
     "typescript": "~5.5.4",
-    "typescript-eslint": "~8.12.2",
+    "typescript-eslint": "~8.16.0",
     "zone.js": "~0.14.2"
   },
   "engines": {

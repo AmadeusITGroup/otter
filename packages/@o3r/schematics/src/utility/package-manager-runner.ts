@@ -20,10 +20,10 @@ export type SupportedPackageManagerRunners = `${SupportedPackageManagers} run` |
 /** Support NPM package managers */
 export type SupportedPackageManagerExecutors = `${SupportedPackageManagers} exec` | 'yarn' | 'npx';
 
-const PACKAGE_MANAGER_WORKSPACE_MAPPING: Record<SupportedPackageManagers, string> = {
+const PACKAGE_MANAGER_WORKSPACE_MAPPING = {
   npm: '--workspace',
   yarn: 'workspace'
-};
+} as const satisfies Record<SupportedPackageManagers, string>;
 
 /** Option to determine Package Manager */
 export interface PackageManagerOptions {

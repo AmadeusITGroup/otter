@@ -15,6 +15,9 @@ import {
   PetApiFixture,
 } from '@o3r-training/showcase-sdk/fixtures';
 import {
+  provideMarkdown,
+} from 'ngx-markdown';
+import {
   SdkComponent,
 } from './sdk.component';
 import '@angular/localize/init';
@@ -33,7 +36,8 @@ describe('SdkComponent', () => {
         AsyncPipe
       ],
       providers: [
-        { provide: PetApi, useValue: petApiFixture }
+        { provide: PetApi, useValue: petApiFixture },
+        provideMarkdown()
       ]
     });
     fixture = TestBed.createComponent(SdkComponent);
