@@ -17,6 +17,7 @@ on:
         description: Token Report to Codecov
 
 env:
+  NX_PARALLEL: ${{ vars.NX_PARALLEL }}
   NX_SKIP_NX_CACHE: ${{ inputs.skipNxCache }}
   YARN_ENABLE_HARDENED_MODE: 0
 
