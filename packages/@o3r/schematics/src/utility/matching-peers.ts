@@ -9,7 +9,7 @@ import type {
  * @param pattern
  */
 export function getPeerDepWithPattern(packageJsonPath: string, pattern: RegExp | string[] = /^@(otter|o3r|ama-sdk)/) {
-  const packageJsonContent: PackageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' }));
+  const packageJsonContent: PackageJson & { generatorDependencies?: Record<string, string> } = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' }));
   const packageName = packageJsonContent.name;
   const packageVersion = packageJsonContent.version;
   const optionalPackages = Object.entries(packageJsonContent.peerDependenciesMeta || {})
@@ -19,6 +19,7 @@ export function getPeerDepWithPattern(packageJsonPath: string, pattern: RegExp |
   const matchingPackagesVersions = Object.fromEntries(
     Object.entries(packageJsonContent.peerDependencies || {})
       .filter(([peerDep]) => (Array.isArray(pattern) ? pattern.includes(peerDep) : pattern.test(peerDep)) && !optionalPackages.includes(peerDep))
+      .map(([peerDep, range]) => ([peerDep, packageJsonContent.generatorDependencies?.[peerDep] || range]))
   );
   const matchingPackages = Object.keys(matchingPackagesVersions);
 

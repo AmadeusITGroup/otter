@@ -34,7 +34,7 @@
     "minimist": "^1.2.6"
   },
   "peerDependencies": {
-    "typescript": "~5.5.4"
+    "typescript": "^5.5.4"
   },
   "devDependencies": {
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",

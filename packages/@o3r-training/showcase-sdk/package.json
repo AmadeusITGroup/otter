@@ -118,7 +118,7 @@
   "peerDependencies": {
     "@ama-sdk/client-fetch": "workspace:^",
     "@ama-sdk/core": "workspace:^",
-    "isomorphic-fetch": "~3.0.0"
+    "isomorphic-fetch": "^3.0.0"
   },
   "engines": {
     "node": "^18.19.1 || ^20.11.1 || >=22.0.0"

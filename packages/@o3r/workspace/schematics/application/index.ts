@@ -17,6 +17,7 @@ import {
 import {
   createSchematicWithMetricsIfInstalled,
   type DependencyToAdd,
+  enforceTildeRange,
   getPackagesBaseRootFolder,
   getWorkspaceConfig,
   isNxContext,
@@ -54,6 +55,7 @@ function generateApplicationFn(options: NgGenerateApplicationSchema): Rule {
     return mergeWith(apply(url('./templates'), [
       template({
         ...options,
+        enforceTildeRange,
         name: packageJsonName,
         rootDependencies
       }),
