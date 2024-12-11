@@ -11,7 +11,7 @@ import {
   createBuilder,
 } from '@angular-devkit/architect';
 import {
-  CmsMetadataData,
+  type CmsMetadataData,
   createBuilderWithMetricsIfInstalled,
   getLibraryCmsMetadata,
 } from '@o3r/extractors';
@@ -23,10 +23,10 @@ import {
   RulesEngineExtractor,
 } from './helpers';
 import {
-  RulesEngineExtractorBuilderSchema,
+  type RulesEngineExtractorBuilderSchema,
 } from './schema';
 
-export * from './schema';
+export type * from './schema';
 
 const SCHEMA_FOLDER = 'fact-schemas';
 
