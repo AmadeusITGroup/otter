@@ -8,7 +8,6 @@ import type {
 import {
   O3rCliError,
 } from '@o3r/schematics';
-import globby from 'globby';
 import * as ts from 'typescript';
 import {
   ComponentClassExtractor,
@@ -18,6 +17,8 @@ import {
   ComponentConfigExtractor,
   ConfigurationInformationWrapper,
 } from './component-config.extractor';
+// eslint-disable-next-line @typescript-eslint/no-require-imports -- default import not working when used inside Otter mono-repository
+const globby = require('globby');
 
 /** Output of a file parsing */
 export interface FileParserOutput {
@@ -95,7 +96,7 @@ export class ComponentParser {
   }
 
   /** Get the list of file from tsconfig.json */
-  private getFilesFromTsConfig() {
+  private getFilesFromTsConfig(): Promise<string[]> {
     const { include, exclude, cwd } = this.getPatternsFromTsConfig();
     return globby(include, { ignore: exclude, cwd, absolute: true });
   }

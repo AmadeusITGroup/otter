@@ -21,14 +21,14 @@ import {
   ComponentExtractor,
   ComponentParser,
 } from './helpers/component/index';
-import {
+import type {
   ComponentExtractorBuilderSchema,
 } from './schema';
 import type {
   ComponentConfigOutput,
 } from '@o3r/components';
 
-export * from './schema';
+export type * from './schema';
 
 /**
  * Get the library name from package.json

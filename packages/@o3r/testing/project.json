@@ -19,13 +19,9 @@
       ]
     },
     "compile": {
-      "executor": "@nx/js:tsc",
+      "executor": "nx:run-script",
       "options": {
-        "rootDir": "packages/@o3r/testing/src",
-        "main": "packages/@o3r/testing/src/public_api.ts",
-        "tsConfig": "packages/@o3r/testing/tsconfig.build.json",
-        "outputPath": "packages/@o3r/testing/dist",
-        "clean": false
+        "script": "build:source"
       }
     },
     "prepare-build-builders": {

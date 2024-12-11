@@ -11,7 +11,7 @@ import {
 import {
   sync as globbySync,
 } from 'globby';
-import {
+import type {
   I18nBuilderSchema,
 } from './schema';
 

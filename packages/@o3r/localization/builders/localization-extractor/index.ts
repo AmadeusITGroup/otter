@@ -20,14 +20,14 @@ import {
   LocalizationExtractor,
   LocalizationFileMap,
 } from '../helpers/localization.generator';
-import {
+import type {
   LocalizationExtractorBuilderSchema,
 } from './schema';
 import {
   validators,
 } from './validations';
 
-export * from './schema';
+export type * from './schema';
 
 export default createBuilder(createBuilderWithMetricsIfInstalled<LocalizationExtractorBuilderSchema>(async (options, context): Promise<BuilderOutput> => {
   context.reportRunning();

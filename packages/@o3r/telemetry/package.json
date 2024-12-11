@@ -10,10 +10,11 @@
   ],
   "scripts": {
     "build": "yarn nx build telemetry",
+    "build:builders": "tsc -b tsconfig.builders.json --pretty",
+    "build:source": "tsc -b tsconfig.build.json --pretty && yarn cpy ./package.json dist",
     "postbuild": "patch-package-json-main",
     "prepare:build:builders": "yarn run cpy '{collection,migration}.json' dist && yarn run cpy 'schematics/**/*.json' dist/schematics",
-    "prepare:publish": "prepare-publish ./dist",
-    "build:builders": "tsc -b tsconfig.builders.json --pretty"
+    "prepare:publish": "prepare-publish ./dist"
   },
   "dependencies": {
     "minimist": "^1.2.6",
@@ -44,9 +45,9 @@
     "@angular-devkit/core": "~18.2.0",
     "@angular-devkit/schematics": "~18.2.0",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
-    "@nx/eslint-plugin": "~19.5.0",
-    "@nx/jest": "~19.5.0",
-    "@nx/js": "~19.5.0",
+    "@nx/eslint-plugin": "~19.8.0",
+    "@nx/jest": "~19.8.0",
+    "@nx/js": "~19.8.0",
     "@o3r/build-helpers": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
     "@stylistic/eslint-plugin": "~2.7.0",
@@ -70,7 +71,7 @@
     "jest": "~29.7.0",
     "jest-junit": "~16.0.0",
     "jsonc-eslint-parser": "~2.4.0",
-    "nx": "~19.5.0",
+    "nx": "~19.8.0",
     "rxjs": "^7.8.1",
     "ts-jest": "~29.2.0",
     "ts-node": "~10.9.2",
@@ -92,5 +93,7 @@
     "./package.json": {
       "default": "./package.json"
     }
-  }
+  },
+  "main": "./dist/src/public_api.js",
+  "types": "./dist/src/public_api.d.ts"
 }
