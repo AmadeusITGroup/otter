@@ -138,6 +138,6 @@
     "ts-jest": "~29.2.0",
     "typescript": "~5.5.4",
     "typescript-eslint": "~8.17.0",
-    "webpack": "~5.96.0"
+    "webpack": "~5.97.0"
   }
 }
