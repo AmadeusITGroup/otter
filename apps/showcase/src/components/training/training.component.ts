@@ -1,9 +1,4 @@
 import {
-  AsyncPipe,
-  JsonPipe,
-  NgComponentOutlet,
-} from '@angular/common';
-import {
   ChangeDetectionStrategy,
   Component,
   computed,
@@ -32,13 +27,14 @@ import {
 } from '@o3r/logger';
 import type {
   DirectoryNode,
-  FileNode,
   FileSystemTree,
-  SymlinkNode,
 } from '@webcontainer/api';
 import {
   firstValueFrom,
 } from 'rxjs';
+import {
+  overrideFileSystemTree,
+} from '../../services';
 import {
   EditorMode,
   TrainingProject,
@@ -111,68 +107,6 @@ type Resource = {
 const currentStepLocationRegExp = new RegExp(/#([0-9]+)$/);
 
 /**
- * Node is of type FileNode
- * @param node Node from FileSystemTree
- */
-const isFileNode = (node: DirectoryNode | FileNode | SymlinkNode): node is FileNode | SymlinkNode => !!(node as FileNode).file;
-
-/**
- * Deep merge of directories
- * @param dirBase Base directory
- * @param dirOverride Directory to override base
- */
-const mergeDirectories = (dirBase: DirectoryNode, dirOverride: DirectoryNode): DirectoryNode => {
-  const merge = structuredClone(dirBase);
-  Object.entries(dirOverride.directory).forEach(([path, node]) => {
-    const baseNode = merge.directory[path];
-    if (!baseNode || (isFileNode(node) && isFileNode(baseNode))) {
-      // Not present in base directory
-      // Or present in both as file
-      merge.directory[path] = node;
-    } else if (!isFileNode(node) && !isFileNode(baseNode)) {
-      // Present in both as directory
-      merge.directory[path] = mergeDirectories(baseNode, node);
-    } else {
-      throw new Error('Cannot merge file and directory together');
-    }
-  });
-  return merge;
-};
-
-/**
- * Predicate to check if fileSystem can be typed as a `DirectoryNode`
- * @param fileSystem
- */
-const isDirectory = (fileSystem: DirectoryNode | FileNode | SymlinkNode): fileSystem is DirectoryNode => {
-  return 'directory' in fileSystem;
-};
-
-/**
- * Merge a sub file system into another
- * @param fileSystemTree Original file system.
- * @param fileSystemOverride File system that should be merged with the original. Its files take precedence over the original one.
- * @param path Location in mergeFolder where fileSystemOverride should be merged.
- */
-function overrideFileSystemTree(fileSystemTree: FileSystemTree, fileSystemOverride: FileSystemTree, path: string[]): FileSystemTree {
-  const key = path.shift() as string;
-  const target = fileSystemTree[key] || { directory: {} };
-  if (path.length === 0 && isDirectory(target)) {
-    // Exploration of file system is done, we can merge the directories
-    fileSystemTree[key] = mergeDirectories(target, { directory: fileSystemOverride });
-  } else if (isDirectory(target)) {
-    fileSystemTree[key] = {
-      directory: {
-        ...target.directory,
-        ...overrideFileSystemTree(target.directory, fileSystemOverride, path)
-      }
-    };
-  } else {
-    throw new Error(`Cannot override the file ${key} with a folder`);
-  }
-  return fileSystemTree;
-}
-
-/**
  * Generate a file system tree composed of the deep merge of all the resources passed in parameters
  * @param resources Sorted list of path and content to load. If a file is defined several time, the last occurrence
  * overrides the others
@@ -190,12 +124,9 @@ function getFilesContent(resources: Resource[]) {
   selector: 'o3r-training',
   standalone: true,
   imports: [
-    AsyncPipe,
     DynamicContentModule,
     FormsModule,
-    JsonPipe,
     NgbAccordionModule,
-    NgComponentOutlet,
     TrainingStepPresComponent,
     NgbDropdown,
     NgbDropdownToggle,
