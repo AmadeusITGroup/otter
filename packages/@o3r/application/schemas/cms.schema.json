@@ -49,6 +49,16 @@
           "type": "boolean",
           "description": "Specifies that the blueprint supports theming CSS variables customization",
           "default": true
+        },
+        "ruleFunctionalContentActionEnabled": {
+          "type": "boolean",
+          "description": "Enables the custom rule action of type 'functional content update' (UPDATE_FUNCTIONAL_CONTENT). Should be enabled only if the application implements this custom action type",
+          "default": false
+        },
+        "rulesetMultiscopeSupportEnabled": {
+          "type": "boolean",
+          "description": "Enables multi scope components on rulesets. Should be enabled only if the otter version used by the application supports this feature",
+          "default": false
         }
       }
     },
