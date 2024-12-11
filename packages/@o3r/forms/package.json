@@ -20,15 +20,15 @@
   },
   "peerDependencies": {
     "@ama-sdk/core": "workspace:^",
-    "@angular-devkit/schematics": "~18.2.0",
-    "@angular/common": "~18.2.0",
-    "@angular/core": "~18.2.0",
-    "@angular/forms": "~18.2.0",
-    "@ngrx/entity": "~18.0.0",
-    "@ngrx/store": "~18.0.0",
+    "@angular-devkit/schematics": "^18.2.0",
+    "@angular/common": "^18.2.0",
+    "@angular/core": "^18.2.0",
+    "@angular/forms": "^18.2.0",
+    "@ngrx/entity": "^18.0.0",
+    "@ngrx/store": "^18.0.0",
     "@o3r/core": "workspace:^",
     "@o3r/schematics": "workspace:^",
-    "@schematics/angular": "~18.2.0",
+    "@schematics/angular": "^18.2.0",
     "rxjs": "^7.8.1"
   },
   "peerDependenciesMeta": {

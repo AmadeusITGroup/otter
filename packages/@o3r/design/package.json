@@ -53,15 +53,15 @@
     "tslib": "^2.6.2"
   },
   "peerDependencies": {
-    "@angular-devkit/architect": "~0.1802.0",
-    "@angular-devkit/schematics": "~18.2.0",
+    "@angular-devkit/architect": "^0.1802.0",
+    "@angular-devkit/schematics": "^18.2.0",
     "@o3r/core": "workspace:^",
     "@o3r/schematics": "workspace:^",
     "@o3r/styling": "workspace:^",
     "@o3r/telemetry": "workspace:^",
     "chokidar": "^3.5.2",
     "globby": "^11.1.0",
-    "sass": "~1.81.0"
+    "sass": "^1.81.0"
   },
   "peerDependenciesMeta": {
     "@angular-devkit/architect": {

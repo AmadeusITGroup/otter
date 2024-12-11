@@ -31,18 +31,18 @@
     "postbuild": "patch-package-json-main"
   },
   "peerDependencies": {
-    "@angular-devkit/architect": "~0.1802.0",
-    "@angular-devkit/core": "~18.2.0",
-    "@angular-devkit/schematics": "~18.2.0",
-    "@angular/cdk": "~18.2.0",
-    "@angular/common": "~18.2.0",
-    "@angular/core": "~18.2.0",
-    "@angular/forms": "~18.2.0",
-    "@angular/platform-browser": "~18.2.0",
-    "@angular/platform-browser-dynamic": "~18.2.0",
-    "@ngrx/effects": "~18.0.0",
-    "@ngrx/entity": "~18.0.0",
-    "@ngrx/store": "~18.0.0",
+    "@angular-devkit/architect": "^0.1802.0",
+    "@angular-devkit/core": "^18.2.0",
+    "@angular-devkit/schematics": "^18.2.0",
+    "@angular/cdk": "^18.2.0",
+    "@angular/common": "^18.2.0",
+    "@angular/core": "^18.2.0",
+    "@angular/forms": "^18.2.0",
+    "@angular/platform-browser": "^18.2.0",
+    "@angular/platform-browser-dynamic": "^18.2.0",
+    "@ngrx/effects": "^18.0.0",
+    "@ngrx/entity": "^18.0.0",
+    "@ngrx/store": "^18.0.0",
     "@o3r/analytics": "workspace:^",
     "@o3r/configuration": "workspace:^",
     "@o3r/core": "workspace:^",
@@ -53,7 +53,7 @@
     "@o3r/rules-engine": "workspace:^",
     "@o3r/schematics": "workspace:^",
     "@o3r/testing": "workspace:^",
-    "@schematics/angular": "~18.2.0",
+    "@schematics/angular": "^18.2.0",
     "@yarnpkg/cli": "^4.0.0",
     "@yarnpkg/core": "^4.1.1",
     "@yarnpkg/fslib": "^3.1.0",
@@ -64,7 +64,7 @@
     "jsonpath-plus": "^9.0.0 || ^10.0.0",
     "rxjs": "^7.8.1",
     "semver": "^7.5.2",
-    "typescript": "~5.5.4"
+    "typescript": "^5.5.4"
   },
   "peerDependenciesMeta": {
     "@angular-devkit/core": {

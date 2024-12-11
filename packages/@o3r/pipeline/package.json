@@ -39,7 +39,7 @@
     "tslib": "^2.6.2"
   },
   "peerDependencies": {
-    "@angular-devkit/schematics": "~18.2.0",
+    "@angular-devkit/schematics": "^18.2.0",
     "@o3r/schematics": "workspace:^",
     "@o3r/telemetry": "workspace:^",
     "type-fest": "^4.10.2"
@@ -78,7 +78,7 @@
     "@types/jest": "~29.5.2",
     "@types/js-yaml": "^4.0.5",
     "@types/node": "^20.0.0",
-    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/eslint-plugin": "~8.17.0",
     "@typescript-eslint/parser": "~8.17.0",
     "@typescript-eslint/utils": "~8.17.0",
     "angular-eslint": "~18.4.0",

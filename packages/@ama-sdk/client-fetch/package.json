@@ -45,13 +45,13 @@
   },
   "peerDependencies": {
     "@ama-sdk/core": "workspace:^",
-    "@angular-devkit/schematics": "~18.2.0",
-    "@angular/cli": "~18.2.0",
-    "@angular/common": "~18.2.0",
+    "@angular-devkit/schematics": "^18.2.0",
+    "@angular/cli": "^18.2.0",
+    "@angular/common": "^18.2.0",
     "@o3r/schematics": "workspace:^",
-    "@schematics/angular": "~18.2.0",
+    "@schematics/angular": "^18.2.0",
     "isomorphic-fetch": "^3.0.0",
-    "typescript": "~5.5.4"
+    "typescript": "^5.5.4"
   },
   "peerDependenciesMeta": {
     "@angular-devkit/schematics": {
