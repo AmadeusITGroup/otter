@@ -77,12 +77,15 @@
       }
     },
     "lint": {
+      "executor": "nx:run-commands",
       "options": {
-        "eslintConfig": "packages/@o3r/rules-engine/.eslintrc.js",
-        "lintFilePatterns": [
-          "packages/@o3r/rules-engine/src/**/*.ts",
-          "packages/@o3r/rules-engine/package.json"
-        ]
+        "cwd": "{projectRoot}",
+        "command": "yarn eslint \"**/*.{m,c,}{j,t}s\" \"**/*.json\" \"**/*.html\""
+      },
+      "configurations": {
+        "ci": {
+          "command": "yarn eslint \"**/*.{m,c,}{j,t}s\" \"**/*.json\" \"**/*.html\" --quiet --cache-location .cache/eslint"
+        }
       }
     },
     "test": {

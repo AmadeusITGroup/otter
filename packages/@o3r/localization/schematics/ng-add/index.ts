@@ -1,9 +1,19 @@
-import { chain, noop, Rule } from '@angular-devkit/schematics';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { updateCmsAdapter } from '../cms-adapter';
-import type { NgAddSchematicsSchema } from './schema';
-import { registerDevtools } from './helpers/devtools-registration';
+import {
+  chain,
+  noop,
+  Rule,
+} from '@angular-devkit/schematics';
+import {
+  updateCmsAdapter,
+} from '../cms-adapter';
+import {
+  registerDevtools,
+} from './helpers/devtools-registration';
+import type {
+  NgAddSchematicsSchema,
+} from './schema';
 
 const dependenciesToInstall = [
   'chokidar',
@@ -34,13 +44,13 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       registerPackageCollectionSchematics,
       setupSchematicsParamsForProject
     } = await import('@o3r/schematics');
-    const {updateI18n, updateLocalization} = await import('../localization-base');
+    const { updateI18n, updateLocalization } = await import('../localization-base');
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
     const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' }));
     const depsInfo = getO3rPeerDeps(packageJsonPath);
     context.logger.info(`The package ${depsInfo.packageName as string} comes with a debug mechanism`);
     context.logger.info('Get information on https://github.com/AmadeusITGroup/otter/tree/main/docs/localization/LOCALIZATION.md#Debugging');
-    // eslint-disable-next-line @typescript-eslint/naming-convention
+
     const { NodeDependencyType } = await import('@schematics/angular/utility/dependencies');
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
     const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
@@ -73,12 +83,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       }),
       updateCmsAdapter(options),
       registerPackageCollectionSchematics(packageJson),
-      setupSchematicsParamsForProject({
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        '@o3r/core:component*': {
-          useLocalization: true
-        }
-      }, options.projectName),
+      setupSchematicsParamsForProject({ '@o3r/core:component*': { useLocalization: true } }, options.projectName),
       registerDevtoolRule
     ]);
   };

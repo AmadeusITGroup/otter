@@ -22,13 +22,7 @@
       }
     },
     "lint": {
-      "options": {
-        "eslintConfig": "packages/@o3r/amaterasu/amaterasu-sdk/.eslintrc.js",
-        "lintFilePatterns": [
-          "packages/@o3r/amaterasu/amaterasu-sdk/src/**/*.ts",
-          "packages/@o3r/amaterasu/amaterasu-sdk/package.json"
-        ]
-      }
+      "executor": "nx:run-commands"
     },
     "test": {
       "executor": "@nx/jest:jest",

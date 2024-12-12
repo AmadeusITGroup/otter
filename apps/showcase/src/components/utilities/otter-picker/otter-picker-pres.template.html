@@ -1,7 +1,7 @@
 <div ngbDropdown class="d-inline-block w-100">
   <button type="button" class="btn btn-outline-primary otter-dropdown w-100" [class.selected]="!!selectedOtter()" [id]="id" ngbDropdownToggle>
     @if (selectedOtter()) {
-      <div class="w-100"><img [src]="baseUrl+selectedOtter()" width="34" height="34" /></div>
+      <div class="w-100"><img alt="Otter image" [src]="baseUrl+selectedOtter()" width="34" height="34" /></div>
     } @else {
       <span>Pick an icon</span>
     }
@@ -10,7 +10,7 @@
     <button ngbDropdownItem (click)="selectOtter('')">None</button>
     @for (otter of otters; track $index) {
       <button ngbDropdownItem (click)="selectOtter(otter)">
-        <img [src]="baseUrl+otter" width="45" height="45" loading="lazy" />
+        <img alt="Otter image" [src]="baseUrl+otter" width="45" height="45" loading="lazy" />
       </button>
     }
   </div>

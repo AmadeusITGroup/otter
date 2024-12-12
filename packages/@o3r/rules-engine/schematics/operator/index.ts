@@ -1,15 +1,33 @@
-import { apply, chain, MergeStrategy, mergeWith, move, noop, renameTemplateFiles, Rule, template, url } from '@angular-devkit/schematics';
-import { applyEsLintFix, createSchematicWithMetricsIfInstalled } from '@o3r/schematics';
-import type { NgGenerateOperatorSchematicsSchema } from './schema';
-import { classify, dasherize } from '@angular-devkit/core/src/utils/strings';
 import * as path from 'node:path';
+import {
+  classify,
+  dasherize,
+} from '@angular-devkit/core/src/utils/strings';
+import {
+  apply,
+  chain,
+  MergeStrategy,
+  mergeWith,
+  move,
+  noop,
+  renameTemplateFiles,
+  Rule,
+  template,
+  url,
+} from '@angular-devkit/schematics';
+import {
+  applyEsLintFix,
+  createSchematicWithMetricsIfInstalled,
+} from '@o3r/schematics';
+import type {
+  NgGenerateOperatorSchematicsSchema,
+} from './schema';
 
 /**
  * Generate the operator
  * @param options
  */
 function ngGenerateOperatorFn(options: NgGenerateOperatorSchematicsSchema): Rule {
-
   const generateFiles = () => {
     const name = dasherize(options.name);
     const operatorFolderPath = path.posix.join(options.path, name);

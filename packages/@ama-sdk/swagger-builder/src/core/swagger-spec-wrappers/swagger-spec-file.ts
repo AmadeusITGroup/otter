@@ -1,6 +1,13 @@
-import type { Spec } from 'swagger-schema-official';
-import { SwaggerSpec } from './swagger-spec.interface';
-import { getYamlFullPath, isOuterRefPath } from './utils';
+import type {
+  Spec,
+} from 'swagger-schema-official';
+import {
+  SwaggerSpec,
+} from './swagger-spec.interface';
+import {
+  getYamlFullPath,
+  isOuterRefPath,
+} from './utils';
 
 export abstract class SwaggerSpecFile implements SwaggerSpec {
   /** Determine if the YAML file has been loaded */
@@ -70,7 +77,7 @@ export abstract class SwaggerSpecFile implements SwaggerSpec {
   public async getEnvelop(): Promise<{ [k: string]: any }> {
     await this.parse();
     return Object.keys(this.spec!)
-      .filter((k) => ['tags', 'parameters', 'paths', 'definitions'].indexOf(k.toLowerCase()) < 0)
+      .filter((k) => !['tags', 'parameters', 'paths', 'definitions'].includes(k.toLowerCase()))
       .reduce<{ [k: string]: any }>((acc, k) => {
         acc[k] = this.spec![k as keyof Spec];
         return acc;

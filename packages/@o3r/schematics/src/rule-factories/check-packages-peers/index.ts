@@ -1,10 +1,26 @@
-import type { LoggerApi } from '@angular-devkit/core/src/logger';
-import type { SchematicContext, Tree } from '@angular-devkit/schematics';
+import {
+  readFileSync,
+} from 'node:fs';
 import * as path from 'node:path';
-import { satisfies } from 'semver';
-import type { PackageJson } from 'type-fest';
-import { getPackageManager, O3rCliError } from '../../utility/index';
-import { readFileSync } from 'node:fs';
+import type {
+  LoggerApi,
+} from '@angular-devkit/core/src/logger';
+import type {
+  SchematicContext,
+  Tree,
+} from '@angular-devkit/schematics';
+import {
+  satisfies,
+} from 'semver';
+import type {
+  PackageJson,
+} from 'type-fest';
+import {
+  O3rCliError,
+} from '../../utility/error';
+import {
+  getPackageManager,
+} from '../../utility/package-manager-runner';
 
 /** Interface containing a npm package name, needed version and optionally found version */
 interface PackageVersion {
@@ -16,7 +32,6 @@ interface PackageVersion {
   foundVersion?: string;
 }
 
-
 /**
  * Check if the first level of peer deps of a given package are installed.
  * List all not installed packages or packages with version mismatch
@@ -27,7 +42,7 @@ function getPackagesToInstallOrUpdate(packageName: string) {
   try {
     const packageJsonNamePath = require.resolve(`${packageName}${path.posix.sep}package.json`);
     installedPackage = JSON.parse(readFileSync(packageJsonNamePath, { encoding: 'utf8' }));
-  } catch (err) {
+  } catch {
     throw new O3rCliError(`The provided package is not installed: ${packageName}`);
   }
 
@@ -49,7 +64,7 @@ function getPackagesToInstallOrUpdate(packageName: string) {
     try {
       const packageJsonNamePath = require.resolve(`${pName}${path.posix.sep}package.json`);
       installedPackageVersion = JSON.parse(readFileSync(packageJsonNamePath, { encoding: 'utf8' })).version;
-    } catch (err) {
+    } catch {
       packagesToInstall.push({ packageName: pName, version: pVersion! });
     }
     if (installedPackageVersion && !satisfies(installedPackageVersion, pVersion!)) {
@@ -62,18 +77,17 @@ function getPackagesToInstallOrUpdate(packageName: string) {
 /**
  * Log an instruction with the packages to install or update to match a package peer dependencies
  * @param packageName
- * @param angularJsonString
  * @param logger
+ * @param angularJsonString
  */
 function checkPackagesToInstallOrUpdate(packageName: string, logger: LoggerApi, angularJsonString?: string | null) {
-
   const packageManager = getPackageManager({ workspaceConfig: angularJsonString });
   const { packagesToInstall, packagesWrongVersion } = getPackagesToInstallOrUpdate(packageName);
 
-  if (packagesWrongVersion.length) {
+  if (packagesWrongVersion.length > 0) {
     logger.warn('');
     logger.warn(`The following packages have a mismatch version installed to satisfy "${packageName}" needed versions:`);
-    packagesWrongVersion.forEach(dep => {
+    packagesWrongVersion.forEach((dep) => {
       logger.warn(`${dep.packageName} found version is ${dep.foundVersion!}. "${packageName}" needs ${dep.version}`);
     });
     logger.warn('');
@@ -81,17 +95,16 @@ function checkPackagesToInstallOrUpdate(packageName: string, logger: LoggerApi, 
     packagesWrongVersion.forEach((dep) => logger.warn(`${packageManager} run ng update ${dep.packageName}@${dep.version}`));
   }
 
-  if (packagesToInstall.length) {
+  if (packagesToInstall.length > 0) {
     logger.error('');
     logger.error(`The following packages need to be installed to have "${packageName}" working. Run the commands one by one:`);
     packagesToInstall.forEach((dep) => logger.error(`${packageManager} run ng add ${dep.packageName}@${dep.version}`));
     throw new O3rCliError('Missing peer dependencies');
   }
 
-  if (!packagesToInstall.length && !packagesWrongVersion.length) {
+  if (packagesToInstall.length === 0 && packagesWrongVersion.length === 0) {
     logger.info(`The package ${packageName} has all peer deps installed.\n`);
   }
-
 }
 
 /**

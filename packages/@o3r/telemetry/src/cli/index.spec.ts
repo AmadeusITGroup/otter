@@ -1,3 +1,4 @@
+/* eslint-disable import/first -- needed for jest.mock */
 jest.mock('../environment/index', () => {
   const original = jest.requireActual('../environment/index');
   return {
@@ -17,7 +18,9 @@ jest.mock('node:perf_hooks', () => {
   };
 });
 
-import { createCliWithMetrics } from './index';
+import {
+  createCliWithMetrics,
+} from './index';
 
 const expectedOutput = { success: true };
 const options = { example: 'test' };
@@ -38,7 +41,9 @@ describe('CLI with metrics', () => {
 
   it('should throw the same error as the original one', async () => {
     const error = new Error('error example');
-    const originalCliFn = jest.fn(() => { throw error; });
+    const originalCliFn = jest.fn(() => {
+      throw error;
+    });
     const cliFn = createCliWithMetrics(originalCliFn, 'cli-test');
     await expect(() => cliFn(options)).rejects.toThrow(error);
     expect(originalCliFn).toHaveBeenCalled();
@@ -46,7 +51,7 @@ describe('CLI with metrics', () => {
   });
 
   it('should throw if the builder function is a rejected Promise', async () => {
-    const originalCliFn = jest.fn(() => Promise.reject('rejected'));
+    const originalCliFn = jest.fn(() => Promise.reject(new Error('rejected')));
     const cliFn = createCliWithMetrics(originalCliFn, 'cli-test');
     await expect(() => cliFn(options)).rejects.toThrow();
   });
@@ -60,7 +65,7 @@ describe('CLI with metrics', () => {
       originalCliFn = jest.fn(() => expectedOutput);
       sendDataMock = jest.fn(() => Promise.resolve());
       cliFn = createCliWithMetrics(originalCliFn, 'cli-test', { sendData: sendDataMock });
-      // eslint-disable-next-line @typescript-eslint/naming-convention
+
       jest.replaceProperty(process, 'env', { ...process.env, O3R_METRICS: 'true' });
     });
 

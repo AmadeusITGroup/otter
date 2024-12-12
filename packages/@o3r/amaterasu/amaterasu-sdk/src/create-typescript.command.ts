@@ -1,7 +1,14 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-import { Context, promiseSpawn } from '@ama-terasu/core';
-import { promises as fs, readFileSync } from 'node:fs';
-import { resolve } from 'node:path';
+import {
+  promises as fs,
+  readFileSync,
+} from 'node:fs';
+import {
+  resolve,
+} from 'node:path';
+import {
+  Context,
+  promiseSpawn,
+} from '@ama-terasu/core';
 
 /** Option to create an application */
 export interface CreateTypescriptSdkOptions {
@@ -17,7 +24,7 @@ export interface CreateTypescriptSdkOptions {
    */
   yes?: boolean;
   /** Path to the specification used to generate the SDK */
-  'specification'?: string;
+  specification?: string;
 }
 
 /**
@@ -30,7 +37,7 @@ export const createTypescriptSdk = async (context: Context, options: CreateTypes
   const cwd = resolve(process.cwd(), options.path);
   const inPackageCwd = resolve(cwd, 'SDK');
   const npmClient = options.yarn ? 'yarn' : 'npm';
-  const { version } = JSON.parse(readFileSync(resolve(__dirname, '..', 'package.json'), {encoding: 'utf8'})) as {version: string | undefined};
+  const { version } = JSON.parse(readFileSync(resolve(__dirname, '..', 'package.json'), { encoding: 'utf8' })) as { version: string | undefined };
 
   const npmrcFile = 'tmp.npmrc';
   const deps = {
@@ -40,14 +47,24 @@ export const createTypescriptSdk = async (context: Context, options: CreateTypes
 
   await context.getSpinner('Generating SDK package...').fromPromise(
     (async () => {
-      await promiseSpawn('npm init -y', { cwd, stderrLogger: logger.debug, logger });
-      await promiseSpawn(`npm install --userconfig ${npmrcFile} --include dev ${Object.entries<string>(deps).map(([n, v]) => `${n}@${v}`).join(' ')}`, { cwd, stderrLogger: logger.debug, logger });
-      // eslint-disable-next-line max-len
-      await promiseSpawn(`npx -p @angular-devkit/schematics-cli schematics @ama-sdk/schematics:typescript-shell --package-name sdk --description "${options.name} SDK"`, { cwd, stderrLogger: logger.debug, logger });
+      await promiseSpawn('npm init -y', { cwd, stderrLogger: (...args: any[]) => logger.debug(...args), logger });
+      await promiseSpawn(
+        `npm install --userconfig ${npmrcFile} --include dev ${Object.entries<string>(deps).map(([n, v]) => `${n}@${v}`).join(' ')}`,
+        { cwd, stderrLogger: (...args: any[]) => logger.debug(...args), logger }
+      );
+
+      await promiseSpawn(
+        `npx -p @angular-devkit/schematics-cli schematics @ama-sdk/schematics:typescript-shell --package-name sdk --description "${options.name} SDK"`,
+        { cwd, stderrLogger: (...args: any[]) => logger.debug(...args), logger }
+      );
     })(),
     // TODO: simplify to the following line when migrated to schematics generation
-    // eslint-disable-next-line max-len
-    // promiseSpawn(`npx ${Object.entries(deps).map(([n, v]) => `-p ${n}@${v}`).join(' ')} --userconfig ${npmrcFile} yo${options.yes ? ' --force=true' : ''} @ama-sdk/sdk:shell --projectName "${options.name}" --projectPackageName sdk --projectDescription "${options.name} SDK" --projectHosting "Azure DevOps"`, { cwd, stderrLogger: logger.debug, logger }),
+
+    // promiseSpawn(
+    // eslint-disable-next-line @stylistic/max-len -- keep the command on the same line
+    //   `npx ${Object.entries(deps).map(([n, v]) => `-p ${n}@${v}`).join(' ')} --userconfig ${npmrcFile} yo${options.yes ? ' --force=true' : ''} @ama-sdk/sdk:shell --projectName "${options.name}" --projectPackageName sdk --projectDescription "${options.name} SDK" --projectHosting "Azure DevOps"`,
+    //   { cwd, stderrLogger: (...args: any[]) => logger.debug(...args), logger }
+    // ),
     `SDK Shell generated (in ${inPackageCwd})`
   );
 
@@ -55,13 +72,13 @@ export const createTypescriptSdk = async (context: Context, options: CreateTypes
     Promise.all([
       fs.unlink(resolve(cwd, npmrcFile)),
       fs.unlink(resolve(cwd, 'package.json')),
-      fs.rm(resolve(cwd, 'node_modules'), {force: true, recursive: true})
+      fs.rm(resolve(cwd, 'node_modules'), { force: true, recursive: true })
     ]),
     'Setup material removed'
   );
 
   await context.getSpinner(`Installing dependencies with ${npmClient}...`).fromPromise(
-    promiseSpawn(`${npmClient} install`, {cwd: inPackageCwd, stderrLogger: logger.debug, logger}),
+    promiseSpawn(`${npmClient} install`, { cwd: inPackageCwd, stderrLogger: (...args: any[]) => logger.debug(...args), logger }),
     `NPM Dependency installed (with ${npmClient})`
   );
 
@@ -72,7 +89,7 @@ export const createTypescriptSdk = async (context: Context, options: CreateTypes
     );
 
     await context.getSpinner('Generating SDK based on specification...').fromPromise(
-      promiseSpawn(`${npmClient} run swagger:regen`, {cwd: inPackageCwd, stderrLogger: logger.debug, logger}),
+      promiseSpawn(`${npmClient} run swagger:regen`, { cwd: inPackageCwd, stderrLogger: (...args: any[]) => logger.debug(...args), logger }),
       `SDK Code generated (in ${resolve(inPackageCwd, 'src')})`
     );
   }

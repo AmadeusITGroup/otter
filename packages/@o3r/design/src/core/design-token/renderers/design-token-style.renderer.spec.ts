@@ -1,14 +1,24 @@
+import {
+  promises as fs,
+} from 'node:fs';
+import {
+  resolve,
+} from 'node:path';
+import type {
+  DesignTokenGroup,
+  DesignTokenSpecification,
+} from '../design-token-specification.interface';
+import type {
+  DesignTokenVariableSet,
+} from '../parsers';
 import * as parser from '../parsers/design-token.parser';
-import { promises as fs } from 'node:fs';
-import { resolve } from 'node:path';
-import type { DesignTokenGroup, DesignTokenSpecification } from '../design-token-specification.interface';
-import type { DesignTokenVariableSet } from '../parsers';
 import {
   computeFileToUpdatePath,
-  getFileToUpdatePath, getTokenSorterByName,
+  getFileToUpdatePath,
+  getTokenSorterByName,
   getTokenSorterByRef,
   getTokenSorterFromRegExpList,
-  renderDesignTokens
+  renderDesignTokens,
 } from './design-token-style.renderer';
 
 const rootPath = resolve('/');
@@ -21,7 +31,7 @@ describe('Design Token Renderer', () => {
     const file = await fs.readFile(resolve(__dirname, '../../../../testing/mocks/design-token-theme.json'), { encoding: 'utf8' });
     exampleVariable = { document: JSON.parse(file) };
     // Add different target file
-    (exampleVariable.document.example as any)['test.var2'].$extensions = { o3rTargetFile: 'file.scss'};
+    (exampleVariable.document.example as any)['test.var2'].$extensions = { o3rTargetFile: 'file.scss' };
     designTokens = parser.parseDesignToken(exampleVariable);
   });
 
@@ -113,7 +123,9 @@ describe('Design Token Renderer', () => {
 
       test('should sort variable by name per default', async () => {
         const result: any = {};
-        const writeFile = jest.fn().mockImplementation((filename, content) => { result[filename] = content; });
+        const writeFile = jest.fn().mockImplementation((filename, content) => {
+          result[filename] = content;
+        });
         const readFile = jest.fn().mockReturnValue('');
         const existsFile = jest.fn().mockReturnValue(true);
         const determineFileToUpdate = jest.fn().mockImplementation(await getFileToUpdatePath('.'));
@@ -132,7 +144,9 @@ describe('Design Token Renderer', () => {
 
       test('should sort variable based on option', async () => {
         const result: any = {};
-        const writeFile = jest.fn().mockImplementation((filename, content) => { result[filename] = content; });
+        const writeFile = jest.fn().mockImplementation((filename, content) => {
+          result[filename] = content;
+        });
         const readFile = jest.fn().mockReturnValue('');
         const existsFile = jest.fn().mockReturnValue(true);
         const determineFileToUpdate = jest.fn().mockImplementation(await getFileToUpdatePath('.'));
@@ -152,7 +166,9 @@ describe('Design Token Renderer', () => {
 
       test('should execute the transform functions in given order', async () => {
         const result: any = {};
-        const writeFile = jest.fn().mockImplementation((filename, content) => { result[filename] = content; });
+        const writeFile = jest.fn().mockImplementation((filename, content) => {
+          result[filename] = content;
+        });
         const readFile = jest.fn().mockReturnValue('');
         const existsFile = jest.fn().mockReturnValue(true);
         const determineFileToUpdate = jest.fn().mockImplementation(await getFileToUpdatePath('.'));
@@ -245,27 +261,25 @@ describe('Design Token Renderer', () => {
   describe('getTokenSorterByName', () => {
     let designTokensToSort!: DesignTokenVariableSet;
     beforeEach(() => {
-      /* eslint-disable @typescript-eslint/naming-convention -- Mock purpose */
       designTokensToSort = parser.parseDesignToken({ document: {
         'to-sort': {
           'var-100': {
-            '$value': '{example.var1}'
+            $value: '{example.var1}'
           },
           'var-1': {
-            '$value': '{example.var1}'
+            $value: '{example.var1}'
           },
           'var-10': {
-            '$value': '{example.var1}'
+            $value: '{example.var1}'
           },
           'var-5': {
-            '$value': '{example.var1}'
+            $value: '{example.var1}'
           },
           'first-var': {
-            '$value': '{example.var1}'
+            $value: '{example.var1}'
           }
         }
       } as DesignTokenGroup });
-      /* eslint-enable @typescript-eslint/naming-convention */
     });
 
     it('should sort properly variables with grade number', () => {

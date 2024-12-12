@@ -1,5 +1,9 @@
-import { O3rElement } from '../element';
-import type { SliderElementProfile } from '../elements';
+import {
+  O3rElement,
+} from '../element';
+import type {
+  SliderElementProfile,
+} from '../elements';
 
 /**
  * Interface to describe the material Slider elements that are used inside a fixture.

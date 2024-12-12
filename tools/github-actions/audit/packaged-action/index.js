@@ -26175,12 +26175,7 @@ exports.computeNpmV2Report = computeNpmV2Report;
 const computeNpmReport = (response, severityThreshold) => {
     core.info('Computing Report for Npm');
     const reportJson = JSON.parse(response);
-    if ('auditReportVersion' in reportJson && reportJson.auditReportVersion === 2) {
-        return (0, exports.computeNpmV2Report)(response, severityThreshold);
-    }
-    else {
-        return (0, exports.computeNpmV1Report)(response, severityThreshold);
-    }
+    return 'auditReportVersion' in reportJson && reportJson.auditReportVersion === 2 ? (0, exports.computeNpmV2Report)(response, severityThreshold) : (0, exports.computeNpmV1Report)(response, severityThreshold);
 };
 exports.computeNpmReport = computeNpmReport;
 /**
@@ -26191,10 +26186,10 @@ exports.computeNpmReport = computeNpmReport;
  */
 const computeYarn1Report = (response, severityThreshold) => {
     core.info('Computing Report for Yarn 1');
-    const reports = response.split('\n').filter(a => !!a).map((report) => JSON.parse(report));
-    const reportSummary = reports.filter((report) => report.type === 'auditSummary')[0];
+    const reports = response.split('\n').filter((a) => !!a).map((report) => JSON.parse(report));
+    const reportSummary = reports.find((report) => report.type === 'auditSummary');
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access -- Wrong typings in 'audit-types'
-    const { nbVulnerabilities, highestSeverityFound } = computeTotalsForSeverities((severity) => reportSummary.data.vulnerabilities[severity]);
+    const { nbVulnerabilities, highestSeverityFound } = computeTotalsForSeverities((severity) => (reportSummary?.data).vulnerabilities[severity]);
     return reports.filter((report) => report.type === 'auditAdvisory')
         .reduce((currentVulnerabilities, advisory) => updateReportWithVulnerability(currentVulnerabilities, severityThreshold, {
         severity: advisory.data.advisory.severity,
@@ -26222,7 +26217,7 @@ exports.computeYarn3Report = computeYarn3Report;
  */
 const computeYarn4Report = (response, severityThreshold) => {
     core.info('Computing Report for Yarn 4');
-    const reports = response.split('\n').filter(a => !!a);
+    const reports = response.split('\n').filter((a) => !!a);
     return reports.reduce((currentReport, currentVulnerability) => {
         const vulnerabilityReport = JSON.parse(currentVulnerability);
         const vulnerabilitySeverity = vulnerabilityReport.children.Severity || 'info';
@@ -26231,8 +26226,9 @@ const computeYarn4Report = (response, severityThreshold) => {
             moduleName: vulnerabilityReport.value,
             overview: `This issue affects versions ${vulnerabilityReport.children['Vulnerable Versions']}. ${vulnerabilityReport.children.Issue}`
         });
-        currentReport.highestSeverityFound = exports.severities.indexOf(currentReport.highestSeverityFound || 'info') <= exports.severities.indexOf(vulnerabilitySeverity) ?
-            vulnerabilitySeverity : currentReport.highestSeverityFound;
+        currentReport.highestSeverityFound = exports.severities.indexOf(currentReport.highestSeverityFound || 'info') <= exports.severities.indexOf(vulnerabilitySeverity)
+            ? vulnerabilitySeverity
+            : currentReport.highestSeverityFound;
         currentReport.nbVulnerabilities += 1;
         return currentReport;
     }, { nbVulnerabilities: 0, errors: [], warnings: [] });
@@ -28177,11 +28173,11 @@ var exports = __webpack_exports__;
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const tslib_1 = __nccwpck_require__(3031);
-const core = tslib_1.__importStar(__nccwpck_require__(7539));
-const exec_1 = __nccwpck_require__(1527);
 const fs = tslib_1.__importStar(__nccwpck_require__(3024));
 const os = tslib_1.__importStar(__nccwpck_require__(8161));
 const path = tslib_1.__importStar(__nccwpck_require__(6760));
+const core = tslib_1.__importStar(__nccwpck_require__(7539));
+const exec_1 = __nccwpck_require__(1527);
 const reports_1 = __nccwpck_require__(7661);
 const colors = ['', 'green', 'yellow', 'orange', 'red'];
 async function run() {
@@ -28197,10 +28193,10 @@ async function run() {
         if (packageManager === 'yarn') {
             const versionOutput = await (0, exec_1.getExecOutput)('yarn --version', [], { cwd: process.env.GITHUB_WORKSPACE });
             const version = Number.parseInt(versionOutput.stdout.split('.')[0], 10);
-            auditCommand = version <= 1 ?
-                `yarn audit ${environment === 'production' ? '--groups "dependencies peerDependencies" ' : ''}--json` :
-                `yarn npm audit --environment ${environment} ${allWorkspaces ? '--all ' : ''}${recursive ? '--recursive ' : ''}--json`;
-            auditReporter = version >= 4 ? reports_1.computeYarn4Report : version >= 2 ? reports_1.computeYarn3Report : reports_1.computeYarn1Report;
+            auditCommand = version <= 1
+                ? `yarn audit ${environment === 'production' ? '--groups "dependencies peerDependencies" ' : ''}--json`
+                : `yarn npm audit --environment ${environment} ${allWorkspaces ? '--all ' : ''}${recursive ? '--recursive ' : ''}--json`;
+            auditReporter = version >= 4 ? reports_1.computeYarn4Report : (version >= 2 ? reports_1.computeYarn3Report : reports_1.computeYarn1Report);
         }
         else {
             auditCommand = `npm audit ${allWorkspaces ? '--workspaces --include-root-workspace ' : ''}--json`;
@@ -28211,19 +28207,18 @@ async function run() {
             ignoreReturnCode: true,
             env: {
                 ...process.env,
-                // eslint-disable-next-line @typescript-eslint/naming-convention
                 NODE_ENV: environment
             }
         });
         core.warning(err);
         core.setOutput('reportJSON', report);
         const reportData = auditReporter(report, severityConfig);
-        if (!reportData.highestSeverityFound) {
-            core.info('No vulnerability detected.');
-            return;
+        if (reportData.highestSeverityFound) {
+            core.info(`Highest severity found: ${reportData.highestSeverityFound}`);
         }
         else {
-            core.info(`Highest severity found: ${reportData.highestSeverityFound}`);
+            core.info('No vulnerability detected.');
+            return;
         }
         const isFailed = reportData.errors.length > 0;
         const getBadge = (sev) => `![${sev}](https://img.shields.io/static/v1?label=&logo=npm&message=${sev}&color=${colors[reports_1.severities.indexOf(sev)]})`;
@@ -28237,21 +28232,24 @@ ${vulnerability.overview.replaceAll('### ', '#### ')}
 </details>
 
 `;
-        const isVulnerabilityWithKnownSeverity = (advisory) => reports_1.severities.indexOf(advisory.severity) >= 0;
+        const isVulnerabilityWithKnownSeverity = (advisory) => reports_1.severities.includes(advisory.severity);
         const sortVulnerabilityBySeverity = (advisory1, advisory2) => reports_1.severities.indexOf(advisory2.severity) - reports_1.severities.indexOf(advisory1.severity);
         const body = `# Audit report ${isFailed ? ':x:' : ':white_check_mark:'}
 
 ${reportData.nbVulnerabilities} vulnerabilities found.
 
-${reportData.errors.length ? `## Vulnerabilities to be fixed
+${reportData.errors.length > 0
+            ? `## Vulnerabilities to be fixed
 
 ${reportData.errors
-            .filter(isVulnerabilityWithKnownSeverity)
-            .sort(sortVulnerabilityBySeverity)
-            .map(formatVulnerability)
-            .join(os.EOL)}
-` : ''}
-${reportData.warnings.length ? `___
+                .filter((vul) => isVulnerabilityWithKnownSeverity(vul))
+                .sort(sortVulnerabilityBySeverity)
+                .map((vul) => formatVulnerability(vul))
+                .join(os.EOL)}
+`
+            : ''}
+${reportData.warnings.length > 0
+            ? `___
 
 <details>
 <summary>
@@ -28259,14 +28257,15 @@ Vulnerabilities below the threshold: ${severityConfig}
 </summary>
 
 ${reportData.warnings
-            .filter(isVulnerabilityWithKnownSeverity)
-            .sort(sortVulnerabilityBySeverity)
-            .map(formatVulnerability)
-            .join(os.EOL)
-            .replaceAll('${', '&#36;{')}
+                .filter((vul) => isVulnerabilityWithKnownSeverity(vul))
+                .sort(sortVulnerabilityBySeverity)
+                .map((vul) => formatVulnerability(vul))
+                .join(os.EOL)
+                .replaceAll('${', '&#36;{')}
 
 </details>
-` : ''}
+`
+            : ''}
 `;
         core.setOutput('reportMarkdown', body);
         if (isFailed) {

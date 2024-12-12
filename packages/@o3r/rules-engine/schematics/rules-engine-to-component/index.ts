@@ -1,4 +1,9 @@
-import { chain, noop, Rule, Tree } from '@angular-devkit/schematics';
+import {
+  chain,
+  noop,
+  Rule,
+  Tree,
+} from '@angular-devkit/schematics';
 import {
   addImportsIntoComponentDecoratorTransformerFactory,
   applyEsLintFix,
@@ -12,12 +17,20 @@ import {
   getO3rComponentInfoOrThrowIfNotFound,
   getSimpleUpdatedMethod,
   O3rCliError,
-  sortClassElement
+  sortClassElement,
 } from '@o3r/schematics';
-import { addImportToModule, insertImport } from '@schematics/angular/utility/ast-utils';
-import { applyToUpdateRecorder, Change } from '@schematics/angular/utility/change';
+import {
+  addImportToModule,
+  insertImport,
+} from '@schematics/angular/utility/ast-utils';
+import {
+  applyToUpdateRecorder,
+  Change,
+} from '@schematics/angular/utility/change';
 import * as ts from 'typescript';
-import { NgGenerateRulesEngineToComponentSchematicsSchema } from './schema';
+import {
+  NgGenerateRulesEngineToComponentSchematicsSchema,
+} from './schema';
 
 const rulesEngineProperties = ['rulesEngineService'];
 const checkRulesEngine = (componentPath: string | null | undefined) => (tree: Tree) => {
@@ -196,7 +209,6 @@ function ngGenerateRulesEngineToComponentFn(options: NgGenerateRulesEngineToComp
     }
   ]);
 }
-
 
 /**
  * Generate the code to enable rules-engine on a component

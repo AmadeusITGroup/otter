@@ -1,4 +1,9 @@
-import type { CategoryDescription, ConfigPropertyWidget, ItemIdentifier, Output } from '@o3r/core';
+import type {
+  CategoryDescription,
+  ConfigPropertyWidget,
+  ItemIdentifier,
+  Output,
+} from '@o3r/core';
 
 /** Types of components config */
 export type ConfigType = 'Block' | 'Page' | 'AppRuntimeConfiguration' | 'AppBuildConfiguration' | 'ExposedComponent';

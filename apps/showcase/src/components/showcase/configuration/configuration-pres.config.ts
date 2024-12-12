@@ -1,5 +1,10 @@
-import { computeItemIdentifier } from '@o3r/core';
-import type {Configuration, NestedConfiguration} from '@o3r/core';
+import {
+  computeItemIdentifier,
+} from '@o3r/core';
+import type {
+  Configuration,
+  NestedConfiguration,
+} from '@o3r/core';
 
 /** Configuration of a destination */
 export interface DestinationConfiguration extends NestedConfiguration {
@@ -40,7 +45,7 @@ export interface ConfigurationPresConfig extends Configuration {
   shouldProposeRoundTrip: boolean;
 }
 
-export const CONFIGURATION_PRES_DEFAULT_CONFIG: ConfigurationPresConfig = {
+export const CONFIGURATION_PRES_DEFAULT_CONFIG: Readonly<ConfigurationPresConfig> = {
   inXDays: 7,
   destinations: [
     { cityName: 'London', available: true },
@@ -48,6 +53,6 @@ export const CONFIGURATION_PRES_DEFAULT_CONFIG: ConfigurationPresConfig = {
     { cityName: 'New-York', available: false }
   ],
   shouldProposeRoundTrip: false
-};
+} as const;
 
 export const CONFIGURATION_PRES_CONFIG_ID = computeItemIdentifier('ConfigurationPresConfig', 'showcase');

@@ -1,4 +1,7 @@
-import type { BootstrapConfig, Dataset } from '../../core/application/dgp.interfaces';
+import type {
+  BootstrapConfig,
+  Dataset,
+} from '../../core/application/dgp.interfaces';
 
 /**
  * Pad number
@@ -10,14 +13,12 @@ export function padNumber(val: number, digits = 2): string {
   return '0'.repeat(Math.max(0, digits - str.length)) + str;
 }
 
-
 /**
  * Returns TRUE if bootstrap config environment is production FALSE otherwise
  * @param dataset
  * @returns TRUE if bootstrap config environment is production FALSE otherwise
  */
 export function isProductionEnvironment(dataset: Dataset): boolean {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const bootstrapConfig: BootstrapConfig = dataset.bootstrapconfig && JSON.parse(dataset.bootstrapconfig);
   return bootstrapConfig?.environment === 'prod';
 }

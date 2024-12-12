@@ -1,10 +1,31 @@
-import { Component } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { BrowserModule } from '@angular/platform-browser';
-import type { AnalyticsEvent, AnalyticsEvents, EventInfo } from '@o3r/analytics';
-import { ConfigurationObserver } from '@o3r/configuration';
-import { Translation } from '@o3r/localization';
-import { getAnalyticEvents, getConfigId, getOtterLikeComponentInfo, getTranslations, isContainer } from './otter-inspector.helpers';
+import {
+  Component,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import {
+  BrowserModule,
+} from '@angular/platform-browser';
+import type {
+  AnalyticsEvent,
+  AnalyticsEvents,
+  EventInfo,
+} from '@o3r/analytics';
+import {
+  ConfigurationObserver,
+} from '@o3r/configuration';
+import {
+  Translation,
+} from '@o3r/localization';
+import {
+  getAnalyticEvents,
+  getConfigId,
+  getOtterLikeComponentInfo,
+  getTranslations,
+  isContainer,
+} from './otter-inspector.helpers';
 
 class MockEvent implements AnalyticsEvent {
   public eventInfo: EventInfo = {
@@ -27,11 +48,12 @@ class MockComponent {
   public translations: Translation = {
     mainKey: 'mainKey'
   };
+
   public analyticsEvents: AnalyticsEvents = {
     mainEvent: MockEvent
   };
 
-  // eslint-disable-next-line @typescript-eslint/naming-convention
+  // eslint-disable-next-line @typescript-eslint/naming-convention -- field supposedly added by the decorator @O3rComponent
   public '__otter-info__' = {
     componentName: 'MockComponent',
     configId: 'configId',
@@ -47,10 +69,12 @@ class MockSubComponent {
   public translations: Translation = {
     subKey: 'subKey'
   };
+
   public analyticsEvents: AnalyticsEvents = {
     subEvent: MockSubEvent
   };
-  // eslint-disable-next-line @typescript-eslint/naming-convention
+
+  // eslint-disable-next-line @typescript-eslint/naming-convention -- field supposedly added by the decorator @O3rComponent
   public '__otter-info__' = {
     componentName: 'MockSubComponent',
     translations: this.translations
@@ -75,7 +99,6 @@ describe('Otter inspector helpers', () => {
   describe('getConfigId', () => {
     it('should return the config id of the component instance', () => {
       const instance = {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         '__otter-info__': {
           configId: 'configId'
         }
@@ -138,4 +161,3 @@ describe('Otter inspector helpers', () => {
     });
   });
 });
-

@@ -1,23 +1,27 @@
+import {
+  promises as fs,
+} from 'node:fs';
+import {
+  resolve,
+} from 'node:path';
+import type {
+  DesignTokenGroupTemplate,
+  DesignTokenSpecification,
+} from '../design-token-specification.interface';
 import * as parser from './design-token.parser';
-import { promises as fs } from 'node:fs';
-import { resolve } from 'node:path';
-import type { DesignTokenGroupTemplate, DesignTokenSpecification } from '../design-token-specification.interface';
 
 describe('Design Token Parser', () => {
-
   let exampleVariable!: DesignTokenSpecification;
 
   beforeAll(async () => {
     const file = await fs.readFile(resolve(__dirname, '../../../../testing/mocks/design-token-theme.json'), { encoding: 'utf8' });
-    exampleVariable = {document: JSON.parse(file)};
+    exampleVariable = { document: JSON.parse(file) };
   });
 
   describe('parseDesignToken', () => {
-
     test('should support single root key', () => {
       const result = parser.parseDesignToken({
         document: {
-          // eslint-disable-next-line @typescript-eslint/naming-convention
           'my.variable': {
             $value: '{external}'
           }
@@ -60,7 +64,6 @@ describe('Design Token Parser', () => {
     });
 
     describe('with template set', () => {
-
       let exampleVariableWithContext!: DesignTokenSpecification;
 
       beforeEach(() => {
@@ -78,7 +81,6 @@ describe('Design Token Parser', () => {
           }
         };
       });
-
 
       test('should generate a variable with template', () => {
         const result = parser.parseDesignToken(exampleVariableWithContext);
@@ -103,7 +105,6 @@ describe('Design Token Parser', () => {
           context: {
             template: {
               example: {
-                // eslint-disable-next-line @typescript-eslint/naming-convention
                 '*': {
                   $extensions: {
                     o3rImportant: true
@@ -163,18 +164,18 @@ describe('Design Token Parser', () => {
     test('should read the file according to the reader', async () => {
       const readFile = jest.fn().mockResolvedValue('{"test": { "$value": "#000", "$type": "color" }}');
       const parseDesignToken = jest.spyOn(parser, 'parseDesignToken').mockImplementation(() => (new Map()));
-      const result = await parser.parseDesignTokenFile('fakeFile.json', {readFile});
+      const result = await parser.parseDesignTokenFile('fakeFile.json', { readFile });
 
       expect(result.size).toBe(0);
       expect(parseDesignToken).toHaveBeenCalledTimes(1);
       expect(readFile).toHaveBeenCalledTimes(1);
-      expect(parseDesignToken).toHaveBeenCalledWith({context: { basePath: '.' }, document: { test: { $value: '#000', $type: 'color' } } });
+      expect(parseDesignToken).toHaveBeenCalledWith({ context: { basePath: '.' }, document: { test: { $value: '#000', $type: 'color' } } });
     });
 
     test('should propagate context object', async () => {
       const readFile = jest.fn().mockResolvedValue('{"test": { "$value": "#000", "$type": "color" }}');
       const parseDesignToken = jest.spyOn(parser, 'parseDesignToken').mockImplementation(() => (new Map()));
-      await parser.parseDesignTokenFile('fakeFile.json', { readFile, specificationContext: {template: {$description: 'test'}}});
+      await parser.parseDesignTokenFile('fakeFile.json', { readFile, specificationContext: { template: { $description: 'test' } } });
 
       expect(parseDesignToken).toHaveBeenCalledWith({ context: { basePath: '.', template: { $description: 'test' } }, document: { test: { $value: '#000', $type: 'color' } } });
     });
@@ -183,7 +184,7 @@ describe('Design Token Parser', () => {
       const readFile = jest.fn().mockResolvedValue('{"test": { "$value": "#000", ');
       const parseDesignToken = jest.spyOn(parser, 'parseDesignToken').mockImplementation(() => (new Map()));
 
-      await expect(() => parser.parseDesignTokenFile('fakeFile.json', {readFile})).rejects.toThrow();
+      await expect(() => parser.parseDesignTokenFile('fakeFile.json', { readFile })).rejects.toThrow();
       expect(parseDesignToken).toHaveBeenCalledTimes(0);
       expect(readFile).toHaveBeenCalledTimes(1);
     });

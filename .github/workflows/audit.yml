@@ -1,11 +1,16 @@
 name: NPM Audit
 
 concurrency:
-  group: ci-${{ github.ref }}-audit
+  group: ci-${{ github.ref }}-${{ inputs.ref }}-audit
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 on:
   workflow_call:
+    inputs:
+      ref:
+        type: string
+        default: ''
+        description: The branch, tag or SHA to checkout.
   push:
     branches:
       - main
@@ -25,6 +30,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ inputs.ref }}
       - name: Setup
         uses: ./tools/github-actions/setup
       - name: Audit

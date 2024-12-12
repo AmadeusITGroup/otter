@@ -1,6 +1,8 @@
-import type { DesignContentFileUpdater } from '../design-token.renderer.interface';
+import type {
+  DesignContentFileUpdater,
+} from '../design-token.renderer.interface';
 
-const SANITIZE_TAG_INPUTS_REGEXP = /[.*+?^${}()|[\]\\]/g;
+const SANITIZE_TAG_INPUTS_REGEXP = /[$()*+.?[\\\]^{|}]/g;
 
 const generateVars = (variables: string[], startTag: string, endTag: string, addCssScope = false) =>
   `${addCssScope ? ':root {\n' : ''}${startTag}\n${variables.join('\n')}\n${endTag}${addCssScope ? '\n}' : ''}`;
@@ -45,10 +47,8 @@ export const getCssStyleContentUpdater = (options?: CssStyleContentUpdaterOption
   const regexToReplace = new RegExp(`${startTag.replace(SANITIZE_TAG_INPUTS_REGEXP, '\\$&')}(:?(.|[\n\r])*)${endTag.replace(SANITIZE_TAG_INPUTS_REGEXP, '\\$&')}`);
 
   return (variables, _file, styleContent = '') => {
-    if (styleContent.indexOf(startTag) >= 0 && styleContent.indexOf(endTag) >= 0) {
-      return styleContent.replace(regexToReplace, generateVars(variables, startTag, endTag));
-    } else {
-      return styleContent + '\n' + generateVars(variables, startTag, endTag, scopeOnNewFile);
-    }
+    return styleContent.includes(startTag) && styleContent.includes(endTag)
+      ? styleContent.replace(regexToReplace, generateVars(variables, startTag, endTag))
+      : styleContent + '\n' + generateVars(variables, startTag, endTag, scopeOnNewFile);
   };
 };

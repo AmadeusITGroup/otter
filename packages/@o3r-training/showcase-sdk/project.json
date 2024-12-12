@@ -28,12 +28,12 @@
       }
     },
     "lint": {
+      "executor": "nx:run-commands"
+    },
+    "publish": {
+      "executor": "nx:run-commands",
       "options": {
-        "eslintConfig": "packages/@o3r-training/showcase-sdk/.eslintrc.js",
-        "lintFilePatterns": [
-          "packages/@o3r-training/showcase-sdk/src/**/*.ts",
-          "packages/@o3r-training/showcase-sdk/package.json"
-        ]
+        "command": "npm publish packages/@o3r-training/showcase-sdk/dist"
       }
     },
     "publish": {

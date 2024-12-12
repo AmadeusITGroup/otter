@@ -2830,12 +2830,18 @@ module.exports = validRange
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.getPreviousVersion = getPreviousVersion;
 const semver_1 = __nccwpck_require__(498);
+/**
+ * Returns the previous version
+ * @param versionInput
+ */
 async function getPreviousVersion(versionInput) {
     const version = (0, semver_1.valid)(versionInput);
     let data = '';
-    for await (const chunk of process.stdin)
+    for await (const chunk of process.stdin) {
         data += chunk;
+    }
     if (!version) {
+        // eslint-disable-next-line no-console -- only logger available
         console.error('Invalid version provided');
         process.exit(1);
     }
@@ -2863,21 +2869,27 @@ async function getPreviousVersion(versionInput) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.isLatest = isLatest;
 const semver_1 = __nccwpck_require__(498);
+/**
+ * Returns true if the version is the latest
+ * @param versionInput
+ */
 async function isLatest(versionInput) {
     const newVersion = (0, semver_1.valid)(versionInput);
     let data = '';
-    for await (const chunk of process.stdin)
+    for await (const chunk of process.stdin) {
         data += chunk;
+    }
     if (!newVersion) {
+        // eslint-disable-next-line no-console -- only logger available
         console.error('Invalid version provided');
         process.exit(1);
     }
-    const isLatest = JSON.parse(data)
+    const result = JSON.parse(data)
         .filter((tag) => !!tag)
         .map((tag) => ({ tag, version: (0, semver_1.valid)(tag) }))
         .filter((item) => !!item.version)
         .every(({ version }) => (0, semver_1.lt)(version, newVersion));
-    process.stdout.write(isLatest ? 'true' : 'false');
+    process.stdout.write(result ? 'true' : 'false');
 }
 //# sourceMappingURL=is-latest.cjs.map
 

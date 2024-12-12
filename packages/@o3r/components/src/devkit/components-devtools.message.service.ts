@@ -1,24 +1,58 @@
-import { Inject, Injectable, OnDestroy, Optional } from '@angular/core';
-import { DevtoolsServiceInterface, filterMessageContent, sendOtterMessage } from '@o3r/core';
-import { LoggerService } from '@o3r/logger';
-import { Store } from '@ngrx/store';
-import { firstValueFrom, fromEvent, Subscription } from 'rxjs';
-import { filter } from 'rxjs/operators';
-import { type PlaceholderTemplateState, togglePlaceholderModeTemplate } from '../stores';
-import { AvailableComponentsMessageContents, ComponentsDevtoolsServiceOptions, ComponentsMessageDataTypes, isComponentsMessage } from './components-devkit.interface';
-import { OTTER_COMPONENTS_DEVTOOLS_DEFAULT_OPTIONS, OTTER_COMPONENTS_DEVTOOLS_OPTIONS } from './components-devtools.token';
-import { OtterInspectorService, OtterLikeComponentInfo } from './inspector';
+import {
+  DestroyRef,
+  inject,
+  Inject,
+  Injectable,
+  Optional,
+} from '@angular/core';
+import {
+  takeUntilDestroyed,
+} from '@angular/core/rxjs-interop';
+import {
+  Store,
+} from '@ngrx/store';
+import {
+  DevtoolsServiceInterface,
+  filterMessageContent,
+  sendOtterMessage,
+} from '@o3r/core';
+import {
+  LoggerService,
+} from '@o3r/logger';
+import {
+  firstValueFrom,
+  fromEvent,
+} from 'rxjs';
+import {
+  filter,
+} from 'rxjs/operators';
+import {
+  type PlaceholderTemplateState,
+  togglePlaceholderModeTemplate,
+} from '../stores';
+import {
+  AvailableComponentsMessageContents,
+  ComponentsDevtoolsServiceOptions,
+  ComponentsMessageDataTypes,
+  isComponentsMessage,
+} from './components-devkit.interface';
+import {
+  OTTER_COMPONENTS_DEVTOOLS_DEFAULT_OPTIONS,
+  OTTER_COMPONENTS_DEVTOOLS_OPTIONS,
+} from './components-devtools.token';
+import {
+  OtterInspectorService,
+  OtterLikeComponentInfo,
+} from './inspector';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ComponentsDevtoolsMessageService implements OnDestroy, DevtoolsServiceInterface {
+export class ComponentsDevtoolsMessageService implements DevtoolsServiceInterface {
   private readonly options: ComponentsDevtoolsServiceOptions;
-
-  private readonly subscriptions = new Subscription();
   private readonly inspectorService: OtterInspectorService;
-
   private readonly sendMessage = sendOtterMessage<AvailableComponentsMessageContents>;
+  private readonly destroyRef = inject(DestroyRef);
 
   constructor(
     private readonly logger: LoggerService,
@@ -78,8 +112,7 @@ export class ComponentsDevtoolsMessageService implements OnDestroy, DevtoolsServ
 
   /**
    * Function to handle the incoming messages from Otter Chrome DevTools extension
-   * @param event Event coming from the Otter Chrome DevTools extension
-   * @param message
+   * @param message message coming from the Otter Chrome DevTools extension
    */
   private async handleEvents(message: AvailableComponentsMessageContents) {
     this.logger.debug('Message handling by the components service', message);
@@ -109,23 +142,15 @@ export class ComponentsDevtoolsMessageService implements OnDestroy, DevtoolsServ
 
   /** @inheritDoc */
   public activate() {
-    this.subscriptions.add(
-      fromEvent(window, 'message').pipe(filterMessageContent(isComponentsMessage)).subscribe((e) => this.handleEvents(e))
-    );
+    fromEvent(window, 'message').pipe(takeUntilDestroyed(this.destroyRef), filterMessageContent(isComponentsMessage)).subscribe((e) => this.handleEvents(e));
 
     this.inspectorService.prepareInspector();
-    this.subscriptions.add(
-      this.inspectorService.otterLikeComponentInfoToBeSent$
-        .pipe(
-          filter((info): info is OtterLikeComponentInfo => !!info)
-        ).subscribe(
-          (info) => this.sendMessage('selectedComponentInfo', info)
-        )
-    );
-  }
-
-  /** @inheritDoc */
-  public ngOnDestroy() {
-    this.subscriptions.unsubscribe();
+    this.inspectorService.otterLikeComponentInfoToBeSent$
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        filter((info): info is OtterLikeComponentInfo => !!info)
+      ).subscribe(
+        (info) => this.sendMessage('selectedComponentInfo', info)
+      );
   }
 }

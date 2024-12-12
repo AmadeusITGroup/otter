@@ -1,13 +1,25 @@
-import { execFileSync, ExecSyncOptions } from 'node:child_process';
-import { existsSync, rmSync } from 'node:fs';
-import { join } from 'node:path';
-import { performance } from 'node:perf_hooks';
-import { type SupportedPackageManagers } from '@o3r/schematics';
+import {
+  execFileSync,
+  ExecSyncOptions,
+} from 'node:child_process';
+import {
+  existsSync,
+  rmSync,
+} from 'node:fs';
+import {
+  join,
+} from 'node:path';
+import {
+  performance,
+} from 'node:perf_hooks';
+import {
+  type SupportedPackageManagers,
+} from '@o3r/schematics';
 
 declare global {
   namespace NodeJS {
     interface ProcessEnv {
-      // eslint-disable-next-line @typescript-eslint/naming-convention
+      // eslint-disable-next-line @typescript-eslint/naming-convention -- environment variable name
       ENFORCED_PACKAGE_MANAGER?: string;
     }
   }
@@ -26,7 +38,7 @@ type Command =
   | 'workspaceExec'
   | 'workspaceRun';
 
-const PACKAGE_MANAGERS_CMD: {[packageManager in SupportedPackageManagers]: {[command in Command]: string[]}} = {
+const PACKAGE_MANAGERS_CMD = {
   npm: {
     add: ['npm', 'install'],
     ci: ['npm', 'ci'],
@@ -53,7 +65,7 @@ const PACKAGE_MANAGERS_CMD: {[packageManager in SupportedPackageManagers]: {[com
     workspaceExec: ['yarn', 'workspace'],
     workspaceRun: ['yarn', 'workspace']
   }
-};
+} as const satisfies Record<SupportedPackageManagers, Record<Command, string[]>>;
 
 type CommandArguments = {
   /** Script to run or execute */
@@ -66,9 +78,9 @@ type CommandArguments = {
  * Get the package manager to be used for the tests by reading environment variable ENFORCED_PACKAGE_MANAGER
  */
 export function getPackageManager() {
-  return (process.env.ENFORCED_PACKAGE_MANAGER && process.env.ENFORCED_PACKAGE_MANAGER in PACKAGE_MANAGERS_CMD) ?
-    process.env.ENFORCED_PACKAGE_MANAGER as keyof typeof PACKAGE_MANAGERS_CMD :
-    'yarn';
+  return (process.env.ENFORCED_PACKAGE_MANAGER && process.env.ENFORCED_PACKAGE_MANAGER in PACKAGE_MANAGERS_CMD)
+    ? process.env.ENFORCED_PACKAGE_MANAGER as keyof typeof PACKAGE_MANAGERS_CMD
+    : 'yarn';
 }
 
 /**
@@ -85,24 +97,24 @@ export function addDashesForNpmCommand(args?: string[], packageManager = getPack
     return args;
   }
   const firstArgIndex = args.findIndex((arg) => arg.startsWith('-'));
-  if (firstArgIndex < 0) {
+  if (firstArgIndex === -1) {
     return args;
   }
-  return [...args.slice(0, firstArgIndex), '--',...args.slice(firstArgIndex)];
+  return [...args.slice(0, firstArgIndex), '--', ...args.slice(firstArgIndex)];
 }
 
 function execCmd(args: string[], execOptions: ExecSyncOptions) {
   try {
     const startTime = performance.now();
     const [runner, ...options] = args.filter((arg) => !!arg);
-    const output = execFileSync(runner, options, { ...execOptions, shell: process.platform === 'win32', stdio: 'pipe', encoding: 'utf8'});
-    // eslint-disable-next-line no-console
+    const output = execFileSync(runner, options, { ...execOptions, shell: process.platform === 'win32', stdio: 'pipe', encoding: 'utf8' });
+    // eslint-disable-next-line no-console -- no logger available
     console.log(`${args.join(' ')} [${Math.ceil(performance.now() - startTime)}ms]\n${output}`);
     return output;
   } catch (err: any) {
     // Yarn doesn't log errors on stderr, so we need to get them from stdout to have them in the reports
-    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-    throw new Error(`Command failed: ${args.join(' ') }\nSTDERR:\n${err.stderr?.toString() || ''}\nOUTPUT:\n${err.output?.toString() || ''}`);
+
+    throw new Error(`Command failed: ${args.join(' ')}\nSTDERR:\n${err.stderr?.toString() || ''}\nOUTPUT:\n${err.output?.toString() || ''}`);
   }
 }
 
@@ -260,7 +272,7 @@ export interface PackageManagerConfig {
  * @param packageManagerOverride
  */
 export function setPackagerManagerConfig(options: PackageManagerConfig, execAppOptions: ExecSyncOptions, packageManagerOverride?: keyof typeof PACKAGE_MANAGERS_CMD) {
-  const execOptions = {...execAppOptions, shell: process.platform === 'win32'};
+  const execOptions = { ...execAppOptions, shell: process.platform === 'win32' };
   const packageManager = packageManagerOverride || getPackageManager();
 
   // Need to add this even for yarn because `ng add` only reads registry from .npmrc
@@ -314,7 +326,7 @@ export function setPackagerManagerConfig(options: PackageManagerConfig, execAppO
  * @param packageName
  * @param execAppOptions
  */
-export function getLatestPackageVersion(packageName: string, execAppOptions?: Partial<ExecSyncOptions> & {registry?: string}) {
+export function getLatestPackageVersion(packageName: string, execAppOptions?: Partial<ExecSyncOptions> & { registry?: string }) {
   return execFileSync('npm', [
     'info',
     packageName,

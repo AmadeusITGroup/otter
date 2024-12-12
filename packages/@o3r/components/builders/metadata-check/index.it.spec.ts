@@ -5,22 +5,40 @@
  */
 const o3rEnvironment = globalThis.o3rEnvironment;
 
-import type { MigrationFile } from '@o3r/extractors';
-import { getPackageManager } from '@o3r/schematics';
+import {
+  existsSync,
+  promises,
+  readFileSync,
+} from 'node:fs';
+import {
+  dirname,
+  join,
+} from 'node:path';
+import type {
+  MigrationFile,
+} from '@o3r/extractors';
+import {
+  getExternalDependenciesVersionRange,
+  getPackageManager,
+} from '@o3r/schematics';
 import {
   getDefaultExecSyncOptions,
   getLatestPackageVersion,
   packageManagerAdd,
   packageManagerExec,
   packageManagerVersion,
-  publishToVerdaccio
+  publishToVerdaccio,
 } from '@o3r/test-helpers';
-import { existsSync, promises, readFileSync } from 'node:fs';
-import { dirname, join } from 'node:path';
-import { inc } from 'semver';
-import type { ComponentConfigOutput, ConfigProperty } from '@o3r/components';
-import type { MigrationConfigData } from './helpers/config-metadata-comparison.helper';
-import { getExternalDependenciesVersionRange } from '@o3r/schematics';
+import {
+  inc,
+} from 'semver';
+import type {
+  MigrationConfigData,
+} from './helpers/config-metadata-comparison.helper';
+import type {
+  ComponentConfigOutput,
+  ConfigProperty,
+} from '@o3r/components';
 
 const baseVersion = '1.2.0';
 const version = '1.3.0';
@@ -31,112 +49,112 @@ const defaultMigrationData: MigrationFile<MigrationConfigData> = {
   version,
   changes: [
     { // Rename property name
-      'contentType': 'CONFIG',
-      'before': {
-        'libraryName': '@o3r/lib1',
-        'configName': 'MyConfig1',
-        'propertyName': 'prop1'
+      contentType: 'CONFIG',
+      before: {
+        libraryName: '@o3r/lib1',
+        configName: 'MyConfig1',
+        propertyName: 'prop1'
       },
-      'after': {
-        'libraryName': '@o3r/lib1',
-        'configName': 'MyConfig1',
-        'propertyName': 'newProp1Name'
+      after: {
+        libraryName: '@o3r/lib1',
+        configName: 'MyConfig1',
+        propertyName: 'newProp1Name'
       }
     },
     { // Move property to a new config3
-      'contentType': 'CONFIG',
-      'before': {
-        'libraryName': '@o3r/lib2',
-        'configName': 'MyConfig2',
-        'propertyName': 'prop2'
+      contentType: 'CONFIG',
+      before: {
+        libraryName: '@o3r/lib2',
+        configName: 'MyConfig2',
+        propertyName: 'prop2'
       },
-      'after': {
-        'libraryName': '@o3r/lib2',
-        'configName': 'NewConfig2',
-        'propertyName': 'prop2'
+      after: {
+        libraryName: '@o3r/lib2',
+        configName: 'NewConfig2',
+        propertyName: 'prop2'
       }
     },
     { // Move property to a new config and rename property name
-      'contentType': 'CONFIG',
-      'before': {
-        'libraryName': '@o3r/lib3',
-        'configName': 'MyConfig3',
-        'propertyName': 'prop3'
+      contentType: 'CONFIG',
+      before: {
+        libraryName: '@o3r/lib3',
+        configName: 'MyConfig3',
+        propertyName: 'prop3'
       },
-      'after': {
-        'libraryName': '@o3r/lib3',
-        'configName': 'NewConfig3',
-        'propertyName': 'newProp3Name'
+      after: {
+        libraryName: '@o3r/lib3',
+        configName: 'NewConfig3',
+        propertyName: 'newProp3Name'
       }
     },
     { // Move property to a new library
-      'contentType': 'CONFIG',
-      'before': {
-        'libraryName': '@o3r/lib4',
-        'configName': 'MyConfig4',
-        'propertyName': 'prop4'
+      contentType: 'CONFIG',
+      before: {
+        libraryName: '@o3r/lib4',
+        configName: 'MyConfig4',
+        propertyName: 'prop4'
       },
-      'after': {
-        'libraryName': '@new/lib4',
-        'configName': 'MyConfig4',
-        'propertyName': 'prop4'
+      after: {
+        libraryName: '@new/lib4',
+        configName: 'MyConfig4',
+        propertyName: 'prop4'
       }
     },
     { // Move property to a new library and rename property name
-      'contentType': 'CONFIG',
-      'before': {
-        'libraryName': '@o3r/lib5',
-        'configName': 'MyConfig5',
-        'propertyName': 'prop5'
+      contentType: 'CONFIG',
+      before: {
+        libraryName: '@o3r/lib5',
+        configName: 'MyConfig5',
+        propertyName: 'prop5'
       },
-      'after': {
-        'libraryName': '@new/lib5',
-        'configName': 'MyConfig5',
-        'propertyName': 'newProp5Name'
+      after: {
+        libraryName: '@new/lib5',
+        configName: 'MyConfig5',
+        propertyName: 'newProp5Name'
       }
     },
     { // Move property to a new library and to a new config and rename property name
-      'contentType': 'CONFIG',
-      'before': {
-        'libraryName': '@o3r/lib6',
-        'configName': 'MyConfig6',
-        'propertyName': 'prop6'
+      contentType: 'CONFIG',
+      before: {
+        libraryName: '@o3r/lib6',
+        configName: 'MyConfig6',
+        propertyName: 'prop6'
       },
-      'after': {
-        'libraryName': '@new/lib6',
-        'configName': 'NewConfig6',
-        'propertyName': 'newProp6Name'
+      after: {
+        libraryName: '@new/lib6',
+        configName: 'NewConfig6',
+        propertyName: 'newProp6Name'
       }
     },
     { // Rename configuration name for all properties
-      'contentType': 'CONFIG',
-      'before': {
-        'libraryName': '@o3r/lib7',
-        'configName': 'MyConfig7'
+      contentType: 'CONFIG',
+      before: {
+        libraryName: '@o3r/lib7',
+        configName: 'MyConfig7'
       },
-      'after': {
-        'libraryName': '@o3r/lib7',
-        'configName': 'NewConfig7'
+      after: {
+        libraryName: '@o3r/lib7',
+        configName: 'NewConfig7'
       }
     },
     { // Rename library name for all configurations
-      'contentType': 'CONFIG',
-      'before': {
-        'libraryName': '@o3r/lib8'
+      contentType: 'CONFIG',
+      before: {
+        libraryName: '@o3r/lib8'
       },
-      'after': {
-        'libraryName': '@new/lib8'
+      after: {
+        libraryName: '@new/lib8'
       }
     },
     { // Move configuration to a new library
-      'contentType': 'CONFIG',
-      'before': {
-        'libraryName': '@o3r/lib9',
-        'configName': 'MyConfig9'
+      contentType: 'CONFIG',
+      before: {
+        libraryName: '@o3r/lib9',
+        configName: 'MyConfig9'
       },
-      'after': {
-        'libraryName': '@new/lib9',
-        'configName': 'MyConfig9'
+      after: {
+        libraryName: '@new/lib9',
+        configName: 'MyConfig9'
       }
     }
   ]
@@ -152,7 +170,7 @@ const createProp = (name: string): ConfigProperty => ({
 const createConfig = (library: string, name: string, propertiesName: string[]): ComponentConfigOutput => ({
   library,
   name,
-  properties: propertiesName.map(createProp),
+  properties: propertiesName.map((propName) => createProp(propName)),
   type: 'EXPOSED_COMPONENT',
   path: ''
 });
@@ -185,7 +203,7 @@ const newConfigurationMetadata: ComponentConfigOutput[] = [
 
 async function writeFileAsJSON(path: string, content: object) {
   if (!existsSync(dirname(path))) {
-    await promises.mkdir(dirname(path), {recursive: true});
+    await promises.mkdir(dirname(path), { recursive: true });
   }
   await promises.writeFile(path, JSON.stringify(content), { encoding: 'utf8' });
 }
@@ -208,17 +226,19 @@ const initTest = async (
   const { workspacePath, appName, applicationPath, o3rVersion, isYarnTest } = o3rEnvironment.testEnvironment;
   const execAppOptions = { ...getDefaultExecSyncOptions(), cwd: applicationPath };
   const execAppOptionsWorkspace = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
-  packageManagerExec({script: 'ng', args: ['add', `@o3r/extractors@${o3rVersion}`, '--skip-confirmation', '--project-name', appName]}, execAppOptionsWorkspace);
-  packageManagerExec({script: 'ng', args: ['add', `@o3r/components@${o3rVersion}`, '--skip-confirmation', '--project-name', appName]}, execAppOptionsWorkspace);
+  packageManagerExec({ script: 'ng', args: ['add', `@o3r/extractors@${o3rVersion}`, '--skip-confirmation', '--project-name', appName] }, execAppOptionsWorkspace);
+  packageManagerExec({ script: 'ng', args: ['add', `@o3r/components@${o3rVersion}`, '--skip-confirmation', '--project-name', appName] }, execAppOptionsWorkspace);
   const versions = getExternalDependenciesVersionRange([
     'semver',
-    ...(isYarnTest ? [
-      '@yarnpkg/core',
-      '@yarnpkg/fslib',
-      '@yarnpkg/plugin-npm',
-      '@yarnpkg/plugin-pack',
-      '@yarnpkg/cli'
-    ] : [])
+    ...(isYarnTest
+      ? [
+        '@yarnpkg/core',
+        '@yarnpkg/fslib',
+        '@yarnpkg/plugin-npm',
+        '@yarnpkg/plugin-pack',
+        '@yarnpkg/cli'
+      ]
+      : [])
   ], join(__dirname, '..', '..', 'package.json'), {
     warn: jest.fn()
   } as any);
@@ -322,6 +342,7 @@ describe('check metadata migration', () => {
       packageManagerExec({ script: 'ng', args: ['run', `${appName}:check-metadata`] }, execAppOptionsWorkspace);
       throw new Error('should have thrown before');
     } catch (e: any) {
+      /* eslint-disable jest/no-conditional-expect -- always called as there is a throw in the try block */
       expect(e.message).not.toBe('should have thrown before');
       previousConfigurationMetadata.slice(1).forEach(({ library, name, properties }) => {
         const id = `${library}#${name} ${properties[0].name}`;
@@ -329,6 +350,7 @@ describe('check metadata migration', () => {
         expect(e.message).not.toContain(`Property ${id} has been modified but the new property is not present in the new metadata`);
         expect(e.message).not.toContain(`Property ${id} is not present in the new metadata and breaking changes are not allowed`);
       });
+      /* eslint-enable jest/no-conditional-expect */
     }
   });
 
@@ -355,6 +377,7 @@ describe('check metadata migration', () => {
       packageManagerExec({ script: 'ng', args: ['run', `${appName}:check-metadata`] }, execAppOptionsWorkspace);
       throw new Error('should have thrown before');
     } catch (e: any) {
+      /* eslint-disable jest/no-conditional-expect -- always called as there is a throw in the try block */
       expect(e.message).not.toBe('should have thrown before');
       previousConfigurationMetadata.slice(1).forEach(({ library, name, properties }) => {
         const id = `${library}#${name} ${properties[0].name}`;
@@ -362,6 +385,7 @@ describe('check metadata migration', () => {
         expect(e.message).toContain(`Property ${id} has been modified but the new property is not present in the new metadata`);
         expect(e.message).not.toContain(`Property ${id} is not present in the new metadata and breaking changes are not allowed`);
       });
+      /* eslint-enable jest/no-conditional-expect */
     }
   });
 
@@ -382,6 +406,7 @@ describe('check metadata migration', () => {
       packageManagerExec({ script: 'ng', args: ['run', `${appName}:check-metadata`] }, execAppOptionsWorkspace);
       throw new Error('should have thrown before');
     } catch (e: any) {
+      /* eslint-disable jest/no-conditional-expect -- always called as there is a throw in the try block */
       expect(e.message).not.toBe('should have thrown before');
       previousConfigurationMetadata.slice(1).forEach(({ library, name, properties }) => {
         const id = `${library}#${name} ${properties[0].name}`;
@@ -389,14 +414,15 @@ describe('check metadata migration', () => {
         expect(e.message).not.toContain(`Property ${id} has been modified but the new property is not present in the new metadata`);
         expect(e.message).toContain(`Property ${id} is not present in the new metadata and breaking changes are not allowed`);
       });
+      /* eslint-enable jest/no-conditional-expect */
     }
   });
 
   test('should throw because of unused migration data', async () => {
     const unusedMigrationItem = {
-      'contentType': 'CONFIG',
-      'before': {
-        'libraryName': 'fake-remove'
+      contentType: 'CONFIG',
+      before: {
+        libraryName: 'fake-remove'
       }
     };
     await initTest(
@@ -418,8 +444,10 @@ describe('check metadata migration', () => {
       packageManagerExec({ script: 'ng', args: ['run', `${appName}:check-metadata`] }, execAppOptionsWorkspace);
       throw new Error('should have thrown before');
     } catch (e: any) {
+      /* eslint-disable jest/no-conditional-expect -- catch block always called */
       expect(e.message).not.toBe('should have thrown before');
       expect(e.message).toContain(`The following migration data has been documented but no corresponding metadata change was found: ${JSON.stringify(unusedMigrationItem, null, 2)}`);
+      /* eslint-enable jest/no-conditional-expect */
     }
   });
 });

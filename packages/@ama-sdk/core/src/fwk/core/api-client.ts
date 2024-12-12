@@ -1,8 +1,21 @@
-import type { RequestBody, RequestMetadata, RequestOptions, TokenizedOptions } from '../../plugins/index';
-import type { ApiTypes } from '../api';
-import type { Api } from '../api.interface';
-import type { ReviverType } from '../Reviver';
-import type { BaseApiClientOptions } from './base-api-constructor';
+import type {
+  RequestBody,
+  RequestMetadata,
+  RequestOptions,
+  TokenizedOptions,
+} from '../../plugins/index';
+import type {
+  ApiTypes,
+} from '../api';
+import type {
+  Api,
+} from '../api.interface';
+import type {
+  ReviverType,
+} from '../reviver';
+import type {
+  BaseApiClientOptions,
+} from './base-api-constructor';
 
 /** Parameters to the request the call options */
 export interface RequestOptionsParameters {
@@ -54,11 +67,10 @@ export interface ApiClient {
    */
   prepareUrl(url: string, queryParameters?: { [key: string]: string | undefined }): string;
 
-
   /**
    * Returns tokenized request options:
    * URL/query parameters for which sensitive parameters are replaced by tokens and the corresponding token-value associations
-   * @param tokenizedUrl URL for which parameters containing PII have been replaced by tokens
+   * @param url URL for which parameters containing PII have been replaced by tokens
    * @param queryParameters Original query parameters
    * @param piiParamTokens Tokens of the parameters containing PII
    * @param data Data to provide to the API call
@@ -73,8 +85,8 @@ export interface ApiClient {
   processFormData(data: any, type: string): FormData | string;
 
   /** Process HTTP call */
-  processCall<T>(url: string, options: RequestOptions, apiType: ApiTypes | string, apiName: string, revivers?: ReviverType<T> | undefined |
-    {[key: number]: ReviverType<T> | undefined}, operationId?: string): Promise<T>;
+  processCall<T>(url: string, options: RequestOptions, apiType: ApiTypes | string, apiName: string, revivers?: ReviverType<T> |
+  { [key: number]: ReviverType<T> | undefined }, operationId?: string): Promise<T>;
 }
 
 /**
@@ -82,11 +94,12 @@ export interface ApiClient {
  * @param client object to check
  */
 export function isApiClient(client: any): client is ApiClient {
-  return client &&
-    !!client.options &&
-    typeof client.extractQueryParams === 'function' &&
-    typeof client.getRequestOptions === 'function' &&
-    typeof client.prepareUrl === 'function' &&
-    typeof client.processFormData === 'function' &&
-    typeof client.processCall === 'function';
+  const apiClient: ApiClient | undefined = client;
+  return !!apiClient
+    && !!apiClient.options
+    && typeof apiClient.extractQueryParams === 'function'
+    && typeof apiClient.getRequestOptions === 'function'
+    && typeof apiClient.prepareUrl === 'function'
+    && typeof apiClient.processFormData === 'function'
+    && typeof apiClient.processCall === 'function';
 }

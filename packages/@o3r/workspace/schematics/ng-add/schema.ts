@@ -1,4 +1,6 @@
-import type { SchematicOptionObject } from '@o3r/schematics';
+import type {
+  SchematicOptionObject,
+} from '@o3r/schematics';
 
 /** Monorepo manager to use */
 export type MonorepoManager = 'lerna' | 'none';

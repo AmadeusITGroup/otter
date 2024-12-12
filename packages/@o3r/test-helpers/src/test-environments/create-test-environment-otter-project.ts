@@ -1,5 +1,13 @@
-import { ExecSyncOptions } from 'node:child_process';
-import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import {
+  ExecSyncOptions,
+} from 'node:child_process';
+import {
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  rmSync,
+  writeFileSync,
+} from 'node:fs';
 import * as path from 'node:path';
 import {
   createWithLock,
@@ -10,7 +18,7 @@ import {
   packageManagerCreate,
   packageManagerExec,
   packageManagerInstall,
-  setPackagerManagerConfig
+  setPackagerManagerConfig,
 } from '../utilities';
 
 export interface CreateTestEnvironmentOtterProjectWithAppAndLibOptions extends CreateWithLockOptions, PackageManagerConfig {
@@ -48,7 +56,7 @@ const o3rVersion = '~999';
  * @param inputOptions
  */
 export async function createTestEnvironmentOtterProjectWithAppAndLib(inputOptions: Partial<CreateTestEnvironmentOtterProjectWithAppAndLibOptions>) {
-  const options: CreateTestEnvironmentOtterProjectWithAppAndLibOptions = {
+  const options = {
     appName: 'test-app',
     libName: 'test-lib',
     appDirectory: 'test-app',
@@ -59,16 +67,15 @@ export async function createTestEnvironmentOtterProjectWithAppAndLib(inputOption
     lockTimeout: 10 * 60 * 1000,
     replaceExisting: true,
     ...inputOptions
-  };
+  } as const satisfies CreateTestEnvironmentOtterProjectWithAppAndLibOptions;
 
   await createWithLock(() => {
     const appFolderPath = path.join(options.cwd, options.appDirectory);
-    const execAppOptions: ExecSyncOptions = {
+    const execAppOptions = {
       cwd: appFolderPath,
       stdio: 'inherit',
-      // eslint-disable-next-line @typescript-eslint/naming-convention
       env: { ...process.env, NODE_OPTIONS: '', CI: 'true' }
-    };
+    } as const satisfies ExecSyncOptions;
 
     // Prepare folder
     if (existsSync(appFolderPath)) {
@@ -77,27 +84,28 @@ export async function createTestEnvironmentOtterProjectWithAppAndLib(inputOption
 
     // prepare package manager config
     setPackagerManagerConfig(options, { ...execAppOptions, cwd: options.cwd }, 'npm');
-    try { mkdirSync(appFolderPath, { recursive: true }); } catch { }
+    try {
+      mkdirSync(appFolderPath, { recursive: true });
+    } catch {}
     setPackagerManagerConfig(options, execAppOptions);
 
     // Create Project
     const createOptions = ['--package-manager', getPackageManager(), '--skip-confirmation', ...(options.yarnVersion ? ['--yarn-version', options.yarnVersion] : [])];
-    packageManagerCreate({ script: `@o3r@${o3rVersion}`, args: [options.appDirectory, ...createOptions] }, { ...execAppOptions, cwd: options.cwd}, 'npm');
+    packageManagerCreate({ script: `@o3r@${o3rVersion}`, args: [options.appDirectory, ...createOptions] }, { ...execAppOptions, cwd: options.cwd }, 'npm');
     const gitIgnorePath = path.join(appFolderPath, '.gitignore');
     if (existsSync(gitIgnorePath)) {
       const gitIgnore = readFileSync(gitIgnorePath, { encoding: 'utf8' });
       writeFileSync(gitIgnorePath, gitIgnore.replace(/\/(dist|node_modules)/g, '$1'));
     }
     packageManagerInstall(execAppOptions);
-    packageManagerExec({script: 'ng', args: ['g', 'application', 'untouched-app']}, execAppOptions);
-    packageManagerExec({script: 'ng', args: ['g', 'application', options.appName]}, execAppOptions);
-    packageManagerExec({script: 'ng', args: ['g', 'library', 'untouched-lib']}, execAppOptions);
-    packageManagerExec({script: 'ng', args: ['g', 'library', options.libName]}, execAppOptions);
+    packageManagerExec({ script: 'ng', args: ['g', 'application', 'untouched-app'] }, execAppOptions);
+    packageManagerExec({ script: 'ng', args: ['g', 'application', options.appName] }, execAppOptions);
+    packageManagerExec({ script: 'ng', args: ['g', 'library', 'untouched-lib'] }, execAppOptions);
+    packageManagerExec({ script: 'ng', args: ['g', 'library', options.libName] }, execAppOptions);
 
-
-    packageManagerExec({script: 'ng', args: ['config', 'cli.cache.environment', 'all']}, execAppOptions);
+    packageManagerExec({ script: 'ng', args: ['config', 'cli.cache.environment', 'all'] }, execAppOptions);
     if (options.globalFolderPath) {
-      packageManagerExec({script: 'ng', args: ['config', 'cli.cache.path', path.join(options.globalFolderPath, '.angular', 'cache')]}, execAppOptions);
+      packageManagerExec({ script: 'ng', args: ['config', 'cli.cache.path', path.join(options.globalFolderPath, '.angular', 'cache')] }, execAppOptions);
     }
     packageManagerInstall(execAppOptions);
 

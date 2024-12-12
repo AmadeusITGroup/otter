@@ -1,11 +1,23 @@
-import {logging} from '@angular-devkit/core';
-import type { CategoryDescription } from '@o3r/core';
-import { O3rCliError } from '@o3r/schematics';
-import globby from 'globby';
 import * as path from 'node:path';
+import {
+  logging,
+} from '@angular-devkit/core';
+import type {
+  CategoryDescription,
+} from '@o3r/core';
+import {
+  O3rCliError,
+} from '@o3r/schematics';
+import globby from 'globby';
 import * as ts from 'typescript';
-import {ComponentClassExtractor, ComponentInformation} from './component-class.extractor';
-import {ComponentConfigExtractor, ConfigurationInformationWrapper} from './component-config.extractor';
+import {
+  ComponentClassExtractor,
+  ComponentInformation,
+} from './component-class.extractor';
+import {
+  ComponentConfigExtractor,
+  ConfigurationInformationWrapper,
+} from './component-config.extractor';
 
 /** Output of a file parsing */
 export interface FileParserOutput {
@@ -44,9 +56,10 @@ export interface ParserOutput {
  * Component extractor parser.
  */
 export class ComponentParser {
-  private globalConfigCategoriesMap: Map<string, string>;
+  private readonly globalConfigCategoriesMap: Map<string, string>;
 
   /**
+   * Component extractor parser constructor
    * @param libraryName
    * @param tsconfigPath Path to the tsconfig defining the list of path to parse
    * @param logger Logger
@@ -58,7 +71,7 @@ export class ComponentParser {
     private readonly libraryName: string,
     private readonly tsconfigPath: string,
     private readonly logger: logging.LoggerApi,
-    private readonly strictMode: boolean = false,
+    private readonly strictMode = false,
     private readonly libraries: string[] = [],
     private readonly globalConfigCategories: CategoryDescription[] = []
   ) {
@@ -67,7 +80,7 @@ export class ComponentParser {
 
   /** Get the list of patterns from tsconfig.json */
   private getPatternsFromTsConfig() {
-    const tsconfigResult = ts.readConfigFile(this.tsconfigPath, ts.sys.readFile);
+    const tsconfigResult = ts.readConfigFile(this.tsconfigPath, (p) => ts.sys.readFile(p));
 
     if (tsconfigResult.error) {
       const errorMessage = typeof tsconfigResult.error.messageText === 'string' ? tsconfigResult.error.messageText : tsconfigResult.error.messageText.messageText;
@@ -78,18 +91,17 @@ export class ComponentParser {
     const include: string[] = [...(tsconfigResult.config.files || []), ...(tsconfigResult.config.include || [])];
     const exclude: string[] = tsconfigResult.config.exclude || [];
     const cwd = path.resolve(path.dirname(this.tsconfigPath), tsconfigResult.config.rootDir || '.');
-    return {include, exclude, cwd};
+    return { include, exclude, cwd };
   }
 
   /** Get the list of file from tsconfig.json */
   private getFilesFromTsConfig() {
-    const {include, exclude, cwd} = this.getPatternsFromTsConfig();
-    return globby(include, {ignore: exclude, cwd, absolute: true});
+    const { include, exclude, cwd } = this.getPatternsFromTsConfig();
+    return globby(include, { ignore: exclude, cwd, absolute: true });
   }
 
   /**
    * Extract a component of a given file
-   *
    * @param file Path to the file to extract the component from
    * @param source Typescript SourceFile node of the file
    */
@@ -100,7 +112,6 @@ export class ComponentParser {
 
   /**
    * Extract a configuration of a given file
-   *
    * @param file Path to the file to extract the configuration from
    * @param source Typescript SourceFile node of the file
    * @param checker Typescript TypeChecker of the program
@@ -116,21 +127,19 @@ export class ComponentParser {
       });
       const categoriesMap = new Map((configuration.configurationInformation.categories || []).map((category) => [category.name, category.label]));
       configuration.configurationInformation.properties.forEach((prop) => {
-        if (prop.category) {
-          if (!categoriesMap.has(prop.category)) {
-            if (this.globalConfigCategoriesMap.has(prop.category)) {
-              categoriesMap.set(prop.category, this.globalConfigCategoriesMap.get(prop.category)!);
-            } else {
-              this.logger.warn(
-                `The property ${prop.name} from ${configuration.configurationInformation!.name} has an unknown category ${prop.category}. The category will not be set for this property.`
-              );
-              delete prop.category;
-            }
+        if (prop.category && !categoriesMap.has(prop.category)) {
+          if (this.globalConfigCategoriesMap.has(prop.category)) {
+            categoriesMap.set(prop.category, this.globalConfigCategoriesMap.get(prop.category)!);
+          } else {
+            this.logger.warn(
+              `The property ${prop.name} from ${configuration.configurationInformation!.name} has an unknown category ${prop.category}. The category will not be set for this property.`
+            );
+            delete prop.category;
           }
         }
       });
       const categories = Array.from(categoriesMap).map(([name, label]) => ({ name, label }));
-      configuration.configurationInformation.categories = categories.length ? categories : undefined;
+      configuration.configurationInformation.categories = categories.length > 0 ? categories : undefined;
 
       if (this.strictMode) {
         configuration.configurationInformation.properties = configuration.configurationInformation.properties
@@ -167,15 +176,15 @@ export class ComponentParser {
       if (source) {
         const configurationFromSource = this.getConfiguration(filePath, source, checker);
         if (configurationFromSource.configurationInformation || configurationFromSource.nestedConfiguration) {
-          configurations[filePath] = {configuration: configurationFromSource, file: filePath};
+          configurations[filePath] = { configuration: configurationFromSource, file: filePath };
         }
         const componentFromSource = this.getComponent(filePath, source);
         if (componentFromSource) {
-          components[filePath] = {component: componentFromSource, file: filePath};
+          components[filePath] = { component: componentFromSource, file: filePath };
         }
       }
     });
 
-    return {components, configurations};
+    return { components, configurations };
   }
 }

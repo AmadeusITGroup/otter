@@ -1,8 +1,11 @@
-import type { Probot } from 'probot';
-import { CascadingProbot } from './cascading/cascading-probot';
+import type {
+  Probot,
+} from 'probot';
+import {
+  CascadingProbot,
+} from './cascading/cascading-probot';
 
 export = (app: Probot) => {
-
   app.on(['push'], async (context) => {
     const logger = context.log;
     const branch = context.payload.ref.replace(/^refs\/heads\//, '');
@@ -55,18 +58,18 @@ export = (app: Probot) => {
       logger.debug(`The check suite ${context.payload.check_suite.id} is not passed yet`);
       return;
     }
-    if (!['neutral', 'success'].some((status) => context.payload.check_suite.conclusion === status)) {
+    if (!context.payload.check_suite.conclusion || !['neutral', 'success'].includes(context.payload.check_suite.conclusion)) {
       logger.debug(`The check suite ${context.payload.check_suite.id} is not passed yet`);
       return;
     }
     await Promise.all(
       context.payload.check_suite.pull_requests
-        .map(async ({id, head}) => {
+        .map(async ({ id, head }) => {
           try {
             const branch = head.ref.replace(/^refs\/heads\//, '');
             await cascadingPlugin.mergeCascadingPullRequest({ id }, branch, context.payload.check_suite.conclusion);
           } catch (error: any) {
-            context.octokit.log.error(`Caught an error during the merge execution on PR ${id}`, error);
+            context.octokit.log.error(`Caught an error during the merge execution on PR ${id}\n${error instanceof Error ? error.stack : error}`);
           }
         })
     );

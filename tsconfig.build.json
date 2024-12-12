@@ -30,6 +30,7 @@
       "@o3r/design": ["packages/@o3r/design/dist", "packages/@o3r/design/src/public_api"],
       "@o3r/dynamic-content": ["packages/@o3r/dynamic-content/dist", "packages/@o3r/dynamic-content/src/public_api"],
       "@o3r/dynamic-content/*": ["packages/@o3r/dynamic-content/dist/*", "packages/@o3r/dynamic-content/src/*/public_api"],
+      "@o3r/eslint-config": ["packages/@o3r/eslint-config"],
       "@o3r/eslint-config-otter": ["packages/@o3r/eslint-config-otter"],
       "@o3r/eslint-plugin": ["packages/@o3r/eslint-plugin/dist", "packages/@o3r/eslint-plugin/src/public_api"],
       "@o3r/extractors": ["packages/@o3r/extractors/dist", "packages/@o3r/extractors/src/public_api"],

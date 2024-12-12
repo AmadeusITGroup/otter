@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 const currentPackage = {
   newPackage: '@ama-sdk/client-angular'
 };
@@ -10,5 +9,5 @@ export const mapMigrationFromCoreImports = {
     'ApiAngularClient',
     'MockInterceptAngular',
     'MockInterceptAngularParameters'
-  ].reduce((acc, name) => ({...acc, [name]: currentPackage}), {} as Record<string, typeof currentPackage>)
+  ].reduce((acc, name) => ({ ...acc, [name]: currentPackage }), {} as Record<string, typeof currentPackage>)
 };

@@ -1,7 +1,12 @@
 #!/usr/bin/env node
 
-import { program } from 'commander';
-import { Headers, Options } from 'request';
+import {
+  program,
+} from 'commander';
+import {
+  Headers,
+  Options,
+} from 'request';
 import * as request from 'request-promise-native';
 import * as winston from 'winston';
 
@@ -14,8 +19,8 @@ program
   .option('-p, --path <path>', 'Artifact paths to cleanup using matcher from AQL language. Be careful that the path do not include release artifacts.', '*')
   .option('-f, --filename <filename>', 'Filenames to cleanup using matcher from AQL language.', '*')
   .option('--dry-run', 'List all files that should be deleted without actually deleting them')
-  .option('-a, --api-key <apiKey>', 'Artifactory API Key of the user that can be used to log in', (value, previous) => /[a-zA-Z0-9]+/.test(value) ? value : previous)
-  .option('-b, --basicAuth <base64>', 'Base 64 encoding of username:password (password already encrypted from artifactory UI)', (value, previous) => /[a-zA-Z0-9]+/.test(value) ? value : previous)
+  .option('-a, --api-key <apiKey>', 'Artifactory API Key of the user that can be used to log in', (value, previous) => /[\dA-Za-z]+/.test(value) ? value : previous)
+  .option('-b, --basicAuth <base64>', 'Base 64 encoding of username:password (password already encrypted from artifactory UI)', (value, previous) => /[\dA-Za-z]+/.test(value) ? value : previous)
   .option('-c, --only-creation-time', 'Pass to true if you don\'t want to consider the last downloaded time')
   .option<number>('-t, --last-downloaded-time-value <numberOfDays>', 'This is to be used if you which to pass a different value than durationKept for the download part', (v) => +v)
   .option('--property <property>', 'Artifactory property to filter on')
@@ -58,18 +63,9 @@ if (!opts.basicAuth && !opts.apiKey) {
   logger.error('Only one authentication method should be used at a time. Please provide only the apiKey (-a) or the basicAuth (-b) but not both.');
   process.exit(1);
 }
-let authHeader: Headers;
-if (opts.basicAuth) {
-  authHeader = {
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    Authorization: 'Basic ' + (opts.basicAuth as string)
-  };
-} else {
-  authHeader = {
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    'X-JFrog-Art-Api': (opts.apiKey as string)
-  };
-}
+const authHeader: Headers = opts.basicAuth
+  ? { Authorization: 'Basic ' + (opts.basicAuth as string) }
+  : { 'X-JFrog-Art-Api': (opts.apiKey as string) };
 
 let url: string = opts.artifactoryUrl;
 url += (url.endsWith('/') ? '' : '/') + 'api/search/aql';
@@ -84,7 +80,7 @@ const isDownloadedTimeValueDefined = !!programOptions.lastDownloadedTimeValue;
 const downloadedTimeValue: number = programOptions.lastDownloadedTimeValue;
 const property: string = programOptions.property;
 const propertyValue: string = programOptions.propertyValue;
-const options: Options = {
+const options = {
   headers: authHeader,
   uri: url,
   body: `items.find(
@@ -94,17 +90,17 @@ const options: Options = {
           {"repo": {"$eq":"${repository}"}},
           {"$and":[{"path":{"$match":"${path}"}}, {"path":{"$nmatch":"*.npm*"}}]},
           {"name":{"$match":"${filename}"}},
-          ${ (!!property && !!propertyValue) ? `{"@${property}":{"$eq":"${propertyValue}"}},` : '' }
-          {"created":{"$before":"${ageInDays}d"}}${ !shouldConsiderDownloadedTime ? ',' : ''}
-          ${ !shouldConsiderDownloadedTime ? `{"$or":[{"stat.downloaded": {"$before":"${ isDownloadedTimeValueDefined ? downloadedTimeValue : ageInDays}d"}}, {"stat.downloads":{"$eq":null}}]}` : '' }
+          ${(!!property && !!propertyValue) ? `{"@${property}":{"$eq":"${propertyValue}"}},` : ''}
+          {"created":{"$before":"${ageInDays}d"}}${shouldConsiderDownloadedTime ? '' : ','}
+          ${shouldConsiderDownloadedTime ? '' : `{"$or":[{"stat.downloaded": {"$before":"${isDownloadedTimeValueDefined ? downloadedTimeValue : ageInDays}d"}}, {"stat.downloads":{"$eq":null}}]}`}
         ]
     }
   )
   .include("name","repo","path","created","size")
   .sort({"$desc" : ["created"]}).offset(${offset})
   .limit(10000)`
-};
-// eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+} as const satisfies Options;
+
 logger.debug(`AQL search executed : ${options.body}`);
 logger.info(`Url called : ${url}`);
 
@@ -132,4 +128,3 @@ void (async () => {
     }
   }
 })();
-

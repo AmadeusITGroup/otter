@@ -5,23 +5,23 @@
  */
 const o3rEnvironment = globalThis.o3rEnvironment;
 
+import * as path from 'node:path';
 import {
   getDefaultExecSyncOptions,
   getGitDiff,
   packageManagerExec,
   packageManagerInstall,
-  packageManagerRunOnProject
+  packageManagerRunOnProject,
 } from '@o3r/test-helpers';
-import * as path from 'node:path';
 
 describe('new otter application with apis-manager', () => {
   test('should add apis-manager to existing application', () => {
     const { workspacePath, appName, isInWorkspace, isYarnTest, untouchedProjectsPaths, libraryPath, o3rVersion } = o3rEnvironment.testEnvironment;
-    const execAppOptions = {...getDefaultExecSyncOptions(), cwd: workspacePath};
-    packageManagerExec({script: 'ng', args: ['add', `@o3r/apis-manager@${o3rVersion}`, '--skip-confirmation', '--project-name', appName]}, execAppOptions);
+    const execAppOptions = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
+    packageManagerExec({ script: 'ng', args: ['add', `@o3r/apis-manager@${o3rVersion}`, '--skip-confirmation', '--project-name', appName] }, execAppOptions);
 
     expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
-    expect(() => packageManagerRunOnProject(appName, isInWorkspace, {script: 'build'}, execAppOptions)).not.toThrow();
+    expect(() => packageManagerRunOnProject(appName, isInWorkspace, { script: 'build' }, execAppOptions)).not.toThrow();
 
     const diff = getGitDiff(workspacePath);
     expect(diff.modified.sort()).toEqual([
@@ -32,8 +32,8 @@ describe('new otter application with apis-manager', () => {
       isYarnTest ? 'yarn.lock' : 'package-lock.json'
     ].sort());
 
-    [libraryPath, ...untouchedProjectsPaths].forEach(untouchedProject => {
-      expect(diff.all.some(file => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
+    [libraryPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
+      expect(diff.all.some((file) => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
     });
   });
 });

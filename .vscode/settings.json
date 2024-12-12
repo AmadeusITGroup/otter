@@ -1,4 +1,99 @@
 {
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+  "editor.foldingImportsByDefault": true,
+  "emojisense.languages": {
+    "markdown": {
+      "emojiDecoratorsEnabled": true,
+      "markupCompletionsEnabled": true,
+      "unicodeCompletionsEnabled": false
+    }
+  },
+  "eslint.codeActionsOnSave.mode": "all",
+  "eslint.format.enable": true,
+  "eslint.nodePath": ".yarn/sdks",
+  "eslint.probe": [
+    "javascript",
+    "typescript",
+    "typescriptreact",
+    "html",
+    "markdown",
+    "json",
+    "yaml"
+  ],
+  "eslint.rules.customizations": [
+    {
+      "fixable": true,
+      "rule": "@stylistic/*",
+      "severity": "off"
+    },
+    {
+      "fixable": true,
+      "rule": "!@stylistic/*",
+      "severity": "info"
+    }
+  ],
+  "eslint.useFlatConfig": true,
+  "eslint.validate": [
+    "html",
+    "javascript",
+    "typescript",
+    "json",
+    "yaml"
+  ],
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    "*.js": "${capture}.js.map, ${capture}.d.ts, ${capture}.d.ts.map",
+    ".eslintrc.*": ".eslintignore, .eslintrc-*",
+    "Dockerfile*": ".dockerignore",
+    "eslint.config.mjs": "eslint.*.config.mjs",
+    "jest.config.js": "jest.config.*",
+    "nx.json": ".nxignore",
+    "package.json": "ng-package.json, project.json, yarn.lock, .yarnrc.yml, .npmrc, .npmrc.*, .pnp.*",
+    "readme.md": "security.md, code_of_conduct.md, contributing.md",
+    "tsconfig.base.json": "tsconfig.*.json",
+    "tsconfig.json": "tsconfig.*.json"
+  },
+  "files.associations": {
+    "*.json5": "jsonc"
+  },
+  "files.exclude": {
+    "**/.DS_Store": true,
+    "**/.git": true,
+    "**/Thumbs.db": true
+  },
+  "files.readonlyExclude": {
+    "packages/@o3r-training/*sdk/src/api/*/index.ts": true,
+    "packages/@o3r-training/*sdk/src/models/base/*/index.ts": true
+  },
+  "files.readonlyFromPermissions": true,
+  "files.readonlyInclude": {
+    "**/.cache/**": true,
+    "**/.pnp.*": true,
+    "**/.yarn/**": true,
+    "**/node_modules/**": true,
+    "packages/@o3r-training/*sdk/src/api/**/*.ts": true,
+    "packages/@o3r-training/*sdk/src/models/base/**/*.ts": true,
+    "packages/@o3r-training/*sdk/src/spec/api-mock.ts": true,
+    "packages/@o3r-training/*sdk/src/spec/operation-adapter.ts": true,
+    "tools/github-actions/*/packaged-action/**": true
+  },
+  "files.trimFinalNewlines": false,
+  "files.trimTrailingWhitespace": true,
+  "files.watcherExclude": {
+    "**/.cache/**": true,
+    "**/.git/**": true,
+    "**/.pnp.*": true,
+    "**/.yarn/**": true,
+    "**/dist/**": true,
+    "**/node_modules/**": true
+  },
+  "jest.debugMode": true,
+  "jest.jestCommandLine": "yarn jest",
+  "npm.packageManager": "yarn",
+  "nxConsole.generatorAllowlist": [
+    "@o3r/core:*"
+  ],
+  "otter.extract.styling.prefix": "o3r",
   "search.exclude": {
     "**/.yarn": true,
     "**/.pnp.*": true,
@@ -9,93 +104,7 @@
     "**/src/package.json": true,
     "tools/github-actions/*/packaged-action/**": true
   },
-  "files.exclude": {
-    "**/.git": true,
-    "**/.DS_Store": true,
-    "**/Thumbs.db": true
-  },
-  "files.associations": {
-    "*.json5": "jsonc"
-  },
-  "files.watcherExclude": {
-    "**/.pnp.*": true,
-    "**/.git/**": true,
-    "**/.yarn/**": true,
-    "**/.cache/**": true,
-    "**/dist/**": true,
-    "**/node_modules/**": true
-  },
-  "npm.packageManager": "yarn",
-  "typescript.tsdk": ".yarn/sdks/typescript/lib",
-  "typescript.preferences.importModuleSpecifier": "relative",
-  "typescript.preferences.quoteStyle": "single",
   "typescript.enablePromptUseWorkspaceTsdk": true,
-  "typescript.preferences.preferTypeOnlyAutoImports": true,
-  "jest.jestCommandLine": "yarn jest",
-  "jest.debugMode": true,
-  "jest.runMode": {
-    "type": "on-save",
-    "coverage": true
-  },
-  "testing.openTesting": "neverOpen",
-  "explorer.fileNesting.enabled": true,
-  "explorer.fileNesting.patterns": {
-    "readme.md": "security.md, code_of_conduct.md, contributing.md",
-    "*.js": "${capture}.js.map, ${capture}.d.ts, ${capture}.d.ts.map",
-    "tsconfig.json": "tsconfig.*.json",
-    "tsconfig.base.json": "tsconfig.*.json",
-    "package.json": "ng-package.json, project.json, yarn.lock, .yarnrc.yml, .npmrc, .npmrc.*, .pnp.*",
-    "nx.json": ".nxignore",
-    ".eslintrc.*": ".eslintignore, .eslintrc-*",
-    "jest.config.js": "jest.config.*",
-    "Dockerfile*": ".dockerignore"
-  },
-  "stylelint.validate": [
-    "css",
-    "scss",
-    "source.css.styled",
-    "source.markdown.math",
-    "styled-css"
-  ],
-  "eslint.nodePath": ".yarn/sdks",
-  "eslint.validate": [
-    "javascript",
-    "typescript",
-    "json",
-    "yaml"
-  ],
-  "eslint.probe": [
-    "javascript",
-    "typescript",
-    "typescriptreact",
-    "html",
-    "markdown",
-    "json",
-    "yaml"
-  ],
-  "eslint.format.enable": true,
-  "eslint.codeActionsOnSave.mode": "all",
-  "nxConsole.generatorAllowlist": [
-    "@o3r/core:*"
-  ],
-  "files.readonlyFromPermissions": true,
-  "files.readonlyInclude": {
-    "**/.cache/**": true,
-    "**/.pnp.*": true,
-    "**/.yarn/**": true,
-    "**/node_modules/**": true,
-    "tools/github-actions/*/packaged-action/**": true,
-    "packages/@o3r-training/*sdk/src/api/**/*.ts": true,
-    "packages/@o3r-training/*sdk/src/models/base/**/*.ts": true,
-    "packages/@o3r-training/*sdk/src/spec/api-mock.ts": true,
-    "packages/@o3r-training/*sdk/src/spec/operation-adapter.ts": true
-  },
-  "files.readonlyExclude": {
-    "packages/@o3r-training/*sdk/src/api/*/index.ts": true,
-    "packages/@o3r-training/*sdk/src/models/base/*/index.ts": true
-  },
-  "files.trimTrailingWhitespace": true,
-  "files.trimFinalNewlines": false,
-  "otter.extract.styling.prefix": "o3r",
+  "typescript.tsdk": ".yarn/sdks/typescript/lib",
   "typescript.tsserver.watchOptions": "vscode"
 }

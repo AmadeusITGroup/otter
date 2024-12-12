@@ -1,21 +1,36 @@
-import { chain, noop, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { applyEsLintFix, createSchematicWithMetricsIfInstalled, getDestinationPath } from '@o3r/schematics';
+import {
+  readFileSync,
+} from 'node:fs';
 import * as path from 'node:path';
-import { updateOtterEnvironmentAdapter } from '../rule-factories/otter-environment';
-import { NgGenerateUpdateSchematicsSchema } from './schema';
-import { readFileSync } from 'node:fs';
+import {
+  chain,
+  noop,
+  Rule,
+  SchematicContext,
+  Tree,
+} from '@angular-devkit/schematics';
+import {
+  applyEsLintFix,
+  createSchematicWithMetricsIfInstalled,
+  getDestinationPath,
+} from '@o3r/schematics';
+import {
+  updateOtterEnvironmentAdapter,
+} from '../rule-factories/otter-environment';
+import {
+  NgGenerateUpdateSchematicsSchema,
+} from './schema';
 
 /**
  * add a new ngUpdate function
  * @param options
  */
 function ngGenerateUpdateFn(options: NgGenerateUpdateSchematicsSchema): Rule {
-
   const generateFiles: Rule = (tree: Tree, _context: SchematicContext) => {
     const destination = getDestinationPath('@o3r/core:schematics-update', options.path, tree, options.projectName);
 
     const sanitizedVersion = options.version.replace('.', '_');
-    const baseVersion = `${options.version}${options.version.indexOf('.') > -1 ? '' : '.0'}.0-alpha.0`;
+    const baseVersion = `${options.version}${options.version.includes('.') ? '' : '.0'}.0-alpha.0`;
     const updateFunction = `updateV${sanitizedVersion}`;
 
     const barrelPath = path.join(destination, 'schematics', 'ng-update', 'index.ts');

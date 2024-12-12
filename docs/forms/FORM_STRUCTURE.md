@@ -114,6 +114,8 @@ export interface Traveler {
 
   mainFormControl: FormControl;
 
+  private readonly destroyRef = inject(DestroyRef);
+
   constructor(config: FormsPocContConfig, private store: Store<FormErrorMessagesStore>) {
       ...
       // Default value
@@ -124,12 +126,10 @@ export interface Traveler {
   }
 
 ngOnInit() {
-    this.subscriptions.push(
-      // Subscribe to any change done to the value of the form control applied to the presenter
-      this.mainFormControl.valueChanges.subscribe((value) => console.log(value)),
-      // Subscribe to the status change of the form control applied to the presenter
-      this.mainFormControl.statusChanges.subscribe((value) => console.log(value))
-    );
+    // Subscribe to any change done to the value of the form control applied to the presenter
+    this.mainFormControl.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((value) => console.log(value));
+    // Subscribe to the status change of the form control applied to the presenter
+    this.mainFormControl.statusChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((value) => console.log(value));
   }
 ```
 
@@ -199,7 +199,7 @@ ngOnInit() {
     }
   ]
 })
-export class FormsPocPresComponent implements OnInit, Validator, FormsPocPresContext, ControlValueAccessor, Configurable<FormsPocPresConfig>, OnDestroy {
+export class FormsPocPresComponent implements OnInit, Validator, FormsPocPresContext, ControlValueAccessor, Configurable<FormsPocPresConfig> {
   /** Localization of the component */
   @Input()
   @Localization('./forms-poc-pres.localization.json')
@@ -223,6 +223,8 @@ export class FormsPocPresComponent implements OnInit, Validator, FormsPocPresCon
   /** The form object */
   travelerForm: FormGroup;
 
+  private readonly destroyRef = inject(DestroyRef);
+
   constructor() {
     // Create the form having the Traveler contract
     this.travelerForm = this.fb.group({
@@ -234,18 +236,17 @@ export class FormsPocPresComponent implements OnInit, Validator, FormsPocPresCon
 
   ngOnInit() {
     ...
-    this.subscriptions.push(
-      this.travelerForm.valueChanges
-        .pipe(
-          map((value) => {
-            const traveler: Traveler = {firstName: value.firstName, lastName: value.lastName, dateOfBirth: value.dateOfBirth};
-            return traveler;
-          })
-        )
-        .subscribe((value) => {
-          this.propagateChange(value); // ---> Propagate the value to the parent
-        })
-    );
+    this.travelerForm.valueChanges
+      .pipe(
+        map((value) => {
+          const traveler: Traveler = {firstName: value.firstName, lastName: value.lastName, dateOfBirth: value.dateOfBirth};
+          return traveler;
+        }),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe((value) => {
+        this.propagateChange(value); // ---> Propagate the value to the parent
+      });
     ...
   }
   ...
@@ -320,20 +321,18 @@ In the use case where we need to display inline errors, we have to apply directi
 ```
   * __on presenter class__
 ```typescript
-  this.subscriptions.push(
-    this.config$.subscribe((config) => {
-      const firstNameValidators = [];
-      if (config.firstNameMaxLength) {
-        // Apply validator based on config
-        firstNameValidators.push(Validators.maxLength(this.config.firstNameMaxLength));
-      }
-      // firstNameValidators.push(otherValidators)
-      if (firstNameValidators.length) {
-        this.travelerForm.controls.firstName.clearValidators();
-        this.travelerForm.controls.firstName.setValidators(firstNameValidators)
-      }
-    })
-  );
+  this.config$.pipe(takeUntilDestroyed()).subscribe((config) => {
+    const firstNameValidators = [];
+    if (config.firstNameMaxLength) {
+      // Apply validator based on config
+      firstNameValidators.push(Validators.maxLength(this.config.firstNameMaxLength));
+    }
+    // firstNameValidators.push(otherValidators)
+    if (firstNameValidators.length) {
+      this.travelerForm.controls.firstName.clearValidators();
+      this.travelerForm.controls.firstName.setValidators(firstNameValidators)
+    }
+  });
 ```
 
 <a name="validators-translation"></a>

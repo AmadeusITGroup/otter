@@ -1,17 +1,24 @@
-import {Directive, ElementRef, OnDestroy, Renderer2} from '@angular/core';
-import {Subscription} from 'rxjs';
-
+import {
+  Directive,
+  ElementRef,
+  Renderer2,
+} from '@angular/core';
+import {
+  takeUntilDestroyed,
+} from '@angular/core/rxjs-interop';
 import {
   AnalyticsEvent,
   ConstructorAnalyticsEvent,
   ConstructorAnalyticsEventParameters,
   EventContext,
-  TrackEventName
+  TrackEventName,
 } from '../../contracts';
-import {EventTrackService} from '../../services/event-track';
+import {
+  EventTrackService,
+} from '../../services/event-track';
 
 @Directive()
-export abstract class BaseTrackEvents implements OnDestroy {
+export abstract class BaseTrackEvents {
   /**
    * Custom object to be stored when the click event is captured
    */
@@ -39,11 +46,8 @@ export abstract class BaseTrackEvents implements OnDestroy {
   /** Flag for the tracking mode */
   protected isTrackingActive = false;
 
-  /** Tracking mode subscription */
-  private readonly subscription: Subscription;
-
   protected constructor(protected el: ElementRef, protected trackEventsService: EventTrackService, protected renderer: Renderer2) {
-    this.subscription = this.trackEventsService.uiTrackingActive$.subscribe((isActive) => {
+    this.trackEventsService.uiTrackingActive$.pipe(takeUntilDestroyed()).subscribe((isActive) => {
       this.isTrackingActive = isActive;
       if (isActive) {
         this.listen();
@@ -62,10 +66,9 @@ export abstract class BaseTrackEvents implements OnDestroy {
     // Usage of an observable from event was not possible because the ngOnDestroy with the unsubscribe was called before the ui event was handled
     return this.renderer.listen(this.el.nativeElement, event, (nativeEvent) => {
       if (this.trackEventContextConstructor) {
-        // eslint-disable-next-line new-cap
-        this.trackEventsService.addUiEvent({nativeEvent, context: new this.trackEventContextConstructor(this.trackEventContextConstructorParameters)});
+        this.trackEventsService.addUiEvent({ nativeEvent, context: new this.trackEventContextConstructor(this.trackEventContextConstructorParameters) });
       } else if (this.trackEventContext) {
-        this.trackEventsService.addUiEvent({nativeEvent, context: this.trackEventContext});
+        this.trackEventsService.addUiEvent({ nativeEvent, context: this.trackEventContext });
       }
     });
   }
@@ -91,10 +94,5 @@ export abstract class BaseTrackEvents implements OnDestroy {
     if (this.isTrackingActive) {
       this.unlistenFns.push(this.nativeListen(event));
     }
-  }
-
-  /** Unsubscribe from the activate tracking subscription */
-  public ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 }

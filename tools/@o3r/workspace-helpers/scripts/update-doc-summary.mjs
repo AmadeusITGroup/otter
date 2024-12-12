@@ -13,6 +13,7 @@ const writeFile = util.promisify(fs.writeFile);
 
 /**
  *
+ * @param folderPath
  */
 function generateFolderMdFiles(folderPath) {
   return readdir(folderPath)
@@ -30,11 +31,11 @@ function generateFolderMdFiles(folderPath) {
           await writeFile(
             path.join(folderPath, `${subFolderName}.md`),
             `# ${
-              subFolderName.replace(/-/g, ' ').replace(/(^\w|\s\w)/g, m => m.toUpperCase())
+              subFolderName.replace(/-/g, ' ').replace(/(^\w|\s\w)/g, (m) => m.toUpperCase())
             }\n\n${
               subFiles.map((f) => `- [${f.replace('.md', '')}](./${subFolderName}/${f})`).join('\n')
             }\n`,
-            {encoding: 'utf-8'}
+            { encoding: 'utf-8' }
           );
         })
     ));
@@ -42,19 +43,17 @@ function generateFolderMdFiles(folderPath) {
 
 /**
  * Generate CompoDoc summary object
- *
  * @param {string} folderPath Path to the folder containing MarkDown files
  * @returns {Promise<any[]>}
  */
 function generateSummary(folderPath) {
   return readdir(folderPath)
     .then((files) => {
-
       const ret = files
         .filter((file) => /\.?md$/i.test(path.extname(file)))
         .map((file) => ({
           title: path.basename(file, '.md').replace(/_/g, ' '),
-          file: path.relative(docsFolder, path.join(folderPath, file)).replace(/[\\/]/g, '/')
+          file: path.relative(docsFolder, path.join(folderPath, file)).replace(/[/\\]/g, '/')
         }));
 
       const folders = files
@@ -80,6 +79,6 @@ function generateSummary(folderPath) {
 
 void generateFolderMdFiles(docsFolder).then(() =>
   generateSummary(docsFolder).then((summary) =>
-    writeFile(summaryFilePath, JSON.stringify(summary, null, 2), {encoding: 'utf-8'})
+    writeFile(summaryFilePath, JSON.stringify(summary, null, 2), { encoding: 'utf-8' })
   )
 );

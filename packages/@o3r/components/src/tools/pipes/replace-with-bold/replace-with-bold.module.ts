@@ -1,5 +1,9 @@
-import {NgModule} from '@angular/core';
-import {ReplaceWithBoldPipe} from './replace-with-bold.pipe';
+import {
+  NgModule,
+} from '@angular/core';
+import {
+  ReplaceWithBoldPipe,
+} from './replace-with-bold.pipe';
 
 /**
  * @deprecated please use O3rReplaceWithBoldPipe, will be removed in v12.

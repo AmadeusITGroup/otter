@@ -1,6 +1,14 @@
-import type { Observable } from 'rxjs';
-import type { HttpResponse } from '@angular/common/http';
-import type { ApiClient, PluginContext, RequestOptions } from '@ama-sdk/core';
+import type {
+  ApiClient,
+  PluginContext,
+  RequestOptions,
+} from '@ama-sdk/core';
+import type {
+  HttpResponse,
+} from '@angular/common/http';
+import type {
+  Observable,
+} from 'rxjs';
 
 /**
  * Interface of an async runnable plugin

@@ -1,4 +1,6 @@
-import { calculatePrefix } from './utils';
+import {
+  calculatePrefix,
+} from './utils';
 
 describe('calculatePrefix function', () => {
   test('should provide correct prefix when path available', () => {
