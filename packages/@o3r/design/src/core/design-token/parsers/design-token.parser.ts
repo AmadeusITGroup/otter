@@ -161,17 +161,49 @@ const getCssRawValue = (variableSet: DesignTokenVariableSet, token: DesignTokenV
   }
 };
 
+const convertObjectToToken = (node: any): DesignTokenGroup | undefined => {
+  if (typeof node !== 'object') {
+    return;
+  }
+
+  if (Array.isArray(node)) {
+    return node
+      .map((item, index): DesignTokenGroup => ({ [index]: convertObjectToToken(item) }))
+      .filter((item, index) => !!item[index])
+      .reduce((acc, item) => ({ ...acc, ...item }), {});
+  }
+
+  return Object.entries(node)
+    .reduce<DesignTokenGroup>((acc, [key, value]) => {
+      const group = convertObjectToToken(value);
+      acc[key] = group || { $value: value as any };
+      return acc;
+    }, {});
+};
+
+/**
+ * Generate a new Token for each field of a complex type
+ * @param node Node of the Token in the parsed token files
+ */
+const explodeComplexType = (node: DesignTokenNode): DesignTokenGroup | undefined => {
+  if (typeof node.$value !== 'object') {
+    return;
+  }
+  return convertObjectToToken(node.$value);
+};
+
 const walkThroughDesignTokenNodes = (
   node: DesignTokenNode,
   context: DesignTokenContext | undefined,
   ancestors: ParentReference[],
   mem: DesignTokenVariableSet,
-  nodeName?: string): DesignTokenVariableSet => {
+  nodeName?: string,
+  ignoreDuplicate?: boolean): DesignTokenVariableSet => {
   if (isDesignTokenGroup(node)) {
     Object.entries(node)
       .filter(([tokenName, tokenNode]) => !tokenName.startsWith('$') && (isDesignToken(tokenNode) || isDesignTokenGroup(tokenNode)))
       .forEach(([tokenName, tokenNode]) => walkThroughDesignTokenNodes(
-        tokenNode as DesignTokenGroup | DesignToken, context, nodeName ? [...ancestors, { name: nodeName, tokenNode: node }] : ancestors, mem, tokenName
+        tokenNode as DesignTokenGroup | DesignToken, context, nodeName ? [...ancestors, { name: nodeName, tokenNode: node }] : ancestors, mem, tokenName, ignoreDuplicate
       ));
   }
 
@@ -181,10 +213,22 @@ const walkThroughDesignTokenNodes = (
     }
     const parentNames = ancestors.map(({ name }) => name);
     const tokenReferenceName = getTokenReferenceName(nodeName, parentNames);
+    const extensions = getExtensions([...ancestors, { name: nodeName, tokenNode: node }], context);
+
+    if (extensions.o3rExplodeComplexTypes) {
+      const group = explodeComplexType(node);
+      if (group) {
+        walkThroughDesignTokenNodes(group, context, [...ancestors, { name: nodeName, tokenNode: group }], mem, undefined, true);
+      }
+    }
+
+    if (ignoreDuplicate && mem.has(tokenReferenceName)) {
+      return mem;
+    }
 
     const tokenVariable = {
       context,
-      extensions: getExtensions([...ancestors, { name: nodeName, tokenNode: node }], context),
+      extensions,
       node,
       tokenReferenceName,
       ancestors,
