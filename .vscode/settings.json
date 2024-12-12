@@ -56,14 +56,9 @@
   "files.associations": {
     "*.json5": "jsonc"
   },
-  "files.exclude": {
-    "**/.DS_Store": true,
-    "**/.git": true,
-    "**/Thumbs.db": true
-  },
   "files.readonlyExclude": {
-    "packages/@o3r-training/*sdk/src/api/*/index.ts": true,
-    "packages/@o3r-training/*sdk/src/models/base/*/index.ts": true
+    "**/packages/@o3r-training/*sdk/src/api/*/index.ts": true,
+    "**/packages/@o3r-training/*sdk/src/models/base/*/index.ts": true
   },
   "files.readonlyFromPermissions": true,
   "files.readonlyInclude": {
@@ -71,11 +66,11 @@
     "**/.pnp.*": true,
     "**/.yarn/**": true,
     "**/node_modules/**": true,
-    "packages/@o3r-training/*sdk/src/api/**/*.ts": true,
-    "packages/@o3r-training/*sdk/src/models/base/**/*.ts": true,
-    "packages/@o3r-training/*sdk/src/spec/api-mock.ts": true,
-    "packages/@o3r-training/*sdk/src/spec/operation-adapter.ts": true,
-    "tools/github-actions/*/packaged-action/**": true
+    "**/packages/@o3r-training/*sdk/src/api/**/*.ts": true,
+    "**/packages/@o3r-training/*sdk/src/models/base/**/*.ts": true,
+    "**/packages/@o3r-training/*sdk/src/spec/api-mock.ts": true,
+    "**/packages/@o3r-training/*sdk/src/spec/operation-adapter.ts": true,
+    "**/tools/github-actions/*/packaged-action/**": true
   },
   "files.trimFinalNewlines": false,
   "files.trimTrailingWhitespace": true,
@@ -84,7 +79,9 @@
     "**/.git/**": true,
     "**/.pnp.*": true,
     "**/.yarn/**": true,
+    "**/.verdaccio/**": true,
     "**/dist/**": true,
+    "**/build/**": true,
     "**/node_modules/**": true
   },
   "jest.debugMode": true,
@@ -94,17 +91,12 @@
     "@o3r/core:*"
   ],
   "otter.extract.styling.prefix": "o3r",
+  "search.useIgnoreFiles": true,
   "search.exclude": {
-    "**/.yarn": true,
-    "**/.pnp.*": true,
-    "**/dist/": true,
-    "**/build/": true,
-    "**/node_modules": true,
-    "**/.cache": true,
-    "**/src/package.json": true,
-    "tools/github-actions/*/packaged-action/**": true
+    "**/*.code-search": true,
+    "**/.yarn/**": true,
+    "**/github-actions/*/packaged-action/**": true
   },
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "typescript.tsdk": ".yarn/sdks/typescript/lib",
-  "typescript.tsserver.watchOptions": "vscode"
 }
