@@ -7,14 +7,19 @@
   "targets": {
     "build": {
       "executor": "nx:noop",
-      "dependsOn": ["compile"]
+      "dependsOn": [
+        "compile"
+      ]
     },
     "compile": {
       "executor": "nx:run-script",
       "options": {
         "script": "build"
       },
-      "inputs": ["source", "^cli"]
+      "inputs": [
+        "source",
+        "^cli"
+      ]
     },
     "regen": {
       "executor": "nx:run-script",
@@ -32,5 +37,8 @@
       }
     }
   },
-  "tags": ["private", "showcase"]
+  "tags": [
+    "private",
+    "showcase"
+  ]
 }
