@@ -6,6 +6,7 @@ import {
 } from '@angular/core';
 import {
   takeUntilDestroyed,
+  toObservable,
 } from '@angular/core/rxjs-interop';
 import {
   type FileSystemTree,
@@ -27,13 +28,13 @@ import {
   map,
   Observable,
   of,
-} from 'rxjs';
-import {
+  pairwise,
+  share,
   skip,
   switchMap,
   take,
   timeout,
-} from 'rxjs/operators';
+} from 'rxjs';
 import {
   createTerminalStream,
   killTerminal,
@@ -77,6 +78,21 @@ export class WebContainerRunner {
    * Progress indicator of the loading of a project.
    */
   public readonly progress = this.progressWritable.asReadonly();
+
+  /**
+   * Observable that emits when dependencies have been installed in the web container
+   */
+  public readonly dependenciesLoaded$ = toObservable(this.progress).pipe(
+    takeUntilDestroyed(),
+    pairwise(),
+    filter(([prev, curr]) =>
+      prev.totalSteps === curr.totalSteps
+      && curr.currentStep > prev.currentStep
+      && curr.currentStep > 2
+      && prev.currentStep <= 2
+    ),
+    share()
+  );
 
   constructor() {
     const destroyRef = inject(DestroyRef);

@@ -126,4 +126,33 @@ export class WebContainerService {
 
     return getFilesTreeFromContainer(instance, EXCLUDED_FILES_OR_DIRECTORY);
   }
+
+  /**
+   * Retrieve all typescript declaration files from web-container
+   * @param project
+   * @param maxDepth
+   * @param path
+   */
+  public async getDeclarationTypes(project: string, maxDepth = 20, path = 'node_modules'): Promise<{ filePath: string; content: string }[]> {
+    // TODO read that from project devDependencies?
+    const dependenciesWhiteList = /(^|\/)(@ama-sdk|@angular|@o3r|rxjs|@types)(\/|$)/;
+    const dependenciesBlackList = /(^|\/)(node_modules|docs?|locales?|bin|dist|templates|@angular-devkit|compiler(-cli)?|schematics?|.*eslint.*|cli)(\/|$)/;
+    const instance = await this.runner.instancePromise;
+    const basePath = `${project}/${path}`;
+    const dependencies = await instance.fs.readdir(basePath, { encoding: 'utf8', withFileTypes: true });
+    return (await Promise.all(dependencies.map(async (dirEntry) => {
+      if (dirEntry.isDirectory() && !dependenciesBlackList.test(dirEntry.name) && (dependenciesWhiteList.test(dirEntry.name) || dependenciesWhiteList.test(path))) {
+        const files = await instance.fs.readdir(`${basePath}/${dirEntry.name}`, { encoding: 'utf8', withFileTypes: true });
+        const indexFiles = await Promise.all(files.filter((entry) => entry.isFile() && entry.name.endsWith('.d.ts')).map(async (indexFile) => ({
+          filePath: `file:///${path}/${dirEntry.name}/${indexFile.name}`,
+          content: await instance.fs.readFile(`${basePath}/${dirEntry.name}/${indexFile.name}`, 'utf8')
+        })));
+        return [
+          ...indexFiles,
+          ...(maxDepth > 1 ? await this.getDeclarationTypes(project, maxDepth - 1, `${path}/${dirEntry.name}`) : [])
+        ];
+      }
+      return [];
+    }))).flat();
+  }
 }

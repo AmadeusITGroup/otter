@@ -6,6 +6,9 @@ import type {
 import type {
   MonacoTreeElement,
 } from 'ngx-monaco-tree';
+import {
+  isDirectoryNode,
+} from '../services/webcontainer/webcontainer.helpers';
 
 /**
  * Check if the monaco tree contains the path in parameters
@@ -31,9 +34,8 @@ export function checkIfPathInMonacoTree(tree: MonacoTreeElement[], path: string[
 export function convertTreeRec(path: string, node: DirectoryNode | FileNode | SymlinkNode): MonacoTreeElement {
   return {
     name: path,
-    content: (node as DirectoryNode).directory
-      ? Object.entries((node as DirectoryNode).directory)
-        .map(([p, n]) => convertTreeRec(p, n))
+    content: isDirectoryNode(node)
+      ? Object.entries(node.directory).map(([p, n]) => convertTreeRec(p, n))
       : undefined
   };
 }
