@@ -26,9 +26,10 @@
             "type": "object",
             "description": "Step files configuration",
             "properties": {
-              "name": {
+              "exerciseId": {
                 "type": "string",
-                "description": "Name of directory in which files will be put"
+                "pattern": "^(sdk)-[a-zA-Z0-9-]+",
+                "description": "Unique identifier of the directory in which files will be put"
               },
               "startingFile": {
                 "type": "string",
@@ -98,7 +99,7 @@
             },
             "additionalProperties": false,
             "required": [
-              "name",
+              "exerciseId",
               "startingFile",
               "commands",
               "urls",

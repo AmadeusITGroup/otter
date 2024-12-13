@@ -60,7 +60,7 @@ interface TrainingStepDescription {
   /** Step files configuration */
   filesConfiguration?: {
     /** Name of directory in which files will be put */
-    name: string;
+    exerciseId: string;
     /** Starting file to be displayed in the project */
     startingFile: string;
     /** Commands to run in the project */
@@ -241,7 +241,7 @@ export class TrainingComponent implements OnInit {
       startingFile: step.description.filesConfiguration!.startingFile || '',
       commands: step.description.filesConfiguration!.commands || [],
       files: filesContent,
-      cwd: step.description.filesConfiguration!.name.toLowerCase().replace(' ', '-') + (solutionProject ? '-solution' : '')
+      cwd: step.description.filesConfiguration!.exerciseId.toLowerCase().replace(' ', '-') + (solutionProject ? '-solution' : '')
     });
   }
 

@@ -167,6 +167,11 @@ export class CodeEditorViewComponent implements OnDestroy {
   );
 
   /**
+   * Signal that reflects the current value of the monaco tree in the project directory
+   */
+  public cwdTreeSignal = toSignal(this.cwdTree$, { initialValue: [] });
+
+  /**
    * Form with the selected file and its content which can be edited in the Monaco Editor
    */
   public form: FormGroup<{
@@ -235,11 +240,15 @@ export class CodeEditorViewComponent implements OnDestroy {
       const project = this.project();
       await untracked(async () => {
         if (project.files) {
-          // Remove link between launch project and terminals
-          await this.webContainerService.loadProject(project.files, project.commands, project.cwd);
+          await Promise.all([
+            this.webContainerService.loadProject(project.files, project.commands, project.cwd).then(
+              () => {
+                this.cwd$.next(project?.cwd || '');
+              }
+            ),
+            this.loadNewProject()
+          ]);
         }
-        await this.loadNewProject();
-        this.cwd$.next(project?.cwd || '');
       });
     });
     this.form.controls.code.valueChanges.pipe(
@@ -279,17 +288,15 @@ export class CodeEditorViewComponent implements OnDestroy {
     void this.monacoPromise.then((monaco) => {
       monaco.editor.registerEditorOpener({
         openCodeEditor: (_source: Monaco.editor.ICodeEditor, resource: Monaco.Uri, selectionOrPosition?: Monaco.IRange | Monaco.IPosition) => {
-          if (resource && this.project().files) {
-            const filePath = resource.path.slice(1);
-            // TODO write a proper function to search in the tree
-            const flatFiles = flattenTree(this.project().files);
-            if (flatFiles.some((projectFile) => projectFile.filePath === resource.path)) {
-              this.form.controls.file.setValue(filePath);
-              if (selectionOrPosition) {
-                revealCodeInEditorRequest.next(selectionOrPosition);
-                return true;
-              }
+          const filePath = resource.path.slice(1);
+          const monacoTree = this.cwdTreeSignal();
+          const pathElements = resource.path.split('/').filter((pathElement) => !!pathElement);
+          if (checkIfPathInMonacoTree(monacoTree, pathElements)) {
+            this.form.controls.file.setValue(filePath);
+            if (selectionOrPosition) {
+              revealCodeInEditorRequest.next(selectionOrPosition);
             }
+            return true;
           }
           return false;
         }

@@ -9,7 +9,7 @@
       "stepTitle": "How to use the Otter SDK?",
       "htmlContentUrl": "./steps/typescript-sdk/instructions.md",
       "filesConfiguration": {
-        "name": "how-to-use-otter-sdk",
+        "exerciseId": "sdk-how-to-use-otter-sdk",
         "startingFile": "apps/tutorial-app/src/app/app.component.ts",
         "urls": [
           {
@@ -46,7 +46,7 @@
       "stepTitle": "Customize your fetch client with plugins",
       "htmlContentUrl": "./steps/plugins/instructions.md",
       "filesConfiguration": {
-        "name": "plugins",
+        "exerciseId": "sdk-plugins",
         "startingFile": "apps/tutorial-app/src/app/app.config.ts",
         "urls": [
           {
@@ -83,7 +83,7 @@
       "stepTitle": "Integrate the API Manager Module",
       "htmlContentUrl": "./steps/api-manager/instructions.md",
       "filesConfiguration": {
-        "name": "api-manager",
+        "exerciseId": "sdk-api-manager",
         "startingFile": "apps/tutorial-app/src/app/app.config.ts",
         "urls": [
           {
@@ -128,7 +128,7 @@
       "stepTitle": "SDK with Dates - How to use",
       "htmlContentUrl": "./steps/date/instructions.md",
       "filesConfiguration": {
-        "name": "utils-date",
+        "exerciseId": "sdk-utils-date",
         "startingFile": "apps/tutorial-app/src/app/app.component.ts",
         "urls": [
           {
@@ -157,7 +157,7 @@
       "stepTitle": "SDK with Dates - Generation",
       "htmlContentUrl": "./steps/date-sdk-generation/instructions.md",
       "filesConfiguration": {
-        "name": "generate-date-sdk",
+        "exerciseId": "sdk-generate-date-sdk",
         "startingFile": "open-api.yaml",
         "urls": [
           {
@@ -183,7 +183,7 @@
       "stepTitle": "SDK with model extension",
       "htmlContentUrl": "./steps/model-extension/instructions.md",
       "filesConfiguration": {
-        "name": "model-extension",
+        "exerciseId": "sdk-model-extension",
         "startingFile": "apps/tutorial-app/src/app/app.config.ts",
         "urls": [
           {
