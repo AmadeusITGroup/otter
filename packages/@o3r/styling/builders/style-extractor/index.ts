@@ -57,10 +57,10 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<StyleExtractorB
     /** CSS Metadata file to write */
     let cssMetadata = (
       // extract metadata for each file
-      await Promise.all(files.map((file, idx) => {
+      await Promise.all(files.map(async (file, idx) => {
         try {
           context.reportProgress(idx, STEP_NUMBER, `Extracting ${file}`);
-          const variables = cssVariableExtractor.extractFile(file);
+          const variables = await cssVariableExtractor.extractFile(file);
           const themeFileSuffix = '.style.theme.scss';
           if (file.endsWith(themeFileSuffix)) {
             const componentPath = path.join(path.dirname(file), `${path.basename(file, themeFileSuffix)}.component.ts`);
@@ -83,19 +83,13 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<StyleExtractorB
         }
       }))
     ).reduce<CssMetadata>((acc, cssVarList) => {
-      // Check duplicate CSS variable
-      cssVarList
-        .filter((cssVar) => !!acc.variables[cssVar.name])
-        .filter((cssVar) => !initialPreviousMetadata.variables[cssVar.name] && acc.variables[cssVar.name].defaultValue !== cssVar.defaultValue)
-        .forEach((cssVar) =>
-          context.logger[options.ignoreDuplicateWarning ? 'debug' : 'warn'](`Duplicate "${cssVar.name}" (${acc.variables[cssVar.name].defaultValue} will be replaced by ${cssVar.defaultValue})`)
-        );
+      for (const cssVar of cssVarList) {
+        if (!!acc.variables[cssVar.name] && !initialPreviousMetadata.variables[cssVar.name] && acc.variables[cssVar.name].defaultValue !== cssVar.defaultValue) {
+          context.logger[options.ignoreDuplicateWarning ? 'debug' : 'warn'](`Duplicate "${cssVar.name}" (${acc.variables[cssVar.name].defaultValue} will be replaced by ${cssVar.defaultValue})`);
+        }
+        acc.variables[cssVar.name] = cssVar;
+      }
 
-      // merge all variables form all the files
-      cssVarList
-        .forEach((item) => {
-          acc.variables[item.name] = item;
-        });
       return acc;
     }, previousMetadata);
 
@@ -175,8 +169,9 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<StyleExtractorB
   };
 
   if (!options.watch) {
-    return execute(getAllFiles());
-
+    const result = execute(getAllFiles());
+    void cssVariableExtractor.disposeAsyncCompiler();
+    return result;
   } else {
     /** Cache */
     const cacheMetadata: CssMetadata = {
@@ -221,6 +216,7 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<StyleExtractorB
       });
 
     context.addTeardown(async () => {
+      await cssVariableExtractor.disposeAsyncCompiler();
       await watcher.close();
       await metadataWatcher.close();
     });
