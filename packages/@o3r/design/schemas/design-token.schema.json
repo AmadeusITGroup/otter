@@ -92,6 +92,11 @@
           "description": "Indicate that the token is expected to be overridden by external rules",
           "type": "boolean",
           "default": false
+        },
+        "o3rExplodeComplexTypes": {
+          "description": "Explode a Token with complex type to generate variables for each field of the type definition",
+          "type": "boolean",
+          "default": false
         }
       }
     },

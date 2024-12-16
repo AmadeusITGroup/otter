@@ -98,5 +98,5 @@
     "**/github-actions/*/packaged-action/**": true
   },
   "typescript.enablePromptUseWorkspaceTsdk": true,
-  "typescript.tsdk": ".yarn/sdks/typescript/lib",
+  "typescript.tsdk": ".yarn/sdks/typescript/lib"
 }

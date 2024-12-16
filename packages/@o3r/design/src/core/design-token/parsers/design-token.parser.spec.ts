@@ -120,6 +120,58 @@ describe('Design Token Parser', () => {
         expect(item.extensions.o3rImportant).toBe(true);
         expect(item.extensions.o3rPrivate).toBeFalsy();
       });
+
+      test('should explode complex type', () => {
+        const result = parser.parseDesignToken({
+          ...exampleVariableWithContext,
+          context: {
+            template: {
+              example: {
+                test: {
+                  $extensions: {
+                    o3rExplodeComplexTypes: true
+                  }
+                }
+              }
+            } as DesignTokenGroupTemplate
+          }
+        });
+        const borderColor = result.get('example.test.border.color');
+        const borderStyle = result.get('example.test.border.style');
+        const borderWidth = result.get('example.test.border.width');
+        const shadowFirstBlur = result.get('example.test.shadow-multi.0.blur');
+        const shadowSecondBlur = result.get('example.test.shadow-multi.1.blur');
+        const shadowBlur = result.get('example.test.shadow-multi.blur');
+
+        expect(borderColor).toBeDefined();
+        expect(borderStyle).toBeDefined();
+        expect(borderWidth).toBeDefined();
+        expect(shadowFirstBlur).toBeDefined();
+        expect(shadowSecondBlur).toBeDefined();
+        expect(shadowBlur).not.toBeDefined();
+      });
+
+      test('should explode complex type without overriding existing token', () => {
+        const result = parser.parseDesignToken({
+          ...exampleVariableWithContext,
+          context: {
+            template: {
+              example: {
+                test: {
+                  $extensions: {
+                    o3rExplodeComplexTypes: true
+                  }
+                }
+              }
+            } as DesignTokenGroupTemplate
+          }
+        });
+        const borderColor = result.get('example.test.border.color');
+        const borderStyle = result.get('example.test.border.style');
+
+        expect(borderColor.getCssRawValue()).toBe('silver');
+        expect(borderStyle.getCssRawValue()).toBe('dashed');
+      });
     });
 
     test('should generate a complex variable', () => {
