@@ -25,9 +25,9 @@
         </div>
       </div>
       <button type="button" class="btn btn-outline-secondary df-btn-icononly fa-chevron-left" [disabled]="currentStepIndex() <= 0"
-              aria-label="Previous step" (click)="setCurrentStep(currentStepIndex() - 1)"></button>
+              aria-label="Previous step" (click)="setCurrentStep(currentStepIndex() - 1)" id="training-exercise-previous-step"></button>
       <button type="button" class="btn btn-outline-secondary df-btn-icononly fa-chevron-right" [disabled]="currentStepIndex() >= steps().length - 1"
-              aria-label="Next step" (click)="setCurrentStep(currentStepIndex() + 1)"></button>
+              aria-label="Next step" (click)="setCurrentStep(currentStepIndex() + 1)" id="training-exercise-next-step"></button>
     </div>
   </div>
   <o3r-training-step-pres
