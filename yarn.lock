@@ -1331,7 +1331,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular-eslint/template-parser@npm:18.4.3":
+"@angular-eslint/template-parser@npm:18.4.3, @angular-eslint/template-parser@npm:~18.4.0":
   version: 18.4.3
   resolution: "@angular-eslint/template-parser@npm:18.4.3"
   dependencies:
@@ -8909,6 +8909,7 @@ __metadata:
   dependencies:
     "@angular-devkit/core": "npm:~18.2.0"
     "@angular-devkit/schematics": "npm:~18.2.0"
+    "@angular-eslint/template-parser": "npm:~18.4.0"
     "@angular-eslint/test-utils": "npm:~18.4.0"
     "@angular/compiler": "npm:~18.2.0"
     "@babel/core": "npm:~7.26.0"

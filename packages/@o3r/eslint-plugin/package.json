@@ -56,6 +56,7 @@
   "devDependencies": {
     "@angular-devkit/core": "~18.2.0",
     "@angular-devkit/schematics": "~18.2.0",
+    "@angular-eslint/template-parser": "~18.4.0",
     "@angular-eslint/test-utils": "~18.4.0",
     "@angular/compiler": "~18.2.0",
     "@babel/core": "~7.26.0",

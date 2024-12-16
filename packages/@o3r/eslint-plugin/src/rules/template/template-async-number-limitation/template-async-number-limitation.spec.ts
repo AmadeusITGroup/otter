@@ -1,21 +1,25 @@
 import {
+  meta,
+  parseForESLint,
+} from '@angular-eslint/template-parser';
+import {
   convertAnnotatedSourceToFailureCase,
   RuleTester,
 } from '@angular-eslint/test-utils';
-import {
-  templateParser,
-} from 'angular-eslint';
 import templateAsyncNumberLimitation, {
   name,
 } from './template-async-number-limitation';
 
 const ruleTester = new RuleTester({
   languageOptions: {
-    parser: templateParser
+    parser: {
+      meta,
+      parseForESLint
+    }
   }
 });
 
-ruleTester.run(name, templateAsyncNumberLimitation as any /* workaround for 5.9.0 breaking change on interface */, {
+ruleTester.run(name, templateAsyncNumberLimitation, {
   valid: [
     '',
     '<div ngIf="obs$ | async"></div>',
