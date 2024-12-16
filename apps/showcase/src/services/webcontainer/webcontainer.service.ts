@@ -12,7 +12,7 @@ import {
   BehaviorSubject,
   distinctUntilChanged,
   map,
-  share,
+  shareReplay,
 } from 'rxjs';
 import {
   convertTreeRec,
@@ -36,7 +36,7 @@ export class WebContainerService {
 
   public monacoTree$ = this.monacoTree.pipe(
     distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
-    share()
+    shareReplay({ bufferSize: 1, refCount: true })
   );
 
   public isReady$ = this.monacoTree$.pipe(

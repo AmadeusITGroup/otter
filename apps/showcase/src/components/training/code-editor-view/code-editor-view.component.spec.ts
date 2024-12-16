@@ -16,6 +16,7 @@ describe('ViewComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(CodeEditorViewComponent);
+    fixture.componentRef.setInput('project', { startingFile: 'someFile', files: {}, commands: [], cwd: '' });
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
