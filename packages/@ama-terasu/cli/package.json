@@ -42,7 +42,7 @@
     "@types/progress": "^2.0.5",
     "@types/prompts": "^2.0.14",
     "@types/yargs": "^17.0.20",
-    "@typescript-eslint/parser": "~8.17.0",
+    "@typescript-eslint/parser": "~8.18.0",
     "angular-eslint": "~18.4.0",
     "eslint": "~9.14.0",
     "eslint-import-resolver-node": "^0.3.9",
@@ -68,7 +68,7 @@
     "tslib": "^2.6.2",
     "type-fest": "^4.10.2",
     "typescript": "~5.5.4",
-    "typescript-eslint": "~8.17.0",
+    "typescript-eslint": "~8.18.0",
     "webpack": "~5.96.0",
     "webpack-cli": "~5.1.0"
   },
