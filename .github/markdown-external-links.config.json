@@ -11,6 +11,9 @@
     },
     {
       "pattern": "^https?://(127.0.0.1|localhost)[:/].*"
+    },
+    {
+      "pattern": "^https://cloud.nx.app/*"
     }
   ],
   "replacementPatterns": [
