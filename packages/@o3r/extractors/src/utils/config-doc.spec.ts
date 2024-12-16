@@ -1,5 +1,6 @@
 import {
   getCategoriesFromDocText,
+  getRestrictionKeysFromDocText,
   getWidgetInformationFromDocComment,
 } from './config-doc';
 
@@ -65,6 +66,27 @@ describe('config doc', () => {
           name: 'test2',
           label: 'Test2'
         }
+      ]);
+    });
+  });
+  describe('getRestrictionKeysFromDocText', () => {
+    it('should get the valid restriction keys', () => {
+      const restrictionKeys = getRestrictionKeysFromDocText(`
+        /**
+         * @o3rRestrictionKey valid
+         * @o3rRestrictionKey valid_1
+         * @o3rRestrictionKey invalid-2
+         * @o3rRestrictionKey "valid-3"
+         * @o3rRestrictionKey 'valid 4'
+         * @o3rRestrictionKey invalid 5
+         * @o3rRestrictionKey "invalid quote'
+         * @o3rRestrictionKey 'another invalid quote"
+         * @o3rRestrictionKey "valid 'quote'"
+         * @o3rRestrictionKey 'another valid "quote"'
+         */
+      `);
+      expect(restrictionKeys).toEqual([
+        'valid', 'valid_1', 'valid-3', 'valid 4', "valid 'quote'", 'another valid "quote"'
       ]);
     });
   });

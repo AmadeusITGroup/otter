@@ -186,6 +186,13 @@
               "items": {
                 "type": "string"
               }
+            },
+            "restrictionKeys": {
+              "type": "array",
+              "description": "Restriction keys to customize the user permissions",
+              "items": {
+                "type": "string"
+              }
             }
           },
           "allOf": [
