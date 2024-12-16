@@ -34,13 +34,9 @@
       ]
     },
     "compile": {
-      "executor": "@nx/js:tsc",
+      "executor": "nx:run-script",
       "options": {
-        "main": "packages/@o3r/eslint-plugin/src/public_api.ts",
-        "tsConfig": "packages/@o3r/eslint-plugin/tsconfig.build.json",
-        "outputPath": "packages/@o3r/eslint-plugin/dist",
-        "assets": ["packages/@o3r/eslint-plugin/schemas/*.json"],
-        "clean": false
+        "script": "build:source"
       },
       "dependsOn": []
     },

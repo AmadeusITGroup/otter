@@ -14,16 +14,9 @@
       "dependsOn": ["compile"]
     },
     "compile": {
-      "executor": "@nx/js:tsc",
+      "executor": "nx:run-script",
       "options": {
-        "main": "packages/@o3r/amaterasu/amaterasu-dodo/src/index.ts",
-        "tsConfig": "packages/@o3r/amaterasu/amaterasu-dodo/tsconfig.build.json",
-        "outputPath": "packages/@o3r/amaterasu/amaterasu-dodo/dist",
-        "assets": [
-          "packages/@o3r/amaterasu/amaterasu-dodo/{builders,extractors,schematics}/**/templates/**",
-          "packages/@o3r/amaterasu/amaterasu-dodo/{builders,collection,migration}.json",
-          "packages/@o3r/amaterasu/amaterasu-dodo/cli/*"
-        ]
+        "script": "build:source"
       }
     },
     "lint": {
