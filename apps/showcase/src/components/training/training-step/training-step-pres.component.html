@@ -1,7 +1,7 @@
 <div class="h-100">
   <as-split direction="horizontal">
     @if (instructions) {
-      <as-split-area [size]="50">
+      <as-split-area [size]="project ? 50 : 100">
         <div class="instructions h-100 overflow-auto pe-6">
           <h2>{{title}}</h2>
           <markdown clipboard [data]="instructions"></markdown>
@@ -9,7 +9,7 @@
       </as-split-area>
     }
     @if (project) {
-      <as-split-area [size]="50">
+      <as-split-area [size]="instructions ? 50 : 100">
         <div class="h-100 overflow-hidden">
           <code-editor-view
             [project]="project"

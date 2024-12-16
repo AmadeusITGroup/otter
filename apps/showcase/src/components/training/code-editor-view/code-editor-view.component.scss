@@ -27,6 +27,10 @@ ngx-monaco-editor {
   background: #1d1d1d;
 }
 
-.monaco-overflow-widgets {
-  z-index: var(--o3r-header-zindex);
+.save-code-dialog-backdrop {
+  position: absolute;
+}
+
+.save-code-dialog-window {
+  position: absolute;
 }
