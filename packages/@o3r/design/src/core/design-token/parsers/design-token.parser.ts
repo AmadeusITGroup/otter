@@ -184,12 +184,17 @@ const convertObjectToToken = (node: any): DesignTokenGroup | undefined => {
 /**
  * Generate a new Token for each field of a complex type
  * @param node Node of the Token in the parsed token files
+ * @param tokenReferenceName Name of the token to explode
  */
-const explodeComplexType = (node: DesignTokenNode): DesignTokenGroup | undefined => {
+const explodeComplexType = (node: DesignTokenNode, tokenReferenceName?: string): DesignTokenGroup | undefined => {
   if (typeof node.$value !== 'object') {
     return;
   }
-  return convertObjectToToken(node.$value);
+  const group = convertObjectToToken(node.$value);
+  if (group && tokenReferenceName) {
+    group.$description = `Exploded token from ${tokenReferenceName}`;
+  }
+  return group;
 };
 
 const walkThroughDesignTokenNodes = (
@@ -216,7 +221,7 @@ const walkThroughDesignTokenNodes = (
     const extensions = getExtensions([...ancestors, { name: nodeName, tokenNode: node }], context);
 
     if (extensions.o3rExplodeComplexTypes) {
-      const group = explodeComplexType(node);
+      const group = explodeComplexType(node, tokenReferenceName);
       if (group) {
         walkThroughDesignTokenNodes(group, context, [...ancestors, { name: nodeName, tokenNode: group }], mem, undefined, true);
       }
