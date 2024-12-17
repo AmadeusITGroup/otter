@@ -105,15 +105,22 @@ export function nxGenerateModule(options: NgGenerateModuleSchema & { packageJson
     const o3rCorePackageJsonPath = path.resolve(__dirname, '..', '..', '..', 'package.json');
     const o3rCorePackageJson: PackageJson & { generatorDependencies?: Record<string, string> } = JSON.parse(readFileSync(o3rCorePackageJsonPath).toString());
     const otterVersion = o3rCorePackageJson.dependencies!['@o3r/schematics'];
-
     const templateNx = apply(url('./templates/nx'), [
       template({
         ...options,
         path: targetPath,
-        projectRoot: path.posix.resolve(targetPath, options.name),
+        projectRoot: targetPath,
         otterVersion,
         tsconfigBasePath: findConfigFileRelativePath(tree, ['tsconfig.base.json', 'tsconfig.json'], targetPath),
         runner: getPackageManagerRunner(getWorkspaceConfig(tree))
+      }),
+      renameTemplateFiles(),
+      move(targetPath)
+    ]);
+    const templateJest = apply(url('./templates/jest'), [
+      template({
+        ...options,
+        tsconfigBasePath: findConfigFileRelativePath(tree, ['tsconfig.base.json', 'tsconfig.json'], targetPath)
       }),
       renameTemplateFiles(),
       move(targetPath)
@@ -122,8 +129,9 @@ export function nxGenerateModule(options: NgGenerateModuleSchema & { packageJson
 
     return chain([
       ...rules,
-      updatePackageDependenciesFactory(targetPath, otterVersion!, o3rCorePackageJson, options),
+      updatePackageDependenciesFactory(targetPath, otterVersion!, o3rCorePackageJson, { ...options, useJest: true }),
       updateNgPackagrFactory(targetPath),
+      mergeWith(templateJest, MergeStrategy.Overwrite),
       (t) => {
         const packageJson = t.readJson(path.posix.join(targetPath, 'package.json')) as PackageJson;
         packageJson.name = options.packageJsonName;

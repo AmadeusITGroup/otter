@@ -55,6 +55,8 @@ const devDependenciesToInstall = [
   'jest-environment-jsdom',
   'jest-preset-angular',
   'ts-jest',
+  '@angular-builders/jest',
+  '@angular-devkit/build-angular',
   '@types/jest'
 ];
 
