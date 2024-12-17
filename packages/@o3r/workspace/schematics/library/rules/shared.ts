@@ -1,6 +1,8 @@
 import * as path from 'node:path';
 import type {
   Rule,
+  SchematicContext,
+  Tree,
 } from '@angular-devkit/schematics';
 import {
   getPackageManagerRunner,
@@ -12,6 +14,27 @@ import type {
 import {
   NgGenerateModuleSchema,
 } from '../schema';
+
+/**
+ * Set jest files and script in the generated library.
+ * @param options
+ */
+export function setUpJest(options: NgGenerateModuleSchema) {
+  return (tree: Tree, context: SchematicContext) => {
+    const workspaceConfig = getWorkspaceConfig(tree);
+    const workspaceProject = (options.name && workspaceConfig?.projects?.[options.name]) || undefined;
+    if (!workspaceProject?.root) {
+      context.logger.error(`Failed to find a package json for ${options.name}`);
+      return;
+    }
+    const packageJsonPath = path.join(workspaceProject.root, 'package.json');
+    const packageJsonContent = tree.readJson(packageJsonPath) as PackageJson;
+    packageJsonContent.scripts ||= {};
+    packageJsonContent.scripts.test ||= 'jest';
+    tree.overwrite(packageJsonPath, JSON.stringify(packageJsonContent, null, 2));
+    return tree;
+  };
+}
 
 /**
  * Generate rule to update generated package.json file

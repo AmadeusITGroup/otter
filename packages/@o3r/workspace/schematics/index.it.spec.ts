@@ -115,6 +115,7 @@ describe('new otter workspace', () => {
     expect(existsSync(path.join(workspacePath, 'project'))).toBe(false);
     generatedLibFiles.forEach((file) => expect(existsSync(path.join(inLibraryPath, file))).toBe(true));
     expect(() => packageManagerRunOnProject(libName, true, { script: 'build' }, execAppOptions)).not.toThrow();
+    expect(() => packageManagerExec({ script: 'ng', args: ['test', '--watch=false', '--browsers=ChromeHeadless'] }, execAppOptions)).not.toThrow();
   });
 
   test('should generate a monorepo setup', async () => {

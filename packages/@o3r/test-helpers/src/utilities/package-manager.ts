@@ -297,7 +297,7 @@ export function setPackagerManagerConfig(options: PackageManagerConfig, execAppO
         execFileSync('yarn', ['config', 'set', 'enableGlobalCache', 'true'], execOptions);
         execFileSync('yarn', ['config', 'set', 'globalFolder', options.globalFolderPath], execOptions);
       }
-      execFileSync('yarn', ['config', 'set', 'nodeLinker', 'pnp'], execOptions);
+      execFileSync('yarn', ['config', 'set', 'nodeLinker', 'node-modules'], execOptions);
       execFileSync('yarn', ['config', 'set', 'npmScopes.ama-sdk.npmRegistryServer', options.registry], execOptions);
       execFileSync('yarn', ['config', 'set', 'npmScopes.ama-terasu.npmRegistryServer', options.registry], execOptions);
       execFileSync('yarn', ['config', 'set', 'npmScopes.o3r.npmRegistryServer', options.registry], execOptions);

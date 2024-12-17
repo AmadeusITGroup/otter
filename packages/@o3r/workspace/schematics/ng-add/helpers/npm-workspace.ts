@@ -115,9 +115,10 @@ export function addMonorepoManager(o3rWorkspacePackageJson: PackageJson & { gene
         lint: 'lerna run lint'
       };
 
-      const lernaJson: { $schema: string; version: string; npmClient?: string } = {
+      const lernaJson: { $schema: string; version: string; npmClient?: string; useNx?: boolean } = {
         $schema: 'https://github.com/lerna/lerna/blob/main/packages/lerna/schemas/lerna-schema.json',
-        version: rootPackageJsonObject.version || '0.0.0-placeholder'
+        version: rootPackageJsonObject.version || '0.0.0-placeholder',
+        useNx: false
       };
       if (getPackageManager() === 'yarn') {
         lernaJson.npmClient = 'yarn';

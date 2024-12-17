@@ -28,6 +28,7 @@ import type {
   NgGenerateModuleSchema,
 } from '../schema';
 import {
+  setUpJest,
   updateNgPackagrFactory,
   updatePackageDependenciesFactory,
 } from './shared';
@@ -61,9 +62,25 @@ export function ngGenerateModule(options: NgGenerateModuleSchema & { targetPath:
       renameTemplateFiles(),
       move(options.targetPath)
     ]);
+    const templateJest = apply(url('./templates/jest'), [
+      template({
+        ...options,
+        tsconfigBasePath: findConfigFileRelativePath(tree, ['tsconfig.base.json', 'tsconfig.json'], options.targetPath)
+      }),
+      renameTemplateFiles(),
+      move(options.targetPath)
+    ]);
+    const packageJsonContent = tree.readText('/package.json');
+    const hasJestInstalled = options.testingFramework === 'jest' || packageJsonContent.match('jest');
 
     return chain([
       mergeWith(templateNg, MergeStrategy.Overwrite),
+      ...hasJestInstalled
+        ? [
+          mergeWith(templateJest, MergeStrategy.Overwrite),
+          setUpJest(options)
+        ]
+        : [],
       updatePackageDependenciesFactory(options.targetPath, otterVersion!, o3rCorePackageJson, options),
       updateNgPackagrFactory(options.targetPath),
       (t) => {

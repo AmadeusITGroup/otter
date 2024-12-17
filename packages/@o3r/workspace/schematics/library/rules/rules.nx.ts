@@ -27,6 +27,7 @@ import type {
   NgGenerateModuleSchema,
 } from '../schema';
 import {
+  setUpJest,
   updateNgPackagrFactory,
   updatePackageDependenciesFactory,
 } from './shared';
@@ -118,12 +119,28 @@ export function nxGenerateModule(options: NgGenerateModuleSchema & { packageJson
       renameTemplateFiles(),
       move(targetPath)
     ]);
+    const templateJest = apply(url('./templates/jest'), [
+      template({
+        ...options,
+        tsconfigBasePath: findConfigFileRelativePath(tree, ['tsconfig.base.json', 'tsconfig.json'], targetPath)
+      }),
+      renameTemplateFiles(),
+      move(targetPath)
+    ]);
     rules.push(mergeWith(templateNx, MergeStrategy.Overwrite));
+    const packageJsonContent = tree.readText('/package.json');
+    const hasJestInstalled = options.testingFramework === 'jest' || packageJsonContent.match('jest');
 
     return chain([
       ...rules,
       updatePackageDependenciesFactory(targetPath, otterVersion!, o3rCorePackageJson, options),
       updateNgPackagrFactory(targetPath),
+      ...hasJestInstalled
+        ? [
+          mergeWith(templateJest, MergeStrategy.Overwrite),
+          setUpJest(options)
+        ]
+        : [],
       (t) => {
         const packageJson = t.readJson(path.posix.join(targetPath, 'package.json')) as PackageJson;
         packageJson.name = options.packageJsonName;
