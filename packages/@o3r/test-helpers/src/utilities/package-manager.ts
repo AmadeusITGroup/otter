@@ -297,6 +297,7 @@ export function setPackagerManagerConfig(options: PackageManagerConfig, execAppO
         execFileSync('yarn', ['config', 'set', 'enableGlobalCache', 'true'], execOptions);
         execFileSync('yarn', ['config', 'set', 'globalFolder', options.globalFolderPath], execOptions);
       }
+     // TODO reactivate pnp once https://github.com/AmadeusITGroup/otter/issues/2620 is resolved
       execFileSync('yarn', ['config', 'set', 'nodeLinker', 'node-modules'], execOptions);
       execFileSync('yarn', ['config', 'set', 'npmScopes.ama-sdk.npmRegistryServer', options.registry], execOptions);
       execFileSync('yarn', ['config', 'set', 'npmScopes.ama-terasu.npmRegistryServer', options.registry], execOptions);
