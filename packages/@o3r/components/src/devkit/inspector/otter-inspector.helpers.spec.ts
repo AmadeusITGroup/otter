@@ -41,7 +41,8 @@ class MockSubEvent implements AnalyticsEvent {
 
 @Component({
   selector: 'o3r-mock-component',
-  template: '<o3r-mock-sub-component></o3r-mock-sub-component>'
+  template: '<o3r-mock-sub-component></o3r-mock-sub-component>',
+  standalone: false
 })
 class MockComponent {
   public configObserver = new ConfigurationObserver('configId', {});
@@ -63,7 +64,8 @@ class MockComponent {
 
 @Component({
   selector: 'o3r-mock-sub-component',
-  template: ''
+  template: '',
+  standalone: false
 })
 class MockSubComponent {
   public translations: Translation = {

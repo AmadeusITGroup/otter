@@ -50,7 +50,6 @@ export class GetDayNumeralsPipe implements PipeTransform {
 @O3rComponent({ componentType: 'ExposedComponent' })
 @Component({
   selector: 'o3r-date-picker-input-pres-new-design',
-  standalone: true,
   imports: [
     FormsModule,
     GetDayNumeralsPipe,
@@ -71,7 +70,6 @@ export class GetDayNumeralsPipe implements PipeTransform {
     },
     { provide: NgbCalendar, useClass: NgbCalendarHebrew },
     { provide: NgbDatepickerI18n, useClass: NgbDatepickerI18nHebrew }
-
   ],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush

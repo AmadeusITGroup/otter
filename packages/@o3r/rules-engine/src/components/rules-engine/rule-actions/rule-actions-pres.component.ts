@@ -14,7 +14,8 @@ import type {
   styleUrls: ['./rule-actions-pres.style.scss'],
   templateUrl: './rule-actions-pres.template.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  standalone: false
 })
 export class RuleActionsPresComponent {
   /**

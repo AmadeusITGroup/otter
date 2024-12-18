@@ -28,8 +28,8 @@ import {
 } from './track-events.module';
 
 @Component({
-  template: `
-    <button [trackEvents]="['mouseenter', 'mouseleave']" [trackEventContext]="{eventInfo: { eventName: '', pageId: '', timeStamp: ''}}">Click</button>`
+  template: `<button [trackEvents]="['mouseenter', 'mouseleave']" [trackEventContext]="{eventInfo: { eventName: '', pageId: '', timeStamp: ''}}">Click</button>`,
+  standalone: false
 })
 class TestComponent {}
 
