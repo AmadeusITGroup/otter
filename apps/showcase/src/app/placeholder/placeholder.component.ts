@@ -54,7 +54,6 @@ import {
 @O3rComponent({ componentType: 'Page' })
 @Component({
   selector: 'o3r-placeholder-page',
-  standalone: true,
   imports: [
     PlaceholderPresComponent,
     DynamicContentModule,
