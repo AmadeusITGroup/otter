@@ -28,7 +28,8 @@ import {
       multi: true
     }
   ],
-  host: { '[attr.max]': 'max ? max : null' }
+  host: { '[attr.max]': 'max ? max : null' },
+  standalone: false
 })
 export class MaxValidator implements Validator, OnChanges {
   /** Maximum date to compare to */

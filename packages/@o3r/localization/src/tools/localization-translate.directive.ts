@@ -26,7 +26,8 @@ import {
  * TranslateDirective class adding debug functionality
  */
 @Directive({
-  selector: '[translate],[ngx-translate]'
+  selector: '[translate],[ngx-translate]',
+  standalone: false
 })
 export class LocalizationTranslateDirective extends TranslateDirective implements OnDestroy {
   /**

@@ -30,7 +30,6 @@ import {
 @O3rComponent({ componentType: 'Page' })
 @Component({
   selector: 'o3r-sdk',
-  standalone: true,
   imports: [
     RouterLink,
     SdkPresComponent,

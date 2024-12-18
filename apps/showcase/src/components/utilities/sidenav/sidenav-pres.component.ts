@@ -30,7 +30,6 @@ export interface SideNavLinksGroup {
 @O3rComponent({ componentType: 'Component' })
 @Component({
   selector: 'o3r-sidenav-pres',
-  standalone: true,
   imports: [RouterModule],
   templateUrl: './sidenav-pres.template.html',
   styleUrls: ['./sidenav-pres.style.scss'],

@@ -29,7 +29,6 @@ import {
 @O3rComponent({ componentType: 'ExposedComponent' })
 @Component({
   selector: 'o3r-date-picker-input-pres',
-  standalone: true,
   imports: [FormsModule, CloseInputDatePickerDirective, NgbInputDatepicker, DfInputIconDirective],
   templateUrl: './date-picker-input-pres.template.html',
   styleUrls: ['./date-picker-input-pres.style.scss'],
