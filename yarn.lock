@@ -7947,6 +7947,7 @@ __metadata:
     "@agnos-ui/core-bootstrap": "npm:~0.4.1"
     "@amadeus-it-group/tansu": "npm:~1.0.0"
     "@angular-devkit/build-angular": "npm:~18.2.0"
+    "@angular-devkit/schematics": "npm:~18.2.0"
     "@angular/animations": "npm:~18.2.0"
     "@angular/cli": "npm:~18.2.0"
     "@angular/common": "npm:~18.2.0"
@@ -9378,6 +9379,7 @@ __metadata:
   resolution: "@o3r/github-cascading-app@workspace:apps/github-cascading-app"
   dependencies:
     "@actions/github": "npm:^6.0.0"
+    "@angular-devkit/schematics": "npm:~18.2.0"
     "@angular/animations": "npm:~18.2.0"
     "@angular/common": "npm:~18.2.0"
     "@angular/compiler": "npm:~18.2.0"
