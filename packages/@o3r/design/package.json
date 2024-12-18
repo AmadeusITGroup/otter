@@ -50,6 +50,7 @@
     "jsonschema": "~1.4.1",
     "minimatch": "~9.0.3",
     "minimist": "^1.2.6",
+    "ts-node": "~10.9.2",
     "tslib": "^2.6.2"
   },
   "peerDependencies": {
