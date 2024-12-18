@@ -14,7 +14,8 @@ import type {
   styleUrls: ['./rule-tree-pres.style.scss'],
   templateUrl: './rule-tree-pres.template.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  standalone: false
 })
 export class RuleTreePresComponent {
   /**

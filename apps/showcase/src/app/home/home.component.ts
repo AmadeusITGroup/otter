@@ -16,7 +16,6 @@ import {
 @O3rComponent({ componentType: 'Page' })
 @Component({
   selector: 'o3r-home',
-  standalone: true,
   imports: [DynamicContentModule, MarkdownModule],
   templateUrl: './home.template.html',
   styleUrls: ['./home.style.scss'],

@@ -5,7 +5,7 @@
     "incremental": true,
     "outDir": "./dist",
     "rootDir": "src",
-    "tsBuildInfoFile": "./build/.tsbuildinfo"
+    // "tsBuildInfoFile": "./build/.tsbuildinfo"
   },
   "include": ["src/**/*.ts"],
   "exclude": [

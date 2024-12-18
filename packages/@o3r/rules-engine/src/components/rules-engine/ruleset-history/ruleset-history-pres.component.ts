@@ -26,7 +26,8 @@ export type RulesetExecutionDebug = (RulesetExecutionEvent | RulesetExecutionErr
   styleUrls: ['./ruleset-history-pres.style.scss'],
   templateUrl: './ruleset-history-pres.template.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  standalone: false
 })
 export class RulesetHistoryPresComponent {
   /**

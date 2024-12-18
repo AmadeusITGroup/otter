@@ -75,5 +75,8 @@ export class O3rDurationPipe implements PipeTransform {
  * Converts a duration in seconds into the HH:mm format
  * @deprecated please use O3rDurationPipe, will be removed in v12.
  */
-@Pipe({ name: 'duration' })
+@Pipe({
+  name: 'duration',
+  standalone: false
+})
 export class DurationPipe extends O3rDurationPipe implements PipeTransform {}

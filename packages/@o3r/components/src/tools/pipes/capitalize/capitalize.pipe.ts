@@ -15,5 +15,8 @@ export class O3rCapitalizePipe implements PipeTransform {
 /**
  * @deprecated please use O3rCapitalizePipe, will be removed in v12.
  */
-@Pipe({ name: 'capitalize' })
+@Pipe({
+  name: 'capitalize',
+  standalone: false
+})
 export class CapitalizePipe extends O3rCapitalizePipe implements PipeTransform {}

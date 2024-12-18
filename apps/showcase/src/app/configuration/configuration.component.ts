@@ -48,7 +48,6 @@ const CONFIG_OVERRIDE = {
 @O3rComponent({ componentType: 'Page' })
 @Component({
   selector: 'o3r-configuration',
-  standalone: true,
   imports: [
     RouterModule,
     ConfigurationPresComponent,
