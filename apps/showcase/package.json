@@ -131,13 +131,13 @@
     "jest-junit": "~16.0.0",
     "jest-preset-angular": "~14.2.0",
     "jsonc-eslint-parser": "~2.4.0",
-    "lighthouse": "~12.2.0",
+    "lighthouse": "~12.3.0",
     "minimist": "^1.2.6",
     "playwright-lighthouse": "~4.0.0",
     "rimraf": "^5.0.1",
     "ts-jest": "~29.2.0",
     "typescript": "~5.5.4",
     "typescript-eslint": "~8.17.0",
-    "webpack": "~5.96.0"
+    "webpack": "~5.97.0"
   }
 }

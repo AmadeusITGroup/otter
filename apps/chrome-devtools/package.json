@@ -44,7 +44,7 @@
     "@o3r/rules-engine": "workspace:^",
     "@schematics/angular": "~18.2.0",
     "@stylistic/eslint-plugin": "~2.7.0",
-    "@types/chrome": "^0.0.283",
+    "@types/chrome": "^0.0.287",
     "@types/jest": "~29.5.2",
     "@types/tinycolor2": "^1.4.6",
     "@typescript-eslint/parser": "~8.17.0",
