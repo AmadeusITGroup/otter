@@ -71,7 +71,7 @@ export function ngGenerateModule(options: NgGenerateModuleSchema & { targetPath:
       move(options.targetPath)
     ]);
     const packageJsonContent = tree.readText('/package.json');
-    const hasJestInstalled = options.testingFramework === 'jest' || packageJsonContent.match('jest');
+    const hasJestInstalled = options.testingFramework === 'jest' || packageJsonContent.match('"jest"');
 
     return chain([
       mergeWith(templateNg, MergeStrategy.Overwrite),
