@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "@actions/github": "^6.0.0",
+    "@angular-devkit/schematics": "~18.2.0",
     "@angular/animations": "~18.2.0",
     "@angular/common": "~18.2.0",
     "@angular/compiler": "~18.2.0",
