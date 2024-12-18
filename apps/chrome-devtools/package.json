@@ -79,8 +79,8 @@
     "typescript-eslint": "~8.17.0"
   },
   "dependencies": {
-    "@agnos-ui/angular-bootstrap": "~0.4.1",
-    "@agnos-ui/core-bootstrap": "~0.4.1",
+    "@agnos-ui/angular-bootstrap": "~0.6.0",
+    "@agnos-ui/core-bootstrap": "~0.6.0",
     "@amadeus-it-group/tansu": "~1.0.0",
     "@angular/animations": "~18.2.0",
     "@angular/common": "~18.2.0",
