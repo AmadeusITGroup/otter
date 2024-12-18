@@ -11,7 +11,10 @@ import {
   DynamicContentService,
 } from './dynamic-content.service';
 
-@Pipe({ name: 'o3rDynamicContent', pure: false })
+@Pipe({
+  name: 'o3rDynamicContent', pure: false,
+  standalone: false
+})
 export class O3rDynamicContentPipe implements PipeTransform, OnDestroy {
   /** Last query value  */
   protected lastQuery?: string;
@@ -49,5 +52,8 @@ export class O3rDynamicContentPipe implements PipeTransform, OnDestroy {
 }
 
 /** @deprecated please use O3rDynamicContentPipe, will be removed in v12. */
-@Pipe({ name: 'dynamicContent', pure: false })
+@Pipe({
+  name: 'dynamicContent', pure: false,
+  standalone: false
+})
 export class DynamicContentPipe extends O3rDynamicContentPipe implements PipeTransform {}

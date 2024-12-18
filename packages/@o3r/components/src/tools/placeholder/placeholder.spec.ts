@@ -36,7 +36,8 @@ import {
     <o3r-placeholder>
       <span>Loading...</span>
     </o3r-placeholder>
-  `
+  `,
+  standalone: false
 })
 class TestComponent {}
 

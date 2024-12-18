@@ -4,7 +4,8 @@ import {
 } from '@angular/core';
 
 @Pipe({
-  name: 'o3rKeepWhiteSpace'
+  name: 'o3rKeepWhiteSpace',
+  standalone: false
 })
 export class O3rKeepWhiteSpacePipe implements PipeTransform {
   public transform(value: string): string {
@@ -16,6 +17,7 @@ export class O3rKeepWhiteSpacePipe implements PipeTransform {
  * @deprecated please use O3rKeepWhiteSpacePipe, will be removed in v12.
  */
 @Pipe({
-  name: 'keepWhiteSpace'
+  name: 'keepWhiteSpace',
+  standalone: false
 })
 export class KeepWhiteSpacePipe extends O3rKeepWhiteSpacePipe implements PipeTransform {}

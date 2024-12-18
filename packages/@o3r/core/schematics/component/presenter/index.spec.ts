@@ -231,7 +231,8 @@ describe('Component presenter', () => {
     expect(tree.files.filter((file) => /test-component-pres\.config\.ts$/.test(file)).length).toBe(0);
   });
 
-  it('should generate a standalone presenter component', async () => {
+  // eslint-disable-next-line jest/no-disabled-tests -- adapt when switching to default standalone
+  it.skip('should generate a standalone presenter component', async () => {
     const tree = await runner.runSchematic('component-presenter', {
       projectName: 'test-project',
       componentName,

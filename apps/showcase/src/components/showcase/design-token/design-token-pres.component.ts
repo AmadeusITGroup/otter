@@ -32,7 +32,6 @@ import {
 @O3rComponent({ componentType: 'Component' })
 @Component({
   selector: 'o3r-design-token-pres',
-  standalone: true,
   imports: [
     AsyncPipe,
     DatePickerInputPresComponent,
