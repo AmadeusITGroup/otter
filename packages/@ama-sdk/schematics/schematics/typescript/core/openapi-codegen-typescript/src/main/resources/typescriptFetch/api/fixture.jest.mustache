@@ -2,7 +2,7 @@
 {{/imports}}
 
 {{#operations}}
-import { {{#uppercaseFirst}}{{classname}}{{/uppercaseFirst}}{{#operation}}, {{#uppercaseFirst}}{{nickname}}{{/uppercaseFirst}}RequestData{{/operation}} } from './{{#kebabCase}}{{classname}}{{/kebabCase}}';
+import { {{#uppercaseFirst}}{{classname}}{{/uppercaseFirst}}{{#operation}}, {{classname}}{{#uppercaseFirst}}{{nickname}}{{/uppercaseFirst}}RequestData{{/operation}} } from './{{#kebabCase}}{{classname}}{{/kebabCase}}';
 
 {{#description}}
 /**
@@ -17,7 +17,7 @@ export class {{#uppercaseFirst}}{{classname}}{{/uppercaseFirst}}Fixture implemen
   {{#operation}}  /**
    * Fixture associated to function {{nickname}}
    */
-  public {{nickname}}: jest.Mock<Promise<{{#vendorExtensions}}{{#responses2xxReturnTypes}}{{.}}{{^-last}} | {{/-last}}{{/responses2xxReturnTypes}}{{^responses2xxReturnTypes}}never{{/responses2xxReturnTypes}}{{/vendorExtensions}}>, [{{#uppercaseFirst}}{{nickname}}{{/uppercaseFirst}}RequestData]> = jest.fn();
+  public {{nickname}}: jest.Mock<Promise<{{#vendorExtensions}}{{#responses2xxReturnTypes}}{{.}}{{^-last}} | {{/-last}}{{/responses2xxReturnTypes}}{{^responses2xxReturnTypes}}never{{/responses2xxReturnTypes}}{{/vendorExtensions}}>, [{{classname}}{{#uppercaseFirst}}{{nickname}}{{/uppercaseFirst}}RequestData]> = jest.fn();
   {{/operation}}
 }
 {{/operations}}{{/noUnusedImport}}

@@ -133,17 +133,19 @@ export function updateLocalization(options: { projectName?: string | null | unde
         libraries: []
       }
     };
-
+    const localizationAssetsConfig = {
+      glob: '**/*.json',
+      input: `${devResourcesFolder}/localizations`,
+      output: '/localizations'
+    };
     if (workspaceProject.architect.build) {
       const alreadyExistingBuildOption =
         workspaceProject.architect.build.options?.assets?.map((a: { glob: string; input: string; output: string }) => a.output).find((output: string) => output === '/localizations');
 
       if (!alreadyExistingBuildOption) {
-        workspaceProject.architect.build.options.assets.push({
-          glob: '**/*.json',
-          input: `${devResourcesFolder}/localizations`,
-          output: '/localizations'
-        });
+        workspaceProject.architect.build.options ||= {};
+        workspaceProject.architect.build ||= [];
+        workspaceProject.architect.build.options.assets.push(localizationAssetsConfig);
       }
     }
 
@@ -151,11 +153,9 @@ export function updateLocalization(options: { projectName?: string | null | unde
       const alreadyExistingTestOption =
         workspaceProject.architect.test.options?.assets?.map((a: { glob: string; input: string; output: string }) => a.output).find((output: string) => output === '/localizations');
       if (!alreadyExistingTestOption) {
-        workspaceProject.architect.test.options.assets.push({
-          glob: '**/*.json',
-          input: `${devResourcesFolder}/localizations`,
-          output: '/localizations'
-        });
+        workspaceProject.architect.test.options ||= {};
+        workspaceProject.architect.test.options.assets ||= [];
+        workspaceProject.architect.test.options.assets.push(localizationAssetsConfig);
       }
     }
 
@@ -222,7 +222,10 @@ export function updateLocalization(options: { projectName?: string | null | unde
   const registerModules: Rule = (tree: Tree, context: SchematicContext) => {
     const additionalRules: Rule[] = [];
     const moduleFilePath = getAppModuleFilePath(tree, context, options.projectName);
-    if (!moduleFilePath) {
+    if (!moduleFilePath || !tree.exists(moduleFilePath)) {
+      context.logger.warn(!moduleFilePath ?
+        'No module file found. Localization modules not registered.' :
+        `Module file not found under '${moduleFilePath}'. Localization modules not registered.`);
       return tree;
     }
 

@@ -1,7 +1,7 @@
-import type { RequestBody, RequestMetadata, RequestOptions, TokenizedOptions } from '../plugins';
+import type { RequestBody, RequestOptions, TokenizedOptions } from '../plugins';
 import type { ApiTypes } from '../fwk/api';
 import { extractQueryParams, filterUndefinedValues, prepareUrl, processFormData, tokenizeRequestOptions } from '../fwk/api.helpers';
-import type { Api, PartialExcept } from '../fwk/api.interface';
+import type { PartialExcept } from '../fwk/api.interface';
 import type { ApiClient, RequestOptionsParameters } from '../fwk/core/api-client';
 import type { BaseApiClientOptions } from '../fwk/core/base-api-constructor';
 
@@ -83,21 +83,6 @@ export class ApiBeaconClient implements ApiClient {
     }
 
     return Promise.resolve(opts);
-  }
-
-  /** @inheritdoc */
-  public prepareOptions(url: string, method: string, queryParams: { [key: string]: string | undefined }, headers: { [key: string]: string | undefined }, body?: RequestBody,
-    tokenizedOptions?: TokenizedOptions, metadata?: RequestMetadata, api?: Api) {
-    return this.getRequestOptions({
-      headers,
-      method,
-      basePath: url,
-      queryParams,
-      body,
-      metadata,
-      tokenizedOptions,
-      api
-    });
   }
 
   /** @inheritdoc */

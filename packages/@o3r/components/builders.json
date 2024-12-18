@@ -5,6 +5,11 @@
       "implementation": "./builders/component-extractor/",
       "schema": "./builders/component-extractor/schema.json",
       "description": "Extract the component metadata (configuration and class) from an Otter project"
+    },
+    "check-config-migration-metadata": {
+      "implementation": "./builders/metadata-check/",
+      "schema": "./builders/metadata-check/schema.json",
+      "description": "Check for component metadata breaking changes"
     }
   }
 }
