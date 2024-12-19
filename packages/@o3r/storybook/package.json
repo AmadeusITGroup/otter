@@ -116,7 +116,7 @@
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",
     "@types/react": "^18.0.0",
-    "@typescript-eslint/parser": "~8.17.0",
+    "@typescript-eslint/parser": "~8.18.0",
     "angular-eslint": "~18.4.0",
     "concurrently": "^8.0.0",
     "cpy-cli": "^5.0.0",
@@ -142,7 +142,7 @@
     "ts-jest": "~29.2.0",
     "ts-node": "~10.9.2",
     "typescript": "~5.5.4",
-    "typescript-eslint": "~8.17.0",
+    "typescript-eslint": "~8.18.0",
     "zone.js": "~0.14.2"
   },
   "schematics": "./collection.json"
