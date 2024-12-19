@@ -1,8 +1,8 @@
-import { BehaviorSubject, of } from 'rxjs';
+import { BehaviorSubject, firstValueFrom, of } from 'rxjs';
 import { Operator } from '../operator/operator.interface';
 import { operatorList } from '../operator/operators/index';
 import { RulesetExecutor } from '../ruleset-executor';
-import { ActionBlock, Ruleset } from '../structure';
+import { Ruleset } from '../structure';
 import { filterRulesetsEventStream } from './filter-ruleset-event.operator';
 
 describe('Filter rulesets event operator', () => {
@@ -134,68 +134,45 @@ describe('Filter rulesets event operator', () => {
   }, {});
 
   const firstValue = rulesets.reduce<Record<string, RulesetExecutor>>((accRuleset, ruleset) => {
-    accRuleset[ruleset.id] = new RulesetExecutor(ruleset, {retrieveOrCreateFactStream: () => of(undefined), operators} as any);
+    accRuleset[ruleset.id] = new RulesetExecutor(ruleset, { retrieveOrCreateFactStream: () => of(undefined), operators } as any);
     return accRuleset;
   }, {});
 
   const rulesetsMapSubject$ = new BehaviorSubject<Record<string, RulesetExecutor>>(firstValue);
 
-  test('should consider only first ruleset', (done) => {
+  test('should consider only first ruleset', async () => {
 
-    rulesetsMapSubject$.pipe(
-      filterRulesetsEventStream(['ruleset1'])
-    ).subscribe(data => {
-      expect(data.length).toBe(2);
-      done();
-    });
+    const data = await firstValueFrom(rulesetsMapSubject$.pipe(filterRulesetsEventStream(['ruleset1'])));
+    expect(data.length).toBe(2);
 
   });
 
-  test('should consider only second ruleset', (done) => {
+  test('should consider only second ruleset', async () => {
 
-    rulesetsMapSubject$.pipe(
-      filterRulesetsEventStream(['ruleset2'])
-    ).subscribe(data => {
-      expect(data.length).toBe(1);
-      done();
-    });
+    const data = await firstValueFrom(rulesetsMapSubject$.pipe(filterRulesetsEventStream(['ruleset2'])));
+    expect(data.length).toBe(1);
 
   });
 
-  test('should consider all rulesets by not passing any filter', (done) => {
+  test('should consider all rulesets by not passing any filter', async () => {
 
-    rulesetsMapSubject$.pipe(
-      filterRulesetsEventStream()
-    ).subscribe(data => {
-      expect(data.length).toBe(3);
-      done();
-    });
+    const data = await firstValueFrom(rulesetsMapSubject$.pipe(filterRulesetsEventStream()));
+    expect(data.length).toBe(3);
 
   });
 
-  test('should consider all rulesets ids passed', (done) => {
+  test('should consider all rulesets ids passed', async () => {
 
-    rulesetsMapSubject$.pipe(
-      filterRulesetsEventStream(['ruleset1', 'ruleset2'])
-    ).subscribe(data => {
-      expect(data.length).toBe(3);
-      done();
-    });
+    const data = await firstValueFrom(rulesetsMapSubject$.pipe(filterRulesetsEventStream(['ruleset1', 'ruleset2'])));
+    expect(data.length).toBe(3);
 
   });
 
-  test('should not emit if ruleset id does not match any registered ruleset', async () => {
+  test('should emit an empty array when no rulesets remain active', async () => {
 
-    let emittedActions: ActionBlock[] | undefined;
+    const data = await firstValueFrom(rulesetsMapSubject$.pipe(filterRulesetsEventStream(['ruleset3'])));
+    expect(data.length).toBe(0);
 
-    rulesetsMapSubject$.pipe(
-      filterRulesetsEventStream(['ruleset3'])
-    ).subscribe(data => {
-      emittedActions = data;
-    });
-
-    await jest.advanceTimersByTimeAsync(500);
-    expect(emittedActions).toBe(undefined);
   });
 
 });
