@@ -94,8 +94,9 @@
   "search.useIgnoreFiles": true,
   "search.exclude": {
     "**/*.code-search": true,
-    "**/.yarn/**": true,
-    "**/github-actions/*/packaged-action/**": true
+    "**/github-actions/*/packaged-action/**": true,
+    "**/.yarn": true,
+    "**/.pnp.*": true
   },
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "typescript.tsdk": ".yarn/sdks/typescript/lib"
