@@ -32914,6 +32914,173 @@ function wrappy (fn, cb) {
 
 /***/ }),
 
+/***/ 4681:
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.formatGitTagsOutput = formatGitTagsOutput;
+/**
+ * Extract the list of tags and remove any spaces or endlines
+ * @param gitOutput response from git command to format
+ */
+function formatGitTagsOutput(gitOutput) {
+    return gitOutput.split(/\s+/g)
+        .map((val) => val.replace('remotes/origin/', ''))
+        .filter((val) => !!val);
+}
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+
+/***/ 4939:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.NewVersion = void 0;
+const node_child_process_1 = __nccwpck_require__(1421);
+const node_util_1 = __nccwpck_require__(7975);
+const semver = __nccwpck_require__(1498);
+const index_1 = __nccwpck_require__(4681);
+const promisifiedExec = (0, node_util_1.promisify)(node_child_process_1.exec);
+/**
+ * Class responsible for computing the next version according to options and the GIT tags of the repository
+ */
+class NewVersion {
+    constructor(options) {
+        this.options = options;
+        this.isDefaultBranch = options.defaultBranch === options.baseBranch;
+        this.isBaseBranchSupported = this.isDefaultBranch || options.releaseBranchRegExp.test(options.baseBranch);
+        this.defaultBranchPrereleaseName = options.defaultBranchPrereleaseName || options.defaultBranch;
+    }
+    /**
+     * Computes the next version according to the options and the GIT tags of the repository
+     */
+    async execute() {
+        const versionMask = this.getVersionMask();
+        const gitTags = await this.retrieveGitTags();
+        const newVersion = this.computeNewVersion(gitTags, versionMask);
+        if (!newVersion) {
+            throw new Error('Could not compute a new version candidate.');
+        }
+        this.options.logger.info(`New version: ${newVersion}`);
+        return newVersion;
+    }
+    /**
+     * Performs some GIT operations in order to retrieve a list of tags
+     */
+    async retrieveGitTags() {
+        const fetchCommand = `git fetch --tags ${this.options.authenticatedGitUrl}`;
+        this.options.logger.debug(`Executing command: ${fetchCommand}`);
+        const fetchOutput = await promisifiedExec(fetchCommand, { cwd: this.options.localGitFolder });
+        this.options.logger.debug(JSON.stringify(fetchOutput, null, 2));
+        const gitTagCommand = 'git tag --list';
+        this.options.logger.info(`Executing command: ${gitTagCommand}`);
+        const tagsResult = await promisifiedExec(gitTagCommand, { cwd: this.options.localGitFolder });
+        this.options.logger.debug('Git tags result:');
+        this.options.logger.debug(JSON.stringify(tagsResult, null, 2));
+        return (0, index_1.formatGitTagsOutput)(tagsResult.stdout);
+    }
+    /**
+     * Returns the mask with which expected version should start.
+     * - If release branch it will be the second part of the branch name: release/[3.2.0-alpha]
+     * - If default branch, it will be empty by default unless a mask is explicitly given as an option (options.defaultBranchVersionMask)
+     */
+    getVersionMask() {
+        const branchReleaseMatches = this.options.releaseBranchRegExp.exec(this.options.baseBranch);
+        if (branchReleaseMatches) {
+            this.options.logger.info(JSON.stringify(branchReleaseMatches));
+        }
+        return this.isDefaultBranch
+            ? this.options.defaultBranchVersionMask || ''
+            : (branchReleaseMatches?.length ? `${branchReleaseMatches[1]}.${branchReleaseMatches[2]}${branchReleaseMatches[3] || ''}` : '');
+    }
+    /**
+     * Compute the next version following the version mask.
+     * If your default branch is behind your release branches, the version minor will be bumped
+     * @param tags
+     * @param versionMask
+     */
+    computeNewVersion(tags, versionMask) {
+        const regexpVersionMask = new RegExp(`^(?:v)?${versionMask}`);
+        // Sort tags in descending order and exclude next major in preparation
+        let parsedSortedTags = tags
+            .map((tag) => semver.parse(tag.replace('V', 'v')))
+            .filter((tag) => !!tag && !!regexpVersionMask.test(tag.raw))
+            .sort((v1, v2) => semver.compare(v2, v1));
+        this.options.logger.debug('Parsed and sorted tags:');
+        this.options.logger.debug(JSON.stringify(parsedSortedTags));
+        this.options.logger.info(`Version mask: ${versionMask}`);
+        if (this.isDefaultBranch) {
+            const releaseTags = [...this.defaultBranchPrereleaseName ? [this.defaultBranchPrereleaseName] : [], 'prerelease', 'rc'];
+            parsedSortedTags = parsedSortedTags.filter((parsedTag) => parsedTag.prerelease.length === 0 || releaseTags.includes(`${parsedTag.prerelease[0]}`));
+        }
+        else {
+            // If release branch, we filter all versions that do not satisfy the branch name to exclude 3.6.0-alpha.2 when building branch release/3.6 for example
+            parsedSortedTags = parsedSortedTags.filter((parsedTag) => semver.satisfies(parsedTag, `~${versionMask}`));
+        }
+        this.options.logger.debug('Tags after filtering:');
+        this.options.logger.debug(JSON.stringify(parsedSortedTags));
+        const latest = parsedSortedTags[0];
+        let baseVersion;
+        // If we're on the default branch
+        if (this.isDefaultBranch) {
+            if (!latest) {
+                // If we couldn't find a label after filtering, create a new one using the version mask given
+                baseVersion = `${semver.minVersion(versionMask).version}-${this.defaultBranchPrereleaseName}.0`;
+            }
+            else if (latest.prerelease.includes(this.defaultBranchPrereleaseName || '')) {
+                // If the latest label is a default branch label, we will simply bump it
+                this.options.logger.info(`Bumping patch ${this.defaultBranchPrereleaseName || ''}`);
+                baseVersion = latest.raw;
+            }
+            else {
+                // If the latest label is a release, it means that we need to create a default branch tag for the next minor version
+                const sanitizedLatest = latest.prerelease.length > 0 ? `${latest.major}.${latest.minor}.${latest.patch}` : latest.raw;
+                baseVersion = `${semver.inc(sanitizedLatest, 'minor')}-${this.defaultBranchPrereleaseName}.0`;
+            }
+            // If we're on a release branch
+        }
+        else {
+            // If we found a tag, we use it as a base. Otherwise, we create a new version using the information from the branch, eg. release/3.6.0-alpha
+            // will create 3.6.0-alpha.0
+            baseVersion = latest ? latest.raw : `${versionMask}.0`;
+        }
+        this.options.logger.info(`Latest version from tags: ${latest?.version}`);
+        this.options.logger.info(`Base version computed: ${baseVersion}`);
+        if (this.options.isPullRequest) {
+            // If it's a pull-request build, we do not increment but instead add the 'pr' flag and build number to the version
+            return `${baseVersion}${this.options.prPreReleaseTag ? '-' + this.options.prPreReleaseTag : ''}.${this.options.buildId}`;
+        }
+        if (!latest || (this.isDefaultBranch && latest.prerelease.every((releaseTag) => releaseTag !== this.defaultBranchPrereleaseName))) {
+            // If this is a new release or a new minor of a default branch, we don't bump since they are initialised as .0
+            return baseVersion;
+        }
+        // We bump either the patch or prerelease version depending on what we have.
+        return semver.inc(latest, latest.prerelease.length > 0 ? 'prerelease' : 'patch');
+    }
+}
+exports.NewVersion = NewVersion;
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+
+/***/ 9449:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const tslib_1 = __nccwpck_require__(3031);
+tslib_1.__exportStar(__nccwpck_require__(4681), exports);
+tslib_1.__exportStar(__nccwpck_require__(4939), exports);
+//# sourceMappingURL=public_api.js.map
+
+/***/ }),
+
 /***/ 2613:
 /***/ ((module) => {
 
@@ -34785,173 +34952,6 @@ function parseParams (str) {
 module.exports = parseParams
 
 
-/***/ }),
-
-/***/ 5012:
-/***/ ((__unused_webpack_module, exports) => {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.formatGitTagsOutput = formatGitTagsOutput;
-/**
- * Extract the list of tags and remove any spaces or endlines
- * @param gitOutput response from git command to format
- */
-function formatGitTagsOutput(gitOutput) {
-    return gitOutput.split(/\s+/g)
-        .map((val) => val.replace('remotes/origin/', ''))
-        .filter((val) => !!val);
-}
-//# sourceMappingURL=index.js.map
-
-/***/ }),
-
-/***/ 4426:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.NewVersion = void 0;
-const node_child_process_1 = __nccwpck_require__(1421);
-const node_util_1 = __nccwpck_require__(7975);
-const semver = __nccwpck_require__(1498);
-const index_1 = __nccwpck_require__(5012);
-const promisifiedExec = (0, node_util_1.promisify)(node_child_process_1.exec);
-/**
- * Class responsible for computing the next version according to options and the GIT tags of the repository
- */
-class NewVersion {
-    constructor(options) {
-        this.options = options;
-        this.isDefaultBranch = options.defaultBranch === options.baseBranch;
-        this.isBaseBranchSupported = this.isDefaultBranch || options.releaseBranchRegExp.test(options.baseBranch);
-        this.defaultBranchPrereleaseName = options.defaultBranchPrereleaseName || options.defaultBranch;
-    }
-    /**
-     * Computes the next version according to the options and the GIT tags of the repository
-     */
-    async execute() {
-        const versionMask = this.getVersionMask();
-        const gitTags = await this.retrieveGitTags();
-        const newVersion = this.computeNewVersion(gitTags, versionMask);
-        if (!newVersion) {
-            throw new Error('Could not compute a new version candidate.');
-        }
-        this.options.logger.info(`New version: ${newVersion}`);
-        return newVersion;
-    }
-    /**
-     * Performs some GIT operations in order to retrieve a list of tags
-     */
-    async retrieveGitTags() {
-        const fetchCommand = `git fetch --tags ${this.options.authenticatedGitUrl}`;
-        this.options.logger.debug(`Executing command: ${fetchCommand}`);
-        const fetchOutput = await promisifiedExec(fetchCommand, { cwd: this.options.localGitFolder });
-        this.options.logger.debug(JSON.stringify(fetchOutput, null, 2));
-        const gitTagCommand = 'git tag --list';
-        this.options.logger.info(`Executing command: ${gitTagCommand}`);
-        const tagsResult = await promisifiedExec(gitTagCommand, { cwd: this.options.localGitFolder });
-        this.options.logger.debug('Git tags result:');
-        this.options.logger.debug(JSON.stringify(tagsResult, null, 2));
-        return (0, index_1.formatGitTagsOutput)(tagsResult.stdout);
-    }
-    /**
-     * Returns the mask with which expected version should start.
-     * - If release branch it will be the second part of the branch name: release/[3.2.0-alpha]
-     * - If default branch, it will be empty by default unless a mask is explicitly given as an option (options.defaultBranchVersionMask)
-     */
-    getVersionMask() {
-        const branchReleaseMatches = this.options.releaseBranchRegExp.exec(this.options.baseBranch);
-        if (branchReleaseMatches) {
-            this.options.logger.info(JSON.stringify(branchReleaseMatches));
-        }
-        return this.isDefaultBranch
-            ? this.options.defaultBranchVersionMask || ''
-            : (branchReleaseMatches?.length ? `${branchReleaseMatches[1]}.${branchReleaseMatches[2]}${branchReleaseMatches[3] || ''}` : '');
-    }
-    /**
-     * Compute the next version following the version mask.
-     * If your default branch is behind your release branches, the version minor will be bumped
-     * @param tags
-     * @param versionMask
-     */
-    computeNewVersion(tags, versionMask) {
-        const regexpVersionMask = new RegExp(`^(?:v)?${versionMask}`);
-        // Sort tags in descending order and exclude next major in preparation
-        let parsedSortedTags = tags
-            .map((tag) => semver.parse(tag.replace('V', 'v')))
-            .filter((tag) => !!tag && !!regexpVersionMask.test(tag.raw))
-            .sort((v1, v2) => semver.compare(v2, v1));
-        this.options.logger.debug('Parsed and sorted tags:');
-        this.options.logger.debug(JSON.stringify(parsedSortedTags));
-        this.options.logger.info(`Version mask: ${versionMask}`);
-        if (this.isDefaultBranch) {
-            const releaseTags = [...this.defaultBranchPrereleaseName ? [this.defaultBranchPrereleaseName] : [], 'prerelease', 'rc'];
-            parsedSortedTags = parsedSortedTags.filter((parsedTag) => parsedTag.prerelease.length === 0 || releaseTags.includes(`${parsedTag.prerelease[0]}`));
-        }
-        else {
-            // If release branch, we filter all versions that do not satisfy the branch name to exclude 3.6.0-alpha.2 when building branch release/3.6 for example
-            parsedSortedTags = parsedSortedTags.filter((parsedTag) => semver.satisfies(parsedTag, `~${versionMask}`));
-        }
-        this.options.logger.debug('Tags after filtering:');
-        this.options.logger.debug(JSON.stringify(parsedSortedTags));
-        const latest = parsedSortedTags[0];
-        let baseVersion;
-        // If we're on the default branch
-        if (this.isDefaultBranch) {
-            if (!latest) {
-                // If we couldn't find a label after filtering, create a new one using the version mask given
-                baseVersion = `${semver.minVersion(versionMask).version}-${this.defaultBranchPrereleaseName}.0`;
-            }
-            else if (latest.prerelease.includes(this.defaultBranchPrereleaseName || '')) {
-                // If the latest label is a default branch label, we will simply bump it
-                this.options.logger.info(`Bumping patch ${this.defaultBranchPrereleaseName || ''}`);
-                baseVersion = latest.raw;
-            }
-            else {
-                // If the latest label is a release, it means that we need to create a default branch tag for the next minor version
-                const sanitizedLatest = latest.prerelease.length > 0 ? `${latest.major}.${latest.minor}.${latest.patch}` : latest.raw;
-                baseVersion = `${semver.inc(sanitizedLatest, 'minor')}-${this.defaultBranchPrereleaseName}.0`;
-            }
-            // If we're on a release branch
-        }
-        else {
-            // If we found a tag, we use it as a base. Otherwise, we create a new version using the information from the branch, eg. release/3.6.0-alpha
-            // will create 3.6.0-alpha.0
-            baseVersion = latest ? latest.raw : `${versionMask}.0`;
-        }
-        this.options.logger.info(`Latest version from tags: ${latest?.version}`);
-        this.options.logger.info(`Base version computed: ${baseVersion}`);
-        if (this.options.isPullRequest) {
-            // If it's a pull-request build, we do not increment but instead add the 'pr' flag and build number to the version
-            return `${baseVersion}${this.options.prPreReleaseTag ? '-' + this.options.prPreReleaseTag : ''}.${this.options.buildId}`;
-        }
-        if (!latest || (this.isDefaultBranch && latest.prerelease.every((releaseTag) => releaseTag !== this.defaultBranchPrereleaseName))) {
-            // If this is a new release or a new minor of a default branch, we don't bump since they are initialised as .0
-            return baseVersion;
-        }
-        // We bump either the patch or prerelease version depending on what we have.
-        return semver.inc(latest, latest.prerelease.length > 0 ? 'prerelease' : 'patch');
-    }
-}
-exports.NewVersion = NewVersion;
-//# sourceMappingURL=index.js.map
-
-/***/ }),
-
-/***/ 1850:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-const tslib_1 = __nccwpck_require__(3031);
-tslib_1.__exportStar(__nccwpck_require__(5012), exports);
-tslib_1.__exportStar(__nccwpck_require__(4426), exports);
-//# sourceMappingURL=public_api.js.map
-
 /***/ })
 
 /******/ 	});
@@ -35002,7 +35002,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 const tslib_1 = __nccwpck_require__(3031);
 const core = tslib_1.__importStar(__nccwpck_require__(7539));
 const github = tslib_1.__importStar(__nccwpck_require__(2753));
-const new_version_1 = __nccwpck_require__(1850);
+const new_version_1 = __nccwpck_require__(9449);
 async function run() {
     try {
         // Processing inputs
