@@ -265,6 +265,21 @@ const prepareWorkspace = (relativeDirectory = '.', projectPackageManager = 'npm'
     }
   }
 
+  writeFileSync(
+    resolve(cwd, '.gitattributes'),
+    [
+      '* text eol=lf',
+      '',
+      '# Binary files',
+      '*.png binary',
+      '*.jpg binary',
+      '*.gif binary',
+      '*.jar binary',
+      '*.ico binary',
+      ''
+    ].join('\n')
+  );
+
   exitProcessIfErrorInSpawnSync(INSTALL_PROCESS_ERROR_CODE, spawnSync(runner, ['install'], spawnSyncOpts));
 };
 
