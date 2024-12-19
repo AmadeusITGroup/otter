@@ -1,6 +1,5 @@
 **/src/package.json
 packages/@*/*/{builders,schematics}/**/templates/**/*.ts
 packages/@*/*/{builders,schematics}/**/mocks/**/*.ts
-packages/@*/*/{builders,schematics}/**/index.js
 packages/@*/*/build/**
 !**/schematics/**/target

@@ -23,13 +23,9 @@
       }
     },
     "compile": {
-      "executor": "@nx/js:tsc",
+      "executor": "nx:run-script",
       "options": {
-        "main": "packages/@o3r/workspace/src/public_api.ts",
-        "tsConfig": "packages/@o3r/workspace/tsconfig.build.json",
-        "outputPath": "packages/@o3r/workspace/dist",
-        "assets": ["packages/@o3r/workspace/src/**/templates/**"],
-        "clean": false
+        "script": "build:source"
       }
     },
     "build-builders": {

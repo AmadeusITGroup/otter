@@ -13,10 +13,11 @@
     "nx": "nx",
     "ng": "yarn nx",
     "build": "yarn nx build artifactory-tools",
+    "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest",
+    "build:source": "tsc -b tsconfig.build.json --pretty && yarn cpy ./package.json dist",
     "postbuild": "patch-package-json-main",
     "prepare:publish": "prepare-publish ./dist",
-    "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist",
-    "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest"
+    "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist"
   },
   "bin": {
     "o3r-artifact-cleaner": "./dist/src/cli/artifact-cleaner.js",
@@ -29,7 +30,7 @@
     "winston": "^3.8.2"
   },
   "peerDependencies": {
-    "@angular-devkit/schematics": "~18.2.0",
+    "@angular-devkit/schematics": "^18.2.0",
     "@o3r/telemetry": "workspace:^"
   },
   "peerDependenciesMeta": {
@@ -47,8 +48,8 @@
     "@babel/preset-typescript": "~7.26.0",
     "@compodoc/compodoc": "^1.1.19",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
-    "@nx/eslint-plugin": "~19.5.0",
-    "@nx/jest": "~19.5.0",
+    "@nx/eslint-plugin": "~19.8.0",
+    "@nx/jest": "~19.8.0",
     "@o3r/build-helpers": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
     "@o3r/telemetry": "workspace:^",
@@ -56,7 +57,7 @@
     "@types/fs-extra": "^11.0.0",
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",
-    "@typescript-eslint/parser": "~8.17.0",
+    "@typescript-eslint/parser": "~8.18.0",
     "angular-eslint": "~18.4.0",
     "cpy-cli": "^5.0.0",
     "eslint": "~9.14.0",
@@ -72,11 +73,11 @@
     "globals": "^15.9.0",
     "jest": "~29.7.0",
     "jest-junit": "~16.0.0",
-    "nx": "~19.5.0",
+    "nx": "~19.8.0",
     "ts-jest": "~29.2.0",
     "ts-node": "~10.9.2",
     "typescript": "~5.5.4",
-    "typescript-eslint": "~8.17.0"
+    "typescript-eslint": "~8.18.0"
   },
   "engines": {
     "node": "^18.19.1 || ^20.11.1 || >=22.0.0"
