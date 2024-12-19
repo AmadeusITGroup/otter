@@ -26,13 +26,9 @@
       }
     },
     "compile": {
-      "executor": "@nx/js:tsc",
+      "executor": "nx:run-script",
       "options": {
-        "main": "packages/@o3r/new-version/src/public_api.ts",
-        "tsConfig": "packages/@o3r/new-version/tsconfig.build.json",
-        "outputPath": "packages/@o3r/new-version/dist",
-        "assets": ["packages/@o3r/new-version/configs/*.json"],
-        "clean": false
+        "script": "build:source"
       }
     },
     "lint": {

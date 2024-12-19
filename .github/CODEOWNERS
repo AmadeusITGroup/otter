@@ -9,15 +9,14 @@
 ## Default reviewers for Anayltics build metrics webpack plugin
 # /packages/@o3r/analytics/plugins/webpack/build-metrics @rglearns
 
-## Default reviewers for AEM Plugin JSON Schemas
-# /packages/@o3r/application/schemas/ @guillaume-goulet
-# /packages/@o3r/localization/schemas/ @guillaume-goulet
-# /packages/@o3r/configuration/schemas/ @guillaume-goulet
-# /packages/@o3r/components/schemas/ @guillaume-goulet
-# /packages/@o3r/dynamic-content/schemas/ @guillaume-goulet
-# /packages/@o3r/extractors/schemas/ @guillaume-goulet
-# /packages/@o3r/rules-engine/schemas/ @guillaume-goulet
-
+# Default reviewers for CMS Plugin JSON Schemas
+/packages/@o3r/application/schemas/ @AmadeusITGroup/otter_cms
+/packages/@o3r/localization/schemas/ @AmadeusITGroup/otter_cms
+/packages/@o3r/configuration/schemas/ @AmadeusITGroup/otter_cms
+/packages/@o3r/components/schemas/ @AmadeusITGroup/otter_cms
+/packages/@o3r/dynamic-content/schemas/ @AmadeusITGroup/otter_cms
+/packages/@o3r/extractors/schemas/ @AmadeusITGroup/otter_cms
+/packages/@o3r/rules-engine/schemas/ @AmadeusITGroup/otter_cms
 
 # Default reviewers for Intellij extension
 /apps/intellij-extension/ @OxyFlax

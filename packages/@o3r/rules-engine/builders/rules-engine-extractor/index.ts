@@ -11,11 +11,10 @@ import {
   createBuilder,
 } from '@angular-devkit/architect';
 import {
-  CmsMetadataData,
+  type CmsMetadataData,
   createBuilderWithMetricsIfInstalled,
   getLibraryCmsMetadata,
 } from '@o3r/extractors';
-import globby from 'globby';
 import {
   MetadataFact,
   MetadataOperator,
@@ -23,10 +22,12 @@ import {
   RulesEngineExtractor,
 } from './helpers';
 import {
-  RulesEngineExtractorBuilderSchema,
+  type RulesEngineExtractorBuilderSchema,
 } from './schema';
+// eslint-disable-next-line @typescript-eslint/no-require-imports -- default import not working when used inside Otter mono-repository
+const globby = require('globby');
 
-export * from './schema';
+export type * from './schema';
 
 const SCHEMA_FOLDER = 'fact-schemas';
 

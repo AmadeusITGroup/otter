@@ -14,12 +14,9 @@
       "dependsOn": ["compile"]
     },
     "compile": {
-      "executor": "@nx/js:tsc",
+      "executor": "nx:run-script",
       "options": {
-        "main": "packages/@ama-sdk/swagger-builder/src/cli/build.ts",
-        "tsConfig": "packages/@ama-sdk/swagger-builder/tsconfig.build.json",
-        "outputPath": "packages/@ama-sdk/swagger-builder/dist",
-        "assets": ["packages/@ama-sdk/swagger-builder/src/schemas/*.json"]
+        "script": "build:source"
       }
     },
     "lint": {
