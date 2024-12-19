@@ -26,12 +26,9 @@
       }
     },
     "compile": {
-      "executor": "@nx/js:tsc",
+      "executor": "nx:run-script",
       "options": {
-        "main": "packages/@o3r/extractors/src/public_api.ts",
-        "tsConfig": "packages/@o3r/extractors/tsconfig.build.json",
-        "outputPath": "packages/@o3r/extractors/dist",
-        "clean": false
+        "script": "build:source"
       },
       "dependsOn": ["^build"]
     },

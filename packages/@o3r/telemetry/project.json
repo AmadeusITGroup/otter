@@ -22,12 +22,9 @@
       ]
     },
     "compile": {
-      "executor": "@nx/js:tsc",
+      "executor": "nx:run-script",
       "options": {
-        "main": "packages/@o3r/telemetry/src/public_api.ts",
-        "tsConfig": "packages/@o3r/telemetry/tsconfig.build.json",
-        "outputPath": "packages/@o3r/telemetry/dist",
-        "clean": false
+        "script": "build:source"
       }
     },
     "prepare-build-builders": {

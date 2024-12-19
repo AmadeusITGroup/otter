@@ -17,11 +17,11 @@ runs:
     - name: Previous release tag
       if:  ${{(!contains( inputs.version, '-' )) && endsWith( inputs.version, '.0' )}}
       shell: bash
-      run: echo "PREVIOUS_VERSION_TAG=$(gh release list --exclude-drafts --exclude-pre-releases --limit ${{ inputs.previousVersionsLimit }} --json tagName --template '[{{range .}}"{{.tagName}}",{{end}}""]{{"\n"}}' | node '${GITHUB_ACTION_PATH}/packaged-action/index.cjs' previous-version ${{ inputs.version }})" >> $GITHUB_ENV
+      run: echo "PREVIOUS_VERSION_TAG=$(gh release list --exclude-drafts --exclude-pre-releases --limit ${{ inputs.previousVersionsLimit }} --json tagName --template '[{{range .}}"{{.tagName}}",{{end}}""]{{"\n"}}' | node "${GITHUB_ACTION_PATH}/packaged-action/index.cjs" previous-version ${{ inputs.version }})" >> $GITHUB_ENV
     - name: Determine if latest tag
       if:  ${{(!contains( inputs.version, '-' ))}}
       shell: bash
-      run: echo "IS_LATEST_TAG=$(gh release list --exclude-drafts --exclude-pre-releases --limit ${{ inputs.previousVersionsLimit }} --json tagName --template '[{{range .}}"{{.tagName}}",{{end}}""]{{"\n"}}' | node '${GITHUB_ACTION_PATH}/packaged-action/index.cjs' is-latest ${{ inputs.version }})" >> $GITHUB_ENV
+      run: echo "IS_LATEST_TAG=$(gh release list --exclude-drafts --exclude-pre-releases --limit ${{ inputs.previousVersionsLimit }} --json tagName --template '[{{range .}}"{{.tagName}}",{{end}}""]{{"\n"}}' | node "${GITHUB_ACTION_PATH}/packaged-action/index.cjs" is-latest ${{ inputs.version }})" >> $GITHUB_ENV
     - name: Create release
       shell: bash
       run: gh release create v${{ inputs.version }} --generate-notes ${{ contains( inputs.version, '-' ) && '--prerelease' || '' }} --target ${{ inputs.target }} --latest=${{env.IS_LATEST_TAG != '' && env.IS_LATEST_TAG || 'false'}} ${{ env.PREVIOUS_VERSION_TAG != '' && format('--notes-start-tag {0}', env.PREVIOUS_VERSION_TAG) || '' }}

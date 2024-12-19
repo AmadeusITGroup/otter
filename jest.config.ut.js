@@ -22,8 +22,8 @@ module.exports.getJestProjectConfig = (rootDir, isAngularSetup, options) => {
   ).config;
   const relativePath = relative(rootDir, options?.baseTsconfig ? __dirname(options.baseTsconfig) : __dirname);
   const moduleNameMapper = Object.fromEntries(
-    Object.entries(pathsToModuleNameMapper(compilerOptions.paths))
-      .map(([moduleName, path]) => [moduleName, `<rootDir>/${relativePath}/${path}`])
+    Object.entries(pathsToModuleNameMapper(compilerOptions.paths || {}))
+      .map(([moduleName, paths]) => [moduleName, (Array.isArray(paths) ? paths : [paths]).map(path => `<rootDir>/${relativePath}/${path}`)])
   );
   return {
     preset: 'ts-jest',

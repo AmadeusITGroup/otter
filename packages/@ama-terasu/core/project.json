@@ -14,12 +14,9 @@
       "dependsOn": ["compile"]
     },
     "compile": {
-      "executor": "@nx/js:tsc",
-      "outputs": ["{projectRoot}/dist", "{projectRoot}/build/.tsbuildinfo"],
+      "executor": "nx:run-script",
       "options": {
-        "main": "packages/@ama-terasu/core/src/public_api.ts",
-        "tsConfig": "packages/@ama-terasu/core/tsconfig.build.json",
-        "outputPath": "packages/@ama-terasu/core/dist"
+        "script": "build:source"
       }
     },
     "lint": {

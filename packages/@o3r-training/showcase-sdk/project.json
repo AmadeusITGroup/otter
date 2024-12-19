@@ -7,14 +7,20 @@
   "targets": {
     "build": {
       "executor": "nx:noop",
-      "dependsOn": ["compile", "extract-folder-structure"]
+      "dependsOn": [
+        "compile",
+        "extract-folder-structure"
+      ]
     },
     "compile": {
       "executor": "nx:run-script",
       "options": {
         "script": "build"
       },
-      "inputs": ["source", "^cli"]
+      "inputs": [
+        "source",
+        "^cli"
+      ]
     },
     "regen": {
       "executor": "nx:run-script",
@@ -48,5 +54,8 @@
       }
     }
   },
-  "tags": ["private", "showcase"]
+  "tags": [
+    "private",
+    "showcase"
+  ]
 }

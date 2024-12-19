@@ -29,7 +29,7 @@ import {
 import type {
   LocalizationExtractorBuilderSchema,
 } from '../localization-extractor/schema';
-import {
+import type {
   LocalizationBuilderSchema,
 } from './schema';
 import type {

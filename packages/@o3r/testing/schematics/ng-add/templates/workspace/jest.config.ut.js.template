@@ -19,10 +19,10 @@ const baseTsconfigPath = resolve(__dirname, './tsconfig.json');
 module.exports.getJestProjectConfig = (rootDir, isAngularSetup) => {
   const { compilerOptions } = ts.parseConfigFileTextToJson(baseTsconfigPath, readFileSync(baseTsconfigPath, { encoding: 'utf-8' })).config;
   const relativePath = relative(rootDir, __dirname);
-  const moduleNameMapper = Object.entries(pathsToModuleNameMapper(compilerOptions.paths || {})).reduce((acc, [moduleName, path]) => {
-    acc[moduleName] = `<rootDir>/${relativePath}/${path}`;
-    return acc;
-  }, {});
+  const moduleNameMapper = Object.fromEntries(
+    Object.entries(pathsToModuleNameMapper(compilerOptions.paths || {}))
+      .map(([moduleName, paths]) => [moduleName, (Array.isArray(paths) ? paths : [paths]).map(path => `<rootDir>/${relativePath}/${path}`)])
+  );
   moduleNameMapper['^@o3r/testing/core$'] = [require.resolve('@o3r/testing/core/angular')];
   moduleNameMapper['^@o3r/testing/core/(.*)'] = [join(require.resolve('@o3r/testing/core/angular'), '$1')];
   return {

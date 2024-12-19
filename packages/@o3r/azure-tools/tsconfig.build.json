@@ -6,7 +6,7 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "outDir": "./dist",
-    "rootDir": "src",
+    "rootDir": ".",
     "tsBuildInfoFile": "./build/.tsbuildinfo"
   },
   "include": [

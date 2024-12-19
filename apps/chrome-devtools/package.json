@@ -29,12 +29,13 @@
   ],
   "devDependencies": {
     "@angular-devkit/build-angular": "~18.2.0",
+    "@angular-devkit/schematics": "~18.2.0",
     "@angular/cli": "~18.2.0",
     "@angular/compiler": "~18.2.0",
     "@angular/compiler-cli": "~18.2.0",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
-    "@nx/eslint-plugin": "~19.5.0",
-    "@nx/jest": "~19.5.0",
+    "@nx/eslint-plugin": "~19.8.0",
+    "@nx/jest": "~19.8.0",
     "@o3r/build-helpers": "workspace:^",
     "@o3r/eslint-config": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
@@ -46,7 +47,7 @@
     "@types/chrome": "^0.0.283",
     "@types/jest": "~29.5.2",
     "@types/tinycolor2": "^1.4.6",
-    "@typescript-eslint/parser": "~8.17.0",
+    "@typescript-eslint/parser": "~8.18.0",
     "angular-eslint": "~18.4.0",
     "archiver": "^7.0.0",
     "chokidar": "^3.5.2",
@@ -71,11 +72,11 @@
     "jest-preset-angular": "~14.2.0",
     "jsonc-eslint-parser": "~2.4.0",
     "minimist": "^1.2.6",
-    "nx": "~19.5.0",
+    "nx": "~19.8.0",
     "rimraf": "^5.0.1",
     "tsc-watch": "^6.0.4",
     "typescript": "~5.5.4",
-    "typescript-eslint": "~8.17.0"
+    "typescript-eslint": "~8.18.0"
   },
   "dependencies": {
     "@agnos-ui/angular-bootstrap": "~0.4.1",

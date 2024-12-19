@@ -27,14 +27,14 @@ import * as ts from 'typescript';
 import {
   CssVariableExtractor,
 } from './helpers/index';
-import {
+import type {
   StyleExtractorBuilderSchema,
 } from './schema';
 import type {
   CssMetadata,
 } from '@o3r/styling';
 
-export * from './schema';
+export type * from './schema';
 
 /**
  * Get the library name from package.json

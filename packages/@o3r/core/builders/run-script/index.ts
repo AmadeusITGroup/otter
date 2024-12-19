@@ -23,7 +23,7 @@ import type {
 export default createBuilder<RunScriptBuilderSchema>(createBuilderWithMetricsIfInstalled(async (options, context): Promise<BuilderOutput> => {
   context.reportRunning();
   context.reportProgress(1, 1, `Running ${options.script} !!!`);
-  const specifiedRoot = context.target?.project && (await context.getProjectMetadata(context.target.project)).root?.toString();
+  const specifiedRoot = context.target?.project && (await context.getProjectMetadata(context.target.project)).root as string;
   const projectRoot = specifiedRoot ? resolve(context.workspaceRoot, specifiedRoot) : context.currentDirectory;
 
   const angularJsonPath = join(context.workspaceRoot, 'angular.json');

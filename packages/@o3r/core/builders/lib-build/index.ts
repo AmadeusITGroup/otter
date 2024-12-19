@@ -21,7 +21,7 @@ import {
 const libBuildOptions = ['target', 'skipJasmineFixtureWorkaround'];
 
 export default createBuilder<LibraryBuilderSchema>(createBuilderWithMetricsIfInstalled(async (options, context): Promise<BuilderOutput> => {
-  const specifiedRoot = context.target?.project && (await context.getProjectMetadata(context.target.project)).root?.toString();
+  const specifiedRoot = context.target?.project && (await context.getProjectMetadata(context.target.project)).root as string;
   const ROOT_PATH = specifiedRoot ? path.resolve(context.workspaceRoot, specifiedRoot) : context.currentDirectory;
   const SRC_PATH = path.resolve(ROOT_PATH, 'src');
   const SRC_PACKAGE_JSON = path.resolve(SRC_PATH, 'package.json');

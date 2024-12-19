@@ -70,6 +70,11 @@ export interface DependencyToAdd {
   ngAddOptions?: NgAddSchematicOptions;
   /** Determine if the dependency require to be installed */
   requireInstall?: boolean;
+  /**
+   * Enforce the usage of tilde instead of caret in a dependency range
+   * If not specified, the context option value will be used
+   */
+  enforceTildeRange?: boolean;
 }
 
 export interface SetupDependenciesOptions {
@@ -98,6 +103,11 @@ export interface SetupDependenciesOptions {
   scheduleTaskCallback?: (taskIds?: TaskId[]) => void;
   /** Working directory for the installation process only */
   workingDirectory?: string;
+  /**
+   * Enforce the usage of tilde instead of caret in a dependency range
+   * @default true
+   */
+  enforceTildeRange?: boolean;
 }
 
 /** Result of the Setup Dependencies task scheduling process */
@@ -143,6 +153,14 @@ export const getPackageInstallConfig = (packageJsonPath: string, tree: Tree, pro
 };
 
 /**
+ * Replace the caret ranges by tilde ranges
+ * @param range Range to replace
+ */
+export const enforceTildeRange = (range?: string) => {
+  return range?.replace(/\^/g, '~');
+};
+
+/**
  * Setup dependency to a repository.
  * Will run manually the ngAdd schematics according to the parameters and install the packages if required
  * @param options
@@ -163,6 +181,10 @@ export const setupDependencies = (options: SetupDependenciesOptions): Rule => {
         const packageJsonContent = tree.readJson(packageJsonPath) as PackageJson;
 
         dependency.inManifest.forEach(({ range, types }) => {
+          const isTildeRangeEnforced = dependency.enforceTildeRange === undefined ? (options.enforceTildeRange === undefined || options.enforceTildeRange) : dependency.enforceTildeRange;
+          if (isTildeRangeEnforced) {
+            range = enforceTildeRange(range);
+          }
           (types || [NodeDependencyType.Default]).forEach((depType) => {
             if (packageJsonContent[depType]?.[packageToInstall]) {
               if (range && semver.validRange(range)) {

@@ -20,6 +20,7 @@ on:
     types: [checks_requested]
 
 env:
+  NX_PARALLEL: ${{ vars.NX_PARALLEL }}
   YARN_ENABLE_HARDENED_MODE: 0
   NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
 
