@@ -31,6 +31,9 @@ export interface ConfigDocInformation {
   /** Tags (taken from `@tags` tag) */
   tags?: string[];
 
+  /** Restriction keys (taken from `@o3rRestrictionKey` tag) */
+  restrictionKeys?: string[];
+
   /** Category (taken from `@o3rCategory` tag) */
   category?: string;
 
@@ -139,6 +142,17 @@ export function isO3rRequiredTagPresent(docText: string): boolean {
 }
 
 /**
+ * Get restriction keys from a given DocComment.
+ *
+ * The restriction keys extracted from @o3rRestrictionKey tag.
+ * @param docComment The DocComment to get restriction keys from
+ */
+export function getRestrictionKeysFromDocText(docComment: string): string[] {
+  return Array.from(docComment.matchAll(/@o3rRestrictionKey\s+(\w+|"[^"\n]*"|'[^'\n]*')$/gm))
+    .map((match) => match[1].replaceAll(/(^["']|["']$)/g, ''));
+}
+
+/**
  * Get category from a given DocComment.
  *
  * The category is extracted from @o3rCategory tag.
@@ -221,6 +235,7 @@ export class ConfigDocParser {
         tags: getTagsFromDocComment(docComment),
         category: getCategoryFromDocText(docText),
         categories: getCategoriesFromDocText(docText),
+        restrictionKeys: getRestrictionKeysFromDocText(docText),
         widget: getWidgetInformationFromDocComment(docText),
         required: isO3rRequiredTagPresent(docText)
       };
