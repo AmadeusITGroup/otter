@@ -106,6 +106,8 @@ export interface ConfigProperty {
   widget?: ConfigPropertyWidget;
   /** If true, the CMS user must specify a value for the property */
   required?: boolean;
+  /** Restriction keys */
+  restrictionKeys?: string[];
 }
 
 /**
