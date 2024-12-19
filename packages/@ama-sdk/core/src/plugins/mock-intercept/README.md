@@ -1,6 +1,6 @@
 # Mock intercept plugin
 
-The mock interception statregy works based on two interceptions: request and fetch. For each interception, a plugin has been made.
+The mock interception strategy works based on two interceptions: request and fetch. For each interception, a plugin has been made.
 
 ## Mock intercept request plugin
 
@@ -66,7 +66,7 @@ Example of usage:
  */
 import {OPERATION_ADAPTER} from '@ama-sdk/sdk/spec/operation-adapter';
 
-const myRandomAdapter: new RandomMockAdapter(
+const myRandomAdapter = new RandomMockAdapter(
   OPERATION_ADAPTER,
   {
     // Mock data for createCart operation
@@ -76,7 +76,7 @@ const myRandomAdapter: new RandomMockAdapter(
   }
 );
 
-const myRandomAdapter: new SequentialMockAdapter(
+const myRandomAdapter = new SequentialMockAdapter(
   OPERATION_ADAPTER,
   {
     // Mock data for createCart operation
@@ -110,7 +110,7 @@ Example of usage:
 */
 import {OPERATION_ADAPTER} from '@ama-sdk/sdk/spec/operation-adapter';
 
-const myAdapter: new RandomMockAdapter(
+const myAdapter = new RandomMockAdapter(
   OPERATION_ADAPTER,
   () => {
     return fetch('http://my-test-server/getMocks');

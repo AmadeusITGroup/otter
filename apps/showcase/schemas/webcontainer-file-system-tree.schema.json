@@ -1,0 +1,68 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "WebContainerFileSystemTreeSchema",
+  "description": "Schema of a webcontainer api file system tree",
+  "required": ["fileSystemTree"],
+  "properties": {
+    "fileSystemTree": {
+      "$ref": "#/definitions/FileSystemTree"
+    }
+  },
+  "definitions": {
+    "FileSystemTree": {
+      "type": "object",
+      "additionalProperties": {
+        "oneOf": [
+          {"$ref": "#/definitions/DirectoryNode"},
+          {"$ref": "#/definitions/FileNode"},
+          {"$ref": "#/definitions/SymlinkNode"}
+        ]
+      }
+    },
+    "DirectoryNode": {
+      "type": "object",
+      "required": ["directory"],
+      "properties": {
+        "directory": {
+          "$ref": "#/definitions/FileSystemTree"
+        }
+      }
+    },
+    "FileNode": {
+      "type": "object",
+      "required": [
+        "file"
+      ],
+      "properties": {
+        "file": {
+          "type": "object",
+          "description": "Metadata type",
+          "required": ["contents"],
+          "properties": {
+            "contents": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "SymlinkNode": {
+      "type": "object",
+      "required": [
+        "file"
+      ],
+      "properties": {
+        "file": {
+          "type": "object",
+          "description": "Metadata type",
+          "required": ["symlink"],
+          "properties": {
+            "symlink": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

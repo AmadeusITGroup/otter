@@ -8,6 +8,9 @@ import {
 import {
   AppFixtureComponent,
 } from '../../src/app/app.fixture';
+import {
+  TrainingFixtureComponent,
+} from '../../src/components/training/training.fixture';
 
 test.describe.serial('Sanity test', () => {
   test('Visual comparison for each page', async ({ browserName, page }) => {
@@ -74,6 +77,25 @@ test.describe.serial('Sanity test', () => {
       await appFixture.navigateToPlaceholder();
       await page.waitForURL('**/placeholder');
       await expect(page).toHaveScreenshot([browserName, 'placeholder.png'], { fullPage: true, mask: [page.locator('.visual-testing-ignore')] });
+    });
+
+    await test.step('sdk-intro', async () => {
+      await appFixture.navigateToSDKIntro();
+      await page.waitForURL('**/sdk-intro');
+      await expect(page).toHaveScreenshot([browserName, 'sdk-intro.png'], { fullPage: true, mask: [page.locator('.visual-testing-ignore')] });
+    });
+
+    await test.step('sdk-training', async () => {
+      await appFixture.navigateToSDKTraining();
+      await page.waitForURL('**/sdk-training*');
+      await expect(page).toHaveScreenshot([browserName, 'sdk-training.png'], { fullPage: true, mask: [page.locator('.visual-testing-ignore')] });
+
+      const trainingFixture = new TrainingFixtureComponent(new O3rElement({ element: page.locator('o3r-training'), page }));
+      for (let i = 1; i < 9; i++) {
+        await trainingFixture.clickOnNextStep();
+        await page.waitForURL(`**/sdk-training#${i}`);
+        await expect(page).toHaveScreenshot([browserName, `sdk-training-step${i + 1}.png`], { fullPage: true, mask: [page.locator('.visual-testing-ignore')] });
+      }
     });
   });
 });

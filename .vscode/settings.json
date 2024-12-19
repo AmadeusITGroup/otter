@@ -95,8 +95,11 @@
   "search.exclude": {
     "**/*.code-search": true,
     "**/.yarn/**": true,
-    "**/github-actions/*/packaged-action/**": true
+    "**/.pnp.*": true,
+    "**/github-actions/*/packaged-action/**": true,
+    "**/.yarn": true
   },
   "typescript.enablePromptUseWorkspaceTsdk": true,
+  "typescript.tsserver.watchOptions": "vscode",
   "typescript.tsdk": ".yarn/sdks/typescript/lib"
 }

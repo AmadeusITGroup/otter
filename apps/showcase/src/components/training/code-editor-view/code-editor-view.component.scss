@@ -1,0 +1,36 @@
+monaco-tree {
+  .monaco-tree {
+    display: flex;
+    flex-direction: column;
+    overflow: unset !important;
+    min-width: 100%;
+    min-height: 100%;
+  }
+
+  monaco-tree-icons {
+    display: none;
+  }
+}
+
+ngx-monaco-editor {
+  .editor-container {
+    height: 100% !important;
+  }
+
+  > * {
+    max-width: 100%;
+    max-height: 100% !important;
+  }
+}
+
+.editor-view {
+  background: #1d1d1d;
+}
+
+.save-code-dialog-backdrop {
+  position: absolute;
+}
+
+.save-code-dialog-window {
+  position: absolute;
+}

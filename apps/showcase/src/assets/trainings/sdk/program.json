@@ -1,0 +1,216 @@
+{
+  "$schema": "../../../../schemas/training-program.schema.json",
+  "trainingSteps": [
+    {
+      "stepTitle": "Welcome to the Otter SDK tutorial",
+      "htmlContentUrl": "./steps/welcome/instructions.md"
+    },
+    {
+      "stepTitle": "How to use the Otter SDK?",
+      "htmlContentUrl": "./steps/typescript-sdk/instructions.md",
+      "filesConfiguration": {
+        "exerciseId": "sdk-how-to-use-otter-sdk",
+        "startingFile": "apps/tutorial-app/src/app/app.component.ts",
+        "urls": [
+          {
+            "path": ".",
+            "contentUrl": "./shared/monorepo-template.json"
+          },
+          {
+            "path": "./libs/sdk",
+            "contentUrl": "@o3r-training/showcase-sdk/structure/spec.json"
+          },
+          {
+            "path": "./libs/sdk/src",
+            "contentUrl": "@o3r-training/showcase-sdk/structure/src.json"
+          },
+          {
+            "path": "./apps/tutorial-app/src/app",
+            "contentUrl": "./steps/typescript-sdk/exercise.json"
+          }
+        ],
+        "solutionUrls": [
+          {
+            "path": "./apps/tutorial-app/src/app",
+            "contentUrl": "./steps/typescript-sdk/solution.json"
+          }
+        ],
+        "mode": "interactive",
+        "commands": [
+          "npm install --legacy-peer-deps --ignore-scripts --force",
+          "npm run ng run tutorial-app:serve"
+        ]
+      }
+    },
+    {
+      "stepTitle": "Customize your fetch client with plugins",
+      "htmlContentUrl": "./steps/plugins/instructions.md",
+      "filesConfiguration": {
+        "exerciseId": "sdk-plugins",
+        "startingFile": "apps/tutorial-app/src/app/app.config.ts",
+        "urls": [
+          {
+            "path": ".",
+            "contentUrl": "./shared/monorepo-template.json"
+          },
+          {
+            "path": "./libs/sdk",
+            "contentUrl": "@o3r-training/showcase-sdk/structure/spec.json"
+          },
+          {
+            "path": "./libs/sdk/src",
+            "contentUrl": "@o3r-training/showcase-sdk/structure/src.json"
+          },
+          {
+            "path": "./apps/tutorial-app/src/app",
+            "contentUrl": "./steps/plugins/exercise.json"
+          }
+        ],
+        "solutionUrls": [
+          {
+            "path": "./apps/tutorial-app/src/app",
+            "contentUrl": "./steps/plugins/solution.json"
+          }
+        ],
+        "mode": "interactive",
+        "commands": [
+          "npm install --legacy-peer-deps --ignore-scripts --force",
+          "npm run ng run tutorial-app:serve"
+        ]
+      }
+    },
+    {
+      "stepTitle": "Integrate the API Manager Module",
+      "htmlContentUrl": "./steps/api-manager/instructions.md",
+      "filesConfiguration": {
+        "exerciseId": "sdk-api-manager",
+        "startingFile": "apps/tutorial-app/src/app/app.config.ts",
+        "urls": [
+          {
+            "path": ".",
+            "contentUrl": "./shared/monorepo-template.json"
+          },
+          {
+            "path": "./libs/sdk",
+            "contentUrl": "@o3r-training/showcase-sdk/structure/spec.json"
+          },
+          {
+            "path": "./libs/sdk/src",
+            "contentUrl": "@o3r-training/showcase-sdk/structure/src.json"
+          },
+          {
+            "path": "./apps/tutorial-app/src/app",
+            "contentUrl": "./steps/api-manager/exercise.json"
+          }
+        ],
+        "solutionUrls": [
+          {
+            "path": "./apps/tutorial-app/src/app",
+            "contentUrl": "./steps/api-manager/solution.json"
+          }
+        ],
+        "mode": "interactive",
+        "commands": [
+          "npm install --legacy-peer-deps --ignore-scripts --no-audit --prefer-dedupe",
+          "npm run ng run tutorial-app:serve"
+        ]
+      }
+    },
+    {
+      "stepTitle": "Generate your first SDK - Specifications",
+      "htmlContentUrl": "./steps/sdk-specs/instructions.md"
+    },
+    {
+      "stepTitle": "Generate your first SDK - Command",
+      "htmlContentUrl": "./steps/sdk-generation/instructions.md"
+    },
+    {
+      "stepTitle": "SDK with Dates - How to use",
+      "htmlContentUrl": "./steps/date/instructions.md",
+      "filesConfiguration": {
+        "exerciseId": "sdk-utils-date",
+        "startingFile": "apps/tutorial-app/src/app/app.component.ts",
+        "urls": [
+          {
+            "path": ".",
+            "contentUrl": "./shared/monorepo-template.json"
+          },
+          {
+            "path": "./apps/tutorial-app/src/app",
+            "contentUrl": "./steps/date/exercise.json"
+          }
+        ],
+        "solutionUrls": [
+          {
+            "path": "./apps/tutorial-app/src/app",
+            "contentUrl": "./steps/date/solution.json"
+          }
+        ],
+        "mode": "interactive",
+        "commands": [
+          "npm install --legacy-peer-deps --ignore-scripts --no-audit --prefer-dedupe",
+          "npm run ng run tutorial-app:serve"
+        ]
+      }
+    },
+    {
+      "stepTitle": "SDK with Dates - Generation",
+      "htmlContentUrl": "./steps/date-sdk-generation/instructions.md",
+      "filesConfiguration": {
+        "exerciseId": "sdk-generate-date-sdk",
+        "startingFile": "open-api.yaml",
+        "urls": [
+          {
+            "path": ".",
+            "contentUrl": "./steps/date-sdk-generation/exercise.json"
+          }
+        ],
+        "solutionUrls": [
+          {
+            "path": ".",
+            "contentUrl": "@o3r-training/training-sdk/structure/spec.json"
+          },
+          {
+            "path": "./src",
+            "contentUrl": "@o3r-training/training-sdk/structure/src.json"
+          }
+        ],
+        "mode": "readonly",
+        "commands": []
+      }
+    },
+    {
+      "stepTitle": "SDK with model extension",
+      "htmlContentUrl": "./steps/model-extension/instructions.md",
+      "filesConfiguration": {
+        "exerciseId": "sdk-model-extension",
+        "startingFile": "apps/tutorial-app/src/app/app.config.ts",
+        "urls": [
+          {
+            "path": ".",
+            "contentUrl": "./shared/monorepo-template.json"
+          },
+          {
+            "path": "./libs/sdk/src",
+            "contentUrl": "@o3r-training/training-sdk/structure/src.json"
+          },
+          {
+            "path": ".",
+            "contentUrl": "./steps/model-extension/exercise.json"
+          }
+        ],
+        "solutionUrls": [
+          {
+            "path": "./libs/sdk",
+            "contentUrl": "./steps/model-extension/solution.json"
+          }
+        ],
+        "mode": "interactive",
+        "commands": [
+          "npm install --legacy-peer-deps --ignore-scripts --no-audit --prefer-dedupe",
+          "npm run ng run tutorial-app:serve"
+        ]
+      }
+    }
+  ]
+}

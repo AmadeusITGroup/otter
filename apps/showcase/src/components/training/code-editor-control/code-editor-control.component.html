@@ -1,0 +1,45 @@
+<ul ngbNav #nav="ngbNav" class="nav nav-tabs">
+  <li ngbNavItem class="nav-item" role="presentation" [destroyOnHide]="false">
+    <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -- ngbNavLink already supports it-->
+    <a ngbNavLink class="nav-link" [class.active]="activeTab === 'preview'" (click)="activeTab = 'preview'">Preview</a>
+    <ng-template ngbNavContent>
+      @let isLoading = percentProgress() < 100 ;
+      @if (isLoading) {
+        <div class="w-100 h-100 d-flex align-items-center justify-content-center p-2">
+          <df-progressbar [value]="percentProgress()" [text]="progressLabel()"></df-progressbar>
+        </div>
+      }
+      <iframe class="w-100 h-100" #iframe allow="cross-origin-isolated" [srcdoc]="'Loading...'"
+              [class.invisible]="isLoading"></iframe>
+    </ng-template>
+  </li>
+
+  <li ngbNavItem class="nav-item" role="presentation" [destroyOnHide]="false">
+    <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -- ngbNavLink already supports it-->
+    <a ngbNavLink class="nav-link ps-5" [class.active]="activeTab === 'output'" (click)="activeTab = 'output'">
+      Output
+      <span class="fa-arrows-rotate terminal-active-indicator" [class.invisible]="!isTerminalActive()"></span>
+    </a>
+    <ng-template ngbNavContent>
+      <code-editor-terminal id="tab-content2" class="d-block h-100"
+                            (disposed)="webContainerService.runner.disposeCommandOutputTerminal()"
+                            (terminalActivity)="terminalActivity.next()"
+                            (terminalUpdated)="webContainerService.runner.registerCommandOutputTerminal($event)">
+      </code-editor-terminal>
+    </ng-template>
+  </li>
+
+  <li ngbNavItem class="nav-item" role="presentation" [destroyOnHide]="false">
+    <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -- ngbNavLink already supports it-->
+    <a ngbNavLink class="nav-link" [class.active]="activeTab === 'terminal'"
+       (click)="activeTab = 'terminal'">Terminal</a>
+    <ng-template ngbNavContent>
+      <code-editor-terminal id="tab-content3" class="d-block h-100"
+                            (disposed)="webContainerService.runner.disposeShell()"
+                            (terminalUpdated)="webContainerService.runner.registerShell($event)">
+      </code-editor-terminal>
+    </ng-template>
+  </li>
+</ul>
+<div class="h-100 command-panel" [ngbNavOutlet]="nav"></div>
+
