@@ -3,6 +3,9 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import {
+  NgbActiveModal,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
   SaveCodeDialogComponent,
 } from './save-code-dialog.component';
 
@@ -12,7 +15,8 @@ describe('ViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SaveCodeDialogComponent]
+      imports: [SaveCodeDialogComponent],
+      providers: [NgbActiveModal]
     }).compileComponents();
 
     fixture = TestBed.createComponent(SaveCodeDialogComponent);
