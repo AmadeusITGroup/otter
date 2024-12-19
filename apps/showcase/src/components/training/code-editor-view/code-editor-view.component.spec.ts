@@ -6,7 +6,7 @@ import {
   CodeEditorViewComponent,
 } from './code-editor-view.component';
 
-describe('ViewComponent', () => {
+describe('CodeEditorViewComponent', () => {
   let component: CodeEditorViewComponent;
   let fixture: ComponentFixture<CodeEditorViewComponent>;
 

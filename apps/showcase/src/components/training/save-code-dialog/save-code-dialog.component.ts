@@ -12,6 +12,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [],
+  providers: [NgbActiveModal],
   templateUrl: './save-code-dialog.template.html'
 })
 export class SaveCodeDialogComponent {
