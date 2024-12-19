@@ -195,7 +195,9 @@ export class CodeEditorViewComponent implements OnDestroy {
    */
   private readonly monacoPromise = firstValueFrom(this.newMonacoEditorCreated.pipe(
     map(() => window.monaco)
-  ));
+  )).catch(
+    (err) => console.error(err)
+  );
 
   /**
    * Configuration for the Monaco Editor
@@ -309,6 +311,9 @@ export class CodeEditorViewComponent implements OnDestroy {
       }
     });
     void this.monacoPromise.then((monaco) => {
+      if (!monaco) {
+        return;
+      }
       monaco.editor.registerEditorOpener({
         openCodeEditor: (_source: Monaco.editor.ICodeEditor, resource: Monaco.Uri, selectionOrPosition?: Monaco.IRange | Monaco.IPosition) => {
           const filePath = resource.path.slice(1);
@@ -388,7 +393,9 @@ export class CodeEditorViewComponent implements OnDestroy {
    */
   private async cleanAllModelsFromMonaco() {
     const monaco = await this.monacoPromise;
-    monaco.editor.getModels().forEach((m) => m.dispose());
+    if (monaco) {
+      monaco.editor.getModels().forEach((m) => m.dispose());
+    }
   }
 
   /**
@@ -396,15 +403,17 @@ export class CodeEditorViewComponent implements OnDestroy {
    */
   private async loadAllProjectFilesToMonaco() {
     const monaco = await this.monacoPromise;
-    const flatFiles = flattenTree(this.project().files);
-    flatFiles.forEach(({ filePath, content }) => {
-      const language = editorOptionsLanguage[filePath.split('.').at(-1) || ''] || '';
-      monaco.editor.createModel(content, language, monaco.Uri.from({ scheme: 'file', path: filePath }));
-    });
-    // Refresh tsconfig paths mapping
-    monaco.languages.typescript.typescriptDefaults.setCompilerOptions(
-      monaco.languages.typescript.typescriptDefaults.getCompilerOptions()
-    );
+    if (monaco) {
+      const flatFiles = flattenTree(this.project().files);
+      flatFiles.forEach(({ filePath, content }) => {
+        const language = editorOptionsLanguage[filePath.split('.').at(-1) || ''] || '';
+        monaco.editor.createModel(content, language, monaco.Uri.from({ scheme: 'file', path: filePath }));
+      });
+      // Refresh tsconfig paths mapping
+      monaco.languages.typescript.typescriptDefaults.setCompilerOptions(
+        monaco.languages.typescript.typescriptDefaults.getCompilerOptions()
+      );
+    }
   }
 
   /**
@@ -426,7 +435,9 @@ export class CodeEditorViewComponent implements OnDestroy {
         { filePath: 'file:///node_modules/@ama-sdk/client-fetch/index.d.ts', content: 'export * from "./src/public_api.d.ts";' }
       ];
       const monaco = await this.monacoPromise;
-      monaco.languages.typescript.typescriptDefaults.setExtraLibs(declarationTypes);
+      if (monaco) {
+        monaco.languages.typescript.typescriptDefaults.setExtraLibs(declarationTypes);
+      }
     }
   }
 
