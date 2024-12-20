@@ -31,7 +31,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
         }
       },
 
-      // Schematics advertizing
+      // Schematics advertising
       (t, c) => {
         const workspaceConfig = getWorkspaceConfig(t);
         c.logger.info('Your project is now ready, you can start to generate your first packages with one of the following commands:');

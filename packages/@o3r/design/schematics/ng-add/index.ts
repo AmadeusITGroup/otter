@@ -8,7 +8,7 @@ const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
 
 const reportMissingSchematicsDep = (logger: { error: (message: string) => any }) => (reason: any) => {
   logger.error(`[ERROR]: Adding @o3r/design has failed.
-You need to install '@o3r/schematics' to be able to use the o3r apis-manager package. Please run 'ng add @o3r/schematics'.`);
+You need to install '@o3r/schematics' to be able to use the o3r design package. Please run 'ng add @o3r/schematics'.`);
   throw reason;
 };
 

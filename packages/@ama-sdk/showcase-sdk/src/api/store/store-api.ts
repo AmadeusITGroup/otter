@@ -51,7 +51,6 @@ export class StoreApi implements Api {
 
   /**
    * Initialize your interface
-   *
    * @param apiClient Client used to process call to the API
    */
   constructor(apiClient: ApiClient) {

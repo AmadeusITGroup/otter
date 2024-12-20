@@ -48,7 +48,6 @@ const isPromise = (result: boolean | void | Promise<void> | Promise<boolean>): r
  *   }
  * );
  * ```
- *
  * @example Abort on Timeout
  * ```typescript
  * const abortCondition: AbortCallback = ({controller}) => { setTimeout(() => controller?.abort(), 3000); };

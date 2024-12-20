@@ -50,6 +50,15 @@
       "type": "boolean",
       "description": "Use a pinned version for otter packages",
       "default": false
+    },
+    "monorepoManager": {
+      "description": "Which monorepo manager to use",
+      "type": "string",
+      "default": "lerna",
+      "enum": [
+        "lerna",
+        "none"
+      ]
     }
   },
   "additionalProperties": true,

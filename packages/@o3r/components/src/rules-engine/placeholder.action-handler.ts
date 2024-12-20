@@ -87,7 +87,7 @@ export class PlaceholderRulesEngineActionHandler implements OnDestroy, RulesEngi
         const placeholderRequestsToEnable: string[] = [];
         Object.keys(storedPlaceholderRequests).forEach((storedPlaceholderRequestRawUrl) => {
           const usedFromEngineIteration = usedUrls[storedPlaceholderRequestRawUrl];
-          const usedFromStore = (storedPlaceholderRequests && storedPlaceholderRequests[storedPlaceholderRequestRawUrl]) ? storedPlaceholderRequests[storedPlaceholderRequestRawUrl]!.used : false;
+          const usedFromStore = (storedPlaceholderRequests && storedPlaceholderRequests[storedPlaceholderRequestRawUrl]) ? storedPlaceholderRequests[storedPlaceholderRequestRawUrl].used : false;
           if (!usedFromEngineIteration && usedFromStore) {
             placeholderRequestsToDisable.push(storedPlaceholderRequestRawUrl);
           } else if (usedFromEngineIteration && !usedFromStore) {
@@ -101,7 +101,7 @@ export class PlaceholderRulesEngineActionHandler implements OnDestroy, RulesEngi
         const placeholdersTemplatesToBeSet = Object.keys(placeholdersTemplates).reduce((changedPlaceholderTemplates, placeholderTemplateId) => {
           // Caching if the placeholder template already exists with the same urls
           if (!storedPlaceholders[placeholderTemplateId] ||
-            !(JSON.stringify(storedPlaceholders[placeholderTemplateId]!.urlsWithPriority) === JSON.stringify(placeholdersTemplates[placeholderTemplateId]))) {
+            !(JSON.stringify(storedPlaceholders[placeholderTemplateId].urlsWithPriority) === JSON.stringify(placeholdersTemplates[placeholderTemplateId]))) {
             changedPlaceholderTemplates.push({
               id: placeholderTemplateId,
               urlsWithPriority: placeholdersTemplates[placeholderTemplateId]

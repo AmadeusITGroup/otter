@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { DfMedia } from '@design-factory/design-factory';
 import { NgbHighlight, NgbPagination, NgbPaginationPages } from '@ng-bootstrap/ng-bootstrap';
 import { O3rComponent } from '@o3r/core';
-import { OtterPickerPresComponent } from '../../utilities';
+import { OtterIconPathPipe, OtterPickerPresComponent } from '../../utilities';
 
 const FILTER_PAG_REGEX = /[^0-9]/g;
 
@@ -18,6 +18,7 @@ const FILTER_PAG_REGEX = /[^0-9]/g;
     NgbHighlight,
     FormsModule,
     NgbPagination,
+    OtterIconPathPipe,
     OtterPickerPresComponent,
     NgbPaginationPages
   ],

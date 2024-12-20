@@ -11,7 +11,7 @@ export interface NgGeneratePageSchematicsSchema extends SchematicOptionObject {
   scope: string;
 
   /** Application routing module path */
-  appRoutingModulePath: string;
+  appRoutingModulePath?: string | undefined;
 
   /** Selector prefix */
   prefix?: string | undefined;

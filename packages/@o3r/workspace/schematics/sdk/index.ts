@@ -15,6 +15,7 @@ import { nxRegisterProjectTasks } from './rules/rules.nx';
 import { updateTsConfig } from './rules/update-ts-paths.rule';
 import { cleanStandaloneFiles } from './rules/clean-standalone.rule';
 import { NodePackageInstallTask, RunSchematicTask } from '@angular-devkit/schematics/tasks';
+import {existsSync} from 'node:fs';
 
 /**
  * Add an Otter compatible SDK to a monorepo
@@ -22,8 +23,8 @@ import { NodePackageInstallTask, RunSchematicTask } from '@angular-devkit/schema
  */
 function generateSdkFn(options: NgGenerateSdkSchema): Rule {
   const splitName = options.name?.split('/');
-  const scope = splitName.length > 1 ? splitName[0].replace(/^@/, '') : '';
-  const projectName = strings.dasherize(splitName?.length === 2 ? splitName[1] : options.name);
+  const scope = strings.dasherize(splitName.length > 1 ? splitName[0].replace(/^@/, '') : options.name);
+  const projectName = splitName?.length === 2 ? strings.dasherize(splitName[1]) : 'sdk';
   const cleanName = strings.dasherize(options.name).replace(/^@/, '').replaceAll(/\//g, '-');
 
   return (tree, context) => {
@@ -48,6 +49,13 @@ function generateSdkFn(options: NgGenerateSdkSchema): Rule {
 
     const packageManager = getPackageManager({ workspaceConfig });
     const specExtension = options.specPackagePath ? path.extname(options.specPackagePath) : '.yaml';
+    // If spec path is relative to process.cwd, we need to make it relative to the project root
+    if (options.specPath && !path.isAbsolute(options.specPath)) {
+      const resolvedPath = path.resolve(process.cwd(), options.specPath);
+      if (existsSync(resolvedPath)) {
+        options.specPath = path.relative(path.resolve(targetPath), resolvedPath);
+      }
+    }
     // TODO: Change `swagger-spec` to `openapi` in v11 (ref: #1745)
     const specPath = options.specPackageName ? `swagger-spec${specExtension}` : options.specPath;
     return chain([
