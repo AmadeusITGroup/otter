@@ -106,6 +106,15 @@ export interface TrainingProject {
   cwd: string;
 }
 
+export class MonacoFailedToLoadError extends Error {
+  constructor(error: any) {
+    super(
+      error.toString() as string
+      + '\n\nMonaco failed to load in the imparted time'
+    );
+  }
+}
+
 @Component({
   selector: 'code-editor-view',
   standalone: true,
@@ -195,13 +204,14 @@ export class CodeEditorViewComponent implements OnDestroy {
    */
   private readonly monacoPromise = firstValueFrom(this.newMonacoEditorCreated.pipe(
     map(() => window.monaco)
-  ));
+  )).catch(
+    () => Promise.reject(new MonacoFailedToLoadError('[CodeEditorView] Missing Monaco editor'))
+  );
 
   /**
    * Configuration for the Monaco Editor
    */
   public editorOptions$ = this.form.controls.file.valueChanges.pipe(
-    startWith(''),
     filter((filePath): filePath is string => !!filePath),
     map(() => ({
       theme: 'vs-dark',
@@ -257,8 +267,16 @@ export class CodeEditorViewComponent implements OnDestroy {
       });
     });
     this.forceReload.subscribe(async () => {
-      await this.cleanAllModelsFromMonaco();
-      await this.loadAllProjectFilesToMonaco();
+      try {
+        await this.cleanAllModelsFromMonaco();
+        await this.loadAllProjectFilesToMonaco();
+      } catch (e: any) {
+        if (e instanceof MonacoFailedToLoadError) {
+          this.loggerService.warn(e);
+          return;
+        }
+        throw e;
+      }
     });
     merge(
       this.forceSave.pipe(map(() => this.form.value.code)),
@@ -295,7 +313,15 @@ export class CodeEditorViewComponent implements OnDestroy {
     this.webContainerService.runner.dependenciesLoaded$.pipe(
       takeUntilDestroyed()
     ).subscribe(async () => {
-      await this.reloadDeclarationTypes();
+      try {
+        await this.reloadDeclarationTypes();
+      } catch (e: any) {
+        if (e instanceof MonacoFailedToLoadError) {
+          this.loggerService.warn(e);
+          return;
+        }
+        throw e;
+      }
     });
     const revealCodeInEditorRequest = new Subject<Monaco.IPosition | Monaco.IRange>();
     revealCodeInEditorRequest.pipe(
@@ -423,7 +449,10 @@ export class CodeEditorViewComponent implements OnDestroy {
       const declarationTypes = [
         ...await this.webContainerService.getDeclarationTypes(this.project().cwd),
         { filePath: 'file:///node_modules/@ama-sdk/core/index.d.ts', content: 'export * from "./src/public_api.d.ts";' },
-        { filePath: 'file:///node_modules/@ama-sdk/client-fetch/index.d.ts', content: 'export * from "./src/public_api.d.ts";' }
+        {
+          filePath: 'file:///node_modules/@ama-sdk/client-fetch/index.d.ts',
+          content: 'export * from "./src/public_api.d.ts";'
+        }
       ];
       const monaco = await this.monacoPromise;
       monaco.languages.typescript.typescriptDefaults.setExtraLibs(declarationTypes);
