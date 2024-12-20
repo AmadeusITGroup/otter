@@ -45,7 +45,6 @@
       "@o3r/rules-engine": ["packages/@o3r/rules-engine/dist", "packages/@o3r/rules-engine/src/public_api"],
       "@o3r/schematics": ["packages/@o3r/schematics/dist", "packages/@o3r/schematics/src/public_api"],
       "@o3r/store-sync": ["packages/@o3r/store-sync/dist", "packages/@o3r/store-sync/src/public_api"],
-      "@o3r/storybook": ["packages/@o3r/storybook/dist", "packages/@o3r/storybook/src/public_api"],
       "@o3r/stylelint-plugin": ["packages/@o3r/stylelint-plugin/dist", "packages/@o3r/stylelint-plugin/src/public_api"],
       "@o3r/styling": ["packages/@o3r/styling/dist", "packages/@o3r/styling/src/public_api"],
       "@o3r/styling/builders/*/helpers": ["packages/@o3r/styling/dist/builders/*/helpers/index", "packages/@o3r/styling/builders/*/helpers"],

@@ -14,7 +14,6 @@ export const jsonOneRulesetTwoRules: { ruleSets: Ruleset[] } = {
           id: '6e8t54h6s4e-6erth46sre8th4-d46t8s13t5j1',
           name: 'the first rule',
           inputRuntimeFacts: [],
-          inputFacts: ['aNumber'],
           outputRuntimeFacts: [
             'UI_FACT_2'
           ],
@@ -70,7 +69,6 @@ export const jsonOneRulesetTwoRules: { ruleSets: Ruleset[] } = {
           id: '6e8t54h6s4e-6erth46sre8th4-d46t8s13t5j2',
           name: 'the second rule',
           inputRuntimeFacts: [],
-          inputFacts: ['foieGrasPrice'],
           outputRuntimeFacts: [],
           rootElement: {
             elementType: 'RULE_BLOCK',
@@ -118,7 +116,6 @@ export const jsonOneRulesetTwoRules: { ruleSets: Ruleset[] } = {
           id: '6e8t54h6s4e-6erth46sre8th4-d46t8s13t5j1',
           name: 'the first rule',
           inputRuntimeFacts: [],
-          inputFacts: [],
           outputRuntimeFacts: [],
           rootElement: {
             elementType: 'RULE_BLOCK',

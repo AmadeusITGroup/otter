@@ -168,10 +168,7 @@ export default [
         {
           allowAfterThis: true,
           allow: [
-            '_OTTER_DEVTOOLS_',
-            '__OTTER_STORYBOOK_STYLE_METADATA__',
-            '__OTTER_STORYBOOK_LOCALIZATION_METADATA__',
-            '__OTTER_STORYBOOK_CONFIGURATION_METADATA__'
+            '_OTTER_DEVTOOLS_'
           ]
         }
       ]

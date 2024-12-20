@@ -103,10 +103,3 @@ export class O3rLocalizationTranslatePipe extends TranslatePipe implements PipeT
     }
   }
 }
-
-/**
- * TranslatePipe class adding debug functionality
- * @deprecated please use O3rLocalizationTranslatePipe, will be removed in v12.
- */
-@Pipe({ name: 'translate', pure: false })
-export class LocalizationTranslatePipe extends O3rLocalizationTranslatePipe implements PipeTransform {}

@@ -11,9 +11,3 @@ export class O3rCapitalizePipe implements PipeTransform {
     return firstLetter ? firstLetter.toUpperCase() + val!.slice(1) : value;
   }
 }
-
-/**
- * @deprecated please use O3rCapitalizePipe, will be removed in v12.
- */
-@Pipe({ name: 'capitalize' })
-export class CapitalizePipe extends O3rCapitalizePipe implements PipeTransform {}

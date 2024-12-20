@@ -17,9 +17,8 @@
     "postbuild": "patch-package-json-main",
     "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest",
     "install-swagger-cli": "mvn install:install-file -DgroupId=io.swagger -DartifactId=swagger-codegen-cli -Dversion=2.4.0-AMADEUS -Dpackaging=jar -Dfile=./schematics/resources/swagger-codegen-cli.jar",
-    "build:swagger": "yarn install-swagger-cli && run-p 'build:swagger-*' 'build:openapi-*'",
+    "build:swagger": "yarn install-swagger-cli && run-p 'build:openapi-*'",
     "build:openapi-typescript-gen": "mvn clean package -f ./schematics/typescript/core/openapi-codegen-typescript/pom.xml",
-    "build:swagger-java-client-gen": "mvn clean package -f ./schematics/java/client-core/swagger-codegen-java-client/pom.xml",
     "build:cli": "tsc -b tsconfig.cli.json --pretty && yarn generate-cjs-manifest",
     "prepare:publish": "prepare-publish ./dist"
   },
