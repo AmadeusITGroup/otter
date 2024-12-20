@@ -276,6 +276,9 @@ export class ComponentExtractor {
         } else {
           this.logger.warn(message);
         }
+        if (propertiesWithDefaultValue.length === 0) {
+          return acc;
+        }
         const configWithoutIncompatibleProperties = {
           ...config,
           properties: propertiesWithDefaultValue
