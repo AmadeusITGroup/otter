@@ -81,5 +81,7 @@
   "engines": {
     "node": "^18.19.1 || ^20.11.1 || >=22.0.0"
   },
-  "schematics": "./collection.json"
+  "schematics": "./collection.json",
+  "main": "./dist/src/public_api.js",
+  "typings": "./dist/src/public_api.d.ts"
 }
