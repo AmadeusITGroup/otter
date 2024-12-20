@@ -41,7 +41,8 @@
     "cheerio": "^1.0.0-rc.10",
     "express-interceptor": "^1.2.0",
     "jasmine": "^5.0.0",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "ts-node": "~10.9.2"
   },
   "peerDependenciesMeta": {
     "@angular-devkit/schematics": {

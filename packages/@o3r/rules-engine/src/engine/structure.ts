@@ -143,12 +143,6 @@ export interface Ruleset {
   /**
    * Components linked to the ruleset. If present the ruleset will not be active by default.
    * 'or' condition: If at least one component has subscribed, the ruleset will become active.
-   * If provided, the {@link linkedComponent} property will not be taken into consideration
    */
   linkedComponents?: { or: ItemIdentifier[] };
-  /**
-   * Component linked to the ruleset, if set it will disable the ruleset execution per default, waiting to a subscription
-   * @deprecated It will be removed in v12, use {@link linkedComponents} instead
-   */
-  linkedComponent?: ItemIdentifier;
 }

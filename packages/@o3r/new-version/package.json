@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "semver": "^7.5.2",
+    "ts-node": "~10.9.2",
     "tslib": "^2.6.2"
   },
   "peerDependencies": {
