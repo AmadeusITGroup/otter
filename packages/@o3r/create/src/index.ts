@@ -5,6 +5,7 @@ import {
   type SpawnSyncOptionsWithBufferEncoding,
 } from 'node:child_process';
 import {
+  existsSync,
   readFileSync,
   writeFileSync,
 } from 'node:fs';
@@ -264,6 +265,21 @@ const prepareWorkspace = (relativeDirectory = '.', projectPackageManager = 'npm'
       ));
     }
   }
+
+  if (argv.minimal) {
+    const editorconfigPath = resolve(cwd, '.editorconfig');
+    const editorconfig = existsSync(editorconfigPath) ? readFileSync(editorconfigPath, { encoding: 'utf8' }) : '';
+    const newEditorconfig = /\[[*]\]/.test(editorconfig)
+      ? editorconfig.replace(/(\[[*]\])/, '$1\nend_of_line = lf')
+      : editorconfig.concat('[*]\nend_of_line = lf');
+    writeFileSync(editorconfigPath, newEditorconfig);
+  }
+  const gitAttributesPath = resolve(cwd, '.gitattributes');
+  writeFileSync(
+    gitAttributesPath,
+    (existsSync(gitAttributesPath) ? readFileSync(gitAttributesPath, { encoding: 'utf8' }) : '')
+      .concat('* text eol=lf')
+  );
 
   exitProcessIfErrorInSpawnSync(INSTALL_PROCESS_ERROR_CODE, spawnSync(runner, ['install'], spawnSyncOpts));
 };
