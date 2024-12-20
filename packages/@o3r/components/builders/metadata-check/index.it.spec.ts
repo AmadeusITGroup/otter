@@ -185,7 +185,10 @@ const previousConfigurationMetadata: ComponentConfigOutput[] = [
   createConfig('@o3r/lib6', 'MyConfig6', ['prop6']),
   createConfig('@o3r/lib7', 'MyConfig7', ['prop7']),
   createConfig('@o3r/lib8', 'MyConfig8', ['prop8']),
-  createConfig('@o3r/lib9', 'MyConfig9', ['prop9'])
+  createConfig('@o3r/lib9', 'MyConfig9', ['prop9']),
+  // This case should not happen anymore as we filter config without properties
+  // Adding this case to ensure the support of older metadata
+  createConfig('@o3r/lib10', 'MyConfig10', [])
 ];
 
 const newConfigurationMetadata: ComponentConfigOutput[] = [
