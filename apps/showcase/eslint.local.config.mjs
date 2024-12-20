@@ -67,6 +67,12 @@ export default [
             }
           }
         }
+      ],
+      '@o3r/o3r-restriction-key-tags': [
+        'error',
+        {
+          supportedKeys: ['api owners']
+        }
       ]
     }
   }

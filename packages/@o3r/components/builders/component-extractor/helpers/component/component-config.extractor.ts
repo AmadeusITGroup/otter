@@ -255,6 +255,7 @@ export class ComponentConfigExtractor {
     const res: ConfigProperty = {
       description: configDocInfo?.description || '',
       category: configDocInfo?.category,
+      restrictionKeys: configDocInfo?.restrictionKeys,
       label: configDocInfo?.label || name.replace(/([A-Z])/g, ' $1'),
       name,
       type: 'unknown',
