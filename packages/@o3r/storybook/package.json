@@ -45,6 +45,7 @@
     "color": "^4.2.3",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
+    "ts-node": "~10.9.2",
     "tslib": "^2.6.2"
   },
   "peerDependencies": {

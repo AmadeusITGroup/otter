@@ -24,6 +24,7 @@
     "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest"
   },
   "dependencies": {
+    "ts-node": "~10.9.2",
     "tslib": "^2.6.2"
   },
   "peerDependencies": {

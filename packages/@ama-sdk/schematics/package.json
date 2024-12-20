@@ -17,9 +17,8 @@
     "postbuild": "patch-package-json-main",
     "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest",
     "install-swagger-cli": "mvn install:install-file -DgroupId=io.swagger -DartifactId=swagger-codegen-cli -Dversion=2.4.0-AMADEUS -Dpackaging=jar -Dfile=./schematics/resources/swagger-codegen-cli.jar",
-    "build:swagger": "yarn install-swagger-cli && run-p 'build:swagger-*' 'build:openapi-*'",
+    "build:swagger": "yarn install-swagger-cli && run-p 'build:openapi-*'",
     "build:openapi-typescript-gen": "mvn clean package -f ./schematics/typescript/core/openapi-codegen-typescript/pom.xml",
-    "build:swagger-java-client-gen": "mvn clean package -f ./schematics/java/client-core/swagger-codegen-java-client/pom.xml",
     "build:cli": "tsc -b tsconfig.cli.json --pretty && yarn generate-cjs-manifest",
     "prepare:publish": "prepare-publish ./dist"
   },
@@ -70,6 +69,7 @@
     "@o3r/schematics": "workspace:^",
     "@openapitools/openapi-generator-cli": "^2.15.0",
     "openapi-types": "^12.0.0",
+    "ts-node": "~10.9.2",
     "type-fest": "^4.10.2"
   },
   "dependencies": {
@@ -144,7 +144,7 @@
     "@swc/helpers": "~0.5.0",
     "@commitlint/cli": "^19.0.0",
     "@commitlint/config-conventional": "^19.0.0",
-    "@typescript-eslint/eslint-plugin": "~8.17.0",
+    "@typescript-eslint/eslint-plugin": "~8.18.0",
     "jest-junit": "~16.0.0",
     "lint-staged": "^15.0.0",
     "minimist": "^1.2.6",

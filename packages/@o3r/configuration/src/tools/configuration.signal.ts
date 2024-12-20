@@ -33,30 +33,8 @@ export function configSignal<T extends Configuration>(
   configInput: InputSignal<Partial<T> | undefined>,
   configId: string,
   defaultConfig: T
-): ConfigurationSignal<T>;
-/**
- * Get a configuration signal
- * @param configInput
- * @param configId
- * @param defaultConfig
- * @param configurationService
- * @deprecated please do not provide `configurationService`, will be removed in v12
- */
-export function configSignal<T extends Configuration>(
-  configInput: InputSignal<Partial<T> | undefined>,
-  configId: string,
-  defaultConfig: T,
-  // eslint-disable-next-line @typescript-eslint/unified-signatures -- deprecated will be removed in v12
-  configurationService?: ConfigurationBaseService | null
-): ConfigurationSignal<T>;
-// eslint-disable-next-line jsdoc/require-jsdoc -- overload signature will be removed in v12
-export function configSignal<T extends Configuration>(
-  configInput: InputSignal<Partial<T> | undefined>,
-  configId: string,
-  defaultConfig: T,
-  configurationService?: ConfigurationBaseService | null
 ): ConfigurationSignal<T> {
-  configurationService = configurationService ?? inject(ConfigurationBaseService, { optional: true });
+  const configurationService = inject(ConfigurationBaseService, { optional: true });
   if (configurationService) {
     configurationService.extendConfiguration(defaultConfig, configId);
   }

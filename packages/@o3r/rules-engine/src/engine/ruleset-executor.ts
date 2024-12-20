@@ -349,7 +349,6 @@ export class RulesetExecutor {
     return {
       id: this.ruleset.id,
       validityRange: this.ruleset.validityRange,
-      linkedComponent: this.ruleset.linkedComponent,
       linkedComponents: this.ruleset.linkedComponents,
       rulesResultsSubject$: result$
     } as EngineRuleset;

@@ -14,9 +14,6 @@ import type {
 import {
   getSchematicOptions,
 } from './collection';
-import {
-  getWorkspaceConfig,
-} from './loaders';
 
 /**
  * Find the relative path to a configuration file at the monorepo root
@@ -39,16 +36,6 @@ export function findConfigFileRelativePath(tree: Tree, files: string[], originPa
  */
 export function isNxContext(tree: Tree) {
   return tree.exists('/nx.json');
-}
-
-/**
- * Determine if a repository is standalone (not part of a monorepo)
- * @deprecated no longer in use. Will be removed in V12
- * @param tree
- */
-export function isStandaloneRepository(tree: Tree) {
-  const workspaceConfig = getWorkspaceConfig(tree);
-  return workspaceConfig && Object.keys(workspaceConfig.projects || {}).length === 1 && Object.values(workspaceConfig.projects)[0].root === '';
 }
 
 /**
