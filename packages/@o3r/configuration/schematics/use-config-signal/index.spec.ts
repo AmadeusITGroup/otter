@@ -33,7 +33,7 @@ describe('Migrate to config signal-based', () => {
         /** Configuration stream based on the input and the stored configuration*/
         public config$: Observable<MyConfig>;
 
-        @ConfigObserver()
+        @O3rConfig()
         private readonly dynamicConfig$: ConfigurationObserver<MyConfig>;
 
         /** Input configuration to override the default configuration of the component */

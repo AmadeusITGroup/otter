@@ -17,7 +17,6 @@ import {
   of,
 } from 'rxjs';
 import {
-  DynamicContentPipe,
   O3rDynamicContentPipe,
 } from './dynamic-content.pipe';
 import {
@@ -31,7 +30,7 @@ const serviceMock: InterfaceOf<DynamicContentService> = {
 };
 
 @Component({
-  template: `{{'assets.png' | o3rDynamicContent}}{{'deprecatedPipe.png' | dynamicContent}}`
+  template: `{{'assets.png' | o3rDynamicContent}}`
 })
 class HostTestComponent {}
 
@@ -44,7 +43,7 @@ describe('DynamicContentPipe', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [O3rDynamicContentPipe, DynamicContentPipe, HostTestComponent],
+      declarations: [O3rDynamicContentPipe, HostTestComponent],
       providers: [{ provide: DynamicContentService, useValue: serviceMock }]
     }).compileComponents();
 
@@ -55,6 +54,5 @@ describe('DynamicContentPipe', () => {
     fixture.detectChanges();
 
     expect(serviceMock.getMediaPathStream).toHaveBeenCalledWith('assets.png');
-    expect(serviceMock.getMediaPathStream).toHaveBeenCalledWith('deprecatedPipe.png');
   });
 });

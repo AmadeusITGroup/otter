@@ -9,9 +9,3 @@ export class O3rFallbackToPipe implements PipeTransform {
     return value === undefined ? fallback : value;
   }
 }
-
-/**
- * @deprecated please use O3rFallbackToPipe, will be removed in v12.
- */
-@Pipe({ name: 'fallbackTo' })
-export class FallbackToPipe extends O3rFallbackToPipe implements PipeTransform {}

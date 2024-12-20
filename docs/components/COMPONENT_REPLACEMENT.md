@@ -163,7 +163,8 @@ That information is expected to be a property of the **component's configuration
 Since configurations **have** to have a default value, in this specific instance it must always be the **empty string**. The default presenter will be declared in the component's class.
 
 ````typescript
-import { computeConfigurationName, Configuration } from '@o3r/configuration';
+import { Configuration } from '@o3r/configuration';
+import { computeItemIdentifier } from '@o3r/core';
 
 export interface DummyContConfig extends Configuration {
   /** Key used to identify a custom component, if provided */
@@ -174,7 +175,7 @@ export const DUMMY_CONT_DEFAULT_CONFIG: DummyContConfig = {
   customDummyKey: ''
 }
 
-export const DUMMY_CONT_CONFIG_ID = computeConfigurationName('DummyContConfig', '@scope/o3r-components');
+export const DUMMY_CONT_CONFIG_ID = computeItemIdentifier('DummyContConfig', '@scope/o3r-components');
 ````
 
 For more information on configuration, you can check this [documentation](../configuration/OVERVIEW.md).
