@@ -1,0 +1,4 @@
+/* For IDE usage only */
+{
+  "extends": "<%= tsconfigBuildPath %>"
+}
