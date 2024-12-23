@@ -1,6 +1,7 @@
 import {
   commands,
-  ExtensionContext, languages } from 'vscode';
+  ExtensionContext, languages,
+  window } from 'vscode';
 import { extractAllToVariable } from './commands/extract/styling/extract-all-to-variable.command';
 import { extractToVariable } from './commands/extract/styling/extract-to-variable.command';
 import { generateComponentGenerateCommand } from './commands/generate/component.command';
@@ -33,10 +34,11 @@ import { designTokenCompletionItemAndHoverProviders } from './intellisense/desig
  * @param context
  */
 export function activate(context: ExtensionContext) {
+  const channel = window.createOutputChannel('Otter');
   const designTokenProviders = designTokenCompletionItemAndHoverProviders();
 
   context.subscriptions.push(
-    languages.registerCompletionItemProvider(['javascript','typescript'], configurationCompletionItemProvider(), configurationCompletionTriggerChar),
+    languages.registerCompletionItemProvider(['javascript','typescript'], configurationCompletionItemProvider({ channel }), configurationCompletionTriggerChar),
     languages.registerCompletionItemProvider(['scss'], stylingCompletionItemProvider(), stylingCompletionTriggerChar),
     languages.registerCompletionItemProvider(['scss', 'css'], designTokenProviders),
     languages.registerHoverProvider(['scss', 'css'], designTokenProviders),
