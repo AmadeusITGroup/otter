@@ -85,26 +85,46 @@ export function ngGenerateModule(options: NgGenerateModuleSchema & { targetPath:
    */
   const updateTsConfigFiles: Rule = (tree, context) => {
     const tsconfigBase = findConfigFileRelativePath(tree, ['tsconfig.base.json', 'tsconfig.json'], '/');
-    const tsconfigBuild = findConfigFileRelativePath(tree, ['tsconfig.build.json'], '/');
-    [tsconfigBase, tsconfigBuild].forEach((tsconfigPath) => {
-      if (tsconfigPath) {
-        const configFile = tree.readJson(tsconfigPath) as TsConfigJson;
-        if (configFile?.compilerOptions?.paths) {
-          configFile.compilerOptions.baseUrl = '.';
-          configFile.compilerOptions.paths = Object.fromEntries(
-            Object.entries(configFile.compilerOptions.paths).filter(([pathName, _]) => pathName !== options.name));
-          configFile.compilerOptions.paths[options.packageJsonName] = [
-            path.posix.join(relativeTargetPath, 'dist'),
-            path.posix.join(relativeTargetPath, 'src', 'public-api')
-          ];
-          tree.overwrite(tsconfigPath, JSON.stringify(configFile, null, 2));
-        } else {
-          context.logger.warn(`${tsconfigPath} does not contain path mapping, the edition will be skipped`);
+    let tsconfigBuild = findConfigFileRelativePath(tree, ['tsconfig.build.json'], '/');
+
+    if (!tsconfigBase) {
+      context.logger.error('No TSConfig found in the workspace to register the library.');
+      return;
+    }
+
+    // create tsconfig.build.json if it does not exist
+    if (!tsconfigBuild || !tree.exists(tsconfigBuild)) {
+      const content = {
+        extends: tsconfigBase.replace(/^\/?/, './'),
+        compilerOptions: {
+          declarationMap: false
+        },
+        angularCompilerOptions: {
+          compilationMode: 'partial'
         }
-      } else {
-        context.logger.warn(`No TsConfig file found at ${tsconfigPath}`);
-      }
+      };
+      tsconfigBuild ||= 'tsconfig.build.json';
+      tree.create(tsconfigBuild, JSON.stringify(content, null, 2));
+    }
+
+    [tsconfigBase, tsconfigBuild].forEach((tsconfigPath) => {
+      const configFile = tree.readJson(tsconfigPath) as TsConfigJson;
+      configFile.compilerOptions ||= {};
+      configFile.compilerOptions.paths ||= {};
+      configFile.compilerOptions.baseUrl ||= '.';
+      configFile.compilerOptions.paths = Object.fromEntries(
+        Object.entries(configFile.compilerOptions.paths).filter(([pathName, _]) => pathName !== options.name));
+      configFile.compilerOptions.paths[options.packageJsonName] = [
+        path.posix.join(relativeTargetPath, 'src', 'public-api')
+      ];
+      tree.overwrite(tsconfigPath, JSON.stringify(configFile, null, 2));
     });
+
+    if (tsconfigBuild && tree.exists(tsconfigBuild)) {
+      const configFile = tree.readJson(tsconfigBuild) as TsConfigJson;
+      configFile.compilerOptions!.paths![options.packageJsonName].unshift(path.posix.join(relativeTargetPath, 'dist'));
+      tree.overwrite(tsconfigBuild, JSON.stringify(configFile, null, 2));
+    }
   };
 
   const ngCliUpdate: Rule = (tree, context) => {
