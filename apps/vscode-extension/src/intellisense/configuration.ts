@@ -2,6 +2,7 @@ import {
   CompletionItem,
   CompletionItemKind,
   CompletionItemProvider,
+  type OutputChannel,
   SnippetString,
 } from 'vscode';
 import type {
@@ -11,9 +12,6 @@ import type {
 import type {
   TSESLint,
 } from '@typescript-eslint/utils';
-import {
-  ESLint,
-} from 'eslint';
 
 interface ConfigurationTags {
   /** @see CompletionItem.documentation */
@@ -115,8 +113,15 @@ const getConfigurationTagsFromEslintConfig = (eslintConfig: TSESLint.FlatConfig.
   };
 };
 
-export const configurationCompletionItemProvider = (): CompletionItemProvider<CompletionItem> => {
-  const eslint = new ESLint();
+export const configurationCompletionItemProvider = (options: { channel: OutputChannel }): CompletionItemProvider<CompletionItem> => {
+  const eslint = import('eslint')
+    // eslint-disable-next-line @typescript-eslint/naming-convention -- External package defined name
+    .then(({ ESLint }) => new ESLint())
+    .catch((err) => {
+      options.channel.appendLine('Error during ESLint loading:');
+      options.channel.appendLine(JSON.stringify(err));
+      return undefined;
+    });
 
   return {
     provideCompletionItems: async (doc, pos) => {
@@ -150,7 +155,7 @@ export const configurationCompletionItemProvider = (): CompletionItemProvider<Co
         return [];
       }
 
-      const config = (await eslint.calculateConfigForFile(doc.fileName)) as TSESLint.FlatConfig.Config;
+      const config = (await (await eslint)?.calculateConfigForFile(doc.fileName) || {}) as TSESLint.FlatConfig.Config;
       const configurationTags = getConfigurationTagsFromEslintConfig(config, match[0], fileText);
 
       return getCompletionsItemsFromConfigurationTags(configurationTags);

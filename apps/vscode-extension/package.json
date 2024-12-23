@@ -372,6 +372,7 @@
     "@types/node": "^20.0.0",
     "@types/vscode": "^1.67.0",
     "@typescript-eslint/parser": "~8.18.0",
+    "@typescript-eslint/utils": "~8.18.0",
     "@vscode/vsce": "^2.16.0",
     "angular-eslint": "~18.4.0",
     "cpy-cli": "^5.0.0",
