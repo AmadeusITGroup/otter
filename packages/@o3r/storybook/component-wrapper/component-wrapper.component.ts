@@ -28,7 +28,8 @@ import {
 @Component({
   selector: 'o3r-component-wrapper',
   template: '<ng-content></ng-content>',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false
 })
 // eslint-disable-next-line @angular-eslint/component-class-suffix -- legacy code
 export class ComponentWrapper {

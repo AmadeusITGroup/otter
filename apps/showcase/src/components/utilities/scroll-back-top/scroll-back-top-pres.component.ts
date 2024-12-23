@@ -23,7 +23,6 @@ import {
 @O3rComponent({ componentType: 'Component' })
 @Component({
   selector: 'o3r-scroll-back-top-pres',
-  standalone: true,
   imports: [AsyncPipe],
   templateUrl: './scroll-back-top-pres.template.html',
   styleUrls: ['./scroll-back-top-pres.style.scss'],

@@ -4,15 +4,9 @@ import {
 import {
   provideMockActions,
 } from '@ngrx/effects/testing';
-import type {
-  Action,
-} from '@ngrx/store';
 import {
   Store,
 } from '@ngrx/store';
-import {
-  UpdateAsyncStoreItemEntityActionPayloadWithId,
-} from '@o3r/core';
 import {
   DynamicContentService,
 } from '@o3r/dynamic-content';
@@ -36,7 +30,6 @@ import {
   PlaceholderTemplateResponseEffect,
 } from './placeholder.rules-engine.effect';
 import {
-  type PlaceholderRequestModel,
   type PlaceholderRequestReply,
   setPlaceholderRequestEntityFromUrl,
 } from '@o3r/components';
@@ -143,8 +136,7 @@ describe('Rules Engine Effects', () => {
     factsStream.parameter.next('success');
     factsStream.factInTemplate.next({ myKey: 'Outstanding fact' });
 
-    const result = (await firstValueFrom(setPlaceholderEffect$)) as UpdateAsyncStoreItemEntityActionPayloadWithId<PlaceholderRequestModel>
-      & Action<'[PlaceholderRequest] update entity'>;
+    const result = (await firstValueFrom(setPlaceholderEffect$));
     expect(result.type).toBe('[PlaceholderRequest] update entity');
     expect(result.entity.renderedTemplate).toBe('<img src=\'fakeUrl\'> <div>This is a test with a success</div><span>Outstanding fact</span>');
     expect(result.entity.unknownTypeFound).toBeFalsy();
@@ -189,8 +181,7 @@ describe('Rules Engine Effects', () => {
     factsStream.parameter.next('User');
     factsStream.user.next({ phone: '1234', email: 'test@mail.com' });
 
-    const result = (await firstValueFrom(setPlaceholderEffect$)) as UpdateAsyncStoreItemEntityActionPayloadWithId<PlaceholderRequestModel>
-      & Action<'[PlaceholderRequest] update entity'>;
+    const result = (await firstValueFrom(setPlaceholderEffect$));
     expect(result.type).toBe('[PlaceholderRequest] update entity');
     expect(result.entity.renderedTemplate).toBe('<div>User phone 1234 and email test@mail.com</div>');
     expect(result.entity.unknownTypeFound).toBeFalsy();
@@ -214,8 +205,7 @@ describe('Rules Engine Effects', () => {
     }));
     factsStream.myFact.next('ignored');
 
-    const result = (await firstValueFrom(setPlaceholderEffect$)) as UpdateAsyncStoreItemEntityActionPayloadWithId<PlaceholderRequestModel>
-      & Action<'[PlaceholderRequest] update entity'>;
+    const result = (await firstValueFrom(setPlaceholderEffect$));
     expect(result.entity.unknownTypeFound).toBeTruthy();
     expect(result.entity.renderedTemplate).toBe('<div><%= test %></div>');
   });
