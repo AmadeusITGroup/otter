@@ -25,8 +25,8 @@
     "patch:package": "cpy 'package.json' 'dist' && patch-package-json-main"
   },
   "dependencies": {
-    "@agnos-ui/angular-bootstrap": "~0.4.1",
-    "@agnos-ui/core-bootstrap": "~0.4.1",
+    "@agnos-ui/angular-bootstrap": "~0.7.0",
+    "@agnos-ui/core-bootstrap": "~0.7.0",
     "@ama-sdk/client-fetch": "workspace:^",
     "@ama-sdk/core": "workspace:^",
     "@ama-sdk/schematics": "workspace:^",
