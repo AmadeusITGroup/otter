@@ -18,6 +18,7 @@ import {
   createSchematicWithMetricsIfInstalled,
   type DependencyToAdd,
   enforceTildeRange,
+  findConfigFileRelativePath,
   getPackagesBaseRootFolder,
   getWorkspaceConfig,
   isNxContext,
@@ -51,10 +52,11 @@ function generateApplicationFn(options: NgGenerateApplicationSchema): Rule {
   const packageJsonName = strings.dasherize(options.name);
   const cleanName = packageJsonName.replace(/^@/, '').replaceAll(/\//g, '-');
 
-  const addProjectSpecificFiles = (targetPath: string, rootDependencies: Record<string, string | undefined>) => {
+  const addProjectSpecificFiles = (targetPath: string, rootDependencies: Record<string, string | undefined>, tsconfigBasePath: string) => {
     return mergeWith(apply(url('./templates'), [
       template({
         ...options,
+        tsconfigBasePath,
         enforceTildeRange,
         name: packageJsonName,
         rootDependencies
@@ -109,13 +111,15 @@ function generateApplicationFn(options: NgGenerateApplicationSchema): Rule {
       }
     } as const satisfies Record<string, DependencyToAdd>;
 
+    const tsconfigBasePath = findConfigFileRelativePath(tree, ['tsconfig.base.json', 'tsconfig.json'], targetPath);
+
     return chain([
       externalSchematic<Partial<ApplicationOptions>>('@schematics/angular', 'application', {
         ...Object.entries(extendedOptions).reduce((acc, [key, value]) => (angularOptions.includes(key) ? { ...acc, [key]: value } : acc), {}),
         name: cleanName,
         projectRoot,
         style: Style.Scss }),
-      addProjectSpecificFiles(targetPath, rootDependencies),
+      addProjectSpecificFiles(targetPath, rootDependencies, tsconfigBasePath),
       updateProjectTsConfig(targetPath, 'tsconfig.app.json', { updateInputFiles: true }),
       setupDependencies({
         dependencies,
