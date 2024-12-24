@@ -76,7 +76,7 @@ jobs:
           NODE_OPTIONS: ${{ runner.os == 'Windows' && '--max_old_space_size=4096' || '' }}
         run: yarn ${{ env.testCmd }} --collectCoverage
       - name: Upload results to Codecov
-        uses: codecov/codecov-action@b9fd7d16f6d7d1b5d2bec1a2887e65ceed900238 # v4.6.0
+        uses: codecov/codecov-action@1e68e06f1dbfde0e4cefc87efeba9e4643565303 # v5.1.2
         with:
           flags: unittests
           token: ${{ secrets.CODECOV_TOKEN }}
