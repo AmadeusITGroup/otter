@@ -29,8 +29,10 @@ void (async () => {
       .map(async (file) => ({ file, parsed: await parseDesignTokenFile(file) }))
   )).reduce<DesignTokenVariableSet>((acc, { file, parsed }) => {
     parsed.forEach((variable, key) => {
+      if (acc.has(key)) {
+        console.warn(`A duplication of the variable ${key} is found in ${file}.`);
+      }
       acc.set(key, variable);
-      console.warn(`A duplication of the variable ${key} is found in ${file}`);
     });
     return acc;
   }, new Map());

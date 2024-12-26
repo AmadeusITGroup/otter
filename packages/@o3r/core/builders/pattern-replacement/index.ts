@@ -21,7 +21,7 @@ export default createBuilder<PatternReplacementBuilderSchema>(createBuilderWithM
   for (let i = 0; i < fileNames.length; i++) {
     const filePath = fileNames[i];
     context.reportProgress(i + 1, STEP_NUMBER, `Modifying ${filePath}`);
-    const fileContent = await fs.promises.readFile(filePath, {encoding: 'utf-8'});
+    const fileContent = await fs.promises.readFile(filePath, {encoding: 'utf8'});
     const newContent = fileContent.replace(new RegExp(options.searchValue, 'g'), options.replaceValue);
 
     await fs.promises.writeFile(filePath, newContent);

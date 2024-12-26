@@ -45,6 +45,7 @@ The following configurations are available:
 | **output**                  | *null*         | Output file where the CSS will be generated. <br /> The path specified in `o3rTargetFile` will be ignore if this option is specified |
 | **defaultStyleFile**        | src/theme.scss | File path to generate the variable if not determined by the specifications                                                           |
 | **metadataOutput**          | *null*         | Path to generate the metadata for the CMS. <br /> The metadata will be generated only if the file path is specified.                 |
+| **metadataIgnorePrivate**   | false          | Ignore the private variable in the metadata generation.                                                                              |
 | **rootPath**                | *null*         | Root path of files where the CSS will be generated.                                                                                  |
 | **failOnDuplicate**         | false          | Determine if the process should stop in case of Token duplication.                                                                   |
 | **templateFile**            | *null*         | Path to a template file to apply as default configuration to a Design Token extension.                                               |
@@ -65,6 +66,25 @@ The following configurations are available:
 | **schemaId**                | *null*        | ID used in the generated JSON Schema.                                                                                                 |
 | **schemaDescription**       | *null*        | Description of the generated JSON Schema.                                                                                             |
 | **watch**                   | false         | Enable Watch mode.                                                                                                                    |
+
+## Command Line Interfaces
+
+### o3r-build-design-token
+
+The purpose of this CLI is to concatenate different Design Token files and check the potential duplication.
+Can be run with the following command:
+
+```shell
+npx -p @o3r/design o3r-build-design-token <...design-tokens> -o ./my-new-token-file.json
+```
+
+It comes with the following options:
+
+| Options          | Alias | Description                                                           |
+| ---------------- | ----- | --------------------------------------------------------------------- |
+| **`--output`**   | `-o`  | Path to the file where the resulting Design Token will be generated   |
+| **`--template`** | `-t`  | Template file to apply to the Design Token files                      |
+| **`--level`**    | `-l`  | Number of key to join together when generating the Design Token nodes |
 
 ## Technical documentation
 

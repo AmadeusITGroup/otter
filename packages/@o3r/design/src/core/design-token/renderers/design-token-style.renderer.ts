@@ -19,6 +19,11 @@ export const computeFileToUpdatePath = (root = process.cwd(), defaultFile = 'sty
 };
 
 /**
+ * Compare the Token Variable by name
+ */
+export const compareVariableByName = (a: DesignTokenVariableStructure, b: DesignTokenVariableStructure): number => a.getKey().localeCompare(b.getKey());
+
+/**
  * Process the parsed Design Token variables and render them according to the given options and renderers
  * @param variableSet Complete list of the parsed Design Token
  * @param options Parameters of the Design Token renderer
@@ -34,21 +39,23 @@ export const computeFileToUpdatePath = (root = process.cwd(), defaultFile = 'sty
  * ```
  */
 export const renderDesignTokens = async (variableSet: DesignTokenVariableSet, options?: DesignTokenRendererOptions) => {
-  const readFile = options?.readFile || ((filePath: string) => fs.readFile(filePath, {encoding: 'utf-8'}));
+  const readFile = options?.readFile || ((filePath: string) => fs.readFile(filePath, {encoding: 'utf8'}));
   const writeFile = options?.writeFile || fs.writeFile;
   const existsFile = options?.existsFile || existsSync;
   const determineFileToUpdate = options?.determineFileToUpdate || computeFileToUpdatePath();
   const tokenDefinitionRenderer = options?.tokenDefinitionRenderer || getCssTokenDefinitionRenderer();
   const styleContentUpdater = options?.styleContentUpdater || getCssStyleContentUpdater();
-  const updates = Array.from(variableSet.values()).reduce((acc, designToken) => {
-    const filePath = determineFileToUpdate(designToken);
-    const variable = tokenDefinitionRenderer(designToken, variableSet);
-    if (variable) {
-      acc[filePath] ||= [];
-      acc[filePath].push(variable);
-    }
-    return acc;
-  }, {} as Record<string, string[]>);
+  const updates = Array.from(variableSet.values())
+    .sort(options?.variableSortComparator || compareVariableByName)
+    .reduce((acc, designToken) => {
+      const filePath = determineFileToUpdate(designToken);
+      const variable = tokenDefinitionRenderer(designToken, variableSet);
+      if (variable) {
+        acc[filePath] ||= [];
+        acc[filePath].push(variable);
+      }
+      return acc;
+    }, {} as Record<string, string[]>);
 
   await Promise.all(
     Object.entries(updates).map(async ([file, vars]) => {

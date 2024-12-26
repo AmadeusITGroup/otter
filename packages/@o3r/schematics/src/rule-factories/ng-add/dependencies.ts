@@ -103,7 +103,7 @@ export const getPackageInstallConfig = (packageJsonPath: string, tree: Tree, pro
     return {};
   }
 
-  const packageJson = JSON.parse(readFileSync(packageJsonPath, {encoding: 'utf-8'})) as PackageJson;
+  const packageJson = JSON.parse(readFileSync(packageJsonPath, {encoding: 'utf8'})) as PackageJson;
   const workspaceProject = projectName ? getWorkspaceConfig(tree)?.projects[projectName] : undefined;
   return {
     [packageJson.name!]: {

@@ -19,8 +19,7 @@ export default createRule<Readonly<[O3rCategoriesTagsRuleOption, ...any]>, Messa
     fixable: 'code',
     type: 'problem',
     docs: {
-      description: 'Ensures that @o3rCategories and @o3rCategory are used with correct value',
-      recommended: 'strict'
+      description: 'Ensures that @o3rCategories and @o3rCategory are used with a correct value'
     },
     schema: [
       {

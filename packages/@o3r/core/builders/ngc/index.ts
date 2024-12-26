@@ -31,7 +31,7 @@ export default createBuilder<NgcBuilderSchema>(createBuilderWithMetricsIfInstall
 
   const handlePackageJson = (distPath: string) => {
     const packageJsonFile = path.resolve(context.currentDirectory, 'package.json');
-    const packageJsonString = fs.readFileSync(packageJsonFile, {encoding: 'utf-8'});
+    const packageJsonString = fs.readFileSync(packageJsonFile, {encoding: 'utf8'});
     const packageJson = JSON.parse(packageJsonString);
     if (packageJson.otterBuilder && packageJson.otterBuilder.entryPoint && (typeof packageJson.otterBuilder.entryPoint === 'string')) {
       const barrelName = path.parse(packageJson.otterBuilder.entryPoint).name;

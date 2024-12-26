@@ -139,14 +139,14 @@ export const getEnvironmentInfo = async (): Promise<EnvironmentMetricData> => {
     otterCorePackageJsonPath = path.join(__dirname, '..', '..', 'package.json');
   }
   const otterInfo = {
-    version: otterCorePackageJsonPath ? JSON.parse(await fs.promises.readFile(otterCorePackageJsonPath, { encoding: 'utf-8' })).version as string : undefined
+    version: otterCorePackageJsonPath ? JSON.parse(await fs.promises.readFile(otterCorePackageJsonPath, { encoding: 'utf8' })).version as string : undefined
   };
 
   const ci = typeof process.env.CI !== 'undefined' && process.env.CI?.toLowerCase() !== 'false';
 
   let projectName: string | undefined;
   try {
-    projectName = JSON.parse(await fs.promises.readFile(path.join(process.cwd(), 'package.json'), { encoding: 'utf-8' })).name;
+    projectName = JSON.parse(await fs.promises.readFile(path.join(process.cwd(), 'package.json'), { encoding: 'utf8' })).name;
   } catch {}
 
   return {

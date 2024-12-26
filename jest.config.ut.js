@@ -1,6 +1,7 @@
-const { relative } = require('node:path');
+const { resolve, relative } = require('node:path');
+const { readFileSync } = require('node:fs');
 const { pathsToModuleNameMapper } = require('ts-jest');
-const { compilerOptions } = require('./tsconfig.base');
+const ts = require('typescript');
 
 globalThis.ngJest = {
   skipNgcc: true
@@ -11,10 +12,13 @@ globalThis.ngJest = {
  * @param rootDir {string}
  * @param isAngularSetup {boolean}
  * @param options.tsconfig {string}
+ * @param options.baseTsconfig {string}
  * @returns {import('ts-jest/dist/types').JestConfigWithTsJest}
  */
 module.exports.getJestProjectConfig = (rootDir, isAngularSetup, options) => {
-  const relativePath = relative(rootDir, __dirname);
+  const baseTsconfigPath = options?.baseTsconfig ?? resolve(__dirname, './tsconfig.base.json');
+  const { compilerOptions } = ts.parseConfigFileTextToJson(baseTsconfigPath, readFileSync(baseTsconfigPath, { encoding: 'utf-8' })).config;
+  const relativePath = relative(rootDir, options?.baseTsconfig ? __dirname(options.baseTsconfig) : __dirname);
   const moduleNameMapper = Object.fromEntries(
     Object.entries(pathsToModuleNameMapper(compilerOptions.paths))
       .map(([moduleName, path]) => [moduleName, `<rootDir>/${relativePath}/${path}`])

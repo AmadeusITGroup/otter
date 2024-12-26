@@ -76,7 +76,7 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<LocalizationExt
 
       validateJson(
         metadata,
-        require('../../schemas/localization.metadata.schema.json'),
+        JSON.parse(fs.readFileSync(path.resolve(__dirname, '../../schemas/localization.metadata.schema.json'), { encoding: 'utf8' })),
         'The output of localization metadata is not valid regarding the json schema, please check the details below : \n',
         options.strictMode
       );

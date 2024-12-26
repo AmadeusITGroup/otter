@@ -1,9 +1,19 @@
-/* For IDE usage only */
 {
+  "extends": "../../../tsconfig.build",
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "commonjs",
+    "outDir": "./tmp",
+    "rootDir": "./src",
+    "strict": true,
+    "noImplicitAny": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["**/*.spec.ts"],
+  /* For IDE usage only */
   "references": [
-    {
-      "path": "./tsconfig.build.json"
-    },
     {
       "path": "./tsconfig.spec.json"
     }
