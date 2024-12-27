@@ -37,7 +37,6 @@ const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
 @O3rComponent({ componentType: 'ExposedComponent' })
 @Component({
   selector: 'o3r-placeholder-pres',
-  standalone: true,
   templateUrl: './placeholder-pres.template.html',
   styleUrls: ['./placeholder-pres.style.scss'],
   encapsulation: ViewEncapsulation.None,

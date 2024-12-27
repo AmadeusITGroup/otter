@@ -28,7 +28,6 @@ const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
 @O3rComponent({ componentType: 'Component' })
 @Component({
   selector: 'o3r-dynamic-content-pres',
-  standalone: true,
   imports: [ReactiveFormsModule, DynamicContentModule, DatePickerInputPresComponent],
   templateUrl: './dynamic-content-pres.template.html',
   styleUrls: ['./dynamic-content-pres.style.scss'],
