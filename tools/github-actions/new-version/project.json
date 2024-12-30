@@ -17,6 +17,12 @@
         "script": "build"
       }
     },
+    "package-github-action": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "package"
+      }
+    },
     "lint": {
       "options": {
         "eslintConfig": "tools/github-actions/new-version/.eslintrc.js",

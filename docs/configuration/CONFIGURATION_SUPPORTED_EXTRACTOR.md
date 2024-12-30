@@ -10,7 +10,7 @@ The Component Extractor is accessible via this [Angular CLI builder](https://ang
 First, define the file names of the package metadata in the `package.json` of the library/application where you run the extractor.
 When the extractor is run in a project, it will use these file names to name the output files of the extraction. In case you want to compile the
 metadata of the project with its dependencies (generally for an application that has libraries with their own metadata as well), the extractor will need to find the metadata for each dependency.
-In that case, the extractor will search for these file names in the `package.json` file of each library (in the `node_modules`) 
+In that case, the extractor will search for these file names in the `package.json` file of each library (in the `node_modules`)
 in order to concatenate the file's metadata with the metadata of other libraries and the application's metadata.
 
 In the `package.json` of the library:

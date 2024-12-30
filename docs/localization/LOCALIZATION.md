@@ -142,7 +142,7 @@ Now we are ready to localize the components of the application.
 
 ### How to generate localization files for a component
 
-#### Generate a localized component 
+#### Generate a localized component
 
 You can directly generate a localized component with the following command:
 ```shell
@@ -172,7 +172,7 @@ under the `schematics` property, like this:
 > ng add @o3r/localization
 > ```
 
-#### Add localization to an existing component 
+#### Add localization to an existing component
 
 You can also localize a component later with:
 ```shell
@@ -253,7 +253,7 @@ More details on how to do this in the [documentation](https://github.com/Amadeus
 
 #### Translation file (`*.translation.ts`)
 
-The translation file is used to define the localization variables used by the component template. 
+The translation file is used to define the localization variables used by the component template.
 It typically defines an interface which extends `Translation` from `@o3r/core` with all possible variable names used by your component template.
 It also exports a constant (`translations`) that satisfies the above contract. The values for each property are localization keys (real keys from the localization bundle).
 
@@ -422,7 +422,7 @@ Now we can start using pipes:
 ```
 
 > [!NOTE]
-> A locale parameter can be added to the pipe, such as the following: 
+> A locale parameter can be added to the pipe, such as the following:
 > ```html
 > <p>{{today | date: 'fullDate' : '' : currentLanguage()}}</p>
 > ```
@@ -656,10 +656,10 @@ return {
 
 * `en-CA` **fallbacks to** `en-US`, as direct mapping available in fallback locales map.
 * `de-CH` **fallbacks to** `ar-AR`, as direct mapping available in fallback locales map.
-* `de-AT` **fallbacks to** `fr-FR`, as language mapping available in fallback locales map. 
+* `de-AT` **fallbacks to** `fr-FR`, as language mapping available in fallback locales map.
 * `zh-CN` **fallbacks to** `en-GB`, as language mapping available in fallback locales map.
 * `en-AU` **fallbacks to** `en-GB`, as fallback locales mapping unavailable, first nearest language available in supported locales.
-* `fr-BE` **fallbacks to** `fr-FR`, as fallback locales mapping unavailable, first nearest language available in supported locales. 
+* `fr-BE` **fallbacks to** `fr-FR`, as fallback locales mapping unavailable, first nearest language available in supported locales.
 * `bn-BD` **fallbacks to** `ar-AR`, as it is the default fallback.
 
 ## Scenario 2: Fallback based on `supportedLocales`

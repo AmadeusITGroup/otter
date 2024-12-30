@@ -42,6 +42,7 @@ The plugins and fetch client come from the ``@ama-sdk/core`` module, but custom 
 
 ```typescript
 import { ApiFetchClient, ApiKeyRequest, JsonTokenReply, JsonTokenRequest, ReviverReply, ExceptionReply } from '@ama-sdk/core';
+import { ApiFetchClient } from '@ama-sdk/client-fetch';
 import { ApiManager, ApiManagerModule } from '@o3r/apis-manager';
 
 const PROXY_SERVER = "https://your-enpoint-base-path";
@@ -72,6 +73,7 @@ The **ApiManager** instance can be customized via a *factory* function provided 
 
 ```typescript
 import { ApiClient, ApiFetchClient, ApiKeyRequest, Mark, PerformanceMetricPlugin } from '@ama-sdk/core';
+import { ApiFetchClient } from '@ama-sdk/client-fetch';
 import { ApiManager, ApiManagerModule, API_TOKEN } from '@o3r/apis-manager';
 import { EventTrackService } from '@o3r/analytics';
 
@@ -173,7 +175,7 @@ The configuration can be overridden after the instantiation of the API.
 ```typescript
 import { ExampleApi } from '@shared/sdk';
 import { ApiFactoryService } from '@o3r/apis-manager';
-import { ApiFetchClient } from '@ama-sdk/core';
+import { ApiFetchClient } from '@ama-sdk/client-fetch';
 
 @Injectable()
 class MyClass {

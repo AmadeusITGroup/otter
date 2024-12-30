@@ -34,6 +34,9 @@
     "baseUrl": ".",
     "allowSyntheticDefaultImports": true,
     "paths": {
+      "@ama-sdk/client-fetch": [
+        "packages/@ama-sdk/client-fetch/src/public_api"
+      ],
       "@ama-sdk/core": [
         "packages/@ama-sdk/core/src/public_api"
       ],
@@ -216,6 +219,9 @@
       ],
       "@o3r/third-party": [
         "packages/@o3r/third-party/src"
+      ],
+      "@o3r/training-tools": [
+        "packages/@o3r/training-tools/src/public_api"
       ],
       "@o3r/workspace": [
         "packages/@o3r/workspace/src/public_api"

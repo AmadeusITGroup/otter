@@ -4,6 +4,7 @@ import { O3rGroup } from '../group';
 
 /**
  * Group element to manage a radio group
+ * @deprecated Will be removed in v13, please use Playwright instead
  */
 export class O3rRadioGroup extends O3rGroup<O3rRadioElement> implements RadioGroupProfile {
   constructor(sourceElement: O3rRadioElement[]) {

@@ -27,6 +27,18 @@ export interface DesignTokenGroupExtensions {
   o3rMetadata?: DesignTokenMetadata;
   /** Scope of the Design Token value */
   o3rScope?: string;
+  /**
+   * Convert a numeric value from the specified unit to the new unit.
+   * It will add a unit to the token with type "number" for which the unit is not specified.
+   * In case of complex type (such as shadow, transition, etc...), the unit will be applied to all numeric types in it.
+   */
+  o3rUnit?: string;
+  /**
+   * Ratio to apply to previous value.
+   * The ratio will be applied only on token with "number" type or on the first numbers determined in "string" like types.
+   * In case of complex type (such as shadow, transition, etc...), the ratio will be applied to all numeric types in it.
+   */
+  o3rRatio?: number;
 }
 
 /** Design Token Extension fields supported by the default renderer */
@@ -238,7 +250,7 @@ export type DesignTokenGroup<E extends DesignTokenExtensions = DesignTokenExtens
 
 /** Design Token Group for common properties only */
 export type DesignTokenGroupTemplate<G extends DesignTokenGroupExtensions = DesignTokenGroupExtensions> =
-  DesignTokenGroupCommonFields<G> & { [x: string]: DesignTokenGroupTemplate<DesignTokenGroupExtensions> | G | string | boolean | undefined };
+  DesignTokenGroupCommonFields<G> & { [x: string]: DesignTokenGroupTemplate<G> | G | string | boolean | undefined };
 
 /** Context of the Design Token specification document */
 export type DesignTokenContext<G extends DesignTokenGroupExtensions = DesignTokenGroupExtensions> = {

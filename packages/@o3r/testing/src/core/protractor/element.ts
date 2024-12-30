@@ -8,6 +8,7 @@ export {ElementProfile} from '../element';
 
 /**
  * Implementation dedicated to protractor.
+ * @deprecated Will be removed in v13, please use Playwright instead
  */
 export class O3rElement implements ElementProfile {
   /** Protractor ElementProfile */
@@ -87,5 +88,6 @@ export class O3rElement implements ElementProfile {
 
 /**
  * Constructor of a O3rElement
+ * @deprecated Will be removed in v13, please use Playwright instead
  */
 export type O3rElementConstructor<T extends ElementProfile> = new (sourceElement: ElementFinder | O3rElement) => T;

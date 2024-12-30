@@ -1,11 +1,6 @@
 
 :root {
 /* --- BEGIN THEME Auto-generated --- */
-.nav-pills { --bs-nav-pills-link-active-color: var(--color-primary); }
-.navbar-toggler { --bs-navbar-color: var(--bs-primary-bg-subtle); }
-/* Application Primary color */
---bs-primary: var(--color-primary);
---bs-primary-800: var(--color-primary-800);
 --color-accent: var(--color-accent-500);
 --color-accent-100: #fbedc2;
 --color-accent-200: #f8e199;
@@ -75,6 +70,11 @@
 --color-warn-A200: #ffe1db;
 --color-warn-A400: #ffb7a8;
 --color-warn-A700: #ffa28f;
+.nav-pills { --df-nav-pills-link-active-color: var(--color-primary); }
+.navbar-toggler { --df-navbar-color: var(--df-primary-bg-subtle); }
+/* Application Primary color */
+--df-primary: var(--color-primary);
+--df-primary-800: var(--color-primary-800);
 --radius-10: 10px;
 --radius-2: 2px;
 --radius-25: 25px;
