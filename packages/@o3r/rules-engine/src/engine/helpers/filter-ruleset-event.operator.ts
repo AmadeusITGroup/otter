@@ -1,4 +1,4 @@
-import { combineLatest, Observable } from 'rxjs';
+import { combineLatest, Observable, of } from 'rxjs';
 import { map, shareReplay, switchMap } from 'rxjs/operators';
 import { RulesetExecutor } from '../ruleset-executor';
 
@@ -14,11 +14,13 @@ export function filterRulesetsEventStream(restrictiveRuleSets?: string[]) {
         Object.values(rulesets).filter((ruleSet) => restrictiveRuleSets.indexOf(ruleSet.id) > -1) :
         Object.values(rulesets);
 
-      return combineLatest(activeRulesets.map((ruleset) => ruleset.rulesResultsSubject$)).pipe(
-        map((item) => item.reduce((acc, currentValue) => {
-          acc.push(...currentValue);
-          return acc;
-        }, [])));
+      return activeRulesets?.length > 0
+        ? combineLatest(activeRulesets.map((ruleset) => ruleset.rulesResultsSubject$)).pipe(
+          map((item) => item.reduce((acc, currentValue) => {
+            acc.push(...currentValue);
+            return acc;
+          }, [])))
+        : of([]);
     }),
     shareReplay(1)
   );
