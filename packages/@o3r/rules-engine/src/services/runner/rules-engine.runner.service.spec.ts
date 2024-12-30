@@ -273,7 +273,7 @@ describe('Rules engine service', () => {
       next: value => nextFn(value)
     });
     // should output no actions as all rulesets are on demand
-    expect(nextFn).not.toHaveBeenCalled();
+    expect(nextFn).toHaveBeenCalledWith([]);
     sub.unsubscribe();
 
     // activate ruleset 1 via his own linked component
