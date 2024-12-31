@@ -26,10 +26,11 @@
       "description": "Default value of the localization",
       "default": ""
     },
-    "dictionnary": {
+    "dictionary": {
       "type": "boolean",
-      "description": "Is a dictionnary key",
-      "default": false
+      "description": "Is a dictionary key (the alias dictionnary will be removed in v13)",
+      "default": false,
+      "alias": "dictionnary"
     },
     "updateTemplate": {
       "type": "boolean",

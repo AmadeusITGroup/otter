@@ -149,9 +149,9 @@ export function ngAddLocalizationKeyFn(options: NgAddLocalizationKeySchematicsSc
 
       const updateLocalizationFileRule: Rule = () => {
         (localizationJson as any)[properties.keyValue] = {
-          ...(properties.dictionnary
+          ...(properties.dictionary
             ? {
-              dictionnary: true
+              dictionary: true
             }
             : {
               defaultValue: properties.defaultValue
