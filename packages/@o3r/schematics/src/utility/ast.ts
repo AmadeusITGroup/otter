@@ -272,7 +272,7 @@ export const addInterfaceToClassTransformerFactory = (
 /**
  * Add comment on class properties
  * @param classElements
- * @param comments Dictionnary of comment indexed by properties' name
+ * @param comments Dictionary of comment indexed by properties' name
  */
 export const addCommentsOnClassProperties = (
   classElements: ts.ClassElement[],

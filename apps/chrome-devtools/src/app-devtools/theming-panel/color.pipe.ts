@@ -32,7 +32,7 @@ export class HexColorPipe implements PipeTransform {
   name: 'contrast',
   standalone: true
 })
-export class ConstrastPipe implements PipeTransform {
+export class ContrastPipe implements PipeTransform {
   public transform(color: string) {
     return getBestColorContrast(color);
   }
@@ -43,10 +43,10 @@ export class ConstrastPipe implements PipeTransform {
  * Compute accessibility score for color contrast
  */
 @Pipe({
-  name: 'accessibilityConstrastScore',
+  name: 'accessibilityContrastScore',
   standalone: true
 })
-export class AccessibilityConstrastScorePipe implements PipeTransform {
+export class AccessibilityContrastScorePipe implements PipeTransform {
   public transform(color1: string, color2: string, textSize: 'small' | 'large') {
     return getAccessibilityContrastScore(color1, color2, textSize);
   }

@@ -185,7 +185,7 @@ describe('Add Localization', () => {
           key: 'dummyLoc1',
           description: 'Dummy 1 description',
           value: 'Dummy 1',
-          dictionnary: false
+          dictionary: false
         }), initialTree, { interactive: false }))).rejects.toThrow();
       });
 
@@ -201,7 +201,7 @@ describe('Add Localization', () => {
           key: 'dummyLoc1',
           description: 'Dummy 1 description',
           value: 'Dummy 1',
-          dictionnary: false
+          dictionary: false
         }, initialTree);
 
         expect(spy).toHaveBeenCalledWith('convert-component', expect.anything(), expect.anything());

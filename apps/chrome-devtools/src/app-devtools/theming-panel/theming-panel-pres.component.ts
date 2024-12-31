@@ -53,8 +53,8 @@ import {
   getPaletteColors,
 } from './color.helpers';
 import {
-  AccessibilityConstrastScorePipe,
-  ConstrastPipe,
+  AccessibilityContrastScorePipe,
+  ContrastPipe,
   HexColorPipe,
 } from './color.pipe';
 import {
@@ -112,8 +112,8 @@ export interface VariableGroup {
     ReactiveFormsModule,
     FormsModule,
     HexColorPipe,
-    ConstrastPipe,
-    AccessibilityConstrastScorePipe,
+    ContrastPipe,
+    AccessibilityContrastScorePipe,
     NgbTypeaheadModule,
     VariableLabelPipe,
     DfTooltipModule,
