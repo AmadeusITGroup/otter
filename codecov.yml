@@ -32,6 +32,9 @@ ignore:
   - 'packages/@o3r-training/showcase-sdk/src/spec/**/*'
   - 'tools/github-actions/*/packaged-action/**/*'
 
+  # Templates
+  - '**/*.template'
+
 comment:
   layout: "condensed_header, condensed_files, condensed_footer"
   behavior: default
