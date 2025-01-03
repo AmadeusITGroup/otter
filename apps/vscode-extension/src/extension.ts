@@ -2,6 +2,7 @@ import {
   commands,
   ExtensionContext,
   languages,
+  window,
 } from 'vscode';
 import {
   extractAllToVariable,
@@ -60,10 +61,11 @@ import {
  * @param context
  */
 export function activate(context: ExtensionContext) {
+  const channel = window.createOutputChannel('Otter');
   const designTokenProviders = designTokenCompletionItemAndHoverProviders();
 
   context.subscriptions.push(
-    languages.registerCompletionItemProvider(['javascript', 'typescript'], configurationCompletionItemProvider(), configurationCompletionTriggerChar),
+    languages.registerCompletionItemProvider(['javascript', 'typescript'], configurationCompletionItemProvider({ channel }), configurationCompletionTriggerChar),
     languages.registerCompletionItemProvider(['scss'], stylingCompletionItemProvider(), stylingCompletionTriggerChar),
     languages.registerCompletionItemProvider(['scss', 'css'], designTokenProviders),
     languages.registerHoverProvider(['scss', 'css'], designTokenProviders),
