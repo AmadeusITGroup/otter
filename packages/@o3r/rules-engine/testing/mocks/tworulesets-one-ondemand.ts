@@ -7,9 +7,11 @@ export const jsonTwoRulesetsOneOnDemand: { rulesets: Ruleset[] } = {
     {
       id: 'e5th46e84-5e4th-54eth65seth46se8Linked',
       name: 'linked component ruleset',
-      linkedComponent: {
-        library: '@otter/demo-app-components',
-        name: 'o3r-calendar-per-bound-cont'
+      linkedComponents: {
+        or: [{
+          library: '@otter/demo-app-components',
+          name: 'o3r-calendar-per-bound-cont'
+        }]
       },
       rules: [
         {

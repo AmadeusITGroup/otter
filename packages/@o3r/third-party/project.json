@@ -4,7 +4,6 @@
   "projectType": "library",
   "sourceRoot": "packages/@o3r/third-party/src",
   "prefix": "o3r",
-  "implicitDependencies": ["dev-tools"],
   "targets": {
     "build": {
       "executor": "nx:noop",

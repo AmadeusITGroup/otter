@@ -36,9 +36,11 @@ export const jsonOneRulesetValidOneRuleNoCond: { ruleSets: Ruleset[] } = {
       validityRange: {
         to: '2025-07-23T18:25:43.511Z'
       },
-      linkedComponent: {
-        library: '@otter/comps',
-        name: 'TestComponent'
+      linkedComponents: {
+        or: [{
+          library: '@otter/comps',
+          name: 'TestComponent'
+        }]
       },
       rules: [
         {
@@ -69,9 +71,11 @@ export const jsonOneRulesetValidOneRuleNoCond: { ruleSets: Ruleset[] } = {
       validityRange: {
         from: '2100-07-23T18:25:43.511Z'
       },
-      linkedComponent: {
-        library: '@otter/comps',
-        name: 'TestComponent2'
+      linkedComponents: {
+        or: [{
+          library: '@otter/comps',
+          name: 'TestComponent2'
+        }]
       },
       rules: [
         {

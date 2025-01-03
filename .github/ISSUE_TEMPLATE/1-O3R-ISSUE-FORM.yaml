@@ -26,7 +26,6 @@ body:
         core,
         create,
         design,
-        dev-tools,
         dynamic-content,
         eslint-config-otter,
         eslint-plugin,

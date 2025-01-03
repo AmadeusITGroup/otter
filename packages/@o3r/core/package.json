@@ -209,7 +209,6 @@
       "@o3r/components",
       "@o3r/configuration",
       "@o3r/design",
-      "@o3r/dev-tools",
       "@o3r/dynamic-content",
       "@o3r/eslint-config-otter",
       "@o3r/eslint-plugin",

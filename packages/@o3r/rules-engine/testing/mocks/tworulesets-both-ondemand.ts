@@ -47,9 +47,11 @@ export const jsonTwoRulesetsBothOnDemand: { rulesets: Ruleset[] } = {
     {
       id: 'e5th46e84-5e4th-54eth65seth46Default',
       name: 'the first ruleset',
-      linkedComponent: {
-        library: '@otter/demo-app-components',
-        name: 'o3r-calendar-per-bound-cont'
+      linkedComponents: {
+        or: [{
+          library: '@otter/demo-app-components',
+          name: 'o3r-calendar-per-bound-cont'
+        }]
       },
       rules: [
         {
