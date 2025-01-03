@@ -19,15 +19,3 @@ export class O3rReplaceWithBoldPipe implements PipeTransform {
     }
   }
 }
-
-/**
- * @deprecated please use O3rReplaceWithBoldPipe, will be removed in v12.
- */
-@Pipe({
-  name: 'replaceWithBold'
-})
-export class ReplaceWithBoldPipe extends O3rReplaceWithBoldPipe implements PipeTransform {
-  public escapeRegExp(str: string) {
-    return escapeRegExp(str);
-  }
-}

@@ -1,11 +1,9 @@
 {
   "name": "fake-package",
   "scripts": {
-    "swagger:regen": "yo ./node_modules/@ama-sdk/generator-sdk/src/generators/java-client-core --swaggerSpecPath ./swagger-spec.yaml --swaggerConfigPath node_modules/@ama-sdk/generator-sdk/src/generators/java-client-core/templates/swagger-codegen-java-client/config/swagger-codegen-config.json --force",
-    "swagger:generate": "yarn yo ./node_modules/@ama-sdk/generator-sdk/src/generators/java-client-core --swaggerSpecPath node_modules/@api-spec/core-private/dist/API_Private.yaml --swaggerConfigPath ./node_modules/@ama-sdk/generator-sdk/src/generators/java-client-core/templates/swagger-codegen-java-client/config/swagger-codegen-config.json --force",
     "swagger:upgrade": "yo $(yarn resolve @ama-sdk/generator-sdk/src/generators/core) && yarn clear-index",
-    "swagger:regen2": "yo $(yarn resolve @ama-sdk/generator-sdk/src/generators/core) --swaggerSpecPath ./swagger-spec.yaml --force && yarn clear-index",
-    "swagger:generate2": "yo $(yarn resolve @ama-sdk/generator-sdk/generators/core) --swaggerSpecPath $(yarn resolve @api-spec/core-public/dist/API_Public.yaml) --force && yarn clear-index",
+    "swagger:regen": "yo $(yarn resolve @ama-sdk/generator-sdk/src/generators/core) --swaggerSpecPath ./swagger-spec.yaml --force && yarn clear-index",
+    "swagger:generate": "yo $(yarn resolve @ama-sdk/generator-sdk/generators/core) --swaggerSpecPath $(yarn resolve @api-spec/core-public/dist/API_Public.yaml) --force && yarn clear-index",
     "mock": "yarn ng g @ama-sdk/generator-sdk:mock"
   }
 }

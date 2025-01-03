@@ -730,6 +730,7 @@ __metadata:
     "@o3r/schematics": "workspace:^"
     "@openapitools/openapi-generator-cli": ^2.15.0
     openapi-types: ^12.0.0
+    ts-node: ~10.9.2
     type-fest: ^4.10.2
   peerDependenciesMeta:
     "@ama-sdk/core":
@@ -7593,6 +7594,7 @@ __metadata:
     "@schematics/angular": ^18.2.0
     jasmine: ^5.0.0
     rxjs: ^7.8.1
+    ts-node: ~10.9.2
     typescript: ^5.5.4
     webpack: ^5.96.0
   peerDependenciesMeta:
@@ -7681,6 +7683,7 @@ __metadata:
     "@o3r/schematics": "workspace:^"
     "@schematics/angular": ^18.2.0
     rxjs: ^7.8.1
+    ts-node: ~10.9.2
     typescript: ^5.5.4
   peerDependenciesMeta:
     "@ama-sdk/client-fetch":
@@ -7768,6 +7771,7 @@ __metadata:
     "@o3r/testing": "workspace:^"
     "@schematics/angular": ^18.2.0
     rxjs: ^7.8.1
+    ts-node: ~10.9.2
     typescript: ^5.5.4
   peerDependenciesMeta:
     "@angular-devkit/schematics":
@@ -7779,7 +7783,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@o3r/artifactory-tools@workspace:^, @o3r/artifactory-tools@workspace:packages/@o3r/artifactory-tools":
+"@o3r/artifactory-tools@workspace:packages/@o3r/artifactory-tools":
   version: 0.0.0-use.local
   resolution: "@o3r/artifactory-tools@workspace:packages/@o3r/artifactory-tools"
   dependencies:
@@ -7837,7 +7841,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@o3r/azure-tools@workspace:^, @o3r/azure-tools@workspace:packages/@o3r/azure-tools":
+"@o3r/azure-tools@workspace:packages/@o3r/azure-tools":
   version: 0.0.0-use.local
   resolution: "@o3r/azure-tools@workspace:packages/@o3r/azure-tools"
   dependencies:
@@ -8145,6 +8149,7 @@ __metadata:
     jsonpath-plus: ^9.0.0 || ^10.0.0
     rxjs: ^7.8.1
     semver: ^7.5.2
+    ts-node: ~10.9.2
     typescript: ^5.5.4
   peerDependenciesMeta:
     "@angular-devkit/core":
@@ -8274,6 +8279,7 @@ __metadata:
     express-interceptor: ^1.2.0
     jasmine: ^5.0.0
     rxjs: ^7.8.1
+    ts-node: ~10.9.2
     typescript: ^5.5.4
   peerDependenciesMeta:
     "@angular-devkit/schematics":
@@ -8386,6 +8392,7 @@ __metadata:
     chokidar: ^3.5.2
     globby: ^11.1.0
     rxjs: ^7.8.1
+    ts-node: ~10.9.2
     type-fest: ^4.10.2
     typescript: ^5.5.4
   peerDependenciesMeta:
@@ -8580,90 +8587,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@o3r/dev-tools@workspace:packages/@o3r/dev-tools":
-  version: 0.0.0-use.local
-  resolution: "@o3r/dev-tools@workspace:packages/@o3r/dev-tools"
-  dependencies:
-    "@angular-devkit/core": "npm:~18.2.0"
-    "@angular-devkit/schematics": "npm:~18.2.0"
-    "@babel/core": "npm:~7.26.0"
-    "@babel/preset-typescript": "npm:~7.26.0"
-    "@compodoc/compodoc": "npm:^1.1.19"
-    "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@nx/eslint-plugin": "npm:~19.8.0"
-    "@nx/jest": "npm:~19.8.0"
-    "@o3r/artifactory-tools": "workspace:^"
-    "@o3r/azure-tools": "workspace:^"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/workspace": "workspace:^"
-    "@stylistic/eslint-plugin": "npm:~2.7.0"
-    "@types/fs-extra": "npm:^11.0.0"
-    "@types/glob": "npm:^8.0.0"
-    "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:^20.0.0"
-    "@types/request": "npm:^2.48.7"
-    "@types/request-promise-native": "npm:^1.0.18"
-    "@types/semver": "npm:^7.3.13"
-    "@typescript-eslint/parser": "npm:~8.18.0"
-    angular-eslint: "npm:~18.4.0"
-    azure-devops-node-api: "npm:^13.0.0"
-    chalk: "npm:^4.1.2"
-    commander: "npm:^12.0.0"
-    cpy-cli: "npm:^5.0.0"
-    eslint: "npm:~9.17.0"
-    eslint-import-resolver-node: "npm:^0.3.9"
-    eslint-import-resolver-typescript: "npm:^3.6.3"
-    eslint-plugin-import: "npm:^2.31.0"
-    eslint-plugin-import-newlines: "npm:^1.4.0"
-    eslint-plugin-jest: "npm:~28.8.0"
-    eslint-plugin-jsdoc: "npm:~50.2.0"
-    eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^56.0.0"
-    eslint-plugin-unused-imports: "npm:^4.1.4"
-    form-data: "npm:^4.0.0"
-    fs-extra: "npm:^11.0.0"
-    globals: "npm:^15.9.0"
-    globby: "npm:^11.1.0"
-    isomorphic-fetch: "npm:~3.0.0"
-    jasmine-spec-reporter: "npm:^7.0.0"
-    jest: "npm:~29.7.0"
-    jest-junit: "npm:~16.0.0"
-    jsonc-eslint-parser: "npm:~2.4.0"
-    minimatch: "npm:~9.0.3"
-    node-fetch: "npm:^3.0.0"
-    nx: "npm:~19.8.0"
-    request: "npm:^2.88.0"
-    request-promise-native: "npm:^1.0.9"
-    rimraf: "npm:^5.0.1"
-    semver: "npm:^7.5.2"
-    ts-jest: "npm:~29.2.0"
-    ts-node: "npm:~10.9.2"
-    tslib: "npm:^2.6.2"
-    type-fest: "npm:^4.10.2"
-    typescript: "npm:~5.5.4"
-    typescript-eslint: "npm:~8.18.0"
-    winston: "npm:^3.8.2"
-  peerDependencies:
-    "@angular-devkit/schematics": ^18.2.0
-  peerDependenciesMeta:
-    "@angular-devkit/schematics":
-      optional: true
-  bin:
-    artifact-cleaner: ./dist/src/cli/artifact-cleaner.js
-    artifact-retriever: ./dist/src/cli/artifact-retriever.js
-    comment-pr: ./dist/src/cli/comment-pr.js
-    generate-package-exports: ./dist/src/cli/generate-package-exports.js
-    git-release-management: ./dist/src/cli/git-release-management.js
-    in-source-dep-check: ./dist/src/cli/checks/in-source-dep-check.js
-    package-export: ./dist/src/cli/package-export.js
-    peer-dependencies-updater: ./dist/src/cli/peer-dependencies-updater.js
-    pr-artifact-cleaner: ./dist/src/cli/pr-artifact-cleaner.js
-    set-version: ./dist/src/cli/set-version.js
-    version-harmonize: ./dist/src/cli/version-harmonize.js
-  languageName: unknown
-  linkType: soft
-
 "@o3r/dynamic-content@workspace:^, @o3r/dynamic-content@workspace:packages/@o3r/dynamic-content":
   version: 0.0.0-use.local
   resolution: "@o3r/dynamic-content@workspace:packages/@o3r/dynamic-content"
@@ -8741,6 +8664,7 @@ __metadata:
     express-interceptor: ^1.2.0
     jasmine: ^5.0.0
     rxjs: ^7.8.1
+    ts-node: ~10.9.2
   peerDependenciesMeta:
     "@angular-devkit/schematics":
       optional: true
@@ -8823,6 +8747,7 @@ __metadata:
     eslint-plugin-jsdoc: ^48.11.0 || ^49.0.0 || ^50.0.0
     eslint-plugin-prefer-arrow: ^1.2.2
     eslint-plugin-unicorn: ^54.0.0 || ^55.0.0 || ^56.0.0
+    ts-node: ~10.9.2
     typescript: ^5.5.4
   peerDependenciesMeta:
     "@angular-devkit/schematics":
@@ -8999,6 +8924,7 @@ __metadata:
     rimraf: "npm:^5.0.1"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.2.0"
+    ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.10.2"
     typescript: "npm:~5.5.4"
@@ -9119,6 +9045,7 @@ __metadata:
     "@yarnpkg/plugin-pack": ^4.0.0
     globby: ^11.1.0
     semver: ^7.5.2
+    ts-node: ~10.9.2
     type-fest: ^4.10.2
     typescript: ^5.5.4
   peerDependenciesMeta:
@@ -9221,6 +9148,7 @@ __metadata:
     "@o3r/schematics": "workspace:^"
     "@schematics/angular": ^18.2.0
     rxjs: ^7.8.1
+    ts-node: ~10.9.2
   peerDependenciesMeta:
     "@angular-devkit/schematics":
       optional: true
@@ -9547,6 +9475,7 @@ __metadata:
     intl-messageformat: ^10.7.0
     rxjs: ^7.8.1
     semver: ^7.5.2
+    ts-node: ~10.9.2
     type-fest: ^4.10.2
     typescript: ^5.5.4
   peerDependenciesMeta:
@@ -9663,6 +9592,7 @@ __metadata:
     logrocket-ngrx: ^0.2.1
     rxjs: ^7.8.1
     smartlook-client: ^9.0.0
+    ts-node: ~10.9.2
   peerDependenciesMeta:
     "@angular-devkit/schematics":
       optional: true
@@ -9989,6 +9919,7 @@ __metadata:
     "@schematics/angular": ^18.2.0
     jasmine: ^5.0.0
     rxjs: ^7.8.1
+    ts-node: ~10.9.2
   peerDependenciesMeta:
     "@angular-devkit/schematics":
       optional: true
@@ -10102,6 +10033,7 @@ __metadata:
     jasmine: ^5.0.0
     jsonpath-plus: ^9.0.0 || ^10.0.0
     rxjs: ^7.8.1
+    ts-node: ~10.9.2
     typescript: ^5.5.4
     typescript-json-schema: ^0.65.0
   peerDependenciesMeta:
@@ -10200,6 +10132,7 @@ __metadata:
     "@schematics/angular": ^18.2.0
     eslint: ^9.14.0
     rxjs: ^7.8.1
+    ts-node: ~10.9.2
     type-fest: ^4.10.2
     typescript: ^5.5.4
   peerDependenciesMeta:
@@ -10410,6 +10343,7 @@ __metadata:
     "@schematics/angular": ^18.2.0
     fast-deep-equal: ^3.1.3
     rxjs: ^7.8.1
+    ts-node: ~10.9.2
   peerDependenciesMeta:
     "@angular-devkit/core":
       optional: true
@@ -10698,6 +10632,7 @@ __metadata:
     rxjs: ^7.8.1
     sass: ^1.81.0
     semver: ^7.5.2
+    ts-node: ~10.9.2
     typescript: ^5.5.4
   peerDependenciesMeta:
     "@angular-devkit/architect":
@@ -10966,6 +10901,7 @@ __metadata:
     protractor: ^7.0.0
     rxjs: ^7.8.1
     temporal-polyfill: ^0.2.0
+    ts-node: ~10.9.2
     type-fest: ^4.10.2
     typescript: ^5.5.4
   peerDependenciesMeta:
@@ -11207,6 +11143,7 @@ __metadata:
     "@angular/core": ^18.2.0
     "@o3r/telemetry": "workspace:^"
     "@schematics/angular": ^18.2.0
+    ts-node: ~10.9.2
     type-fest: ^4.10.2
     typescript: ^5.5.4
   peerDependenciesMeta:
@@ -13727,13 +13664,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/caseless@npm:*":
-  version: 0.12.5
-  resolution: "@types/caseless@npm:0.12.5"
-  checksum: 10/f6a3628add76d27005495914c9c3873a93536957edaa5b69c63b46fe10b4649a6fecf16b676c1695f46aab851da47ec6047dcf3570fa8d9b6883492ff6d074e0
-  languageName: node
-  linkType: hard
-
 "@types/cheerio@npm:~0.22.35":
   version: 0.22.35
   resolution: "@types/cheerio@npm:0.22.35"
@@ -14596,27 +14526,6 @@ __metadata:
     "@types/prop-types": "npm:*"
     csstype: "npm:^3.0.2"
   checksum: 10/971b4f46af9aeda85326000ba4a78973db6a1f11e10665c014e1274a68ae801469f057b56d850512694cf04a69cc264c07e6a507b4613874e8bf6ab4df7904f1
-  languageName: node
-  linkType: hard
-
-"@types/request-promise-native@npm:^1.0.18":
-  version: 1.0.21
-  resolution: "@types/request-promise-native@npm:1.0.21"
-  dependencies:
-    "@types/request": "npm:*"
-  checksum: 10/341af69971a366be4f3f1abf445f88a1edd3ef4a140cf0139d707fd6f66e3b10e94be5561bc3e137a713810f2e62af073b933061995eef4a3731fb7569be4448
-  languageName: node
-  linkType: hard
-
-"@types/request@npm:*, @types/request@npm:^2.48.7":
-  version: 2.48.12
-  resolution: "@types/request@npm:2.48.12"
-  dependencies:
-    "@types/caseless": "npm:*"
-    "@types/node": "npm:*"
-    "@types/tough-cookie": "npm:*"
-    form-data: "npm:^2.5.0"
-  checksum: 10/a7b3f9f14cacc18fe235bb8e57eff1232a04bd3fa3dad29371f24a5d96db2cd295a0c8b6b34ed7efa3efbbcff845febb02c9635cd68c54811c947ea66ae22090
   languageName: node
   linkType: hard
 
@@ -23040,18 +22949,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"form-data@npm:^2.5.0":
-  version: 2.5.2
-  resolution: "form-data@npm:2.5.2"
-  dependencies:
-    asynckit: "npm:^0.4.0"
-    combined-stream: "npm:^1.0.6"
-    mime-types: "npm:^2.1.12"
-    safe-buffer: "npm:^5.2.1"
-  checksum: 10/ef602e52f0bfcc8f8c346b8783f6dbd2fb271596788d42cf929dddaa50bd61e97da21f01464b4524e77872682264765e53c75ac1ab1466ea23f5c96de585faff
-  languageName: node
-  linkType: hard
-
 "form-data@npm:^4.0.0":
   version: 4.0.1
   resolution: "form-data@npm:4.0.1"
@@ -25381,12 +25278,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-typed-array@npm:^1.1.13, is-typed-array@npm:^1.1.3":
+"is-typed-array@npm:^1.1.13":
   version: 1.1.13
   resolution: "is-typed-array@npm:1.1.13"
   dependencies:
     which-typed-array: "npm:^1.1.14"
   checksum: 10/f850ba08286358b9a11aee6d93d371a45e3c59b5953549ee1c1a9a55ba5c1dd1bd9952488ae194ad8f32a9cf5e79c8fa5f0cc4d78c00720aa0bbcf238b38062d
+  languageName: node
+  linkType: hard
+
+"is-typed-array@npm:^1.1.3":
+  version: 1.1.14
+  resolution: "is-typed-array@npm:1.1.14"
+  dependencies:
+    which-typed-array: "npm:^1.1.16"
+  checksum: 10/2d322492dea8bdf3290f4a3dd9ca7cd5bd9a0d6c7a608ffc4d2118d3f1aeac51ca0dff95b2c90b55319af53c54ee3db95cd942ae7fd7a2ef1aba05b2da4b197b
   languageName: node
   linkType: hard
 
@@ -25681,15 +25587,6 @@ __metadata:
   version: 2.8.0
   resolution: "jasmine-core@npm:2.8.0"
   checksum: 10/eb03d92191bb617c8e51c3563812c65249a2ab15b7c668dbcf31fccb1de3379d386b41476c1d237bd6766ad8bd202f47b25d271861859ee5f2ce5692f9fa1f5a
-  languageName: node
-  linkType: hard
-
-"jasmine-spec-reporter@npm:^7.0.0":
-  version: 7.0.0
-  resolution: "jasmine-spec-reporter@npm:7.0.0"
-  dependencies:
-    colors: "npm:1.4.0"
-  checksum: 10/69afad4935977c941b4d72fa81cc640d5f22cd35c7797468420d837cb94b469f9e6e767faa4112414511cc64e75ca9c7d641eba7df41e0d41c10b0c9bf4d0508
   languageName: node
   linkType: hard
 
@@ -27542,7 +27439,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash@npm:4.17.21, lodash@npm:^4.17.14, lodash@npm:^4.17.15, lodash@npm:^4.17.19, lodash@npm:^4.17.20, lodash@npm:^4.17.21":
+"lodash@npm:4.17.21, lodash@npm:^4.17.14, lodash@npm:^4.17.15, lodash@npm:^4.17.20, lodash@npm:^4.17.21":
   version: 4.17.21
   resolution: "lodash@npm:4.17.21"
   checksum: 10/c08619c038846ea6ac754abd6dd29d2568aa705feb69339e836dfa8d8b09abbb2f859371e86863eda41848221f9af43714491467b5b0299122431e202bb0c532
@@ -32598,31 +32495,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"request-promise-core@npm:1.1.4":
-  version: 1.1.4
-  resolution: "request-promise-core@npm:1.1.4"
-  dependencies:
-    lodash: "npm:^4.17.19"
-  peerDependencies:
-    request: ^2.34
-  checksum: 10/79714e46b078c8de539c4de13e78878a3c7e3f33e194547c5ec3f0c8e47b0b222aa1718bbd2dbfb1a7990149041c6cc0be6c5916e03d99f4e75939f2a840046e
-  languageName: node
-  linkType: hard
-
-"request-promise-native@npm:^1.0.9":
-  version: 1.0.9
-  resolution: "request-promise-native@npm:1.0.9"
-  dependencies:
-    request-promise-core: "npm:1.1.4"
-    stealthy-require: "npm:^1.1.1"
-    tough-cookie: "npm:^2.3.3"
-  peerDependencies:
-    request: ^2.34
-  checksum: 10/6df0cf75cbddd08b568e462570fb63033f040efdf961f39af572e52821a831a13ee9027db7ba78f1d980759cc7913f2a12a34424deac5a0ec56c5d8ebbf45391
-  languageName: node
-  linkType: hard
-
-"request@npm:^2.87.0, request@npm:^2.88.0":
+"request@npm:^2.87.0":
   version: 2.88.2
   resolution: "request@npm:2.88.2"
   dependencies:
@@ -33128,7 +33001,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"safe-buffer@npm:5.2.1, safe-buffer@npm:>=5.1.0, safe-buffer@npm:^5.0.1, safe-buffer@npm:^5.1.0, safe-buffer@npm:^5.1.2, safe-buffer@npm:^5.2.1, safe-buffer@npm:~5.2.0":
+"safe-buffer@npm:5.2.1, safe-buffer@npm:>=5.1.0, safe-buffer@npm:^5.0.1, safe-buffer@npm:^5.1.0, safe-buffer@npm:^5.1.2, safe-buffer@npm:~5.2.0":
   version: 5.2.1
   resolution: "safe-buffer@npm:5.2.1"
   checksum: 10/32872cd0ff68a3ddade7a7617b8f4c2ae8764d8b7d884c651b74457967a9e0e886267d3ecc781220629c44a865167b61c375d2da6c720c840ecd73f45d5d9451
@@ -34237,13 +34110,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stealthy-require@npm:^1.1.1":
-  version: 1.1.1
-  resolution: "stealthy-require@npm:1.1.1"
-  checksum: 10/a408a51f5b6c1fe535e4459732ac0b66d7921583f89fc8289bfdc937a497fe8196219d1e04d234047349b90723ecff1a1cb4a92bef2315e01a3081dc72db8d41
-  languageName: node
-  linkType: hard
-
 "stoppable@npm:^1.1.0":
   version: 1.1.0
   resolution: "stoppable@npm:1.1.0"
@@ -35274,16 +35140,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tough-cookie@npm:^2.3.3, tough-cookie@npm:~2.5.0":
-  version: 2.5.0
-  resolution: "tough-cookie@npm:2.5.0"
-  dependencies:
-    psl: "npm:^1.1.28"
-    punycode: "npm:^2.1.1"
-  checksum: 10/024cb13a4d1fe9af57f4323dff765dd9b217cc2a69be77e3b8a1ca45600aa33a097b6ad949f225d885e904f4bd3ceccef104741ef202d8378e6ca78e850ff82f
-  languageName: node
-  linkType: hard
-
 "tough-cookie@npm:^4.1.2":
   version: 4.1.4
   resolution: "tough-cookie@npm:4.1.4"
@@ -35302,6 +35158,16 @@ __metadata:
   dependencies:
     tldts: "npm:^6.1.32"
   checksum: 10/a98d3846ed386e399e8b470c1eb08a6a296944246eabc55c9fe79d629bd2cdaa62f5a6572f271fe0060987906bd20468d72a219a3b4cbe51086bea48d2d677b6
+  languageName: node
+  linkType: hard
+
+"tough-cookie@npm:~2.5.0":
+  version: 2.5.0
+  resolution: "tough-cookie@npm:2.5.0"
+  dependencies:
+    psl: "npm:^1.1.28"
+    punycode: "npm:^2.1.1"
+  checksum: 10/024cb13a4d1fe9af57f4323dff765dd9b217cc2a69be77e3b8a1ca45600aa33a097b6ad949f225d885e904f4bd3ceccef104741ef202d8378e6ca78e850ff82f
   languageName: node
   linkType: hard
 

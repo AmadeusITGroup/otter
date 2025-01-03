@@ -14,7 +14,6 @@ export const listOfExposedElements: SassImportExposedElement[] = [
   // utils
   { value: '$test-mode-enabled', type: 'var' },
   { value: 'error', type: 'function' },
-  { value: '$alternative-breakpoints-map', type: 'var' },
   { value: 'get-mandatory', type: 'function' },
   { value: 'multi-map-merge', type: 'function' },
   { value: '$metadata-logging', type: 'var' },

@@ -9,25 +9,25 @@ ruleTester.run('matching-configuration-name', matchingConfigurationNameRule, {
       code: `
   export interface MyFirstConfig extends Configuration {}
 
-  export const MY_CONFIG_ID = computeConfigurationName('MyFirstConfig', '@example/config');
+  export const MY_CONFIG_ID = computeItemIdentifier('MyFirstConfig', '@example/config');
       `.trim()
     }, {
       code: `
   export interface MySecondConfig extends Configuration {}
   export interface MyThirdConfig extends Configuration {}
 
-  export const MY_CONFIG_ID = computeConfigurationName('MyThirdConfig', '@example/config');
+  export const MY_CONFIG_ID = computeItemIdentifier('MyThirdConfig', '@example/config');
       `.trim()
     }, {
       code: `
   export interface MyFourthConfig extends Configuration {}
   export interface MyFifthConfig extends Configuration {}
 
-  export const MY_CONFIG_ID = computeConfigurationName('MyFourthConfig', '@example/config');
+  export const MY_CONFIG_ID = computeItemIdentifier('MyFourthConfig', '@example/config');
       `.trim()
     }, {
       code: `
-  export const MY_CONFIG_ID = computeConfigurationName('MyConfig', '@example/config');
+  export const MY_CONFIG_ID = computeItemIdentifier('MyConfig', '@example/config');
       `.trim()
     }
   ],
@@ -36,7 +36,7 @@ ruleTester.run('matching-configuration-name', matchingConfigurationNameRule, {
       code: `
 export interface MyConfig extends Configuration {}
 
-export const MY_CONFIG_ID = computeConfigurationName('InvalidName', '@example/config');
+export const MY_CONFIG_ID = computeItemIdentifier('InvalidName', '@example/config');
       `.trim(),
       errors: [{
         messageId: 'error',
@@ -53,21 +53,21 @@ export const MY_CONFIG_ID = computeConfigurationName('InvalidName', '@example/co
           output: `
 export interface MyConfig extends Configuration {}
 
-export const MY_CONFIG_ID = computeConfigurationName('MyConfig', '@example/config');
+export const MY_CONFIG_ID = computeItemIdentifier('MyConfig', '@example/config');
       `.trim()
         }]
       }],
       output: `
 export interface MyConfig extends Configuration {}
 
-export const MY_CONFIG_ID = computeConfigurationName('MyConfig', '@example/config');
+export const MY_CONFIG_ID = computeItemIdentifier('MyConfig', '@example/config');
       `.trim()
     }, {
       code: `
 export interface MyFirstConfig extends Configuration {}
 export interface MySecondConfig extends Configuration {}
 
-export const MY_CONFIG_ID = computeConfigurationName('InvalidName', '@example/config');
+export const MY_CONFIG_ID = computeItemIdentifier('InvalidName', '@example/config');
       `.trim(),
       errors: [{
         messageId: 'error',
@@ -86,7 +86,7 @@ export const MY_CONFIG_ID = computeConfigurationName('InvalidName', '@example/co
 export interface MyFirstConfig extends Configuration {}
 export interface MySecondConfig extends Configuration {}
 
-export const MY_CONFIG_ID = computeConfigurationName('MyFirstConfig', '@example/config');
+export const MY_CONFIG_ID = computeItemIdentifier('MyFirstConfig', '@example/config');
             `.trim()
           },
           {
@@ -99,7 +99,7 @@ export const MY_CONFIG_ID = computeConfigurationName('MyFirstConfig', '@example/
 export interface MyFirstConfig extends Configuration {}
 export interface MySecondConfig extends Configuration {}
 
-export const MY_CONFIG_ID = computeConfigurationName('MySecondConfig', '@example/config');
+export const MY_CONFIG_ID = computeItemIdentifier('MySecondConfig', '@example/config');
             `.trim()
           }
         ]
@@ -108,7 +108,7 @@ export const MY_CONFIG_ID = computeConfigurationName('MySecondConfig', '@example
 export interface MyFirstConfig extends Configuration {}
 export interface MySecondConfig extends Configuration {}
 
-export const MY_CONFIG_ID = computeConfigurationName('MyFirstConfig', '@example/config');
+export const MY_CONFIG_ID = computeItemIdentifier('MyFirstConfig', '@example/config');
       `.trim()
     }
   ]

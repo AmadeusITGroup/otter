@@ -261,5 +261,3 @@ You can now create A/B testing-driven rulesets .
 }
 
 ```
-> Note: In v10 and previously, we used `linkedComponent` property to activate a ruleset on demand. This becomes deprecated and will be removed in v12. Use `linkedComponents` instead;
-
