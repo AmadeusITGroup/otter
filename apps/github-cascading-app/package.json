@@ -44,7 +44,7 @@
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",
     "@types/semver": "^7.3.13",
-    "@typescript-eslint/parser": "~8.18.0",
+    "@typescript-eslint/parser": "~8.19.0",
     "angular-eslint": "~18.4.0",
     "cpy-cli": "^5.0.0",
     "ejs": "^3.1.9",
@@ -70,7 +70,7 @@
     "ts-jest": "~29.2.0",
     "tslib": "^2.6.2",
     "typescript": "~5.5.4",
-    "typescript-eslint": "~8.18.0",
+    "typescript-eslint": "~8.19.0",
     "zone.js": "~0.14.2"
   },
   "engines": {
