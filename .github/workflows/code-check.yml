@@ -116,3 +116,18 @@ jobs:
         env:
           lintCmd: ${{ inputs.affected && format('lint:affected --base=remotes/origin/{0}', github.base_ref || github.ref_name) || 'lint'}}
         run: yarn ${{ env.lintCmd }} --configuration ci
+
+  # Check that the packaging of github-actions is still working
+  github-actions:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: ${{ inputs.affected && '0' || '1' }}
+      - name: Setup
+        uses: ./tools/github-actions/setup
+      - name: Package github actions
+        env:
+          nxCmd: ${{ inputs.affected && format('nx affected --base=remotes/origin/{0}', github.base_ref || github.ref_name) || 'nx run-many'}}
+        run: yarn ${{ env.nxCmd }} --target=package-github-action
+

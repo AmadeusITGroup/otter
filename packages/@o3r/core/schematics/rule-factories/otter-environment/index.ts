@@ -1,5 +1,4 @@
 import {
-  join,
   posix,
 } from 'node:path';
 import type {
@@ -81,7 +80,7 @@ export function updateOtterEnvironmentAdapter(
 
       // override angular's dist/webapp output path with apps/webapp/dist
       if (workspaceProject.architect?.build?.options?.outputPath) {
-        workspaceProject.architect.build.options.outputPath = join(workspaceProject.root, 'dist');
+        workspaceProject.architect.build.options.outputPath = posix.join(workspaceProject.root, 'dist');
       }
 
       workspace.projects[options.projectName!] = workspaceProject;

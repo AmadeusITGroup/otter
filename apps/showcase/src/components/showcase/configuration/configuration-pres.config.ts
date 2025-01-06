@@ -36,6 +36,7 @@ export interface ConfigurationPresConfig extends Configuration {
    * @o3rWidgetParam allDestinationsDifferent true
    * @o3rWidgetParam atLeastOneDestinationAvailable true
    * @o3rWidgetParam destinationPattern "[A-Z][a-zA-Z-' ]+"
+   * @o3rRestrictionKey "api owners"
    */
   destinations: DestinationConfiguration[];
   /**
