@@ -4,6 +4,7 @@
     ".github/**/*.mjs",
     ".eslintrc.js",
     "jest.config.js",
+    "jest.config.*.js",
     "testing/*",
     "scripts/**/*.js",
     "scripts/**/*.mjs",

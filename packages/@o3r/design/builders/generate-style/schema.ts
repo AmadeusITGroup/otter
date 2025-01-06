@@ -67,4 +67,16 @@ export interface GenerateStyleSchematicsSchema extends SchematicOptionObject {
 
   /** Path to a template file to apply as default configuration to a Design Token extension */
   templateFile?: string | string[];
+
+  /**
+   * Path to the JSON file exposing an ordered array of RegExps applied to the token name which will define the priority of the generated variables.
+   * Note: not matching tokens will default to ASC order.
+   */
+  sortOrderPatternsFilePath?: string;
+
+  /**
+   * Tags to surround the generated code in the outputted file.
+   * It is used to detect the code to replace
+   */
+  codeEditTags?: {end: string; start: string};
 }

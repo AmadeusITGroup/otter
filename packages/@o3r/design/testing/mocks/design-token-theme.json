@@ -185,5 +185,11 @@
         }
       }
     }
+  },
+  "last-group": {
+    "last-token": {
+      "$type": "color",
+      "$value": "#aaa"
+    }
   }
 }

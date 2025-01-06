@@ -2,7 +2,6 @@ import fs from 'node:fs';
 import https from 'node:https';
 import { Validator } from 'jsonschema';
 import { load } from 'js-yaml';
-import { pascalCase } from 'pascal-case';
 import path from 'node:path';
 import process from 'node:process';
 import { SwaggerSpecJson } from './swagger-spec-wrappers/swagger-spec-json';
@@ -71,7 +70,12 @@ export function getTargetPath(targetedSwaggerSpec: string, currentDirectory: str
  * @param swaggerPath Path to the swagger spec the item come from
  */
 export function calculatePrefix(name: string, swaggerPath?: string) {
-  let prefix = swaggerPath ? pascalCase(path.basename(swaggerPath).replace(/\.[^.]*$/, '')) : 'Base';
+  let prefix = swaggerPath
+    ? path.basename(swaggerPath)
+      .replace(/\.[^.]*$/, '')
+      .replace(/\w+/g, (word) => word[0].toUpperCase() + word.slice(1).toLowerCase())
+      .replace(/\W/g, '')
+    : 'Base';
   prefix = name.startsWith(prefix) ? 'Base' : prefix;
   return `_${prefix}`;
 }

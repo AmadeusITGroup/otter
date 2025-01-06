@@ -13,5 +13,5 @@
 
 # Generated files
 tools/github-actions/*/packaged-action/** linguist-generated
-packages/@ama-sdk/showcase-sdk/src/api/** linguist-generated
-packages/@ama-sdk/showcase-sdk/src/models/base/** linguist-generated
+packages/@o3r-training/showcase-sdk/src/api/** linguist-generated
+packages/@o3r-training/showcase-sdk/src/models/base/** linguist-generated
