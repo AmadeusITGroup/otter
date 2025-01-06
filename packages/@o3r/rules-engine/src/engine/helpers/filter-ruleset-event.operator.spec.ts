@@ -1,6 +1,7 @@
 /* eslint-disable id-denylist -- `any` is a conditional keyword enforced by the rule interface */
 import {
   BehaviorSubject,
+  firstValueFrom,
   of,
 } from 'rxjs';
 import {
@@ -13,7 +14,6 @@ import {
   RulesetExecutor,
 } from '../ruleset-executor';
 import {
-  ActionBlock,
   Ruleset,
 } from '../structure';
 import {
@@ -154,56 +154,28 @@ describe('Filter rulesets event operator', () => {
 
   const rulesetsMapSubject$ = new BehaviorSubject<Record<string, RulesetExecutor>>(firstValue);
 
-  // eslint-disable-next-line jest/no-done-callback -- eventually rewrite the test
-  test('should consider only first ruleset', (done) => {
-    rulesetsMapSubject$.pipe(
-      filterRulesetsEventStream(['ruleset1'])
-    ).subscribe((data) => {
-      expect(data.length).toBe(2);
-      done();
-    });
+  test('should consider only first ruleset', async () => {
+    const data = await firstValueFrom(rulesetsMapSubject$.pipe(filterRulesetsEventStream(['ruleset1'])));
+    expect(data.length).toBe(2);
   });
 
-  // eslint-disable-next-line jest/no-done-callback -- eventually rewrite the test
-  test('should consider only second ruleset', (done) => {
-    rulesetsMapSubject$.pipe(
-      filterRulesetsEventStream(['ruleset2'])
-    ).subscribe((data) => {
-      expect(data.length).toBe(1);
-      done();
-    });
+  test('should consider only second ruleset', async () => {
+    const data = await firstValueFrom(rulesetsMapSubject$.pipe(filterRulesetsEventStream(['ruleset2'])));
+    expect(data.length).toBe(1);
   });
 
-  // eslint-disable-next-line jest/no-done-callback -- eventually rewrite the test
-  test('should consider all rulesets by not passing any filter', (done) => {
-    rulesetsMapSubject$.pipe(
-      filterRulesetsEventStream()
-    ).subscribe((data) => {
-      expect(data.length).toBe(3);
-      done();
-    });
+  test('should consider all rulesets by not passing any filter', async () => {
+    const data = await firstValueFrom(rulesetsMapSubject$.pipe(filterRulesetsEventStream()));
+    expect(data.length).toBe(3);
   });
 
-  // eslint-disable-next-line jest/no-done-callback -- eventually rewrite the test
-  test('should consider all rulesets ids passed', (done) => {
-    rulesetsMapSubject$.pipe(
-      filterRulesetsEventStream(['ruleset1', 'ruleset2'])
-    ).subscribe((data) => {
-      expect(data.length).toBe(3);
-      done();
-    });
+  test('should consider all rulesets ids passed', async () => {
+    const data = await firstValueFrom(rulesetsMapSubject$.pipe(filterRulesetsEventStream(['ruleset1', 'ruleset2'])));
+    expect(data.length).toBe(3);
   });
 
-  test('should not emit if ruleset id does not match any registered ruleset', async () => {
-    let emittedActions: ActionBlock[] | undefined;
-
-    rulesetsMapSubject$.pipe(
-      filterRulesetsEventStream(['ruleset3'])
-    ).subscribe((data) => {
-      emittedActions = data;
-    });
-
-    await jest.advanceTimersByTimeAsync(500);
-    expect(emittedActions).toBe(undefined);
+  test('should emit an empty array when no rulesets remain active', async () => {
+    const data = await firstValueFrom(rulesetsMapSubject$.pipe(filterRulesetsEventStream(['ruleset3'])));
+    expect(data.length).toBe(0);
   });
 });
