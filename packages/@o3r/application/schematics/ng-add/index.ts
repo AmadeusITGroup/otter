@@ -1,9 +1,21 @@
-import type { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { chain } from '@angular-devkit/schematics';
-import { addRootImport } from '@schematics/angular/utility';
 import * as path from 'node:path';
-import { registerDevtools } from './helpers/devtools-registration';
-import type { NgAddSchematicsSchema } from './schema';
+import type {
+  Rule,
+  SchematicContext,
+  Tree,
+} from '@angular-devkit/schematics';
+import {
+  chain,
+} from '@angular-devkit/schematics';
+import {
+  addRootImport,
+} from '@schematics/angular/utility';
+import {
+  registerDevtools,
+} from './helpers/devtools-registration';
+import type {
+  NgAddSchematicsSchema,
+} from './schema';
 
 const reportMissingSchematicsDep = (logger: { error: (message: string) => any }) => (reason: any) => {
   logger.error(`[ERROR]: Adding @o3r/application has failed.
@@ -28,8 +40,8 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       getProjectNewDependenciesTypes,
       getPackageInstallConfig
     } = await import('@o3r/schematics');
-    const { isImported } = await import('@schematics/angular/utility/ast-utils');
-    const ts = await import('typescript');
+    const { isImported } = await import('@schematics/angular/utility/ast-utils').catch(() => ({ isImported: undefined }));
+    const ts = await import('typescript').catch(() => undefined);
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
     const depsInfo = getO3rPeerDeps(packageJsonPath);
 
@@ -44,20 +56,30 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       }
 
       const sourceFileContent = tree.readText(moduleFilePath);
-      const sourceFile = ts.createSourceFile(
+      const sourceFile = ts?.createSourceFile(
         moduleFilePath,
         sourceFileContent,
         ts.ScriptTarget.ES2015,
         true
       );
 
+      if (!sourceFile) {
+        context.logger.warn('No Typescript executor detected, the ng-add process will be skipped.');
+        return tree;
+      }
+
+      if (!isImported) {
+        context.logger.warn('No @schematics/angular dependency detected, the ng-add process will be skipped.');
+        return tree;
+      }
+
       if (isImported(sourceFile, 'prefersReducedMotion', '@o3r/application')) {
-        context.logger.info('[LOG]: prefersReducedMotion from @o3r/application is already imported.');
+        context.logger.info('prefersReducedMotion from @o3r/application is already imported.');
         return tree;
       }
 
       const importInRootModule = (name: string, file: string, moduleFunction?: string) => additionalRules.push(
-        addRootImport(options.projectName!, ({code, external}) => code`\n${external(name, file)}${moduleFunction}`)
+        addRootImport(options.projectName!, ({ code, external }) => code`\n${external(name, file)}${moduleFunction}`)
       );
 
       const recorder = tree.beginUpdate(moduleFilePath);

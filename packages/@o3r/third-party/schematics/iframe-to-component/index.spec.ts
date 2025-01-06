@@ -1,9 +1,17 @@
-import { Tree } from '@angular-devkit/schematics';
-import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
-import * as path from 'node:path';
 import * as fs from 'node:fs';
-import { firstValueFrom } from 'rxjs';
-import { ngAddIframeFn } from './index';
+import * as path from 'node:path';
+import {
+  Tree,
+} from '@angular-devkit/schematics';
+import {
+  SchematicTestRunner,
+} from '@angular-devkit/schematics/testing';
+import {
+  firstValueFrom,
+} from 'rxjs';
+import {
+  ngAddIframeFn,
+} from './index';
 
 const collectionPath = path.join(__dirname, '..', '..', 'collection.json');
 const o3rComponentPath = '/src/components/test/test.component.ts';
@@ -51,10 +59,9 @@ describe('Add Iframe', () => {
 
       const componentFileContent = tree.readText(o3rComponentPath);
       expect(componentFileContent).toContain('AfterViewInit');
-      expect(componentFileContent).toContain('OnDestroy');
       expect(componentFileContent).toContain('private bridge?: IframeBridge;');
       expect(componentFileContent).toContain('private frame = viewChild.required<ElementRef<HTMLIFrameElement>>(\'frame\');');
-      expect(componentFileContent).toContain('this.bridge = new IframeBridge(window, nativeElem);');
+      expect(componentFileContent.replaceAll(/\s+/g, ' ')).toContain('this.bridge = new IframeBridge(window, nativeElem);');
     });
 
     it('should throw if we add iframe to a component that already has it', async () => {

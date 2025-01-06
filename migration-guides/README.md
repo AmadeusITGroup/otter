@@ -8,3 +8,5 @@ that could not be fully automated.
 
 ## How to migrate
 * [from 9.x to 10.0](./10.0.md)
+* [from 10.x to 11.0](./11.0.md)
+* [from ESLintRC to FlatConfig](./ESLINT_FLAT_CONFIG.md)

@@ -1,7 +1,13 @@
-import { TSESTree } from '@typescript-eslint/utils';
-import { createRule, defaultSupportedInterfaceNames, isExtendingConfiguration } from '../../utils';
+import {
+  TSESTree,
+} from '@typescript-eslint/utils';
+import {
+  createRule,
+  defaultSupportedInterfaceNames,
+  isExtendingConfiguration,
+} from '../../utils';
 
-const separatorRegExp = /\s*[|&]\s*/;
+const separatorRegExp = /\s*[&|]\s*/;
 
 export interface NoMultipleTypeConfigurationPropertyOption {
   supportedInterfaceNames?: string[];
@@ -39,7 +45,7 @@ export default createRule<[Required<NoMultipleTypeConfigurationPropertyOption>, 
   }],
   create: (context, [options]: Readonly<[Required<NoMultipleTypeConfigurationPropertyOption>, ...any]>) => {
     const supportedInterfaceNames = options.supportedInterfaceNames;
-    const sourceCode = context.getSourceCode();
+    const { sourceCode } = context;
 
     const rule = (node: TSESTree.TSUnionType | TSESTree.TSIntersectionType) => {
       const interfaceDeclNode = node.parent?.parent?.parent?.parent;
@@ -49,7 +55,7 @@ export default createRule<[Required<NoMultipleTypeConfigurationPropertyOption>, 
 
       if (
         node.types.every((type) => type.type === TSESTree.AST_NODE_TYPES.TSLiteralType && type.literal.type === TSESTree.AST_NODE_TYPES.Literal)
-        && [...(new Set((node.types as TSESTree.TSLiteralType[]).map((literalType) => typeof (literalType.literal as TSESTree.Literal).value)))].length === 1
+        && new Set((node.types as TSESTree.TSLiteralType[]).map((literalType) => typeof (literalType.literal as TSESTree.Literal).value)).size === 1
       ) {
         return; // Only the same literal type
       }
@@ -71,9 +77,7 @@ export default createRule<[Required<NoMultipleTypeConfigurationPropertyOption>, 
     };
 
     return {
-      // eslint-disable-next-line @typescript-eslint/naming-convention
       TSUnionType: rule,
-      // eslint-disable-next-line @typescript-eslint/naming-convention
       TSIntersectionType: rule
     };
   }

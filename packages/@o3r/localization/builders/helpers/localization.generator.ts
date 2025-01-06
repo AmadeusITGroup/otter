@@ -1,12 +1,24 @@
-import { logging } from '@angular-devkit/core';
-import { getLibraryCmsMetadata, getLocalizationFileFromAngularElement } from '@o3r/extractors';
-import type { JSONLocalization, LocalizationMetadata } from '@o3r/localization';
-import { O3rCliError } from '@o3r/schematics';
 import * as fs from 'node:fs';
-import * as glob from 'globby';
 import * as path from 'node:path';
+import {
+  logging,
+} from '@angular-devkit/core';
+import {
+  getLibraryCmsMetadata,
+  getLocalizationFileFromAngularElement,
+} from '@o3r/extractors';
+import {
+  O3rCliError,
+} from '@o3r/schematics';
+import * as glob from 'globby';
 import * as ts from 'typescript';
-import type { LocalizationExtractorBuilderSchema } from '../localization-extractor/schema';
+import type {
+  LocalizationExtractorBuilderSchema,
+} from '../localization-extractor/schema';
+import type {
+  JSONLocalization,
+  LocalizationMetadata,
+} from '@o3r/localization';
 
 /** List of Angular decorator to look for */
 const ANGULAR_ANNOTATION = ['Component', 'Injectable', 'Pipe'];
@@ -38,7 +50,7 @@ export interface LocalizationJsonFile {
 }
 
 type LocalizationJsonFileContent = LocalizationJsonFile & {
-  '$schema'?: string;
+  $schema?: string;
 };
 
 /** Localization file mapping */
@@ -58,7 +70,6 @@ export interface LibraryMetadataMap {
  * Localization extractor
  */
 export class LocalizationExtractor {
-
   /** TsConfig of the file to base on */
   private readonly tsconfigPath: string;
 
@@ -72,7 +83,7 @@ export class LocalizationExtractor {
   /** Get the list of file from tsconfig.json */
   private getFilesFromTsConfig() {
     const { include, exclude, cwd } = this.getPatternsFromTsConfig();
-    return glob.sync(include, {ignore: exclude, cwd});
+    return glob.sync(include, { ignore: exclude, cwd });
   }
 
   /**
@@ -104,7 +115,7 @@ export class LocalizationExtractor {
       }
     });
 
-    return angularItems.length ? angularItems : undefined;
+    return angularItems.length > 0 ? angularItems : undefined;
   }
 
   /**
@@ -116,15 +127,15 @@ export class LocalizationExtractor {
     const folder = localizationFilePath ? path.dirname(localizationFilePath) : undefined;
     const referencedFiles = Object.keys(localizationFileContent)
       .filter((key) => !!localizationFileContent[key].$ref)
-      .map((key) => ({key, ref: localizationFileContent[key].$ref!.split('#/')[0]}))
-      .filter(({key, ref}) => {
+      .map((key) => ({ key, ref: localizationFileContent[key].$ref!.split('#/')[0] }))
+      .filter(({ key, ref }) => {
         const res = !!ref;
         if (!res) {
           this.logger.error(`The reference (${ref}) of the key ${key} is invalid, it will be ignored`);
         }
         return res;
       })
-      .map(({ref}) => {
+      .map(({ ref }) => {
         if (!ref.startsWith('.')) {
           if (this.options?.libraries?.length && this.options.libraries.every((lib) => !ref.startsWith(lib))) {
             try {
@@ -139,7 +150,7 @@ export class LocalizationExtractor {
       })
       .filter((ref): ref is string => !!ref);
 
-    return referencedFiles.length ? referencedFiles : undefined;
+    return referencedFiles.length > 0 ? referencedFiles : undefined;
   }
 
   /**
@@ -185,11 +196,7 @@ export class LocalizationExtractor {
 
     if (loc.$ref) {
       const [refPath, refKey] = loc.$ref.split('#/', 2);
-      if (refPath.startsWith('.') || this.options?.libraries?.some((lib) => refPath.startsWith(lib))) {
-        res.ref = refKey;
-      } else {
-        res.ref = loc.$ref;
-      }
+      res.ref = refPath.startsWith('.') || this.options?.libraries?.some((lib) => refPath.startsWith(lib)) ? refKey : loc.$ref;
     }
 
     if (typeof loc.defaultValue === 'undefined' && typeof loc.$ref === 'undefined' && !loc.dictionary) {
@@ -219,11 +226,12 @@ export class LocalizationExtractor {
 
   /** Get the list of patterns from tsconfig.json */
   public getPatternsFromTsConfig() {
-    const tsconfigResult = ts.readConfigFile(this.tsconfigPath, ts.sys.readFile);
+    const tsconfigResult = ts.readConfigFile(this.tsconfigPath, (p) => ts.sys.readFile(p));
 
     if (tsconfigResult.error) {
-      // eslint-disable-next-line @typescript-eslint/no-base-to-string
-      const stringError = tsconfigResult.error.messageText.toString();
+      const stringError = typeof tsconfigResult.error.messageText === 'string'
+        ? tsconfigResult.error.messageText
+        : tsconfigResult.error.messageText.messageText;
       this.logger.error(stringError);
       throw new O3rCliError(stringError);
     }
@@ -231,7 +239,7 @@ export class LocalizationExtractor {
     const include: string[] = [...(tsconfigResult.config.files || []), ...(tsconfigResult.config.include || [])];
     const exclude: string[] = tsconfigResult.config.exclude || [];
     const cwd = path.resolve(path.dirname(this.tsconfigPath), tsconfigResult.config.rootDir || '.');
-    return {include, exclude, cwd };
+    return { include, exclude, cwd };
   }
 
   /**
@@ -253,11 +261,11 @@ export class LocalizationExtractor {
       .map((file) => this.getReferencedFiles(mapLocalization[file].data, file))
       .filter((refs): refs is string[] => !!refs)
       .reduce((acc, refs) => {
-        acc.push(...refs.filter((ref) => localizationFiles.indexOf(ref) === -1 && alreadyLoadedFiles.indexOf(ref) === -1));
+        acc.push(...refs.filter((ref) => !localizationFiles.includes(ref) && !alreadyLoadedFiles.includes(ref)));
         return acc;
       }, []);
 
-    if (references.length) {
+    if (references.length > 0) {
       return {
         ...mapLocalization,
         ...await this.getLocalizationMap(references, [...localizationFiles, ...alreadyLoadedFiles], true)
@@ -279,24 +287,24 @@ export class LocalizationExtractor {
 
     const program = ts.createProgram(tsFiles, {});
     const localizationFiles = tsFiles
-      .map((file) => ({file, source: program.getSourceFile(file)}))
-      .map(({ file, source }) => ({ file, classes: source && this.getAngularClassNode(source), source}))
+      .map((file) => ({ file, source: program.getSourceFile(file) }))
+      .map(({ file, source }) => ({ file, classes: source && this.getAngularClassNode(source), source }))
       .filter(({ classes }) => !!classes)
       .map(({ file, classes }) => classes!
         .map((classItem) => getLocalizationFileFromAngularElement(classItem))
         .filter((locFiles): locFiles is string[] => !!locFiles)
         .reduce((acc: string[], locFiles) => {
-          acc.push(...locFiles.filter((f) => acc.indexOf(f) === -1));
+          acc.push(...locFiles.filter((f) => !acc.includes(f)));
           return acc;
         }, [])
         .map((locFile) => path.resolve(path.dirname(file), locFile))
       )
       .reduce((acc: string[], locFiles) => {
-        acc.push(...locFiles.filter((f) => acc.indexOf(f) === -1));
+        acc.push(...locFiles.filter((f) => !acc.includes(f)));
         return acc;
       }, []);
 
-    localizationFiles.push(...extraLocalizationFiles.filter((file) => localizationFiles.indexOf(file) === -1));
+    localizationFiles.push(...extraLocalizationFiles.filter((file) => !localizationFiles.includes(file)));
 
     return this.getLocalizationMap(localizationFiles);
   }
@@ -357,10 +365,12 @@ export class LocalizationExtractor {
         }
       }
 
-      metadata[data.key] = data.ref && data.ref.includes('#/') && libraries.some((lib) => data.ref!.startsWith(lib)) ? {
-        ...data,
-        ref: data.ref.split('#/')[1]
-      } : data;
+      metadata[data.key] = data.ref && data.ref.includes('#/') && libraries.some((lib) => data.ref!.startsWith(lib))
+        ? {
+          ...data,
+          ref: data.ref.split('#/')[1]
+        }
+        : data;
     };
 
     Object.keys(options.libraryMetadata)

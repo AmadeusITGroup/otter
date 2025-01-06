@@ -1,4 +1,9 @@
-/* eslint-disable @typescript-eslint/naming-convention */
+const getPluginVersion = () => {
+  try {
+    const { version } = JSON.parse(require.resolve('@typescript-eslint/eslint-plugin/package.json'));
+    return version;
+  } catch {}
+};
 
 module.exports = {
   extends: [
@@ -13,47 +18,55 @@ module.exports = {
     '@typescript-eslint/array-type': [
       'error',
       {
-        'default': 'array'
+        default: 'array'
       }
     ],
     '@typescript-eslint/ban-ts-comment': 'error',
-    '@typescript-eslint/ban-types': [
-      'error',
-      {
-        'types': {
-          '{}': {
-            'message': 'Use object instead',
-            'fixWith': 'object'
-          },
-          'Object': {
-            'message': 'Avoid using the `Object` type. Did you mean `object`?'
-          },
-          'Function': {
-            'message': 'Avoid using the `Function` type. Prefer a specific function type, like `() => void`.'
-          },
-          'Boolean': {
-            'message': 'Avoid using the `Boolean` type. Did you mean `boolean`?'
-          },
-          'Number': {
-            'message': 'Avoid using the `Number` type. Did you mean `number`?'
-          },
-          'String': {
-            'message': 'Avoid using the `String` type. Did you mean `string`?'
-          },
-          'Symbol': {
-            'message': 'Avoid using the `Symbol` type. Did you mean `symbol`?'
+    ...(getPluginVersion()?.startsWith('7.')
+      ? {
+        '@typescript-eslint/ban-types': [
+          'error',
+          {
+            types: {
+              '{}': {
+                message: 'Use object instead',
+                fixWith: 'object'
+              },
+              Object: {
+                message: 'Avoid using the `Object` type. Did you mean `object`?'
+              },
+              Function: {
+                message: 'Avoid using the `Function` type. Prefer a specific function type, like `() => void`.'
+              },
+              // eslint-disable-next-line id-denylist -- key for ESLint configuration
+              Boolean: {
+                message: 'Avoid using the `Boolean` type. Did you mean `boolean`?'
+              },
+              // eslint-disable-next-line id-denylist -- key for ESLint configuration
+              Number: {
+                message: 'Avoid using the `Number` type. Did you mean `number`?'
+              },
+              // eslint-disable-next-line id-denylist -- key for ESLint configuration
+              String: {
+                message: 'Avoid using the `String` type. Did you mean `string`?'
+              },
+              Symbol: {
+                message: 'Avoid using the `Symbol` type. Did you mean `symbol`?'
+              }
+            }
           }
-        }
+        ]
       }
-    ],
+      : {}
+    ),
     '@typescript-eslint/consistent-type-assertions': 'error',
     '@typescript-eslint/dot-notation': 'error',
     '@typescript-eslint/explicit-member-accessibility': [
       'warn',
       {
-        'accessibility': 'explicit',
-        'overrides': {
-          'constructors': 'off'
+        accessibility: 'explicit',
+        overrides: {
+          constructors: 'off'
         }
       }
     ],
@@ -61,8 +74,7 @@ module.exports = {
     '@typescript-eslint/member-ordering': [
       'error',
       {
-        'default': [
-          'static-field',
+        default: [
           'static-field',
           'instance-field',
           'constructor',
@@ -76,33 +88,33 @@ module.exports = {
     '@typescript-eslint/naming-convention': [
       'error',
       {
-        'selector': 'default',
-        'format': ['camelCase'],
-        'leadingUnderscore': 'allow',
-        'trailingUnderscore': 'allow'
+        selector: 'default',
+        format: ['camelCase'],
+        leadingUnderscore: 'allow',
+        trailingUnderscore: 'allow'
       },
       {
-        'selector': 'variable',
-        'format': ['camelCase', 'UPPER_CASE'],
-        'leadingUnderscore': 'allow',
-        'trailingUnderscore': 'allow'
+        selector: 'variable',
+        format: ['camelCase', 'UPPER_CASE'],
+        leadingUnderscore: 'allow',
+        trailingUnderscore: 'allow'
       },
       {
-        'selector': 'typeLike',
-        'format': ['PascalCase']
+        selector: 'typeLike',
+        format: ['PascalCase']
       },
       {
-        'selector': 'property',
-        'modifiers': ['readonly'],
-        'format': ['camelCase', 'UPPER_CASE']
+        selector: 'property',
+        modifiers: ['readonly'],
+        format: ['camelCase', 'UPPER_CASE']
       },
       {
-        'selector': 'enumMember',
-        'format': ['camelCase', 'UPPER_CASE']
+        selector: 'enumMember',
+        format: ['camelCase', 'UPPER_CASE']
       },
       {
-        'selector': 'import',
-        'format': ['camelCase', 'PascalCase']
+        selector: 'import',
+        format: ['camelCase', 'PascalCase']
       }
     ],
     '@typescript-eslint/no-array-constructor': 'error',
@@ -116,7 +128,7 @@ module.exports = {
     '@typescript-eslint/no-misused-promises': [
       'error',
       {
-        'checksVoidReturn': false
+        checksVoidReturn: false
       }
     ],
     '@typescript-eslint/no-namespace': 'off',
@@ -128,7 +140,7 @@ module.exports = {
     '@typescript-eslint/no-shadow': [
       'error',
       {
-        'hoist': 'all'
+        hoist: 'all'
       }
     ],
     '@typescript-eslint/no-this-alias': 'error',
@@ -137,7 +149,7 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': [
       'error',
       {
-        'argsIgnorePattern': '^_'
+        argsIgnorePattern: '^_'
       }
     ],
     '@typescript-eslint/no-use-before-define': 'off',
@@ -155,9 +167,9 @@ module.exports = {
     '@typescript-eslint/triple-slash-reference': [
       'error',
       {
-        'path': 'always',
-        'types': 'prefer-import',
-        'lib': 'always'
+        path: 'always',
+        types: 'prefer-import',
+        lib: 'always'
       }
     ],
     '@typescript-eslint/unbound-method': 'warn',

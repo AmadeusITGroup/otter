@@ -3,9 +3,11 @@ import type {
   DevtoolsCommonOptions,
   MessageDataTypes,
   OtterMessageContent,
-  RequestMessagesContentMessage
+  RequestMessagesContentMessage,
 } from '@o3r/core';
-import { CssVariable } from '../core/index';
+import {
+  CssVariable,
+} from '../core/index';
 
 /**
  * Styling devtools service options

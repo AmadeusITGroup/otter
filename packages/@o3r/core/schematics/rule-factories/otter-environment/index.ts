@@ -1,20 +1,45 @@
-import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import type { PackageManager } from '@angular/cli/lib/config/workspace-schema';
+import {
+  posix,
+} from 'node:path';
+import type {
+  PackageManager,
+} from '@angular/cli/lib/config/workspace-schema';
+import {
+  chain,
+  Rule,
+  SchematicContext,
+  Tree,
+} from '@angular-devkit/schematics';
+import {
+  getPackageManager,
+  getWorkspaceConfig,
+  OTTER_ITEM_TYPES,
+  registerCollectionSchematics,
+  TYPES_DEFAULT_FOLDER,
+} from '@o3r/schematics';
 import generateEnvironments from '@schematics/angular/environments/index';
 import * as ts from 'typescript';
-import { getPackageManager, getWorkspaceConfig, OTTER_ITEM_TYPES, registerCollectionSchematics, TYPES_DEFAULT_FOLDER } from '@o3r/schematics';
-import { join, posix } from 'node:path';
+
+const editTsConfigJson = (tree: Tree) => {
+  if (tree.exists('/tsconfig.json')) {
+    const tsConfig = ts.parseConfigFileTextToJson('/tsconfig.json', tree.readText('/tsconfig.json')).config;
+    if (tsConfig.compilerOptions?.noPropertyAccessFromIndexSignature) {
+      delete tsConfig.compilerOptions.noPropertyAccessFromIndexSignature;
+    }
+    tree.overwrite('/tsconfig.json', JSON.stringify(tsConfig, null, 2));
+  }
+  return tree;
+};
 
 /**
  * Update Otter environment variable for schematics
  * @param options @see RuleFactory.options
- * @param rootPath @see RuleFactory.rootPath
  * @param options.projectName
  * @param options.enableStorybook
  * @param options.enableStyling
  * @param options.enableAnalytics
  * @param options.workingDirectory
- * @param _rootPath
+ * @param _rootPath @see RuleFactory.rootPath
  */
 export function updateOtterEnvironmentAdapter(
   options: {
@@ -26,11 +51,9 @@ export function updateOtterEnvironmentAdapter(
   },
   _rootPath: string
 ): Rule {
-
   /**
    * Add Configuration for schematics
    * @param tree
-   * @param _context
    * @param context
    */
   const editAngularJson = (tree: Tree, context: SchematicContext) => {
@@ -45,20 +68,19 @@ export function updateOtterEnvironmentAdapter(
     workspaceProject.schematics ||= {};
 
     if (workspaceProject.projectType === 'application') {
-
       OTTER_ITEM_TYPES.forEach((item) => {
         const path = TYPES_DEFAULT_FOLDER[item].app;
         if (path) {
           workspaceProject.schematics![item] = {
             path: posix.join(workspaceProject.root, path),
-            ...(workspaceProject.schematics![item] || {})
+            ...workspaceProject.schematics![item]
           };
         }
       });
 
       // override angular's dist/webapp output path with apps/webapp/dist
       if (workspaceProject.architect?.build?.options?.outputPath) {
-        workspaceProject.architect.build.options.outputPath = join(workspaceProject.root, 'dist');
+        workspaceProject.architect.build.options.outputPath = posix.join(workspaceProject.root, 'dist');
       }
 
       workspace.projects[options.projectName!] = workspaceProject;
@@ -70,27 +92,15 @@ export function updateOtterEnvironmentAdapter(
         if (path) {
           workspaceProject.schematics![item] = {
             path: posix.join(workspaceProject.root, path),
-            ...(workspaceProject.schematics![item] || {})
+            ...workspaceProject.schematics![item]
           };
         }
       });
-
     }
     registerCollectionSchematics(workspace, '@o3r/core');
     workspace.cli.analytics = false;
 
     tree.overwrite('/angular.json', JSON.stringify(workspace, null, 2));
-    return tree;
-  };
-
-  const editTsConfigJson = (tree: Tree) => {
-    if (tree.exists('/tsconfig.json')) {
-      const tsConfig = ts.parseConfigFileTextToJson('/tsconfig.json', tree.readText('/tsconfig.json')).config;
-      if (tsConfig.compilerOptions?.noPropertyAccessFromIndexSignature) {
-        delete tsConfig.compilerOptions.noPropertyAccessFromIndexSignature;
-      }
-      tree.overwrite('/tsconfig.json', JSON.stringify(tsConfig, null, 2));
-    }
     return tree;
   };
 
@@ -100,7 +110,6 @@ export function updateOtterEnvironmentAdapter(
    * @param context
    */
   const generateEnvironmentFiles = (tree: Tree, context: SchematicContext) => {
-
     const workspace = getWorkspaceConfig(tree);
     const workspaceProject = options.projectName ? workspace?.projects[options.projectName] : undefined;
     if (!workspace || !workspaceProject) {
@@ -116,7 +125,7 @@ export function updateOtterEnvironmentAdapter(
     const envBasePath = posix.join(workspaceProject.root, 'src', 'environments');
     const envDevFilePath = posix.join(envBasePath, 'environment.development.ts');
     if (!tree.exists(envDevFilePath)) {
-      return generateEnvironments({project: projectName})(tree, context);
+      return generateEnvironments({ project: projectName })(tree, context);
     }
     return tree;
   };
@@ -142,7 +151,7 @@ export function updateOtterEnvironmentAdapter(
     const envDefaultFilePath = posix.join(envBasePath, 'environment.ts');
     const addProductionBoolean = (envFilePath: string, value: boolean) => {
       let envContent = tree.readText(envFilePath);
-      if (!/production['"]?:\s*(true|false)/.test(envContent)) {
+      if (!/production["']?:\s*(true|false)/.test(envContent)) {
         envContent = envContent.replace(/(const environment = {)/, `$1\n  production: ${String(value)},\n`);
         tree.overwrite(envFilePath, envContent);
       }

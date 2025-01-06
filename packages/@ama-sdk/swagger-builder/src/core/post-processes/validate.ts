@@ -1,11 +1,12 @@
 import SwaggerParser from '@apidevtools/swagger-parser';
-import { PostProcess } from './post-process.interface';
+import {
+  PostProcess,
+} from './post-process.interface';
 
 /**
  * Post Process to validate a given Swagger spec
  */
 export class Validator implements PostProcess {
-
   /**
    * Create a copy of the given Swagger Spec
    * @param currentNode Current node
@@ -39,13 +40,13 @@ export class Validator implements PostProcess {
       await SwaggerParser.validate(tmp);
       return swaggerSpec;
     } catch (error: any) {
-      /* eslint-disable no-console */
+      /* eslint-disable no-console -- no logger available */
       console.error('Error while validating the swagger spec:');
       console.error(error.message);
       console.error(error.stack);
       /* eslint-enable no-console */
+      // eslint-disable-next-line unicorn/no-process-exit -- false positive it will be executed in a cli
       process.exit(1);
     }
   }
-
 }

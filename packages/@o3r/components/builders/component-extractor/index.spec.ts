@@ -1,10 +1,21 @@
-import { Architect } from '@angular-devkit/architect';
-import { TestingArchitectHost } from '@angular-devkit/architect/testing';
-import { schema } from '@angular-devkit/core';
-import { cleanVirtualFileSystem, useVirtualFileSystem } from '@o3r/test-helpers';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { ComponentExtractorBuilderSchema } from './schema';
+import {
+  Architect,
+} from '@angular-devkit/architect';
+import {
+  TestingArchitectHost,
+} from '@angular-devkit/architect/testing';
+import {
+  schema,
+} from '@angular-devkit/core';
+import {
+  cleanVirtualFileSystem,
+  useVirtualFileSystem,
+} from '@o3r/test-helpers';
+import {
+  ComponentExtractorBuilderSchema,
+} from './schema';
 
 describe('Component Extractor Builder', () => {
   const workspaceRoot = path.join('..', '..', '..', '..', '..');
@@ -47,14 +58,14 @@ describe('Component Extractor Builder', () => {
     expect(output.error).toBeUndefined();
     await run.stop();
 
-    const componentOutput = JSON.parse(await virtualFileSystem.promises.readFile(options.componentOutputFile, {encoding: 'utf8'}));
+    const componentOutput = JSON.parse(await virtualFileSystem.promises.readFile(options.componentOutputFile, { encoding: 'utf8' }));
     expect(typeof componentOutput).toBe('object');
     expect(typeof componentOutput.length).toBe('number');
     expect(componentOutput[0].library).toBe('showcase');
     expect(componentOutput[0].name).toMatch(/.*Component$/);
     expect(componentOutput[0].path).toMatch(/.*component.ts$/);
 
-    const configOutput = JSON.parse(await virtualFileSystem.promises.readFile(options.configOutputFile, {encoding: 'utf8'}));
+    const configOutput = JSON.parse(await virtualFileSystem.promises.readFile(options.configOutputFile, { encoding: 'utf8' }));
     expect(typeof configOutput).toBe('object');
     expect(typeof configOutput.length).toBe('number');
     expect(configOutput[0].library).toBe('showcase');

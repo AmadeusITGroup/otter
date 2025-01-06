@@ -1,10 +1,31 @@
-import { effect, inject, Injectable } from '@angular/core';
-import type { RulesEngineDebugEventsContentMessage, RulesetExecutionDebug } from '@o3r/rules-engine';
-import { rulesetReportToHistory } from '@o3r/rules-engine';
-import { filter, map, Observable, ReplaySubject } from 'rxjs';
-import { shareReplay } from 'rxjs/operators';
-import { ChromeExtensionConnectionService, isRuleEngineEventsMessage } from './connection.service';
-import { toSignal } from '@angular/core/rxjs-interop';
+import {
+  effect,
+  inject,
+  Injectable,
+} from '@angular/core';
+import {
+  toSignal,
+} from '@angular/core/rxjs-interop';
+import type {
+  RulesEngineDebugEventsContentMessage,
+  RulesetExecutionDebug,
+} from '@o3r/rules-engine';
+import {
+  rulesetReportToHistory,
+} from '@o3r/rules-engine';
+import {
+  filter,
+  map,
+  Observable,
+  ReplaySubject,
+} from 'rxjs';
+import {
+  shareReplay,
+} from 'rxjs/operators';
+import {
+  ChromeExtensionConnectionService,
+  isRuleEngineEventsMessage,
+} from './connection.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +41,8 @@ export class RulesetHistoryService {
    * History of ruleset executed
    */
   public readonly rulesetExecutions$: Observable<RulesetExecutionDebug[]> = this.ruleEngineDebugEvents$.pipe(
-    map(({events, rulesetMap}) => rulesetReportToHistory(events, rulesetMap)),
-    shareReplay({bufferSize: 1, refCount: true})
+    map(({ events, rulesetMap }) => rulesetReportToHistory(events, rulesetMap)),
+    shareReplay({ bufferSize: 1, refCount: true })
   );
 
   constructor() {

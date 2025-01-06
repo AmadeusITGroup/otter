@@ -1,7 +1,12 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-import { Context, promiseSpawn } from '@ama-terasu/core';
-import { promises as fs, readFileSync } from 'node:fs';
+import {
+  promises as fs,
+  readFileSync,
+} from 'node:fs';
 import * as path from 'node:path';
+import {
+  Context,
+  promiseSpawn,
+} from '@ama-terasu/core';
 
 /** Option to create an application */
 export interface CreateExtensionOptions {
@@ -17,6 +22,7 @@ export interface CreateExtensionOptions {
   /** Digital Api type */
   type: string;
   /** Version of the base digital spec */
+  // eslint-disable-next-line @typescript-eslint/naming-convention -- format imposed
   'spec-version': string;
 }
 
@@ -29,24 +35,35 @@ export const createExtension = async (context: Context, options: CreateExtension
   const { logger } = context;
   const cwd = path.resolve(process.cwd(), options.path);
 
-  const { version } = JSON.parse(readFileSync(path.resolve(__dirname, '..', 'package.json'), {encoding: 'utf8'}));
+  const { version } = JSON.parse(readFileSync(path.resolve(__dirname, '..', 'package.json'), { encoding: 'utf8' }));
 
   const npmrcFile = 'tmp.npmrc';
   const deps = {
-    '@ama-sdk/schematics': version !== '0.0.0-placeholder' ? version : 'latest',
+    '@ama-sdk/schematics': version === '0.0.0-placeholder' ? 'latest' : version,
     yo: 'latest'
   };
 
   await context.getSpinner('Generating extension module...').fromPromise(
     (async () => {
-      await promiseSpawn('npm init -y', { cwd, stderrLogger: logger.debug, logger });
-      await promiseSpawn(`npm install --userconfig ${npmrcFile} --include dev ${Object.entries<string>(deps).map(([n, v]) => `${n}@${v}`).join(' ')}`, { cwd, stderrLogger: logger.debug, logger });
-      // eslint-disable-next-line max-len
-      await promiseSpawn(`npx -p @angular-devkit/schematics-cli schematics @ama-sdk/schematics:api-extension --name "${options.name}" --core-type ${options.type.replace(/^core-/, '')} --core-version "${options['spec-version']}"`, { cwd, stderrLogger: logger.debug, logger });
+      await promiseSpawn('npm init -y', { cwd, stderrLogger: (...args: any[]) => logger.debug(...args), logger });
+      await promiseSpawn(
+        `npm install --userconfig ${npmrcFile} --include dev ${Object.entries<string>(deps).map(([n, v]) => `${n}@${v}`).join(' ')}`,
+        { cwd, stderrLogger: (...args: any[]) => logger.debug(...args), logger }
+      );
+
+      await promiseSpawn(
+        // eslint-disable-next-line @stylistic/max-len -- keep the command on the same line
+        `npx -p @angular-devkit/schematics-cli schematics @ama-sdk/schematics:api-extension --name "${options.name}" --core-type ${options.type.replace(/^core-/, '')} --core-version "${options['spec-version']}"`,
+        { cwd, stderrLogger: (...args: any[]) => logger.debug(...args), logger }
+      );
     })(),
     // TODO: simplify to the following line when migrated to schematics generation
-    // eslint-disable-next-line max-len
-    // promiseSpawn(`npx ${Object.entries(deps).map(([n, v]) => `-p ${n}@${v}`).join(' ')} --userconfig ${npmrcFile} yo${options.yes ? ' --force=true' : ''} @ama-sdk/sdk:api-extension --name "${options.name}" --coreType ${options.type.replace(/^core-/, '')} --coreVersion "${options['spec-version']}"`, { cwd, stderrLogger: logger.debug, logger }),
+
+    // promiseSpawn(
+    // eslint-disable-next-line @stylistic/max-len -- keep the command on the same line
+    //   `npx ${Object.entries(deps).map(([n, v]) => `-p ${n}@${v}`).join(' ')} --userconfig ${npmrcFile} yo${options.yes ? ' --force=true' : ''} @ama-sdk/sdk:api-extension --name "${options.name}" --coreType ${options.type.replace(/^core-/, '')} --coreVersion "${options['spec-version']}"`,
+    //   { cwd, stderrLogger: logger.debug, logger }
+    // ),
     `API Extension generated (in ${cwd})`
   );
 
@@ -54,7 +71,7 @@ export const createExtension = async (context: Context, options: CreateExtension
     Promise.all([
       fs.unlink(path.resolve(cwd, npmrcFile)),
       fs.rm(path.resolve(cwd, 'node_modules'), { force: true, recursive: true }),
-      options.path !== '.' ? fs.unlink(path.resolve(cwd, 'package.json')) : undefined
+      options.path === '.' ? undefined : fs.unlink(path.resolve(cwd, 'package.json'))
     ]),
     'Setup material removed'
   );

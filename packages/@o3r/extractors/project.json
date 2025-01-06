@@ -26,23 +26,14 @@
       }
     },
     "compile": {
-      "executor": "@nx/js:tsc",
+      "executor": "nx:run-script",
       "options": {
-        "main": "packages/@o3r/extractors/src/public_api.ts",
-        "tsConfig": "packages/@o3r/extractors/tsconfig.build.json",
-        "outputPath": "packages/@o3r/extractors/dist",
-        "clean": false
+        "script": "build:source"
       },
       "dependsOn": ["^build"]
     },
     "lint": {
-      "options": {
-        "eslintConfig": "packages/@o3r/extractors/.eslintrc.js",
-        "lintFilePatterns": [
-          "packages/@o3r/extractors/src/**/*.ts",
-          "packages/@o3r/extractors/package.json"
-        ]
-      }
+      "executor": "nx:run-commands"
     },
     "test": {
       "executor": "@nx/jest:jest",

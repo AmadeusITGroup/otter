@@ -1,13 +1,22 @@
-import {Directive, ElementRef, Input, OnInit, Renderer2} from '@angular/core';
-
+import {
+  Directive,
+  ElementRef,
+  Input,
+  OnInit,
+  Renderer2,
+} from '@angular/core';
 import {
   AnalyticsEvent,
   ConstructorAnalyticsEvent,
   ConstructorAnalyticsEventParameters,
-  EventContext
+  EventContext,
 } from '../../../contracts/index';
-import {EventTrackService} from '../../../services/event-track/event-track.service';
-import {BaseTrackEvents} from '../base-track-events';
+import {
+  EventTrackService,
+} from '../../../services/event-track/event-track.service';
+import {
+  BaseTrackEvents,
+} from '../base-track-events';
 
 /**
  * Directive to capture the 'click' event on the reference element.

@@ -1,14 +1,33 @@
-import { Component, DebugElement } from '@angular/core';
-import { ComponentFixture, getTestBed, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { UiEventPayload } from '../../../contracts/index';
-import { EventTrackService } from '../../../services/event-track/index';
-import { TrackEventsModule } from '../track-events.module';
+import {
+  Component,
+  DebugElement,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  getTestBed,
+  TestBed,
+} from '@angular/core/testing';
+import {
+  By,
+} from '@angular/platform-browser';
+import {
+  BrowserDynamicTestingModule,
+  platformBrowserDynamicTesting,
+} from '@angular/platform-browser-dynamic/testing';
+import {
+  RouterTestingModule,
+} from '@angular/router/testing';
+import {
+  UiEventPayload,
+} from '../../../contracts/index';
+import {
+  EventTrackService,
+} from '../../../services/event-track/index';
+import {
+  TrackEventsModule,
+} from '../track-events.module';
 
-
-const dummyEventContext = {eventInfo: { eventName: '', pageId: '', timeStamp: ''}};
+const dummyEventContext = { eventInfo: { eventName: '', pageId: '', timeStamp: '' } };
 
 @Component({
   template: `
@@ -54,7 +73,7 @@ describe('Track focus directive:', () => {
     fixture.detectChanges();
     const dummyEvent = new Event('focus');
     buttonElement.triggerEventHandler('focus', dummyEvent);
-    const expectedEventPayload: UiEventPayload = {nativeEvent: dummyEvent, context: dummyEventContext};
+    const expectedEventPayload: UiEventPayload = { nativeEvent: dummyEvent, context: dummyEventContext };
 
     expect(addEventSpy).toHaveBeenCalledWith(expectedEventPayload);
   });
@@ -81,7 +100,7 @@ describe('Track focus directive:', () => {
     fixture.detectChanges();
     buttonElement.triggerEventHandler('focus', null);
 
-    expect(addEventSpy).toHaveBeenCalledWith({nativeEvent: null, context: component.eventModel});
+    expect(addEventSpy).toHaveBeenCalledWith({ nativeEvent: null, context: component.eventModel });
 
     const newModel = {
       ...dummyEventContext,
@@ -94,6 +113,6 @@ describe('Track focus directive:', () => {
     fixture.detectChanges();
     buttonElement.triggerEventHandler('focus', null);
 
-    expect(addEventSpy).toHaveBeenCalledWith({nativeEvent: null, context: newModel});
+    expect(addEventSpy).toHaveBeenCalledWith({ nativeEvent: null, context: newModel });
   });
 });

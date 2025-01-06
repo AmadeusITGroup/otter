@@ -1,16 +1,19 @@
-import { cleanVirtualFileSystem, useVirtualFileSystem } from '@o3r/test-helpers';
-import { TSESLint } from '@typescript-eslint/utils';
+import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
-
-const virtualFileSystem = useVirtualFileSystem();
+import * as yamlParser from 'yaml-eslint-parser';
 import yamlDependencyVersionsHarmonize from './yarnrc-package-extensions-harmonize';
+const {
+  RuleTester
+} = require('@typescript-eslint/rule-tester');
 
-const ruleTester = new TSESLint.RuleTester({
-  parser: require.resolve('yaml-eslint-parser'),
-  parserOptions: {
-    defaultYAMLVersion: '1.2'
+const ruleTester = new RuleTester({
+  languageOptions: {
+    parser: yamlParser,
+    parserOptions: {
+      defaultYAMLVersion: '1.2'
+    }
   }
-});
+} as any);
 
 const packageJsonWorkspace = {
   workspaces: [
@@ -29,7 +32,6 @@ const packageJson2 = {
   }
 };
 
-
 const yamlToUpdate = `
 nodeLinker: pnp
 
@@ -43,7 +45,7 @@ packageExtensions:
   "@nx/core@^17.1.1":
     toIgnore:
       "myDep": ~1.0.0
-`;
+`.trim();
 
 const bestVersionYaml = `
 nodeLinker: pnp
@@ -58,28 +60,33 @@ packageExtensions:
   "@nx/core@^17.1.1":
     toIgnore:
       "myDep": ~1.0.0
-`;
-
+`.trim();
 
 const fakeFolder = path.resolve('/fake-folder');
-const packageToLint = path.join(fakeFolder, 'local', '.yarnrc.yml');
+const relativeFakeFolder = path.relative(process.cwd(), fakeFolder);
+const packageToLint = path.join(relativeFakeFolder, 'local', '.yarnrc.yml');
 
 beforeAll(async () => {
-  await virtualFileSystem.promises.mkdir(path.join(fakeFolder, 'local'), {recursive: true});
-  await virtualFileSystem.promises.writeFile(path.join(fakeFolder, 'local', 'package.json'), JSON.stringify(packageJsonWorkspace));
+  await fs.mkdir(path.join(fakeFolder, 'local'), { recursive: true });
+  await fs.writeFile(path.join(fakeFolder, 'local', 'package.json'), JSON.stringify(packageJsonWorkspace));
 
-  await virtualFileSystem.promises.mkdir(path.join(fakeFolder, 'local', 'packages', 'my-package'), {recursive: true});
-  await virtualFileSystem.promises.mkdir(path.join(fakeFolder, 'local', 'packages', 'my-package-2'), {recursive: true});
-  await virtualFileSystem.promises.writeFile(path.join(fakeFolder, 'local', 'packages', 'my-package-2', 'package.json'), JSON.stringify(packageJson2));
+  await fs.mkdir(path.join(fakeFolder, 'local', 'packages', 'my-package'), { recursive: true });
+  await fs.mkdir(path.join(fakeFolder, 'local', 'packages', 'my-package-2'), { recursive: true });
+  await fs.writeFile(path.join(fakeFolder, 'local', 'packages', 'my-package-2', 'package.json'), JSON.stringify(packageJson2));
 });
 
-afterAll(() => {
-  cleanVirtualFileSystem();
-});
-
-ruleTester.run('json-dependency-versions-harmonize', yamlDependencyVersionsHarmonize, {
+ruleTester.run('yarnrc-dependency-versions-harmonize', yamlDependencyVersionsHarmonize, {
   valid: [
-    { code: bestVersionYaml, filename: packageToLint }
+    { code: bestVersionYaml, filename: packageToLint },
+    {
+      filename: packageToLint,
+      code: yamlToUpdate,
+      options: [{
+        ignoredDependencies: ['myDep']
+      }]
+    },
+    { filename: packageToLint, code: '' },
+    { filename: 'not/a/yaml.txt', code: 'not a yaml' }
   ],
   invalid: [
     {
@@ -110,7 +117,7 @@ packageExtensions:
   "@nx/core@^17.1.1":
     toIgnore:
       "myDep": ~1.0.0
-`,
+`.trim(),
               data: {
                 version: '^2.0.0'
               }
@@ -140,7 +147,7 @@ packageExtensions:
   "@nx/core@^17.1.1":
     toIgnore:
       "myDep": ~1.0.0
-`,
+`.trim(),
               data: {
                 version: '^2.0.0'
               }

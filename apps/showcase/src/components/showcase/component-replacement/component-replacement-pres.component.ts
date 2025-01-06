@@ -1,14 +1,45 @@
-import { CommonModule, formatDate } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, input, type Signal, Type, ViewEncapsulation } from '@angular/core';
-import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { C11nModule, C11nService } from '@o3r/components';
-import { configSignal, DynamicConfigurableWithSignal, O3rConfig } from '@o3r/configuration';
-import { O3rComponent } from '@o3r/core';
-import { DatePickerInputPresComponent, DatePickerInputPresContext } from '../../utilities/index';
-import { COMPONENT_REPLACEMENT_PRES_DEFAULT_CONFIG } from './component-replacement-pres.config';
-import { COMPONENT_REPLACEMENT_PRES_CONFIG_ID } from './component-replacement-pres.config';
-import { ComponentReplacementPresConfig } from './component-replacement-pres.config';
+import {
+  CommonModule,
+  formatDate,
+} from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  input,
+  type Signal,
+  Type,
+  ViewEncapsulation,
+} from '@angular/core';
+import {
+  toObservable,
+  toSignal,
+} from '@angular/core/rxjs-interop';
+import {
+  FormControl,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import {
+  C11nModule,
+  C11nService,
+} from '@o3r/components';
+import {
+  configSignal,
+  DynamicConfigurableWithSignal,
+  O3rConfig,
+} from '@o3r/configuration';
+import {
+  O3rComponent,
+} from '@o3r/core';
+import {
+  DatePickerInputPresComponent,
+  DatePickerInputPresContext,
+} from '../../utilities/index';
+import {
+  COMPONENT_REPLACEMENT_PRES_CONFIG_ID,
+  COMPONENT_REPLACEMENT_PRES_DEFAULT_CONFIG,
+  ComponentReplacementPresConfig,
+} from './component-replacement-pres.config';
 
 const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
 
@@ -30,10 +61,10 @@ export class ComponentReplacementPresComponent implements DynamicConfigurableWit
 
   @O3rConfig()
   public readonly configSignal = configSignal(
-      this.config,
-      COMPONENT_REPLACEMENT_PRES_CONFIG_ID,
-      COMPONENT_REPLACEMENT_PRES_DEFAULT_CONFIG
-    );
+    this.config,
+    COMPONENT_REPLACEMENT_PRES_CONFIG_ID,
+    COMPONENT_REPLACEMENT_PRES_DEFAULT_CONFIG
+  );
 
   public datePickerComponent: Signal<Type<DatePickerInputPresContext> | undefined>;
 

@@ -1,6 +1,15 @@
-import { TranspilationPurposeOnlyError } from '../errors/index';
-import { ElementProfile, O3rElement, O3rElementConstructor } from './element';
-import { GroupProfile, O3rGroupConstructor } from './group';
+import {
+  TranspilationPurposeOnlyError,
+} from '../errors/index';
+import {
+  ElementProfile,
+  O3rElement,
+  O3rElementConstructor,
+} from './element';
+import {
+  GroupProfile,
+  O3rGroupConstructor,
+} from './group';
 
 /**
  * Interface to describe the Component fixture that is used as an abstraction layer to access the DOM of a component.
@@ -73,7 +82,6 @@ export interface ComponentFixtureProfile<V extends ElementProfile = ElementProfi
  * Interface to tell typescript that the element which implements
  * it can be used as a prototype
  */
-// eslint-disable-next-line no-use-before-define
 export type Constructable<T extends ComponentFixtureProfile, U extends FixtureWithCustom = FixtureWithCustom> = new (elem?: ElementProfile, customFixtures?: U) => T;
 
 /**
@@ -84,7 +92,7 @@ export type Constructable<T extends ComponentFixtureProfile, U extends FixtureWi
  * customSubFixtures: custom fixtures for the presenter subcomponents
  */
 export interface FixtureWithCustom {
-  [fixtureKey: string]: {fixture?: Constructable<ComponentFixtureProfile, FixtureWithCustom>; customSubFixtures?: FixtureWithCustom} | undefined;
+  [fixtureKey: string]: { fixture?: Constructable<ComponentFixtureProfile, FixtureWithCustom>; customSubFixtures?: FixtureWithCustom } | undefined;
 }
 
 /**
@@ -157,18 +165,12 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
 
   /**
    * Get text from the element associated to the given selector, or undefined if the element is not found or not visible
-   * @param selector Selector to access the element
-   * @param options Options supported
-   * @param options.elementConstructor Constructor that will be used to create the Element, defaults to O3rElement
-   * @param options.index index Select the element associated to the index
-   * @param options.shouldThrowIfNotPresent If set to true the function will throw if the element is not present
-   * @param options.timeout Duration to wait for the element to be present before it throws
-   * @param _selector
-   * @param _options
-   * @param _options.elementConstructor
-   * @param _options.index
-   * @param _options.shouldThrowIfNotPresent
-   * @param _options.timeout
+   * @param _selector Selector to access the element
+   * @param _options Options supported
+   * @param _options.elementConstructor Constructor that will be used to create the Element, defaults to O3rElement
+   * @param _options.index index Select the element associated to the index
+   * @param _options.shouldThrowIfNotPresent If set to true the function will throw if the element is not present
+   * @param _options.timeout Duration to wait for the element to be present before it throws
    */
   protected getText<T extends O3rElement>(_selector: string, _options: {
     elementConstructor?: O3rElementConstructor<T> | undefined;
@@ -181,18 +183,12 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
 
   /**
    * Check if the element associated to the given selector is visible
-   * @param selector Selector to access the element
-   * @param options Options supported
-   * @param options.elementConstructor Constructor that will be used to create the Element, defaults to O3rElement
-   * @param options.index index Select the element associated to the index
-   * @param options.shouldThrowIfNotPresent If set to true the function will throw if the element is not present
-   * @param options.timeout Duration to wait for the element to be present before it throws
-   * @param _selector
-   * @param _options
-   * @param _options.elementConstructor
-   * @param _options.index
-   * @param _options.shouldThrowIfNotPresent
-   * @param _options.timeout
+   * @param _selector Selector to access the element
+   * @param _options Options supported
+   * @param _options.elementConstructor Constructor that will be used to create the Element, defaults to O3rElement
+   * @param _options.index index Select the element associated to the index
+   * @param _options.shouldThrowIfNotPresent If set to true the function will throw if the element is not present
+   * @param _options.timeout Duration to wait for the element to be present before it throws
    */
   protected isVisible<T extends O3rElement>(_selector: string, _options: {
     elementConstructor?: O3rElementConstructor<T> | undefined;
@@ -205,18 +201,12 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
 
   /**
    * Click on the element associated to the given selector if it exists and is visible
-   * @param selector Selector to access the element
-   * @param options Options supported
-   * @param options.elementConstructor Constructor that will be used to create the Element, defaults to O3rElement
-   * @param options.index index Select the element associated to the index
-   * @param options.shouldThrowIfNotPresent If set to true the function will throw if the element is not present
-   * @param options.timeout Duration to wait for the element to be present before it throws
-   * @param _selector
-   * @param _options
-   * @param _options.elementConstructor
-   * @param _options.index
-   * @param _options.shouldThrowIfNotPresent
-   * @param _options.timeout
+   * @param _selector Selector to access the element
+   * @param _options Options supported
+   * @param _options.elementConstructor Constructor that will be used to create the Element, defaults to O3rElement
+   * @param _options.index index Select the element associated to the index
+   * @param _options.shouldThrowIfNotPresent If set to true the function will throw if the element is not present
+   * @param _options.timeout Duration to wait for the element to be present before it throws
    */
   protected click<T extends O3rElement>(_selector: string, _options: {
     elementConstructor?: O3rElementConstructor<T> | undefined;
@@ -258,7 +248,7 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
   }
 
   /** @inheritdoc */
-  public getSubComponents(): Promise<{[componentName: string]: ComponentFixtureProfile[]}> {
+  public getSubComponents(): Promise<{ [componentName: string]: ComponentFixtureProfile[] }> {
     throw new TranspilationPurposeOnlyError('Should target a proper implementation');
   }
 

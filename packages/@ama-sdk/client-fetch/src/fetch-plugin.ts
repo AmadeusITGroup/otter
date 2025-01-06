@@ -1,4 +1,10 @@
-import type { ApiClient ,Plugin, PluginAsyncRunner, PluginContext, RequestOptions } from '@ama-sdk/core';
+import type {
+  ApiClient,
+  Plugin,
+  PluginAsyncRunner,
+  PluginContext,
+  RequestOptions,
+} from '@ama-sdk/core';
 
 /** Fetch Call Response type */
 export type FetchCall = Promise<Response>;

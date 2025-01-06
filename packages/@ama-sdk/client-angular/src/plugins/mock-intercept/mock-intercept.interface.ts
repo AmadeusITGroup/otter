@@ -1,5 +1,9 @@
-import type { MockAdapter } from '@ama-sdk/core';
-import type { AngularPluginContext } from '../../angular-plugin';
+import type {
+  MockAdapter,
+} from '@ama-sdk/core';
+import type {
+  AngularPluginContext,
+} from '../../angular-plugin';
 
 /**
  * Mock Angular Plugin options

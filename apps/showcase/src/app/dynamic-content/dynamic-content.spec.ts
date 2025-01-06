@@ -1,9 +1,26 @@
-import { AsyncPipe } from '@angular/common';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterModule } from '@angular/router';
-import { O3rElement } from '@o3r/testing/core';
-import { DynamicContentComponent } from './dynamic-content.component';
-import { DynamicContentFixtureComponent } from './dynamic-content.fixture';
+import {
+  AsyncPipe,
+} from '@angular/common';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import {
+  RouterModule,
+} from '@angular/router';
+import {
+  O3rElement,
+} from '@o3r/testing/core';
+import {
+  provideMarkdown,
+} from 'ngx-markdown';
+import {
+  DynamicContentComponent,
+} from './dynamic-content.component';
+import {
+  DynamicContentFixtureComponent,
+} from './dynamic-content.fixture';
+
 let componentFixture: DynamicContentFixtureComponent;
 
 describe('DynamicContentComponent', () => {
@@ -16,7 +33,8 @@ describe('DynamicContentComponent', () => {
         DynamicContentComponent,
         RouterModule.forRoot([]),
         AsyncPipe
-      ]
+      ],
+      providers: [provideMarkdown()]
     });
     fixture = TestBed.createComponent(DynamicContentComponent);
     component = fixture.componentInstance;

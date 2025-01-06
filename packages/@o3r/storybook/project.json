@@ -22,25 +22,9 @@
       }
     },
     "compile": {
-      "executor": "@nx/js:tsc",
+      "executor": "nx:run-script",
       "options": {
-        "main": "packages/@o3r/storybook/src/public_api.ts",
-        "tsConfig": "packages/@o3r/storybook/tsconfig.build.json",
-        "outputPath": "packages/@o3r/storybook/dist",
-        "assets": [
-          "packages/@o3r/storybook/{builders,collection,migration}.json",
-          {
-            "input": "packages/@o3r/storybook/dist-modules/addon",
-            "glob": "**",
-            "output": "./addon"
-          },
-          {
-            "input": "packages/@o3r/storybook/dist-modules/component-wrapper",
-            "glob": "**",
-            "output": "./component-wrapper"
-          }
-        ],
-        "clean": false
+        "script": "build:source"
       },
       "dependsOn": ["^build"]
     },
@@ -68,13 +52,7 @@
       "dependsOn": ["compile"]
     },
     "lint": {
-      "options": {
-        "eslintConfig": "packages/@o3r/storybook/.eslintrc.js",
-        "lintFilePatterns": [
-          "packages/@o3r/storybook/src/**/*.ts",
-          "packages/@o3r/storybook/package.json"
-        ]
-      }
+      "executor": "nx:run-commands"
     },
     "test": {
       "executor": "@nx/jest:jest",

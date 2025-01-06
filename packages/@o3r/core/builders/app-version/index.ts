@@ -1,20 +1,27 @@
-import { BuilderOutput, createBuilder } from '@angular-devkit/architect';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { createBuilderWithMetricsIfInstalled } from '../utils';
-import { AppVersionBuilderSchema } from './schema';
+import {
+  BuilderOutput,
+  createBuilder,
+} from '@angular-devkit/architect';
+import {
+  createBuilderWithMetricsIfInstalled,
+} from '../utils';
+import {
+  AppVersionBuilderSchema,
+} from './schema';
 
 export * from './schema';
 
-const PACKAGE_JSON_NOT_FOUND: BuilderOutput = {
+const PACKAGE_JSON_NOT_FOUND = {
   error: 'package.json not found',
   success: false
-};
+} as const satisfies BuilderOutput;
 
-const PACKAGE_JSON_INCORRECT: BuilderOutput = {
+const PACKAGE_JSON_INCORRECT = {
   error: 'package.json incorrect',
   success: false
-};
+} as const satisfies BuilderOutput;
 
 /** Maximum number of steps */
 const STEP_NUMBER = 2;
@@ -26,7 +33,7 @@ export default createBuilder<AppVersionBuilderSchema>(createBuilderWithMetricsIf
   if (!fs.existsSync(packageJsonFile)) {
     return PACKAGE_JSON_NOT_FOUND;
   }
-  const packageJson = await fs.promises.readFile(packageJsonFile, {encoding: 'utf8'});
+  const packageJson = await fs.promises.readFile(packageJsonFile, { encoding: 'utf8' });
   let version: string;
   try {
     version = JSON.parse(packageJson).version;

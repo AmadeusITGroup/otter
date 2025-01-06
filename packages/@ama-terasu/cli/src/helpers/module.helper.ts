@@ -1,12 +1,32 @@
+import {
+  exec,
+} from 'node:child_process';
+import {
+  existsSync,
+  promises as fs,
+  readFileSync,
+} from 'node:fs';
+import {
+  dirname,
+  join,
+  resolve,
+} from 'node:path';
+import {
+  promisify,
+} from 'node:util';
+import {
+  getAvailableModules,
+  NpmRegistryPackage,
+} from '@o3r/schematics';
 import * as chalk from 'chalk';
-import { exec } from 'node:child_process';
-import { existsSync, promises as fs } from 'node:fs';
-import { dirname, join, resolve } from 'node:path';
-import { promisify } from 'node:util';
-import { readFileSync } from 'node:fs';
-import type { PackageJson } from 'type-fest';
-import { getAvailableModules, NpmRegistryPackage } from '@o3r/schematics';
-import { dependencies, devDependencies, peerDependencies } from '../../package.json';
+import type {
+  PackageJson,
+} from 'type-fest';
+import {
+  dependencies,
+  devDependencies,
+  peerDependencies,
+} from '../../package.json';
 
 const moduleScopeWhitelist = ['@o3r', '@ama-sdk', '@ama-des'];
 
@@ -64,7 +84,6 @@ const dynamicDependenciesPath = resolve(__dirname, '..', '..', DYNAMIC_DEPENDENC
 /**
  * Find the closest package.json file in parent folders
  * @param currentPath current path to inspect
- * @returns
  */
 export const findClosestPackageJson = (currentPath: string): string | undefined => {
   const dir = dirname(currentPath);
@@ -84,7 +103,7 @@ export const findClosestPackageJson = (currentPath: string): string | undefined 
 export const getDepPackage = (packageName: string): PackageJson | undefined => {
   try {
     const packageJsonPath = findClosestPackageJson(require.resolve(packageName));
-    return packageJsonPath && JSON.parse(readFileSync(packageJsonPath, {encoding: 'utf8'}));
+    return packageJsonPath && JSON.parse(readFileSync(packageJsonPath, { encoding: 'utf8' }));
   } catch {
     return undefined;
   }
@@ -101,7 +120,10 @@ export const getInstalledInformation = async (dep: MinimalPackageInformation & {
     let fsDiscoveredPath: string | undefined;
     if (useFsToSearch) {
       const localPath = resolve(dynModule, dep.name, 'package.json');
-      fsDiscoveredPath = existsSync(localPath) ? resolve(dynModule, dep.name, JSON.parse(await fs.readFile(localPath, {encoding: 'utf8'})).main) : undefined;
+      if (existsSync(localPath)) {
+        const packageJsonContent = await fs.readFile(localPath, { encoding: 'utf8' });
+        fsDiscoveredPath = resolve(dynModule, dep.name, JSON.parse(packageJsonContent).main as string);
+      }
     }
     const resolutionPath = fsDiscoveredPath || require.resolve(dep.name, {
       paths: [
@@ -123,13 +145,12 @@ export const getInstalledInformation = async (dep: MinimalPackageInformation & {
   }
 };
 
-
 /**
  * Get the module simplified name
  * @param pck package to get name from
  */
 export const getSimplifiedName = (pck: MinimalPackageInformation & { name: string }) => {
-  return /(?:@[^/]+[/])?(?:amaterasu-)?(.*)/.exec(pck.name)?.[1] || pck.name;
+  return /(?:@[^/]+\/)?(?:amaterasu-)?(.*)/.exec(pck.name)?.[1] || pck.name;
 };
 
 /**
@@ -144,8 +165,11 @@ export const isOfficialModule = (pck: MinimalPackageInformation & { name: string
  * Retrieve the list of all the dependencies
  */
 export const getLocalDependencies = async (): Promise<Record<string, string>> => {
-  const dynDependencies: Record<string, string> = existsSync(resolve(dynamicDependenciesPath, 'package.json')) &&
-    JSON.parse(await fs.readFile(resolve(dynamicDependenciesPath, 'package.json'), { encoding: 'utf8' })).dependencies || {};
+  let dynDependencies: Record<string, string> = {};
+  if (existsSync(resolve(dynamicDependenciesPath, 'package.json'))) {
+    const content = await fs.readFile(resolve(dynamicDependenciesPath, 'package.json'), { encoding: 'utf8' });
+    dynDependencies = JSON.parse(content).dependencies || {};
+  }
   return {
     ...dynDependencies,
     ...peerDependencies,
@@ -160,7 +184,8 @@ export const getLocalDependencies = async (): Promise<Record<string, string>> =>
  * @param options.localOnly Resolve module locally only
  * @returns list of modules to load
  */
-export const getCliModules = async (options: { localOnly: boolean } = { localOnly: false }): Promise<ModuleDiscovery[]> => {
+export const getCliModules = async (options?: { localOnly: boolean }): Promise<ModuleDiscovery[]> => {
+  const { localOnly = false } = options || {};
   let remoteModules: NpmRegistryPackage[] = [];
   const localDependencies = await getLocalDependencies();
   const explicitModules = Object.keys(localDependencies)
@@ -170,10 +195,11 @@ export const getCliModules = async (options: { localOnly: boolean } = { localOnl
       return !!keywords && keywords.includes(MODULES_KEYWORD);
     });
 
-  if (!options.localOnly) {
+  if (!localOnly) {
     try {
       remoteModules = await getAvailableModules(MODULES_KEYWORD, moduleScopeWhitelist);
     } catch {
+      // eslint-disable-next-line no-console -- no logger available
       console.warn('Failed to execute `npm search`, will contains only installed packages');
     }
   }
@@ -192,7 +218,7 @@ export const getCliModules = async (options: { localOnly: boolean } = { localOnl
     });
   }
 
-  return [ ...map.values() ];
+  return [...map.values()];
 };
 
 /**
@@ -208,7 +234,7 @@ export const isInstalled = (pck: ModuleDiscovery): pck is ModuleDiscovery & Inst
  * @param pck package to get name from
  */
 export const getFormattedDescription = (pck: ModuleDiscovery): string => {
-  return (isInstalled(pck) ? '' : `${chalk.grey.italic('(remote)')} `) + (pck.description || '<Missing description>') + (pck.isOfficialModule ? ` ${chalk.blue(String.fromCharCode(0x00AE))}` : '');
+  return (isInstalled(pck) ? '' : `${chalk.grey.italic('(remote)')} `) + (pck.description || '<Missing description>') + (pck.isOfficialModule ? ` ${chalk.blue(String.fromCharCode(0x00_AE))}` : '');
 };
 
 /**

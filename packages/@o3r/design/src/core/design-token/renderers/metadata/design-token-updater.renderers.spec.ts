@@ -1,9 +1,19 @@
+import {
+  promises as fs,
+} from 'node:fs';
+import {
+  resolve,
+} from 'node:path';
+import type {
+  DesignTokenSpecification,
+} from '../../design-token-specification.interface';
+import type {
+  DesignTokenVariableSet,
+} from '../../parsers';
 import * as parser from '../../parsers/design-token.parser';
-import { promises as fs } from 'node:fs';
-import { resolve } from 'node:path';
-import type { DesignTokenSpecification } from '../../design-token-specification.interface';
-import type { DesignTokenVariableSet } from '../../parsers';
-import { getMetadataStyleContentUpdater } from './design-token-updater.renderers';
+import {
+  getMetadataStyleContentUpdater,
+} from './design-token-updater.renderers';
 
 describe('getMetadataStyleContentUpdater', () => {
   let exampleVariable!: DesignTokenSpecification;

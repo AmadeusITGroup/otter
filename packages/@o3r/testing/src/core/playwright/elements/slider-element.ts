@@ -1,5 +1,10 @@
-import type { SliderElementProfile } from '../../elements';
-import { O3rElement, type PlaywrightSourceElement } from '../element';
+import type {
+  SliderElementProfile,
+} from '../../elements';
+import {
+  O3rElement,
+  type PlaywrightSourceElement,
+} from '../element';
 
 /**
  * Implementation dedicated to Playwright.

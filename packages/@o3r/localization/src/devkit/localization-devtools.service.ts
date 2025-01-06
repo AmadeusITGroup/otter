@@ -1,12 +1,24 @@
-import { ApplicationRef, Injectable } from '@angular/core';
-import { TranslateCompiler } from '@ngx-translate/core';
-import {firstValueFrom, lastValueFrom, Subscription} from 'rxjs';
-import { LocalizationService } from '../tools';
-import type { TranslateMessageFormatLazyCompiler } from '../core';
+import {
+  ApplicationRef,
+  Injectable,
+} from '@angular/core';
+import {
+  TranslateCompiler,
+} from '@ngx-translate/core';
+import {
+  firstValueFrom,
+  lastValueFrom,
+  Subscription,
+} from 'rxjs';
+import type {
+  TranslateMessageFormatLazyCompiler,
+} from '../core';
+import {
+  LocalizationService,
+} from '../tools';
 
 @Injectable()
 export class OtterLocalizationDevtools {
-
   constructor(
     private readonly localizationService: LocalizationService,
     private readonly translateCompiler: TranslateCompiler,

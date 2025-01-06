@@ -1,4 +1,10 @@
-import { type Api, type ApiClient, ApiTypes, type RequestOptionsParameters, type ReviverType } from '../fwk';
+import {
+  type Api,
+  type ApiClient,
+  ApiTypes,
+  type RequestOptionsParameters,
+  type ReviverType,
+} from '../fwk';
 
 /**
  * Generic request to the API
@@ -24,14 +30,12 @@ export class GenericApi implements Api {
   /** @inheritDoc */
   public readonly apiName = GenericApi.apiName;
 
-
   /** @inheritDoc */
   public client: ApiClient;
 
   /**
    * Initialize your interface
-   * @param apiClient
-   * @params apiClient Client used to process call to the API
+   * @param apiClient Client used to process call to the API
    */
   constructor(apiClient: ApiClient) {
     this.client = apiClient;
@@ -43,18 +47,16 @@ export class GenericApi implements Api {
    */
   public async request<T>(requestOptions: GenericRequestOptions<T>): Promise<T> {
     const metadataHeaderAccept = requestOptions.metadata?.headerAccept || 'application/json';
-    const headers: { [key: string]: string | undefined } = {
-      // eslint-disable-next-line @typescript-eslint/naming-convention
+    const headers = {
       'Content-Type': requestOptions.metadata?.headerContentType || 'application/json',
-      // eslint-disable-next-line @typescript-eslint/naming-convention
-      ...(metadataHeaderAccept ? { 'Accept': metadataHeaderAccept } : {})
-    };
+      ...(metadataHeaderAccept ? { Accept: metadataHeaderAccept } : {})
+    } as const satisfies RequestOptionsParameters['headers'];
 
-    const requestParameters: RequestOptionsParameters = {
+    const requestParameters = {
       api: this,
       headers,
       ...requestOptions
-    };
+    } as const satisfies RequestOptionsParameters;
     const options = await this.client.getRequestOptions(requestParameters);
     const url = this.client.prepareUrl(options.basePath, options.queryParams);
 

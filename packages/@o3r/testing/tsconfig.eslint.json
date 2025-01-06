@@ -1,8 +1,9 @@
 {
   "extends": "./tsconfig.build",
   "include": [
-    ".eslintrc.js",
-    "scripts/**"
+    "eslint*.config.mjs",
+    "testing/setup-jest*.ts",
+    "scripts/**/*"
   ],
   "exclude": [
     "node_modules/**"

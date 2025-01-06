@@ -1,11 +1,31 @@
-/* eslint-disable no-console */
-import { getTestBed, TestBed } from '@angular/core/testing';
-import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
-import { provideMockStore } from '@ngrx/store/testing';
-import { applicationMessageTarget, ConnectContentMessage, OtterMessage, otterMessageType } from '@o3r/core';
-import { LoggerModule, noopLogger } from '@o3r/logger';
-import { ConfigurationDevtoolsMessageService } from './configuration-devtools.message.service';
-import { OTTER_CONFIGURATION_DEVTOOLS_DEFAULT_OPTIONS, OTTER_CONFIGURATION_DEVTOOLS_OPTIONS } from './configuration-devtools.token';
+import {
+  getTestBed,
+  TestBed,
+} from '@angular/core/testing';
+import {
+  BrowserDynamicTestingModule,
+  platformBrowserDynamicTesting,
+} from '@angular/platform-browser-dynamic/testing';
+import {
+  provideMockStore,
+} from '@ngrx/store/testing';
+import {
+  applicationMessageTarget,
+  ConnectContentMessage,
+  OtterMessage,
+  otterMessageType,
+} from '@o3r/core';
+import {
+  LoggerModule,
+  noopLogger,
+} from '@o3r/logger';
+import {
+  ConfigurationDevtoolsMessageService,
+} from './configuration-devtools.message.service';
+import {
+  OTTER_CONFIGURATION_DEVTOOLS_DEFAULT_OPTIONS,
+  OTTER_CONFIGURATION_DEVTOOLS_OPTIONS,
+} from './configuration-devtools.token';
 
 const connectMessage: OtterMessage<ConnectContentMessage, typeof applicationMessageTarget> = {
   type: otterMessageType,
@@ -16,7 +36,6 @@ const connectMessage: OtterMessage<ConnectContentMessage, typeof applicationMess
 };
 
 describe('Configuration DevTools message', () => {
-
   beforeAll(() => getTestBed().platform || TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting(), {
     teardown: { destroyAfterEach: false }
   }));
@@ -37,7 +56,6 @@ describe('Configuration DevTools message', () => {
             configuration: {
               ids: ['@scope/package#componentTest'],
               entities: {
-                // eslint-disable-next-line @typescript-eslint/naming-convention
                 '@scope/package#componentTest': {
                   configEx1: 'test',
                   configEx2: true,
@@ -59,7 +77,6 @@ describe('Configuration DevTools message', () => {
 
     expect(postmessage).toHaveBeenCalledTimes(1);
   });
-
 
   it('should ignore message when not activated', () => {
     const handleEvents = jest.spyOn<any, any>(service, 'handleEvents');

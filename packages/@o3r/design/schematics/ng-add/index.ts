@@ -1,8 +1,18 @@
-import { chain, noop, type Rule } from '@angular-devkit/schematics';
-import { registerGenerateCssBuilder } from './register-generate-css';
-import { extractToken } from '../extract-token';
-import type { NgAddSchematicsSchema } from './schema';
 import * as path from 'node:path';
+import {
+  chain,
+  noop,
+  type Rule,
+} from '@angular-devkit/schematics';
+import {
+  extractToken,
+} from '../extract-token';
+import {
+  registerGenerateCssBuilder,
+} from './register-generate-css';
+import type {
+  NgAddSchematicsSchema,
+} from './schema';
 
 const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
 
@@ -14,21 +24,15 @@ export function ngAddFn(options: NgAddSchematicsSchema): Rule {
   /* ng add rules */
   return async (tree) => {
     const { getPackageInstallConfig, setupDependencies, setupSchematicsParamsForProject } = await import('@o3r/schematics');
+    const schematicsDefaultOptions = {
+      useOtterDesignToken: true
+    };
     return chain([
       registerGenerateCssBuilder(options.projectName),
       setupSchematicsParamsForProject({
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        '@o3r/core:component': {
-          useOtterDesignToken: true
-        },
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        '@o3r/core:component-presenter': {
-          useOtterDesignToken: true
-        },
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        '*:*': {
-          useOtterDesignToken: true
-        }
+        '@o3r/core:component': schematicsDefaultOptions,
+        '@o3r/core:component-presenter': schematicsDefaultOptions,
+        '*:*': schematicsDefaultOptions
       }, options.projectName),
       setupDependencies({
         projectName: options.projectName,
@@ -46,7 +50,9 @@ export function ngAddFn(options: NgAddSchematicsSchema): Rule {
 export const ngAdd = (options: NgAddSchematicsSchema): Rule => async (_, { logger }) => {
   const missingSchematicDependencyMessage = 'Missing @o3r/schematics';
   try {
-    const { createSchematicWithMetricsIfInstalled } = await import('@o3r/schematics').catch(() => { throw new Error(missingSchematicDependencyMessage); });
+    const { createSchematicWithMetricsIfInstalled } = await import('@o3r/schematics').catch(() => {
+      throw new Error(missingSchematicDependencyMessage);
+    });
     return createSchematicWithMetricsIfInstalled(ngAddFn)(options);
   } catch (err) {
     if (err instanceof Error && err.message === missingSchematicDependencyMessage) {
