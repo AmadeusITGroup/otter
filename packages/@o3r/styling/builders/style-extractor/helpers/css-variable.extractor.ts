@@ -5,8 +5,12 @@ import * as fs from 'node:fs';
 import { pathToFileURL } from 'node:url';
 import * as path from 'node:path';
 import {
-  compileString,
-  SassBoolean,
+  AsyncCompiler,
+  CalculationInterpolation,
+  CalculationOperation,
+  CalculationValue,
+  initAsyncCompiler,
+  SassCalculation,
   SassColor,
   SassList,
   SassMap,
@@ -14,25 +18,17 @@ import {
   SassString,
   StringOptions,
   Value
-} from 'sass';
+} from 'sass-embedded';
 import type { StyleExtractorBuilderSchema } from '../schema';
-
-/**
- * SassCalculation interface
- */
-interface SassCalculation extends Value {
-  name: 'calc';
-  $arguments: string[];
-}
 
 /**
  * CSS Variable extractor
  */
 export class CssVariableExtractor {
+  static asyncCompiler: Promise<AsyncCompiler> = initAsyncCompiler();
   private readonly cache: Record<string, URL> = {};
 
   constructor(public defaultSassOptions?: StringOptions<'sync'>, private readonly builderOptions?: Pick<StyleExtractorBuilderSchema, 'ignoreInvalidValue'>) {
-
   }
 
   /**
@@ -80,7 +76,9 @@ export class CssVariableExtractor {
    * @param color Sass Color
    */
   private static getColorString(color: SassColor) {
-    return color.alpha ? `rgba(${color.red}, ${color.green}, ${color.blue}, ${color.alpha})` : `rgb(${color.red}, ${color.green}, ${color.blue}})`;
+    return color.alpha ?
+      `rgba(${color.channel('red')}, ${color.channel('green')}, ${color.channel('blue')}, ${color.alpha})` :
+      `rgb(${color.channel('red')}, ${color.channel('green')}, ${color.channel('blue')}})`;
   }
 
   /**
@@ -115,16 +113,35 @@ export class CssVariableExtractor {
     return contextTags;
   }
 
+  private static getCalcString(item: CalculationValue): string {
+    if (item) {
+      if (item instanceof SassNumber) {
+        const value = item.value;
+        const unit = item.numeratorUnits.get(0) ?? '';
+        return value + unit;
+      } else if (item instanceof SassString) {
+        return item.text;
+      } else if (item instanceof CalculationOperation) {
+        return `${CssVariableExtractor.getCalcString(item.left)} ${item.operator} ${CssVariableExtractor.getCalcString(item.right)}`;
+      } else if (item instanceof CalculationInterpolation) {
+        return item.value;
+      } else {
+        return `calc(${item.arguments.toArray().map((arg) => CssVariableExtractor.getCalcString(arg)).join(' ')})`;
+      }
+    }
+    return '';
+  }
+
   /**
    * Extract metadata from Sass Content
    * @param sassFilePath SCSS file URL
    * @param sassFileContent SCSS file content
    * @param additionalSassOptions
    */
-  public extractFileContent(sassFilePath: string, sassFileContent: string, additionalSassOptions?: StringOptions<'sync'>) {
+  public async extractFileContent(sassFilePath: string, sassFileContent: string, additionalSassOptions?: StringOptions<'async'>) {
     const cssVariables: CssVariable[] = [];
 
-    const options: StringOptions<'sync'> = {
+    const options: StringOptions<'async'> = {
       ...this.defaultSassOptions,
       ...additionalSassOptions,
       loadPaths: [path.dirname(sassFilePath)],
@@ -219,7 +236,7 @@ export class CssVariableExtractor {
           }
 
           let parsedValue: string | undefined;
-          if (varValue instanceof SassString || varValue instanceof SassNumber || varValue instanceof SassBoolean) {
+          if (varValue instanceof SassString || varValue instanceof SassNumber) {
             parsedValue = varValue.toString();
           } else if (varValue instanceof SassColor) {
             parsedValue = CssVariableExtractor.getColorString(varValue);
@@ -228,12 +245,12 @@ export class CssVariableExtractor {
             const parsedValueItems: string[] = [];
             for (let i = 0; i < varValue.asList.size; i++) {
               const item = varValue.get(i);
-              if (item instanceof SassString || item instanceof SassNumber || item instanceof SassBoolean) {
+              if (item instanceof SassString || item instanceof SassNumber) {
                 parsedValueItems.push(item.toString());
               } else if (item instanceof SassColor) {
                 parsedValueItems.push(CssVariableExtractor.getColorString(item));
               } else if (CssVariableExtractor.isSassCalculation(item)) {
-                parsedValueItems.push(`calc(${item.$arguments[0]})`);
+                parsedValueItems.push(`calc(${item.arguments.toArray().map((arg) => CssVariableExtractor.getCalcString(arg)).join(' ')})`);
               } else {
                 invalidIndexes.push(i);
               }
@@ -248,7 +265,7 @@ export class CssVariableExtractor {
               }
             }
           } else if (CssVariableExtractor.isSassCalculation(varValue)) {
-            parsedValue = `calc(${varValue.$arguments[0]})`;
+            parsedValue = `calc(${varValue.arguments.toArray().map((arg) => CssVariableExtractor.getCalcString(arg)).join(' ')})`;
           } else if (!varValue.realNull) {
             if (!details) {
               console.warn(`The value "null" of ${varName.text} is available only for details override`);
@@ -293,17 +310,21 @@ export class CssVariableExtractor {
       }
     };
 
-    compileString(sassFileContent, options);
+    await (await CssVariableExtractor.asyncCompiler).compileStringAsync(sassFileContent, options);
     return cssVariables;
+  }
+
+  public async disposeAsyncCompiler() {
+    await (await CssVariableExtractor.asyncCompiler).dispose();
   }
 
   /**
    * Extract metadata from Sass file
    * @param sassFilePath SCSS file to parse
    */
-  public extractFile(sassFilePath: string): CssVariable[] {
+  public async extractFile(sassFilePath: string): Promise<CssVariable[]> {
     const sassFileContent = fs.readFileSync(sassFilePath, {encoding: 'utf8'});
-    return this.extractFileContent(sassFilePath, sassFileContent);
+    return await this.extractFileContent(sassFilePath, sassFileContent);
   }
 
   /**
