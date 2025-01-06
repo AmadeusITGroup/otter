@@ -100,8 +100,9 @@ export class ExperimentFactsService extends FactsService<ExperimentFacts> {
   }
 }
 ```
-**Warning** Your service must be imported only once in the application. A good way to do it is to provide it in root as
-a singleton.
+> [!WARNING]
+> Your service must be imported only once in the application.
+> A good way to do it is to provide it in root as a singleton.
 
 #### The A/B Testing service
 Now, you need to link ``ExperimentFactsService`` and the ``AbTestBridge`` to update the ``experiments`` fact that reflects the
