@@ -14,7 +14,6 @@
   "scripts": {
     "nx": "nx",
     "ng": "yarn nx",
-    "test": "yarn nx test design",
     "copy:templates": "yarn cpy 'schematics/**/templates{-*,}/**/*' dist/schematics && yarn cpy 'builders/**/templates/**/*' dist/builders",
     "copy:schemas": "yarn cpy 'schemas/**/*' dist/schemas",
     "prepare:build:builders": "yarn cpy 'builders/**/schema.json' dist/builders && yarn cpy '{builders,collection,migration}.json' dist && yarn cpy 'schematics/**/schema.json' dist/schematics && yarn copy:templates",

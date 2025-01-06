@@ -18,8 +18,7 @@
     "prepare:publish": "prepare-publish ./dist",
     "prepare:build:builders": "yarn cpy 'schematics/**/*.json' 'schematics/**/templates/**' dist/schematics && yarn cpy 'collection.json' dist",
     "build": "yarn nx build store-sync",
-    "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest",
-    "test": "yarn nx test store-sync"
+    "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest"
   },
   "peerDependencies": {
     "@ama-sdk/core": "workspace:^",

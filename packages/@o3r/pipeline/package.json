@@ -16,7 +16,6 @@
   "scripts": {
     "nx": "nx",
     "ng": "yarn nx",
-    "test": "yarn nx test pipeline",
     "copy:templates": "yarn cpy 'schematics/**/templates{-*,}/**/*' dist/schematics",
     "prepare:build:builders": "yarn cpy '{collection,migration}.json' dist && yarn cpy 'schematics/**/schema.json' dist/schematics && yarn copy:templates",
     "prepare:publish": "prepare-publish ./dist && yarn write-git-hash",

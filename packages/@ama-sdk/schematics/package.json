@@ -11,7 +11,6 @@
   "scripts": {
     "nx": "nx",
     "ng": "yarn nx",
-    "test": "yarn nx test ama-sdk-schematics",
     "prepare:build:builders": "yarn cpy 'schematics/**/*.json' 'schematics/**/templates/**' 'schematics/**/*.jar' dist/schematics && yarn cpy '{package,collection,migration}.json' dist",
     "build": "yarn nx build ama-sdk-schematics",
     "postbuild": "patch-package-json-main",

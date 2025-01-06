@@ -13,7 +13,6 @@
   "scripts": {
     "nx": "nx",
     "ng": "yarn nx",
-    "test": "yarn nx test styling",
     "copy:templates": "yarn cpy 'schematics/**/templates/**/*.scss' dist/schematics",
     "prepare:build:builders": "yarn cpy 'builders/**/*.json' dist/builders && yarn cpy '{builders,collection,migration}.json' dist && yarn cpy 'schematics/**/*.json' dist/schematics && yarn copy:templates",
     "prepare:publish": "prepare-publish ./dist",

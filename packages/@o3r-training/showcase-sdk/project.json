@@ -23,14 +23,13 @@
       ]
     },
     "regen": {
+      "cache": false,
       "executor": "nx:run-script",
       "options": {
         "script": "spec:regen"
       }
     },
-    "lint": {
-      "executor": "nx:run-commands"
-    },
+    "lint": {},
     "extract-folder-structure": {
       "cache": true,
       "executor": "nx:run-script",
@@ -47,12 +46,7 @@
       "outputs": ["{projectRoot}/dist/structure"],
       "dependsOn": ["^build", "compile"]
     },
-    "publish": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "npm publish packages/@o3r-training/showcase-sdk/dist"
-      }
-    }
+    "publish": {}
   },
   "tags": [
     "private",

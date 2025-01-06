@@ -23,9 +23,7 @@
         "script": "package"
       }
     },
-    "lint": {
-      "executor": "nx:run-commands"
-    }
+    "lint": {}
   },
   "tags": []
 }

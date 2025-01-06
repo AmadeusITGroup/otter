@@ -11,7 +11,6 @@
     "nx": "nx",
     "ng": "yarn nx",
     "build": "yarn nx build training-tools",
-    "test": "yarn nx test training-tools",
     "postbuild": "yarn cpy 'package.json' dist && patch-package-json-main",
     "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist",
     "build:source": "tsc -b tsconfig.build.json --pretty",
