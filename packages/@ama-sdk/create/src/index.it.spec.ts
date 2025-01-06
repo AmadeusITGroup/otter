@@ -145,7 +145,7 @@ describe('Create new sdk command', () => {
       }, execAppOptions)
     ).not.toThrow();
     expect(() => packageManagerRun({script: 'build'}, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
-    const packageJson = JSON.parse(fs.readFileSync(path.join(sdkPackagePath, 'package.json'), 'utf-8'));
+    const packageJson = JSON.parse(fs.readFileSync(path.join(sdkPackagePath, 'package.json'), 'utf8'));
     const resolutions = packageManager === 'yarn' ? packageJson.resolutions : packageJson.overrides;
     // all otter dependencies in package.json must be pinned:
     [
