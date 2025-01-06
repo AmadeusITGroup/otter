@@ -36,7 +36,7 @@
     "@stylistic/eslint-plugin-ts": "~2.7.0",
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",
-    "@typescript-eslint/parser": "~8.18.0",
+    "@typescript-eslint/parser": "~8.19.0",
     "@vercel/ncc": "~0.38.0",
     "angular-eslint": "~18.4.0",
     "audit-types": "^0.6.0",
@@ -55,7 +55,7 @@
     "ts-jest": "~29.2.0",
     "tslib": "^2.6.2",
     "typescript": "~5.5.4",
-    "typescript-eslint": "~8.18.0"
+    "typescript-eslint": "~8.19.0"
   },
   "engines": {
     "node": "^18.19.1 || ^20.11.1 || >=22.0.0"
