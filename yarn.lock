@@ -311,7 +311,7 @@ __metadata:
     jsonc-eslint-parser: "npm:~2.4.0"
     minimist: "npm:^1.2.6"
     pid-from-port: "npm:^1.1.3"
-    rimraf: "npm:^5.0.1"
+    rimraf: "npm:^6.0.1"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.2.0"
@@ -390,7 +390,7 @@ __metadata:
     jsonc-eslint-parser: "npm:~2.4.0"
     minimist: "npm:^1.2.6"
     pid-from-port: "npm:^1.1.3"
-    rimraf: "npm:^5.0.1"
+    rimraf: "npm:^6.0.1"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.2.0"
@@ -469,7 +469,7 @@ __metadata:
     jsonc-eslint-parser: "npm:~2.4.0"
     minimist: "npm:^1.2.6"
     pid-from-port: "npm:^1.1.3"
-    rimraf: "npm:^5.0.1"
+    rimraf: "npm:^6.0.1"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.2.0"
@@ -550,7 +550,7 @@ __metadata:
     jsonc-eslint-parser: "npm:~2.4.0"
     minimist: "npm:^1.2.6"
     pid-from-port: "npm:^1.1.3"
-    rimraf: "npm:^5.0.1"
+    rimraf: "npm:^6.0.1"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.2.0"
@@ -639,7 +639,7 @@ __metadata:
     minimist: "npm:^1.2.6"
     nx: "npm:~19.8.0"
     pid-from-port: "npm:^1.1.3"
-    rimraf: "npm:^5.0.1"
+    rimraf: "npm:^6.0.1"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.2.0"
@@ -730,6 +730,7 @@ __metadata:
     "@o3r/schematics": "workspace:^"
     "@openapitools/openapi-generator-cli": ^2.15.0
     openapi-types: ^12.0.0
+    ts-node: ~10.9.2
     type-fest: ^4.10.2
   peerDependenciesMeta:
     "@ama-sdk/core":
@@ -773,7 +774,7 @@ __metadata:
     "@typescript-eslint/parser": "npm:~8.18.0"
     angular-eslint: "npm:~18.4.0"
     commander: "npm:^12.0.0"
-    concurrently: "npm:^8.0.0"
+    concurrently: "npm:^9.1.0"
     copyfiles: "npm:^2.4.1"
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.17.0"
@@ -7223,7 +7224,7 @@ __metadata:
     jsonc-eslint-parser: "npm:~2.4.0"
     lint-staged: "npm:^15.0.0"
     minimist: "npm:^1.2.6"
-    rimraf: "npm:^5.0.1"
+    rimraf: "npm:^6.0.1"
     ts-jest: "npm:~29.2.0"
     tsc-watch: "npm:^6.0.4"
     tslib: "npm:^2.6.2"
@@ -7593,6 +7594,7 @@ __metadata:
     "@schematics/angular": ^18.2.0
     jasmine: ^5.0.0
     rxjs: ^7.8.1
+    ts-node: ~10.9.2
     typescript: ^5.5.4
     webpack: ^5.96.0
   peerDependenciesMeta:
@@ -7681,6 +7683,7 @@ __metadata:
     "@o3r/schematics": "workspace:^"
     "@schematics/angular": ^18.2.0
     rxjs: ^7.8.1
+    ts-node: ~10.9.2
     typescript: ^5.5.4
   peerDependenciesMeta:
     "@ama-sdk/client-fetch":
@@ -7768,6 +7771,7 @@ __metadata:
     "@o3r/testing": "workspace:^"
     "@schematics/angular": ^18.2.0
     rxjs: ^7.8.1
+    ts-node: ~10.9.2
     typescript: ^5.5.4
   peerDependenciesMeta:
     "@angular-devkit/schematics":
@@ -7995,7 +7999,7 @@ __metadata:
     bootstrap: "npm:5.3.3"
     chokidar: "npm:^3.5.2"
     chrome-webstore-upload: "npm:^3.0.0"
-    concurrently: "npm:^8.0.0"
+    concurrently: "npm:^9.1.0"
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.17.0"
     eslint-import-resolver-node: "npm:^0.3.9"
@@ -8016,7 +8020,7 @@ __metadata:
     jsonc-eslint-parser: "npm:~2.4.0"
     minimist: "npm:^1.2.6"
     nx: "npm:~19.8.0"
-    rimraf: "npm:^5.0.1"
+    rimraf: "npm:^6.0.1"
     rxjs: "npm:^7.8.1"
     tinycolor2: "npm:^1.6.0"
     tsc-watch: "npm:^6.0.4"
@@ -8145,6 +8149,7 @@ __metadata:
     jsonpath-plus: ^9.0.0 || ^10.0.0
     rxjs: ^7.8.1
     semver: ^7.5.2
+    ts-node: ~10.9.2
     typescript: ^5.5.4
   peerDependenciesMeta:
     "@angular-devkit/core":
@@ -8274,6 +8279,7 @@ __metadata:
     express-interceptor: ^1.2.0
     jasmine: ^5.0.0
     rxjs: ^7.8.1
+    ts-node: ~10.9.2
     typescript: ^5.5.4
   peerDependenciesMeta:
     "@angular-devkit/schematics":
@@ -8386,6 +8392,7 @@ __metadata:
     chokidar: ^3.5.2
     globby: ^11.1.0
     rxjs: ^7.8.1
+    ts-node: ~10.9.2
     type-fest: ^4.10.2
     typescript: ^5.5.4
   peerDependenciesMeta:
@@ -8454,7 +8461,7 @@ __metadata:
     minimist: "npm:^1.2.6"
     nx: "npm:~19.8.0"
     pid-from-port: "npm:^1.1.3"
-    rimraf: "npm:^5.0.1"
+    rimraf: "npm:^6.0.1"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
     shell-quote: "npm:^1.8.1"
@@ -8635,7 +8642,7 @@ __metadata:
     nx: "npm:~19.8.0"
     request: "npm:^2.88.0"
     request-promise-native: "npm:^1.0.9"
-    rimraf: "npm:^5.0.1"
+    rimraf: "npm:^6.0.1"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.2.0"
     ts-node: "npm:~10.9.2"
@@ -8741,6 +8748,7 @@ __metadata:
     express-interceptor: ^1.2.0
     jasmine: ^5.0.0
     rxjs: ^7.8.1
+    ts-node: ~10.9.2
   peerDependenciesMeta:
     "@angular-devkit/schematics":
       optional: true
@@ -8823,6 +8831,7 @@ __metadata:
     eslint-plugin-jsdoc: ^48.11.0 || ^49.0.0 || ^50.0.0
     eslint-plugin-prefer-arrow: ^1.2.2
     eslint-plugin-unicorn: ^54.0.0 || ^55.0.0 || ^56.0.0
+    ts-node: ~10.9.2
     typescript: ^5.5.4
   peerDependenciesMeta:
     "@angular-devkit/schematics":
@@ -8996,9 +9005,10 @@ __metadata:
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~19.8.0"
     pid-from-port: "npm:^1.1.3"
-    rimraf: "npm:^5.0.1"
+    rimraf: "npm:^6.0.1"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.2.0"
+    ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.10.2"
     typescript: "npm:~5.5.4"
@@ -9092,7 +9102,7 @@ __metadata:
     jsonschema: "npm:~1.4.1"
     nx: "npm:~19.8.0"
     pid-from-port: "npm:^1.1.3"
-    rimraf: "npm:^5.0.1"
+    rimraf: "npm:^6.0.1"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.2.0"
@@ -9119,6 +9129,7 @@ __metadata:
     "@yarnpkg/plugin-pack": ^4.0.0
     globby: ^11.1.0
     semver: ^7.5.2
+    ts-node: ~10.9.2
     type-fest: ^4.10.2
     typescript: ^5.5.4
   peerDependenciesMeta:
@@ -9221,6 +9232,7 @@ __metadata:
     "@o3r/schematics": "workspace:^"
     "@schematics/angular": ^18.2.0
     rxjs: ^7.8.1
+    ts-node: ~10.9.2
   peerDependenciesMeta:
     "@angular-devkit/schematics":
       optional: true
@@ -9309,7 +9321,7 @@ __metadata:
     browserslist: "npm:^4.21.4"
     clipboard: "npm:^2.0.11"
     commit-and-tag-version: "npm:^12.0.0"
-    concurrently: "npm:^8.0.0"
+    concurrently: "npm:^9.1.0"
     cpy-cli: "npm:^5.0.0"
     editorconfig-checker: "npm:^5.1.8"
     eslint: "npm:~9.17.0"
@@ -9341,7 +9353,7 @@ __metadata:
     npm-run-all2: "npm:^6.0.0"
     nx: "npm:~19.8.0"
     nx-cloud: "npm:^19.1.0"
-    pixelmatch: "npm:^5.2.1"
+    pixelmatch: "npm:^6.0.0"
     playwright-lighthouse: "npm:~4.0.0"
     pngjs: "npm:^7.0.0"
     postcss: "npm:~8.4.31"
@@ -9351,7 +9363,7 @@ __metadata:
     react: "npm:^18.0.0"
     react-dom: "npm:^18.0.0"
     replace-in-files-cli: "npm:^2.2.0"
-    rimraf: "npm:^5.0.1"
+    rimraf: "npm:^6.0.1"
     rxjs: "npm:^7.8.1"
     sass: "npm:~1.81.0"
     sass-loader: "npm:^14.0.0"
@@ -9547,6 +9559,7 @@ __metadata:
     intl-messageformat: ^10.7.0
     rxjs: ^7.8.1
     semver: ^7.5.2
+    ts-node: ~10.9.2
     type-fest: ^4.10.2
     typescript: ^5.5.4
   peerDependenciesMeta:
@@ -9663,6 +9676,7 @@ __metadata:
     logrocket-ngrx: ^0.2.1
     rxjs: ^7.8.1
     smartlook-client: ^9.0.0
+    ts-node: ~10.9.2
   peerDependenciesMeta:
     "@angular-devkit/schematics":
       optional: true
@@ -9989,6 +10003,7 @@ __metadata:
     "@schematics/angular": ^18.2.0
     jasmine: ^5.0.0
     rxjs: ^7.8.1
+    ts-node: ~10.9.2
   peerDependenciesMeta:
     "@angular-devkit/schematics":
       optional: true
@@ -10070,7 +10085,7 @@ __metadata:
     memfs: "npm:~4.14.0"
     nx: "npm:~19.8.0"
     pid-from-port: "npm:^1.1.3"
-    rimraf: "npm:^5.0.1"
+    rimraf: "npm:^6.0.1"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.2.0"
@@ -10102,6 +10117,7 @@ __metadata:
     jasmine: ^5.0.0
     jsonpath-plus: ^9.0.0 || ^10.0.0
     rxjs: ^7.8.1
+    ts-node: ~10.9.2
     typescript: ^5.5.4
     typescript-json-schema: ^0.65.0
   peerDependenciesMeta:
@@ -10200,6 +10216,7 @@ __metadata:
     "@schematics/angular": ^18.2.0
     eslint: ^9.14.0
     rxjs: ^7.8.1
+    ts-node: ~10.9.2
     type-fest: ^4.10.2
     typescript: ^5.5.4
   peerDependenciesMeta:
@@ -10296,7 +10313,7 @@ __metadata:
     angular-eslint: "npm:~18.4.0"
     bootstrap: "npm:5.3.3"
     clipboard: "npm:^2.0.11"
-    concurrently: "npm:^8.0.0"
+    concurrently: "npm:^9.1.0"
     eslint: "npm:~9.17.0"
     eslint-import-resolver-node: "npm:^0.3.9"
     eslint-import-resolver-typescript: "npm:^3.6.3"
@@ -10322,12 +10339,12 @@ __metadata:
     ngx-markdown: "npm:^18.1.0"
     ngx-monaco-editor-v2: "npm:^18.0.0"
     ngx-monaco-tree: "npm:^18.1.0"
-    pixelmatch: "npm:^5.2.1"
+    pixelmatch: "npm:^6.0.0"
     playwright-lighthouse: "npm:~4.0.0"
     pngjs: "npm:^7.0.0"
     prism-themes: "npm:^1.9.0"
     prismjs: "npm:^1.28.0"
-    rimraf: "npm:^5.0.1"
+    rimraf: "npm:^6.0.1"
     rxjs: "npm:^7.8.1"
     sass-loader: "npm:^14.0.0"
     ts-jest: "npm:~29.2.0"
@@ -10410,6 +10427,7 @@ __metadata:
     "@schematics/angular": ^18.2.0
     fast-deep-equal: ^3.1.3
     rxjs: ^7.8.1
+    ts-node: ~10.9.2
   peerDependenciesMeta:
     "@angular-devkit/core":
       optional: true
@@ -10469,7 +10487,7 @@ __metadata:
     "@typescript-eslint/parser": "npm:~8.18.0"
     angular-eslint: "npm:~18.4.0"
     color: "npm:^4.2.3"
-    concurrently: "npm:^8.0.0"
+    concurrently: "npm:^9.1.0"
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.17.0"
     eslint-import-resolver-node: "npm:^0.3.9"
@@ -10489,7 +10507,7 @@ __metadata:
     pid-from-port: "npm:^1.1.3"
     react: "npm:^18.0.0"
     react-dom: "npm:^18.0.0"
-    rimraf: "npm:^5.0.1"
+    rimraf: "npm:^6.0.1"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.2.0"
@@ -10568,7 +10586,7 @@ __metadata:
     pid-from-port: "npm:^1.1.3"
     postcss: "npm:~8.4.31"
     postcss-scss: "npm:~4.0.9"
-    rimraf: "npm:^5.0.1"
+    rimraf: "npm:^6.0.1"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
     stylelint: "npm:^16.0.2"
@@ -10698,6 +10716,7 @@ __metadata:
     rxjs: ^7.8.1
     sass: ^1.81.0
     semver: ^7.5.2
+    ts-node: ~10.9.2
     typescript: ^5.5.4
   peerDependenciesMeta:
     "@angular-devkit/architect":
@@ -10907,7 +10926,7 @@ __metadata:
     "@types/pngjs": "npm:^6.0.0"
     "@typescript-eslint/parser": "npm:~8.18.0"
     angular-eslint: "npm:~18.4.0"
-    concurrently: "npm:^8.0.0"
+    concurrently: "npm:^9.1.0"
     cpy-cli: "npm:^5.0.0"
     esbuild: "npm:~0.24.0"
     eslint: "npm:~9.17.0"
@@ -10930,7 +10949,7 @@ __metadata:
     module-from-string: "npm:^3.2.0"
     nx: "npm:~19.8.0"
     pid-from-port: "npm:^1.1.3"
-    pixelmatch: "npm:^5.2.1"
+    pixelmatch: "npm:^6.0.0"
     pngjs: "npm:^7.0.0"
     protractor: "npm:^7.0.0"
     rxjs: "npm:^7.8.1"
@@ -10961,11 +10980,12 @@ __metadata:
     "@o3r/schematics": "workspace:^"
     "@playwright/test": ^1.49.0
     "@schematics/angular": ^18.2.0
-    pixelmatch: ^5.2.1
+    pixelmatch: ^6.0.0
     pngjs: ^7.0.0
     protractor: ^7.0.0
     rxjs: ^7.8.1
     temporal-polyfill: ^0.2.0
+    ts-node: ~10.9.2
     type-fest: ^4.10.2
     typescript: ^5.5.4
   peerDependenciesMeta:
@@ -11057,7 +11077,7 @@ __metadata:
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~19.8.0"
     pid-from-port: "npm:^1.1.3"
-    rimraf: "npm:^5.0.1"
+    rimraf: "npm:^6.0.1"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.2.0"
@@ -11207,6 +11227,7 @@ __metadata:
     "@angular/core": ^18.2.0
     "@o3r/telemetry": "workspace:^"
     "@schematics/angular": ^18.2.0
+    ts-node: ~10.9.2
     type-fest: ^4.10.2
     typescript: ^5.5.4
   peerDependenciesMeta:
@@ -14795,10 +14816,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/vscode@npm:^1.67.0":
-  version: 1.96.0
-  resolution: "@types/vscode@npm:1.96.0"
-  checksum: 10/30c62d120eb1d269f7e62976f89d014b8c891d434628b40c635215daba9957e9d8f667f17426acc55d9cc152a4da388191ee21531e7fdd8ef5960762ee86ec47
+"@types/vscode@npm:^1.95.0":
+  version: 1.95.0
+  resolution: "@types/vscode@npm:1.95.0"
+  checksum: 10/2ec60421c66816355a565dcf4a5fdcc05f751754c192b0b8b84f3006ebbc64c72421de1a90fa3dbc74cac5dd0dc30eeaea4a8064a8a50d6e3df908390781522d
   languageName: node
   linkType: hard
 
@@ -14910,6 +14931,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@typescript-eslint/scope-manager@npm:8.18.0":
+  version: 8.18.0
+  resolution: "@typescript-eslint/scope-manager@npm:8.18.0"
+  dependencies:
+    "@typescript-eslint/types": "npm:8.18.0"
+    "@typescript-eslint/visitor-keys": "npm:8.18.0"
+  checksum: 10/869fd569a1f98cd284001062cca501e25ef7079c761242926d3b35454da64e398391ddb9d686adb34bf7bee6446491617b52c54ba54db07ee637ad4ef024d262
+  languageName: node
+  linkType: hard
+
 "@typescript-eslint/scope-manager@npm:8.18.1":
   version: 8.18.1
   resolution: "@typescript-eslint/scope-manager@npm:8.18.1"
@@ -14920,7 +14951,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/type-utils@npm:8.18.1, @typescript-eslint/type-utils@npm:^8.0.0":
+"@typescript-eslint/type-utils@npm:8.18.1":
   version: 8.18.1
   resolution: "@typescript-eslint/type-utils@npm:8.18.1"
   dependencies:
@@ -14935,10 +14966,50 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@typescript-eslint/type-utils@npm:^8.0.0":
+  version: 8.18.0
+  resolution: "@typescript-eslint/type-utils@npm:8.18.0"
+  dependencies:
+    "@typescript-eslint/typescript-estree": "npm:8.18.0"
+    "@typescript-eslint/utils": "npm:8.18.0"
+    debug: "npm:^4.3.4"
+    ts-api-utils: "npm:^1.3.0"
+  peerDependencies:
+    eslint: ^8.57.0 || ^9.0.0
+    typescript: ">=4.8.4 <5.8.0"
+  checksum: 10/d857a0b6a52aad10dfd51465b8fc667f579c4a590e7fedd372f834abd2fb438186e2ebc25b61f8a5e4a90d40ebdf614367088d73ec7fe5ac0e8c9dc47ae02258
+  languageName: node
+  linkType: hard
+
+"@typescript-eslint/types@npm:8.18.0":
+  version: 8.18.0
+  resolution: "@typescript-eslint/types@npm:8.18.0"
+  checksum: 10/6c6473c169671ca946df7c1e0e424e5296dd44d89833d5c82a0ec0fdb2c668c62f8de31c85b18754d332198f18340cf2b6f13d3b13d02770ee9d1a93a099f069
+  languageName: node
+  linkType: hard
+
 "@typescript-eslint/types@npm:8.18.1, @typescript-eslint/types@npm:^8.0.0, @typescript-eslint/types@npm:^8.15.0":
   version: 8.18.1
   resolution: "@typescript-eslint/types@npm:8.18.1"
   checksum: 10/57a6141ba17be929291a644991f3a76f94fce330376f6a079decb20fb53378d636ad6878f8f9b6fcb8244cf1ca8b118f9e8901ae04cf3de2aa9f9ff57791d97a
+  languageName: node
+  linkType: hard
+
+"@typescript-eslint/typescript-estree@npm:8.18.0":
+  version: 8.18.0
+  resolution: "@typescript-eslint/typescript-estree@npm:8.18.0"
+  dependencies:
+    "@typescript-eslint/types": "npm:8.18.0"
+    "@typescript-eslint/visitor-keys": "npm:8.18.0"
+    debug: "npm:^4.3.4"
+    fast-glob: "npm:^3.3.2"
+    is-glob: "npm:^4.0.3"
+    minimatch: "npm:^9.0.4"
+    semver: "npm:^7.6.0"
+    ts-api-utils: "npm:^1.3.0"
+  peerDependencies:
+    typescript: ">=4.8.4 <5.8.0"
+  checksum: 10/8ffd54a58dcc2c1b33f55c29193656fde772946d9dea87e06084a242dad3098049ecff9758e215c9f27ed358c5c7dabcae96cf19bc824098e075500725faf2e1
   languageName: node
   linkType: hard
 
@@ -14960,6 +15031,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@typescript-eslint/utils@npm:8.18.0":
+  version: 8.18.0
+  resolution: "@typescript-eslint/utils@npm:8.18.0"
+  dependencies:
+    "@eslint-community/eslint-utils": "npm:^4.4.0"
+    "@typescript-eslint/scope-manager": "npm:8.18.0"
+    "@typescript-eslint/types": "npm:8.18.0"
+    "@typescript-eslint/typescript-estree": "npm:8.18.0"
+  peerDependencies:
+    eslint: ^8.57.0 || ^9.0.0
+    typescript: ">=4.8.4 <5.8.0"
+  checksum: 10/ced2775200a4d88f9c1808f2f9a4dc43505939c4bcd5b60ca2e74bf291d6f6993789ce9d56f373c39476080a9f430e969258ee8111d0a7a9ea85da399151d27e
+  languageName: node
+  linkType: hard
+
 "@typescript-eslint/utils@npm:8.18.1, @typescript-eslint/utils@npm:^6.0.0 || ^7.0.0 || ^8.0.0, @typescript-eslint/utils@npm:^8.0.0, @typescript-eslint/utils@npm:^8.3.0, @typescript-eslint/utils@npm:~8.18.0":
   version: 8.18.1
   resolution: "@typescript-eslint/utils@npm:8.18.1"
@@ -14972,6 +15058,16 @@ __metadata:
     eslint: ^8.57.0 || ^9.0.0
     typescript: ">=4.8.4 <5.8.0"
   checksum: 10/7b33d2ac273ad606a3dcb776bcf02c901812952550cdc93d4ece272b3b0e5d2a4e05fa92f9bd466f4a296ddd5992902d3b6623aa1c29d09e8e392897103e42a8
+  languageName: node
+  linkType: hard
+
+"@typescript-eslint/visitor-keys@npm:8.18.0":
+  version: 8.18.0
+  resolution: "@typescript-eslint/visitor-keys@npm:8.18.0"
+  dependencies:
+    "@typescript-eslint/types": "npm:8.18.0"
+    eslint-visitor-keys: "npm:^4.2.0"
+  checksum: 10/6b2e1e471097ddd903dcb125ba8ff42bf4262fc4f408ca3afacf4161cff6f06b7ab4a6a7dd273e34b61a676f89a00535de7497c77d9001a10512ba3fe7d91971
   languageName: node
   linkType: hard
 
@@ -15118,9 +15214,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vscode/vsce@npm:^2.16.0":
-  version: 2.32.0
-  resolution: "@vscode/vsce@npm:2.32.0"
+"@vscode/vsce@npm:^3.2.1":
+  version: 3.2.1
+  resolution: "@vscode/vsce@npm:3.2.1"
   dependencies:
     "@azure/identity": "npm:^4.1.0"
     "@vscode/vsce-sign": "npm:^2.0.0"
@@ -15130,18 +15226,18 @@ __metadata:
     cockatiel: "npm:^3.1.2"
     commander: "npm:^6.2.1"
     form-data: "npm:^4.0.0"
-    glob: "npm:^7.0.6"
+    glob: "npm:^11.0.0"
     hosted-git-info: "npm:^4.0.2"
     jsonc-parser: "npm:^3.2.0"
     keytar: "npm:^7.7.0"
     leven: "npm:^3.1.0"
-    markdown-it: "npm:^12.3.2"
+    markdown-it: "npm:^14.1.0"
     mime: "npm:^1.3.4"
     minimatch: "npm:^3.0.3"
     parse-semver: "npm:^1.1.1"
     read: "npm:^1.0.7"
     semver: "npm:^7.5.2"
-    tmp: "npm:^0.2.1"
+    tmp: "npm:^0.2.3"
     typed-rest-client: "npm:^1.8.4"
     url-join: "npm:^4.0.1"
     xml2js: "npm:^0.5.0"
@@ -15152,7 +15248,7 @@ __metadata:
       optional: true
   bin:
     vsce: vsce
-  checksum: 10/229e815e2a897abc1ba3f730be460740a1306845dea8c09f26785093542a3a43f55288ca889aaf0becec922a758360f064c6572ffabb442b8380898619e86caf
+  checksum: 10/c924b9cea8c545c438949d83385c0912c5d1ced5e6eddf1c1898997e729f99fc64554a088686ff5d97216b7e5698f9b2101c5faef40cdfd20a2cdadef38c19d2
   languageName: node
   linkType: hard
 
@@ -18802,23 +18898,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"concurrently@npm:^8.0.0":
-  version: 8.2.2
-  resolution: "concurrently@npm:8.2.2"
+"concurrently@npm:^9.1.0":
+  version: 9.1.0
+  resolution: "concurrently@npm:9.1.0"
   dependencies:
     chalk: "npm:^4.1.2"
-    date-fns: "npm:^2.30.0"
     lodash: "npm:^4.17.21"
     rxjs: "npm:^7.8.1"
     shell-quote: "npm:^1.8.1"
-    spawn-command: "npm:0.0.2"
     supports-color: "npm:^8.1.1"
     tree-kill: "npm:^1.2.2"
     yargs: "npm:^17.7.2"
   bin:
     conc: dist/bin/concurrently.js
     concurrently: dist/bin/concurrently.js
-  checksum: 10/dcb1aa69d9c611a7bda9d4fc0fe1e388f971d1744acec7e0d52dffa2ef55743f1266ec9292f414c5789b9f61734b3fce772bd005d4de9564a949fb121b97bae1
+  checksum: 10/9ed158095a6dcb30b2fbc00f173a993d080b6eca466b8005650b051f82618991ba8ae76b39c41ae78780f83846154e5ec434753f402aa4401acf0ffb2422e1cf
   languageName: node
   linkType: hard
 
@@ -20252,7 +20346,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"date-fns@npm:^2.16.1, date-fns@npm:^2.30.0":
+"date-fns@npm:^2.16.1":
   version: 2.30.0
   resolution: "date-fns@npm:2.30.0"
   dependencies:
@@ -21171,13 +21265,6 @@ __metadata:
   version: 4.5.0
   resolution: "entities@npm:4.5.0"
   checksum: 10/ede2a35c9bce1aeccd055a1b445d41c75a14a2bb1cd22e242f20cf04d236cdcd7f9c859eb83f76885327bfae0c25bf03303665ee1ce3d47c5927b98b0e3e3d48
-  languageName: node
-  linkType: hard
-
-"entities@npm:~2.1.0":
-  version: 2.1.0
-  resolution: "entities@npm:2.1.0"
-  checksum: 10/fe71642e42e108540b0324dea03e00f3dbad93617c601bfcf292c3f852c236af3e58469219c4653f6f05df781a446f3b82105b8d26b936d0fa246b0103f2f951
   languageName: node
   linkType: hard
 
@@ -25009,7 +25096,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-core-module@npm:^2.13.0, is-core-module@npm:^2.15.1, is-core-module@npm:^2.16.0, is-core-module@npm:^2.5.0":
+"is-core-module@npm:^2.13.0, is-core-module@npm:^2.15.1, is-core-module@npm:^2.5.0":
+  version: 2.15.1
+  resolution: "is-core-module@npm:2.15.1"
+  dependencies:
+    hasown: "npm:^2.0.2"
+  checksum: 10/77316d5891d5743854bcef2cd2f24c5458fb69fbc9705c12ca17d54a2017a67d0693bbf1ba8c77af376c0eef6bf6d1b27a4ab08e4db4e69914c3789bdf2ceec5
+  languageName: node
+  linkType: hard
+
+"is-core-module@npm:^2.16.0":
   version: 2.16.0
   resolution: "is-core-module@npm:2.16.0"
   dependencies:
@@ -26407,12 +26503,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jsesc@npm:^3.0.2":
-  version: 3.1.0
-  resolution: "jsesc@npm:3.1.0"
+"jsesc@npm:^3.0.2, jsesc@npm:~3.0.2":
+  version: 3.0.2
+  resolution: "jsesc@npm:3.0.2"
   bin:
     jsesc: bin/jsesc
-  checksum: 10/20bd37a142eca5d1794f354db8f1c9aeb54d85e1f5c247b371de05d23a9751ecd7bd3a9c4fc5298ea6fa09a100dafb4190fa5c98c6610b75952c3487f3ce7967
+  checksum: 10/8e5a7de6b70a8bd71f9cb0b5a7ade6a73ae6ab55e697c74cc997cede97417a3a65ed86c36f7dd6125fe49766e8386c845023d9e213916ca92c9dfdd56e2babf3
   languageName: node
   linkType: hard
 
@@ -26422,15 +26518,6 @@ __metadata:
   bin:
     jsesc: bin/jsesc
   checksum: 10/fab949f585c71e169c5cbe00f049f20de74f067081bbd64a55443bad1c71e1b5a5b448f2359bf2fe06f5ed7c07e2e4a9101843b01c823c30b6afc11f5bfaf724
-  languageName: node
-  linkType: hard
-
-"jsesc@npm:~3.0.2":
-  version: 3.0.2
-  resolution: "jsesc@npm:3.0.2"
-  bin:
-    jsesc: bin/jsesc
-  checksum: 10/8e5a7de6b70a8bd71f9cb0b5a7ade6a73ae6ab55e697c74cc997cede97417a3a65ed86c36f7dd6125fe49766e8386c845023d9e213916ca92c9dfdd56e2babf3
   languageName: node
   linkType: hard
 
@@ -27161,15 +27248,6 @@ __metadata:
   version: 1.2.4
   resolution: "lines-and-columns@npm:1.2.4"
   checksum: 10/0c37f9f7fa212b38912b7145e1cd16a5f3cd34d782441c3e6ca653485d326f58b3caccda66efce1c5812bde4961bbde3374fae4b0d11bf1226152337f3894aa5
-  languageName: node
-  linkType: hard
-
-"linkify-it@npm:^3.0.1":
-  version: 3.0.3
-  resolution: "linkify-it@npm:3.0.3"
-  dependencies:
-    uc.micro: "npm:^1.0.1"
-  checksum: 10/1ed466b02ad361bb5e5b94a81232fc126890751038bf3e61f648f4ccb01e5e096bba66c3eff3d21ed5e3da738de0dc29783afedf0255733669889aa09d49e47e
   languageName: node
   linkType: hard
 
@@ -27908,21 +27986,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"markdown-it@npm:^12.3.2":
-  version: 12.3.2
-  resolution: "markdown-it@npm:12.3.2"
-  dependencies:
-    argparse: "npm:^2.0.1"
-    entities: "npm:~2.1.0"
-    linkify-it: "npm:^3.0.1"
-    mdurl: "npm:^1.0.1"
-    uc.micro: "npm:^1.0.5"
-  bin:
-    markdown-it: bin/markdown-it.js
-  checksum: 10/d83d794bfb9f5e05750b25db401d9c1f9b97c6bbabb6cfd78988bb98652c62c24417435487238e2b91fd4e495547ae8c9429fb4c69e9f5bf49bd0dd292d53f24
-  languageName: node
-  linkType: hard
-
 "markdown-it@npm:^14.1.0":
   version: 14.1.0
   resolution: "markdown-it@npm:14.1.0"
@@ -28032,13 +28095,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mdurl@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "mdurl@npm:1.0.1"
-  checksum: 10/ada367d01c9e81d07328101f187d5bd8641b71f33eab075df4caed935a24fa679e625f07108801d8250a5e4a99e5cd4be7679957a11424a3aa3e740d2bb2d5cb
-  languageName: node
-  linkType: hard
-
 "mdurl@npm:^2.0.0":
   version: 2.0.0
   resolution: "mdurl@npm:2.0.0"
@@ -28074,19 +28130,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"memfs@npm:^4.6.0":
-  version: 4.15.0
-  resolution: "memfs@npm:4.15.0"
-  dependencies:
-    "@jsonjoy.com/json-pack": "npm:^1.0.3"
-    "@jsonjoy.com/util": "npm:^1.3.0"
-    tree-dump: "npm:^1.0.1"
-    tslib: "npm:^2.0.0"
-  checksum: 10/ab895e5574e0944daf9768c92a2649c8b3384121dd87583b9f4e6d9d36e1b30d2eb2b695e7f6f2bad7c07b2ac51fcc64adbf9aa5425a84eb73546738f05f434e
-  languageName: node
-  linkType: hard
-
-"memfs@npm:~4.14.0":
+"memfs@npm:^4.6.0, memfs@npm:~4.14.0":
   version: 4.14.1
   resolution: "memfs@npm:4.14.1"
   dependencies:
@@ -29960,9 +30004,9 @@ __metadata:
     "@types/glob": "npm:^8.0.0"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
-    "@types/vscode": "npm:^1.67.0"
+    "@types/vscode": "npm:^1.95.0"
     "@typescript-eslint/parser": "npm:~8.18.0"
-    "@vscode/vsce": "npm:^2.16.0"
+    "@vscode/vsce": "npm:^3.2.1"
     angular-eslint: "npm:~18.4.0"
     cpy-cli: "npm:^5.0.0"
     esbuild: "npm:~0.24.0"
@@ -30825,14 +30869,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pixelmatch@npm:^5.2.1":
-  version: 5.3.0
-  resolution: "pixelmatch@npm:5.3.0"
+"pixelmatch@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "pixelmatch@npm:6.0.0"
   dependencies:
-    pngjs: "npm:^6.0.0"
+    pngjs: "npm:^7.0.0"
   bin:
     pixelmatch: bin/pixelmatch
-  checksum: 10/10778aaa432211253ab0ae9160233d8aa56769ab6312b6bf8375100b67aaa126821626a0c3b433fb2a977864a8d2d145d754d4afa9ac14b84fcb1a0bdf98a4ae
+  checksum: 10/53cce1c09696e2828c4ea92bc36d24ee55edcd9f98a7ea9706c68f13086b08b615139c7cb70984470ed4b32e3d82e903741d8c8c0a69b8969891d66b39d4b4bd
   languageName: node
   linkType: hard
 
@@ -30928,13 +30972,6 @@ __metadata:
   version: 8.0.0
   resolution: "pluralize@npm:8.0.0"
   checksum: 10/17877fdfdb7ddb3639ce257ad73a7c51a30a966091e40f56ea9f2f545b5727ce548d4928f8cb3ce38e7dc0c5150407d318af6a4ed0ea5265d378473b4c2c61ec
-  languageName: node
-  linkType: hard
-
-"pngjs@npm:^6.0.0":
-  version: 6.0.0
-  resolution: "pngjs@npm:6.0.0"
-  checksum: 10/692751ccd5e762623103900922caac982caa90258d9c6c04a6e2bc3397b1dedbaf9db826fc0fa068a29d607cad3df1d1eded0dec2ee35a0015c65cb5ef33ad18
   languageName: node
   linkType: hard
 
@@ -32881,7 +32918,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rimraf@npm:^5.0.1, rimraf@npm:^5.0.5":
+"rimraf@npm:^5.0.5":
   version: 5.0.10
   resolution: "rimraf@npm:5.0.10"
   dependencies:
@@ -32889,6 +32926,18 @@ __metadata:
   bin:
     rimraf: dist/esm/bin.mjs
   checksum: 10/f3b8ce81eecbde4628b07bdf9e2fa8b684e0caea4999acb1e3b0402c695cd41f28cd075609a808e61ce2672f528ca079f675ab1d8e8d5f86d56643a03e0b8d2e
+  languageName: node
+  linkType: hard
+
+"rimraf@npm:^6.0.1":
+  version: 6.0.1
+  resolution: "rimraf@npm:6.0.1"
+  dependencies:
+    glob: "npm:^11.0.0"
+    package-json-from-dist: "npm:^1.0.0"
+  bin:
+    rimraf: dist/esm/bin.mjs
+  checksum: 10/0eb7edf08aa39017496c99ba675552dda11a20811ba78f8232da2ba945308c91e9cd673f95998b1a8202bc7436d33390831d23ea38ae52751038d56373ad99e2
   languageName: node
   linkType: hard
 
@@ -34001,7 +34050,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"spawn-command@npm:0.0.2, spawn-command@npm:^0.0.2-1":
+"spawn-command@npm:^0.0.2-1":
   version: 0.0.2
   resolution: "spawn-command@npm:0.0.2"
   checksum: 10/f13e8c3c63abd4a0b52fb567eba5f7940d480c5ed3ec61781d38a1850f179b1196c39e6efa2bbd301f82c1bf1cd7807abc8fbd8fc8e44bcaa3975a124c0d1657
@@ -35234,7 +35283,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tmp@npm:^0.2.1, tmp@npm:~0.2.1":
+"tmp@npm:^0.2.3, tmp@npm:~0.2.1":
   version: 0.2.3
   resolution: "tmp@npm:0.2.3"
   checksum: 10/7b13696787f159c9754793a83aa79a24f1522d47b87462ddb57c18ee93ff26c74cbb2b8d9138f571d2e0e765c728fb2739863a672b280528512c6d83d511c6fa
@@ -35981,13 +36030,6 @@ __metadata:
   bin:
     ua-parser-js: script/cli.js
   checksum: 10/dd4026b6ece8a34a0d39b6de5542154c4506077d8def8647a300a29e1b3ffa0e23f5c8eeeb8101df6162b7b3eb3597d0b4adb031ae6104cbdb730d6ebc07f3c0
-  languageName: node
-  linkType: hard
-
-"uc.micro@npm:^1.0.1, uc.micro@npm:^1.0.5":
-  version: 1.0.6
-  resolution: "uc.micro@npm:1.0.6"
-  checksum: 10/6898bb556319a38e9cf175e3628689347bd26fec15fc6b29fa38e0045af63075ff3fea4cf1fdba9db46c9f0cbf07f2348cd8844889dd31ebd288c29fe0d27e7a
   languageName: node
   linkType: hard
 

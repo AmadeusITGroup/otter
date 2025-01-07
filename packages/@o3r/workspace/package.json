@@ -32,6 +32,7 @@
     "@angular/core": "^18.2.0",
     "@o3r/telemetry": "workspace:^",
     "@schematics/angular": "^18.2.0",
+    "ts-node": "~10.9.2",
     "type-fest": "^4.10.2",
     "typescript": "^5.5.4"
   },
