@@ -16,7 +16,7 @@ import {
 } from 'rxjs';
 import {
   convertTreeRec,
-} from '../../helpers/monaco-tree.helper';
+} from '../../helpers/monaco-tree/index';
 import {
   WebContainerRunner,
 } from './webcontainer-runner';

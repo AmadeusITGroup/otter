@@ -25,16 +25,13 @@ import {
 import {
   LoggerService,
 } from '@o3r/logger';
-import type {
-  DirectoryNode,
-  FileSystemTree,
-} from '@webcontainer/api';
 import {
   firstValueFrom,
 } from 'rxjs';
 import {
-  overrideFileSystemTree,
-} from '../../services';
+  getFilesContent,
+  isTrainingResource,
+} from '../../helpers/file-system/index';
 import {
   EditorMode,
   TrainingProject,
@@ -95,30 +92,8 @@ type TrainingStep = {
   };
 };
 
-/** Resources to get file content */
-type Resource = {
-  /** Resource path */
-  path: string;
-  /** Resource content */
-  content: string;
-};
-
 /** RegExp of current step index at the end of the location URL (example: http://url/#/fragment#3) */
 const currentStepLocationRegExp = new RegExp(/#([0-9]+)$/);
-
-/**
- * Generate a file system tree composed of the deep merge of all the resources passed in parameters
- * @param resources Sorted list of path and content to load. If a file is defined several time, the last occurrence
- * overrides the others
- */
-function getFilesContent(resources: Resource[]) {
-  return (resources.reduce((fileSystemTree: FileSystemTree, resource) => {
-    const sanitizedPath = `./${resource.path.replace(new RegExp('^[.]/?'), '')}`;
-    const parsedPath = sanitizedPath.split('/').filter((pathEl) => !!pathEl);
-    overrideFileSystemTree(fileSystemTree, (JSON.parse(resource.content) as { fileSystemTree: FileSystemTree }).fileSystemTree, parsedPath);
-    return fileSystemTree;
-  }, {} as FileSystemTree)['.'] as DirectoryNode).directory;
-}
 
 @Component({
   selector: 'o3r-training',
@@ -235,7 +210,7 @@ export class TrainingComponent implements OnInit {
           path,
           content: await this.loadResource(contentUrl)
         })
-      ))).filter((resource): resource is Resource => !!resource.content);
+      ))).filter((resource) => isTrainingResource(resource));
     const filesContent = getFilesContent(resources);
     step.dynamicContent[solutionProject ? 'solutionProject' : 'project'].set({
       startingFile: step.description.filesConfiguration!.startingFile || '',
