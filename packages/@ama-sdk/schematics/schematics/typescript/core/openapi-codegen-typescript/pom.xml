@@ -95,7 +95,9 @@
     <dependency>
       <groupId>org.openapitools</groupId>
       <artifactId>openapi-generator</artifactId>
-      <version>7.10.0</version>
+      <!-- TODO wait for https://github.com/OpenAPITools/openapi-generator/issues/20135 to be fixed before upgrading to 7.10.0 -->
+      <!-- Don't forget to enable the custom manager in .renovaterc.json5  -->
+      <version>7.9.0</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
