@@ -8,8 +8,7 @@ import type {
 } from 'ngx-monaco-tree';
 import {
   isDirectoryNode,
-} from '../services/webcontainer/webcontainer.helpers';
-
+} from '../file-system';
 /**
  * Check if the monaco tree contains the path in parameters
  * @param tree

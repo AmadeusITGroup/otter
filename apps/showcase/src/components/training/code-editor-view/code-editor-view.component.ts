@@ -64,7 +64,7 @@ import {
 } from 'rxjs';
 import {
   checkIfPathInMonacoTree,
-} from '../../../helpers/monaco-tree.helper';
+} from '../../../helpers/monaco-tree/monaco-tree.helper';
 import {
   flattenTree,
   WebContainerService,

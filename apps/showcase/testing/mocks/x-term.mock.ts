@@ -9,6 +9,7 @@ export class XtermTerminalMock {
     dispose: jest.fn()
   });
 }
+
 jest.mock('@xterm/xterm',
   () => ({ Terminal: XtermTerminalMock }), {
     virtual: true
