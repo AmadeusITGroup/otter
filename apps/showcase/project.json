@@ -39,12 +39,15 @@
       ]
     },
     "lint": {
+      "executor": "nx:run-commands",
       "options": {
-        "eslintConfig": "apps/showcase/.eslintrc.js",
-        "lintFilePatterns": [
-          "apps/showcase/src/**/*.ts",
-          "apps/showcase/package.json"
-        ]
+        "cwd": "{projectRoot}",
+        "command": "yarn eslint \"**/*.{m,c,}{j,t}s\" \"**/*.json\" \"**/*.html\""
+      },
+      "configurations": {
+        "ci": {
+          "command": "yarn eslint \"**/*.{m,c,}{j,t}s\" \"**/*.json\" \"**/*.html\" --quiet --cache-location .cache/eslint"
+        }
       }
     },
     "compile": {
@@ -77,6 +80,7 @@
         ],
         "styles": [
           "apps/showcase/src/styles.scss",
+          "prism-themes/themes/prism-vsc-dark-plus.css",
           {
             "inject": false,
             "input": "apps/showcase/src/style/dark-theme/dark-theme.scss",
@@ -88,7 +92,18 @@
             "bundleName": "horizon-theme"
           }
         ],
-        "scripts": []
+        "scripts": [
+          "clipboard",
+          "prismjs",
+          "prismjs/components/prism-bash",
+          "prismjs/components/prism-css",
+          "prismjs/components/prism-json",
+          "prismjs/components/prism-markdown",
+          "prismjs/components/prism-markup",
+          "prismjs/components/prism-regex",
+          "prismjs/components/prism-typescript",
+          "prismjs/components/prism-yaml"
+        ]
       },
       "configurations": {
         "production": {

@@ -1,11 +1,20 @@
 import * as path from 'node:path';
 import * as semver from 'semver';
-import { createRule } from '../../utils';
-import { getYamlParserServices } from '../utils';
-import { type AST, getStaticYAMLValue } from 'yaml-eslint-parser';
-import { findWorkspacePackageJsons, /* getBestRange,*/ getBestRanges } from '../../json/json-dependency-versions-harmonize/version-harmonize';
+import type {
+  AST,
+} from 'yaml-eslint-parser';
+import {
+  findWorkspacePackageJsons,
+  getBestRanges,
+} from '../../json/json-dependency-versions-harmonize/version-harmonize';
+import {
+  createRule,
+} from '../../utils';
+import {
+  getYamlParserServices,
+} from '../utils';
 
-interface Options {
+export interface YarnrcPackageExtensionsHarmonizeOptions {
   /** List of package.json to ignore when determining the dependencies versions */
   excludePackages: string[];
 
@@ -19,14 +28,22 @@ interface Options {
   yarnrcDependencyTypes: string[];
 }
 
-const defaultOptions: [Options] = [{
+const isYAMLScalar = (node: AST.YAMLWithMeta | AST.YAMLContent | null): node is AST.YAMLScalar => node?.type === 'YAMLScalar';
+
+const getStaticYAMLValue = (node: AST.YAMLWithMeta | AST.YAMLContent | null) => {
+  return isYAMLScalar(node)
+    ? node.value?.toString()
+    : undefined;
+};
+
+const defaultOptions: [YarnrcPackageExtensionsHarmonizeOptions] = [{
   ignoredDependencies: [],
   excludePackages: [],
   yarnrcDependencyTypes: ['peerDependencies', 'dependencies'],
   dependencyTypesInPackages: ['optionalDependencies', 'dependencies', 'devDependencies', 'peerDependencies', 'generatorDependencies']
 }];
 
-export default createRule<[Options, ...any], 'versionUpdate' | 'error'>({
+export default createRule<[YarnrcPackageExtensionsHarmonizeOptions, ...any], 'versionUpdate' | 'error'>({
   name: 'yarnrc-package-extensions-harmonize',
   meta: {
     hasSuggestions: true,
@@ -79,26 +96,25 @@ export default createRule<[Options, ...any], 'versionUpdate' | 'error'>({
     fixable: 'code'
   },
   defaultOptions,
-  create: (context, [options]: Readonly<[Options, ...any]>) => {
+  create: (context, [options]: Readonly<[YarnrcPackageExtensionsHarmonizeOptions, ...any]>) => {
     const parserServices = getYamlParserServices(context);
-    const dirname = path.dirname(context.getFilename());
+    const dirname = path.dirname(context.filename);
     const workspace = findWorkspacePackageJsons(dirname);
-    const bestRanges = workspace ?
-      getBestRanges(options.dependencyTypesInPackages, workspace.packages.filter(({ content }) => !content.name || !options.excludePackages.includes(content.name))) :
-      {};
-    const ignoredDependencies = options.ignoredDependencies.map((dep) => new RegExp(dep.replace(/[.+?^${}()|[\]\\]/g, '\\$&').replace(/\*/g, '.*')));
+    const bestRanges = workspace
+      ? getBestRanges(options.dependencyTypesInPackages, workspace.packages.filter(({ content }) => !content.name || !options.excludePackages.includes(content.name)))
+      : {};
+    const ignoredDependencies = options.ignoredDependencies.map((dep) => new RegExp(dep.replace(/[$()+.?[\\\]^{|}]/g, '\\$&').replace(/\*/g, '.*')));
 
     if (parserServices.isYAML) {
       return {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        'YAMLPair': (node: AST.YAMLPair) => {
-
+        // eslint-disable-next-line @typescript-eslint/naming-convention -- name required by Yaml Eslint parser
+        YAMLPair: (node: AST.YAMLPair) => {
           if (node.value) {
             const range = getStaticYAMLValue(node.value)?.toString();
-            const parent = node.parent.parent && node.parent.parent.type === 'YAMLPair' && getStaticYAMLValue(node.parent.parent.key!)?.toString();
+            const parent = node.parent.parent && node.parent.parent.type === 'YAMLPair' && getStaticYAMLValue(node.parent.parent.key)?.toString();
             const baseNode = node.parent.parent.parent.parent?.parent?.parent;
-            const isCorrectNode = baseNode && baseNode.type === 'YAMLPair' && getStaticYAMLValue(baseNode.key!)?.toString() === 'packageExtensions';
-            if (isCorrectNode && semver.validRange(range) && parent && options.yarnrcDependencyTypes.some((t) => t === parent)) {
+            const isCorrectNode = baseNode && baseNode.type === 'YAMLPair' && getStaticYAMLValue(baseNode.key)?.toString() === 'packageExtensions';
+            if (isCorrectNode && semver.validRange(range) && parent && options.yarnrcDependencyTypes.includes(parent)) {
               const depName = node.key && getStaticYAMLValue(node.key)?.toString();
               if (!depName || !bestRanges[depName] || ignoredDependencies.some((ignore) => ignore.test(depName))) {
                 return;

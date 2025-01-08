@@ -1,9 +1,21 @@
-import { getPackageManagerRunner } from '@o3r/schematics';
-import type { BuilderWrapper } from '@o3r/telemetry';
-import { prompt, Question } from 'inquirer';
-import { execFileSync } from 'node:child_process';
-import { existsSync, promises } from 'node:fs';
+import {
+  execFileSync,
+} from 'node:child_process';
+import {
+  existsSync,
+  promises,
+} from 'node:fs';
 import * as path from 'node:path';
+import {
+  getPackageManagerRunner,
+} from '@o3r/schematics';
+import type {
+  BuilderWrapper,
+} from '@o3r/telemetry';
+import {
+  prompt,
+  Question,
+} from 'inquirer';
 
 const noopBuilderWrapper: BuilderWrapper = (fn) => fn;
 
@@ -15,7 +27,7 @@ const noopBuilderWrapper: BuilderWrapper = (fn) => fn;
 export const createBuilderWithMetricsIfInstalled: BuilderWrapper = (builderFn) => async (opts, ctx) => {
   const packageJsonPath = path.join(ctx.workspaceRoot, 'package.json');
   const packageJson = existsSync(packageJsonPath)
-    ? JSON.parse(await promises.readFile(packageJsonPath, {encoding: 'utf8'}))
+    ? JSON.parse(await promises.readFile(packageJsonPath, { encoding: 'utf8' }))
     : {};
   let wrapper: BuilderWrapper = noopBuilderWrapper;
   try {
@@ -40,7 +52,7 @@ export const createBuilderWithMetricsIfInstalled: BuilderWrapper = (builderFn) =
     ) {
       ctx.logger.debug('`@o3r/telemetry` is not available.\nAsking to add the dependency\n' + e.toString());
 
-      const question: Question = {
+      const question = {
         type: 'confirm',
         name: 'isReplyPositive',
         message: `
@@ -49,7 +61,7 @@ It will help us to improve our tools.
 For more details and instructions on how to change these settings, see https://github.com/AmadeusITGroup/otter/blob/main/docs/telemetry/PRIVACY_NOTICE.md.
         `,
         default: false
-      };
+      } as const satisfies Question;
       const { isReplyPositive } = await prompt([question]);
 
       if (isReplyPositive) {

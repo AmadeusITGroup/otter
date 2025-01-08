@@ -1,4 +1,7 @@
-import { ElementProfile, O3rElement } from '../element';
+import {
+  ElementProfile,
+  O3rElement,
+} from '../element';
 
 /**
  * Interface to describe the Slider elements that are used inside a fixture.

@@ -62,10 +62,12 @@ When contributing, please keep in mind the following rules:
 To ease the process, we are providing a set of:
 
 - [Editors configuration](.editorconfig)
-- [Linters configuration](./packages/@o3r/eslint-config-otter/README.md)
+- [Linters configuration](./packages/@o3r/eslint-config/README.md)
 - [Component generator](./packages/@o3r/core/README.md#generators) (and more)
 
-### Accelerate your build thanks to Nx Cloud
+### Accelerate your build
+
+#### Thanks to Nx Cloud
 
 [Nx Cloud](https://nx.dev/nx-cloud) offers a way to accelerate the build of your project locally thanks to [Remote Cache](https://nx.dev/ci/features/remote-cache).
 
@@ -80,6 +82,18 @@ When building (`yarn build`) the project on the `main` branch (or another `relea
 > [!NOTE]
 > Only Otter Team members can write Remote Cache on Nx Cloud, logged-in users will be able to use Remote Cache in readonly mode.
 > The Local Cache is available for all users (logged or not to Nx Cloud).
+
+#### Increase the number of parallel process
+
+By default, the number of tasks that can run in parallel is 3 (see [Nx Documentation](https://nx.dev/recipes/running-tasks/run-tasks-in-parallel)).
+This number can be increased in the developer machine thanks to the [NX_PARALLEL](https://nx.dev/reference/environment-variables) environment variable by using the following command:
+
+```bash
+yarn print:nx-parallel >> .env
+```
+
+> [!NOTE]
+> The command will set this number to the maximum possible value for your machine, it can be adapted manually after generation
 
 ### DevTools to create new Otter monorepo elements
 

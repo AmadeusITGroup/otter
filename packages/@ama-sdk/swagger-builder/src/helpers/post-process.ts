@@ -1,13 +1,33 @@
-import { AwsCompatConverter } from '../core/post-processes/aws-compat';
-import { PathsBlacklister } from '../core/post-processes/blacklist-paths';
-import { FlagDefinition } from '../core/post-processes/flag-definition';
-import { FlattenConflictedAllOf } from '../core/post-processes/flatten-conflicted-allof';
-import { PropagateXvendor } from '../core/post-processes/propagate-xvendor';
-import { ResolveDiscriminator } from '../core/post-processes/resolve-discriminator';
-import { TreeShaker } from '../core/post-processes/tree-shaker';
-import { Validator } from '../core/post-processes/validate';
-import { PathsWhitelister } from '../core/post-processes/whitelist-paths';
-import { BuilderConfiguration } from '../interfaces/builder-configuration';
+import {
+  AwsCompatConverter,
+} from '../core/post-processes/aws-compat';
+import {
+  PathsBlacklister,
+} from '../core/post-processes/blacklist-paths';
+import {
+  FlagDefinition,
+} from '../core/post-processes/flag-definition';
+import {
+  FlattenConflictedAllOf,
+} from '../core/post-processes/flatten-conflicted-allof';
+import {
+  PropagateXvendor,
+} from '../core/post-processes/propagate-xvendor';
+import {
+  ResolveDiscriminator,
+} from '../core/post-processes/resolve-discriminator';
+import {
+  TreeShaker,
+} from '../core/post-processes/tree-shaker';
+import {
+  Validator,
+} from '../core/post-processes/validate';
+import {
+  PathsWhitelister,
+} from '../core/post-processes/whitelist-paths';
+import {
+  BuilderConfiguration,
+} from '../interfaces/builder-configuration';
 
 /**
  * Apply post processing to a full swagger spec if needed

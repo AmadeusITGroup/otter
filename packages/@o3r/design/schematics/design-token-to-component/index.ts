@@ -1,4 +1,9 @@
 import {
+  basename,
+  dirname,
+  relative,
+} from 'node:path';
+import {
   apply,
   MergeStrategy,
   mergeWith,
@@ -6,11 +11,14 @@ import {
   renameTemplateFiles,
   Rule,
   template,
-  url
+  url,
 } from '@angular-devkit/schematics';
-import { basename, dirname, relative } from 'node:path';
-import type { NgAddDesignTokenSchematicsSchema } from './schema';
-import type { createSchematicWithMetricsIfInstalled } from '@o3r/schematics';
+import type {
+  createSchematicWithMetricsIfInstalled,
+} from '@o3r/schematics';
+import type {
+  NgAddDesignTokenSchematicsSchema,
+} from './schema';
 
 /**
  * Add Design Token to an existing component
@@ -18,7 +26,7 @@ import type { createSchematicWithMetricsIfInstalled } from '@o3r/schematics';
  */
 export function ngAddDesignTokenFn(options: NgAddDesignTokenSchematicsSchema): Rule {
   const fileName = basename(options.path.endsWith('.json') ? options.path : `${options.path}.json`);
-  const name = fileName.slice(0, fileName.indexOf('.') > -1 ? fileName.indexOf('.') : undefined);
+  const name = fileName.slice(0, fileName.includes('.') ? fileName.indexOf('.') : undefined);
 
   const createDesignTokenFilesRule: Rule = mergeWith(apply(url('./templates'), [
     template({

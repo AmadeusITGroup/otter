@@ -1,27 +1,47 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+} from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
   computed,
   effect,
   inject,
-  type OnDestroy,
   type Signal,
   untracked,
   viewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DfTooltipModule } from '@design-factory/design-factory';
-import { NgbAccordionDirective, NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  takeUntilDestroyed,
+  toSignal,
+} from '@angular/core/rxjs-interop';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import {
+  DfTooltipModule,
+} from '@design-factory/design-factory';
+import {
+  NgbAccordionDirective,
+  NgbAccordionModule,
+} from '@ng-bootstrap/ng-bootstrap';
 import type {
   JSONLocalization,
-  LocalizationMetadata
+  LocalizationMetadata,
 } from '@o3r/localization';
-import { Subscription } from 'rxjs';
-import { map, throttleTime } from 'rxjs/operators';
-import { ChromeExtensionConnectionService, LocalizationService, StateService } from '../../services';
+import {
+  map,
+  throttleTime,
+} from 'rxjs/operators';
+import {
+  ChromeExtensionConnectionService,
+  LocalizationService,
+  StateService,
+} from '../../services';
 
 const THROTTLE_TIME = 100;
 
@@ -42,11 +62,10 @@ type LangTranslationsControl = FormGroup<Record<string, TranslationControl>>;
     AsyncPipe
   ]
 })
-export class LocalizationPanelPresComponent implements OnDestroy {
+export class LocalizationPanelPresComponent {
   private readonly connectionService = inject(ChromeExtensionConnectionService);
   private readonly localizationService = inject(LocalizationService);
   private readonly stateService = inject(StateService);
-  private readonly subscription = new Subscription();
   private readonly maxItemDisplayed = 20;
 
   public readonly isTranslationDeactivationEnabled = this.localizationService.isTranslationDeactivationEnabled;
@@ -57,6 +76,7 @@ export class LocalizationPanelPresComponent implements OnDestroy {
   public readonly languages = this.localizationService.languages;
   public readonly hasSeveralLanguages: Signal<boolean>;
   public readonly isTruncated: Signal<boolean>;
+
   public readonly localizationActiveStateOverridesForCurrentLang = computed(() => {
     const lang = this.currentLanguage();
     if (!lang) {
@@ -64,6 +84,7 @@ export class LocalizationPanelPresComponent implements OnDestroy {
     }
     return this.stateService.activeState()?.localizations?.[lang] || {};
   });
+
   public readonly localizationLocalStateOverridesForCurrentLang = computed(() => {
     const lang = this.currentLanguage();
     if (!lang) {
@@ -71,6 +92,7 @@ export class LocalizationPanelPresComponent implements OnDestroy {
     }
     return this.stateService.localState()?.localizations?.[lang] || {};
   });
+
   public readonly activeStateName = computed(() => this.stateService.activeState()?.name);
   public form = new FormGroup({
     search: new FormControl(''),
@@ -84,7 +106,7 @@ export class LocalizationPanelPresComponent implements OnDestroy {
   constructor() {
     this.hasSeveralLanguages = computed(() => this.languages().length >= 2);
     this.localizations = computed(() => this.localizationService.localizationsMetadata().filter((localization) => !localization.dictionary && !localization.ref));
-    this.hasLocalizations = computed(() => !!this.localizations().length);
+    this.hasLocalizations = computed(() => this.localizations().length > 0);
 
     const search = toSignal(
       this.form.controls.search.valueChanges.pipe(
@@ -95,10 +117,11 @@ export class LocalizationPanelPresComponent implements OnDestroy {
     );
     const searchMatch = computed(() => {
       const searchText = search();
-      return searchText ?
-        this.localizations().filter(({ key, description, tags, ref }) =>
+      return searchText
+        ? this.localizations().filter(({ key, description, tags, ref }) =>
           [key, description, ...(tags || []), ref].some((value) => value?.toLowerCase().includes(searchText))
-        ) : this.localizations();
+        )
+        : this.localizations();
     });
 
     this.filteredLocalizations = computed(() => {
@@ -113,25 +136,21 @@ export class LocalizationPanelPresComponent implements OnDestroy {
         this.form.controls.lang.setValue(lang);
       }
     });
-    this.subscription.add(
-      this.form.controls.lang.valueChanges.subscribe((language) => {
-        // Else refresh issue (maybe can be solved differently)
-        this.accordion()?.collapseAll();
-        this.localizationService.switchLanguage(language);
-      })
-    );
-    this.subscription.add(
-      this.form.controls.showKeys.valueChanges.subscribe((value) => {
-        this.connectionService.sendMessage('displayLocalizationKeys', { toggle: !!value });
-      })
-    );
+    this.form.controls.lang.valueChanges.pipe(takeUntilDestroyed()).subscribe((language) => {
+      // Else refresh issue (maybe can be solved differently)
+      this.accordion()?.collapseAll();
+      this.localizationService.switchLanguage(language);
+    });
+    this.form.controls.showKeys.valueChanges.pipe(takeUntilDestroyed()).subscribe((value) => {
+      this.connectionService.sendMessage('displayLocalizationKeys', { toggle: !!value });
+    });
     effect(() => {
       const translations = this.filteredLocalizations();
       const lang = untracked(this.currentLanguage);
       if (!lang) {
         return;
       }
-      translations.forEach(({key}) => {
+      translations.forEach(({ key }) => {
         this.upsertKeyForm(key, lang);
       });
     });
@@ -160,20 +179,18 @@ export class LocalizationPanelPresComponent implements OnDestroy {
       this.form.controls.translations.addControl(lang, langControl);
     }
     const control = langControl.controls[key];
-    const controlValue =
-      this.stateService.localState().localizations?.[this.form.value.lang || '']?.[key]
+    const controlValue = this.stateService.localState().localizations?.[this.form.value.lang || '']?.[key]
       || untracked(this.localizationService.localizationsMetadata).find((loc) => loc.key === key)?.value
       || '';
     if (!control) {
       const newControl = new FormControl<string>(controlValue);
       langControl.addControl(key, newControl);
-      this.subscription.add(
-        newControl.valueChanges.pipe(
-          throttleTime(THROTTLE_TIME, undefined, { trailing: true })
-        ).subscribe((newValue) => {
-          this.onLocalizationChange(key, newValue ?? '');
-        })
-      );
+      newControl.valueChanges.pipe(
+        takeUntilDestroyed(),
+        throttleTime(THROTTLE_TIME, undefined, { trailing: true })
+      ).subscribe((newValue) => {
+        this.onLocalizationChange(key, newValue ?? '');
+      });
     } else if (control.value !== controlValue) {
       control.setValue(controlValue);
     }
@@ -189,8 +206,7 @@ export class LocalizationPanelPresComponent implements OnDestroy {
     if (!lang) {
       return;
     }
-    const initialValue =
-      this.stateService.localState().localizations?.[lang]?.[localizationKey]
+    const initialValue = this.stateService.localState().localizations?.[lang]?.[localizationKey]
       || this.localizationService.translationsForCurrentLanguage()[localizationKey]
       || this.localizationService.localizationsMetadata().find((loc) => loc.key === localizationKey)?.value
       || '';
@@ -217,7 +233,7 @@ export class LocalizationPanelPresComponent implements OnDestroy {
     const localValue = this.localizationLocalStateOverridesForCurrentLang()[localization.key];
     const stateValue = this.localizationActiveStateOverridesForCurrentLang()[localization.key];
     const runtimeValue = this.localizationService.translationsForCurrentLanguage()[localization.key];
-    const newValue = (localValue !== stateValue ? stateValue : undefined) || runtimeValue || localization.value || '';
+    const newValue = (localValue === stateValue ? undefined : stateValue) || runtimeValue || localization.value || '';
     this.onLocalizationChange(
       localization.key,
       newValue
@@ -242,9 +258,5 @@ export class LocalizationPanelPresComponent implements OnDestroy {
         ]
       }
     );
-  }
-
-  public ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 }

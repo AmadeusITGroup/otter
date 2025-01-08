@@ -1,18 +1,31 @@
-import {SchematicContext, SchematicsException, Tree, UpdateRecorder} from '@angular-devkit/schematics';
-import * as ts from 'typescript';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
+import {
+  SchematicContext,
+  SchematicsException,
+  Tree,
+  UpdateRecorder,
+} from '@angular-devkit/schematics';
 import {
   addImportToModule,
   addProviderToModule,
   getRouterModuleDeclaration,
-  insertImport, isImported
+  insertImport,
+  isImported,
 } from '@schematics/angular/utility/ast-utils';
-import {InsertChange} from '@schematics/angular/utility/change';
-import * as fs from 'node:fs';
-import {sync as globbySync} from 'globby';
-import * as path from 'node:path';
-import {getExportedSymbolsFromFile} from './ast';
-import { getWorkspaceConfig } from './loaders';
-
+import {
+  InsertChange,
+} from '@schematics/angular/utility/change';
+import {
+  sync as globbySync,
+} from 'globby';
+import * as ts from 'typescript';
+import {
+  getExportedSymbolsFromFile,
+} from './ast';
+import {
+  getWorkspaceConfig,
+} from './loaders';
 
 /**
  * Get the path to the `app.module.ts`
@@ -32,7 +45,7 @@ export function getAppModuleFilePath(tree: Tree, context: SchematicContext, proj
   const mainFilePath: string = workspaceProject.architect!.build.options.main ?? workspaceProject.architect!.build.options.browser;
   const mainFile = tree.read(mainFilePath)!.toString();
 
-  const bootstrapModuleRegexpResult = mainFile.match(/(?:bootstrapModule|bootstrapApplication)\((?:[^,)]*,)*\s*([^,) ]*)\s*\)/m);
+  const bootstrapModuleRegexpResult = mainFile.match(/(?:bootstrapModule|bootstrapApplication)\((?:[^),]*,)*\s*([^ ),]*)\s*\)/m);
   if (!bootstrapModuleRegexpResult || !bootstrapModuleRegexpResult[1]) {
     throw new SchematicsException('Could not find bootstrap module or appConfig');
   }
@@ -48,14 +61,14 @@ export function getAppModuleFilePath(tree: Tree, context: SchematicContext, proj
   /** Path to the main module file */
   const moduleFilePath = path.join(path.dirname(mainFilePath), bootstrapModuleFileRegExpResult[1] + '.ts');
 
-  const exportAppModuleClassRegExp = new RegExp(`(?:class|const)\\s+${bootstrapModule}`, 'gm');
+  const exportAppModuleClassRegExp = new RegExp(`(?:class|const)\\s+${bootstrapModule}`, 'm');
 
-  if (tree.exists(moduleFilePath) && tree.read(moduleFilePath)!.toString().match(exportAppModuleClassRegExp)) {
+  if (tree.exists(moduleFilePath) && exportAppModuleClassRegExp.test(tree.read(moduleFilePath)!.toString())) {
     return moduleFilePath;
   }
 
   const possibleAppModule = path.join(path.dirname(mainFilePath), path.dirname(bootstrapModuleFileRegExpResult[1]), 'app.module.ts');
-  if (tree.exists(possibleAppModule) && tree.read(possibleAppModule)!.toString().match(exportAppModuleClassRegExp)) {
+  if (tree.exists(possibleAppModule) && exportAppModuleClassRegExp.test(tree.read(possibleAppModule)!.toString())) {
     return possibleAppModule;
   }
 
@@ -65,20 +78,19 @@ export function getAppModuleFilePath(tree: Tree, context: SchematicContext, proj
 
   const symbols = getExportedSymbolsFromFile(prog, normalizedFilePath);
 
-  const bootstrapModuleSymbol = symbols.find(s => s.name === bootstrapModule);
+  const bootstrapModuleSymbol = symbols.find((s) => s.name === bootstrapModule);
   const checker = prog.getTypeChecker();
 
   if (bootstrapModuleSymbol) {
     const pathPlusModuleString = checker.getFullyQualifiedName(bootstrapModuleSymbol);
-    const filePath = pathPlusModuleString?.replace(new RegExp(`.${bootstrapModule}`), '').replace(/['"]/g, '');
+    const filePath = pathPlusModuleString?.replace(new RegExp(`.${bootstrapModule}`), '').replace(/["']/g, '');
     const relativeFilePath = filePath ? path.relative(path.dirname(mainFilePath), `${filePath}.ts`) : undefined;
     const filePathInTree = relativeFilePath ? path.join(path.dirname(mainFilePath), relativeFilePath) : undefined;
-    if (filePathInTree && tree.exists(filePathInTree) && tree.read(filePathInTree)!.toString().match(exportAppModuleClassRegExp)) {
+    if (filePathInTree && tree.exists(filePathInTree) && exportAppModuleClassRegExp.test(tree.read(filePathInTree)!.toString())) {
       return filePathInTree;
     }
   }
   throw new SchematicsException(`Could not find ${bootstrapModule} source file`);
-
 }
 
 /**
@@ -108,10 +120,10 @@ export function getMainFilePath(tree: Tree, context: SchematicContext, projectNa
  */
 export function isApplicationThatUsesRouterModule(tree: Tree, options: { projectName?: string | undefined }) {
   const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
-  const cwd = process.cwd().replace(/[\\/]+/g, '/');
-  const root = (workspaceProject?.root && cwd.endsWith(workspaceProject.root)) ? workspaceProject.root.replace(/[^\\/]+/g, '..') : '.';
-  return workspaceProject?.sourceRoot &&
-    globbySync(path.posix.join(root, workspaceProject.sourceRoot, '**', '*.ts')).some((filePath) => {
+  const cwd = process.cwd().replace(/[/\\]+/g, '/');
+  const root = (workspaceProject?.root && cwd.endsWith(workspaceProject.root)) ? workspaceProject.root.replace(/[^/\\]+/g, '..') : '.';
+  return workspaceProject?.sourceRoot
+    && globbySync(path.posix.join(root, workspaceProject.sourceRoot, '**', '*.ts')).some((filePath) => {
       const fileContent = fs.readFileSync(filePath).toString();
       if (!/RouterModule/.test(fileContent)) {
         return false;
@@ -131,14 +143,24 @@ export function isApplicationThatUsesRouterModule(tree: Tree, options: { project
  * @param sourceFile
  * @param sourceFileContent
  * @param context
+ * @param recorder
  * @param moduleFilePath
  * @param moduleIndex
- * @param recorder
  * @param moduleFunction
  * @param override
  */
-export function addImportToModuleFile(name: string, file: string, sourceFile: ts.SourceFile, sourceFileContent: string, context: SchematicContext, recorder: UpdateRecorder,
-                                      moduleFilePath: string, moduleIndex: number, moduleFunction?: string, override = false) {
+export function addImportToModuleFile(
+  name: string,
+  file: string,
+  sourceFile: ts.SourceFile,
+  sourceFileContent: string,
+  context: SchematicContext,
+  recorder: UpdateRecorder,
+  moduleFilePath: string,
+  moduleIndex: number,
+  moduleFunction?: string,
+  override = false
+) {
   const importMatch = sourceFileContent.slice(moduleIndex).match(new RegExp(`(${name})(\\.[a-zA-Z\\s\\n]+\\()?(,\\n?)?`));
   if (!!importMatch && !override) {
     context.logger.warn(`Skipped ${name} (already imported)`);
@@ -177,7 +199,6 @@ export function insertImportToModuleFile(name: string, file: string, sourceFile:
   return recorder;
 }
 
-
 /**
  * Add providers to the main module
  * @param name
@@ -213,7 +234,7 @@ export function addProviderToModuleFile(name: string, file: string, sourceFile: 
  * @param moduleIndex
  */
 export function insertBeforeModule(line: string, file: string, recorder: UpdateRecorder, moduleIndex: number) {
-  if (file.indexOf(line.replace(/[\r\n ]*/g, '')) === -1) {
+  if (!file.includes(line.replace(/\s*/g, ''))) {
     return recorder.insertLeft(moduleIndex - 1, `${line}\n\n`);
   }
   return recorder;

@@ -1,4 +1,6 @@
-import type {JsonObject} from '@angular-devkit/core';
+import type {
+  JsonObject,
+} from '@angular-devkit/core';
 
 export interface LocalizationConfig extends JsonObject {
   /**
@@ -8,7 +10,6 @@ export interface LocalizationConfig extends JsonObject {
 
   /**
    * Folder path for the i18n folder relative to the localization json file
-   *
    * @default 'i18n'
    */
   i18nFolderPath: string;
@@ -22,7 +23,6 @@ export interface I18nBuilderSchema extends JsonObject {
 
   /**
    * Name of the file for the default language
-   *
    * @default 'en-GB.json'
    */
   defaultLanguageFile: string;

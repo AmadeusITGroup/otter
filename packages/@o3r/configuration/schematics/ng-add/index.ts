@@ -1,8 +1,17 @@
-import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import type { NgAddSchematicsSchema } from './schema';
-import { registerDevtools } from './helpers/devtools-registration';
+import {
+  chain,
+  Rule,
+  SchematicContext,
+  Tree,
+} from '@angular-devkit/schematics';
+import {
+  registerDevtools,
+} from './helpers/devtools-registration';
+import type {
+  NgAddSchematicsSchema,
+} from './schema';
 
 const reportMissingSchematicsDep = (logger: { error: (message: string) => any }) => (reason: any) => {
   logger.error(`[ERROR]: Adding @o3r/configuration has failed.
@@ -43,21 +52,13 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
     }, getPackageInstallConfig(packageJsonPath, tree, options.projectName, false, !!options.exactO3rVersion));
     context.logger.info(`The package ${depsInfo.packageName as string} comes with a debug mechanism`);
     context.logger.info('Get more information on the following page: https://github.com/AmadeusITGroup/otter/tree/main/docs/configuration/OVERVIEW.md#Runtime-debugging');
+    const schematicsDefaultOptions = { useOtterConfig: undefined };
     return () => chain([
       registerPackageCollectionSchematics(packageJson),
       setupSchematicsParamsForProject({
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        '@o3r/core:component': {
-          useOtterConfig: undefined
-        },
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        '@o3r/core:component-container': {
-          useOtterConfig: undefined
-        },
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        '@o3r/core:component-presenter': {
-          useOtterConfig: undefined
-        }
+        '@o3r/core:component': schematicsDefaultOptions,
+        '@o3r/core:component-container': schematicsDefaultOptions,
+        '@o3r/core:component-presenter': schematicsDefaultOptions
       }, options.projectName),
       setupDependencies({
         projectName: options.projectName,
@@ -67,7 +68,6 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       () => registerDevtools(options)
     ])(tree, context);
   };
-
 }
 
 /**

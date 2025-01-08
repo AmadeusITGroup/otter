@@ -1,12 +1,23 @@
+import {
+  existsSync,
+  readFileSync,
+} from 'node:fs';
+import * as path from 'node:path';
+import {
+  performance,
+} from 'node:perf_hooks';
 import type {
   BuilderContext,
-  BuilderOutput
+  BuilderOutput,
 } from '@angular-devkit/architect';
-import { existsSync, readFileSync } from 'node:fs';
-import * as path from 'node:path';
-import { performance } from 'node:perf_hooks';
-import { getEnvironmentInfo } from '../environment/index';
-import { BuilderMetricData, sendData as defaultSendData, type SendDataFn } from '../sender';
+import {
+  getEnvironmentInfo,
+} from '../environment/index';
+import {
+  BuilderMetricData,
+  sendData as defaultSendData,
+  type SendDataFn,
+} from '../sender';
 
 type BuilderWrapperFn<S, O extends BuilderOutput = BuilderOutput> =
   (opts: S, ctx: BuilderContext) => O | Promise<O>;
@@ -28,20 +39,18 @@ export const createBuilderWithMetrics: BuilderWrapper = (builderFn, sendData = d
     try {
       const result = await builderFn(options, context);
       return result;
-    }
-    catch (e: any) {
+    } catch (e: any) {
       const err = e instanceof Error ? e : new Error(e.toString());
       error = err.stack || err.toString();
       throw err;
-    }
-    finally {
+    } finally {
       const endTime = Math.floor(performance.now());
       const duration = endTime - startTime;
       // context.builder.builderName does not contain the package name
       const builderName = context.builder.name as string;
       context.logger.info(`${builderName} run in ${duration}ms`);
       const environment = await getEnvironmentInfo();
-      const data: BuilderMetricData = {
+      const data = {
         environment,
         duration,
         builder: {
@@ -54,14 +63,15 @@ export const createBuilderWithMetrics: BuilderWrapper = (builderFn, sendData = d
                 projectName: context.target.project,
                 configuration: context.target.configuration
               }
-            } : {}
+            }
+            : {}
           )
         },
         error
-      };
+      } as const satisfies BuilderMetricData;
       context.logger.debug(JSON.stringify(data, null, 2));
       const packageJsonPath = path.join(context.currentDirectory, 'package.json');
-      const packageJson = existsSync(packageJsonPath) ? JSON.parse(readFileSync(packageJsonPath, 'utf-8')) : {};
+      const packageJson = existsSync(packageJsonPath) ? JSON.parse(readFileSync(packageJsonPath, 'utf8')) : {};
       const shouldSendData = !!(
         (options as any).o3rMetrics
         ?? ((process.env.O3R_METRICS || '').length > 0 ? process.env.O3R_METRICS !== 'false' : undefined)
@@ -90,4 +100,3 @@ export const createBuilderWithMetrics: BuilderWrapper = (builderFn, sendData = d
       }
     }
   };
-

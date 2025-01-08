@@ -1,5 +1,6 @@
-import { EnvironmentMetricData } from '../environment';
-
+import {
+  EnvironmentMetricData,
+} from '../environment';
 
 export interface BaseMetricData {
   /** Environment information */
@@ -61,7 +62,7 @@ export type MetricData = BuilderMetricData | SchematicMetricData | CliMetricData
  * @param data Metrics to report
  * @param logger Optional logger to provide to the function
  */
-export type SendDataFn = (data: MetricData, logger?: { error: (msg: string) => void } | undefined) => Promise<void>;
+export type SendDataFn = (data: MetricData, logger?: { error: (msg: string) => void }) => Promise<void>;
 
 /**
  * Send metric to a Amadeus Log Server
@@ -79,7 +80,8 @@ export const sendData: SendDataFn = (data, logger) => {
       }]
     });
   } catch (e: any) {
-    return Promise.reject(e);
+    const err = (e instanceof Error ? e : new Error(e));
+    return Promise.reject(err);
   }
 
   setTimeout(() => {
@@ -94,4 +96,3 @@ export const sendData: SendDataFn = (data, logger) => {
 
   return Promise.resolve();
 };
-

@@ -1,6 +1,13 @@
-import { createEntityAdapter, EntityState } from '@ngrx/entity';
-import { createEntityAsyncRequestAdapter } from './async-entity.adapter';
-import { AsyncStoreItem } from './async.interfaces';
+import {
+  createEntityAdapter,
+  EntityState,
+} from '@ngrx/entity';
+import {
+  createEntityAsyncRequestAdapter,
+} from './async-entity.adapter';
+import {
+  AsyncStoreItem,
+} from './async.interfaces';
 
 describe('createEntityAsyncRequestAdapter tests', () => {
   interface Model extends AsyncStoreItem {
@@ -19,14 +26,14 @@ describe('createEntityAsyncRequestAdapter tests', () => {
 
   interface TestStateWithCustomId extends EntityState<ModelWithOtherId>, AsyncStoreItem {}
 
-  const model1: Model = {id: 'myModel1', a: 1, b: 2, requestIds: ['test']};
-  const model2: Model = {id: 'myModel2', a: 1, b: 2, requestIds: ['test', 'test2']};
-  const model3: Model = {id: 'myModel3', a: 1, b: 2, requestIds: ['test', 'test2']};
-  const model4: Model = {id: 'myModel4', a: 1, b: 2, requestIds: []};
+  const model1: Model = { id: 'myModel1', a: 1, b: 2, requestIds: ['test'] };
+  const model2: Model = { id: 'myModel2', a: 1, b: 2, requestIds: ['test', 'test2'] };
+  const model3: Model = { id: 'myModel3', a: 1, b: 2, requestIds: ['test', 'test2'] };
+  const model4: Model = { id: 'myModel4', a: 1, b: 2, requestIds: [] };
 
-  const modelWithOtherId1: ModelWithOtherId = {customId: 'myModel1', a: 1, b: 2, requestIds: []};
-  const modelWithOtherId2: ModelWithOtherId = {customId: 'myModel2', a: 1, b: 2, requestIds: []};
-  const modelWithOtherId3: ModelWithOtherId = {customId: 'myModel3', a: 1, b: 2, requestIds: []};
+  const modelWithOtherId1: ModelWithOtherId = { customId: 'myModel1', a: 1, b: 2, requestIds: [] };
+  const modelWithOtherId2: ModelWithOtherId = { customId: 'myModel2', a: 1, b: 2, requestIds: [] };
+  const modelWithOtherId3: ModelWithOtherId = { customId: 'myModel3', a: 1, b: 2, requestIds: [] };
 
   const testAdapter = createEntityAsyncRequestAdapter(createEntityAdapter<Model>({
     selectId: (model) => model.id
@@ -36,13 +43,13 @@ describe('createEntityAsyncRequestAdapter tests', () => {
     selectId: (model) => model.customId
   }));
 
-  const emptyState: TestState = testAdapter.getInitialState<AsyncStoreItem>({requestIds: []});
+  const emptyState: TestState = testAdapter.getInitialState<AsyncStoreItem>({ requestIds: [] });
 
-  const emptyStateWithOtherId: TestStateWithCustomId = testAdapterWithCustomId.getInitialState<AsyncStoreItem>({requestIds: []});
+  const emptyStateWithOtherId: TestStateWithCustomId = testAdapterWithCustomId.getInitialState<AsyncStoreItem>({ requestIds: [] });
 
   const state: TestState = {
     ids: ['myModel1', 'myModel2', 'myModel3'],
-    entities: {myModel1: model1, myModel2: model2, myModel3: model3},
+    entities: { myModel1: model1, myModel2: model2, myModel3: model3 },
     requestIds: ['test']
   };
 
@@ -141,7 +148,7 @@ describe('createEntityAsyncRequestAdapter tests', () => {
 
   describe('resolveRequestOne', () => {
     it('should add the entity and update the global status if it did not exist', () => {
-      const newState = testAdapter.resolveRequestOne({...emptyState, requestIds: ['request'], isPending: true}, model4, 'request');
+      const newState = testAdapter.resolveRequestOne({ ...emptyState, requestIds: ['request'], isPending: true }, model4, 'request');
 
       expect(newState.isPending).toBeFalsy();
       expect(newState.isFailure).toBeFalsy();
@@ -155,8 +162,8 @@ describe('createEntityAsyncRequestAdapter tests', () => {
     });
 
     it('should update the entity and update the entity status if it already exists', () => {
-      const baseState = testAdapter.addOne({...model4, requestIds: ['request'], isPending: true}, emptyState);
-      const newState = testAdapter.resolveRequestOne(baseState, {id: model4.id, a: 500, b: 999}, 'request');
+      const baseState = testAdapter.addOne({ ...model4, requestIds: ['request'], isPending: true }, emptyState);
+      const newState = testAdapter.resolveRequestOne(baseState, { id: model4.id, a: 500, b: 999 }, 'request');
 
       expect(newState.isPending).toBeFalsy();
       expect(newState.isFailure).toBeFalsy();
@@ -172,8 +179,8 @@ describe('createEntityAsyncRequestAdapter tests', () => {
     });
 
     it('should support entities with custom IDs', () => {
-      const baseState = testAdapterWithCustomId.addOne({...modelWithOtherId1, requestIds: ['request'], isPending: true}, emptyStateWithOtherId);
-      const newState = testAdapterWithCustomId.resolveRequestOne(baseState, {customId: modelWithOtherId1.customId, a: 500, b: 999}, 'request', 'customId');
+      const baseState = testAdapterWithCustomId.addOne({ ...modelWithOtherId1, requestIds: ['request'], isPending: true }, emptyStateWithOtherId);
+      const newState = testAdapterWithCustomId.resolveRequestOne(baseState, { customId: modelWithOtherId1.customId, a: 500, b: 999 }, 'request', 'customId');
 
       expect(newState.isPending).toBeFalsy();
       expect(newState.isFailure).toBeFalsy();
@@ -191,7 +198,7 @@ describe('createEntityAsyncRequestAdapter tests', () => {
 
   describe('resolveRequestMany', () => {
     it('should update the entities and handle the pending accordingly', () => {
-      const payloadEntities = [{id: 'myModel1', a: 100}, {id: 'myModel3', b: 200}];
+      const payloadEntities = [{ id: 'myModel1', a: 100 }, { id: 'myModel3', b: 200 }];
       const newState = testAdapter.resolveRequestMany(state, payloadEntities, 'test');
 
       expect(newState.entities.myModel1.isPending).toBeFalsy(); // because 'test' request id has been removed
@@ -204,7 +211,7 @@ describe('createEntityAsyncRequestAdapter tests', () => {
     });
 
     it('should update the entities which exist, computing the current status when no requestId passed', () => {
-      const payloadEntities = [{id: 'myModel1', a: 100}, {id: 'myModel3', b: 200}];
+      const payloadEntities = [{ id: 'myModel1', a: 100 }, { id: 'myModel3', b: 200 }];
       const newState = testAdapter.resolveRequestMany(state, payloadEntities);
 
       expect(newState.entities.myModel1.isPending).toBe(true);
@@ -217,7 +224,7 @@ describe('createEntityAsyncRequestAdapter tests', () => {
     });
 
     it('should do nothing if the ids of corresponding entities passed don;t have correspondings in the store', () => {
-      const payloadEntities = [{id: 'myModel4', a: 100}, {id: 'myModel5', b: 200}];
+      const payloadEntities = [{ id: 'myModel4', a: 100 }, { id: 'myModel5', b: 200 }];
       const newState = testAdapter.resolveRequestMany(state, payloadEntities, 'testCustom');
 
       expect(newState.entities.myModel1.isPending).not.toBeDefined();
@@ -228,14 +235,14 @@ describe('createEntityAsyncRequestAdapter tests', () => {
 
     it('should support entities with custom IDs', () => {
       const baseState = testAdapterWithCustomId.addMany([
-        {...modelWithOtherId1, requestIds: ['request'], isPending: true},
-        {...modelWithOtherId2, requestIds: ['request', 'request2'], isPending: true},
-        {...modelWithOtherId3, requestIds: ['request', 'request2'], isPending: true}
+        { ...modelWithOtherId1, requestIds: ['request'], isPending: true },
+        { ...modelWithOtherId2, requestIds: ['request', 'request2'], isPending: true },
+        { ...modelWithOtherId3, requestIds: ['request', 'request2'], isPending: true }
       ], emptyStateWithOtherId);
       const newState = testAdapterWithCustomId.resolveRequestMany(baseState, [
-        {customId: modelWithOtherId1.customId, a: 500, b: 999},
-        {customId: modelWithOtherId1.customId, a: 501, b: 998},
-        {customId: modelWithOtherId1.customId, a: 502, b: 997}
+        { customId: modelWithOtherId1.customId, a: 500, b: 999 },
+        { customId: modelWithOtherId1.customId, a: 501, b: 998 },
+        { customId: modelWithOtherId1.customId, a: 502, b: 997 }
       ], 'request', 'customId');
 
       expect(newState.entities.myModel1.isPending).toBeFalsy();
@@ -244,5 +251,4 @@ describe('createEntityAsyncRequestAdapter tests', () => {
       expect(newState.isPending).toBeFalsy();
     });
   });
-
 });

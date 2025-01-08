@@ -1,8 +1,16 @@
-import { O3rCliError } from '@o3r/schematics';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import type { DeclarationReflection, ReferenceType } from 'typedoc';
-import type { CmsMetadataData, DocumentationNode } from '../interfaces';
+import {
+  O3rCliError,
+} from '@o3r/schematics';
+import type {
+  DeclarationReflection,
+  ReferenceType,
+} from 'typedoc';
+import type {
+  CmsMetadataData,
+  DocumentationNode,
+} from '../interfaces';
 
 /**
  * Check if a component implements an interface given as a parameter
@@ -11,20 +19,19 @@ import type { CmsMetadataData, DocumentationNode } from '../interfaces';
  */
 export function checkComponentImplementsInterface(node: DocumentationNode, interfaceName: string) {
   return !!(
-    node.reflection && node.reflection.implementedTypes &&
-    node.reflection.implementedTypes.find((type) => (type as ReferenceType).name === interfaceName));
+    node.reflection && node.reflection.implementedTypes
+    && node.reflection.implementedTypes.some((type) => (type as ReferenceType).name === interfaceName));
 }
 
 /**
  * Check if an interface extends an interface given as a parameter
- * @param DocumentationNode} node
  * @param node
  * @param {string} interfaceName
  */
 export function checkInterfaceExtendsInterface(node: DocumentationNode, interfaceName: string) {
   return !!(
-    node.reflection && node.reflection.extendedTypes &&
-    node.reflection.extendedTypes.find((type) => (type as ReferenceType).name === interfaceName));
+    node.reflection && node.reflection.extendedTypes
+    && node.reflection.extendedTypes.some((type) => (type as ReferenceType).name === interfaceName));
 }
 
 /**
@@ -60,13 +67,13 @@ export function getLibraryModulePath(libraryName: string, executionDir: string =
           executionDir
         ]
       });
-    } catch (e) {
+    } catch {
       return undefined;
     }
   };
 
   const moduleIndexPath = getPackagePath(packageJsonInDist) || getPackagePath(packageJson);
-  const libraryNameForRegExp = libraryName.replace(/[\\/]+/g, '[\\\\/]').replace(/-/g, '[\\\\/-]');
+  const libraryNameForRegExp = libraryName.replace(/[/\\]+/g, '[\\\\/]').replace(/-/g, '[\\\\/-]');
   const libraryReg = new RegExp('^(.*?)' + libraryNameForRegExp + '[\\\\/]?(dist)?');
   const matches = moduleIndexPath?.match(libraryReg);
   if (!matches) {
@@ -74,7 +81,6 @@ export function getLibraryModulePath(libraryName: string, executionDir: string =
   }
   return matches[0];
 }
-
 
 /**
  * Get cms metadata files from the node_modules package of the provided library

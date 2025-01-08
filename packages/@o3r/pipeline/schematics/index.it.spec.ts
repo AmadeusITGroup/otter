@@ -6,19 +6,21 @@
 const o3rEnvironment = globalThis.o3rEnvironment;
 
 import {
+  execSync,
+} from 'node:child_process';
+import * as path from 'node:path';
+import {
   getDefaultExecSyncOptions,
   getGitDiff,
   packageManagerExec,
-  packageManagerInstall
+  packageManagerInstall,
 } from '@o3r/test-helpers';
-import { execSync } from 'node:child_process';
-import * as path from 'node:path';
 
 describe('new otter project', () => {
   test('should add a GitHub pipeline to existing project', () => {
     const { isYarnTest, workspacePath, untouchedProjectsPaths, o3rVersion } = o3rEnvironment.testEnvironment;
-    const execAppOptions = {...getDefaultExecSyncOptions(), cwd: workspacePath};
-    packageManagerExec({script: 'ng', args: ['add', `@o3r/pipeline@${o3rVersion}`, '--skip-confirmation', '--toolkit', 'github']}, execAppOptions);
+    const execAppOptions = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
+    packageManagerExec({ script: 'ng', args: ['add', `@o3r/pipeline@${o3rVersion}`, '--skip-confirmation', '--toolkit', 'github'] }, execAppOptions);
 
     expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
 
@@ -28,24 +30,26 @@ describe('new otter project', () => {
     expect(diff.deleted.length).toBe(0);
     expect(diff.modified).toContain('package.json');
     expect(diff.modified).toContain(isYarnTest ? 'yarn.lock' : 'package-lock.json');
-    ['.github/actions/setup/action.yml', '.github/workflows/main.yml'].forEach(yamlFile => {
+    ['.github/actions/setup/action.yml', '.github/workflows/main.yml'].forEach((yamlFile) => {
       expect(diff.added).toContain(yamlFile);
       execSync(`npx -p @action-validator/cli action-validator ${yamlFile}`, execAppOptions);
     });
 
-    untouchedProjectsPaths.forEach(untouchedProject => {
-      expect(diff.all.some(file => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
+    untouchedProjectsPaths.forEach((untouchedProject) => {
+      expect(diff.all.some((file) => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
     });
   });
 
   test('should add a GitHub pipeline to existing project with custom runner and registry', () => {
     const { isYarnTest, workspacePath, untouchedProjectsPaths, o3rVersion } = o3rEnvironment.testEnvironment;
-    const execAppOptions = {...getDefaultExecSyncOptions(), cwd: workspacePath};
-    packageManagerExec({script: 'ng', args: ['add', `@o3r/pipeline@${o3rVersion}`,
+    const execAppOptions = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
+    packageManagerExec({ script: 'ng', args: [
+      'add', `@o3r/pipeline@${o3rVersion}`,
       '--skip-confirmation',
       '--toolkit', 'github',
       '--npmRegistry', 'https://registry.npmjs.org',
-      '--runner', 'custom-runner']}, execAppOptions);
+      '--runner', 'custom-runner'
+    ] }, execAppOptions);
 
     expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
 
@@ -56,12 +60,12 @@ describe('new otter project', () => {
     expect(diff.modified).toContain('package.json');
     expect(diff.modified).toContain(isYarnTest ? 'yarn.lock' : 'package-lock.json');
     expect(diff.modified).toContain(isYarnTest ? '.yarnrc.yml' : '.npmrc');
-    ['.github/actions/setup/action.yml', '.github/workflows/main.yml'].forEach(yamlFile => {
+    ['.github/actions/setup/action.yml', '.github/workflows/main.yml'].forEach((yamlFile) => {
       expect(diff.added).toContain(yamlFile);
       execSync(`npx -p @action-validator/cli action-validator ${yamlFile}`, execAppOptions);
     });
-    untouchedProjectsPaths.forEach(untouchedProject => {
-      expect(diff.all.some(file => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
+    untouchedProjectsPaths.forEach((untouchedProject) => {
+      expect(diff.all.some((file) => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
     });
   });
 });

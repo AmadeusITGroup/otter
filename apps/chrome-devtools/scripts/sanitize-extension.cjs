@@ -1,6 +1,6 @@
-const glob = require('globby');
 const { readFile, writeFile } = require('node:fs/promises');
 const { resolve } = require('node:path');
+const glob = require('globby');
 
 /**
  * The Chrome Extension mechanism does not accept exports in loaded module
@@ -12,7 +12,7 @@ const removeEmptyExports = async () => {
   for (const fileRelativePath of files) {
     const file = resolve(dist, fileRelativePath);
     let content = await readFile(file, { encoding: 'utf8' });
-    content = content.replace(/^export \{\};\r?\n?/mg, '');
+    content = content.replace(/^export {};\r?\n?/gm, '');
     await writeFile(file, content);
   }
 };

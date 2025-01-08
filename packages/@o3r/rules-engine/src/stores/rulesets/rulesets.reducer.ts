@@ -1,8 +1,21 @@
-import { createEntityAdapter } from '@ngrx/entity';
-import { ActionCreator, createReducer, on, ReducerTypes } from '@ngrx/store';
-import { asyncStoreItemAdapter } from '@o3r/core';
+import {
+  createEntityAdapter,
+} from '@ngrx/entity';
+import {
+  ActionCreator,
+  createReducer,
+  on,
+  ReducerTypes,
+} from '@ngrx/store';
+import {
+  asyncStoreItemAdapter,
+} from '@o3r/core';
 import * as actions from './rulesets.actions';
-import { RulesetsModel, RulesetsState, RulesetsStateDetails } from './rulesets.state';
+import {
+  RulesetsModel,
+  RulesetsState,
+  RulesetsStateDetails,
+} from './rulesets.state';
 
 /**
  * Rulesets Store adapter
@@ -24,11 +37,11 @@ export const rulesetsInitialState: RulesetsState = rulesetsAdapter.getInitialSta
 export const rulesetsReducerFeatures: ReducerTypes<RulesetsState, ActionCreator[]>[] = [
   on(actions.resetRulesets, () => rulesetsInitialState),
 
-  on(actions.setRulesets, (state, payload) => ({ids: state.ids, entities: state.entities, ...payload.stateDetails})),
+  on(actions.setRulesets, (state, payload) => ({ ids: state.ids, entities: state.entities, ...payload.stateDetails })),
 
   on(actions.cancelRulesetsRequest, (state, action) => asyncStoreItemAdapter.resolveRequest(state, action.requestId)),
 
-  on(actions.updateRulesets, (state, payload) => ({...state, ...payload.stateDetails})),
+  on(actions.updateRulesets, (state, payload) => ({ ...state, ...payload.stateDetails })),
 
   on(actions.setRulesetsEntities, (state, payload) =>
     rulesetsAdapter.addMany(

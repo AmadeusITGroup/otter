@@ -1,5 +1,10 @@
-import type { JSONLocalization, LocalizationMetadata } from '@o3r/localization';
-import type { MetadataComparator } from '@o3r/extractors';
+import type {
+  MetadataComparator,
+} from '@o3r/extractors';
+import type {
+  JSONLocalization,
+  LocalizationMetadata,
+} from '@o3r/localization';
 
 /**
  * Interface describing a localization migration element
@@ -22,13 +27,12 @@ const isRelevantContentType = (contentType: string) => contentType === 'LOCALIZA
 const isMigrationLocalizationDataMatch = (localization: JSONLocalization, migrationData: MigrationLocalizationMetadata) =>
   getLocalizationName(localization) === migrationData.key;
 
-
 /**
  * Comparator used to compare one version of localization metadata with another
  */
-export const localizationMetadataComparator: MetadataComparator<JSONLocalization, MigrationLocalizationMetadata, LocalizationMetadata> = {
+export const localizationMetadataComparator: Readonly<MetadataComparator<JSONLocalization, MigrationLocalizationMetadata, LocalizationMetadata>> = {
   getArray: getLocalizationArray,
   getIdentifier: getLocalizationName,
   isRelevantContentType,
   isMigrationDataMatch: isMigrationLocalizationDataMatch
-};
+} as const;

@@ -1,21 +1,45 @@
-import {TestBed} from '@angular/core/testing';
-import {provideMockActions} from '@ngrx/effects/testing';
-import type {Action} from '@ngrx/store';
-import {UpdateAsyncStoreItemEntityActionPayloadWithId} from '@o3r/core';
-import {firstValueFrom, of, ReplaySubject, Subject, Subscription} from 'rxjs';
-import type {
-  PlaceholderRequestModel,
-  PlaceholderRequestReply
-} from '@o3r/components';
 import {
-  setPlaceholderRequestEntityFromUrl
-} from '../stores';
-import {DynamicContentService} from '@o3r/dynamic-content';
-import {LocalizationService} from '@o3r/localization';
-import {shareReplay} from 'rxjs/operators';
-import { RulesEngineRunnerService } from '@o3r/rules-engine';
-import {PlaceholderTemplateResponseEffect} from './placeholder.rules-engine.effect';
-import {Store} from '@ngrx/store';
+  TestBed,
+} from '@angular/core/testing';
+import {
+  provideMockActions,
+} from '@ngrx/effects/testing';
+import type {
+  Action,
+} from '@ngrx/store';
+import {
+  Store,
+} from '@ngrx/store';
+import {
+  UpdateAsyncStoreItemEntityActionPayloadWithId,
+} from '@o3r/core';
+import {
+  DynamicContentService,
+} from '@o3r/dynamic-content';
+import {
+  LocalizationService,
+} from '@o3r/localization';
+import {
+  RulesEngineRunnerService,
+} from '@o3r/rules-engine';
+import {
+  firstValueFrom,
+  of,
+  ReplaySubject,
+  Subject,
+  Subscription,
+} from 'rxjs';
+import {
+  shareReplay,
+} from 'rxjs/operators';
+import {
+  PlaceholderTemplateResponseEffect,
+} from './placeholder.rules-engine.effect';
+import {
+  type PlaceholderRequestModel,
+  type PlaceholderRequestReply,
+  setPlaceholderRequestEntityFromUrl,
+} from '@o3r/components';
 
 describe('Rules Engine Effects', () => {
   let effect: PlaceholderTemplateResponseEffect;
@@ -32,7 +56,6 @@ describe('Rules Engine Effects', () => {
     dispatch: jest.fn(),
     select: jest.fn().mockReturnValue(of(true))
   };
-
 
   const subscriptions: Subscription[] = [];
 
@@ -60,7 +83,7 @@ describe('Rules Engine Effects', () => {
         },
         {
           provide: DynamicContentService,
-          useValue: {getMediaPathStream: () => of('fakeUrl')}
+          useValue: { getMediaPathStream: () => of('fakeUrl') }
         },
         {
           provide: LocalizationService,
@@ -75,7 +98,7 @@ describe('Rules Engine Effects', () => {
             )
           }
         },
-        {provide: Store, useValue: mockStore}
+        { provide: Store, useValue: mockStore }
       ]
     }).compileComponents();
 
@@ -118,9 +141,8 @@ describe('Rules Engine Effects', () => {
     }));
     factsStream.myFact.next('ignored');
     factsStream.parameter.next('success');
-    factsStream.factInTemplate.next({'myKey': 'Outstanding fact'});
+    factsStream.factInTemplate.next({ myKey: 'Outstanding fact' });
 
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     const result = (await firstValueFrom(setPlaceholderEffect$)) as UpdateAsyncStoreItemEntityActionPayloadWithId<PlaceholderRequestModel>
       & Action<'[PlaceholderRequest] update entity'>;
     expect(result.type).toBe('[PlaceholderRequest] update entity');
@@ -165,9 +187,8 @@ describe('Rules Engine Effects', () => {
     }));
     factsStream.myFact.next('ignored');
     factsStream.parameter.next('User');
-    factsStream.user.next({ 'phone': '1234', 'email': 'test@mail.com' });
+    factsStream.user.next({ phone: '1234', email: 'test@mail.com' });
 
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     const result = (await firstValueFrom(setPlaceholderEffect$)) as UpdateAsyncStoreItemEntityActionPayloadWithId<PlaceholderRequestModel>
       & Action<'[PlaceholderRequest] update entity'>;
     expect(result.type).toBe('[PlaceholderRequest] update entity');
@@ -192,7 +213,7 @@ describe('Rules Engine Effects', () => {
       resolvedUrl: 'myPlaceholderResolvedUrl2'
     }));
     factsStream.myFact.next('ignored');
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+
     const result = (await firstValueFrom(setPlaceholderEffect$)) as UpdateAsyncStoreItemEntityActionPayloadWithId<PlaceholderRequestModel>
       & Action<'[PlaceholderRequest] update entity'>;
     expect(result.entity.unknownTypeFound).toBeTruthy();
@@ -219,19 +240,19 @@ describe('Rules Engine Effects', () => {
     }));
 
     effectFn.mockReset();
-    factsStream.factInTemplate.next({myKey: 'actual content'});
+    factsStream.factInTemplate.next({ myKey: 'actual content' });
     await jest.runAllTimersAsync();
-    expect(effectFn).toHaveBeenCalledWith(expect.objectContaining({entity: expect.objectContaining({renderedTemplate: 'actual content'})}));
+    expect(effectFn).toHaveBeenCalledWith(expect.objectContaining({ entity: expect.objectContaining({ renderedTemplate: 'actual content' }) }));
 
     effectFn.mockReset();
-    factsStream.factInTemplate.next({myKey: 'actual content', unrelated: 'this should not do anything'});
+    factsStream.factInTemplate.next({ myKey: 'actual content', unrelated: 'this should not do anything' });
     await jest.runAllTimersAsync();
     expect(effectFn).not.toHaveBeenCalled();
 
     effectFn.mockReset();
-    factsStream.factInTemplate.next({myKey: 'this should do something', unrelated: 'this should not do anything'});
+    factsStream.factInTemplate.next({ myKey: 'this should do something', unrelated: 'this should not do anything' });
     await jest.runAllTimersAsync();
-    expect(effectFn).toHaveBeenCalledWith(expect.objectContaining({entity: expect.objectContaining({renderedTemplate: 'this should do something'})}));
+    expect(effectFn).toHaveBeenCalledWith(expect.objectContaining({ entity: expect.objectContaining({ renderedTemplate: 'this should do something' }) }));
   });
 
   it('should not convert all falsy values to empty string', async () => {
@@ -254,18 +275,18 @@ describe('Rules Engine Effects', () => {
     }));
 
     effectFn.mockReset();
-    factsStream.factInTemplate.next({myKey: 0});
+    factsStream.factInTemplate.next({ myKey: 0 });
     await jest.runAllTimersAsync();
-    expect(effectFn).toHaveBeenCalledWith(expect.objectContaining({entity: expect.objectContaining({renderedTemplate: '0'})}));
+    expect(effectFn).toHaveBeenCalledWith(expect.objectContaining({ entity: expect.objectContaining({ renderedTemplate: '0' }) }));
 
     effectFn.mockReset();
-    factsStream.factInTemplate.next({myKey: false});
+    factsStream.factInTemplate.next({ myKey: false });
     await jest.runAllTimersAsync();
-    expect(effectFn).toHaveBeenCalledWith(expect.objectContaining({entity: expect.objectContaining({renderedTemplate: 'false'})}));
+    expect(effectFn).toHaveBeenCalledWith(expect.objectContaining({ entity: expect.objectContaining({ renderedTemplate: 'false' }) }));
 
     effectFn.mockReset();
-    factsStream.factInTemplate.next({myKey: undefined});
+    factsStream.factInTemplate.next({ myKey: undefined });
     await jest.runAllTimersAsync();
-    expect(effectFn).toHaveBeenCalledWith(expect.objectContaining({entity: expect.objectContaining({renderedTemplate: ''})}));
+    expect(effectFn).toHaveBeenCalledWith(expect.objectContaining({ entity: expect.objectContaining({ renderedTemplate: '' }) }));
   });
 });

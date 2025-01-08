@@ -1,9 +1,39 @@
-import { ChangeDetectionStrategy, Component, forwardRef, inject, Input, Pipe, type PipeTransform, signal, ViewEncapsulation } from '@angular/core';
-import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { CloseInputDatePickerDirective, DfDatePickerModule, DfInputIconDirective } from '@design-factory/design-factory';
-import { NgbCalendar, NgbCalendarHebrew, NgbDate, NgbDatepickerI18n, NgbDatepickerI18nHebrew, type NgbDateStruct, NgbInputDatepicker } from '@ng-bootstrap/ng-bootstrap';
-import { O3rComponent } from '@o3r/core';
-import { DatePickerInputHebrewPresContext } from './date-picker-input-hebrew-pres.context';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  forwardRef,
+  inject,
+  Input,
+  Pipe,
+  type PipeTransform,
+  signal,
+  ViewEncapsulation,
+} from '@angular/core';
+import {
+  ControlValueAccessor,
+  FormsModule,
+  NG_VALUE_ACCESSOR,
+} from '@angular/forms';
+import {
+  CloseInputDatePickerDirective,
+  DfDatePickerModule,
+  DfInputIconDirective,
+} from '@design-factory/design-factory';
+import {
+  NgbCalendar,
+  NgbCalendarHebrew,
+  NgbDate,
+  NgbDatepickerI18n,
+  NgbDatepickerI18nHebrew,
+  type NgbDateStruct,
+  NgbInputDatepicker,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  O3rComponent,
+} from '@o3r/core';
+import {
+  DatePickerInputHebrewPresContext,
+} from './date-picker-input-hebrew-pres.context';
 
 @Pipe({
   name: 'getDayNumerals',
@@ -112,8 +142,7 @@ export class DatePickerHebrewInputPresComponent implements ControlValueAccessor,
     if (typeof obj === 'string' && /\d{4}-\d{2}-\d{2}/.test(obj)) {
       const [year, month, day] = obj.split('-', 3);
       this.selectedDate.set((this.calendar as NgbCalendarHebrew).fromGregorian(NgbDate.from({ year: +year, month: +month, day: +day })!));
-    }
-    else {
+    } else {
       this.selectedDate.set(null);
     }
   }

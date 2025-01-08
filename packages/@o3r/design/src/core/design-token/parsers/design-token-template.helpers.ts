@@ -1,4 +1,7 @@
-import type { DesignTokenGroupExtensions, DesignTokenGroupTemplate } from '../design-token-specification.interface';
+import type {
+  DesignTokenGroupExtensions,
+  DesignTokenGroupTemplate,
+} from '../design-token-specification.interface';
 
 /**
  * Merge TemplateB into TemplateA
@@ -8,8 +11,7 @@ import type { DesignTokenGroupExtensions, DesignTokenGroupTemplate } from '../de
 export const mergeDesignTokenTemplates = <
   A extends DesignTokenGroupExtensions = DesignTokenGroupExtensions,
   B extends DesignTokenGroupExtensions = DesignTokenGroupExtensions>
-  (templateA: DesignTokenGroupTemplate<A>, templateB: DesignTokenGroupTemplate<B>): DesignTokenGroupTemplate<A | B> => {
-
+(templateA: DesignTokenGroupTemplate<A>, templateB: DesignTokenGroupTemplate<B>): DesignTokenGroupTemplate<A | B> => {
   const entries = Object.entries(templateB);
   const template = {
     ...templateA,
@@ -23,11 +25,7 @@ export const mergeDesignTokenTemplates = <
     .filter(([key]) => !key.startsWith('$'))
     .reduce((acc, [key, value]) => {
       const node = acc[key];
-      if (node && typeof node === 'object' && typeof value === 'object') {
-        acc[key] = mergeDesignTokenTemplates(node as DesignTokenGroupTemplate<A | B>, value as DesignTokenGroupTemplate<B>);
-      } else {
-        acc[key] = value;
-      }
+      acc[key] = node && typeof node === 'object' && typeof value === 'object' ? mergeDesignTokenTemplates(node as DesignTokenGroupTemplate<A | B>, value as DesignTokenGroupTemplate<B>) : value;
       return acc;
     }, template as DesignTokenGroupTemplate<A | B>);
 };

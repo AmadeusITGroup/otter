@@ -5,7 +5,8 @@
   "sourceRoot": "packages/@o3r/eslint-plugin/src",
   "prefix": "o3r",
   "implicitDependencies": [
-    "!test-helpers"
+    "!test-helpers",
+    "!eslint-config"
   ],
   "targets": {
     "build": {
@@ -33,24 +34,14 @@
       ]
     },
     "compile": {
-      "executor": "@nx/js:tsc",
+      "executor": "nx:run-script",
       "options": {
-        "main": "packages/@o3r/eslint-plugin/src/public_api.ts",
-        "tsConfig": "packages/@o3r/eslint-plugin/tsconfig.build.json",
-        "outputPath": "packages/@o3r/eslint-plugin/dist",
-        "assets": ["packages/@o3r/eslint-plugin/schemas/*.json"],
-        "clean": false
+        "script": "build:source"
       },
       "dependsOn": []
     },
     "lint": {
-      "options": {
-        "eslintConfig": "packages/@o3r/eslint-plugin/.eslintrc.js",
-        "lintFilePatterns": [
-          "packages/@o3r/eslint-plugin/src/**/*.ts",
-          "packages/@o3r/eslint-plugin/package.json"
-        ]
-      }
+      "executor": "nx:run-commands"
     },
     "test": {
       "executor": "@nx/jest:jest",

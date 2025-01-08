@@ -1,7 +1,39 @@
-import { strings } from '@angular-devkit/core';
-import { apply, chain, MergeStrategy, mergeWith, move, noop, renameTemplateFiles, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
-import { getTemplateFolder, getWorkspaceConfig, ignorePatterns } from '@o3r/schematics';
 import * as path from 'node:path';
+import {
+  strings,
+} from '@angular-devkit/core';
+import {
+  apply,
+  chain,
+  MergeStrategy,
+  mergeWith,
+  move,
+  noop,
+  renameTemplateFiles,
+  Rule,
+  SchematicContext,
+  template,
+  Tree,
+  url,
+} from '@angular-devkit/schematics';
+import {
+  getTemplateFolder,
+  getWorkspaceConfig,
+  ignorePatterns,
+} from '@o3r/schematics';
+
+/**
+ * Update tree with files to ignore in .gitignore
+ * @param tree
+ */
+const updateIgnoredFiles = (tree: Tree) => ignorePatterns(tree, [{ description: 'CMS metadata files', patterns: ['/*.metadata.json'] }]);
+
+/**
+ * Ignore metadata files
+ * @param tree
+ * @param _context
+ */
+const ignoreMetadataFiles = (tree: Tree, _context: SchematicContext) => updateIgnoredFiles(tree);
 
 /**
  * Update CMS adapter tools
@@ -20,16 +52,13 @@ export function updateCmsAdapter(options: { projectName?: string | undefined }, 
    * @param context
    */
   const generateTsConfig = (tree: Tree, context: SchematicContext) => {
-
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
     const projectRoot = path.posix.join('/', workspaceProject?.root || '');
     const pathTsconfigCms = path.posix.join(projectRoot, 'tsconfig.cms.json');
     if (tree.exists(pathTsconfigCms)) {
       return tree;
     }
-    const buildTsConfig: string =
-      workspaceProject && workspaceProject.architect && workspaceProject.architect.build && workspaceProject.architect.build.options && workspaceProject.architect.build.options.tsConfig
-      || './tsconfig';
+    const buildTsConfig: string = workspaceProject?.architect?.build?.options?.tsConfig || './tsconfig';
 
     const templateSource = apply(url(getTemplateFolder(rootPath, __dirname)), [
       template({
@@ -43,10 +72,6 @@ export function updateCmsAdapter(options: { projectName?: string | undefined }, 
 
     const rule = mergeWith(templateSource, MergeStrategy.AllowOverwriteConflict);
     return rule(tree, context);
-  };
-
-  const ignoreMetadataFiles = (tree: Tree, _context: SchematicContext) => {
-    return ignorePatterns(tree, [{ description: 'CMS metadata files', patterns: ['/*.metadata.json'] }]);
   };
 
   /**

@@ -1,10 +1,26 @@
-import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import * as path from 'node:path';
 import * as fs from 'node:fs';
-import { updateCmsAdapter } from '../cms-adapter';
-import type { NgAddSchematicsSchema } from './schema';
-import { registerDevtools } from './helpers/devtools-registration';
-import type { DependencyToAdd } from '@o3r/schematics';
+import * as path from 'node:path';
+import {
+  chain,
+  Rule,
+  SchematicContext,
+  Tree,
+} from '@angular-devkit/schematics';
+import type {
+  DependencyToAdd,
+} from '@o3r/schematics';
+import type {
+  NodeDependencyType as NodeDependencyTypeEnum,
+} from '@schematics/angular/utility/dependencies';
+import {
+  updateCmsAdapter,
+} from '../cms-adapter';
+import {
+  registerDevtools,
+} from './helpers/devtools-registration';
+import type {
+  NgAddSchematicsSchema,
+} from './schema';
 
 const reportMissingSchematicsDep = (logger: { error: (message: string) => any }) => (reason: any) => {
   logger.error(`[ERROR]: Adding @o3r/components has failed.
@@ -30,14 +46,13 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       registerPackageCollectionSchematics,
       getPackageInstallConfig
     } = await import('@o3r/schematics');
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    const { NodeDependencyType } = await import('@schematics/angular/utility/dependencies');
-    options = {...getDefaultOptionsForSchematic(getWorkspaceConfig(tree), '@o3r/components', 'ng-add', options), ...options};
+    const { NodeDependencyType } = await import('@schematics/angular/utility/dependencies').catch(() => ({ NodeDependencyType: { Dev: 'devDependencies' as NodeDependencyTypeEnum.Dev } }));
+    options = { ...getDefaultOptionsForSchematic(getWorkspaceConfig(tree), '@o3r/components', 'ng-add', options), ...options };
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
     const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' }));
     const depsInfo = getO3rPeerDeps(packageJsonPath);
     if (options.enableMetadataExtract) {
-      depsInfo.o3rPeerDeps = [...depsInfo.o3rPeerDeps , '@o3r/extractors'];
+      depsInfo.o3rPeerDeps = [...depsInfo.o3rPeerDeps, '@o3r/extractors'];
     }
 
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
@@ -51,14 +66,14 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       };
       return acc;
     }, getPackageInstallConfig(packageJsonPath, tree, options.projectName, false, !!options.exactO3rVersion));
-    const devDependencies: Record<string, DependencyToAdd> = {
+    const devDependencies = {
       chokidar: {
         inManifest: [{
           range: packageJson.peerDependencies.chokidar,
           types: [NodeDependencyType.Dev]
         }]
       }
-    };
+    } as const satisfies Record<string, DependencyToAdd>;
     const rule = chain([
       removePackages(['@otter/components']),
       setupDependencies({

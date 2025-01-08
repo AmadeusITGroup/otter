@@ -1,6 +1,14 @@
-import { TranspilationPurposeOnlyError } from '../errors/index';
-import { ComponentFixtureProfile, O3rComponentFixture } from './component-fixture';
-import { ElementProfile, O3rElement } from './element';
+import {
+  TranspilationPurposeOnlyError,
+} from '../errors/index';
+import {
+  ComponentFixtureProfile,
+  O3rComponentFixture,
+} from './component-fixture';
+import {
+  ElementProfile,
+  O3rElement,
+} from './element';
 
 /**
  * Interface to describe a page fixture.

@@ -1,11 +1,36 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, inject, QueryList, ViewChildren, ViewEncapsulation } from '@angular/core';
-import { O3rComponent } from '@o3r/core';
-import { InPageNavLink, InPageNavLinkDirective, InPageNavPresService } from '../../components/utilities/in-page-nav';
-import { IN_PAGE_NAV_PRES_DIRECTIVES, InPageNavPresComponent } from '../../components/utilities/in-page-nav/in-page-nav-pres.component';
-import { AsyncPipe } from '@angular/common';
-import { ComponentReplacementPresComponent } from '../../components/showcase/component-replacement/component-replacement-pres.component';
-import { RouterModule } from '@angular/router';
-import { CopyTextPresComponent } from '../../components/utilities/copy-text/copy-text-pres.component';
+import {
+  AsyncPipe,
+} from '@angular/common';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  QueryList,
+  ViewChildren,
+  ViewEncapsulation,
+} from '@angular/core';
+import {
+  RouterModule,
+} from '@angular/router';
+import {
+  O3rComponent,
+} from '@o3r/core';
+import {
+  MarkdownModule,
+} from 'ngx-markdown';
+import {
+  ComponentReplacementPresComponent,
+} from '../../components/showcase/component-replacement/component-replacement-pres.component';
+import {
+  InPageNavLink,
+  InPageNavLinkDirective,
+  InPageNavPresService,
+} from '../../components/utilities/in-page-nav';
+import {
+  IN_PAGE_NAV_PRES_DIRECTIVES,
+  InPageNavPresComponent,
+} from '../../components/utilities/in-page-nav/in-page-nav-pres.component';
 
 @O3rComponent({ componentType: 'Page' })
 @Component({
@@ -15,13 +40,21 @@ import { CopyTextPresComponent } from '../../components/utilities/copy-text/copy
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [RouterModule, InPageNavPresComponent, AsyncPipe, IN_PAGE_NAV_PRES_DIRECTIVES, ComponentReplacementPresComponent, CopyTextPresComponent]
+  imports: [
+    RouterModule,
+    InPageNavPresComponent,
+    AsyncPipe,
+    IN_PAGE_NAV_PRES_DIRECTIVES,
+    ComponentReplacementPresComponent,
+    MarkdownModule
+  ]
 })
 export class ComponentReplacementComponent implements AfterViewInit {
   private readonly inPageNavPresService = inject(InPageNavPresService);
 
   @ViewChildren(InPageNavLinkDirective)
   private readonly inPageNavLinkDirectives!: QueryList<InPageNavLink>;
+
   public links$ = this.inPageNavPresService.links$;
 
   public ngAfterViewInit() {

@@ -1,9 +1,12 @@
-import { RequestOptions } from '../core/request-plugin';
-import { SiTokenRequest } from './si-token.request';
+import {
+  RequestOptions,
+} from '../core/request-plugin';
+import {
+  SiTokenRequest,
+} from './si-token.request';
 
 describe('SI Token Request Plugin', () => {
-
-  const defaultGetParams = {defaultTest: 'ok'};
+  const defaultGetParams = { defaultTest: 'ok' };
   const defaultBody = 'default';
   let options: RequestOptions;
 
@@ -26,5 +29,4 @@ describe('SI Token Request Plugin', () => {
     expect(result.queryParams.SITK).toBe('SIToken1');
     expect(result.queryParams.SITK2).toBe('SIToken2');
   });
-
 });

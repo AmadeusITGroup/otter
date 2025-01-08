@@ -5,6 +5,9 @@
   "sourceRoot": "packages/@o3r/build-helpers/scripts",
   "tags": [],
   "targets": {
+    "lint": {
+      "executor": "nx:run-commands"
+    },
     "build": {
       "executor": "nx:noop",
       "dependsOn": []

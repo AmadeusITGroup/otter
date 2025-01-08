@@ -32,6 +32,7 @@
     ],
     "source": [
       "base",
+      "{projectRoot}/ng-package.json",
       "{projectRoot}/tsconfig.build.json",
       "{projectRoot}/tsconfig.build.*.json",
       "{projectRoot}/src/**/*",
@@ -96,18 +97,18 @@
     ],
     "lint": [
       "base",
-      "{projectRoot}/.eslintignore",
-      "{projectRoot}/.eslintrc.js",
+      "{projectRoot}/eslint*.config.mjs",
+      "{projectRoot}/**/package.json",
+      "{projectRoot}/**/*.html",
       "{projectRoot}/**/*.ts",
       "{projectRoot}/**/*.cts",
       "{projectRoot}/**/*.mts",
       "{projectRoot}/src/**/*.js",
       "{projectRoot}/src/**/*.mjs",
       "{projectRoot}/src/**/*.cjs",
-      "{workspaceRoot}/.eslintrc.js",
-      "{workspaceRoot}/.eslintignore",
-      "{workspaceRoot}/packages/@o3r/eslint-config-otter/*.cjs",
-      "{workspaceRoot}/packages/@o3r/eslint-plugin/src/**/*.ts"
+      "{workspaceRoot}/eslint*.config.mjs",
+      "{workspaceRoot}/packages/@o3r/eslint-config/src/**/*.ts",
+      "{workspaceRoot}/packages/@o3r/eslint-plugin/src/**/*.cjs"
     ],
     "specs": [
       "base",
@@ -148,13 +149,16 @@
   },
   "targetDefaults": {
     "lint": {
+      "options": {
+        "cwd": "{projectRoot}",
+        "command": "yarn eslint \"**/*.{m,c,}{j,t}s\" \"**/*.json\""
+      },
       "configurations": {
         "ci": {
-          "quiet": true,
-          "cacheLocation": ".cache/eslint"
+          "command": "yarn eslint \"**/*.{m,c,}{j,t}s\" \"**/*.json\" --quiet --cache-location .cache/eslint"
         }
       },
-      "executor": "@nx/eslint:lint",
+      "executor": "nx:run-commands",
       "inputs": [
         "lint"
       ],

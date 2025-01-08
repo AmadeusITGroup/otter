@@ -1,5 +1,9 @@
-import { InjectionToken } from '@angular/core';
-import { ApiManager } from './api-manager';
+import {
+  InjectionToken,
+} from '@angular/core';
+import {
+  ApiManager,
+} from './api-manager';
 
 /**
  * Token used by the core library to provide an Api manager to services. It can be provided in the app.

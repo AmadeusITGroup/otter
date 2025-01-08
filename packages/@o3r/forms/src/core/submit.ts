@@ -1,5 +1,9 @@
-import {AbstractControl} from '@angular/forms';
-import {Observable} from 'rxjs';
+import {
+  AbstractControl,
+} from '@angular/forms';
+import {
+  Observable,
+} from 'rxjs';
 
 /**
  * Interface for the submittable component

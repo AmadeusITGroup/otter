@@ -1,10 +1,25 @@
-import { FactoryProvider, Optional } from '@angular/core';
-import { TranslateLoader } from '@ngx-translate/core';
-import { DynamicContentService } from '@o3r/dynamic-content';
-import { LoggerService } from '@o3r/logger';
-import { LocalizationConfiguration } from '../core';
-import { LOCALIZATION_CONFIGURATION_TOKEN } from './localization.token';
-import { TranslationsLoader } from './translations-loader';
+import {
+  FactoryProvider,
+  Optional,
+} from '@angular/core';
+import {
+  TranslateLoader,
+} from '@ngx-translate/core';
+import {
+  DynamicContentService,
+} from '@o3r/dynamic-content';
+import {
+  LoggerService,
+} from '@o3r/logger';
+import {
+  LocalizationConfiguration,
+} from '../core';
+import {
+  LOCALIZATION_CONFIGURATION_TOKEN,
+} from './localization.token';
+import {
+  TranslationsLoader,
+} from './translations-loader';
 
 /**
  * Creates a loader of translations bundles based on the configuration
@@ -20,8 +35,8 @@ export function createTranslateLoader(localizationConfiguration: LocalizationCon
 /**
  * TranslateLoader provider, using framework's TranslationsLoader class
  */
-export const translateLoaderProvider: FactoryProvider = {
+export const translateLoaderProvider: Readonly<FactoryProvider> = {
   provide: TranslateLoader,
   useFactory: createTranslateLoader,
   deps: [LOCALIZATION_CONFIGURATION_TOKEN, [new Optional(), LoggerService], [new Optional(), DynamicContentService]]
-};
+} as const;

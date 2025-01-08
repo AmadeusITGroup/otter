@@ -14,7 +14,6 @@
   const MAX_WAITING_TIME_FOR_FETCH = 45 * 1000; // 45 seconds
 
   const fetchManager = class FetchManager {
-    // eslint-disable-next-line no-use-before-define
     private static _instance: FetchManager;
     private nbCurrentFetch = 0;
     private readonly windowFetch: any;
@@ -29,7 +28,7 @@
           return [args[0], args[1]];
         },
         (error) => {
-          return Promise.reject(error);
+          return Promise.reject(new Error(error));
         });
       promise = promise.then(() => nativeFetch(...args));
       promise = promise.then(
@@ -39,23 +38,23 @@
         },
         (error) => {
           ref.nbCurrentFetch--;
-          return Promise.reject(error);
+          return Promise.reject(new Error(error));
         });
       return promise;
     }
 
     /**
-     * Register the fetchs events to count the number of pending fetchs.
+     * Register the fetch events to count the number of pending fetch.
      */
     private registerFetchInterceptor() {
       const nativeFetch = window.fetch;
-      // eslint-disable-next-line @typescript-eslint/no-this-alias
+      // eslint-disable-next-line @typescript-eslint/no-this-alias, unicorn/no-this-assignment -- needed for the context
       const that = this;
-      Object.assign(window, {fetch: (...args: any[]) => this.interceptor(that, nativeFetch, ...args)});
+      Object.assign(window, { fetch: (...args: any[]) => this.interceptor(that, nativeFetch, ...args) });
     }
 
     private unregisterFetchInterceptor() {
-      Object.assign(window, {fetch: this.windowFetch});
+      Object.assign(window, { fetch: this.windowFetch });
     }
 
     /**
@@ -74,7 +73,7 @@
     }
 
     /**
-     *
+     * Stop the interceptor
      */
     public stop() {
       this.nbCurrentFetch = 0;
