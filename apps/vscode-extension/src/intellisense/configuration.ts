@@ -155,7 +155,7 @@ export const configurationCompletionItemProvider = (options: { channel: OutputCh
         return [];
       }
 
-      const config = (await (await eslint)?.calculateConfigForFile(doc.fileName) || {}) as TSESLint.FlatConfig.Config;
+      const config = await (await eslint)?.calculateConfigForFile(doc.fileName) || {};
       const configurationTags = getConfigurationTagsFromEslintConfig(config, match[0], fileText);
 
       return getCompletionsItemsFromConfigurationTags(configurationTags);
