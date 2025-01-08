@@ -23,5 +23,9 @@ const __dirname = dirname(__filename);
         ...globals.browser
       }<% } %>
     }
+  },
+  {
+    name: '<%= packageName %>/ignores',
+    ignores: []
   }
 ];
