@@ -25,7 +25,7 @@
       </as-split>
     </form>
   </as-split-area>
-  @if (editorMode() === 'interactive') {
+  @if (displayTerminal()) {
     <as-split-area [size]="50">
       <code-editor-control class="d-flex flex-column h-100"></code-editor-control>
     </as-split-area>

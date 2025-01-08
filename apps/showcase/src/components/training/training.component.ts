@@ -258,12 +258,12 @@ export class TrainingComponent implements OnInit {
       return;
     }
     this.currentStepIndex.set(index);
+    this.showSolution.set(false);
 
     const newHash = currentStepLocationRegExp.test(location.hash)
       ? location.hash.replace(currentStepLocationRegExp, `#${this.currentStepIndex()}`)
       : `${location.hash}#${this.currentStepIndex()}`;
     history.pushState(null, '', newHash);
-    this.showSolution.set(false);
   }
 
   /**

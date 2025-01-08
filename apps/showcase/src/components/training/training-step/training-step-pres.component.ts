@@ -1,7 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
+  input,
 } from '@angular/core';
 import {
   AngularSplitModule,
@@ -27,17 +27,21 @@ export class TrainingStepPresComponent {
   /**
    * Description of the coding project to load in the code view editor
    */
-  @Input() public project?: TrainingProject;
+  public project = input<TrainingProject>();
   /**
    * Whether to allow the user to modify the project files in the editor
    */
-  @Input() public editorMode?: EditorMode;
+  public editorMode = input<EditorMode>();
   /**
    * Training step title
    */
-  @Input() public title?: string;
+  public title = input<string>();
   /**
    * Training instructions to do the exercise
    */
-  @Input() public instructions?: string;
+  public instructions = input<string>();
+  /**
+   * Display terminal
+   */
+  public displayTerminal = input<boolean>(true);
 }
