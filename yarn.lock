@@ -10196,7 +10196,7 @@ __metadata:
     "@angular/cli": ^18.2.0
     "@o3r/telemetry": "workspace:^"
     "@schematics/angular": ^18.2.0
-    eslint: ^9.14.0
+    eslint: ">=8.57.0 <9.15.0"
     rxjs: ^7.8.1
     type-fest: ^4.10.2
     typescript: ^5.5.4
