@@ -3691,6 +3691,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@commitlint/config-angular-type-enum@npm:^19.5.0":
+  version: 19.5.0
+  resolution: "@commitlint/config-angular-type-enum@npm:19.5.0"
+  checksum: 10/91b1d9d3791c293470c2e91a3dc8e39bc894e64303c3d371baaab48053fc16119d7fae75066d68cbd964ecd88b00fcf3ef4e25f6489f2507ddb43322fd322f99
+  languageName: node
+  linkType: hard
+
+"@commitlint/config-angular@npm:^19.0.0":
+  version: 19.7.0
+  resolution: "@commitlint/config-angular@npm:19.7.0"
+  dependencies:
+    "@commitlint/config-angular-type-enum": "npm:^19.5.0"
+  checksum: 10/a0e3bac35965d520e7ca6f04982bf5aabc185692399664eae16e2ff8e36a3fab8d8a3f70b35bd051ade28627ddb43707c883e76f1cb6d6ddb53598d94af1048d
+  languageName: node
+  linkType: hard
+
 "@commitlint/config-conventional@npm:^19.0.0":
   version: 19.6.0
   resolution: "@commitlint/config-conventional@npm:19.6.0"
@@ -3855,7 +3871,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@commitlint/types@npm:^19.5.0":
+"@commitlint/types@npm:^19.0.0, @commitlint/types@npm:^19.5.0":
   version: 19.5.0
   resolution: "@commitlint/types@npm:19.5.0"
   dependencies:
@@ -9391,7 +9407,9 @@ __metadata:
     "@babel/core": "npm:~7.26.0"
     "@babel/preset-typescript": "npm:~7.26.0"
     "@commitlint/cli": "npm:^19.0.0"
+    "@commitlint/config-angular": "npm:^19.0.0"
     "@commitlint/config-conventional": "npm:^19.0.0"
+    "@commitlint/types": "npm:^19.0.0"
     "@compodoc/compodoc": "npm:^1.1.19"
     "@design-factory/design-factory": "npm:~18.1.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"

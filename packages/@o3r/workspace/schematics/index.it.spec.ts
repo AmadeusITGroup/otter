@@ -110,7 +110,8 @@ describe('new otter workspace', () => {
       'jest.config.js',
       'tsconfig.builders.json',
       'tsconfig.json',
-      'testing/setup-jest.ts'];
+      'testing/setup-jest.ts'
+    ];
     expect(() => packageManagerExec({ script: 'ng', args: ['g', 'library', libName] }, execAppOptions)).not.toThrow();
     expect(existsSync(path.join(workspacePath, 'project'))).toBe(false);
     generatedLibFiles.forEach((file) => expect(existsSync(path.join(inLibraryPath, file))).toBe(true));
@@ -140,5 +141,9 @@ describe('new otter workspace', () => {
     expect(rootPackageJson.workspaces).toContain('apps/*');
     expect(existsSync(path.join(workspacePath, '.renovaterc.json'))).toBe(true);
     expect(existsSync(path.join(workspacePath, '.editorconfig'))).toBe(true);
+    expect(existsSync(path.join(workspacePath, '.husky/commit-msg'))).toBe(true);
+    expect(existsSync(path.join(workspacePath, '.husky/pre-commit'))).toBe(true);
+    expect(existsSync(path.join(workspacePath, 'commitlint.config.cts'))).toBe(true);
+    await expect(fs.readFile(path.join(workspacePath, '.husky/pre-commit'), { encoding: 'utf8' })).resolves.toMatch(/lint-stage/);
   });
 });
