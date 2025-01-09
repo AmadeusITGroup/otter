@@ -46,6 +46,11 @@
       "default": false,
       "alias": "g"
     },
+    "skipPreCommitChecks": {
+      "description": "Skip the setup of CommitLint and Lint-Stage configurations and pre-commit checks",
+      "type": "boolean",
+      "default": false
+    },
     "exactO3rVersion": {
       "type": "boolean",
       "description": "Use a pinned version for otter packages",
