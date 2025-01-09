@@ -1,8 +1,12 @@
 import {
+  DestroyRef,
+  inject,
   Injectable,
+  signal,
 } from '@angular/core';
 import {
   takeUntilDestroyed,
+  toObservable,
 } from '@angular/core/rxjs-interop';
 import {
   type FileSystemTree,
@@ -15,20 +19,24 @@ import {
 } from '@xterm/xterm';
 import {
   BehaviorSubject,
+  combineLatest,
   combineLatestWith,
   distinctUntilChanged,
   filter,
   from,
+  fromEvent,
   map,
   Observable,
+  of,
+  pairwise,
+  share,
+  skip,
   switchMap,
+  take,
+  timeout,
 } from 'rxjs';
 import {
-  withLatestFrom,
-} from 'rxjs/operators';
-import {
   createTerminalStream,
-  doesFolderExist,
   killTerminal,
   makeProcessWritable,
 } from './webcontainer.helpers';
@@ -64,10 +72,35 @@ export class WebContainerRunner {
 
   private watcher: IFSWatcher | null = null;
 
+  private readonly progressWritable = signal({ currentStep: 0, totalSteps: 3, label: 'Initializing web-container' });
+
+  /**
+   * Progress indicator of the loading of a project.
+   */
+  public readonly progress = this.progressWritable.asReadonly();
+
+  /**
+   * Observable that emits when dependencies have been installed in the web container
+   */
+  public readonly dependenciesLoaded$ = toObservable(this.progress).pipe(
+    takeUntilDestroyed(),
+    pairwise(),
+    filter(([prev, curr]) =>
+      prev.totalSteps === curr.totalSteps
+      && curr.currentStep > prev.currentStep
+      && curr.currentStep > 2
+      && prev.currentStep <= 2
+    ),
+    share()
+  );
+
   constructor() {
+    const destroyRef = inject(DestroyRef);
     this.instancePromise = WebContainer.boot().then((instance) => {
+      this.progressWritable.update(({ totalSteps }) => ({ currentStep: 1, totalSteps, label: 'Loading project' }));
       // eslint-disable-next-line no-console -- only logger available
-      instance.on('error', console.error);
+      const unsubscribe = instance.on('error', console.error);
+      destroyRef.onDestroy(() => unsubscribe());
       return instance;
     });
     this.commandOnRun$.pipe(
@@ -79,17 +112,33 @@ export class WebContainerRunner {
       void this.runCommand(commandElements[0], commandElements.slice(1), cwd);
     });
 
-    this.iframe.pipe(
-      takeUntilDestroyed(),
-      filter((iframe): iframe is HTMLIFrameElement => !!iframe),
-      distinctUntilChanged(),
-      withLatestFrom(this.instancePromise)
-    ).subscribe(([iframe, instance]) =>
-      instance.on('server-ready', (_port: number, url: string) => {
-        iframe.removeAttribute('srcdoc');
-        iframe.src = url;
-      })
-    );
+    combineLatest([
+      this.iframe.pipe(
+        takeUntilDestroyed(),
+        filter((iframe): iframe is HTMLIFrameElement => !!iframe),
+        distinctUntilChanged()
+      ),
+      this.instancePromise
+    ]).pipe(
+      switchMap(([iframe, instance]) => new Observable<[typeof iframe, typeof instance, boolean]>((subscriber) => {
+        let shouldSkipFirstLoadEvent = true;
+        const serverReadyUnsubscribe = instance.on('server-ready', (_port: number, url: string) => {
+          this.progressWritable.update(({ totalSteps }) => ({ currentStep: totalSteps - 1, totalSteps, label: 'Bootstrapping application...' }));
+          iframe.removeAttribute('srcdoc');
+          iframe.src = url;
+          subscriber.next([iframe, instance, shouldSkipFirstLoadEvent]);
+          shouldSkipFirstLoadEvent = false;
+        });
+        return () => serverReadyUnsubscribe();
+      })),
+      switchMap(([iframe, _instance, shouldSkipFirstLoadEvent]) => fromEvent(iframe, 'load').pipe(
+        skip(shouldSkipFirstLoadEvent ? 1 : 0),
+        timeout({ each: 20_000, with: () => of([]) }),
+        take(1)
+      ))
+    ).subscribe(() => {
+      this.progressWritable.update(({ totalSteps }) => ({ currentStep: totalSteps, totalSteps, label: 'Ready!' }));
+    });
 
     this.commandOutput.process.pipe(
       takeUntilDestroyed(),
@@ -109,7 +158,7 @@ export class WebContainerRunner {
       combineLatestWith(
         this.shell.cwd.pipe(filter((cwd): cwd is string => !!cwd))
       ),
-      withLatestFrom(this.instancePromise)
+      combineLatestWith(this.instancePromise)
     ).subscribe(async ([[writer, processCwd], instance]) => {
       try {
         await writer.write(`cd ${instance.workdir}/${processCwd} && clear \n`);
@@ -124,9 +173,9 @@ export class WebContainerRunner {
       combineLatestWith(
         this.shell.terminal.pipe(filter((terminal): terminal is Terminal => !!terminal))
       ),
-      withLatestFrom(this.instancePromise),
+      combineLatestWith(this.instancePromise),
       switchMap(([[_, terminal], instance]) => {
-        const spawn = instance.spawn('jsh');
+        const spawn = instance.spawn('jsh', [], { env: { O3R_METRICS: false } });
         return from(spawn).pipe(
           map((process) => ({
             process,
@@ -161,10 +210,35 @@ export class WebContainerRunner {
     const process = await instance.spawn(command, args, { cwd: cwd });
     this.commandOutput.process.next(process);
     const exitCode = await process.exit;
-    if (exitCode !== 0) {
+    if (exitCode === 0) {
+      // The process has ended successfully
+      this.progressWritable.update(({ currentStep, totalSteps }) => ({
+        currentStep: currentStep + 1,
+        totalSteps,
+        label: this.getCommandLabel(this.commands.value.queue[1])
+      }));
+      this.commands.next({ queue: this.commands.value.queue.slice(1), cwd });
+    } else if (exitCode === 143) {
+      // The process was killed by switching to a new project
+      return;
+    } else {
+      // The process has ended with an error
       throw new Error(`Command ${[command, ...args].join(' ')} failed with ${exitCode}!`);
     }
-    this.commands.next({ queue: this.commands.value.queue.slice(1), cwd });
+  }
+
+  private getCommandLabel(command: string) {
+    if (command) {
+      if (/(npm|yarn) install/.test(command)) {
+        return 'Installing dependencies...';
+      } else if (/^(npm|yarn) (run .*:(build|serve)|(run )?build)/.test(command)) {
+        return 'Building application...';
+      } else {
+        return `Executing \`${command}\``;
+      }
+    } else {
+      return 'Waiting for server to start...';
+    }
   }
 
   /**
@@ -172,9 +246,8 @@ export class WebContainerRunner {
    * @param files to mount
    * @param commands to run in the project folder
    * @param projectFolder
-   * @param override allow to mount files and override a project already mounted on the web container
    */
-  public async runProject(files: FileSystemTree, commands: string[], projectFolder: string, override = false) {
+  public async runProject(files: FileSystemTree | null, commands: string[], projectFolder: string) {
     const instance = await this.instancePromise;
     // Ensure boot is done and instance is ready for use
     this.shell.cwd.next(projectFolder);
@@ -187,10 +260,11 @@ export class WebContainerRunner {
     if (this.watcher) {
       this.watcher.close();
     }
-    if (override || !(await doesFolderExist(projectFolder, instance))) {
+    if (files) {
       await instance.mount({ [projectFolder]: { directory: files } });
     }
     this.treeUpdateCallback();
+    this.progressWritable.set({ currentStep: 2, totalSteps: 3 + commands.length, label: this.getCommandLabel(commands[0]) });
     this.commands.next({ queue: commands, cwd: projectFolder });
     this.watcher = instance.fs.watch(`/${projectFolder}`, { encoding: 'utf8' }, this.treeUpdateCallback);
   }

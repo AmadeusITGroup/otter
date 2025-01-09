@@ -5,7 +5,7 @@ header {
   width: 100%;
   background: var(--df-primary-800);
   box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15), inset 0 -1px 0 rgba(255,255,255,0.15);
-  z-index: 1021;
+  z-index: var(--o3r-header-zindex);
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -34,6 +34,7 @@ header {
   max-height: calc(100vh - 4rem);
   overflow-y: auto;
   flex-grow: 1;
+  border-inline-end: 1px solid var(--df-gray-300);
 }
 
 .page-content {

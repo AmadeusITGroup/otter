@@ -20,6 +20,16 @@ describe('SdkPresComponent', () => {
   petApiFixture.findPetsByStatus = petApiFixture.findPetsByStatus.mockResolvedValue([]);
 
   beforeEach(() => {
+    global.fetch = jest.fn(() => Promise.resolve({
+      ok: true,
+      json: () => Promise.resolve({}),
+      headers: {},
+      redirected: false,
+      status: 200,
+      statusText: 'OK',
+      text: () => Promise.resolve('')
+    } as Response));
+
     TestBed.configureTestingModule({
       imports: [SdkPresComponent],
       providers: [

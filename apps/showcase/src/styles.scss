@@ -1,6 +1,10 @@
 @use '@design-factory/design-factory/design-factory.css';
 @import "./style/theme.scss";
 
+:root {
+  --o3r-header-zindex: 1021;
+}
+
 code {
   font-family: 'Consolas', monospace;
 }
@@ -24,6 +28,10 @@ h1, h2 {
   flex-grow: 1;
   margin-top: -1rem;
   z-index: inherit;
+}
+
+.markdown-clipboard-toolbar button {
+  --df-btn-icononly-size: 1.85em;
 }
 
 .markdown-clipboard-toolbar button {

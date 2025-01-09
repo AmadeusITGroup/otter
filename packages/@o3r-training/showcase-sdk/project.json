@@ -8,7 +8,8 @@
     "build": {
       "executor": "nx:noop",
       "dependsOn": [
-        "compile"
+        "compile",
+        "extract-folder-structure"
       ]
     },
     "compile": {
@@ -29,6 +30,22 @@
     },
     "lint": {
       "executor": "nx:run-commands"
+    },
+    "extract-folder-structure": {
+      "cache": true,
+      "executor": "nx:run-script",
+      "options": {
+        "script": "extract"
+      },
+      "inputs": [
+        "source",
+        "^cli",
+        "{projectRoot}/package.json",
+        "{projectRoot}/openapi.yml",
+        "{projectRoot}/openapitools.json"
+      ],
+      "outputs": ["{projectRoot}/dist/structure"],
+      "dependsOn": ["^build", "compile"]
     },
     "publish": {
       "executor": "nx:run-commands",

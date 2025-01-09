@@ -7197,6 +7197,7 @@ __metadata:
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@nx/eslint-plugin": "npm:~19.8.0"
     "@nx/jest": "npm:~19.8.0"
+    "@o3r-training/training-tools": "workspace:^"
     "@o3r/eslint-config": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@openapitools/openapi-generator-cli": "npm:~2.15.0"
@@ -7242,6 +7243,69 @@ __metadata:
   peerDependenciesMeta:
     "@ama-sdk/client-fetch":
       optional: true
+    isomorphic-fetch:
+      optional: true
+  languageName: unknown
+  linkType: soft
+
+"@o3r-training/training-sdk@workspace:^, @o3r-training/training-sdk@workspace:packages/@o3r-training/training-sdk":
+  version: 0.0.0-use.local
+  resolution: "@o3r-training/training-sdk@workspace:packages/@o3r-training/training-sdk"
+  dependencies:
+    "@ama-sdk/core": "workspace:^"
+    "@ama-sdk/schematics": "workspace:^"
+    "@angular-devkit/core": "npm:~18.2.0"
+    "@angular-devkit/schematics": "npm:~18.2.0"
+    "@angular-devkit/schematics-cli": "npm:^18.0.5"
+    "@angular/cli": "npm:~18.2.0"
+    "@angular/compiler": "npm:~18.2.0"
+    "@commitlint/cli": "npm:^19.0.0"
+    "@commitlint/config-conventional": "npm:^19.0.0"
+    "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
+    "@nx/eslint-plugin": "npm:~19.8.0"
+    "@o3r-training/training-tools": "workspace:^"
+    "@o3r/eslint-config": "workspace:^"
+    "@o3r/eslint-plugin": "workspace:^"
+    "@o3r/schematics": "workspace:^"
+    "@openapitools/openapi-generator-cli": "npm:~2.15.0"
+    "@schematics/angular": "npm:~18.2.0"
+    "@stylistic/eslint-plugin": "npm:~2.7.0"
+    "@swc/cli": "npm:~0.5.0"
+    "@swc/core": "npm:~1.10.0"
+    "@swc/helpers": "npm:~0.5.0"
+    "@types/jest": "npm:~29.5.2"
+    "@types/node": "npm:^20.0.0"
+    "@typescript-eslint/parser": "npm:~8.19.0"
+    angular-eslint: "npm:~18.4.0"
+    commit-and-tag-version: "npm:^12.0.0"
+    cpy-cli: "npm:^5.0.0"
+    eslint: "npm:~9.14.0"
+    eslint-plugin-import: "npm:^2.31.0"
+    eslint-plugin-import-newlines: "npm:^1.4.0"
+    eslint-plugin-jest: "npm:~28.8.0"
+    eslint-plugin-jsdoc: "npm:~50.2.0"
+    eslint-plugin-prefer-arrow: "npm:~1.2.3"
+    eslint-plugin-unicorn: "npm:^56.0.0"
+    eslint-plugin-unused-imports: "npm:^4.1.4"
+    globals: "npm:^15.9.0"
+    globby: "npm:^11.1.0"
+    isomorphic-fetch: "npm:~3.0.0"
+    jest: "npm:~29.7.0"
+    jest-junit: "npm:~16.0.0"
+    lint-staged: "npm:^15.0.0"
+    minimist: "npm:^1.2.6"
+    rimraf: "npm:^5.0.1"
+    rxjs: "npm:^7.8.1"
+    ts-jest: "npm:~29.2.0"
+    tsc-watch: "npm:^6.0.4"
+    tslib: "npm:^2.6.2"
+    typescript: "npm:~5.5.4"
+    typescript-eslint: "npm:~8.19.0"
+    yaml-eslint-parser: "npm:^1.2.2"
+  peerDependencies:
+    "@ama-sdk/core": "workspace:^"
+    isomorphic-fetch: ~3.0.0
+  peerDependenciesMeta:
     isomorphic-fetch:
       optional: true
   languageName: unknown
@@ -7616,7 +7680,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@o3r/apis-manager@workspace:packages/@o3r/apis-manager":
+"@o3r/apis-manager@workspace:^, @o3r/apis-manager@workspace:packages/@o3r/apis-manager":
   version: 0.0.0-use.local
   resolution: "@o3r/apis-manager@workspace:packages/@o3r/apis-manager"
   dependencies:
@@ -9304,10 +9368,14 @@ __metadata:
     "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/parser": "npm:~8.19.0"
     "@typescript-eslint/rule-tester": "npm:~8.19.0"
+    "@webcontainer/api": "npm:~1.5.0"
+    "@xterm/addon-fit": "npm:^0.10.0"
+    "@xterm/xterm": "npm:^5.0.0"
     "@yarnpkg/sdks": "npm:^3.2.0"
     ag-grid-angular: "npm:~32.3.0"
     ag-grid-community: "npm:~32.3.0"
     angular-eslint: "npm:~18.4.0"
+    angular-split: "npm:^18.0.0"
     babel-loader: "npm:^9.0.0"
     bootstrap: "npm:5.3.3"
     bootstrap-icons: "npm:^1.11.3"
@@ -9343,6 +9411,8 @@ __metadata:
     minimist: "npm:^1.2.6"
     ng-packagr: "npm:~18.2.0"
     ngx-markdown: "npm:^18.1.0"
+    ngx-monaco-editor-v2: "npm:^18.0.0"
+    ngx-monaco-tree: "npm:^18.4.0"
     npm-run-all2: "npm:^6.0.0"
     nx: "npm:~19.8.0"
     nx-cloud: "npm:^19.1.0"
@@ -10267,7 +10337,9 @@ __metadata:
     "@nx/eslint-plugin": "npm:~19.8.0"
     "@nx/jest": "npm:~19.8.0"
     "@o3r-training/showcase-sdk": "workspace:^"
+    "@o3r-training/training-sdk": "workspace:^"
     "@o3r-training/training-tools": "workspace:^"
+    "@o3r/apis-manager": "workspace:^"
     "@o3r/application": "workspace:^"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/components": "workspace:^"
@@ -10282,6 +10354,7 @@ __metadata:
     "@o3r/routing": "workspace:^"
     "@o3r/rules-engine": "workspace:^"
     "@o3r/schematics": "workspace:^"
+    "@o3r/store-sync": "workspace:^"
     "@o3r/styling": "workspace:^"
     "@o3r/testing": "workspace:^"
     "@playwright/test": "npm:~1.49.0"
@@ -10299,6 +10372,7 @@ __metadata:
     ag-grid-angular: "npm:~32.3.0"
     ag-grid-community: "npm:~32.3.0"
     angular-eslint: "npm:~18.4.0"
+    angular-split: "npm:^18.0.0"
     bootstrap: "npm:5.3.3"
     clipboard: "npm:^2.0.11"
     concurrently: "npm:^8.0.0"
@@ -10323,10 +10397,10 @@ __metadata:
     lighthouse: "npm:~12.2.0"
     marked: "npm:^12.0.0"
     minimist: "npm:^1.2.6"
-    monaco-editor: "npm:~0.52.0"
+    monaco-editor: "npm:~0.50.0"
     ngx-markdown: "npm:^18.1.0"
     ngx-monaco-editor-v2: "npm:^18.0.0"
-    ngx-monaco-tree: "npm:^18.1.0"
+    ngx-monaco-tree: "npm:^18.4.0"
     pixelmatch: "npm:^5.2.1"
     playwright-lighthouse: "npm:~4.0.0"
     pngjs: "npm:^7.0.0"
@@ -16465,6 +16539,19 @@ __metadata:
     typescript: "*"
     typescript-eslint: ^8.0.0
   checksum: 10/19b1f1a55b583acae9c92febd311c23b9b30e682dd7c8dd56fd399520a5ab28001f6dfcfe44ad0871e756c89cce21f73d4854f3f922c11607b88850aa46dc305
+  languageName: node
+  linkType: hard
+
+"angular-split@npm:^18.0.0":
+  version: 18.0.0
+  resolution: "angular-split@npm:18.0.0"
+  dependencies:
+    tslib: "npm:^2.0.0"
+  peerDependencies:
+    "@angular/common": ">=18.0.0"
+    "@angular/core": ">=18.0.0"
+    rxjs: ">=7.0.0"
+  checksum: 10/acafe910ff0ecf416dbeaf02f7b7c0668320a86683905fe631d3031351a0950723c3336b150a64ca3ee7404ecf76244db5a9d4db7f1c0e58bdf0fca6cf46ac84
   languageName: node
   linkType: hard
 
@@ -28714,10 +28801,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"monaco-editor@npm:~0.52.0":
-  version: 0.52.2
-  resolution: "monaco-editor@npm:0.52.2"
-  checksum: 10/0d4962d69ffa0a8df040faa9c582cef1893fa3fb617feca8f1425c5e670e74c2856104b9a2b01cbda0103a5e5f92f58843206bc9a0e070471c0c1270d7f52a96
+"monaco-editor@npm:~0.50.0":
+  version: 0.50.0
+  resolution: "monaco-editor@npm:0.50.0"
+  checksum: 10/594f2a3812147c1ef41c4dba444c649c32af95c3eb09529049bb7a2cb38e1747facbae0a459a07140e77cf9d73df41f034399804f9123f9cfff45394321a3983
   languageName: node
   linkType: hard
 
@@ -29043,7 +29130,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ngx-monaco-tree@npm:^18.1.0":
+"ngx-monaco-tree@npm:^18.4.0":
   version: 18.4.0
   resolution: "ngx-monaco-tree@npm:18.4.0"
   dependencies:

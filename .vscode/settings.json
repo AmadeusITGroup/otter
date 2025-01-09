@@ -99,5 +99,6 @@
     "**/.pnp.*": true
   },
   "typescript.enablePromptUseWorkspaceTsdk": true,
+  "typescript.tsserver.watchOptions": "vscode",
   "typescript.tsdk": ".yarn/sdks/typescript/lib"
 }

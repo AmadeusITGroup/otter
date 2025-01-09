@@ -26,8 +26,8 @@
       "default": "./package.json"
     },
     ".": {
-      "default": "./dist/public_api.js",
-      "typings": "./dist/public_api.d.ts"
+      "default": "./dist/src/public_api.js",
+      "typings": "./dist/src/public_api.d.ts"
     }
   },
   "peerDependencies": {
