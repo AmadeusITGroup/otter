@@ -133,5 +133,6 @@ describe('new otter workspace', () => {
     expect(rootPackageJson.workspaces).toContain('libs/*');
     expect(rootPackageJson.workspaces).toContain('apps/*');
     expect(existsSync(path.join(workspacePath, '.renovaterc.json'))).toBe(true);
+    expect(existsSync(path.join(workspacePath, '.editorconfig'))).toBe(true);
   });
 });
