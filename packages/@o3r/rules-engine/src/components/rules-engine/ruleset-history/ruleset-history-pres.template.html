@@ -12,8 +12,8 @@
         [class.error]="execution.type === 'RulesetExecutionError'"
         (click)="toggleExpansion(execution.executionId, 'ruleset')">
         <div><span [title]="'This ruleset has been evaluated ' + execution.executionCounter + ' time(s)'">{{execution.executionCounter}}</span> - {{execution.rulesetName | titlecase }}
-          <div class="ruleset-panel-subtitle" *ngIf="execution.rulesetInformation?.linkedComponents?.or || execution.rulesetInformation?.linkedComponent">
-            <ng-container *ngFor="let lc of (execution.rulesetInformation?.linkedComponents?.or || [execution.rulesetInformation.linkedComponent]); last as isLast">
+          <div class="ruleset-panel-subtitle" *ngIf="execution.rulesetInformation?.linkedComponents?.or">
+            <ng-container *ngFor="let lc of execution.rulesetInformation?.linkedComponents?.or; last as isLast">
               <div>{{lc.name}} {{lc.library}} <span *ngIf="!isLast"> OR </span></div>
             </ng-container>
           </div>

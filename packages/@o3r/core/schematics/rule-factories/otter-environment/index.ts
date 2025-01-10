@@ -35,7 +35,6 @@ const editTsConfigJson = (tree: Tree) => {
  * Update Otter environment variable for schematics
  * @param options @see RuleFactory.options
  * @param options.projectName
- * @param options.enableStorybook
  * @param options.enableStyling
  * @param options.enableAnalytics
  * @param options.workingDirectory
@@ -44,7 +43,6 @@ const editTsConfigJson = (tree: Tree) => {
 export function updateOtterEnvironmentAdapter(
   options: {
     projectName?: string | null | undefined;
-    enableStorybook?: boolean;
     enableStyling?: boolean;
     enableAnalytics?: boolean;
     workingDirectory?: string | null;

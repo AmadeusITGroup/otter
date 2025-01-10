@@ -10,6 +10,11 @@
       "version": "11.6.0-prerelease.0",
       "description": "Updates of @o3r/configuration to v11.6.*",
       "factory": "./schematics/ng-update/v11-6/index#updateV116"
+    },
+    "migration-v12_0": {
+      "version": "12.0.0-next.0",
+      "description": "Updates of @o3r/configuration to v12.0.*",
+      "factory": "./schematics/ng-update/v12-0/index#updateV12_0"
     }
   }
 }

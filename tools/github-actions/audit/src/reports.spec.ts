@@ -30,9 +30,9 @@ describe('github-action audit', () => {
       const response = await readFile(join(MOCK_FOLDER, 'npm-v2-audit.json'), 'utf8');
       const report = computeNpmReport(response, 'high');
       expect(report.errors.length).toBe(3);
-      expect(report.warnings.length).toBe(32);
+      expect(report.warnings.length).toBe(31);
       expect(report.highestSeverityFound).toBe('critical');
-      expect(report.nbVulnerabilities).toBe(35);
+      expect(report.nbVulnerabilities).toBe(34);
     });
   });
   describe('using Yarn', () => {

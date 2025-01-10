@@ -139,8 +139,7 @@ export class AppComponent {
     ]).pipe(
       map(([info, executions]) =>
         executions.filter((execution) =>
-          (execution.rulesetInformation?.linkedComponent?.name === info.componentName)
-          || (execution.rulesetInformation?.linkedComponents?.or.some((linkedComp) => linkedComp.name === info.componentName))
+          execution.rulesetInformation?.linkedComponents?.or.some((linkedComp) => linkedComp.name === info.componentName)
         )
       )
     );

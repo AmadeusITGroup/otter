@@ -105,11 +105,9 @@ export class OtterComponentComponent implements OnChanges {
     if (changes.rulesetExecutions) {
       this.librariesLinkedToRulesetExecutions = [...(
         new Set((this.rulesetExecutions || [])
-          .flatMap((execution) => {
-            const linkedComponent = execution.rulesetInformation?.linkedComponent;
-            const linkedComponents = execution.rulesetInformation?.linkedComponents?.or;
-            return (linkedComponents?.map((lc) => lc.library) || [linkedComponent?.library]).filter((lib): lib is string => !!lib);
-          })
+          .flatMap((execution) => (execution.rulesetInformation?.linkedComponents?.or || [])
+            .map((lc) => lc.library).filter((lib): lib is string => !!lib)
+          )
         )
       )];
     }

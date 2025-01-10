@@ -187,9 +187,6 @@
       "@o3r/store-sync": [
         "packages/@o3r/store-sync/src/public_api"
       ],
-      "@o3r/storybook": [
-        "packages/@o3r/storybook/src/public_api"
-      ],
       "@o3r/stylelint-plugin": [
         "packages/@o3r/stylelint-plugin/src"
       ],

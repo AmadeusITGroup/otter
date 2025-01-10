@@ -30,7 +30,6 @@ describe('Filter rulesets event operator', () => {
           id: '6e8t54h6s4e-6erth46sre8th4-d46t8s13t5j1',
           name: 'the first rule',
           inputRuntimeFacts: [],
-          inputFacts: [],
           outputRuntimeFacts: [
             'UI_FACT_2'
           ],
@@ -83,7 +82,6 @@ describe('Filter rulesets event operator', () => {
           id: '6e8t54h6s4e-6erth46sre8th4-d46t8s13t5j3',
           name: 'the first rule',
           inputRuntimeFacts: [],
-          inputFacts: [],
           outputRuntimeFacts: [
             'UI_FACT_2',
             'UI_FACT_4'

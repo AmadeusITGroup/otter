@@ -47,7 +47,3 @@ export class O3rDynamicContentPipe implements PipeTransform, OnDestroy {
     }
   }
 }
-
-/** @deprecated please use O3rDynamicContentPipe, will be removed in v12. */
-@Pipe({ name: 'dynamicContent', pure: false })
-export class DynamicContentPipe extends O3rDynamicContentPipe implements PipeTransform {}
