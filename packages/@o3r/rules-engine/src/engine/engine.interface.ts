@@ -54,7 +54,7 @@ export interface RulesEngineOptions {
 
   /**
    * Skip the rule and fact circular dependency checks
-   * Turn to true to increase the speed of the upsertion of a rule
+   * Turn to true to increase the speed of the upsert of a rule
    */
   skipCircularDependencyChecks?: boolean;
 
@@ -131,7 +131,7 @@ export interface RuleEvaluation extends TimedEvent {
   id: string;
   /** Evaluated rule identifier */
   rule: Pick<Rule, 'id' | 'name'>;
-  /** Actions outputed by the rule evaluation */
+  /** Actions outputted by the rule evaluation */
   outputActions: ActionBlock[] | undefined;
   /** Map containing the facts changes triggering the rule evaluation */
   triggers: Record<string, Record<string, EvaluationReason>>;
@@ -153,7 +153,7 @@ export interface RuleEvaluationOutput {
   error?: any;
 }
 
-/** Base obeject resulted at the end of a ruleset execution */
+/** Base object resulted at the end of a ruleset execution */
 export interface BaseRulesetExecution {
   /** Id of the ruleset execution */
   executionId: string;
@@ -215,5 +215,13 @@ export interface AvailableRulesets extends TimedEvent {
   availableRulesets: Pick<Ruleset, 'name' | 'id'>[];
 }
 
-/** Type of possible debug events emited by Rules Engine */
-export type DebugEvent = RulesetExecutionEvent | RulesetExecutionErrorEvent | ActiveRulesetsEvent | AllActionsEvent | AvailableRulesets;
+/**  Debug event emitted when facts are updated */
+export interface AvailableFactsSnapshot extends TimedEvent {
+  /** Event type */
+  type: 'AvailableFactsSnapshot';
+  /** List of all facts */
+  facts: { factName: string; value: Facts }[];
+}
+
+/** Type of possible debug events emitted by Rules Engine */
+export type DebugEvent = RulesetExecutionEvent | RulesetExecutionErrorEvent | ActiveRulesetsEvent | AllActionsEvent | AvailableRulesets | AvailableFactsSnapshot;
