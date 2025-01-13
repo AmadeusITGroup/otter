@@ -10,7 +10,21 @@
       <li [ngbNavItem]="2">
         <a ngbNavLink>Rules Engine</a>
         <ng-template ngbNavContent>
-          <o3r-ruleset-history-pres [rulesetExecutions]="rulesetExecutions$ | async"></o3r-ruleset-history-pres>
+          <ul ngbNav #nav2="ngbNav" class="nav-tabs">
+            <li [ngbNavItem]="2.1">
+              <a ngbNavLink>Facts</a>
+              <ng-template ngbNavContent>
+                <o3r-facts-snapshot [facts]="facts$ | async"></o3r-facts-snapshot>
+              </ng-template>
+            </li>
+            <li [ngbNavItem]="2.2">
+              <a ngbNavLink>Ruleset execution</a>
+              <ng-template ngbNavContent>
+                <o3r-ruleset-history-pres [rulesetExecutions]="rulesetExecutions$ | async"></o3r-ruleset-history-pres>
+              </ng-template>
+            </li>
+          </ul>
+          <div [ngbNavOutlet]="nav2"></div>
         </ng-template>
       </li>
       <li [ngbNavItem]="3">
@@ -71,5 +85,5 @@
       </div>
     </form>
   </div>
-  <div [ngbNavOutlet]="nav" class="mt-2 px-2"></div>
+  <div [ngbNavOutlet]="nav"></div>
 </app-connection>

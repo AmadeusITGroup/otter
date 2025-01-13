@@ -1,0 +1,61 @@
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  input,
+  signal,
+  ViewEncapsulation,
+} from '@angular/core';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import type {
+  Facts,
+} from '../../../engine';
+import {
+  O3rJsonOrStringPipe,
+} from '../shared/index';
+
+@Component({
+  selector: 'o3r-facts-snapshot',
+  styleUrls: ['./facts-snapshot.style.scss'],
+  templateUrl: './facts-snapshot.template.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    O3rJsonOrStringPipe,
+    FormsModule,
+    ReactiveFormsModule
+  ],
+  encapsulation: ViewEncapsulation.None
+})
+export class FactsSnapshotComponent {
+  /**
+   * Full list of available facts with their current value
+   */
+  public facts = input<{ factName: string; value: Facts }[]>([]);
+
+  /**
+   * Search terms
+   */
+  public search = signal('');
+
+  /**
+   * Filtered list of facts using search terms
+   */
+  public filteredFacts = computed(() => {
+    const search = this.search();
+    if (search) {
+      const matchString = new RegExp(search.replace(/[\s#$()*+,.?[\\\]^{|}-]/g, '\\$&'), 'i');
+      return this.facts().filter(({ factName, value }) =>
+        matchString.test(factName)
+        || (typeof value === 'object'
+          ? matchString.test(JSON.stringify(value))
+          : matchString.test(String(value)))
+      );
+    } else {
+      return this.facts();
+    }
+  });
+}

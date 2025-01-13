@@ -1,72 +1,89 @@
 <div class="ruleset-panel-category-title">Output Actions</div>
-<div *ngIf="actions.length === 0 && runtimeOutputs.length === 0" class="ruleset-panel-category-body empty">
-  No action
-</div>
-<ul class="ruleset-panel-category-body">
-  <li *ngFor="let action of actions">
-    <ng-container *ngIf="action.actionType">
-      <ng-container [ngSwitch]="action.actionType">
-        <div *ngSwitchCase="'SET_FACT'">
-          <div>Set Fact</div>
-          <div>
-            <o3r-rule-key-value-pres
-              [key]="action.fact | o3rFallbackTo: 'Missing \'fact\''"
-              [value]="action.value | o3rFallbackTo"
-              [type]="'assignment'"></o3r-rule-key-value-pres>
-          </div>
+@if (actions?.length === 0 && runtimeOutputs.length === 0) {
+  <div class="ruleset-panel-category-body empty">
+    No action
+  </div>
+} @else {
+  <ul class="ruleset-panel-category-body">
+    @for (action of actions; track $index) {
+      <li>
+        @if (isActionBlock(action)) {
+          @switch (action.actionType) {
+            @case ('SET_FACT') {
+              <div>
+                <div>Set Fact</div>
+                <div>
+                  <o3r-rule-key-value-pres
+                    [key]="action.fact | o3rFallbackTo: 'Missing \'fact\''"
+                    [value]="action.value | o3rFallbackTo"
+                    [type]="'assignment'"></o3r-rule-key-value-pres>
+                </div>
+              </div>
+            }
+            @case ('UPDATE_CONFIG') {
+              <div>
+                <div>Update Config {{action.component}} {{action.library}}</div>
+                <div>
+                  <o3r-rule-key-value-pres
+                    [key]="action.property | o3rFallbackTo: 'Missing \'property\''"
+                    [value]="action.value | o3rFallbackTo"
+                    [type]="'assignment'"></o3r-rule-key-value-pres>
+                </div>
+              </div>
+            }
+            @case ('UPDATE_ASSET') {
+              <div>
+                <div>Update Asset:</div>
+                <div>
+                  <o3r-rule-key-value-pres
+                    [oldValue]="action.asset | o3rFallbackTo: 'Missing \'asset\''"
+                    [value]="action.value | o3rFallbackTo"
+                    [type]="'state'"></o3r-rule-key-value-pres>
+                </div>
+              </div>
+            }
+            @case ('UPDATE_LOCALISATION') {
+              <div>
+                <div>Update localization:</div>
+                <div>
+                  <o3r-rule-key-value-pres
+                    [oldValue]="action.key | o3rFallbackTo: 'Missing \'key\''"
+                    [value]="action.value | o3rFallbackTo"
+                    [type]="'state'"></o3r-rule-key-value-pres>
+                </div>
+              </div>
+            }
+            @case ('UPDATE_PLACEHOLDER') {
+              <div [class.error]="!action.placeholderId">
+                <div>Update placeholder in {{action.component}} {{action.library}}</div>
+                <div>
+                  <o3r-rule-key-value-pres
+                    [oldValue]="action.placeholderId | o3rFallbackTo: 'Missing \'placeholderId\''"
+                    [value]="action.value"
+                    [type]="'state'"></o3r-rule-key-value-pres>
+                </div>
+              </div>
+            }
+            @default {
+              <div class="error">
+                <div>Unrecognized action</div>
+                <div>{{action | json}}</div>
+              </div>
+            }
+          }
+        }
+      </li>
+    }
+    @for (runtimeOutput of runtimeOutputs; track $index) {
+      <li>
+        <div>Set temporary fact</div>
+        <div>
+          <o3r-rule-key-value-pres
+            [key]="runtimeOutput | o3rFallbackTo: 'Missing \'fact\''"
+            [value]="temporaryFacts[runtimeOutput] | o3rFallbackTo"
+            [type]="'assignment'"></o3r-rule-key-value-pres>
         </div>
-        <div *ngSwitchCase="'UPDATE_CONFIG'">
-          <div>Update Config {{action.component}} {{action.library}}</div>
-          <div>
-            <o3r-rule-key-value-pres
-              [key]="action.property | o3rFallbackTo: 'Missing \'property\''"
-              [value]="action.value | o3rFallbackTo"
-              [type]="'assignment'"></o3r-rule-key-value-pres>
-          </div>
-        </div>
-        <div *ngSwitchCase="'UPDATE_ASSET'">
-          <div>Update Asset:</div>
-          <div>
-            <o3r-rule-key-value-pres
-              [oldValue]="action.asset | o3rFallbackTo: 'Missing \'asset\''"
-              [value]="action.value | o3rFallbackTo"
-              [type]="'state'"></o3r-rule-key-value-pres>
-          </div>
-        </div>
-        <div *ngSwitchCase="'UPDATE_LOCALISATION'">
-          <div>Update localization:</div>
-          <div>
-            <o3r-rule-key-value-pres
-              [oldValue]="action.key | o3rFallbackTo: 'Missing \'key\''"
-              [value]="action.value | o3rFallbackTo"
-              [type]="'state'"></o3r-rule-key-value-pres>
-          </div>
-        </div>
-        <div
-          *ngSwitchCase="'UPDATE_PLACEHOLDER'"
-          [class.error]="!action.placeholderId">
-          <div>Update placeholder in {{action.component}} {{action.library}}</div>
-          <div>
-            <o3r-rule-key-value-pres
-              [oldValue]="action.placeholderId | o3rFallbackTo: 'Missing \'placeholderId\''"
-              [value]="action.value"
-              [type]="'state'"></o3r-rule-key-value-pres>
-          </div>
-        </div>
-        <div *ngSwitchDefault class="error">
-          <div>Unrecognized action</div>
-          <div>{{action | json}}</div>
-        </div>
-      </ng-container>
-    </ng-container>
-  </li>
-  <li *ngFor="let runtimeOutput of runtimeOutputs">
-    <div>Set temporary fact</div>
-    <div>
-      <o3r-rule-key-value-pres
-        [key]="runtimeOutput | o3rFallbackTo: 'Missing \'fact\''"
-        [value]="temporaryFacts[runtimeOutput] | o3rFallbackTo"
-        [type]="'assignment'"></o3r-rule-key-value-pres>
-    </div>
-  </li>
-</ul>
+      </li>
+    }
+  </ul>
+}

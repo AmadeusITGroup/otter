@@ -1,0 +1,15 @@
+@import '../styling/shared-mixin';
+
+o3r-facts-snapshot {
+  .fact-name {
+    color: $ruleset-variable-key-color;
+  }
+
+  .fact-value {
+    color: $ruleset-variable-value-color;
+  }
+
+  .fact-name, .fact-value {
+    font-family: monospace;
+  }
+}

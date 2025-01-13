@@ -5,6 +5,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import type {
+  ActionBlock,
   AllBlock,
   Facts,
 } from '../../../engine';
@@ -35,4 +36,12 @@ export class RuleActionsPresComponent {
    */
   @Input()
   public runtimeOutputs: string[] = [];
+
+  /**
+   * Check if a given block is of type ActionBlock
+   * @param block
+   */
+  public isActionBlock(block: AllBlock): block is ActionBlock {
+    return !!(block as ActionBlock).actionType;
+  }
 }

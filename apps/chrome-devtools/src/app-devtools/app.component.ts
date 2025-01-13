@@ -1,6 +1,5 @@
 import {
   AsyncPipe,
-  JsonPipe,
 } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -27,6 +26,7 @@ import {
   NgbNavModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
+  FactsSnapshotComponent,
   RulesetHistoryPresModule,
 } from '@o3r/rules-engine';
 import {
@@ -94,7 +94,7 @@ import {
     ReactiveFormsModule,
     DfSelectModule,
     DfTooltipModule,
-    JsonPipe
+    FactsSnapshotComponent
   ]
 })
 export class AppComponent {
@@ -112,6 +112,7 @@ export class AppComponent {
   });
 
   public rulesetExecutions$ = this.rulesetHistoryService.rulesetExecutions$;
+  public facts$ = this.rulesetHistoryService.facts$;
 
   constructor() {
     effect(() => {
