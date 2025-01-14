@@ -18,7 +18,8 @@
     "pr-labels": "./scripts/pr-labels.mjs",
     "prepare-doc-root-menu-template": "./scripts/prepare-doc-root-menu-template.mjs",
     "report-deprecates": "./scripts/report-deprecates.mjs",
-    "update-doc-summary": "./scripts/update-doc-summary.mjs"
+    "update-doc-summary": "./scripts/update-doc-summary.mjs",
+    "update-package": "./scripts/update-package.mjs"
   },
   "dependencies": {
     "globby": "^14.0.0",

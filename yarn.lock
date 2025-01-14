@@ -7354,6 +7354,7 @@ __metadata:
     isomorphic-fetch: "npm:~3.0.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
+    jsonc-eslint-parser: "npm:~2.4.0"
     lint-staged: "npm:^15.0.0"
     minimist: "npm:^1.2.6"
     rimraf: "npm:^5.0.1"
@@ -8067,7 +8068,6 @@ __metadata:
     prepare-doc-root-menu-template: ./scripts/prepare-doc-root-menu-template.mjs
     prepare-publish: ./scripts/prepare-publish.mjs
     update-doc-summary: ./scripts/update-doc-summary.mjs
-    update-package: ./scripts/update-package.mjs
     write-git-hash: ./scripts/write-git-hash.mjs
   languageName: unknown
   linkType: soft
@@ -9410,7 +9410,6 @@ __metadata:
     "@nx/jest": "npm:~19.8.0"
     "@nx/js": "npm:~19.8.0"
     "@nx/workspace": "npm:~19.8.0"
-    "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-config": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/telemetry": "workspace:^"
@@ -11259,6 +11258,7 @@ __metadata:
     prepare-doc-root-menu-template: ./scripts/prepare-doc-root-menu-template.mjs
     report-deprecates: ./scripts/report-deprecates.mjs
     update-doc-summary: ./scripts/update-doc-summary.mjs
+    update-package: ./scripts/update-package.mjs
   languageName: unknown
   linkType: soft
 
@@ -25610,7 +25610,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-typed-array@npm:^1.1.13, is-typed-array@npm:^1.1.14, is-typed-array@npm:^1.1.15, is-typed-array@npm:^1.1.3":
+"is-typed-array@npm:^1.1.13, is-typed-array@npm:^1.1.3":
+  version: 1.1.13
+  resolution: "is-typed-array@npm:1.1.13"
+  dependencies:
+    which-typed-array: "npm:^1.1.14"
+  checksum: 10/f850ba08286358b9a11aee6d93d371a45e3c59b5953549ee1c1a9a55ba5c1dd1bd9952488ae194ad8f32a9cf5e79c8fa5f0cc4d78c00720aa0bbcf238b38062d
+  languageName: node
+  linkType: hard
+
+"is-typed-array@npm:^1.1.14, is-typed-array@npm:^1.1.15":
   version: 1.1.15
   resolution: "is-typed-array@npm:1.1.15"
   dependencies:
@@ -37584,6 +37593,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"which-typed-array@npm:^1.1.14":
+  version: 1.1.16
+  resolution: "which-typed-array@npm:1.1.16"
+  dependencies:
+    available-typed-arrays: "npm:^1.0.7"
+    call-bind: "npm:^1.0.7"
+    for-each: "npm:^0.3.3"
+    gopd: "npm:^1.0.1"
+    has-tostringtag: "npm:^1.0.2"
+  checksum: 10/7106e94729632cdcedc94080442872392806b3364225156952981777f46b75d2e3b13813b5d935bdb2ac8523f8758fcf3513f7e1ed44a8e10d6c4f1029c3fa7d
+  languageName: node
+  linkType: hard
+
 "which-typed-array@npm:^1.1.16, which-typed-array@npm:^1.1.18, which-typed-array@npm:^1.1.2":
   version: 1.1.18
   resolution: "which-typed-array@npm:1.1.18"
@@ -37964,16 +37986,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yaml@npm:^2.0.0, yaml@npm:^2.4.1, yaml@npm:^2.5.1":
-  version: 2.7.0
-  resolution: "yaml@npm:2.7.0"
-  bin:
-    yaml: bin.mjs
-  checksum: 10/c8c314c62fbd49244a6a51b06482f6d495b37ab10fa685fcafa1bbaae7841b7233ee7d12cab087bcca5a0b28adc92868b6e437322276430c28d00f1c1732eeec
-  languageName: node
-  linkType: hard
-
-"yaml@npm:~2.6.1":
+"yaml@npm:^2.0.0, yaml@npm:^2.4.1, yaml@npm:^2.5.1, yaml@npm:~2.6.1":
   version: 2.6.1
   resolution: "yaml@npm:2.6.1"
   bin:

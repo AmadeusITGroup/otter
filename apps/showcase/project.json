@@ -241,12 +241,7 @@
       },
       "dependsOn": ["^build", "^build-builders"]
     },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "options": {
-        "jestConfig": "apps/showcase/jest.config.js"
-      }
-    },
+    "test": {},
     "generate-theme": {
       "executor": "@o3r/design:generate-css",
       "outputs": [
