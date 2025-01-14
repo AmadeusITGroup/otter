@@ -56,6 +56,9 @@
     "schemas": [
       "{projectRoot}/schemas/*.json"
     ],
+    "assets": [
+      "{projectRoot}/assets/**"
+    ],
     "builders-only": [
       "base",
       "{projectRoot}/tsconfig.builders.json",

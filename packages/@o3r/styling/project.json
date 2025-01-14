@@ -18,10 +18,9 @@
       "inputs": [
         "source",
         "^source",
-        "{projectRoot}/schemas/*.json",
+        "schemas",
+        "assets",
         "{projectRoot}/scss/**/*",
-        "!{projectRoot}/scss/**/*.spec.ts",
-        "{projectRoot}/assets/**",
         "{projectRoot}/_index.scss",
         "{projectRoot}/_otter-theme.scss"
       ]
