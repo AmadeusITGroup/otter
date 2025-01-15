@@ -27,7 +27,7 @@ import {
 } from 'rxjs';
 import {
   SideNavLinksGroup,
-} from '../components/index';
+} from '../components/utilities/sidenav';
 
 @O3rComponent({ componentType: 'Component' })
 @Component({
@@ -62,7 +62,14 @@ export class AppComponent {
     {
       label: 'SDK',
       links: [
+        { url: '/sdk-intro', label: 'Introduction' },
         { url: '/sdk', label: 'Generator' }
+      ]
+    },
+    {
+      label: 'Training',
+      links: [
+        { url: '/sdk-training', label: 'SDK Training' }
       ]
     }
   ];

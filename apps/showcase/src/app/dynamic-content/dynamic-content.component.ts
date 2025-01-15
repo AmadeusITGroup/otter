@@ -24,11 +24,13 @@ import {
 } from 'ngx-markdown';
 import {
   DynamicContentPresComponent,
+} from '../../components/showcase/dynamic-content';
+import {
   IN_PAGE_NAV_PRES_DIRECTIVES,
   InPageNavLink,
   InPageNavLinkDirective,
   InPageNavPresService,
-} from '../../components/index';
+} from '../../components/utilities';
 
 @O3rComponent({ componentType: 'Page' })
 @Component({

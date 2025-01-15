@@ -27,40 +27,12 @@
         "script": "build:source"
       }
     },
-    "prepare-build-builders": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "prepare:build:builders"
-      }
-    },
-    "build-builders": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "build:builders"
-      }
-    },
-    "lint": {
-      "executor": "nx:run-commands"
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "options": {
-        "jestConfig": "packages/@o3r/telemetry/jest.config.js",
-        "silent": true
-      }
-    },
-    "prepare-publish": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "prepare:publish"
-      }
-    },
-    "publish": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "npm publish packages/@o3r/telemetry/dist"
-      }
-    }
+    "prepare-build-builders": {},
+    "build-builders": {},
+    "lint": {},
+    "test": {},
+    "prepare-publish": {},
+    "publish": {}
   },
   "tags": []
 }

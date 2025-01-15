@@ -96,17 +96,4 @@
 --spacing-30: 30px;
 --spacing-40: 40px;
 /* --- END THEME Auto-generated --- */
-
-  .nav.nav-pills .nav-link {
-    --df-scrollspy-color: #ffffff;
-    --df-nav-pills-link-active-bg: transparent;
-  }
-
-  .input-group-text {
-    background-color: var(--df-tertiary-bg);
-  }
-
-  .form-select {
-    --df-form-select-bg-img: url("data:image/svg+xml;charset=utf8,%3Csvg version='1.1' viewBox='0 0 1792 1792' style='fill%3a%23fff' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='m1408 704q0 26-19 45l-448 448q-19 19-45 19t-45-19l-448-448q-19-19-19-45t19-45 45-19h896q26 0 45 19t19 45z'/%3E%3C/svg%3E");
-  }
 }

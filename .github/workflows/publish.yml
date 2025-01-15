@@ -132,8 +132,9 @@ jobs:
       - run: yarn set:version ${{ inputs.version }}
       - name: Publish Extensions
         if: '!inputs.prerelease'
-        run: yarn run ${{ endsWith(inputs.version, '.0') && 'publish:extensions' || 'publish:extensions:affected --base=HEAD~1' }}
+        run: yarn run ${{ endsWith(inputs.version, '.0') && 'publish:extensions' || 'publish:extensions:affected' }}
         env:
+          NX_BASE: HEAD~1
           VSCE_PAT: ${{ secrets.AZURE_VSC_EXT_TOKEN }}
           CHROME_CLIENT_ID: ${{ secrets.CHROME_CLIENT_ID }}
           CHROME_EXT_ID: ${{ secrets.CHROME_EXT_ID }}

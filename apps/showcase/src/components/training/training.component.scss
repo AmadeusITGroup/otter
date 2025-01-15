@@ -1,0 +1,8 @@
+:host {
+  display: flex;
+  flex-direction: column;
+
+  &:not(:has(.constrained)) {
+    height: 100% !important;
+  }
+}

@@ -15,7 +15,6 @@
     "build": "yarn nx build workspace",
     "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest",
     "build:source": "tsc -b tsconfig.build.json --pretty && yarn cpy ./package.json dist",
-    "test": "yarn nx test workspace",
     "prepare:build:builders": "yarn cpy 'builders/**/*.json' dist/builders && yarn cpy 'schematics/**/*.json' 'schematics/**/templates/**' dist/schematics && yarn cpy '{builders,collection,migration}.json' dist",
     "prepare:publish": "prepare-publish ./dist",
     "postbuild": "patch-package-json-main"
@@ -94,7 +93,7 @@
     "@types/pid-from-port": "^1.1.0",
     "@types/semver": "^7.3.13",
     "@types/uuid": "^9.0.0",
-    "@typescript-eslint/parser": "~8.18.0",
+    "@typescript-eslint/parser": "~8.19.0",
     "angular-eslint": "~19.0.0",
     "cpy-cli": "^5.0.0",
     "eslint": "~9.17.0",
@@ -121,7 +120,7 @@
     "ts-node": "~10.9.2",
     "type-fest": "^4.30.1",
     "typescript": "~5.6.2",
-    "typescript-eslint": "~8.18.0",
+    "typescript-eslint": "~8.19.0",
     "zone.js": "~0.15.0"
   },
   "generatorDependencies": {

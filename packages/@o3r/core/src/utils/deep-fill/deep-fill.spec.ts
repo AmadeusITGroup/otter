@@ -19,6 +19,20 @@ describe('Deep fill function', () => {
     expect(deepFill(base, source)).toEqual(base);
   });
 
+  it('should support "null" value in source', () => {
+    const base = { selection: { field: 'test-field' }, a: 'string' };
+    const source = { selection: null } as any;
+
+    expect(deepFill(base, source)).toEqual({ selection: null, a: 'string' });
+  });
+
+  it('should support "null" value in base', () => {
+    const base = { selection: null, a: 'string' } as any;
+    const source = { selection: { field: 'test-field' } };
+
+    expect(deepFill(base, source)).toEqual({ selection: { field: 'test-field' }, a: 'string' });
+  });
+
   it('should keep properties from base not present in the source', () => {
     const base = Object.freeze({ a: 1, b: '2', c: true });
     const source = Object.freeze({ c: false, a: 3 });

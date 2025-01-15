@@ -11,6 +11,7 @@
       "@ama-terasu/core": ["packages/@ama-terasu/core/dist", "packages/@ama-terasu/core/src/public_api"],
       "@ama-terasu/schematics": ["packages/@ama-terasu/schematics/dist", "packages/@ama-terasu/schematics/src/public_api"],
       "@o3r-training/showcase-sdk": ["packages/@o3r-training/showcase-sdk/dist", "packages/@o3r-training/showcase-sdk/src/index"],
+      "@o3r-training/training-sdk": ["packages/@o3r-training/training-sdk/dist", "packages/@o3r-training/training-sdk/src/index"],
       "@o3r-training/training-tools": ["packages/@o3r-training/training-tools/dist", "packages/@o3r-training/training-tools/src/public_api"],
       "@o3r/amaterasu-api-spec": ["packages/@o3r/amaterasu/amaterasu-api-spec/dist", "packages/@o3r/amaterasu/amaterasu-api-spec/src"],
       "@o3r/amaterasu-dodo": ["packages/@o3r/amaterasu/amaterasu-dodo/dist", "packages/@o3r/amaterasu/amaterasu-dodo/src"],
