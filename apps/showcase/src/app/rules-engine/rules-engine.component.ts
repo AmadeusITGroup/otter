@@ -85,7 +85,6 @@ import {
 @O3rComponent({ componentType: 'Page' })
 @Component({
   selector: 'o3r-rules-engine',
-  standalone: true,
   imports: [
     RulesEnginePresComponent,
     DynamicContentModule,

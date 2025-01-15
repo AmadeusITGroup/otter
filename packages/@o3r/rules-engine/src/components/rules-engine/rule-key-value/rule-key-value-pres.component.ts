@@ -31,7 +31,8 @@ const CLIPBOARD_FEATURE_LENGTH_THRESHOLD = 80;
   styleUrls: ['./rule-key-value-pres.style.scss'],
   templateUrl: './rule-key-value-pres.template.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  standalone: false
 })
 export class RuleKeyValuePresComponent implements OnChanges {
   /**

@@ -30,8 +30,8 @@ import {
 const dummyEventContext = { eventInfo: { eventName: '', pageId: '', timeStamp: '' } };
 
 @Component({
-  template: `
-    <button trackFocus [trackEventContext]="eventModel">Click</button>`
+  template: `<button trackFocus [trackEventContext]="eventModel">Click</button>`,
+  standalone: false
 })
 class TestComponent {
   public eventModel = dummyEventContext;

@@ -10,6 +10,7 @@
     "target": "ES2022",
     "useDefineForClassFields": false,
     "declaration": true,
+    "incremental": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,

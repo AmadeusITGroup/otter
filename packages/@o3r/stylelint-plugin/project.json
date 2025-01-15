@@ -43,7 +43,8 @@
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "packages/@o3r/stylelint-plugin/jest.config.js"
+        "jestConfig": "packages/@o3r/stylelint-plugin/jest.config.js",
+        "passWithNoTests": true
       }
     },
     "test-int": {

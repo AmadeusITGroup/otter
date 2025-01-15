@@ -19,7 +19,8 @@ import {
  */
 @Pipe({
   name: 'currency',
-  pure: false
+  pure: false,
+  standalone: false
 })
 export class LocalizedCurrencyPipe extends CurrencyPipe implements OnDestroy, PipeTransform {
   private readonly onLangChange: Subscription;

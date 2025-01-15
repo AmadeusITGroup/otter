@@ -39,7 +39,7 @@
     "tslib": "^2.6.2"
   },
   "peerDependencies": {
-    "@angular-devkit/schematics": "^18.2.0",
+    "@angular-devkit/schematics": "^19.0.0",
     "@o3r/schematics": "workspace:^",
     "@o3r/telemetry": "workspace:^",
     "type-fest": "^4.10.2"
@@ -59,9 +59,9 @@
     }
   },
   "devDependencies": {
-    "@angular-devkit/architect": "~0.1802.0",
-    "@angular-devkit/core": "~18.2.0",
-    "@angular-devkit/schematics": "~18.2.0",
+    "@angular-devkit/architect": "~0.1900.0",
+    "@angular-devkit/core": "~19.0.0",
+    "@angular-devkit/schematics": "~19.0.0",
     "@compodoc/compodoc": "^1.1.19",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@nx/eslint-plugin": "~19.8.0",
@@ -72,7 +72,7 @@
     "@o3r/schematics": "workspace:^",
     "@o3r/telemetry": "workspace:^",
     "@o3r/test-helpers": "workspace:^",
-    "@schematics/angular": "~18.2.0",
+    "@schematics/angular": "~19.0.0",
     "@stylistic/eslint-plugin": "~2.7.0",
     "@stylistic/eslint-plugin-ts": "~2.7.0",
     "@types/jest": "~29.5.2",
@@ -81,7 +81,7 @@
     "@typescript-eslint/eslint-plugin": "~8.18.0",
     "@typescript-eslint/parser": "~8.18.0",
     "@typescript-eslint/utils": "~8.18.0",
-    "angular-eslint": "~18.4.0",
+    "angular-eslint": "~19.0.0",
     "cpy-cli": "^5.0.0",
     "eslint": "~9.17.0",
     "eslint-import-resolver-node": "^0.3.9",
@@ -100,10 +100,10 @@
     "nx": "~19.8.0",
     "pid-from-port": "^1.1.3",
     "rxjs": "^7.8.1",
-    "ts-jest": "~29.2.0",
+    "ts-jest": "~29.2.5",
     "ts-node": "~10.9.2",
-    "type-fest": "^4.10.2",
-    "typescript": "~5.5.4",
+    "type-fest": "^4.30.1",
+    "typescript": "~5.6.2",
     "typescript-eslint": "~8.18.0"
   },
   "engines": {

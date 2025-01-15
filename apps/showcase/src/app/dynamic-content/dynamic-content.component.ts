@@ -33,7 +33,6 @@ import {
 @O3rComponent({ componentType: 'Page' })
 @Component({
   selector: 'o3r-dynamic-content',
-  standalone: true,
   imports: [
     RouterModule,
     DynamicContentModule,

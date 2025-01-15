@@ -30,7 +30,8 @@ import {
  * ```
  */
 @Directive({
-  selector: '[trackFocus]'
+  selector: '[trackFocus]',
+  standalone: false
 })
 export class TrackFocusDirective extends BaseTrackEvents implements OnInit {
   /**

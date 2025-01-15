@@ -30,7 +30,8 @@ const serviceMock: InterfaceOf<DynamicContentService> = {
 };
 
 @Component({
-  template: `{{'assets.png' | o3rDynamicContent}}`
+  template: `{{'assets.png' | o3rDynamicContent}}`,
+  standalone: false
 })
 class HostTestComponent {}
 

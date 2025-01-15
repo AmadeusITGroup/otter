@@ -17,7 +17,8 @@ import type {
   styleUrls: ['./rule-condition-pres.style.scss'],
   templateUrl: './rule-condition-pres.template.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  standalone: false
 })
 export class RuleConditionPresComponent {
   private _condition?: TopLevelCondition;

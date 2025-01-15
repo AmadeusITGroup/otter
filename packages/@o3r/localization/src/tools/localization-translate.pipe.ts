@@ -25,7 +25,11 @@ import {
 /**
  * TranslatePipe class adding debug functionality
  */
-@Pipe({ name: 'o3rTranslate', pure: false })
+@Pipe({
+  name: 'o3rTranslate',
+  pure: false,
+  standalone: false
+})
 export class O3rLocalizationTranslatePipe extends TranslatePipe implements PipeTransform, OnDestroy {
   /**
    * Internal subscription to the LocalizationService showKeys mode changes
