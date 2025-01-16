@@ -198,6 +198,21 @@
         }
       }
     },
+    "tokenTypeDimensionValue": {
+      "type": "object",
+      "required": [
+        "unit",
+        "value"
+      ],
+      "properties": {
+        "value": {
+          "type": "number"
+        },
+        "unit": {
+          "type": "string"
+        }
+      }
+    },
     "tokenTypeDimension": {
       "type": "object",
       "required": [
@@ -206,7 +221,14 @@
       ],
       "properties": {
         "$value": {
-          "type": "string"
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/definitions/tokenTypeDimensionValue"
+            }
+          ]
         },
         "$type": {
           "const": "dimension",
@@ -490,16 +512,44 @@
           "type": "string"
         },
         "offsetX": {
-          "type": "string"
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/definitions/tokenTypeDimensionValue"
+            }
+          ]
         },
         "offsetY": {
-          "type": "string"
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/definitions/tokenTypeDimensionValue"
+            }
+          ]
         },
         "blur": {
-          "type": "string"
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/definitions/tokenTypeDimensionValue"
+            }
+          ]
         },
         "spread": {
-          "type": "string"
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/definitions/tokenTypeDimensionValue"
+            }
+          ]
         }
       },
       "required": [

@@ -11,6 +11,7 @@ import type {
   DesignTokenMetadata,
   DesignTokenNode,
   DesignTokenSpecification,
+  DesignTokenTypeDimensionValue,
 } from '../design-token-specification.interface';
 import {
   DesignTokenTypeStrokeStyleValue,
@@ -55,29 +56,23 @@ const getExtensions = (nodes: NodeReference[], context: DesignTokenContext | und
   }, {} as DesignTokenGroupExtensions & DesignTokenExtensions);
 };
 const getReferences = (cssRawValue: string) => Array.from(cssRawValue.matchAll(tokenReferenceRegExp)).map(([,tokenRef]) => tokenRef);
-const applyConversion = (token: DesignTokenVariableStructure, value: string) => {
-  if (typeof token.extensions.o3rUnit === 'undefined' || typeof token.extensions.o3rRatio === 'undefined') {
-    return value;
+const applyConversion = (token: DesignTokenVariableStructure, value: string | number | DesignTokenTypeDimensionValue) => {
+  const o3rRatio = token.extensions.o3rRatio ?? 1;
+  const o3rUnit = token.extensions.o3rUnit;
+
+  if (typeof value === 'object') {
+    return Number.parseFloat((value.value * o3rRatio).toFixed(3)).toString() + (o3rUnit ?? (value.unit || ''));
   }
 
-  const splitValue = splitValueNumericRegExp.exec(value);
+  const splitValue = splitValueNumericRegExp.exec(value.toString());
   if (!splitValue) {
     return value;
   }
 
   const [, floatValue, unit] = splitValue;
+  const newValue = Number.parseFloat((Number.parseFloat(floatValue) * o3rRatio).toFixed(3));
 
-  const newValue = value.replace(floatValue, (Number.parseFloat((Number.parseFloat(floatValue) * token.extensions.o3rRatio).toFixed(3))).toString());
-
-  if (unit) {
-    return newValue.replace(unit, token.extensions.o3rUnit);
-  }
-
-  if (floatValue === value) {
-    return newValue + token.extensions.o3rUnit;
-  }
-
-  return newValue;
+  return newValue + (o3rUnit ?? (unit || ''));
 };
 const renderCssTypeStrokeStyleValue = (value: DesignTokenTypeStrokeStyleValue) => isTokenTypeStrokeStyleValueComplex(value) ? `${value.lineCap} ${value.dashArray.join(' ')}` : value;
 const sanitizeStringValue = (value: string) => value.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
@@ -103,7 +98,7 @@ const getCssRawValue = (variableSet: DesignTokenVariableSet, token: DesignTokenV
     case 'fontWeight':
     case 'fontFamily':
     case 'dimension': {
-      return applyConversion(token, checkNode.$value.toString());
+      return applyConversion(token, checkNode.$value);
     }
     case 'strokeStyle': {
       return renderCssTypeStrokeStyleValue(checkNode.$value);

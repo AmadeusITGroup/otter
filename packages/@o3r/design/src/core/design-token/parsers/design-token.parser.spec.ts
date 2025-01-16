@@ -209,6 +209,15 @@ describe('Design Token Parser', () => {
         expect(shadow.getCssRawValue()).toBe('1px 1px 1  1 #000');
       });
 
+      test('with dimension parameter', () => {
+        const result = parser.parseDesignToken(exampleVariable);
+        const shadow = result.get('example.test.shadow-dimension');
+
+        expect(shadow).toBeDefined();
+        expect(shadow.getType()).toBe('shadow');
+        expect(shadow.getCssRawValue()).toBe('1px 1px 1  1 #000');
+      });
+
       test('with multiple parameter', () => {
         const result = parser.parseDesignToken(exampleVariable);
         const shadow = result.get('example.test.shadow-multi');

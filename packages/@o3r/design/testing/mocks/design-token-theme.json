@@ -165,6 +165,27 @@
           }
         ]
       },
+      "shadow-dimension": {
+        "$type": "shadow",
+        "$value": [
+          {
+            "blur": "1",
+            "offsetX": {
+              "value": 1,
+              "unit": "px"
+            },
+            "offsetY": {
+              "value": 1,
+              "unit": "px"
+            },
+            "color": "#000",
+            "spread": {
+              "value": 1,
+              "unit": ""
+            }
+          }
+        ]
+      },
       "shadow-multi": {
         "$type": "shadow",
         "$value": [
