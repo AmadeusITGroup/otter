@@ -105,6 +105,18 @@
       "$type": "color",
       "$value": "#fff"
     },
+    "typography": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "la-familia",
+        "fontSize": "big",
+        "fontWeight": 300,
+        "letterSpacing": "spacing",
+        "lineHeight": "normal",
+        "textTransform": "none",
+        "textDecoration": "none"
+      }
+    },
     "test": {
       "height": {
         "$extensions": {
