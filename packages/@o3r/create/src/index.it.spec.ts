@@ -46,6 +46,7 @@ describe('Create new otter project command', () => {
     expect(() => packageManagerExec({ script: 'ng', args: ['g', 'application', appName] }, execInAppOptions)).not.toThrow();
     expect(existsSync(path.join(inProjectPath, 'project'))).toBe(false);
     expect(existsSync(path.join(inApplicationPath, 'package.json'))).toBe(true);
+    expect(existsSync(path.join(inApplicationPath, 'tsconfig.json'))).toBe(true);
     expect(() => packageManagerRunOnProject(appName, true, { script: 'build' }, execInAppOptions)).not.toThrow();
   });
 

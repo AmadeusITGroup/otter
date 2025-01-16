@@ -74,9 +74,9 @@
     "typescript": "^5.5.4"
   },
   "generatorDependencies": {
-    "@typescript-eslint/eslint-plugin": "~8.18.0",
-    "@typescript-eslint/parser": "~8.18.0",
-    "@typescript-eslint/utils": "~8.18.0",
+    "@typescript-eslint/eslint-plugin": "~8.19.0",
+    "@typescript-eslint/parser": "~8.19.0",
+    "@typescript-eslint/utils": "~8.19.0",
     "eslint": "~9.17.0",
     "eslint-plugin-jsdoc": "~50.2.0",
     "eslint-plugin-unicorn": "^56.0.0"
@@ -96,7 +96,7 @@
     "@stylistic/eslint-plugin": "~2.7.0",
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",
-    "@typescript-eslint/parser": "~8.18.0",
+    "@typescript-eslint/parser": "~8.19.0",
     "angular-eslint": "~19.0.0",
     "cpy-cli": "^5.0.0",
     "eslint": "~9.17.0",
@@ -123,7 +123,7 @@
     "tslib": "^2.6.2",
     "type-fest": "^4.30.1",
     "typescript": "~5.6.2",
-    "typescript-eslint": "~8.18.0"
+    "typescript-eslint": "~8.19.0"
   },
   "peerDependenciesMeta": {
     "@angular-devkit/schematics": {

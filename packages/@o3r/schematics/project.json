@@ -18,57 +18,20 @@
         "build-cli"
       ]
     },
-    "prepare-build-builders": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "prepare:build:builders"
-      }
-    },
-    "build-builders": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "build:builders"
-      }
-    },
-    "build-cli": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "build:cli"
-      }
-    },
+    "prepare-build-builders": {},
+    "build-builders": {},
+    "build-cli": {},
     "compile": {
       "executor": "nx:run-script",
       "options": {
         "script": "build:source"
       }
     },
-    "lint": {
-      "executor": "nx:run-commands"
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "options": {
-        "jestConfig": "packages/@o3r/schematics/jest.config.js"
-      }
-    },
-    "prepare-publish": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "prepare:publish"
-      }
-    },
-    "publish": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "npm publish packages/@o3r/schematics/dist"
-      }
-    },
-    "documentation": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "compodoc"
-      }
-    }
+    "lint": {},
+    "test": {},
+    "prepare-publish": {},
+    "publish": {},
+    "documentation": {}
   },
   "tags": []
 }

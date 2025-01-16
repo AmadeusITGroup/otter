@@ -23,6 +23,7 @@ on:
 
 env:
   NX_PARALLEL: ${{ vars.NX_PARALLEL }}
+  NX_TASK_TARGET_CONFIGURATION: ci
   NX_SKIP_NX_CACHE: ${{ inputs.skipNxCache }}
   YARN_ENABLE_HARDENED_MODE: 0
   NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
@@ -72,7 +73,8 @@ jobs:
         run: yarn nx run ama-sdk-schematics:build-swagger
       - name: Test
         env:
-          testCmd: ${{ inputs.affected && format('test:affected --base=remotes/origin/{0}', github.base_ref || github.ref_name) || 'test'}}
+          NX_BASE: ${{ format('remotes/origin/{0}', github.base_ref || github.ref_name) }}
+          testCmd: ${{ inputs.affected && 'test:affected' || 'test'}}
           NODE_OPTIONS: ${{ runner.os == 'Windows' && '--max_old_space_size=4096' || '' }}
         run: yarn ${{ env.testCmd }} --collectCoverage
       - name: Upload results to Codecov
@@ -114,8 +116,9 @@ jobs:
             ${{ runner.os }}
       - name: Lint
         env:
-          lintCmd: ${{ inputs.affected && format('lint:affected --base=remotes/origin/{0}', github.base_ref || github.ref_name) || 'lint'}}
-        run: yarn ${{ env.lintCmd }} --configuration ci
+          NX_BASE: ${{ format('remotes/origin/{0}', github.base_ref || github.ref_name) }}
+          lintCmd: ${{ inputs.affected && 'lint:affected' || 'lint'}}
+        run: yarn ${{ env.lintCmd }}
 
   # Check that the packaging of github-actions is still working
   github-actions:
@@ -128,6 +131,7 @@ jobs:
         uses: ./tools/github-actions/setup
       - name: Package github actions
         env:
-          nxCmd: ${{ inputs.affected && format('nx affected --base=remotes/origin/{0}', github.base_ref || github.ref_name) || 'nx run-many'}}
+          NX_BASE: ${{ format('remotes/origin/{0}', github.base_ref || github.ref_name) }}
+          nxCmd: ${{ inputs.affected && 'nx affected' || 'nx run-many'}}
         run: yarn ${{ env.nxCmd }} --target=package-github-action
 

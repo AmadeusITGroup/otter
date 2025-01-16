@@ -23,15 +23,8 @@
         "script": "package"
       }
     },
-    "lint": {
-      "executor": "nx:run-commands"
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "options": {
-        "jestConfig": "tools/github-actions/audit/jest.config.js"
-      }
-    }
+    "lint": {},
+    "test": {}
   },
   "tags": []
 }

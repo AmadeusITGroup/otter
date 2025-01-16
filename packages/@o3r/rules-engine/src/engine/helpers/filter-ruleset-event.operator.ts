@@ -1,6 +1,7 @@
 import {
   combineLatest,
   Observable,
+  of,
 } from 'rxjs';
 import {
   map,
@@ -23,11 +24,13 @@ export function filterRulesetsEventStream(restrictiveRuleSets?: string[]) {
         ? Object.values(rulesets).filter((ruleSet) => restrictiveRuleSets.includes(ruleSet.id))
         : Object.values(rulesets);
 
-      return combineLatest(activeRulesets.map((ruleset) => ruleset.rulesResultsSubject$)).pipe(
-        map((item) => item.reduce((acc, currentValue) => {
-          acc.push(...currentValue);
-          return acc;
-        }, [])));
+      return activeRulesets?.length > 0
+        ? combineLatest(activeRulesets.map((ruleset) => ruleset.rulesResultsSubject$)).pipe(
+          map((item) => item.reduce((acc, currentValue) => {
+            acc.push(...currentValue);
+            return acc;
+          }, [])))
+        : of([]);
     }),
     shareReplay(1)
   );

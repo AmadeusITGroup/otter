@@ -149,12 +149,7 @@
         }
       }
     },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "options": {
-        "jestConfig": "apps/chrome-devtools/jest.config.js"
-      }
-    },
+    "test": {},
     "copy-assets": {
       "executor": "nx:run-script",
       "options": {

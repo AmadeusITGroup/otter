@@ -18,8 +18,7 @@
     "prepare:publish": "prepare-publish ./dist",
     "prepare:build:builders": "yarn cpy 'schematics/**/*.json' 'schematics/**/templates/**' dist/schematics && yarn cpy 'collection.json' dist",
     "build": "yarn nx build store-sync",
-    "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest",
-    "test": "yarn nx test store-sync"
+    "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest"
   },
   "peerDependencies": {
     "@ama-sdk/core": "workspace:^",
@@ -80,7 +79,7 @@
     "@stylistic/eslint-plugin": "~2.7.0",
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",
-    "@typescript-eslint/parser": "~8.18.0",
+    "@typescript-eslint/parser": "~8.19.0",
     "angular-eslint": "~19.0.0",
     "cpy-cli": "^5.0.0",
     "eslint": "~9.17.0",
@@ -103,9 +102,10 @@
     "nx": "~19.8.0",
     "rxjs": "^7.8.1",
     "ts-jest": "~29.2.5",
+    "ts-node": "~10.9.2",
     "type-fest": "^4.30.1",
     "typescript": "~5.6.2",
-    "typescript-eslint": "~8.18.0",
+    "typescript-eslint": "~8.19.0",
     "zone.js": "~0.15.0"
   },
   "schematics": "./collection.json",

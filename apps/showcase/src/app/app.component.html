@@ -1,28 +1,30 @@
-<header class="navbar navbar-expand-lg flex-shrink-0">
-  <button class="navbar-toggler d-inline-block d-xl-none fa-bars" (click)="open(content)" title="Open side navigation">
-  </button>
-  <div class="header-title p-xl-3">
-    <div class="header-icon">
-      <img src="assets/otter-sticker.svg" width="48" height="48" alt="Otter logo" />
+<div class="d-flex flex-column">
+  <header class="fw-bold w-100 d-flex align-items-center justify-content-start navbar navbar-expand-lg flex-shrink-0">
+    <button class="navbar-toggler d-inline-block d-xl-none fa-bars" (click)="open(content)" title="Open side navigation">
+    </button>
+    <div class="header-title d-flex p-xl-3">
+      <div class="d-flex me-3 header-icon">
+        <img src="assets/otter-sticker.svg" width="48" height="48" alt="Otter logo" />
+      </div>
+      <div class="d-block d-sm-none">Otter</div>
+      <div class="d-none d-sm-block">Otter Showcase</div>
     </div>
-    <div class="d-block d-sm-none">Otter</div>
-    <div class="d-none d-sm-block">Otter Showcase</div>
-  </div>
-</header>
-<div class="container">
-  <div class="row">
-    <div class="left-nav col-2 d-none d-xl-block">
-      <o3r-sidenav-pres
+  </header>
+  <div class="flex-fill container-fluid">
+    <div class="row">
+      <div class="left-nav pt-5 col-2 d-none d-xl-block">
+        <o3r-sidenav-pres
         [linksGroups]="linksGroups"
         [activeUrl]="activeUrl$ | async"
-      ></o3r-sidenav-pres>
-    </div>
-    <div class="page-content col-12 col-xl-10">
-      <router-outlet></router-outlet>
+        ></o3r-sidenav-pres>
+      </div>
+      <div class="page-content col-12 col-xl-10 px-3 px-md-6 px-lg-9">
+        <router-outlet></router-outlet>
+      </div>
     </div>
   </div>
 </div>
-<footer class="bg-body-tertiary">
+<footer class="d-flex align-items-center w-100 text-body bg-body-tertiary">
   <div class="container">
     <div class="row">
       <div class="col-12 col-md-8">

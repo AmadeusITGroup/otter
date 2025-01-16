@@ -40,6 +40,19 @@ import type {
   NgAddSchematicsSchema,
 } from './schema';
 
+const updateEditorConfig: Rule = (tree) => {
+  const editorconfigPath = '.editorconfig';
+  const editorconfig = tree.exists(editorconfigPath) ? tree.readText(editorconfigPath) : '';
+  if (editorconfig.includes('end_of_line')) {
+    return tree;
+  }
+  const newEditorconfig = /\[[*]\]/.test(editorconfig)
+    ? editorconfig.replace(/(\[[*]\])/, '$1\nend_of_line = lf')
+    : editorconfig.concat('[*]\nend_of_line = lf');
+  tree.overwrite(editorconfigPath, newEditorconfig);
+  return tree;
+};
+
 /**
  * Enable all the otter features requested by the user
  * Install all the related dependencies and import the features inside the application
@@ -89,6 +102,7 @@ export const prepareProject = (options: NgAddSchematicsSchema): Rule => {
 
     return () => chain([
       generateRenovateConfig(__dirname),
+      updateEditorConfig,
       addVsCodeRecommendations(vsCodeExtensions),
       updateGitIgnore(workspaceConfig),
       filterPackageJsonScripts,

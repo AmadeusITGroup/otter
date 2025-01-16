@@ -66,12 +66,14 @@ import {
   firstValueFrom,
 } from 'rxjs';
 import {
+  RulesEnginePresComponent,
+} from '../../components/showcase/rules-engine/index';
+import {
   IN_PAGE_NAV_PRES_DIRECTIVES,
   InPageNavLink,
   InPageNavLinkDirective,
   InPageNavPresService,
-  RulesEnginePresComponent,
-} from '../../components/index';
+} from '../../components/utilities/index';
 import {
   environment,
 } from '../../environments/environment.development';

@@ -15,15 +15,8 @@
         "script": "build"
       }
     },
-    "lint": {
-      "executor": "nx:run-commands"
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "options": {
-        "jestConfig": "apps/github-cascading-app/jest.config.js"
-      }
-    }
+    "lint": {},
+    "test": {}
   },
   "tags": []
 }

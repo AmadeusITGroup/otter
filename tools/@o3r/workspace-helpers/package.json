@@ -18,7 +18,8 @@
     "pr-labels": "./scripts/pr-labels.mjs",
     "prepare-doc-root-menu-template": "./scripts/prepare-doc-root-menu-template.mjs",
     "report-deprecates": "./scripts/report-deprecates.mjs",
-    "update-doc-summary": "./scripts/update-doc-summary.mjs"
+    "update-doc-summary": "./scripts/update-doc-summary.mjs",
+    "update-package": "./scripts/update-package.mjs"
   },
   "dependencies": {
     "globby": "^14.0.0",
@@ -32,9 +33,9 @@
     "@o3r/eslint-plugin": "workspace:^",
     "@stylistic/eslint-plugin-ts": "~2.7.0",
     "@types/node": "^20.0.0",
-    "@typescript-eslint/eslint-plugin": "~8.18.0",
-    "@typescript-eslint/parser": "~8.18.0",
-    "@typescript-eslint/utils": "~8.18.0",
+    "@typescript-eslint/eslint-plugin": "~8.19.0",
+    "@typescript-eslint/parser": "~8.19.0",
+    "@typescript-eslint/utils": "~8.19.0",
     "eslint": "~9.17.0",
     "eslint-import-resolver-node": "^0.3.9",
     "eslint-plugin-jest": "~28.8.0",
