@@ -151,8 +151,8 @@ const getCssRawValue = (variableSet: DesignTokenVariableSet, token: DesignTokenV
     case 'typography': {
       return typeof checkNode.$value === 'string'
         ? checkNode.$value
-        : `${applyConversion(token, checkNode.$value.fontWeight.toString())} ${checkNode.$value.fontFamily}`
-        + ` ${applyConversion(token, checkNode.$value.fontSize)} ${applyConversion(token, checkNode.$value.letterSpacing)} ${applyConversion(token, checkNode.$value.lineHeight.toString())}`;
+        : `${applyConversion(token, checkNode.$value.fontWeight.toString())} ${applyConversion(token, checkNode.$value.fontSize)}`
+        + ` ${applyConversion(token, checkNode.$value.letterSpacing)} ${applyConversion(token, checkNode.$value.lineHeight.toString())} ${checkNode.$value.fontFamily}`;
     }
     // TODO: Add support for Grid type when available in the Design Token Standard
     default: {

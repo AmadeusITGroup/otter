@@ -182,6 +182,14 @@ describe('Design Token Parser', () => {
       expect(border.getType()).toBe('border');
     });
 
+    test('should generate a complex typography', () => {
+      const result = parser.parseDesignToken(exampleVariable);
+      const typography = result.get('example.typography');
+
+      expect(typography).toBeDefined();
+      expect(typography.getCssRawValue()).toBe('300 big spacing normal la-familia');
+    });
+
     test('should generate correctly the gradient', () => {
       const result = parser.parseDesignToken(exampleVariable);
       const gradient = result.get('example.test.gradient');
