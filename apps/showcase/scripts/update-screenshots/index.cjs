@@ -39,7 +39,7 @@ const args = [
   '--rm',
   '--ipc', 'host',
   '-v', `${absolutePathFromRoot}/:${mountPath}`,
-  `mcr.microsoft.com/playwright:v${playwrightVersion}-jammy`,
+  `mcr.microsoft.com/playwright:v${playwrightVersion}-noble`,
   '/bin/bash',
   pathToPodmanScript,
   ipAddresses.join(',')
