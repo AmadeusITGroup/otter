@@ -8,6 +8,10 @@
     }
   ],
   "definitions": {
+    "tokenReference": {
+      "type": "string",
+      "pattern": "^\\{[^}]+\\}$"
+    },
     "tokenNode": {
       "oneOf": [
         {
@@ -404,7 +408,14 @@
               "minItems": 1,
               "maxItems": 4,
               "items": {
-                "type": "string"
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/definitions/tokenTypeDimensionValue"
+                  }
+                ]
               }
             },
             "lineCap": {
@@ -450,11 +461,20 @@
           "type": "object",
           "properties": {
             "color": { "type": "string" },
-            "width": { "type": "string" },
+            "width": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "$ref": "#/definitions/tokenTypeDimensionValue"
+                }
+              ]
+            },
             "style": {
-              "allOf": [
+              "oneOf": [
                 { "$ref": "#/definitions/tokenTypeStrokeStyleValue" },
-                { "type": "string" }
+                { "$ref": "#/definitions/tokenReference" }
               ]
             }
           },
@@ -550,6 +570,10 @@
               "$ref": "#/definitions/tokenTypeDimensionValue"
             }
           ]
+        },
+        "inset": {
+          "type": "boolean",
+          "default": false
         }
       },
       "required": [

@@ -74,7 +74,9 @@ const applyConversion = (token: DesignTokenVariableStructure, value: string | nu
 
   return newValue + (o3rUnit ?? (unit || ''));
 };
-const renderCssTypeStrokeStyleValue = (value: DesignTokenTypeStrokeStyleValue) => isTokenTypeStrokeStyleValueComplex(value) ? `${value.lineCap} ${value.dashArray.join(' ')}` : value;
+const renderCssTypeStrokeStyleValue = (token: DesignTokenVariableStructure, value: DesignTokenTypeStrokeStyleValue) => isTokenTypeStrokeStyleValueComplex(value)
+  ? `${value.lineCap} ${value.dashArray.map((dashArrayValue) => applyConversion(token, dashArrayValue)).join(' ')}`
+  : value;
 const sanitizeStringValue = (value: string) => value.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
 const sanitizeKeyName = (name: string) => name.replace(/[ .]+/g, '-').replace(/[()[\]]+/g, '');
 const getCssRawValue = (variableSet: DesignTokenVariableSet, token: DesignTokenVariableStructure) => {
@@ -101,7 +103,7 @@ const getCssRawValue = (variableSet: DesignTokenVariableSet, token: DesignTokenV
       return applyConversion(token, checkNode.$value);
     }
     case 'strokeStyle': {
-      return renderCssTypeStrokeStyleValue(checkNode.$value);
+      return renderCssTypeStrokeStyleValue(token, checkNode.$value);
     }
     case 'cubicBezier': {
       return typeof checkNode.$value === 'string'
@@ -113,7 +115,7 @@ const getCssRawValue = (variableSet: DesignTokenVariableSet, token: DesignTokenV
     case 'border': {
       return typeof checkNode.$value === 'string'
         ? checkNode.$value
-        : `${applyConversion(token, checkNode.$value.width)} ${renderCssTypeStrokeStyleValue(checkNode.$value.style)} ${checkNode.$value.color}`;
+        : `${applyConversion(token, checkNode.$value.width)} ${renderCssTypeStrokeStyleValue(token, checkNode.$value.style)} ${checkNode.$value.color}`;
     }
     case 'gradient': {
       if (typeof checkNode.$value === 'string') {
@@ -131,8 +133,10 @@ const getCssRawValue = (variableSet: DesignTokenVariableSet, token: DesignTokenV
 
       const values = Array.isArray(checkNode.$value) ? checkNode.$value : [checkNode.$value];
       return values
-        .map((value) => `${applyConversion(token, value.offsetX)} ${applyConversion(token, value.offsetY)} ${applyConversion(token, value.blur)}  ${applyConversion(token, value.spread)}`
-        + ` ${value.color}`)
+        .map((value) =>
+          (value.inset ? 'inset ' : '')
+          + `${applyConversion(token, value.offsetX)} ${applyConversion(token, value.offsetY)} ${applyConversion(token, value.blur)}  ${applyConversion(token, value.spread)}`
+          + ` ${value.color}`)
         .join(', ');
     }
     case 'transition': {

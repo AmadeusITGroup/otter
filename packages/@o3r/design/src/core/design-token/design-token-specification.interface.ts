@@ -133,7 +133,7 @@ export interface DesignTokenTypeNumber extends DesignTokenBase<number | string> 
 }
 
 type DesignTokenTypeStrokeStyleDetailsValue = {
-  dashArray: string[];
+  dashArray: (string | DesignTokenTypeDimensionValue)[];
   lineCap: 'round' | 'butt' | 'square';
 };
 
@@ -151,7 +151,7 @@ export interface DesignTokenTypeStrokeStyle<T extends DesignTokenTypeStrokeStyle
 
 type DesignTokenTypeBorderValue = {
   color: string;
-  width: string;
+  width: string | DesignTokenTypeDimensionValue;
   style: DesignTokenTypeStrokeStyleValue;
 };
 
@@ -180,6 +180,7 @@ type DesignTokenTypeShadowValue = {
   offsetY: string | DesignTokenTypeDimensionValue;
   blur: string | DesignTokenTypeDimensionValue;
   spread: string | DesignTokenTypeDimensionValue;
+  inset?: boolean;
 };
 
 /** Design Token Shadow */
