@@ -17,7 +17,6 @@ import {
 
 @Component({
   selector: 'o3r-training-step-pres',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [AngularSplitModule, CodeEditorViewComponent, MarkdownModule],
   templateUrl: './training-step-pres.component.html',

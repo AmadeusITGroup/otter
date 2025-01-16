@@ -27,7 +27,7 @@ import {
   NgbNavModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
-  RulesetHistoryPresModule,
+  RulesetHistoryPresComponent,
 } from '@o3r/rules-engine';
 import {
   AppConnectionComponent,
@@ -78,11 +78,10 @@ import {
     }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [
     NgbNavModule,
     DebugPanelPresComponent,
-    RulesetHistoryPresModule,
+    RulesetHistoryPresComponent,
     ConfigPanelPresComponent,
     ComponentPanelPresComponent,
     AppConnectionComponent,

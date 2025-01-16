@@ -37,7 +37,6 @@ import {
 
 @Component({
   selector: 'code-editor-control',
-  standalone: true,
   imports: [
     CodeEditorTerminalComponent,
     NgbNavModule,

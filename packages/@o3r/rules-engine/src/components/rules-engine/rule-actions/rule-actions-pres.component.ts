@@ -1,4 +1,8 @@
 import {
+  CommonModule,
+  JsonPipe,
+} from '@angular/common';
+import {
   ChangeDetectionStrategy,
   Component,
   Input,
@@ -8,6 +12,12 @@ import type {
   AllBlock,
   Facts,
 } from '../../../engine';
+import {
+  RuleKeyValuePresComponent,
+} from '../rule-key-value/rule-key-value-pres.component';
+import {
+  O3rFallbackToPipe,
+} from '../shared/index';
 
 @Component({
   selector: 'o3r-rule-actions-pres',
@@ -15,7 +25,7 @@ import type {
   templateUrl: './rule-actions-pres.template.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  standalone: false
+  imports: [CommonModule, JsonPipe, RuleKeyValuePresComponent, O3rFallbackToPipe]
 })
 export class RuleActionsPresComponent {
   /**

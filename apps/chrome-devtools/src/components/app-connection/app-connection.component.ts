@@ -18,7 +18,6 @@ import {
   selector: 'app-connection',
   templateUrl: './app-connection.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [
     AsyncPipe
   ]

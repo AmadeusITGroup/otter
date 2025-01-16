@@ -29,8 +29,7 @@ import {
       useExisting: forwardRef(() => MinDateValidator),
       multi: true
     }
-  ],
-  standalone: false
+  ]
 })
 export class MinDateValidator implements Validator, OnChanges {
   /** Minimum date to compare to */

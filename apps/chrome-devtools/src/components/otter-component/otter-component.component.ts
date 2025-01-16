@@ -22,7 +22,7 @@ import type {
 } from '@o3r/configuration';
 import {
   type RulesetExecutionDebug,
-  RulesetHistoryPresModule,
+  RulesetHistoryPresComponent,
 } from '@o3r/rules-engine';
 import {
   ConfigFormComponent,
@@ -33,8 +33,7 @@ const isRecordOfArray = (value?: object | null): value is Record<string, any[]> 
 };
 
 @Pipe({
-  name: 'nbProp',
-  standalone: true
+  name: 'nbProp'
 })
 export class NbPropPipe implements PipeTransform {
   public transform(value: any[] | object | null | undefined, ignoredKeys: string[] = []) {
@@ -50,8 +49,7 @@ export class NbPropPipe implements PipeTransform {
 }
 
 @Pipe({
-  name: 'list',
-  standalone: true
+  name: 'list'
 })
 export class ListPipe implements PipeTransform {
   public transform(value: string[]) {
@@ -69,11 +67,10 @@ export class ListPipe implements PipeTransform {
   selector: 'app-otter-component',
   templateUrl: './otter-component.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [
     NgbNavModule,
     ConfigFormComponent,
-    RulesetHistoryPresModule,
+    RulesetHistoryPresComponent,
     NgbAccordionModule,
     NbPropPipe,
     ListPipe,

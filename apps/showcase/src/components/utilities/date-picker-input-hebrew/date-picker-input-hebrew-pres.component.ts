@@ -36,8 +36,7 @@ import {
 } from './date-picker-input-hebrew-pres.context';
 
 @Pipe({
-  name: 'getDayNumerals',
-  standalone: true
+  name: 'getDayNumerals'
 })
 export class GetDayNumeralsPipe implements PipeTransform {
   public readonly i18n = inject(NgbDatepickerI18n);

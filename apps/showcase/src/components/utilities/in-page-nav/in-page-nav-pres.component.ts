@@ -26,8 +26,7 @@ export interface InPageNavLink {
 }
 
 @Directive({
-  selector: 'h2[id]',
-  standalone: true
+  selector: 'h2[id]'
 })
 export class InPageNavLinkDirective implements InPageNavLink, AfterViewInit {
   /** HTML id of the h2 */

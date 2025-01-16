@@ -1,4 +1,7 @@
 import {
+  CommonModule,
+} from '@angular/common';
+import {
   ChangeDetectionStrategy,
   Component,
   Input,
@@ -8,6 +11,12 @@ import type {
   AllBlock,
   TopLevelCondition,
 } from '../../../engine';
+import {
+  RuleActionsPresComponent,
+} from '../rule-actions/rule-actions-pres.component';
+import {
+  RuleConditionPresComponent,
+} from '../rule-condition/rule-condition-pres.component';
 
 @Component({
   selector: 'o3r-rule-tree-pres',
@@ -15,7 +24,7 @@ import type {
   templateUrl: './rule-tree-pres.template.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  standalone: false
+  imports: [CommonModule, RuleActionsPresComponent, RuleConditionPresComponent]
 })
 export class RuleTreePresComponent {
   /**

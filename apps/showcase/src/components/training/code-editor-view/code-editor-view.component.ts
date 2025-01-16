@@ -117,7 +117,6 @@ export class MonacoFailedToLoadError extends Error {
 
 @Component({
   selector: 'code-editor-view',
-  standalone: true,
   imports: [
     AsyncPipe,
     CodeEditorControlComponent,

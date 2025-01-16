@@ -1,4 +1,7 @@
 import {
+  CommonModule,
+} from '@angular/common';
+import {
   ChangeDetectionStrategy,
   Component,
   Input,
@@ -18,7 +21,7 @@ import type {
   templateUrl: './rule-condition-pres.template.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  standalone: false
+  imports: [CommonModule]
 })
 export class RuleConditionPresComponent {
   private _condition?: TopLevelCondition;

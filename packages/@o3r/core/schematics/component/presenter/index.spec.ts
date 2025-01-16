@@ -31,7 +31,6 @@ describe('Component presenter', () => {
   const expectedFileNames = [
     'test-component-pres.component.ts',
     'test-component-pres.context.ts',
-    'test-component-pres.module.ts',
     'test-component-pres.spec.ts',
     'test-component-pres.style.scss',
     'test-component-pres.template.html',
@@ -231,23 +230,22 @@ describe('Component presenter', () => {
     expect(tree.files.filter((file) => /test-component-pres\.config\.ts$/.test(file)).length).toBe(0);
   });
 
-  // eslint-disable-next-line jest/no-disabled-tests -- adapt when switching to default standalone
-  it.skip('should generate a standalone presenter component', async () => {
+  it('should generate a non standalone presenter component', async () => {
     const tree = await runner.runSchematic('component-presenter', {
       projectName: 'test-project',
       componentName,
       prefix: 'o3r',
       componentStructure: 'presenter',
-      standalone: true,
+      standalone: false,
       path: 'src/components'
     }, initialTree);
 
-    const expectedFileNamesWithoutModule = expectedFileNames.filter((fileName) => fileName !== 'test-component-pres.module.ts');
+    const expectedFileNamesWithModule = [...expectedFileNames, 'test-component-pres.module.ts'];
 
-    expect(tree.files.filter((file) => /test-component/.test(file)).length).toEqual(expectedFileNamesWithoutModule.length);
+    expect(tree.files.filter((file) => /test-component/.test(file)).length).toEqual(expectedFileNamesWithModule.length);
     expect(tree.files.filter((file) => /test-component/.test(file))).toEqual(expect.arrayContaining(
-      expectedFileNamesWithoutModule.map((fileName) => getGeneratedComponentPath(componentName, fileName, 'container')))
+      expectedFileNamesWithModule.map((fileName) => getGeneratedComponentPath(componentName, fileName, 'container')))
     );
-    expect(tree.readContent(tree.files.find((file) => file.includes('test-component-pres.component.ts')))).toContain('standalone: true');
+    expect(tree.readContent(tree.files.find((file) => file.includes('test-component-pres.component.ts')))).toContain('standalone: false');
   });
 });

@@ -47,7 +47,6 @@ import {
   templateUrl: './component-panel-pres.template.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  standalone: true,
   imports: [
     OtterComponentComponent,
     AsyncPipe

@@ -3,7 +3,7 @@ import {
   PipeTransform,
 } from '@angular/core';
 
-@Pipe({ name: 'o3rCapitalize', standalone: true })
+@Pipe({ name: 'o3rCapitalize' })
 export class O3rCapitalizePipe implements PipeTransform {
   public transform(value?: any) {
     const val: string | undefined = value && value.toString && value.toString();

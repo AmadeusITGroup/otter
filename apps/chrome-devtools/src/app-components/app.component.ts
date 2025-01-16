@@ -97,7 +97,6 @@ function getSelectedComponentInfo(getTranslations: typeof devkitGetTranslations,
   selector: 'app-root',
   templateUrl: './app.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [
     OtterComponentComponent,
     AppConnectionComponent,

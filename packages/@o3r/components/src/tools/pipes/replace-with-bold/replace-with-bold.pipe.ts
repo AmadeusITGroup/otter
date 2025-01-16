@@ -5,10 +5,7 @@ import {
 
 const escapeRegExp = (str: string) => str.replace(/[$()*+./?[\\\]^{|}-]/g, '\\$&');
 
-@Pipe({
-  name: 'o3rReplaceWithBold',
-  standalone: true
-})
+@Pipe({ name: 'o3rReplaceWithBold' })
 export class O3rReplaceWithBoldPipe implements PipeTransform {
   public transform(value: string, inputText: string): string {
     if (inputText) {
