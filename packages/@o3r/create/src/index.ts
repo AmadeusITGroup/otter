@@ -324,5 +324,7 @@ void (async () => {
   } catch {
     // Do not throw if `@o3r/telemetry` is not installed
   }
-  return wrapper(run, '@o3r/create:create')();
+  await wrapper(run, '@o3r/create:create')();
+  console.info(`Initialization completed, project generated in ${join('.', projectFolder)}`);
+  process.exit(0);
 })();
