@@ -1,5 +1,5 @@
 /* eslint-disable no-console -- this is the purpose of this logger */
-import {
+import type {
   Action,
   ActionReducer,
   MetaReducer,
