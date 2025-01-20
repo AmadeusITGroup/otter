@@ -77,9 +77,9 @@
   "dependencies": {
     "@microsoft/tsdoc": "~0.15.0",
     "inquirer": "~8.2.6",
-    "jsonschema": "~1.4.1",
+    "jsonschema": "~1.5.0",
     "tslib": "^2.6.2",
-    "typedoc": "~0.26.0"
+    "typedoc": "~0.27.0"
   },
   "devDependencies": {
     "@angular-devkit/architect": "~0.1802.0",
