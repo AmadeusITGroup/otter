@@ -23,7 +23,6 @@ import {
 @O3rComponent({ componentType: 'Page' })
 @Component({
   selector: 'o3r-sdk-intro',
-  standalone: true,
   imports: [
     IN_PAGE_NAV_PRES_DIRECTIVES,
     AsyncPipe

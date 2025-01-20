@@ -31,7 +31,6 @@ import {Subscription} from 'rxjs';
 })
 @Component({
   selector: 'o3r-test-pres',
-  standalone: true,
   imports: [CommonModule],
   styleUrls: ['./test.style.scss'],
   templateUrl: './test.template.html',
@@ -60,7 +59,6 @@ import {Component} from '@angular/core';
 
 @Component({
   selector: 'ng-test',
-  standalone: true,
   imports: [CommonModule],
   template: ''
 })

@@ -8,7 +8,6 @@ import {
 
 @Component({
   selector: 'o3r-sdk-training',
-  standalone: true,
   imports: [
     TrainingComponent
   ],

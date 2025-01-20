@@ -90,7 +90,7 @@ export const updatePipes = (pipeReplacementInfo: PipeReplacementInfo): Rule => (
       const baseFileName = basename(basename(file.path, '.html'), '.template');
       const componentFile = join(directory, `${baseFileName}.component.ts`);
       const moduleFile = join(directory, `${baseFileName}.module.ts`);
-      let standalone = false;
+      let standalone = true;
       if (tree.exists(componentFile)) {
         try {
           const info = getO3rComponentInfoOrThrowIfNotFound(tree, componentFile);

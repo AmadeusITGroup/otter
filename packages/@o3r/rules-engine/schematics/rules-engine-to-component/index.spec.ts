@@ -26,8 +26,7 @@ describe('Enable rules-engine on component', () => {
       })
       @Component({
         selector: 'empty-component',
-        template: '',
-        standalone: true
+        template: ''
       })
       export class EmptyComponent {}
     `);
@@ -71,8 +70,7 @@ describe('Enable rules-engine on component', () => {
       })
       @Component({
         selector: 'empty-component',
-        template: '',
-        standalone: true
+        template: ''
       })
       export class EmptyComponent {
         rulesEngineService = inject(RulesEngineRunnerService);
@@ -96,8 +94,7 @@ describe('Enable rules-engine on component', () => {
       })
       @Component({
         selector: 'empty-component',
-        template: '',
-        standalone: true
+        template: ''
       })
       export class EmptyComponent {
         constructor(private rulesEngineService: RulesEngineRunnerService){};

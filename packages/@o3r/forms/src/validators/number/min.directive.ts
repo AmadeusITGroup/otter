@@ -28,8 +28,7 @@ import {
       multi: true
     }
   ],
-  host: { '[attr.min]': 'min ? min : null' },
-  standalone: false
+  host: { '[attr.min]': 'min ? min : null' }
 })
 export class MinValidator implements Validator, OnChanges {
   /** Minimum date to compare to */

@@ -1,4 +1,8 @@
 import {
+  CommonModule,
+  JsonPipe,
+} from '@angular/common';
+import {
   ChangeDetectionStrategy,
   Component,
   Input,
@@ -32,7 +36,7 @@ const CLIPBOARD_FEATURE_LENGTH_THRESHOLD = 80;
   templateUrl: './rule-key-value-pres.template.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  standalone: false
+  imports: [CommonModule, JsonPipe]
 })
 export class RuleKeyValuePresComponent implements OnChanges {
   /**

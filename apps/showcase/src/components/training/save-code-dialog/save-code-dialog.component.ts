@@ -10,7 +10,6 @@ import {
 @Component({
   selector: 'code-editor-terminal',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [],
   templateUrl: './save-code-dialog.template.html'
 })

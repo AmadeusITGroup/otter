@@ -31,8 +31,7 @@ import {
  * ```
  */
 @Directive({
-  selector: '[trackClick]',
-  standalone: false
+  selector: '[trackClick]'
 })
 export class TrackClickDirective extends BaseTrackEvents implements OnInit {
   /**

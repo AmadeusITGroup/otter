@@ -34,7 +34,6 @@ describe('Component container', () => {
   const expectedFileNames = [
     'test-component-cont.component.ts',
     'test-component-cont.context.ts',
-    'test-component-cont.module.ts',
     'test-component-cont.spec.ts',
     'test-component-cont.template.html',
     'README.md',
@@ -157,24 +156,23 @@ describe('Component container', () => {
     expect(tree.files.filter((file) => /test-component-cont\.config\.ts$/.test(file)).length).toBe(0);
   });
 
-  // eslint-disable-next-line jest/no-disabled-tests -- adapt when switching to default standalone
-  it.skip('should generate a standalone container component', async () => {
+  it('should generate a non standalone container component', async () => {
     const tree = await runner.runSchematic('component-container', {
       projectName: 'test-project',
       componentName,
       prefix: 'o3r',
       componentStructure: 'container',
-      standalone: true,
+      standalone: false,
       path: 'src/components'
     }, initialTree);
 
-    const expectedFileNamesWithoutModule = expectedFileNames.filter((fileName) => fileName !== 'test-component-cont.module.ts');
+    const expectedFileNamesWithModule = [...expectedFileNames, 'test-component-cont.module.ts'];
 
-    expect(tree.files.filter((file) => /test-component/.test(file)).length).toEqual(expectedFileNamesWithoutModule.length);
+    expect(tree.files.filter((file) => /test-component/.test(file)).length).toEqual(expectedFileNamesWithModule.length);
     expect(tree.files.filter((file) => /test-component/.test(file))).toEqual(expect.arrayContaining(
-      expectedFileNamesWithoutModule.map((fileName) => getGeneratedComponentPath(componentName, fileName, 'container')))
+      expectedFileNamesWithModule.map((fileName) => getGeneratedComponentPath(componentName, fileName, 'container')))
     );
-    expect(tree.readContent(tree.files.find((file) => file.includes('test-component-cont.component.ts')))).toContain('standalone: true');
+    expect(tree.readContent(tree.files.find((file) => file.includes('test-component-cont.component.ts')))).toContain('standalone: false');
   });
 
   it('should throw if generate a container component with rules engine, as @o3r/rules-engine is not installed', async () => {

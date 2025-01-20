@@ -29,7 +29,6 @@ It will be used to extract metadata or for debugging purpose.
 })
 @Component({
   selector: 'o3r-component-name',
-  standalone: true,
   templateUrl: './component-name.template.html',
   styleUrls: ['./component-name.style.scss'],
   encapsulation: ViewEncapsulation.None,

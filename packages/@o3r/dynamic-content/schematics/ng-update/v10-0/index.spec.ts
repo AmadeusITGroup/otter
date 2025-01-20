@@ -31,7 +31,6 @@ describe('Update v10', () => {
         @O3rComponent({ componentType: 'Component' })
         @Component({
           selector: 'o3r-example',
-          standalone: true,
           imports: [DynamicContentModule],
           templateUrl: './example.template.html'
         })
@@ -52,6 +51,7 @@ describe('Update v10', () => {
         @O3rComponent({ componentType: 'Component' })
         @Component({
           selector: 'o3r-example',
+          standalone: false,
           templateUrl: './example.template.html'
         })
         export class ExampleComponent {

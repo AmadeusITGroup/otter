@@ -33,8 +33,7 @@ import {
  * ```
  */
 @Directive({
-  selector: '[trackEvents]',
-  standalone: false
+  selector: '[trackEvents]'
 })
 export class TrackEventsDirective extends BaseTrackEvents implements OnChanges {
   /**

@@ -29,8 +29,7 @@ import {
       useExisting: forwardRef(() => MaxDateValidator),
       multi: true
     }
-  ],
-  standalone: false
+  ]
 })
 export class MaxDateValidator implements Validator, OnChanges {
   /** Maximum date to compare to */
