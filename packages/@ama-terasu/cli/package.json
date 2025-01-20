@@ -26,8 +26,8 @@
     "@angular-devkit/core": "~19.0.0",
     "@angular-devkit/schematics": "~19.0.0",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
-    "@nx/eslint-plugin": "~19.8.0",
-    "@nx/jest": "~19.8.0",
+    "@nx/eslint-plugin": "~20.3.0",
+    "@nx/jest": "~20.3.0",
     "@o3r/amaterasu-api-spec": "workspace:^",
     "@o3r/amaterasu-dodo": "workspace:^",
     "@o3r/amaterasu-otter": "workspace:^",
@@ -39,7 +39,7 @@
     "@stylistic/eslint-plugin": "~2.7.0",
     "@types/jest": "~29.5.2",
     "@types/minimist": "^1.2.2",
-    "@types/node": "^20.0.0",
+    "@types/node": "^22.0.0",
     "@types/progress": "^2.0.5",
     "@types/prompts": "^2.0.14",
     "@types/yargs": "^17.0.20",
@@ -63,7 +63,7 @@
     "jsonschema": "~1.4.1",
     "loglevel": "^1.8.0",
     "minimist": "^1.2.6",
-    "nx": "~19.8.0",
+    "nx": "~20.3.0",
     "rxjs": "^7.8.1",
     "ts-jest": "~29.2.5",
     "ts-loader": "^9.2.6",
@@ -72,7 +72,7 @@
     "typescript": "~5.6.2",
     "typescript-eslint": "~8.19.0",
     "webpack": "~5.96.0",
-    "webpack-cli": "~5.1.0"
+    "webpack-cli": "~6.0.0"
   },
   "dependencies": {
     "@ama-terasu/core": "workspace:^",
