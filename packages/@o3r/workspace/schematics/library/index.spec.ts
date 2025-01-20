@@ -20,24 +20,14 @@ const collectionPath = path.join(__dirname, '..', '..', 'collection.json');
 
 describe('New module generator', () => {
   let initialTree: Tree;
-
   beforeEach(() => {
     initialTree = Tree.empty();
-    initialTree.create('/tsconfig.base.json', JSON.stringify({
-      compilerOptions: {
-        paths: {}
-      }
-    }));
-    initialTree.create('/tsconfig.build.json', JSON.stringify({
-      compilerOptions: {
-        paths: {}
-      }
-    }));
+    initialTree.create('angular.json', '{"version": 1, "projects": {} }');
+    initialTree.create('package.json', '{ "version": "0.0.0-test" }');
   });
 
   it('should generate the minimum mandatory files', async () => {
-    initialTree.create('angular.json', '{"version": 1, "projects": {} }');
-    initialTree.create('package.json', '{ "version": "0.0.0-test" }');
+    initialTree.create('/tsconfig.base.json', JSON.stringify({}));
     initialTree.create('/packages-test/my-new-module/package.json', '{ "version": "0.0.0-test" }');
     initialTree.create('/packages-test/my-new-module/ng-package.json', '{  }');
     const runner = new SchematicTestRunner('schematics', collectionPath);
@@ -55,10 +45,32 @@ describe('New module generator', () => {
 
     expect(spy).toHaveBeenNthCalledWith(1, '@schematics/angular', 'library', expect.anything());
     expect(tree.exists('/packages-test/my-new-module/tsconfig.json')).toBe(true);
+    expect(tree.readJson('/packages-test/my-new-module/tsconfig.lib.prod.json')).toStrictEqual({ extends: '../../tsconfig.base.json' });
     expect(tree.exists('/packages-test/my-new-module/project.json')).toBe(false);
     expect(JSON.parse(tree.readContent('/tsconfig.base.json')).compilerOptions.paths['@my/new-module']).toContain('packages-test/my-new-module/src/public-api');
-    expect(JSON.parse(tree.readContent('/tsconfig.build.json')).compilerOptions.paths['@my/new-module'][0]).toBe('packages-test/my-new-module/dist');
+    expect(JSON.parse(tree.readContent('/tsconfig.base.json')).compilerOptions.paths['@my/new-module']).not.toContain('packages-test/my-new-module/dist');
+    expect(tree.exists('/tsconfig.build.json')).toBe(true);
+    expect(JSON.parse(tree.readContent('/tsconfig.build.json')).compilerOptions.paths['@my/new-module']).toContain('packages-test/my-new-module/dist');
     expect(tree.files.length).toBeGreaterThanOrEqual(9);
+  });
+
+  it('should handle the missing tsconfig.base.json', async () => {
+    initialTree.create('/packages-test/my-new-module/package.json', '{ "version": "0.0.0-test" }');
+    initialTree.create('/packages-test/my-new-module/ng-package.json', '{  }');
+    const runner = new SchematicTestRunner('schematics', collectionPath);
+    const angularPackageJson = require.resolve('@schematics/angular/package.json');
+    const o3rCorePackageJson = require.resolve('@o3r/core/package.json');
+    runner.registerCollection('@o3r/core', path.resolve(path.dirname(o3rCorePackageJson), require(o3rCorePackageJson).schematics));
+    runner.registerCollection('@schematics/angular', path.resolve(path.dirname(angularPackageJson), require(angularPackageJson).schematics));
+    const spy = jest.spyOn(require('@angular-devkit/schematics'), 'externalSchematic');
+    const tree = await runner.runSchematic('library', {
+      path: 'packages-test',
+      name: '@my/new-module',
+      skipLinter: true,
+      skipInstall: true
+    }, initialTree);
+    expect(spy).toHaveBeenNthCalledWith(1, '@schematics/angular', 'library', expect.anything());
+    expect(tree.exists('/tsconfig.base.json')).toBe(false);
   });
 
   // eslint-disable-next-line jest/no-disabled-tests -- TODO: Should be re-enable when the following issue #2066 is fixed

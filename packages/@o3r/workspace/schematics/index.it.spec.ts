@@ -90,7 +90,7 @@ describe('new otter workspace', () => {
     expect(() => packageManagerRunOnProject('@my-sdk/sdk', isInWorkspace, { script: 'spec:upgrade' }, execAppOptions)).not.toThrow();
   });
 
-  test('should add a library to an existing workspace', () => {
+  test('should add a library to an existing workspace', async () => {
     const { workspacePath } = o3rEnvironment.testEnvironment;
     const execAppOptions = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
     const libName = 'test-library';
@@ -115,6 +115,10 @@ describe('new otter workspace', () => {
     expect(existsSync(path.join(workspacePath, 'project'))).toBe(false);
     generatedLibFiles.forEach((file) => expect(existsSync(path.join(inLibraryPath, file))).toBe(true));
     expect(() => packageManagerRunOnProject(libName, true, { script: 'build' }, execAppOptions)).not.toThrow();
+
+    // check tsconfig.lib.prod.json override
+    const tsconfigLibProd = JSON.parse(await fs.readFile(path.join(inLibraryPath, 'tsconfig.lib.prod.json'), { encoding: 'utf8' }));
+    expect(!!tsconfigLibProd.extends && existsSync(path.resolve(inLibraryPath, tsconfigLibProd.extends))).toBe(true);
   });
 
   test('should generate a monorepo setup', async () => {
