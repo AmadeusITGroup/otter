@@ -1,0 +1,23 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Upgrade Node LTS version dependencies in Github Pipeline",
+  "customManagers": [
+    {
+      "customType": "regex",
+      // TODO: To be removed when Renovate will support fileMatch reference or Manager extension
+      "fileMatch": [
+        // TODO: To be removed when https://github.com/renovatebot/renovate/discussions/26137 is fixed
+        "/(?:__dot__|__empty__\\.)github/.*/.+\\.ya?ml$",
+        // duplicate from Manager `github-actions`:
+        "(^|/)(workflow-templates|\\.(?:github|gitea|forgejo)/(?:workflows|actions))/.+\\.ya?ml$",
+        "(^|/)action\\.ya?ml$"
+      ],
+      "matchStrings": [
+        "node-version: (?<currentValue>.+?)"
+      ],
+      "depNameTemplate": "node",
+      "datasourceTemplate": "docker",
+      "versioningTemplate": "docker"
+    }
+  ]
+}
