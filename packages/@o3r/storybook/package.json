@@ -110,7 +110,7 @@
     "@storybook/addons": "^7.6.16",
     "@storybook/angular": "~8.1.0",
     "@storybook/api": "^7.6.16",
-    "@storybook/components": "~8.1.0",
+    "@storybook/components": "~8.5.0",
     "@stylistic/eslint-plugin": "~2.7.0",
     "@types/color": "^3.0.6",
     "@types/jest": "~29.5.2",
