@@ -13,6 +13,7 @@ import * as path from 'node:path';
 import {
   getDefaultExecSyncOptions,
   getGitDiff,
+  getPackageManager,
   packageManagerExec,
   packageManagerInstall,
   packageManagerRun,
@@ -95,6 +96,9 @@ describe('new otter workspace', () => {
     const execAppOptions = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
     const libName = 'test-library';
     const inLibraryPath = path.resolve(workspacePath, 'libs', libName);
+    if (getPackageManager() === 'yarn') {
+      packageManagerExec({ script: 'config', args: ['set', 'nodeLinker', 'node-modules'] }, execAppOptions);
+    }
     expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
 
     const generatedLibFiles = [
@@ -114,6 +118,8 @@ describe('new otter workspace', () => {
     expect(() => packageManagerExec({ script: 'ng', args: ['g', 'library', libName] }, execAppOptions)).not.toThrow();
     expect(existsSync(path.join(workspacePath, 'project'))).toBe(false);
     generatedLibFiles.forEach((file) => expect(existsSync(path.join(inLibraryPath, file))).toBe(true));
+    // TODO apps are generated without jest full configuration - needs to be fixed before removing this part
+    expect(() => packageManagerExec({ script: 'ng', args: ['test', libName] }, execAppOptions)).not.toThrow();
     expect(() => packageManagerRunOnProject(libName, true, { script: 'build' }, execAppOptions)).not.toThrow();
   });
 

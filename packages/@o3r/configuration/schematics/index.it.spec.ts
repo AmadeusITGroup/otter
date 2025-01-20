@@ -5,6 +5,7 @@
  */
 const o3rEnvironment = globalThis.o3rEnvironment;
 
+import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {
   addImportToAppModule,
@@ -49,7 +50,7 @@ describe('new otter application with configuration', () => {
     expect(() => packageManagerRunOnProject(appName, isInWorkspace, { script: 'build' }, execAppOptions)).not.toThrow();
   });
   test('should add configuration to a library', () => {
-    const { applicationPath, workspacePath, libName, libraryPath, isInWorkspace, untouchedProjectsPaths, o3rVersion } = o3rEnvironment.testEnvironment;
+    const { workspacePath, untouchedProjectsPaths, isInWorkspace, applicationPath, libName, libraryPath, o3rVersion } = o3rEnvironment.testEnvironment;
     const execAppOptions = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
     const relativeLibraryPath = path.relative(workspacePath, libraryPath);
     packageManagerExec({ script: 'ng', args: ['add', `@o3r/configuration@${o3rVersion}`, '--skip-confirmation', '--project-name', libName] }, execAppOptions);
@@ -66,8 +67,16 @@ describe('new otter application with configuration', () => {
 
     const diff = getGitDiff(workspacePath);
     expect(diff.added.length).toEqual(20);
-    expect(diff.modified.length).toEqual(7);
-    expect(diff.modified).toContain('package.json');
+    const vscodeContent = fs.readFileSync(`${workspacePath}/.vscode/extensions.json`, 'utf8');
+    const angularJSON = JSON.parse(fs.readFileSync(`${workspacePath}/angular.json`, 'utf8'));
+    expect(vscodeContent).toContain('"Orta.vscode-jest"');
+    expect(angularJSON.schematics['@o3r/core:component']).toBeDefined();
+    expect(angularJSON.schematics['@o3r/core:component-container']).toBeDefined();
+    expect(angularJSON.schematics['@o3r/core:component-presenter']).toBeDefined();
+    expect(angularJSON.cli?.schematicCollections?.indexOf('@o3r/configuration') > -1).toBe(true);
+
+    const packageJson = JSON.parse(fs.readFileSync(`${workspacePath}/package.json`, 'utf8'));
+    expect(packageJson.dependencies['@o3r/configuration']).toBeDefined();
     expect(diff.added).toContain(path.posix.join(relativeLibraryPath, 'src/components/test-component/test-component.config.ts').replace(/[/\\]+/g, '/'));
     expect(diff.added).toContain(path.posix.join(relativeLibraryPath, 'src/components/test-signal/test-signal.config.ts').replace(/[/\\]+/g, '/'));
 
