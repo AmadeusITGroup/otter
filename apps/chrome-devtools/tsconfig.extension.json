@@ -6,6 +6,7 @@
     "lib": ["es2021", "dom"],
     "types": ["chrome"],
     "outDir": "dist",
+    "rootDir": "./src",
     "module": "ES2020",
     "moduleResolution": "Node",
     "tsBuildInfoFile": "build/extension.tsbuildinfo",

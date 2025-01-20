@@ -15,26 +15,34 @@ coverage:
 
 ignore:
   # Package Manager files
-  - '.yarn/**/*'
+  - '.yarn'
   - '.pnp.*'
-  - '.cache/**/*'
-  - 'tmp/**/*'
-  - '**/node_modules/**/*'
+  - '.cache'
+  - 'tmp'
+  - '**/node_modules'
 
   # Distribution folders
-  - 'packages/@*/*/dist/**/*'
-  - 'tools/@*/*/dist/**/*'
-  - 'apps/@*/*/dist/**/*'
+  - 'packages/@*/*/dist'
+  - 'tools/@*/*/dist'
+  - 'apps/@*/*/dist'
 
   # Generated files
-  - 'packages/@o3r-training/showcase-sdk/src/api/**/*'
-  - 'packages/@o3r-training/showcase-sdk/src/models/base/**/*'
-  - 'packages/@o3r-training/showcase-sdk/src/spec/**/*'
-  - 'tools/github-actions/*/packaged-action/**/*'
+  - 'apps/showcase/dev-resources'
+  - 'apps/showcase/training-assets'
+  - 'packages/@o3r-training/showcase-sdk/src/api'
+  - 'packages/@o3r-training/showcase-sdk/src/models/base'
+  - 'packages/@o3r-training/showcase-sdk/src/spec'
+  - 'tools/github-actions/*/packaged-action'
 
   # Templates
   - '**/*.template'
-  - '**/schematics/**/templates/**/*'
+  - '**/schematics/**/templates'
+
+  # Tests
+  - '**/dist-test'
+  - '**/dist-e2e-playwright'
+  - '**/playwright-reports'
+  - '**/test-results'
 
 comment:
   layout: "condensed_header, condensed_files, condensed_footer"

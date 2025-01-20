@@ -28,5 +28,6 @@
   "host_permissions": [
     "https://*/*",
     "http://*/*"
-  ]
+  ],
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxaVpZJkemn3FLmdB6cMqZxa46zGaLo8YC6KxD/Me5jC9mFrgzuybPYzb3OqJ4/66NhXaFV76a6V1aKPez5ZNN2Qm1s4HBIR25u4w8+qwxEOFrjL6t6SvPwZxZ+aN0DG33TjbStm2vgd3ElRrsjpRC5STxLz/ru+ldbiPlri7FZVQ4qCtsR+NheLgop82x52Joy3YyB/dFKyZpTGETfpd+6BNgo/8egOLH4XZkWZZ5hE2CDvazuZY6AqgQTNIiRuhhaW2iNxir09RVF6Ey6IiQUCvmQvek3lmCyqRD/bUdJwIEYeVUgjUJ7dCOBfE10siex9mzGHTVlKqZPYwI9Pq8wIDAQAB"
 }
