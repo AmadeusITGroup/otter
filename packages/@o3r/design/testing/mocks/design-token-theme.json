@@ -140,6 +140,46 @@
           "width": "{example.test.width}"
         }
       },
+      "border-complex": {
+        "$type": "border",
+        "$value": {
+          "color": "red",
+          "style": {
+            "dashArray": [
+              {
+                "value": 1,
+                "unit": "px"
+              }
+            ],
+            "lineCap": "square"
+          },
+          "width": "2px"
+        }
+      },
+      "stroke-complex": {
+        "$type": "strokeStyle",
+        "$value": {
+          "dashArray": [
+            {
+              "unit": "px",
+              "value": 2
+            }
+          ],
+          "lineCap": "round"
+        }
+      },
+      "stroke": {
+        "$type": "strokeStyle",
+        "$value": "dotted"
+      },
+      "border-stroke": {
+        "$type": "border",
+        "$value": {
+          "color": "red",
+          "style": "{example.test.stroke}",
+          "width": "2px"
+        }
+      },
       "gradient": {
         "$type": "gradient",
         "$value": {
@@ -165,10 +205,32 @@
           }
         ]
       },
+      "shadow-dimension": {
+        "$type": "shadow",
+        "$value": [
+          {
+            "blur": "1",
+            "offsetX": {
+              "value": 1,
+              "unit": "px"
+            },
+            "offsetY": {
+              "value": 1,
+              "unit": "px"
+            },
+            "color": "#000",
+            "spread": {
+              "value": 1,
+              "unit": ""
+            }
+          }
+        ]
+      },
       "shadow-multi": {
         "$type": "shadow",
         "$value": [
           {
+            "inset": true,
             "blur": "1",
             "offsetX": "1px",
             "offsetY": "1px",

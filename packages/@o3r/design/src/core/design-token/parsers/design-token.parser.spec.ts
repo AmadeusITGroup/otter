@@ -199,10 +199,44 @@ describe('Design Token Parser', () => {
       expect(gradient.getCssRawValue()).toBe('linear-gradient(180deg, #fff 10px)');
     });
 
+    test('should generate correctly the border', () => {
+      const result = parser.parseDesignToken(exampleVariable);
+      const border = result.get('example.test.border-complex');
+
+      expect(border).toBeDefined();
+      expect(border.getType()).toBe('border');
+      expect(border.getCssRawValue()).toBe('2px square 1px red');
+    });
+
+    test('should generate correctly the store style', () => {
+      const result = parser.parseDesignToken(exampleVariable);
+      const stroke = result.get('example.test.stroke');
+
+      expect(stroke).toBeDefined();
+      expect(stroke.getCssRawValue()).toBe('dotted');
+    });
+
+    test('should generate correctly the store complex style', () => {
+      const result = parser.parseDesignToken(exampleVariable);
+      const stroke = result.get('example.test.stroke-complex');
+
+      expect(stroke).toBeDefined();
+      expect(stroke.getCssRawValue()).toBe('round 2px');
+    });
+
     describe('should generate correctly the shadow', () => {
       test('with single parameter', () => {
         const result = parser.parseDesignToken(exampleVariable);
         const shadow = result.get('example.test.shadow');
+
+        expect(shadow).toBeDefined();
+        expect(shadow.getType()).toBe('shadow');
+        expect(shadow.getCssRawValue()).toBe('1px 1px 1  1 #000');
+      });
+
+      test('with dimension parameter', () => {
+        const result = parser.parseDesignToken(exampleVariable);
+        const shadow = result.get('example.test.shadow-dimension');
 
         expect(shadow).toBeDefined();
         expect(shadow.getType()).toBe('shadow');
@@ -215,7 +249,7 @@ describe('Design Token Parser', () => {
 
         expect(shadow).toBeDefined();
         expect(shadow.getType()).toBe('shadow');
-        expect(shadow.getCssRawValue()).toBe('1px 1px 1  1 #000, 2px 2px 2  2 #fff');
+        expect(shadow.getCssRawValue()).toBe('inset 1px 1px 1  1 #000, 2px 2px 2  2 #fff');
       });
     });
   });
