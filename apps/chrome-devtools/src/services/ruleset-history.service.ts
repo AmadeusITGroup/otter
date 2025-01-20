@@ -11,6 +11,7 @@ import type {
   RulesetExecutionDebug,
 } from '@o3r/rules-engine';
 import {
+  AvailableFactsSnapshot,
   rulesetReportToHistory,
 } from '@o3r/rules-engine';
 import {
@@ -41,7 +42,15 @@ export class RulesetHistoryService {
    * History of ruleset executed
    */
   public readonly rulesetExecutions$: Observable<RulesetExecutionDebug[]> = this.ruleEngineDebugEvents$.pipe(
-    map(({ events, rulesetMap }) => rulesetReportToHistory(events, rulesetMap)),
+    map(({ events, rulesetMap }) => rulesetReportToHistory(events.filter((e) => e.type !== 'AvailableFactsSnapshot'), rulesetMap)),
+    shareReplay({ bufferSize: 1, refCount: true })
+  );
+
+  /**
+   * List of all registered facts with their current value
+   */
+  public readonly facts$: Observable<AvailableFactsSnapshot['facts']> = this.ruleEngineDebugEvents$.pipe(
+    map(({ events }) => events.findLast((e): e is AvailableFactsSnapshot => e.type === 'AvailableFactsSnapshot')?.facts || []),
     shareReplay({ bufferSize: 1, refCount: true })
   );
 
