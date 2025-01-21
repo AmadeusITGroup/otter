@@ -1,8 +1,8 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "description": "Upgrade Node LTS version dependencies in Github Pipeline",
   "customManagers": [
     {
+      "description": "Upgrade Node to LTS version in Github Pipeline Environment",
       "customType": "regex",
       // TODO: To be removed when Renovate will support fileMatch reference or Manager extension
       "fileMatch": [
@@ -13,11 +13,32 @@
         "(^|/)action\\.ya?ml$"
       ],
       "matchStrings": [
-        "node-version: (?<currentValue>.+?)"
+        "node-version: (?<currentValue>.+?)\\s"
       ],
       "depNameTemplate": "node",
-      "datasourceTemplate": "docker",
-      "versioningTemplate": "docker"
+      "datasourceTemplate": "node-version",
+      "versioningTemplate": "node"
+    }
+  ],
+  "packageRules": [
+    {
+      // TODO: replace the following matchers to `matchManagers` when https://github.com/renovatebot/renovate/issues/21760 is fixed
+      "matchDatasources": [
+        "node-version"
+      ],
+      "matchFileNames": [
+        "**/.github/workflows/**/*.y{a,}ml",
+        "**/__dot__github/workflows/**/*.y{a,}ml",
+        "**/__empty__.github/workflows/**/*.y{a,}ml",
+        "**/action.y{a,}ml"
+      ],
+
+      "matchBaseBranches": [
+        "main",
+        "master",
+        "develop"
+      ],
+      "enable": true
     }
   ]
 }
