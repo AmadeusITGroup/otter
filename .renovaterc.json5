@@ -3,6 +3,7 @@
   "extends": [
     "github>AmadeusITGroup/otter//tools/renovate/base",
     "github>AmadeusITGroup/otter//tools/renovate/group/design-factory",
+    "github>AmadeusITGroup/otter//tools/renovate/managers/github-node-version.json5",
     ":labels(dependencies)"
   ],
   "timezone": "Europe/Paris",
@@ -131,7 +132,7 @@
   ],
   "github-actions": {
     "fileMatch": [
-      "/__dot__github/.*/.+\\.ya?ml$"
+      "/(?:__dot__|__empty__\\.)github/.*/.+\\.ya?ml$"
     ]
   }
 }
