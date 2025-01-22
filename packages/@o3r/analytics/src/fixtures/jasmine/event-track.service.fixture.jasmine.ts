@@ -39,18 +39,27 @@ export class EventTrackServiceFixture implements Readonly<Partial<EventTrackServ
   /** @inheritdoc */
   public addEvent: jasmine.Spy = jasmine.createSpy('addEvent');
 
-  /** @inheritdoc */
+  /**
+   * @inheritdoc
+   * @deprecated use {@link AnalyticsEventReporter} instead, will be removed in v13
+   */
   public addUiEvent: jasmine.Spy = jasmine.createSpy('addUiEvent');
 
   /** @inheritdoc */
   public toggleTracking: jasmine.Spy = jasmine.createSpy('toggleTracking');
 
-  /** @inheritdoc */
+  /**
+   * @inheritdoc
+   * @deprecated use {@link AnalyticsEventReporter} instead, will be removed in v13
+   */
   public toggleUiTracking: jasmine.Spy = jasmine.createSpy('toggleUiTracking');
 
   /** @inheritdoc */
   public togglePerfTracking: jasmine.Spy = jasmine.createSpy('togglePerfTracking');
 
-  /** @inheritdoc */
+  /**
+   * @inheritdoc
+   * @deprecated use {@link AnalyticsEventReporter} instead, will be removed in v13
+   */
   public addCustomEvent: jasmine.Spy = jasmine.createSpy('addCustomEvent');
 }
