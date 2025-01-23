@@ -83,7 +83,7 @@
     "jsonc-eslint-parser": "~2.4.0",
     "nx": "~19.8.0",
     "pid-from-port": "^1.1.3",
-    "postcss": "~8.4.31",
+    "postcss": "~8.5.1",
     "postcss-scss": "~4.0.9",
     "rimraf": "^5.0.1",
     "rxjs": "^7.8.1",
