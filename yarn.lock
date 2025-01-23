@@ -792,7 +792,7 @@ __metadata:
     jest-junit: "npm:~16.0.0"
     js-yaml: "npm:^4.1.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    jsonschema: "npm:~1.4.1"
+    jsonschema: "npm:~1.5.0"
     openapi-types: "npm:^12.0.0"
     semver: "npm:^7.5.2"
     swagger-schema-official: "npm:~2.0.0-bab6bed"
@@ -854,7 +854,7 @@ __metadata:
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    jsonschema: "npm:~1.4.1"
+    jsonschema: "npm:~1.5.0"
     loglevel: "npm:^1.8.0"
     minimist: "npm:^1.2.6"
     nx: "npm:~19.8.0"
@@ -868,7 +868,7 @@ __metadata:
     type-fest: "npm:^4.10.2"
     typescript: "npm:~5.5.4"
     typescript-eslint: "npm:~8.20.0"
-    webpack: "npm:~5.96.0"
+    webpack: "npm:~5.97.0"
     webpack-cli: "npm:~5.1.0"
     yargs: "npm:^17.6.2"
   peerDependencies:
@@ -7426,7 +7426,7 @@ __metadata:
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    jsonschema: "npm:~1.4.1"
+    jsonschema: "npm:~1.5.0"
     nx: "npm:~19.8.0"
     rxjs: "npm:^7.8.1"
     ts-jest: "npm:~29.2.0"
@@ -7709,7 +7709,7 @@ __metadata:
     type-fest: "npm:^4.10.2"
     typescript: "npm:~5.5.4"
     typescript-eslint: "npm:~8.20.0"
-    webpack: "npm:~5.96.0"
+    webpack: "npm:~5.97.0"
     zone.js: "npm:~0.14.2"
   peerDependencies:
     "@ama-sdk/core": "workspace:^"
@@ -8115,7 +8115,7 @@ __metadata:
     "@popperjs/core": "npm:^2.11.5"
     "@schematics/angular": "npm:~18.2.0"
     "@stylistic/eslint-plugin": "npm:~2.7.0"
-    "@types/chrome": "npm:^0.0.283"
+    "@types/chrome": "npm:^0.0.297"
     "@types/color": "npm:^3.0.6"
     "@types/jest": "npm:~29.5.2"
     "@types/tinycolor2": "npm:^1.4.6"
@@ -8146,7 +8146,7 @@ __metadata:
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.2.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    lighthouse: "npm:~12.2.0"
+    lighthouse: "npm:~12.3.0"
     minimist: "npm:^1.2.6"
     nx: "npm:~19.8.0"
     playwright-lighthouse: "npm:~4.0.0"
@@ -8232,7 +8232,7 @@ __metadata:
     jest-preset-angular: "npm:~14.2.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     jsonpath-plus: "npm:~10.2.0"
-    memfs: "npm:~4.14.0"
+    memfs: "npm:~4.17.0"
     nx: "npm:~19.8.0"
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
@@ -8488,7 +8488,7 @@ __metadata:
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.2.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    memfs: "npm:~4.14.0"
+    memfs: "npm:~4.17.0"
     nx: "npm:~19.8.0"
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
@@ -8664,13 +8664,13 @@ __metadata:
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    jsonschema: "npm:~1.4.1"
+    jsonschema: "npm:~1.5.0"
     minimatch: "npm:~9.0.3"
     minimist: "npm:^1.2.6"
     nx: "npm:~19.8.0"
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
-    sass: "npm:~1.81.0"
+    sass: "npm:~1.83.0"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.2.0"
     ts-node: "npm:~10.9.2"
@@ -9223,7 +9223,7 @@ __metadata:
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.2.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    jsonschema: "npm:~1.4.1"
+    jsonschema: "npm:~1.5.0"
     nx: "npm:~19.8.0"
     pid-from-port: "npm:^1.1.3"
     rimraf: "npm:^5.0.1"
@@ -9469,7 +9469,7 @@ __metadata:
     js-yaml: "npm:^4.1.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     jsonpath-plus: "npm:~10.2.0"
-    lighthouse: "npm:~12.2.0"
+    lighthouse: "npm:~12.3.0"
     lint-staged: "npm:^15.0.0"
     marked: "npm:^12.0.0"
     minimist: "npm:^1.2.6"
@@ -9492,7 +9492,7 @@ __metadata:
     replace-in-files-cli: "npm:^2.2.0"
     rimraf: "npm:^5.0.1"
     rxjs: "npm:^7.8.1"
-    sass: "npm:~1.81.0"
+    sass: "npm:~1.83.0"
     sass-loader: "npm:^14.0.0"
     semver: "npm:^7.5.2"
     stylelint: "npm:^16.0.2"
@@ -9504,7 +9504,7 @@ __metadata:
     typescript: "npm:~5.5.4"
     typescript-eslint: "npm:~8.20.0"
     uuid: "npm:^10.0.0"
-    webpack: "npm:~5.96.0"
+    webpack: "npm:~5.97.0"
     winston: "npm:^3.8.2"
     yaml-eslint-parser: "npm:^1.2.2"
     zone.js: "npm:~0.14.2"
@@ -9645,7 +9645,7 @@ __metadata:
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.2.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    memfs: "npm:~4.14.0"
+    memfs: "npm:~4.17.0"
     nx: "npm:~19.8.0"
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
@@ -10206,7 +10206,7 @@ __metadata:
     jest-preset-angular: "npm:~14.2.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     jsonpath-plus: "npm:~10.2.0"
-    memfs: "npm:~4.14.0"
+    memfs: "npm:~4.17.0"
     nx: "npm:~19.8.0"
     pid-from-port: "npm:^1.1.3"
     rimraf: "npm:^5.0.1"
@@ -10318,7 +10318,7 @@ __metadata:
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    jsonschema: "npm:~1.4.1"
+    jsonschema: "npm:~1.5.0"
     minimatch: "npm:~9.0.3"
     nx: "npm:~19.8.0"
     rxjs: "npm:^7.8.1"
@@ -10458,7 +10458,7 @@ __metadata:
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.2.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    lighthouse: "npm:~12.2.0"
+    lighthouse: "npm:~12.3.0"
     marked: "npm:^12.0.0"
     minimist: "npm:^1.2.6"
     monaco-editor: "npm:~0.50.0"
@@ -10477,7 +10477,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.5.4"
     typescript-eslint: "npm:~8.20.0"
-    webpack: "npm:~5.96.0"
+    webpack: "npm:~5.97.0"
     zone.js: "npm:~0.14.2"
   languageName: unknown
   linkType: soft
@@ -10802,11 +10802,11 @@ __metadata:
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.2.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    memfs: "npm:~4.14.0"
+    memfs: "npm:~4.17.0"
     nx: "npm:~19.8.0"
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
-    sass: "npm:~1.81.0"
+    sass: "npm:~1.83.0"
     semver: "npm:^7.5.2"
     stylelint: "npm:^16.0.2"
     stylelint-scss: "npm:^6.0.0"
@@ -10983,7 +10983,7 @@ __metadata:
     jest-environment-node: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    memfs: "npm:~4.14.0"
+    memfs: "npm:~4.17.0"
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
@@ -11885,10 +11885,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@paulirish/trace_engine@npm:0.0.32":
-  version: 0.0.32
-  resolution: "@paulirish/trace_engine@npm:0.0.32"
-  checksum: 10/f2026b4df033a9c7f7cb2246fd83c05486f7efafe951a857169585246f73cf6f65e10a62153260bb80f282f11c1695aad95ac6ef5adc8c081c0937dcc1c7765c
+"@paulirish/trace_engine@npm:0.0.39":
+  version: 0.0.39
+  resolution: "@paulirish/trace_engine@npm:0.0.39"
+  dependencies:
+    third-party-web: "npm:latest"
+  checksum: 10/7acaa7f6391ade537167025d7c5a8a3e0afc312b803fb22f39b6ee7abe66225737913b6749fb2e8db34f9ee736aa55bbdb0efc7c1d87bc04b396a21e783cc0cb
   languageName: node
   linkType: hard
 
@@ -13905,13 +13907,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/chrome@npm:^0.0.283":
-  version: 0.0.283
-  resolution: "@types/chrome@npm:0.0.283"
+"@types/chrome@npm:^0.0.297":
+  version: 0.0.297
+  resolution: "@types/chrome@npm:0.0.297"
   dependencies:
     "@types/filesystem": "npm:*"
     "@types/har-format": "npm:*"
-  checksum: 10/49bb67c0b78517319de00c0c3c0e0ce06b9acad56064044953e6b2a31eff8878e4fd23605865c3986eeba82723724375be7abf5976b256dc08373e390ed51341
+  checksum: 10/92a70beb95f4a9f7d9b8c04a7e33f78854a3444b21fe5d1cedbe3b3e47b2a7b4423c989f6cbf6d1e825104ecfd9e68ae472a32a048200ed87e9f20eedfc9ee57
   languageName: node
   linkType: hard
 
@@ -26821,10 +26823,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jsonschema@npm:~1.4.1":
-  version: 1.4.1
-  resolution: "jsonschema@npm:1.4.1"
-  checksum: 10/d7a188da7a3100a2caa362b80e98666d46607b7a7153aac405b8e758132961911c6df02d444d4700691330874e21a62639f550e856b21ddd28423690751ca9c6
+"jsonschema@npm:~1.5.0":
+  version: 1.5.0
+  resolution: "jsonschema@npm:1.5.0"
+  checksum: 10/46bf49b388ba922073bcb3c8d5e90af9d29fc8303dc866fd440182c88d6b4fd2807679fd39cdefb4113156d104ea47da9c0ff4bbcb0032c9fa29461cb1a92182
   languageName: node
   linkType: hard
 
@@ -27344,11 +27346,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lighthouse@npm:~12.2.0":
-  version: 12.2.3
-  resolution: "lighthouse@npm:12.2.3"
+"lighthouse@npm:~12.3.0":
+  version: 12.3.0
+  resolution: "lighthouse@npm:12.3.0"
   dependencies:
-    "@paulirish/trace_engine": "npm:0.0.32"
+    "@paulirish/trace_engine": "npm:0.0.39"
     "@sentry/node": "npm:^7.0.0"
     axe-core: "npm:^4.10.2"
     chrome-launcher: "npm:^1.1.2"
@@ -27367,7 +27369,7 @@ __metadata:
     metaviewport-parser: "npm:0.3.0"
     open: "npm:^8.4.0"
     parse-cache-control: "npm:1.0.1"
-    puppeteer-core: "npm:^23.8.0"
+    puppeteer-core: "npm:^23.10.4"
     robots-parser: "npm:^3.0.1"
     semver: "npm:^5.3.0"
     speedline-core: "npm:^1.4.3"
@@ -27380,7 +27382,7 @@ __metadata:
     chrome-debug: core/scripts/manual-chrome-launcher.js
     lighthouse: cli/index.js
     smokehouse: cli/test/smokehouse/frontends/smokehouse-bin.js
-  checksum: 10/f904fd5ef595a62057bc622c6e5e2308d785accb8e0451d8ac721a0899e74066264eef4c6b339b9497de0d3861d42280e7fd82a201db8ff616820b3994a86708
+  checksum: 10/dacd4d8c8c0e18bab703a08f58e4aa49ddd603965c107b39571fcbc4083f1b0579389036f6e1b8ccd5ef0ad9f84ced4834073908c497544d69ee78d7f0b772a2
   languageName: node
   linkType: hard
 
@@ -28315,7 +28317,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"memfs@npm:^4.6.0":
+"memfs@npm:^4.6.0, memfs@npm:~4.17.0":
   version: 4.17.0
   resolution: "memfs@npm:4.17.0"
   dependencies:
@@ -28324,18 +28326,6 @@ __metadata:
     tree-dump: "npm:^1.0.1"
     tslib: "npm:^2.0.0"
   checksum: 10/346cfc8c7396a4716c362bb5c4eebf995c52927a5de4bb7b5bbc31a759b443f22b5a8087d8d71e93feebff33f10d735682f4fa53afb461607e832a4aa4c80eb9
-  languageName: node
-  linkType: hard
-
-"memfs@npm:~4.14.0":
-  version: 4.14.1
-  resolution: "memfs@npm:4.14.1"
-  dependencies:
-    "@jsonjoy.com/json-pack": "npm:^1.0.3"
-    "@jsonjoy.com/util": "npm:^1.3.0"
-    tree-dump: "npm:^1.0.1"
-    tslib: "npm:^2.0.0"
-  checksum: 10/a1e392608aacb359f170cad9e15ae5eabcd6228bed99f4d3cf1331ecd07a8dc9c72039632c164255ebf36251e01c1878173303eee94e2020f8c0b9731a37a564
   languageName: node
   linkType: hard
 
@@ -32088,7 +32078,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"puppeteer-core@npm:^23.8.0":
+"puppeteer-core@npm:^23.10.4":
   version: 23.11.1
   resolution: "puppeteer-core@npm:23.11.1"
   dependencies:
@@ -33550,9 +33540,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass@npm:~1.81.0":
-  version: 1.81.1
-  resolution: "sass@npm:1.81.1"
+"sass@npm:~1.83.0":
+  version: 1.83.4
+  resolution: "sass@npm:1.83.4"
   dependencies:
     "@parcel/watcher": "npm:^2.4.1"
     chokidar: "npm:^4.0.0"
@@ -33563,7 +33553,7 @@ __metadata:
       optional: true
   bin:
     sass: sass.js
-  checksum: 10/023d86422ca02843321f466f090fef8e5ea14e7fab09b1e1d10218dcdafb9c41075251f5e39982000d839fe46b1b85f53ddd40aeba134e7b80b7a58f5fc1f3b3
+  checksum: 10/9a7d1c6be1a9e711a1c561d189b9816aa7715f6d0ec0b2ec181f64163788d0caaf4741924eeadce558720b58b1de0e9b21b9dae6a0d14489c4d2a142d3f3b12e
   languageName: node
   linkType: hard
 
@@ -35397,7 +35387,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"third-party-web@npm:^0.26.1":
+"third-party-web@npm:^0.26.1, third-party-web@npm:latest":
   version: 0.26.2
   resolution: "third-party-web@npm:0.26.2"
   checksum: 10/49da2d1a7b2a4d651eb09da71a0e0647079f93d84c900c24e30e4f92f2c3c5b90a4df73a5752fcdf76aa6c0a63ac07ec97bfda61cfc4e7ffe30084b6a8a8d1cc
@@ -37339,7 +37329,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack@npm:5, webpack@npm:^5.80.0, webpack@npm:^5.88.0":
+"webpack@npm:5, webpack@npm:^5.80.0, webpack@npm:^5.88.0, webpack@npm:~5.97.0":
   version: 5.97.1
   resolution: "webpack@npm:5.97.1"
   dependencies:
@@ -37408,42 +37398,6 @@ __metadata:
   bin:
     webpack: bin/webpack.js
   checksum: 10/648449c5fbbb0839814116e3b2b044ac6c75a7ba272435155ddeb1e64dfaa2f8079be3adfbb691f648b69900756ce0f6fb73beab0ced3cf5e0fd46868b4593a6
-  languageName: node
-  linkType: hard
-
-"webpack@npm:~5.96.0":
-  version: 5.96.1
-  resolution: "webpack@npm:5.96.1"
-  dependencies:
-    "@types/eslint-scope": "npm:^3.7.7"
-    "@types/estree": "npm:^1.0.6"
-    "@webassemblyjs/ast": "npm:^1.12.1"
-    "@webassemblyjs/wasm-edit": "npm:^1.12.1"
-    "@webassemblyjs/wasm-parser": "npm:^1.12.1"
-    acorn: "npm:^8.14.0"
-    browserslist: "npm:^4.24.0"
-    chrome-trace-event: "npm:^1.0.2"
-    enhanced-resolve: "npm:^5.17.1"
-    es-module-lexer: "npm:^1.2.1"
-    eslint-scope: "npm:5.1.1"
-    events: "npm:^3.2.0"
-    glob-to-regexp: "npm:^0.4.1"
-    graceful-fs: "npm:^4.2.11"
-    json-parse-even-better-errors: "npm:^2.3.1"
-    loader-runner: "npm:^4.2.0"
-    mime-types: "npm:^2.1.27"
-    neo-async: "npm:^2.6.2"
-    schema-utils: "npm:^3.2.0"
-    tapable: "npm:^2.1.1"
-    terser-webpack-plugin: "npm:^5.3.10"
-    watchpack: "npm:^2.4.1"
-    webpack-sources: "npm:^3.2.3"
-  peerDependenciesMeta:
-    webpack-cli:
-      optional: true
-  bin:
-    webpack: bin/webpack.js
-  checksum: 10/d3419ffd198252e1d0301bd0c072cee93172f3e47937c745aa8202691d2f5d529d4ba4a1965d1450ad89a1bcd3c1f70ae09e57232b0d01dd38d69c1060e964d5
   languageName: node
   linkType: hard
 
