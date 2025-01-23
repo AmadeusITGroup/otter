@@ -3,7 +3,7 @@
   "include": [
     "eslint*.config.mjs",
     "jest.config.js",
-    "e2e*playwright/**/*",
+    "e2e-playwright/**/*",
     "testing/setup-jest.ts"
   ]
 }

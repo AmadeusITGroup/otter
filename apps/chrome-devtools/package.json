@@ -22,7 +22,10 @@
     "start": "concurrently 'yarn:watch:*'",
     "watch:manifest": "yarn patch:manifest --watch",
     "watch:extension": "tsc-watch -b tsconfig.extension.json --noClear --onSuccess 'yarn patch:extension'",
-    "publish-to-market": "node ./scripts/publish-to-market.mjs"
+    "publish-to-market": "node ./scripts/publish-to-market.mjs",
+    "test:playwright": "concurrently -m 1 -P 'yarn run test:playwright:* {*}' --",
+    "test:playwright:scenario": "playwright test --config=e2e-playwright/playwright-config.ts",
+    "test:playwright:sanity": "playwright test --config=e2e-playwright/playwright-config.sanity.ts"
   },
   "files": [
     "dist/"
@@ -42,6 +45,7 @@
     "@o3r/localization": "workspace:^",
     "@o3r/logger": "workspace:^",
     "@o3r/rules-engine": "workspace:^",
+    "@playwright/test": "~1.49.0",
     "@schematics/angular": "~18.2.0",
     "@stylistic/eslint-plugin": "~2.7.0",
     "@types/chrome": "^0.0.283",
@@ -71,8 +75,10 @@
     "jest-junit": "~16.0.0",
     "jest-preset-angular": "~14.2.0",
     "jsonc-eslint-parser": "~2.4.0",
+    "lighthouse": "~12.2.0",
     "minimist": "^1.2.6",
     "nx": "~19.8.0",
+    "playwright-lighthouse": "~4.0.0",
     "rimraf": "^5.0.1",
     "tsc-watch": "^6.0.4",
     "typescript": "~5.5.4",
