@@ -25,7 +25,7 @@ export function updatePackageDependenciesFactory(
     targetPath: string,
     otterVersion: string,
     o3rCorePackageJson: PackageJson & { generatorDependencies?: Record<string, string> },
-    options: NgGenerateModuleSchema): Rule {
+    options: NgGenerateModuleSchema & { useJest?: boolean }): Rule {
   return (tree) => {
     const packageJson = tree.readJson(path.posix.join(targetPath, 'package.json')) as PackageJson;
     const runner = getPackageManagerRunner(getWorkspaceConfig(tree));
@@ -41,7 +41,6 @@ export function updatePackageDependenciesFactory(
     packageJson.keywords ||= [];
     packageJson.keywords.push('otter-module');
     packageJson.version = '0.0.0-placeholder';
-
     packageJson.devDependencies = {
       ...packageJson.devDependencies,
       ...Object.fromEntries(Object.entries({
@@ -56,20 +55,19 @@ export function updatePackageDependenciesFactory(
         '@angular/platform-browser': packageJson.peerDependencies['@angular/common'],
         '@angular/platform-browser-dynamic': packageJson.peerDependencies['@angular/common'],
         '@schematics/angular': o3rCorePackageJson.peerDependencies!['@schematics/angular'],
-        '@types/jest': o3rCorePackageJson.generatorDependencies!['@types/jest'],
-        '@typescript-eslint/eslint-plugin': o3rCorePackageJson.generatorDependencies!['@typescript-eslint/parser'],
-        '@typescript-eslint/parser': o3rCorePackageJson.generatorDependencies!['@typescript-eslint/parser'],
         'cpy-cli': o3rCorePackageJson.generatorDependencies!['cpy-cli'],
-        eslint: o3rCorePackageJson.generatorDependencies!.eslint,
-        'eslint-import-resolver-node': o3rCorePackageJson.generatorDependencies!['eslint-import-resolver-node'],
-        'eslint-plugin-jest': o3rCorePackageJson.generatorDependencies!['eslint-plugin-jest'],
-        'eslint-plugin-jsdoc': o3rCorePackageJson.generatorDependencies!['eslint-plugin-jsdoc'],
-        'eslint-plugin-prefer-arrow': o3rCorePackageJson.generatorDependencies!['eslint-plugin-prefer-arrow'],
-        'eslint-plugin-unicorn': o3rCorePackageJson.generatorDependencies!['eslint-plugin-unicorn'],
-        jest: o3rCorePackageJson.generatorDependencies!.jest,
-        'jest-environment-jsdom': o3rCorePackageJson.generatorDependencies!.jest,
-        'jest-junit': o3rCorePackageJson.generatorDependencies!['jest-junit'],
-        'jest-preset-angular': o3rCorePackageJson.generatorDependencies!['jest-preset-angular'],
+        ...options.useJest
+          ? {
+            '@angular-builders/jest': o3rCorePackageJson.generatorDependencies!['@angular-builders/jest'],
+            '@angular-devkit/build-angular': o3rCorePackageJson.devDependencies!['@angular-devkit/build-angular'],
+            '@types/jest': o3rCorePackageJson.devDependencies!['@types/jest'],
+            jest: o3rCorePackageJson.devDependencies!.jest,
+            'jest-environment-jsdom': o3rCorePackageJson.devDependencies!.jest,
+            'jest-junit': o3rCorePackageJson.devDependencies!['jest-junit'],
+            'jest-preset-angular': o3rCorePackageJson.devDependencies!['jest-preset-angular'],
+            'ts-jest': o3rCorePackageJson.devDependencies!['ts-jest']
+          }
+          : {},
         rxjs: o3rCorePackageJson.peerDependencies!.rxjs,
         typescript: o3rCorePackageJson.peerDependencies!.typescript,
         'zone.js': o3rCorePackageJson.generatorDependencies!['zone.js']

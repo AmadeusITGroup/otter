@@ -17,12 +17,21 @@ jest.mock('@angular-devkit/schematics', () => {
 });
 
 const collectionPath = path.join(__dirname, '..', '..', 'collection.json');
+const angularJsonFile = JSON.stringify({
+  version: 1,
+  projects: {
+    'my-new-module': {
+      projectType: 'library',
+      root: 'packages-test/my-new-module'
+    }
+  }
+}, null, 2);
 
 describe('New module generator', () => {
   let initialTree: Tree;
   beforeEach(() => {
     initialTree = Tree.empty();
-    initialTree.create('angular.json', '{"version": 1, "projects": {} }');
+    initialTree.create('angular.json', angularJsonFile);
     initialTree.create('package.json', '{ "version": "0.0.0-test" }');
   });
 
@@ -51,6 +60,9 @@ describe('New module generator', () => {
     expect(JSON.parse(tree.readContent('/tsconfig.base.json')).compilerOptions.paths['@my/new-module']).not.toContain('packages-test/my-new-module/dist');
     expect(tree.exists('/tsconfig.build.json')).toBe(true);
     expect(JSON.parse(tree.readContent('/tsconfig.build.json')).compilerOptions.paths['@my/new-module']).toContain('packages-test/my-new-module/dist');
+    expect(tree.exists('/packages-test/my-new-module/testing/setup-jest.ts')).toBe(false);
+    expect(JSON.parse(tree.readContent('/packages-test/my-new-module/package.json')).scripts.test).toContain('ng test my-new-module');
+    expect(tree.exists('/packages-test/my-new-module/jest.config.js')).toBe(false);
     expect(tree.files.length).toBeGreaterThanOrEqual(9);
   });
 
@@ -95,8 +107,21 @@ describe('New module generator', () => {
         skipLinter: true
       }, initialTree);
 
+      expect(tree.exists('/packages-test/my-new-module/testing/setup-jest.ts')).toBe(true);
+      expect(tree.exists('/packages-test/my-new-module/jest.config.js')).toBe(true);
+      const packageJsonContent = tree.readJson('/packages-test/my-new-module/package.json') as any;
+      expect(packageJsonContent.scripts.test).toBe('ng test my-new-module');
+      expect(packageJsonContent.devDependencies['@angular-builders/jest']).toBeDefined();
+      (tree.readJson('/packages-test/my-new-module/tsconfig.spec.json') as { references: { path: string }[] })
+        .references
+        .forEach((ref) => {
+          expect(tree.exists(path.join('/packages-test/my-new-module', ref.path))).toBe(true);
+        });
       expect(tree.exists('/packages-test/my-new-module/project.json')).toBe(true);
-      expect(tree.readContent('/packages-test/my-new-module/project.json')).toContain('"name": "test-module-name"');
+      const projectJson: any = tree.readJson('/packages-test/my-new-module/project.json');
+      expect(projectJson.name).toBe('test-module-name');
+      expect(tree.exists(projectJson.targets.test.options.jestConfig)).toBe(true);
+      expect(projectJson.targets.test.executor).toBe('@nx/jest:jest');
     });
   });
 });
