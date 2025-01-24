@@ -55,6 +55,8 @@ const devDependenciesToInstall = [
   'jest-environment-jsdom',
   'jest-preset-angular',
   'ts-jest',
+  '@angular-builders/jest',
+  '@angular-devkit/build-angular',
   '@types/jest'
 ];
 
@@ -162,7 +164,8 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
 
           const jestConfigFilesForWorkspace = () => mergeWith(apply(url('./templates/workspace'), [
             template({
-              ...options
+              ...options,
+              tsconfigPath: `./${['tsconfig.base.json', 'tsconfig.json'].find((tsconfigBase) => tree.exists(`./${tsconfigBase}`))}`
             }),
             move(tree.root.path),
             renameTemplateFiles()
