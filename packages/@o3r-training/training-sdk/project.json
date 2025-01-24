@@ -24,7 +24,6 @@
       }
     },
     "lint": {},
-    "publish": {},
     "extract-folder-structure": {
       "cache": true,
       "executor": "nx:run-script",

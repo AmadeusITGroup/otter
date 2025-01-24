@@ -49,6 +49,10 @@ Example:
 }
 ```
 
+> [!NOTE]
+> In case of multiple configurations, the priority will follow the order of the given list.
+> The first configuration file found will be used, the others will be ignored.
+
 ### List of configurations
 
 The following configurations are available:
@@ -60,5 +64,6 @@ The following configurations are available:
 | cascadingBranchesPattern | Pattern determining if the branch is part of the cascading strategy                                                                                                                                           | `^releases?/\\d+\\.\\d+`                                 | `string`   |
 | versionCapturePattern    | Pattern containing a capture to extract the version of a cascading branch                                                                                                                                     | `/((?:0\|[1-9]\\d*)\\.(?:0\|[1-9]\\d*)(?:\\.0-[^ ]+)?)$` | `string`   |
 | bypassReviewers          | Pattern containing a capture to extract the version of a cascading branch                                                                                                                                     | `false`                                                  | `boolean`  |
+
 > [!IMPORTANT]
 > The `bypassReviewers` option will require to set the `otter-cascading` bot as **bypass user** to be able to merge the `cascading/*` pull requests.

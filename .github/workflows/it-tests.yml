@@ -54,7 +54,7 @@ jobs:
         run: zip -r verdaccio.zip ./.verdaccio
         shell: bash
       - name: Publish verdaccio storage
-        uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 # v4.4.3
+        uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.0
         with:
           name: ${{ inputs.ref && format('verdaccio-{0}', inputs.ref) || 'verdaccio' }}
           path: verdaccio.zip
@@ -95,7 +95,7 @@ jobs:
         shell: bash
       - name: Cache test-app yarn
         if: inputs.ref == ''
-        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.1.2
+        uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0
         with:
           path: |
             .cache/test-app
@@ -138,13 +138,13 @@ jobs:
         shell: bash
       - name: Publish generated tests environment on failure
         if: failure() && steps.it-tests.conclusion == 'failure'
-        uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 # v4.4.3
+        uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.0
         with:
           name: it-tests-${{ matrix.os }}-${{ matrix.packageManager }}-${{ inputs.ref }}
           path: it-tests.zip
       - name: Publish tests reports
         if: always()
-        uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 # v4.4.3
+        uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.0
         with:
           name: it-reports-${{ matrix.os }}-${{ matrix.packageManager }}-${{ inputs.ref }}
           path: 'packages/**/dist-test/it-report.xml'
