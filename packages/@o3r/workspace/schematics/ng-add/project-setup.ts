@@ -22,12 +22,12 @@ import type {
   PackageJson,
 } from 'type-fest';
 import {
-  updateGitIgnore,
-} from './helpers/gitignore-update';
-import {
   isUsingFlatConfig,
   shouldOtterLinterBeInstalled,
-} from './helpers/linter';
+} from '../rule-factories/linter';
+import {
+  updateGitIgnore,
+} from './helpers/gitignore-update';
 import {
   addMonorepoManager,
   addWorkspacesToProject,
@@ -78,6 +78,7 @@ export const prepareProject = (options: NgAddSchematicsSchema): Rule => {
       context.logger.error('Could not find @o3r/workspace package. Are you sure it is installed?');
     }
     const installOtterLinter = await shouldOtterLinterBeInstalled(context, tree);
+    context.logger.warn(`Install otter linter? ${installOtterLinter}`);
     const internalPackagesToInstallWithNgAdd = Array.from(new Set([
       ...(installOtterLinter ? [`@o3r/eslint-config${isUsingFlatConfig(tree) ? '' : '-otter'}`] : []),
       ...depsInfo.o3rPeerDeps

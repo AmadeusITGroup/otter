@@ -114,6 +114,8 @@ describe('new otter workspace', () => {
     expect(() => packageManagerExec({ script: 'ng', args: ['g', 'library', libName] }, execAppOptions)).not.toThrow();
     expect(existsSync(path.join(workspacePath, 'project'))).toBe(false);
     generatedLibFiles.forEach((file) => expect(existsSync(path.join(inLibraryPath, file))).toBe(true));
+    // TODO apps are generated without jest full configuration - needs to be fixed before removing this part
+    expect(() => packageManagerExec({ script: 'ng', args: ['test', libName] }, execAppOptions)).not.toThrow();
     expect(() => packageManagerRunOnProject(libName, true, { script: 'build' }, execAppOptions)).not.toThrow();
   });
 

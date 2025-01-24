@@ -17,6 +17,15 @@ jest.mock('@angular-devkit/schematics', () => {
 });
 
 const collectionPath = path.join(__dirname, '..', '..', 'collection.json');
+const angularJsonFile = `{
+  "version": 1,
+  "projects": {
+    "my-new-module": {
+      "projectType": "library",
+      "root": "packages-test/my-new-module"
+    }
+  }
+}`;
 
 describe('New module generator', () => {
   let initialTree: Tree;
@@ -36,7 +45,7 @@ describe('New module generator', () => {
   });
 
   it('should generate the minimum mandatory files', async () => {
-    initialTree.create('angular.json', '{"version": 1, "projects": {} }');
+    initialTree.create('angular.json', angularJsonFile);
     initialTree.create('package.json', '{ "version": "0.0.0-test" }');
     initialTree.create('/packages-test/my-new-module/package.json', '{ "version": "0.0.0-test" }');
     initialTree.create('/packages-test/my-new-module/ng-package.json', '{  }');
@@ -58,11 +67,43 @@ describe('New module generator', () => {
     expect(tree.exists('/packages-test/my-new-module/project.json')).toBe(false);
     expect(JSON.parse(tree.readContent('/tsconfig.base.json')).compilerOptions.paths['@my/new-module']).toContain('packages-test/my-new-module/src/public-api');
     expect(JSON.parse(tree.readContent('/tsconfig.build.json')).compilerOptions.paths['@my/new-module'][0]).toBe('packages-test/my-new-module/dist');
+    expect(tree.exists('/packages-test/my-new-module/testing/setup-jest.ts')).toBe(false);
+    expect(JSON.parse(tree.readContent('/packages-test/my-new-module/package.json')).scripts.test).toContain('ng test my-new-module');
+    expect(tree.exists('/packages-test/my-new-module/jest.config.js')).toBe(false);
     expect(tree.files.length).toBeGreaterThanOrEqual(9);
   });
 
-  // eslint-disable-next-line jest/no-disabled-tests -- TODO: Should be re-enable when the following issue #2066 is fixed
-  describe.skip('in NX monorepo', () => {
+  it('should generate an project with jest files', async () => {
+    initialTree.create('angular.json', angularJsonFile);
+    initialTree.create('package.json', '{ "version": "0.0.0-test" }');
+    initialTree.create('/packages-test/my-new-module/package.json', '{ "version": "0.0.0-test" }');
+    initialTree.create('/packages-test/my-new-module/ng-package.json', '{  }');
+    const runner = new SchematicTestRunner('schematics', collectionPath);
+    const angularPackageJson = require.resolve('@schematics/angular/package.json');
+    const o3rCorePackageJson = require.resolve('@o3r/core/package.json');
+    runner.registerCollection('@o3r/core', path.resolve(path.dirname(o3rCorePackageJson), require(o3rCorePackageJson).schematics));
+    runner.registerCollection('@schematics/angular', path.resolve(path.dirname(angularPackageJson), require(angularPackageJson).schematics));
+    jest.spyOn(require('@angular-devkit/schematics'), 'externalSchematic');
+    const tree = await runner.runSchematic('library', {
+      path: 'packages-test',
+      name: '@my/new-module',
+      skipLinter: true,
+      skipInstall: true,
+      testingFramework: 'jest'
+    }, initialTree);
+    expect(tree.exists('/packages-test/my-new-module/testing/setup-jest.ts')).toBe(true);
+    expect(tree.exists('/packages-test/my-new-module/jest.config.js')).toBe(true);
+    const packageJsonContent = tree.readJson('/packages-test/my-new-module/package.json') as any;
+    expect(packageJsonContent.scripts.test).toBe('ng test my-new-module');
+    expect(packageJsonContent.devDependencies['@angular-builders/jest']).toBeDefined();
+    (tree.readJson('/packages-test/my-new-module/tsconfig.spec.json') as { references: { path: string }[] })
+      .references
+      .forEach((ref) => {
+        expect(tree.exists(path.join('/packages-test/my-new-module', ref.path))).toBe(true);
+      });
+  });
+
+  describe('in NX monorepo', () => {
     it('should generate Nx project.json with given name', async () => {
       initialTree.create('nx.json', '{"workspaceLayout": { "libsDir": "packages-test" } }');
       initialTree.create('angular.json', '{"version": 1, "projects": {} }');
@@ -77,14 +118,16 @@ describe('New module generator', () => {
       runner.registerCollection('@schematics/angular', path.resolve(path.dirname(angularPackageJson), require(angularPackageJson).schematics));
       runner.registerCollection('@nx/workspace', path.resolve(path.dirname(nxWorkspacePackageJson), require(nxWorkspacePackageJson).generators));
       const tree = await runner.runExternalSchematic('schematics', 'library', {
-        path: 'packages-test',
         name: '@my/new-module',
         projectName: 'test-module-name',
         skipLinter: true
       }, initialTree);
 
       expect(tree.exists('/packages-test/my-new-module/project.json')).toBe(true);
-      expect(tree.readContent('/packages-test/my-new-module/project.json')).toContain('"name": "test-module-name"');
+      const projectJson: any = tree.readJson('/packages-test/my-new-module/project.json');
+      expect(projectJson.name).toBe('test-module-name');
+      expect(tree.exists(projectJson.targets.test.options.jestConfig)).toBe(true);
+      expect(projectJson.targets.test.executor).toBe('@nrwl/jest:jest');
     });
   });
 });
