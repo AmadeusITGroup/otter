@@ -59,7 +59,7 @@ jobs:
         with:
           install-jdk: 'true'
       - name: Cache Jest
-        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.1.2
+        uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0
         env:
           hash: ${{ hashFiles('package.json', 'tsconfig.base.json', 'tsconfig.build.json', 'nx.json') }}
         with:
@@ -83,12 +83,12 @@ jobs:
           flags: unittests
           token: ${{ secrets.CODECOV_TOKEN }}
       - name: Upload test results to Codecov
-        uses: codecov/test-results-action@9739113ad922ea0a9abb4b2c0f8bf6a4aa8ef820 # 1.0.1
+        uses: codecov/test-results-action@4e79e65778be1cecd5df25e14af1eafb6df80ea9 # 1.0.2
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
       - name: Publish tests reports
         if: always()
-        uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 # v4.4.3
+        uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.0
         with:
           name: ut-reports-${{ matrix.os }}
           path: |
@@ -104,7 +104,7 @@ jobs:
       - name: Setup
         uses: ./tools/github-actions/setup
       - name: Cache Eslint
-        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.1.2
+        uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0
         env:
           hash: ${{ hashFiles('yarn.lock') }}
         with:

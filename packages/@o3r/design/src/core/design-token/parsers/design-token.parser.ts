@@ -11,6 +11,7 @@ import type {
   DesignTokenMetadata,
   DesignTokenNode,
   DesignTokenSpecification,
+  DesignTokenTypeDimensionValue,
 } from '../design-token-specification.interface';
 import {
   DesignTokenTypeStrokeStyleValue,
@@ -55,31 +56,27 @@ const getExtensions = (nodes: NodeReference[], context: DesignTokenContext | und
   }, {} as DesignTokenGroupExtensions & DesignTokenExtensions);
 };
 const getReferences = (cssRawValue: string) => Array.from(cssRawValue.matchAll(tokenReferenceRegExp)).map(([,tokenRef]) => tokenRef);
-const applyConversion = (token: DesignTokenVariableStructure, value: string) => {
-  if (typeof token.extensions.o3rUnit === 'undefined' || typeof token.extensions.o3rRatio === 'undefined') {
-    return value;
+const applyConversion = (token: DesignTokenVariableStructure, value: string | number | DesignTokenTypeDimensionValue) => {
+  const o3rRatio = token.extensions.o3rRatio ?? 1;
+  const o3rUnit = token.extensions.o3rUnit;
+
+  if (typeof value === 'object') {
+    return Number.parseFloat((value.value * o3rRatio).toFixed(3)).toString() + (o3rUnit ?? (value.unit || ''));
   }
 
-  const splitValue = splitValueNumericRegExp.exec(value);
+  const splitValue = splitValueNumericRegExp.exec(value.toString());
   if (!splitValue) {
     return value;
   }
 
   const [, floatValue, unit] = splitValue;
+  const newValue = Number.parseFloat((Number.parseFloat(floatValue) * o3rRatio).toFixed(3));
 
-  const newValue = value.replace(floatValue, (Number.parseFloat((Number.parseFloat(floatValue) * token.extensions.o3rRatio).toFixed(3))).toString());
-
-  if (unit) {
-    return newValue.replace(unit, token.extensions.o3rUnit);
-  }
-
-  if (floatValue === value) {
-    return newValue + token.extensions.o3rUnit;
-  }
-
-  return newValue;
+  return newValue + (o3rUnit ?? (unit || ''));
 };
-const renderCssTypeStrokeStyleValue = (value: DesignTokenTypeStrokeStyleValue) => isTokenTypeStrokeStyleValueComplex(value) ? `${value.lineCap} ${value.dashArray.join(' ')}` : value;
+const renderCssTypeStrokeStyleValue = (token: DesignTokenVariableStructure, value: DesignTokenTypeStrokeStyleValue) => isTokenTypeStrokeStyleValueComplex(value)
+  ? `${value.lineCap} ${value.dashArray.map((dashArrayValue) => applyConversion(token, dashArrayValue)).join(' ')}`
+  : value;
 const sanitizeStringValue = (value: string) => value.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
 const sanitizeKeyName = (name: string) => name.replace(/[ .]+/g, '-').replace(/[()[\]]+/g, '');
 const getCssRawValue = (variableSet: DesignTokenVariableSet, token: DesignTokenVariableStructure) => {
@@ -103,10 +100,10 @@ const getCssRawValue = (variableSet: DesignTokenVariableSet, token: DesignTokenV
     case 'fontWeight':
     case 'fontFamily':
     case 'dimension': {
-      return applyConversion(token, checkNode.$value.toString());
+      return applyConversion(token, checkNode.$value);
     }
     case 'strokeStyle': {
-      return renderCssTypeStrokeStyleValue(checkNode.$value);
+      return renderCssTypeStrokeStyleValue(token, checkNode.$value);
     }
     case 'cubicBezier': {
       return typeof checkNode.$value === 'string'
@@ -118,7 +115,7 @@ const getCssRawValue = (variableSet: DesignTokenVariableSet, token: DesignTokenV
     case 'border': {
       return typeof checkNode.$value === 'string'
         ? checkNode.$value
-        : `${applyConversion(token, checkNode.$value.width)} ${renderCssTypeStrokeStyleValue(checkNode.$value.style)} ${checkNode.$value.color}`;
+        : `${applyConversion(token, checkNode.$value.width)} ${renderCssTypeStrokeStyleValue(token, checkNode.$value.style)} ${checkNode.$value.color}`;
     }
     case 'gradient': {
       if (typeof checkNode.$value === 'string') {
@@ -136,8 +133,10 @@ const getCssRawValue = (variableSet: DesignTokenVariableSet, token: DesignTokenV
 
       const values = Array.isArray(checkNode.$value) ? checkNode.$value : [checkNode.$value];
       return values
-        .map((value) => `${applyConversion(token, value.offsetX)} ${applyConversion(token, value.offsetY)} ${applyConversion(token, value.blur)}  ${applyConversion(token, value.spread)}`
-        + ` ${value.color}`)
+        .map((value) =>
+          (value.inset ? 'inset ' : '')
+          + `${applyConversion(token, value.offsetX)} ${applyConversion(token, value.offsetY)} ${applyConversion(token, value.blur)}  ${applyConversion(token, value.spread)}`
+          + ` ${value.color}`)
         .join(', ');
     }
     case 'transition': {
@@ -151,8 +150,8 @@ const getCssRawValue = (variableSet: DesignTokenVariableSet, token: DesignTokenV
     case 'typography': {
       return typeof checkNode.$value === 'string'
         ? checkNode.$value
-        : `${applyConversion(token, checkNode.$value.fontWeight.toString())} ${checkNode.$value.fontFamily}`
-        + ` ${applyConversion(token, checkNode.$value.fontSize)} ${applyConversion(token, checkNode.$value.letterSpacing)} ${applyConversion(token, checkNode.$value.lineHeight.toString())}`;
+        : `${applyConversion(token, checkNode.$value.fontWeight.toString())} ${applyConversion(token, checkNode.$value.fontSize)}`
+        + ` ${applyConversion(token, checkNode.$value.letterSpacing)} ${applyConversion(token, checkNode.$value.lineHeight.toString())} ${checkNode.$value.fontFamily}`;
     }
     // TODO: Add support for Grid type when available in the Design Token Standard
     default: {

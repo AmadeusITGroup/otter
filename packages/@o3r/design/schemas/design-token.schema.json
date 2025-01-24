@@ -8,6 +8,10 @@
     }
   ],
   "definitions": {
+    "tokenReference": {
+      "type": "string",
+      "pattern": "^\\{[^}]+\\}$"
+    },
     "tokenNode": {
       "oneOf": [
         {
@@ -198,6 +202,21 @@
         }
       }
     },
+    "tokenTypeDimensionValue": {
+      "type": "object",
+      "required": [
+        "unit",
+        "value"
+      ],
+      "properties": {
+        "value": {
+          "type": "number"
+        },
+        "unit": {
+          "type": "string"
+        }
+      }
+    },
     "tokenTypeDimension": {
       "type": "object",
       "required": [
@@ -206,7 +225,14 @@
       ],
       "properties": {
         "$value": {
-          "type": "string"
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/definitions/tokenTypeDimensionValue"
+            }
+          ]
         },
         "$type": {
           "const": "dimension",
@@ -382,7 +408,14 @@
               "minItems": 1,
               "maxItems": 4,
               "items": {
-                "type": "string"
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/definitions/tokenTypeDimensionValue"
+                  }
+                ]
               }
             },
             "lineCap": {
@@ -428,11 +461,20 @@
           "type": "object",
           "properties": {
             "color": { "type": "string" },
-            "width": { "type": "string" },
+            "width": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "$ref": "#/definitions/tokenTypeDimensionValue"
+                }
+              ]
+            },
             "style": {
-              "allOf": [
+              "oneOf": [
                 { "$ref": "#/definitions/tokenTypeStrokeStyleValue" },
-                { "type": "string" }
+                { "$ref": "#/definitions/tokenReference" }
               ]
             }
           },
@@ -490,16 +532,48 @@
           "type": "string"
         },
         "offsetX": {
-          "type": "string"
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/definitions/tokenTypeDimensionValue"
+            }
+          ]
         },
         "offsetY": {
-          "type": "string"
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/definitions/tokenTypeDimensionValue"
+            }
+          ]
         },
         "blur": {
-          "type": "string"
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/definitions/tokenTypeDimensionValue"
+            }
+          ]
         },
         "spread": {
-          "type": "string"
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/definitions/tokenTypeDimensionValue"
+            }
+          ]
+        },
+        "inset": {
+          "type": "boolean",
+          "default": false
         }
       },
       "required": [
