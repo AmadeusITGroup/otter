@@ -243,9 +243,6 @@
       "outputs": [],
       "inputs": [
         "{projectRoot}/dist"
-      ],
-      "dependsOn": [
-        "prepare-publish"
       ]
     },
     "prepare-publish": {
@@ -267,6 +264,9 @@
         "{projectRoot}/dist/package.json",
         "{projectRoot}/dist/readme.json",
         "{projectRoot}/dist/LICENSE"
+      ],
+      "dependsOn": [
+        "build"
       ]
     },
     "publish-extension": {
@@ -314,6 +314,10 @@
       "cache": true
     },
     "compile-github-action": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "build"
+      },
       "dependsOn": [
         "^build"
       ],
@@ -574,6 +578,10 @@
       "cache": true
     },
     "package-github-action": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "package"
+      },
       "cache": true,
       "inputs": [
         "default",
@@ -584,7 +592,8 @@
         "{projectRoot}/packaged-action"
       ],
       "dependsOn": [
-        "build"
+        "build",
+        "^prepare-publish"
       ]
     }
   },
