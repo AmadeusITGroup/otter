@@ -3408,39 +3408,39 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@capacitor/browser@npm:^6.0.0":
-  version: 6.0.5
-  resolution: "@capacitor/browser@npm:6.0.5"
+"@capacitor/browser@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "@capacitor/browser@npm:7.0.0"
   peerDependencies:
-    "@capacitor/core": ^6.0.0
-  checksum: 10/a39a85566288010f233f8bb45190cccc0f36e3fc552a89b26418a7aa3e316ee45db561e6b2cd970b00c786907647fc40a3da6b63b8da4d54cad5ca19c15dff4d
+    "@capacitor/core": ">=7.0.0"
+  checksum: 10/c91c194085cfcb6c2a225572c04d7fdead273fb6348cec7e4901b5d4ed78aaf3a6d9c21602792c0578fff5b1cddb2b8548fe878b53e8a483b914daf8c373883e
   languageName: node
   linkType: hard
 
-"@capacitor/core@npm:^6.0.0":
-  version: 6.2.0
-  resolution: "@capacitor/core@npm:6.2.0"
+"@capacitor/core@npm:^7.0.0":
+  version: 7.0.1
+  resolution: "@capacitor/core@npm:7.0.1"
   dependencies:
     tslib: "npm:^2.1.0"
-  checksum: 10/d153121cb9164e69bf6367e47b87d11483682dc0e58e44ec0e86f95e30f818b9f076eb3cf0bd4d4550dd91f073eff7d23b966f044afaa75378e611bad6cad01c
+  checksum: 10/3442d41e769c719fd9efb16e06454af12c85f7cd25840f7870f5882c3c7f98e7fe836297eac83d1d6d126015f948e6004ad5a5347aea3db8ed14cf4f23268fbd
   languageName: node
   linkType: hard
 
-"@capacitor/device@npm:^6.0.0":
-  version: 6.0.2
-  resolution: "@capacitor/device@npm:6.0.2"
+"@capacitor/device@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "@capacitor/device@npm:7.0.0"
   peerDependencies:
-    "@capacitor/core": ^6.0.0
-  checksum: 10/4856c42956cfb44551f953bda2cf4003d124ba476ec418edc04be34d6f8a6ca92fcbec6f1738236d8bc65d5bb5592ac03664a278acb6cf460be4ee7a52ae7242
+    "@capacitor/core": ">=7.0.0"
+  checksum: 10/9a4d92616be3b65092dcbbbde25150cbeb022a0dd5bded72c6f9fc0207f7595a824693401459d0c59bab60a50343eb330a52eee4ebc52dfb2ce8a253c45c8813
   languageName: node
   linkType: hard
 
-"@capacitor/preferences@npm:^6.0.0":
-  version: 6.0.3
-  resolution: "@capacitor/preferences@npm:6.0.3"
+"@capacitor/preferences@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "@capacitor/preferences@npm:7.0.0"
   peerDependencies:
-    "@capacitor/core": ^6.0.0
-  checksum: 10/d30d737063438520dece4cbccef10fdccfc7117296a164a2837647de96ca743199b23a8cceac39cabb0e0b9d28fcc0fd72f048181749930b301461d3e475a164
+    "@capacitor/core": ">=7.0.0"
+  checksum: 10/23625bed52d4f26720c9ed00817b0f350e1410b68f4a8432fd1279e91ce7399338883cfbadb52bb5421595c138e4f9a86cb0e98da366b20203822468a1a5a900
   languageName: node
   linkType: hard
 
@@ -9411,10 +9411,10 @@ __metadata:
     "@angular/platform-browser-dynamic": "npm:~19.0.0"
     "@babel/core": "npm:~7.26.0"
     "@babel/preset-typescript": "npm:~7.26.0"
-    "@capacitor/browser": "npm:^6.0.0"
-    "@capacitor/core": "npm:^6.0.0"
-    "@capacitor/device": "npm:^6.0.0"
-    "@capacitor/preferences": "npm:^6.0.0"
+    "@capacitor/browser": "npm:^7.0.0"
+    "@capacitor/core": "npm:^7.0.0"
+    "@capacitor/device": "npm:^7.0.0"
+    "@capacitor/preferences": "npm:^7.0.0"
     "@compodoc/compodoc": "npm:^1.1.19"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@ngrx/store": "npm:~19.0.0"
@@ -9469,10 +9469,10 @@ __metadata:
     "@angular-devkit/schematics": ^19.0.0
     "@angular/common": ^19.0.0
     "@angular/core": ^19.0.0
-    "@capacitor/browser": ^6.0.0
-    "@capacitor/core": ^6.0.0
-    "@capacitor/device": ^6.0.0
-    "@capacitor/preferences": ^6.0.0
+    "@capacitor/browser": ^7.0.0
+    "@capacitor/core": ^7.0.0
+    "@capacitor/device": ^7.0.0
+    "@capacitor/preferences": ^7.0.0
     "@ngrx/store": ^19.0.0
     "@o3r/core": "workspace:^"
     "@o3r/logger": "workspace:^"
