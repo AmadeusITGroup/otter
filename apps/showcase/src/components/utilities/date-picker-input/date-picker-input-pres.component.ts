@@ -12,7 +12,6 @@ import {
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
 import {
-  CloseInputDatePickerDirective,
   DfInputIconDirective,
 } from '@design-factory/design-factory';
 import {
@@ -29,7 +28,7 @@ import {
 @O3rComponent({ componentType: 'ExposedComponent' })
 @Component({
   selector: 'o3r-date-picker-input-pres',
-  imports: [FormsModule, CloseInputDatePickerDirective, NgbInputDatepicker, DfInputIconDirective],
+  imports: [FormsModule, NgbInputDatepicker, DfInputIconDirective],
   templateUrl: './date-picker-input-pres.template.html',
   styleUrls: ['./date-picker-input-pres.style.scss'],
   providers: [
