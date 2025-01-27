@@ -1,0 +1,14 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Rules to apply on trunk-based development",
+  "packageRules": [
+    {
+      "matchBaseBranches": [
+        "main",
+        "master",
+        "develop"
+      ],
+      "rangeStrategy": "replace"
+    }
+  ]
+}

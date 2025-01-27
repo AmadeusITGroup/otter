@@ -4,6 +4,7 @@
   "extends": [
     "github>AmadeusITGroup/otter//tools/renovate/group/otter",
     "github>AmadeusITGroup/otter//tools/renovate/tasks/base",
+    "github>AmadeusITGroup/otter//tools/renovate/branching-strategy/release-branches",
     "github>AmadeusITGroup/otter//tools/renovate/tasks/sdk-regenerate(yarn)",
     "github>AmadeusITGroup/otter//tools/renovate/tasks/yarn-pnp"
   ]

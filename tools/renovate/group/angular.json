@@ -1,0 +1,21 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Group all Angular dependencies",
+  "packageRules": [
+    {
+      "matchPackagePatterns": [
+        "^@angular",
+        "^ng-packagr",
+        "^@schematics",
+        "angular",
+        "^@ngrx",
+        "^zone.js",
+        "^@nrwl",
+        "^@nx",
+        "^nx"
+      ],
+      "groupName": "Angular dependencies",
+      "groupSlug": "angular-dependencies"
+    }
+  ]
+}

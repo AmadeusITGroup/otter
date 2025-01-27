@@ -5,6 +5,7 @@
     {
       "matchPackagePatterns": [
         "bootstrap",
+        "^@ng-select",
         "^ag-grid-",
         "^@design-factory",
         "^@agnos-ui",
