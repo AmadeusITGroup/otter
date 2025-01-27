@@ -3,7 +3,6 @@ import {
 } from '@ama-sdk/client-fetch';
 import {
   ApiClient,
-  isApiClient,
 } from '@ama-sdk/core';
 import * as api from '../api';
 
