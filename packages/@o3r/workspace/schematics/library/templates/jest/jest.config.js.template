@@ -10,7 +10,7 @@ module.exports = {
   displayName: require('./package.json').name,
   preset: 'jest-preset-angular',
   setupFilesAfterEnv: ['<rootDir>/testing/setup-jest.ts'],
-  rootDir: '.',
+  rootDir: __dirname,
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths),
   testPathIgnorePatterns: [
     '<rootDir>/dist',

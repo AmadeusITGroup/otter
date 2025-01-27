@@ -249,6 +249,9 @@
     "typescript-eslint": "~8.21.0",
     "zone.js": "~0.14.2"
   },
+  "generatorDependencies": {
+    "@angular-builders/jest": "~18.0.0"
+  },
   "schematics": "./collection.json",
   "ng-update": {
     "migrations": "./migration.json"

@@ -22,12 +22,12 @@ import type {
   PackageJson,
 } from 'type-fest';
 import {
-  updateGitIgnore,
-} from './helpers/gitignore-update';
-import {
   isUsingFlatConfig,
   shouldOtterLinterBeInstalled,
-} from './helpers/linter';
+} from '../rule-factories/linter';
+import {
+  updateGitIgnore,
+} from './helpers/gitignore-update';
 import {
   addMonorepoManager,
   addWorkspacesToProject,
