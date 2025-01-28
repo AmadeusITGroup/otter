@@ -40,8 +40,8 @@ export function generateModuleGenerateCommand(_context: ExtensionContext, folder
     const modulePath = folder || await vscode.window.showInputBox({
       title: 'Path to your Modules folder',
       value: getCurrentFolder()
-      || defaultOptions.path
-      || resolve(vscode.workspace.workspaceFolders?.[0]?.uri?.fsPath || '.', 'packages'),
+        || defaultOptions.path
+        || resolve(vscode.workspace.workspaceFolders?.[0]?.uri?.fsPath || '.', 'packages'),
       ignoreFocusOut: true
     });
 

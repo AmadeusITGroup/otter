@@ -384,7 +384,7 @@ export class DictionaryChecker implements Checker {
           .filter((dictionaryReference) => !this.isDictionaryInDefinition(dictionaryReference, replyDefinition, definitionsWithReferer))
           .map((dictionaryReference) => ({
             message: `The dictionary ${dictionaryReference.dictionaryName} (type: ${dictionaryReference.fieldType}${dictionaryReference.isRequired ? ', required' : ''})`
-            + ` referred by ${dictionaryReference.requestedBy}.${dictionaryReference.originField} is missing in ${replyDefinition}`,
+              + ` referred by ${dictionaryReference.requestedBy}.${dictionaryReference.originField} is missing in ${replyDefinition}`,
             details: this.findReferencePaths(replyDefinition, dictionaryReference.requestedBy, definitionsWithReferer)
               .map((refPath) => `Path from ${replyDefinition} to ${dictionaryReference.requestedBy}: ${refPath.join(' -> ')}`),
             swaggerNode: replyDefinition

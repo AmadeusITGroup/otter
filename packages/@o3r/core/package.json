@@ -75,7 +75,7 @@
   "dependencies": {
     "@o3r/schematics": "workspace:^",
     "tslib": "^2.6.2",
-    "uuid": "^10.0.0"
+    "uuid": "^11.0.5"
   },
   "devDependencies": {
     "@angular-devkit/architect": "~0.1900.0",
@@ -107,12 +107,12 @@
     "@o3r/telemetry": "workspace:^",
     "@o3r/test-helpers": "workspace:^",
     "@schematics/angular": "~19.0.0",
-    "@stylistic/eslint-plugin": "~2.7.0",
+    "@stylistic/eslint-plugin": "~3.0.0",
     "@swc/helpers": "~0.5.0",
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",
     "@types/pid-from-port": "^1.1.0",
-    "@types/uuid": "^9.0.0",
+    "@types/uuid": "^10.0.0",
     "@typescript-eslint/parser": "~8.21.0",
     "angular-eslint": "~19.0.0",
     "chokidar": "^4.0.3",
@@ -156,7 +156,7 @@
     "@ngrx/store-devtools": "~19.0.0",
     "@nx/eslint-plugin": "~20.2.0",
     "@o3r/store-sync": "workspace:^",
-    "@stylistic/eslint-plugin": "~2.7.0",
+    "@stylistic/eslint-plugin": "~3.0.0",
     "@types/jest": "~29.5.2",
     "@typescript-eslint/eslint-plugin": "~8.21.0",
     "@typescript-eslint/parser": "~8.21.0",

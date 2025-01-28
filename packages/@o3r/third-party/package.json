@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "tslib": "^2.6.2",
-    "uuid": "^10.0.0"
+    "uuid": "^11.0.5"
   },
   "peerDependencies": {
     "@angular-devkit/schematics": "^19.0.0",
@@ -73,10 +73,10 @@
     "@o3r/schematics": "workspace:^",
     "@o3r/test-helpers": "workspace:^",
     "@schematics/angular": "~19.0.0",
-    "@stylistic/eslint-plugin": "~2.7.0",
+    "@stylistic/eslint-plugin": "~3.0.0",
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",
-    "@types/uuid": "^9.0.0",
+    "@types/uuid": "^10.0.0",
     "@typescript-eslint/parser": "~8.21.0",
     "angular-eslint": "~19.0.0",
     "cpy-cli": "^5.0.0",

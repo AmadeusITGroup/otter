@@ -44,9 +44,9 @@ class TestComponent {}
 describe('Placeholder component', () => {
   beforeAll(
     () => getTestBed().platform
-    || TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting(), {
-      teardown: { destroyAfterEach: false }
-    }));
+      || TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting(), {
+        teardown: { destroyAfterEach: false }
+      }));
 
   let placeholderComponent: ComponentFixture<PlaceholderComponent>;
   type TemplatesFromStore = {

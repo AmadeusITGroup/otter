@@ -31,7 +31,7 @@
   "devDependencies": {
     "@nx/eslint-plugin": "~20.2.0",
     "@o3r/eslint-plugin": "workspace:^",
-    "@stylistic/eslint-plugin-ts": "~2.7.0",
+    "@stylistic/eslint-plugin-ts": "~3.0.0",
     "@types/node": "^20.0.0",
     "@typescript-eslint/eslint-plugin": "~8.21.0",
     "@typescript-eslint/parser": "~8.21.0",

@@ -58,7 +58,7 @@ const options = {
 } as const satisfies RequestInit;
 const limitTimestampToKeepOldArtifact = Date.now() - opts.durationKept;
 url += (url.endsWith('/') ? '' : '/')
-+ `api/search/usage?notUsedSince=${limitTimestampToKeepOldArtifact}&createdBefore=${limitTimestampToKeepOldArtifact}&repos=${(opts.repositories as string[]).join(',')}`;
+  + `api/search/usage?notUsedSince=${limitTimestampToKeepOldArtifact}&createdBefore=${limitTimestampToKeepOldArtifact}&repos=${(opts.repositories as string[]).join(',')}`;
 
 logger.info(`Url called : ${url}`);
 
