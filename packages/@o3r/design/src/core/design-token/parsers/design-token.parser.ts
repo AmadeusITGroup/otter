@@ -301,7 +301,16 @@ interface ParseDesignTokenFileOptions {
  * @param options
  */
 export const parseDesignTokenFile = async (specificationFilePath: string, options?: ParseDesignTokenFileOptions) => {
-  const readFile = options?.readFile || (async (filePath: string) => (await import('node:fs/promises')).readFile(filePath, { encoding: 'utf8' }));
+  let isUrl = false;
+  try {
+    isUrl = new URL(specificationFilePath).protocol.startsWith('http');
+  } catch {
+    // not an URL
+  }
+  const readFile = options?.readFile || (isUrl
+    ? async (filePath: string) => (await fetch(filePath)).text()
+    : async (filePath: string) => (await import('node:fs/promises')).readFile(filePath, { encoding: 'utf8' })
+  );
   const context = {
     basePath: dirname(specificationFilePath),
     ...options?.specificationContext
