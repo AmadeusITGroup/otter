@@ -21,6 +21,7 @@ import type {
 
 /** Dev Dependencies to install to setup Commit hooks */
 export const commitHookDevDependencies = [
+  'husky',
   'lint-staged',
   'editorconfig-checker',
   '@commitlint/cli',
