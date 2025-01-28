@@ -1,0 +1,15 @@
+@use '../styling/variables' as variables;
+
+o3r-facts-snapshot {
+  .fact-name {
+    color: variables.$ruleset-variable-key-color;
+  }
+
+  .fact-value {
+    color: variables.$ruleset-variable-value-color;
+  }
+
+  .fact-name, .fact-value {
+    font-family: monospace;
+  }
+}
