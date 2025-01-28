@@ -5,6 +5,7 @@
   "sourceRoot": "packages/@o3r/telemetry/src",
   "prefix": "o3r",
   "implicitDependencies": [
+    "!core",
     "!test-helpers"
   ],
   "targets": {
