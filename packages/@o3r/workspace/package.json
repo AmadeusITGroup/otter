@@ -125,10 +125,17 @@
   "generatorDependencies": {
     "@angular-builders/jest": "~18.0.0",
     "@angular/material": "~18.2.0",
+    "@commitlint/cli": "^19.0.0",
+    "@commitlint/config-angular": "^19.0.0",
+    "@commitlint/config-conventional": "^19.0.0",
+    "@commitlint/types": "^19.0.0",
     "@ngrx/router-store": "~18.1.0",
     "@ngrx/effects": "~18.1.0",
     "@ngrx/store-devtools": "~18.1.0",
-    "lerna": "^8.1.7"
+    "editorconfig-checker": "^5.1.8",
+    "husky": "~9.1.0",
+    "lerna": "^8.1.7",
+    "lint-staged": "^15.0.0"
   },
   "engines": {
     "node": "^18.19.1 || ^20.11.1 || >=22.0.0"
