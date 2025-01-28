@@ -205,7 +205,7 @@
     "@o3r/localization": "workspace:^",
     "@o3r/schematics": "workspace:^",
     "@o3r/test-helpers": "workspace:^",
-    "@playwright/test": "~1.49.0",
+    "@playwright/test": "~1.50.0",
     "@schematics/angular": "~18.2.0",
     "@stylistic/eslint-plugin": "~2.7.0",
     "@swc/helpers": "~0.5.0",
