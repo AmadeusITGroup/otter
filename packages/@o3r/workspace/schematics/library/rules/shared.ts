@@ -4,6 +4,7 @@ import type {
 } from '@angular-devkit/schematics';
 import {
   enforceTildeRange,
+  getPackageManagerExecutor,
   getPackageManagerRunner,
   getWorkspaceConfig,
 } from '@o3r/schematics';
@@ -29,10 +30,11 @@ export function updatePackageDependenciesFactory(
   return (tree) => {
     const packageJson = tree.readJson(path.posix.join(targetPath, 'package.json')) as PackageJson;
     const runner = getPackageManagerRunner(getWorkspaceConfig(tree));
+    const executor = getPackageManagerExecutor(getWorkspaceConfig(tree));
     packageJson.description = options.description || packageJson.description;
     packageJson.scripts ||= {};
     packageJson.scripts.build = `${runner} ng build ${options.name}`;
-    packageJson.scripts['prepare:build:builders'] = `${runner} cpy 'collection.json' dist && ${runner} cpy 'schematics/**/*.json' dist/schematics`;
+    packageJson.scripts['prepare:build:builders'] = `${executor} cpy collection.json dist && ${executor} cpy 'schematics/**/*.json' dist/schematics`;
     packageJson.scripts['build:builders'] = 'tsc -b tsconfig.builders.json --pretty';
     packageJson.peerDependencies ||= {};
     packageJson.peerDependencies['@o3r/core'] = otterVersion;
@@ -56,6 +58,7 @@ export function updatePackageDependenciesFactory(
         '@angular/platform-browser-dynamic': packageJson.peerDependencies['@angular/common'],
         '@schematics/angular': o3rCorePackageJson.peerDependencies!['@schematics/angular'],
         'cpy-cli': o3rCorePackageJson.generatorDependencies!['cpy-cli'],
+        '@types/node': o3rCorePackageJson.devDependencies!['@types/node'],
         ...options.useJest
           ? {
             '@angular-builders/jest': o3rCorePackageJson.generatorDependencies!['@angular-builders/jest'],
