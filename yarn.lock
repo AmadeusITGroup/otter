@@ -6938,6 +6938,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r-training/training-sdk@workspace:packages/@o3r-training/training-sdk"
   dependencies:
+    "@ama-sdk/client-fetch": "workspace:^"
     "@ama-sdk/core": "workspace:^"
     "@ama-sdk/schematics": "workspace:^"
     "@angular-devkit/core": "npm:~19.0.0"
@@ -6990,9 +6991,12 @@ __metadata:
     typescript-eslint: "npm:~8.21.0"
     yaml-eslint-parser: "npm:^1.2.2"
   peerDependencies:
+    "@ama-sdk/client-fetch": "workspace:^"
     "@ama-sdk/core": "workspace:^"
     isomorphic-fetch: ~3.0.0
   peerDependenciesMeta:
+    "@ama-sdk/client-fetch":
+      optional: true
     isomorphic-fetch:
       optional: true
   languageName: unknown

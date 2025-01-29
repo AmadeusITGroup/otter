@@ -21,7 +21,7 @@
       "default": "./structure/src.json"
     },
     "./structure/spec.json": {
-      "default": "./structure/src.json"
+      "default": "./structure/spec.json"
     },
     ".": {
       "main": "./cjs/index.js",
@@ -63,11 +63,15 @@
     "tslib": "^2.6.2"
   },
   "peerDependenciesMeta": {
+    "@ama-sdk/client-fetch": {
+      "optional": true
+    },
     "isomorphic-fetch": {
       "optional": true
     }
   },
   "devDependencies": {
+    "@ama-sdk/client-fetch": "workspace:^",
     "@ama-sdk/core": "workspace:^",
     "@ama-sdk/schematics": "workspace:^",
     "@angular-devkit/core": "~19.0.0",
@@ -119,6 +123,7 @@
     "yaml-eslint-parser": "^1.2.2"
   },
   "peerDependencies": {
+    "@ama-sdk/client-fetch": "workspace:^",
     "@ama-sdk/core": "workspace:^",
     "isomorphic-fetch": "~3.0.0"
   },
