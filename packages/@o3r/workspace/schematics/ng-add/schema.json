@@ -11,8 +11,7 @@
     },
     "skipInstall": {
       "type": "boolean",
-      "description": "Skip the install process",
-      "default": true
+      "description": "Skip the install process. If set to true, the pre-commit check setup will be skipped as well."
     },
     "commit": {
       "description": "Initial git repository commit information. (Available at workspace setup only)",
@@ -47,7 +46,7 @@
       "alias": "g"
     },
     "skipPreCommitChecks": {
-      "description": "Skip the setup of CommitLint and Lint-Stage configurations and pre-commit checks",
+      "description": "Skip the setup of CommitLint and Lint-Stage configurations and pre-commit checks.",
       "type": "boolean",
       "default": false
     },

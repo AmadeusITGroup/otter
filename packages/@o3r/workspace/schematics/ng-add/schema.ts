@@ -10,7 +10,7 @@ export interface NgAddSchematicsSchema extends SchematicOptionObject {
   skipLinter: boolean;
 
   /** Skip the install process */
-  skipInstall: boolean;
+  skipInstall?: boolean;
 
   /** Initial git repository commit information. */
   commit: boolean | { name: string; email: string };
