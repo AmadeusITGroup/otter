@@ -40,8 +40,8 @@ const getExtensions = (nodes: NodeReference[], context: DesignTokenContext | und
       ? nodeNames.reduce((accTplList, name) =>
         accTplList
           .flatMap((accTpl) => ([accTpl[name], accTpl['*']] as (DesignTokenGroupTemplate | undefined)[]))
-          .filter((accTpl): accTpl is DesignTokenGroupTemplate => !!accTpl)
-      , context?.template ? [context.template] : [])
+          .filter((accTpl): accTpl is DesignTokenGroupTemplate => !!accTpl),
+      context?.template ? [context.template] : [])
       : undefined;
     const o3rMetadata = {
       ...defaultMetadata?.reduce((accNode: DesignTokenMetadata, node) => ({ ...accNode, ...node.$extensions?.o3rMetadata }), {}),
@@ -145,13 +145,13 @@ const getCssRawValue = (variableSet: DesignTokenVariableSet, token: DesignTokenV
         : (typeof checkNode.$value.timingFunction === 'string'
           ? checkNode.$value.timingFunction
           : checkNode.$value.timingFunction.join(' ')
-          + ` ${applyConversion(token, checkNode.$value.duration)} ${applyConversion(token, checkNode.$value.delay)}`);
+            + ` ${applyConversion(token, checkNode.$value.duration)} ${applyConversion(token, checkNode.$value.delay)}`);
     }
     case 'typography': {
       return typeof checkNode.$value === 'string'
         ? checkNode.$value
         : `${applyConversion(token, checkNode.$value.fontWeight.toString())} ${applyConversion(token, checkNode.$value.fontSize)}`
-        + ` ${applyConversion(token, checkNode.$value.letterSpacing)} ${applyConversion(token, checkNode.$value.lineHeight.toString())} ${checkNode.$value.fontFamily}`;
+          + ` ${applyConversion(token, checkNode.$value.letterSpacing)} ${applyConversion(token, checkNode.$value.lineHeight.toString())} ${checkNode.$value.fontFamily}`;
     }
     // TODO: Add support for Grid type when available in the Design Token Standard
     default: {
