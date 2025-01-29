@@ -11,16 +11,13 @@ import {
   noop,
   type Rule,
 } from '@angular-devkit/schematics';
+import confirm from '@inquirer/confirm';
 import type {
   SchematicWrapper,
 } from '@o3r/telemetry';
 import {
   NodeDependencyType,
 } from '@schematics/angular/utility/dependencies';
-import {
-  prompt,
-  Question,
-} from 'inquirer';
 import {
   hasSetupInformation,
   setupDependencies,
@@ -85,18 +82,14 @@ export const createSchematicWithMetricsIfInstalled: SchematicWrapper = (schemati
     ) {
       context.logger.debug('`@o3r/telemetry` is not available.\nAsking to add the dependency\n' + e.toString());
 
-      const question = {
-        type: 'confirm',
-        name: 'isReplyPositive',
+      shouldInstallTelemetry = await confirm({
         message: `
 Would you like to share anonymous data about the usage of Otter builders and schematics with the Otter Team at Amadeus ?
 It will help us to improve our tools.
 For more details and instructions on how to change these settings, see https://github.com/AmadeusITGroup/otter/blob/main/docs/telemetry/PRIVACY_NOTICE.md.
         `,
         default: false
-      } as const satisfies Question;
-      const { isReplyPositive } = await prompt([question]);
-      shouldInstallTelemetry = isReplyPositive;
+      });
     }
   }
   const subtreeDirectory = context.schematic.description.name === 'typescript-shell' ? (opts as any).directory.split(path.posix.sep).join(path.sep) ?? '' : '';
