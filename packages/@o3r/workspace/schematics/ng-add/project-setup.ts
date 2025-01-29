@@ -105,7 +105,8 @@ export const prepareProject = (options: NgAddSchematicsSchema): Rule => {
         inManifest: [{
           range: ownPackageJsonContent.devDependencies?.[dep] || ownPackageJsonContent.generatorDependencies?.[dep] || 'latest',
           types: [NodeDependencyType.Dev]
-        }]
+        }],
+        requireInstall: !options.skipPreCommitChecks && dep === 'husky'
       };
     });
 
