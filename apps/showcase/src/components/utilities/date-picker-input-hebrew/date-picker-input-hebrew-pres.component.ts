@@ -15,7 +15,6 @@ import {
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
 import {
-  CloseInputDatePickerDirective,
   DfDatePickerModule,
   DfInputIconDirective,
 } from '@design-factory/design-factory';
@@ -52,7 +51,6 @@ export class GetDayNumeralsPipe implements PipeTransform {
   imports: [
     FormsModule,
     GetDayNumeralsPipe,
-    CloseInputDatePickerDirective,
     NgbInputDatepicker,
     DfInputIconDirective,
     DfDatePickerModule
