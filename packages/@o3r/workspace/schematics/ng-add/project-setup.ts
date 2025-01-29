@@ -129,7 +129,11 @@ export const prepareProject = (options: NgAddSchematicsSchema): Rule => {
         ngAddToRun: internalPackagesToInstallWithNgAdd,
         scheduleTaskCallback: (taskIds) => {
           if (!options.skipPreCommitChecks) {
-            getCommitHookInitTask(context)(taskIds);
+            if (options.skipInstall) {
+              context.logger.warn(`The pre-commit checks will not be setup because the installation has been skipped.`);
+            } else {
+              getCommitHookInitTask(context)(taskIds);
+            }
           }
         }
       }),
