@@ -152,7 +152,7 @@
     "tsc-watch": "^6.0.4",
     "yaml-eslint-parser": "^1.2.2"
   },
-  "openApiSupportedVersion": "~7.9.0",
+  "openApiSupportedVersion": "^7.11.0",
   "engines": {
     "node": "^18.19.1 || ^20.11.1 || >=22.0.0"
   }
