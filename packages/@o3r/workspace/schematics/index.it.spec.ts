@@ -91,7 +91,7 @@ describe('new otter workspace', () => {
   });
 
   test('should add a library to an existing workspace', async () => {
-    const { workspacePath } = o3rEnvironment.testEnvironment;
+    const { isInWorkspace, workspacePath } = o3rEnvironment.testEnvironment;
     const execAppOptions = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
     const libName = 'test-library';
     const inLibraryPath = path.resolve(workspacePath, 'libs', libName);
@@ -105,6 +105,7 @@ describe('new otter workspace', () => {
       'tsconfig.lib.prod.json',
       'tsconfig.spec.json',
       'src/public-api.ts',
+      'collection.json',
       '.gitignore',
       '.npmignore',
       'jest.config.js',
@@ -117,11 +118,13 @@ describe('new otter workspace', () => {
     generatedLibFiles.forEach((file) => expect(existsSync(path.join(inLibraryPath, file))).toBe(true));
     // TODO apps are generated without jest full configuration - needs to be fixed before removing this part
     expect(() => packageManagerExec({ script: 'ng', args: ['test', libName] }, execAppOptions)).not.toThrow();
-    expect(() => packageManagerRunOnProject(libName, true, { script: 'build' }, execAppOptions)).not.toThrow();
+    expect(() => packageManagerRunOnProject(libName, isInWorkspace, { script: 'build' }, execAppOptions)).not.toThrow();
 
     // check tsconfig.lib.prod.json override
     const tsconfigLibProd = JSON.parse(await fs.readFile(path.join(inLibraryPath, 'tsconfig.lib.prod.json'), { encoding: 'utf8' }));
     expect(!!tsconfigLibProd.extends && existsSync(path.resolve(inLibraryPath, tsconfigLibProd.extends))).toBe(true);
+    expect(() => packageManagerRunOnProject(libName, isInWorkspace, { script: 'prepare:build:builders' }, execAppOptions)).not.toThrow();
+    expect(() => packageManagerRunOnProject(libName, isInWorkspace, { script: 'build:builders' }, execAppOptions)).not.toThrow();
   });
 
   test('should generate a monorepo setup', async () => {
