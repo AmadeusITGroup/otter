@@ -67,52 +67,56 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@agnos-ui/angular-bootstrap@npm:~0.4.1":
-  version: 0.4.4
-  resolution: "@agnos-ui/angular-bootstrap@npm:0.4.4"
+"@agnos-ui/angular-bootstrap@npm:~0.7.0":
+  version: 0.7.1
+  resolution: "@agnos-ui/angular-bootstrap@npm:0.7.1"
   dependencies:
-    "@agnos-ui/angular-headless": "npm:0.4.4"
-    "@agnos-ui/core-bootstrap": "npm:0.4.4"
-    tslib: "npm:^2.6.3"
+    "@agnos-ui/angular-headless": "npm:0.7.1"
+    "@agnos-ui/core-bootstrap": "npm:0.7.1"
+    tslib: "npm:^2.8.1"
   peerDependencies:
-    "@amadeus-it-group/tansu": ^1.0.0
-    "@angular/common": ^18.1.2
-    "@angular/core": ^18.1.2
-  checksum: 10/8a38b6bf9af730c80defddea1e06e8356c7972a2290ed5f4ed1c5cc452a986903da9313bd8975d4ff1f0f9cb0a8f4dd6c3e1c4dea2965e5c8586338acc87f6f6
+    "@amadeus-it-group/tansu": ^2.0.0
+    "@angular/common": ^19.0.0
+    "@angular/core": ^19.0.0
+  checksum: 10/dd2cd981ba3793527a5c1182f4c97fe3551cbf635faa8ba5f99608e15b4a90ff7afb49a8662281d55ff5bcad3e0c2b0babc490c490d126840ed548d57d7239d7
   languageName: node
   linkType: hard
 
-"@agnos-ui/angular-headless@npm:0.4.4":
-  version: 0.4.4
-  resolution: "@agnos-ui/angular-headless@npm:0.4.4"
+"@agnos-ui/angular-headless@npm:0.7.1":
+  version: 0.7.1
+  resolution: "@agnos-ui/angular-headless@npm:0.7.1"
   dependencies:
-    "@agnos-ui/core": "npm:0.4.4"
-    tslib: "npm:^2.6.3"
+    "@agnos-ui/core": "npm:0.7.1"
+    tslib: "npm:^2.8.1"
   peerDependencies:
-    "@amadeus-it-group/tansu": ^1.0.0
-    "@angular/common": ^18.1.2
-    "@angular/core": ^18.1.2
-  checksum: 10/814d261034cd905723ddc0e602f4a911c2ee9150b606295207c63324c46e9e291f173617dda937ccb704f34a38ceccd71df8ddf2721f8e95486b1ae9e63b4588
+    "@amadeus-it-group/tansu": ^2.0.0
+    "@angular/common": ^19.0.0
+    "@angular/core": ^19.0.0
+  checksum: 10/b30ea08a0bf5edc3d2c0d32bc2b83cf6ea30eda7d514e8d429291a71a59074b35e617ce3646291b7f5bf04c6ce71816d7fc4d318494842674c15d673624f4251
   languageName: node
   linkType: hard
 
-"@agnos-ui/core-bootstrap@npm:0.4.4, @agnos-ui/core-bootstrap@npm:~0.4.1":
-  version: 0.4.4
-  resolution: "@agnos-ui/core-bootstrap@npm:0.4.4"
+"@agnos-ui/core-bootstrap@npm:0.7.1, @agnos-ui/core-bootstrap@npm:~0.7.0":
+  version: 0.7.1
+  resolution: "@agnos-ui/core-bootstrap@npm:0.7.1"
   dependencies:
-    "@agnos-ui/core": "npm:0.4.4"
-  checksum: 10/5238d708d7d74ef3c0c3196bb1cd6b165ab7057780b8d281806bbad8cf6c3b7eaad55476ec52baa07790099c878249ec118a6794f46d0e524c9e1d506138a529
+    "@agnos-ui/core": "npm:0.7.1"
+  peerDependencies:
+    "@amadeus-it-group/tansu": ^2.0.0
+  checksum: 10/f0c60779fa5ba58bc10c31bde42ad56237dd1bcae4c81bb111b5072c84211065af10ea87fb2f47523e4ff860abaae2001cdba85ab8077ae0cf5249ba5fd9fc38
   languageName: node
   linkType: hard
 
-"@agnos-ui/core@npm:0.4.4":
-  version: 0.4.4
-  resolution: "@agnos-ui/core@npm:0.4.4"
+"@agnos-ui/core@npm:0.7.1":
+  version: 0.7.1
+  resolution: "@agnos-ui/core@npm:0.7.1"
+  dependencies:
+    clsx: "npm:^2.1.1"
   peerDependencies:
-    "@amadeus-it-group/tansu": ^1.0.0
-    "@floating-ui/dom": ^1.6.8
-    esm-env: ^1.0.0
-  checksum: 10/b2f0fb71c0cac5285f522c828edc716d05e348651eb389a3bd019f405667ec0adf02b65e1a6f4cd6e32bc2d1b257334bd3641d50712e5d46ae1bf0691804f967
+    "@amadeus-it-group/tansu": ^2.0.0
+    "@floating-ui/dom": ^1.6.12
+    esm-env: ^1.2.1
+  checksum: 10/f3f9776370926cc0e5736cff2d9b092be8dd6a3e60a5bcfadc9e53e1b5090302df83495a53e2e63e934422868385d7d8ce2973028777032fdc1407685931a174
   languageName: node
   linkType: hard
 
@@ -8088,8 +8092,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/chrome-devtools@workspace:apps/chrome-devtools"
   dependencies:
-    "@agnos-ui/angular-bootstrap": "npm:~0.4.1"
-    "@agnos-ui/core-bootstrap": "npm:~0.4.1"
+    "@agnos-ui/angular-bootstrap": "npm:~0.7.0"
+    "@agnos-ui/core-bootstrap": "npm:~0.7.0"
     "@amadeus-it-group/tansu": "npm:~1.0.0"
     "@angular-devkit/build-angular": "npm:~18.2.0"
     "@angular-devkit/schematics": "npm:~18.2.0"
@@ -9384,8 +9388,8 @@ __metadata:
     "@actions/core": "npm:^1.10.0"
     "@actions/exec": "npm:^1.1.1"
     "@actions/github": "npm:^6.0.0"
-    "@agnos-ui/angular-bootstrap": "npm:~0.4.1"
-    "@agnos-ui/core-bootstrap": "npm:~0.4.1"
+    "@agnos-ui/angular-bootstrap": "npm:~0.7.0"
+    "@agnos-ui/core-bootstrap": "npm:~0.7.0"
     "@amadeus-it-group/tansu": "npm:~1.0.0"
     "@angular-devkit/architect": "npm:~0.1802.0"
     "@angular-devkit/build-angular": "npm:~18.2.0"
@@ -10381,8 +10385,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/showcase@workspace:apps/showcase"
   dependencies:
-    "@agnos-ui/angular-bootstrap": "npm:~0.4.1"
-    "@agnos-ui/core-bootstrap": "npm:~0.4.1"
+    "@agnos-ui/angular-bootstrap": "npm:~0.7.0"
+    "@agnos-ui/core-bootstrap": "npm:~0.7.0"
     "@ama-sdk/client-fetch": "workspace:^"
     "@ama-sdk/core": "workspace:^"
     "@ama-sdk/schematics": "workspace:^"
@@ -18655,6 +18659,13 @@ __metadata:
   version: 2.1.2
   resolution: "clone@npm:2.1.2"
   checksum: 10/d9c79efba655f0bf601ab299c57eb54cbaa9860fb011aee9d89ed5ac0d12df1660ab7642fddaabb9a26b7eff0e117d4520512cb70798319ff5d30a111b5310c2
+  languageName: node
+  linkType: hard
+
+"clsx@npm:^2.1.1":
+  version: 2.1.1
+  resolution: "clsx@npm:2.1.1"
+  checksum: 10/cdfb57fa6c7649bbff98d9028c2f0de2f91c86f551179541cf784b1cfdc1562dcb951955f46d54d930a3879931a980e32a46b598acaea274728dbe068deca919
   languageName: node
   linkType: hard
 
@@ -35928,7 +35939,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:2, tslib@npm:2.8.1, tslib@npm:^2.0.0, tslib@npm:^2.0.1, tslib@npm:^2.0.3, tslib@npm:^2.1.0, tslib@npm:^2.2.0, tslib@npm:^2.3.0, tslib@npm:^2.3.1, tslib@npm:^2.4.0, tslib@npm:^2.6.2, tslib@npm:^2.6.3, tslib@npm:^2.7.0, tslib@npm:^2.8.0":
+"tslib@npm:2, tslib@npm:2.8.1, tslib@npm:^2.0.0, tslib@npm:^2.0.1, tslib@npm:^2.0.3, tslib@npm:^2.1.0, tslib@npm:^2.2.0, tslib@npm:^2.3.0, tslib@npm:^2.3.1, tslib@npm:^2.4.0, tslib@npm:^2.6.2, tslib@npm:^2.6.3, tslib@npm:^2.7.0, tslib@npm:^2.8.0, tslib@npm:^2.8.1":
   version: 2.8.1
   resolution: "tslib@npm:2.8.1"
   checksum: 10/3e2e043d5c2316461cb54e5c7fe02c30ef6dccb3384717ca22ae5c6b5bc95232a6241df19c622d9c73b809bea33b187f6dbc73030963e29950c2141bc32a79f7
