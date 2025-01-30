@@ -124,6 +124,7 @@
     "zone.js": "~0.14.2"
   },
   "generatorDependencies": {
+    "@angular-builders/jest": "~18.0.0",
     "@angular/material": "~18.2.0",
     "@ngrx/router-store": "~18.0.0",
     "@ngrx/effects": "~18.0.0",
