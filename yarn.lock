@@ -4924,6 +4924,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@inquirer/confirm@npm:^5.1.0":
+  version: 5.1.4
+  resolution: "@inquirer/confirm@npm:5.1.4"
+  dependencies:
+    "@inquirer/core": "npm:^10.1.5"
+    "@inquirer/type": "npm:^3.0.3"
+  peerDependencies:
+    "@types/node": ">=18"
+  checksum: 10/fa5958ef9f0718fe01cb92350f8481228f7fac69eebf2d92ae0061f1087495276ed4fba2b821e4f76bf1a292c16696e11f55c65eb1f8365d6380f4a5beefc1f7
+  languageName: node
+  linkType: hard
+
 "@inquirer/core@npm:^10.1.0, @inquirer/core@npm:^10.1.4":
   version: 10.1.4
   resolution: "@inquirer/core@npm:10.1.4"
@@ -4938,6 +4950,22 @@ __metadata:
     wrap-ansi: "npm:^6.2.0"
     yoctocolors-cjs: "npm:^2.1.2"
   checksum: 10/a3e6a47443586ca313fa852e76670a267e01059524dd7cd9fbc1fa7cebe7d9249cd53f7483aa53aabea6458c9893b6acd8a51dfd37561ec6612a3a0ef2fc94ea
+  languageName: node
+  linkType: hard
+
+"@inquirer/core@npm:^10.1.5":
+  version: 10.1.5
+  resolution: "@inquirer/core@npm:10.1.5"
+  dependencies:
+    "@inquirer/figures": "npm:^1.0.10"
+    "@inquirer/type": "npm:^3.0.3"
+    ansi-escapes: "npm:^4.3.2"
+    cli-width: "npm:^4.1.0"
+    mute-stream: "npm:^2.0.0"
+    signal-exit: "npm:^4.1.0"
+    wrap-ansi: "npm:^6.2.0"
+    yoctocolors-cjs: "npm:^2.1.2"
+  checksum: 10/cdc76cbace27bc9eba8721639e84374ae406b9c8aab073fe388e4405bd725e471402cffdcf7f90aeb38dbf5011d0d5bd64a0c9ecea0f03b2b4fd676c32d0d9ea
   languageName: node
   linkType: hard
 
@@ -4964,6 +4992,13 @@ __metadata:
   peerDependencies:
     "@types/node": ">=18"
   checksum: 10/b87c287843f43bda44df3a49127b8b334b13e8b723048c551c340e9856aec06f2ba4546dfde6f9fc1c62140d35d268788cdfdc5c2b32ab2f4af9cef49a16ea4c
+  languageName: node
+  linkType: hard
+
+"@inquirer/figures@npm:^1.0.10":
+  version: 1.0.10
+  resolution: "@inquirer/figures@npm:1.0.10"
+  checksum: 10/ecdeb3e23722375fd634d93a75e5d642fa7fdb0af90c001058054bd9817fb23062ef01039e6a994d6c9427e472b50a1fd1950775c26b9e5103aa1e64cfd5fdd4
   languageName: node
   linkType: hard
 
@@ -5088,6 +5123,15 @@ __metadata:
   peerDependencies:
     "@types/node": ">=18"
   checksum: 10/d1a2879b1baa357421cef441fc7b43181e110243933763ae922c55c2fc9af2d459ceaca8b71ed57e3dabd5077542fa0dd1d0ff0cf362ce054e61202386b545ed
+  languageName: node
+  linkType: hard
+
+"@inquirer/type@npm:^3.0.3":
+  version: 3.0.3
+  resolution: "@inquirer/type@npm:3.0.3"
+  peerDependencies:
+    "@types/node": ">=18"
+  checksum: 10/1aef2724aedff154c96f807abc1596151e15e37c7ffb6f7a92820d104c5d3bf598e0aa0893443a1ac1f896efe2775c479f184d6adaed0a9e526b45ad4e0550db
   languageName: node
   linkType: hard
 
@@ -7038,7 +7082,6 @@ __metadata:
     "@swc/cli": "npm:~0.6.0"
     "@swc/core": "npm:~1.10.0"
     "@swc/helpers": "npm:~0.5.0"
-    "@types/inquirer": "npm:~8.2.10"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
     "@types/semver": "npm:^7.3.13"
@@ -8738,6 +8781,7 @@ __metadata:
     "@babel/preset-typescript": "npm:~7.26.0"
     "@compodoc/compodoc": "npm:^1.1.19"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
+    "@inquirer/confirm": "npm:^5.1.0"
     "@microsoft/tsdoc": "npm:~0.15.0"
     "@nx/eslint": "npm:~20.2.0"
     "@nx/eslint-plugin": "npm:~20.2.0"
@@ -8753,7 +8797,6 @@ __metadata:
     "@schematics/angular": "npm:~19.0.0"
     "@stylistic/eslint-plugin": "npm:~3.0.0"
     "@swc/helpers": "npm:~0.5.0"
-    "@types/inquirer": "npm:~8.2.10"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
     "@types/semver": "npm:^7.3.13"
@@ -8777,7 +8820,6 @@ __metadata:
     eslint-plugin-unused-imports: "npm:^4.1.4"
     globals: "npm:^15.9.0"
     globby: "npm:^11.1.0"
-    inquirer: "npm:~8.2.6"
     intl-messageformat: "npm:~10.7.0"
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
@@ -9854,6 +9896,7 @@ __metadata:
     "@babel/preset-typescript": "npm:~7.26.0"
     "@compodoc/compodoc": "npm:^1.1.19"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
+    "@inquirer/confirm": "npm:^5.1.0"
     "@nx/eslint": "npm:~20.2.0"
     "@nx/eslint-plugin": "npm:~20.2.0"
     "@nx/jest": "npm:~20.2.0"
@@ -9864,7 +9907,6 @@ __metadata:
     "@schematics/angular": "npm:~19.0.0"
     "@stylistic/eslint-plugin": "npm:~3.0.0"
     "@swc/helpers": "npm:~0.5.0"
-    "@types/inquirer": "npm:~8.2.10"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
     "@types/semver": "npm:^7.3.13"
@@ -9884,7 +9926,6 @@ __metadata:
     eslint-plugin-unused-imports: "npm:^4.1.4"
     globals: "npm:^15.9.0"
     globby: "npm:^11.1.0"
-    inquirer: "npm:~8.2.6"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
@@ -13166,16 +13207,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/inquirer@npm:~8.2.10":
-  version: 8.2.10
-  resolution: "@types/inquirer@npm:8.2.10"
-  dependencies:
-    "@types/through": "npm:*"
-    rxjs: "npm:^7.2.0"
-  checksum: 10/d7c0c5ec95af583191942ac33f8af2eb1fe839da6b4560277a8c251fa289f2dd3a5d14850baf910343700646200258ecff89dc9e1d57df29c16a1082d91a5ae3
-  languageName: node
-  linkType: hard
-
 "@types/istanbul-lib-coverage@npm:*, @types/istanbul-lib-coverage@npm:^2.0.0, @types/istanbul-lib-coverage@npm:^2.0.1":
   version: 2.0.6
   resolution: "@types/istanbul-lib-coverage@npm:2.0.6"
@@ -13519,15 +13550,6 @@ __metadata:
     "@types/node": "npm:*"
     minipass: "npm:^4.0.0"
   checksum: 10/d325223cf90399fd03f366d0eabe2383e75e550b3e40a006d5f062d006b894a475cd7c0968d258a8eb8eae5df30b6e7f4607d493a474f89134bbff65362b77ed
-  languageName: node
-  linkType: hard
-
-"@types/through@npm:*":
-  version: 0.0.33
-  resolution: "@types/through@npm:0.0.33"
-  dependencies:
-    "@types/node": "npm:*"
-  checksum: 10/fd0b73f873a64ed5366d1d757c42e5dbbb2201002667c8958eda7ca02fff09d73de91360572db465ee00240c32d50c6039ea736d8eca374300f9664f93e8da39
   languageName: node
   linkType: hard
 
@@ -23131,7 +23153,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"inquirer@npm:8.2.6, inquirer@npm:~8.2.6":
+"inquirer@npm:8.2.6":
   version: 8.2.6
   resolution: "inquirer@npm:8.2.6"
   dependencies:
@@ -30970,7 +30992,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rxjs@npm:7.8.1, rxjs@npm:^7.2.0, rxjs@npm:^7.5.5, rxjs@npm:^7.8.0, rxjs@npm:^7.8.1":
+"rxjs@npm:7.8.1, rxjs@npm:^7.5.5, rxjs@npm:^7.8.0, rxjs@npm:^7.8.1":
   version: 7.8.1
   resolution: "rxjs@npm:7.8.1"
   dependencies:

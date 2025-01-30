@@ -66,9 +66,9 @@
     }
   },
   "dependencies": {
+    "@inquirer/confirm": "^5.1.0",
     "chalk": "^4.1.2",
     "globby": "^11.1.0",
-    "inquirer": "~8.2.6",
     "minimatch": "~10.0.0",
     "semver": "^7.5.2",
     "tslib": "^2.6.2"
@@ -99,7 +99,6 @@
     "@schematics/angular": "~19.0.0",
     "@stylistic/eslint-plugin": "~3.0.0",
     "@swc/helpers": "~0.5.0",
-    "@types/inquirer": "~8.2.10",
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",
     "@types/semver": "^7.3.13",
