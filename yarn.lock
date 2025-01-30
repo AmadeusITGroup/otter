@@ -777,7 +777,7 @@ __metadata:
     "@types/swagger-schema-official": "npm:^2.0.22"
     "@typescript-eslint/parser": "npm:~8.21.0"
     angular-eslint: "npm:~19.0.0"
-    commander: "npm:^12.0.0"
+    commander: "npm:^13.0.0"
     concurrently: "npm:^9.1.0"
     copyfiles: "npm:^2.4.1"
     cpy-cli: "npm:^5.0.0"
@@ -6062,6 +6062,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@mswjs/interceptors@npm:^0.37.3":
+  version: 0.37.5
+  resolution: "@mswjs/interceptors@npm:0.37.5"
+  dependencies:
+    "@open-draft/deferred-promise": "npm:^2.2.0"
+    "@open-draft/logger": "npm:^0.3.0"
+    "@open-draft/until": "npm:^2.0.0"
+    is-node-process: "npm:^1.2.0"
+    outvariant: "npm:^1.4.3"
+    strict-event-emitter: "npm:^0.5.1"
+  checksum: 10/82c587af9343d620dac0549a300d85def0513d7d2d6befce5c7cd0f7776f9dca8831a89e07bf73df128212a49ddc7468dae44eaad821bd50d9b5c0564207f642
+  languageName: node
+  linkType: hard
+
 "@napi-rs/nice-android-arm-eabi@npm:1.0.1":
   version: 1.0.1
   resolution: "@napi-rs/nice-android-arm-eabi@npm:1.0.1"
@@ -7088,7 +7102,7 @@ __metadata:
     "@typescript-eslint/parser": "npm:~8.21.0"
     "@webcontainer/api": "npm:~1.5.0"
     angular-eslint: "npm:~19.0.0"
-    commander: "npm:^12.0.0"
+    commander: "npm:^13.0.0"
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.17.0"
     eslint-plugin-import: "npm:^2.31.0"
@@ -7612,7 +7626,7 @@ __metadata:
     "@types/node": "npm:^20.0.0"
     "@typescript-eslint/parser": "npm:~8.21.0"
     angular-eslint: "npm:~19.0.0"
-    commander: "npm:^12.0.0"
+    commander: "npm:^13.0.0"
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.17.0"
     eslint-import-resolver-node: "npm:^0.3.9"
@@ -7669,8 +7683,8 @@ __metadata:
     "@types/node": "npm:^20.0.0"
     "@typescript-eslint/parser": "npm:~8.21.0"
     angular-eslint: "npm:~19.0.0"
-    azure-devops-node-api: "npm:^13.0.0"
-    commander: "npm:^12.0.0"
+    azure-devops-node-api: "npm:^14.0.0"
+    commander: "npm:^13.0.0"
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.17.0"
     eslint-import-resolver-node: "npm:^0.3.9"
@@ -7796,7 +7810,7 @@ __metadata:
     "@schematics/angular": "npm:~19.0.0"
     "@stylistic/eslint-plugin": "npm:~3.0.0"
     "@types/chrome": "npm:^0.0.297"
-    "@types/color": "npm:^3.0.6"
+    "@types/color": "npm:^4.0.0"
     "@types/jest": "npm:~29.5.2"
     "@types/tinycolor2": "npm:^1.4.6"
     "@typescript-eslint/parser": "npm:~8.21.0"
@@ -9145,7 +9159,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:^"
     "@stylistic/eslint-plugin": "npm:~3.0.0"
     "@types/ejs": "npm:^3.1.2"
-    "@types/express-serve-static-core": "npm:^4.19.5"
+    "@types/express-serve-static-core": "npm:^5.0.0"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
     "@types/semver": "npm:^7.3.13"
@@ -9168,7 +9182,7 @@ __metadata:
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    nock: "npm:^13.0.5"
+    nock: "npm:^14.0.0"
     nx: "npm:~20.2.0"
     probot: "npm:^13.0.1"
     rxjs: "npm:^7.8.1"
@@ -9384,12 +9398,12 @@ __metadata:
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.5.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    logrocket: "npm:~8.1.0"
+    logrocket: "npm:~9.0.0"
     logrocket-ngrx: "npm:^0.2.1"
     ng-packagr: "npm:~19.0.0"
     nx: "npm:~20.2.0"
     rxjs: "npm:^7.8.1"
-    smartlook-client: "npm:^9.0.0"
+    smartlook-client: "npm:^10.0.0"
     ts-jest: "npm:~29.2.5"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
@@ -9405,10 +9419,10 @@ __metadata:
     "@o3r/core": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@schematics/angular": ^19.0.0
-    logrocket: ^8.1.0
+    logrocket: ^9.0.0
     logrocket-ngrx: ^0.2.1
     rxjs: ^7.8.1
-    smartlook-client: ^9.0.0
+    smartlook-client: ^10.0.0
     ts-node: ~10.9.2
   peerDependenciesMeta:
     "@angular-devkit/schematics":
@@ -9470,7 +9484,7 @@ __metadata:
     "@types/node-fetch": "npm:^2.6.2"
     "@typescript-eslint/parser": "npm:~8.21.0"
     angular-eslint: "npm:~19.0.0"
-    commander: "npm:^12.0.0"
+    commander: "npm:^13.0.0"
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.17.0"
     eslint-import-resolver-node: "npm:^0.3.9"
@@ -10834,7 +10848,7 @@ __metadata:
     "@types/uuid": "npm:^10.0.0"
     "@typescript-eslint/parser": "npm:~8.21.0"
     angular-eslint: "npm:~19.0.0"
-    commander: "npm:^12.0.0"
+    commander: "npm:^13.0.0"
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.17.0"
     eslint-import-resolver-node: "npm:^0.3.9"
@@ -11158,6 +11172,30 @@ __metadata:
     "@octokit/webhooks-types": "npm:7.6.1"
     aggregate-error: "npm:^3.1.0"
   checksum: 10/373266807eb8dcf8d8c6f4685594106f1a257798a1b391cbe36e5b5faf60aca38a0467acd1356427ea7375edc111c03be3d443bc04efb16019a84e853c8a1bc3
+  languageName: node
+  linkType: hard
+
+"@open-draft/deferred-promise@npm:^2.2.0":
+  version: 2.2.0
+  resolution: "@open-draft/deferred-promise@npm:2.2.0"
+  checksum: 10/bc3bb1668a555bb87b33383cafcf207d9561e17d2ca0d9e61b7ce88e82b66e36a333d3676c1d39eb5848022c03c8145331fcdc828ba297f88cb1de9c5cef6c19
+  languageName: node
+  linkType: hard
+
+"@open-draft/logger@npm:^0.3.0":
+  version: 0.3.0
+  resolution: "@open-draft/logger@npm:0.3.0"
+  dependencies:
+    is-node-process: "npm:^1.2.0"
+    outvariant: "npm:^1.4.0"
+  checksum: 10/7a280f170bcd4e91d3eedbefe628efd10c3bd06dd2461d06a7fdbced89ef457a38785847f88cc630fb4fd7dfa176d6f77aed17e5a9b08000baff647433b5ff78
+  languageName: node
+  linkType: hard
+
+"@open-draft/until@npm:^2.0.0":
+  version: 2.1.0
+  resolution: "@open-draft/until@npm:2.1.0"
+  checksum: 10/622be42950afc8e89715d0fd6d56cbdcd13e36625e23b174bd3d9f06f80e25f9adf75d6698af93bca1e1bf465b9ce00ec05214a12189b671fb9da0f58215b6f4
   languageName: node
   linkType: hard
 
@@ -12202,12 +12240,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sinonjs/fake-timers@npm:^13.0.0":
-  version: 13.0.5
-  resolution: "@sinonjs/fake-timers@npm:13.0.5"
+"@sinonjs/fake-timers@npm:^14.0.0":
+  version: 14.0.0
+  resolution: "@sinonjs/fake-timers@npm:14.0.0"
   dependencies:
     "@sinonjs/commons": "npm:^3.0.1"
-  checksum: 10/11ee417968fc4dce1896ab332ac13f353866075a9d2a88ed1f6258f17cc4f7d93e66031b51fcddb8c203aa4d53fd980b0ae18aba06269f4682164878a992ec3f
+  checksum: 10/da9f7797fda4588e5abaf811f3b3dec7a12771fa10f798486b2dceed3156539a35889552a449bd510048bb1d8d891014c81e9579a2f9aaaf31b452914571e472
   languageName: node
   linkType: hard
 
@@ -12702,12 +12740,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/color@npm:^3.0.6":
-  version: 3.0.6
-  resolution: "@types/color@npm:3.0.6"
+"@types/color@npm:^4.0.0":
+  version: 4.2.0
+  resolution: "@types/color@npm:4.2.0"
   dependencies:
     "@types/color-convert": "npm:*"
-  checksum: 10/0f16dcf4e202896d5425019c44a1f99713fca998052ab2fd836cdd38048398a0caf5b79a2efe560e41fca4b9401e8d8f6f02ed541cfea30cca3a8cb1b50b80f7
+  checksum: 10/4f9ddddac07f9c2d79823a5dfaf8689330f3e102c183200c5f772545ac421942ed9e42a2591afe96bbccddf5d5a87ad1bb46671da6056583ebf9c9fdc238b54e
   languageName: node
   linkType: hard
 
@@ -13080,7 +13118,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/express-serve-static-core@npm:^4.17.33, @types/express-serve-static-core@npm:^4.19.5":
+"@types/express-serve-static-core@npm:^4.17.33":
   version: 4.19.6
   resolution: "@types/express-serve-static-core@npm:4.19.6"
   dependencies:
@@ -15839,13 +15877,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"azure-devops-node-api@npm:^13.0.0":
-  version: 13.0.0
-  resolution: "azure-devops-node-api@npm:13.0.0"
+"azure-devops-node-api@npm:^14.0.0":
+  version: 14.1.0
+  resolution: "azure-devops-node-api@npm:14.1.0"
   dependencies:
     tunnel: "npm:0.0.6"
-    typed-rest-client: "npm:^1.8.4"
-  checksum: 10/f365e0a8438a39737611af6d56982de0682395ea4bf831698105414aba9a519cc70d6b374c0423a502c7f7d4938662a7e2f88c134c23cd51e4ba6b769f732183
+    typed-rest-client: "npm:2.1.0"
+  checksum: 10/e974af8863dba1108e4755891f3209423dd4981d2c73a30c12a33e70e4739af7e875106c296b3c3afed31971d781500c905220d2dc6a98b53d3cd5bddcf826d6
   languageName: node
   linkType: hard
 
@@ -17349,7 +17387,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"commander@npm:^13.1.0":
+"commander@npm:^13.0.0, commander@npm:^13.1.0":
   version: 13.1.0
   resolution: "commander@npm:13.1.0"
   checksum: 10/d3b4b79e6be8471ddadacbb8cd441fe82154d7da7393b50e76165a9e29ccdb74fa911a186437b9a211d0fc071db6051915c94fb8ef16d77511d898e9dbabc6af
@@ -19245,6 +19283,16 @@ __metadata:
   version: 2.0.3
   resolution: "dequal@npm:2.0.3"
   checksum: 10/6ff05a7561f33603df87c45e389c9ac0a95e3c056be3da1a0c4702149e3a7f6fe5ffbb294478687ba51a9e95f3a60e8b6b9005993acd79c292c7d15f71964b6b
+  languageName: node
+  linkType: hard
+
+"des.js@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "des.js@npm:1.1.0"
+  dependencies:
+    inherits: "npm:^2.0.1"
+    minimalistic-assert: "npm:^1.0.0"
+  checksum: 10/d35fc82b5a0b2127b12699212e90b54ddd8134e0cf8d27a8c30507ed3572aa574ab71800cbb473769128a52dcf21acc3271c5c359508a5aa772e990df3b1a698
   languageName: node
   linkType: hard
 
@@ -23526,6 +23574,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"is-node-process@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "is-node-process@npm:1.2.0"
+  checksum: 10/930765cdc6d81ab8f1bbecbea4a8d35c7c6d88a3ff61f3630e0fc7f22d624d7661c1df05c58547d0eb6a639dfa9304682c8e342c4113a6ed51472b704cee2928
+  languageName: node
+  linkType: hard
+
 "is-number-object@npm:^1.1.1":
   version: 1.1.1
   resolution: "is-number-object@npm:1.1.1"
@@ -24593,6 +24648,13 @@ __metadata:
   version: 6.7.0
   resolution: "js-library-detector@npm:6.7.0"
   checksum: 10/1498d7f382102c9bf100563706906b18fd2e351746e0260e4a84c73d829a414478cd92fe6ad8a90f4d8636c76ef1ddfc2ec814b49904dfab86f5ddde71986d58
+  languageName: node
+  linkType: hard
+
+"js-md4@npm:^0.3.2":
+  version: 0.3.2
+  resolution: "js-md4@npm:0.3.2"
+  checksum: 10/66cea478a6b914a5f23a588565b4ae4d9fc2ccae316c32f971aab1f94467f96aaa2b79d359e951c2eeac9c166897efcaec103b9fa99565a81291e1364b77ac12
   languageName: node
   linkType: hard
 
@@ -25928,10 +25990,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"logrocket@npm:~8.1.0":
-  version: 8.1.3
-  resolution: "logrocket@npm:8.1.3"
-  checksum: 10/ecaee188ae47eee4ea9a9b66fe7e8711f2da09863d0aef1c3320904bcb112971f44394fd61231adbb90e43252e18f8dc1ce0ac3f44ad1a65a1f518a923a4bbb7
+"logrocket@npm:~9.0.0":
+  version: 9.0.2
+  resolution: "logrocket@npm:9.0.2"
+  checksum: 10/637bc9226de7cb42194d0b9f3d92fd4092f0ad8829bd9cebe10dacc5c5f7531bbf51af4f21bf28f583e987e882281cdd909eeaeac643364109c5f202dd39b863
   languageName: node
   linkType: hard
 
@@ -27198,14 +27260,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nock@npm:^13.0.5":
-  version: 13.5.6
-  resolution: "nock@npm:13.5.6"
+"nock@npm:^14.0.0":
+  version: 14.0.0
+  resolution: "nock@npm:14.0.0"
   dependencies:
-    debug: "npm:^4.1.0"
+    "@mswjs/interceptors": "npm:^0.37.3"
     json-stringify-safe: "npm:^5.0.1"
     propagate: "npm:^2.0.0"
-  checksum: 10/a57c265b75e5f7767e2f8baf058773cdbf357c31c5fea2761386ec03a008a657f9df921899fe2a9502773b47145b708863b32345aef529b3c45cba4019120f88
+  checksum: 10/88138f268ec5f6c1789e3f8c46f48f0d7d5ae5b3e6764a08bf665bc892912a947f7e036fc9a1aa81f2626101a78e68181ee44610f3ab3c1ad3487e677c2467aa
   languageName: node
   linkType: hard
 
@@ -28107,6 +28169,13 @@ __metadata:
     zone.js: "npm:~0.15.0"
   languageName: unknown
   linkType: soft
+
+"outvariant@npm:^1.4.0, outvariant@npm:^1.4.3":
+  version: 1.4.3
+  resolution: "outvariant@npm:1.4.3"
+  checksum: 10/3a7582745850cb344d49641867a4c080858c54f4091afd91b9c0765ba6e471c2bc841348f0fff344845ddd0a4db42fd5d68c6f7ebaf32d4b676a3a9987b2488a
+  languageName: node
+  linkType: hard
 
 "own-keys@npm:^1.0.1":
   version: 1.0.1
@@ -29912,7 +29981,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"qs@npm:^6.4.0, qs@npm:^6.9.1":
+"qs@npm:^6.10.3, qs@npm:^6.4.0, qs@npm:^6.9.1":
   version: 6.14.0
   resolution: "qs@npm:6.14.0"
   dependencies:
@@ -31732,10 +31801,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"smartlook-client@npm:^9.0.0":
-  version: 9.0.0
-  resolution: "smartlook-client@npm:9.0.0"
-  checksum: 10/9c262516612f0afd8986134920bc6029c168c24081d6e131ce57ae26967ba37fe99072b4aec9155e68a1649b7b0432b8ea53039b51c4ed4b17d25f501cfcbc80
+"smartlook-client@npm:^10.0.0":
+  version: 10.0.0
+  resolution: "smartlook-client@npm:10.0.0"
+  checksum: 10/44a9976d24f2b633f07a4c6f025df0aed9cca2919d33493db32b6b0bedf2873399aff3940bbe0373f483c752306fe7e1b0e2b0039bf19b31a82e4705d8e6a92d
   languageName: node
   linkType: hard
 
@@ -32180,6 +32249,13 @@ __metadata:
     bare-events:
       optional: true
   checksum: 10/d61ee82033f8b900226e2405aeb683de5f51a68ded1d40198d548cd9a7b2e47b7706442c9142bbc7fc59874f03063ee41ddf9e8667e63186b507b2e6b394ac28
+  languageName: node
+  linkType: hard
+
+"strict-event-emitter@npm:^0.5.1":
+  version: 0.5.1
+  resolution: "strict-event-emitter@npm:0.5.1"
+  checksum: 10/25c84d88be85940d3547db665b871bfecea4ea0bedfeb22aae8db48126820cfb2b0bc2fba695392592a09b1aa36b686d6eede499e1ecd151593c03fe5a50d512
   languageName: node
   linkType: hard
 
@@ -33621,6 +33697,19 @@ __metadata:
   version: 2.12.0
   resolution: "typed-query-selector@npm:2.12.0"
   checksum: 10/e65b646830315e63282883acb44ea48ef8da3e9a044aa69e03f3bd876d7a69baae85f71c0918456b43f7c1bc2b448f2d64a424280f9699d34be2bae582121bc9
+  languageName: node
+  linkType: hard
+
+"typed-rest-client@npm:2.1.0":
+  version: 2.1.0
+  resolution: "typed-rest-client@npm:2.1.0"
+  dependencies:
+    des.js: "npm:^1.1.0"
+    js-md4: "npm:^0.3.2"
+    qs: "npm:^6.10.3"
+    tunnel: "npm:0.0.6"
+    underscore: "npm:^1.12.1"
+  checksum: 10/601da14aea1ede39c80067445e3e675ed86fb68d434aa4986767a64dfa14a0d9829ff93042246a134407d2e85f6d0c5fb7b675dc3a9b83425b5c7f3c4c4a8209
   languageName: node
   linkType: hard
 

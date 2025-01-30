@@ -23,8 +23,8 @@
     "o3r-comment-pr": "./dist/src/cli/comment-pr.js"
   },
   "dependencies": {
-    "azure-devops-node-api": "^13.0.0",
-    "commander": "^12.0.0",
+    "azure-devops-node-api": "^14.0.0",
+    "commander": "^13.0.0",
     "ts-node": "~10.9.2",
     "tslib": "^2.6.2",
     "winston": "^3.8.2"
