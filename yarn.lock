@@ -11267,12 +11267,14 @@ __metadata:
     globby: "npm:^14.0.0"
     minimist: "npm:^1.2.6"
     nx: "npm:~19.8.0"
+    semver: "npm:^7.5.2"
     typescript: "npm:~5.5.4"
   peerDependencies:
     typescript: ^5.5.4
   bin:
     create-monorepo-scope: ./scripts/create-monorepo-scope.mjs
     doc-links: ./scripts/doc-links.mjs
+    get-build-targets: ./scripts/get-build-targets.mjs
     pr-labels: ./scripts/pr-labels.mjs
     prepare-doc-root-menu-template: ./scripts/prepare-doc-root-menu-template.mjs
     report-deprecates: ./scripts/report-deprecates.mjs
