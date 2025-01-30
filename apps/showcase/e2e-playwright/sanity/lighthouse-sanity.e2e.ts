@@ -16,11 +16,14 @@ import {
 const baseUrl = process.env.PLAYWRIGHT_TARGET_URL || 'http://localhost:4200/';
 const lighthouseConfig = {
   thresholds: {
-    // Disable performance measurement because it is too unreliable in the current setup
-    performance: 0,
     accessibility: 100,
-
     'best-practices': 100
+  },
+  config: {
+    extends: 'lighthouse:default',
+    settings: {
+      onlyCategories: ['accessibility', 'best-practices']
+    }
   },
   opts: {
     disableStorageReset: false
