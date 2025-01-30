@@ -76,7 +76,7 @@ export const getCssTokenDefinitionRenderer = (options?: CssTokenDefinitionRender
   const renderer = (variable: DesignTokenVariableStructure, variableSet: Map<string, DesignTokenVariableStructure>) => {
     let variableString: string | undefined;
     if (!isPrivateVariable(variable)) {
-      variableString = `--${variable.getKey(tokenVariableNameRenderer)}: ${tokenValueRenderer(variable, variableSet, !!variable.extensions.o3rExpectOverride)};`;
+      variableString = `--${variable.getKey(tokenVariableNameRenderer)}: ${tokenValueRenderer(variable, variableSet)};`;
       if (variable.extensions.o3rScope) {
         variableString = `${variable.extensions.o3rScope} { ${variableString} }`;
       }

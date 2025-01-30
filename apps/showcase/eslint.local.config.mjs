@@ -17,7 +17,10 @@ export default [
       'dev-resources/**/*',
       'playwright-reports/**/*',
       'test-results/**/*',
-      '*.metadata.json'
+      '*.metadata.json',
+      'src/assets/trainings/sdk/**/*',
+      'src/coi-serviceworker.js',
+      'training-assets/**/*'
     ]
   },
   {

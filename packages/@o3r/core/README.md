@@ -37,7 +37,7 @@ npm install --global yarn
 ```shell
 npm create @o3r my-project
 # Or a project using the yarn package manager
-npm create @o3r my-project -- --package-manager=yarn
+npm create @o3r my-project -- --yarn
 ```
 
 > [!TIP]

@@ -6,46 +6,63 @@
  * @param versionPattern RegExp to find the version in the deprecated message
  */
 
-import { readFile, writeFile } from 'node:fs/promises';
-import { globby as glob } from 'globby';
-import { resolve, relative, sep } from 'node:path';
+import {
+  existsSync,
+} from 'node:fs';
+import {
+  readFile,
+  writeFile,
+} from 'node:fs/promises';
+import {
+  relative,
+  resolve,
+} from 'node:path';
+import {
+  globby as glob,
+} from 'globby';
 import minimist from 'minimist';
-import { createSourceFile, ScriptTarget, isJSDoc, isIdentifier, isVariableDeclarationList } from 'typescript';
-import { existsSync } from 'node:fs';
+import {
+  createSourceFile,
+  isIdentifier,
+  isJSDoc,
+  isVariableDeclarationList,
+  ScriptTarget,
+} from 'typescript';
 
 const argv = minimist(process.argv.slice(2));
 const root = argv.root ? resolve(process.cwd(), argv.root) : process.cwd();
 const version = argv.version || argv._.at(0) || '0';
 const output = resolve(process.cwd(), argv.output || argv.o || 'migration-guides/{VERSION}.0.md').replaceAll('{VERSION}', version);
-const ignore = argv.ignore ? argv.ignore.split(',') : [
-  '**/dist/**'
-];
+const ignore = argv.ignore
+  ? argv.ignore.split(',')
+  : ['**/dist/**'];
 const versionPattern = argv.versionPattern ? new RegExp(argv.versionPattern) : /[vV]([0-9]+(?:[.][0-9]+)?)/;
 const removalTargetVersion = +version + 1;
 /**
  * Work through the TS Node to find the deprecated node
  * @param {import("typescript").SourceFile} sourceFile
  * @param {import("typescript").Node} node
+ * @param {number} index
  * @returns {import("typescript").Node}
  */
 const workThroughTypescript = (sourceFile, node, index) => {
   const children = node.getChildren(sourceFile)
-    .filter((n) => !isJSDoc(n) && n.getStart(sourceFile, true) <= index && n.getEnd() > index)
+    .filter((n) => !isJSDoc(n) && n.getStart(sourceFile, true) <= index && n.getEnd() > index);
 
-  return children.reduce((acc, n) => workThroughTypescript(sourceFile, n, index) || acc, node)
+  return children.reduce((acc, n) => workThroughTypescript(sourceFile, n, index) || acc, node);
 };
 
 /** Get deprecated items in TS files */
 const getTypescriptDeprecations = async () => {
   const deprecateRegExp = /@deprecated/g;
   const deprecateLineRegExp = /@deprecated(.*?)(?: *\*\/)?$/mg;
-  const files = await glob('**/*.{c,m,}ts', {cwd: root, ignore, gitignore: true});
+  const files = await glob('**/*.{c,m,}ts', { cwd: root, ignore, gitignore: true });
   const reports = [];
   for (let file of files) {
     file = resolve(root, file);
     const content = await readFile(file, { encoding: 'utf8' });
     const match = [...content.matchAll(deprecateRegExp)];
-    if (!match.length) {
+    if (match.length === 0) {
       continue;
     }
 
@@ -62,13 +79,13 @@ const getTypescriptDeprecations = async () => {
           ...node
             .getFullText(sourceFile)
             .matchAll(deprecateLineRegExp)
-        ].map(([, description]) => description.trim()).join('\n')
+        ].map(([, description]) => description.trim()).join('\n');
 
         let nodeLabel = node.getText(sourceFile);
         if (typeof node.name !== 'undefined' && isIdentifier(node.name)) {
           nodeLabel = node.name.getText();
         } else if (typeof node.declarationList !== 'undefined' && isVariableDeclarationList(node.declarationList)) {
-          nodeLabel = node.declarationList.declarations.map(({name}) => name.getText()).join(', ')
+          nodeLabel = node.declarationList.declarations.map(({ name }) => name.getText()).join(', ');
         }
         return {
           file,
@@ -86,7 +103,7 @@ const getTypescriptDeprecations = async () => {
 
 /**
  * Work through the JSON fields to find the deprecated items
- * @param {Object} json
+ * @param {object} json
  * @param {RegExp} nodeNameToDetect
  */
 const workThroughJson = (json, nodeNameToDetect) => {
@@ -112,10 +129,10 @@ const workThroughJson = (json, nodeNameToDetect) => {
       });
 
     return entries.reduce((acc, [key, value]) => rec(value, `${ancestors}.${key}`, acc), mem);
-  }
+  };
 
   return rec(json, '', memory);
-}
+};
 
 /** Get deprecated items in JSON files */
 const getJsonDeprecations = async () => {
@@ -127,7 +144,7 @@ const getJsonDeprecations = async () => {
   );
 
   return contents
-    .filter(({ content }) => !!content.match(deprecateNodeRegExp))
+    .filter(({ content }) => !!deprecateNodeRegExp.test(content))
     .map(({ file, content }) => ({
       file,
       content: JSON.parse(content)
@@ -136,7 +153,7 @@ const getJsonDeprecations = async () => {
       file,
       report: workThroughJson(content, deprecateNodeRegExp)
     }))
-    .filter(({report}) => !!report.length);
+    .filter(({ report }) => report.length > 0);
 };
 
 /**
@@ -151,7 +168,7 @@ const formatNoteMessage = (message) => {
 };
 
 // Executed at CLI call
-void (async() => {
+void (async () => {
   const startTag = '<!-- generated deprecated - start -->';
   const endTag = '<!-- generated deprecated - end -->';
   let template = `${startTag}
@@ -163,11 +180,11 @@ The following items are **deprecated** and **will be removed** in the version **
     .flat()
     .filter(({ report }) => +report.version <= removalTargetVersion)
     .reduce((acc, { file, report }) => {
-      const relativeFile = relative(root, file)
+      const relativeFile = relative(root, file).replaceAll('\\', '/');
       const pck = /@[^/\\]+[/\\][^/\\]+/.exec(relativeFile)?.[0] || relativeFile;
       (acc[pck] ||= []).push(report);
       return acc;
-    },{});
+    }, {});
 
   Object.entries(changeMap)
     .sort(([pck1], [pck2]) => pck1.localeCompare(pck2))
@@ -183,10 +200,10 @@ The following items are **deprecated** and **will be removed** in the version **
 
   template += endTag;
 
-  let outputFileContent = existsSync(output) ? await readFile(output, {encoding: 'utf8'}) : '';
+  let outputFileContent = existsSync(output) ? await readFile(output, { encoding: 'utf8' }) : '';
   const startIdx = outputFileContent.indexOf(startTag);
   const endIdx = outputFileContent.indexOf(endTag);
-  if (startIdx > -1 && endIdx > -1) {
+  if (startIdx !== -1 && endIdx !== -1) {
     outputFileContent = outputFileContent.slice(0, startIdx) + template + outputFileContent.slice(endIdx + endTag.length);
   } else {
     outputFileContent += template;

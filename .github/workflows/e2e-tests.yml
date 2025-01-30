@@ -15,6 +15,7 @@ on:
 
 env:
   NX_PARALLEL: ${{ vars.NX_PARALLEL }}
+  NX_TASK_TARGET_CONFIGURATION: ci
   NX_SKIP_NX_CACHE: ${{ inputs.skipNxCache }}
   YARN_ENABLE_HARDENED_MODE: 0
 
@@ -23,7 +24,7 @@ permissions:
 
 jobs:
   e2e-tests:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     env:
       NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
     steps:
@@ -42,7 +43,9 @@ jobs:
 
       - name: Publish tests reports
         if: failure()
-        uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 # v4.4.3
+        uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.0
         with:
           name: e2e-report
-          path: apps/showcase/playwright-reports
+          path: |
+            apps/chrome-devtools/playwright-reports
+            apps/showcase/playwright-reports

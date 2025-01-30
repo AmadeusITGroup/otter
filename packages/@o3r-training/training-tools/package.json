@@ -11,7 +11,6 @@
     "nx": "nx",
     "ng": "yarn nx",
     "build": "yarn nx build training-tools",
-    "test": "yarn nx test training-tools",
     "postbuild": "yarn cpy 'package.json' dist && patch-package-json-main",
     "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist",
     "build:source": "tsc -b tsconfig.build.json --pretty",
@@ -26,8 +25,8 @@
       "default": "./package.json"
     },
     ".": {
-      "default": "./dist/public_api.js",
-      "typings": "./dist/public_api.d.ts"
+      "default": "./dist/src/public_api.js",
+      "typings": "./dist/src/public_api.d.ts"
     }
   },
   "peerDependencies": {
@@ -96,7 +95,7 @@
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",
     "@types/semver": "^7.3.13",
-    "@typescript-eslint/parser": "~8.19.0",
+    "@typescript-eslint/parser": "~8.21.0",
     "@webcontainer/api": "~1.5.0",
     "angular-eslint": "~18.4.0",
     "cpy-cli": "^5.0.0",
@@ -111,14 +110,14 @@
     "jest": "~29.7.0",
     "jest-junit": "~16.0.0",
     "jsonc-eslint-parser": "~2.4.0",
-    "jsonschema": "~1.4.1",
+    "jsonschema": "~1.5.0",
     "nx": "~19.8.0",
     "rxjs": "^7.8.1",
     "ts-jest": "~29.2.0",
     "ts-node": "~10.9.2",
     "type-fest": "^4.10.2",
     "typescript": "~5.5.4",
-    "typescript-eslint": "~8.19.0",
+    "typescript-eslint": "~8.21.0",
     "zone.js": "~0.14.2"
   },
   "engines": {

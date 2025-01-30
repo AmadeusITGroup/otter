@@ -25,7 +25,7 @@
     "prepare:build:builders": "yarn cpy 'schematics/**/*.json' 'schematics/**/templates/**' dist/schematics && yarn cpy './collection.json' dist"
   },
   "dependencies": {
-    "@typescript-eslint/utils": "~8.19.0",
+    "@typescript-eslint/utils": "~8.21.0",
     "globby": "^11.1.0",
     "semver": "^7.5.2",
     "tslib": "^2.6.2",
@@ -74,8 +74,8 @@
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",
     "@types/semver": "^7.3.13",
-    "@typescript-eslint/parser": "~8.19.0",
-    "@typescript-eslint/rule-tester": "~8.19.0",
+    "@typescript-eslint/parser": "~8.21.0",
+    "@typescript-eslint/rule-tester": "~8.21.0",
     "angular-eslint": "~18.4.0",
     "cpy-cli": "^5.0.0",
     "eslint": "~9.14.0",
@@ -97,7 +97,7 @@
     "ts-jest": "~29.2.0",
     "type-fest": "^4.10.2",
     "typescript": "~5.5.4",
-    "typescript-eslint": "~8.19.0",
+    "typescript-eslint": "~8.21.0",
     "yaml-eslint-parser": "^1.2.2"
   },
   "schematics": "./collection.json"

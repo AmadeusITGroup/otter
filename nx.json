@@ -89,6 +89,13 @@
       "cli-only",
       "source"
     ],
+    "structure-only": [
+      "{projectRoot}/dist/structure/**/*"
+    ],
+    "structure": [
+      "structure-only",
+      "source"
+    ],
     "middlewares": [
       "base",
       "{projectRoot}/middlewares/**/*",
@@ -165,6 +172,7 @@
       "cache": true
     },
     "test": {
+      "executor": "@nx/jest:jest",
       "inputs": [
         {
           "env": "RUNNER_OS"
@@ -179,6 +187,8 @@
         "{projectRoot}/coverage/cobertura-coverage.xml"
       ],
       "options": {
+        "jestConfig": "{projectRoot}/jest.config.js",
+        "cacheDirectory": "{workspaceRoot}/.cache/jest",
         "passWithNoTests": false,
         "silent": true
       },
@@ -191,6 +201,7 @@
       "cache": true
     },
     "test-int": {
+      "executor": "@nx/jest:jest",
       "inputs": [
         {
           "env": "RUNNER_OS"
@@ -211,6 +222,7 @@
         "{projectRoot}/coverage/cobertura-coverage.xml"
       ],
       "options": {
+        "jestConfig": "{projectRoot}/testing/jest.config.it.js",
         "quiet": false,
         "passWithNoTests": false
       },
@@ -222,10 +234,39 @@
       },
       "cache": true
     },
+    "publish": {
+      "cache": false,
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm publish {projectRoot}/dist"
+      },
+      "outputs": [],
+      "inputs": [
+        "{projectRoot}/dist"
+      ]
+    },
     "prepare-publish": {
       "cache": false,
+      "executor": "nx:run-script",
+      "options": {
+        "script": "prepare:publish"
+      },
+      "inputs": [
+        "{workspaceRoot}/readme.md",
+        "{workspaceRoot}/package.json",
+        "{workspaceRoot}/LICENSE",
+        "{workspaceRoot}/.npmignore",
+        "{projectRoot}/readme.md",
+        "{projectRoot}/.npmignore",
+        "{projectRoot}/package.json"
+      ],
       "outputs": [
-        "{projectRoot}/dist/package.json"
+        "{projectRoot}/dist/package.json",
+        "{projectRoot}/dist/readme.json",
+        "{projectRoot}/dist/LICENSE"
+      ],
+      "dependsOn": [
+        "build"
       ]
     },
     "publish-extension": {
@@ -273,6 +314,10 @@
       "cache": true
     },
     "compile-github-action": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "build"
+      },
       "dependsOn": [
         "^build"
       ],
@@ -325,6 +370,10 @@
       "cache": true
     },
     "prepare-build-builders": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "prepare:build:builders"
+      },
       "dependsOn": [
         "compile"
       ],
@@ -345,6 +394,10 @@
       "cache": true
     },
     "build-cli": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "build:cli"
+      },
       "dependsOn": [
         "compile"
       ],
@@ -364,6 +417,10 @@
       "cache": true
     },
     "build-builders": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "build:builders"
+      },
       "dependsOn": [
         "^build",
         "prepare-build-builders",
@@ -410,6 +467,10 @@
       "cache": true
     },
     "documentation": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "compodoc"
+      },
       "outputs": [
         "{workspaceRoot}/generated-doc/{projectName}/**/*"
       ],
@@ -517,6 +578,10 @@
       "cache": true
     },
     "package-github-action": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "package"
+      },
       "cache": true,
       "inputs": [
         "default",
@@ -527,7 +592,8 @@
         "{projectRoot}/packaged-action"
       ],
       "dependsOn": [
-        "build"
+        "build",
+        "^prepare-publish"
       ]
     }
   },

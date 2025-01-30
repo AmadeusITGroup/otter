@@ -99,7 +99,7 @@ export function apiFactory(eventTrackService: EventTrackService): ApiManager {
 @NgModule({
   imports: [
     ...,
-    ApiManagerModule
+    ApiManagerModule,
   ],
   providers: [
     ...,

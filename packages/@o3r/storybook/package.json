@@ -92,7 +92,7 @@
     "@babel/preset-typescript": "~7.26.0",
     "@compodoc/compodoc": "^1.1.19",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
-    "@ngrx/store": "~18.0.0",
+    "@ngrx/store": "~18.1.0",
     "@nx/eslint-plugin": "~19.8.0",
     "@nx/jest": "~19.8.0",
     "@o3r/build-helpers": "workspace:^",
@@ -116,7 +116,7 @@
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",
     "@types/react": "^18.0.0",
-    "@typescript-eslint/parser": "~8.19.0",
+    "@typescript-eslint/parser": "~8.21.0",
     "angular-eslint": "~18.4.0",
     "concurrently": "^8.0.0",
     "cpy-cli": "^5.0.0",
@@ -142,7 +142,7 @@
     "ts-jest": "~29.2.0",
     "ts-node": "~10.9.2",
     "typescript": "~5.5.4",
-    "typescript-eslint": "~8.19.0",
+    "typescript-eslint": "~8.21.0",
     "zone.js": "~0.14.2"
   },
   "schematics": "./collection.json"
