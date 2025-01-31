@@ -126,7 +126,7 @@
     }
   ],
   "resolutions": {
-    "@sinonjs/fake-timers": "^13.0.0",
+    "@sinonjs/fake-timers": "^14.0.0",
     "@types/node": "^20.0.0",
     "typescript-json-schema/typescript": "~5.7.2"
   },
