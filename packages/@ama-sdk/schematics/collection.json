@@ -31,11 +31,6 @@
       "description": "Generate a typescript SDK repository shell",
       "factory": "./schematics/typescript/shell/index#ngGenerateTypescriptSDK",
       "schema": "./schematics/typescript/shell/schema.json"
-    },
-    "java-client-core": {
-      "description": "[Deprecated - Removed in v12] Generate a Java SDK source code based on swagger specification",
-      "factory": "./schematics/java/client-core/index#ngGenerateJavaClientCore",
-      "schema": "./schematics/java/client-core/schema.json"
     }
   }
 }

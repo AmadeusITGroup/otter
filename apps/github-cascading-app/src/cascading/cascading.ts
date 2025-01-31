@@ -402,7 +402,7 @@ export abstract class Cascading {
     }
 
     const isIgnored = config.ignoredPatterns
-      .map(((pattern) => new RegExp(pattern)))
+      .map((pattern) => new RegExp(pattern))
       .some((pattern) => pattern.test(currentBranchName));
 
     if (isIgnored) {

@@ -28,7 +28,11 @@
       "dependsOn": ["^build"]
     },
     "lint": {},
-    "test": {},
+    "test": {
+      "options": {
+        "passWithNoTests": true
+      }
+    },
     "test-int": {},
     "prepare-publish": {},
     "publish": {},

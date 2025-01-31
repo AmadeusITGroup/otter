@@ -5,6 +5,7 @@
     "module": "CommonJS",
     "composite": true,
     "incremental": true,
+    "skipLibCheck": true, // because of @angular-devkit-schematics
     "tsBuildInfoFile": "build/.tsbuildinfo",
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true

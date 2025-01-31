@@ -101,15 +101,6 @@
       ]
     },
     {
-      "matchDepNames": [
-        "org.openapitools:openapi-generator"
-      ],
-      "groupName": "Open API updates",
-      "groupSlug": "openapi",
-      // TODO wait for https://github.com/OpenAPITools/openapi-generator/issues/20135 to be fixed before upgrading to 7.10.0
-      "enabled": false
-    },
-    {
       // We don't want to update this dep as we are still targeting a fork
       "matchPackageNames": [
         "io.swagger:swagger-codegen-cli"

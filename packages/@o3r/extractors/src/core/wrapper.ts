@@ -6,16 +6,13 @@ import {
   promises,
 } from 'node:fs';
 import * as path from 'node:path';
+import confirm from '@inquirer/confirm';
 import {
   getPackageManagerRunner,
 } from '@o3r/schematics';
 import type {
   BuilderWrapper,
 } from '@o3r/telemetry';
-import {
-  prompt,
-  Question,
-} from 'inquirer';
 
 const noopBuilderWrapper: BuilderWrapper = (fn) => fn;
 
@@ -52,17 +49,14 @@ export const createBuilderWithMetricsIfInstalled: BuilderWrapper = (builderFn) =
     ) {
       ctx.logger.debug('`@o3r/telemetry` is not available.\nAsking to add the dependency\n' + e.toString());
 
-      const question = {
-        type: 'confirm',
-        name: 'isReplyPositive',
+      const isReplyPositive = await confirm({
         message: `
 Would you like to share anonymous data about the usage of Otter builders and schematics with the Otter Team at Amadeus ?
 It will help us to improve our tools.
 For more details and instructions on how to change these settings, see https://github.com/AmadeusITGroup/otter/blob/main/docs/telemetry/PRIVACY_NOTICE.md
         `,
         default: false
-      } as const satisfies Question;
-      const { isReplyPositive } = await prompt([question]);
+      });
 
       if (isReplyPositive) {
         const pmr = getPackageManagerRunner(packageJson);

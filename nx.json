@@ -56,6 +56,9 @@
     "schemas": [
       "{projectRoot}/schemas/*.json"
     ],
+    "assets": [
+      "{projectRoot}/assets/**"
+    ],
     "builders-only": [
       "base",
       "{projectRoot}/tsconfig.builders.json",
@@ -621,5 +624,6 @@
         "nxCloudId": "63e6951e043da20dd8321aec"
       }
     }
-  }
+  },
+  "useLegacyCache": true
 }

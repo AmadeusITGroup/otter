@@ -298,7 +298,7 @@ export class RulesetExecutor {
               }
 
               if (this.rulesEngine.debugMode) {
-                output.evaluation = handleRuleEvaluationDebug({ ...rule, inputFacts }, this.ruleset.name, output.actions, output.error, runtimeFactValues, factValues, oldFactValues);
+                output.evaluation = handleRuleEvaluationDebug(rule, this.ruleset.name, output.actions, output.error, runtimeFactValues, factValues, oldFactValues, inputFacts);
               } else if (output.error) {
                 this.rulesEngine.logger?.error(output.error);
                 this.rulesEngine.logger?.warn(`Skipping rule ${rule.name}, and the associated ruleset`);
@@ -349,7 +349,6 @@ export class RulesetExecutor {
     return {
       id: this.ruleset.id,
       validityRange: this.ruleset.validityRange,
-      linkedComponent: this.ruleset.linkedComponent,
       linkedComponents: this.ruleset.linkedComponents,
       rulesResultsSubject$: result$
     } as EngineRuleset;

@@ -179,10 +179,10 @@ export function ngAddConfigFn(options: NgAddConfigSchematicsSchema): Rule {
 
                   const configConstructorBlockStatements = generateBlockStatementsFromString(`
               this.dynamicConfig$ = new ConfigurationObserver<${
-  properties.componentConfig
-}>(${properties.configKey}_CONFIG_ID, ${properties.configKey}_DEFAULT_CONFIG, ${
-  configurationServiceVariableName
-});
+                properties.componentConfig
+              }>(${properties.configKey}_CONFIG_ID, ${properties.configKey}_DEFAULT_CONFIG, ${
+                configurationServiceVariableName
+              });
               this.config$ = this.dynamicConfig$.asObservable();
             `);
 

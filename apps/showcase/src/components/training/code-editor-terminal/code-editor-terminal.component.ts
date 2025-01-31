@@ -20,7 +20,6 @@ import {
 @Component({
   selector: 'code-editor-terminal',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [],
   template: '<div #terminal class="h-100"></div>'
 })

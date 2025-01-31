@@ -10,7 +10,6 @@
       ],
       "effects": [
         "@nx/angular",
-        "@storybook/angular",
         "jest-preset-angular"
       ],
       "range": ">=0.1100.0-next.0",
@@ -122,8 +121,7 @@
       "range": "*",
       "nodes": [
         "apps/chrome-devtools/node_modules/@o3r/components",
-        "apps/showcase/node_modules/@o3r/components",
-        "packages/@o3r/storybook/node_modules/@o3r/components"
+        "apps/showcase/node_modules/@o3r/components"
       ],
       "fixAvailable": {
         "name": "@o3r/components",
@@ -145,8 +143,7 @@
       "nodes": [
         "apps/chrome-devtools/node_modules/@o3r/configuration",
         "apps/showcase/node_modules/@o3r/configuration",
-        "packages/@o3r/components/node_modules/@o3r/configuration",
-        "packages/@o3r/storybook/node_modules/@o3r/configuration"
+        "packages/@o3r/components/node_modules/@o3r/configuration"
       ],
       "fixAvailable": false
     },
@@ -192,7 +189,6 @@
         "packages/@o3r/routing/node_modules/@o3r/core",
         "packages/@o3r/rules-engine/node_modules/@o3r/core",
         "packages/@o3r/store-sync/node_modules/@o3r/core",
-        "packages/@o3r/storybook/node_modules/@o3r/core",
         "packages/@o3r/styling/node_modules/@o3r/core",
         "packages/@o3r/testing/node_modules/@o3r/core",
         "packages/@o3r/third-party/node_modules/@o3r/core",
@@ -276,7 +272,6 @@
         "apps/chrome-devtools/node_modules/@o3r/localization",
         "apps/showcase/node_modules/@o3r/localization",
         "packages/@o3r/components/node_modules/@o3r/localization",
-        "packages/@o3r/storybook/node_modules/@o3r/localization",
         "packages/@o3r/testing/node_modules/@o3r/localization"
       ],
       "fixAvailable": {
@@ -305,8 +300,7 @@
         "packages/@o3r/localization/node_modules/@o3r/logger",
         "packages/@o3r/mobile/node_modules/@o3r/logger",
         "packages/@o3r/rules-engine/node_modules/@o3r/logger",
-        "packages/@o3r/store-sync/node_modules/@o3r/logger",
-        "packages/@o3r/storybook/node_modules/@o3r/logger"
+        "packages/@o3r/store-sync/node_modules/@o3r/logger"
       ],
       "fixAvailable": {
         "name": "@o3r/logger",
@@ -406,8 +400,7 @@
       "nodes": [
         "apps/chrome-devtools/node_modules/@o3r/styling",
         "apps/showcase/node_modules/@o3r/styling",
-        "packages/@o3r/design/node_modules/@o3r/styling",
-        "packages/@o3r/storybook/node_modules/@o3r/styling"
+        "packages/@o3r/design/node_modules/@o3r/styling"
       ],
       "fixAvailable": {
         "name": "@o3r/styling",
@@ -460,24 +453,6 @@
       "fixAvailable": {
         "name": "lighthouse",
         "version": "9.3.1",
-        "isSemVerMajor": true
-      }
-    },
-    "@storybook/angular": {
-      "name": "@storybook/angular",
-      "severity": "moderate",
-      "isDirect": true,
-      "via": [
-        "@angular-devkit/build-angular"
-      ],
-      "effects": [],
-      "range": "<=0.0.0-pr-29353-sha-c7d17a36 || 5.2.0-alpha.0 - 5.2.0-rc.11 || >=6.5.17-alpha.0",
-      "nodes": [
-        "node_modules/@storybook/angular"
-      ],
-      "fixAvailable": {
-        "name": "@storybook/angular",
-        "version": "6.5.16",
         "isSemVerMajor": true
       }
     },
@@ -824,7 +799,7 @@
     "vulnerabilities": {
       "info": 0,
       "low": 5,
-      "moderate": 27,
+      "moderate": 26,
       "high": 0,
       "critical": 3,
       "total": 35

@@ -94,14 +94,8 @@ export interface EngineRuleset {
   /**
    * Components linked to the ruleset. If present the ruleset will not be active by default.
    * 'or' condition: If at least one component has subscribed, the ruleset will become active.
-   * If present, the {@link linkedComponent} property will not be taken into consideration
    */
   linkedComponents?: { or: ItemIdentifier[] };
-  /**
-   * Component linked to the ruleset, if set it will disable the ruleset execution per default, waiting to a subscription
-   * @deprecated It will be removed in v12, use {@link linkedComponents} instead
-   */
-  linkedComponent?: ItemIdentifier;
   /** Unique id of the ruleset*/
   id: string;
   /** Stores the result of each rules from the ruleset */
@@ -165,7 +159,7 @@ export interface BaseRulesetExecution {
   executionCounter: number;
   /** All input facts affecting the ruleset */
   inputFacts: { factName: string; value: Facts }[];
-  /** Runtime facts used accros the ruleset */
+  /** Runtime facts used across the ruleset */
   temporaryFacts?: Record<string, Facts>;
   /** Facts changes that triggered the execution of the ruleset */
   triggers: Record<string, Record<string, EvaluationReason>>;

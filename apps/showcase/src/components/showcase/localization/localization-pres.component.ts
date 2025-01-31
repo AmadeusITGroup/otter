@@ -42,7 +42,6 @@ const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
   templateUrl: './localization-pres.template.html',
   styleUrls: ['./localization-pres.style.scss'],
   encapsulation: ViewEncapsulation.None,
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     LocalizationModule, ReactiveFormsModule, DatePickerInputPresComponent

@@ -163,7 +163,7 @@ const getJsonDeprecations = async () => {
  */
 const formatNoteMessage = (message) => {
   return message
-    .replace(/\{@link ([^\}]+)\}/g, '`$1`')
+    .replace(/\{@link ([^}]+)}/g, '`$1`')
     .replace(/(^|\s+)`?@([\w-]+)\/([\w-]+)`?/g, '$1[@$2/$3](https://npmjs.com/package/@$2/$3)');
 };
 

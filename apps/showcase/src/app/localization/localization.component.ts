@@ -30,7 +30,6 @@ import {
 @O3rComponent({ componentType: 'Page' })
 @Component({
   selector: 'o3r-localization',
-  standalone: true,
   imports: [
     RouterModule,
     LocalizationPresComponent,

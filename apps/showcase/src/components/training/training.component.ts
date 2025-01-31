@@ -97,7 +97,6 @@ const currentStepLocationRegExp = new RegExp(/#([0-9]+)$/);
 
 @Component({
   selector: 'o3r-training',
-  standalone: true,
   imports: [
     DynamicContentModule,
     FormsModule,

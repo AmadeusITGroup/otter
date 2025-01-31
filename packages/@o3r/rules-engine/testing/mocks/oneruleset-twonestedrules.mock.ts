@@ -13,7 +13,6 @@ export const jsonOneRulesetTwoNestedRules: { ruleSets: Ruleset[] } = {
           id: '6e8t54h6s4e-6erth46sre8th4-d46t8s13t5j1',
           name: 'the first rule',
           inputRuntimeFacts: [],
-          inputFacts: ['isMobileDevice'],
           outputRuntimeFacts: [
             'UI_FACT_2'
           ],
@@ -54,7 +53,6 @@ export const jsonOneRulesetTwoNestedRules: { ruleSets: Ruleset[] } = {
           id: '6e8t54h6s4e-6erth46sre8th4-d46t8s13t5j2',
           name: 'the second rule',
           inputRuntimeFacts: ['UI_FACT_2'],
-          inputFacts: ['cart'],
           outputRuntimeFacts: [],
           rootElement: {
             elementType: 'RULE_BLOCK',

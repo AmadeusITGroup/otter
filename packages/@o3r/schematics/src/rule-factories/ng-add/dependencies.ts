@@ -205,7 +205,7 @@ export const setupDependencies = (options: SetupDependenciesOptions): Rule => {
                   ngAddToRun.delete(packageToInstall);
                 }
                 context.logger.warn(`The dependency ${packageToInstall} (${depType}) will not added `
-                + `because there is already this dependency with a defined range (${packageJsonContent[depType][packageToInstall]}) in targeted ${packageJsonPath}`);
+                  + `because there is already this dependency with a defined range (${packageJsonContent[depType][packageToInstall]}) in targeted ${packageJsonPath}`);
               }
             } else {
               packageJsonContent[depType] ||= {};

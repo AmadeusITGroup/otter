@@ -50,11 +50,6 @@
           },
           "additionalItems": false
         },
-        "linkedComponent": {
-          "$ref": "#/definitions/LinkedComponent",
-          "description": "Component linked to the ruleset, if set it will disable the ruleset execution per default, waiting to a subscription",
-          "deprecated": true
-        },
         "linkedComponents": {
           "type": "object",
           "description": "Components linked to the ruleset. If defined, the rulest is not active by default",
@@ -88,14 +83,6 @@
         "inputRuntimeFacts": {
           "type": "array",
           "description": "Runtime facts that are needed for the rule execution (sent by the CMS)",
-          "items": {
-            "type": "string"
-          }
-        },
-        "inputFacts": {
-          "type": "array",
-          "description": "Facts that are needed for the rule execution (sent by the CMS)",
-          "deprecated": true,
           "items": {
             "type": "string"
           }

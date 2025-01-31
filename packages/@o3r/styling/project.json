@@ -14,7 +14,16 @@
       "options": {
         "project": "packages/@o3r/styling/ng-package.json",
         "tsConfig": "packages/@o3r/styling/tsconfig.build.json"
-      }
+      },
+      "inputs": [
+        "source",
+        "^source",
+        "schemas",
+        "assets",
+        "{projectRoot}/scss/**/*",
+        "{projectRoot}/_index.scss",
+        "{projectRoot}/_otter-theme.scss"
+      ]
     },
     "prepare-build-builders": {},
     "build-builders": {},

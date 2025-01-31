@@ -60,8 +60,8 @@
                           </label>
                           <span class="my-auto">{{ resolvedColor }}</span>
                           <span class="ms-auto my-auto">
-                            <span ngbTooltip="Accessibility score for small text" [style.fontSize]="'12px'" class="me-2">{{ resolvedColor | accessibilityConstrastScore : (resolvedColor | contrast) : 'small' }}</span>
-                            <span ngbTooltip="Accessibility score for large text" [style.fontSize]="'24px'">{{ resolvedColor | accessibilityConstrastScore : (resolvedColor | contrast) : 'large' }}</span>
+                            <span ngbTooltip="Accessibility score for small text" [style.fontSize]="'12px'" class="me-2">{{ resolvedColor | accessibilityContrastScore : (resolvedColor | contrast) : 'small' }}</span>
+                            <span ngbTooltip="Accessibility score for large text" [style.fontSize]="'24px'">{{ resolvedColor | accessibilityContrastScore : (resolvedColor | contrast) : 'large' }}</span>
                           </span>
                         </li>
                       }
