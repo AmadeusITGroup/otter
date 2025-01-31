@@ -114,7 +114,7 @@
     "@stylistic/eslint-plugin": "~3.0.0",
     "@types/bootstrap": "^5.2.10",
     "@types/jest": "~29.5.2",
-    "@types/node": "^20.0.0",
+    "@types/node": "^22.0.0",
     "@typescript-eslint/parser": "~8.21.0",
     "@webcontainer/api": "~1.5.0",
     "angular-eslint": "~19.0.0",

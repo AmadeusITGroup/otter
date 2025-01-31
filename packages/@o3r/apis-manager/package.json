@@ -75,7 +75,7 @@
     "@schematics/angular": "~19.0.0",
     "@stylistic/eslint-plugin": "~3.0.0",
     "@types/jest": "~29.5.2",
-    "@types/node": "^20.0.0",
+    "@types/node": "^22.0.0",
     "@typescript-eslint/parser": "~8.21.0",
     "angular-eslint": "~19.0.0",
     "cpy-cli": "^5.0.0",

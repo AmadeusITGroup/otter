@@ -294,7 +294,7 @@ __metadata:
     "@swc/core": "npm:~1.10.0"
     "@swc/helpers": "npm:~0.5.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@types/uuid": "npm:^10.0.0"
     "@typescript-eslint/parser": "npm:~8.21.0"
     angular-eslint: "npm:~19.0.0"
@@ -374,7 +374,7 @@ __metadata:
     "@swc/core": "npm:~1.10.0"
     "@swc/helpers": "npm:~0.5.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@types/uuid": "npm:^10.0.0"
     "@typescript-eslint/parser": "npm:~8.21.0"
     angular-eslint: "npm:~19.0.0"
@@ -452,7 +452,7 @@ __metadata:
     "@swc/core": "npm:~1.10.0"
     "@swc/helpers": "npm:~0.5.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@types/uuid": "npm:^10.0.0"
     "@typescript-eslint/parser": "npm:~8.21.0"
     angular-eslint: "npm:~19.0.0"
@@ -532,7 +532,7 @@ __metadata:
     "@swc/core": "npm:~1.10.0"
     "@swc/helpers": "npm:~0.5.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@types/uuid": "npm:^10.0.0"
     "@typescript-eslint/parser": "npm:~8.21.0"
     angular-eslint: "npm:~19.0.0"
@@ -620,7 +620,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~3.0.0"
     "@types/jest": "npm:~29.5.2"
     "@types/minimist": "npm:^1.2.2"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@types/pid-from-port": "npm:^1.1.0"
     "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/parser": "npm:~8.21.0"
@@ -685,7 +685,7 @@ __metadata:
     "@types/js-yaml": "npm:^4.0.5"
     "@types/minimatch": "npm:^5.1.2"
     "@types/minimist": "npm:^1.2.2"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@types/pid-from-port": "npm:^1.1.0"
     "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/parser": "npm:~8.21.0"
@@ -772,7 +772,7 @@ __metadata:
     "@types/glob": "npm:^8.0.0"
     "@types/jest": "npm:~29.5.2"
     "@types/js-yaml": "npm:^4.0.5"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@types/semver": "npm:^7.3.13"
     "@types/swagger-schema-official": "npm:^2.0.22"
     "@typescript-eslint/parser": "npm:~8.21.0"
@@ -837,7 +837,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~3.0.0"
     "@types/jest": "npm:~29.5.2"
     "@types/minimist": "npm:^1.2.2"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@types/progress": "npm:^2.0.5"
     "@types/prompts": "npm:^2.0.14"
     "@types/yargs": "npm:^17.0.20"
@@ -910,7 +910,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~3.0.0"
     "@types/jest": "npm:~29.5.2"
     "@types/minimist": "npm:^1.2.2"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@types/yargs": "npm:^17.0.20"
     "@typescript-eslint/parser": "npm:~8.21.0"
     angular-eslint: "npm:~19.0.0"
@@ -958,7 +958,7 @@ __metadata:
     "@schematics/angular": "npm:~19.0.0"
     "@stylistic/eslint-plugin": "npm:~3.0.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@typescript-eslint/parser": "npm:~8.21.0"
     angular-eslint: "npm:~19.0.0"
     cpy-cli: "npm:^5.0.0"
@@ -7037,7 +7037,7 @@ __metadata:
     "@swc/core": "npm:~1.10.0"
     "@swc/helpers": "npm:~0.5.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@typescript-eslint/parser": "npm:~8.21.0"
     angular-eslint: "npm:~19.0.0"
     chokidar: "npm:^4.0.3"
@@ -7105,7 +7105,7 @@ __metadata:
     "@swc/core": "npm:~1.10.0"
     "@swc/helpers": "npm:~0.5.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@typescript-eslint/parser": "npm:~8.21.0"
     angular-eslint: "npm:~19.0.0"
     commit-and-tag-version: "npm:^12.0.0"
@@ -7179,7 +7179,7 @@ __metadata:
     "@swc/core": "npm:~1.10.0"
     "@swc/helpers": "npm:~0.5.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/parser": "npm:~8.21.0"
     "@webcontainer/api": "npm:~1.5.0"
@@ -7246,7 +7246,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~3.0.0"
     "@types/jest": "npm:~29.5.2"
     "@types/js-yaml": "npm:^4.0.5"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@typescript-eslint/parser": "npm:~8.21.0"
     angular-eslint: "npm:~19.0.0"
     cpy-cli: "npm:^5.0.0"
@@ -7289,7 +7289,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:^"
     "@stylistic/eslint-plugin": "npm:~3.0.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@types/tar": "npm:~6.1.1"
     "@typescript-eslint/parser": "npm:~8.21.0"
     angular-eslint: "npm:~19.0.0"
@@ -7337,7 +7337,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~3.0.0"
     "@types/jest": "npm:~29.5.2"
     "@types/js-yaml": "npm:^4.0.5"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@typescript-eslint/parser": "npm:~8.21.0"
     angular-eslint: "npm:~19.0.0"
     cpy-cli: "npm:^5.0.0"
@@ -7385,7 +7385,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~3.0.0"
     "@types/jest": "npm:~29.5.2"
     "@types/js-yaml": "npm:^4.0.5"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@typescript-eslint/parser": "npm:~8.21.0"
     angular-eslint: "npm:~19.0.0"
     cpy-cli: "npm:^5.0.0"
@@ -7450,7 +7450,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~3.0.0"
     "@types/jasmine": "npm:~5.1.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@typescript-eslint/parser": "npm:~8.21.0"
     angular-eslint: "npm:~19.0.0"
     cpy-cli: "npm:^5.0.0"
@@ -7546,7 +7546,7 @@ __metadata:
     "@schematics/angular": "npm:~19.0.0"
     "@stylistic/eslint-plugin": "npm:~3.0.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@typescript-eslint/parser": "npm:~8.21.0"
     angular-eslint: "npm:~19.0.0"
     cpy-cli: "npm:^5.0.0"
@@ -7633,7 +7633,7 @@ __metadata:
     "@schematics/angular": "npm:~19.0.0"
     "@stylistic/eslint-plugin": "npm:~3.0.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@typescript-eslint/parser": "npm:~8.21.0"
     angular-eslint: "npm:~19.0.0"
     cpy-cli: "npm:^5.0.0"
@@ -7705,7 +7705,7 @@ __metadata:
     "@stylistic/eslint-plugin-ts": "npm:~3.0.0"
     "@types/fs-extra": "npm:^11.0.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@typescript-eslint/parser": "npm:~8.21.0"
     angular-eslint: "npm:~19.0.0"
     commander: "npm:^13.0.0"
@@ -7762,7 +7762,7 @@ __metadata:
     "@o3r/telemetry": "workspace:^"
     "@stylistic/eslint-plugin-ts": "npm:~3.0.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@typescript-eslint/parser": "npm:~8.21.0"
     angular-eslint: "npm:~19.0.0"
     azure-devops-node-api: "npm:^14.0.0"
@@ -7809,7 +7809,7 @@ __metadata:
     "@nx/eslint-plugin": "npm:~20.2.0"
     "@o3r/eslint-plugin": "workspace:^"
     "@stylistic/eslint-plugin": "npm:~3.0.0"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@typescript-eslint/parser": "npm:~8.21.0"
     angular-eslint: "npm:~19.0.0"
     eslint: "npm:~9.17.0"
@@ -7979,7 +7979,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~3.0.0"
     "@swc/helpers": "npm:~0.5.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/parser": "npm:~8.21.0"
     "@yarnpkg/cli": "npm:^4.5.0"
@@ -8139,7 +8139,7 @@ __metadata:
     "@types/cheerio": "npm:~0.22.35"
     "@types/jasmine": "npm:~5.1.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/parser": "npm:~8.21.0"
     angular-eslint: "npm:~19.0.0"
@@ -8243,7 +8243,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~3.0.0"
     "@swc/helpers": "npm:~0.5.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@types/pid-from-port": "npm:^1.1.0"
     "@types/uuid": "npm:^10.0.0"
     "@typescript-eslint/parser": "npm:~8.21.0"
@@ -8346,7 +8346,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~3.0.0"
     "@types/jest": "npm:~29.5.2"
     "@types/minimist": "npm:^1.2.2"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@types/shell-quote": "npm:^1.7.5"
     "@typescript-eslint/parser": "npm:~8.21.0"
     angular-eslint: "npm:~19.0.0"
@@ -8423,7 +8423,7 @@ __metadata:
     "@swc/helpers": "npm:~0.5.0"
     "@types/jest": "npm:~29.5.2"
     "@types/minimist": "npm:^1.2.2"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/parser": "npm:~8.21.0"
     angular-eslint: "npm:~19.0.0"
@@ -8528,7 +8528,7 @@ __metadata:
     "@types/cheerio": "npm:~0.22.35"
     "@types/jasmine": "npm:~5.1.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@types/uuid": "npm:^10.0.0"
     "@typescript-eslint/parser": "npm:~8.21.0"
     angular-eslint: "npm:~19.0.0"
@@ -8605,7 +8605,7 @@ __metadata:
     "@schematics/angular": "npm:~19.0.0"
     "@stylistic/eslint-plugin": "npm:~3.0.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@typescript-eslint/parser": "npm:~8.21.0"
     angular-eslint: "npm:~19.0.0"
     cpy-cli: "npm:^5.0.0"
@@ -8699,7 +8699,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~3.0.0"
     "@types/eslint__js": "npm:^8.42.3"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@typescript-eslint/parser": "npm:~8.21.0"
     angular-eslint: "npm:~19.0.0"
     cpy-cli: "npm:^5.0.0"
@@ -8808,7 +8808,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~3.0.0"
     "@types/eslint": "npm:~9.6.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/parser": "npm:~8.21.0"
     "@typescript-eslint/rule-tester": "npm:~8.21.0"
@@ -8894,7 +8894,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~3.0.0"
     "@swc/helpers": "npm:~0.5.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/parser": "npm:~8.21.0"
     "@yarnpkg/cli": "npm:^4.5.0"
@@ -9015,7 +9015,7 @@ __metadata:
     "@schematics/angular": "npm:~19.0.0"
     "@stylistic/eslint-plugin": "npm:~3.0.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@typescript-eslint/parser": "npm:~8.21.0"
     angular-eslint: "npm:~19.0.0"
     cpy-cli: "npm:^5.0.0"
@@ -9132,7 +9132,7 @@ __metadata:
     "@types/eslint": "npm:~9.6.0"
     "@types/estree": "npm:^1.0.5"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/parser": "npm:~8.21.0"
     "@typescript-eslint/rule-tester": "npm:~8.21.0"
@@ -9245,7 +9245,7 @@ __metadata:
     "@types/ejs": "npm:^3.1.2"
     "@types/express-serve-static-core": "npm:^5.0.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/parser": "npm:~8.21.0"
     angular-eslint: "npm:~19.0.0"
@@ -9319,7 +9319,7 @@ __metadata:
     "@schematics/angular": "npm:~19.0.0"
     "@stylistic/eslint-plugin": "npm:~3.0.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/parser": "npm:~8.21.0"
     "@yarnpkg/cli": "npm:^4.5.0"
@@ -9462,7 +9462,7 @@ __metadata:
     "@schematics/angular": "npm:~19.0.0"
     "@stylistic/eslint-plugin": "npm:~3.0.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@typescript-eslint/parser": "npm:~8.21.0"
     angular-eslint: "npm:~19.0.0"
     cpy-cli: "npm:^5.0.0"
@@ -9564,7 +9564,7 @@ __metadata:
     "@schematics/angular": "npm:~19.0.0"
     "@stylistic/eslint-plugin": "npm:~3.0.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@types/node-fetch": "npm:^2.6.2"
     "@typescript-eslint/parser": "npm:~8.21.0"
     angular-eslint: "npm:~19.0.0"
@@ -9645,7 +9645,7 @@ __metadata:
     "@schematics/angular": "npm:~19.0.0"
     "@stylistic/eslint-plugin": "npm:~3.0.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/parser": "npm:~8.21.0"
     angular-eslint: "npm:~19.0.0"
@@ -9706,7 +9706,7 @@ __metadata:
     "@stylistic/eslint-plugin-ts": "npm:~3.0.0"
     "@types/jest": "npm:~29.5.2"
     "@types/js-yaml": "npm:^4.0.5"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@typescript-eslint/eslint-plugin": "npm:~8.21.0"
     "@typescript-eslint/parser": "npm:~8.21.0"
     "@typescript-eslint/utils": "npm:~8.21.0"
@@ -9791,7 +9791,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~3.0.0"
     "@types/jasmine": "npm:~5.1.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@typescript-eslint/parser": "npm:~8.21.0"
     angular-eslint: "npm:~19.0.0"
     cpy-cli: "npm:^5.0.0"
@@ -9892,7 +9892,7 @@ __metadata:
     "@types/jasmine": "npm:~5.1.0"
     "@types/jest": "npm:~29.5.2"
     "@types/json-schema": "npm:^7.0.9"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/parser": "npm:~8.21.0"
     angular-eslint: "npm:~19.0.0"
@@ -10008,7 +10008,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~3.0.0"
     "@swc/helpers": "npm:~0.5.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/parser": "npm:~8.21.0"
     angular-eslint: "npm:~19.0.0"
@@ -10142,7 +10142,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~3.0.0"
     "@types/bootstrap": "npm:^5.2.10"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@typescript-eslint/parser": "npm:~8.21.0"
     "@vscode/codicons": "npm:^0.0.36"
     "@webcontainer/api": "npm:~1.5.0"
@@ -10227,7 +10227,7 @@ __metadata:
     "@schematics/angular": "npm:~19.0.0"
     "@stylistic/eslint-plugin": "npm:~3.0.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@typescript-eslint/parser": "npm:~8.21.0"
     angular-eslint: "npm:~19.0.0"
     cpy-cli: "npm:^5.0.0"
@@ -10303,7 +10303,7 @@ __metadata:
     "@schematics/angular": "npm:~19.0.0"
     "@stylistic/eslint-plugin": "npm:~3.0.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@typescript-eslint/parser": "npm:~8.21.0"
     angular-eslint: "npm:~19.0.0"
     cpy-cli: "npm:^5.0.0"
@@ -10389,7 +10389,7 @@ __metadata:
     "@schematics/angular": "npm:~19.0.0"
     "@stylistic/eslint-plugin": "npm:~3.0.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/parser": "npm:~8.21.0"
     "@yarnpkg/cli": "npm:^4.5.0"
@@ -10521,7 +10521,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~3.0.0"
     "@types/jest": "npm:~29.5.2"
     "@types/minimist": "npm:^1.2.2"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@typescript-eslint/parser": "npm:~8.21.0"
     angular-eslint: "npm:~19.0.0"
     cpy-cli: "npm:^5.0.0"
@@ -10582,7 +10582,7 @@ __metadata:
     "@schematics/angular": "npm:~19.0.0"
     "@stylistic/eslint-plugin-ts": "npm:~3.0.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@types/pid-from-port": "npm:^1.1.0"
     "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/parser": "npm:~8.21.0"
@@ -10669,7 +10669,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~3.0.0"
     "@swc/helpers": "npm:~0.5.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@types/pixelmatch": "npm:^5.2.3"
     "@types/pngjs": "npm:^6.0.0"
     "@typescript-eslint/parser": "npm:~8.21.0"
@@ -10802,7 +10802,7 @@ __metadata:
     "@schematics/angular": "npm:~19.0.0"
     "@stylistic/eslint-plugin": "npm:~3.0.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@types/uuid": "npm:^10.0.0"
     "@typescript-eslint/parser": "npm:~8.21.0"
     angular-eslint: "npm:~19.0.0"
@@ -10864,7 +10864,7 @@ __metadata:
     "@nx/eslint-plugin": "npm:~20.2.0"
     "@o3r/eslint-plugin": "workspace:^"
     "@stylistic/eslint-plugin-ts": "npm:~3.0.0"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@typescript-eslint/eslint-plugin": "npm:~8.21.0"
     "@typescript-eslint/parser": "npm:~8.21.0"
     "@typescript-eslint/utils": "npm:~8.21.0"
@@ -10930,7 +10930,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~3.0.0"
     "@types/jest": "npm:~29.5.2"
     "@types/minimist": "npm:^1.2.2"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@types/pid-from-port": "npm:^1.1.0"
     "@types/semver": "npm:^7.3.13"
     "@types/uuid": "npm:^10.0.0"
@@ -11678,13 +11678,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/rollup-android-arm-eabi@npm:4.32.0":
-  version: 4.32.0
-  resolution: "@rollup/rollup-android-arm-eabi@npm:4.32.0"
-  conditions: os=android & cpu=arm
-  languageName: node
-  linkType: hard
-
 "@rollup/rollup-android-arm-eabi@npm:4.32.1":
   version: 4.32.1
   resolution: "@rollup/rollup-android-arm-eabi@npm:4.32.1"
@@ -11695,13 +11688,6 @@ __metadata:
 "@rollup/rollup-android-arm64@npm:4.26.0":
   version: 4.26.0
   resolution: "@rollup/rollup-android-arm64@npm:4.26.0"
-  conditions: os=android & cpu=arm64
-  languageName: node
-  linkType: hard
-
-"@rollup/rollup-android-arm64@npm:4.32.0":
-  version: 4.32.0
-  resolution: "@rollup/rollup-android-arm64@npm:4.32.0"
   conditions: os=android & cpu=arm64
   languageName: node
   linkType: hard
@@ -11720,13 +11706,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/rollup-darwin-arm64@npm:4.32.0":
-  version: 4.32.0
-  resolution: "@rollup/rollup-darwin-arm64@npm:4.32.0"
-  conditions: os=darwin & cpu=arm64
-  languageName: node
-  linkType: hard
-
 "@rollup/rollup-darwin-arm64@npm:4.32.1":
   version: 4.32.1
   resolution: "@rollup/rollup-darwin-arm64@npm:4.32.1"
@@ -11737,13 +11716,6 @@ __metadata:
 "@rollup/rollup-darwin-x64@npm:4.26.0":
   version: 4.26.0
   resolution: "@rollup/rollup-darwin-x64@npm:4.26.0"
-  conditions: os=darwin & cpu=x64
-  languageName: node
-  linkType: hard
-
-"@rollup/rollup-darwin-x64@npm:4.32.0":
-  version: 4.32.0
-  resolution: "@rollup/rollup-darwin-x64@npm:4.32.0"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
@@ -11762,13 +11734,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/rollup-freebsd-arm64@npm:4.32.0":
-  version: 4.32.0
-  resolution: "@rollup/rollup-freebsd-arm64@npm:4.32.0"
-  conditions: os=freebsd & cpu=arm64
-  languageName: node
-  linkType: hard
-
 "@rollup/rollup-freebsd-arm64@npm:4.32.1":
   version: 4.32.1
   resolution: "@rollup/rollup-freebsd-arm64@npm:4.32.1"
@@ -11779,13 +11744,6 @@ __metadata:
 "@rollup/rollup-freebsd-x64@npm:4.26.0":
   version: 4.26.0
   resolution: "@rollup/rollup-freebsd-x64@npm:4.26.0"
-  conditions: os=freebsd & cpu=x64
-  languageName: node
-  linkType: hard
-
-"@rollup/rollup-freebsd-x64@npm:4.32.0":
-  version: 4.32.0
-  resolution: "@rollup/rollup-freebsd-x64@npm:4.32.0"
   conditions: os=freebsd & cpu=x64
   languageName: node
   linkType: hard
@@ -11804,13 +11762,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-arm-gnueabihf@npm:4.32.0":
-  version: 4.32.0
-  resolution: "@rollup/rollup-linux-arm-gnueabihf@npm:4.32.0"
-  conditions: os=linux & cpu=arm & libc=glibc
-  languageName: node
-  linkType: hard
-
 "@rollup/rollup-linux-arm-gnueabihf@npm:4.32.1":
   version: 4.32.1
   resolution: "@rollup/rollup-linux-arm-gnueabihf@npm:4.32.1"
@@ -11821,13 +11772,6 @@ __metadata:
 "@rollup/rollup-linux-arm-musleabihf@npm:4.26.0":
   version: 4.26.0
   resolution: "@rollup/rollup-linux-arm-musleabihf@npm:4.26.0"
-  conditions: os=linux & cpu=arm & libc=musl
-  languageName: node
-  linkType: hard
-
-"@rollup/rollup-linux-arm-musleabihf@npm:4.32.0":
-  version: 4.32.0
-  resolution: "@rollup/rollup-linux-arm-musleabihf@npm:4.32.0"
   conditions: os=linux & cpu=arm & libc=musl
   languageName: node
   linkType: hard
@@ -11846,13 +11790,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-arm64-gnu@npm:4.32.0":
-  version: 4.32.0
-  resolution: "@rollup/rollup-linux-arm64-gnu@npm:4.32.0"
-  conditions: os=linux & cpu=arm64 & libc=glibc
-  languageName: node
-  linkType: hard
-
 "@rollup/rollup-linux-arm64-gnu@npm:4.32.1":
   version: 4.32.1
   resolution: "@rollup/rollup-linux-arm64-gnu@npm:4.32.1"
@@ -11867,24 +11804,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-arm64-musl@npm:4.32.0":
-  version: 4.32.0
-  resolution: "@rollup/rollup-linux-arm64-musl@npm:4.32.0"
-  conditions: os=linux & cpu=arm64 & libc=musl
-  languageName: node
-  linkType: hard
-
 "@rollup/rollup-linux-arm64-musl@npm:4.32.1":
   version: 4.32.1
   resolution: "@rollup/rollup-linux-arm64-musl@npm:4.32.1"
   conditions: os=linux & cpu=arm64 & libc=musl
-  languageName: node
-  linkType: hard
-
-"@rollup/rollup-linux-loongarch64-gnu@npm:4.32.0":
-  version: 4.32.0
-  resolution: "@rollup/rollup-linux-loongarch64-gnu@npm:4.32.0"
-  conditions: os=linux & cpu=loong64 & libc=glibc
   languageName: node
   linkType: hard
 
@@ -11898,13 +11821,6 @@ __metadata:
 "@rollup/rollup-linux-powerpc64le-gnu@npm:4.26.0":
   version: 4.26.0
   resolution: "@rollup/rollup-linux-powerpc64le-gnu@npm:4.26.0"
-  conditions: os=linux & cpu=ppc64 & libc=glibc
-  languageName: node
-  linkType: hard
-
-"@rollup/rollup-linux-powerpc64le-gnu@npm:4.32.0":
-  version: 4.32.0
-  resolution: "@rollup/rollup-linux-powerpc64le-gnu@npm:4.32.0"
   conditions: os=linux & cpu=ppc64 & libc=glibc
   languageName: node
   linkType: hard
@@ -11923,13 +11839,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-riscv64-gnu@npm:4.32.0":
-  version: 4.32.0
-  resolution: "@rollup/rollup-linux-riscv64-gnu@npm:4.32.0"
-  conditions: os=linux & cpu=riscv64 & libc=glibc
-  languageName: node
-  linkType: hard
-
 "@rollup/rollup-linux-riscv64-gnu@npm:4.32.1":
   version: 4.32.1
   resolution: "@rollup/rollup-linux-riscv64-gnu@npm:4.32.1"
@@ -11940,13 +11849,6 @@ __metadata:
 "@rollup/rollup-linux-s390x-gnu@npm:4.26.0":
   version: 4.26.0
   resolution: "@rollup/rollup-linux-s390x-gnu@npm:4.26.0"
-  conditions: os=linux & cpu=s390x & libc=glibc
-  languageName: node
-  linkType: hard
-
-"@rollup/rollup-linux-s390x-gnu@npm:4.32.0":
-  version: 4.32.0
-  resolution: "@rollup/rollup-linux-s390x-gnu@npm:4.32.0"
   conditions: os=linux & cpu=s390x & libc=glibc
   languageName: node
   linkType: hard
@@ -11965,13 +11867,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-x64-gnu@npm:4.32.0":
-  version: 4.32.0
-  resolution: "@rollup/rollup-linux-x64-gnu@npm:4.32.0"
-  conditions: os=linux & cpu=x64 & libc=glibc
-  languageName: node
-  linkType: hard
-
 "@rollup/rollup-linux-x64-gnu@npm:4.32.1":
   version: 4.32.1
   resolution: "@rollup/rollup-linux-x64-gnu@npm:4.32.1"
@@ -11982,13 +11877,6 @@ __metadata:
 "@rollup/rollup-linux-x64-musl@npm:4.26.0":
   version: 4.26.0
   resolution: "@rollup/rollup-linux-x64-musl@npm:4.26.0"
-  conditions: os=linux & cpu=x64 & libc=musl
-  languageName: node
-  linkType: hard
-
-"@rollup/rollup-linux-x64-musl@npm:4.32.0":
-  version: 4.32.0
-  resolution: "@rollup/rollup-linux-x64-musl@npm:4.32.0"
   conditions: os=linux & cpu=x64 & libc=musl
   languageName: node
   linkType: hard
@@ -12007,13 +11895,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/rollup-win32-arm64-msvc@npm:4.32.0":
-  version: 4.32.0
-  resolution: "@rollup/rollup-win32-arm64-msvc@npm:4.32.0"
-  conditions: os=win32 & cpu=arm64
-  languageName: node
-  linkType: hard
-
 "@rollup/rollup-win32-arm64-msvc@npm:4.32.1":
   version: 4.32.1
   resolution: "@rollup/rollup-win32-arm64-msvc@npm:4.32.1"
@@ -12028,13 +11909,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/rollup-win32-ia32-msvc@npm:4.32.0":
-  version: 4.32.0
-  resolution: "@rollup/rollup-win32-ia32-msvc@npm:4.32.0"
-  conditions: os=win32 & cpu=ia32
-  languageName: node
-  linkType: hard
-
 "@rollup/rollup-win32-ia32-msvc@npm:4.32.1":
   version: 4.32.1
   resolution: "@rollup/rollup-win32-ia32-msvc@npm:4.32.1"
@@ -12045,13 +11919,6 @@ __metadata:
 "@rollup/rollup-win32-x64-msvc@npm:4.26.0":
   version: 4.26.0
   resolution: "@rollup/rollup-win32-x64-msvc@npm:4.26.0"
-  conditions: os=win32 & cpu=x64
-  languageName: node
-  linkType: hard
-
-"@rollup/rollup-win32-x64-msvc@npm:4.32.0":
-  version: 4.32.0
-  resolution: "@rollup/rollup-win32-x64-msvc@npm:4.32.0"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
@@ -13624,12 +13491,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^20.0.0":
-  version: 20.17.16
-  resolution: "@types/node@npm:20.17.16"
+"@types/node@npm:^22.0.0":
+  version: 22.12.0
+  resolution: "@types/node@npm:22.12.0"
   dependencies:
-    undici-types: "npm:~6.19.2"
-  checksum: 10/2a6f9f3d6e2640a6de5ae88ea690d8064eb421cca2989c84bc23eb1adf5e9f483c52e273722c05afba451054d3ca902df72bb8b6c33d1684404161bb410922f7
+    undici-types: "npm:~6.20.0"
+  checksum: 10/aac2b6f6a845ec3540c3d979b3150efe3162165bfda953af10b579df2d1cc4f5c48506922bf6bf661a2e5a7ebb571c5729bf1f9f12488a810bb1a5fa9522ef9d
   languageName: node
   linkType: hard
 
@@ -14007,14 +13874,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/types@npm:8.21.0, @typescript-eslint/types@npm:^8.0.0":
+"@typescript-eslint/types@npm:8.21.0":
   version: 8.21.0
   resolution: "@typescript-eslint/types@npm:8.21.0"
   checksum: 10/a22c99f5687358c7343789b942c9885bc1b49eb239562b792f22e2ac4f0d3f04102f204cd2d749202d6888767566fba86f54447894955310890ec307fec8ed8d
   languageName: node
   linkType: hard
 
-"@typescript-eslint/types@npm:8.22.0, @typescript-eslint/types@npm:^8.15.0":
+"@typescript-eslint/types@npm:8.22.0, @typescript-eslint/types@npm:^8.0.0, @typescript-eslint/types@npm:^8.15.0":
   version: 8.22.0
   resolution: "@typescript-eslint/types@npm:8.22.0"
   checksum: 10/b43ea5b05ed0b43dcee8d2fa98b2c3f79c604780cbd56e6ba7f89e3066798b7169848694f59523fd2003e8fa699ddc97f28b0860a4eb04eea26c96d5ac9346bd
@@ -14057,7 +13924,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/utils@npm:8.21.0, @typescript-eslint/utils@npm:^6.0.0 || ^7.0.0 || ^8.0.0, @typescript-eslint/utils@npm:^8.0.0, @typescript-eslint/utils@npm:~8.21.0":
+"@typescript-eslint/utils@npm:8.21.0, @typescript-eslint/utils@npm:~8.21.0":
   version: 8.21.0
   resolution: "@typescript-eslint/utils@npm:8.21.0"
   dependencies:
@@ -14072,7 +13939,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/utils@npm:^8.13.0":
+"@typescript-eslint/utils@npm:^6.0.0 || ^7.0.0 || ^8.0.0, @typescript-eslint/utils@npm:^8.0.0, @typescript-eslint/utils@npm:^8.13.0":
   version: 8.22.0
   resolution: "@typescript-eslint/utils@npm:8.22.0"
   dependencies:
@@ -15968,7 +15835,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:~"
     "@stylistic/eslint-plugin-ts": "npm:~3.0.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@typescript-eslint/parser": "npm:~8.21.0"
     "@vercel/ncc": "npm:~0.38.0"
     angular-eslint: "npm:~19.0.0"
@@ -16884,14 +16751,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"caniuse-lite@npm:^1.0.0, caniuse-lite@npm:^1.0.30001646, caniuse-lite@npm:^1.0.30001688":
-  version: 1.0.30001695
-  resolution: "caniuse-lite@npm:1.0.30001695"
-  checksum: 10/8107c5e89b86c7a2fd506b93c658ff945c98c6518260c3b28af9f02bd83bf83939696241f0b413545c5b9895c86bcae64c9370388576440e74e9b848f04170d3
-  languageName: node
-  linkType: hard
-
-"caniuse-lite@npm:^1.0.30001616":
+"caniuse-lite@npm:^1.0.0, caniuse-lite@npm:^1.0.30001616, caniuse-lite@npm:^1.0.30001646, caniuse-lite@npm:^1.0.30001688":
   version: 1.0.30001696
   resolution: "caniuse-lite@npm:1.0.30001696"
   checksum: 10/7230d3258e73daf769d1dcc46546282343970218b357b097a868176306d0ce1dd45f57d3a9ea09817dca0fc70effd3408bf4555d33238c14bb4b54b8e88d213c
@@ -16911,7 +16771,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:~"
     "@stylistic/eslint-plugin": "npm:~3.0.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@typescript-eslint/parser": "npm:~8.21.0"
     "@vercel/ncc": "npm:~0.38.0"
     angular-eslint: "npm:~19.0.0"
@@ -21999,7 +21859,7 @@ __metadata:
     "@o3r/eslint-config": "workspace:~"
     "@o3r/eslint-plugin": "workspace:~"
     "@stylistic/eslint-plugin": "npm:~3.0.0"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/parser": "npm:~8.21.0"
     "@vercel/ncc": "npm:~0.38.0"
@@ -27362,7 +27222,7 @@ __metadata:
     "@o3r/new-version": "workspace:~"
     "@stylistic/eslint-plugin": "npm:~3.0.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/parser": "npm:~8.21.0"
     "@vercel/ncc": "npm:~0.38.0"
@@ -28365,7 +28225,7 @@ __metadata:
     "@types/eslint": "npm:~9.6.0"
     "@types/glob": "npm:^8.0.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@types/vscode": "npm:^1.95.0"
     "@typescript-eslint/parser": "npm:~8.21.0"
     "@typescript-eslint/utils": "npm:~8.21.0"
@@ -30737,7 +30597,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:~"
     "@stylistic/eslint-plugin": "npm:~3.0.0"
     "@types/minimist": "npm:^1.2.2"
-    "@types/node": "npm:^20.0.0"
+    "@types/node": "npm:^22.0.0"
     "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/parser": "npm:~8.21.0"
     "@vercel/ncc": "npm:~0.38.0"
@@ -31161,79 +31021,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rollup@npm:^4.20.0":
-  version: 4.32.0
-  resolution: "rollup@npm:4.32.0"
-  dependencies:
-    "@rollup/rollup-android-arm-eabi": "npm:4.32.0"
-    "@rollup/rollup-android-arm64": "npm:4.32.0"
-    "@rollup/rollup-darwin-arm64": "npm:4.32.0"
-    "@rollup/rollup-darwin-x64": "npm:4.32.0"
-    "@rollup/rollup-freebsd-arm64": "npm:4.32.0"
-    "@rollup/rollup-freebsd-x64": "npm:4.32.0"
-    "@rollup/rollup-linux-arm-gnueabihf": "npm:4.32.0"
-    "@rollup/rollup-linux-arm-musleabihf": "npm:4.32.0"
-    "@rollup/rollup-linux-arm64-gnu": "npm:4.32.0"
-    "@rollup/rollup-linux-arm64-musl": "npm:4.32.0"
-    "@rollup/rollup-linux-loongarch64-gnu": "npm:4.32.0"
-    "@rollup/rollup-linux-powerpc64le-gnu": "npm:4.32.0"
-    "@rollup/rollup-linux-riscv64-gnu": "npm:4.32.0"
-    "@rollup/rollup-linux-s390x-gnu": "npm:4.32.0"
-    "@rollup/rollup-linux-x64-gnu": "npm:4.32.0"
-    "@rollup/rollup-linux-x64-musl": "npm:4.32.0"
-    "@rollup/rollup-win32-arm64-msvc": "npm:4.32.0"
-    "@rollup/rollup-win32-ia32-msvc": "npm:4.32.0"
-    "@rollup/rollup-win32-x64-msvc": "npm:4.32.0"
-    "@types/estree": "npm:1.0.6"
-    fsevents: "npm:~2.3.2"
-  dependenciesMeta:
-    "@rollup/rollup-android-arm-eabi":
-      optional: true
-    "@rollup/rollup-android-arm64":
-      optional: true
-    "@rollup/rollup-darwin-arm64":
-      optional: true
-    "@rollup/rollup-darwin-x64":
-      optional: true
-    "@rollup/rollup-freebsd-arm64":
-      optional: true
-    "@rollup/rollup-freebsd-x64":
-      optional: true
-    "@rollup/rollup-linux-arm-gnueabihf":
-      optional: true
-    "@rollup/rollup-linux-arm-musleabihf":
-      optional: true
-    "@rollup/rollup-linux-arm64-gnu":
-      optional: true
-    "@rollup/rollup-linux-arm64-musl":
-      optional: true
-    "@rollup/rollup-linux-loongarch64-gnu":
-      optional: true
-    "@rollup/rollup-linux-powerpc64le-gnu":
-      optional: true
-    "@rollup/rollup-linux-riscv64-gnu":
-      optional: true
-    "@rollup/rollup-linux-s390x-gnu":
-      optional: true
-    "@rollup/rollup-linux-x64-gnu":
-      optional: true
-    "@rollup/rollup-linux-x64-musl":
-      optional: true
-    "@rollup/rollup-win32-arm64-msvc":
-      optional: true
-    "@rollup/rollup-win32-ia32-msvc":
-      optional: true
-    "@rollup/rollup-win32-x64-msvc":
-      optional: true
-    fsevents:
-      optional: true
-  bin:
-    rollup: dist/bin/rollup
-  checksum: 10/5857d94f84e9f2efdae45f7f80e85a1c764804b40f322ebf5073e2008f495df9372fe15430691fabcf4cdcdf95fb66f187e1f726b2e618d2cb19d0e0b9ccb11f
-  languageName: node
-  linkType: hard
-
-"rollup@npm:^4.24.0":
+"rollup@npm:^4.20.0, rollup@npm:^4.24.0":
   version: 4.32.1
   resolution: "rollup@npm:4.32.1"
   dependencies:
@@ -34197,10 +33985,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"undici-types@npm:~6.19.2":
-  version: 6.19.8
-  resolution: "undici-types@npm:6.19.8"
-  checksum: 10/cf0b48ed4fc99baf56584afa91aaffa5010c268b8842f62e02f752df209e3dea138b372a60a963b3b2576ed932f32329ce7ddb9cb5f27a6c83040d8cd74b7a70
+"undici-types@npm:~6.20.0":
+  version: 6.20.0
+  resolution: "undici-types@npm:6.20.0"
+  checksum: 10/583ac7bbf4ff69931d3985f4762cde2690bb607844c16a5e2fbb92ed312fe4fa1b365e953032d469fa28ba8b224e88a595f0b10a449332f83fa77c695e567dbe
   languageName: node
   linkType: hard
 

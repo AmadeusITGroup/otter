@@ -128,7 +128,7 @@
   ],
   "resolutions": {
     "@sinonjs/fake-timers": "^14.0.0",
-    "@types/node": "^20.0.0",
+    "@types/node": "^22.0.0",
     "typescript-json-schema/typescript": "~5.7.2"
   },
   "dependencies": {
@@ -202,7 +202,7 @@
     "@types/eslint": "~9.6.0",
     "@types/estree": "^1.0.5",
     "@types/jest": "~29.5.2",
-    "@types/node": "^20.0.0",
+    "@types/node": "^22.0.0",
     "@types/semver": "^7.3.13",
     "@typescript-eslint/parser": "~8.21.0",
     "@typescript-eslint/rule-tester": "~8.21.0",

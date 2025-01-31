@@ -108,7 +108,7 @@
     "@types/cheerio": "~0.22.35",
     "@types/jasmine": "~5.1.0",
     "@types/jest": "~29.5.2",
-    "@types/node": "^20.0.0",
+    "@types/node": "^22.0.0",
     "@types/semver": "^7.3.13",
     "@typescript-eslint/parser": "~8.21.0",
     "angular-eslint": "~19.0.0",
