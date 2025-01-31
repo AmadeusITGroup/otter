@@ -255,6 +255,8 @@ describe('Design Token Parser', () => {
   });
 
   describe('parseDesignTokenFile', () => {
+    afterEach(() => jest.resetAllMocks());
+
     test('should read the file according to the reader', async () => {
       const readFile = jest.fn().mockResolvedValue('{"test": { "$value": "#000", "$type": "color" }}');
       const parseDesignToken = jest.spyOn(parser, 'parseDesignToken').mockImplementation(() => (new Map()));
@@ -264,6 +266,39 @@ describe('Design Token Parser', () => {
       expect(parseDesignToken).toHaveBeenCalledTimes(1);
       expect(readFile).toHaveBeenCalledTimes(1);
       expect(parseDesignToken).toHaveBeenCalledWith({ context: { basePath: '.' }, document: { test: { $value: '#000', $type: 'color' } } });
+    });
+
+    test('should read file from URL', async () => {
+      const content = { test: { $value: '#000', $type: 'color' } };
+      jest.spyOn(global, 'fetch').mockImplementation(
+        jest.fn(
+          () => Promise.resolve({
+            text: () => Promise.resolve(JSON.stringify(content))
+          })
+        ) as jest.Mock
+      );
+      const parseDesignToken = jest.spyOn(parser, 'parseDesignToken').mockImplementation(() => (new Map()));
+      const url = 'https://www.google.com';
+      const result = await parser.parseDesignTokenFile(url);
+
+      expect(result.size).toBe(0);
+      expect(parseDesignToken).toHaveBeenCalledWith(expect.objectContaining({ document: content }));
+      expect(global.fetch).toHaveBeenCalledTimes(1);
+    });
+
+    test('should read file from FS', async () => {
+      const content = { test: { $value: '#000', $type: 'color' } };
+      const readFile = jest.fn().mockResolvedValue('{"test": { "$value": "#000", "$type": "color" }}');
+      jest.mock('node:fs/promises', () => ({
+        readFile
+      }));
+      const parseDesignToken = jest.spyOn(parser, 'parseDesignToken').mockImplementation(() => (new Map()));
+      const file = '/the/file.json';
+      const result = await parser.parseDesignTokenFile(file);
+
+      expect(result.size).toBe(0);
+      expect(parseDesignToken).toHaveBeenLastCalledWith(expect.objectContaining({ document: content }));
+      expect(readFile).toHaveBeenCalledTimes(1);
     });
 
     test('should propagate context object', async () => {

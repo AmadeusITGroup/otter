@@ -16,7 +16,7 @@ import {
 import {
   createSchematicWithMetricsIfInstalled,
   findConfigFileRelativePath,
-  getPackageManagerRunner,
+  getPackageManagerExecutor,
 } from '@o3r/schematics';
 import type {
   PackageJson,
@@ -46,10 +46,9 @@ function updateTemplatesFn(options: NgGenerateUpdateSchematicsSchema): Rule {
       // prepare needed deps for schematics
       const angularVersion = packageJson.devDependencies?.['@angular/cli'] || packageJson.devDependencies?.['@angular/core'];
       const otterVersion = o3rCorePackageJson.dependencies!['@o3r/schematics'];
-      const packageManagerRunner = getPackageManagerRunner();
+      const exec = getPackageManagerExecutor();
       packageJson.scripts ||= {};
-      // eslint-disable-next-line @stylistic/max-len -- keep the command on the same line
-      packageJson.scripts['build:schematics'] = `tsc -b tsconfig.builders.json --pretty && ${packageManagerRunner} cpy 'schematics/**/*.json' dist/schematics && ${packageManagerRunner} cpy 'collection.json' dist`;
+      packageJson.scripts['build:schematics'] = `tsc -b tsconfig.builders.json --pretty && ${exec} cpy 'schematics/**/*.json' dist/schematics && ${exec} cpy collection.json dist`;
       packageJson.schematics = './collection.json';
       packageJson.peerDependencies ||= {};
       packageJson.peerDependencies['@angular-devkit/schematics'] = angularVersion;

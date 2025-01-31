@@ -1,7 +1,7 @@
-@import '../styling/shared-mixin';
+@use '../styling/shared-mixin' as shared-mixin;
 
 o3r-rule-key-value-pres {
-  @include rule-debug-structure;
+  @include shared-mixin.rule-debug-structure;
 
   position: relative;
 

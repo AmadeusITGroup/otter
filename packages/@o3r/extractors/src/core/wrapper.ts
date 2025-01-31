@@ -53,7 +53,7 @@ export const createBuilderWithMetricsIfInstalled: BuilderWrapper = (builderFn) =
         message: `
 Would you like to share anonymous data about the usage of Otter builders and schematics with the Otter Team at Amadeus ?
 It will help us to improve our tools.
-For more details and instructions on how to change these settings, see https://github.com/AmadeusITGroup/otter/blob/main/docs/telemetry/PRIVACY_NOTICE.md.
+For more details and instructions on how to change these settings, see https://github.com/AmadeusITGroup/otter/blob/main/docs/telemetry/PRIVACY_NOTICE.md
         `,
         default: false
       });
