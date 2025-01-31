@@ -124,11 +124,19 @@
     "zone.js": "~0.15.0"
   },
   "generatorDependencies": {
+    "@angular-builders/jest": "~19.0.0",
     "@angular/material": "~19.0.0",
+    "@commitlint/cli": "^19.0.0",
+    "@commitlint/config-angular": "^19.0.0",
+    "@commitlint/config-conventional": "^19.0.0",
+    "@commitlint/types": "^19.0.0",
     "@ngrx/router-store": "~19.0.0",
     "@ngrx/effects": "~19.0.0",
     "@ngrx/store-devtools": "~19.0.0",
-    "lerna": "^8.1.7"
+    "editorconfig-checker": "^6.0.1",
+    "husky": "~9.1.0",
+    "lerna": "^8.1.7",
+    "lint-staged": "^15.0.0"
   },
   "engines": {
     "node": "^18.19.1 || ^20.11.1 || >=22.0.0"

@@ -111,5 +111,8 @@
   "schematics": "./collection.json",
   "ng-update": {
     "migrations": "./migration.json"
+  },
+  "ng-add": {
+    "save": "devDependencies"
   }
 }

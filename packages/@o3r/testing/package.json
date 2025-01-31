@@ -206,7 +206,7 @@
     "@o3r/localization": "workspace:^",
     "@o3r/schematics": "workspace:^",
     "@o3r/test-helpers": "workspace:^",
-    "@playwright/test": "~1.49.0",
+    "@playwright/test": "~1.50.0",
     "@schematics/angular": "~19.0.0",
     "@stylistic/eslint-plugin": "~3.0.0",
     "@swc/helpers": "~0.5.0",
@@ -249,6 +249,9 @@
     "typescript": "~5.6.2",
     "typescript-eslint": "~8.21.0",
     "zone.js": "~0.15.0"
+  },
+  "generatorDependencies": {
+    "@angular-builders/jest": "~19.0.0"
   },
   "schematics": "./collection.json",
   "ng-update": {

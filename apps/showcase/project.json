@@ -247,7 +247,8 @@
       "outputs": [
         "{options.defaultStyleFile}",
         "{options.metadataOutput}",
-        "{projectRoot}/src/**/*.scss"
+        "{projectRoot}/src/**/*.scss",
+        "!{projectRoot}/src/styles.scss"
       ],
       "inputs": [
         "{projectRoot}/src/style/design-token.*.json",

@@ -5,6 +5,7 @@
  */
 const o3rEnvironment = globalThis.o3rEnvironment;
 
+import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {
   getDefaultExecSyncOptions,
@@ -50,7 +51,17 @@ describe('ng add components', () => {
     expect(diff.modified).toContain('package.json');
     expect(diff.modified).toContain('angular.json');
     expect(diff.modified).toContain('libs/test-lib/package.json');
-    expect(diff.modified.length).toBe(8);
+    const vscodeContent = fs.readFileSync(`${workspacePath}/.vscode/extensions.json`, 'utf8');
+    const angularJSON = JSON.parse(fs.readFileSync(`${workspacePath}/angular.json`, 'utf8'));
+    expect(vscodeContent).toContain('"Orta.vscode-jest"');
+    expect(angularJSON.schematics['@o3r/core:component']).toBeDefined();
+    expect(angularJSON.schematics['@o3r/core:component-container']).toBeDefined();
+    expect(angularJSON.schematics['@o3r/core:component-presenter']).toBeDefined();
+    expect(angularJSON.cli?.schematicCollections?.indexOf('@o3r/components') > -1).toBe(true);
+
+    const packageJson = JSON.parse(fs.readFileSync(`${workspacePath}/package.json`, 'utf8'));
+    expect(packageJson.dependencies['@o3r/components']).toBeDefined();
+
     expect(diff.added).toContain('libs/test-lib/cms.json');
     expect(diff.added).toContain('libs/test-lib/placeholders.metadata.json');
     expect(diff.added).toContain('libs/test-lib/tsconfig.cms.json');

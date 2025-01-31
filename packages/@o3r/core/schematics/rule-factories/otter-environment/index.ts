@@ -18,15 +18,23 @@ import {
   TYPES_DEFAULT_FOLDER,
 } from '@o3r/schematics';
 import generateEnvironments from '@schematics/angular/environments/index';
+import type {
+  TsConfigJson,
+} from 'type-fest';
 import * as ts from 'typescript';
 
 const editTsConfigJson = (tree: Tree) => {
-  if (tree.exists('/tsconfig.json')) {
-    const tsConfig = ts.parseConfigFileTextToJson('/tsconfig.json', tree.readText('/tsconfig.json')).config;
-    if (tsConfig.compilerOptions?.noPropertyAccessFromIndexSignature) {
-      delete tsConfig.compilerOptions.noPropertyAccessFromIndexSignature;
+  const tsConfigPath = '/tsconfig.json';
+  if (tree.exists(tsConfigPath)) {
+    const tsConfig = ts.parseConfigFileTextToJson(tsConfigPath, tree.readText(tsConfigPath)).config as TsConfigJson;
+    if (tsConfig.compilerOptions) {
+      if (tsConfig.compilerOptions.noPropertyAccessFromIndexSignature) {
+        delete tsConfig.compilerOptions.noPropertyAccessFromIndexSignature;
+      }
+      tsConfig.compilerOptions.moduleResolution = 'node';
+      tsConfig.compilerOptions.declaration = true;
     }
-    tree.overwrite('/tsconfig.json', JSON.stringify(tsConfig, null, 2));
+    tree.overwrite(tsConfigPath, JSON.stringify(tsConfig, null, 2));
   }
   return tree;
 };

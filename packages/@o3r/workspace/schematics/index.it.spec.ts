@@ -90,8 +90,8 @@ describe('new otter workspace', () => {
     expect(() => packageManagerRunOnProject('@my-sdk/sdk', isInWorkspace, { script: 'spec:upgrade' }, execAppOptions)).not.toThrow();
   });
 
-  test('should add a library to an existing workspace', () => {
-    const { workspacePath } = o3rEnvironment.testEnvironment;
+  test('should add a library to an existing workspace', async () => {
+    const { isInWorkspace, workspacePath } = o3rEnvironment.testEnvironment;
     const execAppOptions = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
     const libName = 'test-library';
     const inLibraryPath = path.resolve(workspacePath, 'libs', libName);
@@ -105,16 +105,26 @@ describe('new otter workspace', () => {
       'tsconfig.lib.prod.json',
       'tsconfig.spec.json',
       'src/public-api.ts',
+      'collection.json',
       '.gitignore',
       '.npmignore',
       'jest.config.js',
       'tsconfig.builders.json',
       'tsconfig.json',
-      'testing/setup-jest.ts'];
+      'testing/setup-jest.ts'
+    ];
     expect(() => packageManagerExec({ script: 'ng', args: ['g', 'library', libName] }, execAppOptions)).not.toThrow();
     expect(existsSync(path.join(workspacePath, 'project'))).toBe(false);
     generatedLibFiles.forEach((file) => expect(existsSync(path.join(inLibraryPath, file))).toBe(true));
-    expect(() => packageManagerRunOnProject(libName, true, { script: 'build' }, execAppOptions)).not.toThrow();
+    // TODO apps are generated without jest full configuration - needs to be fixed before removing this part
+    expect(() => packageManagerExec({ script: 'ng', args: ['test', libName] }, execAppOptions)).not.toThrow();
+    expect(() => packageManagerRunOnProject(libName, isInWorkspace, { script: 'build' }, execAppOptions)).not.toThrow();
+
+    // check tsconfig.lib.prod.json override
+    const tsconfigLibProd = JSON.parse(await fs.readFile(path.join(inLibraryPath, 'tsconfig.lib.prod.json'), { encoding: 'utf8' }));
+    expect(!!tsconfigLibProd.extends && existsSync(path.resolve(inLibraryPath, tsconfigLibProd.extends))).toBe(true);
+    expect(() => packageManagerRunOnProject(libName, isInWorkspace, { script: 'prepare:build:builders' }, execAppOptions)).not.toThrow();
+    expect(() => packageManagerRunOnProject(libName, isInWorkspace, { script: 'build:builders' }, execAppOptions)).not.toThrow();
   });
 
   test('should generate a monorepo setup', async () => {
@@ -134,5 +144,9 @@ describe('new otter workspace', () => {
     expect(rootPackageJson.workspaces).toContain('apps/*');
     expect(existsSync(path.join(workspacePath, '.renovaterc.json'))).toBe(true);
     expect(existsSync(path.join(workspacePath, '.editorconfig'))).toBe(true);
+    expect(existsSync(path.join(workspacePath, '.husky/commit-msg'))).toBe(true);
+    expect(existsSync(path.join(workspacePath, '.husky/pre-commit'))).toBe(true);
+    expect(existsSync(path.join(workspacePath, 'commitlint.config.cts'))).toBe(true);
+    await expect(fs.readFile(path.join(workspacePath, '.husky/pre-commit'), { encoding: 'utf8' })).resolves.toMatch(/lint-stage/);
   });
 });

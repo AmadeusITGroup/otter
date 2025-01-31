@@ -70,10 +70,16 @@
         "{projectRoot}/schematics/**",
         "!{projectRoot}/schematics/**/target/**"
       ],
-      "outputs": ["{projectRoot}/schematics/**/target/*.jar"],
+      "outputs": [
+        "{projectRoot}/schematics/**/target/*.jar",
+        "{projectRoot}/dist/schematics/**/target/*.jar"
+      ],
       "options": {
         "script": "build:swagger"
-      }
+      },
+      "dependsOn": [
+        "build-builders"
+      ]
     },
     "test": {},
     "test-int": {

@@ -48,7 +48,6 @@ jobs:
       - uses: ./.github/actions/setup-java
         with:
           install-jdk: 'true'
-      - run: yarn build:swagger-gen
       - run: yarn build
       - uses: ./tools/github-actions/upload-build-output
 

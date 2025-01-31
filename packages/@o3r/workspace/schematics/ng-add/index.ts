@@ -52,11 +52,12 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       // Schematics advertising
       (t, c) => {
         const workspaceConfig = getWorkspaceConfig(t);
+        const executor = getPackageManagerExecutor(workspaceConfig);
         c.logger.info('Your project is now ready, you can start to generate your first packages with one of the following commands:');
-        c.logger.info(`  ${getPackageManagerExecutor(workspaceConfig)} ng g application`);
-        c.logger.info(`  ${getPackageManagerExecutor(workspaceConfig)} ng g sdk`);
-        c.logger.info(`  ${getPackageManagerExecutor(workspaceConfig)} ng g library`);
-        c.logger.info(`... or discover the full list of commands with "${getPackageManagerExecutor(workspaceConfig)} ng g --help".`);
+        c.logger.info(`  ${executor} ng g application`);
+        c.logger.info(`  ${executor} ng g sdk`);
+        c.logger.info(`  ${executor} ng g library`);
+        c.logger.info(`... or discover the full list of commands with "${executor} ng g ${executor.startsWith('npm') ? '-- ' : ''}--help".`);
       }
     ])(tree, context);
   };

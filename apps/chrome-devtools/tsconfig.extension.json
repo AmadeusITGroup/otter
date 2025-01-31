@@ -3,7 +3,7 @@
   "compilerOptions": {
     "mapRoot": "./src",
     "incremental": true,
-    "lib": ["es2021", "dom"],
+    "lib": ["es2023", "dom"],
     "types": ["chrome"],
     "outDir": "dist",
     "rootDir": "./src",

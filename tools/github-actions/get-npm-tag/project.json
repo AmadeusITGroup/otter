@@ -11,18 +11,8 @@
         "compile-github-action"
       ]
     },
-    "compile-github-action": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "build"
-      }
-    },
-    "package-github-action": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "package"
-      }
-    },
+    "compile-github-action": {},
+    "package-github-action": {},
     "lint": {}
   },
   "tags": []

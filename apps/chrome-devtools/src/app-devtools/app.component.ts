@@ -1,6 +1,5 @@
 import {
   AsyncPipe,
-  JsonPipe,
 } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -27,6 +26,7 @@ import {
   NgbNavModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
+  FactsSnapshotComponent,
   RulesetHistoryPresComponent,
 } from '@o3r/rules-engine';
 import {
@@ -93,7 +93,7 @@ import {
     ReactiveFormsModule,
     DfSelectModule,
     DfTooltipModule,
-    JsonPipe
+    FactsSnapshotComponent
   ]
 })
 export class AppComponent {
@@ -106,11 +106,12 @@ export class AppComponent {
   public readonly activeStateName = computed(() => this.stateService.activeState()?.name);
   public readonly states = computed(() => Object.values(this.stateService.states()));
   public readonly hasLocalChanges = this.stateService.hasLocalChanges;
-  public form = this.formBuilder.group({
+  public readonly form = this.formBuilder.group({
     activeStateName: new FormControl(this.activeStateName())
   });
 
-  public rulesetExecutions$ = this.rulesetHistoryService.rulesetExecutions$;
+  public readonly rulesetExecutions$ = this.rulesetHistoryService.rulesetExecutions$;
+  public readonly facts$ = this.rulesetHistoryService.facts$;
 
   constructor() {
     effect(() => {
