@@ -81,6 +81,7 @@ import {
 } from 'ngx-markdown';
 import {
   MonacoEditorModule,
+  NGX_MONACO_EDITOR_CONFIG,
 } from 'ngx-monaco-editor-v2';
 import {
   ClipboardButtonPresComponent,
@@ -197,7 +198,8 @@ export function registerCustomComponents(): Map<string, any> {
       markedExtensions: [markedAlert()],
       /* Templates are only internal, no need to sanitize */
       sanitize: SecurityContext.NONE
-    })
+    }),
+    { provide: NGX_MONACO_EDITOR_CONFIG, useValue: { baseUrl: `${location.origin}${location.pathname}assets/monaco/min/vs` } }
   ],
   bootstrap: [AppComponent]
 })
