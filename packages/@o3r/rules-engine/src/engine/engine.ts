@@ -183,9 +183,10 @@ export class RulesEngine {
    * @param facts fact list to add / update
    */
   public upsertFacts<T = unknown>(facts: Fact<T> | Fact<T>[]) {
-    (Array.isArray(facts) ? facts : [facts]).forEach(({ id, value$ }) =>
-      this.retrieveOrCreateFactStream(id, value$)
-    );
+    (Array.isArray(facts) ? facts : [facts]).forEach(({ id, value$ }) => {
+      this.engineDebug?.addAvailableFactsSnapshotEvent(id, value$);
+      this.retrieveOrCreateFactStream(id, value$);
+    });
   }
 
   /**

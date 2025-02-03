@@ -12,6 +12,7 @@ import {
   Schematic,
   strings,
   template,
+  type Tree,
   url,
 } from '@angular-devkit/schematics';
 import {
@@ -43,6 +44,22 @@ import type {
 } from './schema';
 
 /**
+ * Find the relative path to a configuration file at the monorepo root
+ * Note: This function is a duplicate of {@link import('@o3r/schematics').findConfigFileRelativePath} required due to TS Import issue
+ * @param tree
+ * @param files List of files to look for, the first of the list will be used
+ * @param originPath Path from where to calculate the relative path
+ */
+function findConfigFileRelativePath(tree: Tree, files: string[], originPath: string) {
+  const foundFile = files.find((file) => tree.exists(`/${file}`));
+  if (foundFile === undefined) {
+    return '';
+  }
+
+  return path.posix.relative(originPath, `/${foundFile}`);
+}
+
+/**
  * Add an Otter application to a monorepo
  * @param options Schematic options
  */
@@ -51,10 +68,11 @@ function generateApplicationFn(options: NgGenerateApplicationSchema): Rule {
   const packageJsonName = strings.dasherize(options.name);
   const cleanName = packageJsonName.replace(/^@/, '').replaceAll(/\//g, '-');
 
-  const addProjectSpecificFiles = (targetPath: string, rootDependencies: Record<string, string | undefined>) => {
+  const addProjectSpecificFiles = (targetPath: string, rootDependencies: Record<string, string | undefined>, tsconfigBasePath: string) => {
     return mergeWith(apply(url('./templates'), [
       template({
         ...options,
+        tsconfigBasePath,
         enforceTildeRange,
         name: packageJsonName,
         rootDependencies
@@ -109,13 +127,15 @@ function generateApplicationFn(options: NgGenerateApplicationSchema): Rule {
       }
     } as const satisfies Record<string, DependencyToAdd>;
 
+    const tsconfigBasePath = findConfigFileRelativePath(tree, ['tsconfig.base.json', 'tsconfig.json'], targetPath);
+
     return chain([
       externalSchematic<Partial<ApplicationOptions>>('@schematics/angular', 'application', {
         ...Object.entries(extendedOptions).reduce((acc, [key, value]) => (angularOptions.includes(key) ? { ...acc, [key]: value } : acc), {}),
         name: cleanName,
         projectRoot,
         style: Style.Scss }),
-      addProjectSpecificFiles(targetPath, rootDependencies),
+      addProjectSpecificFiles(targetPath, rootDependencies, tsconfigBasePath),
       updateProjectTsConfig(targetPath, 'tsconfig.app.json', { updateInputFiles: true }),
       setupDependencies({
         dependencies,

@@ -1,13 +1,13 @@
 import {
+  CommonModule,
+} from '@angular/common';
+import {
   Component,
 } from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
-import {
-  BrowserModule,
-} from '@angular/platform-browser';
 import type {
   AnalyticsEvent,
   AnalyticsEvents,
@@ -40,8 +40,30 @@ class MockSubEvent implements AnalyticsEvent {
 }
 
 @Component({
+  selector: 'o3r-mock-sub-component',
+  template: '',
+  imports: [CommonModule]
+})
+class MockSubComponent {
+  public translations: Translation = {
+    subKey: 'subKey'
+  };
+
+  public analyticsEvents: AnalyticsEvents = {
+    subEvent: MockSubEvent
+  };
+
+  // eslint-disable-next-line @typescript-eslint/naming-convention -- field supposedly added by the decorator @O3rComponent
+  public '__otter-info__' = {
+    componentName: 'MockSubComponent',
+    translations: this.translations
+  };
+}
+
+@Component({
   selector: 'o3r-mock-component',
-  template: '<o3r-mock-sub-component></o3r-mock-sub-component>'
+  template: '<o3r-mock-sub-component></o3r-mock-sub-component>',
+  imports: [CommonModule, MockSubComponent]
 })
 class MockComponent {
   public configObserver = new ConfigurationObserver('configId', {});
@@ -57,26 +79,6 @@ class MockComponent {
   public '__otter-info__' = {
     componentName: 'MockComponent',
     configId: 'configId',
-    translations: this.translations
-  };
-}
-
-@Component({
-  selector: 'o3r-mock-sub-component',
-  template: ''
-})
-class MockSubComponent {
-  public translations: Translation = {
-    subKey: 'subKey'
-  };
-
-  public analyticsEvents: AnalyticsEvents = {
-    subEvent: MockSubEvent
-  };
-
-  // eslint-disable-next-line @typescript-eslint/naming-convention -- field supposedly added by the decorator @O3rComponent
-  public '__otter-info__' = {
-    componentName: 'MockSubComponent',
     translations: this.translations
   };
 }
@@ -116,12 +118,7 @@ describe('Otter inspector helpers', () => {
 
   describe('helpers that need a component instance', () => {
     let component: ComponentFixture<MockComponent>;
-    beforeAll(async () => {
-      await TestBed.configureTestingModule({
-        declarations: [MockComponent, MockSubComponent],
-        imports: [BrowserModule]
-      }).compileComponents();
-
+    beforeAll(() => {
       component = TestBed.createComponent(MockComponent);
     });
 

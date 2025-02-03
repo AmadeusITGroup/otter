@@ -19,7 +19,6 @@ import {
   of,
 } from 'rxjs';
 import {
-  LocalizationTranslatePipe,
   O3rLocalizationTranslatePipe,
 } from './localization-translate.pipe';
 import {
@@ -62,7 +61,6 @@ describe('LocalizationTranslatePipe', () => {
   let localizationService: LocalizationService;
   let translate: TranslateService;
   let pipe: O3rLocalizationTranslatePipe;
-  let deprecatedPipe: LocalizationTranslatePipe;
   let ref: any;
 
   describe('enableTranslationDeactivation OFF', () => {
@@ -83,7 +81,6 @@ describe('LocalizationTranslatePipe', () => {
       translate = TestBed.inject(TranslateService);
       ref = new FakeChangeDetectorRef();
       pipe = new O3rLocalizationTranslatePipe(localizationService, translate, ref, TestBed.inject(LOCALIZATION_CONFIGURATION_TOKEN));
-      deprecatedPipe = new LocalizationTranslatePipe(localizationService, translate, ref, TestBed.inject(LOCALIZATION_CONFIGURATION_TOKEN));
 
       expect(() => localizationService.toggleShowKeys()).toThrow();
     });
@@ -113,24 +110,19 @@ describe('LocalizationTranslatePipe', () => {
         translate = TestBed.inject(TranslateService);
         ref = new FakeChangeDetectorRef();
         pipe = new O3rLocalizationTranslatePipe(localizationService, translate, ref, TestBed.inject(LOCALIZATION_CONFIGURATION_TOKEN));
-        deprecatedPipe = new LocalizationTranslatePipe(localizationService, translate, ref, TestBed.inject(LOCALIZATION_CONFIGURATION_TOKEN));
       });
 
       it('Should not translate if ShowKeys is activated', () => {
         localizationService.toggleShowKeys();
 
         expect(pipe.transform('test')).toEqual('test');
-        expect(deprecatedPipe.transform('test')).toEqual('test');
         expect(pipe.transform('testParams', '{param1: "with param-1", param2: "and param-2"}')).toEqual('testParams');
-        expect(deprecatedPipe.transform('testParams', '{param1: "with param-1", param2: "and param-2"}')).toEqual('testParams');
       });
 
       it('Should translate if ShowKeys is no activated', () => {
         expect(pipe.transform('test')).toEqual('This is a test');
-        expect(deprecatedPipe.transform('test')).toEqual('This is a test');
 
         expect(pipe.transform('testParams', '{param1: "with param-1", param2: "and param-2"}')).toEqual('This is a test with param-1 and param-2');
-        expect(deprecatedPipe.transform('testParams', '{param1: "with param-1", param2: "and param-2"}')).toEqual('This is a test with param-1 and param-2');
       });
     });
 
@@ -160,24 +152,19 @@ describe('LocalizationTranslatePipe', () => {
         translate = TestBed.inject(TranslateService);
         ref = new FakeChangeDetectorRef();
         pipe = new O3rLocalizationTranslatePipe(localizationService, translate, ref, TestBed.inject(LOCALIZATION_CONFIGURATION_TOKEN));
-        deprecatedPipe = new LocalizationTranslatePipe(localizationService, translate, ref, TestBed.inject(LOCALIZATION_CONFIGURATION_TOKEN));
       });
 
       it('Should not translate if ShowKeys is activated', () => {
         localizationService.toggleShowKeys();
 
         expect(pipe.transform('test')).toEqual('test');
-        expect(deprecatedPipe.transform('test')).toEqual('test');
         expect(pipe.transform('testParams', '{param1: "with param-1", param2: "and param-2"}')).toEqual('testParams');
-        expect(deprecatedPipe.transform('testParams', '{param1: "with param-1", param2: "and param-2"}')).toEqual('testParams');
       });
 
       it('Should display both key and value if ShowKeys is no activated', () => {
         expect(pipe.transform('test')).toEqual('test - This is a test');
-        expect(deprecatedPipe.transform('test')).toEqual('test - This is a test');
 
         expect(pipe.transform('testParams', '{param1: "with param-1", param2: "and param-2"}')).toEqual('testParams - This is a test with param-1 and param-2');
-        expect(deprecatedPipe.transform('testParams', '{param1: "with param-1", param2: "and param-2"}')).toEqual('testParams - This is a test with param-1 and param-2');
       });
     });
   });

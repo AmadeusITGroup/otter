@@ -1,7 +1,8 @@
-@import '../styling/shared-mixin';
+@use '../styling/variables' as variables;
+@use '../styling/shared-mixin' as shared-mixin;
 
 o3r-ruleset-history-pres {
-  @include rule-debug-structure;
+  @include shared-mixin.rule-debug-structure;
 
   .rulesets {
     margin: 0;
@@ -85,35 +86,35 @@ o3r-ruleset-history-pres {
   }
 
   .success {
-    background-color: $ruleset-success-color;
+    background-color: variables.$ruleset-success-color;
     color: white;
   }
 
   .inactive {
-    background-color: $ruleset-deactivated-color;
+    background-color: variables.$ruleset-deactivated-color;
     color: white;
   }
 
   .error {
-    color: $ruleset-error-color;
+    color: variables.$ruleset-error-color;
 
     .capsule.error {
-      background-color: $ruleset-error-color;
+      background-color: variables.$ruleset-error-color;
       color: white;
     }
   }
 
   .warn {
-    background-color: $ruleset-warn-color;
+    background-color: variables.$ruleset-warn-color;
     color: white;
   }
 
   .input-key {
-    color: $ruleset-variable-key-color;
+    color: variables.$ruleset-variable-key-color;
   }
 
   .input-value {
-    color: $ruleset-variable-value-color;
+    color: variables.$ruleset-variable-value-color;
   }
 
   .input-key, .input-value {

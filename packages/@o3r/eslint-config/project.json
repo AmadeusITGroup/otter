@@ -17,21 +17,9 @@
         "build-builders"
       ]
     },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "options": {
-        "jestConfig": "packages/@o3r/eslint-config/jest.config.js"
-      }
-    },
-    "test-int": {
-      "executor": "@nx/jest:jest",
-      "options": {
-        "jestConfig": "packages/@o3r/eslint-config/testing/jest.config.it.js"
-      }
-    },
-    "lint": {
-      "executor": "nx:run-commands"
-    },
+    "test": {},
+    "test-int": {},
+    "lint": {},
     "compile": {
       "executor": "nx:run-script",
       "options": {
@@ -39,30 +27,10 @@
       },
       "dependsOn": []
     },
-    "prepare-build-builders": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "prepare:build:builders"
-      }
-    },
-    "prepare-publish": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "prepare:publish"
-      }
-    },
-    "build-builders": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "build:builders"
-      }
-    },
-    "publish": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "npm publish packages/@o3r/eslint-config/dist"
-      }
-    }
+    "prepare-build-builders": {},
+    "prepare-publish": {},
+    "build-builders": {},
+    "publish": {}
   },
   "tags": []
 }

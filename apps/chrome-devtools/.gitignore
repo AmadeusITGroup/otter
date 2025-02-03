@@ -1,3 +1,9 @@
+# Build
 /dist
 /dist-test
 /chrome-extension.zip
+
+# Playwright
+dist-e2e-playwright
+playwright-reports
+test-results

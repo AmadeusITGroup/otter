@@ -143,15 +143,6 @@ export class ConfigurationDevtoolsConsoleService implements DevtoolsServiceInter
   }
 
   /**
-   * Load a json configuration
-   * @param configurations configurations to load
-   * @deprecated please use `updateConfigurations` instead, will be removed in Otter v12.
-   */
-  public loadConfiguration(configurations: string | CustomConfig<Configuration>[]): void {
-    this.configurationDevtools.loadConfiguration(configurations);
-  }
-
-  /**
    * Replace N configurations in one shot
    * @param configurations array of configurations to update
    */

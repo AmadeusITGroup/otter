@@ -7,7 +7,7 @@
 @function _meta-theme-to-otter($meta-theme, $root-name) {
   @if (meta.type-of($meta-theme) != map) {
     @return (
-      variable: $root-name, // Deprecated, this is not used in the final theme calculation, will be removed in Otter v12
+      variable: $root-name,
       value: $meta-theme
     );
   }

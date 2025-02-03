@@ -86,7 +86,7 @@ export interface ApiClient {
 
   /** Process HTTP call */
   processCall<T>(url: string, options: RequestOptions, apiType: ApiTypes | string, apiName: string, revivers?: ReviverType<T> |
-  { [key: number]: ReviverType<T> | undefined }, operationId?: string): Promise<T>;
+    { [key: number]: ReviverType<T> | undefined }, operationId?: string): Promise<T>;
 }
 
 /**

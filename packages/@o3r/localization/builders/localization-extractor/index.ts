@@ -215,9 +215,10 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<LocalizationExt
 
     // Exit on watcher failure
     return new Promise<BuilderOutput>((_resolve, reject) => {
-      watcher.on('error', (err) => reject(err));
-      metadataWatcher.on('error', (err) => reject(err));
-      tsWatcher.on('error', (err) => reject(err));
+      // TODO remove cast after https://github.com/paulmillr/chokidar/issues/1392
+      watcher.on('error', (err) => reject(err as Error));
+      metadataWatcher.on('error', (err) => reject(err as Error));
+      tsWatcher.on('error', (err) => reject(err as Error));
     });
   } else {
     return execute(true, { extraFiles: initialExtraLocs, libs: options.libraries });
