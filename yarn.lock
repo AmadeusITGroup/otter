@@ -9169,6 +9169,7 @@ __metadata:
     "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/parser": "npm:~8.22.0"
     "@typescript-eslint/rule-tester": "npm:~8.22.0"
+    "@vscode/codicons": "npm:^0.0.36"
     "@webcontainer/api": "npm:~1.5.0"
     "@xterm/addon-fit": "npm:^0.10.0"
     "@xterm/xterm": "npm:^5.0.0"
@@ -9176,7 +9177,7 @@ __metadata:
     ag-grid-angular: "npm:~32.3.0"
     ag-grid-community: "npm:~32.3.0"
     angular-eslint: "npm:~19.0.0"
-    angular-split: "npm:^18.0.0"
+    angular-split: "npm:^19.0.0"
     babel-loader: "npm:^9.0.0"
     bootstrap: "npm:5.3.3"
     bootstrap-icons: "npm:^1.11.3"
@@ -9210,6 +9211,7 @@ __metadata:
     lint-staged: "npm:^15.0.0"
     marked: "npm:^15.0.6"
     minimist: "npm:^1.2.6"
+    monaco-editor: "npm:~0.52.0"
     ng-packagr: "npm:~19.0.0"
     ngx-markdown: "npm:^19.0.0"
     ngx-monaco-editor-v2: "npm:^19.0.2"
@@ -10184,7 +10186,7 @@ __metadata:
     ag-grid-angular: "npm:~32.3.0"
     ag-grid-community: "npm:~32.3.0"
     angular-eslint: "npm:~19.0.0"
-    angular-split: "npm:^18.0.0"
+    angular-split: "npm:^19.0.0"
     bootstrap: "npm:5.3.3"
     clipboard: "npm:^2.0.11"
     concurrently: "npm:^9.1.0"
@@ -15905,16 +15907,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"angular-split@npm:^18.0.0":
-  version: 18.0.0
-  resolution: "angular-split@npm:18.0.0"
+"angular-split@npm:^19.0.0":
+  version: 19.0.0
+  resolution: "angular-split@npm:19.0.0"
   dependencies:
     tslib: "npm:^2.0.0"
   peerDependencies:
-    "@angular/common": ">=18.0.0"
-    "@angular/core": ">=18.0.0"
+    "@angular/common": ">=19.0.0"
+    "@angular/core": ">=19.0.0"
     rxjs: ">=7.0.0"
-  checksum: 10/acafe910ff0ecf416dbeaf02f7b7c0668320a86683905fe631d3031351a0950723c3336b150a64ca3ee7404ecf76244db5a9d4db7f1c0e58bdf0fca6cf46ac84
+  checksum: 10/e57911cc5573c9c38176f08c9e7c88371579bb28f8d53381552177242e7601d094f95eee4ed478d66e465cf3b730e04c76e94bd02268557a3eb6d4c6ad80627b
   languageName: node
   linkType: hard
 
