@@ -1,3 +1,4 @@
+import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {
   chain,
@@ -5,6 +6,9 @@ import {
   SchematicContext,
   Tree,
 } from '@angular-devkit/schematics';
+import type {
+  PackageJson,
+} from 'type-fest';
 import {
   updateLinterConfigs,
 } from './linter';
@@ -50,6 +54,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       getO3rPeerDeps,
       getProjectNewDependenciesTypes,
       removePackages,
+      registerPackageCollectionSchematics,
       getPackageInstallConfig
     } = await import('@o3r/schematics');
     const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'), true, /^@(?:o3r|ama-sdk|eslint-)/);
@@ -57,6 +62,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
     const linterSchematicsFolder = __dirname;
     const { NodeDependencyType } = await import('@schematics/angular/utility/dependencies');
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
+    const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' })) as PackageJson;
     const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
       acc[dep] = {
         inManifest: [{
@@ -78,6 +84,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       });
 
     return () => chain([
+      registerPackageCollectionSchematics(packageJson),
       removePackages(['@otter/eslint-config-otter', '@otter/eslint-plugin']),
       setupDependencies({
         projectName: options.projectName,

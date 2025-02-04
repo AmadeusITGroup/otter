@@ -76,7 +76,7 @@ describe('new otter application with eslint config', () => {
 
     const diff = getGitDiff(workspacePath);
     expect(diff.modified).toContain('package.json');
-    expect(diff.modified).not.toContain('angular.json');
+    expect(diff.modified).toContain('angular.json');
     expect(diff.added).toContain('tsconfig.eslint.json');
     expect(diff.added).toContain('eslint.shared.config.mjs');
     expect(diff.added).toContain('eslint.local.config.mjs');

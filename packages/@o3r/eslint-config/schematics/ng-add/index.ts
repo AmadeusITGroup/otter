@@ -1,3 +1,4 @@
+import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {
   chain,
@@ -6,6 +7,9 @@ import {
   type SchematicContext,
   type Tree,
 } from '@angular-devkit/schematics';
+import type {
+  PackageJson,
+} from 'type-fest';
 import {
   updateEslintConfig,
 } from './eslint/index';
@@ -85,8 +89,6 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       'globals',
       'jsonc-eslint-parser',
       'typescript-eslint',
-      // TODO could be removed once #2482 is fixed
-      'yaml-eslint-parser',
       ...(options.projectName ? ['@angular-eslint/builder'] : [])
     ];
 
@@ -96,12 +98,14 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       getWorkspaceConfig,
       getO3rPeerDeps,
       getProjectNewDependenciesTypes,
-      getPackageInstallConfig
+      getPackageInstallConfig,
+      registerPackageCollectionSchematics
     } = await import('@o3r/schematics');
     const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'), true, /^@(?:o3r|ama-sdk)/);
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
     const { NodeDependencyType } = await import('@schematics/angular/utility/dependencies');
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
+    const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' })) as PackageJson;
     const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
       acc[dep] = {
         inManifest: [{
@@ -123,6 +127,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       });
 
     return () => chain([
+      registerPackageCollectionSchematics(packageJson),
       setupDependencies({
         projectName: options.projectName,
         dependencies,
