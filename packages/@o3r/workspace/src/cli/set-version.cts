@@ -7,7 +7,7 @@ import * as path from 'node:path';
 import * as winston from 'winston';
 import { clean } from 'semver';
 
-const defaultIncludedFiles = ['**/package.json', '!/**/templates/**/package.json', '!**/node_modules/**/package.json'];
+const defaultIncludedFiles = ['**/package.json', '!/**/templates/**/package.json', '!**/node_modules/**/package.json', '**/lerna.json'];
 
 const collect = (pattern: string, patterns: string[]) => {
   if (patterns === defaultIncludedFiles && pattern) {

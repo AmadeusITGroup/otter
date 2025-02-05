@@ -24,6 +24,7 @@ describe('ng add extractors', () => {
     const diff = getGitDiff(workspacePath);
     expect(diff.modified.sort()).toEqual([
       'angular.json',
+      '.gitignore',
       'package.json',
       'apps/test-app/package.json',
       isYarnTest ? 'yarn.lock' : 'package-lock.json'
@@ -53,6 +54,7 @@ describe('ng add extractors', () => {
     const diff = getGitDiff(workspacePath);
     expect(diff.modified.sort()).toEqual([
       'angular.json',
+      '.gitignore',
       'package.json',
       'libs/test-lib/package.json',
       isYarnTest ? 'yarn.lock' : 'package-lock.json'

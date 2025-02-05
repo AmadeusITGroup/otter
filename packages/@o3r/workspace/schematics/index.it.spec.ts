@@ -9,16 +9,22 @@ import {
   getDefaultExecSyncOptions, getGitDiff,
   packageManagerExec,
   packageManagerInstall,
+  packageManagerRun,
   packageManagerRunOnProject
 } from '@o3r/test-helpers';
-import { existsSync } from 'node:fs';
+import { existsSync, promises as fs } from 'node:fs';
 import * as path from 'node:path';
+import type { PackageJson } from 'type-fest';
+
+const mocksFolder = path.join(__dirname, '..', 'testing', 'mocks');
 
 describe('new otter workspace', () => {
   test('should add sdk to an existing workspace', () => {
     const { workspacePath, isInWorkspace, untouchedProjectsPaths } = o3rEnvironment.testEnvironment;
     const execAppOptions = {...getDefaultExecSyncOptions(), cwd: workspacePath};
-    packageManagerExec({script: 'ng', args: ['g', 'sdk', '@my-sdk/sdk']}, execAppOptions);
+    expect(() =>
+      packageManagerExec({script: 'ng', args: ['g', 'sdk', 'my-sdk']}, execAppOptions)
+    ).not.toThrow();
 
     const diff = getGitDiff(execAppOptions.cwd);
     untouchedProjectsPaths.forEach(untouchedProject => {
@@ -29,10 +35,34 @@ describe('new otter workspace', () => {
     expect(() => packageManagerRunOnProject('@my-sdk/sdk', isInWorkspace, {script: 'build'}, execAppOptions)).not.toThrow();
   });
 
+  test('should add sdk to an existing workspace with local spec', async () => {
+    const { workspacePath, isInWorkspace, untouchedProjectsPaths } = o3rEnvironment.testEnvironment;
+    const sdkPath = path.posix.join('libs', 'my-sdk-sdk');
+    const execAppOptions = {...getDefaultExecSyncOptions(), cwd: workspacePath};
+    await fs.copyFile(path.join(mocksFolder, 'easy-spec.yaml'), path.join(workspacePath, 'local-spec.yaml'));
+    expect(() => packageManagerExec({script: 'ng', args: [
+      'g',
+      'sdk',
+      '@my-sdk/sdk',
+      '--spec-path', './local-spec.yaml'
+    ]}, execAppOptions)).not.toThrow();
+
+    const diff = getGitDiff(execAppOptions.cwd);
+    untouchedProjectsPaths.forEach(untouchedProject => {
+      expect(diff.all.some(file => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
+    });
+    expect(diff.added).toContain(path.posix.join(sdkPath, 'open-api.yaml'));
+    expect(diff.added).toContain(path.posix.join(sdkPath, 'src', 'models', 'base', 'category', 'category.ts'));
+
+    expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
+    expect(() => packageManagerRunOnProject('@my-sdk/sdk', isInWorkspace, {script: 'build'}, execAppOptions)).not.toThrow();
+  });
+
   test('should add sdk to an existing workspace with spec package name', () => {
     const { workspacePath, isInWorkspace, untouchedProjectsPaths, o3rVersion, registry } = o3rEnvironment.testEnvironment;
+    const sdkPath = path.posix.join('libs', 'my-sdk-sdk');
     const execAppOptions = {...getDefaultExecSyncOptions(), cwd: workspacePath};
-    packageManagerExec({script: 'ng', args: [
+    expect(() => packageManagerExec({script: 'ng', args: [
       'g',
       'sdk',
       '@my-sdk/sdk',
@@ -40,12 +70,14 @@ describe('new otter workspace', () => {
       '--spec-package-path', './openapi.yml',
       '--spec-package-registry', registry,
       '--spec-package-version', o3rVersion
-    ]}, execAppOptions);
+    ]}, execAppOptions)).not.toThrow();
 
     const diff = getGitDiff(execAppOptions.cwd);
     untouchedProjectsPaths.forEach(untouchedProject => {
       expect(diff.all.some(file => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
     });
+    expect(diff.added).toContain(path.posix.join(sdkPath, 'open-api.yaml'));
+    expect(diff.added).toContain(path.posix.join(sdkPath, 'src', 'models', 'base', 'category', 'category.ts'));
 
     expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
     expect(() => packageManagerRunOnProject('@my-sdk/sdk', isInWorkspace, {script: 'build'}, execAppOptions)).not.toThrow();
@@ -77,5 +109,22 @@ describe('new otter workspace', () => {
     expect(existsSync(path.join(workspacePath, 'project'))).toBe(false);
     generatedLibFiles.forEach(file => expect(existsSync(path.join(inLibraryPath, file))).toBe(true));
     expect(() => packageManagerRunOnProject(libName, true, { script: 'build' }, execAppOptions)).not.toThrow();
+  });
+
+  test('should generate a monorepo setup', async () => {
+    const { workspacePath } = o3rEnvironment.testEnvironment;
+    const defaultOptions = getDefaultExecSyncOptions();
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    const execAppOptions = {...defaultOptions, cwd: workspacePath, env: {...defaultOptions.env, NX_CLOUD_ACCESS_TOKEN: ''}};
+    expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
+    const rootPackageJson = JSON.parse(await fs.readFile(path.join(workspacePath, 'package.json'), 'utf-8')) as PackageJson;
+    expect(rootPackageJson.scripts).toHaveProperty('build', 'lerna run build');
+    expect(rootPackageJson.scripts).toHaveProperty('test', 'lerna run test');
+    expect(rootPackageJson.scripts).toHaveProperty('lint', 'lerna run lint');
+    expect(() => packageManagerRun({script: 'build'}, execAppOptions)).not.toThrow();
+    expect(() => packageManagerRun({script: 'test'}, execAppOptions)).not.toThrow();
+    expect(() => packageManagerRun({script: 'lint'}, execAppOptions)).not.toThrow();
+    expect(rootPackageJson.workspaces).toContain('libs/*');
+    expect(rootPackageJson.workspaces).toContain('apps/*');
   });
 });

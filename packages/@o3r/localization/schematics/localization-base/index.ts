@@ -1,4 +1,4 @@
-import { apply, chain, MergeStrategy, mergeWith, move, noop, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
+import { apply, applyToSubtree ,chain, MergeStrategy, mergeWith, move, noop, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
 import {
   createSchematicWithMetricsIfInstalled,
   type DependencyToAdd,
@@ -37,9 +37,6 @@ const ownPackageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: '
  * @param rootPath @see RuleFactory.rootPath
  */
 export function updateLocalization(options: { projectName?: string | null | undefined }, rootPath: string): Rule {
-  if (!options.projectName) {
-    return noop;
-  }
   const mainAssetsFolder = 'src/assets';
   const devResourcesFolder = 'dev-resources';
 
@@ -48,31 +45,17 @@ export function updateLocalization(options: { projectName?: string | null | unde
    * @param tree
    * @param context
    */
-  const generateLocalesFolder = (tree: Tree, context: SchematicContext) => {
-    const workingDirectory = (options.projectName && getWorkspaceConfig(tree)?.projects[options.projectName]?.root) || '.';
-
-    let gitIgnoreContent = '';
-    const gitIgnorePath = path.posix.join(workingDirectory, '.gitignore');
-    if (tree.exists(gitIgnorePath)) {
-      gitIgnoreContent = tree.read(gitIgnorePath)!.toString();
-      if (gitIgnoreContent.indexOf('/*.metadata.json')) {
-        return tree;
-      }
-      tree.delete(gitIgnorePath);
+  const generateLocalesFolder: Rule = (tree: Tree) => {
+    const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
+    const projectType = workspaceProject?.projectType || 'application';
+    if (projectType === 'library') {
+      return tree;
     }
-
-    const templateSource = apply(url(getTemplateFolder(rootPath, __dirname)), [
-      template({
-        empty: '',
-        devResourcesFolder,
-        gitIgnoreContent,
-        mainAssetsFolder
-      }),
+    const workingDirectory = (options.projectName && getWorkspaceConfig(tree)?.projects[options.projectName]?.root) || '.';
+    return mergeWith(apply(url(getTemplateFolder(rootPath, __dirname)), [
+      template({ empty: '' }),
       move(workingDirectory)
-    ]);
-
-    const rule = mergeWith(templateSource, MergeStrategy.Overwrite);
-    return rule(tree, context);
+    ]), MergeStrategy.Overwrite);
   };
 
   /**
@@ -98,7 +81,7 @@ export function updateLocalization(options: { projectName?: string | null | unde
       ) || './dist';
 
     // exit if not an application
-    if (!workspace || !projectName || !workspaceProject) {
+    if (!workspace || !projectName || !workspaceProject || workspaceProject.projectType === 'library') {
       context.logger.debug('No application project found to add translation extraction');
       return tree;
     }
@@ -138,13 +121,14 @@ export function updateLocalization(options: { projectName?: string | null | unde
       input: `${devResourcesFolder}/localizations`,
       output: '/localizations'
     };
-    if (workspaceProject.architect.build) {
+    const projectType = workspaceProject?.projectType || 'application';
+    if (projectType === 'application' && workspaceProject.architect.build) {
       const alreadyExistingBuildOption =
         workspaceProject.architect.build.options?.assets?.map((a: { glob: string; input: string; output: string }) => a.output).find((output: string) => output === '/localizations');
 
       if (!alreadyExistingBuildOption) {
         workspaceProject.architect.build.options ||= {};
-        workspaceProject.architect.build ||= [];
+        workspaceProject.architect.build.options.assets ||= [];
         workspaceProject.architect.build.options.assets.push(localizationAssetsConfig);
       }
     }
@@ -190,7 +174,7 @@ export function updateLocalization(options: { projectName?: string | null | unde
     const projectName = options.projectName;
     const workspaceProject = options.projectName ? workspace?.projects[options.projectName] : undefined;
     const packageManagerRunner = getPackageManagerRunner(getWorkspaceConfig(tree));
-    if (!projectName || !workspace || !workspaceProject) {
+    if (!projectName || !workspace || !workspaceProject || workspaceProject.projectType === 'library') {
       context.logger.debug('No application project found to add translation extraction');
       return tree;
     }
@@ -439,7 +423,15 @@ export function updateLocalization(options: { projectName?: string | null | unde
 
   // Ignore generated CMS metadata
   const ignoreDevResourcesFiles = (tree: Tree, _context: SchematicContext) => {
-    return ignorePatterns(tree, [{description: 'Local Development resources files', patterns: ['/dev-resources']}]);
+    const workingDirectory = (options.projectName && getWorkspaceConfig(tree)?.projects[options.projectName]?.root) || '.';
+
+    return applyToSubtree(
+      workingDirectory, [
+        (subTree) => ignorePatterns(subTree, [
+          {description: 'Local Development resources files', patterns: [`/${devResourcesFolder}`]},
+          {description: 'CMS metadata files', patterns: ['/*.metadata.json']}
+        ])
+      ]);
   };
 
   return chain([

@@ -5,7 +5,12 @@ import {filter, map, shareReplay, switchMap} from 'rxjs/operators';
 import type {ActionBlock, Fact, Operator, Ruleset, UnaryOperator} from '../../engine/index';
 import {EngineDebugger, operatorList, RulesEngine} from '../../engine/index';
 import type {RulesetsStore} from '../../stores';
-import {selectActiveRuleSets, selectAllRulesets, selectComponentsLinkedToRuleset} from '../../stores';
+import {
+  selectActiveRuleSets,
+  selectAllRulesets,
+  selectComponentsLinkedToRuleset,
+  setRulesetsEntities
+} from '../../stores';
 import {RULES_ENGINE_OPTIONS, RulesEngineServiceOptions} from '../rules-engine.token';
 import {LoggerService} from '@o3r/logger';
 import type {RulesEngineActionHandler} from '@o3r/core';
@@ -127,6 +132,14 @@ export class RulesEngineRunnerService implements OnDestroy {
    */
   public upsertOperators(operators: (Operator<any, any> | UnaryOperator<any>)[]) {
     this.engine.upsertOperators(operators);
+  }
+
+  /**
+   * Upsert a list of RuleSets to be run in the engine
+   * @param ruleSets
+   */
+  public upsertRulesets(ruleSets: Ruleset[]) {
+    this.store.dispatch(setRulesetsEntities({entities: ruleSets}));
   }
 
   /** @inheritdoc */

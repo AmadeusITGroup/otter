@@ -41,13 +41,30 @@ The following configurations are available:
 | Options                     | Default Value  | Description                                                                                                                          |
 | --------------------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
 | **designTokenFilePatterns** | [] *Require*   | Path patterns to the Design Token JSON files. <br /> Files in dependencies are supported and resolved with Node Resolver.            |
+| **variableType**            | `'css'`        | Type of the variables to generate for a Design Token.                                                                                |
 | **output**                  | *null*         | Output file where the CSS will be generated. <br /> The path specified in `o3rTargetFile` will be ignore if this option is specified |
 | **defaultStyleFile**        | src/theme.scss | File path to generate the variable if not determined by the specifications                                                           |
 | **metadataOutput**          | *null*         | Path to generate the metadata for the CMS. <br /> The metadata will be generated only if the file path is specified.                 |
 | **rootPath**                | *null*         | Root path of files where the CSS will be generated.                                                                                  |
 | **failOnDuplicate**         | false          | Determine if the process should stop in case of Token duplication.                                                                   |
+| **templateFile**            | *null*         | Path to a template file to apply as default configuration to a Design Token extension.                                               |
 | **prefix**                  | *null*         | Prefix to append to generated variables.                                                                                             |
+| **prefixPrivate**           | *null*         | Prefix to append to generated private variables.                                                                                     |
 | **watch**                   | false          | Enable Watch mode.                                                                                                                   |
+
+### generate-jsonschema
+
+The `generate-jsonschema` builder can generate a [JSON Schema](https://json-schema.org/) validating and providing auto-completion to a third party Design Token file implementing a theme for the current Design system.
+The following configurations are available:
+
+| Options                     | Default Value | Description                                                                                                                           |
+| --------------------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| **designTokenFilePatterns** | [] *Require*  | Path patterns to the Design Token JSON files. <br /> Files in dependencies are supported and resolved with Node Resolver.             |
+| **output**                  | *null*        | Output file where the CSS will be generated. <br /> The path specified in `o3rTargetFile` will be ignored if this option is specified |
+| **failOnDuplicate**         | false         | Determine if the process should stop in case of Token duplication.                                                                    |
+| **schemaId**                | *null*        | ID used in the generated JSON Schema.                                                                                                 |
+| **schemaDescription**       | *null*        | Description of the generated JSON Schema.                                                                                             |
+| **watch**                   | false         | Enable Watch mode.                                                                                                                    |
 
 ## Technical documentation
 

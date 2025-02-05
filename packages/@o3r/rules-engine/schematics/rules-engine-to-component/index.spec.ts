@@ -14,9 +14,14 @@ describe('Enable rules-engine on component', () => {
     initialTree.create('.eslintrc.json', fs.readFileSync(path.resolve(__dirname, '..', '..', 'testing', 'mocks', '__dot__eslintrc.mocks.json')));
     initialTree.create('test-folder/test-component.component.ts', `
       import {Component} from '@angular/core';
+      import {O3rComponent} from '@o3r/core';
+      @O3rComponent({
+        componentType: 'Component'
+      })
       @Component({
         selector: 'empty-component',
-        template: ''
+        template: '',
+        standalone: true
       })
       export class EmptyComponent {}
     `);
@@ -35,6 +40,7 @@ describe('Enable rules-engine on component', () => {
     expect(fileContent).toMatch(/import \{.*OnDestroy.*} from '@angular\/core'/);
     expect(fileContent).toMatch(/import \{.*computeItemIdentifier.*} from '@o3r\/core'/);
     expect(fileContent).toMatch(/import \{.*RulesEngineRunnerService.*} from '@o3r\/rules-engine'/);
+    expect(fileContent).toMatch(/import \{.*RulesEngineRunnerModule.*} from '@o3r\/rules-engine'/);
     expect(fileContent).toMatch(/implements.*(?=.*OnInit)(?=.*OnDestroy).*\{/);
     expect(fileContent).toMatch(/componentName = computeItemIdentifier\('EmptyComponent', 'test-project'\)/);
     expect(fileContent).toMatch(/rulesEngineService = inject\(RulesEngineRunnerService, \{\s*optional: true\s*}\)/);
@@ -53,9 +59,14 @@ describe('Enable rules-engine on component', () => {
   it('should not add the rules-engine service to a component if already present', async () => {
     initialTree.create('test-folder/test-component-with-rules-engine.component.ts', `
       import {Component} from '@angular/core';
+      import {O3rComponent} from '@o3r/core';
+      @O3rComponent({
+        componentType: 'Component'
+      })
       @Component({
         selector: 'empty-component',
-        template: ''
+        template: '',
+        standalone: true
       })
       export class EmptyComponent {
         rulesEngineService = inject(RulesEngineRunnerService);
@@ -72,9 +83,14 @@ describe('Enable rules-engine on component', () => {
   it('should not add the rules-engine service to a component if already present in constructor', async () => {
     initialTree.create('test-folder/test-component-with-rules-engine.component.ts', `
       import {Component} from '@angular/core';
+      import {O3rComponent} from '@o3r/core';
+      @O3rComponent({
+        componentType: 'Component'
+      })
       @Component({
         selector: 'empty-component',
-        template: ''
+        template: '',
+        standalone: true
       })
       export class EmptyComponent {
         constructor(private rulesEngineService: RulesEngineRunnerService){};
