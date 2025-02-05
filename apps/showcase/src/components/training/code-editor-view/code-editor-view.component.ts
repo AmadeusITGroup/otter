@@ -181,7 +181,6 @@ export class CodeEditorViewComponent implements OnDestroy {
         )
         : of([])
     ),
-    filter((tree) => tree.length > 0),
     shareReplay({ bufferSize: 1, refCount: true })
   );
 
@@ -218,16 +217,13 @@ export class CodeEditorViewComponent implements OnDestroy {
   /**
    * Configuration for the Monaco Editor
    */
-  public editorOptions$ = this.form.controls.file.valueChanges.pipe(
-    filter((filePath): filePath is string => !!filePath),
-    map(() => ({
-      theme: 'vs-dark',
-      readOnly: (this.editorMode() === 'readonly'),
-      automaticLayout: true,
-      scrollBeyondLastLine: false,
-      fixedOverflowWidgets: true,
-      model: this.model()
-    }))
+  public editorOptions = computed(() => ({
+    theme: 'vs-dark',
+    readOnly: this.editorMode() === 'readonly',
+    automaticLayout: true,
+    scrollBeyondLastLine: false,
+    fixedOverflowWidgets: true
+  })
   );
 
   private readonly modalService = inject(DfModalService);
@@ -240,8 +236,14 @@ export class CodeEditorViewComponent implements OnDestroy {
   ]).pipe(
     takeUntilDestroyed(),
     combineLatestWith(this.cwdTree$),
-    filter(([[path], monacoTree]) => !!path && checkIfPathInMonacoTree(monacoTree, path.split('/'))),
-    switchMap(([[path]]) => from(this.webContainerService.readFile(`${this.project().cwd}/${path}`).catch(() => ''))),
+    switchMap(([[path], monacoTree]) => {
+      if (!!path && checkIfPathInMonacoTree(monacoTree, path.split('/'))) {
+        return from(
+          this.webContainerService.readFile(`${this.project().cwd}/${path}`).catch(() => '')
+        );
+      }
+      return of('');
+    }),
     shareReplay({ refCount: true, bufferSize: 1 })
   );
 
@@ -251,16 +253,20 @@ export class CodeEditorViewComponent implements OnDestroy {
    * Model used for monaco editor for the currently selected file.
    * We need that to associate the opened file to a URI which is necessary to resolve relative paths on imports.
    */
-  public model = computed(() => {
-    const value = this.fileContent();
-    const fileName = this.form.controls.file.value!;
-    const fileExtension = fileName.split('.').at(-1);
-    return {
-      value,
-      language: editorOptionsLanguage[fileExtension || ''] || '',
-      uri: `file:///${fileName}`
-    };
-  });
+  public model$ = combineLatest([
+    this.form.controls.file.valueChanges,
+    this.fileContentLoaded$
+  ]).pipe(
+    map(([filename, value]) => {
+      const fileExtension = filename?.split('.').at(-1);
+      return {
+        value: value,
+        language: editorOptionsLanguage[fileExtension || ''] || '',
+        uri: `file:///${filename}`
+      };
+    }),
+    shareReplay({ refCount: true, bufferSize: 1 })
+  );
 
   constructor() {
     effect(async () => {
