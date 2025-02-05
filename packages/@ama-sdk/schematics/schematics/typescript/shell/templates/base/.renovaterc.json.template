@@ -19,9 +19,6 @@
   "enabledManagers": [
     "npm"
   ],
-  "npm": {
-    "stabilityDays": 0
-  },
   "labels": [
     "dependencies"
   ],

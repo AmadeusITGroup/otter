@@ -1,13 +1,12 @@
 import { chain, externalSchematic, noop, Rule, Schematic, SchematicContext } from '@angular-devkit/schematics';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
-import type { NodeDependency } from '@schematics/angular/utility/dependencies';
 import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import * as path from 'node:path';
 import { lastValueFrom } from 'rxjs';
 import type { PackageJson } from 'type-fest';
 import type { NgAddPackageOptions } from '../../tasks/index';
-import { getExternalDependenciesVersionRange, getNodeDependencyList, getPackageManager } from '../../utility/index';
+import { getPackageManager } from '../../utility/index';
 
 /**
  * Install via `ng add` a list of npm packages.
@@ -137,32 +136,4 @@ export function ngAddPackages(packages: string[], options?: Omit<NgAddPackageOpt
       return chain(ngAddsToApply);
     }
   ]);
-}
-
-/**
- * Look for the peer dependencies and run ng add on the package requested version
- * TODO: Remove this method in v11. No longer used
- * @param packages list of the name of the packages needed
- * @param packageJsonPath path to package json that needs the peer to be resolved
- * @param type how to install the dependency (dev, peer for a library or default for an application)
- * @param options
- * @param parentPackageInfo for logging purposes
- */
-export function ngAddPeerDependencyPackages(packages: string[], packageJsonPath: string, type: NodeDependencyType = NodeDependencyType.Default,
-  options: NgAddPackageOptions, parentPackageInfo?: string) {
-  if (!packages.length) {
-    return noop;
-  }
-  const dependencies: NodeDependency[] = getNodeDependencyList(
-    getExternalDependenciesVersionRange(packages, packageJsonPath),
-    type
-  );
-  return ngAddPackages(dependencies.map(({ name }) => name), {
-    ...options,
-    skipConfirmation: true,
-    version: dependencies.map(({ version }) => version),
-    parentPackageInfo,
-    dependencyType: type,
-    workingDirectory: options.workingDirectory
-  });
 }

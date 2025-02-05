@@ -16,6 +16,12 @@
         "tsConfig": "packages/@o3r/application/tsconfig.build.json"
       }
     },
+    "test-int": {
+      "executor": "@nx/jest:jest",
+      "options": {
+        "jestConfig": "packages/@o3r/application/testing/jest.config.it.js"
+      }
+    },
     "lint": {
       "options": {
         "eslintConfig": "packages/@o3r/application/.eslintrc.js",
