@@ -1,0 +1,43 @@
+{
+  "name": "ama-mfe-messages",
+  "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/@ama-mfe/messages/src",
+  "prefix": "o3r",
+  "targets": {
+    "build": {
+      "executor": "nx:run-script",
+      "outputs": ["{projectRoot}/dist/package.json"],
+      "options": {
+        "script": "postbuild"
+      },
+      "dependsOn": [
+        "compile",
+        "build-cjs"
+      ]
+    },
+    "build-cjs": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "build:cjs"
+      }
+    },
+    "compile": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "build:esm2020"
+      },
+      "outputs": ["{projectRoot}/dist/src"]
+    },
+    "lint": {},
+    "test": {
+      "options": {
+        "passWithNoTests": true
+      }
+    },
+    "prepare-publish": {},
+    "publish": {},
+    "documentation": {}
+  },
+  "tags": []
+}

@@ -6,6 +6,8 @@
     "paths": {
       "@ama-sdk/client-fetch": ["packages/@ama-sdk/client-fetch/dist", "packages/@ama-sdk/client-fetch/src/public_api"],
       "@ama-sdk/core": ["packages/@ama-sdk/core/dist", "packages/@ama-sdk/core/src/public_api"],
+      "@ama-mfe/messages": ["packages/@ama-mfe/messages/dist", "packages/@ama-mfe/messages/src/public_api"],
+      "@ama-mfe/ng-utils": ["packages/@ama-mfe/ng-utils/dist", "packages/@ama-mfe/ng-utils/src/public_api"],
       "@ama-sdk/swagger-builder": ["packages/@ama-sdk/swagger-build/dist", "packages/@ama-sdk/swagger-builder"],
       "@ama-terasu/cli": ["packages/@ama-terasu/cli/dist", "packages/@ama-terasu/cli/src/public_api"],
       "@ama-terasu/core": ["packages/@ama-terasu/core/dist", "packages/@ama-terasu/core/src/public_api"],
