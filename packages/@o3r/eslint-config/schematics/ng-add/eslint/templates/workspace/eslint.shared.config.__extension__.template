@@ -1,7 +1,9 @@
 <% if (extension === 'mjs') { %>import o3rConfig from '@o3r/eslint-config';
 import o3rTemplate from '@o3r/eslint-config/template';
+import jsonParser from 'jsonc-eslint-parser';
 <% } else { %>const o3rConfig = require('@o3r/eslint-config');
 const o3rTemplate = require('@o3r/eslint-config/template');
+const jsonParser = require(jsonc-eslint-parser');
 <% } %>
 
 <%= extension === 'mjs' ? 'export default' : 'module.exports =' %> [
@@ -16,6 +18,26 @@ const o3rTemplate = require('@o3r/eslint-config/template');
   {
     name: '<%= packageName %>/ignores',
     ignores: []
+  },
+  {
+    name: '<%= packageName %>/parser/json',
+    files: ['**/*.json'],
+    languageOptions: {
+      parser: jsonParser
+    }
+  },
+  {
+    name: '<%= packageName %>/package-json',
+    files: ['**/package.json'],
+    rules: {
+      '@o3r/json-dependency-versions-harmonize': [
+        'error',
+        {
+          alignPeerDependencies: false,
+          alignEngines: true
+        }
+      ]
+    }
   },
   {
     name: '<%= packageName %>/settings',
