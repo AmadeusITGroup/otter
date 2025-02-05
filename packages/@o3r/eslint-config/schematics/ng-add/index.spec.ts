@@ -5,6 +5,9 @@ import {
 import {
   SchematicTestRunner,
 } from '@angular-devkit/schematics/testing';
+import type {
+  PackageJson,
+} from 'type-fest';
 
 const setupDependenciesMock = jest.fn(() => () => {});
 const updateVscodeMock = jest.fn(() => {});
@@ -33,7 +36,9 @@ describe('ng add eslint-config', () => {
 
   it('should run add on workspace', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
-    await runner.runSchematic('ng-add', {}, Tree.empty());
+    const tree = Tree.empty();
+    tree.create('package.json', '{}');
+    await runner.runSchematic('ng-add', {}, tree);
     expect(setupDependenciesMock).toHaveBeenCalledWith(expect.objectContaining({
       dependencies: expect.objectContaining({
         '@eslint-community/eslint-plugin-eslint-comments': expect.objectContaining({}),
@@ -62,6 +67,10 @@ describe('ng add eslint-config', () => {
     }));
     expect(updateVscodeMock).toHaveBeenCalled();
     expect(updateEslintConfigMock).toHaveBeenCalledTimes(1);
+
+    const packageJson = tree.readJson('package.json') as PackageJson;
+    expect(packageJson.scripts.harmonize).toBe("eslint '**/package.json*' .yarnrc.yml --quiet --fix");
+    expect(packageJson.scripts.postinstall).toContain('yarn harmonize');
   });
 
   it('should run add on project', async () => {
@@ -74,7 +83,7 @@ describe('ng add eslint-config', () => {
         }
       }
     }, null, 2));
-
+    initialTree.create('package.json', '{}');
     await runner.runSchematic('ng-add', { projectName: 'project-test' }, initialTree);
     expect(setupDependenciesMock).toHaveBeenCalled();
     expect(updateVscodeMock).toHaveBeenCalled();
