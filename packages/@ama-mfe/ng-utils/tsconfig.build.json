@@ -1,0 +1,12 @@
+{
+  "extends": "../../../tsconfig.build",
+  "compilerOptions": {
+    "skipLibCheck": true,
+    "outDir": "./dist",
+    "rootDir": "src"
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": [
+    "**/*.spec.ts",
+  ]
+}
