@@ -4,8 +4,15 @@ import {
   noop,
   type Rule,
   type SchematicContext,
+  SchematicsException,
   type Tree,
 } from '@angular-devkit/schematics';
+import {
+  getPackageManager,
+} from '@o3r/schematics';
+import type {
+  PackageJson,
+} from 'type-fest';
 import {
   updateEslintConfig,
 } from './eslint/index';
@@ -49,6 +56,30 @@ const handleOtterEslintErrors = (projectName: string): Rule => async (tree: Tree
     tree.overwrite(appComponentPath, appComponentContent.replace(/^(\s+)(title =)/m, '$1public $2'));
   }
   context.logger.warn('Linter errors may occur and should be fixed by hand or by running the linter with the option `--fix`.');
+};
+/**
+ * Add a harmonize script in package.json
+ */
+const addHarmonizeScript = (): Rule => {
+  const rootPackageJsonPath = '/package.json';
+  return (tree: Tree, context: SchematicContext) => {
+    if (!tree.exists(rootPackageJsonPath)) {
+      throw new SchematicsException('Root package.json does not exist');
+    }
+    const isYarnPackageManager = getPackageManager() === 'yarn';
+    const extraPostInstall = isYarnPackageManager ? 'yarn harmonize && yarn install --mode=skip-build' : 'npm run harmonize && npm install --ignore-scripts';
+    const rootPackageJsonObject = tree.readJson(rootPackageJsonPath) as PackageJson;
+    rootPackageJsonObject.scripts ||= {};
+    if (rootPackageJsonObject.scripts.harmonize) {
+      context.logger.info('A "harmonize" script already exists in the root "package.json". Version harmonize script will not be added.');
+      return tree;
+    }
+    const postInstall = rootPackageJsonObject.scripts.postinstall;
+    rootPackageJsonObject.scripts.harmonize = `eslint '**/package.json' ${isYarnPackageManager ? '.yarnrc.yml ' : ''}--quiet --fix`;
+    rootPackageJsonObject.scripts.postinstall = `${postInstall ? postInstall + ' && ' : ''}${extraPostInstall}`;
+    tree.overwrite(rootPackageJsonPath, JSON.stringify(rootPackageJsonObject, null, 2));
+    return tree;
+  };
 };
 
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
@@ -129,6 +160,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       }),
       updateVscode,
       updateEslintConfig(__dirname),
+      addHarmonizeScript(),
       options.projectName && workspaceProject?.root
         ? chain([
           updateEslintConfig(__dirname, options.projectName),
