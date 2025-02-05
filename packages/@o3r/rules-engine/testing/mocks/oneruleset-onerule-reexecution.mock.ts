@@ -13,7 +13,6 @@ export const jsonOneRulesetOneRuleReexecution: { ruleSets: Ruleset[] } = {
           id: '5e7c37c9-b483-4742-86f5-bdae9b155f09',
           name: 'init rule',
           outputRuntimeFacts: ['CMS_myFact'],
-          inputFacts: ['foieGrasPrice', 'pageUrl'],
           inputRuntimeFacts: [],
           rootElement: {
             elementType: 'RULE_BLOCK',
@@ -67,7 +66,6 @@ export const jsonOneRulesetOneRuleReexecution: { ruleSets: Ruleset[] } = {
           id: '9d6c1b83-9350-4ab5-beb1-3f1782ab334b',
           name: 'best rule 2',
           outputRuntimeFacts: [],
-          inputFacts: [],
           inputRuntimeFacts: ['CMS_myFact'],
           rootElement: {
             elementType: 'RULE_BLOCK',

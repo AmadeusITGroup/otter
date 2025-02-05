@@ -247,7 +247,7 @@ export class Cascading {
     this.options.logger.debug(JSON.stringify(commitsResponse, null, 2));
 
     // Responsible for the merge conflict is the first person who merged his PR
-    return commitsResponse.data.reverse().find(((commitObject) => commitObject.commit.message.startsWith('Merged'))) || commitsResponse.data.at(-1);
+    return commitsResponse.data.reverse().find((commitObject) => commitObject.commit.message.startsWith('Merged')) || commitsResponse.data.at(-1);
   }
 
   /**

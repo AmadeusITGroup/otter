@@ -1,20 +1,32 @@
 import {
+  CommonModule,
+  JsonPipe,
+} from '@angular/common';
+import {
   ChangeDetectionStrategy,
   Component,
   Input,
   ViewEncapsulation,
 } from '@angular/core';
 import type {
+  ActionBlock,
   AllBlock,
   Facts,
 } from '../../../engine';
+import {
+  RuleKeyValuePresComponent,
+} from '../rule-key-value/rule-key-value-pres.component';
+import {
+  O3rFallbackToPipe,
+} from '../shared/index';
 
 @Component({
   selector: 'o3r-rule-actions-pres',
   styleUrls: ['./rule-actions-pres.style.scss'],
   templateUrl: './rule-actions-pres.template.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  imports: [CommonModule, JsonPipe, RuleKeyValuePresComponent, O3rFallbackToPipe]
 })
 export class RuleActionsPresComponent {
   /**
@@ -35,4 +47,12 @@ export class RuleActionsPresComponent {
    */
   @Input()
   public runtimeOutputs: string[] = [];
+
+  /**
+   * Check if a given block is of type ActionBlock
+   * @param block
+   */
+  public isActionBlock(block: AllBlock): block is ActionBlock {
+    return !!(block as ActionBlock).actionType;
+  }
 }

@@ -13,18 +13,8 @@
       },
       "dependsOn": ["compile", "build-builders"]
     },
-    "prepare-build-builders": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "prepare:build:builders"
-      }
-    },
-    "build-builders": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "build:builders"
-      }
-    },
+    "prepare-build-builders": {},
+    "build-builders": {},
     "compile": {
       "executor": "nx:run-script",
       "outputs": [
@@ -37,39 +27,16 @@
       },
       "dependsOn": ["^build"]
     },
-    "lint": {
-      "executor": "nx:run-commands"
-    },
+    "lint": {},
     "test": {
-      "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "packages/@o3r/stylelint-plugin/jest.config.js"
+        "passWithNoTests": true
       }
     },
-    "test-int": {
-      "executor": "@nx/jest:jest",
-      "options": {
-        "jestConfig": "packages/@o3r/stylelint-plugin/testing/jest.config.it.js"
-      }
-    },
-    "prepare-publish": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "prepare:publish"
-      }
-    },
-    "publish": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "npm publish packages/@o3r/stylelint-plugin/dist"
-      }
-    },
-    "documentation": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "compodoc"
-      }
-    }
+    "test-int": {},
+    "prepare-publish": {},
+    "publish": {},
+    "documentation": {}
   },
   "tags": []
 }

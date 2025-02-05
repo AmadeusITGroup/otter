@@ -14,7 +14,6 @@ import {
 @O3rComponent({ componentType: 'Component' })
 @Component({
   selector: 'o3r-clipboard-button-pres',
-  standalone: true,
   imports: [
     DfToastModule
   ],

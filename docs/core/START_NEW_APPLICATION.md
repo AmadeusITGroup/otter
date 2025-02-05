@@ -18,7 +18,7 @@ Start a new Otter application.
 ```shell
 npm create @o3r my-project
 # Or a project using the yarn package manager
-npm create @o3r my-project -- --package-manager=yarn
+npm create @o3r my-project -- --yarn
 ```
 
 ### Generate a new application, library or SDK in the project
