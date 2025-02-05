@@ -9,6 +9,9 @@ export interface NgAddSchematicsSchema extends SchematicOptionObject {
   /** Skip the linter process */
   skipLinter: boolean;
 
+  /** Skip the linter process */
+  skipOtterESLintInstall: boolean;
+
   /** Skip the install process */
   skipInstall?: boolean;
 
