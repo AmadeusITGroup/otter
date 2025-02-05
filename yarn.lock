@@ -7924,7 +7924,7 @@ __metadata:
     "@popperjs/core": "npm:^2.11.5"
     "@schematics/angular": "npm:~19.0.0"
     "@stylistic/eslint-plugin": "npm:~3.0.0"
-    "@types/chrome": "npm:^0.0.299"
+    "@types/chrome": "npm:^0.0.300"
     "@types/color": "npm:^4.0.0"
     "@types/jest": "npm:~29.5.2"
     "@types/tinycolor2": "npm:^1.4.6"
@@ -13318,13 +13318,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/chrome@npm:^0.0.299":
-  version: 0.0.299
-  resolution: "@types/chrome@npm:0.0.299"
+"@types/chrome@npm:^0.0.300":
+  version: 0.0.300
+  resolution: "@types/chrome@npm:0.0.300"
   dependencies:
     "@types/filesystem": "npm:*"
     "@types/har-format": "npm:*"
-  checksum: 10/2acfcfa29f76af89d28182703a0d213ae1f2874d7f4c57438f7f2db0491e4a37d84d55567036d7edc6b77ffb15e7330dfec05552892419ba9eee12d239a0d415
+  checksum: 10/05307401101afa65f7fafb296999ce8f1e8ca0f30d0cfd02a7989657df6b1900141ebf0a983908c551c0c5de6661cf14d66e6dd2147c944f3b4a24132e2f6ca9
   languageName: node
   linkType: hard
 
