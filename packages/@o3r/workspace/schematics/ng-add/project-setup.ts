@@ -20,8 +20,7 @@ import type {
   PackageJson,
 } from 'type-fest';
 import {
-  isUsingFlatConfig,
-  shouldOtterLinterBeInstalled,
+  isUsingLegacyConfig,
 } from '../rule-factories/linter';
 import {
   commitHookDevDependencies,
@@ -79,15 +78,17 @@ export const prepareProject = (options: NgAddSchematicsSchema): Rule => {
   const depsInfo = getO3rPeerDeps(ownPackageJsonPath);
   const ownPackageJsonContent = JSON.parse(fs.readFileSync(ownPackageJsonPath, { encoding: 'utf8' })) as PackageJson & { generatorDependencies: Record<string, string> };
 
-  return async (tree, context) => {
+  return (tree, context) => {
     if (!ownPackageJsonContent) {
       context.logger.error('Could not find @o3r/workspace package. Are you sure it is installed?');
     }
-    const installOtterLinter = await shouldOtterLinterBeInstalled(context, tree);
-    const internalPackagesToInstallWithNgAdd = Array.from(new Set([
-      ...(installOtterLinter ? [`@o3r/eslint-config${isUsingFlatConfig(tree) ? '' : '-otter'}`] : []),
-      ...depsInfo.o3rPeerDeps
-    ]));
+    const internalPackagesToInstallWithNgAdd = Array.from(new Set(depsInfo.o3rPeerDeps));
+    const o3rEslintConfigPackageName = `@o3r/eslint-config${isUsingLegacyConfig(tree) ? '-otter' : ''}`;
+    if (options.skipOtterESLintInstall) {
+      context.logger.info(`Skipping Otter ESLint install. You can add it later via this command: ng add ${o3rEslintConfigPackageName}`);
+    } else {
+      internalPackagesToInstallWithNgAdd.push(o3rEslintConfigPackageName);
+    }
 
     const dependencies = [...internalPackagesToInstallWithNgAdd, ...otterDependencies].reduce((acc, dep) => {
       acc[dep] = {
@@ -110,7 +111,7 @@ export const prepareProject = (options: NgAddSchematicsSchema): Rule => {
       };
     });
 
-    if (installOtterLinter) {
+    if (!options.skipOtterESLintInstall) {
       vsCodeExtensions.push('dbaeumer.vscode-eslint');
     }
 
@@ -137,7 +138,7 @@ export const prepareProject = (options: NgAddSchematicsSchema): Rule => {
           }
         }
       }),
-      !options.skipLinter && installOtterLinter ? applyEsLintFix() : noop(),
+      !options.skipOtterESLintInstall && !options.skipLinter ? applyEsLintFix() : noop(),
       addWorkspacesToProject(),
       addMonorepoManager(ownPackageJsonContent, options.monorepoManager)
     ])(tree, context);
