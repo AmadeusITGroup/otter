@@ -26,7 +26,7 @@ export default createBuilder<AppVersionBuilderSchema>(createBuilderWithMetricsIf
   if (!fs.existsSync(packageJsonFile)) {
     return PACKAGE_JSON_NOT_FOUND;
   }
-  const packageJson = await fs.promises.readFile(packageJsonFile, {encoding: 'utf-8'});
+  const packageJson = await fs.promises.readFile(packageJsonFile, {encoding: 'utf8'});
   let version: string;
   try {
     version = JSON.parse(packageJson).version;

@@ -1,4 +1,4 @@
-import type { RulesEngineAction } from '@o3r/core';
+import type { ItemIdentifier, RulesEngineAction } from '@o3r/core';
 
 export type NativeTypes = string | boolean | number;
 /** Generic operand */
@@ -141,10 +141,10 @@ export interface Ruleset {
    * 'or' condition: If at least one component has subscribed, the ruleset will become active.
    * If provided, the {@link linkedComponent} property will not be taken into consideration
    */
-  linkedComponents?: {or: {library: string; name: string}[]};
+  linkedComponents?: {or: ItemIdentifier[]};
   /**
    * Component linked to the ruleset, if set it will disable the ruleset execution per default, waiting to a subscription
    * @deprecated It will be removed in v12, use {@link linkedComponents} instead
    */
-  linkedComponent?: {library: string; name: string};
+  linkedComponent?: ItemIdentifier;
 }

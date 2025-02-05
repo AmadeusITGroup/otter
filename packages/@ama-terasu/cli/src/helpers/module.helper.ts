@@ -3,6 +3,7 @@ import { exec } from 'node:child_process';
 import { existsSync, promises as fs } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { promisify } from 'node:util';
+import { readFileSync } from 'node:fs';
 import type { PackageJson } from 'type-fest';
 import { getAvailableModules, NpmRegistryPackage } from '@o3r/schematics';
 import { dependencies, devDependencies, peerDependencies } from '../../package.json';
@@ -83,7 +84,7 @@ export const findClosestPackageJson = (currentPath: string): string | undefined 
 export const getDepPackage = (packageName: string): PackageJson | undefined => {
   try {
     const packageJsonPath = findClosestPackageJson(require.resolve(packageName));
-    return packageJsonPath && require(packageJsonPath);
+    return packageJsonPath && JSON.parse(readFileSync(packageJsonPath, {encoding: 'utf8'}));
   } catch {
     return undefined;
   }
@@ -100,7 +101,7 @@ export const getInstalledInformation = async (dep: MinimalPackageInformation & {
     let fsDiscoveredPath: string | undefined;
     if (useFsToSearch) {
       const localPath = resolve(dynModule, dep.name, 'package.json');
-      fsDiscoveredPath = existsSync(localPath) ? resolve(dynModule, dep.name, JSON.parse(await fs.readFile(localPath, {encoding: 'utf-8'})).main) : undefined;
+      fsDiscoveredPath = existsSync(localPath) ? resolve(dynModule, dep.name, JSON.parse(await fs.readFile(localPath, {encoding: 'utf8'})).main) : undefined;
     }
     const resolutionPath = fsDiscoveredPath || require.resolve(dep.name, {
       paths: [
@@ -114,7 +115,7 @@ export const getInstalledInformation = async (dep: MinimalPackageInformation & {
       return;
     }
     return {
-      package: JSON.parse(await fs.readFile(packageJsonPath, { encoding: 'utf-8' })),
+      package: JSON.parse(await fs.readFile(packageJsonPath, { encoding: 'utf8' })),
       resolutionPath
     };
   } catch {
@@ -144,7 +145,7 @@ export const isOfficialModule = (pck: MinimalPackageInformation & { name: string
  */
 export const getLocalDependencies = async (): Promise<Record<string, string>> => {
   const dynDependencies: Record<string, string> = existsSync(resolve(dynamicDependenciesPath, 'package.json')) &&
-    JSON.parse(await fs.readFile(resolve(dynamicDependenciesPath, 'package.json'), { encoding: 'utf-8' })).dependencies || {};
+    JSON.parse(await fs.readFile(resolve(dynamicDependenciesPath, 'package.json'), { encoding: 'utf8' })).dependencies || {};
   return {
     ...dynDependencies,
     ...peerDependencies,

@@ -2,6 +2,7 @@ import type { Rule } from '@angular-devkit/schematics';
 import { MigrateSchematicsSchemaOptions } from './schema';
 import { getMigrationRuleRunner, getWorkspaceConfig, type MigrationRulesMap } from '@o3r/schematics';
 import { resolve } from 'node:path';
+import { readFileSync } from 'node:fs';
 import { updateRegenScript } from '../ng-update/typescript/v11.0/update-regen-script';
 import { gt, minVersion } from 'semver';
 import { isTypescriptSdk } from '../helpers/is-typescript-project';
@@ -21,7 +22,7 @@ const tsMigrationMap: MigrationRulesMap = {
  */
 function migrateFn(options: MigrateSchematicsSchemaOptions): Rule {
 
-  const currentVersion = require(resolve(__dirname, '..', '..', 'package.json')).version;
+  const currentVersion = JSON.parse(readFileSync(resolve(__dirname, '..', '..', 'package.json'), {encoding: 'utf8'})).version;
   const to: string = options.to || currentVersion;
   const minimumVersion = minVersion(to);
 

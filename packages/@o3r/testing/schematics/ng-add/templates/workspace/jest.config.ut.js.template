@@ -1,12 +1,15 @@
-const { join, relative } = require('node:path');
+const { join, resolve, relative } = require('node:path');
+const { readFileSync } = require('node:fs');
 const { pathsToModuleNameMapper } = require('ts-jest');
+const ts = require('typescript');
 // In the following statement, replace `./tsconfig.json` with the path to your `tsconfig` file
 // which contains the path mapping (ie the `compilerOptions.paths` option):
-const { compilerOptions } = require('./tsconfig.json');
 
 globalThis.ngJest = {
   skipNgcc: true
 };
+
+const baseTsconfigPath = resolve(__dirname, './tsconfig.json');
 
 /**
  * @param rootDir {string}
@@ -14,6 +17,7 @@ globalThis.ngJest = {
  * @returns {import('ts-jest/dist/types').JestConfigWithTsJest}
  */
 module.exports.getJestProjectConfig = (rootDir, isAngularSetup) => {
+  const { compilerOptions } = ts.parseConfigFileTextToJson(baseTsconfigPath, readFileSync(baseTsconfigPath, { encoding: 'utf-8' })).config;
   const relativePath = relative(rootDir, __dirname);
   const moduleNameMapper = Object.entries(pathsToModuleNameMapper(compilerOptions.paths || {})).reduce((acc, [moduleName, path]) => {
     acc[moduleName] = `<rootDir>/${relativePath}/${path}`;

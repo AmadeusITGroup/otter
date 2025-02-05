@@ -3,9 +3,10 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { SemVer } from 'semver';
 import * as util from 'node:util';
+import { exec as cpExec } from 'node:child_process';
 import * as winston from 'winston';
 
-const exec = util.promisify(require('node:child_process').exec);
+const exec = util.promisify(cpExec);
 
 /**
  * Computes current alpha or next branch based on a semver

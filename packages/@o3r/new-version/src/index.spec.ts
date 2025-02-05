@@ -1,5 +1,4 @@
-import {BaseLogger, NewVersion, NewVersionOptions} from './new-version';
-
+import {BaseLogger, NewVersion, NewVersionOptions} from './index';
 
 const mockLogger: BaseLogger = {
   debug: console.debug,

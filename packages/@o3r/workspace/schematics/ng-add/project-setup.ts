@@ -35,7 +35,7 @@ export const prepareProject = (options: NgAddSchematicsSchema): Rule => {
   const ownSchematicsFolder = path.resolve(__dirname, '..');
   const ownPackageJsonPath = path.resolve(ownSchematicsFolder, '..', 'package.json');
   const depsInfo = getO3rPeerDeps(ownPackageJsonPath);
-  const ownPackageJsonContent = JSON.parse(fs.readFileSync(ownPackageJsonPath, { encoding: 'utf-8' })) as PackageJson & { generatorDependencies: Record<string, string> };
+  const ownPackageJsonContent = JSON.parse(fs.readFileSync(ownPackageJsonPath, { encoding: 'utf8' })) as PackageJson & { generatorDependencies: Record<string, string> };
 
   return async (tree, context) => {
     if (!ownPackageJsonContent) {

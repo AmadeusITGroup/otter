@@ -31,7 +31,7 @@ import { shouldOtterLinterBeInstalled } from '../utils/index';
 export const prepareProject = (options: NgAddSchematicsSchema, dependenciesSetupConfig: SetupDependenciesOptions): Rule => async (tree, context) => {
   const coreSchematicsFolder = path.resolve(__dirname, '..');
   const corePackageJsonPath = path.resolve(coreSchematicsFolder, '..', '..', 'package.json');
-  const corePackageJsonContent = JSON.parse(fs.readFileSync(corePackageJsonPath, { encoding: 'utf-8' }));
+  const corePackageJsonContent = JSON.parse(fs.readFileSync(corePackageJsonPath, { encoding: 'utf8' }));
   if (!corePackageJsonContent) {
     context.logger.error('Could not find @o3r/core package. Are you sure it is installed?');
   }

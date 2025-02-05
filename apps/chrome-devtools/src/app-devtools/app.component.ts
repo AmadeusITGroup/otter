@@ -1,6 +1,6 @@
 import { AsyncPipe, JsonPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, effect, inject } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DfSelectModule, DfTooltipModule } from '@design-factory/design-factory';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
@@ -75,11 +75,9 @@ export class AppComponent {
         this.debugPanelService.update(msg);
       }
     });
-    const activateStateNameFormValueChanges = toSignal(this.form.controls.activeStateName.valueChanges, { initialValue: this.activeStateName() });
-    effect(() => {
-      const stateName = activateStateNameFormValueChanges();
-      void this.stateService.setActiveState(stateName);
-    }, { allowSignalWrites: true });
+    this.form.controls.activeStateName.valueChanges.pipe(
+      takeUntilDestroyed()
+    ).subscribe((stateName) => this.stateService.setActiveState(stateName));
   }
 
   public stateCompareWithFn(state: State, selectedStateName: string) {

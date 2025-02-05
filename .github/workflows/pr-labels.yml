@@ -9,9 +9,11 @@ jobs:
   setup-label:
     runs-on: ubuntu-latest
     env:
+      SKIP_ON_LABELS: '["cascading"]'
       NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
     permissions:
       pull-requests: write
+      issues: write
     steps:
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
         with:
@@ -28,9 +30,24 @@ jobs:
         with:
           script: |
             const [owner, repo] = '${{ github.repository }}'.split('/');
-            github.rest.issues.addLabels({
+            const pLabels = github.rest.issues.listLabelsOnIssue({
               owner,
               repo,
-              issue_number: context.issue.number,
-              labels: ${{ env.LABELS }}
-            })
+              issue_number: context.issue.number
+            });
+
+            return pLabels.then((labels) => {
+              const skipLabelUpdate = labels.data.some(({ name }) => ${{ env.SKIP_ON_LABELS }}.includes(name));
+
+              if (skipLabelUpdate) {
+                github.log.info('Skip label setting for this Pull Request.');
+                return ;
+              }
+
+              return github.rest.issues.addLabels({
+                owner,
+                repo,
+                issue_number: context.issue.number,
+                labels: ${{ env.LABELS }}
+              });
+            });
