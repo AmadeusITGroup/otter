@@ -22689,7 +22689,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"globby@npm:^11.1.0":
+"globby@npm:^11.1.0, globby@npm:~11.1.0":
   version: 11.1.0
   resolution: "globby@npm:11.1.0"
   dependencies:
@@ -29520,6 +29520,69 @@ __metadata:
   checksum: 10/6d491f2244597b24fb59a50e3c258f27da3839555d2a4e112b31bcf536e9359fc4edc98639cd74d2cf16fcd4269e5a09d99fc05d89e2acc896a2f027c2f6ec44
   languageName: node
   linkType: hard
+
+"placeholder@workspace:packages/@o3r/placeholder":
+  version: 0.0.0-use.local
+  resolution: "placeholder@workspace:packages/@o3r/placeholder"
+  dependencies:
+    "@angular-devkit/architect": "npm:~0.1900.0"
+    "@angular-devkit/build-angular": "npm:~19.0.0"
+    "@angular-devkit/core": "npm:~19.0.0"
+    "@angular-devkit/schematics": "npm:~19.0.0"
+    "@angular/cli": "npm:~19.0.0"
+    "@angular/common": "npm:~19.0.0"
+    "@angular/compiler": "npm:~19.0.0"
+    "@angular/compiler-cli": "npm:~19.0.0"
+    "@angular/core": "npm:~19.0.0"
+    "@angular/platform-browser": "npm:~19.0.0"
+    "@angular/platform-browser-dynamic": "npm:~19.0.0"
+    "@o3r/build-helpers": "workspace:^"
+    "@o3r/eslint-config": "workspace:^"
+    "@o3r/eslint-plugin": "workspace:^"
+    "@o3r/schematics": "workspace:^"
+    "@schematics/angular": "npm:~19.0.0"
+    "@types/jest": "npm:~29.5.2"
+    "@types/node": "npm:~20.0.0"
+    cpy-cli: "npm:^5.0.0"
+    eslint: "npm:~9.19.0"
+    eslint-import-resolver-node: "npm:^0.3.9"
+    eslint-import-resolver-typescript: "npm:^3.6.3"
+    eslint-plugin-import: "npm:^2.31.0"
+    eslint-plugin-import-newlines: "npm:^1.4.0"
+    eslint-plugin-jest: "npm:~28.11.0"
+    eslint-plugin-jsdoc: "npm:~50.6.0"
+    eslint-plugin-prefer-arrow: "npm:~1.2.3"
+    eslint-plugin-unicorn: "npm:^56.0.0"
+    eslint-plugin-unused-imports: "npm:^4.1.4"
+    globby: "npm:~11.1.0"
+    jest: "npm:~29.7.0"
+    jest-environment-jsdom: "npm:~29.7.0"
+    jest-junit: "npm:~16.0.0"
+    jest-preset-angular: "npm:~14.5.0"
+    jsonc-eslint-parser: "npm:~2.4.0"
+    ts-jest: "npm:~29.2.5"
+    ts-node: "npm:~10.9.2"
+    tslib: "npm:^2.6.2"
+    typescript: "npm:~5.6.2"
+    typescript-eslint: "npm:~8.22.0"
+    zone.js: "npm:~0.15.0"
+  peerDependencies:
+    "@angular-devkit/core": ~19.0.0
+    "@angular-devkit/schematics": ~19.0.0
+    "@angular/common": ^19.0.0
+    "@angular/core": ^19.0.0
+    "@o3r/schematics": "workspace:^"
+  peerDependenciesMeta:
+    "@angular-devkit/core":
+      optional: true
+    "@angular-devkit/schematics":
+      optional: true
+    "@o3r/schematics":
+      optional: true
+    "@schematics/angular":
+      optional: true
+  languageName: unknown
+  linkType: soft
 
 "playwright-core@npm:1.50.1":
   version: 1.50.1

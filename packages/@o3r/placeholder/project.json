@@ -1,0 +1,34 @@
+{
+  "name": "placeholder",
+  "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/@o3r/placeholder/src",
+  "prefix": "o3r",
+  "targets": {
+    "build": {
+      "executor": "nx:run-script",
+      "outputs": ["{projectRoot}/dist/package.json"],
+      "options": {
+        "script": "postbuild"
+      },
+      "dependsOn": ["build-builders", "compile"]
+    },
+    "compile": {
+      "dependsOn": ["^build", "prepare"],
+      "executor": "@angular-devkit/build-angular:ng-packagr",
+      "options": {
+        "project": "packages/@o3r/placeholder/src/ng-package.json",
+        "tsConfig": "packages/@o3r/placeholder/tsconfig.build.json"
+      }
+    },
+    "prepare": {},
+    "lint": {},
+    "test": {},
+    "publish": {},
+    "prepare-publish": {},
+    "prepare-build-builders": {},
+    "build-builders": {},
+    "documentation": {}
+  },
+  "tags": []
+}
