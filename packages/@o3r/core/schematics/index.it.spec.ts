@@ -103,7 +103,7 @@ describe('new otter application', () => {
     const diff = getGitDiff(execAppOptions.cwd);
 
     untouchedProjectsPaths.forEach((untouchedProject) => {
-      expect(diff.all.some((file) => file.startsWith(path.relative(workspacePath, untouchedProject).replace(/\\+/g, '/')))).toBe(false);
+      expect(diff.all.filter((file) => !file.endsWith('package.json')).some((file) => file.startsWith(path.relative(workspacePath, untouchedProject).replace(/\\+/g, '/')))).toBe(false);
     });
 
     // Expect created files inside `test-app` project

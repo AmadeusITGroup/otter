@@ -9150,6 +9150,7 @@ __metadata:
     jest: ^29.7.0
     jsonc-eslint-parser: ^2.4.0
     ts-node: ^10.9.2
+    type-fest: ^4.30.1
     typescript: ^5.5.4
     typescript-eslint: ^8.15.0
   peerDependenciesMeta:
@@ -9174,6 +9175,8 @@ __metadata:
     globby:
       optional: true
     jest:
+      optional: true
+    type-fest:
       optional: true
     typescript:
       optional: true
