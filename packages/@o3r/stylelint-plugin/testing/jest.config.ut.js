@@ -17,7 +17,10 @@ module.exports = {
   testPathIgnorePatterns: [
     ...baseConfig.testPathIgnorePatterns,
     '<rootDir>/builders/.*',
-    '<rootDir>/schematics/.*',
-    '<rootDir>/src/.*' // TODO re-enable test
-  ]
+    '<rootDir>/schematics/.*'
+  ],
+  transform: {
+    '^.+\\.(js|jsx|ts|tsx|mjs|mts)$': ['babel-jest', { configFile: path.join(__dirname, 'babel.config.js') }]
+  },
+  extensionsToTreatAsEsm: ['.mts']
 };
