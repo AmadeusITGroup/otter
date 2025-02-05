@@ -30,6 +30,7 @@ import {
 } from '../../utility/loaders';
 import {
   getPackageManager,
+  isPackageInstalled,
 } from '../../utility/package-manager-runner';
 
 /**
@@ -170,7 +171,10 @@ export const setupDependencies = (options: SetupDependenciesOptions): Rule => {
     const ngAddToRun = new Set(Object.keys(options.dependencies)
       .filter((dep) => options.ngAddToRun?.some((pattern) => typeof pattern === 'string' ? pattern === dep : pattern.test(dep))));
     const isInstallRequired = Object.values(options.dependencies).some(({ requireInstall }) => requireInstall);
-    const isInstallNeeded = () => options.skipInstall === undefined ? (ngAddToRun.size > 0 || isInstallRequired) : !options.skipInstall;
+    const isInstallNeeded = () => {
+      const needsInstall = Array.from(ngAddToRun).some((packageName) => !isPackageInstalled(packageName));
+      return needsInstall || (options.skipInstall === undefined ? (ngAddToRun.size > 0 || isInstallRequired) : !options.skipInstall);
+    };
 
     const editPackageJson = (packageJsonPath: string, packageToInstall: string, dependency: DependencyToAdd, updateLists: boolean): Rule => {
       return (tree, context) => {

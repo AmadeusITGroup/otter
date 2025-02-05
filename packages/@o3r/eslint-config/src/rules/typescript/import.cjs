@@ -2,6 +2,8 @@
 const importPlugin = require('eslint-plugin-import');
 const { convertWarningsToErrors } = require('../utils.cjs');
 
+const isYarnPnP = /\.pnp\.cjs/.test(process.env.NODE_OPTIONS || '');
+
 /**
  * @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.ConfigArray}
  */
@@ -22,6 +24,11 @@ const config = [
         'newlines-between': 'never',
         alphabetize: { order: 'asc', caseInsensitive: true }
       }]
+    },
+    settings: {
+      'import/external-module-folders': [
+        isYarnPnP ? '.yarn' : 'node_modules'
+      ]
     }
   }
 ];
