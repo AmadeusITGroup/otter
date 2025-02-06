@@ -3348,7 +3348,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/preset-env@npm:^7.23.2":
+"@babel/preset-env@npm:^7.23.2, @babel/preset-env@npm:~7.26.0":
   version: 7.26.7
   resolution: "@babel/preset-env@npm:7.26.7"
   dependencies:
@@ -10333,6 +10333,7 @@ __metadata:
     "@angular-devkit/schematics": "npm:~19.0.0"
     "@angular/compiler": "npm:~19.0.0"
     "@babel/core": "npm:~7.26.0"
+    "@babel/preset-env": "npm:~7.26.0"
     "@babel/preset-typescript": "npm:~7.26.0"
     "@compodoc/compodoc": "npm:^1.1.19"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
@@ -10349,6 +10350,7 @@ __metadata:
     "@types/node": "npm:^20.0.0"
     "@typescript-eslint/parser": "npm:~8.22.0"
     angular-eslint: "npm:~19.0.0"
+    babel-jest: "npm:^29.7.0"
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.19.0"
     eslint-import-resolver-node: "npm:^0.3.9"
