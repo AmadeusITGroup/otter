@@ -91,9 +91,9 @@ describe('Create new otter project command', () => {
     expect(existsSync(path.join(inProjectPath, 'project'))).toBe(false);
     expect(() => packageManagerRunOnProject(appName, true, { script: 'build' }, execInAppOptions)).not.toThrow();
 
-    const rootPackageJson = JSON.parse(await fs.readFile(path.join(inProjectPath, 'package.json'), 'utf-8'));
+    const rootPackageJson = JSON.parse(await fs.readFile(path.join(inProjectPath, 'package.json'), 'utf8'));
     const resolutions = packageManager === 'yarn' ? rootPackageJson.resolutions : rootPackageJson.overrides;
-    const appPackageJson = JSON.parse(await fs.readFile(path.join(inProjectPath, 'apps', appName, 'package.json'), 'utf-8'));
+    const appPackageJson = JSON.parse(await fs.readFile(path.join(inProjectPath, 'apps', appName, 'package.json'), 'utf8'));
     // all otter dependencies in both package.json files must be pinned:
     [
       ...Object.entries(rootPackageJson.dependencies), ...Object.entries(rootPackageJson.devDependencies), ...Object.entries(resolutions),

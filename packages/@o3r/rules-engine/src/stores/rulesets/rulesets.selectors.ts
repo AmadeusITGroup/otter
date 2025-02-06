@@ -71,6 +71,10 @@ export const selectActiveRuleSets = createSelector(
 /**
  * Assign rulesetId to a component
  * @deprecated It will be removed in v12 with the selector using it
+ * @param compName
+ * @param library
+ * @param ruleSetId
+ * @param acc
  */
 function linkRulesetToComponent(compName: string, library: string, ruleSetId: string, acc: Record<string, string[]> = {}) {
   const configName = computeItemIdentifier(compName, library);
@@ -78,7 +82,13 @@ function linkRulesetToComponent(compName: string, library: string, ruleSetId: st
   acc[configName].push(ruleSetId);
 }
 
-/* Assign component to RulesetIds Map */
+/**
+ * Assign component to RulesetIds Map
+ * @param compName
+ * @param library
+ * @param ruleSetId
+ * @param acc
+ */
 function linkComponentToRuleset(compName: string, library: string, ruleSetId: string, acc: Record<string, string[]> = {}) {
   const configName = computeItemIdentifier(compName, library);
   acc[ruleSetId] ||= [];

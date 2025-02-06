@@ -86,7 +86,7 @@ Each helper should be used in both `preview.js` to initialize the value and in `
 ### Multi theming
 
 The Theme Addon is supporting multi theme and allows the user to switch from one theme to another.
-The list of themes should be provided as [global parameter](https://storybook.js.org/docs/react/writing-stories/parameters#global-parameterss) with a key/value map:
+The list of themes should be provided as [global parameter](https://storybook.js.org/docs/writing-stories/parameters#global-parameters) with a key/value map:
 
 ```typescript
 import { getThemeVariables, setStyleMetadata } from '@o3r/storybook';

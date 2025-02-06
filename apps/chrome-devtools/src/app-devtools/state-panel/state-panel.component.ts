@@ -197,7 +197,6 @@ export class StatePanelComponent {
   /**
    * Remove a state from the Chrome Extension application and store.
    * Note that the active store cannot be deleted.
-   *
    * @param stateName
    */
   public deleteState(stateName: string) {
@@ -208,7 +207,6 @@ export class StatePanelComponent {
 
   /**
    * Download a state as a json file
-   *
    * @param stateName
    */
   public exportState(stateName: string) {
@@ -225,7 +223,6 @@ export class StatePanelComponent {
 
   /**
    * Download a state file, add it to the state list and share it .
-   *
    * @param event
    */
   public async onFileChange(event: InputEvent) {

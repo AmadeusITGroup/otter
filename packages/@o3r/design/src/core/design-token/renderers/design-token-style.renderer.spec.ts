@@ -1,9 +1,9 @@
 import * as parser from '../parsers/design-token.parser';
 import { promises as fs } from 'node:fs';
 import { resolve } from 'node:path';
-import type { DesignTokenSpecification } from '../design-token-specification.interface';
+import type { DesignTokenGroup, DesignTokenSpecification } from '../design-token-specification.interface';
 import type { DesignTokenVariableSet } from '../parsers';
-import { compareVariableByName, computeFileToUpdatePath, renderDesignTokens } from './design-token-style.renderer';
+import { computeFileToUpdatePath, getTokenSorterByName, getTokenSorterByRef, renderDesignTokens } from './design-token-style.renderer';
 
 describe('Design Token Renderer', () => {
   let exampleVariable!: DesignTokenSpecification;
@@ -78,7 +78,7 @@ describe('Design Token Renderer', () => {
       expect(writeFile).toHaveBeenCalledTimes(2);
     });
 
-    describe('the comparator', () => {
+    describe('the transformers sorting by name', () => {
       const firstVariable = '--example-color';
       const lastVariable = '--example-wrong-ref';
 
@@ -113,13 +113,90 @@ describe('Design Token Renderer', () => {
           readFile,
           existsFile,
           determineFileToUpdate,
-          variableSortComparator: (a, b) => -compareVariableByName(a, b)
+          tokenListTransforms: [(list) => (vars) => getTokenSorterByName(list)(vars).reverse()]
         });
 
         const contentToTest = result['styles.scss'];
 
         expect(contentToTest.indexOf(firstVariable)).toBeGreaterThan(contentToTest.indexOf(lastVariable));
       });
+
+      test('should execute the transform functions in given order', async () => {
+        const result: any = {};
+        const writeFile = jest.fn().mockImplementation((filename, content) => { result[filename] = content; });
+        const readFile = jest.fn().mockReturnValue('');
+        const existsFile = jest.fn().mockReturnValue(true);
+        const determineFileToUpdate = jest.fn().mockImplementation(computeFileToUpdatePath('.'));
+        const tokenListTransform = jest.fn().mockReturnValue([]);
+        await renderDesignTokens(designTokens, {
+          writeFile,
+          readFile,
+          existsFile,
+          determineFileToUpdate,
+          tokenListTransforms: [() => tokenListTransform, () => tokenListTransform]
+        });
+
+        expect(tokenListTransform).toHaveBeenCalledTimes(2 * 2); // twice on 2 files
+        expect(tokenListTransform).not.toHaveBeenNthCalledWith(1, []);
+        expect(tokenListTransform).toHaveBeenNthCalledWith(2, []);
+        expect(tokenListTransform).not.toHaveBeenNthCalledWith(3, []);
+        expect(tokenListTransform).toHaveBeenNthCalledWith(4, []);
+      });
+    });
+  });
+
+  describe('getTokenSorterByRef', () => {
+    it('should sort properly variables with multiple refs', () => {
+      const list = Array.from(designTokens.values());
+      const sortedTokens = getTokenSorterByRef(designTokens)(list);
+
+      expect(list.findIndex(({ tokenReferenceName }) => tokenReferenceName === 'example.post-ref'))
+        .toBeLessThan(list.findIndex(({ tokenReferenceName }) => tokenReferenceName === 'example.var1'));
+      expect(sortedTokens.findIndex(({ tokenReferenceName }) => tokenReferenceName === 'example.post-ref'))
+        .toBeGreaterThan(sortedTokens.findIndex(({ tokenReferenceName }) => tokenReferenceName === 'example.var1'));
+    });
+  });
+
+  describe('getTokenSorterByName', () => {
+    let designTokensToSort!: DesignTokenVariableSet;
+    beforeEach(() => {
+      /* eslint-disable @typescript-eslint/naming-convention -- Mock purpose */
+      designTokensToSort = parser.parseDesignToken({ document: {
+        'to-sort': {
+          'var-100': {
+            '$value': '{example.var1}'
+          },
+          'var-1': {
+            '$value': '{example.var1}'
+          },
+          'var-10': {
+            '$value': '{example.var1}'
+          },
+          'var-5': {
+            '$value': '{example.var1}'
+          },
+          'first-var': {
+            '$value': '{example.var1}'
+          }
+        }
+      } as DesignTokenGroup });
+      /* eslint-enable @typescript-eslint/naming-convention */
+    });
+
+    it('should sort properly variables with grade number', () => {
+      const list = Array.from(designTokensToSort.values());
+      const sortedTokens = getTokenSorterByName(designTokensToSort)(list);
+      const result = sortedTokens
+        .map(({ tokenReferenceName }) => tokenReferenceName)
+        .join(',');
+
+      expect(result).toBe([
+        'to-sort.first-var',
+        'to-sort.var-1',
+        'to-sort.var-5',
+        'to-sort.var-10',
+        'to-sort.var-100'
+      ].join(','));
     });
   });
 });
