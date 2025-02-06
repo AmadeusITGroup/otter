@@ -9248,8 +9248,16 @@ __metadata:
   dependenciesMeta:
     "@swc/core":
       built: true
+    "@vscode/codicons":
+      unplugged: true
+    "@xterm/xterm":
+      unplugged: true
     esbuild:
       built: true
+    monaco-editor:
+      unplugged: true
+    ngx-monaco-tree:
+      unplugged: true
     nx:
       built: true
   languageName: unknown
