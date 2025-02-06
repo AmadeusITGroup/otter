@@ -26,6 +26,10 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       rulesToExecute.push(updateApiDependencies(options));
     }
 
+    if (!options.skipCodeSample) {
+      depsInfo.o3rPeerDeps.push('@ama-sdk/client-fetch');
+    }
+
     const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
       acc[dep] = {
         inManifest: [{

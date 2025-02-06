@@ -5,6 +5,30 @@
       "$type": "color",
       "$value": "#000"
     },
+    "var-color-unit-ratio-override": {
+      "$type": "color",
+      "$value": "#000",
+      "$extensions": {
+        "o3rUnit": "px",
+        "o3rRatio": 2.5
+      }
+    },
+    "var-number-unit-ratio-override": {
+      "$type": "number",
+      "$value": 2,
+      "$extensions": {
+        "o3rUnit": "px",
+        "o3rRatio": 2.5
+      }
+    },
+    "var-unit-override": {
+      "$type": "dimension",
+      "$value": "2px",
+      "$extensions": {
+        "o3rUnit": "rem",
+        "o3rRatio": 2.5
+      }
+    },
     "var-string": {
       "$type": "string",
       "$value": "test value"
@@ -15,6 +39,18 @@
       "$extensions": {
         "o3rPrivate": true
       }
+    },
+    "var-ref-to-var1-private": {
+      "$value": "{example.var1-private}"
+    },
+    "var-private-ref": {
+      "$value": "{example.var1}",
+      "$extensions": {
+        "o3rPrivate": true
+      }
+    },
+    "var-private-ref-to-public-var": {
+      "$value": "{example.var-private-ref}"
     },
     "var-important": {
       "$extensions": {

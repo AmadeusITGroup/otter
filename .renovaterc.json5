@@ -45,14 +45,6 @@
       }
     },
     {
-      // Update of bootstrap disabled as it is not supported by design-factory (Can be removed when upgrading design-factory to v17)
-      "matchCurrentVersion": "<=5.2.0",
-      "matchPackageNames": [
-        "bootstrap"
-      ],
-      "enabled": false
-    },
-    {
       //Major update of chalk disabled as it drops support on CommonJS
       "matchUpdateTypes": [
         "major"

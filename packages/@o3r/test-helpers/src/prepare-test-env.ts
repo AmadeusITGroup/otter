@@ -5,7 +5,15 @@ import * as path from 'node:path';
 import type { PackageJson } from 'type-fest';
 import { createTestEnvironmentBlank } from './test-environments/create-test-environment-blank';
 import { createTestEnvironmentOtterProjectWithAppAndLib } from './test-environments/create-test-environment-otter-project';
-import { createWithLock, getLatestPackageVersion, getPackageManager, type Logger, packageManagerInstall, setPackagerManagerConfig, setupGit } from './utilities/index';
+import {
+  createWithLock,
+  getLatestPackageVersion,
+  getPackageManager,
+  type Logger,
+  packageManagerInstallWithFrozenLock,
+  setPackagerManagerConfig,
+  setupGit
+} from './utilities/index';
 
 /**
  * - 'blank' only create yarn/npm config
@@ -95,7 +103,7 @@ export async function prepareTestEnv(folderName: string, options?: PrepareTestEn
         !/(?:^|[\\/])\.git(?:[\\/]|$)/.test(source)
     });
     if (existsSync(path.join(workspacePath, 'package.json'))) {
-      packageManagerInstall(execAppOptions);
+      packageManagerInstallWithFrozenLock(execAppOptions);
     }
   };
   const packageManager = getPackageManager();

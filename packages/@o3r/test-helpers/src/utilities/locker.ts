@@ -100,8 +100,12 @@ export class Locker {
           resolve();
         }
       };
-      watcher = watch(this.options.lockFilePath, {persistent: false}, check);
-      watcher.on('error', check);
+      try {
+        watcher = watch(this.options.lockFilePath, {persistent: false}, check);
+        watcher.on('error', check);
+      } catch {
+        check();
+      }
     });
   }
 }

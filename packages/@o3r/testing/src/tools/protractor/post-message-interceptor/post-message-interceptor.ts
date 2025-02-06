@@ -6,6 +6,7 @@ import { ConditionFn, PostMessageCall } from './core';
 
 /**
  * Controls the postMessage interceptor
+ * @deprecated Will be removed in v13, please use Playwright instead
  */
 export class PostMessageInterceptor {
   private readonly GET_INSTANCE = 'window.postMessageInterceptor.getInstance()';

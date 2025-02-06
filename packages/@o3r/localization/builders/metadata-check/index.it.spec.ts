@@ -67,11 +67,12 @@ async function writeFileAsJSON(path: string, content: object) {
 }
 
 const initTest = async (
-  allowBreakingChanges: boolean,
   newMetadata: LocalizationMetadata,
   migrationData: MigrationFile<MigrationLocalizationMetadata>,
-  packageNameSuffix: string
+  packageNameSuffix: string,
+  options?: { allowBreakingChanges?: boolean; prerelease?: string }
 ) => {
+  const { allowBreakingChanges = false, prerelease } = options || {};
   const { workspacePath, appName, applicationPath, o3rVersion, isYarnTest } = o3rEnvironment.testEnvironment;
   const execAppOptions = { ...getDefaultExecSyncOptions(), cwd: applicationPath };
   const execAppOptionsWorkspace = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
@@ -129,7 +130,8 @@ const initTest = async (
     latestVersion = baseVersion;
   }
 
-  const bumpedVersion = inc(latestVersion, 'patch');
+  const prereleaseSuffix = prerelease ? `-${prerelease}.0` : '';
+  const bumpedVersion = inc(latestVersion.replace(/-.*$/, ''), 'patch') + prereleaseSuffix;
 
   const args = getPackageManager() === 'yarn' ? [] : ['--no-git-tag-version', '-f'];
   packageManagerVersion(bumpedVersion, args, execAppOptions);
@@ -146,10 +148,23 @@ const initTest = async (
 describe('check metadata migration', () => {
   test('should not throw', async () => {
     await initTest(
-      true,
       newLocalizationMetadata,
       defaultMigrationData,
-      'allow-breaking-changes'
+      'allow-breaking-changes',
+      { allowBreakingChanges: true }
+    );
+    const { workspacePath, appName } = o3rEnvironment.testEnvironment;
+    const execAppOptionsWorkspace = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
+
+    expect(() => packageManagerExec({ script: 'ng', args: ['run', `${appName}:check-metadata`] }, execAppOptionsWorkspace)).not.toThrow();
+  });
+
+  test('should not throw on prerelease', async () => {
+    await initTest(
+      newLocalizationMetadata,
+      defaultMigrationData,
+      'allow-breaking-changes-prerelease',
+      { allowBreakingChanges: true, prerelease: 'rc' }
     );
     const { workspacePath, appName } = o3rEnvironment.testEnvironment;
     const execAppOptionsWorkspace = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
@@ -159,13 +174,13 @@ describe('check metadata migration', () => {
 
   test('should throw because no migration data', async () => {
     await initTest(
-      true,
       newLocalizationMetadata,
       {
         ...defaultMigrationData,
         changes: []
       },
-      'no-migration-data'
+      'no-migration-data',
+      { allowBreakingChanges: true }
     );
     const { workspacePath, appName } = o3rEnvironment.testEnvironment;
     const execAppOptionsWorkspace = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
@@ -185,7 +200,6 @@ describe('check metadata migration', () => {
 
   test('should throw because migration data invalid', async () => {
     await initTest(
-      true,
       [newLocalizationMetadata[0]],
       {
         ...defaultMigrationData,
@@ -197,7 +211,8 @@ describe('check metadata migration', () => {
           }
         }))
       },
-      'invalid-data'
+      'invalid-data',
+      { allowBreakingChanges: true }
     );
     const { workspacePath, appName } = o3rEnvironment.testEnvironment;
     const execAppOptionsWorkspace = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
@@ -217,13 +232,13 @@ describe('check metadata migration', () => {
 
   test('should throw because breaking changes are not allowed', async () => {
     await initTest(
-      false,
       newLocalizationMetadata,
       {
         ...defaultMigrationData,
         changes: []
       },
-      'breaking-changes'
+      'breaking-changes',
+      { allowBreakingChanges: false }
     );
     const { workspacePath, appName } = o3rEnvironment.testEnvironment;
     const execAppOptionsWorkspace = { ...getDefaultExecSyncOptions(), cwd: workspacePath };

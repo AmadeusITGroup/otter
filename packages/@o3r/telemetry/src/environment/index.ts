@@ -146,7 +146,8 @@ export const getEnvironmentInfo = async (): Promise<EnvironmentMetricData> => {
 
   let projectName: string | undefined;
   try {
-    projectName = JSON.parse(await fs.promises.readFile(path.join(process.cwd(), 'package.json'), { encoding: 'utf8' })).name;
+    const packageJson = JSON.parse(await fs.promises.readFile(path.join(process.cwd(), 'package.json'), { encoding: 'utf8' }));
+    projectName = packageJson.config?.o3r?.telemetry?.projectName || packageJson.name;
   } catch {}
 
   return {

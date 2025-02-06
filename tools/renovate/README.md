@@ -7,6 +7,23 @@
 
 Otter framework provides a set of Renovate presets to facilitate the setup and reduce the boilerplate in your `.renovaterc.json`
 
+## Available presets
+
+| Preset                        | Parameters                         | Description                                                                                        |
+|-------------------------------|------------------------------------|----------------------------------------------------------------------------------------------------|
+| **group/design-factory**      |                                    | Group the dependencies related to Design Factory .                                                 |
+| **group/otter**               |                                    | Group the dependencies related to Otter.                                                           |
+| **group/sdk-spec**            | spec-package-name                  | Create a dedicated group for the SDK spec (when fetching the spec from an NPM repository).         |
+| **tasks/base**                |                                    | Trigger post-install script when upgrading the package manager                                     |
+| **tasks/otter-ng-update**     | package-manager?                   | Trigger the migration scripts when upgrading the Otter dependencies                                |
+| **tasks/sdk-regenerate**      | package-manager?                   | Regenerate the SDK when upgrading the SDK dependencies                                             |
+| **tasks/sdk-spec-regenerate** | package-manager, spec-package-name | Regenerate the SDK when upgrading the SDK spec (when fetching the spec from an NPM repository)     |
+| **tasks/yarn-pnp**            |                                    | **(Yarn only)** Upgrade Yarn SDKs when upgrading the version of Yarn (only relevant with PnP)      |
+| **base**                      |                                    | Base configuration recommended for any project                                                     |
+| **otter-project**             |                                    | **(Yarn only)** Additional configuration recommended for an Otter base project                     |
+| **sdk**                       |                                    | **(Yarn only)** Additional configuration recommended for an SDK project                            |
+| **sdk-spec-upgrade**          | spec-package-name                  | **(Yarn only)** Additional configuration recommended when fetching the spec from an NPM repository |
+
 ## Recommended setup
 
 ### Otter monorepo

@@ -27,6 +27,6 @@ export class O3rPageFixture<V extends O3rElement = O3rElement> extends O3rCompon
   }
 
   public getTitle(): Promise<string> {
-    throw new TranspilationPurposeOnlyError('Should target Protractor implementation');
+    throw new TranspilationPurposeOnlyError('Should target Playwright implementation');
   }
 }

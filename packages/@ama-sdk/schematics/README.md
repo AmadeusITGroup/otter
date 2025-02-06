@@ -127,7 +127,7 @@ Please note that revivers are generated for SDKs that use:
 
 If your specification file includes dates, there are multiple options for the generation of your SDK involving the global property option `stringifyDate`:
 
-- By default, the option `stringifyDate` is set to `true`. Set it to `false` if you want date-time objects to be generated 
+- By default, the option `stringifyDate` is set to `true`. Set it to `false` if you want date-time objects to be generated
   as `Date` and date objects to be generated as `utils.Date`.
   For more information related to these types, check out this [documentation](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/schematics/schematics/typescript/shell/templates/base#manage-dates).
   This can be done by adding `--global-property stringifyDate=false` to the generator command or by adding the global property
@@ -297,3 +297,14 @@ yarn schematics @ama-sdk/schematics:java-client-core --spec-path ./swagger-spec.
 ```
 
 [Default swagger config](schematics/java/client-core/swagger-codegen-java-client/config/swagger-codegen-config.json) will be used if `--swagger-config-path` is not provided.
+
+## Command Line Interface
+
+This package also comes with CLI scripts that can facilitate the upgrade and publication of an SDK.
+Use `--help` on each command for more information
+
+| Script                      | Description                                                                                    |
+| --------------------------- | ---------------------------------------------------------------------------------------------- |
+| amasdk-clear-index          | Remove the index files that are no longer necessary after the deletion of the associated model |
+| amasdk-files-pack           | Prepare the dist folder for publication                                                        |
+| amasdk-update-spec-from-npm | Update the OpenAPI spec from an NPM package                                                    |
