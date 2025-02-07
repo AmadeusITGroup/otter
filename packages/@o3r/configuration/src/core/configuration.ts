@@ -1,5 +1,4 @@
 import {
-  computeItemIdentifier,
   deepFill,
 } from '@o3r/core';
 import {
@@ -29,16 +28,6 @@ export interface Identifiable {
    * Identifier
    */
   id: string;
-}
-
-/**
- * Get the configuration name
- * @deprecated use {@link computeItemIdentifier} from @o3r/core. Will be removed in v12
- * @param componentName Name of the component to get the configuration
- * @param libraryName Name of the library the component is coming from
- */
-export function computeConfigurationName(componentName: string, libraryName?: string) {
-  return computeItemIdentifier(componentName, libraryName);
 }
 
 /**

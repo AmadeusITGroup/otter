@@ -22,19 +22,19 @@ import {
 import minimist from 'minimist';
 
 const argv = minimist(process.argv.slice(2));
+const appendPath = argv.dist || argv.appendPath;
 const root = argv.root ? resolve(process.cwd(), argv.root) : process.cwd();
 const /** @type { string[] } */ fields = argv.fields?.split(',') || ['contributors', 'bugs', 'repository', 'license', 'homepage'];
-const appendPath = argv.append && normalize(argv.append);
 
 /**
- * Find Private package.json
+ * Find the workspace package.json
  * @param {string} currentFolder
  */
-const findPrivatePackage = (currentFolder) => {
+const findWorkspacePackage = (currentFolder) => {
   const inspectedPackage = resolve(currentFolder, 'package.json');
   if (existsSync(inspectedPackage)) {
     const pck = JSON.parse(readFileSync(inspectedPackage, { encoding: 'utf8' }));
-    if (pck.private) {
+    if (pck.private && pck.workspaces) {
       return {
         content: pck,
         path: inspectedPackage
@@ -46,7 +46,7 @@ const findPrivatePackage = (currentFolder) => {
   if (!parent || currentFolder === parent) {
     return null;
   }
-  return findPrivatePackage(parent);
+  return findWorkspacePackage(parent);
 };
 
 /**
@@ -75,7 +75,7 @@ const findReadme = (currentFolder) => {
  * @param {string} packageJsonPath
  */
 function preparePublish(rootPath, distPath, packageJsonPath) {
-  const privatePackageJson = findPrivatePackage(rootPath);
+  const privatePackageJson = findWorkspacePackage(rootPath);
   const distPackageJson = resolve(rootPath, packageJsonPath);
 
   if (!packageJsonPath || !existsSync(distPackageJson)) {
@@ -109,7 +109,7 @@ function preparePublish(rootPath, distPath, packageJsonPath) {
 const distPaths = argv._.length > 0
   ? argv._
     .flatMap((files) => files.split(delimiter))
-    .map((p) => appendPath ? join(p, appendPath) : p)
+    .map((p) => appendPath ? join(p, normalize(appendPath)) : p)
   : [resolve(process.cwd(), appendPath || 'dist')];
 
 distPaths.forEach((distPath) => preparePublish(root, distPath, join(distPath, 'package.json')));

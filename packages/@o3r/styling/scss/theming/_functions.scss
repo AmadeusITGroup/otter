@@ -49,7 +49,7 @@
     @each $key in $keys {
       @if (not $hasInvalid) {
         $isValidItem: false;
-        @each $valid in ('value', 'details', 'variable') { // 'variable' is deprecated and will be removed in v12
+        @each $valid in ('value', 'details', 'variable') {
           @if ($key == $valid) {
             $isValidItem: true;
           }

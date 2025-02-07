@@ -9,6 +9,7 @@ import {
   Store,
 } from '@ngrx/store';
 import {
+  computeItemIdentifier,
   Configuration,
   CustomConfig,
 } from '@o3r/core';
@@ -22,7 +23,6 @@ import {
   shareReplay,
 } from 'rxjs/operators';
 import {
-  computeConfigurationName,
   parseConfigurationName,
 } from '../core';
 import {
@@ -78,12 +78,12 @@ export class OtterConfigurationDevtools {
    */
   public getComponentConfigName(selector: string | { library?: string; componentName: string }, isFallbackName = false) {
     if (!isFallbackName) {
-      return typeof selector === 'string' ? selector : computeConfigurationName(selector.componentName, selector.library || this.options.defaultLibraryName);
+      return typeof selector === 'string' ? selector : computeItemIdentifier(selector.componentName, selector.library || this.options.defaultLibraryName);
     }
 
     return typeof selector === 'string'
-      ? computeConfigurationName(selector, this.options.defaultLibraryName || 'global')
-      : computeConfigurationName(selector.componentName, this.options.defaultLibraryName || 'global');
+      ? computeItemIdentifier(selector, this.options.defaultLibraryName || 'global')
+      : computeItemIdentifier(selector.componentName, this.options.defaultLibraryName || 'global');
   }
 
   /**

@@ -10,6 +10,7 @@
     "target": "ES2022",
     "useDefineForClassFields": false,
     "declaration": true,
+    "incremental": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
@@ -63,6 +64,9 @@
       ],
       "@o3r-training/showcase-sdk/fixtures": [
         "packages/@o3r-training/showcase-sdk/src/fixtures/jest"
+      ],
+      "@o3r-training/training-sdk": [
+        "packages/@o3r-training/training-sdk/src"
       ],
       "@o3r-training/training-tools": [
         "packages/@o3r-training/training-tools/src/public_api"
@@ -186,9 +190,6 @@
       ],
       "@o3r/store-sync": [
         "packages/@o3r/store-sync/src/public_api"
-      ],
-      "@o3r/storybook": [
-        "packages/@o3r/storybook/src/public_api"
       ],
       "@o3r/stylelint-plugin": [
         "packages/@o3r/stylelint-plugin/src"

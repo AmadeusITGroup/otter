@@ -16,45 +16,13 @@
         "tsConfig": "packages/@o3r/forms/tsconfig.build.json"
       }
     },
-    "lint": {
-      "executor": "nx:run-commands"
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "options": {
-        "jestConfig": "packages/@o3r/forms/jest.config.js"
-      }
-    },
-    "prepare-publish": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "prepare:publish"
-      }
-    },
-    "publish": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "npm publish packages/@o3r/forms/dist"
-      }
-    },
-    "prepare-build-builders": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "prepare:build:builders"
-      }
-    },
-    "build-builders": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "build:builders"
-      }
-    },
-    "documentation": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "compodoc"
-      }
-    }
+    "lint": {},
+    "test": {},
+    "prepare-publish": {},
+    "publish": {},
+    "prepare-build-builders": {},
+    "build-builders": {},
+    "documentation": {}
   },
   "tags": []
 }

@@ -34,18 +34,18 @@
   "devDependencies": {
     "@ama-terasu/core": "workspace:^",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
-    "@nx/eslint-plugin": "~19.8.0",
-    "@nx/jest": "~19.8.0",
+    "@nx/eslint-plugin": "~20.2.0",
+    "@nx/jest": "~20.2.0",
     "@o3r/build-helpers": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
-    "@stylistic/eslint-plugin": "~2.7.0",
+    "@stylistic/eslint-plugin": "~3.0.0",
     "@types/jest": "~29.5.2",
     "@types/js-yaml": "^4.0.5",
     "@types/node": "^20.0.0",
-    "@typescript-eslint/parser": "~8.19.0",
-    "angular-eslint": "~18.4.0",
+    "@typescript-eslint/parser": "~8.21.0",
+    "angular-eslint": "~19.0.0",
     "cpy-cli": "^5.0.0",
-    "eslint": "~9.14.0",
+    "eslint": "~9.17.0",
     "eslint-import-resolver-node": "^0.3.9",
     "eslint-import-resolver-typescript": "^3.6.3",
     "eslint-plugin-import": "^2.31.0",
@@ -59,14 +59,14 @@
     "jest": "~29.7.0",
     "jest-junit": "~16.0.0",
     "jsonc-eslint-parser": "~2.4.0",
-    "nx": "~19.8.0",
-    "ts-jest": "~29.2.0",
-    "typescript": "~5.5.4",
-    "typescript-eslint": "~8.19.0"
+    "nx": "~20.2.0",
+    "ts-jest": "~29.2.5",
+    "typescript": "~5.6.2",
+    "typescript-eslint": "~8.21.0"
   },
   "peerDependencies": {
     "@ama-terasu/core": "workspace:^",
-    "@angular/cli": "^18.2.0"
+    "@angular/cli": "^19.0.0"
   },
   "engines": {
     "node": "^18.19.1 || ^20.11.1 || >=22.0.0",

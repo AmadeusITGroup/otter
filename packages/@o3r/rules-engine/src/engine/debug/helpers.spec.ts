@@ -200,9 +200,6 @@ const rule = {
   id: '6e8t54h6s4e-6erth46sre8th4-d46t8s13t5j9',
   name: 'rule one',
   inputRuntimeFacts: [],
-  inputFacts: [
-    'isMobileDevice'
-  ],
   outputRuntimeFacts: ['CMS_myFact'],
   rootElement: {
     elementType: 'RULE_BLOCK',
@@ -272,7 +269,7 @@ describe('Rules engine debug helpers', () => {
       property: 'showLanguageSelector',
       value: false
     } as ActionBlock;
-    const ruleEvaluation = handleRuleEvaluationDebug(rule, 'testRuleset', [outputAction], undefined, {}, [false], undefined);
+    const ruleEvaluation = handleRuleEvaluationDebug(rule, 'testRuleset', [outputAction], undefined, {}, [false], undefined, ['isMobileDevice']);
 
     expect(ruleEvaluation.outputActions.length).toBe(1);
     expect(ruleEvaluation.rule.id).toBe(rule.id);
@@ -282,7 +279,7 @@ describe('Rules engine debug helpers', () => {
 
   it('handleRuleEvaluationDebug should create a rule evaluation object with error', () => {
     const error = { errorMessage: 'this is an error thrown at rule evaluation' };
-    const ruleEvaluation = handleRuleEvaluationDebug(rule, 'testRuleset', undefined, error, {}, [false], undefined);
+    const ruleEvaluation = handleRuleEvaluationDebug(rule, 'testRuleset', undefined, error, {}, [false], undefined, ['isMobileDevice']);
 
     expect(ruleEvaluation.outputActions).toBeUndefined();
     expect(ruleEvaluation.rule.id).toBe(rule.id);
@@ -291,7 +288,7 @@ describe('Rules engine debug helpers', () => {
   });
 
   it('handleRuleEvaluationDebug should compute triggers old and new value', () => {
-    const ruleEvaluation = handleRuleEvaluationDebug(rule, 'testRuleset', [], undefined, {}, [true], [false]);
+    const ruleEvaluation = handleRuleEvaluationDebug(rule, 'testRuleset', [], undefined, {}, [true], [false], ['isMobileDevice']);
 
     expect(ruleEvaluation.outputActions.length).toBe(0);
     expect(ruleEvaluation.rule.id).toBe(rule.id);

@@ -3,6 +3,7 @@
   "extends": [
     "github>AmadeusITGroup/otter//tools/renovate/base",
     "github>AmadeusITGroup/otter//tools/renovate/group/design-factory",
+    "github>AmadeusITGroup/otter//tools/renovate/managers/github-node-version.json5",
     ":labels(dependencies)"
   ],
   "timezone": "Europe/Paris",
@@ -100,15 +101,6 @@
       ]
     },
     {
-      "matchDepNames": [
-        "org.openapitools:openapi-generator"
-      ],
-      "groupName": "Open API updates",
-      "groupSlug": "openapi",
-      // TODO wait for https://github.com/OpenAPITools/openapi-generator/issues/20135 to be fixed before upgrading to 7.10.0
-      "enabled": false
-    },
-    {
       // We don't want to update this dep as we are still targeting a fork
       "matchPackageNames": [
         "io.swagger:swagger-codegen-cli"
@@ -131,7 +123,7 @@
   ],
   "github-actions": {
     "fileMatch": [
-      "/__dot__github/.*/.+\\.ya?ml$"
+      "/(?:__dot__|__empty__\\.)github/.*/.+\\.ya?ml$"
     ]
   }
 }

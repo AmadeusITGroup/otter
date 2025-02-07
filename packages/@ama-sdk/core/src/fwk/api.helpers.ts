@@ -115,7 +115,7 @@ export function tokenizeRequestOptions(tokenizedUrl: string, queryParameters: { 
  * @param endpoint
  * @param options `{ disableFallback: false, log: console.error }` by default
  * @param options.disableFallback `false` by default
- * @param options.log `() => {}` by default -- warning: default value will change to `console.error` in Otter v12.
+ * @param options.log `console.error` by default
  */
 export function getResponseReviver<T>(
   revivers: { [statusCode: number]: ReviverType<T> | undefined } | undefined | ReviverType<T>,
@@ -124,7 +124,7 @@ export function getResponseReviver<T>(
   options?: { disableFallback?: boolean; log?: (...args: any[]) => void }
 ): ReviverType<T> | undefined {
   // eslint-disable-next-line no-console -- set as default value
-  const { disableFallback = false, log: logMsg = options ? () => {} : console.error } = options ?? {};
+  const { disableFallback = false, log: logMsg = console.error } = options ?? {};
   const logPrefix = `API status code error for ${endpoint || 'unknown'} endpoint`;
   if (!response || !response.ok) {
     return undefined;

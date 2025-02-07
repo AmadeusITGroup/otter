@@ -8,7 +8,8 @@
     "build": {
       "executor": "nx:noop",
       "dependsOn": [
-        "compile"
+        "compile",
+        "extract-folder-structure"
       ]
     },
     "compile": {
@@ -22,20 +23,30 @@
       ]
     },
     "regen": {
+      "cache": false,
       "executor": "nx:run-script",
       "options": {
         "script": "spec:regen"
       }
     },
-    "lint": {
-      "executor": "nx:run-commands"
-    },
-    "publish": {
-      "executor": "nx:run-commands",
+    "lint": {},
+    "extract-folder-structure": {
+      "cache": true,
+      "executor": "nx:run-script",
       "options": {
-        "command": "npm publish packages/@o3r-training/showcase-sdk/dist"
-      }
-    }
+        "script": "extract"
+      },
+      "inputs": [
+        "source",
+        "^cli",
+        "{projectRoot}/package.json",
+        "{projectRoot}/openapi.yml",
+        "{projectRoot}/openapitools.json"
+      ],
+      "outputs": ["{projectRoot}/dist/structure"],
+      "dependsOn": ["^build", "compile"]
+    },
+    "publish": {}
   },
   "tags": [
     "private",

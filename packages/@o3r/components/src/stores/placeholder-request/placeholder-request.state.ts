@@ -11,7 +11,6 @@ import {
 export interface PlaceholderVariable {
   type: 'fact' | 'fullUrl' | 'relativeUrl' | 'localisation';
   value: string;
-  vars?: string[];
   parameters?: Record<string, string>;
   path?: string;
 }

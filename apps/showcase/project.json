@@ -52,6 +52,13 @@
     },
     "compile": {
       "executor": "@angular-devkit/build-angular:application",
+      "inputs": [
+        "source",
+        "^structure",
+        "{projectRoot}/dev-resources",
+        "{projectRoot}/training-assets",
+        "{projectRoot}/*.metadata.json"
+      ],
       "options": {
         "outputPath": "apps/showcase/dist",
         "index": "apps/showcase/src/index.html",
@@ -65,6 +72,7 @@
         "assets": [
           "apps/showcase/src/favicon.ico",
           "apps/showcase/src/favicon.svg",
+          "apps/showcase/src/coi-serviceworker.js",
           "apps/showcase/src/assets",
           "apps/showcase/src/custom-assets",
           {
@@ -76,11 +84,33 @@
             "glob": "*.metadata.json",
             "input": "apps/showcase",
             "output": "/metadata"
+          },
+          {
+            "glob": "**/*",
+            "input": "apps/showcase/training-assets/monaco-editor",
+            "output": "/assets/monaco/"
+          },
+          {
+            "glob": "**/*",
+            "input": "apps/showcase/training-assets/ngx-monaco-tree/assets",
+            "output": "/assets/"
+          },
+          {
+            "glob": "*.json",
+            "input": "packages/@o3r-training/training-sdk/dist/structure",
+            "output": "/assets/@o3r-training/training-sdk/structure"
+          },
+          {
+            "glob": "*.json",
+            "input": "packages/@o3r-training/showcase-sdk/dist/structure",
+            "output": "/assets/@o3r-training/showcase-sdk/structure"
           }
         ],
         "styles": [
           "apps/showcase/src/styles.scss",
           "prism-themes/themes/prism-vsc-dark-plus.css",
+          "apps/showcase/training-assets/@vscode/codicons/dist/codicon.css",
+          "apps/showcase/training-assets/@xterm/xterm/css/xterm.css",
           {
             "inject": false,
             "input": "apps/showcase/src/style/dark-theme/dark-theme.scss",
@@ -102,7 +132,8 @@
           "prismjs/components/prism-markup",
           "prismjs/components/prism-regex",
           "prismjs/components/prism-typescript",
-          "prismjs/components/prism-yaml"
+          "prismjs/components/prism-yaml",
+          "apps/showcase/src/coi-serviceworker.js"
         ]
       },
       "configurations": {
@@ -111,7 +142,7 @@
             {
               "type": "initial",
               "maximumWarning": "2.5mb",
-              "maximumError": "2.5mb"
+              "maximumError": "2.6mb"
             },
             {
               "type": "anyComponentStyle",
@@ -131,10 +162,13 @@
       "defaultConfiguration": "production",
       "dependsOn": [
         "^build",
+        "^extract-folder-structure",
         "generate-translations",
         "generate-theme",
         "generate-dark-theme",
-        "generate-horizon-theme"
+        "generate-horizon-theme",
+        "copy-training-assets",
+        "prepare-training"
       ]
     },
     "serve": {
@@ -150,11 +184,20 @@
       },
       "dependsOn": [
         "^build-builders",
-        "^build"
+        "^build",
+        "^extract-folder-structure",
+        "copy-training-assets",
+        "prepare-training"
       ]
     },
     "serve-app": {
       "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "headers": {
+          "Cross-Origin-Opener-Policy": "same-origin",
+          "Cross-Origin-Embedder-Policy": "require-corp"
+        }
+      },
       "configurations": {
         "production": {
           "buildTarget": "showcase:compile:production"
@@ -198,18 +241,14 @@
       },
       "dependsOn": ["^build", "^build-builders"]
     },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "options": {
-        "jestConfig": "apps/showcase/jest.config.js"
-      }
-    },
+    "test": {},
     "generate-theme": {
       "executor": "@o3r/design:generate-css",
       "outputs": [
         "{options.defaultStyleFile}",
         "{options.metadataOutput}",
-        "{projectRoot}/src/**/*.scss"
+        "{projectRoot}/src/**/*.scss",
+        "!{projectRoot}/src/styles.scss"
       ],
       "inputs": [
         "{projectRoot}/src/style/design-token.*.json",
@@ -359,6 +398,36 @@
         ]
       },
       "dependsOn": ["^build-builders"]
+    },
+    "prepare-training": {
+      "cache": true,
+      "executor": "nx:run-script",
+      "inputs": [
+        "{projectRoot}/package.json",
+        "{projectRoot}/src/assets/**/exercise/**",
+        "{projectRoot}/src/assets/**/solution/**",
+        "{projectRoot}/scripts/prepare-training-exercises/*.cjs"
+      ],
+      "outputs": [
+        "{projectRoot}/src/assets/**/solution.json",
+        "{projectRoot}/src/assets/**/exercise.json"
+      ],
+      "options": {
+        "script": "prepare-training"
+      },
+      "dependsOn": ["^build", "^build-cli"]
+    },
+    "copy-training-assets": {
+      "cache": true,
+      "executor": "nx:run-script",
+      "inputs": [
+        "{projectRoot}/package.json",
+        "{projectRoot}/scripts/copy-training-assets/*.cjs"
+      ],
+      "outputs": ["{projectRoot}/training-assets"],
+      "options": {
+        "script": "copy-training-assets"
+      }
     }
   },
   "tags": ["showcase"]

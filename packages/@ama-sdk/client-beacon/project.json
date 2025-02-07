@@ -37,39 +37,12 @@
       },
       "outputs": ["{projectRoot}/dist/src"]
     },
-    "lint": {
-      "executor": "nx:run-commands"
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "options": {
-        "jestConfig": "packages/@ama-sdk/client-beacon/jest.config.js"
-      }
-    },
-    "prepare-publish": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "prepare:publish"
-      }
-    },
-    "publish": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "npm publish packages/@ama-sdk/client-beacon/dist"
-      }
-    },
-    "prepare-build-builders": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "prepare:build:builders"
-      }
-    },
-    "build-builders": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "build:builders"
-      }
-    }
+    "lint": {},
+    "test": {},
+    "prepare-publish": {},
+    "publish": {},
+    "prepare-build-builders": {},
+    "build-builders": {}
   },
   "tags": []
 }

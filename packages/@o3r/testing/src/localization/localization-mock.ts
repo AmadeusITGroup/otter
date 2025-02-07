@@ -12,7 +12,7 @@ import {
 import {
   LocalizationConfiguration,
   LocalizationModule,
-  LocalizationTranslatePipe,
+  O3rLocalizationTranslatePipe,
 } from '@o3r/localization';
 import {
   of,
@@ -47,7 +47,7 @@ export class LocalizationDependencyMocks {
   public static forTest(pipeWithPrefix = false): ModuleWithProviders<LocalizationDependencyMocks> {
     return {
       ngModule: LocalizationDependencyMocks,
-      providers: [{ provide: LocalizationTranslatePipe, useClass: pipeWithPrefix ? O3rTranslatePipeMock : TranslatePipeMock }]
+      providers: [{ provide: O3rLocalizationTranslatePipe, useClass: pipeWithPrefix ? O3rTranslatePipeMock : TranslatePipeMock }]
     };
   }
 }
