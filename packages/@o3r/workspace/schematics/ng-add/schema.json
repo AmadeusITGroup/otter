@@ -48,8 +48,7 @@
     },
     "exactO3rVersion": {
       "type": "boolean",
-      "description": "Use a pinned version for otter packages",
-      "default": false
+      "description": "Use a pinned version for otter packages"
     },
     "monorepoManager": {
       "description": "Which monorepo manager to use",
