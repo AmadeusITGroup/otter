@@ -25,6 +25,14 @@ auth:
     algorithm: bcrypt
 
 packages:
+  '@ama-messaging/*':
+    access: $all
+    publish: $authenticated
+    proxy: no-proxy
+  '@ama-mfe/*':
+    access: $all
+    publish: $authenticated
+    proxy: no-proxy
   '@o3r-training/*':
     access: $all
     publish: $authenticated
