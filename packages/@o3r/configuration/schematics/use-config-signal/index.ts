@@ -2,7 +2,7 @@ import {
   chain,
   noop,
   type Rule,
-  type Tree
+  type Tree,
 } from '@angular-devkit/schematics';
 import {
   addCommentsOnClassProperties,
@@ -12,10 +12,12 @@ import {
   createSchematicWithMetricsIfInstalled,
   generateClassElementsFromString,
   isO3rClassComponent,
-  O3rCliError
+  O3rCliError,
 } from '@o3r/schematics';
 import * as ts from 'typescript';
-import type { NgUseConfigSignalSchematicsSchema } from './schema';
+import type {
+  NgUseConfigSignalSchematicsSchema,
+} from './schema';
 
 const configObserverRegexp = /.*new ConfigurationObserver<(?<configName>\w+)>\(\s*(?<configId>\w+),\s*(?<defaultConfig>\w+)(,\s*\w+)?\s*\);/;
 
@@ -87,9 +89,11 @@ function ngUseConfigSignalFn(options: NgUseConfigSignalSchematicsSchema): Rule {
                   !member.name
                   || (
                     ts.isIdentifier(member.name)
-                    && member.name.escapedText !== 'config$'
-                    && member.name.escapedText !== 'config'
-                    && member.name.escapedText !== 'dynamicConfig$'
+                    && ![
+                      'config$',
+                      'config',
+                      'dynamicConfig$'
+                    ].includes(member.name.escapedText.toString())
                   )
                 )
               );

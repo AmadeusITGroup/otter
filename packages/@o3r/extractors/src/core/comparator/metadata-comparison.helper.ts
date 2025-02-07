@@ -1,22 +1,62 @@
-import type { BuilderContext, BuilderOutput } from '@angular-devkit/architect';
-import type { JsonObject } from '@angular-devkit/core';
-import { getPackageManagerInfo, O3rCliError, type PackageManagerOptions, type SupportedPackageManagers, type WorkspaceSchema } from '@o3r/schematics';
-import { sync as globbySync } from 'globby';
-import { existsSync, promises, readFileSync } from 'node:fs';
-import { EOL } from 'node:os';
-import { join, posix } from 'node:path';
-import { coerce, Range, satisfies } from 'semver';
-import type { PackageJson } from 'type-fest';
-import type { MetadataComparator, MigrationData, MigrationFile, MigrationMetadataCheckBuilderOptions } from './metadata-comparator.interface';
-import { getFilesFromRegistry, getLatestMigrationMetadataFile, getLocalMetadataFile, getVersionRangeFromLatestVersion } from './metadata-files.helper';
-import type { CmsMetadataData } from '../../interfaces';
+import {
+  existsSync,
+  promises,
+  readFileSync,
+} from 'node:fs';
+import {
+  EOL,
+} from 'node:os';
+import {
+  join,
+  posix,
+} from 'node:path';
+import type {
+  BuilderContext,
+  BuilderOutput,
+} from '@angular-devkit/architect';
+import type {
+  JsonObject,
+} from '@angular-devkit/core';
+import {
+  getPackageManagerInfo,
+  O3rCliError,
+  type PackageManagerOptions,
+  type SupportedPackageManagers,
+  type WorkspaceSchema,
+} from '@o3r/schematics';
+import {
+  sync as globbySync,
+} from 'globby';
+import {
+  coerce,
+  Range,
+  satisfies,
+} from 'semver';
+import type {
+  PackageJson,
+} from 'type-fest';
+import type {
+  CmsMetadataData,
+} from '../../interfaces';
+import type {
+  MetadataComparator,
+  MigrationData,
+  MigrationFile,
+  MigrationMetadataCheckBuilderOptions,
+} from './metadata-comparator.interface';
+import {
+  getFilesFromRegistry,
+  getLatestMigrationMetadataFile,
+  getLocalMetadataFile,
+  getVersionRangeFromLatestVersion,
+} from './metadata-files.helper';
 
 function checkMetadataFile<MetadataItem, MigrationMetadataItem, MetadataFile>(
   lastMetadataFile: MetadataFile,
   newMetadataFile: MetadataFile,
   migrationData: MigrationData<MigrationMetadataItem>[],
   comparator: MetadataComparator<MetadataItem, MigrationMetadataItem, MetadataFile>,
-  options?: {allowBreakingChanges?: boolean; shouldCheckUnusedMigrationData?: boolean}
+  options?: { allowBreakingChanges?: boolean; shouldCheckUnusedMigrationData?: boolean }
 ): Error[] {
   const { allowBreakingChanges = false, shouldCheckUnusedMigrationData = false } = options || {};
   const errors: Error[] = [];
@@ -32,10 +72,7 @@ function checkMetadataFile<MetadataItem, MigrationMetadataItem, MetadataFile>(
     !newMetadataArray.some((newMetadata) => isSameMetadata(lastMetadata, newMetadata)));
 
   // Check that removed metadata are properly documented
-  if (!allowBreakingChanges) {
-    errors.push(...removedMetadata.map((removedItem) =>
-      new Error(`Property ${comparator.getIdentifier(removedItem)} is not present in the new metadata and breaking changes are not allowed`)));
-  } else {
+  if (allowBreakingChanges) {
     for (const removedItem of removedMetadata) {
       const migrationMetadataValue = relevantMigrationData.find((metadata) =>
         metadata.before && comparator.isMigrationDataMatch(removedItem, metadata.before));
@@ -52,6 +89,9 @@ function checkMetadataFile<MetadataItem, MigrationMetadataItem, MetadataFile>(
         errors.push(new Error(`Property ${comparator.getIdentifier(removedItem)} has been modified but is not documented in the migration document`));
       }
     }
+  } else {
+    errors.push(...removedMetadata.map((removedItem) =>
+      new Error(`Property ${comparator.getIdentifier(removedItem)} is not present in the new metadata and breaking changes are not allowed`)));
   }
   // Check that migration data match metadata changes
   if (shouldCheckUnusedMigrationData) {
@@ -75,7 +115,7 @@ function getPackageManagerForRegistry(options?: PackageManagerOptions): Supporte
   if (!packageManagerInfo.version) {
     return undefined;
   }
-  return packageManagerInfo.name === 'yarn' && !packageManagerInfo.version.match(/^1\./) ? 'yarn' : 'npm';
+  return packageManagerInfo.name === 'yarn' && !/^1\./.test(packageManagerInfo.version) ? 'yarn' : 'npm';
 }
 
 /**
@@ -120,7 +160,7 @@ Detection of package manager runner will fallback on the one used to execute the
 
   const migrationDataFiles = globbySync(options.migrationDataPath, { cwd: context.currentDirectory });
 
-  const {path: migrationFilePath, version: latestMigrationVersion} = await getLatestMigrationMetadataFile(migrationDataFiles) || {};
+  const { path: migrationFilePath, version: latestMigrationVersion } = await getLatestMigrationMetadataFile(migrationDataFiles) || {};
 
   if (!migrationFilePath || !latestMigrationVersion) {
     throw new O3rCliError(`No migration data could be found matching ${typeof options.migrationDataPath === 'string' ? options.migrationDataPath : options.migrationDataPath.join(',')}`);
@@ -134,7 +174,7 @@ Detection of package manager runner will fallback on the one used to execute the
   // Check for libraries versions mismatches
   if (migrationData.libraries?.length) {
     await Promise.all(Object.entries(migrationData.libraries).map(async ([libName, libVersion]) => {
-      const libPackageJson = JSON.parse(await promises.readFile(require.resolve(`${libName}/package.json`), {encoding: 'utf8'})) as PackageJson;
+      const libPackageJson = JSON.parse(await promises.readFile(require.resolve(`${libName}/package.json`), { encoding: 'utf8' })) as PackageJson;
       const libRange = new Range(`~${coerce(libVersion)?.raw}`);
       if (!satisfies(libPackageJson.version!, libRange)) {
         context.logger.warn(`The version of the library "${libName}": ${libVersion} specified in your latest migration files doesn't match the installed version: ${libPackageJson.version}`);
@@ -146,7 +186,7 @@ Detection of package manager runner will fallback on the one used to execute the
   context.logger.info(`Fetching ${packageLocator} from the registry.`);
   const packageJsonFileName = 'package.json';
   const previousFile = await getFilesFromRegistry(packageLocator, [options.metadataPath, packageJsonFileName], packageManager, context.workspaceRoot);
-  const previousPackageJson = JSON.parse(previousFile[packageJsonFileName]) as PackageJson & {cmsMetadata: CmsMetadataData};
+  const previousPackageJson = JSON.parse(previousFile[packageJsonFileName]) as PackageJson & { cmsMetadata: CmsMetadataData };
   context.logger.info(`Successfully fetched ${packageLocator} with version ${previousPackageJson.version}.`);
 
   let metadata: MetadataFile;
@@ -171,10 +211,9 @@ Detection of package manager runner will fallback on the one used to execute the
   const metadataPathInWorkspace = posix.join(projectRoot, options.metadataPath);
   const newFile = getLocalMetadataFile<MetadataFile>(metadataPathInWorkspace);
 
-
   const errors = checkMetadataFile<MetadataItem, MigrationMetadataItem, MetadataFile>(metadata, newFile, migrationData.changes, comparator, options);
 
-  if (errors.length) {
+  if (errors.length > 0) {
     return {
       success: false,
       error: errors.map(({ message }) => message).join(EOL)

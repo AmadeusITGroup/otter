@@ -1,17 +1,50 @@
-import type { Logger } from '@o3r/logger';
-import { BehaviorSubject, firstValueFrom, merge, Observable, of } from 'rxjs';
-import { delay, distinctUntilChanged, shareReplay, switchMap, takeUntil, tap } from 'rxjs/operators';
-import { EngineDebugger } from './debug/engine.debug';
-import { FactObject, RulesEngineOptions } from './engine.interface';
-import type { Fact, Facts } from './fact/index';
-import { filterRulesetsEventStream } from './helpers/filter-ruleset-event.operator';
-import { Operator, operatorList, UnaryOperator } from './operator/index';
-import { RulesetExecutor } from './ruleset-executor';
-import { ActionBlock, Ruleset } from './structure';
+import type {
+  Logger,
+} from '@o3r/logger';
+import {
+  BehaviorSubject,
+  firstValueFrom,
+  merge,
+  Observable,
+  of,
+} from 'rxjs';
+import {
+  delay,
+  distinctUntilChanged,
+  shareReplay,
+  switchMap,
+  takeUntil,
+  tap,
+} from 'rxjs/operators';
+import {
+  EngineDebugger,
+} from './debug/engine.debug';
+import {
+  FactObject,
+  RulesEngineOptions,
+} from './engine.interface';
+import type {
+  Fact,
+  Facts,
+} from './fact/index';
+import {
+  filterRulesetsEventStream,
+} from './helpers/filter-ruleset-event.operator';
+import {
+  Operator,
+  operatorList,
+  UnaryOperator,
+} from './operator/index';
+import {
+  RulesetExecutor,
+} from './ruleset-executor';
+import {
+  ActionBlock,
+  Ruleset,
+} from './structure';
 
 /** Rules engine */
 export class RulesEngine {
-
   /** Map of registered fact stream, this map is mutated by the ruleset executors */
   private readonly factMap: Record<string, FactObject<any>> = {};
 
@@ -55,10 +88,9 @@ export class RulesEngine {
   /**
    * Rules engine
    * @param options rules engine options
-   * @param logger
    */
   constructor(options?: RulesEngineOptions) {
-    this.performance = options?.performance || (typeof window !== 'undefined' ? window.performance : undefined);
+    this.performance = options?.performance || (typeof window === 'undefined' ? undefined : window.performance);
     this.engineDebug = options?.debugger;
     this.engineDebug?.registerRuleEngine(this);
     this.logger = options?.logger;
@@ -86,7 +118,6 @@ export class RulesEngine {
 
   /**
    * Attach debug events to actions stream if debug engine is activated
-   * @param actionsStream
    */
   private handleActionsStreamOutput<T extends ActionBlock = ActionBlock>(): (actionsStream$: Observable<T[]>) => Observable<T[]> {
     return (actionsStream$: Observable<T[]>) => this.engineDebug ? actionsStream$.pipe(tap((allActions) => this.engineDebug!.allActionsChange(allActions))) : actionsStream$;
@@ -97,8 +128,8 @@ export class RulesEngine {
    * @param ruleSets
    */
   private prepareActionsStream<T extends ActionBlock = ActionBlock>(ruleSets?: string[]): (rulesetMapSubject$: Observable<Record<string, RulesetExecutor>>) => Observable<T[]> {
-    return (rulesetMapSubject$: Observable<Record<string, RulesetExecutor>>) => (this.engineDebug ?
-      rulesetMapSubject$.pipe(
+    return (rulesetMapSubject$: Observable<Record<string, RulesetExecutor>>) => (this.engineDebug
+      ? rulesetMapSubject$.pipe(
         tap((ruleSetExecutorMap) => this.engineDebug!.activeRulesetsChange(ruleSetExecutorMap, ruleSets)),
         filterRulesetsEventStream(ruleSets))
       : rulesetMapSubject$.pipe(filterRulesetsEventStream(ruleSets))) as Observable<T[]>;
@@ -112,9 +143,9 @@ export class RulesEngine {
    */
   public retrieveOrCreateFactStream<T = Facts>(id: string, factValue$?: Observable<T>): Observable<T | undefined> {
     // trick to emit undefined if the observable is not immediately emitting (to not bloc execution)
-    const obs$ = factValue$ ?
-      merge(factValue$, of(undefined).pipe(delay(this.factDefaultDelay || 0), takeUntil(factValue$))) :
-      factValue$;
+    const obs$ = factValue$
+      ? merge(factValue$, of(undefined).pipe(delay(this.factDefaultDelay || 0), takeUntil(factValue$)))
+      : factValue$;
     const factObj = this.factMap[id];
     if (factObj) {
       if (factValue$) {
@@ -152,14 +183,13 @@ export class RulesEngine {
    * @param facts fact list to add / update
    */
   public upsertFacts<T = unknown>(facts: Fact<T> | Fact<T>[]) {
-    (Array.isArray(facts) ? facts : [facts]).forEach(({id, value$}) =>
+    (Array.isArray(facts) ? facts : [facts]).forEach(({ id, value$ }) =>
       this.retrieveOrCreateFactStream(id, value$)
     );
   }
 
   /**
    * Update or insert rule in rules engine
-   * @param rules rule list to add / update
    * @param rulesets
    */
   public upsertRulesets(rulesets: Ruleset[]) {
@@ -169,7 +199,7 @@ export class RulesEngine {
       rulesets.reduce((accRuleset, ruleset) => {
         accRuleset[ruleset.id] = new RulesetExecutor(ruleset, this);
         return accRuleset;
-      }, {...this.rulesetMapSubject.value})
+      }, { ...this.rulesetMapSubject.value })
     );
   }
 
@@ -177,11 +207,11 @@ export class RulesEngine {
    * Update or insert operator in rules engine
    * @param operators operator list to add / update
    */
-  public upsertOperators(operators: (Operator | UnaryOperator)[]) {
+  public upsertOperators(operators: (Operator<any, any> | UnaryOperator<any>)[]) {
     this.operators = operators.reduce((acc, operator) => {
       acc[operator.name] = operator;
       return acc;
-    }, {...this.operators});
+    }, { ...this.operators });
   }
 
   /**
@@ -200,5 +230,4 @@ export class RulesEngine {
   public getRegisteredFactsNames() {
     return Object.keys(this.factMap);
   }
-
 }

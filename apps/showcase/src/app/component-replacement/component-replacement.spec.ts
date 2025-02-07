@@ -1,9 +1,22 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ComponentReplacementComponent } from './component-replacement.component';
-import { RouterModule } from '@angular/router';
-import { AsyncPipe } from '@angular/common';
-import { ComponentReplacementPresComponent } from '../../components/showcase/component-replacement/component-replacement-pres.component';
+import {
+  AsyncPipe,
+} from '@angular/common';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import {
+  RouterModule,
+} from '@angular/router';
+import {
+  provideMarkdown,
+} from 'ngx-markdown';
+import {
+  ComponentReplacementPresComponent,
+} from '../../components/showcase/component-replacement/component-replacement-pres.component';
+import {
+  ComponentReplacementComponent,
+} from './component-replacement.component';
 
 describe('ComponentReplacementComponent', () => {
   let component: ComponentReplacementComponent;
@@ -11,9 +24,12 @@ describe('ComponentReplacementComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ComponentReplacementComponent,
+      imports: [
+        ComponentReplacementComponent,
         RouterModule.forRoot([]),
-        AsyncPipe]
+        AsyncPipe
+      ],
+      providers: [provideMarkdown()]
     }).overrideComponent(ComponentReplacementComponent, {
       remove: { imports: [ComponentReplacementPresComponent] }
     }).compileComponents();

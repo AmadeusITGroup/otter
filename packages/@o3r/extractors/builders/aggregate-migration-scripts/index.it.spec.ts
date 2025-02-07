@@ -6,14 +6,23 @@
 const o3rEnvironment = globalThis.o3rEnvironment;
 
 import {
-  getDefaultExecSyncOptions, getLatestPackageVersion,
+  promises,
+  readFileSync,
+} from 'node:fs';
+import {
+  join,
+  relative,
+} from 'node:path';
+import {
+  getDefaultExecSyncOptions,
+  getLatestPackageVersion,
   packageManagerAdd,
   packageManagerExec,
-  publishToVerdaccio
+  publishToVerdaccio,
 } from '@o3r/test-helpers';
-import { promises, readFileSync } from 'node:fs';
-import { join, relative } from 'node:path';
-import { inc } from 'semver';
+import {
+  inc,
+} from 'semver';
 
 const migrationDataMocksPath = join(__dirname, '..', '..', 'testing', 'mocks', 'migration-scripts');
 
@@ -22,14 +31,14 @@ function writeFileAsJSON(path: string, content: object) {
 }
 
 async function expectFileToMatchMock(realPath: string, mockPath: string) {
-  expect(await promises.readFile(realPath, {encoding: 'utf8'})).toEqual(await promises.readFile(mockPath, {encoding: 'utf8'}));
+  expect(await promises.readFile(realPath, { encoding: 'utf8' })).toEqual(await promises.readFile(mockPath, { encoding: 'utf8' }));
 }
 
 async function publishLibrary(cwd: string) {
   const libraryPath = join(cwd, 'mylib');
-  const execAppOptions = {...getDefaultExecSyncOptions(), cwd: libraryPath};
+  const execAppOptions = { ...getDefaultExecSyncOptions(), cwd: libraryPath };
   const libMigrationDataPath = join(libraryPath, 'migration-scripts');
-  await promises.mkdir(libMigrationDataPath, {recursive: true});
+  await promises.mkdir(libMigrationDataPath, { recursive: true });
 
   let latestVersion;
   try {
@@ -64,8 +73,8 @@ describe('aggregate migration scripts', () => {
     const builderConfig = {
       builder: '@o3r/extractors:aggregate-migration-scripts',
       options: {
-        migrationDataPath: relative(workspacePath, `${migrationDataSrcPath}/migration-*.json`).replace(/[\\/]/g, '/'),
-        outputDirectory: relative(workspacePath, migrationDataDestPath).replace(/[\\/]/g, '/')
+        migrationDataPath: relative(workspacePath, `${migrationDataSrcPath}/migration-*.json`).replace(/[/\\]/g, '/'),
+        outputDirectory: relative(workspacePath, migrationDataDestPath).replace(/[/\\]/g, '/')
       }
     };
     angularJson.projects[appName].architect['aggregate-migration-scripts'] = builderConfig;
@@ -79,11 +88,11 @@ describe('aggregate migration scripts', () => {
     const execAppOptions = { ...getDefaultExecSyncOptions(), cwd: applicationPath };
     const execAppOptionsWorkspace = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
 
-    packageManagerExec({script: 'ng', args: ['add', `@o3r/extractors@${o3rExactVersion}`, '--skip-confirmation', '--project-name', appName]}, execAppOptionsWorkspace);
+    packageManagerExec({ script: 'ng', args: ['add', `@o3r/extractors@${o3rExactVersion}`, '--skip-confirmation', '--project-name', appName] }, execAppOptionsWorkspace);
     packageManagerAdd('@o3r/my-lib', execAppOptionsWorkspace);
     packageManagerAdd('@o3r/my-lib', execAppOptions);
 
-    await promises.mkdir(migrationDataSrcPath, {recursive: true});
+    await promises.mkdir(migrationDataSrcPath, { recursive: true });
     await promises.copyFile(join(migrationDataMocksPath, 'migration-1.0.json'), join(migrationDataSrcPath, 'migration-1.0.json'));
     await promises.copyFile(join(migrationDataMocksPath, 'migration-1.5.json'), join(migrationDataSrcPath, 'migration-1.5.json'));
     await promises.copyFile(join(migrationDataMocksPath, 'migration-2.0.json'), join(migrationDataSrcPath, 'migration-2.0.json'));

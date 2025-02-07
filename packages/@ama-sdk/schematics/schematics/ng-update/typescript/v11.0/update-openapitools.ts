@@ -1,6 +1,12 @@
-import type { Rule } from '@angular-devkit/schematics';
-import { findFilesInTree } from '@o3r/schematics';
-import { LOCAL_SPEC_FILENAME } from '../../../helpers/generators';
+import type {
+  Rule,
+} from '@angular-devkit/schematics';
+import {
+  findFilesInTree,
+} from '@o3r/schematics';
+import {
+  LOCAL_SPEC_FILENAME,
+} from '../../../helpers/generators';
 
 /**
  * Update Regen Script to base remove 'swagger' keyword

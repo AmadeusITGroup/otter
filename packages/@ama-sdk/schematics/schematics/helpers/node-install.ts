@@ -1,12 +1,18 @@
-import { NodePackageName } from '@angular-devkit/schematics/tasks/package-manager/options';
-import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
-import type { SupportedPackageManagers } from '@o3r/schematics';
+import {
+  NodePackageInstallTask,
+} from '@angular-devkit/schematics/tasks';
+import {
+  NodePackageName,
+} from '@angular-devkit/schematics/tasks/package-manager/options';
+import type {
+  SupportedPackageManagers,
+} from '@o3r/schematics';
 
 /**
  * Get the Package Manager
  * @param enforcedNpmManager package manager to enforce
  */
-export function getPackageManagerName(enforcedNpmManager?: SupportedPackageManagers | '' | undefined | null): SupportedPackageManagers {
+export function getPackageManagerName(enforcedNpmManager?: SupportedPackageManagers | '' | null): SupportedPackageManagers {
   return enforcedNpmManager || (process.env?.npm_execpath?.includes('yarn') ? 'yarn' : 'npm');
 }
 
@@ -33,7 +39,6 @@ export class DevInstall extends NodePackageInstallTask {
     this.packageManager = getPackageManagerName(options?.packageManager);
   }
 
-
   /** @inheritdoc */
   public toConfiguration() {
     return {
@@ -59,7 +64,6 @@ export class NpmInstall extends NodePackageInstallTask {
     super(options as any);
     this.packageManager = getPackageManagerName(options?.packageManager);
   }
-
 
   /** @inheritdoc */
   public toConfiguration() {

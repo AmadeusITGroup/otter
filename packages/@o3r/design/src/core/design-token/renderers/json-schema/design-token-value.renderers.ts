@@ -1,4 +1,7 @@
-import type { DesignTokenVariableStructure, TokenValueRenderer } from '../../parsers/design-token-parser.interface';
+import type {
+  DesignTokenVariableStructure,
+  TokenValueRenderer,
+} from '../../parsers/design-token-parser.interface';
 
 /** Options for {@link getJsonSchemaTokenValueRenderer} */
 export interface JsonSchemaTokenValueRendererOptions {
@@ -31,13 +34,13 @@ export const getJsonSchemaTokenValueRenderer = (options?: JsonSchemaTokenValueRe
       description: variable.description,
       default: variable.getCssRawValue(variableSet)
     };
-    if (!cssType) {
-      variableValue.$ref = referenceUrl();
-    } else {
+    if (cssType) {
       variableValue.oneOf = [
         { $ref: referenceUrl() },
         { $ref: referenceUrl(cssType) }
       ];
+    } else {
+      variableValue.$ref = referenceUrl();
     }
 
     return JSON.stringify(variableValue);

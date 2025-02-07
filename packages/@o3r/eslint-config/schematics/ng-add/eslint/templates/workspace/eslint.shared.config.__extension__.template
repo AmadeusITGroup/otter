@@ -1,0 +1,45 @@
+<% if (extension === 'mjs') { %>import o3rConfig from '@o3r/eslint-config';
+import o3rTemplate from '@o3r/eslint-config/template';
+<% } else { %>const o3rConfig = require('@o3r/eslint-config');
+const o3rTemplate = require('@o3r/eslint-config/template');
+<% } %>
+
+<%= extension === 'mjs' ? 'export default' : 'module.exports =' %> [
+  ...o3rConfig,
+  ...o3rTemplate,
+  {
+    name: '<%= packageName %>/report-unused-disable-directives',
+    linterOptions: {
+      reportUnusedDisableDirectives: 'error'
+    }
+  },
+  {
+    name: '<%= packageName %>/ignores',
+    ignores: []
+  },
+  {
+    name: '<%= packageName %>/settings',
+    settings: {
+      'import/resolver': {
+        node: true,
+        typescript: {
+          project: [
+<%= detectedTsConfigs.map((tsconfig) => `            '${tsconfig}'`).join(',\n') %>
+          ]
+        }
+      }
+    }
+  }<% if (extension === 'mjs') { %>,
+  {
+    name: '<%= packageName %>/eslint-config',
+    files: ['**/eslint*.config.mjs'],
+    rules: {
+      'no-underscore-dangle': [
+        'error',
+        {
+          allow: ['__filename', '__dirname']
+        }
+      ]
+    }
+  }<% } %>
+];

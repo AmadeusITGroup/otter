@@ -1,10 +1,26 @@
-import type { DesignTokenVariableSet, DesignTokenVariableStructure } from '../parsers/design-token-parser.interface';
-import { getCssTokenDefinitionRenderer } from './css/design-token-definition.renderers';
-import { getCssStyleContentUpdater } from './css/design-token-updater.renderers';
-import type { Logger } from '@o3r/core';
-import type { promises as fs } from 'node:fs';
-import type { DesignTokenListTransform, DesignTokenRendererOptions } from './design-token.renderer.interface';
-import { TOKEN_KEY_SEPARATOR } from '../parsers';
+import type {
+  promises as fs,
+} from 'node:fs';
+import type {
+  Logger,
+} from '@o3r/core';
+import {
+  TOKEN_KEY_SEPARATOR,
+} from '../parsers';
+import type {
+  DesignTokenVariableSet,
+  DesignTokenVariableStructure,
+} from '../parsers/design-token-parser.interface';
+import {
+  getCssTokenDefinitionRenderer,
+} from './css/design-token-definition.renderers';
+import {
+  getCssStyleContentUpdater,
+} from './css/design-token-updater.renderers';
+import type {
+  DesignTokenListTransform,
+  DesignTokenRendererOptions,
+} from './design-token.renderer.interface';
 
 /**
  * Retrieve the path of a target file based on root path if not absolute
@@ -12,14 +28,14 @@ import { TOKEN_KEY_SEPARATOR } from '../parsers';
  * @param root Root path used to resolve relative targetFile path
  */
 const getFilePath = (targetFile: string, root = '.') => {
-  const isAbsolutePath = targetFile.startsWith('/') || /^[a-zA-Z]:[/\\]/.test(targetFile);
+  const isAbsolutePath = targetFile.startsWith('/') || /^[A-Za-z]:[/\\]/.test(targetFile);
   if (isAbsolutePath) {
     return targetFile;
   } else {
     const joinStr = (root + targetFile);
     const sep = joinStr.includes('/') ? '/' : (joinStr.includes('\\') ? '\\' : '/');
     const stack = [];
-    for (const part of `${root.replace(/[\\/]$/, '')}${sep}${targetFile}`.split(sep)) {
+    for (const part of `${root.replace(/[/\\]$/, '')}${sep}${targetFile}`.split(sep)) {
       if (part === '..') {
         stack.pop();
       } else if (part !== '.') {
@@ -49,12 +65,12 @@ export const computeFileToUpdatePath = (root = '.', defaultFile = 'styles.scss')
  */
 export const getFileToUpdatePath = async (root?: string, defaultFile = 'styles.scss') => {
   try {
-    const { isAbsolute, resolve } = await import('node:path');
-    const { cwd } = await import('node:process');
-    root ||= cwd();
+    const path = await import('node:path');
+    const process = await import('node:process');
+    root ||= process.cwd();
     return (token: DesignTokenVariableStructure) => {
       return token.extensions.o3rTargetFile
-        ? isAbsolute(token.extensions.o3rTargetFile) ? token.extensions.o3rTargetFile : resolve(token.context?.basePath || root!, token.extensions.o3rTargetFile)
+        ? (path.isAbsolute(token.extensions.o3rTargetFile) ? token.extensions.o3rTargetFile : path.resolve(token.context?.basePath || root!, token.extensions.o3rTargetFile))
         : defaultFile;
     };
   } catch {
@@ -97,7 +113,6 @@ export const getTokenSorterByName: DesignTokenListTransform = (_variables, optio
   });
 };
 
-
 /**
  * Reorganize the Tokens to ensure that all the Tokens with references have they references definition before in the order
  * @param variableSet Complete set of the parsed Design Token
@@ -128,11 +143,11 @@ export const getTokenSorterByRef: DesignTokenListTransform = (variableSet) => {
       const tmpSortToken: DesignTokenVariableStructure[] = [];
       for (const token of sortToken) {
         const firstRef = tmpSortToken.findIndex((t) => t.getReferences(variableSet).includes(token.tokenReferenceName));
-        if (firstRef > -1) {
+        if (firstRef === -1) {
+          tmpSortToken.push(token);
+        } else {
           tmpSortToken.splice(firstRef, 0, token);
           hasChanged = true;
-        } else {
-          tmpSortToken.push(token);
         }
       }
       sortToken = tmpSortToken;
@@ -152,11 +167,10 @@ export const getTokenSorterByRef: DesignTokenListTransform = (variableSet) => {
  * @param applyRendererName Determine if the regexps are applied to the rendered Token key. If `false`, it will be applied to the Token key's name (last part of the Token name).
  */
 export const getTokenSorterFromRegExpList: (regExps: RegExp[], applyRendererName?: boolean) => DesignTokenListTransform = (regExps, applyRendererName = false) => (_variableSet, options) => {
-
   const applyRegExp = (token: DesignTokenVariableStructure, regExp: RegExp) => (applyRendererName
     ? token.getKey(options?.tokenVariableNameRenderer)
     : token.tokenReferenceName.split(TOKEN_KEY_SEPARATOR).at(-1)!
-    // eslint-disable-next-line unicorn/prefer-regexp-test -- to handle the global flag properly
+
   ).match(regExp);
 
   return (tokens) =>
@@ -175,14 +189,13 @@ export const getTokenSorterFromRegExpList: (regExps: RegExp[], applyRendererName
           return b.index - a.index;
         }
       })
-      .map(({token}) => token);
+      .map(({ token }) => token);
 };
 
 /**
  * Retrieve default file writer (based on Node `fs.promise.writeFile` interface)
  * @param existsFile Function determining if the file exists
  * @param logger Custom Logger
- * @returns
  */
 export const getDefaultFileWriter = (existsFile: (file: string) => boolean, logger?: Logger): typeof fs.writeFile => {
   return async (file, ...args) => {
@@ -190,9 +203,9 @@ export const getDefaultFileWriter = (existsFile: (file: string) => boolean, logg
     const fileString = file.toString();
     const { writeFile, mkdir } = await import('node:fs/promises');
     if (!existsFile(fileString)) {
-      const { dirname } = await import('node:path');
+      const path = await import('node:path');
       try {
-        await mkdir(dirname(fileString), { recursive: true });
+        await mkdir(path.dirname(fileString), { recursive: true });
       } catch {
         // ignore folder creation failure
       }
@@ -252,7 +265,7 @@ export const renderDesignTokens = async (variableSet: DesignTokenVariableSet, op
     Object.entries(updates).map(async ([file, vars]) => {
       const isFileExisting = existsFile(file);
       const styleContent = isFileExisting ? await readFile(file) : '';
-      if (!isFileExisting && !vars.length) {
+      if (!isFileExisting && vars.length === 0) {
         return;
       }
       const newStyleContent = styleContentUpdater(vars, file, styleContent);

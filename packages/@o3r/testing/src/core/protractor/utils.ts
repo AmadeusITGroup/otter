@@ -1,4 +1,6 @@
-import {promise as pPromise} from 'protractor';
+import {
+  promise as pPromise,
+} from 'protractor';
 
 /**
  * Converts a webdriver promise to ES6 promise so the rest of the framework handles ES6 promises only

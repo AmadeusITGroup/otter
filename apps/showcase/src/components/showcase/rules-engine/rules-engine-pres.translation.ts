@@ -1,4 +1,6 @@
-import type { Translation } from '@o3r/core';
+import type {
+  Translation,
+} from '@o3r/core';
 
 export interface RulesEnginePresTranslation extends Translation {
   /**
@@ -34,7 +36,7 @@ export interface RulesEnginePresTranslation extends Translation {
    */
   returnLabel: string;
 }
-export const translations: RulesEnginePresTranslation = {
+export const translations: Readonly<RulesEnginePresTranslation> = {
   welcome: 'o3r-rules-engine-pres.welcome',
   welcomeWithCityName: 'o3r-rules-engine-pres.welcomeWithCityName',
   question: 'o3r-rules-engine-pres.question',
@@ -43,4 +45,4 @@ export const translations: RulesEnginePresTranslation = {
   cityName: 'o3r-rules-engine-pres.cityName',
   returnLabel: 'o3r-rules-engine-pres.returnLabel',
   destinationPlaceholder: 'o3r-rules-engine-pres.destinationPlaceholder'
-};
+} as const;

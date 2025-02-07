@@ -1,8 +1,24 @@
-import { ChangeDetectionStrategy, Component, inject, ViewEncapsulation } from '@angular/core';
-import { formatDate } from '@angular/common';
-import { O3rComponent } from '@o3r/core';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { DatePickerInputPresComponent } from '../../utilities';
+import {
+  formatDate,
+} from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  ViewEncapsulation,
+} from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import {
+  O3rComponent,
+} from '@o3r/core';
+import {
+  DatePickerInputPresComponent,
+} from '../../utilities';
 
 const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
 

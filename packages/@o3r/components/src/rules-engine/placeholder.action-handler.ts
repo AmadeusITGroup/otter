@@ -1,6 +1,41 @@
-import { Injectable, Injector, OnDestroy, Optional } from '@angular/core';
-import { select, Store } from '@ngrx/store';
-import type { RulesEngineActionHandler } from '@o3r/core';
+import {
+  Injectable,
+  Injector,
+  Optional,
+} from '@angular/core';
+import {
+  takeUntilDestroyed,
+} from '@angular/core/rxjs-interop';
+import {
+  select,
+  Store,
+} from '@ngrx/store';
+import type {
+  RulesEngineActionHandler,
+} from '@o3r/core';
+import {
+  DynamicContentService,
+} from '@o3r/dynamic-content';
+import {
+  LocalizationService,
+} from '@o3r/localization';
+import {
+  LoggerService,
+} from '@o3r/logger';
+import {
+  combineLatest,
+  distinctUntilChanged,
+  firstValueFrom,
+  map,
+  of,
+  startWith,
+  Subject,
+  withLatestFrom,
+} from 'rxjs';
+import {
+  ActionUpdatePlaceholderBlock,
+  RULES_ENGINE_PLACEHOLDER_UPDATE_ACTION_TYPE,
+} from './placeholder.interfaces';
 import {
   deletePlaceholderTemplateEntity,
   PlaceholderRequestReply,
@@ -9,22 +44,14 @@ import {
   selectPlaceholderTemplateEntities,
   setPlaceholderRequestEntityFromUrl,
   setPlaceholderTemplateEntity,
-  updatePlaceholderRequestEntity
+  updatePlaceholderRequestEntity,
 } from '@o3r/components';
-import { DynamicContentService } from '@o3r/dynamic-content';
-import { LocalizationService } from '@o3r/localization';
-import { LoggerService } from '@o3r/logger';
-import { combineLatest, distinctUntilChanged, firstValueFrom, map, of, startWith, Subject, Subscription, withLatestFrom } from 'rxjs';
-import { ActionUpdatePlaceholderBlock, RULES_ENGINE_PLACEHOLDER_UPDATE_ACTION_TYPE } from './placeholder.interfaces';
 
 /**
  * Service to handle async PlaceholderTemplate actions
  */
 @Injectable()
-export class PlaceholderRulesEngineActionHandler implements OnDestroy, RulesEngineActionHandler<ActionUpdatePlaceholderBlock> {
-
-  protected subscription = new Subscription();
-
+export class PlaceholderRulesEngineActionHandler implements RulesEngineActionHandler<ActionUpdatePlaceholderBlock> {
   protected placeholdersActions$: Subject<{ placeholderId: string; templateUrl: string; priority: number }[]> = new Subject();
 
   /** @inheritdoc */
@@ -36,11 +63,13 @@ export class PlaceholderRulesEngineActionHandler implements OnDestroy, RulesEngi
     private readonly injector: Injector,
     @Optional() translateService?: LocalizationService
   ) {
-    const lang$ = translateService ? translateService.getTranslateService().onLangChange.pipe(
-      map(({ lang }) => lang),
-      startWith(translateService.getCurrentLanguage()),
-      distinctUntilChanged()
-    ) : of(null);
+    const lang$ = translateService
+      ? translateService.getTranslateService().onLangChange.pipe(
+        map(({ lang }) => lang),
+        startWith(translateService.getCurrentLanguage()),
+        distinctUntilChanged()
+      )
+      : of(null);
 
     const filteredActions$ = combineLatest([
       lang$,
@@ -96,12 +125,12 @@ export class PlaceholderRulesEngineActionHandler implements OnDestroy, RulesEngi
         });
         // Placeholder that are no longer filled by the current engine execution output will be cleared
         const placeholdersTemplatesToBeCleanedUp = Object.keys(storedPlaceholders)
-          .filter(placeholderId => !placeholdersTemplates[placeholderId]);
+          .filter((placeholderId) => !placeholdersTemplates[placeholderId]);
 
         const placeholdersTemplatesToBeSet = Object.keys(placeholdersTemplates).reduce((changedPlaceholderTemplates, placeholderTemplateId) => {
           // Caching if the placeholder template already exists with the same urls
-          if (!storedPlaceholders[placeholderTemplateId] ||
-            !(JSON.stringify(storedPlaceholders[placeholderTemplateId].urlsWithPriority) === JSON.stringify(placeholdersTemplates[placeholderTemplateId]))) {
+          if (!storedPlaceholders[placeholderTemplateId]
+            || !(JSON.stringify(storedPlaceholders[placeholderTemplateId].urlsWithPriority) === JSON.stringify(placeholdersTemplates[placeholderTemplateId]))) {
             changedPlaceholderTemplates.push({
               id: placeholderTemplateId,
               urlsWithPriority: placeholdersTemplates[placeholderTemplateId]
@@ -118,29 +147,29 @@ export class PlaceholderRulesEngineActionHandler implements OnDestroy, RulesEngi
         };
       })
     );
-    this.subscription.add(filteredActions$.subscribe((placeholdersUpdates) => {
-      placeholdersUpdates.placeholdersTemplatesToBeCleanedUp.forEach(placeholderId =>
+    filteredActions$.pipe(takeUntilDestroyed()).subscribe((placeholdersUpdates) => {
+      placeholdersUpdates.placeholdersTemplatesToBeCleanedUp.forEach((placeholderId) =>
         store.dispatch(deletePlaceholderTemplateEntity({
           id: placeholderId
         }))
       );
-      placeholdersUpdates.placeholdersTemplatesToBeSet.forEach(placeholdersTemplateToBeSet => {
+      placeholdersUpdates.placeholdersTemplatesToBeSet.forEach((placeholdersTemplateToBeSet) => {
         store.dispatch(setPlaceholderTemplateEntity({ entity: placeholdersTemplateToBeSet }));
       });
-      placeholdersUpdates.placeholderRequestsToDisable.forEach(placeholderRequestToDisable => {
+      placeholdersUpdates.placeholderRequestsToDisable.forEach((placeholderRequestToDisable) => {
         store.dispatch(updatePlaceholderRequestEntity({ entity: { id: placeholderRequestToDisable, used: false } }));
       });
-      placeholdersUpdates.placeholderRequestsToEnable.forEach(placeholderRequestToEnable => {
+      placeholdersUpdates.placeholderRequestsToEnable.forEach((placeholderRequestToEnable) => {
         store.dispatch(updatePlaceholderRequestEntity({ entity: { id: placeholderRequestToEnable, used: true } }));
       });
-      placeholdersUpdates.placeholderNewRequests.forEach(placeholderNewRequest => {
+      placeholdersUpdates.placeholderNewRequests.forEach((placeholderNewRequest) => {
         store.dispatch(setPlaceholderRequestEntityFromUrl({
           resolvedUrl: placeholderNewRequest.resolvedUrl,
           id: placeholderNewRequest.rawUrl,
           call: this.retrieveTemplate(placeholderNewRequest.resolvedUrl)
         }));
       });
-    }));
+    });
   }
 
   /**
@@ -174,10 +203,5 @@ export class PlaceholderRulesEngineActionHandler implements OnDestroy, RulesEngi
     }));
 
     this.placeholdersActions$.next(templates);
-  }
-
-  /** @inheritdoc */
-  public ngOnDestroy(): void {
-    this.subscription.unsubscribe();
   }
 }

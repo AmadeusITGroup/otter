@@ -25,10 +25,11 @@ jest.mock('./package-managers-extractors/yarn2-file-extractor.helper', () => ({
   getFilesFromRegistry: mockYarnGetFilesFromRegistry
 }));
 
+// eslint-disable-next-line import/first -- needed for `jest.mock`
 import {
   getFilesFromRegistry,
   getLatestMigrationMetadataFile,
-  getVersionRangeFromLatestVersion
+  getVersionRangeFromLatestVersion,
 } from './metadata-files.helper';
 
 const getFakePath = (fileName: string) => `path/${fileName}`;
@@ -84,7 +85,7 @@ describe('metadata files helpers', () => {
     it('should return the good granularity version', async () => {
       const major = 1;
       const minor = 3;
-      mockCoerce.mockReturnValue({ major, minor});
+      mockCoerce.mockReturnValue({ major, minor });
       await expect(getVersionRangeFromLatestVersion(`${major}.${minor}.14`, 'major')).resolves.toBe(`<${major}.0.0-a`);
       await expect(getVersionRangeFromLatestVersion(`${major}.${minor}.14`, 'minor')).resolves.toBe(`<${major}.${minor}.0-a`);
     });

@@ -1,21 +1,44 @@
-import { chain, noop, Rule } from '@angular-devkit/schematics';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
+import {
+  chain,
+  noop,
+  Rule,
+} from '@angular-devkit/schematics';
 import {
   addVsCodeRecommendations,
   applyEsLintFix,
   getO3rPeerDeps,
   getWorkspaceConfig,
-  setupDependencies
+  setupDependencies,
 } from '@o3r/schematics';
-import type { DependencyToAdd } from '@o3r/schematics';
-import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
-import * as fs from 'node:fs';
-import * as path from 'node:path';
-import { addMonorepoManager, addWorkspacesToProject, filterPackageJsonScripts } from './helpers/npm-workspace';
-import { generateRenovateConfig } from './helpers/renovate';
-import type { NgAddSchematicsSchema } from './schema';
-import { shouldOtterLinterBeInstalled } from './helpers/linter';
-import { updateGitIgnore } from './helpers/gitignore-update';
-import type { PackageJson } from 'type-fest';
+import type {
+  DependencyToAdd,
+} from '@o3r/schematics';
+import {
+  NodeDependencyType,
+} from '@schematics/angular/utility/dependencies';
+import type {
+  PackageJson,
+} from 'type-fest';
+import {
+  isUsingFlatConfig,
+  shouldOtterLinterBeInstalled,
+} from '../rule-factories/linter';
+import {
+  updateGitIgnore,
+} from './helpers/gitignore-update';
+import {
+  addMonorepoManager,
+  addWorkspacesToProject,
+  filterPackageJsonScripts,
+} from './helpers/npm-workspace';
+import {
+  generateRenovateConfig,
+} from './helpers/renovate';
+import type {
+  NgAddSchematicsSchema,
+} from './schema';
 
 /**
  * Enable all the otter features requested by the user
@@ -41,9 +64,9 @@ export const prepareProject = (options: NgAddSchematicsSchema): Rule => {
     if (!ownPackageJsonContent) {
       context.logger.error('Could not find @o3r/workspace package. Are you sure it is installed?');
     }
-    const installOtterLinter = await shouldOtterLinterBeInstalled(context);
+    const installOtterLinter = await shouldOtterLinterBeInstalled(context, tree);
     const internalPackagesToInstallWithNgAdd = Array.from(new Set([
-      ...(installOtterLinter ? ['@o3r/eslint-config-otter'] : []),
+      ...(installOtterLinter ? [`@o3r/eslint-config${isUsingFlatConfig(tree) ? '' : '-otter'}`] : []),
       ...depsInfo.o3rPeerDeps
     ]));
 

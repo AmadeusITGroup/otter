@@ -1,7 +1,15 @@
-import type { Rule } from '@angular-devkit/schematics';
-import { findFilesInTree } from '@o3r/schematics';
-import type { PackageJson } from 'type-fest';
-import { LOCAL_SPEC_FILENAME } from '../../../helpers/generators';
+import type {
+  Rule,
+} from '@angular-devkit/schematics';
+import {
+  findFilesInTree,
+} from '@o3r/schematics';
+import type {
+  PackageJson,
+} from 'type-fest';
+import {
+  LOCAL_SPEC_FILENAME,
+} from '../../../helpers/generators';
 
 const SCRIPT_REGEN_LABEL = 'spec:regen';
 

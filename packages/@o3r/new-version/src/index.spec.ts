@@ -1,11 +1,14 @@
-import {BaseLogger, NewVersion, NewVersionOptions} from './index';
+import {
+  BaseLogger,
+  NewVersion,
+  NewVersionOptions,
+} from './index';
 
 const mockLogger: BaseLogger = {
-  debug: console.debug,
-  // eslint-disable-next-line no-console
-  error: console.error,
-  info: console.info,
-  warning: console.warn
+  debug: jest.fn(),
+  error: jest.fn(),
+  info: jest.fn(),
+  warning: jest.fn()
 };
 
 describe('New Version', () => {
@@ -85,6 +88,5 @@ describe('New Version', () => {
         expect(plugin.computeNewVersion(['2.6.5', '2.7.0', '2.7.1', '2.7.0-develop.5'], '3.3')).toBe('3.3.0-develop.0-pr.123456');
       });
     });
-
   });
 });

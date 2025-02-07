@@ -1,8 +1,25 @@
-import { strings } from '@angular-devkit/core';
-import { apply, MergeStrategy, mergeWith, move, renameTemplateFiles, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
+import {
+  readFileSync,
+} from 'node:fs';
 import * as path from 'node:path';
-import { readFileSync } from 'node:fs';
-import { CreateModuleSchematicsSchema } from './schema';
+import {
+  strings,
+} from '@angular-devkit/core';
+import {
+  apply,
+  MergeStrategy,
+  mergeWith,
+  move,
+  renameTemplateFiles,
+  Rule,
+  SchematicContext,
+  template,
+  Tree,
+  url,
+} from '@angular-devkit/schematics';
+import {
+  CreateModuleSchematicsSchema,
+} from './schema';
 
 /**
  * Generate a new Amaterasu module

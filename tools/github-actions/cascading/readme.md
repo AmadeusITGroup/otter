@@ -28,7 +28,10 @@ If the plugin finds a branch candidate for cascading, it will try a git merge an
   * if conflictsIgnoredPackages input is not empty, there are only conflicts in package.json and yarn.lock files and the conflict is only related to those packages, a pull request will be automatically created resolving the conflict by discarding those changes
   * else a pull request will be automatically created (409 error will be thrown if the pull request already exists). If assignCommitter is true, the first person with a "Merge" commit in the list will be assigned as required approval
 
-**Warning**: The action requires to be run in a job with `contents: write` permission or the provided token needs to have the permission to create a pull request, write and trigger builds on release branches.
+> [!WARNING]
+> The action requires to be run in a job with `contents: write` permission
+> or the provided token needs to have the permission to create a pull request,
+> write and trigger builds on release branches.
 
 The cascading task is logging a lot of information, don't hesitate to have a look to have more precisions about what exactly is executed.
 

@@ -1,14 +1,31 @@
-import { inject, Injectable, signal, type Signal } from '@angular/core';
-import { takeUntilDestroyed, toObservable, toSignal } from '@angular/core/rxjs-interop';
+import {
+  inject,
+  Injectable,
+  signal,
+  type Signal,
+} from '@angular/core';
+import {
+  takeUntilDestroyed,
+  toObservable,
+  toSignal,
+} from '@angular/core/rxjs-interop';
 import type {
   GetTranslationValuesContentMessage,
   IsTranslationDeactivationEnabledContentMessage,
   LanguagesContentMessage,
   LocalizationsContentMessage,
-  SwitchLanguageContentMessage
+  SwitchLanguageContentMessage,
 } from '@o3r/localization';
-import { distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
-import { ChromeExtensionConnectionService, filterAndMapMessage } from './connection.service';
+import {
+  distinctUntilChanged,
+  filter,
+  map,
+  switchMap,
+} from 'rxjs/operators';
+import {
+  ChromeExtensionConnectionService,
+  filterAndMapMessage,
+} from './connection.service';
 
 @Injectable({ providedIn: 'root' })
 export class LocalizationService {
@@ -23,12 +40,14 @@ export class LocalizationService {
     ),
     { initialValue: [] }
   );
+
   public readonly languages$ = this.connectionService.message$.pipe(
     filterAndMapMessage(
       (message): message is LanguagesContentMessage => message.dataType === 'languages',
       (message) => message.languages
     )
   );
+
   public readonly languages = toSignal(this.languages$, { initialValue: [] });
   public readonly isTranslationDeactivationEnabled = toSignal(
     this.connectionService.message$.pipe(
@@ -39,6 +58,7 @@ export class LocalizationService {
     ),
     { initialValue: false }
   );
+
   public readonly currentLanguage = this.lang.asReadonly();
 
   public readonly translationsForCurrentLanguage: Signal<Record<string, string>> = toSignal(
@@ -80,11 +100,11 @@ export class LocalizationService {
       }
     });
     this.connectionService.message$.pipe(
+      takeUntilDestroyed(),
       filterAndMapMessage(
         (message): message is SwitchLanguageContentMessage => message.dataType === 'switchLanguage',
         (message) => message.language
-      ),
-      takeUntilDestroyed()
+      )
     ).subscribe((lang) => {
       this.lang.set(lang);
     });

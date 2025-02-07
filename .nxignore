@@ -1,6 +1,7 @@
 **/src/package.json
+**/*.ejs
+**/*.template
 packages/@*/*/{builders,schematics}/**/templates/**/*.ts
 packages/@*/*/{builders,schematics}/**/mocks/**/*.ts
-packages/@*/*/{builders,schematics}/**/index.js
 packages/@*/*/build/**
 !**/schematics/**/target

@@ -1,13 +1,16 @@
 import * as fs from 'node:fs';
-import type { PackageJson } from 'type-fest';
+import type {
+  PackageJson,
+} from 'type-fest';
 
 /**
  * Retrieve the peer dependencies with the given pattern from the given package json file
  * @param packageJsonPath
  * @param pattern
+ * @param readFileSync
  */
-export function getPeerDepWithPattern(packageJsonPath: string, pattern: RegExp | string[] = /^@(otter|o3r|ama-sdk)/) {
-  const packageJsonContent: PackageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' }));
+export function getPeerDepWithPattern(packageJsonPath: string, pattern: RegExp | string[] = /^@(otter|o3r|ama-sdk)/, readFileSync = fs.readFileSync) {
+  const packageJsonContent: PackageJson & { generatorDependencies?: Record<string, string> } = JSON.parse(readFileSync(packageJsonPath, { encoding: 'utf8' }));
   const packageName = packageJsonContent.name;
   const packageVersion = packageJsonContent.version;
   const optionalPackages = Object.entries(packageJsonContent.peerDependenciesMeta || {})
@@ -17,6 +20,7 @@ export function getPeerDepWithPattern(packageJsonPath: string, pattern: RegExp |
   const matchingPackagesVersions = Object.fromEntries(
     Object.entries(packageJsonContent.peerDependencies || {})
       .filter(([peerDep]) => (Array.isArray(pattern) ? pattern.includes(peerDep) : pattern.test(peerDep)) && !optionalPackages.includes(peerDep))
+      .map(([peerDep, range]) => ([peerDep, packageJsonContent.generatorDependencies?.[peerDep] || range]))
   );
   const matchingPackages = Object.keys(matchingPackagesVersions);
 
@@ -42,11 +46,10 @@ export function getO3rPeerDeps(packageJsonPath: string, filterBasics = true, pac
   return {
     packageName: depsInfo.packageName,
     packageVersion: versionRangePrefix + depsInfo.packageVersion,
-    o3rPeerDeps: filterBasics ?
-      depsInfo.matchingPackages.filter((peerDep) => !basicsPackageName.has(peerDep))
+    o3rPeerDeps: filterBasics
+      ? depsInfo.matchingPackages.filter((peerDep) => !basicsPackageName.has(peerDep))
       : depsInfo.matchingPackages
   };
-
 }
 
 /**
@@ -63,8 +66,7 @@ export function getO3rGeneratorDeps(packageJsonPath: string, packagePattern = /^
     .map(([depName]) => depName);
 
   const o3rGeneratorDeps = Object.keys(packageJsonContent.peerDependencies || [])
-    .filter(peerDep => packagePattern.test(peerDep) && !optionalPackages.includes(peerDep));
+    .filter((peerDep) => packagePattern.test(peerDep) && !optionalPackages.includes(peerDep));
 
   return { packageName, packageVersion, o3rGeneratorDeps };
-
 }

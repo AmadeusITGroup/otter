@@ -1,5 +1,9 @@
-import { Tree } from '@angular-devkit/schematics';
-import { ignorePatterns } from './gitignore';
+import {
+  Tree,
+} from '@angular-devkit/schematics';
+import {
+  ignorePatterns,
+} from './gitignore';
 
 const gitIgnoreFileName = '/.gitignore';
 

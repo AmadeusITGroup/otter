@@ -1,8 +1,27 @@
-import { chain, externalSchematic, noop, Rule } from '@angular-devkit/schematics';
-import type { NgAddModulesSchematicsSchema } from './schema';
-import { askConfirmation, askQuestion } from '@angular/cli/src/utilities/prompt';
-import { createSchematicWithMetricsIfInstalled, getAvailableModulesWithLatestPackage, getWorkspaceConfig, OTTER_MODULE_KEYWORD, OTTER_MODULE_SUPPORTED_SCOPES } from '@o3r/schematics';
-import { getExternalPreset, presets } from '../shared/presets';
+import {
+  askConfirmation,
+  askQuestion,
+} from '@angular/cli/src/utilities/prompt';
+import {
+  chain,
+  externalSchematic,
+  noop,
+  Rule,
+} from '@angular-devkit/schematics';
+import {
+  createSchematicWithMetricsIfInstalled,
+  getAvailableModulesWithLatestPackage,
+  getWorkspaceConfig,
+  OTTER_MODULE_KEYWORD,
+  OTTER_MODULE_SUPPORTED_SCOPES,
+} from '@o3r/schematics';
+import {
+  getExternalPreset,
+  presets,
+} from '../shared/presets';
+import type {
+  NgAddModulesSchematicsSchema,
+} from './schema';
 
 /**
  * Select the available modules to add to the project
@@ -19,7 +38,7 @@ function ngAddModulesFn(options: NgAddModulesSchematicsSchema): Rule {
     const presetRunner = preset ? await presets[preset]({ forwardOptions }) : undefined;
     const externalPresetRunner = externalPresets ? await getExternalPreset(externalPresets, tree, context)?.({ projectName: forwardOptions.projectName, forwardOptions }) : undefined;
     const mods = [...new Set([...(presetRunner?.modules || []), ...(externalPresetRunner?.modules || [])])];
-    if (mods.length) {
+    if (mods.length > 0) {
       context.logger.info(`The following modules will be installed: ${mods.join(', ')}`);
       if (context.interactive && !await askConfirmation('Would you like to process to the setup of these modules?', true)) {
         return;
@@ -59,7 +78,6 @@ function ngAddModulesFn(options: NgAddModulesSchematicsSchema): Rule {
       context.logger.error('List of Otter modules unavailable');
     }
     return () => tree;
-
   };
 }
 

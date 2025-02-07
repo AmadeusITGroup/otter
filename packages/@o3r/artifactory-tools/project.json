@@ -27,20 +27,13 @@
       }
     },
     "compile": {
-      "executor": "@nx/js:tsc",
+      "executor": "nx:run-script",
       "options": {
-        "main": "packages/@o3r/artifactory-tools/src/public_api.ts",
-        "tsConfig": "packages/@o3r/artifactory-tools/tsconfig.build.json",
-        "outputPath": "packages/@o3r/artifactory-tools/dist",
-        "assets": ["packages/@o3r/artifactory-tools/configs/*.json"],
-        "clean": false
+        "script": "build:source"
       }
     },
     "lint": {
-      "options": {
-        "eslintConfig": "packages/@o3r/artifactory-tools/.eslintrc.js",
-        "lintFilePatterns": ["packages/@o3r/artifactory-tools/src/**/*.ts"]
-      }
+      "executor": "nx:run-commands"
     },
     "test": {
       "executor": "@nx/jest:jest",

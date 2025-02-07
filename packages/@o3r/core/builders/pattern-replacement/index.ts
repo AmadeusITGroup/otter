@@ -1,9 +1,15 @@
-import {BuilderOutput, createBuilder} from '@angular-devkit/architect';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-
-import { createBuilderWithMetricsIfInstalled } from '../utils';
-import {PatternReplacementBuilderSchema} from './schema';
+import {
+  BuilderOutput,
+  createBuilder,
+} from '@angular-devkit/architect';
+import {
+  createBuilderWithMetricsIfInstalled,
+} from '../utils';
+import {
+  PatternReplacementBuilderSchema,
+} from './schema';
 
 export default createBuilder<PatternReplacementBuilderSchema>(createBuilderWithMetricsIfInstalled(async (options, context): Promise<BuilderOutput> => {
   context.reportRunning();
@@ -18,10 +24,9 @@ export default createBuilder<PatternReplacementBuilderSchema>(createBuilderWithM
       error: `${unexistingFile} not found`
     };
   }
-  for (let i = 0; i < fileNames.length; i++) {
-    const filePath = fileNames[i];
+  for (const [i, filePath] of fileNames.entries()) {
     context.reportProgress(i + 1, STEP_NUMBER, `Modifying ${filePath}`);
-    const fileContent = await fs.promises.readFile(filePath, {encoding: 'utf8'});
+    const fileContent = await fs.promises.readFile(filePath, { encoding: 'utf8' });
     const newContent = fileContent.replace(new RegExp(options.searchValue, 'g'), options.replaceValue);
 
     await fs.promises.writeFile(filePath, newContent);

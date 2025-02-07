@@ -1,19 +1,54 @@
-import { ApiFetchClient } from '@ama-sdk/client-fetch';
-import {PetApi} from '@o3r-training/showcase-sdk';
-import { registerLocaleData } from '@angular/common';
+import {
+  ApiFetchClient,
+} from '@ama-sdk/client-fetch';
+import {
+  registerLocaleData,
+} from '@angular/common';
 import localeEN from '@angular/common/locales/en';
 import localeFR from '@angular/common/locales/fr';
-import { isDevMode, NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgbOffcanvasModule } from '@ng-bootstrap/ng-bootstrap';
-import { EffectsModule } from '@ngrx/effects';
-import { RuntimeChecks, StoreModule } from '@ngrx/store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { TranslateCompiler, TranslateModule } from '@ngx-translate/core';
-import { ApplicationDevtoolsModule, OTTER_APPLICATION_DEVTOOLS_OPTIONS, prefersReducedMotion } from '@o3r/application';
-import { ConfigurationDevtoolsModule, OTTER_CONFIGURATION_DEVTOOLS_OPTIONS } from '@o3r/configuration';
-import { C11nModule, ComponentsDevtoolsModule, OTTER_COMPONENTS_DEVTOOLS_OPTIONS, registerCustomComponent } from '@o3r/components';
+import {
+  isDevMode,
+  NgModule,
+  SecurityContext,
+} from '@angular/core';
+import {
+  BrowserModule,
+} from '@angular/platform-browser';
+import {
+  BrowserAnimationsModule,
+} from '@angular/platform-browser/animations';
+import {
+  NgbOffcanvasModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  EffectsModule,
+} from '@ngrx/effects';
+import {
+  RuntimeChecks,
+  StoreModule,
+} from '@ngrx/store';
+import {
+  StoreDevtoolsModule,
+} from '@ngrx/store-devtools';
+import {
+  TranslateCompiler,
+  TranslateModule,
+} from '@ngx-translate/core';
+import {
+  ApplicationDevtoolsModule,
+  OTTER_APPLICATION_DEVTOOLS_OPTIONS,
+  prefersReducedMotion,
+} from '@o3r/application';
+import {
+  C11nModule,
+  ComponentsDevtoolsModule,
+  OTTER_COMPONENTS_DEVTOOLS_OPTIONS,
+  registerCustomComponent,
+} from '@o3r/components';
+import {
+  ConfigurationDevtoolsModule,
+  OTTER_CONFIGURATION_DEVTOOLS_OPTIONS,
+} from '@o3r/configuration';
 import {
   LocalizationConfiguration,
   LocalizationDevtoolsModule,
@@ -21,26 +56,55 @@ import {
   MESSAGE_FORMAT_CONFIG,
   OTTER_LOCALIZATION_DEVTOOLS_OPTIONS,
   translateLoaderProvider,
-  TranslateMessageFormatLazyCompiler
+  TranslateMessageFormatLazyCompiler,
 } from '@o3r/localization';
-import { ConsoleLogger, Logger, LOGGER_CLIENT_TOKEN, LoggerService } from '@o3r/logger';
-import { OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS, RulesEngineRunnerModule } from '@o3r/rules-engine';
-import { OTTER_STYLING_DEVTOOLS_OPTIONS, StylingDevtoolsModule } from '@o3r/styling';
-import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
-import { ScrollBackTopPresComponent, SidenavPresComponent } from '../components/index';
-import { DatePickerHebrewInputPresComponent } from '../components/utilities/date-picker-input-hebrew';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import {
+  ConsoleLogger,
+  Logger,
+  LOGGER_CLIENT_TOKEN,
+  LoggerService,
+} from '@o3r/logger';
+import {
+  OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS,
+  RulesEngineRunnerModule,
+} from '@o3r/rules-engine';
+import {
+  OTTER_STYLING_DEVTOOLS_OPTIONS,
+  StylingDevtoolsModule,
+} from '@o3r/styling';
+import {
+  PetApi,
+} from '@o3r-training/showcase-sdk';
+import {
+  CLIPBOARD_OPTIONS,
+  provideMarkdown,
+} from 'ngx-markdown';
+import {
+  ClipboardButtonPresComponent,
+  ScrollBackTopPresComponent,
+  SidenavPresComponent,
+} from '../components/index';
+import {
+  DatePickerHebrewInputPresComponent,
+} from '../components/utilities/date-picker-input-hebrew';
+import {
+  markedAlert,
+} from '../helpers/marked-alert-extension';
+import {
+  AppRoutingModule,
+} from './app-routing.module';
+import {
+  AppComponent,
+} from './app.component';
 
-
-const runtimeChecks: Partial<RuntimeChecks> = {
+const runtimeChecks = {
   strictActionImmutability: false,
   strictActionSerializability: false,
   strictActionTypeUniqueness: !isDevMode(),
   strictActionWithinNgZone: !isDevMode(),
   strictStateImmutability: !isDevMode(),
   strictStateSerializability: false
-};
+} as const satisfies Partial<RuntimeChecks>;
 
 registerLocaleData(localeEN, 'en-GB');
 registerLocaleData(localeFR, 'fr-FR');
@@ -64,7 +128,7 @@ export function localizationConfigurationFactory(): Partial<LocalizationConfigur
   return {
     supportedLocales: ['en-GB', 'fr-FR'],
     fallbackLocalesMap: {
-      // eslint-disable-next-line @typescript-eslint/naming-convention
+
       'en-US': 'en-GB'
     },
     fallbackLanguage: 'en-GB',
@@ -87,7 +151,7 @@ export function registerCustomComponents(): Map<string, any> {
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule.withConfig({disableAnimations: prefersReducedMotion()}),
+    BrowserAnimationsModule.withConfig({ disableAnimations: prefersReducedMotion() }),
     EffectsModule.forRoot([]),
     StoreModule.forRoot({}, { runtimeChecks }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
@@ -106,34 +170,32 @@ export function registerCustomComponents(): Map<string, any> {
     ScrollBackTopPresComponent,
     ApplicationDevtoolsModule,
     ComponentsDevtoolsModule,
-    C11nModule.forRoot({registerCompFunc: registerCustomComponents}),
+    C11nModule.forRoot({ registerCompFunc: registerCustomComponents }),
     StylingDevtoolsModule,
     LocalizationDevtoolsModule,
     ConfigurationDevtoolsModule
   ],
   providers: [
-    {provide: MESSAGE_FORMAT_CONFIG, useValue: {}},
-    {
-      provide: HIGHLIGHT_OPTIONS,
-      useValue: {
-        coreLibraryLoader: () => import('highlight.js/lib/core'),
-        languages: {
-          bash: () => import('highlight.js/lib/languages/bash'),
-          css: () => import('highlight.js/lib/languages/css'),
-          json: () => import('highlight.js/lib/languages/json'),
-          typescript: () => import('highlight.js/lib/languages/typescript'),
-          xml: () => import('highlight.js/lib/languages/xml')
+    { provide: MESSAGE_FORMAT_CONFIG, useValue: {} },
+    { provide: LOGGER_CLIENT_TOKEN, useValue: new ConsoleLogger() },
+    { provide: PetApi, useFactory: petApiFactory, deps: [LoggerService] },
+    { provide: OTTER_CONFIGURATION_DEVTOOLS_OPTIONS, useValue: { isActivatedOnBootstrap: true } },
+    { provide: OTTER_LOCALIZATION_DEVTOOLS_OPTIONS, useValue: { isActivatedOnBootstrap: true } },
+    { provide: OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS, useValue: { isActivatedOnBootstrap: true } },
+    { provide: OTTER_COMPONENTS_DEVTOOLS_OPTIONS, useValue: { isActivatedOnBootstrap: true } },
+    { provide: OTTER_APPLICATION_DEVTOOLS_OPTIONS, useValue: { isActivatedOnBootstrap: true, appName: 'showcase' } },
+    { provide: OTTER_STYLING_DEVTOOLS_OPTIONS, useValue: { isActivatedOnBootstrap: true } },
+    provideMarkdown({
+      clipboardOptions: {
+        provide: CLIPBOARD_OPTIONS,
+        useValue: {
+          buttonComponent: ClipboardButtonPresComponent
         }
-      }
-    },
-    {provide: LOGGER_CLIENT_TOKEN, useValue: new ConsoleLogger()},
-    {provide: PetApi, useFactory: petApiFactory, deps: [LoggerService]},
-    {provide: OTTER_CONFIGURATION_DEVTOOLS_OPTIONS, useValue: {isActivatedOnBootstrap: true}},
-    {provide: OTTER_LOCALIZATION_DEVTOOLS_OPTIONS, useValue: {isActivatedOnBootstrap: true}},
-    {provide: OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS, useValue: {isActivatedOnBootstrap: true}},
-    {provide: OTTER_COMPONENTS_DEVTOOLS_OPTIONS, useValue: {isActivatedOnBootstrap: true}},
-    {provide: OTTER_APPLICATION_DEVTOOLS_OPTIONS, useValue: {isActivatedOnBootstrap: true, appName: 'showcase'}},
-    {provide: OTTER_STYLING_DEVTOOLS_OPTIONS, useValue: {isActivatedOnBootstrap: true}}
+      },
+      markedExtensions: [markedAlert()],
+      /* Templates are only internal, no need to sanitize */
+      sanitize: SecurityContext.NONE
+    })
   ],
   bootstrap: [AppComponent]
 })

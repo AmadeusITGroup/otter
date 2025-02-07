@@ -1,9 +1,14 @@
-import { getLibraryCmsMetadata } from '@o3r/extractors';
-import { O3rCliError } from '@o3r/schematics';
-import type { CssMetadata, CssVariable, CssVariableType } from '@o3r/styling';
 import * as fs from 'node:fs';
-import { pathToFileURL } from 'node:url';
 import * as path from 'node:path';
+import {
+  pathToFileURL,
+} from 'node:url';
+import {
+  getLibraryCmsMetadata,
+} from '@o3r/extractors';
+import {
+  O3rCliError,
+} from '@o3r/schematics';
 import {
   compileString,
   SassBoolean,
@@ -13,9 +18,16 @@ import {
   SassNumber,
   SassString,
   StringOptions,
-  Value
+  Value,
 } from 'sass';
-import type { StyleExtractorBuilderSchema } from '../schema';
+import type {
+  StyleExtractorBuilderSchema,
+} from '../schema';
+import type {
+  CssMetadata,
+  CssVariable,
+  CssVariableType,
+} from '@o3r/styling';
 
 /**
  * SassCalculation interface
@@ -31,9 +43,7 @@ interface SassCalculation extends Value {
 export class CssVariableExtractor {
   private readonly cache: Record<string, URL> = {};
 
-  constructor(public defaultSassOptions?: StringOptions<'sync'>, private readonly builderOptions?: Pick<StyleExtractorBuilderSchema, 'ignoreInvalidValue'>) {
-
-  }
+  constructor(public defaultSassOptions?: StringOptions<'sync'>, private readonly builderOptions?: Pick<StyleExtractorBuilderSchema, 'ignoreInvalidValue'>) {}
 
   /**
    * Parse the CSS variable as reported
@@ -42,27 +52,29 @@ export class CssVariableExtractor {
    */
   private parseCssVariable(name: string, value = ''): CssVariable {
     const defaultValue = value.trim();
-    const res = defaultValue.match(/^var\( *([^,)]*) *(?:, *([^,()]*(\(.*\))?))*\)$/);
+    const res = defaultValue.match(/^var\(\s*([^\s),]+)\s*(?:,\s*([^(),]+(?:\([^)]*\))?))*\s*\)$/);
+
     const ret: CssVariable = { name, defaultValue };
-    if (!res) {
+    if (res) {
+      ret.references = [
+        this.parseCssVariable(res[1].replace(/^--/, ''), res[2])
+      ];
+    } else {
       let findRef = defaultValue;
       let ref: RegExpExecArray | null;
       const references: Record<string, CssVariable> = {};
       do {
-        ref = /var\( *([^,)]*) *(?:, *([^,()]*(\(.*\))?))*\)/.exec(findRef);
+        ref = /var\(\s*([^\s),]+)\s*(?:,\s*([^(),]+(\([^)]*\))?))*\s*\)/.exec(findRef);
+
         if (ref) {
           const refName = ref[1].replace(/^--/, '');
           references[refName] = this.parseCssVariable(refName, ref[2]);
           findRef = findRef.replace(ref[0], '');
         }
       } while (ref);
-      if (Object.keys(references).length) {
+      if (Object.keys(references).length > 0) {
         ret.references = Object.values(references);
       }
-    } else {
-      ret.references = [
-        this.parseCssVariable(res[1].replace(/^--/, ''), res[2])
-      ];
     }
     return ret;
   }
@@ -144,22 +156,18 @@ export class CssVariableExtractor {
           const packageJsonPath = require.resolve(`${moduleName}/package.json`);
           const packagePath = path.dirname(packageJsonPath);
           const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' }));
-          let computedPathUrl;
-          if (subEntry !== '.' && packageJson.exports?.[subEntry]) {
-            computedPathUrl = path.join(packagePath, packageJson.exports[subEntry].sass ||
-              packageJson.exports[subEntry].scss || packageJson.exports[subEntry].css ||
-              packageJson.exports[subEntry].default);
-          }
-          else {
-            computedPathUrl = path.join(packagePath, cleanedUrl.replace(moduleName, ''));
-          }
+          const computedPathUrl = subEntry !== '.' && packageJson.exports?.[subEntry]
+            ? path.join(packagePath, packageJson.exports[subEntry].sass
+            || packageJson.exports[subEntry].scss || packageJson.exports[subEntry].css
+            || packageJson.exports[subEntry].default)
+            : path.join(packagePath, cleanedUrl.replace(moduleName, ''));
           const fileUrl = pathToFileURL(computedPathUrl);
           this.cache[url] = fileUrl;
           return fileUrl;
         }
       }],
       functions: {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
+        // eslint-disable-next-line @typescript-eslint/naming-convention -- format imposed by sass loader
         'metadata-report($name, $value, $details: null)': (args: Value[]) => {
           let contextTags: string[] | undefined;
           const varName = args[0];
@@ -203,6 +211,7 @@ export class CssVariableExtractor {
                       break;
                     }
                     default: {
+                      // eslint-disable-next-line no-console -- no other logger available
                       console.warn(`Unsupported property: ${key.text}`);
                       break;
                     }
@@ -239,9 +248,10 @@ export class CssVariableExtractor {
               }
             }
             parsedValue = parsedValueItems.join(' ');
-            if (invalidIndexes.length) {
+            if (invalidIndexes.length > 0) {
               const message = `Invalid value in the list (indexes: ${invalidIndexes.join(', ')}) for variable ${varName.text}.`;
               if (this.builderOptions?.ignoreInvalidValue ?? true) {
+                // eslint-disable-next-line no-console -- no other logger available
                 console.warn(`${message} It will be ignored.`);
               } else {
                 throw new O3rCliError(message);
@@ -249,18 +259,20 @@ export class CssVariableExtractor {
             }
           } else if (CssVariableExtractor.isSassCalculation(varValue)) {
             parsedValue = `calc(${varValue.$arguments[0]})`;
-          } else if (!varValue.realNull) {
-            if (!details) {
-              console.warn(`The value "null" of ${varName.text} is available only for details override`);
-              return new SassString(`[METADATA:VARIABLE] ${varName.text} : invalid Null value`);
-            }
-          } else {
+          } else if (varValue.realNull) {
             const message = `Invalid value for variable ${varName.text}.`;
             if (this.builderOptions?.ignoreInvalidValue ?? true) {
+              // eslint-disable-next-line no-console -- no other logger available
               console.warn(`${message} It will be ignored.`);
               return new SassString(`[METADATA:VARIABLE] ${varName.text} : invalid value`);
             } else {
               throw new O3rCliError(message);
+            }
+          } else {
+            if (!details) {
+              // eslint-disable-next-line no-console -- no other logger available
+              console.warn(`The value "null" of ${varName.text} is available only for details override`);
+              return new SassString(`[METADATA:VARIABLE] ${varName.text} : invalid Null value`);
             }
           }
 
@@ -274,7 +286,7 @@ export class CssVariableExtractor {
           };
           if (parsedValue === undefined) {
             const cssVariableIndex = cssVariables.findIndex(({ name }) => name === cssVariableObj.name);
-            if (cssVariableIndex > -1) {
+            if (cssVariableIndex !== -1) {
               cssVariables[cssVariableIndex] = {
                 ...cssVariables[cssVariableIndex],
                 ...cssVariableDetails
@@ -302,7 +314,7 @@ export class CssVariableExtractor {
    * @param sassFilePath SCSS file to parse
    */
   public extractFile(sassFilePath: string): CssVariable[] {
-    const sassFileContent = fs.readFileSync(sassFilePath, {encoding: 'utf8'});
+    const sassFileContent = fs.readFileSync(sassFilePath, { encoding: 'utf8' });
     return this.extractFileContent(sassFilePath, sassFileContent);
   }
 
@@ -326,6 +338,6 @@ export class CssVariableExtractor {
             libAcc.variables[libKey] = libMetadata.variables[libKey];
             return libAcc;
           }, acc);
-      }, {...current});
+      }, { ...current });
   }
 }

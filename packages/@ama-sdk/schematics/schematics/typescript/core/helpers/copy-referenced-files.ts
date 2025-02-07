@@ -1,8 +1,24 @@
-import { existsSync } from 'node:fs';
-import { copyFile, mkdir, readFile, rm } from 'node:fs/promises';
-import { dirname, isAbsolute, join, normalize, posix, relative, resolve, sep } from 'node:path';
+import {
+  existsSync,
+} from 'node:fs';
+import {
+  copyFile,
+  mkdir,
+  readFile,
+  rm,
+} from 'node:fs/promises';
+import {
+  dirname,
+  isAbsolute,
+  join,
+  normalize,
+  posix,
+  relative,
+  resolve,
+  sep,
+} from 'node:path';
 
-const refMatcher = /\B['"]?[$]ref['"]?\s*:\s*([^#\n]+)/g;
+const refMatcher = /\B["']?\$ref["']?\s*:\s*([^\n#]+)/g;
 
 /**
  * Extract the list of local references from a single spec file content
@@ -11,10 +27,10 @@ const refMatcher = /\B['"]?[$]ref['"]?\s*:\s*([^#\n]+)/g;
  */
 function extractRefPaths(specContent: string, basePath: string): string[] {
   const refs = specContent.match(refMatcher);
-  return refs ?
-    refs
+  return refs
+    ? refs
       .map((capture) => capture.replace(refMatcher, '$1')
-        .replace(/['"]/g, '')
+        .replace(/["']/g, '')
         .trim()
       )
       .filter((refPath) => refPath && !isAbsolute(refPath) && !/^https?:\//.test(refPath))
@@ -33,7 +49,7 @@ async function extractRefPathRecursive(specFilePath: string, referenceFilePath: 
   if (!visited.has(resolvedFilePath)) {
     visited.add(resolvedFilePath);
 
-    const specContent = await readFile(specFilePath, {encoding: 'utf8'});
+    const specContent = await readFile(specFilePath, { encoding: 'utf8' });
     const refPaths = extractRefPaths(specContent, relative(dirname(referenceFilePath), dirname(specFilePath)));
     const recursiveRefPaths = await Promise.all(
       refPaths.map((refPath) => extractRefPathRecursive(join(dirname(referenceFilePath), refPath), referenceFilePath, visited))
@@ -46,17 +62,18 @@ async function extractRefPathRecursive(specFilePath: string, referenceFilePath: 
   return [];
 }
 
+const formatPath = (inputPath: string) => (inputPath.startsWith('.') ? inputPath : `./${inputPath}`).replace(/\\+/g, '/');
+
 /**
  * Replace all the local relative references using the new base relative path
  * @param specContent
  * @param newBaseRelativePath
  */
 export function updateLocalRelativeRefs(specContent: string, newBaseRelativePath: string) {
-  const formatPath = (inputPath:string) => (inputPath.startsWith('.') ? inputPath : `./${inputPath}`).replace(/\\+/g, '/');
   return specContent.replace(refMatcher, (match, ref: string) => {
-    const refPath = ref.replace(/['"]/g, '');
-    return refPath.startsWith('.') ?
-      match.replace(refPath, formatPath(normalize(posix.join(newBaseRelativePath.replaceAll(sep, posix.sep), refPath))))
+    const refPath = ref.replace(/["']/g, '');
+    return refPath.startsWith('.')
+      ? match.replace(refPath, formatPath(normalize(posix.join(newBaseRelativePath.replaceAll(sep, posix.sep), refPath))))
       : match;
   });
 }
@@ -70,7 +87,7 @@ export async function copyReferencedFiles(specFilePath: string, outputDirectory:
   const dedupe = (paths: string[]) => ([...new Set(paths)]);
   const allRefPaths = await extractRefPathRecursive(specFilePath, specFilePath, new Set());
   const refPaths = dedupe(allRefPaths);
-  if (refPaths.length) {
+  if (refPaths.length > 0) {
     if (existsSync(outputDirectory)) {
       await rm(outputDirectory, { recursive: true });
     }

@@ -30375,8 +30375,8 @@ exports.Cascading = void 0;
 const tslib_1 = __nccwpck_require__(3031);
 const node_child_process_1 = __nccwpck_require__(1421);
 const node_util_1 = __nccwpck_require__(7975);
-const helpers_1 = __nccwpck_require__(8243);
 const github = tslib_1.__importStar(__nccwpck_require__(2753));
+const helpers_1 = __nccwpck_require__(8243);
 const promisifiedExec = (0, node_util_1.promisify)(node_child_process_1.exec);
 /**
  * Handles the cascading to the next branch
@@ -30403,7 +30403,7 @@ class Cascading {
         let extractedBranches = (0, helpers_1.extractBranchesFromGitOutput)(branchOutput.stdout);
         if (this.options.ignoredPattern) {
             const ignoredPatternRegexp = new RegExp(this.options.ignoredPattern);
-            extractedBranches = extractedBranches.filter((branch) => !ignoredPatternRegexp.exec(branch));
+            extractedBranches = extractedBranches.filter((branch) => !ignoredPatternRegexp.test(branch));
         }
         this.options.logger.info(`Extracted branches from git output : ${JSON.stringify(extractedBranches)}`);
         const sortedBranches = (0, helpers_1.sortBranches)(extractedBranches);
@@ -30437,7 +30437,7 @@ class Cascading {
         }
         catch (e) {
             // Compute the packages for which to ignore the conflict if any
-            if (this.options.conflictsIgnoredPackages.length) {
+            if (this.options.conflictsIgnoredPackages.length > 0) {
                 this.options.logger.info('Checking if ignored packages are the only conflicts of the cascading');
                 this.options.logger.info(`Packages to ignore: ${JSON.stringify(this.options.conflictsIgnoredPackages)}`);
                 const cascadingError = e.stdout;
@@ -30449,14 +30449,14 @@ class Cascading {
                     .map((line) => line.split(conflictingFileStartOfLine)[1]);
                 const onlyPackagesInConflict = filesInConflict.every((fileName) => fileName.endsWith('package.json') || fileName.endsWith('yarn.lock'));
                 // We won't handle the use case where only the yarn lock is in conflict
-                const packageJsonInConflict = filesInConflict.some(filename => filename.endsWith('package.json'));
+                const packageJsonInConflict = filesInConflict.some((filename) => filename.endsWith('package.json'));
                 this.options.logger.info(`Files in conflict: ${JSON.stringify(filesInConflict)}`);
                 if (onlyPackagesInConflict && packageJsonInConflict) {
                     this.options.logger.info('Conflict is only about packages, checking if we can ignore it');
                     const gitDiffResultOutput = (await (0, helpers_1.handlePromisifiedExecLog)(promisifiedExec('git diff'), this.options.logger)).stdout;
                     const changes = (0, helpers_1.extractPackageChanges)(gitDiffResultOutput, this.options.logger);
                     const notIgnorablePackageChanges = (0, helpers_1.notIgnorablePackages)(changes.packageChanges, this.options.conflictsIgnoredPackages);
-                    if (notIgnorablePackageChanges.length) {
+                    if (notIgnorablePackageChanges.length > 0) {
                         this.options.logger.info('Conflicts in package.json cannot be ignored');
                         notIgnorablePackageChanges.forEach((fileChange) => {
                             this.options.logger.info(JSON.stringify(fileChange, null, 2));
@@ -30480,7 +30480,7 @@ class Cascading {
                         await (0, helpers_1.handlePromisifiedExecLog)(promisifiedExec('git status'), this.options.logger);
                         this.options.logger.info('Should create a branch with completion done inside');
                         const authenticatedGitUrl = this.githubContext.payload.repository.html_url.replace(/https:\/\/[\w-]+@/, `https://${this.ownerName}:${this.options.token}@`);
-                        const newCascadingBranchName = `automation/automatic-cascading-resolution-${new Date().getTime()}`;
+                        const newCascadingBranchName = `automation/automatic-cascading-resolution-${Date.now()}`;
                         await (0, helpers_1.handlePromisifiedExecLog)(promisifiedExec(`git push ${authenticatedGitUrl} ${branchToCascade}:${newCascadingBranchName}`), this.options.logger);
                         this.options.logger.info('Creating a Pull Request with package conflict resolutions');
                         await this.createFallbackPullRequest(branchToCascade, `Cascading merge failure ${this.options.baseBranch} -> ${branchToCascade} with automatic package conflict resolution`, `refs/heads/${newCascadingBranchName}`, `refs/heads/${branchToCascade}`);
@@ -30517,7 +30517,6 @@ class Cascading {
             owner: this.ownerName,
             repo: this.repositoryName,
             ref: branchToCascade,
-            // eslint-disable-next-line
             workflow_id: this.options.buildWorkflow
         });
         this.options.logger.debug(JSON.stringify(createWorkflowDispatchResponse, null, 2));
@@ -30544,7 +30543,7 @@ class Cascading {
             this.options.logger.info('Process to assign the responsible of the failure');
             const firstMergeCommit = await this.getFirstMergeCommit(pullRequestCreationResponse.data.number);
             this.options.logger.debug(JSON.stringify(firstMergeCommit, null, 2));
-            if (firstMergeCommit.author) {
+            if (firstMergeCommit?.author) {
                 this.options.logger.info(`Responsible of the failure is ${JSON.stringify(firstMergeCommit.author.login)}`);
                 await this.assignPullRequest(pullRequestCreationResponse.data.number, firstMergeCommit.author.login);
             }
@@ -30560,12 +30559,11 @@ class Cascading {
         const commitsResponse = await this.githubClient.rest.pulls.listCommits({
             owner: this.ownerName,
             repo: this.repositoryName,
-            // eslint-disable-next-line
             pull_number: pullRequestNumber
         });
         this.options.logger.debug(JSON.stringify(commitsResponse, null, 2));
         // Responsible for the merge conflict is the first person who merged his PR
-        return commitsResponse.data.reverse().find((commitObject => commitObject.commit.message.startsWith('Merged'))) || commitsResponse.data[commitsResponse.data.length - 1];
+        return commitsResponse.data.reverse().find(((commitObject) => commitObject.commit.message.startsWith('Merged'))) || commitsResponse.data.at(-1);
     }
     /**
      * Assign a pull request a user
@@ -30577,7 +30575,6 @@ class Cascading {
         const assignPullRequestResponse = await this.githubClient.rest.issues.addAssignees({
             owner: this.ownerName,
             repo: this.repositoryName,
-            // eslint-disable-next-line
             issue_number: pullRequestNumber,
             assignees: [username]
         });
@@ -30608,14 +30605,14 @@ exports.notIgnorablePackages = notIgnorablePackages;
  * @param branches
  */
 function sortBranches(branches) {
-    return branches.map(branch => {
-        const extract = branch.match(/release\/([0-9]+)\.([0-9]+)/);
+    return branches.map((branch) => {
+        const extract = branch.match(/release\/(\d+)\.(\d+)/);
         if (!extract) {
             throw new Error(`Format of branch does not match the release pattern ${branches.join(',')}`);
         }
         return {
-            maj: parseInt(extract[1], 10),
-            min: parseInt(extract[2], 10),
+            maj: Number.parseInt(extract[1], 10),
+            min: Number.parseInt(extract[2], 10),
             branch
         };
     }).sort((branchObjectA, branchObjectB) => {
@@ -30626,7 +30623,7 @@ function sortBranches(branches) {
             return -1;
         }
         return branchObjectA.min - branchObjectB.min;
-    }).map(branchObject => branchObject.branch);
+    }).map((branchObject) => branchObject.branch);
 }
 /**
  * Extract just the branches matching the release/min.maj[.0-next|prerelease|rc] format
@@ -30645,7 +30642,7 @@ function extractBranchesFromGitOutput(gitOutput) {
  */
 function extractPackageLine(diffOutput) {
     const results = diffOutput.matchAll(/"([^"]+)":\s+/g);
-    return [...results].map(result => result[1]);
+    return [...results].map((result) => result[1]);
 }
 /**
  * Extract the list of old and new packages from a multi-line string coming from a git diff
@@ -30708,22 +30705,22 @@ function extractPackageChanges(gitDiffResult, logger) {
  */
 function notIgnorablePackages(packageChanges, conflictsIgnoredPackages) {
     return packageChanges.reduce((remaining, fileWithPackages) => {
-        if (fileWithPackages.oldPackages.length || fileWithPackages.newPackages.length) {
+        if (fileWithPackages.oldPackages.length > 0 || fileWithPackages.newPackages.length > 0) {
             const removedPackages = [];
             const commonPackages = [];
             fileWithPackages.oldPackages.forEach((oldPackage) => {
-                if (!fileWithPackages.newPackages.includes(oldPackage)) {
-                    removedPackages.push(oldPackage);
-                }
-                else {
+                if (fileWithPackages.newPackages.includes(oldPackage)) {
                     if (!conflictsIgnoredPackages.includes(oldPackage)) {
                         // We keep it only if it is not ignored
                         commonPackages.push(oldPackage);
                     }
                 }
+                else {
+                    removedPackages.push(oldPackage);
+                }
             });
             const addedPackages = fileWithPackages.newPackages.filter((newPackage) => !fileWithPackages.oldPackages.includes(newPackage));
-            if (addedPackages.length || commonPackages.length || removedPackages.length) {
+            if (addedPackages.length > 0 || commonPackages.length > 0 || removedPackages.length > 0) {
                 remaining.push({
                     file: fileWithPackages.file,
                     addedPackages,
@@ -32658,12 +32655,12 @@ var exports = __webpack_exports__;
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const tslib_1 = __nccwpck_require__(3031);
+const node_child_process_1 = __nccwpck_require__(1421);
+const node_util_1 = __nccwpck_require__(7975);
 const core = tslib_1.__importStar(__nccwpck_require__(7539));
 const github_1 = __nccwpck_require__(2753);
 const github = tslib_1.__importStar(__nccwpck_require__(2753));
-const node_util_1 = __nccwpck_require__(7975);
 const cascading_1 = __nccwpck_require__(5275);
-const node_child_process_1 = __nccwpck_require__(1421);
 const promisifiedExec = (0, node_util_1.promisify)(node_child_process_1.exec);
 async function run() {
     try {
@@ -32711,7 +32708,7 @@ async function run() {
         }
         catch (error) {
             core.error('Caught an error during the plug-in execution');
-            const errorMessage = error instanceof Error ? error.message : typeof error === 'string' ? error : 'Caught an error during the plug-in execution';
+            const errorMessage = error instanceof Error ? error.message : (typeof error === 'string' ? error : 'Caught an error during the plug-in execution');
             if (errorMessage.includes('pull request already exists')) {
                 core.warning(errorMessage);
             }
@@ -32721,8 +32718,7 @@ async function run() {
         }
     }
     catch (err) {
-        // eslint-disable-next-line no-console
-        const errorMessage = err instanceof Error ? err.message : typeof err === 'string' ? err : 'Caught an error during input parsing';
+        const errorMessage = err instanceof Error ? err.message : (typeof err === 'string' ? err : 'Caught an error during input parsing');
         core.error(errorMessage);
         core.setFailed(errorMessage);
     }

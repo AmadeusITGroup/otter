@@ -197,9 +197,12 @@ You can mark the time the loading is rendered.
 ```typescript
 // app component
 ...
-  constructor(private router: Router, public trackEventsService: EventTrackService) {}
+  private readonly destroyRef = inject(DestroyRef);
+  private readonly router = inject(Router);
+  private readonly trackEventsService = inject(EventTrackService);
+
   ngOnInit() {
-    this.subscriptions.push(this.router.events.subscribe((event) => this.setLoadingIndicator(event)));
+    this.router.events.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((event) => this.setLoadingIndicator(event));
     ...
   }
   setLoadingIndicator(event: Event) {
@@ -239,27 +242,34 @@ For example, on the availability page, mark _data ready_ when the calendar and o
 ```typescript
 // upsell page component
 ...
-export class UpsellComponent implements OnInit, OnDestroy, Configurable<UpsellConfig> {
+export class UpsellComponent implements OnInit, Configurable<UpsellConfig> {
   ...
-  constructor(public trackEventsService: EventTrackService, private store: Store<AirOffersStore & AirSearchCriteriaStore & CartStore & AirCalendarStore>) {
-    ...
-  }
+  private readonly destroyRef = inject(DestroyRef);
+  private readonly store = inject(Store<
+    AirOffersStore
+    & AirSearchCriteriaStore
+    & CartStore
+    & AirCalendarStore
+  >);
+
+  public readonly trackEventsService = inject(EventTrackService);
 
   ngOnInit() {
     const airCalendarReady$ = this.store.pipe(
         select(selectAirCalendarState),
+        takeUntilDestroyed(this.destroyRef),
         filter((state) => state.isPending === false && state.isFailure === false)
       );
     const airOffersReady$ = this.store.pipe(
       select(selectAirOffersIds),
+      takeUntilDestroyed(this.destroyRef),
       filter((ids) => !!ids.length)
     );
-    this.subscriptions.push(
-      combineLatest(airCalendarReady$, airOffersReady$)
-        .pipe(take(1))
-        .subscribe(([_airCalendar, _airOffersIds]) => {
-          this.trackEventsService.markDataReady();  /// ----> mark data ready when both calendar and offres data are in the store
-        }));
+    void firstValueFrom(
+      combineLatest([airCalendarReady$, airOffersReady$])
+    ).then(([_airCalendar, _airOffersIds]) => {
+      this.trackEventsService.markDataReady();  // ----> mark data ready when both calendar and offers data are in the store
+    });
   }
   ...
 }

@@ -1,4 +1,6 @@
-import type { ItemIdentifier } from '@o3r/core';
+import type {
+  ItemIdentifier,
+} from '@o3r/core';
 
 /** Metadata information added in the design token extension for Metadata extraction */
 export interface DesignTokenMetadata {
@@ -43,12 +45,15 @@ export interface DesignTokenGroupExtensions {
    * Indicate that the token is expected to be overridden by external rules
    */
   o3rExpectOverride?: boolean;
+  /**
+   * Explode a Token with complex type to generate variables for each field of the type definition
+   */
+  o3rExplodeComplexTypes?: boolean;
 }
 
 /** Design Token Extension fields supported by the default renderer */
 export interface DesignTokenExtensions extends DesignTokenGroupExtensions {
 }
-
 
 interface DesignTokenBase<T> {
   /** Value of the Token */
@@ -205,7 +210,6 @@ type DesignTokenTypeTypographyValue = {
   lineHeight: string | number;
 };
 
-
 /** Design Token Typography */
 export interface DesignTokenTypeTypography extends DesignTokenBase<DesignTokenTypeTypographyValue> {
   /** @inheritdoc */
@@ -223,29 +227,31 @@ export interface DesignTokenGroupCommonFields<G extends DesignTokenExtensions> {
 /** Common field for the Design Token */
 export type DesignTokenCommonFields<E extends DesignTokenExtensions = DesignTokenExtensions> = DesignTokenGroupCommonFields<E>;
 
+/**
+ * Design Token supported types with their $value structure
+ * Note: this definition does not include the $extension and $description fields common to all of them (and to the Token Groups)
+ */
+type DesignTokenTypes =
+  | DesignTokenTypeString
+  | DesignTokenTypeColor
+  | DesignTokenTypeDimension
+  | DesignTokenTypeFontFamily
+  | DesignTokenTypeDuration
+  | DesignTokenTypeCubicBezier
+  | DesignTokenTypeFontWeight
+  | DesignTokenTypeNumber
+  | DesignTokenTypeStrokeStyle
+  | DesignTokenTypeBorder
+  | DesignTokenTypeTransition
+  | DesignTokenTypeShadow
+  | DesignTokenTypeGradient
+  | DesignTokenTypeTypography
+  | DesignTokenTypeImplicit;
+
 /** Available Design Token types */
-export type DesignToken<E extends DesignTokenExtensions = DesignTokenExtensions> = DesignTokenCommonFields<E> & (
-  DesignTokenTypeString |
-  DesignTokenTypeColor |
-  DesignTokenTypeDimension |
-  DesignTokenTypeFontFamily |
-  DesignTokenTypeDuration |
-  DesignTokenTypeCubicBezier |
-  DesignTokenTypeFontWeight |
-  DesignTokenTypeNumber |
-
-  DesignTokenTypeStrokeStyle |
-  DesignTokenTypeBorder |
-  DesignTokenTypeTransition |
-  DesignTokenTypeShadow |
-  DesignTokenTypeGradient |
-  DesignTokenTypeTypography |
-
-  DesignTokenTypeImplicit
-);
+export type DesignToken<E extends DesignTokenExtensions = DesignTokenExtensions> = DesignTokenCommonFields<E> & DesignTokenTypes;
 
 /** Design Token Node (Design Token Group or Item) */
-// eslint-disable-next-line no-use-before-define
 export type DesignTokenNode<E extends DesignTokenExtensions = DesignTokenExtensions, G extends DesignTokenGroupExtensions = E> = DesignTokenGroup<E, G> | DesignToken<E>;
 
 /** Design Token Group */

@@ -1,13 +1,20 @@
-import { chain, noop, type Rule } from '@angular-devkit/schematics';
-import type { NgAddSchematicsSchema } from './schema';
 import * as path from 'node:path';
-import type { DependencyToAdd } from '@o3r/schematics';
+import {
+  chain,
+  noop,
+  type Rule,
+} from '@angular-devkit/schematics';
+import type {
+  DependencyToAdd,
+} from '@o3r/schematics';
+import type {
+  NgAddSchematicsSchema,
+} from './schema';
 
 const doCustomAction: Rule = (tree, _context) => {
   // your custom code here
   return tree;
 };
-
 
 const reportMissingSchematicsDep = (logger: { error: (message: string) => any }) => (reason: any) => {
   logger.error(`[ERROR]: Adding @o3r/test-helpers has failed.

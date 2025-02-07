@@ -1,8 +1,20 @@
-import type { DesignTokenVariableStructure, TokenKeyRenderer, TokenValueRenderer } from '../../parsers/design-token-parser.interface';
-import { isO3rPrivateVariable } from '../design-token.renderer.helpers';
-import type { TokenDefinitionRenderer } from '../design-token.renderer.interface';
-import { getMetadataTokenValueRenderer } from './design-token-value.renderers';
-import type { CssVariable } from '@o3r/styling';
+import type {
+  CssVariable,
+} from '@o3r/styling';
+import type {
+  DesignTokenVariableStructure,
+  TokenKeyRenderer,
+  TokenValueRenderer,
+} from '../../parsers/design-token-parser.interface';
+import {
+  isO3rPrivateVariable,
+} from '../design-token.renderer.helpers';
+import type {
+  TokenDefinitionRenderer,
+} from '../design-token.renderer.interface';
+import {
+  getMetadataTokenValueRenderer,
+} from './design-token-value.renderers';
 
 /** Options for {@link getMetadataTokenDefinitionRenderer} */
 export interface MetadataTokenDefinitionRendererOptions {

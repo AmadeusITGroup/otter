@@ -19,13 +19,9 @@
       ]
     },
     "compile": {
-      "executor": "@nx/js:tsc",
+      "executor": "nx:run-script",
       "options": {
-        "rootDir": "packages/@o3r/testing/src",
-        "main": "packages/@o3r/testing/src/public_api.ts",
-        "tsConfig": "packages/@o3r/testing/tsconfig.build.json",
-        "outputPath": "packages/@o3r/testing/dist",
-        "clean": false
+        "script": "build:source"
       }
     },
     "prepare-build-builders": {
@@ -76,13 +72,7 @@
       ]
     },
     "lint": {
-      "options": {
-        "eslintConfig": "packages/@o3r/testing/.eslintrc.js",
-        "lintFilePatterns": [
-          "packages/@o3r/testing/src/**/*.ts",
-          "packages/@o3r/testing/package.json"
-        ]
-      }
+      "executor": "nx:run-commands"
     },
     "test": {
       "executor": "@nx/jest:jest",

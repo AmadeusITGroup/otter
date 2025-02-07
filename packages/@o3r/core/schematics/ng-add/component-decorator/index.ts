@@ -1,6 +1,13 @@
-import { Rule, Tree } from '@angular-devkit/schematics';
-import { insertImport } from '@schematics/angular/utility/ast-utils';
-import { InsertChange } from '@schematics/angular/utility/change';
+import {
+  Rule,
+  Tree,
+} from '@angular-devkit/schematics';
+import {
+  insertImport,
+} from '@schematics/angular/utility/ast-utils';
+import {
+  InsertChange,
+} from '@schematics/angular/utility/change';
 import * as ts from 'typescript';
 
 interface RemovePosition {
@@ -17,7 +24,7 @@ const removeImport = (source: ts.SourceFile, symbolName: string, fileName: strin
     && statement.moduleSpecifier.text === fileName
   ).map((statement) =>
     statement.importClause?.namedBindings && ts.isNamedImports(statement.importClause.namedBindings)
-      ? statement.importClause.namedBindings.elements.find((e) => e.name.escapedText === symbolName)
+      ? statement.importClause.namedBindings.elements.find((e) => e.name.escapedText.toString() === symbolName)
       : undefined
   ).find((element) => !!element);
   return importNode ? computeRemovePosition(importNode) : undefined;
@@ -47,8 +54,8 @@ export const updateComponentDecorators: Rule = async (tree: Tree) => {
             return text === 'Block' || text === 'Page';
           });
         const componentType = componentTypeNode?.expression?.getText() || 'Component';
-        if (!!componentTypeNode && componentType === 'Block' || componentType === 'Page' || componentType === 'ExposedComponent') {
-          recorder.remove(componentTypeNode!.getFullStart(), componentTypeNode!.end - componentTypeNode!.getFullStart());
+        if (!!componentTypeNode && (componentType === 'Block' || componentType === 'Page' || componentType === 'ExposedComponent')) {
+          recorder.remove(componentTypeNode.getFullStart(), componentTypeNode.end - componentTypeNode.getFullStart());
           const removePos = removeImport(source, componentType, '@o3r/core');
           if (removePos) {
             recorder.remove(removePos.start, removePos.length);
@@ -57,10 +64,10 @@ export const updateComponentDecorators: Rule = async (tree: Tree) => {
         recorder.insertLeft(node.getStart(), `@O3rComponent({\n  componentType: '${componentType}'\n})\n`);
         const dynamicConfigObserver = node.members.find((member) =>
           ts.isPropertyDeclaration(member)
-            && member.type
-            && ts.isTypeReferenceNode(member.type)
-            && ts.isIdentifier(member.type.typeName)
-            && member.type.typeName.escapedText === 'ConfigurationObserver'
+          && member.type
+          && ts.isTypeReferenceNode(member.type)
+          && ts.isIdentifier(member.type.typeName)
+          && member.type.typeName.escapedText.toString() === 'ConfigurationObserver'
         );
         if (dynamicConfigObserver) {
           const importConfigObserverChange = insertImport(source, filePath, 'ConfigObserver', '@o3r/configuration');
@@ -74,8 +81,8 @@ export const updateComponentDecorators: Rule = async (tree: Tree) => {
           .reduce((acc: ts.Decorator[], member) => acc.concat(ts.canHaveDecorators(member) ? ts.getDecorators(member) || [] : []), [])
           .find((decorator) =>
             ts.isCallExpression(decorator.expression)
-              && ts.isIdentifier(decorator.expression.expression)
-              && decorator.expression.expression.escapedText === 'InputMerge'
+            && ts.isIdentifier(decorator.expression.expression)
+            && decorator.expression.expression.escapedText.toString() === 'InputMerge'
           );
         if (inputMergeDecorator) {
           const inputMergeDecoratorRemovePos = computeRemovePosition(inputMergeDecorator);

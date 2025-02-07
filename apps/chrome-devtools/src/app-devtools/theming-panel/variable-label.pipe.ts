@@ -1,5 +1,10 @@
-import { Pipe, type PipeTransform } from '@angular/core';
-import type { StylingVariable } from '@o3r/styling';
+import {
+  Pipe,
+  type PipeTransform,
+} from '@angular/core';
+import type {
+  StylingVariable,
+} from '@o3r/styling';
 
 @Pipe({
   name: 'variableLabel',

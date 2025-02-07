@@ -1,4 +1,6 @@
-import type { ItemIdentifier } from '@o3r/core';
+import type {
+  ItemIdentifier,
+} from '@o3r/core';
 
 export type CssVariableType = 'string' | 'color';
 

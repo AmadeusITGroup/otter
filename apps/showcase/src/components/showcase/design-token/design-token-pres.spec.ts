@@ -1,6 +1,10 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { DesignTokenPresComponent } from './design-token-pres.component';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import {
+  DesignTokenPresComponent,
+} from './design-token-pres.component';
 
 describe('DesignTokenPresComponent', () => {
   let component: DesignTokenPresComponent;

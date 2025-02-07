@@ -1,6 +1,12 @@
-import { resolve } from 'node:path';
-import { CssVariableExtractor } from './css-variable.extractor';
-import { Logger } from 'sass';
+import {
+  resolve,
+} from 'node:path';
+import {
+  Logger,
+} from 'sass';
+import {
+  CssVariableExtractor,
+} from './css-variable.extractor';
 
 const file = resolve(__dirname, '..', '..', '..', 'test.scss');
 const url = new URL('.', 'file://' + file);
@@ -19,7 +25,7 @@ describe('CSS Variable extractor', () => {
       const parser = new CssVariableExtractor({ logger });
       const variables = parser.extractFileContent(file, mock, { url });
       expect(variables).toHaveLength(1);
-      expect(variables[0]).toEqual(expect.objectContaining({name: 'my-var', defaultValue: 'rgba(255, 255, 255, 1)', category: 'test category'}));
+      expect(variables[0]).toEqual(expect.objectContaining({ name: 'my-var', defaultValue: 'rgba(255, 255, 255, 1)', category: 'test category' }));
     });
 
     test('should override variable details', () => {

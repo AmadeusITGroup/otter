@@ -25,23 +25,14 @@
       }
     },
     "lint": {
-      "options": {
-        "eslintConfig": "packages/@o3r/eslint-config-otter/.eslintrc.js",
-        "lintFilePatterns": [
-          "packages/@o3r/eslint-config-otter/*.cjs",
-          "packages/@o3r/eslint-config-otter/package.json"
-        ]
-      }
+      "executor": "nx:run-commands"
     },
     "compile": {
       "executor": "nx:run-script",
       "options": {
         "script": "build"
       },
-      "dependsOn": [],
-      "inputs": [
-        "{projectRoot}/rules/**/*"
-      ]
+      "dependsOn": []
     },
     "prepare-build-builders": {
       "executor": "nx:run-script",

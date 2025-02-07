@@ -1,9 +1,15 @@
-import { ApiTypes } from '../../fwk/api';
-import { EmptyResponseError, RequestFailedError } from '../../fwk/errors';
-import { ExceptionReply } from './exception.reply';
+import {
+  ApiTypes,
+} from '../../fwk/api';
+import {
+  EmptyResponseError,
+  RequestFailedError,
+} from '../../fwk/errors';
+import {
+  ExceptionReply,
+} from './exception.reply';
 
 describe('Exception Reply Plugin', () => {
-
   const reviver = jest.fn();
   const contextError = {
     apiName: 'api',
@@ -15,10 +21,10 @@ describe('Exception Reply Plugin', () => {
     const runner = plugin.load({
       reviver,
       apiType: ApiTypes.DAPI,
-      response: {ok: true, status: 200, statusText: 'test'} as any,
+      response: { ok: true, status: 200, statusText: 'test' } as any,
       ...contextError
     });
-    const data = {errors: []};
+    const data = { errors: [] };
 
     expect(() => runner.transform(data)).toThrow(new EmptyResponseError('test', data, contextError));
   });
@@ -28,7 +34,7 @@ describe('Exception Reply Plugin', () => {
     const runner = plugin.load({
       reviver,
       apiType: ApiTypes.DAPI,
-      response: {ok: true, status: 200, statusText: 'test'} as any
+      response: { ok: true, status: 200, statusText: 'test' } as any
     });
     const data = {};
 
@@ -40,7 +46,7 @@ describe('Exception Reply Plugin', () => {
     const runner = plugin.load({
       reviver,
       apiType: ApiTypes.DEFAULT,
-      response: {ok: true, status: 200, statusText: 'test'} as any
+      response: { ok: true, status: 200, statusText: 'test' } as any
     });
     const data = {};
 
@@ -52,10 +58,10 @@ describe('Exception Reply Plugin', () => {
     const runner = plugin.load({
       reviver,
       apiType: ApiTypes.DAPI,
-      response: {ok: false, status: 444, statusText: 'test'} as any,
+      response: { ok: false, status: 444, statusText: 'test' } as any,
       ...contextError
     });
-    const data = {data: {}};
+    const data = { data: {} };
 
     expect(() => runner.transform(data)).toThrow(new RequestFailedError('test', 444, data, contextError));
   });
@@ -65,10 +71,10 @@ describe('Exception Reply Plugin', () => {
     const runner = plugin.load({
       reviver,
       apiType: ApiTypes.DAPI,
-      response: {ok: false, status: 444, statusText: 'test'} as any,
-      exception: new Error()
+      response: { ok: false, status: 444, statusText: 'test' } as any,
+      exception: new Error('error')
     });
-    const data = {data: {}};
+    const data = { data: {} };
 
     expect(() => runner.transform(data)).not.toThrow();
   });

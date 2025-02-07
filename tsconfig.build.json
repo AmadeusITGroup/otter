@@ -30,6 +30,7 @@
       "@o3r/design": ["packages/@o3r/design/dist", "packages/@o3r/design/src/public_api"],
       "@o3r/dynamic-content": ["packages/@o3r/dynamic-content/dist", "packages/@o3r/dynamic-content/src/public_api"],
       "@o3r/dynamic-content/*": ["packages/@o3r/dynamic-content/dist/*", "packages/@o3r/dynamic-content/src/*/public_api"],
+      "@o3r/eslint-config": ["packages/@o3r/eslint-config"],
       "@o3r/eslint-config-otter": ["packages/@o3r/eslint-config-otter"],
       "@o3r/eslint-plugin": ["packages/@o3r/eslint-plugin/dist", "packages/@o3r/eslint-plugin/src/public_api"],
       "@o3r/extractors": ["packages/@o3r/extractors/dist", "packages/@o3r/extractors/src/public_api"],
@@ -54,7 +55,7 @@
       "@o3r/testing": ["packages/@o3r/testing/dist", "packages/@o3r/testing/src/public_api"],
       "@o3r/testing/*": ["packages/@o3r/testing/dist/esm/*", "packages/@o3r/testing/dist/*", "packages/@o3r/testing/src/*"],
       "@o3r/third-party": ["packages/@o3r/third-party/dist", "packages/@o3r/third-party/src/public_api"],
-      "@o3r/workspace": ["packages/@o3r/workspace/dist"]
+      "@o3r/workspace": ["packages/@o3r/workspace/dist", "packages/@o3r/workspace/src/public_api"]
     }
   },
   "angularCompilerOptions": {

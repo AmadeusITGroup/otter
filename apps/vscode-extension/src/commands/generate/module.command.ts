@@ -1,21 +1,29 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
-import { dirname, relative, resolve} from 'node:path';
-import type { ExtensionContext } from 'vscode';
+import {
+  dirname,
+  relative,
+  resolve,
+} from 'node:path';
+import type {
+  ExtensionContext,
+} from 'vscode';
 import * as vscode from 'vscode';
-import { getPackageScriptRunner, getSchematicDefaultOptions, stringifyOptions } from '../helpers';
+import {
+  getPackageScriptRunner,
+  getSchematicDefaultOptions,
+  stringifyOptions,
+} from '../helpers';
+
+const getCurrentFolder = () => {
+  const currentlyOpenTabfilePath = vscode.window.activeTextEditor?.document.fileName;
+  return currentlyOpenTabfilePath && relative(vscode.workspace.workspaceFolders?.[0]?.uri?.fsPath || '.', dirname(currentlyOpenTabfilePath));
+};
 
 /**
  * Generate new Otter Module command
  * @param _context
  * @param folder
- * @returns
  */
 export function generateModuleGenerateCommand(_context: ExtensionContext, folder?: string) {
-  const getCurrentFolder = () => {
-    const currentlyOpenTabfilePath = vscode.window.activeTextEditor?.document.fileName;
-    return currentlyOpenTabfilePath && relative(vscode.workspace.workspaceFolders?.[0]?.uri?.fsPath || '.', dirname(currentlyOpenTabfilePath));
-  };
-
   return async () => {
     const name = await vscode.window.showInputBox({
       title: 'Module name',
@@ -27,11 +35,13 @@ export function generateModuleGenerateCommand(_context: ExtensionContext, folder
       return;
     }
 
-    const defaultOptions = await getSchematicDefaultOptions('@o3r/core:module');
+    const defaultOptions = await getSchematicDefaultOptions('@o3r/core:module') as Partial<{ path: string }>;
 
     const modulePath = folder || await vscode.window.showInputBox({
       title: 'Path to your Modules folder',
-      value: getCurrentFolder() || defaultOptions.path || resolve(vscode.workspace.workspaceFolders?.[0]?.uri?.fsPath || '.', 'packages'),
+      value: getCurrentFolder()
+      || defaultOptions.path
+      || resolve(vscode.workspace.workspaceFolders?.[0]?.uri?.fsPath || '.', 'packages'),
       ignoreFocusOut: true
     });
 

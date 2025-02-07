@@ -1,16 +1,27 @@
-import { Tree } from '@angular-devkit/schematics';
-import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { syncSimpleActionsContent } from './mocks/example-actions';
-import { syncSimpleReducerContent } from './mocks/example-reducer';
-import { syncSimpleReducerSpecContent } from './mocks/example-reducer-spec';
-import { syncSimpleStateContent } from './mocks/example-state';
+import {
+  Tree,
+} from '@angular-devkit/schematics';
+import {
+  SchematicTestRunner,
+} from '@angular-devkit/schematics/testing';
+import {
+  syncSimpleActionsContent,
+} from './mocks/example-actions';
+import {
+  syncSimpleReducerContent,
+} from './mocks/example-reducer';
+import {
+  syncSimpleReducerSpecContent,
+} from './mocks/example-reducer-spec';
+import {
+  syncSimpleStateContent,
+} from './mocks/example-state';
 
 const collectionPath = path.join(__dirname, '..', '..', '..', 'collection.json');
 
 describe('Store simple sync generator', () => {
-
   let initialTree: Tree;
 
   beforeEach(() => {

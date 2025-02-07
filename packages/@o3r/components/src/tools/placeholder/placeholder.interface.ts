@@ -1,4 +1,6 @@
-import type {OtterMessageContent} from '@o3r/core';
+import type {
+  OtterMessageContent,
+} from '@o3r/core';
 
 /**
  * Payload of the {@see PlaceholderLoadingStatusMessage}
