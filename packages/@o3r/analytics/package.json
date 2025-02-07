@@ -25,6 +25,7 @@
   },
   "peerDependencies": {
     "@ama-sdk/core": "workspace:^",
+    "@angular-devkit/schematics": "~18.2.0",
     "@angular/common": "~18.2.0",
     "@angular/core": "~18.2.0",
     "@angular/platform-browser": "~18.2.0",
@@ -36,9 +37,13 @@
     "@schematics/angular": "~18.2.0",
     "jasmine": "^5.0.0",
     "rxjs": "^7.8.1",
-    "webpack": "~5.95.0"
+    "typescript": "~5.5.4",
+    "webpack": "~5.96.0"
   },
   "peerDependenciesMeta": {
+    "@angular-devkit/schematics": {
+      "optional": true
+    },
     "@o3r/schematics": {
       "optional": true
     },
@@ -46,6 +51,9 @@
       "optional": true
     },
     "jasmine": {
+      "optional": true
+    },
+    "typescript": {
       "optional": true
     },
     "webpack": {
@@ -69,8 +77,8 @@
     "@angular/platform-browser": "~18.2.0",
     "@angular/platform-browser-dynamic": "~18.2.0",
     "@angular/router": "~18.2.0",
-    "@babel/core": "~7.25.0",
-    "@babel/preset-typescript": "~7.25.0",
+    "@babel/core": "~7.26.0",
+    "@babel/preset-typescript": "~7.26.0",
     "@compodoc/compodoc": "^1.1.19",
     "@ngrx/store": "~18.0.0",
     "@nx/eslint": "~19.5.0",
@@ -109,7 +117,7 @@
     "ts-node": "~10.9.2",
     "type-fest": "^4.10.2",
     "typescript": "~5.5.4",
-    "webpack": "~5.95.0",
+    "webpack": "~5.96.0",
     "zone.js": "~0.14.2"
   },
   "exports": {

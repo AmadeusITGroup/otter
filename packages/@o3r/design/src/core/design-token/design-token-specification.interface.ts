@@ -124,9 +124,11 @@ type DesignTokenTypeStrokeStyleDetailsValue = {
   lineCap: 'round' | 'butt' | 'square';
 };
 
+// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents -- `string` type is added only due to Jest transpiling issue
+type DesignTokenTypeStrokeStyleLiterals = 'solid' | 'dashed' | 'dotted' | 'double' | 'groove' | 'ridge' | 'outset' | 'inset' | string;
+
 /** Value of the Design Token Stroke Style */
-export type DesignTokenTypeStrokeStyleValue = DesignTokenTypeStrokeStyleDetailsValue |
-  'solid' | 'dashed' | 'dotted' | 'double' | 'groove' | 'ridge' | 'outset' | 'inset';
+export type DesignTokenTypeStrokeStyleValue = DesignTokenTypeStrokeStyleDetailsValue | DesignTokenTypeStrokeStyleLiterals;
 
 /** Design Token Stroke Style */
 export interface DesignTokenTypeStrokeStyle<T extends DesignTokenTypeStrokeStyleValue = DesignTokenTypeStrokeStyleValue> extends DesignTokenBase<T> {
@@ -137,9 +139,7 @@ export interface DesignTokenTypeStrokeStyle<T extends DesignTokenTypeStrokeStyle
 type DesignTokenTypeBorderValue = {
   color: string;
   width: string;
-  // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
-  style: string | DesignTokenTypeStrokeStyleValue;
-
+  style: DesignTokenTypeStrokeStyleValue;
 };
 
 /** Design Token Border */
@@ -294,8 +294,7 @@ export const isDesignTokenGroup = (node?: any): node is DesignTokenGroup => {
  * @param value Stroke Style value
  * @returns true if it is a defined value
  */
-// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
-export const isTokenTypeStrokeStyleValueComplex = (value?: DesignTokenTypeStrokeStyleValue | string): value is DesignTokenTypeStrokeStyleDetailsValue => {
+export const isTokenTypeStrokeStyleValueComplex = (value?: DesignTokenTypeStrokeStyleValue): value is DesignTokenTypeStrokeStyleDetailsValue => {
   return !!value && typeof value !== 'string';
 };
 

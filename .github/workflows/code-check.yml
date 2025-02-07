@@ -17,10 +17,14 @@ on:
       NX_CLOUD_ACCESS_TOKEN:
         required: false
         description: Token to use Nx Cloud token
+      CODECOV_TOKEN:
+        required: false
+        description: Token Report to Codecov
 
 env:
   NX_SKIP_NX_CACHE: ${{ inputs.skipNxCache }}
   YARN_ENABLE_HARDENED_MODE: 0
+  NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
 
 permissions:
   contents: read
@@ -30,7 +34,7 @@ jobs:
     runs-on: ubuntu-latest
     continue-on-error: true
     steps:
-    - uses: actions/checkout@eef61447b9ff4aafe5dcd4e0bbf5d482be7e7871 # v4.2.1
+    - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
     - uses: gaurav-nelson/github-action-markdown-link-check@d53a906aa6b22b8979d33bc86170567e619495ec # v1.0.15
       with:
         base-branch: 'main'
@@ -43,10 +47,8 @@ jobs:
       matrix:
         os: ${{ fromJson(github.event_name != 'push' && '["ubuntu-latest", "windows-latest"]' || '["ubuntu-latest"]') }}
     runs-on: ${{ matrix.os }}
-    env:
-      NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
     steps:
-      - uses: actions/checkout@eef61447b9ff4aafe5dcd4e0bbf5d482be7e7871 # v4.2.1
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           fetch-depth: ${{ inputs.affected && '0' || '1' }}
       - name: Setup
@@ -71,31 +73,40 @@ jobs:
         env:
           testCmd: ${{ inputs.affected && format('test:affected --base=remotes/origin/{0}', github.base_ref || github.ref_name) || 'test'}}
           NODE_OPTIONS: ${{ runner.os == 'Windows' && '--max_old_space_size=4096' || '' }}
-        run: yarn ${{ env.testCmd }}
+        run: yarn ${{ env.testCmd }} --collectCoverage
+      - name: Upload results to Codecov
+        uses: codecov/codecov-action@b9fd7d16f6d7d1b5d2bec1a2887e65ceed900238 # v4.6.0
+        with:
+          flags: unittests
+          token: ${{ secrets.CODECOV_TOKEN }}
+      - name: Upload test results to Codecov
+        uses: codecov/test-results-action@9739113ad922ea0a9abb4b2c0f8bf6a4aa8ef820 # 1.0.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
       - name: Publish tests reports
         if: always()
         uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.0
         with:
           name: ut-reports-${{ matrix.os }}
           path: |
-            apps/**/dist-test/ut-report.xml
-            packages/**/dist-test/ut-report.xml
-            tools/**/dist-test/ut-report.xml
+            apps/**/dist-test/junit.xml
+            packages/**/dist-test/junit.xml
+            tools/**/dist-test/junit.xml
   lint:
     runs-on: ubuntu-latest
-    env:
-      NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
     steps:
-      - uses: actions/checkout@eef61447b9ff4aafe5dcd4e0bbf5d482be7e7871 # v4.2.1
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           fetch-depth: ${{ inputs.affected && '0' || '1' }}
       - name: Setup
         uses: ./tools/github-actions/setup
       - name: Cache Eslint
         uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.1.2
+        env:
+          hash: ${{ hashFiles('yarn.lock') }}
         with:
           path: .cache/eslint
-          key: ${{ runner.os }}-eslint-${{ hashFiles('yarn.lock') }}
+          key: ${{ runner.os }}-eslint-${{ env.hash }}
           restore-keys: |
             ${{ runner.os }}-eslint-${{ env.hash }}
             ${{ runner.os }}-eslint

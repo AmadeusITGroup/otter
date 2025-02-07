@@ -21,7 +21,8 @@
     "prepare:build:builders": "yarn cpy 'schematics/**/*.json' 'schematics/**/templates/**' dist/schematics && yarn cpy '{collection,migration}.json' dist",
     "prepare:publish": "prepare-publish ./dist",
     "build:schematics": "tsc -b tsconfig.schematics.json --pretty && yarn generate-cjs-manifest",
-    "build:tools": "tsc -b tsconfig.tools.json --pretty",
+    "build:tools": "tsc -b tsconfig.build.tools.json --pretty",
+    "build:utils": "tsc -b tsconfig.build.utils.json --pretty && node ./scripts/generate-esm-manifest.cjs",
     "postbuild": "patch-package-json-main"
   },
   "exports": {
@@ -90,11 +91,13 @@
     },
     "./visual-test/utils": {
       "types": "./visual-test/utils.d.ts",
-      "default": "./visual-test/utils.js"
+      "default": "./visual-test/utils.js",
+      "import": "./esm/visual-test/utils.js"
     }
   },
   "peerDependencies": {
     "@amadeus-it-group/kassette": "^1.7.0",
+    "@angular-devkit/core": "~18.2.0",
     "@angular-devkit/schematics": "~18.2.0",
     "@angular/animations": "~18.2.0",
     "@angular/cli": "~18.2.0",
@@ -115,10 +118,14 @@
     "protractor": "^7.0.0",
     "rxjs": "^7.8.1",
     "temporal-polyfill": "^0.2.0",
+    "type-fest": "^4.10.2",
     "typescript": "~5.5.4"
   },
   "peerDependenciesMeta": {
     "@amadeus-it-group/kassette": {
+      "optional": true
+    },
+    "@angular-devkit/core": {
       "optional": true
     },
     "@angular-devkit/schematics": {
@@ -159,6 +166,9 @@
     },
     "temporal-polyfill": {
       "optional": true
+    },
+    "type-fest": {
+      "optional": true
     }
   },
   "dependencies": {
@@ -180,8 +190,8 @@
     "@angular/forms": "~18.2.0",
     "@angular/platform-browser": "~18.2.0",
     "@angular/platform-browser-dynamic": "~18.2.0",
-    "@babel/core": "~7.25.0",
-    "@babel/preset-typescript": "~7.25.0",
+    "@babel/core": "~7.26.0",
+    "@babel/preset-typescript": "~7.26.0",
     "@compodoc/compodoc": "^1.1.19",
     "@material/slider": "^14.0.0",
     "@ngrx/store": "~18.0.0",

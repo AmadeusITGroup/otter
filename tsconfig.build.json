@@ -6,11 +6,12 @@
     "paths": {
       "@ama-sdk/client-fetch": ["packages/@ama-sdk/client-fetch/dist", "packages/@ama-sdk/client-fetch/src/public_api"],
       "@ama-sdk/core": ["packages/@ama-sdk/core/dist", "packages/@ama-sdk/core/src/public_api"],
-      "@ama-sdk/showcase-sdk": ["packages/@ama-sdk/showcase-sdk/dist", "packages/@ama-sdk/showcase-sdk/src/index"],
       "@ama-sdk/swagger-builder": ["packages/@ama-sdk/swagger-build/dist", "packages/@ama-sdk/swagger-builder"],
       "@ama-terasu/cli": ["packages/@ama-terasu/cli/dist", "packages/@ama-terasu/cli/src/public_api"],
       "@ama-terasu/core": ["packages/@ama-terasu/core/dist", "packages/@ama-terasu/core/src/public_api"],
       "@ama-terasu/schematics": ["packages/@ama-terasu/schematics/dist", "packages/@ama-terasu/schematics/src/public_api"],
+      "@o3r-training/showcase-sdk": ["packages/@o3r-training/showcase-sdk/dist", "packages/@o3r-training/showcase-sdk/src/index"],
+      "@o3r-training/training-tools": ["packages/@o3r-training/training-tools/dist", "packages/@o3r-training/training-tools/src/public_api"],
       "@o3r/amaterasu-api-spec": ["packages/@o3r/amaterasu/amaterasu-api-spec/dist", "packages/@o3r/amaterasu/amaterasu-api-spec/src"],
       "@o3r/amaterasu-dodo": ["packages/@o3r/amaterasu/amaterasu-dodo/dist", "packages/@o3r/amaterasu/amaterasu-dodo/src"],
       "@o3r/amaterasu-otter": ["packages/@o3r/amaterasu/amaterasu-otter/dist", "packages/@o3r/amaterasu/amaterasu-otter/src"],
@@ -51,9 +52,8 @@
       "@o3r/test-helpers": ["packages/@o3r/test-helpers/dist", "packages/@o3r/test-helpers/src/public_api"],
       "@o3r/test-helpers/setup-jest-builders": ["packages/@o3r/test-helpers/dist/src/setup-jest-builders", "packages/@o3r/test-helpers/src/setup-jest-builders"],
       "@o3r/testing": ["packages/@o3r/testing/dist", "packages/@o3r/testing/src/public_api"],
-      "@o3r/testing/*": ["packages/@o3r/testing/dist/*", "packages/@o3r/testing/src/*"],
+      "@o3r/testing/*": ["packages/@o3r/testing/dist/esm/*", "packages/@o3r/testing/dist/*", "packages/@o3r/testing/src/*"],
       "@o3r/third-party": ["packages/@o3r/third-party/dist", "packages/@o3r/third-party/src/public_api"],
-      "@o3r/training-tools": ["packages/@o3r/training-tools/dist", "packages/@o3r/training-tools/src/public_api"],
       "@o3r/workspace": ["packages/@o3r/workspace/dist"]
     }
   },

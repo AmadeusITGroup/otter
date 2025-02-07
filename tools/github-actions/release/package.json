@@ -3,7 +3,7 @@
   "private": true,
   "name": "release-gh-action",
   "description": "Git release action provided by Otter",
-  "main": "tmp/get-previous-version.cjs",
+  "main": "tmp/src/main.cjs",
   "scripts": {
     "nx": "nx",
     "build": "tsc -b tsconfig.build.json",

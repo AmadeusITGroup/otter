@@ -16,8 +16,12 @@
       "dependsOn": [
         "^build",
         "build-builders",
-        "compile"
+        "compile",
+        "expose-schemas"
       ]
+    },
+    "expose-schemas": {
+      "executor": "nx:run-script"
     },
     "compile": {
       "executor": "nx:run-script",

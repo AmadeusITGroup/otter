@@ -16,7 +16,8 @@
         "build-builders",
         "compile",
         "build-fixtures",
-        "extract-rules-engine"
+        "extract-rules-engine",
+        "expose-schemas"
       ]
     },
     "compile": {
@@ -27,17 +28,11 @@
         "tsConfig": "packages/@o3r/rules-engine/tsconfig.build.json"
       }
     },
+    "expose-schemas": {
+      "executor": "nx:run-script"
+    },
     "prepare": {
-      "executor": "nx:run-script",
-      "inputs": [
-        "global",
-        "{projectRoot}/package.json"
-      ],
-      "outputs": ["{projectRoot}/src/package.json"],
-      "dependsOn": ["^build"],
-      "options": {
-        "script": "prepare:compile"
-      }
+      "executor": "nx:run-script"
     },
     "extract-rules-engine": {
       "executor": "@o3r/rules-engine:extractor",

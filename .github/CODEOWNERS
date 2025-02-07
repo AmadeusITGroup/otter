@@ -14,3 +14,4 @@
 
 ## Default reviewers for Intellij extension
 /apps/intellij-extension/ @OxyFlax
+/apps/intellij-extension/build.gradle.kts @AmadeusITGroup/otter_admins

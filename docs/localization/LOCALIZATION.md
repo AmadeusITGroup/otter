@@ -14,7 +14,7 @@ The localization module is built on top of an open source [ngx-translate](https:
 
 - Intelligent fallback support. For any unsupported language request, the localization service will try to fetch the translation bundle from the fallback locale map OR the first closest supported language. More information in the [intelligent fallback section](#intelligent-fallback-support) below.
 
-- Resource keys can be translated from templates (`*.html`) via a [pipe](https://github.com/ngx-translate/core/blob/master/packages/core/lib/translate.pipe.ts) or [directive](https://github.com/ngx-translate/core/blob/master/packages/core/lib/translate.directive.ts) as well as from typescript (`*.ts`) via a [service](https://github.com/ngx-translate/core/blob/master/packages/core/lib/translate.service.ts).
+- Resource keys can be translated from templates (`*.html`) via a [pipe](https://github.com/ngx-translate/core/blob/master/projects/ngx-translate/src/lib/translate.pipe.ts) or [directive](https://github.com/ngx-translate/core/blob/master/projects/ngx-translate/src/lib/translate.directive.ts) as well as from typescript (`*.ts`) via a [service](https://github.com/ngx-translate/core/blob/master/projects/ngx-translate/src/lib/translate.service.ts).
 
 - Support for resource keys with parameters.
 
@@ -24,12 +24,13 @@ The localization module is built on top of an open source [ngx-translate](https:
 
 # How to use
 
-We provide an Angular module in __@o3r/localization__ called [LocalizationModule](https://github.com/AmadeusITGroup/otter/blob/main/packages/@o3r/localization/src/tools/localization.module.ts) which comes with a translations loader.
+We provide an Angular module in **@o3r/localization** called [LocalizationModule](https://github.com/AmadeusITGroup/otter/blob/main/packages/@o3r/localization/src/tools/localization.module.ts) which comes with a translations loader.
 
 ## Configuration of Localization Module
 
-In your `AppModule`, you need to **import** the `LocalizationModule` and `TranslateModule` (from __@ngx-translate/core__). The `LocalizationModule` could be imported calling its `forRoot` method
+In your `AppModule`, you need to **import** the `LocalizationModule` and `TranslateModule` (from **@ngx-translate/core**). The `LocalizationModule` could be imported calling its `forRoot` method
 with a custom configuration **factory** to specify the language of the application. This configuration is of type `LocalizationConfiguration` and describes:
+
 - The endpoint URL - where to fetch the translation bundles from
 - Supported locales - list of available languages
 - RTL languages - list of RTL language codes
@@ -145,6 +146,7 @@ Now we are ready to localize the components of the application.
 #### Generate a localized component
 
 You can directly generate a localized component with the following command:
+
 ```shell
 ng g component ComponentName --use-localization
 ```
@@ -168,6 +170,7 @@ under the `schematics` property, like this:
 > [!NOTE]
 > The `ngAdd` of the **@o3r/localization** package will set the `useLocalization` parameter to true for all schematic packages beginning with `'@o3r/core:component*'`
 > (including `@o3r/core:component`, `@o3r/core:component-presenter`, `@o3r/core:component-container`).
+>
 > ```shell
 > ng add @o3r/localization
 > ```
@@ -175,6 +178,7 @@ under the `schematics` property, like this:
 #### Add localization to an existing component
 
 You can also localize a component later with:
+
 ```shell
 ng g localization-to-component --path='path/to/the/component/class/file'
 ```
@@ -184,6 +188,7 @@ first checks that the component does not already contain localization files or p
 
 > [!NOTE]
 > Later you can add a localization key to a component with the following command:
+>
 > ```shell
 > ng g localization-key-to-component --path='path/to/the/component/class/file' --key='localizationKey' --value='Default value for localizationKey'
 > ```
@@ -221,7 +226,7 @@ The `*.localization.json` file specifies default values in English only.
 
 ##### How to properly create keys?
 
-* **Manually:**
+- **Manually:**
 
 To ensure the uniqueness of localization keys, it's a good idea to follow naming conventions. For components, we recommend prefixing each key by the component selector.
 Hence, the naming convention for keys is the component selector followed by `.` (dot character) and any string of your choice.
@@ -245,7 +250,7 @@ For example, if your `SimpleHeaderPresComponent` has the selector `o3r-simple-he
 }
 ```
 
-* **VSCode Extension:**
+- **VSCode Extension:**
 
 For VSCode users, we provide an Otter extension that allows to create localization keys (and their corresponding descriptions) directly from some selected text in the component's template.
 
@@ -359,6 +364,7 @@ ng run project-name:i18n
 It will create an `i18n` folder in the component folder, with an `en-GB.json` file containing the mapping between the localization key and the associated default value.
 
 Check the list of options available by running:
+
 ```shell
 ng run project-name:i18n --help
 ```
@@ -368,6 +374,7 @@ ng run project-name:i18n --help
 ```shell
 ng run project-name:generate-translations
 ```
+
 It will create the application bundle for each supported language.
 
 Check the list of options available by running:
@@ -423,11 +430,14 @@ Now we can start using pipes:
 
 > [!NOTE]
 > A locale parameter can be added to the pipe, such as the following:
+>
 > ```html
 > <p>{{today | date: 'fullDate' : '' : currentLanguage()}}</p>
 > ```
+>
 > However, the format of the pipes is based on the current locale so adding the `currentLanguage()` parameter is optional.
 > Another locale can be added in order to override the current one, for example:
+>
 > ```html
 > <p>{{1.5487 | currency: 'CAD' : 'symbol' : '' : 'fr-FR'}}</p>
 > ```
@@ -654,13 +664,13 @@ return {
 
 **Fallback scenarios:**
 
-* `en-CA` **fallbacks to** `en-US`, as direct mapping available in fallback locales map.
-* `de-CH` **fallbacks to** `ar-AR`, as direct mapping available in fallback locales map.
-* `de-AT` **fallbacks to** `fr-FR`, as language mapping available in fallback locales map.
-* `zh-CN` **fallbacks to** `en-GB`, as language mapping available in fallback locales map.
-* `en-AU` **fallbacks to** `en-GB`, as fallback locales mapping unavailable, first nearest language available in supported locales.
-* `fr-BE` **fallbacks to** `fr-FR`, as fallback locales mapping unavailable, first nearest language available in supported locales.
-* `bn-BD` **fallbacks to** `ar-AR`, as it is the default fallback.
+- `en-CA` **fallbacks to** `en-US`, as direct mapping available in fallback locales map.
+- `de-CH` **fallbacks to** `ar-AR`, as direct mapping available in fallback locales map.
+- `de-AT` **fallbacks to** `fr-FR`, as language mapping available in fallback locales map.
+- `zh-CN` **fallbacks to** `en-GB`, as language mapping available in fallback locales map.
+- `en-AU` **fallbacks to** `en-GB`, as fallback locales mapping unavailable, first nearest language available in supported locales.
+- `fr-BE` **fallbacks to** `fr-FR`, as fallback locales mapping unavailable, first nearest language available in supported locales.
+- `bn-BD` **fallbacks to** `ar-AR`, as it is the default fallback.
 
 ## Scenario 2: Fallback based on `supportedLocales`
 
@@ -680,9 +690,9 @@ return {
 
 **Fallback scenarios:**
 
-* `en-US` **fallbacks to** `en-GB`, as en-GB has the same language with a different region.
-* `fr-BE` **fallbacks to** `fr-FR`, as fr-FR is first in the supported locales list.
-* `it-IT` **fallbacks to** `en-GB`, as it is the default fallback.
+- `en-US` **fallbacks to** `en-GB`, as en-GB has the same language with a different region.
+- `fr-BE` **fallbacks to** `fr-FR`, as fr-FR is first in the supported locales list.
+- `it-IT` **fallbacks to** `en-GB`, as it is the default fallback.
 
 # Debugging
 
@@ -845,7 +855,6 @@ import { OTTER_LOCALIZATION_DEVTOOLS_OPTIONS } from '@o3r/localization';
 })
 export class AppModule {}
 ```
-
 
 > [!NOTE]
 > Get more details on [Otter Chrome DevTools session](../dev-tools/chrome-devtools.md).
