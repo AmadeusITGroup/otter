@@ -11,6 +11,7 @@ import {
 } from '@angular-devkit/schematics/tasks';
 import {
   createSchematicWithMetricsIfInstalled,
+  createSchematicWithOptionsFromWorkspace,
   getPackageManagerExecutor,
   getWorkspaceConfig,
   registerPackageCollectionSchematics,
@@ -67,4 +68,4 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
  * Add Otter library to an Angular Project
  * @param options
  */
-export const ngAdd = createSchematicWithMetricsIfInstalled(ngAddFn);
+export const ngAdd = createSchematicWithOptionsFromWorkspace(createSchematicWithMetricsIfInstalled(ngAddFn));

@@ -12,6 +12,7 @@ import {
 import {
   applyEsLintFix,
   createSchematicWithMetricsIfInstalled,
+  createSchematicWithOptionsFromWorkspace,
   type DependencyToAdd,
   getPackagesBaseRootFolder,
   getWorkspaceConfig,
@@ -88,4 +89,4 @@ function generateModuleFn(options: NgGenerateModuleSchema): Rule {
  * Add an Otter compatible module to a monorepo
  * @param options Schematic options
  */
-export const generateModule = createSchematicWithMetricsIfInstalled(generateModuleFn);
+export const generateModule = createSchematicWithOptionsFromWorkspace(createSchematicWithMetricsIfInstalled(generateModuleFn));
