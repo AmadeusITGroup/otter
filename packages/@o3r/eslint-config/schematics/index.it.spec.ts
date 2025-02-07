@@ -63,8 +63,7 @@ describe('new otter application with eslint config', () => {
     untouchedProjectsPaths.forEach((untouchedProject) => {
       expect(diff.all.some((file) => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
     });
-    // TODO This command can be re-activated once #2730 is fixed
-    // expect(() => packageManagerExec({ script: 'ng', args: ['lint', libName, '--fix'] }, execAppOptions)).not.toThrow();
+    expect(() => packageManagerExec({ script: 'ng', args: ['lint', libName, '--fix'] }, execAppOptions)).not.toThrow();
   });
 
   test('should add eslint config to existing repository', () => {
