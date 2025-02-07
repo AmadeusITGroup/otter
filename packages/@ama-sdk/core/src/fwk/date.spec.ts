@@ -104,7 +104,7 @@ describe('Date', () => {
   it('should be converted to a Js DateTime', () => {
     const date1 = '1988-06-07';
 
-    const dateCompare = (new utils.DateTime('1988-06-07T00:00:00Z'));
+    const dateCompare = (new utils.DateTime('1988-06-07T12:00:00Z'));
 
     expect((new utils.Date(date1))).toEqual(dateCompare);
   });
