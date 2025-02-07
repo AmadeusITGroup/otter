@@ -3,6 +3,9 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import {
+  NGX_MONACO_EDITOR_CONFIG,
+} from 'ngx-monaco-editor-v2';
+import {
   CodeEditorViewComponent,
 } from './code-editor-view.component';
 
@@ -12,7 +15,10 @@ describe('CodeEditorViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CodeEditorViewComponent]
+      imports: [CodeEditorViewComponent],
+      providers: [
+        { provide: NGX_MONACO_EDITOR_CONFIG, useValue: { baseUrl: '' } }
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(CodeEditorViewComponent);

@@ -11,11 +11,10 @@
                        class="w-100 editor-view"></monaco-tree>
         </as-split-area>
         <as-split-area [size]="75" class="editor-view">
-          @let editorOptions = editorOptions$ | async;
-          @if (editorOptions) {
+          @if (editorOptions()) {
             <ngx-monaco-editor class="h-100 position-relative"
-                               [options]="editorOptions"
-                               [model]="model()"
+                               [options]="editorOptions()"
+                               [model]="model$ | async"
                                (keydown)="onEditorKeyDown($event)"
                                (onInit)="newMonacoEditorCreated.next()"
                                formControlName="code">
