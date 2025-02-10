@@ -54,12 +54,12 @@ function extractTokenFn(options: ExtractTokenSchematicsSchema): Rule {
       ));
       const sassParser = new CssVariableExtractor();
 
-      tree.visit((file) => {
+      tree.visit(async (file) => {
         if (!filterFunctions.some((filterFunction) => filterFunction(file))) {
           return;
         }
         const content = tree.readText(file);
-        const variables = sassParser.extractFileContent(resolve(tree.root.path, file), content);
+        const variables = await sassParser.extractFileContent(resolve(tree.root.path, file), content);
 
         if (variables.length > 0 && options.includeTags) {
           const newContent = updateFileContent(content);
