@@ -13,8 +13,13 @@ export function pad(val: number, digits: number = 2): string {
   return '0'.repeat(Math.max(0, digits - str.length)) + str;
 }
 
-export class CommonDate extends Date {
+function getNewTimeZoneWithOffset(dateArgs: any[], timezoneOffset: number) {
+  const newDateArgs = [...dateArgs];
+  newDateArgs[0] += `${timezoneOffset < 0 ? '+' : '-'}${pad(Math.floor(Math.abs(timezoneOffset / 60)))}:${pad(Math.abs(timezoneOffset % 60))}`;
+  return newDateArgs;
+}
 
+export class CommonDate extends Date {
   /**
    * Removes timezone information from ISO8601 strings (Received from DAPI)
    */
@@ -34,10 +39,13 @@ export class CommonDate extends Date {
           args[0] = args[0].substring(0, idx);
         }
 
-        const TIME_ZONE_OFFSET = ((new (Date as any)(...args)) as Date).getTimezoneOffset();
+        const ORIGINAL_TIME_ZONE_OFFSET = ((new (Date as any)(...args)) as Date).getTimezoneOffset();
 
         if (idxT > 0) {
-          args[0] += `${TIME_ZONE_OFFSET < 0 ? '+' : '-'}${pad(Math.floor(Math.abs(TIME_ZONE_OFFSET / 60)))}:${pad(Math.abs(TIME_ZONE_OFFSET % 60))}`;
+          const newDateArgs = getNewTimeZoneWithOffset(args, ORIGINAL_TIME_ZONE_OFFSET);
+          // Adjust timezone in case of a daylight saving change mid-offset
+          const NEW_DATE_TIME_ZONE_OFFSET = ((new (Date as any)(...newDateArgs)) as Date).getTimezoneOffset();
+          args = getNewTimeZoneWithOffset(args, NEW_DATE_TIME_ZONE_OFFSET);
         }
       } else if (args[0] instanceof CommonDate) {
         args[0] = args[0];
@@ -75,11 +83,9 @@ export namespace utils {
     constructor(year: number, month: number, date?: number)
     constructor(...args: any[]) {
       if (args && typeof args[0] === 'string' && args[0].lastIndexOf('T') < 0) {
-        // Set time to 12 to limit scenarios where the native date api is not able to correctly
-        // compute the offset (for example, italian daylight saving switch prior to 1980).
-        args[0] = `${args[0]}T12:00:00Z`;
+        args[0] = `${args[0]}T00:00:00Z`;
       } else if (args[0] instanceof _NativeDateClass) {
-        args[0] = `${args[0].getFullYear()}-${pad(args[0].getMonth() + 1)}-${pad(args[0].getDate())}T12:00:00Z`;
+        args[0] = `${args[0].getFullYear()}-${pad(args[0].getMonth() + 1)}-${pad(args[0].getDate())}T00:00:00Z`;
       }
 
       super(...args);
