@@ -1,42 +1,60 @@
-@if (steps()[currentStepIndex()]; as currentStep){
+@if (!!feedbackFormLink()) {
+  <a class="btn btn-primary df-link-external ps-3 vertical-button"
+     target="_blank"
+     [href]="feedbackFormLink()">
+    Feedback
+  </a>
+}
+@let currentStep = steps()[currentStepIndex()] ;
+@if (currentStep) {
+  @let hasDynamicContent = currentStep.hasDynamicContent ;
   <div class="mt-5 mb-3 d-flex justify-content-between align-items-center gap-3 flex-wrap">
-    <h1 class="m-0 flex-grow-1">{{title()}}</h1>
+    <h1 class="m-0 flex-grow-1">{{ title() }}</h1>
     <div class="d-flex gap-3">
-      @if (currentStep.dynamicContent.project() || currentStep.dynamicContent.solutionProject()) {
+      @if (hasDynamicContent && (currentStep.dynamicContent.project() || currentStep.dynamicContent.solutionProject())) {
         <button type="button" class="btn btn-outline-danger"
                 (click)="toggleDisplaySolution()"
                 [disabled]="!showSolution() && !currentStep.dynamicContent.solutionProject() || showSolution() && !currentStep.dynamicContent.project()"
         >
-          {{showSolution() ? 'Show exercise' : 'Show solution'}}
+          {{ showSolution() ? 'Show exercise' : 'Show solution' }}
         </button>
       }
     </div>
     <div class="d-flex gap-3">
       <div ngbDropdown>
         <button type="button" class="btn btn-outline-primary" id="training-exercise-selection" ngbDropdownToggle>
-          {{currentStep.description.stepTitle}}
+          {{ currentStep.description.stepTitle }}
         </button>
         <div ngbDropdownMenu aria-labelledby="training-exercise-selection">
           @for (label of stepNames(); track label; let id = $index) {
-            <button type="button" ngbDropdownItem class="dropdown-item" [class.active]="id === currentStepIndex()" (click)="setCurrentStep(id)">
-              {{label}}
+            <button type="button" ngbDropdownItem class="dropdown-item" [class.active]="id === currentStepIndex()"
+                    (click)="setCurrentStep(id)">
+              {{ label }}
             </button>
           }
         </div>
       </div>
-      <button type="button" class="btn btn-outline-secondary df-btn-icononly fa-chevron-left" [disabled]="currentStepIndex() <= 0"
-              aria-label="Previous step" (click)="setCurrentStep(currentStepIndex() - 1)" id="training-exercise-previous-step"></button>
-      <button type="button" class="btn btn-outline-secondary df-btn-icononly fa-chevron-right" [disabled]="currentStepIndex() >= steps().length - 1"
-              aria-label="Next step" (click)="setCurrentStep(currentStepIndex() + 1)" id="training-exercise-next-step"></button>
+      <button type="button" class="btn btn-outline-secondary df-btn-icononly fa-chevron-left"
+              [disabled]="currentStepIndex() <= 0"
+              aria-label="Previous step" (click)="setCurrentStep(currentStepIndex() - 1)"
+              id="training-exercise-previous-step"></button>
+      <button type="button" class="btn btn-outline-secondary df-btn-icononly fa-chevron-right"
+              [disabled]="currentStepIndex() >= steps().length - 1"
+              aria-label="Next step" (click)="setCurrentStep(currentStepIndex() + 1)"
+              id="training-exercise-next-step"></button>
     </div>
   </div>
-  <o3r-training-step-pres
-    class="flex-fill overflow-hidden mb-5"
-    [class.constrained]="!!(currentStep.dynamicContent.solutionProject() || currentStep.dynamicContent.project())"
-    [instructions]="currentStep.dynamicContent.htmlContent()"
-    [title]="currentStep.description.stepTitle"
-    [project]="showSolution() ? currentStep.dynamicContent.solutionProject() : currentStep.dynamicContent.project()"
-    [editorMode]="showSolution() ? 'readonly' : currentStep.description.filesConfiguration?.mode"
-    [displayTerminal]="currentStep.description.filesConfiguration?.mode === 'interactive'">
-  </o3r-training-step-pres>
+  @if (hasDynamicContent) {
+    <o3r-training-step-pres
+      class="flex-fill overflow-hidden mb-5"
+      [class.constrained]="!!(currentStep.dynamicContent.solutionProject() || currentStep.dynamicContent.project())"
+      [instructions]="currentStep.dynamicContent.htmlContent()"
+      [title]="currentStep.description.stepTitle"
+      [project]="showSolution() ? currentStep.dynamicContent.solutionProject() : currentStep.dynamicContent.project()"
+      [editorMode]="showSolution() ? 'readonly' : currentStep.description.filesConfiguration?.mode"
+      [displayTerminal]="currentStep.description.filesConfiguration?.mode === 'interactive'">
+    </o3r-training-step-pres>
+  } @else {
+    <congratulations-step [title]="currentStep.description.stepTitle" [feedbackForUrl]="feedbackFormLink()"></congratulations-step>
+  }
 }
