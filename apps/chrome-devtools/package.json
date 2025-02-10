@@ -48,7 +48,7 @@
     "@playwright/test": "~1.50.0",
     "@schematics/angular": "~19.0.0",
     "@stylistic/eslint-plugin": "~3.0.0",
-    "@types/chrome": "^0.0.300",
+    "@types/chrome": "^0.0.301",
     "@types/jest": "~29.5.2",
     "@types/tinycolor2": "^1.4.6",
     "@typescript-eslint/parser": "~8.22.0",
