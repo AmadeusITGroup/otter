@@ -5,6 +5,11 @@
       "implementation": "./builders/style-extractor/",
       "schema": "./builders/style-extractor/schema.json",
       "description": "Extract the CSS variables from an Otter project"
+    },
+    "check-style-migration-metadata": {
+      "implementation": "./builders/metadata-check/",
+      "schema": "./builders/metadata-check/schema.json",
+      "description": "Check for style metadata breaking changes"
     }
   }
 }

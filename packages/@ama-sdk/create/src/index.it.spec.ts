@@ -27,7 +27,7 @@ const packageManager = getPackageManager();
 
 describe('Create new sdk command', () => {
   beforeEach(() => {
-    const isYarnTest = packageManager.startsWith('yarn');
+    const isYarnTest = o3rEnvironment.testEnvironment.isYarnTest;
     const yarnVersion = isYarnTest ? getYarnVersionFromRoot(process.cwd()) || 'latest' : undefined;
     sdkFolderPath = o3rEnvironment.testEnvironment.workspacePath;
     sdkPackagePath = path.join(sdkFolderPath, sdkPackageName.replace(/^@/, ''));
@@ -69,7 +69,11 @@ describe('Create new sdk command', () => {
     expect(() =>
       packageManagerCreate({
         script: '@ama-sdk',
-        args: ['typescript', sdkPackageName, '--package-manager', packageManager, '--spec-path', path.join(sdkFolderPath, 'swagger-spec-with-date.yml')]
+        args: [
+          'typescript',
+          sdkPackageName,
+          '--package-manager', packageManager,
+          '--spec-path', path.join(sdkFolderPath, 'swagger-spec-with-date.yml')]
       }, execAppOptions)
     ).not.toThrow();
     expect(() => packageManagerRun({script: 'build'}, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
@@ -93,7 +97,8 @@ describe('Create new sdk command', () => {
       }, execAppOptions)
     ).not.toThrow();
     expect(() => packageManagerRun({script: 'build'}, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
-    expect(existsSync(path.join(sdkPackagePath, 'src', 'models', 'base', 'pet', 'pet.reviver.ts'))).toBeTruthy();
+    expect(existsSync(path.join(sdkPackagePath, 'src', 'models', 'base', 'pet', 'pet.ts'))).toBeTruthy();
+    expect(existsSync(path.join(sdkPackagePath, 'src', 'models', 'base', 'pet', 'pet.reviver.ts'))).toBeFalsy();
     expect(() => packageManagerRun({script: 'spec:upgrade'}, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
   });
 

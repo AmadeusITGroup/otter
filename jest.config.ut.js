@@ -10,9 +10,10 @@ globalThis.ngJest = {
  * Jest configuration that can be set at project level
  * @param rootDir {string}
  * @param isAngularSetup {boolean}
+ * @param options.tsconfig {string}
  * @returns {import('ts-jest/dist/types').JestConfigWithTsJest}
  */
-module.exports.getJestProjectConfig = (rootDir, isAngularSetup) => {
+module.exports.getJestProjectConfig = (rootDir, isAngularSetup, options) => {
   const relativePath = relative(rootDir, __dirname);
   const moduleNameMapper = Object.fromEntries(
     Object.entries(pathsToModuleNameMapper(compilerOptions.paths))
@@ -39,7 +40,7 @@ module.exports.getJestProjectConfig = (rootDir, isAngularSetup) => {
       '^.+\\.[mc]?tsx?$': [
         'ts-jest',
         {
-          tsconfig: '<rootDir>/tsconfig.spec.json',
+          tsconfig: options?.tsconfig ?? '<rootDir>/tsconfig.spec.json',
           stringifyContentPathRegex: '\\.html$'
         }
       ]
@@ -56,7 +57,7 @@ module.exports.getJestProjectConfig = (rootDir, isAngularSetup) => {
         '^.+\\.tsx?$': [
           'jest-preset-angular',
           {
-            tsconfig: '<rootDir>/tsconfig.spec.json',
+            tsconfig: options?.tsconfig ?? '<rootDir>/tsconfig.spec.json',
             stringifyContentPathRegex: '\\.html$'
           }
         ]

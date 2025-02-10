@@ -9,6 +9,7 @@ import { OTTER_STYLING_DEVTOOLS_DEFAULT_OPTIONS, OTTER_STYLING_DEVTOOLS_OPTIONS 
 const isStylingMessage = (message: any): message is AvailableStylingMessageContents => {
   return message && (
     message.dataType === 'updateStylingVariables'
+    || message.dataType === 'resetStylingVariables'
     || message.dataType === 'getStylingVariable'
     || message.dataType === 'requestMessages'
     || message.dataType === 'connect'
@@ -114,6 +115,10 @@ export class StylingDevtoolsMessageService implements OnDestroy {
       }
       case 'updateStylingVariables': {
         this.stylingDevTools.updateVariables(message.variables);
+        break;
+      }
+      case 'resetStylingVariables': {
+        this.stylingDevTools.resetStylingVariables();
         break;
       }
       default: {
