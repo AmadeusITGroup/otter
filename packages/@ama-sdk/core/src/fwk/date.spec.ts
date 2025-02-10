@@ -47,6 +47,14 @@ describe('DateTime', () => {
     expect(dateUtils).toEqual(dateCompare);
   });
 
+  it('should support daylight saving time switch', () => {
+    expect((new Date('1972-05-28T00:00:00')).getTimezoneOffset()).toBe(-120);
+    expect((new Date('1972-05-27T23:59:59')).getTimezoneOffset()).toBe(-60);
+    const dateUtils = new utils.DateTime('1972-05-28T00:00:00');
+    // At midnight in italy, for this date, time should be 1 am
+    expect(dateUtils.toJSON()).toEqual('1972-05-28T01:00:00.000');
+  });
+
   it('should ignore timezone of datetime', () => {
     const date1 = '2015-03-25T12:00:00-02:00';
     const date2 = '2015-03-25T12:00:00+05:00';
@@ -104,8 +112,25 @@ describe('Date', () => {
   it('should be converted to a Js DateTime', () => {
     const date1 = '1988-06-07';
 
-    const dateCompare = (new utils.DateTime('1988-06-07T12:00:00Z'));
+    const dateCompare = (new utils.DateTime('1988-06-07T00:00:00Z'));
 
     expect((new utils.Date(date1))).toEqual(dateCompare);
+  });
+
+  it('should be at midnight for any date but daylight switch at midnight', () => {
+    const date1 = new utils.Date('1988-06-07');
+
+    expect(date1.getHours()).toEqual(0);
+    expect(date1.getMinutes()).toEqual(0);
+    expect(date1.getSeconds()).toEqual(0);
+  });
+
+  it('should support daylight saving time switch', () => {
+    expect((new Date('1972-05-28T00:00:00')).getTimezoneOffset()).toBe(-120);
+    expect((new Date('1972-05-27T23:59:59')).getTimezoneOffset()).toBe(-60);
+    const dateUtils = new utils.Date('1972-05-28');
+    // The day should be correct and not 27
+    expect(dateUtils.toJSON()).toEqual('1972-05-28');
+    expect(dateUtils.getDate()).toBe(28);
   });
 });
