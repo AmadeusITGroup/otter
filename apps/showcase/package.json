@@ -82,7 +82,7 @@
     "monaco-editor": "~0.52.0",
     "ngx-markdown": "^19.0.0",
     "ngx-monaco-editor-v2": "^19.0.2",
-    "ngx-monaco-tree": "^18.4.0",
+    "ngx-monaco-tree": "~19.1.0",
     "pixelmatch": "^6.0.0",
     "pngjs": "^7.0.0",
     "prism-themes": "^1.9.0",
