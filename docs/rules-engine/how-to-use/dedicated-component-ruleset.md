@@ -89,9 +89,6 @@ prevent the execution of the Ruleset until your component is available in the pa
   ]
 }
 ```
-> [!INFO]
-> In v10 and the previous version, the Otter framework exposed the `linkedComponent` property to activate a ruleset on demand.
-> This is now deprecated and will be removed in v12. Use `linkedComponents` instead.
 
 ## How it works
 

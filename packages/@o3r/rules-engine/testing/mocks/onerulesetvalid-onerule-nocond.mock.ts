@@ -12,7 +12,6 @@ export const jsonOneRulesetValidOneRuleNoCond: { ruleSets: Ruleset[] } = {
           id: '6e8t54h6s4e-6erth46sre8th4-d46t8s13t5j1',
           name: 'the first rule',
           inputRuntimeFacts: [],
-          inputFacts: [],
           outputRuntimeFacts: [],
           rootElement: {
             elementType: 'RULE_BLOCK',
@@ -36,16 +35,17 @@ export const jsonOneRulesetValidOneRuleNoCond: { ruleSets: Ruleset[] } = {
       validityRange: {
         to: '2025-07-23T18:25:43.511Z'
       },
-      linkedComponent: {
-        library: '@otter/comps',
-        name: 'TestComponent'
+      linkedComponents: {
+        or: [{
+          library: '@otter/comps',
+          name: 'TestComponent'
+        }]
       },
       rules: [
         {
           id: '6e8t54h6s4e-6erth46sre8th4-d46t8s13t5j1',
           name: 'the first rule',
           inputRuntimeFacts: [],
-          inputFacts: [],
           outputRuntimeFacts: [],
           rootElement: {
             elementType: 'RULE_BLOCK',
@@ -69,16 +69,17 @@ export const jsonOneRulesetValidOneRuleNoCond: { ruleSets: Ruleset[] } = {
       validityRange: {
         from: '2100-07-23T18:25:43.511Z'
       },
-      linkedComponent: {
-        library: '@otter/comps',
-        name: 'TestComponent2'
+      linkedComponents: {
+        or: [{
+          library: '@otter/comps',
+          name: 'TestComponent2'
+        }]
       },
       rules: [
         {
           id: '6e8t54h6s4e-6erth46sre8th4-d46t8s13t5j1',
           name: 'the first rule',
           inputRuntimeFacts: [],
-          inputFacts: [],
           outputRuntimeFacts: [],
           rootElement: {
             elementType: 'RULE_BLOCK',
@@ -107,7 +108,6 @@ export const jsonOneRulesetValidOneRuleNoCond: { ruleSets: Ruleset[] } = {
           id: '6e8t54h6s4e-6erth46sre8th4-d46t8s13t5j1',
           name: 'the first rule',
           inputRuntimeFacts: [],
-          inputFacts: [],
           outputRuntimeFacts: [],
           rootElement: {
             elementType: 'RULE_BLOCK',

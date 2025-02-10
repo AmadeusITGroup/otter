@@ -11,8 +11,11 @@ import {
   TrackFocusDirective,
 } from './track-focus/track-focus.directive';
 
+/**
+ * @deprecated TrackEventsDirective, TrackClickDirective and TrackFocusDirective are now standalone, this module will be removed in v14
+ */
 @NgModule({
-  declarations: [TrackEventsDirective, TrackClickDirective, TrackFocusDirective],
+  imports: [TrackEventsDirective, TrackClickDirective, TrackFocusDirective],
   exports: [TrackEventsDirective, TrackClickDirective, TrackFocusDirective]
 })
 export class TrackEventsModule {}

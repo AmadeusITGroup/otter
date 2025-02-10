@@ -240,7 +240,8 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<StyleExtractorB
     // Exit on watcher failure
     return new Promise<BuilderOutput>((_resolve, reject) =>
       watcher
-        .on('error', (err) => reject(err))
+        // TODO remove cast after https://github.com/paulmillr/chokidar/issues/1392
+        .on('error', (err) => reject(err as Error))
     );
   } else {
     const result = execute(getAllFiles());

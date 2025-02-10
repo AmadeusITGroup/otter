@@ -131,7 +131,11 @@
     },
     "build-extension": {
       "executor": "nx:run-script",
-      "outputs": ["{projectRoot}/dist/extension"],
+      "outputs": [
+        "{projectRoot}/dist/extension/**/*.js",
+        "{projectRoot}/dist/extension/**/*.ts",
+        "{projectRoot}/dist/extension/**/*.map"
+      ],
       "options": {
         "script": "build:extension"
       },
@@ -149,10 +153,11 @@
         }
       }
     },
-    "test": {
-      "executor": "@nx/jest:jest",
+    "test": {},
+    "test-e2e": {
+      "executor": "nx:run-script",
       "options": {
-        "jestConfig": "apps/chrome-devtools/jest.config.js"
+        "script": "test:playwright"
       }
     },
     "copy-assets": {
@@ -161,7 +166,7 @@
         "script": "copy:assets"
       },
       "outputs": [
-        "{projectRoot}/dist/assets/**",
+        "{projectRoot}/dist/extension/icons/**",
         "{projectRoot}/dist/manifest.json",
         "{projectRoot}/dist/devtools.html",
         "{projectRoot}/dist/options.html"

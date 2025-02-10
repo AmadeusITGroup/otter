@@ -1,4 +1,7 @@
 import {
+  CommonModule,
+} from '@angular/common';
+import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -10,6 +13,19 @@ import type {
   RulesetExecutionErrorEvent,
   RulesetExecutionEvent,
 } from '../../../engine';
+import {
+  RuleActionsPresComponent,
+} from '../rule-actions/rule-actions-pres.component';
+import {
+  RuleKeyValuePresComponent,
+} from '../rule-key-value/rule-key-value-pres.component';
+import {
+  RuleTreePresComponent,
+} from '../rule-tree/rule-tree-pres.component';
+import {
+  O3rFallbackToPipe,
+  O3rJsonOrStringPipe,
+} from '../shared/index';
 
 export type RulesetExecutionStatus = 'Error' | 'Active' | 'Deactivated' | 'NoEffect';
 /**
@@ -26,7 +42,15 @@ export type RulesetExecutionDebug = (RulesetExecutionEvent | RulesetExecutionErr
   styleUrls: ['./ruleset-history-pres.style.scss'],
   templateUrl: './ruleset-history-pres.template.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  imports: [
+    CommonModule,
+    O3rFallbackToPipe,
+    O3rJsonOrStringPipe,
+    RuleActionsPresComponent,
+    RuleKeyValuePresComponent,
+    RuleTreePresComponent
+  ]
 })
 export class RulesetHistoryPresComponent {
   /**

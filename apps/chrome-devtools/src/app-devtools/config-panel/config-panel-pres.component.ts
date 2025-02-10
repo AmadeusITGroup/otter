@@ -40,7 +40,6 @@ import {
   templateUrl: './config-panel-pres.template.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  standalone: true,
   imports: [
     NgbAccordionModule,
     ConfigFormComponent,

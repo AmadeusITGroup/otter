@@ -3,10 +3,7 @@ import {
   PipeTransform,
 } from '@angular/core';
 
-@Pipe({
-  name: 'o3rJsonOrString',
-  standalone: true
-})
+@Pipe({ name: 'o3rJsonOrString' })
 export class O3rJsonOrStringPipe implements PipeTransform {
   /**
    * @inheritDoc

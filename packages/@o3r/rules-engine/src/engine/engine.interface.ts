@@ -54,7 +54,7 @@ export interface RulesEngineOptions {
 
   /**
    * Skip the rule and fact circular dependency checks
-   * Turn to true to increase the speed of the upsertion of a rule
+   * Turn to true to increase the speed of the upsert of a rule
    */
   skipCircularDependencyChecks?: boolean;
 
@@ -94,14 +94,8 @@ export interface EngineRuleset {
   /**
    * Components linked to the ruleset. If present the ruleset will not be active by default.
    * 'or' condition: If at least one component has subscribed, the ruleset will become active.
-   * If present, the {@link linkedComponent} property will not be taken into consideration
    */
   linkedComponents?: { or: ItemIdentifier[] };
-  /**
-   * Component linked to the ruleset, if set it will disable the ruleset execution per default, waiting to a subscription
-   * @deprecated It will be removed in v12, use {@link linkedComponents} instead
-   */
-  linkedComponent?: ItemIdentifier;
   /** Unique id of the ruleset*/
   id: string;
   /** Stores the result of each rules from the ruleset */
@@ -131,7 +125,7 @@ export interface RuleEvaluation extends TimedEvent {
   id: string;
   /** Evaluated rule identifier */
   rule: Pick<Rule, 'id' | 'name'>;
-  /** Actions outputed by the rule evaluation */
+  /** Actions outputted by the rule evaluation */
   outputActions: ActionBlock[] | undefined;
   /** Map containing the facts changes triggering the rule evaluation */
   triggers: Record<string, Record<string, EvaluationReason>>;
@@ -153,7 +147,7 @@ export interface RuleEvaluationOutput {
   error?: any;
 }
 
-/** Base obeject resulted at the end of a ruleset execution */
+/** Base object resulted at the end of a ruleset execution */
 export interface BaseRulesetExecution {
   /** Id of the ruleset execution */
   executionId: string;
@@ -165,7 +159,7 @@ export interface BaseRulesetExecution {
   executionCounter: number;
   /** All input facts affecting the ruleset */
   inputFacts: { factName: string; value: Facts }[];
-  /** Runtime facts used accros the ruleset */
+  /** Runtime facts used across the ruleset */
   temporaryFacts?: Record<string, Facts>;
   /** Facts changes that triggered the execution of the ruleset */
   triggers: Record<string, Record<string, EvaluationReason>>;
@@ -215,5 +209,13 @@ export interface AvailableRulesets extends TimedEvent {
   availableRulesets: Pick<Ruleset, 'name' | 'id'>[];
 }
 
-/** Type of possible debug events emited by Rules Engine */
-export type DebugEvent = RulesetExecutionEvent | RulesetExecutionErrorEvent | ActiveRulesetsEvent | AllActionsEvent | AvailableRulesets;
+/**  Debug event emitted when facts are updated */
+export interface AvailableFactsSnapshot extends TimedEvent {
+  /** Event type */
+  type: 'AvailableFactsSnapshot';
+  /** List of all facts */
+  facts: { factName: string; value: Facts }[];
+}
+
+/** Type of possible debug events emitted by Rules Engine */
+export type DebugEvent = RulesetExecutionEvent | RulesetExecutionErrorEvent | ActiveRulesetsEvent | AllActionsEvent | AvailableRulesets | AvailableFactsSnapshot;

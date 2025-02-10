@@ -47,7 +47,7 @@ const config = defineConfig({
     }
   },
   projects: [
-    { name: 'Chromium', use: { browserName: 'chromium' } }
+    { name: 'Chromium', use: { browserName: 'chromium', channel: 'chromium' } }
   ],
   webServer: [
     ...process.env.USE_MOCKS

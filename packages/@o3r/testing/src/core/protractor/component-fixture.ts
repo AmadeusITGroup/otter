@@ -8,12 +8,15 @@ import {
   FixtureUsageError,
 } from '../../errors/index';
 import type {
-  ComponentFixtureProfile,
+  ComponentFixtureProfile as ComponentFixtureProfileCore,
+  Constructable as ConstructableCore,
+  FixtureWithCustom as FixtureWithCustomCore,
 } from '../component-fixture';
 import {
   withTimeout,
 } from '../helpers';
 import {
+  ElementProfile,
   O3rElement,
   O3rElementConstructor,
 } from './element';
@@ -28,7 +31,17 @@ import {
 /**
  * @deprecated Will be removed in v13, please use Playwright instead
  */
-export type { ComponentFixtureProfile, Constructable, FixtureWithCustom } from '../component-fixture';
+export interface ComponentFixtureProfile<V extends ElementProfile = ElementProfile> extends ComponentFixtureProfileCore<V> {}
+
+/**
+ * @deprecated Will be removed in v13, please use Playwright instead
+ */
+export interface FixtureWithCustom extends FixtureWithCustomCore {}
+
+/**
+ * @deprecated Will be removed in v13, please use Playwright instead
+ */
+export interface Constructable<T extends ComponentFixtureProfile, U extends FixtureWithCustom = FixtureWithCustom> extends ConstructableCore<T, U> {}
 
 /**
  * Implementation of the fixture dedicated to protractor, hence using the webdriver to interact with the dom.

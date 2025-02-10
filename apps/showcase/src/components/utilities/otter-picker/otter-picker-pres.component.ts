@@ -23,7 +23,6 @@ import {
 @O3rComponent({ componentType: 'Component' })
 @Component({
   selector: 'o3r-otter-picker-pres',
-  standalone: true,
   imports: [NgbDropdownModule],
   templateUrl: './otter-picker-pres.template.html',
   styleUrls: ['./otter-picker-pres.style.scss'],

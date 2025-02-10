@@ -47,13 +47,13 @@ module.exports = {
 
     // Used to execute the migration scripts
     "^(npm|yarn) ng update[a-zA-Z0-9.= {}()#@'\/-]*$",
-    
+
     // Used to regenerate the SDK
     "^(npm|yarn) run spec:upgrade$",
 
     // Used to execute the migration scripts of ama-sdk
     "^(npm|yarn) exec schematics @ama-sdk\/schematics:migrate[a-zA-Z0-9.= {}()#'\/-]*$",
-    
+
     // Used for yarn upgrade when using PnP
     "^yarn dlx @yarnpkg/sdks$"
   ]

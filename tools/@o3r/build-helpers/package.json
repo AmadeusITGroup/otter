@@ -26,7 +26,6 @@
     "prepare-doc-root-menu-template": "./scripts/prepare-doc-root-menu-template.mjs",
     "prepare-publish": "./scripts/prepare-publish.mjs",
     "update-doc-summary": "./scripts/update-doc-summary.mjs",
-    "update-package": "./scripts/update-package.mjs",
     "write-git-hash": "./scripts/write-git-hash.mjs"
   },
   "dependencies": {
@@ -38,13 +37,13 @@
   },
   "devDependencies": {
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
-    "@nx/eslint-plugin": "~19.8.0",
+    "@nx/eslint-plugin": "~20.2.0",
     "@o3r/eslint-plugin": "workspace:^",
-    "@stylistic/eslint-plugin": "~2.7.0",
+    "@stylistic/eslint-plugin": "~3.0.0",
     "@types/node": "^20.0.0",
-    "@typescript-eslint/parser": "~8.19.0",
-    "angular-eslint": "~18.4.0",
-    "eslint": "~9.14.0",
+    "@typescript-eslint/parser": "~8.21.0",
+    "angular-eslint": "~19.0.0",
+    "eslint": "~9.17.0",
     "eslint-import-resolver-node": "^0.3.9",
     "eslint-import-resolver-typescript": "^3.6.3",
     "eslint-plugin-import": "^2.31.0",
@@ -55,8 +54,8 @@
     "eslint-plugin-unicorn": "^56.0.0",
     "eslint-plugin-unused-imports": "^4.1.4",
     "globals": "^15.9.0",
-    "nx": "~19.8.0",
-    "typescript": "~5.5.4",
-    "typescript-eslint": "~8.19.0"
+    "nx": "~20.2.0",
+    "typescript": "~5.6.2",
+    "typescript-eslint": "~8.21.0"
   }
 }
