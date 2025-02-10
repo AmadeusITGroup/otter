@@ -92,7 +92,7 @@ jobs:
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
       - uses: actions/setup-node@0a44ba7841725637a19e28fa30b79a866c81b0a6 # v4.0.4
         with:
-          node-version: 20
+          node-version: 22
       - name: Prepare global npmrc for renovate
         shell: 'bash'
         run: 'cat .npmrc.ci > ~/.npmrc'

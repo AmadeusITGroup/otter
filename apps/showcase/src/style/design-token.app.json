@@ -4,7 +4,7 @@
     "primary": {
       "$description": "Application Primary color",
       "$type": "color",
-      "$value": "{color.primary}"
+      "$value": "{color.primary.500}"
     },
     "primary-800": {
       "$type": "color",
@@ -15,7 +15,7 @@
         "o3rScope": ".nav-pills"
       },
       "link-active-color": {
-        "$value": "{color.primary}"
+        "$value": "{color.primary.500}"
       }
     },
     "navbar": {
