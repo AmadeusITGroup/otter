@@ -18,7 +18,7 @@ import {
   applyEsLintFix,
   askConfirmationToConvertComponent,
   askUserInput,
-  createSchematicWithMetricsIfInstalled,
+  createOtterSchematic,
   getO3rComponentInfoOrThrowIfNotFound,
   isO3rClassComponent,
   NoOtterComponent,
@@ -327,4 +327,4 @@ export function ngAddLocalizationKeyFn(options: NgAddLocalizationKeySchematicsSc
  * Add localization key to an existing component
  * @param options
  */
-export const ngAddLocalizationKey = createSchematicWithMetricsIfInstalled(ngAddLocalizationKeyFn);
+export const ngAddLocalizationKey = createOtterSchematic(ngAddLocalizationKeyFn);

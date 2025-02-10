@@ -9,7 +9,7 @@ import {
   Rule,
 } from '@angular-devkit/schematics';
 import {
-  createSchematicWithMetricsIfInstalled,
+  createOtterSchematic,
   displayModuleListRule,
   registerPackageCollectionSchematics,
   setupSchematicsParamsForProject,
@@ -109,4 +109,4 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
  * Add Otter library to an Angular Project
  * @param options
  */
-export const ngAdd = createSchematicWithMetricsIfInstalled(ngAddFn);
+export const ngAdd = createOtterSchematic(ngAddFn);

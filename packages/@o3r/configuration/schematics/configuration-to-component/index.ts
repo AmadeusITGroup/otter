@@ -25,7 +25,7 @@ import {
   addInterfaceToClassTransformerFactory,
   applyEsLintFix,
   askConfirmationToConvertComponent,
-  createSchematicWithMetricsIfInstalled,
+  createOtterSchematic,
   generateBlockStatementsFromString,
   generateClassElementsFromString,
   generateParametersDeclarationFromString,
@@ -456,4 +456,4 @@ export function ngAddConfigFn(options: NgAddConfigSchematicsSchema): Rule {
  * Add configuration to an existing component
  * @param options
  */
-export const ngAddConfig = createSchematicWithMetricsIfInstalled(ngAddConfigFn);
+export const ngAddConfig = createOtterSchematic(ngAddConfigFn);

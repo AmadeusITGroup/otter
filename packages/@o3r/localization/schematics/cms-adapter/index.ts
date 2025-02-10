@@ -7,7 +7,7 @@ import {
   Tree,
 } from '@angular-devkit/schematics';
 import {
-  createSchematicWithMetricsIfInstalled,
+  createOtterSchematic,
   getPackageManagerRunner,
   getWorkspaceConfig,
   readPackageJson,
@@ -97,4 +97,4 @@ function updateCmsAdapterFn(options: { projectName?: string | undefined }): Rule
  * @param options @see RuleFactory.options
  * @param options.projectName
  */
-export const updateCmsAdapter = createSchematicWithMetricsIfInstalled(updateCmsAdapterFn);
+export const updateCmsAdapter = createOtterSchematic(updateCmsAdapterFn);

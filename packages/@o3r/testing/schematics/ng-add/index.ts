@@ -19,7 +19,7 @@ import {
 } from '@angular-devkit/schematics';
 import {
   addVsCodeRecommendations,
-  createSchematicWithMetricsIfInstalled,
+  createOtterSchematic,
   getExternalDependenciesVersionRange,
   getO3rPeerDeps,
   getPackageInstallConfig,
@@ -191,4 +191,4 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
  * Add Otter testing to an Angular Project
  * @param options
  */
-export const ngAdd = createSchematicWithMetricsIfInstalled(ngAddFn);
+export const ngAdd = createOtterSchematic(ngAddFn);

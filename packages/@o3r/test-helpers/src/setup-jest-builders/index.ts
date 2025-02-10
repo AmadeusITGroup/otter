@@ -5,7 +5,7 @@ jest.mock('@o3r/extractors', () => ({
 }));
 jest.mock('@o3r/schematics', () => ({
   ...jest.requireActual('@o3r/schematics'),
-  createSchematicWithMetricsIfInstalled: jest.fn().mockImplementation((fn) => fn)
+  createOtterSchematic: jest.fn().mockImplementation((fn) => fn)
 }));
 jest.mock('@o3r/telemetry', () => ({
   ...jest.requireActual('@o3r/telemetry'),

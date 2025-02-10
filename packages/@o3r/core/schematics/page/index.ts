@@ -21,7 +21,7 @@ import {
 import {
   addImportToModuleFile,
   applyEsLintFix,
-  createSchematicWithMetricsIfInstalled,
+  createOtterSchematic,
   getAppModuleFilePath,
   getDestinationPath,
   getModuleIndex,
@@ -279,4 +279,4 @@ function ngGeneratePageFn(options: NgGeneratePageSchematicsSchema): Rule {
  * Add a Page to an Otter project
  * @param options
  */
-export const ngGeneratePage = createSchematicWithMetricsIfInstalled(ngGeneratePageFn);
+export const ngGeneratePage = createOtterSchematic(ngGeneratePageFn);
