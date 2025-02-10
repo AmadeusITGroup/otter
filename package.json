@@ -264,6 +264,7 @@
     "sass": "~1.83.0",
     "sass-loader": "^16.0.0",
     "semver": "^7.5.2",
+    "source-map-js": "^1.2.1",
     "stylelint": "^16.0.2",
     "stylelint-scss": "^6.0.0",
     "ts-jest": "~29.2.5",

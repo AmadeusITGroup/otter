@@ -10,16 +10,22 @@ import {
   O3rCliError,
 } from '@o3r/schematics';
 import {
-  compileString,
-  SassBoolean,
+  AsyncCompiler,
+  CalculationInterpolation,
+  CalculationOperation,
+  CalculationValue,
+  initAsyncCompiler,
+  SassCalculation,
   SassColor,
+  sassFalse,
   SassList,
   SassMap,
   SassNumber,
   SassString,
+  sassTrue,
   StringOptions,
   Value,
-} from 'sass';
+} from 'sass-embedded';
 import type {
   StyleExtractorBuilderSchema,
 } from '../schema';
@@ -30,20 +36,41 @@ import type {
 } from '@o3r/styling';
 
 /**
- * SassCalculation interface
+ * This method will iterate on all characters in str and return the substring that is balanced which corresponds to a var declaration.
+ * @param str
  */
-interface SassCalculation extends Value {
-  name: 'calc';
-  $arguments: string[];
-}
+export const getVarDeclaration = (str: string): string | null => {
+  const varIndex = str.indexOf('var(');
+  if (varIndex === -1) {
+    return null;
+  }
+
+  let nbToClose = 0;
+  for (let i = varIndex + 3; i < str.length; i++) {
+    const char = str[i];
+    if (char === '(') {
+      nbToClose++;
+    } else if (char === ')') {
+      nbToClose--;
+
+      if (nbToClose === 0) {
+        return str.substring(varIndex, i + 1);
+      }
+    }
+  }
+
+  return str.substring(varIndex);
+};
 
 /**
  * CSS Variable extractor
  */
 export class CssVariableExtractor {
+  private static readonly asyncCompiler: Promise<AsyncCompiler> = initAsyncCompiler();
+  private static readonly varRegex = /var\(\s*--(.*?)\s*,\s*(.*)\)/;
   private readonly cache: Record<string, URL> = {};
 
-  constructor(public defaultSassOptions?: StringOptions<'sync'>, private readonly builderOptions?: Pick<StyleExtractorBuilderSchema, 'ignoreInvalidValue'>) {}
+  constructor(public defaultSassOptions?: StringOptions<'async'>, private readonly builderOptions?: Pick<StyleExtractorBuilderSchema, 'ignoreInvalidValue'>) {}
 
   /**
    * Parse the CSS variable as reported
@@ -52,31 +79,28 @@ export class CssVariableExtractor {
    */
   private parseCssVariable(name: string, value = ''): CssVariable {
     const defaultValue = value.trim();
-    const res = defaultValue.match(/^var\(\s*([^\s),]+)\s*(?:,\s*([^(),]+(?:\([^)]*\))?))*\s*\)$/);
-
-    const ret: CssVariable = { name, defaultValue };
-    if (res) {
-      ret.references = [
-        this.parseCssVariable(res[1].replace(/^--/, ''), res[2])
-      ];
-    } else {
-      let findRef = defaultValue;
-      let ref: RegExpExecArray | null;
-      const references: Record<string, CssVariable> = {};
-      do {
-        ref = /var\(\s*([^\s),]+)\s*(?:,\s*([^(),]+(\([^)]*\))?))*\s*\)/.exec(findRef);
-
-        if (ref) {
-          const refName = ref[1].replace(/^--/, '');
-          references[refName] = this.parseCssVariable(refName, ref[2]);
-          findRef = findRef.replace(ref[0], '');
+    const resultingCssVariable: CssVariable = { name, defaultValue };
+    let remainingValue = defaultValue;
+    let referenceMatch: RegExpExecArray | null;
+    const references: Record<string, CssVariable> = {};
+    do {
+      const varDeclaration = getVarDeclaration(remainingValue);
+      if (varDeclaration === null) {
+        // No more var() references
+        break;
+      } else {
+        referenceMatch = CssVariableExtractor.varRegex.exec(varDeclaration);
+        if (referenceMatch) {
+          const refName = referenceMatch[1];
+          references[refName] = this.parseCssVariable(refName, referenceMatch[2]);
+          remainingValue = remainingValue.replace(varDeclaration, '');
         }
-      } while (ref);
-      if (Object.keys(references).length > 0) {
-        ret.references = Object.values(references);
       }
+    } while (referenceMatch);
+    if (Object.keys(references).length > 0) {
+      resultingCssVariable.references = Object.values(references);
     }
-    return ret;
+    return resultingCssVariable;
   }
 
   /**
@@ -92,7 +116,9 @@ export class CssVariableExtractor {
    * @param color Sass Color
    */
   private static getColorString(color: SassColor) {
-    return color.alpha ? `rgba(${color.red}, ${color.green}, ${color.blue}, ${color.alpha})` : `rgb(${color.red}, ${color.green}, ${color.blue}})`;
+    return color.alpha === 1
+      ? `rgb(${color.channel('red')}, ${color.channel('green')}, ${color.channel('blue')})`
+      : `rgba(${color.channel('red')}, ${color.channel('green')}, ${color.channel('blue')}, ${color.alpha})`;
   }
 
   /**
@@ -127,16 +153,31 @@ export class CssVariableExtractor {
     return contextTags;
   }
 
+  public static getCalcString(item: CalculationValue, isSubCalc: boolean): string {
+    if (item instanceof SassNumber) {
+      const value = item.value;
+      const unit = item.numeratorUnits.get(0) ?? '';
+      return value + unit;
+    } else if (item instanceof SassString) {
+      return item.text;
+    } else if (item instanceof CalculationOperation) {
+      return `${isSubCalc ? '(' : ''}${CssVariableExtractor.getCalcString(item.left, true)} ${item.operator} ${CssVariableExtractor.getCalcString(item.right, true)}${isSubCalc ? ')' : ''}`;
+    } else if (item instanceof CalculationInterpolation) {
+      return item.value;
+    }
+    return `calc(${item.arguments.toArray().map((arg) => CssVariableExtractor.getCalcString(arg, false)).join(' ')})`;
+  }
+
   /**
    * Extract metadata from Sass Content
    * @param sassFilePath SCSS file URL
    * @param sassFileContent SCSS file content
    * @param additionalSassOptions
    */
-  public extractFileContent(sassFilePath: string, sassFileContent: string, additionalSassOptions?: StringOptions<'sync'>) {
+  public async extractFileContent(sassFilePath: string, sassFileContent: string, additionalSassOptions?: StringOptions<'async'>) {
     const cssVariables: CssVariable[] = [];
 
-    const options: StringOptions<'sync'> = {
+    const options: StringOptions<'async'> = {
       ...this.defaultSassOptions,
       ...additionalSassOptions,
       loadPaths: [path.dirname(sassFilePath)],
@@ -170,7 +211,7 @@ export class CssVariableExtractor {
         // eslint-disable-next-line @typescript-eslint/naming-convention -- format imposed by sass loader
         'metadata-report($name, $value, $details: null)': (args: Value[]) => {
           let contextTags: string[] | undefined;
-          const varName = args[0];
+          const varName = args[0] as SassString;
           const varValue = args[1];
           const details = args[2];
           let description: string | undefined;
@@ -223,13 +264,12 @@ export class CssVariableExtractor {
               contextTags = CssVariableExtractor.extractTags(details);
             }
           }
-          if (!(varName instanceof SassString)) {
-            throw new O3rCliError('Invalid variable name');
-          }
 
           let parsedValue: string | undefined;
-          if (varValue instanceof SassString || varValue instanceof SassNumber || varValue instanceof SassBoolean) {
+          if (varValue instanceof SassString || varValue instanceof SassNumber) {
             parsedValue = varValue.toString();
+          } else if (varValue === sassTrue || varValue === sassFalse) {
+            parsedValue = `${varValue.isTruthy}`;
           } else if (varValue instanceof SassColor) {
             parsedValue = CssVariableExtractor.getColorString(varValue);
           } else if (varValue instanceof SassList) {
@@ -237,12 +277,14 @@ export class CssVariableExtractor {
             const parsedValueItems: string[] = [];
             for (let i = 0; i < varValue.asList.size; i++) {
               const item = varValue.get(i);
-              if (item instanceof SassString || item instanceof SassNumber || item instanceof SassBoolean) {
+              if (item instanceof SassString || item instanceof SassNumber) {
                 parsedValueItems.push(item.toString());
+              } else if (item === sassTrue || item === sassFalse) {
+                parsedValueItems.push(`${item.isTruthy}`);
               } else if (item instanceof SassColor) {
                 parsedValueItems.push(CssVariableExtractor.getColorString(item));
               } else if (CssVariableExtractor.isSassCalculation(item)) {
-                parsedValueItems.push(`calc(${item.$arguments[0]})`);
+                parsedValueItems.push(`calc(${item.arguments.toArray().map((arg) => CssVariableExtractor.getCalcString(arg, false)).join(' ')})`);
               } else {
                 invalidIndexes.push(i);
               }
@@ -258,7 +300,7 @@ export class CssVariableExtractor {
               }
             }
           } else if (CssVariableExtractor.isSassCalculation(varValue)) {
-            parsedValue = `calc(${varValue.$arguments[0]})`;
+            parsedValue = `calc(${varValue.arguments.toArray().map((arg) => CssVariableExtractor.getCalcString(arg, false)).join(' ')})`;
           } else if (varValue.realNull) {
             const message = `Invalid value for variable ${varName.text}.`;
             if (this.builderOptions?.ignoreInvalidValue ?? true) {
@@ -305,17 +347,24 @@ export class CssVariableExtractor {
       }
     };
 
-    compileString(sassFileContent, options);
+    await (await CssVariableExtractor.asyncCompiler).compileStringAsync(sassFileContent, options);
     return cssVariables;
+  }
+
+  /**
+   * Dispose the async compiler. Must be called once when extraction is done.
+   */
+  public async disposeAsyncCompiler() {
+    await (await CssVariableExtractor.asyncCompiler).dispose();
   }
 
   /**
    * Extract metadata from Sass file
    * @param sassFilePath SCSS file to parse
    */
-  public extractFile(sassFilePath: string): CssVariable[] {
+  public async extractFile(sassFilePath: string): Promise<CssVariable[]> {
     const sassFileContent = fs.readFileSync(sassFilePath, { encoding: 'utf8' });
-    return this.extractFileContent(sassFilePath, sassFileContent);
+    return await this.extractFileContent(sassFilePath, sassFileContent);
   }
 
   /**
@@ -327,10 +376,7 @@ export class CssVariableExtractor {
     return libraries
       .map((lib) => getLibraryCmsMetadata(lib))
       .filter(({ styleFilePath }) => !!styleFilePath)
-      .map(({ styleFilePath }) => {
-        const libConfig = JSON.parse(fs.readFileSync(styleFilePath!, 'utf8'));
-        return libConfig as CssMetadata;
-      })
+      .map(({ styleFilePath }) => JSON.parse(fs.readFileSync(styleFilePath!, 'utf8')) as CssMetadata)
       .reduce<CssMetadata>((acc, libMetadata) => {
         return Object.keys(libMetadata.variables)
           .filter((key) => !!acc.variables[key])
