@@ -13,7 +13,8 @@ jest.mock('@o3r/schematics', () => ({
   getPackagesBaseRootFolder: jest.fn().mockReturnValue('/projects'),
   getWorkspaceConfig: jest.fn().mockReturnValue({ projects: {} }),
   isNxContext: jest.fn().mockReturnValue(false),
-  createSchematicWithMetricsIfInstalled: jest.fn().mockImplementation((fn: any) => fn)
+  createSchematicWithMetricsIfInstalled: jest.fn().mockImplementation((fn: any) => fn),
+  createSchematicWithOptionsFromWorkspace: jest.fn().mockImplementation((fn: any) => fn)
 }));
 
 jest.mock('@angular-devkit/schematics', () => {
