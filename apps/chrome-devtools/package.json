@@ -51,7 +51,7 @@
     "@types/chrome": "^0.0.300",
     "@types/jest": "~29.5.2",
     "@types/tinycolor2": "^1.4.6",
-    "@typescript-eslint/parser": "~8.22.0",
+    "@typescript-eslint/parser": "~8.23.0",
     "angular-eslint": "~19.0.0",
     "archiver": "^7.0.0",
     "chokidar": "^4.0.3",
@@ -82,7 +82,7 @@
     "rimraf": "^6.0.1",
     "tsc-watch": "^6.0.4",
     "typescript": "~5.6.2",
-    "typescript-eslint": "~8.22.0"
+    "typescript-eslint": "~8.23.0"
   },
   "dependencies": {
     "@agnos-ui/angular-bootstrap": "~0.7.0",
