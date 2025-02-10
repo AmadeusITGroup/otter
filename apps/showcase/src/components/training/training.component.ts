@@ -127,6 +127,8 @@ export class TrainingComponent implements OnInit {
   public trainingPath = input('');
   /** Title of the training */
   public title = input('');
+  /** Feedback form link for this specific training */
+  public feedbackFormLink = input('');
 
   private readonly dynamicContentService = inject(DynamicContentService);
   private readonly loggerService = inject(LoggerService);
@@ -180,6 +182,31 @@ export class TrainingComponent implements OnInit {
       void this.loadStepContent(step);
       stepsToLoad.push(step);
     });
+    if (this.feedbackFormLink()) {
+      stepsToLoad.push({
+        description: {
+          stepTitle: 'Feedback form',
+          htmlContentUrl: ''
+        },
+        dynamicContent: {
+          htmlContent: signal(`
+<div class="d-flex flex-column">
+  <p>
+    Thank you for participating! <br/>
+    To help us improve and better serve you in the future, we’d love to hear your feedback. Please take a moment to complete our short
+    <a class="df-link-external ps-3" target="_blank" href="${this.feedbackFormLink()}">survey</a>. Your insights are invaluable!
+  </p>
+  <p>
+    Thank you again for your commitment to growth, and we wish you continued success in your learning path.
+  </p>
+  <img src="assets/fireworks.png" class="align-self-center" style="border-radius: 1rem;"/>
+</div>
+`),
+          project: signal(null),
+          solutionProject: signal(null)
+        }
+      });
+    }
     this.steps.set(stepsToLoad);
     const stepParam = window.location.href.match(currentStepLocationRegExp)?.[1];
     const stepRequested = !stepParam || Number.isNaN(stepParam) ? 0 : Number(stepParam);
