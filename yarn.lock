@@ -9397,7 +9397,7 @@ __metadata:
     ng-packagr: "npm:~19.0.0"
     ngx-markdown: "npm:^19.0.0"
     ngx-monaco-editor-v2: "npm:^19.0.2"
-    ngx-monaco-tree: "npm:^18.4.0"
+    ngx-monaco-tree: "npm:~19.1.0"
     npm-run-all2: "npm:^7.0.0"
     nx: "npm:~20.2.0"
     nx-cloud: "npm:^19.1.0"
@@ -10405,7 +10405,7 @@ __metadata:
     monaco-editor: "npm:~0.52.0"
     ngx-markdown: "npm:^19.0.0"
     ngx-monaco-editor-v2: "npm:^19.0.2"
-    ngx-monaco-tree: "npm:^18.4.0"
+    ngx-monaco-tree: "npm:~19.1.0"
     pixelmatch: "npm:^6.0.0"
     playwright-lighthouse: "npm:~4.0.0"
     pngjs: "npm:^7.0.0"
@@ -14593,22 +14593,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/parser@npm:~8.22.0":
-  version: 8.22.0
-  resolution: "@typescript-eslint/parser@npm:8.22.0"
-  dependencies:
-    "@typescript-eslint/scope-manager": "npm:8.22.0"
-    "@typescript-eslint/types": "npm:8.22.0"
-    "@typescript-eslint/typescript-estree": "npm:8.22.0"
-    "@typescript-eslint/visitor-keys": "npm:8.22.0"
-    debug: "npm:^4.3.4"
-  peerDependencies:
-    eslint: ^8.57.0 || ^9.0.0
-    typescript: ">=4.8.4 <5.8.0"
-  checksum: 10/6b7fee52345e8a32d8cfea1ac4aeb563cb0c44ba46290686afde1cd541b787fcf61bec0e6960559f544e9ba3b72670a68f8eda860384aebb5744101f0f1a68c9
-  languageName: node
-  linkType: hard
-
 "@typescript-eslint/rule-tester@npm:~8.23.0":
   version: 8.23.0
   resolution: "@typescript-eslint/rule-tester@npm:8.23.0"
@@ -14622,16 +14606,6 @@ __metadata:
   peerDependencies:
     eslint: ^8.57.0 || ^9.0.0
   checksum: 10/b438c735102fca56e308e4091a86956662578f0e2d77cc8633b1a2eea0419096c3b6500bf8a4a67deaaa9b77166c2952c409def746233a033c107559eacbcaa7
-  languageName: node
-  linkType: hard
-
-"@typescript-eslint/scope-manager@npm:8.22.0":
-  version: 8.22.0
-  resolution: "@typescript-eslint/scope-manager@npm:8.22.0"
-  dependencies:
-    "@typescript-eslint/types": "npm:8.22.0"
-    "@typescript-eslint/visitor-keys": "npm:8.22.0"
-  checksum: 10/7fb4bae6d9f8b86a43405b24828cd36ba0751cce4346d86821a4827cded93227f92668044e5e6d802a32096b50cfcaf2ce9ab65322310fa68f5e3819bef70168
   languageName: node
   linkType: hard
 
@@ -14660,35 +14634,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/types@npm:8.22.0":
-  version: 8.22.0
-  resolution: "@typescript-eslint/types@npm:8.22.0"
-  checksum: 10/b43ea5b05ed0b43dcee8d2fa98b2c3f79c604780cbd56e6ba7f89e3066798b7169848694f59523fd2003e8fa699ddc97f28b0860a4eb04eea26c96d5ac9346bd
-  languageName: node
-  linkType: hard
-
 "@typescript-eslint/types@npm:8.23.0, @typescript-eslint/types@npm:^8.0.0, @typescript-eslint/types@npm:^8.15.0":
   version: 8.23.0
   resolution: "@typescript-eslint/types@npm:8.23.0"
   checksum: 10/e2a68bc6e89226e47e495a91e0614aa5c3c4580b11f7fd99ac6728c1fce92f10755b0d7ade3cf6d3eb1209cd9cd0f29bd742f8dddc394b28bcead7025394eaa2
-  languageName: node
-  linkType: hard
-
-"@typescript-eslint/typescript-estree@npm:8.22.0":
-  version: 8.22.0
-  resolution: "@typescript-eslint/typescript-estree@npm:8.22.0"
-  dependencies:
-    "@typescript-eslint/types": "npm:8.22.0"
-    "@typescript-eslint/visitor-keys": "npm:8.22.0"
-    debug: "npm:^4.3.4"
-    fast-glob: "npm:^3.3.2"
-    is-glob: "npm:^4.0.3"
-    minimatch: "npm:^9.0.4"
-    semver: "npm:^7.6.0"
-    ts-api-utils: "npm:^2.0.0"
-  peerDependencies:
-    typescript: ">=4.8.4 <5.8.0"
-  checksum: 10/e3c0b191e2a0f55101c3e3333904f3a255d635e4ea0d026981cc25e83b62660a3a8a7993ac4a3d0c8756afb7dc272099eec48fd93e100a2b8467a5b80ef0026c
   languageName: node
   linkType: hard
 
@@ -14722,16 +14671,6 @@ __metadata:
     eslint: ^8.57.0 || ^9.0.0
     typescript: ">=4.8.4 <5.8.0"
   checksum: 10/72588d617ee5b1fa1020d008a7ff714a4a1e0fc1167aa9ff4b8ae71a37b25f43b2d40bca3380c56bb84d4092b6cac8d5d14d74e290e80217175ccf8237faf22a
-  languageName: node
-  linkType: hard
-
-"@typescript-eslint/visitor-keys@npm:8.22.0":
-  version: 8.22.0
-  resolution: "@typescript-eslint/visitor-keys@npm:8.22.0"
-  dependencies:
-    "@typescript-eslint/types": "npm:8.22.0"
-    eslint-visitor-keys: "npm:^4.2.0"
-  checksum: 10/1a172620d46e23362c5d1e1e7c8186856dff6b6f1c2697d67f9aac1b3dfd0de96c2c73487e4deed80fad3bfa5cf74cfed3519221657c6ede602b04ac091525a4
   languageName: node
   linkType: hard
 
@@ -28044,17 +27983,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ngx-monaco-tree@npm:^18.4.0":
-  version: 18.4.0
-  resolution: "ngx-monaco-tree@npm:18.4.0"
+"ngx-monaco-tree@npm:~19.1.0":
+  version: 19.1.0
+  resolution: "ngx-monaco-tree@npm:19.1.0"
   dependencies:
     tslib: "npm:^2.7.0"
   peerDependencies:
-    "@angular/cdk": ^17.3.10
-    "@angular/common": ^18.2.2
-    "@angular/core": ^18.2.2
-    "@vscode/codicons": ^0.0.32
-  checksum: 10/f17f60a374069dc80a3eff730b94c22cadbfcbadd36c6343a180ddcc460ecd185175f18975247d595f5335335ea632a13427db307dfc077997165e7e296570d1
+    "@angular/cdk": ^19.0.2
+    "@angular/common": ^19.0.3
+    "@angular/core": ^19.0.3
+    "@vscode/codicons": ~0.0.36
+  checksum: 10/e16a75e3e65517dcb4923421b3fbd600189caac4eefd4416c6bf8d3628c19bcc478e747bcd1a83a97c153c94d08e5974177363d405d1102d5d5182822c7bed17
   languageName: node
   linkType: hard
 
@@ -34344,7 +34283,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-api-utils@npm:^2.0.0, ts-api-utils@npm:^2.0.1":
+"ts-api-utils@npm:^2.0.1":
   version: 2.0.1
   resolution: "ts-api-utils@npm:2.0.1"
   peerDependencies:

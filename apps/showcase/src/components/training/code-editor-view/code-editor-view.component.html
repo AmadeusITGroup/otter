@@ -3,9 +3,9 @@
     <form [formGroup]="form" class="editor h-100 overflow-hidden position-relative">
       <as-split direction="horizontal">
         <as-split-area [size]="25">
-          <monaco-tree (clickFile)="onClickFile($event)"
-                       [tree]="(cwdTree$ | async) || []"
+          <monaco-tree [tree]="(cwdTree$ | async) || []"
                        [currentFile]="form.controls.file.value"
+                       (currentFileChange)="onClickFile($event)"
                        [width]="'auto'"
                        [height]="'auto'"
                        class="w-100 editor-view"></monaco-tree>
