@@ -263,7 +263,7 @@
     "prismjs": "^1.28.0",
     "replace-in-files-cli": "^3.0.0",
     "rimraf": "^6.0.1",
-    "sass": "~1.83.0",
+    "sass": "~1.84.0",
     "sass-loader": "^16.0.0",
     "semver": "^7.5.2",
     "source-map-js": "^1.2.1",
