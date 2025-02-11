@@ -391,7 +391,7 @@ export class CodeEditorViewComponent implements OnDestroy {
     const state = JSON.parse(savedState);
     const hasDiscrepancies = (await Promise.any(
       Object.entries<string>(state).map(async ([path, textLocalStorage]) => {
-        const textWebContainer = await this.webContainerService.readFile(`${this.project().cwd}/${path}`).catch(() => undefined);
+        const textWebContainer = await this.webContainerService.readFile(`${this.project().cwd}/${path}`).catch((): void => undefined);
         if (textLocalStorage === textWebContainer) {
           throw new Error('No discrepancies');
         }

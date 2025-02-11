@@ -43,8 +43,8 @@
     }
   },
   "devDependencies": {
-    "@angular-devkit/core": "~19.0.0",
-    "@angular-devkit/schematics": "~19.0.0",
+    "@angular-devkit/core": "~19.1.0",
+    "@angular-devkit/schematics": "~19.1.0",
     "@babel/core": "~7.26.0",
     "@babel/preset-typescript": "~7.26.0",
     "@compodoc/compodoc": "^1.1.19",
@@ -77,7 +77,7 @@
     "nx": "~20.2.0",
     "ts-jest": "~29.2.5",
     "ts-node": "~10.9.2",
-    "typescript": "~5.6.2",
+    "typescript": "~5.7.3",
     "typescript-eslint": "~8.23.0"
   },
   "engines": {

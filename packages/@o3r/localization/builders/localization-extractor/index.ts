@@ -158,7 +158,9 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<LocalizationExt
 
   if (options.watch) {
     let currentProcess: Promise<unknown> | undefined = generateWithReport(execute(true, { extraFiles: initialExtraLocs, libs: options.libraries }))
-      .then(() => currentProcess = undefined);
+      .then(() => {
+        currentProcess = undefined;
+      });
 
     await currentProcess;
 
