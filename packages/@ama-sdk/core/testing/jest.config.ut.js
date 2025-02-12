@@ -12,6 +12,7 @@ module.exports = {
     // TODO re-enable fake dates when issue fixed https://github.com/sinonjs/fake-timers/issues/437
     doNotFake: ['Date']
   },
+  globalSetup: '<rootDir>/testing/global-timezone-setup.js',
   testPathIgnorePatterns: [
     '<rootDir>/.*/templates/.*',
     '<rootDir>/builders/.*',
