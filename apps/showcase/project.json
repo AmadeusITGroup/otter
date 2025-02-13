@@ -421,6 +421,7 @@
       "cache": true,
       "executor": "nx:run-script",
       "inputs": [
+        "base",
         "{projectRoot}/package.json",
         "{projectRoot}/scripts/copy-training-assets/*.cjs"
       ],
