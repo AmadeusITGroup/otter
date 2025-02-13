@@ -6,7 +6,7 @@ import type {
   Rule,
 } from '@angular-devkit/schematics';
 import type {
-  createSchematicWithMetricsIfInstalled,
+  createOtterSchematic,
 } from '@o3r/schematics';
 import {
   AUTO_GENERATED_END,
@@ -124,14 +124,14 @@ function extractTokenFn(options: ExtractTokenSchematicsSchema): Rule {
  * @param options
  */
 export const extractToken = (options: ExtractTokenSchematicsSchema) => async () => {
-  let createSchematicWithMetrics: typeof createSchematicWithMetricsIfInstalled | undefined;
+  let createOtterSchematicWrapper: typeof createOtterSchematic = (fn) => fn;
   try {
-    ({ createSchematicWithMetricsIfInstalled: createSchematicWithMetrics } = await import('@o3r/schematics'));
+    const {
+      createOtterSchematic: wrapper
+    } = await import('@o3r/schematics');
+    createOtterSchematicWrapper = wrapper;
   } catch {
     // No @o3r/schematics detected
   }
-  if (!createSchematicWithMetrics) {
-    return extractTokenFn(options);
-  }
-  return createSchematicWithMetrics(extractTokenFn)(options);
+  return createOtterSchematicWrapper(extractTokenFn)(options);
 };

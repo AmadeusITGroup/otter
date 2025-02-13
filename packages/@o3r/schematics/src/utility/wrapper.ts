@@ -22,6 +22,9 @@ import {
   hasSetupInformation,
   setupDependencies,
 } from '../rule-factories/ng-add/dependencies';
+import {
+  createSchematicWithOptionsFromWorkspace,
+} from '../rule-factories/options/index';
 
 const noopSchematicWrapper: SchematicWrapper = (fn) => fn;
 
@@ -60,7 +63,8 @@ const setupTelemetry: (opts: { workingDirectory?: string; runNgAdd?: boolean; ex
 
 /**
  * Wrapper method of a schematic to retrieve some metrics around the schematic run
- * if @o3r/telemetry is installed
+ * if `@o3r/telemetry` is installed
+ * NOTE: please do not use it directly, instead use {@link createOtterSchematic} to wrap your schematic
  * @param schematicFn
  */
 export const createSchematicWithMetricsIfInstalled: SchematicWrapper = (schematicFn) => (opts) => async (tree, context) => {
@@ -106,3 +110,9 @@ For more details and instructions on how to change these settings, see https://g
   ]);
   return wrapper(() => rule)(opts);
 };
+
+/**
+ * Wrapper method of an Otter schematics
+ * @param schematicFn
+ */
+export const createOtterSchematic = (schematicFn: (options: any) => Rule) => createSchematicWithOptionsFromWorkspace(createSchematicWithMetricsIfInstalled(schematicFn));

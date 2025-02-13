@@ -9,7 +9,7 @@ import {
   Rule,
 } from '@angular-devkit/schematics';
 import {
-  createSchematicWithMetricsIfInstalled,
+  createOtterSchematic,
   getAvailableModulesWithLatestPackage,
   getWorkspaceConfig,
   OTTER_MODULE_KEYWORD,
@@ -85,4 +85,4 @@ function ngAddModulesFn(options: NgAddModulesSchematicsSchema): Rule {
  * Select the available modules to add to the project
  * @param options
  */
-export const ngAddModules = createSchematicWithMetricsIfInstalled(ngAddModulesFn);
+export const ngAddModules = createOtterSchematic(ngAddModulesFn);

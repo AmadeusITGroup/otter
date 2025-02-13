@@ -14,7 +14,7 @@ import {
   url,
 } from '@angular-devkit/schematics';
 import type {
-  createSchematicWithMetricsIfInstalled,
+  createOtterSchematic,
 } from '@o3r/schematics';
 import type {
   NgAddDesignTokenSchematicsSchema,
@@ -46,14 +46,14 @@ export function ngAddDesignTokenFn(options: NgAddDesignTokenSchematicsSchema): R
  * @param options
  */
 export const ngAddDesignToken = (options: NgAddDesignTokenSchematicsSchema) => async () => {
-  let createSchematicWithMetrics: typeof createSchematicWithMetricsIfInstalled | undefined;
+  let createOtterSchematicWrapper: typeof createOtterSchematic = (fn) => fn;
   try {
-    ({ createSchematicWithMetricsIfInstalled: createSchematicWithMetrics } = await import('@o3r/schematics'));
+    const {
+      createOtterSchematic: wrapper
+    } = await import('@o3r/schematics');
+    createOtterSchematicWrapper = wrapper;
   } catch {
     // No @o3r/schematics detected
   }
-  if (!createSchematicWithMetrics) {
-    return ngAddDesignTokenFn(options);
-  }
-  return createSchematicWithMetrics(ngAddDesignTokenFn)(options);
+  return createOtterSchematicWrapper(ngAddDesignTokenFn)(options);
 };

@@ -3,7 +3,7 @@ import {
   Rule,
 } from '@angular-devkit/schematics';
 import {
-  createSchematicWithMetricsIfInstalled,
+  createOtterSchematic,
 } from '@o3r/schematics';
 import {
   updateLocalizationImports,
@@ -29,4 +29,4 @@ function updateFn(): Rule {
 /**
  * Default 9.0.0 update function
  */
-export const update = createSchematicWithMetricsIfInstalled(updateFn);
+export const update = createOtterSchematic(updateFn);

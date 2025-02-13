@@ -67,6 +67,8 @@ function migrateFn(options: MigrateSchematicsSchemaOptions): Rule {
  * @param options
  */
 export const migrate = (options: MigrateSchematicsSchemaOptions) => async () => {
-  const { createSchematicWithMetricsIfInstalled } = await import('@o3r/schematics');
-  return createSchematicWithMetricsIfInstalled(migrateFn)(options);
+  const {
+    createOtterSchematic
+  } = await import('@o3r/schematics');
+  return createOtterSchematic(migrateFn)(options);
 };

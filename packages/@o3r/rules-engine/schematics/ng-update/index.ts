@@ -3,7 +3,7 @@ import {
   Rule,
 } from '@angular-devkit/schematics';
 import {
-  createSchematicWithMetricsIfInstalled,
+  createOtterSchematic,
 } from '@o3r/schematics';
 import {
   updateRuleEngineService,
@@ -29,7 +29,7 @@ function updateV100Fn(): Rule {
 /**
  * update of Otter library V10.0
  */
-export const updateV100 = createSchematicWithMetricsIfInstalled(updateV100Fn);
+export const updateV100 = createOtterSchematic(updateV100Fn);
 
 function updateV116Fn(): Rule {
   return chain([
@@ -40,4 +40,4 @@ function updateV116Fn(): Rule {
 /**
  * Update of Otter library V11.6
  */
-export const updateV116 = createSchematicWithMetricsIfInstalled(updateV116Fn);
+export const updateV116 = createOtterSchematic(updateV116Fn);

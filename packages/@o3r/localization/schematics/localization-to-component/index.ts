@@ -27,7 +27,7 @@ import {
   addInterfaceToClassTransformerFactory,
   applyEsLintFix,
   askConfirmationToConvertComponent,
-  createSchematicWithMetricsIfInstalled,
+  createOtterSchematic,
   generateBlockStatementsFromString,
   generateClassElementsFromString,
   getO3rComponentInfoOrThrowIfNotFound,
@@ -396,4 +396,4 @@ const mockTranslationsCompilerProvider: Provider = {
  * Add localization architecture to an existing component
  * @param options
  */
-export const ngAddLocalization = createSchematicWithMetricsIfInstalled(ngAddLocalizationFn);
+export const ngAddLocalization = createOtterSchematic(ngAddLocalizationFn);
