@@ -15,7 +15,7 @@ import {
   addImportsRule,
   applyEsLintFix,
   askConfirmationToConvertComponent,
-  createSchematicWithMetricsIfInstalled,
+  createOtterSchematic,
   findMethodByName,
   fixStringLiterals,
   generateBlockStatementsFromString,
@@ -234,4 +234,4 @@ export function ngAddIframeFn(options: NgAddIframeSchematicsSchema): Rule {
  * Add iframe to an existing component
  * @param options
  */
-export const ngAddIframe = createSchematicWithMetricsIfInstalled(ngAddIframeFn);
+export const ngAddIframe = createOtterSchematic(ngAddIframeFn);

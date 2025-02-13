@@ -16,8 +16,7 @@ import {
   url,
 } from '@angular-devkit/schematics';
 import {
-  createSchematicWithMetricsIfInstalled,
-  createSchematicWithOptionsFromWorkspace,
+  createOtterSchematic,
   type DependencyToAdd,
   enforceTildeRange,
   getPackagesBaseRootFolder,
@@ -154,4 +153,4 @@ function generateApplicationFn(options: NgGenerateApplicationSchema): Rule {
  * Add an Otter application to a monorepo
  * @param options Schematic options
  */
-export const generateApplication = createSchematicWithOptionsFromWorkspace(createSchematicWithMetricsIfInstalled(generateApplicationFn));
+export const generateApplication = createOtterSchematic(generateApplicationFn);

@@ -11,7 +11,7 @@ import {
 } from '@angular-devkit/schematics';
 import {
   applyEsLintFix,
-  createSchematicWithMetricsIfInstalled,
+  createOtterSchematic,
   getDestinationPath,
 } from '@o3r/schematics';
 import {
@@ -91,4 +91,4 @@ export function ${updateFunction}(): Rule {
  * add a new ngUpdate function
  * @param options
  */
-export const ngGenerateUpdate = createSchematicWithMetricsIfInstalled(ngGenerateUpdateFn);
+export const ngGenerateUpdate = createOtterSchematic(ngGenerateUpdateFn);

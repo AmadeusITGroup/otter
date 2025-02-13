@@ -18,7 +18,7 @@ import {
 } from '@angular-devkit/schematics';
 import {
   applyEsLintFix,
-  createSchematicWithMetricsIfInstalled,
+  createOtterSchematic,
   getDestinationPath,
   moduleHasSubEntryPoints,
   writeSubEntryPointPackageJson,
@@ -106,4 +106,4 @@ function ngGenerateEntityAsyncStoreFn(options: NgGenerateEntityAsyncStoreSchemat
  * Create an Otter friendly entity async store
  * @param options
  */
-export const ngGenerateEntityAsyncStore = createSchematicWithMetricsIfInstalled(ngGenerateEntityAsyncStoreFn);
+export const ngGenerateEntityAsyncStore = createOtterSchematic(ngGenerateEntityAsyncStoreFn);

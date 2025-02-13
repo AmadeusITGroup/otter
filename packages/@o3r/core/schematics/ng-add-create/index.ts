@@ -14,7 +14,7 @@ import {
   url,
 } from '@angular-devkit/schematics';
 import {
-  createSchematicWithMetricsIfInstalled,
+  createOtterSchematic,
   findConfigFileRelativePath,
   getPackageManagerExecutor,
 } from '@o3r/schematics';
@@ -87,7 +87,7 @@ function updateTemplatesFn(options: NgGenerateUpdateSchematicsSchema): Rule {
  * Rule factory to include `ng add` skeleton
  * @param options
  */
-export const updateTemplates = createSchematicWithMetricsIfInstalled(updateTemplatesFn);
+export const updateTemplates = createOtterSchematic(updateTemplatesFn);
 
 /**
  * add a new ngUpdate function
@@ -103,4 +103,4 @@ function ngAddCreateFn(options: NgGenerateUpdateSchematicsSchema): Rule {
  * add a new ngUpdate function
  * @param options
  */
-export const ngAddCreate = createSchematicWithMetricsIfInstalled(ngAddCreateFn);
+export const ngAddCreate = createOtterSchematic(ngAddCreateFn);

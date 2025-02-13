@@ -17,7 +17,7 @@ import {
 } from '@angular-devkit/schematics';
 import {
   applyEsLintFix,
-  createSchematicWithMetricsIfInstalled,
+  createOtterSchematic,
   getDestinationPath,
   moduleHasSubEntryPoints,
   writeSubEntryPointPackageJson,
@@ -91,4 +91,4 @@ function ngGenerateSimpleSyncStoreFn(options: NgGenerateSimpleSyncStoreSchematic
   ]);
 }
 
-export const ngGenerateSimpleSyncStore = createSchematicWithMetricsIfInstalled(ngGenerateSimpleSyncStoreFn);
+export const ngGenerateSimpleSyncStore = createOtterSchematic(ngGenerateSimpleSyncStoreFn);
