@@ -206,7 +206,9 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<StyleExtractorB
     /** Libraries Metadata files watcher */
     const metadataWatcher = chokidar.watch(libMetadataFiles);
     let currentProcess: Promise<unknown> | undefined = execute(getAllFiles(), cacheMetadata)
-      .then(() => currentProcess = undefined);
+      .then(() => {
+        currentProcess = undefined;
+      });
 
     metadataWatcher
       .on('all', async (eventName, filePath) => {
