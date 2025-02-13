@@ -11,6 +11,7 @@ module.exports = {
   fakeTimers: {
     enableGlobally: true
   },
+  globalSetup: '<rootDir>/testing/global-timezone-setup.js',
   testPathIgnorePatterns: [
     ...baseConfig.testPathIgnorePatterns,
     '<rootDir>/builders/.*',
