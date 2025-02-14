@@ -35,8 +35,8 @@
   "devDependencies": {
     "@ama-terasu/core": "workspace:^",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
-    "@nx/eslint-plugin": "~20.2.0",
-    "@nx/jest": "~20.2.0",
+    "@nx/eslint-plugin": "~20.4.0",
+    "@nx/jest": "~20.4.0",
     "@o3r/build-helpers": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
     "@stylistic/eslint-plugin": "~3.0.0",
@@ -60,7 +60,7 @@
     "jest": "~29.7.0",
     "jest-junit": "~16.0.0",
     "jsonc-eslint-parser": "~2.4.0",
-    "nx": "~20.2.0",
+    "nx": "~20.4.0",
     "ts-jest": "~29.2.5",
     "typescript": "~5.7.3",
     "typescript-eslint": "~8.24.0"
