@@ -1,5 +1,6 @@
-// Used to test edge case around daylight saving changes
 const process = require('node:process');
-module.exports = async () => {
+// Used to test edge case around daylight saving changes
+const globalTimezoneSetup = async () => {
   process.env.TZ = 'Europe/Rome';
-}
+};
+module.exports = globalTimezoneSetup;
