@@ -11,7 +11,7 @@
       "postUpgradeTasks": {
         "commands": [
           "{{arg0}} install",
-          "{{arg0}} run ng update {{{depName}}} --from={{{currentVersion}}} --to={{{newVersion}}} --migrate-only --allow-dirty --force"
+          "{{arg0}} run ng update {{{depName}}} {{#if (equals '{{arg0}}' 'npm')}}-- {{/if}}--from={{{currentVersion}}} --to={{{newVersion}}} --migrate-only --allow-dirty --force"
         ],
         "fileFilters": [
           "!**/.{npmrc,yarnrc*}"
