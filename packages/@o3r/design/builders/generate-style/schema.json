@@ -51,7 +51,6 @@
     },
     "metadataIgnorePrivate": {
       "type": "boolean",
-      "default": false,
       "description": "Ignore private variables in the metadata generation."
     },
     "rootPath": {
@@ -60,12 +59,10 @@
     },
     "watch": {
       "type": "boolean",
-      "default": false,
       "description": "Enable watch mode"
     },
     "failOnDuplicate": {
       "type": "boolean",
-      "default": false,
       "description": "Determine if the process should stop in case of Design Token duplication"
     },
     "templateFile": {
@@ -100,7 +97,6 @@
     },
     "failOnMissingReference": {
       "type": "boolean",
-      "default": false,
       "description": "Determine if the builder should fail if a missing Design Token reference is detected"
     },
     "sortOrderPatternsFilePath": {

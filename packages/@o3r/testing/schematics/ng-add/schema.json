@@ -25,8 +25,7 @@
     },
     "exactO3rVersion": {
       "type": "boolean",
-      "description": "Use a pinned version for otter packages",
-      "default": false
+      "description": "Use a pinned version for otter packages"
     }
   },
   "additionalProperties": true,
