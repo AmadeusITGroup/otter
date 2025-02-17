@@ -10,6 +10,7 @@ const nodeFiles = [
   '**/tools/{@o3r,github-actions}/*.{c,m,}{j,t}s',
   '**/*.spec.ts',
   '**/jest.config*.js',
+  '**/jest.config*.cjs',
   '**/eslint*.config.mjs'
 ];
 
