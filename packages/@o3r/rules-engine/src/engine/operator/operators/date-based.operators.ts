@@ -21,7 +21,7 @@ export const inRangeDate: Operator<Date, [DateInput, DateInput], DateInput> = {
  * @title is in next minutes
  * @returns false for dates before `now` and for dates after `now` + `nextMinutes`, true for dates between `now` and `now` + `nextMinutes`
  */
-export const dateInNextMinutes: Operator<Date, string | number, DateInput> = {
+export const dateInNextMinutes: Operator<Date, number, DateInput, string | number> = {
   name: 'dateInNextMinutes',
   evaluator: (leftDateInput, minutes, operatorFactValues) => {
     if (!operatorFactValues) {
@@ -43,7 +43,7 @@ export const dateInNextMinutes: Operator<Date, string | number, DateInput> = {
  * @title is not in next minutes
  * @returns false for dates before `now` and for dates between `now` and `now` + `nextMinutes`, true for dates after `now` + `nextMinutes`
  */
-export const dateNotInNextMinutes: Operator<Date, string | number, DateInput> = {
+export const dateNotInNextMinutes: Operator<Date, number, DateInput, string | number> = {
   name: 'dateNotInNextMinutes',
   evaluator: (leftDateInput, minutes, operatorFactValues) => {
     if (!operatorFactValues) {
