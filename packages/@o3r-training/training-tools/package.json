@@ -96,7 +96,7 @@
     "@types/semver": "^7.3.13",
     "@typescript-eslint/parser": "~8.24.0",
     "@webcontainer/api": "~1.5.0",
-    "angular-eslint": "~19.0.0",
+    "angular-eslint": "~19.1.0",
     "cpy-cli": "^5.0.0",
     "eslint": "~9.19.0",
     "eslint-plugin-import": "^2.31.0",

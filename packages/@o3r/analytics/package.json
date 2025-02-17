@@ -97,7 +97,7 @@
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",
     "@typescript-eslint/parser": "~8.24.0",
-    "angular-eslint": "~19.0.0",
+    "angular-eslint": "~19.1.0",
     "cpy-cli": "^5.0.0",
     "eslint": "~9.19.0",
     "eslint-import-resolver-node": "^0.3.9",
