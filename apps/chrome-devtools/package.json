@@ -52,7 +52,7 @@
     "@types/jest": "~29.5.2",
     "@types/tinycolor2": "^1.4.6",
     "@typescript-eslint/parser": "~8.24.0",
-    "angular-eslint": "~19.0.0",
+    "angular-eslint": "~19.1.0",
     "archiver": "^7.0.0",
     "chokidar": "^4.0.3",
     "chrome-webstore-upload": "^3.0.0",
