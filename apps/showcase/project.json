@@ -252,6 +252,7 @@
       ],
       "inputs": [
         "{projectRoot}/src/style/design-token.*.json",
+        "{projectRoot}/src/**/*.scss",
         "^builders"
       ],
       "options": {
