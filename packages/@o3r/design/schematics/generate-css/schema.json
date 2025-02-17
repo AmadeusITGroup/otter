@@ -32,7 +32,6 @@
     },
     "failOnDuplicate": {
       "type": "boolean",
-      "default": false,
       "description": "Determine if the process should stop in case of Token duplication"
     }
   },
