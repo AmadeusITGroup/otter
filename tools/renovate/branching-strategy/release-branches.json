@@ -1,0 +1,72 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Rules to reduce impacted updates on release branches",
+  "packageRules": [
+    {
+      "matchPackagePatterns": [
+        "*"
+      ],
+      "rangeStrategy": "replace"
+    },
+    {
+      "matchPackageNames": [
+        "typescript"
+      ],
+      "rangeStrategy": "in-range-only"
+    },
+    {
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "matchBaseBranches": [
+        "main",
+        "master",
+        "/^release/"
+      ],
+      "enabled": false
+    },
+    {
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "matchDatasources": [
+        "node-version"
+      ],
+      "matchBaseBranches": [
+        "main",
+        "master"
+      ],
+      "enabled": true
+    },
+    {
+      "matchUpdateTypes": [
+        "major",
+        "minor"
+      ],
+      "matchBaseBranches": [
+        "/^release/"
+      ],
+      "enabled": false
+    },
+    {
+      "matchPackageNames": [
+        "typescript"
+      ],
+      "matchBaseBranches": [
+        "/.*-next$/"
+      ],
+      "rangeStrategy": "replace"
+    },
+    {
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "matchBaseBranches": [
+        "/.*-next$/"
+      ],
+      "groupName": "Major dependencies",
+      "groupSlug": "major-dependencies",
+      "enabled": true
+    }
+  ]
+}

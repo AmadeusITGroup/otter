@@ -3,7 +3,7 @@
   "extends": [
     "github>AmadeusITGroup/otter//tools/renovate/base",
     "github>AmadeusITGroup/otter//tools/renovate/group/design-factory",
-    "github>AmadeusITGroup/otter//tools/renovate/managers/github-node-version.json5",
+    "github>AmadeusITGroup/otter//tools/renovate/branching-strategy/release-branches",
     ":labels(dependencies)"
   ],
   "timezone": "Europe/Paris",
