@@ -34,8 +34,7 @@
     },
     "updateTemplate": {
       "type": "boolean",
-      "description": "Update the template by replacing matching value by the localization key",
-      "default": false
+      "description": "Update the template by replacing matching value by the localization key"
     }
   },
   "additionalProperties": true,
