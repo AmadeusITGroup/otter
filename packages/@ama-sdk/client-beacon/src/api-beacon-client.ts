@@ -2,6 +2,7 @@ import type {
   ApiClient,
   ApiTypes,
   BaseApiClientOptions,
+  ParamSerialization,
   PartialExcept,
   RequestOptions,
   RequestOptionsParameters,
@@ -9,7 +10,9 @@ import type {
 } from '@ama-sdk/core';
 import {
   extractQueryParams,
+  filterUndefinedQueryParams,
   filterUndefinedValues,
+  preparePathParams,
   prepareUrl,
   processFormData,
   tokenizeRequestOptions,
@@ -62,7 +65,17 @@ export class ApiBeaconClient implements ApiClient {
   }
 
   /** @inheritdoc */
-  public extractQueryParams<T extends { [key: string]: any }>(data: T, names: (keyof T)[]): { [p in keyof T]: string; } {
+  public extractQueryParams<T extends { [key: string]: any }>(data: T, names: (keyof T)[]): { [p in keyof T]: string; };
+  /** @inheritdoc */
+  public extractQueryParams<T extends { [key: string]: any }>(data: T, names: { [K in keyof T]?: Omit<ParamSerialization, 'value'> }): { [p in keyof T]?: ParamSerialization; };
+  /** @inheritdoc */
+  public extractQueryParams<T extends { [key: string]: any }>(
+    data: T,
+    names: (keyof T)[] | { [K in keyof T]?: Omit<ParamSerialization, 'value'> }
+  ): { [p in keyof T]: string; } | { [p in keyof T]?: ParamSerialization; } {
+    if (Array.isArray(names)) {
+      return extractQueryParams(data, names);
+    }
     return extractQueryParams(data, names);
   }
 
@@ -75,7 +88,8 @@ export class ApiBeaconClient implements ApiClient {
     let opts: RequestOptions = {
       ...options,
       headers: new Headers(filterUndefinedValues(options.headers)),
-      queryParams: filterUndefinedValues(options.queryParams)
+      queryParams: filterUndefinedValues(options.queryParams),
+      queryParameters: options.queryParameters ? filterUndefinedQueryParams(options.queryParameters) : undefined
     };
     if (this.options.requestPlugins) {
       for (const plugin of this.options.requestPlugins) {
@@ -92,12 +106,22 @@ export class ApiBeaconClient implements ApiClient {
   }
 
   /** @inheritdoc */
-  public prepareUrl(url: string, queryParameters?: { [key: string]: string }): string {
+  public preparePathParams<T extends { [key: string]: any }>(data: T, pathParameters: { [K in keyof T]?: Omit<ParamSerialization, 'value'> }): { [p in keyof T]: string } {
+    return preparePathParams(data, pathParameters);
+  }
+
+  /** @inheritdoc */
+  public prepareUrl(url: string, queryParameters?: { [key: string]: string } | { [key: string]: ParamSerialization | undefined }): string {
     return prepareUrl(url, queryParameters);
   }
 
   /** @inheritdoc */
-  public tokenizeRequestOptions(url: string, queryParameters: { [key: string]: string }, piiParamTokens: { [key: string]: string }, data: any): TokenizedOptions | undefined {
+  public tokenizeRequestOptions(
+    url: string,
+    queryParameters: { [key: string]: string } | { [key: string]: ParamSerialization },
+    piiParamTokens: { [key: string]: string },
+    data: any
+  ): TokenizedOptions | undefined {
     return this.options.enableTokenization ? tokenizeRequestOptions(url, queryParameters, piiParamTokens, data) : undefined;
   }
 

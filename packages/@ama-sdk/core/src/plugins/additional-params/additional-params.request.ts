@@ -1,4 +1,7 @@
 import {
+  type ParamSerialization,
+} from '../../fwk';
+import {
   PluginRunner,
   RequestOptions,
   RequestPlugin,
@@ -7,8 +10,13 @@ import {
 export interface AdditionalParameters {
   /** Additional headers */
   headers?: { [key: string]: string } | ((headers: Headers) => { [key: string]: string } | Promise<{ [key: string]: string }>);
-  /** Additional query params */
+  /**
+   * Additional query params
+   * @deprecated use `queryParameters` with query parameter serialization, will be removed in v14.
+   */
   queryParams?: { [key: string]: string } | ((defaultValues?: { [key: string]: string }) => { [key: string]: string } | Promise<{ [key: string]: string }>);
+  /** Additional query params */
+  queryParameters?: { [key: string]: ParamSerialization } | ((defaultValues?: { [key: string]: ParamSerialization }) => { [key: string]: ParamSerialization });
   /** Additional body params */
   body?: (defaultValues?: string) => string | null | Promise<string>;
 }
@@ -41,11 +49,15 @@ export class AdditionalParamsRequest implements RequestPlugin {
     return {
       transform: async (data: RequestOptions) => {
         const queryParams = typeof this.additionalParams.queryParams === 'function' ? await this.additionalParams.queryParams(data.queryParams) : this.additionalParams.queryParams;
+        const queryParameters = typeof this.additionalParams.queryParameters === 'function' ? this.additionalParams.queryParameters(data.queryParameters) : this.additionalParams.queryParameters;
         const headers = typeof this.additionalParams.headers === 'function' ? await this.additionalParams.headers(data.headers) : this.additionalParams.headers;
         const body = this.additionalParams.body && isStringOrUndefined(data.body) ? this.additionalParams.body(data.body) : undefined;
 
         if (queryParams) {
           data.queryParams = { ...data.queryParams, ...queryParams };
+        }
+        if (queryParameters) {
+          data.queryParameters = { ...data.queryParameters, ...queryParameters };
         }
 
         if (body !== undefined) {
