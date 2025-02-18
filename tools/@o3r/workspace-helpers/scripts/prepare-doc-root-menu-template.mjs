@@ -9,7 +9,7 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {
-  globby as glob
+  globby as glob,
 } from 'globby';
 import minimist from 'minimist';
 
@@ -23,6 +23,7 @@ const findCompodocrcConfig = async (compodocGlobFiles) => {
       const config = JSON.parse(content);
       return config;
     } catch (e) {
+      // eslint-disable-next-line no-console -- output error in the console
       console.error(e);
       return;
     }
