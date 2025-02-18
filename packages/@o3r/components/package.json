@@ -206,7 +206,7 @@
     "jest-junit": "~16.0.0",
     "jest-preset-angular": "~14.5.0",
     "jsonc-eslint-parser": "~2.4.0",
-    "jsonpath-plus": "~10.2.0",
+    "jsonpath-plus": "~10.3.0",
     "memfs": "~4.17.0",
     "nx": "~20.4.0",
     "pid-from-port": "^1.1.3",
