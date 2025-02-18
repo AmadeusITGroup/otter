@@ -127,7 +127,7 @@
     "@types/pid-from-port": "^1.1.0",
     "@types/uuid": "^10.0.0",
     "@typescript-eslint/parser": "~8.24.0",
-    "angular-eslint": "~19.0.0",
+    "angular-eslint": "~19.1.0",
     "chokidar": "^4.0.3",
     "cpy-cli": "^5.0.0",
     "eslint": "~9.19.0",
