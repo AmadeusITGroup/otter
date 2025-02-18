@@ -118,7 +118,7 @@ ${reportData.warnings
     core.setOutput('reportMarkdown', body);
     if (isFailed) {
       core.error(`Found at least one vulnerability equal to or higher than the configured severity threshold: ${severityConfig}.`);
-      throw new Error(`Yarn audit found dependencies with vulnerabilities above the severity threshold: ${severityConfig}. Please look at the Audit report.`);
+      throw new Error(`Audit found dependencies with vulnerabilities above the severity threshold: ${severityConfig}. Please look at the Audit report.`);
     } else {
       core.info(`Vulnerabilities were detected but all below the configured severity threshold: ${severityConfig}.`);
     }

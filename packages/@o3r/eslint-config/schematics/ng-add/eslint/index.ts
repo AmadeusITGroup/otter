@@ -13,11 +13,16 @@ import {
   renameTemplateFiles,
   type Rule,
   template,
+  Tree,
   url,
 } from '@angular-devkit/schematics';
-import type {
+import {
+  findConfigFileRelativePath,
   WorkspaceSchema,
 } from '@o3r/schematics';
+import type {
+  PackageJson,
+} from 'type-fest';
 import {
   updateOrAddTsconfigEslint,
 } from '../tsconfig/index';
@@ -42,13 +47,24 @@ const editAngularJson = (projectName: string, extension: string): Rule => async 
     options: {
       eslintConfig: `${workspaceProject.root}/eslint.config.${extension}`,
       lintFilePatterns: [
-        `${workspaceProject.sourceRoot || path.posix.join(workspaceProject.root, 'src')}/**/*.ts`
+        `${workspaceProject.sourceRoot || path.posix.join(workspaceProject.root, 'src')}/**/*.{m,c,}{j,t}s`,
+        `${workspaceProject.sourceRoot || path.posix.join(workspaceProject.root, 'src')}/**/*.json`,
+        `${workspaceProject.sourceRoot || path.posix.join(workspaceProject.root, 'src')}/**/*.html`
       ]
     }
   };
 
   workspace!.projects[projectName] = workspaceProject;
   tree.overwrite('/angular.json', JSON.stringify(workspace, null, 2));
+};
+
+const editPackageJson = (projectName: string, projectRootPath: string): Rule => {
+  return (tree: Tree) => {
+    const packageJson = tree.readJson(`${projectRootPath}/package.json`) as PackageJson;
+    packageJson.scripts ||= {};
+    packageJson.scripts.lint = `ng lint ${projectName}`;
+    tree.overwrite(`${projectRootPath}/package.json`, JSON.stringify(packageJson, null, 2));
+  };
 };
 
 /**
@@ -103,12 +119,15 @@ export const updateEslintConfig = (rootPath: string, projectName?: string): Rule
     tree.delete(filePath);
   }
 
+  const projectTsConfig = findConfigFileRelativePath(tree, ['tsconfig.base.json', 'tsconfig.json'], projectRootPath);
+
   return chain([
     projectName ? editAngularJson(projectName, templateOptions.extension) : noop(),
+    projectName ? editPackageJson(projectName, projectRootPath) : noop(),
     applyToSubtree(
       projectRootPath,
       [
-        updateOrAddTsconfigEslint(rootPath),
+        updateOrAddTsconfigEslint(rootPath, projectTsConfig),
         mergeWith(apply(url(getTemplateFolder(rootPath, __dirname, `./templates/${projectRootPath === '.' ? 'workspace' : 'project'}`)), [
           template(templateOptions),
           renameTemplateFiles()

@@ -84,6 +84,7 @@ describe('update eslint config', () => {
     expect(tree.readText(`${appRoot}/eslint.local.config.mjs`)).toContain(`${pckName}/projects`);
     expect(tree.readText(`${appRoot}/eslint.local.config.mjs`)).toContain(`${pckName}/ignores`);
     expect(tree.readText(`${appRoot}/eslint.local.config.mjs`)).toContain('...globals.browser');
+    expect(tree.readText(`${appRoot}/tsconfig.eslint.json`)).toContain('"extends": "../../tsconfig.base.json"');
     expect(tree.readJson('angular.json')).toEqual({
       ...angularJsonContent,
       projects: {
@@ -93,7 +94,15 @@ describe('update eslint config', () => {
           architect: {
             ...angularJsonContent.projects[appName].architect,
             lint: expect.objectContaining({
-              builder: '@angular-eslint/builder:lint'
+              builder: '@angular-eslint/builder:lint',
+              options: {
+                eslintConfig: `${appRoot}/eslint.config.mjs`,
+                lintFilePatterns: [
+                  `${appRoot}/src/**/*.{m,c,}{j,t}s`,
+                  `${appRoot}/src/**/*.json`,
+                  `${appRoot}/src/**/*.html`
+                ]
+              }
             })
           }
         }
@@ -128,7 +137,15 @@ describe('update eslint config', () => {
           architect: {
             ...angularJsonContent.projects[libName].architect,
             lint: expect.objectContaining({
-              builder: '@angular-eslint/builder:lint'
+              builder: '@angular-eslint/builder:lint',
+              options: {
+                eslintConfig: `${libRoot}/eslint.config.mjs`,
+                lintFilePatterns: [
+                  `${libRoot}/src/**/*.{m,c,}{j,t}s`,
+                  `${libRoot}/src/**/*.json`,
+                  `${libRoot}/src/**/*.html`
+                ]
+              }
             })
           }
         }
