@@ -244,7 +244,7 @@
     "jest-preset-angular": "~14.5.0",
     "js-yaml": "^4.1.0",
     "jsonc-eslint-parser": "~2.4.0",
-    "jsonpath-plus": "~10.2.0",
+    "jsonpath-plus": "~10.3.0",
     "lighthouse": "~12.3.0",
     "lint-staged": "^15.0.0",
     "marked": "^15.0.6",
