@@ -4,9 +4,7 @@
   "packageRules": [
     {
       "matchPackageNames": [
-        "@o3r/core",
-        "@ama-sdk/core",
-        "@otter/core"
+        "@o3r/core"
       ],
       "postUpgradeTasks": {
         "commands": [
@@ -16,7 +14,7 @@
         "fileFilters": [
           "!**/.{npmrc,yarnrc*}"
         ],
-        "executionMode": "branch"
+        "executionMode": "update"
       }
     }
   ]
