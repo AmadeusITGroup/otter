@@ -9950,7 +9950,7 @@ module.exports = validRange
 
 /***/ }),
 
-/***/ 3031:
+/***/ 4306:
 /***/ ((module) => {
 
 /******************************************************************************
@@ -9999,7 +9999,6 @@ var __classPrivateFieldIn;
 var __createBinding;
 var __addDisposableResource;
 var __disposeResources;
-var __rewriteRelativeImportExtension;
 (function (factory) {
     var root = typeof global === "object" ? global : typeof self === "object" ? self : typeof this === "object" ? this : {};
     if (typeof define === "function" && define.amd) {
@@ -10267,19 +10266,10 @@ var __rewriteRelativeImportExtension;
         o["default"] = v;
     };
 
-    var ownKeys = function(o) {
-        ownKeys = Object.getOwnPropertyNames || function (o) {
-            var ar = [];
-            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
-            return ar;
-        };
-        return ownKeys(o);
-    };
-
     __importStar = function (mod) {
         if (mod && mod.__esModule) return mod;
         var result = {};
-        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
         __setModuleDefault(result, mod);
         return result;
     };
@@ -10360,15 +10350,6 @@ var __rewriteRelativeImportExtension;
         return next();
     };
 
-    __rewriteRelativeImportExtension = function (path, preserveJsx) {
-        if (typeof path === "string" && /^\.\.?\//.test(path)) {
-            return path.replace(/\.(tsx)$|((?:\.d)?)((?:\.[^./]+?)?)\.([cm]?)ts$/i, function (m, tsx, d, ext, cm) {
-                return tsx ? preserveJsx ? ".jsx" : ".js" : d && (!ext || !cm) ? m : (d + ext + "." + cm.toLowerCase() + "js");
-            });
-        }
-        return path;
-    };
-
     exporter("__extends", __extends);
     exporter("__assign", __assign);
     exporter("__rest", __rest);
@@ -10400,10 +10381,7 @@ var __rewriteRelativeImportExtension;
     exporter("__classPrivateFieldIn", __classPrivateFieldIn);
     exporter("__addDisposableResource", __addDisposableResource);
     exporter("__disposeResources", __disposeResources);
-    exporter("__rewriteRelativeImportExtension", __rewriteRelativeImportExtension);
 });
-
-0 && (0);
 
 
 /***/ }),
@@ -33074,7 +33052,7 @@ exports.NewVersion = NewVersion;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-const tslib_1 = __nccwpck_require__(3031);
+const tslib_1 = __nccwpck_require__(4306);
 tslib_1.__exportStar(__nccwpck_require__(4681), exports);
 tslib_1.__exportStar(__nccwpck_require__(4939), exports);
 //# sourceMappingURL=public_api.js.map
@@ -34999,7 +34977,7 @@ var __webpack_exports__ = {};
 var exports = __webpack_exports__;
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-const tslib_1 = __nccwpck_require__(3031);
+const tslib_1 = __nccwpck_require__(4306);
 const core = tslib_1.__importStar(__nccwpck_require__(7539));
 const github = tslib_1.__importStar(__nccwpck_require__(2753));
 const new_version_1 = __nccwpck_require__(9449);
