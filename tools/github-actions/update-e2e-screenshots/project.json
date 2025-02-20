@@ -1,0 +1,19 @@
+{
+  "name": "github-actions-update-e2e-screenshots",
+  "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "tools/github-actions/update-e2e-screenshots",
+  "prefix": "o3r",
+  "targets": {
+    "build": {
+      "executor": "nx:noop",
+      "dependsOn": [
+        "compile-github-action"
+      ]
+    },
+    "compile-github-action": {},
+    "package-github-action": {},
+    "lint": {}
+  },
+  "tags": []
+}
