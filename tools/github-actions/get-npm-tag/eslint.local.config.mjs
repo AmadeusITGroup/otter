@@ -24,7 +24,7 @@ export default [
     }
   },
   {
-    name: '@o3r/audit-gh-action/ignores',
+    name: '@o3r/get-npm-tag-gh-action/ignores',
     ignores: [
       '**/packaged-action/**'
     ]
