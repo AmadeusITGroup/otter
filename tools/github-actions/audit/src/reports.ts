@@ -91,8 +91,8 @@ export const computeNpmV1Report: OtterAuditReporter = (response, severityThresho
         severity: advisory.severity,
         overview: advisory.overview,
         moduleName: advisory.module_name
-      })
-    , { errors: [], warnings: [], nbVulnerabilities, highestSeverityFound });
+      }),
+    { errors: [], warnings: [], nbVulnerabilities, highestSeverityFound });
 };
 
 /**
@@ -111,8 +111,8 @@ export const computeNpmV2Report: OtterAuditReporter = (response, severityThresho
         severity: advisory.severity,
         moduleName: advisory.name,
         overview: typeof advisory.via[0] === 'string' ? advisory.via[0] : advisory.via[0].title
-      })
-    , { errors: [], warnings: [], nbVulnerabilities, highestSeverityFound });
+      }),
+    { errors: [], warnings: [], nbVulnerabilities, highestSeverityFound });
 };
 
 /**
@@ -145,8 +145,8 @@ export const computeYarn1Report: OtterAuditReporter = (response, severityThresho
         severity: advisory.data.advisory.severity,
         moduleName: advisory.data.advisory.module_name,
         overview: advisory.data.advisory.overview
-      })
-    , { errors: [], warnings: [], nbVulnerabilities, highestSeverityFound });
+      }),
+    { errors: [], warnings: [], nbVulnerabilities, highestSeverityFound });
 };
 
 /**

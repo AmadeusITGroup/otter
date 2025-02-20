@@ -3,7 +3,7 @@ import {
   type Rule,
 } from '@angular-devkit/schematics';
 import {
-  createSchematicWithMetricsIfInstalled,
+  createOtterSchematic,
 } from '@o3r/schematics';
 import {
   addStylistic,
@@ -41,9 +41,9 @@ function updateV116Fn(): Rule {
 /**
  * Update of Otter library V10.0
  */
-export const updateV100 = createSchematicWithMetricsIfInstalled(updateV100fn);
+export const updateV100 = createOtterSchematic(updateV100fn);
 
 /**
  * Update of Otter library V11.6
  */
-export const updateV116 = createSchematicWithMetricsIfInstalled(updateV116Fn);
+export const updateV116 = createOtterSchematic(updateV116Fn);

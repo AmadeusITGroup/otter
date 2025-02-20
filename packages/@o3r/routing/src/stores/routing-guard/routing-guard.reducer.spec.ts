@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion -- wrong-positive on ngrx Dictionary type */
 import * as actions from './routing-guard.actions';
 import {
   routingGuardInitialState,
@@ -31,7 +30,7 @@ describe('RoutingGuard Entity actions', () => {
     expect((state.ids as string[]).find((id) => (id === payload.id))).toBeDefined();
     expect((state.ids as string[]).find((id) => (id === payload.id))).toEqual(payload.id);
     expect(state.entities[payload.id]).toBeDefined();
-    expect(state.entities[payload.id]!.status).toEqual(RegisteredItemStatus.READY);
+    expect(state.entities[payload.id].status).toEqual(RegisteredItemStatus.READY);
   });
 
   it('ACTION_SET_ENTITY_AS_FAILURE should set an existing entity status as FAILURE', () => {
@@ -48,7 +47,7 @@ describe('RoutingGuard Entity actions', () => {
     expect((newState.ids as string[]).find((id) => (id === payload.id))).toBeDefined();
     expect((newState.ids as string[]).find((id) => (id === payload.id))).toEqual(payload.id);
     expect(newState.entities[payload.id]).toBeDefined();
-    expect(newState.entities[payload.id]!.status).toEqual(RegisteredItemStatus.FAILURE);
+    expect(newState.entities[payload.id].status).toEqual(RegisteredItemStatus.FAILURE);
   });
 
   it('ACTION_SET_ENTITY_AS_SUCCESS_AND_CLEAR_REASON should set existing entities status as SUCCESS and clear the reason', () => {
@@ -69,8 +68,8 @@ describe('RoutingGuard Entity actions', () => {
     expect((newState1.ids as string[]).find((id) => (id === payloadFormUnsaved.id))).toBeDefined();
     expect((newState1.ids as string[]).find((id) => (id === payloadFormUnsaved.id))).toEqual(payloadFormUnsaved.id);
     expect(newState1.entities[payloadFormUnsaved.id]).toBeDefined();
-    expect(newState1.entities[payloadFormUnsaved.id]!.status).toEqual(RegisteredItemStatus.SUCCESS);
-    expect(newState1.entities[payloadFormUnsaved.id]!.blockingReason).toEqual(undefined);
+    expect(newState1.entities[payloadFormUnsaved.id].status).toEqual(RegisteredItemStatus.SUCCESS);
+    expect(newState1.entities[payloadFormUnsaved.id].blockingReason).toEqual(undefined);
 
     const newState2: RoutingGuardState = routingGuardReducer(state, actions.setRoutingGuardEntityAsSuccessAndClearReason(payloadAsyncCallFailure));
 
@@ -78,8 +77,8 @@ describe('RoutingGuard Entity actions', () => {
     expect((newState2.ids as string[]).find((id) => (id === payloadAsyncCallFailure.id))).toBeDefined();
     expect((newState2.ids as string[]).find((id) => (id === payloadAsyncCallFailure.id))).toEqual(payloadAsyncCallFailure.id);
     expect(newState2.entities[payloadAsyncCallFailure.id]).toBeDefined();
-    expect(newState2.entities[payloadAsyncCallFailure.id]!.status).toEqual(RegisteredItemStatus.SUCCESS);
-    expect(newState2.entities[payloadAsyncCallFailure.id]!.blockingReason).toEqual(undefined);
+    expect(newState2.entities[payloadAsyncCallFailure.id].status).toEqual(RegisteredItemStatus.SUCCESS);
+    expect(newState2.entities[payloadAsyncCallFailure.id].blockingReason).toEqual(undefined);
 
     const newState3: RoutingGuardState = routingGuardReducer(state, actions.setRoutingGuardEntityAsSuccessAndClearReason(payloadNone));
 
@@ -87,8 +86,8 @@ describe('RoutingGuard Entity actions', () => {
     expect((newState3.ids as string[]).find((id) => (id === payloadNone.id))).toBeDefined();
     expect((newState3.ids as string[]).find((id) => (id === payloadNone.id))).toEqual(payloadNone.id);
     expect(newState3.entities[payloadNone.id]).toBeDefined();
-    expect(newState3.entities[payloadNone.id]!.status).toEqual(RegisteredItemStatus.SUCCESS);
-    expect(newState3.entities[payloadNone.id]!.blockingReason).toEqual(undefined);
+    expect(newState3.entities[payloadNone.id].status).toEqual(RegisteredItemStatus.SUCCESS);
+    expect(newState3.entities[payloadNone.id].blockingReason).toEqual(undefined);
   });
 
   it('ACTION_SET_ENTITY_AS_PENDING should set an existing entity status as PENDING', () => {
@@ -105,7 +104,7 @@ describe('RoutingGuard Entity actions', () => {
     expect((newState.ids as string[]).find((id) => (id === payload.id))).toBeDefined();
     expect((newState.ids as string[]).find((id) => (id === payload.id))).toEqual(payload.id);
     expect(newState.entities[payload.id]).toBeDefined();
-    expect(newState.entities[payload.id]!.status).toEqual(RegisteredItemStatus.PENDING);
+    expect(newState.entities[payload.id].status).toEqual(RegisteredItemStatus.PENDING);
   });
 
   it('ACTION_CLEAR_FAILURE_REASON should set the reason for an existing entity failure as undefined', () => {
@@ -122,8 +121,8 @@ describe('RoutingGuard Entity actions', () => {
     expect((newState.ids as string[]).find((id) => (id === payload.id))).toBeDefined();
     expect((newState.ids as string[]).find((id) => (id === payload.id))).toEqual(payload.id);
     expect(newState.entities[payload.id]).toBeDefined();
-    expect(newState.entities[payload.id]!.status).toEqual(RegisteredItemStatus.READY);
-    expect(newState.entities[payload.id]!.blockingReason).toEqual(undefined);
+    expect(newState.entities[payload.id].status).toEqual(RegisteredItemStatus.READY);
+    expect(newState.entities[payload.id].blockingReason).toEqual(undefined);
   });
 
   it('ACTION_SET_ENTITY_AS_FAILURE_WITH_REASON should set the entity as failure and a reason for failure', () => {
@@ -140,7 +139,7 @@ describe('RoutingGuard Entity actions', () => {
     expect((newState.ids as string[]).find((id) => (id === payload.id))).toBeDefined();
     expect((newState.ids as string[]).find((id) => (id === payload.id))).toEqual(payload.id);
     expect(newState.entities[payload.id]).toBeDefined();
-    expect(newState.entities[payload.id]!.status).toEqual(RegisteredItemStatus.FAILURE);
-    expect(newState.entities[payload.id]!.blockingReason).toEqual(payload.reason);
+    expect(newState.entities[payload.id].status).toEqual(RegisteredItemStatus.FAILURE);
+    expect(newState.entities[payload.id].blockingReason).toEqual(payload.reason);
   });
 });

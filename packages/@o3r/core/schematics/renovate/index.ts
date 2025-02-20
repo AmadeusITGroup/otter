@@ -13,7 +13,7 @@ import {
   url,
 } from '@angular-devkit/schematics';
 import {
-  createSchematicWithMetricsIfInstalled,
+  createOtterSchematic,
 } from '@o3r/schematics';
 import {
   NgGenerateRenovateBotSchematicsSchema,
@@ -46,4 +46,4 @@ function ngGenerateRenovateBotComponentFn(options: NgGenerateRenovateBotSchemati
  * Create a Renovate Bot basic configuration
  * @param options
  */
-export const ngGenerateRenovateBotComponent = createSchematicWithMetricsIfInstalled(ngGenerateRenovateBotComponentFn);
+export const ngGenerateRenovateBotComponent = createOtterSchematic(ngGenerateRenovateBotComponentFn);

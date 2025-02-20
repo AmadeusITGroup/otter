@@ -25,6 +25,8 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
 }
 
 export const ngAdd = (options: NgAddSchematicsSchema): Rule => async () => {
-  const { createSchematicWithMetricsIfInstalled } = await import('@o3r/schematics');
-  return createSchematicWithMetricsIfInstalled(ngAddFn)(options);
+  const {
+    createOtterSchematic
+  } = await import('@o3r/schematics');
+  return createOtterSchematic(ngAddFn)(options);
 };

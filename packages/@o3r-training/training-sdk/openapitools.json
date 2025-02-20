@@ -1,0 +1,19 @@
+{
+  "$schema": "https://raw.githubusercontent.com/OpenAPITools/openapi-generator-cli/master/apps/generator-cli/src/config.schema.json",
+  "spaces": 2,
+  "generator-cli": {
+    "version": "7.9.0",
+    "storageDir": ".openapi-generator",
+    "generators": {
+      "training-project-training-sdk": {
+        "generatorName": "typescriptFetch",
+        "output": ".",
+        "inputSpec": "./open-api.yaml",
+        "globalProperty": {
+          "stringifyDate": false,
+          "allowModelExtension": true
+        }
+      }
+    }
+  }
+}

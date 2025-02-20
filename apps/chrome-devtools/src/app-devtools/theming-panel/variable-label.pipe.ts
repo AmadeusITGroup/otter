@@ -7,8 +7,7 @@ import type {
 } from '@o3r/styling';
 
 @Pipe({
-  name: 'variableLabel',
-  standalone: true
+  name: 'variableLabel'
 })
 export class VariableLabelPipe implements PipeTransform {
   public transform(variable: StylingVariable) {

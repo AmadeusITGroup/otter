@@ -25,7 +25,7 @@ import {
   addInterfaceToClassTransformerFactory,
   applyEsLintFix,
   askConfirmationToConvertComponent,
-  createSchematicWithMetricsIfInstalled,
+  createOtterSchematic,
   generateBlockStatementsFromString,
   generateClassElementsFromString,
   generateParametersDeclarationFromString,
@@ -179,10 +179,10 @@ export function ngAddConfigFn(options: NgAddConfigSchematicsSchema): Rule {
 
                   const configConstructorBlockStatements = generateBlockStatementsFromString(`
               this.dynamicConfig$ = new ConfigurationObserver<${
-  properties.componentConfig
-}>(${properties.configKey}_CONFIG_ID, ${properties.configKey}_DEFAULT_CONFIG, ${
-  configurationServiceVariableName
-});
+                properties.componentConfig
+              }>(${properties.configKey}_CONFIG_ID, ${properties.configKey}_DEFAULT_CONFIG, ${
+                configurationServiceVariableName
+              });
               this.config$ = this.dynamicConfig$.asObservable();
             `);
 
@@ -456,4 +456,4 @@ export function ngAddConfigFn(options: NgAddConfigSchematicsSchema): Rule {
  * Add configuration to an existing component
  * @param options
  */
-export const ngAddConfig = createSchematicWithMetricsIfInstalled(ngAddConfigFn);
+export const ngAddConfig = createOtterSchematic(ngAddConfigFn);

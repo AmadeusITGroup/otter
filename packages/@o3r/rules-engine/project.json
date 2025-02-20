@@ -28,12 +28,8 @@
         "tsConfig": "packages/@o3r/rules-engine/tsconfig.build.json"
       }
     },
-    "expose-schemas": {
-      "executor": "nx:run-script"
-    },
-    "prepare": {
-      "executor": "nx:run-script"
-    },
+    "expose-schemas": {},
+    "prepare": {},
     "extract-rules-engine": {
       "executor": "@o3r/rules-engine:extractor",
       "options": {
@@ -64,18 +60,8 @@
         "script": "build:fixtures:jasmine"
       }
     },
-    "prepare-build-builders": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "prepare:build:builders"
-      }
-    },
-    "build-builders": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "build:builders"
-      }
-    },
+    "prepare-build-builders": {},
+    "build-builders": {},
     "lint": {
       "executor": "nx:run-commands",
       "options": {
@@ -88,36 +74,11 @@
         }
       }
     },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "options": {
-        "jestConfig": "packages/@o3r/rules-engine/jest.config.js"
-      }
-    },
-    "test-int": {
-      "executor": "@nx/jest:jest",
-      "options": {
-        "jestConfig": "packages/@o3r/rules-engine/testing/jest.config.it.js"
-      }
-    },
-    "prepare-publish": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "prepare:publish"
-      }
-    },
-    "publish": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "npm publish packages/@o3r/rules-engine/dist"
-      }
-    },
-    "documentation": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "compodoc"
-      }
-    }
+    "test": {},
+    "test-int": {},
+    "prepare-publish": {},
+    "publish": {},
+    "documentation": {}
   },
   "tags": []
 }

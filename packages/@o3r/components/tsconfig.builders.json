@@ -8,6 +8,7 @@
     "rootDir": ".",
     "tsBuildInfoFile": "build/.tsbuildinfo.builders",
     "esModuleInterop": true,
+    "skipLibCheck": true, // because of @angular-devkit-schematics
     "allowSyntheticDefaultImports": true
   },
   "include": [

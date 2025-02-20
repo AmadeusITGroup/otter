@@ -34,7 +34,6 @@ describe('Update v10', () => {
         @O3rComponent({ componentType: 'Component' })
         @Component({
           selector: 'o3r-example',
-          standalone: true,
           imports: [DurationPipeModule],
           templateUrl: './example.template.html'
         })
@@ -56,7 +55,8 @@ describe('Update v10', () => {
         @O3rComponent({ componentType: 'Component' })
         @Component({
           selector: 'o3r-example',
-          templateUrl: './example.template.html'
+          templateUrl: './example.template.html',
+          standalone: false
         })
         export class ExampleComponent {
         }
@@ -92,7 +92,6 @@ describe('Update v10', () => {
         @O3rComponent({ componentType: 'Component' })
         @Component({
           selector: 'o3r-example',
-          standalone: true,
           templateUrl: './example.template.html'
         })
         export class ExampleComponent {

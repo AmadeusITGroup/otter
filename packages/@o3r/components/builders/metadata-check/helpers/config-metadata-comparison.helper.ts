@@ -35,9 +35,7 @@ export interface MigrationConfigData {
  * ```
  */
 const getConfigurationArray = (content: ComponentConfigOutput[]): ComponentConfigOutput[] => content.flatMap((config) =>
-  config.properties.length > 1
-    ? config.properties.map((prop) => ({ ...config, properties: [prop] }))
-    : [config]
+  config.properties.map((prop) => ({ ...config, properties: [prop] }))
 );
 
 const getConfigurationPropertyName = (config: ComponentConfigOutput) => `${config.library}#${config.name}` + (config.properties.length > 0 ? ` ${config.properties[0].name}` : '');

@@ -11,6 +11,7 @@ import {
   noop,
   type Rule,
 } from '@angular-devkit/schematics';
+import confirm from '@inquirer/confirm';
 import type {
   SchematicWrapper,
 } from '@o3r/telemetry';
@@ -18,13 +19,12 @@ import {
   NodeDependencyType,
 } from '@schematics/angular/utility/dependencies';
 import {
-  prompt,
-  Question,
-} from 'inquirer';
-import {
   hasSetupInformation,
   setupDependencies,
 } from '../rule-factories/ng-add/dependencies';
+import {
+  createSchematicWithOptionsFromWorkspace,
+} from '../rule-factories/options/index';
 
 const noopSchematicWrapper: SchematicWrapper = (fn) => fn;
 
@@ -63,7 +63,8 @@ const setupTelemetry: (opts: { workingDirectory?: string; runNgAdd?: boolean; ex
 
 /**
  * Wrapper method of a schematic to retrieve some metrics around the schematic run
- * if @o3r/telemetry is installed
+ * if `@o3r/telemetry` is installed
+ * NOTE: please do not use it directly, instead use {@link createOtterSchematic} to wrap your schematic
  * @param schematicFn
  */
 export const createSchematicWithMetricsIfInstalled: SchematicWrapper = (schematicFn) => (opts) => async (tree, context) => {
@@ -85,18 +86,14 @@ export const createSchematicWithMetricsIfInstalled: SchematicWrapper = (schemati
     ) {
       context.logger.debug('`@o3r/telemetry` is not available.\nAsking to add the dependency\n' + e.toString());
 
-      const question = {
-        type: 'confirm',
-        name: 'isReplyPositive',
+      shouldInstallTelemetry = await confirm({
         message: `
 Would you like to share anonymous data about the usage of Otter builders and schematics with the Otter Team at Amadeus ?
 It will help us to improve our tools.
-For more details and instructions on how to change these settings, see https://github.com/AmadeusITGroup/otter/blob/main/docs/telemetry/PRIVACY_NOTICE.md.
+For more details and instructions on how to change these settings, see https://github.com/AmadeusITGroup/otter/blob/main/docs/telemetry/PRIVACY_NOTICE.md
         `,
         default: false
-      } as const satisfies Question;
-      const { isReplyPositive } = await prompt([question]);
-      shouldInstallTelemetry = isReplyPositive;
+      });
     }
   }
   const subtreeDirectory = context.schematic.description.name === 'typescript-shell' ? (opts as any).directory.split(path.posix.sep).join(path.sep) ?? '' : '';
@@ -113,3 +110,9 @@ For more details and instructions on how to change these settings, see https://g
   ]);
   return wrapper(() => rule)(opts);
 };
+
+/**
+ * Wrapper method of an Otter schematics
+ * @param schematicFn
+ */
+export const createOtterSchematic = (schematicFn: (options: any) => Rule) => createSchematicWithOptionsFromWorkspace(createSchematicWithMetricsIfInstalled(schematicFn));

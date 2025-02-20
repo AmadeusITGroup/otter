@@ -26,8 +26,7 @@ export interface InPageNavLink {
 }
 
 @Directive({
-  selector: 'h2[id]',
-  standalone: true
+  selector: 'h2[id]'
 })
 export class InPageNavLinkDirective implements InPageNavLink, AfterViewInit {
   /** HTML id of the h2 */
@@ -61,7 +60,6 @@ export class InPageNavLinkDirective implements InPageNavLink, AfterViewInit {
 @O3rComponent({ componentType: 'Component' })
 @Component({
   selector: 'o3r-in-page-nav-pres',
-  standalone: true,
   imports: [NgbScrollSpyModule],
   templateUrl: './in-page-nav-pres.template.html',
   styleUrls: ['./in-page-nav-pres.style.scss'],

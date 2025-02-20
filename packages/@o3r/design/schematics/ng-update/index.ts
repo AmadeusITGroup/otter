@@ -5,7 +5,7 @@ import {
   Tree,
 } from '@angular-devkit/schematics';
 import {
-  createSchematicWithMetricsIfInstalled,
+  createOtterSchematic,
 } from '@o3r/schematics';
 import {
   migrateBuilderToGenerateStyle,
@@ -29,4 +29,4 @@ function updateV11_3Fn(): Rule {
  * Update of Otter library V11.3
  */
 // eslint-disable-next-line @typescript-eslint/naming-convention -- function name contains the version number
-export const updateV11_3 = createSchematicWithMetricsIfInstalled(updateV11_3Fn);
+export const updateV11_3 = createOtterSchematic(updateV11_3Fn);

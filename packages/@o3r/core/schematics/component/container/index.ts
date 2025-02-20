@@ -20,7 +20,7 @@ import {
   addImportsIntoComponentDecoratorTransformerFactory,
   addImportsRule,
   applyEsLintFix,
-  createSchematicWithMetricsIfInstalled,
+  createOtterSchematic,
   getComponentFileName,
   getComponentFolderName,
   getComponentModuleName,
@@ -247,8 +247,7 @@ function ngGenerateComponentContainerFn(options: NgGenerateComponentContainerSch
           new InsertChange(o3rSpecPath, lastImport?.getEnd() || 0, `
 @Component({
   template: '',
-  selector: '${properties.presenterComponentSelector}',
-  standalone: true
+  selector: '${properties.presenterComponentSelector}'
 })
 class Mock${properties.presenterComponentName} {}
         `)];
@@ -323,4 +322,4 @@ class Mock${properties.presenterComponentName} {}
  * Add Otter container component to an Angular Project
  * @param options
  */
-export const ngGenerateComponentContainer = createSchematicWithMetricsIfInstalled(ngGenerateComponentContainerFn);
+export const ngGenerateComponentContainer = createOtterSchematic(ngGenerateComponentContainerFn);

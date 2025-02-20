@@ -11,7 +11,7 @@ import {
 } from '@angular-devkit/schematics';
 import {
   applyEsLintFix,
-  createSchematicWithMetricsIfInstalled,
+  createOtterSchematic,
   findLastNodeOfKind,
   getDestinationPath,
 } from '@o3r/schematics';
@@ -212,4 +212,4 @@ ${actionDefinitionTemplate}`;
  * Add an Action to an Otter Store
  * @param options
  */
-export const ngGenerateStoreAction = createSchematicWithMetricsIfInstalled(ngGenerateStoreActionFn);
+export const ngGenerateStoreAction = createOtterSchematic(ngGenerateStoreActionFn);

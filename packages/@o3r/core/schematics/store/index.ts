@@ -3,7 +3,7 @@ import {
   schematic,
 } from '@angular-devkit/schematics';
 import {
-  createSchematicWithMetricsIfInstalled,
+  createOtterSchematic,
 } from '@o3r/schematics';
 import {
   NgGenerateStoreSchematicsSchema,
@@ -42,4 +42,4 @@ function ngGenerateStoreFn(options: NgGenerateStoreSchematicsSchema): Rule {
  * Create an Otter store
  * @param options
  */
-export const ngGenerateStore = createSchematicWithMetricsIfInstalled(ngGenerateStoreFn);
+export const ngGenerateStore = createOtterSchematic(ngGenerateStoreFn);

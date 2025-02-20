@@ -519,7 +519,7 @@ export class ComponentConfigExtractor {
     if (!nestedConfigurationInformation) {
       return;
     }
-    nestedConfigurationInformation.properties.forEach(((property) => {
+    nestedConfigurationInformation.properties.forEach((property) => {
       switch (property.type) {
         case 'string': {
           property.value = '';
@@ -538,7 +538,7 @@ export class ComponentConfigExtractor {
           break;
         }
       }
-    }));
+    });
     return nestedConfigurationInformation;
   }
 

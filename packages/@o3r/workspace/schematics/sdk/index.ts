@@ -23,8 +23,7 @@ import {
   RunSchematicTask,
 } from '@angular-devkit/schematics/tasks';
 import {
-  createSchematicWithMetricsIfInstalled,
-  createSchematicWithOptionsFromWorkspace,
+  createOtterSchematic,
   getPackageManager,
   getPackagesBaseRootFolder,
   getWorkspaceConfig,
@@ -132,4 +131,4 @@ function generateSdkFn(options: NgGenerateSdkSchema): Rule {
  * Add an Otter compatible SDK to a monorepo
  * @param options Schematic options
  */
-export const generateSdk = createSchematicWithOptionsFromWorkspace(createSchematicWithMetricsIfInstalled(generateSdkFn));
+export const generateSdk = createOtterSchematic(generateSdkFn);

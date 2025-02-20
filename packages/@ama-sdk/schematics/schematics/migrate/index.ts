@@ -54,7 +54,7 @@ function migrateFn(options: MigrateSchematicsSchemaOptions): Rule {
   return (tree, context) => {
     if (minimumVersion && gt(minimumVersion, currentVersion)) {
       context.logger.warn(`The specified range "${to}" has a minimum supported version higher than the current version of @ama-sdk/schematics (${currentVersion}).`
-      + ' The migration may not have any effect.');
+        + ' The migration may not have any effect.');
     }
     const workingDirectory = (options?.projectName && getWorkspaceConfig(tree)?.projects[options.projectName]?.root) || '/';
     const runMigrateSchematic = isTypescriptSdk(tree, workingDirectory) ? getMigrationRuleRunner(tsMigrationMap, { logger: context.logger }) : undefined;
@@ -67,6 +67,8 @@ function migrateFn(options: MigrateSchematicsSchemaOptions): Rule {
  * @param options
  */
 export const migrate = (options: MigrateSchematicsSchemaOptions) => async () => {
-  const { createSchematicWithMetricsIfInstalled } = await import('@o3r/schematics');
-  return createSchematicWithMetricsIfInstalled(migrateFn)(options);
+  const {
+    createOtterSchematic
+  } = await import('@o3r/schematics');
+  return createOtterSchematic(migrateFn)(options);
 };

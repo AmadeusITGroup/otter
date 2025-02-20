@@ -16,7 +16,7 @@ import {
   url,
 } from '@angular-devkit/schematics';
 import {
-  createSchematicWithMetricsIfInstalled,
+  createOtterSchematic,
   O3rCliError,
 } from '@o3r/schematics';
 import {
@@ -77,4 +77,4 @@ export function ngAddThemingFn(options: NgAddThemingSchematicsSchema): Rule {
  * Add theming to an existing component
  * @param options
  */
-export const ngAddTheming = createSchematicWithMetricsIfInstalled(ngAddThemingFn);
+export const ngAddTheming = createOtterSchematic(ngAddThemingFn);

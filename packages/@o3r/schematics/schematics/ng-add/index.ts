@@ -6,7 +6,7 @@ import {
   NodeDependencyType,
 } from '@schematics/angular/utility/dependencies';
 import {
-  createSchematicWithMetricsIfInstalled,
+  createOtterSchematic,
   type DependencyToAdd,
   getExternalDependenciesVersionRange,
   setupDependencies,
@@ -54,5 +54,5 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
  * @param options
  */
 export const ngAdd = (options: NgAddSchematicsSchema): Rule => () => {
-  return createSchematicWithMetricsIfInstalled(ngAddFn)(options);
+  return createOtterSchematic(ngAddFn)(options);
 };

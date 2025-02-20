@@ -25,21 +25,9 @@
       },
       "outputs": ["{projectRoot}/dist/src/extension.js"]
     },
-    "lint": {
-      "executor": "nx:run-commands"
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "options": {
-        "jestConfig": "apps/vscode-extension/jest.config.js"
-      }
-    },
-    "prepare-publish": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "prepare:publish"
-      }
-    },
+    "lint": {},
+    "test": {},
+    "prepare-publish": {},
     "publish-extension": {
       "executor": "nx:run-commands",
       "options": {

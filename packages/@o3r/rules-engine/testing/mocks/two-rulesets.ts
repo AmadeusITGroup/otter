@@ -12,7 +12,6 @@ export const rulesetsObj: { rulesets: Ruleset[] } = {
           id: '6e8t54h6s4e-6erth46sre8th4-d46t8s13t5j9',
           name: 'rule zero',
           inputRuntimeFacts: [],
-          inputFacts: [],
           outputRuntimeFacts: [],
           rootElement: {
             elementType: 'RULE_BLOCK',
@@ -44,10 +43,6 @@ export const rulesetsObj: { rulesets: Ruleset[] } = {
           id: '6e8t54h6s4e-6erth46sre8th4-d46t8s13t5j0',
           name: 'rule zero',
           inputRuntimeFacts: [],
-          inputFacts: [
-            'destinationLocationCode',
-            'pageUrl'
-          ],
           outputRuntimeFacts: [],
           rootElement: {
             elementType: 'RULE_BLOCK',
@@ -116,9 +111,6 @@ export const rulesetsObj: { rulesets: Ruleset[] } = {
           id: '6e8t54h6s4e-6erth46sre8th4-d46t8s13t5j9',
           name: 'rule one',
           inputRuntimeFacts: [],
-          inputFacts: [
-            'isMobileDevice'
-          ],
           outputRuntimeFacts: ['CMS_myFact'],
           rootElement: {
             elementType: 'RULE_BLOCK',

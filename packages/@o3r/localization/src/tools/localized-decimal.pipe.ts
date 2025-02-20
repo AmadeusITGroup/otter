@@ -19,7 +19,8 @@ import {
  */
 @Pipe({
   name: 'decimal',
-  pure: false
+  pure: false,
+  standalone: false
 })
 export class LocalizedDecimalPipe extends DecimalPipe implements OnDestroy, PipeTransform {
   private readonly onLangChange: Subscription;

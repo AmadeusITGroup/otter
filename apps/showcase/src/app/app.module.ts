@@ -80,13 +80,15 @@ import {
   provideMarkdown,
 } from 'ngx-markdown';
 import {
+  MonacoEditorModule,
+  NGX_MONACO_EDITOR_CONFIG,
+} from 'ngx-monaco-editor-v2';
+import {
   ClipboardButtonPresComponent,
+  DatePickerHebrewInputPresComponent,
   ScrollBackTopPresComponent,
   SidenavPresComponent,
-} from '../components/index';
-import {
-  DatePickerHebrewInputPresComponent,
-} from '../components/utilities/date-picker-input-hebrew';
+} from '../components/utilities';
 import {
   markedAlert,
 } from '../helpers/marked-alert-extension';
@@ -173,7 +175,8 @@ export function registerCustomComponents(): Map<string, any> {
     C11nModule.forRoot({ registerCompFunc: registerCustomComponents }),
     StylingDevtoolsModule,
     LocalizationDevtoolsModule,
-    ConfigurationDevtoolsModule
+    ConfigurationDevtoolsModule,
+    MonacoEditorModule.forRoot()
   ],
   providers: [
     { provide: MESSAGE_FORMAT_CONFIG, useValue: {} },
@@ -195,7 +198,8 @@ export function registerCustomComponents(): Map<string, any> {
       markedExtensions: [markedAlert()],
       /* Templates are only internal, no need to sanitize */
       sanitize: SecurityContext.NONE
-    })
+    }),
+    { provide: NGX_MONACO_EDITOR_CONFIG, useValue: { baseUrl: `${location.origin}${location.pathname}assets/monaco/min/vs` } }
   ],
   bootstrap: [AppComponent]
 })
