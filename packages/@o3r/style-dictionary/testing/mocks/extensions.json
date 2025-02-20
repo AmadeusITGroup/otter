@@ -1,0 +1,10 @@
+{
+  "$schema": "../../schemas/design-token.extensions.schema.json",
+  "example": {
+    "private": {
+      "$extensions": {
+        "o3rPrivate": true
+      }
+    }
+  }
+}
