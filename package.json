@@ -129,6 +129,7 @@
   "resolutions": {
     "@sinonjs/fake-timers": "^14.0.0",
     "@types/node": "^20.0.0",
+    "koa": "~2.15.4",
     "typescript-json-schema/typescript": "~5.7.3"
   },
   "dependencies": {
