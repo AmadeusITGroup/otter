@@ -56,9 +56,7 @@
       "A100": {
         "$type": "color",
         "$value": "#000000"
-      },
-      "$type": "color",
-      "$value": "{color.primary.500}"
+      }
     },
     "accent": {
       "50": {
@@ -116,9 +114,7 @@
       "A100": {
         "$type": "color",
         "$value": "#ffffff"
-      },
-      "$type": "color",
-      "$value": "{color.accent.500}"
+      }
     },
     "highlight": {
       "50": {
@@ -176,9 +172,7 @@
       "A100": {
         "$type": "color",
         "$value": "#ffffff"
-      },
-      "$type": "color",
-      "$value": "{color.highlight.500}"
+      }
     },
     "warn": {
       "50": {
@@ -236,9 +230,7 @@
       "A100": {
         "$type": "color",
         "$value": "#ffffff"
-      },
-      "$type": "color",
-      "$value": "{color.warn.500}"
+      }
     },
     "out of palette": {
       "green": {
@@ -358,7 +350,7 @@
         "$value": 51
       },
       "bg-rgb": {
-        "$value": "{bs.tertiary.bg-red}, {bs.tertiary.bg-green}, {bs.tertiary.bg-blue}"
+        "$value": "{df.tertiary.bg-red}, {df.tertiary.bg-green}, {df.tertiary.bg-blue}"
       }
     },
     "card": {
