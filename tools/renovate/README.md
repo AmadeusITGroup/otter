@@ -9,20 +9,24 @@ Otter framework provides a set of Renovate presets to facilitate the setup and r
 
 ## Available presets
 
-| Preset                        | Parameters                         | Description                                                                                        |
-|-------------------------------|------------------------------------|----------------------------------------------------------------------------------------------------|
-| **group/design-factory**      |                                    | Group the dependencies related to Design Factory                                                   |
-| **group/otter**               |                                    | Group the dependencies related to Otter                                                            |
-| **group/sdk-spec**            | spec-package-name                  | Create a dedicated group for the SDK spec (when fetching the spec from an NPM repository)          |
-| **tasks/base**                |                                    | Trigger post-install script when upgrading the package manager                                     |
-| **tasks/otter-ng-update**     | package-manager (optional)         | Trigger the migration scripts when upgrading the Otter dependencies                                |
-| **tasks/sdk-regenerate**      | package-manager (optional)         | Regenerate the SDK when upgrading the SDK dependencies                                             |
-| **tasks/sdk-spec-regenerate** | package-manager, spec-package-name | Regenerate the SDK when upgrading the SDK spec (when fetching the spec from an NPM repository)     |
-| **tasks/yarn-pnp**            |                                    | **(Yarn only)** Upgrade Yarn SDKs when upgrading the version of Yarn (only relevant with PnP)      |
-| **base**                      |                                    | Base configuration recommended for any project                                                     |
-| **otter-project**             |                                    | **(Yarn only)** Additional configuration recommended for an Otter-based project                    |
-| **sdk**                       |                                    | **(Yarn only)** Additional configuration recommended for an SDK project                            |
-| **sdk-spec-upgrade**          | spec-package-name                  | **(Yarn only)** Additional configuration recommended when fetching the spec from an NPM repository |
+| Preset                                  | Parameters                         | Description                                                                                        |
+| --------------------------------------- | ---------------------------------- | -------------------------------------------------------------------------------------------------- |
+| **group/design-factory**                |                                    | Group the dependencies related to Design Factory                                                   |
+| **group/otter**                         |                                    | Group the dependencies related to Otter                                                            |
+| **group/sdk-spec**                      | spec-package-name                  | Create a dedicated group for the SDK spec (when fetching the spec from an NPM repository)          |
+| **group/angular**                       |                                    | Group all Angular dependencies                                                                     |
+| **group/typescript**                    |                                    | Group all Typescript dependenciesmanager                                                           |
+| **tasks/base**                          |                                    | Trigger post-install script when upgrading the package manager                                     |
+| **tasks/otter-ng-update**               | package-manager (optional)         | Trigger the migration scripts when upgrading the Otter dependencies                                |
+| **tasks/sdk-regenerate**                | package-manager (optional)         | Regenerate the SDK when upgrading the SDK dependencies                                             |
+| **tasks/sdk-spec-regenerate**           | package-manager, spec-package-name | Regenerate the SDK when upgrading the SDK spec (when fetching the spec from an NPM repository)     |
+| **branching-strategy/release-branches** |                                    | Rules to reduce impacted updates on release branches                                               |
+| **branching-strategy/trunk-based**      |                                    | Rules to apply on trunk-based development                                                          |
+| **tasks/yarn-pnp**                      |                                    | **(Yarn only)** Upgrade Yarn SDKs when upgrading the version of Yarn (only relevant with PnP)      |
+| **base**                                |                                    | Base configuration recommended for any project                                                     |
+| **otter-project**                       |                                    | **(Yarn only)** Additional configuration recommended for an Otter-based project                    |
+| **sdk**                                 |                                    | **(Yarn only)** Additional configuration recommended for an SDK project                            |
+| **sdk-spec-upgrade**                    | spec-package-name                  | **(Yarn only)** Additional configuration recommended when fetching the spec from an NPM repository |
 
 ## Recommended setup
 
@@ -39,6 +43,7 @@ Otter framework provides a set of Renovate presets to facilitate the setup and r
 ```
 
 If you are using npm package manager instead of yarn:
+
 ```json5
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
@@ -46,6 +51,8 @@ If you are using npm package manager instead of yarn:
     "github>AmadeusITGroup/otter//tools/renovate/base",
     "github>AmadeusITGroup/otter//tools/renovate/group/otter",
     "github>AmadeusITGroup/otter//tools/renovate/tasks/base",
+    "github>AmadeusITGroup/otter//tools/renovate/branching-strategy/release-branches",
+    // or "github>AmadeusITGroup/otter//tools/renovate/branching-strategy/trunk-based" if your repo is based on Trunk-based Development
     "github>AmadeusITGroup/otter//tools/renovate/tasks/otter-ng-update(npm)"
   ]
 }
@@ -64,6 +71,7 @@ If you are using npm package manager instead of yarn:
 ```
 
 If you are using Renovate to update your swagger spec files:
+
 ```json5
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
@@ -76,6 +84,7 @@ If you are using Renovate to update your swagger spec files:
 ```
 
 If you are using npm package manager instead of yarn:
+
 ```json5
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",

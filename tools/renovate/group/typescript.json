@@ -1,0 +1,14 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Group all Typescript dependencies",
+  "packageRules": [
+    {
+      "matchPackagePatterns": [
+        "typescript",
+        "tslib"
+      ],
+      "groupName": "Typescript dependencies",
+      "groupSlug": "typescript-dependencies"
+    }
+  ]
+}
