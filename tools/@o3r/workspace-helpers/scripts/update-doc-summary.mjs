@@ -12,8 +12,8 @@ const readdir = util.promisify(fs.readdir);
 const writeFile = util.promisify(fs.writeFile);
 
 /**
- *
- * @param folderPath
+ * Generate MarkDown files for folders
+ * @param {string} folderPath
  */
 function generateFolderMdFiles(folderPath) {
   return readdir(folderPath)
@@ -35,7 +35,7 @@ function generateFolderMdFiles(folderPath) {
             }\n\n${
               subFiles.map((f) => `- [${f.replace('.md', '')}](./${subFolderName}/${f})`).join('\n')
             }\n`,
-            { encoding: 'utf-8' }
+            { encoding: 'utf8' }
           );
         })
     ));
@@ -79,6 +79,6 @@ function generateSummary(folderPath) {
 
 void generateFolderMdFiles(docsFolder).then(() =>
   generateSummary(docsFolder).then((summary) =>
-    writeFile(summaryFilePath, JSON.stringify(summary, null, 2), { encoding: 'utf-8' })
+    writeFile(summaryFilePath, JSON.stringify(summary, null, 2), { encoding: 'utf8' })
   )
 );

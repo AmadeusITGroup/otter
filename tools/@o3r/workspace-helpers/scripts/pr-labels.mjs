@@ -1,18 +1,18 @@
 import {
-  spawnSync
+  spawnSync,
 } from 'node:child_process';
 import {
   existsSync,
   promises as fs,
-  rmSync
+  rmSync,
 } from 'node:fs';
 import {
   EOL,
-  tmpdir
+  tmpdir,
 } from 'node:os';
 import {
   join,
-  resolve
+  resolve,
 } from 'node:path';
 import minimist from 'minimist';
 
@@ -34,7 +34,7 @@ const messageTagMaps = {
     /^(bug)?fix(es)?\b/
   ],
   'breaking change': [
-    /\bbreaking([ \-]changes?)?\b/
+    /\bbreaking([ -]changes?)?\b/
   ],
   documentation: [
     /\bdoc(s|umentation)?\b/,
@@ -48,7 +48,7 @@ const messageTagMaps = {
 /**
  * Get labels from the git log output command
  * @param {string} targetBranch
- * @param config
+ * @param {typeof defaultConfig} config
  * @returns {string[]}
  */
 function getLabelsFromMessage(targetBranch, config) {
@@ -57,7 +57,7 @@ function getLabelsFromMessage(targetBranch, config) {
   }
 
   /** @type {Set<string>} */const commitLabels = new Set();
-  const commitMessages = spawnSync('git', ['log', `${targetBranch}..HEAD`, '--pretty=%B'], { encoding: 'utf-8', shell: true }).stdout.trim() || '';
+  const commitMessages = spawnSync('git', ['log', `${targetBranch}..HEAD`, '--pretty=%B'], { encoding: 'utf8', shell: true }).stdout.trim() || '';
   const lines = commitMessages?.split(EOL) || [];
 
   lines.forEach((line) =>
@@ -72,7 +72,7 @@ function getLabelsFromMessage(targetBranch, config) {
 /**
  * Get labels from project names
  * @param {string} targetBranch
- * @param config
+ * @param {typeof defaultConfig} config
  * @returns {Promise<string[]>}
  */
 async function getLabelsFromProjects(targetBranch, config) {
@@ -80,21 +80,21 @@ async function getLabelsFromProjects(targetBranch, config) {
     return [];
   }
 
-  const /** @type {string[]} */ listTouchedFiles = spawnSync('git', ['log', `${targetBranch}..HEAD`, '--name-only', '--pretty=format:""'], { encoding: 'utf-8', shell: true }).stdout.trim()
+  const /** @type {string[]} */ listTouchedFiles = spawnSync('git', ['log', `${targetBranch}..HEAD`, '--name-only', '--pretty=format:""'], { encoding: 'utf8', shell: true }).stdout.trim()
     .split(EOL)
     .map((file) => file.replace(/\\/g, '/')) || [];
 
   const tempDirPath = join(tmpdir(), 'pr-labels');
   const graphJsonPath = join(tempDirPath, 'graph.json');
-  spawnSync('yarn', ['nx', 'graph', '--file', graphJsonPath], { encoding: 'utf-8', shell: true });
-  const { graph } = JSON.parse(await fs.readFile(graphJsonPath, { encoding: 'utf-8' }));
+  spawnSync('yarn', ['nx', 'graph', '--file', graphJsonPath], { encoding: 'utf8', shell: true });
+  const { graph } = JSON.parse(await fs.readFile(graphJsonPath, { encoding: 'utf8' }));
   rmSync(tempDirPath, { recursive: true });
   const projects = Object.entries(graph.nodes);
   const labels = [];
   for (const [projectName, { data: project }] of projects) {
     if (listTouchedFiles.some((file) => file.startsWith(project.root))) {
       const packageJson = join(project.root, 'package.json');
-      const /** @type {string | undefined} */ packageName = JSON.parse(await fs.readFile(packageJson, { encoding: 'utf-8' })).name;
+      const /** @type {string | undefined} */ packageName = JSON.parse(await fs.readFile(packageJson, { encoding: 'utf8' })).name;
       if (!packageName) {
         process.stderr.write(`No package name found for ${projectName}${EOL}`);
         continue;
@@ -119,7 +119,7 @@ async function getConfig() {
     return defaultConfig;
   }
 
-  const config = JSON.parse(await fs.readFile(configPath, { encoding: 'utf-8' }));
+  const config = JSON.parse(await fs.readFile(configPath, { encoding: 'utf8' }));
 
   return {
     ...defaultConfig,
