@@ -1,0 +1,16 @@
+<div class="d-flex flex-column">
+  <h2>{{ title() }}</h2>
+  <p>
+    Thank you for participating in this training!
+    @if (feedbackForUrl()) {
+      <br/>
+      To help us improve and better serve you in the future, we’d love to hear your feedback. Please take a moment to complete our short
+      <a class="df-link-external ps-3" target="_blank"
+         [href]="feedbackForUrl()">survey</a>. Your insights are invaluable!
+    }
+  </p>
+  <p>
+    Thank you again for your commitment to growth, and we wish you continued success in your learning path.
+  </p>
+  <img src="assets/fireworks.png" class="align-self-center" style="border-radius: 1rem;" alt="A celebrating otter"/>
+</div>

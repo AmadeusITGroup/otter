@@ -91,7 +91,7 @@ test.describe.serial('Sanity test', () => {
       await expect(page).toHaveScreenshot([browserName, 'sdk-training.png'], { fullPage: true, mask: [page.locator('.visual-testing-ignore')] });
 
       const trainingFixture = new TrainingFixtureComponent(new O3rElement({ element: page.locator('o3r-training'), page }));
-      for (let i = 1; i < 9; i++) {
+      for (let i = 1; i < 10; i++) {
         await trainingFixture.clickOnNextStep();
         await page.waitForURL(`**/sdk-training#${i}`);
         await expect(page).toHaveScreenshot([browserName, `sdk-training-step${i + 1}.png`], { fullPage: true, mask: [page.locator('.visual-testing-ignore')] });
