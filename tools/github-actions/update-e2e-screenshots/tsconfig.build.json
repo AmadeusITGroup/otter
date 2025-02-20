@@ -1,0 +1,11 @@
+{
+  "extends": "../../../tsconfig.build",
+  "compilerOptions": {
+    "module": "commonjs",
+    "outDir": "./tmp",
+    "incremental": true,
+    "composite": true
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["**/*.spec.ts"]
+}

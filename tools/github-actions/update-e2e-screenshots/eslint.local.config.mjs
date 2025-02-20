@@ -12,7 +12,7 @@ const __dirname = dirname(__filename);
 
 export default [
   {
-    name: '@o3r/cascading-gh-action/projects',
+    name: '@o3r/update-e2e-screenshots-gh-action/projects',
     languageOptions: {
       sourceType: 'module',
       parserOptions: {
@@ -28,7 +28,7 @@ export default [
     }
   },
   {
-    name: '@o3r/cascading-gh-action/ignores',
+    name: '@o3r/update-e2e-screenshots-gh-action/ignores',
     ignores: [
       '**/packaged-action/**'
     ]

@@ -10502,7 +10502,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@o3r/testing@workspace:^, @o3r/testing@workspace:packages/@o3r/testing":
+"@o3r/testing@workspace:^, @o3r/testing@workspace:packages/@o3r/testing, @o3r/testing@workspace:~":
   version: 0.0.0-use.local
   resolution: "@o3r/testing@workspace:packages/@o3r/testing"
   dependencies:
@@ -34518,6 +34518,37 @@ __metadata:
   checksum: 10/7685c5b0f561995c1020b8487df62a359de7edceee8fc573e3c4f45a4a967f83fa645f7b10b3ac0f98db8d60a51095c2f5671fb48bb5b281c69e958b7fb30c94
   languageName: node
   linkType: hard
+
+"update-e2e-screenshots-gh-action@workspace:tools/github-actions/update-e2e-screenshots":
+  version: 0.0.0-use.local
+  resolution: "update-e2e-screenshots-gh-action@workspace:tools/github-actions/update-e2e-screenshots"
+  dependencies:
+    "@actions/core": "npm:^1.10.0"
+    "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
+    "@nx/eslint-plugin": "npm:~20.4.0"
+    "@o3r/eslint-config": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/testing": "workspace:~"
+    "@stylistic/eslint-plugin": "npm:~3.1.0"
+    "@types/node": "npm:^20.0.0"
+    "@typescript-eslint/parser": "npm:~8.24.0"
+    "@vercel/ncc": "npm:~0.38.0"
+    angular-eslint: "npm:~19.1.0"
+    eslint: "npm:~9.20.0"
+    eslint-plugin-import: "npm:~2.31.0"
+    eslint-plugin-import-newlines: "npm:~1.4.0"
+    eslint-plugin-jest: "npm:~28.11.0"
+    eslint-plugin-jsdoc: "npm:~50.6.0"
+    eslint-plugin-prefer-arrow: "npm:~1.2.3"
+    eslint-plugin-unicorn: "npm:~56.0.0"
+    eslint-plugin-unused-imports: "npm:~4.1.4"
+    globals: "npm:^15.9.0"
+    jsonc-eslint-parser: "npm:~2.4.0"
+    tslib: "npm:^2.6.2"
+    typescript: "npm:~5.7.3"
+    typescript-eslint: "npm:~8.24.0"
+  languageName: unknown
+  linkType: soft
 
 "uri-js@npm:^4.2.2":
   version: 4.4.1

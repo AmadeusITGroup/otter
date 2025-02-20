@@ -1,0 +1,68 @@
+name: Create branch e2e screenshots
+description: Create a branch with the update of the e2e screenshots
+inputs:
+  reportPath:
+    type: string
+    description: 'Path to the custom report'
+    required: true
+  screenshotsPattern:
+    type: string
+    description: 'Pattern to detect which screenshots should be committed'
+    required: true
+  branchSuffix:
+    type: string
+    description: 'Suffix for the branch that will be created'
+    required: false
+    default: '-update-e2e-screenshots'
+  updateScreenshotsDocumentationLink:
+    type: string
+    description: 'Link to the documentation on how to update the e2e screenshots'
+    required: false
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Update e2e screenshots
+      # uses: AmadeusITGroup/otter/tools/github-actions/update-e2e-screenshots@main
+      uses: matthieu-crouzet/otter/tools/github-actions/update-e2e-screenshots@feat/generate-branch-e2e-screenshots
+      id: update-e2e-screenshots
+      with:
+        reportPath: ${{ inputs.reportPath }}
+    - name: Define shared variables
+      if: steps.update-e2e-screenshots.outputs.screenshots != '0'
+      id: vars
+      env:
+        # run_id and run_attempt are needed to avoid conflict in the branch name
+        BRANCH_NAME: ${{ github.head_ref }}${{ inputs.branchSuffix }}-${{ github.run_id }}-${{ github.run_attempt }}
+      shell: bash
+      run: echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_OUTPUT
+    - name: Create branch
+      id: auto-commit-action
+      if: ${{ github.event.pull_request.head.repo.full_name == github.event.pull_request.base.repo.full_name && steps.update-e2e-screenshots.outputs.screenshots != '0' }}
+      uses: stefanzweifel/git-auto-commit-action@e348103e9026cc0eee72ae06630dbe30c8bf7a79 # v5.1.0
+      with:
+        commit_message: "fix: update e2e screenshots"
+        branch: ${{ steps.vars.outputs.BRANCH_NAME }}
+        create_branch: true
+        file_pattern: ${{ inputs.screenshotsPattern }}
+    - name: Comment the PR
+      if: ${{ github.event.pull_request.head.repo.full_name == github.event.pull_request.base.repo.full_name && steps.update-e2e-screenshots.outputs.screenshots != '0' }}
+      uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+      env:
+        BRANCH_NAME: ${{ steps.vars.outputs.BRANCH_NAME }}
+        BRANCH_URL: https://github.com/${{ github.repository }}/tree/${{ steps.vars.outputs.BRANCH_NAME }}
+        COMMIT_HASH: ${{ steps.auto-commit-action.outputs.commit_hash }}
+        COMMIT_URL: https://github.com/${{ github.repository }}/commits/${{ steps.auto-commit-action.outputs.commit_hash }}
+        DOCUMENTATION_LINK: ${{ inputs.updateScreenshotsDocumentationLink }}
+      with:
+        script: |
+          const comment = [
+            `[${process.env.BRANCH_NAME}](${process.env.BRANCH_URL}) with the updated screenshots has been created!`,
+            `[${process.env.COMMIT_HASH.substring(0, 7)}](${process.env.COMMIT_URL}) can be cherry-picked in your branch.`
+          ].join('\n');
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: comment
+          });

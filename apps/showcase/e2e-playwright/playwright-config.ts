@@ -16,6 +16,7 @@ const config = defineConfig({
   snapshotPathTemplate: '{testDir}/screenshots/{testFilePath}/{arg}{ext}',
   reporter: [
     ['list'],
+    [require.resolve('@o3r/testing/visual-testing-reporter')],
     ['junit', { outputFile: path.join(reportsFolder, 'junit', 'reporter.xml') }],
     ['html', { open: 'never', outputFolder: path.join(reportsFolder, 'html') }]
   ],
