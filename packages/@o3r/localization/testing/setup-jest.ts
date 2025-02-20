@@ -1,2 +1,6 @@
-import 'jest-preset-angular/setup-jest';
 import 'isomorphic-fetch';
+import {
+  setupZoneTestEnv,
+} from 'jest-preset-angular/setup-env/zone';
+
+setupZoneTestEnv();
