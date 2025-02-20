@@ -6135,7 +6135,7 @@ __export(dist_src_exports, {
 module.exports = __toCommonJS(dist_src_exports);
 var import_universal_user_agent = __nccwpck_require__(4108);
 var import_before_after_hook = __nccwpck_require__(3048);
-var import_request = __nccwpck_require__(6196);
+var import_request = __nccwpck_require__(5552);
 var import_graphql = __nccwpck_require__(1914);
 var import_auth_token = __nccwpck_require__(8970);
 
@@ -6688,17 +6688,17 @@ __export(dist_src_exports, {
   withCustomRequest: () => withCustomRequest
 });
 module.exports = __toCommonJS(dist_src_exports);
-var import_request3 = __nccwpck_require__(6196);
+var import_request3 = __nccwpck_require__(5552);
 var import_universal_user_agent = __nccwpck_require__(4108);
 
 // pkg/dist-src/version.js
 var VERSION = "7.1.0";
 
 // pkg/dist-src/with-defaults.js
-var import_request2 = __nccwpck_require__(6196);
+var import_request2 = __nccwpck_require__(5552);
 
 // pkg/dist-src/graphql.js
-var import_request = __nccwpck_require__(6196);
+var import_request = __nccwpck_require__(5552);
 
 // pkg/dist-src/error.js
 function _buildMessageForResponseErrors(data) {
@@ -6913,7 +6913,7 @@ var RequestError = class extends Error {
 
 /***/ }),
 
-/***/ 6196:
+/***/ 5552:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
@@ -6946,7 +6946,7 @@ var import_endpoint = __nccwpck_require__(5657);
 var import_universal_user_agent = __nccwpck_require__(4108);
 
 // pkg/dist-src/version.js
-var VERSION = "8.4.0";
+var VERSION = "8.4.1";
 
 // pkg/dist-src/is-plain-object.js
 function isPlainObject(value) {
@@ -7005,7 +7005,7 @@ function fetchWrapper(requestOptions) {
       headers[keyAndValue[0]] = keyAndValue[1];
     }
     if ("deprecation" in headers) {
-      const matches = headers.link && headers.link.match(/<([^>]+)>; rel="deprecation"/);
+      const matches = headers.link && headers.link.match(/<([^<>]+)>; rel="deprecation"/);
       const deprecationLink = matches && matches.pop();
       log.warn(
         `[@octokit/request] "${requestOptions.method} ${requestOptions.url}" is deprecated. It is scheduled to be removed on ${headers.sunset}${deprecationLink ? `. See ${deprecationLink}` : ""}`
