@@ -9,6 +9,7 @@ describe('URL Rewrite Request Plugin', () => {
   const urlRewriter = jest.fn().mockReturnValue('http://ok');
 
   const defaultGetParams = { defaultTest: 'ok' };
+  const defaultGetParameters = { defaultTest: { value: 'ok', exploded: true, style: 'form' } };
   const defaultBody = 'default';
   const defaultUrl = 'http://test.com/truc';
   let options: RequestOptions;
@@ -17,6 +18,7 @@ describe('URL Rewrite Request Plugin', () => {
     options = {
       method: 'get',
       queryParams: defaultGetParams,
+      queryParameters: defaultGetParameters,
       headers: new Headers(),
       body: defaultBody,
       basePath: defaultUrl

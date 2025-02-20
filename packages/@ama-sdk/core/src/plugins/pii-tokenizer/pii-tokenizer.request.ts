@@ -231,6 +231,7 @@ export class PiiTokenizerRequest implements RequestPlugin {
         } else if (Object.keys(data.tokenizedOptions.values).length > 0) {
           data.basePath = data.tokenizedOptions.url;
           data.queryParams = { ...data.queryParams, ...data.tokenizedOptions.queryParams };
+          data.queryParameters = { ...data.queryParameters, ...data.tokenizedOptions.queryParameters };
           const token = await this.appendEncodedToken(data, context?.logger);
           if (token) {
             data.headers.append(this.tokensHeader, token);

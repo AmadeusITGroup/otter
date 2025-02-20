@@ -17,6 +17,7 @@ describe('Json Token', () => {
 
   describe('request plugin', () => {
     const defaultGetParams = { defaultTest: 'ok' };
+    const defaultGetParameters = { defaultTest: { value: 'ok', exploded: true, style: 'form' } };
     const defaultBody = 'default';
     let options: RequestOptions;
 
@@ -24,6 +25,7 @@ describe('Json Token', () => {
       options = {
         method: 'get',
         queryParams: defaultGetParams,
+        queryParameters: defaultGetParameters,
         headers: new Headers(),
         body: defaultBody,
         basePath: 'http://test.com/truc'

@@ -1,3 +1,6 @@
+import type {
+  ParamSerialization,
+} from '../../fwk';
 import {
   AdditionalParamsRequest,
 } from '../additional-params';
@@ -31,6 +34,20 @@ export class SiTokenRequest extends AdditionalParamsRequest implements RequestPl
         }
         if (this.siToken2) {
           ret.SITK2 = this.siToken2;
+        }
+        return ret;
+      },
+      queryParameters: (queryParameters?: { [key: string]: ParamSerialization }) => {
+        const ret = queryParameters || {};
+        if (this.siToken) {
+          ret.SITK = ret.SITK
+            ? { ...ret.SITK, value: this.siToken }
+            : { value: this.siToken, exploded: true, style: 'form' };
+        }
+        if (this.siToken2) {
+          ret.SITK2 = ret.SITK2
+            ? { ...ret.SITK2, value: this.siToken2 }
+            : { value: this.siToken2, exploded: true, style: 'form' };
         }
         return ret;
       }

@@ -67,7 +67,7 @@ public class LambdaHelper {
 
       @Override
       public String formatFragment(String fragment) {
-          return fragment.replaceAll("\\{([\\w_-]+)\\}", "\\${data['$1']}");
+          return fragment.replaceAll("\\{([\\w_-]+)\\}", "\\${pathParameters['$1']}");
       }
 
   }
@@ -84,7 +84,7 @@ public class LambdaHelper {
 
       @Override
       public String formatFragment(String fragment) {
-          return fragment.replaceAll("\\{([\\w_-]+)\\}", "\\${this.piiParamTokens['$1'] || data['$1']}");
+          return fragment.replaceAll("\\{([\\w_-]+)\\}", "\\${this.piiParamTokens['$1'] || pathParameters['$1']}");
       }
   }
 

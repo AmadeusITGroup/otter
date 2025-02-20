@@ -70,7 +70,7 @@ export class {{classname}} implements Api {
     data['{{baseName}}'] = data['{{baseName}}'] !== undefined ? data['{{baseName}}'] : {{#isString}}'{{/isString}}{{defaultValue}}{{#isString}}'{{/isString}};
       {{/defaultValue}}
     {{/allParams}}
-    const queryParams = this.client.extractQueryParams<{{classname}}{{#uppercaseFirst}}{{nickname}}{{/uppercaseFirst}}RequestData>(data, [{{#trimComma}}{{#queryParams}}'{{baseName}}', {{/queryParams}}{{/trimComma}}]{{^queryParams}} as never[]{{/queryParams}});
+    const queryParameters = this.client.extractQueryParams<{{classname}}{{#uppercaseFirst}}{{nickname}}{{/uppercaseFirst}}RequestData>(data,{{#hasQueryParams}} { {{#trimComma}}{{#queryParams}}{{baseName}}: { exploded: {{isExplode}}, style: '{{style}}' }, {{/queryParams}}{{/trimComma}} }{{/hasQueryParams}}{{^hasQueryParams}} {}{{/hasQueryParams}});
     const metadataHeaderAccept = metadata?.headerAccept || '{{#headerJsonMimeType}}{{#produces}}{{mediaType}}{{^-last}}, {{/-last}}{{/produces}}{{/headerJsonMimeType}}';
     const headers: { [key: string]: string | undefined } = {
   {{#trimComma}}    'Content-Type': metadata?.headerContentType || '{{#headerJsonMimeType}}{{#consumes}}{{mediaType}}{{^-last}}, {{/-last}}{{/consumes}}{{/headerJsonMimeType}}',
@@ -99,15 +99,19 @@ export class {{classname}} implements Api {
       body = data['{{baseName}}'] as any;
     }
     {{/bodyParam}}
+    {{#hasPathParams}}
+    const pathParameters = this.client.preparePathParams(data, { {{#trimComma}}{{#pathParams}}{{baseName}}: { exploded: {{isExplode}}, style: '{{style}}' }, {{/pathParams}}{{/trimComma}} });
+    {{/hasPathParams}}
     const basePath = `${this.client.options.basePath}{{#urlParamReplacer}}{{path}}{{/urlParamReplacer}}`;
     const tokenizedUrl = `${this.client.options.basePath}{{#tokenizedUrlParamReplacer}}{{path}}{{/tokenizedUrlParamReplacer}}`;
-    const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
+    const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParameters, this.piiParamTokens, data);
 
     const requestOptions = {
       headers,
       method: '{{httpMethod}}',
       basePath,
-      queryParams,
+      queryParams: {},
+      queryParameters,
       body: body || undefined,
       metadata,
       tokenizedOptions,
@@ -115,7 +119,7 @@ export class {{classname}} implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = this.client.prepareUrl(options.basePath, options.queryParams);
+    const url = this.client.prepareUrl(options.basePath, options.queryParameters);
 
     const ret = this.client.processCall<{{#vendorExtensions}}{{#responses2xxReturnTypes}}{{.}}{{^-last}} | {{/-last}}{{/responses2xxReturnTypes}}{{^responses2xxReturnTypes}}never{{/responses2xxReturnTypes}}{{/vendorExtensions}}>(url, options, {{#tags.0.extensions.x-api-type}}ApiTypes.{{tags.0.extensions.x-api-type}}{{/tags.0.extensions.x-api-type}}{{^tags.0.extensions.x-api-type}}ApiTypes.DEFAULT{{/tags.0.extensions.x-api-type}}, {{classname}}.apiName,{{#keepRevivers}}{{#vendorExtensions}}{{#responses2xx}}{{#-first}} { {{/-first}}{{code}}: {{^primitiveType}}revive{{baseType}}{{/primitiveType}}{{#primitiveType}}undefined{{/primitiveType}}{{^-last}}, {{/-last}}{{#-last}} } {{/-last}}{{/responses2xx}}{{^responses2xx}} undefined{{/responses2xx}}{{/vendorExtensions}}{{/keepRevivers}}{{^keepRevivers}} undefined{{/keepRevivers}}, '{{nickname}}');
     return ret;
