@@ -1,10 +1,14 @@
 {
   "$schema": "../../../../packages/@o3r/design/schemas/design-token.schema.json",
+  "run-app-locally.tertiary-bg": {
+    "$description": "Run App Locally Tertiary Background",
+    "$value": "{color.primary.50}"
+  },
   "df": {
     "primary": {
       "$description": "Application Primary color",
       "$type": "color",
-      "$value": "{color.primary}"
+      "$value": "{color.primary.500}"
     },
     "primary-800": {
       "$type": "color",
@@ -15,7 +19,7 @@
         "o3rScope": ".nav-pills"
       },
       "link-active-color": {
-        "$value": "{color.primary}"
+        "$value": "{color.primary.500}"
       }
     },
     "navbar": {

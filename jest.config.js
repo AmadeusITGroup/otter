@@ -13,7 +13,7 @@ module.exports = {
   passWithNoTests: true,
   projects: [
     ...getJestProjects(__dirname),
-    ...getJestProjects(__dirname, 'testing/jest.config.{ut,ut.builders}.{j,t}s')
+    ...getJestProjects(__dirname, 'testing/jest.config.{ut,ut.builders}.{m,c,}{j,t}s')
   ],
   globalSetup: 'jest-preset-angular/global-setup'
 };
