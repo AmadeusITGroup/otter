@@ -1,0 +1,46 @@
+import { baseConfig, getTargetFiles, register } from '@o3r/style-dictionary';
+
+// Register the Otter configuration hooks
+register();
+
+/** @type {import('@o3r/style-dictionary').FileRuleNode} */
+const fileRules = {
+
+};
+
+export default {
+  ...baseConfig, // Use basic Otter configuration setup
+  usesDtcg: true, // Use Design Token Standard format
+
+    source: [
+      // Design Token files
+      '*.tokens.json',
+
+      // Custom application extension setup
+      'token.extensions.json'
+    ],
+
+    platforms: {
+    css: {
+      options: {
+        outputReferences: true
+      },
+      transformGroup: 'css',
+        files: [
+          ...getTargetFiles(fileRules, { format: 'o3r/css/variable' }),
+
+          // Default CSS output:
+          { destination: 'default.tokens.css', format: 'o3r/css/variable' }
+        ]
+    },
+    cms: {
+      options: {
+        outputReferences: true
+      },
+      transformGroup: 'css',
+      files: [
+        { destination: 'style.metadata.json', format: 'o3r/json/metadata' }
+      ]
+    }
+  }
+};

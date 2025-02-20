@@ -1,10 +1,6 @@
-// Do not touch this file - only to demonstrate token in a component but issue with cache will override the content
-// TODO Remove once PR https://github.com/AmadeusITGroup/otter/pull/2807 is merged
-o3r-run-app-locally {
-  /* --- BEGIN THEME Auto-generated --- */
---run-app-locally-tertiary-bg: var(--color-primary-50);
-/* --- END THEME Auto-generated --- */
+@import './run-app-locally.style.vars.scss';
 
+o3r-run-app-locally {
   .bg-body-tertiary {
     background: var(--run-app-locally-tertiary-bg);
   }

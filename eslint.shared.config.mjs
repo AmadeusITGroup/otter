@@ -20,7 +20,7 @@ const nodeFiles = [
   '**/{builders,cli,schematics,scripts,testing}/**/*.{c,m,}{j,t}s',
   '**/tools/{@o3r,github-actions}/*.{c,m,}{j,t}s',
   '**/*.spec.ts',
-  '**/jest.config*.js',
+  '**/jest.config*.{c,m,}js',
   '**/eslint*.config.mjs'
 ];
 
