@@ -9,6 +9,9 @@ import type {
   PlaceholderMode,
 } from '../stores';
 import {
+  GroupInfo,
+} from './highlight/models';
+import {
   OtterLikeComponentInfo,
 } from './inspector';
 
@@ -33,6 +36,40 @@ export interface ToggleInspectorMessage extends OtterMessageContent<'toggleInspe
 }
 
 /**
+ * Message to toggle the highlight
+ */
+export interface ToggleHighlightMessage extends OtterMessageContent<'toggleHighlight'> {
+  /** Is the highlight displayed */
+  isRunning: boolean;
+}
+
+/**
+ * Message the change the configuration of the `HighlightService`
+ */
+export interface ChangeHighlightConfiguration extends OtterMessageContent<'changeHighlightConfiguration'> {
+  /**
+   * Minimum width of HTMLElement to be considered
+   */
+  elementMinWidth?: number;
+  /**
+   * Minimum height of HTMLElement to be considered
+   */
+  elementMinHeight?: number;
+  /**
+   * Throttle interval
+   */
+  throttleInterval?: number;
+  /**
+   * Group information to detect elements
+   */
+  groupsInfo?: Record<string, GroupInfo>;
+  /**
+   * Maximum number of ancestors
+   */
+  maxDepth?: number;
+}
+
+/**
  * Message to toggle the placeholder mode
  */
 export interface PlaceholderModeMessage extends OtterMessageContent<'placeholderMode'> {
@@ -51,6 +88,8 @@ type ComponentsMessageContents =
   | IsComponentSelectionAvailableMessage
   | SelectedComponentInfoMessage
   | ToggleInspectorMessage
+  | ToggleHighlightMessage
+  | ChangeHighlightConfiguration
   | PlaceholderModeMessage;
 
 /** List of possible DataTypes for Components messages */
@@ -74,5 +113,7 @@ export const isComponentsMessage = (message: any): message is AvailableComponent
     || message.dataType === 'isComponentSelectionAvailable'
     || message.dataType === 'placeholderMode'
     || message.dataType === 'toggleInspector'
+    || message.dataType === 'toggleHighlight'
+    || message.dataType === 'changeHighlightConfiguration'
   );
 };
