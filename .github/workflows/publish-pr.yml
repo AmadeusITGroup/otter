@@ -46,7 +46,7 @@ jobs:
       version: ${{ needs.version.outputs.nextVersionTag }}-${{ github.event.workflow_run.run_attempt }}
       prerelease: true
       isPullRequest: true
-      gitRef: ${{ github.event.workflow_run.pull_requests[0].base.ref }}
+      gitRef: ${{ github.event.workflow_run.pull_requests[0].head.ref }}
 
   notify-parent:
     runs-on: ubuntu-latest
