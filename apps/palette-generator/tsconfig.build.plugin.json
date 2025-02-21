@@ -1,0 +1,14 @@
+// IDE usage only
+{
+  "extends": "../../tsconfig.build",
+  "compilerOptions": {
+    "composite": true,
+    "types": ["@figma/plugin-typings"],
+  },
+  "include": [
+    "src/plugin/**/*.ts"
+  ],
+  "exclude": [
+    "**/*.spec.ts"
+  ]
+}
