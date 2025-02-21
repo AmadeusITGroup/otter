@@ -24,6 +24,7 @@
     "src/store/**/*.ts",
     "src/tools/**/*.ts",
     "src/visual-test/**/*.ts",
+    "src/visual-testing-reporter/**/*.ts",
     "src/errors/**/*.ts",
     "src/public_api.ts"
   ],

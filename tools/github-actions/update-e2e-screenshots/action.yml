@@ -1,0 +1,12 @@
+name: 'Update e2e screenshots'
+inputs:
+  reportPath:
+    type: string
+    description: 'Path to the custom report'
+    required: true
+outputs:
+  screenshots:
+    description: 'The number of screenshots updated'
+runs:
+  using: 'node20'
+  main: 'packaged-action/index.js'

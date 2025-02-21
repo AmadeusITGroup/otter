@@ -94,6 +94,10 @@
       "types": "./visual-test/utils.d.ts",
       "default": "./visual-test/utils.js",
       "import": "./esm/visual-test/utils.js"
+    },
+    "./visual-testing-reporter": {
+      "types": "./visual-testing-reporter/index.d.ts",
+      "default": "./visual-testing-reporter/index.js"
     }
   },
   "peerDependencies": {
