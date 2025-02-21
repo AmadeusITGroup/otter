@@ -1,7 +1,7 @@
 require('./sourcemap-register.js');/******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 2208:
+/***/ 1376:
 /***/ ((module) => {
 
 "use strict";
@@ -35,7 +35,7 @@ __export(dist_src_exports, {
 module.exports = __toCommonJS(dist_src_exports);
 
 // pkg/dist-src/version.js
-var VERSION = "9.2.1";
+var VERSION = "9.2.2";
 
 // pkg/dist-src/normalize-paginated-list-response.js
 function normalizePaginatedListResponse(response) {
@@ -83,7 +83,7 @@ function iterator(octokit, route, parameters) {
           const response = await requestMethod({ method, url, headers });
           const normalizedResponse = normalizePaginatedListResponse(response);
           url = ((normalizedResponse.headers.link || "").match(
-            /<([^>]+)>;\s*rel="next"/
+            /<([^<>]+)>;\s*rel="next"/
           ) || [])[1];
           return { value: normalizedResponse };
         } catch (error) {
@@ -4643,7 +4643,7 @@ const Utils = __importStar(__nccwpck_require__(3277));
 // octokit + plugins
 const core_1 = __nccwpck_require__(8009);
 const plugin_rest_endpoint_methods_1 = __nccwpck_require__(726);
-const plugin_paginate_rest_1 = __nccwpck_require__(2208);
+const plugin_paginate_rest_1 = __nccwpck_require__(1376);
 exports.context = new Context.Context();
 const baseUrl = Utils.getApiBaseUrl();
 exports.defaults = {

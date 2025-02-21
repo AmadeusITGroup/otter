@@ -1,0 +1,34 @@
+{
+  "name": "ama-mfe-ng-utils",
+  "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/@ama-mfe/ng-utils/src",
+  "prefix": "ama-mfe",
+  "targets": {
+    "build": {
+      "executor": "nx:run-script",
+      "outputs": ["{projectRoot}/dist/package.json"],
+      "options": {
+        "script": "postbuild"
+      },
+      "dependsOn": ["build-builders", "compile"]
+    },
+    "compile": {
+      "dependsOn": ["^build", "prepare"],
+      "executor": "@angular-devkit/build-angular:ng-packagr",
+      "options": {
+        "project": "packages/@ama-mfe/ng-utils/src/ng-package.json",
+        "tsConfig": "packages/@ama-mfe/ng-utils/tsconfig.build.json"
+      }
+    },
+    "prepare": {},
+    "lint": {},
+    "test": {},
+    "publish": {},
+    "prepare-publish": {},
+    "prepare-build-builders": {},
+    "build-builders": {},
+    "documentation": {}
+  },
+  "tags": []
+}
