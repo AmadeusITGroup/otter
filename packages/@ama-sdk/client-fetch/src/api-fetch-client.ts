@@ -2,6 +2,7 @@ import type {
   ApiClient,
   ApiTypes,
   BaseApiClientOptions,
+  ParamSerialization,
   PartialExcept,
   PluginAsyncRunner,
   RequestOptions,
@@ -20,6 +21,7 @@ import {
   processFormData,
   ResponseJSONParseError,
   ReviverReply,
+  serializePathParams,
   tokenizeRequestOptions,
 } from '@ama-sdk/core';
 import type {
@@ -92,8 +94,20 @@ export class ApiFetchClient implements ApiClient {
   }
 
   /** @inheritdoc */
-  public prepareUrl(url: string, queryParameters: { [key: string]: string | undefined } = {}) {
-    return prepareUrl(url, queryParameters);
+  public serializePathParams<T extends { [key: string]: any }>(data: T, pathParameters: { [K in keyof T]?: ParamSerialization }): { [p in keyof T]: string } {
+    return serializePathParams(data, pathParameters);
+  }
+
+  /** @inheritdoc */
+  public prepareUrl(url: string, data: { [key: string]: string | undefined }): string;
+  /** @inheritdoc */
+  public prepareUrl<T extends { [key: string]: any }>(url: string, data: T, queryParamSerialization: { [K in keyof T]?: ParamSerialization }): string;
+  /** @inheritdoc */
+  public prepareUrl<T extends { [key: string]: any }>(url: string, data?: { [key: string]: string | undefined } | T, queryParamSerialization?: { [K in keyof T]?: ParamSerialization }): string {
+    if (queryParamSerialization) {
+      return prepareUrl(url, data as T, queryParamSerialization);
+    }
+    return prepareUrl(url, data as { [key: string]: string | undefined });
   }
 
   /** @inheritdoc */
