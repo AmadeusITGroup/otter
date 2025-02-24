@@ -3,7 +3,7 @@
 > [!NOTE]
 > This package is intended for **testing purposes only**. It is not suitable for production use.
 
-### Based on openapi specs 3.0.2
+### Based on API specification version 1.0.17 (using openapi 3.0.2)
 
 The SDK contains 2 different parts:
 
