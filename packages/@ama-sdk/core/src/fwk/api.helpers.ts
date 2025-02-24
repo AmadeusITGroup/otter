@@ -2,13 +2,17 @@ import {
   TokenizedOptions,
 } from '../plugins/core/request-plugin';
 import type {
+  SupportedParamType,
+} from './param-serialization';
+import type {
   ReviverType,
 } from './reviver';
 
 /**
- * prepares the url to be called
- * @param url base url to be used
- * @param queryParameters key value pair with the parameters. If the value is undefined, the key is dropped
+ * Prepares the url to be called
+ * @param url Base url to be used
+ * @param queryParameters Key value pair with the parameters. If the value is undefined, the key is dropped
+ * @deprecated use {@link prepareUrlWithQueryParams} with query parameter serialization, will be removed in v14.
  */
 export function prepareUrl(url: string, queryParameters: { [key: string]: string | undefined } = {}) {
   const queryPart = Object.keys(queryParameters)
@@ -22,22 +26,63 @@ export function prepareUrl(url: string, queryParameters: { [key: string]: string
 }
 
 /**
+ * Prepares the url to be called with the query parameters
+ * @param url Base url to be used
+ * @param serializedQueryParams Key value pairs of query parameter names and their serialized values
+ */
+export function prepareUrlWithQueryParams(url: string, serializedQueryParams: { [key: string]: string }): string {
+  const paramsPrefix = url.includes('?') ? '&' : '?';
+  const queryPart = Object.values(serializedQueryParams).join('&');
+  return url + (queryPart ? paramsPrefix + queryPart : '');
+}
+
+/**
  * Returns a map containing the query parameters
  * @param data
  * @param names
+ * @deprecated use {@link stringifyQueryParams} which accepts only supported types, will be removed in v14.
  */
 export function extractQueryParams<T extends { [key: string]: any }>(data: T, names: (keyof T)[]): { [p in keyof T]: string; } {
   return names
     .filter((name) => typeof data[name] !== 'undefined' && data[name] !== null)
     .reduce((acc, name) => {
       const prop = data[name];
-      acc[name] = (typeof prop.toJSON === 'function') ? prop.toJSON() : prop.toString();
+      acc[name] = (typeof prop.toJSON === 'function')
+        ? prop.toJSON()
+        : ((typeof prop === 'object' && !Array.isArray(prop)) ? JSON.stringify(prop) : prop.toString());
       return acc;
     }, {} as { [p in keyof T]: string });
 }
 
 /**
- * Returns a filtered json object, removing all the undefined vlaues
+ * Get requested properties from data
+ * @param data Data to get properties from
+ * @param keys Keys of properties to retrieve
+ */
+export function getPropertiesFromData<T, K extends keyof T>(data: T, keys: K[]): Pick<T, K> {
+  return keys.reduce((acc, key) => {
+    acc[key] = data[key];
+    return acc;
+  }, {} as Pick<T, K>);
+}
+
+/**
+ * Stringifies the values of the query parameters
+ * @param queryParams Query parameters of supported parameter types
+ */
+export function stringifyQueryParams<T extends { [key: string]: SupportedParamType }>(queryParams: T): { [p in keyof T]: string; } {
+  const names = Object.keys(queryParams) as (keyof T)[];
+  return names
+    .filter((name) => typeof queryParams[name] !== 'undefined' && queryParams[name] !== null)
+    .reduce((acc, name) => {
+      const prop = queryParams[name];
+      acc[name] = (typeof prop === 'object' && !Array.isArray(prop)) ? JSON.stringify(prop) : prop!.toString();
+      return acc;
+    }, {} as { [p in keyof T]: string });
+}
+
+/**
+ * Returns a filtered json object, removing all the undefined values
  * @param object JSON object to filter
  * @returns an object without undefined values
  */
