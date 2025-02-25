@@ -63,7 +63,6 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
     const devDependenciesToInstall = [
       '@eslint-community/eslint-plugin-eslint-comments',
       '@eslint/js',
-      '@o3r/eslint-plugin',
       '@stylistic/eslint-plugin',
       '@typescript-eslint/parser',
       '@typescript-eslint/utils',
