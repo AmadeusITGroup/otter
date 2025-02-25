@@ -1,9 +1,20 @@
+import {
+  dirname,
+  join,
+} from 'node:path';
+import {
+  fileURLToPath,
+} from 'node:url';
 import nxPlugin from '@nx/eslint-plugin';
 import o3rConfig from '@o3r/eslint-config';
 import o3rTemplate from '@o3r/eslint-config/template';
 import o3rPlugin from '@o3r/eslint-plugin';
 import globals from 'globals';
 import jsonParser from 'jsonc-eslint-parser';
+
+const __filename = fileURLToPath(import.meta.url);
+// __dirname is not defined in ES module scope
+const __dirname = dirname(__filename);
 
 const nodeFiles = [
   '**/{builders,cli,schematics,scripts,testing}/**/*.{c,m,}{j,t}s',
@@ -48,7 +59,7 @@ export default [
       'import/resolver': {
         node: true,
         typescript: {
-          project: './tsconfig.base.json'
+          project: join(__dirname, '/tsconfig.base.json')
         }
       }
     },
