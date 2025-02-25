@@ -1,5 +1,8 @@
 {
   "extends": "../../../tsconfig.build",
+  "include": [
+    "src/**/*.ts"
+  ],
   "compilerOptions": {
     "types": [],
     "moduleResolution": "node",
