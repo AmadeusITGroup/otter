@@ -1,5 +1,6 @@
 import type {
   Api,
+  ParamSerialization,
 } from '../../fwk';
 import type {
   Plugin,
@@ -15,8 +16,13 @@ export type RequestBody = string | FormData;
 export interface TokenizedOptions {
   /** Tokenized URL */
   url: string;
-  /** Tokenized query parameters */
+  /**
+   * Tokenized query parameters
+   * @deprecated please use `queryParameters` with query parameter serialization, will be removed in v14.
+   */
   queryParams: { [key: string]: string };
+  /** Tokenized query parameters */
+  queryParameters?: { [key: string]: ParamSerialization };
   /** An object associating tokens with the actual values */
   values: { [token: string]: string };
 }
@@ -45,8 +51,13 @@ export interface RequestMetadata<C extends string = string, A extends string = s
 }
 
 export interface RequestOptions extends RequestInit {
-  /** Query Parameters */
+  /**
+   * Query Parameters
+   * @deprecated use `queryParameters` with query parameter serialization, will be removed in v14.
+   */
   queryParams?: { [key: string]: string };
+  /** Query Parameters */
+  queryParameters?: { [key: string]: ParamSerialization };
   /** Force body to string */
   body?: RequestBody;
   /** Force headers to Headers type */

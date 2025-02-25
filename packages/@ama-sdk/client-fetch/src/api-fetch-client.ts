@@ -2,6 +2,7 @@ import type {
   ApiClient,
   ApiTypes,
   BaseApiClientOptions,
+  ParamSerialization,
   PartialExcept,
   PluginAsyncRunner,
   RequestOptions,
@@ -14,8 +15,10 @@ import {
   EmptyResponseError,
   ExceptionReply,
   extractQueryParams,
+  filterUndefinedQueryParams,
   filterUndefinedValues,
   getResponseReviver,
+  preparePathParams,
   prepareUrl,
   processFormData,
   ResponseJSONParseError,
@@ -63,12 +66,27 @@ export class ApiFetchClient implements ApiClient {
   }
 
   /** @inheritdoc */
-  public extractQueryParams<T extends { [key: string]: any }>(data: T, names: (keyof T)[]): { [p in keyof T]: string; } {
+  public extractQueryParams<T extends { [key: string]: any }>(data: T, names: (keyof T)[]): { [p in keyof T]: string; };
+  /** @inheritdoc */
+  public extractQueryParams<T extends { [key: string]: any }>(data: T, names: { [K in keyof T]?: Omit<ParamSerialization, 'value'> }): { [p in keyof T]?: ParamSerialization; };
+  /** @inheritdoc */
+  public extractQueryParams<T extends { [key: string]: any }>(
+    data: T,
+    names: (keyof T)[] | { [K in keyof T]?: Omit<ParamSerialization, 'value'> }
+  ): { [p in keyof T]: string; } | { [p in keyof T]?: ParamSerialization; } {
+    if (Array.isArray(names)) {
+      return extractQueryParams(data, names);
+    }
     return extractQueryParams(data, names);
   }
 
   /** @inheritdoc */
-  public tokenizeRequestOptions(url: string, queryParameters: { [key: string]: string }, piiParamTokens: { [key: string]: string }, data: any): TokenizedOptions | undefined {
+  public tokenizeRequestOptions(
+    url: string,
+    queryParameters: { [key: string]: string } | { [key: string]: ParamSerialization },
+    piiParamTokens: { [key: string]: string },
+    data: any
+  ): TokenizedOptions | undefined {
     return this.options.enableTokenization ? tokenizeRequestOptions(url, queryParameters, piiParamTokens, data) : undefined;
   }
 
@@ -77,7 +95,8 @@ export class ApiFetchClient implements ApiClient {
     let opts: RequestOptions = {
       ...requestOptionsParameters,
       headers: new Headers(filterUndefinedValues(requestOptionsParameters.headers)),
-      queryParams: filterUndefinedValues(requestOptionsParameters.queryParams)
+      queryParams: filterUndefinedValues(requestOptionsParameters.queryParams),
+      queryParameters: requestOptionsParameters.queryParameters ? filterUndefinedQueryParams(requestOptionsParameters.queryParameters) : undefined
     };
     if (this.options.requestPlugins) {
       for (const plugin of this.options.requestPlugins) {
@@ -92,7 +111,12 @@ export class ApiFetchClient implements ApiClient {
   }
 
   /** @inheritdoc */
-  public prepareUrl(url: string, queryParameters: { [key: string]: string | undefined } = {}) {
+  public preparePathParams<T extends { [key: string]: any }>(data: T, pathParameters: { [K in keyof T]?: Omit<ParamSerialization, 'value'> }): { [p in keyof T]: string } {
+    return preparePathParams(data, pathParameters);
+  }
+
+  /** @inheritdoc */
+  public prepareUrl(url: string, queryParameters: { [key: string]: string | undefined } | { [key: string]: ParamSerialization | undefined } = {}) {
     return prepareUrl(url, queryParameters);
   }
 

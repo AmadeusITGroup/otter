@@ -18,6 +18,10 @@ describe('Tokenizer Request Plugin', () => {
       classicParam: 'classicParamValue',
       sensitiveParam: '$sensitiveParamToken$'
     },
+    queryParameters: {
+      classicParam: { value: 'classicParamValue', exploded: true, style: 'form' },
+      sensitiveParam: { value: '$sensitiveParamToken$', exploded: true, style: 'form' }
+    },
     values: {
       $pathParamToken$: 'pathParamValue',
       $sensitiveParamToken$: 'sensitiveParamValue'
@@ -32,6 +36,10 @@ describe('Tokenizer Request Plugin', () => {
       queryParams: {
         classicParam: 'classicParamValue',
         sensitiveParam: 'sensitiveParamValue'
+      },
+      queryParameters: {
+        classicParam: { value: 'classicParamValue', exploded: true, style: 'form' },
+        sensitiveParam: { value: 'sensitiveParamValue', exploded: true, style: 'form' }
       }
     };
 
@@ -51,6 +59,8 @@ describe('Tokenizer Request Plugin', () => {
     expect(result.basePath).toEqual('http://test.com/path/$pathParamToken$');
     expect(result.queryParams.classicParam).toEqual('classicParamValue');
     expect(result.queryParams.sensitiveParam).toEqual('$sensitiveParamToken$');
+    expect(result.queryParameters.classicParam.value).toEqual('classicParamValue');
+    expect(result.queryParameters.sensitiveParam.value).toEqual('$sensitiveParamToken$');
     expect(result.headers.get('ama-client-facts')).not.toBeNull();
   });
 
@@ -73,6 +83,8 @@ describe('Tokenizer Request Plugin', () => {
     expect(result.basePath).toEqual('http://test.com/path/pathParamValue');
     expect(result.queryParams.classicParam).toEqual('classicParamValue');
     expect(result.queryParams.sensitiveParam).toEqual('sensitiveParamValue');
+    expect(result.queryParameters.classicParam.value).toEqual('classicParamValue');
+    expect(result.queryParameters.sensitiveParam.value).toEqual('sensitiveParamValue');
     expect(result.headers.get('ama-client-facts')).toBeNull();
     // eslint-disable-next-line no-console -- not calling console.error but expect if it has been called or not
     expect(console.error).toHaveBeenCalled();
@@ -87,6 +99,8 @@ describe('Tokenizer Request Plugin', () => {
     expect(result.basePath).toEqual('http://test.com/path/pathParamValue');
     expect(result.queryParams.classicParam).toEqual('classicParamValue');
     expect(result.queryParams.sensitiveParam).toEqual('sensitiveParamValue');
+    expect(result.queryParameters.classicParam.value).toEqual('classicParamValue');
+    expect(result.queryParameters.sensitiveParam.value).toEqual('sensitiveParamValue');
     expect(result.headers.get('ama-client-facts')).toBeNull();
     // eslint-disable-next-line no-console -- not calling console.error but expect if it has been called or not
     expect(console.error).not.toHaveBeenCalled();
@@ -169,12 +183,18 @@ describe('Tokenizer Request Plugin', () => {
     const metadata: RequestMetadata = { deepLinkOptions };
     options.basePath = 'http://test.com/path/$pathParamToken$';
     options.queryParams = { classicParam: 'classicParamValue', sensitiveParam: '$sensitiveParamToken$' };
+    options.queryParameters = {
+      classicParam: { value: 'classicParamValue', exploded: true, style: 'form' },
+      sensitiveParam: { value: '$sensitiveParamToken$', exploded: true, style: 'form' }
+    };
 
     const result = await runner.transform({ ...options, tokenizedOptions: { ...tokenizedOptions, values: {} }, metadata });
 
     expect(result.basePath).toEqual('http://test.com/path/$pathParamToken$');
     expect(result.queryParams.classicParam).toEqual('classicParamValue');
     expect(result.queryParams.sensitiveParam).toEqual('$sensitiveParamToken$');
+    expect(result.queryParameters.classicParam.value).toEqual('classicParamValue');
+    expect(result.queryParameters.sensitiveParam.value).toEqual('$sensitiveParamToken$');
     expect(result.headers.get('ama-client-facts')).toEqual('myDeepLinkToken');
     // eslint-disable-next-line no-console -- not calling console.error but expect if it has been called or not
     expect(console.error).not.toHaveBeenCalled();
@@ -188,12 +208,18 @@ describe('Tokenizer Request Plugin', () => {
     const metadata: RequestMetadata = { deepLinkOptions };
     options.basePath = 'http://test.com/path/$pathParamToken$';
     options.queryParams = { classicParam: 'classicParamValue', sensitiveParam: '$sensitiveParamToken$' };
+    options.queryParameters = {
+      classicParam: { value: 'classicParamValue', exploded: true, style: 'form' },
+      sensitiveParam: { value: '$sensitiveParamToken$', exploded: true, style: 'form' }
+    };
 
     const result = await runner.transform({ ...options, tokenizedOptions: { ...tokenizedOptions, values: {} }, metadata });
 
     expect(result.basePath).toEqual('http://test.com/path/$pathParamToken$');
     expect(result.queryParams.classicParam).toEqual('classicParamValue');
     expect(result.queryParams.sensitiveParam).toEqual('$sensitiveParamToken$');
+    expect(result.queryParameters.classicParam.value).toEqual('classicParamValue');
+    expect(result.queryParameters.sensitiveParam.value).toEqual('$sensitiveParamToken$');
     expect(result.headers.get('ama-client-facts')).toEqual('myDeepLinkToken');
     expect(result.headers.get('ama-client-facts-challenge')).toEqual('{"lastName":"Doe"}');
   });
@@ -204,10 +230,12 @@ describe('Tokenizer Request Plugin', () => {
 
     options.basePath = 'http://test.com/path/pathParamValue';
     options.queryParams = { ...options.queryParams, additionalParam: 'foo' };
+    options.queryParameters = { ...options.queryParameters, additionalParam: { value: 'foo', exploded: true, style: 'form' } };
 
     const result = await runner.transform({ ...options, tokenizedOptions });
 
     expect(result.basePath).toEqual('http://test.com/path/$pathParamToken$');
     expect(result.queryParams.additionalParam).toEqual('foo');
+    expect(result.queryParameters.additionalParam.value).toEqual('foo');
   });
 });

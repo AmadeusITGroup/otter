@@ -8,6 +8,9 @@ import type {
   ApiTypes,
 } from '../api';
 import type {
+  ParamSerialization,
+} from '../api.helpers';
+import type {
   Api,
 } from '../api.interface';
 import type {
@@ -21,8 +24,13 @@ import type {
 export interface RequestOptionsParameters {
   /** URL of the call to process (without the query parameters) */
   basePath: string;
-  /** Query Parameters */
+  /**
+   * Query Parameters
+   * @deprecated please use `queryParameters` with query parameter serialization, will be removed in v14.
+   */
   queryParams?: { [key: string]: string | undefined };
+  /** Query Parameters */
+  queryParameters?: { [key: string]: ParamSerialization | undefined };
   /** Force body to string */
   body?: RequestBody;
   /** Force headers to Headers type */
@@ -52,8 +60,24 @@ export interface ApiClient {
    * Returns a map containing the query parameters
    * @param data
    * @param names
+   * @deprecated use `extractQueryParams` with query parameter serialization, will be removed in v14.
    */
   extractQueryParams<T extends { [key: string]: any }>(data: T, names: (keyof T)[]): { [p in keyof T]: string; };
+  /**
+   * Returns a map containing the query parameters
+   * @param data
+   * @param names
+   */
+  extractQueryParams<T extends { [key: string]: any }>(data: T, names: { [K in keyof T]?: Omit<ParamSerialization, 'value'> }): { [p in keyof T]?: ParamSerialization; };
+  /**
+   * Returns a map containing the query parameters
+   * @param data
+   * @param names
+   */
+  extractQueryParams<T extends { [key: string]: any }>(
+    data: T,
+    names: (keyof T)[] | { [K in keyof T]?: Omit<ParamSerialization, 'value'> }
+  ): { [p in keyof T]: string; } | { [p in keyof T]?: ParamSerialization; };
 
   /**
    * Retrieve the option to process the HTTP Call
@@ -61,11 +85,18 @@ export interface ApiClient {
   getRequestOptions(requestOptionsParameters: RequestOptionsParameters): Promise<RequestOptions>;
 
   /**
+   * Prepares the path parameters for the URL to be called
+   * @param data
+   * @param pathParameters key value pair with the parameters. If the value is undefined, the key is dropped
+   */
+  preparePathParams<T extends { [key: string]: any }>(data: T, pathParameters: { [K in keyof T]?: Omit<ParamSerialization, 'value'> }): { [p in keyof T]: string };
+
+  /**
    * prepares the url to be called
    * @param url base url to be used
    * @param queryParameters key value pair with the parameters. If the value is undefined, the key is dropped
    */
-  prepareUrl(url: string, queryParameters?: { [key: string]: string | undefined }): string;
+  prepareUrl(url: string, queryParameters?: { [key: string]: string | undefined } | { [key: string]: ParamSerialization | undefined }): string;
 
   /**
    * Returns tokenized request options:
@@ -76,7 +107,12 @@ export interface ApiClient {
    * @param data Data to provide to the API call
    * @returns the tokenized request options if tokenization is enabled, undefined otherwise
    */
-  tokenizeRequestOptions(url: string, queryParameters: { [key: string]: string | undefined }, piiParamTokens: { [statusCode: string]: string }, data: any): TokenizedOptions | undefined;
+  tokenizeRequestOptions(
+    url: string,
+    queryParameters: { [key: string]: string | undefined } | { [key: string]: ParamSerialization | undefined },
+    piiParamTokens: { [statusCode: string]: string },
+    data: any
+  ): TokenizedOptions | undefined;
 
   /**
    * Receives an object containing key/value pairs
