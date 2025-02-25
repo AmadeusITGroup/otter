@@ -8,7 +8,11 @@
     "group:recommended",
     "group:test",
     "group:linters",
-    "helpers:pinGitHubActionDigestsToSemver"
+    "helpers:pinGitHubActionDigestsToSemver",
+    ":automergeMinor",
+    "github>AmadeusITGroup/otter//tools/renovate/group/angular",
+    "github>AmadeusITGroup/otter//tools/renovate/group/typescript",
+    "github>AmadeusITGroup/otter//tools/renovate/managers/github-node-version.json5"
   ],
   "hostRules": [
     {
@@ -28,7 +32,8 @@
   ],
   "updateInternalDeps": true,
   "postUpdateOptions": [
-    "yarnDedupeHighest"
+    "yarnDedupeHighest",
+    "npmDedupe"
   ],
   "labels": [
     "dependencies"
@@ -41,83 +46,5 @@
       "before 4am on monday"
     ]
   },
-  "packageRules": [
-    {
-      "matchPackagePatterns": [
-        "*"
-      ],
-      "automerge": true,
-      "rangeStrategy": "replace"
-    },
-    {
-      "matchPackagePatterns": [
-        "^@angular",
-        "^ng-packagr",
-        "^@schematics",
-        "angular",
-        "^@ngrx",
-        "^zone.js",
-        "^@nrwl",
-        "^@nx",
-        "^nx"
-      ],
-      "groupName": "Angular dependencies",
-      "groupSlug": "angular-dependencies"
-    },
-    {
-      "matchPackagePatterns": [
-        "typescript",
-        "tslib"
-      ],
-      "groupName": "Typescript dependencies",
-      "groupSlug": "typescript-dependencies"
-    },
-    {
-      "matchPackageNames": [
-        "typescript"
-      ],
-      "rangeStrategy": "in-range-only"
-    },
-    {
-      "matchUpdateTypes": [
-        "major"
-      ],
-      "matchBaseBranches": [
-        "main",
-        "master",
-        "/^release/"
-      ],
-      "enabled": false
-    },
-    {
-      "matchUpdateTypes": [
-        "major",
-        "minor"
-      ],
-      "matchBaseBranches": [
-        "/^release/"
-      ],
-      "enabled": false
-    },
-    {
-      "matchPackageNames": [
-        "typescript"
-      ],
-      "matchBaseBranches": [
-        "/.*-next$/"
-      ],
-      "rangeStrategy": "replace"
-    },
-    {
-      "matchUpdateTypes": [
-        "major"
-      ],
-      "matchBaseBranches": [
-        "/.*-next$/"
-      ],
-      "groupName": "Major dependencies",
-      "groupSlug": "major-dependencies",
-      "enabled": true
-    }
-  ]
+  "packageRules": []
 }
