@@ -8420,7 +8420,6 @@ __metadata:
     eslint-import-resolver-typescript: "npm:^3.6.3"
     eslint-plugin-import: "npm:^2.31.0"
     eslint-plugin-import-newlines: "npm:^1.4.0"
-    eslint-plugin-jasmine: "npm:^4.1.3"
     eslint-plugin-jest: "npm:~28.11.0"
     eslint-plugin-jsdoc: "npm:~50.6.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
@@ -8456,7 +8455,6 @@ __metadata:
     "@typescript-eslint/utils": ^7.14.1 || ^8.15.0
     eslint: ^8.57.0 || ^9.16.0
     eslint-import-resolver-node: ^0.3.4
-    eslint-plugin-jasmine: ^4.1.3
     eslint-plugin-jest: ^28.8.0
     eslint-plugin-jsdoc: ^48.11.0 || ^49.0.0 || ^50.0.0
     eslint-plugin-prefer-arrow: ^1.2.2
@@ -8477,8 +8475,6 @@ __metadata:
     "@o3r/schematics":
       optional: true
     "@schematics/angular":
-      optional: true
-    eslint-plugin-jasmine:
       optional: true
     eslint-plugin-jest:
       optional: true
@@ -17040,42 +17036,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cascading-gh-action@workspace:tools/github-actions/cascading":
-  version: 0.0.0-use.local
-  resolution: "cascading-gh-action@workspace:tools/github-actions/cascading"
-  dependencies:
-    "@actions/core": "npm:^1.10.0"
-    "@actions/exec": "npm:^1.1.1"
-    "@actions/github": "npm:^6.0.0"
-    "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@nx/eslint-plugin": "npm:~20.2.0"
-    "@o3r/eslint-config": "workspace:~"
-    "@o3r/eslint-plugin": "workspace:~"
-    "@stylistic/eslint-plugin": "npm:~3.0.0"
-    "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:^20.0.0"
-    "@typescript-eslint/parser": "npm:~8.23.0"
-    "@vercel/ncc": "npm:~0.38.0"
-    angular-eslint: "npm:~19.0.0"
-    eslint: "npm:~9.19.0"
-    eslint-plugin-import: "npm:^2.31.0"
-    eslint-plugin-import-newlines: "npm:^1.4.0"
-    eslint-plugin-jest: "npm:~28.11.0"
-    eslint-plugin-jsdoc: "npm:~50.6.0"
-    eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^56.0.0"
-    eslint-plugin-unused-imports: "npm:^4.1.4"
-    globals: "npm:^15.9.0"
-    jest: "npm:~29.7.0"
-    jest-junit: "npm:~16.0.0"
-    jsonc-eslint-parser: "npm:~2.4.0"
-    ts-jest: "npm:~29.2.5"
-    tslib: "npm:^2.6.2"
-    typescript: "npm:~5.7.3"
-    typescript-eslint: "npm:~8.23.0"
-  languageName: unknown
-  linkType: soft
-
 "caseless@npm:~0.12.0":
   version: 0.12.0
   resolution: "caseless@npm:0.12.0"
@@ -20695,13 +20655,6 @@ __metadata:
   peerDependencies:
     eslint: ^2 || ^3 || ^4 || ^5 || ^6 || ^7.2.0 || ^8 || ^9
   checksum: 10/6b76bd009ac2db0615d9019699d18e2a51a86cb8c1d0855a35fb1b418be23b40239e6debdc6e8c92c59f1468ed0ea8d7b85c817117a113d5cc225be8a02ad31c
-  languageName: node
-  linkType: hard
-
-"eslint-plugin-jasmine@npm:^4.1.3":
-  version: 4.2.2
-  resolution: "eslint-plugin-jasmine@npm:4.2.2"
-  checksum: 10/a87b6e9614cbec1f576824563984f6c19ce8dde009034e83e23f23faf5ab70f15d9447d0e05ab3c4f7bd45d380638f0fdf088201ec58c8d3c00c84809da13a93
   languageName: node
   linkType: hard
 

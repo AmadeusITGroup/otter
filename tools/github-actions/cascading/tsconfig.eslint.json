@@ -1,9 +1,0 @@
-{
-  "include": [
-    "src/**/*.spec.ts",
-    "jest.config.js",
-    "eslint*.config.mjs",
-    "testing/*"
-  ],
-  "exclude": []
-}
