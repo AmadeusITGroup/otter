@@ -98,7 +98,7 @@
     "angular-eslint": "~19.1.0",
     "commit-and-tag-version": "^12.0.0",
     "cpy-cli": "^5.0.0",
-    "eslint": "~9.20.0",
+    "eslint": "~9.21.0",
     "eslint-plugin-import": "~2.31.0",
     "eslint-plugin-import-newlines": "~1.4.0",
     "eslint-plugin-jest": "~28.11.0",
