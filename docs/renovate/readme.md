@@ -30,34 +30,44 @@ You can have a look at [the documentation of the available presets](https://gith
 
 ## Self-Hosted Renovate
 
-The Otter presets come with post upgrade commands to help the upgrade process by running migration scripts or regenerating the SDK for example.
-This feature can only work if these commands are whitelisted.
-Unfortunately, as of today, whitelisting of post upgrade commands is only possible when using a [Self-Hosted Renovate](https://docs.renovatebot.com/examples/self-hosting/).
-
-Instead of using the GitHub App Renovate, you'll need to create your own or to create a workflow to run it.
+If you need more control on the way renovate bot is run, then you can [self-host your renovate bot](https://docs.renovatebot.com/getting-started/running/#self-hosting-renovate), 
+which means that you are managing your own renovate bot, either at repository level or at organization level.
+Instead of using the default GitHub App from Renovate, you'll need to create your own or to create a workflow to run it.
 The workflow can be as simple as a cron running `npx renovate`.
 
-You will need the following config in your renovate instance to support the Otter presets:
-```javascript
-module.exports = {
-  // ...
-  allowedPostUpgradeCommands: [
-    // Used to execute post-install scripts (like version-harmonize)
-    "^(npm|yarn) (ci|install)$",
+### Post upgrade commands
 
-    // Used to execute the migration scripts
-    "^(npm|yarn) ng update[a-zA-Z0-9.= {}()#@'\/-]*$",
+The Otter presets come with post upgrade commands to help the upgrade process by running migration scripts or regenerating the SDK for example.
+This feature can only work if these commands are whitelisted.
+Unfortunately, as of today, whitelisting of post upgrade commands is only possible when using a Self-Hosted Renovate.
 
-    // Used to regenerate the SDK
-    "^(npm|yarn) run spec:upgrade$",
+Whitelisting these commands has to be done in the Renovate bot configuration file. This file can be located inside or outside your repository.
+For example, it can be located in a dedicated `<org>/renovate-bot` repository if it is managed at organization level.
 
-    // Used to execute the migration scripts of ama-sdk
-    "^(npm|yarn) exec schematics @ama-sdk\/schematics:migrate[a-zA-Z0-9.= {}()#'\/-]*$",
+> [!WARNING]
+> The Renovate bot configuration is not to be confused with the Renovate repository configuration:
+> - The bot configuration controls the way the bot is run, for all the repositories that are scanned.
+> - The repository configuration only applies to the current repository.
 
-    // Used for yarn upgrade when using PnP
-    "^yarn dlx @yarnpkg/sdks$"
-  ]
-};
+You need to add the following field to your renovate bot config in order to support the Otter presets:
+```json5
+// ...
+"allowedPostUpgradeCommands": [
+  // Used to execute post-install scripts (like version-harmonize)
+  "^(npm|yarn) (ci|install)$",
+
+  // Used to execute the migration scripts
+  "^(npm|yarn) (run|exec) ng update[a-zA-Z0-9.= {}()#@'\/-]*$",
+
+  // Used to regenerate the SDK
+  "^(npm|yarn) run spec:upgrade$",
+
+  // Used to execute the migration scripts of ama-sdk
+  "^(npm|yarn) exec schematics @ama-sdk\/schematics:migrate[a-zA-Z0-9.= {}()#'\/-]*$",
+
+  // Used for yarn upgrade when using PnP
+  "^yarn dlx @yarnpkg/sdks$"
+]
 ```
 
 ### Complex case with private registries
