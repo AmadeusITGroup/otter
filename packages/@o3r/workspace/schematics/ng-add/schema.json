@@ -62,6 +62,14 @@
         "lerna",
         "none"
       ]
+    },
+    "skipVscodeTools": {
+      "type": "boolean",
+      "description": "Skip adding VSCode tools"
+    },
+    "skipRenovate": {
+      "type": "boolean",
+      "description": "Skip adding Renovate config"
     }
   },
   "additionalProperties": true,

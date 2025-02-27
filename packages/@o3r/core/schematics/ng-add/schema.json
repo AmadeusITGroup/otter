@@ -7,9 +7,10 @@
     "preset": {
       "description": "Preset of module list to automatically install",
       "type": "string",
-      "default": "basic",
+      "default": "recommended",
       "enum": [
         "basic",
+        "recommended",
         "cms",
         "all"
       ],
@@ -18,6 +19,7 @@
         "type": "list",
         "items": [
           { "value": "basic", "label": "BASIC - Minimum plugin list to install for a basic Otter application. (details on https://www.npmjs.com/package/@o3r/core#preset-basic)" },
+          { "value": "recommended", "label": "RECOMMENDED - Add the recommended Otter modules. (details on https://www.npmjs.com/package/@o3r/core#preset-recommended)" },
           { "value": "cms", "label": "CMS - Add the Otter modules allowing the full administration of the application via the CMS. (details on https://www.npmjs.com/package/@o3r/core#preset-cms)" },
           { "value": "all", "label": "ALL - Add all the available Otter modules. (details on https://www.npmjs.com/package/@o3r/core#preset-all)" }
         ]

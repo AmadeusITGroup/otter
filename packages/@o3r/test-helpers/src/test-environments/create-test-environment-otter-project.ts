@@ -90,13 +90,27 @@ export async function createTestEnvironmentOtterProjectWithAppAndLib(inputOption
     setPackagerManagerConfig(options, execAppOptions);
 
     // Create Project
-    const createOptions = ['--package-manager', getPackageManager(), '--skip-confirmation', ...(options.yarnVersion ? ['--yarn-version', options.yarnVersion] : [])];
+    const createOptions = ['--package-manager', getPackageManager(), '--preset basic', '--skip-confirmation', ...(options.yarnVersion ? ['--yarn-version', options.yarnVersion] : [])];
     packageManagerCreate({ script: `@o3r@${o3rVersion}`, args: [options.appDirectory, ...createOptions] }, { ...execAppOptions, cwd: options.cwd }, 'npm');
     const gitIgnorePath = path.join(appFolderPath, '.gitignore');
     if (existsSync(gitIgnorePath)) {
       const gitIgnore = readFileSync(gitIgnorePath, { encoding: 'utf8' });
       writeFileSync(gitIgnorePath, gitIgnore.replace(/\/(dist|node_modules)/g, '$1'));
     }
+
+    const angularJsonPath = path.join(appFolderPath, 'angular.json');
+    if (existsSync(angularJsonPath)) {
+      const angularJson = JSON.parse(readFileSync(angularJsonPath, { encoding: 'utf8' }));
+      if (!angularJson.schematics) {
+        angularJson.schematics = {};
+      }
+      angularJson.schematics['@o3r/core:ng-add'] = {
+        preset: 'basic'
+      };
+
+      writeFileSync(angularJsonPath, JSON.stringify(angularJson, null, 2), { encoding: 'utf8' });
+    }
+
     packageManagerInstall(execAppOptions);
     packageManagerExec({ script: 'ng', args: ['g', 'application', 'untouched-app'] }, execAppOptions);
     packageManagerExec({ script: 'ng', args: ['g', 'application', options.appName] }, execAppOptions);
