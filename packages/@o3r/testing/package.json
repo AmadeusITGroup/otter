@@ -220,7 +220,7 @@
     "cpy-cli": "^5.0.0",
     "eslint": "~9.21.0",
     "eslint-import-resolver-node": "~0.3.9",
-    "eslint-import-resolver-typescript": "~3.6.3",
+    "eslint-import-resolver-typescript": "~3.8.0",
     "eslint-plugin-import": "~2.31.0",
     "eslint-plugin-import-newlines": "~1.4.0",
     "eslint-plugin-jest": "~28.11.0",

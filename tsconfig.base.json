@@ -1,7 +1,7 @@
 {
   "compileOnSave": false,
   "include": [
-    "**/*.ts"
+    "**/*.{m,c,}ts"
   ],
   "exclude": [
     "**/dist/**"
