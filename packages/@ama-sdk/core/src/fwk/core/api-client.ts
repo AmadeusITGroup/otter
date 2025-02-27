@@ -8,6 +8,9 @@ import type {
   ApiTypes,
 } from '../api';
 import type {
+  ParamSerialization,
+} from '../api.helpers';
+import type {
   Api,
 } from '../api.interface';
 import type {
@@ -61,11 +64,33 @@ export interface ApiClient {
   getRequestOptions(requestOptionsParameters: RequestOptionsParameters): Promise<RequestOptions>;
 
   /**
-   * prepares the url to be called
+   * Prepares the url to be called
    * @param url base url to be used
-   * @param queryParameters key value pair with the parameters. If the value is undefined, the key is dropped
+   * @param data Query parameters key value pair. If the value is undefined, the key is dropped.
+   * @deprecated use `prepareUrl` with query parameter serialization, will be removed in v14.
    */
-  prepareUrl(url: string, queryParameters?: { [key: string]: string | undefined }): string;
+  prepareUrl(url: string, data?: { [key: string]: string | undefined }): string;
+  /**
+   * Prepares the url to be called
+   * @param url base url to be used
+   * @param data Data to provide to the API call
+   * @param queryParamSerialization Query parameter serialization, defined by `explode` and `style`
+   */
+  prepareUrl<T extends { [key: string]: any }>(url: string, data: T, queryParamSerialization: { [K in keyof T]?: ParamSerialization }): string;
+  /**
+   * Prepares the url to be called
+   * @param url base url to be used
+   * @param data Data to provide to the API call
+   * @param queryParamSerialization Query parameter serialization, defined by `explode` and `style`
+   */
+  prepareUrl<T extends { [key: string]: any }>(url: string, data?: { [key: string]: string | undefined } | T, queryParamSerialization?: { [K in keyof T]?: ParamSerialization }): string;
+
+  /**
+   * Prepares the path parameters for the URL to be called
+   * @param data
+   * @param pathParameters key value pair with the parameters. If the value is undefined, the key is dropped
+   */
+  serializePathParams<T extends { [key: string]: any }>(data: T, pathParameters: { [K in keyof T]?: ParamSerialization }): { [p in keyof T]: string };
 
   /**
    * Returns tokenized request options:

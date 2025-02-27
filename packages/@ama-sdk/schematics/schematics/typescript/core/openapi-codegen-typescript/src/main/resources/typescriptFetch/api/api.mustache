@@ -99,6 +99,9 @@ export class {{classname}} implements Api {
       body = data['{{baseName}}'] as any;
     }
     {{/bodyParam}}
+    {{#hasPathParams}}
+    const pathParams = this.client.serializePathParams(data, { {{#trimComma}}{{#pathParams}}{{baseName}}: { explode: {{isExplode}}, style: '{{style}}' }, {{/pathParams}}{{/trimComma}} });
+    {{/hasPathParams}}
     const basePath = `${this.client.options.basePath}{{#urlParamReplacer}}{{path}}{{/urlParamReplacer}}`;
     const tokenizedUrl = `${this.client.options.basePath}{{#tokenizedUrlParamReplacer}}{{path}}{{/tokenizedUrlParamReplacer}}`;
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
@@ -115,7 +118,7 @@ export class {{classname}} implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = this.client.prepareUrl(options.basePath, options.queryParams);
+    const url = this.client.prepareUrl(options.basePath, data,{{#hasQueryParams}} { {{#trimComma}}{{#queryParams}}{{baseName}}: { explode: {{isExplode}}, style: '{{style}}' }, {{/queryParams}}{{/trimComma}} }{{/hasQueryParams}}{{^hasQueryParams}} {}{{/hasQueryParams}});
 
     const ret = this.client.processCall<{{#vendorExtensions}}{{#responses2xxReturnTypes}}{{.}}{{^-last}} | {{/-last}}{{/responses2xxReturnTypes}}{{^responses2xxReturnTypes}}never{{/responses2xxReturnTypes}}{{/vendorExtensions}}>(url, options, {{#tags.0.extensions.x-api-type}}ApiTypes.{{tags.0.extensions.x-api-type}}{{/tags.0.extensions.x-api-type}}{{^tags.0.extensions.x-api-type}}ApiTypes.DEFAULT{{/tags.0.extensions.x-api-type}}, {{classname}}.apiName,{{#keepRevivers}}{{#vendorExtensions}}{{#responses2xx}}{{#-first}} { {{/-first}}{{code}}: {{^primitiveType}}revive{{baseType}}{{/primitiveType}}{{#primitiveType}}undefined{{/primitiveType}}{{^-last}}, {{/-last}}{{#-last}} } {{/-last}}{{/responses2xx}}{{^responses2xx}} undefined{{/responses2xx}}{{/vendorExtensions}}{{/keepRevivers}}{{^keepRevivers}} undefined{{/keepRevivers}}, '{{nickname}}');
     return ret;
