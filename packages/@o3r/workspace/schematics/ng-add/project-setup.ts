@@ -20,10 +20,6 @@ import type {
   PackageJson,
 } from 'type-fest';
 import {
-  isUsingFlatConfig,
-  shouldOtterLinterBeInstalled,
-} from '../rule-factories/linter';
-import {
   commitHookDevDependencies,
   generateCommitLintConfig,
   getCommitHookInitTask,
@@ -62,10 +58,17 @@ const updateEditorConfig: Rule = (tree) => {
  * @param options installation options to pass to the all the other packages' installation
  */
 export const prepareProject = (options: NgAddSchematicsSchema): Rule => {
+  let hasEslint = false;
+  try {
+    const eslintPackage = 'eslint';
+    require.resolve(eslintPackage);
+    hasEslint = true;
+  } catch {}
   const vsCodeExtensions = [
     'AmadeusITGroup.otter-devtools',
     'EditorConfig.EditorConfig',
-    'angular.ng-template'
+    'angular.ng-template',
+    ...hasEslint ? ['dbaeumer.vscode-eslint'] : []
   ];
   const otterDependencies = [
     '@ama-sdk/core',
@@ -79,15 +82,11 @@ export const prepareProject = (options: NgAddSchematicsSchema): Rule => {
   const depsInfo = getO3rPeerDeps(ownPackageJsonPath);
   const ownPackageJsonContent = JSON.parse(fs.readFileSync(ownPackageJsonPath, { encoding: 'utf8' })) as PackageJson & { generatorDependencies: Record<string, string> };
 
-  return async (tree, context) => {
+  return (tree, context) => {
     if (!ownPackageJsonContent) {
       context.logger.error('Could not find @o3r/workspace package. Are you sure it is installed?');
     }
-    const installOtterLinter = await shouldOtterLinterBeInstalled(context, tree);
-    const internalPackagesToInstallWithNgAdd = Array.from(new Set([
-      ...(installOtterLinter ? [`@o3r/eslint-config${isUsingFlatConfig(tree) ? '' : '-otter'}`] : []),
-      ...depsInfo.o3rPeerDeps
-    ]));
+    const internalPackagesToInstallWithNgAdd = depsInfo.o3rPeerDeps;
 
     const dependencies = [...internalPackagesToInstallWithNgAdd, ...otterDependencies].reduce((acc, dep) => {
       acc[dep] = {
@@ -110,17 +109,13 @@ export const prepareProject = (options: NgAddSchematicsSchema): Rule => {
       };
     });
 
-    if (installOtterLinter) {
-      vsCodeExtensions.push('dbaeumer.vscode-eslint');
-    }
-
     const workspaceConfig = getWorkspaceConfig(tree);
 
     return () => chain([
-      generateRenovateConfig(__dirname),
+      options.skipRenovate ? noop() : generateRenovateConfig(__dirname),
       ...(options.skipPreCommitChecks ? [] : [generateCommitLintConfig()]),
       updateEditorConfig,
-      addVsCodeRecommendations(vsCodeExtensions),
+      options.skipVscodeTools ? noop() : addVsCodeRecommendations(vsCodeExtensions),
       updateGitIgnore(workspaceConfig),
       filterPackageJsonScripts,
       setupDependencies({
@@ -137,7 +132,7 @@ export const prepareProject = (options: NgAddSchematicsSchema): Rule => {
           }
         }
       }),
-      !options.skipLinter && installOtterLinter ? applyEsLintFix() : noop(),
+      !options.skipLinter && hasEslint ? applyEsLintFix() : noop(),
       addWorkspacesToProject(),
       addMonorepoManager(ownPackageJsonContent, options.monorepoManager)
     ])(tree, context);

@@ -90,7 +90,7 @@ export async function createTestEnvironmentOtterProjectWithAppAndLib(inputOption
     setPackagerManagerConfig(options, execAppOptions);
 
     // Create Project
-    const createOptions = ['--package-manager', getPackageManager(), '--skip-confirmation', ...(options.yarnVersion ? ['--yarn-version', options.yarnVersion] : [])];
+    const createOptions = ['--package-manager', getPackageManager(), '--preset basic', '--skip-confirmation', ...(options.yarnVersion ? ['--yarn-version', options.yarnVersion] : [])];
     packageManagerCreate({ script: `@o3r@${o3rVersion}`, args: [options.appDirectory, ...createOptions] }, { ...execAppOptions, cwd: options.cwd }, 'npm');
     const gitIgnorePath = path.join(appFolderPath, '.gitignore');
     if (existsSync(gitIgnorePath)) {

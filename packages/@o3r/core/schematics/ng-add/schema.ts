@@ -2,7 +2,7 @@ import type {
   SchematicOptionObject,
 } from '@o3r/schematics';
 
-export type PresetNames = 'basic' | 'cms' | 'all';
+export type PresetNames = 'basic' | 'recommended' | 'cms' | 'all';
 
 export interface NgAddSchematicsSchema extends SchematicOptionObject {
   /** Preset of module list to automatically install */
