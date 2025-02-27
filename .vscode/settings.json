@@ -73,7 +73,9 @@
     "**/packages/@o3r-training/*sdk/src/models/base/**/*.ts": true,
     "**/packages/@o3r-training/*sdk/src/spec/api-mock.ts": true,
     "**/packages/@o3r-training/*sdk/src/spec/operation-adapter.ts": true,
-    "**/tools/github-actions/*/packaged-action/**": true
+    "**/tools/github-actions/*/packaged-action/**": true,
+    "**/apps/showcase/src/style/**/*.scss": true,
+    "**/apps/showcase/src/**/*.vars.scss": true
   },
   "files.trimFinalNewlines": false,
   "files.trimTrailingWhitespace": true,

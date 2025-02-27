@@ -1,0 +1,19 @@
+{
+  "extends": "../../../tsconfig.jest",
+  "compilerOptions": {
+    "resolveJsonModule": true,
+    "module": "ESNext",
+    "target": "ESNext",
+    "composite": true,
+    "rootDir": "."
+  },
+  "include": [
+    "**/*.spec.ts"
+  ],
+  "exclude": [],
+  "references": [
+    {
+      "path": "./tsconfig.build.json"
+    }
+  ]
+}
