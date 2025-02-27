@@ -1,0 +1,18 @@
+{
+  "extends": "../../tsconfig.jest",
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "incremental": true,
+    "composite": true
+  },
+  "include": [
+    "**/*.spec.ts"
+  ],
+  "exclude": [
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.build.json"
+    }
+  ]
+}

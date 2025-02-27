@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Generate Palette</title>
+    <style>
+       body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+        background-color: #f5f5f5;
+      }
+      h1 {
+        font-size: 18px;
+        margin-bottom: 20px;
+      }
+      input[id="filter"], textarea, select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+      label {
+        font-size: 14px;
+        margin-bottom: 5px;
+        display: block;
+      }
+      button {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+      }
+      button:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Palette Generator</h1>
+    <label for="collectionsDropdown">Collections</label>
+    <select id="collectionsDropdown"></select><br/><br/>
+
+    <label for="paletteNameDropdown">Palette name</label>
+    <select id="paletteNameDropdown"></select><br/><br/>
+
+    <label for="modesDropdown">Modes</label>
+    <select id="modesDropdown"></select><br/><br/>
+
+    <label for="shadesInput">Shades</label>
+    <textarea id="shadesInput" placeholder="Shades" rows="10" cols="30"></textarea><br/>
+
+    <label for="filter">Filter out</label>
+    <input id="filter" type="text" value="15,85,95"><br/>
+
+    <button id="add-vars">Add variables</button>
+
+  </body>
+</html>
