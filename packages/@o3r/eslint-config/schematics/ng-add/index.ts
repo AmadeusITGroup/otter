@@ -4,8 +4,15 @@ import {
   noop,
   type Rule,
   type SchematicContext,
+  SchematicsException,
   type Tree,
 } from '@angular-devkit/schematics';
+import {
+  getPackageManager,
+} from '@o3r/schematics';
+import type {
+  PackageJson,
+} from 'type-fest';
 import {
   updateEslintConfig,
 } from './eslint/index';
@@ -50,6 +57,29 @@ const handleOtterEslintErrors = (projectName: string): Rule => async (tree: Tree
   }
   context.logger.warn('Linter errors may occur and should be fixed by hand or by running the linter with the option `--fix`.');
 };
+/**
+ * Add a harmonize script in package.json
+ */
+const addHarmonizeScript = (): Rule => {
+  return (tree: Tree) => {
+    const rootPackageJsonPath = '/package.json';
+    if (!tree.exists(rootPackageJsonPath)) {
+      throw new SchematicsException('Root package.json does not exist');
+    }
+    const isYarnPackageManager = getPackageManager() === 'yarn';
+
+    const rootPackageJsonObject = tree.readJson(rootPackageJsonPath) as PackageJson;
+    const postInstall = rootPackageJsonObject.scripts?.postinstall;
+    rootPackageJsonObject.scripts = {
+      ...rootPackageJsonObject.scripts,
+      harmonize: `eslint '**/package.json*' ${isYarnPackageManager ? '.yarnrc.yml' : ''} --quiet --fix`,
+      postinstall: `${postInstall ? postInstall + ' && ' : ''}${isYarnPackageManager ? 'yarn' : 'npm run'} harmonize`
+    };
+
+    tree.overwrite(rootPackageJsonPath, JSON.stringify(rootPackageJsonObject, null, 2));
+    return tree;
+  };
+};
 
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
   /* ng add rules */
@@ -63,7 +93,6 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
     const devDependenciesToInstall = [
       '@eslint-community/eslint-plugin-eslint-comments',
       '@eslint/js',
-      '@o3r/eslint-plugin',
       '@stylistic/eslint-plugin',
       '@typescript-eslint/parser',
       '@typescript-eslint/utils',
@@ -130,6 +159,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       }),
       updateVscode,
       updateEslintConfig(__dirname),
+      addHarmonizeScript(),
       options.projectName && workspaceProject?.root
         ? chain([
           updateEslintConfig(__dirname, options.projectName),
