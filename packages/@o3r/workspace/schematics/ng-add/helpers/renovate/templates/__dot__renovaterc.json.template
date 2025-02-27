@@ -1,10 +1,10 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "github>AmadeusITGroup/otter//tools/renovate/base",<% if (packageManager == 'yarn') { %>
-    "github>AmadeusITGroup/otter//tools/renovate/otter-project"<% } else { %>
-    "github>AmadeusITGroup/otter//tools/renovate/group/otter",
-    "github>AmadeusITGroup/otter//tools/renovate/tasks/base",
-    "github>AmadeusITGroup/otter//tools/renovate/tasks/otter-ng-update(npm)"<% } %>
+    "github>AmadeusITGroup/otter//tools/renovate/base#<%= version %>",<% if (packageManager == 'yarn') { %>
+    "github>AmadeusITGroup/otter//tools/renovate/otter-project#<%= version %>"<% } else { %>
+    "github>AmadeusITGroup/otter//tools/renovate/group/otter#<%= version %>",
+    "github>AmadeusITGroup/otter//tools/renovate/tasks/base#<%= version %>",
+    "github>AmadeusITGroup/otter//tools/renovate/tasks/otter-ng-update(npm)#<%= version %>"<% } %>
   ]
 }
