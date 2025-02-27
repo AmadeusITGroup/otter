@@ -169,7 +169,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
             }),
             move(tree.root.path),
             renameTemplateFiles()
-          ]), MergeStrategy.Default);
+          ]), MergeStrategy.Overwrite);
           rules.push(
             jestConfigFilesForProject,
             jestConfigFilesForWorkspace
