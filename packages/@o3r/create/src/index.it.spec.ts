@@ -50,6 +50,64 @@ describe('Create new otter project command', () => {
     expect(() => packageManagerRunOnProject(appName, true, { script: 'build' }, execInAppOptions)).not.toThrow();
   });
 
+  test('should generate a project with preset all', async () => {
+    const { workspacePath, packageManagerConfig, o3rVersion } = o3rEnvironment.testEnvironment;
+    const inProjectPath = path.join(workspacePath, workspaceProjectName);
+    const execWorkspaceOptions = { ...defaultExecOptions, cwd: workspacePath };
+    const execInAppOptions = { ...defaultExecOptions, cwd: inProjectPath };
+    const createOptions = [
+      '--package-manager', getPackageManager(),
+      '--skip-confirmation',
+      '--preset all',
+      ...(packageManagerConfig.yarnVersion ? ['--yarn-version', packageManagerConfig.yarnVersion] : [])];
+
+    // TODO: remove it when fixing #1356
+    await fs.mkdir(inProjectPath, { recursive: true });
+    setPackagerManagerConfig(packageManagerConfig, execInAppOptions);
+
+    expect(() => packageManagerCreate({ script: `@o3r@${o3rVersion}`, args: [workspaceProjectName, ...createOptions] }, execWorkspaceOptions, 'npm')).not.toThrow();
+    expect(existsSync(path.join(inProjectPath, 'angular.json'))).toBe(true);
+    expect(existsSync(path.join(inProjectPath, 'package.json'))).toBe(true);
+    expect(() => packageManagerInstall(execInAppOptions)).not.toThrow();
+
+    const appName = 'test-application';
+    const inApplicationPath = path.join(inProjectPath, 'apps', appName);
+    expect(() => packageManagerExec({ script: 'ng', args: ['g', 'application', appName] }, execInAppOptions)).not.toThrow();
+    expect(existsSync(path.join(inProjectPath, 'project'))).toBe(false);
+    expect(existsSync(path.join(inApplicationPath, 'package.json'))).toBe(true);
+    expect(existsSync(path.join(inApplicationPath, 'tsconfig.json'))).toBe(true);
+    expect(() => packageManagerRunOnProject(appName, true, { script: 'build' }, execInAppOptions)).not.toThrow();
+  });
+
+  test('should generate a project with preset cms', async () => {
+    const { workspacePath, packageManagerConfig, o3rVersion } = o3rEnvironment.testEnvironment;
+    const inProjectPath = path.join(workspacePath, workspaceProjectName);
+    const execWorkspaceOptions = { ...defaultExecOptions, cwd: workspacePath };
+    const execInAppOptions = { ...defaultExecOptions, cwd: inProjectPath };
+    const createOptions = [
+      '--package-manager', getPackageManager(),
+      '--skip-confirmation',
+      '--preset cms',
+      ...(packageManagerConfig.yarnVersion ? ['--yarn-version', packageManagerConfig.yarnVersion] : [])];
+
+    // TODO: remove it when fixing #1356
+    await fs.mkdir(inProjectPath, { recursive: true });
+    setPackagerManagerConfig(packageManagerConfig, execInAppOptions);
+
+    expect(() => packageManagerCreate({ script: `@o3r@${o3rVersion}`, args: [workspaceProjectName, ...createOptions] }, execWorkspaceOptions, 'npm')).not.toThrow();
+    expect(existsSync(path.join(inProjectPath, 'angular.json'))).toBe(true);
+    expect(existsSync(path.join(inProjectPath, 'package.json'))).toBe(true);
+    expect(() => packageManagerInstall(execInAppOptions)).not.toThrow();
+
+    const appName = 'test-application';
+    const inApplicationPath = path.join(inProjectPath, 'apps', appName);
+    expect(() => packageManagerExec({ script: 'ng', args: ['g', 'application', appName] }, execInAppOptions)).not.toThrow();
+    expect(existsSync(path.join(inProjectPath, 'project'))).toBe(false);
+    expect(existsSync(path.join(inApplicationPath, 'package.json'))).toBe(true);
+    expect(existsSync(path.join(inApplicationPath, 'tsconfig.json'))).toBe(true);
+    expect(() => packageManagerRunOnProject(appName, true, { script: 'build' }, execInAppOptions)).not.toThrow();
+  });
+
   test('should generate a project with a library', async () => {
     const { workspacePath, packageManagerConfig, o3rVersion } = o3rEnvironment.testEnvironment;
     const inProjectPath = path.join(workspacePath, workspaceProjectName);
