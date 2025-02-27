@@ -7,6 +7,7 @@ import {
 
 describe('SI Token Request Plugin', () => {
   const defaultGetParams = { defaultTest: 'ok' };
+  const defaultGetParameters = { defaultTest: { value: 'ok', exploded: true, style: 'form' } };
   const defaultBody = 'default';
   let options: RequestOptions;
 
@@ -14,6 +15,7 @@ describe('SI Token Request Plugin', () => {
     options = {
       method: 'get',
       queryParams: defaultGetParams,
+      queryParameters: defaultGetParameters,
       headers: new Headers(),
       body: defaultBody,
       basePath: 'http://test.com/truc'
@@ -28,5 +30,7 @@ describe('SI Token Request Plugin', () => {
 
     expect(result.queryParams.SITK).toBe('SIToken1');
     expect(result.queryParams.SITK2).toBe('SIToken2');
+    expect(result.queryParameters.SITK.value).toBe('SIToken1');
+    expect(result.queryParameters.SITK2.value).toBe('SIToken2');
   });
 });
