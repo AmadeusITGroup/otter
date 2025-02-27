@@ -6,7 +6,7 @@
     "outDir": "./dist",
     "module": "CommonJS",
     "rootDir": ".",
-    "skipLibCheck": true, // because of @angular-devkit-schematics
+    "skipLibCheck": true, // because of @gerrit0/mini-shiki from typedoc
     "tsBuildInfoFile": "build/.tsbuildinfo.builders"
   },
   "references": [

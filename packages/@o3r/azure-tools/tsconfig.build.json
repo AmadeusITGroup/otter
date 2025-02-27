@@ -7,7 +7,6 @@
     "moduleResolution": "node",
     "outDir": "./dist",
     "rootDir": ".",
-    "skipLibCheck": true, // because of @angular-devkit-schematics
     "tsBuildInfoFile": "./build/.tsbuildinfo"
   },
   "include": [

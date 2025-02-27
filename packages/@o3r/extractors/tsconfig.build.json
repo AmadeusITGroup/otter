@@ -1,7 +1,7 @@
 {
   "extends": "../../../tsconfig.build",
   "compilerOptions": {
-    "skipLibCheck": true, // Due to the yarnpkg npm plugin
+    "skipLibCheck": true, // because of @gerrit0/mini-shiki from typedoc
     "incremental": true,
     "composite": true,
     "module": "CommonJS",
