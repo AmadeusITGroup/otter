@@ -26,4 +26,10 @@ export interface NgAddSchematicsSchema extends SchematicOptionObject {
 
   /** Monorepo manager to use */
   monorepoManager: MonorepoManager;
+
+  /** Skip adding VSCode tools */
+  skipVscodeTools?: boolean;
+
+  /** Skip adding Renovate config */
+  skipRenovate?: boolean;
 }

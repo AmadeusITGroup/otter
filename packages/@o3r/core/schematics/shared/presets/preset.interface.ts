@@ -1,5 +1,6 @@
 import type {
   Rule,
+  Tree,
 } from '@angular-devkit/schematics';
 import type {
   SchematicOptionObject,
@@ -34,7 +35,7 @@ export interface Preset {
 }
 
 /** Preset factory call when a preset has been selected */
-export type PresetFactory = (options: PresetOptions) => Promise<Preset> | Preset;
+export type PresetFactory = (options: PresetOptions, tree: Tree) => Promise<Preset> | Preset;
 
 /** Preset list */
 export type Presets = { [x in PresetNames]: PresetFactory };

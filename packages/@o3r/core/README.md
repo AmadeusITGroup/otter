@@ -104,7 +104,16 @@ Today the following presets are available.
 
 ### Preset Basic
 
-This preset is the default one, it does not add any additional modules.
+This preset does not add any additional modules.
+
+### Preset Recommended
+
+This preset is adding recommended Otter modules and features. This preset is the default one.
+
+* @o3r/eslint-config (or @o3r/eslint-config-otter for legacy configuration)
+* renovate
+* VSCode extensions
+
 
 ### Preset CMS
 

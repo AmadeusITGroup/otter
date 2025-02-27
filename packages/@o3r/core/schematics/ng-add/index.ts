@@ -67,13 +67,17 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
     };
 
     if (!options.projectName) {
+      const ngAddOptions = {
+        exactO3rVersion: options.exactO3rVersion,
+        ...(options.preset === 'basic' && { skipVscodeTools: true, skipRenovate: true })
+      };
       dependenciesSetupConfig.dependencies[workspacePackageName] = {
         toWorkspaceOnly: true,
         inManifest: [{
           range: o3rVersionRange,
           types: [NodeDependencyType.Default]
         }],
-        ngAddOptions: { exactO3rVersion: options.exactO3rVersion }
+        ngAddOptions
       };
       (dependenciesSetupConfig.ngAddToRun ||= []).push(workspacePackageName);
     }
@@ -85,8 +89,8 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       registerPackageCollectionSchematics(corePackageJsonContent),
       async (t, c) => {
         const { preset, externalPresets, ...forwardOptions } = options;
-        const presetRunner = await presets[preset]({ projectName: forwardOptions.projectName, forwardOptions });
-        const externalPresetRunner = externalPresets ? await getExternalPreset(externalPresets, t, c)({ projectName: forwardOptions.projectName, forwardOptions }) : undefined;
+        const presetRunner = await presets[preset]({ projectName: forwardOptions.projectName, forwardOptions }, t);
+        const externalPresetRunner = externalPresets ? await getExternalPreset(externalPresets, t, c)({ projectName: forwardOptions.projectName, forwardOptions }, t) : undefined;
         const modules = [...new Set([...(presetRunner.modules || []), ...(externalPresetRunner?.modules || [])])];
         if (modules.length > 0) {
           c.logger.info(`The following modules will be installed: ${modules.join(', ')}`);

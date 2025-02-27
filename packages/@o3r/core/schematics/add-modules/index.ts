@@ -35,8 +35,8 @@ function ngAddModulesFn(options: NgAddModulesSchematicsSchema): Rule {
     }
 
     const { preset, externalPresets, ...forwardOptions } = options;
-    const presetRunner = preset ? await presets[preset]({ forwardOptions }) : undefined;
-    const externalPresetRunner = externalPresets ? await getExternalPreset(externalPresets, tree, context)?.({ projectName: forwardOptions.projectName, forwardOptions }) : undefined;
+    const presetRunner = preset ? await presets[preset]({ forwardOptions }, tree) : undefined;
+    const externalPresetRunner = externalPresets ? await getExternalPreset(externalPresets, tree, context)?.({ projectName: forwardOptions.projectName, forwardOptions }, tree) : undefined;
     const mods = [...new Set([...(presetRunner?.modules || []), ...(externalPresetRunner?.modules || [])])];
     if (mods.length > 0) {
       context.logger.info(`The following modules will be installed: ${mods.join(', ')}`);
