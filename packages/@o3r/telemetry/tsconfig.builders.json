@@ -7,7 +7,6 @@
     "module": "CommonJS",
     "rootDir": ".",
     "types": ["node"],
-    "skipLibCheck": true, // because of @angular-devkit-schematics
     "tsBuildInfoFile": "build/.tsbuildinfo.builders"
   },
   "include": [
