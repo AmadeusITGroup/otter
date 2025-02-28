@@ -1,0 +1,68 @@
+{
+  "name": "@o3r/palette-generator",
+  "version": "0.0.0-placeholder",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Figma Plugin for generating palettes and storing them in Local Variables",
+  "sideEffects": false,
+  "scripts": {
+    "nx": "nx",
+    "ng": "yarn nx",
+    "build": "yarn nx build o3r-palette-generator",
+    "build:plugin": "esbuild src/plugin/code.ts --bundle --outfile=dist/src/plugin/code.js",
+    "build:ui": "tsc -p tsconfig.build.json && webpack",
+    "postbuild": "yarn cpy './manifest.json' dist"
+  },
+  "dependencies": {
+    "tslib": "^2.6.2"
+  },
+  "devDependencies": {
+    "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
+    "@figma/eslint-plugin-figma-plugins": "^0.15.0",
+    "@figma/plugin-typings": "^1.107.0",
+    "@nx/eslint-plugin": "~20.4.0",
+    "@nx/jest": "~20.4.0",
+    "@o3r/build-helpers": "workspace:^",
+    "@o3r/eslint-plugin": "workspace:^",
+    "@schematics/angular": "~19.1.0",
+    "@stylistic/eslint-plugin": "~3.1.0",
+    "@stylistic/eslint-plugin-ts": "~3.1.0",
+    "@types/jest": "~29.5.2",
+    "@types/node": "^20.0.0",
+    "@typescript-eslint/parser": "~8.24.0",
+    "angular-eslint": "~19.1.0",
+    "cpy-cli": "^5.0.0",
+    "esbuild": "~0.25.0",
+    "eslint": "~9.21.0",
+    "eslint-import-resolver-node": "~0.3.9",
+    "eslint-import-resolver-typescript": "~3.8.0",
+    "eslint-plugin-import": "~2.31.0",
+    "eslint-plugin-import-newlines": "~1.4.0",
+    "eslint-plugin-jest": "~28.11.0",
+    "eslint-plugin-jsdoc": "~50.6.0",
+    "eslint-plugin-prefer-arrow": "~1.2.3",
+    "eslint-plugin-unicorn": "~56.0.0",
+    "eslint-plugin-unused-imports": "~4.1.4",
+    "globals": "^15.9.0",
+    "html-inline-script-webpack-plugin": "^3.1.0",
+    "html-webpack-plugin": "^5.3.2",
+    "jest": "~29.7.0",
+    "jest-environment-jsdom": "~29.7.0",
+    "jest-junit": "~16.0.0",
+    "jsonc-eslint-parser": "~2.4.0",
+    "style-loader": "^3.2.1",
+    "ts-jest": "~29.2.5",
+    "ts-loader": "^9.5.2",
+    "ts-node": "~10.9.2",
+    "type-fest": "^4.30.1",
+    "typescript": "~5.7.3",
+    "typescript-eslint": "~8.24.0",
+    "url-loader": "^4.1.1",
+    "webpack": "~5.98.0",
+    "webpack-cli": "~6.0.0"
+  },
+  "engines": {
+    "node": "^18.19.1 || ^20.11.1 || >=22.0.0"
+  }
+}
