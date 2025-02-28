@@ -3,6 +3,7 @@
   "extends": [
     "config:recommended",
     ":dependencyDashboard",
+    ":semanticCommitTypeAll(chore)",
     "group:allNonMajor",
     "group:monorepos",
     "group:recommended",
