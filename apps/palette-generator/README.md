@@ -9,14 +9,17 @@ The Otter Figma plugin helps you manage color palettes in local variables. Follo
 ## Steps to use the Otter plugin
 
 1. **Generate color palettes**:
+
 - Use the Color Shades plugin to create your color palettes.
 
-![color shades](docs/color-shades.png)
+<img src="docs/color-shades.png" alt="color shades" width="40%">
+
 - Copy the generated UI elements from the Figma page.
 
-![copy shades](docs/copy-shades.png)
+<img src="docs/copy-shades.png" alt="copy shades" width="40%">
+
 The output should have this format:
-```
+```shell
 0
 #F4F7F7
 0.5
@@ -51,7 +54,7 @@ The output should have this format:
 2. **Open the Otter plugin**:
 - Launch the Otter plugin in Figma.
 
-![Otter plugin](docs/otter-plugin.png)
+<img src="docs/otter-plugin.png" alt="Otter plugin" width="40%">
 
 3. **Configure the plugin**:
 - Select values from the dropdowns for **Collections**, **Palette name**, and **Mode**. You can read more about these 3 entities on the [Figma documentation](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes).
