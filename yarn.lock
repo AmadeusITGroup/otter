@@ -9051,7 +9051,7 @@ __metadata:
     marked: "npm:^15.0.6"
     minimist: "npm:^1.2.6"
     monaco-editor: "npm:~0.52.0"
-    ng-packagr: "npm:~19.1.0"
+    ng-packagr: "npm:~19.2.0"
     ngx-markdown: "npm:^19.0.0"
     ngx-monaco-editor-v2: "npm:^19.0.2"
     ngx-monaco-tree: "npm:~19.1.0"
@@ -9367,7 +9367,7 @@ __metadata:
     jsonc-eslint-parser: "npm:~2.4.0"
     logrocket: "npm:~9.0.0"
     logrocket-ngrx: "npm:^0.2.1"
-    ng-packagr: "npm:~19.1.0"
+    ng-packagr: "npm:~19.2.0"
     nx: "npm:~20.4.0"
     rxjs: "npm:^7.8.1"
     smartlook-client: "npm:^10.0.0"
@@ -20659,7 +20659,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild@npm:0.24.2, esbuild@npm:^0.24.0, esbuild@npm:^0.24.2":
+"esbuild@npm:0.24.2, esbuild@npm:^0.24.2":
   version: 0.24.2
   resolution: "esbuild@npm:0.24.2"
   dependencies:
@@ -20745,7 +20745,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild@npm:>=0.15.13, esbuild@npm:~0.25.0":
+"esbuild@npm:>=0.15.13, esbuild@npm:^0.25.0, esbuild@npm:~0.25.0":
   version: 0.25.0
   resolution: "esbuild@npm:0.25.0"
   dependencies:
@@ -27718,9 +27718,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"ng-packagr@npm:~19.1.0":
-  version: 19.1.2
-  resolution: "ng-packagr@npm:19.1.2"
+"ng-packagr@npm:~19.2.0":
+  version: 19.2.0
+  resolution: "ng-packagr@npm:19.2.0"
   dependencies:
     "@rollup/plugin-json": "npm:^6.1.0"
     "@rollup/wasm-node": "npm:^4.24.0"
@@ -27731,7 +27731,7 @@ __metadata:
     commander: "npm:^13.0.0"
     convert-source-map: "npm:^2.0.0"
     dependency-graph: "npm:^1.0.0"
-    esbuild: "npm:^0.24.0"
+    esbuild: "npm:^0.25.0"
     fast-glob: "npm:^3.3.2"
     find-cache-dir: "npm:^3.3.2"
     injection-js: "npm:^2.4.0"
@@ -27747,7 +27747,7 @@ __metadata:
     "@angular/compiler-cli": ^19.0.0 || ^19.1.0-next.0 || ^19.2.0-next.0
     tailwindcss: ^2.0.0 || ^3.0.0 || ^4.0.0
     tslib: ^2.3.0
-    typescript: ">=5.5 <5.8"
+    typescript: ">=5.5 <5.9"
   dependenciesMeta:
     rollup:
       optional: true
@@ -27756,7 +27756,7 @@ __metadata:
       optional: true
   bin:
     ng-packagr: cli/main.js
-  checksum: 10/380a2c729e06a846df72d3730b7bda4c6869ca616c384f69f6940882e105d71aec41f03b7198201238c28baf5b20e82937f3ad102013ee68222c0cc12595ca60
+  checksum: 10/96a5374f8e4ba454b39809eb36fb45731a561a73c98b8a4049b3598e21b635b6471c52e905200788bab28e9a270bbcd02cba12217be89a541ae71f62954e5ce0
   languageName: node
   linkType: hard
 
