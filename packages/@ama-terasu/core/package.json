@@ -26,8 +26,8 @@
     "@types/minimist": "^1.2.2",
     "@types/node": "^20.0.0",
     "@types/yargs": "^17.0.20",
-    "@typescript-eslint/parser": "~8.25.0",
-    "angular-eslint": "~19.1.0",
+    "@typescript-eslint/parser": "~8.26.0",
+    "angular-eslint": "~19.2.0",
     "cpy-cli": "^5.0.0",
     "eslint": "~9.21.0",
     "eslint-import-resolver-node": "~0.3.9",
@@ -46,8 +46,8 @@
     "loglevel": "^1.8.0",
     "nx": "~20.4.0",
     "ts-jest": "~29.2.5",
-    "typescript": "~5.7.3",
-    "typescript-eslint": "~8.25.0",
+    "typescript": "~5.8.2",
+    "typescript-eslint": "~8.26.0",
     "yargs": "^17.6.2"
   },
   "dependencies": {

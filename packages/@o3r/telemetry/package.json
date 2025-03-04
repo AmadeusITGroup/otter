@@ -46,9 +46,9 @@
     }
   },
   "devDependencies": {
-    "@angular-devkit/architect": "~0.1901.0",
-    "@angular-devkit/core": "~19.1.0",
-    "@angular-devkit/schematics": "~19.1.0",
+    "@angular-devkit/architect": "~0.1902.0",
+    "@angular-devkit/core": "~19.2.0",
+    "@angular-devkit/schematics": "~19.2.0",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@nx/eslint-plugin": "~20.4.0",
     "@nx/jest": "~20.4.0",
@@ -59,8 +59,8 @@
     "@types/jest": "~29.5.2",
     "@types/minimist": "^1.2.2",
     "@types/node": "^20.0.0",
-    "@typescript-eslint/parser": "~8.25.0",
-    "angular-eslint": "~19.1.0",
+    "@typescript-eslint/parser": "~8.26.0",
+    "angular-eslint": "~19.2.0",
     "cpy-cli": "^5.0.0",
     "eslint": "~9.21.0",
     "eslint-import-resolver-node": "~0.3.9",
@@ -80,8 +80,8 @@
     "rxjs": "^7.8.1",
     "ts-jest": "~29.2.5",
     "ts-node": "~10.9.2",
-    "typescript": "~5.7.3",
-    "typescript-eslint": "~8.25.0"
+    "typescript": "~5.8.2",
+    "typescript-eslint": "~8.26.0"
   },
   "schematics": "./collection.json",
   "ng-update": {
