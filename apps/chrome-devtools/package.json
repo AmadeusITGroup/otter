@@ -75,7 +75,7 @@
     "jest-junit": "~16.0.0",
     "jest-preset-angular": "~14.5.0",
     "jsonc-eslint-parser": "~2.4.0",
-    "lighthouse": "~12.3.0",
+    "lighthouse": "~12.4.0",
     "minimist": "^1.2.6",
     "nx": "~20.4.0",
     "playwright-lighthouse": "~4.0.0",
