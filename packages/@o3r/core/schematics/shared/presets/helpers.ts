@@ -36,7 +36,7 @@ export function defaultPresetRuleFactory(moduleToInstall: string[], options: Pre
           range: `${options.exactO3rVersion ? '' : '~'}${corePackageJsonContent.version}`,
           types: getProjectNewDependenciesTypes(workspaceProject)
         }],
-        ngAddOptions: { exactO3rVersion: options.exactO3rVersion }
+        ngAddOptions: { ...options.forwardOptions, exactO3rVersion: options.exactO3rVersion }
       };
       return acc;
     }, {} as Record<string, DependencyToAdd>);
