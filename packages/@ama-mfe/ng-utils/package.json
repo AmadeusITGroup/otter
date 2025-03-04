@@ -1,0 +1,114 @@
+{
+  "name": "@ama-mfe/ng-utils",
+  "version": "0.0.0-placeholder",
+  "peerDependencies": {
+    "@ama-mfe/messages": "workspace:^",
+    "@amadeus-it-group/microfrontends": "0.x.x",
+    "@amadeus-it-group/microfrontends-angular": "0.x.x",
+    "@angular-devkit/core": "~19.1.0",
+    "@angular-devkit/schematics": "~19.1.0",
+    "@angular/common": "^19.0.0",
+    "@angular/core": "^19.0.0",
+    "@angular/platform-browser": "~19.1.0",
+    "@angular/router": "~19.1.0",
+    "@o3r/schematics": "workspace:^",
+    "rxjs": "^7.8.1"
+  },
+  "dependencies": {
+    "@amadeus-it-group/microfrontends": "^0.0.2",
+    "@amadeus-it-group/microfrontends-angular": "^0.0.2",
+    "tslib": "^2.6.2"
+  },
+  "sideEffects": false,
+  "scripts": {
+    "nx": "nx",
+    "ng": "yarn nx",
+    "postbuild": "patch-package-json-exports",
+    "prepare:compile": "cp-package-json",
+    "build": "yarn nx build ama-mfe-ng-utils",
+    "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist",
+    "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest",
+    "prepare:publish": "prepare-publish ./dist"
+  },
+  "devDependencies": {
+    "@ama-mfe/messages": "workspace:^",
+    "@angular-devkit/architect": "~0.1901.0",
+    "@angular-devkit/build-angular": "~19.1.0",
+    "@angular-devkit/core": "~19.1.0",
+    "@angular-devkit/schematics": "~19.1.0",
+    "@angular/cli": "~19.1.0",
+    "@angular/common": "~19.1.0",
+    "@angular/compiler": "~19.1.0",
+    "@angular/compiler-cli": "~19.1.0",
+    "@angular/core": "~19.1.0",
+    "@angular/platform-browser": "~19.1.0",
+    "@angular/platform-browser-dynamic": "~19.1.0",
+    "@angular/router": "~19.1.0",
+    "@babel/core": "~7.26.0",
+    "@babel/preset-env": "~7.26.0",
+    "@babel/preset-typescript": "~7.26.0",
+    "@compodoc/compodoc": "^1.1.19",
+    "@o3r/build-helpers": "workspace:^",
+    "@o3r/eslint-config": "workspace:^",
+    "@o3r/eslint-plugin": "workspace:^",
+    "@o3r/schematics": "workspace:^",
+    "@schematics/angular": "~19.1.0",
+    "@types/jest": "~29.5.2",
+    "@types/node": "^20.0.0",
+    "babel-jest": "^29.7.0",
+    "cpy-cli": "^5.0.0",
+    "eslint": "~9.21.0",
+    "eslint-import-resolver-node": "~0.3.9",
+    "eslint-import-resolver-typescript": "~3.8.0",
+    "eslint-plugin-import": "~2.31.0",
+    "eslint-plugin-import-newlines": "~1.4.0",
+    "eslint-plugin-jest": "~28.11.0",
+    "eslint-plugin-jsdoc": "~50.6.0",
+    "eslint-plugin-prefer-arrow": "~1.2.3",
+    "eslint-plugin-unicorn": "~56.0.0",
+    "eslint-plugin-unused-imports": "~4.1.4",
+    "globals": "^15.9.0",
+    "globby": "^11.1.0",
+    "jest": "~29.7.0",
+    "jest-environment-jsdom": "~29.7.0",
+    "jest-junit": "~16.0.0",
+    "jest-preset-angular": "~14.5.0",
+    "jsonc-eslint-parser": "~2.4.0",
+    "rxjs": "^7.8.1",
+    "ts-jest": "~29.2.5",
+    "ts-node": "~10.9.2",
+    "typescript": "~5.7.3",
+    "typescript-eslint": "~8.25.0",
+    "zone.js": "~0.15.0"
+  },
+  "keywords": [
+    "otter-module",
+    "micro frontend",
+    "iframe",
+    "communication protocol"
+  ],
+  "schematics": "./collection.json",
+  "peerDependenciesMeta": {
+    "@ama-mfe/messages": {
+      "optional": true
+    },
+    "@amadeus-it-group/microfrontends": {
+      "optional": true
+    },
+    "@amadeus-it-group/microfrontends-angular": {
+      "optional": true
+    },
+    "@angular-devkit/core": {
+      "optional": true
+    },
+    "@angular-devkit/schematics": {
+      "optional": true
+    },
+    "@o3r/schematics": {
+      "optional": true
+    },
+    "@schematics/angular": {
+      "optional": true
+    }
+  }
+}

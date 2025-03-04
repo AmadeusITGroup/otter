@@ -1,0 +1,17 @@
+{
+  "extends": "../../../tsconfig.build",
+  "compilerOptions": {
+    "sourceMap": true,
+    "incremental": true,
+    "composite": true,
+    "rootDir": ".",
+    "declarationMap": true,
+    "target": "es2020",
+    "module": "es2020",
+    "tsBuildInfoFile": "./build/tsconfig.tsbuildinfo",
+    "outDir": "./dist"
+  },
+  "include": [
+    "src/**/*.ts"
+  ]
+}
