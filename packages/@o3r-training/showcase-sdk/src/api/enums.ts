@@ -1,1 +1,1 @@
-export type { FindPetsByStatusStatusEnum } from './pet/index';
+export type { PetApiFindPetsByStatusStatusEnum } from './pet/index';

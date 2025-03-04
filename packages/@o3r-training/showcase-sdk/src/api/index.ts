@@ -1,7 +1,7 @@
-export type { AddPetRequestData, DeletePetRequestData, FindPetsByStatusRequestData, FindPetsByTagsRequestData, GetPetByIdRequestData, UpdatePetRequestData, UpdatePetWithFormRequestData, UploadFileRequestData } from './pet/index';
+export type { PetApiAddPetRequestData, PetApiDeletePetRequestData, PetApiFindPetsByStatusRequestData, PetApiFindPetsByTagsRequestData, PetApiGetPetByIdRequestData, PetApiUpdatePetRequestData, PetApiUpdatePetWithFormRequestData, PetApiUploadFileRequestData } from './pet/index';
 export { PetApi } from './pet/index';
-export type { DeleteOrderRequestData, GetInventoryRequestData, GetOrderByIdRequestData, PlaceOrderRequestData } from './store/index';
+export type { StoreApiDeleteOrderRequestData, StoreApiGetInventoryRequestData, StoreApiGetOrderByIdRequestData, StoreApiPlaceOrderRequestData } from './store/index';
 export { StoreApi } from './store/index';
-export type { CreateUserRequestData, CreateUsersWithListInputRequestData, DeleteUserRequestData, GetUserByNameRequestData, LoginUserRequestData, LogoutUserRequestData, UpdateUserRequestData } from './user/index';
+export type { UserApiCreateUserRequestData, UserApiCreateUsersWithListInputRequestData, UserApiDeleteUserRequestData, UserApiGetUserByNameRequestData, UserApiLoginUserRequestData, UserApiLogoutUserRequestData, UserApiUpdateUserRequestData } from './user/index';
 export { UserApi } from './user/index';
 export * from './enums';
