@@ -1,6 +1,9 @@
 {
   "name": "@ama-mfe/ng-utils",
   "version": "0.0.0-placeholder",
+  "publishConfig": {
+    "access": "public"
+  },
   "peerDependencies": {
     "@ama-mfe/messages": "workspace:^",
     "@amadeus-it-group/microfrontends": "0.x.x",
