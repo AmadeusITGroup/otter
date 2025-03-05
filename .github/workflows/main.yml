@@ -30,9 +30,15 @@ jobs:
       NX_SKIP_NX_CACHE: true
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          # Fetch 2 is needed to properly check if the yarn.lock is affected by a pull-request
+          fetch-depth: 2
       - uses: ./tools/github-actions/setup
         env:
           YARN_ENABLE_HARDENED_MODE: 1
+      - name: Yarn errors reporter
+        if: github.event_name == 'pull_request'
+        uses: ./tools/github-actions/yarn-errors-reporter
 
   build:
     runs-on: ubuntu-latest

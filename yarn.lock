@@ -36245,6 +36245,41 @@ __metadata:
   languageName: node
   linkType: hard
 
+"yarn-errors-reporter-gh-action@workspace:tools/github-actions/yarn-errors-reporter":
+  version: 0.0.0-use.local
+  resolution: "yarn-errors-reporter-gh-action@workspace:tools/github-actions/yarn-errors-reporter"
+  dependencies:
+    "@actions/core": "npm:^1.10.0"
+    "@actions/exec": "npm:^1.1.1"
+    "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
+    "@nx/eslint-plugin": "npm:~20.4.0"
+    "@o3r/eslint-config": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@stylistic/eslint-plugin-ts": "npm:~3.1.0"
+    "@types/jest": "npm:~29.5.2"
+    "@types/node": "npm:^20.0.0"
+    "@typescript-eslint/parser": "npm:~8.25.0"
+    "@vercel/ncc": "npm:~0.38.0"
+    angular-eslint: "npm:~19.1.0"
+    eslint: "npm:~9.21.0"
+    eslint-plugin-import: "npm:~2.31.0"
+    eslint-plugin-import-newlines: "npm:~1.4.0"
+    eslint-plugin-jest: "npm:~28.11.0"
+    eslint-plugin-jsdoc: "npm:~50.6.0"
+    eslint-plugin-prefer-arrow: "npm:~1.2.3"
+    eslint-plugin-unicorn: "npm:~56.0.0"
+    eslint-plugin-unused-imports: "npm:~4.1.4"
+    globals: "npm:^15.9.0"
+    jest: "npm:~29.7.0"
+    jest-junit: "npm:~16.0.0"
+    jsonc-eslint-parser: "npm:~2.4.0"
+    ts-jest: "npm:~29.2.5"
+    tslib: "npm:^2.6.2"
+    typescript: "npm:~5.7.3"
+    typescript-eslint: "npm:~8.25.0"
+  languageName: unknown
+  linkType: soft
+
 "yauzl@npm:^2.10.0, yauzl@npm:^2.3.1":
   version: 2.10.0
   resolution: "yauzl@npm:2.10.0"
