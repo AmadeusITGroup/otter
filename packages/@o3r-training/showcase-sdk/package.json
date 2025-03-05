@@ -32,7 +32,10 @@
       "require": "./esm2020/index.js"
     },
     "./openapi.yml": {
-      "default": "./openapi.yml"
+      "default": "./open-api.yaml"
+    },
+    "./open-api.yaml": {
+      "default": "./open-api.yaml"
     },
     "./structure/src.json": {
       "default": "./structure/src.json"
@@ -47,8 +50,8 @@
     "start": "tsc-watch -b tsconfigs/esm2020 --noClear --onFirstSuccess \"yarn run files:pack --watch\"",
     "extract": "yarn run extract-src && yarn run extract-spec",
     "extract-src": "o3r-extract-folder-structure --files \"src\" -o dist/structure/src.json",
-    "extract-spec": "o3r-extract-folder-structure --files \"./openapi.yml\",\"./openapitools.json\" -o dist/structure/spec.json",
-    "build": "yarn run build:cjs && yarn run build:esm2015 && yarn run build:esm2020 && cpy openapi.yml ./dist && yarn run files:pack",
+    "extract-spec": "o3r-extract-folder-structure --files \"./open-api.yaml\",\"./openapitools.json\" -o dist/structure/spec.json",
+    "build": "yarn run build:cjs && yarn run build:esm2015 && yarn run build:esm2020 && cpy open-api.yaml ./dist && yarn run files:pack",
     "build:cjs": "swc src -d dist/cjs -C module.type=commonjs -q",
     "build:esm2015": "swc src -d dist/esm2015 -C module.type=es6 -q",
     "build:esm2020": "tsc -b tsconfigs/esm2020",
