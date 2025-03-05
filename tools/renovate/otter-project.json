@@ -5,6 +5,7 @@
     "github>AmadeusITGroup/otter//tools/renovate/group/otter",
     "github>AmadeusITGroup/otter//tools/renovate/tasks/base",
     "github>AmadeusITGroup/otter//tools/renovate/tasks/otter-ng-update(yarn)",
-    "github>AmadeusITGroup/otter//tools/renovate/tasks/yarn-pnp"
+    "github>AmadeusITGroup/otter//tools/renovate/tasks/yarn-pnp",
+    "github>AmadeusITGroup/otter//tools/renovate/managers/renovate-otter-presets.json5"
   ]
 }
