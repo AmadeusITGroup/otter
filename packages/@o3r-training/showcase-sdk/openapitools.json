@@ -2,13 +2,13 @@
   "$schema": "https://raw.githubusercontent.com/OpenAPITools/openapi-generator-cli/master/apps/generator-cli/src/config.schema.json",
   "spaces": 2,
   "generator-cli": {
-    "version": "7.4.0",
+    "version": "7.11.0",
     "storageDir": ".openapi-generator",
     "generators": {
       "training-showcase-sdk": {
         "generatorName": "typescriptFetch",
         "output": ".",
-        "inputSpec": "./openapi.yml",
+        "inputSpec": "./open-api.yaml",
         "globalProperty": {
           "stringifyDate": true
         }

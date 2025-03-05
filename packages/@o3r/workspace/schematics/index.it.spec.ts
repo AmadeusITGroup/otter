@@ -73,7 +73,7 @@ describe('new otter workspace', () => {
       'sdk',
       '@my-sdk/sdk',
       '--spec-package-name', '@o3r-training/showcase-sdk',
-      '--spec-package-path', './openapi.yml',
+      '--spec-package-path', './open-api.yaml',
       '--spec-package-registry', registry,
       '--spec-package-version', o3rVersion
     ] }, execAppOptions)).not.toThrow();

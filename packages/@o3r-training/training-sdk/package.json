@@ -133,6 +133,8 @@
     "yarn": ">=2.0.0 <5.0.0"
   },
   "config": {
-    "o3rMetrics": false
+    "o3r": {
+      "telemetry": false
+    }
   }
 }

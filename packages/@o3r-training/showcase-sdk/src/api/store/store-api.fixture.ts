@@ -5,7 +5,7 @@ export class StoreApiFixture implements Partial<Readonly<StoreApi>> {
   /** @inheritDoc */
   public readonly apiName = 'StoreApi';
 
-  /**
+    /**
    * Fixture associated to function deleteOrder
    */
   public deleteOrder: jasmine.Spy = jasmine.createSpy('deleteOrder');

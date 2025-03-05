@@ -94,7 +94,7 @@ export class {{classname}} implements Api {
     {{/hasFormParams}}
     {{#bodyParam}}
     if (headers['Content-Type'] && isJsonMimeType(headers['Content-Type'])) {
-      body = data['{{baseName}}'] ? JSON.stringify(data['{{baseName}}']) : {{#isArray}}'[]'{{/isArray}}{{^isArray}}'{}'{{/isArray}};
+      body = typeof data['{{baseName}}'] !== 'undefined' ? JSON.stringify(data['{{baseName}}']) : {{#isArray}}'[]'{{/isArray}}{{^isArray}}'{}'{{/isArray}};
     } else {
       body = data['{{baseName}}'] as any;
     }
