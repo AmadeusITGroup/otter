@@ -3,8 +3,10 @@ import type {
 } from '@angular-devkit/schematics';
 import {
   getDefaultOptionsForSchematic,
+} from '../../utility/collection';
+import {
   getWorkspaceConfig,
-} from '../../utility';
+} from '../../utility/loaders';
 
 /**
  * Factory of the schematic to wrap
@@ -14,6 +16,7 @@ type SchematicWrapperFn<S extends Record<string, any>> = (options: S) => Rule;
 
 /**
  * Wrapper method of a schematic to retrieve options from workspace and merge it with the one from the run of the schematic
+ * NOTE: please do not use it directly, instead use {@link createOtterSchematic} to wrap your schematic
  * @param schematicFn
  */
 export function createSchematicWithOptionsFromWorkspace<S extends Record<string, any>>(schematicFn: SchematicWrapperFn<S>): SchematicWrapperFn<S> {

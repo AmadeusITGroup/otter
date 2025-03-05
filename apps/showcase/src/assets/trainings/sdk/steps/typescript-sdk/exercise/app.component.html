@@ -1,0 +1,21 @@
+<table class="table">
+  <caption align="top">
+    First 10 pets with the status <b>available</b> from the Swagger Petstore
+  </caption>
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Name</th>
+    <th scope="col">Status</th>
+  </tr>
+  </thead>
+  <tbody>
+    @for (pet of pets(); track pet.id; let index = $index) {
+      <tr>
+        <td>{{ index + 1 }}</td>
+        <td>{{ pet.name }}</td>
+        <td>{{ pet.status }}</td>
+      </tr>
+    }
+  </tbody>
+</table>

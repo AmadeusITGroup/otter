@@ -21,9 +21,7 @@
         "tsConfig": "packages/@o3r/configuration/tsconfig.build.json"
       }
     },
-    "prepare": {
-      "executor": "nx:run-script"
-    },
+    "prepare": {},
     "build-fixtures": {
       "executor": "nx:noop"
     },
@@ -39,51 +37,14 @@
         "script": "build:fixtures:jasmine"
       }
     },
-    "build-builders": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "build:builders"
-      }
-    },
-    "lint": {
-      "executor": "nx:run-commands"
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "options": {
-        "jestConfig": "packages/@o3r/configuration/jest.config.js"
-      }
-    },
-    "test-int": {
-      "executor": "@nx/jest:jest",
-      "options": {
-        "jestConfig": "packages/@o3r/configuration/testing/jest.config.it.js"
-      }
-    },
-    "prepare-publish": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "prepare:publish"
-      }
-    },
-    "publish": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "npm publish packages/@o3r/configuration/dist"
-      }
-    },
-    "prepare-build-builders": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "prepare:build:builders"
-      }
-    },
-    "documentation": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "compodoc"
-      }
-    }
+    "build-builders": {},
+    "lint": {},
+    "test": {},
+    "test-int": {},
+    "prepare-publish": {},
+    "publish": {},
+    "prepare-build-builders": {},
+    "documentation": {}
   },
   "tags": []
 }

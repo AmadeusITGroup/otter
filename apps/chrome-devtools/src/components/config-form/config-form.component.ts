@@ -32,7 +32,6 @@ type ControlsType = Record<string, 'boolean' | 'string' | 'number'>;
   selector: 'app-config-form',
   templateUrl: './config-form.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [
     FormsModule,
     ReactiveFormsModule,

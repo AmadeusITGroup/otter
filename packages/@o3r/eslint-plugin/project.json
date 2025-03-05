@@ -17,12 +17,7 @@
       },
       "dependsOn": ["^build", "build-builders", "compile"]
     },
-    "prepare-build-builders": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "prepare:build:builders"
-      }
-    },
+    "prepare-build-builders": {},
     "build-builders": {
       "executor": "nx:run-script",
       "options": {
@@ -40,33 +35,11 @@
       },
       "dependsOn": []
     },
-    "lint": {
-      "executor": "nx:run-commands"
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "options": {
-        "jestConfig": "packages/@o3r/eslint-plugin/jest.config.js"
-      }
-    },
-    "prepare-publish": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "prepare:publish"
-      }
-    },
-    "publish": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "npm publish packages/@o3r/eslint-plugin/dist"
-      }
-    },
-    "documentation": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "compodoc"
-      }
-    }
+    "lint": {},
+    "test": {},
+    "prepare-publish": {},
+    "publish": {},
+    "documentation": {}
   },
   "tags": []
 }

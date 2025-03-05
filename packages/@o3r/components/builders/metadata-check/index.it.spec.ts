@@ -32,8 +32,9 @@ import {
 import {
   inc,
 } from 'semver';
-import type {
-  MigrationConfigData,
+import {
+  configMetadataComparator,
+  type MigrationConfigData,
 } from './helpers/config-metadata-comparison.helper';
 import type {
   ComponentConfigOutput,
@@ -185,7 +186,10 @@ const previousConfigurationMetadata: ComponentConfigOutput[] = [
   createConfig('@o3r/lib6', 'MyConfig6', ['prop6']),
   createConfig('@o3r/lib7', 'MyConfig7', ['prop7']),
   createConfig('@o3r/lib8', 'MyConfig8', ['prop8']),
-  createConfig('@o3r/lib9', 'MyConfig9', ['prop9'])
+  createConfig('@o3r/lib9', 'MyConfig9', ['prop9']),
+  // This case should not happen anymore as we filter config without properties
+  // Adding this case to ensure the support of older metadata
+  createConfig('@o3r/lib10', 'MyConfig10', [])
 ];
 
 const newConfigurationMetadata: ComponentConfigOutput[] = [
@@ -198,7 +202,8 @@ const newConfigurationMetadata: ComponentConfigOutput[] = [
   createConfig('@new/lib6', 'NewConfig6', ['newProp6Name']),
   createConfig('@o3r/lib7', 'NewConfig7', ['prop7']),
   createConfig('@new/lib8', 'MyConfig8', ['prop8']),
-  createConfig('@new/lib9', 'MyConfig9', ['prop9'])
+  createConfig('@new/lib9', 'MyConfig9', ['prop9']),
+  createConfig('@o3r/lib10', 'MyConfig10', ['prop10'])
 ];
 
 async function writeFileAsJSON(path: string, content: object) {
@@ -298,6 +303,12 @@ const initTest = async (
   await writeFileAsJSON(migrationDataPath, migrationData);
 };
 
+const getMessagesForId = (id: string) => ({
+  notDocumented: `Property ${id} has been modified but is not documented in the migration document`,
+  documentedButNotPresent: `Property ${id} has been modified but the new property is not present in the new metadata`,
+  breakingChangesNotAllowed: `Property ${id} is not present in the new metadata and breaking changes are not allowed`
+});
+
 describe('check metadata migration', () => {
   test('should not throw', async () => {
     await initTest(
@@ -344,11 +355,19 @@ describe('check metadata migration', () => {
     } catch (e: any) {
       /* eslint-disable jest/no-conditional-expect -- always called as there is a throw in the try block */
       expect(e.message).not.toBe('should have thrown before');
-      previousConfigurationMetadata.slice(1).forEach(({ library, name, properties }) => {
-        const id = `${library}#${name} ${properties[0].name}`;
-        expect(e.message).toContain(`Property ${id} has been modified but is not documented in the migration document`);
-        expect(e.message).not.toContain(`Property ${id} has been modified but the new property is not present in the new metadata`);
-        expect(e.message).not.toContain(`Property ${id} is not present in the new metadata and breaking changes are not allowed`);
+      previousConfigurationMetadata.slice(1, -1).forEach((item) => {
+        const id = configMetadataComparator.getIdentifier(item);
+        const { notDocumented, documentedButNotPresent, breakingChangesNotAllowed } = getMessagesForId(id);
+        expect(e.message).toContain(notDocumented);
+        expect(e.message).not.toContain(documentedButNotPresent);
+        expect(e.message).not.toContain(breakingChangesNotAllowed);
+      });
+      [previousConfigurationMetadata[0], previousConfigurationMetadata.at(-1)].forEach((item) => {
+        const id = configMetadataComparator.getIdentifier(item);
+        const { notDocumented, documentedButNotPresent, breakingChangesNotAllowed } = getMessagesForId(id);
+        expect(e.message).not.toContain(notDocumented);
+        expect(e.message).not.toContain(documentedButNotPresent);
+        expect(e.message).not.toContain(breakingChangesNotAllowed);
       });
       /* eslint-enable jest/no-conditional-expect */
     }
@@ -379,11 +398,19 @@ describe('check metadata migration', () => {
     } catch (e: any) {
       /* eslint-disable jest/no-conditional-expect -- always called as there is a throw in the try block */
       expect(e.message).not.toBe('should have thrown before');
-      previousConfigurationMetadata.slice(1).forEach(({ library, name, properties }) => {
-        const id = `${library}#${name} ${properties[0].name}`;
-        expect(e.message).not.toContain(`Property ${id} has been modified but is not documented in the migration document`);
-        expect(e.message).toContain(`Property ${id} has been modified but the new property is not present in the new metadata`);
-        expect(e.message).not.toContain(`Property ${id} is not present in the new metadata and breaking changes are not allowed`);
+      previousConfigurationMetadata.slice(1, -1).forEach((item) => {
+        const id = configMetadataComparator.getIdentifier(item);
+        const { notDocumented, documentedButNotPresent, breakingChangesNotAllowed } = getMessagesForId(id);
+        expect(e.message).not.toContain(notDocumented);
+        expect(e.message).toContain(documentedButNotPresent);
+        expect(e.message).not.toContain(breakingChangesNotAllowed);
+      });
+      [previousConfigurationMetadata[0], previousConfigurationMetadata.at(-1)].forEach((item) => {
+        const id = configMetadataComparator.getIdentifier(item);
+        const { notDocumented, documentedButNotPresent, breakingChangesNotAllowed } = getMessagesForId(id);
+        expect(e.message).not.toContain(notDocumented);
+        expect(e.message).not.toContain(documentedButNotPresent);
+        expect(e.message).not.toContain(breakingChangesNotAllowed);
       });
       /* eslint-enable jest/no-conditional-expect */
     }
@@ -408,11 +435,19 @@ describe('check metadata migration', () => {
     } catch (e: any) {
       /* eslint-disable jest/no-conditional-expect -- always called as there is a throw in the try block */
       expect(e.message).not.toBe('should have thrown before');
-      previousConfigurationMetadata.slice(1).forEach(({ library, name, properties }) => {
-        const id = `${library}#${name} ${properties[0].name}`;
-        expect(e.message).not.toContain(`Property ${id} has been modified but is not documented in the migration document`);
-        expect(e.message).not.toContain(`Property ${id} has been modified but the new property is not present in the new metadata`);
-        expect(e.message).toContain(`Property ${id} is not present in the new metadata and breaking changes are not allowed`);
+      previousConfigurationMetadata.slice(1, -1).forEach((item) => {
+        const id = configMetadataComparator.getIdentifier(item);
+        const { notDocumented, documentedButNotPresent, breakingChangesNotAllowed } = getMessagesForId(id);
+        expect(e.message).not.toContain(notDocumented);
+        expect(e.message).not.toContain(documentedButNotPresent);
+        expect(e.message).toContain(breakingChangesNotAllowed);
+      });
+      [previousConfigurationMetadata[0], previousConfigurationMetadata.at(-1)].forEach((item) => {
+        const id = configMetadataComparator.getIdentifier(item);
+        const { notDocumented, documentedButNotPresent, breakingChangesNotAllowed } = getMessagesForId(id);
+        expect(e.message).not.toContain(notDocumented);
+        expect(e.message).not.toContain(documentedButNotPresent);
+        expect(e.message).not.toContain(breakingChangesNotAllowed);
       });
       /* eslint-enable jest/no-conditional-expect */
     }

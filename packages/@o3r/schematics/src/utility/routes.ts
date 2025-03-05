@@ -119,7 +119,7 @@ export function getRoutesNodeArray(tree: Tree, context: SchematicContext, appRou
  * @param route The Route to insert
  * @param standalone Whether the page component is standalone
  */
-export function insertRoute(tree: Tree, context: SchematicContext, appRoutingModulePath: string, route: Route, standalone = false) {
+export function insertRoute(tree: Tree, context: SchematicContext, appRoutingModulePath: string, route: Route, standalone = true) {
   const routes = getRoutesNodeArray(tree, context, appRoutingModulePath);
 
   if (routes) {

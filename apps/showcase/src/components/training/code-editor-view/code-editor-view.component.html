@@ -1,0 +1,32 @@
+<as-split direction="vertical">
+  <as-split-area [size]="editorMode() === 'interactive' ? 50 : 100">
+    <form [formGroup]="form" class="editor h-100 overflow-hidden position-relative">
+      <as-split direction="horizontal">
+        <as-split-area [size]="25">
+          <monaco-tree [tree]="(cwdTree$ | async) || []"
+                       [currentFile]="form.controls.file.value"
+                       (currentFileChange)="onClickFile($event)"
+                       [width]="'auto'"
+                       [height]="'auto'"
+                       class="w-100 editor-view"></monaco-tree>
+        </as-split-area>
+        <as-split-area [size]="75" class="editor-view">
+          @if (editorOptions()) {
+            <ngx-monaco-editor class="h-100 position-relative"
+                               [options]="editorOptions()"
+                               [model]="model$ | async"
+                               (keydown)="onEditorKeyDown($event)"
+                               (onInit)="newMonacoEditorCreated.next()"
+                               formControlName="code">
+            </ngx-monaco-editor>
+          }
+        </as-split-area>
+      </as-split>
+    </form>
+  </as-split-area>
+  @if (displayTerminal()) {
+    <as-split-area [size]="50">
+      <code-editor-control class="d-flex flex-column h-100"></code-editor-control>
+    </as-split-area>
+  }
+</as-split>

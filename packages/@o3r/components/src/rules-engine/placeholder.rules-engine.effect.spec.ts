@@ -109,61 +109,20 @@ describe('Rules Engine Effects', () => {
     expect(effect).toBeDefined();
   });
 
-  it('should resolve vars', async () => {
-    const setPlaceholderEffect$ = effect.setPlaceholderRequestEntityFromUrl$.pipe(shareReplay(1));
-    const response: PlaceholderRequestReply = {
-      vars: {
-        myRelPath: {
-          type: 'relativeUrl',
-          value: 'assets-demo-app/img/logo/logo-positive.png'
-        },
-        test: {
-          type: 'localisation',
-          value: 'localisationKey',
-          vars: ['parameterForLoc']
-        },
-        parameterForLoc: {
-          type: 'fact',
-          value: 'parameter'
-        },
-        factInTemplate: {
-          type: 'fact',
-          value: 'factInTemplate',
-          path: '$.myKey'
-        }
-      },
-      template: '<img src=\'<%= myRelPath %>\'> <div><%= test %></div><span><%= factInTemplate %></span>'
-    };
-    actions.next(setPlaceholderRequestEntityFromUrl({
-      call: Promise.resolve(response),
-      id: 'myPlaceholderUrl',
-      resolvedUrl: 'myPlaceholderResolvedUrl'
-    }));
-    factsStream.myFact.next('ignored');
-    factsStream.parameter.next('success');
-    factsStream.factInTemplate.next({ myKey: 'Outstanding fact' });
-
-    const result = (await firstValueFrom(setPlaceholderEffect$)) as UpdateAsyncStoreItemEntityActionPayloadWithId<PlaceholderRequestModel>
-      & Action<'[PlaceholderRequest] update entity'>;
-    expect(result.type).toBe('[PlaceholderRequest] update entity');
-    expect(result.entity.renderedTemplate).toBe('<img src=\'fakeUrl\'> <div>This is a test with a success</div><span>Outstanding fact</span>');
-    expect(result.entity.unknownTypeFound).toBeFalsy();
-  });
-
-  it('should resolve vars and parameters', async () => {
+  it('should resolve parameters', async () => {
     const setPlaceholderEffect$ = effect.setPlaceholderRequestEntityFromUrl$.pipe(shareReplay(1));
     const response: PlaceholderRequestReply = {
       vars: {
         test: {
           type: 'localisation',
           value: 'locForUser',
-          vars: ['varForLoc'],
           parameters: {
             userEmail: 'email',
-            userPhone: 'phone'
+            userPhone: 'phone',
+            parameter: 'paramForLoc'
           }
         },
-        varForLoc: {
+        paramForLoc: {
           type: 'fact',
           value: 'parameter'
         },

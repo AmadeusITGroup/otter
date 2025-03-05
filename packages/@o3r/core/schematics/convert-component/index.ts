@@ -6,7 +6,7 @@ import {
 } from '@angular-devkit/schematics';
 import {
   applyEsLintFix,
-  createSchematicWithMetricsIfInstalled,
+  createOtterSchematic,
   isNgClassComponent,
   isO3rClassComponent,
   O3rCliError,
@@ -74,4 +74,4 @@ function convertToO3rComponentFn(options: ConvertToO3rComponentSchematicsSchema)
  * Convert an Angular component into an Otter component
  * @param options
  */
-export const convertToO3rComponent = createSchematicWithMetricsIfInstalled(convertToO3rComponentFn);
+export const convertToO3rComponent = createOtterSchematic(convertToO3rComponentFn);

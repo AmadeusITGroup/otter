@@ -23,13 +23,11 @@
     },
     "exactO3rVersion": {
       "type": "boolean",
-      "description": "Use a pinned version for otter packages",
-      "default": false
+      "description": "Use a pinned version for otter packages"
     },
     "skipCodeSample": {
       "type": "boolean",
-      "description": "Skip the code sample generated in application to register the ApiManager (which is relying on FetchApiClient)",
-      "default": false
+      "description": "Skip the code sample generated in application to register the ApiManager (which is relying on FetchApiClient)"
     }
   },
   "required": [

@@ -18,8 +18,8 @@ export interface NgAddLocalizationKeySchematicsSchema extends SchematicOptionObj
   /** Default value of the localization */
   value: string;
 
-  /** Is a dictionnary key */
-  dictionnary: boolean;
+  /** Is a dictionary key */
+  dictionary: boolean;
 
   /** Update the template by replacing matching value by the localization key */
   updateTemplate?: boolean | undefined;

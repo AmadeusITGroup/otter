@@ -107,7 +107,7 @@ export class EngineDebugger {
         subscriber.next(list.getEntries() as PerformanceMeasure[]);
       });
       performanceObserver.observe({ entryTypes: ['measure'] });
-      return performanceObserver.disconnect();
+      return () => performanceObserver.disconnect();
     }).pipe(startWith([]), shareReplay(1));
   }
 
@@ -248,7 +248,7 @@ export class EngineDebugger {
 
   /**
    * Emits an 'AllActions' debug event each time the rules engine outputs the list of actions
-   * @param actions list of outputed actions
+   * @param actions list of outputted actions
    */
   public allActionsChange(actions: ActionBlock[]) {
     const timestamp = Date.now();
@@ -256,7 +256,7 @@ export class EngineDebugger {
   }
 
   /**
-   * Emits a 'RulesetExecution' debug event at the ouput of a successful ruleset execution
+   * Emits a 'RulesetExecution' debug event at the output of a successful ruleset execution
    * @param ruleset
    * @param executionCounter
    * @param rulesetInputFacts
@@ -274,7 +274,7 @@ export class EngineDebugger {
   }
 
   /**
-   * Emits a 'RulesetExecutionError' debug event at the ouput of a failing ruleset execution
+   * Emits a 'RulesetExecutionError' debug event at the output of a failing ruleset execution
    * @param ruleset
    * @param rulesetInputFacts
    * @param executionCounter
@@ -292,6 +292,26 @@ export class EngineDebugger {
   ) {
     const timestamp = Date.now();
     this.debugEventsSubject$.next(() => this.rulesetExecutionError(timestamp, ruleset, rulesetInputFacts, executionCounter, runtimeFactValues, rulesetTriggers, rulesExecutions));
+  }
+
+  /**
+   * Emits a 'AvailableFactsSnapshot' debug event when a fact value is updated
+   * @param _id
+   * @param factValue$
+   */
+  public addAvailableFactsSnapshotEvent(
+    _id: string,
+    factValue$: Observable<any>
+  ) {
+    factValue$.subscribe(async () => {
+      const timestamp = Date.now();
+      const facts = await this.getFactsSnapshot(this.registeredRuleEngine!.getRegisteredFactsNames());
+      this.debugEventsSubject$.next(() => ({
+        timestamp,
+        type: 'AvailableFactsSnapshot',
+        facts
+      }));
+    });
   }
 
   /**

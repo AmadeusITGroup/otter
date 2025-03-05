@@ -9,9 +9,7 @@
       "executor": "nx:noop",
       "dependsOn": ["build-builders", "compile"]
     },
-    "prepare": {
-      "executor": "nx:run-script"
-    },
+    "prepare": {},
     "compile": {
       "executor": "@angular-devkit/build-angular:ng-packagr",
       "options": {
@@ -23,51 +21,14 @@
         "^build"
       ]
     },
-    "prepare-build-builders": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "prepare:build:builders"
-      }
-    },
-    "build-builders": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "build:builders"
-      }
-    },
-    "lint": {
-      "executor": "nx:run-commands"
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "options": {
-        "jestConfig": "packages/@o3r/localization/jest.config.js"
-      }
-    },
-    "test-int": {
-      "executor": "@nx/jest:jest",
-      "options": {
-        "jestConfig": "packages/@o3r/localization/testing/jest.config.it.js"
-      }
-    },
-    "prepare-publish": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "prepare:publish"
-      }
-    },
-    "publish": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "npm publish packages/@o3r/localization/dist"
-      }
-    },
-    "documentation": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "compodoc"
-      }
-    }
+    "prepare-build-builders": {},
+    "build-builders": {},
+    "lint": {},
+    "test": {},
+    "test-int": {},
+    "prepare-publish": {},
+    "publish": {},
+    "documentation": {}
   },
   "tags": []
 }

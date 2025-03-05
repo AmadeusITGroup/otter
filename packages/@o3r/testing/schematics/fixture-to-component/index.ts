@@ -22,7 +22,7 @@ import {
   addImportsRule,
   applyEsLintFix,
   askConfirmationToConvertComponent,
-  createSchematicWithMetricsIfInstalled,
+  createOtterSchematic,
   getO3rComponentInfoOrThrowIfNotFound,
   NoOtterComponent,
   O3rCliError,
@@ -153,4 +153,4 @@ export function ngAddFixtureFn(options: NgAddFixtureSchematicsSchema): Rule {
  * Add fixture to an existing component
  * @param options
  */
-export const ngAddFixture = createSchematicWithMetricsIfInstalled(ngAddFixtureFn);
+export const ngAddFixture = createOtterSchematic(ngAddFixtureFn);

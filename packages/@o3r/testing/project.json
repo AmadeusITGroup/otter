@@ -24,12 +24,7 @@
         "script": "build:source"
       }
     },
-    "prepare-build-builders": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "prepare:build:builders"
-      }
-    },
+    "prepare-build-builders": {},
     "build-schematics": {
       "executor": "nx:run-script",
       "dependsOn": ["^build", "compile", "prepare-build-builders"],
@@ -71,39 +66,12 @@
         "compile"
       ]
     },
-    "lint": {
-      "executor": "nx:run-commands"
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "options": {
-        "jestConfig": "packages/@o3r/testing/jest.config.js"
-      }
-    },
-    "test-int": {
-      "executor": "@nx/jest:jest",
-      "options": {
-        "jestConfig": "packages/@o3r/testing/testing/jest.config.it.js"
-      }
-    },
-    "prepare-publish": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "prepare:publish"
-      }
-    },
-    "publish": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "npm publish packages/@o3r/testing/dist"
-      }
-    },
-    "documentation": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "compodoc"
-      }
-    }
+    "lint": {},
+    "test": {},
+    "test-int": {},
+    "prepare-publish": {},
+    "publish": {},
+    "documentation": {}
   },
   "tags": []
 }

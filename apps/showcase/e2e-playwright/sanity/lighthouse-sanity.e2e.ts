@@ -16,11 +16,14 @@ import {
 const baseUrl = process.env.PLAYWRIGHT_TARGET_URL || 'http://localhost:4200/';
 const lighthouseConfig = {
   thresholds: {
-    // Disable performance measurement because it is too unreliable in the current setup
-    performance: 0,
     accessibility: 100,
-
     'best-practices': 100
+  },
+  config: {
+    extends: 'lighthouse:default',
+    settings: {
+      onlyCategories: ['accessibility', 'best-practices']
+    }
   },
   opts: {
     disableStorageReset: false
@@ -132,5 +135,13 @@ test.describe('Lighthouse tests', () => {
     await appFixture.navigateToPlaceholder();
     await page.waitForURL('**/placeholder');
     await performAudit('placeholder', page, testInfo);
+  });
+
+  test('sdk-intro', async ({ page }, testInfo) => {
+    await page.goto(baseUrl);
+    const appFixture = new AppFixtureComponent(new O3rElement({ element: page.locator('app-root'), page }));
+    await appFixture.navigateToSDKIntro();
+    await page.waitForURL('**/sdk-intro');
+    await performAudit('sdk-intro', page, testInfo);
   });
 });

@@ -59,6 +59,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
     const baseTemplateSource = apply(url(`./templates/${options.toolchain}`), [
       template({
         ...options,
+        npmRegistry: options.npmRegistry || '',
         packageManager,
         setupCommand,
         actionVersionString,
@@ -113,6 +114,6 @@ export const ngAdd = (options: NgAddSchematicsSchema): Rule => async (_, { logge
       logger.warn(`You are trying to add '@o3r/pipeline' on a project that does not have '@o3r/schematics' as a dependency.
         Please run 'ng add @o3r/schematics' before for a more robust setup. Trying to guess the package manager.`);
     }).then((schematics) =>
-      schematics ? schematics.createSchematicWithMetricsIfInstalled(ngAddFn)(options) : ngAddFn(options)
+      schematics ? schematics.createOtterSchematic(ngAddFn)(options) : ngAddFn(options)
     );
 };

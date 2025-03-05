@@ -63,11 +63,11 @@ const getRegexpTemplate = (regexp: RegExp) => `new RegExp('${regexp.toString().r
 const getPathObjectTemplate = (pathObj: PathObject) => {
   return `{
       ${
-  (Object.keys(pathObj) as (keyof PathObject)[]).map((propName) => {
-    const value = (propName) === 'regexp' ? getRegexpTemplate(pathObj[propName]) : JSON.stringify(pathObj[propName]);
-    return `${propName as string}: ${value}`;
-  }).join(',')
-}
+        (Object.keys(pathObj) as (keyof PathObject)[]).map((propName) => {
+          const value = (propName) === 'regexp' ? getRegexpTemplate(pathObj[propName]) : JSON.stringify(pathObj[propName]);
+          return `${propName as string}: ${value}`;
+        }).join(',')
+      }
     }`;
 };
 
@@ -318,6 +318,8 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKCoreSchematic
  * @param options
  */
 export const ngGenerateTypescriptSDK = (options: NgGenerateTypescriptSDKCoreSchematicsSchema) => async () => {
-  const { createSchematicWithMetricsIfInstalled } = await import('@o3r/schematics');
-  return createSchematicWithMetricsIfInstalled(ngGenerateTypescriptSDKFn)(options);
+  const {
+    createOtterSchematic
+  } = await import('@o3r/schematics');
+  return createOtterSchematic(ngGenerateTypescriptSDKFn)(options);
 };

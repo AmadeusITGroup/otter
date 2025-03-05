@@ -1,6 +1,7 @@
 import {
   AsyncStoreItem,
   EntityStatus,
+  RequestId,
 } from './async.interfaces';
 
 /**
@@ -136,7 +137,7 @@ export const asyncStoreItemAdapter: AsyncStoreItemAdapter = {
   initialize: (entityItem) => {
     return {
       ...entityItem,
-      requestIds: []
+      requestIds: [] as RequestId[]
     };
   },
 
@@ -175,7 +176,7 @@ export const asyncStoreItemAdapter: AsyncStoreItemAdapter = {
     const currentSubStatus = status[subResource];
     return {
       ...status,
-      [subResource]: currentSubStatus ? asyncStoreItemAdapter.resolveRequest(currentSubStatus, requestId) : { requestIds: [] }
+      [subResource]: currentSubStatus ? asyncStoreItemAdapter.resolveRequest(currentSubStatus, requestId) : { requestIds: [] as RequestId[] }
     };
   },
 
@@ -183,7 +184,7 @@ export const asyncStoreItemAdapter: AsyncStoreItemAdapter = {
     const currentSubStatus = status[subResource];
     return {
       ...status,
-      [subResource]: currentSubStatus ? asyncStoreItemAdapter.failRequest(currentSubStatus, requestId) : { requestIds: [], isFailure: true }
+      [subResource]: currentSubStatus ? asyncStoreItemAdapter.failRequest(currentSubStatus, requestId) : { requestIds: [] as RequestId[], isFailure: true }
     };
   },
 
@@ -191,7 +192,7 @@ export const asyncStoreItemAdapter: AsyncStoreItemAdapter = {
     const currentSubStatus = status[subResource];
     return {
       ...status,
-      [subResource]: currentSubStatus ? asyncStoreItemAdapter.resetFailureStatus(currentSubStatus) : { requestIds: [] }
+      [subResource]: currentSubStatus ? asyncStoreItemAdapter.resetFailureStatus(currentSubStatus) : { requestIds: [] as RequestId[] }
     };
   },
 

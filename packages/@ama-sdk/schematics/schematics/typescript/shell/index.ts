@@ -182,6 +182,8 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKShellSchemati
  * @param options
  */
 export const ngGenerateTypescriptSDK = (options: NgGenerateTypescriptSDKShellSchematicsSchema) => async () => {
-  const { createSchematicWithMetricsIfInstalled } = await import('@o3r/schematics');
-  return createSchematicWithMetricsIfInstalled(ngGenerateTypescriptSDKFn)(options);
+  const {
+    createOtterSchematic
+  } = await import('@o3r/schematics');
+  return createOtterSchematic(ngGenerateTypescriptSDKFn)(options);
 };

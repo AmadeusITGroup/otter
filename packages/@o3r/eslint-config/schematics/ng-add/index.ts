@@ -63,7 +63,6 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
     const devDependenciesToInstall = [
       '@eslint-community/eslint-plugin-eslint-comments',
       '@eslint/js',
-      '@o3r/eslint-plugin',
       '@stylistic/eslint-plugin',
       '@typescript-eslint/parser',
       '@typescript-eslint/utils',
@@ -145,6 +144,8 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
  * @param options Options for the schematic
  */
 export const ngAdd = (options: NgAddSchematicsSchema): Rule => async (_, { logger }) => {
-  const { createSchematicWithMetricsIfInstalled } = await import('@o3r/schematics').catch(reportMissingSchematicsDep(logger));
-  return createSchematicWithMetricsIfInstalled(ngAddFn)(options);
+  const {
+    createOtterSchematic
+  } = await import('@o3r/schematics').catch(reportMissingSchematicsDep(logger));
+  return createOtterSchematic(ngAddFn)(options);
 };

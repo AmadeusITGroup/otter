@@ -18,7 +18,7 @@ import {
 } from '@angular-devkit/schematics';
 import {
   applyEsLintFix,
-  createSchematicWithMetricsIfInstalled,
+  createOtterSchematic,
   getComponentFolderName,
   getDestinationPath,
   getInputComponentName,
@@ -142,4 +142,4 @@ function ngGenerateComponentFn(options: NgGenerateComponentSchematicsSchema): Ru
  * Add Otter component to an Angular Project
  * @param options
  */
-export const ngGenerateComponent = createSchematicWithMetricsIfInstalled(ngGenerateComponentFn);
+export const ngGenerateComponent = createOtterSchematic(ngGenerateComponentFn);

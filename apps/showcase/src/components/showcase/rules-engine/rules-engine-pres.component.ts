@@ -65,7 +65,6 @@ const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
 @O3rComponent({ componentType: 'ExposedComponent' })
 @Component({
   selector: 'o3r-rules-engine-pres',
-  standalone: true,
   templateUrl: './rules-engine-pres.template.html',
   styleUrls: ['./rules-engine-pres.style.scss'],
   encapsulation: ViewEncapsulation.None,

@@ -17,7 +17,7 @@ import {
 } from '@angular-devkit/schematics';
 import {
   applyEsLintFix,
-  createSchematicWithMetricsIfInstalled,
+  createOtterSchematic,
 } from '@o3r/schematics';
 import type {
   NgGenerateOperatorSchematicsSchema,
@@ -56,4 +56,4 @@ function ngGenerateOperatorFn(options: NgGenerateOperatorSchematicsSchema): Rule
  * Generate the operator
  * @param options
  */
-export const ngGenerateOperator = createSchematicWithMetricsIfInstalled(ngGenerateOperatorFn);
+export const ngGenerateOperator = createOtterSchematic(ngGenerateOperatorFn);

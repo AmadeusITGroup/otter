@@ -7,7 +7,7 @@ import {
 import {
   addImportsIntoComponentDecoratorTransformerFactory,
   applyEsLintFix,
-  createSchematicWithMetricsIfInstalled,
+  createOtterSchematic,
   findMethodByName,
   fixStringLiterals,
   generateBlockStatementsFromString,
@@ -214,4 +214,4 @@ function ngGenerateRulesEngineToComponentFn(options: NgGenerateRulesEngineToComp
  * Generate the code to enable rules-engine on a component
  * @param options
  */
-export const ngGenerateRulesEngineToComponent = createSchematicWithMetricsIfInstalled(ngGenerateRulesEngineToComponentFn);
+export const ngGenerateRulesEngineToComponent = createOtterSchematic(ngGenerateRulesEngineToComponentFn);

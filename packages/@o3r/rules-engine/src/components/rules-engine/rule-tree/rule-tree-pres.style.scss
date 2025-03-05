@@ -1,4 +1,4 @@
-@import '../styling/shared-mixin';
+@use '../styling/variables' as variables;
 
 $border-action-panel: 1px solid #999999;
 $tree-line: 1px dashed;
@@ -65,19 +65,19 @@ o3r-rule-tree-pres {
   }
 
   .success-actions {
-    border-color: $ruleset-success-color;
+    border-color: variables.$ruleset-success-color;
 
     &.rule-action-title {
-      background: $ruleset-success-color;
+      background: variables.$ruleset-success-color;
       color: white;
     }
   }
 
   .error-actions {
-    border-color: $ruleset-error-color;
+    border-color: variables.$ruleset-error-color;
 
     &.rule-action-title {
-      background: $ruleset-error-color;
+      background: variables.$ruleset-error-color;
       color: white;
     }
   }

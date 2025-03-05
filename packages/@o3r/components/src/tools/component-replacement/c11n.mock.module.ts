@@ -17,7 +17,8 @@ import {
 @Directive({
   selector: '[c11n]',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property -- mocked directive
-  inputs: ['config', 'component', 'inputs', 'outputs']
+  inputs: ['config', 'component', 'inputs', 'outputs'],
+  standalone: false
 })
 export class MockC11nDirective {}
 

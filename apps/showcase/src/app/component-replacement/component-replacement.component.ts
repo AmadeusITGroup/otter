@@ -39,7 +39,6 @@ import {
   styleUrl: './component-replacement.style.scss',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [
     RouterModule,
     InPageNavPresComponent,

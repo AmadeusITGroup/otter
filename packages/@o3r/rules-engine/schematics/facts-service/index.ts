@@ -19,7 +19,7 @@ import {
 import {
   addImportsRule,
   applyEsLintFix,
-  createSchematicWithMetricsIfInstalled,
+  createOtterSchematic,
 } from '@o3r/schematics';
 import {
   NgGenerateFactsServiceSchematicsSchema,
@@ -84,4 +84,4 @@ function ngGenerateFactsServiceFn(options: NgGenerateFactsServiceSchematicsSchem
  * Generate the facts service
  * @param options
  */
-export const ngGenerateFactsService = createSchematicWithMetricsIfInstalled(ngGenerateFactsServiceFn);
+export const ngGenerateFactsService = createOtterSchematic(ngGenerateFactsServiceFn);

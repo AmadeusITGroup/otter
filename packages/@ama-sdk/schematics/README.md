@@ -4,11 +4,7 @@
 [![Bundle Size](https://img.shields.io/bundlephobia/min/@ama-sdk/schematics?color=green&style=for-the-badge)](https://www.npmjs.com/package/@ama-sdk/schematics)
 
 This package provides `schematics` generators to create an SDK based on an OpenAPI specifications.
-There are two SDK generators in the Otter Framework: Typescript and Java. The Java generator is currently in maintenance
-mode and only the Typescript generator is actively supported and will see future evolutions.
-
-- [Typescript SDK](#typescript-sdk)
-- [Java SDK](#java-client-core-sdk)
+The Otter framework provides a Typescript SDK generator.
 
 ## Typescript SDK
 
@@ -286,21 +282,6 @@ For more information on the generated SDK and how the framework supports differe
 
 - [Generated SDK hierarchy and extension](https://github.com/AmadeusITGroup/otter/blob/main/docs/api-sdk/SDK_MODELS_HIERARCHY.md)
 - [Composition and Inheritance support](https://github.com/AmadeusITGroup/otter/blob/main/docs/api-sdk/COMPOSITION_INHERITANCE.md)
-
-## Java Client Core SDK
-
-> [!WARNING]
-> This feature is on maintenance mode and will see no future evolution
-
-Generate a Java Client Core SDK:
-
-Make sure to have a `./swagger-spec.yaml` file at the root of your project and run:
-
-```shell
-yarn schematics @ama-sdk/schematics:java-client-core --spec-path ./swagger-spec.yaml --swagger-config-path ./swagger-codegen-config.json
-```
-
-[Default swagger config](schematics/java/client-core/swagger-codegen-java-client/config/swagger-codegen-config.json) will be used if `--swagger-config-path` is not provided.
 
 ## Command Line Interface
 

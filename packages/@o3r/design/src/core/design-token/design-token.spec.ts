@@ -15,10 +15,10 @@ import {
   TokenKeyRenderer,
 } from './parsers/index';
 import {
-  computeFileToUpdatePath,
   DesignTokenRendererOptions,
   getCssStyleContentUpdater,
   getCssTokenDefinitionRenderer,
+  getFileToUpdatePath,
   getMetadataStyleContentUpdater,
   getMetadataTokenDefinitionRenderer,
   getSassTokenDefinitionRenderer,
@@ -44,7 +44,7 @@ describe('Design Token generator', () => {
       const writeFile = jest.fn().mockImplementation((_, content) => result = content);
       const readFile = jest.fn().mockReturnValue('');
       const existsFile = jest.fn().mockReturnValue(true);
-      const determineFileToUpdate = computeFileToUpdatePath('.');
+      const determineFileToUpdate = await getFileToUpdatePath('.');
       const designToken = parseDesignToken(exampleVariable);
 
       await renderDesignTokens(designToken, {
@@ -67,7 +67,7 @@ describe('Design Token generator', () => {
       const writeFile = jest.fn().mockImplementation((_, content) => result = content);
       const readFile = jest.fn().mockReturnValue('');
       const existsFile = jest.fn().mockReturnValue(true);
-      const determineFileToUpdate = computeFileToUpdatePath('.');
+      const determineFileToUpdate = await getFileToUpdatePath('.');
       const designToken = parseDesignToken(exampleVariable);
 
       await renderDesignTokens(designToken, {
@@ -87,7 +87,7 @@ describe('Design Token generator', () => {
       const writeFile = jest.fn().mockImplementation((_, content) => result = content);
       const readFile = jest.fn().mockReturnValue('');
       const existsFile = jest.fn().mockReturnValue(true);
-      const determineFileToUpdate = computeFileToUpdatePath('.');
+      const determineFileToUpdate = await getFileToUpdatePath('.');
       const designToken = parseDesignToken(exampleVariable);
       const tokenVariableNameRenderer: TokenKeyRenderer = (variable) => prefix + variable.tokenReferenceName.replace(/\./g, '-');
       const tokenDefinitionRenderer = getCssTokenDefinitionRenderer({ tokenVariableNameRenderer });
@@ -117,7 +117,7 @@ describe('Design Token generator', () => {
           ${AUTO_GENERATED_END}
         }
       `);
-      const determineFileToUpdate = computeFileToUpdatePath('.');
+      const determineFileToUpdate = await getFileToUpdatePath('.');
       const designToken = parseDesignToken(exampleVariable);
 
       await renderDesignTokens(designToken, {
@@ -139,7 +139,7 @@ describe('Design Token generator', () => {
       const writeFile = jest.fn().mockImplementation((_, content) => result = content);
       const readFile = jest.fn().mockReturnValue('');
       const existsFile = jest.fn().mockReturnValue(true);
-      const determineFileToUpdate = computeFileToUpdatePath('.');
+      const determineFileToUpdate = await getFileToUpdatePath('.');
       const designToken = parseDesignToken(exampleVariable);
 
       const tokenDefinitionRendererWithoutSass = getCssTokenDefinitionRenderer({
@@ -186,7 +186,7 @@ describe('Design Token generator', () => {
       const writeFile = jest.fn().mockImplementation((_, content) => result = content);
       const readFile = jest.fn().mockReturnValue('');
       const existsFile = jest.fn().mockReturnValue(true);
-      const determineFileToUpdate = computeFileToUpdatePath('.');
+      const determineFileToUpdate = await getFileToUpdatePath('.');
       const designToken = parseDesignToken(exampleVariable);
 
       await renderDesignTokens(designToken, {

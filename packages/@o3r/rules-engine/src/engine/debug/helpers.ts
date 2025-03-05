@@ -12,7 +12,7 @@ import {
 } from '../structure';
 
 /**
- * Function to retrive from 2 sequential executions only the triggers which activated the last ruleset execution
+ * Function to retrieve from 2 sequential executions only the triggers which activated the last ruleset execution
  * @param currRes Current ruleset execution object
  * @param prevRes Previous ruleset execution object
  * @returns The triggers list which activates the last ruleset execution
@@ -80,6 +80,7 @@ export function flagCachedRules(rulesEvaluations: RuleEvaluation[], triggers: Re
  * @param runtimeFactValues
  * @param factValues
  * @param oldFactValues
+ * @param inputFacts
  */
 export function handleRuleEvaluationDebug(
   rule: Rule,
@@ -88,15 +89,17 @@ export function handleRuleEvaluationDebug(
   outputError: any,
   runtimeFactValues: Record<string, Facts>,
   factValues: any[] | undefined,
-  oldFactValues: any[] | undefined) {
+  oldFactValues: any[] | undefined,
+  inputFacts: string[] | undefined = []
+) {
   const executionId = `${rulesetName} - ${rule.name}`;
 
   const reasons: Record<string, Record<string, EvaluationReason>> = {};
   for (let index = 0; index < factValues!.length; index++) {
     if (!oldFactValues) {
-      (reasons[rule.id] ||= {})[rule.inputFacts[index]] = { factName: rule.inputFacts[index], newValue: factValues![index] };
+      (reasons[rule.id] ||= {})[inputFacts[index]] = { factName: inputFacts[index], newValue: factValues![index] };
     } else if (oldFactValues[index]?.toString() !== factValues![index]?.toString()) {
-      (reasons[rule.id] ||= {})[rule.inputFacts[index]] = { factName: rule.inputFacts[index], oldValue: oldFactValues[index], newValue: factValues![index] };
+      (reasons[rule.id] ||= {})[inputFacts[index]] = { factName: inputFacts[index], oldValue: oldFactValues[index], newValue: factValues![index] };
     }
   }
 

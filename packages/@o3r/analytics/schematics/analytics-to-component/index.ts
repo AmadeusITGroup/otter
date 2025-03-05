@@ -24,7 +24,7 @@ import {
   addInterfaceToClassTransformerFactory,
   applyEsLintFix,
   askConfirmationToConvertComponent,
-  createSchematicWithMetricsIfInstalled,
+  createOtterSchematic,
   generateClassElementsFromString,
   getO3rComponentInfoOrThrowIfNotFound,
   getPropertyFromDecoratorFirstArgument,
@@ -260,4 +260,4 @@ export function ngAddAnalyticsFn(options: NgAddAnalyticsSchematicsSchema): Rule 
  * Add analytics to an existing component
  * @param options
  */
-export const ngAddAnalytics = createSchematicWithMetricsIfInstalled(ngAddAnalyticsFn);
+export const ngAddAnalytics = createOtterSchematic(ngAddAnalyticsFn);

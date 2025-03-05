@@ -19,7 +19,8 @@ import {
  */
 @Pipe({
   name: 'date',
-  pure: false
+  pure: false,
+  standalone: false
 })
 export class LocalizedDatePipe extends DatePipe implements OnDestroy, PipeTransform {
   private readonly onLangChange: Subscription;

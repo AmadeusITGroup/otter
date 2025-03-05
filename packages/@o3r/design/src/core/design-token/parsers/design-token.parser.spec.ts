@@ -182,6 +182,14 @@ describe('Design Token Parser', () => {
       expect(border.getType()).toBe('border');
     });
 
+    test('should generate a complex typography', () => {
+      const result = parser.parseDesignToken(exampleVariable);
+      const typography = result.get('example.typography');
+
+      expect(typography).toBeDefined();
+      expect(typography.getCssRawValue()).toBe('300 big spacing normal la-familia');
+    });
+
     test('should generate correctly the gradient', () => {
       const result = parser.parseDesignToken(exampleVariable);
       const gradient = result.get('example.test.gradient');
@@ -189,6 +197,31 @@ describe('Design Token Parser', () => {
       expect(gradient).toBeDefined();
       expect(gradient.getType()).toBe('gradient');
       expect(gradient.getCssRawValue()).toBe('linear-gradient(180deg, #fff 10px)');
+    });
+
+    test('should generate correctly the border', () => {
+      const result = parser.parseDesignToken(exampleVariable);
+      const border = result.get('example.test.border-complex');
+
+      expect(border).toBeDefined();
+      expect(border.getType()).toBe('border');
+      expect(border.getCssRawValue()).toBe('2px square 1px red');
+    });
+
+    test('should generate correctly the store style', () => {
+      const result = parser.parseDesignToken(exampleVariable);
+      const stroke = result.get('example.test.stroke');
+
+      expect(stroke).toBeDefined();
+      expect(stroke.getCssRawValue()).toBe('dotted');
+    });
+
+    test('should generate correctly the store complex style', () => {
+      const result = parser.parseDesignToken(exampleVariable);
+      const stroke = result.get('example.test.stroke-complex');
+
+      expect(stroke).toBeDefined();
+      expect(stroke.getCssRawValue()).toBe('round 2px');
     });
 
     describe('should generate correctly the shadow', () => {
@@ -201,18 +234,29 @@ describe('Design Token Parser', () => {
         expect(shadow.getCssRawValue()).toBe('1px 1px 1  1 #000');
       });
 
+      test('with dimension parameter', () => {
+        const result = parser.parseDesignToken(exampleVariable);
+        const shadow = result.get('example.test.shadow-dimension');
+
+        expect(shadow).toBeDefined();
+        expect(shadow.getType()).toBe('shadow');
+        expect(shadow.getCssRawValue()).toBe('1px 1px 1  1 #000');
+      });
+
       test('with multiple parameter', () => {
         const result = parser.parseDesignToken(exampleVariable);
         const shadow = result.get('example.test.shadow-multi');
 
         expect(shadow).toBeDefined();
         expect(shadow.getType()).toBe('shadow');
-        expect(shadow.getCssRawValue()).toBe('1px 1px 1  1 #000, 2px 2px 2  2 #fff');
+        expect(shadow.getCssRawValue()).toBe('inset 1px 1px 1  1 #000, 2px 2px 2  2 #fff');
       });
     });
   });
 
   describe('parseDesignTokenFile', () => {
+    afterEach(() => jest.resetAllMocks());
+
     test('should read the file according to the reader', async () => {
       const readFile = jest.fn().mockResolvedValue('{"test": { "$value": "#000", "$type": "color" }}');
       const parseDesignToken = jest.spyOn(parser, 'parseDesignToken').mockImplementation(() => (new Map()));
@@ -222,6 +266,39 @@ describe('Design Token Parser', () => {
       expect(parseDesignToken).toHaveBeenCalledTimes(1);
       expect(readFile).toHaveBeenCalledTimes(1);
       expect(parseDesignToken).toHaveBeenCalledWith({ context: { basePath: '.' }, document: { test: { $value: '#000', $type: 'color' } } });
+    });
+
+    test('should read file from URL', async () => {
+      const content = { test: { $value: '#000', $type: 'color' } };
+      jest.spyOn(global, 'fetch').mockImplementation(
+        jest.fn(
+          () => Promise.resolve({
+            text: () => Promise.resolve(JSON.stringify(content))
+          })
+        ) as jest.Mock
+      );
+      const parseDesignToken = jest.spyOn(parser, 'parseDesignToken').mockImplementation(() => (new Map()));
+      const url = 'https://www.google.com';
+      const result = await parser.parseDesignTokenFile(url);
+
+      expect(result.size).toBe(0);
+      expect(parseDesignToken).toHaveBeenCalledWith(expect.objectContaining({ document: content }));
+      expect(global.fetch).toHaveBeenCalledTimes(1);
+    });
+
+    test('should read file from FS', async () => {
+      const content = { test: { $value: '#000', $type: 'color' } };
+      const readFile = jest.fn().mockResolvedValue('{"test": { "$value": "#000", "$type": "color" }}');
+      jest.mock('node:fs/promises', () => ({
+        readFile
+      }));
+      const parseDesignToken = jest.spyOn(parser, 'parseDesignToken').mockImplementation(() => (new Map()));
+      const file = '/the/file.json';
+      const result = await parser.parseDesignTokenFile(file);
+
+      expect(result.size).toBe(0);
+      expect(parseDesignToken).toHaveBeenLastCalledWith(expect.objectContaining({ document: content }));
+      expect(readFile).toHaveBeenCalledTimes(1);
     });
 
     test('should propagate context object', async () => {

@@ -170,10 +170,10 @@ export const setupDependencies = (options: SetupDependenciesOptions): Rule => {
   return () => {
     const ngAddToRun = new Set(Object.keys(options.dependencies)
       .filter((dep) => options.ngAddToRun?.some((pattern) => typeof pattern === 'string' ? pattern === dep : pattern.test(dep))));
-    const requiringInstallList = new Set(Object.entries(options.dependencies).filter(([, { requireInstall }]) => requireInstall).map(([dep]) => dep));
+    const isInstallRequired = Object.values(options.dependencies).some(({ requireInstall }) => requireInstall);
     const isInstallNeeded = () => {
       const needsInstall = Array.from(ngAddToRun).some((packageName) => !isPackageInstalled(packageName));
-      return needsInstall || (options.skipInstall === undefined ? (ngAddToRun.size > 0 || requiringInstallList.size > 0) : !options.skipInstall);
+      return needsInstall || (options.skipInstall === undefined ? (ngAddToRun.size > 0 || isInstallRequired) : !options.skipInstall);
     };
 
     const editPackageJson = (packageJsonPath: string, packageToInstall: string, dependency: DependencyToAdd, updateLists: boolean): Rule => {
@@ -200,7 +200,6 @@ export const setupDependencies = (options: SetupDependenciesOptions): Rule => {
                 } else {
                   if (updateLists) {
                     ngAddToRun.delete(packageToInstall);
-                    requiringInstallList.delete(packageToInstall);
                   }
                   context.logger.debug(`The dependency ${packageToInstall} (${depType}) is already in ${packageJsonPath}, it will not be added.`);
                   context.logger.debug(`Because its range is inferior or included to the current one (${range} < ${packageJsonContent[depType][packageToInstall]}) in targeted ${packageJsonPath}`);
@@ -208,10 +207,9 @@ export const setupDependencies = (options: SetupDependenciesOptions): Rule => {
               } else {
                 if (updateLists) {
                   ngAddToRun.delete(packageToInstall);
-                  requiringInstallList.delete(packageToInstall);
                 }
                 context.logger.warn(`The dependency ${packageToInstall} (${depType}) will not added `
-                + `because there is already this dependency with a defined range (${packageJsonContent[depType][packageToInstall]}) in targeted ${packageJsonPath}`);
+                  + `because there is already this dependency with a defined range (${packageJsonContent[depType][packageToInstall]}) in targeted ${packageJsonPath}`);
               }
             } else {
               packageJsonContent[depType] ||= {};

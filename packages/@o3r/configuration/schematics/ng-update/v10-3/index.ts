@@ -3,7 +3,7 @@ import type {
   Tree,
 } from '@angular-devkit/schematics';
 import {
-  createSchematicWithMetricsIfInstalled,
+  createOtterSchematic,
   findFilesInTree,
 } from '@o3r/schematics';
 
@@ -26,4 +26,4 @@ function updateV10_3Fn(): Rule {
  * Update of Otter configuration V10.3
  */
 // eslint-disable-next-line @typescript-eslint/naming-convention -- version in the function name
-export const updateV10_3 = createSchematicWithMetricsIfInstalled(updateV10_3Fn);
+export const updateV10_3 = createOtterSchematic(updateV10_3Fn);

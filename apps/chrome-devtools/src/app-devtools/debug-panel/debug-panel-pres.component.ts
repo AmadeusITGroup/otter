@@ -30,7 +30,6 @@ type PlaceholderMode = 'normal' | 'debug' | 'pending';
   templateUrl: './debug-panel-pres.template.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  standalone: true,
   imports: [
     ReactiveFormsModule,
     FormsModule,
