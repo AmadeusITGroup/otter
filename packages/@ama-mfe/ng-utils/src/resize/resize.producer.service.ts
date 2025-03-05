@@ -68,7 +68,9 @@ export class ResizeService implements MessageProducer<ResizeMessage> {
         const messageV10 = {
           type: 'resize',
           version: '1.0',
-          height: document.body.scrollHeight
+          // Sending + 1 because scrollHeight is a rounded number (cf https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollHeight)
+          // and if it's rounded down then a scrollbar could appears on the host
+          height: document.body.scrollHeight + 1
         } satisfies ResizeV1_0;
         // TODO: sendBest() is not implemented -- https://github.com/AmadeusITGroup/microfrontends/issues/11
         this.messageService.send(messageV10);
