@@ -95,7 +95,7 @@ describe('Create new sdk command', () => {
           sdkPackageName,
           '--package-manager', packageManager,
           '--spec-package-name', '@o3r-training/showcase-sdk',
-          '--spec-package-path', 'openapi.yml',
+          '--spec-package-path', 'open-api.yaml',
           '--spec-package-version', o3rEnvironment.testEnvironment.o3rVersion,
           '--spec-package-registry', o3rEnvironment.testEnvironment.packageManagerConfig.registry
         ]
