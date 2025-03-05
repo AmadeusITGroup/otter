@@ -97,6 +97,7 @@ jobs:
         if: inputs.ref == ''
         uses: actions/cache@d4323d4df104b026a6aa633fdb11d772146be0bf # v4.2.2
         with:
+          lookup-only: ${{ github.event_name == 'pull_request' || github.event_name == 'merge_group' }}
           path: |
             .cache/test-app
             !.cache/test-app/cache/@ama-sdk*
