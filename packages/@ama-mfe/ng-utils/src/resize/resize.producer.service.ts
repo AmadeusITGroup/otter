@@ -23,6 +23,14 @@ import {
 } from '../messages/index';
 
 /**
+ * `scrollHeight` is a rounded number (cf https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollHeight)
+ *
+ * So we have to add a delta to ensure no scrollbar will appear on the host,
+ * in case the `scrollHeight` is rounded down
+ */
+export const DELTA_RESIZE = 1;
+
+/**
  * This service observe changes in the document's body height.
  * When the height changes, it sends a resize message with the new height, to the connected peers
  */
@@ -68,9 +76,7 @@ export class ResizeService implements MessageProducer<ResizeMessage> {
         const messageV10 = {
           type: 'resize',
           version: '1.0',
-          // Sending + 1 because scrollHeight is a rounded number (cf https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollHeight)
-          // and if it's rounded down then a scrollbar could appears on the host
-          height: document.body.scrollHeight + 1
+          height: document.body.scrollHeight + DELTA_RESIZE
         } satisfies ResizeV1_0;
         // TODO: sendBest() is not implemented -- https://github.com/AmadeusITGroup/microfrontends/issues/11
         this.messageService.send(messageV10);
