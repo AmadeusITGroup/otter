@@ -275,7 +275,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ama-mfe/messages@workspace:packages/@ama-mfe/messages"
   dependencies:
-    "@amadeus-it-group/microfrontends": "npm:^0.0.2"
+    "@amadeus-it-group/microfrontends": "npm:0.0.3"
     "@compodoc/compodoc": "npm:^1.1.19"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@nx/eslint-plugin": "npm:~20.4.0"
@@ -318,7 +318,7 @@ __metadata:
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.26.0"
   peerDependencies:
-    "@amadeus-it-group/microfrontends": 0.x.x
+    "@amadeus-it-group/microfrontends": 0.0.3
   peerDependenciesMeta:
     "@amadeus-it-group/microfrontends":
       optional: true
@@ -330,8 +330,8 @@ __metadata:
   resolution: "@ama-mfe/ng-utils@workspace:packages/@ama-mfe/ng-utils"
   dependencies:
     "@ama-mfe/messages": "workspace:^"
-    "@amadeus-it-group/microfrontends": "npm:^0.0.2"
-    "@amadeus-it-group/microfrontends-angular": "npm:^0.0.2"
+    "@amadeus-it-group/microfrontends": "npm:0.0.3"
+    "@amadeus-it-group/microfrontends-angular": "npm:0.0.3"
     "@angular-devkit/architect": "npm:~0.1902.0"
     "@angular-devkit/build-angular": "npm:~19.2.0"
     "@angular-devkit/core": "npm:~19.2.0"
@@ -383,8 +383,8 @@ __metadata:
     zone.js: "npm:~0.15.0"
   peerDependencies:
     "@ama-mfe/messages": "workspace:^"
-    "@amadeus-it-group/microfrontends": 0.x.x
-    "@amadeus-it-group/microfrontends-angular": 0.x.x
+    "@amadeus-it-group/microfrontends": 0.0.3
+    "@amadeus-it-group/microfrontends-angular": 0.0.3
     "@angular-devkit/core": ~19.2.0
     "@angular-devkit/schematics": ~19.2.0
     "@angular/common": ^19.0.0
@@ -1148,23 +1148,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@amadeus-it-group/microfrontends-angular@npm:^0.0.2":
-  version: 0.0.2
-  resolution: "@amadeus-it-group/microfrontends-angular@npm:0.0.2"
+"@amadeus-it-group/microfrontends-angular@npm:0.0.3":
+  version: 0.0.3
+  resolution: "@amadeus-it-group/microfrontends-angular@npm:0.0.3"
   dependencies:
     tslib: "npm:^2.3.0"
   peerDependencies:
-    "@amadeus-it-group/microfrontends": 0.0.2
+    "@amadeus-it-group/microfrontends": 0.0.3
     "@angular/core": ^19.0.0
     rxjs: ^7.8.0
-  checksum: 10/4b7a8e9088a51ba8fec754096d4112c4b2e39021860066118697083f89361f3c1cbd197f8366de928574f03c84f7fd60a8d69c8212ac69db4456e5a0422fffe5
+  checksum: 10/d7da7193318bb55ac06a0c8a7cc535ce6057bab2ddf91704f5046281028b3f1a2b0e772b5df4d87b993a400b6fac2f19171b8e85ed41ca4ec47fd7b4226adc0b
   languageName: node
   linkType: hard
 
-"@amadeus-it-group/microfrontends@npm:^0.0.2":
-  version: 0.0.2
-  resolution: "@amadeus-it-group/microfrontends@npm:0.0.2"
-  checksum: 10/65b5ecf8abb326e100347ae0697b1412ac92b49e9a1d4dc6e8bc6f2a0daaf4c091cffef6017f73a0e10db88b6b0418299ee745c062f5dcda5b83fd99fadc0a91
+"@amadeus-it-group/microfrontends@npm:0.0.3":
+  version: 0.0.3
+  resolution: "@amadeus-it-group/microfrontends@npm:0.0.3"
+  checksum: 10/330b490c5a309d1d6ba6f34d25395cd9f71cfc526a455d1b24cc2ded8bd8e1701300646307f5d6f4440a7704b854809cddb7aa0f0271ea709f1c38ab90790260
   languageName: node
   linkType: hard
 

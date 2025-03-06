@@ -33,7 +33,7 @@
     "tslib": "^2.6.2"
   },
   "peerDependencies": {
-    "@amadeus-it-group/microfrontends": "0.x.x"
+    "@amadeus-it-group/microfrontends": "0.0.3"
   },
   "peerDependenciesMeta": {
     "@amadeus-it-group/microfrontends": {
@@ -41,7 +41,7 @@
     }
   },
   "devDependencies": {
-    "@amadeus-it-group/microfrontends": "^0.0.2",
+    "@amadeus-it-group/microfrontends": "0.0.3",
     "@compodoc/compodoc": "^1.1.19",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@nx/eslint-plugin": "~20.4.0",

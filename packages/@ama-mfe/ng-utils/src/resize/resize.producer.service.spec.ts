@@ -18,6 +18,7 @@ import {
   ErrorContent,
 } from '../messages/index';
 import {
+  DELTA_RESIZE,
   ResizeService,
 } from './resize.producer.service';
 
@@ -75,11 +76,11 @@ describe('ResizeService', () => {
       // eslint-disable-next-line @typescript-eslint/dot-notation, dot-notation -- access a private property for test
       const resizeObserverInstance = (resizeService as any)['resizeObserver'];
       resizeObserverInstance.observerCallback();
-      expect(messageService.send).toHaveBeenCalledWith({ height: 1001, type: 'resize', version: '1.0' });
+      expect(messageService.send).toHaveBeenCalledWith({ height: 1000 + DELTA_RESIZE, type: 'resize', version: '1.0' });
 
       Object.defineProperty(document.body, 'scrollHeight', { value: 1200, configurable: true });
       resizeObserverInstance.observerCallback();
-      expect(messageService.send).toHaveBeenCalledWith({ height: 1201, type: 'resize', version: '1.0' });
+      expect(messageService.send).toHaveBeenCalledWith({ height: 1200 + DELTA_RESIZE, type: 'resize', version: '1.0' });
     });
   });
 
