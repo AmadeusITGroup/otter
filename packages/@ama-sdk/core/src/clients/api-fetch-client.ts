@@ -15,7 +15,7 @@ import {extractQueryParams, filterUndefinedValues, getResponseReviver, prepareUr
 import type {Api, PartialExcept} from '../fwk/api.interface';
 import type {ApiClient, RequestOptionsParameters} from '../fwk/core/api-client';
 import {BaseApiClientOptions} from '../fwk/core/base-api-constructor';
-import {CanceledCallError, EmptyResponseError, ResponseJSONParseError} from '../fwk/errors';
+import {CanceledCallError, EmptyResponseError, RequestFailedError, ResponseJSONParseError} from '../fwk/errors';
 import {ReviverType} from '../fwk/Reviver';
 
 /** @see BaseApiClientOptions */
@@ -156,8 +156,10 @@ export class ApiFetchClient implements ApiClient {
     } catch (e: any) {
       if (e instanceof CanceledCallError) {
         exception = e;
+      } else if (response && !Number.isNaN(response.status)) {
+        exception = new RequestFailedError(e.message || 'Fail to Fetch', response.status, undefined, { apiName, operationId, url, origin });
       } else {
-        exception = new EmptyResponseError(e.message || 'Fail to Fetch', undefined, {apiName, operationId, url, origin});
+        exception = new EmptyResponseError(e.message || 'Fail to Fetch', undefined, { apiName, operationId, url, origin });
       }
     }
 

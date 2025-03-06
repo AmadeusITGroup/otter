@@ -7,7 +7,7 @@ import { extractQueryParams, filterUndefinedValues, getResponseReviver, prepareU
 import type { Api, PartialExcept } from '../fwk/api.interface';
 import type { ApiClient,RequestOptionsParameters } from '../fwk/core/api-client';
 import { BaseApiClientOptions } from '../fwk/core/base-api-constructor';
-import { EmptyResponseError } from '../fwk/errors';
+import { CanceledCallError, EmptyResponseError, RequestFailedError } from '../fwk/errors';
 import { ReviverType } from '../fwk/Reviver';
 
 /** @see BaseApiClientOptions */
@@ -137,7 +137,13 @@ export class ApiAngularClient implements ApiClient {
       response = await asyncResponse;
       root = response.body;
     } catch (e: any) {
-      exception = new EmptyResponseError(e.message || 'Fail to Fetch', undefined, { apiName, operationId, url, origin });
+      if (e instanceof CanceledCallError) {
+        exception = e;
+      } else if (response && !Number.isNaN(response.status)) {
+        exception = new RequestFailedError(e.message || 'Fail to Fetch', response.status, undefined, { apiName, operationId, url, origin });
+      } else {
+        exception = new EmptyResponseError(e.message || 'Fail to Fetch', undefined, { apiName, operationId, url, origin });
+      }
     }
 
     // eslint-disable-next-line no-console
