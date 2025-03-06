@@ -200,6 +200,12 @@
       "@o3r/stylelint-plugin": [
         "packages/@o3r/stylelint-plugin/src"
       ],
+      "@o3r/style-dictionary": [
+        "packages/@o3r/style-dictionary/src/public_api.mts"
+      ],
+      "@o3r/style-dictionary/schemas/*": [
+        "packages/@o3r/style-dictionary/schemas/*"
+      ],
       "@o3r/styling": [
         "packages/@o3r/styling/src/public_api"
       ],

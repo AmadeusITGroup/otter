@@ -1,0 +1,24 @@
+{
+  "extends": "../../../tsconfig.build",
+  "compilerOptions": {
+    "incremental": true,
+    "composite": true,
+    "outDir": "./dist",
+    "module": "CommonJS",
+    "rootDir": ".",
+    "skipLibCheck": true, // because of @angular-devkit-schematics
+    "tsBuildInfoFile": "build/.tsbuildinfo.builders"
+  },
+  "include": [
+    "schematics/**/*.ts"
+  ],
+  "exclude": [
+    "**/*.spec.ts",
+    "schematics/**/templates/**"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.build.json"
+    }
+  ]
+}

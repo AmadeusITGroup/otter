@@ -49,6 +49,7 @@
       "@o3r/schematics": ["packages/@o3r/schematics/dist", "packages/@o3r/schematics/src/public_api"],
       "@o3r/store-sync": ["packages/@o3r/store-sync/dist", "packages/@o3r/store-sync/src/public_api"],
       "@o3r/stylelint-plugin": ["packages/@o3r/stylelint-plugin/dist", "packages/@o3r/stylelint-plugin/src/public_api"],
+      "@o3r/style-dictionary": ["packages/@o3r/style-dictionary/dist", "packages/@o3r/style-dictionary/src/public_api.mts"],
       "@o3r/styling": ["packages/@o3r/styling/dist", "packages/@o3r/styling/src/public_api"],
       "@o3r/styling/builders/*/helpers": ["packages/@o3r/styling/dist/builders/*/helpers/index", "packages/@o3r/styling/builders/*/helpers"],
       "@o3r/telemetry": ["packages/@o3r/telemetry/dist", "packages/@o3r/telemetry/src/public_api"],

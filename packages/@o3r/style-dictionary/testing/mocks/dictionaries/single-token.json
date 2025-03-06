@@ -1,0 +1,114 @@
+{
+  "tokens": {
+    "color": {
+      "primary": {
+        "50": {
+          "$type": "color",
+          "$value": "#ebf3ff",
+          "filePath": "design-token.figma.json",
+          "isSource": true,
+          "attributes": {
+            "category": "color",
+            "type": "primary",
+            "item": "50",
+            "o3rMetadata": {
+              "category": "theme",
+              "label": "test component",
+              "tags": [
+                "item1",
+                "item2"
+              ]
+            }
+          },
+          "original": {
+            "$type": "color",
+            "$value": "#ebf3ff"
+          },
+          "name": "color-primary-50",
+          "path": [
+            "color",
+            "primary",
+            "50"
+          ]
+        }
+      }
+    }
+  },
+  "allTokens": [
+    {
+      "$type": "color",
+      "$value": "#ebf3ff",
+      "filePath": "design-token.figma.json",
+      "isSource": true,
+      "attributes": {
+        "category": "color",
+        "type": "primary",
+        "item": "50"
+      },
+      "original": {
+        "$type": "color",
+        "$value": "#ebf3ff"
+      },
+      "name": "color-primary-50",
+      "path": [
+        "color",
+        "primary",
+        "50"
+      ],
+      "key": "{color.primary.50}"
+    }
+  ],
+  "tokenMap": {},
+  "unfilteredTokens": {
+    "color": {
+      "primary": {
+        "50": {
+          "$type": "color",
+          "$value": "#ebf3ff",
+          "filePath": "design-token.figma.json",
+          "isSource": true,
+          "attributes": {
+            "category": "color",
+            "type": "primary",
+            "item": "50"
+          },
+          "original": {
+            "$type": "color",
+            "$value": "#ebf3ff"
+          },
+          "name": "color-primary-50",
+          "path": [
+            "color",
+            "primary",
+            "50"
+          ]
+        }
+      }
+    }
+  },
+  "unfilteredAllTokens": [
+    {
+      "$type": "color",
+      "$value": "#ebf3ff",
+      "filePath": "design-token.figma.json",
+      "isSource": true,
+      "attributes": {
+        "category": "color",
+        "type": "primary",
+        "item": "50"
+      },
+      "original": {
+        "$type": "color",
+        "$value": "#ebf3ff"
+      },
+      "name": "color-primary-50",
+      "path": [
+        "color",
+        "primary",
+        "50"
+      ],
+      "key": "{color.primary.50}"
+    }
+  ],
+  "unfilteredTokenMap": {}
+}
