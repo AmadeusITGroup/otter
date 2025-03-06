@@ -22,6 +22,7 @@ import {
 import {
   CanceledCallError,
   EmptyResponseError,
+  RequestFailedError,
   ResponseJSONParseError,
 } from '../fwk/errors';
 import {
@@ -175,7 +176,13 @@ export class ApiFetchClient implements ApiClient {
 
       body = await response.text();
     } catch (e: any) {
-      exception = e instanceof CanceledCallError ? e : new EmptyResponseError(e.message || 'Fail to Fetch', undefined, { apiName, operationId, url, origin });
+      if (e instanceof CanceledCallError) {
+        exception = e;
+      } else if (response && !Number.isNaN(response.status)) {
+        exception = new RequestFailedError(e.message || 'Fail to Fetch', response.status, undefined, { apiName, operationId, url, origin });
+      } else {
+        exception = new EmptyResponseError(e.message || 'Fail to Fetch', undefined, { apiName, operationId, url, origin });
+      }
     }
 
     try {
