@@ -30,7 +30,10 @@ describe('Create new otter project command', () => {
     const inProjectPath = path.join(workspacePath, workspaceProjectName);
     const execWorkspaceOptions = { ...defaultExecOptions, cwd: workspacePath };
     const execInAppOptions = { ...defaultExecOptions, cwd: inProjectPath };
-    const createOptions = ['--package-manager', getPackageManager(), '--skip-confirmation', ...(packageManagerConfig.yarnVersion ? ['--yarn-version', packageManagerConfig.yarnVersion] : [])];
+    const createOptions = [
+      '--package-manager', getPackageManager(),
+      '--preset basic',
+      '--skip-confirmation', ...(packageManagerConfig.yarnVersion ? ['--yarn-version', packageManagerConfig.yarnVersion] : [])];
 
     // TODO: remove it when fixing #1356
     await fs.mkdir(inProjectPath, { recursive: true });
@@ -59,6 +62,34 @@ describe('Create new otter project command', () => {
       '--package-manager', getPackageManager(),
       '--skip-confirmation',
       '--preset all',
+      ...(packageManagerConfig.yarnVersion ? ['--yarn-version', packageManagerConfig.yarnVersion] : [])];
+
+    // TODO: remove it when fixing #1356
+    await fs.mkdir(inProjectPath, { recursive: true });
+    setPackagerManagerConfig(packageManagerConfig, execInAppOptions);
+
+    expect(() => packageManagerCreate({ script: `@o3r@${o3rVersion}`, args: [workspaceProjectName, ...createOptions] }, execWorkspaceOptions, 'npm')).not.toThrow();
+    expect(existsSync(path.join(inProjectPath, 'angular.json'))).toBe(true);
+    expect(existsSync(path.join(inProjectPath, 'package.json'))).toBe(true);
+    expect(() => packageManagerInstall(execInAppOptions)).not.toThrow();
+
+    const appName = 'test-application';
+    const inApplicationPath = path.join(inProjectPath, 'apps', appName);
+    expect(() => packageManagerExec({ script: 'ng', args: ['g', 'application', appName] }, execInAppOptions)).not.toThrow();
+    expect(existsSync(path.join(inProjectPath, 'project'))).toBe(false);
+    expect(existsSync(path.join(inApplicationPath, 'package.json'))).toBe(true);
+    expect(existsSync(path.join(inApplicationPath, 'tsconfig.json'))).toBe(true);
+    expect(() => packageManagerRunOnProject(appName, true, { script: 'build' }, execInAppOptions)).not.toThrow();
+  });
+
+  test('should generate a project with default preset (recommended)', async () => {
+    const { workspacePath, packageManagerConfig, o3rVersion } = o3rEnvironment.testEnvironment;
+    const inProjectPath = path.join(workspacePath, workspaceProjectName);
+    const execWorkspaceOptions = { ...defaultExecOptions, cwd: workspacePath };
+    const execInAppOptions = { ...defaultExecOptions, cwd: inProjectPath };
+    const createOptions = [
+      '--package-manager', getPackageManager(),
+      '--skip-confirmation',
       ...(packageManagerConfig.yarnVersion ? ['--yarn-version', packageManagerConfig.yarnVersion] : [])];
 
     // TODO: remove it when fixing #1356
@@ -160,8 +191,8 @@ describe('Create new otter project command', () => {
     [
       ...Object.entries(rootPackageJson.dependencies), ...Object.entries(rootPackageJson.devDependencies), ...Object.entries(resolutions),
       ...Object.entries(appPackageJson.dependencies), ...Object.entries(appPackageJson.devDependencies)
-    ].filter(([dep]) => dep.startsWith('@o3r/') || dep.startsWith('@ama-sdk/')).forEach(([,version]) => {
-      expect(version).toBe(o3rExactVersion);
+    ].filter(([dep]) => dep.startsWith('@o3r/') || dep.startsWith('@ama-sdk/')).forEach(([dep, version]) => {
+      expect(`${dep}:${version as string}`).toBe(`${dep}:${o3rExactVersion}`);
     });
   });
 
@@ -199,8 +230,8 @@ describe('Create new otter project command', () => {
     [
       ...Object.entries(rootPackageJson.dependencies), ...Object.entries(rootPackageJson.devDependencies), ...Object.entries(resolutions),
       ...Object.entries(appPackageJson.dependencies), ...Object.entries(appPackageJson.devDependencies)
-    ].filter(([dep]) => dep.startsWith('@o3r/') || dep.startsWith('@ama-sdk/')).forEach(([,version]) => {
-      expect(version).toBe(o3rExactVersion);
+    ].filter(([dep]) => dep.startsWith('@o3r/') || dep.startsWith('@ama-sdk/')).forEach(([dep, version]) => {
+      expect(`${dep}:${version as string}`).toBe(`${dep}:${o3rExactVersion}`);
     });
   });
 });

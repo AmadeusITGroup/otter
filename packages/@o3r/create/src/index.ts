@@ -82,9 +82,9 @@ if (!args.some((a) => a.startsWith('--style'))) {
   args.push('--style', 'scss');
 }
 
-// Default Preset to Basic
+// Default Preset to Recommended
 if (!args.some((a) => a.startsWith('--preset'))) {
-  args.push('--preset', 'basic');
+  args.push('--preset', 'recommended');
 }
 
 args.push('--no-create-application');

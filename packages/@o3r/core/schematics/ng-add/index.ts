@@ -27,6 +27,7 @@ import type {
 } from 'type-fest';
 import {
   getExternalPreset,
+  type PresetOptions,
   presets,
 } from '../shared/presets';
 import {
@@ -35,6 +36,9 @@ import {
 import {
   NgAddSchematicsSchema,
 } from './schema';
+import {
+  isUsingLegacyConfig,
+} from './utils';
 
 const workspacePackageName = '@o3r/workspace';
 const o3rDevDependencies = [
@@ -85,7 +89,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       registerPackageCollectionSchematics(corePackageJsonContent),
       async (t, c) => {
         const { preset, externalPresets, ...forwardOptions } = options;
-        const presetOptions = { projectName: forwardOptions.projectName, exactO3rVersion: forwardOptions.exactO3rVersion, forwardOptions };
+        const presetOptions: PresetOptions = { projectName: forwardOptions.projectName, exactO3rVersion: forwardOptions.exactO3rVersion, forwardOptions, isUsingEslintLegacy: isUsingLegacyConfig(t) };
         const presetRunner = await presets[preset](presetOptions);
         const externalPresetRunner = externalPresets ? await getExternalPreset(externalPresets, t, c)(presetOptions) : undefined;
         const modules = [...new Set([...(presetRunner.modules || []), ...(externalPresetRunner?.modules || [])])];
