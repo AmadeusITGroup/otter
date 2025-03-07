@@ -88,7 +88,7 @@
     "migrations": "./migration.json"
   },
   "engines": {
-    "node": "^18.19.1 || ^20.11.1 || >=22.0.0"
+    "node": "^20.11.1 || >=22.0.0"
   },
   "exports": {
     ".": {
