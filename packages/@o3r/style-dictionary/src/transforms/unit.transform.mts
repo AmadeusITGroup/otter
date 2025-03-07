@@ -14,7 +14,7 @@ const applyUnit = (value: string, unit: string) => {
   const match = value.match(numberPossiblePattern);
   if (!match) {
     if (!Number.isNaN(Number.parseFloat(value))) {
-      return `${value} ${unit}`;
+      return `${value}${unit}`;
     }
     return value;
   }

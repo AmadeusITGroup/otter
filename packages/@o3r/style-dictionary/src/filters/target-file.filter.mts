@@ -1,4 +1,5 @@
 import {
+  normalize,
   resolve,
 } from 'node:path';
 import type {
@@ -16,7 +17,7 @@ interface TargetFileOptions {
   /** Root path to calculate the target file */
   rootPath?: string;
   /** Default file if not matching any rule */
-  defaultTargetFile?: string;
+  defaultFile?: string;
 }
 
 /**
@@ -65,9 +66,10 @@ const getPathMap = (rule: FileRuleNode, path: string[] = [], map: Map<string, st
 export const getTargetFiles = (fileRules: FileRuleNode, options?: TargetFileOptions): File[] => {
   const flatterRules = deflatten(fileRules);
   const fileMap = getPathMap(flatterRules);
+  const fileMapEntries = [...fileMap.entries()];
 
   return [
-    ...[...fileMap.entries()]
+    ...fileMapEntries
       .map(([filePath, nodes]): File => {
         return {
           destination: options?.rootPath ? resolve(options.rootPath, filePath) : filePath,
@@ -78,8 +80,19 @@ export const getTargetFiles = (fileRules: FileRuleNode, options?: TargetFileOpti
             )
         };
       }),
-    ...(options?.defaultTargetFile
-      ? [{ destination: options.rootPath ? resolve(options.rootPath, options.defaultTargetFile) : options.defaultTargetFile, format: options.format }]
+    ...(options?.defaultFile
+      ? [{
+        destination: options.rootPath ? resolve(options.rootPath, options.defaultFile) : options.defaultFile,
+        format: options?.format,
+        filter: (token) =>
+          !fileMapEntries
+            .filter(([filePath]) => normalize(filePath) !== normalize(options.defaultFile!))
+            .some(([, nodes]) =>
+              nodes.some((path) =>
+                path.every((item, idx) => token.path[idx] === item)
+              )
+            )
+      } satisfies File]
       : [])
   ];
 };
