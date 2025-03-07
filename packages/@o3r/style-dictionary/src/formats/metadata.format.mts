@@ -3,7 +3,6 @@ import type {
   TransformedToken,
 } from 'style-dictionary/types';
 import {
-  createPropertyFormatter,
   getReferences,
   sortByReference,
 } from 'style-dictionary/utils';
@@ -15,11 +14,18 @@ import type {
   CssVariable,
   DesignTokenMetadata,
 } from '../interfaces/metadata.interface.mjs';
+import {
+  getDefaultCssFormatter,
+} from './css-formatters/default.formatter.mjs';
+import type {
+  FormatterOptions,
+} from './css-formatters/interface.formatter.mjs';
 
 export const metadataFormat: Format = {
   name: `${OTTER_NAME_PREFIX}/json/metadata`,
   format: ({ dictionary, options }) => {
-    const { outputReferences, usesDtcg, formatting, keepPrivate } = options;
+    const { outputReferences: outRef, usesDtcg, formatting, keepPrivate } = options;
+    const outputReferences = outRef ?? true;
     const format = 'css';
     const suffix = ';';
     const prefix = '--';
@@ -27,17 +33,8 @@ export const metadataFormat: Format = {
     const commentStyle = options.formatting?.commentStyle ?? 'none';
     const indentation = options.formatting?.indentation ?? '';
     const { lineSeparator } = { lineSeparator: '\n', ...formatting };
-
-    let allTokens = dictionary.allTokens;
-    const tokens = dictionary.tokens;
-    if (outputReferences) {
-      allTokens = [...allTokens].sort(
-        sortByReference(tokens, { unfilteredTokens: dictionary.unfilteredTokens, usesDtcg })
-      );
-    }
-
-    const propertyFormatter = createPropertyFormatter({
-      outputReferences: outputReferences ?? true,
+    const baseFormatterOptions = {
+      outputReferences,
       outputReferenceFallbacks: false,
       dictionary,
       format,
@@ -51,26 +48,17 @@ export const metadataFormat: Format = {
       },
       themeable: false,
       usesDtcg
-    });
+    } as const satisfies FormatterOptions;
 
-    const replacePrivateTokenReferences = (token: TransformedToken, strValue: string): string => {
-      const originalValue = usesDtcg ? token.original.$value : token.original.value;
-      const refs = getReferences(originalValue, tokens);
-      const privateRefs = refs.filter((ref) => ref.attributes?.o3rPrivate);
-      if (privateRefs.length > 0) {
-        privateRefs.forEach((ref) => {
-          const refValue = propertyFormatter(ref);
-          strValue = strValue.replaceAll(`${prefix}${ref.name}`, `${prefix}${ref.name}, ${refValue.substring(refValue.indexOf(separator) + 1).trim()}`);
-          strValue = replacePrivateTokenReferences(ref, strValue);
-        });
-      }
-      return strValue;
-    };
+    let allTokens = dictionary.allTokens;
+    const tokens = dictionary.tokens;
+    if (outputReferences) {
+      allTokens = [...allTokens].sort(
+        sortByReference(tokens, { unfilteredTokens: dictionary.unfilteredTokens, usesDtcg })
+      );
+    }
 
-    const privatePropertyFormatter = (token: TransformedToken) => {
-      const strValue = propertyFormatter(token);
-      return strValue && replacePrivateTokenReferences(token, strValue);
-    };
+    const propertyFormatter = getDefaultCssFormatter(baseFormatterOptions);
 
     const getValueFromCssVariable = (strValue: string) => strValue.replace(new RegExp(`^.*?${separator}(.*)$`), '$1').trim();
 
@@ -79,7 +67,7 @@ export const metadataFormat: Format = {
       const refs = getReferences(originalValue, tokens);
       return refs
         .map((ref) => ({
-          defaultValue: getValueFromCssVariable(privatePropertyFormatter(ref)),
+          defaultValue: getValueFromCssVariable(propertyFormatter(ref)),
           name: ref.name,
           references: getMetadataReferences(ref)
         }));
@@ -89,7 +77,7 @@ export const metadataFormat: Format = {
       .filter(({ attributes }) => !!keepPrivate || !attributes?.private)
       .map((token) => ({
         token,
-        strValue: privatePropertyFormatter(token)
+        strValue: propertyFormatter(token)
       }))
       .filter(({ strValue }) => !!strValue)
       .reduce((acc, { token, strValue }) => {
