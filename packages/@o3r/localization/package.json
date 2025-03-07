@@ -199,7 +199,7 @@
     "zone.js": "~0.15.0"
   },
   "engines": {
-    "node": "^18.19.1 || ^20.11.1 || >=22.0.0"
+    "node": "^20.11.1 || >=22.0.0"
   },
   "builders": "./builders.json",
   "schematics": "./collection.json",
