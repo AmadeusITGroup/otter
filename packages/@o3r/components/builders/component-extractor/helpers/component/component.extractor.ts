@@ -276,17 +276,15 @@ export class ComponentExtractor {
         } else {
           this.logger.warn(message);
         }
-        if (propertiesWithDefaultValue.length === 0) {
-          return acc;
-        }
-        const configWithoutIncompatibleProperties = {
-          ...config,
-          properties: propertiesWithDefaultValue
-        } as const satisfies ComponentConfigOutput;
-        return acc.concat(configWithoutIncompatibleProperties);
       }
-
-      return acc.concat(config);
+      if (propertiesWithDefaultValue.length === 0) {
+        return acc;
+      }
+      const configWithoutIncompatibleProperties = {
+        ...config,
+        properties: propertiesWithDefaultValue
+      } as const satisfies ComponentConfigOutput;
+      return acc.concat(configWithoutIncompatibleProperties);
     }, []);
   }
 
