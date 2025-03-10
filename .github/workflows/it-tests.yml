@@ -67,7 +67,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest, windows-2025]
         packageManager: [yarn, npm]
         testEnvironment: [o3r-project-with-app]
     runs-on: ${{ matrix.os }}
@@ -75,6 +75,8 @@ jobs:
       NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
       ENFORCED_PACKAGE_MANAGER: ${{ matrix.packageManager }}
       PREPARE_TEST_ENV_TYPE: ${{ matrix.testEnvironment }}
+      IT_TESTS_FOLDER: ${{ format('{0}/../it-tests', github.workspace) }}
+      IT_TESTS_GLOBAL_FOLDER: ${{ format('{0}/.cache/test-app', github.workspace) }}
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
@@ -83,6 +85,17 @@ jobs:
         with:
           artifactName: ${{ inputs.ref && format('dist-{0}', inputs.ref) || 'dist' }}
       - uses: ./tools/github-actions/setup
+      - uses: samypr100/setup-dev-drive@v3
+        if: ${{ runner.os == 'Windows' }}
+        with:
+          drive-size: 8GB
+          drive-format: ReFS
+          drive-type: Fixed
+          trusted-dev-drive: true
+          workspace-copy: false
+          env-mapping: |
+            IT_TESTS_FOLDER,{{ DEV_DRIVE }}/it-tests
+            IT_TESTS_GLOBAL_FOLDER,{{ DEV_DRIVE }}/.cache/test-app
       - shell: bash
         run: |
           git config --global  user.name "GitHub Actions"
@@ -99,11 +112,11 @@ jobs:
         with:
           lookup-only: ${{ github.event_name == 'pull_request' || github.event_name == 'merge_group' }}
           path: |
-            .cache/test-app
-            !.cache/test-app/cache/@ama-sdk*
-            !.cache/test-app/cache/@ama-terasu*
-            !.cache/test-app/cache/@o3r*
-            !.cache/test-app/npm-cache/_npx/**
+            ${{ env.IT_TESTS_GLOBAL_FOLDER}}
+            !${{ env.IT_TESTS_GLOBAL_FOLDER}}/cache/@ama-sdk*
+            !${{ env.IT_TESTS_GLOBAL_FOLDER}}/cache/@ama-terasu*
+            !${{ env.IT_TESTS_GLOBAL_FOLDER}}/cache/@o3r*
+            !${{ env.IT_TESTS_GLOBAL_FOLDER}}/npm-cache/_npx/**
           key: ${{ runner.os }}-test-app-${{ matrix.packageManager }}-${{ env.currentMonth }}
       - uses: actions/download-artifact@cc203385981b70ca67e1cc392babf9cc229d5806 # v4.1.9
         name: Download verdaccio storage prepared in the previous job
@@ -131,10 +144,9 @@ jobs:
         run: |
           if [ "$RUNNER_OS" == "Linux" ]; then
             mkdir -p ./otter
-            cp -R ./.cache ./otter/.cache
-            zip -r it-tests.zip ../it-tests ./otter/.cache -x "./otter/.cache/nx/*" -x "../it-tests/*/node_modules/*"
+            zip -r it-tests.zip $IT_TESTS_FOLDER -x "$IT_TESTS_FOLDER/*/node_modules/*"
           elif [ "$RUNNER_OS" == "Windows" ]; then
-            tar -acf it-tests.zip -C ../ --exclude="it-tests/*/node_modules/*" it-tests
+            tar -acf it-tests.zip -C $IT_TESTS_FOLDER --exclude="*/node_modules/*" .
           fi
         shell: bash
       - name: Publish generated tests environment on failure
