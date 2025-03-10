@@ -9,7 +9,6 @@ import {
   MessagePeerService,
 } from '@amadeus-it-group/microfrontends-angular';
 import {
-  DestroyRef,
   inject,
   Injectable,
 } from '@angular/core';
@@ -27,7 +26,7 @@ import {
 } from 'rxjs';
 import {
   type MessageProducer,
-  ProducerManagerService,
+  registerProducer,
 } from '../managers/index';
 import {
   type ErrorContent,
@@ -63,12 +62,7 @@ export class RoutingService implements MessageProducer<NavigationMessage> {
   public readonly types = NAVIGATION_MESSAGE_TYPE;
 
   constructor() {
-    const producerManagerService = inject(ProducerManagerService);
-    producerManagerService.register(this);
-
-    inject(DestroyRef).onDestroy(() => {
-      producerManagerService.unregister(this);
-    });
+    registerProducer(this);
   }
 
   /**

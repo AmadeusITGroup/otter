@@ -10,7 +10,6 @@ import {
   MessagePeerService,
 } from '@amadeus-it-group/microfrontends-angular';
 import {
-  DestroyRef,
   effect,
   inject,
   Injectable,
@@ -18,7 +17,7 @@ import {
 } from '@angular/core';
 import {
   type MessageProducer,
-  ProducerManagerService,
+  registerProducer,
 } from '../managers/index';
 import {
   type ErrorContent,
@@ -50,12 +49,7 @@ export class ThemeProducerService implements MessageProducer<ThemeMessage> {
   public readonly types = THEME_MESSAGE_TYPE;
 
   constructor() {
-    const producerManagerService = inject(ProducerManagerService);
-    producerManagerService.register(this);
-
-    inject(DestroyRef).onDestroy(() => {
-      producerManagerService.unregister(this);
-    });
+    registerProducer(this);
 
     // get the current theme name from the url (if any) and emit a first value for the current theme
     const parentUrl = new URL(window.location.toString());
