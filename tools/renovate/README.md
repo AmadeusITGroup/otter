@@ -53,10 +53,15 @@ If you are using npm package manager instead of yarn:
     "github>AmadeusITGroup/otter//tools/renovate/tasks/base",
     "github>AmadeusITGroup/otter//tools/renovate/branching-strategy/release-branches",
     // or "github>AmadeusITGroup/otter//tools/renovate/branching-strategy/trunk-based" if your repo is based on Trunk-based Development
-    "github>AmadeusITGroup/otter//tools/renovate/tasks/otter-ng-update(npm)"
+    "github>AmadeusITGroup/otter//tools/renovate/tasks/otter-ng-update(npm)",
+    "github>AmadeusITGroup/otter//tools/renovate/managers/renovate-otter-presets.json5"
   ]
 }
 ```
+
+> [!IMPORTANT]
+> We encourage you to lock the version of the presets used thanks to the [#vX.Y.Z suffix](https://docs.renovatebot.com/config-presets/#preset-hosting).
+> This version will be upgrading with Otter by the Presets `otter-project` or via `"github>AmadeusITGroup/otter//tools/renovate/managers/renovate-otter-presets.json5"` directly.
 
 ## Otter SDK
 

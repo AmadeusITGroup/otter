@@ -20,6 +20,7 @@ To be able to benefit from the Renovate Presets exposed by the Otter Framework, 
 
 > [!NOTE]
 > The Otter Renovate presets are always prefixed with `github>AmadeusITGroup/otter//tools/renovate/` to target the specific configuration files hosted in the Otter repository.
+> We encourage you to lock the version of the presets used thanks to the [#vX.Y.Z suffix](https://docs.renovatebot.com/config-presets/#preset-hosting).
 
 > [!WARNING]
 > Check out the [Self-Hosted Renovate section](#self-hosted-renovate) to see how to fully benefit from the presets.
@@ -30,7 +31,7 @@ You can have a look at [the documentation of the available presets](https://gith
 
 ## Self-Hosted Renovate
 
-If you need more control on the way renovate bot is run, then you can [self-host your renovate bot](https://docs.renovatebot.com/getting-started/running/#self-hosting-renovate), 
+If you need more control on the way renovate bot is run, then you can [self-host your renovate bot](https://docs.renovatebot.com/getting-started/running/#self-hosting-renovate),
 which means that you are managing your own renovate bot, either at repository level or at organization level.
 Instead of using the default GitHub App from Renovate, you'll need to create your own or to create a workflow to run it.
 The workflow can be as simple as a cron running `npx renovate`.

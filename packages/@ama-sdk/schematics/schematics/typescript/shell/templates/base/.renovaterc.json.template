@@ -1,14 +1,14 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "github>AmadeusITGroup/otter//tools/renovate/base#<%= sdkCoreVersion %>",<% if (packageManager === 'yarn') { %>
-    "github>AmadeusITGroup/otter//tools/renovate/sdk#<%= sdkCoreVersion %>"<% if (specPackageName) { %>,
-    "github>AmadeusITGroup/otter//tools/renovate/sdk-spec-upgrade(<%= specPackageName %>)#<%= sdkCoreVersion %>"<% } %><% } else { %>
-    "github>AmadeusITGroup/otter//tools/renovate/group/otter#<%= sdkCoreVersion %>",
-    "github>AmadeusITGroup/otter//tools/renovate/tasks/base#<%= sdkCoreVersion %>",
-    "github>AmadeusITGroup/otter//tools/renovate/tasks/sdk-regenerate(npm)#<%= sdkCoreVersion %>"<% if (specPackageName) { %>,
-    "github>AmadeusITGroup/otter//tools/renovate/group/sdk-spec(<%= specPackageName %>)#<%= sdkCoreVersion %>",
-    "github>AmadeusITGroup/otter//tools/renovate/tasks/sdk-spec-regenerate(npm, <%= specPackageName %>)#<%= sdkCoreVersion %>"<% } %><% } %>
+    "github>AmadeusITGroup/otter//tools/renovate/base#v<%= sdkCoreVersion %>",<% if (packageManager === 'yarn') { %>
+    "github>AmadeusITGroup/otter//tools/renovate/sdk#v<%= sdkCoreVersion %>"<% if (specPackageName) { %>,
+    "github>AmadeusITGroup/otter//tools/renovate/sdk-spec-upgrade(<%= specPackageName %>)#v<%= sdkCoreVersion %>"<% } %><% } else { %>
+    "github>AmadeusITGroup/otter//tools/renovate/group/otter#v<%= sdkCoreVersion %>",
+    "github>AmadeusITGroup/otter//tools/renovate/tasks/base#v<%= sdkCoreVersion %>",
+    "github>AmadeusITGroup/otter//tools/renovate/tasks/sdk-regenerate(npm)#v<%= sdkCoreVersion %>"<% if (specPackageName) { %>,
+    "github>AmadeusITGroup/otter//tools/renovate/group/sdk-spec(<%= specPackageName %>)#v<%= sdkCoreVersion %>",
+    "github>AmadeusITGroup/otter//tools/renovate/tasks/sdk-spec-regenerate(npm, <%= specPackageName %>)#v<%= sdkCoreVersion %>"<% } %><% } %>
   ],
   "prConcurrentLimit": 0,
   "prHourlyLimit": 0,
