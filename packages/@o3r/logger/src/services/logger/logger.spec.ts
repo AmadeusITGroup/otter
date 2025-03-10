@@ -13,7 +13,7 @@ import {
   ConsoleLogger,
 } from './logger.console';
 import {
-  LoggerModule,
+  provideLogger,
 } from './logger.module';
 import {
   LoggerService,
@@ -34,8 +34,8 @@ describe('Logger service', () => {
 
     beforeEach(() => {
       TestBed.configureTestingModule({
-        imports: [
-          LoggerModule.forRoot(consoleLogger)
+        providers: [
+          provideLogger(consoleLogger)
         ]
       });
 
@@ -75,8 +75,8 @@ describe('Logger service', () => {
       };
 
       TestBed.configureTestingModule({
-        imports: [
-          LoggerModule.forRoot(client)
+        providers: [
+          provideLogger(client)
         ]
       });
 
@@ -160,8 +160,8 @@ describe('Logger service', () => {
         };
 
         TestBed.configureTestingModule({
-          imports: [
-            LoggerModule.forRoot(client1, client2)
+          providers: [
+            provideLogger(client1, client2)
           ]
         });
 
@@ -262,10 +262,8 @@ describe('Logger service', () => {
         };
 
         TestBed.configureTestingModule({
-          imports: [
-            LoggerModule
-          ],
           providers: [
+            LoggerService,
             { provide: LOGGER_CLIENT_TOKEN, useValue: client1, multi: true },
             { provide: LOGGER_CLIENT_TOKEN, useValue: client2, multi: true }
           ]
