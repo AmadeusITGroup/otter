@@ -1,28 +1,47 @@
 import type {
   Format,
-  TransformedToken,
 } from 'style-dictionary/types';
 import {
-  createPropertyFormatter,
   fileHeader,
-  getReferences,
   sortByReference,
 } from 'style-dictionary/utils';
 import {
   OTTER_NAME_PREFIX,
 } from '../constants.mjs';
+import {
+  getDefaultCssFormatter,
+} from './css-formatters/default.formatter.mjs';
+import type {
+  FormatterOptions,
+} from './css-formatters/interface.formatter.mjs';
 
 export const cssFormat: Format = {
   name: `${OTTER_NAME_PREFIX}/css/variable`,
   format: async ({ dictionary, file, options }) => {
     const selector = options.selector || ':root';
-    const { outputReferences, usesDtcg, formatting } = options;
+    const { outputReferences: outRef, usesDtcg, formatting } = options;
+    const outputReferences = outRef ?? true;
     const header: string = await fileHeader({ file, formatting, options });
     const { lineSeparator } = { lineSeparator: '\n', ...formatting };
     const format = 'css';
     const suffix = ';';
     const prefix = '--';
     const separator = ':';
+
+    const baseFormatterOptions = {
+      outputReferences,
+      outputReferenceFallbacks: false,
+      dictionary,
+      format,
+      formatting: {
+        ...formatting,
+        suffix,
+        prefix,
+        separator
+      },
+      themeable: false,
+      usesDtcg
+    } as const satisfies FormatterOptions;
 
     const formattedVariables = () => {
       let allTokens = dictionary.allTokens;
@@ -33,48 +52,13 @@ export const cssFormat: Format = {
         );
       }
 
-      const propertyFormatter = createPropertyFormatter({
-        outputReferences: outputReferences ?? true,
-        outputReferenceFallbacks: false,
-        dictionary,
-        format,
-        formatting: {
-          ...formatting,
-          suffix,
-          prefix,
-          separator
-        },
-        themeable: false,
-        usesDtcg
-      });
-
-      const replacePrivateTokenReferences = (token: TransformedToken, strValue: string): string => {
-        const originalValue = usesDtcg ? token.original.$value : token.original.value;
-
-        if (outputReferences) {
-          const refs = getReferences(originalValue, dictionary.unfilteredTokens || tokens, options);
-          const privateRefs = refs.filter((ref) => ref.attributes?.o3rPrivate);
-          if (privateRefs.length > 0) {
-            privateRefs.forEach((ref) => {
-              const refValue = propertyFormatter(ref);
-              strValue = strValue.replaceAll(`${prefix}${ref.name}`, `${prefix}${ref.name}, ${refValue.substring(refValue.indexOf(separator) + 1).trim()}`);
-              strValue = replacePrivateTokenReferences(ref, strValue);
-            });
-          }
-        }
-        return strValue;
-      };
-
-      const privatePropertyFormatter = (token: TransformedToken) => {
-        const strValue = propertyFormatter(token);
-        return strValue && replacePrivateTokenReferences(token, strValue);
-      };
+      const propertyFormatter = getDefaultCssFormatter(baseFormatterOptions);
 
       return allTokens
         .filter(({ attributes }) => !attributes?.private)
         .map((token) => ({
           token,
-          strValue: privatePropertyFormatter(token)
+          strValue: propertyFormatter(token)
         }))
         .filter(({ strValue }) => !!strValue)
         .map(({ token, strValue }) => {
