@@ -16,8 +16,8 @@ import {
   otterMessageType,
 } from '@o3r/core';
 import {
-  LoggerModule,
   noopLogger,
+  provideLogger,
 } from '@o3r/logger';
 import {
   ConfigurationDevtoolsMessageService,
@@ -45,10 +45,8 @@ describe('Configuration DevTools message', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        LoggerModule.forRoot(noopLogger)
-      ],
       providers: [
+        provideLogger(noopLogger),
         ConfigurationDevtoolsMessageService,
         { provide: OTTER_CONFIGURATION_DEVTOOLS_DEFAULT_OPTIONS, useValue: OTTER_CONFIGURATION_DEVTOOLS_OPTIONS },
         provideMockStore({

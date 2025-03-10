@@ -1,8 +1,8 @@
 import { ApiFetchClient } from '@ama-sdk/client-fetch';
 import { ApiClient, PluginRunner, RequestOptions, RequestPlugin } from '@ama-sdk/core';
-import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { ApiManager, ApiManagerModule } from '@o3r/apis-manager';
+import { ApiManager, provideApiManager } from '@o3r/apis-manager';
 import { routes } from './app.routes';
 
 class MockInterceptRequest implements RequestPlugin {
@@ -56,6 +56,6 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    importProvidersFrom(ApiManagerModule.forRoot(apiManager))
+    provideApiManager(apiManager),
   ]
 };
