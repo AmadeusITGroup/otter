@@ -19,27 +19,10 @@
         "script": "build:source"
       }
     },
-    "lint": {
-      "executor": "nx:run-commands"
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "options": {
-        "jestConfig": "packages/@ama-sdk/swagger-builder/jest.config.js"
-      }
-    },
-    "prepare-publish": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "prepare:publish"
-      }
-    },
-    "publish": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "npm publish packages/@ama-sdk/swagger-builder/dist"
-      }
-    }
+    "lint": {},
+    "test": {},
+    "prepare-publish": {},
+    "publish": {}
   },
   "tags": []
 }

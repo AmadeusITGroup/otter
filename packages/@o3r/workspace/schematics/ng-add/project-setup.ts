@@ -8,12 +8,10 @@ import {
 import {
   addVsCodeRecommendations,
   applyEsLintFix,
+  DependencyToAdd,
   getO3rPeerDeps,
   getWorkspaceConfig,
   setupDependencies,
-} from '@o3r/schematics';
-import type {
-  DependencyToAdd,
 } from '@o3r/schematics';
 import {
   NodeDependencyType,
@@ -25,6 +23,11 @@ import {
   isUsingFlatConfig,
   shouldOtterLinterBeInstalled,
 } from '../rule-factories/linter';
+import {
+  commitHookDevDependencies,
+  generateCommitLintConfig,
+  getCommitHookInitTask,
+} from './helpers/commit-hooks';
 import {
   updateGitIgnore,
 } from './helpers/gitignore-update';
@@ -40,6 +43,19 @@ import type {
   NgAddSchematicsSchema,
 } from './schema';
 
+const updateEditorConfig: Rule = (tree) => {
+  const editorconfigPath = '.editorconfig';
+  const editorconfig = tree.exists(editorconfigPath) ? tree.readText(editorconfigPath) : '';
+  if (editorconfig.includes('end_of_line')) {
+    return tree;
+  }
+  const newEditorconfig = /\[[*]\]/.test(editorconfig)
+    ? editorconfig.replace(/(\[[*]\])/, '$1\nend_of_line = lf')
+    : editorconfig.concat('[*]\nend_of_line = lf');
+  tree.overwrite(editorconfigPath, newEditorconfig);
+  return tree;
+};
+
 /**
  * Enable all the otter features requested by the user
  * Install all the related dependencies and import the features inside the application
@@ -51,9 +67,12 @@ export const prepareProject = (options: NgAddSchematicsSchema): Rule => {
     'EditorConfig.EditorConfig',
     'angular.ng-template'
   ];
-  const dependenciesToInstall = [
+  const otterDependencies = [
     '@ama-sdk/core',
     '@ama-sdk/schematics'
+  ];
+  const devDependenciesToInstall = [
+    ...(options.skipPreCommitChecks ? [] : commitHookDevDependencies)
   ];
   const ownSchematicsFolder = path.resolve(__dirname, '..');
   const ownPackageJsonPath = path.resolve(ownSchematicsFolder, '..', 'package.json');
@@ -70,7 +89,7 @@ export const prepareProject = (options: NgAddSchematicsSchema): Rule => {
       ...depsInfo.o3rPeerDeps
     ]));
 
-    const dependencies = [...internalPackagesToInstallWithNgAdd, ...dependenciesToInstall].reduce((acc, dep) => {
+    const dependencies = [...internalPackagesToInstallWithNgAdd, ...otterDependencies].reduce((acc, dep) => {
       acc[dep] = {
         inManifest: [{
           range: `${options.exactO3rVersion ? '' : '~'}${depsInfo.packageVersion}`,
@@ -81,6 +100,16 @@ export const prepareProject = (options: NgAddSchematicsSchema): Rule => {
       return acc;
     }, {} as Record<string, DependencyToAdd>);
 
+    devDependenciesToInstall.forEach((dep) => {
+      dependencies[dep] ||= {
+        inManifest: [{
+          range: ownPackageJsonContent.devDependencies?.[dep] || ownPackageJsonContent.generatorDependencies?.[dep] || 'latest',
+          types: [NodeDependencyType.Dev]
+        }],
+        requireInstall: !options.skipPreCommitChecks && dep === 'husky'
+      };
+    });
+
     if (installOtterLinter) {
       vsCodeExtensions.push('dbaeumer.vscode-eslint');
     }
@@ -89,13 +118,24 @@ export const prepareProject = (options: NgAddSchematicsSchema): Rule => {
 
     return () => chain([
       generateRenovateConfig(__dirname),
+      ...(options.skipPreCommitChecks ? [] : [generateCommitLintConfig()]),
+      updateEditorConfig,
       addVsCodeRecommendations(vsCodeExtensions),
       updateGitIgnore(workspaceConfig),
       filterPackageJsonScripts,
       setupDependencies({
         dependencies,
         skipInstall: options.skipInstall,
-        ngAddToRun: internalPackagesToInstallWithNgAdd
+        ngAddToRun: internalPackagesToInstallWithNgAdd,
+        scheduleTaskCallback: (taskIds) => {
+          if (!options.skipPreCommitChecks) {
+            if (options.skipInstall) {
+              context.logger.warn(`The pre-commit checks will not be setup because the installation has been skipped.`);
+            } else {
+              getCommitHookInitTask(context)(taskIds);
+            }
+          }
+        }
       }),
       !options.skipLinter && installOtterLinter ? applyEsLintFix() : noop(),
       addWorkspacesToProject(),

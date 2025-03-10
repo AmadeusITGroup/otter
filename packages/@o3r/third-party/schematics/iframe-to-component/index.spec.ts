@@ -34,7 +34,6 @@ describe('Add Iframe', () => {
         })
         @Component({
           selector: 'o3r-test-pres',
-          standalone: true,
           imports: [CommonModule],
           styleUrls: ['./test.style.scss'],
           templateUrl: './test.template.html',
@@ -86,7 +85,6 @@ describe('Add Iframe', () => {
 
         @Component({
           selector: 'ng-test',
-          standalone: true,
           imports: [CommonModule],
           template: ''
         })

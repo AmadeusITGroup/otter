@@ -1,11 +1,13 @@
 import {
   lstat,
+  mkdir,
   readdir,
   readFile,
   writeFile,
 } from 'node:fs/promises';
 import {
   join,
+  parse,
   resolve,
 } from 'node:path';
 import {
@@ -19,11 +21,11 @@ import {
 program
   .description('Extract folder structure')
   .requiredOption('--files <files>', 'List of files and folder to extract in addition to the path')
+  .requiredOption('-o, --output <output>', 'Output file path')
   .option('-r, --root <root>', 'Root of the extraction')
-  .option('-o, --output <output>', 'Output folder path')
   .parse(process.argv);
 
-const options = program.opts<{ root?: string; files: string; output?: string }>();
+const options = program.opts<{ root?: string; files: string; output: string }>();
 const cwd = options.root ? resolve(process.cwd(), options.root) : process.cwd();
 void (async () => {
   const filesDescriptor = await Promise.all(
@@ -36,7 +38,14 @@ void (async () => {
     readdir: readdir,
     readFile: readFile
   } as FileSystem);
-  const targetPath = join(cwd, options.output || 'folder-structure.json');
-  const content = JSON.stringify(folderStructure);
+  const content = JSON.stringify({
+    fileSystemTree: folderStructure
+  });
+
+  const targetPath = options.output.replace(/\\/g, '/');
+  const parsedPath = parse(options.output);
+  if (parsedPath.dir) {
+    await mkdir(parsedPath.dir, { recursive: true });
+  }
   await writeFile(targetPath, content);
 })();

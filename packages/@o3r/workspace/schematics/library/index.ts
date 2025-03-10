@@ -11,8 +11,7 @@ import {
 } from '@angular-devkit/schematics/tasks';
 import {
   applyEsLintFix,
-  createSchematicWithMetricsIfInstalled,
-  createSchematicWithOptionsFromWorkspace,
+  createOtterSchematic,
   type DependencyToAdd,
   getPackagesBaseRootFolder,
   getWorkspaceConfig,
@@ -89,4 +88,4 @@ function generateModuleFn(options: NgGenerateModuleSchema): Rule {
  * Add an Otter compatible module to a monorepo
  * @param options Schematic options
  */
-export const generateModule = createSchematicWithOptionsFromWorkspace(createSchematicWithMetricsIfInstalled(generateModuleFn));
+export const generateModule = createOtterSchematic(generateModuleFn);

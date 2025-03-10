@@ -23,7 +23,7 @@ import {
   addInterfaceToClassTransformerFactory,
   applyEsLintFix,
   askConfirmationToConvertComponent,
-  createSchematicWithMetricsIfInstalled,
+  createOtterSchematic,
   getO3rComponentInfoOrThrowIfNotFound,
   isO3rClassComponent,
   NoOtterComponent,
@@ -119,4 +119,4 @@ export function ngAddContextFn(options: NgAddConfigSchematicsSchema): Rule {
   };
 }
 
-export const ngAddContext = createSchematicWithMetricsIfInstalled(ngAddContextFn);
+export const ngAddContext = createOtterSchematic(ngAddContextFn);

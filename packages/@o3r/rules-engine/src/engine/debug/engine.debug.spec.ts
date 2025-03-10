@@ -5,6 +5,7 @@ import {
   Subscription,
 } from 'rxjs';
 import {
+  filter,
   reduce,
   skip,
   take,
@@ -122,6 +123,7 @@ describe('Rules engine debug', () => {
     const events$ = firstValueFrom(
       rulesEngine.engineDebug.debugEvents$
         .pipe(
+          filter((ev) => ev.type !== 'AvailableFactsSnapshot'),
           skip(5), // skip initial events
           take(2), // consider next 2 events (an execution and an actions output emit)
           reduce((acc, ev) => ([...acc, ev]), [] as DebugEvent[])
@@ -201,6 +203,7 @@ describe('Rules engine debug', () => {
     const events$ = firstValueFrom(
       rulesEngine.engineDebug.debugEvents$
         .pipe(
+          filter((ev) => ev.type !== 'AvailableFactsSnapshot'),
           skip(5), // skip initial events
           take(4), // consider next 4 events ( 2 rules executions and 2 actions output )
           reduce((acc, ev) => ([...acc, ev]), [] as DebugEvent[])

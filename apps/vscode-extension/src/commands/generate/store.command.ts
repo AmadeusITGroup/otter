@@ -28,8 +28,8 @@ export function generateStoreGenerateCommand(_context: ExtensionContext, folder?
       canPickMany: false,
       ignoreFocusOut: true,
       title: 'Which type of store do you want to create ? \n'
-      + 'The entity store contains a collection of items in the state, while the simple one contains only one.\n'
-      + 'The async store is designed to interact with an api, and handles the asynchronous call via effects.'
+        + 'The entity store contains a collection of items in the state, while the simple one contains only one.\n'
+        + 'The async store is designed to interact with an api, and handles the asynchronous call via effects.'
     });
 
     if (!storeType) {

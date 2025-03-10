@@ -10,8 +10,7 @@ import {
 } from './common';
 
 @Pipe({
-  name: 'isRef',
-  standalone: true
+  name: 'isRef'
 })
 export class IsRefPipe implements PipeTransform {
   public transform(variable: StylingVariable) {

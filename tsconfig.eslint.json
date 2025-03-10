@@ -4,6 +4,7 @@
     ".github/**/*.mjs",
     "eslint*.config.mjs",
     "jest.config.js",
+    "commitlint.config.cts",
     "jest.config.*.js",
     "testing/*",
     "scripts/**/*.js",

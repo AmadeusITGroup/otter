@@ -19,7 +19,6 @@ To help developers to create their own Otter compatible module, the Otter framew
 
 - [@o3r/schematics](https://www.npmjs.com/package/@o3r/schematics): exposes helper functions to develop the module schematic features
 - [@o3r/extractors](https://www.npmjs.com/package/@o3r/extractors): exposes helper functions to create code metadata extractor to help in CMS communication
-- [@o3r/dev-tools](https://www.npmjs.com/package/@o3r/dev-tools): provides a collection of Command Line Interfaces which can be used in CI and build workflows
 
 ## List of Otter official modules
 

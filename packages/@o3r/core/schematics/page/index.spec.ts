@@ -45,13 +45,12 @@ describe('Page', () => {
     });
 
     it('should generate files', () => {
-      expect(tree.files.filter((file) => /test-page/.test(file)).length).toEqual(7);
-      expect(tree.files.some((file) => /^[\\/]?src[\\/]app[\\/]test-page[\\/]test-page\.module\.ts$/i.test(file))).toBeTruthy();
-      expect(tree.readContent('/src/app/test-page/test-page.module.ts')).toContain('RouterModule.forChild([{path: \'\', component: TestPageComponent}])');
+      expect(tree.files.filter((file) => /test-page/.test(file)).length).toEqual(6);
+      expect(tree.files.some((file) => /^[\\/]?src[\\/]app[\\/]test-page[\\/]test-page\.module\.ts$/i.test(file))).toBeFalsy();
     });
 
     it('should insert page route in App Routing Module', () => {
-      expect(tree.readContent('/app.routing.module.ts')).toContain('{path: \'test-page\', loadChildren: () => import(\'./test-page/index\').then((m) => m.TestPageModule)}');
+      expect(tree.readContent('/app.routing.module.ts')).toContain('{path: \'test-page\', loadComponent: () => import(\'./test-page/index\').then((m) => m.TestPageComponent)}');
     });
 
     it('should have the default selector', () => {
@@ -59,7 +58,7 @@ describe('Page', () => {
     });
   });
 
-  describe('Standalone page', () => {
+  describe('Non standalone page', () => {
     beforeAll(async () => {
       const runner = new SchematicTestRunner('schematics', collectionPath);
       const angularPackageJson = require.resolve('@schematics/angular/package.json');
@@ -69,17 +68,18 @@ describe('Page', () => {
         name: 'test-page',
         appRoutingModulePath: 'app.routing.module.ts',
         path: 'src/app',
-        standalone: true
+        standalone: false
       }, getInitialTree());
     });
 
     it('should generate files', () => {
-      expect(tree.files.filter((file) => /test-page/.test(file)).length).toEqual(6);
-      expect(tree.files.some((file) => /^[/\\]?src[/\\]ap{2}(?:[/\\]test-page){2}\.module\.ts$/i.test(file))).toBeFalsy();
+      expect(tree.files.filter((file) => /test-page/.test(file)).length).toEqual(7);
+      expect(tree.files.some((file) => /^[\\/]?src[\\/]app[\\/]test-page[\\/]test-page\.module\.ts$/i.test(file))).toBeTruthy();
+      expect(tree.readContent('/src/app/test-page/test-page.module.ts')).toContain('RouterModule.forChild([{path: \'\', component: TestPageComponent}])');
     });
 
     it('should insert page route in App Routing Module', () => {
-      expect(tree.readContent('/app.routing.module.ts')).toContain('{path: \'test-page\', loadComponent: () => import(\'./test-page/index\').then((m) => m.TestPageComponent)}');
+      expect(tree.readContent('/app.routing.module.ts')).toContain('{path: \'test-page\', loadChildren: () => import(\'./test-page/index\').then((m) => m.TestPageModule)}');
     });
   });
 
@@ -99,13 +99,12 @@ describe('Page', () => {
     });
 
     it('should generate files with default parameters', () => {
-      expect(tree.files.filter((file) => /test-page/.test(file)).length).toEqual(7);
-
-      expect(tree.files.some((file) => /^[\\/]?custom[\\/]test-scope[\\/]test-page[\\/]test-page\.module\.ts$/i.test(file))).toBeTruthy();
+      expect(tree.files.filter((file) => /test-page/.test(file)).length).toEqual(6);
+      expect(tree.files.some((file) => /^[\\/]?custom[\\/]test-scope[\\/]test-page[\\/]test-page\.module\.ts$/i.test(file))).toBeFalsy();
     });
 
     it('should insert page route in App Routing Module', () => {
-      expect(tree.readContent('/app.routing.module.ts')).toContain('{path: \'test-page\', loadChildren: () => import(\'./test-scope/test-page/index\').then((m) => m.TestPageModule)}');
+      expect(tree.readContent('/app.routing.module.ts')).toContain('{path: \'test-page\', loadComponent: () => import(\'./test-scope/test-page/index\').then((m) => m.TestPageComponent)}');
     });
 
     it('should have the custom selector', () => {
@@ -128,7 +127,7 @@ describe('Page', () => {
     });
 
     it('should still generate files', () => {
-      expect(tree.files.filter((file) => /test-page/.test(file)).length).toEqual(7);
+      expect(tree.files.filter((file) => /test-page/.test(file)).length).toEqual(6);
     });
   });
 

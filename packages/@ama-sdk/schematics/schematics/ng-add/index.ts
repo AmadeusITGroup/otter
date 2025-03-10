@@ -55,12 +55,6 @@ export const updatePackageJsonScripts: Rule = (tree, context) => {
     (acc, [scriptName, cmd]) => {
       if (typeof cmd === 'string') {
         acc[scriptName] = cmd
-          .replace(
-            // Remove swagger config path if it is the default value
-            // eslint-disable-next-line @stylistic/max-len -- regexp cannot be splitted
-            / --(swagger-config-path|swaggerConfigPath)[ =]?(\.\/)?node_modules\/@ama-sdk\/generator-sdk\/src\/generators\/java-client-core\/templates\/swagger-codegen-java-client\/config\/swagger-codegen-config.json/,
-            ''
-          )
           .replace(/\byo\b/g, 'schematics') // Migrate from yeoman to schematics
           .replace(
             // Change generator path to schematics collection:name
@@ -71,10 +65,6 @@ export const updatePackageJsonScripts: Rule = (tree, context) => {
             /@ama-sdk\/generator-sdk\/(src\/)?generators/g,
             '@ama-sdk/schematics/schematics'
           ) // Change relative path for swaggerConfigPath
-          .replace(
-            /(@ama-sdk\/schematics\/schematics\/)java-client-core/g,
-            '$1java/client-core'
-          ) // Change java client core path
           .replace(
             /@ama-sdk\/(schematics|generator-sdk):(core|shell|create|mock)/g,
             '@ama-sdk/schematics:typescript-$2'
@@ -197,6 +187,8 @@ function ngAddFn(): Rule {
  * @param opts
  */
 export const ngAdd = (opts: NgAddSchematicsSchema): Rule => async () => {
-  const { createSchematicWithMetricsIfInstalled } = await import('@o3r/schematics');
-  return createSchematicWithMetricsIfInstalled(ngAddFn)(opts);
+  const {
+    createOtterSchematic
+  } = await import('@o3r/schematics');
+  return createOtterSchematic(ngAddFn)(opts);
 };

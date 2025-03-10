@@ -9,7 +9,7 @@ import {
   addImportsRule,
   addInterfaceToClassTransformerFactory,
   applyEsLintFix,
-  createSchematicWithMetricsIfInstalled,
+  createOtterSchematic,
   generateClassElementsFromString,
   isO3rClassComponent,
   O3rCliError,
@@ -148,4 +148,4 @@ function ngUseConfigSignalFn(options: NgUseConfigSignalSchematicsSchema): Rule {
  * Migrate from configuration observable to signal
  * @param options
  */
-export const ngUseConfigSignal = createSchematicWithMetricsIfInstalled(ngUseConfigSignalFn);
+export const ngUseConfigSignal = createOtterSchematic(ngUseConfigSignalFn);

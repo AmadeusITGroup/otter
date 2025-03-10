@@ -12,7 +12,7 @@ const updateEslintConfigMock = jest.fn(() => () => {});
 
 jest.mock('@o3r/schematics', () => ({
   ...jest.requireActual('@o3r/schematics'),
-  createSchematicWithMetricsIfInstalled: jest.fn((schematicFn) => schematicFn),
+  createOtterSchematic: jest.fn((schematicFn) => schematicFn),
   setupDependencies: setupDependenciesMock
 }));
 jest.mock('./vscode/index', () => ({

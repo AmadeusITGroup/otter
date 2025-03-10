@@ -1,0 +1,59 @@
+<h1>SDK Introduction</h1>
+<div class="row">
+  <div class="right-nav order-1 order-lg-2 col-12 col-lg-2 sticky-lg-top pt-5 pt-lg-0">
+    <o3r-in-page-nav-pres
+      id="sdk-nav"
+      [links]="links$ | async"
+    >
+    </o3r-in-page-nav-pres>
+  </div>
+  <div class="order-2 order-lg-1 col-12 col-lg-10">
+    <h2 id="sdk-description">Why an SDK?</h2>
+    <div>
+      <p>
+        If an application consumes an API, there are several developer tasks that are required including a lot of redundant code.
+        These tasks include:
+      </p>
+      <ul>
+        <li>Choosing the needed techniques to perform API calls</li>
+        <li>Determining which HTTP method to use for each request</li>
+        <li>Managing the Authorization (maybe adding request headers) and doing it for each request</li>
+        <li>Preparing the URL with any path or query parameters expected by the API endpoint</li>
+        <li>Creating models to establish a contract between the backend and the frontend</li>
+      </ul>
+      <p>
+        Let's see how we use the OpenAPI tools to handle our APIs and generate a Typescript SDK codebase.
+        Check out the following diagram to visualize the description below.
+      </p>
+      <figure class="figure">
+        <img src="assets/sdk-openapi-diagram.svg" class="figure-img img-fluid mx-auto d-block"
+          alt="Diagram representing the process of generating an SDK from an OpenAPI specification using Otter generators">
+      </figure>
+      <p>
+        The specifications of the API are written in an OpenAPI document (of type JSON or YAML).
+        These specifications are then used to generate an SDK using the OpenAPI Generator and the Otter SDK templates.
+        These template files include the API interfaces and operations, models with their corresponding revivers, and mocked
+        APIs that can be used for testing in spec files. All these files together form the Typescript SDK.
+      </p>
+      <p>
+        This generated code is agnostic of any frontend framework. Therefore, it can be used both in the backend in a NodeJS server
+        application or in a frontend application displayed by browsers, mobiles, smartwatches etc.
+      </p>
+    </div>
+
+    <h2 id="sdk-example">More information</h2>
+    <div>
+      <p>You can find more information on the resources used through these links:</p>
+      <ul>
+        <li><a href="https://spec.openapis.org/oas/latest.html" target="_blank">OpenAPI Specification</a></li>
+        <li><a href="https://github.com/OpenAPITools/openapi-generator" target="_blank">OpenAPI Generator</a></li>
+        <li><a href="https://github.com/AmadeusITGroup/otter/blob/main/docs/api-sdk/SDK_MODELS_HIERARCHY.md" target="_blank">Otter SDK models hierarchy</a>
+          <ul>
+            <li><a href="https://github.com/AmadeusITGroup/otter/blob/main/docs/api-sdk/COMPOSITION_INHERITANCE.md" target="_blank">Model composition and inheritance</a></li>
+          </ul>
+        </li>
+        <li><a href="https://github.com/AmadeusITGroup/otter/blob/main/packages/%40ama-sdk/schematics/README.md" target="_blank">Otter SDK generator</a></li>
+      </ul>
+    </div>
+  </div>
+</div>

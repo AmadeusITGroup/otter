@@ -47,7 +47,6 @@ import {
   templateUrl: './component-panel-pres.template.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  standalone: true,
   imports: [
     OtterComponentComponent,
     AsyncPipe
@@ -117,8 +116,7 @@ export class ComponentPanelPresComponent {
     ]).pipe(
       map(([info, executions]) =>
         executions.filter((execution) =>
-          (execution.rulesetInformation?.linkedComponent?.name === info.componentName)
-          || (execution.rulesetInformation?.linkedComponents?.or.some((linkedComp) => linkedComp.name === info.componentName))
+          execution.rulesetInformation?.linkedComponents?.or.some((linkedComp) => linkedComp.name === info.componentName)
         )
       )
     );

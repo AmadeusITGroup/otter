@@ -58,7 +58,7 @@
     "standalone": {
       "type": "boolean",
       "description": "Whether the generated component is standalone.",
-      "default": false
+      "default": true
     },
     "usePageFixtures": {
       "type": "boolean",

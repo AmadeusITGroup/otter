@@ -11,9 +11,11 @@ import {
   MinDateValidator,
 } from './min-date.directive';
 
+/**
+ * @deprecated MaxDateValidator and MinDateValidator are now standalone, this module will be removed in v14
+ */
 @NgModule({
-  imports: [CommonModule],
-  declarations: [MaxDateValidator, MinDateValidator],
+  imports: [CommonModule, MaxDateValidator, MinDateValidator],
   exports: [MaxDateValidator, MinDateValidator]
 })
 export class DateValidatorsModule {}

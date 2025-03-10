@@ -7,8 +7,7 @@ import {
 } from './common';
 
 @Pipe({
-  name: 'variableName',
-  standalone: true
+  name: 'variableName'
 })
 export class VariableNamePipe implements PipeTransform {
   public transform(text: string) {

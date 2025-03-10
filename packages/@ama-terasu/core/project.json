@@ -19,27 +19,10 @@
         "script": "build:source"
       }
     },
-    "lint": {
-      "executor": "nx:run-commands"
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "options": {
-        "jestConfig": "packages/@ama-terasu/core/jest.config.js"
-      }
-    },
-    "prepare-publish": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "prepare:publish"
-      }
-    },
-    "publish": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "npm publish packages/@ama-terasu/core/dist"
-      }
-    }
+    "lint": {},
+    "test": {},
+    "prepare-publish": {},
+    "publish": {}
   },
   "tags": []
 }

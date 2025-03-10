@@ -85,7 +85,7 @@ ${vulnerability.overview.replaceAll('### ', '#### ')}
 ${reportData.nbVulnerabilities} vulnerabilities found.
 
 ${reportData.errors.length > 0
-    ? `## Vulnerabilities to be fixed
+  ? `## Vulnerabilities to be fixed
 
 ${reportData.errors
     .filter((vul) => isVulnerabilityWithKnownSeverity(vul))
@@ -94,9 +94,9 @@ ${reportData.errors
     .join(os.EOL)
 }
 `
-    : ''}
+  : ''}
 ${reportData.warnings.length > 0
-    ? `___
+  ? `___
 
 <details>
 <summary>
@@ -113,7 +113,7 @@ ${reportData.warnings
 
 </details>
 `
-    : ''}
+  : ''}
 `;
     core.setOutput('reportMarkdown', body);
     if (isFailed) {

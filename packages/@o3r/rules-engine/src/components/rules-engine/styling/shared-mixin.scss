@@ -1,14 +1,4 @@
-@use 'sass:math';
-
-$ruleset-font-title: 1rem;
-$ruleset-font-category: .95rem;
-$ruleset-rule-ratio: math.div($ruleset-font-category, $ruleset-font-title) - .01;
-$ruleset-success-color: #16aa32;
-$ruleset-error-color: #c02020;
-$ruleset-warn-color: #bb9922;
-$ruleset-deactivated-color: #aaaaaa;
-$ruleset-variable-key-color: #2266cc;
-$ruleset-variable-value-color: #cc2299;
+@use './variables' as variables;
 
 @mixin rule-debug-structure() {
   .ruleset-panel-title,
@@ -19,7 +9,7 @@ $ruleset-variable-value-color: #cc2299;
   }
 
   .ruleset-panel-title {
-    font-size: $ruleset-font-title;
+    font-size: variables.$ruleset-font-title;
     padding: .5rem 0 .1rem;
   }
 
@@ -42,7 +32,7 @@ $ruleset-variable-value-color: #cc2299;
   }
 
   .ruleset-panel-category-title {
-    font-size: $ruleset-font-category;
+    font-size: variables.$ruleset-font-category;
     background: #eeeeee;
     padding: 0.5rem;
     margin-bottom: 0.5rem;
@@ -51,12 +41,12 @@ $ruleset-variable-value-color: #cc2299;
 
   .rule-description {
     .ruleset-panel-category-title {
-      font-size: calc(#{$ruleset-font-category * $ruleset-rule-ratio});
+      font-size: calc(#{variables.$ruleset-font-category * variables.$ruleset-rule-ratio});
       cursor: default;
     }
 
     .ruleset-panel-title {
-      font-size: calc(#{$ruleset-font-title * $ruleset-rule-ratio});
+      font-size: calc(#{variables.$ruleset-font-title * variables.$ruleset-rule-ratio});
     }
 
     .ruleset-panel-category-body {

@@ -3,7 +3,6 @@ import {
   NgModule,
 } from '@angular/core';
 import {
-  DynamicContentPipe,
   O3rDynamicContentPipe,
 } from './dynamic-content.pipe';
 import {
@@ -30,7 +29,7 @@ export function getCmsAssets() {
 }
 
 @NgModule({
-  declarations: [DynamicContentPipe, O3rDynamicContentPipe],
+  declarations: [O3rDynamicContentPipe],
   providers: [
     {
       provide: DYNAMIC_CONTENT_BASE_PATH_TOKEN,
@@ -42,7 +41,7 @@ export function getCmsAssets() {
     },
     DynamicContentService
   ],
-  exports: [DynamicContentPipe, O3rDynamicContentPipe]
+  exports: [O3rDynamicContentPipe]
 })
 /**
  * DynamicContent module

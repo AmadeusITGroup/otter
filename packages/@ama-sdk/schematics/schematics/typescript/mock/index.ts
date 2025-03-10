@@ -96,6 +96,8 @@ function ngGenerateMockFn(options: NgGenerateMockSchematicsSchema): Rule {
  * @param options
  */
 export const ngGenerateMock = (options: NgGenerateMockSchematicsSchema) => async () => {
-  const { createSchematicWithMetricsIfInstalled } = await import('@o3r/schematics');
-  return createSchematicWithMetricsIfInstalled(ngGenerateMockFn)(options);
+  const {
+    createOtterSchematic
+  } = await import('@o3r/schematics');
+  return createOtterSchematic(ngGenerateMockFn)(options);
 };

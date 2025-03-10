@@ -22,7 +22,6 @@ import {Component} from '@angular/core';
 
 @Component({
   selector: 'ng-test',
-  standalone: true,
   imports: [CommonModule],
   template: ''
 })

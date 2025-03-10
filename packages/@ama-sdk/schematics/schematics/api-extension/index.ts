@@ -33,6 +33,8 @@ function ngGenerateApiExtensionFn(options: NgGenerateApiExtensionSchematicsSchem
  * @param options
  */
 export const ngGenerateApiExtension = (options: NgGenerateApiExtensionSchematicsSchema) => async () => {
-  const { createSchematicWithMetricsIfInstalled } = await import('@o3r/schematics');
-  return createSchematicWithMetricsIfInstalled(ngGenerateApiExtensionFn)(options);
+  const {
+    createOtterSchematic
+  } = await import('@o3r/schematics');
+  return createOtterSchematic(ngGenerateApiExtensionFn)(options);
 };

@@ -2,7 +2,7 @@ import {
   Rule,
 } from '@angular-devkit/schematics';
 import {
-  createSchematicWithMetricsIfInstalled,
+  createOtterSchematic,
   displayModuleListRule,
   OTTER_MODULE_KEYWORD,
   OTTER_MODULE_SUPPORTED_SCOPES,
@@ -23,4 +23,4 @@ function ngShowModulesFn(options: NgShowModulesSchematicsSchema): Rule {
  * Show the list of available modules
  * @param options
  */
-export const ngShowModules = createSchematicWithMetricsIfInstalled(ngShowModulesFn);
+export const ngShowModules = createOtterSchematic(ngShowModulesFn);

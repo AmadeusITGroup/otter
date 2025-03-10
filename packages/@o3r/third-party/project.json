@@ -4,7 +4,6 @@
   "projectType": "library",
   "sourceRoot": "packages/@o3r/third-party/src",
   "prefix": "o3r",
-  "implicitDependencies": ["dev-tools"],
   "targets": {
     "build": {
       "executor": "nx:noop",
@@ -17,51 +16,14 @@
         "tsConfig": "packages/@o3r/third-party/tsconfig.build.json"
       }
     },
-    "lint": {
-      "executor": "nx:run-commands"
-    },
-    "test-int": {
-      "executor": "@nx/jest:jest",
-      "options": {
-        "jestConfig": "packages/@o3r/third-party/testing/jest.config.it.js"
-      }
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "options": {
-        "jestConfig": "packages/@o3r/third-party/jest.config.js"
-      }
-    },
-    "prepare-publish": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "prepare:publish"
-      }
-    },
-    "publish": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "npm publish packages/@o3r/third-party/dist"
-      }
-    },
-    "prepare-build-builders": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "prepare:build:builders"
-      }
-    },
-    "build-builders": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "build:builders"
-      }
-    },
-    "documentation": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "compodoc"
-      }
-    }
+    "lint": {},
+    "test-int": {},
+    "test": {},
+    "prepare-publish": {},
+    "publish": {},
+    "prepare-build-builders": {},
+    "build-builders": {},
+    "documentation": {}
   },
   "tags": []
 }

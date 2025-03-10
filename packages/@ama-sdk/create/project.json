@@ -24,27 +24,10 @@
       },
       "dependsOn": ["^build"]
     },
-    "lint": {
-      "executor": "nx:run-commands"
-    },
-    "prepare-publish": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "prepare:publish"
-      }
-    },
-    "test-int": {
-      "executor": "@nx/jest:jest",
-      "options": {
-        "jestConfig": "packages/@ama-sdk/create/testing/jest.config.it.js"
-      }
-    },
-    "publish": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "npm publish packages/@ama-sdk/create/dist"
-      }
-    }
+    "lint": {},
+    "prepare-publish": {},
+    "test-int": {},
+    "publish": {}
   },
   "tags": []
 }

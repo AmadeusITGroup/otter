@@ -46,7 +46,8 @@ import {
       useExisting: forwardRef(() => C11nDirective),
       multi: true
     }
-  ]
+  ],
+  standalone: false
 })
 export class C11nDirective<
   D extends Configuration = Configuration,

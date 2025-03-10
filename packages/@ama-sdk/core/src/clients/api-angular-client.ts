@@ -201,8 +201,7 @@ export class ApiAngularClient implements ApiClient {
       }
     }
 
-    // eslint-disable-next-line no-console -- `console.error` is supposed to be the default value if the `options` argument is not provided, can be removed in Otter v12.
-    const reviver = getResponseReviver(revivers, response, operationId, { disableFallback: this.options.disableFallback, log: console.error });
+    const reviver = getResponseReviver(revivers, response, operationId, { disableFallback: this.options.disableFallback });
     const replyPlugins = this.options.replyPlugins
       ? this.options.replyPlugins.map((plugin) => plugin.load<T>({
         dictionaries: root && root.dictionaries,

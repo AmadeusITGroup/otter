@@ -14,7 +14,7 @@ import {
   url,
 } from '@angular-devkit/schematics';
 import {
-  createSchematicWithMetricsIfInstalled,
+  createOtterSchematic,
   getDestinationPath,
   getWorkspaceConfig,
   O3rCliError,
@@ -72,4 +72,4 @@ function ngGeneratePlaywrightScenarioFn(options: NgGeneratePlaywrightScenarioSch
  * Add a Playwright scenario to an Otter project
  * @param options
  */
-export const ngGeneratePlaywrightScenario = createSchematicWithMetricsIfInstalled(ngGeneratePlaywrightScenarioFn);
+export const ngGeneratePlaywrightScenario = createOtterSchematic(ngGeneratePlaywrightScenarioFn);

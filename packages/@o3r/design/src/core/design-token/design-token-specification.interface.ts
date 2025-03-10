@@ -84,8 +84,16 @@ export interface DesignTokenTypeString extends DesignTokenBase<string> {
   $type: 'string';
 }
 
+/** Value of a Design Token Dimension */
+export interface DesignTokenTypeDimensionValue {
+  /** An integer or floating-point value representing the numeric value */
+  value: number;
+  /** Unit of distance */
+  unit: string;
+}
+
 /** Design Token Dimension */
-export interface DesignTokenTypeDimension extends DesignTokenBase<string> {
+export interface DesignTokenTypeDimension extends DesignTokenBase<string | DesignTokenTypeDimensionValue> {
   /** @inheritdoc */
   $type: 'dimension';
 }
@@ -125,7 +133,7 @@ export interface DesignTokenTypeNumber extends DesignTokenBase<number | string> 
 }
 
 type DesignTokenTypeStrokeStyleDetailsValue = {
-  dashArray: string[];
+  dashArray: (string | DesignTokenTypeDimensionValue)[];
   lineCap: 'round' | 'butt' | 'square';
 };
 
@@ -143,7 +151,7 @@ export interface DesignTokenTypeStrokeStyle<T extends DesignTokenTypeStrokeStyle
 
 type DesignTokenTypeBorderValue = {
   color: string;
-  width: string;
+  width: string | DesignTokenTypeDimensionValue;
   style: DesignTokenTypeStrokeStyleValue;
 };
 
@@ -168,10 +176,11 @@ export interface DesignTokenTypeTransition extends DesignTokenBase<DesignTokenTy
 
 type DesignTokenTypeShadowValue = {
   color: string;
-  offsetX: string;
-  offsetY: string;
-  blur: string;
-  spread: string;
+  offsetX: string | DesignTokenTypeDimensionValue;
+  offsetY: string | DesignTokenTypeDimensionValue;
+  blur: string | DesignTokenTypeDimensionValue;
+  spread: string | DesignTokenTypeDimensionValue;
+  inset?: boolean;
 };
 
 /** Design Token Shadow */
@@ -204,8 +213,8 @@ export interface DesignTokenTypeGradient extends DesignTokenBase<DesignTokenType
 
 type DesignTokenTypeTypographyValue = {
   fontFamily: string;
-  fontSize: string;
-  letterSpacing: string;
+  fontSize: string | DesignTokenTypeDimensionValue;
+  letterSpacing: string | DesignTokenTypeDimensionValue;
   fontWeight: DesignTokenTypeFontWeightValue;
   lineHeight: string | number;
 };

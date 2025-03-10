@@ -57,7 +57,8 @@ import {
   encapsulation: ViewEncapsulation.None,
   host: {
     '[class.debug]': `mode() === 'debug'`
-  }
+  },
+  standalone: false
 })
 export class PlaceholderComponent implements OnInit, OnDestroy, AfterViewChecked {
   public readonly id$ = new BehaviorSubject<string | undefined>(undefined);

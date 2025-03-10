@@ -28,27 +28,10 @@
         "script": "build:source"
       }
     },
-    "prepare-build-builders": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "prepare:build:builders"
-      }
-    },
-    "build-builders": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "build:builders"
-      }
-    },
-    "lint": {
-      "executor": "nx:run-commands"
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "options": {
-        "jestConfig": "packages/@o3r/test-helpers/jest.config.js"
-      }
-    }
+    "prepare-build-builders": {},
+    "build-builders": {},
+    "lint": {},
+    "test": {}
   },
   "tags": []
 }

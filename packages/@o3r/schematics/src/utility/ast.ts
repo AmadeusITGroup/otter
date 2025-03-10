@@ -272,7 +272,7 @@ export const addInterfaceToClassTransformerFactory = (
 /**
  * Add comment on class properties
  * @param classElements
- * @param comments Dictionnary of comment indexed by properties' name
+ * @param comments Dictionary of comment indexed by properties' name
  */
 export const addCommentsOnClassProperties = (
   classElements: ts.ClassElement[],
@@ -363,11 +363,11 @@ export const getSimpleUpdatedMethod = (node: ts.ClassDeclaration, factory: ts.No
  */
 export const isTestBedConfiguration = (node: ts.Node): node is ts.ExpressionStatement & { expression: ts.CallExpression & { expression: ts.PropertyAccessExpression } } =>
   (ts.isExpressionStatement(node)
-  && ts.isCallExpression(node.expression)
-  && ts.isPropertyAccessExpression(node.expression.expression)
-  && ts.isIdentifier(node.expression.expression.expression)
-  && node.expression.expression.expression.escapedText.toString() === 'TestBed'
-  && node.expression.expression.name.escapedText.toString() === 'configureTestingModule')
+    && ts.isCallExpression(node.expression)
+    && ts.isPropertyAccessExpression(node.expression.expression)
+    && ts.isIdentifier(node.expression.expression.expression)
+    && node.expression.expression.expression.escapedText.toString() === 'TestBed'
+    && node.expression.expression.name.escapedText.toString() === 'configureTestingModule')
   || (ts.isAwaitExpression(node) && isTestBedConfiguration(node.expression));
 
 /**

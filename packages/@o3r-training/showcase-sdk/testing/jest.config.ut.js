@@ -8,9 +8,5 @@ const baseConfig = getJestProjectConfig(rootDir, false);
 /** @type {import('ts-jest/dist/types').JestConfigWithTsJest} */
 module.exports = {
   ...baseConfig,
-  displayName: require('../package.json').name,
-  moduleNameMapper: {
-    '^@o3r-training/showcase-sdk$': ['<rootDir>/dist/cjs', '<rootDir>/src'],
-    '^@o3r-training/showcase-sdk/(.*)$': ['<rootDir>/dist/cjs/$1', '<rootDir>/src/$1']
-  }
+  displayName: require('../package.json').name
 };

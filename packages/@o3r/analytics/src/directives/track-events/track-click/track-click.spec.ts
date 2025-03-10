@@ -15,22 +15,21 @@ import {
   platformBrowserDynamicTesting,
 } from '@angular/platform-browser-dynamic/testing';
 import {
-  RouterTestingModule,
-} from '@angular/router/testing';
-import {
   UiEventPayload,
 } from '../../../contracts';
 import {
   EventTrackService,
 } from '../../../services/event-track';
 import {
-  TrackEventsModule,
-} from '../track-events.module';
+  TrackClickDirective,
+} from './track-click.directive';
 
 const dummyEventContext = { eventInfo: { eventName: '', pageId: '', timeStamp: '' } };
 
 @Component({
-  template: '<button trackClick [trackEventContext]="eventModel">Click</button>'
+  template: '<button trackClick [trackEventContext]="eventModel">Click</button>',
+  imports: [TrackClickDirective],
+  providers: [EventTrackService]
 })
 class TestComponent {
   public eventModel = dummyEventContext;
@@ -44,14 +43,6 @@ describe('Track click directive:', () => {
   let fixture: ComponentFixture<TestComponent>;
   let buttonElement: DebugElement;
   let addEventSpy: jest.SpyInstance;
-
-  beforeEach(async () => {
-    return await TestBed.configureTestingModule({
-      imports: [TrackEventsModule, RouterTestingModule],
-      declarations: [TestComponent],
-      providers: [EventTrackService]
-    }).compileComponents();
-  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(TestComponent);

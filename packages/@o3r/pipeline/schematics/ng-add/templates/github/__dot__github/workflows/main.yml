@@ -41,6 +41,7 @@ jobs:
         run: <%= packageManager %> run lint
 
   release:
+    needs: [build, unit-tests, lint]
     permissions:
       contents: write
     runs-on: <%= runner %>

@@ -19,6 +19,7 @@ const config = [
           style: 'kebab-case'
         }
       ],
+      '@angular-eslint/prefer-standalone': 'off',
       '@angular-eslint/directive-class-suffix': 'off',
       '@angular-eslint/directive-selector': [
         'error',

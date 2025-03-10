@@ -13,7 +13,6 @@ import {
 @O3rComponent({ componentType: 'Page' })
 @Component({
   selector: 'o3r-run-app-locally',
-  standalone: true,
   imports: [MarkdownModule],
   templateUrl: './run-app-locally.template.html',
   styleUrls: ['./run-app-locally.style.scss'],

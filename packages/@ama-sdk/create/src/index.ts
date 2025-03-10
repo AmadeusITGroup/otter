@@ -79,7 +79,7 @@ if (argv['spec-path'] && argv['spec-package-name']) {
   process.exit(-4);
 }
 
-/* The local file (path) which will be created in case of generation using specs from an npm module */
+/** local file (path) which will be created in case of generation using specs from an npm module */
 let localFilePathToBeCreated: string | undefined;
 
 if (argv['spec-package-name']) {
@@ -161,8 +161,6 @@ const run = () => {
   }
 };
 
-run();
-
 void (async () => {
   let wrapper: CliWrapper = (fn: any) => fn;
   try {
@@ -171,5 +169,7 @@ void (async () => {
   } catch {
     // Do not throw if `@o3r/telemetry` is not installed
   }
-  return wrapper(run, '@o3r/create:create')();
+  await wrapper(run, '@o3r/create:create')();
+  console.info('SDK Initialization completed');
+  process.exit(0);
 })();

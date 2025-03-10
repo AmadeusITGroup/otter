@@ -10,7 +10,7 @@ import type {
  * If the ESLint FlatConfig is used in the repository
  * @param tree
  */
-export const isUsingFlatConfig = (tree: Tree) => tree.root.subfiles.find((file) => /eslint\.config\.{m,c,}[jt]s/.test(file));
+export const isUsingFlatConfig = (tree: Tree) => tree.root.subfiles.some((file) => /eslint\.config\.[mc]?[jt]s$/.test(file));
 
 /**
  * Checks if `eslint` package is installed. If so, ask the user for otter linter rules install.

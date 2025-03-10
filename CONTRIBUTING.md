@@ -65,7 +65,7 @@ To ease the process, we are providing a set of:
 - [Linters configuration](./packages/@o3r/eslint-config/README.md)
 - [Component generator](./packages/@o3r/core/README.md#generators) (and more)
 
-### Accelerate your build
+### Accelerate your DevExp
 
 #### Thanks to Nx Cloud
 
@@ -94,6 +94,11 @@ yarn print:nx-parallel >> .env
 
 > [!NOTE]
 > The command will set this number to the maximum possible value for your machine, it can be adapted manually after generation
+
+### Focus your build on Typescript only
+
+By default, the `yarn build` command will build the Jar containing the Open API templates, provided that your machine environment allows it.\
+To avoid building the Jar, you can use the command `yarn build:ts` which builds only the Typescript files or you can set the environment variable `OTTER_BUILD_NX_TARGETS = build`.
 
 ### DevTools to create new Otter monorepo elements
 

@@ -7,7 +7,7 @@ import {
 } from '@angular-devkit/schematics';
 import {
   addImportsRule,
-  createSchematicWithMetricsIfInstalled,
+  createOtterSchematic,
   findFilesInTree,
   PipeReplacementInfo,
   updatePipes,
@@ -78,4 +78,4 @@ function updateV10_0Fn(): Rule {
  * Update of Otter library V10.0
  */
 // eslint-disable-next-line @typescript-eslint/naming-convention -- version contained in the function name
-export const updateV10_0 = createSchematicWithMetricsIfInstalled(updateV10_0Fn);
+export const updateV10_0 = createOtterSchematic(updateV10_0Fn);

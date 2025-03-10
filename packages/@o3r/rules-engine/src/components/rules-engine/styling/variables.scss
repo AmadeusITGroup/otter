@@ -1,0 +1,11 @@
+@use 'sass:math';
+
+$ruleset-font-title: 1rem;
+$ruleset-font-category: .95rem;
+$ruleset-rule-ratio: math.div($ruleset-font-category, $ruleset-font-title) - .01;
+$ruleset-success-color: #16aa32;
+$ruleset-error-color: #c02020;
+$ruleset-warn-color: #bb9922;
+$ruleset-deactivated-color: #aaaaaa;
+$ruleset-variable-key-color: #2266cc;
+$ruleset-variable-value-color: #cc2299;

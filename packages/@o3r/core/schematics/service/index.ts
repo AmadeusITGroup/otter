@@ -18,7 +18,7 @@ import {
 } from '@angular-devkit/schematics';
 import {
   applyEsLintFix,
-  createSchematicWithMetricsIfInstalled,
+  createOtterSchematic,
   getDestinationPath,
   getTestFramework,
   getWorkspaceConfig,
@@ -130,4 +130,4 @@ function ngGenerateServiceFn(options: NgGenerateServiceSchematicsSchema): Rule {
  * Add a Service to an Otter project
  * @param options
  */
-export const ngGenerateService = createSchematicWithMetricsIfInstalled(ngGenerateServiceFn);
+export const ngGenerateService = createOtterSchematic(ngGenerateServiceFn);
