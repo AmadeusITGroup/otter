@@ -19,7 +19,7 @@
       "pattern": "https://petstore3.swagger.io/api/v3"
     },
     {
-      "pattern": "^https://figma.com/community/*"
+      "pattern": "^https://(?:www.)?figma.com/community/*"
     }
   ],
   "replacementPatterns": [
