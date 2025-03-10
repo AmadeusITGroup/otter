@@ -24,7 +24,9 @@ import {
   BaseApiClientOptions,
 } from '../fwk/core/base-api-constructor';
 import {
+  CanceledCallError,
   EmptyResponseError,
+  RequestFailedError,
 } from '../fwk/errors';
 import {
   ReviverType,
@@ -190,7 +192,13 @@ export class ApiAngularClient implements ApiClient {
       response = await asyncResponse;
       root = response.body;
     } catch (e: any) {
-      exception = new EmptyResponseError(e.message || 'Fail to Fetch', undefined, { apiName, operationId, url, origin });
+      if (e instanceof CanceledCallError) {
+        exception = e;
+      } else if (response && !Number.isNaN(response.status)) {
+        exception = new RequestFailedError(e.message || 'Fail to Fetch', response.status, undefined, { apiName, operationId, url, origin });
+      } else {
+        exception = new EmptyResponseError(e.message || 'Fail to Fetch', undefined, { apiName, operationId, url, origin });
+      }
     }
 
     const reviver = getResponseReviver(revivers, response, operationId, { disableFallback: this.options.disableFallback });
