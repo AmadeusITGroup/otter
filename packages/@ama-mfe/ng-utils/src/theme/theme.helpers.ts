@@ -38,6 +38,15 @@ export function applyTheme(themeValue?: string, cleanPrevious = true): void {
 }
 
 /**
+ * Download the application additional theme
+ * @param theme Name of the theme to download from the current application
+ */
+export function downloadApplicationThemeCss(theme: string) {
+  const cssHref = `${theme.endsWith('.css') ? theme : theme + THEME_URL_SUFFIX}`;
+  return getStyle(cssHref);
+}
+
+/**
  * Applies the initial theme based on the URL query parameters.
  *
  * This function fetches the CSS theme specified in the URL query parameters and applies it as a stylesheet.
@@ -45,16 +54,15 @@ export function applyTheme(themeValue?: string, cleanPrevious = true): void {
  */
 export async function applyInitialTheme(): Promise<PromiseSettledResult<void>[] | undefined> {
   const searchParams = new URLSearchParams(window.location.search);
-  let cssHref = searchParams.get(THEME_QUERY_PARAM_NAME);
+  const theme = searchParams.get(THEME_QUERY_PARAM_NAME);
   document.adoptedStyleSheets = [];
-  if (cssHref) {
-    cssHref = `${cssHref.endsWith('.css') ? cssHref : cssHref + THEME_URL_SUFFIX}`;
+  if (theme) {
     const themeRequest: Promise<void>[] = [];
-    themeRequest.push(getStyle(cssHref).then((styleToApply) => applyTheme(styleToApply, false)));
+    themeRequest.push(downloadApplicationThemeCss(theme).then((styleToApply) => applyTheme(styleToApply, false)));
     if (document.referrer) {
       const url = new URL(document.referrer);
-      url.pathname += `${url.pathname.endsWith('/') ? '' : '/'}${cssHref}`;
-      themeRequest.push(getStyle(url.toString()).then((styleToApply) => applyTheme(styleToApply, false)));
+      url.pathname += `${url.pathname.endsWith('/') ? '' : '/'}${theme}`;
+      themeRequest.unshift(getStyle(url.toString()).then((styleToApply) => applyTheme(styleToApply, false)));
     }
 
     return Promise.allSettled(themeRequest);
