@@ -23,6 +23,7 @@ import {
 } from '../managers/index';
 import {
   applyTheme,
+  downloadApplicationThemeCss,
 } from './theme.helpers';
 
 /**
@@ -47,10 +48,18 @@ export class ThemeConsumerService implements MessageConsumer<ThemeMessage> {
      * Use the message paylod to get the theme and apply it
      * @param message message to consume
      */
-    '1.0': (message: RoutedMessage<ThemeV1_0>) => {
+    '1.0': async (message: RoutedMessage<ThemeV1_0>) => {
       const sanitizedCss = this.domSanitizer.sanitize(SecurityContext.STYLE, message.payload.css);
       if (sanitizedCss !== null) {
         applyTheme(sanitizedCss);
+      }
+      try {
+        const css = await downloadApplicationThemeCss(message.payload.name);
+        applyTheme(css, false);
+      } catch (e) {
+        // TODO https://github.com/AmadeusITGroup/otter/issues/2887 - proper logger
+        // eslint-disable-next-line no-console -- log the error - replace this with a proper logger
+        console.warn(`no CSS variable for the theme ${message.payload.name}`, e);
       }
     }
   };

@@ -1,7 +1,9 @@
 import {
   applyInitialTheme,
   applyTheme,
+  downloadApplicationThemeCss,
   getStyle,
+  THEME_URL_SUFFIX,
 } from './theme.helpers';
 
 describe('theme helpers', () => {
@@ -127,6 +129,18 @@ describe('theme helpers', () => {
       await applyInitialTheme();
       expect(getStyleSpy).toHaveBeenCalledTimes(2);
       expect(document.adoptedStyleSheets.length).toBe(2);
+    });
+  });
+
+  describe('downloadApplicationThemeCss', () => {
+    it('should add suffix to CSS file', async () => {
+      await downloadApplicationThemeCss('test-css-file');
+      expect(global.Request).toHaveBeenCalledWith(`test-css-file${THEME_URL_SUFFIX}`);
+    });
+
+    it('should keep suffix when specified', async () => {
+      await downloadApplicationThemeCss('test-css-file.css');
+      expect(global.Request).toHaveBeenCalledWith(`test-css-file.css`);
     });
   });
 });
