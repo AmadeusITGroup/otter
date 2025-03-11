@@ -14,12 +14,14 @@
     "@angular/core": "^19.0.0",
     "@angular/platform-browser": "~19.2.0",
     "@angular/router": "~19.2.0",
+    "@o3r/logger": "workspace:^",
     "@o3r/schematics": "workspace:^",
     "rxjs": "^7.8.1"
   },
   "dependencies": {
     "@amadeus-it-group/microfrontends": "0.0.3",
     "@amadeus-it-group/microfrontends-angular": "0.0.3",
+    "@o3r/logger": "workspace:^",
     "tslib": "^2.6.2"
   },
   "sideEffects": false,
@@ -101,6 +103,9 @@
       "optional": true
     },
     "@angular-devkit/schematics": {
+      "optional": true
+    },
+    "@o3r/logger": {
       "optional": true
     },
     "@o3r/schematics": {

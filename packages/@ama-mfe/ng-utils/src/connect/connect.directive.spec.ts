@@ -19,6 +19,9 @@ import {
   SafeResourceUrl,
 } from '@angular/platform-browser';
 import {
+  LoggerService,
+} from '@o3r/logger';
+import {
   ConnectDirective,
 } from './connect.directive';
 
@@ -39,16 +42,27 @@ describe('ConnectDirective', () => {
   let domSanitizer: DomSanitizer;
   let messagePeerServiceMock: any;
   let messagePeerService: MessagePeerService<Message>;
+  let loggerServiceMock: jest.Mocked<LoggerService>;
+  let listenHandler: jest.Mocked<any>;
 
   beforeEach(() => {
+    listenHandler = jest.fn();
     messagePeerServiceMock = {
       disconnect: jest.fn(),
-      listen: jest.fn()
+      listen: jest.fn().mockImplementation(() => {
+        return listenHandler();
+      })
     };
+
+    loggerServiceMock = {
+      warn: jest.fn(),
+      error: jest.fn()
+    } as unknown as jest.Mocked<LoggerService>;
 
     parentComponentFixture = TestBed.configureTestingModule({
       imports: [ParentComponent, ConnectDirective],
       providers: [
+        { provide: LoggerService, useValue: loggerServiceMock },
         { provide: MessagePeerService, useValue: messagePeerServiceMock }
       ]
     }).createComponent(ParentComponent);
@@ -89,5 +103,17 @@ describe('ConnectDirective', () => {
 
     // test the client origin even if it's private
     expect((directiveInstance as any).clientOrigin()).toBe('https://example.com');
+  });
+
+  it('should report failure', () => {
+    const errorToThrow = new Error('some error');
+    listenHandler = () => {
+      throw errorToThrow;
+    };
+    const safeUrl = domSanitizer.bypassSecurityTrustResourceUrl('https://example.com?param=test');
+    parentComponentFixture.componentInstance.src = safeUrl;
+    parentComponentFixture.detectChanges();
+
+    expect(loggerServiceMock.error).toHaveBeenCalledWith(expect.stringMatching(/.+/), errorToThrow);
   });
 });

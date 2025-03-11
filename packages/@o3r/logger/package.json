@@ -41,6 +41,9 @@
     "@fullstory/browser": {
       "optional": true
     },
+    "@o3r/core": {
+      "optional": true
+    },
     "@o3r/schematics": {
       "optional": true
     },
