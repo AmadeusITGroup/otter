@@ -585,6 +585,17 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
         parameter.isPrimitiveType = false;
       }
     }
+
+    // Set Otter default parameter serialization for Swagger 2.0
+    if (parameter.style == null || "".equals(parameter.style)) {
+      if (parameter.isQueryParam) {
+        parameter.isExplode = false;
+        parameter.style = "form";
+      } else if (parameter.isPathParam) {
+        parameter.isExplode = false;
+        parameter.style = "simple";
+      }
+    }
   }
 
   /**
