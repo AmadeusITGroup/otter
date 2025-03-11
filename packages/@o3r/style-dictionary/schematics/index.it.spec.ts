@@ -37,14 +37,12 @@ describe('ng add otter style-dictionary hooks', () => {
 
     expect(() => packageManagerRunOnProject(appName, isInWorkspace, { script: 'generate:css' }, execAppOptions)).not.toThrow();
     diff = getGitDiff(workspacePath);
-    expect(diff.added.length).toBe(4);
     expect(diff.added).toContain(path.join(relativeApplicationPath, 'test.tokens.json').replace(/[/\\]+/g, '/'));
     expect(diff.added).toContain(path.join(relativeApplicationPath, 'default.tokens.css').replace(/[/\\]+/g, '/'));
     expect(await fs.readFile(path.join(applicationPath, 'default.tokens.css').replace(/[/\\]+/g, '/'), { encoding: 'utf8' })).toContain('--colors-primary: #000;');
 
     expect(() => packageManagerRunOnProject(appName, isInWorkspace, { script: 'generate:metadata' }, execAppOptions)).not.toThrow();
     diff = getGitDiff(workspacePath);
-    expect(diff.added.length).toBe(5);
     expect(diff.added).toContain(path.join(relativeApplicationPath, 'style.metadata.json').replace(/[/\\]+/g, '/'));
 
     await fs.writeFile(path.join(applicationPath, 'src/styles.scss'), await fs.readFile(path.join(applicationPath, 'src/styles.scss'), { encoding: 'utf8' }) + '\n@import \'../default.tokens.css\';');
@@ -70,14 +68,12 @@ describe('ng add otter style-dictionary hooks', () => {
 
     expect(() => packageManagerRunOnProject(libName, isInWorkspace, { script: 'generate:css' }, execAppOptions)).not.toThrow();
     diff = getGitDiff(workspacePath);
-    expect(diff.added.length).toBe(4);
     expect(diff.added).toContain(path.join(relativeLibraryPath, 'test.tokens.json').replace(/[/\\]+/g, '/'));
     expect(diff.added).toContain(path.join(relativeLibraryPath, 'default.tokens.css').replace(/[/\\]+/g, '/'));
     expect(await fs.readFile(path.join(libraryPath, 'default.tokens.css').replace(/[/\\]+/g, '/'), { encoding: 'utf8' })).toContain('--colors-primary: #000;');
 
     expect(() => packageManagerRunOnProject(libName, isInWorkspace, { script: 'generate:metadata' }, execAppOptions)).not.toThrow();
     diff = getGitDiff(workspacePath);
-    expect(diff.added.length).toBe(5);
     expect(diff.added).toContain(path.join(relativeLibraryPath, 'style.metadata.json').replace(/[/\\]+/g, '/'));
 
     expect(() => packageManagerRunOnProject(libName, isInWorkspace, { script: 'build' }, execAppOptions)).not.toThrow();

@@ -104,9 +104,13 @@ const sd = new StyleDictionary({
       },
       transformGroup: 'o3r/css/recommended',
       files: [
-        ...getTargetFiles(fileRules, { format: 'css' }),
-        // default CSS file where generate variables
-        { destination: 'style/default.tokens.css', format: 'css' }
+        ...getTargetFiles(fileRules, {
+            format: 'css',
+            defaultFile: 'default.tokens.css' // default CSS file
+          }),
+
+          // All CSS outputted in a single file:
+          { destination: 'all.tokens.css', format: 'css' }
       ]
     },
     cms: {
@@ -219,14 +223,14 @@ const sd = new StyleDictionary({
   plateforms: {
     css: {
       files: [
-        ...getTargetFiles({rule, { format: 'css' }),
-      {
-        destination: 'default-file.css'
-      }
+        ...getTargetFiles({rule, { format: 'css', defaultFile: 'default-file.css' })
     }
   }
 });
 
 register(sd); // Register all Otter modules
+```
 
-
+> [!NOTE]
+> The option `format` will be applied to all the files provided to the `getTargetFiles` function (including `defaultFile`).
+> `defaultFile` defines the default file where generate the variables not matching any rules.

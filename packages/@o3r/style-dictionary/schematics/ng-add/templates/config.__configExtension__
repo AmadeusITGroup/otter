@@ -8,36 +8,40 @@ const fileRules = {
 
 };
 
+/** @type {import('style-dictionary').Config} */
 export default {
   ...baseConfig, // Use basic Otter configuration setup
   usesDtcg: true, // Use Design Token Standard format
 
-    source: [
-      // Design Token files
-      '*.tokens.json',
+  source: [
+    // Design Token files
+    '*.tokens.json',
 
-      // Custom application extension setup
-      'token.extensions.json'
-    ],
+    // Custom application extension setup
+    'token.extensions.json'
+  ],
 
-    platforms: {
+  platforms: {
     css: {
       options: {
         outputReferences: true
       },
-      transformGroup: 'css',
+      transformGroup: 'o3r/css/recommended',
         files: [
-          ...getTargetFiles(fileRules, { format: 'o3r/css/variable' }),
+          ...getTargetFiles(fileRules, {
+            format: 'o3r/css/variable',
+            defaultFile: 'default.tokens.css' // default CSS file
+          }),
 
-          // Default CSS output:
-          { destination: 'default.tokens.css', format: 'o3r/css/variable' }
+          // All CSS outputted in a single file:
+          { destination: 'all.tokens.css', format: 'o3r/css/variable' }
         ]
     },
     cms: {
       options: {
         outputReferences: true
       },
-      transformGroup: 'css',
+      transformGroup: 'o3r/css/recommended',
       files: [
         { destination: 'style.metadata.json', format: 'o3r/json/metadata' }
       ]
