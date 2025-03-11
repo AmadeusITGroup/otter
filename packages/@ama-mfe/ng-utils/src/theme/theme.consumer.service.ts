@@ -18,6 +18,9 @@ import {
   DomSanitizer,
 } from '@angular/platform-browser';
 import {
+  LoggerService,
+} from '@o3r/logger';
+import {
   ConsumerManagerService,
   MessageConsumer,
 } from '../managers/index';
@@ -35,6 +38,7 @@ import {
 export class ThemeConsumerService implements MessageConsumer<ThemeMessage> {
   private readonly domSanitizer = inject(DomSanitizer);
   private readonly consumerManagerService = inject(ConsumerManagerService);
+  private readonly logger = inject(LoggerService);
   /**
    * The type of messages this service handles ('theme').
    */
@@ -54,12 +58,10 @@ export class ThemeConsumerService implements MessageConsumer<ThemeMessage> {
         applyTheme(sanitizedCss);
       }
       try {
-        const css = await downloadApplicationThemeCss(message.payload.name);
+        const css = await downloadApplicationThemeCss(message.payload.name, { logger: this.logger });
         applyTheme(css, false);
       } catch (e) {
-        // TODO https://github.com/AmadeusITGroup/otter/issues/2887 - proper logger
-        // eslint-disable-next-line no-console -- log the error - replace this with a proper logger
-        console.warn(`no CSS variable for the theme ${message.payload.name}`, e);
+        this.logger.warn(`No CSS variable for the theme ${message.payload.name}`, e);
       }
     }
   };

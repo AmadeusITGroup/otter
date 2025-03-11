@@ -12,6 +12,9 @@ import {
   DomSanitizer,
 } from '@angular/platform-browser';
 import {
+  LoggerService,
+} from '@o3r/logger';
+import {
   ConsumerManagerService,
 } from '../managers/index';
 import {
@@ -23,6 +26,7 @@ describe('ThemeConsumerService', () => {
   let themeHandlerService: ThemeConsumerService;
   let consumerManagerService: ConsumerManagerService;
   let sanitizer: DomSanitizer;
+  let loggerServiceMock: jest.Mocked<LoggerService>;
   const applyThemeSpy = jest.spyOn(themeHelpers, 'applyTheme');
   const downloadApplicationThemeCssSpy = jest.spyOn(themeHelpers, 'downloadApplicationThemeCss');
 
@@ -31,9 +35,16 @@ describe('ThemeConsumerService', () => {
       register: jest.fn(),
       unregister: jest.fn()
     };
+
+    loggerServiceMock = {
+      warn: jest.fn(),
+      error: jest.fn()
+    } as unknown as jest.Mocked<LoggerService>;
+
     TestBed.configureTestingModule({
       providers: [
         ThemeConsumerService,
+        { provide: LoggerService, useValue: loggerServiceMock },
         { provide: ConsumerManagerService, useValue: consumerManagerServiceMock }
       ]
     });
@@ -90,7 +101,7 @@ describe('ThemeConsumerService', () => {
       }
     };
     await themeHandlerService.supportedVersions['1.0'](themeMessage);
-    expect(downloadApplicationThemeCssSpy).toHaveBeenCalledWith('horizon');
+    expect(downloadApplicationThemeCssSpy).toHaveBeenCalledWith('horizon', expect.objectContaining({}));
     expect(applyThemeSpy).toHaveBeenNthCalledWith(1, themeMessage.payload.css);
     expect(applyThemeSpy).toHaveBeenNthCalledWith(2, 'test css', false);
   });
@@ -98,7 +109,6 @@ describe('ThemeConsumerService', () => {
   it('should apply theme and warn when not local file', async () => {
     jest.spyOn(themeHelpers, 'applyTheme').mockImplementation(() => '');
     jest.spyOn(themeHelpers, 'downloadApplicationThemeCss').mockRejectedValue('no local css');
-    jest.spyOn(console, 'warn').mockImplementation(() => {});
 
     const themeMessage: RoutedMessage<ThemeMessage> = {
       from: 'test',
@@ -111,11 +121,10 @@ describe('ThemeConsumerService', () => {
       }
     };
     await themeHandlerService.supportedVersions['1.0'](themeMessage);
-    expect(downloadApplicationThemeCssSpy).toHaveBeenCalledWith('horizon');
+    expect(downloadApplicationThemeCssSpy).toHaveBeenCalledWith('horizon', expect.objectContaining({}));
     expect(applyThemeSpy).toHaveBeenCalledWith(themeMessage.payload.css);
     expect(applyThemeSpy).toHaveBeenCalledTimes(1);
-    // eslint-disable-next-line no-console -- checking that the console warn was called correctly
-    expect(console.warn).toHaveBeenCalledWith('no CSS variable for the theme horizon', 'no local css');
+    expect(loggerServiceMock.warn).toHaveBeenCalledWith(expect.stringMatching(/.+/), 'no local css');
   });
 
   it('should apply theme when an empty string is received', async () => {
