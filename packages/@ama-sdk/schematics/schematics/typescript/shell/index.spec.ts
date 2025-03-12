@@ -1,3 +1,4 @@
+import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {
   Tree,
@@ -6,6 +7,10 @@ import {
   SchematicTestRunner,
   UnitTestTree,
 } from '@angular-devkit/schematics/testing';
+import {
+  cleanVirtualFileSystem,
+  useVirtualFileSystem,
+} from '@o3r/test-helpers';
 import type {
   JsonObject,
   PackageJson,
@@ -14,7 +19,10 @@ import type {
   OpenApiToolsConfiguration,
 } from '@ama-sdk/schematics';
 
-const collectionPath = path.join(__dirname, '..', '..', '..', 'collection.json');
+const virtualFileSystem = useVirtualFileSystem();
+const packageDir = path.join(__dirname, '..', '..', '..');
+const packageJsonPath = path.join(packageDir, 'package.json');
+const collectionPath = path.join(packageDir, 'collection.json');
 
 const baseFileList = [
   '/CONTRIBUTING.md',
@@ -74,6 +82,11 @@ let yarnTree: UnitTestTree;
 let npmTree: UnitTestTree;
 
 describe('Typescript Shell Generator', () => {
+  beforeAll(async () => {
+    const packageJsonContent = await fs.promises.readFile(packageJsonPath, { encoding: 'utf8' });
+    await virtualFileSystem.promises.mkdir(packageDir, { recursive: true });
+    await virtualFileSystem.promises.writeFile(packageJsonPath, packageJsonContent.replace(/"version":.*/, '"version": "12.3.4",'));
+  });
   beforeEach(async () => {
     const runner = new SchematicTestRunner('@ama-sdk/schematics', collectionPath);
     yarnTree = await runner.runSchematic('typescript-shell', {
@@ -87,6 +100,9 @@ describe('Typescript Shell Generator', () => {
       skipInstall: true,
       packageManager: 'npm'
     }, Tree.empty());
+  });
+  afterAll(() => {
+    cleanVirtualFileSystem();
   });
 
   it('should generate basic SDK package', () => {
@@ -128,10 +144,10 @@ describe('Typescript Shell Generator', () => {
     const renovateConfig = npmTree.readJson('/.renovaterc.json') as PackageJson;
     const renovatePresets = renovateConfig.extends as string[];
     const res = [
-      'github>AmadeusITGroup/otter//tools/renovate/base',
-      'github>AmadeusITGroup/otter//tools/renovate/group/otter',
-      'github>AmadeusITGroup/otter//tools/renovate/tasks/base',
-      'github>AmadeusITGroup/otter//tools/renovate/tasks/sdk-regenerate(npm)'
+      'github>AmadeusITGroup/otter//tools/renovate/base#v12.3.4',
+      'github>AmadeusITGroup/otter//tools/renovate/group/otter#v12.3.4',
+      'github>AmadeusITGroup/otter//tools/renovate/tasks/base#v12.3.4',
+      'github>AmadeusITGroup/otter//tools/renovate/tasks/sdk-regenerate#v12.3.4(npm)'
     ];
     expect(renovatePresets.length).toBe(res.length);
     renovatePresets.forEach((preset, i) => {
@@ -151,12 +167,12 @@ describe('Typescript Shell Generator', () => {
     const renovateConfig = tree.readJson('/.renovaterc.json') as PackageJson;
     const renovatePresets = renovateConfig.extends as string[];
     const res = [
-      'github>AmadeusITGroup/otter//tools/renovate/base',
-      'github>AmadeusITGroup/otter//tools/renovate/group/otter',
-      'github>AmadeusITGroup/otter//tools/renovate/tasks/base',
-      'github>AmadeusITGroup/otter//tools/renovate/tasks/sdk-regenerate(npm)',
-      'github>AmadeusITGroup/otter//tools/renovate/group/sdk-spec(@my-spec-scope/my-spec)',
-      'github>AmadeusITGroup/otter//tools/renovate/tasks/sdk-spec-regenerate(npm, @my-spec-scope/my-spec)'
+      'github>AmadeusITGroup/otter//tools/renovate/base#v12.3.4',
+      'github>AmadeusITGroup/otter//tools/renovate/group/otter#v12.3.4',
+      'github>AmadeusITGroup/otter//tools/renovate/tasks/base#v12.3.4',
+      'github>AmadeusITGroup/otter//tools/renovate/tasks/sdk-regenerate#v12.3.4(npm)',
+      'github>AmadeusITGroup/otter//tools/renovate/group/sdk-spec#v12.3.4(@my-spec-scope/my-spec)',
+      'github>AmadeusITGroup/otter//tools/renovate/tasks/sdk-spec-regenerate#v12.3.4(npm, @my-spec-scope/my-spec)'
     ];
     expect(renovatePresets.length).toBe(res.length);
     renovatePresets.forEach((preset, i) => {
@@ -168,8 +184,8 @@ describe('Typescript Shell Generator', () => {
     const renovateConfig = yarnTree.readJson('/.renovaterc.json') as PackageJson;
     const renovatePresets = renovateConfig.extends as string[];
     const res = [
-      'github>AmadeusITGroup/otter//tools/renovate/base',
-      'github>AmadeusITGroup/otter//tools/renovate/sdk'
+      'github>AmadeusITGroup/otter//tools/renovate/base#v12.3.4',
+      'github>AmadeusITGroup/otter//tools/renovate/sdk#v12.3.4'
     ];
     expect(renovatePresets.length).toBe(res.length);
     renovatePresets.forEach((preset, i) => {
@@ -189,9 +205,9 @@ describe('Typescript Shell Generator', () => {
     const renovateConfig = tree.readJson('/.renovaterc.json') as PackageJson;
     const renovatePresets = renovateConfig.extends as string[];
     const res = [
-      'github>AmadeusITGroup/otter//tools/renovate/base',
-      'github>AmadeusITGroup/otter//tools/renovate/sdk',
-      'github>AmadeusITGroup/otter//tools/renovate/sdk-spec-upgrade(@my-spec-scope/my-spec)'
+      'github>AmadeusITGroup/otter//tools/renovate/base#v12.3.4',
+      'github>AmadeusITGroup/otter//tools/renovate/sdk#v12.3.4',
+      'github>AmadeusITGroup/otter//tools/renovate/sdk-spec-upgrade#v12.3.4(@my-spec-scope/my-spec)'
     ];
     expect(renovatePresets.length).toBe(res.length);
     renovatePresets.forEach((preset, i) => {
