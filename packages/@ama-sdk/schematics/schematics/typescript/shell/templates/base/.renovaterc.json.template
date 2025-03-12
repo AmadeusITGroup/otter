@@ -3,12 +3,12 @@
   "extends": [
     "github>AmadeusITGroup/otter//tools/renovate/base#v<%= sdkCoreVersion %>",<% if (packageManager === 'yarn') { %>
     "github>AmadeusITGroup/otter//tools/renovate/sdk#v<%= sdkCoreVersion %>"<% if (specPackageName) { %>,
-    "github>AmadeusITGroup/otter//tools/renovate/sdk-spec-upgrade(<%= specPackageName %>)#v<%= sdkCoreVersion %>"<% } %><% } else { %>
+    "github>AmadeusITGroup/otter//tools/renovate/sdk-spec-upgrade#v<%= sdkCoreVersion %>(<%= specPackageName %>)"<% } %><% } else { %>
     "github>AmadeusITGroup/otter//tools/renovate/group/otter#v<%= sdkCoreVersion %>",
     "github>AmadeusITGroup/otter//tools/renovate/tasks/base#v<%= sdkCoreVersion %>",
-    "github>AmadeusITGroup/otter//tools/renovate/tasks/sdk-regenerate(npm)#v<%= sdkCoreVersion %>"<% if (specPackageName) { %>,
-    "github>AmadeusITGroup/otter//tools/renovate/group/sdk-spec(<%= specPackageName %>)#v<%= sdkCoreVersion %>",
-    "github>AmadeusITGroup/otter//tools/renovate/tasks/sdk-spec-regenerate(npm, <%= specPackageName %>)#v<%= sdkCoreVersion %>"<% } %><% } %>
+    "github>AmadeusITGroup/otter//tools/renovate/tasks/sdk-regenerate#v<%= sdkCoreVersion %>(npm)"<% if (specPackageName) { %>,
+    "github>AmadeusITGroup/otter//tools/renovate/group/sdk-spec#v<%= sdkCoreVersion %>(<%= specPackageName %>)",
+    "github>AmadeusITGroup/otter//tools/renovate/tasks/sdk-spec-regenerate#v<%= sdkCoreVersion %>(npm, <%= specPackageName %>)"<% } %><% } %>
   ],
   "prConcurrentLimit": 0,
   "prHourlyLimit": 0,
