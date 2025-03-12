@@ -14,9 +14,29 @@ This package is an [Otter Framework Module](https://github.com/AmadeusITGroup/ot
 
 This package exposes a set of **Hooks** and **Modules** for the [Style Dictionary](https://styledictionary.com/) to enhance the capabilities of Design Tokens.
 
-### Enhancement
+## Get Started
 
-#### Design Token Extensions
+Set up your [Style Dictionary](https://styledictionary.com/) in your project thanks to the command:
+
+```shell
+ng add @o3r/style-dictionary
+```
+
+By default, the command will do the following updates:
+
+- Add a dev dependency to the [Style Dictionary package](https://www.npmjs.com/package/style-dictionary).
+- Create a minimal [config.mjs](https://styledictionary.com/reference/config/#_top) configuration file with the required setup for CSS and Metadata generation.
+- Add the `generate:theme` and `generate:metadata` scripts in the project *package.json*.
+
+You will then be able to customize this setup with your project's specifications:
+
+- Customize the [Style Dictionary configuration](https://styledictionary.com/reference/config/#_top) in the generated *config.mjs* file.
+- Add [extensions](https://tr.designtokens.org/format/#extensions) to your source Design Token via the [enhancement mechanism](#enhancement).
+- Configure output files thanks to the [`getTargetFiles` helper](#gettargetfiles).
+
+## Enhancement
+
+### Design Token Extensions
 
 The [Design Tokens](https://tr.designtokens.org/format/#extensions) format allows to provide the `$extensions` property to enhance the Token it is applied to.\
 The property can be applied to the Token directly as follows:
@@ -60,7 +80,7 @@ or in a dedicated `.extensions.json` file (when the [o3r/json-parser/extensions]
 }
 ```
 
-#### Available Otter extensions
+### Available Otter Extensions
 
 | Extensions        | Type                                                                                                                                            | Description                                                                                                                                                                                                                                                                                         | Required hooks                                                                            |
 | ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
@@ -74,68 +94,6 @@ or in a dedicated `.extensions.json` file (when the [o3r/json-parser/extensions]
 
 > [!WARNING]
 > The **required hooks** need to be registered to the [Style Dictionary configuration](https://styledictionary.com/reference/config/) to fully support the extension.
-
-### Basic Node Configuration Example
-
-```typescript
-// style-builder.mjs
-
-import { register, getTargetFiles, baseConfiguration } from '@o3r/style-dictionary';
-import StyleDictionary from 'style-dictionary';
-
-// Rules to generate different CSS files according to Token name
-const fileRules = {
-  colors: 'style/colors.tokens.css',
-  'components.panel': 'components/panel/panel.tokens.css'
-}
-
-const sd = new StyleDictionary({
-  ...baseConfiguration, // Use basic Otter configuration setup
-  usesDtcg: true, // Use Design Token Standard format
-
-  source: ['tokens/*.tokens.json'], // Design Token files
-  include: ['token.extensions.json'], // Custom extensions
-
-  platforms: {
-    // Generate CSS Files
-    css: {
-      options: {
-        outputReferences: true // to output `--var: var(--other-var)` instead of the value of `--other-var`
-      },
-      transformGroup: 'o3r/css/recommended',
-      files: [
-        ...getTargetFiles(fileRules, { format: 'css' }),
-        // default CSS file where generate variables
-        { destination: 'style/default.tokens.css', format: 'css' }
-      ]
-    },
-    cms: {
-      options: {
-        outputReferences: true
-      },
-      transformGroup: 'o3r/css/recommended',
-      files: [
-        { destination: 'style.metadata.json', format: 'o3r/json/metadata' }
-      ]
-    }
-  }
-});
-
-// Register otter hooks/modules
-register(sd);
-
-if (process.env.CSS_ONLY){
-  sd.buildPlatform('css');
-} else {
-  sd.buildAllPlatforms();
-}
-```
-
-Can be run with the following command:
-
-```bash
-node ./style-builder.mjs
-```
 
 ## Modules
 
@@ -219,14 +177,79 @@ const sd = new StyleDictionary({
   plateforms: {
     css: {
       files: [
-        ...getTargetFiles({rule, { format: 'css' }),
-      {
-        destination: 'default-file.css'
-      }
+        ...getTargetFiles({ rule, { format: 'css', defaultFile: 'default-file.css' } })
+      ]
     }
   }
 });
 
 register(sd); // Register all Otter modules
+```
 
+> [!NOTE]
+> The `format` option will be applied to all the files provided to the `getTargetFiles` function (including `defaultFile`).
+> `defaultFile` defines the default file where variables not matching any rule will be generated.
 
+## Advanced
+
+### Basic Node Configuration Example
+
+```typescript
+// style-builder.mjs
+
+import { register, getTargetFiles, baseConfiguration } from '@o3r/style-dictionary';
+import StyleDictionary from 'style-dictionary';
+
+// Rules to generate different CSS files according to Token name
+const fileRules = {
+  colors: 'style/colors.tokens.css',
+  'components.panel': 'components/panel/panel.tokens.css'
+}
+
+const sd = new StyleDictionary({
+  ...baseConfiguration, // Use basic Otter configuration setup
+  usesDtcg: true, // Use Design Token Standard format
+
+  source: ['tokens/*.tokens.json'], // Design Token files
+  include: ['token.extensions.json'], // Custom extensions
+
+  platforms: {
+    // Generate CSS Files
+    css: {
+      options: {
+        outputReferences: true // to output `--var: var(--other-var)` instead of the value of `--other-var`
+      },
+      transformGroup: 'o3r/css/recommended',
+      files: [
+        ...getTargetFiles(fileRules, { format: 'css' }),
+        // default CSS file where generate variables
+        { destination: 'style/default.tokens.css', format: 'css' }
+      ]
+    },
+    cms: {
+      options: {
+        outputReferences: true
+      },
+      transformGroup: 'o3r/css/recommended',
+      files: [
+        { destination: 'style.metadata.json', format: 'o3r/json/metadata' }
+      ]
+    }
+  }
+});
+
+// Register otter hooks/modules
+register(sd);
+
+if (process.env.CSS_ONLY){
+  sd.buildPlatform('css');
+} else {
+  sd.buildAllPlatforms();
+}
+```
+
+Can be run with the following command:
+
+```bash
+node ./style-builder.mjs
+```
