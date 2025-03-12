@@ -10,7 +10,7 @@
         "^\\.renovaterc$"
       ],
       "matchStrings": [
-        "\"github>AmadeusITGroup/otter//.*#(?<currentValue>[^\" \\n\\(]+)"
+        "\"github>AmadeusITGroup/otter//.*#v(?<currentValue>[^\" \\n\\(]+)"
       ],
 
       "datasourceTemplate": "npm",
