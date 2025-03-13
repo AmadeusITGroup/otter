@@ -1,8 +1,9 @@
 import {
   TokenizedOptions,
 } from '../plugins/core/request-plugin';
-import type {
-  SupportedParamType,
+import {
+  isDateType,
+  type SupportedParamType,
 } from './param-serialization';
 import type {
   ReviverType,
@@ -76,7 +77,9 @@ export function stringifyQueryParams<T extends { [key: string]: SupportedParamTy
     .filter((name) => typeof queryParams[name] !== 'undefined' && queryParams[name] !== null)
     .reduce((acc, name) => {
       const prop = queryParams[name];
-      acc[name] = (typeof prop === 'object' && !Array.isArray(prop)) ? JSON.stringify(prop) : prop!.toString();
+      acc[name] = isDateType(prop)
+        ? prop.toJSON()
+        : ((typeof prop === 'object' && !Array.isArray(prop)) ? JSON.stringify(prop) : prop!.toString());
       return acc;
     }, {} as { [p in keyof T]: string });
 }

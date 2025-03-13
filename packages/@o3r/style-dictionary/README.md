@@ -16,23 +16,23 @@ This package exposes a set of **Hooks** and **Modules** for the [Style Dictionar
 
 ## Get Started
 
-Setup your [Style Dictionary](https://styledictionary.com/) in your project thanks to the command:
+Set up your [Style Dictionary](https://styledictionary.com/) in your project thanks to the command:
 
 ```shell
 ng add @o3r/style-dictionary
 ```
 
-Per default the command will do the following updates:
+By default, the command will do the following updates:
 
-- Add a dev dependency to [Style Dictionary package](https://www.npmjs.com/package/style-dictionary).
-- Create a minimal [config.mjs](https://styledictionary.com/reference/config/#_top) configuration file to the required setup for CSS and Metadata generation.
-- The `generate:theme` and `generate:metadata` scripts in the project *package.json*.
+- Add a dev dependency to the [Style Dictionary package](https://www.npmjs.com/package/style-dictionary).
+- Create a minimal [config.mjs](https://styledictionary.com/reference/config/#_top) configuration file with the required setup for CSS and Metadata generation.
+- Add the `generate:theme` and `generate:metadata` scripts in the project *package.json*.
 
-Then you will be able to customize this setup with your project specificities:
+You will then be able to customize this setup with your project's specifications:
 
-- Customize the [Style Dictionary configuration](https://styledictionary.com/reference/config/#_top) in the generated *config.mjs*
-- Add [extensions](https://tr.designtokens.org/format/#extensions) to your source Design Token via the [enhancement mechanism](#enhancement);
-- Configure outputted files thanks to [`getTargetFiles` helper](#gettargetfiles)
+- Customize the [Style Dictionary configuration](https://styledictionary.com/reference/config/#_top) in the generated *config.mjs* file.
+- Add [extensions](https://tr.designtokens.org/format/#extensions) to your source Design Token via the [enhancement mechanism](#enhancement).
+- Configure output files thanks to the [`getTargetFiles` helper](#gettargetfiles).
 
 ## Enhancement
 
@@ -80,7 +80,7 @@ or in a dedicated `.extensions.json` file (when the [o3r/json-parser/extensions]
 }
 ```
 
-### Available Otter extensions
+### Available Otter Extensions
 
 | Extensions        | Type                                                                                                                                            | Description                                                                                                                                                                                                                                                                                         | Required hooks                                                                            |
 | ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
@@ -187,10 +187,10 @@ register(sd); // Register all Otter modules
 ```
 
 > [!NOTE]
-> The option `format` will be applied to all the files provided to the `getTargetFiles` function (including `defaultFile`).
-> `defaultFile` defines the default file where generate the variables not matching any rules.
+> The `format` option will be applied to all the files provided to the `getTargetFiles` function (including `defaultFile`).
+> `defaultFile` defines the default file where variables not matching any rule will be generated.
 
-## Advance
+## Advanced
 
 ### Basic Node Configuration Example
 
