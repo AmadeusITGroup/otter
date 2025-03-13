@@ -71,5 +71,8 @@ describe('Component Extractor Builder', () => {
     expect(configOutput[0].library).toBe('showcase');
     expect(configOutput[0].name).toMatch(/.*Config$/);
     expect(configOutput[0].path).toMatch(/.*config.ts$/);
+
+    // Configuration without properties should be excluded
+    expect(configOutput).not.toEqual(expect.arrayContaining([expect.objectContaining({ name: 'ConfigurationConfig' })]));
   });
 });
