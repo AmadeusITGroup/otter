@@ -6815,7 +6815,7 @@ function withCustomRequest(customRequest) {
 
 /***/ }),
 
-/***/ 7728:
+/***/ 6208:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
@@ -6878,7 +6878,7 @@ var RequestError = class extends Error {
     if (options.request.headers.authorization) {
       requestCopy.headers = Object.assign({}, options.request.headers, {
         authorization: options.request.headers.authorization.replace(
-          / .*$/,
+          /(?<! ) .*$/,
           " [REDACTED]"
         )
       });
@@ -6962,7 +6962,7 @@ function isPlainObject(value) {
 }
 
 // pkg/dist-src/fetch-wrapper.js
-var import_request_error = __nccwpck_require__(7728);
+var import_request_error = __nccwpck_require__(6208);
 
 // pkg/dist-src/get-buffer-response.js
 function getBufferResponse(response) {
