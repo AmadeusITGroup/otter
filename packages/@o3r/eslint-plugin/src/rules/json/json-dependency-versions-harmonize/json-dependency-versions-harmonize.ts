@@ -126,7 +126,7 @@ export default createRule<[VersionsHarmonizeOptions, ...any], 'versionUpdate' | 
                   if (bestRange && bestRange !== range && !range?.startsWith('workspace:')) {
                     if (!options.alignPeerDependencies && depGroup.parent.type === 'JSONProperty' && range
                       && (depGroup.parent.key.type === 'JSONLiteral' ? depGroup.parent.key.value.toString() : depGroup.parent.key.name) === 'peerDependencies'
-                      && semver.subset(bestRange, range)) {
+                      && semver.subset(bestRange, range, { includePrerelease: true })) {
                       return;
                     }
                     context.report({
