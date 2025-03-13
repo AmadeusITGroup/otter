@@ -438,7 +438,11 @@ export class ComponentConfigExtractor {
                               property.type = typeReplacement;
                             }
                           } else {
-                            property.value = this.removeQuotationMarks(fieldNode.getText(this.source));
+                            if (ts.isStringLiteral(fieldNode) || ts.isNumericLiteral(fieldNode) || fieldNode.kind === ts.SyntaxKind.FalseKeyword || fieldNode.kind === ts.SyntaxKind.TrueKeyword) {
+                              property.value = this.removeQuotationMarks(fieldNode.getText(this.source));
+                            } else {
+                              this.logger.warn(`Unsupported type found will be ignored with kind = ${fieldNode.kind} and value = ${fieldNode.getText(this.source)}`);
+                            }
                           }
                         }
                       }
