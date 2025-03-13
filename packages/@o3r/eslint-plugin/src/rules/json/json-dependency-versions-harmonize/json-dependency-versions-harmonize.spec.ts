@@ -29,7 +29,8 @@ const packageJson2 = {
   name: 'testPackage',
   dependencies: {
     myDep: '^1.0.0',
-    myOtherDep: '~2.0.0'
+    myOtherDep: '~2.0.0',
+    myThirdDep: '~2.1.0-prerelease.13'
   }
 };
 const fakeFolder = path.resolve('/fake-folder');
@@ -54,6 +55,8 @@ ruleTester.run('json-dependency-versions-harmonize', jsonDependencyVersionsHarmo
     { code: JSON.stringify({ dependencies: { myDep: '1.0.0' } }), filename: packageToLint, options: [{ ignoredDependencies: ['my*'] }] },
     { code: JSON.stringify({ dependencies: { myOtherDep: '1.0.0' } }), filename: packageToLint, options: [{ ignoredPackages: ['testPackage'] }] },
     { code: JSON.stringify({ peerDependencies: { myOtherDep: '^2.0.0' } }), filename: packageToLint, options: [{ alignPeerDependencies: false }] },
+    { code: JSON.stringify({ peerDependencies: { myOtherDep: '^4.0.0' } }), filename: packageToLint, options: [{ alignPeerDependencies: true }] },
+    { code: JSON.stringify({ peerDependencies: { myThirdDep: '^2.0.0' } }), filename: packageToLint, options: [{ alignPeerDependencies: false }] },
     { code: JSON.stringify({ resolutions: { 'test/sub/myDep': '1.0.0' } }), filename: packageToLint, options: [{ alignResolutions: false }] },
     { code: JSON.stringify({ overrides: { test: { myDep: '1.0.0' } } }), filename: packageToLint, options: [{ alignResolutions: false }] },
     { code: JSON.stringify({ overrides: { myDep: '1.0.0' } }), filename: packageToLint, options: [{ alignResolutions: false }] },
@@ -129,6 +132,31 @@ ruleTester.run('json-dependency-versions-harmonize', jsonDependencyVersionsHarmo
                 version: '~2.0.0'
               },
               output: JSON.stringify({ peerDependencies: { myOtherDep: '~2.0.0' } })
+            }
+          ]
+        }
+      ]
+    },
+    {
+      filename: packageToLint,
+      output: JSON.stringify({ peerDependencies: { myThirdDep: '~2.1.0-prerelease.13' } }),
+      code: JSON.stringify({ peerDependencies: { myThirdDep: '^2.0.0' } }),
+      options: [{ alignPeerDependencies: true } as VersionsHarmonizeOptions],
+      errors: [
+        {
+          messageId: 'error',
+          data: {
+            depName: 'myThirdDep',
+            packageJsonFile: path.join(fakeFolder, 'local', 'packages', 'my-package-2', 'package.json'),
+            version: '~2.1.0-prerelease.13'
+          },
+          suggestions: [
+            {
+              messageId: 'versionUpdate',
+              data: {
+                version: '~2.1.0-prerelease.13'
+              },
+              output: JSON.stringify({ peerDependencies: { myThirdDep: '~2.1.0-prerelease.13' } })
             }
           ]
         }
