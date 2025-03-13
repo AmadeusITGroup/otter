@@ -2,6 +2,9 @@ import {
   getPropertiesFromData,
 } from './api.helpers';
 import {
+  utils,
+} from './date';
+import {
   serializePathParams,
   serializeQueryParams,
 } from './param-serialization';
@@ -190,5 +193,25 @@ describe('Serialize parameters', () => {
     });
     expect(emptyArrayPathParametersMatrix.idEmptyArray).toEqual(';idEmptyArray');
     expect(emptyArrayPathParametersMatrix.idArrayToFilter).toEqual(';idArrayToFilter=value1,value2');
+  });
+
+  it('should correctly serialize parameters of type date', () => {
+    const currentDate = new Date();
+    const mockDateData = {
+      idDate: currentDate,
+      idUtilsDate: new utils.Date(new Date('2025-01-01T00:00:00')),
+      idUtilsDateTime: new utils.DateTime(new Date('2025-01-01T00:00:00'))
+    };
+    const mockDateParams = getPropertiesFromData(mockDateData, ['idDate']);
+    const mockUtilsDateParams = getPropertiesFromData(mockDateData, ['idUtilsDate']);
+    const mockUtilsDateTimeParams = getPropertiesFromData(mockDateData, ['idUtilsDateTime']);
+
+    expect(serializeQueryParams(mockDateParams, { idDate: { explode: true, style: 'form' } })).toEqual({ idDate: `idDate=${currentDate.toJSON()}` });
+    expect(serializeQueryParams(mockUtilsDateParams, { idUtilsDate: { explode: true, style: 'form' } })).toEqual({ idUtilsDate: 'idUtilsDate=2025-01-01' });
+    expect(serializeQueryParams(mockUtilsDateTimeParams, { idUtilsDateTime: { explode: true, style: 'form' } })).toEqual({ idUtilsDateTime: 'idUtilsDateTime=2025-01-01T00:00:00.000' });
+
+    expect(serializePathParams(mockDateParams, { idDate: { explode: true, style: 'simple' } })).toEqual({ idDate: `${currentDate.toJSON()}` });
+    expect(serializePathParams(mockUtilsDateParams, { idUtilsDate: { explode: true, style: 'simple' } })).toEqual({ idUtilsDate: '2025-01-01' });
+    expect(serializePathParams(mockUtilsDateTimeParams, { idUtilsDateTime: { explode: true, style: 'simple' } })).toEqual({ idUtilsDateTime: '2025-01-01T00:00:00.000' });
   });
 });
