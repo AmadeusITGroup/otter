@@ -36,7 +36,6 @@ describe('theme helpers', () => {
     });
 
     it('should return empty string on fetch failure', async () => {
-      jest.spyOn(console, 'warn').mockImplementation(() => {});
       jest.spyOn(global, 'fetch').mockImplementationOnce(() => Promise.reject(new Error('fetch failed')));
       const cssPath = 'mockPath';
       const cssContent = await getStyle(cssPath);
@@ -44,13 +43,12 @@ describe('theme helpers', () => {
     });
 
     it('should catch and log a warning in case of fetch failure', async () => {
-      jest.spyOn(console, 'warn').mockImplementation(() => {});
       jest.spyOn(global, 'fetch').mockImplementationOnce(() => Promise.reject(new Error('fetch failed')));
       const cssPath = 'mockPath';
-      const cssContent = await getStyle(cssPath);
+      const warnMock = jest.fn();
+      const cssContent = await getStyle(cssPath, { logger: { warn: warnMock } as any });
       expect(cssContent).toBe('');
-      // eslint-disable-next-line no-console -- checking that the console warn was called correctly
-      expect(console.warn).toHaveBeenCalledWith('Failed to download style from: mockPath with error: Error: fetch failed');
+      expect(warnMock).toHaveBeenCalledWith('Failed to download style from: mockPath with error: Error: fetch failed');
     });
   });
 

@@ -11,6 +11,9 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import {
+  LoggerService,
+} from '@o3r/logger';
+import {
   Subject,
 } from 'rxjs';
 import {
@@ -33,6 +36,7 @@ describe('ConsumerManagerService', () => {
   let producerManagerServiceMock: jest.Mocked<ProducerManagerService>;
   let messagePeerService: MessagePeerService<Message>;
   let messagesSubjectMock: Subject<RoutedMessage<Message>>;
+  let loggerServiceMock: jest.Mocked<LoggerService>;
 
   beforeAll(() => {
     jest.spyOn(errorHelpers, 'sendError').mockImplementation(() => {});
@@ -49,9 +53,15 @@ describe('ConsumerManagerService', () => {
       dispatchError: jest.fn()
     } as unknown as jest.Mocked<ProducerManagerService>;
 
+    loggerServiceMock = {
+      warn: jest.fn(),
+      error: jest.fn()
+    } as unknown as jest.Mocked<LoggerService>;
+
     TestBed.configureTestingModule({
       providers: [
         ConsumerManagerService,
+        { provide: LoggerService, useValue: loggerServiceMock },
         { provide: MessagePeerService, useValue: messagePeerServiceMock },
         { provide: ProducerManagerService, useValue: producerManagerServiceMock }
       ]
@@ -88,25 +98,23 @@ describe('ConsumerManagerService', () => {
   });
 
   it('should handle error messages', async () => {
-    console.warn = jest.fn();
     const sourceMessage: Message = { type: 'unknown', version: '1.0' };
     const message: RoutedMessage<ErrorMessageV1_0> = { payload: { type: 'error', version: '1.0', reason: 'unknown_type', source: sourceMessage }, from: 'a', to: [] };
     producerManagerServiceMock.dispatchError.mockResolvedValue(true);
     messagesSubjectMock.next(message);
     await jest.runAllTimersAsync();
     expect(producerManagerServiceMock.dispatchError).toHaveBeenCalledWith(message.payload);
-    expect(console.warn).not.toHaveBeenCalled();
+    expect(loggerServiceMock.warn).not.toHaveBeenCalled();
   });
 
   it('should warn if error message not handled', async () => {
-    console.warn = jest.fn();
     const sourceMessage: Message = { type: 'unknown', version: '1.0' };
     const message: RoutedMessage<ErrorMessageV1_0> = { payload: { type: 'error', version: '1.0', reason: 'unknown_type', source: sourceMessage }, from: 'a', to: [] };
     producerManagerServiceMock.dispatchError.mockResolvedValue(false);
     messagesSubjectMock.next(message);
     await jest.runAllTimersAsync();
     expect(producerManagerServiceMock.dispatchError).toHaveBeenCalledWith(message.payload);
-    expect(console.warn).toHaveBeenCalledWith('Error message not handled', message);
+    expect(loggerServiceMock.warn).toHaveBeenCalledWith('Error message not handled', message);
   });
 
   it('should register the messages of a new consumers', async () => {
@@ -133,24 +141,22 @@ describe('ConsumerManagerService', () => {
   });
 
   it('should handle types mismatches', async () => {
-    console.warn = jest.fn();
     const consumer: BasicMessageConsumer = { type: 'base_message', supportedVersions: {} };
     service.register(consumer);
     const message: RoutedMessage<Message> = { payload: { type: 'test', version: '2.0' }, from: 'a', to: [] };
     messagesSubjectMock.next(message);
     await jest.runAllTimersAsync();
-    expect(console.warn).toHaveBeenCalledWith('No consumer found for message type: test');
+    expect(loggerServiceMock.warn).toHaveBeenCalledWith('No consumer found for message type: test');
     expect(errorHelpers.sendError).toHaveBeenCalledWith(messagePeerService, { reason: 'unknown_type', source: message.payload });
   });
 
   it('should handle version mismatches', async () => {
-    console.warn = jest.fn();
     const consumer: BasicMessageConsumer = { type: 'base_message', supportedVersions: { '2.0': () => {}, '1.0': () => {} } };
     service.register(consumer);
     const message: RoutedMessage<Message> = { payload: { type: 'base_message', version: '3.0' }, from: 'a', to: [] };
     messagesSubjectMock.next(message);
     await jest.runAllTimersAsync();
-    expect(console.warn).toHaveBeenCalledWith('No consumer found for message version: 3.0');
+    expect(loggerServiceMock.warn).toHaveBeenCalledWith('No consumer found for message version: 3.0');
     expect(errorHelpers.sendError).toHaveBeenCalledWith(messagePeerService, { reason: 'version_mismatch', source: message.payload });
   });
 
@@ -160,8 +166,8 @@ describe('ConsumerManagerService', () => {
     const message: RoutedMessage<Message> = { payload: { type: 'connect', version: '2.0' }, from: 'a', to: [] };
     messagesSubjectMock.next(message);
     await jest.runAllTimersAsync();
-    expect(console.warn).not.toHaveBeenCalled();
-    expect(console.error).not.toHaveBeenCalled();
+    expect(loggerServiceMock.warn).not.toHaveBeenCalled();
+    expect(loggerServiceMock.error).not.toHaveBeenCalled();
   });
 
   it('consume additional messages should do nothing for undefined payload', async () => {
@@ -170,7 +176,7 @@ describe('ConsumerManagerService', () => {
     const message = { payload: undefined } as RoutedMessage<Message>;
     messagesSubjectMock.next(message);
     await jest.runAllTimersAsync();
-    expect(console.warn).toHaveBeenCalledWith('Cannot consume a messages with undefined payload.');
+    expect(loggerServiceMock.warn).toHaveBeenCalledWith('Cannot consume a messages with undefined payload.');
   });
 
   it('should consume additional messages', async () => {
@@ -180,12 +186,11 @@ describe('ConsumerManagerService', () => {
     const message: RoutedMessage<Message> = { payload: { type: 'base_message', version: '2.0' }, from: 'a', to: [] };
     messagesSubjectMock.next(message);
     await jest.runAllTimersAsync();
-    expect(console.warn).not.toHaveBeenCalled();
+    expect(loggerServiceMock.warn).not.toHaveBeenCalled();
     expect(consumer.supportedVersions['2.0']).toHaveBeenCalledWith(message);
   });
 
   it('should consume additional messages matching multiple consumers', async () => {
-    console.warn = jest.fn();
     const consumer1: BasicMessageConsumer = { type: 'base_message', supportedVersions: { '2.0': jest.fn().mockImplementation(), '1.0': () => {} } };
     const consumer2: BasicMessageConsumer = { type: 'base_message', supportedVersions: { '2.0': jest.fn().mockImplementation(), '1.0': () => {} } };
     service.register(consumer1);
@@ -193,20 +198,19 @@ describe('ConsumerManagerService', () => {
     const message: RoutedMessage<Message> = { payload: { type: 'base_message', version: '2.0' }, from: 'a', to: [] };
     messagesSubjectMock.next(message);
     await jest.runAllTimersAsync();
-    expect(console.warn).not.toHaveBeenCalled();
+    expect(loggerServiceMock.warn).not.toHaveBeenCalled();
     expect(consumer1.supportedVersions['2.0']).toHaveBeenCalledWith(message);
     expect(consumer2.supportedVersions['2.0']).toHaveBeenCalledWith(message);
   });
 
   it('should handle internal errors when consuming additional messages', async () => {
-    console.error = jest.fn();
     const internalError = new Error('internal error');
     const consumer: BasicMessageConsumer = { type: 'base_message', supportedVersions: { '2.0': jest.fn().mockRejectedValue(internalError), '1.0': () => {} } };
     service.register(consumer);
     const message: RoutedMessage<Message> = { payload: { type: 'base_message', version: '2.0' }, from: 'a', to: [] };
     messagesSubjectMock.next(message);
     await jest.runAllTimersAsync();
-    expect(console.error).toHaveBeenCalledWith('Error while consuming message', internalError);
+    expect(loggerServiceMock.error).toHaveBeenCalledWith('Error while consuming message', internalError);
     expect(errorHelpers.sendError).toHaveBeenCalledWith(messagePeerService, { reason: 'internal_error', source: message.payload });
   });
 });

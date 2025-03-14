@@ -21,6 +21,9 @@ import {
   Router,
 } from '@angular/router';
 import {
+  LoggerService,
+} from '@o3r/logger';
+import {
   filter,
   map,
 } from 'rxjs';
@@ -55,6 +58,7 @@ export class RoutingService implements MessageProducer<NavigationMessage> {
   private readonly router = inject(Router);
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly messageService = inject(MessagePeerService<NavigationMessage>);
+  private readonly logger = inject(LoggerService);
 
   /**
    * @inheritdoc
@@ -69,9 +73,7 @@ export class RoutingService implements MessageProducer<NavigationMessage> {
    * @inheritdoc
    */
   public handleError(message: ErrorContent<NavigationV1_0>): void {
-    // TODO https://github.com/AmadeusITGroup/otter/issues/2887 - proper logger
-    // eslint-disable-next-line no-console -- placeholder for the implementation with a logger
-    console.error('Error in navigation service message', message);
+    this.logger.error('Error in navigation service message', message);
   }
 
   /**
@@ -101,16 +103,12 @@ export class RoutingService implements MessageProducer<NavigationMessage> {
         this.messageService.send(messageV10);
       } else {
         if (channelId === undefined) {
-          // TODO https://github.com/AmadeusITGroup/otter/issues/2887 - proper logger
-          // eslint-disable-next-line no-console -- warning message as channel id not mandatory
-          console.warn('No channelId provided for navigation message');
+          this.logger.warn('No channelId provided for navigation message');
         } else {
           try {
             this.messageService.send(messageV10, { to: [channelId] });
           } catch (error) {
-            // TODO https://github.com/AmadeusITGroup/otter/issues/2887 - proper logger
-            // eslint-disable-next-line no-console -- send the error in the console, do not fail silently
-            console.error('Error sending navigation message', error);
+            this.logger.error('Error sending navigation message', error);
           }
         }
       }
