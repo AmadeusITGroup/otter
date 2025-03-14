@@ -24,6 +24,6 @@ export interface NgGenerateStoreActionSchematicsSchema extends SchematicOptionOb
   /** Description of the action */
   description?: string | undefined;
 
-  /** Skip the linter process */
+  /** Skip the linter process which includes EsLint and EditorConfig rules applying */
   skipLinter: boolean;
 }

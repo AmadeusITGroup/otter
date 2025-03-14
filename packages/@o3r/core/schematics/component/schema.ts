@@ -51,7 +51,7 @@ export interface NgGenerateComponentSchematicsSchema extends SchematicOptionObje
   /** Generate component with Otter analytics architecture */
   useOtterAnalytics?: boolean | undefined;
 
-  /** Skip the linter process */
+  /** Skip the linter process which includes EsLint and EditorConfig rules applying */
   skipLinter: boolean;
 
   /** Whether the generated component is standalone */

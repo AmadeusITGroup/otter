@@ -45,7 +45,7 @@ export interface NgGenerateComponentPresenterSchematicsSchema extends SchematicO
   /** Determine if the dummy IO should be generated */
   activateDummy: boolean;
 
-  /** Skip the linter process */
+  /** Skip the linter process which includes EsLint and EditorConfig rules applying */
   skipLinter: boolean;
 
   /** Whether the generated component is standalone */

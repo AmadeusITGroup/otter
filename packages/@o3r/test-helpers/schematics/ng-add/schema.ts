@@ -6,7 +6,7 @@ export interface NgAddSchematicsSchema extends SchematicOptionObject {
   /** Project name */
   projectName?: string | undefined;
 
-  /** Skip the linter process */
+  /** Skip the linter process which includes EsLint and EditorConfig rules applying */
   skipLinter: boolean;
 
   /** Skip the install process */

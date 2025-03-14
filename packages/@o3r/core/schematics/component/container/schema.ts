@@ -33,7 +33,7 @@ export interface NgGenerateComponentContainerSchematicsSchema extends SchematicO
   /** Indicates if the component should use rules-engine */
   useRulesEngine?: boolean | undefined;
 
-  /** Skip the linter process */
+  /** Skip the linter process which includes EsLint and EditorConfig rules applying */
   skipLinter: boolean;
 
   /** Whether the generated component is standalone */
