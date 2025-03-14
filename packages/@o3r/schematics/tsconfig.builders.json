@@ -14,7 +14,7 @@
     }
   ],
   "include": [
-    "schematics/**/*.ts",
+    "schematics/**/*.ts"
   ],
   "exclude": [
     "**/*.spec.ts",

@@ -7,7 +7,7 @@
     "../src/api/**/*api.fixture.ts",
     "../src/api/fixtures.ts",
     "../src/api/fixtures.jasmine.ts",
-    "../src/fixtures/jasmine/**/*.ts",
+    "../src/fixtures/jasmine/**/*.ts"
   ],
   "references": [
     {

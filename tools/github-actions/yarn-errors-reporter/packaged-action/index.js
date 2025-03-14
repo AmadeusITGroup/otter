@@ -28085,16 +28085,9 @@ async function run() {
                     return;
                 }
             }
-            const hasLocalChanges = (await (0, exec_1.getExecOutput)('git', ['status', '-s'], execOptions)).stdout.split('\n').length > 0;
-            if (hasLocalChanges) {
-                await (0, exec_1.exec)('git', ['stash'], execOptions);
-            }
-            await (0, exec_1.exec)('git', ['revert', '--no-commit', '-m', '1', 'HEAD'], execOptions);
+            await (0, exec_1.exec)('git', ['revert', '--no-commit', '-m', '1', 'HEAD']);
             previousErrors = await getYarnErrors();
-            await (0, exec_1.exec)('git', ['reset', '--hard'], execOptions);
-            if (hasLocalChanges) {
-                await (0, exec_1.exec)('git', ['stash', 'pop'], execOptions);
-            }
+            await (0, exec_1.exec)('git', ['reset', '--hard']);
         }
         else {
             core.warning(`Fetch depth was ${fetchDepth}, all the errors from the output will be considered as new errors`);

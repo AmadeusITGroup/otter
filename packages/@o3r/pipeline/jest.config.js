@@ -1,8 +1,8 @@
-const getJestGlobalConfig = require('../../../jest.config.ut').getJestGlobalConfig;
+const { getJestProjectConfig } = require('@o3r/test-helpers');
 
 /** @type {import('ts-jest/dist/types').JestConfigWithTsJest} */
 module.exports = {
-  ...getJestGlobalConfig(__dirname),
+  ...getJestProjectConfig(),
   projects: [
     '<rootDir>/testing/jest.config.ut.builders.js'
   ]
