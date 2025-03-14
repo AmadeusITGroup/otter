@@ -9,6 +9,9 @@ import {
   RouterModule,
 } from '@angular/router';
 import {
+  provideDynamicContent,
+} from '@o3r/dynamic-content';
+import {
   O3rElement,
 } from '@o3r/testing/core';
 import {
@@ -34,7 +37,10 @@ describe('DynamicContentComponent', () => {
         RouterModule.forRoot([]),
         AsyncPipe
       ],
-      providers: [provideMarkdown()]
+      providers: [
+        provideMarkdown(),
+        provideDynamicContent()
+      ]
     });
     fixture = TestBed.createComponent(DynamicContentComponent);
     component = fixture.componentInstance;
