@@ -9,7 +9,7 @@ export interface NgAddFixtureSchematicsSchema extends SchematicOptionObject {
   /** Path to spec file of the component */
   specFilePath?: string | undefined;
 
-  /** Skip the linter process */
+  /** Skip the linter process which includes the run of EsLint and EditorConfig rules */
   skipLinter: boolean;
 
   /** Is the component a page */

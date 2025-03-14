@@ -32,7 +32,7 @@
     },
     "skipLinter": {
       "type": "boolean",
-      "description": "Skip the linter process",
+      "description": "Skip the linter process which includes EsLint and EditorConfig rules applying",
       "default": false
     }
   },

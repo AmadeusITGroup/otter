@@ -15,6 +15,6 @@ export interface NgGenerateSimpleSyncStoreSchematicsSchema extends SchematicOpti
   /** Store name */
   storeName: string;
 
-  /** Skip the linter process */
+  /** Skip the linter process which includes the run of EsLint and EditorConfig rules */
   skipLinter: boolean;
 }
