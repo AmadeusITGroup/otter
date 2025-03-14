@@ -311,7 +311,7 @@ __metadata:
     rimraf: "npm:^6.0.1"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
@@ -350,6 +350,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/logger": "workspace:^"
     "@o3r/schematics": "workspace:^"
+    "@o3r/test-helpers": "workspace:^"
     "@schematics/angular": "npm:~19.2.0"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
@@ -372,7 +373,7 @@ __metadata:
     jest-preset-angular: "npm:~14.5.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     rxjs: "npm:^7.8.1"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.8.2"
@@ -458,7 +459,7 @@ __metadata:
     rimraf: "npm:^6.0.1"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
@@ -537,7 +538,7 @@ __metadata:
     rimraf: "npm:^6.0.1"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
@@ -616,7 +617,7 @@ __metadata:
     rimraf: "npm:^6.0.1"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
@@ -697,7 +698,7 @@ __metadata:
     rimraf: "npm:^6.0.1"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
@@ -786,7 +787,7 @@ __metadata:
     rimraf: "npm:^6.0.1"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.8.2"
@@ -860,7 +861,7 @@ __metadata:
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
@@ -911,6 +912,7 @@ __metadata:
     "@nx/jest": "npm:~20.6.0"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
+    "@o3r/test-helpers": "workspace:^"
     "@stylistic/eslint-plugin": "npm:~3.1.0"
     "@types/glob": "npm:^8.0.0"
     "@types/jest": "npm:~29.5.2"
@@ -944,7 +946,7 @@ __metadata:
     openapi-types: "npm:^12.0.0"
     semver: "npm:^7.5.2"
     swagger-schema-official: "npm:~2.0.0-bab6bed"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.8.2"
@@ -1010,7 +1012,7 @@ __metadata:
     progress: "npm:^2.0.3"
     prompts: "npm:^2.4.2"
     rxjs: "npm:^7.8.1"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     ts-loader: "npm:^9.5.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
@@ -1074,7 +1076,7 @@ __metadata:
     jsonc-eslint-parser: "npm:~2.4.0"
     loglevel: "npm:^1.8.0"
     nx: "npm:~20.6.0"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.27.0"
@@ -1121,7 +1123,7 @@ __metadata:
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~20.6.0"
     rxjs: "npm:^7.8.1"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.27.0"
@@ -5219,7 +5221,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jest/transform@npm:^29.7.0":
+"@jest/transform@npm:^29.7.0, @jest/transform@npm:~29.7.0":
   version: 29.7.0
   resolution: "@jest/transform@npm:29.7.0"
   dependencies:
@@ -7093,7 +7095,7 @@ __metadata:
     lint-staged: "npm:^15.0.0"
     minimist: "npm:^1.2.6"
     rimraf: "npm:^6.0.1"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     tsc-watch: "npm:^6.0.4"
     tslib: "npm:^2.6.2"
     typedoc: "npm:~0.28.0"
@@ -7161,7 +7163,7 @@ __metadata:
     minimist: "npm:^1.2.6"
     rimraf: "npm:^6.0.1"
     rxjs: "npm:^7.8.1"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     tsc-watch: "npm:^6.0.4"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.8.2"
@@ -7233,7 +7235,7 @@ __metadata:
     jsonschema: "npm:~1.5.0"
     nx: "npm:~20.6.0"
     rxjs: "npm:^7.8.1"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
@@ -7300,7 +7302,7 @@ __metadata:
     jsonc-eslint-parser: "npm:~2.4.0"
     loglevel: "npm:^1.8.0"
     nx: "npm:~20.6.0"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.27.0"
@@ -7344,7 +7346,7 @@ __metadata:
     loglevel: "npm:^1.8.0"
     nx: "npm:~20.6.0"
     tar: "npm:^7.0.0"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.27.0"
@@ -7391,7 +7393,7 @@ __metadata:
     jsonc-eslint-parser: "npm:~2.4.0"
     loglevel: "npm:^1.8.0"
     nx: "npm:~20.6.0"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.27.0"
@@ -7439,7 +7441,7 @@ __metadata:
     jsonc-eslint-parser: "npm:~2.4.0"
     loglevel: "npm:^1.8.0"
     nx: "npm:~20.6.0"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.27.0"
@@ -7507,7 +7509,7 @@ __metadata:
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
@@ -7603,7 +7605,7 @@ __metadata:
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
@@ -7690,7 +7692,7 @@ __metadata:
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
@@ -7735,6 +7737,7 @@ __metadata:
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/telemetry": "workspace:^"
+    "@o3r/test-helpers": "workspace:^"
     "@stylistic/eslint-plugin-ts": "npm:~3.1.0"
     "@types/fs-extra": "npm:^11.0.0"
     "@types/jest": "npm:~29.5.2"
@@ -7757,8 +7760,9 @@ __metadata:
     globals: "npm:^15.9.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
+    jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~20.6.0"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.8.2"
@@ -7793,6 +7797,7 @@ __metadata:
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/telemetry": "workspace:^"
+    "@o3r/test-helpers": "workspace:^"
     "@stylistic/eslint-plugin-ts": "npm:~3.1.0"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
@@ -7814,8 +7819,9 @@ __metadata:
     globals: "npm:^15.9.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
+    jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~20.6.0"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.8.2"
@@ -7857,6 +7863,7 @@ __metadata:
     eslint-plugin-unused-imports: "npm:~4.1.4"
     globals: "npm:^15.9.0"
     globby: "npm:^14.0.0"
+    jsonc-eslint-parser: "npm:~2.4.0"
     minimist: "npm:^1.2.6"
     nx: "npm:~20.6.0"
     typescript: "npm:~5.8.2"
@@ -8047,7 +8054,7 @@ __metadata:
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
@@ -8198,7 +8205,7 @@ __metadata:
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
@@ -8305,7 +8312,7 @@ __metadata:
     nx: "npm:~20.6.0"
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
@@ -8406,7 +8413,7 @@ __metadata:
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
     shell-quote: "npm:^1.8.1"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.8.2"
@@ -8486,7 +8493,7 @@ __metadata:
     rxjs: "npm:^7.8.1"
     sass: "npm:~1.86.0"
     semver: "npm:^7.5.2"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
@@ -8557,6 +8564,7 @@ __metadata:
     "@o3r/eslint-config": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
+    "@o3r/test-helpers": "workspace:^"
     "@schematics/angular": "npm:~19.2.0"
     "@stylistic/eslint-plugin": "npm:~3.1.0"
     "@types/cheerio": "npm:~0.22.35"
@@ -8585,7 +8593,7 @@ __metadata:
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~20.6.0"
     rxjs: "npm:^7.8.1"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.8.2"
@@ -8661,7 +8669,7 @@ __metadata:
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
@@ -8751,7 +8759,7 @@ __metadata:
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
@@ -8822,7 +8830,6 @@ __metadata:
   resolution: "@o3r/eslint-plugin@workspace:packages/@o3r/eslint-plugin"
   dependencies:
     "@angular-devkit/core": "npm:~19.2.0"
-    "@angular-devkit/schematics": "npm:~19.2.0"
     "@angular-eslint/test-utils": "npm:~19.2.0"
     "@angular/compiler": "npm:~19.2.0"
     "@babel/core": "npm:~7.26.0"
@@ -8862,7 +8869,7 @@ __metadata:
     pid-from-port: "npm:^1.1.3"
     rimraf: "npm:^6.0.1"
     semver: "npm:^7.5.2"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
@@ -8870,16 +8877,15 @@ __metadata:
     typescript-eslint: "npm:~8.27.0"
     yaml-eslint-parser: "npm:^1.2.2"
   peerDependencies:
-    "@angular-devkit/schematics": ^19.0.0
     "@angular-eslint/template-parser": ^19.0.0
     "@angular/compiler": ^19.0.0
     eslint: ^8.57.0 || ^9.16.0
     jsonc-eslint-parser: ^2.4.0
     yaml-eslint-parser: ^1.2.2
   peerDependenciesMeta:
-    "@angular-devkit/schematics":
-      optional: true
     "@angular-eslint/template-parser":
+      optional: true
+    "@angular/compiler":
       optional: true
     jsonc-eslint-parser:
       optional: true
@@ -8958,7 +8964,7 @@ __metadata:
     rimraf: "npm:^6.0.1"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
@@ -9042,6 +9048,7 @@ __metadata:
     "@o3r/eslint-config": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
+    "@o3r/test-helpers": "workspace:^"
     "@schematics/angular": "npm:~19.2.0"
     "@stylistic/eslint-plugin": "npm:~3.1.0"
     "@types/jest": "npm:~29.5.2"
@@ -9067,7 +9074,7 @@ __metadata:
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~20.6.0"
     rxjs: "npm:^7.8.1"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.8.2"
@@ -9150,6 +9157,7 @@ __metadata:
     "@o3r/eslint-config": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/telemetry": "workspace:^"
+    "@o3r/test-helpers": "workspace:^"
     "@o3r/workspace": "workspace:^"
     "@o3r/workspace-helpers": "workspace:^"
     "@playwright/test": "npm:~1.51.0"
@@ -9234,7 +9242,7 @@ __metadata:
     source-map-js: "npm:^1.2.1"
     stylelint: "npm:~16.16.0"
     stylelint-scss: "npm:~6.11.0"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tsc-watch: "npm:^6.0.4"
     tslib: "npm:^2.6.2"
@@ -9315,7 +9323,7 @@ __metadata:
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
     smee-client: "npm:^2.0.0"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.27.0"
@@ -9397,7 +9405,7 @@ __metadata:
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
@@ -9502,6 +9510,7 @@ __metadata:
     "@o3r/eslint-config": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
+    "@o3r/test-helpers": "workspace:^"
     "@schematics/angular": "npm:~19.2.0"
     "@stylistic/eslint-plugin": "npm:~3.1.0"
     "@types/jest": "npm:~29.5.2"
@@ -9531,7 +9540,7 @@ __metadata:
     nx: "npm:~20.6.0"
     rxjs: "npm:^7.8.1"
     smartlook-client: "npm:^10.0.0"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.8.2"
@@ -9606,6 +9615,7 @@ __metadata:
     "@o3r/logger": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@o3r/store-sync": "workspace:^"
+    "@o3r/test-helpers": "workspace:^"
     "@schematics/angular": "npm:~19.2.0"
     "@stylistic/eslint-plugin": "npm:~3.1.0"
     "@types/jest": "npm:~29.5.2"
@@ -9636,7 +9646,7 @@ __metadata:
     node-fetch: "npm:^3.0.0"
     nx: "npm:~20.6.0"
     rxjs: "npm:^7.8.1"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.8.2"
@@ -9708,11 +9718,12 @@ __metadata:
     globals: "npm:^15.9.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
+    jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~20.6.0"
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
@@ -9767,7 +9778,7 @@ __metadata:
     jest-junit: "npm:~16.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     style-loader: "npm:^3.2.1"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     ts-loader: "npm:^9.5.2"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
@@ -9826,7 +9837,7 @@ __metadata:
     nx: "npm:~20.6.0"
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
@@ -9883,6 +9894,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/routing": "workspace:^"
     "@o3r/schematics": "workspace:^"
+    "@o3r/test-helpers": "workspace:^"
     "@schematics/angular": "npm:~19.2.0"
     "@stylistic/eslint-plugin": "npm:~3.1.0"
     "@types/jasmine": "npm:~5.1.0"
@@ -9909,7 +9921,7 @@ __metadata:
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~20.6.0"
     rxjs: "npm:^7.8.1"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.8.2"
@@ -10018,7 +10030,7 @@ __metadata:
     rimraf: "npm:^6.0.1"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
@@ -10100,6 +10112,7 @@ __metadata:
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/telemetry": "workspace:^"
+    "@o3r/test-helpers": "workspace:^"
     "@schematics/angular": "npm:~19.2.0"
     "@stylistic/eslint-plugin": "npm:~3.1.0"
     "@swc/helpers": "npm:~0.5.0"
@@ -10130,7 +10143,7 @@ __metadata:
     nx: "npm:~20.6.0"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
@@ -10285,7 +10298,7 @@ __metadata:
     rxjs: "npm:^7.8.1"
     sass-loader: "npm:^16.0.0"
     style-dictionary: "npm:~4.3.2"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.27.0"
@@ -10321,6 +10334,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/logger": "workspace:^"
     "@o3r/schematics": "workspace:^"
+    "@o3r/test-helpers": "workspace:^"
     "@schematics/angular": "npm:~19.2.0"
     "@stylistic/eslint-plugin": "npm:~3.1.0"
     "@types/jest": "npm:~29.5.2"
@@ -10347,7 +10361,7 @@ __metadata:
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~20.6.0"
     rxjs: "npm:^7.8.1"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
@@ -10408,6 +10422,7 @@ __metadata:
     "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/parser": "npm:~8.27.0"
     angular-eslint: "npm:~19.2.0"
+    babel-jest: "npm:^29.7.0"
     chokidar: "npm:^4.0.3"
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.23.0"
@@ -10428,7 +10443,7 @@ __metadata:
     nx: "npm:~20.6.0"
     pid-from-port: "npm:^1.1.3"
     style-dictionary: "npm:~4.3.2"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
@@ -10506,7 +10521,7 @@ __metadata:
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
     stylelint: "npm:~16.16.0"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
@@ -10604,7 +10619,7 @@ __metadata:
     source-map-js: "npm:^1.2.1"
     stylelint: "npm:~16.16.0"
     stylelint-scss: "npm:~6.11.0"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
@@ -10700,6 +10715,7 @@ __metadata:
     "@nx/js": "npm:~20.6.0"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
+    "@o3r/test-helpers": "workspace:^"
     "@stylistic/eslint-plugin": "npm:~3.1.0"
     "@types/jest": "npm:~29.5.2"
     "@types/minimist": "npm:^1.2.2"
@@ -10724,7 +10740,7 @@ __metadata:
     minimist: "npm:^1.2.6"
     nx: "npm:~20.6.0"
     rxjs: "npm:^7.8.1"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.8.2"
@@ -10753,15 +10769,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/test-helpers@workspace:packages/@o3r/test-helpers"
   dependencies:
-    "@angular-devkit/schematics": "npm:~19.2.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@jest/environment": "npm:~29.7.0"
+    "@jest/transform": "npm:~29.7.0"
     "@jest/types": "npm:~29.6.3"
     "@nx/eslint-plugin": "npm:~20.6.0"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/schematics": "workspace:^"
-    "@schematics/angular": "npm:~19.2.0"
     "@stylistic/eslint-plugin-ts": "npm:~3.1.0"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
@@ -10789,7 +10803,7 @@ __metadata:
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
@@ -10798,17 +10812,24 @@ __metadata:
     unionfs: "npm:~4.5.1"
   peerDependencies:
     "@jest/environment": ^29.7.0
+    "@jest/transform": ^29.6.3
     "@jest/types": ^29.6.3
     jest-environment-node: ^29.7.0
     memfs: ^4.14.0
-    pid-from-port: ^1.1.3
+    ts-jest: ~29.3.0
     ts-node: ^10.9.2
     type-fest: ^4.30.1
     unionfs: ^4.5.1
   peerDependenciesMeta:
+    "@jest/transform":
+      optional: true
+    "@jest/types":
+      optional: true
     jest-environment-node:
       optional: true
     memfs:
+      optional: true
+    type-fest:
       optional: true
     unionfs:
       optional: true
@@ -10885,7 +10906,7 @@ __metadata:
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
     temporal-polyfill: "npm:^0.2.0"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
@@ -11010,7 +11031,7 @@ __metadata:
     rimraf: "npm:^6.0.1"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
@@ -11062,6 +11083,7 @@ __metadata:
     eslint-plugin-unused-imports: "npm:~4.1.4"
     globals: "npm:^15.9.0"
     globby: "npm:^14.0.0"
+    jsonc-eslint-parser: "npm:~2.4.0"
     minimist: "npm:^1.2.6"
     nx: "npm:~20.6.0"
     semver: "npm:^7.5.2"
@@ -11148,7 +11170,7 @@ __metadata:
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
@@ -16773,7 +16795,7 @@ __metadata:
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.27.0"
@@ -28005,7 +28027,7 @@ __metadata:
     jest-junit: "npm:~16.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     semver: "npm:^7.5.2"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.27.0"
@@ -29024,7 +29046,7 @@ __metadata:
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~20.6.0"
     rxjs: "npm:^7.8.1"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.27.0"
     zone.js: "npm:~0.15.0"
@@ -34589,9 +34611,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-jest@npm:^29.0.0, ts-jest@npm:~29.2.5":
-  version: 29.2.6
-  resolution: "ts-jest@npm:29.2.6"
+"ts-jest@npm:^29.0.0, ts-jest@npm:~29.3.0":
+  version: 29.3.0
+  resolution: "ts-jest@npm:29.3.0"
   dependencies:
     bs-logger: "npm:^0.2.6"
     ejs: "npm:^3.1.10"
@@ -34601,6 +34623,7 @@ __metadata:
     lodash.memoize: "npm:^4.1.2"
     make-error: "npm:^1.3.6"
     semver: "npm:^7.7.1"
+    type-fest: "npm:^4.37.0"
     yargs-parser: "npm:^21.1.1"
   peerDependencies:
     "@babel/core": ">=7.0.0-beta.0 <8"
@@ -34622,7 +34645,7 @@ __metadata:
       optional: true
   bin:
     ts-jest: cli.js
-  checksum: 10/9cb6804266be7c9384cecace346f65d2ab5a685d252c5275b53b5958f6545951328a5c4d48c49c5f92d1e04187ca31e348e5a3540d20cb365c33d1eb89371e22
+  checksum: 10/b21997db016fca4620db781d7c8f247b59eb67e39426e533f40a22e57cfac73911b88858d04031f692bf0414071cb93a734443717e16541e0ac062677778d7ae
   languageName: node
   linkType: hard
 
@@ -34898,10 +34921,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"type-fest@npm:^4.30.1":
-  version: 4.37.0
-  resolution: "type-fest@npm:4.37.0"
-  checksum: 10/882cf05374d7c635cbbbc50cb89863dad3d27a77c426d062144ba32b23a44087193213c5bbd64f3ab8be04215005c950286567be06fecca9d09c66abd290ef01
+"type-fest@npm:^4.30.1, type-fest@npm:^4.37.0":
+  version: 4.38.0
+  resolution: "type-fest@npm:4.38.0"
+  checksum: 10/7e29b678dca2dee071380ace370fecb7fa177faa557125134dd24ce784d90f84bf55ebf143092308f090d59e52a5b78653d63c8e5ad96e9f089e0029223e6221
   languageName: node
   linkType: hard
 
@@ -36659,7 +36682,7 @@ __metadata:
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    ts-jest: "npm:~29.2.5"
+    ts-jest: "npm:~29.3.0"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.27.0"
