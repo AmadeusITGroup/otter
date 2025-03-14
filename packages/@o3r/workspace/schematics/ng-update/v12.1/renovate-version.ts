@@ -9,7 +9,7 @@ import type {
 } from '@angular-devkit/schematics';
 
 const otterRenovatePathPrefix = 'github>AmadeusITGroup/otter//';
-const withVersionPattern = /#[0-9.]+(?:-.+)?$/;
+const withVersionPattern = /#v[0-9.]+(?:-.+)?$/;
 const supportedRenovateFiles = ['.renovaterc.json', 'renovaterc.json', 'renovate.json'];
 
 export const updateRenovateVersion = (): Rule => {
@@ -28,7 +28,10 @@ export const updateRenovateVersion = (): Rule => {
             return extensionPath;
           }
 
-          return `${extensionPath}#${version}`;
+          const splitExtensionPath = extensionPath.split('(');
+          return splitExtensionPath.length < 2
+            ? `${extensionPath}#v${version}`
+            : `${splitExtensionPath[0]}#v${version}(${splitExtensionPath.slice(1).join('(')}`;
         });
         tree.overwrite(renovateFile, JSON.stringify(renovateConfig, null, 2));
       });
