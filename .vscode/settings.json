@@ -101,7 +101,10 @@
     "**/*.code-search": true,
     "**/github-actions/*/packaged-action/**": true,
     "**/.yarn": true,
-    "**/.pnp.*": true
+    "**/.pnp.*": true,
+    "**/.cache/**": true,
+    "**/dist/**": true,
+    "**/.tsbuildinfo*": true
   },
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "typescript.tsdk": ".yarn/sdks/typescript/lib",

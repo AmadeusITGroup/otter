@@ -128,18 +128,19 @@
       "{projectRoot}/testing/**/*",
       "!{projectRoot}/testing/jest.config.it.js",
       "{projectRoot}/mocks/**/*",
-      "{workspaceRoot}/jest.config.ut.js",
+      "{workspaceRoot}/packages/@o3r/test-helpers/src/jest-config/*.ts",
+      "!{workspaceRoot}/packages/@o3r/test-helpers/src/jest-config/integration-test.ts",
       "{workspaceRoot}/codecov.yml"
     ],
     "integration-test": [
       "base",
       "{projectRoot}/testing/jest.config.it.js",
       "{projectRoot}/**/*.it.spec.ts",
-      "{workspaceRoot}/jest.config.it.js",
       "{workspaceRoot}/packages/*/create/src/*.ts",
       "!{workspaceRoot}/packages/*/create/src/*.spec.ts",
       "{workspaceRoot}/packages/@o3r/test-helpers/src/**/*.ts",
       "!{workspaceRoot}/packages/@o3r/test-helpers/src/**/*.spec.ts",
+      "!{workspaceRoot}/packages/@o3r/test-helpers/src/jest-config/unit-test.ts",
       "{workspaceRoot}/codecov.yml"
     ],
     "plugins": [

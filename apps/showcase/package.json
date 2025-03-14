@@ -109,6 +109,7 @@
     "@o3r/eslint-plugin": "workspace:^",
     "@o3r/schematics": "workspace:^",
     "@o3r/style-dictionary": "workspace:^",
+    "@o3r/test-helpers": "workspace:^",
     "@o3r/testing": "workspace:^",
     "@playwright/test": "~1.51.0",
     "@schematics/angular": "~19.2.0",

@@ -6,7 +6,9 @@
     "incremental": true,
     "outDir": "./dist",
     "rootDir": "src",
-    "tsBuildInfoFile": "build/.tsbuildinfo"
+    "module": "CommonJS",
+    "tsBuildInfoFile": "build/.tsbuildinfo",
+    "skipLibCheck": true // due to ts-jest which contains non-exposed "babel__core" reference
   },
   "include": ["src/**/*.ts"],
   "exclude": [

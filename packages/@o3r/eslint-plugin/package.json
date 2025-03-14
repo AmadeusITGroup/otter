@@ -32,10 +32,10 @@
     "type-fest": "^4.30.1"
   },
   "peerDependenciesMeta": {
-    "@angular-devkit/schematics": {
+    "@angular-eslint/template-parser": {
       "optional": true
     },
-    "@angular-eslint/template-parser": {
+    "@angular/compiler": {
       "optional": true
     },
     "jsonc-eslint-parser": {
@@ -46,7 +46,6 @@
     }
   },
   "peerDependencies": {
-    "@angular-devkit/schematics": "^19.0.0",
     "@angular-eslint/template-parser": "^19.0.0",
     "@angular/compiler": "^19.0.0",
     "eslint": "^8.57.0 || ^9.16.0",
@@ -55,7 +54,6 @@
   },
   "devDependencies": {
     "@angular-devkit/core": "~19.2.0",
-    "@angular-devkit/schematics": "~19.2.0",
     "@angular-eslint/test-utils": "~19.3.0",
     "@angular/compiler": "~19.2.0",
     "@babel/core": "~7.26.0",

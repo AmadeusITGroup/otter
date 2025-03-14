@@ -12,9 +12,6 @@ import {
 import {
   performance,
 } from 'node:perf_hooks';
-import {
-  type SupportedPackageManagers,
-} from '@o3r/schematics';
 
 declare global {
   namespace NodeJS {
@@ -65,7 +62,7 @@ const PACKAGE_MANAGERS_CMD = {
     workspaceExec: ['yarn', 'workspace'],
     workspaceRun: ['yarn', 'workspace']
   }
-} as const satisfies Record<SupportedPackageManagers, Record<Command, string[]>>;
+} as const satisfies Record<'npm' | 'yarn', Record<Command, string[]>>;
 
 type CommandArguments = {
   /** Script to run or execute */
