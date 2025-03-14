@@ -3,6 +3,9 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import {
+  provideDynamicContent,
+} from '@o3r/dynamic-content';
+import {
   TrainingComponent,
 } from './training.component';
 
@@ -21,7 +24,10 @@ describe('SdkTrainingComponent', () => {
     } as Response));
 
     await TestBed.configureTestingModule({
-      imports: [TrainingComponent]
+      imports: [TrainingComponent],
+      providers: [
+        provideDynamicContent()
+      ]
     })
       .compileComponents();
 

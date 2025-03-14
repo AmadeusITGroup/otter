@@ -9,6 +9,9 @@ import {
   StoreModule,
 } from '@ngrx/store';
 import {
+  provideDynamicContent,
+} from '@o3r/dynamic-content';
+import {
   RulesEngineRunnerModule,
 } from '@o3r/rules-engine';
 import {
@@ -26,6 +29,9 @@ describe('PlaceholderComponent', () => {
         StoreModule.forRoot(),
         EffectsModule.forRoot(),
         RulesEngineRunnerModule.forRoot()
+      ],
+      providers: [
+        provideDynamicContent()
       ]
     }).compileComponents();
 
