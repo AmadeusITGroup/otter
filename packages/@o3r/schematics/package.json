@@ -70,6 +70,7 @@
     "globby": "^11.1.0",
     "minimatch": "~10.0.0",
     "semver": "^7.5.2",
+    "tiny-editorconfig": "~1.0.0",
     "tslib": "^2.6.2"
   },
   "generatorDependencies": {

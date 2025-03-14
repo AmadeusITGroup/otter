@@ -7,6 +7,7 @@ import {
 } from '@angular-devkit/schematics';
 import {
   addVsCodeRecommendations,
+  applyEditorConfig,
   applyEsLintFix,
   DependencyToAdd,
   getO3rPeerDeps,
@@ -24,6 +25,9 @@ import {
   generateCommitLintConfig,
   getCommitHookInitTask,
 } from './helpers/commit-hooks';
+import {
+  generateEditorConfig,
+} from './helpers/editorconfig';
 import {
   updateGitIgnore,
 } from './helpers/gitignore-update';
@@ -134,7 +138,9 @@ export const prepareProject = (options: NgAddSchematicsSchema): Rule => {
       }),
       !options.skipLinter && hasEslint ? applyEsLintFix() : noop(),
       addWorkspacesToProject(),
-      addMonorepoManager(ownPackageJsonContent, options.monorepoManager)
+      addMonorepoManager(ownPackageJsonContent, options.monorepoManager),
+      options.skipEditorConfigSetup ? noop() : generateEditorConfig(),
+      options.skipLinter ? noop() : applyEditorConfig()
     ])(tree, context);
   };
 };
