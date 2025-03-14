@@ -10,8 +10,8 @@ import {
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
 import {
+  C11nDirective,
   C11nMockService,
-  C11nModule,
   C11nService,
 } from '@o3r/components';
 import {
@@ -55,7 +55,7 @@ describe('ComponentReplacementPresComponent', () => {
       ],
       providers: [{ provide: C11nService, useClass: C11nMockService }]
     }).overrideComponent(ComponentReplacementPresComponent, {
-      remove: { imports: [C11nModule] },
+      remove: { imports: [C11nDirective] },
       add: { imports: [MockC11nCVAStandaloneDirective] }
     }).compileComponents();
 

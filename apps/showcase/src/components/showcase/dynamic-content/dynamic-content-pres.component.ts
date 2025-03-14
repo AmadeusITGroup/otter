@@ -17,7 +17,7 @@ import {
   O3rComponent,
 } from '@o3r/core';
 import {
-  DynamicContentModule,
+  O3rDynamicContentPipe,
 } from '@o3r/dynamic-content';
 import {
   DatePickerInputPresComponent,
@@ -28,7 +28,7 @@ const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
 @O3rComponent({ componentType: 'Component' })
 @Component({
   selector: 'o3r-dynamic-content-pres',
-  imports: [ReactiveFormsModule, DynamicContentModule, DatePickerInputPresComponent],
+  imports: [ReactiveFormsModule, O3rDynamicContentPipe, DatePickerInputPresComponent],
   templateUrl: './dynamic-content-pres.template.html',
   styleUrls: ['./dynamic-content-pres.style.scss'],
   encapsulation: ViewEncapsulation.None,

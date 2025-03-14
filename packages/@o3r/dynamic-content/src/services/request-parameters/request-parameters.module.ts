@@ -1,4 +1,5 @@
 import {
+  makeEnvironmentProviders,
   ModuleWithProviders,
   NgModule,
 } from '@angular/core';
@@ -20,6 +21,7 @@ export function defaultConfigFactory() {
 }
 /**
  * RequestParametersService Module
+ * @deprecated Will be removed in v14.
  */
 @NgModule({
   imports: [],
@@ -32,6 +34,11 @@ export function defaultConfigFactory() {
   ]
 })
 export class RequestParametersModule {
+  /**
+   * Provide request parameters config
+   * @param config
+   * @deprecated Please use {@link provideRequestParameters} instead. Will be removed in v14.
+   */
   public static forRoot(config: () => Partial<RequestParametersConfig> = defaultConfigFactory): ModuleWithProviders<RequestParametersModule> {
     return {
       ngModule: RequestParametersModule,
@@ -44,4 +51,19 @@ export class RequestParametersModule {
       ]
     };
   }
+}
+
+/**
+ * Provide request parameters config
+ * We don't provide directly the value and use a factory because otherwise AOT compilation will resolve to undefined whatever is taken from window
+ * @param config
+ */
+export function provideRequestParameters(config: () => Partial<RequestParametersConfig> = defaultConfigFactory) {
+  return makeEnvironmentProviders([
+    {
+      provide: REQUEST_PARAMETERS_CONFIG_TOKEN,
+      useFactory: config
+    },
+    RequestParametersService
+  ]);
 }

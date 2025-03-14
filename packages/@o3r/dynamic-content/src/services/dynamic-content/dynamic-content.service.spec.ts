@@ -11,6 +11,9 @@ import {
 } from 'rxjs';
 import {
   DynamicContentModule,
+  provideDynamicContent,
+  withBasePath,
+  withCmsAssetsPath,
 } from './dynamic-content.module';
 import {
   DynamicContentService,
@@ -85,146 +88,316 @@ describe('DynamicContentService', () => {
     });
   });
 
-  describe('regarding the module forRoot', () => {
-    describe('with the default configuration', () => {
-      describe('with a tag data-dynamiccontentpath in the body', () => {
+  describe('deprecated will be removed in v14', () => {
+    describe('regarding the module forRoot', () => {
+      describe('with the default configuration', () => {
+        describe('with a tag data-dynamiccontentpath in the body', () => {
+          beforeEach(async () => {
+            document.body.dataset.dynamiccontentpath = 'my-default-content-path/';
+            try {
+              delete document.body.dataset.cmsassetspath;
+            } catch {}
+
+            await TestBed.configureTestingModule({
+              imports: [DynamicContentModule]
+            }).compileComponents();
+
+            service = TestBed.inject(DynamicContentService);
+          });
+
+          it('should get the base path from document.body.dataset.dynamicontentpath', () => {
+            return expect(firstValueFrom(
+              service.getContentPathStream('/asset.png')
+            )).resolves.toBe('my-default-content-path/asset.png');
+          });
+        });
+
+        describe('without a tag data-dynamiccontentpath in the body', () => {
+          beforeEach(() => {
+            try {
+              delete document.body.dataset.dynamiccontentpath;
+              delete document.body.dataset.cmsassetspath;
+            } catch {}
+          });
+
+          beforeEach(async () => {
+            await TestBed.configureTestingModule({
+              imports: [DynamicContentModule]
+            }).compileComponents();
+
+            service = TestBed.inject(DynamicContentService);
+          });
+
+          it('should default base path to empty string', () => {
+            return expect(firstValueFrom(
+              service.getContentPathStream('/asset.png')
+            )).resolves.toBe('/asset.png');
+          });
+
+          it('should not prepend a slash if base path is empty', () => {
+            return expect(firstValueFrom(
+              service.getContentPathStream('asset.png')
+            )).resolves.toBe('asset.png');
+          });
+
+          it('should return an empty base path when calling getDynamicContentBasePath', () => {
+            expect(service.basePath).toBe('');
+          });
+        });
+      });
+
+      describe('with the custom configuration', () => {
         beforeEach(async () => {
-          document.body.dataset.dynamiccontentpath = 'my-default-content-path/';
+          document.body.dataset.dynamiccontentpath = 'my-default-content-path';
           try {
             delete document.body.dataset.cmsassetspath;
           } catch {}
 
           await TestBed.configureTestingModule({
-            imports: [DynamicContentModule]
+            imports: [DynamicContentModule.forRoot({ content: 'my-custom-path' })]
           }).compileComponents();
 
           service = TestBed.inject(DynamicContentService);
         });
 
-        it('should get the base path from document.body.dataset.dynamicontentpath', () => {
+        it('should get the base path from the custom config', () => {
+          return expect(firstValueFrom(
+            service.getContentPathStream('/asset.png')
+          )).resolves.toBe('my-custom-path/asset.png');
+        });
+
+        it('should get the path from the custom config for both path and assets folder', () => {
+          return expect(firstValueFrom(
+            service.getMediaPathStream('/asset.png')
+          )).resolves.toBe('my-custom-path/assets/asset.png');
+        });
+      });
+
+      describe('with the custom configuration for content as object', () => {
+        beforeEach(async () => {
+          document.body.dataset.dynamiccontentpath = 'my-default-content-path';
+          try {
+            delete document.body.dataset.cmsassetspath;
+          } catch {}
+
+          await TestBed.configureTestingModule({
+            imports: [DynamicContentModule.forRoot({ content: 'my-custom-path' })]
+          }).compileComponents();
+
+          service = TestBed.inject(DynamicContentService);
+        });
+
+        it('should get the base path from the custom config', () => {
+          return expect(firstValueFrom(
+            service.getContentPathStream('/asset.png')
+          )).resolves.toBe('my-custom-path/asset.png');
+        });
+
+        it('should get the path from the custom config for both path and assets folder', () => {
+          return expect(firstValueFrom(
+            service.getMediaPathStream('/asset.png')
+          )).resolves.toBe('my-custom-path/assets/asset.png');
+        });
+      });
+
+      describe('with the custom configuration for cms assets', () => {
+        beforeEach(async () => {
+          document.body.dataset.dynamiccontentpath = 'my-default-content-path';
+          document.body.dataset.cmsassetspath = 'my-custom-cms-assets-location';
+
+          await TestBed.configureTestingModule({
+            imports: [DynamicContentModule.forRoot({ cmsAssets: 'cms-assets-location' })]
+          }).compileComponents();
+
+          service = TestBed.inject(DynamicContentService);
+        });
+
+        it('should not touch the content path', () => {
           return expect(firstValueFrom(
             service.getContentPathStream('/asset.png')
           )).resolves.toBe('my-default-content-path/asset.png');
         });
-      });
 
-      describe('without a tag data-dynamiccontentpath in the body', () => {
-        beforeEach(() => {
-          try {
-            delete document.body.dataset.dynamiccontentpath;
-            delete document.body.dataset.cmsassetspath;
-          } catch {}
-        });
-
-        beforeEach(async () => {
-          await TestBed.configureTestingModule({
-            imports: [DynamicContentModule]
-          }).compileComponents();
-
-          service = TestBed.inject(DynamicContentService);
-        });
-
-        it('should default base path to empty string', () => {
+        it('should get the assets path from the custom config', () => {
           return expect(firstValueFrom(
-            service.getContentPathStream('/asset.png')
+            service.getMediaPathStream('asset.png')
+          )).resolves.toBe('cms-assets-location/asset.png');
+        });
+
+        it('should return the assets path if it is starting with / and cms assets token is provided', () => {
+          return expect(firstValueFrom(
+            service.getMediaPathStream('/asset.png')
           )).resolves.toBe('/asset.png');
         });
-
-        it('should not prepend a slash if base path is empty', () => {
-          return expect(firstValueFrom(
-            service.getContentPathStream('asset.png')
-          )).resolves.toBe('asset.png');
-        });
-
-        it('should return an empty base path when calling getDynamicContentBasePath', () => {
-          expect(service.basePath).toBe('');
-        });
       });
     });
 
-    describe('with the custom configuration', () => {
+    describe('with a tag data-cmsassetspath in the body', () => {
       beforeEach(async () => {
-        document.body.dataset.dynamiccontentpath = 'my-default-content-path';
+        document.body.dataset.dynamiccontentpath = 'my-default-content-path/';
+        document.body.dataset.cmsassetspath = 'cms-assets-path/';
+
+        await TestBed.configureTestingModule({
+          imports: [DynamicContentModule]
+        }).compileComponents();
+
+        service = TestBed.inject(DynamicContentService);
+      });
+
+      it('should take priority over dynamicontentpath only for media path', async () => {
+        await expect(firstValueFrom(
+          service.getMediaPathStream('asset.png')
+        )).resolves.toBe('cms-assets-path/asset.png');
+
+        return expect(firstValueFrom(
+          service.getContentPathStream('asset.png')
+        )).resolves.toBe('my-default-content-path/asset.png');
+      });
+
+      it('should return the assets path if it is starting with / and cms assets token is provided', () => {
+        return expect(firstValueFrom(service.getMediaPathStream('/asset.png'))).resolves.toBe('/asset.png');
+      });
+    });
+  });
+
+  describe('with the default configuration', () => {
+    describe('with a tag data-dynamiccontentpath in the body', () => {
+      beforeEach(async () => {
+        document.body.dataset.dynamiccontentpath = 'my-default-content-path/';
         try {
           delete document.body.dataset.cmsassetspath;
         } catch {}
 
         await TestBed.configureTestingModule({
-          imports: [DynamicContentModule.forRoot({ content: 'my-custom-path' })]
+          providers: [provideDynamicContent()]
         }).compileComponents();
 
         service = TestBed.inject(DynamicContentService);
       });
 
-      it('should get the base path from the custom config', () => {
-        return expect(firstValueFrom(
-          service.getContentPathStream('/asset.png')
-        )).resolves.toBe('my-custom-path/asset.png');
-      });
-
-      it('should get the path from the custom config for both path and assets folder', () => {
-        return expect(firstValueFrom(
-          service.getMediaPathStream('/asset.png')
-        )).resolves.toBe('my-custom-path/assets/asset.png');
-      });
-    });
-
-    describe('with the custom configuration for content as object', () => {
-      beforeEach(async () => {
-        document.body.dataset.dynamiccontentpath = 'my-default-content-path';
-        try {
-          delete document.body.dataset.cmsassetspath;
-        } catch {}
-
-        await TestBed.configureTestingModule({
-          imports: [DynamicContentModule.forRoot({ content: 'my-custom-path' })]
-        }).compileComponents();
-
-        service = TestBed.inject(DynamicContentService);
-      });
-
-      it('should get the base path from the custom config', () => {
-        return expect(firstValueFrom(
-          service.getContentPathStream('/asset.png')
-        )).resolves.toBe('my-custom-path/asset.png');
-      });
-
-      it('should get the path from the custom config for both path and assets folder', () => {
-        return expect(firstValueFrom(
-          service.getMediaPathStream('/asset.png')
-        )).resolves.toBe('my-custom-path/assets/asset.png');
-      });
-    });
-
-    describe('with the custom configuration for cms assets', () => {
-      beforeEach(async () => {
-        document.body.dataset.dynamiccontentpath = 'my-default-content-path';
-        document.body.dataset.cmsassetspath = 'my-custom-cms-assets-location';
-
-        await TestBed.configureTestingModule({
-          imports: [DynamicContentModule.forRoot({ cmsAssets: 'cms-assets-location' })]
-        }).compileComponents();
-
-        service = TestBed.inject(DynamicContentService);
-      });
-
-      it('should not touch the content path', () => {
+      it('should get the base path from document.body.dataset.dynamicontentpath', () => {
         return expect(firstValueFrom(
           service.getContentPathStream('/asset.png')
         )).resolves.toBe('my-default-content-path/asset.png');
       });
+    });
 
-      it('should get the assets path from the custom config', () => {
-        return expect(firstValueFrom(
-          service.getMediaPathStream('asset.png')
-        )).resolves.toBe('cms-assets-location/asset.png');
+    describe('without a tag data-dynamiccontentpath in the body', () => {
+      beforeEach(() => {
+        try {
+          delete document.body.dataset.dynamiccontentpath;
+          delete document.body.dataset.cmsassetspath;
+        } catch {}
       });
 
-      it('should return the assets path if it is starting with / and cms assets token is provided', () => {
+      beforeEach(async () => {
+        await TestBed.configureTestingModule({
+          providers: [provideDynamicContent()]
+        }).compileComponents();
+
+        service = TestBed.inject(DynamicContentService);
+      });
+
+      it('should default base path to empty string', () => {
         return expect(firstValueFrom(
-          service.getMediaPathStream('/asset.png')
+          service.getContentPathStream('/asset.png')
         )).resolves.toBe('/asset.png');
       });
+
+      it('should not prepend a slash if base path is empty', () => {
+        return expect(firstValueFrom(
+          service.getContentPathStream('asset.png')
+        )).resolves.toBe('asset.png');
+      });
+
+      it('should return an empty base path when calling getDynamicContentBasePath', () => {
+        expect(service.basePath).toBe('');
+      });
+    });
+  });
+
+  describe('with the custom configuration', () => {
+    beforeEach(async () => {
+      document.body.dataset.dynamiccontentpath = 'my-default-content-path';
+      try {
+        delete document.body.dataset.cmsassetspath;
+      } catch {}
+
+      await TestBed.configureTestingModule({
+        providers: [provideDynamicContent(withBasePath('my-custom-path'))]
+      }).compileComponents();
+
+      service = TestBed.inject(DynamicContentService);
+    });
+
+    it('should get the base path from the custom config', () => {
+      return expect(firstValueFrom(
+        service.getContentPathStream('/asset.png')
+      )).resolves.toBe('my-custom-path/asset.png');
+    });
+
+    it('should get the path from the custom config for both path and assets folder', () => {
+      return expect(firstValueFrom(
+        service.getMediaPathStream('/asset.png')
+      )).resolves.toBe('my-custom-path/assets/asset.png');
+    });
+  });
+
+  describe('with the custom configuration for content as object', () => {
+    beforeEach(async () => {
+      document.body.dataset.dynamiccontentpath = 'my-default-content-path';
+      try {
+        delete document.body.dataset.cmsassetspath;
+      } catch {}
+
+      await TestBed.configureTestingModule({
+        providers: [provideDynamicContent(withBasePath('my-custom-path'))]
+      }).compileComponents();
+
+      service = TestBed.inject(DynamicContentService);
+    });
+
+    it('should get the base path from the custom config', () => {
+      return expect(firstValueFrom(
+        service.getContentPathStream('/asset.png')
+      )).resolves.toBe('my-custom-path/asset.png');
+    });
+
+    it('should get the path from the custom config for both path and assets folder', () => {
+      return expect(firstValueFrom(
+        service.getMediaPathStream('/asset.png')
+      )).resolves.toBe('my-custom-path/assets/asset.png');
+    });
+  });
+
+  describe('with the custom configuration for cms assets', () => {
+    beforeEach(async () => {
+      document.body.dataset.dynamiccontentpath = 'my-default-content-path';
+      document.body.dataset.cmsassetspath = 'my-custom-cms-assets-location';
+
+      await TestBed.configureTestingModule({
+        providers: [provideDynamicContent(withCmsAssetsPath('cms-assets-location'))]
+      }).compileComponents();
+
+      service = TestBed.inject(DynamicContentService);
+    });
+
+    it('should not touch the content path', () => {
+      return expect(firstValueFrom(
+        service.getContentPathStream('/asset.png')
+      )).resolves.toBe('my-default-content-path/asset.png');
+    });
+
+    it('should get the assets path from the custom config', () => {
+      return expect(firstValueFrom(
+        service.getMediaPathStream('asset.png')
+      )).resolves.toBe('cms-assets-location/asset.png');
+    });
+
+    it('should return the assets path if it is starting with / and cms assets token is provided', () => {
+      return expect(firstValueFrom(
+        service.getMediaPathStream('/asset.png')
+      )).resolves.toBe('/asset.png');
     });
   });
 
@@ -234,7 +407,7 @@ describe('DynamicContentService', () => {
       document.body.dataset.cmsassetspath = 'cms-assets-path/';
 
       await TestBed.configureTestingModule({
-        imports: [DynamicContentModule]
+        providers: [provideDynamicContent()]
       }).compileComponents();
 
       service = TestBed.inject(DynamicContentService);

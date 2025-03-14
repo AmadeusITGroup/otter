@@ -78,7 +78,10 @@ export function updateCustomizationEnvironment(rootPath: string, o3rCoreVersion?
     }
 
     // if we already have the customization module imported do nothing to avoid overriding custom configs with the empty ones
-    if (isImported(fileInfo.sourceFile, 'C11nModule', '@otter/common') || isImported(fileInfo.sourceFile, 'C11nModule', '@o3r/components')) {
+    if (
+      isImported(fileInfo.sourceFile, 'C11nModule', '@o3r/components')
+      || isImported(fileInfo.sourceFile, 'provideCustomComponents', '@o3r/components')
+    ) {
       return tree;
     }
 
@@ -106,16 +109,16 @@ export function updateCustomizationEnvironment(rootPath: string, o3rCoreVersion?
     let updatedRecorder = recorder;
 
     updatedRecorder = insertImportToModuleFile(updatedRecorder, 'initializeEntryComponents', '../customization/presenters-map.empty');
-    updatedRecorder = insertImportToModuleFile(updatedRecorder, 'registerCustomComponents', '../customization/presenters-map.empty');
+    updatedRecorder = insertImportToModuleFile(updatedRecorder, 'getCustomComponents', '../customization/presenters-map.empty');
     updatedRecorder = insertImportToModuleFile(updatedRecorder, 'Provider', '@angular/core');
     updatedRecorder = insertImportToModuleFile(updatedRecorder, 'initializeCustomProviders', '../customization/custom-providers.empty');
 
     additionalRules.push(
       addRootImport(options?.projectName!, ({ code }) => code`...entry.customComponentsModules`),
       addRootProvider(options?.projectName!, ({ code }) => code`...customProviders`),
-      addRootImport(options?.projectName!, ({ code }) => code`C11nModule.forRoot({registerCompFunc: registerCustomComponents})`)
+      addRootProvider(options?.projectName!, ({ code }) => code`provideCustomComponents(getCustomComponents())`)
     );
-    updatedRecorder = insertImportToModuleFile(updatedRecorder, 'C11nModule', '@o3r/components');
+    updatedRecorder = insertImportToModuleFile(updatedRecorder, 'provideCustomComponents', '@o3r/components');
 
     updatedRecorder = insertBeforeModule(updatedRecorder, 'const entry = initializeEntryComponents();');
 

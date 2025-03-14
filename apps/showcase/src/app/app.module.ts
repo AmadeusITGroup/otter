@@ -40,10 +40,10 @@ import {
   prefersReducedMotion,
 } from '@o3r/application';
 import {
-  C11nModule,
   ComponentsDevtoolsModule,
   OTTER_COMPONENTS_DEVTOOLS_OPTIONS,
-  registerCustomComponent,
+  provideCustomComponents,
+  withComponent,
 } from '@o3r/components';
 import {
   ConfigurationDevtoolsModule,
@@ -140,13 +140,6 @@ export function localizationConfigurationFactory(): Partial<LocalizationConfigur
   };
 }
 
-/**
- * Factory function to register custom components
- */
-export function registerCustomComponents(): Map<string, any> {
-  return registerCustomComponent(new Map(), 'exampleDatePickerFlavorHebrew', DatePickerHebrewInputPresComponent);
-}
-
 @NgModule({
   declarations: [
     AppComponent
@@ -172,13 +165,13 @@ export function registerCustomComponents(): Map<string, any> {
     ScrollBackTopPresComponent,
     ApplicationDevtoolsModule,
     ComponentsDevtoolsModule,
-    C11nModule.forRoot({ registerCompFunc: registerCustomComponents }),
     StylingDevtoolsModule,
     LocalizationDevtoolsModule,
     ConfigurationDevtoolsModule,
     MonacoEditorModule.forRoot()
   ],
   providers: [
+    provideCustomComponents(new Map(), withComponent('exampleDatePickerFlavorHebrew', DatePickerHebrewInputPresComponent)),
     { provide: MESSAGE_FORMAT_CONFIG, useValue: {} },
     { provide: LOGGER_CLIENT_TOKEN, useValue: new ConsoleLogger() },
     { provide: PetApi, useFactory: petApiFactory, deps: [LoggerService] },
