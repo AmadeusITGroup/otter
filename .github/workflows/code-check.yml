@@ -108,7 +108,7 @@ jobs:
         env:
           hash: ${{ hashFiles('yarn.lock') }}
         with:
-          path: .cache/eslint
+          path: '**/.cache/eslint'
           key: ${{ runner.os }}-eslint-${{ env.hash }}
           restore-keys: |
             ${{ runner.os }}-eslint-${{ env.hash }}
@@ -118,7 +118,7 @@ jobs:
         env:
           NX_BASE: ${{ format('remotes/origin/{0}', github.base_ref || github.ref_name) }}
           lintCmd: ${{ inputs.affected && 'lint:affected' || 'lint'}}
-        run: yarn ${{ env.lintCmd }}
+        run: yarn ${{ env.lintCmd }} --configuration ci
 
   # Check that the packaging of github-actions is still working
   github-actions:
