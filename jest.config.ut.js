@@ -1,6 +1,6 @@
 const { readFileSync } = require('node:fs');
 const { resolve, relative } = require('node:path');
-const { pathsToModuleNameMapper } = require('ts-jest');
+const { pathsToModuleNameMapper, createDefaultPreset } = require('ts-jest');
 const ts = require('typescript');
 
 globalThis.ngJest = {
@@ -23,10 +23,16 @@ module.exports.getJestProjectConfig = (rootDir, isAngularSetup, options) => {
   const relativePath = relative(rootDir, options?.baseTsconfig ? __dirname(options.baseTsconfig) : __dirname);
   const moduleNameMapper = Object.fromEntries(
     Object.entries(pathsToModuleNameMapper(compilerOptions.paths || {}))
-      .map(([moduleName, paths]) => [moduleName, (Array.isArray(paths) ? paths : [paths]).map(path => `<rootDir>/${relativePath}/${path}`)])
+      .map(([moduleName, paths]) => [moduleName, (Array.isArray(paths) ? paths : [paths]).map((path) => `<rootDir>/${relativePath}/${path}`)])
   );
+
+  const tsJestBaseConfig = {
+    tsconfig: options?.tsconfig ?? '<rootDir>/tsconfig.spec.json',
+    stringifyContentPathRegex: '\\.html$'
+  };
+
   return {
-    preset: 'ts-jest',
+    ...createDefaultPreset(tsJestBaseConfig),
     setupFilesAfterEnv: ['<rootDir>/testing/setup-jest.ts'],
     rootDir,
     moduleNameMapper,
@@ -43,15 +49,6 @@ module.exports.getJestProjectConfig = (rootDir, isAngularSetup, options) => {
     ],
     fakeTimers: {
       enableGlobally: true
-    },
-    transform: {
-      '^.+\\.[mc]?tsx?$': [
-        'ts-jest',
-        {
-          tsconfig: options?.tsconfig ?? '<rootDir>/tsconfig.spec.json',
-          stringifyContentPathRegex: '\\.html$'
-        }
-      ]
     },
     testEnvironmentOptions: {
       // workaround for the SDK Core
@@ -78,7 +75,7 @@ module.exports.getJestProjectConfig = (rootDir, isAngularSetup, options) => {
 
 /**
  * Jest configuration that can be set at root level
- * @param rootDir
+ * @param {string} rootDir
  * @returns {import('ts-jest/dist/types').JestConfigWithTsJest}
  */
 module.exports.getJestGlobalConfig = (rootDir) => {

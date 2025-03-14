@@ -32,4 +32,7 @@ export interface NgAddSchematicsSchema extends SchematicOptionObject {
 
   /** Skip adding Renovate config */
   skipRenovate?: boolean;
+
+  /** Skip adding Editor config */
+  skipEditorConfig?: boolean;
 }

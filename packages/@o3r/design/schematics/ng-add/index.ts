@@ -5,6 +5,9 @@ import {
   type Rule,
 } from '@angular-devkit/schematics';
 import {
+  applyEditorConfig,
+} from '@o3r/schematics';
+import {
   extractToken,
 } from '../extract-token';
 import {
@@ -38,7 +41,8 @@ export function ngAddFn(options: NgAddSchematicsSchema): Rule {
         projectName: options.projectName,
         dependencies: getPackageInstallConfig(packageJsonPath, tree, options.projectName, false, !!options.exactO3rVersion)
       }),
-      options.extractDesignToken ? extractToken({ componentFilePatterns: ['**/*.scss'], includeTags: true }) : noop
+      options.extractDesignToken ? extractToken({ componentFilePatterns: ['**/*.scss'], includeTags: true }) : noop,
+      options.skipLinter ? noop() : applyEditorConfig()
     ]);
   };
 }
