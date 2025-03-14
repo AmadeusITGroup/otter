@@ -165,7 +165,7 @@
       },
       "configurations": {
         "ci": {
-          "command": "yarn eslint \"**/*.{m,c,}{j,t}s\" \"**/*.json\" --quiet --cache-location .cache/eslint"
+          "command": "yarn eslint \"**/*.{m,c,}{j,t}s\" \"**/*.json\" --quiet --cache --cache-location .cache/eslint"
         }
       },
       "executor": "nx:run-commands",
