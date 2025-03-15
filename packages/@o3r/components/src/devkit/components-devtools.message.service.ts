@@ -41,6 +41,9 @@ import {
   OTTER_COMPONENTS_DEVTOOLS_OPTIONS,
 } from './components-devtools.token';
 import {
+  HighlightService,
+} from './highlight/highlight.service';
+import {
   OtterInspectorService,
   OtterLikeComponentInfo,
 } from './inspector';
@@ -51,6 +54,7 @@ import {
 export class ComponentsDevtoolsMessageService implements DevtoolsServiceInterface {
   private readonly options: ComponentsDevtoolsServiceOptions;
   private readonly inspectorService: OtterInspectorService;
+  private readonly highlightService: HighlightService;
   private readonly sendMessage = sendOtterMessage<AvailableComponentsMessageContents>;
   private readonly destroyRef = inject(DestroyRef);
 
@@ -65,6 +69,8 @@ export class ComponentsDevtoolsMessageService implements DevtoolsServiceInterfac
     };
 
     this.inspectorService = new OtterInspectorService();
+    this.highlightService = new HighlightService();
+
     if (this.options.isActivatedOnBootstrap) {
       this.activate();
     }
@@ -128,6 +134,36 @@ export class ComponentsDevtoolsMessageService implements DevtoolsServiceInterfac
       }
       case 'toggleInspector': {
         this.inspectorService.toggleInspector(message.isRunning);
+        break;
+      }
+      case 'toggleHighlight': {
+        if (message.isRunning) {
+          this.highlightService.start();
+        } else {
+          this.highlightService.stop();
+        }
+        break;
+      }
+      case 'changeHighlightConfiguration': {
+        if (message.elementMinWidth) {
+          this.highlightService.elementMinWidth = message.elementMinWidth;
+        }
+        if (message.elementMinHeight) {
+          this.highlightService.elementMinHeight = message.elementMinHeight;
+        }
+        if (message.throttleInterval) {
+          this.highlightService.throttleInterval = message.throttleInterval;
+        }
+        if (message.groupsInfo) {
+          this.highlightService.groupsInfo = message.groupsInfo;
+        }
+        if (message.maxDepth) {
+          this.highlightService.maxDepth = message.maxDepth;
+        }
+        if (this.highlightService.isRunning()) {
+          // Re-start to recompute the highlight with the new configuration
+          this.highlightService.start();
+        }
         break;
       }
       case 'placeholderMode': {
