@@ -22,6 +22,7 @@ const lighthouseConfig = {
   config: {
     extends: 'lighthouse:default',
     settings: {
+      maxWaitForLoad: 1000,
       onlyCategories: ['accessibility', 'best-practices']
     }
   },
