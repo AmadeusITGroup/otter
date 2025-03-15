@@ -5,12 +5,14 @@ import {
   MergeStrategy,
   mergeWith,
   move,
+  noop,
   renameTemplateFiles,
   Rule,
   template,
   url,
 } from '@angular-devkit/schematics';
 import {
+  applyEditorConfig,
   createOtterSchematic,
   getExternalDependenciesVersionRange,
   getO3rPeerDeps,
@@ -25,7 +27,6 @@ import type {
 import type {
   NgAddSchematicsSchema,
 } from './schema';
-
 /**
  * Add Otter Style Dictionary process to an Angular Project
  * @param options
@@ -110,7 +111,8 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
   return chain([
     setup,
     generateConfig,
-    updatePackageJson
+    updatePackageJson,
+    options.skipLinter ? noop() : applyEditorConfig()
   ]);
 }
 
