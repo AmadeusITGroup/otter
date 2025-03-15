@@ -65,9 +65,9 @@ export async function prepareTestEnv(folderName: string, options?: PrepareTestEn
   const logger = options?.logger || console;
   const yarnVersionParam = options?.yarnVersion;
   const rootFolderPath = process.cwd();
-  const itTestsFolderPath = path.resolve(rootFolderPath, '..', 'it-tests');
+  const itTestsFolderPath = process.env.IT_TESTS_FOLDER || path.resolve(rootFolderPath, '..', 'it-tests');
   const workspacePath = path.resolve(itTestsFolderPath, folderName);
-  const globalFolderPath = path.resolve(rootFolderPath, '.cache', 'test-app');
+  const globalFolderPath = process.env.IT_TESTS_GLOBAL_FOLDER || path.resolve(rootFolderPath, '.cache', 'test-app');
   const o3rVersion = '~999';
   const registry = 'http://127.0.0.1:4873';
 

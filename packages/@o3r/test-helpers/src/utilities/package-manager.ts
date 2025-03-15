@@ -310,6 +310,7 @@ export function setPackagerManagerConfig(options: PackageManagerConfig, execAppO
   execFileSync('npm', ['config', 'set', 'fund=false', '-L=project'], execOptions);
   execFileSync('npm', ['config', 'set', 'prefer-dedupe=true', '-L=project'], execOptions);
   execFileSync('npm', ['config', 'set', 'prefer-offline=false', '-L=project'], execOptions);
+  execFileSync('npm', ['config', 'set', 'progress=false', '-L=project'], execOptions);
   execFileSync('npm', ['config', 'set', 'ignore-scripts=true', '-L=project'], execOptions);
 
   if (options.globalFolderPath) {
