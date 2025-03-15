@@ -17,7 +17,7 @@ import {
   O3rComponent,
 } from '@o3r/core';
 import {
-  DynamicContentModule,
+  O3rDynamicContentPipe,
 } from '@o3r/dynamic-content';
 import {
   MarkdownModule,
@@ -37,7 +37,7 @@ import {
   selector: 'o3r-dynamic-content',
   imports: [
     RouterModule,
-    DynamicContentModule,
+    O3rDynamicContentPipe,
     IN_PAGE_NAV_PRES_DIRECTIVES,
     DynamicContentPresComponent,
     AsyncPipe,

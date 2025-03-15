@@ -36,8 +36,8 @@ import {
 } from '@o3r/core';
 import {
   AssetPathOverrideStoreModule,
-  DynamicContentModule,
   DynamicContentService,
+  O3rDynamicContentPipe,
 } from '@o3r/dynamic-content';
 import {
   AssetRulesEngineActionHandler,
@@ -89,7 +89,7 @@ import {
   selector: 'o3r-rules-engine',
   imports: [
     RulesEnginePresComponent,
-    DynamicContentModule,
+    O3rDynamicContentPipe,
     ConfigurationBaseServiceModule,
     ConfigurationDevtoolsModule,
     ApplicationDevtoolsModule,

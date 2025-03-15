@@ -1,14 +1,14 @@
 # Dynamic content
 
-In order to get your content from a different location from where your application is hosted, you may use the ``DynamicContentModule`` from ``@o3r/dynamic-content``. To include the module, you should just:
+In order to get your content from a different location from where your application is hosted, you may use the ``O3rDynamicContentPipe`` from ``@o3r/dynamic-content``. To include the pipe, you should just:
 
 ```typescript
-import {DynamicContentModule} from '@o3r/dynamic-content';
+import {O3rDynamicContentPipe} from '@o3r/dynamic-content';
 
-@NgModule({
-  imports: [DynamicContentModule]
+@Component({
+  imports: [O3rDynamicContentPipe]
 })
-export class MyModule {}
+export class MyComponent {}
 ```
 
 The module provides two things:
@@ -28,10 +28,11 @@ and a service to be used in your component classes, for example:
   /* ... */
 })
 export class MyComponent {
-  constructor(private service: DynamicContentService) {
-    const imgSrc = this.service.getMediaPath('assets/assets-otter/imgs/logo.png');
-  }
+  public readonly imgSrc = inject(DynamicContentService).getMediaPath('assets/assets-otter/imgs/logo.png');
 }
+```
+```html
+<img [src]="imgSrc" />
 ```
 
 In both examples above, the result will be the same.
@@ -47,38 +48,34 @@ By default, both the service and the pipe will concatenate the assets path with 
 
 If no tag is present, it defaults to empty string ``''``.
 
-In order to change the default behavior, you can use the ``forRoot`` method from the module and passing a new function. Example:
+In order to change the default behavior, you can specify a configuration:
 
 ```typescript
-import {DynamicContentModule} from '@o3r/dynamic-content';
+import {provideDynamicContent, withBasePath} from '@o3r/dynamic-content';
 
-@NgModule({
-  imports: [
-    DynamicContentModule.forRoot({content: 'a-different-path/'})
+export const appConfig: ApplicationConfig = {
+  providers: [
+    // ...
+    provideDynamicContent(withBasePath('a-different-path/'))
   ]
-})
-export class MyModule {}
+};
 ```
 
-If you need an external dependency to get the rootpath, you may use need to provide directly the token.
-Example:
-
+If you need an external dependency to get the rootpath, you may use need to provide a function.
 ```typescript
-import {DynamicContentModule, DYNAMIC_CONTENT_BASE_PATH_TOKEN} from '@o3r/dynamic-content';
+import {provideDynamicContent, withBasePath} from '@o3r/dynamic-content';
 
 export function myContentPath() {
   return 'a-different-path/';
 }
 
-@NgModule({
-  imports: [
-    DynamicContentModule
-  ],
-  providers: {
-    {provide: DYNAMIC_CONTENT_BASE_PATH_TOKEN, useFactory: myContentPath}
-  }
-})
-export class MyModule {}
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    // ...
+    provideDynamicContent(withBasePath(myContentPath))
+  ]
+};
 ```
 
 ## getContentPath
@@ -90,7 +87,7 @@ For non-media resources (ex: localization, configuration) one should refer to th
   /** */
 })
 export class MyComponent {
-  constructor(private service: DynamicContentService) {}
+  private readonly dynamicContentService = inject(DynamicContentService);
 
   async getDynamicConfig() {
     const result = await fetch(this.dynamicContentService.getContentPath('global.config.post.json'));

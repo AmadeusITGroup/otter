@@ -32,7 +32,7 @@ import {
   O3rComponent,
 } from '@o3r/core';
 import {
-  DynamicContentModule,
+  O3rDynamicContentPipe,
 } from '@o3r/dynamic-content';
 import {
   Localization,
@@ -70,7 +70,7 @@ const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    DynamicContentModule,
+    O3rDynamicContentPipe,
     ReactiveFormsModule,
     RulesEngineRunnerModule,
     LocalizationModule,

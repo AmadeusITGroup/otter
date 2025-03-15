@@ -19,7 +19,6 @@ import {
   NgbDropdownToggle,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
-  DynamicContentModule,
   DynamicContentService,
 } from '@o3r/dynamic-content';
 import {
@@ -108,7 +107,6 @@ const currentStepLocationRegExp = new RegExp(/#([0-9]+)$/);
 @Component({
   selector: 'o3r-training',
   imports: [
-    DynamicContentModule,
     FormsModule,
     NgbAccordionModule,
     TrainingStepPresComponent,
