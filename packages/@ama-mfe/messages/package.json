@@ -26,8 +26,7 @@
     "build": "yarn nx build ama-mfe-messages",
     "build:cjs": "swc src -d dist/cjs -C module.type=commonjs -q --strip-leading-paths",
     "build:esm2020": "tsc -b tsconfig.build.json",
-    "postbuild": "yarn cpy './package.json' dist && patch-package-json-main",
-    "prepare:publish": "prepare-publish ./dist"
+    "postbuild": "yarn cpy './package.json' dist && patch-package-json-main"
   },
   "dependencies": {
     "tslib": "^2.6.2"

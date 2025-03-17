@@ -339,8 +339,7 @@
     "build:esbuild": "esbuild ./src/extension.ts --bundle --outfile=dist/src/extension.js --external:vscode --format=cjs --platform=node --sourcemap --minify",
     "postbuild": "yarn copy:assets && cpy ./package.json dist && patch-package-json-main",
     "copy:assets": "cpy './assets/**' dist/assets && cpy './README.md' dist && cpy '.vscodeignore' dist",
-    "watch": "yarn nx run vscode-extension:compile:watch",
-    "prepare:publish": "prepare-publish ./dist && clear-package-json-dev-dependencies ./dist"
+    "watch": "yarn nx run vscode-extension:compile:watch"
   },
   "dependencies": {
     "@o3r/design": "workspace:^",

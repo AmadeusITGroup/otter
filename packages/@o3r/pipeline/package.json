@@ -18,7 +18,6 @@
     "ng": "yarn nx",
     "copy:templates": "yarn cpy 'schematics/**/templates{-*,}/**/*' dist/schematics",
     "prepare:build:builders": "yarn cpy '{collection,migration}.json' dist && yarn cpy 'schematics/**/schema.json' dist/schematics && yarn copy:templates",
-    "prepare:publish": "prepare-publish ./dist && yarn write-git-hash",
     "build:source": "tsc -b tsconfig.build.json && yarn cpy package.json dist/",
     "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn copy:templates && yarn generate-cjs-manifest",
     "build": "yarn nx build pipeline",

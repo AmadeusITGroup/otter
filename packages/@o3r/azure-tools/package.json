@@ -16,7 +16,6 @@
     "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest",
     "build:source": "tsc -b tsconfig.build.json --pretty && yarn cpy ./package.json dist",
     "postbuild": "patch-package-json-main",
-    "prepare:publish": "prepare-publish ./dist",
     "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist"
   },
   "bin": {

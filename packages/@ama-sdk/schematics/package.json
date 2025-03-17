@@ -17,8 +17,7 @@
     "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest",
     "build:swagger": "yarn build:openapi-typescript-gen && yarn cpy 'schematics/**/*.jar' dist/schematics",
     "build:openapi-typescript-gen": "mvn clean package -f ./schematics/typescript/core/openapi-codegen-typescript/pom.xml",
-    "build:cli": "tsc -b tsconfig.cli.json --pretty && yarn generate-cjs-manifest",
-    "prepare:publish": "prepare-publish ./dist"
+    "build:cli": "tsc -b tsconfig.cli.json --pretty && yarn generate-cjs-manifest"
   },
   "bin": {
     "amasdk-clear-index": "./dist/cli/clear-index.cjs",

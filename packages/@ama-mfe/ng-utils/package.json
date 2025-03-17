@@ -32,8 +32,7 @@
     "prepare:compile": "cp-package-json",
     "build": "yarn nx build ama-mfe-ng-utils",
     "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist",
-    "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest",
-    "prepare:publish": "prepare-publish ./dist"
+    "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest"
   },
   "devDependencies": {
     "@ama-mfe/messages": "workspace:^",
