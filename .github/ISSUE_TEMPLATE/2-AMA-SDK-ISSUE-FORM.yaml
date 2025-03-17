@@ -17,7 +17,7 @@ body:
         core,
         create,
         schematics,
-        showcase-sdk
+        showcase-sdk,
         swagger-builder
       ]
     validations:
