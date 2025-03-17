@@ -250,9 +250,11 @@
     },
     "prepare-publish": {
       "cache": false,
-      "executor": "nx:run-script",
+      "executor": "nx:run-commands",
       "options": {
-        "script": "prepare:publish"
+        "commands": [
+          "node tools/@o3r/build-helpers/scripts/prepare-publish.mjs --root={projectRoot}"
+        ]
       },
       "inputs": [
         "{workspaceRoot}/readme.md",

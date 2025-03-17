@@ -33,8 +33,7 @@
     "prepare:compile": "cp-package-json",
     "build": "yarn nx build rules-engine",
     "build:fixtures:jest": "tsc -b tsconfig.fixture.jest.json --pretty",
-    "build:fixtures:jasmine": "tsc -b tsconfig.fixture.jasmine.json --pretty",
-    "prepare:publish": "prepare-publish ./dist"
+    "build:fixtures:jasmine": "tsc -b tsconfig.fixture.jasmine.json --pretty"
   },
   "peerDependencies": {
     "@angular-devkit/architect": ">=0.1900.0 <0.2000.0-0",

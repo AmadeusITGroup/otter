@@ -10,8 +10,7 @@
     "ng": "yarn nx",
     "build": "yarn nx build amaterasu-cli",
     "build:source": "tsc -b tsconfig.build.json --pretty && yarn cpy ./package.json ./collection.json ./src/**/templates/** dist",
-    "postbuild": "patch-package-json-main",
-    "prepare:publish": "prepare-publish ./dist"
+    "postbuild": "patch-package-json-main"
   },
   "schematics": "./dist/collection.json",
   "engines": {

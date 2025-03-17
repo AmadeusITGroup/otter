@@ -13,8 +13,7 @@
     "build:builders": "tsc -b tsconfig.builders.json --pretty",
     "build:source": "tsc -b tsconfig.build.json --pretty && yarn cpy ./package.json dist",
     "postbuild": "patch-package-json-main",
-    "prepare:build:builders": "yarn run cpy '{collection,migration}.json' dist && yarn run cpy 'schematics/**/*.json' dist/schematics",
-    "prepare:publish": "prepare-publish ./dist"
+    "prepare:build:builders": "yarn run cpy '{collection,migration}.json' dist && yarn run cpy 'schematics/**/*.json' dist/schematics"
   },
   "dependencies": {
     "minimist": "^1.2.6",
