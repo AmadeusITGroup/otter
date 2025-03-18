@@ -76,7 +76,7 @@ jobs:
           NX_BASE: ${{ format('remotes/origin/{0}', github.base_ref || github.ref_name) }}
           testCmd: ${{ inputs.affected && 'test:affected' || 'test'}}
           NODE_OPTIONS: ${{ runner.os == 'Windows' && '--max_old_space_size=4096' || '' }}
-        run: yarn ${{ env.testCmd }} --collectCoverage
+        run: yarn ${{ env.testCmd }} --collectCoverage --configuration=ci
       - name: Upload results to Codecov
         uses: codecov/codecov-action@0565863a31f2c772f9f0395002a31e3f06189574 # v5.4.0
         with:
