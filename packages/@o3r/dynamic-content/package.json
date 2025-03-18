@@ -25,8 +25,7 @@
     "build": "yarn nx build dynamic-content",
     "build:fixtures:jest": "tsc -b tsconfig.fixture.jest.json --pretty",
     "build:fixtures:jasmine": "tsc -b tsconfig.fixture.jasmine.json --pretty",
-    "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy '{collection,migration}.json' dist && yarn cpy 'schemas/*.json' dist/schemas",
-    "prepare:publish": "prepare-publish ./dist"
+    "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy '{collection,migration}.json' dist && yarn cpy 'schemas/*.json' dist/schemas"
   },
   "peerDependencies": {
     "@angular-devkit/architect": ">=0.1900.0 <0.2000.0-0",

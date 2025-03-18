@@ -13,8 +13,7 @@
     "nx": "nx",
     "ng": "yarn nx",
     "build": "tsc -b tsconfig.build.json",
-    "postbuild": "cpy package.json dist/",
-    "prepare:publish": "prepare-publish ./dist"
+    "postbuild": "cpy package.json dist/"
   },
   "peerDependencies": {
     "@o3r/telemetry": "workspace:^"

@@ -12,8 +12,7 @@
     "ng": "yarn nx",
     "build": "yarn nx build amaterasu-otter",
     "build:source": "tsc -b tsconfig.build.json --pretty && yarn cpy ./package.json dist",
-    "postbuild": "patch-package-json-main",
-    "prepare:publish": "prepare-publish ./dist"
+    "postbuild": "patch-package-json-main"
   },
   "keywords": [
     "amaterasu-module",

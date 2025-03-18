@@ -15,8 +15,7 @@
     "ng": "yarn nx",
     "build": "yarn nx build forms",
     "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist",
-    "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest",
-    "prepare:publish": "prepare-publish ./dist"
+    "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest"
   },
   "peerDependencies": {
     "@ama-sdk/core": "workspace:^",

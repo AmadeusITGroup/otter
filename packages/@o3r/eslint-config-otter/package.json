@@ -33,7 +33,6 @@
   "scripts": {
     "build": "yarn cpy --flat {typescript,index,template}.cjs package.json dist && yarn cpy rules dist && yarn postbuild",
     "postbuild": "patch-package-json-main",
-    "prepare:publish": "prepare-publish ./dist",
     "prepare:build:builders": "yarn cpy 'schematics/**/*.json' 'schematics/**/templates/**' dist/schematics && yarn cpy '{collection,migration}.json' dist",
     "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest"
   },
