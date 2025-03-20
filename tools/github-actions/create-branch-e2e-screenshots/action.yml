@@ -28,6 +28,7 @@ runs:
         file_pattern: ${{ inputs.screenshotsPattern }}
         create_branch: true
     - name: Comment the PR
+      if: ${{ steps.auto-commit-action.outputs.changes_detected }}
       env:
         BRANCH_NAME: ${{ inputs.branchName }}
         BRANCH_URL: https://github.com/${{ github.repository }}/tree/${{ inputs.branchName }}
