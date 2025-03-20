@@ -118,7 +118,7 @@ export class PlaceholderTemplateResponseEffect {
               break;
             }
             case 'fact': {
-              template = template.replace(ejsVar, factMap[vars[varName].value] ?? '');
+              template = template.replace(ejsVar, factMapFromVars[varName] ?? '');
               break;
             }
             case 'localisation': {
