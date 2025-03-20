@@ -120,10 +120,6 @@ export class PlaceholderTemplateResponseEffect {
    */
   private getRenderedHTML$(template?: string, vars?: Record<string, PlaceholderVariable>, facts?: { varName: string; factName: string; factValue: any }[]) {
     let unknownTypeFound = false;
-    const factMap = (facts || []).reduce((mapping: { [key: string]: any }, fact) => {
-      mapping[fact.factName] = fact.factValue;
-      return mapping;
-    }, {});
     const factMapFromVars = (facts || []).reduce((mapping: { [key: string]: any }, fact) => {
       mapping[fact.varName] = fact.factValue;
       return mapping;
@@ -148,7 +144,7 @@ export class PlaceholderTemplateResponseEffect {
               break;
             }
             case 'fact': {
-              template = template.replace(ejsVar, factMap[vars[varName].value] ?? '');
+              template = template.replace(ejsVar, factMapFromVars[varName] ?? '');
               break;
             }
             case 'localisation': {

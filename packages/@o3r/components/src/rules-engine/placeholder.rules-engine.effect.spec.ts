@@ -248,4 +248,34 @@ describe('Rules Engine Effects', () => {
     await jest.runAllTimersAsync();
     expect(effectFn).toHaveBeenCalledWith(expect.objectContaining({ entity: expect.objectContaining({ renderedTemplate: '' }) }));
   });
+
+  it('should support several facts with different path', async () => {
+    const effectFn = jest.fn();
+    subscriptions.push(effect.setPlaceholderRequestEntityFromUrl$.subscribe(effectFn));
+    const response: PlaceholderRequestReply = {
+      vars: {
+        factInTemplateProp1: {
+          type: 'fact',
+          value: 'factInTemplate',
+          path: '$.prop1'
+        },
+        factInTemplateProp2: {
+          type: 'fact',
+          value: 'factInTemplate',
+          path: '$.prop2'
+        }
+      },
+      template: '<%= factInTemplateProp1 %> <%= factInTemplateProp2 %>'
+    };
+    actions.next(setPlaceholderRequestEntityFromUrl({
+      call: Promise.resolve(response),
+      id: 'myPlaceholderUrl',
+      resolvedUrl: 'myPlaceholderResolvedUrl'
+    }));
+
+    effectFn.mockReset();
+    factsStream.factInTemplate.next({ prop1: 'value1', prop2: 'value2' });
+    await jest.runAllTimersAsync();
+    expect(effectFn).toHaveBeenCalledWith(expect.objectContaining({ entity: expect.objectContaining({ renderedTemplate: 'value1 value2' }) }));
+  });
 });
