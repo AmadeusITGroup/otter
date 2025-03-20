@@ -202,7 +202,7 @@
     "sass-embedded": "~1.85.0",
     "semver": "^7.5.2",
     "source-map-js": "^1.2.1",
-    "stylelint": "~16.15.0",
+    "stylelint": "~16.16.0",
     "stylelint-scss": "~6.11.0",
     "ts-jest": "~29.2.5",
     "ts-node": "~10.9.2",
