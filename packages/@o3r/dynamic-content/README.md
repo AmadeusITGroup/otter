@@ -25,27 +25,25 @@ ng add @o3r/dynamic-content
 
 ## Description
 
-In order to get your content from a different location than where your application is hosted, you may use the ``DynamicContentModule`` from ``@o3r/dynamic-content``. To include the module, you should just:
+In order to get your content from a different location than where your application is hosted, you may use the ``O3rDynamicContentPipe`` or ``DynamicContentService`` from ``@o3r/dynamic-content``.
+
+### O3rDynamicContentPipe
 
 ```typescript
-import {DynamicContentModule} from '@o3r/dynamic-content';
+import {O3rDynamicContentPipe} from '@o3r/dynamic-content';
 
-@NgModule({
-  imports: [DynamicContentModule]
+@Component({
+  ...
+  imports: [O3rDynamicContentPipe, ...]
 })
-export class MyModule {}
+export class MyComponent {}
 ```
-
-The module provides two things:
-
-A pipe to be used in your component templates:
-
 ```html
 <img src="{{'assets-otter/imgs/logo.png' | o3rDynamicContent}}" /> or
 <img [src]="'assets-otter/imgs/logo.png' | o3rDynamicContent" />
 ```
 
-and a service to be used in your component classes, for example:
+### DynamicContentService
 
 ```typescript
 
@@ -53,10 +51,11 @@ and a service to be used in your component classes, for example:
   /* ... */
 })
 export class MyComponent {
-  constructor(private service: DynamicContentService) {
-    const imgSrc = this.service.getMediaPath('assets/assets-otter/imgs/logo.png');
-  }
+  public readonly imgSrc = inject(DynamicContentService).getMediaPath('assets/assets-otter/imgs/logo.png');
 }
+```
+```html
+<img [src]="imgSrc" />
 ```
 
 In both examples above, the result will be the same.
@@ -72,38 +71,34 @@ By default, both the service and the pipe will concatenate the assets path with 
 
 If no tag is present, it defaults to empty string ``''``.
 
-In order to change the default behavior, you can use the ``forRoot`` method from the module and pass a new function. Example:
+In order to change the default behavior, you can specify a configuration:
 
 ```typescript
-import {DynamicContentModule} from '@o3r/dynamic-content';
+import {provideDynamicContent, withBasePath} from '@o3r/dynamic-content';
 
-@NgModule({
-  imports: [
-    DynamicContentModule.forRoot({content: 'a-different-path/'})
+export const appConfig: ApplicationConfig = {
+  providers: [
+    // ...
+    provideDynamicContent(withBasePath('a-different-path/'))
   ]
-})
-export class MyModule {}
+};
 ```
 
-If you need an external dependency to get the rootpath, you may need to provide the token directly.
-Example:
-
+If you need an external dependency to get the rootpath, you may use need to provide a function.
 ```typescript
-import {DynamicContentModule, DYNAMIC_CONTENT_BASE_PATH_TOKEN} from '@o3r/dynamic-content';
+import {provideDynamicContent, withBasePath} from '@o3r/dynamic-content';
 
 export function myContentPath() {
   return 'a-different-path/';
 }
 
-@NgModule({
-  imports: [
-    DynamicContentModule
-  ],
-  providers: {
-    {provide: DYNAMIC_CONTENT_BASE_PATH_TOKEN, useFactory: myContentPath}
-  }
-})
-export class MyModule {}
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    // ...
+    provideDynamicContent(withBasePath(myContentPath))
+  ]
+};
 ```
 
 ## getContentPathStream
@@ -114,20 +109,17 @@ The content path is always related to the root of the application.
 It also ignores any path overrides from the `AssetPathOverrideStore` store, meaning that you will always get the same file.
 
 ```typescript
-import {Observable} from 'rxjs';
+import {from, type Observable} from 'rxjs';
+import {shareReplay, switchMap} from 'rxjs/operators';
 
 @Component({
   /** */
 })
 export class MyComponent {
-
-  public dynamicConfig$: Observable<Response>;
-
-  constructor(private service: DynamicContentService) {
-    this.dynamicConfig$ = this.service.getContentPathStream('global.config.post.json').pipe(
-      switchMap((filePath) => from(fetch(filePath))
-      ));
-  }
+  public dynamicConfig$: Observable<Response> = inject(DynamicContentService).getContentPathStream('global.config.post.json').pipe(
+    switchMap((filePath) => from(fetch(filePath))),
+    shareReplay({ bufferSize: 1, refCount: true })
+  );
 }
 ```
 
@@ -142,7 +134,7 @@ Example:
   /** */
 })
 export class MyComponent {
-  constructor(private service: DynamicContentService) {}
+  private readonly dynamicContentService = inject(DynamicContentService);
 
   async getDynamicConfig() {
     const filePath = await firstValueFrom(this.service.getMediaPathStream('imgs/my-image.png'));
