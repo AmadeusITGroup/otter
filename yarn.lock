@@ -10286,6 +10286,7 @@ __metadata:
     nx: "npm:~20.6.0"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
+    tiny-editorconfig: "npm:~1.0.0"
     ts-jest: "npm:~29.2.5"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
@@ -23367,6 +23368,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"grammex@npm:^3.1.1":
+  version: 3.1.10
+  resolution: "grammex@npm:3.1.10"
+  checksum: 10/c58cad0c4614aca3fc60e187df9e0ffa2a34e0a328ee590f48084bcb2406744ff36ebc5c49a5d552d549f8291930442c48f44e2d2a8d663a735fdca577c61a41
+  languageName: node
+  linkType: hard
+
 "grapheme-splitter@npm:^1.0.4":
   version: 1.0.4
   resolution: "grapheme-splitter@npm:1.0.4"
@@ -24200,6 +24208,13 @@ __metadata:
   version: 2.0.3
   resolution: "inherits@npm:2.0.3"
   checksum: 10/8771303d66c51be433b564427c16011a8e3fbc3449f1f11ea50efb30a4369495f1d0e89f0fc12bdec0bd7e49102ced5d137e031d39ea09821cb3c717fcf21e69
+  languageName: node
+  linkType: hard
+
+"ini-simple-parser@npm:^1.0.0":
+  version: 1.0.1
+  resolution: "ini-simple-parser@npm:1.0.1"
+  checksum: 10/a27350531ba8bf4ff374967e7646e3c84dcb51c3e88feaa6065b794fe9829cefa09e852beb04bdea23ecacf6064939c63a6c1c3a2fdd7e7a4068345046702c9b
   languageName: node
   linkType: hard
 
@@ -34445,6 +34460,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tiny-editorconfig@npm:~1.0.0":
+  version: 1.0.0
+  resolution: "tiny-editorconfig@npm:1.0.0"
+  dependencies:
+    ini-simple-parser: "npm:^1.0.0"
+    zeptomatch: "npm:^1.1.3"
+  checksum: 10/9e46fc34d0694c36a340f536c82a7d59597f61397d5e71f87b9956b5a729b7c941b2fbd3fe65da65b9d596a36fa4a327a03e1c9bef63af51b76a255f84f794a6
+  languageName: node
+  linkType: hard
+
 "tiny-emitter@npm:^2.0.0":
   version: 2.1.0
   resolution: "tiny-emitter@npm:2.1.0"
@@ -36874,6 +36899,15 @@ __metadata:
   dependencies:
     "@types/yoga-layout": "npm:1.9.2"
   checksum: 10/fe36fadae9b30710083f76c73e87479c2eb291ff7c560c35a9e2b8eb78f43882ace63cc80cdaecae98ee2e4168e1bf84dc65b2f5ae1bfa31df37603c46683bd6
+  languageName: node
+  linkType: hard
+
+"zeptomatch@npm:^1.1.3":
+  version: 1.2.2
+  resolution: "zeptomatch@npm:1.2.2"
+  dependencies:
+    grammex: "npm:^3.1.1"
+  checksum: 10/2a260200f857462264222c8cba1dc955e60a7f6cbcf9d57c7ac94fe874f52029a4efe8ff24b29497925a492151fe7ee56e63b3b31874c5d138ee1c11f0052f18
   languageName: node
   linkType: hard
 

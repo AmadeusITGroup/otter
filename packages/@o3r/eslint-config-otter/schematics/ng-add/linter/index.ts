@@ -14,6 +14,9 @@ import {
   Tree,
   url,
 } from '@angular-devkit/schematics';
+import {
+  applyEditorConfig,
+} from '@o3r/schematics';
 
 /**
  * Add or update the Linter configuration
@@ -165,6 +168,7 @@ export function updateLinterConfigs(options: { projectName?: string | null | und
     updateTslintExtend,
     createProjectFiles,
     editAngularJson,
-    handleOtterEslintErrors
+    handleOtterEslintErrors,
+    applyEditorConfig()
   ]);
 }
