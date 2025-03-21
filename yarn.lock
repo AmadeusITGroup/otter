@@ -295,7 +295,7 @@ __metadata:
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -356,7 +356,7 @@ __metadata:
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -441,7 +441,7 @@ __metadata:
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -521,7 +521,7 @@ __metadata:
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -599,7 +599,7 @@ __metadata:
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -679,7 +679,7 @@ __metadata:
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -768,7 +768,7 @@ __metadata:
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -836,7 +836,7 @@ __metadata:
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -926,7 +926,7 @@ __metadata:
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -990,7 +990,7 @@ __metadata:
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -1060,7 +1060,7 @@ __metadata:
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -1107,7 +1107,7 @@ __metadata:
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -7285,7 +7285,7 @@ __metadata:
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -7329,7 +7329,7 @@ __metadata:
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -7376,7 +7376,7 @@ __metadata:
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -7424,7 +7424,7 @@ __metadata:
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -7489,7 +7489,7 @@ __metadata:
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -7585,7 +7585,7 @@ __metadata:
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -7672,7 +7672,7 @@ __metadata:
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -7745,7 +7745,7 @@ __metadata:
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -7803,7 +7803,7 @@ __metadata:
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -7847,7 +7847,7 @@ __metadata:
     angular-eslint: "npm:~19.2.0"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -7940,7 +7940,7 @@ __metadata:
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -8026,7 +8026,7 @@ __metadata:
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -8180,7 +8180,7 @@ __metadata:
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -8286,7 +8286,7 @@ __metadata:
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -8387,7 +8387,7 @@ __metadata:
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -8465,7 +8465,7 @@ __metadata:
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -8569,7 +8569,7 @@ __metadata:
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -8645,7 +8645,7 @@ __metadata:
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -8735,7 +8735,7 @@ __metadata:
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -8936,7 +8936,7 @@ __metadata:
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -9051,7 +9051,7 @@ __metadata:
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -9187,7 +9187,7 @@ __metadata:
     editorconfig-checker: "npm:^6.0.1"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -9296,7 +9296,7 @@ __metadata:
     ejs: "npm:^3.1.9"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -9375,7 +9375,7 @@ __metadata:
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -9511,7 +9511,7 @@ __metadata:
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -9617,7 +9617,7 @@ __metadata:
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -9697,7 +9697,7 @@ __metadata:
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -9751,7 +9751,7 @@ __metadata:
     esbuild: "npm:~0.25.1"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -9810,7 +9810,7 @@ __metadata:
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -9893,7 +9893,7 @@ __metadata:
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -9995,7 +9995,7 @@ __metadata:
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -10112,7 +10112,7 @@ __metadata:
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -10253,7 +10253,7 @@ __metadata:
     concurrently: "npm:^9.1.0"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -10330,7 +10330,7 @@ __metadata:
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -10412,7 +10412,7 @@ __metadata:
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -10486,7 +10486,7 @@ __metadata:
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -10579,7 +10579,7 @@ __metadata:
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -10709,7 +10709,7 @@ __metadata:
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -10772,7 +10772,7 @@ __metadata:
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -10861,7 +10861,7 @@ __metadata:
     esbuild: "npm:~0.25.1"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -10991,7 +10991,7 @@ __metadata:
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -11052,7 +11052,7 @@ __metadata:
     "@typescript-eslint/utils": "npm:~8.26.0"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -11128,7 +11128,7 @@ __metadata:
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -14885,6 +14885,85 @@ __metadata:
   peerDependencies:
     typescript: "*"
   checksum: 10/87db451ca9ed431fee150d04bbdf963efdd5be8475da5521c55933d4f2c80752a0caaa553bc3ab5fd95e16a95efb0158d5e963348df5819cdb854821c27cea10
+  languageName: node
+  linkType: hard
+
+"@unrs/rspack-resolver-binding-darwin-arm64@npm:1.2.2":
+  version: 1.2.2
+  resolution: "@unrs/rspack-resolver-binding-darwin-arm64@npm:1.2.2"
+  conditions: os=darwin & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@unrs/rspack-resolver-binding-darwin-x64@npm:1.2.2":
+  version: 1.2.2
+  resolution: "@unrs/rspack-resolver-binding-darwin-x64@npm:1.2.2"
+  conditions: os=darwin & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@unrs/rspack-resolver-binding-freebsd-x64@npm:1.2.2":
+  version: 1.2.2
+  resolution: "@unrs/rspack-resolver-binding-freebsd-x64@npm:1.2.2"
+  conditions: os=freebsd & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@unrs/rspack-resolver-binding-linux-arm-gnueabihf@npm:1.2.2":
+  version: 1.2.2
+  resolution: "@unrs/rspack-resolver-binding-linux-arm-gnueabihf@npm:1.2.2"
+  conditions: os=linux & cpu=arm
+  languageName: node
+  linkType: hard
+
+"@unrs/rspack-resolver-binding-linux-arm64-gnu@npm:1.2.2":
+  version: 1.2.2
+  resolution: "@unrs/rspack-resolver-binding-linux-arm64-gnu@npm:1.2.2"
+  conditions: os=linux & cpu=arm64 & libc=glibc
+  languageName: node
+  linkType: hard
+
+"@unrs/rspack-resolver-binding-linux-arm64-musl@npm:1.2.2":
+  version: 1.2.2
+  resolution: "@unrs/rspack-resolver-binding-linux-arm64-musl@npm:1.2.2"
+  conditions: os=linux & cpu=arm64 & libc=musl
+  languageName: node
+  linkType: hard
+
+"@unrs/rspack-resolver-binding-linux-x64-gnu@npm:1.2.2":
+  version: 1.2.2
+  resolution: "@unrs/rspack-resolver-binding-linux-x64-gnu@npm:1.2.2"
+  conditions: os=linux & cpu=x64 & libc=glibc
+  languageName: node
+  linkType: hard
+
+"@unrs/rspack-resolver-binding-linux-x64-musl@npm:1.2.2":
+  version: 1.2.2
+  resolution: "@unrs/rspack-resolver-binding-linux-x64-musl@npm:1.2.2"
+  conditions: os=linux & cpu=x64 & libc=musl
+  languageName: node
+  linkType: hard
+
+"@unrs/rspack-resolver-binding-wasm32-wasi@npm:1.2.2":
+  version: 1.2.2
+  resolution: "@unrs/rspack-resolver-binding-wasm32-wasi@npm:1.2.2"
+  dependencies:
+    "@napi-rs/wasm-runtime": "npm:^0.2.7"
+  conditions: cpu=wasm32
+  languageName: node
+  linkType: hard
+
+"@unrs/rspack-resolver-binding-win32-arm64-msvc@npm:1.2.2":
+  version: 1.2.2
+  resolution: "@unrs/rspack-resolver-binding-win32-arm64-msvc@npm:1.2.2"
+  conditions: os=win32 & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@unrs/rspack-resolver-binding-win32-x64-msvc@npm:1.2.2":
+  version: 1.2.2
+  resolution: "@unrs/rspack-resolver-binding-win32-x64-msvc@npm:1.2.2"
+  conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
 
@@ -20775,7 +20854,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"enhanced-resolve@npm:^5.0.0, enhanced-resolve@npm:^5.15.0, enhanced-resolve@npm:^5.17.1, enhanced-resolve@npm:^5.7.0":
+"enhanced-resolve@npm:^5.0.0, enhanced-resolve@npm:^5.17.1, enhanced-resolve@npm:^5.7.0":
   version: 5.18.1
   resolution: "enhanced-resolve@npm:5.18.1"
   dependencies:
@@ -21270,16 +21349,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-import-resolver-typescript@npm:~3.8.0":
-  version: 3.8.7
-  resolution: "eslint-import-resolver-typescript@npm:3.8.7"
+"eslint-import-resolver-typescript@npm:~3.9.0":
+  version: 3.9.1
+  resolution: "eslint-import-resolver-typescript@npm:3.9.1"
   dependencies:
     "@nolyfill/is-core-module": "npm:1.0.39"
-    debug: "npm:^4.3.7"
-    enhanced-resolve: "npm:^5.15.0"
+    debug: "npm:^4.4.0"
     get-tsconfig: "npm:^4.10.0"
-    is-bun-module: "npm:^1.0.2"
-    stable-hash: "npm:^0.0.4"
+    is-bun-module: "npm:^1.3.0"
+    rspack-resolver: "npm:^1.1.0"
+    stable-hash: "npm:^0.0.5"
     tinyglobby: "npm:^0.2.12"
   peerDependencies:
     eslint: "*"
@@ -21290,7 +21369,7 @@ __metadata:
       optional: true
     eslint-plugin-import-x:
       optional: true
-  checksum: 10/e11a2ea4ffba11b33b6bd00146569c88bed0dbfb81f882d3c0f00aedbb7f2280caf4bbd38fb546583087560fadf80abd6e7928e14194c351416233c841f83d8d
+  checksum: 10/12f20c9912a5b14e2df30962b3e7682a0a8928830ad18bd95ecbdac5f1241868cc8bfbd3bb03c580bc7aff9c715524e832936259cb46b46defc5777b957d28f8
   languageName: node
   linkType: hard
 
@@ -24323,7 +24402,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-bun-module@npm:^1.0.2":
+"is-bun-module@npm:^1.3.0":
   version: 1.3.0
   resolution: "is-bun-module@npm:1.3.0"
   dependencies:
@@ -29004,7 +29083,7 @@ __metadata:
     esbuild: "npm:~0.25.1"
     eslint: "npm:~9.22.0"
     eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~3.8.0"
+    eslint-import-resolver-typescript: "npm:~3.9.0"
     eslint-plugin-import: "npm:~2.31.0"
     eslint-plugin-import-newlines: "npm:~1.4.0"
     eslint-plugin-jest: "npm:~28.11.0"
@@ -32072,6 +32151,48 @@ __metadata:
   languageName: node
   linkType: hard
 
+"rspack-resolver@npm:^1.1.0":
+  version: 1.2.2
+  resolution: "rspack-resolver@npm:1.2.2"
+  dependencies:
+    "@unrs/rspack-resolver-binding-darwin-arm64": "npm:1.2.2"
+    "@unrs/rspack-resolver-binding-darwin-x64": "npm:1.2.2"
+    "@unrs/rspack-resolver-binding-freebsd-x64": "npm:1.2.2"
+    "@unrs/rspack-resolver-binding-linux-arm-gnueabihf": "npm:1.2.2"
+    "@unrs/rspack-resolver-binding-linux-arm64-gnu": "npm:1.2.2"
+    "@unrs/rspack-resolver-binding-linux-arm64-musl": "npm:1.2.2"
+    "@unrs/rspack-resolver-binding-linux-x64-gnu": "npm:1.2.2"
+    "@unrs/rspack-resolver-binding-linux-x64-musl": "npm:1.2.2"
+    "@unrs/rspack-resolver-binding-wasm32-wasi": "npm:1.2.2"
+    "@unrs/rspack-resolver-binding-win32-arm64-msvc": "npm:1.2.2"
+    "@unrs/rspack-resolver-binding-win32-x64-msvc": "npm:1.2.2"
+  dependenciesMeta:
+    "@unrs/rspack-resolver-binding-darwin-arm64":
+      optional: true
+    "@unrs/rspack-resolver-binding-darwin-x64":
+      optional: true
+    "@unrs/rspack-resolver-binding-freebsd-x64":
+      optional: true
+    "@unrs/rspack-resolver-binding-linux-arm-gnueabihf":
+      optional: true
+    "@unrs/rspack-resolver-binding-linux-arm64-gnu":
+      optional: true
+    "@unrs/rspack-resolver-binding-linux-arm64-musl":
+      optional: true
+    "@unrs/rspack-resolver-binding-linux-x64-gnu":
+      optional: true
+    "@unrs/rspack-resolver-binding-linux-x64-musl":
+      optional: true
+    "@unrs/rspack-resolver-binding-wasm32-wasi":
+      optional: true
+    "@unrs/rspack-resolver-binding-win32-arm64-msvc":
+      optional: true
+    "@unrs/rspack-resolver-binding-win32-x64-msvc":
+      optional: true
+  checksum: 10/c6e3ef9e97d26de98d8a6701c7fb5933b137a7bb1bd2a3ac939f0f44258b0f0a25cd0de86150bd840cb8d7abc8dce9f429a61c8928abad45bad91e4d5a462ee7
+  languageName: node
+  linkType: hard
+
 "run-applescript@npm:^7.0.0":
   version: 7.0.0
   resolution: "run-applescript@npm:7.0.0"
@@ -33356,10 +33477,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stable-hash@npm:^0.0.4":
-  version: 0.0.4
-  resolution: "stable-hash@npm:0.0.4"
-  checksum: 10/21c039d21c1cb739cf8342561753a5e007cb95ea682ccd452e76310bbb9c6987a89de8eda023e320b019f3e4691aabda75079cdbb7dadf7ab9013e931f2f23cd
+"stable-hash@npm:^0.0.5":
+  version: 0.0.5
+  resolution: "stable-hash@npm:0.0.5"
+  checksum: 10/9222ea2c558e37c4a576cb4e406966b9e6aa05b93f5c4f09ef4aaabe3577439b9b8fbff407b16840b63e2ae83de74290c7b1c2da7360d571e480e46a4aec0a56
   languageName: node
   linkType: hard
 
