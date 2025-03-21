@@ -62,7 +62,7 @@ export interface ExtendedErrorModel {
 
 The addition of a discriminator allows a hierarchy between the models and the possibility to identify which child class
 a model can be casted into.
-For example, let's consider a Pet object and its two class child Cat and Dog:
+For example, let's consider a Pet object and its two child classes Cat and Dog:
 
 ```yaml
 components:
