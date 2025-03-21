@@ -26,4 +26,4 @@ runs:
             core.info(`Copied ${screenshot.expected} to ${screenshot.actual}`);
           });
           core.setOutput('screenshots', screenshots.length);
-          core.info(`Copied ${screenshot.length} screenshots`);
+          core.info(`Copied ${screenshots.length} screenshots`);
