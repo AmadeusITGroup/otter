@@ -1,0 +1,34 @@
+{
+  "o3r-forms-personal-info-pres.name.required": {
+    "description": "Required validator for the name",
+    "defaultValue": "The name is required"
+  },
+  "o3r-forms-personal-info-pres.name.required.long": {
+    "description": "Required validator for the name",
+    "defaultValue": "You have to introduce a name. Click here to navigate."
+  },
+  "o3r-forms-personal-info-pres.name.maxLength": {
+    "description": "Validator for the max length of the name",
+    "defaultValue": "The name should have a max length of { maxLength } characters"
+  },
+  "o3r-forms-personal-info-pres.name.maxLength.long": {
+    "description": "Validator for the max length of the name",
+    "defaultValue": "The name should have a max length of { maxLength } characters. Click to navigate."
+  },
+  "o3r-forms-personal-info-pres.dateOfBirth.date": {
+    "description": "Validator for date of birth",
+    "defaultValue": "The date introduced is not a valid date"
+  },
+  "o3r-forms-personal-info-pres.dateOfBirth.date.long": {
+    "description": "Validator for date of birth",
+    "defaultValue": "The date introduced for the date of birth is not a valid. Click to navigate."
+  },
+  "o3r-forms-personal-info-pres.dateOfBirth.max": {
+    "description": "Validator for date of birth month",
+    "defaultValue": "Max value for the month should be { max }"
+  },
+  "o3r-forms-personal-info-pres.dateOfBirth.max.long": {
+    "description": "Validator for date of birth month; long message",
+    "defaultValue": "Max value for the month in date of birth should be { max }. Click to navigate."
+  }
+}

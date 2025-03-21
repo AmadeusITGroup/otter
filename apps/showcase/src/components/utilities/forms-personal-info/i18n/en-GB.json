@@ -1,0 +1,10 @@
+{
+  "o3r-forms-personal-info-pres.dateOfBirth.date": "The date introduced is not a valid date",
+  "o3r-forms-personal-info-pres.dateOfBirth.date.long": "The date introduced for the date of birth is not a valid. Click to navigate.",
+  "o3r-forms-personal-info-pres.dateOfBirth.max": "Max value for the month should be { max }",
+  "o3r-forms-personal-info-pres.dateOfBirth.max.long": "Max value for the month in date of birth should be { max }. Click to navigate.",
+  "o3r-forms-personal-info-pres.name.maxLength": "The name should have a max length of { maxLength } characters",
+  "o3r-forms-personal-info-pres.name.maxLength.long": "The name should have a max length of { maxLength } characters. Click to navigate.",
+  "o3r-forms-personal-info-pres.name.required": "The name is required",
+  "o3r-forms-personal-info-pres.name.required.long": "You have to introduce a name. Click here to navigate."
+}
