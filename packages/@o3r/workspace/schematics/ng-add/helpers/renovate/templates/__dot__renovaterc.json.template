@@ -5,6 +5,6 @@
     "github>AmadeusITGroup/otter//tools/renovate/otter-project#v<%= version %>"<% } else { %>
     "github>AmadeusITGroup/otter//tools/renovate/group/otter#v<%= version %>",
     "github>AmadeusITGroup/otter//tools/renovate/tasks/base#v<%= version %>",
-    "github>AmadeusITGroup/otter//tools/renovate/tasks/otter-ng-update(npm)#v<%= version %>"<% } %>
+    "github>AmadeusITGroup/otter//tools/renovate/tasks/otter-ng-update#v<%= version %>(npm)"<% } %>
   ]
 }
