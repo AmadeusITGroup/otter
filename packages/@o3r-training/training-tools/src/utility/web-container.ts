@@ -57,7 +57,7 @@ Promise<FileSystemTree | undefined> => {
   }
   return {
     [entry.name]: {
-      file: { contents: await fileSystem.readFile(entryPath, 'utf8') }
+      file: { contents: (await fileSystem.readFile(entryPath, 'utf8')).replace(/\r\n/g, '\n') }
     }
   };
 };
@@ -83,7 +83,7 @@ export const getFilesTree = async (files: { isDir: boolean; path: string }[], fi
       const name = path.replaceAll('\\', '/').split('/').pop();
       if (name) {
         tree[name] = {
-          file: { contents: await fileSystem.readFile(path, 'utf8') }
+          file: { contents: (await fileSystem.readFile(path, 'utf8')).replace(/\r\n/g, '\n') }
         };
       }
     }
