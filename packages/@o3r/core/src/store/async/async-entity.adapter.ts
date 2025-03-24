@@ -97,14 +97,11 @@ export function createEntityAsyncRequestAdapter<T extends AsyncStoreItem>(adapte
   const resolveRequestOne: <V extends EntityState<T> & AsyncStoreItem, W extends keyof T | 'id' = 'id'>
   (state: V, entity: EntityWithoutAsyncStoreItem<T> & Record<W, string | number>, requestId?: string, idProperty?: W) => V = <V extends EntityState<T> & AsyncStoreItem, W extends keyof T | 'id'>
   (state: V, entity: EntityWithoutAsyncStoreItem<T> & Record<W, string | number>, requestId?: string, idProperty: W = 'id' as W): V => {
-    let newEntity;
     const currentEntity = state.entities[entity[idProperty]];
-    if (currentEntity) {
-      newEntity = asyncStoreItemAdapter.resolveRequest({ ...entity, ...asyncStoreItemAdapter.extractAsyncStoreItem(currentEntity) }, requestId);
-    } else {
-      newEntity = asyncStoreItemAdapter.initialize(entity);
-      state = asyncStoreItemAdapter.resolveRequest(state, requestId);
-    }
+    const newEntity = currentEntity
+      ? asyncStoreItemAdapter.resolveRequest({ ...entity, ...asyncStoreItemAdapter.extractAsyncStoreItem(currentEntity) }, requestId)
+      : asyncStoreItemAdapter.initialize(entity);
+    state = asyncStoreItemAdapter.resolveRequest(state, requestId);
     return adapter.upsertOne(newEntity as T, state);
   };
 
