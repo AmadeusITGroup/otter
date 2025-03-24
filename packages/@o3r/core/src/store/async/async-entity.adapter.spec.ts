@@ -161,6 +161,21 @@ describe('createEntityAsyncRequestAdapter tests', () => {
       expect(entity.requestIds.length).toBe(0);
     });
 
+    it('should add the entity and update the global status', () => {
+      const baseState = testAdapter.addOne({ ...model4, requestIds: ['request2'], isPending: true }, emptyState);
+      const newState = testAdapter.resolveRequestOne({ ...baseState, requestIds: ['request2'], isPending: true }, model4, 'request2');
+
+      expect(newState.isPending).toBeFalsy();
+      expect(newState.isFailure).toBeFalsy();
+      expect(newState.requestIds.length).toBe(0);
+      const entity = newState.entities[model4.id];
+
+      expect(entity).toBeDefined();
+      expect(entity.isPending).toBeFalsy();
+      expect(entity.isFailure).toBeFalsy();
+      expect(entity.requestIds.length).toBe(0);
+    });
+
     it('should update the entity and update the entity status if it already exists', () => {
       const baseState = testAdapter.addOne({ ...model4, requestIds: ['request'], isPending: true }, emptyState);
       const newState = testAdapter.resolveRequestOne(baseState, { id: model4.id, a: 500, b: 999 }, 'request');
