@@ -1,6 +1,7 @@
 {
   "extends": "../../../../tsconfig.build",
   "compilerOptions": {
+    "types": ["node"],
     "module": "CommonJS",
     "outDir": "./dist",
     "composite": true,

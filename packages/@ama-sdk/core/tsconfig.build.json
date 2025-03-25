@@ -1,6 +1,7 @@
 {
   "extends": "../../../tsconfig.build",
   "compilerOptions": {
+    "types": ["node"],
     "sourceMap": true,
     "incremental": true,
     "composite": true,

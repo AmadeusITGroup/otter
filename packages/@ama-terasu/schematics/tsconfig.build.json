@@ -1,6 +1,7 @@
 {
   "extends": "../../../tsconfig.build",
   "compilerOptions": {
+    "types": ["node"],
     "outDir": "./dist",
     "module": "CommonJS",
     "importHelpers": false,
@@ -12,6 +13,7 @@
     "./src/**/*.ts"
   ],
   "exclude": [
-    "./src/**/templates/"
+    "./src/**/templates/",
+    "./src/**/*.spec.ts"
   ]
 }
