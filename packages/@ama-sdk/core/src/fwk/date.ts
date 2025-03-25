@@ -26,6 +26,16 @@ function getNewTimeZoneWithOffset(dateArgs: any[], timezoneOffset: number) {
 }
 
 /**
+ * Compare 2 utils.Date, return negative if date1 is sooner, 0 if dates are equals, positive if date1 is later
+ * This function is meant to be used with utils.Date and only compares Year, Month and Date, the time part is fully ignored.
+ * @param date1
+ * @param date2
+ */
+export function compareDates(date1: utils.Date, date2: utils.Date) {
+  return date1.getFullYear() - date2.getFullYear() || date1.getMonth() - date2.getMonth() || date1.getDate() - date2.getDate();
+}
+
+/**
  * Removes timezone information from ISO8601 strings
  */
 export class CommonDate extends Date {
@@ -62,7 +72,7 @@ export class CommonDate extends Date {
   /**
    * Overrides the JSON conversion to remove any timezone information.
    */
-  public toJSON(): string {
+  public override toJSON(): string {
     return `${this.getFullYear()}-${pad(this.getMonth() + 1)}-${pad(this.getDate())}T${pad(this.getHours())}:${pad(this.getMinutes())}:${pad(this.getSeconds())}.${pad(this.getMilliseconds(), 3)}`;
   }
 }
@@ -98,12 +108,13 @@ export namespace utils {
     /**
      * Overrides the JSON conversion to remove any time information.
      */
-    public toJSON(): string {
+    public override toJSON(): string {
       return (`${this.getFullYear()}-${pad(this.getMonth() + 1)}-${pad(this.getDate())}`);
     }
 
     /**
      * Compare if two dates are equals.
+     * @deprecated this will be removed in v14, please use {@link compareDates} instead
      * @param  {Date}    date the date to compare
      * @returns {boolean}      true if the dates are equals.
      */
