@@ -22,21 +22,21 @@ import {
 /**
  * This service listens for resize messages and updates the height of elements based on the received messages.
  */
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class ResizeConsumerService implements MessageConsumer<ResizeMessage> {
-  private readonly newHeight = signal<{ height: number; channelId: string } | undefined>(undefined);
+  private readonly heightPxSignal = signal<number | undefined>(undefined);
 
   /**
    * A readonly signal that provides the new height information from the channel.
    */
-  public readonly newHeightFromChannel = this.newHeight.asReadonly();
+  public readonly heightPx = this.heightPxSignal.asReadonly();
 
   /**
    * The type of messages this service handles ('resize').
    */
   public readonly type = RESIZE_MESSAGE_TYPE;
+
+  public from = '';
 
   /**
    * The supported versions of resize messages and their handlers.
@@ -46,7 +46,11 @@ export class ResizeConsumerService implements MessageConsumer<ResizeMessage> {
      * Use the message paylod to compute a new height and emit it via the public signal
      * @param message message to consume
      */
-    '1.0': (message: RoutedMessage<ResizeV1_0>) => this.newHeight.set({ height: message.payload.height, channelId: message.from })
+    '1.0': (message: RoutedMessage<ResizeV1_0>) => {
+      if (this.from === message.from) {
+        this.heightPxSignal.set(message.payload.height);
+      }
+    }
   };
 
   private readonly consumerManagerService = inject(ConsumerManagerService);
