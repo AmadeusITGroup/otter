@@ -1,6 +1,7 @@
 {
   "extends": "../../../tsconfig.build",
   "compilerOptions": {
+    "types": ["jest", "node"],
     "allowSyntheticDefaultImports": true,
     "incremental": true,
     "outDir": "./dist",

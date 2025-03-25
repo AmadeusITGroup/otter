@@ -1,6 +1,7 @@
 {
   "extends": "../../../tsconfig.build",
   "compilerOptions": {
+    "types": ["jasmine", "jest"],
     "skipLibCheck": true, // Due to Jasmine / Jest fixture compilation conflicting on types
     "outDir": "./dist",
     "rootDir": "src"

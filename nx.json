@@ -161,11 +161,11 @@
     "lint": {
       "options": {
         "cwd": "{projectRoot}",
-        "command": "yarn eslint \"**/*.{m,c,}{j,t}s\" \"**/*.json\""
+        "command": "git ls-files \":(glob)**/*\" | yarn eslint"
       },
       "configurations": {
         "ci": {
-          "command": "yarn eslint \"**/*.{m,c,}{j,t}s\" \"**/*.json\" --quiet --cache --cache-location .cache/eslint"
+          "command": "git ls-files \":(glob)**/*\" | yarn eslint --quiet --cache --cache-location .cache/eslint"
         }
       },
       "executor": "nx:run-commands",
