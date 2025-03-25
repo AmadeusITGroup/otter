@@ -160,16 +160,6 @@ describe('ConsumerManagerService', () => {
     expect(errorHelpers.sendError).toHaveBeenCalledWith(messagePeerService, { reason: 'version_mismatch', source: message.payload });
   });
 
-  it('consume additional messages should do nothing for internal protocol messages', async () => {
-    console.warn = jest.fn();
-    console.error = jest.fn();
-    const message: RoutedMessage<Message> = { payload: { type: 'connect', version: '2.0' }, from: 'a', to: [] };
-    messagesSubjectMock.next(message);
-    await jest.runAllTimersAsync();
-    expect(loggerServiceMock.warn).not.toHaveBeenCalled();
-    expect(loggerServiceMock.error).not.toHaveBeenCalled();
-  });
-
   it('consume additional messages should do nothing for undefined payload', async () => {
     console.warn = jest.fn();
     console.error = jest.fn();

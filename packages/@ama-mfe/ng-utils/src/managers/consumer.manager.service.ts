@@ -1,5 +1,4 @@
 import {
-  isServiceMessage,
   Message,
   RoutedMessage,
 } from '@amadeus-it-group/microfrontends';
@@ -84,10 +83,7 @@ export class ConsumerManagerService {
       this.logger.warn('Cannot consume a messages with undefined payload.');
       return;
     }
-    // not interested in service messages like 'connect' or 'disconnect'
-    if (isServiceMessage(message.payload)) {
-      return;
-    }
+
     const consumers = this.consumers();
     const typeMatchingConsumers = consumers
       .filter((consumer) => consumer.type === message.payload.type);
