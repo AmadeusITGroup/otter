@@ -79,8 +79,11 @@ describe('Navigation Producer Service', () => {
     expect(producerManagerService.register).toHaveBeenCalledWith(navProducerService);
   });
 
-  it('should send navigation message via messageService if document.referrer is present', () => {
-    Object.defineProperty(document, 'referrer', { value: 'some-referrer', configurable: true });
+  it('should send navigation message via messageService if embedded', () => {
+    const mockedWindow = { ...globalThis.window };
+    Object.defineProperty(mockedWindow, 'top', { value: globalThis.window.top });
+    Object.defineProperty(mockedWindow, 'self', { value: mockedWindow });
+    const windowSpy = jest.spyOn(globalThis, 'window', 'get').mockReturnValue(mockedWindow);
     runInInjectionContext(TestBed.inject(Injector), () => {
       navProducerService.handleEmbeddedRouting();
     });
@@ -92,10 +95,10 @@ describe('Navigation Producer Service', () => {
       version: '1.0',
       url: 'end-url'
     });
+    windowSpy.mockRestore();
   });
 
-  it('should send navigation message via endpointManagerService if channelId is present and document.referrer is not present', () => {
-    Object.defineProperty(document, 'referrer', { value: '', configurable: true });
+  it('should send navigation message via endpointManagerService if channelId is present and not embedded', () => {
     jest.spyOn(router, 'getCurrentNavigation').mockReturnValue({ extras: { state: { channelId: 'test-channel-id' } } } as any);
 
     runInInjectionContext(TestBed.inject(Injector), () => {
@@ -112,7 +115,6 @@ describe('Navigation Producer Service', () => {
   });
 
   it('should log an error if endpointManagerService.send throws an error', () => {
-    Object.defineProperty(document, 'referrer', { value: '', configurable: true });
     jest.spyOn(router, 'getCurrentNavigation').mockReturnValue({ extras: { state: { channelId: 'test-channel-id' } } } as any);
     jest.spyOn(messageService, 'send').mockImplementation(() => {
       throw new Error('send error');
@@ -127,9 +129,7 @@ describe('Navigation Producer Service', () => {
     expect(loggerServiceMock.error).toHaveBeenCalledWith('Error sending navigation message', expect.objectContaining({ message: 'send error' }));
   });
 
-  it('should warn if no channelId is provided and document.referrer is not present', () => {
-    Object.defineProperty(document, 'referrer', { value: '', configurable: true });
-
+  it('should warn if no channelId is provided and not embedded', () => {
     runInInjectionContext(TestBed.inject(Injector), () => {
       navProducerService.handleEmbeddedRouting();
     });
