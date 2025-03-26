@@ -370,8 +370,8 @@
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",
     "@types/vscode": "^1.95.0",
-    "@typescript-eslint/parser": "~8.26.0",
-    "@typescript-eslint/utils": "~8.26.0",
+    "@typescript-eslint/parser": "~8.27.0",
+    "@typescript-eslint/utils": "~8.27.0",
     "@vscode/vsce": "^3.2.1",
     "angular-eslint": "~19.2.0",
     "cpy-cli": "^5.0.0",
@@ -395,7 +395,7 @@
     "rxjs": "^7.8.1",
     "ts-jest": "~29.2.5",
     "typescript": "~5.8.2",
-    "typescript-eslint": "~8.26.0",
+    "typescript-eslint": "~8.27.0",
     "zone.js": "~0.15.0"
   }
 }
