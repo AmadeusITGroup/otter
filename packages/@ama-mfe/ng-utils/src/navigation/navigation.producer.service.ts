@@ -99,9 +99,7 @@ export class RoutingService implements MessageProducer<NavigationMessage> {
         url
       } satisfies NavigationV1_0;
       // TODO: sendBest() is not implemented -- https://github.com/AmadeusITGroup/microfrontends/issues/11
-      if (document.referrer) {
-        this.messageService.send(messageV10);
-      } else {
+      if (window.self === window.top) {
         if (channelId === undefined) {
           this.logger.warn('No channelId provided for navigation message');
         } else {
@@ -111,6 +109,8 @@ export class RoutingService implements MessageProducer<NavigationMessage> {
             this.logger.error('Error sending navigation message', error);
           }
         }
+      } else {
+        this.messageService.send(messageV10);
       }
     });
   }
