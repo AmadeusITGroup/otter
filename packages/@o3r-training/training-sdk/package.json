@@ -94,7 +94,7 @@
     "@swc/core": "~1.11.0",
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",
-    "@typescript-eslint/parser": "~8.26.0",
+    "@typescript-eslint/parser": "~8.27.0",
     "angular-eslint": "~19.2.0",
     "commit-and-tag-version": "^12.0.0",
     "cpy-cli": "^5.0.0",
@@ -119,7 +119,7 @@
     "ts-jest": "~29.2.5",
     "tsc-watch": "^6.0.4",
     "typescript": "~5.8.2",
-    "typescript-eslint": "~8.26.0",
+    "typescript-eslint": "~8.27.0",
     "yaml-eslint-parser": "^1.2.2"
   },
   "peerDependencies": {
