@@ -5,6 +5,7 @@ import {
 } from './constants';
 import type {
   ElementWithGroupInfo,
+  GroupInfo,
 } from './models';
 
 /**
@@ -28,6 +29,39 @@ export function getIdentifier(element: ElementWithGroupInfo): string {
 }
 
 /**
+ * Filters a list of HTML elements and returns those that match specific group information.
+ *
+ * Each element is checked against a set of criteria:
+ * - The element's dimensions must meet the minimum height and width requirements.
+ * - The element's tag name, attributes, or class names must match a regular expression defined in the group information.
+ * @param elements An array of HTML elements to filter.
+ * @param elementMinHeight The min height required for each element to be considered in the computation
+ * @param elementMinWidth The min width required for each element to be considered in the computation
+ * @param groupsInfo The config that describes the HTML tags to check
+ * @returns An array of objects containing the matching elements and their associated group information
+ */
+export function filterElementsWithInfo(elements: HTMLElement[], elementMinHeight: number, elementMinWidth: number, groupsInfo: Record<string, GroupInfo>): ElementWithGroupInfo[] {
+  return elements.reduce((acc: ElementWithGroupInfo[], element) => {
+    const { height, width } = element.getBoundingClientRect();
+
+    if (height < elementMinHeight || width < elementMinWidth) {
+      return acc;
+    }
+    const elementInfo = Object.values(groupsInfo).find((info) => {
+      const regexp = new RegExp(info.regexp, 'i');
+
+      return regexp.test(element.tagName)
+        || Array.from(element.attributes).some((attr) => regexp.test(attr.name))
+        || Array.from(element.classList).some((cName) => regexp.test(cName));
+    });
+    if (elementInfo) {
+      return acc.concat({ ...elementInfo, htmlElement: element });
+    }
+    return acc;
+  }, []);
+}
+
+/**
  * Compute the number of ancestors of a given element based on a list of elements
  * @param element
  * @param elementList
@@ -48,7 +82,6 @@ export function throttle<T extends (...args: any[]) => any>(fn: T, delay: number
     if (timerFlag === null) {
       fn(...args);
       timerFlag = setTimeout(() => {
-        fn(...args);
         timerFlag = null;
       }, delay);
     }
@@ -94,8 +127,9 @@ export interface CreateOverlayOptions {
  * Create an overlay element
  * @param doc HTML Document
  * @param opts
+ * @param depth
  */
-export function createOverlay(doc: Document, opts: CreateOverlayOptions) {
+export function createOverlay(doc: Document, opts: CreateOverlayOptions, depth: number) {
   const overlay = doc.createElement('div');
   overlay.classList.add(HIGHLIGHT_OVERLAY_CLASS);
   // All static style could be moved in a <style>
@@ -103,7 +137,7 @@ export function createOverlay(doc: Document, opts: CreateOverlayOptions) {
   overlay.style.left = opts.left;
   overlay.style.width = opts.width;
   overlay.style.height = opts.height;
-  overlay.style.border = `1px solid ${opts.backgroundColor}`;
+  overlay.style.border = `2px ${depth % 2 === 0 ? 'solid' : 'dotted'} ${opts.backgroundColor}`;
   overlay.style.zIndex = '10000';
   overlay.style.position = opts.position;
   overlay.style.pointerEvents = 'none';
@@ -122,14 +156,16 @@ export interface CreateChipOptions {
   backgroundColor: string;
   color?: string;
   name: string;
+  opacity?: number;
 }
 
 /**
  * Create a chip element
  * @param doc HTML Document
  * @param opts
+ * @param overlay
  */
-export function createChip(doc: Document, opts: CreateChipOptions) {
+export function createChip(doc: Document, opts: CreateChipOptions, overlay: HTMLDivElement) {
   const chip = doc.createElement('div');
   chip.classList.add(HIGHLIGHT_CHIP_CLASS);
   chip.textContent = `${opts.displayName} ${opts.depth}`;
@@ -145,10 +181,21 @@ export function createChip(doc: Document, opts: CreateChipOptions) {
   chip.style.cursor = 'pointer';
   chip.style.zIndex = '10000';
   chip.style.textWrap = 'no-wrap';
+  chip.style.opacity = opts.opacity?.toString() ?? '1';
   chip.title = opts.name;
   chip.addEventListener('click', () => {
     // Should we log in the console as well ?
     void navigator.clipboard.writeText(opts.name);
   });
+  chip.addEventListener('mouseover', () => {
+    chip.style.opacity = '1';
+    overlay.style.boxShadow = `0 0 10px 3px ${opts.backgroundColor}`;
+  });
+  chip.addEventListener('mouseout', () => {
+    chip.style.opacity = opts.opacity?.toString() ?? '1';
+    overlay.style.boxShadow = 'none';
+  });
+  overlay.style.transition = 'box-shadow 0.3s ease-in-out';
+
   return chip;
 }

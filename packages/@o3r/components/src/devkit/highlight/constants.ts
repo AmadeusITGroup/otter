@@ -30,3 +30,11 @@ export const DEFAULT_ELEMENT_MIN_WIDTH = 60;
  * Default value for throttle interval
  */
 export const DEFAULT_THROTTLE_INTERVAL = 500;
+/**
+ * Default value for chips opacity
+ */
+export const DEFAULT_CHIPS_OPACITY = 1;
+/**
+ * Default value for auto refresh activation
+ */
+export const DEFAULT_AUTO_REFRESH = true;

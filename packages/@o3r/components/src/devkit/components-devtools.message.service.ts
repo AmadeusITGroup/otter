@@ -160,6 +160,12 @@ export class ComponentsDevtoolsMessageService implements DevtoolsServiceInterfac
         if (message.maxDepth) {
           this.highlightService.maxDepth = message.maxDepth;
         }
+        if (message.chipsOpacity) {
+          this.highlightService.chipsOpacity = message.chipsOpacity;
+        }
+        if (message.autoRefresh !== undefined) {
+          this.highlightService.autoRefresh = message.autoRefresh;
+        }
         if (this.highlightService.isRunning()) {
           // Re-start to recompute the highlight with the new configuration
           this.highlightService.start();
