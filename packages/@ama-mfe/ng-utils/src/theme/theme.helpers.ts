@@ -1,6 +1,9 @@
 import {
   type Logger,
 } from '@o3r/logger';
+import {
+  getHostInfo,
+} from '../host-info';
 
 /** Default suffix for an url containing a theme css file */
 export const THEME_URL_SUFFIX = '-theme.css';
@@ -72,8 +75,9 @@ export async function applyInitialTheme(options?: StyleHelperOptions): Promise<P
   if (theme) {
     const themeRequest: Promise<void>[] = [];
     themeRequest.push(downloadApplicationThemeCss(theme, options).then((styleToApply) => applyTheme(styleToApply, false)));
-    if (document.referrer) {
-      const url = new URL(document.referrer);
+    const hostInfo = getHostInfo();
+    if (hostInfo.hostURL) {
+      const url = new URL(hostInfo.hostURL);
       url.pathname += `${url.pathname.endsWith('/') ? '' : '/'}${theme}`;
       themeRequest.unshift(getStyle(url.toString(), options).then((styleToApply) => applyTheme(styleToApply, false)));
     }
