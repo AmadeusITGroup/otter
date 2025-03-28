@@ -6,6 +6,8 @@ import {
   inject,
 } from '@angular/core';
 import {
+  DEFAULT_AUTO_REFRESH,
+  DEFAULT_CHIPS_OPACITY,
   DEFAULT_ELEMENT_MIN_HEIGHT,
   DEFAULT_ELEMENT_MIN_WIDTH,
   DEFAULT_MAX_DEPTH,
@@ -16,6 +18,7 @@ import {
   computeNumberOfAncestors,
   createChip,
   createOverlay,
+  filterElementsWithInfo,
   getIdentifier,
   runRefreshIfNeeded,
   throttle,
@@ -57,7 +60,20 @@ export class HighlightService {
    */
   public throttleInterval = DEFAULT_THROTTLE_INTERVAL;
 
+  /**
+   * Opacity of the chips
+   * Value could be changed through chrome extension options
+   */
+  public chipsOpacity = DEFAULT_CHIPS_OPACITY;
+
+  /**
+   * Whether to activate the auto refresh of the highlight
+   * Value could be changed through chrome extension view
+   */
+  public autoRefresh = DEFAULT_AUTO_REFRESH;
+
   private throttleRun: (() => void) | undefined;
+  private singleRun = false;
 
   private readonly document = inject(DOCUMENT);
 
@@ -98,26 +114,11 @@ export class HighlightService {
     const wrapper = this.getHighlightWrapper()!;
 
     // We have to select all elements from document because
-    // with CSSSelector it's impossible to select element
+    // with CSS Selector it's impossible to select element
     // by regex on their `tagName`, attribute name or attribute value.
-    const elementsWithInfo = Array.from(this.document.body.querySelectorAll<HTMLElement>('*'))
-      .reduce((acc: ElementWithGroupInfo[], element) => {
-        const { height, width } = element.getBoundingClientRect();
-        if (height < this.elementMinHeight || width < this.elementMinWidth) {
-          return acc;
-        }
-        const elementInfo = Object.values(this.groupsInfo).find((info) => {
-          const regexp = new RegExp(info.regexp, 'i');
+    const allHTMLElements: HTMLElement[] = Array.from(this.document.body.querySelectorAll<HTMLElement>('*'));
+    const elementsWithInfo: ElementWithGroupInfo[] = filterElementsWithInfo(allHTMLElements, this.elementMinHeight, this.elementMinWidth, this.groupsInfo);
 
-          return regexp.test(element.tagName)
-            || Array.from(element.attributes).some((attr) => regexp.test(attr.name))
-            || Array.from(element.classList).some((cName) => regexp.test(cName));
-        });
-        if (elementInfo) {
-          return acc.concat({ ...elementInfo, htmlElement: element });
-        }
-        return acc;
-      }, []);
     const elementsWithInfoAndDepth = elementsWithInfo
       .reduce((acc: ElementWithGroupInfoAndDepth[], elementWithInfo, _, array) => {
         const depth = computeNumberOfAncestors(elementWithInfo.htmlElement, array.map((e) => e.htmlElement));
@@ -131,16 +132,18 @@ export class HighlightService {
       }, []);
 
     const overlayData: Record<string, { chip: HTMLElement; overlay: HTMLElement; depth: number }[]> = {};
+
     elementsWithInfoAndDepth.forEach((item) => {
       const { htmlElement: element, backgroundColor, color, displayName, depth } = item;
       const rect = element.getBoundingClientRect();
       const position = element.computedStyleMap().get('position')?.toString() === 'fixed' ? 'fixed' : 'absolute';
       const top = `${position === 'fixed' ? rect.top : (rect.top + window.scrollY)}px`;
       const left = `${position === 'fixed' ? rect.left : (rect.left + window.scrollX)}px`;
+
       const overlay = createOverlay(this.document, {
         top, left, width: `${rect.width}px`, height: `${rect.height}px`, position, backgroundColor
-      });
-      wrapper.append(overlay);
+      }, depth);
+
       const chip = createChip(this.document, {
         displayName,
         depth,
@@ -149,15 +152,20 @@ export class HighlightService {
         backgroundColor,
         color,
         position,
-        name: getIdentifier(item)
-      });
+        name: getIdentifier(item),
+        opacity: this.chipsOpacity
+      }, overlay);
+
+      wrapper.append(overlay);
       wrapper.append(chip);
+
       const positionKey = `${top};${left}`;
       if (!overlayData[positionKey]) {
         overlayData[positionKey] = [];
       }
       overlayData[positionKey].push({ chip, overlay, depth });
     });
+
     Object.values(overlayData).forEach((chips) => {
       chips
         .sort(({ depth: depthA }, { depth: depthB }) => depthA - depthB)
@@ -181,7 +189,7 @@ export class HighlightService {
    * Returns true if the highlight is displayed
    */
   public isRunning() {
-    return !!this.throttleRun;
+    return !!this.throttleRun || this.singleRun;
   }
 
   /**
@@ -189,9 +197,15 @@ export class HighlightService {
    */
   public start() {
     this.stop();
+    if (!this.autoRefresh) {
+      this.run();
+      this.singleRun = true;
+      return;
+    }
+
     this.throttleRun = throttle(() => this.run(), this.throttleInterval);
     this.throttleRun();
-    this.document.body.addEventListener('scroll', this.throttleRun, true);
+    this.document.addEventListener('scroll', this.throttleRun, true);
     this.resizeObserver.observe(this.document.body);
     this.mutationObserver.observe(this.document.body, { childList: true, subtree: true });
   }
@@ -202,10 +216,11 @@ export class HighlightService {
   public stop() {
     this.cleanHighlightWrapper();
     if (this.throttleRun) {
-      this.document.body.removeEventListener('scroll', this.throttleRun, true);
+      this.document.removeEventListener('scroll', this.throttleRun, true);
       this.resizeObserver.disconnect();
       this.mutationObserver.disconnect();
       this.throttleRun = undefined;
+      this.singleRun = false;
     }
   }
 }

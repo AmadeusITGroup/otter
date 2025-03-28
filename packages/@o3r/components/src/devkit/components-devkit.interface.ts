@@ -67,6 +67,14 @@ export interface ChangeHighlightConfiguration extends OtterMessageContent<'chang
    * Maximum number of ancestors
    */
   maxDepth?: number;
+  /**
+   * Opacity of the chips
+   */
+  chipsOpacity?: number;
+  /**
+   * Auto refresh
+   */
+  autoRefresh?: boolean;
 }
 
 /**
