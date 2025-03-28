@@ -24,6 +24,11 @@ export const KNOWN_MESSAGES = [
 export const MFE_HOST_URL_PARAM = 'ama-mfe-host-url';
 
 /**
+ * Search parameter to add to the URL to let a module know on which application it's embedded
+ */
+export const MFE_HOST_APPLICATION_ID_PARAM = 'ama-mfe-host-app-id';
+
+/**
  * Returns the default options for starting a client endpoint peer connection.
  * As `origin`, it will take the parent origin and the `window` will be the parent window.
  * The parent origin will use the first found among:
