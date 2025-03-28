@@ -25,6 +25,7 @@ import {
   type MessageConsumer,
 } from '../managers/index';
 import {
+  MFE_HOST_APPLICATION_ID_PARAM,
   MFE_HOST_URL_PARAM,
 } from '../utils';
 
@@ -93,8 +94,8 @@ export class NavigationConsumerService implements MessageConsumer<NavigationMess
    */
   private navigate(url: string, channelId?: string) {
     const { paths, queryParams } = this.parseUrl(url);
-    // No need to keep this in the URL
-    delete queryParams[MFE_HOST_URL_PARAM];
+    // No need to keep these in the URL
+    [MFE_HOST_URL_PARAM, MFE_HOST_APPLICATION_ID_PARAM].forEach((key) => delete queryParams[key]);
     void this.router.navigate(paths, { relativeTo: this.activeRoute.children.at(-1), queryParams, state: { channelId }, replaceUrl: true });
   }
 
