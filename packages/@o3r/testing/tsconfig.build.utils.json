@@ -1,6 +1,7 @@
 {
   "extends": "../../../tsconfig.build",
   "compilerOptions": {
+    "types": [],
     "incremental": true,
     "rootDir": "src",
     "tsBuildInfoFile": "build/.tsbuildinfo.utils",

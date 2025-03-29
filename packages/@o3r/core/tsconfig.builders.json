@@ -1,6 +1,7 @@
 {
   "extends": "../../../tsconfig.build",
   "compilerOptions": {
+    "types": [],
     "incremental": true,
     "composite": true,
     "outDir": "./dist",

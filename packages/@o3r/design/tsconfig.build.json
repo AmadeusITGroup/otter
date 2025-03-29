@@ -1,6 +1,7 @@
 {
   "extends": "../../../tsconfig.build",
   "compilerOptions": {
+    "types": ["node"],
     "incremental": true,
     "composite": true,
     "module": "CommonJS",

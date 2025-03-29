@@ -1,6 +1,7 @@
 {
   "extends": "../../../tsconfig.build",
   "compilerOptions": {
+    "types": [],
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "outDir": "./dist",
