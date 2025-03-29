@@ -70,6 +70,10 @@
     "skipRenovate": {
       "type": "boolean",
       "description": "Skip adding Renovate config"
+    },
+    "skipEditorConfig": {
+      "type": "boolean",
+      "description": "Skip adding Editor config"
     }
   },
   "additionalProperties": true,

@@ -7,7 +7,6 @@ import type {
 import type {
   NgAddSchematicsSchema,
 } from './schema';
-
 /**
  * Add Otter telemetry to an Otter Project
  * @param _options
