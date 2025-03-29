@@ -27,7 +27,6 @@
   "devDependencies": {
     "@angular-devkit/architect": "~0.1902.0",
     "@angular-devkit/core": "~19.2.0",
-    "@angular-devkit/schematics": "~19.2.0",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@nx/eslint-plugin": "~20.6.0",
     "@nx/jest": "~20.6.0",
@@ -56,7 +55,7 @@
     "jsonc-eslint-parser": "~2.4.0",
     "nx": "~20.6.0",
     "rxjs": "^7.8.1",
-    "ts-jest": "~29.2.5",
+    "ts-jest": "~29.3.0",
     "typescript": "~5.8.2",
     "typescript-eslint": "~8.27.0"
   }
