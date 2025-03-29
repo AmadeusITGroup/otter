@@ -47,15 +47,19 @@ export class ApiFactoryService {
    * Retrieve a specific API with loaded configuration
    * @param apiClass class of the API to retrieve
    * @param refreshCache Ignore cached API instance and refresh it
+   * @param customApiName override the `apiName` set in the `apiClass`
+   * @note When passing `customApiName` the configuration is expecting to exist else an error is thrown
+   * @note When passing an Api instance that does not match a registered configuration without `customApiName`, the default one will be returned
    */
-  public getApi<T extends Api>(apiClass: (new (client: ApiClient) => T) & ApiName, refreshCache = false): T {
-    const cache = this.loadedApis[apiClass.apiName];
+  public getApi<T extends Api>(apiClass: (new (client: ApiClient) => T) & ApiName, refreshCache = false, customApiName?: string): T {
+    const apiName = customApiName ?? apiClass.apiName;
+    const cache = this.loadedApis[apiName];
     if (!refreshCache && cache) {
       return cache as T;
     }
 
-    const instance = new apiClass(this.getConfigFor(apiClass));
-    this.loadedApis[apiClass.apiName] = instance;
+    const instance = new apiClass(this.getConfigFor(customApiName ?? apiClass));
+    this.loadedApis[apiName] = instance;
     return instance;
   }
 
@@ -87,9 +91,9 @@ export class ApiFactoryService {
    * Clear the cache of loaded APIs
    * @param apis Whitelist of APIs to clear from the cache, if specified only these apis will be removed from the cache
    */
-  public clearCache(apis?: ApiName[]) {
+  public clearCache(apis?: (ApiName | string)[]) {
     if (apis) {
-      apis.forEach((api) => delete this.loadedApis[api.apiName]);
+      apis.forEach((api) => delete this.loadedApis[typeof api === 'string' ? api : api.apiName]);
     } else {
       this.loadedApis = {};
     }
@@ -97,9 +101,9 @@ export class ApiFactoryService {
 
   /**
    * Retrieve the configuration for a specific API
-   * @param apiClass class of the API for which retrieving the configuration
+   * @param api API for which retrieving the configuration
    */
-  public getConfigFor(apiClass: ApiName): ApiClient {
-    return this.apiManager.getConfiguration(apiClass.apiName);
+  public getConfigFor(api: string | ApiName): ApiClient {
+    return this.apiManager.getConfiguration(api);
   }
 }
