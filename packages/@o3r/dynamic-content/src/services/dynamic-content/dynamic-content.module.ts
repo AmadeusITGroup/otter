@@ -47,7 +47,8 @@ export function getCmsAssets() {
     },
     DynamicContentService
   ],
-  imports: [O3rDynamicContentPipe]
+  imports: [O3rDynamicContentPipe],
+  exports: [O3rDynamicContentPipe]
 })
 export class DynamicContentModule {
   /**
