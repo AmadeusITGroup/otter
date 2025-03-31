@@ -8336,7 +8336,7 @@ __metadata:
     "@popperjs/core": "npm:^2.11.5"
     "@schematics/angular": "npm:~19.2.0"
     "@stylistic/eslint-plugin": "npm:~3.1.0"
-    "@types/chrome": "npm:^0.0.310"
+    "@types/chrome": "npm:^0.0.312"
     "@types/color": "npm:^4.0.0"
     "@types/jest": "npm:~29.5.2"
     "@types/tinycolor2": "npm:^1.4.6"
@@ -8367,7 +8367,7 @@ __metadata:
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.5.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    lighthouse: "npm:~12.4.0"
+    lighthouse: "npm:~12.5.0"
     minimist: "npm:^1.2.6"
     nx: "npm:~20.6.0"
     playwright-lighthouse: "npm:~4.0.0"
@@ -9618,7 +9618,7 @@ __metadata:
     js-yaml: "npm:^4.1.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     jsonpath-plus: "npm:~10.3.0"
-    lighthouse: "npm:~12.4.0"
+    lighthouse: "npm:~12.5.0"
     lint-staged: "npm:^15.0.0"
     marked: "npm:^15.0.6"
     minimist: "npm:^1.2.6"
@@ -10681,7 +10681,7 @@ __metadata:
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.5.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    lighthouse: "npm:~12.4.0"
+    lighthouse: "npm:~12.5.0"
     marked: "npm:^15.0.6"
     minimist: "npm:^1.2.6"
     monaco-editor: "npm:~0.52.0"
@@ -12630,12 +12630,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@paulirish/trace_engine@npm:0.0.44":
-  version: 0.0.44
-  resolution: "@paulirish/trace_engine@npm:0.0.44"
+"@paulirish/trace_engine@npm:0.0.50":
+  version: 0.0.50
+  resolution: "@paulirish/trace_engine@npm:0.0.50"
   dependencies:
     third-party-web: "npm:latest"
-  checksum: 10/46ed6e5bb77db7cf842a9aabaf19aa4163b239fcb173ee97845e2e0beadea8eb7e55dbcfb0e726ae312a3b7609b5dcdf1056b973ac85e94d79db6bc27eb32af7
+  checksum: 10/2319cd69672229c232c80109353f2432c1d7b23735df6e7912d40085bbb01523435e8dd01ce8e9e888e40c1856cd48a5f4ae017af306e955b50371a7cafc5f7a
   languageName: node
   linkType: hard
 
@@ -13978,13 +13978,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/chrome@npm:^0.0.310":
-  version: 0.0.310
-  resolution: "@types/chrome@npm:0.0.310"
+"@types/chrome@npm:^0.0.312":
+  version: 0.0.312
+  resolution: "@types/chrome@npm:0.0.312"
   dependencies:
     "@types/filesystem": "npm:*"
     "@types/har-format": "npm:*"
-  checksum: 10/3fe7ba5fa4565190de0e9d602f0a23a0df1b45c4e1b052d222637b6e0fe8788af30339b3c5189784adffdf7b8ee838d30c8d6571468cf48bc7101dd51e61c9fd
+  checksum: 10/c865f1d5a30f7415e17a58c90c8d20c0d92edee963209055ee413bf9b69224b7d6c314936c8da03a0fadcc3a25be740608048092707e8bba6e5019aee60efdcc
   languageName: node
   linkType: hard
 
@@ -17396,7 +17396,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axe-core@npm:^4.10.2":
+"axe-core@npm:^4.10.3":
   version: 4.10.3
   resolution: "axe-core@npm:4.10.3"
   checksum: 10/9ff51ad0fd0fdec5c0247ea74e8ace5990b54c7f01f8fa3e5cd8ba98b0db24d8ebd7bab4a9bd4d75c28c4edcd1eac455b44c8c6c258c6a98f3d2f88bc60af4cc
@@ -20918,10 +20918,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"devtools-protocol@npm:0.0.1423531":
-  version: 0.0.1423531
-  resolution: "devtools-protocol@npm:0.0.1423531"
-  checksum: 10/a50b6efc5995c2671756c6c5dea08deb9dcc8c0dabf20546fa536d8f29362f7cddc67a33416a8cf053e7ea214ea7ccd588e7d315f4c1e7210e42d19c342adaf8
+"devtools-protocol@npm:0.0.1436416":
+  version: 0.0.1436416
+  resolution: "devtools-protocol@npm:0.0.1436416"
+  checksum: 10/df0e8ddfd3ec5da3e3837b648035ccfb105f934daff2bdc7ae0de4491a4372de5fb872a0506c4469512cde8626f87bf22fac873b4a9bb49571712778d9ecab8f
   languageName: node
   linkType: hard
 
@@ -27170,17 +27170,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lighthouse@npm:~12.4.0":
-  version: 12.4.0
-  resolution: "lighthouse@npm:12.4.0"
+"lighthouse@npm:~12.5.0":
+  version: 12.5.1
+  resolution: "lighthouse@npm:12.5.1"
   dependencies:
-    "@paulirish/trace_engine": "npm:0.0.44"
+    "@paulirish/trace_engine": "npm:0.0.50"
     "@sentry/node": "npm:^7.0.0"
-    axe-core: "npm:^4.10.2"
+    axe-core: "npm:^4.10.3"
     chrome-launcher: "npm:^1.1.2"
     configstore: "npm:^5.0.1"
     csp_evaluator: "npm:1.1.5"
-    devtools-protocol: "npm:0.0.1423531"
+    devtools-protocol: "npm:0.0.1436416"
     enquirer: "npm:^2.3.6"
     http-link-header: "npm:^1.1.1"
     intl-messageformat: "npm:^10.5.3"
@@ -27193,7 +27193,7 @@ __metadata:
     metaviewport-parser: "npm:0.3.0"
     open: "npm:^8.4.0"
     parse-cache-control: "npm:1.0.1"
-    puppeteer-core: "npm:^24.3.0"
+    puppeteer-core: "npm:^24.4.0"
     robots-parser: "npm:^3.0.1"
     semver: "npm:^5.3.0"
     speedline-core: "npm:^1.4.3"
@@ -27206,7 +27206,7 @@ __metadata:
     chrome-debug: core/scripts/manual-chrome-launcher.js
     lighthouse: cli/index.js
     smokehouse: cli/test/smokehouse/frontends/smokehouse-bin.js
-  checksum: 10/68380917ea113d4830205273abbf031304dbc4f5a488b1acfe64152a0e66a8ac9746307a95fde7bbc78fa0e46ed51cdf9c149a95900845e5f156af1c1aeddb02
+  checksum: 10/29969d1c58529f5602d3443e21a138ffa8712a293cbcd68cddf742f9435df3e447e30655a1d43c0133a7695cc32bdc8eefcb87ce2f88a01beb15a0a6cf69e652
   languageName: node
   linkType: hard
 
@@ -31750,7 +31750,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"puppeteer-core@npm:^24.3.0":
+"puppeteer-core@npm:^24.4.0":
   version: 24.4.0
   resolution: "puppeteer-core@npm:24.4.0"
   dependencies:
