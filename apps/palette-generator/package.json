@@ -52,7 +52,7 @@
     "jest-junit": "~16.0.0",
     "jsonc-eslint-parser": "~2.4.0",
     "style-loader": "^3.2.1",
-    "ts-jest": "~29.2.5",
+    "ts-jest": "~29.3.0",
     "ts-loader": "^9.5.2",
     "ts-node": "~10.9.2",
     "type-fest": "^4.30.1",
