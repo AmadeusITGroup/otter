@@ -126,7 +126,7 @@
     "@types/pid-from-port": "^1.1.0",
     "@types/uuid": "^10.0.0",
     "@typescript-eslint/parser": "~8.28.0",
-    "angular-eslint": "~19.2.0",
+    "angular-eslint": "~19.3.0",
     "chokidar": "^4.0.3",
     "cpy-cli": "^5.0.0",
     "eslint": "~9.23.0",
@@ -171,8 +171,8 @@
     "@stylistic/eslint-plugin": "~3.1.0",
     "@types/jest": "~29.5.2",
     "@typescript-eslint/eslint-plugin": "~8.27.0",
-    "@typescript-eslint/parser": "~8.27.0",
-    "angular-eslint": "~19.2.0",
+    "@typescript-eslint/parser": "~8.28.0",
+    "angular-eslint": "~19.3.0",
     "cpy-cli": "^5.0.0",
     "eslint": "~9.23.0",
     "eslint-import-resolver-node": "~0.3.9",
@@ -190,7 +190,7 @@
     "jest-preset-angular": "~14.5.0",
     "jsonc-eslint-parser": "~2.4.0",
     "nx": "~20.6.0",
-    "typescript-eslint": "~8.27.0",
+    "typescript-eslint": "~8.28.0",
     "zone.js": "~0.15.0"
   },
   "engines": {
