@@ -204,7 +204,7 @@
     "source-map-js": "^1.2.1",
     "stylelint": "~16.16.0",
     "stylelint-scss": "~6.11.0",
-    "ts-jest": "~29.2.5",
+    "ts-jest": "~29.3.0",
     "ts-node": "~10.9.2",
     "type-fest": "^4.30.1",
     "typescript": "~5.8.2",
