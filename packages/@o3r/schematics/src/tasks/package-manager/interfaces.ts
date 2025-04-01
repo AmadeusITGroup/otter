@@ -22,4 +22,6 @@ export interface NodePackageInstallTaskOptions {
   allowScripts?: boolean;
   /** force install */
   force?: boolean;
+  /** skip peer dep installation */
+  skipPeerDeps?: boolean;
 }

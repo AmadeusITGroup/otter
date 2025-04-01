@@ -4,8 +4,8 @@ import {
   type Rule,
 } from '@angular-devkit/schematics';
 import {
-  NodePackageInstallTask,
-} from '@angular-devkit/schematics/tasks';
+  NpmInstall,
+} from '@o3r/schematics';
 import * as ts from 'typescript';
 import type {
   NgAddSchematicsSchema,
@@ -59,14 +59,15 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
     const { getPeerDepWithPattern, getWorkspaceConfig } = await import('@o3r/schematics');
     const workingDirectory = (options?.projectName && getWorkspaceConfig(tree)?.projects[options.projectName]?.root) || '.';
     const peerDepToInstall = getPeerDepWithPattern(path.resolve(__dirname, '..', '..', 'package.json'));
-    context.addTask(new NodePackageInstallTask({
+    context.addTask(new NpmInstall({
       workingDirectory,
       packageName: Object.entries(peerDepToInstall.matchingPackagesVersions)
 
         .map(([dependency, version]) => `${dependency}@${version || 'latest'}`)
         .join(' '),
       hideOutput: false,
-      quiet: false
+      quiet: false,
+      skipPeerDeps: true
     }));
   };
 

@@ -13,16 +13,14 @@ import {
   type SchematicContext,
 } from '@angular-devkit/schematics';
 import {
-  NodePackageInstallTask,
-} from '@angular-devkit/schematics/tasks';
-import {
   NodeDependencyType,
 } from '@schematics/angular/utility/dependencies';
 import type {
   PackageJson,
 } from 'type-fest';
-import type {
+import {
   NgAddPackageOptions,
+  NpmInstall,
 } from '../../tasks/index';
 import {
   getPackageManager,
@@ -137,10 +135,11 @@ export function ngAddPackages(packages: string[], options?: Omit<NgAddPackageOpt
         mkdirSync(path.join(process.cwd(), path.dirname(filePath)), { recursive: true });
         writeFileSync(path.join(process.cwd(), filePath), tree.readText(filePath));
       });
-      context.addTask(new NodePackageInstallTask({
+      context.addTask(new NpmInstall({
         packageManager: packageManager,
         hideOutput: false,
-        quiet: false
+        quiet: false,
+        skipPeerDeps: true
       } as any));
 
       await new Promise<void>((resolve, reject) =>

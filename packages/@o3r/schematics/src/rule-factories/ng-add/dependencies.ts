@@ -11,7 +11,6 @@ import {
   Tree,
 } from '@angular-devkit/schematics';
 import {
-  NodePackageInstallTask,
   RunSchematicTask,
 } from '@angular-devkit/schematics/tasks';
 import {
@@ -21,6 +20,9 @@ import * as semver from 'semver';
 import type {
   PackageJson,
 } from 'type-fest';
+import {
+  NpmInstall,
+} from '../../tasks/package-manager/npm-install';
 import type {
   SupportedPackageManagers,
 } from '../../utility';
@@ -109,6 +111,7 @@ export interface SetupDependenciesOptions {
    * @default true
    */
   enforceTildeRange?: boolean;
+  skipPeerDepInstall?: boolean;
 }
 
 /** Result of the Setup Dependencies task scheduling process */
@@ -254,7 +257,7 @@ export const setupDependencies = (options: SetupDependenciesOptions): Rule => {
       const packageManager = options.packageManager || getPackageManager();
       const installId = isInstallNeeded()
         ? [
-          context.addTask(new NodePackageInstallTask({ packageManager, quiet: true, workingDirectory: options.workingDirectory }), options.runAfterTasks)
+          context.addTask(new NpmInstall({ packageManager, quiet: true, workingDirectory: options.workingDirectory, skipPeerDeps: true }), options.runAfterTasks)
         ]
         : undefined;
 
