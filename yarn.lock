@@ -6828,69 +6828,69 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ngrx/effects@npm:~19.0.0":
-  version: 19.0.1
-  resolution: "@ngrx/effects@npm:19.0.1"
+"@ngrx/effects@npm:~19.1.0":
+  version: 19.1.0
+  resolution: "@ngrx/effects@npm:19.1.0"
   dependencies:
     tslib: "npm:^2.0.0"
   peerDependencies:
     "@angular/core": ^19.0.0
-    "@ngrx/store": 19.0.1
+    "@ngrx/store": 19.1.0
     rxjs: ^6.5.3 || ^7.5.0
-  checksum: 10/3a4526cc4614cde63eca74647306c4d358606b3b06efaf3be71f1ab0a3857f60d7d31f2b374fa422ca1bd76b06bd4f0dda6fcee8a0f64714b741dc32e7b5e635
+  checksum: 10/5877ae69c2caa557b252941c403418ccac7ba6d38103abafdbc568de31a93dd3e89888f5a0b4d7dff52c98c8c838cae32ab8bf5894167a0a437858f4729e1d27
   languageName: node
   linkType: hard
 
-"@ngrx/entity@npm:~19.0.0":
-  version: 19.0.1
-  resolution: "@ngrx/entity@npm:19.0.1"
+"@ngrx/entity@npm:~19.1.0":
+  version: 19.1.0
+  resolution: "@ngrx/entity@npm:19.1.0"
   dependencies:
     tslib: "npm:^2.0.0"
   peerDependencies:
     "@angular/core": ^19.0.0
-    "@ngrx/store": 19.0.1
+    "@ngrx/store": 19.1.0
     rxjs: ^6.5.3 || ^7.5.0
-  checksum: 10/7b8eaf947f57235d07f1902336052180c8125300adf251fd0019cbe99382aca78958c37d94331b778e9059f70d4d0049ff721df3ecfc8c8866969d5c71ddde70
+  checksum: 10/baf8af70a483b48178800b280ae66aaa0c7a43eb87c3eb39926dca8a8c98d19a8f458560e9c445dafce2183ece36625620963810685d6c190087c616a85a9d38
   languageName: node
   linkType: hard
 
-"@ngrx/router-store@npm:~19.0.0":
-  version: 19.0.1
-  resolution: "@ngrx/router-store@npm:19.0.1"
+"@ngrx/router-store@npm:~19.1.0":
+  version: 19.1.0
+  resolution: "@ngrx/router-store@npm:19.1.0"
   dependencies:
     tslib: "npm:^2.0.0"
   peerDependencies:
     "@angular/common": ^19.0.0
     "@angular/core": ^19.0.0
     "@angular/router": ^19.0.0
-    "@ngrx/store": 19.0.1
+    "@ngrx/store": 19.1.0
     rxjs: ^6.5.3 || ^7.5.0
-  checksum: 10/d5ac837dfe5e46819e106760cbc76b1cc94f564a1fb11760519f6ed83f83397c11e2512e690ed31a29931cc601439cff411af273267b605150ded3317312af61
+  checksum: 10/0bc0cf25a26970c3104f681657564fb4ceb23e09228bc3f2d0706093e9a3bf4c0be9e465cf843bc73b6757dad787a2085b7b4456e5003aacb2ebb26fef42b28b
   languageName: node
   linkType: hard
 
-"@ngrx/store-devtools@npm:~19.0.0":
-  version: 19.0.1
-  resolution: "@ngrx/store-devtools@npm:19.0.1"
+"@ngrx/store-devtools@npm:~19.1.0":
+  version: 19.1.0
+  resolution: "@ngrx/store-devtools@npm:19.1.0"
   dependencies:
     tslib: "npm:^2.0.0"
   peerDependencies:
     "@angular/core": ^19.0.0
-    "@ngrx/store": 19.0.1
+    "@ngrx/store": 19.1.0
     rxjs: ^6.5.3 || ^7.5.0
-  checksum: 10/23826eeb83a573aecc7cfb9a7f160711e04c2635aafddba16608c14ff44fca9fd6b6ed4c40729b1dc07d22281d1b6e77c79b99a93b4d3c29667f40b4ee399f73
+  checksum: 10/6366cab8ca7cd14ba399d2ff809e73519c9490a0299259afd12b8f9da1693f9dcee07d0827453abc37843fd646d85ef90933cde145c6f2006fcd51eba3739414
   languageName: node
   linkType: hard
 
-"@ngrx/store@npm:~19.0.0":
-  version: 19.0.1
-  resolution: "@ngrx/store@npm:19.0.1"
+"@ngrx/store@npm:~19.1.0":
+  version: 19.1.0
+  resolution: "@ngrx/store@npm:19.1.0"
   dependencies:
     tslib: "npm:^2.0.0"
   peerDependencies:
     "@angular/core": ^19.0.0
     rxjs: ^6.5.3 || ^7.5.0
-  checksum: 10/542a37307cdbb0926e5e3b2564b01a3d22665705c05d0cc9e478eefeb851b9544d63bb0c3995fd08c4cdfc1ca56cafc17cb87acea47ab18635ebab33331e05e2
+  checksum: 10/8fdbb25a4189a72e2383395d46c615f2d4709bfa30b23d45d52b5aa194fc16d3529cbd012e389ad3c0bd2d3a465642298dd714e7d7a4e4779091de267b3334fd
   languageName: node
   linkType: hard
 
@@ -7866,7 +7866,7 @@ __metadata:
     "@babel/preset-typescript": "npm:~7.27.0"
     "@compodoc/compodoc": "npm:^1.1.19"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@ngrx/store": "npm:~19.0.0"
+    "@ngrx/store": "npm:~19.1.0"
     "@nx/eslint": "npm:~20.6.0"
     "@nx/eslint-plugin": "npm:~20.6.0"
     "@nx/jest": "npm:~20.6.0"
@@ -8302,8 +8302,8 @@ __metadata:
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@ng-bootstrap/ng-bootstrap": "npm:^18.0.0"
     "@ng-select/ng-select": "npm:~14.2.0"
-    "@ngrx/entity": "npm:~19.0.0"
-    "@ngrx/store": "npm:~19.0.0"
+    "@ngrx/entity": "npm:~19.1.0"
+    "@ngrx/store": "npm:~19.1.0"
     "@nx/eslint-plugin": "npm:~20.6.0"
     "@nx/jest": "npm:~20.6.0"
     "@o3r/application": "workspace:^"
@@ -8388,9 +8388,9 @@ __metadata:
     "@babel/preset-typescript": "npm:~7.27.0"
     "@compodoc/compodoc": "npm:^1.1.19"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@ngrx/effects": "npm:~19.0.0"
-    "@ngrx/entity": "npm:~19.0.0"
-    "@ngrx/store": "npm:~19.0.0"
+    "@ngrx/effects": "npm:~19.1.0"
+    "@ngrx/entity": "npm:~19.1.0"
+    "@ngrx/store": "npm:~19.1.0"
     "@nx/eslint-plugin": "npm:~20.6.0"
     "@nx/jest": "npm:~20.6.0"
     "@o3r/analytics": "workspace:^"
@@ -8552,8 +8552,8 @@ __metadata:
     "@babel/preset-typescript": "npm:~7.27.0"
     "@compodoc/compodoc": "npm:^1.1.19"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@ngrx/entity": "npm:~19.0.0"
-    "@ngrx/store": "npm:~19.0.0"
+    "@ngrx/entity": "npm:~19.1.0"
+    "@ngrx/store": "npm:~19.1.0"
     "@nx/eslint": "npm:~20.6.0"
     "@nx/eslint-plugin": "npm:~20.6.0"
     "@nx/jest": "npm:~20.6.0"
@@ -8659,8 +8659,8 @@ __metadata:
     "@babel/preset-typescript": "npm:~7.27.0"
     "@compodoc/compodoc": "npm:^1.1.19"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@ngrx/entity": "npm:~19.0.0"
-    "@ngrx/store": "npm:~19.0.0"
+    "@ngrx/entity": "npm:~19.1.0"
+    "@ngrx/store": "npm:~19.1.0"
     "@nx/eslint": "npm:~20.6.0"
     "@nx/eslint-plugin": "npm:~20.6.0"
     "@nx/jest": "npm:~20.6.0"
@@ -8944,7 +8944,7 @@ __metadata:
     "@babel/preset-typescript": "npm:~7.27.0"
     "@compodoc/compodoc": "npm:^1.1.19"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@ngrx/store": "npm:~19.0.0"
+    "@ngrx/store": "npm:~19.1.0"
     "@nx/eslint": "npm:~20.6.0"
     "@nx/eslint-plugin": "npm:~20.6.0"
     "@nx/jest": "npm:~20.6.0"
@@ -9428,8 +9428,8 @@ __metadata:
     "@babel/preset-typescript": "npm:~7.27.0"
     "@compodoc/compodoc": "npm:^1.1.19"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@ngrx/entity": "npm:~19.0.0"
-    "@ngrx/store": "npm:~19.0.0"
+    "@ngrx/entity": "npm:~19.1.0"
+    "@ngrx/store": "npm:~19.1.0"
     "@nx/eslint": "npm:~20.6.0"
     "@nx/eslint-plugin": "npm:~20.6.0"
     "@nx/jest": "npm:~20.6.0"
@@ -9532,11 +9532,11 @@ __metadata:
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@ng-bootstrap/ng-bootstrap": "npm:^18.0.0"
     "@ng-select/ng-select": "npm:~14.2.0"
-    "@ngrx/effects": "npm:~19.0.0"
-    "@ngrx/entity": "npm:~19.0.0"
-    "@ngrx/router-store": "npm:~19.0.0"
-    "@ngrx/store": "npm:~19.0.0"
-    "@ngrx/store-devtools": "npm:~19.0.0"
+    "@ngrx/effects": "npm:~19.1.0"
+    "@ngrx/entity": "npm:~19.1.0"
+    "@ngrx/router-store": "npm:~19.1.0"
+    "@ngrx/store": "npm:~19.1.0"
+    "@ngrx/store-devtools": "npm:~19.1.0"
     "@ngx-translate/core": "npm:~16.0.4"
     "@nx/angular": "npm:~20.6.0"
     "@nx/eslint": "npm:~20.6.0"
@@ -9741,7 +9741,7 @@ __metadata:
     "@babel/preset-typescript": "npm:~7.27.0"
     "@compodoc/compodoc": "npm:^1.1.19"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@ngrx/store": "npm:~19.0.0"
+    "@ngrx/store": "npm:~19.1.0"
     "@ngx-translate/core": "npm:~16.0.4"
     "@nx/eslint": "npm:~20.6.0"
     "@nx/eslint-plugin": "npm:~20.6.0"
@@ -9889,7 +9889,7 @@ __metadata:
     "@compodoc/compodoc": "npm:^1.1.19"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@fullstory/browser": "npm:^2.0.0"
-    "@ngrx/store": "npm:~19.0.0"
+    "@ngrx/store": "npm:~19.1.0"
     "@nx/eslint": "npm:~20.6.0"
     "@nx/eslint-plugin": "npm:~20.6.0"
     "@nx/jest": "npm:~20.6.0"
@@ -9992,7 +9992,7 @@ __metadata:
     "@capacitor/preferences": "npm:^7.0.0"
     "@compodoc/compodoc": "npm:^1.1.19"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@ngrx/store": "npm:~19.0.0"
+    "@ngrx/store": "npm:~19.1.0"
     "@nx/eslint": "npm:~20.6.0"
     "@nx/eslint-plugin": "npm:~20.6.0"
     "@nx/jest": "npm:~20.6.0"
@@ -10200,7 +10200,7 @@ __metadata:
     "@types/jest": "npm:~29.5.2"
     "@types/js-yaml": "npm:^4.0.5"
     "@types/node": "npm:^20.0.0"
-    "@typescript-eslint/eslint-plugin": "npm:~8.27.0"
+    "@typescript-eslint/eslint-plugin": "npm:~8.28.0"
     "@typescript-eslint/parser": "npm:~8.28.0"
     "@typescript-eslint/utils": "npm:~8.28.0"
     angular-eslint: "npm:~19.3.0"
@@ -10266,10 +10266,10 @@ __metadata:
     "@babel/preset-typescript": "npm:~7.27.0"
     "@compodoc/compodoc": "npm:^1.1.19"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@ngrx/effects": "npm:~19.0.0"
-    "@ngrx/entity": "npm:~19.0.0"
-    "@ngrx/router-store": "npm:~19.0.0"
-    "@ngrx/store": "npm:~19.0.0"
+    "@ngrx/effects": "npm:~19.1.0"
+    "@ngrx/entity": "npm:~19.1.0"
+    "@ngrx/router-store": "npm:~19.1.0"
+    "@ngrx/store": "npm:~19.1.0"
     "@nx/eslint": "npm:~20.6.0"
     "@nx/eslint-plugin": "npm:~20.6.0"
     "@nx/jest": "npm:~20.6.0"
@@ -10362,9 +10362,9 @@ __metadata:
     "@babel/preset-typescript": "npm:~7.27.0"
     "@compodoc/compodoc": "npm:^1.1.19"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@ngrx/effects": "npm:~19.0.0"
-    "@ngrx/entity": "npm:~19.0.0"
-    "@ngrx/store": "npm:~19.0.0"
+    "@ngrx/effects": "npm:~19.1.0"
+    "@ngrx/entity": "npm:~19.1.0"
+    "@ngrx/store": "npm:~19.1.0"
     "@ngx-translate/core": "npm:~16.0.4"
     "@nx/eslint": "npm:~20.6.0"
     "@nx/eslint-plugin": "npm:~20.6.0"
@@ -10601,10 +10601,10 @@ __metadata:
     "@formatjs/intl-numberformat": "npm:~8.15.0"
     "@ng-bootstrap/ng-bootstrap": "npm:^18.0.0"
     "@ng-select/ng-select": "npm:~14.2.0"
-    "@ngrx/effects": "npm:~19.0.0"
-    "@ngrx/entity": "npm:~19.0.0"
-    "@ngrx/store": "npm:~19.0.0"
-    "@ngrx/store-devtools": "npm:~19.0.0"
+    "@ngrx/effects": "npm:~19.1.0"
+    "@ngrx/entity": "npm:~19.1.0"
+    "@ngrx/store": "npm:~19.1.0"
+    "@ngrx/store-devtools": "npm:~19.1.0"
     "@ngx-translate/core": "npm:~16.0.4"
     "@nx/eslint-plugin": "npm:~20.6.0"
     "@nx/jest": "npm:~20.6.0"
@@ -10707,8 +10707,8 @@ __metadata:
     "@angular/platform-browser": "npm:~19.2.0"
     "@angular/platform-browser-dynamic": "npm:~19.2.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@ngrx/entity": "npm:~19.0.0"
-    "@ngrx/store": "npm:~19.0.0"
+    "@ngrx/entity": "npm:~19.1.0"
+    "@ngrx/store": "npm:~19.1.0"
     "@nx/eslint": "npm:~20.6.0"
     "@nx/eslint-plugin": "npm:~20.6.0"
     "@nx/js": "npm:~20.6.0"
@@ -11233,7 +11233,7 @@ __metadata:
     "@compodoc/compodoc": "npm:^1.1.19"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@material/slider": "npm:^14.0.0"
-    "@ngrx/store": "npm:~19.0.0"
+    "@ngrx/store": "npm:~19.1.0"
     "@ngx-translate/core": "npm:~16.0.4"
     "@nx/eslint-plugin": "npm:~20.6.0"
     "@nx/jest": "npm:~20.6.0"
@@ -11444,7 +11444,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:^"
     "@stylistic/eslint-plugin-ts": "npm:~3.1.0"
     "@types/node": "npm:^20.0.0"
-    "@typescript-eslint/eslint-plugin": "npm:~8.27.0"
+    "@typescript-eslint/eslint-plugin": "npm:~8.28.0"
     "@typescript-eslint/parser": "npm:~8.28.0"
     "@typescript-eslint/utils": "npm:~8.28.0"
     eslint: "npm:~9.23.0"
@@ -11497,8 +11497,8 @@ __metadata:
     "@babel/core": "npm:~7.26.0"
     "@babel/preset-typescript": "npm:~7.27.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@ngrx/entity": "npm:~19.0.0"
-    "@ngrx/store": "npm:~19.0.0"
+    "@ngrx/entity": "npm:~19.1.0"
+    "@ngrx/store": "npm:~19.1.0"
     "@nx/angular": "npm:~20.6.0"
     "@nx/eslint": "npm:~20.6.0"
     "@nx/eslint-plugin": "npm:~20.6.0"
@@ -15030,7 +15030,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/eslint-plugin@npm:8.28.0":
+"@typescript-eslint/eslint-plugin@npm:8.28.0, @typescript-eslint/eslint-plugin@npm:~8.28.0":
   version: 8.28.0
   resolution: "@typescript-eslint/eslint-plugin@npm:8.28.0"
   dependencies:
@@ -15048,27 +15048,6 @@ __metadata:
     eslint: ^8.57.0 || ^9.0.0
     typescript: ">=4.8.4 <5.9.0"
   checksum: 10/cd83f6c52218f7d31142b08a73b398370e4a7cf95c8afc03821050c625ec4b35e0c56f554d48bfa4a1b95564e60c0b4d5993cf2054b80f39533c1b0b84a0c7cd
-  languageName: node
-  linkType: hard
-
-"@typescript-eslint/eslint-plugin@npm:~8.27.0":
-  version: 8.27.0
-  resolution: "@typescript-eslint/eslint-plugin@npm:8.27.0"
-  dependencies:
-    "@eslint-community/regexpp": "npm:^4.10.0"
-    "@typescript-eslint/scope-manager": "npm:8.27.0"
-    "@typescript-eslint/type-utils": "npm:8.27.0"
-    "@typescript-eslint/utils": "npm:8.27.0"
-    "@typescript-eslint/visitor-keys": "npm:8.27.0"
-    graphemer: "npm:^1.4.0"
-    ignore: "npm:^5.3.1"
-    natural-compare: "npm:^1.4.0"
-    ts-api-utils: "npm:^2.0.1"
-  peerDependencies:
-    "@typescript-eslint/parser": ^8.0.0 || ^8.0.0-alpha.0
-    eslint: ^8.57.0 || ^9.0.0
-    typescript: ">=4.8.4 <5.9.0"
-  checksum: 10/d77fc0f66760d3fddfb0a0c14d23e3b782ccc8d74913c5888049df30a6240c6fbeec2864c6dd811474b340b6f87f61b1ed78e9c293056c413d4833360a505c4b
   languageName: node
   linkType: hard
 
@@ -15115,16 +15094,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/scope-manager@npm:8.27.0":
-  version: 8.27.0
-  resolution: "@typescript-eslint/scope-manager@npm:8.27.0"
-  dependencies:
-    "@typescript-eslint/types": "npm:8.27.0"
-    "@typescript-eslint/visitor-keys": "npm:8.27.0"
-  checksum: 10/e5429b79837f253b8e679ce8246e500175b74ead04314ad336326f132fa3532e30e75258dcd7e48f8dc76cdf6130fdbeb6e8cfa4965ea0d3b5baf99419df550f
-  languageName: node
-  linkType: hard
-
 "@typescript-eslint/scope-manager@npm:8.28.0":
   version: 8.28.0
   resolution: "@typescript-eslint/scope-manager@npm:8.28.0"
@@ -15132,21 +15101,6 @@ __metadata:
     "@typescript-eslint/types": "npm:8.28.0"
     "@typescript-eslint/visitor-keys": "npm:8.28.0"
   checksum: 10/5100ea7e2960e7494477b5770b41453e33a2372996a8c6b0ab933440bf54877a4433dab4a6ad527e29644d7e9b1a6f7595da3ec7c168b9970cc05f4d988825f4
-  languageName: node
-  linkType: hard
-
-"@typescript-eslint/type-utils@npm:8.27.0":
-  version: 8.27.0
-  resolution: "@typescript-eslint/type-utils@npm:8.27.0"
-  dependencies:
-    "@typescript-eslint/typescript-estree": "npm:8.27.0"
-    "@typescript-eslint/utils": "npm:8.27.0"
-    debug: "npm:^4.3.4"
-    ts-api-utils: "npm:^2.0.1"
-  peerDependencies:
-    eslint: ^8.57.0 || ^9.0.0
-    typescript: ">=4.8.4 <5.9.0"
-  checksum: 10/2183a574e7e60cecc5df7fd697d2a5e0445a96a8b288166586e9bb3db2444a97bf7539aeb3a1c75782df56927e7bd52ea8da9151ba4ec6445931c55a9034f81b
   languageName: node
   linkType: hard
 
@@ -15169,13 +15123,6 @@ __metadata:
   version: 6.21.0
   resolution: "@typescript-eslint/types@npm:6.21.0"
   checksum: 10/e26da86d6f36ca5b6ef6322619f8ec55aabcd7d43c840c977ae13ae2c964c3091fc92eb33730d8be08927c9de38466c5323e78bfb270a9ff1d3611fe821046c5
-  languageName: node
-  linkType: hard
-
-"@typescript-eslint/types@npm:8.27.0":
-  version: 8.27.0
-  resolution: "@typescript-eslint/types@npm:8.27.0"
-  checksum: 10/e7b608f6ce5be52c7bcee098abc5f88b677a6511e701e563ba73901300c838827cd7fa11e1fd0f5df027948e0fd3f6181c16c05578d33041c6639bc79b015172
   languageName: node
   linkType: hard
 
@@ -15205,24 +15152,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/typescript-estree@npm:8.27.0":
-  version: 8.27.0
-  resolution: "@typescript-eslint/typescript-estree@npm:8.27.0"
-  dependencies:
-    "@typescript-eslint/types": "npm:8.27.0"
-    "@typescript-eslint/visitor-keys": "npm:8.27.0"
-    debug: "npm:^4.3.4"
-    fast-glob: "npm:^3.3.2"
-    is-glob: "npm:^4.0.3"
-    minimatch: "npm:^9.0.4"
-    semver: "npm:^7.6.0"
-    ts-api-utils: "npm:^2.0.1"
-  peerDependencies:
-    typescript: ">=4.8.4 <5.9.0"
-  checksum: 10/2f81718909c96bc31f6ce599bc0a80d233a591c044d939af223005587ea87852a1e76e90d11e037c49bbadc5fda9815da8f0aaca49f979cf990ff392675f62b0
-  languageName: node
-  linkType: hard
-
 "@typescript-eslint/typescript-estree@npm:8.28.0":
   version: 8.28.0
   resolution: "@typescript-eslint/typescript-estree@npm:8.28.0"
@@ -15238,21 +15167,6 @@ __metadata:
   peerDependencies:
     typescript: ">=4.8.4 <5.9.0"
   checksum: 10/277639fe8007f7612a914f6a3a2b0fdc5f764afe6cba86aeacf6a9585a0114a3235dd730caef0a17e92ca3f4137068ad56a483514b8399650ddc9078aeb90a7d
-  languageName: node
-  linkType: hard
-
-"@typescript-eslint/utils@npm:8.27.0":
-  version: 8.27.0
-  resolution: "@typescript-eslint/utils@npm:8.27.0"
-  dependencies:
-    "@eslint-community/eslint-utils": "npm:^4.4.0"
-    "@typescript-eslint/scope-manager": "npm:8.27.0"
-    "@typescript-eslint/types": "npm:8.27.0"
-    "@typescript-eslint/typescript-estree": "npm:8.27.0"
-  peerDependencies:
-    eslint: ^8.57.0 || ^9.0.0
-    typescript: ">=4.8.4 <5.9.0"
-  checksum: 10/858610da7c802a584a6e73f0ece45b12ca1a7fb40a3a8639e531afaff3beb8e618d27f712805b49b1eb3f429e07c3edcaa641686525de4e2c0861fdcc790c822
   languageName: node
   linkType: hard
 
@@ -15295,16 +15209,6 @@ __metadata:
     "@typescript-eslint/types": "npm:6.21.0"
     eslint-visitor-keys: "npm:^3.4.1"
   checksum: 10/30422cdc1e2ffad203df40351a031254b272f9c6f2b7e02e9bfa39e3fc2c7b1c6130333b0057412968deda17a3a68a578a78929a8139c6acef44d9d841dc72e1
-  languageName: node
-  linkType: hard
-
-"@typescript-eslint/visitor-keys@npm:8.27.0":
-  version: 8.27.0
-  resolution: "@typescript-eslint/visitor-keys@npm:8.27.0"
-  dependencies:
-    "@typescript-eslint/types": "npm:8.27.0"
-    eslint-visitor-keys: "npm:^4.2.0"
-  checksum: 10/d62522d021760452f9c0549227ab2c603724834697c5bb51cb1e6b7b45d169c923225eb4b6d5dc822a5fbe634b7b445154f2da9f99a7d550cb288b3c2c9113d7
   languageName: node
   linkType: hard
 
