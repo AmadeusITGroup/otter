@@ -21,6 +21,10 @@ npm create @o3r my-project
 npm create @o3r my-project -- --yarn
 ```
 
+> [!WARNING]
+> On Windows OS, [Git Bash terminal](https://gitforwindows.org/#bash) is not fully supported by different CLI used behind Otter project and can lead to execution error.
+> We recommend to minimize its usage.
+
 ### Generate a new application, library or SDK in the project
 
 Once created, you can generate a new application, library or SDK in the project using the following commands:
