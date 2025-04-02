@@ -134,6 +134,7 @@ const ADD_O3R_CORE_ERROR_CODE = 3;
 const NPM_CONFIG_REGISTRY_ERROR_CODE = 4;
 const YARN_CONFIG_REGISTRY_ERROR_CODE = 5;
 const INSTALL_PROCESS_ERROR_CODE = 6;
+const YARN_SET_PACKAGE_EXTENSIONS = 7;
 
 const exitProcessIfErrorInSpawnSync = (exitCode: number, { error, status }: ReturnType<typeof spawnSync>) => {
   if (error || status !== 0) {
@@ -222,6 +223,12 @@ const prepareWorkspace = (relativeDirectory = '.', projectPackageManager = 'npm'
     exitProcessIfErrorInSpawnSync(YARN_SET_VERSION_ERROR_CODE, spawnSync(
       runner,
       ['set', 'version', yarnVersion],
+      spawnSyncOpts
+    ));
+    exitProcessIfErrorInSpawnSync(YARN_SET_PACKAGE_EXTENSIONS, spawnSync(
+      runner,
+      // TODO temporarily fixed until https://github.com/listr2/listr2/pull/719 is merged
+      ['config', 'set', 'packageExtensions["@listr2/prompt-adapter-inquirer@*"].peerDependencies.listr2', '"*"'],
       spawnSyncOpts
     ));
   }
