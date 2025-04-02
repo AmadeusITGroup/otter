@@ -23,6 +23,10 @@ npm create @o3r <project-name> -- [...options]
 > [!WARNING]
 > `yarn create` is not supported.
 
+> [!WARNING]
+> On Windows OS, [Git Bash terminal](https://gitforwindows.org/#bash) is not fully supported by different CLI used behind Otter project and can lead to execution error.
+> We recommend to minimize its usage.
+
 ### Custom package manager
 
 By default, the `npm` package manager will be used to generate the project, but you can generate an environment with a specific package manager using the `--package-manager` option:
