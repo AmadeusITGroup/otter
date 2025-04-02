@@ -123,6 +123,15 @@ The parameter types that we support are stored in `SupportedParamType` in the pa
 > We provide the methods `serializeQueryParams` and `serializePathParams` to serialize the values of query and path parameters. However, it is also possible to pass
 > your own serialization methods if the ones provided do not meet your requirements. These custom methods can be passed as a parameter to the API client constructor.
 
+> [!NOTE]
+> If you update the query parameters within a `RequestPlugin`, these must be serialized before being returned to the API to prepare the URL. You can do so by using the 
+> serialization method that we provide (`serializeQueryParams`) or your own serialization method. The value of the query parameters returned by the `RequestPlugin` will
+> be forwarded to the next plugin and the last value will be directly added to the URL.
+
+> [!INFO]
+> We also provide the methods `deserializeQueryParams` and `deserializePathParams` to serialize the values of query and path parameters based on their serialization
+> (`explode` and `style`) and type (`primitive`, `array`, or `object`). This method can be used as a tool to better visualize the values of the parameters during development.
+
 #### Light SDK
 
 It is also possible to generate a "light" SDK. This type of SDK does not need to generate revivers, which results in a simplified version of the code and reduces the size of the bundle.

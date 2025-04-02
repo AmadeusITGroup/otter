@@ -1,4 +1,8 @@
 import {
+  type QueryParamValueSerialization,
+  serializeRequestPluginQueryParams,
+} from '../../fwk/param-serialization';
+import {
   PluginSyncRunner,
   RequestOptions,
   RequestPlugin,
@@ -11,7 +15,8 @@ export interface AdditionalParametersSync {
   /** Additional headers */
   headers?: { [key: string]: string } | ((headers: Headers) => { [key: string]: string });
   /** Additional query params */
-  queryParams?: { [key: string]: string } | ((defaultValues?: { [key: string]: string }) => { [key: string]: string });
+  queryParams?: { [key: string]: string } | { [key: string]: QueryParamValueSerialization }
+    | ((defaultValues?: { [key: string]: string } | { [key: string]: QueryParamValueSerialization }) => { [key: string]: string } | { [key: string]: QueryParamValueSerialization });
   /** Additional body params */
   body?: (defaultValues?: string) => string | null;
 }
@@ -38,7 +43,7 @@ export class AdditionalParamsSyncRequest implements RequestPlugin {
         const body = this.additionalParams.body && isStringOrUndefined(data.body) ? this.additionalParams.body(data.body) : undefined;
 
         if (queryParams) {
-          data.queryParams = { ...data.queryParams, ...queryParams };
+          data.queryParams = { ...data.queryParams, ...serializeRequestPluginQueryParams(queryParams) };
         }
 
         if (body !== undefined) {

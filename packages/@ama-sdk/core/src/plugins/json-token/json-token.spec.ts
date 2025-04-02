@@ -16,7 +16,7 @@ describe('Json Token', () => {
   const tokenKey = 'testToken';
 
   describe('request plugin', () => {
-    const defaultGetParams = { defaultTest: 'ok' };
+    const defaultGetParams = { defaultTest: 'defaultTest=ok' };
     const defaultBody = 'default';
     let options: RequestOptions;
 

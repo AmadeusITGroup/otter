@@ -59,7 +59,8 @@ export class StoreApi implements Api {
 
     let body: RequestBody = '';
     const pathParamsProperties = this.client.getPropertiesFromData(data, ['orderId']);
-    const serializedPathParams = this.client.serializePathParams(pathParamsProperties, { orderId: { explode: false, style: 'simple' } });
+    const pathParamSerialization = { orderId: { explode: false, style: 'simple' } }
+    const serializedPathParams = this.client.serializePathParams(pathParamsProperties, pathParamSerialization);
     const basePath = `${this.client.options.basePath}/store/order/${serializedPathParams['orderId']}`;
     const tokenizedUrl = `${this.client.options.basePath}/store/order/${this.piiParamTokens['orderId'] || serializedPathParams['orderId']}`;
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
@@ -76,7 +77,7 @@ export class StoreApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = options.basePath;
+    const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams);
 
     const ret = this.client.processCall<never>(url, options, ApiTypes.DEFAULT, StoreApi.apiName, undefined, 'deleteOrder');
     return ret;
@@ -114,7 +115,7 @@ export class StoreApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = options.basePath;
+    const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams);
 
     const ret = this.client.processCall<{ [key: string]: number; }>(url, options, ApiTypes.DEFAULT, StoreApi.apiName, undefined, 'getInventory');
     return ret;
@@ -137,7 +138,8 @@ export class StoreApi implements Api {
 
     let body: RequestBody = '';
     const pathParamsProperties = this.client.getPropertiesFromData(data, ['orderId']);
-    const serializedPathParams = this.client.serializePathParams(pathParamsProperties, { orderId: { explode: false, style: 'simple' } });
+    const pathParamSerialization = { orderId: { explode: false, style: 'simple' } }
+    const serializedPathParams = this.client.serializePathParams(pathParamsProperties, pathParamSerialization);
     const basePath = `${this.client.options.basePath}/store/order/${serializedPathParams['orderId']}`;
     const tokenizedUrl = `${this.client.options.basePath}/store/order/${this.piiParamTokens['orderId'] || serializedPathParams['orderId']}`;
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
@@ -154,7 +156,7 @@ export class StoreApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = options.basePath;
+    const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams);
 
     const ret = this.client.processCall<Order>(url, options, ApiTypes.DEFAULT, StoreApi.apiName, undefined, 'getOrderById');
     return ret;
@@ -197,7 +199,7 @@ export class StoreApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = options.basePath;
+    const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams);
 
     const ret = this.client.processCall<Order>(url, options, ApiTypes.DEFAULT, StoreApi.apiName, undefined, 'placeOrder');
     return ret;

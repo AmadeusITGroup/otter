@@ -8,7 +8,7 @@ import {
 describe('URL Rewrite Request Plugin', () => {
   const urlRewriter = jest.fn().mockReturnValue('http://ok');
 
-  const defaultGetParams = { defaultTest: 'ok' };
+  const defaultGetParams = { defaultTest: 'defaultTest=ok' };
   const defaultBody = 'default';
   const defaultUrl = 'http://test.com/truc';
   let options: RequestOptions;

@@ -6,7 +6,7 @@ import {
 } from './si-token.request';
 
 describe('SI Token Request Plugin', () => {
-  const defaultGetParams = { defaultTest: 'ok' };
+  const defaultGetParams = { defaultTest: 'defaultTest=ok' };
   const defaultBody = 'default';
   let options: RequestOptions;
 
@@ -26,7 +26,7 @@ describe('SI Token Request Plugin', () => {
 
     const result = await runner.transform(options);
 
-    expect(result.queryParams.SITK).toBe('SIToken1');
-    expect(result.queryParams.SITK2).toBe('SIToken2');
+    expect(result.queryParams.SITK).toBe('SITK=SIToken1');
+    expect(result.queryParams.SITK2).toBe('SITK2=SIToken2');
   });
 });
