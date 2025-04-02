@@ -39,7 +39,7 @@ export function getCommitHookInitTask(context: SchematicContext) {
     const packageManager = getPackageManager();
     const huskyTask = new NpmExecTask('husky init');
     const taskId = context.addTask(huskyTask, taskIds);
-    const setupLintStage = new NodeRunScriptTask(`require('node:fs').writeFileSync('.husky/pre-commit', '${packageManager} exec lint-stage');`);
+    const setupLintStage = new NodeRunScriptTask(`require('node:fs').writeFileSync('.husky/pre-commit', '${packageManager} exec lint-staged');`);
     context.addTask(setupLintStage, [taskId]);
   };
 }
@@ -52,7 +52,7 @@ export function getCommitHookInitTask(context: SchematicContext) {
 export const editPackageJson: Rule = (tree, context) => {
   const packageJson = tree.readJson('/package.json') as PackageJson;
   if (packageJson['lint-staged']) {
-    context.logger.debug('A Lint-stage configuration is already defined, the default value will not be applied');
+    context.logger.debug('A Lint-staged configuration is already defined, the default value will not be applied');
     return tree;
   }
   packageJson['lint-staged'] = {

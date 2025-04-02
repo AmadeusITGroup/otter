@@ -146,6 +146,6 @@ describe('new otter workspace', () => {
     expect(existsSync(path.join(workspacePath, '.husky/commit-msg'))).toBe(true);
     expect(existsSync(path.join(workspacePath, '.husky/pre-commit'))).toBe(true);
     expect(existsSync(path.join(workspacePath, 'commitlint.config.cts'))).toBe(true);
-    await expect(fs.readFile(path.join(workspacePath, '.husky/pre-commit'), { encoding: 'utf8' })).resolves.toMatch(/lint-stage/);
+    await expect(fs.readFile(path.join(workspacePath, '.husky/pre-commit'), { encoding: 'utf8' })).resolves.toMatch(/lint-staged/);
   });
 });

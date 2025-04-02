@@ -46,7 +46,7 @@
       "alias": "g"
     },
     "skipPreCommitChecks": {
-      "description": "Skip the setup of CommitLint and Lint-Stage configurations and pre-commit checks.",
+      "description": "Skip the setup of CommitLint and Lint-Staged configurations and pre-commit checks.",
       "type": "boolean",
       "default": false
     },
