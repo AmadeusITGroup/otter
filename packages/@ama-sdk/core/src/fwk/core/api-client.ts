@@ -1,4 +1,5 @@
 import type {
+  ParamSerializationOptions,
   RequestBody,
   RequestMetadata,
   RequestOptions,
@@ -27,6 +28,8 @@ export interface RequestOptionsParameters {
   basePath: string;
   /** Query Parameters */
   queryParams?: { [key: string]: string | undefined };
+  /** Parameter serialization options */
+  paramSerializationOptions?: ParamSerializationOptions;
   /** Force body to string */
   body?: RequestBody;
   /** Force headers to Headers type */
@@ -91,7 +94,7 @@ export interface ApiClient {
    * @param url Base url to be used
    * @param serializedQueryParams Key value pairs of query parameter names and their serialized values
    */
-  prepareUrlWithQueryParams(url: string, serializedQueryParams: { [key: string]: string }): string;
+  prepareUrlWithQueryParams(url: string, serializedQueryParams?: { [key: string]: string }): string;
 
   /**
    * Serialize query parameters based on the values of exploded and style

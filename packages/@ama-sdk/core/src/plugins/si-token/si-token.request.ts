@@ -1,3 +1,6 @@
+import type {
+  QueryParamValueSerialization,
+} from '../../fwk/param-serialization';
 import {
   AdditionalParamsRequest,
 } from '../additional-params';
@@ -24,7 +27,7 @@ export class SiTokenRequest extends AdditionalParamsRequest implements RequestPl
    */
   constructor(siToken?: string, siToken2?: string) {
     super({
-      queryParams: (queryParams?: { [key: string]: string }) => {
+      queryParams: (queryParams?: { [key: string]: string } | { [key: string]: QueryParamValueSerialization }) => {
         const ret = queryParams || {};
         if (this.siToken) {
           ret.SITK = this.siToken;

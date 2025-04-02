@@ -51,7 +51,8 @@ const DEFAULT_OPTIONS = {
   fetchPlugins: [],
   requestPlugins: [],
   enableTokenization: false,
-  disableFallback: false
+  disableFallback: false,
+  enableParameterSerialization: false
 } as const satisfies Omit<BaseApiFetchClientOptions, 'basePath'>;
 
 /** Client to process the call to the API using Fetch API */
@@ -131,7 +132,7 @@ export class ApiFetchClient implements ApiClient {
   }
 
   /** @inheritdoc */
-  public prepareUrlWithQueryParams(url: string, serializedQueryParams: { [key: string]: string }): string {
+  public prepareUrlWithQueryParams(url: string, serializedQueryParams?: { [key: string]: string }): string {
     return prepareUrlWithQueryParams(url, serializedQueryParams);
   }
 

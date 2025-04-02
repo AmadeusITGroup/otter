@@ -27,6 +27,8 @@ export interface BaseApiClientOptions {
   disableFallback?: boolean;
   /** Logger (optional, fallback to console logger if undefined) */
   logger?: Logger;
+  /** Enable parameter serialization with exploded syntax */
+  enableParameterSerialization?: boolean;
   /** Custom query parameter serialization method */
   serializeQueryParams?<T extends { [key: string]: SupportedParamType }>(queryParams: T, queryParamSerialization: { [p in keyof T]: ParamSerialization }): { [p in keyof T]: string };
   /** Custom query parameter serialization method */
