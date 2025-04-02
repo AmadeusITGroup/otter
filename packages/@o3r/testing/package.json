@@ -121,7 +121,7 @@
     "pngjs": "^7.0.0",
     "protractor": "^7.0.0",
     "rxjs": "^7.8.1",
-    "temporal-polyfill": "^0.2.0",
+    "temporal-polyfill": "^0.3.0",
     "ts-node": "~10.9.2",
     "type-fest": "^4.10.2",
     "typescript": "^5.5.4"
@@ -245,7 +245,7 @@
     "protractor": "^7.0.0",
     "rxjs": "^7.8.1",
     "semver": "^7.5.2",
-    "temporal-polyfill": "^0.2.0",
+    "temporal-polyfill": "^0.3.0",
     "ts-jest": "~29.3.0",
     "ts-node": "~10.9.2",
     "type-fest": "^4.30.1",
