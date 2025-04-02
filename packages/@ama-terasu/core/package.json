@@ -25,7 +25,7 @@
     "@types/minimist": "^1.2.2",
     "@types/node": "^20.0.0",
     "@types/yargs": "^17.0.20",
-    "@typescript-eslint/parser": "~8.28.0",
+    "@typescript-eslint/parser": "~8.29.0",
     "angular-eslint": "~19.3.0",
     "cpy-cli": "^5.0.0",
     "eslint": "~9.23.0",
@@ -46,7 +46,7 @@
     "nx": "~20.6.0",
     "ts-jest": "~29.3.0",
     "typescript": "~5.8.2",
-    "typescript-eslint": "~8.28.0",
+    "typescript-eslint": "~8.29.0",
     "yargs": "^17.6.2"
   },
   "dependencies": {
