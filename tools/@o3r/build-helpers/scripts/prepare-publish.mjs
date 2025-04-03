@@ -110,6 +110,6 @@ const distPaths = argv._.length > 0
   ? argv._
     .flatMap((files) => files.split(delimiter))
     .map((p) => appendPath ? join(p, normalize(appendPath)) : p)
-  : [resolve(process.cwd(), appendPath || 'dist')];
+  : [resolve(root, appendPath || 'dist')];
 
 distPaths.forEach((distPath) => preparePublish(root, distPath, join(distPath, 'package.json')));

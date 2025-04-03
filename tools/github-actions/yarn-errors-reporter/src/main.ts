@@ -50,9 +50,16 @@ async function run(): Promise<void> {
         }
       }
 
-      await exec('git', ['revert', '--no-commit', '-m', '1', 'HEAD']);
+      const hasLocalChanges = (await getExecOutput('git', ['status', '-s'], execOptions)).stdout.split('\n').length > 0;
+      if (hasLocalChanges) {
+        await exec('git', ['stash'], execOptions);
+      }
+      await exec('git', ['revert', '--no-commit', '-m', '1', 'HEAD'], execOptions);
       previousErrors = await getYarnErrors();
-      await exec('git', ['reset', '--hard']);
+      await exec('git', ['reset', '--hard'], execOptions);
+      if (hasLocalChanges) {
+        await exec('git', ['stash', 'pop'], execOptions);
+      }
     } else {
       core.warning(`Fetch depth was ${fetchDepth}, all the errors from the output will be considered as new errors`);
     }

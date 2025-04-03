@@ -60,7 +60,7 @@ export default createRule<[], Messages>({
     };
 
     return {
-      Element$1: rule
+      Element: rule
     };
   }
 });
