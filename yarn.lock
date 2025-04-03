@@ -11281,7 +11281,7 @@ __metadata:
     protractor: "npm:^7.0.0"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
-    temporal-polyfill: "npm:^0.2.0"
+    temporal-polyfill: "npm:^0.3.0"
     ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
@@ -11311,7 +11311,7 @@ __metadata:
     pngjs: ^7.0.0
     protractor: ^7.0.0
     rxjs: ^7.8.1
-    temporal-polyfill: ^0.2.0
+    temporal-polyfill: ^0.3.0
     ts-node: ~10.9.2
     type-fest: ^4.10.2
     typescript: ^5.5.4
@@ -34804,19 +34804,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"temporal-polyfill@npm:^0.2.0":
-  version: 0.2.5
-  resolution: "temporal-polyfill@npm:0.2.5"
+"temporal-polyfill@npm:^0.3.0":
+  version: 0.3.0
+  resolution: "temporal-polyfill@npm:0.3.0"
   dependencies:
-    temporal-spec: "npm:^0.2.4"
-  checksum: 10/0534d6eb41925e88a3be6f320cbd5255bab6f6f529668f619dbefdcb28ec1606cc43f7a73d60fc713c44518e38d8ac3a8ec82e2059713f045481ac5a3d903157
+    temporal-spec: "npm:0.3.0"
+  checksum: 10/e4f5c0e546bf663720569b8b68fc41aa43ea891a77043a5614f6c1f2109cd01fe60c90b9de2f5d4f92f3155bfbdd17ad3ec7de1e9aaf01fa3cf156f230a0e41a
   languageName: node
   linkType: hard
 
-"temporal-spec@npm:^0.2.4":
-  version: 0.2.4
-  resolution: "temporal-spec@npm:0.2.4"
-  checksum: 10/45a68e4f2324752e927976c624699c5cfcbe15d6e9c9558faa5811cc58ea1fb9cef06ec5e1617e40131b744ca16a0011309c877c242b24009562375b407f535b
+"temporal-spec@npm:0.3.0":
+  version: 0.3.0
+  resolution: "temporal-spec@npm:0.3.0"
+  checksum: 10/5863e3e3f364a5cf64bf999c85bf19b08924a91ee8d618489d9bf6cfff2452e4f916080c8ede93fc91de609200fc20002928e0146c7fc15375b123b20234799b
   languageName: node
   linkType: hard
 
