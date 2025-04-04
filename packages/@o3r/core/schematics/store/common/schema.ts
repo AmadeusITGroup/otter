@@ -21,6 +21,6 @@ export interface NgGenerateCommonStoreSchematicsSchema extends SchematicOptionOb
   /** The SDK Model to use as store item (e.g. Example) */
   modelName: string;
 
-  /** Skip the linter process */
+  /** Skip the linter process which includes EsLint and EditorConfig rules applying */
   skipLinter: boolean;
 }

@@ -21,7 +21,7 @@ export interface NgGeneratePageSchematicsSchema extends SchematicOptionObject {
   /** Directory containing the pages */
   path?: string | undefined;
 
-  /** Skip the linter process */
+  /** Skip the linter process which includes EsLint and EditorConfig rules applying */
   skipLinter: boolean;
 
   /** Indicates if the page should use otter theming architecture */

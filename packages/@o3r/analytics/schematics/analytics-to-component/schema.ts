@@ -6,7 +6,7 @@ export interface NgAddAnalyticsSchematicsSchema extends SchematicOptionObject {
   /** Path to the component */
   path: string;
 
-  /** Skip the linter process */
+  /** Skip the linter process which includes EsLint and EditorConfig rules applying */
   skipLinter: boolean;
 
   /** Determine if the dummy analytics events should be generated */
