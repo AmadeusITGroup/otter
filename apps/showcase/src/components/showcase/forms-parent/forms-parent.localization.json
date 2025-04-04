@@ -1,0 +1,14 @@
+{
+  "o3r-forms-parent.dateOfBirth.dateInThePast": {
+    "description": "Validator for date of birth",
+    "defaultValue": "Date of birth should be in the past"
+  },
+  "o3r-forms-parent.globalForbiddenName": {
+    "description": "This validator will check if the name will be the given config",
+    "defaultValue": "Name cannot be { name }"
+  },
+  "o3r-forms-parent.globalForbiddenName.long": {
+    "description": "This validator will check if the name will be the given config",
+    "defaultValue": "The value entered for the name cannot be { name }"
+  }
+}
