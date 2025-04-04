@@ -9,6 +9,11 @@
       "description": "Skip the linter process",
       "default": true
     },
+    "skipOtterESLintInstall": {
+      "type": "boolean",
+      "description": "Skip installing the Otter ESLint package",
+      "default": false
+    },
     "skipInstall": {
       "type": "boolean",
       "description": "Skip the install process. If set to true, the pre-commit check setup will be skipped as well."
