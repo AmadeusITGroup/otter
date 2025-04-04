@@ -323,7 +323,7 @@ describe('ngrxLocalStorage', () => {
     const s = new MockStorage();
     const skr = mockStorageKeySerializer;
     const initialStateT1 = { state: t1 };
-    const keys = [{ state: TypeA.reviver }];
+    const keys = [{ state: TypeA.reviver.bind(TypeA) }];
 
     syncStateUpdate(initialStateT1, keys, s, skr, false);
 
@@ -339,7 +339,7 @@ describe('ngrxLocalStorage', () => {
     const s = new MockStorage();
     const skr = mockStorageKeySerializer;
 
-    const keys = [{ feature: { reviver: TypeA.reviver, syncForFeature: true } }];
+    const keys = [{ feature: { reviver: TypeA.reviver.bind(TypeA), syncForFeature: true } }];
 
     syncStateUpdate(featureInitialState, keys, s, skr, false, undefined, undefined);
 
@@ -356,7 +356,7 @@ describe('ngrxLocalStorage', () => {
     const s = new MockStorage();
     const skr = mockStorageKeySerializer;
     const initialStateT1 = { state: t1 };
-    const keys = [{ state: { reviver: TypeA.reviver } }];
+    const keys = [{ state: { reviver: TypeA.reviver.bind(TypeA) } }];
 
     syncStateUpdate(initialStateT1, keys, s, skr, false);
 
@@ -371,7 +371,7 @@ describe('ngrxLocalStorage', () => {
 
     const s = new MockStorage();
     const skr = mockStorageKeySerializer;
-    const keys = [{ feature: { reviver: TypeA.reviver, syncForFeature: true } }];
+    const keys = [{ feature: { reviver: TypeA.reviver.bind(TypeA), syncForFeature: true } }];
 
     syncStateUpdate(featureInitialState, keys, s, skr, false, undefined, undefined);
 
@@ -424,7 +424,7 @@ describe('ngrxLocalStorage', () => {
     const s = new MockStorage();
     const skr = mockStorageKeySerializer;
     const initialStateT1 = { replacer: t1 };
-    const keys = [{ replacer: { reviver: TypeA.replacer } }];
+    const keys = [{ replacer: { reviver: TypeA.replacer.bind(TypeA) } }];
 
     syncStateUpdate(initialStateT1, keys, s, skr, false);
 
@@ -440,7 +440,7 @@ describe('ngrxLocalStorage', () => {
 
     const s = new MockStorage();
     const skr = mockStorageKeySerializer;
-    const keys = [{ replacer: { reviver: TypeA.replacer, syncForFeature: true } }];
+    const keys = [{ replacer: { reviver: TypeA.replacer.bind(TypeA), syncForFeature: true } }];
 
     syncStateUpdate(featureInitialState, keys, s, skr, false, undefined, undefined);
 
@@ -514,7 +514,7 @@ describe('ngrxLocalStorage', () => {
     const s = new MockStorage();
     const skr = mockStorageKeySerializer;
     const initialStateT1 = { state: t1 };
-    const keys = [{ state: { serialize: TypeA.serialize, deserialize: TypeA.deserialize } }];
+    const keys = [{ state: { serialize: TypeA.serialize.bind(TypeA), deserialize: TypeA.deserialize.bind(TypeA) } }];
 
     syncStateUpdate(initialStateT1, keys, s, skr, false);
 
@@ -529,7 +529,7 @@ describe('ngrxLocalStorage', () => {
 
     const s = new MockStorage();
     const skr = mockStorageKeySerializer;
-    const keys = [{ state: { serialize: TypeA.serialize, deserialize: TypeA.deserialize, syncForFeature: true } }];
+    const keys = [{ state: { serialize: TypeA.serialize.bind(TypeA), deserialize: TypeA.deserialize.bind(TypeA), syncForFeature: true } }];
 
     syncStateUpdate(featureInitialState, keys, s, skr, false, undefined, undefined);
 

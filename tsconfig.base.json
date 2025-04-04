@@ -7,6 +7,7 @@
     "**/dist/**"
   ],
   "compilerOptions": {
+    "types": [],
     "target": "ES2022",
     "useDefineForClassFields": false,
     "declaration": true,

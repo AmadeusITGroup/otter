@@ -19,12 +19,12 @@ import {
 import * as globby from 'globby';
 import * as semver from 'semver';
 import {
-  AggregateMigrationScriptsSchema,
-} from './schema';
-import {
   createBuilderWithMetricsIfInstalled,
   type MigrationFile,
-} from '@o3r/extractors';
+} from '../../src/core';
+import {
+  AggregateMigrationScriptsSchema,
+} from './schema';
 
 const STEPS = [
   'Find all migration files',
