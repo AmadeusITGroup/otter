@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
-    "@nx/eslint-plugin": "~20.6.0",
+    "@nx/eslint-plugin": "~20.7.0",
     "@o3r/eslint-plugin": "workspace:^",
     "@stylistic/eslint-plugin": "~3.1.0",
     "@types/node": "^20.0.0",
@@ -54,7 +54,7 @@
     "eslint-plugin-unicorn": "~56.0.0",
     "eslint-plugin-unused-imports": "~4.1.4",
     "globals": "^15.9.0",
-    "nx": "~20.6.0",
+    "nx": "~20.7.0",
     "typescript": "~5.8.2",
     "typescript-eslint": "~8.29.0"
   }
