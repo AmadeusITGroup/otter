@@ -25,6 +25,11 @@
       "version": "11.4.0-alpha.0",
       "description": "Updates of @ama-sdk/schematics to v11.4.*",
       "factory": "./schematics/ng-update/index#updateV11_4"
+    },
+    "migration-v12_1_3": {
+      "version": "12.1.3",
+      "description": "Updates of @ama-sdk/schematics to v12.1.3",
+      "factory": "./schematics/ng-update/index#updateV12_1_3"
     }
   }
 }
