@@ -1,5 +1,5 @@
-import type {
-  Rule,
+import {
+  type Rule,
 } from '@angular-devkit/schematics';
 import {
   isTypescriptSdk,
@@ -10,6 +10,7 @@ import {
   updateV10_3 as tsUpdateV10_3,
   updateV11_0 as tsUpdateV11_0,
   updateV11_4 as tsUpdateV11_4,
+  updateV12_1_3 as tsUpdateV12_1_3,
 } from './typescript';
 
 /**
@@ -76,6 +77,20 @@ export function updateV11_4(): Rule {
   return (tree, context) => {
     if (isTypescriptSdk(tree)) {
       return tsUpdateV11_4()(tree, context);
+    }
+
+    return tree;
+  };
+}
+
+/**
+ * Update of Ama-sdk library V12.1.3
+ */
+// eslint-disable-next-line @typescript-eslint/naming-convention -- function name contains the version
+export function updateV12_1_3(): Rule {
+  return (tree, context) => {
+    if (isTypescriptSdk(tree)) {
+      return tsUpdateV12_1_3()(tree, context);
     }
 
     return tree;

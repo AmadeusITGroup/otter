@@ -22,6 +22,9 @@ import {
 import {
   createGitAttributesFile,
 } from './v11.4/create-gitattributes';
+import {
+  clearPackageJsonExports,
+} from './v12.1/clean-packagejson-exports';
 
 /**
  * update of Otter library V10.0
@@ -81,6 +84,18 @@ export function updateV11_0(): Rule {
 export function updateV11_4(): Rule {
   const updateRules: Rule[] = [
     createGitAttributesFile
+  ];
+
+  return chain(updateRules);
+}
+
+/**
+ * Update of Ama-sdk library V12.1.3
+ */
+// eslint-disable-next-line @typescript-eslint/naming-convention -- function name contains the version
+export function updateV12_1_3(): Rule {
+  const updateRules: Rule[] = [
+    clearPackageJsonExports
   ];
 
   return chain(updateRules);
