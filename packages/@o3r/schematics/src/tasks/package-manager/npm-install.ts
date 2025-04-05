@@ -5,9 +5,11 @@ import {
   NodePackageName,
 } from '@angular-devkit/schematics/tasks/package-manager/options';
 import {
-  getPackageManager,
   getWorkspaceConfig,
-} from '../../utility/index';
+} from '../../utility/loaders';
+import {
+  getPackageManager,
+} from '../../utility/package-manager-runner';
 import type {
   NodePackageInstallTaskOptions,
 } from './interfaces';
@@ -18,6 +20,7 @@ import type {
 export class NpmInstall extends NodePackageInstallTask {
   public quiet = false;
   public force = false;
+  public skipPeerDeps = false;
 
   constructor(options?: NodePackageInstallTaskOptions) {
     super(options as any);
@@ -26,6 +29,7 @@ export class NpmInstall extends NodePackageInstallTask {
       enforcedNpmManager: options?.packageName
     });
     this.force = !!options?.force;
+    this.skipPeerDeps = !!options?.skipPeerDeps;
   }
 
   /** @inheritdoc */
@@ -38,7 +42,7 @@ export class NpmInstall extends NodePackageInstallTask {
         ...config.options,
         command: 'install',
         quiet: this.quiet,
-        packageManager: `${this.packageManager!}${this.force && this.packageManager === 'npm' ? ' --force' : ''}`
+        packageManager: `${this.packageManager!}${this.force && this.packageManager === 'npm' ? ' --force' : ''} ${this.skipPeerDeps && this.packageManager === 'npm' ? ' --legacy-peer-deps' : ''}`
       }
     };
   }
