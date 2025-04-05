@@ -60,7 +60,7 @@ export class DummyApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = options.basePath;
+    const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams);
 
     const ret = this.client.processCall<Flight>(url, options, ApiTypes.DEFAULT, DummyApi.apiName, { 200: reviveFlight } , 'dummyGet');
     return ret;

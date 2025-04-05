@@ -12,7 +12,7 @@ describe('Additional Params Request Plugin', () => {
   const additionalGetParams = jest.fn().mockReturnValue({ test: 'ok' });
   const additionalBody = jest.fn().mockReturnValue('newBody');
 
-  const defaultGetParams = { defaultTest: 'ok' };
+  const defaultGetParams = { defaultTest: 'defaultTest=ok' };
   const defaultBody = 'default';
   let options: RequestOptions;
 
@@ -32,7 +32,27 @@ describe('Additional Params Request Plugin', () => {
 
     const result = await runner.transform(options);
 
-    expect(result.queryParams.test).toBe('ok');
+    expect(result.queryParams.test).toBe('test=ok');
+  });
+
+  it('should add serialized query params', async () => {
+    const plugin = new AdditionalParamsRequest({ queryParams:
+      {
+        primParam: { value: 'ok', explode: false, style: 'form' },
+        arrParam: { value: ['a', 'b', 'c'], explode: false, style: 'spaceDelimited' },
+        objParam: { value: { prop1: 'value1', prop2: 'value2' }, explode: true, style: 'deepObject' }
+      }
+    });
+    const runner = plugin.load();
+
+    const result = await runner.transform(options);
+
+    expect(result.queryParams).toStrictEqual({
+      defaultTest: 'defaultTest=ok',
+      primParam: 'primParam=ok',
+      arrParam: 'arrParam=a%20b%20c',
+      objParam: 'objParam%5Bprop1%5D=value1&objParam%5Bprop2%5D=value2'
+    });
   });
 
   it('should add the query params returned by a function', async () => {
@@ -42,7 +62,7 @@ describe('Additional Params Request Plugin', () => {
     const result = await runner.transform(options);
 
     expect(additionalGetParams).toHaveBeenCalledWith(defaultGetParams);
-    expect(result.queryParams.test).toBe('ok');
+    expect(result.queryParams.test).toBe('test=ok');
   });
 
   it('should modify body', async () => {
@@ -52,7 +72,7 @@ describe('Additional Params Request Plugin', () => {
     const result = await runner.transform(options);
 
     expect(result.queryParams.test).toBeUndefined();
-    expect(result.queryParams.defaultTest).toBe('ok');
+    expect(result.queryParams.defaultTest).toBe('defaultTest=ok');
 
     expect(additionalBody).toHaveBeenCalledWith(defaultBody);
     expect(result.body).toBe('newBody');
@@ -63,7 +83,7 @@ describe('Additional Params Request Sync Plugin', () => {
   const additionalGetParams = jest.fn().mockReturnValue({ test: 'ok' });
   const additionalBody = jest.fn().mockReturnValue('newBody');
 
-  const defaultGetParams = { defaultTest: 'ok' };
+  const defaultGetParams = { defaultTest: 'defaultTest=ok' };
   const defaultBody = 'default';
   let options: RequestOptions;
 
@@ -83,7 +103,27 @@ describe('Additional Params Request Sync Plugin', () => {
 
     const result = runner.transform(options);
 
-    expect(result.queryParams.test).toBe('ok');
+    expect(result.queryParams.test).toBe('test=ok');
+  });
+
+  it('should add serialized query params', () => {
+    const plugin = new AdditionalParamsSyncRequest({ queryParams:
+        {
+          primParam: { value: 'ok', explode: false, style: 'form' },
+          arrParam: { value: ['a', 'b', 'c'], explode: false, style: 'spaceDelimited' },
+          objParam: { value: { prop1: 'value1', prop2: 'value2' }, explode: true, style: 'deepObject' }
+        }
+    });
+    const runner = plugin.load();
+
+    const result = runner.transform(options);
+
+    expect(result.queryParams).toStrictEqual({
+      defaultTest: 'defaultTest=ok',
+      primParam: 'primParam=ok',
+      arrParam: 'arrParam=a%20b%20c',
+      objParam: 'objParam%5Bprop1%5D=value1&objParam%5Bprop2%5D=value2'
+    });
   });
 
   it('should add the query params returned by a function', () => {
@@ -93,7 +133,7 @@ describe('Additional Params Request Sync Plugin', () => {
     const result = runner.transform(options);
 
     expect(additionalGetParams).toHaveBeenCalledWith(defaultGetParams);
-    expect(result.queryParams.test).toBe('ok');
+    expect(result.queryParams.test).toBe('test=ok');
   });
 
   it('should modify body', () => {
@@ -103,7 +143,7 @@ describe('Additional Params Request Sync Plugin', () => {
     const result = runner.transform(options);
 
     expect(result.queryParams.test).toBeUndefined();
-    expect(result.queryParams.defaultTest).toBe('ok');
+    expect(result.queryParams.defaultTest).toBe('defaultTest=ok');
 
     expect(additionalBody).toHaveBeenCalledWith(defaultBody);
     expect(result.body).toBe('newBody');

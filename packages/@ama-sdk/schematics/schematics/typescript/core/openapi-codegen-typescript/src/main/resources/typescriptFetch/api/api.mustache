@@ -72,6 +72,10 @@ export class {{classname}} implements Api {
     {{/allParams}}
     const queryParamsProperties = {{#hasQueryParams}}this.client.getPropertiesFromData(data, [{{#trimComma}}{{#queryParams}}'{{baseName}}', {{/queryParams}}{{/trimComma}}]){{/hasQueryParams}}{{^hasQueryParams}}{}{{/hasQueryParams}};
     const queryParams = this.client.stringifyQueryParams(queryParamsProperties);
+    {{#hasQueryParams}}
+    const queryParamSerialization = { {{#trimComma}}{{#queryParams}}{{baseName}}: { explode: {{isExplode}}, style: '{{style}}' }, {{/queryParams}}{{/trimComma}} };
+    const serializedQueryParams = this.client.serializeQueryParams(queryParamsProperties, queryParamSerialization);
+    {{/hasQueryParams}}
     const metadataHeaderAccept = metadata?.headerAccept || '{{#headerJsonMimeType}}{{#produces}}{{mediaType}}{{^-last}}, {{/-last}}{{/produces}}{{/headerJsonMimeType}}';
     const headers: { [key: string]: string | undefined } = {
   {{#trimComma}}    'Content-Type': metadata?.headerContentType || '{{#headerJsonMimeType}}{{#consumes}}{{mediaType}}{{^-last}}, {{/-last}}{{/consumes}}{{/headerJsonMimeType}}',
@@ -102,7 +106,8 @@ export class {{classname}} implements Api {
     {{/bodyParam}}
     {{#hasPathParams}}
     const pathParamsProperties = this.client.getPropertiesFromData(data, [{{#trimComma}}{{#pathParams}}'{{baseName}}', {{/pathParams}}{{/trimComma}}]);
-    const serializedPathParams = this.client.serializePathParams(pathParamsProperties, { {{#trimComma}}{{#pathParams}}{{baseName}}: { explode: {{isExplode}}, style: '{{style}}' }, {{/pathParams}}{{/trimComma}} });
+    const pathParamSerialization = { {{#trimComma}}{{#pathParams}}{{baseName}}: { explode: {{isExplode}}, style: '{{style}}' }, {{/pathParams}}{{/trimComma}} }
+    const serializedPathParams = this.client.serializePathParams(pathParamsProperties, pathParamSerialization);
     {{/hasPathParams}}
     const basePath = `${this.client.options.basePath}{{#urlParamReplacer}}{{path}}{{/urlParamReplacer}}`;
     const tokenizedUrl = `${this.client.options.basePath}{{#tokenizedUrlParamReplacer}}{{path}}{{/tokenizedUrlParamReplacer}}`;
@@ -112,7 +117,8 @@ export class {{classname}} implements Api {
       headers,
       method: '{{httpMethod}}',
       basePath,
-      queryParams,
+      queryParams{{#hasQueryParams}}: serializedQueryParams,
+      queryParamSerialization{{/hasQueryParams}},
       body: body || undefined,
       metadata,
       tokenizedOptions,
@@ -120,13 +126,7 @@ export class {{classname}} implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    {{#hasQueryParams}}
-    const serializedQueryParams = this.client.serializeQueryParams(queryParamsProperties, { {{#trimComma}}{{#queryParams}}{{baseName}}: { explode: {{isExplode}}, style: '{{style}}' }, {{/queryParams}}{{/trimComma}} });
-    const url = this.client.prepareUrlWithQueryParams(options.basePath, serializedQueryParams);
-    {{/hasQueryParams}}
-    {{^hasQueryParams}}
-    const url = options.basePath;
-    {{/hasQueryParams}}
+    const url = this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams);
 
     const ret = this.client.processCall<{{#vendorExtensions}}{{#responses2xxReturnTypes}}{{.}}{{^-last}} | {{/-last}}{{/responses2xxReturnTypes}}{{^responses2xxReturnTypes}}never{{/responses2xxReturnTypes}}{{/vendorExtensions}}>(url, options, {{#tags.0.extensions.x-api-type}}ApiTypes.{{tags.0.extensions.x-api-type}}{{/tags.0.extensions.x-api-type}}{{^tags.0.extensions.x-api-type}}ApiTypes.DEFAULT{{/tags.0.extensions.x-api-type}}, {{classname}}.apiName,{{#keepRevivers}}{{#vendorExtensions}}{{#responses2xx}}{{#-first}} { {{/-first}}{{code}}: {{^primitiveType}}revive{{baseType}}{{/primitiveType}}{{#primitiveType}}undefined{{/primitiveType}}{{^-last}}, {{/-last}}{{#-last}} } {{/-last}}{{/responses2xx}}{{^responses2xx}} undefined{{/responses2xx}}{{/vendorExtensions}}{{/keepRevivers}}{{^keepRevivers}} undefined{{/keepRevivers}}, '{{nickname}}');
     return ret;

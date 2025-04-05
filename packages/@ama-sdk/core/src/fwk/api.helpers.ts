@@ -31,7 +31,7 @@ export function prepareUrl(url: string, queryParameters: { [key: string]: string
  * @param url Base url to be used
  * @param serializedQueryParams Key value pairs of query parameter names and their serialized values
  */
-export function prepareUrlWithQueryParams(url: string, serializedQueryParams: { [key: string]: string }): string {
+export function prepareUrlWithQueryParams(url: string, serializedQueryParams: { [key: string]: string } = {}): string {
   const paramsPrefix = url.includes('?') ? '&' : '?';
   const queryPart = Object.values(serializedQueryParams).join('&');
   return url + (queryPart ? paramsPrefix + queryPart : '');
