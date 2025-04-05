@@ -86,7 +86,7 @@ import {ThemeService} from '@ama-mfe/ng-utils';
 @Component({
   selector: 'theme-selection',
   imports: [
-    CommonModule,
+    CommonModule
   ],
   templateUrl: './navigation-header.template.html',
 })

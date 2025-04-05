@@ -14,7 +14,7 @@
     }
   ],
   "include": [
-    "cli/**/*.ts",
+    "cli/**/*.ts"
   ],
   "exclude": [
     "**/*.spec.ts"

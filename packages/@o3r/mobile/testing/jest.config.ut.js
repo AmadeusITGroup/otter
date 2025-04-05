@@ -1,18 +1,18 @@
 const path = require('node:path');
-const getJestProjectConfig = require('../../../../jest.config.ut').getJestProjectConfig;
+const { getTsJestBaseConfig, getOtterJestBaseConfig, getJestUnitTestConfig } = require('@o3r/test-helpers');
+const { createCjsPreset } = require('jest-preset-angular/presets');
 
 const rootDir = path.join(__dirname, '..');
 
-const baseConfig = getJestProjectConfig(rootDir, true);
-
 /** @type {import('ts-jest/dist/types').JestConfigWithTsJest} */
 module.exports = {
-  ...baseConfig,
-  displayName: require('../package.json').name,
-  transformIgnorePatterns: ['^.+\\.js$'],
-  testPathIgnorePatterns: [
-    ...baseConfig.testPathIgnorePatterns,
-    '<rootDir>/builders/.*',
-    '<rootDir>/schematics/.*'
-  ]
+  ...createCjsPreset(getTsJestBaseConfig()),
+  ...getOtterJestBaseConfig(rootDir),
+  ...getJestUnitTestConfig({
+    testPathIgnorePatterns: [
+      '<rootDir>/builders/.*',
+      '<rootDir>/schematics/.*'
+    ]
+  }),
+  setupFilesAfterEnv: ['<rootDir>/testing/setup-jest.ts']
 };

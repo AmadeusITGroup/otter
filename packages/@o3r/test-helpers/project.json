@@ -18,7 +18,6 @@
         "script": "postbuild"
       },
       "dependsOn": [
-        "build-builders",
         "compile"
       ]
     },
@@ -28,8 +27,6 @@
         "script": "build:source"
       }
     },
-    "prepare-build-builders": {},
-    "build-builders": {},
     "lint": {},
     "test": {}
   },

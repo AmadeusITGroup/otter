@@ -35,7 +35,7 @@ const entry = initializeEntryComponents();
     ...entry.customComponentsModules
   ],
   providers: [
-    provideCustomComponents(getCustomComponents()),
+    provideCustomComponents(getCustomComponents())
   ]
   ...
 })
@@ -54,7 +54,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     // ...
     importProvidersFrom(entry.customComponentsModules),
-    provideCustomComponents(getCustomComponents()),
+    provideCustomComponents(getCustomComponents())
   ]
 };
 ```

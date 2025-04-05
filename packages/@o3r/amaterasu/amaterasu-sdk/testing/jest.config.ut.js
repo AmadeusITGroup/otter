@@ -1,12 +1,12 @@
 const path = require('node:path');
-const getJestProjectConfig = require('../../../../../jest.config.ut').getJestProjectConfig;
+const { getTsJestBaseConfig, getOtterJestBaseConfig, getJestUnitTestConfig } = require('@o3r/test-helpers');
+const { createDefaultPreset } = require('ts-jest');
 
 const rootDir = path.join(__dirname, '..');
 
-const baseConfig = getJestProjectConfig(rootDir, false);
-
 /** @type {import('ts-jest/dist/types').JestConfigWithTsJest} */
 module.exports = {
-  ...baseConfig,
-  displayName: require('../package.json').name
+  ...createDefaultPreset(getTsJestBaseConfig()),
+  ...getOtterJestBaseConfig(rootDir),
+  ...getJestUnitTestConfig()
 };

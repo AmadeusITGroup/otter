@@ -10,7 +10,7 @@
   "include": [
     "../src/**/*.jest.fixture.ts",
     "../src/api/fixtures.jest.ts",
-    "../src/fixtures/jest/**/*.ts",
+    "../src/fixtures/jest/**/*.ts"
   ],
   "references": [
     {
