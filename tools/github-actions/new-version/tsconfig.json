@@ -1,6 +1,7 @@
 {
   "extends": "../../../tsconfig.build",
   "compilerOptions": {
+    "types": ["node"],
     "target": "ES2022",
     "module": "commonjs",
     "outDir": "./tmp",

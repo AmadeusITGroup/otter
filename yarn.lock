@@ -9591,7 +9591,6 @@ __metadata:
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:~56.0.0"
     eslint-plugin-unused-imports: "npm:~4.1.4"
-    glob: "npm:~11.0.0"
     globals: "npm:^15.9.0"
     globby: "npm:^11.1.0"
     husky: "npm:~9.1.0"
@@ -23575,7 +23574,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"glob@npm:^11.0.0, glob@npm:~11.0.0":
+"glob@npm:^11.0.0":
   version: 11.0.1
   resolution: "glob@npm:11.0.1"
   dependencies:
