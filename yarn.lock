@@ -37338,6 +37338,7 @@ __metadata:
   dependencies:
     "@actions/core": "npm:^1.10.0"
     "@actions/exec": "npm:^1.1.1"
+    "@actions/github": "npm:^6.0.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@nx/eslint-plugin": "npm:~20.6.0"
     "@o3r/eslint-config": "workspace:~"

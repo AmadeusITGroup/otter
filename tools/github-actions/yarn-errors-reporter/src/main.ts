@@ -6,22 +6,89 @@ import {
   exec,
   getExecOutput,
 } from '@actions/exec';
+import {
+  getOctokit,
+} from '@actions/github';
 
 type YarnInstallOutputLine = { displayName: string; indent: string; data: string };
+
+/** Comment to identify the report comment in the Pull Request */
+const COMMENT_IDENTIFIER = '<!-- yarn report comment -->\n';
+
+/**
+ * Write comment on the Pull Request listing the Yarn errors
+ * @param errors list of reported errors
+ */
+async function writeErrorComment(errors: string[]) {
+  const token = process.env.GITHUB_TOKEN;
+  const [owner, repo] = (process.env.GITHUB_REPOSITORY || '').split('/');
+  let payload: any;
+  if (process.env.GITHUB_EVENT_PATH && fs.existsSync(process.env.GITHUB_EVENT_PATH)) {
+    payload = JSON.parse(
+      fs.readFileSync(process.env.GITHUB_EVENT_PATH, { encoding: 'utf8' })
+    );
+  }
+  const issueNumber = (payload?.issue || payload?.pull_request || payload)?.number;
+  const issues = issueNumber !== undefined && owner && repo && token && getOctokit(token).rest.issues;
+  if (!issues) {
+    core.info('No access to the GitHub API, the error will not be reported to the pull request');
+    return;
+  }
+  const comments = await issues.listComments({ owner, repo, issue_number: issueNumber });
+
+  const previousMessage = comments.data.find(({ body }) => body && body.startsWith(COMMENT_IDENTIFIER));
+  const messageBody = COMMENT_IDENTIFIER + `:warning: Yarn detected **${errors.length} errors** during the install process.\n`
+    + `
+<details>
+
+<summary>Error list</summary>
+${errors.map((error) => `*  ${error}`).join('\n')}
+</details>
+`;
+
+  await (previousMessage
+    ? issues.updateComment({ comment_id: previousMessage.id, repo, owner, body: messageBody })
+    : issues.createComment({ repo, owner, body: messageBody, issue_number: issueNumber })
+  );
+}
+
+/**
+ * Remove the comment containing the reporting error
+ */
+async function removeErrorComment() {
+  const token = process.env.GITHUB_TOKEN;
+  const [owner, repo] = (process.env.GITHUB_REPOSITORY || '').split('/');
+  let payload: any;
+  if (process.env.GITHUB_EVENT_PATH && fs.existsSync(process.env.GITHUB_EVENT_PATH)) {
+    payload = JSON.parse(
+      fs.readFileSync(process.env.GITHUB_EVENT_PATH, { encoding: 'utf8' })
+    );
+  }
+  const issueNumber = (payload?.issue || payload?.pull_request || payload)?.number;
+  const issues = issueNumber !== undefined && owner && repo && token && getOctokit(token).rest.issues;
+  if (!issues) {
+    core.info('No access to the GitHub API, the errors comment will not be detected');
+    return;
+  }
+  const comments = (await issues.listComments({ owner, repo, issue_number: issueNumber })).data.filter(({ body }) => body && body.startsWith(COMMENT_IDENTIFIER));
+  await Promise.all(comments.map(({ id }) => issues.deleteComment({ comment_id: id, owner, repo })));
+}
 
 function parseYarnInstallOutput(output: string, errorCodesToReport: string[]) {
   return output.split(os.EOL)
     .map((line) => line ? JSON.parse(line) as YarnInstallOutputLine : undefined)
     .filter((line): line is YarnInstallOutputLine => !!line && errorCodesToReport.includes(line.displayName))
-    .map((line) => `➤${line.displayName}: ${line.indent}${line.data}`);
+    .map((line) => `➤ ${line.displayName}: ${line.indent}${line.data}`);
 }
 
 async function run(): Promise<void> {
   try {
     const cwd = process.env.GITHUB_WORKSPACE!;
     const reportOnFile = core.getInput('reportOnFile');
+    const shouldCommentPullRequest = core.getInput('shouldCommentPullRequest', { required: true });
     const errorCodesToReport = core.getInput('errorCodesToReport').split(',').map((code) => code.trim());
     const onlyReportsIfAffected = core.getBooleanInput('onlyReportsIfAffected');
+
     const yarnLockPath = path.resolve(cwd, 'yarn.lock');
     const execOptions = {
       cwd,
@@ -68,7 +135,13 @@ async function run(): Promise<void> {
 
     if (errors.length > 0) {
       core.warning(errors.join(os.EOL), { file: reportOnFile, title: 'Errors during yarn install' });
+      if (shouldCommentPullRequest) {
+        await writeErrorComment(errors);
+      }
     } else {
+      if (shouldCommentPullRequest) {
+        await removeErrorComment();
+      }
       core.info('No errors found!');
     }
   } catch (error) {
