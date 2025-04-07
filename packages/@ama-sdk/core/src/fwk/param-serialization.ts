@@ -16,13 +16,13 @@ export type PrimitiveType = string | number | boolean | Date | utils.Date | util
 export type SupportedParamType = PrimitiveType | PrimitiveType[] | { [key: string]: PrimitiveType };
 
 /** URL encoding of space character, delimiter for spaceDelimited style */
-const SPACE_URL_CODE = encodeURIComponent(' ');
+export const SPACE_URL_CODE = encodeURIComponent(' ');
 /** URL encoding of pipe character, delimiter for pipeDelimited style */
-const PIPE_URL_CODE = encodeURIComponent('|');
+export const PIPE_URL_CODE = encodeURIComponent('|');
 /** URL encoding of opening square bracket, used in deepObject style */
-const OPENING_SQUARE_BRACKET_URL_CODE = encodeURIComponent('[');
+export const OPENING_SQUARE_BRACKET_URL_CODE = encodeURIComponent('[');
 /** URL encoding of closing square bracket, used in deepObject style */
-const CLOSING_SQUARE_BRACKET_URL_CODE = encodeURIComponent(']');
+export const CLOSING_SQUARE_BRACKET_URL_CODE = encodeURIComponent(']');
 
 /**
  * Verify if property is of type utils.Date or utils.DateTime

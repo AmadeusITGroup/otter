@@ -137,9 +137,12 @@ your own serialization methods if the ones provided do not meet your requirement
 > API to prepare the URL. You can do so by using the serialization method that we provide (`serializeQueryParams`) or your own serialization method. The value of the query
 > parameters returned by the `RequestPlugin` will be forwarded to the next plugin and the last value will be directly added to the URL.
 
+We also provide the methods `deserializeQueryParams` and `deserializePathParams` to deserialize the values of query and path parameters based on their serialization
+(`explode` and `style`) and type (`primitive`, `array`, or `object`). This method can be used as a tool to better visualize the values of the parameters during development.
+
 > [!NOTE]
 > It is important to note that special characters have to be encoded, as required by RFC6570 and RFC3986. Please take this into account if you choose to use your own
-> serialization methods.
+> serialization or deserialization methods.
 
 #### Light SDK
 
