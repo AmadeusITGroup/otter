@@ -31,11 +31,13 @@ describe('Serialize parameters', () => {
     // value = array, explode = false, style = form
     expect(serializeQueryParams(mockArrayQueryParams, { idArray: { explode: false, style: 'form' } })).toEqual({ idArray: 'idArray=3,4,5' });
     // value = array, explode = true, style = spaceDelimited --> not supported
-    expect(serializeQueryParams(mockArrayQueryParams, { idArray: { explode: true, style: 'spaceDelimited' } })).toEqual({ idArray: undefined });
+    expect(() => serializeQueryParams(mockArrayQueryParams, { idArray: { explode: true, style: 'spaceDelimited' } }))
+      .toThrow(`Unable to serialize query parameter idArray since the combination explode=true and style='spaceDelimited' is not supported.`);
     // value = array, explode = false, style = spaceDelimited
     expect(serializeQueryParams(mockArrayQueryParams, { idArray: { explode: false, style: 'spaceDelimited' } })).toEqual({ idArray: 'idArray=3%204%205' });
     // value = array, explode = true, style = pipeDelimited --> not supported
-    expect(serializeQueryParams(mockArrayQueryParams, { idArray: { explode: true, style: 'pipeDelimited' } })).toEqual({ idArray: undefined });
+    expect(() => serializeQueryParams(mockArrayQueryParams, { idArray: { explode: true, style: 'pipeDelimited' } }))
+      .toThrow(`Unable to serialize query parameter idArray since the combination explode=true and style='pipeDelimited' is not supported.`);
     // value = array, explode = false, style = pipeDelimited
     expect(serializeQueryParams(mockArrayQueryParams, { idArray: { explode: false, style: 'pipeDelimited' } })).toEqual({ idArray: 'idArray=3%7C4%7C5' });
     // value = object, explode = true, style = form
@@ -43,17 +45,20 @@ describe('Serialize parameters', () => {
     // value = object, explode = false, style = form
     expect(serializeQueryParams(mockObjectQueryParams, { idObject: { explode: false, style: 'form' } })).toEqual({ idObject: 'idObject=role,admin,firstName,Alex' });
     // value = object, explode = true, style = spaceDelimited --> not supported
-    expect(serializeQueryParams(mockObjectQueryParams, { idObject: { explode: true, style: 'spaceDelimited' } })).toEqual({ idObject: undefined });
+    expect(() => serializeQueryParams(mockObjectQueryParams, { idObject: { explode: true, style: 'spaceDelimited' } }))
+      .toThrow(`Unable to serialize query parameter idObject since the combination explode=true and style='spaceDelimited' is not supported.`);
     // value = object, explode = false, style = spaceDelimited
     expect(serializeQueryParams(mockObjectQueryParams, { idObject: { explode: false, style: 'spaceDelimited' } })).toEqual({ idObject: 'idObject=role%20admin%20firstName%20Alex' });
     // value = object, explode = true, style = pipeDelimited --> not supported
-    expect(serializeQueryParams(mockObjectQueryParams, { idObject: { explode: true, style: 'pipeDelimited' } })).toEqual({ idObject: undefined });
+    expect(() => serializeQueryParams(mockObjectQueryParams, { idObject: { explode: true, style: 'pipeDelimited' } }))
+      .toThrow(`Unable to serialize query parameter idObject since the combination explode=true and style='pipeDelimited' is not supported.`);
     // value = object, explode = false, style = pipeDelimited
     expect(serializeQueryParams(mockObjectQueryParams, { idObject: { explode: false, style: 'pipeDelimited' } })).toEqual({ idObject: 'idObject=role%7Cadmin%7CfirstName%7CAlex' });
     // value = object, explode = true, style = deepObject
     expect(serializeQueryParams(mockObjectQueryParams, { idObject: { explode: true, style: 'deepObject' } })).toEqual({ idObject: 'idObject%5Brole%5D=admin&idObject%5BfirstName%5D=Alex' });
     // value = object, explode = false, style = deepObject --> not supported
-    expect(serializeQueryParams(mockObjectQueryParams, { idObject: { explode: false, style: 'deepObject' } })).toEqual({ idObject: undefined });
+    expect(() => serializeQueryParams(mockObjectQueryParams, { idObject: { explode: false, style: 'deepObject' } }))
+      .toThrow(`Unable to serialize query parameter idObject since the combination explode=false and style='deepObject' is not supported.`);
     // multiple parameters
     expect(serializeQueryParams(mockMultipleQueryParams, { idArray: { explode: false, style: 'form' }, idPrimitive: { explode: true, style: 'form' } }))
       .toEqual({ idArray: 'idArray=3,4,5', idPrimitive: 'idPrimitive=5' });
@@ -63,12 +68,18 @@ describe('Serialize parameters', () => {
     // empty array
     expect(serializeQueryParams({ idEmptyArray: [] }, { idEmptyArray: { explode: true, style: 'form' } })).toEqual({ idEmptyArray: 'idEmptyArray=' });
     expect(serializeQueryParams({ idEmptyArray: [] }, { idEmptyArray: { explode: false, style: 'form' } })).toEqual({ idEmptyArray: 'idEmptyArray=' });
-    expect(serializeQueryParams({ idEmptyArray: [] }, { idEmptyArray: { explode: true, style: 'spaceDelimited' } })).toEqual({ idEmptyArray: undefined });
-    expect(serializeQueryParams({ idEmptyArray: [] }, { idEmptyArray: { explode: false, style: 'spaceDelimited' } })).toEqual({ idEmptyArray: undefined });
-    expect(serializeQueryParams({ idEmptyArray: [] }, { idEmptyArray: { explode: true, style: 'pipeDelimited' } })).toEqual({ idEmptyArray: undefined });
-    expect(serializeQueryParams({ idEmptyArray: [] }, { idEmptyArray: { explode: false, style: 'pipeDelimited' } })).toEqual({ idEmptyArray: undefined });
-    expect(serializeQueryParams({ idEmptyArray: [] }, { idEmptyArray: { explode: false, style: 'deepObject' } })).toEqual({ idEmptyArray: undefined });
-    expect(serializeQueryParams({ idEmptyArray: [] }, { idEmptyArray: { explode: false, style: 'deepObject' } })).toEqual({ idEmptyArray: undefined });
+    expect(() => serializeQueryParams({ idEmptyArray: [] }, { idEmptyArray: { explode: true, style: 'spaceDelimited' } }))
+      .toThrow(`Unable to serialize query parameter idEmptyArray since the combination explode=true and style='spaceDelimited' is not supported.`);
+    expect(() => serializeQueryParams({ idEmptyArray: [] }, { idEmptyArray: { explode: false, style: 'spaceDelimited' } }))
+      .toThrow(`Unable to serialize query parameter idEmptyArray since the combination explode=false and style='spaceDelimited' is not supported.`);
+    expect(() => serializeQueryParams({ idEmptyArray: [] }, { idEmptyArray: { explode: true, style: 'pipeDelimited' } }))
+      .toThrow(`Unable to serialize query parameter idEmptyArray since the combination explode=true and style='pipeDelimited' is not supported.`);
+    expect(() => serializeQueryParams({ idEmptyArray: [] }, { idEmptyArray: { explode: false, style: 'pipeDelimited' } }))
+      .toThrow(`Unable to serialize query parameter idEmptyArray since the combination explode=false and style='pipeDelimited' is not supported.`);
+    expect(() => serializeQueryParams({ idEmptyArray: [] }, { idEmptyArray: { explode: true, style: 'deepObject' } }))
+      .toThrow(`Unable to serialize query parameter idEmptyArray since the combination explode=true and style='deepObject' is not supported.`);
+    expect(() => serializeQueryParams({ idEmptyArray: [] }, { idEmptyArray: { explode: false, style: 'deepObject' } }))
+      .toThrow(`Unable to serialize query parameter idEmptyArray since the combination explode=false and style='deepObject' is not supported.`);
     // array with undefined values
     expect(serializeQueryParams({ idArrayUndefinedValues: ['value1', undefined, null, 'value2'] }, { idArrayUndefinedValues: { explode: true, style: 'form' } }))
       .toEqual({ idArrayUndefinedValues: 'idArrayUndefinedValues=value1&idArrayUndefinedValues=value2' });
@@ -77,12 +88,18 @@ describe('Serialize parameters', () => {
     // empty object
     expect(serializeQueryParams({ idEmptyObject: {} }, { idEmptyObject: { explode: true, style: 'form' } })).toEqual({ idEmptyObject: 'idEmptyObject=' });
     expect(serializeQueryParams({ idEmptyObject: {} }, { idEmptyObject: { explode: false, style: 'form' } })).toEqual({ idEmptyObject: 'idEmptyObject=' });
-    expect(serializeQueryParams({ idEmptyObject: {} }, { idEmptyObject: { explode: true, style: 'spaceDelimited' } })).toEqual({ idEmptyObject: undefined });
-    expect(serializeQueryParams({ idEmptyObject: {} }, { idEmptyObject: { explode: false, style: 'spaceDelimited' } })).toEqual({ idEmptyObject: undefined });
-    expect(serializeQueryParams({ idEmptyObject: {} }, { idEmptyObject: { explode: true, style: 'pipeDelimited' } })).toEqual({ idEmptyObject: undefined });
-    expect(serializeQueryParams({ idEmptyObject: {} }, { idEmptyObject: { explode: false, style: 'pipeDelimited' } })).toEqual({ idEmptyObject: undefined });
-    expect(serializeQueryParams({ idEmptyObject: {} }, { idEmptyObject: { explode: true, style: 'deepObject' } })).toEqual({ idEmptyObject: undefined });
-    expect(serializeQueryParams({ idEmptyObject: {} }, { idEmptyObject: { explode: false, style: 'deepObject' } })).toEqual({ idEmptyObject: undefined });
+    expect(() => serializeQueryParams({ idEmptyObject: {} }, { idEmptyObject: { explode: true, style: 'spaceDelimited' } }))
+      .toThrow(`Unable to serialize query parameter idEmptyObject since the combination explode=true and style='spaceDelimited' is not supported.`);
+    expect(() => serializeQueryParams({ idEmptyObject: {} }, { idEmptyObject: { explode: false, style: 'spaceDelimited' } }))
+      .toThrow(`Unable to serialize query parameter idEmptyObject since the combination explode=false and style='spaceDelimited' is not supported.`);
+    expect(() => serializeQueryParams({ idEmptyObject: {} }, { idEmptyObject: { explode: true, style: 'pipeDelimited' } }))
+      .toThrow(`Unable to serialize query parameter idEmptyObject since the combination explode=true and style='pipeDelimited' is not supported.`);
+    expect(() => serializeQueryParams({ idEmptyObject: {} }, { idEmptyObject: { explode: false, style: 'pipeDelimited' } }))
+      .toThrow(`Unable to serialize query parameter idEmptyObject since the combination explode=false and style='pipeDelimited' is not supported.`);
+    expect(() => serializeQueryParams({ idEmptyObject: {} }, { idEmptyObject: { explode: true, style: 'deepObject' } }))
+      .toThrow(`Unable to serialize query parameter idEmptyObject since the combination explode=true and style='deepObject' is not supported.`);
+    expect(() => serializeQueryParams({ idEmptyObject: {} }, { idEmptyObject: { explode: false, style: 'deepObject' } }))
+      .toThrow(`Unable to serialize query parameter idEmptyObject since the combination explode=false and style='deepObject' is not supported.`);
     // object with undefined values
     expect(serializeQueryParams({ idObjectUndefinedValues: { property1: undefined, property2: 'value2' } }, { idObjectUndefinedValues: { explode: true, style: 'form' } }))
       .toEqual({ idObjectUndefinedValues: 'property2=value2' });
@@ -152,19 +169,29 @@ describe('Serialize parameters', () => {
       idArrayToFilter: ['value1', undefined, null, 'value2']
     };
 
-    const emptyArrayPathParametersSimpleExplode = serializePathParams(mockArrayData, {
-      idEmptyArray: { explode: true, style: 'simple' },
-      idArrayToFilter: { explode: true, style: 'simple' }
-    });
-    expect(emptyArrayPathParametersSimpleExplode.idEmptyArray).toEqual(undefined);
-    expect(emptyArrayPathParametersSimpleExplode.idArrayToFilter).toEqual('value1,value2');
+    // value = empty array, explode = true, style = simple
+    expect(() => serializePathParams(
+      { idEmptyArray: [] },
+      { idEmptyArray: { explode: true, style: 'simple' } }
+    )).toThrow(`Unable to serialize path parameter idEmptyArray since an empty array of style='simple' is not supported.`);
 
-    const emptyArrayPathParametersSimple = serializePathParams(mockArrayData, {
-      idEmptyArray: { explode: false, style: 'simple' },
-      idArrayToFilter: { explode: false, style: 'simple' }
-    });
-    expect(emptyArrayPathParametersSimple.idEmptyArray).toEqual(undefined);
-    expect(emptyArrayPathParametersSimple.idArrayToFilter).toEqual('value1,value2');
+    // value = empty array, explode = false, style = simple
+    expect(() => serializePathParams(
+      { idEmptyArray: [] },
+      { idEmptyArray: { explode: false, style: 'simple' } }
+    )).toThrow(`Unable to serialize path parameter idEmptyArray since an empty array of style='simple' is not supported.`);
+
+    const filterArrayPathParametersSimpleExplode = serializePathParams(
+      { idArrayToFilter: ['value1', undefined, null, 'value2'] },
+      { idArrayToFilter: { explode: true, style: 'simple' } }
+    );
+    expect(filterArrayPathParametersSimpleExplode.idArrayToFilter).toEqual('value1,value2');
+
+    const filterArrayPathParametersSimple = serializePathParams(
+      { idArrayToFilter: ['value1', undefined, null, 'value2'] },
+      { idArrayToFilter: { explode: false, style: 'simple' } }
+    );
+    expect(filterArrayPathParametersSimple.idArrayToFilter).toEqual('value1,value2');
 
     const emptyArrayPathParametersLabelExplode = serializePathParams(mockArrayData, {
       idEmptyArray: { explode: true, style: 'label' },
