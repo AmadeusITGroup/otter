@@ -9,7 +9,7 @@
         "^ag-grid-",
         "^@design-factory",
         "^@agnos-ui",
-        "^@amadeus-it-group"
+        "^@amadeus-it-group/tansu"
       ],
       "groupName": "Design Factory dependencies",
       "groupSlug": "design-factory-dependencies"
