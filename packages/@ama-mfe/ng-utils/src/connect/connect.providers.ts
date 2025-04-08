@@ -8,7 +8,7 @@ import {
   makeEnvironmentProviders,
 } from '@angular/core';
 import {
-  provideHostInfo,
+  persistHostInfo,
 } from '../host-info';
 import {
   getDefaultClientEndpointStartOptions,
@@ -24,9 +24,9 @@ import {
  * @param connectionConfig The identifier of the application in the communication protocol ecosystem plus the types of messages able to exchange
  */
 export function provideConnection(connectionConfig: ConnectionConfig) {
+  persistHostInfo();
   const config: MessagePeerConfig = { id: connectionConfig.id, knownMessages: [...KNOWN_MESSAGES, ...(connectionConfig.knownMessages || [])] };
   return makeEnvironmentProviders([
-    provideHostInfo(),
     {
       provide: MESSAGE_PEER_CONFIG, useValue: config
     },
