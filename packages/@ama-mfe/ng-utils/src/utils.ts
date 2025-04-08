@@ -33,3 +33,10 @@ export function getDefaultClientEndpointStartOptions(): PeerConnectionOptions {
   }
   return {};
 }
+
+/**
+ * Return `true` if embedded inside an iframe, `false` otherwise
+ */
+export function isEmbedded() {
+  return window.top !== window.self;
+}

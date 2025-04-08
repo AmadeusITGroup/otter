@@ -269,18 +269,21 @@ This will add the `location.origin` and the application id of the host to the UR
 #### Embedded application
 
 The embedded application can access the data sent in the previous section using an injection token:
+
 ```typescript
 import {inject} from '@angular/core';
-import {MFE_HOST_INFO_TOKEN} from '@ama-mfe/ng-utils';
+import {getHostInfo, isEmbedded} from '@ama-mfe/ng-utils';
 
 export class SomeClass {
-  private readonly hostInfo = inject(MFE_HOST_INFO_TOKEN);
-  
+  private readonly hostInfo = getHostInfo();
+
   doSomething() {
     if (this.hostInfo.applicationId === 'app1') {
       // Do something when embedded in app1
+    } else if (isEmbedded()) {
+      // Do something when embedded elsewhere
     } else {
-      // Do something else
+      // Do something when standalone
     }
   }
 }

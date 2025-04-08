@@ -1,7 +1,3 @@
-import {
-  InjectionToken,
-} from '@angular/core';
-
 const SESSION_STORAGE_KEY = 'ama-mfe-host-info';
 
 /**
@@ -31,11 +27,6 @@ export interface MFEHostInformation {
 }
 
 /**
- * Injectable used to get the host information
- */
-export const MFE_HOST_INFO_TOKEN = new InjectionToken<MFEHostInformation>('MFE_HOST_INFO');
-
-/**
  * Gather the host information from the url parameters
  * The host url will use the first found among:
  * - look for the search parameter {@link MFE_HOST_URL_PARAM} in the URL of the iframe
@@ -53,13 +44,9 @@ export function getHostInfo(): MFEHostInformation {
 }
 
 /**
- * Provider used to gather the host information from the url parameters and handle the persistence in session storage.
+ * Gather the host information from the url parameters and handle the persistence in session storage.
  */
-export function provideHostInfo() {
+export function persistHostInfo() {
   const hostInfo = getHostInfo();
   sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(hostInfo));
-
-  return [
-    { provide: MFE_HOST_INFO_TOKEN, useValue: hostInfo }
-  ];
 }
