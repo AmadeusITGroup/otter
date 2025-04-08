@@ -19,25 +19,44 @@ Now let's see how to set this mechanism up to create your replacable components.
 
 ## Prepare your base app to register custom components
 
-Firstly we need to prepare the base app to have the extensibility of providers. To do this you need to create a new variable in your app.module.ts that can extend the providers, lets call it customProviders.
+Firstly we need to prepare the base app to have the extensibility of providers. To do this you need to create a new variable in your app.config.ts that can extend the providers, lets call it customProviders.
 
 #### src/app/app.module.ts
 
 ```typescript
-import {initializeEntryComponents, registerCustomComponents} from '../customization/presenters-map.empty';
-import {C11nModule} from '@o3r/components';
+import {initializeEntryComponents, getCustomComponents} from '../customization/presenters-map.empty';
+import {provideCustomComponents} from '@o3r/components';
 ...
 
 const entry = initializeEntryComponents();
 
 @NgModule({
   imports: [
-    ...
-    C11nModule.forRoot({registerCompFunc: registerCustomComponents}),
     ...entry.customComponentsModules
   ],
+  providers: [
+    provideCustomComponents(getCustomComponents()),
+  ]
   ...
 })
+```
+
+#### src/app/app.config.ts
+
+```typescript
+import {initializeEntryComponents, getCustomComponents} from '../customization/presenters-map.empty';
+import {provideCustomComponents} from '@o3r/components';
+...
+
+const entry = initializeEntryComponents();
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    // ...
+    importProvidersFrom(entry.customComponentsModules),
+    provideCustomComponents(getCustomComponents()),
+  ]
+};
 ```
 
 We also need to create 2 functions _initializeEntryComponents_ and _registerCustomComponents_  that will initialize the values for the base application so the app compiles.
@@ -137,17 +156,17 @@ In this section we will detail how to make a subcomponent replaceable by this me
 
 Here we need to do two things:
 
-* Import the module related to customization: ``C11nModule``
+* Import the directive related to customization: ``C11nDirective``
 
 ````typescript
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
-import {C11nModule} from '@o3r/components';
+import {C11nDirective} from '@o3r/components';
 import {DummyContComponent} from './dummy-cont.component';
 import {DummyPresComponent} from '../presenter/dummy-pres.component';
 
 @NgModule({
-  imports: [CommonModule, C11nModule],
+  imports: [CommonModule, C11nDirective],
   declarations: [DummyContComponent],
   exports: [DummyContComponent],
 })
