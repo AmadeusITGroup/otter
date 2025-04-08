@@ -1,3 +1,6 @@
+import {
+  basename,
+} from 'node:path';
 import type {
   Rule,
 } from '@angular-devkit/schematics';
@@ -33,14 +36,14 @@ export function updateTsConfig(targetPath: string, projectName: string, scope: s
     configWithPath.content.compilerOptions.baseUrl ||= '.';
     configWithPath.content.compilerOptions.paths ||= {};
     configWithPath.content.compilerOptions.paths[`${scope ? `@${scope}/` : ''}${projectName}`] = [
-      `${relativeTargetPath}/dist`,
+      ...(basename(configWithPath.tsconfig) === 'tsconfig.build.json' ? [`${relativeTargetPath}/dist`] : []),
       `${relativeTargetPath}/src/index`
     ];
     configWithPath.content.compilerOptions.paths[`${scope ? `@${scope}/` : ''}${projectName}/fixtures`] = [
       `${relativeTargetPath}/src/fixtures/jest`
     ];
     configWithPath.content.compilerOptions.paths[`${scope ? `@${scope}/` : ''}${projectName}/*`] = [
-      `${relativeTargetPath}/dist/*`,
+      ...(basename(configWithPath.tsconfig) === 'tsconfig.build.json' ? [`${relativeTargetPath}/dist/*`] : []),
       `${relativeTargetPath}/src/*`
     ];
 
