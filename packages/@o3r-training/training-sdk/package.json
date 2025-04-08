@@ -7,10 +7,6 @@
   "main": "cjs/index.js",
   "module": "esm2020/index.js",
   "node": "cjs/index.js",
-  "es2020": "esm2020/index.js",
-  "esm2020": "esm2020/index.js",
-  "es2015": "esm2015/index.js",
-  "esm2015": "esm2015/index.js",
   "types": "index.d.ts",
   "sideEffects": false,
   "exports": {
@@ -26,11 +22,9 @@
     ".": {
       "main": "./cjs/index.js",
       "module": "./esm2020/index.js",
-      "es2020": "./esm2020/index.js",
-      "esm2020": "./esm2020/index.js",
       "node": "./cjs/index.js",
       "default": "./esm2020/index.js",
-      "typings": "./index.d.ts",
+      "types": "./index.d.ts",
       "import": "./esm2020/index.js",
       "require": "./esm2020/index.js"
     }
