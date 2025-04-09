@@ -85,8 +85,8 @@
     {
       // This rule disable the upgrade of the gaurav-nelson/github-action-markdown-link-check
       // TODO: re-activate the upgrade when the following issue is fixed: gaurav-nelson/github-action-markdown-link-check#200
-      "matchPackagePatterns": [
-        ".*markdown-link-check"
+      "matchPackageNames": [
+        "/.*markdown-link-check/"
       ],
       "enabled": false
     },
