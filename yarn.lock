@@ -275,7 +275,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ama-mfe/messages@workspace:packages/@ama-mfe/messages"
   dependencies:
-    "@amadeus-it-group/microfrontends": "npm:0.0.4"
+    "@amadeus-it-group/microfrontends": "npm:0.0.5"
     "@compodoc/compodoc": "npm:^1.1.19"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@nx/eslint-plugin": "npm:~20.7.0"
@@ -318,7 +318,7 @@ __metadata:
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.29.0"
   peerDependencies:
-    "@amadeus-it-group/microfrontends": 0.0.4
+    "@amadeus-it-group/microfrontends": 0.0.5
   peerDependenciesMeta:
     "@amadeus-it-group/microfrontends":
       optional: true
@@ -330,7 +330,7 @@ __metadata:
   resolution: "@ama-mfe/ng-utils@workspace:packages/@ama-mfe/ng-utils"
   dependencies:
     "@ama-mfe/messages": "workspace:^"
-    "@amadeus-it-group/microfrontends": "npm:0.0.4"
+    "@amadeus-it-group/microfrontends": "npm:0.0.5"
     "@amadeus-it-group/microfrontends-angular": "npm:0.0.5"
     "@angular-devkit/architect": "npm:~0.1902.0"
     "@angular-devkit/build-angular": "npm:~19.2.0"
@@ -380,7 +380,7 @@ __metadata:
     zone.js: "npm:~0.15.0"
   peerDependencies:
     "@ama-mfe/messages": "workspace:^"
-    "@amadeus-it-group/microfrontends": 0.0.4
+    "@amadeus-it-group/microfrontends": 0.0.5
     "@amadeus-it-group/microfrontends-angular": 0.0.5
     "@angular-devkit/core": ~19.2.0
     "@angular-devkit/schematics": ~19.2.0
@@ -1161,10 +1161,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@amadeus-it-group/microfrontends@npm:0.0.4":
-  version: 0.0.4
-  resolution: "@amadeus-it-group/microfrontends@npm:0.0.4"
-  checksum: 10/aad2463f6b939822c9a5eb76142df53c40ef911de352e8b4aa525618f8dbfbdb8a6b7ac205dcb3429e6f6c3f8ec6977ffb00e57137e5ed544aa824d6c40637d2
+"@amadeus-it-group/microfrontends@npm:0.0.5":
+  version: 0.0.5
+  resolution: "@amadeus-it-group/microfrontends@npm:0.0.5"
+  checksum: 10/6ab66fef578eb472ae06b66ed50fe9d43c64948313306e42c2d784c49fa4c6cf81ce8b0b92043f2ad4c5dbdab986c9f32202aaf75aefdb5d313b4a207d5d8938
   languageName: node
   linkType: hard
 
