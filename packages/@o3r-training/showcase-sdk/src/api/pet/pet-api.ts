@@ -1,6 +1,6 @@
 import { ApiResponse } from '../../models/base/api-response/index';
 import { Pet } from '../../models/base/pet/index';
-import { Api, ApiClient, ApiTypes, computePiiParameterTokens, isJsonMimeType, RequestBody, RequestMetadata, } from '@ama-sdk/core';
+import { Api, ApiClient, ApiTypes, computePiiParameterTokens, isJsonMimeType, ParamSerializationOptions, RequestBody, RequestMetadata, } from '@ama-sdk/core';
 
 /** Enum status used in the PetApi's findPetsByStatus function parameter */
 export type PetApiFindPetsByStatusStatusEnum = 'available' | 'pending' | 'sold';
@@ -85,8 +85,6 @@ export class PetApi implements Api {
    * @param metadata Metadata to pass to the API call
    */
   public async addPet(data: PetApiAddPetRequestData, metadata?: RequestMetadata<'application/json' | 'application/xml' | 'application/x-www-form-urlencoded', 'application/xml' | 'application/json'>): Promise<Pet> {
-    const queryParamsProperties = {};
-    const queryParams = this.client.stringifyQueryParams(queryParamsProperties);
     const metadataHeaderAccept = metadata?.headerAccept || 'application/json';
     const headers: { [key: string]: string | undefined } = {
       'Content-Type': metadata?.headerContentType || 'application/json',
@@ -99,6 +97,11 @@ export class PetApi implements Api {
     } else {
       body = data['Pet'] as any;
     }
+
+    let queryParams = {};
+    const paramSerializationOptions: ParamSerializationOptions = {
+      enableParameterSerialization: this.client.options.enableParameterSerialization
+    };
     const basePath = `${this.client.options.basePath}/pet`;
     const tokenizedUrl = `${this.client.options.basePath}/pet`;
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
@@ -108,6 +111,7 @@ export class PetApi implements Api {
       method: 'POST',
       basePath,
       queryParams,
+      paramSerializationOptions,
       body: body || undefined,
       metadata,
       tokenizedOptions,
@@ -115,7 +119,7 @@ export class PetApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = options.basePath;
+    const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
 
     const ret = this.client.processCall<Pet>(url, options, ApiTypes.DEFAULT, PetApi.apiName, undefined, 'addPet');
     return ret;
@@ -128,8 +132,6 @@ export class PetApi implements Api {
    * @param metadata Metadata to pass to the API call
    */
   public async deletePet(data: PetApiDeletePetRequestData, metadata?: RequestMetadata<string, 'application/xml' | 'application/json'>): Promise<string> {
-    const queryParamsProperties = {};
-    const queryParams = this.client.stringifyQueryParams(queryParamsProperties);
     const metadataHeaderAccept = metadata?.headerAccept || 'application/json';
     const headers: { [key: string]: string | undefined } = {
       'Content-Type': metadata?.headerContentType || 'application/json',
@@ -138,10 +140,23 @@ export class PetApi implements Api {
     };
 
     let body: RequestBody = '';
-    const pathParamsProperties = this.client.getPropertiesFromData(data, ['petId']);
-    const serializedPathParams = this.client.serializePathParams(pathParamsProperties, { petId: { explode: false, style: 'simple' } });
-    const basePath = `${this.client.options.basePath}/pet/${serializedPathParams['petId']}`;
-    const tokenizedUrl = `${this.client.options.basePath}/pet/${this.piiParamTokens['petId'] || serializedPathParams['petId']}`;
+
+    let queryParams = {};
+    const paramSerializationOptions: ParamSerializationOptions = {
+      enableParameterSerialization: this.client.options.enableParameterSerialization
+    };
+    let basePath;
+    let tokenizedUrl;
+    if (this.client.options.enableParameterSerialization) {
+      const pathParamsProperties = this.client.getPropertiesFromData(data, ['petId']);
+      const pathParamSerialization = { petId: { explode: false, style: 'simple' } }
+      const serializedPathParams = this.client.serializePathParams(pathParamsProperties, pathParamSerialization);
+      basePath = `${this.client.options.basePath}/pet/${serializedPathParams['petId']}`
+      tokenizedUrl = `${this.client.options.basePath}/pet/${this.piiParamTokens['petId'] || serializedPathParams['petId']}`
+    } else {
+      basePath = `${this.client.options.basePath}/pet/${data['petId']}`;
+      tokenizedUrl = `${this.client.options.basePath}/pet/${this.piiParamTokens['petId'] || data['petId']}`;
+    }
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 
     const requestOptions = {
@@ -149,6 +164,7 @@ export class PetApi implements Api {
       method: 'DELETE',
       basePath,
       queryParams,
+      paramSerializationOptions,
       body: body || undefined,
       metadata,
       tokenizedOptions,
@@ -156,7 +172,7 @@ export class PetApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = options.basePath;
+    const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
 
     const ret = this.client.processCall<string>(url, options, ApiTypes.DEFAULT, PetApi.apiName, undefined, 'deletePet');
     return ret;
@@ -170,8 +186,6 @@ export class PetApi implements Api {
    */
   public async findPetsByStatus(data: PetApiFindPetsByStatusRequestData, metadata?: RequestMetadata<string, 'application/xml' | 'application/json'>): Promise<Pet[]> {
     data['status'] = data['status'] !== undefined ? data['status'] : 'available';
-    const queryParamsProperties = this.client.getPropertiesFromData(data, ['status']);
-    const queryParams = this.client.stringifyQueryParams(queryParamsProperties);
     const metadataHeaderAccept = metadata?.headerAccept || 'application/json';
     const headers: { [key: string]: string | undefined } = {
       'Content-Type': metadata?.headerContentType || 'application/json',
@@ -179,6 +193,19 @@ export class PetApi implements Api {
     };
 
     let body: RequestBody = '';
+
+    let queryParams = {};
+    const queryParamsProperties = this.client.getPropertiesFromData(data, ['status']);
+    const paramSerializationOptions: ParamSerializationOptions = {
+      enableParameterSerialization: this.client.options.enableParameterSerialization
+    };
+    if (this.client.options.enableParameterSerialization) {
+      const queryParamSerialization = { status: { explode: true, style: 'form' } };
+      queryParams = this.client.serializeQueryParams(queryParamsProperties, queryParamSerialization);
+      paramSerializationOptions.queryParamSerialization = queryParamSerialization;
+    } else {
+      queryParams = this.client.stringifyQueryParams(queryParamsProperties);
+    }
     const basePath = `${this.client.options.basePath}/pet/findByStatus`;
     const tokenizedUrl = `${this.client.options.basePath}/pet/findByStatus`;
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
@@ -188,6 +215,7 @@ export class PetApi implements Api {
       method: 'GET',
       basePath,
       queryParams,
+      paramSerializationOptions,
       body: body || undefined,
       metadata,
       tokenizedOptions,
@@ -195,8 +223,7 @@ export class PetApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const serializedQueryParams = this.client.serializeQueryParams(queryParamsProperties, { status: { explode: true, style: 'form' } });
-    const url = this.client.prepareUrlWithQueryParams(options.basePath, serializedQueryParams);
+    const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
 
     const ret = this.client.processCall<Pet[]>(url, options, ApiTypes.DEFAULT, PetApi.apiName, undefined, 'findPetsByStatus');
     return ret;
@@ -209,8 +236,6 @@ export class PetApi implements Api {
    * @param metadata Metadata to pass to the API call
    */
   public async findPetsByTags(data: PetApiFindPetsByTagsRequestData, metadata?: RequestMetadata<string, 'application/xml' | 'application/json'>): Promise<Pet[]> {
-    const queryParamsProperties = this.client.getPropertiesFromData(data, ['tags']);
-    const queryParams = this.client.stringifyQueryParams(queryParamsProperties);
     const metadataHeaderAccept = metadata?.headerAccept || 'application/json';
     const headers: { [key: string]: string | undefined } = {
       'Content-Type': metadata?.headerContentType || 'application/json',
@@ -218,6 +243,19 @@ export class PetApi implements Api {
     };
 
     let body: RequestBody = '';
+
+    let queryParams = {};
+    const queryParamsProperties = this.client.getPropertiesFromData(data, ['tags']);
+    const paramSerializationOptions: ParamSerializationOptions = {
+      enableParameterSerialization: this.client.options.enableParameterSerialization
+    };
+    if (this.client.options.enableParameterSerialization) {
+      const queryParamSerialization = { tags: { explode: true, style: 'form' } };
+      queryParams = this.client.serializeQueryParams(queryParamsProperties, queryParamSerialization);
+      paramSerializationOptions.queryParamSerialization = queryParamSerialization;
+    } else {
+      queryParams = this.client.stringifyQueryParams(queryParamsProperties);
+    }
     const basePath = `${this.client.options.basePath}/pet/findByTags`;
     const tokenizedUrl = `${this.client.options.basePath}/pet/findByTags`;
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
@@ -227,6 +265,7 @@ export class PetApi implements Api {
       method: 'GET',
       basePath,
       queryParams,
+      paramSerializationOptions,
       body: body || undefined,
       metadata,
       tokenizedOptions,
@@ -234,8 +273,7 @@ export class PetApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const serializedQueryParams = this.client.serializeQueryParams(queryParamsProperties, { tags: { explode: true, style: 'form' } });
-    const url = this.client.prepareUrlWithQueryParams(options.basePath, serializedQueryParams);
+    const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
 
     const ret = this.client.processCall<Pet[]>(url, options, ApiTypes.DEFAULT, PetApi.apiName, undefined, 'findPetsByTags');
     return ret;
@@ -248,8 +286,6 @@ export class PetApi implements Api {
    * @param metadata Metadata to pass to the API call
    */
   public async getPetById(data: PetApiGetPetByIdRequestData, metadata?: RequestMetadata<string, 'application/xml' | 'application/json'>): Promise<Pet> {
-    const queryParamsProperties = {};
-    const queryParams = this.client.stringifyQueryParams(queryParamsProperties);
     const metadataHeaderAccept = metadata?.headerAccept || 'application/json';
     const headers: { [key: string]: string | undefined } = {
       'Content-Type': metadata?.headerContentType || 'application/json',
@@ -257,10 +293,23 @@ export class PetApi implements Api {
     };
 
     let body: RequestBody = '';
-    const pathParamsProperties = this.client.getPropertiesFromData(data, ['petId']);
-    const serializedPathParams = this.client.serializePathParams(pathParamsProperties, { petId: { explode: false, style: 'simple' } });
-    const basePath = `${this.client.options.basePath}/pet/${serializedPathParams['petId']}`;
-    const tokenizedUrl = `${this.client.options.basePath}/pet/${this.piiParamTokens['petId'] || serializedPathParams['petId']}`;
+
+    let queryParams = {};
+    const paramSerializationOptions: ParamSerializationOptions = {
+      enableParameterSerialization: this.client.options.enableParameterSerialization
+    };
+    let basePath;
+    let tokenizedUrl;
+    if (this.client.options.enableParameterSerialization) {
+      const pathParamsProperties = this.client.getPropertiesFromData(data, ['petId']);
+      const pathParamSerialization = { petId: { explode: false, style: 'simple' } }
+      const serializedPathParams = this.client.serializePathParams(pathParamsProperties, pathParamSerialization);
+      basePath = `${this.client.options.basePath}/pet/${serializedPathParams['petId']}`
+      tokenizedUrl = `${this.client.options.basePath}/pet/${this.piiParamTokens['petId'] || serializedPathParams['petId']}`
+    } else {
+      basePath = `${this.client.options.basePath}/pet/${data['petId']}`;
+      tokenizedUrl = `${this.client.options.basePath}/pet/${this.piiParamTokens['petId'] || data['petId']}`;
+    }
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 
     const requestOptions = {
@@ -268,6 +317,7 @@ export class PetApi implements Api {
       method: 'GET',
       basePath,
       queryParams,
+      paramSerializationOptions,
       body: body || undefined,
       metadata,
       tokenizedOptions,
@@ -275,7 +325,7 @@ export class PetApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = options.basePath;
+    const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
 
     const ret = this.client.processCall<Pet>(url, options, ApiTypes.DEFAULT, PetApi.apiName, undefined, 'getPetById');
     return ret;
@@ -288,8 +338,6 @@ export class PetApi implements Api {
    * @param metadata Metadata to pass to the API call
    */
   public async updatePet(data: PetApiUpdatePetRequestData, metadata?: RequestMetadata<'application/json' | 'application/xml' | 'application/x-www-form-urlencoded', 'application/xml' | 'application/json'>): Promise<Pet> {
-    const queryParamsProperties = {};
-    const queryParams = this.client.stringifyQueryParams(queryParamsProperties);
     const metadataHeaderAccept = metadata?.headerAccept || 'application/json';
     const headers: { [key: string]: string | undefined } = {
       'Content-Type': metadata?.headerContentType || 'application/json',
@@ -302,6 +350,11 @@ export class PetApi implements Api {
     } else {
       body = data['Pet'] as any;
     }
+
+    let queryParams = {};
+    const paramSerializationOptions: ParamSerializationOptions = {
+      enableParameterSerialization: this.client.options.enableParameterSerialization
+    };
     const basePath = `${this.client.options.basePath}/pet`;
     const tokenizedUrl = `${this.client.options.basePath}/pet`;
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
@@ -311,6 +364,7 @@ export class PetApi implements Api {
       method: 'PUT',
       basePath,
       queryParams,
+      paramSerializationOptions,
       body: body || undefined,
       metadata,
       tokenizedOptions,
@@ -318,7 +372,7 @@ export class PetApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = options.basePath;
+    const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
 
     const ret = this.client.processCall<Pet>(url, options, ApiTypes.DEFAULT, PetApi.apiName, undefined, 'updatePet');
     return ret;
@@ -331,8 +385,6 @@ export class PetApi implements Api {
    * @param metadata Metadata to pass to the API call
    */
   public async updatePetWithForm(data: PetApiUpdatePetWithFormRequestData, metadata?: RequestMetadata<string, string>): Promise<never> {
-    const queryParamsProperties = this.client.getPropertiesFromData(data, ['name', 'status']);
-    const queryParams = this.client.stringifyQueryParams(queryParamsProperties);
     const metadataHeaderAccept = metadata?.headerAccept || 'application/json';
     const headers: { [key: string]: string | undefined } = {
       'Content-Type': metadata?.headerContentType || 'application/json',
@@ -340,10 +392,28 @@ export class PetApi implements Api {
     };
 
     let body: RequestBody = '';
-    const pathParamsProperties = this.client.getPropertiesFromData(data, ['petId']);
-    const serializedPathParams = this.client.serializePathParams(pathParamsProperties, { petId: { explode: false, style: 'simple' } });
-    const basePath = `${this.client.options.basePath}/pet/${serializedPathParams['petId']}`;
-    const tokenizedUrl = `${this.client.options.basePath}/pet/${this.piiParamTokens['petId'] || serializedPathParams['petId']}`;
+
+    let queryParams = {};
+    const queryParamsProperties = this.client.getPropertiesFromData(data, ['name', 'status']);
+    const paramSerializationOptions: ParamSerializationOptions = {
+      enableParameterSerialization: this.client.options.enableParameterSerialization
+    };
+    let basePath;
+    let tokenizedUrl;
+    if (this.client.options.enableParameterSerialization) {
+      const queryParamSerialization = { name: { explode: true, style: 'form' }, status: { explode: true, style: 'form' } };
+      queryParams = this.client.serializeQueryParams(queryParamsProperties, queryParamSerialization);
+      paramSerializationOptions.queryParamSerialization = queryParamSerialization;
+      const pathParamsProperties = this.client.getPropertiesFromData(data, ['petId']);
+      const pathParamSerialization = { petId: { explode: false, style: 'simple' } }
+      const serializedPathParams = this.client.serializePathParams(pathParamsProperties, pathParamSerialization);
+      basePath = `${this.client.options.basePath}/pet/${serializedPathParams['petId']}`
+      tokenizedUrl = `${this.client.options.basePath}/pet/${this.piiParamTokens['petId'] || serializedPathParams['petId']}`
+    } else {
+      queryParams = this.client.stringifyQueryParams(queryParamsProperties);
+      basePath = `${this.client.options.basePath}/pet/${data['petId']}`;
+      tokenizedUrl = `${this.client.options.basePath}/pet/${this.piiParamTokens['petId'] || data['petId']}`;
+    }
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 
     const requestOptions = {
@@ -351,6 +421,7 @@ export class PetApi implements Api {
       method: 'POST',
       basePath,
       queryParams,
+      paramSerializationOptions,
       body: body || undefined,
       metadata,
       tokenizedOptions,
@@ -358,8 +429,7 @@ export class PetApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const serializedQueryParams = this.client.serializeQueryParams(queryParamsProperties, { name: { explode: true, style: 'form' }, status: { explode: true, style: 'form' } });
-    const url = this.client.prepareUrlWithQueryParams(options.basePath, serializedQueryParams);
+    const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
 
     const ret = this.client.processCall<never>(url, options, ApiTypes.DEFAULT, PetApi.apiName, undefined, 'updatePetWithForm');
     return ret;
@@ -372,8 +442,6 @@ export class PetApi implements Api {
    * @param metadata Metadata to pass to the API call
    */
   public async uploadFile(data: PetApiUploadFileRequestData, metadata?: RequestMetadata<'application/octet-stream', 'application/json'>): Promise<ApiResponse> {
-    const queryParamsProperties = this.client.getPropertiesFromData(data, ['additionalMetadata']);
-    const queryParams = this.client.stringifyQueryParams(queryParamsProperties);
     const metadataHeaderAccept = metadata?.headerAccept || 'application/json';
     const headers: { [key: string]: string | undefined } = {
       'Content-Type': metadata?.headerContentType || 'application/octet-stream',
@@ -386,10 +454,28 @@ export class PetApi implements Api {
     } else {
       body = data['body'] as any;
     }
-    const pathParamsProperties = this.client.getPropertiesFromData(data, ['petId']);
-    const serializedPathParams = this.client.serializePathParams(pathParamsProperties, { petId: { explode: false, style: 'simple' } });
-    const basePath = `${this.client.options.basePath}/pet/${serializedPathParams['petId']}/uploadImage`;
-    const tokenizedUrl = `${this.client.options.basePath}/pet/${this.piiParamTokens['petId'] || serializedPathParams['petId']}/uploadImage`;
+
+    let queryParams = {};
+    const queryParamsProperties = this.client.getPropertiesFromData(data, ['additionalMetadata']);
+    const paramSerializationOptions: ParamSerializationOptions = {
+      enableParameterSerialization: this.client.options.enableParameterSerialization
+    };
+    let basePath;
+    let tokenizedUrl;
+    if (this.client.options.enableParameterSerialization) {
+      const queryParamSerialization = { additionalMetadata: { explode: true, style: 'form' } };
+      queryParams = this.client.serializeQueryParams(queryParamsProperties, queryParamSerialization);
+      paramSerializationOptions.queryParamSerialization = queryParamSerialization;
+      const pathParamsProperties = this.client.getPropertiesFromData(data, ['petId']);
+      const pathParamSerialization = { petId: { explode: false, style: 'simple' } }
+      const serializedPathParams = this.client.serializePathParams(pathParamsProperties, pathParamSerialization);
+      basePath = `${this.client.options.basePath}/pet/${serializedPathParams['petId']}/uploadImage`
+      tokenizedUrl = `${this.client.options.basePath}/pet/${this.piiParamTokens['petId'] || serializedPathParams['petId']}/uploadImage`
+    } else {
+      queryParams = this.client.stringifyQueryParams(queryParamsProperties);
+      basePath = `${this.client.options.basePath}/pet/${data['petId']}/uploadImage`;
+      tokenizedUrl = `${this.client.options.basePath}/pet/${this.piiParamTokens['petId'] || data['petId']}/uploadImage`;
+    }
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 
     const requestOptions = {
@@ -397,6 +483,7 @@ export class PetApi implements Api {
       method: 'POST',
       basePath,
       queryParams,
+      paramSerializationOptions,
       body: body || undefined,
       metadata,
       tokenizedOptions,
@@ -404,8 +491,7 @@ export class PetApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const serializedQueryParams = this.client.serializeQueryParams(queryParamsProperties, { additionalMetadata: { explode: true, style: 'form' } });
-    const url = this.client.prepareUrlWithQueryParams(options.basePath, serializedQueryParams);
+    const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
 
     const ret = this.client.processCall<ApiResponse>(url, options, ApiTypes.DEFAULT, PetApi.apiName, undefined, 'uploadFile');
     return ret;

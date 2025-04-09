@@ -52,7 +52,8 @@ export interface BaseApiBeaconClientConstructor extends PartialExcept<Omit<BaseA
 const DEFAULT_OPTIONS: Omit<BaseApiBeaconClientOptions, 'basePath'> = {
   replyPlugins: [] as never[],
   requestPlugins: [],
-  enableTokenization: false
+  enableTokenization: false,
+  enableParameterSerialization: false
 };
 
 /**
@@ -148,7 +149,7 @@ export class ApiBeaconClient implements ApiClient {
   }
 
   /** @inheritdoc */
-  public prepareUrlWithQueryParams(url: string, serializedQueryParams: { [key: string]: string }): string {
+  public prepareUrlWithQueryParams(url: string, serializedQueryParams?: { [key: string]: string }): string {
     return prepareUrlWithQueryParams(url, serializedQueryParams);
   }
 

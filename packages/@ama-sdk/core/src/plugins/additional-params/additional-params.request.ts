@@ -1,14 +1,26 @@
 import {
+  stringifyQueryParams,
+} from '../../fwk/api.helpers';
+import {
+  isParamValueRecord,
+  type QueryParamValueSerialization,
+  serializeRequestPluginQueryParams,
+} from '../../fwk/param-serialization';
+import {
   PluginRunner,
   RequestOptions,
   RequestPlugin,
+  RequestPluginContext,
 } from '../core';
 
 export interface AdditionalParameters {
   /** Additional headers */
   headers?: { [key: string]: string } | ((headers: Headers) => { [key: string]: string } | Promise<{ [key: string]: string }>);
   /** Additional query params */
-  queryParams?: { [key: string]: string } | ((defaultValues?: { [key: string]: string }) => { [key: string]: string } | Promise<{ [key: string]: string }>);
+  queryParams?: { [key: string]: string } | { [key: string]: QueryParamValueSerialization }
+    | ((defaultValues?: { [key: string]: string } | { [key: string]: QueryParamValueSerialization }) =>
+        { [key: string]: string } | { [key: string]: QueryParamValueSerialization } | Promise<{ [key: string]: string }> | Promise<{ [key: string]: QueryParamValueSerialization }>
+      );
   /** Additional body params */
   body?: (defaultValues?: string) => string | null | Promise<string>;
 }
@@ -37,7 +49,7 @@ export class AdditionalParamsRequest implements RequestPlugin {
     this.additionalParams = additionalParams;
   }
 
-  public load(): PluginRunner<RequestOptions, RequestOptions> {
+  public load(context?: RequestPluginContext): PluginRunner<RequestOptions, RequestOptions> {
     return {
       transform: async (data: RequestOptions) => {
         const queryParams = typeof this.additionalParams.queryParams === 'function' ? await this.additionalParams.queryParams(data.queryParams) : this.additionalParams.queryParams;
@@ -45,7 +57,21 @@ export class AdditionalParamsRequest implements RequestPlugin {
         const body = this.additionalParams.body && isStringOrUndefined(data.body) ? this.additionalParams.body(data.body) : undefined;
 
         if (queryParams) {
-          data.queryParams = { ...data.queryParams, ...queryParams };
+          if (data.paramSerializationOptions?.enableParameterSerialization) {
+            if (isParamValueRecord(queryParams)) {
+              throw new Error('It is not possible to serialize additional query parameters without their serialization properties `value`, `explode`, and `style`.');
+            } else {
+              data.queryParams = { ...data.queryParams, ...serializeRequestPluginQueryParams(queryParams) };
+            }
+          } else {
+            if (isParamValueRecord(queryParams)) {
+              data.queryParams = { ...data.queryParams, ...queryParams };
+            } else {
+              const queryParamsValues = Object.fromEntries(Object.entries(queryParams).map(([key, value]) => [key, value.value]));
+              data.queryParams = { ...data.queryParams, ...stringifyQueryParams(queryParamsValues) };
+              (context?.logger || console).log('The serialization of additional query parameters has been ignored since parameter serialization is not enabled.');
+            }
+          }
         }
 
         if (body !== undefined) {

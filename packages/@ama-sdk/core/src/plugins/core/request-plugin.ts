@@ -1,5 +1,6 @@
 import type {
   Api,
+  ParamSerialization,
 } from '../../fwk';
 import type {
   Plugin,
@@ -44,9 +45,21 @@ export interface RequestMetadata<C extends string = string, A extends string = s
   signal?: AbortSignal;
 }
 
+/**
+ * Options for the serialization of the parameters
+ */
+export interface ParamSerializationOptions {
+  /** Serialization of the query parameters (style and explode) */
+  queryParamSerialization?: { [key: string]: ParamSerialization };
+  /** Enable parameter serialization with exploded syntax */
+  enableParameterSerialization?: boolean;
+}
+
 export interface RequestOptions extends RequestInit {
   /** Query Parameters */
   queryParams?: { [key: string]: string };
+  /** Parameter serialization options */
+  paramSerializationOptions?: ParamSerializationOptions;
   /** Force body to string */
   body?: RequestBody;
   /** Force headers to Headers type */
