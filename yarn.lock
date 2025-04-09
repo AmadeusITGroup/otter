@@ -9077,7 +9077,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^7.14.1 || ^8.15.0
     "@typescript-eslint/parser": ^7.14.1 || ^8.15.0
     "@typescript-eslint/utils": ^7.14.1 || ^8.15.0
-    eslint: ^8.57.0 || ^9.16.0
+    eslint: ^8.57.0 || ^9.22.0
     eslint-import-resolver-node: ^0.3.4
     eslint-plugin-jest: ^28.8.0
     eslint-plugin-jsdoc: ^48.11.0 || ^49.0.0 || ^50.0.0
@@ -9159,7 +9159,7 @@ __metadata:
     "@angular-eslint/builder": ^19.0.0
     "@angular/compiler": ^19.0.0
     "@eslint-community/eslint-plugin-eslint-comments": ^4.4.0
-    "@eslint/js": ^8.57.0 || ^9.16.0
+    "@eslint/js": ^8.57.0 || ^9.22.0
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@schematics/angular": ^19.0.0
@@ -9168,7 +9168,7 @@ __metadata:
     "@typescript-eslint/types": ^8.15.0
     "@typescript-eslint/utils": ^8.15.0
     angular-eslint: ^19.0.0
-    eslint: ^8.57.0 || ^9.16.0
+    eslint: ^8.57.0 || ^9.22.0
     eslint-import-resolver-node: ^0.3.4
     eslint-import-resolver-typescript: ^3.6.3
     eslint-plugin-import: ^2.31.0
@@ -9269,7 +9269,7 @@ __metadata:
     "@angular-devkit/schematics": ^19.0.0
     "@angular-eslint/template-parser": ^19.0.0
     "@angular/compiler": ^19.0.0
-    eslint: ^8.57.0 || ^9.16.0
+    eslint: ^8.57.0 || ^9.22.0
     jsonc-eslint-parser: ^2.4.0
     yaml-eslint-parser: ^1.2.2
   peerDependenciesMeta:
