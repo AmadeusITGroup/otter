@@ -69,7 +69,7 @@ const updateRenovateGroup = async (scopeName) => {
 
   const renovateGroup = JSON.parse(await readFile(renovateGroupPath, { encoding: 'utf8' }));
   renovateGroup.packageRules
-    .forEach(({ matchPackagePrefixes }) => matchPackagePrefixes.push(`@${scopeName}`));
+    .forEach(({ matchPackageNames }) => matchPackageNames.push(`/^@${scopeName}/`));
 
   await writeFile(renovateGroupPath, JSON.stringify(renovateGroup, null, 2) + '\n');
 };

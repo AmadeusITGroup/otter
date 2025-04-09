@@ -7,6 +7,11 @@
 
 Otter framework provides a set of Renovate presets to facilitate the setup and reduce the boilerplate in your `.renovaterc.json`
 
+> [!WARNING]
+> Since Otter v12.3, our presets only support Renovate >= 38
+> If you want to use our presets with Renovate < 38,
+> you can lock the version of the presets used thanks to the [#vX.Y.Z suffix](https://docs.renovatebot.com/config-presets/#preset-hosting).
+
 ## Available presets
 
 | Preset                                  | Parameters                         | Description                                                                                        |

@@ -5,13 +5,13 @@
     {
       "groupName": "Otter dependencies",
       "groupSlug": "otter-dependencies",
-      "matchPackagePrefixes": [
-        "@otter",
-        "@o3r",
-        "@ama-sdk",
-        "@ama-terasu",
-        "@o3r-training",
-        "@ama-mfe"
+      "matchPackageNames": [
+        "/^@otter/",
+        "/^@o3r/",
+        "/^@ama-sdk/",
+        "/^@ama-terasu/",
+        "/^@o3r-training/",
+        "/^@ama-mfe/"
       ]
     },
     {
@@ -19,13 +19,13 @@
         "main",
         "master"
       ],
-      "matchPackagePrefixes": [
-        "@otter",
-        "@o3r",
-        "@ama-sdk",
-        "@ama-terasu",
-        "@o3r-training",
-        "@ama-mfe"
+      "matchPackageNames": [
+        "/^@otter/",
+        "/^@o3r/",
+        "/^@ama-sdk/",
+        "/^@ama-terasu/",
+        "/^@o3r-training/",
+        "/^@ama-mfe/"
       ],
       "rangeStrategy": "bump"
     },
@@ -33,13 +33,13 @@
       "matchBaseBranches": [
         "/^release/.*/"
       ],
-      "matchPackagePrefixes": [
-        "@otter",
-        "@o3r",
-        "@ama-sdk",
-        "@ama-terasu",
-        "@o3r-training",
-        "@ama-mfe"
+      "matchPackageNames": [
+        "/^@otter/",
+        "/^@o3r/",
+        "/^@ama-sdk/",
+        "/^@ama-terasu/",
+        "/^@o3r-training/",
+        "/^@ama-mfe/"
       ],
       "rangeStrategy": "patch"
     }
