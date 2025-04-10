@@ -95,6 +95,7 @@
     "@types/semver": "^7.3.13",
     "@typescript-eslint/parser": "~8.29.0",
     "angular-eslint": "~19.3.0",
+    "babel-jest": "^29.7.0",
     "chokidar": "^4.0.3",
     "cpy-cli": "^5.0.0",
     "eslint": "~9.24.0",

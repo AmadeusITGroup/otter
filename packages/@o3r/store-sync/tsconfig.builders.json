@@ -10,7 +10,7 @@
     "tsBuildInfoFile": "build/.tsbuildinfo.builders"
   },
   "include": [
-    "schematics/**/*.ts",
+    "schematics/**/*.ts"
   ],
   "exclude": [
     "**/*.spec.ts",
