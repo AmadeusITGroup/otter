@@ -9,5 +9,9 @@ module.exports = {
   ...createCjsPreset(getTsJestBaseConfig()),
   ...getOtterJestBaseConfig(rootDir),
   ...getJestUnitTestConfig(),
-  setupFilesAfterEnv: ['<rootDir>/testing/setup-jest.ts']
+  setupFilesAfterEnv: ['<rootDir>/testing/setup-jest.ts'],
+  coveragePathIgnorePatterns: [
+    '<rootDir>/dev-resources/',
+    '<rootDir>/training-assets/'
+  ]
 };
