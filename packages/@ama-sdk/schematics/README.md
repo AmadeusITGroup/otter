@@ -119,9 +119,27 @@ For more information, check out OpenAPI's documentation on [parameter serializat
 It is important to note that, as in OpenAPI 3.1, we only support simple arrays and simple non-nested objects in path and query parameters. 
 The parameter types that we support are stored in `SupportedParamType` in the package `@ama-sdk/core`.
 
+To enable the parameter serialization within your API, you can set the option `enableParameterSerialization` to `true` (its current default value is `false`) in the constructor. For example:
+```typescript
+const apiConfig: ApiClient = new ApiFetchClient(
+  {
+    basePath: 'https://petstore3.swagger.io/api/v3',
+    enableParameterSerialization: true
+  }
+);
+```
+
+We provide the methods `serializeQueryParams` and `serializePathParams` to serialize the values of query and path parameters. However, it is also possible to pass
+your own serialization methods if the ones provided do not meet your requirements. These custom methods can be passed as a parameter to the API client constructor.
+
 > [!NOTE]
-> We provide the methods `serializeQueryParams` and `serializePathParams` to serialize the values of query and path parameters. However, it is also possible to pass
-> your own serialization methods if the ones provided do not meet your requirements. These custom methods can be passed as a parameter to the API client constructor.
+> If you have enabled the serialization mechanism and want to update the query parameters within a `RequestPlugin`, these must be serialized before being returned to the
+> API to prepare the URL. You can do so by using the serialization method that we provide (`serializeQueryParams`) or your own serialization method. The value of the query
+> parameters returned by the `RequestPlugin` will be forwarded to the next plugin and the last value will be directly added to the URL.
+
+> [!NOTE]
+> It is important to note that special characters have to be encoded, as required by RFC6570 and RFC3986. Please take this into account if you choose to use your own
+> serialization methods.
 
 #### Light SDK
 
