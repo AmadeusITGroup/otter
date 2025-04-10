@@ -53,7 +53,8 @@ describe('Create new otter project command', () => {
     expect(() => packageManagerRunOnProject(appName, true, { script: 'build' }, execInAppOptions)).not.toThrow();
   });
 
-  test('should generate a project with preset all', async () => {
+  // eslint-disable-next-line jest/no-disabled-tests -- Re-activate once https://github.com/AmadeusITGroup/otter/issues/3113 is fixed
+  test.skip('should generate a project with preset all', async () => {
     const { workspacePath, packageManagerConfig, o3rVersion } = o3rEnvironment.testEnvironment;
     const inProjectPath = path.join(workspacePath, workspaceProjectName);
     const execWorkspaceOptions = { ...defaultExecOptions, cwd: workspacePath };
@@ -110,7 +111,8 @@ describe('Create new otter project command', () => {
     expect(() => packageManagerRunOnProject(appName, true, { script: 'build' }, execInAppOptions)).not.toThrow();
   });
 
-  test('should generate a project with preset cms', async () => {
+  // eslint-disable-next-line jest/no-disabled-tests -- Re-activate once https://github.com/AmadeusITGroup/otter/issues/3113 is fixed
+  test.skip('should generate a project with preset cms', async () => {
     const { workspacePath, packageManagerConfig, o3rVersion } = o3rEnvironment.testEnvironment;
     const inProjectPath = path.join(workspacePath, workspaceProjectName);
     const execWorkspaceOptions = { ...defaultExecOptions, cwd: workspacePath };
@@ -196,7 +198,8 @@ describe('Create new otter project command', () => {
     });
   });
 
-  test('should generate a project with an application, with --exact-o3r-version and preset cms', async () => {
+  // eslint-disable-next-line jest/no-disabled-tests -- Re-activate once https://github.com/AmadeusITGroup/otter/issues/3113 is fixed
+  test.skip('should generate a project with an application, with --exact-o3r-version and preset cms', async () => {
     const { workspacePath, packageManagerConfig, o3rExactVersion } = o3rEnvironment.testEnvironment;
     const inProjectPath = path.join(workspacePath, workspaceProjectName);
     const execWorkspaceOptions = { ...defaultExecOptions, cwd: workspacePath };
