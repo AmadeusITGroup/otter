@@ -146,7 +146,9 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
     additionalProperties.put("parseRegexp", new LambdaHelper.ParseRegexp());
     additionalProperties.put("plurialize", new LambdaHelper.Plurialize());
     additionalProperties.put("urlParamReplacer", new LambdaHelper.UrlParamReplacerLambda());
+    additionalProperties.put("urlSerializedParamReplacer", new LambdaHelper.UrlSerializedParamReplacerLambda());
     additionalProperties.put("tokenizedUrlParamReplacer", new LambdaHelper.TokenizedUrlParamReplacerLambda());
+    additionalProperties.put("tokenizedUrlSerializedParamReplacer", new LambdaHelper.TokenizedUrlSerializedParamReplacerLambda());
     additionalProperties.put("apiFolderName", new LambdaHelper.ApiFolderName());
     additionalProperties.put("removeBrackets", new LambdaHelper.RemoveText("[]"));
     additionalProperties.put("removeFowardslash", new LambdaHelper.RemoveText("/"));

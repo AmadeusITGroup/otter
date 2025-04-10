@@ -82,7 +82,8 @@ const DEFAULT_OPTIONS: Omit<BaseApiAngularClientOptions, 'basePath' | 'httpClien
   angularPlugins: [],
   requestPlugins: [],
   enableTokenization: false,
-  disableFallback: false
+  disableFallback: false,
+  enableParameterSerialization: false
 };
 
 /**
@@ -160,7 +161,7 @@ export class ApiAngularClient implements ApiClient {
   }
 
   /** @inheritdoc */
-  public prepareUrlWithQueryParams(url: string, serializedQueryParams: { [key: string]: string }): string {
+  public prepareUrlWithQueryParams(url: string, serializedQueryParams?: { [key: string]: string }): string {
     return prepareUrlWithQueryParams(url, serializedQueryParams);
   }
 

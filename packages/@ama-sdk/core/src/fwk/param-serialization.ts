@@ -15,12 +15,46 @@ export type PrimitiveType = string | number | boolean | Date | utils.Date | util
 /** Supported types for the operation parameters - primitives, primitive arrays, and simple non-nested objects */
 export type SupportedParamType = PrimitiveType | PrimitiveType[] | { [key: string]: PrimitiveType };
 
+/** URL encoding of space character, delimiter for spaceDelimited style */
+const SPACE_URL_CODE = encodeURIComponent(' ');
+/** URL encoding of pipe character, delimiter for pipeDelimited style */
+const PIPE_URL_CODE = encodeURIComponent('|');
+/** URL encoding of opening square bracket, used in deepObject style */
+const OPENING_SQUARE_BRACKET_URL_CODE = encodeURIComponent('[');
+/** URL encoding of closing square bracket, used in deepObject style */
+const CLOSING_SQUARE_BRACKET_URL_CODE = encodeURIComponent(']');
+
 /**
  * Verify if property is of type utils.Date or utils.DateTime
  * @param prop
  */
 export function isDateType(prop: any): prop is Date | utils.Date | utils.DateTime {
   return prop instanceof Date || prop instanceof utils.Date || prop instanceof utils.DateTime;
+}
+
+/**
+ * Check if the parameter is a record of type <string, string>.
+ * @param param
+ */
+export function isParamValueRecord(param: any): param is { [key: string]: string } {
+  return typeof param === 'object' && Object.values(param).every((item) => typeof item === 'string');
+}
+
+/** Query parameter value and serialization */
+export type QueryParamValueSerialization = { value: SupportedParamType } & ParamSerialization;
+
+/**
+ * Serialize query parameters of request plugins
+ * @param queryParams
+ */
+export function serializeRequestPluginQueryParams(queryParams: { [key: string]: QueryParamValueSerialization }) {
+  const queryParamsValues: { [key: string]: SupportedParamType } = {};
+  const queryParamSerialization: { [key: string]: ParamSerialization } = {};
+  Object.entries(queryParams).forEach(([paramKey, paramValue]) => {
+    queryParamsValues[paramKey] = paramValue.value;
+    queryParamSerialization[paramKey] = { explode: paramValue.explode, style: paramValue.style };
+  });
+  return serializeQueryParams(queryParamsValues, queryParamSerialization);
 }
 
 /**
@@ -46,13 +80,13 @@ function serializeArrayQueryParams(queryParamName: string, queryParamValue: Prim
         if (emptyArray) {
           break;
         }
-        return encodeURIComponent(queryParamName) + '=' + filteredArray.map((v) => isDateType(v) ? v.toJSON() : encodeURIComponent(v.toString())).join('%20');
+        return encodeURIComponent(queryParamName) + '=' + filteredArray.map((v) => isDateType(v) ? v.toJSON() : encodeURIComponent(v.toString())).join(SPACE_URL_CODE);
       }
       case 'pipeDelimited': {
         if (emptyArray) {
           break;
         }
-        return encodeURIComponent(queryParamName) + '=' + filteredArray.map((v) => isDateType(v) ? v.toJSON() : encodeURIComponent(v.toString())).join('%7C');
+        return encodeURIComponent(queryParamName) + '=' + filteredArray.map((v) => isDateType(v) ? v.toJSON() : encodeURIComponent(v.toString())).join(PIPE_URL_CODE);
       }
     }
   }
@@ -81,15 +115,16 @@ function serializeObjectQueryParams(queryParamName: string, queryParamValue: { [
         encodeURIComponent(propName) + ',' + (isDateType(propValue) ? propValue.toJSON() : encodeURIComponent(propValue.toString()))).join(',');
   } else if (paramSerialization.style === 'spaceDelimited' && !paramSerialization.explode && !emptyObject) {
     return encodeURIComponent(queryParamName) + '=' + Object.entries(filteredObject).map(([propName, propValue]) =>
-      encodeURIComponent(propName) + '%20' + (isDateType(propValue) ? propValue.toJSON() : encodeURIComponent(propValue.toString()))
-    ).join('%20');
+      encodeURIComponent(propName) + SPACE_URL_CODE + (isDateType(propValue) ? propValue.toJSON() : encodeURIComponent(propValue.toString()))
+    ).join(SPACE_URL_CODE);
   } else if (paramSerialization.style === 'pipeDelimited' && !paramSerialization.explode && !emptyObject) {
     return encodeURIComponent(queryParamName) + '=' + Object.entries(filteredObject).map(([propName, propValue]) =>
-      encodeURIComponent(propName) + '%7C' + (isDateType(propValue) ? propValue.toJSON() : encodeURIComponent(propValue.toString()))
-    ).join('%7C');
+      encodeURIComponent(propName) + PIPE_URL_CODE + (isDateType(propValue) ? propValue.toJSON() : encodeURIComponent(propValue.toString()))
+    ).join(PIPE_URL_CODE);
   } else if (paramSerialization.style === 'deepObject' && paramSerialization.explode && !emptyObject) {
     return Object.entries(filteredObject).map(([propName, propValue]) =>
-      encodeURIComponent(queryParamName) + '%5B' + encodeURIComponent(propName) + '%5D=' + (isDateType(propValue) ? propValue.toJSON() : encodeURIComponent(propValue.toString()))
+      encodeURIComponent(queryParamName) + OPENING_SQUARE_BRACKET_URL_CODE + encodeURIComponent(propName) + CLOSING_SQUARE_BRACKET_URL_CODE + '='
+      + (isDateType(propValue) ? propValue.toJSON() : encodeURIComponent(propValue.toString()))
     ).join('&');
   }
 }
@@ -110,9 +145,8 @@ export function serializeQueryParams<T extends { [key: string]: SupportedParamTy
       } else if (typeof queryParamValue === 'object' && !isDateType(queryParamValue)) {
         serializedValue = serializeObjectQueryParams(queryParamName, queryParamValue, paramSerialization);
       } else {
-        if (paramSerialization.style === 'form') {
-          serializedValue = encodeURIComponent(queryParamName) + '=' + (isDateType(queryParamValue) ? queryParamValue.toJSON() : encodeURIComponent(queryParamValue.toString()));
-        }
+        // NOTE: 'form' style is the default value for primitive types
+        serializedValue = encodeURIComponent(queryParamName) + '=' + (isDateType(queryParamValue) ? queryParamValue.toJSON() : encodeURIComponent(queryParamValue.toString()));
       }
       if (serializedValue) {
         acc[queryParamName as keyof T] = serializedValue;
