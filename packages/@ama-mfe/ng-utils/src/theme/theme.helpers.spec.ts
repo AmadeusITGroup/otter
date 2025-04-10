@@ -1,7 +1,9 @@
 import {
   applyInitialTheme,
   applyTheme,
+  downloadApplicationThemeCss,
   getStyle,
+  THEME_URL_SUFFIX,
 } from './theme.helpers';
 
 describe('theme helpers', () => {
@@ -34,7 +36,6 @@ describe('theme helpers', () => {
     });
 
     it('should return empty string on fetch failure', async () => {
-      jest.spyOn(console, 'warn').mockImplementation(() => {});
       jest.spyOn(global, 'fetch').mockImplementationOnce(() => Promise.reject(new Error('fetch failed')));
       const cssPath = 'mockPath';
       const cssContent = await getStyle(cssPath);
@@ -42,13 +43,12 @@ describe('theme helpers', () => {
     });
 
     it('should catch and log a warning in case of fetch failure', async () => {
-      jest.spyOn(console, 'warn').mockImplementation(() => {});
       jest.spyOn(global, 'fetch').mockImplementationOnce(() => Promise.reject(new Error('fetch failed')));
       const cssPath = 'mockPath';
-      const cssContent = await getStyle(cssPath);
+      const warnMock = jest.fn();
+      const cssContent = await getStyle(cssPath, { logger: { warn: warnMock } as any });
       expect(cssContent).toBe('');
-      // eslint-disable-next-line no-console -- checking that the console warn was called correctly
-      expect(console.warn).toHaveBeenCalledWith('Failed to download style from: mockPath with error: Error: fetch failed');
+      expect(warnMock).toHaveBeenCalledWith('Failed to download style from: mockPath with error: Error: fetch failed');
     });
   });
 
@@ -127,6 +127,18 @@ describe('theme helpers', () => {
       await applyInitialTheme();
       expect(getStyleSpy).toHaveBeenCalledTimes(2);
       expect(document.adoptedStyleSheets.length).toBe(2);
+    });
+  });
+
+  describe('downloadApplicationThemeCss', () => {
+    it('should add suffix to CSS file', async () => {
+      await downloadApplicationThemeCss('test-css-file');
+      expect(global.Request).toHaveBeenCalledWith(`test-css-file${THEME_URL_SUFFIX}`);
+    });
+
+    it('should keep suffix when specified', async () => {
+      await downloadApplicationThemeCss('test-css-file.css');
+      expect(global.Request).toHaveBeenCalledWith(`test-css-file.css`);
     });
   });
 });

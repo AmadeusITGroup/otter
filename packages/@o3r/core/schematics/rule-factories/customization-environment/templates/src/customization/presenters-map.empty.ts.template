@@ -1,6 +1,6 @@
 import {EntryCustomComponents} from '@o3r/components';
 
-export function registerCustomComponents(): Map<string, any> {
+export function getCustomComponents(): Map<string, any> {
   return new Map();
 }
 

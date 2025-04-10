@@ -6,20 +6,22 @@
   },
   "peerDependencies": {
     "@ama-mfe/messages": "workspace:^",
-    "@amadeus-it-group/microfrontends": "0.0.3",
-    "@amadeus-it-group/microfrontends-angular": "0.0.3",
+    "@amadeus-it-group/microfrontends": "0.0.4",
+    "@amadeus-it-group/microfrontends-angular": "0.0.4",
     "@angular-devkit/core": "~19.2.0",
     "@angular-devkit/schematics": "~19.2.0",
     "@angular/common": "^19.0.0",
     "@angular/core": "^19.0.0",
     "@angular/platform-browser": "~19.2.0",
     "@angular/router": "~19.2.0",
+    "@o3r/logger": "workspace:^",
     "@o3r/schematics": "workspace:^",
     "rxjs": "^7.8.1"
   },
   "dependencies": {
-    "@amadeus-it-group/microfrontends": "0.0.3",
-    "@amadeus-it-group/microfrontends-angular": "0.0.3",
+    "@amadeus-it-group/microfrontends": "0.0.4",
+    "@amadeus-it-group/microfrontends-angular": "0.0.4",
+    "@o3r/logger": "workspace:^",
     "tslib": "^2.6.2"
   },
   "sideEffects": false,
@@ -30,8 +32,7 @@
     "prepare:compile": "cp-package-json",
     "build": "yarn nx build ama-mfe-ng-utils",
     "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist",
-    "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest",
-    "prepare:publish": "prepare-publish ./dist"
+    "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest"
   },
   "devDependencies": {
     "@ama-mfe/messages": "workspace:^",
@@ -56,9 +57,9 @@
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",
     "cpy-cli": "^5.0.0",
-    "eslint": "~9.21.0",
+    "eslint": "~9.23.0",
     "eslint-import-resolver-node": "~0.3.9",
-    "eslint-import-resolver-typescript": "~3.8.0",
+    "eslint-import-resolver-typescript": "~3.10.0",
     "eslint-plugin-import": "~2.31.0",
     "eslint-plugin-import-newlines": "~1.4.0",
     "eslint-plugin-jest": "~28.11.0",
@@ -74,10 +75,10 @@
     "jest-preset-angular": "~14.5.0",
     "jsonc-eslint-parser": "~2.4.0",
     "rxjs": "^7.8.1",
-    "ts-jest": "~29.2.5",
+    "ts-jest": "~29.3.0",
     "ts-node": "~10.9.2",
     "typescript": "~5.8.2",
-    "typescript-eslint": "~8.26.0",
+    "typescript-eslint": "~8.29.0",
     "zone.js": "~0.15.0"
   },
   "keywords": [
@@ -101,6 +102,9 @@
       "optional": true
     },
     "@angular-devkit/schematics": {
+      "optional": true
+    },
+    "@o3r/logger": {
       "optional": true
     },
     "@o3r/schematics": {

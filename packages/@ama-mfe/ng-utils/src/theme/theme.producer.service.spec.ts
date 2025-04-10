@@ -8,6 +8,9 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import {
+  LoggerService,
+} from '@o3r/logger';
+import {
   ProducerManagerService,
 } from '../managers/index';
 import {
@@ -22,6 +25,8 @@ describe('ThemeProducerService', () => {
   let themeService: ThemeProducerService;
   let producerManagerService: ProducerManagerService;
   let messageService: MessagePeerService<ThemeMessage>;
+  let loggerServiceMock: jest.Mocked<LoggerService>;
+
   const css = 'body { background-color: black; }';
 
   beforeAll(() => {
@@ -44,9 +49,15 @@ describe('ThemeProducerService', () => {
       send: jest.fn()
     };
 
+    loggerServiceMock = {
+      warn: jest.fn(),
+      error: jest.fn()
+    } as unknown as jest.Mocked<LoggerService>;
+
     TestBed.configureTestingModule({
       providers: [
         ThemeProducerService,
+        { provide: LoggerService, useValue: loggerServiceMock },
         { provide: ProducerManagerService, useValue: producerManagerServiceMock },
         { provide: MessagePeerService, useValue: messageServiceMock }
       ]
@@ -79,11 +90,9 @@ describe('ThemeProducerService', () => {
   it('should handle errors and revert to previous theme', () => {
     const errorMessage: ErrorContent<ThemeMessage> = { reason: 'unknown_type', source: { type: 'theme', version: '1.0', name: '', css: '' } };
     jest.spyOn(themeService, 'revertToPreviousTheme');
-    jest.spyOn(console, 'error').mockImplementation(() => {});
     themeService.handleError(errorMessage);
     expect(themeService.revertToPreviousTheme).toHaveBeenCalled();
-    // eslint-disable-next-line no-console -- checking that the console error is called
-    expect(console.error).toHaveBeenCalledWith('Error in theme service message', errorMessage);
+    expect(loggerServiceMock.error).toHaveBeenCalledWith('Error in theme service message', errorMessage);
   });
 
   it('should get theme name from the url and call the change theme at init', () => {

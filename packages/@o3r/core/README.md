@@ -44,8 +44,12 @@ npm create @o3r my-project -- --yarn
 > Get more details on [@o3r/create](https://www.npmjs.com/package/@o3r/create).
 
 > [!NOTE]
-> If you want to add o3r to an existing project, you will first need to install @o3r/schematics via
+> If you want to add o3r to an existing project, you will first need to install `@o3r/schematics` via
 > `ng add @o3r/schematics` and then `ng add @o3r/core`.
+
+> [!WARNING]
+> On Windows OS, [Git Bash terminal](https://gitforwindows.org/#bash) is not fully supported by different CLI used behind Otter project and can lead to execution error.
+> We recommend to minimize its usage.
 
 ### Adding Material design theming
 
