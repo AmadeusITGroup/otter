@@ -35046,6 +35046,7 @@ async function run() {
         const authenticatedGitUrl = github.context.payload.repository.html_url;
         const buildId = `${github.context.runId}`;
         const isPullRequest = buildReason === 'pull_request';
+        core.info(buildReason);
         // If we are on a pull request, major.minor will be extracted from the target branch
         const baseBranch = isPullRequest ? process.env.GITHUB_BASE_REF.replace('refs/heads/', '') : buildSourceBranch.replace('refs/heads/', '');
         core.info('Compute new-version options from Github environment variables');
