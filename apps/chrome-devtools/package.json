@@ -85,8 +85,8 @@
     "typescript-eslint": "~8.29.0"
   },
   "dependencies": {
-    "@agnos-ui/angular-bootstrap": "~0.7.0",
-    "@agnos-ui/core-bootstrap": "~0.7.0",
+    "@agnos-ui/angular-bootstrap": "~0.8.0",
+    "@agnos-ui/core-bootstrap": "~0.8.0",
     "@amadeus-it-group/tansu": "~2.0.0",
     "@angular/animations": "~19.2.0",
     "@angular/common": "~19.2.0",
@@ -96,7 +96,7 @@
     "@angular/platform-browser": "~19.2.0",
     "@angular/platform-browser-dynamic": "~19.2.0",
     "@angular/router": "~19.2.0",
-    "@design-factory/design-factory": "~19.0.0",
+    "@design-factory/design-factory": "~19.1.0",
     "@ng-bootstrap/ng-bootstrap": "^18.0.0",
     "@ng-select/ng-select": "~14.2.0",
     "@ngrx/entity": "~19.1.0",
@@ -112,7 +112,7 @@
     "@types/color": "^4.0.0",
     "ag-grid-angular": "~32.3.0",
     "ag-grid-community": "~32.3.0",
-    "bootstrap": "5.3.3",
+    "bootstrap": "5.3.5",
     "rxjs": "^7.8.1",
     "tinycolor2": "^1.6.0",
     "tslib": "^2.6.2",
