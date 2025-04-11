@@ -48,7 +48,7 @@
   "peerDependencies": {
     "@angular-eslint/template-parser": "^19.0.0",
     "@angular/compiler": "^19.0.0",
-    "eslint": "^8.57.0 || ^9.16.0",
+    "eslint": "^8.57.0 || ^9.22.0",
     "jsonc-eslint-parser": "^2.4.0",
     "yaml-eslint-parser": "^1.2.2"
   },

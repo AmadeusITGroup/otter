@@ -1,5 +1,15 @@
-<% if (extension === 'mjs') { %>import { dirname, join } from 'node:path';
-import { fileURLToPath } from 'node:url';
+<% if (extension === 'mjs') { %>
+import {
+  defineConfig,
+  globalIgnores,
+} from 'eslint/config';
+import {
+  dirname,
+  join,
+} from 'node:path';
+import {
+  fileURLToPath,
+} from 'node:url';
 import o3rConfig from '@o3r/eslint-config';
 import o3rTemplate from '@o3r/eslint-config/template';
 
@@ -8,9 +18,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 <% } else { %>const o3rConfig = require('@o3r/eslint-config');
 const o3rTemplate = require('@o3r/eslint-config/template');
+const { defineConfig, globalIgnores } = require('eslint/config');
 <% } %>
 
-<%= extension === 'mjs' ? 'export default' : 'module.exports =' %> [
+<%= extension === 'mjs' ? 'export default' : 'module.exports =' %> defineConfig([
   ...o3rConfig,
   ...o3rTemplate,
   {
@@ -19,10 +30,12 @@ const o3rTemplate = require('@o3r/eslint-config/template');
       reportUnusedDisableDirectives: 'error'
     }
   },
-  {
-    name: '<%= packageName %>/ignores',
-    ignores: []
-  },
+  globalIgnores(
+    [
+      '**/dist/'
+    ],
+    '<%= packageName %>/ignores'
+  ),
   {
     name: '<%= packageName %>/settings',
     settings: {
@@ -48,4 +61,4 @@ const o3rTemplate = require('@o3r/eslint-config/template');
       ]
     }
   }<% } %>
-];
+]);

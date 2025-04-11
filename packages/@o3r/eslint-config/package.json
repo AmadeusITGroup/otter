@@ -13,6 +13,9 @@
     ".": {
       "default": "./src/rules/typescript.cjs"
     },
+    "./helpers": {
+      "default": "./src/helpers/index.cjs"
+    },
     "./typescript": {
       "default": "./src/rules/typescript.cjs"
     },
@@ -39,7 +42,7 @@
     "@angular-eslint/builder": "^19.0.0",
     "@angular/compiler": "^19.0.0",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
-    "@eslint/js": "^8.57.0 || ^9.16.0",
+    "@eslint/js": "^8.57.0 || ^9.22.0",
     "@o3r/eslint-plugin": "workspace:^",
     "@o3r/schematics": "workspace:^",
     "@schematics/angular": "^19.0.0",
@@ -48,7 +51,7 @@
     "@typescript-eslint/types": "^8.15.0",
     "@typescript-eslint/utils": "^8.15.0",
     "angular-eslint": "^19.0.0",
-    "eslint": "^8.57.0 || ^9.16.0",
+    "eslint": "^8.57.0 || ^9.22.0",
     "eslint-import-resolver-node": "^0.3.4",
     "eslint-import-resolver-typescript": "^3.6.3",
     "eslint-plugin-import": "^2.31.0",
