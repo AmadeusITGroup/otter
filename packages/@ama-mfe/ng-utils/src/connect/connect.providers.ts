@@ -25,7 +25,11 @@ import {
  */
 export function provideConnection(connectionConfig: ConnectionConfig) {
   persistHostInfo();
-  const config: MessagePeerConfig = { id: connectionConfig.id, knownMessages: [...KNOWN_MESSAGES, ...(connectionConfig.knownMessages || [])] };
+  const config: MessagePeerConfig = {
+    id: connectionConfig.id,
+    messageCheckStrategy: 'version',
+    knownMessages: [...KNOWN_MESSAGES, ...(connectionConfig.knownMessages || [])]
+  };
   return makeEnvironmentProviders([
     {
       provide: MESSAGE_PEER_CONFIG, useValue: config

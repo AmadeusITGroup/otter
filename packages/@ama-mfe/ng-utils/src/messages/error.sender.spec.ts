@@ -1,6 +1,6 @@
 import type {
-  MessagePeerType,
-} from '@amadeus-it-group/microfrontends';
+  MessagePeerServiceType,
+} from '@amadeus-it-group/microfrontends-angular';
 import type {
   ErrorContent,
 } from './error/index';
@@ -13,7 +13,7 @@ describe('sendError', () => {
   it('should send an error message with the correct content', () => {
     const mockPeer = {
       send: jest.fn()
-    } as unknown as MessagePeerType<any>;
+    } as unknown as MessagePeerServiceType<any>;
     const content: ErrorContent = {
       reason: 'unknown_type',
       source: { type: 'my_type', version: '1' }

@@ -1,5 +1,5 @@
 import type {
-  Message,
+  VersionedMessage,
 } from '@amadeus-it-group/microfrontends';
 import type {
   RESIZE_MESSAGE_TYPE,
@@ -12,7 +12,7 @@ import type {
  * This message contain the height of the content of an iframe and is sent to the parent of the iframe, so the parent can adjust the height of the iframe.
  * This will avoid a scroll bar on the iframe. If there will be a scroll bar that will be only on the parent
  */
-export interface ResizeV1_0 extends Message {
+export interface ResizeV1_0 extends VersionedMessage {
   /** The type of a resize message */
   type: typeof RESIZE_MESSAGE_TYPE;
   /** The version of this message */

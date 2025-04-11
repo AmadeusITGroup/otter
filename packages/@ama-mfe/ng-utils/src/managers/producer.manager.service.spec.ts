@@ -1,7 +1,4 @@
 import {
-  Message,
-} from '@amadeus-it-group/microfrontends';
-import {
   TestBed,
 } from '@angular/core/testing';
 import type {
@@ -54,7 +51,7 @@ describe('ProducerManagerService', () => {
   it('should dispatch error messages', async () => {
     const producer: MessageProducer = { types: ['test'], handleError: jest.fn().mockResolvedValue(true) };
     service.register(producer);
-    const message: ErrorContent<Message> = { source: { type: 'test', version: '1.0' }, reason: 'unknown_type' };
+    const message: ErrorContent = { source: { type: 'test', version: '1.0' }, reason: 'unknown_type' };
     const result = await service.dispatchError(message);
     expect(result).toBe(true);
     expect(producer.handleError).toHaveBeenCalledWith(message);
@@ -65,7 +62,7 @@ describe('ProducerManagerService', () => {
     const producer2: MessageProducer = { types: ['test', 'test2'], handleError: jest.fn().mockResolvedValue(true) };
     service.register(producer);
     service.register(producer2);
-    const message: ErrorContent<Message> = { source: { type: 'test', version: '1.0' }, reason: 'unknown_type' };
+    const message: ErrorContent = { source: { type: 'test', version: '1.0' }, reason: 'unknown_type' };
     const result = await service.dispatchError(message);
     expect(result).toBe(true);
     expect(producer.handleError).toHaveBeenCalledWith(message);
@@ -73,7 +70,7 @@ describe('ProducerManagerService', () => {
   });
 
   it('should return false if no producers handle the error message', async () => {
-    const message: ErrorContent<Message> = { source: { type: 'test', version: '1.0' }, reason: 'unknown_type' };
+    const message: ErrorContent = { source: { type: 'test', version: '1.0' }, reason: 'unknown_type' };
     const result = await service.dispatchError(message);
     expect(result).toBe(false);
   });
