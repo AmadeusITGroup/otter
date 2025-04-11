@@ -6,7 +6,7 @@ export interface NgAddLocalizationKeySchematicsSchema extends SchematicOptionObj
   /** Path to the component */
   path: string;
 
-  /** Skip the linter process */
+  /** Skip the linter process which includes the run of EsLint and EditorConfig rules */
   skipLinter: boolean;
 
   /** Localization key without the component prefix */

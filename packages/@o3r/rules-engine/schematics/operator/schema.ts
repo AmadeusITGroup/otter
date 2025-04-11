@@ -18,7 +18,7 @@ export interface NgGenerateOperatorSchematicsSchema extends SchematicOptionObjec
   /** Fact service name */
   name: string;
 
-  /** Skip the linter process */
+  /** Skip the linter process which includes the run of EsLint and EditorConfig rules */
   skipLinter: boolean;
 
   /** Operator with one value */

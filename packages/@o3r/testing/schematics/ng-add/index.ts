@@ -19,6 +19,7 @@ import {
 } from '@angular-devkit/schematics';
 import {
   addVsCodeRecommendations,
+  applyEditorConfig,
   createOtterSchematic,
   getExternalDependenciesVersionRange,
   getO3rPeerDeps,
@@ -140,7 +141,8 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
           '@o3r/core:component': schematicsDefaultOptions,
           '@o3r/core:component-container': schematicsDefaultOptions,
           '@o3r/core:component-presenter': schematicsDefaultOptions
-        }, options.projectName)
+        }, options.projectName),
+        options.skipLinter ? noop() : applyEditorConfig()
       ];
 
       if (installJest) {
