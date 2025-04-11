@@ -8348,7 +8348,7 @@ __metadata:
     ag-grid-community: "npm:~32.3.0"
     angular-eslint: "npm:~19.3.0"
     archiver: "npm:^7.0.0"
-    bootstrap: "npm:5.3.5"
+    bootstrap: "npm:5.3.3"
     chokidar: "npm:^4.0.3"
     chrome-webstore-upload: "npm:^3.0.0"
     concurrently: "npm:^9.1.0"
@@ -9594,7 +9594,7 @@ __metadata:
     angular-eslint: "npm:~19.3.0"
     angular-split: "npm:^19.0.0"
     babel-loader: "npm:^9.0.0"
-    bootstrap: "npm:5.3.5"
+    bootstrap: "npm:5.3.3"
     bootstrap-icons: "npm:^1.11.3"
     browserslist: "npm:^4.21.4"
     clipboard: "npm:^2.0.11"
@@ -10673,7 +10673,7 @@ __metadata:
     ag-grid-community: "npm:~32.3.0"
     angular-eslint: "npm:~19.3.0"
     angular-split: "npm:^19.0.0"
-    bootstrap: "npm:5.3.5"
+    bootstrap: "npm:5.3.3"
     clipboard: "npm:^2.0.11"
     concurrently: "npm:^9.1.0"
     eslint: "npm:~9.24.0"
@@ -17840,12 +17840,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bootstrap@npm:5.3.5":
-  version: 5.3.5
-  resolution: "bootstrap@npm:5.3.5"
+"bootstrap@npm:5.3.3":
+  version: 5.3.3
+  resolution: "bootstrap@npm:5.3.3"
   peerDependencies:
     "@popperjs/core": ^2.11.8
-  checksum: 10/ea03a50f7a2cdfb55e48309dc6b567e138cfd7ef84d2e5aa164da99152c31913c2a27cc5b4f05b960d4c52577c31a8c6240669004df60b7acf4651cdfb791912
+  checksum: 10/f05183948b00b496400cc13df5798ecab7a85975e7d9a77b314a763b574a990aec0f1bbf1913c648a93b5d8cc82e73bc05f5ec1161d2932aad7ef7f316d9c82d
   languageName: node
   linkType: hard
 
