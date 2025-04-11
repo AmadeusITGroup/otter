@@ -12,7 +12,8 @@
         "/^zone.js/",
         "/^@nrwl/",
         "/^@nx/",
-        "/^nx/"
+        "/^nx/",
+        "!/@amadeus-it-group/microfrontends-angular/"
       ],
       "groupName": "Angular dependencies",
       "groupSlug": "angular-dependencies"

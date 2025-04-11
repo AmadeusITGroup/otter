@@ -13,7 +13,7 @@ import type {
  * @param peer The endpoint sending the message
  * @param content the content of the error message to be sent
  */
-export const sendError = (peer: MessagePeerType<any>, content: ErrorContent) => {
+export const sendError = (peer: Pick<MessagePeerType<any>, 'send'>, content: ErrorContent) => {
   return peer.send({
     type: 'error',
     version: '1.0',

@@ -489,7 +489,7 @@
     "prepare": {
       "executor": "nx:run-script",
       "inputs": [
-        "base"
+        "project"
       ],
       "outputs": [
         "{projectRoot}/src/package.json"
