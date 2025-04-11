@@ -17,7 +17,7 @@
     "build:tools": "yarn nx run-many --target=build --projects=eslint-plugin,workspace,test-helpers",
     "build:lint": "yarn nx run-many --target=build --projects=eslint-plugin",
     "build:swagger-gen": "yarn nx run-many --target=build-swagger",
-    "publish": "yarn nx run-many --target=prepare-publish --exclude-task-dependencies && yarn nx run-many --target=publish --exclude=tag:private --nx-bail",
+    "publish": "yarn nx run-many --target=prepare-publish --exclude-task-dependencies && yarn nx run-many --target=publish --exclude=tag:private",
     "publish:extensions": "yarn nx run-many --target=publish-extension",
     "publish:extensions:affected": "yarn nx affected --target=publish-extension",
     "package-github-actions:affected": "yarn nx affected --target=package-github-action",
