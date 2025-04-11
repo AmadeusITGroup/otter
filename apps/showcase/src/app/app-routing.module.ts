@@ -20,6 +20,7 @@ const appRoutes: Routes = [
   { path: 'sdk-intro', loadComponent: () => import('./sdk-intro/index').then((m) => m.SdkIntroComponent), title: 'Otter Showcase - SDK Introduction' },
   { path: 'placeholder', loadComponent: () => import('./placeholder/index').then((m) => m.PlaceholderComponent), title: 'Otter Showcase - Placeholder' },
   { path: 'sdk-training', loadComponent: () => import('./sdk-training/index').then((m) => m.SdkTrainingComponent), title: 'Otter Showcase - SDK Training' },
+  { path: 'forms', loadComponent: () => import('./forms/index').then((m) => m.FormsComponent), title: 'Otter Showcase - Forms' },
   { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];
 

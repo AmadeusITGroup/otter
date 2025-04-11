@@ -1,0 +1,48 @@
+<div class="p-3">
+  <h3 class="row card-text mt-auto ms-1 h5">Personal Information</h3>
+  <form [formGroup]="form">
+    <div class="row mb-3">
+      <div class="input-group">
+        <label class="input-group-text w-50" for="name">Name</label>
+        <input class="form-control" formControlName="name" [id]="'name'">
+      </div>
+      @if (form.controls.name.touched && form.controls.name.dirty) {
+        <ng-container>
+          <div class="row mb-3">
+            @if (form.controls.name.errors?.required) {
+              <div class="text-danger">{{translations.required | o3rTranslate}}</div>
+            }
+            @if (form.controls.name.errors?.maxlength) {
+              <div class="text-danger">{{translations.maxLength | o3rTranslate: {maxLength: form.controls.name.errors?.maxlength.requiredLength} }}</div>
+            }
+          </div>
+        </ng-container>
+      }
+    </div>
+    <div class="row mb-3">
+      <div class="input-group">
+        <label for="dateOfBirth" class="input-group-text w-50">Date of birth</label>
+        <o3r-date-picker-input-pres [id]="'dateOfBirth'" class="w-50" formControlName="dateOfBirth"></o3r-date-picker-input-pres>
+      </div>
+    </div>
+    <div class="row mb-3">
+      @if (form.controls.dateOfBirth.errors?.date) {
+        <div class="text-danger">{{translations.date | o3rTranslate}}</div>
+      }
+      @if (form.controls.dateOfBirth.errors?.max) {
+        <div class="text-danger">{{translations.max | o3rTranslate: {max: form.controls.dateOfBirth.errors?.max.max} }}</div>
+      }
+      @for (customError of form.controls.dateOfBirth.errors?.customErrors; track customError.translationKey) {
+        <div class="text-danger">{{customError.translationKey | o3rTranslate: customError.translationParams}}</div>
+      }
+    </div>
+  </form>
+  <div class="row mb-3">
+    @if(form.errors) {
+      <div class="text-danger">Global validator: {{form.errors | json}}</div>
+    }
+  </div>
+  <div class="m-auto pb-3">
+    <button type="button" class="btn btn-outline-primary" id="btn-submit" (click)="submitForm()">Submit Personal Information</button>
+  </div>
+</div>
