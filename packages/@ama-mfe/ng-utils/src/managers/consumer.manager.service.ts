@@ -1,6 +1,6 @@
 import {
-  Message,
   RoutedMessage,
+  VersionedMessage,
 } from '@amadeus-it-group/microfrontends';
 import {
   MessagePeerService,
@@ -61,7 +61,7 @@ export class ConsumerManagerService {
    * Consume a received message
    * @param message the received message body
    */
-  private async consumeMessage(message: RoutedMessage<Message>) {
+  private async consumeMessage(message: RoutedMessage<VersionedMessage>) {
     if (isErrorMessage(message.payload)) {
       const isHandled = await this.producerManagerService.dispatchError(message.payload);
       if (!isHandled) {
@@ -78,7 +78,7 @@ export class ConsumerManagerService {
    * Handle error messages of internal communication protocol messages
    * @param message message to consume
    */
-  private async consumeAdditionalMessage(message: RoutedMessage<Message>) {
+  private async consumeAdditionalMessage(message: RoutedMessage<VersionedMessage>) {
     if (!message.payload) {
       this.logger.warn('Cannot consume a messages with undefined payload.');
       return;

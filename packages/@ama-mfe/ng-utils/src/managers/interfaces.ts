@@ -1,6 +1,6 @@
 import type {
-  Message,
   RoutedMessage,
+  VersionedMessage,
 } from '@amadeus-it-group/microfrontends';
 import type {
   ErrorContent,
@@ -10,18 +10,18 @@ import type {
  * Use the message payload to execute an action based on message type
  * @param message message to consume
  */
-export type MessageCallback<T extends Message> = (message: RoutedMessage<T>) => void | Promise<void>;
+export type MessageCallback<T extends VersionedMessage> = (message: RoutedMessage<T>) => void | Promise<void>;
 
 /**
  * Description of the accepted messages versions and their callbacks for a given message type
  */
-export interface MessageVersions<T extends Message> {
+export interface MessageVersions<T extends VersionedMessage> {
   /** The message callback coresponding to the version */
   [version: string]: MessageCallback<T>;
 }
 
 /** Description for the base message consumer */
-export interface BasicMessageConsumer<T extends Message = Message> {
+export interface BasicMessageConsumer<T extends VersionedMessage = VersionedMessage> {
   /** Contains the message type */
   type: T['type'];
   /** A map of messages versions and their callbacks */
@@ -29,7 +29,7 @@ export interface BasicMessageConsumer<T extends Message = Message> {
 }
 
 /** The consumer of a given message type */
-export interface MessageConsumer<T extends Message> extends BasicMessageConsumer {
+export interface MessageConsumer<T extends VersionedMessage> extends BasicMessageConsumer {
 
   /** The message type which will be handled */
   type: T['type'];
@@ -50,7 +50,7 @@ export interface MessageConsumer<T extends Message> extends BasicMessageConsumer
 /**
  * Definition of a message producer and which types of messages are produced
  */
-export interface MessageProducer<T extends Message = Message> {
+export interface MessageProducer<T extends VersionedMessage = VersionedMessage> {
   /** The types of the produced message */
   types: T['type'] | T['type'][];
 
