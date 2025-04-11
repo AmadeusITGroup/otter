@@ -1,7 +1,9 @@
 import type {
-  Message,
-  MessagePeerType,
+  VersionedMessage,
 } from '@amadeus-it-group/microfrontends';
+import type {
+  MessagePeerServiceType,
+} from '@amadeus-it-group/microfrontends-angular';
 import type {
   ERROR_MESSAGE_TYPE,
   ErrorContent,
@@ -13,7 +15,7 @@ import type {
  * @param peer The endpoint sending the message
  * @param content the content of the error message to be sent
  */
-export const sendError = (peer: Pick<MessagePeerType<any>, 'send'>, content: ErrorContent) => {
+export const sendError = (peer: MessagePeerServiceType<any>, content: ErrorContent) => {
   return peer.send({
     type: 'error',
     version: '1.0',
@@ -26,4 +28,4 @@ export const sendError = (peer: Pick<MessagePeerType<any>, 'send'>, content: Err
  * @param message the message to be checked
  */
 // eslint-disable-next-line @stylistic/max-len -- constant definition
-export const isErrorMessage = (message: any): message is Message & { type: typeof ERROR_MESSAGE_TYPE } & ErrorContent => (message && typeof message === 'object' && message.type === 'error' && !!message.reason);
+export const isErrorMessage = (message: any): message is VersionedMessage & { type: typeof ERROR_MESSAGE_TYPE } & ErrorContent => (message && typeof message === 'object' && message.type === 'error' && !!message.reason);
