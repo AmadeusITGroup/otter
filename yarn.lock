@@ -1020,7 +1020,7 @@ __metadata:
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.29.0"
-    webpack: "npm:~5.98.0"
+    webpack: "npm:~5.99.0"
     webpack-cli: "npm:~6.0.0"
     yargs: "npm:^17.6.2"
   peerDependencies:
@@ -7934,7 +7934,7 @@ __metadata:
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.29.0"
-    webpack: "npm:~5.98.0"
+    webpack: "npm:~5.99.0"
     zone.js: "npm:~0.15.0"
   peerDependencies:
     "@ama-sdk/core": "workspace:^"
@@ -9670,7 +9670,7 @@ __metadata:
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.29.0"
     uuid: "npm:^11.0.5"
-    webpack: "npm:~5.98.0"
+    webpack: "npm:~5.99.0"
     winston: "npm:^3.8.2"
     yaml-eslint-parser: "npm:^1.2.2"
     zone.js: "npm:~0.15.0"
@@ -10209,7 +10209,7 @@ __metadata:
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.29.0"
     url-loader: "npm:^4.1.1"
-    webpack: "npm:~5.98.0"
+    webpack: "npm:~5.99.0"
     webpack-cli: "npm:~6.0.0"
   languageName: unknown
   linkType: soft
@@ -10726,7 +10726,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.29.0"
-    webpack: "npm:~5.98.0"
+    webpack: "npm:~5.99.0"
     zone.js: "npm:~0.15.0"
   languageName: unknown
   linkType: soft
@@ -37043,7 +37043,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack@npm:5.98.0, webpack@npm:~5.98.0":
+"webpack@npm:5.98.0":
   version: 5.98.0
   resolution: "webpack@npm:5.98.0"
   dependencies:
@@ -37079,7 +37079,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack@npm:^5.80.0, webpack@npm:^5.88.0, webpack@npm:^5.98.0":
+"webpack@npm:^5.80.0, webpack@npm:^5.88.0, webpack@npm:^5.98.0, webpack@npm:~5.99.0":
   version: 5.99.5
   resolution: "webpack@npm:5.99.5"
   dependencies:
