@@ -62,12 +62,6 @@
     "@o3r/telemetry": {
       "optional": true
     },
-    "chokidar": {
-      "optional": true
-    },
-    "globby": {
-      "optional": true
-    },
     "type-fest": {
       "optional": true
     }

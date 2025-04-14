@@ -65,7 +65,8 @@
     "jsonc-eslint-parser": "^2.4.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.4",
-    "typescript-eslint": "^8.15.0"
+    "typescript-eslint": "^8.15.0",
+    "yaml-eslint-parser": "^1.2.2"
   },
   "devDependencies": {
     "@angular-devkit/core": "~19.2.0",
@@ -146,6 +147,9 @@
       "optional": true
     },
     "typescript": {
+      "optional": true
+    },
+    "yaml-eslint-parser": {
       "optional": true
     }
   },
