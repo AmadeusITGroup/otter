@@ -17,8 +17,6 @@ export interface Flow {
  */
 export abstract class BaseScenario implements Flow {
 
-  public targetUrl = process.env.PLAYWRIGHT_TARGET_URL || 'http://localhost:4200/';
-
   public abstract performFlow();
 
   public run() {

@@ -12,10 +12,10 @@ import {
   TrainingFixtureComponent,
 } from '../../src/components/training/training.fixture';
 
-test.describe.serial('Sanity test', () => {
+test.describe('Sanity test', () => {
   test('Visual comparison for each page', async ({ browserName, page }) => {
     await page.clock.install({ time: new Date('2000-01-01T00:00:00') });
-    await page.goto(process.env.PLAYWRIGHT_TARGET_URL || 'http://localhost:4200/');
+    await page.goto('/');
     const appFixture = new AppFixtureComponent(new O3rElement({ element: page.locator('app-root'), page }));
 
     await page.waitForURL('**/home');
