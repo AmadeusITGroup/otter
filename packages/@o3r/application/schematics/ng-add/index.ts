@@ -10,6 +10,7 @@ import {
 import {
   createOtterSchematic,
   getAppModuleFilePath,
+  getExternalDependenciesInfo,
   getO3rPeerDeps,
   getPackageInstallConfig,
   getProjectNewDependenciesTypes,
@@ -20,12 +21,30 @@ import {
 import {
   addRootImport,
 } from '@schematics/angular/utility';
+import type {
+  PackageJson,
+} from 'type-fest';
 import {
   registerDevtools,
 } from './helpers/devtools-registration';
 import type {
   NgAddSchematicsSchema,
 } from './schema';
+
+/**
+ * List of external dependencies to be added to the project as peer dependencies
+ */
+const dependenciesToInstall = [
+  '@angular/common',
+  '@angular/core',
+  'rxjs'
+];
+
+/**
+ * List of external dependencies to be added to the project as dev dependencies
+ */
+const devDependenciesToInstall: string[] = [
+];
 
 /**
  * Add Otter application to an Angular Project
@@ -105,11 +124,24 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       return acc;
     }, getPackageInstallConfig(packageJsonPath, tree, options.projectName, false, !!options.exactO3rVersion));
 
+    const projectDirectory = workspaceProject?.root || '.';
+    const projectPackageJson = tree.readJson(path.posix.join(projectDirectory, 'package.json')) as PackageJson;
+
+    const externalDependenciesInfo = getExternalDependenciesInfo({
+      devDependenciesToInstall,
+      dependenciesToInstall,
+      projectType: workspaceProject?.projectType,
+      o3rPackageJsonPath: packageJsonPath,
+      projectPackageJson
+    },
+    context.logger
+    );
+
     const registerDevtoolRule = registerDevtools(options);
     return () => chain([
       setupDependencies({
         projectName: options.projectName,
-        dependencies,
+        dependencies: { ...dependencies, ...externalDependenciesInfo },
         ngAddToRun: depsInfo.o3rPeerDeps
       }),
       addAngularAnimationPreferences,
