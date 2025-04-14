@@ -8,6 +8,20 @@ import type {
   NgAddSchematicsSchema,
 } from './schema';
 
+/**
+ * List of external dependencies to be added to the project as peer dependencies
+ */
+const dependenciesToInstall = [
+  '@angular/common',
+  '@angular/core',
+  'rxjs'
+];
+
+/**
+ * List of external dependencies to be added to the project as dev dependencies
+ */
+const devDependenciesToInstall: string[] = [];
+
 const reportMissingSchematicsDep = (logger: { error: (message: string) => any }) => (reason: any) => {
   logger.error(`[ERROR]: Adding @o3r/apis-manager has failed.
 You need to install '@o3r/schematics' to be able to use the o3r apis-manager package. Please run 'ng add @o3r/schematics'.`);
@@ -19,8 +33,8 @@ You need to install '@o3r/schematics' to be able to use the o3r apis-manager pac
  * @param options
  */
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
-  return async (tree) => {
-    const { getPackageInstallConfig } = await import('@o3r/schematics');
+  return async (tree, context) => {
+    const { getExternalDependenciesInfo, getPackageInstallConfig } = await import('@o3r/schematics');
     const { setupDependencies, getO3rPeerDeps, applyEsLintFix, getWorkspaceConfig, getProjectNewDependenciesTypes } = await import('@o3r/schematics');
     const { updateApiDependencies } = await import('../helpers/update-api-deps');
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
@@ -35,6 +49,19 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
     if (!options.skipCodeSample) {
       depsInfo.o3rPeerDeps.push('@ama-sdk/client-fetch');
     }
+
+    const projectDirectory = workspaceProject?.root || '.';
+    const projectJsonPath = path.posix.join(projectDirectory, 'package.json');
+
+    const externalDependenciesInfo = getExternalDependenciesInfo({
+      dependenciesToInstall,
+      devDependenciesToInstall,
+      projectType: workspaceProject?.projectType,
+      o3rPackageJsonPath: packageJsonPath,
+      projectPackageJsonPath: projectJsonPath
+    },
+    context.logger
+    );
 
     const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
       acc[dep] = {
@@ -52,7 +79,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       options.skipLinter ? noop : applyEsLintFix(),
       setupDependencies({
         projectName: options.projectName,
-        dependencies,
+        dependencies: { ...dependencies, ...externalDependenciesInfo },
         ngAddToRun: depsInfo.o3rPeerDeps
       })
     ]);

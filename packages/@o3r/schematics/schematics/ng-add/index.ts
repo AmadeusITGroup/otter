@@ -3,12 +3,9 @@ import type {
   Rule,
 } from '@angular-devkit/schematics';
 import {
-  NodeDependencyType,
-} from '@schematics/angular/utility/dependencies';
-import {
   createOtterSchematic,
-  type DependencyToAdd,
-  getExternalDependenciesVersionRange,
+  getExternalDependenciesInfo,
+  getWorkspaceConfig,
   setupDependencies,
 } from '../../src/public_api';
 import type {
@@ -16,34 +13,45 @@ import type {
 } from './schema';
 
 /**
+ * List of external dependencies to be added to the project as peer dependencies
+ */
+const dependenciesToInstall: string[] = [
+] satisfies { name: string; enforceTildeRange?: boolean; requireInstall?: boolean }[];
+
+/**
+ * List of external dependencies to be added to the project as dev dependencies
+ */
+const devDependenciesToInstall = [
+  '@angular-devkit/architect',
+  '@angular-devkit/core',
+  '@angular-devkit/schematics',
+  '@schematics/angular',
+  'globby',
+  'rxjs'
+];
+
+/**
  * Add Otter schematics to an Angular Project
  * @param options schematics options
  */
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
-  const schematicsDependencies = ['@angular-devkit/architect', '@angular-devkit/schematics', '@angular-devkit/core', '@schematics/angular', 'globby'];
-  return (_, context) => {
+  return (tree, context) => {
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
-    const dependencies = Object.entries(getExternalDependenciesVersionRange(schematicsDependencies, packageJsonPath, context.logger)).reduce((acc, [dep, range]) => {
-      acc[dep] = {
-        inManifest: [{
-          range,
-          types: [NodeDependencyType.Dev]
-        }]
-      };
-      return acc;
-    }, {} as Record<string, DependencyToAdd>);
-    Object.entries(getExternalDependenciesVersionRange(schematicsDependencies, packageJsonPath, context.logger))
-      .forEach(([dep, range]) => {
-        dependencies[dep] = {
-          inManifest: [{
-            range,
-            types: [NodeDependencyType.Dev]
-          }]
-        };
-      });
+    const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
+    const projectDirectory = workspaceProject?.root || '.';
+    const projectJsonPath = path.posix.join(projectDirectory, 'package.json');
+    const externalDependenciesInfo = getExternalDependenciesInfo({
+      devDependenciesToInstall,
+      dependenciesToInstall,
+      o3rPackageJsonPath: packageJsonPath,
+      projectType: workspaceProject?.projectType,
+      projectPackageJsonPath: projectJsonPath
+    },
+    context.logger
+    );
     return setupDependencies({
       projectName: options.projectName,
-      dependencies,
+      dependencies: externalDependenciesInfo,
       skipInstall: false
     });
   };

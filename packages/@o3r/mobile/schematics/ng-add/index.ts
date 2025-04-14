@@ -8,6 +8,27 @@ import type {
 } from './schema';
 
 const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
+/**
+ * List of external dependencies to be added to the project as peer dependencies
+ */
+const dependenciesToInstall = [
+  '@angular/common',
+  '@angular/core',
+  '@capacitor/browser',
+  '@capacitor/core',
+  '@capacitor/device',
+  '@capacitor/preferences',
+  '@ngrx/store',
+  'fast-deep-equal',
+  'rxjs'
+];
+
+/**
+ * List of external dependencies to be added to the project as dev dependencies
+ */
+const devDependenciesToInstall: string[] = [
+
+] satisfies { name: string; enforceTildeRange?: boolean; requireInstall?: boolean }[];
 
 const reportMissingSchematicsDep = (logger: { error: (message: string) => any }) => (reason: any) => {
   logger.error(`[ERROR]: Adding @o3r/mobile has failed.
@@ -22,10 +43,21 @@ Otherwise, use the error message as guidance.`);
  */
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
   /* ng add rules */
-  return async (tree) => {
-    const { getPackageInstallConfig, getProjectNewDependenciesTypes, setupDependencies, getO3rPeerDeps, getWorkspaceConfig, removePackages } = await import('@o3r/schematics');
+  return async (tree, context) => {
+    const {
+      getExternalDependenciesInfo,
+      getPackageInstallConfig,
+      getProjectNewDependenciesTypes,
+      setupDependencies,
+      getO3rPeerDeps,
+      getWorkspaceConfig,
+      removePackages
+    } = await import('@o3r/schematics');
     const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'));
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
+    const projectDirectory = workspaceProject?.root || '.';
+    const projectJsonPath = path.posix.join(projectDirectory, 'package.json');
+
     const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
       acc[dep] = {
         inManifest: [{
@@ -36,11 +68,25 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       };
       return acc;
     }, getPackageInstallConfig(packageJsonPath, tree, options.projectName, false, !!options.exactO3rVersion));
+
+    const externalDependenciesInfo = getExternalDependenciesInfo({
+      devDependenciesToInstall,
+      dependenciesToInstall,
+      projectType: workspaceProject?.projectType,
+      projectPackageJsonPath: projectJsonPath,
+      o3rPackageJsonPath: packageJsonPath
+    },
+    context.logger
+    );
+
     return chain([
       removePackages(['@otter/mobile']),
       setupDependencies({
         projectName: options.projectName,
-        dependencies,
+        dependencies: {
+          ...dependencies,
+          ...externalDependenciesInfo
+        },
         ngAddToRun: depsInfo.o3rPeerDeps
       })
     ]);
