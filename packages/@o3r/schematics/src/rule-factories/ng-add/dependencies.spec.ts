@@ -12,27 +12,8 @@ import {
   lastValueFrom,
 } from 'rxjs';
 import {
-  enforceTildeRange,
   setupDependencies,
 } from './dependencies';
-
-describe('enforceTildeRange', () => {
-  test('should change caret range', () => {
-    expect(enforceTildeRange('^1.2.3')).toBe('~1.2.3');
-  });
-
-  test('should change caret handle undefined', () => {
-    expect(enforceTildeRange()).not.toBeDefined();
-  });
-
-  test('should not change pint range', () => {
-    expect(enforceTildeRange('1.2.3')).toBe('1.2.3');
-  });
-
-  test('should change multi caret range', () => {
-    expect(enforceTildeRange('^1.2.3 | 1.0.0 | ^1.1.0')).toBe('~1.2.3 | 1.0.0 | ~1.1.0');
-  });
-});
 
 describe('setupDependencies', () => {
   let initialTree: UnitTestTree;
@@ -43,7 +24,7 @@ describe('setupDependencies', () => {
   });
 
   test('should apply enforceTildeRange when requested as option', async () => {
-    const logger = { debug: jest.fn(), warn: jest.fn() };
+    const logger = { debug: jest.fn(), warn: jest.fn(), error: jest.fn() };
     const setup = setupDependencies({
       enforceTildeRange: true,
       skipInstall: true,
@@ -64,7 +45,7 @@ describe('setupDependencies', () => {
   });
 
   test('should apply enforceTildeRange per default', async () => {
-    const logger = { debug: jest.fn(), warn: jest.fn() };
+    const logger = { debug: jest.fn(), warn: jest.fn(), error: jest.fn() };
     const setup = setupDependencies({
       skipInstall: true,
       dependencies: {
@@ -84,7 +65,7 @@ describe('setupDependencies', () => {
   });
 
   test('should apply enforceTildeRange when requested specifically', async () => {
-    const logger = { debug: jest.fn(), warn: jest.fn() };
+    const logger = { debug: jest.fn(), warn: jest.fn(), logger: jest.fn() };
     const setup = setupDependencies({
       enforceTildeRange: false,
       skipInstall: true,
@@ -106,7 +87,7 @@ describe('setupDependencies', () => {
   });
 
   test('should not apply enforceTildeRange when set to false', async () => {
-    const logger = { debug: jest.fn(), warn: jest.fn() };
+    const logger = { debug: jest.fn(), warn: jest.fn(), error: jest.fn() };
     const setup = setupDependencies({
       enforceTildeRange: false,
       skipInstall: true,

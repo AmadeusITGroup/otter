@@ -71,7 +71,7 @@ jobs:
         packageManager: [yarn, npm]
         testEnvironment: [o3r-project-with-app]
         fastRun:
-          - ${{ github.event_name == 'pull_request' && github.base_ref == 'main' }}
+          - ${{ github.event_name == 'pull_request' && github.base_ref != 'main' }}
         exclude:
           - fastRun: true
             os: windows-latest
