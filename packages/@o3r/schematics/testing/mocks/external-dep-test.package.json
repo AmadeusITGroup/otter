@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "alreadyInstalledPackage": "~12.3.0"
+  },
+  "peerDependencies": {
+    "alreadyInstalledPackage": "^12.1.0",
+    "missing-package": "^12.0.0",
+    "packageWithWrongRange": "18.0.0"
+  },
+  "devDependencies": {
+    "missing-package": "12.4.0"
+  }
+}

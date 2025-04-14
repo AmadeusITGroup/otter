@@ -10,7 +10,7 @@ import {
 import {
   applyEditorConfig,
   createOtterSchematic,
-  getExternalDependenciesVersionRange,
+  getExternalDependenciesInfo,
   getO3rPeerDeps,
   getPackageInstallConfig,
   getPackageManager,
@@ -30,6 +30,41 @@ import type {
 import {
   updateVscode,
 } from './vscode/index';
+
+/**
+ * List of external dependencies to be added to the project as peer dependencies
+ */
+const dependenciesToInstall: string[] = [];
+
+/**
+ * List of external dependencies to be added to the project as dev dependencies
+ */
+const devDependenciesToInstall = [
+  '@eslint/js',
+  '@eslint-community/eslint-plugin-eslint-comments',
+  '@stylistic/eslint-plugin',
+  '@typescript-eslint/parser',
+  '@typescript-eslint/utils',
+  '@typescript-eslint/types',
+  'angular-eslint',
+  'eslint',
+  'eslint-import-resolver-node',
+  'eslint-import-resolver-typescript',
+  'eslint-plugin-import',
+  'eslint-plugin-import-newlines',
+  'eslint-plugin-jsdoc',
+  'eslint-plugin-prefer-arrow',
+  'eslint-plugin-unicorn',
+  'eslint-plugin-unused-imports',
+  'globals',
+  'globby',
+  'jsonc-eslint-parser',
+  'typescript-eslint',
+  // TODO: reactivate once https://github.com/nirtamir2/eslint-plugin-sort-export-all/issues/18 is fixed
+  // 'eslint-plugin-sort-export-all',
+  // TODO could be removed once #2482 is fixed
+  'yaml-eslint-parser'
+];
 
 const handleOtterEslintErrors = (projectName: string): Rule => (tree, context) => {
   if (!projectName) {
@@ -76,7 +111,7 @@ const addHarmonizeScript = (): Rule => {
       return tree;
     }
     const postInstall = rootPackageJsonObject.scripts.postinstall;
-    rootPackageJsonObject.scripts.harmonize = `eslint '**/package.json' ${isYarnPackageManager ? '.yarnrc.yml ' : ''}--quiet --fix`;
+    rootPackageJsonObject.scripts.harmonize = `eslint '**/package.json' ${isYarnPackageManager ? '.yarnrc.yml ' : ''}--quiet --fix --no-error-on-unmatched-pattern`;
     rootPackageJsonObject.scripts.postinstall = `${postInstall ? postInstall + ' && ' : ''}${extraPostInstall}`;
     tree.overwrite(rootPackageJsonPath, JSON.stringify(rootPackageJsonObject, null, 2));
     return tree;
@@ -85,45 +120,22 @@ const addHarmonizeScript = (): Rule => {
 
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
   /* ng add rules */
-  return async (tree: Tree, context: SchematicContext) => {
+  return (tree: Tree, context: SchematicContext) => {
     let installJestPlugin = false;
     try {
       require.resolve('jest');
       installJestPlugin = true;
     } catch {}
 
-    const devDependenciesToInstall = [
-      '@eslint-community/eslint-plugin-eslint-comments',
-      '@eslint/js',
-      '@stylistic/eslint-plugin',
-      '@typescript-eslint/parser',
-      '@typescript-eslint/utils',
-      '@typescript-eslint/types',
-      'angular-eslint',
-      'eslint',
-      'eslint-import-resolver-node',
-      'eslint-import-resolver-typescript',
-      'eslint-plugin-import',
-      'eslint-plugin-import-newlines',
-      ...(installJestPlugin ? ['eslint-plugin-jest'] : []),
-      'eslint-plugin-jsdoc',
-      'eslint-plugin-prefer-arrow',
-      // TODO: reactivate once https://github.com/nirtamir2/eslint-plugin-sort-export-all/issues/18 is fixed
-      // 'eslint-plugin-sort-export-all',
-      'eslint-plugin-unicorn',
-      'eslint-plugin-unused-imports',
-      'globby',
-      'globals',
-      'jsonc-eslint-parser',
-      'typescript-eslint',
-      // TODO could be removed once #2482 is fixed
-      'yaml-eslint-parser',
-      ...(options.projectName ? ['@angular-eslint/builder'] : [])
-    ];
+    if (installJestPlugin) {
+      devDependenciesToInstall.push('eslint-plugin-jest');
+    }
+    if (options.projectName) {
+      devDependenciesToInstall.push('@angular-eslint/builder');
+    }
 
     const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'), true, /^@(?:o3r|ama-sdk)/);
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
-    const { NodeDependencyType } = await import('@schematics/angular/utility/dependencies');
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
     const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
       acc[dep] = {
@@ -135,20 +147,27 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       };
       return acc;
     }, getPackageInstallConfig(packageJsonPath, tree, options.projectName, true, !!options.exactO3rVersion));
-    Object.entries(getExternalDependenciesVersionRange(devDependenciesToInstall, packageJsonPath, context.logger))
-      .forEach(([dep, range]) => {
-        dependencies[dep] = {
-          inManifest: [{
-            range,
-            types: [NodeDependencyType.Dev]
-          }]
-        };
-      });
+
+    const projectDirectory = workspaceProject?.root || '.';
+    const projectPackageJson = tree.readJson(path.posix.join(projectDirectory, 'package.json')) as PackageJson;
+
+    const externalDependenciesInfo = getExternalDependenciesInfo({
+      devDependenciesToInstall,
+      dependenciesToInstall,
+      projectType: workspaceProject?.projectType,
+      projectPackageJson,
+      o3rPackageJsonPath: packageJsonPath
+    },
+    context.logger
+    );
 
     return () => chain([
       setupDependencies({
         projectName: options.projectName,
-        dependencies,
+        dependencies: {
+          ...dependencies,
+          ...externalDependenciesInfo
+        },
         ngAddToRun: depsInfo.o3rPeerDeps
       }),
       updateVscode,
