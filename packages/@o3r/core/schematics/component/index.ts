@@ -9,6 +9,7 @@ import {
   mergeWith,
   move,
   noop,
+  renameTemplateFiles,
   Rule,
   schematic,
   SchematicContext,
@@ -123,6 +124,7 @@ function ngGenerateComponentFn(options: NgGenerateComponentSchematicsSchema): Ru
             folderName,
             generateComponentIndex: true
           }),
+          renameTemplateFiles(),
           move(componentDestination)
         ]), MergeStrategy.Overwrite)(tree, context);
       };
