@@ -8,12 +8,12 @@
       "aliases": ["install", "i"]
     },
     "playwright-scenario": {
-      "description": "Generate a Playwright scenario into the project.",
+      "description": "[Deprecated - Removed in v14] Generate a Playwright scenario into the project.",
       "factory": "./schematics/playwright/scenario/index#ngGeneratePlaywrightScenario",
       "schema": "./schematics/playwright/scenario/schema.json"
     },
     "playwright-sanity": {
-      "description": "Generate a Playwright sanity into the project.",
+      "description": "[Deprecated - Removed in v14] Generate a Playwright sanity into the project.",
       "factory": "./schematics/playwright/sanity/index#ngGeneratePlaywrightSanity",
       "schema": "./schematics/playwright/sanity/schema.json"
     },

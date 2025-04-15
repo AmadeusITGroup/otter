@@ -97,9 +97,6 @@ describe('new otter application', () => {
       execAppOptions
     );
 
-    packageManagerExec({ script: 'ng', args: ['g', '@o3r/testing:playwright-scenario', '--name', 'test-scenario', ...appNameOptions] }, execAppOptions);
-    packageManagerExec({ script: 'ng', args: ['g', '@o3r/testing:playwright-sanity', '--name', 'test-sanity', ...appNameOptions] }, execAppOptions);
-
     const diff = getGitDiff(execAppOptions.cwd);
 
     untouchedProjectsPaths.forEach((untouchedProject) => {
@@ -121,6 +118,5 @@ describe('new otter application', () => {
 
     packageManagerExecOnProject(appName, isInWorkspace, { script: 'playwright', args: ['install', '--with-deps'] }, execAppOptions);
     expect(() => packageManagerRunOnProject(appName, isInWorkspace, { script: 'test:playwright' }, execAppOptions)).not.toThrow();
-    expect(() => packageManagerRunOnProject(appName, isInWorkspace, { script: 'test:playwright:sanity' }, execAppOptions)).not.toThrow();
   });
 });
