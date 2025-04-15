@@ -20,6 +20,7 @@ const config = defineConfig({
   forbidOnly: !!process.env.CI,
   timeout: FIVE_MINUTES,
   use: {
+    baseURL: process.env.PLAYWRIGHT_TARGET_URL || 'http://localhost:4200/',
     ignoreHTTPSErrors: true,
     screenshot: 'only-on-failure',
     trace: 'retain-on-failure'

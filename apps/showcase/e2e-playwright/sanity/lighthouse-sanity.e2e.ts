@@ -13,7 +13,6 @@ import {
   AppFixtureComponent,
 } from '../../src/app/app.fixture';
 
-const baseUrl = process.env.PLAYWRIGHT_TARGET_URL || 'http://localhost:4200/';
 const lighthouseConfig = {
   thresholds: {
     accessibility: 100,
@@ -62,12 +61,12 @@ test.describe.configure({ mode: 'serial' });
 
 test.describe('Lighthouse tests', () => {
   test('home', async ({ page }, testInfo) => {
-    await page.goto(baseUrl);
+    await page.goto('/');
     await performAudit('home', page, testInfo);
   });
 
   test('run-app-locally', async ({ page }, testInfo) => {
-    await page.goto(baseUrl);
+    await page.goto('/');
     const appFixture = new AppFixtureComponent(new O3rElement({ element: page.locator('app-root'), page }));
     await appFixture.navigateToRunAppLocally();
     await page.waitForURL('**/run-app-locally');
@@ -75,7 +74,7 @@ test.describe('Lighthouse tests', () => {
   });
 
   test('configuration', async ({ page }, testInfo) => {
-    await page.goto(baseUrl);
+    await page.goto('/');
     const appFixture = new AppFixtureComponent(new O3rElement({ element: page.locator('app-root'), page }));
     await appFixture.navigateToConfiguration();
     await page.waitForURL('**/configuration');
@@ -83,7 +82,7 @@ test.describe('Lighthouse tests', () => {
   });
 
   test('localization', async ({ page }, testInfo) => {
-    await page.goto(baseUrl);
+    await page.goto('/');
     const appFixture = new AppFixtureComponent(new O3rElement({ element: page.locator('app-root'), page }));
     await appFixture.navigateToLocalization();
     await page.waitForURL('**/localization');
@@ -91,7 +90,7 @@ test.describe('Lighthouse tests', () => {
   });
 
   test('dynamic-content', async ({ page }, testInfo) => {
-    await page.goto(baseUrl);
+    await page.goto('/');
     const appFixture = new AppFixtureComponent(new O3rElement({ element: page.locator('app-root'), page }));
     await appFixture.navigateToDynamicContent();
     await page.waitForURL('**/dynamic-content');
@@ -99,7 +98,7 @@ test.describe('Lighthouse tests', () => {
   });
 
   test('rules-engine', async ({ page }, testInfo) => {
-    await page.goto(baseUrl);
+    await page.goto('/');
     const appFixture = new AppFixtureComponent(new O3rElement({ element: page.locator('app-root'), page }));
     await appFixture.navigateToRulesEngine();
     await page.waitForURL('**/rules-engine');
@@ -107,7 +106,7 @@ test.describe('Lighthouse tests', () => {
   });
 
   test('component-replacement', async ({ page }, testInfo) => {
-    await page.goto(baseUrl);
+    await page.goto('/');
     const appFixture = new AppFixtureComponent(new O3rElement({ element: page.locator('app-root'), page }));
     await appFixture.navigateToComponentReplacement();
     await page.waitForURL('**/component-replacement');
@@ -115,7 +114,7 @@ test.describe('Lighthouse tests', () => {
   });
 
   test('design-token', async ({ page }, testInfo) => {
-    await page.goto(baseUrl);
+    await page.goto('/');
     const appFixture = new AppFixtureComponent(new O3rElement({ element: page.locator('app-root'), page }));
     await appFixture.navigateToDesignToken();
     await page.waitForURL('**/design-token');
@@ -123,7 +122,7 @@ test.describe('Lighthouse tests', () => {
   });
 
   test('sdk-generator', async ({ page }, testInfo) => {
-    await page.goto(baseUrl);
+    await page.goto('/');
     const appFixture = new AppFixtureComponent(new O3rElement({ element: page.locator('app-root'), page }));
     await appFixture.navigateToSDKGenerator();
     await page.waitForURL('**/sdk');
@@ -131,7 +130,7 @@ test.describe('Lighthouse tests', () => {
   });
 
   test('placeholder', async ({ page }, testInfo) => {
-    await page.goto(baseUrl);
+    await page.goto('/');
     const appFixture = new AppFixtureComponent(new O3rElement({ element: page.locator('app-root'), page }));
     await appFixture.navigateToPlaceholder();
     await page.waitForURL('**/placeholder');
@@ -139,7 +138,7 @@ test.describe('Lighthouse tests', () => {
   });
 
   test('sdk-intro', async ({ page }, testInfo) => {
-    await page.goto(baseUrl);
+    await page.goto('/');
     const appFixture = new AppFixtureComponent(new O3rElement({ element: page.locator('app-root'), page }));
     await appFixture.navigateToSDKIntro();
     await page.waitForURL('**/sdk-intro');

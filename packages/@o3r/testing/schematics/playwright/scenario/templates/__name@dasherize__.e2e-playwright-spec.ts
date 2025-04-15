@@ -3,9 +3,9 @@ import { BaseScenario } from '../utils';
 
 export class <%= classify(scenarioName) %> extends BaseScenario {
   protected <%= camelize(scenarioName) %>() {
-    test.describe.serial('Empty <%= classify(scenarioName) %> tests', () => {
+    test.describe('Empty <%= classify(scenarioName) %> tests', () => {
       test('Empty test', async ({ page }) => {
-        await page.goto(this.targetUrl);
+        await page.goto('/');
         await expect(page.locator('body')).toBeAttached();
       });
     });
