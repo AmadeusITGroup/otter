@@ -1,12 +1,15 @@
 import {
+  debounceTime,
   Observable,
   ReplaySubject,
+  Subject,
 } from 'rxjs';
 import {
   concatMap,
   share,
   shareReplay,
   startWith,
+  switchMap,
   tap,
   withLatestFrom,
 } from 'rxjs/operators';
@@ -58,6 +61,8 @@ export class EngineDebugger {
 
   private performanceMeasures$!: Observable<PerformanceMeasure[]>;
 
+  private readonly requestFactsSnapshot = new Subject<void>();
+
   /** Stream emitting a debug event when is fired; timeline is kept */
   public readonly debugEvents$: Observable<DebugEvent>;
 
@@ -73,32 +78,50 @@ export class EngineDebugger {
   constructor(options?: EngineDebuggerOptions) {
     this.debugEventsSubject$ = new ReplaySubject<() => (Promise<DebugEvent> | DebugEvent)>(options?.eventsStackLimit);
     this.initializePerformanceObserver();
-    this.debugEvents$ = this.debugEventsSubject$.pipe(
-      withLatestFrom(this.performanceMeasures$),
-      concatMap(async ([eventFunc, performanceMeasures]) => {
-        const debugEvent: DebugEvent = await eventFunc();
-        if (debugEvent.type === 'RulesetExecution' || debugEvent.type === 'RulesetExecutionError') {
-          let rulesetDuration = 0;
-          debugEvent.rulesEvaluations.forEach((rule) => {
-            const mark = `rules-engine:${
-              this.registeredRuleEngine?.rulesEngineInstanceName || ''
-            }:${debugEvent.rulesetName}:${rule.rule.name}`;
-            const measures = performanceMeasures.filter((m) => m.name === mark);
-            const duration = measures.at(-1)?.duration || 0;
-            rule.duration = duration;
-            rulesetDuration += duration;
-          });
-          debugEvent.duration = rulesetDuration;
-        }
-        return debugEvent;
-      }),
-      tap((debugEvent) => {
-        if (debugEvent.type === 'RulesetExecution') {
-          this.rulesEngine?.logger?.debug?.(`${debugEvent.rulesetName} has been triggered and resulted in ${JSON.stringify(debugEvent.outputActions)}`);
-        }
-      }),
-      share()
-    );
+    this.debugEvents$ = new Observable<DebugEvent>((subscriber) => {
+      const factsSnapshotSubscription = this.requestFactsSnapshot.pipe(
+        debounceTime(1000),
+        switchMap(async () => {
+          const timestamp = Date.now();
+          const facts = await this.getFactsSnapshot(this.registeredRuleEngine!.getRegisteredFactsNames());
+          this.debugEventsSubject$.next(() => ({
+            timestamp,
+            type: 'AvailableFactsSnapshot',
+            facts
+          }));
+        })
+      ).subscribe();
+      const debugEventsSubscription = this.debugEventsSubject$.pipe(
+        withLatestFrom(this.performanceMeasures$),
+        concatMap(async ([eventFunc, performanceMeasures]) => {
+          const debugEvent: DebugEvent = await eventFunc();
+          if (debugEvent.type === 'RulesetExecution' || debugEvent.type === 'RulesetExecutionError') {
+            let rulesetDuration = 0;
+            debugEvent.rulesEvaluations.forEach((rule) => {
+              const mark = `rules-engine:${
+                this.registeredRuleEngine?.rulesEngineInstanceName || ''
+              }:${debugEvent.rulesetName}:${rule.rule.name}`;
+              const measures = performanceMeasures.filter((m) => m.name === mark);
+              const duration = measures.at(-1)?.duration || 0;
+              rule.duration = duration;
+              rulesetDuration += duration;
+            });
+            debugEvent.duration = rulesetDuration;
+          }
+          return debugEvent;
+        }),
+        tap((debugEvent) => {
+          if (debugEvent.type === 'RulesetExecution') {
+            this.rulesEngine?.logger?.debug?.(`${debugEvent.rulesetName} has been triggered and resulted in ${JSON.stringify(debugEvent.outputActions)}`);
+          }
+        })
+      ).subscribe(subscriber);
+
+      return () => {
+        factsSnapshotSubscription.unsubscribe();
+        debugEventsSubscription.unsubscribe();
+      };
+    }).pipe(share());
   }
 
   private initializePerformanceObserver() {
@@ -303,15 +326,7 @@ export class EngineDebugger {
     _id: string,
     factValue$: Observable<any>
   ) {
-    factValue$.subscribe(async () => {
-      const timestamp = Date.now();
-      const facts = await this.getFactsSnapshot(this.registeredRuleEngine!.getRegisteredFactsNames());
-      this.debugEventsSubject$.next(() => ({
-        timestamp,
-        type: 'AvailableFactsSnapshot',
-        facts
-      }));
-    });
+    factValue$.subscribe(() => this.requestFactsSnapshot.next());
   }
 
   /**
