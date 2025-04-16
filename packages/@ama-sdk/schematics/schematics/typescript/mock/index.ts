@@ -8,6 +8,7 @@ import {
   MergeStrategy,
   mergeWith,
   move,
+  renameTemplateFiles,
   Rule,
   SchematicContext,
   template,
@@ -79,6 +80,7 @@ function ngGenerateMockFn(options: NgGenerateMockSchematicsSchema): Rule {
         dasherizeModelName,
         dasherizeAndCapitalizeModelName: dasherizeModelName.toUpperCase()
       }),
+      renameTemplateFiles(),
       move(mockDestination)
     ]), MergeStrategy.Overwrite)(tree, context);
   };

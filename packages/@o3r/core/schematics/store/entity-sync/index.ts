@@ -9,6 +9,7 @@ import {
   mergeWith,
   move,
   noop,
+  renameTemplateFiles,
   Rule,
   SchematicContext,
   template,
@@ -75,6 +76,7 @@ function ngGenerateEntitySyncStoreFn(options: NgGenerateEntitySyncStoreSchematic
           ...formattedProperties,
           currentStoreIndex
         }),
+        renameTemplateFiles(),
         move(`${destination}/${strings.dasherize(options.storeName)}`)
       ]), MergeStrategy.Overwrite),
       mergeWith(apply(syncEntityTemplates, [
@@ -84,6 +86,7 @@ function ngGenerateEntitySyncStoreFn(options: NgGenerateEntitySyncStoreSchematic
           ...formattedProperties,
           currentStoreIndex
         }),
+        renameTemplateFiles(),
         move(`${destination}/${strings.dasherize(options.storeName)}`)
       ]), MergeStrategy.Overwrite)
     );
