@@ -38,15 +38,19 @@ export function cleanStandaloneFiles(targetPath: string): Rule {
     (tree) => {
       const packageJson = tree.readJson(posix.join(targetPath, 'package.json')) as PackageJson;
       if (packageJson.scripts) {
-        const excludedScripts = ['postinstall', 'set:version', 'tools:changelog'];
+        const excludedScripts = ['postinstall', 'set:version', 'tools:changelog', 'start'];
         packageJson.scripts = Object.fromEntries(
           Object.entries(packageJson.scripts).filter(([scriptName]) => !excludedScripts.includes(scriptName))
         );
       }
       delete packageJson['lint-staged'];
       if (packageJson.devDependencies) {
-        packageJson.devDependencies = Object.fromEntries(Object.entries(packageJson.devDependencies).filter(([depName]) => depName !== '@o3r/workspace'));
+        const dependenciesToRemove = ['@o3r/workspace', 'tsc-watch'];
+        packageJson.devDependencies = Object.fromEntries(
+          Object.entries(packageJson.devDependencies).filter(([depName]) => !dependenciesToRemove.includes(depName))
+        );
       }
+
       tree.overwrite(posix.join(targetPath, 'package.json'), JSON.stringify(packageJson, null, 2));
       return tree;
     }
