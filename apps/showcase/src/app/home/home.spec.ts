@@ -3,6 +3,9 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import {
+  provideDynamicContent,
+} from '@o3r/dynamic-content';
+import {
   provideMarkdown,
 } from 'ngx-markdown';
 import {
@@ -16,7 +19,10 @@ describe('HomeComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HomeComponent],
-      providers: [provideMarkdown()]
+      providers: [
+        provideMarkdown(),
+        provideDynamicContent()
+      ]
     });
     fixture = TestBed.createComponent(HomeComponent);
     component = fixture.componentInstance;

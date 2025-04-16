@@ -16,6 +16,9 @@ import {
   DomSanitizer,
   SafeResourceUrl,
 } from '@angular/platform-browser';
+import {
+  LoggerService,
+} from '@o3r/logger';
 
 @Directive({
   selector: 'iframe[connect]',
@@ -51,6 +54,7 @@ export class ConnectDirective {
   });
 
   constructor() {
+    const logger = inject(LoggerService);
     // When the origin url or the peer id changes it will remake the connection with the new updates. The old connection is closed
     effect(async () => {
       const clientOrigin = this.clientOrigin();
@@ -65,9 +69,7 @@ export class ConnectDirective {
             origin: clientOrigin
           });
         } catch (e) {
-          // TODO https://github.com/AmadeusITGroup/otter/issues/2887 - proper logger
-          // eslint-disable-next-line no-console -- log the error - replace this with a proper logger
-          console.error(e);
+          logger.error(`Fail to connect to client (connection ID: ${connectId})`, e);
         }
       }
     });
