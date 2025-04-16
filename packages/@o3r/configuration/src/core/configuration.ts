@@ -50,7 +50,7 @@ export function parseConfigurationName(configurationName: string): { library?: s
  * @param defaultValue Default value of the configuration
  */
 export function getConfiguration<T extends Record<string, unknown>>(defaultValue: T) {
-  return <C extends Partial<T>>(source: Observable<C | undefined >): Observable<T> =>
+  return <C extends Partial<T>>(source: Observable<C | undefined>): Observable<T> =>
     source.pipe(
       map((configOverride) => {
         return deepFill(defaultValue, configOverride);

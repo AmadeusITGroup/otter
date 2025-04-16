@@ -1,9 +1,10 @@
 {
-  "extends": "./tsconfig.app",
+  "extends": "../../tsconfig.base",
   "include": [
     "eslint*.config.mjs",
     "jest.config.js",
     "e2e-playwright/**/*",
-    "testing/setup-jest.ts"
+    "testing/setup-jest.ts",
+    "scripts/**/*"
   ]
 }

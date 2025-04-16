@@ -6,6 +6,8 @@
     "paths": {
       "@ama-sdk/client-fetch": ["packages/@ama-sdk/client-fetch/dist", "packages/@ama-sdk/client-fetch/src/public_api"],
       "@ama-sdk/core": ["packages/@ama-sdk/core/dist", "packages/@ama-sdk/core/src/public_api"],
+      "@ama-mfe/messages": ["packages/@ama-mfe/messages/dist", "packages/@ama-mfe/messages/src/public_api"],
+      "@ama-mfe/ng-utils": ["packages/@ama-mfe/ng-utils/dist", "packages/@ama-mfe/ng-utils/src/public_api"],
       "@ama-sdk/swagger-builder": ["packages/@ama-sdk/swagger-build/dist", "packages/@ama-sdk/swagger-builder"],
       "@ama-terasu/cli": ["packages/@ama-terasu/cli/dist", "packages/@ama-terasu/cli/src/public_api"],
       "@ama-terasu/core": ["packages/@ama-terasu/core/dist", "packages/@ama-terasu/core/src/public_api"],
@@ -47,6 +49,7 @@
       "@o3r/schematics": ["packages/@o3r/schematics/dist", "packages/@o3r/schematics/src/public_api"],
       "@o3r/store-sync": ["packages/@o3r/store-sync/dist", "packages/@o3r/store-sync/src/public_api"],
       "@o3r/stylelint-plugin": ["packages/@o3r/stylelint-plugin/dist", "packages/@o3r/stylelint-plugin/src/public_api"],
+      "@o3r/style-dictionary": ["packages/@o3r/style-dictionary/dist", "packages/@o3r/style-dictionary/src/public_api.mts"],
       "@o3r/styling": ["packages/@o3r/styling/dist", "packages/@o3r/styling/src/public_api"],
       "@o3r/styling/builders/*/helpers": ["packages/@o3r/styling/dist/builders/*/helpers/index", "packages/@o3r/styling/builders/*/helpers"],
       "@o3r/telemetry": ["packages/@o3r/telemetry/dist", "packages/@o3r/telemetry/src/public_api"],

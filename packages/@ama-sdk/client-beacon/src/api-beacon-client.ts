@@ -2,16 +2,23 @@ import type {
   ApiClient,
   ApiTypes,
   BaseApiClientOptions,
+  ParamSerialization,
   PartialExcept,
   RequestOptions,
   RequestOptionsParameters,
+  SupportedParamType,
   TokenizedOptions,
 } from '@ama-sdk/core';
 import {
   extractQueryParams,
   filterUndefinedValues,
+  getPropertiesFromData,
   prepareUrl,
+  prepareUrlWithQueryParams,
   processFormData,
+  serializePathParams,
+  serializeQueryParams,
+  stringifyQueryParams,
   tokenizeRequestOptions,
 } from '@ama-sdk/core';
 
@@ -28,7 +35,8 @@ export interface BaseApiBeaconClientConstructor extends PartialExcept<Omit<BaseA
 const DEFAULT_OPTIONS = {
   replyPlugins: [] as never[],
   requestPlugins: [],
-  enableTokenization: false
+  enableTokenization: false,
+  enableParameterSerialization: false
 } as const satisfies Omit<BaseApiBeaconClientOptions, 'basePath'>;
 
 /**
@@ -67,6 +75,16 @@ export class ApiBeaconClient implements ApiClient {
   }
 
   /** @inheritdoc */
+  public getPropertiesFromData<T, K extends keyof T>(data: T, keys: K[]): Pick<T, K> {
+    return getPropertiesFromData(data, keys);
+  }
+
+  /** @inheritdoc */
+  public stringifyQueryParams<T extends { [key: string]: SupportedParamType }>(queryParams: T): { [p in keyof T]: string; } {
+    return stringifyQueryParams(queryParams);
+  }
+
+  /** @inheritdoc */
   public getRequestOptions(options: RequestOptionsParameters): Promise<RequestOptions> {
     if (options.method.toUpperCase() !== 'POST') {
       throw new Error(`Unsupported method: ${options.method}. The beacon API only supports POST.`);
@@ -92,8 +110,29 @@ export class ApiBeaconClient implements ApiClient {
   }
 
   /** @inheritdoc */
+  public serializeQueryParams<T extends { [key: string]: SupportedParamType }>(queryParams: T, queryParamSerialization: { [p in keyof T]: ParamSerialization }): { [p in keyof T]: string } {
+    if (this.options.serializeQueryParams) {
+      return this.options.serializeQueryParams(queryParams, queryParamSerialization);
+    }
+    return serializeQueryParams(queryParams, queryParamSerialization);
+  }
+
+  /** @inheritdoc */
+  public serializePathParams<T extends { [key: string]: SupportedParamType }>(pathParams: T, pathParamSerialization: { [p in keyof T]: ParamSerialization }): { [p in keyof T]: string } {
+    if (this.options.serializePathParams) {
+      return serializePathParams(pathParams, pathParamSerialization);
+    }
+    return serializePathParams(pathParams, pathParamSerialization);
+  }
+
+  /** @inheritdoc */
   public prepareUrl(url: string, queryParameters?: { [key: string]: string }): string {
     return prepareUrl(url, queryParameters);
+  }
+
+  /** @inheritdoc */
+  public prepareUrlWithQueryParams(url: string, serializedQueryParams?: { [key: string]: string }): string {
+    return prepareUrlWithQueryParams(url, serializedQueryParams);
   }
 
   /** @inheritdoc */

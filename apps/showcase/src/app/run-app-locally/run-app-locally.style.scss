@@ -1,8 +1,6 @@
-o3r-run-app-locally {
-  /* --- BEGIN THEME Auto-generated --- */
---run-app-locally-tertiary-bg: var(--color-primary-50);
-/* --- END THEME Auto-generated --- */
+@import './run-app-locally.style.vars.scss';
 
+o3r-run-app-locally {
   .bg-body-tertiary {
     background: var(--run-app-locally-tertiary-bg);
   }

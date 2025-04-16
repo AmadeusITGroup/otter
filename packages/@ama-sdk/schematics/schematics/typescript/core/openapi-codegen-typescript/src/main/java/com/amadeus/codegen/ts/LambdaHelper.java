@@ -76,6 +76,23 @@ public class LambdaHelper {
    * Replaces placeholders in the URL such as
    * /carts/{cartId}/travelers
    * to
+   * /carts/${serializedPathParams['cartId']}/travelers
+   */
+  public static class UrlSerializedParamReplacerLambda extends CustomLambda {
+
+      public UrlSerializedParamReplacerLambda() {}
+
+      @Override
+      public String formatFragment(String fragment) {
+          return fragment.replaceAll("\\{([\\w_-]+)\\}", "\\${serializedPathParams['$1']}");
+      }
+
+  }
+
+  /**
+   * Replaces placeholders in the URL such as
+   * /carts/{cartId}/travelers
+   * to
    * /carts/${this.piiParamTokens['$1'] || data['$1']}/travelers
    */
   public static class TokenizedUrlParamReplacerLambda extends CustomLambda {
@@ -85,6 +102,22 @@ public class LambdaHelper {
       @Override
       public String formatFragment(String fragment) {
           return fragment.replaceAll("\\{([\\w_-]+)\\}", "\\${this.piiParamTokens['$1'] || data['$1']}");
+      }
+  }
+
+  /**
+   * Replaces placeholders in the URL such as
+   * /carts/{cartId}/travelers
+   * to
+   * /carts/${this.piiParamTokens['$1'] || serializedPathParams['$1']}/travelers
+   */
+  public static class TokenizedUrlSerializedParamReplacerLambda extends CustomLambda {
+
+      public TokenizedUrlSerializedParamReplacerLambda() {}
+
+      @Override
+      public String formatFragment(String fragment) {
+          return fragment.replaceAll("\\{([\\w_-]+)\\}", "\\${this.piiParamTokens['$1'] || serializedPathParams['$1']}");
       }
   }
 

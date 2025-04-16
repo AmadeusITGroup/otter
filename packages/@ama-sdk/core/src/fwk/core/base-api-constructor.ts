@@ -5,6 +5,10 @@ import {
 import type {
   Logger,
 } from '../logger';
+import {
+  ParamSerialization,
+  SupportedParamType,
+} from '../param-serialization';
 
 /** Interface of the constructor configuration object */
 export interface BaseApiClientOptions {
@@ -23,6 +27,12 @@ export interface BaseApiClientOptions {
   disableFallback?: boolean;
   /** Logger (optional, fallback to console logger if undefined) */
   logger?: Logger;
+  /** Enable parameter serialization with exploded syntax */
+  enableParameterSerialization?: boolean;
+  /** Custom query parameter serialization method */
+  serializeQueryParams?<T extends { [key: string]: SupportedParamType }>(queryParams: T, queryParamSerialization: { [p in keyof T]: ParamSerialization }): { [p in keyof T]: string };
+  /** Custom query parameter serialization method */
+  serializePathParams?<T extends { [key: string]: SupportedParamType }>(pathParams: T, pathParamSerialization: { [p in keyof T]: ParamSerialization }): { [p in keyof T]: string };
 }
 
 /** Interface of the constructor configuration object */

@@ -1,6 +1,8 @@
 /* eslint-disable no-console -- only using the reference */
 import {
   getResponseReviver,
+  prepareUrl,
+  prepareUrlWithQueryParams,
   ReviverType,
 } from '@ama-sdk/core';
 
@@ -63,5 +65,27 @@ describe('getResponseReviver - reviver as function', () => {
   it('should only return the reviver if the endpoint reviver is a function or an undefined object', () => {
     expect(getResponseReviver(reviver, { status: 200, ok: true })).toBe(reviver);
     expect(getResponseReviver(undefined, { status: 200, ok: true })).toBe(undefined);
+  });
+});
+
+describe('Prepare URL', () => {
+  it('should correctly prepare url with query parameters of deprecated type', () => {
+    // primitive value
+    expect(prepareUrl('https://sampleUrl/samplePath/sampleOperation', { id: '5' })).toEqual('https://sampleUrl/samplePath/sampleOperation?id=5');
+    // array value
+    expect(prepareUrl('https://sampleUrl/samplePath/sampleOperation', { id: '3,4,5' })).toEqual('https://sampleUrl/samplePath/sampleOperation?id=3,4,5');
+  });
+
+  it('should correctly prepare url with serialized query parameters', () => {
+    // one parameter
+    expect(prepareUrlWithQueryParams('https://sampleUrl/samplePath/sampleOperation', { id: 'id=5' }))
+      .toEqual('https://sampleUrl/samplePath/sampleOperation?id=5');
+
+    // no parameters
+    expect(prepareUrlWithQueryParams('https://sampleUrl/samplePath/sampleOperation', {})).toEqual('https://sampleUrl/samplePath/sampleOperation');
+
+    // multiple parameters
+    expect(prepareUrlWithQueryParams('https://sampleUrl/samplePath/sampleOperation', { id1: 'id1=3,4,5', id2: 'id2=5' }))
+      .toEqual('https://sampleUrl/samplePath/sampleOperation?id1=3,4,5&id2=5');
   });
 });

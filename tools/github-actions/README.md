@@ -8,3 +8,4 @@ Actions currently available :
 * Upload build output action [Documentation](upload-build-output/readme.md)
 * Download build output action [Documentation](download-build-output/readme.md)
 * New GitHub Release action [Documentation](release/readme.md)
+* Yarn errors reporter action [Documentation](yarn-errors-reporter/readme.md)

@@ -32,7 +32,7 @@ describe('getCommitHookInitTask', () => {
 
     expect(context.addTask).toHaveBeenNthCalledWith(1, expect.objectContaining({ script: 'husky init' }), runAfter);
     expect(context.addTask).toHaveBeenNthCalledWith(2, expect.objectContaining({ script: expect.stringMatching(/\.husky\/pre-commit/) }), [{ id: 123 }]);
-    expect(context.addTask).toHaveBeenNthCalledWith(2, expect.objectContaining({ script: expect.stringMatching(/exec lint-stage/) }), [{ id: 123 }]);
+    expect(context.addTask).toHaveBeenNthCalledWith(2, expect.objectContaining({ script: expect.stringMatching(/exec lint-staged/) }), [{ id: 123 }]);
   });
 });
 

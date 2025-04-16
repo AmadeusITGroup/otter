@@ -2,11 +2,13 @@ import type {
   ApiClient,
   ApiTypes,
   BaseApiClientOptions,
+  ParamSerialization,
   PartialExcept,
   PluginAsyncRunner,
   RequestOptions,
   RequestOptionsParameters,
   ReviverType,
+  SupportedParamType,
   TokenizedOptions,
 } from '@ama-sdk/core';
 import {
@@ -15,12 +17,17 @@ import {
   ExceptionReply,
   extractQueryParams,
   filterUndefinedValues,
+  getPropertiesFromData,
   getResponseReviver,
   prepareUrl,
+  prepareUrlWithQueryParams,
   processFormData,
   RequestFailedError,
   ResponseJSONParseError,
   ReviverReply,
+  serializePathParams,
+  serializeQueryParams,
+  stringifyQueryParams,
   tokenizeRequestOptions,
 } from '@ama-sdk/core';
 import type {
@@ -44,7 +51,8 @@ const DEFAULT_OPTIONS = {
   fetchPlugins: [],
   requestPlugins: [],
   enableTokenization: false,
-  disableFallback: false
+  disableFallback: false,
+  enableParameterSerialization: false
 } as const satisfies Omit<BaseApiFetchClientOptions, 'basePath'>;
 
 /** Client to process the call to the API using Fetch API */
@@ -66,6 +74,16 @@ export class ApiFetchClient implements ApiClient {
   /** @inheritdoc */
   public extractQueryParams<T extends { [key: string]: any }>(data: T, names: (keyof T)[]): { [p in keyof T]: string; } {
     return extractQueryParams(data, names);
+  }
+
+  /** @inheritdoc */
+  public getPropertiesFromData<T, K extends keyof T>(data: T, keys: K[]): Pick<T, K> {
+    return getPropertiesFromData(data, keys);
+  }
+
+  /** @inheritdoc */
+  public stringifyQueryParams<T extends { [key: string]: SupportedParamType }>(queryParams: T): { [p in keyof T]: string; } {
+    return stringifyQueryParams(queryParams);
   }
 
   /** @inheritdoc */
@@ -93,8 +111,29 @@ export class ApiFetchClient implements ApiClient {
   }
 
   /** @inheritdoc */
+  public serializeQueryParams<T extends { [key: string]: SupportedParamType }>(queryParams: T, queryParamSerialization: { [p in keyof T]: ParamSerialization }): { [p in keyof T]: string } {
+    if (this.options.serializeQueryParams) {
+      return this.options.serializeQueryParams(queryParams, queryParamSerialization);
+    }
+    return serializeQueryParams(queryParams, queryParamSerialization);
+  }
+
+  /** @inheritdoc */
+  public serializePathParams<T extends { [key: string]: SupportedParamType }>(pathParams: T, pathParamSerialization: { [p in keyof T]: ParamSerialization }): { [p in keyof T]: string } {
+    if (this.options.serializePathParams) {
+      return serializePathParams(pathParams, pathParamSerialization);
+    }
+    return serializePathParams(pathParams, pathParamSerialization);
+  }
+
+  /** @inheritdoc */
   public prepareUrl(url: string, queryParameters: { [key: string]: string | undefined } = {}) {
     return prepareUrl(url, queryParameters);
+  }
+
+  /** @inheritdoc */
+  public prepareUrlWithQueryParams(url: string, serializedQueryParams?: { [key: string]: string }): string {
+    return prepareUrlWithQueryParams(url, serializedQueryParams);
   }
 
   /** @inheritdoc */

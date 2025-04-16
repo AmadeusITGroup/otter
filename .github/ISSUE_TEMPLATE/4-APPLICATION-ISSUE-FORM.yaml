@@ -18,7 +18,8 @@ body:
           Chrome Devtools,
           VsCode Extension,
           IntelliJ extension,
-          Cascading bot
+          Cascading bot,
+          Palette generator Figma plugin
       ]
     validations:
       required: true

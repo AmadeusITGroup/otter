@@ -8,7 +8,7 @@
     "rootDir": ".",
     "tsBuildInfoFile": "build/.tsbuildinfo.builders",
     "esModuleInterop": true,
-    "skipLibCheck": true, // because of @angular-devkit-schematics
+    "skipLibCheck": true, // because of @gerrit0/mini-shiki from typedoc
     "allowSyntheticDefaultImports": true
   },
   "include": [

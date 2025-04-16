@@ -1,6 +1,6 @@
 import type {
-  Api,
   ApiClient,
+  ApiName,
 } from '@ama-sdk/core';
 
 /**
@@ -33,9 +33,18 @@ export class ApiManager {
   /**
    * Retrieve a configuration for a specific API
    * @param api API to get the configuration for
+   * @note When passing a string the configuration is expecting to exist else an error is thrown
+   * @note when passing an Api instance that does not match a registered configuration, the default one will be returned
    */
-  public getConfiguration(api?: string | Api): ApiClient {
-    return (api && this.apiConfigurations[typeof api === 'string' ? api : api.apiName]) || this.defaultConfiguration;
+  public getConfiguration(api?: string | ApiName): ApiClient {
+    if (typeof api === 'string') {
+      if (this.apiConfigurations[api]) {
+        return this.apiConfigurations[api];
+      } else {
+        throw new Error(`Unknown API configuration: ${api}\nKnown API configurations: ${Object.keys(this.apiConfigurations).join(', ')}`);
+      }
+    }
+    return (api && this.apiConfigurations[api.apiName]) || this.defaultConfiguration;
   }
 
   /**
@@ -43,7 +52,7 @@ export class ApiManager {
    * @param apiClient API configuration to override to the given api
    * @param api API name to override, the default configuration will be used if not specified
    */
-  public setConfiguration(apiClient: ApiClient, api?: string | Api): void {
+  public setConfiguration(apiClient: ApiClient, api?: string | ApiName): void {
     if (api) {
       this.apiConfigurations[typeof api === 'string' ? api : api.apiName] = apiClient;
     } else {

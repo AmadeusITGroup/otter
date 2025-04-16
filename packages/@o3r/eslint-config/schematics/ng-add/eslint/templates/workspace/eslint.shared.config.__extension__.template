@@ -1,5 +1,11 @@
-<% if (extension === 'mjs') { %>import o3rConfig from '@o3r/eslint-config';
+<% if (extension === 'mjs') { %>import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import o3rConfig from '@o3r/eslint-config';
 import o3rTemplate from '@o3r/eslint-config/template';
+
+const __filename = fileURLToPath(import.meta.url);
+// __dirname is not defined in ES module scope
+const __dirname = dirname(__filename);
 <% } else { %>const o3rConfig = require('@o3r/eslint-config');
 const o3rTemplate = require('@o3r/eslint-config/template');
 <% } %>
@@ -24,7 +30,7 @@ const o3rTemplate = require('@o3r/eslint-config/template');
         node: true,
         typescript: {
           project: [
-<%= detectedTsConfigs.map((tsconfig) => `            '${tsconfig}'`).join(',\n') %>
+<%= detectedTsConfigs.map((tsconfig) => `            join(__dirname, '${tsconfig}')`).join(',\n') %>
           ]
         }
       }

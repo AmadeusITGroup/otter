@@ -18,9 +18,12 @@ env:
   NX_TASK_TARGET_CONFIGURATION: ci
   NX_SKIP_NX_CACHE: ${{ inputs.skipNxCache }}
   YARN_ENABLE_HARDENED_MODE: 0
+  E2E_REPORT: e2e-report
 
 permissions:
-  contents: read
+  contents: write # Needed to create a commit in case of visual testing failure
+  issues: write # Needed to add a comment to a pull request
+  pull-requests: write # Needed to add a comment to a pull request
 
 jobs:
   e2e-tests:
@@ -43,9 +46,40 @@ jobs:
 
       - name: Publish tests reports
         if: failure()
-        uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.0
+        uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1 # v4.6.1
         with:
-          name: e2e-report
+          name: ${{ env.E2E_REPORT }}
           path: |
             apps/chrome-devtools/playwright-reports
             apps/showcase/playwright-reports
+            apps/showcase/test-results
+
+  e2e-screenshots:
+    runs-on: ubuntu-24.04
+    # To work correctly this workflow must be run only on pull_request trigger and not coming from a fork
+    if: ${{ failure() && github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.event.pull_request.base.repo.full_name }}
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+    needs: [e2e-tests]
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: actions/download-artifact@cc203385981b70ca67e1cc392babf9cc229d5806 # v4.1.9
+        with:
+          name: ${{ env.E2E_REPORT }}
+          # Needed because the least common ancestor of all the paths will be used as the root directory of the artifact
+          # https://github.com/actions/upload-artifact?tab=readme-ov-file#upload-using-multiple-paths-and-exclusions
+          path: 'apps'
+      - name: Update e2e screenshots
+        id: update-e2e-screenshots
+        uses: ./tools/github-actions/update-e2e-screenshots
+        with:
+          visualTestingReportPath: apps/showcase/playwright-reports/visual-testing/report.json
+      - uses: ./tools/github-actions/setup
+        if: ${{ steps.update-e2e-screenshots.outputs.screenshots != '0' }}
+      - name: Create branch for e2e screenshots
+        if: ${{ steps.update-e2e-screenshots.outputs.screenshots != '0' }}
+        uses: ./tools/github-actions/create-branch-e2e-screenshots
+        with:
+          screenshotsPattern: apps/showcase/e2e-playwright/sanity/screenshots/**
