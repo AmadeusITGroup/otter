@@ -45,7 +45,6 @@ const baseFileList = [
   '/.yarnrc.yml',
   '/openapitools.json',
   '/package.json',
-  '/configs/tsconfig.test.json',
   '/src/api/index.ts',
   '/src/api/fixtures.jest.ts',
   '/src/index.ts',
