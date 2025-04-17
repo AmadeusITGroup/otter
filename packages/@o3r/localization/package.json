@@ -34,6 +34,9 @@
     "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest",
     "build": "yarn nx build localization"
   },
+  "generatorDependencies": {
+    "@angular-devkit/architect": "~0.1902.0"
+  },
   "peerDependencies": {
     "@angular-devkit/architect": ">=0.1900.0 <0.2000.0-0",
     "@angular-devkit/core": "^19.0.0",

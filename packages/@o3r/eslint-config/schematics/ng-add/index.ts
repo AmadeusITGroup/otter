@@ -22,6 +22,41 @@ You need to install '@o3r/schematics' package to be able to use the eslint-confi
   throw reason;
 };
 
+/**
+ * List of external dependencies to be added to the project as peer dependencies
+ */
+const dependenciesToInstall: string[] = [];
+
+/**
+ * List of external dependencies to be added to the project as dev dependencies
+ */
+const devDependenciesToInstall = [
+  '@eslint/js',
+  '@eslint-community/eslint-plugin-eslint-comments',
+  '@stylistic/eslint-plugin',
+  '@typescript-eslint/parser',
+  '@typescript-eslint/utils',
+  '@typescript-eslint/types',
+  'angular-eslint',
+  'eslint',
+  'eslint-import-resolver-node',
+  'eslint-import-resolver-typescript',
+  'eslint-plugin-import',
+  'eslint-plugin-import-newlines',
+  'eslint-plugin-jsdoc',
+  'eslint-plugin-prefer-arrow',
+  'eslint-plugin-unicorn',
+  'eslint-plugin-unused-imports',
+  'globals',
+  'globby',
+  'jsonc-eslint-parser',
+  'typescript-eslint',
+  // TODO: reactivate once https://github.com/nirtamir2/eslint-plugin-sort-export-all/issues/18 is fixed
+  // 'eslint-plugin-sort-export-all',
+  // TODO could be removed once #2482 is fixed
+  'yaml-eslint-parser'
+];
+
 const handleOtterEslintErrors = (projectName: string): Rule => async (tree: Tree, context: SchematicContext) => {
   if (!projectName) {
     return;
@@ -60,46 +95,23 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       installJestPlugin = true;
     } catch {}
 
-    const devDependenciesToInstall = [
-      '@eslint-community/eslint-plugin-eslint-comments',
-      '@eslint/js',
-      '@stylistic/eslint-plugin',
-      '@typescript-eslint/parser',
-      '@typescript-eslint/utils',
-      '@typescript-eslint/types',
-      'angular-eslint',
-      'eslint',
-      'eslint-import-resolver-node',
-      'eslint-import-resolver-typescript',
-      'eslint-plugin-import',
-      'eslint-plugin-import-newlines',
-      ...(installJestPlugin ? ['eslint-plugin-jest'] : []),
-      'eslint-plugin-jsdoc',
-      'eslint-plugin-prefer-arrow',
-      // TODO: reactivate once https://github.com/nirtamir2/eslint-plugin-sort-export-all/issues/18 is fixed
-      // 'eslint-plugin-sort-export-all',
-      'eslint-plugin-unicorn',
-      'eslint-plugin-unused-imports',
-      'globby',
-      'globals',
-      'jsonc-eslint-parser',
-      'typescript-eslint',
-      // TODO could be removed once #2482 is fixed
-      'yaml-eslint-parser',
-      ...(options.projectName ? ['@angular-eslint/builder'] : [])
-    ];
+    if (installJestPlugin) {
+      devDependenciesToInstall.push('eslint-plugin-jest');
+    }
+    if (options.projectName) {
+      devDependenciesToInstall.push('@angular-eslint/builder');
+    }
 
     const {
-      getExternalDependenciesVersionRange,
       setupDependencies,
-      getWorkspaceConfig,
+      getExternalDependenciesInfo,
       getO3rPeerDeps,
       getProjectNewDependenciesTypes,
-      getPackageInstallConfig
+      getPackageInstallConfig,
+      getWorkspaceConfig
     } = await import('@o3r/schematics');
     const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'), true, /^@(?:o3r|ama-sdk)/);
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
-    const { NodeDependencyType } = await import('@schematics/angular/utility/dependencies');
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
     const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
       acc[dep] = {
@@ -111,20 +123,27 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       };
       return acc;
     }, getPackageInstallConfig(packageJsonPath, tree, options.projectName, true, !!options.exactO3rVersion));
-    Object.entries(getExternalDependenciesVersionRange(devDependenciesToInstall, packageJsonPath, context.logger))
-      .forEach(([dep, range]) => {
-        dependencies[dep] = {
-          inManifest: [{
-            range,
-            types: [NodeDependencyType.Dev]
-          }]
-        };
-      });
+
+    const projectDirectory = workspaceProject?.root || '.';
+    const projectJsonPath = path.posix.join(projectDirectory, 'package.json');
+
+    const externalDependenciesInfo = getExternalDependenciesInfo({
+      devDependenciesToInstall,
+      dependenciesToInstall,
+      projectType: workspaceProject?.projectType,
+      projectPackageJsonPath: projectJsonPath,
+      o3rPackageJsonPath: packageJsonPath
+    },
+    context.logger
+    );
 
     return () => chain([
       setupDependencies({
         projectName: options.projectName,
-        dependencies,
+        dependencies: {
+          ...dependencies,
+          ...externalDependenciesInfo
+        },
         ngAddToRun: depsInfo.o3rPeerDeps
       }),
       updateVscode,

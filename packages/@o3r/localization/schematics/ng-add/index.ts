@@ -6,6 +6,9 @@ import {
   Rule,
 } from '@angular-devkit/schematics';
 import {
+  type PackageJson,
+} from 'type-fest';
+import {
   updateCmsAdapter,
 } from '../cms-adapter';
 import {
@@ -15,7 +18,26 @@ import type {
   NgAddSchematicsSchema,
 } from './schema';
 
+/**
+ * List of external dependencies to be added to the project as peer dependencies
+ */
 const dependenciesToInstall = [
+  '@angular/cdk',
+  '@angular/common',
+  '@angular/core',
+  '@formatjs/intl-numberformat',
+  '@ngrx/store',
+  '@ngx-translate/core',
+  'intl-messageformat',
+  'rxjs'
+];
+
+/**
+ * List of external dependencies to be added to the project as dev dependencies
+ */
+const devDependenciesToInstall = [
+  '@angular-devkit/core',
+  '@angular/platform-browser-dynamic',
   'chokidar',
   'globby'
 ];
@@ -35,24 +57,26 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
   return async (tree, context) => {
     const {
       applyEsLintFix,
+      getExternalDependenciesInfo,
       getPackageInstallConfig,
       getProjectNewDependenciesTypes,
       getWorkspaceConfig,
       setupDependencies,
       getO3rPeerDeps,
-      getExternalDependenciesVersionRange,
       registerPackageCollectionSchematics,
       setupSchematicsParamsForProject
     } = await import('@o3r/schematics');
     const { updateI18n, updateLocalization } = await import('../localization-base');
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
-    const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' }));
+    const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' })) as PackageJson;
+
+    const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
+    const projectDirectory = workspaceProject?.root || '.';
+    const projectJsonPath = path.posix.join(projectDirectory, 'package.json');
     const depsInfo = getO3rPeerDeps(packageJsonPath);
     context.logger.info(`The package ${depsInfo.packageName as string} comes with a debug mechanism`);
     context.logger.info('Get information on https://github.com/AmadeusITGroup/otter/tree/main/docs/localization/LOCALIZATION.md#Debugging');
 
-    const { NodeDependencyType } = await import('@schematics/angular/utility/dependencies');
-    const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
     const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
       acc[dep] = {
         inManifest: [{
@@ -63,14 +87,17 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       };
       return acc;
     }, getPackageInstallConfig(packageJsonPath, tree, options.projectName, false, !!options.exactO3rVersion));
-    Object.entries(getExternalDependenciesVersionRange(dependenciesToInstall, packageJsonPath, context.logger)).forEach(([dep, range]) => {
-      dependencies[dep] = {
-        inManifest: [{
-          range,
-          types: [NodeDependencyType.Dev]
-        }]
-      };
-    });
+
+    const externalDependenciesInfo = getExternalDependenciesInfo({
+      devDependenciesToInstall,
+      dependenciesToInstall,
+      projectType: workspaceProject?.projectType,
+      projectPackageJsonPath: projectJsonPath,
+      o3rPackageJsonPath: packageJsonPath
+    },
+    context.logger
+    );
+
     const registerDevtoolRule = await registerDevtools(options);
     return chain([
       updateLocalization(options, __dirname),
@@ -78,7 +105,10 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       options.skipLinter ? noop() : applyEsLintFix(),
       setupDependencies({
         projectName: options.projectName,
-        dependencies,
+        dependencies: {
+          ...dependencies,
+          ...externalDependenciesInfo
+        },
         ngAddToRun: depsInfo.o3rPeerDeps
       }),
       updateCmsAdapter(options),

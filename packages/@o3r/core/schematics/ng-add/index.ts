@@ -83,6 +83,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
     }
 
     return chain([
+      setupDependencies(dependenciesSetupConfig),
       setupSchematicsParamsForProject({ '*:ng-add': { registerDevtool: options.withDevtool } }, options.projectName),
       options.exactO3rVersion ? setupSchematicsParamsForProject({ '*:*': { exactO3rVersion: true } }, options.projectName) : noop(),
       options.projectName ? prepareProject(options, dependenciesSetupConfig) : noop(),

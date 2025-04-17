@@ -55,9 +55,6 @@
     "@openapitools/openapi-generator-cli": {
       "optional": true
     },
-    "openapi-types": {
-      "optional": true
-    },
     "type-fest": {
       "optional": true
     }

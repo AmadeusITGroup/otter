@@ -1,4 +1,3 @@
-import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {
   chain,
@@ -16,8 +15,18 @@ const doCustomAction: Rule = (tree) => {
   return tree;
 };
 
+/**
+ * List of external dependencies to be added to the project as dev dependencies
+ */
+const devDependenciesToInstall: string[] = [];
+
+/**
+ * List of external dependencies to be added to the project as peer dependencies
+ */
 const dependenciesToInstall: string[] = [
-  // Add the dependencies to install here
+  '@angular/common',
+  '@angular/core',
+  '@angular/router'
 ];
 
 const dependenciesToNgAdd: string[] = [
@@ -29,28 +38,33 @@ const dependenciesToNgAdd: string[] = [
  * @param options
  */
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
-  return async (tree) => {
+  return async (tree, context) => {
     // use dynamic import to properly raise an exception if it is not an Otter project.
-    const { getProjectNewDependenciesTypes, getPackageInstallConfig, applyEsLintFix, getWorkspaceConfig, setupDependencies } = await import('@o3r/schematics');
+    const { getExternalDependenciesInfo, getPackageInstallConfig, applyEsLintFix, getWorkspaceConfig, setupDependencies } = await import('@o3r/schematics');
     // current package version
-    const version = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' })).version;
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
-    const dependencies = [...dependenciesToInstall, ...dependenciesToNgAdd].reduce((acc, dep) => {
-      acc[dep] = {
-        inManifest: [{
-          range: `~${version}`,
-          types: getProjectNewDependenciesTypes(workspaceProject)
-        }]
-      };
-      return acc;
-    }, getPackageInstallConfig(packageJsonPath, tree, options.projectName));
+    const projectDirectory = workspaceProject?.root || '.';
+    const projectJsonPath = path.posix.join(projectDirectory, 'package.json');
+    const externalDependenciesInfo = getExternalDependenciesInfo({
+      devDependenciesToInstall: devDependenciesToInstall,
+      dependenciesToInstall: dependenciesToInstall,
+      o3rPackageJsonPath: packageJsonPath,
+      projectPackageJsonPath: projectJsonPath,
+      projectType: workspaceProject?.projectType
+    },
+    context.logger
+    );
+    const dependencies = getPackageInstallConfig(packageJsonPath, tree, options.projectName);
     return chain([
       // optional custom action dedicated to this module
       doCustomAction,
       options.skipLinter ? noop() : applyEsLintFix(),
       setupDependencies({
         projectName: options.projectName,
-        dependencies,
+        dependencies: {
+          ...dependencies,
+          ...externalDependenciesInfo
+        },
         ngAddToRun: dependenciesToNgAdd,
         skipInstall: options.skipInstall
       })
