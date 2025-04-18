@@ -10,7 +10,10 @@ export default defineConfig([
     languageOptions: {
       sourceType: 'module',
       parserOptions: {
-        projectService: true
+        projectService: [
+          './**/tsconfig.json',
+          './**/tsconfig.eslint.json'
+        ]
       }
     }
   },
