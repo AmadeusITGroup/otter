@@ -8,10 +8,7 @@ export default defineConfig([
   {
     name: '@o3r/framework/projects',
     languageOptions: {
-      sourceType: 'module',
-      parserOptions: {
-        projectService: true
-      }
+      sourceType: 'module'
     }
   },
   {

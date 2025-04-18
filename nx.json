@@ -107,6 +107,7 @@
     ],
     "lint": [
       "base",
+      "{projectRoot}/tsconfig*.json",
       "{projectRoot}/eslint*.config.mjs",
       "{projectRoot}/**/package.json",
       "{projectRoot}/**/*.html",
