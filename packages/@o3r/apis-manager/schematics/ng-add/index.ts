@@ -4,15 +4,18 @@ import {
   noop,
   type Rule,
 } from '@angular-devkit/schematics';
+import {
+  applyEsLintFix,
+  createOtterSchematic,
+  getO3rPeerDeps,
+  getPackageInstallConfig,
+  getProjectNewDependenciesTypes,
+  getWorkspaceConfig,
+  setupDependencies,
+} from '@o3r/schematics';
 import type {
   NgAddSchematicsSchema,
 } from './schema';
-
-const reportMissingSchematicsDep = (logger: { error: (message: string) => any }) => (reason: any) => {
-  logger.error(`[ERROR]: Adding @o3r/apis-manager has failed.
-You need to install '@o3r/schematics' to be able to use the o3r apis-manager package. Please run 'ng add @o3r/schematics'.`);
-  throw reason;
-};
 
 /**
  * Add Otter apis manager to an Angular Project
@@ -20,8 +23,6 @@ You need to install '@o3r/schematics' to be able to use the o3r apis-manager pac
  */
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
   return async (tree) => {
-    const { getPackageInstallConfig } = await import('@o3r/schematics');
-    const { setupDependencies, getO3rPeerDeps, applyEsLintFix, getWorkspaceConfig, getProjectNewDependenciesTypes } = await import('@o3r/schematics');
     const { updateApiDependencies } = await import('../helpers/update-api-deps');
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
     const depsInfo = getO3rPeerDeps(packageJsonPath);
@@ -63,9 +64,4 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
  * Add Otter apis manager to an Angular Project
  * @param options
  */
-export const ngAdd = (options: NgAddSchematicsSchema): Rule => async (_, { logger }) => {
-  const {
-    createOtterSchematic
-  } = await import('@o3r/schematics').catch(reportMissingSchematicsDep(logger));
-  return createOtterSchematic(ngAddFn)(options);
-};
+export const ngAdd = (options: NgAddSchematicsSchema) => createOtterSchematic(ngAddFn)(options);

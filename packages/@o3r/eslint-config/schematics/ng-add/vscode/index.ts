@@ -5,6 +5,9 @@ import {
   chain,
   type Rule,
 } from '@angular-devkit/schematics';
+import {
+  addVsCodeRecommendations,
+} from '@o3r/schematics';
 
 type ESLintRulesCustomization = {
   rule: string;
@@ -43,8 +46,7 @@ type VScodeSettings = JsonObject & EditorSettings & ESLintSettings;
 /**
  * Update VSCode recommendations and settings
  */
-export const updateVscode: Rule = async () => {
-  const { addVsCodeRecommendations } = await import('@o3r/schematics');
+export const updateVscode: Rule = () => {
   return chain([
     addVsCodeRecommendations(['dbaeumer.vscode-eslint']),
     (tree) => {

@@ -10983,6 +10983,7 @@ __metadata:
     zone.js: "npm:~0.15.0"
   peerDependencies:
     "@o3r/core": "workspace:^"
+    "@o3r/schematics": "workspace:^"
     "@o3r/telemetry": "workspace:^"
     style-dictionary: ^4.3.2
     type-fest: ^4.30.1
@@ -11718,6 +11719,7 @@ __metadata:
     "@angular/common": ^19.0.0
     "@angular/compiler-cli": ^19.0.0
     "@angular/core": ^19.0.0
+    "@o3r/schematics": "workspace:^"
     "@o3r/telemetry": "workspace:^"
     "@schematics/angular": ^19.0.0
     ts-node: ~10.9.2
@@ -11725,6 +11727,8 @@ __metadata:
     typescript: ^5.5.4
   peerDependenciesMeta:
     "@angular/cli":
+      optional: true
+    "@o3r/schematics":
       optional: true
     "@o3r/telemetry":
       optional: true

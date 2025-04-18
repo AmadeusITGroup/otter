@@ -6,5 +6,10 @@
   "lib": {
     "entryFile": "public_api.ts"
   },
-  "allowedNonPeerDependencies": ["@amadeus-it-group/microfrontends", "@amadeus-it-group/microfrontends-angular", "@o3r/logger"]
+  "allowedNonPeerDependencies": [
+    "@amadeus-it-group/microfrontends",
+    "@amadeus-it-group/microfrontends-angular",
+    "@o3r/logger",
+    "@o3r/schematics"
+  ]
 }
