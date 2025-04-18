@@ -12,7 +12,7 @@
   },
   "include": ["src/**/*.ts"],
   "exclude": ["**/*.spec.ts"],
-  /* For IDE usage only */
+  /* For IDE and EsLint usage */
   "references": [
     {
       "path": "./tsconfig.spec.json"

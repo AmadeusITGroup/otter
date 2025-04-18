@@ -1,3 +1,4 @@
+/* For IDE and EsLint usage */
 {
   "extends": "../../../tsconfig.base",
   "files": [],
@@ -7,7 +8,13 @@
       "path": "./tsconfig.build.json"
     },
     {
+      "path": "./tsconfig.builders.json"
+    },
+    {
       "path": "./tsconfig.spec.json"
+    },
+    {
+      "path": "./tsconfig.eslint.json"
     }
   ]
 }
