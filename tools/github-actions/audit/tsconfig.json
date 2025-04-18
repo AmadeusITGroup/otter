@@ -1,4 +1,4 @@
-/* For IDE usage only */
+/* For IDE and EsLint usage */
 {
   "references": [
     {
@@ -6,6 +6,9 @@
     },
     {
       "path": "./tsconfig.spec.json"
+    },
+    {
+      "path": "./tsconfig.eslint.json"
     }
   ]
 }

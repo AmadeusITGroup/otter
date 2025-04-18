@@ -6,25 +6,21 @@ import {
 import {
   NodePackageInstallTask,
 } from '@angular-devkit/schematics/tasks';
+import {
+  createOtterSchematic,
+  getFilesInFolderFromWorkspaceProjectsInTree,
+  getPeerDepWithPattern,
+  getWorkspaceConfig,
+  removePackages,
+} from '@o3r/schematics';
 import * as ts from 'typescript';
 import type {
   NgAddSchematicsSchema,
 } from './schema';
 
-const reportMissingSchematicsDep = (logger: { error: (message: string) => any }) => (reason: any) => {
-  logger.error(`[ERROR]: Adding @ama-sdk/core has failed.
-      If the error is related to missing @o3r dependencies you need to install '@o3r/schematics' to be able to use the @ama-sdk/core ng add. Please run 'ng add @o3r/schematics' .
-      Otherwise, use the error message as guidance.`);
-  throw reason;
-};
+const removeImports = removePackages(['@dapi/sdk-core']);
 
-const removeImports: Rule = async () => {
-  const { removePackages } = await import('@o3r/schematics');
-  return removePackages(['@dapi/sdk-core']);
-};
-
-const updateImports: Rule = async (tree) => {
-  const { getFilesInFolderFromWorkspaceProjectsInTree } = await import('@o3r/schematics');
+const updateImports: Rule = (tree) => {
   const files = getFilesInFolderFromWorkspaceProjectsInTree(tree, '', 'ts');
   files.forEach((file) => {
     const sourceFile = ts.createSourceFile(
@@ -55,8 +51,7 @@ const updateImports: Rule = async (tree) => {
  * @param options schema options
  */
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
-  const addMandatoryPeerDeps: Rule = async (tree, context) => {
-    const { getPeerDepWithPattern, getWorkspaceConfig } = await import('@o3r/schematics');
+  const addMandatoryPeerDeps: Rule = (tree, context) => {
     const workingDirectory = (options?.projectName && getWorkspaceConfig(tree)?.projects[options.projectName]?.root) || '.';
     const peerDepToInstall = getPeerDepWithPattern(path.resolve(__dirname, '..', '..', 'package.json'));
     context.addTask(new NodePackageInstallTask({
@@ -82,9 +77,4 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
  * Helps to migrate from previous versions with an import replacement
  * @param options
  */
-export const ngAdd = (options: NgAddSchematicsSchema): Rule => async (_, context) => {
-  const {
-    createOtterSchematic
-  } = await import('@o3r/schematics').catch(reportMissingSchematicsDep(context.logger));
-  return createOtterSchematic(ngAddFn)(options);
-};
+export const ngAdd = (options: NgAddSchematicsSchema) => createOtterSchematic(ngAddFn)(options);

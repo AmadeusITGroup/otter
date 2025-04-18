@@ -5,6 +5,14 @@ import {
   noop,
   Rule,
 } from '@angular-devkit/schematics';
+import {
+  applyEsLintFix,
+  createOtterSchematic,
+  getPackageInstallConfig,
+  getProjectNewDependenciesTypes,
+  getWorkspaceConfig,
+  setupDependencies,
+} from '@o3r/schematics';
 import type {
   NgAddSchematicsSchema,
 } from './schema';
@@ -29,9 +37,7 @@ const dependenciesToNgAdd: string[] = [
  * @param options
  */
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
-  return async (tree) => {
-    // use dynamic import to properly raise an exception if it is not an Otter project.
-    const { getProjectNewDependenciesTypes, getPackageInstallConfig, applyEsLintFix, getWorkspaceConfig, setupDependencies } = await import('@o3r/schematics');
+  return (tree) => {
     // current package version
     const version = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' })).version;
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
@@ -62,7 +68,4 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
  * Add module to an Angular Project
  * @param options ng add options
  */
-export const ngAdd = (options: NgAddSchematicsSchema): Rule => async () => {
-  const { createOtterSchematic } = await import('@o3r/schematics').catch(() => ({ createOtterSchematic: (ngAddCallback: (options: NgAddSchematicsSchema) => Rule) => ngAddCallback }));
-  return createOtterSchematic(ngAddFn)(options);
-};
+export const ngAdd = (options: NgAddSchematicsSchema) => createOtterSchematic(ngAddFn)(options);

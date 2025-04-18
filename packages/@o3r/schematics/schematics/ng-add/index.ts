@@ -53,6 +53,4 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
  * Add Otter schematics to an Angular Project
  * @param options
  */
-export const ngAdd = (options: NgAddSchematicsSchema): Rule => () => {
-  return createOtterSchematic(ngAddFn)(options);
-};
+export const ngAdd = (options: NgAddSchematicsSchema) => createOtterSchematic(ngAddFn)(options);
