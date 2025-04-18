@@ -1,6 +1,6 @@
 <% if (extension === 'mjs') { %>import {
   mergeESLintFlatConfigs,
-} from '@o3r/eslint-config';
+} from '@o3r/eslint-config/helpers';
 import {
   dirname,
 } from 'node:path';

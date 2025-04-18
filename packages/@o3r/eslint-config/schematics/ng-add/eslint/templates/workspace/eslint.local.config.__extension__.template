@@ -13,6 +13,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 <% } else { %>const { defineConfig } = require('eslint/config');
 <% } %>
+
 <%= codeBeforeConfig %><%= extension === 'mjs' ? 'export default' : 'module.exports =' %> defineConfig([
   {
     name: '<%= packageName %>/projects',
