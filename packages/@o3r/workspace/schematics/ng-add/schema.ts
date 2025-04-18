@@ -6,7 +6,7 @@ import type {
 export type MonorepoManager = 'lerna' | 'none';
 
 export interface NgAddSchematicsSchema extends SchematicOptionObject {
-  /** Skip the linter process */
+  /** Skip the linter process which includes the run of EsLint and EditorConfig rules */
   skipLinter: boolean;
 
   /** Skip the install process */
@@ -32,4 +32,7 @@ export interface NgAddSchematicsSchema extends SchematicOptionObject {
 
   /** Skip adding Renovate config */
   skipRenovate?: boolean;
+
+  /** Skip adding Editor config */
+  skipEditorConfigSetup?: boolean;
 }

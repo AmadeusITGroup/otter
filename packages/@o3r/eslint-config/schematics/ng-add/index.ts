@@ -7,6 +7,9 @@ import {
   type Tree,
 } from '@angular-devkit/schematics';
 import {
+  applyEditorConfig,
+} from '@o3r/schematics';
+import {
   updateEslintConfig,
 } from './eslint/index';
 import type {
@@ -134,7 +137,8 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
           updateEslintConfig(__dirname, options.projectName),
           options.fix ? handleOtterEslintErrors(options.projectName) : noop()
         ])
-        : noop()
+        : noop(),
+      options.skipLinter ? noop() : applyEditorConfig()
     ])(tree, context);
   };
 }

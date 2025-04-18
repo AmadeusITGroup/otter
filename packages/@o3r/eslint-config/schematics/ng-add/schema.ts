@@ -9,4 +9,6 @@ export interface NgAddSchematicsSchema extends SchematicOptionObject {
   exactO3rVersion?: boolean;
   /** Fix known issues with our ESLint config after Otter application or library generation */
   fix?: boolean;
+  /** Skip the linter process which includes EditorConfig rules applying */
+  skipLinter: boolean;
 }

@@ -32,6 +32,9 @@ import {
   getPackageManager,
   isPackageInstalled,
 } from '../../utility/package-manager-runner';
+import {
+  applyEditorConfig,
+} from '../editor-config';
 
 /**
  * Options to be passed to the ng add task
@@ -227,7 +230,6 @@ export const setupDependencies = (options: SetupDependenciesOptions): Rule => {
 
         const content = JSON.stringify(packageJsonContent, null, 2);
         tree.overwrite(packageJsonPath, content);
-        return tree;
       };
     };
 
@@ -300,7 +302,8 @@ export const setupDependencies = (options: SetupDependenciesOptions): Rule => {
 
     return chain([
       addDependencies,
-      runNgAddSchematics
+      runNgAddSchematics,
+      applyEditorConfig(['json'])
     ]);
   };
 };
