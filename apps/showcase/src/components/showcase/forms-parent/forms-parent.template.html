@@ -1,0 +1,29 @@
+<div class="card my-3">
+  <div class="row g-0">
+    <div class="col-6 align-items-center justify-center">
+      <o3r-forms-personal-info-pres
+        [id]="'personal-info'"
+        [config]="{nameMaxLength: 5}"
+        [customValidators]="personalInfoValidators"
+        (registerInteraction)="registerPersonalInfoInteraction($event)"
+        (submitPersonalInfoForm)="submitPersonalInfoForm()"
+        [formControl]="personalInfoFormControl">
+      </o3r-forms-personal-info-pres>
+    </div>
+    <div class="col-6 align-items-center justify-center">
+      <o3r-forms-emergency-contact-pres
+        [id]="'emergency-contact'"
+        [customValidators]="emergencyContactValidators"
+        (registerInteraction)="registerEmergencyContactInteraction($event)"
+        (submitEmergencyContactForm)="submitEmergencyContactForm()"
+        [formControl]="emergencyContactFormControl">
+      </o3r-forms-emergency-contact-pres>
+    </div>
+  </div>
+  <div class="row m-auto pb-3">
+    <button type="button" class="btn btn-primary" id="btn-submit" (click)="submitAction()">Submit All</button>
+  </div>
+  <div class="row">
+    <markdown clipboard [data]="'Submitted Form Value:\n' + submittedFormValue | language: 'json'" class="col-12 col-md-8 col-lg-9"></markdown>
+  </div>
+</div>

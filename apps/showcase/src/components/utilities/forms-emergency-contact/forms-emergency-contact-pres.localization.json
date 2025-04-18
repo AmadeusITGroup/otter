@@ -1,0 +1,34 @@
+{
+  "o3r-forms-emergency-contact-pres.name.required": {
+    "description": "Required validator for the name",
+    "defaultValue": "The name is required"
+  },
+  "o3r-forms-emergency-contact-pres.name.required.long": {
+    "description": "Required validator for the name",
+    "defaultValue": "You have to enter a name for the emergency contact. Click here to navigate."
+  },
+  "o3r-forms-emergency-contact-pres.phone.required": {
+    "description": "Required validator for the phone",
+    "defaultValue": "The phone number is required"
+  },
+  "o3r-forms-emergency-contact-pres.phone.required.long": {
+    "description": "Required validator for the phone",
+    "defaultValue": "You have to enter a phone number for the emergency contact. Click here to navigate."
+  },
+  "o3r-forms-emergency-contact-pres.phone.pattern": {
+    "description": "Validator for phone pattern",
+    "defaultValue": "Invalid phone number pattern"
+  },
+  "o3r-forms-emergency-contact-pres.phone.pattern.long": {
+    "description": "Validator for phone pattern",
+    "defaultValue": "The entered phone number has an invalid pattern."
+  },
+  "o3r-forms-emergency-contact-pres.email.pattern": {
+    "description": "Validator for email pattern",
+    "defaultValue": "Invalid email address pattern"
+  },
+  "o3r-forms-emergency-contact-pres.email.pattern.long": {
+    "description": "Validator for email pattern",
+    "defaultValue": "The entered email address has an invalid pattern."
+  }
+}
