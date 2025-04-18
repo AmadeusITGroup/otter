@@ -13,7 +13,7 @@ import {
   template,
   url,
 } from '@angular-devkit/schematics';
-import type {
+import {
   createOtterSchematic,
 } from '@o3r/schematics';
 import type {
@@ -45,15 +45,4 @@ export function ngAddDesignTokenFn(options: NgAddDesignTokenSchematicsSchema): R
  * Add Design Token to an existing component
  * @param options
  */
-export const ngAddDesignToken = (options: NgAddDesignTokenSchematicsSchema) => async () => {
-  let createOtterSchematicWrapper: typeof createOtterSchematic = (fn) => fn;
-  try {
-    const {
-      createOtterSchematic: wrapper
-    } = await import('@o3r/schematics');
-    createOtterSchematicWrapper = wrapper;
-  } catch {
-    // No @o3r/schematics detected
-  }
-  return createOtterSchematicWrapper(ngAddDesignTokenFn)(options);
-};
+export const ngAddDesignToken = (options: NgAddDesignTokenSchematicsSchema) => createOtterSchematic(ngAddDesignTokenFn)(options);

@@ -5,7 +5,9 @@ import type {
   FileEntry,
   Rule,
 } from '@angular-devkit/schematics';
-
+import {
+  findFilesInTree,
+} from '@o3r/schematics';
 /**
  * Update Eslint files to new recommended names
  */
@@ -20,10 +22,9 @@ export function updateEslintRecommended(): Rule {
 
   const isFileToParse = (path: string) => configFilePattern.test(basename(path));
 
-  return async (tree) => {
+  return (tree) => {
     let files: FileEntry[];
     try {
-      const { findFilesInTree } = await import('@o3r/schematics');
       files = findFilesInTree(tree.getDir('/'), isFileToParse);
     } catch {
       files = [];

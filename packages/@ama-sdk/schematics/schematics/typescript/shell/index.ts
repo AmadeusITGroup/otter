@@ -17,6 +17,10 @@ import {
   url,
 } from '@angular-devkit/schematics';
 import {
+  createOtterSchematic,
+  enforceTildeRange,
+} from '@o3r/schematics';
+import {
   dump,
   load,
 } from 'js-yaml';
@@ -44,8 +48,6 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKShellSchemati
 
   const setupRule = async (tree: Tree, context: SchematicContext) => {
     const amaSdkSchematicsPackageJson = await readPackageJson();
-
-    const { enforceTildeRange } = await import('@o3r/schematics');
 
     const versions = Object.fromEntries(Object.entries({
       tslib: amaSdkSchematicsPackageJson.dependencies!.tslib,
@@ -181,9 +183,4 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKShellSchemati
  * Generate Typescript SDK shell
  * @param options
  */
-export const ngGenerateTypescriptSDK = (options: NgGenerateTypescriptSDKShellSchematicsSchema) => async () => {
-  const {
-    createOtterSchematic
-  } = await import('@o3r/schematics');
-  return createOtterSchematic(ngGenerateTypescriptSDKFn)(options);
-};
+export const ngGenerateTypescriptSDK = (options: NgGenerateTypescriptSDKShellSchematicsSchema) => createOtterSchematic(ngGenerateTypescriptSDKFn)(options);

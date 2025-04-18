@@ -61,8 +61,9 @@ function updateTemplatesFn(options: NgGenerateUpdateSchematicsSchema): Rule {
       packageJson.peerDependenciesMeta['@o3r/schematics'] = { optional: true };
       packageJson.devDependencies['@angular-devkit/schematics'] = angularVersion;
       packageJson.devDependencies['@angular-devkit/core'] = angularVersion;
-      packageJson.devDependencies['@o3r/schematics'] = otterVersion;
       packageJson.devDependencies['cpy-cli'] = o3rCorePackageJson.generatorDependencies!['cpy-cli'];
+      packageJson.dependencies ||= {};
+      packageJson.dependencies['@o3r/schematics'] = otterVersion;
 
       tree.overwrite(packageJsonPath, JSON.stringify(packageJson, null, 2));
     }

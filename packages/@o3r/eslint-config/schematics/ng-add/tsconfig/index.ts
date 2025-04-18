@@ -11,13 +11,15 @@ import {
   template,
   url,
 } from '@angular-devkit/schematics';
-
+import {
+  getTemplateFolder,
+} from '@o3r/schematics';
 /**
  * Update or add tsconfig.eslint.json file
  * @param rootPath
  * @param projectTsConfig
  */
-export const updateOrAddTsconfigEslint = (rootPath: string, projectTsConfig = 'tsconfig'): Rule => async (tree) => {
+export const updateOrAddTsconfigEslint = (rootPath: string, projectTsConfig = 'tsconfig'): Rule => (tree) => {
   const tsconfigPath = 'tsconfig.eslint.json';
   if (tree.exists(tsconfigPath)) {
     const tsconfig = tree.readJson(tsconfigPath) as JsonObject;
@@ -25,7 +27,7 @@ export const updateOrAddTsconfigEslint = (rootPath: string, projectTsConfig = 't
     tree.overwrite(tsconfigPath, JSON.stringify(tsconfig, null, 2));
     return () => tree;
   }
-  const { getTemplateFolder } = await import('@o3r/schematics');
+
   return () => mergeWith(apply(url(getTemplateFolder(rootPath, __dirname)), [
     template({ projectTsConfig }),
     renameTemplateFiles()

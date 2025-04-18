@@ -6,6 +6,7 @@
     "entryFile": "src/index.ts"
   },
   "allowedNonPeerDependencies": [
-    "uuid"
+    "uuid",
+    "@o3r/schematics"
   ]
 }
