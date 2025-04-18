@@ -8,5 +8,11 @@ const rootDir = path.join(__dirname, '..');
 module.exports = {
   ...createDefaultPreset(getTsJestBaseConfig()),
   ...getOtterJestBaseConfig(rootDir),
-  ...getJestUnitTestConfig()
+  ...getJestUnitTestConfig(),
+  coveragePathIgnorePatterns: [
+    '<rootDir>/src/api/**/*.ts',
+    '<rootDir>/src/models/base/**/*.ts',
+    '<rootDir>/src/spec/api-mock.ts',
+    '<rootDir>/src/spec/operation-adapter.ts'
+  ]
 };
