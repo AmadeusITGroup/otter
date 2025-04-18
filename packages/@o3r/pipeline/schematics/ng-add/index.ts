@@ -12,6 +12,11 @@ import {
   url,
 } from '@angular-devkit/schematics';
 import {
+  createOtterSchematic,
+  getPackageManager,
+  getWorkspaceConfig,
+} from '@o3r/schematics';
+import {
   dump,
   load,
 } from 'js-yaml';
@@ -21,7 +26,6 @@ import type {
 import type {
   NgAddSchematicsSchema,
 } from './schema';
-
 /**
  * Determines if the Yarn version is 2 or higher based on the contents of the .yarnrc.yml file.
  * @param tree tree
@@ -40,7 +44,7 @@ function isYarn2(tree: Tree) {
  * @param options
  */
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
-  return async (tree, context) => {
+  return (tree, context) => {
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
     const ownPackageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' })) as PackageJson & { config?: { o3r?: { commitHash?: string } } };
     const commitHash = ownPackageJson.config?.o3r?.commitHash;
@@ -48,8 +52,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
     const actionVersionString = commitHash ? `${commitHash} # v${ownVersion}` : `v${ownVersion}`;
     let packageManager = 'npm';
     try {
-      const schematics = await import('@o3r/schematics');
-      packageManager = schematics.getPackageManager({ workspaceConfig: schematics.getWorkspaceConfig(tree) });
+      packageManager = getPackageManager({ workspaceConfig: getWorkspaceConfig(tree) });
     } catch {
       packageManager = tree.exists('/yarn.lock') ? 'yarn' : 'npm';
     }
@@ -108,12 +111,4 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
  * Add an Otter CI pipeline to an Angular project
  * @param options
  */
-export const ngAdd = (options: NgAddSchematicsSchema): Rule => async (_, { logger }) => {
-  return await import('@o3r/schematics')
-    .catch(() => {
-      logger.warn(`You are trying to add '@o3r/pipeline' on a project that does not have '@o3r/schematics' as a dependency.
-        Please run 'ng add @o3r/schematics' before for a more robust setup. Trying to guess the package manager.`);
-    }).then((schematics) =>
-      schematics ? schematics.createOtterSchematic(ngAddFn)(options) : ngAddFn(options)
-    );
-};
+export const ngAdd = (options: NgAddSchematicsSchema) => createOtterSchematic(ngAddFn)(options);

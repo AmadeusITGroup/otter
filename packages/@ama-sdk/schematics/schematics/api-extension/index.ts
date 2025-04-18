@@ -10,6 +10,9 @@ import {
   url,
 } from '@angular-devkit/schematics';
 import {
+  createOtterSchematic,
+} from '@o3r/schematics';
+import {
   NgGenerateApiExtensionSchematicsSchema,
 } from './schema';
 
@@ -32,9 +35,4 @@ function ngGenerateApiExtensionFn(options: NgGenerateApiExtensionSchematicsSchem
  * Generate a Extension of a API core definition
  * @param options
  */
-export const ngGenerateApiExtension = (options: NgGenerateApiExtensionSchematicsSchema) => async () => {
-  const {
-    createOtterSchematic
-  } = await import('@o3r/schematics');
-  return createOtterSchematic(ngGenerateApiExtensionFn)(options);
-};
+export const ngGenerateApiExtension = (options: NgGenerateApiExtensionSchematicsSchema) => createOtterSchematic(ngGenerateApiExtensionFn)(options);

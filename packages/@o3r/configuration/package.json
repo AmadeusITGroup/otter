@@ -76,6 +76,7 @@
     }
   },
   "dependencies": {
+    "@o3r/schematics": "workspace:^",
     "tslib": "^2.6.2"
   },
   "devDependencies": {
@@ -103,7 +104,6 @@
     "@o3r/core": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
     "@o3r/logger": "workspace:^",
-    "@o3r/schematics": "workspace:^",
     "@o3r/test-helpers": "workspace:^",
     "@o3r/testing": "workspace:^",
     "@schematics/angular": "~19.2.0",

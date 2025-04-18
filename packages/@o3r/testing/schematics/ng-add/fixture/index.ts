@@ -4,6 +4,10 @@ import {
   SchematicContext,
   Tree,
 } from '@angular-devkit/schematics';
+import {
+  getTestFramework,
+  getWorkspaceConfig,
+} from '@o3r/schematics';
 import type {
   TsConfigJson,
 } from 'type-fest';
@@ -22,8 +26,7 @@ export function updateFixtureConfig(options: { projectName?: string | null | und
    * @param tree
    * @param context
    */
-  const updateTestTsconfig: Rule = async (tree: Tree, context: SchematicContext) => {
-    const { getTestFramework, getWorkspaceConfig } = await import('@o3r/schematics');
+  const updateTestTsconfig: Rule = (tree: Tree, context: SchematicContext) => {
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
 
     if (!workspaceProject) {

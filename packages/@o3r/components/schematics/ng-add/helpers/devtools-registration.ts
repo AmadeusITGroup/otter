@@ -3,8 +3,8 @@ import {
 } from 'node:fs';
 import * as path from 'node:path';
 import {
-  Rule,
-} from '@angular-devkit/schematics';
+  registerDevtoolsToApplication,
+} from '@o3r/schematics';
 import type {
   NgAddSchematicsSchema,
 } from '../schema';
@@ -17,8 +17,7 @@ const PACKAGE_NAME: string = JSON.parse(readFileSync(path.resolve(__dirname, '..
  * Register Devtools to the application
  * @param options
  */
-export const registerDevtools = async (options: NgAddSchematicsSchema): Promise<Rule> => {
-  const { registerDevtoolsToApplication } = await import('@o3r/schematics');
+export const registerDevtools = (options: NgAddSchematicsSchema) => {
   return registerDevtoolsToApplication({
     moduleName: DEVTOOL_MODULE_NAME,
     packageName: PACKAGE_NAME,
