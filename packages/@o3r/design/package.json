@@ -49,6 +49,7 @@
     "o3r-css-from-design-token": "./dist/cli/generate-css-from-design-token.cli.cjs"
   },
   "dependencies": {
+    "@o3r/schematics": "workspace:^",
     "jsonschema": "~1.5.0",
     "minimatch": "~10.0.0",
     "minimist": "^1.2.6",
@@ -119,7 +120,6 @@
     "@o3r/build-helpers": "workspace:^",
     "@o3r/core": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
-    "@o3r/schematics": "workspace:^",
     "@o3r/styling": "workspace:^",
     "@o3r/telemetry": "workspace:^",
     "@o3r/test-helpers": "workspace:^",

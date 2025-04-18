@@ -5,7 +5,7 @@ import {
 import type {
   Rule,
 } from '@angular-devkit/schematics';
-import type {
+import {
   createOtterSchematic,
 } from '@o3r/schematics';
 import {
@@ -123,15 +123,4 @@ function extractTokenFn(options: ExtractTokenSchematicsSchema): Rule {
  * Extract the token from o3r mixin sass file
  * @param options
  */
-export const extractToken = (options: ExtractTokenSchematicsSchema) => async () => {
-  let createOtterSchematicWrapper: typeof createOtterSchematic = (fn) => fn;
-  try {
-    const {
-      createOtterSchematic: wrapper
-    } = await import('@o3r/schematics');
-    createOtterSchematicWrapper = wrapper;
-  } catch {
-    // No @o3r/schematics detected
-  }
-  return createOtterSchematicWrapper(extractTokenFn)(options);
-};
+export const extractToken = (options: ExtractTokenSchematicsSchema) => createOtterSchematic(extractTokenFn)(options);
