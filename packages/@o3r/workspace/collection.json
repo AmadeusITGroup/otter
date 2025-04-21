@@ -8,28 +8,33 @@
       "aliases": ["install", "i"]
     },
     "application": {
-      "description": "Generate a new Otter Application",
+      "description": "[o3r] Generate a new Otter Application",
       "factory": "./schematics/application/index#generateApplication",
       "schema": "./schematics/application/schema.json",
       "aliases": [
+        "o3r-application",
         "new-application",
         "app"
       ]
     },
     "library": {
-      "description": "Generate a new Otter compatible module",
+      "description": "[o3r] Generate a new Otter compatible module",
       "factory": "./schematics/library/index#generateModule",
       "schema": "./schematics/library/schema.json",
       "aliases": [
+        "o3r-library",
         "new-module",
         "module",
         "libs"
       ]
     },
     "sdk": {
-      "description": "Generate a new SDK package in an Otter project",
+      "description": "[o3r] Generate a new SDK package in an Otter project",
       "factory": "./schematics/sdk/index#generateSdk",
-      "schema": "./schematics/sdk/schema.json"
+      "schema": "./schematics/sdk/schema.json",
+      "aliases": [
+        "o3r-sdk"
+      ]
     }
   }
 }

@@ -8,10 +8,10 @@
       "aliases": ["install", "i"]
     },
     "theming-to-component": {
-      "description": "Add theming to an Otter component",
+      "description": "[o3r] Add theming to an Otter component",
       "factory": "./schematics/theming-to-component/index#ngAddTheming",
       "schema": "./schematics/theming-to-component/schema.json",
-      "aliases": ["add-theming"]
+      "aliases": ["o3r-theming-to-component", "add-theming"]
     }
   }
 }

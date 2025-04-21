@@ -8,10 +8,13 @@
       "aliases": ["install", "i"]
     },
     "analytics-to-component": {
-      "description": "Add Otter Analytics to an existing component",
+      "description": "[o3r] Add Otter Analytics to an existing component",
       "factory": "./schematics/analytics-to-component/index#ngAddAnalytics",
       "schema": "./schematics/analytics-to-component/schema.json",
-      "aliases": ["add-analytics"]
+      "aliases": [
+        "o3r-analytics-to-component",
+        "add-analytics"
+      ]
     }
   }
 }

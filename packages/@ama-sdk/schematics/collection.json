@@ -8,29 +8,44 @@
       "aliases": ["install", "i"]
     },
     "migrate": {
-      "description": "Execute migration scripts between 2 versions.",
+      "description": "[ama-sdk] Execute migration scripts between 2 versions.",
       "factory": "./schematics/migrate/index#migrate",
-      "schema": "./schematics/migrate/schema.json"
+      "schema": "./schematics/migrate/schema.json",
+      "aliases": [
+        "ama-migrate"
+      ]
     },
     "typescript-mock": {
-      "description": "Generate an api mock into the project.",
+      "description": "[ama-sdk] Generate an api mock into the project.",
       "factory": "./schematics/typescript/mock/index#ngGenerateMock",
-      "schema": "./schematics/typescript/mock/schema.json"
+      "schema": "./schematics/typescript/mock/schema.json",
+      "aliases": [
+        "ama-typescript-mock"
+      ]
     },
     "api-extension": {
-      "description": "Generate a api specification extension.",
+      "description": "[ama-sdk] Generate a api specification extension.",
       "factory": "./schematics/api-extension/index#ngGenerateApiExtension",
-      "schema": "./schematics/api-extension/schema.json"
+      "schema": "./schematics/api-extension/schema.json",
+      "aliases": [
+        "ama-api-extension"
+      ]
     },
     "typescript-core": {
-      "description": "Generate a typescript SDK source code based on swagger specification",
+      "description": "[ama-sdk] Generate a typescript SDK source code based on swagger specification",
       "factory": "./schematics/typescript/core/index#ngGenerateTypescriptSDK",
-      "schema": "./schematics/typescript/core/schema.json"
+      "schema": "./schematics/typescript/core/schema.json",
+      "aliases": [
+        "ama-typescript-core"
+      ]
     },
     "typescript-shell": {
-      "description": "Generate a typescript SDK repository shell",
+      "description": "[ama-sdk] Generate a typescript SDK repository shell",
       "factory": "./schematics/typescript/shell/index#ngGenerateTypescriptSDK",
-      "schema": "./schematics/typescript/shell/schema.json"
+      "schema": "./schematics/typescript/shell/schema.json",
+      "aliases": [
+        "ama-typescript-shell"
+      ]
     }
   }
 }
