@@ -8816,7 +8816,7 @@ __metadata:
     "@types/uuid": "npm:^10.0.0"
     "@typescript-eslint/parser": "npm:~8.29.0"
     angular-eslint: "npm:~19.3.0"
-    chokidar: "npm:^4.0.3"
+    chokidar: "npm:^3.0.0"
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:~9.24.0"
     eslint-import-resolver-node: "npm:~0.3.9"
@@ -18575,7 +18575,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chokidar@npm:^3.5.2, chokidar@npm:^3.5.3, chokidar@npm:^3.6.0":
+"chokidar@npm:^3.0.0, chokidar@npm:^3.5.2, chokidar@npm:^3.5.3, chokidar@npm:^3.6.0":
   version: 3.6.0
   resolution: "chokidar@npm:3.6.0"
   dependencies:
