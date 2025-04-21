@@ -32342,17 +32342,25 @@ async function writeErrorComment(errors) {
     }
     const comments = await issues.listComments({ owner, repo, issue_number: issueNumber });
     const previousMessage = comments.data.find(({ body }) => body && body.startsWith(COMMENT_IDENTIFIER));
-    const messageBody = COMMENT_IDENTIFIER + `:warning: Yarn detected **${errors.length} errors** during the install process.\n`
+    const body = COMMENT_IDENTIFIER + `:warning: Yarn detected **${errors.length} errors** during the install process.\n`
         + `
 <details>
 
 <summary>Error list</summary>
-${errors.map((error) => `*  ${error}`).join('\n')}
+
+${errors.join('\n')}
+
 </details>
 `;
-    await (previousMessage
-        ? issues.updateComment({ comment_id: previousMessage.id, repo, owner, body: messageBody })
-        : issues.createComment({ repo, owner, body: messageBody, issue_number: issueNumber }));
+    try {
+        await (previousMessage
+            ? issues.updateComment({ comment_id: previousMessage.id, repo, owner, body })
+            : issues.createComment({ repo, owner, body, issue_number: issueNumber }));
+    }
+    catch (e) {
+        core.warning(e);
+        core.warning('Error during comment update');
+    }
 }
 /**
  * Remove the comment containing the reporting error
@@ -32371,13 +32379,31 @@ async function removeErrorComment() {
         return;
     }
     const comments = (await issues.listComments({ owner, repo, issue_number: issueNumber })).data.filter(({ body }) => body && body.startsWith(COMMENT_IDENTIFIER));
-    await Promise.all(comments.map(({ id }) => issues.deleteComment({ comment_id: id, owner, repo })));
+    await Promise.all(comments.map(async ({ id }) => {
+        try {
+            await issues.deleteComment({ comment_id: id, owner, repo });
+        }
+        catch (e) {
+            core.warning(e);
+            core.warning(`Fail to remove the comment ${id}`);
+        }
+    }));
 }
 function parseYarnInstallOutput(output, errorCodesToReport) {
     return output.split(os.EOL)
         .map((line) => line ? JSON.parse(line) : undefined)
-        .filter((line) => !!line && errorCodesToReport.includes(line.displayName))
-        .map((line) => `➤ ${line.displayName}: ${line.indent}${line.data}`);
+        .filter((line) => !!line && errorCodesToReport.includes(line.displayName));
+}
+function formatConsole(output) {
+    return output.map((line) => `➤ ${line.displayName} ${line.indent}${line.data}`);
+}
+function formatComment(output) {
+    return [
+        '| Error | Description |',
+        '| -- | -- |',
+        // eslint-disable-next-line no-control-regex -- use to remove ansi color chars
+        ...output.map((line) => `| ${line.displayName} | ${line.data.replace(/\s/g, ' ').replace(/\u001B\[[0-9;]+m/g, '')} |`)
+    ];
 }
 async function run() {
     try {
@@ -32424,11 +32450,11 @@ async function run() {
         else {
             core.warning(`Fetch depth was ${fetchDepth}, all the errors from the output will be considered as new errors`);
         }
-        const errors = (await getYarnErrors()).filter((error) => !previousErrors.includes(error));
+        const errors = (await getYarnErrors()).filter((error) => !previousErrors.some((pError) => pError.data === error.data));
         if (errors.length > 0) {
-            core.warning(errors.join(os.EOL), { file: reportOnFile, title: 'Errors during yarn install' });
+            core.warning(formatConsole(errors).join(os.EOL), { file: reportOnFile, title: 'Errors during yarn install' });
             if (shouldCommentPullRequest) {
-                await writeErrorComment(errors);
+                await writeErrorComment(formatComment(errors));
             }
         }
         else {

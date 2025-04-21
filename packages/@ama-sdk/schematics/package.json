@@ -76,7 +76,7 @@
   "dependencies": {
     "@angular-devkit/core": "~19.2.0",
     "@angular-devkit/schematics": "~19.2.0",
-    "chokidar": "^4.0.3",
+    "chokidar": "^3.0.0",
     "globby": "^11.1.0",
     "js-yaml": "^4.1.0",
     "minimatch": "~10.0.0",

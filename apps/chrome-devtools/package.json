@@ -55,7 +55,7 @@
     "@typescript-eslint/parser": "~8.29.0",
     "angular-eslint": "~19.3.0",
     "archiver": "^7.0.0",
-    "chokidar": "^4.0.3",
+    "chokidar": "^3.0.0",
     "chrome-webstore-upload": "^3.0.0",
     "concurrently": "^9.1.0",
     "cpy-cli": "^5.0.0",

@@ -25,6 +25,11 @@ env:
 jobs:
   # Check the integrity of yarn lock
   yarn_lock_check:
+    permissions:
+      contents: read
+      # Needed to write yarn warnings in pull request
+      issues: write
+      pull-requests: write
     runs-on: ubuntu-latest
     env:
       NX_SKIP_NX_CACHE: true
@@ -39,6 +44,8 @@ jobs:
       - name: Yarn errors reporter
         if: github.event_name == 'pull_request'
         uses: ./tools/github-actions/yarn-errors-reporter
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   build:
     runs-on: ubuntu-latest

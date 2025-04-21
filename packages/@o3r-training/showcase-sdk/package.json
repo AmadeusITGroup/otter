@@ -97,7 +97,7 @@
     "@types/node": "^20.0.0",
     "@typescript-eslint/parser": "~8.29.0",
     "angular-eslint": "~19.3.0",
-    "chokidar": "^4.0.3",
+    "chokidar": "^3.0.0",
     "commit-and-tag-version": "^12.0.0",
     "cpy-cli": "^5.0.0",
     "eslint": "~9.24.0",
