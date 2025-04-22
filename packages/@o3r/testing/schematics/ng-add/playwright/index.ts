@@ -17,6 +17,7 @@ import {
 } from '@angular-devkit/schematics';
 import {
   type DependencyToAdd,
+  getPackageManager,
   getWorkspaceConfig,
   NgAddPackageOptions,
 } from '@o3r/schematics';
@@ -83,6 +84,9 @@ test-results
       const scenarioName = strings.capitalize(strings.camelize(name));
       const sanity = 'my-sanity';
       const sanityName = strings.capitalize(strings.camelize(sanity));
+      const startCommand = `${getPackageManager()} run start`;
+      const project = options?.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
+      const serverPort = project?.architect?.serve?.options?.port || '4200';
 
       const templateSource = apply(url('./playwright/templates'), [
         template({
@@ -90,7 +94,9 @@ test-results
           name,
           scenarioName,
           sanity,
-          sanityName
+          sanityName,
+          serverPort,
+          startCommand
         }),
         renameTemplateFiles(),
         move(workingDirectory)
