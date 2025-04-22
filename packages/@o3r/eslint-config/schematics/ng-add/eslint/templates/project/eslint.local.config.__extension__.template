@@ -17,6 +17,7 @@ const __dirname = dirname(__filename);
 <% if (isApp) { %>const globals = require('globals');
 <% } %>
 <% } %>
+
 <%= extension === 'mjs' ? 'export default' : 'module.exports =' %> defineConfig([
   {
     name: '<%= packageName %>/projects',
