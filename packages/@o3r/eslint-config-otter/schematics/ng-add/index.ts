@@ -78,8 +78,8 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
     }, getPackageInstallConfig(packageJsonPath, tree, options.projectName, true, !!options.exactO3rVersion));
 
     try {
-      devDependenciesToInstall.push('eslint-plugin-jest', 'jest');
       require.resolve('jest');
+      devDependenciesToInstall.push('eslint-plugin-jest', 'jest');
     } catch {}
 
     const projectDirectory = workspaceProject?.root || '.';

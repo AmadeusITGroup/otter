@@ -5,7 +5,7 @@ import {
   Rule,
 } from '@angular-devkit/schematics';
 import type {
-  PackageJson
+  PackageJson,
 } from 'type-fest';
 import {
   updateCmsAdapter,

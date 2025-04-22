@@ -5,8 +5,8 @@ import {
   Rule,
 } from '@angular-devkit/schematics';
 import type {
-  PackageJson
-} from "type-fest";
+  PackageJson,
+} from 'type-fest';
 import type {
   NgAddSchematicsSchema,
 } from './schema';

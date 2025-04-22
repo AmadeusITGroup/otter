@@ -27,45 +27,84 @@ import {
 
 /**
  * Method to extract the provided package version range from a package.json file
+ * Look for the range based on this order of priority:
+ * - generatorDependencies
+ * - peerDependencies
+ * - dependencies
+ * - devDependencies
  * @param packageNames list of package we want to retrieve the version
  * @param packageJsonPath Path to the package.json to refer to
  * @param logger logger
  * @returns The version range value retrieved from the provided package.json file
  */
-export function getExternalDependenciesVersionRange<T extends string>(packageNames: T[], packageJsonPath: string, logger?: logging.LoggerApi): Record<T, string> {
-  const packageJsonContent = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' })) as PackageJson & {
-    generatorDependencies: Record<string, string>;
-  };
+export function getExternalDependenciesVersionRange<T extends string>(packageNames: T[], packageJsonPath: string, logger: logging.LoggerApi): Record<T, string> {
+  const packageJsonContent = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' })) as PackageJson & { generatorDependencies: Record<string, string> };
   return packageNames.reduce((acc: Partial<Record<T, string>>, packageName) => {
-    acc[packageName] = packageJsonContent.generatorDependencies?.[packageName];
+    acc[packageName] = packageJsonContent.generatorDependencies?.[packageName]
+      || packageJsonContent.peerDependencies?.[packageName]
+      || packageJsonContent.dependencies?.[packageName]
+      || packageJsonContent.devDependencies?.[packageName];
     if (!acc[packageName]) {
-      const rangeSortedByHighestMinimum = [
-        packageJsonContent.peerDependencies?.[packageName],
-        packageJsonContent.dependencies?.[packageName],
-        packageJsonContent.devDependencies?.[packageName]
-      ]
-        .filter((packageVersion): packageVersion is string =>
-          valid(packageVersion) !== null || validRange(packageVersion) !== null
-        )
-        .sort((versionA, versionB) => {
-          const minVersionA = minVersion(versionA)!;
-          const minVersionB = minVersion(versionB)!;
-          if (gt(minVersionB, minVersionA)) {
-            return 1;
-          } else if (gt(minVersionA, minVersionA)) {
-            return -1;
-          }
-          return 0;
-        });
-      acc[packageName] = rangeSortedByHighestMinimum[0];
-    }
-
-    if (!acc[packageName]) {
-      logger?.warn(`Unable to retrieve version for ${packageName} in ${packageJsonPath}. Version set to "latest".`);
+      logger.warn(`Unable to retrieve version for ${packageName} in ${packageJsonPath}. Version set to "latest".`);
       acc[packageName] = 'latest';
     }
     return acc;
   }, {}) as Record<T, string>;
+}
+
+/**
+ * Replace the caret ranges by tilde ranges
+ * @param range Range to replace
+ */
+export const enforceTildeRange = (range?: string) => {
+  return range === 'latest' ? range : range?.replace(/\^/g, '~');
+};
+
+/**
+ * Return true if B is a subset of A or if minVersion of A is greater than minVersion of B
+ * @param rangeA
+ * @param rangeB
+ */
+export function isRangeGreater(rangeA: string, rangeB: string) {
+  const minVersionA = minVersion(rangeA)!;
+  const minVersionB = minVersion(rangeB)!;
+  return subset(rangeB, rangeA) || gt(minVersionA, minVersionB);
+}
+
+/**
+ * Find the range for this package based on the generatorDependency object of the package.json
+ * If there are no specified generator dependency, look for the range with the highest minimum or the widest range
+ * @param packageName
+ * @param packageJsonPath
+ * @param isTildeEnforced
+ * @param logger
+ */
+export function getDependencyMaximumVersionRange(packageName: string, packageJsonPath: string, isTildeEnforced?: boolean, logger?: logging.LoggerApi): string {
+  const packageJsonContent = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' })) as PackageJson & {
+    generatorDependencies: Record<string, string>;
+  };
+  let versionRange = packageJsonContent.generatorDependencies?.[packageName];
+  if (!versionRange) {
+    const rangeSortedByHighestMinimum = [
+      packageJsonContent.peerDependencies?.[packageName],
+      packageJsonContent.dependencies?.[packageName],
+      packageJsonContent.devDependencies?.[packageName]
+    ]
+      .map((packageVersion) => isTildeEnforced && packageVersion ? enforceTildeRange(packageVersion) : packageVersion)
+      .filter((packageVersion): packageVersion is string => {
+        return valid(packageVersion) !== null || validRange(packageVersion) !== null;
+      })
+      .sort((rangeA, rangeB) =>
+        isRangeGreater(rangeB, rangeA) ? 1 : (isRangeGreater(rangeA, rangeB) ? -1 : 0)
+      );
+    versionRange = rangeSortedByHighestMinimum[0];
+  }
+
+  if (!versionRange) {
+    logger?.warn(`Unable to retrieve version for ${packageName} in ${packageJsonPath}. Version set to "latest".`);
+    versionRange = 'latest';
+  }
+  return versionRange;
 }
 
 export const isAngularDependency = (name: string) => name.match(/^@angular/);
@@ -134,16 +173,10 @@ export function getExternalDependenciesInfo<T extends string, U extends string>(
     throw new O3rCliError(`Cannot install a dependency as there is no package.json in the project. ${JSON.stringify(dependenciesToInstall)}
     - Cannot install a dependency as there is no package.json in the project. ${JSON.stringify(devDependenciesToInstall)}`);
   }
-
-  const externalVersionRanges = getExternalDependenciesVersionRange(
-    [...dependenciesToInstall, ...devDependenciesToInstall],
-    o3rPackageJsonPath,
-    logger
-  );
-
   const peerDependenciesInfo = dependenciesToInstall.reduce((acc, name) => {
+    const range = getDependencyMaximumVersionRange(name, o3rPackageJsonPath, shouldEnforceTildeRange(name), logger);
     const inManifest = {
-      range: externalVersionRanges[name],
+      range,
       types: projectType === 'application' ? [NodeDependencyType.Default] : [NodeDependencyType.Peer, NodeDependencyType.Dev]
     };
 
@@ -152,14 +185,16 @@ export function getExternalDependenciesInfo<T extends string, U extends string>(
     }
     acc[name] = {
       inManifest: [inManifest],
-      enforceTildeRange: shouldEnforceTildeRange(name),
-      requireInstall: isInstallRequired(name)
+      requireInstall: isInstallRequired(name),
+      // Tilde is handled in the range returned by getDependencyMaximumVersionRange
+      enforceTildeRange: false
     };
     return acc;
   }, {} as Record<T, DependencyToAdd>);
   const devDependenciesInfo = devDependenciesToInstall.reduce((acc, name) => {
+    const range = getDependencyMaximumVersionRange(name, o3rPackageJsonPath, shouldEnforceTildeRange(name), logger);
     const inManifest = {
-      range: externalVersionRanges[name],
+      range,
       types: [NodeDependencyType.Dev]
     };
     if (isDependencyAlreadyInstalled(name, projectPackageJson, inManifest)) {
@@ -168,8 +203,9 @@ export function getExternalDependenciesInfo<T extends string, U extends string>(
 
     acc[name] = {
       inManifest: [inManifest],
-      enforceTildeRange: shouldEnforceTildeRange(name),
-      requireInstall: isInstallRequired(name)
+      requireInstall: isInstallRequired(name),
+      // Tilde is handled in the range returned by getDependencyMaximumVersionRange
+      enforceTildeRange: false
     };
 
     return acc;

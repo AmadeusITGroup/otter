@@ -29,6 +29,9 @@ import type {
   SupportedPackageManagers,
 } from '../../utility';
 import {
+  enforceTildeRange,
+} from '../../utility/dependencies';
+import {
   getProjectNewDependenciesTypes,
   getWorkspaceConfig,
 } from '../../utility/loaders';
@@ -111,14 +114,6 @@ export const getPackageInstallConfig = (packageJsonPath: string, tree: Tree, pro
       ngAddOptions: { exactO3rVersion: exactO3rVersion }
     }
   };
-};
-
-/**
- * Replace the caret ranges by tilde ranges
- * @param range Range to replace
- */
-export const enforceTildeRange = (range?: string) => {
-  return range === 'latest' ? range : range?.replace(/\^/g, '~');
 };
 
 /**

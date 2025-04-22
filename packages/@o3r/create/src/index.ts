@@ -242,14 +242,16 @@ const prepareWorkspace = (relativeDirectory = '.', projectPackageManager = 'npm'
       ['config', 'set', '-L', 'project', 'registry', registry],
       spawnSyncOpts
     ));
+
+    if (projectPackageManager === 'yarn') {
+      exitProcessIfErrorInSpawnSync(YARN_CONFIG_REGISTRY_ERROR_CODE, spawnSync(
+        runner,
+        ['config', 'set', 'npmRegistryServer', registry],
+        spawnSyncOpts
+      ));
+    }
   }
-  if (projectPackageManager === 'yarn') {
-    exitProcessIfErrorInSpawnSync(YARN_CONFIG_REGISTRY_ERROR_CODE, spawnSync(
-      runner,
-      ['config', 'set', 'npmRegistryServer', registry],
-      spawnSyncOpts
-    ));
-  } else if (projectPackageManager === 'npm') {
+  if (projectPackageManager === 'npm') {
     exitProcessIfErrorInSpawnSync(YARN_CONFIG_REGISTRY_ERROR_CODE, spawnSync(
       runner,
       ['config', 'set', '-L', 'project', 'legacy-peer-deps', 'true'],
