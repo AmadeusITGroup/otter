@@ -2,6 +2,15 @@ import * as path from 'node:path';
 import type {
   Rule,
 } from '@angular-devkit/schematics';
+import {
+  createOtterSchematic,
+  getExternalDependenciesVersionRange,
+  getO3rPeerDeps,
+  getPackageInstallConfig,
+  getProjectNewDependenciesTypes,
+  getWorkspaceConfig,
+  setupDependencies,
+} from '@o3r/schematics';
 import type {
   NgAddSchematicsSchema,
 } from './schema';
@@ -13,13 +22,6 @@ const dependenciesToInstall = [
   'stylelint'
 ];
 
-const reportMissingSchematicsDep = (logger: { error: (message: string) => any }) => (reason: any) => {
-  logger.error(`[ERROR]: Adding @o3r/stylelint-plugin has failed.
-If the error is related to missing @o3r dependencies you need to install '@o3r/core' to be able to use the mobile package. Please run 'ng add @o3r/core' .
-Otherwise, use the error message as guidance.`);
-  throw reason;
-};
-
 /**
  * Add Otter stylelint-plugin to an Angular Project
  * @param options
@@ -27,15 +29,6 @@ Otherwise, use the error message as guidance.`);
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
   /* ng add rules */
   return async (tree, context) => {
-    const {
-      getExternalDependenciesVersionRange,
-      getPackageInstallConfig,
-      getProjectNewDependenciesTypes,
-      getO3rPeerDeps,
-      getWorkspaceConfig,
-      setupDependencies
-    } = await import('@o3r/schematics');
-
     const { NodeDependencyType } = await import('@schematics/angular/utility/dependencies');
     const depsInfo = getO3rPeerDeps(packageJsonPath);
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
@@ -67,9 +60,4 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
  * Add Otter stylelint-plugin to an Angular Project
  * @param options
  */
-export const ngAdd = (options: NgAddSchematicsSchema): Rule => async (_, { logger }) => {
-  const {
-    createOtterSchematic
-  } = await import('@o3r/schematics').catch(reportMissingSchematicsDep(logger));
-  return createOtterSchematic(ngAddFn)(options);
-};
+export const ngAdd = (options: NgAddSchematicsSchema) => createOtterSchematic(ngAddFn)(options);

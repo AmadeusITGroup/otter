@@ -13,6 +13,9 @@ import {
   type MigrationRulesMap,
 } from '@o3r/schematics';
 import {
+  createOtterSchematic,
+} from '@o3r/schematics';
+import {
   gt,
   minVersion,
 } from 'semver';
@@ -66,9 +69,4 @@ function migrateFn(options: MigrateSchematicsSchemaOptions): Rule {
  * Facilitate the migration of a version to another by the run of migration rules
  * @param options
  */
-export const migrate = (options: MigrateSchematicsSchemaOptions) => async () => {
-  const {
-    createOtterSchematic
-  } = await import('@o3r/schematics');
-  return createOtterSchematic(migrateFn)(options);
-};
+export const migrate = (options: MigrateSchematicsSchemaOptions) => createOtterSchematic(migrateFn)(options);

@@ -26,6 +26,7 @@
     "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist"
   },
   "dependencies": {
+    "@o3r/schematics": "workspace:^",
     "commander": "^13.0.0",
     "form-data": "^4.0.0",
     "node-fetch": "^3.0.0",
@@ -90,7 +91,6 @@
     "@o3r/core": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
     "@o3r/logger": "workspace:^",
-    "@o3r/schematics": "workspace:^",
     "@o3r/store-sync": "workspace:^",
     "@o3r/test-helpers": "workspace:^",
     "@schematics/angular": "~19.2.0",

@@ -6,17 +6,22 @@ import {
   Tree,
 } from '@angular-devkit/schematics';
 import {
+  addVsCodeRecommendations,
+  createOtterSchematic,
+  getExternalDependenciesVersionRange,
+  getO3rPeerDeps,
+  getPackageInstallConfig,
+  getProjectNewDependenciesTypes,
+  getWorkspaceConfig,
+  removePackages,
+  setupDependencies,
+} from '@o3r/schematics';
+import {
   updateLinterConfigs,
 } from './linter';
 import type {
   NgAddSchematicsSchema,
 } from './schema';
-
-const reportMissingSchematicsDep = (logger: { error: (message: string) => any }) => (reason: any) => {
-  logger.error(`[ERROR]: Adding @o3r/eslint-config-otter has failed.
-You need to install '@o3r/schematics' package to be able to use the eslint-config-otter package. Please run 'ng add @o3r/schematics' .`);
-  throw reason;
-};
 
 /**
  * Add Otter eslint-config to an Angular Project
@@ -42,16 +47,6 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       'yaml-eslint-parser'
     ];
 
-    const {
-      getExternalDependenciesVersionRange,
-      addVsCodeRecommendations,
-      setupDependencies,
-      getWorkspaceConfig,
-      getO3rPeerDeps,
-      getProjectNewDependenciesTypes,
-      removePackages,
-      getPackageInstallConfig
-    } = await import('@o3r/schematics');
     const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'), true, /^@(?:o3r|ama-sdk|eslint-)/);
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
     const linterSchematicsFolder = __dirname;
@@ -94,9 +89,4 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
  * Add Otter eslint-config to an Angular Project
  * @param options
  */
-export const ngAdd = (options: NgAddSchematicsSchema): Rule => async (_, { logger }) => {
-  const {
-    createOtterSchematic
-  } = await import('@o3r/schematics').catch(reportMissingSchematicsDep(logger));
-  return createOtterSchematic(ngAddFn)(options);
-};
+export const ngAdd = (options: NgAddSchematicsSchema) => createOtterSchematic(ngAddFn)(options);
