@@ -35,7 +35,8 @@ export function createC11nService(config: { registerCompFunc: () => Map<string, 
  * @deprecated Will be removed in v14.
  */
 @NgModule({
-  imports: [C11nDirective]
+  imports: [C11nDirective],
+  exports: [C11nDirective]
 })
 export class C11nModule {
   /**
