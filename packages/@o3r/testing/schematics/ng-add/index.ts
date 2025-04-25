@@ -105,6 +105,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
         return acc;
       }, getPackageInstallConfig(testPackageJsonPath, tree, options.projectName, true, !!options.exactO3rVersion));
       if (installJest) {
+        context.logger.error('Install Jest');
         devDependenciesToInstall.push(
           '@angular-builders/jest',
           '@types/jest',

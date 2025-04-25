@@ -99,7 +99,6 @@ export function getDependencyMaximumVersionRange(packageName: string, packageJso
       );
     versionRange = rangeSortedByHighestMinimum[0];
   }
-
   if (!versionRange) {
     logger?.warn(`Unable to retrieve version for ${packageName} in ${packageJsonPath}. Version set to "latest".`);
     versionRange = 'latest';
@@ -107,7 +106,7 @@ export function getDependencyMaximumVersionRange(packageName: string, packageJso
   return versionRange;
 }
 
-export const isAngularDependency = (name: string) => name.match(/^@angular/);
+export const isAngularDependency = (name: string) => name.match(/^@?angular/);
 
 /**
  * Check if a dependency has already been installed for the requested range
@@ -184,10 +183,10 @@ export function getExternalDependenciesInfo<T extends string, U extends string>(
       return acc;
     }
     acc[name] = {
-      inManifest: [inManifest],
-      requireInstall: isInstallRequired(name),
       // Tilde is handled in the range returned by getDependencyMaximumVersionRange
-      enforceTildeRange: false
+      enforceTildeRange: false,
+      inManifest: [inManifest],
+      requireInstall: isInstallRequired(name)
     };
     return acc;
   }, {} as Record<T, DependencyToAdd>);
@@ -202,10 +201,10 @@ export function getExternalDependenciesInfo<T extends string, U extends string>(
     }
 
     acc[name] = {
-      inManifest: [inManifest],
-      requireInstall: isInstallRequired(name),
       // Tilde is handled in the range returned by getDependencyMaximumVersionRange
-      enforceTildeRange: false
+      enforceTildeRange: false,
+      inManifest: [inManifest],
+      requireInstall: isInstallRequired(name)
     };
 
     return acc;
