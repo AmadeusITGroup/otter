@@ -71,7 +71,7 @@ export class ResizeService implements MessageProducer<ResizeMessage> {
    */
   public startResizeObserver() {
     this.resizeObserver = new ResizeObserver(() => {
-      if (document.body.scrollHeight !== this.actualHeight) {
+      if (!this.actualHeight || Math.abs(document.body.scrollHeight - this.actualHeight) > DELTA_RESIZE) {
         this.actualHeight = document.body.scrollHeight;
         const messageV10 = {
           type: 'resize',
