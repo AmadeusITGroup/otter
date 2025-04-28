@@ -89,7 +89,7 @@ The validation function can be defined anywhere, but it has to be added to the v
 The object returned by the custom validator will be of type `ErrorMessageObject` compatible with the form error store. (See [Form Errors](./FORM_ERRORS.md)).
 The key `customErrors` of this object is used to identify the custom errors in the errors returned by a form control.
 
-You can find an [example](https://github.com/AmadeusITGroup/otter/tree/main/apps/showcase/src/components/showcase/forms/forms-pres.validators.ts) of two custom validators in the forms example of the showcase application.
+You can find an [example](https://github.com/AmadeusITGroup/otter/tree/main/apps/showcase/src/components/showcase/forms-parent/forms-parent.validators.ts) of two custom validators in the forms example of the showcase application.
 
 * __Parent component__: 
 
@@ -97,7 +97,7 @@ The validators object in the parent component is of type [__CustomFormValidation
 This interface contains two entries: one for global (root) form validation and one for the other fields.
 The `fields` entry is receiving the form contract as generic type.
 
-The implementation of the two custom validators in the validators object of the parent component can be found in the [forms component of the showcase application](https://github.com/AmadeusITGroup/otter/tree/main/apps/showcase/src/components/showcase/forms/forms-pres.component.ts).
+The implementation of the two custom validators in the validators object of the parent component can be found in the [forms component of the showcase application](https://github.com/AmadeusITGroup/otter/tree/main/apps/showcase/src/components/showcase/forms-parent/forms-parent.component.ts).
 
 #### Apply custom validators
 
