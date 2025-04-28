@@ -35,7 +35,7 @@ runs:
             });
           screenshots.forEach((screenshot) => {
             require('node:child_process').spawnSync('cp', [screenshot.actual, screenshot.expected]);
-            core.info(`Copied ${screenshot.expected} to ${screenshot.actual}`);
+            core.info(`Copied ${screenshot.actual} to ${screenshot.expected}`);
           });
           core.setOutput('screenshots', screenshots.length);
           core.info(`Copied ${screenshots.length} screenshots`);
