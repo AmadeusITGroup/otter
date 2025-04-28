@@ -1,4 +1,4 @@
-/* For IDE usage only */
+/* For IDE and EsLint usage */
 {
   "extends": "../../../tsconfig.base",
   "references": [
@@ -19,6 +19,9 @@
     },
     {
       "path": "./tsconfig.fixture.jest.json"
+    },
+    {
+      "path": "./tsconfig.eslint.json"
     }
   ]
 }

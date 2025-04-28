@@ -25,9 +25,7 @@ const __dirname = dirname(__filename);
       sourceType: 'module',
       parserOptions: {
         tsconfigRootDir: __dirname,
-        project: [
-<%= detectedTsConfigs.map((tsconfig) => `          '${tsconfig}'`).join(',\n') %>
-        ]
+        projectService: true
       }<% if (isApp) { %>,
       globals: {
         ...globals.browser

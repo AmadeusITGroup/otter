@@ -42,9 +42,7 @@ const { defineConfig, globalIgnores } = require('eslint/config');
       'import/resolver': {
         node: true,
         typescript: {
-          project: [
-<%= detectedTsConfigs.map((tsconfig) => `            join(__dirname, '${tsconfig}')`).join(',\n') %>
-          ]
+          projectService: true
         }
       }
     }
