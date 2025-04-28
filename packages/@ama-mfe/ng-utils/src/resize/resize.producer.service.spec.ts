@@ -84,6 +84,29 @@ describe('ResizeService', () => {
     });
   });
 
+  it('should not send resize message when body height changes with less then DELTA_RESIZE', () => {
+    global.ResizeObserver = MockedResizeObserver;
+    runInInjectionContext(injector, () => {
+      resizeService.startResizeObserver();
+
+      Object.defineProperty(document.body, 'scrollHeight', { value: 1000, configurable: true });
+
+      // simulate observer change as there is no api for ResizeObserver in jest
+      // eslint-disable-next-line @typescript-eslint/dot-notation, dot-notation -- access a private property for test
+      const resizeObserverInstance = (resizeService as any)['resizeObserver'];
+      resizeObserverInstance.observerCallback();
+      expect(messageService.send).toHaveBeenCalledWith({ height: 1000 + DELTA_RESIZE, type: 'resize', version: '1.0' });
+      jest.clearAllMocks();
+      Object.defineProperty(document.body, 'scrollHeight', { value: 1001.6, configurable: true });
+      Object.defineProperty(document.body, 'scrollHeight', { value: 1000.3, configurable: true });
+      resizeObserverInstance.observerCallback();
+      expect(messageService.send).not.toHaveBeenCalled();
+      Object.defineProperty(document.body, 'scrollHeight', { value: 1008.2, configurable: true });
+      resizeObserverInstance.observerCallback();
+      expect(messageService.send).toHaveBeenCalledWith({ height: 1008.2 + DELTA_RESIZE, type: 'resize', version: '1.0' });
+    });
+  });
+
   it('should handle errors', () => {
     // eslint-disable-next-line no-console -- spy on console error
     console.error = jest.fn();
