@@ -5,10 +5,6 @@
  */
 const o3rEnvironment = globalThis.o3rEnvironment;
 
-import {
-  execSync,
-  spawn,
-} from 'node:child_process';
 import * as path from 'node:path';
 import {
   addImportToAppModule,
@@ -19,9 +15,7 @@ import {
   packageManagerInstall,
   packageManagerRunOnProject,
 } from '@o3r/test-helpers';
-import getPidFromPort from 'pid-from-port';
 
-const devServerPort = 4200;
 describe('new otter application', () => {
   test('should build empty app', async () => {
     const { applicationPath, workspacePath, appName, isInWorkspace, o3rVersion, untouchedProjectsPaths } = o3rEnvironment.testEnvironment;
@@ -125,25 +119,8 @@ describe('new otter application', () => {
 
     expect(() => packageManagerRunOnProject(appName, isInWorkspace, { script: 'build' }, execAppOptions)).not.toThrow();
 
-    // should pass the e2e tests
-    spawn(`npx http-server -p ${devServerPort} ${path.posix.join(relativeApplicationPath, 'dist/browser')}`, [], {
-      ...execAppOptions,
-      shell: true,
-      stdio: ['ignore', 'ignore', 'inherit']
-    });
-    execSync(`npx --yes wait-on http://127.0.0.1:${devServerPort} -t 20000`, execAppOptions);
-
     packageManagerExecOnProject(appName, isInWorkspace, { script: 'playwright', args: ['install', '--with-deps'] }, execAppOptions);
     expect(() => packageManagerRunOnProject(appName, isInWorkspace, { script: 'test:playwright' }, execAppOptions)).not.toThrow();
     expect(() => packageManagerRunOnProject(appName, isInWorkspace, { script: 'test:playwright:sanity' }, execAppOptions)).not.toThrow();
-  });
-
-  afterAll(async () => {
-    try {
-      const pid = await getPidFromPort(devServerPort);
-      execSync(process.platform === 'win32' ? `taskkill /f /t /pid ${pid}` : `kill -15 ${pid}`, { stdio: 'inherit' });
-    } catch {
-      // http-server already off
-    }
   });
 });
