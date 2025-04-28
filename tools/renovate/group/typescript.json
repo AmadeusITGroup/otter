@@ -5,7 +5,8 @@
     {
       "matchPackageNames": [
         "/typescript/",
-        "/tslib/"
+        "/tslib/",
+        "!/eslint/"
       ],
       "groupName": "Typescript dependencies",
       "groupSlug": "typescript-dependencies"
