@@ -47,7 +47,7 @@ describe('new otter project', () => {
     });
 
     untouchedProjectsPaths.forEach((untouchedProject) => {
-      expect(diff.all.some((file) => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
+      expect(diff.all.some((file) => file.startsWith(path.relative(workspacePath, untouchedProject).replace(/\\+/g, '/')))).toBe(false);
     });
   });
 
@@ -76,7 +76,7 @@ describe('new otter project', () => {
       execSync(`npx -p @action-validator/cli action-validator ${yamlFile}`, execAppOptions);
     });
     untouchedProjectsPaths.forEach((untouchedProject) => {
-      expect(diff.all.some((file) => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
+      expect(diff.all.some((file) => file.startsWith(path.relative(workspacePath, untouchedProject).replace(/\\+/g, '/')))).toBe(false);
     });
   });
 });

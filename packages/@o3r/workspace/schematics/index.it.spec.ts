@@ -34,7 +34,7 @@ describe('new otter workspace', () => {
 
     const diff = getGitDiff(execAppOptions.cwd);
     untouchedProjectsPaths.forEach((untouchedProject) => {
-      expect(diff.all.some((file) => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
+      expect(diff.all.some((file) => file.startsWith(path.relative(workspacePath, untouchedProject).replace(/\\+/g, '/')))).toBe(false);
     });
 
     expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
@@ -55,7 +55,7 @@ describe('new otter workspace', () => {
 
     const diff = getGitDiff(execAppOptions.cwd);
     untouchedProjectsPaths.forEach((untouchedProject) => {
-      expect(diff.all.some((file) => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
+      expect(diff.all.some((file) => file.startsWith(path.relative(workspacePath, untouchedProject).replace(/\\+/g, '/')))).toBe(false);
     });
     expect(diff.added).toContain(path.posix.join(sdkPath, 'open-api.yaml'));
     expect(diff.added).toContain(path.posix.join(sdkPath, 'src', 'models', 'base', 'category', 'category.ts'));
@@ -80,7 +80,7 @@ describe('new otter workspace', () => {
 
     const diff = getGitDiff(execAppOptions.cwd);
     untouchedProjectsPaths.forEach((untouchedProject) => {
-      expect(diff.all.some((file) => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
+      expect(diff.all.some((file) => file.startsWith(path.relative(workspacePath, untouchedProject).replace(/\\+/g, '/')))).toBe(false);
     });
     expect(diff.added).toContain(path.posix.join(sdkPath, 'open-api.yaml'));
     expect(diff.added).toContain(path.posix.join(sdkPath, 'src', 'models', 'base', 'category', 'category.ts'));
