@@ -95,7 +95,7 @@ __Parent component class:__
 * Create a form control to set the binding and the default data.
 * This form control will be passed as an input to the input component class through the HTML template.
 
-You can find the implementation of a parent component class in the [showcase application](https://github.com/AmadeusITGroup/otter/tree/main/apps/showcase/src/components/showcase/forms/forms-pres.component.ts).
+You can find the implementation of a parent component class in the [showcase application](https://github.com/AmadeusITGroup/otter/tree/main/apps/showcase/src/components/showcase/forms-parent/forms-parent.component.ts).
 
 __Input component class:__
    * Here we have to create the `formGroup`/`formArray`/`formControl` object.

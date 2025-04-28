@@ -60,6 +60,6 @@ See [Form Submit and Intercommunication](./FORM_SUBMIT_AND_INTERCOMMUNICATION.md
 > The first subcomponent has a form for the user to fill out their personal information and the second subcomponent has a form for the user to fill out
 > information about their emergency contact. In this example, the two subcomponents correspond to input components.
 >
-> You can find the implementation of this forms example [in the source code of the showcase application](https://github.com/AmadeusITGroup/otter/tree/main/apps/showcase/src/components/showcase/forms).
+> You can find the implementation of this forms example [in the source code of the showcase application](https://github.com/AmadeusITGroup/otter/tree/main/apps/showcase/src/components/showcase/forms-parent).
 >
 > This example will be referenced throughout this documentation.
