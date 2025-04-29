@@ -29,7 +29,8 @@ runs:
                 const report = JSON.parse(require('node:fs').readFileSync(reportPath.trim(), { encoding: 'utf8' }));
                 core.info(`${report.length} screenshots`);
                 return report;
-              } catch {
+              } catch (e) {
+                console.warn(e);
                 return [];
               }
             });
