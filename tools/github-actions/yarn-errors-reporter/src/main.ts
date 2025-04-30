@@ -4,6 +4,7 @@ import * as path from 'node:path';
 import * as core from '@actions/core';
 import {
   exec,
+  type ExecOptions,
   getExecOutput,
 } from '@actions/exec';
 import {
@@ -28,6 +29,7 @@ async function writeErrorComment(errors: string[]) {
       fs.readFileSync(process.env.GITHUB_EVENT_PATH, { encoding: 'utf8' })
     );
   }
+
   const issueNumber = (payload?.issue || payload?.pull_request || payload)?.number;
   const issues = issueNumber !== undefined && owner && repo && token && getOctokit(token).rest.issues;
   if (!issues) {
@@ -39,17 +41,26 @@ async function writeErrorComment(errors: string[]) {
   const previousMessage = comments.data.find(({ body }) => body && body.startsWith(COMMENT_IDENTIFIER));
   const messageBody = COMMENT_IDENTIFIER + `:warning: Yarn detected **${errors.length} errors** during the install process.\n`
     + `
+---
+
 <details>
 
-<summary>Error list</summary>
-${errors.map((error) => `*  ${error}`).join('\n')}
+<summary>List of reported errors</summary>
+
+${errors.join('\n')}
+
 </details>
 `;
 
-  await (previousMessage
-    ? issues.updateComment({ comment_id: previousMessage.id, repo, owner, body: messageBody })
-    : issues.createComment({ repo, owner, body: messageBody, issue_number: issueNumber })
-  );
+  try {
+    await (previousMessage
+      ? issues.updateComment({ comment_id: previousMessage.id, repo, owner, body: messageBody })
+      : issues.createComment({ repo, owner, body: messageBody, issue_number: issueNumber })
+    );
+  } catch (e: any) {
+    core.warning(e);
+    core.warning('Error during comment update');
+  }
 }
 
 /**
@@ -71,14 +82,38 @@ async function removeErrorComment() {
     return;
   }
   const comments = (await issues.listComments({ owner, repo, issue_number: issueNumber })).data.filter(({ body }) => body && body.startsWith(COMMENT_IDENTIFIER));
-  await Promise.all(comments.map(({ id }) => issues.deleteComment({ comment_id: id, owner, repo })));
+  await Promise.all(comments.map(async ({ id }) => {
+    try {
+      await issues.deleteComment({ comment_id: id, owner, repo });
+    } catch (e: any) {
+      core.warning(e);
+      core.warning(`Fail to remove the comment ${id}`);
+    }
+  }));
 }
 
 function parseYarnInstallOutput(output: string, errorCodesToReport: string[]) {
   return output.split(os.EOL)
     .map((line) => line ? JSON.parse(line) as YarnInstallOutputLine : undefined)
-    .filter((line): line is YarnInstallOutputLine => !!line && errorCodesToReport.includes(line.displayName))
-    .map((line) => `➤ ${line.displayName}: ${line.indent}${line.data}`);
+    .filter((line): line is YarnInstallOutputLine => !!line && errorCodesToReport.includes(line.displayName));
+}
+
+function formatConsole(output: YarnInstallOutputLine[]) {
+  return output.map((line) => `➤ ${line.displayName} ${line.indent}${line.data}`);
+}
+
+function formatComment(output: YarnInstallOutputLine[]) {
+  return [
+    '| Error | Description |',
+    '| -- | -- |',
+
+    ...output.map((line) => `| ${line.displayName} | ${line.data.replace(/\s/g, ' ')
+      // eslint-disable-next-line no-control-regex -- use to remove ansi color char
+      .replace(/\u001B\[[0-9;]+m(.+?)\u001B\[39m/g, '**$1**') // ex: "\u001B\[[0-9;]+mchokibar\u001B\[39m is listed by your project" will become "**chokidar** is listed by your project"
+      // eslint-disable-next-line no-control-regex -- use to remove ansi color char
+      .replace(/\u001B\[[0-9;]+m/g, '')
+      .replace(/\*{4}/g, '')} |`)
+  ];
 }
 
 async function run(): Promise<void> {
@@ -92,8 +127,9 @@ async function run(): Promise<void> {
     const yarnLockPath = path.resolve(cwd, 'yarn.lock');
     const execOptions = {
       cwd,
-      ignoreReturnCode: true
-    };
+      ignoreReturnCode: true,
+      silent: true
+    } satisfies ExecOptions;
 
     if (!fs.existsSync(yarnLockPath)) {
       core.setFailed('This action only manages yarn, it doesn\'t do anything with other package managers');
@@ -105,7 +141,7 @@ async function run(): Promise<void> {
       return parseYarnInstallOutput(stdout, errorCodesToReport);
     };
 
-    let previousErrors: string[] = [];
+    let previousErrors: YarnInstallOutputLine[] = [];
     const { stdout: fetchDepth } = await getExecOutput('git', ['rev-list', 'HEAD', '--count'], execOptions);
     if (Number.parseInt(fetchDepth, 10) > 1) {
       if (onlyReportsIfAffected) {
@@ -131,12 +167,12 @@ async function run(): Promise<void> {
       core.warning(`Fetch depth was ${fetchDepth}, all the errors from the output will be considered as new errors`);
     }
 
-    const errors = (await getYarnErrors()).filter((error) => !previousErrors.includes(error));
+    const errors = (await getYarnErrors()).filter((error) => !previousErrors.some((pError) => pError.data === error.data));
 
     if (errors.length > 0) {
-      core.warning(errors.join(os.EOL), { file: reportOnFile, title: 'Errors during yarn install' });
+      core.warning(os.EOL + formatConsole(errors).join(os.EOL), { file: reportOnFile, title: 'Errors during yarn install' });
       if (shouldCommentPullRequest) {
-        await writeErrorComment(errors);
+        await writeErrorComment(formatComment(errors));
       }
     } else {
       if (shouldCommentPullRequest) {
