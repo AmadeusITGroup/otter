@@ -24,6 +24,7 @@ export function adjustPath(frameworkName: 'playwright' | 'protractor', customTra
   const moduleTypesCache: Record<string, ModuleType> = {};
   // eslint-disable-next-line @typescript-eslint/unbound-method -- No need to bind the method, we are using `apply`
   const originalRequire = Module.prototype.require;
+  const originalResolve = require.resolve;
   const regex = new RegExp(`@o3r/testing/core(?!/${frameworkName})(.*)`);
   Module.prototype.require = function (this: NodeJS.Module, id: string) {
     const newId = id.replace(regex, `@o3r/testing/core/${frameworkName}$1`);
@@ -32,9 +33,9 @@ export function adjustPath(frameworkName: 'playwright' | 'protractor', customTra
       ...this.paths.map((i) => i.replace(/[/\\]node_modules$/, ''))
     ];
 
-    const filePath = require.resolve(newId, { paths });
+    const filePath = originalResolve(newId, { paths });
 
-    const moduleType = checkModuleType(filePath, moduleTypesCache);
+    const moduleType = checkModuleType(filePath, moduleTypesCache, originalRequire, originalResolve);
     if (moduleType === 'ESM') {
       return convertESMToCJS(newId, filePath, cjsModulesCache, customTransformOptions);
     }
@@ -89,8 +90,10 @@ function convertESMToCJS(moduleId: string, filePath: string, cjsModulesCache: Re
  * Check the module type of the given module path.
  * @param modulePath
  * @param cache
+ * @param originalRequire
+ * @param originalResolve
  */
-function checkModuleType(modulePath: string, cache: Record<string, ModuleType>): ModuleType {
+function checkModuleType(modulePath: string, cache: Record<string, ModuleType>, originalRequire: (id: string) => any, originalResolve: NodeJS.RequireResolve): ModuleType {
   if (cache[modulePath]) {
     return cache[modulePath];
   }
@@ -110,10 +113,9 @@ function checkModuleType(modulePath: string, cache: Record<string, ModuleType>):
     }
     case '.js': {
       // Find recursively the package.json file to check if it is an ESM module
-      const packageJsonPath = findPackageJson(modulePath);
+      const packageJsonPath = findPackageJson(modulePath, originalResolve);
       if (packageJsonPath !== null) {
-        // eslint-disable-next-line @typescript-eslint/no-require-imports -- Needed to require the package.json file
-        const packageJson = require(packageJsonPath);
+        const packageJson = originalRequire(packageJsonPath);
         type = packageJson.type === 'module' ? 'ESM' : 'CJS';
       }
 
@@ -132,12 +134,13 @@ function checkModuleType(modulePath: string, cache: Record<string, ModuleType>):
  * Returns the path to the package.json file in the directory path given as argument.
  * The method is called recursively to find the package.json in the parent directories.
  * @param dirPath
+ * @param originalResolve
  */
-function findPackageJson(dirPath: string): string | null {
+function findPackageJson(dirPath: string, originalResolve: NodeJS.RequireResolve): string | null {
   const packageJsonPath = path.join(dirPath, 'package.json');
   const packageJsonExists = (() => {
     try {
-      require.resolve(packageJsonPath);
+      originalResolve(packageJsonPath);
       return true;
     } catch {
       return false;
@@ -152,5 +155,5 @@ function findPackageJson(dirPath: string): string | null {
   if (parentDir === dirPath) {
     return null;
   }
-  return findPackageJson(parentDir);
+  return findPackageJson(parentDir, originalResolve);
 }
