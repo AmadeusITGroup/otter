@@ -64,6 +64,16 @@ const PACKAGE_MANAGERS_CMD = {
   }
 } as const satisfies Record<'npm' | 'yarn', Record<Command, string[]>>;
 
+// TODO: To be determined automatically #3264
+/** List of scopes in the current workspace */
+const WORKSPACE_SCOPES = [
+  '@ama-styling',
+  '@ama-mfe',
+  '@ama-sdk',
+  '@ama-terasu',
+  '@o3r'
+];
+
 type CommandArguments = {
   /** Script to run or execute */
   script: string;
@@ -273,9 +283,7 @@ export function setPackagerManagerConfig(options: PackageManagerConfig, execAppO
   const packageManager = packageManagerOverride || getPackageManager();
 
   // Need to add this even for yarn because `ng add` only reads registry from .npmrc
-  execFileSync('npm', ['config', 'set', `@ama-sdk:registry=${options.registry}`, '-L=project'], execOptions);
-  execFileSync('npm', ['config', 'set', `@ama-terasu:registry=${options.registry}`, '-L=project'], execOptions);
-  execFileSync('npm', ['config', 'set', `@o3r:registry=${options.registry}`, '-L=project'], execOptions);
+  WORKSPACE_SCOPES.forEach((scope) => execFileSync('npm', ['config', 'set', `${scope}:registry=${options.registry}`, '-L=project'], execOptions));
 
   const packageJsonPath = join(execOptions.cwd as string, 'package.json');
   const shouldCleanPackageJson = !existsSync(packageJsonPath);
