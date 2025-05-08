@@ -1,0 +1,8 @@
+# Generated files
+src/spec/api-mocks.ts linguist-generated
+src/spec/operation-adapter.ts linguist-generated
+src/api/** linguist-generated
+src/models/base/** linguist-generated
+
+# in case of core models, the `index.ts` file should be ignored as follows:
+# !src/models/base/<model>/index.ts
