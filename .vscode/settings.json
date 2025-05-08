@@ -60,8 +60,8 @@
     "**/.git": true
   },
   "files.readonlyExclude": {
-    "**/packages/@o3r-training/*sdk/src/api/*/index.ts": true,
-    "**/packages/@o3r-training/*sdk/src/models/base/*/index.ts": true
+    "**/packages/@*/*sdk/src/api/*/index.ts": true,
+    "**/packages/@*/*sdk/src/models/base/*/index.ts": true
   },
   "files.readonlyFromPermissions": true,
   "files.readonlyInclude": {
@@ -69,10 +69,10 @@
     "**/.pnp.*": true,
     "**/.yarn/**": true,
     "**/node_modules/**": true,
-    "**/packages/@o3r-training/*sdk/src/api/**/*.ts": true,
-    "**/packages/@o3r-training/*sdk/src/models/base/**/*.ts": true,
-    "**/packages/@o3r-training/*sdk/src/spec/api-mock.ts": true,
-    "**/packages/@o3r-training/*sdk/src/spec/operation-adapter.ts": true,
+    "**/packages/@*/*sdk/src/api/**/*.ts": true,
+    "**/packages/@*/*sdk/src/models/base/**/*.ts": true,
+    "**/packages/@*/*sdk/src/spec/api-mock.ts": true,
+    "**/packages/@*/*sdk/src/spec/operation-adapter.ts": true,
     "**/tools/github-actions/*/packaged-action/**": true,
     "**/apps/showcase/src/style/**/*.scss": true,
     "**/apps/showcase/src/**/*.vars.scss": true

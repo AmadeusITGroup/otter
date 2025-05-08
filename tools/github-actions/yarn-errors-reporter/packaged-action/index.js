@@ -32405,7 +32405,7 @@ function formatComment(output) {
         '| -- | -- |',
         ...output.map((line) => `| ${line.displayName} | ${line.data.replace(/\s/g, ' ')
             // eslint-disable-next-line no-control-regex -- use to remove ansi color char
-            .replace(/\u001B\[[0-9;]+m(.+?)\u001B\[39m/g, '**$1**')
+            .replace(/\u001B\[[0-9;]+m(.+?)\u001B\[39m/g, '**$1**') // ex: "\u001B\[[0-9;]+mchokibar\u001B\[39m is listed by your project" will become "**chokidar** is listed by your project"
             // eslint-disable-next-line no-control-regex -- use to remove ansi color char
             .replace(/\u001B\[[0-9;]+m/g, '')
             .replace(/\*{4}/g, '')} |`)
