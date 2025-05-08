@@ -1,6 +1,7 @@
 {
   "name": "@o3r/style-dictionary",
   "version": "0.0.0-placeholder",
+  "deprecated": "This package will be removed in Otter v14. Please use @ama-styling/style-dictionary instead.",
   "type": "module",
   "publishConfig": {
     "access": "public"
@@ -22,7 +23,7 @@
     "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest",
     "build:source": "tsc -b tsconfig.build.json && yarn cpy package.json dist/",
     "build": "yarn nx build design",
-    "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist && yarn copy:templates",
+    "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'migration.json' dist && yarn cpy 'collection.json' dist && yarn copy:templates",
     "postbuild": "patch-package-json-main"
   },
   "exports": {
@@ -126,5 +127,9 @@
   "engines": {
     "node": "^20.11.1 || >=22.0.0"
   },
-  "schematics": "./collection.json"
+  "schematics": "./collection.json",
+  "ng-update": {
+    "migrations": "./migration.json",
+    "requirements": "^12.0.0"
+  }
 }
