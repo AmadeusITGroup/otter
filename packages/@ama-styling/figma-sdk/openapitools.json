@@ -5,7 +5,7 @@
     "version": "7.11.0",
     "storageDir": ".openapi-generator",
     "generators": {
-      "ama-styling-figma-sdk": {
+      "ama-figma-sdk": {
         "generatorName": "typescriptFetch",
         "output": ".",
         "inputSpec": "./open-api.yaml"
