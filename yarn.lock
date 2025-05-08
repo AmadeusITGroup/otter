@@ -963,6 +963,76 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@ama-styling/figma-sdk@workspace:packages/@ama-styling/figma-sdk":
+  version: 0.0.0-use.local
+  resolution: "@ama-styling/figma-sdk@workspace:packages/@ama-styling/figma-sdk"
+  dependencies:
+    "@ama-sdk/client-fetch": "workspace:^"
+    "@ama-sdk/core": "workspace:^"
+    "@ama-sdk/schematics": "workspace:^"
+    "@angular-devkit/core": "npm:~19.2.0"
+    "@angular-devkit/schematics": "npm:~19.2.0"
+    "@angular-devkit/schematics-cli": "npm:~19.2.0"
+    "@angular/cli": "npm:~19.2.0"
+    "@angular/compiler": "npm:~19.2.0"
+    "@commitlint/cli": "npm:^19.0.0"
+    "@commitlint/config-conventional": "npm:^19.0.0"
+    "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
+    "@figma/rest-api-spec": "npm:~0.30.0"
+    "@nx/eslint-plugin": "npm:~20.8.0"
+    "@o3r-training/training-tools": "workspace:^"
+    "@o3r/eslint-config": "workspace:^"
+    "@o3r/eslint-plugin": "workspace:^"
+    "@o3r/schematics": "workspace:^"
+    "@o3r/test-helpers": "workspace:^"
+    "@openapitools/openapi-generator-cli": "npm:~2.20.0"
+    "@schematics/angular": "npm:~19.2.0"
+    "@stylistic/eslint-plugin": "npm:~3.1.0"
+    "@swc/cli": "npm:~0.7.7"
+    "@swc/core": "npm:~1.11.0"
+    "@swc/helpers": "npm:~0.5.0"
+    "@types/jest": "npm:~29.5.2"
+    "@types/node": "npm:^20.0.0"
+    "@typescript-eslint/parser": "npm:~8.32.0"
+    angular-eslint: "npm:~19.4.0"
+    commit-and-tag-version: "npm:^12.0.0"
+    cpy-cli: "npm:^5.0.0"
+    eslint: "npm:~9.27.0"
+    eslint-plugin-import: "npm:~2.31.0"
+    eslint-plugin-import-newlines: "npm:~1.4.0"
+    eslint-plugin-jest: "npm:~28.11.0"
+    eslint-plugin-jsdoc: "npm:~50.6.0"
+    eslint-plugin-prefer-arrow: "npm:~1.2.3"
+    eslint-plugin-unicorn: "npm:~56.0.0"
+    eslint-plugin-unused-imports: "npm:~4.1.4"
+    globals: "npm:^15.9.0"
+    globby: "npm:^11.1.0"
+    isomorphic-fetch: "npm:~3.0.0"
+    jest: "npm:~29.7.0"
+    jest-junit: "npm:~16.0.0"
+    jsonc-eslint-parser: "npm:~2.4.0"
+    lint-staged: "npm:^15.0.0"
+    minimist: "npm:^1.2.6"
+    rimraf: "npm:^6.0.1"
+    rxjs: "npm:^7.8.1"
+    ts-jest: "npm:~29.3.0"
+    tsc-watch: "npm:^6.0.4"
+    tslib: "npm:^2.6.2"
+    typescript: "npm:~5.8.2"
+    typescript-eslint: "npm:~8.32.0"
+    yaml-eslint-parser: "npm:^1.2.2"
+  peerDependencies:
+    "@ama-sdk/client-fetch": "workspace:^"
+    "@ama-sdk/core": "workspace:^"
+    isomorphic-fetch: ~3.0.0
+  peerDependenciesMeta:
+    "@ama-sdk/client-fetch":
+      optional: true
+    isomorphic-fetch:
+      optional: true
+  languageName: unknown
+  linkType: soft
+
 "@ama-terasu/cli@workspace:packages/@ama-terasu/cli":
   version: 0.0.0-use.local
   resolution: "@ama-terasu/cli@workspace:packages/@ama-terasu/cli"
@@ -4927,6 +4997,13 @@ __metadata:
   version: 1.113.0
   resolution: "@figma/plugin-typings@npm:1.113.0"
   checksum: 10/18843a330ba44881ef27fae2ddaab36cffd4dd4ed1b66896a86cceb8ac2c1934e0b2aa3aab38e20f21aca9043cc9ff3ad1f9f0762fb0ffb843415dfe891edd05
+  languageName: node
+  linkType: hard
+
+"@figma/rest-api-spec@npm:~0.30.0":
+  version: 0.30.0
+  resolution: "@figma/rest-api-spec@npm:0.30.0"
+  checksum: 10/838c089b7faa030d887e35bc98fdebd0c4786a7d1169f247545fc7e9b7529a94d6d5b8db1a1606a0d8ef0201a2d1d1ca6512f1e25d1dcc733f8db84eeaee2f36
   languageName: node
   linkType: hard
 

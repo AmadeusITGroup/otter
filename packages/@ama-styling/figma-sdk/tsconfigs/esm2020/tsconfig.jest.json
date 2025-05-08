@@ -1,0 +1,16 @@
+{
+  "extends": "../tsconfig.jest",
+  "compilerOptions": {
+    "declarationDir": "../../dist",
+    "declarationMap": true,
+    "target": "es2020",
+    "module": "es2020",
+    "outDir": "../../dist/esm2020",
+    "tsBuildInfoFile": "../../build/esm2020/tsconfig.jest.tsbuildinfo"
+  },
+  "references": [
+    {
+      "path": "./tsconfig.source.json"
+    }
+  ]
+}
