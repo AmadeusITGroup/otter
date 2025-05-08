@@ -3,23 +3,23 @@
   "version": "0.0.0-placeholder",
   "description": "figma-sdk - SDK",
   "source": "src/index.ts",
-  "main": "cjs/index.js",
-  "module": "esm2020/index.js",
-  "node": "cjs/index.js",
-  "types": "./index.d.ts",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm2020/index.js",
+  "node": "dist/cjs/index.js",
+  "types": "dist/index.d.ts",
   "sideEffects": false,
   "exports": {
     "./package.json": {
       "default": "./package.json"
     },
     ".": {
-      "main": "./cjs/index.js",
-      "module": "./esm2020/index.js",
-      "node": "./cjs/index.js",
-      "types": "./index.d.ts",
-      "import": "./esm2020/index.js",
-      "require": "./esm2020/index.js",
-      "default": "./esm2020/index.js"
+      "main": "./dist/cjs/index.js",
+      "module": "./dist/esm2020/index.js",
+      "node": "./dist/cjs/index.js",
+      "types": "./dist/index.d.ts",
+      "import": "./dist/esm2020/index.js",
+      "require": "./dist/esm2020/index.js",
+      "default": "./dist/esm2020/index.js"
     }
   },
   "scripts": {

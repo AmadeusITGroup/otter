@@ -16,7 +16,8 @@ export const cssRecommendedTransformGroup: TransformGroup = {
     transforms.nameKebab,
     transforms.timeSeconds,
     transforms.htmlIcon,
-    transforms.sizeRem,
+    // The following transform is commented because it is part of default CSS transform but conflict on the way Figma manage font weights:
+    // transforms.sizeRem,
     transforms.colorCss,
     transforms.assetUrl,
     transforms.fontFamilyCss,
