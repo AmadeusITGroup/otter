@@ -85,15 +85,21 @@ describe('RouteMemorizeDirective', () => {
   });
 
   it('should not memorize route if memorizeRoute is true but the id (from memorizeRouteId input) provided does not match the channelId from requestedUrl', () => {
-    parentComponentInstance.memorizeRouteId = 'testChannelIdNotMatch';
+    parentComponentInstance.memorizeRouteId = 'notMatchTestChannelId';
     parentComponentFixture.detectChanges();
     expect(routeMemorizeService.memorizeRoute).not.toHaveBeenCalled();
   });
 
   it('should not memorize route if memorizeRoute is true but the id (from connect input) provided does not match the channelId from requestedUrl', () => {
-    parentComponentInstance.connect = 'testChannelIdNotMatch';
+    parentComponentInstance.connect = 'notMatchTestChannelId';
     parentComponentFixture.detectChanges();
     expect(routeMemorizeService.memorizeRoute).not.toHaveBeenCalled();
+  });
+
+  it('should memorize route if memorizeRoute is true and the id (from memorizeRouteId input) starts with channelId from requestedUrl', () => {
+    parentComponentInstance.memorizeRouteId = 'testChannelIdPlusBasePath';
+    parentComponentFixture.detectChanges();
+    expect(routeMemorizeService.memorizeRoute).toHaveBeenCalledWith('testChannelIdPlusBasePath', 'testUrl', 0);
   });
 
   it('should call memorize route when passing the memorizeRouteId which matches the channelId from requestedUrl', () => {
