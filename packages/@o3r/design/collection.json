@@ -11,20 +11,23 @@
       ]
     },
     "generate-css": {
-      "description": "Generate CSS from Design Token files",
+      "description": "[o3r] Generate CSS from Design Token files",
       "factory": "./schematics/generate-css/index#generateCss",
-      "schema": "./schematics/generate-css/schema.json"
+      "schema": "./schematics/generate-css/schema.json",
+      "aliases": ["o3r-generate-css"]
     },
     "extract-token": {
-      "description": "Extract the Design Token specification from SCSS",
+      "description": "[o3r] Extract the Design Token specification from SCSS",
       "factory": "./schematics/extract-token/index#extractToken",
-      "schema": "./schematics/extract-token/schema.json"
+      "schema": "./schematics/extract-token/schema.json",
+      "aliases": ["o3r-extract-token"]
     },
     "design-token-to-component": {
-      "description": "Add design token to an Otter component",
+      "description": "[o3r] Add design token to an Otter component",
       "factory": "./schematics/design-token-to-component/index#ngAddDesignToken",
       "schema": "./schematics/design-token-to-component/schema.json",
       "aliases": [
+        "o3r-design-token-to-component",
         "add-design-token"
       ]
     }
