@@ -287,7 +287,7 @@ __metadata:
     "@schematics/angular": "npm:~19.2.0"
     "@stylistic/eslint-plugin": "npm:~3.1.0"
     "@stylistic/eslint-plugin-ts": "npm:~3.1.0"
-    "@swc/cli": "npm:~0.7.0"
+    "@swc/cli": "npm:0.7.3"
     "@swc/core": "npm:~1.11.0"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
@@ -432,7 +432,7 @@ __metadata:
     "@schematics/angular": "npm:~19.2.0"
     "@stylistic/eslint-plugin": "npm:~3.1.0"
     "@stylistic/eslint-plugin-ts": "npm:~3.1.0"
-    "@swc/cli": "npm:~0.7.0"
+    "@swc/cli": "npm:0.7.3"
     "@swc/core": "npm:~1.11.0"
     "@swc/helpers": "npm:~0.5.0"
     "@types/jest": "npm:~29.5.2"
@@ -512,7 +512,7 @@ __metadata:
     "@schematics/angular": "npm:~19.2.0"
     "@stylistic/eslint-plugin": "npm:~3.1.0"
     "@stylistic/eslint-plugin-ts": "npm:~3.1.0"
-    "@swc/cli": "npm:~0.7.0"
+    "@swc/cli": "npm:0.7.3"
     "@swc/core": "npm:~1.11.0"
     "@swc/helpers": "npm:~0.5.0"
     "@types/jest": "npm:~29.5.2"
@@ -590,7 +590,7 @@ __metadata:
     "@schematics/angular": "npm:~19.2.0"
     "@stylistic/eslint-plugin": "npm:~3.1.0"
     "@stylistic/eslint-plugin-ts": "npm:~3.1.0"
-    "@swc/cli": "npm:~0.7.0"
+    "@swc/cli": "npm:0.7.3"
     "@swc/core": "npm:~1.11.0"
     "@swc/helpers": "npm:~0.5.0"
     "@types/jest": "npm:~29.5.2"
@@ -670,7 +670,7 @@ __metadata:
     "@o3r/test-helpers": "workspace:^"
     "@schematics/angular": "npm:~19.2.0"
     "@stylistic/eslint-plugin": "npm:~3.1.0"
-    "@swc/cli": "npm:~0.7.0"
+    "@swc/cli": "npm:0.7.3"
     "@swc/core": "npm:~1.11.0"
     "@swc/helpers": "npm:~0.5.0"
     "@types/jest": "npm:~29.5.2"
@@ -7461,7 +7461,7 @@ __metadata:
     "@openapitools/openapi-generator-cli": "npm:~2.19.0"
     "@schematics/angular": "npm:~19.2.0"
     "@stylistic/eslint-plugin": "npm:~3.1.0"
-    "@swc/cli": "npm:~0.7.0"
+    "@swc/cli": "npm:0.7.3"
     "@swc/core": "npm:~1.11.0"
     "@swc/helpers": "npm:~0.5.0"
     "@types/jest": "npm:~29.5.2"
@@ -7530,7 +7530,7 @@ __metadata:
     "@openapitools/openapi-generator-cli": "npm:~2.19.0"
     "@schematics/angular": "npm:~19.2.0"
     "@stylistic/eslint-plugin": "npm:~3.1.0"
-    "@swc/cli": "npm:~0.7.0"
+    "@swc/cli": "npm:0.7.3"
     "@swc/core": "npm:~1.11.0"
     "@swc/helpers": "npm:~0.5.0"
     "@types/jest": "npm:~29.5.2"
@@ -7605,7 +7605,7 @@ __metadata:
     "@schematics/angular": "npm:~19.2.0"
     "@stylistic/eslint-plugin": "npm:~3.1.0"
     "@stylistic/eslint-plugin-ts": "npm:~3.1.0"
-    "@swc/cli": "npm:~0.7.0"
+    "@swc/cli": "npm:0.7.3"
     "@swc/core": "npm:~1.11.0"
     "@swc/helpers": "npm:~0.5.0"
     "@types/jest": "npm:~29.5.2"
@@ -13612,7 +13612,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@swc/cli@npm:~0.7.0":
+"@swc/cli@npm:0.7.3":
   version: 0.7.3
   resolution: "@swc/cli@npm:0.7.3"
   dependencies:
