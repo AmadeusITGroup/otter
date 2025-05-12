@@ -30,10 +30,10 @@
     "@stylistic/eslint-plugin-ts": "~3.1.0",
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",
-    "@typescript-eslint/parser": "~8.31.0",
+    "@typescript-eslint/parser": "~8.32.0",
     "@vercel/ncc": "~0.38.0",
     "angular-eslint": "~19.3.0",
-    "eslint": "~9.25.0",
+    "eslint": "~9.26.0",
     "eslint-plugin-import": "~2.31.0",
     "eslint-plugin-import-newlines": "~1.4.0",
     "eslint-plugin-jest": "~28.11.0",
@@ -48,7 +48,7 @@
     "ts-jest": "~29.3.0",
     "tslib": "^2.6.2",
     "typescript": "~5.8.2",
-    "typescript-eslint": "~8.31.0"
+    "typescript-eslint": "~8.32.0"
   },
   "engines": {
     "node": "^20.11.1 || >=22.0.0"

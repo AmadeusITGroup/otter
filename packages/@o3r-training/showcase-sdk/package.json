@@ -95,12 +95,12 @@
     "@swc/core": "~1.11.0",
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",
-    "@typescript-eslint/parser": "~8.31.0",
+    "@typescript-eslint/parser": "~8.32.0",
     "angular-eslint": "~19.3.0",
     "chokidar": "^4.0.3",
     "commit-and-tag-version": "^12.0.0",
     "cpy-cli": "^5.0.0",
-    "eslint": "~9.25.0",
+    "eslint": "~9.26.0",
     "eslint-plugin-import": "~2.31.0",
     "eslint-plugin-import-newlines": "~1.4.0",
     "eslint-plugin-jest": "~28.11.0",
@@ -121,7 +121,7 @@
     "tsc-watch": "^6.0.4",
     "typedoc": "~0.28.0",
     "typescript": "~5.8.2",
-    "typescript-eslint": "~8.31.0"
+    "typescript-eslint": "~8.32.0"
   },
   "peerDependencies": {
     "@ama-sdk/client-fetch": "workspace:^",
