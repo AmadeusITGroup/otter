@@ -63,9 +63,9 @@
     "typescript": "^5.5.4"
   },
   "generatorDependencies": {
-    "@typescript-eslint/eslint-plugin": "~8.30.0",
-    "@typescript-eslint/parser": "~8.30.0",
-    "@typescript-eslint/utils": "~8.30.0",
+    "@typescript-eslint/eslint-plugin": "~8.31.0",
+    "@typescript-eslint/parser": "~8.31.0",
+    "@typescript-eslint/utils": "~8.31.0",
     "eslint": "~9.25.0",
     "eslint-plugin-jsdoc": "~50.6.0",
     "eslint-plugin-unicorn": "~56.0.0"
