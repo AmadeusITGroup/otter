@@ -32,8 +32,16 @@ describe('ng add eslint-config', () => {
   });
 
   it('should run add on workspace', async () => {
+    const initialTree = Tree.empty();
+    initialTree.create('package.json', JSON.stringify({
+      name: 'test',
+      dependencies: {},
+      peerDependencies: {},
+      devDependencies: {}
+    }));
     const runner = new SchematicTestRunner('schematics', collectionPath);
-    await runner.runSchematic('ng-add', {}, Tree.empty());
+
+    await runner.runSchematic('ng-add', {}, initialTree);
     expect(setupDependenciesMock).toHaveBeenCalledWith(expect.objectContaining({
       dependencies: expect.objectContaining({
         '@eslint-community/eslint-plugin-eslint-comments': expect.objectContaining({}),
@@ -74,6 +82,12 @@ describe('ng add eslint-config', () => {
         }
       }
     }, null, 2));
+    initialTree.create(path.join('project-test', 'package.json'), JSON.stringify({
+      name: 'test',
+      dependencies: {},
+      peerDependencies: {},
+      devDependencies: {}
+    }));
 
     await runner.runSchematic('ng-add', { projectName: 'project-test' }, initialTree);
     expect(setupDependenciesMock).toHaveBeenCalled();

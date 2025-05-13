@@ -21,6 +21,9 @@
     "prepare:build:builders": "yarn cpy 'builders/**/*.json' dist/builders && yarn cpy 'schematics/**/*.json' 'schematics/**/templates/**' dist/schematics && yarn cpy '{builders,collection,migration}.json' dist && yarn cpy 'schemas/*.json' 'dist/schemas'",
     "prepare:publish": "prepare-publish ./dist"
   },
+  "generatorDependencies": {
+    "@angular-devkit/architect": "~0.1902.0"
+  },
   "peerDependencies": {
     "@angular-devkit/architect": ">=0.1900.0 <0.2000.0-0",
     "@angular-devkit/core": "^19.0.0",

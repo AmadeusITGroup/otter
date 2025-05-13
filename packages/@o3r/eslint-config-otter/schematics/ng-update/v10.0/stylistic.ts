@@ -20,6 +20,7 @@ import {
 export const addStylistic: Rule = () => {
   const packageName = '@stylistic/eslint-plugin-ts';
   const packageJson = JSON.parse(readFileSync(resolve(__dirname, '..', '..', '..', 'package.json'), { encoding: 'utf8' }));
+  // TODO remove that
   return setupDependencies({
     dependencies: {
       [packageName]: {

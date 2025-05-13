@@ -5,8 +5,24 @@ import {
   type Rule,
 } from '@angular-devkit/schematics';
 import type {
+  PackageJson,
+} from 'type-fest';
+import type {
   NgAddSchematicsSchema,
 } from './schema';
+
+/**
+ * List of external dependencies to be added to the project as peer dependencies
+ */
+const dependenciesToInstall = [
+  'rxjs'
+];
+
+/**
+ * List of external dependencies to be added to the project as dev dependencies
+ */
+const devDependenciesToInstall: string[] = [
+];
 
 const reportMissingSchematicsDep = (logger: { error: (message: string) => any }) => (reason: any) => {
   logger.error(`[ERROR]: Adding @o3r/third-party has failed.
@@ -20,15 +36,30 @@ Otherwise, use the error message as guidance.`);
  * @param options
  */
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
-  return async (tree) => {
+  return async (tree, context) => {
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
-    const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' }));
-    const { getPackageInstallConfig, registerPackageCollectionSchematics, setupDependencies } = await import('@o3r/schematics');
+    const { getExternalDependenciesInfo, getPackageInstallConfig, getWorkspaceConfig, registerPackageCollectionSchematics, setupDependencies } = await import('@o3r/schematics');
+    const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
+    const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' })) as PackageJson;
+    const projectDirectory = workspaceProject?.root || '.';
+    const projectPackageJson = tree.readJson(path.posix.join(projectDirectory, 'package.json')) as PackageJson;
+    const externalDependenciesInfo = getExternalDependenciesInfo({
+      devDependenciesToInstall,
+      dependenciesToInstall,
+      projectType: workspaceProject?.projectType,
+      projectPackageJson,
+      o3rPackageJsonPath: packageJsonPath
+    },
+    context.logger
+    );
     return chain([
       registerPackageCollectionSchematics(packageJson),
       setupDependencies({
         projectName: options.projectName,
-        dependencies: getPackageInstallConfig(packageJsonPath, tree, options.projectName, false, !!options.exactO3rVersion)
+        dependencies: {
+          ...getPackageInstallConfig(packageJsonPath, tree, options.projectName, false, !!options.exactO3rVersion),
+          ...externalDependenciesInfo
+        }
       })
     ]);
   };
