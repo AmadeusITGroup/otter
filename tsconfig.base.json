@@ -57,6 +57,12 @@
       "@ama-sdk/swagger-builder": [
         "packages/@ama-sdk/swagger-builder"
       ],
+      "@ama-styling/figma-extractor": [
+        "packages/@ama-styling/figma-extractor/src/index"
+      ],
+      "@ama-styling/figma-sdk": [
+        "packages/@ama-styling/figma-sdk/src/index"
+      ],
       "@ama-styling/style-dictionary": [
         "packages/@ama-styling/style-dictionary/src/index"
       ],
@@ -173,9 +179,6 @@
       ],
       "@o3r/extractors": [
         "packages/@o3r/extractors/src/public_api"
-      ],
-      "@ama-styling/figma-sdk": [
-        "packages/@ama-styling/figma-sdk/src/index"
       ],
       "@o3r/forms": [
         "packages/@o3r/forms/src/public_api"
