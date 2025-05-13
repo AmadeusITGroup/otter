@@ -261,7 +261,7 @@ export class CustomService implements MessageProducer<CustomMessageVersions> {
 A host application can send information to the embedded applications using parameters in the URL.
 
 ```html
-<iframe [src]="'myModuleUrl' | hostInfo: 'host-app-id'"></iframe>
+<iframe [src]="'myModuleUrl' | hostInfo: {hostId: 'host-app-id', moduleId: 'my-module-to-embed'}"></iframe>
 ```
 
 This will add the `location.origin` and the application id of the host to the URL of the embedded application.
