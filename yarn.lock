@@ -757,7 +757,7 @@ __metadata:
     "@o3r/schematics": "workspace:*"
     "@o3r/telemetry": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
-    "@openapitools/openapi-generator-cli": "npm:~2.19.0"
+    "@openapitools/openapi-generator-cli": "npm:~2.20.0"
     "@schematics/angular": "npm:~19.2.0"
     "@stylistic/eslint-plugin": "npm:~3.1.0"
     "@types/jest": "npm:~29.5.2"
@@ -820,7 +820,7 @@ __metadata:
     "@o3r/schematics": "workspace:^"
     "@o3r/telemetry": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
-    "@openapitools/openapi-generator-cli": "npm:~2.19.0"
+    "@openapitools/openapi-generator-cli": "npm:~2.20.0"
     "@schematics/angular": "npm:~19.2.0"
     "@stylistic/eslint-plugin": "npm:~3.1.0"
     "@types/jest": "npm:~29.5.2"
@@ -7624,7 +7624,7 @@ __metadata:
     "@o3r/eslint-config": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
-    "@openapitools/openapi-generator-cli": "npm:~2.19.0"
+    "@openapitools/openapi-generator-cli": "npm:~2.20.0"
     "@schematics/angular": "npm:~19.2.0"
     "@stylistic/eslint-plugin": "npm:~3.1.0"
     "@swc/cli": "npm:~0.7.7"
@@ -7693,7 +7693,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
-    "@openapitools/openapi-generator-cli": "npm:~2.19.0"
+    "@openapitools/openapi-generator-cli": "npm:~2.20.0"
     "@schematics/angular": "npm:~19.2.0"
     "@stylistic/eslint-plugin": "npm:~3.1.0"
     "@swc/cli": "npm:~0.7.7"
@@ -8497,7 +8497,7 @@ __metadata:
     "@popperjs/core": "npm:^2.11.5"
     "@schematics/angular": "npm:~19.2.0"
     "@stylistic/eslint-plugin": "npm:~3.1.0"
-    "@types/chrome": "npm:^0.0.317"
+    "@types/chrome": "npm:^0.0.320"
     "@types/color": "npm:^4.0.0"
     "@types/jest": "npm:~29.5.2"
     "@types/tinycolor2": "npm:^1.4.6"
@@ -8528,7 +8528,7 @@ __metadata:
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.5.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    lighthouse: "npm:~12.5.0"
+    lighthouse: "npm:~12.6.0"
     minimist: "npm:^1.2.6"
     nx: "npm:~20.8.0"
     playwright-lighthouse: "npm:~4.0.0"
@@ -9781,7 +9781,7 @@ __metadata:
     js-yaml: "npm:^4.1.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     jsonpath-plus: "npm:~10.3.0"
-    lighthouse: "npm:~12.5.0"
+    lighthouse: "npm:~12.6.0"
     lint-staged: "npm:^15.0.0"
     marked: "npm:^15.0.6"
     minimist: "npm:^1.2.6"
@@ -10854,7 +10854,7 @@ __metadata:
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.5.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    lighthouse: "npm:~12.5.0"
+    lighthouse: "npm:~12.6.0"
     marked: "npm:^15.0.6"
     minimist: "npm:^1.2.6"
     monaco-editor: "npm:~0.52.0"
@@ -12095,9 +12095,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openapitools/openapi-generator-cli@npm:~2.19.0":
-  version: 2.19.1
-  resolution: "@openapitools/openapi-generator-cli@npm:2.19.1"
+"@openapitools/openapi-generator-cli@npm:~2.20.0":
+  version: 2.20.0
+  resolution: "@openapitools/openapi-generator-cli@npm:2.20.0"
   dependencies:
     "@nestjs/axios": "npm:4.0.0"
     "@nestjs/common": "npm:11.0.20"
@@ -12119,7 +12119,7 @@ __metadata:
     tslib: "npm:2.8.1"
   bin:
     openapi-generator-cli: main.js
-  checksum: 10/6a9a63aed012c8929127c77bbf0fc4a8a7a8200a87d7bcb8a603da7a8cc69cdfc2201966fc5f3629e6bca9b42114cde12c366db2a08d9fdb8b5196ad7e587525
+  checksum: 10/b5114d7811505e4fd3e7fa050c1262a76510b1d9e0c1a0e24a417f9570ca986a2edc0c7234eea0e6e30aae2ed698d2e9815ccdd8a5d1663b5794e9e505868edb
   languageName: node
   linkType: hard
 
@@ -12830,12 +12830,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@paulirish/trace_engine@npm:0.0.50":
-  version: 0.0.50
-  resolution: "@paulirish/trace_engine@npm:0.0.50"
+"@paulirish/trace_engine@npm:0.0.52":
+  version: 0.0.52
+  resolution: "@paulirish/trace_engine@npm:0.0.52"
   dependencies:
+    legacy-javascript: "npm:latest"
     third-party-web: "npm:latest"
-  checksum: 10/2319cd69672229c232c80109353f2432c1d7b23735df6e7912d40085bbb01523435e8dd01ce8e9e888e40c1856cd48a5f4ae017af306e955b50371a7cafc5f7a
+  checksum: 10/842109cb47bc48c9aa7a31f8b5c513aeccc79f9d749aa0dd1835d14828d580fd9dcdb3c59de495d68c81dd63ff7c8b0e93935cc049c9781539807c7c07092165
   languageName: node
   linkType: hard
 
@@ -12918,9 +12919,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@puppeteer/browsers@npm:2.10.2":
-  version: 2.10.2
-  resolution: "@puppeteer/browsers@npm:2.10.2"
+"@puppeteer/browsers@npm:2.10.4":
+  version: 2.10.4
+  resolution: "@puppeteer/browsers@npm:2.10.4"
   dependencies:
     debug: "npm:^4.4.0"
     extract-zip: "npm:^2.0.1"
@@ -12931,7 +12932,7 @@ __metadata:
     yargs: "npm:^17.7.2"
   bin:
     browsers: lib/cjs/main-cli.js
-  checksum: 10/84300aeb291e15422be12540b56a2d8092c9de9412d5ff879c360fc33ee356d49af067ac0e7ca6ed46312606427232e0020042f9d897ca7ad4f21f0f7d17379d
+  checksum: 10/7ccae2c9bbab5d1f69e29e454e9744a873a5a791012799faea36a71b9908dfe67c61f7a64a1b9839ac79b1f9a5677f540197e0bbfe58e9d62b7ccb300f8002b3
   languageName: node
   linkType: hard
 
@@ -14197,13 +14198,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/chrome@npm:^0.0.317":
-  version: 0.0.317
-  resolution: "@types/chrome@npm:0.0.317"
+"@types/chrome@npm:^0.0.320":
+  version: 0.0.320
+  resolution: "@types/chrome@npm:0.0.320"
   dependencies:
     "@types/filesystem": "npm:*"
     "@types/har-format": "npm:*"
-  checksum: 10/7f1239754a692b8ca6880d7a61fd52eac6c2782f961fbd1b30f511cedc3e46ec61a855b263553989c9deeed46c742305bb1423b966f9a10f6ea4e3035caa951d
+  checksum: 10/85e02f8ffd84615d578223b1c5ab8a07db91d036561233af6b5a12a2b14217f2e326a0cfc61b59f2a51aa5b10e30764a0c0c1589f6f0cb5654040525dbd30b32
   languageName: node
   linkType: hard
 
@@ -18691,15 +18692,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chromium-bidi@npm:4.1.1":
-  version: 4.1.1
-  resolution: "chromium-bidi@npm:4.1.1"
+"chromium-bidi@npm:5.1.0":
+  version: 5.1.0
+  resolution: "chromium-bidi@npm:5.1.0"
   dependencies:
     mitt: "npm:^3.0.1"
     zod: "npm:^3.24.1"
   peerDependencies:
     devtools-protocol: "*"
-  checksum: 10/229b4813e3edb2b4e8499b982fc4298531042cbafc7aab84fef8f391f582ffbe4e79d74a5c58c2deb5c5cf5279c6766be2ce1b8ad029e43d2e501aa581d30ce1
+  checksum: 10/4e96f07a08eb6907fa9b1814a6c71051e76b237d08d7fa5be2b4c459978caa1e2bf4f4c76673432bbbe69674ab01c32e3263f12ba41383eaa9b0b7de92e9f8f2
   languageName: node
   linkType: hard
 
@@ -21134,17 +21135,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"devtools-protocol@npm:0.0.1425554":
-  version: 0.0.1425554
-  resolution: "devtools-protocol@npm:0.0.1425554"
-  checksum: 10/0b8957f3e4ec9e4520bec590acaceed3877f337901f5754c36fff69774d5a10a138f49eb5096e843a0abe78676849b4aff042b080dcada953265e9665b7d10cc
+"devtools-protocol@npm:0.0.1439962":
+  version: 0.0.1439962
+  resolution: "devtools-protocol@npm:0.0.1439962"
+  checksum: 10/70dc8c9e10b87b9d3377c6e81b4472621e6d18bfffe09031a914ac14616a8f8be290cb2c8d167ce19e48d5d493ad3ad12dd4967b8287b493d9a48aacfc202c68
   languageName: node
   linkType: hard
 
-"devtools-protocol@npm:0.0.1436416":
-  version: 0.0.1436416
-  resolution: "devtools-protocol@npm:0.0.1436416"
-  checksum: 10/df0e8ddfd3ec5da3e3837b648035ccfb105f934daff2bdc7ae0de4491a4372de5fb872a0506c4469512cde8626f87bf22fac873b4a9bb49571712778d9ecab8f
+"devtools-protocol@npm:0.0.1445099":
+  version: 0.0.1445099
+  resolution: "devtools-protocol@npm:0.0.1445099"
+  checksum: 10/46725ee237f695038fc44753b9dd36ea34680624297498d1ce12f5ed48a645ef4d7fb124d89193febc13bc2c53fc4c9684476dcd18c4706933d285b13b3652c8
   languageName: node
   linkType: hard
 
@@ -27315,6 +27316,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"legacy-javascript@npm:latest":
+  version: 0.0.1
+  resolution: "legacy-javascript@npm:0.0.1"
+  checksum: 10/aa39f4bf327272ef1481f9d23a98d97f713ff3a8030434f7da5a239c85b21c2ccb62d2ae7eff68c1237509b13b9a3937f29788f0395a7ad9367192fe5dcab13e
+  languageName: node
+  linkType: hard
+
 "less-loader@npm:11.1.0":
   version: 11.1.0
   resolution: "less-loader@npm:11.1.0"
@@ -27514,17 +27522,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lighthouse@npm:~12.5.0":
-  version: 12.5.1
-  resolution: "lighthouse@npm:12.5.1"
+"lighthouse@npm:~12.6.0":
+  version: 12.6.0
+  resolution: "lighthouse@npm:12.6.0"
   dependencies:
-    "@paulirish/trace_engine": "npm:0.0.50"
+    "@paulirish/trace_engine": "npm:0.0.52"
     "@sentry/node": "npm:^7.0.0"
     axe-core: "npm:^4.10.3"
     chrome-launcher: "npm:^1.1.2"
     configstore: "npm:^5.0.1"
     csp_evaluator: "npm:1.1.5"
-    devtools-protocol: "npm:0.0.1436416"
+    devtools-protocol: "npm:0.0.1445099"
     enquirer: "npm:^2.3.6"
     http-link-header: "npm:^1.1.1"
     intl-messageformat: "npm:^10.5.3"
@@ -27537,11 +27545,11 @@ __metadata:
     metaviewport-parser: "npm:0.3.0"
     open: "npm:^8.4.0"
     parse-cache-control: "npm:1.0.1"
-    puppeteer-core: "npm:^24.4.0"
+    puppeteer-core: "npm:^24.6.1"
     robots-parser: "npm:^3.0.1"
     semver: "npm:^5.3.0"
     speedline-core: "npm:^1.4.3"
-    third-party-web: "npm:^0.26.5"
+    third-party-web: "npm:^0.26.6"
     tldts-icann: "npm:^6.1.16"
     ws: "npm:^7.0.0"
     yargs: "npm:^17.3.1"
@@ -27550,7 +27558,7 @@ __metadata:
     chrome-debug: core/scripts/manual-chrome-launcher.js
     lighthouse: cli/index.js
     smokehouse: cli/test/smokehouse/frontends/smokehouse-bin.js
-  checksum: 10/29969d1c58529f5602d3443e21a138ffa8712a293cbcd68cddf742f9435df3e447e30655a1d43c0133a7695cc32bdc8eefcb87ce2f88a01beb15a0a6cf69e652
+  checksum: 10/a33a1532853827cc7ce3d257640a827cad72c8335d62b3c8a601248eaa07c796e74178613bb08337bdd77fdea5bf59c72542fbc4ae58dffc75f9084c55a7bae5
   languageName: node
   linkType: hard
 
@@ -32177,17 +32185,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"puppeteer-core@npm:^24.4.0":
-  version: 24.7.2
-  resolution: "puppeteer-core@npm:24.7.2"
+"puppeteer-core@npm:^24.6.1":
+  version: 24.8.2
+  resolution: "puppeteer-core@npm:24.8.2"
   dependencies:
-    "@puppeteer/browsers": "npm:2.10.2"
-    chromium-bidi: "npm:4.1.1"
+    "@puppeteer/browsers": "npm:2.10.4"
+    chromium-bidi: "npm:5.1.0"
     debug: "npm:^4.4.0"
-    devtools-protocol: "npm:0.0.1425554"
+    devtools-protocol: "npm:0.0.1439962"
     typed-query-selector: "npm:^2.12.0"
-    ws: "npm:^8.18.1"
-  checksum: 10/e89182f60456de619c3c3a257c666e9ec1c0d30f520d21f1313dcd09a5c50047fd04108907e145ae6ea0498a34c665dac71f4898993a5bbbbff708e6cfdbc1e7
+    ws: "npm:^8.18.2"
+  checksum: 10/38ca26d83a15876a2207415bd4ceb889267c1264d7678d5b61b2d8aefe7cfc1e0d7f949e260acb3265b0cbbc0b85de5f080129cfb242fb04415f701a1b9efe78
   languageName: node
   linkType: hard
 
@@ -35426,7 +35434,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"third-party-web@npm:^0.26.5, third-party-web@npm:latest":
+"third-party-web@npm:^0.26.6, third-party-web@npm:latest":
   version: 0.26.6
   resolution: "third-party-web@npm:0.26.6"
   checksum: 10/61d48d33bddb04db8cbdddddc6cf8b454ab1ce0491779b51584b7000b31c857d214c5bfbe11de7caf25f795bc76812367262962b1f5c74154590109e218361c9
@@ -37683,9 +37691,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ws@npm:^8.11.0, ws@npm:^8.18.0, ws@npm:^8.18.1":
-  version: 8.18.1
-  resolution: "ws@npm:8.18.1"
+"ws@npm:^8.11.0, ws@npm:^8.18.0, ws@npm:^8.18.2":
+  version: 8.18.2
+  resolution: "ws@npm:8.18.2"
   peerDependencies:
     bufferutil: ^4.0.1
     utf-8-validate: ">=5.0.2"
@@ -37694,7 +37702,7 @@ __metadata:
       optional: true
     utf-8-validate:
       optional: true
-  checksum: 10/3f38e9594f2af5b6324138e86b74df7d77bbb8e310bf8188679dd80bac0d1f47e51536a1923ac3365f31f3d8b25ea0b03e4ade466aa8292a86cd5defca64b19b
+  checksum: 10/018e04ec95561d88248d53a2eaf094b4ae131e9b062f2679e6e8a62f04649bc543448f1e038125225ac6bbb25f54c1e65d7a2cc9dbc1e28b43e5e6b7162ad88e
   languageName: node
   linkType: hard
 
