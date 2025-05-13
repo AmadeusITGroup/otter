@@ -30,7 +30,7 @@
     "@types/semver": "^7.3.13",
     "@typescript-eslint/parser": "~8.32.0",
     "@vercel/ncc": "~0.38.0",
-    "angular-eslint": "~19.3.0",
+    "angular-eslint": "~19.4.0",
     "eslint": "~9.26.0",
     "eslint-plugin-import": "~2.31.0",
     "eslint-plugin-import-newlines": "~1.4.0",
