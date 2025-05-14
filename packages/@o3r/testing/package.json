@@ -218,7 +218,7 @@
     "@types/pixelmatch": "^5.2.3",
     "@types/pngjs": "^6.0.0",
     "@typescript-eslint/parser": "~8.32.0",
-    "angular-eslint": "~19.3.0",
+    "angular-eslint": "~19.4.0",
     "concurrently": "^9.1.0",
     "cpy-cli": "^5.0.0",
     "eslint": "~9.26.0",
