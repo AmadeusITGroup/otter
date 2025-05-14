@@ -158,5 +158,6 @@
   "openApiSupportedVersion": "^7.11.0",
   "engines": {
     "node": "^20.11.1 || >=22.0.0"
-  }
+  },
+  "preferUnplugged": true
 }

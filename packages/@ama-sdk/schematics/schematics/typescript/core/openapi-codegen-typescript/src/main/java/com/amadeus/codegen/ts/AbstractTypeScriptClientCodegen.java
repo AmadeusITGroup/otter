@@ -110,6 +110,7 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
     typeMapping.put("object", "any");
     typeMapping.put("integer", "number");
     typeMapping.put("Map", "any");
+    typeMapping.put("AnyType", "any");
     String allowModelExtensionString = GlobalSettings.getProperty("allowModelExtension");
     String useLegacyDateExtensionString = GlobalSettings.getProperty("useLegacyDateExtension");
     useLegacyDateExtension = useLegacyDateExtensionString != null ? !"false".equalsIgnoreCase(useLegacyDateExtensionString) : false;
