@@ -1,6 +1,7 @@
 {
   "name": "@o3r/stylelint-plugin",
   "version": "0.0.0-placeholder",
+  "deprecated": "This package is will be removed in Otter v14. Please use @ama-styling/stylelint-plugin instead.",
   "publishConfig": {
     "access": "public"
   },
