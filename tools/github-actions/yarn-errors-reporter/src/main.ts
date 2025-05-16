@@ -20,7 +20,8 @@ const COMMENT_IDENTIFIER = '<!-- yarn report comment -->\n';
  * Write comment on the Pull Request listing the Yarn errors
  * @param errors list of reported errors
  */
-async function writeErrorComment(errors: string[]) {
+async function writeErrorComment(errors: YarnInstallOutputLine[]) {
+  const errorContent = formatComment(errors);
   const token = process.env.GITHUB_TOKEN;
   const [owner, repo] = (process.env.GITHUB_REPOSITORY || '').split('/');
   let payload: any;
@@ -47,7 +48,7 @@ async function writeErrorComment(errors: string[]) {
 
 <summary>List of reported errors</summary>
 
-${errors.join('\n')}
+${errorContent}
 
 </details>
 `;
@@ -99,7 +100,9 @@ function parseYarnInstallOutput(output: string, errorCodesToReport: string[]) {
 }
 
 function formatConsole(output: YarnInstallOutputLine[]) {
-  return output.map((line) => `➤ ${line.displayName} ${line.indent}${line.data}`);
+  return output
+    .map((line) => `➤ ${line.displayName} ${line.indent}${line.data}`)
+    .join(os.EOL);
 }
 
 function formatComment(output: YarnInstallOutputLine[]) {
@@ -113,7 +116,7 @@ function formatComment(output: YarnInstallOutputLine[]) {
       // eslint-disable-next-line no-control-regex -- use to remove ansi color char
       .replace(/\u001B\[[0-9;]+m/g, '')
       .replace(/\*{4}/g, '')} |`)
-  ];
+  ].join('\n');
 }
 
 async function run(): Promise<void> {
@@ -170,9 +173,9 @@ async function run(): Promise<void> {
     const errors = (await getYarnErrors()).filter((error) => !previousErrors.some((pError) => pError.data === error.data));
 
     if (errors.length > 0) {
-      core.warning(os.EOL + formatConsole(errors).join(os.EOL), { file: reportOnFile, title: 'Errors during yarn install' });
+      core.warning(os.EOL + formatConsole(errors), { file: reportOnFile, title: 'Errors during yarn install' });
       if (shouldCommentPullRequest) {
-        await writeErrorComment(formatComment(errors));
+        await writeErrorComment(errors);
       }
     } else {
       if (shouldCommentPullRequest) {
