@@ -168,6 +168,9 @@
       "@o3r/extractors": [
         "packages/@o3r/extractors/src/public_api"
       ],
+      "@ama-styling/figma-sdk": [
+        "packages/@ama-styling/figma-sdk/src/index"
+      ],
       "@o3r/forms": [
         "packages/@o3r/forms/src/public_api"
       ],

@@ -1,0 +1,64 @@
+# Build results
+/dist-*
+/dist
+/test-*
+/test
+/generated-*
+/build
+
+# Open API
+.openapi-generator
+
+# Optional eslint cache
+.eslintcache
+
+
+### Intellij ###
+.idea/
+
+### VisualStudioCode ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+
+# Local History for Visual Studio Code
+.history/
+
+# Built Visual Studio Code Extensions
+*.vsix
+
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+.history
+.ionide
+
+
+# Support for Project snippet scope
+
+### yarn ###
+# https://yarnpkg.com/getting-started/qa#which-files-should-be-gitignored
+
+.yarn/*
+!.yarn/releases
+!.yarn/patches
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+
+# if you are NOT using Zero-installs, then:
+# comment the following lines
+.yarn/cache
+
+# and uncomment the following lines
+.pnp.*
+
+node_modules/
+*.log
+
+build/
+dist/
+
+# End of https://www.toptal.com/developers/gitignore/api/yeoman,visualstudiocode,yarn
