@@ -11,6 +11,7 @@ import {
 import {
   MFE_HOST_APPLICATION_ID_PARAM,
   MFE_HOST_URL_PARAM,
+  MFE_MODULE_APPLICATION_ID_PARAM,
 } from './host-info';
 import {
   HostInfoPipe,
@@ -33,12 +34,12 @@ describe('HostInfoPipe', () => {
   });
 
   it('should return undefined if url is undefined', () => {
-    expect(pipe.transform(undefined, '')).toBeUndefined();
+    expect(pipe.transform(undefined, { hostId: '' })).toBeUndefined();
   });
 
   it('should not sanitize and return the url computed if it is a string', () => {
     const url = 'http://example.com';
-    const result = pipe.transform(url, '');
+    const result = pipe.transform(url, { hostId: '' });
     expect(sanitizer.sanitize).not.toHaveBeenCalled();
     expect(sanitizer.bypassSecurityTrustResourceUrl).not.toHaveBeenCalled();
     expect(result).toMatch(new RegExp(`^${url}.*`));
@@ -49,7 +50,7 @@ describe('HostInfoPipe', () => {
     const safeUrl: SafeResourceUrl = { mock: url };
     jest.spyOn(sanitizer, 'sanitize').mockReturnValue(url);
 
-    const result = pipe.transform(safeUrl, '');
+    const result = pipe.transform(safeUrl, { hostId: '' });
 
     expect(sanitizer.sanitize).toHaveBeenCalledWith(SecurityContext.RESOURCE_URL, safeUrl);
     expect(sanitizer.bypassSecurityTrustResourceUrl).toHaveBeenCalledWith(result);
@@ -59,10 +60,11 @@ describe('HostInfoPipe', () => {
   it('should add query parameters to the URL', () => {
     const url = 'http://example.com';
     const hostUrl = encodeURIComponent('http://localhost');
-    const applicationId = 'my-app-id';
+    const hostAppId = 'my-app-id';
+    const moduleAppId = 'my-module-id';
 
-    const result = pipe.transform(url, applicationId);
+    const result = pipe.transform(url, { moduleId: moduleAppId, hostId: hostAppId });
 
-    expect(result).toBe(`${url}/?${MFE_HOST_URL_PARAM}=${hostUrl}&${MFE_HOST_APPLICATION_ID_PARAM}=${applicationId}`);
+    expect(result).toBe(`${url}/?${MFE_HOST_URL_PARAM}=${hostUrl}&${MFE_HOST_APPLICATION_ID_PARAM}=${hostAppId}&${MFE_MODULE_APPLICATION_ID_PARAM}=${moduleAppId}`);
   });
 });
