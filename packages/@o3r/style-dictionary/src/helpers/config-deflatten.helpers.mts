@@ -21,6 +21,10 @@ const merge = (base: any, item: any): any => {
     };
 };
 
+/**
+ * Regroup object as tree from flat map
+ * @param obj
+ */
 export const deflatten = (obj: any): any => {
   if (typeof obj !== 'object' || obj === null) {
     return obj;
