@@ -12,7 +12,7 @@ import type {
 } from '@ngrx/entity';
 import type {
   ApplicationInformationContentMessage,
-} from '@o3r/application';
+} from '@o3r/application/devkit';
 import type {
   SelectedComponentInfoMessage,
 } from '@o3r/components';

@@ -35,10 +35,12 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 import {
-  ApplicationDevtoolsModule,
-  OTTER_APPLICATION_DEVTOOLS_OPTIONS,
   prefersReducedMotion,
 } from '@o3r/application';
+import {
+  ApplicationDevtoolsModule,
+  OTTER_APPLICATION_DEVTOOLS_OPTIONS,
+} from '@o3r/application/devkit';
 import {
   ComponentsDevtoolsModule,
   OTTER_COMPONENTS_DEVTOOLS_OPTIONS,

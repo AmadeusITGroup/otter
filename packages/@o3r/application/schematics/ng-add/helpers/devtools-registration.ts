@@ -15,7 +15,7 @@ import type {
 const DEVTOOL_MODULE_NAME = 'ApplicationDevtoolsModule';
 const CONSOLE_DEVTOOL_SERVICE_NAME = 'ApplicationDevtoolsConsoleService';
 const MESSAGE_DEVTOOL_SERVICE_NAME = 'ApplicationDevtoolsMessageService';
-const PACKAGE_NAME: string = JSON.parse(readFileSync(path.resolve(__dirname, '..', '..', '..', 'package.json'), { encoding: 'utf8' })).name;
+const PACKAGE_NAME: string = JSON.parse(readFileSync(path.resolve(__dirname, '..', '..', '..', 'package.json'), { encoding: 'utf8' })).name + '/devkit';
 
 /**
  * Register Devtools to the application

@@ -134,7 +134,7 @@
                 },
                 "main.ts": {
                   "file": {
-                    "contents": "import { bootstrapApplication } from '@angular/platform-browser';\nimport { appConfig } from './app/app.config';\nimport { AppComponent } from './app/app.component';\nimport { ApplicationDevtoolsConsoleService, ApplicationDevtoolsMessageService } from '@o3r/application';\nimport { inject, runInInjectionContext } from '@angular/core';\n\nbootstrapApplication(AppComponent, appConfig)\n  .then((m) => {\n    runInInjectionContext(m.injector, () => {\n      inject(ApplicationDevtoolsMessageService);\n    });\n    return m;\n  })\n  .then((m) => {\n    runInInjectionContext(m.injector, () => {\n      inject(ApplicationDevtoolsConsoleService);\n    });\n    return m;\n  })\n  .catch((err) => console.error(err));\n"
+                    "contents": "import { bootstrapApplication } from '@angular/platform-browser';\nimport { appConfig } from './app/app.config';\nimport { AppComponent } from './app/app.component';\nimport { ApplicationDevtoolsConsoleService, ApplicationDevtoolsMessageService } from '@o3r/application/devkit';\nimport { inject, runInInjectionContext } from '@angular/core';\n\nbootstrapApplication(AppComponent, appConfig)\n  .then((m) => {\n    runInInjectionContext(m.injector, () => {\n      inject(ApplicationDevtoolsMessageService);\n    });\n    return m;\n  })\n  .then((m) => {\n    runInInjectionContext(m.injector, () => {\n      inject(ApplicationDevtoolsConsoleService);\n    });\n    return m;\n  })\n  .catch((err) => console.error(err));\n"
                   }
                 },
                 "styles.scss": {

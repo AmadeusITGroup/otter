@@ -19,7 +19,7 @@ import {
 } from '@ngx-translate/core';
 import {
   ApplicationDevtoolsModule,
-} from '@o3r/application';
+} from '@o3r/application/devkit';
 import {
   ComponentsDevtoolsModule,
 } from '@o3r/components';
