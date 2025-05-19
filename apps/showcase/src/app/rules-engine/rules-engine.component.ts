@@ -18,7 +18,7 @@ import {
 } from '@ng-bootstrap/ng-bootstrap';
 import {
   ApplicationDevtoolsModule,
-} from '@o3r/application';
+} from '@o3r/application/devkit';
 import {
   ComponentsDevtoolsModule,
 } from '@o3r/components';

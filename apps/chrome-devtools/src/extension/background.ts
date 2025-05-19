@@ -1,6 +1,6 @@
 import type {
   ApplicationInformationContentMessage,
-} from '@o3r/application';
+} from '@o3r/application/devkit';
 import type {
   InjectContentMessage,
   OtterMessage,

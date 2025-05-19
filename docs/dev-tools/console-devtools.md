@@ -17,7 +17,7 @@ To do so, you will need to import the corresponding modules in you AppModule:
 
 ```typescript
 
-import { ApplicationDevtoolsModule } from '@o3r/application';
+import { ApplicationDevtoolsModule } from '@o3r/application/devkit';
 import { ConfigurationDevtoolsModule } from '@o3r/configuration';
 import { LocalizationDevtoolsModule } from '@o3r/localization';
 import { RulesEngineDevtoolsModule } from '@o3r/rules-engine';
@@ -38,7 +38,7 @@ export class AppModule {
 Then the services activation can be done in the AppComponent as follows:
 
 ```typescript
-import { ApplicationDevtoolsConsoleService } from '@o3r/application';
+import { ApplicationDevtoolsConsoleService } from '@o3r/application/devkit';
 import { ConfigurationDevtoolsConsoleService } from '@o3r/configuration';
 import { LocalizationDevtoolsConsoleService } from '@o3r/localization';
 import { RulesEngineDevtoolsConsoleService } from '@o3r/rules-engine';

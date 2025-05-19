@@ -1,6 +1,6 @@
 import type {
   AvailableApplicationMessageContents,
-} from '@o3r/application';
+} from '@o3r/application/devkit';
 import type {
   AvailableComponentsMessageContents,
 } from '@o3r/components';

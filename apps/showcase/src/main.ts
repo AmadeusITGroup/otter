@@ -8,7 +8,7 @@ import {
 import {
   ApplicationDevtoolsConsoleService,
   ApplicationDevtoolsMessageService,
-} from '@o3r/application';
+} from '@o3r/application/devkit';
 import {
   ComponentsDevtoolsMessageService,
 } from '@o3r/components';
