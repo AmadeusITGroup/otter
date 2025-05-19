@@ -200,7 +200,7 @@
     "@compodoc/compodoc": "^1.1.19",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@material/slider": "^14.0.0",
-    "@ngrx/store": "~19.1.0",
+    "@ngrx/store": "~19.2.0",
     "@ngx-translate/core": "~16.0.4",
     "@nx/eslint-plugin": "~20.8.0",
     "@nx/jest": "~20.8.0",
