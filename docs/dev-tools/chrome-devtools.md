@@ -38,7 +38,7 @@ Once you have download the extension, you will need to enable the features you n
 To do so, you will need to import the corresponding modules in you `AppModule`:
 
 ```typescript
-import { ApplicationDevtoolsModule } from '@o3r/application';
+import { ApplicationDevtoolsModule } from '@o3r/application/devkit';
 import { ComponentsDevtoolsModule } from '@o3r/components';
 import { ConfigurationDevtoolsModule } from '@o3r/configuration';
 import { LocalizationDevtoolsModule } from '@o3r/localization';
@@ -61,7 +61,7 @@ export class AppModule {}
 Then the activation of the services can be done in the `AppComponent` as follows:
 
 ```typescript
-import { ApplicationDevtoolsMessageService } from '@o3r/application';
+import { ApplicationDevtoolsMessageService } from '@o3r/application/devkit';
 import { ComponentsDevtoolsMessageService } from '@o3r/components';
 import { ConfigurationDevtoolsMessageService } from '@o3r/configuration';
 import { LocalizationDevtoolsMessageService } from '@o3r/localization';
@@ -95,11 +95,11 @@ export class AppComponent {
 
 > [!TIP]
 > The services can be also activated at bootstrap time by providing `isActivatedOnBootstrap: true` to their dedicated token `OTTER_<module>_DEVTOOLS_OPTIONS`. For example:
-> 
+>
 > `{provide: 'OTTER_CONFIGURATION_DEVTOOLS_OPTIONS', useValue: {isActivatedOnBootstrap: true}}`
-> 
+>
 > The services need to be injected in the application.
-> 
+>
 > `platformBrowserDynamic().bootstrapModule(AppModule).then((m) => runInInjectionContext(m.injector, () => inject(ConfigurationDevtoolsConsoleService)))`
 
 ### How to enable more features by providing metadata files

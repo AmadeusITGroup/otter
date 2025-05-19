@@ -102,6 +102,9 @@
       "@o3r/application": [
         "packages/@o3r/application/src/public_api"
       ],
+      "@o3r/application/devkit": [
+        "packages/@o3r/application/devkit"
+      ],
       "@o3r/application/schemas/*": [
         "packages/@o3r/application/schemas/*"
       ],

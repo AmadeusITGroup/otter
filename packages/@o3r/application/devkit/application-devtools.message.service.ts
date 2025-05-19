@@ -20,11 +20,6 @@ import {
   LoggerService,
 } from '@o3r/logger';
 import {
-  isVisualTestingEnabled,
-  prepareVisualTesting,
-  toggleVisualTestingRender,
-} from '@o3r/testing/visual-test/utils';
-import {
   fromEvent,
 } from 'rxjs';
 import {
@@ -63,7 +58,7 @@ export class ApplicationDevtoolsMessageService implements DevtoolsServiceInterfa
     };
 
     if (this.options.isActivatedOnBootstrap) {
-      this.activate();
+      void this.activate();
     }
   }
 
@@ -93,7 +88,7 @@ export class ApplicationDevtoolsMessageService implements DevtoolsServiceInterfa
    * Function to handle the incoming messages from Otter Chrome DevTools extension
    * @param message
    */
-  private handleEvents(message: AvailableApplicationMessageContents) {
+  private async handleEvents(message: AvailableApplicationMessageContents) {
     this.logger.debug('Message handling by the application service', message);
 
     switch (message.dataType) {
@@ -106,7 +101,7 @@ export class ApplicationDevtoolsMessageService implements DevtoolsServiceInterfa
         break;
       }
       case 'toggleVisualTesting': {
-        this.toggleVisualTestingRender(message.toggle);
+        await this.toggleVisualTestingRender(message.toggle);
         break;
       }
       case 'stateSelection': {
@@ -157,17 +152,30 @@ export class ApplicationDevtoolsMessageService implements DevtoolsServiceInterfa
    * Toggle visual testing rendering
    * @param enabled activate or deactivate the visual testing mode
    */
-  private toggleVisualTestingRender(enabled?: boolean) {
-    toggleVisualTestingRender(enabled === undefined ? !isVisualTestingEnabled() : enabled);
+  private async toggleVisualTestingRender(enabled?: boolean) {
+    try {
+      const visualTestUtils = await import('@o3r/testing/visual-test/utils');
+      const isEnabled = enabled ?? visualTestUtils.isVisualTestingEnabled();
+      visualTestUtils.toggleVisualTestingRender(isEnabled);
+    } catch (err) {
+      this.logger.warn('Visual testing utilities are not available:', err);
+    }
+
+    // toggleVisualTestingRender(enabled === undefined ? !isVisualTestingEnabled() : enabled);
   }
 
   /** @inheritDoc */
-  public activate() {
+  public async activate() {
     fromEvent(window, 'message').pipe(
       takeUntilDestroyed(this.destroyRef),
       filterMessageContent(isApplicationMessage)
     ).subscribe((e) => this.handleEvents(e));
-    prepareVisualTesting(this.options.e2eIgnoreClass);
+    try {
+      const visualTestUtils = await import('@o3r/testing/visual-test/utils');
+      visualTestUtils.prepareVisualTesting(this.options.e2eIgnoreClass);
+    } catch (err) {
+      this.logger.warn('Visual testing utilities are not available:', err);
+    }
     this.sendApplicationInformation();
   }
 }

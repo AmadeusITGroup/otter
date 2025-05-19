@@ -3,7 +3,7 @@ import {
 } from '@angular/core';
 import type {
   ApplicationInformationContentMessage,
-} from '@o3r/application';
+} from '@o3r/application/devkit';
 import {
   ReplaySubject,
 } from 'rxjs';
