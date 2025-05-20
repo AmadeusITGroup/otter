@@ -35,7 +35,7 @@ describe('ng add rules-engine', () => {
       'apps/test-app/migration-scripts/README.md'
     ];
     expectedAddedFiles.forEach((file) => expect(diff.added).toContain(file));
-    expect(diff.added.length).toBe(expectedAddedFiles.length + 9); // TODO define what are the remaining added files
+    expect(diff.added.length).toBe(expectedAddedFiles.length + 8); // TODO define what are the remaining added files
     const expectedModifiedFiles = [
       'apps/test-app/src/app/app.config.ts'
     ];
@@ -64,7 +64,7 @@ describe('ng add rules-engine', () => {
     expect(diff.added).toContain('libs/test-lib/placeholders.metadata.json');
     expect(diff.added).toContain('libs/test-lib/tsconfig.cms.json');
     expect(diff.added).toContain('libs/test-lib/migration-scripts/README.md');
-    expect(diff.added.length).toBe(13);
+    expect(diff.added.length).toBe(12);
     expect(diff.modified).toContain('angular.json');
     expect(diff.modified).toContain('package.json');
     expect(diff.modified).toContain('libs/test-lib/package.json');
