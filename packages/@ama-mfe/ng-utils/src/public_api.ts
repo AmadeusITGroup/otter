@@ -4,5 +4,6 @@ export * from './resize/index';
 export * from './navigation/index';
 export * from './theme/index';
 export * from './connect/index';
+export * from './history/index';
 export * from './utils';
 export * from './host-info';
