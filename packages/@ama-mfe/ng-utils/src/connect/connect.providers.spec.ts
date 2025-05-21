@@ -7,9 +7,13 @@ import {
   makeEnvironmentProviders,
 } from '@angular/core';
 import {
+  provideDisableHistoryWrites,
+} from '../history';
+import {
   getHostInfo,
 } from '../host-info/host-info';
 import {
+  isEmbedded,
   KNOWN_MESSAGES,
 } from '../utils';
 import {
@@ -30,6 +34,15 @@ jest.mock('@angular/core', () => {
 jest.mock('../host-info/host-info', () => ({
   getHostInfo: jest.fn(),
   persistHostInfo: jest.fn()
+}));
+
+jest.mock('../utils', () => ({
+  ...jest.requireActual('../utils'),
+  isEmbedded: jest.fn()
+}));
+
+jest.mock('../history/history.providers', () => ({
+  provideDisableHistoryWrites: jest.fn()
 }));
 
 describe('provideConnection', () => {
@@ -104,5 +117,21 @@ describe('provideConnection', () => {
         }
       ]
     );
+  });
+
+  it('should not patch browser history in a non-embedded application', () => {
+    (getHostInfo as jest.Mock).mockReturnValue({ moduleApplicationId: 'my-module-id-from-host' });
+    (isEmbedded as jest.Mock).mockReturnValue(false);
+
+    provideConnection();
+    expect(provideDisableHistoryWrites).not.toHaveBeenCalled();
+  });
+
+  it('should patch browser history in an embedded application', () => {
+    (getHostInfo as jest.Mock).mockReturnValue({ moduleApplicationId: 'my-module-id-from-host' });
+    (isEmbedded as jest.Mock).mockReturnValue(true);
+
+    provideConnection();
+    expect(provideDisableHistoryWrites).toHaveBeenCalled();
   });
 });
