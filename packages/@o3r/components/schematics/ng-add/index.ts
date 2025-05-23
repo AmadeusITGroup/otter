@@ -19,6 +19,7 @@ import {
   registerPackageCollectionSchematics,
   removePackages,
   setupDependencies,
+  setupSchematicsParamsForProject,
 } from '@o3r/schematics';
 import type {
   NodeDependencyType as NodeDependencyTypeEnum,
@@ -79,6 +80,11 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
         ngAddToRun: depsInfo.o3rPeerDeps
       }),
       registerPackageCollectionSchematics(packageJson),
+      setupSchematicsParamsForProject({
+        '@o3r/core:component': {},
+        '@o3r/core:component-container': {},
+        '@o3r/core:component-presenter': {}
+      }, options.projectName),
       ...(options.enableMetadataExtract ? [updateCmsAdapter(options)] : []),
       registerDevtools(options)
     ]);
