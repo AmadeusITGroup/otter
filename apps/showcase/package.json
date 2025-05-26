@@ -122,7 +122,7 @@
     "@webcontainer/api": "~1.6.0",
     "angular-eslint": "~19.4.0",
     "concurrently": "^9.1.0",
-    "eslint": "~9.26.0",
+    "eslint": "~9.27.0",
     "eslint-import-resolver-node": "~0.3.9",
     "eslint-import-resolver-typescript": "~3.10.0",
     "eslint-plugin-import": "~2.31.0",
