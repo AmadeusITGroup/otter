@@ -43,6 +43,9 @@
     "@o3r/schematics": {
       "optional": true
     },
+    "@o3r/testing": {
+      "optional": true
+    },
     "typescript": {
       "optional": true
     }
