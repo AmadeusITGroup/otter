@@ -343,7 +343,7 @@
   },
   "dependencies": {
     "@o3r/design": "workspace:^",
-    "eslint": "~9.26.0"
+    "eslint": "~9.27.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~19.2.0",
