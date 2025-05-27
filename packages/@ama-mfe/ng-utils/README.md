@@ -290,3 +290,9 @@ export class SomeClass {
 ```
 
 The host information is stored in session storage so it won't be lost when navigating inside the iframe.
+
+### Browser history handling
+
+When using iframes to embed applications, the browser history might be shared by the main page and the embedded iframe. For example `<iframe src="https://example.com" sandbox="allow-same-origin">` will share the same history as the main page. This can lead to unexpected behavior when using browser 'back' and 'forward' buttons.
+
+To avoid this, the `@ama-mfe/ng-utils` will forbid the application running in the iframe to alter the browser history. It will happen when connection is configured using `provideConection()` function. This will prevent the iframe to be able to use the `history.pushState` and `history.replaceState` methods.
