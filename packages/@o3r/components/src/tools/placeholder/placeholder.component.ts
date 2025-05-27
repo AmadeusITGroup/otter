@@ -89,10 +89,12 @@ export class PlaceholderComponent implements OnInit, OnDestroy, AfterViewChecked
   /** @inheritdoc */
   public ngOnInit() {
     this.id$.pipe(
+      takeUntilDestroyed(this.destroyRef),
       filter((id): id is string => !!id),
       distinctUntilChanged(),
       switchMap((id: string) =>
         this.store.select(selectSortedTemplates(id)).pipe(
+          takeUntilDestroyed(this.destroyRef),
           map((placeholders) => ({
             id,
             orderedTemplates: placeholders?.orderedTemplates,
