@@ -1,0 +1,13 @@
+{
+  "extends": "../tsconfig.build",
+  "exclude": [
+    "../src/**/*.spec.ts",
+    "../src/**/*.perf.ts",
+    "../src/**/*.fixture.ts",
+    "../src/**/fixtures*.ts",
+    "../src/fixtures/**/*.ts"
+  ],
+  "include": [
+    "../src/**/*.ts"
+  ]
+}
