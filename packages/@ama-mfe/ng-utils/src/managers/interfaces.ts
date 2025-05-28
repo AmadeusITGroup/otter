@@ -29,7 +29,7 @@ export interface BasicMessageConsumer<T extends VersionedMessage = VersionedMess
 }
 
 /** The consumer of a given message type */
-export interface MessageConsumer<T extends VersionedMessage> extends BasicMessageConsumer {
+export interface MessageConsumer<T extends VersionedMessage = VersionedMessage> extends BasicMessageConsumer {
 
   /** The message type which will be handled */
   type: T['type'];

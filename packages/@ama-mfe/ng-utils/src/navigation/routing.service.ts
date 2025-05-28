@@ -5,6 +5,9 @@ import type {
 import {
   NAVIGATION_MESSAGE_TYPE,
 } from '@ama-mfe/messages';
+import type {
+  RoutedMessage,
+} from '@amadeus-it-group/microfrontends';
 import {
   MessagePeerService,
 } from '@amadeus-it-group/microfrontends-angular';
@@ -28,7 +31,9 @@ import {
   map,
 } from 'rxjs';
 import {
+  type MessageConsumer,
   type MessageProducer,
+  registerConsumer,
   registerProducer,
 } from '../managers/index';
 import {
@@ -49,15 +54,15 @@ export interface RoutingServiceOptions {
 }
 
 /**
- * A service that handles routing and message production for navigation events.
+ * A service that keeps in sync Router navigation and navigation messages.
  *
- * This service listens to Angular router events and sends navigation messages
- * to a message peer service. It also handles errors related to navigation messages.
+ * - listens to Router events and sends navigation messages
+ * - handles incoming navigation messages and triggers Router navigation
  */
 @Injectable({
   providedIn: 'root'
 })
-export class RoutingService implements MessageProducer<NavigationMessage> {
+export class RoutingService implements MessageProducer<NavigationMessage>, MessageConsumer<NavigationMessage> {
   private readonly router = inject(Router);
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly messageService = inject(MessagePeerService<NavigationMessage>);
@@ -68,9 +73,35 @@ export class RoutingService implements MessageProducer<NavigationMessage> {
    */
   public readonly types = NAVIGATION_MESSAGE_TYPE;
 
+  /**
+   * @inheritdoc
+   */
+  public readonly type = 'navigation';
+
+  /**
+   * Use the message payload to navigate to the specified URL.
+   * @param message message to consume
+   */
+  public readonly supportedVersions = {
+    '1.0': async (message: RoutedMessage<any>) => {
+      await this.router.navigateByUrl(message.payload.url);
+    }
+  };
+
   constructor() {
     registerProducer(this);
+    registerConsumer(this);
   }
+
+  /**
+   * @inheritdoc
+   */
+  public start(): void {}
+
+  /**
+   * @inheritdoc
+   */
+  public stop(): void {}
 
   /**
    * @inheritdoc

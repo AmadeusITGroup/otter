@@ -74,7 +74,7 @@ describe('Navigation Handler Service', () => {
       }
     };
     navHandlerService.supportedVersions['1.0'](navMessage);
-    expect((navHandlerService as any).navigate).toHaveBeenCalledWith(navMessage.payload.url, 'test');
+    expect((navHandlerService as any).navigate).toHaveBeenCalledWith(navMessage.payload.url);
   });
 
   // eslint-disable-next-line jest/no-done-callback -- use the callback function to finish the test
@@ -112,7 +112,6 @@ describe('Navigation Handler Service', () => {
     expect(router.navigate).toHaveBeenCalledWith(
       ['go-to', 'sub-path'],
       expect.objectContaining({
-        state: { channelId: 'test' },
         relativeTo: { routeConfid: { path: 'child2' } }
       }));
   });

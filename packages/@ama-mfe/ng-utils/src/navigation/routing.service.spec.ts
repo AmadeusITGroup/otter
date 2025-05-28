@@ -24,6 +24,7 @@ import {
   Subject,
 } from 'rxjs';
 import {
+  ConsumerManagerService,
   ProducerManagerService,
 } from '../managers/index';
 import type {
@@ -31,19 +32,30 @@ import type {
 } from '../messages/error';
 import {
   RoutingService,
-} from './navigation.producer.service';
+} from './routing.service';
 
 describe('Navigation Producer Service', () => {
-  let navProducerService: RoutingService;
+  let routingService: RoutingService;
   let producerManagerService: ProducerManagerService;
   let messageService: MessagePeerService<NavigationMessage>;
   let loggerServiceMock: jest.Mocked<LoggerService>;
 
   let routerEventsSubject: Subject<any>;
+  let mockRouter: Partial<Router>;
   let router: Router;
 
   beforeEach(() => {
     routerEventsSubject = new Subject<any>();
+    mockRouter = {
+      events: routerEventsSubject.asObservable(),
+      navigateByUrl: jest.fn(),
+      getCurrentNavigation: jest.fn()
+    };
+
+    const consumerManagerServiceMock: Partial<ConsumerManagerService> = {
+      register: jest.fn(),
+      unregister: jest.fn()
+    };
     const producerManagerServiceMock = {
       register: jest.fn(),
       unregister: jest.fn()
@@ -61,14 +73,15 @@ describe('Navigation Producer Service', () => {
       providers: [
         RoutingService,
         { provide: LoggerService, useValue: loggerServiceMock },
-        { provide: Router, useValue: { events: routerEventsSubject.asObservable(), getCurrentNavigation: jest.fn(() => {}) } },
-        { provide: ProducerManagerService, useValue: producerManagerServiceMock },
+        { provide: Router, useValue: mockRouter },
+        { provide: ProducerManagerService, useValue: consumerManagerServiceMock },
+        { provide: ConsumerManagerService, useValue: producerManagerServiceMock },
         { provide: MessagePeerService, useValue: messageServiceMock },
         { provide: ActivatedRoute, useValue: { routeConfig: { path: 'test-path' } } }
       ]
     });
 
-    navProducerService = TestBed.inject(RoutingService);
+    routingService = TestBed.inject(RoutingService);
     messageService = TestBed.inject(MessagePeerService<NavigationMessage>);
     producerManagerService = TestBed.inject(ProducerManagerService);
     router = TestBed.inject(Router);
@@ -76,7 +89,7 @@ describe('Navigation Producer Service', () => {
 
   it('should register itself when instantiated', () => {
     jest.spyOn(producerManagerService, 'register');
-    expect(producerManagerService.register).toHaveBeenCalledWith(navProducerService);
+    expect(producerManagerService.register).toHaveBeenCalledWith(routingService);
   });
 
   it('should send navigation message via messageService if embedded', () => {
@@ -85,7 +98,7 @@ describe('Navigation Producer Service', () => {
     Object.defineProperty(mockedWindow, 'self', { value: mockedWindow });
     const windowSpy = jest.spyOn(globalThis, 'window', 'get').mockReturnValue(mockedWindow);
     runInInjectionContext(TestBed.inject(Injector), () => {
-      navProducerService.handleEmbeddedRouting();
+      routingService.handleEmbeddedRouting();
     });
 
     routerEventsSubject.next(new NavigationEnd(1, 'start-url', 'end-url'));
@@ -98,11 +111,29 @@ describe('Navigation Producer Service', () => {
     windowSpy.mockRestore();
   });
 
+  it('should forward received Navigation message to the router', () => {
+    TestBed.runInInjectionContext(() => {
+      expect(Object.keys(routingService.supportedVersions)).toEqual(['1.0']);
+
+      void routingService.supportedVersions['1.0']({
+        from: 'sender',
+        to: ['receiver'],
+        payload: {
+          type: 'navigation',
+          version: '1.0',
+          url: '/test'
+        }
+      });
+
+      expect(mockRouter.navigateByUrl).toHaveBeenCalledWith('/test');
+    });
+  });
+
   it('should send navigation message via endpointManagerService if channelId is present and not embedded', () => {
     jest.spyOn(router, 'getCurrentNavigation').mockReturnValue({ extras: { state: { channelId: 'test-channel-id' } } } as any);
 
     runInInjectionContext(TestBed.inject(Injector), () => {
-      navProducerService.handleEmbeddedRouting();
+      routingService.handleEmbeddedRouting();
     });
 
     routerEventsSubject.next(new NavigationEnd(1, 'start-url', 'end-url'));
@@ -121,7 +152,7 @@ describe('Navigation Producer Service', () => {
     });
 
     runInInjectionContext(TestBed.inject(Injector), () => {
-      navProducerService.handleEmbeddedRouting();
+      routingService.handleEmbeddedRouting();
     });
 
     routerEventsSubject.next(new NavigationEnd(1, 'start-url', 'end-url'));
@@ -131,7 +162,7 @@ describe('Navigation Producer Service', () => {
 
   it('should warn if no channelId is provided and not embedded', () => {
     runInInjectionContext(TestBed.inject(Injector), () => {
-      navProducerService.handleEmbeddedRouting();
+      routingService.handleEmbeddedRouting();
     });
 
     routerEventsSubject.next(new NavigationEnd(1, 'start-url', 'end-url'));
@@ -142,7 +173,7 @@ describe('Navigation Producer Service', () => {
   it('should handle errors', () => {
     const errorMessage: ErrorContent<NavigationV1_0> = { reason: 'unknown_type', source: { type: 'navigation', version: '1.0', url: '' } };
 
-    navProducerService.handleError(errorMessage);
+    routingService.handleError(errorMessage);
 
     expect(loggerServiceMock.error).toHaveBeenCalledWith('Error in navigation service message', errorMessage);
   });

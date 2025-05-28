@@ -63,7 +63,7 @@ export class NavigationConsumerService implements MessageConsumer<NavigationMess
     '1.0': (message: RoutedMessage<NavigationV1_0>) => {
       const channelId = message.from || undefined;
       this.requestedUrl.next({ url: message.payload.url, channelId });
-      this.navigate(message.payload.url, channelId);
+      this.navigate(message.payload.url);
     }
   };
 
@@ -87,15 +87,14 @@ export class NavigationConsumerService implements MessageConsumer<NavigationMess
   }
 
   /**
-   * Navigates to the specified URL with optional channel ID.
+   * Navigates to the specified URL.
    * @param url - The URL to navigate to.
-   * @param channelId - The optional channel ID for the navigation state. This is the endpoint from where the message is received
    */
-  private navigate(url: string, channelId?: string) {
+  private navigate(url: string) {
     const { paths, queryParams } = this.parseUrl(url);
     // No need to keep these in the URL
     hostQueryParams.forEach((key) => delete queryParams[key]);
-    void this.router.navigate(paths, { relativeTo: this.activeRoute.children.at(-1), queryParams, state: { channelId }, replaceUrl: true });
+    void this.router.navigate(paths, { relativeTo: this.activeRoute.children.at(-1), queryParams });
   }
 
   /**
