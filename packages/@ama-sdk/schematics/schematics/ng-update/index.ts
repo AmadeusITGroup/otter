@@ -11,6 +11,7 @@ import {
   updateV11_0 as tsUpdateV11_0,
   updateV11_4 as tsUpdateV11_4,
   updateV12_1_3 as tsUpdateV12_1_3,
+  updateV12_3 as tsUpdateV12_3,
 } from './typescript';
 
 /**
@@ -91,6 +92,20 @@ export function updateV12_1_3(): Rule {
   return (tree, context) => {
     if (isTypescriptSdk(tree)) {
       return tsUpdateV12_1_3()(tree, context);
+    }
+
+    return tree;
+  };
+}
+
+/**
+ * update of Otter library V12.3
+ */
+// eslint-disable-next-line @typescript-eslint/naming-convention -- function name contains the version
+export function updateV12_3(): Rule {
+  return (tree, context) => {
+    if (isTypescriptSdk(tree)) {
+      return tsUpdateV12_3()(tree, context);
     }
 
     return tree;
