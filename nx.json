@@ -240,6 +240,19 @@
       },
       "cache": true
     },
+    "test-e2e": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "test:playwright"
+      },
+      "inputs": [
+        "source",
+        "schematics",
+        "assets",
+        "^schematics"
+      ],
+      "cache": true
+    },
     "publish": {
       "cache": false,
       "executor": "nx:run-commands",
