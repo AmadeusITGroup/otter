@@ -1,4 +1,5 @@
 # Intellij extension
 .gradle
 !gradle/wrapper/gradle-wrapper.jar
+bin
 .run
