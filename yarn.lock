@@ -6890,16 +6890,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ng-select/ng-select@npm:~14.2.0":
-  version: 14.2.8
-  resolution: "@ng-select/ng-select@npm:14.2.8"
+"@ng-select/ng-select@npm:~14.9.0":
+  version: 14.9.0
+  resolution: "@ng-select/ng-select@npm:14.9.0"
   dependencies:
     tslib: "npm:^2.3.1"
   peerDependencies:
     "@angular/common": ^19.0.0
     "@angular/core": ^19.0.0
     "@angular/forms": ^19.0.0
-  checksum: 10/6125cfaf3364f3d1a16f92c5bd0cd8dbbcc0ab5ccada2aad19f0481ccfc22e79c8958cc3eb9a2f5a3ebdddc4de362d852aab7d951b8e093b4d772a75c4a693f2
+  checksum: 10/c7e10e18e9a4c16352cb6e49b77f1992bcbef4b34fe8eb501161450bbc81e3f4af5341a9def3e6c63288652096cca9f077b8f515403d6736f5ed8ecb064a6341
   languageName: node
   linkType: hard
 
@@ -8401,7 +8401,7 @@ __metadata:
     "@design-factory/design-factory": "npm:~19.1.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@ng-bootstrap/ng-bootstrap": "npm:^18.0.0"
-    "@ng-select/ng-select": "npm:~14.2.0"
+    "@ng-select/ng-select": "npm:~14.9.0"
     "@ngrx/entity": "npm:~19.2.0"
     "@ngrx/store": "npm:~19.2.0"
     "@nx/eslint-plugin": "npm:~20.8.0"
@@ -8431,7 +8431,7 @@ __metadata:
     ag-grid-community: "npm:~32.3.0"
     angular-eslint: "npm:~19.4.0"
     archiver: "npm:^7.0.0"
-    bootstrap: "npm:5.3.3"
+    bootstrap: "npm:5.3.6"
     chokidar: "npm:^4.0.3"
     chrome-webstore-upload: "npm:^3.0.0"
     concurrently: "npm:^9.1.0"
@@ -9634,7 +9634,7 @@ __metadata:
     "@design-factory/design-factory": "npm:~19.1.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@ng-bootstrap/ng-bootstrap": "npm:^18.0.0"
-    "@ng-select/ng-select": "npm:~14.2.0"
+    "@ng-select/ng-select": "npm:~14.9.0"
     "@ngrx/effects": "npm:~19.2.0"
     "@ngrx/entity": "npm:~19.2.0"
     "@ngrx/router-store": "npm:~19.2.0"
@@ -9678,7 +9678,7 @@ __metadata:
     angular-eslint: "npm:~19.4.0"
     angular-split: "npm:^19.0.0"
     babel-loader: "npm:^9.0.0"
-    bootstrap: "npm:5.3.3"
+    bootstrap: "npm:5.3.6"
     bootstrap-icons: "npm:^1.11.3"
     browserslist: "npm:^4.21.4"
     clipboard: "npm:^2.0.11"
@@ -10715,7 +10715,7 @@ __metadata:
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@formatjs/intl-numberformat": "npm:~8.15.0"
     "@ng-bootstrap/ng-bootstrap": "npm:^18.0.0"
-    "@ng-select/ng-select": "npm:~14.2.0"
+    "@ng-select/ng-select": "npm:~14.9.0"
     "@ngrx/effects": "npm:~19.2.0"
     "@ngrx/entity": "npm:~19.2.0"
     "@ngrx/store": "npm:~19.2.0"
@@ -10762,7 +10762,7 @@ __metadata:
     ag-grid-community: "npm:~32.3.0"
     angular-eslint: "npm:~19.4.0"
     angular-split: "npm:^19.0.0"
-    bootstrap: "npm:5.3.3"
+    bootstrap: "npm:5.3.6"
     clipboard: "npm:^2.0.11"
     concurrently: "npm:^9.1.0"
     eslint: "npm:~9.27.0"
@@ -18227,12 +18227,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bootstrap@npm:5.3.3":
-  version: 5.3.3
-  resolution: "bootstrap@npm:5.3.3"
+"bootstrap@npm:5.3.6":
+  version: 5.3.6
+  resolution: "bootstrap@npm:5.3.6"
   peerDependencies:
     "@popperjs/core": ^2.11.8
-  checksum: 10/f05183948b00b496400cc13df5798ecab7a85975e7d9a77b314a763b574a990aec0f1bbf1913c648a93b5d8cc82e73bc05f5ec1161d2932aad7ef7f316d9c82d
+  checksum: 10/843773c43c2aa51da6e6e5d8d117b29a9f834a7f64471c907ff9dc77c918802d107d139602f86b5899b58d39b352fb91e5317f3f184ce4d60b3264fd30bc62d7
   languageName: node
   linkType: hard
 
