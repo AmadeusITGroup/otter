@@ -318,7 +318,7 @@ __metadata:
     ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
-    type-fest: "npm:^4.30.1"
+    type-fest: "npm:4.41.0"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.32.0"
   peerDependencies:
@@ -382,6 +382,7 @@ __metadata:
     ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
+    type-fest: "npm:4.41.0"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.32.0"
     zone.js: "npm:~0.15.0"
@@ -398,6 +399,7 @@ __metadata:
     "@o3r/logger": "workspace:^"
     "@o3r/schematics": "workspace:^"
     rxjs: ^7.8.1
+    type-fest: ^4.30.1
   peerDependenciesMeta:
     "@ama-mfe/messages":
       optional: true
@@ -414,6 +416,8 @@ __metadata:
     "@o3r/schematics":
       optional: true
     "@schematics/angular":
+      optional: true
+    type-fest:
       optional: true
   languageName: unknown
   linkType: soft
@@ -468,7 +472,7 @@ __metadata:
     ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
-    type-fest: "npm:^4.30.1"
+    type-fest: "npm:4.41.0"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.32.0"
     uuid: "npm:^11.0.5"
@@ -481,6 +485,7 @@ __metadata:
     "@o3r/schematics": "workspace:^"
     "@schematics/angular": ^19.0.0
     rxjs: ^7.8.1
+    type-fest: ^4.30.1
     typescript: ^5.5.4
   peerDependenciesMeta:
     "@angular-devkit/schematics":
@@ -492,6 +497,8 @@ __metadata:
     "@o3r/schematics":
       optional: true
     "@schematics/angular":
+      optional: true
+    type-fest:
       optional: true
     typescript:
       optional: true
@@ -547,7 +554,7 @@ __metadata:
     ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
-    type-fest: "npm:^4.30.1"
+    type-fest: "npm:4.41.0"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.32.0"
     uuid: "npm:^11.0.5"
@@ -626,7 +633,7 @@ __metadata:
     ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
-    type-fest: "npm:^4.30.1"
+    type-fest: "npm:4.41.0"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.32.0"
     uuid: "npm:^11.0.5"
@@ -707,7 +714,7 @@ __metadata:
     ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
-    type-fest: "npm:^4.30.1"
+    type-fest: "npm:4.41.0"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.32.0"
     uuid: "npm:^11.0.5"
@@ -795,7 +802,7 @@ __metadata:
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.3.0"
     tslib: "npm:^2.6.2"
-    type-fest: "npm:^4.30.1"
+    type-fest: "npm:4.41.0"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.32.0"
   peerDependencies:
@@ -870,7 +877,7 @@ __metadata:
     ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
-    type-fest: "npm:^4.30.1"
+    type-fest: "npm:4.41.0"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.32.0"
   peerDependencies:
@@ -896,8 +903,6 @@ __metadata:
     "@o3r/telemetry":
       optional: true
     "@openapitools/openapi-generator-cli":
-      optional: true
-    openapi-types:
       optional: true
     type-fest:
       optional: true
@@ -1092,7 +1097,7 @@ __metadata:
     ts-jest: "npm:~29.3.0"
     ts-loader: "npm:^9.5.2"
     tslib: "npm:^2.6.2"
-    type-fest: "npm:^4.30.1"
+    type-fest: "npm:4.41.0"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.32.0"
     webpack: "npm:~5.99.0"
@@ -7722,7 +7727,7 @@ __metadata:
     ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
-    type-fest: "npm:^4.30.1"
+    type-fest: "npm:4.41.0"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.32.0"
     zone.js: "npm:~0.15.0"
@@ -8000,7 +8005,7 @@ __metadata:
     ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
-    type-fest: "npm:^4.30.1"
+    type-fest: "npm:4.41.0"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.32.0"
     webpack: "npm:~5.99.0"
@@ -8020,6 +8025,7 @@ __metadata:
     jasmine: ^5.0.0
     rxjs: ^7.8.1
     ts-node: ~10.9.2
+    type-fest: 4.41.0
     typescript: ^5.5.4
     webpack: ^5.96.0
   peerDependenciesMeta:
@@ -8030,6 +8036,8 @@ __metadata:
     "@schematics/angular":
       optional: true
     jasmine:
+      optional: true
+    type-fest:
       optional: true
     typescript:
       optional: true
@@ -8096,7 +8104,7 @@ __metadata:
     ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
-    type-fest: "npm:^4.30.1"
+    type-fest: "npm:4.41.0"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.32.0"
     zone.js: "npm:~0.15.0"
@@ -8110,6 +8118,7 @@ __metadata:
     "@schematics/angular": ^19.0.0
     rxjs: ^7.8.1
     ts-node: ~10.9.2
+    type-fest: 4.41.0
     typescript: ^5.5.4
   peerDependenciesMeta:
     "@ama-sdk/client-fetch":
@@ -8119,6 +8128,8 @@ __metadata:
     "@o3r/schematics":
       optional: true
     "@schematics/angular":
+      optional: true
+    type-fest:
       optional: true
   languageName: unknown
   linkType: soft
@@ -8183,7 +8194,7 @@ __metadata:
     ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
-    type-fest: "npm:^4.30.1"
+    type-fest: "npm:4.41.0"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.32.0"
     zone.js: "npm:~0.15.0"
@@ -8199,6 +8210,7 @@ __metadata:
     "@schematics/angular": ^19.0.0
     rxjs: ^7.8.1
     ts-node: ~10.9.2
+    type-fest: 4.41.0
     typescript: ^5.5.4
   peerDependenciesMeta:
     "@angular-devkit/schematics":
@@ -8206,6 +8218,8 @@ __metadata:
     "@o3r/schematics":
       optional: true
     "@o3r/testing":
+      optional: true
+    type-fest:
       optional: true
     typescript:
       optional: true
@@ -8549,7 +8563,7 @@ __metadata:
     ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
-    type-fest: "npm:^4.30.1"
+    type-fest: "npm:4.41.0"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.32.0"
     unionfs: "npm:~4.5.1"
@@ -8588,6 +8602,7 @@ __metadata:
     rxjs: ^7.8.1
     semver: ^7.5.2
     ts-node: ~10.9.2
+    type-fest: ^4.30.1
     typescript: ^5.5.4
   peerDependenciesMeta:
     "@angular-devkit/core":
@@ -8629,6 +8644,8 @@ __metadata:
     jsonpath-plus:
       optional: true
     semver:
+      optional: true
+    type-fest:
       optional: true
     typescript:
       optional: true
@@ -8699,7 +8716,7 @@ __metadata:
     ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
-    type-fest: "npm:^4.30.1"
+    type-fest: "npm:4.41.0"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.32.0"
     zone.js: "npm:~0.15.0"
@@ -8718,6 +8735,7 @@ __metadata:
     jasmine: ^5.0.0
     rxjs: ^7.8.1
     ts-node: ~10.9.2
+    type-fest: 4.41.0
     typescript: ^5.5.4
   peerDependenciesMeta:
     "@angular-devkit/schematics":
@@ -8731,6 +8749,8 @@ __metadata:
     express-interceptor:
       optional: true
     jasmine:
+      optional: true
+    type-fest:
       optional: true
     typescript:
       optional: true
@@ -8805,7 +8825,7 @@ __metadata:
     ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
-    type-fest: "npm:^4.30.1"
+    type-fest: "npm:4.41.0"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.32.0"
     unionfs: "npm:~4.5.1"
@@ -8905,7 +8925,7 @@ __metadata:
     shell-quote: "npm:^1.8.1"
     ts-jest: "npm:~29.3.0"
     tslib: "npm:^2.6.2"
-    type-fest: "npm:^4.30.1"
+    type-fest: "npm:4.41.0"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.32.0"
   peerDependencies:
@@ -8986,7 +9006,7 @@ __metadata:
     ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
-    type-fest: "npm:^4.30.1"
+    type-fest: "npm:4.41.0"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.32.0"
     zone.js: "npm:~0.15.0"
@@ -9086,6 +9106,7 @@ __metadata:
     ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
+    type-fest: "npm:4.41.0"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.32.0"
     zone.js: "npm:~0.15.0"
@@ -9104,6 +9125,7 @@ __metadata:
     jasmine: ^5.0.0
     rxjs: ^7.8.1
     ts-node: ~10.9.2
+    type-fest: ^4.30.1
   peerDependenciesMeta:
     "@angular-devkit/schematics":
       optional: true
@@ -9116,6 +9138,8 @@ __metadata:
     express-interceptor:
       optional: true
     jasmine:
+      optional: true
+    type-fest:
       optional: true
   languageName: unknown
   linkType: soft
@@ -9162,7 +9186,7 @@ __metadata:
     ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
-    type-fest: "npm:^4.30.1"
+    type-fest: "npm:4.41.0"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.32.0"
   peerDependencies:
@@ -9185,7 +9209,9 @@ __metadata:
     eslint-plugin-jsdoc: ^48.11.0 || ^49.0.0 || ^50.0.0
     eslint-plugin-prefer-arrow: ^1.2.2
     eslint-plugin-unicorn: ^54.0.0 || ^55.0.0 || ^56.0.0
+    jest: ~29.7.0
     ts-node: ~10.9.2
+    type-fest: ^4.30.1
     typescript: ^5.5.4
   peerDependenciesMeta:
     "@angular-devkit/schematics":
@@ -9203,6 +9229,10 @@ __metadata:
     "@schematics/angular":
       optional: true
     eslint-plugin-jest:
+      optional: true
+    jest:
+      optional: true
+    type-fest:
       optional: true
     typescript:
       optional: true
@@ -9252,7 +9282,7 @@ __metadata:
     ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
-    type-fest: "npm:^4.30.1"
+    type-fest: "npm:4.41.0"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.32.0"
   peerDependencies:
@@ -9288,6 +9318,7 @@ __metadata:
     type-fest: ^4.30.1
     typescript: ^5.5.4
     typescript-eslint: ^8.15.0
+    yaml-eslint-parser: ^1.2.2
   peerDependenciesMeta:
     "@angular-devkit/core":
       optional: true
@@ -9314,6 +9345,8 @@ __metadata:
     type-fest:
       optional: true
     typescript:
+      optional: true
+    yaml-eslint-parser:
       optional: true
   languageName: unknown
   linkType: soft
@@ -9365,7 +9398,7 @@ __metadata:
     ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
-    type-fest: "npm:^4.30.1"
+    type-fest: "npm:4.41.0"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.32.0"
     yaml-eslint-parser: "npm:^1.2.2"
@@ -9460,7 +9493,7 @@ __metadata:
     ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
-    type-fest: "npm:^4.30.1"
+    type-fest: "npm:4.41.0"
     typedoc: "npm:~0.28.0"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.32.0"
@@ -9570,6 +9603,7 @@ __metadata:
     ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
+    type-fest: "npm:4.41.0"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.32.0"
     zone.js: "npm:~0.15.0"
@@ -9586,12 +9620,15 @@ __metadata:
     "@schematics/angular": ^19.0.0
     rxjs: ^7.8.1
     ts-node: ~10.9.2
+    type-fest: ^4.30.1
   peerDependenciesMeta:
     "@angular-devkit/schematics":
       optional: true
     "@o3r/schematics":
       optional: true
     "@schematics/angular":
+      optional: true
+    type-fest:
       optional: true
   languageName: unknown
   linkType: soft
@@ -9902,7 +9939,7 @@ __metadata:
     ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
-    type-fest: "npm:^4.30.1"
+    type-fest: "npm:4.41.0"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.32.0"
     unionfs: "npm:~4.5.1"
@@ -10037,6 +10074,7 @@ __metadata:
     ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
+    type-fest: "npm:4.41.0"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.32.0"
     zone.js: "npm:~0.15.0"
@@ -10054,6 +10092,7 @@ __metadata:
     rxjs: ^7.8.1
     smartlook-client: ^10.0.0
     ts-node: ~10.9.2
+    type-fest: ^4.30.1
   peerDependenciesMeta:
     "@angular-devkit/schematics":
       optional: true
@@ -10070,6 +10109,8 @@ __metadata:
     logrocket-ngrx:
       optional: true
     smartlook-client:
+      optional: true
+    type-fest:
       optional: true
   languageName: unknown
   linkType: soft
@@ -10143,6 +10184,7 @@ __metadata:
     ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
+    type-fest: "npm:4.41.0"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.32.0"
     winston: "npm:^3.8.2"
@@ -10163,12 +10205,15 @@ __metadata:
     "@schematics/angular": ^19.0.0
     fast-deep-equal: ^3.1.3
     rxjs: ^7.8.1
+    type-fest: ^4.30.1
   peerDependenciesMeta:
     "@angular-devkit/schematics":
       optional: true
     "@o3r/schematics":
       optional: true
     "@schematics/angular":
+      optional: true
+    type-fest:
       optional: true
   bin:
     pcloudy: ./pcloudy/pcloudy.connection.js
@@ -10220,7 +10265,7 @@ __metadata:
     ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
-    type-fest: "npm:^4.30.1"
+    type-fest: "npm:4.41.0"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.32.0"
   peerDependencies:
@@ -10277,7 +10322,7 @@ __metadata:
     ts-loader: "npm:^9.5.2"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
-    type-fest: "npm:^4.30.1"
+    type-fest: "npm:4.41.0"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.32.0"
     url-loader: "npm:^4.1.1"
@@ -10335,7 +10380,7 @@ __metadata:
     ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
-    type-fest: "npm:^4.30.1"
+    type-fest: "npm:4.41.0"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.32.0"
   peerDependencies:
@@ -10419,6 +10464,7 @@ __metadata:
     ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
+    type-fest: "npm:4.41.0"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.32.0"
     zone.js: "npm:~0.15.0"
@@ -10439,6 +10485,7 @@ __metadata:
     jasmine: ^5.0.0
     rxjs: ^7.8.1
     ts-node: ~10.9.2
+    type-fest: ^4.30.1
   peerDependenciesMeta:
     "@angular-devkit/schematics":
       optional: true
@@ -10447,6 +10494,8 @@ __metadata:
     "@schematics/angular":
       optional: true
     jasmine:
+      optional: true
+    type-fest:
       optional: true
   languageName: unknown
   linkType: soft
@@ -10528,7 +10577,7 @@ __metadata:
     ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
-    type-fest: "npm:^4.30.1"
+    type-fest: "npm:4.41.0"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.32.0"
     typescript-json-schema: "npm:^0.65.0"
@@ -10557,6 +10606,7 @@ __metadata:
     jsonpath-plus: ^9.0.0 || ^10.0.0
     rxjs: ^7.8.1
     ts-node: ~10.9.2
+    type-fest: ^4.30.0
     typescript: ^5.5.4
     typescript-json-schema: ^0.65.0
   peerDependenciesMeta:
@@ -10575,6 +10625,8 @@ __metadata:
     jasmine:
       optional: true
     json-schema:
+      optional: true
+    type-fest:
       optional: true
     typescript:
       optional: true
@@ -10608,7 +10660,6 @@ __metadata:
     "@nx/jest": "npm:~20.8.0"
     "@nx/js": "npm:~20.8.0"
     "@o3r/build-helpers": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
     "@o3r/telemetry": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
     "@schematics/angular": "npm:~19.2.0"
@@ -10645,7 +10696,7 @@ __metadata:
     ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
-    type-fest: "npm:^4.30.1"
+    type-fest: "npm:4.41.0"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.32.0"
     zone.js: "npm:~0.15.0"
@@ -10865,7 +10916,7 @@ __metadata:
     ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
-    type-fest: "npm:^4.30.1"
+    type-fest: "npm:4.41.0"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.32.0"
     zone.js: "npm:~0.15.0"
@@ -10882,6 +10933,7 @@ __metadata:
     fast-deep-equal: ^3.1.3
     rxjs: ^7.8.1
     ts-node: ~10.9.2
+    type-fest: 4.41.0
   peerDependenciesMeta:
     "@angular-devkit/core":
       optional: true
@@ -10890,6 +10942,8 @@ __metadata:
     "@o3r/schematics":
       optional: true
     "@schematics/angular":
+      optional: true
+    type-fest:
       optional: true
   languageName: unknown
   linkType: soft
@@ -10947,7 +11001,7 @@ __metadata:
     ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
-    type-fest: "npm:^4.30.1"
+    type-fest: "npm:4.41.0"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.32.0"
     zone.js: "npm:~0.15.0"
@@ -10963,10 +11017,6 @@ __metadata:
     "@o3r/schematics":
       optional: true
     "@o3r/telemetry":
-      optional: true
-    chokidar:
-      optional: true
-    globby:
       optional: true
     type-fest:
       optional: true
@@ -11026,7 +11076,7 @@ __metadata:
     ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
-    type-fest: "npm:^4.30.1"
+    type-fest: "npm:4.41.0"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.32.0"
   peerDependencies:
@@ -11036,12 +11086,15 @@ __metadata:
     postcss: ^8.4.5
     postcss-scss: ^4.0.9
     stylelint: ^16.0.2
+    type-fest: ^4.30.1
   peerDependenciesMeta:
     "@angular-devkit/schematics":
       optional: true
     "@o3r/schematics":
       optional: true
     "@schematics/angular":
+      optional: true
+    type-fest:
       optional: true
   languageName: unknown
   linkType: soft
@@ -11124,7 +11177,7 @@ __metadata:
     ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
-    type-fest: "npm:^4.30.1"
+    type-fest: "npm:4.41.0"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.32.0"
     unionfs: "npm:~4.5.1"
@@ -11155,6 +11208,7 @@ __metadata:
     sass-embedded: ^1.81.0
     semver: ^7.5.2
     ts-node: ~10.9.2
+    type-fest: ^4.30.1
     typescript: ^5.5.4
   peerDependenciesMeta:
     "@angular-devkit/architect":
@@ -11198,6 +11252,8 @@ __metadata:
     sass-embedded:
       optional: true
     semver:
+      optional: true
+    type-fest:
       optional: true
     typescript:
       optional: true
@@ -11308,7 +11364,7 @@ __metadata:
     ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
-    type-fest: "npm:^4.30.1"
+    type-fest: "npm:4.41.0"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.32.0"
     unionfs: "npm:~4.5.1"
@@ -11411,7 +11467,7 @@ __metadata:
     ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
-    type-fest: "npm:^4.30.1"
+    type-fest: "npm:4.41.0"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.32.0"
     zone.js: "npm:~0.15.0"
@@ -11536,7 +11592,7 @@ __metadata:
     ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
-    type-fest: "npm:^4.30.1"
+    type-fest: "npm:4.41.0"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.32.0"
     uuid: "npm:^11.0.5"
@@ -11547,6 +11603,7 @@ __metadata:
     "@o3r/schematics": "workspace:^"
     "@schematics/angular": ^19.0.0
     rxjs: ^7.8.1
+    type-fest: ^4.30.1
     typescript: ^5.5.4
   peerDependenciesMeta:
     "@angular-devkit/schematics":
@@ -11556,6 +11613,8 @@ __metadata:
     "@o3r/schematics":
       optional: true
     "@schematics/angular":
+      optional: true
+    type-fest:
       optional: true
     typescript:
       optional: true
@@ -11675,7 +11734,7 @@ __metadata:
     ts-jest: "npm:~29.3.0"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
-    type-fest: "npm:^4.30.1"
+    type-fest: "npm:4.41.0"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.32.0"
     uuid: "npm:^11.0.5"
@@ -36205,6 +36264,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"type-fest@npm:4.41.0, type-fest@npm:^4.2.0, type-fest@npm:^4.41.0":
+  version: 4.41.0
+  resolution: "type-fest@npm:4.41.0"
+  checksum: 10/617ace794ac0893c2986912d28b3065ad1afb484cad59297835a0807dc63286c39e8675d65f7de08fafa339afcb8fe06a36e9a188b9857756ae1e92ee8bda212
+  languageName: node
+  linkType: hard
+
 "type-fest@npm:^0.12.0":
   version: 0.12.0
   resolution: "type-fest@npm:0.12.0"
@@ -36258,13 +36324,6 @@ __metadata:
   version: 3.13.1
   resolution: "type-fest@npm:3.13.1"
   checksum: 10/9a8a2359ada34c9b3affcaf3a8f73ee14c52779e89950db337ce66fb74c3399776c697c99f2532e9b16e10e61cfdba3b1c19daffb93b338b742f0acd0117ce12
-  languageName: node
-  linkType: hard
-
-"type-fest@npm:^4.2.0, type-fest@npm:^4.30.1, type-fest@npm:^4.41.0":
-  version: 4.41.0
-  resolution: "type-fest@npm:4.41.0"
-  checksum: 10/617ace794ac0893c2986912d28b3065ad1afb484cad59297835a0807dc63286c39e8675d65f7de08fafa339afcb8fe06a36e9a188b9857756ae1e92ee8bda212
   languageName: node
   linkType: hard
 

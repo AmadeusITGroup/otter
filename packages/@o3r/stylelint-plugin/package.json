@@ -33,7 +33,8 @@
     "@schematics/angular": "^19.0.0",
     "postcss": "^8.4.5",
     "postcss-scss": "^4.0.9",
-    "stylelint": "^16.0.2"
+    "stylelint": "^16.0.2",
+    "type-fest": "^4.30.1"
   },
   "peerDependenciesMeta": {
     "@angular-devkit/schematics": {
@@ -43,6 +44,9 @@
       "optional": true
     },
     "@schematics/angular": {
+      "optional": true
+    },
+    "type-fest": {
       "optional": true
     }
   },
@@ -94,7 +98,7 @@
     "stylelint": "~16.19.0",
     "ts-jest": "~29.3.0",
     "ts-node": "~10.9.2",
-    "type-fest": "^4.30.1",
+    "type-fest": "4.41.0",
     "typescript": "~5.8.2",
     "typescript-eslint": "~8.32.0"
   },

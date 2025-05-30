@@ -73,6 +73,7 @@ export function updateStore(
    * @param context
    */
   const updatePackageJson: Rule = (tree: Tree, context: SchematicContext) => {
+    context.logger.error(tree.readText('package.json'));
     const workspaceConfig = getWorkspaceConfig(tree);
     const workspaceProject = (options.projectName && workspaceConfig?.projects?.[options.projectName]) || undefined;
 

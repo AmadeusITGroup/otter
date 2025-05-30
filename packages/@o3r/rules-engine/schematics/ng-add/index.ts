@@ -8,7 +8,7 @@ import {
   createOtterSchematic,
   getAppModuleFilePath,
   getDefaultOptionsForSchematic,
-  getExternalDependenciesVersionRange,
+  getExternalDependenciesInfo,
   getO3rPeerDeps,
   getPackageInstallConfig,
   getProjectNewDependenciesTypes,
@@ -24,6 +24,9 @@ import {
 import {
   isImported,
 } from '@schematics/angular/utility/ast-utils';
+import {
+  type PackageJson,
+} from 'type-fest';
 import * as ts from 'typescript';
 import {
   updateCmsAdapter,
@@ -35,8 +38,26 @@ import type {
   NgAddSchematicsSchema,
 } from './schema';
 
+/**
+ * List of external dependencies to be added to the project as peer dependencies
+ */
+const dependenciesToInstall = [
+  '@angular/common',
+  '@angular/core',
+  '@angular/forms',
+  '@ngrx/effects',
+  '@ngrx/entity',
+  '@ngrx/store',
+  '@ngx-translate/core',
+  'jsonpath-plus',
+  'rxjs'
+];
+
+/**
+ * List of external dependencies to be added to the project as dev dependencies
+ */
 const devDependenciesToInstall = [
-  'jsonpath-plus'
+  '@angular-devkit/architect'
 ];
 
 const updateAppModuleOrAppConfig = (projectName: string | undefined): Rule => (tree, context) => {
@@ -72,12 +93,15 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
   return (tree, context) => {
     options = { ...getDefaultOptionsForSchematic(getWorkspaceConfig(tree), '@o3r/rules-engine', 'ng-add', options), ...options };
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
-    const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' }));
+    const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' })) as PackageJson;
     const depsInfo = getO3rPeerDeps(packageJsonPath);
     if (options.enableMetadataExtract) {
       depsInfo.o3rPeerDeps = [...depsInfo.o3rPeerDeps, '@o3r/extractors'];
     }
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
+    const projectDirectory = workspaceProject?.root || '.';
+    const projectPackageJson = tree.readJson(path.posix.join(projectDirectory, 'package.json')) as PackageJson;
+
     const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
       acc[dep] = {
         inManifest: [{
@@ -88,15 +112,16 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       };
       return acc;
     }, getPackageInstallConfig(packageJsonPath, tree, options.projectName, false, !!options.exactO3rVersion));
-    Object.entries(getExternalDependenciesVersionRange(devDependenciesToInstall, packageJsonPath, context.logger))
-      .forEach(([dep, range]) => {
-        dependencies[dep] = {
-          inManifest: [{
-            range,
-            types: getProjectNewDependenciesTypes(workspaceProject)
-          }]
-        };
-      });
+    const externalDependenciesInfo = getExternalDependenciesInfo({
+      devDependenciesToInstall,
+      dependenciesToInstall,
+      projectType: workspaceProject?.projectType,
+      projectPackageJson,
+      o3rPackageJsonPath: packageJsonPath
+    },
+    context.logger
+    );
+
     const schematicsDefaultOptions = {
       useRulesEngine: undefined
     };
@@ -109,7 +134,10 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       removePackages(['@otter/rules-engine', '@otter/rules-engine-core']),
       setupDependencies({
         projectName: options.projectName,
-        dependencies,
+        dependencies: {
+          ...dependencies,
+          ...externalDependenciesInfo
+        },
         ngAddToRun: depsInfo.o3rPeerDeps
       }),
       ...(options.enableMetadataExtract ? [updateCmsAdapter(options)] : []),
