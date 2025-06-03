@@ -18,7 +18,6 @@ import {
   ErrorContent,
 } from '../messages/index';
 import {
-  DELTA_RESIZE,
   ResizeService,
 } from './resize.producer.service';
 
@@ -61,6 +60,10 @@ describe('ResizeService', () => {
     injector = TestBed.inject(Injector);
   });
 
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
+
   it('should register itself when instantiated', () => {
     expect(producerManagerService.register).toHaveBeenCalledWith(resizeService);
   });
@@ -70,40 +73,40 @@ describe('ResizeService', () => {
     runInInjectionContext(injector, () => {
       resizeService.startResizeObserver();
 
-      Object.defineProperty(document.body, 'scrollHeight', { value: 1000, configurable: true });
+      jest.spyOn(document.body, 'getBoundingClientRect').mockReturnValue({ height: 1000 } as DOMRect);
 
       // simulate observer change as there is no api for ResizeObserver in jest
       // eslint-disable-next-line @typescript-eslint/dot-notation, dot-notation -- access a private property for test
       const resizeObserverInstance = (resizeService as any)['resizeObserver'];
-      resizeObserverInstance.observerCallback();
-      expect(messageService.send).toHaveBeenCalledWith({ height: 1000 + DELTA_RESIZE, type: 'resize', version: '1.0' });
 
-      Object.defineProperty(document.body, 'scrollHeight', { value: 1200, configurable: true });
       resizeObserverInstance.observerCallback();
-      expect(messageService.send).toHaveBeenCalledWith({ height: 1200 + DELTA_RESIZE, type: 'resize', version: '1.0' });
+      expect(messageService.send).toHaveBeenCalledWith({ height: 1000, type: 'resize', version: '1.0' });
+
+      jest.spyOn(document.body, 'getBoundingClientRect').mockReturnValue({ height: 1200 } as DOMRect);
+
+      resizeObserverInstance.observerCallback();
+      expect(messageService.send).toHaveBeenCalledWith({ height: 1200, type: 'resize', version: '1.0' });
     });
   });
 
-  it('should not send resize message when body height changes with less then DELTA_RESIZE', () => {
+  it('should not send resize message when body height does not change', () => {
     global.ResizeObserver = MockedResizeObserver;
     runInInjectionContext(injector, () => {
       resizeService.startResizeObserver();
 
-      Object.defineProperty(document.body, 'scrollHeight', { value: 1000, configurable: true });
+      jest.spyOn(document.body, 'getBoundingClientRect').mockReturnValue({ height: 101 } as DOMRect);
 
       // simulate observer change as there is no api for ResizeObserver in jest
       // eslint-disable-next-line @typescript-eslint/dot-notation, dot-notation -- access a private property for test
       const resizeObserverInstance = (resizeService as any)['resizeObserver'];
       resizeObserverInstance.observerCallback();
-      expect(messageService.send).toHaveBeenCalledWith({ height: 1000 + DELTA_RESIZE, type: 'resize', version: '1.0' });
-      jest.clearAllMocks();
-      Object.defineProperty(document.body, 'scrollHeight', { value: 1001.6, configurable: true });
-      Object.defineProperty(document.body, 'scrollHeight', { value: 1000.3, configurable: true });
+      jest.spyOn(document.body, 'getBoundingClientRect').mockReturnValue({ height: 101 } as DOMRect);
       resizeObserverInstance.observerCallback();
-      expect(messageService.send).not.toHaveBeenCalled();
-      Object.defineProperty(document.body, 'scrollHeight', { value: 1008.2, configurable: true });
+      expect(messageService.send).toHaveBeenCalledTimes(1);
+      expect(messageService.send).toHaveBeenCalledWith({ height: 101, type: 'resize', version: '1.0' });
+      jest.spyOn(document.body, 'getBoundingClientRect').mockReturnValue({ height: 1008.2 } as DOMRect);
       resizeObserverInstance.observerCallback();
-      expect(messageService.send).toHaveBeenCalledWith({ height: 1008.2 + DELTA_RESIZE, type: 'resize', version: '1.0' });
+      expect(messageService.send).toHaveBeenCalledWith({ height: 1008.2, type: 'resize', version: '1.0' });
     });
   });
 
