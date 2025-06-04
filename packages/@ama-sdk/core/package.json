@@ -90,7 +90,7 @@
   "peerDependencies": {
     "@angular-devkit/schematics": "^19.0.0",
     "@angular/cli": "^19.0.0",
-    "@angular/common": "^19.0.0",
+    "@angular/common": "20.0.0",
     "@o3r/schematics": "workspace:^",
     "@schematics/angular": "^19.0.0",
     "isomorphic-fetch": "^3.0.0",
@@ -126,8 +126,8 @@
   "devDependencies": {
     "@angular-devkit/core": "~19.2.0",
     "@angular-devkit/schematics": "~19.2.0",
-    "@angular/common": "~19.2.0",
-    "@angular/core": "~19.2.0",
+    "@angular/common": "20.0.0",
+    "@angular/core": "20.0.0",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@nx/eslint-plugin": "~20.8.0",
     "@nx/jest": "~20.8.0",

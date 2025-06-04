@@ -19,7 +19,7 @@ export class TextDirectionality extends Directionality implements OnDestroy {
    * The current 'ltr' or 'rtl' value.
    * @override
    */
-  public value!: Direction;
+  public value: Direction;
 
   constructor(@Optional() @Inject(DIR_DOCUMENT) _document?: any) {
     super(_document);

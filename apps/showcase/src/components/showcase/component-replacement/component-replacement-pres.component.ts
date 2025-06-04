@@ -1,5 +1,4 @@
 import {
-  CommonModule,
   formatDate,
 } from '@angular/common';
 import {
@@ -46,7 +45,7 @@ const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
 @O3rComponent({ componentType: 'ExposedComponent' })
 @Component({
   selector: 'o3r-component-replacement-pres',
-  imports: [C11nDirective, CommonModule, ReactiveFormsModule],
+  imports: [C11nDirective, ReactiveFormsModule],
   templateUrl: './component-replacement-pres.template.html',
   styleUrl: './component-replacement-pres.style.scss',
   encapsulation: ViewEncapsulation.None,

@@ -1,24 +1,36 @@
-<span *ngIf="key" class="input-key">{{key}}<ng-container *ngIf="type === 'state'">: </ng-container></span>
-<ng-container *ngIf="type === 'assignment'"> = </ng-container>
-<ng-container *ngIf="oldValue">
+@if (key) {
+  <span class="input-key">{{key}}@if (type === 'state') {
+    :
+  }</span>
+}
+@if (type === 'assignment') {
+  =
+}
+@if (oldValue) {
   <pre class="input-value"
     [class.limit-characters]="shouldLimitCharactersForOldValue"
     (click)="shouldLimitCharactersForOldValue = !shouldLimitCharactersForOldValue"
     (keyup.enter)="shouldLimitCharactersForOldValue = !shouldLimitCharactersForOldValue"
     tabindex="0"
-  >
+    >
     {{isOldValuePrimitiveType ? oldValue : (oldValue | json)}}
   </pre>
-  <button (click)="copyToClipBoard(oldValue)" *ngIf="isClipBoardFeatureAvailableForOldValue" title="Copy to clipboard">📋</button>
+  @if (isClipBoardFeatureAvailableForOldValue) {
+    <button (click)="copyToClipBoard(oldValue)" title="Copy to clipboard">📋</button>
+  }
   →
-</ng-container>
+}
 <pre class="input-value"
   [class.limit-characters]="shouldLimitCharactersForValue"
   (click)="shouldLimitCharactersForValue = !shouldLimitCharactersForValue"
   (keyup.enter)="shouldLimitCharactersForValue = !shouldLimitCharactersForValue"
   tabindex="0"
->
+  >
   {{isValuePrimitiveType ? value : (value | json)}}
 </pre>
-<button (click)="copyToClipBoard(value)" *ngIf="isClipBoardFeatureAvailableForValue" title="Copy to clipboard">📋</button>
-<div role="alert" class="notification" *ngIf="showNotification$ | async">Copied to clipboard</div>
+@if (isClipBoardFeatureAvailableForValue) {
+  <button (click)="copyToClipBoard(value)" title="Copy to clipboard">📋</button>
+}
+@if (showNotification$ | async) {
+  <div role="alert" class="notification">Copied to clipboard</div>
+}

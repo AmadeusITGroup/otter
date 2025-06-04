@@ -1,6 +1,5 @@
 import {
   AsyncPipe,
-  CommonModule,
   formatDate,
 } from '@angular/common';
 import {
@@ -48,7 +47,6 @@ import {
   selector: 'o3r-forms-parent',
   imports: [
     AsyncPipe,
-    CommonModule,
     FormsEmergencyContactPresComponent,
     FormsPersonalInfoPresComponent,
     ReactiveFormsModule,
