@@ -32,7 +32,7 @@ export default [
   },
   {
     name: '@ama-mfe/ng-utils/messages-definition',
-    files: ['**/*.versions.ts', '**/*.consumer.service.ts'],
+    files: ['**/*.versions.ts', '**/*.consumer.service.ts', '**/routing.service.ts'],
     rules: {
       '@typescript-eslint/naming-convention': [
         'error',
