@@ -213,7 +213,9 @@
     "zone.js": "~0.15.0"
   },
   "generatorDependencies": {
-    "sass-loader": "^16.0.0"
+    "sass-loader": "^16.0.0",
+    "@angular/cdk": "~19.2.0",
+    "@angular/material": "~19.2.0"
   },
   "engines": {
     "node": "^20.11.1 || >=22.0.0"
