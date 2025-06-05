@@ -65,7 +65,7 @@
     "@commitlint/cli": "^19.0.0",
     "@commitlint/config-conventional": "^19.0.0",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
-    "@figma/rest-api-spec": "~0.30.0",
+    "@figma/rest-api-spec": "~0.31.0",
     "@nx/eslint-plugin": "~20.8.0",
     "@o3r-training/training-tools": "workspace:^",
     "@o3r/eslint-config": "workspace:^",
