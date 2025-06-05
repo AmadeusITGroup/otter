@@ -76,17 +76,17 @@
     "@types/jest": "~29.5.2",
     "@types/js-yaml": "^4.0.5",
     "@types/node": "^20.0.0",
-    "@typescript-eslint/eslint-plugin": "~8.32.0",
-    "@typescript-eslint/parser": "~8.32.0",
-    "@typescript-eslint/utils": "~8.32.0",
+    "@typescript-eslint/eslint-plugin": "~8.33.0",
+    "@typescript-eslint/parser": "~8.33.0",
+    "@typescript-eslint/utils": "~8.33.0",
     "angular-eslint": "~19.4.0",
     "cpy-cli": "^5.0.0",
-    "eslint": "~9.27.0",
+    "eslint": "~9.28.0",
     "eslint-import-resolver-node": "~0.3.9",
     "eslint-import-resolver-typescript": "~3.10.0",
     "eslint-plugin-import": "~2.31.0",
     "eslint-plugin-import-newlines": "~1.4.0",
-    "eslint-plugin-jest": "~28.11.0",
+    "eslint-plugin-jest": "~28.12.0",
     "eslint-plugin-jsdoc": "~50.6.0",
     "eslint-plugin-prefer-arrow": "~1.2.3",
     "eslint-plugin-unicorn": "~56.0.0",
@@ -102,7 +102,7 @@
     "ts-node": "~10.9.2",
     "type-fest": "^4.30.1",
     "typescript": "~5.8.2",
-    "typescript-eslint": "~8.32.0"
+    "typescript-eslint": "~8.33.0"
   },
   "engines": {
     "node": "^20.11.1 || >=22.0.0"
