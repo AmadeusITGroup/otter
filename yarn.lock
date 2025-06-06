@@ -983,7 +983,7 @@ __metadata:
     "@commitlint/cli": "npm:^19.0.0"
     "@commitlint/config-conventional": "npm:^19.0.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@figma/rest-api-spec": "npm:~0.30.0"
+    "@figma/rest-api-spec": "npm:~0.31.0"
     "@nx/eslint-plugin": "npm:~20.8.0"
     "@o3r-training/training-tools": "workspace:^"
     "@o3r/eslint-config": "workspace:^"
@@ -5005,10 +5005,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@figma/rest-api-spec@npm:~0.30.0":
-  version: 0.30.0
-  resolution: "@figma/rest-api-spec@npm:0.30.0"
-  checksum: 10/838c089b7faa030d887e35bc98fdebd0c4786a7d1169f247545fc7e9b7529a94d6d5b8db1a1606a0d8ef0201a2d1d1ca6512f1e25d1dcc733f8db84eeaee2f36
+"@figma/rest-api-spec@npm:~0.31.0":
+  version: 0.31.0
+  resolution: "@figma/rest-api-spec@npm:0.31.0"
+  checksum: 10/6b60ed7890eab0b52f05557d050b07149a9ee551d78975a2ffe90e52d6b78b161784d37e13fb572e34bdb91bd5eff99a36d9b0a6e97b6d6d9361f759055cba0c
   languageName: node
   linkType: hard
 
@@ -8425,7 +8425,7 @@ __metadata:
     "@popperjs/core": "npm:^2.11.5"
     "@schematics/angular": "npm:~19.2.0"
     "@stylistic/eslint-plugin": "npm:~3.1.0"
-    "@types/chrome": "npm:^0.0.323"
+    "@types/chrome": "npm:^0.0.326"
     "@types/color": "npm:^4.0.0"
     "@types/jest": "npm:~29.5.2"
     "@types/tinycolor2": "npm:^1.4.6"
@@ -14305,13 +14305,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/chrome@npm:^0.0.323":
-  version: 0.0.323
-  resolution: "@types/chrome@npm:0.0.323"
+"@types/chrome@npm:^0.0.326":
+  version: 0.0.326
+  resolution: "@types/chrome@npm:0.0.326"
   dependencies:
     "@types/filesystem": "npm:*"
     "@types/har-format": "npm:*"
-  checksum: 10/cb09607816b1a501f234cc376cb5b7e91a04f0ff91d0feda58b0b28169fa0b411e61543d77e760ebd98776fde3e798aec4c552b67f3022a04ddbeafe5e2a6b47
+  checksum: 10/88cd7ca8e3ceae180216ce92510f3a2d32eb1fbc8811801e09e6713d47aa227fc2b128bf9c55f7d5e71458d78ef4ab2cad5e1cf5238cc1ca877580d693b523b8
   languageName: node
   linkType: hard
 
