@@ -99,14 +99,20 @@ describe('Create new otter project command', () => {
 
     expect(() => packageManagerCreate({ script: `@o3r@${o3rVersion}`, args: [workspaceProjectName, ...createOptions] }, execWorkspaceOptions, 'npm')).not.toThrow();
     expect(existsSync(path.join(inProjectPath, 'angular.json'))).toBe(true);
-    expect(existsSync(path.join(inProjectPath, 'package.json'))).toBe(true);
+
+    const rootPackageJsonPath = path.join(inProjectPath, 'package.json');
+    expect(existsSync(rootPackageJsonPath)).toBe(true);
     expect(() => packageManagerInstall(execInAppOptions)).not.toThrow();
+    expect(JSON.parse(await fs.readFile(rootPackageJsonPath, 'utf8'))).not.toContain('@o3r/testing');
 
     const appName = 'test-application';
     const inApplicationPath = path.join(inProjectPath, 'apps', appName);
     expect(() => packageManagerExec({ script: 'ng', args: ['g', 'application', appName] }, execInAppOptions)).not.toThrow();
     expect(existsSync(path.join(inProjectPath, 'project'))).toBe(false);
-    expect(existsSync(path.join(inApplicationPath, 'package.json'))).toBe(true);
+
+    const appPackageJsonPath = path.join(inApplicationPath, 'package.json');
+    expect(existsSync(appPackageJsonPath)).toBe(true);
+    expect(JSON.parse(await fs.readFile(appPackageJsonPath, 'utf8'))).not.toContain('@o3r/testing');
     expect(existsSync(path.join(inApplicationPath, 'tsconfig.json'))).toBe(true);
     expect(() => packageManagerRunOnProject(appName, true, { script: 'build' }, execInAppOptions)).not.toThrow();
   });
