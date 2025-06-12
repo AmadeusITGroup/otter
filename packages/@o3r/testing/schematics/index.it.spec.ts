@@ -12,6 +12,7 @@ import {
   getDefaultExecSyncOptions,
   getGitDiff,
   packageManagerExec,
+  packageManagerExecOnProject,
   packageManagerInstall,
   packageManagerRunOnProject,
 } from '@o3r/test-helpers';
@@ -23,7 +24,7 @@ describe('ng add testing', () => {
     packageManagerExec({ script: 'ng', args: ['add', `@o3r/testing@${o3rVersion}`, '--testingFramework', 'jest', '--skip-confirmation', '--project-name', appName] }, execAppOptions);
 
     const diff = getGitDiff(execAppOptions.cwd);
-    expect(diff.added.length).toBe(11);
+    expect(diff.added.length).toBe(7);
     expect(fs.readFileSync(path.join(applicationPath, 'package.json'), { encoding: 'utf8' })).toContain('@o3r/testing');
     const vscodeContent = fs.readFileSync(`${workspacePath}/.vscode/extensions.json`, 'utf8');
     expect(vscodeContent).toContain('"Orta.vscode-jest"');
@@ -41,7 +42,10 @@ describe('ng add testing', () => {
     const { applicationPath, workspacePath, appName, isInWorkspace, o3rVersion, untouchedProjectsPaths, libraryPath } = o3rEnvironment.testEnvironment;
     const execAppOptions = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
     const relativeApplicationPath = path.relative(workspacePath, applicationPath);
-    packageManagerExec({ script: 'ng', args: ['add', `@o3r/testing@${o3rVersion}`, '--testingFramework', 'jest', '--skip-confirmation', '--project-name', appName] }, execAppOptions);
+    packageManagerExec({
+      script: 'ng',
+      args: ['add', `@o3r/testing@${o3rVersion}`, '--enablePlaywright', '--testingFramework', 'jest', '--skip-confirmation', '--project-name', appName]
+    }, execAppOptions);
 
     const componentPath = path.join(relativeApplicationPath, 'src/components/test-component/container/test-component-cont.component.ts');
     packageManagerExec({ script: 'ng',
@@ -59,6 +63,9 @@ describe('ng add testing', () => {
     expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
     expect(() => packageManagerRunOnProject(appName, isInWorkspace, { script: 'build' }, execAppOptions)).not.toThrow();
     expect(() => packageManagerRunOnProject(appName, isInWorkspace, { script: 'test' }, execAppOptions)).not.toThrow();
+
+    packageManagerExecOnProject(appName, isInWorkspace, { script: 'playwright', args: ['install', '--with-deps'] }, execAppOptions);
+    expect(() => packageManagerRunOnProject(appName, isInWorkspace, { script: 'test:playwright' }, execAppOptions)).not.toThrow();
   });
 
   test('should add testing to a library', () => {
