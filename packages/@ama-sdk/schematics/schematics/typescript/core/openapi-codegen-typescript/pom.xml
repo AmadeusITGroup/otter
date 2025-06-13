@@ -96,7 +96,6 @@
       <groupId>org.openapitools</groupId>
       <artifactId>openapi-generator</artifactId>
       <version>7.13.0</version>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.powermock</groupId>

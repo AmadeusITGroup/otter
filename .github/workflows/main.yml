@@ -118,7 +118,7 @@ jobs:
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
     needs: [yarn_lock_check, build]
     with:
-      skipNxCache: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release') }}
+      skipNxCache: ${{ github.event_name == 'push' }}
 
   e2e-tests:
     permissions:
