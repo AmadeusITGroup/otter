@@ -16,6 +16,13 @@ import type {
 
 const noopBuilderWrapper: BuilderWrapper = (fn) => fn;
 
+const isInCI = () => {
+  const varEnvList = ['CI', 'CONTINUOUS_INTEGRATION'];
+  return varEnvList.some((label) => (!!process.env[label] && process.env[label] !== 'false' && process.env[label] !== '0'))
+    || Object.keys(process.env).some((envVar) => envVar.startsWith('CI_'))
+    || !process.stdin.isTTY;
+};
+
 /**
  * Wrapper method of a builder to retrieve some metrics around the builder run
  * if @o3r/telemetry is installed
@@ -39,7 +46,7 @@ export const createBuilderWithMetricsIfInstalled: BuilderWrapper = (builderFn) =
     ) {
       ctx.logger.info('`config.o3r.telemetry` is set in your package.json, please install the telemetry package with `ng add @o3r/telemetry` to enable the collection of metrics.');
     } else if (
-      (!process.env.CI || process.env.CI === 'false')
+      !isInCI()
       && (process.env.NX_CLI_SET !== 'true' || process.env.NX_INTERACTIVE === 'true')
       && packageJson.config?.o3r?.telemetry !== false
       // TODO `o3rMetrics` is deprecated and will be removed in v13
