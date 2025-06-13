@@ -42,6 +42,13 @@ const setupO3rMetricsInPackageJson: (activated: boolean) => Rule = (activated) =
   }
 };
 
+const isInCI = () => {
+  const varEnvList = ['CI', 'CONTINUOUS_INTEGRATION'];
+  return varEnvList.some((label) => (!!process.env[label] && process.env[label] !== 'false' && process.env[label] !== '0'))
+    || Object.keys(process.env).some((envVar) => envVar.startsWith('CI_'))
+    || !process.stdin.isTTY;
+};
+
 const setupTelemetry: (opts: { workingDirectory?: string; runNgAdd?: boolean; exactO3rVersion?: boolean }) => Rule = ({ workingDirectory, runNgAdd, exactO3rVersion }) => (_, context) => {
   const taskIdsFromContext = hasSetupInformation(context) ? context.setupDependencies.taskIds : undefined;
   const version = JSON.parse(readFileSync(path.join(__dirname, '..', '..', 'package.json'), 'utf8')).version;
@@ -82,7 +89,7 @@ export const createSchematicWithMetricsIfInstalled: SchematicWrapper = (schemati
       && typeof ((packageJson.config as JsonObject)?.o3r as JsonObject)?.telemetry === 'undefined'
       && process.env.O3R_METRICS !== 'false'
       && (opts as any).o3rMetrics !== false
-      && (!process.env.CI || process.env.CI === 'false')
+      && (!isInCI())
     ) {
       context.logger.debug('`@o3r/telemetry` is not available.\nAsking to add the dependency\n' + e.toString());
 
