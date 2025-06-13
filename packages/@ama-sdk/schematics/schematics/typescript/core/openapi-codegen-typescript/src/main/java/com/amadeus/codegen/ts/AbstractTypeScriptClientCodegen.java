@@ -89,7 +89,8 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
       "Map",
       "Blob",
       "File",
-      "any"
+      "any",
+      "null"
     ));
     instantiationTypes.put("array", "Array");
 
