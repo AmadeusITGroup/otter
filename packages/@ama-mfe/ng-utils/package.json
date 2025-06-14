@@ -81,7 +81,7 @@
     "ts-jest": "~29.3.0",
     "ts-node": "~10.9.2",
     "typescript": "~5.8.2",
-    "typescript-eslint": "~8.33.0",
+    "typescript-eslint": "~8.34.0",
     "zone.js": "~0.15.0"
   },
   "keywords": [
