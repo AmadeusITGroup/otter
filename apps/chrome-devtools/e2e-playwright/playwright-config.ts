@@ -11,17 +11,17 @@ adjustPath('playwright');
 const reportsFolder = path.join(__dirname, '..', 'playwright-reports');
 
 const config = defineConfig({
-  testDir: path.join(__dirname, '..', 'e2e-playwright'),
-  testMatch: /.*\.e2e-playwright-spec.ts$/,
+  testDir: '.',
+  testMatch: /.*\.e2e\.spec\.ts$/,
   snapshotPathTemplate: '{testDir}/screenshots/{testFilePath}/{arg}{ext}',
+  forbidOnly: !!process.env.CI,
+  retries: process.env.CI ? 3 : 0,
+  workers: process.env.CI ? 1 : 2,
   reporter: [
     ['list'],
     ['junit', { outputFile: path.join(reportsFolder, 'junit', 'reporter.xml') }],
     ['html', { open: 'never', outputFolder: path.join(reportsFolder, 'html') }]
   ],
-  retries: process.env.CI ? 3 : 0,
-  forbidOnly: !!process.env.CI,
-  navigationTimeout: 10_000,
   timeout: 60_000,
   use: {
     ignoreHTTPSErrors: true,
