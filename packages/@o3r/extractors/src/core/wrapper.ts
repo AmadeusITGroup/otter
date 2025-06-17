@@ -18,7 +18,7 @@ const ENV_VAR_LIST = ['CI', 'CONTINUOUS_INTEGRATION'] as const;
 
 const noopBuilderWrapper: BuilderWrapper = (fn) => fn;
 
-const enVarValueCheck = (value: any) => !!value && value !== 'false' && value !== '0'
+const enVarValueCheck = (value: any) => !!value && value !== 'false' && value !== '0';
 const isInCI = () => {
   return ENV_VAR_LIST.some((label) => enVarValueCheck(process.env[label]))
     || Object.entries(process.env).some(([envVar, value]) => envVar.startsWith('CI_') && enVarValueCheck(value))
