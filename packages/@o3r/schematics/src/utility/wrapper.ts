@@ -29,6 +29,7 @@ import {
 const noopSchematicWrapper: SchematicWrapper = (fn) => fn;
 
 const PACKAGE_JSON_PATH = 'package.json';
+const ENV_VAR_LIST = ['CI', 'CONTINUOUS_INTEGRATION'] as const;
 
 const setupO3rMetricsInPackageJson: (activated: boolean) => Rule = (activated) => (tree) => {
   if (tree.exists(PACKAGE_JSON_PATH)) {
@@ -40,6 +41,13 @@ const setupO3rMetricsInPackageJson: (activated: boolean) => Rule = (activated) =
 
     tree.overwrite(PACKAGE_JSON_PATH, JSON.stringify(packageJson, null, 2));
   }
+};
+
+const enVarValueCheck = (value: any) => !!value && value !== 'false' && value !== '0';
+const isInCI = () => {
+  return ENV_VAR_LIST.some((label) => enVarValueCheck(process.env[label]))
+    || Object.entries(process.env).some(([envVar, value]) => envVar.startsWith('CI_') && enVarValueCheck(value))
+    || !process.stdin.isTTY;
 };
 
 const setupTelemetry: (opts: { workingDirectory?: string; runNgAdd?: boolean; exactO3rVersion?: boolean }) => Rule = ({ workingDirectory, runNgAdd, exactO3rVersion }) => (_, context) => {
@@ -82,7 +90,7 @@ export const createSchematicWithMetricsIfInstalled: SchematicWrapper = (schemati
       && typeof ((packageJson.config as JsonObject)?.o3r as JsonObject)?.telemetry === 'undefined'
       && process.env.O3R_METRICS !== 'false'
       && (opts as any).o3rMetrics !== false
-      && (!process.env.CI || process.env.CI === 'false')
+      && !isInCI()
     ) {
       context.logger.debug('`@o3r/telemetry` is not available.\nAsking to add the dependency\n' + e.toString());
 
