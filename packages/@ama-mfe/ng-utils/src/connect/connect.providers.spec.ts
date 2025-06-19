@@ -10,6 +10,7 @@ import {
   getHostInfo,
 } from '../host-info/host-info';
 import {
+  isEmbedded,
   KNOWN_MESSAGES,
 } from '../utils';
 import {
@@ -31,6 +32,10 @@ jest.mock('../host-info/host-info', () => ({
   getHostInfo: jest.fn(),
   persistHostInfo: jest.fn()
 }));
+jest.mock('../utils', () => ({
+  ...jest.requireActual('../utils'),
+  isEmbedded: jest.fn()
+}));
 
 describe('provideConnection', () => {
   const mockLogger = { error: jest.fn(), log: jest.fn(), warn: jest.fn() };
@@ -49,6 +54,7 @@ describe('provideConnection', () => {
   });
 
   it('should use moduleApplicationId from getHostInfo if available', () => {
+    (isEmbedded as jest.Mock).mockReturnValue(true);
     (getHostInfo as jest.Mock).mockReturnValue({ moduleApplicationId: 'my-module-id-from-host' });
 
     provideConnection();
