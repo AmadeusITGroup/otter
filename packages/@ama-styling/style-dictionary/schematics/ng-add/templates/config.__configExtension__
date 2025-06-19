@@ -1,0 +1,50 @@
+import { baseConfig, getTargetFiles, register } from '@ama-styling/style-dictionary';
+
+// Register the Otter configuration hooks
+register();
+
+/** @type {import('@ama-styling/style-dictionary').FileRuleNode} */
+const fileRules = {
+
+};
+
+/** @type {import('style-dictionary').Config} */
+export default {
+  ...baseConfig, // Use basic Otter configuration setup
+  usesDtcg: true, // Use Design Token Standard format
+
+  source: [
+    // Design Token files
+    '*.tokens.json',
+
+    // Custom application extension setup
+    'token.extensions.json'
+  ],
+
+  platforms: {
+    css: {
+      options: {
+        outputReferences: true
+      },
+      transformGroup: '<%= prefixName %>/css/recommended',
+        files: [
+          ...getTargetFiles(fileRules, {
+            format: '<%= prefixName %>/css/variable',
+            defaultFile: 'default.tokens.css' // default CSS file
+          }),
+
+          // All CSS outputted in a single file:
+          { destination: 'all.tokens.css', format: '<%= prefixName %>/css/variable' }
+        ]
+    },
+    cms: {
+      options: {
+        outputReferences: true
+      },
+      transformGroup: '<%= prefixName %>/css/recommended',
+      files: [
+        { destination: 'style.metadata.json', format: '<%= prefixName %>/json/metadata' }
+      ]
+    }
+  }
+};
