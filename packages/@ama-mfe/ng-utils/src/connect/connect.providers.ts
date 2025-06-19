@@ -41,7 +41,7 @@ export interface ConnectionConfigOptions extends Omit<ConnectionConfig, 'id'> {
  */
 export function provideConnection(connectionConfigOptions?: ConnectionConfigOptions) {
   persistHostInfo();
-  const connectionId = getHostInfo().moduleApplicationId || connectionConfigOptions?.id;
+  const connectionId = (isEmbedded() && getHostInfo().moduleApplicationId) || connectionConfigOptions?.id;
   if (!connectionId) {
     (connectionConfigOptions?.logger || console).error('An id (moduleId) needs to be provided for the application in order to establish a connection inside the communication protocol');
     return makeEnvironmentProviders([]);
