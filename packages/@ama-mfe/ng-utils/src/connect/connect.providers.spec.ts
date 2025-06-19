@@ -35,6 +35,10 @@ jest.mock('../host-info/host-info', () => ({
   getHostInfo: jest.fn(),
   persistHostInfo: jest.fn()
 }));
+jest.mock('../utils', () => ({
+  ...jest.requireActual('../utils'),
+  isEmbedded: jest.fn()
+}));
 
 jest.mock('../utils', () => ({
   ...jest.requireActual('../utils'),
@@ -62,6 +66,7 @@ describe('provideConnection', () => {
   });
 
   it('should use moduleApplicationId from getHostInfo if available', () => {
+    (isEmbedded as jest.Mock).mockReturnValue(true);
     (getHostInfo as jest.Mock).mockReturnValue({ moduleApplicationId: 'my-module-id-from-host' });
 
     provideConnection();
