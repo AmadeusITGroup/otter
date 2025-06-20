@@ -75,7 +75,7 @@
     "@typescript-eslint/rule-tester": "~8.34.0",
     "angular-eslint": "~19.4.0",
     "cpy-cli": "^5.0.0",
-    "eslint": "~9.28.0",
+    "eslint": "~9.29.0",
     "eslint-plugin-import": "~2.31.0",
     "eslint-plugin-import-newlines": "~1.4.0",
     "eslint-plugin-jest": "~28.13.0",
