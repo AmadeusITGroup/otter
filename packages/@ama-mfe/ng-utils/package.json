@@ -16,7 +16,8 @@
     "@angular/router": "~19.2.0",
     "@o3r/logger": "workspace:^",
     "@o3r/schematics": "workspace:^",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "type-fest": "^4.10.2"
   },
   "dependencies": {
     "@amadeus-it-group/microfrontends": "0.0.7",
@@ -80,6 +81,7 @@
     "rxjs": "^7.8.1",
     "ts-jest": "~29.3.0",
     "ts-node": "~10.9.2",
+    "type-fest": "^4.30.1",
     "typescript": "~5.8.2",
     "typescript-eslint": "~8.34.0",
     "zone.js": "~0.15.0"
@@ -114,6 +116,9 @@
       "optional": true
     },
     "@schematics/angular": {
+      "optional": true
+    },
+    "type-fest": {
       "optional": true
     }
   }
