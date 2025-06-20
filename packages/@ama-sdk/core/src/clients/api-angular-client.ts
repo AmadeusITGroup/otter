@@ -128,7 +128,8 @@ export class ApiAngularClient implements ApiClient {
       queryParams: filterUndefinedValues(requestOptionsParameters.queryParams)
     };
     if (this.options.requestPlugins) {
-      for (const plugin of this.options.requestPlugins) {
+      const requestPlugins = typeof this.options.requestPlugins === 'function' ? await this.options.requestPlugins(opts) : this.options.requestPlugins;
+      for (const plugin of requestPlugins) {
         opts = await plugin.load({
           logger: this.options.logger,
           apiName: requestOptionsParameters.api?.apiName
