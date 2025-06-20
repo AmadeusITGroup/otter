@@ -31,7 +31,8 @@
     "@schematics/angular": "^19.0.0",
     "fast-deep-equal": "^3.1.3",
     "rxjs": "^7.8.1",
-    "ts-node": "~10.9.2"
+    "ts-node": "~10.9.2",
+    "type-fest": "^4.10.2"
   },
   "peerDependenciesMeta": {
     "@angular-devkit/core": {
@@ -44,6 +45,9 @@
       "optional": true
     },
     "@schematics/angular": {
+      "optional": true
+    },
+    "type-fest": {
       "optional": true
     }
   },
