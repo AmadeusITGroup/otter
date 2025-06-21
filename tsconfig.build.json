@@ -10,6 +10,7 @@
       "@ama-sdk/core": ["packages/@ama-sdk/core/dist", "packages/@ama-sdk/core/src/public_api"],
       "@ama-sdk/swagger-builder": ["packages/@ama-sdk/swagger-build/dist", "packages/@ama-sdk/swagger-builder"],
       "@ama-styling/figma-sdk": ["packages/@ama-styling/figma-sdk/dist", "packages/@ama-styling/figma-sdk/src"],
+      "@ama-styling/figma-extractor": ["packages/@ama-styling/figma-extractor/dist", "packages/@ama-styling/figma-extractor/src"],
       "@ama-styling/stylelint-plugin": ["packages/@ama-styling/stylelint-plugin/dist", "packages/@ama-styling/stylelint-plugin/src"],
       "@ama-styling/style-dictionary": ["packages/@ama-styling/style-dictionary/dist", "packages/@ama-styling/style-dictionary/src/public_api"],
       "@ama-terasu/cli": ["packages/@ama-terasu/cli/dist", "packages/@ama-terasu/cli/src/public_api"],

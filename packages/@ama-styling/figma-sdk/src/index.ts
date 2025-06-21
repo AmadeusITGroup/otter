@@ -1,4 +1,4 @@
-export * from './api';
+export * from './api/index';
 // eslint-disable-next-line import/export -- default generation
-export * from './helpers';
-export * from './models';
+export * from './helpers/index';
+export * from './models/index';
