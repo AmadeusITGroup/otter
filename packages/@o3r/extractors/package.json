@@ -127,7 +127,7 @@
     "eslint-import-resolver-typescript": "~3.10.0",
     "eslint-plugin-import": "~2.31.0",
     "eslint-plugin-import-newlines": "~1.4.0",
-    "eslint-plugin-jest": "~28.13.0",
+    "eslint-plugin-jest": "~28.14.0",
     "eslint-plugin-jsdoc": "~50.8.0",
     "eslint-plugin-prefer-arrow": "~1.2.3",
     "eslint-plugin-unicorn": "~56.0.0",
