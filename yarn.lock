@@ -309,6 +309,7 @@ __metadata:
     eslint-plugin-unused-imports: "npm:~4.1.4"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
+    jest-util: "npm:~30.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     minimist: "npm:^1.2.6"
     pid-from-port: "npm:^1.1.3"
@@ -376,6 +377,7 @@ __metadata:
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.5.0"
+    jest-util: "npm:~30.0.0"
     jsdom: "npm:^26.1.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     rxjs: "npm:^7.8.1"
@@ -459,6 +461,7 @@ __metadata:
     globals: "npm:^15.9.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
+    jest-util: "npm:~30.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     minimist: "npm:^1.2.6"
     pid-from-port: "npm:^1.1.3"
@@ -538,6 +541,7 @@ __metadata:
     eslint-plugin-unused-imports: "npm:~4.1.4"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
+    jest-util: "npm:~30.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     minimist: "npm:^1.2.6"
     pid-from-port: "npm:^1.1.3"
@@ -617,6 +621,7 @@ __metadata:
     isomorphic-fetch: "npm:~3.0.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
+    jest-util: "npm:~30.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     minimist: "npm:^1.2.6"
     pid-from-port: "npm:^1.1.3"
@@ -698,6 +703,7 @@ __metadata:
     isomorphic-fetch: "npm:~3.0.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
+    jest-util: "npm:~30.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     minimist: "npm:^1.2.6"
     pid-from-port: "npm:^1.1.3"
@@ -786,6 +792,7 @@ __metadata:
     globals: "npm:^15.9.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
+    jest-util: "npm:~30.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     minimist: "npm:^1.2.6"
     nx: "npm:~20.8.0"
@@ -856,6 +863,7 @@ __metadata:
     isomorphic-fetch: "npm:~3.0.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
+    jest-util: "npm:~30.0.0"
     js-yaml: "npm:^4.1.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     mem-fs: "npm:^4.0.0"
@@ -949,6 +957,7 @@ __metadata:
     globby: "npm:^11.1.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
+    jest-util: "npm:~30.0.0"
     js-yaml: "npm:^4.1.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     jsonschema: "npm:~1.5.0"
@@ -1015,6 +1024,7 @@ __metadata:
     isomorphic-fetch: "npm:~3.0.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
+    jest-util: "npm:~30.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     lint-staged: "npm:^15.0.0"
     minimist: "npm:^1.2.6"
@@ -1235,6 +1245,7 @@ __metadata:
     globals: "npm:^15.9.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
+    jest-util: "npm:~30.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     jsonschema: "npm:~1.5.0"
     loglevel: "npm:^1.8.0"
@@ -1306,6 +1317,7 @@ __metadata:
     globals: "npm:^15.9.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
+    jest-util: "npm:~30.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     loglevel: "npm:^1.8.0"
     nx: "npm:~20.8.0"
@@ -1354,6 +1366,7 @@ __metadata:
     globals: "npm:^15.9.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
+    jest-util: "npm:~30.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~20.8.0"
     rxjs: "npm:^7.8.1"
@@ -5737,6 +5750,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@jest/pattern@npm:30.0.1":
+  version: 30.0.1
+  resolution: "@jest/pattern@npm:30.0.1"
+  dependencies:
+    "@types/node": "npm:*"
+    jest-regex-util: "npm:30.0.1"
+  checksum: 10/afd03b4d3eadc9c9970cf924955dee47984a7e767901fe6fa463b17b246f0ddeec07b3e82c09715c54bde3c8abb92074160c0d79967bd23778724f184e7f5b7b
+  languageName: node
+  linkType: hard
+
 "@jest/reporters@npm:^29.4.1, @jest/reporters@npm:^29.7.0":
   version: 29.7.0
   resolution: "@jest/reporters@npm:29.7.0"
@@ -5771,6 +5794,15 @@ __metadata:
     node-notifier:
       optional: true
   checksum: 10/a17d1644b26dea14445cedd45567f4ba7834f980be2ef74447204e14238f121b50d8b858fde648083d2cd8f305f81ba434ba49e37a5f4237a6f2a61180cc73dc
+  languageName: node
+  linkType: hard
+
+"@jest/schemas@npm:30.0.1":
+  version: 30.0.1
+  resolution: "@jest/schemas@npm:30.0.1"
+  dependencies:
+    "@sinclair/typebox": "npm:^0.34.0"
+  checksum: 10/067d4c3f38f2d8267d3ed6cc813252c3be580035fe7e2c0fa187323ef4978233ebadb1477808aec048440a8d0f480f71f92c5f02f98bf66c59bf802da1a0b254
   languageName: node
   linkType: hard
 
@@ -5838,6 +5870,21 @@ __metadata:
     slash: "npm:^3.0.0"
     write-file-atomic: "npm:^4.0.2"
   checksum: 10/30f42293545ab037d5799c81d3e12515790bb58513d37f788ce32d53326d0d72ebf5b40f989e6896739aa50a5f77be44686e510966370d58511d5ad2637c68c1
+  languageName: node
+  linkType: hard
+
+"@jest/types@npm:30.0.1":
+  version: 30.0.1
+  resolution: "@jest/types@npm:30.0.1"
+  dependencies:
+    "@jest/pattern": "npm:30.0.1"
+    "@jest/schemas": "npm:30.0.1"
+    "@types/istanbul-lib-coverage": "npm:^2.0.6"
+    "@types/istanbul-reports": "npm:^3.0.4"
+    "@types/node": "npm:*"
+    "@types/yargs": "npm:^17.0.33"
+    chalk: "npm:^4.1.2"
+  checksum: 10/43f4ffedfec4d88869d74c259a027e45798444c09e4c52f59a1e7124c43d54e908d7b93d81da5260075d421d6f42087b12cb6c83da580b088c987f9d18b5d879
   languageName: node
   linkType: hard
 
@@ -7730,6 +7777,7 @@ __metadata:
     isomorphic-fetch: "npm:~3.0.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
+    jest-util: "npm:~30.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     lint-staged: "npm:^15.0.0"
     minimist: "npm:^1.2.6"
@@ -7798,6 +7846,7 @@ __metadata:
     isomorphic-fetch: "npm:~3.0.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
+    jest-util: "npm:~30.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     lint-staged: "npm:^15.0.0"
     minimist: "npm:^1.2.6"
@@ -7872,6 +7921,7 @@ __metadata:
     eslint-plugin-unused-imports: "npm:~4.1.4"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
+    jest-util: "npm:~30.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     jsonschema: "npm:~1.5.0"
     nx: "npm:~20.8.0"
@@ -7940,6 +7990,7 @@ __metadata:
     globals: "npm:^15.9.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
+    jest-util: "npm:~30.0.0"
     js-yaml: "npm:^4.1.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     loglevel: "npm:^1.8.0"
@@ -7985,6 +8036,7 @@ __metadata:
     globals: "npm:^15.9.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
+    jest-util: "npm:~30.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     loglevel: "npm:^1.8.0"
     nx: "npm:~20.8.0"
@@ -8033,6 +8085,7 @@ __metadata:
     globals: "npm:^15.9.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
+    jest-util: "npm:~30.0.0"
     js-yaml: "npm:^4.1.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     loglevel: "npm:^1.8.0"
@@ -8082,6 +8135,7 @@ __metadata:
     globals: "npm:^15.9.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
+    jest-util: "npm:~30.0.0"
     js-yaml: "npm:^4.1.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     loglevel: "npm:^1.8.0"
@@ -8149,6 +8203,7 @@ __metadata:
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.5.0"
+    jest-util: "npm:~30.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~20.8.0"
     pid-from-port: "npm:^1.1.3"
@@ -8245,6 +8300,7 @@ __metadata:
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.5.0"
+    jest-util: "npm:~30.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~20.8.0"
     pid-from-port: "npm:^1.1.3"
@@ -8332,6 +8388,7 @@ __metadata:
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.5.0"
+    jest-util: "npm:~30.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~20.8.0"
     pid-from-port: "npm:^1.1.3"
@@ -8407,6 +8464,7 @@ __metadata:
     globals: "npm:^15.9.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
+    jest-util: "npm:~30.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~20.8.0"
     ts-jest: "npm:~29.3.0"
@@ -8466,6 +8524,7 @@ __metadata:
     globals: "npm:^15.9.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
+    jest-util: "npm:~30.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~20.8.0"
     ts-jest: "npm:~29.3.0"
@@ -8609,6 +8668,7 @@ __metadata:
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.5.0"
+    jest-util: "npm:~30.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     lighthouse: "npm:~12.6.0"
     minimist: "npm:^1.2.6"
@@ -8696,6 +8756,7 @@ __metadata:
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.5.0"
+    jest-util: "npm:~30.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     jsonpath-plus: "npm:~10.3.0"
     memfs: "npm:~4.17.0"
@@ -8848,6 +8909,7 @@ __metadata:
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.5.0"
+    jest-util: "npm:~30.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~20.8.0"
     pid-from-port: "npm:^1.1.3"
@@ -8954,6 +9016,7 @@ __metadata:
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.5.0"
+    jest-util: "npm:~30.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     memfs: "npm:~4.17.0"
     nx: "npm:~20.8.0"
@@ -9052,6 +9115,7 @@ __metadata:
     globals: "npm:^15.9.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
+    jest-util: "npm:~30.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     minimist: "npm:^1.2.6"
     nx: "npm:~20.8.0"
@@ -9131,6 +9195,7 @@ __metadata:
     globby: "npm:^11.1.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
+    jest-util: "npm:~30.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     jsonschema: "npm:~1.5.0"
     minimatch: "npm:~10.0.0"
@@ -9237,6 +9302,7 @@ __metadata:
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.5.0"
+    jest-util: "npm:~30.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~20.8.0"
     rxjs: "npm:^7.8.1"
@@ -9311,6 +9377,7 @@ __metadata:
     globals: "npm:^15.9.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
+    jest-util: "npm:~30.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~20.8.0"
     pid-from-port: "npm:^1.1.3"
@@ -9401,6 +9468,7 @@ __metadata:
     globals: "npm:^15.9.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
+    jest-util: "npm:~30.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~20.8.0"
     pid-from-port: "npm:^1.1.3"
@@ -9514,6 +9582,7 @@ __metadata:
     globby: "npm:^11.1.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
+    jest-util: "npm:~30.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~20.8.0"
     pid-from-port: "npm:^1.1.3"
@@ -9607,6 +9676,7 @@ __metadata:
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.5.0"
+    jest-util: "npm:~30.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     jsonschema: "npm:~1.5.0"
     nx: "npm:~20.8.0"
@@ -9721,6 +9791,7 @@ __metadata:
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.5.0"
+    jest-util: "npm:~30.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~20.8.0"
     rxjs: "npm:^7.8.1"
@@ -9861,6 +9932,7 @@ __metadata:
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
     jest-preset-angular: "npm:~14.5.0"
+    jest-util: "npm:~30.0.0"
     js-yaml: "npm:^4.1.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     jsonpath-plus: "npm:~10.3.0"
@@ -9967,6 +10039,7 @@ __metadata:
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
+    jest-util: "npm:~30.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     nock: "npm:^14.0.0"
     nx: "npm:~20.8.0"
@@ -10050,6 +10123,7 @@ __metadata:
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.5.0"
+    jest-util: "npm:~30.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     memfs: "npm:~4.17.0"
     nx: "npm:~20.8.0"
@@ -10184,6 +10258,7 @@ __metadata:
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.5.0"
+    jest-util: "npm:~30.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     logrocket: "npm:~9.0.0"
     logrocket-ngrx: "npm:^0.2.1"
@@ -10293,6 +10368,7 @@ __metadata:
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.5.0"
+    jest-util: "npm:~30.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     node-fetch: "npm:^3.0.0"
     nx: "npm:~20.8.0"
@@ -10369,6 +10445,7 @@ __metadata:
     globals: "npm:^15.9.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
+    jest-util: "npm:~30.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~20.8.0"
     pid-from-port: "npm:^1.1.3"
@@ -10428,6 +10505,7 @@ __metadata:
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
+    jest-util: "npm:~30.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     style-loader: "npm:^3.2.1"
     ts-jest: "npm:~29.3.0"
@@ -10484,6 +10562,7 @@ __metadata:
     globals: "npm:^15.9.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
+    jest-util: "npm:~30.0.0"
     js-yaml: "npm:^4.1.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~20.8.0"
@@ -10570,6 +10649,7 @@ __metadata:
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.5.0"
+    jest-util: "npm:~30.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~20.8.0"
     rxjs: "npm:^7.8.1"
@@ -10674,6 +10754,7 @@ __metadata:
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.5.0"
+    jest-util: "npm:~30.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     jsonpath-plus: "npm:~10.3.0"
     memfs: "npm:~4.17.0"
@@ -10792,6 +10873,7 @@ __metadata:
     globby: "npm:^11.1.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
+    jest-util: "npm:~30.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     jsonschema: "npm:~1.5.0"
     minimatch: "npm:~10.0.0"
@@ -10939,6 +11021,7 @@ __metadata:
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.5.0"
+    jest-util: "npm:~30.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     lighthouse: "npm:~12.6.0"
     marked: "npm:^15.0.6"
@@ -11016,6 +11099,7 @@ __metadata:
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.5.0"
+    jest-util: "npm:~30.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~20.8.0"
     rxjs: "npm:^7.8.1"
@@ -11097,6 +11181,7 @@ __metadata:
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jest-resolve: "npm:~29.7.0"
+    jest-util: "npm:~30.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~20.8.0"
     pid-from-port: "npm:^1.1.3"
@@ -11171,6 +11256,7 @@ __metadata:
     globals: "npm:^15.9.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
+    jest-util: "npm:~30.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~20.8.0"
     pid-from-port: "npm:^1.1.3"
@@ -11267,6 +11353,7 @@ __metadata:
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.5.0"
+    jest-util: "npm:~30.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     memfs: "npm:~4.17.0"
     nx: "npm:~20.8.0"
@@ -11395,6 +11482,7 @@ __metadata:
     globals: "npm:^15.9.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
+    jest-util: "npm:~30.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     minimist: "npm:^1.2.6"
     nx: "npm:~20.8.0"
@@ -11457,6 +11545,7 @@ __metadata:
     jest: "npm:~29.7.0"
     jest-environment-node: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
+    jest-util: "npm:~30.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     memfs: "npm:~4.17.0"
     pid-from-port: "npm:^1.1.3"
@@ -11555,6 +11644,7 @@ __metadata:
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.5.0"
+    jest-util: "npm:~30.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     module-from-string: "npm:^3.2.0"
     nx: "npm:~20.8.0"
@@ -11684,6 +11774,7 @@ __metadata:
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.5.0"
+    jest-util: "npm:~30.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~20.8.0"
     pid-from-port: "npm:^1.1.3"
@@ -11823,6 +11914,7 @@ __metadata:
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.5.0"
+    jest-util: "npm:~30.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     minimist: "npm:^1.2.6"
     nx: "npm:~20.8.0"
@@ -13883,6 +13975,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sinclair/typebox@npm:^0.34.0":
+  version: 0.34.35
+  resolution: "@sinclair/typebox@npm:0.34.35"
+  checksum: 10/4b50006c80aefe8b22594af45dfdd23ccfacbe5a05e93bcf2a8d00861c6b490c79397e2b5230d640dad61b5688d258d3911711b0990495d7dc7bc7178cdd21b6
+  languageName: node
+  linkType: hard
+
 "@sindresorhus/is@npm:^4.0.0":
   version: 4.6.0
   resolution: "@sindresorhus/is@npm:4.6.0"
@@ -15019,7 +15118,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/istanbul-lib-coverage@npm:*, @types/istanbul-lib-coverage@npm:^2.0.0, @types/istanbul-lib-coverage@npm:^2.0.1":
+"@types/istanbul-lib-coverage@npm:*, @types/istanbul-lib-coverage@npm:^2.0.0, @types/istanbul-lib-coverage@npm:^2.0.1, @types/istanbul-lib-coverage@npm:^2.0.6":
   version: 2.0.6
   resolution: "@types/istanbul-lib-coverage@npm:2.0.6"
   checksum: 10/3feac423fd3e5449485afac999dcfcb3d44a37c830af898b689fadc65d26526460bedb889db278e0d4d815a670331796494d073a10ee6e3a6526301fe7415778
@@ -15035,7 +15134,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/istanbul-reports@npm:^3.0.0":
+"@types/istanbul-reports@npm:^3.0.0, @types/istanbul-reports@npm:^3.0.4":
   version: 3.0.4
   resolution: "@types/istanbul-reports@npm:3.0.4"
   dependencies:
@@ -15519,7 +15618,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/yargs@npm:^17.0.20, @types/yargs@npm:^17.0.8":
+"@types/yargs@npm:^17.0.20, @types/yargs@npm:^17.0.33, @types/yargs@npm:^17.0.8":
   version: 17.0.33
   resolution: "@types/yargs@npm:17.0.33"
   dependencies:
@@ -17813,6 +17912,7 @@ __metadata:
     globals: "npm:^15.9.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
+    jest-util: "npm:~30.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     ts-jest: "npm:~29.3.0"
     tslib: "npm:^2.6.2"
@@ -19040,7 +19140,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ci-info@npm:^4.0.0":
+"ci-info@npm:^4.0.0, ci-info@npm:^4.2.0":
   version: 4.2.0
   resolution: "ci-info@npm:4.2.0"
   checksum: 10/928d8457f3476ffc4a66dec93b9cdf1944d5e60dba69fbd6a0fc95b652386f6ef64857f6e32372533210ef6d8954634af2c7693d7c07778ee015f3629a5e0dd9
@@ -26646,6 +26746,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"jest-regex-util@npm:30.0.1":
+  version: 30.0.1
+  resolution: "jest-regex-util@npm:30.0.1"
+  checksum: 10/fa8dac80c3e94db20d5e1e51d1bdf101cf5ede8f4e0b8f395ba8b8ea81e71804ffd747452a6bb6413032865de98ac656ef8ae43eddd18d980b6442a2764ed562
+  languageName: node
+  linkType: hard
+
 "jest-regex-util@npm:^29.6.3":
   version: 29.6.3
   resolution: "jest-regex-util@npm:29.6.3"
@@ -26778,6 +26885,20 @@ __metadata:
     graceful-fs: "npm:^4.2.9"
     picomatch: "npm:^2.2.3"
   checksum: 10/30d58af6967e7d42bd903ccc098f3b4d3859ed46238fbc88d4add6a3f10bea00c226b93660285f058bc7a65f6f9529cf4eb80f8d4707f79f9e3a23686b4ab8f3
+  languageName: node
+  linkType: hard
+
+"jest-util@npm:~30.0.0":
+  version: 30.0.1
+  resolution: "jest-util@npm:30.0.1"
+  dependencies:
+    "@jest/types": "npm:30.0.1"
+    "@types/node": "npm:*"
+    chalk: "npm:^4.1.2"
+    ci-info: "npm:^4.2.0"
+    graceful-fs: "npm:^4.2.11"
+    picomatch: "npm:^4.0.2"
+  checksum: 10/a6ac00ed6f5045bed9374cd4d0e0f1af97b9c2fa869f676551289e27695a037409fd2dcf984e4a40aeb0baae6eb7a197d6b89b6bb9d8067adf0b7e925c2c1e0a
   languageName: node
   linkType: hard
 
@@ -29421,6 +29542,7 @@ __metadata:
     globals: "npm:^15.9.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
+    jest-util: "npm:~30.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.3.0"
@@ -30472,6 +30594,7 @@ __metadata:
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
+    jest-util: "npm:~30.0.0"
     jiti: "npm:^2.4.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~20.8.0"
@@ -38375,6 +38498,7 @@ __metadata:
     globals: "npm:^15.9.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
+    jest-util: "npm:~30.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     ts-jest: "npm:~29.3.0"
     tslib: "npm:^2.6.2"
