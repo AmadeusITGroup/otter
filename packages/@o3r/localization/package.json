@@ -197,9 +197,6 @@
     "unionfs": "~4.5.1",
     "zone.js": "~0.15.0"
   },
-  "generatorDependencies": {
-    "@angular/cdk": "~19.2.0"
-  },
   "engines": {
     "node": "^20.11.1 || >=22.0.0"
   },

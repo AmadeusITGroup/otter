@@ -7,7 +7,7 @@ import {
 import {
   applyEsLintFix,
   createOtterSchematic,
-  getExternalDependenciesVersionRange,
+  getExternalDependenciesInfo,
   getO3rPeerDeps,
   getPackageInstallConfig,
   getProjectNewDependenciesTypes,
@@ -16,8 +16,8 @@ import {
   updateImports,
 } from '@o3r/schematics';
 import {
-  NodeDependencyType,
-} from '@schematics/angular/utility/dependencies';
+  PackageJson,
+} from 'type-fest';
 import {
   mapMigrationFromCoreImports,
 } from './migration/import-map';
@@ -26,6 +26,9 @@ import type {
 } from './schema';
 
 const devDependenciesToInstall: string[] = [
+
+];
+const dependenciesToInstall: string[] = [
 
 ];
 
@@ -38,7 +41,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
     const depsInfo = getO3rPeerDeps(packageJsonPath);
-
+    const projectPackageJson = tree.readJson(path.posix.join(workspaceProject?.root || '.', 'package.json')) as PackageJson;
     const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
       acc[dep] = {
         inManifest: [{
@@ -49,23 +52,26 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       };
       return acc;
     }, getPackageInstallConfig(packageJsonPath, tree, options.projectName, false, !!options.exactO3rVersion));
-    Object.entries(getExternalDependenciesVersionRange(devDependenciesToInstall, packageJsonPath, context.logger))
-      .forEach(([dep, range]) => {
-        dependencies[dep] = {
-          inManifest: [{
-            range,
-            types: [NodeDependencyType.Dev]
-          }]
-        };
-      });
-
+    const externalDependenciesInfo = getExternalDependenciesInfo(
+      {
+        devDependenciesToInstall,
+        dependenciesToInstall,
+        o3rPackageJsonPath: packageJsonPath,
+        projectPackageJson,
+        projectType: workspaceProject?.projectType
+      },
+      context.logger
+    );
     return chain([
       // optional custom action dedicated to this module
       options.skipLinter ? noop() : applyEsLintFix(),
       // add the missing Otter modules in the current project
       setupDependencies({
         projectName: options.projectName,
-        dependencies,
+        dependencies: {
+          ...dependencies,
+          ...externalDependenciesInfo
+        },
         ngAddToRun: depsInfo.o3rPeerDeps
       }),
 

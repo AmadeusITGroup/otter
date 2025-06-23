@@ -35,6 +35,9 @@
     "build:fixtures:jest": "tsc -b tsconfig.fixture.jest.json --pretty",
     "build:fixtures:jasmine": "tsc -b tsconfig.fixture.jasmine.json --pretty"
   },
+  "generatorDependencies": {
+    "jsonpath-plus": "~10.3.0"
+  },
   "peerDependencies": {
     "@angular-devkit/architect": ">=0.1900.0 <0.2000.0-0",
     "@angular-devkit/core": "^19.0.0",
@@ -58,6 +61,7 @@
     "jsonpath-plus": "^9.0.0 || ^10.0.0",
     "rxjs": "^7.8.1",
     "ts-node": "~10.9.2",
+    "type-fest": "^4.30.0",
     "typescript": "^5.5.4",
     "typescript-json-schema": "^0.65.0"
   },
@@ -84,6 +88,9 @@
       "optional": true
     },
     "json-schema": {
+      "optional": true
+    },
+    "type-fest": {
       "optional": true
     },
     "typescript": {
