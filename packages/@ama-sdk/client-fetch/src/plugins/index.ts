@@ -6,3 +6,4 @@ export * from './perf-metric/index';
 export * from './retry/index';
 export * from './timeout/index';
 export * from './wait-for/index';
+export * from './redirect-if-failed';
