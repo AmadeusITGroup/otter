@@ -96,7 +96,8 @@ function ngGeneratePageFn(options: NgGeneratePageSchematicsSchema): Rule {
           project: projectName,
           path: pagePath,
           flat: true,
-          name: pageName
+          name: pageName,
+          typeSeparator: '.'
         }),
         () => {
           const sourceFileContent = tree.readText(moduleFilePath);
@@ -138,7 +139,7 @@ function ngGeneratePageFn(options: NgGeneratePageSchematicsSchema): Rule {
         viewEncapsulation: 'None',
         changeDetection: 'OnPush',
         style: 'scss',
-        type: 'Component',
+        type: 'component',
         skipSelector: false,
         standalone: options.standalone,
         ...(

@@ -3,10 +3,9 @@ import {
   type Mark,
 } from '@ama-sdk/core';
 import {
-  Inject,
+  inject,
   Injectable,
   NgZone,
-  Optional,
 } from '@angular/core';
 import {
   NavigationEnd,
@@ -58,6 +57,9 @@ export const performanceMarksInitialState: Readonly<PerfEventPayload> = {
   { providedIn: 'root' }
 )
 export class EventTrackService {
+  private readonly router = inject(Router);
+  private readonly zone = inject(NgZone);
+
   private readonly uiEventTrack: ReplaySubject<UiEventPayload>;
 
   private readonly customEventTrack: ReplaySubject<CustomEventPayload>;
@@ -105,7 +107,9 @@ export class EventTrackService {
     }
   }
 
-  constructor(private readonly router: Router, private readonly zone: NgZone, @Optional() @Inject(EVENT_TRACK_SERVICE_CONFIGURATION) config?: EventTrackConfiguration) {
+  constructor() {
+    const config = inject<EventTrackConfiguration>(EVENT_TRACK_SERVICE_CONFIGURATION, { optional: true });
+
     const eventConfiguration = { ...defaultEventTrackConfiguration, ...config };
     this.uiTrackingActivated = new BehaviorSubject<boolean>(eventConfiguration.activate.uiTracking);
     this.uiTrackingActive$ = this.uiTrackingActivated.asObservable();

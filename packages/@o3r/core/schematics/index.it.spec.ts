@@ -89,7 +89,7 @@ describe('new otter application', () => {
     );
     await addImportToAppModule(applicationPath, 'TestAddContextComponentModule', 'src/components/test-add-context-component');
 
-    packageManagerExec({ script: 'ng', args: ['g', '@schematics/angular:component', 'test-ng-component', '--project', appName] },
+    packageManagerExec({ script: 'ng', args: ['g', '@schematics/angular:component', 'test-ng-component', '--project', appName, '--type', 'component'] },
       execAppOptions
     );
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:convert-component', '--path', 'apps/test-app/src/app/test-ng-component/test-ng-component.component.ts'] },

@@ -2,7 +2,7 @@ import {
   ChangeDetectorRef,
   Directive,
   ElementRef,
-  Inject,
+  inject,
   Input,
   OnDestroy,
 } from '@angular/core';
@@ -30,6 +30,9 @@ import {
   standalone: false
 })
 export class LocalizationTranslateDirective extends TranslateDirective implements OnDestroy {
+  private readonly localizationService = inject(LocalizationService);
+  private readonly localizationConfig = inject<LocalizationConfiguration>(LOCALIZATION_CONFIGURATION_TOKEN);
+
   /**
    * Internal subscription to the LocalizationService showKeys mode changes
    */
@@ -59,9 +62,14 @@ export class LocalizationTranslateDirective extends TranslateDirective implement
     }
   }
 
-  constructor(private readonly localizationService: LocalizationService, translateService: TranslateService, element: ElementRef, _ref: ChangeDetectorRef,
-    @Inject(LOCALIZATION_CONFIGURATION_TOKEN) private readonly localizationConfig: LocalizationConfiguration) {
-    super(translateService, element, _ref);
+  constructor() {
+    const translateService = inject(TranslateService);
+    const element = inject(ElementRef);
+    const ref = inject(ChangeDetectorRef);
+
+    super(translateService, element, ref);
+    const localizationService = this.localizationService;
+    const localizationConfig = this.localizationConfig;
 
     if (localizationConfig.enableTranslationDeactivation) {
       this.onShowKeysChange = localizationService.showKeys$.subscribe((showKeys) => {

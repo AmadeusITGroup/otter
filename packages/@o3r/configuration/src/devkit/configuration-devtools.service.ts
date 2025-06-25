@@ -1,8 +1,7 @@
 import {
   ApplicationRef,
-  Inject,
+  inject,
   Injectable,
-  Optional,
 } from '@angular/core';
 import {
   select,
@@ -44,13 +43,16 @@ import {
 
 @Injectable({ providedIn: 'root' })
 export class OtterConfigurationDevtools {
+  protected store = inject<Store<ConfigurationStore>>(Store);
+  private readonly appRef = inject(ApplicationRef);
+  private readonly options = inject<ConfigurationDevtoolsServiceOptions>(OTTER_CONFIGURATION_DEVTOOLS_OPTIONS, { optional: true }) ?? OTTER_CONFIGURATION_DEVTOOLS_DEFAULT_OPTIONS;
+
   /** Stream of configurations */
   public readonly configurationEntities$: Observable<CustomConfig[]>;
 
-  constructor(
-    protected store: Store<ConfigurationStore>,
-    private readonly appRef: ApplicationRef,
-    @Optional() @Inject(OTTER_CONFIGURATION_DEVTOOLS_OPTIONS) private readonly options: ConfigurationDevtoolsServiceOptions) {
+  constructor() {
+    const options = this.options;
+
     this.options = { ...OTTER_CONFIGURATION_DEVTOOLS_DEFAULT_OPTIONS, ...options };
 
     /** Full configuration store */

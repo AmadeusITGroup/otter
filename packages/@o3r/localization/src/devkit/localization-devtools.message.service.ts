@@ -1,9 +1,7 @@
 import {
   DestroyRef,
   inject,
-  Inject,
   Injectable,
-  Optional,
 } from '@angular/core';
 import {
   takeUntilDestroyed,
@@ -52,15 +50,15 @@ const isLocalizationMessage = (message: any): message is AvailableLocalizationMe
 
 @Injectable()
 export class LocalizationDevtoolsMessageService {
+  private readonly logger = inject(LoggerService);
+  private readonly localizationDevTools = inject(OtterLocalizationDevtools);
+  private readonly localizationService = inject(LocalizationService);
+  private readonly options = inject<LocalizationDevtoolsServiceOptions>(OTTER_LOCALIZATION_DEVTOOLS_OPTIONS, { optional: true }) ?? OTTER_LOCALIZATION_DEVTOOLS_DEFAULT_OPTIONS;
+
   private readonly sendMessage = sendOtterMessage<AvailableLocalizationMessageContents>;
   private readonly destroyRef = inject(DestroyRef);
 
-  constructor(
-    private readonly logger: LoggerService,
-    private readonly localizationDevTools: OtterLocalizationDevtools,
-    private readonly localizationService: LocalizationService,
-    @Optional() @Inject(OTTER_LOCALIZATION_DEVTOOLS_OPTIONS) private readonly options: LocalizationDevtoolsServiceOptions = OTTER_LOCALIZATION_DEVTOOLS_DEFAULT_OPTIONS
-  ) {
+  constructor() {
     this.options = {
       ...OTTER_LOCALIZATION_DEVTOOLS_DEFAULT_OPTIONS,
       ...this.options
