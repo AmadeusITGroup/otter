@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention -- naming convention for DOM, FP, and FMP imposed by Lighthouse */
-import type {
-  Mark,
+import {
+  type Mark,
 } from '@ama-sdk/core';
 import {
   Inject,
@@ -277,8 +277,8 @@ export class EventTrackService {
   }
 
   /**
-   * Add a DxAPI SDK server call object, created by the SDK Probe plugin, in the list of server calls metrics.
-   * In order to have requestId for the DxAPI calls, your server has to expose 'ama-request-id' via Access-Control-Expose-Headers
+   * Add a SDK server call mark, in the list of server calls metrics.
+   * In order to have requestId for the API calls, your server has to expose 'ama-request-id' via Access-Control-Expose-Headers
    * @param serverMark The mark object
    */
   public async addSDKServerCallMark(serverMark: Mark) {

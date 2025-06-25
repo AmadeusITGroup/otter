@@ -50,18 +50,6 @@ const getFilePath = (targetFile: string, root = '.') => {
  * Retrieve the function that determines which file to update for a given token
  * @param root Root path used if no base path
  * @param defaultFile Default file if not requested by the Token
- * @deprecated Use {@link getFileToUpdatePath} instead. Will be removed in v13.
- */
-export const computeFileToUpdatePath = (root = '.', defaultFile = 'styles.scss') => (token: DesignTokenVariableStructure) => {
-  return token.extensions.o3rTargetFile
-    ? getFilePath(token.extensions.o3rTargetFile, token.context?.basePath || root)
-    : defaultFile;
-};
-
-/**
- * Retrieve the function that determines which file to update for a given token
- * @param root Root path used if no base path
- * @param defaultFile Default file if not requested by the Token
  */
 export const getFileToUpdatePath = async (root?: string, defaultFile = 'styles.scss') => {
   try {
@@ -81,14 +69,6 @@ export const getFileToUpdatePath = async (root?: string, defaultFile = 'styles.s
     };
   }
 };
-
-/**
- * Compare Token variable by name
- * @param a first token variable
- * @param b second token variable
- * @deprecated use {@link getTokenSorterByName} instead. Will be removed in v13.
- */
-export const compareVariableByName = (a: DesignTokenVariableStructure, b: DesignTokenVariableStructure): number => a.getKey().localeCompare(b.getKey());
 
 /**
  * Sort Token variable by name using the local alphabetical order
@@ -249,7 +229,6 @@ export const renderDesignTokens = async (variableSet: DesignTokenVariableSet, op
   const updates = Object.fromEntries(
     Object.entries(tokenPerFile)
       .map(([file, designTokens]) => {
-        designTokens = options?.variableSortComparator ? designTokens.sort(options.variableSortComparator) : designTokens;
         designTokens = (options?.tokenListTransforms?.map((transform) => transform(variableSet, options)) || [getTokenSorterByName(variableSet, options)])
           .reduce((acc, transform) => transform(acc), designTokens);
         return [

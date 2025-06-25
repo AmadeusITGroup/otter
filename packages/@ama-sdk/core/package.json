@@ -16,57 +16,19 @@
     },
     ".": {
       "module": "./dist/src/public_api.js",
-      "esm2020": "./dist/src/public_api.js",
-      "esm2015": "./dist/esm2015/public_api.js",
-      "es2020": "./dist/cjs/public_api.js",
       "default": "./dist/cjs/public_api.js",
       "typings": "./dist/src/public_api.d.ts",
       "import": "./dist/src/public_api.js",
       "node": "./dist/cjs/public_api.js",
       "require": "./dist/cjs/public_api.js"
     },
-    "./clients/*": {
-      "module": "./dist/src/clients/*.js",
-      "esm2020": "./dist/src/clients/*.js",
-      "esm2015": "./dist/esm2015/clients/*.js",
-      "es2020": "./dist/cjs/clients/*.js",
-      "default": "./dist/cjs/clients/*.js",
-      "typings": "./dist/src/clients/*.d.ts",
-      "import": "./dist/src/clients/*.js",
-      "node": "./dist/cjs/clients/*.js",
-      "require": "./dist/cjs/clients/*.js"
-    },
-    "./plugins/mock-intercept/angular": {
-      "module": "./dist/src/plugins/mock-intercept/mock-intercept.angular.js",
-      "esm2020": "./dist/src/plugins/mock-intercept/mock-intercept.angular.js",
-      "esm2015": "./dist/esm2015/plugins/mock-intercept/mock-intercept.angular.js",
-      "es2020": "./dist/cjs/plugins/mock-intercept/mock-intercept.angular.js",
-      "default": "./dist/cjs/plugins/mock-intercept/mock-intercept.angular.js",
-      "typings": "./dist/src/plugins/mock-intercept/mock-intercept.angular.d.ts",
-      "import": "./dist/src/plugins/mock-intercept/mock-intercept.angular.js",
-      "node": "./dist/cjs/plugins/mock-intercept/mock-intercept.angular.js",
-      "require": "./dist/cjs/plugins/mock-intercept/mock-intercept.angular.js"
-    },
     "./plugins/*": {
       "module": "./dist/src/plugins/*/index.js",
-      "esm2020": "./dist/src/plugins/*/index.js",
-      "esm2015": "./dist/esm2015/plugins/*/index.js",
-      "es2020": "./dist/cjs/plugins/*/index.js",
       "default": "./dist/cjs/plugins/*/index.js",
       "typings": "./dist/src/plugins/*/index.d.ts",
       "import": "./dist/src/plugins/*/index.js",
       "node": "./dist/cjs/plugins/*/index.js",
       "require": "./dist/cjs/plugins/*/index.js"
-    }
-  },
-  "typesVersions": {
-    "*": {
-      "clients/*": [
-        "src/clients/*.d.ts"
-      ],
-      "plugins/*": [
-        "src/plugins/*/index.d.ts"
-      ]
     }
   },
   "scripts": {
@@ -90,11 +52,8 @@
   "peerDependencies": {
     "@angular-devkit/schematics": "^19.0.0",
     "@angular/cli": "^19.0.0",
-    "@angular/common": "^19.0.0",
     "@o3r/schematics": "workspace:^",
     "@schematics/angular": "^19.0.0",
-    "isomorphic-fetch": "^3.0.0",
-    "rxjs": "^7.8.1",
     "typescript": "^5.5.4"
   },
   "peerDependenciesMeta": {
@@ -104,19 +63,10 @@
     "@angular/cli": {
       "optional": true
     },
-    "@angular/common": {
-      "optional": true
-    },
     "@o3r/schematics": {
       "optional": true
     },
     "@schematics/angular": {
-      "optional": true
-    },
-    "isomorphic-fetch": {
-      "optional": true
-    },
-    "rxjs": {
       "optional": true
     },
     "typescript": {

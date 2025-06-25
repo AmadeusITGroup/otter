@@ -13,7 +13,6 @@ import type {
 } from '../parsers';
 import * as parser from '../parsers/design-token.parser';
 import {
-  computeFileToUpdatePath,
   getFileToUpdatePath,
   getTokenSorterByName,
   getTokenSorterByRef,
@@ -33,27 +32,6 @@ describe('Design Token Renderer', () => {
     // Add different target file
     (exampleVariable.document.example as any)['test.var2'].$extensions = { o3rTargetFile: 'file.scss' };
     designTokens = parser.parseDesignToken(exampleVariable);
-  });
-
-  describe('computeFileToUpdatePath', () => {
-    const DEFAULT_FILE = 'test-result.json';
-    const fileToUpdate = computeFileToUpdatePath(rootPath, DEFAULT_FILE);
-
-    test('should return default file if not specified', () => {
-      const variable = designTokens.get('example.var1');
-      const result = fileToUpdate(variable);
-
-      expect(variable.extensions.o3rTargetFile).not.toBeDefined();
-      expect(result).toBe(DEFAULT_FILE);
-    });
-
-    test('should return file specified by the token', () => {
-      const variable = designTokens.get('example.test.var2');
-      const result = fileToUpdate(variable);
-
-      expect(variable.extensions.o3rTargetFile).toBeDefined();
-      expect(result).toBe(resolve(rootPath, variable.extensions.o3rTargetFile));
-    });
   });
 
   describe('getFileToUpdatePath', () => {

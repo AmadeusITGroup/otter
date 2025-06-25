@@ -2,20 +2,8 @@ import type {
   MockAdapter,
 } from '../../fwk/index';
 import {
-  FetchPluginContext,
   RequestOptions,
 } from '../core/index';
-
-/**
- * Mock Fetch Plugin options
- * @deprecated Use the one exposed by {@link @ama-sdk/client-fetch}, will be removed in v13
- */
-export interface MockInterceptFetchParameters {
-  /** List of mocks to be used */
-  adapter: MockAdapter;
-  /** Delays the mock response, in milliseconds */
-  delayTiming?: number | ((context: FetchPluginContext) => number | Promise<number>);
-}
 
 /** Mock Request Plugin options */
 export interface MockInterceptRequestParameters {

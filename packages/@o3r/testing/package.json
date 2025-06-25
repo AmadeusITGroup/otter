@@ -49,14 +49,6 @@
       "types": "./core/playwright/component-fixture.d.ts",
       "default": "./core/playwright/component-fixture.js"
     },
-    "./core/protractor": {
-      "types": "./core/protractor/index.d.ts",
-      "default": "./core/protractor/index.js"
-    },
-    "./core/protractor/component-fixture": {
-      "types": "./core/protractor/component-fixture.d.ts",
-      "default": "./core/protractor/component-fixture.js"
-    },
     "./kassette": {
       "types": "./kassette/index.d.ts",
       "default": "./kassette/index.js"
@@ -80,10 +72,6 @@
     "./tools/path-replacement": {
       "types": "./tools/path-replacement/index.d.ts",
       "default": "./tools/path-replacement/index.js"
-    },
-    "./tools/protractor": {
-      "types": "./tools/protractor/index.d.ts",
-      "default": "./tools/protractor/index.js"
     },
     "./visual-test": {
       "types": "./visual-test/index.d.ts",
@@ -119,7 +107,6 @@
     "@schematics/angular": "^19.0.0",
     "pixelmatch": "^6.0.0",
     "pngjs": "^7.0.0",
-    "protractor": "^7.0.0",
     "rxjs": "^7.8.1",
     "temporal-polyfill": "^0.3.0",
     "ts-node": "~10.9.2",
@@ -164,9 +151,6 @@
       "optional": true
     },
     "pngjs": {
-      "optional": true
-    },
-    "protractor": {
       "optional": true
     },
     "temporal-polyfill": {
@@ -242,7 +226,6 @@
     "pid-from-port": "^1.1.3",
     "pixelmatch": "^6.0.0",
     "pngjs": "^7.0.0",
-    "protractor": "^7.0.0",
     "rxjs": "^7.8.1",
     "semver": "^7.5.2",
     "temporal-polyfill": "^0.3.0",
