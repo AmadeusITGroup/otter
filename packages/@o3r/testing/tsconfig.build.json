@@ -16,7 +16,6 @@
   "include": [
     "src/core/**/*.ts",
     "src/core/angular/**/*.ts",
-    "src/core/protractor/**/*.ts",
     "src/core/playwright/**/*.ts",
     "src/kassette/**/*.ts",
     "src/localization/**/*.ts",
@@ -29,7 +28,6 @@
     "src/public_api.ts"
   ],
   "exclude": [
-    "src/tools/protractor/*/_*.ts",
     "**/*.spec.ts"
   ]
 }

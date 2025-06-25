@@ -89,6 +89,7 @@
     "**/build/**": true,
     "**/node_modules/**": true
   },
+  "java.configuration.updateBuildConfiguration": "automatic",
   "jest.debugMode": true,
   "jest.jestCommandLine": "yarn jest",
   "npm.packageManager": "yarn",

@@ -1,15 +1,9 @@
 import {
   v4,
 } from 'uuid';
-import {
-  FetchCall,
-  FetchPlugin,
-  FetchPluginContext,
-} from '../core';
 
 /**
  * Performance metric mark associated to a call.
- * @deprecated Use the one exposed by {@link @ama-sdk/client-fetch}, will be removed in v13
  */
 export interface Mark {
   /**
@@ -47,6 +41,7 @@ export interface Mark {
    */
   endTime?: number;
 }
+
 /** Performance object supporting NodeJs Performance and Web Performance reporting  */
 type CrossPlatformPerformance = {
   /** @see Performance.mark */
@@ -57,8 +52,7 @@ type CrossPlatformPerformance = {
 };
 
 /**
- * Options for this plugin.
- * @deprecated Use the one exposed by {@link @ama-sdk/client-fetch}, will be removed in v13
+ * Options for the Performance Metric Service.
  */
 export interface PerformanceMetricOptions {
   /**
@@ -92,9 +86,8 @@ export interface PerformanceMetricOptions {
 
 /**
  * Performance metric plugin.
- * @deprecated Use the one exposed by {@link @ama-sdk/client-fetch}, will be removed in v13
  */
-export class PerformanceMetricPlugin implements FetchPlugin {
+export class PerformanceMetricService {
   /**
    * Callback function called when a mark is closed.
    */
@@ -151,12 +144,12 @@ export class PerformanceMetricPlugin implements FetchPlugin {
     const markId = v4();
     const perfMark = this.performance?.mark(this.getPerformanceTag('start', markId)) || undefined;
     const startTime = perfMark?.startTime ?? this.getTime();
-    const mark: Mark = {
+    const mark = {
       markId,
       url,
       requestOptions,
       startTime
-    };
+    } as const satisfies Mark;
     this.openMarks[markId] = mark;
     if (this.onMarkOpen) {
       void this.onMarkOpen(mark);
@@ -208,24 +201,5 @@ export class PerformanceMetricPlugin implements FetchPlugin {
       });
     }
     delete this.openMarks[markId];
-  }
-
-  /** @inheritDoc */
-  public load(context: FetchPluginContext) {
-    return {
-      transform: async (fetchCall: FetchCall) => {
-        const markId = this.openMark(context.url, context.options);
-
-        try {
-          const response = await fetchCall;
-          this.closeMark(markId, response);
-          return response;
-        } catch (exception: any) {
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access -- type is explicitly `any`
-          this.closeMarkWithError(markId, exception instanceof Error ? exception : new Error(exception.toString()));
-          throw exception;
-        }
-      }
-    };
   }
 }

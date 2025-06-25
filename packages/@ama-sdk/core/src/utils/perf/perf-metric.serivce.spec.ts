@@ -1,14 +1,14 @@
 import {
-  PerformanceMetricPlugin,
-} from './perf-metric.fetch';
+  PerformanceMetricService,
+} from './perf-metric.service';
 
-let perfPlugin: PerformanceMetricPlugin;
-describe('PerformanceMetricPlugin', () => {
+let perfPlugin: PerformanceMetricService;
+describe('PerformanceMetricService', () => {
   let onMarkOpen!: jest.Mock;
 
   beforeEach(() => {
     onMarkOpen = jest.fn();
-    perfPlugin = new PerformanceMetricPlugin({ onMarkOpen });
+    perfPlugin = new PerformanceMetricService({ onMarkOpen });
   });
 
   it('should generate new mark ids', () => {
