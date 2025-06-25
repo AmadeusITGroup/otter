@@ -19,7 +19,7 @@ export const rulesetsStorageDeserializer = (rawObject: any) => {
   if (!rawObject || !rawObject.ids) {
     return rulesetsInitialState;
   }
-  const storeObject = rulesetsAdapter.getInitialState(rawObject);
+  const storeObject = rulesetsAdapter.getInitialState<RulesetsState>(rawObject);
   for (const id of rawObject.ids) {
     storeObject.entities[id] = rawObject.entities[id] as RulesetsModel;
   }

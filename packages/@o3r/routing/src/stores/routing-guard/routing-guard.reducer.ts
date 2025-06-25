@@ -25,7 +25,7 @@ export const routingGuardAdapter: EntityAdapter<RoutingGuardModel> = createEntit
 /**
  * RoutingGuard Store initial value
  */
-export const routingGuardInitialState: RoutingGuardState = routingGuardAdapter.getInitialState({});
+export const routingGuardInitialState = routingGuardAdapter.getInitialState<RoutingGuardState>({});
 
 /**
  *  List of basic actions for RoutingGuard Store

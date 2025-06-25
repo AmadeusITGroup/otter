@@ -70,12 +70,11 @@ describe('LocalizedDecimalPipe', () => {
         {
           provide: LOCALIZATION_CONFIGURATION_TOKEN,
           useFactory: () => createLocalizationConfiguration({ enableTranslationDeactivation: true, supportedLocales: ['en', 'fr'], fallbackLanguage: 'fr' })
-        }
+        },
+        { provide: LocalizedDecimalPipe, deps: [LocalizationService, ChangeDetectorRef] }
       ]
     });
-    localizationService = TestBed.inject(LocalizationService);
-    changeDetectorRef = TestBed.inject(ChangeDetectorRef);
-    pipe = new LocalizedDecimalPipe(localizationService, changeDetectorRef);
+    pipe = TestBed.inject(LocalizedDecimalPipe);
   });
 
   it('should display the date using the current locale', () => {

@@ -67,16 +67,16 @@ describe('LocalizedCurrencyPipe', () => {
         TranslateModule.forRoot()
       ],
       providers: [
+        LocalizationService,
         { provide: ChangeDetectorRef, useClass: ChangeDetectorRefFixture },
         {
           provide: LOCALIZATION_CONFIGURATION_TOKEN,
           useFactory: () => createLocalizationConfiguration({ enableTranslationDeactivation: true, supportedLocales: ['en', 'fr'], fallbackLanguage: 'fr' })
-        }
+        },
+        { provide: LocalizedCurrencyPipe, deps: [LocalizationService, ChangeDetectorRef] }
       ]
     });
-    localizationService = TestBed.inject(LocalizationService);
-    changeDetectorRef = TestBed.inject(ChangeDetectorRef);
-    pipe = new LocalizedCurrencyPipe(localizationService, changeDetectorRef);
+    pipe = TestBed.inject(LocalizedCurrencyPipe);
   });
 
   it('should display the date using the currency locale', () => {

@@ -28,7 +28,7 @@ describe('ng add otter localization', () => {
     await addImportToAppModule(applicationPath, 'TestComponentModule', 'src/components/test-component');
 
     const diff = getGitDiff(workspacePath);
-    expect(diff.modified.length).toBe(9);
+    expect(diff.modified.length).toBe(8);
     expect(diff.added.length).toBe(15);
     expect(diff.added).toContain(path.join(relativeApplicationPath, 'src/components/test-component/test-component.localization.json').replace(/[/\\]+/g, '/'));
     expect(diff.added).toContain(path.join(relativeApplicationPath, 'src/components/test-component/test-component.translation.ts').replace(/[/\\]+/g, '/'));

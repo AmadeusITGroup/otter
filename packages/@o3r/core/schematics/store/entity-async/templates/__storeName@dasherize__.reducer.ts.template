@@ -2,7 +2,7 @@ import {ActionCreator, createReducer, on, ReducerTypes} from '@ngrx/store';
 import {createEntityAdapter} from '@ngrx/entity';
 import {asyncStoreItemAdapter, createEntityAsyncRequestAdapter} from '@o3r/core';
 import * as actions from './<%= fileName %>.actions';
-import {<%= storeName %>State, <%= storeName %>StateDetails, <%= storeModelName %>} from './<%= fileName %>.state';
+import {<%= storeName %>State, <%= storeModelName %>} from './<%= fileName %>.state';
 
 /**
  * <%= storeName %> Store adapter
@@ -14,7 +14,7 @@ export const <%= cStoreName %>Adapter = createEntityAsyncRequestAdapter(createEn
 /**
  * <%= storeName %> Store initial value
  */
-export const <%= cStoreName %>InitialState: <%= storeName %>State = <%= cStoreName %>Adapter.getInitialState<<%= storeName %>StateDetails>({
+export const <%= cStoreName %>InitialState = <%= cStoreName %>Adapter.getInitialState<<%= storeName %>State>({
   requestIds: []
 });
 

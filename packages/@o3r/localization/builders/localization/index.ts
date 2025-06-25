@@ -349,16 +349,13 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<LocalizationBui
     context.getBuilderNameForTarget(localizationExtractorTarget)
   ]);
   const [browserTargetOptions, localizationExtracterTargetOptions] = await Promise.all([
-    context.validateOptions<{ outputPath: string | { base: string; browser?: string } }>(browserTargetRawOptions, browserTargetBuilder),
+    context.validateOptions<{ outputPath?: string | { base: string; browser?: string } }>(browserTargetRawOptions, browserTargetBuilder),
     context.validateOptions<LocalizationExtractorBuilderSchema>(localizationExtracterTargetRawOptions, localizationExtracterTargetBuilder)
   ]);
   let browserTargetOptionsOutputPath: string;
   // Check the minimum of mandatory options to the builders
   if (typeof browserTargetOptions.outputPath !== 'string' && typeof browserTargetOptions.outputPath?.base !== 'string') {
-    return {
-      success: false,
-      error: `The targetBrowser ${options.browserTarget} does not provide 'outputPath' option`
-    };
+    browserTargetOptionsOutputPath = path.join(context.workspaceRoot, 'dist', browserTarget.project); // outputPath became optional in Angular v20
   } else if (typeof browserTargetOptions.outputPath === 'string') {
     browserTargetOptionsOutputPath = browserTargetOptions.outputPath;
   } else {
