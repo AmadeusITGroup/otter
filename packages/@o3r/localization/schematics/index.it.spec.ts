@@ -17,7 +17,7 @@ import {
 
 describe('ng add otter localization', () => {
   test('should add localization to an application', async () => {
-    const { applicationPath, workspacePath, appName, isInWorkspace, o3rVersion, libraryPath, untouchedProjectsPaths } = o3rEnvironment.testEnvironment;
+    const { applicationPath, workspacePath, appName, isInWorkspace, isYarnTest, o3rVersion, libraryPath, untouchedProjectsPaths } = o3rEnvironment.testEnvironment;
     const execAppOptions = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
     const relativeApplicationPath = path.relative(workspacePath, applicationPath);
     expect(() => packageManagerExec({ script: 'ng', args: ['add', `@o3r/localization@${o3rVersion}`, '--skip-confirmation', '--project-name', appName] }, execAppOptions)).not.toThrow();
@@ -28,10 +28,38 @@ describe('ng add otter localization', () => {
     await addImportToAppModule(applicationPath, 'TestComponentModule', 'src/components/test-component');
 
     const diff = getGitDiff(workspacePath);
-    expect(diff.modified.length).toBe(9);
-    expect(diff.added.length).toBe(15);
-    expect(diff.added).toContain(path.join(relativeApplicationPath, 'src/components/test-component/test-component.localization.json').replace(/[/\\]+/g, '/'));
-    expect(diff.added).toContain(path.join(relativeApplicationPath, 'src/components/test-component/test-component.translation.ts').replace(/[/\\]+/g, '/'));
+
+    const modifiedFiles = [
+      isYarnTest ? 'yarn.lock' : 'package-lock.json',
+      'package.json',
+      'angular.json',
+      '.gitignore',
+      path.join(relativeApplicationPath, 'package.json').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/app/app.config.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/app/app.spec.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/app/app.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/main.ts').replace(/[/\\]+/g, '/')
+    ].sort();
+    expect(diff.modified.sort()).toEqual(modifiedFiles);
+
+    const newFiles = [
+      path.join(relativeApplicationPath, 'src/components/test-component/test-component.translation.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test-component/test-component.style.scss').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test-component/test-component.module.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test-component/test-component.context.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test-component/test-component.template.html').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test-component/test-component.spec.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test-component/test-component.localization.json').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test-component/test-component.component.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test-component/index.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test-component/README.md').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/assets/locales/.gitkeep').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'migration-scripts/README.md').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'cms.json').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'tsconfig.cms.json').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, '.gitignore').replace(/[/\\]+/g, '/')
+    ].sort();
+    expect(diff.added.sort()).toEqual(newFiles);
 
     [libraryPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
       expect(diff.all.some((file) => file.startsWith(path.relative(workspacePath, untouchedProject).replace(/\\+/g, '/')))).toBe(false);
@@ -59,19 +87,25 @@ describe('ng add otter localization', () => {
       'angular.json',
       'package.json',
       isYarnTest ? 'yarn.lock' : 'package-lock.json'
-    ];
-    modifiedFiles.forEach((modifiedFile) => {
-      expect(diff.modified).toContain(modifiedFile);
-    });
-    expect(diff.modified.length).toBe(modifiedFiles.length);
+    ].sort();
+    expect(diff.modified.sort()).toEqual(modifiedFiles);
+
     const addedFiles = [
+      path.join(relativeLibraryPath, 'src/components/test-component/test-component.translation.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test-component/test-component.style.scss').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test-component/test-component.module.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test-component/test-component.context.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test-component/test-component.template.html').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test-component/test-component.spec.ts').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'src/components/test-component/test-component.localization.json').replace(/[/\\]+/g, '/'),
-      path.join(relativeLibraryPath, 'src/components/test-component/test-component.translation.ts').replace(/[/\\]+/g, '/')
-    ];
-    addedFiles.forEach((addedFile) => {
-      expect(diff.added).toContain(addedFile);
-    });
-    expect(diff.added.length).toBe(addedFiles.length + 11);
+      path.join(relativeLibraryPath, 'src/components/test-component/test-component.component.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test-component/index.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test-component/README.md').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'migration-scripts/README.md').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'cms.json').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'tsconfig.cms.json').replace(/[/\\]+/g, '/')
+    ].sort();
+    expect(diff.added.sort()).toEqual(addedFiles);
 
     [applicationPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
       expect(diff.all.some((file) => file.startsWith(path.relative(workspacePath, untouchedProject).replace(/\\+/g, '/')))).toBe(false);

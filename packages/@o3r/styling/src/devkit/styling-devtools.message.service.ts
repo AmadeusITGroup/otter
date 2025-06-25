@@ -2,9 +2,7 @@
 import {
   DestroyRef,
   inject,
-  Inject,
   Injectable,
-  Optional,
 } from '@angular/core';
 import {
   takeUntilDestroyed,
@@ -84,13 +82,14 @@ const getCSSVariableValue = (variableName: string, cssRules: CSSStyleRule[]) => 
  */
 @Injectable()
 export class StylingDevtoolsMessageService {
+  private readonly logger = inject(LoggerService);
+  private readonly stylingDevTools = inject(OtterStylingDevtools);
+  private readonly options = inject<StylingDevtoolsServiceOptions>(OTTER_STYLING_DEVTOOLS_OPTIONS, { optional: true }) ?? OTTER_STYLING_DEVTOOLS_DEFAULT_OPTIONS;
+
   private readonly sendMessage = sendOtterMessage<AvailableStylingMessageContents>;
   private readonly destroyRef = inject(DestroyRef);
 
-  constructor(
-    private readonly logger: LoggerService,
-    private readonly stylingDevTools: OtterStylingDevtools,
-    @Optional() @Inject(OTTER_STYLING_DEVTOOLS_OPTIONS) private readonly options: StylingDevtoolsServiceOptions = OTTER_STYLING_DEVTOOLS_DEFAULT_OPTIONS) {
+  constructor() {
     this.options = {
       ...OTTER_STYLING_DEVTOOLS_DEFAULT_OPTIONS,
       ...this.options

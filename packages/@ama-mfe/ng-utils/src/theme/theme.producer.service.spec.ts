@@ -98,7 +98,7 @@ describe('ThemeProducerService', () => {
   it('should get theme name from the url and call the change theme at init', () => {
     expect(themeService.currentTheme()?.name).toBe('red');
     expect(themeHelpers.getStyle).toHaveBeenCalledWith('red-theme.css');
-    TestBed.flushEffects();
+    TestBed.tick();
     expect(themeHelpers.applyTheme).toHaveBeenCalledWith(css);
     expect(messageService.send).toHaveBeenCalledWith({
       name: 'red',
@@ -109,7 +109,7 @@ describe('ThemeProducerService', () => {
   });
 
   it('should send a new message when theme is changed', async () => {
-    TestBed.flushEffects();
+    TestBed.tick();
     expect(messageService.send).toHaveBeenCalledWith({
       name: 'red',
       css,
@@ -117,7 +117,7 @@ describe('ThemeProducerService', () => {
       version: '1.0'
     });
     await themeService.changeTheme('light');
-    TestBed.flushEffects();
+    TestBed.tick();
     expect(messageService.send).toHaveBeenCalledWith({
       name: 'light',
       css,
@@ -127,11 +127,11 @@ describe('ThemeProducerService', () => {
   });
 
   it('should call applyTheme when theme is changed', async () => {
-    TestBed.flushEffects();
+    TestBed.tick();
     expect(themeHelpers.applyTheme).toHaveBeenCalledWith(css);
     jest.spyOn(themeHelpers, 'getStyle').mockImplementation(() => Promise.resolve('newCss'));
     await themeService.changeTheme('light');
-    TestBed.flushEffects();
+    TestBed.tick();
     expect(themeHelpers.applyTheme).toHaveBeenCalledWith('newCss');
   });
 });

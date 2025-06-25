@@ -34,7 +34,7 @@ describe('ng add analytics', () => {
     expect(diff.modified.sort()).toEqual([
       'angular.json',
       'apps/test-app/package.json',
-      'apps/test-app/src/app/app.component.ts',
+      'apps/test-app/src/app/app.ts',
       'package.json',
       isYarnTest ? 'yarn.lock' : 'package-lock.json'
     ].sort());

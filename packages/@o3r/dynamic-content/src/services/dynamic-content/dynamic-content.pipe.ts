@@ -1,5 +1,6 @@
 import {
   ChangeDetectorRef,
+  inject,
   OnDestroy,
   Pipe,
   PipeTransform,
@@ -16,6 +17,9 @@ import {
   pure: false
 })
 export class O3rDynamicContentPipe implements PipeTransform, OnDestroy {
+  protected readonly service = inject(DynamicContentService);
+  protected readonly cd = inject(ChangeDetectorRef);
+
   /** Last query value  */
   protected lastQuery?: string;
 
@@ -24,8 +28,6 @@ export class O3rDynamicContentPipe implements PipeTransform, OnDestroy {
 
   /** Path to the media */
   protected mediaPath = '';
-
-  constructor(protected readonly service: DynamicContentService, protected readonly cd: ChangeDetectorRef) {}
 
   /** @inheritDoc */
   public transform(query?: string) {

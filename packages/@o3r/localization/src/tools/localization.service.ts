@@ -1,7 +1,6 @@
 import {
-  Inject,
+  inject,
   Injectable,
-  Optional,
 } from '@angular/core';
 import {
   select,
@@ -43,6 +42,11 @@ import {
  */
 @Injectable()
 export class LocalizationService {
+  private readonly translateService = inject(TranslateService);
+  private readonly logger = inject(LoggerService);
+  private readonly configuration = inject<LocalizationConfiguration>(LOCALIZATION_CONFIGURATION_TOKEN);
+  private readonly store = inject<Store<LocalizationOverrideStore>>(Store, { optional: true });
+
   private readonly localeSplitIdentifier: string = '-';
 
   /**
@@ -60,12 +64,7 @@ export class LocalizationService {
    */
   public showKeys$ = this._showKeys$.asObservable();
 
-  constructor(
-    private readonly translateService: TranslateService,
-    private readonly logger: LoggerService,
-    @Inject(LOCALIZATION_CONFIGURATION_TOKEN) private readonly configuration: LocalizationConfiguration,
-    @Optional() private readonly store?: Store<LocalizationOverrideStore>
-  ) {
+  constructor() {
     this.configure();
     if (this.store) {
       this.keyMapping$ = this.store.pipe(

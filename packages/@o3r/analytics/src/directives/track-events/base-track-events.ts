@@ -1,6 +1,7 @@
 import {
   Directive,
   ElementRef,
+  inject,
   Renderer2,
 } from '@angular/core';
 import {
@@ -19,6 +20,10 @@ import {
 
 @Directive()
 export abstract class BaseTrackEvents {
+  private readonly el = inject(ElementRef);
+  private readonly trackEventsService = inject(EventTrackService);
+  private readonly renderer = inject(Renderer2);
+
   /**
    * Custom object to be stored when the click event is captured
    */
@@ -46,7 +51,7 @@ export abstract class BaseTrackEvents {
   /** Flag for the tracking mode */
   protected isTrackingActive = false;
 
-  protected constructor(protected el: ElementRef, protected trackEventsService: EventTrackService, protected renderer: Renderer2) {
+  constructor() {
     this.trackEventsService.uiTrackingActive$.pipe(takeUntilDestroyed()).subscribe((isActive) => {
       this.isTrackingActive = isActive;
       if (isActive) {

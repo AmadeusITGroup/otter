@@ -3,8 +3,15 @@
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": "src",
-    "target": "ES2020"
+    "target": "ES2020",
+    "moduleResolution": "bundler"
   },
-  "include": ["src/**/*.ts"],
-  "exclude": ["**/*.spec.ts", "src/builders/**/*.ts", "src/helpers/**/*.ts"]
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "**/*.spec.ts",
+    "src/builders/**/*.ts",
+    "src/helpers/**/*.ts"
+  ]
 }

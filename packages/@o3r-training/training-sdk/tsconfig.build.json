@@ -4,7 +4,7 @@
     "src/**/*.ts"
   ],
   "compilerOptions": {
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "noImplicitAny": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,

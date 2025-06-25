@@ -1,9 +1,7 @@
 import {
   DestroyRef,
   inject,
-  Inject,
   Injectable,
-  Optional,
 } from '@angular/core';
 import {
   takeUntilDestroyed,
@@ -42,15 +40,17 @@ import {
   providedIn: 'root'
 })
 export class RulesEngineDevtoolsMessageService implements DevtoolsServiceInterface {
+  private readonly rulesEngineDevtools = inject(OtterRulesEngineDevtools);
+  private readonly logger = inject(LoggerService);
+
   private readonly options: RulesEngineDevtoolsServiceOptions;
   private readonly forceEmitRulesEngineReport = new BehaviorSubject<void>(undefined);
   private readonly sendMessage = sendOtterMessage<AvailableRulesEngineMessageContents>;
   private readonly destroyRef = inject(DestroyRef);
 
-  constructor(
-    private readonly rulesEngineDevtools: OtterRulesEngineDevtools,
-    private readonly logger: LoggerService,
-    @Optional() @Inject(OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS) options?: RulesEngineDevtoolsServiceOptions) {
+  constructor() {
+    const options = inject<RulesEngineDevtoolsServiceOptions>(OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS, { optional: true });
+
     this.options = {
       ...OTTER_RULES_ENGINE_DEVTOOLS_DEFAULT_OPTIONS,
       ...options
