@@ -14,10 +14,11 @@ export const placeholderTemplateStorageDeserializer = (rawObject: any) => {
   if (!rawObject || !rawObject.ids) {
     return placeholderTemplateInitialState;
   }
-  const storeObject = placeholderTemplateAdapter.getInitialState(rawObject);
+  const storeObject: PlaceholderTemplateState = placeholderTemplateAdapter.getInitialState(rawObject);
   for (const id of rawObject.ids) {
     storeObject.entities[id] = rawObject.entities[id] as PlaceholderTemplateModel;
   }
+  storeObject.mode = rawObject.mode;
   return storeObject;
 };
 

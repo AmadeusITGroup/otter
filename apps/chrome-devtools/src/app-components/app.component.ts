@@ -5,6 +5,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  inject,
 } from '@angular/core';
 import {
   getAnalyticEvents as devkitGetAnalyticEvents,
@@ -104,6 +105,8 @@ function getSelectedComponentInfo(getTranslations: typeof devkitGetTranslations,
   ]
 })
 export class AppComponent {
+  private readonly cd = inject(ChangeDetectorRef);
+
   /** Configuration value stream */
   public config$: Observable<ConfigurationModel | undefined>;
 
@@ -116,11 +119,10 @@ export class AppComponent {
 
   public selectedComponentInfo$ = this.selectedComponentInfo.asObservable();
 
-  constructor(
-    connectionService: ChromeExtensionConnectionService,
-    rulesetHistoryService: RulesetHistoryService,
-    private readonly cd: ChangeDetectorRef
-  ) {
+  constructor() {
+    const connectionService = inject(ChromeExtensionConnectionService);
+    const rulesetHistoryService = inject(RulesetHistoryService);
+
     this.requestSelectedComponentInfo();
 
     chrome.devtools.panels.elements.onSelectionChanged.addListener(() => {

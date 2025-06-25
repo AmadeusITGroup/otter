@@ -46,6 +46,7 @@ export abstract class BaseTrackEvents {
   /** Flag for the tracking mode */
   protected isTrackingActive = false;
 
+  // eslint-disable-next-line @angular-eslint/prefer-inject -- class is extended by other directives
   protected constructor(protected el: ElementRef, protected trackEventsService: EventTrackService, protected renderer: Renderer2) {
     this.trackEventsService.uiTrackingActive$.pipe(takeUntilDestroyed()).subscribe((isActive) => {
       this.isTrackingActive = isActive;

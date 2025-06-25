@@ -1,8 +1,7 @@
 import {
   ApplicationRef,
-  Inject,
+  inject,
   Injectable,
-  Optional,
 } from '@angular/core';
 import {
   select,
@@ -44,13 +43,16 @@ import {
 
 @Injectable({ providedIn: 'root' })
 export class OtterConfigurationDevtools {
+  protected store = inject<Store<ConfigurationStore>>(Store);
+  private readonly appRef = inject(ApplicationRef);
+  private readonly options = inject<ConfigurationDevtoolsServiceOptions>(OTTER_CONFIGURATION_DEVTOOLS_OPTIONS, { optional: true });
+
   /** Stream of configurations */
   public readonly configurationEntities$: Observable<CustomConfig[]>;
 
-  constructor(
-    protected store: Store<ConfigurationStore>,
-    private readonly appRef: ApplicationRef,
-    @Optional() @Inject(OTTER_CONFIGURATION_DEVTOOLS_OPTIONS) private readonly options: ConfigurationDevtoolsServiceOptions) {
+  constructor() {
+    const options = this.options;
+
     this.options = { ...OTTER_CONFIGURATION_DEVTOOLS_DEFAULT_OPTIONS, ...options };
 
     /** Full configuration store */
@@ -61,7 +63,7 @@ export class OtterConfigurationDevtools {
           .filter((entity): entity is ConfigurationModel => !!entity)
           .map((entity) => {
             const { id, ...config } = entity;
-            const { library = this.options.defaultLibraryName, componentName: name = id } = parseConfigurationName(id) || {};
+            const { library = this.options!.defaultLibraryName, componentName: name = id } = parseConfigurationName(id) || {};
             return { name, config, library } satisfies CustomConfig;
           })
       ),
@@ -78,12 +80,12 @@ export class OtterConfigurationDevtools {
    */
   public getComponentConfigName(selector: string | { library?: string; componentName: string }, isFallbackName = false) {
     if (!isFallbackName) {
-      return typeof selector === 'string' ? selector : computeItemIdentifier(selector.componentName, selector.library || this.options.defaultLibraryName);
+      return typeof selector === 'string' ? selector : computeItemIdentifier(selector.componentName, selector.library || this.options!.defaultLibraryName);
     }
 
     return typeof selector === 'string'
-      ? computeItemIdentifier(selector, this.options.defaultLibraryName || 'global')
-      : computeItemIdentifier(selector.componentName, this.options.defaultLibraryName || 'global');
+      ? computeItemIdentifier(selector, this.options!.defaultLibraryName || 'global')
+      : computeItemIdentifier(selector.componentName, this.options!.defaultLibraryName || 'global');
   }
 
   /**

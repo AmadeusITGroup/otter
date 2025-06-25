@@ -6,6 +6,7 @@ import {
   existsSync,
   mkdirSync,
   readFileSync,
+  renameSync,
   rmSync,
 } from 'node:fs';
 import * as path from 'node:path';
@@ -161,6 +162,8 @@ export async function prepareTestEnv(folderName: string, options?: PrepareTestEn
       libraryPath = path.resolve(workspacePath, 'libs', libName);
       untouchedLibPath = path.resolve(workspacePath, 'libs', untouchedLib);
       isInWorkspace = true;
+      renameSync(path.join(untouchedAppPath, 'src', 'app', 'app.ts'), path.join(untouchedAppPath, 'src', 'app', 'app.component.ts'));
+      renameSync(path.join(applicationPath, 'src', 'app', 'app.ts'), path.join(applicationPath, 'src', 'app', 'app.component.ts'));
       break;
     }
 

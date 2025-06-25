@@ -40,9 +40,11 @@ const JSON_EXT = '.json';
  */
 @Injectable()
 export class TranslationsLoader implements TranslateLoader {
+  /* eslint-disable @angular-eslint/prefer-inject -- keep constructor parameters for overrides */
   constructor(@Inject(LOCALIZATION_CONFIGURATION_TOKEN) private readonly localizationConfiguration: LocalizationConfiguration,
     @Optional() private readonly logger?: LoggerService,
     @Optional() private readonly dynamicContentService?: DynamicContentService) {}
+  /* eslint-enable @angular-eslint/prefer-inject */
 
   /**
    * Download a language bundle file

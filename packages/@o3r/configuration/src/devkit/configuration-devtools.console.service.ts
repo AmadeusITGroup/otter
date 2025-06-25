@@ -1,8 +1,7 @@
 /* eslint-disable no-console -- service to log message in the console */
 import {
-  Inject,
+  inject,
   Injectable,
-  Optional,
 } from '@angular/core';
 import type {
   Configuration,
@@ -33,10 +32,12 @@ export class ConfigurationDevtoolsConsoleService implements DevtoolsServiceInter
   /** Name of the Window property to access to the devtools */
   public static readonly windowModuleName = 'configuration';
 
-  constructor(
-    private readonly configurationDevtools: OtterConfigurationDevtools,
-    @Optional() @Inject(OTTER_CONFIGURATION_DEVTOOLS_OPTIONS) private readonly options: ConfigurationDevtoolsServiceOptions
-  ) {
+  private readonly configurationDevtools = inject(OtterConfigurationDevtools);
+  private readonly options = inject<ConfigurationDevtoolsServiceOptions>(OTTER_CONFIGURATION_DEVTOOLS_OPTIONS, { optional: true });
+
+  constructor() {
+    const options = this.options;
+
     this.options = { ...OTTER_CONFIGURATION_DEVTOOLS_DEFAULT_OPTIONS, ...options };
 
     if (
@@ -50,7 +51,7 @@ export class ConfigurationDevtoolsConsoleService implements DevtoolsServiceInter
     }
   }
 
-  private downloadJSON(content: string, fileName: string = this.options.defaultJsonFilename): void {
+  private downloadJSON(content: string, fileName: string = this.options!.defaultJsonFilename): void {
     const a = document.createElement('a');
     const file = new Blob([content], { type: 'text/plain' });
     a.href = URL.createObjectURL(file);
@@ -111,7 +112,7 @@ export class ConfigurationDevtoolsConsoleService implements DevtoolsServiceInter
    * Download the JSON file of the whole configuration
    * @param fileName Name of the file to download
    */
-  public async saveConfiguration(fileName: string = this.options.defaultJsonFilename) {
+  public async saveConfiguration(fileName: string = this.options!.defaultJsonFilename) {
     const configs = await firstValueFrom(this.configurationDevtools.configurationEntities$);
     this.downloadJSON(JSON.stringify(configs), fileName);
   }
