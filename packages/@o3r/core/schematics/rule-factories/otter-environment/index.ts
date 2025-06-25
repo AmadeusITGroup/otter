@@ -31,7 +31,7 @@ const editTsConfigJson = (tree: Tree) => {
       if (tsConfig.compilerOptions.noPropertyAccessFromIndexSignature) {
         delete tsConfig.compilerOptions.noPropertyAccessFromIndexSignature;
       }
-      tsConfig.compilerOptions.moduleResolution = 'node';
+      tsConfig.compilerOptions.moduleResolution = tsConfig.compilerOptions.module === 'CommonJS' ? 'node' : 'bundler';
       tsConfig.compilerOptions.declaration = true;
     }
     tree.overwrite(tsConfigPath, JSON.stringify(tsConfig, null, 2));
@@ -84,8 +84,8 @@ export function updateOtterEnvironmentAdapter(
         }
       });
 
-      // override angular's dist/webapp output path with apps/webapp/dist
-      if (workspaceProject.architect?.build?.options?.outputPath) {
+      // override angular's dist/webapp output path with apps/webapp/dist or add default value if not provided
+      if (workspaceProject.architect?.build?.options) {
         workspaceProject.architect.build.options.outputPath = posix.join(workspaceProject.root, 'dist');
       }
 

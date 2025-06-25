@@ -77,6 +77,7 @@ import {
 } from '@o3r-training/showcase-sdk';
 import {
   CLIPBOARD_OPTIONS,
+  MARKED_EXTENSIONS,
   provideMarkdown,
 } from 'ngx-markdown';
 import {
@@ -188,7 +189,13 @@ export function localizationConfigurationFactory(): Partial<LocalizationConfigur
           buttonComponent: ClipboardButtonPresComponent
         }
       },
-      markedExtensions: [markedAlert()],
+      markedExtensions: [
+        {
+          provide: MARKED_EXTENSIONS,
+          useFactory: markedAlert,
+          multi: true
+        }
+      ],
       /* Templates are only internal, no need to sanitize */
       sanitize: SecurityContext.NONE
     }),

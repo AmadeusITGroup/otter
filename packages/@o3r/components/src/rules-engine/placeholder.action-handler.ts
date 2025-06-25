@@ -1,7 +1,7 @@
 import {
+  inject,
   Injectable,
   Injector,
-  Optional,
 } from '@angular/core';
 import {
   takeUntilDestroyed,
@@ -52,17 +52,18 @@ import {
  */
 @Injectable()
 export class PlaceholderRulesEngineActionHandler implements RulesEngineActionHandler<ActionUpdatePlaceholderBlock> {
+  private readonly logger = inject(LoggerService);
+  private readonly injector = inject(Injector);
+
   protected placeholdersActions$: Subject<{ placeholderId: string; templateUrl: string; priority: number }[]> = new Subject();
 
   /** @inheritdoc */
   public readonly supportingActions = [RULES_ENGINE_PLACEHOLDER_UPDATE_ACTION_TYPE] as const;
 
-  constructor(
-    store: Store<PlaceholderTemplateStore>,
-    private readonly logger: LoggerService,
-    private readonly injector: Injector,
-    @Optional() translateService?: LocalizationService
-  ) {
+  constructor() {
+    const store = inject<Store<PlaceholderTemplateStore>>(Store);
+    const translateService = inject(LocalizationService, { optional: true });
+
     const lang$ = translateService
       ? translateService.getTranslateService().onLangChange.pipe(
         map(({ lang }) => lang),

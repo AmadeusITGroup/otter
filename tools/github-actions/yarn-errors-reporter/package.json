@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
-    "@nx/eslint-plugin": "~20.8.0",
+    "@nx/eslint-plugin": "~21.2.0",
     "@o3r/eslint-config": "workspace:~",
     "@o3r/eslint-plugin": "workspace:~",
     "@o3r/test-helpers": "workspace:^",
@@ -32,7 +32,7 @@
     "@types/node": "^20.0.0",
     "@typescript-eslint/parser": "~8.35.0",
     "@vercel/ncc": "~0.38.0",
-    "angular-eslint": "~19.4.0",
+    "angular-eslint": "~20.1.0",
     "eslint": "~9.30.0",
     "eslint-plugin-import": "~2.32.0",
     "eslint-plugin-import-newlines": "~1.4.0",
@@ -51,6 +51,6 @@
     "typescript-eslint": "~8.35.0"
   },
   "engines": {
-    "node": "^20.11.1 || >=22.0.0"
+    "node": "^20.19.0 || ^22.12.0 || ^24.0.0"
   }
 }

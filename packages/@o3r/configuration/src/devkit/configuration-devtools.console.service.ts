@@ -1,8 +1,7 @@
 /* eslint-disable no-console -- service to log message in the console */
 import {
-  Inject,
+  inject,
   Injectable,
-  Optional,
 } from '@angular/core';
 import type {
   Configuration,
@@ -33,10 +32,12 @@ export class ConfigurationDevtoolsConsoleService implements DevtoolsServiceInter
   /** Name of the Window property to access to the devtools */
   public static readonly windowModuleName = 'configuration';
 
-  constructor(
-    private readonly configurationDevtools: OtterConfigurationDevtools,
-    @Optional() @Inject(OTTER_CONFIGURATION_DEVTOOLS_OPTIONS) private readonly options: ConfigurationDevtoolsServiceOptions
-  ) {
+  private readonly configurationDevtools = inject(OtterConfigurationDevtools);
+  private readonly options = inject<ConfigurationDevtoolsServiceOptions>(OTTER_CONFIGURATION_DEVTOOLS_OPTIONS, { optional: true }) ?? OTTER_CONFIGURATION_DEVTOOLS_DEFAULT_OPTIONS;
+
+  constructor() {
+    const options = this.options;
+
     this.options = { ...OTTER_CONFIGURATION_DEVTOOLS_DEFAULT_OPTIONS, ...options };
 
     if (
