@@ -121,6 +121,8 @@ export interface VariableGroup {
   ]
 })
 export class ThemingPanelPresComponent {
+  private readonly connectionService = inject(ChromeExtensionConnectionService);
+
   private readonly stateService = inject(StateService);
 
   public readonly activeStateName = computed(() => this.stateService.activeState()?.name);
@@ -144,9 +146,9 @@ export class ThemingPanelPresComponent {
   private readonly runtimeValues$ = this.form.controls.variables.valueChanges.pipe(startWith({}));
   private readonly runtimeValues = toSignal(this.runtimeValues$, { initialValue: {} });
 
-  constructor(
-    private readonly connectionService: ChromeExtensionConnectionService
-  ) {
+  constructor() {
+    const connectionService = this.connectionService;
+
     this.variables$ = connectionService.message$.pipe(
       filterAndMapMessage(
         (message): message is GetStylingVariableContentMessage => message.dataType === 'getStylingVariable',

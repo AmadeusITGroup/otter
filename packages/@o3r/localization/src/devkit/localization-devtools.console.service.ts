@@ -1,8 +1,7 @@
 /* eslint-disable no-console -- This is the purpose of this service */
 import {
-  Inject,
+  inject,
   Injectable,
-  Optional,
 } from '@angular/core';
 import type {
   ContextualizationDataset,
@@ -29,10 +28,10 @@ export class LocalizationDevtoolsConsoleService implements DevtoolsServiceInterf
   /** Name of the Window property to access to the devtools */
   public static readonly windowModuleName = 'localization';
 
-  constructor(
-    private readonly localizationDevtools: OtterLocalizationDevtools,
-    @Optional() @Inject(OTTER_LOCALIZATION_DEVTOOLS_OPTIONS) private readonly options: LocalizationDevtoolsServiceOptions = OTTER_LOCALIZATION_DEVTOOLS_DEFAULT_OPTIONS
-  ) {
+  private readonly localizationDevtools = inject(OtterLocalizationDevtools);
+  private readonly options = inject<LocalizationDevtoolsServiceOptions>(OTTER_LOCALIZATION_DEVTOOLS_OPTIONS, { optional: true }) ?? OTTER_LOCALIZATION_DEVTOOLS_DEFAULT_OPTIONS;
+
+  constructor() {
     if (
       this.options.isActivatedOnBootstrap
       || (

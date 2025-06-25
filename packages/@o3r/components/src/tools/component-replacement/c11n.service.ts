@@ -1,5 +1,5 @@
 import {
-  Inject,
+  inject,
   Injectable,
   Type,
 } from '@angular/core';
@@ -22,7 +22,9 @@ import {
 export class C11nService {
   private readonly presentersMap: Map<string, any>;
 
-  constructor(@Inject(C11N_PRESENTERS_MAP_TOKEN) presentersMap: Map<string, any>) {
+  constructor() {
+    const presentersMap = inject<Map<string, any>>(C11N_PRESENTERS_MAP_TOKEN);
+
     this.presentersMap = presentersMap;
   }
 

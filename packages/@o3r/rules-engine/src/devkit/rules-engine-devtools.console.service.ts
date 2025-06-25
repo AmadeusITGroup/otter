@@ -1,8 +1,7 @@
 /* eslint-disable no-console -- purpose of the service is to log in the console */
 import {
-  Inject,
+  inject,
   Injectable,
-  Optional,
 } from '@angular/core';
 import type {
   DevtoolsServiceInterface,
@@ -26,12 +25,13 @@ export class RulesEngineDevtoolsConsoleService implements DevtoolsServiceInterfa
   /** Name of the Window property to access to the devtools */
   public static readonly windowModuleName = 'rulesEngine';
 
+  private readonly rulesEngineDevtools = inject(OtterRulesEngineDevtools);
+
   private readonly options: RulesEngineDevtoolsServiceOptions;
 
-  constructor(
-    private readonly rulesEngineDevtools: OtterRulesEngineDevtools,
-    @Optional() @Inject(OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS) options?: RulesEngineDevtoolsServiceOptions
-  ) {
+  constructor() {
+    const options = inject<RulesEngineDevtoolsServiceOptions>(OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS, { optional: true });
+
     this.options = {
       ...OTTER_RULES_ENGINE_DEVTOOLS_DEFAULT_OPTIONS,
       ...options

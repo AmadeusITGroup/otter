@@ -1,8 +1,7 @@
 import {
-  Inject,
+  inject,
   Injectable,
   InjectionToken,
-  Optional,
 } from '@angular/core';
 import {
   TranslateCompiler,
@@ -52,7 +51,9 @@ export class TranslateMessageFormatLazyCompiler extends TranslateCompiler {
   /** Cache of compiled translations */
   private cache: { [x: string]: IntlMessageFormat } = {};
 
-  constructor(@Optional() @Inject(MESSAGE_FORMAT_CONFIG) config?: LazyMessageFormatConfig) {
+  constructor() {
+    const config = inject<LazyMessageFormatConfig>(MESSAGE_FORMAT_CONFIG, { optional: true });
+
     super();
 
     this.config = config ? { ...lazyMessageDefaultConfig, ...config } : lazyMessageDefaultConfig;
