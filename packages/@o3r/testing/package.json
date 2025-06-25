@@ -111,7 +111,7 @@
     "@angular/platform-browser": "^19.0.0",
     "@material/slider": "^14.0.0",
     "@ngrx/store": "^19.0.0",
-    "@ngx-translate/core": "~16.0.4",
+    "@ngx-translate/core": "^15.0.0 || ~16.0.4",
     "@o3r/core": "workspace:^",
     "@o3r/localization": "workspace:^",
     "@o3r/schematics": "workspace:^",
