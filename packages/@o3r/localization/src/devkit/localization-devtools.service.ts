@@ -6,9 +6,7 @@ import {
   TranslateCompiler,
 } from '@ngx-translate/core';
 import {
-  firstValueFrom,
-  lastValueFrom,
-  Subscription,
+  lastValueFrom, Subscription,
 } from 'rxjs';
 import type {
   TranslateMessageFormatLazyCompiler,
@@ -80,10 +78,9 @@ export class OtterLocalizationDevtools {
    * @param keyValues key/values to update
    * @param language if not provided, the current language value
    */
-  public async updateLocalizationKeys(keyValues: { [key: string]: string }, language?: string) {
+  public updateLocalizationKeys(keyValues: { [key: string]: string }, language?: string): void | Promise<void> {
     const lang = language || this.getCurrentLanguage();
     const translateService = this.localizationService.getTranslateService();
-    await firstValueFrom(translateService.getTranslation(lang));
     Object.entries(keyValues).forEach(([key, value]) => {
       translateService.set(key, value, lang);
     });
