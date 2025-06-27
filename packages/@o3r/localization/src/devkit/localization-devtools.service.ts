@@ -1,12 +1,11 @@
 import { ApplicationRef, Injectable } from '@angular/core';
 import { TranslateCompiler } from '@ngx-translate/core';
-import {firstValueFrom, lastValueFrom, Subscription} from 'rxjs';
+import {lastValueFrom, Subscription} from 'rxjs';
 import { LocalizationService } from '../tools';
 import type { TranslateMessageFormatLazyCompiler } from '../core';
 
 @Injectable()
 export class OtterLocalizationDevtools {
-
   constructor(
     private readonly localizationService: LocalizationService,
     private readonly translateCompiler: TranslateCompiler,
@@ -65,10 +64,9 @@ export class OtterLocalizationDevtools {
    * @param keyValues key/values to update
    * @param language if not provided, the current language value
    */
-  public async updateLocalizationKeys(keyValues: { [key: string]: string }, language?: string) {
+  public updateLocalizationKeys(keyValues: { [key: string]: string }, language?: string): void | Promise<void> {
     const lang = language || this.getCurrentLanguage();
     const translateService = this.localizationService.getTranslateService();
-    await firstValueFrom(translateService.getTranslation(lang));
     Object.entries(keyValues).forEach(([key, value]) => {
       translateService.set(key, value, lang);
     });
