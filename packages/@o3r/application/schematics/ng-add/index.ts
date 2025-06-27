@@ -10,6 +10,9 @@ import {
 import {
   addRootImport,
 } from '@schematics/angular/utility';
+import type {
+  PackageJson,
+} from 'type-fest';
 import {
   registerDevtools,
 } from './helpers/devtools-registration';
@@ -25,6 +28,21 @@ Otherwise, use the error message as guidance.`);
 };
 
 /**
+ * List of external dependencies to be added to the project as peer dependencies
+ */
+const dependenciesToInstall = [
+  '@angular/common',
+  '@angular/core',
+  'rxjs'
+];
+
+/**
+ * List of external dependencies to be added to the project as dev dependencies
+ */
+const devDependenciesToInstall: string[] = [
+];
+
+/**
  * Add Otter application to an Angular Project
  * @param options The options to pass to ng-add execution
  */
@@ -33,6 +51,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
   return async (tree: Tree, context: SchematicContext) => {
     const {
       getAppModuleFilePath,
+      getExternalDependenciesInfo,
       getWorkspaceConfig,
       insertImportToModuleFile,
       setupDependencies,
@@ -111,11 +130,24 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       return acc;
     }, getPackageInstallConfig(packageJsonPath, tree, options.projectName, false, !!options.exactO3rVersion));
 
+    const projectDirectory = workspaceProject?.root || '.';
+    const projectPackageJson = tree.readJson(path.posix.join(projectDirectory, 'package.json')) as PackageJson;
+
+    const externalDependenciesInfo = getExternalDependenciesInfo({
+      devDependenciesToInstall,
+      dependenciesToInstall,
+      projectType: workspaceProject?.projectType,
+      o3rPackageJsonPath: packageJsonPath,
+      projectPackageJson
+    },
+    context.logger
+    );
+
     const registerDevtoolRule = await registerDevtools(options);
     return () => chain([
       setupDependencies({
         projectName: options.projectName,
-        dependencies,
+        dependencies: { ...dependencies, ...externalDependenciesInfo },
         ngAddToRun: depsInfo.o3rPeerDeps
       }),
       addAngularAnimationPreferences,

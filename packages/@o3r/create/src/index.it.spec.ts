@@ -50,8 +50,7 @@ describe('Create new otter project command', () => {
     expect(() => packageManagerRunOnProject(appName, true, { script: 'build' }, execInAppOptions)).not.toThrow();
   });
 
-  // eslint-disable-next-line jest/no-disabled-tests -- Re-activate once https://github.com/AmadeusITGroup/otter/issues/3113 is fixed
-  test.skip('should generate a project with preset all', async () => {
+  test('should generate a project with preset all', async () => {
     const { workspacePath, packageManagerConfig, o3rVersion } = o3rEnvironment.testEnvironment;
     const inProjectPath = path.join(workspacePath, workspaceProjectName);
     const execWorkspaceOptions = { ...defaultExecOptions, cwd: workspacePath };
@@ -80,8 +79,41 @@ describe('Create new otter project command', () => {
     expect(() => packageManagerRunOnProject(appName, true, { script: 'build' }, execInAppOptions)).not.toThrow();
   });
 
-  // eslint-disable-next-line jest/no-disabled-tests -- Re-activate once https://github.com/AmadeusITGroup/otter/issues/3113 is fixed
-  test.skip('should generate a project with preset cms', async () => {
+  test('should generate a project with default preset (recommended)', async () => {
+    const { workspacePath, packageManagerConfig, o3rVersion } = o3rEnvironment.testEnvironment;
+    const inProjectPath = path.join(workspacePath, workspaceProjectName);
+    const execWorkspaceOptions = { ...defaultExecOptions, cwd: workspacePath };
+    const execInAppOptions = { ...defaultExecOptions, cwd: inProjectPath };
+    const createOptions = [
+      '--package-manager', getPackageManager(),
+      '--skip-confirmation',
+      ...(packageManagerConfig.yarnVersion ? ['--yarn-version', packageManagerConfig.yarnVersion] : [])];
+
+    // TODO: remove it when fixing #1356
+    await fs.mkdir(inProjectPath, { recursive: true });
+    setPackagerManagerConfig(packageManagerConfig, execInAppOptions);
+
+    expect(() => packageManagerCreate({ script: `@o3r@${o3rVersion}`, args: [workspaceProjectName, ...createOptions] }, execWorkspaceOptions, 'npm')).not.toThrow();
+    expect(existsSync(path.join(inProjectPath, 'angular.json'))).toBe(true);
+
+    const rootPackageJsonPath = path.join(inProjectPath, 'package.json');
+    expect(existsSync(rootPackageJsonPath)).toBe(true);
+    expect(() => packageManagerInstall(execInAppOptions)).not.toThrow();
+    expect(JSON.parse(await fs.readFile(rootPackageJsonPath, 'utf8'))).not.toContain('@o3r/testing');
+
+    const appName = 'test-application';
+    const inApplicationPath = path.join(inProjectPath, 'apps', appName);
+    expect(() => packageManagerExec({ script: 'ng', args: ['g', 'application', appName] }, execInAppOptions)).not.toThrow();
+    expect(existsSync(path.join(inProjectPath, 'project'))).toBe(false);
+
+    const appPackageJsonPath = path.join(inApplicationPath, 'package.json');
+    expect(existsSync(appPackageJsonPath)).toBe(true);
+    expect(JSON.parse(await fs.readFile(appPackageJsonPath, 'utf8'))).not.toContain('@o3r/testing');
+    expect(existsSync(path.join(inApplicationPath, 'tsconfig.json'))).toBe(true);
+    expect(() => packageManagerRunOnProject(appName, true, { script: 'build' }, execInAppOptions)).not.toThrow();
+  });
+
+  test('should generate a project with preset cms', async () => {
     const { workspacePath, packageManagerConfig, o3rVersion } = o3rEnvironment.testEnvironment;
     const inProjectPath = path.join(workspacePath, workspaceProjectName);
     const execWorkspaceOptions = { ...defaultExecOptions, cwd: workspacePath };
@@ -167,8 +199,7 @@ describe('Create new otter project command', () => {
     });
   });
 
-  // eslint-disable-next-line jest/no-disabled-tests -- Re-activate once https://github.com/AmadeusITGroup/otter/issues/3113 is fixed
-  test.skip('should generate a project with an application, with --exact-o3r-version and preset cms', async () => {
+  test('should generate a project with an application, with --exact-o3r-version and preset cms', async () => {
     const { workspacePath, packageManagerConfig, o3rExactVersion } = o3rEnvironment.testEnvironment;
     const inProjectPath = path.join(workspacePath, workspaceProjectName);
     const execWorkspaceOptions = { ...defaultExecOptions, cwd: workspacePath };

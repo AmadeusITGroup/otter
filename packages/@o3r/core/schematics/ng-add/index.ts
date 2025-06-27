@@ -81,8 +81,10 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
     return chain([
       setupSchematicsParamsForProject({ '*:ng-add': { registerDevtool: options.withDevtool } }, options.projectName),
       options.exactO3rVersion ? setupSchematicsParamsForProject({ '*:*': { exactO3rVersion: true } }, options.projectName) : noop(),
+      // Warning: this should always be executed before the setup dependencies as it modifies the options.dependencies
       options.projectName ? prepareProject(options, dependenciesSetupConfig) : noop(),
       registerPackageCollectionSchematics(corePackageJsonContent),
+      setupDependencies(dependenciesSetupConfig),
       async (t, c) => {
         const { preset, externalPresets, ...forwardOptions } = options;
         const presetOptions = { projectName: forwardOptions.projectName, exactO3rVersion: forwardOptions.exactO3rVersion, forwardOptions };
@@ -100,8 +102,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
           externalPresetRunner?.rule || noop()
         ])(t, c);
       },
-      options.projectName ? displayModuleListRule({ packageName: options.projectName }) : noop(),
-      setupDependencies(dependenciesSetupConfig)
+      options.projectName ? displayModuleListRule({ packageName: options.projectName }) : noop()
     ]);
   };
 }

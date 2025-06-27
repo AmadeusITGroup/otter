@@ -32,6 +32,9 @@
     "build:fixtures:jasmine": "tsc -b tsconfig.fixture.jasmine.json --pretty",
     "prepare:publish": "prepare-publish ./dist"
   },
+  "generatorDependencies": {
+    "jsonpath-plus": "~10.3.0"
+  },
   "peerDependencies": {
     "@angular-devkit/architect": ">=0.1900.0 <0.2000.0-0",
     "@angular-devkit/core": "^19.0.0",
@@ -54,6 +57,7 @@
     "jsonpath-plus": "^9.0.0 || ^10.0.0",
     "rxjs": "^7.8.1",
     "ts-node": "~10.9.2",
+    "type-fest": "^4.30.0",
     "typescript": "^5.5.4",
     "typescript-json-schema": "^0.65.0"
   },
@@ -77,6 +81,9 @@
       "optional": true
     },
     "jasmine": {
+      "optional": true
+    },
+    "type-fest": {
       "optional": true
     },
     "typescript": {
@@ -153,7 +160,7 @@
     "jest-junit": "~16.0.0",
     "jest-preset-angular": "~14.5.0",
     "jsonc-eslint-parser": "~2.4.0",
-    "jsonpath-plus": "~10.2.0",
+    "jsonpath-plus": "~10.3.0",
     "memfs": "~4.17.0",
     "nx": "~20.2.0",
     "pid-from-port": "^1.1.3",
