@@ -3,6 +3,7 @@ import {
 } from '@angular/common';
 import {
   ChangeDetectorRef,
+  inject,
   OnDestroy,
   Pipe,
   PipeTransform,
@@ -23,10 +24,17 @@ import {
   standalone: false
 })
 export class LocalizedDatePipe extends DatePipe implements OnDestroy, PipeTransform {
+  private readonly localizationService: LocalizationService;
+  private readonly changeDetectorRef = inject(ChangeDetectorRef);
+
   private readonly onLangChange: Subscription;
 
-  constructor(private readonly localizationService: LocalizationService, private readonly changeDetectorRef: ChangeDetectorRef) {
+  constructor() {
+    const localizationService = inject(LocalizationService);
+
     super(localizationService.getCurrentLanguage());
+    this.localizationService = localizationService;
+
     this.onLangChange = this.localizationService.getTranslateService().onLangChange.subscribe(() =>
       this.changeDetectorRef.markForCheck()
     );

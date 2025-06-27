@@ -4,8 +4,14 @@
     "incremental": true,
     "composite": true,
     "tsBuildInfoFile": "build/.tsbuildinfo",
-    "lib": ["es5", "es6", "scripthost"],
-    "types": ["node"],
+    "lib": [
+      "es5",
+      "es6",
+      "scripthost"
+    ],
+    "types": [
+      "node"
+    ],
     "outDir": "dist",
     "module": "node16",
     "moduleResolution": "node16"

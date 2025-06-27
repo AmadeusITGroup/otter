@@ -1,6 +1,7 @@
 import {
   Directive,
   ElementRef,
+  inject,
   Input,
   OnInit,
   Renderer2,
@@ -49,7 +50,11 @@ export class TrackClickDirective extends BaseTrackEvents implements OnInit {
    */
   @Input() public trackEventContextConstructorParameters?: ConstructorAnalyticsEventParameters;
 
-  constructor(el: ElementRef, trackEventsService: EventTrackService, renderer: Renderer2) {
+  constructor() {
+    const el = inject(ElementRef);
+    const trackEventsService = inject(EventTrackService);
+    const renderer = inject(Renderer2);
+
     super(el, trackEventsService, renderer);
   }
 

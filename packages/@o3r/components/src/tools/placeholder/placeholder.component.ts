@@ -61,6 +61,9 @@ import {
   standalone: false
 })
 export class PlaceholderComponent implements OnInit, OnDestroy, AfterViewChecked {
+  private readonly store = inject<Store<PlaceholderTemplateStore>>(Store);
+  private readonly cd = inject(ChangeDetectorRef);
+
   public readonly id$ = new BehaviorSubject<string | undefined>(undefined);
 
   private readonly afterViewInit$ = new Subject<void>();
@@ -83,7 +86,7 @@ export class PlaceholderComponent implements OnInit, OnDestroy, AfterViewChecked
     this.id$.next(value);
   }
 
-  constructor(private readonly store: Store<PlaceholderTemplateStore>, private readonly cd: ChangeDetectorRef) {
+  constructor() {
     this.mode = this.store.selectSignal(selectPlaceholderTemplateMode);
   }
 

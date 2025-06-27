@@ -1,7 +1,5 @@
 import {
   DOCUMENT,
-} from '@angular/common';
-import {
   inject,
   Injectable,
 } from '@angular/core';

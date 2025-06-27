@@ -1,4 +1,5 @@
 import {
+  inject,
   Injectable,
 } from '@angular/core';
 import {
@@ -21,10 +22,10 @@ import {
  */
 @Injectable()
 export class LocalizationRulesEngineActionHandler implements RulesEngineActionHandler<ActionUpdateLocalisationBlock> {
+  private readonly store = inject<Store<LocalizationOverrideStore>>(Store);
+
   /** @inheritdoc */
   public readonly supportingActions = [RULES_ENGINE_LOCALISATION_UPDATE_ACTION_TYPE] as const;
-
-  constructor(private readonly store: Store<LocalizationOverrideStore>) {}
 
   /** @inheritdoc */
   public executeActions(actions: ActionUpdateLocalisationBlock[]): void | Promise<void> {
