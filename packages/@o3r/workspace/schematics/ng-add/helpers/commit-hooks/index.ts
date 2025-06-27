@@ -19,17 +19,6 @@ import type {
   PackageJson,
 } from 'type-fest';
 
-/** Dev Dependencies to install to setup Commit hooks */
-export const commitHookDevDependencies = [
-  'husky',
-  'lint-staged',
-  'editorconfig-checker',
-  '@commitlint/cli',
-  '@commitlint/config-angular',
-  '@commitlint/config-conventional',
-  '@commitlint/types'
-];
-
 /**
  * Retrieve the task callback function to initialization the commit hooks
  * @param context

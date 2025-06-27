@@ -4,9 +4,9 @@ import {
   noop,
   Rule,
 } from '@angular-devkit/schematics';
-import {
-  NodeDependencyType,
-} from '@schematics/angular/utility/dependencies';
+import type {
+  PackageJson,
+} from 'type-fest';
 import {
   mapMigrationFromCoreImports,
 } from './migration/import-map';
@@ -14,8 +14,17 @@ import type {
   NgAddSchematicsSchema,
 } from './schema';
 
-const devDependenciesToInstall: string[] = [
+/**
+ * List of external dependencies to be added to the project as peer dependencies
+ */
+const dependenciesToInstall = [
+  'rxjs'
+];
 
+/**
+ * List of external dependencies to be added to the project as dev dependencies
+ */
+const devDependenciesToInstall: string[] = [
 ];
 
 const reportMissingSchematicsDep = (logger: { error: (message: string) => any }) => (reason: any) => {
@@ -39,7 +48,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       getO3rPeerDeps,
       getProjectNewDependenciesTypes,
       getWorkspaceConfig,
-      getExternalDependenciesVersionRange,
+      getExternalDependenciesInfo,
       updateImports
     } = await import('@o3r/schematics');
 
@@ -57,15 +66,17 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       };
       return acc;
     }, getPackageInstallConfig(packageJsonPath, tree, options.projectName, false, !!options.exactO3rVersion));
-    Object.entries(getExternalDependenciesVersionRange(devDependenciesToInstall, packageJsonPath, context.logger))
-      .forEach(([dep, range]) => {
-        dependencies[dep] = {
-          inManifest: [{
-            range,
-            types: [NodeDependencyType.Dev]
-          }]
-        };
-      });
+    const projectDirectory = workspaceProject?.root || '.';
+    const projectPackageJson = tree.readJson(path.posix.join(projectDirectory, 'package.json')) as PackageJson;
+    const externalDependenciesInfo = getExternalDependenciesInfo({
+      devDependenciesToInstall,
+      dependenciesToInstall,
+      projectType: workspaceProject?.projectType,
+      o3rPackageJsonPath: packageJsonPath,
+      projectPackageJson
+    },
+    context.logger
+    );
 
     return chain([
       // optional custom action dedicated to this module
@@ -73,7 +84,10 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       // add the missing Otter modules in the current project
       setupDependencies({
         projectName: options.projectName,
-        dependencies,
+        dependencies: {
+          ...dependencies,
+          ...externalDependenciesInfo
+        },
         ngAddToRun: depsInfo.o3rPeerDeps
       }),
 
