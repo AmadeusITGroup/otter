@@ -110,8 +110,6 @@ describe('ng add eslint-config', () => {
     }, null, 2));
     initialTree.create(path.join('project-test', 'package.json'), emptyPackageJson);
 
-    initialTree.create(path.join('project-test', 'package.json'), emptyPackageJson);
-
     await runner.runSchematic('ng-add', { projectName: 'project-test' }, initialTree);
     expect(setupDependenciesMock).toHaveBeenCalled();
     expect(updateVscodeMock).toHaveBeenCalled();
