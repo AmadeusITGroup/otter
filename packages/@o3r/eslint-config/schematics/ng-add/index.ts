@@ -62,8 +62,6 @@ const devDependenciesToInstall = [
   'typescript-eslint',
   // TODO: reactivate once https://github.com/nirtamir2/eslint-plugin-sort-export-all/issues/18 is fixed
   // 'eslint-plugin-sort-export-all',
-  // TODO could be removed once #2482 is fixed
-  'yaml-eslint-parser'
 ];
 
 const handleOtterEslintErrors = (projectName: string): Rule => (tree, context) => {

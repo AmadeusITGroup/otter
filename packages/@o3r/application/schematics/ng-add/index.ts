@@ -21,9 +21,6 @@ import {
 import {
   addRootImport,
 } from '@schematics/angular/utility';
-import type {
-  PackageJson,
-} from 'type-fest';
 import {
   registerDevtools,
 } from './helpers/devtools-registration';
