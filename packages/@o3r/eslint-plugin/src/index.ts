@@ -40,21 +40,6 @@ module.exports = {
       }
     },
 
-    // deprecated: should use `angular-template-recommended` instead. Will be removed in v13.
-    'template-recommended': {
-      rules: {
-        '@o3r/no-folder-import-for-module': 'error',
-        '@o3r/template-async-number-limitation': 'warn'
-      }
-    },
-
-    // deprecated: should use `monorepo-recommended` instead. Will be removed in v13.
-    'json-recommended': {
-      rules: {
-        '@o3r/json-dependency-versions-harmonize': 'error'
-      }
-    },
-
     'angular-template-recommended': {
       rules: {
         '@o3r/no-inner-html': 'off',

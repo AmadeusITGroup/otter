@@ -58,6 +58,9 @@ export class RulesEngineRunnerService {
   /** Rulesets to restrict the execution of the engine */
   protected ruleSets$: Observable<string[] | undefined>;
 
+  /** List of action handlers */
+  protected readonly actionHandlers = new Set<RulesEngineActionHandler>();
+
   /** Observable of component linked to the component */
   protected linkedComponents$: BehaviorSubject<{ [key: string]: number }> = new BehaviorSubject({});
 
@@ -69,12 +72,6 @@ export class RulesEngineRunnerService {
 
   /** Enable action execution on new state change */
   public enabled: boolean;
-
-  /**
-   * List of action handlers
-   * @deprecated will become protected in Otter v13, instead use {@link registerActionHandlers}
-   */
-  public readonly actionHandlers = new Set<RulesEngineActionHandler>();
 
   constructor(
     private readonly store: Store<RulesetsStore>,

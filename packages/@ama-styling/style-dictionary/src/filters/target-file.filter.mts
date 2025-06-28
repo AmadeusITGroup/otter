@@ -20,31 +20,13 @@ interface TargetFileOptions {
   defaultFile?: string;
 }
 
-/**
- * Legacy configuration to support inputs from @o3r/design templates
- * @deprecated Should prefer simple string to specify the target file, will be removed in v13
- */
-interface LegacyFileConfig extends FileRuleNode {
-  /** Extensions node in token */
-  $extensions: {
-    /** Indicate the file where to generate the token */
-    o3rTargetFile: string;
-  };
-}
-
 /** Mapping of the Design Tokens to a given file */
 export interface FileRuleNode {
   /** Indicate the file where to generate the token */
-  [path: string]: string | FileRuleNode | LegacyFileConfig;
+  [path: string]: string | FileRuleNode;
 }
 
-const isLegacyConfig = (config: FileRuleNode): config is LegacyFileConfig => typeof (config.$extensions as any)?.o3rTargetFile === 'string';
-
 const getPathMap = (rule: FileRuleNode, path: string[] = [], map: Map<string, string[][]> = new Map()): Map<string, string[][]> => {
-  if (isLegacyConfig(rule)) {
-    map.set(rule.$extensions.o3rTargetFile, [...(map.get(rule.$extensions.o3rTargetFile) || []), path]);
-    return map;
-  }
   return Object.entries(rule)
     .filter(([name]) => name !== '$extensions')
     .reduce((acc, [name, value]) => {

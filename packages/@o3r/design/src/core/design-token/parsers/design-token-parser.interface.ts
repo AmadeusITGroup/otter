@@ -47,22 +47,6 @@ export type TokenReferenceRenderer = (tokenStructure: DesignTokenVariableStructu
 export type UnregisteredTokenReferenceRenderer = (referenceName: string, variableSet: Map<string, DesignTokenVariableStructure>) => string;
 
 /**
- * Function rendering the Design Token reference not registered
- * @param referenceName Name of the un registered variable
- * @param variableSet Complete list of the parsed Design Token
- * @deprecated duplicate of {@link UnregisteredTokenReferenceRender}, will be removed on v13
- */
-export type UnregisteredTokenReferenceRender = (referenceName: string, variableSet: Map<string, DesignTokenVariableStructure>) => string;
-
-/**
- * Function rendering the Design Token reference
- * @param tokenStructure Parsed Design Token
- * @param variableSet Complete list of the parsed Design Token
- * @deprecated duplicate of {@link TokenReferenceRenderer}, will be removed on v13
- */
-export type TokenReferenceRender = (tokenStructure: DesignTokenVariableStructure, variableSet: Map<string, DesignTokenVariableStructure>) => string;
-
-/**
  * Function rendering the Design Token Key
  * @param tokenStructure Parsed Design Token
  */

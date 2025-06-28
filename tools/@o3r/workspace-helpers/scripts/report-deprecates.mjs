@@ -193,7 +193,7 @@ The following items are **deprecated** and **will be removed** in the version **
       reports
         .sort(({ node }, report) => node.localeCompare(report.node))
         .forEach(({ node, deprecationInfo }) => {
-          const message = deprecationInfo.replace(new RegExp(`[, ]*(?:it )?will be removed in (:?otter ?)?v${removalTargetVersion}[,.\\s]*`, 'i'), '').trim();
+          const message = deprecationInfo.replace(new RegExp(`[, ]*(?:it |this module )?will be removed in (:?otter ?)?v${removalTargetVersion}[,.\\s]*`, 'i'), '').trim();
           template += `- \`${node}\` is deprecated.` + (message ? `</br>Note: *${formatNoteMessage(message)}*` : '') + '\n';
         });
     });

@@ -76,14 +76,7 @@ export const createBuilderWithMetrics: BuilderWrapper = (builderFn, sendData = d
         (options as any).o3rMetrics
         ?? ((process.env.O3R_METRICS || '').length > 0 ? process.env.O3R_METRICS !== 'false' : undefined)
         ?? packageJson.config?.o3r?.telemetry
-        ?? packageJson.config?.o3rMetrics // deprecated will be removed in v13
       );
-      if (typeof packageJson.config?.o3rMetrics !== 'undefined') {
-        context.logger.warn([
-          '`config.o3rMetrics` is deprecated and will be removed in v13, please use `config.o3r.telemetry` instead.',
-          'You can run `ng update @o3r/telemetry` to have the automatic update.'
-        ].join('\n'));
-      }
       if (shouldSendData) {
         if (typeof ((options as any).o3rMetrics ?? process.env.O3R_METRICS) === 'undefined') {
           context.logger.info(

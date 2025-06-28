@@ -5,6 +5,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  DestroyRef,
   effect,
   inject,
   type Signal,
@@ -65,6 +66,7 @@ export class LocalizationPanelPresComponent {
   private readonly connectionService = inject(ChromeExtensionConnectionService);
   private readonly localizationService = inject(LocalizationService);
   private readonly stateService = inject(StateService);
+  private readonly destroyRef = inject(DestroyRef);
   private readonly maxItemDisplayed = 20;
 
   public readonly isTranslationDeactivationEnabled = this.localizationService.isTranslationDeactivationEnabled;
@@ -185,7 +187,7 @@ export class LocalizationPanelPresComponent {
       const newControl = new FormControl<string>(controlValue);
       langControl.addControl(key, newControl);
       newControl.valueChanges.pipe(
-        takeUntilDestroyed(),
+        takeUntilDestroyed(this.destroyRef),
         throttleTime(THROTTLE_TIME, undefined, { trailing: true })
       ).subscribe((newValue) => {
         this.onLocalizationChange(key, newValue ?? '');

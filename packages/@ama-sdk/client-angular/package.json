@@ -16,9 +16,6 @@
     },
     ".": {
       "module": "./dist/src/public_api.js",
-      "esm2020": "./dist/src/public_api.js",
-      "esm2015": "./dist/esm2015/public_api.js",
-      "es2020": "./dist/cjs/public_api.js",
       "default": "./dist/cjs/public_api.js",
       "typings": "./dist/src/public_api.d.ts",
       "import": "./dist/src/public_api.js",
@@ -104,7 +101,7 @@
     "eslint": "~9.29.0",
     "eslint-import-resolver-node": "~0.3.9",
     "eslint-import-resolver-typescript": "~3.10.0",
-    "eslint-plugin-import": "~2.31.0",
+    "eslint-plugin-import": "~2.32.0",
     "eslint-plugin-import-newlines": "~1.4.0",
     "eslint-plugin-jest": "~28.14.0",
     "eslint-plugin-jsdoc": "~50.8.0",

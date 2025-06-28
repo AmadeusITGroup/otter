@@ -20,11 +20,10 @@ describe('getTargetFiles', () => {
     expect(results[0].destination).toBe(resolve(rootPath, 'file.css'));
   });
 
-  test('should support $extensions for legacy configuration', () => {
+  test('should not support $extensions for legacy configuration anymore', () => {
     const rootPath = '/root/path';
     const results = getTargetFiles({ example: { $extensions: { o3rTargetFile: 'file.css', toIgnore: 'otherFile.css' } } }, { rootPath });
-    expect(results).toHaveLength(1);
-    expect(results[0].destination).toBe(resolve(rootPath, 'file.css'));
+    expect(results).toHaveLength(0);
   });
 
   test('should regroup files from different rules', () => {
