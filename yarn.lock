@@ -7575,6 +7575,8 @@ __metadata:
       optional: true
     "@o3r/schematics":
       optional: true
+    "@o3r/testing":
+      optional: true
     type-fest:
       optional: true
     typescript:
@@ -7938,7 +7940,6 @@ __metadata:
     "@o3r/logger": "workspace:^"
     "@o3r/rules-engine": "workspace:^"
     "@o3r/schematics": "workspace:^"
-    "@o3r/testing": "workspace:^"
     "@schematics/angular": ^19.0.0
     "@yarnpkg/cli": ^4.0.0
     "@yarnpkg/core": ^4.1.1
@@ -8078,7 +8079,6 @@ __metadata:
     "@o3r/core": "workspace:^"
     "@o3r/logger": "workspace:^"
     "@o3r/schematics": "workspace:^"
-    "@o3r/testing": "workspace:^"
     "@schematics/angular": ^19.0.0
     cheerio: ^1.0.0-rc.10
     express-interceptor: ^1.2.0
