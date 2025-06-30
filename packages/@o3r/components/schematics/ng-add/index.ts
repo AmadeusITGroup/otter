@@ -7,6 +7,9 @@ import {
   Tree,
 } from '@angular-devkit/schematics';
 import {
+  setupSchematicsParamsForProject,
+} from '@o3r/schematics';
+import {
   PackageJson,
 } from 'type-fest';
 import {
@@ -109,6 +112,11 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
         ngAddToRun: o3rPeerDeps.o3rPeerDeps
       }),
       registerPackageCollectionSchematics(o3rPackageJson),
+      setupSchematicsParamsForProject({
+        '@o3r/core:component': {},
+        '@o3r/core:component-container': {},
+        '@o3r/core:component-presenter': {}
+      }, options.projectName),
       ...(options.enableMetadataExtract ? [updateCmsAdapter(options)] : []),
       await registerDevtools(options)
     ]);
