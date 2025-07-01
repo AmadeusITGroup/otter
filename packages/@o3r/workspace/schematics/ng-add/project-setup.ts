@@ -56,7 +56,10 @@ const updateEditorConfig: Rule = (tree) => {
  * List of external dependencies to be added to the project as peer dependencies
  * Enforce tilde range for all dependencies except Angular ones
  */
-const dependenciesToInstall: string[] = [];
+const dependenciesToInstall: string[] = [
+  '@angular/core',
+  '@angular/common'
+];
 
 /**
  * List of external dependencies to be added to the project as dev dependencies
