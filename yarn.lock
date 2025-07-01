@@ -994,7 +994,7 @@ __metadata:
     "@commitlint/cli": "npm:^19.0.0"
     "@commitlint/config-conventional": "npm:^19.0.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@figma/rest-api-spec": "npm:~0.31.0"
+    "@figma/rest-api-spec": "npm:~0.32.0"
     "@nx/eslint-plugin": "npm:~20.8.0"
     "@o3r-training/training-tools": "workspace:^"
     "@o3r/eslint-config": "workspace:^"
@@ -5170,10 +5170,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@figma/rest-api-spec@npm:~0.31.0":
-  version: 0.31.0
-  resolution: "@figma/rest-api-spec@npm:0.31.0"
-  checksum: 10/6b60ed7890eab0b52f05557d050b07149a9ee551d78975a2ffe90e52d6b78b161784d37e13fb572e34bdb91bd5eff99a36d9b0a6e97b6d6d9361f759055cba0c
+"@figma/rest-api-spec@npm:~0.32.0":
+  version: 0.32.0
+  resolution: "@figma/rest-api-spec@npm:0.32.0"
+  checksum: 10/cefedcb240cd209e1bb7349ab9311ae7465ca3e750973bcd968ee282c21a5a365c4c970e45478fc1369d44c5bcd4cf0153f6b95ff889407642ece01ba777ae5b
   languageName: node
   linkType: hard
 
