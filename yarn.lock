@@ -9545,8 +9545,6 @@ __metadata:
       optional: true
     globby:
       optional: true
-    semver:
-      optional: true
     type-fest:
       optional: true
   languageName: unknown
@@ -11515,7 +11513,11 @@ __metadata:
       optional: true
     "@angular/cli":
       optional: true
+    "@angular/forms":
+      optional: true
     "@material/slider":
+      optional: true
+    "@ngrx/store":
       optional: true
     "@ngx-translate/core":
       optional: true

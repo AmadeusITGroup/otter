@@ -67,9 +67,6 @@
     "globby": {
       "optional": true
     },
-    "semver": {
-      "optional": true
-    },
     "type-fest": {
       "optional": true
     }

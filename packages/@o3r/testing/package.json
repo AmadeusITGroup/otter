@@ -139,7 +139,13 @@
     "@angular/cli": {
       "optional": true
     },
+    "@angular/forms": {
+      "optional": true
+    },
     "@material/slider": {
+      "optional": true
+    },
+    "@ngrx/store": {
       "optional": true
     },
     "@ngx-translate/core": {
