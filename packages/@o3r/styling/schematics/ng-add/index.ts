@@ -18,6 +18,8 @@ import type {
  * List of external dependencies to be added to the project as peer dependencies
  */
 const dependenciesToInstall = [
+  '@angular/common',
+  '@angular/core',
   '@angular/cdk',
   '@angular/material'
 ];
