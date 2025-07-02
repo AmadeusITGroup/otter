@@ -1,8 +1,12 @@
-import { DebugElement } from '@angular/core';
-import { MatAutocompleteProfile } from '../../angular-materials';
-import { O3rElement } from '../element';
-
-export { SelectElementProfile } from '../../elements';
+import {
+  DebugElement,
+} from '@angular/core';
+import {
+  MatAutocompleteProfile,
+} from '../../angular-materials';
+import {
+  O3rElement,
+} from '../element';
 
 /**
  * Implementation dedicated to angular / TestBed.

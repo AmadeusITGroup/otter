@@ -1,4 +1,7 @@
 import {
+  posix,
+} from 'node:path';
+import {
   apply,
   chain,
   MergeStrategy,
@@ -10,16 +13,26 @@ import {
   template,
   Tree,
   UpdateRecorder,
-  url
+  url,
 } from '@angular-devkit/schematics';
 import {
-  getFileInfo, getTemplateFolder, getWorkspaceConfig, ngAddPackages, insertBeforeModule as o3rInsertBeforeModule,
-  insertImportToModuleFile as o3rInsertImportToModuleFile
+  getFileInfo,
+  getTemplateFolder,
+  getWorkspaceConfig,
+  ngAddPackages,
+  insertBeforeModule as o3rInsertBeforeModule,
+  insertImportToModuleFile as o3rInsertImportToModuleFile,
 } from '@o3r/schematics';
-import { addRootImport, addRootProvider } from '@schematics/angular/utility';
-import { isImported } from '@schematics/angular/utility/ast-utils';
-import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
-import { posix } from 'node:path';
+import {
+  addRootImport,
+  addRootProvider,
+} from '@schematics/angular/utility';
+import {
+  isImported,
+} from '@schematics/angular/utility/ast-utils';
+import {
+  NodeDependencyType,
+} from '@schematics/angular/utility/dependencies';
 
 /**
  * Enable customization capabilities
@@ -36,7 +49,7 @@ export function updateCustomizationEnvironment(rootPath: string, o3rCoreVersion?
    * @param context
    */
   const generateC11nFolder = (tree: Tree, context: SchematicContext) => {
-    const workingDirectory = options?.projectName && getWorkspaceConfig(tree)?.projects[options.projectName]?.root || '.';
+    const workingDirectory = (options?.projectName && getWorkspaceConfig(tree)?.projects[options.projectName]?.root) || '.';
     if (tree.exists(posix.join(workingDirectory, 'src', 'customization', 'presenters-map.empty.ts'))) {
       return tree;
     }
@@ -69,7 +82,7 @@ export function updateCustomizationEnvironment(rootPath: string, o3rCoreVersion?
       return tree;
     }
 
-    const fileContent = tree.readText(fileInfo.moduleFilePath).replace(/[\r\n ]*/g, '');
+    const fileContent = tree.readText(fileInfo.moduleFilePath).replace(/\s*/g, '');
     const recorder = tree.beginUpdate(fileInfo.moduleFilePath);
     const moduleIndex = fileInfo.moduleIndex;
 
@@ -97,9 +110,11 @@ export function updateCustomizationEnvironment(rootPath: string, o3rCoreVersion?
     updatedRecorder = insertImportToModuleFile(updatedRecorder, 'Provider', '@angular/core');
     updatedRecorder = insertImportToModuleFile(updatedRecorder, 'initializeCustomProviders', '../customization/custom-providers.empty');
 
-    additionalRules.push(addRootImport(options?.projectName!, ({code}) => code`...entry.customComponentsModules`));
-    additionalRules.push(addRootProvider(options?.projectName!, ({code}) => code`...customProviders`));
-    additionalRules.push(addRootImport(options?.projectName!, ({code}) => code`C11nModule.forRoot({registerCompFunc: registerCustomComponents})`));
+    additionalRules.push(
+      addRootImport(options?.projectName!, ({ code }) => code`...entry.customComponentsModules`),
+      addRootProvider(options?.projectName!, ({ code }) => code`...customProviders`),
+      addRootImport(options?.projectName!, ({ code }) => code`C11nModule.forRoot({registerCompFunc: registerCustomComponents})`)
+    );
     updatedRecorder = insertImportToModuleFile(updatedRecorder, 'C11nModule', '@o3r/components');
 
     updatedRecorder = insertBeforeModule(updatedRecorder, 'const entry = initializeEntryComponents();');
@@ -112,7 +127,7 @@ export function updateCustomizationEnvironment(rootPath: string, o3rCoreVersion?
   };
 
   return (tree, _context) => {
-    const workingDirectory = options?.projectName && getWorkspaceConfig(tree)?.projects[options.projectName]?.root || '.';
+    const workingDirectory = (options?.projectName && getWorkspaceConfig(tree)?.projects[options.projectName]?.root) || '.';
 
     return chain([
       generateC11nFolder,

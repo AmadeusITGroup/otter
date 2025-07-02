@@ -40,6 +40,7 @@ dist-lint/
 tmp/
 .acache/
 *.tsbuildinfo
+/bin
 
 # Documentations
 /documentation.json
@@ -88,3 +89,4 @@ coverage
 
 # Nx
 .nx/cache
+.nx/workspace-data

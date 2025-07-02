@@ -1,8 +1,19 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { EffectsModule } from '@ngrx/effects';
-import { StoreModule } from '@ngrx/store';
-import { RulesEngineRunnerModule } from '@o3r/rules-engine';
-import { PlaceholderComponent } from './placeholder.component';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import {
+  EffectsModule,
+} from '@ngrx/effects';
+import {
+  StoreModule,
+} from '@ngrx/store';
+import {
+  RulesEngineRunnerModule,
+} from '@o3r/rules-engine';
+import {
+  PlaceholderComponent,
+} from './placeholder.component';
 
 describe('PlaceholderComponent', () => {
   let component: PlaceholderComponent;

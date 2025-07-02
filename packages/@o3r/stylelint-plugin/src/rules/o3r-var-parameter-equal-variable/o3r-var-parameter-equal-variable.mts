@@ -1,10 +1,16 @@
 import type * as PostCSS from 'postcss';
-import type { PostcssResult, Problem, RuleContext } from 'stylelint';
+import type {
+  PostcssResult,
+  Problem,
+  RuleContext,
+} from 'stylelint';
 import stylelint from 'stylelint';
-import { getNamespacedRuleName } from '../../utils/get-namespaced-rule-name.mjs';
+import {
+  getNamespacedRuleName,
+} from '../../utils/get-namespaced-rule-name.mjs';
 
 const { utils } = stylelint;
-const o3rImportRegexp = new RegExp(/^@use ['"]@o3r\/styling['"] as (.*);/m);
+const o3rImportRegexp = new RegExp(/^@use ["']@o3r\/styling["'] as (.*);/m);
 /**
  * Scoped rule name
  */
@@ -46,7 +52,7 @@ export const rule = (primary: any, _secondaryOptions: Record<string, any>, conte
 
       const isAutoFixing = context.fix;
       root.walkDecls((decl: PostCSS.Declaration) => {
-        if (decl.value.indexOf('.variable') === -1) {
+        if (!decl.value.includes('.variable')) {
           return; // Nothing to do with this node - continue
         }
 

@@ -31,6 +31,11 @@
       "description": "Pattern determining if the branch is part of the cascading strategy",
       "default": "^releases?/\\d+\\.\\d+"
     },
+    "onlyCascadeOnHighestMinors": {
+      "type": "boolean",
+      "description": "Determine if the branches for which a higher minor version exists should be skipped during the cascading",
+      "default": false
+    },
     "versionCapturePattern": {
       "type": "string",
       "description": "Pattern containing a capture to extract the version of a cascading branch",

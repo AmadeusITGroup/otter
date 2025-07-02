@@ -1,9 +1,25 @@
-import { chain, type Rule } from '@angular-devkit/schematics';
-import { updateCmsAdapter } from '../cms-adapter';
-import type { NgAddSchematicsSchema } from './schema';
-import * as path from 'node:path';
 import * as fs from 'node:fs';
-import { registerDevtools } from './helpers/devtools-registration';
+import * as path from 'node:path';
+import {
+  chain,
+  type Rule,
+} from '@angular-devkit/schematics';
+import {
+  addRootImport,
+} from '@schematics/angular/utility';
+import {
+  isImported,
+} from '@schematics/angular/utility/ast-utils';
+import * as ts from 'typescript';
+import {
+  updateCmsAdapter,
+} from '../cms-adapter';
+import {
+  registerDevtools,
+} from './helpers/devtools-registration';
+import type {
+  NgAddSchematicsSchema,
+} from './schema';
 
 const devDependenciesToInstall = [
   'jsonpath-plus'
@@ -14,6 +30,33 @@ const reportMissingSchematicsDep = (logger: { error: (message: string) => any })
 If the error is related to missing @o3r dependencies you need to install '@o3r/core' to be able to use the rules-engine package. Please run 'ng add @o3r/core' .
 Otherwise, use the error message as guidance.`);
   throw reason;
+};
+
+const updateAppModuleOrAppConfig = (projectName: string | undefined): Rule => async (tree, context) => {
+  const {
+    getAppModuleFilePath
+  } = await import('@o3r/schematics');
+  const moduleFilePath = getAppModuleFilePath(tree, context, projectName);
+  if (!moduleFilePath) {
+    return () => tree;
+  }
+
+  const sourceFileContent = tree.readText(moduleFilePath);
+  const sourceFile = ts.createSourceFile(
+    moduleFilePath,
+    sourceFileContent,
+    ts.ScriptTarget.ES2015,
+    true
+  );
+
+  if (isImported(sourceFile, 'RulesEngineRunnerModule', '@o3r/rules-engine')) {
+    return () => tree;
+  }
+
+  return addRootImport(
+    projectName!,
+    ({ code, external }) => code`\n${external('RulesEngineRunnerModule', '@o3r/rules-engine')}.forRoot()`
+  );
 };
 
 /**
@@ -35,12 +78,12 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       setupSchematicsParamsForProject,
       registerPackageCollectionSchematics
     } = await import('@o3r/schematics');
-    options = {...getDefaultOptionsForSchematic(getWorkspaceConfig(tree), '@o3r/rules-engine', 'ng-add', options), ...options};
+    options = { ...getDefaultOptionsForSchematic(getWorkspaceConfig(tree), '@o3r/rules-engine', 'ng-add', options), ...options };
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
-    const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf-8' }));
+    const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' }));
     const depsInfo = getO3rPeerDeps(packageJsonPath);
     if (options.enableMetadataExtract) {
-      depsInfo.o3rPeerDeps = [...depsInfo.o3rPeerDeps , '@o3r/extractors'];
+      depsInfo.o3rPeerDeps = [...depsInfo.o3rPeerDeps, '@o3r/extractors'];
     }
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
     const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
@@ -62,17 +105,14 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
           }]
         };
       });
+    const schematicsDefaultOptions = {
+      useRulesEngine: undefined
+    };
     const rule = chain([
       registerPackageCollectionSchematics(packageJson),
       setupSchematicsParamsForProject({
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        '@o3r/core:component': {
-          useRulesEngine: undefined
-        },
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        '@o3r/core:component-container': {
-          useRulesEngine: undefined
-        }
+        '@o3r/core:component': schematicsDefaultOptions,
+        '@o3r/core:component-container': schematicsDefaultOptions
       }, options.projectName),
       removePackages(['@otter/rules-engine', '@otter/rules-engine-core']),
       setupDependencies({
@@ -81,7 +121,8 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
         ngAddToRun: depsInfo.o3rPeerDeps
       }),
       ...(options.enableMetadataExtract ? [updateCmsAdapter(options)] : []),
-      await registerDevtools(options)
+      await registerDevtools(options),
+      updateAppModuleOrAppConfig(options.projectName)
     ]);
 
     context.logger.info(`The package ${depsInfo.packageName!} comes with a debug mechanism`);

@@ -1,15 +1,30 @@
-import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { fromApiEffectSwitchMap } from '@o3r/core';
-import { from, of } from 'rxjs';
-import { catchError, map, mergeMap } from 'rxjs/operators';
+import {
+  Injectable,
+} from '@angular/core';
+import {
+  Actions,
+  createEffect,
+  ofType,
+} from '@ngrx/effects';
+import {
+  fromApiEffectSwitchMap,
+} from '@o3r/core';
+import {
+  from,
+  of,
+} from 'rxjs';
+import {
+  catchError,
+  map,
+  mergeMap,
+} from 'rxjs/operators';
 import {
   cancelRulesetsRequest,
   failRulesetsEntities,
   setRulesetsEntities,
   setRulesetsEntitiesFromApi,
   upsertRulesetsEntities,
-  upsertRulesetsEntitiesFromApi
+  upsertRulesetsEntitiesFromApi,
 } from './rulesets.actions';
 
 /**
@@ -17,7 +32,6 @@ import {
  */
 @Injectable()
 export class RulesetsEffect {
-
   /**
    * Set the entities with the reply content, dispatch failRulesetsEntities if it catches a failure
    */
@@ -25,8 +39,8 @@ export class RulesetsEffect {
     this.actions$.pipe(
       ofType(setRulesetsEntitiesFromApi),
       fromApiEffectSwitchMap(
-        (reply, action) => setRulesetsEntities({entities: reply, requestId: action.requestId}),
-        (error, action) => of(failRulesetsEntities({error, requestId: action.requestId})),
+        (reply, action) => setRulesetsEntities({ entities: reply, requestId: action.requestId }),
+        (error, action) => of(failRulesetsEntities({ error, requestId: action.requestId })),
         cancelRulesetsRequest
       )
     )
@@ -40,13 +54,12 @@ export class RulesetsEffect {
       ofType(upsertRulesetsEntitiesFromApi),
       mergeMap((payload) =>
         from(payload.call).pipe(
-          map((reply) => upsertRulesetsEntities({entities: reply, requestId: payload.requestId})),
-          catchError((err) => of(failRulesetsEntities({error: err, requestId: payload.requestId})))
+          map((reply) => upsertRulesetsEntities({ entities: reply, requestId: payload.requestId })),
+          catchError((err) => of(failRulesetsEntities({ error: err, requestId: payload.requestId })))
         )
       )
     )
   );
 
-  constructor(protected actions$: Actions) {
-  }
+  constructor(protected actions$: Actions) {}
 }

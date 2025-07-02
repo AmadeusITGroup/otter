@@ -28,9 +28,7 @@
     },
     "appRoutingModulePath": {
       "type": "string",
-      "description": "Application routing module path",
-      "default": "./src/app/app-routing.module.ts",
-      "x-prompt": "Application routing module path?"
+      "description": "Application routing module path"
     },
     "prefix": {
       "type": "string",
@@ -74,7 +72,6 @@
   },
   "additionalProperties": true,
   "required": [
-    "name",
-    "appRoutingModulePath"
+    "name"
   ]
 }

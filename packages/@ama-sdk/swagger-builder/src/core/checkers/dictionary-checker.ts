@@ -1,5 +1,10 @@
-import { SwaggerSpec } from '../swagger-spec-wrappers/swagger-spec.interface';
-import { Checker, Report } from './checker.interface';
+import {
+  SwaggerSpec,
+} from '../swagger-spec-wrappers/swagger-spec.interface';
+import {
+  Checker,
+  Report,
+} from './checker.interface';
 
 /** Dictionary reference object */
 export interface DictionaryReference {
@@ -37,7 +42,6 @@ export interface DefinitionWithRefs {
  * Checker for dictionary references
  */
 export class DictionaryChecker implements Checker {
-
   /**
    * Extract definition names referred in the whole Swagger node
    * @param currentNode Swagger Node to inspect
@@ -50,14 +54,13 @@ export class DictionaryChecker implements Checker {
     } else if (field === '$ref') {
       if (typeof currentNode === 'string' && /\/definitions\//.test(currentNode)) {
         const splitRef = currentNode.split('/');
-        definitionNameMemory.push(splitRef[splitRef.length - 1]);
+        definitionNameMemory.push(splitRef.at(-1)!);
       }
       return;
     } else if (Array.isArray(currentNode)) {
       await Promise.all(
         currentNode.map((n) => this.extractDefinitionNameReferenced(n, definitionNameMemory))
       );
-
     } else if (typeof currentNode === 'object') {
       for (const k of Object.keys(currentNode)) {
         await this.extractDefinitionNameReferenced(currentNode[k], definitionNameMemory, k);
@@ -75,12 +78,10 @@ export class DictionaryChecker implements Checker {
   private async extractDictionaryReferences(currentNode: any, dictionaryMemory: { [field: string]: DictionaryReference }, field?: string, requiredFields: string[] = []): Promise<void> {
     if (currentNode === undefined || currentNode === null) {
       return;
-
     } else if (Array.isArray(currentNode)) {
       await Promise.all(
         currentNode.map((n) => this.extractDictionaryReferences(n, dictionaryMemory))
       );
-
     } else if (typeof currentNode === 'object') {
       if (currentNode.type === 'object') {
         const requiredList: string[] = Array.isArray(currentNode.required) ? currentNode.required : [];
@@ -97,7 +98,7 @@ export class DictionaryChecker implements Checker {
             mapName: currentNode['x-map-name'],
             requestedBy: 'unknown',
             originField: field,
-            isRequired: requiredFields.indexOf(field) > -1
+            isRequired: requiredFields.includes(field)
           };
         }
         for (const k of keys) {
@@ -138,7 +139,7 @@ export class DictionaryChecker implements Checker {
     }
 
     return ret.reduce<string[]>((acc, cur) => {
-      if (acc.indexOf(cur) === -1) {
+      if (!acc.includes(cur)) {
         acc.push(cur);
       }
       return acc;
@@ -161,7 +162,7 @@ export class DictionaryChecker implements Checker {
    * @param definition Definition name
    * @param definitions List of Definition Swagger Node
    */
-  private async findDictionaryReferences(definition: string, definitions: { [name: string]: any }): Promise<{ [field: string]: DictionaryReference}> {
+  private async findDictionaryReferences(definition: string, definitions: { [name: string]: any }): Promise<{ [field: string]: DictionaryReference }> {
     const ret: { [field: string]: DictionaryReference } = {};
     await this.extractDictionaryReferences(definitions[definition], ret);
     return Object.keys(ret)
@@ -181,15 +182,15 @@ export class DictionaryChecker implements Checker {
    */
   private findReferredByDefinitions(definition: string, definitions: { [definitionName: string]: DefinitionWithRefs }): string[] {
     return Object.keys(definitions)
-      .filter((definitionName) => definitions[definitionName].referTo.indexOf(definition) >= 0);
+      .filter((definitionName) => definitions[definitionName].referTo.includes(definition));
   }
 
-  private async getReplyDefinitions(paths: {[name: string]: any}): Promise<string[]> {
+  private async getReplyDefinitions(paths: { [name: string]: any }): Promise<string[]> {
     const replyDefinitions: string[] = [];
 
     for (const pName of Object.keys(paths)) {
       const replyDefinitionsPath = await this.getReplyDefinitionsFromPath(paths[pName]);
-      replyDefinitions.push(...replyDefinitionsPath.filter((def) => replyDefinitions.indexOf(def) === -1));
+      replyDefinitions.push(...replyDefinitionsPath.filter((def) => !replyDefinitions.includes(def)));
     }
 
     return replyDefinitions;
@@ -204,19 +205,19 @@ export class DictionaryChecker implements Checker {
    */
   private findAssociatedRepliesFor(definitionName: string, replyDefinitions: string[], definitions: { [definitionName: string]: DefinitionWithRefs }, stack: string[] = []): string[] {
     const definition = definitions[definitionName];
-    if (definition.associatedReplies.length) {
+    if (definition.associatedReplies.length > 0) {
       return definition.associatedReplies;
     }
 
-    if (replyDefinitions.indexOf(definitionName) >= 0) {
+    if (replyDefinitions.includes(definitionName)) {
       return [definitionName];
     }
 
-    if (stack.indexOf(definitionName) >= 0) {
+    if (stack.includes(definitionName)) {
       return [];
     }
 
-    if (!definition.referredBy.length) {
+    if (definition.referredBy.length === 0) {
       return [];
     }
 
@@ -224,7 +225,7 @@ export class DictionaryChecker implements Checker {
     return definition.referredBy
       .map((defName) => this.findAssociatedRepliesFor(defName, replyDefinitions, definitions, stack))
       .reduce((acc, cur) => {
-        acc.push(...cur.filter((item) => acc.indexOf(item) === -1));
+        acc.push(...cur.filter((item) => !acc.includes(item)));
         return acc;
       }, []);
   }
@@ -267,8 +268,8 @@ export class DictionaryChecker implements Checker {
    * @param definitions List of Definition Swagger Node
    * @param stack stack of swagger fields
    */
-  private getAllDictionaryRefs(definitionName: string, definitions: {[definitionName: string]: DefinitionWithRefs}, stack: string[] = []): DictionaryReference[] {
-    if (stack.indexOf(definitionName) >= 0) {
+  private getAllDictionaryRefs(definitionName: string, definitions: { [definitionName: string]: DefinitionWithRefs }, stack: string[] = []): DictionaryReference[] {
+    if (stack.includes(definitionName)) {
       return [];
     }
 
@@ -297,10 +298,10 @@ export class DictionaryChecker implements Checker {
     if (currentNode === undefined || currentNode === null) {
       return false;
     } else if (typeof currentNode === 'object' && field === dictionaryReference.dictionaryName) {
-      const resource = currentNode.$ref ||
-        (currentNode.additionalProperties && currentNode.additionalProperties.$ref) ||
-        (currentNode.additionalProperties && currentNode.additionalProperties.type) ||
-        currentNode.type;
+      const resource = currentNode.$ref
+        || (currentNode.additionalProperties && currentNode.additionalProperties.$ref)
+        || (currentNode.additionalProperties && currentNode.additionalProperties.type)
+        || currentNode.type;
       return new RegExp(dictionaryReference.fieldType + '$').test(resource);
     } else if (Array.isArray(currentNode)) {
       return currentNode
@@ -320,8 +321,8 @@ export class DictionaryChecker implements Checker {
    * @param definitions List of Definition Swagger Node
    * @param stack stack of swagger fields
    */
-  private isDictionaryInDefinition(dictionaryReference: DictionaryReference, definitionName: string, definitions: {[definitionName: string]: DefinitionWithRefs}, stack: string[] = []): boolean {
-    if (stack.indexOf(definitionName) > -1) {
+  private isDictionaryInDefinition(dictionaryReference: DictionaryReference, definitionName: string, definitions: { [definitionName: string]: DefinitionWithRefs }, stack: string[] = []): boolean {
+    if (stack.includes(definitionName)) {
       return false;
     }
 
@@ -353,7 +354,7 @@ export class DictionaryChecker implements Checker {
     currentPath = [...currentPath, from];
     if (from === to) {
       return [currentPath];
-    } else if (!definition.referTo.length) {
+    } else if (definition.referTo.length === 0) {
       return [];
     }
 
@@ -363,7 +364,7 @@ export class DictionaryChecker implements Checker {
       )
       .reduce<string[][]>((pathList, nextResolvingPaths) => {
         pathList.push(
-          ...nextResolvingPaths.filter((nextResolvingPath) => pathList.map((p) => p.join()).indexOf(nextResolvingPath.join()))
+          ...nextResolvingPaths.filter((nextResolvingPath) => pathList.map((p) => p.join(',')).indexOf(nextResolvingPath.join(',')))
         );
         return pathList;
       }, []);
@@ -374,8 +375,7 @@ export class DictionaryChecker implements Checker {
    * @param swaggerSpec Swagger specification
    */
   public async check(swaggerSpec: SwaggerSpec): Promise<Report> {
-
-    const {definitionsWithReferer, replyDefinitions} = await this.generateDefinitionsWithRefererLists(swaggerSpec);
+    const { definitionsWithReferer, replyDefinitions } = await this.generateDefinitionsWithRefererLists(swaggerSpec);
     const report: Report = [];
     for (const replyDefinition of replyDefinitions) {
       const dictionaryReferences = this.getAllDictionaryRefs(replyDefinition, definitionsWithReferer);
@@ -383,8 +383,8 @@ export class DictionaryChecker implements Checker {
         ...dictionaryReferences
           .filter((dictionaryReference) => !this.isDictionaryInDefinition(dictionaryReference, replyDefinition, definitionsWithReferer))
           .map((dictionaryReference) => ({
-            // eslint-disable-next-line max-len
-            message: `The dictionary ${dictionaryReference.dictionaryName} (type: ${dictionaryReference.fieldType}${dictionaryReference.isRequired ? ', required' : ''}) referred by ${dictionaryReference.requestedBy}.${dictionaryReference.originField} is missing in ${replyDefinition}`,
+            message: `The dictionary ${dictionaryReference.dictionaryName} (type: ${dictionaryReference.fieldType}${dictionaryReference.isRequired ? ', required' : ''})`
+            + ` referred by ${dictionaryReference.requestedBy}.${dictionaryReference.originField} is missing in ${replyDefinition}`,
             details: this.findReferencePaths(replyDefinition, dictionaryReference.requestedBy, definitionsWithReferer)
               .map((refPath) => `Path from ${replyDefinition} to ${dictionaryReference.requestedBy}: ${refPath.join(' -> ')}`),
             swaggerNode: replyDefinition
@@ -400,5 +400,4 @@ export class DictionaryChecker implements Checker {
 
     return report;
   }
-
 }

@@ -1,5 +1,5 @@
 {
-  "$schema": "../tools/@o3r/build-helpers/schemas/pr-labels.configuration.schema.json",
+  "$schema": "../tools/@o3r/workspace-helpers/schemas/pr-labels.configuration.schema.json",
   "projectLabelPrefix": "project:",
   "ignoredProjects": [],
   "ignoreProjectForLabels": ["cascading"]

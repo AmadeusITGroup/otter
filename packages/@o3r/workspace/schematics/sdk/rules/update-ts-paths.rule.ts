@@ -1,9 +1,10 @@
-import type { Rule } from '@angular-devkit/schematics';
+import type {
+  Rule,
+} from '@angular-devkit/schematics';
 import * as ts from 'typescript';
 
 /**
  * Update workspace Tsconfig
- * @param options Schematic options
  * @param targetPath Path where the SDK has been generated
  * @param projectName Name of the project
  * @param scope scope of the package

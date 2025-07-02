@@ -4,4 +4,3 @@ export * from './application-devtools.message.service';
 export * from './application-devtools.module';
 export * from './application-devtools.service';
 export * from './application-devtools.token';
-

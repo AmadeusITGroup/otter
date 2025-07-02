@@ -1,21 +1,34 @@
-import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
-import type { RulesEngineActionHandler } from '@o3r/core';
-import { computeItemIdentifier } from '@o3r/core';
-import { ConfigurationStore, PropertyOverride, setConfigOverride } from '@o3r/configuration';
-import { ActionUpdateConfigBlock, RULES_ENGINE_CONFIGURATION_UPDATE_ACTION_TYPE } from './configuration.interfaces';
+import {
+  Injectable,
+} from '@angular/core';
+import {
+  Store,
+} from '@ngrx/store';
+import type {
+  RulesEngineActionHandler,
+} from '@o3r/core';
+import {
+  computeItemIdentifier,
+} from '@o3r/core';
+import {
+  ActionUpdateConfigBlock,
+  RULES_ENGINE_CONFIGURATION_UPDATE_ACTION_TYPE,
+} from './configuration.interfaces';
+import {
+  ConfigurationStore,
+  PropertyOverride,
+  setConfigOverride,
+} from '@o3r/configuration';
 
 /**
  * Service to handle async Configuration actions
  */
 @Injectable()
 export class ConfigurationRulesEngineActionHandler implements RulesEngineActionHandler<ActionUpdateConfigBlock> {
-
   /** @inheritdoc */
   public readonly supportingActions = [RULES_ENGINE_CONFIGURATION_UPDATE_ACTION_TYPE] as const;
 
-  constructor(private readonly store: Store<ConfigurationStore>) {
-  }
+  constructor(private readonly store: Store<ConfigurationStore>) {}
 
   /** @inheritdoc */
   public executeActions(actions: ActionUpdateConfigBlock[]): void | Promise<void> {

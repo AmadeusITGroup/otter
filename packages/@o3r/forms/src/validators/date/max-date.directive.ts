@@ -1,6 +1,20 @@
-import {utils} from '@ama-sdk/core';
-import {Directive, forwardRef, Input, OnChanges, SimpleChanges} from '@angular/core';
-import {AbstractControl, NG_VALIDATORS, ValidationErrors, Validator, ValidatorFn} from '@angular/forms';
+import {
+  utils,
+} from '@ama-sdk/core';
+import {
+  Directive,
+  forwardRef,
+  Input,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
+import {
+  AbstractControl,
+  NG_VALIDATORS,
+  ValidationErrors,
+  Validator,
+  ValidatorFn,
+} from '@angular/forms';
 
 /**
  * A directive which installs the `MaxDateValidator` for any `formControlName,
@@ -41,7 +55,7 @@ export class MaxDateValidator implements Validator, OnChanges {
 
   /** @inheritDoc */
   public validate(c: AbstractControl): ValidationErrors | null {
-    return this.maxdate != null ? this.validator(c) : null;
+    return this.maxdate == null ? null : this.validator(c);
   }
 
   /** @inheritDoc */
@@ -56,7 +70,7 @@ export class MaxDateValidator implements Validator, OnChanges {
   public static maxDate(maxDate: utils.Date | null): ValidatorFn {
     const result = (control: AbstractControl): ValidationErrors | null => {
       if (control.value instanceof utils.Date) {
-        return maxDate && control.value.getTime() > maxDate.getTime() ? {maxdate: {requiredDate: maxDate, actualDate: control.value}} : null;
+        return maxDate && control.value.getTime() > maxDate.getTime() ? { maxdate: { requiredDate: maxDate, actualDate: control.value } } : null;
       }
 
       return null;

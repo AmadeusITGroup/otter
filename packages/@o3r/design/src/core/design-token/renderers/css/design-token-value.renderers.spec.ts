@@ -1,16 +1,26 @@
+import {
+  promises as fs,
+} from 'node:fs';
+import {
+  resolve,
+} from 'node:path';
+import type {
+  DesignTokenSpecification,
+} from '../../design-token-specification.interface';
+import type {
+  DesignTokenVariableSet,
+} from '../../parsers';
 import * as parser from '../../parsers/design-token.parser';
-import { promises as fs } from 'node:fs';
-import { resolve } from 'node:path';
-import type { DesignTokenSpecification } from '../../design-token-specification.interface';
-import type { DesignTokenVariableSet } from '../../parsers';
-import { getCssTokenValueRenderer } from './design-token-value.renderers';
+import {
+  getCssTokenValueRenderer,
+} from './design-token-value.renderers';
 
 describe('getCssTokenValueRenderer', () => {
   let exampleVariable!: DesignTokenSpecification;
   let designTokens!: DesignTokenVariableSet;
 
   beforeAll(async () => {
-    const file = await fs.readFile(resolve(__dirname, '../../../../../testing/mocks/design-token-theme.json'), { encoding: 'utf-8' });
+    const file = await fs.readFile(resolve(__dirname, '../../../../../testing/mocks/design-token-theme.json'), { encoding: 'utf8' });
     exampleVariable = { document: JSON.parse(file) };
     designTokens = parser.parseDesignToken(exampleVariable);
   });
@@ -47,7 +57,7 @@ describe('getCssTokenValueRenderer', () => {
 
   test('should render invalid reference and raise warning', () => {
     const debug = jest.fn();
-    const renderer = getCssTokenValueRenderer({ logger: { debug }} as any);
+    const renderer = getCssTokenValueRenderer({ logger: { debug } } as any);
     const variable = designTokens.get('example.wrong-ref');
 
     const result = renderer(variable, designTokens);
@@ -56,5 +66,31 @@ describe('getCssTokenValueRenderer', () => {
     expect(debug).toHaveBeenCalledWith(expect.stringContaining('does.not.exist'));
     expect(debug).toHaveBeenCalledWith(expect.stringContaining('var(--does-not-exist)'));
     expect(result).toBe('var(--does-not-exist)');
+  });
+
+  describe('with extension value override', () => {
+    test('should not override non-numeric value', () => {
+      const renderer = getCssTokenValueRenderer();
+      const variable = designTokens.get('example.var-color-unit-ratio-override');
+
+      const result = renderer(variable, designTokens);
+      expect(result).toBe('#000');
+    });
+
+    test('should override numeric value and add unit', () => {
+      const renderer = getCssTokenValueRenderer();
+      const variable = designTokens.get('example.var-number-unit-ratio-override');
+
+      const result = renderer(variable, designTokens);
+      expect(result).toBe('5px'); // default value: 2
+    });
+
+    test('should override numeric value and unit', () => {
+      const renderer = getCssTokenValueRenderer();
+      const variable = designTokens.get('example.var-unit-override');
+
+      const result = renderer(variable, designTokens);
+      expect(result).toBe('5rem'); // default value: 2px
+    });
   });
 });

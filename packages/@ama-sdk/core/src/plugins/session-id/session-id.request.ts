@@ -1,6 +1,15 @@
-import { v4 } from 'uuid';
-import { PluginRunner, RequestOptions, RequestPlugin, RequestPluginContext } from '../core';
-import type { Logger } from '../../fwk/logger';
+import {
+  v4,
+} from 'uuid';
+import type {
+  Logger,
+} from '../../fwk/logger';
+import {
+  PluginRunner,
+  RequestOptions,
+  RequestPlugin,
+  RequestPluginContext,
+} from '../core';
 
 /**
  * Plugin to add a header with an ID that can be used to track all the calls done by one or several APIs of the SDK.
@@ -13,11 +22,10 @@ import type { Logger } from '../../fwk/logger';
  * The REQUEST_ID can be deactivated. In this case the ID is formatted as "SESSION_ID" only.
  */
 export class SessionIdRequest implements RequestPlugin {
-
   /**
    * Shared memory between plugin instances where we store all the session IDs
    */
-  private static readonly sharedMemory: {[key: string]: any} = {};
+  private static readonly sharedMemory: { [key: string]: any } = {};
 
   /**
    * The request header in which the ID will be added. Use the same in multiple APIs if you want to aggregate logs
@@ -48,8 +56,10 @@ export class SessionIdRequest implements RequestPlugin {
   }
 
   private logSessionId(sessionId: string, date: string, logger?: Logger) {
+    /* eslint-disable no-console -- console are default value */
     (logger?.info || logger?.log || console.info).bind(logger || console)(`Your debug ID associated to the header "${this.sessionIdHeader}" is: ${sessionId}.`);
     (logger?.info || logger?.log || console.info).bind(logger || console)(`Generated at: ${date}`);
+    /* eslint-enable no-console */
   }
 
   /** @inheritdoc */
@@ -79,11 +89,11 @@ export class SessionIdRequest implements RequestPlugin {
 
       if (sessionIdObjectFromStorage) {
         try {
-          const parsedSessionIdObject = JSON.parse(sessionIdObjectFromStorage);
+          const parsedSessionIdObject = JSON.parse(sessionIdObjectFromStorage) as { id: string; generatedTime: string };
           // update the shared memory and log the ID to the user
           SessionIdRequest.sharedMemory[this.sessionIdHeader] = parsedSessionIdObject.id;
           this.logSessionId(parsedSessionIdObject.id, parsedSessionIdObject.generatedTime, logger);
-          return parsedSessionIdObject.id as string;
+          return parsedSessionIdObject.id;
         } catch { /* if the content of the session storage was corrupted somehow we'll just generate a new one */ }
       }
     }
@@ -96,7 +106,7 @@ export class SessionIdRequest implements RequestPlugin {
     // and store it
     SessionIdRequest.sharedMemory[this.sessionIdHeader] = sessionId;
     if (typeof sessionStorage !== 'undefined') {
-      sessionStorage.setItem(this.sessionIdHeader, JSON.stringify({id: sessionId, generatedTime}));
+      sessionStorage.setItem(this.sessionIdHeader, JSON.stringify({ id: sessionId, generatedTime }));
     }
 
     return sessionId;
@@ -107,13 +117,13 @@ export class SessionIdRequest implements RequestPlugin {
    */
   public generateRequestId() {
     const requestCountKey = this.sessionIdHeader + '-Request-Count';
-    let requestCount = NaN;
+    let requestCount = Number.NaN;
 
     // Check if we already have a request count in the shared memory or session storage
     if (SessionIdRequest.sharedMemory[requestCountKey] !== undefined) {
-      requestCount = SessionIdRequest.sharedMemory[requestCountKey];
+      requestCount = SessionIdRequest.sharedMemory[requestCountKey] as number;
     } else if (typeof sessionStorage !== 'undefined') {
-      requestCount = +(sessionStorage.getItem(requestCountKey) || NaN);
+      requestCount = +(sessionStorage.getItem(requestCountKey) || Number.NaN);
     }
 
     // If the request count is not defined yet or if it has been corrupted somehow, we start at 0.

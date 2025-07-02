@@ -1,8 +1,15 @@
-import { chain, Rule } from '@angular-devkit/schematics';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { updateCmsAdapter } from '../cms-adapter';
-import type { NgAddSchematicsSchema } from './schema';
+import {
+  chain,
+  Rule,
+} from '@angular-devkit/schematics';
+import {
+  updateCmsAdapter,
+} from '../cms-adapter';
+import type {
+  NgAddSchematicsSchema,
+} from './schema';
 
 const devDependenciesToInstall = [
   'chokidar',
@@ -13,7 +20,6 @@ const dependenciesToInstall = [
   '@angular/material',
   '@angular/cdk'
 ];
-
 
 const reportMissingSchematicsDep = (logger: { error: (message: string) => any }) => (reason: any) => {
   logger.error(`[ERROR]: Adding @o3r/styling has failed.
@@ -43,13 +49,12 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       updateSassImports,
       getExternalDependenciesVersionRange
     } = await import('@o3r/schematics');
-    options = {...getDefaultOptionsForSchematic(getWorkspaceConfig(tree), '@o3r/styling', 'ng-add', options), ...options};
-    const {updateThemeFiles, removeV7OtterAssetsInAngularJson} = await import('./theme-files');
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    const {NodeDependencyType} = await import('@schematics/angular/utility/dependencies');
+    options = { ...getDefaultOptionsForSchematic(getWorkspaceConfig(tree), '@o3r/styling', 'ng-add', options), ...options };
+    const { updateThemeFiles, removeV7OtterAssetsInAngularJson } = await import('./theme-files');
+    const { NodeDependencyType } = await import('@schematics/angular/utility/dependencies');
     const depsInfo = getO3rPeerDeps(packageJsonPath);
     if (options.enableMetadataExtract) {
-      depsInfo.o3rPeerDeps = [...depsInfo.o3rPeerDeps , '@o3r/extractors'];
+      depsInfo.o3rPeerDeps = [...depsInfo.o3rPeerDeps, '@o3r/extractors'];
     }
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
     const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
@@ -80,6 +85,9 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
           }]
         };
       });
+    const schematicsDefaultOptions = {
+      useOtterTheming: undefined
+    };
     return chain([
       removePackages(['@otter/styling']),
       updateSassImports('o3r'),
@@ -92,14 +100,8 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       }),
       registerPackageCollectionSchematics(JSON.parse(fs.readFileSync(packageJsonPath).toString())),
       setupSchematicsParamsForProject({
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        '@o3r/core:component': {
-          useOtterTheming: undefined
-        },
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        '@o3r/core:component-presenter': {
-          useOtterTheming: undefined
-        }
+        '@o3r/core:component': schematicsDefaultOptions,
+        '@o3r/core:component-presenter': schematicsDefaultOptions
       }, options.projectName),
       ...(options.enableMetadataExtract ? [updateCmsAdapter(options)] : [])
     ]);

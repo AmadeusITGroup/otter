@@ -90,7 +90,7 @@ export function revive{{classname}}<T extends {{classname}} = {{classname}}>(dat
                     {{#x-map-name}}
                       {{#x-field-is-revived}}
     if (data.{{x-map-name}}) {
-      data.{{x-map-name}} = reviveMap<{{x-field-type}}>(data.{{x-map-name}}, null, revive{{x-field-type}}, options);
+      data.{{x-map-name}} = options?.clearDictionaryFields ? undefined : reviveMap<{{x-field-type}}>(data.{{x-map-name}}, null, revive{{x-field-type}}, options);
     }
                       {{/x-field-is-revived}}
                     {{/x-map-name}}
@@ -101,7 +101,7 @@ export function revive{{classname}}<T extends {{classname}} = {{classname}}>(dat
                     {{#x-field-name}}
                       {{#x-field-is-revived}}
     if (data.{{x-field-name}}) {
-      data.{{x-field-name}} = revive{{x-field-type}}(data.{{x-field-name}}, undefined, options);
+      data.{{x-field-name}} = options?.clearDictionaryFields ? undefined : revive{{x-field-type}}(data.{{x-field-name}}, undefined, options);
     }
                       {{/x-field-is-revived}}
                     {{/x-field-name}}

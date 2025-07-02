@@ -1,11 +1,14 @@
-import { MethodType, returnType } from './models';
+import {
+  MethodType,
+  returnType,
+} from './models';
 
 const getMethodName = (selector: string, method: MethodType) => {
   // PascalCase converter
   const formattedSelectedText = selector
     .toLowerCase()
-    .replace(new RegExp(/[-_]+/, 'g'), ' ')
-    .replace(new RegExp(/[^\w\s]/, 'g'), '')
+    .replace(new RegExp(/[_-]+/, 'g'), ' ')
+    .replace(new RegExp(/[^\s\w]/, 'g'), '')
     .replace(
       new RegExp(/\s+(.)(\w*)/, 'g'),
       (_$1: string, $2: string, $3: string) => $2.toUpperCase() + $3
@@ -41,7 +44,6 @@ const getMethodName = (selector: string, method: MethodType) => {
 
 /**
  * Get the signature of the function
- *
  * @param methodType the type of the method
  * @param selector query selector
  * @returns the signature of the function
@@ -81,7 +83,6 @@ export const getSignature = (
 
 /**
  * Get the implementation of the function
- *
  * @param methodType  the type of the method
  * @param classPropSelector the selector class property
  * @returns the implementation of the function

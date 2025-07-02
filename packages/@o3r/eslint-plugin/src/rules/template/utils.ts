@@ -1,4 +1,7 @@
-import { type ParserServices, TSESLint } from '@typescript-eslint/utils';
+import {
+  type ParserServices,
+  TSESLint,
+} from '@typescript-eslint/utils';
 
 /** Position in source code */
 interface SourceSpan {
@@ -24,8 +27,8 @@ type TemplateParserServices = ParserServices & {
  */
 export function isTemplateParserServices(parserServices: any): parserServices is TemplateParserServices {
   return parserServices && (
-    typeof parserServices.convertElementSourceSpanToLoc === 'function' ||
-    typeof parserServices.convertNodeSourceSpanToLoc === 'function'
+    typeof parserServices.convertElementSourceSpanToLoc === 'function'
+    || typeof parserServices.convertNodeSourceSpanToLoc === 'function'
   );
 }
 
@@ -34,7 +37,7 @@ export function isTemplateParserServices(parserServices: any): parserServices is
  * @param context Rule context
  */
 export function getTemplateParserServices(context: Readonly<TSESLint.RuleContext<string, readonly unknown[]>>) {
-  const parserService = context.parserServices;
+  const parserService = context.sourceCode.parserServices;
   if (!isTemplateParserServices(parserService)) {
     /*
      * The user needs to have configured "parser" in their eslint config and set it

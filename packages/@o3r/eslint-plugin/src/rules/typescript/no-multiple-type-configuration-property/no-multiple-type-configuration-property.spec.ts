@@ -1,13 +1,7 @@
-import { TSESLint } from '@typescript-eslint/utils';
 import noMultipleTypeConfigurationPropertyRule from './no-multiple-type-configuration-property';
+const { RuleTester } = require('@typescript-eslint/rule-tester');
 
-const ruleTester = new TSESLint.RuleTester({
-  parser: require.resolve('@typescript-eslint/parser'),
-  parserOptions: {
-    ecmaVersion: 2018,
-    sourceType: 'module'
-  }
-});
+const ruleTester = new RuleTester();
 
 const code = `
 export interface Config extends Configuration {
@@ -15,12 +9,12 @@ export interface Config extends Configuration {
   prop2: 'a' | 'b' | 'c';
   prop3: 1 | 2 | 3;
 }
-`;
+`.trim();
 
 ruleTester.run('no-multiple-type-configuration-property', noMultipleTypeConfigurationPropertyRule, {
   valid: [
     { code },
-    { code: 'export interface A { prop1: string | number; }'}
+    { code: 'export interface A { prop1: string | number; }' }
   ],
   invalid: [
     {

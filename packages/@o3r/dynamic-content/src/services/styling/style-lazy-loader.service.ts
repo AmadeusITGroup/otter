@@ -1,7 +1,15 @@
-import { Injectable } from '@angular/core';
-import { firstValueFrom } from 'rxjs';
-import { StyleLazyLoaderModule } from './style-lazy-loader.module';
-import { DynamicContentService } from '../dynamic-content/index';
+import {
+  Injectable,
+} from '@angular/core';
+import {
+  firstValueFrom,
+} from 'rxjs';
+import {
+  DynamicContentService,
+} from '../dynamic-content/index';
+import {
+  StyleLazyLoaderModule,
+} from './style-lazy-loader.module';
 
 /**
  * Interface to describe a style to lazy load from a url.
@@ -24,11 +32,9 @@ export interface StyleURL {
   providedIn: StyleLazyLoaderModule
 })
 export class StyleLazyLoader {
-
   private readonly DEFAULT_STYLE_ELEMENT_ID = 'external-theme';
 
-  constructor(private readonly dcService: DynamicContentService) {
-  }
+  constructor(private readonly dcService: DynamicContentService) {}
 
   /**
    * Load a new CSS from an absolute URL, if we already HTML element exists with the url, otherwise
@@ -36,16 +42,15 @@ export class StyleLazyLoader {
    * and the styleId id of the dynamic style in the body tag.
    */
   public loadStyleFromURL(styleUrlConfig: StyleURL) {
-
-    const elementId = styleUrlConfig.id ? styleUrlConfig.id : this.DEFAULT_STYLE_ELEMENT_ID;
-    let style = document.getElementById(elementId) as HTMLLinkElement | null;
+    const elementId = styleUrlConfig.id || this.DEFAULT_STYLE_ELEMENT_ID;
+    let style = document.querySelector<HTMLLinkElement>(`#${elementId}`);
 
     if (style === null) {
       style = document.createElement('link');
       style.rel = 'stylesheet';
       style.type = 'text/css';
-      const head = document.getElementsByTagName('head')[0];
-      head.appendChild(style);
+      const head = document.querySelectorAll('head')[0];
+      head.append(style);
     }
     if (styleUrlConfig.integrity) {
       style.integrity = styleUrlConfig.integrity;

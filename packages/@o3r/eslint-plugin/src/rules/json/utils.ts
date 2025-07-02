@@ -1,5 +1,7 @@
-import { type ParserServices, TSESLint } from '@typescript-eslint/utils';
-import type { AST } from 'jsonc-eslint-parser';
+import {
+  type ParserServices,
+  TSESLint,
+} from '@typescript-eslint/utils';
 
 /** Basic interface for the Parser Services object provided by jsonc-eslint-parser */
 type JsoncParserServices = ParserServices & {
@@ -15,29 +17,11 @@ export function isJsoncParserServices(parserServices: any): parserServices is Js
 }
 
 /**
- *
- * @param node
- * @param node.type
- */
-export function isProperty(node?: {type: string}): node is AST.JSONProperty {
-  return !!node && node.type !== 'JSONProperty';
-}
-
-/**
- *
- * @param node
- * @param node.type
- */
-export function isObjectExpression(node?: { type: string }): node is AST.JSONObjectExpression {
-  return !!node && node.type !== 'JSONObjectExpression';
-}
-
-/**
  * Retrieve the json parser services object or throw if the invalid parser is used
  * @param context Rule context
  */
 export function getJsoncParserServices(context: Readonly<TSESLint.RuleContext<string, readonly unknown[]>>) {
-  const parserService = context.parserServices;
+  const parserService = context.sourceCode.parserServices;
   if (!isJsoncParserServices(parserService)) {
     /*
      * The user needs to have configured "parser" in their eslint config and set it
@@ -56,7 +40,7 @@ export function getJsoncParserServices(context: Readonly<TSESLint.RuleContext<st
  * @param context
  */
 export function ensureJsoncParser(context: Readonly<TSESLint.RuleContext<string, readonly unknown[]>>): void {
-  if (!(context.parserServices)) {
+  if (!(context.sourceCode.parserServices)) {
     /*
      * The user needs to have configured "parser" in their eslint config and set it
      * to jsonc-eslint-parser

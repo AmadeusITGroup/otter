@@ -1,26 +1,25 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-
 module.exports = {
   extends: [
     'eslint:recommended'
   ],
   rules: {
-    'camelcase': 'error',
+    'require-await': 'error',
+    camelcase: 'error',
     'comma-dangle': 'error',
     'comma-style': [
       'error',
       'last'
     ],
-    'complexity': 'off',
+    complexity: 'off',
     'constructor-super': 'error',
-    'curly': 'error',
+    curly: 'error',
     'dot-location': [
       'error',
       'property'
     ],
     'dot-notation': 'error',
     'eol-last': 'error',
-    'eqeqeq': [
+    eqeqeq: [
       'error',
       'smart'
     ],
@@ -38,22 +37,22 @@ module.exports = {
       'undefined'
     ],
     'id-match': 'error',
-    'indent': [
+    indent: [
       'error',
       2,
       {
-        'FunctionDeclaration': {
-          'parameters': 'off'
+        FunctionDeclaration: {
+          parameters: 'off'
         },
-        'SwitchCase': 1
+        SwitchCase: 1
       }
     ],
 
     'key-spacing': [
       'warn',
       {
-        'beforeColon': false,
-        'afterColon': true
+        beforeColon: false,
+        afterColon: true
       }
     ],
     'linebreak-style': [
@@ -64,16 +63,16 @@ module.exports = {
     'max-len': [
       'error',
       {
-        'code': 200
+        code: 200
       }
     ],
     'new-cap': [
       'error',
       {
-        'newIsCap': true,
-        'capIsNew': true,
-        'properties': true,
-        'capIsNewExceptions': [
+        newIsCap: true,
+        capIsNew: true,
+        properties: true,
+        capIsNewExceptions: [
           'AsyncInput',
           'Component',
           'Directive',
@@ -111,7 +110,7 @@ module.exports = {
     'no-console': [
       'error',
       {
-        'allow': [
+        allow: [
           'warn',
           'dir',
           'time',
@@ -178,7 +177,7 @@ module.exports = {
     'no-redeclare': 'off',
     'no-regex-spaces': 'error',
     'no-restricted-imports': ['error', {
-      'patterns': [
+      patterns: [
         'rxjs/internal/*'
       ]
     }],
@@ -196,7 +195,7 @@ module.exports = {
     'no-underscore-dangle': [
       'error',
       {
-        'allowAfterThis': true
+        allowAfterThis: true
       }
     ],
     'no-unexpected-multiline': 'error',
@@ -208,7 +207,7 @@ module.exports = {
     'no-use-before-define': [
       'error',
       {
-        'classes': false
+        classes: false
       }
     ],
     'no-useless-catch': 'error',
@@ -221,32 +220,32 @@ module.exports = {
       'never'
     ],
     'prefer-const': 'error',
-    'quotes': [
+    quotes: [
       'error',
       'single',
       {
-        'allowTemplateLiterals': true
+        allowTemplateLiterals: true
       }
     ],
-    'radix': 'error',
+    radix: 'error',
     'require-yield': 'error',
-    'semi': [
+    semi: [
       'error',
       'always'
     ],
     'semi-spacing': [
       'warn',
       {
-        'before': false,
-        'after': true
+        before: false,
+        after: true
       }
     ],
     'sort-imports': [
       'error',
       {
-        'allowSeparatedGroups': true,
-        'ignoreDeclarationSort': true,
-        'ignoreCase': true
+        allowSeparatedGroups: true,
+        ignoreDeclarationSort: true,
+        ignoreCase: true
       }
     ],
     'space-in-parens': [
@@ -258,12 +257,12 @@ module.exports = {
       'error',
       'always',
       {
-        'markers': [
+        markers: [
           '/'
         ]
       }
     ],
-    'strict': [
+    strict: [
       'error',
       'global'
     ],

@@ -1,6 +1,15 @@
-import { Injectable } from '@angular/core';
-import { FactDefinitions, FactsService, RulesEngineRunnerService } from '@o3r/rules-engine';
-import { BehaviorSubject, distinctUntilChanged } from 'rxjs';
+import {
+  Injectable,
+} from '@angular/core';
+import {
+  FactDefinitions,
+  FactsService,
+  RulesEngineRunnerService,
+} from '@o3r/rules-engine';
+import {
+  BehaviorSubject,
+  distinctUntilChanged,
+} from 'rxjs';
 
 /** Facts for a trip */
 export interface TripFacts extends FactDefinitions {
@@ -43,4 +52,3 @@ export class TripFactsService extends FactsService<TripFacts> {
     this.outboundDate$.next(outboundDate);
   }
 }
-

@@ -1,6 +1,13 @@
-import { chain, type Rule } from '@angular-devkit/schematics';
-import { posix } from 'node:path';
-import type { PackageJson } from 'type-fest';
+import {
+  posix,
+} from 'node:path';
+import {
+  chain,
+  type Rule,
+} from '@angular-devkit/schematics';
+import type {
+  PackageJson,
+} from 'type-fest';
 
 const deleteIfExists = (paths: string[]): Rule => (tree, context) => {
   paths.forEach((path) => {

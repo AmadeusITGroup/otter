@@ -1,6 +1,12 @@
-import { Serializer } from '@o3r/core';
-import { localizationOverrideInitialState } from './localization-override.reducer';
-import { LocalizationOverrideState } from './localization-override.state';
+import {
+  Serializer,
+} from '@o3r/core';
+import {
+  localizationOverrideInitialState,
+} from './localization-override.reducer';
+import {
+  LocalizationOverrideState,
+} from './localization-override.state';
 
 export const localizationOverrideStorageDeserializer = (rawObject: any) => {
   if (!rawObject) {

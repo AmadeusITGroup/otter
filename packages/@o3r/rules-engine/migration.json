@@ -5,6 +5,11 @@
       "version": "10.0.0-alpha.0",
       "description": "Updates of @o3r/rules-engine to v10.0.*",
       "factory": "./schematics/ng-update/index#updateV100"
+    },
+    "migration-v11_6": {
+      "version": "11.6.0-alpha.0",
+      "description": "Updates of @o3r/rules-engine to v11.6.*",
+      "factory": "./schematics/ng-update/index#updateV116"
     }
   }
 }

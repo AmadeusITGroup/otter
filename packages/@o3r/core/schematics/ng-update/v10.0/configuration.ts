@@ -1,7 +1,12 @@
-import type { Rule, Tree } from '@angular-devkit/schematics';
-import {getFilesWithExtensionFromTree} from '@o3r/schematics';
+import type {
+  Rule,
+  Tree,
+} from '@angular-devkit/schematics';
+import {
+  getFilesWithExtensionFromTree,
+} from '@o3r/schematics';
 
-const matchingRegex = /(Configuration)<\s*['"](?:strict|legacy)['"]\s*>/g;
+const matchingRegex = /(Configuration)<\s*["'](?:strict|legacy)["']\s*>/g;
 
 /**
  * Rule to update the configuration declaration
@@ -14,7 +19,7 @@ export const updateConfiguration: Rule = (tree: Tree) => {
   files.forEach((file) => {
     const text = tree.readText(file);
     const matches = Array.from(text.matchAll(matchingRegex));
-    if (matches.length) {
+    if (matches.length > 0) {
       tree.overwrite(
         file,
         text.replaceAll(matchingRegex, '$1')

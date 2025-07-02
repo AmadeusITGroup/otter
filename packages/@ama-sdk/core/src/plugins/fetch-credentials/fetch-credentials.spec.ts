@@ -1,5 +1,9 @@
-import {RequestOptions} from '../core/request-plugin';
-import {FetchCredentialsRequest} from './fetch-credentials.request';
+import {
+  RequestOptions,
+} from '../core/request-plugin';
+import {
+  FetchCredentialsRequest,
+} from './fetch-credentials.request';
 
 describe('Fetch API credentials Request Plugin', () => {
   const options: RequestOptions = { headers: new Headers(), basePath: 'http://test.com/truc', method: 'get' };
@@ -9,7 +13,7 @@ describe('Fetch API credentials Request Plugin', () => {
     const runner = plugin.load();
 
     await runner.transform(options);
-    const cred = (await plugin.load().transform(options)).credentials;
+    const { credentials: cred } = (await plugin.load().transform(options));
 
     expect(cred).toBe('same-origin');
   });
@@ -19,7 +23,7 @@ describe('Fetch API credentials Request Plugin', () => {
     const runner = plugin.load();
 
     await runner.transform(options);
-    const cred = (await plugin.load().transform(options)).credentials;
+    const { credentials: cred } = (await plugin.load().transform(options));
 
     expect(cred).toBe('include');
   });

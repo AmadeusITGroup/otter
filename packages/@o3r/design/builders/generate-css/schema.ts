@@ -1,4 +1,6 @@
-import type { SchematicOptionObject } from '@o3r/schematics';
+import type {
+  SchematicOptionObject,
+} from '@o3r/schematics';
 
 export interface GenerateCssSchematicsSchema extends SchematicOptionObject {
   /** Path patterns to the Design Token JSON files */
@@ -9,6 +11,11 @@ export interface GenerateCssSchematicsSchema extends SchematicOptionObject {
    * The Metadata will be generated only if the file path is specified
    */
   metadataOutput?: string;
+
+  /**
+   * Ignore the private variable in the metadata generation
+   */
+  metadataIgnorePrivate?: boolean;
 
   /**
    * Output file where generate the CSS
@@ -33,12 +40,18 @@ export interface GenerateCssSchematicsSchema extends SchematicOptionObject {
   /** Prefix to happen to generated variables */
   prefix?: string;
 
-  /** Generate the Private Variable to the given language */
+  /** Generate the private variable to the given language */
   renderPrivateVariableTo?: 'sass';
 
-  /** Prefix to happen to generated Sass variables if generated */
+  /** Prefix to happen to generated private variables */
   prefixPrivate?: string;
 
   /** Determine if the builder should fail if a missing Design Token reference is detected */
   failOnMissingReference?: boolean;
+
+  /** Type of the variables to generate for a Design Token */
+  variableType?: 'css' | 'sass';
+
+  /** Path to a template file (or a list of template files) to apply as default configuration to a Design Token extension */
+  templateFile?: string | string[];
 }

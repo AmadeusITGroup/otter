@@ -1,8 +1,18 @@
-import { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { getFilesFromRootOfWorkspaceProjects, getFilesWithExtensionFromTree } from '../../utility/index';
-import { listOfExposedElements, SassImportExposedElement } from './list-of-vars';
+import {
+  Rule,
+  SchematicContext,
+  Tree,
+} from '@angular-devkit/schematics';
+import {
+  getFilesFromRootOfWorkspaceProjects,
+  getFilesWithExtensionFromTree,
+} from '../../utility/index';
+import {
+  listOfExposedElements,
+  SassImportExposedElement,
+} from './list-of-vars';
 
-const imports = new RegExp(/^@import\s+['"]~?@(o3r|otter)\/styling.*\s*/, 'gm');
+const imports = new RegExp(/^@import\s+["']~?@(o3r|otter)\/styling.*\s*/, 'gm');
 
 /**
  * Update SASS imports to use a scoped dependency
@@ -13,14 +23,14 @@ const imports = new RegExp(/^@import\s+['"]~?@(o3r|otter)\/styling.*\s*/, 'gm');
  */
 export function updateSassImports(alias: string, dependencyName = '@o3r/styling', exposedElements: SassImportExposedElement[] = listOfExposedElements, fromRoot = false): Rule {
   return (tree: Tree, _context: SchematicContext) => {
-
     const files = fromRoot ? getFilesWithExtensionFromTree(tree, 'scss') : getFilesFromRootOfWorkspaceProjects(tree, 'scss');
     files.forEach((file) => {
       let content = tree.read(file)!.toString();
+      // eslint-disable-next-line unicorn/prefer-regexp-test -- regexp with `g` flag should not use `RegExp.test` in a loop
       if (content.match(imports)) {
         const contentWithoutImports = content.replace(imports, '');
         content = `@use '${dependencyName}' as ${alias};\n${contentWithoutImports}`;
-        exposedElements.forEach(elem => {
+        exposedElements.forEach((elem) => {
           const elemRegex = new RegExp(`(?<![\\w\\d-]|o3r\\.)${elem.type === 'var' ? '\\' : ''}${elem.value}((?![\\w\\d-])(?!(\\s*\\:)))`, 'g');
           content = content.replace(elemRegex, `${alias}.${(elem.replacement || elem.value)}`);
         });

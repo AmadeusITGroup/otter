@@ -1,18 +1,21 @@
+import type {
+  PlaceholderRequestState,
+} from '../placeholder-request';
 import * as selectors from './placeholder-template.selectors';
-import {PlaceholderTemplateState} from './placeholder-template.state';
-import {PlaceholderRequestState} from '@o3r/components';
+import {
+  PlaceholderTemplateState,
+} from './placeholder-template.state';
 
 let placeholderRequestState: PlaceholderRequestState;
 let placeholderTemplateState: PlaceholderTemplateState;
 
 describe('selectPlaceholderRenderedTemplates', () => {
-  beforeEach(()=>{
+  beforeEach(() => {
     placeholderTemplateState = {
       ids: [
         'pl2358lv-2c63-42e1-b450-6aafd91fbae8'
       ],
       entities: {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         'pl2358lv-2c63-42e1-b450-6aafd91fbae8': {
           id: 'pl2358lv-2c63-42e1-b450-6aafd91fbae8',
           urlsWithPriority: [
@@ -33,7 +36,6 @@ describe('selectPlaceholderRenderedTemplates', () => {
       requestIds: [],
       ids: ['assets/placeholders/[LANGUAGE]/searchSecondPlaceholder.json', 'assets/placeholders/searchPlaceholder.json'],
       entities: {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         'assets/placeholders/[LANGUAGE]/searchSecondPlaceholder.json': {
           id: 'assets/placeholders/[LANGUAGE]/searchSecondPlaceholder.json',
           resolvedUrl: 'assets/placeholders/en-GB/searchSecondPlaceholder.json',
@@ -55,7 +57,6 @@ describe('selectPlaceholderRenderedTemplates', () => {
           renderedTemplate: '<div>Placeholder from application pageUrl=/search</div><img src="assets/assets-demo-app/img/logo/logo-positive.png">',
           unknownTypeFound: false
         },
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         'assets/placeholders/searchPlaceholder.json': {
           id: 'assets/placeholders/searchPlaceholder.json',
           resolvedUrl: 'assets/placeholders/searchPlaceholder.json',
@@ -104,7 +105,7 @@ describe('selectPlaceholderRenderedTemplates', () => {
     expect(selectors.selectPlaceholderRenderedTemplates('pl2358lv-2c63-42e1-b450-6aafd91fbae8')({
       placeholderRequest: placeholderRequestState,
       placeholderTemplate: placeholderTemplateState
-    })).toStrictEqual({orderedRenderedTemplates: undefined, isPending: true});
+    })).toStrictEqual({ orderedRenderedTemplates: undefined, isPending: true });
   });
 
   it('should filter items on failure out', () => {

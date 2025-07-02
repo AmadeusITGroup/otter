@@ -1,6 +1,16 @@
-import { lstatSync } from 'node:fs';
-import { basename, dirname, posix, relative } from 'node:path';
+import {
+  lstatSync,
+} from 'node:fs';
+import {
+  basename,
+  dirname,
+  posix,
+  relative,
+} from 'node:path';
 import * as vscode from 'vscode';
+import type {
+  WorkspaceSchema,
+} from '@o3r/schematics';
 
 /**
  * Get the local path of the folder of the current open file
@@ -50,23 +60,23 @@ const getInfoFromWorkspaceJsonUris = async <T>(
   }
 };
 
-const getPackageManagerFromWorkspaceUri: (workspaceJsonUri: vscode.Uri) => Promise<string | undefined> = async (workspaceJsonUri: vscode.Uri): Promise<string | undefined> => {
+const getPackageManagerFromWorkspaceUri = async (workspaceJsonUri: vscode.Uri) => {
   const workspaceJsonDocument = await vscode.workspace.openTextDocument(workspaceJsonUri);
-  const workspaceJson = JSON.parse(workspaceJsonDocument.getText());
-  return workspaceJson.cli?.packageManager as string | undefined;
+  const workspaceJson = JSON.parse(workspaceJsonDocument.getText()) as WorkspaceSchema;
+  return workspaceJson.cli?.packageManager;
 };
 
 /**
  * Get the runner for NPM scripts
  */
-export const getPackageScriptRunner = async (): Promise<string> => {
+export const getPackageScriptRunner = async () => {
   const packageManager = await getInfoFromWorkspaceJsonUris(getPackageManagerFromWorkspaceUri);
   return packageManager || 'npx';
 };
 
 const toSnakeCase = (str: string) => str
-  .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
-  ?.map(x => x.toLowerCase())
+  .match(/[A-Z]{2,}(?=[A-Z][a-z]+\d*|\b)|[A-Z]?[a-z]+\d*|[A-Z]|\d+/g)
+  ?.map((x) => x.toLowerCase())
   .join('-') || '';
 
 /**
@@ -80,7 +90,7 @@ export const stringifyOptions = (options: Record<string, any> = {}, excludedOpti
       opt === optionName
       || opt.startsWith(`--${toSnakeCase(optionName)}=`)
     ))
-    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+
     .map(([optionName, optionValue]) => `--${toSnakeCase(optionName)}="${optionValue}"`);
 };
 
@@ -91,10 +101,10 @@ export const stringifyOptions = (options: Record<string, any> = {}, excludedOpti
 export const getSchematicDefaultOptions = async (schematicName: string) => {
   const getSchematicDefaultOptionsFromWorkspaceUri = async (workspaceJsonUri: vscode.Uri) => {
     const workspaceJsonDocument = await vscode.workspace.openTextDocument(workspaceJsonUri);
-    const workspaceJson = JSON.parse(workspaceJsonDocument.getText());
-    return basename(workspaceJsonUri.fsPath, '.json') === 'angular'
+    const workspaceJson = JSON.parse(workspaceJsonDocument.getText()) as WorkspaceSchema & { generators?: WorkspaceSchema['schematics'] };
+    return (basename(workspaceJsonUri.fsPath, '.json') === 'angular'
       ? workspaceJson.schematics?.[schematicName]
-      : workspaceJson.generators?.[schematicName];
+      : workspaceJson.generators?.[schematicName]) as object | undefined;
   };
   return await getInfoFromWorkspaceJsonUris(getSchematicDefaultOptionsFromWorkspaceUri) ?? {};
 };

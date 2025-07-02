@@ -1,4 +1,6 @@
-import { TranspilationPurposeOnlyError } from '../errors/index';
+import {
+  TranspilationPurposeOnlyError,
+} from '../errors/index';
 
 /**
  * Interface to describe the ElementProfile that are queried inside a fixture.

@@ -1,17 +1,35 @@
 import fs from 'node:fs';
 import https from 'node:https';
-import { Validator } from 'jsonschema';
-import { load } from 'js-yaml';
-import { pascalCase } from 'pascal-case';
 import path from 'node:path';
 import process from 'node:process';
-import { SwaggerSpecJson } from './swagger-spec-wrappers/swagger-spec-json';
-import { SwaggerSpecSplit } from './swagger-spec-wrappers/swagger-spec-split';
-import { SwaggerSpecYaml } from './swagger-spec-wrappers/swagger-spec-yaml';
-import { SwaggerSpecObject } from './swagger-spec-wrappers/swagger-spec-object';
-import { AvailableSwaggerSpecTargets, SwaggerSpec } from './swagger-spec-wrappers/swagger-spec.interface';
-import type { Spec } from 'swagger-schema-official';
-import { isUrlRefPath } from './swagger-spec-wrappers/utils';
+import {
+  load,
+} from 'js-yaml';
+import {
+  Validator,
+} from 'jsonschema';
+import type {
+  Spec,
+} from 'swagger-schema-official';
+import {
+  SwaggerSpecJson,
+} from './swagger-spec-wrappers/swagger-spec-json';
+import {
+  SwaggerSpecObject,
+} from './swagger-spec-wrappers/swagger-spec-object';
+import {
+  SwaggerSpecSplit,
+} from './swagger-spec-wrappers/swagger-spec-split';
+import {
+  SwaggerSpecYaml,
+} from './swagger-spec-wrappers/swagger-spec-yaml';
+import {
+  AvailableSwaggerSpecTargets,
+  SwaggerSpec,
+} from './swagger-spec-wrappers/swagger-spec.interface';
+import {
+  isUrlRefPath,
+} from './swagger-spec-wrappers/utils';
 
 /** X Vendor to indicate that the definition is generated because of reference conflict */
 export const X_VENDOR_CONFLICT_TAG = 'x-generated-from-conflict';
@@ -31,9 +49,10 @@ export async function retrieveRemoteSwagger(targetedSwaggerSpec: string, current
 
       res.setEncoding('utf8');
       let rawData = '';
-      res.on('data', (chunk) => { rawData += chunk; });
+      res.on('data', (chunk) => {
+        rawData += chunk;
+      });
       res.on('end', () => resolve(rawData));
-
     }).on('error', (e) => reject(e))
   );
 
@@ -71,7 +90,12 @@ export function getTargetPath(targetedSwaggerSpec: string, currentDirectory: str
  * @param swaggerPath Path to the swagger spec the item come from
  */
 export function calculatePrefix(name: string, swaggerPath?: string) {
-  let prefix = swaggerPath ? pascalCase(path.basename(swaggerPath).replace(/\.[^.]*$/, '')) : 'Base';
+  let prefix = swaggerPath
+    ? path.basename(swaggerPath)
+      .replace(/\.[^.]*$/, '')
+      .replace(/\w+/g, (word) => word[0].toUpperCase() + word.slice(1).toLowerCase())
+      .replace(/\W/g, '')
+    : 'Base';
   prefix = name.startsWith(prefix) ? 'Base' : prefix;
   return `_${prefix}`;
 }
@@ -86,7 +110,6 @@ export async function getTargetInformation(
   targetedSwaggerSpec: string,
   currentDirectory: string = process.cwd(),
   targetType: AvailableSwaggerSpecTargets = 'LocalPath'): Promise<SwaggerSpec> {
-
   if (targetType === 'Url' || isUrlRefPath(targetedSwaggerSpec)) {
     return retrieveRemoteSwagger(targetedSwaggerSpec, currentDirectory);
   }
@@ -122,17 +145,17 @@ export function addTagToSpecObj(swaggerSpec: Partial<Spec>, tag: any): any {
     return;
   }
 
-  if (!swaggerSpec.tags) {
-    swaggerSpec.tags = [
-      tag
-    ];
-  } else {
+  if (swaggerSpec.tags) {
     const idx = (swaggerSpec.tags as any[]).findIndex((t) => t.name === tag.name);
-    if (idx < 0) {
+    if (idx === -1) {
       swaggerSpec.tags.push(tag);
     } else {
       swaggerSpec.tags[idx] = tag;
     }
+  } else {
+    swaggerSpec.tags = [
+      tag
+    ];
   }
 
   return swaggerSpec;
@@ -153,18 +176,19 @@ export function addItemToSpecObj(swaggerSpec: Partial<Spec>, nodeType: keyof Spe
     return { finalName: itemName, swaggerSpec };
   }
 
-  if (!swaggerSpec[nodeType]) {
-    swaggerSpec[nodeType] = {
-      [itemName]: item
-    } as any;
-  } else {
+  if (swaggerSpec[nodeType]) {
     if (!(swaggerSpec[nodeType] as any)[itemName]) {
       (swaggerSpec[nodeType] as any)[itemName] = item;
     } else if (!ignoreConflict) {
       const newItemName = calculatePrefix(itemName, swaggerPath) + itemName;
+      // eslint-disable-next-line no-console -- no logger available
       console.warn(`The ${nodeType} "${itemName}"${swaggerPath ? ` from "${swaggerPath}"` : ''} is conflicting, "${newItemName}" will be used instead.`);
-      return addItemToSpecObj(swaggerSpec, nodeType, newItemName, { ...item, [X_VENDOR_CONFLICT_TAG]: true}, swaggerPath);
+      return addItemToSpecObj(swaggerSpec, nodeType, newItemName, { ...item, [X_VENDOR_CONFLICT_TAG]: true }, swaggerPath);
     }
+  } else {
+    swaggerSpec[nodeType] = {
+      [itemName]: item
+    } as any;
   }
 
   return { finalName: itemName, swaggerSpec };
@@ -179,7 +203,7 @@ export function addItemToSpecObj(swaggerSpec: Partial<Spec>, nodeType: keyof Spe
  * @param ignoreConflict ignore the conflict and keep the original definition
  */
 export function addDefinitionToSpecObj(swaggerSpec: Partial<Spec>, definitionName: string, definition: any, swaggerPath?: string, ignoreConflict = false
-): { finalName: string; swaggerSpec: Partial<Spec>} {
+): { finalName: string; swaggerSpec: Partial<Spec> } {
   return addItemToSpecObj(swaggerSpec, 'definitions', definitionName, definition, swaggerPath, ignoreConflict);
 }
 
@@ -192,7 +216,7 @@ export function addDefinitionToSpecObj(swaggerSpec: Partial<Spec>, definitionNam
  * @param ignoreConflict ignore the conflict and keep the original response
  */
 export function addResponseToSpecObj(swaggerSpec: Partial<Spec>, responseName: string, response: any, swaggerPath?: string, ignoreConflict = false
-): { finalName: string; swaggerSpec: Partial<Spec>} {
+): { finalName: string; swaggerSpec: Partial<Spec> } {
   return addItemToSpecObj(swaggerSpec, 'responses', responseName, response, swaggerPath, ignoreConflict);
 }
 
@@ -212,15 +236,14 @@ export function addParameterToSpecObj(swaggerSpec: Partial<Spec>, parameterName:
 /**
  * Get the validity of a given JSON object
  * @param jsonObject Object to check
- * @param schema Json Schema to apply to the obejct
+ * @param schema Json Schema to apply to the object
  * @param errorMessage Error message display to the error
  */
-// eslint-disable-next-line @typescript-eslint/ban-types
 export function checkJson(jsonObject: object, schema: Record<string, unknown>, errorMessage = 'invalid format'): void {
   const validator = new Validator();
   const validation = validator.validate(jsonObject, schema);
   if (!validation.valid) {
-    // eslint-disable-next-line no-console
+    // eslint-disable-next-line no-console -- no logger available
     console.error(...validation.errors.map((err) => err.message));
     throw new Error(errorMessage);
   }
@@ -232,7 +255,7 @@ export function checkJson(jsonObject: object, schema: Record<string, unknown>, e
 export async function getCurrentArtifactVersion(): Promise<string | undefined> {
   const currentPackageJsonPath = path.resolve(process.cwd(), 'package.json');
   if (fs.existsSync(currentPackageJsonPath)) {
-    const rawPackageJson = await fs.promises.readFile(currentPackageJsonPath, {encoding: 'utf8'});
+    const rawPackageJson = await fs.promises.readFile(currentPackageJsonPath, { encoding: 'utf8' });
     return JSON.parse(rawPackageJson).version;
   }
   return undefined;
@@ -243,6 +266,6 @@ export async function getCurrentArtifactVersion(): Promise<string | undefined> {
  * @param pattern Pattern to test
  */
 export function isGlobPattern(pattern: string) {
-  return pattern.indexOf('*') >= 0 ||
-    pattern.indexOf('{') >= 0;
+  return pattern.includes('*')
+    || pattern.includes('{');
 }

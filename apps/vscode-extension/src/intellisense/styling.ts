@@ -1,4 +1,10 @@
-import { CompletionItem, CompletionItemKind, CompletionItemProvider, SnippetString, workspace } from 'vscode';
+import {
+  CompletionItem,
+  CompletionItemKind,
+  CompletionItemProvider,
+  SnippetString,
+  workspace,
+} from 'vscode';
 
 const importStyling = /@use '@o3r\/styling'( as (?<lib>\w+))?;/;
 
@@ -7,8 +13,7 @@ const importStyling = /@use '@o3r\/styling'( as (?<lib>\w+))?;/;
  */
 export const stylingCompletionTriggerChar = '$';
 
-export const stylingCompletionItemProvider = () : CompletionItemProvider<CompletionItem> => {
-
+export const stylingCompletionItemProvider = (): CompletionItemProvider<CompletionItem> => {
   return {
     provideCompletionItems: (doc) => {
       const text = doc.getText();
@@ -33,8 +38,8 @@ export const stylingCompletionItemProvider = () : CompletionItemProvider<Complet
         details.push(
           'description: \'${3:description}\'',
           'label: \'${4:label}\'',
-          types.length ? `type: '\${5|${types}|}'` : 'type: \'${5:type}\'',
-          categories.length ? `category: '\${6|${categories}|}'` : 'category: \'${6:category}\''
+          types.length > 0 ? `type: '\${5|${types}|}'` : 'type: \'${5:type}\'',
+          categories.length > 0 ? `category: '\${6|${categories}|}'` : 'category: \'${6:category}\''
         );
       }
       o3rVarCompletion.insertText = new SnippetString(

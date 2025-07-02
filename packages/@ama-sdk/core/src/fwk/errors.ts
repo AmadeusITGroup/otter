@@ -16,7 +16,6 @@ interface GenericErrorContext {
  * Generic error class
  */
 export class GenericError extends Error {
-
   constructor(message: string, context?: GenericErrorContext) {
     const httpRegexp = /^https?:\/\//;
     const baseUrl = context?.url ? context.url.replace(httpRegexp, '') : 'unknown';
@@ -26,15 +25,12 @@ export class GenericError extends Error {
       : `[SDK] ${message}`
     );
   }
-
 }
-
 
 /**
  * Request failed error class
  */
 export class RequestFailedError<T> extends GenericError {
-
   /**
    * Request status code
    */
@@ -50,7 +46,6 @@ export class RequestFailedError<T> extends GenericError {
     this.statusCode = statusCode;
     this.data = data;
   }
-
 }
 
 /**
@@ -72,7 +67,6 @@ export class EmptyResponseError<T> extends GenericError {
  * Response timeout error class
  */
 export class ResponseTimeoutError extends GenericError {
-
   constructor(message: string, context?: GenericErrorContext) {
     super(`[Response timeout] ${message}`, context);
   }
@@ -82,7 +76,6 @@ export class ResponseTimeoutError extends GenericError {
  * Response parse error class
  */
 export class ResponseJSONParseError extends RequestFailedError<string> {
-
   constructor(message: string, httpStatus: number, bodyContent?: string, context?: GenericErrorContext) {
     super(`[Response JSON parse error] ${message}`, httpStatus, bodyContent, context);
   }
@@ -92,7 +85,6 @@ export class ResponseJSONParseError extends RequestFailedError<string> {
  * Call Canceled error class
  */
 export class CanceledCallError<T = any> extends GenericError {
-
   /**
    * First plugin canceling the call
    */

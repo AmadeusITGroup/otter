@@ -1,12 +1,33 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-import { getTestBed, TestBed } from '@angular/core/testing';
-import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
-import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { Configuration, CustomConfig } from '@o3r/core';
-import { Subscription } from 'rxjs';
-import { ConfigurationStore, globalConfigurationId, selectConfigOverride, selectConfigurationEntities, upsertConfigurationEntities, upsertConfigurationEntity } from '../../stores/index';
-import { ConfigurationBaseService } from './configuration.base.service';
-
+import {
+  getTestBed,
+  TestBed,
+} from '@angular/core/testing';
+import {
+  BrowserDynamicTestingModule,
+  platformBrowserDynamicTesting,
+} from '@angular/platform-browser-dynamic/testing';
+import {
+  MockStore,
+  provideMockStore,
+} from '@ngrx/store/testing';
+import {
+  Configuration,
+  CustomConfig,
+} from '@o3r/core';
+import {
+  Subscription,
+} from 'rxjs';
+import {
+  ConfigurationStore,
+  globalConfigurationId,
+  selectConfigOverride,
+  selectConfigurationEntities,
+  upsertConfigurationEntities,
+  upsertConfigurationEntity,
+} from '../../stores/index';
+import {
+  ConfigurationBaseService,
+} from './configuration.base.service';
 
 interface MyConfigToTest extends Configuration {
   fieldNumber: number;
@@ -22,22 +43,22 @@ const additionalConfig = {
   additionalField: 10
 };
 
-const globalConfig = {'demo-cabinCodeEco': 'ECO1', 'priceDisplay': 'short'};
+const globalConfig = { demoCabinCodeEco: 'ECO1', priceDisplay: 'short' };
 
 const staticConfig: CustomConfig[] = [{
   name: 'SearchTypePresenter',
   library: '@otter/components',
-  config: {showComplexBtn: true}
+  config: { showComplexBtn: true }
 },
 {
   name: 'global',
-  config: {'demo-minNbAdults': 4}
+  config: { demoMinNbAdults: 4 }
 }];
 
 describe('ConfigurationBaseService', () => {
-
   let service: ConfigurationBaseService;
   let mockStore: MockStore<ConfigurationStore>;
+  let mockDispatch: jest.SpyInstance;
 
   beforeAll(() => getTestBed().platform || TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting(), {
     teardown: { destroyAfterEach: false }
@@ -53,25 +74,25 @@ describe('ConfigurationBaseService', () => {
 
     service = TestBed.inject(ConfigurationBaseService);
     mockStore = TestBed.inject(MockStore);
-    jest.spyOn(mockStore, 'dispatch');
+    mockDispatch = jest.spyOn(mockStore, 'dispatch');
   });
 
   it('should add globalconfig config', () => {
     service.upsertConfiguration(globalConfig);
 
-    expect(mockStore.dispatch).toHaveBeenCalledWith(upsertConfigurationEntity({id: 'global', configuration: globalConfig}));
+    expect(mockDispatch).toHaveBeenCalledWith(upsertConfigurationEntity({ id: 'global', configuration: globalConfig }));
   });
 
   it('should update a specific component config', () => {
     service.upsertConfiguration(myInitialConfiguration, 'INITIAL_CONFIG');
 
-    expect(mockStore.dispatch).toHaveBeenCalledWith(upsertConfigurationEntity({id: 'INITIAL_CONFIG', configuration: myInitialConfiguration}));
+    expect(mockDispatch).toHaveBeenCalledWith(upsertConfigurationEntity({ id: 'INITIAL_CONFIG', configuration: myInitialConfiguration }));
   });
 
   it('should extend the existing config and not touch the existing fields', () => {
     service.extendConfiguration(additionalConfig, 'MY_COMPONENT_TEST_CONFIG');
 
-    expect(mockStore.dispatch).toHaveBeenCalledWith(upsertConfigurationEntity({id: 'MY_COMPONENT_TEST_CONFIG', configuration: {additionalField: additionalConfig.additionalField}}));
+    expect(mockDispatch).toHaveBeenCalledWith(upsertConfigurationEntity({ id: 'MY_COMPONENT_TEST_CONFIG', configuration: { additionalField: additionalConfig.additionalField } }));
   });
 
   it('should get the configuration from body tag', () => {
@@ -86,11 +107,11 @@ describe('ConfigurationBaseService', () => {
   it('should put the configuration from body tag in the store', () => {
     service.computeConfiguration(staticConfig);
 
-    expect(mockStore.dispatch).toHaveBeenCalledWith(
+    expect(mockDispatch).toHaveBeenCalledWith(
       upsertConfigurationEntities({
         entities: {
-          '@otter/components#SearchTypePresenter': {showComplexBtn: true, id: '@otter/components#SearchTypePresenter'},
-          global: {'demo-minNbAdults': 4, id: 'global'}
+          '@otter/components#SearchTypePresenter': { showComplexBtn: true, id: '@otter/components#SearchTypePresenter' },
+          global: { demoMinNbAdults: 4, id: 'global' }
         }
       })
     );
@@ -149,14 +170,14 @@ describe('ConfigurationBaseService', () => {
     });
 
     it('should emit if we change the override config', () => {
-      mockStore.overrideSelector(selectConfigOverride, { [configId]: { prop: 'change' }});
+      mockStore.overrideSelector(selectConfigOverride, { [configId]: { prop: 'change' } });
       mockStore.refreshState();
       expect(spy).toHaveBeenCalledTimes(1);
       expect(spy).toHaveBeenCalledWith(expect.objectContaining({ prop: 'change' }));
     });
 
     it('should not emit if we change the config value when it is overriden by the override config', () => {
-      mockStore.overrideSelector(selectConfigOverride, { [configId]: { prop: 'override' }});
+      mockStore.overrideSelector(selectConfigOverride, { [configId]: { prop: 'override' } });
       mockStore.refreshState();
       spy.mockReset();
       mockStore.overrideSelector(selectConfigurationEntities, {

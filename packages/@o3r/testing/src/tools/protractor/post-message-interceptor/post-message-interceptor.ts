@@ -1,11 +1,16 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { browser } from 'protractor';
-
-import { ConditionFn, PostMessageCall } from './core';
+import {
+  browser,
+} from 'protractor';
+import {
+  ConditionFn,
+  PostMessageCall,
+} from './core';
 
 /**
  * Controls the postMessage interceptor
+ * @deprecated Will be removed in v13, please use Playwright instead
  */
 export class PostMessageInterceptor {
   private readonly GET_INSTANCE = 'window.postMessageInterceptor.getInstance()';
@@ -36,7 +41,7 @@ export class PostMessageInterceptor {
     const fetchManager = fs.readFileSync(
       path.resolve(process.cwd(), 'node_modules', '@o3r', 'testing', 'tools', 'protractor', 'post-message-interceptor', '_post-message-interceptor.js'),
       {
-        encoding: 'utf-8'
+        encoding: 'utf8'
       }
     );
     await browser.executeScript(fetchManager);

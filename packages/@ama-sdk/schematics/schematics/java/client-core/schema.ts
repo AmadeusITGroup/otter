@@ -1,4 +1,6 @@
-import type { SchematicOptionObject } from '@o3r/schematics';
+import type {
+  SchematicOptionObject,
+} from '@o3r/schematics';
 
 export interface NgGenerateJavaClientCoreSchematicsSchema extends SchematicOptionObject {
   /** Path to the swagger specification used to generate the SDK */

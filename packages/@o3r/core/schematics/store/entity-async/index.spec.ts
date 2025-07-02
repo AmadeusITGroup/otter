@@ -1,23 +1,48 @@
-import { Tree } from '@angular-devkit/schematics';
-import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { commonModuleContent } from '../common/mocks/example-module';
-import { commonIndexContent } from '../common/mocks/index';
-import { asyncEntityActionsContent } from './mocks/example-actions';
-import { asyncEntityEffectContent } from './mocks/example-effect';
-import { asyncEntityEffectSpecContent } from './mocks/example-effect-spec';
-import { asyncEntityReducerContent } from './mocks/example-reducer';
-import { asyncEntityReducerSpecContent } from './mocks/example-reducer-spec';
-import { asyncEntitySelectorsContent } from './mocks/example-selectors';
-import { asyncEntitySelectorsSpecContent } from './mocks/example-selectors-spec';
-import { asyncEntityStateContent } from './mocks/example-state';
-import { asyncEntitySyncContent } from './mocks/example-sync';
+import {
+  Tree,
+} from '@angular-devkit/schematics';
+import {
+  SchematicTestRunner,
+} from '@angular-devkit/schematics/testing';
+import {
+  commonModuleContent,
+} from '../common/mocks/example-module';
+import {
+  commonIndexContent,
+} from '../common/mocks/index';
+import {
+  asyncEntityActionsContent,
+} from './mocks/example-actions';
+import {
+  asyncEntityEffectContent,
+} from './mocks/example-effect';
+import {
+  asyncEntityEffectSpecContent,
+} from './mocks/example-effect-spec';
+import {
+  asyncEntityReducerContent,
+} from './mocks/example-reducer';
+import {
+  asyncEntityReducerSpecContent,
+} from './mocks/example-reducer-spec';
+import {
+  asyncEntitySelectorsContent,
+} from './mocks/example-selectors';
+import {
+  asyncEntitySelectorsSpecContent,
+} from './mocks/example-selectors-spec';
+import {
+  asyncEntityStateContent,
+} from './mocks/example-state';
+import {
+  asyncEntitySyncContent,
+} from './mocks/example-sync';
 
 const collectionPath = path.join(__dirname, '..', '..', '..', 'collection.json');
 
 describe('Store entity async generator', () => {
-
   let initialTree: Tree;
 
   beforeEach(() => {

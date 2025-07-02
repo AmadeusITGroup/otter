@@ -1,35 +1,86 @@
-import type { HttpClient, HttpResponse } from '@angular/common/http';
-import { RequestBody, RequestMetadata, RequestOptions, TokenizedOptions } from '../plugins/core/index';
-import { ExceptionReply } from '../plugins/exception';
-import { ReviverReply } from '../plugins/reviver';
-import { ApiTypes } from '../fwk/api';
-import { extractQueryParams, filterUndefinedValues, getResponseReviver, prepareUrl, processFormData, tokenizeRequestOptions } from '../fwk/api.helpers';
-import type { Api, PartialExcept } from '../fwk/api.interface';
-import type { ApiClient,RequestOptionsParameters } from '../fwk/core/api-client';
-import { BaseApiClientOptions } from '../fwk/core/base-api-constructor';
-import { CanceledCallError, EmptyResponseError, RequestFailedError } from '../fwk/errors';
-import { ReviverType } from '../fwk/Reviver';
+import type {
+  HttpClient,
+  HttpResponse,
+} from '@angular/common/http';
+import {
+  ApiTypes,
+} from '../fwk/api';
+import {
+  extractQueryParams,
+  filterUndefinedValues,
+  getResponseReviver,
+  prepareUrl,
+  processFormData,
+  tokenizeRequestOptions,
+} from '../fwk/api.helpers';
+import type {
+  PartialExcept,
+} from '../fwk/api.interface';
+import type {
+  ApiClient,
+  RequestOptionsParameters,
+} from '../fwk/core/api-client';
+import {
+  BaseApiClientOptions,
+} from '../fwk/core/base-api-constructor';
+import {
+  CanceledCallError,
+  EmptyResponseError,
+  RequestFailedError,
+} from '../fwk/errors';
+import {
+  ReviverType,
+} from '../fwk/reviver';
+import type {
+  AngularCall,
+  AngularPlugin,
+  PluginObservableRunner,
+} from '../plugins/core/angular-plugin';
+import type {
+  RequestOptions,
+  TokenizedOptions,
+} from '../plugins/core/index';
+import {
+  ExceptionReply,
+} from '../plugins/exception';
+import {
+  ReviverReply,
+} from '../plugins/reviver';
 
-/** @see BaseApiClientOptions */
+/**
+ * @see BaseApiClientOptions
+ * @deprecated Use the one exposed by {@link @ama-sdk/client-angular}, will be removed in v13
+ */
 export interface BaseApiAngularClientOptions extends BaseApiClientOptions {
+  /** Angular HTTP Client  */
   httpClient: HttpClient;
+  /**
+   * List of plugins to apply to the Angular Http call
+   * @deprecated Use the one exposed by {@link @ama-sdk/client-angular}, will be removed in v13
+   */
+  angularPlugins: AngularPlugin[];
 }
 
-/** @see BaseApiConstructor */
+/**
+ * @see BaseApiConstructor
+ * @deprecated Use the one exposed by {@link @ama-sdk/client-angular}, will be removed in v13
+ */
 export interface BaseApiAngularClientConstructor extends PartialExcept<BaseApiAngularClientOptions, 'basePath' | 'httpClient'> {
 }
 
 const DEFAULT_OPTIONS: Omit<BaseApiAngularClientOptions, 'basePath' | 'httpClient'> = {
   replyPlugins: [new ReviverReply(), new ExceptionReply()],
-  // AngularPlugins: [],
+  angularPlugins: [],
   requestPlugins: [],
   enableTokenization: false,
   disableFallback: false
 };
 
-/** Client to process the call to the API using Angular API */
+/**
+ * Client to process the call to the API using Angular API
+ * @deprecated Use the one exposed by {@link @ama-sdk/client-angular}, will be removed in v13
+ */
 export class ApiAngularClient implements ApiClient {
-
   /** @inheritdoc */
   public options: BaseApiAngularClientOptions;
 
@@ -69,21 +120,6 @@ export class ApiAngularClient implements ApiClient {
   }
 
   /** @inheritdoc */
-  public async prepareOptions(url: string, method: string, queryParams: { [key: string]: string | undefined }, headers: { [key: string]: string | undefined }, body?: RequestBody,
-    tokenizedOptions?: TokenizedOptions, metadata?: RequestMetadata, api?: Api) {
-    return this.getRequestOptions({
-      headers,
-      method,
-      basePath: url,
-      queryParams,
-      body,
-      metadata,
-      tokenizedOptions,
-      api
-    });
-  }
-
-  /** @inheritdoc */
   public prepareUrl(url: string, queryParameters: { [key: string]: string | undefined } = {}) {
     return prepareUrl(url, queryParameters);
   }
@@ -103,8 +139,7 @@ export class ApiAngularClient implements ApiClient {
   public async processCall<T>(url: string, options: RequestOptions, apiType: ApiTypes, apiName: string, revivers: ReviverType<T> | { [statusCode: number]: ReviverType<T> | undefined },
     operationId?: string): Promise<T>;
   public async processCall<T>(url: string, options: RequestOptions, apiType: ApiTypes | string, apiName: string,
-    revivers?: ReviverType<T> | undefined | { [statusCode: number]: ReviverType<T> | undefined }, operationId?: string): Promise<T> {
-
+    revivers?: ReviverType<T> | { [statusCode: number]: ReviverType<T> | undefined }, operationId?: string): Promise<T> {
     let response: HttpResponse<any> | undefined;
     let root: any;
     let exception: Error | undefined;
@@ -119,19 +154,39 @@ export class ApiAngularClient implements ApiClient {
         let data: HttpResponse<any>;
         const metadataSignal = options.metadata?.signal;
         metadataSignal?.throwIfAborted();
-        const subscription = this.options.httpClient.request(options.method, url, {
+
+        const loadedPlugins: (PluginObservableRunner<HttpResponse<any>, AngularCall>)[] = [];
+        if (this.options.angularPlugins) {
+          loadedPlugins.push(...this.options.angularPlugins.map((plugin) => plugin.load({
+            angularPlugins: loadedPlugins,
+            apiClient: this,
+            url,
+            apiName,
+            requestOptions: options,
+            logger: this.options.logger
+          })));
+        }
+
+        let httpRequest = this.options.httpClient.request(options.method, url, {
           ...options,
           observe: 'response',
           headers
-        }).subscribe({
+        });
+
+        for (const plugin of loadedPlugins) {
+          httpRequest = plugin.transform(httpRequest);
+        }
+
+        const subscription = httpRequest.subscribe({
           next: (res) => data = res,
+          // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors -- subscription forwards the error from the httpRequest to asyncResponse promise
           error: (err) => reject(err),
           complete: () => resolve(data)
         });
         metadataSignal?.throwIfAborted();
         metadataSignal?.addEventListener('abort', () => {
           subscription.unsubscribe();
-          reject(metadataSignal.reason);
+          reject(metadataSignal.reason instanceof Error ? metadataSignal.reason : new Error(metadataSignal.reason.toString()));
         });
       });
       response = await asyncResponse;
@@ -146,10 +201,10 @@ export class ApiAngularClient implements ApiClient {
       }
     }
 
-    // eslint-disable-next-line no-console
+    // eslint-disable-next-line no-console -- `console.error` is supposed to be the default value if the `options` argument is not provided, can be removed in Otter v12.
     const reviver = getResponseReviver(revivers, response, operationId, { disableFallback: this.options.disableFallback, log: console.error });
-    const replyPlugins = this.options.replyPlugins ?
-      this.options.replyPlugins.map((plugin) => plugin.load<T>({
+    const replyPlugins = this.options.replyPlugins
+      ? this.options.replyPlugins.map((plugin) => plugin.load<T>({
         dictionaries: root && root.dictionaries,
         response: response && {
           ...response,
@@ -166,7 +221,8 @@ export class ApiAngularClient implements ApiClient {
         url,
         origin,
         logger: this.options.logger
-      })) : [];
+      }))
+      : [];
 
     let parsedData = root;
     for (const pluginRunner of replyPlugins) {

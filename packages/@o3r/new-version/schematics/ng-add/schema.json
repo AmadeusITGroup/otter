@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "ngAddSchematicsSchema",
+  "title": "Add Otter new-version ",
+  "description": "ngAdd Otter new-version ",
+  "properties": {
+    "projectName": {
+      "type": "string",
+      "description": "Project name",
+      "$default": {
+        "$source": "projectName"
+      }
+    },
+    "exactO3rVersion": {
+      "type": "boolean",
+      "description": "Use a pinned version for otter packages",
+      "default": false
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+  ]
+}

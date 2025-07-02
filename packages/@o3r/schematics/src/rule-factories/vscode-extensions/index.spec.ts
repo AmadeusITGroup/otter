@@ -1,14 +1,21 @@
-import { Tree } from '@angular-devkit/schematics';
-import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
 import * as path from 'node:path';
-import { lastValueFrom } from 'rxjs';
-import { addVsCodeRecommendations } from './index';
+import {
+  Tree,
+} from '@angular-devkit/schematics';
+import {
+  SchematicTestRunner,
+} from '@angular-devkit/schematics/testing';
+import {
+  lastValueFrom,
+} from 'rxjs';
+import {
+  addVsCodeRecommendations,
+} from './index';
 
 const collectionPath = path.join(__dirname, '..', '..', '..', 'collection.json');
 const extensionFile = '/.vscode/extensions.json';
 
 describe('addVsCodeRecommendations', () => {
-
   let initialTree: Tree;
 
   beforeEach(() => {
@@ -16,7 +23,7 @@ describe('addVsCodeRecommendations', () => {
   });
 
   it('should add recommendation to existing file', async () => {
-    initialTree.create(extensionFile, JSON.stringify({recommendations: []}));
+    initialTree.create(extensionFile, JSON.stringify({ recommendations: [] }));
     const runner = new SchematicTestRunner('ng-add', collectionPath);
     const tree = await lastValueFrom(runner.callRule(addVsCodeRecommendations(['test']), initialTree));
 
@@ -43,5 +50,4 @@ describe('addVsCodeRecommendations', () => {
     expect((tree.readJson(extensionFile) as { recommendations: string[] }).recommendations).toContain('test2');
     expect((tree.readJson(extensionFile) as { recommendations: string[] }).recommendations).toHaveLength(2);
   });
-
 });

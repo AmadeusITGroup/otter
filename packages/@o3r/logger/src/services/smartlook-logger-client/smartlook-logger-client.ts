@@ -1,7 +1,12 @@
-import { Action, ActionReducer, MetaReducer } from '@ngrx/store';
-import type { LoggerClient } from '@o3r/logger';
-
+import {
+  Action,
+  ActionReducer,
+  MetaReducer,
+} from '@ngrx/store';
 import SmartLook from 'smartlook-client';
+import type {
+  LoggerClient,
+} from '@o3r/logger';
 
 /**
  * SmartLook client.
@@ -18,7 +23,7 @@ export class SmartLookClient implements LoggerClient {
   /**
    * @inheritdoc
    */
-  public identify(uid: string, vars: {[key: string]: string} = {}): void {
+  public identify(uid: string, vars: { [key: string]: string } = {}): void {
     SmartLook.identify(uid, vars);
   }
 
@@ -33,7 +38,7 @@ export class SmartLookClient implements LoggerClient {
    * @inheritdoc
    */
   public error(message?: any, ...optionalParams: any[]): void {
-    // eslint-disable-next-line no-console
+    // eslint-disable-next-line no-console -- done on purpose
     console.error(message, ...optionalParams);
   }
 
@@ -41,6 +46,7 @@ export class SmartLookClient implements LoggerClient {
    * @inheritdoc
    */
   public warn(message?: any, ...optionalParams: any[]): void {
+    // eslint-disable-next-line no-console -- done on purpose
     console.warn(message, ...optionalParams);
   }
 
@@ -48,7 +54,7 @@ export class SmartLookClient implements LoggerClient {
    * @inheritdoc
    */
   public log(message?: any, ...optionalParams: any[]): void {
-    // eslint-disable-next-line no-console
+    // eslint-disable-next-line no-console -- done on purpose
     console.log(message, ...optionalParams);
   }
 
@@ -56,8 +62,7 @@ export class SmartLookClient implements LoggerClient {
    * @inheritdoc
    */
   public getSessionURL(): undefined {
-    // eslint-disable-next-line no-console
-    console.error('Session URL not implemented in SmartLook client');
+    this.error('Session URL not implemented in SmartLook client');
 
     return undefined;
   }
@@ -80,9 +85,9 @@ export class SmartLookClient implements LoggerClient {
    * @inheritdoc
    */
   public createMetaReducer(): MetaReducer<any, Action> {
-    // eslint-disable-next-line @typescript-eslint/no-this-alias
+    // eslint-disable-next-line @typescript-eslint/no-this-alias, unicorn/no-this-assignment -- TODO check later if we can move to arrow function without regression
     const client: SmartLookClient = this;
-    // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
+    // eslint-disable-next-line prefer-arrow/prefer-arrow-functions -- TODO check later if we can move to arrow function without regression
     return function debug(reducer: ActionReducer<any>): ActionReducer<any> {
       return (state, action) => {
         // Filter @ngrx actions

@@ -1,6 +1,12 @@
-import { chain, noop, type Rule } from '@angular-devkit/schematics';
 import * as path from 'node:path';
-import type { NgAddSchematicsSchema } from './schema';
+import {
+  chain,
+  noop,
+  type Rule,
+} from '@angular-devkit/schematics';
+import type {
+  NgAddSchematicsSchema,
+} from './schema';
 
 const reportMissingSchematicsDep = (logger: { error: (message: string) => any }) => (reason: any) => {
   logger.error(`[ERROR]: Adding @o3r/apis-manager has failed.
@@ -24,6 +30,10 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
     const projectType = workspaceProject?.projectType || 'application';
     if (projectType === 'application') {
       rulesToExecute.push(updateApiDependencies(options));
+    }
+
+    if (!options.skipCodeSample) {
+      depsInfo.o3rPeerDeps.push('@ama-sdk/client-fetch');
     }
 
     const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {

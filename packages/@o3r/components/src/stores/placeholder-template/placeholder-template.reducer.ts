@@ -1,9 +1,16 @@
-import {createEntityAdapter} from '@ngrx/entity';
-import {ActionCreator, createReducer, on, ReducerTypes} from '@ngrx/store';
+import {
+  createEntityAdapter,
+} from '@ngrx/entity';
+import {
+  ActionCreator,
+  createReducer,
+  on,
+  ReducerTypes,
+} from '@ngrx/store';
 import * as actions from './placeholder-template.actions';
 import {
   PlaceholderTemplateModel,
-  PlaceholderTemplateState
+  PlaceholderTemplateState,
 } from './placeholder-template.state';
 
 /**

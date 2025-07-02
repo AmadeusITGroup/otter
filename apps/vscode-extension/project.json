@@ -26,13 +26,7 @@
       "outputs": ["{projectRoot}/dist/src/extension.js"]
     },
     "lint": {
-      "options": {
-        "eslintConfig": "apps/vscode-extension/.eslintrc.js",
-        "lintFilePatterns": [
-          "apps/vscode-extension/src/**/*.ts",
-          "apps/vscode-extension/package.json"
-        ]
-      }
+      "executor": "nx:run-commands"
     },
     "test": {
       "executor": "@nx/jest:jest",

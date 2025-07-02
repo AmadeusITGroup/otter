@@ -1,11 +1,18 @@
-import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
-import { Observable, of, Subscription } from 'rxjs';
-import { catchError, map, startWith, take, timeout } from 'rxjs/operators';
-import { ChromeExtensionConnectionService, isRuleEngineEventsMessage } from '../../services/connection.service';
-import { RulesetHistoryService } from '../../services/ruleset-history.service';
-
-type AppState = 'loading' | 'timeout' | 'connected';
+import {
+  AsyncPipe,
+} from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+} from '@angular/core';
+import {
+  Observable,
+} from 'rxjs';
+import {
+  AppState,
+  ChromeExtensionConnectionService,
+} from '../../services/connection.service';
 
 @Component({
   selector: 'app-connection',
@@ -16,37 +23,13 @@ type AppState = 'loading' | 'timeout' | 'connected';
     AsyncPipe
   ]
 })
-export class AppConnectionComponent implements OnDestroy {
+export class AppConnectionComponent {
+  private readonly connectionService = inject(ChromeExtensionConnectionService);
+
   /** Stream of application's state */
-  public appState$: Observable<AppState>;
+  public appState$: Observable<AppState> = this.connectionService.appState$;
 
-  private readonly subscription = new Subscription();
-
-  constructor(
-    connectionService: ChromeExtensionConnectionService,
-    rulesetHistoryService: RulesetHistoryService
-  ) {
-    this.subscription.add(
-      connectionService.message$.subscribe((message) => {
-        if (isRuleEngineEventsMessage(message)) {
-          rulesetHistoryService.update(message);
-        }
-      })
-    );
-
-    this.appState$ = connectionService.message$.pipe(
-      map(() => 'connected' as AppState),
-      take(1),
-      startWith('loading' as AppState),
-      timeout(3000),
-      catchError(() => of('timeout' as AppState))
-    );
-
-    connectionService.activate();
-  }
-
-  /** @inheritDoc */
-  public ngOnDestroy() {
-    this.subscription.unsubscribe();
+  constructor() {
+    this.connectionService.activate();
   }
 }

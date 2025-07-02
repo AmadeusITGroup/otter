@@ -1,18 +1,37 @@
-import { Component, DebugElement } from '@angular/core';
-import { ComponentFixture, getTestBed, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { UiEventPayload } from '../../contracts';
-import { EventTrackService } from '../../services/event-track';
-import { TrackEventsModule } from './track-events.module';
+import {
+  Component,
+  DebugElement,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  getTestBed,
+  TestBed,
+} from '@angular/core/testing';
+import {
+  By,
+} from '@angular/platform-browser';
+import {
+  BrowserDynamicTestingModule,
+  platformBrowserDynamicTesting,
+} from '@angular/platform-browser-dynamic/testing';
+import {
+  RouterTestingModule,
+} from '@angular/router/testing';
+import {
+  UiEventPayload,
+} from '../../contracts';
+import {
+  EventTrackService,
+} from '../../services/event-track';
+import {
+  TrackEventsModule,
+} from './track-events.module';
 
 @Component({
   template: `
     <button [trackEvents]="['mouseenter', 'mouseleave']" [trackEventContext]="{eventInfo: { eventName: '', pageId: '', timeStamp: ''}}">Click</button>`
 })
-class TestComponent {
-}
+class TestComponent {}
 
 describe('Track events directive:', () => {
   beforeAll(() => getTestBed().platform || TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting(), {
@@ -42,7 +61,7 @@ describe('Track events directive:', () => {
     fixture.detectChanges();
     const dummyEvent = new Event('mouseevent');
     buttonElement.triggerEventHandler('mouseleave', dummyEvent);
-    const expectedEventPayload: UiEventPayload = {nativeEvent: dummyEvent, context: {eventInfo: { eventName: '', pageId: '', timeStamp: ''}}};
+    const expectedEventPayload: UiEventPayload = { nativeEvent: dummyEvent, context: { eventInfo: { eventName: '', pageId: '', timeStamp: '' } } };
 
     expect(addEventSpy).toHaveBeenCalledWith(expectedEventPayload);
   });

@@ -2,7 +2,7 @@ const getJestGlobalConfig = require('../../../../jest.config.ut').getJestGlobalC
 
 /** @type {import('ts-jest/dist/types').JestConfigWithTsJest} */
 module.exports = {
-  ...getJestGlobalConfig(),
+  ...getJestGlobalConfig(__dirname),
   projects: [
     '<rootDir>/testing/jest.config.ut.js'
   ]

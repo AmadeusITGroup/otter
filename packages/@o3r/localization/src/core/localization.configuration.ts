@@ -35,7 +35,7 @@ export interface LocalizationConfiguration {
   /** Debug mode switch */
   debugMode: boolean;
   /** Query parameters for fetching the localization resources */
-  queryParams?: {[key: string]: string};
+  queryParams?: { [key: string]: string };
   /** Fetch options object as per https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters */
   fetchOptions?: RequestInit;
   /** Enable the ability to switch the translations on and off at runtime. */
@@ -51,7 +51,7 @@ export interface LocalizationConfiguration {
 /**
  * Default configuration for LocalizationModule
  */
-export const DEFAULT_LOCALIZATION_CONFIGURATION: LocalizationConfiguration = {
+export const DEFAULT_LOCALIZATION_CONFIGURATION: Readonly<LocalizationConfiguration> = {
   supportedLocales: [],
   endPointUrl: '',
   useDynamicContent: false,
@@ -61,4 +61,4 @@ export const DEFAULT_LOCALIZATION_CONFIGURATION: LocalizationConfiguration = {
   debugMode: false,
   enableTranslationDeactivation: false,
   mergeWithLocalTranslations: false
-};
+} as const;

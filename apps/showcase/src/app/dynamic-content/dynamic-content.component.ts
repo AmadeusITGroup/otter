@@ -1,9 +1,34 @@
-import { AsyncPipe } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, Component, QueryList, ViewChildren, ViewEncapsulation } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { O3rComponent } from '@o3r/core';
-import { DynamicContentModule } from '@o3r/dynamic-content';
-import { CopyTextPresComponent, DynamicContentPresComponent, IN_PAGE_NAV_PRES_DIRECTIVES, InPageNavLink, InPageNavLinkDirective, InPageNavPresService } from '../../components/index';
+import {
+  AsyncPipe,
+} from '@angular/common';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  QueryList,
+  ViewChildren,
+  ViewEncapsulation,
+} from '@angular/core';
+import {
+  RouterModule,
+} from '@angular/router';
+import {
+  O3rComponent,
+} from '@o3r/core';
+import {
+  DynamicContentModule,
+} from '@o3r/dynamic-content';
+import {
+  MarkdownModule,
+} from 'ngx-markdown';
+import {
+  DynamicContentPresComponent,
+  IN_PAGE_NAV_PRES_DIRECTIVES,
+  InPageNavLink,
+  InPageNavLinkDirective,
+  InPageNavPresService,
+} from '../../components/index';
 
 @O3rComponent({ componentType: 'Page' })
 @Component({
@@ -14,8 +39,8 @@ import { CopyTextPresComponent, DynamicContentPresComponent, IN_PAGE_NAV_PRES_DI
     DynamicContentModule,
     IN_PAGE_NAV_PRES_DIRECTIVES,
     DynamicContentPresComponent,
-    CopyTextPresComponent,
-    AsyncPipe
+    AsyncPipe,
+    MarkdownModule
   ],
   templateUrl: './dynamic-content.template.html',
   styleUrls: ['./dynamic-content.style.scss'],
@@ -23,8 +48,11 @@ import { CopyTextPresComponent, DynamicContentPresComponent, IN_PAGE_NAV_PRES_DI
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DynamicContentComponent implements AfterViewInit {
+  private readonly inPageNavPresService = inject(InPageNavPresService);
+
   @ViewChildren(InPageNavLinkDirective)
   private readonly inPageNavLinkDirectives!: QueryList<InPageNavLink>;
+
   public links$ = this.inPageNavPresService.links$;
 
   public bodyDynamicContentPath = document.body.dataset.dynamiccontentpath;
@@ -32,10 +60,6 @@ export class DynamicContentComponent implements AfterViewInit {
   public codeDataDynamicContentPath = `<body data-dynamiccontentpath="${this.bodyDynamicContentPath || ''}">
   ...
 </body>`;
-
-  constructor(
-    private readonly inPageNavPresService: InPageNavPresService
-  ) {}
 
   public ngAfterViewInit() {
     this.inPageNavPresService.initialize(this.inPageNavLinkDirectives);

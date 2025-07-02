@@ -1,12 +1,16 @@
-import { BaseMockAdapter } from './base-mock-adapter';
-import { Mock } from './mock';
+import {
+  BaseMockAdapter,
+} from './base-mock-adapter';
+import {
+  Mock,
+} from './mock';
 
 /**
  * Mock adapter that, for each operation, runs through the list of mocks sequentially.
  * Once reaching the end of the list, the counter resets to the beginning.
  */
 export class SequentialMockAdapter extends BaseMockAdapter {
-  protected operationCounter: {[operationId: string]: number} = {};
+  protected operationCounter: { [operationId: string]: number } = {};
 
   /** @inheritdoc */
   public getMock(operationId: string): Mock<any> {

@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "DesignTokenTemplateSchema",
+  "description": "Schema Describing the structure of the Design Token template, to enhance a Design Token structure",
+  "allOf": [
+    {
+      "$ref": "#/definitions/tokenTemplateGroup"
+    }
+  ],
+  "definitions": {
+    "tokenTemplateGroup": {
+      "type": "object",
+      "properties": {
+        "$schema": {
+          "type": "string"
+        },
+        "$description": {
+          "type": "string"
+        },
+        "$extensions": {
+          "$ref": "https://raw.githubusercontent.com/AmadeusITGroup/otter/main/packages/%40o3r/design/schemas/design-token.schema.json#/definitions/extensions"
+        }
+      },
+      "patternProperties": {
+        "^[^$.].*$": {
+          "$ref": "#/definitions/tokenTemplateGroup"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,9 +1,27 @@
-import { AsyncPipe, TitleCasePipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, type OnDestroy, ViewEncapsulation } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Subscription } from 'rxjs';
-import { ChromeExtensionConnectionService } from '../../services/connection.service';
-import { DebugPanelService } from './debug-panel.service';
+import {
+  AsyncPipe,
+  TitleCasePipe,
+} from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ViewEncapsulation,
+} from '@angular/core';
+import {
+  takeUntilDestroyed,
+} from '@angular/core/rxjs-interop';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import {
+  ChromeExtensionConnectionService,
+} from '../../services/connection.service';
+import {
+  DebugPanelService,
+} from './debug-panel.service';
 
 type PlaceholderMode = 'normal' | 'debug' | 'pending';
 
@@ -20,7 +38,7 @@ type PlaceholderMode = 'normal' | 'debug' | 'pending';
     TitleCasePipe
   ]
 })
-export class DebugPanelPresComponent implements OnDestroy {
+export class DebugPanelPresComponent {
   public readonly form = new FormGroup({
     visualTesting: new FormControl<boolean>(false),
     placeholderMode: new FormControl<PlaceholderMode>('normal')
@@ -31,24 +49,18 @@ export class DebugPanelPresComponent implements OnDestroy {
   /** Application information stream */
   public readonly applicationInformation$ = this.service.applicationInformation$;
 
-  private readonly subscription = new Subscription();
-
   constructor(
     private readonly service: DebugPanelService,
     private readonly connection: ChromeExtensionConnectionService
   ) {
-    this.subscription.add(
-      this.form.controls.visualTesting.valueChanges.subscribe((value) => {
-        this.toggleVisualTestingRender(!!value);
-      })
-    );
-    this.subscription.add(
-      this.form.controls.placeholderMode.valueChanges.subscribe((value) => {
-        if (value) {
-          this.togglePlaceholderMode(value);
-        }
-      })
-    );
+    this.form.controls.visualTesting.valueChanges.pipe(takeUntilDestroyed()).subscribe((value) => {
+      this.toggleVisualTestingRender(!!value);
+    });
+    this.form.controls.placeholderMode.valueChanges.pipe(takeUntilDestroyed()).subscribe((value) => {
+      if (value) {
+        this.togglePlaceholderMode(value);
+      }
+    });
   }
 
   /**
@@ -72,9 +84,5 @@ export class DebugPanelPresComponent implements OnDestroy {
     this.connection.sendMessage('requestMessages', {
       only: ['applicationInformation']
     });
-  }
-
-  public ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 }

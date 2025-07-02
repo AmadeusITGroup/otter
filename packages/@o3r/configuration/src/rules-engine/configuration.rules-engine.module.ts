@@ -1,6 +1,12 @@
-import { NgModule } from '@angular/core';
-import { ConfigurationStoreModule } from '@o3r/configuration';
-import { ConfigurationRulesEngineActionHandler } from './configuration.handler-action';
+import {
+  NgModule,
+} from '@angular/core';
+import {
+  ConfigurationRulesEngineActionHandler,
+} from './configuration.handler-action';
+import {
+  ConfigurationStoreModule,
+} from '@o3r/configuration';
 
 @NgModule({
   imports: [
@@ -10,5 +16,4 @@ import { ConfigurationRulesEngineActionHandler } from './configuration.handler-a
     ConfigurationRulesEngineActionHandler
   ]
 })
-export class ConfigurationRulesEngineActionModule {
-}
+export class ConfigurationRulesEngineActionModule {}

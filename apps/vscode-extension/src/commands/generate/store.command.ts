@@ -1,28 +1,35 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
-import { dirname, relative } from 'node:path';
-import type { ExtensionContext } from 'vscode';
+import {
+  dirname,
+  relative,
+} from 'node:path';
+import type {
+  ExtensionContext,
+} from 'vscode';
 import * as vscode from 'vscode';
-import { getPackageScriptRunner, getSchematicDefaultOptions, stringifyOptions } from '../helpers';
+import {
+  getPackageScriptRunner,
+  getSchematicDefaultOptions,
+  stringifyOptions,
+} from '../helpers';
+
+const getCurrentFolder = () => {
+  const currentlyOpenTabfilePath = vscode.window.activeTextEditor?.document.fileName;
+  return currentlyOpenTabfilePath && relative(vscode.workspace.workspaceFolders?.[0]?.uri?.fsPath || '.', dirname(currentlyOpenTabfilePath));
+};
 
 /**
  * Generate store command
  * @param _context
  * @param folder
- * @returns
  */
 export function generateStoreGenerateCommand(_context: ExtensionContext, folder?: string) {
-  const getCurrentFolder = () => {
-    const currentlyOpenTabfilePath = vscode.window.activeTextEditor?.document.fileName;
-    return currentlyOpenTabfilePath && relative(vscode.workspace.workspaceFolders?.[0]?.uri?.fsPath || '.', dirname(currentlyOpenTabfilePath));
-  };
-
   return async () => {
     const storeType = await vscode.window.showQuickPick(['entity-async', 'simple-async', 'entity-sync', 'simple-sync'], {
       canPickMany: false,
       ignoreFocusOut: true,
-      title: 'Which type of store do you want to create ? \n' +
-        'The entity store contains a collection of items in the state, while the simple one contains only one.\n' +
-        'The async store is designed to interact with an api, and handles the asynchronous call via effects.'
+      title: 'Which type of store do you want to create ? \n'
+      + 'The entity store contains a collection of items in the state, while the simple one contains only one.\n'
+      + 'The async store is designed to interact with an api, and handles the asynchronous call via effects.'
     });
 
     if (!storeType) {
@@ -44,7 +51,7 @@ export function generateStoreGenerateCommand(_context: ExtensionContext, folder?
     const modelName = await vscode.window.showInputBox({
       title: 'The SDK Model to use as store item',
       placeHolder: 'e.g. AirOffer',
-      value: /^[a-zA-Z]+$/.test(clipboardContent) ? clipboardContent : undefined,
+      value: /^[A-Za-z]+$/.test(clipboardContent) ? clipboardContent : undefined,
       ignoreFocusOut: true
     });
 
@@ -63,7 +70,7 @@ export function generateStoreGenerateCommand(_context: ExtensionContext, folder?
       modelIdPropName = 'id';
     }
 
-    const defaultOptions = await getSchematicDefaultOptions('@o3r/core:service');
+    const defaultOptions = await getSchematicDefaultOptions('@o3r/core:store') as Partial<{ path: string }>;
 
     const storePath = folder || await vscode.window.showInputBox({
       title: 'Path to your store folder',

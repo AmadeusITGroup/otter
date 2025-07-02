@@ -1,12 +1,15 @@
-import { InjectionToken } from '@angular/core';
-import { ConfigurationDevtoolsServiceOptions } from './configuration-devtools.interface';
+import {
+  InjectionToken,
+} from '@angular/core';
+import {
+  ConfigurationDevtoolsServiceOptions,
+} from './configuration-devtools.interface';
 
-export const OTTER_CONFIGURATION_DEVTOOLS_DEFAULT_OPTIONS: ConfigurationDevtoolsServiceOptions = {
+export const OTTER_CONFIGURATION_DEVTOOLS_DEFAULT_OPTIONS: Readonly<ConfigurationDevtoolsServiceOptions> = {
   defaultLibraryName: '@o3r/components',
   defaultJsonFilename: 'partial-static-config.json',
   isActivatedOnBootstrap: false,
   isActivatedOnBootstrapWhenCMSContext: true
-};
+} as const;
 
-// eslint-disable-next-line max-len
-export const OTTER_CONFIGURATION_DEVTOOLS_OPTIONS: InjectionToken<ConfigurationDevtoolsServiceOptions> = new InjectionToken<ConfigurationDevtoolsServiceOptions>('Otter Configuration Devtools options');
+export const OTTER_CONFIGURATION_DEVTOOLS_OPTIONS = new InjectionToken<ConfigurationDevtoolsServiceOptions>('Otter Configuration Devtools options');

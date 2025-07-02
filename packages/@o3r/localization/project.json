@@ -10,17 +10,7 @@
       "dependsOn": ["build-builders", "compile"]
     },
     "prepare": {
-      "executor": "nx:run-script",
-      "outputs": [
-        "{projectRoot}/src/package.json"
-      ],
-      "inputs": [
-        "global",
-        "{projectRoot}/package.json"
-      ],
-      "options": {
-        "script": "prepare:compile"
-      }
+      "executor": "nx:run-script"
     },
     "compile": {
       "executor": "@angular-devkit/build-angular:ng-packagr",
@@ -46,13 +36,7 @@
       }
     },
     "lint": {
-      "options": {
-        "eslintConfig": "packages/@o3r/localization/.eslintrc.js",
-        "lintFilePatterns": [
-          "packages/@o3r/localization/src/**/*.ts",
-          "packages/@o3r/localization/package.json"
-        ]
-      }
+      "executor": "nx:run-commands"
     },
     "test": {
       "executor": "@nx/jest:jest",

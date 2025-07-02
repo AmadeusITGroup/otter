@@ -1,6 +1,10 @@
-import type { Rule } from '@angular-devkit/schematics';
-import type { NgAddSchematicsSchema } from './schema';
 import * as path from 'node:path';
+import type {
+  Rule,
+} from '@angular-devkit/schematics';
+import type {
+  NgAddSchematicsSchema,
+} from './schema';
 
 const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
 

@@ -166,9 +166,29 @@
             },
             {
               "$ref": "https://raw.githubusercontent.com/AmadeusITGroup/otter/main/packages/%40o3r/components/schemas/rules-engine.placeholder-action.schema.json"
+            },
+            {
+              "$ref": "#/definitions/RulesEngineCustomActionBlock"
             }
           ]
         }
+      ]
+    },
+    "RulesEngineCustomActionBlock": {
+      "type": "object",
+      "description": "Content of a custom action",
+      "properties": {
+        "actionType": {
+          "type": "string",
+          "description": "Action Type",
+          "pattern": "^(?!(?:SET_FACT|UPDATE_PLACEHOLDER|UPDATE_CONFIG|UPDATE_ASSET|UPDATE_LOCALISATION)$).*$"
+        },
+        "value": {}
+      },
+      "additionalItems": true,
+      "required": [
+        "actionType",
+        "value"
       ]
     },
     "RulesActionSetTemporaryFactBlock": {

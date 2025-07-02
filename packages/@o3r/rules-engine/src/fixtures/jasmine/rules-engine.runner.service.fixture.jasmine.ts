@@ -1,8 +1,9 @@
-import type { RulesEngineRunnerService } from '@o3r/rules-engine';
+import type {
+  RulesEngineRunnerService,
+} from '@o3r/rules-engine';
 
 /** Jasmine Fixture class for RulesEngineRunnerService */
 export class RulesEngineRunnerServiceFixture implements Readonly<Partial<RulesEngineRunnerService>> {
-
   /** @inheritDoc */
   public upsertFacts: jasmine.Spy = jasmine.createSpy('upsertFacts');
 

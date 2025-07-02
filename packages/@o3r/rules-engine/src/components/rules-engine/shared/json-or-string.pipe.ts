@@ -1,4 +1,7 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import {
+  Pipe,
+  PipeTransform,
+} from '@angular/core';
 
 @Pipe({
   name: 'o3rJsonOrString',
@@ -8,7 +11,7 @@ export class O3rJsonOrStringPipe implements PipeTransform {
   /**
    * @inheritDoc
    */
-  transform(value: any): string {
+  public transform(value: any): string {
     if (typeof value === 'string') {
       return value;
     }

@@ -1,7 +1,9 @@
 import * as fs from 'node:fs';
 import * as os from 'node:os';
 import * as semver from 'semver';
-import { getPackageManagerInfo } from './package-manager-runner';
+import {
+  getPackageManagerInfo,
+} from './package-manager-runner';
 
 /**
  * Get all environment information
@@ -23,7 +25,7 @@ export const getEnvironmentInfo = () => {
     otterCorePackageJsonPath = require.resolve('@o3r/core/package.json');
   } catch {}
   const otterInfo = {
-    version: otterCorePackageJsonPath ? JSON.parse(fs.readFileSync(otterCorePackageJsonPath, { encoding: 'utf-8' })).version as string : undefined
+    version: otterCorePackageJsonPath ? JSON.parse(fs.readFileSync(otterCorePackageJsonPath, { encoding: 'utf8' })).version as string : undefined
   };
   return { os: osInfo, node: nodeInfo, packageManager: packageManagerInfo, otter: otterInfo };
 };

@@ -1,14 +1,20 @@
-import { Tree } from '@angular-devkit/schematics';
-import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
+import {
+  Tree,
+} from '@angular-devkit/schematics';
+import {
+  SchematicTestRunner,
+  UnitTestTree,
+} from '@angular-devkit/schematics/testing';
 
 jest.mock('@o3r/schematics', () => ({
   setupDependencies: jest.fn().mockReturnValue((tree: any) => tree),
   getPackagesBaseRootFolder: jest.fn().mockReturnValue('/projects'),
   getWorkspaceConfig: jest.fn().mockReturnValue({ projects: {} }),
   isNxContext: jest.fn().mockReturnValue(false),
-  createSchematicWithMetricsIfInstalled: jest.fn().mockImplementation((fn: any) => fn)
+  createSchematicWithMetricsIfInstalled: jest.fn().mockImplementation((fn: any) => fn),
+  createSchematicWithOptionsFromWorkspace: jest.fn().mockImplementation((fn: any) => fn)
 }));
 
 jest.mock('@angular-devkit/schematics', () => {
@@ -44,7 +50,7 @@ describe('generateApplication', () => {
       projectRoot: '/projects/test',
       style: 'scss'
     }));
-    ['/angular.json', '/package.json', '/projects/test/package.json'].forEach(filePath => {
+    ['/angular.json', '/package.json', '/projects/test/package.json'].forEach((filePath) => {
       expect(tree.files).toContain(filePath);
     });
   });
@@ -57,7 +63,7 @@ describe('generateApplication', () => {
       projectRoot: '/apps/test',
       style: 'scss'
     }));
-    ['/angular.json', '/package.json', '/apps/test/package.json'].forEach(filePath => {
+    ['/angular.json', '/package.json', '/apps/test/package.json'].forEach((filePath) => {
       expect(tree.files).toContain(filePath);
     });
   });
@@ -73,5 +79,4 @@ describe('generateApplication', () => {
     await expect(runner.runSchematic('application', { name: 'test' }, initalTree)).rejects.toThrow(
       'The `path` option is not provided and no workspace configuration file found to define it.');
   });
-
 });

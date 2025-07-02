@@ -1,10 +1,17 @@
-import { CanceledCallError } from '../../fwk/errors';
-import { FetchCall, FetchPlugin, FetchPluginContext } from '../core';
+import {
+  CanceledCallError,
+} from '../../fwk/errors';
+import {
+  FetchCall,
+  FetchPlugin,
+  FetchPluginContext,
+} from '../core';
 
 /**
  * Function to run to determine if we need to retry the call
  * @param numberOfRetry
  * @param condition
+ * @deprecated Use the one exposed by {@link @ama-sdk/client-fetch}, will be removed in v13
  * @example
  * ```typescript
  * const condition = async (context: FetchPluginContext, data?: Response, error?: Error) => {
@@ -26,6 +33,7 @@ export type RetryConditionType = (context: FetchPluginContext, data?: Response, 
 
 /**
  * Plugin to Retry a fetch call
+ * @deprecated Use the one exposed by {@link @ama-sdk/client-fetch}, will be removed in v13
  */
 export class RetryFetch implements FetchPlugin {
   /** Number of retry */
@@ -65,10 +73,9 @@ export class RetryFetch implements FetchPlugin {
   }
 
   private async delay(countDown: number) {
-    // eslint-disable-next-line no-async-promise-executor
-    return new Promise(async (resolve) => setTimeout(resolve, await this.sleepBetweenRetry(countDown)));
+    const time = await this.sleepBetweenRetry(countDown);
+    return new Promise((resolve) => setTimeout(resolve, time));
   }
-
 
   private async waitAndRetry(context: FetchPluginContext, countDown: number) {
     await this.delay(countDown);
@@ -93,7 +100,8 @@ export class RetryFetch implements FetchPlugin {
           return result;
         } catch (e: any) {
           if (countDown) {
-            const conditionResult = await this.condition(context, undefined, e);
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access -- type is explicitly `any`
+            const conditionResult = await this.condition(context, undefined, e instanceof Error ? e : new Error(e.toString()));
             if (conditionResult) {
               countDown--;
               return this.waitAndRetry(context, countDown);

@@ -1,8 +1,23 @@
-import { chain } from '@angular-devkit/schematics';
-import type { Rule } from '@angular-devkit/schematics';
 import * as path from 'node:path';
-import { updateCmsAdapter } from '../cms-adapter';
-import type { NgAddSchematicsSchema } from './schema';
+import {
+  chain,
+} from '@angular-devkit/schematics';
+import type {
+  Rule,
+} from '@angular-devkit/schematics';
+import type {
+  NodeDependencyType as NodeDependencyTypeEnum,
+} from '@schematics/angular/utility/dependencies';
+import {
+  updateCmsAdapter,
+} from '../cms-adapter';
+import type {
+  NgAddSchematicsSchema,
+} from './schema';
+
+const dependenciesToInstall = [
+  'semver'
+];
 
 const reportMissingSchematicsDep = (logger: { error: (message: string) => any }) => (reason: any) => {
   logger.error(`[ERROR]: Adding @o3r/extractors has failed.
@@ -16,8 +31,16 @@ Otherwise, use the error message as guidance.`);
  * @param options
  */
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
-  return async (tree) => {
-    const { getPackageInstallConfig, getProjectNewDependenciesTypes, setupDependencies, getO3rPeerDeps, getWorkspaceConfig } = await import('@o3r/schematics');
+  return async (tree, context) => {
+    const {
+      getExternalDependenciesVersionRange,
+      getPackageInstallConfig,
+      getProjectNewDependenciesTypes,
+      setupDependencies,
+      getO3rPeerDeps,
+      getWorkspaceConfig
+    } = await import('@o3r/schematics');
+    const { NodeDependencyType } = await import('@schematics/angular/utility/dependencies').catch(() => ({ NodeDependencyType: { Dev: 'devDependencies' as NodeDependencyTypeEnum.Dev } }));
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
     const depsInfo = getO3rPeerDeps(packageJsonPath);
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
@@ -31,6 +54,14 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       };
       return acc;
     }, getPackageInstallConfig(packageJsonPath, tree, options.projectName, true, !!options.exactO3rVersion));
+    Object.entries(getExternalDependenciesVersionRange(dependenciesToInstall, packageJsonPath, context.logger)).forEach(([dep, range]) => {
+      dependencies[dep] = {
+        inManifest: [{
+          range,
+          types: [NodeDependencyType.Dev]
+        }]
+      };
+    });
     return chain([
       setupDependencies({
         projectName: options.projectName,

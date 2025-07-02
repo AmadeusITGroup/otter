@@ -4,10 +4,14 @@ import type {
   DevtoolsCommonOptions,
   MessageDataTypes,
   OtterMessageContent,
-  RequestMessagesContentMessage
+  RequestMessagesContentMessage,
 } from '@o3r/core';
-import { Subscription } from 'rxjs';
-import type { LocalizationMetadata } from '../core';
+import {
+  Subscription,
+} from 'rxjs';
+import type {
+  LocalizationMetadata,
+} from '../core';
 
 export interface LocalizationDevtoolsServiceOptions extends DevtoolsCommonOptions, ContextualizationDevtoolsCommonOptions {
   metadataFilePath: string;
@@ -79,7 +83,6 @@ export type AvailableLocalizationMessageContents =
   | LocalizationMessageContents
   | ConnectContentMessage
   | RequestMessagesContentMessage<LocalizationMessageDataTypes>;
-
 
 /**
  * Contextualization devtools exposed for localization in CMS integration

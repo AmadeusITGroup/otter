@@ -22,16 +22,10 @@
       ]
     },
     "compile": {
-      "executor": "@nx/js:tsc",
+      "executor": "nx:run-script",
       "options": {
-        "main": "packages/@o3r/telemetry/src/public_api.ts",
-        "tsConfig": "packages/@o3r/telemetry/tsconfig.build.json",
-        "outputPath": "packages/@o3r/telemetry/dist",
-        "clean": false
-      },
-      "dependsOn": [
-        "^build"
-      ]
+        "script": "build:source"
+      }
     },
     "prepare-build-builders": {
       "executor": "nx:run-script",
@@ -46,13 +40,7 @@
       }
     },
     "lint": {
-      "options": {
-        "eslintConfig": "packages/@o3r/telemetry/.eslintrc.js",
-        "lintFilePatterns": [
-          "packages/@o3r/telemetry/src/**/*.ts",
-          "packages/@o3r/telemetry/package.json"
-        ]
-      }
+      "executor": "nx:run-commands"
     },
     "test": {
       "executor": "@nx/jest:jest",

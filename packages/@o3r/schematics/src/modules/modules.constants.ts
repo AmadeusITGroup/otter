@@ -1,22 +1,24 @@
-import type { PackageJson } from 'type-fest';
+import type {
+  PackageJson,
+} from 'type-fest';
 
 /** Package as return by the NPM Registry */
 export type NpmRegistryPackage = Pick<PackageJson, 'name' | 'description' | 'version' | 'keywords'> &
-{
+  {
   /** Package name */
-  name: string;
-  /** Scope of the package */
-  scope?: string;
-  /** Links provided for the package */
-  links?: {
-    npm: string;
-    homepage?: string;
-    repository?: string;
-    bugs?: string;
+    name: string;
+    /** Scope of the package */
+    scope?: string;
+    /** Links provided for the package */
+    links?: {
+      npm: string;
+      homepage?: string;
+      repository?: string;
+      bugs?: string;
+    };
+    /** package.json information */
+    package?: PackageJson;
   };
-  /** package.json information */
-  package?: PackageJson;
-};
 
 /** Message Return by the NPM Registry Search commend */
 export type NPMRegistrySearchResponse = {

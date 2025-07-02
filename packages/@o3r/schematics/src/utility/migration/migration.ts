@@ -1,6 +1,15 @@
-import type { LoggerApi } from '@angular-devkit/core/src/logger';
-import { chain, type Rule } from '@angular-devkit/schematics';
-import { intersects, Range, validRange } from 'semver';
+import type {
+  LoggerApi,
+} from '@angular-devkit/core/src/logger';
+import {
+  chain,
+  type Rule,
+} from '@angular-devkit/schematics';
+import {
+  intersects,
+  Range,
+  validRange,
+} from 'semver';
 
 /** Create the migration  */
 interface MigrateRuleRunnerOptions {
@@ -37,10 +46,10 @@ export function getMigrationRuleRunner(rulesMapping: MigrationRulesMap, options?
   const rangeMapping = Object.entries(rulesMapping)
     .reduce((acc, [range, rule]) => {
       const checkedRange = validRange(range);
-      if (!checkedRange) {
-        options?.logger?.warn(`The range "${range}" is invalid and will be ignored in the Migration rule`);
-      } else {
+      if (checkedRange) {
         acc.push([checkedRange, Array.isArray(rule) ? rule : [rule]]);
+      } else {
+        options?.logger?.warn(`The range "${range}" is invalid and will be ignored in the Migration rule`);
       }
       return acc;
     }, [] as [string, Rule[]][]);

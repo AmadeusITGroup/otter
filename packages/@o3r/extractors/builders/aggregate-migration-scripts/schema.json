@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "$id": "AggregateMigrationScriptsSchema",
+  "title": "Aggregate migration scripts",
+  "description": "Combine the local migration scripts of the current project with all the migration scripts of its dependencies.",
+  "properties": {
+    "migrationDataPath": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      ],
+      "description": "Glob of the migration files to use.",
+      "default": [
+        "./migration-scripts/**/*.json",
+        "!./migration-scripts/dist"
+      ]
+    },
+    "outputDirectory": {
+      "type": "string",
+      "description": "Path where the aggregated migration files should be written.",
+      "default": "./migration-scripts/dist"
+    },
+    "librariesDirectory": {
+      "type": "string",
+      "description": "Optional path where the libraries can be found (default to `require.resolve`)"
+    }
+  },
+  "additionalProperties": false
+}

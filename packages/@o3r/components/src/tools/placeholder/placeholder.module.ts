@@ -1,9 +1,21 @@
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { StoreModule } from '@ngrx/store';
-import { PlaceholderTemplateStoreModule } from '../../stores/placeholder-template/index';
-import { PlaceholderComponent } from './placeholder.component';
-import { PlaceholderRequestStoreModule } from '../../stores/placeholder-request/index';
+import {
+  CommonModule,
+} from '@angular/common';
+import {
+  NgModule,
+} from '@angular/core';
+import {
+  StoreModule,
+} from '@ngrx/store';
+import {
+  PlaceholderRequestStoreModule,
+} from '../../stores/placeholder-request/index';
+import {
+  PlaceholderTemplateStoreModule,
+} from '../../stores/placeholder-template/index';
+import {
+  PlaceholderComponent,
+} from './placeholder.component';
 
 @NgModule({
   imports: [
@@ -15,4 +27,4 @@ import { PlaceholderRequestStoreModule } from '../../stores/placeholder-request/
   declarations: [PlaceholderComponent],
   exports: [PlaceholderComponent]
 })
-export class PlaceholderModule { }
+export class PlaceholderModule {}

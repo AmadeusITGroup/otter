@@ -1,5 +1,17 @@
-import { CompletionItem, CompletionItemKind, CompletionItemProvider, SnippetString } from 'vscode';
-import { ESLint } from 'eslint';
+import {
+  CompletionItem,
+  CompletionItemKind,
+  CompletionItemProvider,
+  type OutputChannel,
+  SnippetString,
+} from 'vscode';
+import type {
+  O3rCategoriesTagsRuleOption,
+  O3rWidgetTagsRuleOption,
+} from '@o3r/eslint-plugin';
+import type {
+  TSESLint,
+} from '@typescript-eslint/utils';
 
 interface ConfigurationTags {
   /** @see CompletionItem.documentation */
@@ -16,7 +28,7 @@ const getCompletionsItemsFromConfigurationTags = (configurationTags: Record<stri
   return Object.entries(configurationTags).map(([label, { detail, description, snippet }]) => {
     const completion = new CompletionItem({ label: `${label} `, detail }, CompletionItemKind.Keyword);
     completion.documentation = description;
-    completion.insertText = typeof snippet !== 'undefined' ? new SnippetString(`${label} ${snippet}`) : undefined;
+    completion.insertText = typeof snippet === 'undefined' ? undefined : new SnippetString(`${label} ${snippet}`);
 
     return completion;
   });
@@ -30,9 +42,9 @@ const finWidgetParamNamesInComment = (comment: string) => {
   return new Set(Array.from(comment.matchAll(/@o3rWidgetParam (\w+)/g)).map((match) => match[1]));
 };
 
-const getConfigurationTagsFromEslintConfig = (eslintConfig: any, comment: string, fileText: string): Record<string, ConfigurationTags> => {
-  const o3rWidgetsTagsRulesConfig = eslintConfig.rules?.['@o3r/o3r-widgets-tags']?.[1] || {};
-  const o3rCategoriesTagsRulesConfig = eslintConfig.rules?.['@o3r/o3r-categories-tags']?.[1] || {};
+const getConfigurationTagsFromEslintConfig = (eslintConfig: TSESLint.FlatConfig.Config, comment: string, fileText: string): Record<string, ConfigurationTags> => {
+  const o3rWidgetsTagsRulesConfig = (eslintConfig.rules?.['@o3r/o3r-widgets-tags']?.[1] || {}) as O3rWidgetTagsRuleOption;
+  const o3rCategoriesTagsRulesConfig = (eslintConfig.rules?.['@o3r/o3r-categories-tags']?.[1] || {}) as O3rCategoriesTagsRuleOption;
 
   const configurationTags = {
     tags: {
@@ -69,7 +81,7 @@ const getConfigurationTagsFromEslintConfig = (eslintConfig: any, comment: string
     }
   };
 
-  if (!Object.keys(o3rWidgetsTagsRulesConfig?.widgets || {}).length) {
+  if (!o3rWidgetsTagsRulesConfig?.widgets || Object.keys(o3rWidgetsTagsRulesConfig.widgets).length === 0) {
     return configurationTags;
   }
 
@@ -80,25 +92,36 @@ const getConfigurationTagsFromEslintConfig = (eslintConfig: any, comment: string
 
   return {
     ...configurationTags,
-    ...(!widgetName ? {
-      o3rWidget: {
-        description: 'Tag to use CMS widget for configuration property',
-        detail: 'widgetName',
-        snippet: `\${1|${Object.keys(o3rWidgetsTagsRulesConfig.widgets).join(',')}|}`
+    ...(widgetName
+      ? {}
+      : {
+        o3rWidget: {
+          description: 'Tag to use CMS widget for configuration property',
+          detail: 'widgetName',
+          snippet: `\${1|${Object.keys(o3rWidgetsTagsRulesConfig.widgets).join(',')}|}`
+        }
+      }),
+    ...(widgetParamsToPropose.length > 0
+      ? {
+        o3rWidgetParam: {
+          description: 'Tag to use CMS widget parameter for configuration property',
+          detail: 'paramName paramValue',
+          snippet: `\${1|${widgetParamsToPropose.join(',')}|} \${2:paramValue}`
+        }
       }
-    } : {}),
-    ...(widgetParamsToPropose.length ? {
-      o3rWidgetParam: {
-        description: 'Tag to use CMS widget parameter for configuration property',
-        detail: 'paramName paramValue',
-        snippet: `\${1|${widgetParamsToPropose.join(',')}|} \${2:paramValue}`
-      }
-    } : {})
+      : {})
   };
 };
 
-export const configurationCompletionItemProvider = () : CompletionItemProvider<CompletionItem> => {
-  const eslint = new ESLint();
+export const configurationCompletionItemProvider = (options: { channel: OutputChannel }): CompletionItemProvider<CompletionItem> => {
+  const eslint = import('eslint')
+    // eslint-disable-next-line @typescript-eslint/naming-convention -- External package defined name
+    .then(({ ESLint }) => new ESLint())
+    .catch((err) => {
+      options.channel.appendLine('Error during ESLint loading:');
+      options.channel.appendLine(JSON.stringify(err));
+      return undefined;
+    });
 
   return {
     provideCompletionItems: async (doc, pos) => {
@@ -128,11 +151,11 @@ export const configurationCompletionItemProvider = () : CompletionItemProvider<C
 
       const lineFromTriggerChar = lineUntilPos.slice(lineUntilPos.lastIndexOf(configurationCompletionTriggerChar) + 1);
 
-      if (lineFromTriggerChar.match(/\s/)) {
+      if (/\s/.test(lineFromTriggerChar)) {
         return [];
       }
 
-      const config = await eslint.calculateConfigForFile(doc.fileName);
+      const config = await (await eslint)?.calculateConfigForFile(doc.fileName) || {};
       const configurationTags = getConfigurationTagsFromEslintConfig(config, match[0], fileText);
 
       return getCompletionsItemsFromConfigurationTags(configurationTags);

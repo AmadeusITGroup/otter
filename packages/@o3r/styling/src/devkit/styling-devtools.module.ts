@@ -1,8 +1,20 @@
-import { ModuleWithProviders, NgModule } from '@angular/core';
-import type { StylingDevtoolsServiceOptions } from './styling-devkit.interface';
-import { StylingDevtoolsMessageService } from './styling-devtools.message.service';
-import { OtterStylingDevtools } from './styling-devtools.service';
-import { OTTER_STYLING_DEVTOOLS_DEFAULT_OPTIONS, OTTER_STYLING_DEVTOOLS_OPTIONS } from './styling-devtools.token';
+import {
+  ModuleWithProviders,
+  NgModule,
+} from '@angular/core';
+import type {
+  StylingDevtoolsServiceOptions,
+} from './styling-devkit.interface';
+import {
+  StylingDevtoolsMessageService,
+} from './styling-devtools.message.service';
+import {
+  OtterStylingDevtools,
+} from './styling-devtools.service';
+import {
+  OTTER_STYLING_DEVTOOLS_DEFAULT_OPTIONS,
+  OTTER_STYLING_DEVTOOLS_OPTIONS,
+} from './styling-devtools.token';
 
 @NgModule({
   providers: [
@@ -12,7 +24,6 @@ import { OTTER_STYLING_DEVTOOLS_DEFAULT_OPTIONS, OTTER_STYLING_DEVTOOLS_OPTIONS 
   ]
 })
 export class StylingDevtoolsModule {
-
   /**
    * Initialize Otter Devtools
    * @param options

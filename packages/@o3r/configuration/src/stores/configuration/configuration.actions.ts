@@ -1,9 +1,14 @@
-import { createAction, props } from '@ngrx/store';
-import { Configuration } from '@o3r/core';
+import {
+  createAction,
+  props,
+} from '@ngrx/store';
+import {
+  Configuration,
+} from '@o3r/core';
 
 export interface SetConfigurationEntitiesPayload {
   /** Map of configurations to update/insert, this is now Partial due the change of Configuration interface */
-  entities: {[id: string]: Partial<Configuration>};
+  entities: { [id: string]: Partial<Configuration> };
 }
 
 export interface UpsertConfigurationEntityPayload {

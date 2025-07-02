@@ -1,5 +1,9 @@
-import { DebugElement } from '@angular/core';
-import { ElementProfile } from '../element';
+import {
+  DebugElement,
+} from '@angular/core';
+import {
+  ElementProfile,
+} from '../element';
 
 export { ElementProfile } from '../element';
 
@@ -22,7 +26,7 @@ export class O3rElement implements ElementProfile {
    */
   protected get text(): string | undefined {
     const element = this.sourceElement.nativeElement;
-    return element ? (element.innerText !== undefined ? element.innerText : element.textContent) : undefined;
+    return element ? (element.innerText === undefined ? element.textContent : element.innerText) : undefined;
   }
 
   /** @inheritdoc */
@@ -33,7 +37,7 @@ export class O3rElement implements ElementProfile {
   /** @inheritdoc */
   public getPlainText() {
     const innerText = this.text;
-    return Promise.resolve(innerText ? innerText.replace(/(?:\r\n|\r|\n)/g, ' ').replace(/\s\s+/g, ' ').trim() : undefined);
+    return Promise.resolve(innerText ? innerText.replace(/\r\n|\r|\n/g, ' ').replace(/\s\s+/g, ' ').trim() : undefined);
   }
 
   /** @inheritdoc */
@@ -71,25 +75,25 @@ export class O3rElement implements ElementProfile {
 
   /** @inheritdoc */
   public setValue(input: string) {
-    this.sourceElement.triggerEventHandler('focus', {target: this.sourceElement.nativeElement, preventDefault: () => {}, stopPropagation: () => {}});
+    this.sourceElement.triggerEventHandler('focus', { target: this.sourceElement.nativeElement, preventDefault: () => {}, stopPropagation: () => {} });
     input.split('').forEach((key) => {
-      this.sourceElement.triggerEventHandler('keydown', {target: this.sourceElement.nativeElement, key, preventDefault: () => {}, stopPropagation: () => {}});
-      this.sourceElement.triggerEventHandler('keypress', {target: this.sourceElement.nativeElement, key, preventDefault: () => {}, stopPropagation: () => {}});
-      this.sourceElement.triggerEventHandler('keyup', {target: this.sourceElement.nativeElement, key, preventDefault: () => {}, stopPropagation: () => {}});
+      this.sourceElement.triggerEventHandler('keydown', { target: this.sourceElement.nativeElement, key, preventDefault: () => {}, stopPropagation: () => {} });
+      this.sourceElement.triggerEventHandler('keypress', { target: this.sourceElement.nativeElement, key, preventDefault: () => {}, stopPropagation: () => {} });
+      this.sourceElement.triggerEventHandler('keyup', { target: this.sourceElement.nativeElement, key, preventDefault: () => {}, stopPropagation: () => {} });
     });
     this.sourceElement.nativeElement.value = input;
-    this.sourceElement.triggerEventHandler('input', {target: this.sourceElement.nativeElement, preventDefault: () => {}, stopPropagation: () => {}});
-    this.sourceElement.triggerEventHandler('blur', {target: this.sourceElement.nativeElement, preventDefault: () => {}, stopPropagation: () => {}});
+    this.sourceElement.triggerEventHandler('input', { target: this.sourceElement.nativeElement, preventDefault: () => {}, stopPropagation: () => {} });
+    this.sourceElement.triggerEventHandler('blur', { target: this.sourceElement.nativeElement, preventDefault: () => {}, stopPropagation: () => {} });
 
     return Promise.resolve();
   }
 
   /** @inheritdoc */
   public clearValue() {
-    this.sourceElement.triggerEventHandler('focus', {target: this.sourceElement.nativeElement, preventDefault: () => {}, stopPropagation: () => {}});
+    this.sourceElement.triggerEventHandler('focus', { target: this.sourceElement.nativeElement, preventDefault: () => {}, stopPropagation: () => {} });
     this.sourceElement.nativeElement.value = '';
-    this.sourceElement.triggerEventHandler('input', {target: this.sourceElement.nativeElement, preventDefault: () => {}, stopPropagation: () => {}});
-    this.sourceElement.triggerEventHandler('blur', {target: this.sourceElement.nativeElement, preventDefault: () => {}, stopPropagation: () => {}});
+    this.sourceElement.triggerEventHandler('input', { target: this.sourceElement.nativeElement, preventDefault: () => {}, stopPropagation: () => {} });
+    this.sourceElement.triggerEventHandler('blur', { target: this.sourceElement.nativeElement, preventDefault: () => {}, stopPropagation: () => {} });
     return Promise.resolve();
   }
 }

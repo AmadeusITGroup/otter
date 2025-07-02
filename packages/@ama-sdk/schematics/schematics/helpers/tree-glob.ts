@@ -1,4 +1,7 @@
-import { DirEntry, Tree } from '@angular-devkit/schematics';
+import {
+  DirEntry,
+  Tree,
+} from '@angular-devkit/schematics';
 import * as minimatch from 'minimatch';
 
 const walkThroughDir = (
@@ -12,9 +15,9 @@ const walkThroughDir = (
   parents = ''
 ): string[] => {
   const folders = dir.subdirs.map((d) => `${parents}/${d}`);
-  const matchingFolders = folders.filter(filterFunction);
+  const matchingFolders = folders.filter((value, index, array) => filterFunction(value, index, array));
   return [
-    ...dir.subfiles.map((f) => `${parents}/${f}`).filter(filterFunction),
+    ...dir.subfiles.map((f) => `${parents}/${f}`).filter((value, index, array) => filterFunction(value, index, array)),
     ...matchingFolders,
     ...folders
       .filter((item) => !(item in matchingFolders))
@@ -33,7 +36,7 @@ const walkThroughDir = (
  */
 export const treeGlob = (tree: Tree, pattern: string) => {
   const filterFunction = minimatch.filter(
-    '/' + pattern.replace(/[\\/]+/g, '/'),
+    '/' + pattern.replace(/[/\\]+/g, '/'),
     { dot: true }
   );
 

@@ -1,4 +1,7 @@
-import {AsyncRequest, FromApiActionPayload} from './async.interfaces';
+import {
+  AsyncRequest,
+  FromApiActionPayload,
+} from './async.interfaces';
 
 /**
  * Determine if the action is an AsyncRequest action

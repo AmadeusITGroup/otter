@@ -1,8 +1,21 @@
-import { Position, Selection, TextDocument, TextEditorEdit, TextLine, workspace } from 'vscode';
-import { basename } from 'node:path';
-import { EOL } from 'node:os';
-import {regExp} from './regex.helper';
+import {
+  EOL,
+} from 'node:os';
+import {
+  basename,
+} from 'node:path';
+import {
+  Position,
+  Selection,
+  TextDocument,
+  TextEditorEdit,
+  TextLine,
+  workspace,
+} from 'vscode';
 import * as vscode from 'vscode';
+import {
+  regExp,
+} from './regex.helper';
 
 /**
  * Sanitize the selector
@@ -28,7 +41,7 @@ function generateScssVarName(selectors: string[], fileName: string): string {
   const wordsNotToReuseSet = new Set<string>([...forbiddenWords ?? [], '']);
   const prefixToAdd = workspace.getConfiguration('otter.extract.styling').get<string>('prefix');
 
-  selectors = [...([prefixToAdd ?? '']), fileName, ...selectors];
+  selectors = [...(prefixToAdd ? [prefixToAdd] : []), fileName, ...selectors];
   selectors.forEach((element) => {
     const elementWords = element.split('-');
     let distinctSelector = '';
@@ -59,7 +72,10 @@ function keepOnlyUsedSelector(css: string, selectors: string[]): string[] {
   copySelectors.forEach((element) => {
     let numberOfBracket = 0;
     const selectorIndexInCssString = css.indexOf(element);
-    if (selectorIndexInCssString >= 0) {
+    if (selectorIndexInCssString === -1) {
+      selectors.splice(indexOfCurrentElement, 1);
+      indexOfCurrentElement--;
+    } else {
       for (let i = selectorIndexInCssString; i < css.length; i++) {
         if (css.charAt(i) === '{') {
           numberOfBracket++;
@@ -80,9 +96,6 @@ function keepOnlyUsedSelector(css: string, selectors: string[]): string[] {
           }
         }
       }
-    } else {
-      selectors.splice(indexOfCurrentElement, 1);
-      indexOfCurrentElement--;
     }
     // Allows you to advance through the list of selectors or to return to the location of
     // the selector removed in the previous cycle
@@ -116,7 +129,7 @@ export function getProperty(line: TextLine) {
  */
 export function getClassRuleName(document: TextDocument, line: TextLine) {
   let i = line.lineNumber;
-  const ruleClassRegExp = /([^ ,#{.]+) *{$/;
+  const ruleClassRegExp = /([^ #,.{]+) *{$/;
   while (i >= 0) {
     const match = document.lineAt(i).text.match(ruleClassRegExp);
     if (match) {
@@ -130,10 +143,9 @@ export function getClassRuleName(document: TextDocument, line: TextLine) {
  * Generate the name of the variable based on filename, block rule and property name
  * @param document
  * @param line
- * @param endPos
  */
 export function generateVariableName(document: TextDocument, line: TextLine) {
-  const documentNamePart = basename(document.fileName, '.scss').replace(/\.?(styling|style|theme)$/, '').replace('_','');
+  const documentNamePart = basename(document.fileName, '.scss').replace(/\.?(styling|style|theme)$/, '').replace('_', '');
   const property = getProperty(line) || 'unknown-property';
 
   const startFilePos = new Position(0, 0);
@@ -160,7 +172,7 @@ export function lineIndexToInsert(document: TextDocument): number {
   let i = 0;
   while (i < document.lineCount) {
     const line = document.lineAt(i);
-    if (!line.text.match(/^ *[@/]/)) {
+    if (!/^ *[/@]/.test(line.text)) {
       return i;
     }
     i++;

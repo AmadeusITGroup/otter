@@ -1,5 +1,10 @@
-import { Pipe, type PipeTransform } from '@angular/core';
-import { varRegExp } from './common';
+import {
+  Pipe,
+  type PipeTransform,
+} from '@angular/core';
+import {
+  varRegExp,
+} from './common';
 
 @Pipe({
   name: 'variableName',

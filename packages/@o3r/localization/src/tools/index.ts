@@ -10,4 +10,3 @@ export * from './localized-decimal.pipe';
 export { TextDirectionService } from './text-direction.service';
 export { TextDirectionality } from './text-directionality.service';
 export * from './translations-loader';
-

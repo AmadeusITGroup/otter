@@ -35,7 +35,8 @@ Otter framework provides 2 mechanisms to setup Storybook on an application/libra
 
 ### When starting a new Application/Library
 
-When creating a new application/library (`ng new`), the Otter Framework can be added with the `ng add @o3r/core` command. When executing this command, the following question will be asked: *Add storybook setup?* (default value: `yes`).
+When creating a new application/library (`ng new`), the Otter Framework can be added with the `ng add @o3r/schematics` and
+`ng add @o3r/core` commands. When executing this command, the following question will be asked: *Add storybook setup?* (default value: `yes`).
 If `yes` is chosen, [Storybook mandatory configurations](#storybook-mandatory-configurations) will be automatically added.
 
 ### Storybook mandatory configurations
@@ -86,7 +87,7 @@ Each helper should be used in both `preview.js` to initialize the value and in `
 ### Multi theming
 
 The Theme Addon is supporting multi theme and allows the user to switch from one theme to another.
-The list of themes should be provided as [global parameter](https://storybook.js.org/docs/react/writing-stories/parameters#global-parameterss) with a key/value map:
+The list of themes should be provided as [global parameter](https://storybook.js.org/docs/writing-stories/parameters#global-parameters) with a key/value map:
 
 ```typescript
 import { getThemeVariables, setStyleMetadata } from '@o3r/storybook';

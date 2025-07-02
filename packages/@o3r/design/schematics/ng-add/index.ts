@@ -1,16 +1,20 @@
-import { chain, noop, type Rule } from '@angular-devkit/schematics';
-import { registerGenerateCssBuilder } from './register-generate-css';
-import { extractToken } from '../extract-token';
-import type { NgAddSchematicsSchema } from './schema';
 import * as path from 'node:path';
+import {
+  chain,
+  noop,
+  type Rule,
+} from '@angular-devkit/schematics';
+import {
+  extractToken,
+} from '../extract-token';
+import {
+  registerGenerateCssBuilder,
+} from './register-generate-css';
+import type {
+  NgAddSchematicsSchema,
+} from './schema';
 
 const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
-
-const reportMissingSchematicsDep = (logger: { error: (message: string) => any }) => (reason: any) => {
-  logger.error(`[ERROR]: Adding @o3r/design has failed.
-You need to install '@o3r/schematics' to be able to use the o3r apis-manager package. Please run 'ng add @o3r/schematics'.`);
-  throw reason;
-};
 
 /**
  * Add Otter design to an Angular Project
@@ -20,21 +24,15 @@ export function ngAddFn(options: NgAddSchematicsSchema): Rule {
   /* ng add rules */
   return async (tree) => {
     const { getPackageInstallConfig, setupDependencies, setupSchematicsParamsForProject } = await import('@o3r/schematics');
+    const schematicsDefaultOptions = {
+      useOtterDesignToken: true
+    };
     return chain([
-      registerGenerateCssBuilder(),
+      registerGenerateCssBuilder(options.projectName),
       setupSchematicsParamsForProject({
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        '@o3r/core:component': {
-          useOtterDesignToken: true
-        },
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        '@o3r/core:component-presenter': {
-          useOtterDesignToken: true
-        },
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        '*:*': {
-          useOtterDesignToken: true
-        }
+        '@o3r/core:component': schematicsDefaultOptions,
+        '@o3r/core:component-presenter': schematicsDefaultOptions,
+        '*:*': schematicsDefaultOptions
       }, options.projectName),
       setupDependencies({
         projectName: options.projectName,
@@ -50,6 +48,19 @@ export function ngAddFn(options: NgAddSchematicsSchema): Rule {
  * @param options
  */
 export const ngAdd = (options: NgAddSchematicsSchema): Rule => async (_, { logger }) => {
-  const { createSchematicWithMetricsIfInstalled } = await import('@o3r/schematics').catch(reportMissingSchematicsDep(logger));
-  return createSchematicWithMetricsIfInstalled(ngAddFn)(options);
+  const missingSchematicDependencyMessage = 'Missing @o3r/schematics';
+  try {
+    const { createSchematicWithMetricsIfInstalled } = await import('@o3r/schematics').catch(() => {
+      throw new Error(missingSchematicDependencyMessage);
+    });
+    return createSchematicWithMetricsIfInstalled(ngAddFn)(options);
+  } catch (err) {
+    if (err instanceof Error && err.message === missingSchematicDependencyMessage) {
+      logger.warn(`[WARNING]: The run of the ng-add schematics of @o3r/design has failed, the setup of default features will not be done.
+The failure is due to miss of the package '@o3r/schematics'.
+To get benefit of the setup scripts, please run 'ng add @o3r/schematics' before.`);
+    } else {
+      throw err;
+    }
+  }
 };

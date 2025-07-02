@@ -329,7 +329,7 @@
       "$value": "25px"
     }
   },
-  "bs": {
+  "df": {
     "body": {
       "bg": {
         "$type": "color",

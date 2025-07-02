@@ -1,8 +1,20 @@
-import { InjectionToken, ModuleWithProviders, NgModule } from '@angular/core';
-import { Action, ActionReducer, StoreModule } from '@ngrx/store';
-
-import { localizationOverrideReducer } from './localization-override.reducer';
-import { LOCALIZATION_OVERRIDE_STORE_NAME, LocalizationOverrideState } from './localization-override.state';
+import {
+  InjectionToken,
+  ModuleWithProviders,
+  NgModule,
+} from '@angular/core';
+import {
+  Action,
+  ActionReducer,
+  StoreModule,
+} from '@ngrx/store';
+import {
+  localizationOverrideReducer,
+} from './localization-override.reducer';
+import {
+  LOCALIZATION_OVERRIDE_STORE_NAME,
+  LocalizationOverrideState,
+} from './localization-override.state';
 
 /** Token of the LocalizationOverride reducer */
 export const LOCALIZATION_OVERRIDE_REDUCER_TOKEN = new InjectionToken<ActionReducer<LocalizationOverrideState, Action>>('Feature LocalizationOverride Reducer');

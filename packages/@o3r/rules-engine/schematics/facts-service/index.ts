@@ -1,15 +1,35 @@
-import { apply, chain, externalSchematic, MergeStrategy, mergeWith, move, noop, renameTemplateFiles, Rule, template, url } from '@angular-devkit/schematics';
-import { addImportsRule, applyEsLintFix, createSchematicWithMetricsIfInstalled } from '@o3r/schematics';
-import { NgGenerateFactsServiceSchematicsSchema } from './schema';
-import { classify, dasherize } from '@angular-devkit/core/src/utils/strings';
 import * as path from 'node:path';
+import {
+  classify,
+  dasherize,
+} from '@angular-devkit/core/src/utils/strings';
+import {
+  apply,
+  chain,
+  externalSchematic,
+  MergeStrategy,
+  mergeWith,
+  move,
+  noop,
+  renameTemplateFiles,
+  Rule,
+  template,
+  url,
+} from '@angular-devkit/schematics';
+import {
+  addImportsRule,
+  applyEsLintFix,
+  createSchematicWithMetricsIfInstalled,
+} from '@o3r/schematics';
+import {
+  NgGenerateFactsServiceSchematicsSchema,
+} from './schema';
 
 /**
  * Generate the facts service
  * @param options
  */
 function ngGenerateFactsServiceFn(options: NgGenerateFactsServiceSchematicsSchema): Rule {
-
   const generateFiles = () => {
     const name = dasherize(options.name);
     const serviceFolderPath = path.posix.join(options.path, name);

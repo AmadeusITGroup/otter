@@ -1,9 +1,17 @@
-import type { CssMetadata, CssVariable } from '@o3r/styling';
-import { getStyleMetadata } from './metadata-manager';
-import { StyleConfigs, STYLING_PREFIX } from './style-configs.interface';
+import type {
+  CssMetadata,
+  CssVariable,
+} from '@o3r/styling';
+import {
+  getStyleMetadata,
+} from './metadata-manager';
+import {
+  StyleConfigs,
+  STYLING_PREFIX,
+} from './style-configs.interface';
 
 /** RegExp to check if the value is a color*/
-const colorRegExp = /^(#[a-fA-F0-9]{3,8}|rgba?\([^)]+\))\s*;?$/;
+const colorRegExp = /^(#[\dA-Fa-f]{3,8}|rgba?\([^)]+\))\s*;?$/;
 
 /**
  * Inject CSS variable into the DOM
@@ -12,7 +20,7 @@ const colorRegExp = /^(#[a-fA-F0-9]{3,8}|rgba?\([^)]+\))\s*;?$/;
  * @param styleElementId ID of the HTML Style element where to inject the css variable
  */
 export function setCssVariable(variableName: string, value: string, styleElementId = 'storybook-css-variable-injection') {
-  const styleElement = document.getElementById(styleElementId);
+  const styleElement = document.querySelector(`#${styleElementId}`);
   if (styleElement) {
     const content = styleElement.innerHTML;
     const regExpVariable = new RegExp(`${variableName}\\s*:\\s*[^;]*;`);
@@ -29,7 +37,7 @@ export function setCssVariable(variableName: string, value: string, styleElement
 :root {
   ${variableName}: ${value};
 }`;
-    document.head.appendChild(newStyleElement);
+    document.head.append(newStyleElement);
   }
 }
 
@@ -52,7 +60,7 @@ export function getTypeAndValue(data: CssVariable, metadata: CssMetadata, mem: s
       const isCircular = mem.includes(referTo);
       mem.push(referTo);
       if (isCircular) {
-        // eslint-disable-next-line no-console
+        // eslint-disable-next-line no-console -- no other logger available
         console.error(`CSS Variable circular reference: ${mem.join('->')}. "${mem[0]}" variable will be fallback to string type input.`);
         return {
           type: 'text',
@@ -78,8 +86,6 @@ export function getTypeAndValue(data: CssVariable, metadata: CssMetadata, mem: s
     value: data.defaultValue
   };
 }
-
-
 
 /**
  * Extract storybook argument type base for component styling
@@ -125,7 +131,7 @@ export function applyStyle(style: StyleConfigs, props: any, theme?: Record<strin
   const regexp = new RegExp(`^${STYLING_PREFIX}`);
   Object.keys(style.argTypes)
     .forEach((variable) =>
-      setCssVariable(`--${variable.replace(regexp, '')}`, style.argTypes[variable].defaultValue !== props[variable] ? props[variable] : style.rawValues[variable])
+      setCssVariable(`--${variable.replace(regexp, '')}`, style.argTypes[variable].defaultValue === props[variable] ? style.rawValues[variable] : props[variable])
     );
 }
 
@@ -135,7 +141,7 @@ export function applyStyle(style: StyleConfigs, props: any, theme?: Record<strin
  */
 export function getThemeVariables(metadata: CssMetadata = getStyleMetadata()) {
   return Object.entries(metadata.variables)
-    .filter(([_, data]) => data.tags && data.tags.indexOf('theme') > -1)
+    .filter(([_, data]) => data.tags && data.tags.includes('theme'))
     .reduce<Record<string, string>>((acc, [name, data]) => {
       acc[name] = data.defaultValue;
       return acc;

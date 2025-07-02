@@ -1,6 +1,6 @@
 {
   "$schema": "../../../../packages/@o3r/design/schemas/design-token.schema.json",
-  "bs": {
+  "df": {
     "primary": {
       "$description": "Application Primary color",
       "$type": "color",
@@ -21,7 +21,7 @@
     "navbar": {
       "color": {
         "$type": "color",
-        "$value": "var(--bs-primary-bg-subtle)",
+        "$value": "var(--df-primary-bg-subtle)",
         "$extensions": {
           "o3rScope": ".navbar-toggler"
         }

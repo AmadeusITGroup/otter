@@ -30,7 +30,7 @@ export interface GavcResponse {
   mimeType: string;
 
   /** Ex : 41800 */
-  size: 41800;
+  size: 41_800;
 
   /**
    * Ex :

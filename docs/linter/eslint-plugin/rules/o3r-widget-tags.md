@@ -1,9 +1,9 @@
 # @o3r/o3r-widget-tags
 
-Ensures that @o3rWidget and @o3rWidgetParam are used with correct value.
+Ensures that the tags @o3rWidget and @o3rWidgetParam are used with correct values.
 
-
-**Warning** This rule must be configured to be used.
+> [!WARNING]
+> This rule must be configured to be used.
 
 ## How to use
 

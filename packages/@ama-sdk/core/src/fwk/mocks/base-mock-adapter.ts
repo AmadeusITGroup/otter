@@ -1,10 +1,21 @@
-import { EncodedApiRequest } from './encoded-api-request';
-import { getOperationId, getPath } from './helpers';
-import { Mock } from './mock';
-import { MockAdapter } from './mock-adapter';
-import { PathObject } from './path-object';
+import {
+  EncodedApiRequest,
+} from './encoded-api-request';
+import {
+  getOperationId,
+  getPath,
+} from './helpers';
+import {
+  Mock,
+} from './mock';
+import {
+  MockAdapter,
+} from './mock-adapter';
+import {
+  PathObject,
+} from './path-object';
 
-export type MockMap = {[operationID: string]: Mock<any>[]};
+export type MockMap = { [operationID: string]: Mock<any>[] };
 
 /**
  * Base implementation of a mock adapter
@@ -17,10 +28,10 @@ export abstract class BaseMockAdapter implements MockAdapter {
     protected pathObjects: PathObject[] | (() => PathObject[] | Promise<PathObject[]>),
     mockMap: MockMap | (() => Promise<MockMap>)
   ) {
-    if (typeof mockMap !== 'function') {
-      this.mocks = mockMap;
-    } else {
+    if (typeof mockMap === 'function') {
       this.mockFactory = mockMap;
+    } else {
+      this.mocks = mockMap;
     }
   }
 
@@ -59,5 +70,4 @@ export abstract class BaseMockAdapter implements MockAdapter {
     }
     this.mocks = await this.mockFactory();
   }
-
 }

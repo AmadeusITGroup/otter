@@ -1,7 +1,11 @@
+import type {
+  Logger,
+} from '@o3r/core';
 import {
-  BehaviorSubject, distinctUntilChanged, Observable
+  BehaviorSubject,
+  distinctUntilChanged,
+  Observable,
 } from 'rxjs';
-import type {Logger} from '@o3r/core';
 
 /**
  * Shared interface with the A/B testing provider
@@ -41,11 +45,11 @@ export interface AbTestBridgeConfig {
 /**
  * Default options that will represent the interface
  */
-const defaultOptions: AbTestBridgeConfig = {
+const defaultOptions = {
   bridgeName: 'abTestBridge',
   readyEventName: 'ab-test-ready',
   logger: console
-};
+} as const satisfies AbTestBridgeConfig;
 
 /**
  * Bridge between the application and a third party A/B testing provider.
@@ -69,6 +73,7 @@ export class AbTestBridge<T> implements AbTestBridgeInterface<T> {
   public experiments$: Observable<T[]>;
 
   /**
+   * AbTestBridge constructor
    * @param isExperimentEqual check two different experiments match to identify an experiment to start or to stop
    * @param options configure the communication with the A/B testing third party provider
    */
@@ -82,11 +87,10 @@ export class AbTestBridge<T> implements AbTestBridgeInterface<T> {
       ...defaultOptions,
       ...options
     };
-    if (!(window as any)[this.options.bridgeName]) {
-      // eslint-disable-next-line @typescript-eslint/dot-notation, dot-notation
-      (window as any)[this.options.bridgeName] = {start: this.start.bind(this), stop: this.stop.bind(this)};
-    } else {
+    if ((window as any)[this.options.bridgeName]) {
       this.log(`An instance of ${this.options.bridgeName} already exists. This AbTestBridge instance will be ignored`);
+    } else {
+      (window as any)[this.options.bridgeName] = { start: this.start.bind(this), stop: this.stop.bind(this) };
     }
     document.dispatchEvent(new CustomEvent(this.options.readyEventName));
   }
@@ -107,8 +111,10 @@ export class AbTestBridge<T> implements AbTestBridgeInterface<T> {
     const currentProfile = this.experimentSubject$.getValue();
     this.experimentSubject$.next([
       ...currentProfile,
-      ...(Array.isArray(experiments) ? experiments : [experiments]).filter((exp) =>
-        !currentProfile.find((expB: T) => this.isExperimentEqual(exp, expB)))
+      ...(Array.isArray(experiments)
+        ? experiments
+        : [experiments]).filter((exp) => !currentProfile.some((expB: T) => this.isExperimentEqual(exp, expB))
+      )
     ]);
   }
 
@@ -120,7 +126,7 @@ export class AbTestBridge<T> implements AbTestBridgeInterface<T> {
     const currentExperiments = this.experimentSubject$.getValue();
     if (experiments) {
       // Stop the mentioned experiment
-      this.experimentSubject$.next(currentExperiments.filter((expB: T) => !(Array.isArray(experiments) ? experiments : [experiments]).some(expA => this.isExperimentEqual(expB, expA)))
+      this.experimentSubject$.next(currentExperiments.filter((expB: T) => !(Array.isArray(experiments) ? experiments : [experiments]).some((expA) => this.isExperimentEqual(expB, expA)))
       );
     } else {
       // Stop all the experiment

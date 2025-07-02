@@ -3,8 +3,8 @@ const mjsExtRegex = /\.mjs$/i;
 /**
  * Jest resolver to replace .mjs imports with .mts for ESM compatibility
  * Copied from https://github.com/kulshekhar/ts-jest/blob/main/e2e/native-esm-ts/mjs-resolver.ts
- * @param path
- * @param options
+ * @param {string} path
+ * @param {any} options
  */
 const mjsResolver = (path, options) => {
   const resolver = options.defaultResolver;

@@ -1,7 +1,12 @@
-import type {Locator, Page} from '@playwright/test';
-import {ElementProfile} from '../element';
+import type {
+  Locator,
+  Page,
+} from '@playwright/test';
+import {
+  ElementProfile,
+} from '../element';
 
-export {ElementProfile} from '../element';
+export { ElementProfile } from '../element';
 
 /**
  * Playwright type for source element
@@ -19,7 +24,7 @@ export type PlaywrightSourceElement = {
  * @param innerText
  */
 export function getPlainText(innerText: string) {
-  return innerText ? innerText.replace(/(?:\r\n|\r|\n)/g, ' ').replace(/\s\s+/g, ' ').trim() : undefined;
+  return innerText ? innerText.replace(/\r\n|\r|\n/g, ' ').replace(/\s\s+/g, ' ').trim() : undefined;
 }
 
 /**
@@ -31,7 +36,7 @@ export class O3rElement implements ElementProfile {
 
   constructor(sourceElement: PlaywrightSourceElement | O3rElement) {
     this.sourceElement = sourceElement instanceof O3rElement
-      ? {element: sourceElement.sourceElement.element, page: sourceElement.sourceElement.page}
+      ? { element: sourceElement.sourceElement.element, page: sourceElement.sourceElement.page }
       : sourceElement;
   }
 
@@ -59,10 +64,11 @@ export class O3rElement implements ElementProfile {
   public async getValue() {
     try {
       return await this.sourceElement.element.inputValue();
-    } catch (error) {
+    } catch {
+      // eslint-disable-next-line no-console -- no other logger available
       console.warn('Failed to retrieve input value');
       const valueByAttribute = await this.sourceElement.element.getAttribute('value');
-      return valueByAttribute !== null ? valueByAttribute : undefined;
+      return valueByAttribute === null ? undefined : valueByAttribute;
     }
   }
 
@@ -91,7 +97,7 @@ export class O3rElement implements ElementProfile {
   /** @inheritdoc */
   public async getAttribute(attributeName: string) {
     const attribute = await this.sourceElement.element.getAttribute(attributeName);
-    return attribute !== null ? attribute : undefined;
+    return attribute === null ? undefined : attribute;
   }
 }
 

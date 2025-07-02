@@ -1,11 +1,12 @@
 {
   "extends": "../../../tsconfig.build",
   "compilerOptions": {
+    "skipLibCheck": true, // Due to the yarnpkg npm plugin
     "incremental": true,
     "composite": true,
     "module": "CommonJS",
     "outDir": "./dist",
-    "rootDir": "src",
+    "rootDir": ".",
     "tsBuildInfoFile": "build/.tsbuildinfo"
   },
   "include": [

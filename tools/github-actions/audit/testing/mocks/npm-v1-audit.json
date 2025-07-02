@@ -1,0 +1,127 @@
+{
+  "actions": [
+    {
+      "isMajor": true,
+      "action": "install",
+      "resolves": [
+        {
+          "id": 1100087,
+          "path": "jsonpath-plus",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        }
+      ],
+      "module": "jsonpath-plus",
+      "target": "10.0.1"
+    },
+    {
+      "action": "review",
+      "module": "cookie",
+      "resolves": [
+        {
+          "id": 1099846,
+          "path": "lighthouse>@sentry/node>cookie",
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        }
+      ]
+    }
+  ],
+  "advisories": {
+    "1099846": {
+      "findings": [
+        {
+          "version": "0.4.2",
+          "paths": [
+            "lighthouse>@sentry/node>cookie"
+          ]
+        }
+      ],
+      "found_by": null,
+      "deleted": null,
+      "references": "- https://github.com/jshttp/cookie/security/advisories/GHSA-pxg6-pf52-xh8x\n- https://github.com/jshttp/cookie/pull/167\n- https://github.com/jshttp/cookie/commit/e10042845354fea83bd8f34af72475eed1dadf5c\n- https://github.com/advisories/GHSA-pxg6-pf52-xh8x",
+      "created": "2024-10-04T20:31:00.000Z",
+      "id": 1099846,
+      "npm_advisory_id": null,
+      "overview": "### Impact\n\nThe cookie name could be used to set other fields of the cookie, resulting in an unexpected cookie value. For example, `serialize(\"userName=<script>alert('XSS3')</script>; Max-Age=2592000; a\", value)` would result in `\"userName=<script>alert('XSS3')</script>; Max-Age=2592000; a=test\"`, setting `userName` cookie to `<script>` and ignoring `value`.\n\nA similar escape can be used for `path` and `domain`, which could be abused to alter other fields of the cookie.\n\n### Patches\n\nUpgrade to 0.7.0, which updates the validation for `name`, `path`, and `domain`.\n\n### Workarounds\n\nAvoid passing untrusted or arbitrary values for these fields, ensure they are set by the application instead of user input.\n\n### References\n\n* https://github.com/jshttp/cookie/pull/167",
+      "reported_by": null,
+      "title": "cookie accepts cookie name, path, and domain with out of bounds characters",
+      "metadata": null,
+      "cves": [
+        "CVE-2024-47764"
+      ],
+      "access": "public",
+      "severity": "low",
+      "module_name": "cookie",
+      "vulnerable_versions": "<0.7.0",
+      "github_advisory_id": "GHSA-pxg6-pf52-xh8x",
+      "recommendation": "Upgrade to version 0.7.0 or later",
+      "patched_versions": ">=0.7.0",
+      "updated": "2024-10-04T20:31:01.000Z",
+      "cvss": {
+        "score": 0,
+        "vectorString": null
+      },
+      "cwe": [
+        "CWE-74"
+      ],
+      "url": "https://github.com/advisories/GHSA-pxg6-pf52-xh8x"
+    },
+    "1100087": {
+      "findings": [
+        {
+          "version": "9.0.0",
+          "paths": [
+            "jsonpath-plus"
+          ]
+        }
+      ],
+      "found_by": null,
+      "deleted": null,
+      "references": "- https://nvd.nist.gov/vuln/detail/CVE-2024-21534\n- https://github.com/JSONPath-Plus/JSONPath/commit/6b2f1b4c234292c75912b790bf7e2d7339d4ccd3\n- https://security.snyk.io/vuln/SNYK-JS-JSONPATHPLUS-7945884\n- https://security.snyk.io/vuln/SNYK-JAVA-ORGWEBJARSNPM-8185019\n- https://github.com/advisories/GHSA-pppg-cpfq-h7wr",
+      "created": "2024-10-11T15:30:32.000Z",
+      "id": 1100087,
+      "npm_advisory_id": null,
+      "overview": "Versions of the package jsonpath-plus before 10.0.0 are vulnerable to Remote Code Execution (RCE) due to improper input sanitization. An attacker can execute aribitrary code on the system by exploiting the unsafe default usage of vm in Node.\n\n**Note:**\n\nThe unsafe behavior is still available after applying the fix but it is not turned on by default.",
+      "reported_by": null,
+      "title": "JSONPath Plus Remote Code Execution (RCE) Vulnerability",
+      "metadata": null,
+      "cves": [
+        "CVE-2024-21534"
+      ],
+      "access": "public",
+      "severity": "critical",
+      "module_name": "jsonpath-plus",
+      "vulnerable_versions": "<10.0.0",
+      "github_advisory_id": "GHSA-pppg-cpfq-h7wr",
+      "recommendation": "Upgrade to version 10.0.0 or later",
+      "patched_versions": ">=10.0.0",
+      "updated": "2024-10-16T17:05:07.000Z",
+      "cvss": {
+        "score": 9.8,
+        "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+      },
+      "cwe": [
+        "CWE-94"
+      ],
+      "url": "https://github.com/advisories/GHSA-pppg-cpfq-h7wr"
+    }
+  },
+  "muted": [],
+  "metadata": {
+    "vulnerabilities": {
+      "info": 0,
+      "low": 1,
+      "moderate": 0,
+      "high": 0,
+      "critical": 1
+    },
+    "dependencies": 9,
+    "devDependencies": 2823,
+    "optionalDependencies": 203,
+    "totalDependencies": 2832
+  },
+  "runId": "7ca5994a-e5b3-4752-a582-e1bef2bdfc47"
+}

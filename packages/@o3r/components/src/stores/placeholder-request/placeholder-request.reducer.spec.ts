@@ -1,20 +1,22 @@
 import * as actions from './placeholder-request.actions';
-import {placeholderRequestInitialState, placeholderRequestReducer} from './placeholder-request.reducer';
+import {
+  placeholderRequestInitialState,
+  placeholderRequestReducer,
+} from './placeholder-request.reducer';
 
 describe('PlaceholderRequest Store reducer', () => {
-
   it('should have the correct initial state', () => {
     expect(placeholderRequestInitialState.ids.length).toBe(0);
   });
 
   it('should by default return the initial state', () => {
-    const state = placeholderRequestReducer(placeholderRequestInitialState, {type: 'fake'} as any);
+    const state = placeholderRequestReducer(placeholderRequestInitialState, { type: 'fake' } as any);
     expect(state).toEqual(placeholderRequestInitialState);
   });
 
   it('Cancel request should work properly', () => {
     const initialState = placeholderRequestReducer(placeholderRequestInitialState, actions.setPlaceholderRequestEntityFromUrl({
-      call: Promise.resolve({'template': '<div>Template3</div>'}),
+      call: Promise.resolve({ template: '<div>Template3</div>' }),
       id: 'www.url3.com/[LANG]',
       resolvedUrl: 'www.url3.com/en',
       requestId: 'id1'
@@ -32,7 +34,7 @@ describe('PlaceholderRequest Store reducer', () => {
   describe('Entity actions', () => {
     it('ACTION_UPDATE_ENTITY_SYNC action should not touch existing properties not provided in the payload', () => {
       const initialState = placeholderRequestReducer(placeholderRequestInitialState, actions.setPlaceholderRequestEntityFromUrl({
-        call: Promise.resolve({'template': '<div>Template3</div>'}),
+        call: Promise.resolve({ template: '<div>Template3</div>' }),
         id: 'www.url3.com/[LANG]',
         resolvedUrl: 'www.url3.com/en',
         requestId: 'id1'
@@ -52,7 +54,7 @@ describe('PlaceholderRequest Store reducer', () => {
 
     it('ACTION_UPDATE_ENTITY action should not touch existing properties not provided in the payload and update the pending status', () => {
       const initialState = placeholderRequestReducer(placeholderRequestInitialState, actions.setPlaceholderRequestEntityFromUrl({
-        call: Promise.resolve({'template': '<div>Template3</div>'}),
+        call: Promise.resolve({ template: '<div>Template3</div>' }),
         id: 'www.url3.com/[LANG]',
         resolvedUrl: 'www.url3.com/en',
         requestId: 'id1'
@@ -72,7 +74,7 @@ describe('PlaceholderRequest Store reducer', () => {
 
     it('FAIL_ENTITIES action should update the global isPending to false in case there are some newIds in the payload', () => {
       const initialState = placeholderRequestReducer(placeholderRequestInitialState, actions.setPlaceholderRequestEntityFromUrl({
-        call: Promise.resolve({'template': '<div>Template3</div>'}),
+        call: Promise.resolve({ template: '<div>Template3</div>' }),
         id: 'www.url3.com/[LANG]',
         resolvedUrl: 'www.url3.com/en',
         requestId: 'id1'
@@ -96,7 +98,7 @@ describe('PlaceholderRequest Store reducer', () => {
   describe('API call actions', () => {
     it('SET_ENTITY_FROM_URL action should clear current entities and set new ones', () => {
       const firstState = placeholderRequestReducer(placeholderRequestInitialState, actions.setPlaceholderRequestEntityFromUrl({
-        call: Promise.resolve({'template': '<div>Template3</div>'}),
+        call: Promise.resolve({ template: '<div>Template3</div>' }),
         id: 'www.url3.com/[LANG]',
         resolvedUrl: 'www.url3.com/en',
         requestId: 'id1'

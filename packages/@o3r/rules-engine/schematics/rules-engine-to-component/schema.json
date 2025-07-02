@@ -13,7 +13,7 @@
     },
     "path": {
       "type": "string",
-      "description": "Directory containing the component"
+      "description": "Path to the component"
     },
     "skipLinter": {
       "type": "boolean",

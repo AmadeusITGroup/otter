@@ -1,28 +1,63 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-import type { Mark } from '@ama-sdk/core';
-import { Inject, Injectable, NgZone, Optional } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
-import { BehaviorSubject, combineLatest, fromEvent, Observable, ReplaySubject } from 'rxjs';
-import { delay, filter, skip, skipWhile, take, takeWhile, withLatestFrom } from 'rxjs/operators';
-import { CustomEventMarks, CustomEventPayload, EventTiming, FirstLoadDataPayload, PerfEventPayload, ServerCallMetric, UiEventPayload } from '../../contracts';
-import { defaultEventTrackConfiguration, EVENT_TRACK_SERVICE_CONFIGURATION, EventTrackConfiguration } from './event-track.configuration';
+/* eslint-disable @typescript-eslint/naming-convention -- naming convention for DOM, FP, and FMP imposed by Lighthouse */
+import type {
+  Mark,
+} from '@ama-sdk/core';
+import {
+  Inject,
+  Injectable,
+  NgZone,
+  Optional,
+} from '@angular/core';
+import {
+  NavigationEnd,
+  Router,
+} from '@angular/router';
+import {
+  BehaviorSubject,
+  combineLatest,
+  fromEvent,
+  Observable,
+  ReplaySubject,
+} from 'rxjs';
+import {
+  delay,
+  filter,
+  skip,
+  skipWhile,
+  take,
+  takeWhile,
+  withLatestFrom,
+} from 'rxjs/operators';
+import {
+  CustomEventMarks,
+  CustomEventPayload,
+  EventTiming,
+  FirstLoadDataPayload,
+  PerfEventPayload,
+  ServerCallMetric,
+  UiEventPayload,
+} from '../../contracts';
+import {
+  defaultEventTrackConfiguration,
+  EVENT_TRACK_SERVICE_CONFIGURATION,
+  EventTrackConfiguration,
+} from './event-track.configuration';
 
 /** The initial value of the performance measurements */
-export const performanceMarksInitialState: PerfEventPayload = {
+export const performanceMarksInitialState: Readonly<PerfEventPayload> = {
   page: '',
   perceived: {},
   serverCalls: [],
   customMarks: []
-};
+} as const;
 
 /**
  * Service to expose the tracked events as streams. Also provide a way to activate/deactivate the tracking
  */
 @Injectable(
-  {providedIn: 'root'}
+  { providedIn: 'root' }
 )
 export class EventTrackService {
-
   private readonly uiEventTrack: ReplaySubject<UiEventPayload>;
 
   private readonly customEventTrack: ReplaySubject<CustomEventPayload>;
@@ -61,16 +96,17 @@ export class EventTrackService {
   private get performancePayload() {
     return this._performancePayload;
   }
+
   /** Performance payload object */
   private set performancePayload(value: PerfEventPayload) {
     if (this.isPerfTrackingActive) {
-      this._performancePayload = {...value, page: this.router.url}; // Saves the current page url
+      this._performancePayload = { ...value, page: this.router.url }; // Saves the current page url
       this.perfEventTrack.next(this._performancePayload);
     }
   }
 
   constructor(private readonly router: Router, private readonly zone: NgZone, @Optional() @Inject(EVENT_TRACK_SERVICE_CONFIGURATION) config?: EventTrackConfiguration) {
-    const eventConfiguration = {...defaultEventTrackConfiguration, ...config};
+    const eventConfiguration = { ...defaultEventTrackConfiguration, ...config };
     this.uiTrackingActivated = new BehaviorSubject<boolean>(eventConfiguration.activate.uiTracking);
     this.uiTrackingActive$ = this.uiTrackingActivated.asObservable();
     this.uiEventTrack = new ReplaySubject<UiEventPayload>(eventConfiguration.uiEventsBufferSize);
@@ -104,7 +140,7 @@ export class EventTrackService {
         const browserFP = browserEntries && browserEntries.find((entry) => entry.name === 'first-paint');
         if (browserFP) {
           const endTime = Math.round(browserFP.startTime);
-          this.addFPToPerfPayload({startTime: 0, endTime});
+          this.addFPToPerfPayload({ startTime: 0, endTime });
         }
       } else if (this.firstPaint) { // If there is a registered firstPaint value emit it
         this.addFPToPerfPayload(await this.firstPaint);
@@ -125,7 +161,6 @@ export class EventTrackService {
         this.firstPaint = undefined;
       }
     });
-
   }
 
   /**
@@ -227,7 +262,7 @@ export class EventTrackService {
    */
   public async addCustomMark(label: string) {
     const timing = await this.getTiming();
-    const customMark: CustomEventMarks = {label, timing};
+    const customMark = { label, timing } as const satisfies CustomEventMarks;
     const perf = { ...this.performancePayload, customMarks: this.performancePayload.customMarks.concat(customMark) };
     this.performancePayload = perf;
   }
@@ -251,15 +286,16 @@ export class EventTrackService {
       url: serverMark.url,
       httpMethod: serverMark.requestOptions.method,
       httpStatus: serverMark.response && serverMark.response.status,
-      timing: {startTime: serverMark.startTime, endTime: serverMark.endTime},
+      timing: { startTime: serverMark.startTime, endTime: serverMark.endTime },
       error: serverMark.error
     };
     if (serverMark.response) {
       const clonedResponse = serverMark.response.clone();
       const amaRequestId = clonedResponse.headers.get('ama-request-id');
+      const blob = await clonedResponse.blob();
       serverCallMetric = {
         ...serverCallMetric,
-        responseSize: (await clonedResponse.blob()).size,
+        responseSize: blob.size,
         requestId: amaRequestId || undefined
       };
     }
@@ -276,7 +312,7 @@ export class EventTrackService {
       return -1;
     }
     const startTime = Math.round(window.performance.now());
-    const customMark: CustomEventMarks = {label, timing: {startTime}};
+    const customMark = { label, timing: { startTime } } as const satisfies CustomEventMarks;
     const perf = { ...this.performancePayload, customMarks: this.performancePayload.customMarks.concat(customMark) };
     this.performancePayload = perf;
     return this.performancePayload.customMarks.length - 1;
@@ -300,7 +336,7 @@ export class EventTrackService {
         }
         updated = true;
         const endTime = Math.round(window.performance.now());
-        return {label: eventObj.label, timing: {...eventObj.timing, endTime}};
+        return { label: eventObj.label, timing: { ...eventObj.timing, endTime } };
       })
     };
     this.performancePayload = perf;
@@ -320,7 +356,7 @@ export class EventTrackService {
       this.zone.runOutsideAngular(() => {
         setTimeout(() => {
           const endTime = Math.round(window.performance.now());
-          resolve({startTime, endTime});
+          resolve({ startTime, endTime });
         }, 0);
       });
     });

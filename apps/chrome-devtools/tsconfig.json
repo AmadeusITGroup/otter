@@ -3,10 +3,7 @@
   "extends": "../../tsconfig.base",
   "references": [
     {
-      "path": "./tsconfig.build.components.json"
-    },
-    {
-      "path": "./tsconfig.build.devtools.json"
+      "path": "./tsconfig.build.json"
     },
     {
       "path": "./tsconfig.extension.json"

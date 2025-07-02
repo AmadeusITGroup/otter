@@ -1,4 +1,6 @@
-import { PostProcess } from './post-process.interface';
+import {
+  PostProcess,
+} from './post-process.interface';
 
 /**
  * Post Process to add x-api-ref flag in definition
@@ -10,7 +12,6 @@ export class FlagDefinition implements PostProcess {
       definitions: Object.entries(swaggerSpec.definitions).reduce((definitions, [definitionName, definition]) => {
         definitions[definitionName] = {
           ...definition as any,
-          // eslint-disable-next-line @typescript-eslint/naming-convention
           'x-api-ref': definitionName
         };
         return definitions;

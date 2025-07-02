@@ -1,10 +1,19 @@
-/* eslint-disable @typescript-eslint/ban-types */
+import {
+  select as baseSelect,
+} from '@ngrx/store';
+import {
+  Observable,
+  of,
+} from 'rxjs';
+import {
+  FakeSelectCall,
+  isSelectorSpyCall,
+  SelectorFunction,
+  SelectorSpy,
+} from './typings';
+
+// eslint-disable-next-line import/export -- legacy code
 export * from '@ngrx/store';
-
-import { select as baseSelect } from '@ngrx/store';
-import { Observable, of } from 'rxjs';
-import { FakeSelectCall, isSelectorSpyCall, SelectorFunction, SelectorSpy } from './typings';
-
 
 /** Global variable that holds the registered spies */
 let registeredSpies: SelectorSpy<any>[] = [];
@@ -87,6 +96,7 @@ export function clearSelectorSpy<R, S extends object = object>(selector: Selecto
  * @param selectFn Selector function to be used
  * @param props optional properties to be used by the selector
  */
+// eslint-disable-next-line import/export -- legacy code
 export function select(selectFn: SelectorFunction<object, any>, props?: object) {
   const spy = getSpy(selectFn);
   return spy ? useSpy(spy) : baseSelect(selectFn, props);

@@ -1,7 +1,12 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import type { TsConfigJson } from 'type-fest';
-
+import {
+  chain,
+  Rule,
+  SchematicContext,
+  Tree,
+} from '@angular-devkit/schematics';
+import type {
+  TsConfigJson,
+} from 'type-fest';
 import * as ts from 'typescript';
 
 /**
@@ -11,7 +16,6 @@ import * as ts from 'typescript';
  * @param options.testingFramework
  */
 export function updateFixtureConfig(options: { projectName?: string | null | undefined; testingFramework?: string | null | undefined }): Rule {
-
   const oldPaths = ['@otter/testing/core', '@otter/testing/core/*'];
   /**
    * Update test tsconfig
@@ -40,7 +44,7 @@ export function updateFixtureConfig(options: { projectName?: string | null | und
         'es2020',
         'scripthost'
       ] as Lib[]).reduce<Lib[]>((libs, lib) => {
-        if (libs.indexOf(lib) === -1) {
+        if (!libs.includes(lib)) {
           libs.push(lib);
         }
         return libs;
@@ -49,7 +53,7 @@ export function updateFixtureConfig(options: { projectName?: string | null | und
       const testFramework = options.testingFramework || getTestFramework(getWorkspaceConfig(tree), context);
       if (testFramework === 'jest') {
         tsconfigCompilerOptions.types ||= [];
-        if (tsconfigCompilerOptions.types.indexOf('jest') === -1) {
+        if (!tsconfigCompilerOptions.types.includes('jest')) {
           tsconfigCompilerOptions.types.push('jest');
         }
         tsconfigCompilerOptions.types = tsconfigCompilerOptions.types.filter((tsType: string) => tsType !== 'jasmine');
@@ -79,7 +83,7 @@ export function updateFixtureConfig(options: { projectName?: string | null | und
       }))
       .filter(({ content }) => !!content);
 
-    if (!configs.length) {
+    if (configs.length === 0) {
       context.logger.warn('No base tsconfig found, the path mapping for otter fixtures will not be updated');
       return tree;
     }
@@ -87,7 +91,7 @@ export function updateFixtureConfig(options: { projectName?: string | null | und
     const configWithPath = configs.find((config) => !!config.content?.compilerOptions?.paths) || configs[0];
 
     configWithPath.content.compilerOptions.paths = Object.entries(configWithPath.content.compilerOptions.paths || {}).reduce<Record<string, unknown>>((acc, [key, value]) => {
-      if (oldPaths.indexOf(key) === -1) {
+      if (!oldPaths.includes(key)) {
         acc[key] = value;
       }
       return acc;

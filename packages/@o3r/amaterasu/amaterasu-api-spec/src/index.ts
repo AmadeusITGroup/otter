@@ -1,6 +1,11 @@
-/* eslint-disable no-shadow */
-import { AmaCliModule, EXTRA_COMMON_OPTIONS, MODULE_OPTIONS } from '@ama-terasu/core';
-import { createExtension } from './create-extension.command';
+import {
+  AmaCliModule,
+  EXTRA_COMMON_OPTIONS,
+  MODULE_OPTIONS,
+} from '@ama-terasu/core';
+import {
+  createExtension,
+} from './create-extension.command';
 
 const name = 'api-spec';
 

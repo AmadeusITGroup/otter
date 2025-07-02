@@ -2,4 +2,4 @@ import type {Translation} from '@o3r/core';
 
 export interface <%= componentTranslation %> extends Translation {}
 
-export const translations: <%= componentTranslation %> = {};
+export const translations: Readonly<<%= componentTranslation %>> = {} as const;

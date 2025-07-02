@@ -35,21 +35,21 @@ export const decorators = [
     }
 
     // add material icons
-    if (!document.getElementById('material-icons-link')) {
+    if (!document.querySelector('#material-icons-link')) {
       const link = document.createElement('link');
       link.setAttribute('id', 'material-icons-link')
       link.setAttribute('href', "https://fonts.googleapis.com/icon?family=Material+Icons");
       link.setAttribute('rel', "stylesheet");
-      document.head.appendChild(link);
+      document.head.append(link);
     }
 
     // add global theme
-    if (!document.getElementById('o3r-global-theme')) {
+    if (!document.querySelector('#o3r-global-theme')) {
       const styleMarkup = document.createElement('style');
       styleMarkup.setAttribute('id', 'o3r-global-theme');
       styleMarkup.setAttribute('type', 'text/css');
       styleMarkup.textContent = globalStyle;
-      document.head.appendChild(styleMarkup);
+      document.head.append(styleMarkup);
     }
 
     return story();

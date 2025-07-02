@@ -151,8 +151,7 @@ export default class ThemePanel extends React.Component<ThemePanelProps> {
                 <div style={{ float: 'left' }}>
                   <label htmlFor="importedTheme">Import Theme: </label>
                   <Form.Input
-                    onPointerEnterCapture
-                    onPointerLeaveCapture
+                    onPointerOverCapture={undefined}
                     rev={undefined}
                     type="file"
                     id="importedTheme"
@@ -195,8 +194,7 @@ export default class ThemePanel extends React.Component<ThemePanelProps> {
                 <td style={{ fontWeight: 'bold' }} key={name + '--name'}>{name}</td>
                 <td key={name + '--value'}>
                   <Form.Input
-                    onPointerEnterCapture
-                    onPointerLeaveCapture
+                    onPointerOverCapture={undefined}
                     rev={undefined}
                     type={isColor(this.props.theme[name]) ? 'color' : 'text'}
                     value={isColor(this.props.theme[name]) ? new Color(value).hex() : value}

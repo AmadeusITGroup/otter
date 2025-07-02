@@ -1,12 +1,32 @@
-import { strings } from '@angular-devkit/core';
-import { apply, MergeStrategy, mergeWith, renameTemplateFiles, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
-import { addPackageJsonDependency, getPackageJsonDependency, NodeDependencyType } from '@schematics/angular/utility/dependencies';
-import * as ts from 'typescript';
-import { readFileSync } from 'node:fs';
+import {
+  readFileSync,
+} from 'node:fs';
 import * as path from 'node:path';
-import { getPackageManagerRunner, getTemplateFolder, getWorkspaceConfig } from '@o3r/schematics';
-
-
+import {
+  strings,
+} from '@angular-devkit/core';
+import {
+  apply,
+  MergeStrategy,
+  mergeWith,
+  renameTemplateFiles,
+  Rule,
+  SchematicContext,
+  template,
+  Tree,
+  url,
+} from '@angular-devkit/schematics';
+import {
+  getPackageManagerRunner,
+  getTemplateFolder,
+  getWorkspaceConfig,
+} from '@o3r/schematics';
+import {
+  addPackageJsonDependency,
+  getPackageJsonDependency,
+  NodeDependencyType,
+} from '@schematics/angular/utility/dependencies';
+import * as ts from 'typescript';
 
 /**
  * Add Storybook to Otter application
@@ -16,8 +36,6 @@ import { getPackageManagerRunner, getTemplateFolder, getWorkspaceConfig } from '
  */
 export function updateStorybook(options: { projectName?: string | null | undefined }, rootPath: string): Rule {
   return (tree: Tree, context: SchematicContext) => {
-
-
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
     if (!workspaceProject) {
       context.logger.warn('No project found, the update of storybook will be skipped');
@@ -28,9 +46,9 @@ export function updateStorybook(options: { projectName?: string | null | undefin
     // update gitignore
     if (tree.exists('/.gitignore')) {
       let gitignoreContent = tree.read('/.gitignore')!.toString();
-      if (gitignoreContent.indexOf('/storybook-static') === -1) {
-        gitignoreContent +=
-          `
+      if (!gitignoreContent.includes('/storybook-static')) {
+        gitignoreContent
+          += `
 
 # Storybook
 /.storybook/style.metadata.json
@@ -44,12 +62,11 @@ export function updateStorybook(options: { projectName?: string | null | undefin
     // update tsconfig
     if (tree.exists('/tsconfig.json')) {
       const tsconfig = ts.parseConfigFileTextToJson('/tsconfig.json', tree.readText('/tsconfig.json')).config;
-      if (!tsconfig.compilerOptions.lib.find((l: string) => l === 'scripthost')) {
+      if (!tsconfig.compilerOptions.lib.includes('scripthost')) {
         tsconfig.compilerOptions.lib = [...tsconfig.compilerOptions.lib, 'scripthost'];
         tree.overwrite('/tsconfig.json', JSON.stringify(tsconfig, null, 2));
       }
     }
-
 
     let localizationMetadata = '../localisation.metadata.json';
     let configMetadata = '../component.config.metadata.json';
@@ -81,7 +98,6 @@ export function updateStorybook(options: { projectName?: string | null | undefin
               ]
             }
           },
-          // eslint-disable-next-line @typescript-eslint/naming-convention
           'extract-style': {
             builder: '@o3r/styling:extractor',
             options: {
@@ -103,10 +119,10 @@ export function updateStorybook(options: { projectName?: string | null | undefin
       packageJson.scripts = packageJson.scripts || {};
       const compodoc = packageJson.scripts['doc:generate'] ? 'doc:generate' : 'compodoc';
       packageJson.scripts['doc:json'] = packageJson.scripts['doc:json'] || `${packageManagerRunner} ${compodoc} -e json -d .`;
-      packageJson.scripts.storybook = packageJson.scripts.storybook ||
-        `${packageManagerRunner} doc:json && ${packageManagerRunner} cms-adapters:metadata${isLibrary ? ' && ng run storybook:extract-style' : ''} && start-storybook -p 6006`;
-      packageJson.scripts['build:storybook'] = packageJson.scripts['build:storybook'] ||
-        `${packageManagerRunner} doc:json && ${packageManagerRunner} cms-adapters:metadata${isLibrary ? ' && ng run storybook:extract-style' : ''} && build-storybook`;
+      packageJson.scripts.storybook = packageJson.scripts.storybook
+      || `${packageManagerRunner} doc:json && ${packageManagerRunner} cms-adapters:metadata${isLibrary ? ' && ng run storybook:extract-style' : ''} && start-storybook -p 6006`;
+      packageJson.scripts['build:storybook'] = packageJson.scripts['build:storybook']
+      || `${packageManagerRunner} doc:json && ${packageManagerRunner} cms-adapters:metadata${isLibrary ? ' && ng run storybook:extract-style' : ''} && build-storybook`;
       tree.overwrite('/package.json', JSON.stringify(packageJson, null, 2));
     }
 
@@ -143,15 +159,15 @@ export function updateStorybook(options: { projectName?: string | null | undefin
               .forEach((build) => {
                 switch (build.builder as string) {
                   case '@o3r/localization:extractor': {
-                    localizationMetadata = build.options?.outputFile && `../${build.options?.outputFile as string}` || localizationMetadata;
+                    localizationMetadata = (build.options?.outputFile && `../${build.options?.outputFile as string}`) || localizationMetadata;
                     break;
                   }
                   case '@o3r/components:extractor': {
-                    configMetadata = build.options?.configOutputFile && `../${build.options?.configOutputFile as string}` || configMetadata;
+                    configMetadata = (build.options?.configOutputFile && `../${build.options?.configOutputFile as string}`) || configMetadata;
                     break;
                   }
                   case '@o3r/styling:extractor': {
-                    styleMetadata = !workspace.projects.storybook && build.options?.outputFile && `../${build.options?.outputFile as string}` || styleMetadata;
+                    styleMetadata = (!workspace.projects.storybook && build.options?.outputFile && `../${build.options?.outputFile as string}`) || styleMetadata;
                     break;
                   }
                 }

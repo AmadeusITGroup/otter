@@ -1,8 +1,14 @@
-// Disable the `no-unnecessary-type-assertion` rule due to a wrong-positive on ngrx Dictionary type
-/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
+/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion -- wrong-positive on ngrx Dictionary type */
 import * as actions from './routing-guard.actions';
-import { routingGuardInitialState, routingGuardReducer} from './routing-guard.reducer';
-import {RegisteredItemFailureReason, RegisteredItemStatus, RoutingGuardState} from './routing-guard.state';
+import {
+  routingGuardInitialState,
+  routingGuardReducer,
+} from './routing-guard.reducer';
+import {
+  RegisteredItemFailureReason,
+  RegisteredItemStatus,
+  RoutingGuardState,
+} from './routing-guard.state';
 
 describe('RoutingGuard Store reducer', () => {
   it('should have the correct initial state', () => {
@@ -10,7 +16,7 @@ describe('RoutingGuard Store reducer', () => {
   });
 
   it('should by default return the initial state', () => {
-    const state = routingGuardReducer(routingGuardInitialState, {type: 'fake'} as any);
+    const state = routingGuardReducer(routingGuardInitialState, { type: 'fake' } as any);
 
     expect(state).toEqual(routingGuardInitialState);
   });
@@ -18,7 +24,7 @@ describe('RoutingGuard Store reducer', () => {
 
 describe('RoutingGuard Entity actions', () => {
   it('ACTION_REGISTER_ENTITY should add a new entity and set its status as READY', () => {
-    const payload = {id: 'test'};
+    const payload = { id: 'test' };
     const state = routingGuardReducer(routingGuardInitialState, actions.registerRoutingGuardEntity(payload));
 
     expect(state.ids.length).toEqual(1);
@@ -29,11 +35,11 @@ describe('RoutingGuard Entity actions', () => {
   });
 
   it('ACTION_SET_ENTITY_AS_FAILURE should set an existing entity status as FAILURE', () => {
-    const payload = {id: 'test'};
+    const payload = { id: 'test' };
     const state: RoutingGuardState = {
       ids: [payload.id],
       entities: {
-        [payload.id]: {id: payload.id, status: RegisteredItemStatus.READY}
+        [payload.id]: { id: payload.id, status: RegisteredItemStatus.READY }
       }
     };
     const newState: RoutingGuardState = routingGuardReducer(state, actions.setRoutingGuardEntityAsFailure(payload));
@@ -46,15 +52,15 @@ describe('RoutingGuard Entity actions', () => {
   });
 
   it('ACTION_SET_ENTITY_AS_SUCCESS_AND_CLEAR_REASON should set existing entities status as SUCCESS and clear the reason', () => {
-    const payloadFormUnsaved = {id: 'formunsaved'};
-    const payloadAsyncCallFailure = {id: 'asynccallfailure'};
-    const payloadNone = {id: 'none'};
+    const payloadFormUnsaved = { id: 'formunsaved' };
+    const payloadAsyncCallFailure = { id: 'asynccallfailure' };
+    const payloadNone = { id: 'none' };
     const state: RoutingGuardState = {
       ids: ['formunsaved', 'asynccallfailure', 'none'],
       entities: {
-        ['formunsaved']: {id: 'formunsaved', status: RegisteredItemStatus.FAILURE, blockingReason: RegisteredItemFailureReason.FORM_UNSAVED},
-        ['asynccallfailure']: {id: 'asynccallfailure', status: RegisteredItemStatus.FAILURE, blockingReason: RegisteredItemFailureReason.ASYNC_CALL_FAILURE},
-        ['none']: {id: 'none', status: RegisteredItemStatus.READY}
+        ['formunsaved']: { id: 'formunsaved', status: RegisteredItemStatus.FAILURE, blockingReason: RegisteredItemFailureReason.FORM_UNSAVED },
+        ['asynccallfailure']: { id: 'asynccallfailure', status: RegisteredItemStatus.FAILURE, blockingReason: RegisteredItemFailureReason.ASYNC_CALL_FAILURE },
+        ['none']: { id: 'none', status: RegisteredItemStatus.READY }
       }
     };
     const newState1: RoutingGuardState = routingGuardReducer(state, actions.setRoutingGuardEntityAsSuccessAndClearReason(payloadFormUnsaved));
@@ -86,11 +92,11 @@ describe('RoutingGuard Entity actions', () => {
   });
 
   it('ACTION_SET_ENTITY_AS_PENDING should set an existing entity status as PENDING', () => {
-    const payload = {id: 'test'};
+    const payload = { id: 'test' };
     const state: RoutingGuardState = {
       ids: ['test'],
       entities: {
-        ['test']: {id: 'test', status: RegisteredItemStatus.READY}
+        ['test']: { id: 'test', status: RegisteredItemStatus.READY }
       }
     };
     const newState: RoutingGuardState = routingGuardReducer(state, actions.setRoutingGuardEntityAsPending(payload));
@@ -103,11 +109,11 @@ describe('RoutingGuard Entity actions', () => {
   });
 
   it('ACTION_CLEAR_FAILURE_REASON should set the reason for an existing entity failure as undefined', () => {
-    const payload = {id: 'test'};
+    const payload = { id: 'test' };
     const state: RoutingGuardState = {
       ids: ['test'],
       entities: {
-        ['test']: {id: 'test', status: RegisteredItemStatus.FAILURE, blockingReason: RegisteredItemFailureReason.FORM_UNSAVED}
+        ['test']: { id: 'test', status: RegisteredItemStatus.FAILURE, blockingReason: RegisteredItemFailureReason.FORM_UNSAVED }
       }
     };
     const newState: RoutingGuardState = routingGuardReducer(state, actions.clearRoutingGuardEntitiesFailureReason(payload));
@@ -121,11 +127,11 @@ describe('RoutingGuard Entity actions', () => {
   });
 
   it('ACTION_SET_ENTITY_AS_FAILURE_WITH_REASON should set the entity as failure and a reason for failure', () => {
-    const payload = {id: 'test', reason: RegisteredItemFailureReason.FORM_UNSAVED};
+    const payload = { id: 'test', reason: RegisteredItemFailureReason.FORM_UNSAVED };
     const state: RoutingGuardState = {
       ids: ['test'],
       entities: {
-        ['test']: {id: 'test', status: RegisteredItemStatus.READY}
+        ['test']: { id: 'test', status: RegisteredItemStatus.READY }
       }
     };
     const newState: RoutingGuardState = routingGuardReducer(state, actions.setRoutingGuardEntityFailureWithReason(payload));

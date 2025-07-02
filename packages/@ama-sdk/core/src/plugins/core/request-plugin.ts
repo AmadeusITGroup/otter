@@ -1,5 +1,11 @@
-import type { Api } from '../../fwk';
-import type { Plugin, PluginContext, PluginRunner } from './plugin';
+import type {
+  Api,
+} from '../../fwk';
+import type {
+  Plugin,
+  PluginContext,
+  PluginRunner,
+} from './plugin';
 
 export type RequestBody = string | FormData;
 

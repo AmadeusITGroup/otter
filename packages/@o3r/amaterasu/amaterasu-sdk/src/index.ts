@@ -1,6 +1,11 @@
-/* eslint-disable no-shadow */
-import { AmaCliModule, EXTRA_COMMON_OPTIONS, MODULE_OPTIONS } from '@ama-terasu/core';
-import { createTypescriptSdk } from './create-typescript.command';
+import {
+  AmaCliModule,
+  EXTRA_COMMON_OPTIONS,
+  MODULE_OPTIONS,
+} from '@ama-terasu/core';
+import {
+  createTypescriptSdk,
+} from './create-typescript.command';
 
 const name = 'sdk';
 

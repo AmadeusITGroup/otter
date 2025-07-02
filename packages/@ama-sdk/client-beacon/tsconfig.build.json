@@ -1,0 +1,27 @@
+{
+  "extends": "../../../tsconfig.build",
+  "compilerOptions": {
+    "sourceMap": true,
+    "incremental": true,
+    "composite": true,
+    "rootDir": ".",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "scripthost",
+      "es2017.object",
+      "esnext"
+    ],
+    "declarationMap": true,
+    "target": "es2020",
+    "module": "es2020",
+    "tsBuildInfoFile": "./build/tsconfig.tsbuildinfo",
+    "outDir": "./dist"
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "**/*.spec.ts"
+  ]
+}

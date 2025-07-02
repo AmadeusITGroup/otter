@@ -1,4 +1,9 @@
 import {
+  basename,
+  dirname,
+  posix,
+} from 'node:path';
+import {
   apply,
   chain,
   externalSchematic,
@@ -12,7 +17,7 @@ import {
   SchematicContext,
   template,
   Tree,
-  url
+  url,
 } from '@angular-devkit/schematics';
 import {
   addCommentsOnClassProperties,
@@ -29,13 +34,19 @@ import {
   isO3rClassComponent,
   NoOtterComponent,
   O3rCliError,
-  sortClassElement
+  sortClassElement,
 } from '@o3r/schematics';
-import { addImportToModule } from '@schematics/angular/utility/ast-utils';
-import { applyToUpdateRecorder, InsertChange } from '@schematics/angular/utility/change';
-import { basename, dirname, posix } from 'node:path';
+import {
+  addImportToModule,
+} from '@schematics/angular/utility/ast-utils';
+import {
+  applyToUpdateRecorder,
+  InsertChange,
+} from '@schematics/angular/utility/change';
 import * as ts from 'typescript';
-import type { NgAddLocalizationSchematicsSchema } from './schema';
+import type {
+  NgAddLocalizationSchematicsSchema,
+} from './schema';
 
 const localizationProperties = [
   'translations'
@@ -60,7 +71,7 @@ const checkLocalization = (componentPath: string, tree: Tree, baseFileName: stri
     ts.isClassDeclaration(statement)
     && isO3rClassComponent(statement)
   )!;
-  if (o3rClassDeclaration.members.find((classElement) =>
+  if (o3rClassDeclaration.members.some((classElement) =>
     ts.isPropertyDeclaration(classElement)
     && ts.isIdentifier(classElement.name)
     && localizationProperties.includes(classElement.name.escapedText.toString())
@@ -149,10 +160,13 @@ export function ngAddLocalizationFn(options: NgAddLocalizationSchematicsSchema):
                       constructorDeclaration,
                       ts.getModifiers(constructorDeclaration) || [],
                       constructorDeclaration.parameters,
-                      constructorDeclaration.body ? factory.updateBlock(
-                        constructorDeclaration.body, constructorDeclaration.body.statements.concat(localizationConstructorBlockStatements)
-                      ) : factory.createBlock(localizationConstructorBlockStatements, true)
-                    ) : factory.createConstructorDeclaration(
+                      constructorDeclaration.body
+                        ? factory.updateBlock(
+                          constructorDeclaration.body, constructorDeclaration.body.statements.concat(localizationConstructorBlockStatements)
+                        )
+                        : factory.createBlock(localizationConstructorBlockStatements, true)
+                    )
+                    : factory.createConstructorDeclaration(
                       [],
                       [],
                       factory.createBlock(localizationConstructorBlockStatements, true)
@@ -276,9 +290,11 @@ export function ngAddLocalizationFn(options: NgAddLocalizationSchematicsSchema):
           const changes = [new InsertChange(specFilePath, lastImport?.getEnd() || 0, `
 const localizationConfiguration = {language: 'en'};
 const mockTranslations = {
-  en: {${options.activateDummy ? `
+  en: {${options.activateDummy
+    ? `
     '${properties.componentSelector}.dummyLoc1': 'Dummy 1'
-  ` : ''}}
+  `
+    : ''}}
 };
 const mockTranslationsCompilerProvider: Provider = {
   provide: TranslateCompiler,

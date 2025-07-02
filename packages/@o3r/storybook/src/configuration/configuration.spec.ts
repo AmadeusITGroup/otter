@@ -1,13 +1,20 @@
-import { CONFIGURATION_PREFIX } from './configuration-configs.interface';
-import { extractConfiguration, retrieveConfigFromProps } from './configuration.helpers';
-import { getConfigurationMetadata, setConfigurationMetadata } from './metadata-manager';
+import {
+  CONFIGURATION_PREFIX,
+} from './configuration-configs.interface';
+import {
+  extractConfiguration,
+  retrieveConfigFromProps,
+} from './configuration.helpers';
+import {
+  getConfigurationMetadata,
+  setConfigurationMetadata,
+} from './metadata-manager';
 
 describe('Configuration Metadata setup', () => {
   beforeEach(() => {
     if (typeof window === 'undefined') {
       globalThis.window = {} as any;
     }
-    // eslint-disable-next-line no-underscore-dangle
     delete window.__OTTER_STORYBOOK_CONFIGURATION_METADATA__;
   });
 
@@ -15,14 +22,12 @@ describe('Configuration Metadata setup', () => {
     const mockMetadata = { test: 'fakeValue' } as any;
     setConfigurationMetadata(mockMetadata);
 
-    // eslint-disable-next-line no-underscore-dangle
     expect(window.__OTTER_STORYBOOK_CONFIGURATION_METADATA__).toBe(mockMetadata);
   });
 
   it('should retrieve the metadata', () => {
     const mockMetadata = { test: 'fakeValue' } as any;
 
-    // eslint-disable-next-line no-underscore-dangle
     window.__OTTER_STORYBOOK_CONFIGURATION_METADATA__ = mockMetadata;
 
     expect(getConfigurationMetadata()).toBe(mockMetadata);
@@ -70,7 +75,6 @@ describe('Configuration helper', () => {
     });
   });
 
-  /* eslint-disable @typescript-eslint/naming-convention */
   describe('retrieveConfigFromProps', () => {
     it('should extract only config properties', () => {
       const props = {

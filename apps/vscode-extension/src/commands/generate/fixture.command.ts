@@ -1,7 +1,12 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
-import type { ExtensionContext } from 'vscode';
+import type {
+  ExtensionContext,
+} from 'vscode';
 import * as vscode from 'vscode';
-import { getPackageScriptRunner, getSchematicDefaultOptions, stringifyOptions } from '../helpers';
+import {
+  getPackageScriptRunner,
+  getSchematicDefaultOptions,
+  stringifyOptions,
+} from '../helpers';
 
 const availableMethods: string[] = [
   'clickOnButton',
@@ -20,7 +25,6 @@ const isHTMLTemplateDocument = (doc: vscode.TextDocument | undefined) => {
 /**
  * Generate component command
  * @param _context
- * @returns
  */
 export function generateFixtureGenerateCommand(_context: ExtensionContext) {
   return async () => {
@@ -29,7 +33,6 @@ export function generateFixtureGenerateCommand(_context: ExtensionContext) {
     const textSelected = document?.getText(activeEditor?.selection);
     if (isHTMLTemplateDocument(document) && textSelected) {
       const fixtureDocUri = vscode.Uri.file(document?.uri?.path.replace('template.html', 'fixture.ts')!);
-
 
       const chosenMethods = await vscode.window.showQuickPick(availableMethods, {
         placeHolder: 'Select the type of fixture you want to create',
@@ -55,8 +58,6 @@ export function generateFixtureGenerateCommand(_context: ExtensionContext) {
       } else {
         await vscode.window.showInformationMessage('No fixture type selected');
       }
-
-
     } else {
       await vscode.window.showInformationMessage(textSelected
         ? 'File is not a html template file'

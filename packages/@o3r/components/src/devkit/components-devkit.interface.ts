@@ -1,6 +1,16 @@
-import type { ConnectContentMessage, DevtoolsCommonOptions, MessageDataTypes, OtterMessageContent, RequestMessagesContentMessage } from '@o3r/core';
-import type { PlaceholderMode } from '../stores';
-import { OtterLikeComponentInfo } from './inspector';
+import type {
+  ConnectContentMessage,
+  DevtoolsCommonOptions,
+  MessageDataTypes,
+  OtterMessageContent,
+  RequestMessagesContentMessage,
+} from '@o3r/core';
+import type {
+  PlaceholderMode,
+} from '../stores';
+import {
+  OtterLikeComponentInfo,
+} from './inspector';
 
 /**
  * Component Devtools options
@@ -58,11 +68,11 @@ export type AvailableComponentsMessageContents =
  */
 export const isComponentsMessage = (message: any): message is AvailableComponentsMessageContents => {
   return message && (
-    message.dataType === 'requestMessages' ||
-    message.dataType === 'connect' ||
-    message.dataType === 'selectedComponentInfo' ||
-    message.dataType === 'isComponentSelectionAvailable' ||
-    message.dataType === 'placeholderMode' ||
-    message.dataType === 'toggleInspector'
+    message.dataType === 'requestMessages'
+    || message.dataType === 'connect'
+    || message.dataType === 'selectedComponentInfo'
+    || message.dataType === 'isComponentSelectionAvailable'
+    || message.dataType === 'placeholderMode'
+    || message.dataType === 'toggleInspector'
   );
 };

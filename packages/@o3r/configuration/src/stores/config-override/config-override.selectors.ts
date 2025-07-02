@@ -1,5 +1,11 @@
-import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { CONFIG_OVERRIDE_STORE_NAME, ConfigOverrideState } from './config-override.state';
+import {
+  createFeatureSelector,
+  createSelector,
+} from '@ngrx/store';
+import {
+  CONFIG_OVERRIDE_STORE_NAME,
+  ConfigOverrideState,
+} from './config-override.state';
 
 /** Select ConfigOverride State */
 export const selectConfigOverrideState = createFeatureSelector<ConfigOverrideState>(CONFIG_OVERRIDE_STORE_NAME);
@@ -10,7 +16,5 @@ export const selectConfigOverride = createSelector(selectConfigOverrideState, (s
 /**
  * Get the override for given component identifier
  * @param componentId
- * @returns
  */
-export const selectComponentOverrideConfig =
-  (componentId: string) => createSelector(selectConfigOverride, (configOverrides) => configOverrides[componentId] || {});
+export const selectComponentOverrideConfig = (componentId: string) => createSelector(selectConfigOverride, (configOverrides) => configOverrides[componentId] || {});

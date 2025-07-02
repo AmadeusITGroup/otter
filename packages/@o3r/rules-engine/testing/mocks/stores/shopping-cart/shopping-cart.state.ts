@@ -1,6 +1,13 @@
-import {ShoppingCart} from './shopping-cart.model';
-import {EntityState} from '@ngrx/entity';
-import {AsyncStoreItem, EntityStatus} from '@o3r/core';
+import {
+  EntityState,
+} from '@ngrx/entity';
+import {
+  AsyncStoreItem,
+  EntityStatus,
+} from '@o3r/core';
+import {
+  ShoppingCart,
+} from './shopping-cart.model';
 
 /**
  * ShoppingCart model

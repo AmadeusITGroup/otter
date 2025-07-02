@@ -1,10 +1,37 @@
 import {
-  ComponentRef, Directive, forwardRef, Injector, Input, KeyValueChangeRecord, KeyValueDiffer,
-  KeyValueDiffers, OnChanges, OnDestroy, SimpleChange, SimpleChanges, Type, ViewContainerRef
+  ComponentRef,
+  Directive,
+  forwardRef,
+  Injector,
+  Input,
+  KeyValueChangeRecord,
+  KeyValueDiffer,
+  KeyValueDiffers,
+  OnChanges,
+  OnDestroy,
+  SimpleChange,
+  SimpleChanges,
+  Type,
+  ViewContainerRef,
 } from '@angular/core';
-import { AbstractControl, ControlValueAccessor, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
-import type { BaseContextOutput, Configuration, Context, ContextInput, Functionify } from '@o3r/core';
-import { Subscription } from 'rxjs';
+import {
+  AbstractControl,
+  ControlValueAccessor,
+  FormControl,
+  NG_VALIDATORS,
+  NG_VALUE_ACCESSOR,
+  NgControl,
+} from '@angular/forms';
+import type {
+  BaseContextOutput,
+  Configuration,
+  Context,
+  ContextInput,
+  Functionify,
+} from '@o3r/core';
+import {
+  Subscription,
+} from 'rxjs';
 
 @Directive({
   selector: '[c11n]',
@@ -26,7 +53,6 @@ export class C11nDirective<
   I extends ContextInput = ContextInput,
   O extends BaseContextOutput = BaseContextOutput,
   T extends Context<I, O> = Context<I, O>> implements OnChanges, OnDestroy {
-
   /** The component information passed to the directive */
   @Input() public component!: Type<T>;
 
@@ -40,6 +66,7 @@ export class C11nDirective<
   @Input() public set inputs(value: { [K in keyof I]: I[K] }) {
     this._inputs = value;
     if (!this.differInputs && value) {
+      // eslint-disable-next-line unicorn/no-array-callback-reference -- KeyValueDiffers.find is not an array function
       this.differInputs = this.differsService.find(value).create();
     }
   }
@@ -66,8 +93,7 @@ export class C11nDirective<
 
   constructor(public viewContainerRef: ViewContainerRef,
     private readonly differsService: KeyValueDiffers,
-    private readonly injector: Injector) {
-  }
+    private readonly injector: Injector) {}
 
   /**
    * Type guard for component implementing CVA
@@ -89,11 +115,9 @@ export class C11nDirective<
    * @param changes The changes that occur
    */
   public ngOnChanges(changes: SimpleChanges) {
-
     const inputChanges: SimpleChanges = {};
 
     if (changes.component && changes.component.currentValue) {
-
       if (this.componentRef) {
         this.componentSubscriptions.forEach((s) => s.unsubscribe());
         this.componentSubscriptions = [];
@@ -105,7 +129,7 @@ export class C11nDirective<
       this.viewContainerRef.clear();
       this.componentRef = this.viewContainerRef.createComponent<T>(changes.component.currentValue);
       Object.keys(this.componentRef.instance)
-        .filter(prop => !(this.outputs && Object.keys(this.outputs).some(o => o === prop)))
+        .filter((prop) => !(this.outputs && Object.keys(this.outputs).includes(prop)))
         .forEach((prop) => {
           this.uninitializedInputs.add(prop);
         });
@@ -149,7 +173,7 @@ export class C11nDirective<
       this.uninitializedInputs.delete('config');
     }
 
-    if (this.componentRef && Object.keys(inputChanges).length) {
+    if (this.componentRef && Object.keys(inputChanges).length > 0) {
       Object.entries(inputChanges).forEach(([inputName, value]) => {
         this.componentRef.setInput(inputName, value.currentValue);
       });
@@ -176,5 +200,4 @@ export class C11nDirective<
       this.componentRef.destroy();
     }
   }
-
 }

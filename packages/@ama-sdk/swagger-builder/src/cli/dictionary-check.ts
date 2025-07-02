@@ -1,16 +1,21 @@
 #!/usr/bin/env node
 
-import commander from 'commander';
 import fs from 'node:fs';
-import { sync as globbySync } from 'globby';
 import path from 'node:path';
 import process from 'node:process';
-
-import { isGlobPattern } from '../core/utils';
-import { checkDictionaries } from '../helpers/dictionary-check';
+import commander from 'commander';
+import {
+  sync as globbySync,
+} from 'globby';
+import {
+  isGlobPattern,
+} from '../core/utils';
+import {
+  checkDictionaries,
+} from '../helpers/dictionary-check';
 
 process.on('unhandledRejection', (err) => {
-  // eslint-disable-next-line no-console
+  // eslint-disable-next-line no-console -- no logger available
   console.error(err);
   process.exit(1);
 });
@@ -36,20 +41,20 @@ program.action(async (inputs: string[] = []) => {
 
   Object.keys(reports)
     .forEach((spec) => {
-      // eslint-disable-next-line no-console
+      // eslint-disable-next-line no-console -- no logger available
       console.error(`issue on Swagger specification ${spec} :`);
       reports[spec]
         .forEach((error) => {
-          // eslint-disable-next-line no-console
+          // eslint-disable-next-line no-console -- no logger available
           console.error(error.message);
           if (error.details) {
-            // eslint-disable-next-line no-console
+            // eslint-disable-next-line no-console -- no logger available
             error.details.forEach((detail) => console.warn(detail));
           }
         });
     });
 
-  if (Object.keys(reports).length) {
+  if (Object.keys(reports).length > 0) {
     process.exit(1);
   }
 });

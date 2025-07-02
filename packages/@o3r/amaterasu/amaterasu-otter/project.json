@@ -14,21 +14,13 @@
       "dependsOn": ["compile"]
     },
     "compile": {
-      "executor": "@nx/js:tsc",
+      "executor": "nx:run-script",
       "options": {
-        "main": "packages/@o3r/amaterasu/amaterasu-otter/src/index.ts",
-        "tsConfig": "packages/@o3r/amaterasu/amaterasu-otter/tsconfig.build.json",
-        "outputPath": "packages/@o3r/amaterasu/amaterasu-otter/dist"
+        "script": "build:source"
       }
     },
     "lint": {
-      "options": {
-        "eslintConfig": "packages/@o3r/amaterasu/amaterasu-otter/.eslintrc.js",
-        "lintFilePatterns": [
-          "packages/@o3r/amaterasu/amaterasu-otter/src/**/*.ts",
-          "packages/@o3r/amaterasu/amaterasu-otter/package.json"
-        ]
-      }
+      "executor": "nx:run-commands"
     },
     "test": {
       "executor": "@nx/jest:jest",

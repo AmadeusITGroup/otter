@@ -1,4 +1,6 @@
-import type { Rule } from '@angular-devkit/schematics';
+import type {
+  Rule,
+} from '@angular-devkit/schematics';
 
 const renovatePresets = [
   'github>AmadeusITGroup/otter//tools/renovate/base',
@@ -17,7 +19,9 @@ export const addPresetsRenovate = (): Rule => {
     } else {
       context.logger.debug('renovate.json not found, skipping preset addition');
     }
-    // eslint-disable-next-line max-len
-    context.logger.info('To activate the auto-generation based on a dependency package, replace "my-specification-package", in your Renovate configuration, by your specification dependency package name.');
+
+    context.logger.info(
+      'To activate the auto-generation based on a dependency package, replace "my-specification-package", in your Renovate configuration, by your specification dependency package name.'
+    );
   };
 };

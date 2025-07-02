@@ -1,0 +1,27 @@
+openapi: 3.0.2
+info:
+  description: test
+  title: test
+  version: 0.0.0
+paths:
+  /test:
+    get:
+      responses:
+        '200':
+          description: test
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+components:
+  schemas:
+    Category:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        name:
+          type: string
+          example: "test"

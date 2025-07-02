@@ -14,22 +14,13 @@
       "dependsOn": ["compile"]
     },
     "compile": {
-      "executor": "@nx/js:tsc",
-      "outputs": ["{projectRoot}/dist", "{projectRoot}/build/.tsbuildinfo"],
+      "executor": "nx:run-script",
       "options": {
-        "main": "packages/@ama-terasu/cli/src/public_api.ts",
-        "tsConfig": "packages/@ama-terasu/cli/tsconfig.build.json",
-        "outputPath": "packages/@ama-terasu/cli/dist"
+        "script": "build:source"
       }
     },
     "lint": {
-      "options": {
-        "eslintConfig": "packages/@ama-terasu/cli/.eslintrc.js",
-        "lintFilePatterns": [
-          "packages/@ama-terasu/cli/src/**/*.ts",
-          "packages/@ama-terasu/cli/package.json"
-        ]
-      }
+      "executor": "nx:run-commands"
     },
     "test": {
       "executor": "@nx/jest:jest",

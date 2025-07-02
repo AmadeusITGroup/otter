@@ -16,14 +16,14 @@
         "tsConfig": "packages/@o3r/application/tsconfig.build.json"
       }
     },
-    "lint": {
+    "test-int": {
+      "executor": "@nx/jest:jest",
       "options": {
-        "eslintConfig": "packages/@o3r/application/.eslintrc.js",
-        "lintFilePatterns": [
-          "packages/@o3r/application/src/**/*.ts",
-          "packages/@o3r/application/package.json"
-        ]
+        "jestConfig": "packages/@o3r/application/testing/jest.config.it.js"
       }
+    },
+    "lint": {
+      "executor": "nx:run-commands"
     },
     "test": {
       "executor": "@nx/jest:jest",

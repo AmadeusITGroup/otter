@@ -1,14 +1,30 @@
-import { AsyncPipe } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, Component, QueryList, ViewChildren, ViewEncapsulation } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { O3rComponent } from '@o3r/core';
 import {
-  CopyTextPresComponent,
+  AsyncPipe,
+} from '@angular/common';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  QueryList,
+  ViewChildren,
+  ViewEncapsulation,
+} from '@angular/core';
+import {
+  RouterLink,
+} from '@angular/router';
+import {
+  O3rComponent,
+} from '@o3r/core';
+import {
+  MarkdownModule,
+} from 'ngx-markdown';
+import {
   IN_PAGE_NAV_PRES_DIRECTIVES,
   InPageNavLink,
   InPageNavLinkDirective,
   InPageNavPresService,
-  SdkPresComponent
+  SdkPresComponent,
 } from '../../components';
 
 @O3rComponent({ componentType: 'Page' })
@@ -16,11 +32,11 @@ import {
   selector: 'o3r-sdk',
   standalone: true,
   imports: [
-    CopyTextPresComponent,
     RouterLink,
     SdkPresComponent,
     IN_PAGE_NAV_PRES_DIRECTIVES,
-    AsyncPipe
+    AsyncPipe,
+    MarkdownModule
   ],
   templateUrl: './sdk.template.html',
   styleUrls: ['./sdk.style.scss'],
@@ -28,11 +44,12 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SdkComponent implements AfterViewInit {
+  private readonly inPageNavPresService = inject(InPageNavPresService);
+
   @ViewChildren(InPageNavLinkDirective)
   private readonly inPageNavLinkDirectives!: QueryList<InPageNavLink>;
-  public links$ = this.inPageNavPresService.links$;
 
-  constructor(private readonly inPageNavPresService: InPageNavPresService) {}
+  public links$ = this.inPageNavPresService.links$;
 
   public ngAfterViewInit() {
     this.inPageNavPresService.initialize(this.inPageNavLinkDirectives);

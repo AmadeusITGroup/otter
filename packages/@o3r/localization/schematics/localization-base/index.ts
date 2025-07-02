@@ -1,4 +1,19 @@
-import { apply, chain, MergeStrategy, mergeWith, move, noop, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
+import {
+  apply,
+  applyToSubtree,
+  chain,
+  MergeStrategy,
+  mergeWith,
+  move,
+  noop,
+  Rule,
+  SchematicContext,
+  template,
+  Tree,
+  url,
+} from '@angular-devkit/schematics';
 import {
   createSchematicWithMetricsIfInstalled,
   type DependencyToAdd,
@@ -14,21 +29,26 @@ import {
   insertImportToModuleFile as o3rInsertImportToModuleFile,
   readPackageJson,
   setupDependencies,
-  writeAngularJson
+  writeAngularJson,
 } from '@o3r/schematics';
 import {
+  addRootImport,
+  addRootProvider,
+} from '@schematics/angular/utility';
+import {
   insertImport,
-  isImported
+  isImported,
 } from '@schematics/angular/utility/ast-utils';
-import { addRootImport, addRootProvider } from '@schematics/angular/utility';
-import { InsertChange } from '@schematics/angular/utility/change';
-import * as path from 'node:path';
-import * as fs from 'node:fs';
+import {
+  InsertChange,
+} from '@schematics/angular/utility/change';
+import type {
+  PackageJson,
+} from 'type-fest';
 import * as ts from 'typescript';
-import type { PackageJson } from 'type-fest';
 
 const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
-const ownPackageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf-8' })) as PackageJson;
+const ownPackageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' })) as PackageJson;
 
 /**
  * Add Otter localization support
@@ -37,42 +57,24 @@ const ownPackageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: '
  * @param rootPath @see RuleFactory.rootPath
  */
 export function updateLocalization(options: { projectName?: string | null | undefined }, rootPath: string): Rule {
-  if (!options.projectName) {
-    return noop;
-  }
   const mainAssetsFolder = 'src/assets';
   const devResourcesFolder = 'dev-resources';
 
   /**
    * Generate locales folder
    * @param tree
-   * @param context
    */
-  const generateLocalesFolder = (tree: Tree, context: SchematicContext) => {
-    const workingDirectory = (options.projectName && getWorkspaceConfig(tree)?.projects[options.projectName]?.root) || '.';
-
-    let gitIgnoreContent = '';
-    const gitIgnorePath = path.posix.join(workingDirectory, '.gitignore');
-    if (tree.exists(gitIgnorePath)) {
-      gitIgnoreContent = tree.read(gitIgnorePath)!.toString();
-      if (gitIgnoreContent.indexOf('/*.metadata.json')) {
-        return tree;
-      }
-      tree.delete(gitIgnorePath);
+  const generateLocalesFolder: Rule = (tree: Tree) => {
+    const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
+    const projectType = workspaceProject?.projectType || 'application';
+    if (projectType === 'library') {
+      return tree;
     }
-
-    const templateSource = apply(url(getTemplateFolder(rootPath, __dirname)), [
-      template({
-        empty: '',
-        devResourcesFolder,
-        gitIgnoreContent,
-        mainAssetsFolder
-      }),
+    const workingDirectory = (options.projectName && getWorkspaceConfig(tree)?.projects[options.projectName]?.root) || '.';
+    return mergeWith(apply(url(getTemplateFolder(rootPath, __dirname)), [
+      template({ empty: '' }),
       move(workingDirectory)
-    ]);
-
-    const rule = mergeWith(templateSource, MergeStrategy.Overwrite);
-    return rule(tree, context);
+    ]), MergeStrategy.Overwrite);
   };
 
   /**
@@ -85,20 +87,22 @@ export function updateLocalization(options: { projectName?: string | null | unde
     const projectName = options.projectName;
     const workspaceProject = options.projectName ? workspace?.projects[options.projectName] : undefined;
     const projectRoot = path.posix.join(workspaceProject?.root || '');
-    const distFolder: string =
-      (
-        workspaceProject &&
-        workspaceProject.architect &&
-        workspaceProject.architect.build &&
-        workspaceProject.architect.build.options &&
+    const distFolder: string = (
+      workspaceProject
+      && workspaceProject.architect
+      && workspaceProject.architect.build
+      && workspaceProject.architect.build.options
+      && (
         (
-          workspaceProject.architect.build.configurations && workspaceProject.architect.build.configurations.production && workspaceProject.architect.build.configurations.production.outputPath ||
-          workspaceProject.architect.build.options.outputPath
-        )
-      ) || './dist';
+          workspaceProject.architect.build.configurations
+          && workspaceProject.architect.build.configurations.production
+          && workspaceProject.architect.build.configurations.production.outputPath
+        ) || workspaceProject.architect.build.options.outputPath
+      )
+    ) || './dist';
 
     // exit if not an application
-    if (!workspace || !projectName || !workspaceProject) {
+    if (!workspace || !projectName || !workspaceProject || workspaceProject.projectType === 'library') {
       context.logger.debug('No application project found to add translation extraction');
       return tree;
     }
@@ -106,6 +110,8 @@ export function updateLocalization(options: { projectName?: string | null | unde
     if (!workspaceProject.architect) {
       workspaceProject.architect = {};
     }
+
+    const projectBasePath = workspaceProject.root.replace(/[/\\]$/, '');
 
     workspaceProject.architect['generate-translations'] ||= {
       builder: '@o3r/localization:localization',
@@ -115,12 +121,12 @@ export function updateLocalization(options: { projectName?: string | null | unde
         locales: [
           'en-GB'
         ],
-        assets: [`${mainAssetsFolder}/locales`],
-        outputPath: `${devResourcesFolder}/localizations`
+        assets: [`${projectBasePath}/${mainAssetsFolder}/locales`],
+        outputPath: `${projectBasePath}/${devResourcesFolder}/localizations`
       },
       configurations: {
         production: {
-          outputPath: `${distFolder}/localizations`
+          outputPath: `${projectBasePath}/${distFolder}/localizations`
         }
       }
     };
@@ -133,29 +139,32 @@ export function updateLocalization(options: { projectName?: string | null | unde
         libraries: []
       }
     };
-
-    if (workspaceProject.architect.build) {
-      const alreadyExistingBuildOption =
-        workspaceProject.architect.build.options?.assets?.map((a: { glob: string; input: string; output: string }) => a.output).find((output: string) => output === '/localizations');
+    const localizationAssetsConfig = {
+      glob: '**/*.json',
+      input: `${projectBasePath}/${devResourcesFolder}/localizations`,
+      output: '/localizations'
+    };
+    const projectType = workspaceProject?.projectType || 'application';
+    if (projectType === 'application' && workspaceProject.architect.build) {
+      const alreadyExistingBuildOption = workspaceProject.architect.build.options?.assets
+        ?.map((a: { glob: string; input: string; output: string }) => a.output)
+        .find((output: string) => output === '/localizations');
 
       if (!alreadyExistingBuildOption) {
-        workspaceProject.architect.build.options.assets.push({
-          glob: '**/*.json',
-          input: `${devResourcesFolder}/localizations`,
-          output: '/localizations'
-        });
+        workspaceProject.architect.build.options ||= {};
+        workspaceProject.architect.build.options.assets ||= [];
+        workspaceProject.architect.build.options.assets.push(localizationAssetsConfig);
       }
     }
 
     if (workspaceProject.architect.test) {
-      const alreadyExistingTestOption =
-        workspaceProject.architect.test.options?.assets?.map((a: { glob: string; input: string; output: string }) => a.output).find((output: string) => output === '/localizations');
+      const alreadyExistingTestOption = workspaceProject.architect.test.options?.assets
+        ?.map((a: { glob: string; input: string; output: string }) => a.output)
+        .find((output: string) => output === '/localizations');
       if (!alreadyExistingTestOption) {
-        workspaceProject.architect.test.options.assets.push({
-          glob: '**/*.json',
-          input: `${devResourcesFolder}/localizations`,
-          output: '/localizations'
-        });
+        workspaceProject.architect.test.options ||= {};
+        workspaceProject.architect.test.options.assets ||= [];
+        workspaceProject.architect.test.options.assets.push(localizationAssetsConfig);
       }
     }
 
@@ -166,7 +175,7 @@ export function updateLocalization(options: { projectName?: string | null | unde
     if (workspaceProject.architect.run && workspaceProject.architect.run.options && Array.isArray(workspaceProject.architect.run.options.targets)) {
       workspaceProject.architect.run.options.targets.push(...targets);
       workspaceProject.architect.run.options.targets = (workspaceProject.architect.run.options.targets as string[])
-        .reduce<string[]>((acc, target) => acc.indexOf(target) > -1 ? acc : [...acc, target], []);
+        .reduce<string[]>((acc, target) => acc.includes(target) ? acc : [...acc, target], []);
     } else {
       workspaceProject.architect.run = {
         builder: '@o3r/core:multi-watcher',
@@ -190,7 +199,7 @@ export function updateLocalization(options: { projectName?: string | null | unde
     const projectName = options.projectName;
     const workspaceProject = options.projectName ? workspace?.projects[options.projectName] : undefined;
     const packageManagerRunner = getPackageManagerRunner(getWorkspaceConfig(tree));
-    if (!projectName || !workspace || !workspaceProject) {
+    if (!projectName || !workspace || !workspaceProject || workspaceProject.projectType === 'library') {
       context.logger.debug('No application project found to add translation extraction');
       return tree;
     }
@@ -222,7 +231,10 @@ export function updateLocalization(options: { projectName?: string | null | unde
   const registerModules: Rule = (tree: Tree, context: SchematicContext) => {
     const additionalRules: Rule[] = [];
     const moduleFilePath = getAppModuleFilePath(tree, context, options.projectName);
-    if (!moduleFilePath) {
+    if (!moduleFilePath || !tree.exists(moduleFilePath)) {
+      context.logger.warn(moduleFilePath
+        ? `Module file not found under '${moduleFilePath}'. Localization modules not registered.`
+        : 'No module file found. Localization modules not registered.');
       return tree;
     }
 
@@ -243,14 +255,14 @@ export function updateLocalization(options: { projectName?: string | null | unde
     const { moduleIndex } = getModuleIndex(sourceFile, appModuleFile);
 
     const addImportToModuleFile = (name: string, file: string, moduleFunction?: string) => additionalRules.push(
-      addRootImport(options.projectName!, ({code, external}) => code`${external(name, file)}${moduleFunction}`)
+      addRootImport(options.projectName!, ({ code, external }) => code`${external(name, file)}${moduleFunction}`)
     );
 
     const insertImportToModuleFile = (name: string, file: string, isDefault?: boolean) =>
       o3rInsertImportToModuleFile(name, file, sourceFile, recorder, moduleFilePath, isDefault);
 
     const addProviderToModuleFile = (name: string, file: string, customProvider: string) => additionalRules.push(
-      addRootProvider(options.projectName!, ({code, external}) =>
+      addRootProvider(options.projectName!, ({ code, external }) =>
         code`{provide: ${external(name, file)}, ${customProvider}}`)
     );
 
@@ -348,13 +360,13 @@ export function updateLocalization(options: { projectName?: string | null | unde
       }
     } else {
       const classNode = findFirstNodeOfKind<ts.ClassDeclaration>(sourceFile, ts.SyntaxKind.ClassDeclaration);
-      if (!classNode) {
-        context.logger.warn(`No class found in ${componentFilePath}, the default language won't be set`);
-      } else {
+      if (classNode) {
         const firstToken = classNode.members[0];
         if (firstToken) {
           recorder.insertLeft(firstToken.pos, '\n  constructor(localizationService: LocalizationService) { localizationService.useLanguage(\'en-GB\'); }');
         }
+      } else {
+        context.logger.warn(`No class found in ${componentFilePath}, the default language won't be set`);
       }
     }
 
@@ -401,7 +413,7 @@ export function updateLocalization(options: { projectName?: string | null | unde
     const regExp = /TestBed\.configureTestingModule\({.*imports\s*:\s*\[(\s*)/s;
     const result = sourceFile.text.match(regExp);
 
-    if (result && result.length && typeof result.index !== 'undefined') {
+    if (result && result.length > 0 && typeof result.index !== 'undefined') {
       recorder.insertRight(
         result.index + result[0].length,
         '...mockTranslationModules(),' + result[1]);
@@ -436,7 +448,15 @@ export function updateLocalization(options: { projectName?: string | null | unde
 
   // Ignore generated CMS metadata
   const ignoreDevResourcesFiles = (tree: Tree, _context: SchematicContext) => {
-    return ignorePatterns(tree, [{description: 'Local Development resources files', patterns: ['/dev-resources']}]);
+    const workingDirectory = (options.projectName && getWorkspaceConfig(tree)?.projects[options.projectName]?.root) || '.';
+
+    return applyToSubtree(
+      workingDirectory, [
+        (subTree) => ignorePatterns(subTree, [
+          { description: 'Local Development resources files', patterns: [`/${devResourcesFolder}`] },
+          { description: 'CMS metadata files', patterns: ['/*.metadata.json'] }
+        ])
+      ]);
   };
 
   return chain([
@@ -451,12 +471,7 @@ export function updateLocalization(options: { projectName?: string | null | unde
   ]);
 }
 
-/**
- *
- * @param options
- * @param options.projectName
- */
-function updateI18nFn(options: {projectName?: string | undefined}): Rule {
+function updateI18nFn(options: { projectName?: string | undefined }): Rule {
   if (!options.projectName) {
     return noop;
   }

@@ -25,6 +25,11 @@ auth:
     algorithm: bcrypt
 
 packages:
+  '@o3r-training/*':
+    access: $all
+    publish: $authenticated
+    proxy: no-proxy
+#    proxy: npmjs
   '@o3r/*':
     access: $all
     publish: $authenticated

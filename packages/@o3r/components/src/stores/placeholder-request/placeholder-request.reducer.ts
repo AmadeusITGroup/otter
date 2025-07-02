@@ -1,11 +1,21 @@
-import {createEntityAdapter} from '@ngrx/entity';
-import {ActionCreator, createReducer, on, ReducerTypes} from '@ngrx/store';
-import {asyncStoreItemAdapter, createEntityAsyncRequestAdapter} from '@o3r/core';
+import {
+  createEntityAdapter,
+} from '@ngrx/entity';
+import {
+  ActionCreator,
+  createReducer,
+  on,
+  ReducerTypes,
+} from '@ngrx/store';
+import {
+  asyncStoreItemAdapter,
+  createEntityAsyncRequestAdapter,
+} from '@o3r/core';
 import * as actions from './placeholder-request.actions';
 import {
   PlaceholderRequestModel,
   PlaceholderRequestState,
-  PlaceholderRequestStateDetails
+  PlaceholderRequestStateDetails,
 } from './placeholder-request.state';
 
 /**
@@ -33,12 +43,12 @@ export const placeholderRequestReducerFeatures: ReducerTypes<PlaceholderRequestS
     }
     return placeholderRequestAdapter.updateOne({
       id: action.id,
-      changes: asyncStoreItemAdapter.resolveRequest(state.entities[id]!, action.requestId)
+      changes: asyncStoreItemAdapter.resolveRequest(state.entities[id], action.requestId)
     }, asyncStoreItemAdapter.resolveRequest(state, action.requestId));
   }),
   on(actions.updatePlaceholderRequestEntity, (state, action) => {
     const currentEntity = state.entities[action.entity.id]!;
-    const newEntity = asyncStoreItemAdapter.resolveRequest({...action.entity, ...asyncStoreItemAdapter.extractAsyncStoreItem(currentEntity)}, action.requestId);
+    const newEntity = asyncStoreItemAdapter.resolveRequest({ ...action.entity, ...asyncStoreItemAdapter.extractAsyncStoreItem(currentEntity) }, action.requestId);
     return placeholderRequestAdapter.updateOne({
       id: newEntity.id,
       changes: newEntity
@@ -64,7 +74,7 @@ export const placeholderRequestReducerFeatures: ReducerTypes<PlaceholderRequestS
       used: true
     };
     if (currentEntity) {
-      newEntity = {...asyncStoreItemAdapter.extractAsyncStoreItem(currentEntity), ...newEntity};
+      newEntity = { ...asyncStoreItemAdapter.extractAsyncStoreItem(currentEntity), ...newEntity };
     }
     return placeholderRequestAdapter.addOne(
       asyncStoreItemAdapter.addRequest(

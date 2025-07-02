@@ -1,33 +1,49 @@
-import type { GenerateCssSchematicsSchema } from './schema';
-import type { Rule } from '@angular-devkit/schematics';
-import { globInTree } from '@o3r/schematics';
-import { parseDesignTokenFile, renderDesignTokens } from '@o3r/design';
-import type { DesignTokenRendererOptions, DesignTokenVariableSet, DesignTokenVariableStructure } from '@o3r/design';
+import type {
+  Rule,
+} from '@angular-devkit/schematics';
+import type {
+  createSchematicWithMetricsIfInstalled,
+} from '@o3r/schematics';
+import type {
+  GenerateCssSchematicsSchema,
+} from './schema';
+import {
+  parseDesignTokenFile,
+  renderDesignTokens,
+} from '@o3r/design';
+import type {
+  DesignTokenRendererOptions,
+  DesignTokenVariableSet,
+  DesignTokenVariableStructure,
+} from '@o3r/design';
 
 /**
  * Generate CSS from Design Token files
  * @param options
  */
-export function generateCss(options: GenerateCssSchematicsSchema): Rule {
+function generateCssFn(options: GenerateCssSchematicsSchema): Rule {
   return async (tree, context) => {
     const writeFile = (filePath: string, content: string) => tree.exists(filePath) ? tree.overwrite(filePath, content) : tree.create(filePath, content);
-    const readFile = tree.readText;
-    const existsFile = tree.exists;
-    const determineFileToUpdate = options.output ? () => options.output! :
-      (token: DesignTokenVariableStructure) => {
+    const readFile = tree.readText.bind(tree);
+    const existsFile = tree.exists.bind(tree);
+    const determineFileToUpdate = options.output
+      ? () => options.output!
+      : (token: DesignTokenVariableStructure) => {
         if (token.extensions.o3rTargetFile && tree.exists(token.extensions.o3rTargetFile)) {
           return token.extensions.o3rTargetFile;
         }
 
         return options.defaultStyleFile;
       };
-    const renderDesignTokenOptions: DesignTokenRendererOptions = {
+    const renderDesignTokenOptions = {
       readFile,
       writeFile,
       existsFile,
       determineFileToUpdate,
       logger: context.logger
-    };
+    } as const satisfies DesignTokenRendererOptions;
+
+    const { globInTree } = await import('@o3r/schematics');
 
     const files = globInTree(tree, Array.isArray(options.designTokenFilePatterns) ? options.designTokenFilePatterns : [options.designTokenFilePatterns]);
 
@@ -48,3 +64,20 @@ export function generateCss(options: GenerateCssSchematicsSchema): Rule {
     await renderDesignTokens(tokens, renderDesignTokenOptions);
   };
 }
+
+/**
+ * Generate CSS from Design Token files
+ * @param options
+ */
+export const generateCss = (options: GenerateCssSchematicsSchema) => async () => {
+  let createSchematicWithMetrics: typeof createSchematicWithMetricsIfInstalled | undefined;
+  try {
+    ({ createSchematicWithMetricsIfInstalled: createSchematicWithMetrics } = await import('@o3r/schematics'));
+  } catch {
+    // No @o3r/schematics detected
+  }
+  if (!createSchematicWithMetrics) {
+    return generateCssFn(options);
+  }
+  return createSchematicWithMetrics(generateCssFn)(options);
+};

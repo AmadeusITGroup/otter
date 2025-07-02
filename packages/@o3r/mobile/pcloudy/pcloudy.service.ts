@@ -1,11 +1,17 @@
 import * as path from 'node:path';
-import { Logger } from 'winston';
-import { PCloudyApi } from './pcloudy.api';
-import { BookedData } from './pcloudy.interfaces';
+import {
+  Logger,
+} from 'winston';
+import {
+  PCloudyApi,
+} from './pcloudy.api';
+import {
+  BookedData,
+} from './pcloudy.interfaces';
 
 export class PCloudyService {
-  private api: PCloudyApi;
-  private logger: Logger;
+  private readonly api: PCloudyApi;
+  private readonly logger: Logger;
 
   constructor(api: PCloudyApi, logger: Logger) {
     this.api = api;
@@ -15,14 +21,13 @@ export class PCloudyService {
   /**
    * Upload your application on pCloudy
    * If your application is already on the cloud, will only override it if your request it
-   *
    * @param applicationPath
    * @param override Replace application on the cloud if it is already on the cloud
    * @returns app name to be used in your automation tests
    */
   public async uploadApp(applicationPath: string, override: boolean): Promise<string> {
     const appName = path.parse(applicationPath).base;
-    const platform = applicationPath.indexOf('.apk') > -1 ? 'android' : 'ios';
+    const platform = applicationPath.includes('.apk') ? 'android' : 'ios';
     const appAlreadyUpdated = (await this.api.getApps(platform)).find((app) => app.file === appName);
     if (override && appAlreadyUpdated) {
       this.logger.info('App already exists - Override will be requested');
@@ -34,7 +39,7 @@ export class PCloudyService {
     } else {
       this.logger.info('App already on the cloud and no override requested. This step will be skipped');
     }
-    if (platform === 'ios' && appName.indexOf('Resigned') === -1) {
+    if (platform === 'ios' && !appName.includes('Resigned')) {
       this.logger.info('Unsigned iOS app detected - re-signing will start...');
       const resignedAppName = await this.resignIOSApplication(appName);
       this.logger.info('Your re-signed app is available under ' + resignedAppName);
@@ -45,7 +50,6 @@ export class PCloudyService {
 
   /**
    * Delete an application from pCloudy
-   *
    * @param appName under which the application has been uploaded
    */
   public async deleteApp(appName: string) {
@@ -54,7 +58,6 @@ export class PCloudyService {
 
   /**
    * Find the devices available for a platform
-   *
    * @throws Error if no available devices on pCloudy
    * @param devicePlatform
    * @param minVersion
@@ -62,7 +65,7 @@ export class PCloudyService {
   public async getMatchingDevices(devicePlatform: 'android' | 'ios', minVersion = 0) {
     const devices = await this.api.getDeviceList(devicePlatform);
     if (devices.length === 0) {
-      throw Error('No device available');
+      throw new Error('No device available');
     }
     this.logger.debug(`Looking for devices >= ${minVersion}`);
 
@@ -74,22 +77,20 @@ export class PCloudyService {
 
   /**
    * Book a device for manual testing - the device can be accessed via the url returned
-   *
    * @param devicePlatform
    * @param minVersion
    * @param duration
    */
   public async bookDevice(devicePlatform: 'android' | 'ios', minVersion?: number, duration?: number): Promise<BookedData | undefined> {
-    const selectedDevice = (await this.getMatchingDevices(devicePlatform, minVersion))[0];
+    const [selectedDevice] = await this.getMatchingDevices(devicePlatform, minVersion);
     // TODO include retry parameter
     const rid = await this.api.bookDevice(selectedDevice, duration);
     const url = await this.api.getDevicePageUrl(rid);
-    return {selectedDevice, rid, url};
+    return { selectedDevice, rid, url };
   }
 
   /**
    * Install and launch your application on the booked device ({@link bookDevice})
-   *
    * @param rid Reservation ID
    * @param appName
    */
@@ -100,7 +101,6 @@ export class PCloudyService {
 
   /**
    * Resign iOS application to install it on pCloudy devices
-   *
    * @param appName
    */
   public async resignIOSApplication(appName: string) {
@@ -126,9 +126,9 @@ export class PCloudyService {
       timeoutProgressCheck = setTimeout(() => {
         clearInterval(progressCheckInterval);
         if (progress < 100) {
-          reject(`Failed to re-sign ios application ${appName} before timeout - progress stuck at ${progress}`);
+          reject(new Error(`Failed to re-sign ios application ${appName} before timeout - progress stuck at ${progress}`));
         }
-      }, 10000);
+      }, 10_000);
     });
     await resigningProcessFinished;
     this.logger.info('Proceed to download the re-signed app on pCloudy');

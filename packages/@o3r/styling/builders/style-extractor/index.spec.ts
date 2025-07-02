@@ -1,10 +1,21 @@
-import { Architect } from '@angular-devkit/architect';
-import { TestingArchitectHost } from '@angular-devkit/architect/testing';
-import { schema } from '@angular-devkit/core';
-import { cleanVirtualFileSystem, useVirtualFileSystem } from '@o3r/test-helpers';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { StyleExtractorBuilderSchema } from './schema';
+import {
+  Architect,
+} from '@angular-devkit/architect';
+import {
+  TestingArchitectHost,
+} from '@angular-devkit/architect/testing';
+import {
+  schema,
+} from '@angular-devkit/core';
+import {
+  cleanVirtualFileSystem,
+  useVirtualFileSystem,
+} from '@o3r/test-helpers';
+import {
+  StyleExtractorBuilderSchema,
+} from './schema';
 
 describe('Styling Extractor Builder', () => {
   const workspaceRoot = path.join('..', '..', '..', '..', '..');
@@ -41,7 +52,7 @@ describe('Styling Extractor Builder', () => {
     expect(output.error).toBeUndefined();
     await run.stop();
 
-    const styleOutput = JSON.parse(virtualFileSystem.readFileSync(options.outputFile, {encoding: 'utf8'}));
+    const styleOutput = JSON.parse(virtualFileSystem.readFileSync(options.outputFile, { encoding: 'utf8' }));
     expect(typeof styleOutput).toBe('object');
     expect(typeof styleOutput.variables).toBe('object');
   });

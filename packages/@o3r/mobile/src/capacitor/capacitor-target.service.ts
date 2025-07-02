@@ -1,14 +1,27 @@
-import { Injectable, OnDestroy } from '@angular/core';
-import { Browser } from '@capacitor/browser';
-import { fromEvent, Subscription } from 'rxjs';
-import { isCapacitorContext } from './helpers';
+import {
+  DestroyRef,
+  inject,
+  Injectable,
+} from '@angular/core';
+import {
+  takeUntilDestroyed,
+} from '@angular/core/rxjs-interop';
+import {
+  Browser,
+} from '@capacitor/browser';
+import {
+  fromEvent,
+} from 'rxjs';
+import {
+  isCapacitorContext,
+} from './helpers';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CapacitorTargetService implements OnDestroy {
-
-  private readonly subscriptions: Subscription[] = [];
+export class CapacitorTargetService {
+  private readonly destroyRef = inject(DestroyRef);
+  private hijackDone = false;
 
   private async openInCapacitorBrowser(element: EventTarget | null, event: Event) {
     if (await isCapacitorContext() && element instanceof Element) {
@@ -16,7 +29,7 @@ export class CapacitorTargetService implements OnDestroy {
         const url = element.getAttribute('href');
         if (element.getAttribute('target') === '_blank' && url) {
           event.preventDefault();
-          await Browser.open({url, presentationStyle: 'popover'});
+          await Browser.open({ url, presentationStyle: 'popover' });
         }
       } else {
         await this.openInCapacitorBrowser(element.parentElement, event);
@@ -29,15 +42,12 @@ export class CapacitorTargetService implements OnDestroy {
    * Instead of the default action, it will open the URL using the CapacitorJS Browser plugin.
    */
   public hijackClick(): void {
-    if (!this.subscriptions.length) {
-      this.subscriptions.push(fromEvent(document, 'click').subscribe(async (event) => {
+    if (!this.hijackDone) {
+      fromEvent(document, 'click').pipe(takeUntilDestroyed(this.destroyRef)).subscribe(async (event) => {
         const element: EventTarget | null = event.target;
         await this.openInCapacitorBrowser(element, event);
-      }));
+      });
+      this.hijackDone = true;
     }
-  }
-
-  public ngOnDestroy() {
-    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 }

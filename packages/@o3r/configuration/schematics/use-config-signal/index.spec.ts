@@ -1,7 +1,12 @@
-import { Tree } from '@angular-devkit/schematics';
-import { SchematicTestRunner, type UnitTestTree } from '@angular-devkit/schematics/testing';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
+import {
+  Tree,
+} from '@angular-devkit/schematics';
+import {
+  SchematicTestRunner,
+  type UnitTestTree,
+} from '@angular-devkit/schematics/testing';
 
 const collectionPath = path.join(__dirname, '..', '..', 'collection.json');
 
@@ -57,7 +62,7 @@ describe('Migrate to config signal-based', () => {
 
     expect(componentFileContent).toContain('DynamicConfigurableWithSignal<MyConfig>');
     expect(componentFileContent).toContain('public config = input<Partial<MyConfig>>()');
-    expect(componentFileContent).toContain('public readonly configSignal = configSignal(this.config, MY_CONFIG_CONFIG_ID, MY_CONFIG_DEFAULT_CONFIG, this.configurationService)');
+    expect(componentFileContent).toContain('public readonly configSignal = configSignal(this.config, MY_CONFIG_CONFIG_ID, MY_CONFIG_DEFAULT_CONFIG)');
     expect(componentFileContent).toContain('public readonly config$ = toObservable(this.configSignal)');
 
     expect(componentFileContent).not.toContain('public config$: Observable<MyConfig>');

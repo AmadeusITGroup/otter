@@ -1,9 +1,21 @@
-import { getPackageManagerRunner } from '@o3r/schematics';
-import type { BuilderWrapper } from '@o3r/telemetry';
-import { prompt, Question } from 'inquirer';
-import { execFileSync } from 'node:child_process';
-import { existsSync, promises } from 'node:fs';
+import {
+  execFileSync,
+} from 'node:child_process';
+import {
+  existsSync,
+  promises,
+} from 'node:fs';
 import * as path from 'node:path';
+import {
+  getPackageManagerRunner,
+} from '@o3r/schematics';
+import type {
+  BuilderWrapper,
+} from '@o3r/telemetry';
+import {
+  prompt,
+  Question,
+} from 'inquirer';
 
 const noopBuilderWrapper: BuilderWrapper = (fn) => fn;
 
@@ -15,7 +27,7 @@ const noopBuilderWrapper: BuilderWrapper = (fn) => fn;
 export const createBuilderWithMetricsIfInstalled: BuilderWrapper = (builderFn) => async (opts, ctx) => {
   const packageJsonPath = path.join(ctx.workspaceRoot, 'package.json');
   const packageJson = existsSync(packageJsonPath)
-    ? JSON.parse(await promises.readFile(packageJsonPath, {encoding: 'utf8'}))
+    ? JSON.parse(await promises.readFile(packageJsonPath, { encoding: 'utf8' }))
     : {};
   let wrapper: BuilderWrapper = noopBuilderWrapper;
   try {
@@ -23,18 +35,24 @@ export const createBuilderWithMetricsIfInstalled: BuilderWrapper = (builderFn) =
     wrapper = createBuilderWithMetrics;
   } catch (e: any) {
     // Do not throw if `@o3r/telemetry is not installed
-    if (packageJson.config?.o3rMetrics === true) {
-      ctx.logger.info('`config.o3rMetrics` is set to true in your package.json, please install the telemetry package with `ng add @o3r/telemetry` to enable the collection of metrics.');
+    if (
+      packageJson.config?.o3r?.telemetry
+      // TODO `o3rMetrics` is deprecated and will be removed in v13
+      || packageJson.config?.o3rMetrics === true
+    ) {
+      ctx.logger.info('`config.o3r.telemetry` is set in your package.json, please install the telemetry package with `ng add @o3r/telemetry` to enable the collection of metrics.');
     } else if (
       (!process.env.CI || process.env.CI === 'false')
       && (process.env.NX_CLI_SET !== 'true' || process.env.NX_INTERACTIVE === 'true')
+      && packageJson.config?.o3r?.telemetry !== false
+      // TODO `o3rMetrics` is deprecated and will be removed in v13
       && packageJson.config?.o3rMetrics !== false
       && process.env.O3R_METRICS !== 'false'
       && (opts as any).o3rMetrics !== false
     ) {
       ctx.logger.debug('`@o3r/telemetry` is not available.\nAsking to add the dependency\n' + e.toString());
 
-      const question: Question = {
+      const question = {
         type: 'confirm',
         name: 'isReplyPositive',
         message: `
@@ -43,14 +61,14 @@ It will help us to improve our tools.
 For more details and instructions on how to change these settings, see https://github.com/AmadeusITGroup/otter/blob/main/docs/telemetry/PRIVACY_NOTICE.md.
         `,
         default: false
-      };
+      } as const satisfies Question;
       const { isReplyPositive } = await prompt([question]);
 
       if (isReplyPositive) {
         const pmr = getPackageManagerRunner(packageJson);
 
         try {
-          const version = JSON.parse(await promises.readFile(path.join(__dirname, '..', '..', 'package.json'), 'utf-8')).version;
+          const version = JSON.parse(await promises.readFile(path.join(__dirname, '..', '..', 'package.json'), 'utf8')).version;
           execFileSync(`${pmr} ng add @o3r/telemetry@${version}`);
         } catch {
           ctx.logger.warn('Failed to install `@o3r/telemetry`.');
@@ -66,7 +84,8 @@ For more details and instructions on how to change these settings, see https://g
         ctx.logger.info('You can activate it at any time by running `ng add @o3r/telemetry`.');
 
         packageJson.config ||= {};
-        packageJson.config.o3rMetrics = false;
+        packageJson.config.o3r ||= {};
+        packageJson.config.o3r.telemetry = false;
 
         if (existsSync(packageJsonPath)) {
           await promises.writeFile(packageJsonPath, JSON.stringify(packageJson, null, 2));

@@ -1,4 +1,6 @@
-import type { SchematicOptionObject } from '@o3r/schematics';
+import type {
+  SchematicOptionObject,
+} from '@o3r/schematics';
 
 export interface NgGeneratePageSchematicsSchema extends SchematicOptionObject {
   /** Project name */
@@ -11,7 +13,7 @@ export interface NgGeneratePageSchematicsSchema extends SchematicOptionObject {
   scope: string;
 
   /** Application routing module path */
-  appRoutingModulePath: string;
+  appRoutingModulePath?: string | undefined;
 
   /** Selector prefix */
   prefix?: string | undefined;

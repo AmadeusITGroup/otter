@@ -1,7 +1,16 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterModule } from '@angular/router';
-
-import { DesignTokenComponent } from './design-token.component';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import {
+  RouterModule,
+} from '@angular/router';
+import {
+  provideMarkdown,
+} from 'ngx-markdown';
+import {
+  DesignTokenComponent,
+} from './design-token.component';
 
 describe('DesignTokenComponent', () => {
   let component: DesignTokenComponent;
@@ -12,7 +21,8 @@ describe('DesignTokenComponent', () => {
       imports: [
         DesignTokenComponent,
         RouterModule.forRoot([])
-      ]
+      ],
+      providers: [provideMarkdown()]
     })
       .compileComponents();
 

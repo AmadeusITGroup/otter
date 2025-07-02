@@ -1,4 +1,6 @@
-import { StorybookStoryConfiguration } from '../types';
+import {
+  StorybookStoryConfiguration,
+} from '../types';
 
 /** Localization argument name prefix */
 export const LOCALIZATION_PREFIX = 'localization-';

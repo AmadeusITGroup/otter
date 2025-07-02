@@ -1,14 +1,29 @@
-import { ModuleWithProviders, NgModule, Pipe, PipeTransform, Provider } from '@angular/core';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { LocalizationConfiguration, LocalizationModule, LocalizationTranslatePipe } from '@o3r/localization';
-import { of } from 'rxjs';
+import {
+  ModuleWithProviders,
+  NgModule,
+  Pipe,
+  PipeTransform,
+  Provider,
+} from '@angular/core';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import {
+  LocalizationConfiguration,
+  LocalizationModule,
+  LocalizationTranslatePipe,
+} from '@o3r/localization';
+import {
+  of,
+} from 'rxjs';
 
-const defaultLocalizationConfiguration: Partial<LocalizationConfiguration> = {
+const defaultLocalizationConfiguration = {
   supportedLocales: ['en'],
   language: 'en',
   endPointUrl: '',
   fallbackLanguage: 'en'
-};
+} as const satisfies Partial<LocalizationConfiguration>;
 
 @Pipe({ name: 'translate' })
 export class TranslatePipeMock implements PipeTransform {

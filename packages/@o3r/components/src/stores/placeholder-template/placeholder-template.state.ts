@@ -1,4 +1,6 @@
-import {EntityState} from '@ngrx/entity';
+import {
+  EntityState,
+} from '@ngrx/entity';
 
 /**
  * PlaceholderTemplate model

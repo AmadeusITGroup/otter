@@ -1,6 +1,8 @@
+import {
+  execSync,
+} from 'node:child_process';
 import * as fs from 'node:fs';
 import * as os from 'node:os';
-import { execSync } from 'node:child_process';
 import * as path from 'node:path';
 
 /** Support NPM package managers */
@@ -35,9 +37,7 @@ function getPackageManagerVersion(): string | undefined {
       env: {
         ...process.env,
         //  NPM updater notifier will prevents the child process from closing until it timeout after 3 minutes.
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         NO_UPDATE_NOTIFIER: '1',
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         NPM_CONFIG_UPDATE_NOTIFIER: 'false'
       }
     }).trim();
@@ -139,14 +139,15 @@ export const getEnvironmentInfo = async (): Promise<EnvironmentMetricData> => {
     otterCorePackageJsonPath = path.join(__dirname, '..', '..', 'package.json');
   }
   const otterInfo = {
-    version: otterCorePackageJsonPath ? JSON.parse(await fs.promises.readFile(otterCorePackageJsonPath, { encoding: 'utf-8' })).version as string : undefined
+    version: otterCorePackageJsonPath ? JSON.parse(await fs.promises.readFile(otterCorePackageJsonPath, { encoding: 'utf8' })).version as string : undefined
   };
 
   const ci = typeof process.env.CI !== 'undefined' && process.env.CI?.toLowerCase() !== 'false';
 
   let projectName: string | undefined;
   try {
-    projectName = JSON.parse(await fs.promises.readFile(path.join(process.cwd(), 'package.json'), { encoding: 'utf-8' })).name;
+    const packageJson = JSON.parse(await fs.promises.readFile(path.join(process.cwd(), 'package.json'), { encoding: 'utf8' }));
+    projectName = packageJson.config?.o3r?.telemetry?.projectName || packageJson.name;
   } catch {}
 
   return {

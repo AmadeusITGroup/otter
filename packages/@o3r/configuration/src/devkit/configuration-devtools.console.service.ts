@@ -1,16 +1,35 @@
-/* eslint-disable no-console */
-import { Inject, Injectable, Optional } from '@angular/core';
-import type { Configuration, ContextualizationDataset, CustomConfig, DevtoolsServiceInterface, WindowWithDevtools } from '@o3r/core';
-import { firstValueFrom } from 'rxjs';
-import { ConfigurationContextualizationDevtools, ConfigurationDevtoolsServiceOptions } from './configuration-devtools.interface';
-import { OtterConfigurationDevtools } from './configuration-devtools.service';
-import { OTTER_CONFIGURATION_DEVTOOLS_DEFAULT_OPTIONS, OTTER_CONFIGURATION_DEVTOOLS_OPTIONS } from './configuration-devtools.token';
+/* eslint-disable no-console -- service to log message in the console */
+import {
+  Inject,
+  Injectable,
+  Optional,
+} from '@angular/core';
+import type {
+  Configuration,
+  ContextualizationDataset,
+  CustomConfig,
+  DevtoolsServiceInterface,
+  WindowWithDevtools,
+} from '@o3r/core';
+import {
+  firstValueFrom,
+} from 'rxjs';
+import {
+  ConfigurationContextualizationDevtools,
+  ConfigurationDevtoolsServiceOptions,
+} from './configuration-devtools.interface';
+import {
+  OtterConfigurationDevtools,
+} from './configuration-devtools.service';
+import {
+  OTTER_CONFIGURATION_DEVTOOLS_DEFAULT_OPTIONS,
+  OTTER_CONFIGURATION_DEVTOOLS_OPTIONS,
+} from './configuration-devtools.token';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ConfigurationDevtoolsConsoleService implements DevtoolsServiceInterface, ConfigurationContextualizationDevtools {
-
   /** Name of the Window property to access to the devtools */
   public static readonly windowModuleName = 'configuration';
 
@@ -42,10 +61,10 @@ export class ConfigurationDevtoolsConsoleService implements DevtoolsServiceInter
   private copyElementToClipboard(content: string): void {
     const input = document.createElement('textarea');
     input.value = content;
-    document.body.appendChild(input);
+    document.body.append(input);
     input.select();
     document.execCommand('copy');
-    document.body.removeChild(input);
+    input.remove();
   }
 
   /**
@@ -61,9 +80,7 @@ export class ConfigurationDevtoolsConsoleService implements DevtoolsServiceInter
   /** @inheritDoc */
   public activate() {
     const windowWithDevtools: WindowWithDevtools = window;
-    // eslint-disable-next-line no-underscore-dangle
     windowWithDevtools._OTTER_DEVTOOLS_ ||= {};
-    // eslint-disable-next-line no-underscore-dangle
     windowWithDevtools._OTTER_DEVTOOLS_[ConfigurationDevtoolsConsoleService.windowModuleName] = this;
 
     console.info(`Otter Configuration Devtools is now accessible via the _OTTER_DEVTOOLS_.${ConfigurationDevtoolsConsoleService.windowModuleName} variable`);
@@ -114,7 +131,7 @@ export class ConfigurationDevtoolsConsoleService implements DevtoolsServiceInter
     const content = await this.configurationDevtools.getConfiguration();
 
     console.log('BOOKMARK');
-    console.log(`javascript:window._OTTER_DEVTOOLS_.updateConfigurations('${JSON.stringify(content).replace(/[']/g, '\\\'')}')`);
+    console.log(`javascript:window._OTTER_DEVTOOLS_.updateConfigurations('${JSON.stringify(content).replace(/'/g, '\\\'')}')`);
   }
 
   /**

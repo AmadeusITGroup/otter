@@ -12,6 +12,7 @@ export * from './fetch-cache/index';
 export * from './fetch-credentials/index';
 export * from './json-token/index';
 export * from './keepalive/index';
+export * from './mgw-mdw-auth/index';
 export * from './mock-intercept/index';
 export * from './perf-metric/index';
 export * from './pii-tokenizer/index';

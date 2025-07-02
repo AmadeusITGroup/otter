@@ -1,5 +1,9 @@
-import { EntityState } from '@ngrx/entity';
-import { AsyncStoreItem } from '@o3r/core';
+import {
+  EntityState,
+} from '@ngrx/entity';
+import {
+  AsyncStoreItem,
+} from '@o3r/core';
 
 /**
  * Variable model from the placeholder reply

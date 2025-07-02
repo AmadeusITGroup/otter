@@ -1,4 +1,6 @@
-import type { JsonObject } from '@angular-devkit/core';
+import type {
+  JsonObject,
+} from '@angular-devkit/core';
 
 export interface LocalizationExtractorBuilderSchema extends JsonObject {
 

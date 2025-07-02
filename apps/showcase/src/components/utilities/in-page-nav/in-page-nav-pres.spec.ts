@@ -1,6 +1,10 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { InPageNavPresComponent } from './in-page-nav-pres.component';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import {
+  InPageNavPresComponent,
+} from './in-page-nav-pres.component';
 
 describe('InPageNavPresComponent', () => {
   let component: InPageNavPresComponent;

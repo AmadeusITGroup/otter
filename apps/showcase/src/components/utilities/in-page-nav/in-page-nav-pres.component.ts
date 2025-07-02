@@ -9,10 +9,15 @@ import {
   OnDestroy,
   SimpleChanges,
   ViewContainerRef,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
-import { NgbScrollSpyModule, NgbScrollSpyService } from '@ng-bootstrap/ng-bootstrap';
-import { O3rComponent } from '@o3r/core';
+import {
+  NgbScrollSpyModule,
+  NgbScrollSpyService,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  O3rComponent,
+} from '@o3r/core';
 
 export interface InPageNavLink {
   id: string;
@@ -31,11 +36,7 @@ export class InPageNavLinkDirective implements InPageNavLink, AfterViewInit {
   /** InnerText of the h2 */
   public label = '';
 
-  private readonly nativeElement: HTMLElement;
-
-  constructor({ element }: ViewContainerRef) {
-    this.nativeElement = element.nativeElement;
-  }
+  private readonly nativeElement: HTMLElement = inject(ViewContainerRef).element.nativeElement;
 
   public ngAfterViewInit() {
     this.id = this.nativeElement.id;

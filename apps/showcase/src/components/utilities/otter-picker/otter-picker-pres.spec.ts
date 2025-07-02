@@ -1,6 +1,10 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { OtterPickerPresComponent } from './otter-picker-pres.component';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import {
+  OtterPickerPresComponent,
+} from './otter-picker-pres.component';
 
 describe('OtterPickerPresComponent', () => {
   let component: OtterPickerPresComponent;

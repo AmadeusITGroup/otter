@@ -1,7 +1,7 @@
 /** Interface extending Window with Otter Devtools accessor */
 export interface WindowWithDevtools extends Window {
   /** Otter Devtools accessor */
-  // eslint-disable-next-line @typescript-eslint/naming-convention
+  // eslint-disable-next-line @typescript-eslint/naming-convention -- exception for devtools
   _OTTER_DEVTOOLS_?: Record<string, any>;
 }
 

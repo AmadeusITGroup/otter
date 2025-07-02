@@ -1,6 +1,13 @@
-import { callRule, Tree } from '@angular-devkit/schematics';
-import { lastValueFrom } from 'rxjs';
-import { injectServiceInMain } from './devtools-registration';
+import {
+  callRule,
+  Tree,
+} from '@angular-devkit/schematics';
+import {
+  lastValueFrom,
+} from 'rxjs';
+import {
+  injectServiceInMain,
+} from './devtools-registration';
 
 const projectName = 'projectName';
 const mainFilePath = 'main.ts';
@@ -34,9 +41,13 @@ platformBrowserDynamic().bootstrapModule(AppModule).catch(err => console.error(e
         fakeContext
       )
     );
-    expect(tree.readText(mainFilePath)).toContain(`.then((m) => { runInInjectionContext(m.injector, () => { inject(${serviceName}); }); return m; })`);
+    expect(tree.readText(mainFilePath)).toContain(`.then((m) => {
+    runInInjectionContext(m.injector, () => {
+      inject(${serviceName});
+    });
+    return m;
+  })`);
   });
-
 
   it('should inject a service if `bootstrapApplication` found', async () => {
     const serviceName = 'ServiceName';
@@ -60,7 +71,12 @@ bootstrapApplication(AppComponent, appConfig)
         fakeContext
       )
     );
-    expect(tree.readText(mainFilePath)).toContain(`.then((m) => { runInInjectionContext(m.injector, () => { inject(${serviceName}); }); return m; })`);
+    expect(tree.readText(mainFilePath)).toContain(`.then((m) => {
+    runInInjectionContext(m.injector, () => {
+      inject(${serviceName});
+    });
+    return m;
+  })`);
   });
 
   it('should not reinject a service', async () => {

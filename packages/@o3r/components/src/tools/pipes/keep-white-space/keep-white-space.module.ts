@@ -1,5 +1,9 @@
-import {NgModule} from '@angular/core';
-import {KeepWhiteSpacePipe} from './keep-white-space.pipe';
+import {
+  NgModule,
+} from '@angular/core';
+import {
+  KeepWhiteSpacePipe,
+} from './keep-white-space.pipe';
 
 /**
  * @deprecated please use O3rKeepWhiteSpacePipe, will be removed in v12.

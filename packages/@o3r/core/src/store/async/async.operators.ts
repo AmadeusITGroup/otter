@@ -1,8 +1,36 @@
-import { Action } from '@ngrx/store';
-import { BehaviorSubject, EMPTY, from, identity, isObservable, merge, Observable, of, OperatorFunction, Subject } from 'rxjs';
-import { catchError, delay, filter, finalize, pairwise, startWith, switchMap, tap } from 'rxjs/operators';
-import { isIdentifiedCallAction } from './async.helpers';
-import { AsyncRequest, ExtractFromApiActionPayloadType, FromApiActionPayload } from './async.interfaces';
+import {
+  Action,
+} from '@ngrx/store';
+import {
+  BehaviorSubject,
+  EMPTY,
+  from,
+  identity,
+  isObservable,
+  merge,
+  Observable,
+  of,
+  OperatorFunction,
+  Subject,
+} from 'rxjs';
+import {
+  catchError,
+  delay,
+  filter,
+  finalize,
+  pairwise,
+  startWith,
+  switchMap,
+  tap,
+} from 'rxjs/operators';
+import {
+  isIdentifiedCallAction,
+} from './async.helpers';
+import {
+  AsyncRequest,
+  ExtractFromApiActionPayloadType,
+  FromApiActionPayload,
+} from './async.interfaces';
 
 /**
  * Determine if the given parameter is a Promise
@@ -17,12 +45,10 @@ const isPromise = <U>(object: U | Promise<U>): object is Promise<U> => object &&
  * @param errorHandler function that returns the action to emit in case the FromApi call fails
  * @param cancelRequestActionFactory function that returns the action to emit in case the FromApi action is 'cancelled' because a new action was received by the switchMap
  */
-// eslint-disable-next-line @typescript-eslint/ban-types
 export function fromApiEffectSwitchMap<T extends FromApiActionPayload<any>, S extends ExtractFromApiActionPayloadType<T>, U extends Action, V extends Action, W extends Action>(
     successHandler: (result: S, action: T) => U | Observable<U> | Promise<U>,
     errorHandler?: (error: any, action: T) => Observable<V>,
     cancelRequestActionFactory?: (props: AsyncRequest, action: T) => W): OperatorFunction<T, U | V | W> {
-
   const pendingRequestIdsContext: Record<string, boolean> = {};
 
   return (source$) => source$.pipe(
@@ -53,13 +79,14 @@ export function fromApiEffectSwitchMap<T extends FromApiActionPayload<any>, S ex
           cleanStack();
           return errorHandler?.(error, action) || EMPTY;
         }),
-        isPreviousActionStillRunning && cancelRequestActionFactory ? startWith(cancelRequestActionFactory({requestId: previousAction.requestId}, action)) : identity
+        isPreviousActionStillRunning && cancelRequestActionFactory ? startWith(cancelRequestActionFactory({ requestId: previousAction.requestId }, action)) : identity
       );
     })
   );
 }
 
 /**
+ * Same as {@link fromApiEffectSwitchMap}, instead one inner subscription is kept by id.
  * @param successHandler
  * @param errorHandler
  * @param cancelRequestActionFactory

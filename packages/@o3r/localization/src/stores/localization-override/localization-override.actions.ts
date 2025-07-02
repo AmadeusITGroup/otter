@@ -1,6 +1,13 @@
-import { createAction, props } from '@ngrx/store';
-import { SetStateActionPayload } from '@o3r/core';
-import { LocalizationOverrideState } from './localization-override.state';
+import {
+  createAction,
+  props,
+} from '@ngrx/store';
+import {
+  SetStateActionPayload,
+} from '@o3r/core';
+import {
+  LocalizationOverrideState,
+} from './localization-override.state';
 
 /** Actions */
 const ACTION_SET = '[LocalizationOverride] set';

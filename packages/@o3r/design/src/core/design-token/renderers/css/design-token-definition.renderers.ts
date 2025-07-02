@@ -1,8 +1,20 @@
-import type { DesignTokenVariableStructure, TokenKeyRenderer, TokenValueRenderer } from '../../parsers/design-token-parser.interface';
-import { isO3rPrivateVariable } from '../design-token.renderer.helpers';
-import { TokenDefinitionRenderer } from '../design-token.renderer.interface';
-import { getCssTokenValueRenderer } from './design-token-value.renderers';
-import type { Logger } from '@o3r/core';
+import type {
+  Logger,
+} from '@o3r/core';
+import type {
+  DesignTokenVariableStructure,
+  TokenKeyRenderer,
+  TokenValueRenderer,
+} from '../../parsers/design-token-parser.interface';
+import {
+  isO3rPrivateVariable,
+} from '../design-token.renderer.helpers';
+import {
+  TokenDefinitionRenderer,
+} from '../design-token.renderer.interface';
+import {
+  getCssTokenValueRenderer,
+} from './design-token-value.renderers';
 
 /** Options for {@link CssTokenDefinitionRendererOptions} */
 export interface CssTokenDefinitionRendererOptions {
@@ -36,7 +48,6 @@ export interface CssTokenDefinitionRendererOptions {
 /**
  * Retrieve the Design Token variable renderer for CSS
  * @param options
- * @returns
  * @example CSS renderer with Sass fallback
  * ```typescript
  * import { getSassTokenDefinitionRenderer } from '@o3r/design';
@@ -65,11 +76,11 @@ export const getCssTokenDefinitionRenderer = (options?: CssTokenDefinitionRender
   const renderer = (variable: DesignTokenVariableStructure, variableSet: Map<string, DesignTokenVariableStructure>) => {
     let variableString: string | undefined;
     if (!isPrivateVariable(variable)) {
-      variableString = `--${variable.getKey(tokenVariableNameRenderer)}: ${tokenValueRenderer(variable, variableSet)};`;
+      variableString = `--${variable.getKey(tokenVariableNameRenderer)}: ${tokenValueRenderer(variable, variableSet, !!variable.extensions.o3rExpectOverride)};`;
       if (variable.extensions.o3rScope) {
         variableString = `${variable.extensions.o3rScope} { ${variableString} }`;
       }
-    } else if (options?.privateDefinitionRenderer && variable.extensions.o3rPrivate) {
+    } else if (options?.privateDefinitionRenderer) {
       variableString = options.privateDefinitionRenderer(variable, variableSet);
     }
     if (variableString && variable.description) {

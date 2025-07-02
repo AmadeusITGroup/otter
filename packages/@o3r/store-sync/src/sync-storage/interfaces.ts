@@ -1,4 +1,6 @@
-import type { Logger } from '@o3r/core';
+import type {
+  Logger,
+} from '@o3r/core';
 
 /**
  * Options to provide to the synchronous store synchronization mechanism
@@ -31,7 +33,6 @@ export interface StorageKeyConfiguration {
  * Definition of a store to to synchronize
  */
 export type StorageKeys = (StorageKeyConfiguration | SyncStorageSyncOptions | string)[];
-
 
 /**
  * Configuration to define the way the stores should be synchronize to the storage

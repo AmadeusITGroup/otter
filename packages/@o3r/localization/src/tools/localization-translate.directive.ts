@@ -1,16 +1,34 @@
-import { ChangeDetectorRef, Directive, ElementRef, Inject, Input } from '@angular/core';
-import { TranslateDirective, TranslateService } from '@ngx-translate/core';
-import { Subscription } from 'rxjs';
-import { LocalizationConfiguration } from '../core';
-import { LocalizationService } from './localization.service';
-import { LOCALIZATION_CONFIGURATION_TOKEN } from './localization.token';
+import {
+  ChangeDetectorRef,
+  Directive,
+  ElementRef,
+  Inject,
+  Input,
+  OnDestroy,
+} from '@angular/core';
+import {
+  TranslateDirective,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  Subscription,
+} from 'rxjs';
+import {
+  LocalizationConfiguration,
+} from '../core';
+import {
+  LocalizationService,
+} from './localization.service';
+import {
+  LOCALIZATION_CONFIGURATION_TOKEN,
+} from './localization.token';
 /**
  * TranslateDirective class adding debug functionality
  */
 @Directive({
   selector: '[translate],[ngx-translate]'
 })
-export class LocalizationTranslateDirective extends TranslateDirective {
+export class LocalizationTranslateDirective extends TranslateDirective implements OnDestroy {
   /**
    * Internal subscription to the LocalizationService showKeys mode changes
    */
@@ -41,7 +59,7 @@ export class LocalizationTranslateDirective extends TranslateDirective {
   }
 
   constructor(private readonly localizationService: LocalizationService, translateService: TranslateService, element: ElementRef, _ref: ChangeDetectorRef,
-              @Inject(LOCALIZATION_CONFIGURATION_TOKEN) private readonly localizationConfig: LocalizationConfiguration) {
+    @Inject(LOCALIZATION_CONFIGURATION_TOKEN) private readonly localizationConfig: LocalizationConfiguration) {
     super(translateService, element, _ref);
 
     if (localizationConfig.enableTranslationDeactivation) {
@@ -59,7 +77,7 @@ export class LocalizationTranslateDirective extends TranslateDirective {
    */
   public setContent(node: any, content: string): void {
     const key = node.originalContent;
-    const newContent = this.showKeys ? key : this.localizationConfig.debugMode && key ? `${key as string} - ${content}` : content;
+    const newContent = this.showKeys ? key : (this.localizationConfig.debugMode && key ? `${key as string} - ${content}` : content);
     if (typeof node.textContent !== 'undefined' && node.textContent !== null) {
       node.textContent = newContent;
     } else {

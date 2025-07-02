@@ -1,4 +1,6 @@
-import { PullRequestService as PrService } from '@o3r/azure-tools';
+import {
+  PullRequestService as PrService,
+} from '@o3r/azure-tools';
 
 /**
  * Service to call AzureDevops API about PR

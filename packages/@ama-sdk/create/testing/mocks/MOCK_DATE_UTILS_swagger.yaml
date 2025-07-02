@@ -82,7 +82,8 @@ definitions:
     properties:
       nextMeetingAtTheVet:
         type: string
-        format: date
+        format: date-time
+        x-local-timezone: true
       friends:
         type: object
         allOf:

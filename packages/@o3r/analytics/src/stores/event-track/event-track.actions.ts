@@ -1,5 +1,11 @@
-import {createAction, props} from '@ngrx/store';
-import {EventTrackState, RegisterHeroComponentPayload} from './event-track.state';
+import {
+  createAction,
+  props,
+} from '@ngrx/store';
+import {
+  EventTrackState,
+  RegisterHeroComponentPayload,
+} from './event-track.state';
 
 /** StateActions */
 const ACTION_SET = '[EventTrack] set';
@@ -20,7 +26,7 @@ export interface SetHeroComponentTTIPayload {
   /**
    * The TTI measure for the hero component
    */
-  // eslint-disable-next-line @typescript-eslint/naming-convention
+  // eslint-disable-next-line @typescript-eslint/naming-convention -- naming convention imposed by Lighthouse
   TTI: number;
 
   /**
@@ -33,12 +39,12 @@ export interface SetHeroComponentTTIPayload {
 /**
  * Clear the current store object and replace it with the new one
  */
-export const setEventTrack = createAction(ACTION_SET, props<{model: EventTrackState}>());
+export const setEventTrack = createAction(ACTION_SET, props<{ model: EventTrackState }>());
 
 /**
  * Change a part or the whole object in the store.
  */
-export const updateEventTrack = createAction(ACTION_UPDATE, props<Partial<{model: EventTrackState}>>());
+export const updateEventTrack = createAction(ACTION_UPDATE, props<Partial<{ model: EventTrackState }>>());
 
 /**
  * Clear the whole state, return to the initial one
@@ -48,9 +54,9 @@ export const resetEventTrack = createAction(ACTION_RESET);
 /**
  * Register hero component in the store
  */
-export const registerHeroComponent = createAction(ACTION_REGISTER_HERO_COMPONENT, props<{model: RegisterHeroComponentPayload}>());
+export const registerHeroComponent = createAction(ACTION_REGISTER_HERO_COMPONENT, props<{ model: RegisterHeroComponentPayload }>());
 
 /**
  * Set the TTI measure for a hero component in the store
  */
-export const setHeroComponentTTI = createAction(ACTION_SET_HERO_COMPONENT_TTI, props<{model: SetHeroComponentTTIPayload}>());
+export const setHeroComponentTTI = createAction(ACTION_SET_HERO_COMPONENT_TTI, props<{ model: SetHeroComponentTTIPayload }>());

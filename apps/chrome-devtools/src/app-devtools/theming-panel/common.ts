@@ -1,7 +1,9 @@
-import type { StylingVariable } from '@o3r/styling';
+import type {
+  StylingVariable,
+} from '@o3r/styling';
 
 /** RegExp to find a variable and get the variable name in the first group */
-export const varRegExp = /^var\(--([^, )]*).*\)$/;
+export const varRegExp = /^var\(--([^ ),]*).*\)$/;
 
 /**
  * Is the variable value a reference to another variable
@@ -16,7 +18,7 @@ export const isRef = (variableValue: string) => varRegExp.test(variableValue);
  */
 export const searchFn = (variable: StylingVariable, search: string) =>
   [variable.name, variable.category, variable.description, ...(variable.tags || []), variable.defaultValue]
-    .some((value) => value?.toLowerCase().includes(search.replace(/var\(--|[, )]/g, '')));
+    .some((value) => value?.toLowerCase().includes(search.replace(/var\(--|[ ),]/g, '')));
 
 /**
  * Find the value of a variable
@@ -37,7 +39,7 @@ export const resolveVariable = (
   const variableValue = runtimeValueVariables?.[variableName] ?? variableMetadata?.runtimeValue ?? variableMetadata?.defaultValue ?? '';
   if (isRef(variableValue)) {
     const varName = variableValue.match(varRegExp)![1];
-    return !visitedVariables.has(varName) ? resolveVariable(varName, runtimeValueVariables, variables, visitedVariables) : undefined;
+    return visitedVariables.has(varName) ? undefined : resolveVariable(varName, runtimeValueVariables, variables, visitedVariables);
   }
   return variableValue;
 };

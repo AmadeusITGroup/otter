@@ -1,5 +1,19 @@
-import { apply, chain, MergeStrategy, mergeWith, move, renameTemplateFiles, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
-import { posix } from 'node:path';
+import {
+  posix,
+} from 'node:path';
+import {
+  apply,
+  chain,
+  MergeStrategy,
+  mergeWith,
+  move,
+  renameTemplateFiles,
+  Rule,
+  SchematicContext,
+  template,
+  Tree,
+  url,
+} from '@angular-devkit/schematics';
 
 /**
  * Add or update the Linter configuration
@@ -8,7 +22,6 @@ import { posix } from 'node:path';
  * @param rootPath @see RuleFactory.rootPath
  */
 export function updateLinterConfigs(options: { projectName?: string | null | undefined }, rootPath: string): Rule {
-
   /**
    * Update or create the eslint.json file
    * @param tree
@@ -19,10 +32,10 @@ export function updateLinterConfigs(options: { projectName?: string | null | und
 
     if (tree.exists(eslintFilePath)) {
       const eslintFile = tree.readJson(eslintFilePath) as { extends?: string | string[] };
-      eslintFile.extends = eslintFile.extends ? (eslintFile.extends instanceof Array ? eslintFile.extends : [eslintFile.extends]) : [];
+      eslintFile.extends = eslintFile.extends ? (Array.isArray(eslintFile.extends) ? eslintFile.extends : [eslintFile.extends]) : [];
 
       const eslintConfigOtter = '@o3r/eslint-config-otter';
-      if (eslintFile.extends.indexOf(eslintConfigOtter) === -1) {
+      if (!eslintFile.extends.includes(eslintConfigOtter)) {
         eslintFile.extends.push(eslintConfigOtter);
       }
 
@@ -30,7 +43,7 @@ export function updateLinterConfigs(options: { projectName?: string | null | und
     } else {
       const { getAllFilesInTree, getTemplateFolder } = await import('@o3r/schematics');
       const eslintConfigFiles = getAllFilesInTree(tree, '/', ['**/.eslintrc.js'], false).filter((file) => /\.eslintrc/i.test(file));
-      if (!eslintConfigFiles.length) {
+      if (eslintConfigFiles.length === 0) {
         return mergeWith(apply(url(getTemplateFolder(rootPath, __dirname, 'templates/workspace')), [
           template({
             dot: '.'
@@ -110,7 +123,7 @@ export function updateLinterConfigs(options: { projectName?: string | null | und
       options: {
         eslintConfig: `${workspaceProject.root}/.eslintrc.js`,
         lintFilePatterns: [
-          `${workspaceProject.sourceRoot || posix.join(workspaceProject.root, 'src') }/**/*.ts`
+          `${workspaceProject.sourceRoot || posix.join(workspaceProject.root, 'src')}/**/*.ts`
         ]
       }
     };
@@ -147,7 +160,6 @@ export function updateLinterConfigs(options: { projectName?: string | null | und
     } else {
       context.logger.warn(`No file found under '${mainTsPath}'. Linter errors may occur and should be fixed by hand.`);
     }
-
   };
   return chain([
     updateTslintExtend,

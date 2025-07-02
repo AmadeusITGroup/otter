@@ -18,3 +18,20 @@ A set of helpers to retrieve tool usage metrics.
 
 https://github.com/AmadeusITGroup/otter/blob/main/docs/telemetry/PRIVACY_NOTICE.md
 
+## Additional information
+
+By default, the project name sent will be the `name` of the `package.json`. It can be overridden by providing `config.o3r.telemetry.projectName`.
+
+Example:
+```json5
+{
+  "name": "app-name",
+  ...
+  "config": {
+    "o3r": {
+      "telemetry": {
+        "projectName": "app-name-override"
+      }
+    }
+  }
+}

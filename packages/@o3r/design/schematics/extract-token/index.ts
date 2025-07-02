@@ -1,7 +1,23 @@
-import type { Rule } from '@angular-devkit/schematics';
-import type { ExtractTokenSchematicsSchema } from './schema';
-import { posix, resolve } from 'node:path';
-import { AUTO_GENERATED_END, AUTO_GENERATED_START, DesignToken, DesignTokenGroup, DesignTokenNode } from '../../src/public_api';
+import {
+  posix,
+  resolve,
+} from 'node:path';
+import type {
+  Rule,
+} from '@angular-devkit/schematics';
+import type {
+  createSchematicWithMetricsIfInstalled,
+} from '@o3r/schematics';
+import {
+  AUTO_GENERATED_END,
+  AUTO_GENERATED_START,
+  DesignToken,
+  DesignTokenGroup,
+  DesignTokenNode,
+} from '../../src/public_api';
+import type {
+  ExtractTokenSchematicsSchema,
+} from './schema';
 
 const patternToDetect = 'o3r.var';
 
@@ -9,8 +25,7 @@ const patternToDetect = 'o3r.var';
  * Extract the token from o3r mixin sass file
  * @param options
  */
-export function extractToken(options: ExtractTokenSchematicsSchema): Rule {
-
+function extractTokenFn(options: ExtractTokenSchematicsSchema): Rule {
   const updateFileContent = (content: string): string => {
     const start = content.indexOf(patternToDetect);
     const end = content.lastIndexOf(patternToDetect);
@@ -24,28 +39,27 @@ export function extractToken(options: ExtractTokenSchematicsSchema): Rule {
     const indexToInsertStart = content.substring(0, start).lastIndexOf('\n') + 1;
     const indexToInsertEnd = content.substring(end).indexOf('\n') + end + 1;
 
-    return `${content.substring(0, indexToInsertStart)}${startTag}\n` +
-      content.substring(indexToInsertStart, indexToInsertEnd) +
-      `${endTag}\n${content.substring(indexToInsertEnd) }`;
+    return `${content.substring(0, indexToInsertStart)}${startTag}\n`
+      + content.substring(indexToInsertStart, indexToInsertEnd)
+      + `${endTag}\n${content.substring(indexToInsertEnd)}`;
   };
 
   return async (tree, context) => {
     try {
-      // eslint-disable-next-line @typescript-eslint/naming-convention
       const { CssVariableExtractor } = await import('@o3r/styling/builders/style-extractor/helpers');
       const { filter } = await import('minimatch');
       const filterFunctions = options.componentFilePatterns.map((pattern) => filter(
-        '/' + pattern.replace(/[\\/]+/g, '/'),
+        '/' + pattern.replace(/[/\\]+/g, '/'),
         { dot: true }
       ));
       const sassParser = new CssVariableExtractor();
 
-      tree.visit((file) => {
+      tree.visit(async (file) => {
         if (!filterFunctions.some((filterFunction) => filterFunction(file))) {
           return;
         }
         const content = tree.readText(file);
-        const variables = sassParser.extractFileContent(resolve(tree.root.path, file), content);
+        const variables = await sassParser.extractFileContent(resolve(tree.root.path, file), content);
 
         if (variables.length > 0 && options.includeTags) {
           const newContent = updateFileContent(content);
@@ -65,19 +79,19 @@ export function extractToken(options: ExtractTokenSchematicsSchema): Rule {
               targetNode = (targetNode as DesignTokenGroup)[name] as DesignTokenGroup | DesignToken;
             });
 
-            const valueWithVariable = [...variable.defaultValue.matchAll(/var\(--([^,)]+),?[^)]*\)/g)]
+            const valueWithVariable = [...variable.defaultValue.matchAll(/var\(--([^),]+),?[^)]*\)/g)]
               .reduce((acc, [variableString, variableName]) => {
                 return acc.replaceAll(variableString, `{${variableName.replaceAll('-', '.')}}`);
               }, variable.defaultValue);
 
             const targetNodeValue = targetNode as any as DesignToken;
             targetNodeValue.$description = variable.description;
-            targetNodeValue.$type = !variable.type || variable.type === 'string' ?
-              (isNaN(+variable.defaultValue) ? undefined : 'number') :
-              variable.type;
-            targetNodeValue.$value = targetNodeValue.$type === 'number' ?
-              +variable.defaultValue :
-              valueWithVariable;
+            targetNodeValue.$type = !variable.type || variable.type === 'string'
+              ? (Number.isNaN(+variable.defaultValue) ? undefined : 'number')
+              : variable.type;
+            targetNodeValue.$value = targetNodeValue.$type === 'number'
+              ? +variable.defaultValue
+              : valueWithVariable;
             targetNodeValue.$extensions ||= {};
             targetNodeValue.$extensions.o3rMetadata ||= {};
             targetNodeValue.$extensions.o3rMetadata.category = variable.category;
@@ -88,7 +102,7 @@ export function extractToken(options: ExtractTokenSchematicsSchema): Rule {
 
         Object.values(tokenSpecification)
           .forEach((node) => {
-            const designTokenNode = (node as DesignTokenNode);
+            const designTokenNode = node as DesignTokenNode;
             designTokenNode.$extensions ||= {};
             designTokenNode.$extensions.o3rPrivate = isPrivate;
             designTokenNode.$extensions.o3rTargetFile = posix.join('.', posix.basename(file));
@@ -104,3 +118,20 @@ export function extractToken(options: ExtractTokenSchematicsSchema): Rule {
     }
   };
 }
+
+/**
+ * Extract the token from o3r mixin sass file
+ * @param options
+ */
+export const extractToken = (options: ExtractTokenSchematicsSchema) => async () => {
+  let createSchematicWithMetrics: typeof createSchematicWithMetricsIfInstalled | undefined;
+  try {
+    ({ createSchematicWithMetricsIfInstalled: createSchematicWithMetrics } = await import('@o3r/schematics'));
+  } catch {
+    // No @o3r/schematics detected
+  }
+  if (!createSchematicWithMetrics) {
+    return extractTokenFn(options);
+  }
+  return createSchematicWithMetrics(extractTokenFn)(options);
+};

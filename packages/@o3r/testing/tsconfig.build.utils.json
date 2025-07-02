@@ -1,0 +1,12 @@
+{
+  "extends": "../../../tsconfig.build",
+  "compilerOptions": {
+    "incremental": true,
+    "rootDir": "src",
+    "tsBuildInfoFile": "build/.tsbuildinfo.utils",
+    "outDir": "./dist/esm"
+  },
+  "include": [
+    "src/visual-test/utils.ts"
+  ]
+}

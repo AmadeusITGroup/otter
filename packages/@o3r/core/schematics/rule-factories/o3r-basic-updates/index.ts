@@ -1,27 +1,34 @@
-import { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { WorkspaceProject } from '@o3r/schematics';
-import { getWorkspaceConfig, readPackageJson } from '@o3r/schematics';
-import type { PackageJson } from 'type-fest';
+import {
+  Rule,
+  SchematicContext,
+  Tree,
+} from '@angular-devkit/schematics';
+import {
+  getWorkspaceConfig,
+  readPackageJson,
+  WorkspaceProject,
+} from '@o3r/schematics';
+import type {
+  PackageJson,
+} from 'type-fest';
+
+const ngUpdateScript = (tree: Tree, packageJsonObj: PackageJson, packageJsonPath = '/package.json') => {
+  if (!packageJsonObj.scripts) {
+    packageJsonObj.scripts = {};
+  }
+
+  packageJsonObj.scripts['update:otter'] = 'ng update @o3r/core';
+
+  tree.overwrite(packageJsonPath, JSON.stringify(packageJsonObj, null, 2));
+};
 
 /**
  * Package.json updates to include o3r ng update script
  * @param pName project name
- * @param o3rCoreVersion
  * @param _o3rCoreVersion
  * @param projectType
  */
 export function o3rBasicUpdates(pName: string | null | undefined, _o3rCoreVersion?: string, projectType?: WorkspaceProject['projectType']): Rule {
-
-  const ngUpdateScript = (tree: Tree, packageJsonObj: PackageJson, packageJsonPath = '/package.json') => {
-    if (!packageJsonObj.scripts) {
-      packageJsonObj.scripts = {};
-    }
-
-    packageJsonObj.scripts['update:otter'] = 'ng update @o3r/core';
-
-    tree.overwrite(packageJsonPath, JSON.stringify(packageJsonObj, null, 2));
-  };
-
   return (tree: Tree, context: SchematicContext) => {
     const workspace = getWorkspaceConfig(tree);
 
@@ -46,5 +53,4 @@ export function o3rBasicUpdates(pName: string | null | undefined, _o3rCoreVersio
       });
     return tree;
   };
-
 }

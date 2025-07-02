@@ -1,7 +1,19 @@
-import { sync as globbySync } from 'globby';
-import { existsSync } from 'node:fs';
-import { dirname, normalize, relative, resolve } from 'node:path';
-import { getJestProjects as workspaceGetJestProjects } from '@o3r/workspace';
+import {
+  existsSync,
+  readFileSync,
+} from 'node:fs';
+import {
+  dirname,
+  normalize,
+  relative,
+  resolve,
+} from 'node:path';
+import {
+  sync as globbySync,
+} from 'globby';
+import type {
+  TsConfigJson,
+} from 'type-fest';
 
 /**
  * Get the list of Jest Projects in the workspace
@@ -11,7 +23,6 @@ import { getJestProjects as workspaceGetJestProjects } from '@o3r/workspace';
  * @param jestConfigPattern Pattern to the jest config files
  * @returns list of Jest projects
  */
-export const getJestProjects = workspaceGetJestProjects;
 
 /**
  * Find the closest package.json file containing workspace definition in the parent directories
@@ -25,11 +36,17 @@ const findParentPackageJson = (directory: string, rootDir?: string): string | un
     return undefined;
   }
   const packageJsonPath = resolve(parentFolder, 'package.json');
-  if (!existsSync(packageJsonPath) || !(require(packageJsonPath).workspaces)) {
+  if (!existsSync(packageJsonPath)) {
     return findParentPackageJson(parentFolder, rootDir);
   }
-  return globbySync(require(packageJsonPath).workspaces, { cwd: parentFolder, onlyFiles: false, absolute: true})
-    .some((workspacePath) => normalize(workspacePath) === rootDir) ? packageJsonPath : findParentPackageJson(parentFolder, rootDir);
+  const workspaces = JSON.parse(readFileSync(packageJsonPath, { encoding: 'utf8' })).workspaces;
+  if (!workspaces) {
+    return findParentPackageJson(parentFolder, rootDir);
+  }
+  return globbySync(workspaces, { cwd: parentFolder, onlyFiles: false, absolute: true })
+    .some((workspacePath) => normalize(workspacePath) === rootDir)
+    ? packageJsonPath
+    : findParentPackageJson(parentFolder, rootDir);
 };
 
 /**
@@ -37,7 +54,6 @@ const findParentPackageJson = (directory: string, rootDir?: string): string | un
  * @deprecated Please use `pathsToModuleNameMapper` from `ts-jest`, will be removed in Otter v12.
  * @param rootDir Root directory of the jest project
  * @param testingTsconfigPath Path to the tsconfig.json used for test mapping files
- * @returns
  */
 export const getJestModuleNameMapper = (rootDir: string, testingTsconfigPath?: string) => {
   const workspacePackageJsonPath = findParentPackageJson(rootDir);
@@ -45,14 +61,17 @@ export const getJestModuleNameMapper = (rootDir: string, testingTsconfigPath?: s
   testingTsconfigPath ||= resolve(workspacePath, 'tsconfig.base.json');
 
   if (!existsSync(testingTsconfigPath)) {
+    // eslint-disable-next-line no-console -- no logger available
     console.warn(`${testingTsconfigPath} not found`);
     return {};
   }
-  const { compilerOptions } = require(testingTsconfigPath) as { compilerOptions: { paths: { [key: string]: string[] } } };
+  const { compilerOptions } = JSON.parse(readFileSync(testingTsconfigPath, { encoding: 'utf8' })) as TsConfigJson;
   const relativePath = relative(rootDir, workspacePath);
-  return Object.entries(compilerOptions.paths).reduce<Record<string, any>>((acc, [keyPath, mapPaths]) => {
-    const relativeModulePath = mapPaths.map((mapPath) => `<rootDir>/${relativePath.replace(/\\+/g, '/') || ''}/${mapPath.replace(/[*]/g, '$1')}`.replace(/\/{2,}/g, '/'));
-    acc['^' + keyPath.replace(/[*]/g, '(.*)') + '$'] = relativeModulePath;
+  return Object.entries(compilerOptions?.paths || {}).reduce<Record<string, any>>((acc, [keyPath, mapPaths]) => {
+    const relativeModulePath = mapPaths.map((mapPath) => `<rootDir>/${relativePath.replace(/\\+/g, '/') || ''}/${mapPath.replace(/\*/g, '$1')}`.replace(/\/{2,}/g, '/'));
+    acc['^' + keyPath.replace(/\*/g, '(.*)') + '$'] = relativeModulePath;
     return acc;
   }, {});
 };
+
+export { getJestProjects } from '@o3r/workspace';

@@ -7,6 +7,7 @@
   </ng-template>
   <ul *ngIf="rulesetExecutions; else noRulesEngine" class="rulesets">
     <li *ngFor="let execution of rulesetExecutions" class="ruleset">
+      <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -- need to refactor the div to accordion from DF #1518 -->
       <div class="ruleset-panel-title ruleset-expansion-action"
         [class.error]="execution.type === 'RulesetExecutionError'"
         (click)="toggleExpansion(execution.executionId, 'ruleset')">
@@ -117,6 +118,7 @@
 </ng-template>
 
 <ng-template let-rules="rules" let-expansionID="expansionID" #rules>
+  <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -- need to refactor the div to accordion from DF #1518 -->
   <div class="ruleset-panel-category-title ruleset-expansion-action"
     (click)="toggleExpansion(expansionID, 'rulesOverview')">
     <span>Rules Overview</span>

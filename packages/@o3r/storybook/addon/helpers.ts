@@ -1,6 +1,5 @@
 /**
  * Download a file base of content
- *
  * @param content File content
  * @param type File type
  * @param id ID of the temporary link
@@ -12,14 +11,13 @@ export function downloadFile(content: string, type: string, id = 'generated-link
   link.href = url;
   link.id = id;
   link.target = '_blank';
-  document.body.appendChild(link);
+  document.body.append(link);
   link.click();
   link.remove();
 }
 
 /**
  * Generate CSS file based of theme map
- *
  * @param theme Map of CSS variables to include in the CSS generated file
  * @param baseTheme Map of CSS variables to compare to generate diff variable only
  */

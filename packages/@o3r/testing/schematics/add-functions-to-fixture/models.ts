@@ -13,7 +13,7 @@ export type MethodType =
 /**
  * Return type associated to the MethodType
  */
-export const returnType: Record<MethodType, string> = {
+export const returnType = {
   clickOnButton: 'Promise<void>',
   getText: 'Promise<string | undefined>',
   getInputValue: 'Promise<string | undefined>',
@@ -21,12 +21,12 @@ export const returnType: Record<MethodType, string> = {
   getTextInList: 'Promise<string | undefined>',
   clickButtonInList: 'Promise<void>',
   getNumberOfItems: 'Promise<number>'
-};
+} as const satisfies Record<MethodType, string>;
 
 /**
  * Description associated to the MethodType
  */
-export const description: Record<MethodType, string> = {
+export const description = {
   clickOnButton: `
   /**
    * Click on the button
@@ -68,4 +68,4 @@ export const description: Record<MethodType, string> = {
    *
    * @returns number of items
    */`
-};
+} as const satisfies Record<MethodType, string>;

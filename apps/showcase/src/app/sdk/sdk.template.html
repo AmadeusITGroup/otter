@@ -22,7 +22,7 @@
         Fortunately, this API provides the specification as <a href="https://github.com/swagger-api/swagger-petstore/blob/master/src/main/resources/openapi.yaml" target="_blank" rel="noopener">Yaml file</a>
         that we can use to generate an SDK.
         <br>
-        Here, you can check the <a href="https://github.com/AmadeusITGroup/otter/blob/main/packages/@ama-sdk/showcase-sdk" target="_blank" rel="noopener">generated SDK</a>
+        Here, you can check the <a href="https://github.com/AmadeusITGroup/otter/blob/main/packages/@o3r-training/showcase-sdk" target="_blank" rel="noopener">generated SDK</a>
       </p>
       <o3r-sdk-pres></o3r-sdk-pres>
       <p>
@@ -33,7 +33,11 @@
 
     <h2 id="rules-engine-install">How to use</h2>
     <div>
-      <o3r-copy-text-pres [wrap]="true" language="bash" text="yarn create @ama-sdk typescript <project-name> [--spec-path=./path/to/spec.yaml]"></o3r-copy-text-pres>
+      <markdown clipboard ngPreserveWhitespaces>
+        ```bash
+        npm create &#64;ama-sdk typescript &lt;project-name&gt; [--spec-path=./path/to/spec.yaml]
+        ```
+      </markdown>
     </div>
 
     <h2 id="rules-engine-references">References</h2>

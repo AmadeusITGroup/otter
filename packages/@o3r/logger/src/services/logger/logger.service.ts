@@ -1,9 +1,24 @@
-import { Inject, Injectable, Optional } from '@angular/core';
-import { Action, MetaReducer } from '@ngrx/store';
-import type { Logger } from '@o3r/core';
-import { LoggerClient } from './logger.client';
-import { ConsoleLogger } from './logger.console';
-import { LOGGER_CLIENT_TOKEN } from './logger.token';
+import {
+  Inject,
+  Injectable,
+  Optional,
+} from '@angular/core';
+import {
+  Action,
+  MetaReducer,
+} from '@ngrx/store';
+import type {
+  Logger,
+} from '@o3r/core';
+import {
+  LoggerClient,
+} from './logger.client';
+import {
+  ConsoleLogger,
+} from './logger.console';
+import {
+  LOGGER_CLIENT_TOKEN,
+} from './logger.token';
 
 /**
  * Logger service
@@ -12,7 +27,6 @@ import { LOGGER_CLIENT_TOKEN } from './logger.token';
   providedIn: 'root'
 })
 export class LoggerService implements Logger {
-
   /** Loggers */
   private readonly clients: LoggerClient[];
 
@@ -30,7 +44,7 @@ export class LoggerService implements Logger {
    * @param uid Unique identifier for the current user
    * @param vars Addition information about the user
    */
-  public identify(uid: string, vars?: {[key: string]: string}) {
+  public identify(uid: string, vars?: { [key: string]: string }) {
     this.clients.forEach((client) => client.identify(uid, vars));
   }
 
@@ -58,7 +72,7 @@ export class LoggerService implements Logger {
    * @param client
    */
   public registerClient(client: LoggerClient) {
-    if (this.clients.indexOf(client) > -1) {
+    if (this.clients.includes(client)) {
       this.warn(`Client ${client.constructor.name} already registered`);
       return;
     }

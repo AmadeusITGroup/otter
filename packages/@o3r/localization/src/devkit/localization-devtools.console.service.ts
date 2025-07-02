@@ -1,14 +1,31 @@
-/* eslint-disable no-console */
-import { Inject, Injectable, Optional } from '@angular/core';
-import type { ContextualizationDataset, DevtoolsServiceInterface, WindowWithDevtools } from '@o3r/core';
-import { Subscription } from 'rxjs';
-import { LocalizationContextualizationDevtools, LocalizationDevtoolsServiceOptions } from './localization-devkit.interface';
-import { OtterLocalizationDevtools } from './localization-devtools.service';
-import { OTTER_LOCALIZATION_DEVTOOLS_DEFAULT_OPTIONS, OTTER_LOCALIZATION_DEVTOOLS_OPTIONS } from './localization-devtools.token';
+/* eslint-disable no-console -- This is the purpose of this service */
+import {
+  Inject,
+  Injectable,
+  Optional,
+} from '@angular/core';
+import type {
+  ContextualizationDataset,
+  DevtoolsServiceInterface,
+  WindowWithDevtools,
+} from '@o3r/core';
+import {
+  Subscription,
+} from 'rxjs';
+import {
+  LocalizationContextualizationDevtools,
+  LocalizationDevtoolsServiceOptions,
+} from './localization-devkit.interface';
+import {
+  OtterLocalizationDevtools,
+} from './localization-devtools.service';
+import {
+  OTTER_LOCALIZATION_DEVTOOLS_DEFAULT_OPTIONS,
+  OTTER_LOCALIZATION_DEVTOOLS_OPTIONS,
+} from './localization-devtools.token';
 
 @Injectable()
 export class LocalizationDevtoolsConsoleService implements DevtoolsServiceInterface, LocalizationContextualizationDevtools {
-
   /** Name of the Window property to access to the devtools */
   public static readonly windowModuleName = 'localization';
 
@@ -30,9 +47,9 @@ export class LocalizationDevtoolsConsoleService implements DevtoolsServiceInterf
   /** @inheritDoc */
   public activate() {
     const windowWithDevtools: WindowWithDevtools = window;
-    // eslint-disable-next-line no-underscore-dangle
+
     windowWithDevtools._OTTER_DEVTOOLS_ ||= {};
-    // eslint-disable-next-line no-underscore-dangle
+
     windowWithDevtools._OTTER_DEVTOOLS_[LocalizationDevtoolsConsoleService.windowModuleName] = this;
 
     console.info(`Otter localization Devtools is now accessible via the _OTTER_DEVTOOLS_.${LocalizationDevtoolsConsoleService.windowModuleName} variable`);

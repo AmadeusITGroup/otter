@@ -1,18 +1,51 @@
-import { Inject, Injectable, Optional } from '@angular/core';
-import { select, Store } from '@ngrx/store';
-import { combineLatest, firstValueFrom, Observable } from 'rxjs';
-import { map, scan, shareReplay } from 'rxjs/operators';
-import type { ActiveRulesetsEvent, AvailableRulesets, BaseRulesetExecution, DebugEvent, Ruleset, RulesetExecutionErrorEvent, RulesetExecutionEvent } from '../engine';
-import { RulesEngineRunnerService } from '../services';
-import { RulesetsModel, RulesetsStore, selectRulesetsEntities } from '../stores';
-import { RulesEngineDevtoolsServiceOptions } from './rules-engine-devkit.interface';
-import { OTTER_RULES_ENGINE_DEVTOOLS_DEFAULT_OPTIONS, OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS } from './rules-engine-devtools.token';
+import {
+  Inject,
+  Injectable,
+  Optional,
+} from '@angular/core';
+import {
+  select,
+  Store,
+} from '@ngrx/store';
+import {
+  combineLatest,
+  firstValueFrom,
+  Observable,
+} from 'rxjs';
+import {
+  map,
+  scan,
+  shareReplay,
+} from 'rxjs/operators';
+import type {
+  ActiveRulesetsEvent,
+  AvailableRulesets,
+  BaseRulesetExecution,
+  DebugEvent,
+  Ruleset,
+  RulesetExecutionErrorEvent,
+  RulesetExecutionEvent,
+} from '../engine';
+import {
+  RulesEngineRunnerService,
+} from '../services';
+import {
+  RulesetsModel,
+  RulesetsStore,
+  selectRulesetsEntities,
+} from '../stores';
+import {
+  RulesEngineDevtoolsServiceOptions,
+} from './rules-engine-devkit.interface';
+import {
+  OTTER_RULES_ENGINE_DEVTOOLS_DEFAULT_OPTIONS,
+  OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS,
+} from './rules-engine-devtools.token';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OtterRulesEngineDevtools {
-
   /** Stream of rules engine report */
   public readonly rulesEngineReport$?: Observable<{ events: DebugEvent[]; rulesetMap: Record<string, Ruleset> }>;
 
@@ -30,7 +63,6 @@ export class OtterRulesEngineDevtools {
     protected store: Store<RulesetsStore>,
     private readonly rulesEngineService: RulesEngineRunnerService,
     @Optional() @Inject(OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS) options: RulesEngineDevtoolsServiceOptions) {
-
     const eventsStackLimit = (options || OTTER_RULES_ENGINE_DEVTOOLS_DEFAULT_OPTIONS).rulesEngineStackLimit;
     this.rulesEngineEvents$ = this.rulesEngineService.engine.engineDebug?.debugEvents$.pipe(
       scan((previousEvents, currentEvent) => {
@@ -62,19 +94,19 @@ export class OtterRulesEngineDevtools {
 
   /** Returns the list of active rulesets (name and id) at the moment when the function is called */
   public async getActiveRulesets() {
-    const lastActiveRulesetsEvent = (this.rulesEngineEvents$ && await firstValueFrom(this.rulesEngineEvents$))?.filter(e => e.type === 'ActiveRulesets').reverse()[0];
+    const lastActiveRulesetsEvent = (this.rulesEngineEvents$ && await firstValueFrom(this.rulesEngineEvents$))?.filter((e) => e.type === 'ActiveRulesets').reverse()[0];
     return (lastActiveRulesetsEvent as ActiveRulesetsEvent)?.rulesets;
   }
 
   /** Returns the list of available rulesets (name and id) at the moment when the function is called */
   public async getAvailableRulesets() {
-    const lastAvailableRulesetsEvent = (this.rulesEngineEvents$ && await firstValueFrom(this.rulesEngineEvents$))?.filter(e => e.type === 'AvailableRulesets').reverse()[0];
+    const lastAvailableRulesetsEvent = (this.rulesEngineEvents$ && await firstValueFrom(this.rulesEngineEvents$))?.filter((e) => e.type === 'AvailableRulesets').reverse()[0];
     return (lastAvailableRulesetsEvent as AvailableRulesets)?.availableRulesets;
   }
 
   /** Returns the list of output actions emitted by the rules engine at the moment when the function is called */
   public async getAllOutputActions() {
-    return (this.rulesEngineEvents$ && await firstValueFrom(this.rulesEngineEvents$))?.filter(e => e.type === 'AllActions')?.reverse()[0];
+    return (this.rulesEngineEvents$ && await firstValueFrom(this.rulesEngineEvents$))?.filter((e) => e.type === 'AllActions')?.reverse()[0];
   }
 
   /**
@@ -94,7 +126,7 @@ export class OtterRulesEngineDevtools {
    * @returns True if the ruleset is active; False if the ruleset is inactive or it does not exist
    */
   public async isRulesetActive(rulesetId: string) {
-    return !!(await this.getActiveRulesets())?.find(r => r.id === rulesetId);
+    return !!(await this.getActiveRulesets())?.find((r) => r.id === rulesetId);
   }
 
   /**
@@ -103,7 +135,7 @@ export class OtterRulesEngineDevtools {
    */
   public async getRulesEvaluationsForRuleset(rulesetId: string) {
     const rulesetExec = await this.getRulesetExecutions(rulesetId);
-    return rulesetExec?.map(e => (e as BaseRulesetExecution)?.rulesEvaluations?.filter(re => !re.cached)).flat();
+    return rulesetExec?.map((e) => (e as BaseRulesetExecution)?.rulesEvaluations?.filter((re) => !re.cached)).flat();
   }
 
   /**
@@ -112,7 +144,7 @@ export class OtterRulesEngineDevtools {
    */
   public async getInputFactsForRuleset(rulesetId: string) {
     const rulesetExecutions = await this.getRulesetExecutions(rulesetId);
-    return rulesetExecutions ? (rulesetExecutions[rulesetExecutions.length - 1] as BaseRulesetExecution).inputFacts : undefined;
+    return rulesetExecutions ? (rulesetExecutions.at(-1) as BaseRulesetExecution).inputFacts : undefined;
   }
 
   /**
@@ -120,7 +152,7 @@ export class OtterRulesEngineDevtools {
    * @param rulesetId
    */
   public async getTriggersForRuleset(rulesetId: string) {
-    return (await this.getRulesEvaluationsForRuleset(rulesetId))?.map(e => e.triggers).flat().map(triggersMap => Object.values(triggersMap)).flat();
+    return (await this.getRulesEvaluationsForRuleset(rulesetId))?.map((e) => e.triggers).flat().flatMap((triggersMap) => Object.values(triggersMap));
   }
 
   /**
@@ -129,7 +161,7 @@ export class OtterRulesEngineDevtools {
    */
   public async getOutputActionsForRuleset(rulesetId: string) {
     const rulesetExecutions = await this.getRulesetExecutions(rulesetId);
-    return rulesetExecutions ? (rulesetExecutions[rulesetExecutions.length - 1] as RulesetExecutionEvent).outputActions : undefined;
+    return rulesetExecutions ? (rulesetExecutions.at(-1) as RulesetExecutionEvent).outputActions : undefined;
   }
 
   /** Get the list of fact names and corresponding values */

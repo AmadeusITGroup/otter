@@ -1,6 +1,5 @@
 {
   "$schema": "../apps/github-cascading-app/schemas/config.schema.json",
-  "bypassReviewers": true,
   "labels": ["cascading"],
   "ignoredPatterns": [
     "-next$"

@@ -1,0 +1,140 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "MigrationMetadataSchema",
+  "description": "Schema of migration metadata",
+  "type": "object",
+  "required": [
+    "version",
+    "changes"
+  ],
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "Version of the documented migration"
+    },
+    "libraries": {
+      "type": "object",
+      "description": "Map of dependencies for which the migration scripts should be checked with their associated version",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "changes": {
+      "type": "array",
+      "description": "List of all the changes contained in this version",
+      "items": {
+        "oneOf": [
+          { "$ref": "#/definitions/ConfigChange" },
+          { "$ref": "#/definitions/LocalizationChange" },
+          { "$ref": "#/definitions/StyleChange" }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "ConfigMigrationItem": {
+      "type": "object",
+      "required": ["libraryName"],
+      "properties": {
+        "libraryName": {
+          "type": "string",
+          "description": "Library name"
+        },
+        "configName": {
+          "type": "string",
+          "description": "Configuration name"
+        },
+        "propertyName": {
+          "type": "string",
+          "description": "Configuration property name"
+        }
+      }
+    },
+    "LocalizationMigrationItem": {
+      "type": "object",
+      "required": ["key"],
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "Localization key"
+        }
+      }
+    },
+    "StyleMigrationItem": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "CSS variable name"
+        }
+      }
+    },
+    "ConfigChange": {
+      "type": "object",
+      "required": [
+        "contentType",
+        "before"
+      ],
+      "properties": {
+        "contentType": {
+          "type": "string",
+          "description": "Metadata type",
+          "const": "CONFIG"
+        },
+        "before": {
+          "description": "Previous metadata value",
+          "$ref": "#/definitions/ConfigMigrationItem"
+        },
+        "after": {
+          "description": "New metadata value",
+          "$ref": "#/definitions/ConfigMigrationItem"
+        }
+      }
+    },
+    "LocalizationChange": {
+      "type": "object",
+      "required": [
+        "contentType",
+        "before"
+      ],
+      "properties": {
+        "contentType": {
+          "type": "string",
+          "description": "Metadata type",
+          "const": "LOCALIZATION"
+        },
+        "before": {
+          "description": "Previous metadata value",
+          "$ref": "#/definitions/LocalizationMigrationItem"
+        },
+        "after": {
+          "description": "New metadata value",
+          "$ref": "#/definitions/LocalizationMigrationItem"
+        }
+      }
+    },
+    "StyleChange": {
+      "type": "object",
+      "required": [
+        "contentType",
+        "before"
+      ],
+      "properties": {
+        "contentType": {
+          "type": "string",
+          "description": "Metadata type",
+          "const": "STYLE"
+        },
+        "before": {
+          "description": "Previous metadata value",
+          "$ref": "#/definitions/StyleMigrationItem"
+        },
+        "after": {
+          "description": "New metadata value",
+          "$ref": "#/definitions/StyleMigrationItem"
+        }
+      }
+    }
+  }
+}

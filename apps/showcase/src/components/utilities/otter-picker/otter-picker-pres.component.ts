@@ -1,7 +1,24 @@
-import { ChangeDetectionStrategy, Component, forwardRef, Input, signal, ViewEncapsulation } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
-import { O3rComponent } from '@o3r/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  forwardRef,
+  Input,
+  signal,
+  ViewEncapsulation,
+} from '@angular/core';
+import {
+  ControlValueAccessor,
+  NG_VALUE_ACCESSOR,
+} from '@angular/forms';
+import {
+  NgbDropdownModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  O3rComponent,
+} from '@o3r/core';
+import {
+  OTTER_ICONS,
+} from './otter-icons';
 
 @O3rComponent({ componentType: 'Component' })
 @Component({
@@ -29,23 +46,7 @@ export class OtterPickerPresComponent implements ControlValueAccessor {
   public selectedOtter = signal('');
 
   /** List of available otters */
-  public otters = [
-    '/assets/otter.svg',
-    '/assets/mini-otters/astronotter.svg',
-    '/assets/mini-otters/bonotter.svg',
-    '/assets/mini-otters/c3potter.svg',
-    '/assets/mini-otters/colombotter.svg',
-    '/assets/mini-otters/djokotter.svg',
-    '/assets/mini-otters/hallowtter.svg',
-    '/assets/mini-otters/harry-otter.svg',
-    '/assets/mini-otters/jack-sparrowtter.svg',
-    '/assets/mini-otters/mandalotter.svg',
-    '/assets/mini-otters/mariotter.svg',
-    '/assets/mini-otters/neotter.svg',
-    '/assets/mini-otters/pizzaiotter.svg',
-    '/assets/mini-otters/ronaldotter.svg',
-    '/assets/mini-otters/sombrerotter.svg'
-  ];
+  public otters = OTTER_ICONS;
 
   /** Base URL where the images can be fetched */
   public baseUrl = location.href.split('/#', 1)[0];
@@ -95,5 +96,4 @@ export class OtterPickerPresComponent implements ControlValueAccessor {
   public writeValue(obj: any): void {
     this.selectedOtter.set(obj);
   }
-
 }

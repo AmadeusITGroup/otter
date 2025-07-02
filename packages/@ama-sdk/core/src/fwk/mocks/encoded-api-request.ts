@@ -1,4 +1,6 @@
-import {RequestBody} from '../../plugins/index';
+import type {
+  RequestBody,
+} from '../../plugins/index';
 
 /**
  * Defines an API request encoded

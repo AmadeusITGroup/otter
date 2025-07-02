@@ -1,4 +1,6 @@
-import type { SchematicOptionObject } from '@o3r/schematics';
+import type {
+  SchematicOptionObject,
+} from '@o3r/schematics';
 
 export interface NgAddSchematicsSchema extends SchematicOptionObject {
   /** Project name */
@@ -12,4 +14,10 @@ export interface NgAddSchematicsSchema extends SchematicOptionObject {
 
   /** Use a pinned version for otter packages */
   exactO3rVersion?: boolean;
+
+  /**
+   * Skip the code sample generated in application to register the ApiManager
+   * If `false`, a dependency to @ama-sdk/client-fetch will be added
+   */
+  skipCodeSample?: boolean;
 }

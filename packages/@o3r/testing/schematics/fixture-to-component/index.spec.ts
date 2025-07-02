@@ -1,9 +1,17 @@
-import { Tree } from '@angular-devkit/schematics';
-import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
-import * as path from 'node:path';
 import * as fs from 'node:fs';
-import { firstValueFrom } from 'rxjs';
-import { ngAddFixtureFn } from './index';
+import * as path from 'node:path';
+import {
+  Tree,
+} from '@angular-devkit/schematics';
+import {
+  SchematicTestRunner,
+} from '@angular-devkit/schematics/testing';
+import {
+  firstValueFrom,
+} from 'rxjs';
+import {
+  ngAddFixtureFn,
+} from './index';
 
 const collectionPath = path.join(__dirname, '..', '..', 'collection.json');
 const o3rComponentPath = '/src/components/test/test.component.ts';

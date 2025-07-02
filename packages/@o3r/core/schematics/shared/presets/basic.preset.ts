@@ -1,4 +1,6 @@
-import { defaultPresetRuleFactory } from './helpers';
+import {
+  defaultPresetRuleFactory,
+} from './helpers';
 
 /**
  * Default preset with the basic of Otter Framework (no additional modules)
