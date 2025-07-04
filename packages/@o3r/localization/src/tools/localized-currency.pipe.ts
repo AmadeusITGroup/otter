@@ -25,6 +25,7 @@ import {
 export class LocalizedCurrencyPipe extends CurrencyPipe implements OnDestroy, PipeTransform {
   private readonly onLangChange: Subscription;
 
+  // eslint-disable-next-line @angular-eslint/prefer-inject -- keep constructor parameters for overrides
   constructor(private readonly localizationService: LocalizationService, private readonly changeDetectorRef: ChangeDetectorRef) {
     super(localizationService.getCurrentLanguage());
     this.onLangChange = this.localizationService.getTranslateService().onLangChange.subscribe(() =>

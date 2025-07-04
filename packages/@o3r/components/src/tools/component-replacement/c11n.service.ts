@@ -22,6 +22,7 @@ import {
 export class C11nService {
   private readonly presentersMap: Map<string, any>;
 
+  // eslint-disable-next-line @angular-eslint/prefer-inject -- keep constructor parameters for overrides
   constructor(@Inject(C11N_PRESENTERS_MAP_TOKEN) presentersMap: Map<string, any>) {
     this.presentersMap = presentersMap;
   }

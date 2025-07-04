@@ -1,6 +1,7 @@
 import {
   Directive,
   ElementRef,
+  inject,
   Input,
   OnChanges,
   Renderer2,
@@ -54,7 +55,11 @@ export class TrackEventsDirective extends BaseTrackEvents implements OnChanges {
   /** The list of events to listen */
   @Input('trackEvents') public trackEventNames: TrackEventName[] = [];
 
-  constructor(el: ElementRef, trackEventsService: EventTrackService, renderer: Renderer2) {
+  constructor() {
+    const el = inject(ElementRef);
+    const trackEventsService = inject(EventTrackService);
+    const renderer = inject(Renderer2);
+
     super(el, trackEventsService, renderer);
   }
 

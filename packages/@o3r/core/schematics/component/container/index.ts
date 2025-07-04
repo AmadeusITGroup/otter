@@ -117,7 +117,8 @@ function ngGenerateComponentContainerFn(options: NgGenerateComponentContainerSch
           project: properties.projectName,
           path: componentDestination,
           flat: true,
-          name: properties.componentName
+          name: properties.componentName,
+          typeSeparator: '.'
         })
       );
     }
@@ -138,7 +139,7 @@ function ngGenerateComponentContainerFn(options: NgGenerateComponentContainerSch
         viewEncapsulation: 'None',
         changeDetection: 'OnPush',
         style: 'none',
-        type: 'Component',
+        type: 'component',
         skipSelector: false,
         skipTests: false,
         standalone: options.standalone,

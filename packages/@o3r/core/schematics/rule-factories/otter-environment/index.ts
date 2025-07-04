@@ -31,7 +31,7 @@ const editTsConfigJson = (tree: Tree) => {
       if (tsConfig.compilerOptions.noPropertyAccessFromIndexSignature) {
         delete tsConfig.compilerOptions.noPropertyAccessFromIndexSignature;
       }
-      tsConfig.compilerOptions.moduleResolution = 'node';
+      tsConfig.compilerOptions.moduleResolution = 'bundler';
       tsConfig.compilerOptions.declaration = true;
     }
     tree.overwrite(tsConfigPath, JSON.stringify(tsConfig, null, 2));

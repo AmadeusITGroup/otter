@@ -52,6 +52,7 @@ export class O3rLocalizationTranslatePipe extends TranslatePipe implements PipeT
   /** last key resolved */
   protected lastResolvedKey?: string;
 
+  /* eslint-disable @angular-eslint/prefer-inject -- keep constructor parameters for overrides */
   constructor(protected readonly localizationService: LocalizationService, translateService: TranslateService, protected readonly changeDetector: ChangeDetectorRef,
     @Inject(LOCALIZATION_CONFIGURATION_TOKEN) protected readonly localizationConfig: LocalizationConfiguration) {
     super(translateService, changeDetector);
@@ -63,6 +64,7 @@ export class O3rLocalizationTranslatePipe extends TranslatePipe implements PipeT
       });
     }
   }
+  /* eslint-enable @angular-eslint/prefer-inject */
 
   /**
    * Calls original transform method and eventually outputs the key if debugMode (in LocalizationConfiguration) is enabled

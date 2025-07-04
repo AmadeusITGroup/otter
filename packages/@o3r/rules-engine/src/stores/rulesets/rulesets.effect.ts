@@ -1,4 +1,5 @@
 import {
+  inject,
   Injectable,
 } from '@angular/core';
 import {
@@ -32,6 +33,8 @@ import {
  */
 @Injectable()
 export class RulesetsEffect {
+  protected actions$ = inject(Actions);
+
   /**
    * Set the entities with the reply content, dispatch failRulesetsEntities if it catches a failure
    */
@@ -60,6 +63,4 @@ export class RulesetsEffect {
       )
     )
   );
-
-  constructor(protected actions$: Actions) {}
 }

@@ -1,4 +1,5 @@
 import {
+  inject,
   Injectable,
 } from '@angular/core';
 import {
@@ -21,10 +22,10 @@ import {
  */
 @Injectable()
 export class AssetRulesEngineActionHandler implements RulesEngineActionHandler<ActionUpdateAssetBlock> {
+  private readonly store = inject<Store<AssetPathOverrideStore>>(Store);
+
   /** @inheritdoc */
   public readonly supportingActions = [RULES_ENGINE_ASSET_UPDATE_ACTION_TYPE] as const;
-
-  constructor(private readonly store: Store<AssetPathOverrideStore>) {}
 
   /** @inheritdoc */
   public executeActions(actions: ActionUpdateAssetBlock[]): void | Promise<void> {
