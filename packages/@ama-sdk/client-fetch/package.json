@@ -16,9 +16,6 @@
     },
     ".": {
       "module": "./dist/src/public_api.js",
-      "esm2020": "./dist/src/public_api.js",
-      "esm2015": "./dist/esm2015/public_api.js",
-      "es2020": "./dist/cjs/public_api.js",
       "default": "./dist/cjs/public_api.js",
       "typings": "./dist/src/public_api.d.ts",
       "import": "./dist/src/public_api.js",
@@ -100,7 +97,6 @@
     "@swc/core": "~1.12.0",
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",
-    "@types/uuid": "^10.0.0",
     "@typescript-eslint/parser": "~8.35.0",
     "angular-eslint": "~19.4.0",
     "cpy-cli": "^5.0.0",

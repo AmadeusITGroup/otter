@@ -1,4 +1,5 @@
 export * from './crypto';
+export * from './perf';
 export * from './encoder';
 export * from './generic-api';
 export * from './ie11';
