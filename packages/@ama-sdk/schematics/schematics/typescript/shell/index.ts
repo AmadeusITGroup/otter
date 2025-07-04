@@ -105,7 +105,7 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKShellSchemati
       sdkCoreRange: `${options.exactO3rVersion ? '' : '~'}${amaSdkSchematicsPackageJson.version}`,
       sdkCoreVersion: amaSdkSchematicsPackageJson.version,
       angularVersion: amaSdkSchematicsPackageJson.dependencies!['@angular-devkit/core'],
-      angularEslintVersion: amaSdkSchematicsPackageJson.devDependencies!['@angular-eslint/eslint-plugin'],
+      angularEslintVersion: amaSdkSchematicsPackageJson.generatorDependencies['@angular-eslint/eslint-plugin'],
       versions,
       ...openApiSupportedVersion ? { openApiSupportedVersion } : {},
       engineVersions,

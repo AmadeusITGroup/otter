@@ -6,6 +6,9 @@ import {
   SchematicContext,
   Tree,
 } from '@angular-devkit/schematics';
+import type {
+  PackageJson,
+} from 'type-fest';
 import {
   registerDevtools,
 } from './helpers/devtools-registration';
@@ -21,6 +24,24 @@ Otherwise, use the error message as guidance.`);
 };
 
 /**
+ * List of external dependencies to be added to the project as peer dependencies
+ */
+const dependenciesToInstall = [
+  '@angular/core',
+  '@angular/platform-browser-dynamic',
+  '@ngrx/entity',
+  '@ngrx/store',
+  'rxjs'
+];
+
+/**
+ * List of external dependencies to be added to the project as dev dependencies
+ */
+const devDependenciesToInstall = [
+  'rxjs'
+];
+
+/**
  * Add Otter configuration to an Angular Project
  * @param options The options to pass to ng-add execution
  */
@@ -28,6 +49,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
   /* ng add rules */
   return async (tree: Tree, context: SchematicContext) => {
     const {
+      getExternalDependenciesInfo,
       setupDependencies,
       getProjectNewDependenciesTypes,
       getWorkspaceConfig,
@@ -53,6 +75,20 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
     context.logger.info(`The package ${depsInfo.packageName as string} comes with a debug mechanism`);
     context.logger.info('Get more information on the following page: https://github.com/AmadeusITGroup/otter/tree/main/docs/configuration/OVERVIEW.md#Runtime-debugging');
     const schematicsDefaultOptions = { useOtterConfig: undefined };
+
+    const projectDirectory = workspaceProject?.root || '.';
+    const projectPackageJson = tree.readJson(path.posix.join(projectDirectory, 'package.json')) as PackageJson;
+
+    const externalDependenciesInfo = getExternalDependenciesInfo({
+      devDependenciesToInstall,
+      dependenciesToInstall,
+      o3rPackageJsonPath: packageJsonPath,
+      projectType: workspaceProject?.projectType,
+      projectPackageJson
+    },
+    context.logger
+    );
+
     return () => chain([
       registerPackageCollectionSchematics(packageJson),
       setupSchematicsParamsForProject({
@@ -62,7 +98,10 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       }, options.projectName),
       setupDependencies({
         projectName: options.projectName,
-        dependencies,
+        dependencies: {
+          ...dependencies,
+          ...externalDependenciesInfo
+        },
         ngAddToRun: depsInfo.o3rPeerDeps
       }),
       () => registerDevtools(options)

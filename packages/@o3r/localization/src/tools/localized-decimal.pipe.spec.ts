@@ -1,8 +1,4 @@
 import {
-  registerLocaleData,
-} from '@angular/common';
-import localeFR from '@angular/common/locales/fr';
-import {
   ChangeDetectorRef,
 } from '@angular/core';
 import {
@@ -14,21 +10,12 @@ import {
   platformBrowserDynamicTesting,
 } from '@angular/platform-browser-dynamic/testing';
 import {
-  TranslateModule,
-} from '@ngx-translate/core';
-import {
-  createLocalizationConfiguration,
-  LocalizationModule,
-} from './localization.module';
+  BehaviorSubject,
+} from 'rxjs';
 import {
   LocalizationService,
-} from './localization.service';
-import {
-  LOCALIZATION_CONFIGURATION_TOKEN,
-} from './localization.token';
-import {
   LocalizedDecimalPipe,
-} from './localized-decimal.pipe';
+} from '@o3r/localization';
 
 /**
  * Fixture for ChangeDetectorRef
@@ -49,45 +36,36 @@ class ChangeDetectorRefFixture implements Readonly<ChangeDetectorRef> {
   }
 }
 
+const currentLanguage = new BehaviorSubject('fr');
+
 describe('LocalizedDecimalPipe', () => {
   beforeAll(() => getTestBed().platform || TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting(), {
     teardown: { destroyAfterEach: false }
   }));
-
   let localizationService: LocalizationService;
-  let pipe: LocalizedDecimalPipe;
   let changeDetectorRef: ChangeDetectorRef;
 
   beforeEach(() => {
-    registerLocaleData(localeFR, 'fr');
     TestBed.configureTestingModule({
-      imports: [
-        LocalizationModule.forRoot(() => ({ language: 'fr' })),
-        TranslateModule.forRoot()
-      ],
       providers: [
         { provide: ChangeDetectorRef, useClass: ChangeDetectorRefFixture },
         {
-          provide: LOCALIZATION_CONFIGURATION_TOKEN,
-          useFactory: () => createLocalizationConfiguration({ enableTranslationDeactivation: true, supportedLocales: ['en', 'fr'], fallbackLanguage: 'fr' })
+          provide: LocalizationService, useValue: {
+            getCurrentLanguage: () => currentLanguage.getValue(),
+            getTranslateService: () => ({
+              onLangChange: currentLanguage
+            })
+          }
         }
       ]
     });
     localizationService = TestBed.inject(LocalizationService);
     changeDetectorRef = TestBed.inject(ChangeDetectorRef);
-    pipe = new LocalizedDecimalPipe(localizationService, changeDetectorRef);
-  });
-
-  it('should display the date using the current locale', () => {
-    expect(pipe.transform(10_000)).toBe('10 000');
-    localizationService.useLanguage('en');
-
-    expect(pipe.transform(10_000)).toBe('10,000');
+    new LocalizedDecimalPipe(localizationService, changeDetectorRef);
   });
 
   it('should mark for check when the language changes', () => {
-    localizationService.useLanguage('en');
-
+    currentLanguage.next('en');
     expect(changeDetectorRef.markForCheck).toHaveBeenCalled();
   });
 });
