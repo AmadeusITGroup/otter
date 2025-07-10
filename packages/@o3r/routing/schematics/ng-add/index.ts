@@ -3,8 +3,31 @@ import type {
   Rule,
 } from '@angular-devkit/schematics';
 import type {
+  PackageJson,
+} from 'type-fest';
+import type {
   NgAddSchematicsSchema,
 } from './schema';
+
+/**
+ * List of external dependencies to be added to the project as peer dependencies
+ */
+const dependenciesToInstall = [
+  '@angular/common',
+  '@angular/core',
+  '@angular/router',
+  '@ngrx/effects',
+  '@ngrx/entity',
+  '@ngrx/router-store',
+  '@ngrx/store',
+  'rxjs'
+];
+
+/**
+ * List of external dependencies to be added to the project as dev dependencies
+ */
+const devDependenciesToInstall: string[] = [
+];
 
 const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
 
@@ -19,11 +42,26 @@ Otherwise, use the error message as guidance.`);
  * @param options
  */
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
-  return async (tree) => {
-    const { getPackageInstallConfig, setupDependencies } = await import('@o3r/schematics');
+  return async (tree, context) => {
+    const { getExternalDependenciesInfo, getPackageInstallConfig, getWorkspaceConfig, setupDependencies } = await import('@o3r/schematics');
+    const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
+    const projectDirectory = workspaceProject?.root || '.';
+    const projectPackageJson = tree.readJson(path.posix.join(projectDirectory, 'package.json')) as PackageJson;
+    const externalDependenciesInfo = getExternalDependenciesInfo({
+      devDependenciesToInstall,
+      dependenciesToInstall,
+      o3rPackageJsonPath: packageJsonPath,
+      projectPackageJson,
+      projectType: workspaceProject?.projectType
+    },
+    context.logger
+    );
     return setupDependencies({
       projectName: options.projectName,
-      dependencies: getPackageInstallConfig(packageJsonPath, tree, options.projectName, false, !!options.exactO3rVersion)
+      dependencies: {
+        ...getPackageInstallConfig(packageJsonPath, tree, options.projectName, false, !!options.exactO3rVersion),
+        ...externalDependenciesInfo
+      }
     });
   };
 }

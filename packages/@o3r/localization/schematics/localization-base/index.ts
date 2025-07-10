@@ -1,4 +1,3 @@
-import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {
   apply,
@@ -16,19 +15,16 @@ import {
 } from '@angular-devkit/schematics';
 import {
   createSchematicWithMetricsIfInstalled,
-  type DependencyToAdd,
   findFirstNodeOfKind,
   getAppModuleFilePath,
   getModuleIndex,
   getPackageManagerRunner,
-  getProjectNewDependenciesTypes,
   getTemplateFolder,
   getWorkspaceConfig,
   ignorePatterns,
   insertBeforeModule as o3rInsertBeforeModule,
   insertImportToModuleFile as o3rInsertImportToModuleFile,
   readPackageJson,
-  setupDependencies,
   writeAngularJson,
 } from '@o3r/schematics';
 import {
@@ -42,13 +38,7 @@ import {
 import {
   InsertChange,
 } from '@schematics/angular/utility/change';
-import type {
-  PackageJson,
-} from 'type-fest';
 import * as ts from 'typescript';
-
-const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
-const ownPackageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' })) as PackageJson;
 
 /**
  * Add Otter localization support
@@ -423,29 +413,6 @@ export function updateLocalization(options: { projectName?: string | null | unde
     return tree;
   };
 
-  /**
-   * Add location required dependencies
-   * @param tree
-   */
-  const addDependencies: Rule = (tree: Tree) => {
-    const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
-    const types = getProjectNewDependenciesTypes(workspaceProject);
-    const generatorDependencies = ['@ngx-translate/core', 'intl-messageformat', '@formatjs/intl-numberformat', '@angular/cdk'];
-    const dependencies = generatorDependencies.reduce((acc, dep) => {
-      acc[dep] = {
-        inManifest: [{
-          range: ownPackageJson.peerDependencies![dep],
-          types
-        }]
-      };
-      return acc;
-    }, {} as Record<string, DependencyToAdd>);
-    return setupDependencies({
-      projectName: options.projectName || undefined,
-      dependencies
-    });
-  };
-
   // Ignore generated CMS metadata
   const ignoreDevResourcesFiles = (tree: Tree, _context: SchematicContext) => {
     const workingDirectory = (options.projectName && getWorkspaceConfig(tree)?.projects[options.projectName]?.root) || '.';
@@ -464,7 +431,6 @@ export function updateLocalization(options: { projectName?: string | null | unde
     generateLocalesFolder,
     updateAngularJson,
     updatePackageJson,
-    addDependencies,
     setDefaultLanguage,
     addMockTranslationModule,
     ignoreDevResourcesFiles

@@ -6,7 +6,8 @@ import {
   TranslateCompiler,
 } from '@ngx-translate/core';
 import {
-  lastValueFrom, Subscription,
+  lastValueFrom,
+  Subscription,
 } from 'rxjs';
 import type {
   TranslateMessageFormatLazyCompiler,
