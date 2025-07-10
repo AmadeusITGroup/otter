@@ -16,7 +16,9 @@ export const cssRecommendedTransformGroup: TransformGroup = {
     transforms.nameKebab,
     transforms.timeSeconds,
     transforms.htmlIcon,
-    transforms.sizeRem,
+    // The following transform is commented because it is part of default CSS transform but conflict on the way Figma manage font weights:
+    // Figma explicitly export dimensions with `px` unit but keep integer only when it means to be so (ex: typography weight) and no `rem` unit should be added on top
+    // transforms.sizeRem,
     transforms.colorCss,
     transforms.assetUrl,
     transforms.fontFamilyCss,
