@@ -42,7 +42,7 @@
     "@types/node": "^20.0.0",
     "@types/progress": "^2.0.5",
     "@types/prompts": "^2.0.14",
-    "@types/yargs": "^17.0.20",
+    "@types/yargs": "~17.0.33",
     "@typescript-eslint/parser": "~8.35.0",
     "angular-eslint": "~19.4.0",
     "cpy-cli": "^5.0.0",
