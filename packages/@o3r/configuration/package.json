@@ -40,7 +40,6 @@
     "@o3r/core": "workspace:^",
     "@o3r/logger": "workspace:^",
     "@o3r/schematics": "workspace:^",
-    "@o3r/testing": "workspace:^",
     "@schematics/angular": "^18.2.0",
     "cheerio": "^1.0.0-rc.10",
     "express-interceptor": "^1.2.0",

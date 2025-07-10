@@ -52,7 +52,6 @@
     "@o3r/logger": "workspace:^",
     "@o3r/rules-engine": "workspace:^",
     "@o3r/schematics": "workspace:^",
-    "@o3r/testing": "workspace:^",
     "@schematics/angular": "^18.2.0",
     "@yarnpkg/cli": "^4.0.0",
     "@yarnpkg/core": "^4.1.1",

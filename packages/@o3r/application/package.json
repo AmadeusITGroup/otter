@@ -44,6 +44,9 @@
     "@o3r/schematics": {
       "optional": true
     },
+    "@o3r/testing": {
+      "optional": true
+    },
     "type-fest": {
       "optional": true
     },
