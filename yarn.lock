@@ -279,7 +279,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ama-mfe/messages@workspace:packages/@ama-mfe/messages"
   dependencies:
-    "@amadeus-it-group/microfrontends": "npm:0.0.7"
+    "@amadeus-it-group/microfrontends": "npm:0.0.8"
     "@compodoc/compodoc": "npm:^1.1.19"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@nx/eslint-plugin": "npm:~20.8.0"
@@ -322,7 +322,7 @@ __metadata:
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.35.0"
   peerDependencies:
-    "@amadeus-it-group/microfrontends": 0.0.7
+    "@amadeus-it-group/microfrontends": 0.0.8
   peerDependenciesMeta:
     "@amadeus-it-group/microfrontends":
       optional: true
@@ -334,7 +334,7 @@ __metadata:
   resolution: "@ama-mfe/ng-utils@workspace:packages/@ama-mfe/ng-utils"
   dependencies:
     "@ama-mfe/messages": "workspace:^"
-    "@amadeus-it-group/microfrontends": "npm:0.0.7"
+    "@amadeus-it-group/microfrontends": "npm:0.0.8"
     "@amadeus-it-group/microfrontends-angular": "npm:0.0.7"
     "@angular-devkit/architect": "npm:~0.1902.0"
     "@angular-devkit/build-angular": "npm:~19.2.0"
@@ -388,7 +388,7 @@ __metadata:
     zone.js: "npm:~0.15.0"
   peerDependencies:
     "@ama-mfe/messages": "workspace:^"
-    "@amadeus-it-group/microfrontends": 0.0.7
+    "@amadeus-it-group/microfrontends": 0.0.8
     "@amadeus-it-group/microfrontends-angular": 0.0.7
     "@angular-devkit/core": ~19.2.0
     "@angular-devkit/schematics": ~19.2.0
@@ -1408,10 +1408,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@amadeus-it-group/microfrontends@npm:0.0.7":
-  version: 0.0.7
-  resolution: "@amadeus-it-group/microfrontends@npm:0.0.7"
-  checksum: 10/222d61c15c5e8b135985a4dd432d2effc09ad1ff2c3b6d2d55d3da99c1029f450e5719339c53d58597fe7a80ac35e515b70434c87b424b35f8cc5cbb476b5f9c
+"@amadeus-it-group/microfrontends@npm:0.0.8":
+  version: 0.0.8
+  resolution: "@amadeus-it-group/microfrontends@npm:0.0.8"
+  checksum: 10/d2db0a0ce940c87207cdc4ee2546fed00d8c8a5dc0af2877406d120cc16cdce1851189ebabaa0309a8e7c740c3d2f416f4dfe5eadfb7970e661519bd0be69329
   languageName: node
   linkType: hard
 
@@ -8629,7 +8629,7 @@ __metadata:
     "@popperjs/core": "npm:^2.11.5"
     "@schematics/angular": "npm:~19.2.0"
     "@stylistic/eslint-plugin": "npm:~3.1.0"
-    "@types/chrome": "npm:^0.0.328"
+    "@types/chrome": "npm:^0.0.329"
     "@types/color": "npm:^4.0.0"
     "@types/jest": "npm:~29.5.2"
     "@types/tinycolor2": "npm:^1.4.6"
@@ -14834,13 +14834,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/chrome@npm:^0.0.328":
-  version: 0.0.328
-  resolution: "@types/chrome@npm:0.0.328"
+"@types/chrome@npm:^0.0.329":
+  version: 0.0.329
+  resolution: "@types/chrome@npm:0.0.329"
   dependencies:
     "@types/filesystem": "npm:*"
     "@types/har-format": "npm:*"
-  checksum: 10/7a190fdce0f80b8dc16d794ec49c3c640c66ab80f857eed3f77b3125f6b920e78813316b7607517a769a8cd0fb478e6f65796e62cb3ed42f2f18d5d55bf0b7ac
+  checksum: 10/bba76d6d276ac4f00e1537f06485297b2d4f6337e2fa825302903ebf8b4d9b32934487d398d144089d7bd752ed5b003bee0af79e4bc5b9b54cce260f5bc85bad
   languageName: node
   linkType: hard
 
