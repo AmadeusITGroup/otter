@@ -10,15 +10,17 @@ import {
   MessagePeerService,
 } from '@amadeus-it-group/microfrontends-angular';
 import {
-  DestroyRef,
   effect,
   inject,
   Injectable,
   signal,
 } from '@angular/core';
 import {
+  LoggerService,
+} from '@o3r/logger';
+import {
   type MessageProducer,
-  ProducerManagerService,
+  registerProducer,
 } from '../managers/index';
 import {
   type ErrorContent,
@@ -29,7 +31,6 @@ import {
   THEME_QUERY_PARAM_NAME,
   THEME_URL_SUFFIX,
 } from './theme.helpers';
-
 /**
  * This service exposing the current theme signal
  */
@@ -38,6 +39,7 @@ import {
 })
 export class ThemeProducerService implements MessageProducer<ThemeMessage> {
   private readonly messageService = inject(MessagePeerService<ThemeMessage>);
+  private readonly logger = inject(LoggerService);
   private previousTheme: ThemeStructure | undefined;
 
   private readonly currentThemeSelection;
@@ -50,12 +52,7 @@ export class ThemeProducerService implements MessageProducer<ThemeMessage> {
   public readonly types = THEME_MESSAGE_TYPE;
 
   constructor() {
-    const producerManagerService = inject(ProducerManagerService);
-    producerManagerService.register(this);
-
-    inject(DestroyRef).onDestroy(() => {
-      producerManagerService.unregister(this);
-    });
+    registerProducer(this);
 
     // get the current theme name from the url (if any) and emit a first value for the current theme
     const parentUrl = new URL(window.location.toString());
@@ -125,9 +122,7 @@ export class ThemeProducerService implements MessageProducer<ThemeMessage> {
    * @inheritdoc
    */
   public handleError(message: ErrorContent<ThemeV1_0>): void {
-    // TODO https://github.com/AmadeusITGroup/otter/issues/2887 - proper logger
-    // eslint-disable-next-line no-console -- error message should be made available with the logger
-    console.error('Error in theme service message', message);
+    this.logger.error('Error in theme service message', message);
     this.revertToPreviousTheme();
   }
 }

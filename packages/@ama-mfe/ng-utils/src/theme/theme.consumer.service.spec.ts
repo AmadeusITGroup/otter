@@ -12,6 +12,9 @@ import {
   DomSanitizer,
 } from '@angular/platform-browser';
 import {
+  LoggerService,
+} from '@o3r/logger';
+import {
   ConsumerManagerService,
 } from '../managers/index';
 import {
@@ -23,16 +26,25 @@ describe('ThemeConsumerService', () => {
   let themeHandlerService: ThemeConsumerService;
   let consumerManagerService: ConsumerManagerService;
   let sanitizer: DomSanitizer;
+  let loggerServiceMock: jest.Mocked<LoggerService>;
   const applyThemeSpy = jest.spyOn(themeHelpers, 'applyTheme');
+  const downloadApplicationThemeCssSpy = jest.spyOn(themeHelpers, 'downloadApplicationThemeCss');
 
   beforeEach(() => {
     const consumerManagerServiceMock = {
       register: jest.fn(),
       unregister: jest.fn()
     };
+
+    loggerServiceMock = {
+      warn: jest.fn(),
+      error: jest.fn()
+    } as unknown as jest.Mocked<LoggerService>;
+
     TestBed.configureTestingModule({
       providers: [
         ThemeConsumerService,
+        { provide: LoggerService, useValue: loggerServiceMock },
         { provide: ConsumerManagerService, useValue: consumerManagerServiceMock }
       ]
     });
@@ -44,6 +56,7 @@ describe('ThemeConsumerService', () => {
 
   afterEach(() => {
     applyThemeSpy.mockClear();
+    downloadApplicationThemeCssSpy.mockClear();
   });
 
   it('should register itself when start is called', () => {
@@ -58,7 +71,7 @@ describe('ThemeConsumerService', () => {
     expect(consumerManagerService.unregister).toHaveBeenCalledWith(themeHandlerService);
   });
 
-  it('should apply theme when a supported message is received', () => {
+  it('should apply theme when a supported message is received', async () => {
     jest.spyOn(themeHelpers, 'applyTheme').mockImplementation(() => '');
     const themeMessage: RoutedMessage<ThemeMessage> = {
       from: 'test',
@@ -70,11 +83,51 @@ describe('ThemeConsumerService', () => {
         version: '1.0'
       }
     };
-    themeHandlerService.supportedVersions['1.0'](themeMessage);
+    await themeHandlerService.supportedVersions['1.0'](themeMessage);
     expect(applyThemeSpy).toHaveBeenCalledWith(themeMessage.payload.css);
   });
 
-  it('should apply theme when an empty string is received', () => {
+  it('should apply theme and retrieve local CSS when a supported message is received', async () => {
+    jest.spyOn(themeHelpers, 'applyTheme').mockImplementation(() => '');
+    jest.spyOn(themeHelpers, 'downloadApplicationThemeCss').mockResolvedValue('test css');
+    const themeMessage: RoutedMessage<ThemeMessage> = {
+      from: 'test',
+      to: [],
+      payload: {
+        name: 'horizon',
+        type: THEME_MESSAGE_TYPE,
+        css: 'css theme variables',
+        version: '1.0'
+      }
+    };
+    await themeHandlerService.supportedVersions['1.0'](themeMessage);
+    expect(downloadApplicationThemeCssSpy).toHaveBeenCalledWith('horizon', expect.objectContaining({}));
+    expect(applyThemeSpy).toHaveBeenNthCalledWith(1, themeMessage.payload.css);
+    expect(applyThemeSpy).toHaveBeenNthCalledWith(2, 'test css', false);
+  });
+
+  it('should apply theme and warn when not local file', async () => {
+    jest.spyOn(themeHelpers, 'applyTheme').mockImplementation(() => '');
+    jest.spyOn(themeHelpers, 'downloadApplicationThemeCss').mockRejectedValue('no local css');
+
+    const themeMessage: RoutedMessage<ThemeMessage> = {
+      from: 'test',
+      to: [],
+      payload: {
+        name: 'horizon',
+        type: THEME_MESSAGE_TYPE,
+        css: 'css theme variables',
+        version: '1.0'
+      }
+    };
+    await themeHandlerService.supportedVersions['1.0'](themeMessage);
+    expect(downloadApplicationThemeCssSpy).toHaveBeenCalledWith('horizon', expect.objectContaining({}));
+    expect(applyThemeSpy).toHaveBeenCalledWith(themeMessage.payload.css);
+    expect(applyThemeSpy).toHaveBeenCalledTimes(1);
+    expect(loggerServiceMock.warn).toHaveBeenCalledWith(expect.stringMatching(/.+/), 'no local css');
+  });
+
+  it('should apply theme when an empty string is received', async () => {
     jest.spyOn(themeHelpers, 'applyTheme').mockImplementation(() => '');
     const themeMessage: RoutedMessage<ThemeMessage> = {
       from: 'test',
@@ -86,11 +139,11 @@ describe('ThemeConsumerService', () => {
         version: '1.0'
       }
     };
-    themeHandlerService.supportedVersions['1.0'](themeMessage);
+    await themeHandlerService.supportedVersions['1.0'](themeMessage);
     expect(applyThemeSpy).toHaveBeenCalledWith(themeMessage.payload.css);
   });
 
-  it('should not apply theme when received style fails the sanitization', () => {
+  it('should not apply theme when received style fails the sanitization', async () => {
     jest.spyOn(sanitizer, 'sanitize').mockImplementation(() => null);
     jest.spyOn(themeHelpers, 'applyTheme').mockImplementation(() => '');
     const themeMessage: RoutedMessage<ThemeMessage> = {
@@ -103,7 +156,7 @@ describe('ThemeConsumerService', () => {
         version: '1.0'
       }
     };
-    themeHandlerService.supportedVersions['1.0'](themeMessage);
+    await themeHandlerService.supportedVersions['1.0'](themeMessage);
     expect(applyThemeSpy).not.toHaveBeenCalled();
   });
 });

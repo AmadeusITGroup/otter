@@ -42,7 +42,7 @@ export const createGradientFormatter: FormatterFactory = (options) => {
     const value: DesignTokenTypeGradientValue = options.usesDtcg ? token.original.$value : token.original.value;
     const angle = typeof value.angle === 'number' ? value.angle + 'deg' : value.angle;
     let gradientValue = `${value.type || 'linear'}-gradient(${angle || '0deg'}, ${value.stops
-      ?.map(({ color, position }) => `${color} ${typeof position === 'number' ? position + '%' : position}`)
+      ?.map(({ color, position }) => `${color} ${typeof position === 'number' ? position * 100 + '%' : position}`)
       .join(', ')})`;
 
     if (options.outputReferences && options.formatter) {

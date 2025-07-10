@@ -165,7 +165,7 @@
       },
       "configurations": {
         "ci": {
-          "command": "yarn eslint \"**/*.{m,c,}{j,t}s\" \"**/*.json\" --quiet --cache-location .cache/eslint"
+          "command": "yarn eslint \"**/*.{m,c,}{j,t}s\" \"**/*.json\" --quiet --cache --cache-location .cache/eslint"
         }
       },
       "executor": "nx:run-commands",
@@ -198,7 +198,8 @@
       "configurations": {
         "ci": {
           "ci": true,
-          "codeCoverage": true
+          "codeCoverage": true,
+          "maxWorkers": 2
         }
       },
       "cache": true
@@ -250,9 +251,11 @@
     },
     "prepare-publish": {
       "cache": false,
-      "executor": "nx:run-script",
+      "executor": "nx:run-commands",
       "options": {
-        "script": "prepare:publish"
+        "commands": [
+          "node tools/@o3r/build-helpers/scripts/prepare-publish.mjs --root={projectRoot}"
+        ]
       },
       "inputs": [
         "{workspaceRoot}/readme.md",

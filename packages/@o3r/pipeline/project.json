@@ -34,7 +34,14 @@
     "lint": {},
     "test": {},
     "test-int": {},
-    "prepare-publish": {},
+    "prepare-publish": {
+      "options": {
+        "commands": [
+          "node tools/@o3r/build-helpers/scripts/prepare-publish.mjs --root={projectRoot}",
+          "node tools/@o3r/build-helpers/scripts/write-git-hash.mjs --root={projectRoot}"
+        ]
+      }
+    },
     "publish": {},
     "documentation": {}
   },

@@ -18,6 +18,9 @@ import {
   Router,
 } from '@angular/router';
 import {
+  LoggerService,
+} from '@o3r/logger';
+import {
   Subject,
 } from 'rxjs';
 import {
@@ -34,6 +37,7 @@ describe('Navigation Producer Service', () => {
   let navProducerService: RoutingService;
   let producerManagerService: ProducerManagerService;
   let messageService: MessagePeerService<NavigationMessage>;
+  let loggerServiceMock: jest.Mocked<LoggerService>;
 
   let routerEventsSubject: Subject<any>;
   let router: Router;
@@ -47,9 +51,16 @@ describe('Navigation Producer Service', () => {
     const messageServiceMock = {
       send: jest.fn()
     };
+
+    loggerServiceMock = {
+      warn: jest.fn(),
+      error: jest.fn()
+    } as unknown as jest.Mocked<LoggerService>;
+
     TestBed.configureTestingModule({
       providers: [
         RoutingService,
+        { provide: LoggerService, useValue: loggerServiceMock },
         { provide: Router, useValue: { events: routerEventsSubject.asObservable(), getCurrentNavigation: jest.fn(() => {}) } },
         { provide: ProducerManagerService, useValue: producerManagerServiceMock },
         { provide: MessagePeerService, useValue: messageServiceMock },
@@ -68,8 +79,11 @@ describe('Navigation Producer Service', () => {
     expect(producerManagerService.register).toHaveBeenCalledWith(navProducerService);
   });
 
-  it('should send navigation message via messageService if document.referrer is present', () => {
-    Object.defineProperty(document, 'referrer', { value: 'some-referrer', configurable: true });
+  it('should send navigation message via messageService if embedded', () => {
+    const mockedWindow = { ...globalThis.window };
+    Object.defineProperty(mockedWindow, 'top', { value: globalThis.window.top });
+    Object.defineProperty(mockedWindow, 'self', { value: mockedWindow });
+    const windowSpy = jest.spyOn(globalThis, 'window', 'get').mockReturnValue(mockedWindow);
     runInInjectionContext(TestBed.inject(Injector), () => {
       navProducerService.handleEmbeddedRouting();
     });
@@ -81,10 +95,10 @@ describe('Navigation Producer Service', () => {
       version: '1.0',
       url: 'end-url'
     });
+    windowSpy.mockRestore();
   });
 
-  it('should send navigation message via endpointManagerService if channelId is present and document.referrer is not present', () => {
-    Object.defineProperty(document, 'referrer', { value: '', configurable: true });
+  it('should send navigation message via endpointManagerService if channelId is present and not embedded', () => {
     jest.spyOn(router, 'getCurrentNavigation').mockReturnValue({ extras: { state: { channelId: 'test-channel-id' } } } as any);
 
     runInInjectionContext(TestBed.inject(Injector), () => {
@@ -101,45 +115,35 @@ describe('Navigation Producer Service', () => {
   });
 
   it('should log an error if endpointManagerService.send throws an error', () => {
-    Object.defineProperty(document, 'referrer', { value: '', configurable: true });
     jest.spyOn(router, 'getCurrentNavigation').mockReturnValue({ extras: { state: { channelId: 'test-channel-id' } } } as any);
     jest.spyOn(messageService, 'send').mockImplementation(() => {
       throw new Error('send error');
     });
-    // eslint-disable-next-line no-console -- spy on console error
-    console.error = jest.fn();
+
     runInInjectionContext(TestBed.inject(Injector), () => {
       navProducerService.handleEmbeddedRouting();
     });
 
     routerEventsSubject.next(new NavigationEnd(1, 'start-url', 'end-url'));
 
-    // eslint-disable-next-line no-console -- check console error calls
-    expect(console.error).toHaveBeenCalledWith('Error sending navigation message', expect.objectContaining({ message: 'send error' }));
+    expect(loggerServiceMock.error).toHaveBeenCalledWith('Error sending navigation message', expect.objectContaining({ message: 'send error' }));
   });
 
-  it('should warn if no channelId is provided and document.referrer is not present', () => {
-    Object.defineProperty(document, 'referrer', { value: '', configurable: true });
-    // eslint-disable-next-line no-console -- spy on console warn
-    console.warn = jest.fn();
+  it('should warn if no channelId is provided and not embedded', () => {
     runInInjectionContext(TestBed.inject(Injector), () => {
       navProducerService.handleEmbeddedRouting();
     });
 
     routerEventsSubject.next(new NavigationEnd(1, 'start-url', 'end-url'));
 
-    // eslint-disable-next-line no-console -- check console warn calls
-    expect(console.warn).toHaveBeenCalledWith('No channelId provided for navigation message');
+    expect(loggerServiceMock.warn).toHaveBeenCalledWith('No channelId provided for navigation message');
   });
 
   it('should handle errors', () => {
-    // eslint-disable-next-line no-console -- spy on console error
-    console.error = jest.fn();
     const errorMessage: ErrorContent<NavigationV1_0> = { reason: 'unknown_type', source: { type: 'navigation', version: '1.0', url: '' } };
 
     navProducerService.handleError(errorMessage);
 
-    // eslint-disable-next-line no-console -- check console error calls
-    expect(console.error).toHaveBeenCalledWith('Error in navigation service message', errorMessage);
+    expect(loggerServiceMock.error).toHaveBeenCalledWith('Error in navigation service message', errorMessage);
   });
 });
