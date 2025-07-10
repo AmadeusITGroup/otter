@@ -8,7 +8,7 @@ import {
 } from '@angular-devkit/schematics';
 import {
   getAppModuleFilePath,
-  getExternalDependenciesVersionRange,
+  getExternalDependenciesInfo,
   getModuleIndex,
   getProjectNewDependenciesTypes,
   getWorkspaceConfig,
@@ -26,6 +26,9 @@ import {
 import {
   isImported,
 } from '@schematics/angular/utility/ast-utils';
+import {
+  PackageJson,
+} from 'type-fest';
 import * as ts from 'typescript';
 
 const coreSchematicsFolder = path.resolve(__dirname, '..', '..');
@@ -75,19 +78,23 @@ export function updateStore(
   const updatePackageJson: Rule = (tree: Tree, context: SchematicContext) => {
     const workspaceConfig = getWorkspaceConfig(tree);
     const workspaceProject = (options.projectName && workspaceConfig?.projects?.[options.projectName]) || undefined;
+    const projectDirectory = workspaceProject?.root || '.';
+    const projectPackageJson = tree.readJson(path.posix.join(projectDirectory, 'package.json')) as PackageJson;
 
     const appDeps = [ngrxEffectsDep, ngrxRouterStore, ngrxRouterStoreDevToolDep];
     const corePeerDeps = [ngrxEntityDep, ngrxStoreDep];
     const dependenciesList = projectType === 'application' ? [...corePeerDeps, ...appDeps] : [...corePeerDeps];
 
-    Object.entries(getExternalDependenciesVersionRange(dependenciesList, corePackageJsonPath, context.logger)).forEach(([dep, range]) => {
-      options.dependenciesSetupConfig.dependencies[dep] = {
-        inManifest: [{
-          range,
-          types: getProjectNewDependenciesTypes(workspaceProject)
-        }]
-      };
-    });
+    options.dependenciesSetupConfig.dependencies = {
+      ...options.dependenciesSetupConfig.dependencies,
+      ...getExternalDependenciesInfo({
+        dependenciesToInstall: dependenciesList,
+        devDependenciesToInstall: [],
+        o3rPackageJsonPath: corePackageJsonPath,
+        projectType,
+        projectPackageJson
+      }, context.logger)
+    };
   };
 
   /**

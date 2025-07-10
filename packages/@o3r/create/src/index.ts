@@ -135,6 +135,7 @@ const NPM_CONFIG_REGISTRY_ERROR_CODE = 4;
 const YARN_CONFIG_REGISTRY_ERROR_CODE = 5;
 const INSTALL_PROCESS_ERROR_CODE = 6;
 const YARN_SET_PACKAGE_EXTENSIONS = 7;
+const NPM_CONFIG_PEER_LEGACY_ERROR_CODE = 8;
 
 const exitProcessIfErrorInSpawnSync = (exitCode: number, { error, status }: ReturnType<typeof spawnSync>) => {
   if (error || status !== 0) {
@@ -232,7 +233,6 @@ const prepareWorkspace = (relativeDirectory = '.', projectPackageManager = 'npm'
       spawnSyncOpts
     ));
   }
-
   const registry = process.env.npm_config_registry || (argv.registry && quote([argv.registry]));
 
   if (registry) {
@@ -242,6 +242,7 @@ const prepareWorkspace = (relativeDirectory = '.', projectPackageManager = 'npm'
       ['config', 'set', '-L', 'project', 'registry', registry],
       spawnSyncOpts
     ));
+
     if (projectPackageManager === 'yarn') {
       exitProcessIfErrorInSpawnSync(YARN_CONFIG_REGISTRY_ERROR_CODE, spawnSync(
         runner,
@@ -249,6 +250,13 @@ const prepareWorkspace = (relativeDirectory = '.', projectPackageManager = 'npm'
         spawnSyncOpts
       ));
     }
+  }
+  if (projectPackageManager === 'npm') {
+    exitProcessIfErrorInSpawnSync(NPM_CONFIG_PEER_LEGACY_ERROR_CODE, spawnSync(
+      runner,
+      ['config', 'set', '-L', 'project', 'legacy-peer-deps', 'true'],
+      spawnSyncOpts
+    ));
   }
 
   writeFileSync(
@@ -290,6 +298,27 @@ const addOtterFramework = (relativeDirectory = '.', projectPackageManager = 'npm
         : undefined
     }
   ));
+
+  if (projectPackageManager === 'npm') {
+    exitProcessIfErrorInSpawnSync(NPM_CONFIG_PEER_LEGACY_ERROR_CODE, spawnSync(
+      runner,
+      ['config', 'set', '-L', 'project', 'legacy-peer-deps', 'false'],
+      {
+        stdio: 'inherit',
+        shell: true,
+        cwd
+      }
+    ));
+    exitProcessIfErrorInSpawnSync(INSTALL_PROCESS_ERROR_CODE, spawnSync(
+      runner,
+      ['install'],
+      {
+        stdio: 'inherit',
+        cwd,
+        shell: true
+      }
+    ));
+  }
 };
 
 const projectFolder = argv._[0]?.replaceAll(' ', '-').toLowerCase() || '.';

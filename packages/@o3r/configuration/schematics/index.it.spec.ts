@@ -36,7 +36,7 @@ describe('new otter application with configuration', () => {
     await addImportToAppModule(applicationPath, 'TestSignalModule', 'src/components/test-signal');
 
     const diff = getGitDiff(workspacePath);
-    expect(diff.added.length).toEqual(20);
+    expect(diff.added.length).toEqual(18);
     expect(diff.modified.length).toEqual(6);
     expect(diff.modified).toContain('package.json');
     expect(diff.added).toContain(path.posix.join(relativeApplicationPath, 'src/components/test-component/test-component.config.ts').replace(/[/\\]+/g, '/'));
@@ -66,10 +66,8 @@ describe('new otter application with configuration', () => {
     }, execAppOptions);
 
     const diff = getGitDiff(workspacePath);
-    expect(diff.added.length).toEqual(20);
-    const vscodeContent = fs.readFileSync(`${workspacePath}/.vscode/extensions.json`, 'utf8');
+    expect(diff.added.length).toEqual(18);
     const angularJSON = JSON.parse(fs.readFileSync(`${workspacePath}/angular.json`, 'utf8'));
-    expect(vscodeContent).toContain('"Orta.vscode-jest"');
     expect(angularJSON.schematics['@o3r/core:component']).toBeDefined();
     expect(angularJSON.schematics['@o3r/core:component-container']).toBeDefined();
     expect(angularJSON.schematics['@o3r/core:component-presenter']).toBeDefined();

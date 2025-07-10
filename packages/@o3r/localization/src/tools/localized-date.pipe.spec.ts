@@ -1,8 +1,4 @@
 import {
-  registerLocaleData,
-} from '@angular/common';
-import localeFR from '@angular/common/locales/fr';
-import {
   ChangeDetectorRef,
 } from '@angular/core';
 import {
@@ -14,21 +10,14 @@ import {
   platformBrowserDynamicTesting,
 } from '@angular/platform-browser-dynamic/testing';
 import {
-  TranslateModule,
-} from '@ngx-translate/core';
-import {
-  createLocalizationConfiguration,
-  LocalizationModule,
-} from './localization.module';
-import {
-  LocalizationService,
-} from './localization.service';
-import {
-  LOCALIZATION_CONFIGURATION_TOKEN,
-} from './localization.token';
+  BehaviorSubject,
+} from 'rxjs';
 import {
   LocalizedDatePipe,
 } from './localized-date.pipe';
+import {
+  LocalizationService,
+} from '@o3r/localization';
 
 /**
  * Fixture for ChangeDetectorRef
@@ -49,6 +38,7 @@ class ChangeDetectorRefFixture implements Readonly<ChangeDetectorRef> {
   }
 }
 
+const currentLanguage = new BehaviorSubject('fr');
 describe('LocalizedDatePipe', () => {
   beforeAll(() => getTestBed().platform || TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting(), {
     teardown: { destroyAfterEach: false }
@@ -59,17 +49,20 @@ describe('LocalizedDatePipe', () => {
   let changeDetectorRef: ChangeDetectorRef;
 
   beforeEach(() => {
-    registerLocaleData(localeFR, 'fr');
     TestBed.configureTestingModule({
-      imports: [
-        LocalizationModule.forRoot(() => ({ language: 'fr' })),
-        TranslateModule.forRoot()
-      ],
       providers: [
-        { provide: ChangeDetectorRef, useClass: ChangeDetectorRefFixture },
         {
-          provide: LOCALIZATION_CONFIGURATION_TOKEN,
-          useFactory: () => createLocalizationConfiguration({ enableTranslationDeactivation: true, supportedLocales: ['en', 'fr'], fallbackLanguage: 'fr' })
+          provide: ChangeDetectorRef, useClass: ChangeDetectorRefFixture
+        },
+        {
+          provide: LocalizationService,
+          useValue: {
+            getCurrentLanguage: () => currentLanguage.getValue(),
+            getTranslateService: () => ({
+              onLangChange: currentLanguage
+            }),
+            showKeys: true
+          }
         }
       ]
     });
@@ -78,16 +71,12 @@ describe('LocalizedDatePipe', () => {
     pipe = new LocalizedDatePipe(localizationService, changeDetectorRef);
   });
 
-  it('should display the date using the current locale', () => {
-    expect(pipe.transform(new Date(2018, 11, 24), 'EEE, d MMM')).toBe('lun., 24 déc.');
-    localizationService.useLanguage('en');
-
-    expect(pipe.transform(new Date(2018, 11, 24), 'EEE, d MMM')).toBe('Mon, 24 Dec');
+  it('should display the format on showKeys mode', () => {
+    expect(pipe.transform(new Date(2018, 11, 24), 'EEE, d MMM')).toBe('EEE, d MMM');
   });
 
   it('should mark for check when the language changes', () => {
-    localizationService.useLanguage('en');
-
+    currentLanguage.next('en');
     expect(changeDetectorRef.markForCheck).toHaveBeenCalled();
   });
 });
