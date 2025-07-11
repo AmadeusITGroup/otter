@@ -12,7 +12,7 @@ import {
 } from '@angular-devkit/schematics';
 import {
   createOtterSchematic,
-  getExternalDependenciesVersionRange,
+  getExternalDependenciesInfo,
   getO3rPeerDeps,
   getPackageInstallConfig,
   getProjectNewDependenciesTypes,
@@ -25,20 +25,29 @@ import type {
 import type {
   NgAddSchematicsSchema,
 } from './schema';
+/**
+ * List of external dependencies to be added to the project as peer dependencies
+ */
+const dependenciesToInstall: string[] = [
+];
 
+/**
+ * List of external dependencies to be added to the project as dev dependencies
+ */
+const devDependenciesToInstall = [
+  'style-dictionary'
+];
 /**
  * Add Otter Style Dictionary process to an Angular Project
  * @param options
  */
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
-  const setup: Rule = async (tree, context) => {
-    const devDependenciesToInstall = [
-      'style-dictionary'
-    ];
-    const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'), true);
-    const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
-    const { NodeDependencyType } = await import('@schematics/angular/utility/dependencies');
+  const setup: Rule = (tree, context) => {
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
+    const depsInfo = getO3rPeerDeps(packageJsonPath, true);
+    const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
+    const projectDirectory = workspaceProject?.root || '.';
+    const projectPackageJson = tree.readJson(path.join(projectDirectory, 'package.json')) as PackageJson;
     const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
       acc[dep] = {
         inManifest: [{
@@ -49,19 +58,22 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       };
       return acc;
     }, getPackageInstallConfig(packageJsonPath, tree, options.projectName, true, !!options.exactO3rVersion));
-    Object.entries(getExternalDependenciesVersionRange(devDependenciesToInstall, packageJsonPath, context.logger))
-      .forEach(([dep, range]) => {
-        dependencies[dep] = {
-          inManifest: [{
-            range,
-            types: [NodeDependencyType.Dev]
-          }]
-        };
-      });
+    const externalDependenciesInfo = getExternalDependenciesInfo({
+      devDependenciesToInstall,
+      dependenciesToInstall,
+      o3rPackageJsonPath: packageJsonPath,
+      projectPackageJson,
+      projectType: workspaceProject?.projectType
+    },
+    context.logger
+    );
 
     return setupDependencies({
       projectName: options.projectName,
-      dependencies,
+      dependencies: {
+        ...dependencies,
+        ...externalDependenciesInfo
+      },
       ngAddToRun: depsInfo.o3rPeerDeps
     });
   };

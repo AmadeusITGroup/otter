@@ -31,7 +31,8 @@
     "logrocket-ngrx": "^0.2.1",
     "rxjs": "^7.8.1",
     "smartlook-client": "^10.0.0",
-    "ts-node": "~10.9.2"
+    "ts-node": "~10.9.2",
+    "type-fest": "^4.30.1"
   },
   "peerDependenciesMeta": {
     "@angular-devkit/schematics": {
@@ -56,6 +57,9 @@
       "optional": true
     },
     "smartlook-client": {
+      "optional": true
+    },
+    "type-fest": {
       "optional": true
     }
   },
@@ -120,6 +124,7 @@
     "smartlook-client": "^10.0.0",
     "ts-jest": "~29.3.0",
     "ts-node": "~10.9.2",
+    "type-fest": "^4.30.1",
     "typescript": "~5.8.2",
     "typescript-eslint": "~8.29.0",
     "zone.js": "~0.15.0"
