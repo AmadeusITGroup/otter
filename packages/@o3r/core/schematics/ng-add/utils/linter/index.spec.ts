@@ -2,38 +2,45 @@ import {
   Tree,
 } from '@angular-devkit/schematics';
 import {
-  isUsingFlatConfig,
+  isUsingLegacyConfig,
 } from './index';
 
-describe('isUsingFlatConfig', () => {
-  const filenames = [
-    'eslint.config.js',
-    'eslint.config.ts',
-    'eslint.config.mjs',
-    'eslint.config.cjs',
-    'eslint.config.mts',
-    'eslint.config.cts'
-  ];
+const eslintPackageJson = 'eslint/package.json';
 
-  filenames.forEach((filename) => {
-    it(`should return true for ${filename}`, () => {
-      const tree = Tree.empty();
-      tree.create(filename, '');
-      expect(isUsingFlatConfig(tree)).toBe(true);
-    });
+describe('isUsingLegacyConfig', () => {
+  beforeEach(() => {
+    jest.resetModules();
   });
 
-  it('should return false if no matching eslint config file is found', () => {
+  it('should return true if a legacy ESLint config file is found', () => {
+    jest.mock(eslintPackageJson, () => ({}), { virtual: true });
+    const tree = Tree.empty();
+    tree.create('.eslintrc.json', '');
+    expect(isUsingLegacyConfig(tree)).toBe(true);
+  });
+
+  it('should return false if no legacy ESLint config file is found', () => {
+    jest.mock(eslintPackageJson, () => ({}), { virtual: true });
     const tree = Tree.empty();
     tree.create('otherfile.txt', '');
-    tree.create('anotherfile.md', '');
-    expect(isUsingFlatConfig(tree)).toBe(false);
+    expect(isUsingLegacyConfig(tree)).toBe(false);
   });
 
-  it('should return false if the eslint config file does not match the pattern', () => {
+  it('should return false if the eslint package is not installed', () => {
+    jest.mock(eslintPackageJson, () => {
+      throw new Error('Cannot find module');
+    }, { virtual: true });
     const tree = Tree.empty();
-    tree.create('eslint.config.json', '');
-    tree.create('eslint.config.yaml', '');
-    expect(isUsingFlatConfig(tree)).toBe(false);
+    expect(isUsingLegacyConfig(tree)).toBe(false);
+  });
+
+  it('should return true for various legacy ESLint config file extensions', () => {
+    jest.mock(eslintPackageJson, () => ({}), { virtual: true });
+    const filenames = ['.eslintrc.json', '.eslintrc.js', '.eslintrc.yaml', '.eslintrc.yml'];
+    filenames.forEach((filename) => {
+      const tree = Tree.empty();
+      tree.create(filename, '');
+      expect(`${filename}:${isUsingLegacyConfig(tree)}`).toBe(`${filename}:true`);
+    });
   });
 });

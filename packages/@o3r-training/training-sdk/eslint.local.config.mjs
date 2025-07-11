@@ -27,8 +27,6 @@ export default [
         tsconfigRootDir: __dirname,
         project: [
           'tsconfig.build.json',
-          'tsconfig.spec.json',
-          'tsconfig.cli.json',
           'tsconfig.eslint.json'
         ]
       }

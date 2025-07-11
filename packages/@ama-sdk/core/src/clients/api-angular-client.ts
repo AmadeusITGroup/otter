@@ -8,9 +8,12 @@ import {
 import {
   extractQueryParams,
   filterUndefinedValues,
+  getPropertiesFromData,
   getResponseReviver,
   prepareUrl,
+  prepareUrlWithQueryParams,
   processFormData,
+  stringifyQueryParams,
   tokenizeRequestOptions,
 } from '../fwk/api.helpers';
 import type {
@@ -28,6 +31,12 @@ import {
   EmptyResponseError,
   RequestFailedError,
 } from '../fwk/errors';
+import {
+  type ParamSerialization,
+  serializePathParams,
+  serializeQueryParams,
+  type SupportedParamType,
+} from '../fwk/param-serialization';
 import {
   ReviverType,
 } from '../fwk/reviver';
@@ -73,7 +82,8 @@ const DEFAULT_OPTIONS: Omit<BaseApiAngularClientOptions, 'basePath' | 'httpClien
   angularPlugins: [],
   requestPlugins: [],
   enableTokenization: false,
-  disableFallback: false
+  disableFallback: false,
+  enableParameterSerialization: false
 };
 
 /**
@@ -101,6 +111,16 @@ export class ApiAngularClient implements ApiClient {
   }
 
   /** @inheritdoc */
+  public getPropertiesFromData<T, K extends keyof T>(data: T, keys: K[]): Pick<T, K> {
+    return getPropertiesFromData(data, keys);
+  }
+
+  /** @inheritdoc */
+  public stringifyQueryParams<T extends { [key: string]: SupportedParamType }>(queryParams: T): { [p in keyof T]: string; } {
+    return stringifyQueryParams(queryParams);
+  }
+
+  /** @inheritdoc */
   public async getRequestOptions(requestOptionsParameters: RequestOptionsParameters): Promise<RequestOptions> {
     let opts: RequestOptions = {
       ...requestOptionsParameters,
@@ -120,8 +140,29 @@ export class ApiAngularClient implements ApiClient {
   }
 
   /** @inheritdoc */
+  public serializeQueryParams<T extends { [key: string]: SupportedParamType }>(queryParams: T, queryParamSerialization: { [p in keyof T]: ParamSerialization }): { [p in keyof T]: string } {
+    if (this.options.serializeQueryParams) {
+      return this.options.serializeQueryParams(queryParams, queryParamSerialization);
+    }
+    return serializeQueryParams(queryParams, queryParamSerialization);
+  }
+
+  /** @inheritdoc */
+  public serializePathParams<T extends { [key: string]: SupportedParamType }>(pathParams: T, pathParamSerialization: { [p in keyof T]: ParamSerialization }): { [p in keyof T]: string } {
+    if (this.options.serializePathParams) {
+      return this.options.serializePathParams(pathParams, pathParamSerialization);
+    }
+    return serializePathParams(pathParams, pathParamSerialization);
+  }
+
+  /** @inheritdoc */
   public prepareUrl(url: string, queryParameters: { [key: string]: string | undefined } = {}) {
     return prepareUrl(url, queryParameters);
+  }
+
+  /** @inheritdoc */
+  public prepareUrlWithQueryParams(url: string, serializedQueryParams?: { [key: string]: string }): string {
+    return prepareUrlWithQueryParams(url, serializedQueryParams);
   }
 
   /** @inheritdoc */

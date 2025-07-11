@@ -161,6 +161,9 @@ export default createBuilder<GenerateStyleSchematicsSchema>(createBuilderWithMet
       return { success: false, error: String(err) };
     }
   } else {
-    return await executeMultiRenderer();
+    const res = await executeMultiRenderer();
+    context.logger.warn('The generation of the style is now available via the Style Dictionary CLI with the package "@o3r/style-dictionary"');
+    context.logger.warn('Add it to your project by running "ng add @o3r/style-dictionary"');
+    return res;
   }
 }));

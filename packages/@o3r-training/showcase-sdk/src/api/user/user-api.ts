@@ -1,5 +1,5 @@
 import { User } from '../../models/base/user/index';
-import { Api, ApiClient, ApiTypes, computePiiParameterTokens, isJsonMimeType, RequestBody, RequestMetadata, } from '@ama-sdk/core';
+import { Api, ApiClient, ApiTypes, computePiiParameterTokens, isJsonMimeType, ParamSerializationOptions, RequestBody, RequestMetadata, } from '@ama-sdk/core';
 
 /** Parameters object to UserApi's createUser function */
 export interface UserApiCreateUserRequestData {
@@ -68,7 +68,6 @@ export class UserApi implements Api {
    * @param metadata Metadata to pass to the API call
    */
   public async createUser(data: UserApiCreateUserRequestData, metadata?: RequestMetadata<'application/json' | 'application/xml' | 'application/x-www-form-urlencoded', 'application/json' | 'application/xml'>): Promise<never> {
-    const queryParams = this.client.extractQueryParams<UserApiCreateUserRequestData>(data, [] as never[]);
     const metadataHeaderAccept = metadata?.headerAccept || 'application/json';
     const headers: { [key: string]: string | undefined } = {
       'Content-Type': metadata?.headerContentType || 'application/json',
@@ -81,6 +80,11 @@ export class UserApi implements Api {
     } else {
       body = data['User'] as any;
     }
+
+    let queryParams = {};
+    const paramSerializationOptions: ParamSerializationOptions = {
+      enableParameterSerialization: this.client.options.enableParameterSerialization
+    };
     const basePath = `${this.client.options.basePath}/user`;
     const tokenizedUrl = `${this.client.options.basePath}/user`;
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
@@ -90,6 +94,7 @@ export class UserApi implements Api {
       method: 'POST',
       basePath,
       queryParams,
+      paramSerializationOptions,
       body: body || undefined,
       metadata,
       tokenizedOptions,
@@ -97,7 +102,7 @@ export class UserApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = this.client.prepareUrl(options.basePath, options.queryParams);
+    const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
 
     const ret = this.client.processCall<never>(url, options, ApiTypes.DEFAULT, UserApi.apiName, undefined, 'createUser');
     return ret;
@@ -110,7 +115,6 @@ export class UserApi implements Api {
    * @param metadata Metadata to pass to the API call
    */
   public async createUsersWithListInput(data: UserApiCreateUsersWithListInputRequestData, metadata?: RequestMetadata<'application/json', 'application/xml' | 'application/json'>): Promise<User> {
-    const queryParams = this.client.extractQueryParams<UserApiCreateUsersWithListInputRequestData>(data, [] as never[]);
     const metadataHeaderAccept = metadata?.headerAccept || 'application/json';
     const headers: { [key: string]: string | undefined } = {
       'Content-Type': metadata?.headerContentType || 'application/json',
@@ -123,6 +127,11 @@ export class UserApi implements Api {
     } else {
       body = data['User'] as any;
     }
+
+    let queryParams = {};
+    const paramSerializationOptions: ParamSerializationOptions = {
+      enableParameterSerialization: this.client.options.enableParameterSerialization
+    };
     const basePath = `${this.client.options.basePath}/user/createWithList`;
     const tokenizedUrl = `${this.client.options.basePath}/user/createWithList`;
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
@@ -132,6 +141,7 @@ export class UserApi implements Api {
       method: 'POST',
       basePath,
       queryParams,
+      paramSerializationOptions,
       body: body || undefined,
       metadata,
       tokenizedOptions,
@@ -139,7 +149,7 @@ export class UserApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = this.client.prepareUrl(options.basePath, options.queryParams);
+    const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
 
     const ret = this.client.processCall<User>(url, options, ApiTypes.DEFAULT, UserApi.apiName, undefined, 'createUsersWithListInput');
     return ret;
@@ -152,7 +162,6 @@ export class UserApi implements Api {
    * @param metadata Metadata to pass to the API call
    */
   public async deleteUser(data: UserApiDeleteUserRequestData, metadata?: RequestMetadata<string, string>): Promise<never> {
-    const queryParams = this.client.extractQueryParams<UserApiDeleteUserRequestData>(data, [] as never[]);
     const metadataHeaderAccept = metadata?.headerAccept || 'application/json';
     const headers: { [key: string]: string | undefined } = {
       'Content-Type': metadata?.headerContentType || 'application/json',
@@ -160,8 +169,23 @@ export class UserApi implements Api {
     };
 
     let body: RequestBody = '';
-    const basePath = `${this.client.options.basePath}/user/${data['username']}`;
-    const tokenizedUrl = `${this.client.options.basePath}/user/${this.piiParamTokens['username'] || data['username']}`;
+
+    let queryParams = {};
+    const paramSerializationOptions: ParamSerializationOptions = {
+      enableParameterSerialization: this.client.options.enableParameterSerialization
+    };
+    let basePath;
+    let tokenizedUrl;
+    if (this.client.options.enableParameterSerialization) {
+      const pathParamsProperties = this.client.getPropertiesFromData(data, ['username']);
+      const pathParamSerialization = { username: { explode: false, style: 'simple' } }
+      const serializedPathParams = this.client.serializePathParams(pathParamsProperties, pathParamSerialization);
+      basePath = `${this.client.options.basePath}/user/${serializedPathParams['username']}`
+      tokenizedUrl = `${this.client.options.basePath}/user/${this.piiParamTokens['username'] || serializedPathParams['username']}`
+    } else {
+      basePath = `${this.client.options.basePath}/user/${data['username']}`;
+      tokenizedUrl = `${this.client.options.basePath}/user/${this.piiParamTokens['username'] || data['username']}`;
+    }
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 
     const requestOptions = {
@@ -169,6 +193,7 @@ export class UserApi implements Api {
       method: 'DELETE',
       basePath,
       queryParams,
+      paramSerializationOptions,
       body: body || undefined,
       metadata,
       tokenizedOptions,
@@ -176,7 +201,7 @@ export class UserApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = this.client.prepareUrl(options.basePath, options.queryParams);
+    const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
 
     const ret = this.client.processCall<never>(url, options, ApiTypes.DEFAULT, UserApi.apiName, undefined, 'deleteUser');
     return ret;
@@ -189,7 +214,6 @@ export class UserApi implements Api {
    * @param metadata Metadata to pass to the API call
    */
   public async getUserByName(data: UserApiGetUserByNameRequestData, metadata?: RequestMetadata<string, 'application/xml' | 'application/json'>): Promise<User> {
-    const queryParams = this.client.extractQueryParams<UserApiGetUserByNameRequestData>(data, [] as never[]);
     const metadataHeaderAccept = metadata?.headerAccept || 'application/json';
     const headers: { [key: string]: string | undefined } = {
       'Content-Type': metadata?.headerContentType || 'application/json',
@@ -197,8 +221,23 @@ export class UserApi implements Api {
     };
 
     let body: RequestBody = '';
-    const basePath = `${this.client.options.basePath}/user/${data['username']}`;
-    const tokenizedUrl = `${this.client.options.basePath}/user/${this.piiParamTokens['username'] || data['username']}`;
+
+    let queryParams = {};
+    const paramSerializationOptions: ParamSerializationOptions = {
+      enableParameterSerialization: this.client.options.enableParameterSerialization
+    };
+    let basePath;
+    let tokenizedUrl;
+    if (this.client.options.enableParameterSerialization) {
+      const pathParamsProperties = this.client.getPropertiesFromData(data, ['username']);
+      const pathParamSerialization = { username: { explode: false, style: 'simple' } }
+      const serializedPathParams = this.client.serializePathParams(pathParamsProperties, pathParamSerialization);
+      basePath = `${this.client.options.basePath}/user/${serializedPathParams['username']}`
+      tokenizedUrl = `${this.client.options.basePath}/user/${this.piiParamTokens['username'] || serializedPathParams['username']}`
+    } else {
+      basePath = `${this.client.options.basePath}/user/${data['username']}`;
+      tokenizedUrl = `${this.client.options.basePath}/user/${this.piiParamTokens['username'] || data['username']}`;
+    }
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 
     const requestOptions = {
@@ -206,6 +245,7 @@ export class UserApi implements Api {
       method: 'GET',
       basePath,
       queryParams,
+      paramSerializationOptions,
       body: body || undefined,
       metadata,
       tokenizedOptions,
@@ -213,7 +253,7 @@ export class UserApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = this.client.prepareUrl(options.basePath, options.queryParams);
+    const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
 
     const ret = this.client.processCall<User>(url, options, ApiTypes.DEFAULT, UserApi.apiName, undefined, 'getUserByName');
     return ret;
@@ -226,7 +266,6 @@ export class UserApi implements Api {
    * @param metadata Metadata to pass to the API call
    */
   public async loginUser(data: UserApiLoginUserRequestData, metadata?: RequestMetadata<string, 'application/xml' | 'application/json'>): Promise<string> {
-    const queryParams = this.client.extractQueryParams<UserApiLoginUserRequestData>(data, ['username', 'password']);
     const metadataHeaderAccept = metadata?.headerAccept || 'application/json';
     const headers: { [key: string]: string | undefined } = {
       'Content-Type': metadata?.headerContentType || 'application/json',
@@ -234,6 +273,19 @@ export class UserApi implements Api {
     };
 
     let body: RequestBody = '';
+
+    let queryParams = {};
+    const queryParamsProperties = this.client.getPropertiesFromData(data, ['username', 'password']);
+    const paramSerializationOptions: ParamSerializationOptions = {
+      enableParameterSerialization: this.client.options.enableParameterSerialization
+    };
+    if (this.client.options.enableParameterSerialization) {
+      const queryParamSerialization = { username: { explode: true, style: 'form' }, password: { explode: true, style: 'form' } };
+      queryParams = this.client.serializeQueryParams(queryParamsProperties, queryParamSerialization);
+      paramSerializationOptions.queryParamSerialization = queryParamSerialization;
+    } else {
+      queryParams = this.client.stringifyQueryParams(queryParamsProperties);
+    }
     const basePath = `${this.client.options.basePath}/user/login`;
     const tokenizedUrl = `${this.client.options.basePath}/user/login`;
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
@@ -243,6 +295,7 @@ export class UserApi implements Api {
       method: 'GET',
       basePath,
       queryParams,
+      paramSerializationOptions,
       body: body || undefined,
       metadata,
       tokenizedOptions,
@@ -250,7 +303,7 @@ export class UserApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = this.client.prepareUrl(options.basePath, options.queryParams);
+    const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
 
     const ret = this.client.processCall<string>(url, options, ApiTypes.DEFAULT, UserApi.apiName, undefined, 'loginUser');
     return ret;
@@ -263,7 +316,6 @@ export class UserApi implements Api {
    * @param metadata Metadata to pass to the API call
    */
   public async logoutUser(data: UserApiLogoutUserRequestData, metadata?: RequestMetadata<string, string>): Promise<never> {
-    const queryParams = this.client.extractQueryParams<UserApiLogoutUserRequestData>(data, [] as never[]);
     const metadataHeaderAccept = metadata?.headerAccept || 'application/json';
     const headers: { [key: string]: string | undefined } = {
       'Content-Type': metadata?.headerContentType || 'application/json',
@@ -271,6 +323,11 @@ export class UserApi implements Api {
     };
 
     let body: RequestBody = '';
+
+    let queryParams = {};
+    const paramSerializationOptions: ParamSerializationOptions = {
+      enableParameterSerialization: this.client.options.enableParameterSerialization
+    };
     const basePath = `${this.client.options.basePath}/user/logout`;
     const tokenizedUrl = `${this.client.options.basePath}/user/logout`;
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
@@ -280,6 +337,7 @@ export class UserApi implements Api {
       method: 'GET',
       basePath,
       queryParams,
+      paramSerializationOptions,
       body: body || undefined,
       metadata,
       tokenizedOptions,
@@ -287,7 +345,7 @@ export class UserApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = this.client.prepareUrl(options.basePath, options.queryParams);
+    const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
 
     const ret = this.client.processCall<never>(url, options, ApiTypes.DEFAULT, UserApi.apiName, undefined, 'logoutUser');
     return ret;
@@ -300,7 +358,6 @@ export class UserApi implements Api {
    * @param metadata Metadata to pass to the API call
    */
   public async updateUser(data: UserApiUpdateUserRequestData, metadata?: RequestMetadata<'application/json' | 'application/xml' | 'application/x-www-form-urlencoded', string>): Promise<never> {
-    const queryParams = this.client.extractQueryParams<UserApiUpdateUserRequestData>(data, [] as never[]);
     const metadataHeaderAccept = metadata?.headerAccept || 'application/json';
     const headers: { [key: string]: string | undefined } = {
       'Content-Type': metadata?.headerContentType || 'application/json',
@@ -313,8 +370,23 @@ export class UserApi implements Api {
     } else {
       body = data['User'] as any;
     }
-    const basePath = `${this.client.options.basePath}/user/${data['username']}`;
-    const tokenizedUrl = `${this.client.options.basePath}/user/${this.piiParamTokens['username'] || data['username']}`;
+
+    let queryParams = {};
+    const paramSerializationOptions: ParamSerializationOptions = {
+      enableParameterSerialization: this.client.options.enableParameterSerialization
+    };
+    let basePath;
+    let tokenizedUrl;
+    if (this.client.options.enableParameterSerialization) {
+      const pathParamsProperties = this.client.getPropertiesFromData(data, ['username']);
+      const pathParamSerialization = { username: { explode: false, style: 'simple' } }
+      const serializedPathParams = this.client.serializePathParams(pathParamsProperties, pathParamSerialization);
+      basePath = `${this.client.options.basePath}/user/${serializedPathParams['username']}`
+      tokenizedUrl = `${this.client.options.basePath}/user/${this.piiParamTokens['username'] || serializedPathParams['username']}`
+    } else {
+      basePath = `${this.client.options.basePath}/user/${data['username']}`;
+      tokenizedUrl = `${this.client.options.basePath}/user/${this.piiParamTokens['username'] || data['username']}`;
+    }
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 
     const requestOptions = {
@@ -322,6 +394,7 @@ export class UserApi implements Api {
       method: 'PUT',
       basePath,
       queryParams,
+      paramSerializationOptions,
       body: body || undefined,
       metadata,
       tokenizedOptions,
@@ -329,7 +402,7 @@ export class UserApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = this.client.prepareUrl(options.basePath, options.queryParams);
+    const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
 
     const ret = this.client.processCall<never>(url, options, ApiTypes.DEFAULT, UserApi.apiName, undefined, 'updateUser');
     return ret;

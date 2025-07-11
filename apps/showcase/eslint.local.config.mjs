@@ -47,6 +47,20 @@ export default [
     }
   },
   {
+    name: '@o3r/showcase/scripts-mjs',
+    files: ['scripts/**/*.mjs'],
+    rules: {
+      'import/no-unresolved': [
+        'error',
+        {
+          ignore: [
+            '^@o3r/style-dictionary' // for mjs resolving when not built
+          ]
+        }
+      ]
+    }
+  },
+  {
     name: '@o3r/showcase/typescript-files',
     files: ['**/*.ts'],
     rules: {

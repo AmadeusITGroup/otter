@@ -6,7 +6,6 @@
     "importHelpers": false,
     "composite": true,
     "incremental": true,
-    "skipLibCheck": true, // because of @angular-devkit-schematics
     "tsBuildInfoFile": "build/.tsbuildinfo"
   },
   "include": [

@@ -33,8 +33,6 @@
         "extract-components",
         "generate-translations",
         "generate-theme",
-        "generate-dark-theme",
-        "generate-horizon-theme",
         "compile"
       ]
     },
@@ -165,8 +163,6 @@
         "^extract-folder-structure",
         "generate-translations",
         "generate-theme",
-        "generate-dark-theme",
-        "generate-horizon-theme",
         "copy-training-assets",
         "prepare-training"
       ]
@@ -176,10 +172,7 @@
       "options": {
         "targets": [
           "showcase:generate-translations:development",
-          "showcase:serve-app",
-          "showcase:generate-theme:watch",
-          "showcase:generate-dark-theme:watch",
-          "showcase:generate-horizon-theme:watch"
+          "showcase:serve-app"
         ]
       },
       "dependsOn": [
@@ -243,86 +236,24 @@
     },
     "test": {},
     "generate-theme": {
-      "executor": "@o3r/design:generate-css",
+      "executor": "nx:run-commands",
       "outputs": [
         "{options.defaultStyleFile}",
         "{options.metadataOutput}",
-        "{projectRoot}/src/**/*.scss",
-        "!{projectRoot}/src/styles.scss"
+        "{projectRoot}/src/**/*.vars.scss",
+        "{projectRoot}/src/style/**/*.scss",
+        "{projectRoot}/scripts/styling/*.mjs"
       ],
       "inputs": [
-        "{projectRoot}/src/style/design-token.*.json",
+        "{projectRoot}/src/style/**/*.json",
         "^builders"
       ],
       "options": {
-        "metadataOutput": "apps/showcase/styling.metadata.json",
-        "defaultStyleFile": "apps/showcase/src/style/theme.scss",
-        "designTokenFilePatterns": "apps/showcase/src/style/design-token.*.json",
-        "rootPath": "apps/showcase/src"
-      },
-      "configurations": {
-        "watch": {
-          "watch": true
-        }
+        "cwd": "{projectRoot}",
+        "command": "yarn generate:style"
       },
       "dependsOn": [
-        "^build-builders"
-      ]
-    },
-    "generate-dark-theme": {
-      "cache": true,
-      "executor": "@o3r/design:generate-css",
-      "outputs": [
-        "{options.defaultStyleFile}"
-      ],
-      "inputs": [
-        "{projectRoot}/src/style/dark-theme/dark-theme.*.json",
-        "{projectRoot}/src/style/design-token.app.json",
-        "^builders"
-      ],
-      "options": {
-        "defaultStyleFile": "apps/showcase/src/style/dark-theme/dark-theme.scss",
-        "designTokenFilePatterns": [
-          "apps/showcase/src/style/design-token.app.json",
-          "apps/showcase/src/style/dark-theme/dark-theme.*.json"
-        ],
-        "rootPath": "apps/showcase/src"
-      },
-      "configurations": {
-        "watch": {
-          "watch": true
-        }
-      },
-      "dependsOn": [
-        "^build-builders"
-      ]
-    },
-    "generate-horizon-theme": {
-      "cache": true,
-      "executor": "@o3r/design:generate-css",
-      "outputs": [
-        "{options.defaultStyleFile}"
-      ],
-      "inputs": [
-        "{projectRoot}/src/style/horizon-theme/horizon-theme.*.json",
-        "{projectRoot}/src/style/design-token.app.json",
-        "^builders"
-      ],
-      "options": {
-        "defaultStyleFile": "apps/showcase/src/style/horizon-theme/horizon-theme.scss",
-        "designTokenFilePatterns": [
-          "apps/showcase/src/style/design-token.app.json",
-          "apps/showcase/src/style/horizon-theme/horizon-theme.*.json"
-        ],
-        "rootPath": "apps/showcase/src"
-      },
-      "configurations": {
-        "watch": {
-          "watch": true
-        }
-      },
-      "dependsOn": [
-        "^build-builders"
+        "^build"
       ]
     },
     "test-e2e": {

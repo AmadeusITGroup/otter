@@ -63,7 +63,7 @@ npx -p @angular/cli ng add @ama-sdk/core
 The typescript generator provides 3 generators:
 
 - **shell**: To generate the "shell" of an SDK package
-- **core**: To (re)generate the SDK based on a specified OpenApi specification
+- **core**: To (re)generate the SDK based on a specified OpenAPI specification
 - **create**: To create a new SDK from scratch (i.e. chain **shell** and **core**)
 
 You can generate the `shell` in an existing monorepo with the command:
@@ -87,17 +87,18 @@ The generated package comes with the following script in the package.json:
 ```json5
 {
   // ...
-  "generate": "yarn schematics @ama-sdk/schematics:typescript-core --spec-path ./openapi-spec.yaml",
+  "generate": "yarn schematics @ama-sdk/schematics:typescript-core --spec-path ./open-api.yaml",
   "upgrade:repository": "yarn schematics @ama-sdk/schematics:typescript-shell"
 }
 ```
 
 > [!NOTE]
-> Use `generate` to (re)generate your SDK based on the content of `./openapi-spec.yaml` (make sure you have this file at the root of your project) and `upgrade:repository` to regenerate the structure of your project.
+> Use `generate` to (re)generate your SDK based on the content of `./open-api.yaml` (make sure you have this file at the root of your project) and `upgrade:repository` to regenerate the structure of your project.
 
 > [!TIP]
 > The `--spec-path` parameter supports YAML and JSON file formats based on the file system path or remote URL.
-> The `--spec-package-name` parameter can be used as an alternative to `--spec-path` if you want to generate an SDK with specs from an npm package.  It comes with the optional parameters `--spec-package-registry` and `--spec-package-path` to be able to retrieve the npm package and the specs file from it. By default, the generator expects the `package.json` file inside the npm module containing the specs, to have an export with the key `./openapi.[yaml|yml|json]` and the value will be the relative path to the spec file inside the package.
+> The `--spec-package-name` parameter can be used as an alternative to `--spec-path` if you want to generate an SDK with specs from an npm package.It comes with the optional parameters `--spec-package-registry` and `--spec-package-path` to be able to retrieve the npm package and the specs file from it.
+> By default, the generator expects the `package.json` file inside the npm module containing the specs, to have an export with the key `./open-api.[yaml|yml|json]` and the value will be the relative path to the spec file inside the package.
 
 If you use `Yarn2+` with PnP, you can modify the following `scripts` in `package.json` to generate the SDK based on specifications in a dependency package:
 
@@ -108,6 +109,37 @@ If you use `Yarn2+` with PnP, you can modify the following `scripts` in `package
   "generate": "yarn schematics @ama-sdk/schematics:typescript-core --spec-path $(yarn resolve @my/dep/spec-file.yaml)",
 }
 ```
+
+#### Parameter Serialization
+
+To align ourselves with OpenAPI 3.1, we now support arrays and objects in path and query parameters along with their serialization.
+Based on the values of the keywords `style` and `explode` within the specification file, the parameters are serialized accordingly in the URLs of the APIs.
+For more information, check out OpenAPI's documentation on [parameter serialization](https://swagger.io/specification/).
+
+It is important to note that, as in OpenAPI 3.1, we only support simple arrays and simple non-nested objects in path and query parameters. 
+The parameter types that we support are stored in `SupportedParamType` in the package `@ama-sdk/core`.
+
+To enable the parameter serialization within your API, you can set the option `enableParameterSerialization` to `true` (its current default value is `false`) in the constructor. For example:
+```typescript
+const apiConfig: ApiClient = new ApiFetchClient(
+  {
+    basePath: 'https://petstore3.swagger.io/api/v3',
+    enableParameterSerialization: true
+  }
+);
+```
+
+We provide the methods `serializeQueryParams` and `serializePathParams` to serialize the values of query and path parameters. However, it is also possible to pass
+your own serialization methods if the ones provided do not meet your requirements. These custom methods can be passed as a parameter to the API client constructor.
+
+> [!NOTE]
+> If you have enabled the serialization mechanism and want to update the query parameters within a `RequestPlugin`, these must be serialized before being returned to the
+> API to prepare the URL. You can do so by using the serialization method that we provide (`serializeQueryParams`) or your own serialization method. The value of the query
+> parameters returned by the `RequestPlugin` will be forwarded to the next plugin and the last value will be directly added to the URL.
+
+> [!NOTE]
+> It is important to note that special characters have to be encoded, as required by RFC6570 and RFC3986. Please take this into account if you choose to use your own
+> serialization methods.
 
 #### Light SDK
 
@@ -212,7 +244,7 @@ described global properties `stringifyDate` and  `allowModelExtension`:
       "example-sdk": {
         "generatorName": "typescriptFetch",
         "output": ".",
-        "inputSpec": "./openapi-spec.yaml", // or "./openapi-spec.json" according to the specification format
+        "inputSpec": "./open-api.yaml", // or "./open-api.json" according to the specification format
         "globalProperty": {
           "stringifyDate": false,
           "allowModelExtension": true
@@ -269,7 +301,7 @@ You can use global property options to pass one or both of the following options
 Example:
 
 ```shell
-yarn schematics @ama-sdk/schematics:typescript-core --spec-path ./openapi-spec.yaml --global-property debugModels,debugOperations
+yarn schematics @ama-sdk/schematics:typescript-core --spec-path ./open-api.yaml --global-property debugModels,debugOperations
 ```
 
 You can also use npx instead of yarn in the command.

@@ -1,6 +1,6 @@
 <h1 align="center">Otter Store Sync</h1>
 <p align="center">
-  <img src="../../../assets/logo/otter.png" alt="Super cute Otter!" width="40%"/>
+  <img src="https://raw.githubusercontent.com/AmadeusITGroup/otter/main/assets/logo/otter.png" alt="Super cute Otter!" width="40%"/>
 </p>
 
 This package is an [Otter Framework Module](https://github.com/AmadeusITGroup/otter/tree/main/docs/core/MODULE.md).
@@ -14,7 +14,7 @@ This package is an [Otter Framework Module](https://github.com/AmadeusITGroup/ot
 
 This module exposes an NgRx store synchronization solution (synchronous and asynchronous) via the class `StorageSync`.
 
-To facilitate the synchronization, the `StorageSync` class is based on a fork of [ngrx-store-localstorage](https://github.com/btroncone/ngrx-store-localstorage), an exposed package used to sync an NgRx store and the local or session storage. 
+To facilitate the synchronization, the `StorageSync` class is based on a fork of [ngrx-store-localstorage](https://github.com/btroncone/ngrx-store-localstorage), an exposed package used to sync an NgRx store and the local or session storage.
 Compared to the original version of the fork, the **@o3r/store-sync** module includes changes that improve overall synchronization performance.
 
 The features to highlight are:

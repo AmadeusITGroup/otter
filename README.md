@@ -30,7 +30,7 @@ Also, to customize an application, metadata can be extracted from the applicatio
 
 * [Angular](https://angular.io/)
 * [Typescript](https://www.typescriptlang.org/)
-* [RxJs](http://reactivex.io/rxjs/)
+* [RxJs](https://github.com/ReactiveX/rxjs)
 * [Redux](http://redux.js.org/)
 * [Sass](http://sass-lang.com/)
 * [Nx](https://nx.dev/)

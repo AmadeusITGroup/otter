@@ -1,6 +1,6 @@
 import { Flight } from '../../models/base/flight/index';
 import { reviveFlight } from '../../models/base/flight/flight.reviver';
-import { Api, ApiClient, ApiTypes, computePiiParameterTokens,  RequestBody, RequestMetadata, } from '@ama-sdk/core';
+import { Api, ApiClient, ApiTypes, computePiiParameterTokens,  ParamSerializationOptions, RequestBody, RequestMetadata, } from '@ama-sdk/core';
 
 /** Parameters object to DummyApi's dummyGet function */
 export interface DummyApiDummyGetRequestData {
@@ -29,13 +29,12 @@ export class DummyApi implements Api {
   }
 
   /**
-   * 
-   * 
+   * Dummy get
+   * Dummy get
    * @param data Data to provide to the API call
    * @param metadata Metadata to pass to the API call
    */
   public async dummyGet(data: DummyApiDummyGetRequestData, metadata?: RequestMetadata<string, 'application/json'>): Promise<Flight> {
-    const queryParams = this.client.extractQueryParams<DummyApiDummyGetRequestData>(data, [] as never[]);
     const metadataHeaderAccept = metadata?.headerAccept || 'application/json';
     const headers: { [key: string]: string | undefined } = {
       'Content-Type': metadata?.headerContentType || 'application/json',
@@ -43,6 +42,11 @@ export class DummyApi implements Api {
     };
 
     let body: RequestBody = '';
+
+    let queryParams = {};
+    const paramSerializationOptions: ParamSerializationOptions = {
+      enableParameterSerialization: this.client.options.enableParameterSerialization
+    };
     const basePath = `${this.client.options.basePath}/dummy`;
     const tokenizedUrl = `${this.client.options.basePath}/dummy`;
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
@@ -52,6 +56,7 @@ export class DummyApi implements Api {
       method: 'GET',
       basePath,
       queryParams,
+      paramSerializationOptions,
       body: body || undefined,
       metadata,
       tokenizedOptions,
@@ -59,7 +64,7 @@ export class DummyApi implements Api {
     };
 
     const options = await this.client.getRequestOptions(requestOptions);
-    const url = this.client.prepareUrl(options.basePath, options.queryParams);
+    const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
 
     const ret = this.client.processCall<Flight>(url, options, ApiTypes.DEFAULT, DummyApi.apiName, { 200: reviveFlight } , 'dummyGet');
     return ret;
