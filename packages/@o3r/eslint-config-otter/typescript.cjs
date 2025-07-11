@@ -1,6 +1,12 @@
 const hasJestDependency = (() => {
   try {
-    return !!require.resolve('jest');
+    const hasJestInstalled = !!require.resolve('jest');
+    const hasEslintPluginJestInstalled = !!require.resolve('eslint-plugin-jest');
+    if (hasJestInstalled && !hasEslintPluginJestInstalled) {
+      // eslint-disable-next-line no-console -- Provides useful information to the user of the CLI
+      console.warn('Warning: eslint-plugin-jest is not installed. Please install it to use the Jest rules.');
+    }
+    return hasJestInstalled && hasEslintPluginJestInstalled;
   } catch {
     return false;
   }
