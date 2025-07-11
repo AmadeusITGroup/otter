@@ -3,6 +3,7 @@ import {
 } from '@angular/common';
 import {
   ChangeDetectorRef,
+  inject,
   OnDestroy,
   Pipe,
   PipeTransform,
@@ -24,9 +25,11 @@ import {
 })
 export class LocalizedCurrencyPipe extends CurrencyPipe implements OnDestroy, PipeTransform {
   private readonly onLangChange: Subscription;
+  private readonly localizationService = inject(LocalizationService);
+  private readonly changeDetectorRef = inject(ChangeDetectorRef);
 
-  constructor(private readonly localizationService: LocalizationService, private readonly changeDetectorRef: ChangeDetectorRef) {
-    super(localizationService.getCurrentLanguage());
+  constructor() {
+    super(inject(LocalizationService).getCurrentLanguage());
     this.onLangChange = this.localizationService.getTranslateService().onLangChange.subscribe(() =>
       this.changeDetectorRef.markForCheck()
     );

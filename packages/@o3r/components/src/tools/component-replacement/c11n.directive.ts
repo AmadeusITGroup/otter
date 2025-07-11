@@ -2,6 +2,7 @@ import {
   ComponentRef,
   Directive,
   forwardRef,
+  inject,
   Injector,
   Input,
   KeyValueChangeRecord,
@@ -53,6 +54,10 @@ export class C11nDirective<
   I extends ContextInput = ContextInput,
   O extends BaseContextOutput = BaseContextOutput,
   T extends Context<I, O> = Context<I, O>> implements OnChanges, OnDestroy {
+  private readonly viewContainerRef = inject(ViewContainerRef);
+  private readonly differsService = inject(KeyValueDiffers);
+  private readonly injector = inject(Injector);
+
   /** The component information passed to the directive */
   @Input() public component!: Type<T>;
 
@@ -90,10 +95,6 @@ export class C11nDirective<
 
   /** Set of inputs when the component was created. */
   private readonly uninitializedInputs = new Set<string>();
-
-  constructor(public viewContainerRef: ViewContainerRef,
-    private readonly differsService: KeyValueDiffers,
-    private readonly injector: Injector) {}
 
   /**
    * Type guard for component implementing CVA

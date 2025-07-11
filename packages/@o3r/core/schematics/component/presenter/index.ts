@@ -116,7 +116,8 @@ function ngGenerateComponentPresenterFn(options: NgGenerateComponentSchematicsSc
           project: properties.projectName,
           path: componentDestination,
           flat: true,
-          name: properties.componentName
+          name: properties.componentName,
+          typeSeparator: '.'
         })
       );
     }
@@ -137,7 +138,7 @@ function ngGenerateComponentPresenterFn(options: NgGenerateComponentSchematicsSc
         viewEncapsulation: 'None',
         changeDetection: 'OnPush',
         style: 'scss',
-        type: 'Component',
+        type: 'component',
         skipSelector: false,
         standalone: options.standalone,
         ...(
