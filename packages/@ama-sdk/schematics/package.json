@@ -140,7 +140,7 @@
     "typescript-eslint": "~8.32.0"
   },
   "generatorDependencies": {
-    "@angular-eslint/eslint-plugin": "^19.0.0",
+    "@angular-eslint/eslint-plugin": "~19.2.0",
     "@commitlint/cli": "^19.0.0",
     "@commitlint/config-conventional": "^19.0.0",
     "@swc/cli": "~0.7.7",

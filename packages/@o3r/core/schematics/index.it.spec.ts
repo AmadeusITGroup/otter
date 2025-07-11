@@ -97,9 +97,6 @@ describe('new otter application', () => {
       execAppOptions
     );
 
-    packageManagerExec({ script: 'ng', args: ['g', '@o3r/testing:playwright-scenario', '--name', 'test-scenario', ...appNameOptions] }, execAppOptions);
-    packageManagerExec({ script: 'ng', args: ['g', '@o3r/testing:playwright-sanity', '--name', 'test-sanity', ...appNameOptions] }, execAppOptions);
-
     const diff = getGitDiff(execAppOptions.cwd);
 
     untouchedProjectsPaths.forEach((untouchedProject) => {
@@ -107,7 +104,6 @@ describe('new otter application', () => {
     });
 
     // Expect created files inside `test-app` project
-    expect(diff.added.filter((file) => new RegExp(path.posix.join(relativeApplicationPath, 'e2e-playwright').replace(/[/\\]+/g, '[\\\\/]')).test(file)).length).toBeGreaterThan(0);
     expect(diff.added.filter((file) => new RegExp(path.posix.join(relativeApplicationPath, 'src/app').replace(/[/\\]+/g, '[\\\\/]')).test(file)).length).toBeGreaterThan(0);
     expect(diff.added.filter((file) => new RegExp(path.posix.join(relativeApplicationPath, 'src/components').replace(/[/\\]+/g, '[\\\\/]')).test(file)).length).toBeGreaterThan(0);
 

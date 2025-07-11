@@ -6,12 +6,10 @@ import {
   SchematicContext,
   Tree,
 } from '@angular-devkit/schematics';
-import type {
-  DependencyToAdd,
-} from '@o3r/schematics';
 import {
   createOtterSchematic,
   getDefaultOptionsForSchematic,
+  getExternalDependenciesInfo,
   getO3rPeerDeps,
   getPackageInstallConfig,
   getProjectNewDependenciesTypes,
@@ -19,10 +17,11 @@ import {
   registerPackageCollectionSchematics,
   removePackages,
   setupDependencies,
+  setupSchematicsParamsForProject,
 } from '@o3r/schematics';
 import type {
-  NodeDependencyType as NodeDependencyTypeEnum,
-} from '@schematics/angular/utility/dependencies';
+  PackageJson,
+} from 'type-fest';
 import {
   updateCmsAdapter,
 } from '../cms-adapter';
@@ -34,56 +33,87 @@ import type {
 } from './schema';
 
 /**
+ * List of external dependencies to be added to the project as peer dependencies
+ */
+const dependenciesToInstall = [
+  '@angular/cdk',
+  '@angular/common',
+  '@angular/core',
+  '@angular/forms',
+  '@angular/platform-browser',
+  '@angular/platform-browser-dynamic',
+  '@ngrx/effects',
+  '@ngrx/entity',
+  '@ngrx/store',
+  'rxjs'
+];
+
+/**
+ * List of external dependencies to be added to the project as dev dependencies
+ */
+const devDependenciesToInstall = [
+  'chokidar'
+];
+
+/**
  * Add Otter components to an Angular Project
  * @param options
  */
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
   /* ng add rules */
-  return async (tree: Tree, context: SchematicContext) => {
-    const { NodeDependencyType } = await import('@schematics/angular/utility/dependencies').catch(() => ({ NodeDependencyType: { Dev: 'devDependencies' as NodeDependencyTypeEnum.Dev } }));
+  return (tree: Tree, context: SchematicContext) => {
     options = { ...getDefaultOptionsForSchematic(getWorkspaceConfig(tree), '@o3r/components', 'ng-add', options), ...options };
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
-    const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' }));
-    const depsInfo = getO3rPeerDeps(packageJsonPath);
+    const o3rPackageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' })) as PackageJson;
+    const o3rPeerDeps = getO3rPeerDeps(packageJsonPath);
     if (options.enableMetadataExtract) {
-      depsInfo.o3rPeerDeps = [...depsInfo.o3rPeerDeps, '@o3r/extractors'];
+      o3rPeerDeps.o3rPeerDeps = [...o3rPeerDeps.o3rPeerDeps, '@o3r/extractors'];
     }
 
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
-    const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
+    const dependencies = o3rPeerDeps.o3rPeerDeps.reduce((acc, dep) => {
       acc[dep] = {
         inManifest: [{
-          range: `${options.exactO3rVersion ? '' : '~'}${depsInfo.packageVersion}`,
+          range: `${options.exactO3rVersion ? '' : '~'}${o3rPeerDeps.packageVersion}`,
           types: getProjectNewDependenciesTypes(workspaceProject)
         }],
         ngAddOptions: { exactO3rVersion: options.exactO3rVersion }
       };
       return acc;
     }, getPackageInstallConfig(packageJsonPath, tree, options.projectName, false, !!options.exactO3rVersion));
-    const devDependencies = {
-      chokidar: {
-        inManifest: [{
-          range: packageJson.peerDependencies.chokidar,
-          types: [NodeDependencyType.Dev]
-        }]
-      }
-    } as const satisfies Record<string, DependencyToAdd>;
+
+    const projectDirectory = workspaceProject?.root || '.';
+    const projectPackageJson = tree.readJson(path.posix.join(projectDirectory, 'package.json')) as PackageJson;
+    const externalDependenciesInfo = getExternalDependenciesInfo({
+      devDependenciesToInstall,
+      dependenciesToInstall,
+      projectPackageJson,
+      o3rPackageJsonPath: packageJsonPath,
+      projectType: workspaceProject?.projectType
+    },
+    context.logger
+    );
     const rule = chain([
       removePackages(['@otter/components']),
       setupDependencies({
         projectName: options.projectName,
         dependencies: {
           ...dependencies,
-          ...devDependencies
+          ...externalDependenciesInfo
         },
-        ngAddToRun: depsInfo.o3rPeerDeps
+        ngAddToRun: o3rPeerDeps.o3rPeerDeps
       }),
-      registerPackageCollectionSchematics(packageJson),
+      registerPackageCollectionSchematics(o3rPackageJson),
+      setupSchematicsParamsForProject({
+        '@o3r/core:component': {},
+        '@o3r/core:component-container': {},
+        '@o3r/core:component-presenter': {}
+      }, options.projectName),
       ...(options.enableMetadataExtract ? [updateCmsAdapter(options)] : []),
       registerDevtools(options)
     ]);
 
-    context.logger.info(`The package ${depsInfo.packageName!} comes with a debug mechanism`);
+    context.logger.info(`The package ${o3rPeerDeps.packageName!} comes with a debug mechanism`);
     context.logger.info('Get more information on the following page: https://github.com/AmadeusITGroup/otter/tree/main/docs/components/INTRODUCTION.md#Runtime-debugging');
 
     return () => rule(tree, context);

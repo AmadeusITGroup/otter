@@ -9,13 +9,16 @@ import {
 import {
   applyEditorConfig,
   createOtterSchematic,
-  getExternalDependenciesVersionRange,
+  getExternalDependenciesInfo,
   getO3rPeerDeps,
   getPackageInstallConfig,
   getProjectNewDependenciesTypes,
   getWorkspaceConfig,
   setupDependencies,
 } from '@o3r/schematics';
+import type {
+  PackageJson,
+} from 'type-fest';
 import {
   updateEslintConfig,
 } from './eslint/index';
@@ -56,7 +59,7 @@ const handleOtterEslintErrors = (projectName: string): Rule => (tree, context) =
 
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
   /* ng add rules */
-  return async (tree: Tree, context: SchematicContext) => {
+  return (tree: Tree, context: SchematicContext) => {
     let installJestPlugin = false;
     try {
       require.resolve('jest');
@@ -94,7 +97,6 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
 
     const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'), true, /^@(?:o3r|ama-sdk)/);
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
-    const { NodeDependencyType } = await import('@schematics/angular/utility/dependencies');
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
     const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
       acc[dep] = {
@@ -106,20 +108,27 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       };
       return acc;
     }, getPackageInstallConfig(packageJsonPath, tree, options.projectName, true, !!options.exactO3rVersion));
-    Object.entries(getExternalDependenciesVersionRange(devDependenciesToInstall, packageJsonPath, context.logger))
-      .forEach(([dep, range]) => {
-        dependencies[dep] = {
-          inManifest: [{
-            range,
-            types: [NodeDependencyType.Dev]
-          }]
-        };
-      });
+
+    const projectDirectory = workspaceProject?.root || '.';
+    const projectPackageJson = tree.readJson(path.posix.join(projectDirectory, 'package.json')) as PackageJson;
+
+    const externalDependenciesInfo = getExternalDependenciesInfo({
+      devDependenciesToInstall,
+      dependenciesToInstall: [],
+      projectType: workspaceProject?.projectType,
+      projectPackageJson,
+      o3rPackageJsonPath: packageJsonPath
+    },
+    context.logger
+    );
 
     return () => chain([
       setupDependencies({
         projectName: options.projectName,
-        dependencies,
+        dependencies: {
+          ...dependencies,
+          ...externalDependenciesInfo
+        },
         ngAddToRun: depsInfo.o3rPeerDeps
       }),
       updateVscode,
