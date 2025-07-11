@@ -20,7 +20,7 @@ import {
 import {
   addVsCodeRecommendations,
   createSchematicWithMetricsIfInstalled,
-  getExternalDependenciesVersionRange,
+  getExternalDependenciesInfo,
   getO3rPeerDeps,
   getPackageInstallConfig,
   getProjectNewDependenciesTypes,
@@ -32,9 +32,6 @@ import {
   setupDependencies,
   setupSchematicsParamsForProject,
 } from '@o3r/schematics';
-import {
-  NodeDependencyType,
-} from '@schematics/angular/utility/dependencies';
 import type {
   PackageJson,
 } from 'type-fest';
@@ -47,17 +44,18 @@ import {
 import {
   updatePlaywright,
 } from './playwright';
+/**
+ * List of external dependencies to be added to the project as peer dependencies
+ */
+const dependenciesToInstall: string[] = [];
 
+/**
+ * List of external dependencies to be added to the project as dev dependencies
+ */
 const devDependenciesToInstall = [
   'pixelmatch',
   'pngjs',
-  'jest',
-  'jest-environment-jsdom',
-  'jest-preset-angular',
-  'ts-jest',
-  '@angular-builders/jest',
-  '@angular-devkit/build-angular',
-  '@types/jest'
+  '@angular-devkit/build-angular'
 ];
 
 /**
@@ -72,30 +70,11 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       const depsInfo = getO3rPeerDeps(testPackageJsonPath);
       const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
       const workingDirectory = workspaceProject?.root || '.';
+      const projectPackageJson = tree.readJson(path.posix.join(workingDirectory, 'package.json')) as PackageJson;
       const projectType = workspaceProject?.projectType || 'application';
-      const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
-        acc[dep] = {
-          inManifest: [{
-            range: `${options.exactO3rVersion ? '' : '~'}${depsInfo.packageVersion}`,
-            types: getProjectNewDependenciesTypes(workspaceProject)
-          }],
-          ngAddOptions: { exactO3rVersion: options.exactO3rVersion }
-        };
-        return acc;
-      }, getPackageInstallConfig(testPackageJsonPath, tree, options.projectName, true, !!options.exactO3rVersion));
-      Object.entries(getExternalDependenciesVersionRange(devDependenciesToInstall, testPackageJsonPath, context.logger))
-        .forEach(([dep, range]) => {
-          dependencies[dep] = {
-            inManifest: [{
-              range,
-              types: [NodeDependencyType.Dev]
-            }]
-          };
-        });
-
       let installJest;
-      const testFramework = options.testingFramework || getTestFramework(getWorkspaceConfig(tree), context);
 
+      const testFramework = options.testingFramework || getTestFramework(getWorkspaceConfig(tree), context);
       switch (testFramework) {
         case 'jest': {
           installJest = true;
@@ -115,6 +94,37 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
         }
       }
 
+      const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
+        acc[dep] = {
+          inManifest: [{
+            range: `${options.exactO3rVersion ? '' : '~'}${depsInfo.packageVersion}`,
+            types: getProjectNewDependenciesTypes(workspaceProject)
+          }],
+          ngAddOptions: { exactO3rVersion: options.exactO3rVersion }
+        };
+        return acc;
+      }, getPackageInstallConfig(testPackageJsonPath, tree, options.projectName, true, !!options.exactO3rVersion));
+      if (installJest) {
+        devDependenciesToInstall.push(
+          '@angular-builders/jest',
+          '@types/jest',
+          'jest',
+          'jest-environment-jsdom',
+          'jest-preset-angular',
+          'ts-jest'
+        );
+      }
+
+      const externalDependenciesInfo = getExternalDependenciesInfo({
+        devDependenciesToInstall,
+        dependenciesToInstall,
+        o3rPackageJsonPath: testPackageJsonPath,
+        projectType: workspaceProject?.projectType,
+        projectPackageJson
+      },
+      context.logger
+      );
+
       let installPlaywright = false;
       if (projectType === 'application') {
         installPlaywright = options.enablePlaywright === undefined
@@ -132,7 +142,10 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
         installPlaywright ? updatePlaywright(options, dependencies) : noop,
         setupDependencies({
           projectName: options.projectName,
-          dependencies,
+          dependencies: {
+            ...dependencies,
+            ...externalDependenciesInfo
+          },
           ngAddToRun: depsInfo.o3rPeerDeps
         }),
         registerPackageCollectionSchematics(packageJson),

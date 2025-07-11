@@ -120,7 +120,9 @@ const run = () => {
     ...(
       packageManager === 'yarn'
         ? [{ runner, args: ['set', 'version', getYarnVersion()], cwd: resolveTargetDirectory }]
-        : []
+        : (packageManager === 'npm'
+          ? [{ runner, args: ['config', 'set', '-L', 'project', 'legacy-peer-deps', 'true'], cwd: resolveTargetDirectory }]
+          : [])
     ),
     ...(argv['spec-package-name']
       ? [{
@@ -144,9 +146,15 @@ const run = () => {
         ],
         cwd: resolveTargetDirectory
       }]
-      : [])
+      : []),
+    ...(packageManager === 'npm'
+      ? [
+        { runner, args: ['config', 'set', '-L', 'project', 'legacy-peer-deps', 'false'], cwd: resolveTargetDirectory },
+        { runner, args: ['install'], cwd: resolveTargetDirectory }
+      ]
+      : []
+    )
   ];
-
   const errors = steps
     .map((step) => spawnSync(step.runner || `"${process.execPath}"`, step.args, { stdio: 'inherit', cwd: step.cwd || process.cwd(), shell: true }))
     .filter(({ error, status }) => (error || status !== 0));
