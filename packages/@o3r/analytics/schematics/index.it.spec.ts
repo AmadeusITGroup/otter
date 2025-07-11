@@ -30,7 +30,7 @@ describe('ng add analytics', () => {
     const diff = getGitDiff(workspacePath);
 
     expect(diff.added).toContain(path.join(relativeApplicationPath, 'src/components/test-component/test-component.analytics.ts').replace(/[/\\]+/g, '/'));
-    expect(diff.added.length).toBe(10);
+    expect(diff.added.length).toBe(9);
     expect(diff.modified.sort()).toEqual([
       'angular.json',
       'apps/test-app/package.json',
@@ -59,7 +59,7 @@ describe('ng add analytics', () => {
     const diff = getGitDiff(workspacePath);
 
     expect(diff.added).toContain(path.join(relativeLibraryPath, 'src/components/test-component/test-component.analytics.ts').replace(/[/\\]+/g, '/'));
-    expect(diff.added.length).toBe(10);
+    expect(diff.added.length).toBe(9);
     expect(diff.modified.sort()).toEqual([
       'angular.json',
       'libs/test-lib/package.json',

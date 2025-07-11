@@ -7,6 +7,7 @@ import {
 import {
   applyEsLintFix,
   createOtterSchematic,
+  getExternalDependenciesInfo,
   getO3rPeerDeps,
   getPackageInstallConfig,
   getProjectNewDependenciesTypes,
@@ -14,15 +15,32 @@ import {
   setupDependencies,
 } from '@o3r/schematics';
 import type {
+  PackageJson,
+} from 'type-fest';
+import type {
   NgAddSchematicsSchema,
 } from './schema';
+
+/**
+ * List of external dependencies to be added to the project as peer dependencies
+ */
+const dependenciesToInstall = [
+  '@angular/common',
+  '@angular/core',
+  'rxjs'
+];
+
+/**
+ * List of external dependencies to be added to the project as dev dependencies
+ */
+const devDependenciesToInstall: string[] = [];
 
 /**
  * Add Otter apis manager to an Angular Project
  * @param options
  */
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
-  return async (tree) => {
+  return async (tree, context) => {
     const { updateApiDependencies } = await import('../helpers/update-api-deps');
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
     const depsInfo = getO3rPeerDeps(packageJsonPath);
@@ -36,6 +54,20 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
     if (!options.skipCodeSample) {
       depsInfo.o3rPeerDeps.push('@ama-sdk/client-fetch');
     }
+
+    const projectDirectory = workspaceProject?.root || '.';
+    const projectPackageJson = tree.readJson(path.posix.join(projectDirectory, 'package.json')) as PackageJson;
+
+    const externalDependenciesInfo = getExternalDependenciesInfo(
+      {
+        dependenciesToInstall,
+        devDependenciesToInstall,
+        projectType: workspaceProject?.projectType,
+        o3rPackageJsonPath: packageJsonPath,
+        projectPackageJson
+      },
+      context.logger
+    );
 
     const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
       acc[dep] = {
@@ -53,7 +85,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       options.skipLinter ? noop : applyEsLintFix(),
       setupDependencies({
         projectName: options.projectName,
-        dependencies,
+        dependencies: { ...dependencies, ...externalDependenciesInfo },
         ngAddToRun: depsInfo.o3rPeerDeps
       })
     ]);

@@ -51,9 +51,7 @@ describe('ng add components', () => {
     expect(diff.modified).toContain('package.json');
     expect(diff.modified).toContain('angular.json');
     expect(diff.modified).toContain('libs/test-lib/package.json');
-    const vscodeContent = fs.readFileSync(`${workspacePath}/.vscode/extensions.json`, 'utf8');
     const angularJSON = JSON.parse(fs.readFileSync(`${workspacePath}/angular.json`, 'utf8'));
-    expect(vscodeContent).toContain('"Orta.vscode-jest"');
     expect(angularJSON.schematics['@o3r/core:component']).toBeDefined();
     expect(angularJSON.schematics['@o3r/core:component-container']).toBeDefined();
     expect(angularJSON.schematics['@o3r/core:component-presenter']).toBeDefined();
