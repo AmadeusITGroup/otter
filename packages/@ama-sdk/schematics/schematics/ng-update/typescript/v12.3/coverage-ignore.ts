@@ -74,7 +74,7 @@ export const updateJestConfigCoveragePathIgnorePatterns: Rule = (tree, context) 
       const match = line.match(/^ */);
       const numberSpaces = match ? match[0].length : 0;
       const newNumber = (numberSpaces - numberSpaces % 2) / 2;
-      return line.replace(/^ */, Array.from({ length: newNumber }).fill(' ').join(''));
+      return line.replace(/^ */, ' '.repeat(newNumber));
     })
     .join('\n');
 

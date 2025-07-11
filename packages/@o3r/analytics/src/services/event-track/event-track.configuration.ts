@@ -20,6 +20,16 @@ export interface EventTrackConfiguration {
   useBrowserApiForFirstFP: boolean;
   /** Controls the activation of mesurements and ui events tracking */
   activate: TrackActive;
+  /**
+   * Request ID header from call (default: {@link defaultEventTrackConfiguration.requestIdHeader})
+   * @default 'ama-request-id'
+   */
+  requestIdHeader: string;
+  /**
+   * Trace header from call  (default: {@link defaultEventTrackConfiguration.traceHeader})
+   * @default 'traceparent'
+   */
+  traceHeader: string;
 }
 
 /** Default configuration of tracking service */
@@ -27,11 +37,13 @@ export const defaultEventTrackConfiguration = {
   perfBufferSize: 10,
   uiEventsBufferSize: 20,
   useBrowserApiForFirstFP: false,
+  requestIdHeader: 'ama-request-id',
+  traceHeader: 'traceparent',
   activate: {
     uiTracking: true,
     perfTracking: true
   }
-};
+} as const satisfies EventTrackConfiguration;
 
 /** Tracking service configuration token used to override the default configuration */
 export const EVENT_TRACK_SERVICE_CONFIGURATION = new InjectionToken<Partial<EventTrackConfiguration>>('EVENT TRACK');
