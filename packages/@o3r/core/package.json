@@ -124,7 +124,6 @@
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",
     "@types/pid-from-port": "^1.1.0",
-    "@types/uuid": "^10.0.0",
     "@typescript-eslint/parser": "~8.35.0",
     "angular-eslint": "~19.4.0",
     "chokidar": "^4.0.3",

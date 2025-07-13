@@ -113,6 +113,25 @@ describe('Performance metrics', () => {
     expect(perfData.serverCalls[0].requestId).toBeUndefined();
   });
 
+  it('should add a mark for a SDK server call with trace', async () => {
+    const sdkCallMark: Mark = {
+      markId: '1',
+      url: 'call/path',
+      startTime: 100,
+      endTime: 200,
+      requestOptions: {},
+      openTelemetryTrace: {
+        traceId: 'test'
+      } as any
+    };
+    await service.addSDKServerCallMark(sdkCallMark);
+    const perfData = await firstValueFrom(service.perfEventTrack$.pipe(skip(1)));
+
+    expect(perfData.serverCalls.length).toBe(1);
+    expect(perfData.serverCalls[0].url).toBe('call/path');
+    expect(perfData.serverCalls[0].requestId).toBeUndefined();
+  });
+
   it('should add a mark for a SDK server call including response size and requestId', async () => {
     const headers: Headers = new Headers();
     headers.append('ama-request-id', 'UNIQUEID');
@@ -136,6 +155,32 @@ describe('Performance metrics', () => {
     expect(perfData.serverCalls.length).toBe(1);
     expect(perfData.serverCalls[0].url).toBe('call/path');
     expect(perfData.serverCalls[0].requestId).toBe('UNIQUEID');
+    expect(perfData.serverCalls[0].responseSize).toBeDefined();
+  });
+
+  it('should add a mark for a SDK server call including response size and traceparent', async () => {
+    const headers: Headers = new Headers();
+    headers.append('traceparent', `00-${'1'.repeat(32)}-${'2'.repeat(16)}`);
+    const blob = new Blob(['foo', 'bar']);
+    const sdkCallMark: Mark = {
+      markId: '1',
+      url: 'call/path',
+      startTime: 100,
+      endTime: 200,
+      requestOptions: {},
+      response: {
+        clone: () => ({
+          headers,
+          blob: () => blob
+        }) as any
+      } as any
+    };
+    await service.addSDKServerCallMark(sdkCallMark);
+    const perfData = await firstValueFrom(service.perfEventTrack$.pipe(skip(1)));
+
+    expect(perfData.serverCalls.length).toBe(1);
+    expect(perfData.serverCalls[0].url).toBe('call/path');
+    expect(perfData.serverCalls[0].requestId).toBe('1'.repeat(32));
     expect(perfData.serverCalls[0].responseSize).toBeDefined();
   });
 

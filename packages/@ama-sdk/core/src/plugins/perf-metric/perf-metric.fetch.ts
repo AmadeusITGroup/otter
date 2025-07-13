@@ -6,6 +6,9 @@ import {
   FetchPlugin,
   FetchPluginContext,
 } from '../core';
+import type {
+  OpenTelemetryTransparentReport,
+} from '../open-telemetry';
 
 /**
  * Performance metric mark associated to a call.
@@ -46,6 +49,12 @@ export interface Mark {
    * End time of the call.
    */
   endTime?: number;
+
+  /**
+   * Open Telemetry trace report
+   * The information will be provided by the [decodeTraceparentHeader](../open-telemetry/traceparent/open-telemetry.traceparent.reply.ts)
+   */
+  openTelemetryTrace?: OpenTelemetryTransparentReport;
 }
 /** Performance object supporting NodeJs Performance and Web Performance reporting  */
 type CrossPlatformPerformance = {
