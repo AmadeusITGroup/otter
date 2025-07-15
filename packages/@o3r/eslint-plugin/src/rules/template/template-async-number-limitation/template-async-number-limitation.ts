@@ -72,7 +72,7 @@ export default createRule<[TemplateAsyncNumberLimitationOptions, ...any], 'tooMa
     };
 
     return {
-      Element$1: rule
+      Element: rule
     };
   }
 });

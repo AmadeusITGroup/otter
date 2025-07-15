@@ -23,35 +23,33 @@ Query parameters value you want to provide to the service
 Post parameters value you want to provide to the service
 
 # How to use
-In your application, in the root module import `RequestParametersModule.forRoot()` and then inject `RequestParametersService` as a standard Angular service.
-Using the default configuration:
+In your application root config, provide your `RequestParameters` configuration.
 ```typescript
-import {RequestParametersModule} from '@o3r/dynamic-content';
+import {provideRequestParameters} from '@o3r/dynamic-content';
 ...
-@NgModule({
-  imports: [
-    ...
-    RequestParametersModule.forRoot(),
-  ],
-  ...
-})
-export class AppModule {}
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    // ...
+    provideRequestParameters()
+  ]
+}
 ```
 Using custom configuration, must provide a factory function, returning a `Partial<RequestParametersConfig>`:
 ```typescript
-import {RequestParametersModule, StorageStrategy} from '@o3r/dynamic-content';
+import {provideRequestParameters, StorageStrategy} from '@o3r/dynamic-content';
 ...
 
 /** We don't provide directly the value and use a factory because otherwise AOT compilation will resolve to undefined whatever is taken from window */
 export function requestParametersConfiguration() {
-  return {storage: localStorage, strategy: StorageStrategy.Merge};
+  return { storage: localStorage, strategy: StorageStrategy.Merge };
 }
-@NgModule({
-  imports: [
-    ...
-    RequestParametersModule.forRoot(requestParametersConfiguration),
-  ],
-  ...
-})
-export class AppModule {}
+
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    // ...
+    provideRequestParameters(requestParametersConfiguration)
+  ]
+};
 ```

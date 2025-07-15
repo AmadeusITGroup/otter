@@ -1,4 +1,5 @@
 import {
+  compareDates,
   utils,
 } from './date';
 
@@ -132,5 +133,21 @@ describe('Date', () => {
     // The day should be correct and not 27
     expect(dateUtils.toJSON()).toEqual('1972-05-28');
     expect(dateUtils.getDate()).toBe(28);
+  });
+});
+
+describe('Compare utils.Date', () => {
+  it('should return 0 for same date', () => {
+    expect(compareDates(new utils.Date(2020, 2, 2), new utils.Date(2020, 2, 2))).toBe(0);
+  });
+  it('should return negative when date1 is sooner', () => {
+    expect(compareDates(new utils.Date(2019, 3, 3), new utils.Date(2020, 2, 2))).toBeLessThan(0);
+    expect(compareDates(new utils.Date(2020, 1, 3), new utils.Date(2020, 2, 2))).toBeLessThan(0);
+    expect(compareDates(new utils.Date(2020, 2, 1), new utils.Date(2020, 2, 2))).toBeLessThan(0);
+  });
+  it('should return positive when date1 is later', () => {
+    expect(compareDates(new utils.Date(2021, 1, 1), new utils.Date(2020, 2, 2))).toBeGreaterThan(0);
+    expect(compareDates(new utils.Date(2020, 3, 1), new utils.Date(2020, 2, 2))).toBeGreaterThan(0);
+    expect(compareDates(new utils.Date(2020, 2, 3), new utils.Date(2020, 2, 2))).toBeGreaterThan(0);
   });
 });
