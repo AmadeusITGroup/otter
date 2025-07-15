@@ -8,6 +8,7 @@ import {
 import {
   addVsCodeRecommendations,
   applyEsLintFix,
+  getExternalDependenciesInfo,
   getO3rPeerDeps,
   getWorkspaceConfig,
   setupDependencies,
@@ -41,6 +42,18 @@ import type {
 } from './schema';
 
 /**
+ * List of external dependencies to be added to the project as peer dependencies
+ * Enforce tilde range for all dependencies except Angular ones
+ */
+const dependenciesToInstall: string[] = [];
+
+/**
+ * List of external dependencies to be added to the project as dev dependencies
+ * Enforce tilde range for all dependencies except Angular ones
+ */
+const devDependenciesToInstall: string[] = [];
+
+/**
  * Enable all the otter features requested by the user
  * Install all the related dependencies and import the features inside the application
  * @param options installation options to pass to the all the other packages' installation
@@ -51,10 +64,21 @@ export const prepareProject = (options: NgAddSchematicsSchema): Rule => {
     'EditorConfig.EditorConfig',
     'angular.ng-template'
   ];
-  const dependenciesToInstall = [
+  const otterDependencies = [
     '@ama-sdk/core',
     '@ama-sdk/schematics'
   ];
+  if (!options.skipPreCommitChecks) {
+    devDependenciesToInstall.push(
+      'husky',
+      'lint-staged',
+      'editorconfig-checker',
+      '@commitlint/cli',
+      '@commitlint/config-angular',
+      '@commitlint/config-conventional',
+      '@commitlint/types'
+    );
+  }
   const ownSchematicsFolder = path.resolve(__dirname, '..');
   const ownPackageJsonPath = path.resolve(ownSchematicsFolder, '..', 'package.json');
   const depsInfo = getO3rPeerDeps(ownPackageJsonPath);
@@ -70,7 +94,7 @@ export const prepareProject = (options: NgAddSchematicsSchema): Rule => {
       ...depsInfo.o3rPeerDeps
     ]));
 
-    const dependencies = [...internalPackagesToInstallWithNgAdd, ...dependenciesToInstall].reduce((acc, dep) => {
+    const dependencies = [...internalPackagesToInstallWithNgAdd, ...otterDependencies].reduce((acc, dep) => {
       acc[dep] = {
         inManifest: [{
           range: `${options.exactO3rVersion ? '' : '~'}${depsInfo.packageVersion}`,
@@ -86,6 +110,17 @@ export const prepareProject = (options: NgAddSchematicsSchema): Rule => {
     }
 
     const workspaceConfig = getWorkspaceConfig(tree);
+    const projectPackageJson = tree.readJson('package.json') as PackageJson;
+    const externalDependenciesInfo = getExternalDependenciesInfo({
+      devDependenciesToInstall,
+      dependenciesToInstall,
+      projectType: undefined,
+      o3rPackageJsonPath: ownPackageJsonPath,
+      projectPackageJson
+    },
+    context.logger,
+    (name) => name === 'husky' && !options.skipPreCommitChecks
+    );
 
     return () => chain([
       generateRenovateConfig(__dirname),
@@ -93,7 +128,10 @@ export const prepareProject = (options: NgAddSchematicsSchema): Rule => {
       updateGitIgnore(workspaceConfig),
       filterPackageJsonScripts,
       setupDependencies({
-        dependencies,
+        dependencies: {
+          ...dependencies,
+          ...externalDependenciesInfo
+        },
         skipInstall: options.skipInstall,
         ngAddToRun: internalPackagesToInstallWithNgAdd
       }),

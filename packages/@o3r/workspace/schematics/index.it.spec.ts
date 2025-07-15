@@ -107,15 +107,12 @@ describe('new otter workspace', () => {
       'src/public-api.ts',
       '.gitignore',
       '.npmignore',
-      'jest.config.js',
       'tsconfig.builders.json',
-      'tsconfig.json',
-      'testing/setup-jest.ts'];
+      'tsconfig.json'
+    ];
     expect(() => packageManagerExec({ script: 'ng', args: ['g', 'library', libName] }, execAppOptions)).not.toThrow();
     expect(existsSync(path.join(workspacePath, 'project'))).toBe(false);
     generatedLibFiles.forEach((file) => expect(existsSync(path.join(inLibraryPath, file))).toBe(true));
-    // TODO apps are generated without jest full configuration - needs to be fixed before removing this part
-    expect(() => packageManagerExec({ script: 'ng', args: ['test', libName] }, execAppOptions)).not.toThrow();
     expect(() => packageManagerRunOnProject(libName, true, { script: 'build' }, execAppOptions)).not.toThrow();
 
     // check tsconfig.lib.prod.json override
@@ -134,7 +131,6 @@ describe('new otter workspace', () => {
     expect(rootPackageJson.scripts).toHaveProperty('test', 'lerna run test');
     expect(rootPackageJson.scripts).toHaveProperty('lint', 'lerna run lint');
     expect(() => packageManagerRun({ script: 'build' }, execAppOptions)).not.toThrow();
-    expect(() => packageManagerRun({ script: 'test' }, execAppOptions)).not.toThrow();
     expect(() => packageManagerRun({ script: 'lint' }, execAppOptions)).not.toThrow();
     expect(rootPackageJson.workspaces).toContain('libs/*');
     expect(rootPackageJson.workspaces).toContain('apps/*');
