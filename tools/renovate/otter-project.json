@@ -3,6 +3,7 @@
   "description": "Group all otter dependencies and trigger ng update scripts with yarn",
   "extends": [
     "github>AmadeusITGroup/otter//tools/renovate/group/otter",
+    "github>AmadeusITGroup/otter//tools/renovate/group/mfe",
     "github>AmadeusITGroup/otter//tools/renovate/tasks/base",
     "github>AmadeusITGroup/otter//tools/renovate/branching-strategy/release-branches",
     "github>AmadeusITGroup/otter//tools/renovate/tasks/otter-ng-update(yarn)",

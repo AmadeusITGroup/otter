@@ -116,10 +116,10 @@ export class {{classname}} implements Api {
       paramSerializationOptions.queryParamSerialization = queryParamSerialization;
       {{/hasQueryParams}}
       const pathParamsProperties = this.client.getPropertiesFromData(data, [{{#trimComma}}{{#pathParams}}'{{baseName}}', {{/pathParams}}{{/trimComma}}]);
-      const pathParamSerialization = { {{#trimComma}}{{#pathParams}}{{baseName}}: { explode: {{isExplode}}, style: '{{style}}' }, {{/pathParams}}{{/trimComma}} }
+      const pathParamSerialization = { {{#trimComma}}{{#pathParams}}{{baseName}}: { explode: {{isExplode}}, style: '{{style}}' }, {{/pathParams}}{{/trimComma}} };
       const serializedPathParams = this.client.serializePathParams(pathParamsProperties, pathParamSerialization);
-      basePath = `${this.client.options.basePath}{{#urlSerializedParamReplacer}}{{path}}{{/urlSerializedParamReplacer}}`
-      tokenizedUrl = `${this.client.options.basePath}{{#tokenizedUrlSerializedParamReplacer}}{{path}}{{/tokenizedUrlSerializedParamReplacer}}`
+      basePath = `${this.client.options.basePath}{{#urlSerializedParamReplacer}}{{path}}{{/urlSerializedParamReplacer}}`;
+      tokenizedUrl = `${this.client.options.basePath}{{#tokenizedUrlSerializedParamReplacer}}{{path}}{{/tokenizedUrlSerializedParamReplacer}}`;
     } else {
       {{#hasQueryParams}}
       queryParams = this.client.stringifyQueryParams(queryParamsProperties);

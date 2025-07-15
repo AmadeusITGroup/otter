@@ -9,6 +9,10 @@ import nxPlugin from '@nx/eslint-plugin';
 import o3rConfig from '@o3r/eslint-config';
 import o3rTemplate from '@o3r/eslint-config/template';
 import o3rPlugin from '@o3r/eslint-plugin';
+import {
+  defineConfig,
+  globalIgnores,
+} from 'eslint/config';
 import globals from 'globals';
 import jsonParser from 'jsonc-eslint-parser';
 
@@ -24,12 +28,11 @@ const nodeFiles = [
   '**/eslint*.config.mjs'
 ];
 
-export default [
+export default defineConfig([
   ...o3rConfig,
   ...o3rTemplate,
-  {
-    name: '@o3r/framework/ignores',
-    ignores: [
+  globalIgnores(
+    [
       '.cache/**/*',
       '.yarn/**/*',
       '**/dist/',
@@ -45,8 +48,9 @@ export default [
       '.pnp.js',
       '.vscode',
       '**/src/**/package.json'
-    ]
-  },
+    ],
+    '@o3r/framework/ignores'
+  ),
   {
     name: '@o3r/framework/report-unused-disable-directives',
     linterOptions: {
@@ -225,4 +229,4 @@ export default [
       'import/first': 'off' // We have the jest environment setup first
     }
   }
-];
+]);

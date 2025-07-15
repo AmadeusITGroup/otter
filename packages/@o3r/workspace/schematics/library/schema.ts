@@ -18,7 +18,7 @@ export interface NgGenerateModuleSchema extends SchematicOptionObject {
   /** Name of the Nx Project (applied only in Nx Monorepo) */
   projectName?: string | undefined;
 
-  /** Skip the linter process */
+  /** Skip the linter process which includes the run of EsLint and EditorConfig rules */
   skipLinter: boolean;
 
   /** Do not install dependency packages. */

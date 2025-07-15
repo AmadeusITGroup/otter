@@ -3,9 +3,10 @@
   "description": "Group all Typescript dependencies",
   "packageRules": [
     {
-      "matchPackagePatterns": [
-        "typescript",
-        "tslib"
+      "matchPackageNames": [
+        "/typescript/",
+        "/tslib/",
+        "!/eslint/"
       ],
       "groupName": "Typescript dependencies",
       "groupSlug": "typescript-dependencies"

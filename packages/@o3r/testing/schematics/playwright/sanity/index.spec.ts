@@ -46,7 +46,7 @@ describe('Playwright Sanity', () => {
     });
 
     it('should have the default template', () => {
-      expect(tree.readContent('/e2e-playwright/sanity/test-playwright-sanity.e2e.ts')).toContain('test.describe.serial');
+      expect(tree.readContent('/e2e-playwright/sanity/test-playwright-sanity.e2e.ts')).toContain('test.describe');
       expect(tree.readContent('/e2e-playwright/sanity/test-playwright-sanity.e2e.ts')).toContain('test(');
     });
   });

@@ -5,7 +5,8 @@
     "types": ["node"],
     "rootDir": "src"
   },
-  "files": ["src/index.ts"],
-  "include": [],
+  "include": [
+    "src/**/*.ts"
+  ],
   "exclude": ["*.spec.ts"]
 }

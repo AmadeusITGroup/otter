@@ -16,13 +16,13 @@ export type PrimitiveType = string | number | boolean | Date | utils.Date | util
 export type SupportedParamType = PrimitiveType | PrimitiveType[] | { [key: string]: PrimitiveType };
 
 /** URL encoding of space character, delimiter for spaceDelimited style */
-const SPACE_URL_CODE = encodeURIComponent(' ');
+export const SPACE_URL_CODE = encodeURIComponent(' ');
 /** URL encoding of pipe character, delimiter for pipeDelimited style */
-const PIPE_URL_CODE = encodeURIComponent('|');
+export const PIPE_URL_CODE = encodeURIComponent('|');
 /** URL encoding of opening square bracket, used in deepObject style */
-const OPENING_SQUARE_BRACKET_URL_CODE = encodeURIComponent('[');
+export const OPENING_SQUARE_BRACKET_URL_CODE = encodeURIComponent('[');
 /** URL encoding of closing square bracket, used in deepObject style */
-const CLOSING_SQUARE_BRACKET_URL_CODE = encodeURIComponent(']');
+export const CLOSING_SQUARE_BRACKET_URL_CODE = encodeURIComponent(']');
 
 /**
  * Verify if property is of type utils.Date or utils.DateTime
@@ -149,11 +149,13 @@ export function serializeQueryParams<T extends { [key: string]: SupportedParamTy
         serializedValue = encodeURIComponent(queryParamName) + '=' + (isDateType(queryParamValue) ? queryParamValue.toJSON() : encodeURIComponent(queryParamValue.toString()));
       }
       if (serializedValue) {
-        acc[queryParamName as keyof T] = serializedValue;
+        acc[queryParamName] = serializedValue;
+      } else {
+        throw new Error(`Unable to serialize query parameter ${queryParamName} since the combination explode=${paramSerialization.explode} and style='${paramSerialization.style}' is not supported.`);
       }
     }
     return acc;
-  }, {} as { [p in keyof T]: string });
+  }, {} as Record<string, string>) as { [p in keyof T]: string };
 }
 
 /**
@@ -169,7 +171,7 @@ function serializeArrayPathParams(pathParamName: string, pathParamValue: Primiti
   switch (paramSerialization.style) {
     case 'simple': {
       if (emptyArray) {
-        break;
+        throw new Error(`Unable to serialize path parameter ${pathParamName} since an empty array of style='${paramSerialization.style}' is not supported.`);
       }
       return filteredArray.map((v) => isDateType(v) ? v.toJSON() : encodeURIComponent(v.toString())).join(',');
     }
@@ -201,7 +203,7 @@ function serializeObjectPathParams(pathParamName: string, pathParamValue: { [key
   switch (paramSerialization.style) {
     case 'simple': {
       if (emptyObject) {
-        break;
+        throw new Error(`Unable to serialize path parameter ${pathParamName} since an empty object of style='${paramSerialization.style}' is not supported.`);
       }
       return paramSerialization.explode
         ? Object.entries(filteredObject).map(([propName, propValue]) =>
@@ -274,9 +276,11 @@ export function serializePathParams<T extends { [key: string]: SupportedParamTyp
         serializedValue = serializePrimitivePathParams(pathParamName, pathParamValue, paramSerialization);
       }
       if (serializedValue) {
-        acc[pathParamName as keyof T] = serializedValue;
+        acc[pathParamName] = serializedValue;
+      } else {
+        throw new Error(`Unable to serialize path parameter ${pathParamName} since the combination explode=${paramSerialization.explode} and style='${paramSerialization.style}' is not supported.`);
       }
     }
     return acc;
-  }, {} as { [p in keyof T]: string });
+  }, {} as Record<string, string>) as { [p in keyof T]: string };
 }

@@ -33,7 +33,7 @@ describe('new otter application with apis-manager', () => {
     ].sort());
 
     [libraryPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
-      expect(diff.all.some((file) => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
+      expect(diff.all.some((file) => file.startsWith(path.relative(workspacePath, untouchedProject).replace(/\\+/g, '/')))).toBe(false);
     });
   });
 });

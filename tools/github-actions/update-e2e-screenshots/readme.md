@@ -18,3 +18,16 @@ See [Action specifications](./action.yml) directly for more information about th
   with:
     visualTestingReportPath: apps/showcase/playwright-reports/visual-testing/report.json
 ```
+
+## Multiple reports
+
+You can specify several `visualTestingReportPath` :
+
+
+```yaml
+- uses: AmadeusITGroup/otter/tools/github-actions/update-e2e-screenshots@main
+  with:
+    visualTestingReportPath: |
+      apps/showcase/playwright-reports/visual-testing/report.json
+      apps/example/playwright-reports/visual-testing/report.json
+```

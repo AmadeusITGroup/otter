@@ -9,7 +9,7 @@
     "strictNullChecks": false,
     "noImplicitAny": false,
     "incremental": false,
-    "composite": false,
+    "composite": true,
     "declaration": false,
     "declarationMap": false,
     "strict": false,

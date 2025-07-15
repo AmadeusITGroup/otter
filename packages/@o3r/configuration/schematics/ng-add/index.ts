@@ -6,6 +6,17 @@ import {
   SchematicContext,
   Tree,
 } from '@angular-devkit/schematics';
+import {
+  createOtterSchematic,
+  getExternalDependenciesInfo,
+  getO3rPeerDeps,
+  getPackageInstallConfig,
+  getProjectNewDependenciesTypes,
+  getWorkspaceConfig,
+  registerPackageCollectionSchematics,
+  setupDependencies,
+  setupSchematicsParamsForProject,
+} from '@o3r/schematics';
 import type {
   PackageJson,
 } from 'type-fest';
@@ -15,13 +26,6 @@ import {
 import type {
   NgAddSchematicsSchema,
 } from './schema';
-
-const reportMissingSchematicsDep = (logger: { error: (message: string) => any }) => (reason: any) => {
-  logger.error(`[ERROR]: Adding @o3r/configuration has failed.
-If the error is related to missing @o3r dependencies you need to install '@o3r/core' to be able to use the configuration package. Please run 'ng add @o3r/core' .
-Otherwise, use the error message as guidance.`);
-  throw reason;
-};
 
 /**
  * List of external dependencies to be added to the project as peer dependencies
@@ -47,17 +51,7 @@ const devDependenciesToInstall = [
  */
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
   /* ng add rules */
-  return async (tree: Tree, context: SchematicContext) => {
-    const {
-      getExternalDependenciesInfo,
-      setupDependencies,
-      getProjectNewDependenciesTypes,
-      getWorkspaceConfig,
-      getO3rPeerDeps,
-      registerPackageCollectionSchematics,
-      setupSchematicsParamsForProject,
-      getPackageInstallConfig
-    } = await import('@o3r/schematics');
+  return (tree: Tree, context: SchematicContext) => {
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
     const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' }));
     const depsInfo = getO3rPeerDeps(packageJsonPath);
@@ -113,9 +107,4 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
  * Add Otter configuration to an Angular Project
  * @param options The options to pass to ng-add execution
  */
-export const ngAdd = (options: NgAddSchematicsSchema): Rule => async (_, { logger }) => {
-  const {
-    createOtterSchematic
-  } = await import('@o3r/schematics').catch(reportMissingSchematicsDep(logger));
-  return createOtterSchematic(ngAddFn)(options);
-};
+export const ngAdd = (options: NgAddSchematicsSchema) => createOtterSchematic(ngAddFn)(options);

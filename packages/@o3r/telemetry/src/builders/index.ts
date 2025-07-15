@@ -17,7 +17,7 @@ import {
   BuilderMetricData,
   sendData as defaultSendData,
   type SendDataFn,
-} from '../sender';
+} from '../sender/index';
 
 type BuilderWrapperFn<S, O extends BuilderOutput = BuilderOutput> =
   (opts: S, ctx: BuilderContext) => O | Promise<O>;
