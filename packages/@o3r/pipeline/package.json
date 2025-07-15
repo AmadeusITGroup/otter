@@ -41,7 +41,7 @@
     "@angular-devkit/schematics": "^19.0.0",
     "@o3r/schematics": "workspace:^",
     "@o3r/telemetry": "workspace:^",
-    "type-fest": "^4.10.2"
+    "type-fest": "^4.30.1"
   },
   "peerDependenciesMeta": {
     "@angular-devkit/schematics": {

@@ -7,7 +7,7 @@ import type {
 } from '@angular-devkit/schematics';
 import {
   createOtterSchematic,
-  getExternalDependenciesVersionRange,
+  getExternalDependenciesInfo,
   getO3rPeerDeps,
   getPackageInstallConfig,
   getProjectNewDependenciesTypes,
@@ -15,8 +15,8 @@ import {
   setupDependencies,
 } from '@o3r/schematics';
 import type {
-  NodeDependencyType as NodeDependencyTypeEnum,
-} from '@schematics/angular/utility/dependencies';
+  PackageJson,
+} from 'type-fest';
 import {
   updateCmsAdapter,
 } from '../cms-adapter';
@@ -24,7 +24,18 @@ import type {
   NgAddSchematicsSchema,
 } from './schema';
 
-const dependenciesToInstall = [
+/**
+ * List of external dependencies to be added to the project as peer dependencies
+ */
+const dependenciesToInstall: string[] = [
+];
+
+/**
+ * List of external dependencies to be added to the project as dev dependencies
+ */
+const devDependenciesToInstall = [
+  '@angular-devkit/architect',
+  '@angular-devkit/core',
   'semver'
 ];
 
@@ -33,11 +44,13 @@ const dependenciesToInstall = [
  * @param options
  */
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
-  return async (tree, context) => {
-    const { NodeDependencyType } = await import('@schematics/angular/utility/dependencies').catch(() => ({ NodeDependencyType: { Dev: 'devDependencies' as NodeDependencyTypeEnum.Dev } }));
+  return (tree, context) => {
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
     const depsInfo = getO3rPeerDeps(packageJsonPath);
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
+    const projectDirectory = workspaceProject?.root || '.';
+    const projectPackageJson = tree.readJson(path.posix.join(projectDirectory, 'package.json')) as PackageJson;
+
     const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
       acc[dep] = {
         inManifest: [{
@@ -48,18 +61,23 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       };
       return acc;
     }, getPackageInstallConfig(packageJsonPath, tree, options.projectName, true, !!options.exactO3rVersion));
-    Object.entries(getExternalDependenciesVersionRange(dependenciesToInstall, packageJsonPath, context.logger)).forEach(([dep, range]) => {
-      dependencies[dep] = {
-        inManifest: [{
-          range,
-          types: [NodeDependencyType.Dev]
-        }]
-      };
-    });
+
+    const externalDependenciesInfo = getExternalDependenciesInfo({
+      devDependenciesToInstall,
+      dependenciesToInstall,
+      projectPackageJson,
+      o3rPackageJsonPath: packageJsonPath,
+      projectType: workspaceProject?.projectType
+    },
+    context.logger
+    );
     return chain([
       setupDependencies({
         projectName: options.projectName,
-        dependencies,
+        dependencies: {
+          ...dependencies,
+          ...externalDependenciesInfo
+        },
         ngAddToRun: depsInfo.o3rPeerDeps
       }),
       updateCmsAdapter(options, __dirname)
