@@ -3,8 +3,10 @@ import {
 } from '@angular/common';
 import {
   InjectionToken,
+  makeEnvironmentProviders,
   ModuleWithProviders,
   NgModule,
+  type Provider,
 } from '@angular/core';
 import {
   type BuildTimeProperties,
@@ -33,11 +35,15 @@ export function appBaseHrefFactory(config: BuildTimeProperties) {
 
 export const ENVIRONMENT_CONFIG_TOKEN = new InjectionToken<BuildTimeProperties>('Environment config');
 
+/**
+ * @deprecated Will be removed in v14.
+ */
 @NgModule()
 export class AppServerRoutingModule {
   /**
    * Injects the APP_BASE_HREF with a custom factory
    * @param config The application environment configuration
+   * @deprecated Please use {@link provideEnvironment} instead. Will be removed in v14.
    */
   public static forRoot(config: Partial<BuildTimeProperties>): ModuleWithProviders<AppServerRoutingModule> {
     return {
@@ -52,4 +58,52 @@ export class AppServerRoutingModule {
       ]
     };
   }
+}
+
+type EnvironmentFeatureKind = 'base-href';
+
+interface EnvironmentFeature<FeatureKind extends EnvironmentFeatureKind> {
+  ɵkind: FeatureKind;
+  ɵproviders: Provider[];
+}
+
+type BaseHrefFeature = EnvironmentFeature<'base-href'>;
+
+type EnvironmentFeatures = BaseHrefFeature;
+
+/**
+ * Specify a custom base href
+ * @param baseHref
+ */
+export function withBaseHref<T extends string | undefined>(baseHref: T | ((environmentConfig: BuildTimeProperties) => T)): EnvironmentFeatures {
+  return {
+    ɵkind: 'base-href',
+    ɵproviders: [
+      {
+        provide: APP_BASE_HREF,
+        ...(
+          typeof baseHref === 'function'
+            ? { useFactory: baseHref }
+            : { useValue: baseHref }
+        )
+      }
+    ]
+  };
+}
+
+/**
+ * Provide environment configuration
+ * @note it will also provide APP_BASE_HREF based on the environment configuration
+ * @param config
+ * @param features
+ */
+export function provideEnvironment(config: Partial<BuildTimeProperties>, ...features: EnvironmentFeatures[]) {
+  const additionalProviders = [];
+  const baseHrefFeature = features.find((f) => f.ɵkind === 'base-href') ?? withBaseHref(appBaseHrefFactory);
+  additionalProviders.push(baseHrefFeature.ɵproviders);
+
+  return makeEnvironmentProviders([
+    { provide: ENVIRONMENT_CONFIG_TOKEN, useValue: { ...DEFAULT_BUILD_PROPERTIES, ...config } },
+    additionalProviders
+  ]);
 }

@@ -13,8 +13,7 @@ import {
 
 @Pipe({
   name: 'o3rDynamicContent',
-  pure: false,
-  standalone: false
+  pure: false
 })
 export class O3rDynamicContentPipe implements PipeTransform, OnDestroy {
   /** Last query value  */

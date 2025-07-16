@@ -1,7 +1,8 @@
 name: Bug Report to an Application from the Otter project
 description: File a bug report on an Application from the Otter project
 title: "[Bug]: "
-labels: ["bug", "triage"]
+labels: ["triage"]
+type: Bug
 body:
   - type: markdown
     attributes:
