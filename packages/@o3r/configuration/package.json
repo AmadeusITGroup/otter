@@ -49,7 +49,7 @@
     "jasmine": "^5.0.0",
     "rxjs": "^7.8.1",
     "ts-node": "~10.9.2",
-    "type-fest": "^4.10.2",
+    "type-fest": "^4.30.1",
     "typescript": "^5.5.4"
   },
   "peerDependenciesMeta": {
@@ -150,5 +150,8 @@
     "node": "^20.11.1 || >=22.0.0"
   },
   "builders": "./builders.json",
-  "schematics": "./collection.json"
+  "schematics": "./collection.json",
+  "ng-update": {
+    "migrations": "./migration.json"
+  }
 }
