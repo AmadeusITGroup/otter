@@ -21,6 +21,7 @@ Please refer to the [ama-sdk-schematics](../schematics/README.md) package for ge
 - [fetch-credentials](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/fetch-credentials)
 - [json-token](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/json-token)
 - [mock-intercept](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/mock-intercept)
+- [OpenTelemetry Traceparent](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/open-telemetry/traceparent)
 - [pii-tokenizer](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/pii-tokenizer)
 - [raw-response-info](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/raw-response-info)
 - [reviver](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/reviver)
