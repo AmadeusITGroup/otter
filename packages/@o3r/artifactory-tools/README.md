@@ -8,7 +8,7 @@
 [![Stable Version](https://img.shields.io/npm/v/@o3r/artifactory-tools?style=for-the-badge)](https://www.npmjs.com/package/@o3r/artifactory-tools)
 [![Bundle Size](https://img.shields.io/bundlephobia/min/@o3r/artifactory-tools?color=green&style=for-the-badge)](https://www.npmjs.com/package/@o3r/artifactory-tools)
 
-This module provides various tools for the supported repository manager [JFrog](https://jfrog.com/artifactory/), including deleting old artifacts and deleting a specified amount of PR build artifacts.
+This module provides various tools for the supported repository manager [JFrog](https://jfrog.com/artifactory/), including downloading artifacts, deleting old artifacts and deleting a specified amount of PR build artifacts.
 
 ## Artifact cleaner (JFrog)
 
@@ -84,4 +84,77 @@ The required options include:
 
 ```shell
 yarn o3r-pr-artifact-cleaner --artifactory-url "https://jfrog.io/repoName" -b thisismybase64tokenwithuserandencryptedpassword
+```
+
+## Artifact Downloader
+
+Downloads artifacts from Artifactory repositories.
+
+### Usage
+
+```shell
+o3r-artifact-downloader [options]
+```
+
+The required option is:
+* the full URL of the artifact to download (`--url <url>`)
+
+### Options
+
+| Option                                            | Alias | Value Type | Default Value | Description                                                                                                    |
+|---------------------------------------------------|:-----:|------------|---------------|----------------------------------------------------------------------------------------------------------------|
+| `--url <url>` <br> **(Required)**                 | `-u`  | `string`   |               | Full URL of the artifact to download                                                                          |
+| `--output-dir <outputDir>`                        | `-o`  | `string`   | `.`           | Output directory for the downloaded file                                                                      |
+| `--filename <filename>`                           | `-f`  | `string`   |               | Output filename (if not provided, will use the filename from URL)                                             |
+| `--artifactory-user <user>`                       |       | `string`   |               | Artifactory username (can also be set via `ARTIFACTORY_USER` env var)                                        |
+| `--artifactory-password <password>`               |       | `string`   |               | Artifactory password (can also be set via `ARTIFACTORY_PASSWORD` env var)                                     |
+| `--basic-auth <base64>`                           | `-b`  | `string`   |               | Base64 encoding of username:password (takes priority over --artifactory-user/--artifactory-password)         |
+| `--verbose`                                       | `-v`  |            |               | Display verbose output for debugging                                                                           |
+| `--help`                                          | `-h`  |            |               | Output usage information                                                                                       |
+
+### Authentication
+
+The tool supports multiple authentication methods with the following priority:
+
+1. **Basic Auth (Highest Priority):** Pre-encoded base64 string via `--basic-auth`
+2. **Username/Password:** Via CLI options or environment variables
+3. **No Authentication:** For public repositories
+
+If authentication fails (401) and no credentials were provided, the tool will display helpful error messages.
+
+### Examples
+
+**Download from a public repository:**
+```shell
+o3r-artifact-downloader -u "https://repo.maven.apache.org/maven2/junit/junit/4.13.2/junit-4.13.2.jar"
+```
+
+**Download with username/password:**
+```shell
+o3r-artifact-downloader \
+  -u "https://my-artifactory.company.com/repository/releases/com/example/app/1.0.0/app-1.0.0.jar" \
+  --artifactory-user myuser \
+  --artifactory-password mypassword
+```
+
+**Download using environment variables:**
+```shell
+export ARTIFACTORY_USER=myuser
+export ARTIFACTORY_PASSWORD=mypassword
+o3r-artifact-downloader -u "https://my-artifactory.company.com/repository/releases/com/example/app/1.0.0/app-1.0.0.jar"
+```
+
+**Download with basic auth:**
+```shell
+o3r-artifact-downloader \
+  -u "https://my-artifactory.company.com/repository/releases/com/example/app/1.0.0/app-1.0.0.jar" \
+  -b "dXNlcm5hbWU6cGFzc3dvcmQ="
+```
+
+**Download to specific directory with custom filename:**
+```shell
+o3r-artifact-downloader \
+  -u "https://my-artifactory.company.com/repository/releases/com/example/app/1.0.0/app-1.0.0.jar" \
+  -o "./downloads" \
+  -f "my-app.jar"
 ```
