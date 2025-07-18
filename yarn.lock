@@ -8469,8 +8469,9 @@ __metadata:
     "@o3r/telemetry":
       optional: true
   bin:
-    o3r-artifact-cleaner: ./dist/src/cli/artifact-cleaner.js
-    o3r-pr-artifact-cleaner: ./dist/src/cli/pr-artifact-cleaner.js
+    o3r-artifact-cleaner: ./dist/cli/artifact-cleaner.cjs
+    o3r-artifact-downloader: ./dist/cli/artifact-downloader.cjs
+    o3r-pr-artifact-cleaner: ./dist/cli/pr-artifact-cleaner.cjs
   languageName: unknown
   linkType: soft
 
