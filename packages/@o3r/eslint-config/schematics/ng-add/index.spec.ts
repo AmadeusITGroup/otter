@@ -75,7 +75,7 @@ describe('ng add eslint-config', () => {
     expect(updateEslintConfigMock).toHaveBeenCalledTimes(1);
 
     const packageJson = initialTree.readJson('package.json') as PackageJson;
-    expect(packageJson.scripts.harmonize).toBe("eslint '**/package.json' .yarnrc.yml --quiet --fix --no-error-on-unmatched-pattern");
+    expect(packageJson.scripts.harmonize).toBe('eslint "**/package.json" .yarnrc.yml --quiet --fix --no-error-on-unmatched-pattern');
     expect(packageJson.scripts.postinstall).toContain('yarn harmonize && yarn install --mode=skip-build');
   });
 
