@@ -27,14 +27,16 @@ export const generateOperationFinderFromSingleFile = (specification: OpenAPIV2.D
       const pathObject: Record<OpenAPIV2.HttpMethods, OpenAPIV2.OperationObject | OpenAPIV3.OperationObject | OpenAPIV3_1.OperationObject> = pathObjectOrRef.$ref
         ? (pathObjectOrRef.$ref as string).replace(/^#\/?/, '').split('/').reduce((acc: any, ref) => acc[ref], specification)
         : pathObjectOrRef;
+      const urlPattern = `${path.replace(/{[^}]+}/g, '((?:[^/]+?))')}(?:/(?=$))?$`;
       return {
         path,
-        regexp: new RegExp(`^${(basePath + path).replace(/^\/{2,}/, '/').replace(/{[^}]+}/g, '((?:[^/]+?))')}(?:/(?=$))?$`),
+        urlPattern,
+        regexp: new RegExp(`^${(basePath + urlPattern).replace(/^\/{2,}/, '/')}`),
         operations: Object.entries(pathObject)
           .map(([method, reqObject]) => ({
             method,
             operationId: reqObject.operationId
           }))
-      };
+      } satisfies PathObject;
     });
 };
