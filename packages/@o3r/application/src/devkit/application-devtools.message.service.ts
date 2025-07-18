@@ -1,12 +1,8 @@
 import {
-  DOCUMENT,
-} from '@angular/common';
-import {
   DestroyRef,
+  DOCUMENT,
   inject,
-  Inject,
   Injectable,
-  Optional,
 } from '@angular/core';
 import {
   takeUntilDestroyed,
@@ -47,14 +43,13 @@ export class ApplicationDevtoolsMessageService implements DevtoolsServiceInterfa
   private readonly options: ApplicationDevtoolsServiceOptions;
   private readonly sendMessage = sendOtterMessage<AvailableApplicationMessageContents>;
   private readonly destroyRef = inject(DestroyRef);
+  private readonly logger = inject(LoggerService);
+  private readonly applicationDevtools = inject(OtterApplicationDevtools);
 
-  constructor(
-    private readonly logger: LoggerService,
-    private readonly applicationDevtools: OtterApplicationDevtools,
-    @Optional() @Inject(OTTER_APPLICATION_DEVTOOLS_OPTIONS) options?: ApplicationDevtoolsServiceOptions) {
+  constructor() {
     this.options = {
       ...OTTER_APPLICATION_DEVTOOLS_DEFAULT_OPTIONS,
-      ...options
+      ...inject(OTTER_APPLICATION_DEVTOOLS_OPTIONS, { optional: true })
     };
 
     if (this.options.isActivatedOnBootstrap) {

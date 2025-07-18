@@ -1,5 +1,6 @@
 import {
   ApplicationRef,
+  inject,
   Injectable,
   OnDestroy,
   signal,
@@ -115,7 +116,9 @@ export class ChromeExtensionConnectionService implements OnDestroy {
   private readonly configurations = new ReplaySubject<Dictionary<ConfigurationModel>>(1);
   public configurations$ = this.configurations.asObservable();
 
-  constructor(appRef: ApplicationRef) {
+  constructor() {
+    const appRef = inject(ApplicationRef);
+
     this.message$.pipe(takeUntilDestroyed(), debounceTime(100)).subscribe(() => appRef.tick());
     this.message$.pipe(takeUntilDestroyed(), filter(isConfigurationsMessage), map((data) => data.configurations)).subscribe((configurations) => this.configurations.next(configurations));
   }

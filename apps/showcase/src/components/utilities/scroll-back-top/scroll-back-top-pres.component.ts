@@ -1,11 +1,11 @@
 import {
   AsyncPipe,
-  DOCUMENT,
   ViewportScroller,
 } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  DOCUMENT,
   inject,
   ViewEncapsulation,
 } from '@angular/core';
