@@ -56,7 +56,9 @@ const dependenciesToInstall: string[] = [];
 const devDependenciesToInstall = [
   'pixelmatch',
   'pngjs',
-  '@angular-devkit/build-angular'
+  '@angular-devkit/build-angular',
+  '@angular/core',
+  '@angular/common'
 ];
 
 /**

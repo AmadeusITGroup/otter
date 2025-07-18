@@ -78,7 +78,11 @@ export type {{classname}} = {{#oneOf}}{{.}}{{^-last}} | {{/-last}}{{/oneOf}};
     {{#hasEnums}}
       {{#allVars}}
         {{#isEnum}}
-export type {{#removeBrackets}}{{{datatypeWithEnum}}}{{/removeBrackets}} = {{#trimPipe}}{{#vendorExtensions}}{{#x-sanitized-allowable-values}}'{{.}}' | {{/x-sanitized-allowable-values}}{{/vendorExtensions}}{{/trimPipe}};
+/** Array of {{#removeBrackets}}{{{datatypeWithEnum}}}{{/removeBrackets}} items */
+export const {{#upperSnakeCase}}list{{#removeBrackets}}{{{datatypeWithEnum}}}{{/removeBrackets}}{{/upperSnakeCase}} = [{{#trimComma}}{{#vendorExtensions}}{{#x-sanitized-allowable-values}}'{{.}}'{{^-last}}, {{/-last}}{{/x-sanitized-allowable-values}}{{/vendorExtensions}}{{/trimComma}}] as const;
+
+/** List of available values for {{#removeBrackets}}{{{datatypeWithEnum}}}{{/removeBrackets}} */
+export type {{#removeBrackets}}{{{datatypeWithEnum}}}{{/removeBrackets}} = typeof {{#upperSnakeCase}}list{{#removeBrackets}}{{{datatypeWithEnum}}}{{/removeBrackets}}{{/upperSnakeCase}}[number];
         {{/isEnum}}
       {{/allVars}}
     {{/hasEnums}}
@@ -91,7 +95,11 @@ export const {{baseName}}Pattern = {{#parseRegexp}}{{{pattern}}}{{/parseRegexp}}
     {{/vars}}
   {{/isEnum}}
   {{#isEnum}}
-export type {{classname}} = {{#trimPipe}}{{#allowableValues}}{{#values}}'{{.}}' | {{/values}}{{/allowableValues}}{{/trimPipe}};
+/** Array of {{classname}} items */
+export const {{#upperSnakeCase}}list{{classname}}{{/upperSnakeCase}} = [{{#trimComma}}{{#allowableValues}}{{#values}}'{{.}}'{{^-last}}, {{/-last}}{{/values}}{{/allowableValues}}{{/trimComma}}] as const;
+
+/** List of available values for {{classname}} */
+export type {{classname}} = typeof {{#upperSnakeCase}}list{{classname}}{{/upperSnakeCase}}[number];
   {{/isEnum}}
 {{/model}}
 {{/models}}

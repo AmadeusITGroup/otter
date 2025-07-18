@@ -5,14 +5,12 @@ import {
   MergeStrategy,
   mergeWith,
   move,
-  noop,
   renameTemplateFiles,
   Rule,
   template,
   url,
 } from '@angular-devkit/schematics';
 import {
-  applyEditorConfig,
   createOtterSchematic,
   getExternalDependenciesInfo,
   getO3rPeerDeps,
@@ -124,8 +122,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
   return chain([
     setup,
     generateConfig,
-    updatePackageJson,
-    options.skipLinter ? noop() : applyEditorConfig()
+    updatePackageJson
   ]);
 }
 

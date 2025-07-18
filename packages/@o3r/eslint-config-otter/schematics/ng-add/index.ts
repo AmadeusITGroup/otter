@@ -46,8 +46,7 @@ const devDependenciesToInstall = [
   'eslint-plugin-jsdoc',
   'eslint-plugin-prefer-arrow',
   'eslint-plugin-unicorn',
-  'jsonc-eslint-parser',
-  'yaml-eslint-parser'
+  'jsonc-eslint-parser'
 ];
 
 /**

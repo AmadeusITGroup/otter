@@ -10,6 +10,7 @@ export * from './fetch-cache/index';
 export * from './fetch-credentials/index';
 export * from './json-token/index';
 export * from './mgw-mdw-auth/index';
+export * from './open-telemetry/traceparent/index';
 export * from './mock-intercept/index';
 export * from './pii-tokenizer/index';
 export * from './raw-response-info/index';

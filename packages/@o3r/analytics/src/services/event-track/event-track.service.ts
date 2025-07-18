@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention -- naming convention for DOM, FP, and FMP imposed by Lighthouse */
 import {
+  decodeTraceparentHeader,
   type Mark,
 } from '@ama-sdk/core';
 import {
@@ -105,8 +106,13 @@ export class EventTrackService {
     }
   }
 
+  private readonly requestIdHeader: string;
+  private readonly traceHeader: string;
+
   constructor(private readonly router: Router, private readonly zone: NgZone, @Optional() @Inject(EVENT_TRACK_SERVICE_CONFIGURATION) config?: EventTrackConfiguration) {
     const eventConfiguration = { ...defaultEventTrackConfiguration, ...config };
+    this.requestIdHeader = eventConfiguration.requestIdHeader;
+    this.traceHeader = eventConfiguration.traceHeader;
     this.uiTrackingActivated = new BehaviorSubject<boolean>(eventConfiguration.activate.uiTracking);
     this.uiTrackingActive$ = this.uiTrackingActivated.asObservable();
     this.uiEventTrack = new ReplaySubject<UiEventPayload>(eventConfiguration.uiEventsBufferSize);
@@ -291,12 +297,16 @@ export class EventTrackService {
     };
     if (serverMark.response) {
       const clonedResponse = serverMark.response.clone();
-      const amaRequestId = clonedResponse.headers.get('ama-request-id');
+      const traceHeader = clonedResponse.headers.get(this.traceHeader);
+      const requestId = serverMark.openTelemetryTrace?.traceId
+        || (traceHeader && decodeTraceparentHeader(traceHeader)?.traceId)
+        || clonedResponse.headers.get(this.requestIdHeader)
+        || undefined;
       const blob = await clonedResponse.blob();
       serverCallMetric = {
         ...serverCallMetric,
         responseSize: blob.size,
-        requestId: amaRequestId || undefined
+        requestId
       };
     }
     this.addServerCallMark(serverCallMetric);

@@ -43,6 +43,7 @@ import type {
  */
 const dependenciesToInstall = [
   '@angular/common',
+  '@angular/platform-browser-dynamic',
   '@angular/core',
   '@angular/forms',
   '@ngrx/effects',

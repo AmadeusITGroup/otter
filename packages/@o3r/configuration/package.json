@@ -49,7 +49,7 @@
     "jasmine": "^5.0.0",
     "rxjs": "^7.8.1",
     "ts-node": "~10.9.2",
-    "type-fest": "^4.10.2",
+    "type-fest": "^4.30.1",
     "typescript": "^5.5.4"
   },
   "peerDependenciesMeta": {
@@ -93,7 +93,7 @@
     "@angular/core": "~19.2.0",
     "@angular/platform-browser": "~19.2.0",
     "@angular/platform-browser-dynamic": "~19.2.0",
-    "@babel/core": "~7.27.0",
+    "@babel/core": "~7.28.0",
     "@babel/preset-typescript": "~7.27.0",
     "@compodoc/compodoc": "^1.1.19",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
@@ -119,7 +119,7 @@
     "@typescript-eslint/parser": "~8.35.0",
     "angular-eslint": "~19.4.0",
     "cpy-cli": "^5.0.0",
-    "eslint": "~9.29.0",
+    "eslint": "~9.30.0",
     "eslint-import-resolver-node": "~0.3.9",
     "eslint-import-resolver-typescript": "~3.10.0",
     "eslint-plugin-import": "~2.32.0",
@@ -150,5 +150,8 @@
     "node": "^20.11.1 || >=22.0.0"
   },
   "builders": "./builders.json",
-  "schematics": "./collection.json"
+  "schematics": "./collection.json",
+  "ng-update": {
+    "migrations": "./migration.json"
+  }
 }
