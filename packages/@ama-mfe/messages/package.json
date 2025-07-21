@@ -55,9 +55,9 @@
     "@swc/core": "~1.12.0",
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",
-    "@typescript-eslint/parser": "~8.35.0",
+    "@typescript-eslint/parser": "~8.37.0",
     "cpy-cli": "^5.0.0",
-    "eslint": "~9.30.0",
+    "eslint": "~9.31.0",
     "eslint-import-resolver-node": "~0.3.9",
     "eslint-import-resolver-typescript": "~3.10.0",
     "eslint-plugin-import": "~2.32.0",
@@ -79,7 +79,7 @@
     "ts-node": "~10.9.2",
     "type-fest": "^4.30.1",
     "typescript": "~5.8.2",
-    "typescript-eslint": "~8.35.0"
+    "typescript-eslint": "~8.37.0"
   },
   "engines": {
     "node": "^20.11.1 || >=22.0.0"
