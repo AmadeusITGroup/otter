@@ -129,6 +129,7 @@
   ],
   "resolutions": {
     "@types/node": "^20.0.0",
+    "form-data": "^4.0.4",
     "typescript-json-schema/typescript": "~5.4.2"
   },
   "dependencies": {
