@@ -36,7 +36,7 @@ export interface LocalStateModel {
 /**
  * Adds an `id` to the given type
  */
-export type Idfy<T> = T & {id: string | number};
+export type Idfy<T> = T & { id: string | number };
 
 /**
  * Payload to update actions
@@ -65,28 +65,32 @@ export interface FailActionPayload<T> {
   error?: T;
 }
 
+export type Keep<T, K extends keyof T> = Partial<T> & Pick<T, K>;
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
-export type keep<T, K extends keyof T> = (Partial<T> & { [p in K]: T[p] });
+/**
+ * @deprecated please use {@link Keep} instead, will be removed in v13.
+ */
+// eslint-disable-next-line @typescript-eslint/naming-convention -- deprecated
+export type keep<T, K extends keyof T> = Keep<T, K>;
 
 /** Payload to update entities actions */
 export interface UpdateEntitiesActionPayload<T, K extends keyof T> {
-  entities: keep<T, K>[];
+  entities: Keep<T, K>[];
 }
 
 /** Payload to update entities actions with a field ID */
-export interface UpdateEntitiesActionPayloadWithId<T extends {id: string | number}> {
-  entities: keep<T, 'id'>[];
+export interface UpdateEntitiesActionPayloadWithId<T extends { id: string | number }> {
+  entities: Keep<T, 'id'>[];
 }
 
 /** Payload to update entities actions */
 export interface UpdateEntityActionPayload<T, K extends keyof T> {
-  entity: keep<T, K>;
+  entity: Keep<T, K>;
 }
 
 /** Payload to update entities actions with a field ID */
-export interface UpdateEntityActionPayloadWithId<T extends {id: string | number}> {
-  entity: keep<T, 'id'>;
+export interface UpdateEntityActionPayloadWithId<T extends { id: string | number }> {
+  entity: Keep<T, 'id'>;
 }
 
 /** Payload to set entities and upsert entities actions */

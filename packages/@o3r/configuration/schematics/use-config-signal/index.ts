@@ -2,7 +2,7 @@ import {
   chain,
   noop,
   type Rule,
-  type Tree
+  type Tree,
 } from '@angular-devkit/schematics';
 import {
   addCommentsOnClassProperties,
@@ -12,10 +12,12 @@ import {
   createSchematicWithMetricsIfInstalled,
   generateClassElementsFromString,
   isO3rClassComponent,
-  O3rCliError
+  O3rCliError,
 } from '@o3r/schematics';
 import * as ts from 'typescript';
-import type { NgUseConfigSignalSchematicsSchema } from './schema';
+import type {
+  NgUseConfigSignalSchematicsSchema,
+} from './schema';
 
 const configObserverRegexp = /.*new ConfigurationObserver<(?<configName>\w+)>\(\s*(?<configId>\w+),\s*(?<defaultConfig>\w+)(,\s*\w+)?\s*\);/;
 
@@ -40,7 +42,6 @@ function ngUseConfigSignalFn(options: NgUseConfigSignalSchematicsSchema): Rule {
         importNames: [
           'configSignal',
           'O3rConfig',
-          'ConfigurationBaseService',
           'DynamicConfigurableWithSignal'
         ]
       }
@@ -76,12 +77,10 @@ function ngUseConfigSignalFn(options: NgUseConfigSignalSchematicsSchema): Rule {
           const visit = (node: ts.Node): ts.Node => {
             if (ts.isClassDeclaration(node) && isO3rClassComponent(node)) {
               const propertiesToAdd = generateClassElementsFromString(`
-  private readonly configurationService = inject(ConfigurationBaseService);
-
   public config = input<Partial<${configName}>>();
 
   @O3rConfig()
-  public readonly configSignal = configSignal(this.config, ${configId}, ${defaultConfig}, this.configurationService);
+  public readonly configSignal = configSignal(this.config, ${configId}, ${defaultConfig});
 
   public readonly config$ = toObservable(this.configSignal);`);
 
@@ -90,9 +89,11 @@ function ngUseConfigSignalFn(options: NgUseConfigSignalSchematicsSchema): Rule {
                   !member.name
                   || (
                     ts.isIdentifier(member.name)
-                    && member.name.escapedText !== 'config$'
-                    && member.name.escapedText !== 'config'
-                    && member.name.escapedText !== 'dynamicConfig$'
+                    && ![
+                      'config$',
+                      'config',
+                      'dynamicConfig$'
+                    ].includes(member.name.escapedText.toString())
                   )
                 )
               );

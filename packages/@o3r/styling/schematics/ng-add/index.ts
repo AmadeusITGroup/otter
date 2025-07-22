@@ -1,19 +1,36 @@
-import { chain, Rule } from '@angular-devkit/schematics';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { updateCmsAdapter } from '../cms-adapter';
-import type { NgAddSchematicsSchema } from './schema';
+import {
+  chain,
+  Rule,
+} from '@angular-devkit/schematics';
+import type {
+  PackageJson,
+} from 'type-fest';
+import {
+  updateCmsAdapter,
+} from '../cms-adapter';
+import type {
+  NgAddSchematicsSchema,
+} from './schema';
 
+/**
+ * List of external dependencies to be added to the project as peer dependencies
+ */
+const dependenciesToInstall = [
+  '@angular/cdk',
+  '@angular/material'
+];
+
+/**
+ * List of external dependencies to be added to the project as dev dependencies
+ */
 const devDependenciesToInstall = [
+  '@angular-devkit/schematics',
+  '@schematics/angular',
   'chokidar',
   'sass-loader'
 ];
-
-const dependenciesToInstall = [
-  '@angular/material',
-  '@angular/cdk'
-];
-
 
 const reportMissingSchematicsDep = (logger: { error: (message: string) => any }) => (reason: any) => {
   logger.error(`[ERROR]: Adding @o3r/styling has failed.
@@ -41,17 +58,18 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       registerPackageCollectionSchematics,
       setupSchematicsParamsForProject,
       updateSassImports,
-      getExternalDependenciesVersionRange
+      getExternalDependenciesInfo
     } = await import('@o3r/schematics');
-    options = {...getDefaultOptionsForSchematic(getWorkspaceConfig(tree), '@o3r/styling', 'ng-add', options), ...options};
-    const {updateThemeFiles, removeV7OtterAssetsInAngularJson} = await import('./theme-files');
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    const {NodeDependencyType} = await import('@schematics/angular/utility/dependencies');
+    options = { ...getDefaultOptionsForSchematic(getWorkspaceConfig(tree), '@o3r/styling', 'ng-add', options), ...options };
+    const { updateThemeFiles, removeV7OtterAssetsInAngularJson } = await import('./theme-files');
     const depsInfo = getO3rPeerDeps(packageJsonPath);
     if (options.enableMetadataExtract) {
-      depsInfo.o3rPeerDeps = [...depsInfo.o3rPeerDeps , '@o3r/extractors'];
+      depsInfo.o3rPeerDeps = [...depsInfo.o3rPeerDeps, '@o3r/extractors'];
     }
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
+    const projectDirectory = workspaceProject?.root || '.';
+    const projectPackageJson = tree.readJson(path.posix.join(projectDirectory, 'package.json')) as PackageJson;
+
     const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
       acc[dep] = {
         inManifest: [{
@@ -62,24 +80,18 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       };
       return acc;
     }, getPackageInstallConfig(packageJsonPath, tree, options.projectName, false, !!options.exactO3rVersion));
-    Object.entries(getExternalDependenciesVersionRange(devDependenciesToInstall, packageJsonPath, context.logger))
-      .forEach(([dep, range]) => {
-        dependencies[dep] = {
-          inManifest: [{
-            range,
-            types: [NodeDependencyType.Dev]
-          }]
-        };
-      });
-    Object.entries(getExternalDependenciesVersionRange(dependenciesToInstall, packageJsonPath, context.logger))
-      .forEach(([dep, range]) => {
-        dependencies[dep] = {
-          inManifest: [{
-            range,
-            types: getProjectNewDependenciesTypes(workspaceProject)
-          }]
-        };
-      });
+    const externalDependenciesInfo = getExternalDependenciesInfo({
+      devDependenciesToInstall,
+      dependenciesToInstall,
+      projectType: workspaceProject?.projectType,
+      projectPackageJson,
+      o3rPackageJsonPath: packageJsonPath
+    },
+    context.logger
+    );
+    const schematicsDefaultOptions = {
+      useOtterTheming: undefined
+    };
     return chain([
       removePackages(['@otter/styling']),
       updateSassImports('o3r'),
@@ -87,19 +99,16 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       removeV7OtterAssetsInAngularJson(options),
       setupDependencies({
         projectName: options.projectName,
-        dependencies,
+        dependencies: {
+          ...dependencies,
+          ...externalDependenciesInfo
+        },
         ngAddToRun: depsInfo.o3rPeerDeps
       }),
       registerPackageCollectionSchematics(JSON.parse(fs.readFileSync(packageJsonPath).toString())),
       setupSchematicsParamsForProject({
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        '@o3r/core:component': {
-          useOtterTheming: undefined
-        },
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        '@o3r/core:component-presenter': {
-          useOtterTheming: undefined
-        }
+        '@o3r/core:component': schematicsDefaultOptions,
+        '@o3r/core:component-presenter': schematicsDefaultOptions
       }, options.projectName),
       ...(options.enableMetadataExtract ? [updateCmsAdapter(options)] : [])
     ]);

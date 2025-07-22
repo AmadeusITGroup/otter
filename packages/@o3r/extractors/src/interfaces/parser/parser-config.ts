@@ -1,5 +1,9 @@
-import {DocumentationOptions} from './documentation-options';
-import {FileOptions} from './file-options';
+import {
+  DocumentationOptions,
+} from './documentation-options';
+import {
+  FileOptions,
+} from './file-options';
 
 /**
  * Config for the parser

@@ -1,13 +1,11 @@
-import { TSESLint } from '@typescript-eslint/utils';
-import o3rCategoriesTagsRule, { O3rCategoriesTagsRuleOption } from './o3r-categories-tags';
+import o3rCategoriesTagsRule, {
+  O3rCategoriesTagsRuleOption,
+} from './o3r-categories-tags';
+const {
+  RuleTester
+} = require('@typescript-eslint/rule-tester');
 
-const ruleTester = new TSESLint.RuleTester({
-  parser: require.resolve('@typescript-eslint/parser'),
-  parserOptions: {
-    ecmaVersion: 2018,
-    sourceType: 'module'
-  }
-});
+const ruleTester = new RuleTester();
 
 const code = `
 /**
@@ -23,7 +21,7 @@ export interface Config extends Configuration {
    */
   prop2: string;
 }
-`;
+`.trim();
 
 const options: Readonly<[O3rCategoriesTagsRuleOption]> = [{
   globalConfigCategories: ['global']
@@ -65,7 +63,25 @@ ruleTester.run('o3r-categories-tags', o3rCategoriesTagsRule, {
           data: {
             currentCategory: 'undefinedCategory',
             supportedCategories: 'global, local'
-          }
+          },
+          suggestions: [
+            {
+              messageId: 'suggestReplaceO3rCategory',
+              data: {
+                currentCategory: 'undefinedCategory',
+                suggestedCategory: 'global'
+              },
+              output: code.replace('@o3rCategory local', '@o3rCategory global')
+            },
+            {
+              messageId: 'suggestReplaceO3rCategory',
+              data: {
+                currentCategory: 'undefinedCategory',
+                suggestedCategory: 'local'
+              },
+              output: code
+            }
+          ]
         }
       ]
     },

@@ -1,7 +1,15 @@
-import { posix } from 'node:path';
-import { logging } from '@angular-devkit/core';
-import { execSync } from 'node:child_process';
-import type { WorkspaceSchema } from '../interfaces/angular-workspace';
+import {
+  execSync,
+} from 'node:child_process';
+import {
+  posix,
+} from 'node:path';
+import {
+  logging,
+} from '@angular-devkit/core';
+import type {
+  WorkspaceSchema,
+} from '../interfaces/angular-workspace';
 
 /** Support NPM package managers */
 export type SupportedPackageManagers = 'npm' | 'yarn';
@@ -12,10 +20,10 @@ export type SupportedPackageManagerRunners = `${SupportedPackageManagers} run` |
 /** Support NPM package managers */
 export type SupportedPackageManagerExecutors = `${SupportedPackageManagers} exec` | 'yarn' | 'npx';
 
-const PACKAGE_MANAGER_WORKSPACE_MAPPING: Record<SupportedPackageManagers, string> = {
+const PACKAGE_MANAGER_WORKSPACE_MAPPING = {
   npm: '--workspace',
   yarn: 'workspace'
-};
+} as const satisfies Record<SupportedPackageManagers, string>;
 
 /** Option to determine Package Manager */
 export interface PackageManagerOptions {
@@ -70,7 +78,7 @@ export function getPackageManager(options?: PackageManagerOptions) {
  * @param workspaceConfig Workspace configuration
  * @param packageName Name of the package of the workspace to run the script (name from package.json)
  */
-export function getPackageManagerRunner(workspaceConfig?: WorkspaceSchema | string | null, packageName?: string | undefined): string {
+export function getPackageManagerRunner(workspaceConfig?: WorkspaceSchema | string | null, packageName?: string): string {
   const pckManager = getPackageManager({ workspaceConfig });
   if (!packageName) {
     return `${pckManager} run` as SupportedPackageManagerRunners;
@@ -83,7 +91,7 @@ export function getPackageManagerRunner(workspaceConfig?: WorkspaceSchema | stri
  * @param workspaceConfig Workspace configuration
  * @param packageName Name of the package of the workspace to execute the command
  */
-export function getPackageManagerExecutor(workspaceConfig?: WorkspaceSchema | string | null, packageName?: string | undefined): string {
+export function getPackageManagerExecutor(workspaceConfig?: WorkspaceSchema | string | null, packageName?: string): string {
   const pckManager = getPackageManager({ workspaceConfig });
   if (!packageName) {
     return `${pckManager} exec` as SupportedPackageManagerExecutors;
@@ -94,7 +102,6 @@ export function getPackageManagerExecutor(workspaceConfig?: WorkspaceSchema | st
 /**
  * Determine if the given package is installed
  * @param packageName name of the package to check
- * @returns
  */
 export function isPackageInstalled(packageName: string) {
   try {
@@ -116,9 +123,7 @@ export function getPackageManagerVersion(options?: PackageManagerOptions): strin
       env: {
         ...process.env,
         //  NPM updater notifier will prevents the child process from closing until it timeout after 3 minutes.
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         NO_UPDATE_NOTIFIER: '1',
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         NPM_CONFIG_UPDATE_NOTIFIER: 'false'
       }
     }).trim();

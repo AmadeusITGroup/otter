@@ -1,5 +1,22 @@
-import {PluginRunner, RequestOptions, RequestPlugin, RequestPluginContext} from '../core';
-import type {Logger} from '../../fwk/logger';
+import type {
+  Logger,
+} from '../../fwk/logger';
+import {
+  PluginRunner,
+  RequestOptions,
+  RequestPlugin,
+  RequestPluginContext,
+} from '../core';
+
+/**
+ * Akamai loads a script on the first page, that will expose a bmak object on window
+ * This bmak object exposes a function get_telemetry that will return the telemetry value to put in the akamai header
+ */
+export interface AkamaiObject {
+  /** Method exposed by akamai to get telemetry */
+  // eslint-disable-next-line @typescript-eslint/naming-convention -- naming convention imposed by Akamai
+  get_telemetry: () => string;
+}
 
 /**
  * Function that returns the value of the fingerprint if available.
@@ -20,7 +37,7 @@ export interface ImpervaProtection {
 
 declare global {
   interface Window {
-    bmak?: any;
+    bmak?: AkamaiObject;
     protectionLoaded?: (protection: ImpervaProtection) => void;
   }
 }
@@ -42,8 +59,8 @@ export function impervaProtectionRetrieverFactory(protectionTimeout: number, tok
   const getProtection = () => {
     return new Promise<ImpervaProtection>((resolve, reject) => {
       const timeout = setTimeout(
-        () => reject(`[SDK][Plug-in][BotProtectionFingerprintRequest] Timeout: no Protection object was received in time.
-If the application runs on a domain that is not protected by Imperva, this plugin should be disabled.`),
+        () => reject(new Error(`[SDK][Plug-in][BotProtectionFingerprintRequest] Timeout: no Protection object was received in time.
+If the application runs on a domain that is not protected by Imperva, this plugin should be disabled.`)),
         protectionTimeout);
       window.protectionLoaded = (protectionObject: ImpervaProtection) => {
         protection = protectionObject;
@@ -66,20 +83,10 @@ If the application runs on a domain that is not protected by Imperva, this plugi
     try {
       return await protection.token(tokenTimeout);
     } catch (e) {
-      (logger || console).error('[SDK][Plug-in][BotProtectionFingerprintRequest] Timeout: no Token was received in time.');
+      (logger || console).error('[SDK][Plug-in][BotProtectionFingerprintRequest] Timeout: no Token was received in time.', e);
       return;
     }
   };
-}
-
-/**
- * Akamai loads a script on the first page, that will expose a bmak object on window
- * This bmak object exposes a function get_telemetry that will return the telemetry value to put in the akamai header
- */
-export interface AkamaiObject {
-  /** Method exposed by akamai to get telemetry */
-  // eslint-disable-next-line @typescript-eslint/naming-convention,camelcase
-  get_telemetry: () => string;
 }
 
 /**
@@ -88,7 +95,7 @@ export interface AkamaiObject {
  * @param bmakOpt BMak object from Akamai. Default to `window.bmak` on browser if not provided.
  */
 export function akamaiTelemetryRetrieverFactory(bmakOpt?: AkamaiObject): BotProtectionFingerprintRetriever {
-  const bmak = bmakOpt || (typeof window !== 'undefined' ? window.bmak : undefined);
+  const bmak = bmakOpt || (typeof window === 'undefined' ? undefined : window.bmak);
   return () => {
     if (!bmak || !(typeof bmak.get_telemetry === 'function')) {
       return;
@@ -234,7 +241,7 @@ export class BotProtectionFingerprintRequest implements RequestPlugin {
   private async waitForFingerprint(logger?: Logger) {
     const pollerOptions = this.options.pollerOptions;
 
-    if (pollerOptions === undefined || this.options.pollOnlyOnce !== false && this.hasPolled) {
+    if (pollerOptions === undefined || (this.options.pollOnlyOnce !== false && this.hasPolled)) {
       return this.options.fingerprintRetriever(logger);
     }
 

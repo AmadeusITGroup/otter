@@ -1,7 +1,17 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
-import { Cascading } from './cascading';
-import { BaseLogger, CascadingConfiguration, CascadingPullRequestInfo, CheckConclusion, DEFAULT_CONFIGURATION, PullRequestContext } from './interfaces';
-import { render } from 'ejs';
+import {
+  render,
+} from 'ejs';
+import {
+  Cascading,
+} from './cascading';
+import {
+  BaseLogger,
+  CascadingConfiguration,
+  CascadingPullRequestInfo,
+  CheckConclusion,
+  DEFAULT_CONFIGURATION,
+  PullRequestContext,
+} from './interfaces';
 
 const mockBasicTemplate = `
 <!-- <%- JSON.stringify({currentBranch, targetBranch, bypassReviewers, isConflicting}) %> -->
@@ -41,7 +51,6 @@ class JestCascading extends Cascading {
 }
 
 describe('Cascading Application', () => {
-
   let customization: JestCascading;
 
   let logger: BaseLogger;
@@ -59,7 +68,7 @@ describe('Cascading Application', () => {
   describe('calculate the branch to re-evaluate function', () => {
     it('should return undefined when non-cascading pull request', async () => {
       customization.isCascadingPullRequest = customization.isCascadingPullRequest.mockResolvedValue(false);
-      await expect(customization.branchToReevaluateCascading({id: 1, body: 'fake PR'})).resolves.toBe(undefined);
+      await expect(customization.branchToReevaluateCascading({ id: 1, body: 'fake PR' })).resolves.toBe(undefined);
       expect(logger.info).toHaveBeenCalled();
     });
 
@@ -67,7 +76,7 @@ describe('Cascading Application', () => {
       customization.isCascadingPullRequest = customization.isCascadingPullRequest.mockResolvedValue(true);
       await expect(customization.branchToReevaluateCascading({
         id: 1,
-        body: render(mockBasicTemplate, { isConflicting: false, targetBranch: 'main', currentBranch: 'release/0.1', bypassReviewers: true }, {async: false})
+        body: render(mockBasicTemplate, { isConflicting: false, targetBranch: 'main', currentBranch: 'release/0.1', bypassReviewers: true }, { async: false })
       })).resolves.toBe(undefined);
       expect(logger.info).toHaveBeenCalled();
     });
@@ -85,7 +94,7 @@ describe('Cascading Application', () => {
   describe('merge cascading pull request', () => {
     it('should skip the process when disabled via config', async () => {
       customization.loadConfiguration = customization.loadConfiguration.mockResolvedValue({ ...DEFAULT_CONFIGURATION, bypassReviewers: false });
-      await expect(customization.mergeCascadingPullRequest({id: 1}, `${DEFAULT_CONFIGURATION.branchNamePrefix}/1.0.0-1.1.0`, 'success')).resolves.not.toThrow();
+      await expect(customization.mergeCascadingPullRequest({ id: 1 }, `${DEFAULT_CONFIGURATION.branchNamePrefix}/1.0.0-1.1.0`, 'success')).resolves.not.toThrow();
       expect(logger.info).not.toHaveBeenCalled();
       expect(customization.mergePullRequest).not.toHaveBeenCalled();
     });
@@ -196,6 +205,91 @@ describe('Cascading Application', () => {
       await expect(customization.cascade('test-cascading/1.0')).resolves.not.toThrow();
       expect(logger.info).toHaveBeenCalledWith('Cascading plugin execution');
       expect(logger.info).toHaveBeenCalledWith('The branch test-cascading/1.0 is the last branch of the cascading. The process will stop.');
+    });
+
+    describe('on onlyCascadeOnHighestMinors options', () => {
+      it('should ignore branches not to the latest minor when true', async () => {
+        customization.loadConfiguration = customization.loadConfiguration.mockResolvedValue({
+          ...DEFAULT_CONFIGURATION,
+          cascadingBranchesPattern: 'test-cascading/.*',
+          onlyCascadeOnHighestMinors: true,
+          ignoredPatterns: []
+        });
+        customization.getBranches = customization.getBranches.mockResolvedValue([
+          'test-cascading/1.0',
+          'test-cascading/1.1',
+          'test-cascading/1.2',
+          'test-cascading/2.0'
+        ]);
+        customization.isBranchAhead = customization.isBranchAhead.mockResolvedValue(true);
+        customization.createBranch = customization.createBranch.mockResolvedValue();
+        customization.getPullRequests = customization.getPullRequests.mockResolvedValue([]);
+        customization.createPullRequest = customization.createPullRequest.mockResolvedValue({
+          id: 1,
+          originBranchName: '',
+          isOpen: true,
+          mergeable: true,
+          body: render(mockBasicTemplate, { isConflicting: false, targetBranch: 'main', currentBranch: 'release/0.1', bypassReviewers: true }, { async: false })
+        });
+        await expect(customization.cascade('test-cascading/1.0')).resolves.not.toThrow();
+        expect(logger.info).toHaveBeenCalledWith('Cascading plugin execution');
+        expect(customization.isBranchAhead).toHaveBeenCalledWith('test-cascading/1.0', 'test-cascading/1.2');
+      });
+
+      it('should ignore branches until latest if needed', async () => {
+        customization.loadConfiguration = customization.loadConfiguration.mockResolvedValue({
+          ...DEFAULT_CONFIGURATION,
+          cascadingBranchesPattern: 'test-cascading/.*',
+          onlyCascadeOnHighestMinors: true,
+          defaultBranch: 'main',
+          ignoredPatterns: []
+        });
+        customization.getBranches = customization.getBranches.mockResolvedValue([
+          'test-cascading/1.0',
+          'main'
+        ]);
+        customization.isBranchAhead = customization.isBranchAhead.mockResolvedValue(true);
+        customization.createBranch = customization.createBranch.mockResolvedValue();
+        customization.getPullRequests = customization.getPullRequests.mockResolvedValue([]);
+        customization.createPullRequest = customization.createPullRequest.mockResolvedValue({
+          id: 1,
+          originBranchName: '',
+          isOpen: true,
+          mergeable: true,
+          body: render(mockBasicTemplate, { isConflicting: false, targetBranch: 'main', currentBranch: 'release/0.1', bypassReviewers: true }, { async: false })
+        });
+        await expect(customization.cascade('test-cascading/1.0')).resolves.not.toThrow();
+        expect(logger.info).toHaveBeenCalledWith('Cascading plugin execution');
+        expect(customization.isBranchAhead).toHaveBeenCalledWith('test-cascading/1.0', 'main');
+      });
+
+      it('should consider branches not to the latest minor when false', async () => {
+        customization.loadConfiguration = customization.loadConfiguration.mockResolvedValue({
+          ...DEFAULT_CONFIGURATION,
+          cascadingBranchesPattern: 'test-cascading/.*',
+          onlyCascadeOnHighestMinors: false,
+          ignoredPatterns: []
+        });
+        customization.getBranches = customization.getBranches.mockResolvedValue([
+          'test-cascading/1.0',
+          'test-cascading/1.1',
+          'test-cascading/1.2',
+          'test-cascading/2.0'
+        ]);
+        customization.isBranchAhead = customization.isBranchAhead.mockResolvedValue(true);
+        customization.createBranch = customization.createBranch.mockResolvedValue();
+        customization.getPullRequests = customization.getPullRequests.mockResolvedValue([]);
+        customization.createPullRequest = customization.createPullRequest.mockResolvedValue({
+          id: 1,
+          originBranchName: '',
+          isOpen: true,
+          mergeable: true,
+          body: render(mockBasicTemplate, { isConflicting: false, targetBranch: 'main', currentBranch: 'release/0.1', bypassReviewers: true }, { async: false })
+        });
+        await expect(customization.cascade('test-cascading/1.0')).resolves.not.toThrow();
+        expect(logger.info).toHaveBeenCalledWith('Cascading plugin execution');
+        expect(customization.isBranchAhead).toHaveBeenCalledWith('test-cascading/1.0', 'test-cascading/1.1');
+      });
     });
 
     it('should skip ignored branch if not ahead', async () => {

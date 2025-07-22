@@ -1,6 +1,12 @@
-import { DebugElement } from '@angular/core';
-import { CheckboxElementProfile } from '../../elements';
-import { O3rElement } from '../element';
+import {
+  DebugElement,
+} from '@angular/core';
+import {
+  CheckboxElementProfile,
+} from '../../elements';
+import {
+  O3rElement,
+} from '../element';
 
 /**
  * Implementation dedicated to angular / TestBed.
@@ -16,7 +22,7 @@ export class O3rCheckboxElement extends O3rElement implements CheckboxElementPro
       this.sourceElement.nativeElement.checked = value;
     }
 
-    this.sourceElement.triggerEventHandler('change', {target: this.sourceElement.nativeElement, preventDefault: () => {}, stopPropagation: () => {}});
+    this.sourceElement.triggerEventHandler('change', { target: this.sourceElement.nativeElement, preventDefault: () => {}, stopPropagation: () => {} });
     return Promise.resolve();
   }
 

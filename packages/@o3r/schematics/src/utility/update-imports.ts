@@ -1,7 +1,13 @@
+import {
+  logging,
+} from '@angular-devkit/core';
+import type {
+  Tree,
+} from '@angular-devkit/schematics';
+import {
+  findNodes,
+} from '@schematics/angular/utility/ast-utils';
 import * as ts from 'typescript';
-import { logging } from '@angular-devkit/core';
-import { findNodes } from '@schematics/angular/utility/ast-utils';
-import type { Tree } from '@angular-devkit/schematics';
 
 /**
  * Extracted symbol from an import line.
@@ -22,6 +28,7 @@ export interface ImportsMapping {
   [packageName: string]: { [importName: string]: { newPackage: string; newValue?: string } };
 }
 
+const escapeRegExp = (str: string) => str.replace(/[$()*+./?[\\\]^{|}-]/g, '\\$&');
 
 /**
  * Update the imports of a given file according to replace mapping
@@ -49,7 +56,7 @@ export function updateImportsInFile(
   // First we look for all imports lines targeting an Otter package for which we know a mapping
   findNodes(sourceFile, ts.SyntaxKind.ImportDeclaration).map((nodeImp) => {
     const imp = nodeImp as ts.ImportDeclaration;
-    const importFrom = imp.moduleSpecifier.getText().replace(/['"]/g, '');
+    const importFrom = imp.moduleSpecifier.getText().replace(/["']/g, '');
 
     const renamePackageMatch = importFrom.match(renamePackagesRegexp);
 
@@ -57,7 +64,6 @@ export function updateImportsInFile(
 
     // If the import matched an Otter package
     if (otterPackage) {
-
       if (!oldImportedSymbolsPerPackage[otterPackage]) {
         oldImportedSymbolsPerPackage[otterPackage] = [];
       }
@@ -68,10 +74,10 @@ export function updateImportsInFile(
       // We retrieve all the symbols listed in the import statement
       const namedImport = imp.importClause?.namedBindings;
       const isTypeOnlyImport = !!imp.importClause && ts.isTypeOnlyImportDeclaration(imp.importClause);
-      const imports: ExtractedImport[] = namedImport && ts.isNamedImports(namedImport) ?
-        namedImport.elements.map((element) =>
-          ({symbol: element.getText(), isTypeOnlyImport, location: importFrom})) :
-        [];
+      const imports: ExtractedImport[] = namedImport && ts.isNamedImports(namedImport)
+        ? namedImport.elements.map((element) =>
+          ({ symbol: element.getText(), isTypeOnlyImport, location: importFrom }))
+        : [];
 
       // And associate them to the Otter package
       oldImportedSymbolsPerPackage[otterPackage].push(...imports);
@@ -87,13 +93,9 @@ export function updateImportsInFile(
   // If no mapping is found, we keep the original import location
   const resolvedImports = Object.entries(oldImportedSymbolsPerPackage).reduce((acc, [oldPackageName, importsFromOldPackage]) => {
     importsFromOldPackage.forEach((importSymbol) => {
-
-      let newPackageNameImport;
-      if (renamedPackages[oldPackageName]) {
-        newPackageNameImport = importSymbol.location.replace(oldPackageName, renamedPackages[oldPackageName]);
-      } else {
-        newPackageNameImport = mapImports[oldPackageName]?.[importSymbol.symbol]?.newPackage;
-      }
+      const newPackageNameImport = renamedPackages[oldPackageName]
+        ? importSymbol.location.replace(oldPackageName, renamedPackages[oldPackageName])
+        : mapImports[oldPackageName]?.[importSymbol.symbol]?.newPackage;
 
       const importFrom = newPackageNameImport || importSymbol.location;
       if (!newPackageNameImport) {
@@ -109,7 +111,6 @@ export function updateImportsInFile(
   }, {} as Record<string, string[]>);
 
   let fileContent = tree.readText(sourceFile.fileName);
-  const escapeRegExp = (str: string) => str.replace(/[-[\]/{}()*+?.\\^$|]/g, '\\$&');
 
   // Remove captured imports
   fileContent = fileContent.replace(new RegExp(`(${importNodes.map((node) => escapeRegExp(node.getText())).join('|')})[\\n\\r]*`, 'g'), '');
@@ -120,7 +121,7 @@ export function updateImportsInFile(
       .filter(([_, value]) => value.newValue)
       .map(([key, value]) => [key, value.newValue!])
   ));
-  if (Object.keys(valuesToReplace).length) {
+  if (Object.keys(valuesToReplace).length > 0) {
     const matcher = new RegExp(Object.keys(valuesToReplace).map((oldValue) => `\\b${escapeRegExp(oldValue)}\\b`).join('|'), 'g');
     const replacer = (match: string) => valuesToReplace[match];
     fileContent = fileContent.replace(matcher, replacer);

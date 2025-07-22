@@ -1,7 +1,13 @@
-import { BehaviorSubject, Subject } from 'rxjs';
-import { RulesEngineRunnerService } from '../services/runner/rules-engine.runner.service';
-import { FactsService } from './fact.abstract-service';
-
+import {
+  BehaviorSubject,
+  Subject,
+} from 'rxjs';
+import {
+  RulesEngineRunnerService,
+} from '../services/runner/rules-engine.runner.service';
+import {
+  FactsService,
+} from './fact.abstract-service';
 
 class FakeFactsService extends FactsService<any> {
   constructor(rulesEngine: RulesEngineRunnerService, public facts: any) {

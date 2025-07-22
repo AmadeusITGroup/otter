@@ -1,5 +1,9 @@
-import type { Type } from '@angular/core';
-import type { Context } from '@o3r/core';
+import type {
+  Type,
+} from '@angular/core';
+import type {
+  Context,
+} from '@o3r/core';
 
 /** Interface for grouping the arrays needed for custom component registration */
 export interface EntryCustomComponents {

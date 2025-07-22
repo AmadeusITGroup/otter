@@ -1,6 +1,12 @@
-import { Component, EventEmitter, forwardRef, Type } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
-
+import {
+  Component,
+  EventEmitter,
+  forwardRef,
+  Type,
+} from '@angular/core';
+import {
+  NG_VALUE_ACCESSOR,
+} from '@angular/forms';
 import * as ts from 'typescript';
 
 /**
@@ -9,7 +15,7 @@ import * as ts from 'typescript';
  * @param source Typescript source file
  */
 function isInputNode(node: ts.Node, source: ts.SourceFile): node is ts.Decorator {
-  return ts.isDecorator(node) && /^@Input/.test(node.getText(source));
+  return ts.isDecorator(node) && node.getText(source).startsWith('@Input');
 }
 
 /**
@@ -18,7 +24,7 @@ function isInputNode(node: ts.Node, source: ts.SourceFile): node is ts.Decorator
  * @param source Typescript source file
  */
 function isOutputNode(node: ts.Node, source: ts.SourceFile): node is ts.Decorator {
-  return ts.isDecorator(node) && /^@Output/.test(node.getText(source));
+  return ts.isDecorator(node) && node.getText(source).startsWith('@Output');
 }
 
 /**
@@ -28,7 +34,7 @@ function isOutputNode(node: ts.Node, source: ts.SourceFile): node is ts.Decorato
  * @param source Typescript source file
  */
 function getIOName(currentNode: ts.Node, decorator: ts.Decorator, source: ts.SourceFile): string | undefined {
-  const nameInDecorator = decorator.getText(source).match(/@(Input|Ouput) *\( *(['"](.*)['"])? *\) */i);
+  const nameInDecorator = decorator.getText(source).match(/@(input|output) *\( *(["'](.*)["'])? *\) */i);
   if (nameInDecorator && nameInDecorator[3]) {
     return nameInDecorator[3];
   } else {
@@ -90,7 +96,7 @@ function getSelector(parentNode: ts.Node, source: ts.SourceFile, isInDecorator =
     if (isInDecorator && isInComponentConfig && ts.isIdentifier(node) && node.getText(source) === 'selector') {
       foundSelector = true;
     } else if (foundSelector && ts.isStringLiteral(node)) {
-      ret = node.getText(source).replace(/['"]/ig, '');
+      ret = node.getText(source).replace(/["']/gi, '');
     } else if (isInDecorator && ts.isIdentifier(node) && node.getText(source) === 'Component') {
       foundDecorator = true;
     } else if (isInDecorator && foundDecorator && ts.isObjectLiteralExpression(node)) {
@@ -123,8 +129,7 @@ function getSelector(parentNode: ts.Node, source: ts.SourceFile, isInDecorator =
  * class MockComponent extends generateMockComponent('hero.component.ts') {}
  * ```
  */
-// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-constraint
-export function generateMockComponent<T extends unknown = Record<string, unknown>>(componentPath: string, config?: { template?: string; isControlValueAccessor?: boolean }): Type<T> {
+export function generateMockComponent<T = Record<string, unknown>>(componentPath: string, config?: { template?: string; isControlValueAccessor?: boolean }): Type<T> {
   const program = ts.createProgram([componentPath], {});
   const source = program.getSourceFile(componentPath);
   if (!source) {
@@ -141,26 +146,28 @@ export function generateMockComponent<T extends unknown = Record<string, unknown
       Object.keys(outputs)
         .forEach((outputName) => (this as any)[outputName] = new EventEmitter<any>());
       if (config && config.isControlValueAccessor) {
-        this.writeValue = () => { };
-        this.registerOnChange = () => { };
-        this.registerOnTouched = () => { };
+        this.writeValue = () => {};
+        this.registerOnChange = () => {};
+        this.registerOnTouched = () => {};
       }
     }
   };
 
   return Component({
-    template: config && config.template || '',
+    template: config?.template || '',
     selector: getSelector(source, source) || '',
     inputs,
     outputs,
-    ...(config && config.isControlValueAccessor) ? {
-      providers: [
-        {
-          provide: NG_VALUE_ACCESSOR,
-          useExisting: forwardRef(() => mock),
-          multi: true
-        }
-      ]
-    } : {}
+    ...(config && config.isControlValueAccessor)
+      ? {
+        providers: [
+          {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => mock),
+            multi: true
+          }
+        ]
+      }
+      : {}
   })(mock) as Type<T>;
 }

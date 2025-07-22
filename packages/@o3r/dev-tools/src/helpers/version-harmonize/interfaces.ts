@@ -1,4 +1,6 @@
-import type { PackageJson } from 'type-fest';
+import type {
+  PackageJson,
+} from 'type-fest';
 
 /** Configuration  in a package.json to indication specification to this package */
 export interface PackageConfiguration {

@@ -1,7 +1,16 @@
-import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
-import type { NodePackageInstallTaskOptions } from './interfaces';
-import { getPackageManager, getWorkspaceConfig } from '../../utility/index';
-import { NodePackageName } from '@angular-devkit/schematics/tasks/package-manager/options';
+import {
+  NodePackageInstallTask,
+} from '@angular-devkit/schematics/tasks';
+import {
+  NodePackageName,
+} from '@angular-devkit/schematics/tasks/package-manager/options';
+import {
+  getPackageManager,
+  getWorkspaceConfig,
+} from '../../utility/index';
+import type {
+  NodePackageInstallTaskOptions,
+} from './interfaces';
 
 /**
  * Run NPM Install

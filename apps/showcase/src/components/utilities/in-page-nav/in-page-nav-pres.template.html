@@ -3,7 +3,7 @@
   <ul class="nav nav-pills flex-column">
     @for (link of links; track link.id) {
       <li class="nav-item">
-        <a role="button" class="nav-link" ngbScrollSpyItem [fragment]="link.id" (click)="link.scrollTo($event)">{{ link.label }}</a>
+        <a tabindex="0" role="button" class="nav-link" ngbScrollSpyItem [fragment]="link.id" (click)="link.scrollTo($event)" (keyup.enter)="link.scrollTo($event)">{{ link.label }}</a>
       </li>
     }
   </ul>

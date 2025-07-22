@@ -3,6 +3,6 @@ import {computeItemIdentifier} from '@o3r/core';
 
 export interface <%=componentConfig%> extends Configuration {}
 
-export const <%=configKey%>_DEFAULT_CONFIG: <%=componentConfig%> = {};
+export const <%=configKey%>_DEFAULT_CONFIG: Readonly<<%=componentConfig%>> = {} as const;
 
 export const <%=configKey%>_CONFIG_ID = computeItemIdentifier('<%=componentConfig%>', '<%=projectName%>');

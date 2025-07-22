@@ -1,3 +1,7 @@
+import type {
+  ItemIdentifier,
+} from '@o3r/core';
+
 export type CssVariableType = 'string' | 'color';
 
 /** Metadata for a CSS Variable */
@@ -19,7 +23,7 @@ export interface CssVariable {
   /** Name of a group of variables */
   category?: string;
   /** component reference if the variable is linked to one */
-  component?: { library: string; name: string };
+  component?: ItemIdentifier;
 }
 
 /** Style Metadata map */

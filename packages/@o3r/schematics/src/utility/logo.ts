@@ -1,4 +1,3 @@
-
 const logoMedium = `
               @                      @
            ******/****************@*****@
@@ -36,9 +35,9 @@ const logoSmall = `
  * @param size Size of the logo to generate
  */
 export const getLogo = (size: 'medium' | 'small' = 'medium') => {
-  const logos: Record<typeof size, string> = {
+  const logos = {
     medium: logoMedium,
     small: logoSmall
-  };
+  } as const satisfies Record<typeof size, string>;
   return logos[size];
 };

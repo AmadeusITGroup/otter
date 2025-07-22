@@ -1,10 +1,11 @@
-import type { EventTrackService } from '@o3r/analytics';
+import type {
+  EventTrackService,
+} from '@o3r/analytics';
 
 /**
  * Fixture for the EventTrack Service
  */
 export class EventTrackServiceFixture implements Readonly<Partial<EventTrackService>> {
-
   /** @inheritdoc */
   public markFirstLoad: jasmine.Spy = jasmine.createSpy('markFirstLoad');
 
@@ -52,5 +53,4 @@ export class EventTrackServiceFixture implements Readonly<Partial<EventTrackServ
 
   /** @inheritdoc */
   public addCustomEvent: jasmine.Spy = jasmine.createSpy('addCustomEvent');
-
 }

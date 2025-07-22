@@ -1,5 +1,10 @@
-import type {Context} from '@o3r/core';
-import type { DatePickerInputPresContextInput, DatePickerInputPresContextOutput } from '../date-picker-input/index';
+import type {
+  Context,
+} from '@o3r/core';
+import type {
+  DatePickerInputPresContextInput,
+  DatePickerInputPresContextOutput,
+} from '../date-picker-input/index';
 
 /**
  * The ContextInput interface describes all the inputs of the component

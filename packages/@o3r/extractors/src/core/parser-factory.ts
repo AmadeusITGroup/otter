@@ -1,4 +1,6 @@
-import {ParserConfig} from '../interfaces/parser/parser-config';
+import {
+  ParserConfig,
+} from '../interfaces/parser/parser-config';
 
 /**
  * Represents a factory responsible to generate an IParserConfig

@@ -1,0 +1,23 @@
+{
+  "extends": "../../../tsconfig.build.json",
+  "compilerOptions": {
+    "incremental": true,
+    "composite": true,
+    "outDir": "./dist",
+    "module": "CommonJS",
+    "rootDir": ".",
+    "tsBuildInfoFile": "build/.tsbuildinfo.cli",
+    "skipLibCheck": true /* because of @webcontainer/api 1.4.0 */
+  },
+  "references": [
+    {
+      "path": "./tsconfig.build.json"
+    }
+  ],
+  "include": [
+    "cli/**/*.cts"
+  ],
+  "exclude": [
+    "**/*.spec.ts"
+  ]
+}

@@ -1,5 +1,9 @@
-import { DocumentationNode } from '../documentation-node';
-import { BaseEntity } from './base-entity';
+import {
+  DocumentationNode,
+} from '../documentation-node';
+import {
+  BaseEntity,
+} from './base-entity';
 
 /**
  * Component entity

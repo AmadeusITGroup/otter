@@ -1,8 +1,15 @@
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-
-import { MaxValidator } from './max.directive';
-import { MinValidator } from './min.directive';
+import {
+  CommonModule,
+} from '@angular/common';
+import {
+  NgModule,
+} from '@angular/core';
+import {
+  MaxValidator,
+} from './max.directive';
+import {
+  MinValidator,
+} from './min.directive';
 
 @NgModule({
   imports: [CommonModule],

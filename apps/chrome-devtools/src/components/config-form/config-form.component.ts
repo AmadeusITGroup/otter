@@ -1,8 +1,30 @@
-import { KeyValuePipe, NgClass } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
-import { FormControl, FormsModule, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
-import { ConfigurationModel } from '@o3r/configuration';
-import { ChromeExtensionConnectionService } from '../../services/connection.service';
+import {
+  KeyValuePipe,
+  NgClass,
+} from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  input,
+} from '@angular/core';
+import {
+  FormControl,
+  FormsModule,
+  ReactiveFormsModule,
+  UntypedFormGroup,
+} from '@angular/forms';
+import type {
+  Configuration,
+  ConfigurationModel,
+} from '@o3r/configuration';
+import {
+  StateService,
+} from '../../services';
+import {
+  ChromeExtensionConnectionService,
+} from '../../services/connection.service';
 
 type ControlsType = Record<string, 'boolean' | 'string' | 'number'>;
 
@@ -32,6 +54,7 @@ export class ConfigFormComponent {
   /**
    * Type of controls for each configuration property
    */
+
   public controlsType = computed<Record<string, 'boolean' | 'string' | 'number'>>(() => {
     return Object.entries(this.config()).reduce((acc: ControlsType, [key, value]) => {
       if (key !== 'id') {
@@ -44,6 +67,7 @@ export class ConfigFormComponent {
           }
           this.form.controls[key].setValue(value);
         } else {
+          // eslint-disable-next-line no-console -- needed to warn the user
           console.warn(`[Otter Chrome Extension] Unsupported type: ${type}`);
         }
       }
@@ -52,11 +76,17 @@ export class ConfigFormComponent {
   });
 
   private readonly connectionService = inject(ChromeExtensionConnectionService);
+  private readonly stateService = inject(StateService);
 
   public onSubmit() {
+    void this.stateService.updateLocalState({
+      configurations: {
+        [this.config().id]: this.form.value as Configuration
+      }
+    });
     this.connectionService.sendMessage('updateConfig', {
       id: this.config().id,
-      configValue: this.form.value
+      configValue: this.form.value as Configuration
     });
   }
 }

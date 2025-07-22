@@ -1,2 +1,2 @@
-export * from './reporters.interface';
 export * from './build-stats.plugin';
+export * from './reporters.interface';

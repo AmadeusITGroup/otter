@@ -1,8 +1,20 @@
-import { InjectionToken, ModuleWithProviders, NgModule } from '@angular/core';
-import { Action, ActionReducer, StoreModule } from '@ngrx/store';
-
-import { eventTrackReducer } from './event-track.reducer';
-import { EVENT_TRACK_STORE_NAME, EventTrackState } from './event-track.state';
+import {
+  InjectionToken,
+  ModuleWithProviders,
+  NgModule,
+} from '@angular/core';
+import {
+  Action,
+  ActionReducer,
+  StoreModule,
+} from '@ngrx/store';
+import {
+  eventTrackReducer,
+} from './event-track.reducer';
+import {
+  EVENT_TRACK_STORE_NAME,
+  EventTrackState,
+} from './event-track.state';
 
 /** Token of the EventTrack reducer */
 export const EVENT_TRACK_REDUCER_TOKEN = new InjectionToken<ActionReducer<EventTrackState, Action>>('Feature EventTrack Reducer');

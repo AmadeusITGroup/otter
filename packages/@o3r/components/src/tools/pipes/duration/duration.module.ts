@@ -1,5 +1,9 @@
-import {NgModule} from '@angular/core';
-import {DurationPipe} from './duration.pipe';
+import {
+  NgModule,
+} from '@angular/core';
+import {
+  DurationPipe,
+} from './duration.pipe';
 
 /**
  * @deprecated please use O3rDurationPipe, will be removed in v12.

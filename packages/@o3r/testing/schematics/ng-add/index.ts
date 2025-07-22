@@ -1,8 +1,26 @@
-import { apply, chain, MergeStrategy, mergeWith, move, noop, renameTemplateFiles, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
+import {
+  askConfirmation,
+} from '@angular/cli/src/utilities/prompt';
+import {
+  apply,
+  chain,
+  MergeStrategy,
+  mergeWith,
+  move,
+  noop,
+  renameTemplateFiles,
+  Rule,
+  SchematicContext,
+  template,
+  Tree,
+  url,
+} from '@angular-devkit/schematics';
 import {
   addVsCodeRecommendations,
   createSchematicWithMetricsIfInstalled,
-  getExternalDependenciesVersionRange,
+  getExternalDependenciesInfo,
   getO3rPeerDeps,
   getPackageInstallConfig,
   getProjectNewDependenciesTypes,
@@ -10,26 +28,34 @@ import {
   getWorkspaceConfig,
   O3rCliError,
   registerPackageCollectionSchematics,
-  removePackages, setupDependencies,
-  setupSchematicsParamsForProject
+  removePackages,
+  setupDependencies,
+  setupSchematicsParamsForProject,
 } from '@o3r/schematics';
-import { askConfirmation } from '@angular/cli/src/utilities/prompt';
-import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
-import * as fs from 'node:fs';
-import * as path from 'node:path';
-import type { PackageJson } from 'type-fest';
-import type { NgAddSchematicsSchema } from '../../schematics/ng-add/schema';
-import { updateFixtureConfig } from './fixture';
-import { updatePlaywright } from './playwright';
+import type {
+  PackageJson,
+} from 'type-fest';
+import type {
+  NgAddSchematicsSchema,
+} from '../../schematics/ng-add/schema';
+import {
+  updateFixtureConfig,
+} from './fixture';
+import {
+  updatePlaywright,
+} from './playwright';
+/**
+ * List of external dependencies to be added to the project as peer dependencies
+ */
+const dependenciesToInstall: string[] = [];
 
+/**
+ * List of external dependencies to be added to the project as dev dependencies
+ */
 const devDependenciesToInstall = [
   'pixelmatch',
   'pngjs',
-  'jest',
-  'jest-environment-jsdom',
-  'jest-preset-angular',
-  'ts-jest',
-  '@types/jest'
+  '@angular-devkit/build-angular'
 ];
 
 /**
@@ -40,34 +66,15 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
   return async (tree: Tree, context: SchematicContext) => {
     try {
       const testPackageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
-      const packageJson = JSON.parse(fs.readFileSync(testPackageJsonPath, { encoding: 'utf-8' })) as PackageJson;
+      const packageJson = JSON.parse(fs.readFileSync(testPackageJsonPath, { encoding: 'utf8' })) as PackageJson;
       const depsInfo = getO3rPeerDeps(testPackageJsonPath);
       const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
       const workingDirectory = workspaceProject?.root || '.';
+      const projectPackageJson = tree.readJson(path.posix.join(workingDirectory, 'package.json')) as PackageJson;
       const projectType = workspaceProject?.projectType || 'application';
-      const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
-        acc[dep] = {
-          inManifest: [{
-            range: `${options.exactO3rVersion ? '' : '~'}${depsInfo.packageVersion}`,
-            types: getProjectNewDependenciesTypes(workspaceProject)
-          }],
-          ngAddOptions: { exactO3rVersion: options.exactO3rVersion }
-        };
-        return acc;
-      }, getPackageInstallConfig(testPackageJsonPath, tree, options.projectName, true, !!options.exactO3rVersion));
-      Object.entries(getExternalDependenciesVersionRange(devDependenciesToInstall, testPackageJsonPath, context.logger))
-        .forEach(([dep, range]) => {
-          dependencies[dep] = {
-            inManifest: [{
-              range,
-              types: [NodeDependencyType.Dev]
-            }]
-          };
-        });
-
       let installJest;
-      const testFramework = options.testingFramework || getTestFramework(getWorkspaceConfig(tree), context);
 
+      const testFramework = options.testingFramework || getTestFramework(getWorkspaceConfig(tree), context);
       switch (testFramework) {
         case 'jest': {
           installJest = true;
@@ -81,17 +88,53 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
           installJest = await askConfirmation('No test framework detected. Do you want to setup Jest test framework?', true, false);
           break;
         }
-        case 'other':
         default: {
           installJest = false;
           break;
         }
       }
 
-      const installPlaywright = options.enablePlaywright !== undefined && projectType === 'application' ?
-        options.enablePlaywright :
-        await askConfirmation('Do you want to setup Playwright test framework for E2E?', true);
+      const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
+        acc[dep] = {
+          inManifest: [{
+            range: `${options.exactO3rVersion ? '' : '~'}${depsInfo.packageVersion}`,
+            types: getProjectNewDependenciesTypes(workspaceProject)
+          }],
+          ngAddOptions: { exactO3rVersion: options.exactO3rVersion }
+        };
+        return acc;
+      }, getPackageInstallConfig(testPackageJsonPath, tree, options.projectName, true, !!options.exactO3rVersion));
+      if (installJest) {
+        devDependenciesToInstall.push(
+          '@angular-builders/jest',
+          '@types/jest',
+          'jest',
+          'jest-environment-jsdom',
+          'jest-preset-angular',
+          'ts-jest'
+        );
+      }
 
+      const externalDependenciesInfo = getExternalDependenciesInfo({
+        devDependenciesToInstall,
+        dependenciesToInstall,
+        o3rPackageJsonPath: testPackageJsonPath,
+        projectType: workspaceProject?.projectType,
+        projectPackageJson
+      },
+      context.logger
+      );
+
+      let installPlaywright = false;
+      if (projectType === 'application') {
+        installPlaywright = options.enablePlaywright === undefined
+          ? await askConfirmation('Do you want to setup Playwright test framework for E2E?', true)
+          : options.enablePlaywright;
+      }
+
+      const schematicsDefaultOptions = {
+        useComponentFixtures: undefined
+      };
       const rules = [
         updateFixtureConfig(options),
         removePackages(['@otter/testing']),
@@ -99,28 +142,24 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
         installPlaywright ? updatePlaywright(options, dependencies) : noop,
         setupDependencies({
           projectName: options.projectName,
-          dependencies,
+          dependencies: {
+            ...dependencies,
+            ...externalDependenciesInfo
+          },
           ngAddToRun: depsInfo.o3rPeerDeps
         }),
         registerPackageCollectionSchematics(packageJson),
         setupSchematicsParamsForProject({
-          // eslint-disable-next-line @typescript-eslint/naming-convention
-          '@o3r/core:component': {
-            useComponentFixtures: undefined
-          },
-          // eslint-disable-next-line @typescript-eslint/naming-convention
-          '@o3r/core:component-container': {
-            useComponentFixtures: undefined
-          },
-          // eslint-disable-next-line @typescript-eslint/naming-convention
-          '@o3r/core:component-presenter': {
-            useComponentFixtures: undefined
-          }
+          '@o3r/core:component': schematicsDefaultOptions,
+          '@o3r/core:component-container': schematicsDefaultOptions,
+          '@o3r/core:component-presenter': schematicsDefaultOptions
         }, options.projectName)
       ];
 
       if (installJest) {
-        if (workingDirectory !== undefined) {
+        if (workingDirectory === undefined) {
+          throw new O3rCliError(`Could not find working directory for project ${options.projectName || ''}`);
+        } else {
           const packageJsonFile = tree.readJson(`${workingDirectory}/package.json`) as PackageJson;
           packageJsonFile.scripts ||= {};
           packageJsonFile.scripts.test = 'jest';
@@ -138,7 +177,8 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
 
           const jestConfigFilesForWorkspace = () => mergeWith(apply(url('./templates/workspace'), [
             template({
-              ...options
+              ...options,
+              tsconfigPath: `./${['tsconfig.base.json', 'tsconfig.json'].find((tsconfigBase) => tree.exists(`./${tsconfigBase}`))}`
             }),
             move(tree.root.path),
             renameTemplateFiles()
@@ -147,14 +187,10 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
             jestConfigFilesForProject,
             jestConfigFilesForWorkspace
           );
-        } else {
-          throw new O3rCliError(`Could not find working directory for project ${options.projectName || ''}`);
         }
       }
 
-
       return () => chain(rules)(tree, context);
-
     } catch (e) {
       context.logger.error(`[ERROR]: Adding @o3r/testing has failed.
       If the error is related to missing @o3r dependencies you need to install '@o3r/core' or '@o3r/schematics' to be able to use the testing package.

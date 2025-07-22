@@ -1,8 +1,11 @@
-import { RequestOptions } from '../core/request-plugin';
-import { ApiConfigurationOverride } from './api-configuration-override.request';
+import {
+  RequestOptions,
+} from '../core/request-plugin';
+import {
+  ApiConfigurationOverride,
+} from './api-configuration-override.request';
 
 describe('ApiConfigurationOverride Plugin', () => {
-
   let options: RequestOptions;
 
   class FakeHeader {

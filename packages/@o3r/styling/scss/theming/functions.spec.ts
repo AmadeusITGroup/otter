@@ -1,5 +1,9 @@
-import { compileString } from 'sass';
-import { resolve } from 'node:path';
+import {
+  resolve,
+} from 'node:path';
+import {
+  compileString,
+} from 'sass';
 
 const url = new URL('.', 'file://' + resolve(__dirname, 'test.scss'));
 const testedFile = './functions';
@@ -15,7 +19,7 @@ describe('Theming functions', () => {
           color: $myVar2;
         }`;
       const result = compileString(mock, { url });
-      expect(result.css.replaceAll(/[\n\r\s]/g, '')).toEqual('body{background-color:var(--test-color-1,#000);color:var(--test-color-2,#fff);}');
+      expect(result.css.replaceAll(/\s/g, '')).toEqual('body{background-color:var(--test-color-1,#000);color:var(--test-color-2,#fff);}');
     });
 
     it('should define new complex variable', () => {
@@ -25,7 +29,7 @@ describe('Theming functions', () => {
           background-color: $myVar1;
         }`;
       const result = compileString(mock, { url });
-      expect(result.css.replaceAll(/[\n\r\s]/g, '')).toEqual('body{background-color:var(--test-color-1,var(--test-color-2));}');
+      expect(result.css.replaceAll(/\s/g, '')).toEqual('body{background-color:var(--test-color-1,var(--test-color-2));}');
     });
   });
 });

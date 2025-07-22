@@ -22,10 +22,17 @@ Example of a reviver:
 ```typescript
 export function reviveMyModel<T extends MyModel = MyModel>(data: any, dictionaries?: any): T  | undefined {
   if (!data) { return ; }
-  data.myField = reviverMyFiedType<MyFiedType>(data.myField, dictionaries);
+  data.myField = reviverMyFieldType<MyFieldType>(data.myField, dictionaries);
   return data as T;
 }
 ```
+
+> [!TIP]
+> The reviver can help remove dictionary fields from a revived object thanks to the `clearDictionaryFields` option:
+>
+> ```typescript
+> reviveMyModel<MyModel>(data, undefined, { clearDictionaryFields: true });
+> ```
 
 ## Core models (and base models extension)
 

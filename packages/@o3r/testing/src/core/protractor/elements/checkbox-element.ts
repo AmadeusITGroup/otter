@@ -1,9 +1,16 @@
-import {ElementFinder} from 'protractor';
-import {CheckboxElementProfile} from '../../elements';
-import {O3rElement} from '../element';
+import {
+  ElementFinder,
+} from 'protractor';
+import {
+  CheckboxElementProfile,
+} from '../../elements';
+import {
+  O3rElement,
+} from '../element';
 
 /**
  * Implementation dedicated to karma / TestBed.
+ * @deprecated Will be removed in v13, please use Playwright instead
  */
 export class O3rCheckboxElement extends O3rElement implements CheckboxElementProfile {
   constructor(sourceElement: ElementFinder) {

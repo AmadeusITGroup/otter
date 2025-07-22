@@ -1,8 +1,16 @@
-
-import { CapacitorPlatforms, getBaseUrl, getCapacitorPlatform, isCapacitorContext } from './helpers';
-import { Device, DeviceInfo } from '@capacitor/device';
+import {
+  Device,
+  DeviceInfo,
+} from '@capacitor/device';
+import {
+  CapacitorPlatforms,
+  getBaseUrl,
+  getCapacitorPlatform,
+  isCapacitorContext,
+} from './helpers';
 
 /**
+ * Mock capacitor platform
  * @param platform the device platform: ios, android or web
  */
 function setCapacitorPlatform(platform: CapacitorPlatforms) {
@@ -10,9 +18,7 @@ function setCapacitorPlatform(platform: CapacitorPlatforms) {
 }
 
 describe('Capacitor helpers', () => {
-
   describe('setCapacitorPlatform', () => {
-
     it('should return the capacitor platform', async () => {
       setCapacitorPlatform('ios');
 
@@ -53,5 +59,4 @@ describe('Capacitor helpers', () => {
       await expect(getBaseUrl()).resolves.toBe('http://localhost');
     });
   });
-
 });

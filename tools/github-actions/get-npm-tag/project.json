@@ -17,14 +17,14 @@
         "script": "build"
       }
     },
-    "lint": {
+    "package-github-action": {
+      "executor": "nx:run-script",
       "options": {
-        "eslintConfig": "tools/github-actions/get-npm-tag/.eslintrc.js",
-        "lintFilePatterns": [
-          "tools/github-actions/get-npm-tag/src/**/*.ts",
-          "tools/github-actions/get-npm-tag/package.json"
-        ]
+        "script": "package"
       }
+    },
+    "lint": {
+      "executor": "nx:run-commands"
     }
   },
   "tags": []

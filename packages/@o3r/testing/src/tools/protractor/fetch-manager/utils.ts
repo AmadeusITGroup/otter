@@ -1,6 +1,8 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { browser } from 'protractor';
+import {
+  browser,
+} from 'protractor';
 
 /**
  * This function waits for all fetchs calls to be resolved and the page to be stable to resolve the promise.
@@ -12,6 +14,7 @@ import { browser } from 'protractor';
  * flow with `initFetchManager()`
  *
  * You can ignore the waiting of fetchs by setting `browser.ignoreSynchronization` to `true`
+ * @deprecated Will be removed in v13, please use Playwright instead
  */
 export async function waitForOtterStable() {
   await browser.waitForAngular();
@@ -25,19 +28,21 @@ export async function waitForOtterStable() {
 /**
  * This function initiliaze the FetchManager. Set `window.fetch` variable with a custom behaviour in order to count the
  * fetch calls.
+ * @deprecated Will be removed in v13, please use Playwright instead
  */
 export async function initFetchManager() {
   const fetchManager = fs.readFileSync(
     path.resolve(
       process.cwd(), 'node_modules', '@o3r', 'testing', 'tools', 'protractor', 'fetch-manager',
       '_fetch-manager.js'),
-    {encoding: 'utf-8'});
+    { encoding: 'utf8' });
   await browser.executeScript(fetchManager);
   await browser.executeScript('window.fetchManager.getInstance().init();');
 }
 
 /**
  * This function stops the FetchManager. Reset `window.fetch` variable with its native behaviour.
+ * @deprecated Will be removed in v13, please use Playwright instead
  */
 export async function stopFetchManager() {
   await browser.executeScript('window.fetchManager.getInstance().stop();');

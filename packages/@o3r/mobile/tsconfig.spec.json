@@ -6,7 +6,8 @@
     "rootDir": ".",
   },
   "include": [
-    "./src/**/*.spec.ts"
+    "./src/**/*.spec.ts",
+    "__mocks__/**/*.ts"
   ],
   "exclude": [],
   "references": [

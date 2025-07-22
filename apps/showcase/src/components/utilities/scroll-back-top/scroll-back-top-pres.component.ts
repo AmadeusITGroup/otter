@@ -1,8 +1,24 @@
-import { ChangeDetectionStrategy, Component, inject, ViewEncapsulation } from '@angular/core';
-import { AsyncPipe, DOCUMENT, ViewportScroller } from '@angular/common';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { O3rComponent } from '@o3r/core';
-import { fromEvent, map } from 'rxjs';
+import {
+  AsyncPipe,
+  DOCUMENT,
+  ViewportScroller,
+} from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  ViewEncapsulation,
+} from '@angular/core';
+import {
+  takeUntilDestroyed,
+} from '@angular/core/rxjs-interop';
+import {
+  O3rComponent,
+} from '@o3r/core';
+import {
+  fromEvent,
+  map,
+} from 'rxjs';
 
 @O3rComponent({ componentType: 'Component' })
 @Component({
@@ -15,7 +31,6 @@ import { fromEvent, map } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ScrollBackTopPresComponent {
-
   private readonly document = inject(DOCUMENT);
 
   private readonly viewport = inject(ViewportScroller);
@@ -26,6 +41,6 @@ export class ScrollBackTopPresComponent {
   );
 
   public scrollTop() {
-    window.scrollTo(0,0);
+    window.scrollTo(0, 0);
   }
 }

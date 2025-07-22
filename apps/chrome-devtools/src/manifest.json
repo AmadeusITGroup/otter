@@ -7,6 +7,7 @@
   "permissions": [
     "activeTab",
     "scripting",
+    "storage",
     "webNavigation"
   ],
   "icons": {
@@ -16,6 +17,10 @@
     "128": "/extension/icons/128x128.png"
   },
   "devtools_page": "devtools.html",
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": false
+  },
   "background": {
     "service_worker": "extension/background.js",
     "type": "module"

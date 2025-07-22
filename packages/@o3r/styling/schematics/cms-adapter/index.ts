@@ -1,6 +1,17 @@
-import { chain, noop, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { createSchematicWithMetricsIfInstalled, getPackageManagerRunner, getWorkspaceConfig, readPackageJson } from '@o3r/schematics';
 import * as path from 'node:path';
+import {
+  chain,
+  noop,
+  Rule,
+  SchematicContext,
+  Tree,
+} from '@angular-devkit/schematics';
+import {
+  createSchematicWithMetricsIfInstalled,
+  getPackageManagerRunner,
+  getWorkspaceConfig,
+  readPackageJson,
+} from '@o3r/schematics';
 
 /**
  * Update CMS adapter tools
@@ -15,7 +26,6 @@ function updateCmsAdapterFn(options: { projectName?: string | undefined }): Rule
   /**
    * Add cms extractors builder into the angular.json
    * @param tree
-   * @param _context
    * @param context
    */
   const editAngularJson = (tree: Tree, context: SchematicContext) => {
@@ -40,6 +50,12 @@ function updateCmsAdapterFn(options: { projectName?: string | undefined }): Rule
         outputFile: path.join(workspaceProject?.root || '', './style.metadata.json')
       }
     };
+    workspaceProject.architect['check-style-migration-metadata'] ||= {
+      builder: '@o3r/styling:check-style-migration-metadata',
+      options: {
+        migrationDataPath: 'migration-scripts/dist/MIGRATION-*.json'
+      }
+    };
 
     workspace.projects[options.projectName!] = workspaceProject;
     tree.overwrite('/angular.json', JSON.stringify(workspace, null, 2));
@@ -49,7 +65,6 @@ function updateCmsAdapterFn(options: { projectName?: string | undefined }): Rule
   /**
    * Add cms extractors scripts into the package.json
    * @param tree
-   * @param _context
    * @param context
    */
   const addExtractorsScripts = (tree: Tree, context: SchematicContext) => {

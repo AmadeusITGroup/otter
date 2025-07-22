@@ -1,3 +1,7 @@
+import type {
+  ItemIdentifier,
+} from '@o3r/core';
+
 /** Metadata information added in the design token extension for Metadata extraction */
 export interface DesignTokenMetadata {
   tags?: string[];
@@ -6,12 +10,7 @@ export interface DesignTokenMetadata {
   /** Name of a group of variables */
   category?: string;
   /** Component reference if the variable is linked to one */
-  component?: {
-    /** Name of the component */
-    name: string;
-    /** Name of the library containing the component */
-    library: string;
-  };
+  component?: ItemIdentifier;
 }
 
 /** Design Token Group Extension fields supported by the default renderer */
@@ -30,12 +29,31 @@ export interface DesignTokenGroupExtensions {
   o3rMetadata?: DesignTokenMetadata;
   /** Scope of the Design Token value */
   o3rScope?: string;
+  /**
+   * Convert a numeric value from the specified unit to the new unit.
+   * It will add a unit to the token with type "number" for which the unit is not specified.
+   * In case of complex type (such as shadow, transition, etc...), the unit will be applied to all numeric types in it.
+   */
+  o3rUnit?: string;
+  /**
+   * Ratio to apply to previous value.
+   * The ratio will be applied only on token with "number" type or on the first numbers determined in "string" like types.
+   * In case of complex type (such as shadow, transition, etc...), the ratio will be applied to all numeric types in it.
+   */
+  o3rRatio?: number;
+  /**
+   * Indicate that the token is expected to be overridden by external rules
+   */
+  o3rExpectOverride?: boolean;
+  /**
+   * Explode a Token with complex type to generate variables for each field of the type definition
+   */
+  o3rExplodeComplexTypes?: boolean;
 }
 
 /** Design Token Extension fields supported by the default renderer */
 export interface DesignTokenExtensions extends DesignTokenGroupExtensions {
 }
-
 
 interface DesignTokenBase<T> {
   /** Value of the Token */
@@ -58,6 +76,12 @@ export interface DesignTokenTypeImplicit {
 export interface DesignTokenTypeColor extends DesignTokenBase<string> {
   /** @inheritdoc */
   $type: 'color';
+}
+
+/** Design Token String */
+export interface DesignTokenTypeString extends DesignTokenBase<string> {
+  /** @inheritdoc */
+  $type: 'string';
 }
 
 /** Design Token Dimension */
@@ -105,9 +129,11 @@ type DesignTokenTypeStrokeStyleDetailsValue = {
   lineCap: 'round' | 'butt' | 'square';
 };
 
+// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents -- `string` type is added only due to Jest transpiling issue
+type DesignTokenTypeStrokeStyleLiterals = 'solid' | 'dashed' | 'dotted' | 'double' | 'groove' | 'ridge' | 'outset' | 'inset' | string;
+
 /** Value of the Design Token Stroke Style */
-export type DesignTokenTypeStrokeStyleValue = DesignTokenTypeStrokeStyleDetailsValue |
-  'solid' | 'dashed' | 'dotted' | 'double' | 'groove' | 'ridge' | 'outset' | 'inset';
+export type DesignTokenTypeStrokeStyleValue = DesignTokenTypeStrokeStyleDetailsValue | DesignTokenTypeStrokeStyleLiterals;
 
 /** Design Token Stroke Style */
 export interface DesignTokenTypeStrokeStyle<T extends DesignTokenTypeStrokeStyleValue = DesignTokenTypeStrokeStyleValue> extends DesignTokenBase<T> {
@@ -118,9 +144,7 @@ export interface DesignTokenTypeStrokeStyle<T extends DesignTokenTypeStrokeStyle
 type DesignTokenTypeBorderValue = {
   color: string;
   width: string;
-  // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
-  style: string | DesignTokenTypeStrokeStyleValue;
-
+  style: DesignTokenTypeStrokeStyleValue;
 };
 
 /** Design Token Border */
@@ -151,15 +175,26 @@ type DesignTokenTypeShadowValue = {
 };
 
 /** Design Token Shadow */
-export interface DesignTokenTypeShadow extends DesignTokenBase<DesignTokenTypeShadowValue> {
+export interface DesignTokenTypeShadow extends DesignTokenBase<DesignTokenTypeShadowValue | DesignTokenTypeShadowValue[]> {
   /** @inheritdoc */
   $type: 'shadow';
 }
 
-type DesignTokenTypeGradientValue = {
+type DesignTokenTypeGradientStop = {
+  /** Color to the stop of a gradient */
   color: string;
+  /** Position of the stop */
   position: string | number;
-}[];
+};
+
+type DesignTokenTypeGradientValue = {
+  /** Type of the gradient */
+  type?: 'linear' | 'radial' | 'conic';
+  /** Angle to the gradient */
+  angle?: string | number;
+  /** List of stops in the gradient */
+  stops?: DesignTokenTypeGradientStop[];
+};
 
 /** Design Token Gradient */
 export interface DesignTokenTypeGradient extends DesignTokenBase<DesignTokenTypeGradientValue> {
@@ -174,7 +209,6 @@ type DesignTokenTypeTypographyValue = {
   fontWeight: DesignTokenTypeFontWeightValue;
   lineHeight: string | number;
 };
-
 
 /** Design Token Typography */
 export interface DesignTokenTypeTypography extends DesignTokenBase<DesignTokenTypeTypographyValue> {
@@ -193,38 +227,48 @@ export interface DesignTokenGroupCommonFields<G extends DesignTokenExtensions> {
 /** Common field for the Design Token */
 export type DesignTokenCommonFields<E extends DesignTokenExtensions = DesignTokenExtensions> = DesignTokenGroupCommonFields<E>;
 
+/**
+ * Design Token supported types with their $value structure
+ * Note: this definition does not include the $extension and $description fields common to all of them (and to the Token Groups)
+ */
+type DesignTokenTypes =
+  | DesignTokenTypeString
+  | DesignTokenTypeColor
+  | DesignTokenTypeDimension
+  | DesignTokenTypeFontFamily
+  | DesignTokenTypeDuration
+  | DesignTokenTypeCubicBezier
+  | DesignTokenTypeFontWeight
+  | DesignTokenTypeNumber
+  | DesignTokenTypeStrokeStyle
+  | DesignTokenTypeBorder
+  | DesignTokenTypeTransition
+  | DesignTokenTypeShadow
+  | DesignTokenTypeGradient
+  | DesignTokenTypeTypography
+  | DesignTokenTypeImplicit;
+
 /** Available Design Token types */
-export type DesignToken<E extends DesignTokenExtensions = DesignTokenExtensions> = DesignTokenCommonFields<E> & (
-  DesignTokenTypeColor |
-  DesignTokenTypeDimension |
-  DesignTokenTypeFontFamily |
-  DesignTokenTypeDuration |
-  DesignTokenTypeCubicBezier |
-  DesignTokenTypeFontWeight |
-  DesignTokenTypeNumber |
-
-  DesignTokenTypeStrokeStyle |
-  DesignTokenTypeBorder |
-  DesignTokenTypeTransition |
-  DesignTokenTypeShadow |
-  DesignTokenTypeGradient |
-  DesignTokenTypeTypography |
-
-  DesignTokenTypeImplicit
-);
+export type DesignToken<E extends DesignTokenExtensions = DesignTokenExtensions> = DesignTokenCommonFields<E> & DesignTokenTypes;
 
 /** Design Token Node (Design Token Group or Item) */
-// eslint-disable-next-line no-use-before-define
 export type DesignTokenNode<E extends DesignTokenExtensions = DesignTokenExtensions, G extends DesignTokenGroupExtensions = E> = DesignTokenGroup<E, G> | DesignToken<E>;
 
 /** Design Token Group */
 export type DesignTokenGroup<E extends DesignTokenExtensions = DesignTokenExtensions, G extends DesignTokenGroupExtensions = E> =
   DesignTokenGroupCommonFields<G> & { [x: string]: DesignTokenNode<E, G> | E | string | boolean | undefined };
 
+/** Design Token Group for common properties only */
+export type DesignTokenGroupTemplate<G extends DesignTokenGroupExtensions = DesignTokenGroupExtensions> =
+  DesignTokenGroupCommonFields<G> & { [x: string]: DesignTokenGroupTemplate<G> | G | string | boolean | undefined };
+
 /** Context of the Design Token specification document */
-export type DesignTokenContext = {
+export type DesignTokenContext<G extends DesignTokenGroupExtensions = DesignTokenGroupExtensions> = {
   /** Base path used to compute the path of the file to render the Tokens into */
   basePath?: string;
+
+  /** Default template of the Design Token nodes to use as base for the extension configuration */
+  template?: DesignTokenGroupTemplate<G>;
 };
 
 /** Design Token specification */
@@ -256,8 +300,7 @@ export const isDesignTokenGroup = (node?: any): node is DesignTokenGroup => {
  * @param value Stroke Style value
  * @returns true if it is a defined value
  */
-// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
-export const isTokenTypeStrokeStyleValueComplex = (value?: DesignTokenTypeStrokeStyleValue | string): value is DesignTokenTypeStrokeStyleDetailsValue => {
+export const isTokenTypeStrokeStyleValueComplex = (value?: DesignTokenTypeStrokeStyleValue): value is DesignTokenTypeStrokeStyleDetailsValue => {
   return !!value && typeof value !== 'string';
 };
 

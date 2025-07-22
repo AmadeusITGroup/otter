@@ -1,16 +1,20 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-import { relative } from 'node:path';
+import {
+  relative,
+} from 'node:path';
 import * as vscode from 'vscode';
-import { findPathAndExecuteSchematic } from './common';
+import {
+  findPathAndExecuteSchematic,
+} from './common';
 
 const getExtraOptions = async (): Promise<string[]> => {
-
   const activeEditor = vscode.window.activeTextEditor;
   const document = activeEditor?.document;
-  const componentPath = document ? relative(
-    vscode.workspace.workspaceFolders?.[0]?.uri?.fsPath || '.',
-    document.fileName.replace(/\.template\.html$/, '.component.ts')
-  ) : '';
+  const componentPath = document
+    ? relative(
+      vscode.workspace.workspaceFolders?.[0]?.uri?.fsPath || '.',
+      document.fileName.replace(/\.template\.html$/, '.component.ts')
+    )
+    : '';
   const selectedText = document?.getText(activeEditor?.selection);
   if (componentPath && selectedText) {
     const key = await vscode.window.showInputBox({

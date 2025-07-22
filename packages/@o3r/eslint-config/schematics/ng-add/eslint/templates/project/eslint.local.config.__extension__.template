@@ -1,0 +1,31 @@
+<% if (extension === 'mjs') { %>import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+<% if (isApp) {
+  %>import globals from 'globals';<%
+} %>
+const __filename = fileURLToPath(import.meta.url);
+// __dirname is not defined in ES module scope
+const __dirname = dirname(__filename);
+<% } else if (isApp) { %>const globals = require('globals');
+<% } %>
+<%= extension === 'mjs' ? 'export default' : 'module.exports =' %> [
+  {
+    name: '<%= packageName %>/projects',
+    languageOptions: {
+      sourceType: 'module',
+      parserOptions: {
+        tsconfigRootDir: __dirname,
+        project: [
+<%= detectedTsConfigs.map((tsconfig) => `          '${tsconfig}'`).join(',\n') %>
+        ]
+      }<% if (isApp) { %>,
+      globals: {
+        ...globals.browser
+      }<% } %>
+    }
+  },
+  {
+    name: '<%= packageName %>/ignores',
+    ignores: []
+  }
+];

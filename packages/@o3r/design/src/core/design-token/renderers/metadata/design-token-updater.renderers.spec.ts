@@ -1,16 +1,26 @@
+import {
+  promises as fs,
+} from 'node:fs';
+import {
+  resolve,
+} from 'node:path';
+import type {
+  DesignTokenSpecification,
+} from '../../design-token-specification.interface';
+import type {
+  DesignTokenVariableSet,
+} from '../../parsers';
 import * as parser from '../../parsers/design-token.parser';
-import { promises as fs } from 'node:fs';
-import { resolve } from 'node:path';
-import type { DesignTokenSpecification } from '../../design-token-specification.interface';
-import type { DesignTokenVariableSet } from '../../parsers';
-import { getMetadataStyleContentUpdater } from './design-token-updater.renderers';
+import {
+  getMetadataStyleContentUpdater,
+} from './design-token-updater.renderers';
 
 describe('getMetadataStyleContentUpdater', () => {
   let exampleVariable!: DesignTokenSpecification;
   let designTokens!: DesignTokenVariableSet;
 
   beforeAll(async () => {
-    const file = await fs.readFile(resolve(__dirname, '../../../../../testing/mocks/design-token-theme.json'), { encoding: 'utf-8' });
+    const file = await fs.readFile(resolve(__dirname, '../../../../../testing/mocks/design-token-theme.json'), { encoding: 'utf8' });
     exampleVariable = { document: JSON.parse(file) };
     designTokens = parser.parseDesignToken(exampleVariable);
   });

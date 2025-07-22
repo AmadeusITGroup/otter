@@ -1,11 +1,31 @@
-import {CommonModule} from '@angular/common';
-import {Component} from '@angular/core';
-import {ComponentFixture, getTestBed, TestBed} from '@angular/core/testing';
-import {By} from '@angular/platform-browser';
-import {BrowserDynamicTestingModule, platformBrowserDynamicTesting} from '@angular/platform-browser-dynamic/testing';
-import {Store} from '@ngrx/store';
-import {ReplaySubject, Subject} from 'rxjs';
-import {PlaceholderComponent} from './placeholder.component';
+import {
+  CommonModule,
+} from '@angular/common';
+import {
+  Component,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  getTestBed,
+  TestBed,
+} from '@angular/core/testing';
+import {
+  By,
+} from '@angular/platform-browser';
+import {
+  BrowserDynamicTestingModule,
+  platformBrowserDynamicTesting,
+} from '@angular/platform-browser-dynamic/testing';
+import {
+  Store,
+} from '@ngrx/store';
+import {
+  ReplaySubject,
+  Subject,
+} from 'rxjs';
+import {
+  PlaceholderComponent,
+} from './placeholder.component';
 
 /**
  * Test component to check if the projection from ng-content works
@@ -18,15 +38,14 @@ import {PlaceholderComponent} from './placeholder.component';
     </o3r-placeholder>
   `
 })
-class TestComponent {
-}
+class TestComponent {}
 
 describe('Placeholder component', () => {
   beforeAll(
-    () => getTestBed().platform ||
-      TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting(), {
-        teardown: {destroyAfterEach: false}
-      }));
+    () => getTestBed().platform
+    || TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting(), {
+      teardown: { destroyAfterEach: false }
+    }));
 
   let placeholderComponent: ComponentFixture<PlaceholderComponent>;
   type TemplatesFromStore = {
@@ -57,7 +76,7 @@ describe('Placeholder component', () => {
         CommonModule
       ],
       providers: [
-        {provide: Store, useValue: mockStore}
+        { provide: Store, useValue: mockStore }
       ],
       declarations: [
         PlaceholderComponent,

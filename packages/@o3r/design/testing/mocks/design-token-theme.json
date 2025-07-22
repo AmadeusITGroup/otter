@@ -1,9 +1,53 @@
 {
   "$schema": "../../schemas/design-token.schema.json",
   "example": {
+    "post-ref": {
+      "$value": "{example.var1}"
+    },
     "var1": {
       "$type": "color",
       "$value": "#000"
+    },
+    "var-expect-override": {
+      "$type": "color",
+      "$value": "#000",
+      "$extensions": {
+        "o3rExpectOverride": true
+      }
+    },
+    "var-ref-expect-override": {
+      "$value": "{example.var1}",
+      "$extensions": {
+        "o3rExpectOverride": true
+      }
+    },
+    "var-color-unit-ratio-override": {
+      "$type": "color",
+      "$value": "#000",
+      "$extensions": {
+        "o3rUnit": "px",
+        "o3rRatio": 2.5
+      }
+    },
+    "var-number-unit-ratio-override": {
+      "$type": "number",
+      "$value": 2,
+      "$extensions": {
+        "o3rUnit": "px",
+        "o3rRatio": 2.5
+      }
+    },
+    "var-unit-override": {
+      "$type": "dimension",
+      "$value": "2px",
+      "$extensions": {
+        "o3rUnit": "rem",
+        "o3rRatio": 2.5
+      }
+    },
+    "var-string": {
+      "$type": "string",
+      "$value": "test value"
     },
     "var1-private": {
       "$type": "color",
@@ -12,9 +56,28 @@
         "o3rPrivate": true
       }
     },
+    "var-ref-to-var1-private": {
+      "$value": "{example.var1-private}"
+    },
+    "var-private-ref": {
+      "$value": "{example.var1}",
+      "$extensions": {
+        "o3rPrivate": true
+      }
+    },
+    "var-private-ref-to-public-var": {
+      "$value": "{example.var-private-ref}"
+    },
     "var-important": {
       "$extensions": {
         "o3rImportant": true
+      },
+      "$type": "color",
+      "$value": "#000"
+    },
+    "var-not-important": {
+      "$extensions": {
+        "o3rImportant": false
       },
       "$type": "color",
       "$value": "#000"
@@ -55,12 +118,82 @@
       },
       "border": {
         "$type": "border",
+        "color": {
+          "$type": "color",
+          "$value": "silver"
+        },
         "$value": {
           "color": "{example.color}",
           "style": "dashed",
           "width": "{example.test.width}"
         }
+      },
+      "gradient": {
+        "$type": "gradient",
+        "$value": {
+          "angle": "180deg",
+          "type": "linear",
+          "stops": [
+            {
+              "color": "#fff",
+              "position": "10px"
+            }
+          ]
+        }
+      },
+      "shadow": {
+        "$type": "shadow",
+        "$value": [
+          {
+            "blur": "1",
+            "offsetX": "1px",
+            "offsetY": "1px",
+            "color": "#000",
+            "spread": "1"
+          }
+        ]
+      },
+      "shadow-multi": {
+        "$type": "shadow",
+        "$value": [
+          {
+            "blur": "1",
+            "offsetX": "1px",
+            "offsetY": "1px",
+            "color": "#000",
+            "spread": "1"
+          },
+          {
+            "blur": "2",
+            "offsetX": "2px",
+            "offsetY": "2px",
+            "color": "#fff",
+            "spread": "2"
+          }
+        ]
       }
+    }
+  },
+  "inherit": {
+    "$extensions": {
+      "o3rScope": "test-scope"
+    },
+    "var": {
+      "$value": "{example.var1}"
+    },
+    "deeper": {
+      "super-deeper": {
+        "var": {
+          "$type": "color",
+          "$value": "#aaa"
+        }
+      }
+    }
+  },
+  "last-group": {
+    "last-token": {
+      "$type": "color",
+      "$value": "#aaa"
     }
   }
 }

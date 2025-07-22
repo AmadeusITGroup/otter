@@ -1,5 +1,9 @@
-import { ApiConfiguration } from './api-configuration';
-import { BuilderConfiguration } from './builder-configuration';
+import {
+  ApiConfiguration,
+} from './api-configuration';
+import {
+  BuilderConfiguration,
+} from './builder-configuration';
 
 export interface BuilderApiConfiguration extends ApiConfiguration, BuilderConfiguration {
 

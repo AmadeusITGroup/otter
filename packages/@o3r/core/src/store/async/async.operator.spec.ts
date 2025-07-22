@@ -1,29 +1,28 @@
-import { firstValueFrom, of, Subject } from 'rxjs';
-import { bufferCount } from 'rxjs/operators';
-import { fromApiEffectSwitchMapById } from './async.operators';
+import {
+  firstValueFrom,
+  of,
+  Subject,
+} from 'rxjs';
+import {
+  bufferCount,
+} from 'rxjs/operators';
+import {
+  fromApiEffectSwitchMapById,
+} from './async.operators';
 
-/**
- * @param delay
- */
 function later(delay: number) {
   return new Promise<void>((resolve) => {
     setTimeout(resolve, delay);
   });
 }
 
-/**
- * @param id
- * @param delay
- * @param name
- * @param requestId
- */
 function createAction(
   id: string,
   delay: number,
   name: string,
   requestId: string
 ) {
-  return {id, call: later(delay), name, requestId};
+  return { id, call: later(delay), name, requestId };
 }
 
 describe('AsyncOperator', () => {
@@ -32,9 +31,9 @@ describe('AsyncOperator', () => {
     const allResolved = firstValueFrom(actionsStream
       .pipe(
         fromApiEffectSwitchMapById(
-          (reply, action) => ({type: 'success', reply, action}),
-          (error, action) => of({type: 'error', error, action}),
-          (props, action) => ({props, action, type: 'cancelRequestId'})
+          (reply, action) => ({ type: 'success', reply, action }),
+          (error, action) => of({ type: 'error', error, action }),
+          (props, action) => ({ props, action, type: 'cancelRequestId' })
         ),
         bufferCount(6)
       )

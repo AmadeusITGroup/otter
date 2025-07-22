@@ -1,12 +1,23 @@
+import {
+  existsSync,
+  readFileSync,
+} from 'node:fs';
+import * as path from 'node:path';
+import {
+  performance,
+} from 'node:perf_hooks';
 import type {
   BuilderContext,
-  BuilderOutput
+  BuilderOutput,
 } from '@angular-devkit/architect';
-import { existsSync, readFileSync } from 'node:fs';
-import * as path from 'node:path';
-import { performance } from 'node:perf_hooks';
-import { getEnvironmentInfo } from '../environment/index';
-import { BuilderMetricData, sendData as defaultSendData, type SendDataFn } from '../sender';
+import {
+  getEnvironmentInfo,
+} from '../environment/index';
+import {
+  BuilderMetricData,
+  sendData as defaultSendData,
+  type SendDataFn,
+} from '../sender';
 
 type BuilderWrapperFn<S, O extends BuilderOutput = BuilderOutput> =
   (opts: S, ctx: BuilderContext) => O | Promise<O>;
@@ -28,20 +39,18 @@ export const createBuilderWithMetrics: BuilderWrapper = (builderFn, sendData = d
     try {
       const result = await builderFn(options, context);
       return result;
-    }
-    catch (e: any) {
+    } catch (e: any) {
       const err = e instanceof Error ? e : new Error(e.toString());
       error = err.stack || err.toString();
       throw err;
-    }
-    finally {
+    } finally {
       const endTime = Math.floor(performance.now());
       const duration = endTime - startTime;
       // context.builder.builderName does not contain the package name
       const builderName = context.builder.name as string;
       context.logger.info(`${builderName} run in ${duration}ms`);
       const environment = await getEnvironmentInfo();
-      const data: BuilderMetricData = {
+      const data = {
         environment,
         duration,
         builder: {
@@ -54,23 +63,31 @@ export const createBuilderWithMetrics: BuilderWrapper = (builderFn, sendData = d
                 projectName: context.target.project,
                 configuration: context.target.configuration
               }
-            } : {}
+            }
+            : {}
           )
         },
         error
-      };
+      } as const satisfies BuilderMetricData;
       context.logger.debug(JSON.stringify(data, null, 2));
       const packageJsonPath = path.join(context.currentDirectory, 'package.json');
-      const packageJson = existsSync(packageJsonPath) ? JSON.parse(readFileSync(packageJsonPath, 'utf-8')) : {};
+      const packageJson = existsSync(packageJsonPath) ? JSON.parse(readFileSync(packageJsonPath, 'utf8')) : {};
       const shouldSendData = !!(
         (options as any).o3rMetrics
         ?? ((process.env.O3R_METRICS || '').length > 0 ? process.env.O3R_METRICS !== 'false' : undefined)
-        ?? packageJson.config?.o3rMetrics
+        ?? packageJson.config?.o3r?.telemetry
+        ?? packageJson.config?.o3rMetrics // deprecated will be removed in v13
       );
+      if (typeof packageJson.config?.o3rMetrics !== 'undefined') {
+        context.logger.warn([
+          '`config.o3rMetrics` is deprecated and will be removed in v13, please use `config.o3r.telemetry` instead.',
+          'You can run `ng update @o3r/telemetry` to have the automatic update.'
+        ].join('\n'));
+      }
       if (shouldSendData) {
         if (typeof ((options as any).o3rMetrics ?? process.env.O3R_METRICS) === 'undefined') {
           context.logger.info(
-            'Telemetry is globally activated for the project (`config.o3rMetrics` in package.json). '
+            'Telemetry is globally activated for the project (`config.o3r.telemetry` in package.json). '
             + 'If you personally don\'t want to send telemetry, you can deactivate it by setting `O3R_METRICS` to false in your environment variables, '
             + 'or by calling the builder with `--no-o3r-metrics`.'
           );
@@ -83,4 +100,3 @@ export const createBuilderWithMetrics: BuilderWrapper = (builderFn, sendData = d
       }
     }
   };
-

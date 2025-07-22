@@ -1,7 +1,12 @@
-import { utils } from '@ama-sdk/core';
-import { FormControl } from '@angular/forms';
-
-import { MaxDateValidator } from './max-date.directive';
+import {
+  utils,
+} from '@ama-sdk/core';
+import {
+  FormControl,
+} from '@angular/forms';
+import {
+  MaxDateValidator,
+} from './max-date.directive';
 
 describe('Max Date', () => {
   it('should be valid compare to tommorrow', () => {

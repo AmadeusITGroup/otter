@@ -1,0 +1,8 @@
+/* For IDE usage only */
+{
+  "references": [
+    {
+      "path": "./tsconfig.build.composite.json"
+    }
+  ]
+}

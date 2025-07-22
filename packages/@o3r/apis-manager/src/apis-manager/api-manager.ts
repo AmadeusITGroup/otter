@@ -1,4 +1,7 @@
-import type { ApiClient } from '@ama-sdk/core';
+import type {
+  Api,
+  ApiClient,
+} from '@ama-sdk/core';
 
 /**
  * Api manager is responsible to provide an api configuration to a service factory, so that it could instantiate an API
@@ -12,10 +15,10 @@ export class ApiManager {
 
   /**
    * Map of registered Api Client associated to specific API
-   * @warning This should not be used to get the ApiClient for an API, the function getConfiguration() should be used instead
+   * Warning: This should not be used to get the ApiClient for an API, the function getConfiguration() should be used instead
    */
   public get registeredApiConfigurations() {
-    return {...this.apiConfigurations} as const;
+    return { ...this.apiConfigurations } as const;
   }
 
   /**
@@ -31,8 +34,8 @@ export class ApiManager {
    * Retrieve a configuration for a specific API
    * @param api API to get the configuration for
    */
-  public getConfiguration(api?: string): ApiClient {
-    return api && this.apiConfigurations[api] || this.defaultConfiguration;
+  public getConfiguration(api?: string | Api): ApiClient {
+    return (api && this.apiConfigurations[typeof api === 'string' ? api : api.apiName]) || this.defaultConfiguration;
   }
 
   /**
@@ -40,9 +43,9 @@ export class ApiManager {
    * @param apiClient API configuration to override to the given api
    * @param api API name to override, the default configuration will be used if not specified
    */
-  public setConfiguration(apiClient: ApiClient, api?: string): void {
+  public setConfiguration(apiClient: ApiClient, api?: string | Api): void {
     if (api) {
-      this.apiConfigurations[api] = apiClient;
+      this.apiConfigurations[typeof api === 'string' ? api : api.apiName] = apiClient;
     } else {
       this.defaultConfiguration = apiClient;
     }

@@ -1,12 +1,19 @@
-import {Inject, Injectable} from '@angular/core';
-
-import {defaultRequestParametersConfig, RequestParametersConfig, StorageStrategy} from './request-parameters.config';
-
-import {REQUEST_PARAMETERS_CONFIG_TOKEN} from './request-parameters.token';
+import {
+  Inject,
+  Injectable,
+} from '@angular/core';
+import {
+  defaultRequestParametersConfig,
+  RequestParametersConfig,
+  StorageStrategy,
+} from './request-parameters.config';
+import {
+  REQUEST_PARAMETERS_CONFIG_TOKEN,
+} from './request-parameters.token';
 
 export type ParamsList = 'query' | 'post';
 
-export type ParamsType = {[k in ParamsList]: {[key: string]: string}};
+export type ParamsType = { [k in ParamsList]: { [key: string]: string } };
 
 /**
  * Partial configuration for RequestParameters Service
@@ -19,8 +26,8 @@ export interface PartialRequestParametersConfig extends Partial<RequestParameter
  */
 @Injectable()
 export class RequestParametersService implements ParamsType {
-  private _query: {[key: string]: any} = {};
-  private _post: {[key: string]: any} = {};
+  private _query: { [key: string]: any } = {};
+  private _post: { [key: string]: any } = {};
 
   private readonly config: RequestParametersConfig;
 
@@ -40,7 +47,7 @@ export class RequestParametersService implements ParamsType {
    * @param key
    * @param value
    */
-  private setParameters(key: ParamsList, value: {[key: string]: string}) {
+  private setParameters(key: ParamsList, value: { [key: string]: string }) {
     const privateKey: `_${ParamsList}` = `_${key}`;
     if (!this.config.storage) {
       // No storage is available , cannot set items
@@ -149,8 +156,8 @@ export class RequestParametersService implements ParamsType {
    * @param paramsToClear the list on key that you want to clear in get parameters
    */
   public clearQueryParameters(paramsToClear?: string[]) {
-    const newQuery = (paramsToClear ? Object.keys(this._query).filter((key) => paramsToClear.indexOf(key) === -1) : [])
-      .reduce<{[k: string]: string}>((acc, key) => {
+    const newQuery = (paramsToClear ? Object.keys(this._query).filter((key) => !paramsToClear.includes(key)) : [])
+      .reduce<{ [k: string]: string }>((acc, key) => {
         acc[key] = this._query[key];
         return acc;
       }, {});
@@ -165,8 +172,8 @@ export class RequestParametersService implements ParamsType {
    * @param paramsToClear the list on key that you want to clean in post parameters
    */
   public clearPostParameters(paramsToClear?: string[]) {
-    const newPost = (paramsToClear ? Object.keys(this._post).filter((key) => paramsToClear.indexOf(key) === -1) : [])
-      .reduce<{[k: string]: string}>((acc, key) => {
+    const newPost = (paramsToClear ? Object.keys(this._post).filter((key) => !paramsToClear.includes(key)) : [])
+      .reduce<{ [k: string]: string }>((acc, key) => {
         acc[key] = this._post[key];
         return acc;
       }, {});
@@ -195,7 +202,7 @@ export class RequestParametersService implements ParamsType {
       return params;
     }
     return Object.keys(params)
-      .filter((key) => paramstoFilter.indexOf(key) === -1)
+      .filter((key) => !paramstoFilter.includes(key))
       .reduce<{ [k: string]: string }>((acc, key) => {
         acc[key] = params[key];
         return acc;

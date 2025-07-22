@@ -2,9 +2,18 @@
  * The purpose of this script is to remove the dist/ part of the path in a "main", "types" and "typing" field of the package.json
  */
 
+import {
+  existsSync,
+  readFileSync,
+  writeFileSync,
+} from 'node:fs';
+import {
+  join,
+  posix,
+  relative,
+  resolve,
+} from 'node:path';
 import minimist from 'minimist';
-import { existsSync, readFileSync, writeFileSync } from 'node:fs';
-import { join, posix, relative, resolve } from 'node:path';
 
 const argv = minimist(process.argv.slice(2));
 const root = argv.root ? resolve(process.cwd(), argv.root) : process.cwd();
@@ -13,17 +22,17 @@ const distFolder = 'dist';
 const availableSourceExtension = ['js', 'cjs', 'mjs'];
 const typeFields = ['types', 'typings'];
 const srcFields = ['main', 'default', 'module', 'esm2015', 'esm2020', 'schematics', 'builders'];
-const fields = [...typeFields,...srcFields];
+const fields = [...typeFields, ...srcFields];
 const distPath = resolve(root, distFolder);
 const packageJsonPath = join(distPath, 'package.json');
-const packageJson = JSON.parse(readFileSync(packageJsonPath, {encoding: 'utf-8'}));
+const packageJson = JSON.parse(readFileSync(packageJsonPath, { encoding: 'utf8' }));
 
 const distPrefixRegExp = new RegExp(`^(\\.\\/)?${distFolder}\\/`);
 
 /**
  * Update the Package.json field
- * @param field {string Name of the field
- * @param originalPath {string} Path to the file to target
+ * @param {string} field Name of the field
+ * @param {string} originalPath Path to the file to target
  */
 const updateField = (field, originalPath) => {
   const path = originalPath.replace(distPrefixRegExp, '$1');
@@ -33,12 +42,12 @@ const updateField = (field, originalPath) => {
         .map((ext) => resolve(distPath, path.replace(/\.ts$/, `.${ext}`)))
         .find((newPath) => existsSync(newPath));
       if (newSourcePath) {
-        return { field, path: './' + posix.normalize(relative(distFolder, newSourcePath)) };
+        return { field, path: './' + posix.normalize(relative(distFolder, newSourcePath)).replace(/\\+/g, '/') };
       }
     } else if (typeFields.includes(field)) {
       const newTypePath = resolve(distPath, path.replace(/\.ts$/, '.d.ts'));
       if (existsSync(newTypePath)) {
-        return { field, path: './' + posix.normalize(relative(distFolder, newTypePath)) };
+        return { field, path: './' + posix.normalize(relative(distFolder, newTypePath)).replace(/\\+/g, '/') };
       }
     }
   }
@@ -48,7 +57,7 @@ const updateField = (field, originalPath) => {
 fields
   .filter((field) => packageJson[field])
   .map((field) => updateField(field, packageJson[field]))
-  .forEach(({field, path}) => packageJson[field] = path);
+  .forEach(({ field, path }) => packageJson[field] = path);
 
 if (packageJson.bin) {
   Object.keys(packageJson.bin)

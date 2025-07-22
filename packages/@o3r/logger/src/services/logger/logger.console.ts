@@ -1,6 +1,12 @@
-/* eslint-disable no-console */
-import { Action, ActionReducer, MetaReducer } from '@ngrx/store';
-import type { LoggerClient } from './logger.client';
+/* eslint-disable no-console -- this is the purpose of this logger */
+import {
+  Action,
+  ActionReducer,
+  MetaReducer,
+} from '@ngrx/store';
+import type {
+  LoggerClient,
+} from './logger.client';
 
 /**
  * Console logger used to display the logs in the browser console
@@ -25,7 +31,7 @@ export class ConsoleLogger implements LoggerClient {
   /** @inheritdoc */
   public identify(uuid: string) {
     this.debug('logging identify function called');
-    this.log(`Identify userd ${uuid}`);
+    this.log(`Identify user id ${uuid}`);
   }
 
   /** @inheritdoc */

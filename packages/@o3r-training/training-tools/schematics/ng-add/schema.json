@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "ngAddSchematicsSchema",
+  "title": "Add Otter training tools",
+  "description": "ngAdd Otter training tools",
+  "properties": {
+    "projectName": {
+      "type": "string",
+      "description": "Project name",
+      "$default": {
+        "$source": "projectName"
+      }
+    }
+  },
+  "additionalProperties": true,
+  "required": []
+}

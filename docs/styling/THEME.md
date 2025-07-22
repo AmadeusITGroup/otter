@@ -3,42 +3,40 @@
 ## About the theme
 
 The theme consists in a set of properties (border, radius, shadow, colors) that are consistent throughout the application.
-If the airline changes one of those properties, it will impact all the elements that rely upon it. For example, if
-in the theme, a shadow color is defined, the airline can override it and impact all the components with shadows.
+Let's assume the customization of your application is outsourced to a client.
+If the client changes one of those properties, it will impact all the elements that rely upon it. For example, if
+in the theme, a shadow color is defined, the client can override it and impact all the components with shadows.
 
 The theme properties can be split according to the following concerns:
 
-* **Are the properties highly customizable?** This concerns the colours palette used within the components. The airline
+* **Are the properties highly customizable?** This concerns the colours palette used within the components. The client
 **will** necessarily have to modify them to follow their brand.
 * **Are the properties mostly customizable?** This concerns a set of properties and variables such as the shadows,
 background and foreground that might be custom to change the general look and feels of the application.
-For instance, if the airline wants to impact the shadow colors on a darker theme, the border radius on the buttons, on
+For instance, if the client wants to impact the shadow colors on a darker theme, the border radius on the buttons, on
 the list or on the different containers.
-* **Are these changes specific to a component?** If the airline changes are really specific and impact the product
+* **Are these changes specific to a component?** If the client changes are really specific and impact the product
 designs, this will be done on component level. This is not part of the theme customization.
 
 For more information on the Amadeus palettes you can refer to [Amadeus Color Guidelines](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40o3r/styling/scss/theming/palettes/_amadeus.scss).
 
 ## Create your theme
 
-Find below the process to generate your own theme. RefX is used here as an example, you can replace it with any other theme.
+You can find below the process to generate your own theme.
 
-### Generate the RefX theme variables
+### Generate your own theme variables
 
 Create a new theme generator in your repository. It shall generate a map of properties that will be used
-directly in the components stylesheets.
+directly in the component's stylesheets.
 The generator shall take a map of overridden properties in order to allow different variations of the theme.
 
 The theme properties can be computed from private variables. Your private variables are not part of your theme and
 should not be used within the components. There is no guarantee they will always be available in your theme.
 If you find the theme properties lacking, please update the generator and do not rely upon `$overridden-properties`.
 
-**Note**: The RefX theme generator is in the otter library to provide a complete theme for all the new application
-(e.g. Blank App). This is the default theme. Any new theme, will be in the repository using it.
-
 **Note**: Your theme generator should always extend the basic generator in the otter library:
-`generate-theme-variables`. This generator sole purpose is to make sure all the mandatory theme properties are
-available with a default value each. It is up to the theme to override it with its own variables.
+`generate-theme-variables`. The sole purpose of this generator is to make sure all the mandatory theme properties are
+available with a default value for each. It is up to the theme to override it with its own variables.
 
 ```scss
 // Generate a map of theme variables for your application and override them with the customer's properties
@@ -60,7 +58,7 @@ available with a default value each. It is up to the theme to override it with i
   $private: map_merge($private-variables-default, $overridden-properties);
 
   // Properties that are specific to the application
-  $refx-variables: (
+  $own-variables: (
     border-style: get-mandatory($private, 'line-style'),
     border-color: get-mandatory($private, 'graphical-line'),
     separator-style: get-mandatory($private, 'line-style'),
@@ -104,29 +102,29 @@ functions returns a map with the following entries:
 There is no direct way to override the values within the theme but to call `map_merge`. Material has not provided a
 way to create a consistent theme from a text color and a background color.
 
-This has to be done on the refex repository via an override function.
-
 ```scss
+@use '@o3r/styling' as o3r;
+
 @function _override-mat-theme($mat-theme, $application-variables) {
-  $mat-foreground: get-mandatory($mat-theme, 'foreground');
-  $mat-background: get-mandatory($mat-theme, 'background');
+  $mat-foreground: o3r.get-mandatory($mat-theme, 'foreground');
+  $mat-background: o3r.get-mandatory($mat-theme, 'background');
 
   $foreground-override: (
-    divider: get-mandatory($application-variables, 'separator-color'),
-    dividers: get-mandatory($application-variables, 'separator-color'),
-    elevation: get-mandatory($application-variables, 'shadow-color'),
-    hint-text: get-mandatory($application-variables, 'text'),
-    secondary-text: get-mandatory($application-variables, 'text'),
-    icon: get-mandatory($application-variables, 'text'),
-    icons: get-mandatory($application-variables, 'text'),
-    text: get-mandatory($application-variables, 'text')
+    divider: o3r.get-mandatory($application-variables, 'separator-color'),
+    dividers: o3r.get-mandatory($application-variables, 'separator-color'),
+    elevation: o3r.get-mandatory($application-variables, 'shadow-color'),
+    hint-text: o3r.get-mandatory($application-variables, 'text'),
+    secondary-text: o3r.get-mandatory($application-variables, 'text'),
+    icon: o3r.get-mandatory($application-variables, 'text'),
+    icons: o3r.get-mandatory($application-variables, 'text'),
+    text: o3r.get-mandatory($application-variables, 'text')
   );
 
   $background-override: (
-    background: get-mandatory($application-variables, 'panel-background'),
-    hover: get-mandatory($application-variables, 'panel-hover'),
-    card: get-mandatory($application-variables, 'panel-background'),
-    dialog: get-mandatory($application-variables, 'dialog-background')
+    background: o3r.get-mandatory($application-variables, 'panel-background'),
+    hover: o3r.get-mandatory($application-variables, 'panel-hover'),
+    card: o3r.get-mandatory($application-variables, 'panel-background'),
+    dialog: o3r.get-mandatory($application-variables, 'dialog-background')
   );
 
   @return map_merge(
@@ -263,8 +261,8 @@ $highlight: mat.$mat-pink, A200, A100, A400;
 
 
 // Override the amadeus theme:
-$candy-app-primary: otter-theme.define-palette(mat.$mat-indigo);
-$candy-app-accent:  otter-theme.define-palette(mat.$mat-pink, A200, A100, A400);
+$candy-app-primary: mat.palette(mat.$mat-indigo);
+$candy-app-accent:  mat.palette(mat.$mat-pink, A200, A100, A400);
 
 // Generate Meta Theme
 $candy-meta-theme: otter-theme.generate-otter-theme($primary: $candy-app-primary, $highlight: $candy-app-accent);
@@ -300,39 +298,16 @@ Note that nothing prevents you from overriding both the palettes and the theme v
 
 ```scss
 // overrides
-$override-refx-theme: (panel-background: #AAA);
+$override-original-theme: (panel-background: #AAA);
 
 // Include the default theme styles.
-$meta-theme: generate-app-theme($override: $override-refx-theme);
+$meta-theme: generate-app-theme($override: $override-original-theme);
 ```
 
 > [!IMPORTANT]
 > The palette should always be generated with `mat.define-palette` to fit the material Angular format!
 
 #### Architecture
-
-### Customize the material elements
-
-If a material component css happens not to fit with the application theme or not to be customizable enough for the
-implementations, it is still possible to override it via mixins.
-
-Otter library provides the mixins that can be used to override some css properties in the material design components.
-They are available in the `@o3r/styling`.
-
-```scss
-//button-override-mixin
-
-@mixin app-button-theme($theme) {
-  .mat-button-selector {
-    property-to-override: get-theme-property($theme, 'property-to-override');
-  }
-}
-```
-
-**Caution**: Since the mixin can easily break after a material design update, you should rely on them as little as
-possible and only in an airline implementations, never directly in a library (e.g. RefX library).
-You can include them directly in your global css if you want to impact all the material component within the
-application or directly in a module for a more local customization.
 
 ### Style your components
 

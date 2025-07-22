@@ -1,20 +1,79 @@
-import { ChangeDetectionStrategy, Component, computed, effect, type OnDestroy, type Signal, ViewEncapsulation } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DfTooltipModule } from '@design-factory/design-factory';
-import { NgbAccordionModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
-import { computeItemIdentifier } from '@o3r/core';
-import { type GetStylingVariableContentMessage, PALETTE_TAG_NAME, type StylingVariable, THEME_TAG_NAME } from '@o3r/styling';
-import { combineLatest, Observable, Subscription } from 'rxjs';
-import { filter, map, shareReplay, startWith, throttleTime } from 'rxjs/operators';
-import { ChromeExtensionConnectionService } from '../../services/connection.service';
-import { DEFAULT_PALETTE_VARIANT, getPaletteColors } from './color.helpers';
-import { AccessibilityConstrastScorePipe, ConstrastPipe, HexColorPipe } from './color.pipe';
-import { getVariant, resolveVariable, searchFn } from './common';
-import { IsRefPipe } from './is-ref.pipe';
-import { MemoizePipe } from './memoize.pipe';
-import { VariableLabelPipe } from './variable-label.pipe';
-import { VariableNamePipe } from './variable-name.pipe';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  effect,
+  inject,
+  type Signal,
+  untracked,
+  ViewEncapsulation,
+} from '@angular/core';
+import {
+  takeUntilDestroyed,
+  toSignal,
+} from '@angular/core/rxjs-interop';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import {
+  DfTooltipModule,
+} from '@design-factory/design-factory';
+import {
+  NgbAccordionModule,
+  NgbTypeaheadModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  computeItemIdentifier,
+} from '@o3r/core';
+import {
+  type GetStylingVariableContentMessage,
+  PALETTE_TAG_NAME,
+  type StylingVariable,
+  THEME_TAG_NAME,
+} from '@o3r/styling';
+import {
+  combineLatest,
+  Observable,
+} from 'rxjs';
+import {
+  map,
+  startWith,
+  throttleTime,
+} from 'rxjs/operators';
+import {
+  ChromeExtensionConnectionService,
+  filterAndMapMessage,
+  StateService,
+} from '../../services';
+import {
+  DEFAULT_PALETTE_VARIANT,
+  getPaletteColors,
+} from './color.helpers';
+import {
+  AccessibilityConstrastScorePipe,
+  ConstrastPipe,
+  HexColorPipe,
+} from './color.pipe';
+import {
+  getVariant,
+  resolveVariable,
+  searchFn,
+} from './common';
+import {
+  IsRefPipe,
+} from './is-ref.pipe';
+import {
+  MemoizePipe,
+} from './memoize.pipe';
+import {
+  VariableLabelPipe,
+} from './variable-label.pipe';
+import {
+  VariableNamePipe,
+} from './variable-name.pipe';
 
 const THROTTLE_TIME = 100;
 
@@ -62,7 +121,14 @@ export interface VariableGroup {
     VariableNamePipe
   ]
 })
-export class ThemingPanelPresComponent implements OnDestroy {
+export class ThemingPanelPresComponent {
+  private readonly stateService = inject(StateService);
+
+  public readonly activeStateName = computed(() => this.stateService.activeState()?.name);
+
+  public readonly themingActiveStateOverrides = computed(() => this.stateService.activeState()?.stylingVariables || {});
+
+  public readonly themingLocalStateOverrides = computed(() => this.stateService.localState()?.stylingVariables || {});
   public readonly resolvedVariables: Signal<Record<string, string>>;
   public readonly variablesMap: Signal<Record<string, StylingVariable>>;
   public readonly numberOfVariables: Signal<number>;
@@ -76,18 +142,18 @@ export class ThemingPanelPresComponent implements OnDestroy {
   });
 
   private readonly variables$: Observable<StylingVariable[]>;
-  private readonly subscription = new Subscription();
   private readonly runtimeValues$ = this.form.controls.variables.valueChanges.pipe(startWith({}));
   private readonly runtimeValues = toSignal(this.runtimeValues$, { initialValue: {} });
 
   constructor(
-    connectionService: ChromeExtensionConnectionService
+    private readonly connectionService: ChromeExtensionConnectionService
   ) {
     this.variables$ = connectionService.message$.pipe(
-      filter((message): message is GetStylingVariableContentMessage => message.dataType === 'getStylingVariable'),
-      map((message) => message.variables),
-      startWith([]),
-      shareReplay({ refCount: true, bufferSize: 1 })
+      filterAndMapMessage(
+        (message): message is GetStylingVariableContentMessage => message.dataType === 'getStylingVariable',
+        (message) => message.variables
+      ),
+      startWith([])
     );
     this.variables = toSignal(this.variables$, { initialValue: [] });
     this.variablesMap = computed(() => this.variables().reduce((acc: Record<string, StylingVariable>, curr) => {
@@ -99,6 +165,38 @@ export class ThemingPanelPresComponent implements OnDestroy {
       return acc;
     }, {}));
     this.numberOfVariables = computed(() => Object.keys(this.resolvedVariables()).length);
+
+    this.variables$.pipe(
+      takeUntilDestroyed()
+    ).subscribe((variables) => {
+      const variablesControl = this.form.controls.variables;
+      variables.forEach((variable) => {
+        const initialValue = variable.runtimeValue ?? variable.defaultValue;
+        const control = variablesControl.controls[variable.name];
+        if (control) {
+          control.setValue(initialValue, { emitEvent: false });
+        } else {
+          const newControl = new FormControl(initialValue);
+          variablesControl.addControl(variable.name, newControl);
+          newControl.valueChanges.pipe(
+            takeUntilDestroyed(),
+            throttleTime(THROTTLE_TIME, undefined, { trailing: true })
+          ).subscribe((newValue) => {
+            const update = {
+              [variable.name]: (newValue === variable.defaultValue ? null : newValue) ?? null
+            };
+            if (update[variable.name] !== null) {
+              this.stateService.updateLocalState({
+                stylingVariables: update
+              });
+              connectionService.sendMessage('updateStylingVariables', {
+                variables: update
+              });
+            }
+          });
+        }
+      });
+    });
 
     const search = toSignal(this.form.controls.search.valueChanges.pipe(
       map((value) => (value || '').toLowerCase()),
@@ -161,45 +259,34 @@ export class ThemingPanelPresComponent implements OnDestroy {
       });
     });
 
+    const stylingVariables = computed(() => this.stateService.activeState()?.stylingVariables || {});
+
     effect(() => {
-      const variablesControl = this.form.controls.variables;
-      this.variables().forEach((variable) => {
-        const value = variable.runtimeValue ?? variable.defaultValue;
-        const control = variablesControl.controls[variable.name];
-        if (!control) {
-          const newControl = new FormControl(value);
-          variablesControl.addControl(variable.name, newControl);
-          this.subscription.add(
-            newControl.valueChanges.pipe(
-              throttleTime(THROTTLE_TIME, undefined, { trailing: true })
-            ).subscribe((newValue) => {
-              connectionService.sendMessage('updateStylingVariables', {
-                variables: {
-                  [variable.name]: newValue
-                }
-              });
-            })
-          );
-        } else {
-          control.setValue(value, { emitEvent: false });
-        }
+      Object.entries(stylingVariables()).forEach(([variableName, value]) => {
+        this.changeColor(variableName, value);
       });
+    });
+
+    effect(() => {
+      if (!this.activeStateName()) {
+        Object.keys(this.form.controls.variables.controls)
+          .forEach((variableName) => {
+            const variable = untracked(this.variablesMap)[variableName];
+            if (this.form.controls.variables.controls[variableName].value !== variable.defaultValue) {
+              this.onColorReset(variable);
+            }
+          });
+      }
     });
 
     connectionService.sendMessage(
       'requestMessages',
-      {
-        only: 'getStylingVariable'
-      }
+      { only: ['getStylingVariable'] }
     );
   }
 
-  private changeColor(variableName: string, value: string) {
+  private changeColor(variableName: string, value: string | null) {
     this.form.controls.variables.controls[variableName].setValue(value);
-  }
-
-  public ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 
   /**
@@ -217,7 +304,7 @@ export class ThemingPanelPresComponent implements OnDestroy {
           && currentVariable.type === variable.type
           && typeof resolveVariable(variable.name, runtimeValues, variables) !== 'undefined'
           && searchFn(variable, term))
-        .map(({name}: StylingVariable) => `var(--${name})`)
+        .map(({ name }: StylingVariable) => `var(--${name})`)
       : [])
   );
 
@@ -235,7 +322,18 @@ export class ThemingPanelPresComponent implements OnDestroy {
    * @param variable
    */
   public onColorReset(variable: StylingVariable) {
-    this.changeColor(variable.name, variable.defaultValue);
+    const stateValue = this.themingActiveStateOverrides()[variable.name];
+    const localValue = this.themingLocalStateOverrides()[variable.name];
+    if (stateValue && stateValue !== localValue) {
+      this.changeColor(variable.name, stateValue);
+    } else {
+      this.changeColor(variable.name, variable.defaultValue);
+      this.connectionService.sendMessage('updateStylingVariables', {
+        variables: {
+          [variable.name]: null
+        }
+      });
+    }
   }
 
   /**
@@ -264,6 +362,6 @@ export class ThemingPanelPresComponent implements OnDestroy {
     // Needed to not open or close the accordion
     event.preventDefault();
     event.stopPropagation();
-    palette.variables.forEach((variable) => this.changeColor(variable.name, variable.defaultValue));
+    palette.variables.forEach((variable) => this.onColorReset(variable));
   }
 }

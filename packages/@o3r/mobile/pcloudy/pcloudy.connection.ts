@@ -1,21 +1,28 @@
 #!/usr/bin/env node
 
-import { program } from 'commander';
-import {PCloudyApi} from './pcloudy.api';
-import {PCloudyService} from './pcloudy.service';
+import {
+  program,
+} from 'commander';
 import * as winston from 'winston';
-import {Logger} from 'winston';
+import {
+  Logger,
+} from 'winston';
+import {
+  PCloudyApi,
+} from './pcloudy.api';
+import {
+  PCloudyService,
+} from './pcloudy.service';
 
 /**
  * Create a command line logger
- *
  * @param verbose Show debug information
  * @param pretty Colorize and format logs as json
  */
 function getLogger(verbose: boolean, pretty: boolean) {
   return winston.createLogger({
     level: verbose ? 'debug' : 'info',
-    format: pretty ? winston.format.prettyPrint({colorize: true}) : winston.format.simple(),
+    format: pretty ? winston.format.prettyPrint({ colorize: true }) : winston.format.simple(),
     transports: new winston.transports.Console()
   });
 }
@@ -23,7 +30,6 @@ function getLogger(verbose: boolean, pretty: boolean) {
 /**
  * Command to upload an app on pCloudy
  * In case the file is an .ipa, the application will be resigned
- *
  * @param username pCloudy email credential
  * @param apiKey Account APIKey - can be found on pCloudy account info
  * @param application .ipa or .apk file to upload on pCloudy
@@ -44,7 +50,6 @@ async function uploadApp(username: string, apiKey: string, application: string, 
 
 /**
  * Command to delete an app uploaded on pCloudy
- *
  * @param username pCloudy email credential
  * @param apiKey Account APIKey - can be found on pCloudy account info
  * @param application name as uploaded on the cloud
@@ -62,7 +67,6 @@ async function deleteApp(username: string, apiKey: string, application: string, 
 
 /**
  * List the devices available for booking on pCloudy
- *
  * @param username pCloudy email credential
  * @param apiKey Account APIKey - can be found on pCloudy account info
  * @param devicePlatform Filter the devices according to their platform
@@ -90,8 +94,7 @@ program
   .option('--pretty', 'Prettify logs ')
   .action(async (options) => {
     const logger = getLogger(options.verbose, options.pretty);
-    /* eslint-disable-next-line no-console */
-    console.log(await uploadApp(options.username, options.password, options.application, options.override, logger));
+    logger.info(await uploadApp(options.username, options.password, options.application, options.override, logger));
   });
 
 program
@@ -104,7 +107,7 @@ program
   .option('--pretty', 'Prettify logs ')
   .action(async (options) => {
     const logger = getLogger(options.verbose, options.pretty);
-    /* eslint-disable-next-line no-console */
+
     await deleteApp(options.username, options.password, options.application, logger);
   });
 
@@ -119,8 +122,7 @@ program
   .option('--pretty', 'Prettify logs ')
   .action(async (options) => {
     const logger = getLogger(options.verbose, options.pretty);
-    /* eslint-disable-next-line no-console */
-    console.log(await getAvailableDevices(options.username, options.password, options.devicePlatform, options.minVersion, logger));
+    logger.info(await getAvailableDevices(options.username, options.password, options.devicePlatform, options.minVersion, logger));
   });
 
 program.parse(process.argv);

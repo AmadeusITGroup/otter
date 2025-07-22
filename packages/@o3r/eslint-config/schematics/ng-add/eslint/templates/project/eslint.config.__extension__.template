@@ -1,0 +1,10 @@
+<% if (extension === 'mjs') { %>import local from './eslint.local.config.mjs';
+import shared from '<%= relativePathToRoot %>/eslint.shared.config.mjs';
+<% } else { %>const local = require('./eslint.local.config.<%= extension %>');
+const shared = require('<%= relativePathToRoot %>/eslint.shared.config.<%= extension %>');
+<% } %>
+
+<%= extension === 'mjs' ? 'export default' : 'module.exports =' %> [
+  ...shared,
+  ...local
+];

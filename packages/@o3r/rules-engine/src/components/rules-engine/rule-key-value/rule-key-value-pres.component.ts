@@ -1,6 +1,20 @@
-import {ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges, ViewEncapsulation} from '@angular/core';
-import {of, Subject} from 'rxjs';
-import { delay, startWith, switchMap } from 'rxjs/operators';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnChanges,
+  SimpleChanges,
+  ViewEncapsulation,
+} from '@angular/core';
+import {
+  of,
+  Subject,
+} from 'rxjs';
+import {
+  delay,
+  startWith,
+  switchMap,
+} from 'rxjs/operators';
 
 /**
  * Duration of the notification for clipboard feature (in milliseconds)
@@ -20,7 +34,6 @@ const CLIPBOARD_FEATURE_LENGTH_THRESHOLD = 80;
   encapsulation: ViewEncapsulation.None
 })
 export class RuleKeyValuePresComponent implements OnChanges {
-
   /**
    * Key of the object (name of the fact for example)
    */
@@ -64,7 +77,7 @@ export class RuleKeyValuePresComponent implements OnChanges {
     return !!(navigator.clipboard && value && value.length > CLIPBOARD_FEATURE_LENGTH_THRESHOLD);
   }
 
-  public ngOnChanges({value, oldValue}: SimpleChanges) {
+  public ngOnChanges({ value, oldValue }: SimpleChanges) {
     if (value) {
       this.isValuePrimitiveType = value.currentValue === null || typeof value.currentValue !== 'object';
       this.isClipBoardFeatureAvailableForValue = this.isClipBoardFeatureAvailable(this.isValuePrimitiveType ? String(value.currentValue) : JSON.stringify(value.currentValue));

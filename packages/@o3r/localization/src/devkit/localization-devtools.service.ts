@@ -1,8 +1,20 @@
-import { ApplicationRef, Injectable } from '@angular/core';
-import { TranslateCompiler } from '@ngx-translate/core';
-import {lastValueFrom, Subscription} from 'rxjs';
-import { LocalizationService } from '../tools';
-import type { TranslateMessageFormatLazyCompiler } from '../core';
+import {
+  ApplicationRef,
+  Injectable,
+} from '@angular/core';
+import {
+  TranslateCompiler,
+} from '@ngx-translate/core';
+import {
+  lastValueFrom,
+  Subscription,
+} from 'rxjs';
+import type {
+  TranslateMessageFormatLazyCompiler,
+} from '../core';
+import {
+  LocalizationService,
+} from '../tools';
 
 @Injectable()
 export class OtterLocalizationDevtools {
@@ -52,7 +64,10 @@ export class OtterLocalizationDevtools {
    * Switch the current language to the specified value
    * @param language new language to switch to
    */
-  public async switchLanguage(language: string) {
+  public async switchLanguage(language: string | undefined) {
+    if (!language) {
+      return;
+    }
     await lastValueFrom(this.localizationService.useLanguage(language));
     this.appRef.tick();
   }

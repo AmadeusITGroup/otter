@@ -1,4 +1,9 @@
 import {
+  basename,
+  dirname,
+  posix,
+} from 'node:path';
+import {
   apply,
   chain,
   MergeStrategy,
@@ -11,7 +16,7 @@ import {
   SchematicContext,
   template,
   Tree,
-  url
+  url,
 } from '@angular-devkit/schematics';
 import {
   addImportsRule,
@@ -22,11 +27,12 @@ import {
   getO3rComponentInfoOrThrowIfNotFound,
   isO3rClassComponent,
   NoOtterComponent,
-  O3rCliError
+  O3rCliError,
 } from '@o3r/schematics';
-import { basename, dirname, posix } from 'node:path';
 import * as ts from 'typescript';
-import type { NgAddConfigSchematicsSchema } from './schema';
+import type {
+  NgAddConfigSchematicsSchema,
+} from './schema';
 
 const checkContext = (componentPath: string, tree: Tree) => {
   const files = [
@@ -37,10 +43,8 @@ const checkContext = (componentPath: string, tree: Tree) => {
   }
 };
 
-
 /**
  * Add context to an existing component
- *
  * @param options
  */
 export function ngAddContextFn(options: NgAddConfigSchematicsSchema): Rule {

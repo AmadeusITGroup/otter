@@ -6,7 +6,7 @@
       "path": "./tsconfig.build.composite.json"
     },
     {
-      "path": "./tsconfig.tools.json"
+      "path": "./tsconfig.build.tools.json"
     },
     {
       "path": "./tsconfig.spec.json"

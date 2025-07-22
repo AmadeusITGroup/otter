@@ -1,9 +1,13 @@
-import type { Rule } from '@angular-devkit/schematics';
+import {
+  basename,
+} from 'node:path';
+import type {
+  Rule,
+} from '@angular-devkit/schematics';
 import * as ts from 'typescript';
 
 /**
  * Update workspace Tsconfig
- * @param options Schematic options
  * @param targetPath Path where the SDK has been generated
  * @param projectName Name of the project
  * @param scope scope of the package
@@ -32,14 +36,14 @@ export function updateTsConfig(targetPath: string, projectName: string, scope: s
     configWithPath.content.compilerOptions.baseUrl ||= '.';
     configWithPath.content.compilerOptions.paths ||= {};
     configWithPath.content.compilerOptions.paths[`${scope ? `@${scope}/` : ''}${projectName}`] = [
-      `${relativeTargetPath}/dist`,
+      ...(basename(configWithPath.tsconfig) === 'tsconfig.build.json' ? [`${relativeTargetPath}/dist`] : []),
       `${relativeTargetPath}/src/index`
     ];
     configWithPath.content.compilerOptions.paths[`${scope ? `@${scope}/` : ''}${projectName}/fixtures`] = [
       `${relativeTargetPath}/src/fixtures/jest`
     ];
     configWithPath.content.compilerOptions.paths[`${scope ? `@${scope}/` : ''}${projectName}/*`] = [
-      `${relativeTargetPath}/dist/*`,
+      ...(basename(configWithPath.tsconfig) === 'tsconfig.build.json' ? [`${relativeTargetPath}/dist/*`] : []),
       `${relativeTargetPath}/src/*`
     ];
 

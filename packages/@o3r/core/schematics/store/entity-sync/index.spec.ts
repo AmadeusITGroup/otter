@@ -1,18 +1,33 @@
-import { Tree } from '@angular-devkit/schematics';
-import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { syncEntityActionsContent } from './mocks/example-actions';
-import { syncEntityReducerContent } from './mocks/example-reducer';
-import { syncEntityReducerSpecContent } from './mocks/example-reducer-spec';
-import { syncEntitySelectorsContent } from './mocks/example-selectors';
-import { syncEntitySelectorsSpecContent } from './mocks/example-selectors-spec';
-import { syncEntityStateContent } from './mocks/example-state';
+import {
+  Tree,
+} from '@angular-devkit/schematics';
+import {
+  SchematicTestRunner,
+} from '@angular-devkit/schematics/testing';
+import {
+  syncEntityActionsContent,
+} from './mocks/example-actions';
+import {
+  syncEntityReducerContent,
+} from './mocks/example-reducer';
+import {
+  syncEntityReducerSpecContent,
+} from './mocks/example-reducer-spec';
+import {
+  syncEntitySelectorsContent,
+} from './mocks/example-selectors';
+import {
+  syncEntitySelectorsSpecContent,
+} from './mocks/example-selectors-spec';
+import {
+  syncEntityStateContent,
+} from './mocks/example-state';
 
 const collectionPath = path.join(__dirname, '..', '..', '..', 'collection.json');
 
 describe('Store entity sync generator', () => {
-
   let initialTree: Tree;
 
   beforeEach(() => {

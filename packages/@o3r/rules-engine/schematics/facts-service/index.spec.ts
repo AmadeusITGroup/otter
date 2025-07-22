@@ -1,12 +1,15 @@
-import {Tree} from '@angular-devkit/schematics';
-import {SchematicTestRunner} from '@angular-devkit/schematics/testing';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
+import {
+  Tree,
+} from '@angular-devkit/schematics';
+import {
+  SchematicTestRunner,
+} from '@angular-devkit/schematics/testing';
 
 const collectionPath = path.join(__dirname, '..', '..', 'collection.json');
 
 describe('Generate facts service', () => {
-
   let initialTree: Tree;
 
   beforeEach(() => {
@@ -31,8 +34,8 @@ describe('Generate facts service', () => {
     expect(factsFile).toContain('export interface FirstExampleFacts extends FactDefinitions');
 
     const serviceFile = tree.readText('/src/facts/first-example/first-example-facts.service.ts');
-    expect(serviceFile).toContain('import { FactsService } from \'@o3r/rules-engine\';');
-    expect(serviceFile).toContain('import { RulesEngineService } from \'@o3r/rules-engine\';');
+    expect(serviceFile).toMatch(/import {.*FactsService.*} from '@o3r\/rules-engine';/);
+    expect(serviceFile).toMatch(/import {.*RulesEngineService.*} from '@o3r\/rules-engine';/);
     expect(serviceFile).toContain('export class FirstExampleFactsService extends FactsService<FirstExampleFacts> {');
   });
 });

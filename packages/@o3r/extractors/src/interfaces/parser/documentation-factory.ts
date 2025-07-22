@@ -1,5 +1,9 @@
-import {Documentation} from '../documentation';
-import {DocumentationOptions} from './documentation-options';
+import {
+  Documentation,
+} from '../documentation';
+import {
+  DocumentationOptions,
+} from './documentation-options';
 
 /**
  * Documentation factory

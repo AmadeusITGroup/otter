@@ -1,16 +1,17 @@
-import { lint } from 'stylelint';
+import {
+  lint,
+} from 'stylelint';
 import plugins from '../../index.mts';
 
 const config = {
   plugins,
-  'rules': {
-    // eslint-disable-next-line @typescript-eslint/naming-convention
+  rules: {
     '@o3r/o3r-var-parameter-equal-variable': true
   }
 };
 
 describe('o3r-var-parameter-equal-variable', () => {
-  test('should import otter styling with alias', async ()=> {
+  test('should import otter styling with alias', async () => {
     const res = await lint({
       config,
       code: `@use '@o3r/styling' as otter;
@@ -27,7 +28,6 @@ describe('o3r-var-parameter-equal-variable', () => {
     });
     expect(res.errored).toBe(false);
   });
-
 
   test('should not be executed on the declaration when o3r styling is not imported', async () => {
     const res = await lint({

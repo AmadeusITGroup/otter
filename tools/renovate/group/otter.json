@@ -9,7 +9,8 @@
         "@otter",
         "@o3r",
         "@ama-sdk",
-        "@ama-terasu"
+        "@ama-terasu",
+        "@o3r-training"
       ]
     },
     {
@@ -21,7 +22,8 @@
         "@otter",
         "@o3r",
         "@ama-sdk",
-        "@ama-terasu"
+        "@ama-terasu",
+        "@o3r-training"
       ],
       "rangeStrategy": "bump"
     },
@@ -33,7 +35,8 @@
         "@otter",
         "@o3r",
         "@ama-sdk",
-        "@ama-terasu"
+        "@ama-terasu",
+        "@o3r-training"
       ],
       "rangeStrategy": "patch"
     }

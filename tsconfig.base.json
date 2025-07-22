@@ -27,7 +27,6 @@
     "removeComments": false,
     "sourceMap": true,
     "declarationMap": true,
-    "skipLibCheck": true,
     "strict": true,
     "pretty": true,
     "preserveWatchOutput": true,
@@ -35,6 +34,9 @@
     "baseUrl": ".",
     "allowSyntheticDefaultImports": true,
     "paths": {
+      "@ama-sdk/client-fetch": [
+        "packages/@ama-sdk/client-fetch/src/public_api"
+      ],
       "@ama-sdk/core": [
         "packages/@ama-sdk/core/src/public_api"
       ],
@@ -42,13 +44,7 @@
         "packages/@ama-sdk/create"
       ],
       "@ama-sdk/schematics": [
-        "packages/@ama-sdk/schematics"
-      ],
-      "@ama-sdk/showcase-sdk": [
-        "packages/@ama-sdk/showcase-sdk/src"
-      ],
-      "@ama-sdk/showcase-sdk/fixtures": [
-        "packages/@ama-sdk/showcase-sdk/src/fixtures/jest"
+        "packages/@ama-sdk/schematics/src/public_api"
       ],
       "@ama-sdk/swagger-builder": [
         "packages/@ama-sdk/swagger-builder"
@@ -61,6 +57,15 @@
       ],
       "@ama-terasu/schematics": [
         "packages/@ama-terasu/schematics/src"
+      ],
+      "@o3r-training/showcase-sdk": [
+        "packages/@o3r-training/showcase-sdk/src"
+      ],
+      "@o3r-training/showcase-sdk/fixtures": [
+        "packages/@o3r-training/showcase-sdk/src/fixtures/jest"
+      ],
+      "@o3r-training/training-tools": [
+        "packages/@o3r-training/training-tools/src/public_api"
       ],
       "@o3r/amaterasu-api-spec": [
         "packages/@o3r/amaterasu/amaterasu-api-spec/src"
@@ -131,6 +136,9 @@
       "@o3r/dynamic-content/*": [
         "packages/@o3r/dynamic-content/src/*/public_api"
       ],
+      "@o3r/eslint-config": [
+        "packages/@o3r/eslint-config"
+      ],
       "@o3r/eslint-config-otter": [
         "packages/@o3r/eslint-config-otter"
       ],
@@ -161,6 +169,9 @@
       "@o3r/mobile": [
         "packages/@o3r/mobile/src"
       ],
+      "@o3r/new-version": [
+        "packages/@o3r/new-version/src/public_api"
+      ],
       "@o3r/routing": [
         "packages/@o3r/routing/src/public_api"
       ],
@@ -185,11 +196,11 @@
       "@o3r/styling": [
         "packages/@o3r/styling/src/public_api"
       ],
-      "@o3r/styling/schemas/*": [
-        "packages/@o3r/styling/schemas/*"
-      ],
       "@o3r/styling/builders/*/helpers": [
         "packages/@o3r/styling/builders/*/helpers/index"
+      ],
+      "@o3r/styling/schemas/*": [
+        "packages/@o3r/styling/schemas/*"
       ],
       "@o3r/telemetry": [
         "packages/@o3r/telemetry/src/public_api"

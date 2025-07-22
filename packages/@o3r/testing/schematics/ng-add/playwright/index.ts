@@ -1,14 +1,33 @@
-import { strings } from '@angular-devkit/core';
-import { apply, MergeStrategy, mergeWith, move, renameTemplateFiles, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
+import * as path from 'node:path';
+import {
+  strings,
+} from '@angular-devkit/core';
+import {
+  apply,
+  MergeStrategy,
+  mergeWith,
+  move,
+  renameTemplateFiles,
+  Rule,
+  SchematicContext,
+  template,
+  Tree,
+  url,
+} from '@angular-devkit/schematics';
 import {
   type DependencyToAdd,
+  getExternalDependenciesInfo,
   getWorkspaceConfig,
-  NgAddPackageOptions
+  NgAddPackageOptions,
 } from '@o3r/schematics';
-import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
-import * as path from 'node:path';
-import * as fs from 'node:fs';
-import type { PackageJson } from 'type-fest';
+import type {
+  PackageJson,
+} from 'type-fest';
+
+const devDependenciesToInstall = [
+  '@playwright/test'
+];
+const dependenciesToInstall: string[] = [];
 
 /**
  * Add Playwright to Otter application
@@ -17,30 +36,34 @@ import type { PackageJson } from 'type-fest';
  */
 export function updatePlaywright(options: NgAddPackageOptions, dependencies: Record<string, DependencyToAdd>): Rule {
   const corePackageJsonPath = path.resolve(__dirname, '..', '..', '..', 'package.json');
-  const ownPackageJson = JSON.parse(fs.readFileSync(corePackageJsonPath, { encoding: 'utf-8' })) as PackageJson & { generatorDependencies: Record<string, string> };
-  dependencies['@playwright/test'] = {
-    inManifest: [{
-      range: ownPackageJson.devDependencies!['@playwright/test'],
-      types: [NodeDependencyType.Dev]
-    }]
-  };
-  dependencies.rimraf = {
-    inManifest: [{
-      range: ownPackageJson.devDependencies!.rimraf,
-      types: [NodeDependencyType.Dev]
-    }]
-  };
 
   return (tree: Tree, context: SchematicContext) => {
-    const workingDirectory = options?.projectName && getWorkspaceConfig(tree)?.projects[options.projectName]?.root || '.';
+    const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
+    const projectPackageJson = tree.readJson(path.posix.join(workspaceProject?.root || '.', 'package.json')) as PackageJson;
+
+    const externalDependencies = getExternalDependenciesInfo(
+      {
+        devDependenciesToInstall,
+        dependenciesToInstall,
+        o3rPackageJsonPath: corePackageJsonPath,
+        projectPackageJson,
+        projectType: workspaceProject?.projectType
+      },
+      context.logger
+    );
+    dependencies = {
+      ...dependencies,
+      ...externalDependencies
+    };
+    const workingDirectory = (options?.projectName && getWorkspaceConfig(tree)?.projects[options.projectName]?.root) || '.';
 
     // update gitignore
     const gitignorePath = '.gitignore';
     if (tree.exists(gitignorePath)) {
       let gitignore = tree.readText(gitignorePath);
       if (!gitignore.includes('dist*') && !gitignore.includes('dist-e2e-playwright') && !gitignore.includes('playwright-reports')) {
-        gitignore +=
-          `
+        gitignore
+          += `
 # Playwright
 dist-e2e-playwright
 playwright-reports

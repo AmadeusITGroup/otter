@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable @typescript-eslint/naming-convention -- exception for `BuildTimeProperties` */
 
 /**
  * Library build time properties
@@ -58,7 +58,7 @@ export interface BuildTimeProperties {
 /**
  * Library build time default properties
  */
-export const DEFAULT_BUILD_PROPERTIES: BuildTimeProperties = {
+export const DEFAULT_BUILD_PROPERTIES: Readonly<BuildTimeProperties> = {
   DEBUG_MODE: true,
   APP_BASE_HREF: '.',
   APP_VERSION: '0.0.0',
@@ -69,4 +69,4 @@ export const DEFAULT_BUILD_PROPERTIES: BuildTimeProperties = {
   ENVIRONMENT: 'dev',
   LOCALIZATION_BUNDLES_OUTPUT: 'localizations/',
   USE_MOCKS: false
-};
+} as const;

@@ -15,6 +15,11 @@
       "implementation": "./builders/localization/",
       "schema": "./builders/localization/schema.json",
       "description": "Generate the localizations"
+    },
+    "check-localization-migration-metadata": {
+      "implementation": "./builders/metadata-check/",
+      "schema": "./builders/metadata-check/schema.json",
+      "description": "Check for localization metadata breaking changes"
     }
   }
 }

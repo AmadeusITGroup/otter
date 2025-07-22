@@ -1,8 +1,34 @@
-import { strings } from '@angular-devkit/core';
-import { apply, chain, MergeStrategy, mergeWith, move, noop, renameTemplateFiles, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
-import { applyEsLintFix, createSchematicWithMetricsIfInstalled, getDestinationPath, getTestFramework, getWorkspaceConfig, moduleHasSubEntryPoints, O3rCliError, writeSubEntryPointPackageJson } from '@o3r/schematics';
 import * as path from 'node:path';
-import { NgGenerateServiceSchematicsSchema } from './schema';
+import {
+  strings,
+} from '@angular-devkit/core';
+import {
+  apply,
+  chain,
+  MergeStrategy,
+  mergeWith,
+  move,
+  noop,
+  renameTemplateFiles,
+  Rule,
+  SchematicContext,
+  template,
+  Tree,
+  url,
+} from '@angular-devkit/schematics';
+import {
+  applyEsLintFix,
+  createSchematicWithMetricsIfInstalled,
+  getDestinationPath,
+  getTestFramework,
+  getWorkspaceConfig,
+  moduleHasSubEntryPoints,
+  O3rCliError,
+  writeSubEntryPointPackageJson,
+} from '@o3r/schematics';
+import {
+  NgGenerateServiceSchematicsSchema,
+} from './schema';
 
 /**
  * Add a Service to an Otter project
@@ -27,10 +53,10 @@ function ngGenerateServiceFn(options: NgGenerateServiceSchematicsSchema): Rule {
     }
 
     const barrelJasminePath = path.join(destination, name, 'fixture', 'jasmine', 'index.ts');
-    const currentFixtureJasmineIndex = tree.exists(barrelJasminePath) && tree.read(barrelJasminePath)?.toString() || '';
+    const currentFixtureJasmineIndex = (tree.exists(barrelJasminePath) && tree.read(barrelJasminePath)?.toString()) || '';
 
     const barrelJestPath = path.join(destination, name, 'fixture', 'jest', 'index.ts');
-    const currentFixtureJestIndex = tree.exists(barrelJestPath) && tree.read(barrelJestPath)?.toString() || '';
+    const currentFixtureJestIndex = (tree.exists(barrelJestPath) && tree.read(barrelJestPath)?.toString()) || '';
 
     const inServiceBarrelPath = path.join(destination, name, 'index.ts');
     if (tree.exists(inServiceBarrelPath)) {

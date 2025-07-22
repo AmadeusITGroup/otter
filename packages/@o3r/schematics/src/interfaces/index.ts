@@ -1,3 +1,4 @@
 export * from './angular-workspace';
-export * from './schematic-option';
+export * from './dependencies';
 export * from './rule-factories';
+export * from './schematic-option';

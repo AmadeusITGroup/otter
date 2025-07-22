@@ -24,6 +24,6 @@
   "devDependencies": {
     "@angular/cli": "<%= rootDependencies['@angular/cli'] || 'latest' %>",
     "@angular/compiler-cli": "<%= rootDependencies['@angular/compiler-cli'] || rootDependencies['@angular/cli'] || 'latest' %>",
-    "typescript": "<%= rootDependencies['typescript'] || 'latest' %>"
+    "typescript": "<%= enforceTildeRange(rootDependencies['typescript'] || 'latest') %>"
   }
 }

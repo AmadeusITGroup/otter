@@ -1,4 +1,6 @@
-import type { JsonObject } from '@angular-devkit/core';
+import type {
+  JsonObject,
+} from '@angular-devkit/core';
 
 /** Library builder */
 export interface LibraryBuilderSchema extends JsonObject {
@@ -7,8 +9,7 @@ export interface LibraryBuilderSchema extends JsonObject {
 
   /**
    * Skip the workaround for the Jasmine fixture issue
-   *
    * @default false
-   **/
+   */
   skipJasmineFixtureWorkaround: boolean;
 }

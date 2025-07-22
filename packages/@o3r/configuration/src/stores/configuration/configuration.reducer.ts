@@ -1,8 +1,18 @@
-import {createEntityAdapter, EntityAdapter} from '@ngrx/entity';
-import {ActionCreator, createReducer, on, ReducerTypes} from '@ngrx/store';
+import {
+  createEntityAdapter,
+  EntityAdapter,
+} from '@ngrx/entity';
+import {
+  ActionCreator,
+  createReducer,
+  on,
+  ReducerTypes,
+} from '@ngrx/store';
 import * as actions from './configuration.actions';
-
-import {ConfigurationModel, ConfigurationState} from './configuration.state';
+import {
+  ConfigurationModel,
+  ConfigurationState,
+} from './configuration.state';
 
 /**
  * Configuration Store adapter
@@ -22,18 +32,18 @@ export const configurationInitialState: ConfigurationState = configurationAdapte
 export const configurationReducerFeatures: ReducerTypes<ConfigurationState, ActionCreator[]>[] = [
 
   on(actions.setConfigurationEntities, (state, payload) => configurationAdapter.addMany((Object.keys(payload) as (keyof typeof payload)[]).map((id) =>
-    ({...(payload[id] as any), id})), configurationAdapter.removeAll(state))),
+    ({ ...(payload[id] as any), id })), configurationAdapter.removeAll(state))),
 
   on(actions.updateConfigurationEntities, (state, payload) =>
-    configurationAdapter.updateMany(Object.keys(payload.entities).map((id) => ({id: id, changes: payload.entities[id]})), state)),
+    configurationAdapter.updateMany(Object.keys(payload.entities).map((id) => ({ id: id, changes: payload.entities[id] })), state)),
 
-  on(actions.upsertConfigurationEntities, (state, payload) => configurationAdapter.upsertMany(Object.keys(payload.entities).map((id) => ({...payload.entities[id], id})), state)),
+  on(actions.upsertConfigurationEntities, (state, payload) => configurationAdapter.upsertMany(Object.keys(payload.entities).map((id) => ({ ...payload.entities[id], id })), state)),
 
   on(actions.clearConfigurationEntities, (state) => configurationAdapter.removeAll(state)),
 
-  on(actions.updateConfigurationEntity, (state, payload) => configurationAdapter.updateOne({id: payload.id, changes: payload.configuration}, state)),
+  on(actions.updateConfigurationEntity, (state, payload) => configurationAdapter.updateOne({ id: payload.id, changes: payload.configuration }, state)),
 
-  on(actions.upsertConfigurationEntity, (state, payload) => configurationAdapter.upsertOne({id: payload.id, ...payload.configuration}, state))
+  on(actions.upsertConfigurationEntity, (state, payload) => configurationAdapter.upsertOne({ id: payload.id, ...payload.configuration }, state))
 ];
 
 /**

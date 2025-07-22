@@ -1,4 +1,6 @@
-import type { RulesEngineAction } from '@o3r/core';
+import type {
+  RulesEngineAction,
+} from '@o3r/core';
 
 /** ActionUpdatePlaceholderBlock  */
 export const RULES_ENGINE_PLACEHOLDER_UPDATE_ACTION_TYPE = 'UPDATE_PLACEHOLDER';

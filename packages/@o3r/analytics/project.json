@@ -27,16 +27,7 @@
       }
     },
     "prepare": {
-      "executor": "nx:run-script",
-      "outputs": ["{projectRoot}/src/package.json"],
-      "dependsOn": ["^build"],
-      "inputs": [
-        "global",
-        "{projectRoot}/package.json"
-      ],
-      "options": {
-        "script": "prepare:compile"
-      }
+      "executor": "nx:run-script"
     },
     "build-fixtures": {
       "executor": "nx:noop"
@@ -60,13 +51,7 @@
       }
     },
     "lint": {
-      "options": {
-        "eslintConfig": "packages/@o3r/analytics/.eslintrc.js",
-        "lintFilePatterns": [
-          "packages/@o3r/analytics/src/**/*.ts",
-          "packages/@o3r/analytics/package.json"
-        ]
-      }
+      "executor": "nx:run-commands"
     },
     "test": {
       "executor": "@nx/jest:jest",

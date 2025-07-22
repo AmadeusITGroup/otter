@@ -1,4 +1,6 @@
-import { strings } from '@angular-devkit/core';
+import {
+  strings,
+} from '@angular-devkit/core';
 
 /**
  * Returns all elements from the provided component name path
@@ -14,7 +16,7 @@ function getComponentModuleItems(componentName: string): string[] {
  */
 export function getInputComponentName(componentName: string): string {
   const componentModuleItems = getComponentModuleItems(componentName);
-  return componentModuleItems[componentModuleItems.length - 1];
+  return componentModuleItems.at(-1)!;
 }
 
 /**
@@ -151,6 +153,6 @@ export function getLibraryNameFromPath(path: string | null | undefined) {
   if (!path) {
     return null;
   }
-  const libNameRes = /@[^@/]+\/[^/]+/.exec(path.replace(/\\/g, '/'));
+  const libNameRes = /@[^/@]+\/[^/]+/.exec(path.replace(/\\/g, '/'));
   return libNameRes && libNameRes[0];
 }

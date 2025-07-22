@@ -1,4 +1,7 @@
-import {KeepWhiteSpacePipe, O3rKeepWhiteSpacePipe} from './keep-white-space.pipe';
+import {
+  KeepWhiteSpacePipe,
+  O3rKeepWhiteSpacePipe,
+} from './keep-white-space.pipe';
 
 describe('Keep white space pipe', () => {
   let pipe: O3rKeepWhiteSpacePipe;

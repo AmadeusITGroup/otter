@@ -1,9 +1,21 @@
-/* eslint-disable new-cap */
-import { FixtureUsageError } from '../../errors/index';
-import type { ComponentFixtureProfile } from '../component-fixture';
-import { withTimeout } from '../helpers';
-import { O3rElement, O3rElementConstructor, PlaywrightSourceElement } from './element';
-import { O3rGroup, O3rGroupConstructor } from './group';
+import {
+  FixtureUsageError,
+} from '../../errors/index';
+import type {
+  ComponentFixtureProfile,
+} from '../component-fixture';
+import {
+  withTimeout,
+} from '../helpers';
+import {
+  O3rElement,
+  O3rElementConstructor,
+  PlaywrightSourceElement,
+} from './element';
+import {
+  O3rGroup,
+  O3rGroupConstructor,
+} from './group';
 
 export type { ComponentFixtureProfile, Constructable, FixtureWithCustom } from '../component-fixture';
 
@@ -11,7 +23,6 @@ export type { ComponentFixtureProfile, Constructable, FixtureWithCustom } from '
  * Implementation of the fixture dedicated to Playwright, hence using the webdriver to interact with the dom.
  */
 export class O3rComponentFixture<V extends O3rElement = O3rElement> implements ComponentFixtureProfile<V> {
-
   /**
    * DOM element linked to the fixture.
    */
@@ -36,7 +47,7 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
     if (!element) {
       throw new Error('Element not found in ' + this.constructor.name);
     }
-    await element.sourceElement.element.first().waitFor({state: 'attached', timeout});
+    await element.sourceElement.element.first().waitFor({ state: 'attached', timeout });
     return element;
   }
 
@@ -50,7 +61,7 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
     return withTimeout(
       (async () => {
         const el = await element;
-        await el.sourceElement.element.first().waitFor({state: 'attached'});
+        await el.sourceElement.element.first().waitFor({ state: 'attached' });
         return el;
       })(),
       timeout);
@@ -74,12 +85,7 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
       timeout?: number;
     } = {}
   ): Promise<O3rElement> {
-    let element: O3rElement;
-    if (options.index !== undefined) {
-      element = await this.queryNth(selector, options.index, elementConstructor as any);
-    } else {
-      element = await this.query(selector, elementConstructor as any);
-    }
+    const element: O3rElement = await (options.index === undefined ? this.query(selector, elementConstructor as any) : this.queryNth(selector, options.index, elementConstructor as any));
     if (options.shouldThrowIfNotPresent) {
       return this.throwOnUndefinedElement<O3rElement>(element, options.timeout);
     }
@@ -154,7 +160,7 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
   public query<T extends O3rElement>(selector: string, returnType: O3rElementConstructor<T> | undefined): Promise<T | O3rElement> {
     const elements = this.rootElement.sourceElement.element.locator(selector);
     const element = elements.first();
-    const selectedElement: PlaywrightSourceElement = {element: element, page: this.rootElement.sourceElement.page};
+    const selectedElement = { element: element, page: this.rootElement.sourceElement.page } as const satisfies PlaywrightSourceElement;
     return Promise.resolve(new (returnType || O3rElement)(selectedElement));
   }
 
@@ -164,7 +170,7 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
   public queryNth<T extends O3rElement>(selector: string, index: number, returnType: O3rElementConstructor<T> | undefined): Promise<T | O3rElement> {
     const elements = this.rootElement.sourceElement.element.locator(selector);
     const element = elements.nth(index);
-    const selectedElement: PlaywrightSourceElement = {element: element, page: this.rootElement.sourceElement.page};
+    const selectedElement = { element: element, page: this.rootElement.sourceElement.page } as const satisfies PlaywrightSourceElement;
     return Promise.resolve(new (returnType || O3rElement)(selectedElement));
   }
 
@@ -182,11 +188,11 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
       const sourceElement = this.rootElement.sourceElement.element;
       const pElements = sourceElement.locator(selector);
       // Mandatory because count is not reliable if we don't wait for the list to be attached
-      await pElements.first().waitFor({state: 'attached', timeout});
+      await pElements.first().waitFor({ state: 'attached', timeout });
       const pElementsCount = await pElements.count();
       const elements = [];
       for (let i = 0; i < pElementsCount; i++) {
-        const selectedElement: PlaywrightSourceElement = {element: pElements.nth(i), page: this.rootElement.sourceElement.page};
+        const selectedElement: PlaywrightSourceElement = { element: pElements.nth(i), page: this.rootElement.sourceElement.page };
         elements.push(returnType ? new returnType(selectedElement) : new O3rElement(selectedElement));
       }
       if (groupType) {
@@ -201,6 +207,7 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
 
       return elements;
     } catch (err) {
+      // eslint-disable-next-line no-console -- no other logger available
       console.warn(`Failed to query all ${selector}`, err);
       return Promise.resolve([]);
     }
@@ -212,8 +219,8 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
   }
 
   /** @inheritdoc */
-  public getSubComponents(): Promise<{[componentName: string]: ComponentFixtureProfile[]}> {
-    return Promise.resolve({block: [this]});
+  public getSubComponents(): Promise<{ [componentName: string]: ComponentFixtureProfile[] }> {
+    return Promise.resolve({ block: [this] });
   }
 
   /** @inheritDoc */

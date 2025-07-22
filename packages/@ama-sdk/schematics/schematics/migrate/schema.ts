@@ -1,4 +1,4 @@
-/** Schematic Option */
+/** Migrate Schematics Options */
 export interface MigrateSchematicsSchemaOptions {
   /** Starting version from which the migration scripts are executed */
   from: string;

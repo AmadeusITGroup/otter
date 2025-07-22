@@ -1,15 +1,34 @@
-import { Inject, Injectable, Optional } from '@angular/core';
-import { TranslateLoader } from '@ngx-translate/core';
-
-import { LocalizationConfiguration } from '../core';
-
-import { combineLatest, from, Observable, of } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
-
-import { LOCALIZATION_CONFIGURATION_TOKEN } from './localization.token';
-
-import { DynamicContentService } from '@o3r/dynamic-content';
-import { LoggerService } from '@o3r/logger';
+import {
+  Inject,
+  Injectable,
+  Optional,
+} from '@angular/core';
+import {
+  TranslateLoader,
+} from '@ngx-translate/core';
+import {
+  DynamicContentService,
+} from '@o3r/dynamic-content';
+import {
+  LoggerService,
+} from '@o3r/logger';
+import {
+  combineLatest,
+  from,
+  Observable,
+  of,
+} from 'rxjs';
+import {
+  catchError,
+  map,
+  switchMap,
+} from 'rxjs/operators';
+import {
+  LocalizationConfiguration,
+} from '../core';
+import {
+  LOCALIZATION_CONFIGURATION_TOKEN,
+} from './localization.token';
 
 const JSON_EXT = '.json';
 
@@ -22,8 +41,8 @@ const JSON_EXT = '.json';
 @Injectable()
 export class TranslationsLoader implements TranslateLoader {
   constructor(@Inject(LOCALIZATION_CONFIGURATION_TOKEN) private readonly localizationConfiguration: LocalizationConfiguration,
-              @Optional() private readonly logger?: LoggerService,
-              @Optional() private readonly dynamicContentService?: DynamicContentService) {}
+    @Optional() private readonly logger?: LoggerService,
+    @Optional() private readonly dynamicContentService?: DynamicContentService) {}
 
   /**
    * Download a language bundle file
@@ -50,7 +69,7 @@ export class TranslationsLoader implements TranslateLoader {
 
     if (this.localizationConfiguration.useDynamicContent) {
       if (!this.dynamicContentService) {
-        throw Error('Dynamic Content is not available. Please verify you have imported the module DynamicContentModule in your application');
+        throw new Error('Dynamic Content is not available. Please verify you have imported the module DynamicContentModule in your application');
       }
       localizationPath$ = this.dynamicContentService.getContentPathStream(this.localizationConfiguration.endPointUrl);
     }
@@ -58,7 +77,6 @@ export class TranslationsLoader implements TranslateLoader {
     return localizationPath$.pipe(
       switchMap((localizationPath: string) => {
         if (localizationPath) {
-
           const localizationBundle$ = this.downloadLanguageBundle$(localizationPath + lang + JSON_EXT);
 
           if (this.localizationConfiguration.mergeWithLocalTranslations) {
@@ -70,7 +88,7 @@ export class TranslationsLoader implements TranslateLoader {
                   return translations;
                 })
               )
-            ]).pipe(map(([dynamicTranslations, localTranslations]) => ({...localTranslations, ...dynamicTranslations})));
+            ]).pipe(map(([dynamicTranslations, localTranslations]) => ({ ...localTranslations, ...dynamicTranslations })));
           }
 
           /*
@@ -108,14 +126,14 @@ export class TranslationsLoader implements TranslateLoader {
     const pathPrefix: string = this.localizationConfiguration.bundlesOutputPath;
     return this.downloadLanguageBundle$(pathPrefix + lang + JSON_EXT).pipe(
       catchError(() => {
-        if (lang !== fallbackLanguage) {
+        if (lang === fallbackLanguage) {
+          this.logger?.warn(`Failed to load ${lang} from ${pathPrefix + lang + JSON_EXT}.`);
+          return of({});
+        } else {
           this.logger?.warn(`Failed to load ${lang} from ${pathPrefix + lang + JSON_EXT}. Application will fallback to ${fallbackLanguage}`);
           return this.downloadLanguageBundle$(pathPrefix + fallbackLanguage + JSON_EXT).pipe(
             catchError(() => of({}))
           );
-        } else {
-          this.logger?.warn(`Failed to load ${lang} from ${pathPrefix + lang + JSON_EXT}.`);
-          return of({});
         }
       })
     );

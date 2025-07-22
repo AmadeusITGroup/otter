@@ -17,13 +17,19 @@
         "script": "build"
       }
     },
-    "lint": {
+    "package-github-action": {
+      "executor": "nx:run-script",
       "options": {
-        "eslintConfig": "tools/github-actions/audit/.eslintrc.js",
-        "lintFilePatterns": [
-          "tools/github-actions/audit/src/**/*.ts",
-          "tools/github-actions/audit/package.json"
-        ]
+        "script": "package"
+      }
+    },
+    "lint": {
+      "executor": "nx:run-commands"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "options": {
+        "jestConfig": "tools/github-actions/audit/jest.config.js"
       }
     }
   },

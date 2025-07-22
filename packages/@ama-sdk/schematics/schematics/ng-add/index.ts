@@ -1,16 +1,52 @@
-import type { OpenApiToolsConfiguration } from '@ama-sdk/core';
-import { isJsonObject } from '@angular-devkit/core';
-import { chain, externalSchematic, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+import {
+  readFileSync,
+} from 'node:fs';
 import * as path from 'node:path';
-import { readFileSync } from 'node:fs';
-import { lastValueFrom } from 'rxjs';
-import type { JsonObject, PackageJson } from 'type-fest';
-import { DevInstall } from '../helpers/node-install';
+import {
+  isJsonObject,
+} from '@angular-devkit/core';
+import {
+  chain,
+  externalSchematic,
+  Rule,
+  SchematicContext,
+  Tree,
+} from '@angular-devkit/schematics';
+import {
+  lastValueFrom,
+} from 'rxjs';
+import type {
+  JsonObject,
+  PackageJson,
+} from 'type-fest';
+import {
+  DevInstall,
+} from '../helpers/node-install';
+import type {
+  OpenApiToolsConfiguration,
+} from '../helpers/open-api-tools-configuration';
+import type {
+  NgAddSchematicsSchema,
+} from './schema';
 
-const packageJsonPath = '/package.json';
+const rootPackageJsonPath = '/package.json';
+const schematicsPackageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
+
 const swaggerIgnorePath = '/.swagger-codegen-ignore';
 const openApiIgnorePath = '/.openapi-generator-ignore';
 const openApiConfigPath = 'openapitools.json';
+
+/**
+ * List of external dependencies to be added to the project as peer dependencies
+ */
+const dependenciesToInstall: string[] = [];
+
+/**
+ * List of external dependencies to be added to the project as dev dependencies
+ */
+const devDependenciesToInstall = [
+  '@openapitools/openapi-generator-cli'
+];
 
 /**
  * Rule to update package.json scripts using yeoman generator from `@ama-sdk/generator-sdk`
@@ -18,7 +54,7 @@ const openApiConfigPath = 'openapitools.json';
  * @param context SchematicContext
  */
 export const updatePackageJsonScripts: Rule = (tree, context) => {
-  const packageJson = tree.readJson(packageJsonPath);
+  const packageJson = tree.readJson(rootPackageJsonPath);
   if (!isJsonObject(packageJson)) {
     context.logger.error('Failed to read correctly the package.json');
     return tree;
@@ -35,8 +71,8 @@ export const updatePackageJsonScripts: Rule = (tree, context) => {
         acc[scriptName] = cmd
           .replace(
             // Remove swagger config path if it is the default value
-            // eslint-disable-next-line max-len
-            / --(swagger-config-path|swaggerConfigPath)[= ]?(\.\/)?node_modules\/@ama-sdk\/generator-sdk\/src\/generators\/java-client-core\/templates\/swagger-codegen-java-client\/config\/swagger-codegen-config.json/,
+            // eslint-disable-next-line @stylistic/max-len -- regexp cannot be splitted
+            / --(swagger-config-path|swaggerConfigPath)[ =]?(\.\/)?node_modules\/@ama-sdk\/generator-sdk\/src\/generators\/java-client-core\/templates\/swagger-codegen-java-client\/config\/swagger-codegen-config.json/,
             ''
           )
           .replace(/\byo\b/g, 'schematics') // Migrate from yeoman to schematics
@@ -65,7 +101,7 @@ export const updatePackageJsonScripts: Rule = (tree, context) => {
     packageJson.scripts
   );
   packageJson.scripts = scripts;
-  tree.overwrite(packageJsonPath, JSON.stringify(packageJson, null, 2));
+  tree.overwrite(rootPackageJsonPath, JSON.stringify(packageJson, null, 2));
   return tree;
 };
 
@@ -75,19 +111,21 @@ export const updatePackageJsonScripts: Rule = (tree, context) => {
  * @param tree
  */
 const createOpenApiToolsConfig: Rule = (tree) => {
-  const amaSdkSchematicsPackageJsonContent = JSON.parse(readFileSync(path.resolve(__dirname, '..', '..', 'package.json'), {encoding: 'utf-8'})) as PackageJson & { openApiSupportedVersion: string };
+  const amaSdkSchematicsPackageJsonContent = JSON.parse(readFileSync(path.resolve(__dirname, '..', '..', 'package.json'), { encoding: 'utf8' })) as
+    PackageJson & { openApiSupportedVersion: string };
   const openApiGeneratorVersion = amaSdkSchematicsPackageJsonContent.openApiSupportedVersion.replace(/\^|~/, '');
   const openApiDefaultStorageDir = '.openapi-generator';
   if (tree.exists(openApiConfigPath)) {
-    // eslint-disable-next-line @typescript-eslint/naming-convention
     const openapitoolsConfig = tree.readJson(openApiConfigPath) as JsonObject & OpenApiToolsConfiguration;
-    openapitoolsConfig['generator-cli'] = {storageDir: openApiDefaultStorageDir, ...openapitoolsConfig['generator-cli'], version: openApiGeneratorVersion};
+    openapitoolsConfig['generator-cli'] = {
+      storageDir: openApiDefaultStorageDir, ...openapitoolsConfig['generator-cli'],
+      version: openApiGeneratorVersion
+    };
     tree.overwrite(openApiConfigPath, JSON.stringify(openapitoolsConfig));
   } else {
     tree.create(openApiConfigPath, JSON.stringify({
       $schema: 'https://raw.githubusercontent.com/OpenAPITools/openapi-generator-cli/master/apps/generator-cli/src/config.schema.json',
       spaces: 2,
-      // eslint-disable-next-line @typescript-eslint/naming-convention
       'generator-cli': {
         version: openApiGeneratorVersion,
         storageDir: openApiDefaultStorageDir
@@ -99,23 +137,29 @@ const createOpenApiToolsConfig: Rule = (tree) => {
 
 /**
  * Install the npm open api generator cli package
- * @param tree
- * @param context
+ * @param options
  */
-const installOpenApiToolsCli: Rule = async (tree, context) => {
-  const packageJsonContent = tree.readJson(packageJsonPath) as PackageJson;
-  const amaSdkSchematicsPackageJsonContent = JSON.parse(readFileSync(path.resolve(__dirname, '..', '..', 'package.json'), {encoding: 'utf-8'})) as PackageJson & { openApiSupportedVersion: string };
-  const amaSdkSchematicsOpenApiCliVersion = amaSdkSchematicsPackageJsonContent.peerDependencies?.['@openapitools/openapi-generator-cli'] || '';
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  packageJsonContent.devDependencies = {...packageJsonContent.devDependencies, '@openapitools/openapi-generator-cli': amaSdkSchematicsOpenApiCliVersion};
-  context.addTask(new DevInstall({
-    packageName: `@openapitools/openapi-generator-cli@${amaSdkSchematicsOpenApiCliVersion}`,
-    hideOutput: false,
-    quiet: false
-  } as any));
-  await lastValueFrom(context.engine.executePostTasks());
-  tree.overwrite(packageJsonPath, JSON.stringify(packageJsonContent, null, 2));
-  return () => tree;
+const installDependencies = (options: NgAddSchematicsSchema): Rule => {
+  return async (tree, context) => {
+    const { setupDependencies, getWorkspaceConfig, getExternalDependenciesInfo } = await import('@o3r/schematics');
+    const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
+    const projectDirectory = workspaceProject?.root || '.';
+    const projectPackageJson = tree.readJson(path.posix.join(projectDirectory, 'package.json')) as PackageJson;
+
+    const externalDependenciesInfo = getExternalDependenciesInfo({
+      devDependenciesToInstall: devDependenciesToInstall,
+      dependenciesToInstall: dependenciesToInstall,
+      o3rPackageJsonPath: schematicsPackageJsonPath,
+      projectPackageJson,
+      projectType: workspaceProject?.projectType
+    },
+    context.logger
+    );
+    return setupDependencies({
+      projectName: options.projectName,
+      dependencies: externalDependenciesInfo
+    });
+  };
 };
 
 /**
@@ -135,7 +179,7 @@ const registerPackageSchematics = async (tree: Tree, context: SchematicContext) 
   if (!tree.exists('angular.json')) {
     return () => tree;
   }
-  const amaSdkSchematicsPackageJsonContent = JSON.parse(readFileSync(path.resolve(__dirname, '..', '..', 'package.json'), {encoding: 'utf-8'})) as PackageJson;
+  const amaSdkSchematicsPackageJsonContent = JSON.parse(readFileSync(path.resolve(__dirname, '..', '..', 'package.json'), { encoding: 'utf8' })) as PackageJson;
   const amaSdkSchematicsVersion = amaSdkSchematicsPackageJsonContent.version?.replace(/^v/, '');
   const schematicsDependencies = ['@o3r/schematics'];
   for (const dependency of schematicsDependencies) {
@@ -145,14 +189,14 @@ const registerPackageSchematics = async (tree: Tree, context: SchematicContext) 
       quiet: false
     } as any));
     const packageJsonContent = tree.readJson('package.json') as PackageJson;
-    packageJsonContent.devDependencies = {...packageJsonContent.devDependencies, [dependency]: amaSdkSchematicsVersion};
+    packageJsonContent.devDependencies = { ...packageJsonContent.devDependencies, [dependency]: amaSdkSchematicsVersion };
     tree.overwrite('package.json', JSON.stringify(packageJsonContent, null, 2));
     await lastValueFrom(context.engine.executePostTasks());
   }
   return () => chain([
     ...schematicsDependencies.map((dep) => externalSchematic(dep, 'ng-add', {})),
     async (t, c) => {
-      const {registerPackageCollectionSchematics} = await import('@o3r/schematics');
+      const { registerPackageCollectionSchematics } = await import('@o3r/schematics');
       return () => registerPackageCollectionSchematics(amaSdkSchematicsPackageJsonContent)(t, c);
     }
   ]);
@@ -160,24 +204,23 @@ const registerPackageSchematics = async (tree: Tree, context: SchematicContext) 
 
 /**
  * Add Otter ama-sdk-schematics to a Project
+ * @param options
  */
-function ngAddFn(): Rule {
-
-  return (tree, context) => chain([
+function ngAddFn(options: NgAddSchematicsSchema): Rule {
+  return () => chain([
     registerPackageSchematics,
     updatePackageJsonScripts,
-    (t) => {
-      const packageJson = tree.readText(packageJsonPath);
-      const needsToInstallOpenApiGeneratorCli = /@ama-sdk\/schematics:typescript-/.test(packageJson);
-      return needsToInstallOpenApiGeneratorCli ? chain([replaceSwaggerIgnore, installOpenApiToolsCli, createOpenApiToolsConfig]) : t;
-    }
-  ])(tree, context);
+    replaceSwaggerIgnore,
+    installDependencies(options),
+    createOpenApiToolsConfig
+  ]);
 }
 
 /**
  * Add Otter ama-sdk-schematics to a Project
+ * @param opts
  */
-export const ngAdd = (): Rule => async () => {
+export const ngAdd = (opts: NgAddSchematicsSchema): Rule => async () => {
   const { createSchematicWithMetricsIfInstalled } = await import('@o3r/schematics');
-  return createSchematicWithMetricsIfInstalled(ngAddFn)(undefined);
+  return createSchematicWithMetricsIfInstalled(ngAddFn)(opts);
 };

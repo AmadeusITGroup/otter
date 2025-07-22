@@ -1,4 +1,6 @@
-import { InjectionToken } from '@angular/core';
+import {
+  InjectionToken,
+} from '@angular/core';
 
 /** Determine if the action should be executed */
 export const RULES_ENGINE_OPTIONS = new InjectionToken<boolean>('Rules Engine Options');
@@ -14,7 +16,7 @@ export interface RulesEngineServiceOptions {
 }
 
 /** Default Rules engine options */
-export const DEFAULT_RULES_ENGINE_OPTIONS: RulesEngineServiceOptions = {
+export const DEFAULT_RULES_ENGINE_OPTIONS: Readonly<RulesEngineServiceOptions> = {
   dryRun: false,
   debug: false
-};
+} as const;

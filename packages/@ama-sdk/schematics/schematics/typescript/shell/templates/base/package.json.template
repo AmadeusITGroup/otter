@@ -56,11 +56,14 @@
     ]
   },
   "dependencies": {
-    "@swc/helpers": "~0.5.0",
+    "@swc/helpers": "<%= versions['@swc/helpers'] %>",
     "tslib": "<%= versions['tslib'] %>"
   },
   "peerDependenciesMeta": {
     "isomorphic-fetch": {
+      "optional": true
+    },
+    "@ama-sdk/client-fetch": {
       "optional": true
     }
   },
@@ -73,18 +76,19 @@
     "@angular-eslint/utils": "<%= angularEslintVersion %>",
     "@angular/compiler": "<%= angularVersion %>",
     "@angular/cli": "<%= angularVersion %>",
-    "@commitlint/cli": "^17.0.0",
+    "@commitlint/cli": "<%= versions['@commitlint/cli'] %>",
     "@schematics/angular": "<%= angularVersion %>",
-    "@commitlint/config-conventional": "^17.0.0",
+    "@commitlint/config-conventional": "<%= versions['@commitlint/config-conventional'] %>",
     "@ama-sdk/schematics": "<%= sdkCoreRange %>",
+    "@ama-sdk/client-fetch": "<%= sdkCoreRange %>",
     "@ama-sdk/core": "<%= sdkCoreRange %>",
-    "@o3r/eslint-config-otter": "<%= sdkCoreRange %>",
+    "@o3r/eslint-config": "<%= sdkCoreRange %>",
     "@o3r/eslint-plugin": "<%= sdkCoreRange %>",
     "@o3r/schematics": "<%= sdkCoreRange %>",
     "@openapitools/openapi-generator-cli": "<%= versions['@openapitools/openapi-generator-cli'] %>",
-    "@stylistic/eslint-plugin-ts": "<%= versions['@stylistic/eslint-plugin-ts'] %>",
-    "@swc/cli": "~0.3.0",
-    "@swc/core": "~1.5.24",
+    "@stylistic/eslint-plugin": "<%= versions['@stylistic/eslint-plugin'] %>",
+    "@swc/cli": "<%= versions['@swc/cli'] %>",
+    "@swc/core": "<%= versions['@swc/core'] %>",
     "@types/jest": "<%= versions['@types/jest'] %>",
     "@types/node": "<%= versions['@types/node'] %>",
     "@typescript-eslint/eslint-plugin": "<%= versions['@typescript-eslint/eslint-plugin'] %>",
@@ -96,19 +100,20 @@
     "eslint-plugin-jsdoc": "<%= versions['eslint-plugin-jsdoc'] %>",
     "eslint-plugin-prefer-arrow": "<%= versions['eslint-plugin-prefer-arrow'] %>",
     "eslint-plugin-unicorn": "<%= versions['eslint-plugin-unicorn'] %>",
+    "globals": "<%= versions['globals'] %>",
     "globby": "<%= versions['globby'] %>",
     "isomorphic-fetch": "<%= versions['isomorphic-fetch'] %>",
     "jest": "<%= versions['jest'] %>",
-    "jest-junit": "~16.0.0",
-    "lint-staged": "^13.0.0",
-    "minimist": "^1.2.6",
-    "rimraf": "^5.0.1",
+    "jest-junit": "<%= versions['jest-junit'] %>",
+    "lint-staged": "<%= versions['lint-staged'] %>",
+    "minimist": "<%= versions['minimist'] %>",
+    "rimraf": "<%= versions['rimraf'] %>",
     "rxjs": "<%= versions['rxjs'] %>",
     "commit-and-tag-version": "<%= versions['commit-and-tag-version'] %>",
     "ts-jest": "<%= versions['ts-jest'] %>",
-    "typedoc": "~0.25.0",
-    "tsc-watch": "^6.0.0",
-    "yaml-eslint-parser": "^1.2.2",
+    "typedoc": "<%= versions['typedoc'] %>",
+    "tsc-watch": "<%= versions['tsc-watch'] %>",
+    "yaml-eslint-parser": "<%= versions['yaml-eslint-parser'] %>",
     "typescript": "<%= versions['typescript'] %>"<% if (specPackageName) { %>,
     "<%=specPackageName%>": "<%=specPackageVersion%>"<% } %>
   },<% if (exactO3rVersion) { %>
@@ -116,6 +121,7 @@
     "@o3r/schematics": "<%= sdkCoreRange %>"
   },<% } %>
   "peerDependencies": {
+    "@ama-sdk/client-fetch": "<%= sdkCoreRange %>",
     "@ama-sdk/core": "~<%= sdkCoreVersion %>",
     "isomorphic-fetch": "<%= versions['isomorphic-fetch'] %>"
   },

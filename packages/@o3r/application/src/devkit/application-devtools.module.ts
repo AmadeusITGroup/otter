@@ -1,9 +1,23 @@
-import { ModuleWithProviders, NgModule } from '@angular/core';
-import type { ApplicationDevtoolsServiceOptions } from './application-devkit.interface';
-import { ApplicationDevtoolsConsoleService } from './application-devtools.console.service';
-import { ApplicationDevtoolsMessageService } from './application-devtools.message.service';
-import { OtterApplicationDevtools } from './application-devtools.service';
-import { OTTER_APPLICATION_DEVTOOLS_DEFAULT_OPTIONS, OTTER_APPLICATION_DEVTOOLS_OPTIONS } from './application-devtools.token';
+import {
+  ModuleWithProviders,
+  NgModule,
+} from '@angular/core';
+import type {
+  ApplicationDevtoolsServiceOptions,
+} from './application-devkit.interface';
+import {
+  ApplicationDevtoolsConsoleService,
+} from './application-devtools.console.service';
+import {
+  ApplicationDevtoolsMessageService,
+} from './application-devtools.message.service';
+import {
+  OtterApplicationDevtools,
+} from './application-devtools.service';
+import {
+  OTTER_APPLICATION_DEVTOOLS_DEFAULT_OPTIONS,
+  OTTER_APPLICATION_DEVTOOLS_OPTIONS,
+} from './application-devtools.token';
 
 @NgModule({
   providers: [
@@ -14,7 +28,6 @@ import { OTTER_APPLICATION_DEVTOOLS_DEFAULT_OPTIONS, OTTER_APPLICATION_DEVTOOLS_
   ]
 })
 export class ApplicationDevtoolsModule {
-
   /**
    * Initialize Otter Devtools
    * @param options
@@ -23,7 +36,7 @@ export class ApplicationDevtoolsModule {
     return {
       ngModule: ApplicationDevtoolsModule,
       providers: [
-        { provide: OTTER_APPLICATION_DEVTOOLS_OPTIONS, useValue: {...OTTER_APPLICATION_DEVTOOLS_DEFAULT_OPTIONS, ...options}, multi: false },
+        { provide: OTTER_APPLICATION_DEVTOOLS_OPTIONS, useValue: { ...OTTER_APPLICATION_DEVTOOLS_DEFAULT_OPTIONS, ...options }, multi: false },
         ApplicationDevtoolsMessageService,
         ApplicationDevtoolsConsoleService,
         OtterApplicationDevtools

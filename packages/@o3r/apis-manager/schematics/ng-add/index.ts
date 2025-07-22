@@ -1,6 +1,15 @@
-import { chain, noop, type Rule } from '@angular-devkit/schematics';
 import * as path from 'node:path';
-import type { NgAddSchematicsSchema } from './schema';
+import {
+  chain,
+  noop,
+  type Rule,
+} from '@angular-devkit/schematics';
+import type {
+  PackageJson,
+} from 'type-fest';
+import type {
+  NgAddSchematicsSchema,
+} from './schema';
 
 const reportMissingSchematicsDep = (logger: { error: (message: string) => any }) => (reason: any) => {
   logger.error(`[ERROR]: Adding @o3r/apis-manager has failed.
@@ -9,13 +18,34 @@ You need to install '@o3r/schematics' to be able to use the o3r apis-manager pac
 };
 
 /**
+ * List of external dependencies to be added to the project as peer dependencies
+ */
+const dependenciesToInstall = [
+  '@angular/common',
+  '@angular/core',
+  'rxjs'
+];
+
+/**
+ * List of external dependencies to be added to the project as dev dependencies
+ */
+const devDependenciesToInstall: string[] = [];
+
+/**
  * Add Otter apis manager to an Angular Project
  * @param options
  */
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
-  return async (tree) => {
-    const { getPackageInstallConfig } = await import('@o3r/schematics');
-    const { setupDependencies, getO3rPeerDeps, applyEsLintFix, getWorkspaceConfig, getProjectNewDependenciesTypes } = await import('@o3r/schematics');
+  return async (tree, context) => {
+    const {
+      getExternalDependenciesInfo,
+      getPackageInstallConfig,
+      setupDependencies,
+      getO3rPeerDeps,
+      applyEsLintFix,
+      getWorkspaceConfig,
+      getProjectNewDependenciesTypes
+    } = await import('@o3r/schematics');
     const { updateApiDependencies } = await import('../helpers/update-api-deps');
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
     const depsInfo = getO3rPeerDeps(packageJsonPath);
@@ -25,6 +55,23 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
     if (projectType === 'application') {
       rulesToExecute.push(updateApiDependencies(options));
     }
+
+    if (!options.skipCodeSample) {
+      depsInfo.o3rPeerDeps.push('@ama-sdk/client-fetch');
+    }
+
+    const projectDirectory = workspaceProject?.root || '.';
+    const projectPackageJson = tree.readJson(path.posix.join(projectDirectory, 'package.json')) as PackageJson;
+
+    const externalDependenciesInfo = getExternalDependenciesInfo({
+      dependenciesToInstall,
+      devDependenciesToInstall,
+      projectType: workspaceProject?.projectType,
+      o3rPackageJsonPath: packageJsonPath,
+      projectPackageJson
+    },
+    context.logger
+    );
 
     const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
       acc[dep] = {
@@ -42,7 +89,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       options.skipLinter ? noop : applyEsLintFix(),
       setupDependencies({
         projectName: options.projectName,
-        dependencies,
+        dependencies: { ...dependencies, ...externalDependenciesInfo },
         ngAddToRun: depsInfo.o3rPeerDeps
       })
     ]);

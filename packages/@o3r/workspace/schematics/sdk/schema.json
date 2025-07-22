@@ -6,8 +6,8 @@
   "properties": {
     "name": {
       "type": "string",
-      "description": "Name of the SDK package",
-      "x-prompt": "Name of the new SDK package?",
+      "description": "Name of the SDK package (format: @scope/sdk-name)",
+      "x-prompt": "Name of the new SDK package? (format: @scope/sdk-name)",
       "$default": {
         "$source": "argv",
         "index": 0

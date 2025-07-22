@@ -1,6 +1,13 @@
-import { createAction, props } from '@ngrx/store';
-import type { SetStateActionPayload } from '@o3r/core';
-import { AssetPathOverrideState } from './asset-path-override.state';
+import {
+  createAction,
+  props,
+} from '@ngrx/store';
+import type {
+  SetStateActionPayload,
+} from '@o3r/core';
+import {
+  AssetPathOverrideState,
+} from './asset-path-override.state';
 
 /** Actions */
 const ACTION_SET = '[AssetPathOverride] set entities';

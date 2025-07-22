@@ -1,9 +1,16 @@
-import {ElementFinder} from 'protractor';
-import {RadioElementProfile} from '../../elements';
-import {O3rElement} from '../element';
+import {
+  ElementFinder,
+} from 'protractor';
+import {
+  RadioElementProfile,
+} from '../../elements';
+import {
+  O3rElement,
+} from '../element';
 
 /**
  * Implementation dedicated to karma / TestBed.
+ * @deprecated Will be removed in v13, please use Playwright instead
  */
 export class O3rRadioElement extends O3rElement implements RadioElementProfile {
   constructor(sourceElement: ElementFinder) {
@@ -14,6 +21,7 @@ export class O3rRadioElement extends O3rElement implements RadioElementProfile {
   public async check(value = true) {
     const currentValue = await this.isChecked();
     if (currentValue === value) {
+      // eslint-disable-next-line no-console -- no other logger available
       console.warn(`O3rRadioElement is already ${value ? 'checked' : 'unchecked'}`);
       return Promise.resolve();
     }

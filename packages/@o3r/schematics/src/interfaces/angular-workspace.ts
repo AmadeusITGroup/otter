@@ -1,9 +1,7 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-// FIXME: The interface has been removed in angular 11 https://github.com/angular/angular-cli/commit/df70c7a85770fe50cc4c2d67589dc2d37f27d0b1
 import type {
   Projects as NgWorkspaceProject,
   Schema as NgWorkspaceSchema,
-  SchematicOptions
+  SchematicOptions,
 } from '@angular/cli/lib/config/workspace-schema';
 
 /**
@@ -27,8 +25,8 @@ export interface WorkspaceLayout {
   appsDir: string;
 }
 
-
 export interface WorkspaceSchematics extends SchematicOptions {
+  /* eslint-disable @typescript-eslint/naming-convention -- schematics identifier */
   '@o3r/core:component'?: {
     path: string;
   } & WorkspaceSchematics['*:*'];
@@ -49,6 +47,7 @@ export interface WorkspaceSchematics extends SchematicOptions {
     /** in addition to the WorkspaceLayout, an optional testFramework attribute is available */
     testFramework?: AvailableTestFrameworks;
   };
+  /** eslint-enable @typescript-eslint/naming-convention */
 }
 export interface WorkspaceProject extends NgWorkspaceProject {
   name?: string;
@@ -68,4 +67,3 @@ export interface WorkspaceSchema extends NgWorkspaceSchema {
   };
   schematics?: WorkspaceSchematics;
 }
-

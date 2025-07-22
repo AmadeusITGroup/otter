@@ -1,4 +1,6 @@
-import type { ConfigurationBaseService } from '@o3r/configuration';
+import type {
+  ConfigurationBaseService,
+} from '@o3r/configuration';
 
 /**
  * Fixture file for configuration service

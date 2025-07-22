@@ -89,20 +89,18 @@ In the use case where we need to display inline errors, we have to apply directi
 - __on presenter class__
 
 ```typescript
-  this.subscriptions.push(
-    this.config$.subscribe((config) => {
-      const firstNameValidators = [];
-      if (config.firstNameMaxLength) {
-        // Apply validator based on config
-        firstNameValidators.push(Validators.maxLength(this.config.firstNameMaxLength));
-      }
-      // firstNameValidators.push(otherValidators)
-      if (firstNameValidators.length) {
-        this.travelerForm.controls.firstName.clearValidators();
-        this.travelerForm.controls.firstName.setValidators(firstNameValidators)
-      }
-    })
-  );
+  this.config$.pipe(takeUntilDestroyed()).subscribe((config) => {
+    const firstNameValidators = [];
+    if (config.firstNameMaxLength) {
+      // Apply validator based on config
+      firstNameValidators.push(Validators.maxLength(this.config.firstNameMaxLength));
+    }
+    // firstNameValidators.push(otherValidators)
+    if (firstNameValidators.length) {
+      this.travelerForm.controls.firstName.clearValidators();
+      this.travelerForm.controls.firstName.setValidators(firstNameValidators)
+    }
+  });
 ```
 
 <a name="translation-validators"></a>
@@ -197,27 +195,26 @@ The validators are applied to the form on the __presenter__ class.
   /** Custom validators applied on the form */
   @Input() customValidators?: CustomFormValidation<Traveler>; // ---> receives the Traveler contract
   private customValidators$ = new BehaviorSubject<Traveler | undefined>(undefined);
+  private readonly destroyRef = inject(DestroyRef);
 
   ngOnInit() {
     ...
-    this.subscriptions.push(
-      combineLatest([this.config$, customValidators$]).subscribe(([config, customValidators]) => {
-        const firstNameValidators = [];
-        if (config.firstNameMaxLength) { // Primivite validator
-          // Apply validator based on config
-          firstNameValidators.push(Validators.maxLength(this.config.firstNameMaxLength));
-        }
-        // Apply custom validation
-        if (customValidators && customValidators.fields && customValidators.fields.firstName) {
-          firstNameValidators.push(customValidators.fields.firstName);
-        }
-        // firstNameValidators.push(otherValidators)
-        if (firstNameValidators.length) {
-          this.travelerForm.controls.firstName.clearValidators();
-          this.travelerForm.controls.firstName.setValidators(firstNameValidators)
-        }
-      })
-    );
+    combineLatest([this.config$, customValidators$]).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(([config, customValidators]) => {
+      const firstNameValidators = [];
+      if (config.firstNameMaxLength) { // Primitive validator
+        // Apply validator based on config
+        firstNameValidators.push(Validators.maxLength(this.config.firstNameMaxLength));
+      }
+      // Apply custom validation
+      if (customValidators && customValidators.fields && customValidators.fields.firstName) {
+        firstNameValidators.push(customValidators.fields.firstName);
+      }
+      // firstNameValidators.push(otherValidators)
+      if (firstNameValidators.length) {
+        this.travelerForm.controls.firstName.clearValidators();
+        this.travelerForm.controls.firstName.setValidators(firstNameValidators)
+      }
+    });
   }
 
   ngOnChanges(changes: SimpleChanges) {

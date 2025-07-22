@@ -1,6 +1,15 @@
-import { Rule } from '@angular-devkit/schematics';
-import { NgShowModulesSchematicsSchema } from './schema';
-import { createSchematicWithMetricsIfInstalled, displayModuleListRule, OTTER_MODULE_KEYWORD, OTTER_MODULE_SUPPORTED_SCOPES } from '@o3r/schematics';
+import {
+  Rule,
+} from '@angular-devkit/schematics';
+import {
+  createSchematicWithMetricsIfInstalled,
+  displayModuleListRule,
+  OTTER_MODULE_KEYWORD,
+  OTTER_MODULE_SUPPORTED_SCOPES,
+} from '@o3r/schematics';
+import {
+  NgShowModulesSchematicsSchema,
+} from './schema';
 
 /**
  * Show the list of available modules

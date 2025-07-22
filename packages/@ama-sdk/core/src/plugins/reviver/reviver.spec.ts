@@ -1,8 +1,11 @@
-import { ApiTypes } from '../../fwk/api';
-import { ReviverReply } from './reviver.reply';
+import {
+  ApiTypes,
+} from '../../fwk/api';
+import {
+  ReviverReply,
+} from './reviver.reply';
 
 describe('Reviver Reply Plugin', () => {
-
   const reviver = jest.fn();
 
   it('should revive a specific data', async () => {

@@ -1,13 +1,40 @@
-/* eslint-disable @typescript-eslint/ban-types */
-import { Inject, Injectable, Optional } from '@angular/core';
-import { select, Store } from '@ngrx/store';
-import { TranslateService } from '@ngx-translate/core';
-import { LoggerService } from '@o3r/logger';
-import { BehaviorSubject, combineLatest, Observable, of } from 'rxjs';
-import { distinctUntilChanged, map, shareReplay, switchMap } from 'rxjs/operators';
-import { LocalizationConfiguration } from '../core/localization.configuration';
-import { LocalizationOverrideStore, selectLocalizationOverride } from '../stores/index';
-import { LOCALIZATION_CONFIGURATION_TOKEN } from './localization.token';
+import {
+  Inject,
+  Injectable,
+  Optional,
+} from '@angular/core';
+import {
+  select,
+  Store,
+} from '@ngrx/store';
+import {
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  LoggerService,
+} from '@o3r/logger';
+import {
+  BehaviorSubject,
+  combineLatest,
+  Observable,
+  of,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  map,
+  shareReplay,
+  switchMap,
+} from 'rxjs/operators';
+import {
+  LocalizationConfiguration,
+} from '../core/localization.configuration';
+import {
+  LocalizationOverrideStore,
+  selectLocalizationOverride,
+} from '../stores/index';
+import {
+  LOCALIZATION_CONFIGURATION_TOKEN,
+} from './localization.token';
 
 /**
  * Service which is wrapping the configuration logic of TranslateService from ngx-translate
@@ -16,13 +43,11 @@ import { LOCALIZATION_CONFIGURATION_TOKEN } from './localization.token';
  */
 @Injectable()
 export class LocalizationService {
-
   private readonly localeSplitIdentifier: string = '-';
 
   /**
    * Internal subject that we use to track changes between keys only and translation mode
    */
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   private readonly _showKeys$ = new BehaviorSubject(false);
 
   /**
@@ -57,12 +82,12 @@ export class LocalizationService {
    * @returns selected language if supported, fallback language otherwise.
    */
   private checkFallbackLocalesMap<T extends string | undefined>(language: T) {
-    if (language && this.configuration.supportedLocales.indexOf(language) === -1) {
+    if (language && !this.configuration.supportedLocales.includes(language)) {
       const closestSupportedLanguageCode = this.getFirstClosestSupportedLanguageCode(language);
       const fallbackForLanguage = this.getFallbackMapLangCode(language);
-      const fallbackStrategyDebug = fallbackForLanguage && ' associated fallback language ' ||
-        closestSupportedLanguageCode && ' closest supported language ' ||
-        this.configuration.fallbackLanguage && ' configured default language ';
+      const fallbackStrategyDebug = (fallbackForLanguage && ' associated fallback language ')
+        || (closestSupportedLanguageCode && ' closest supported language ')
+        || (this.configuration.fallbackLanguage && ' configured default language ');
       const fallbackLang = fallbackForLanguage || closestSupportedLanguageCode || this.configuration.fallbackLanguage || language;
       if (language !== fallbackLang) {
         this.logger.debug(`Non supported languages ${language} will fallback to ${fallbackStrategyDebug} ${fallbackLang}`);
@@ -87,7 +112,6 @@ export class LocalizationService {
     const [locale] = language.split(this.localeSplitIdentifier);
 
     return fallbackLocalesMap && (fallbackLocalesMap[language] || fallbackLocalesMap[locale]);
-
   }
 
   /**
@@ -99,7 +123,6 @@ export class LocalizationService {
    * @returns Closest supported language if available, undefined otherwise.
    */
   private getFirstClosestSupportedLanguageCode(language: string): string | undefined {
-
     const [locale] = language.split(this.localeSplitIdentifier);
     const firstClosestRegx = new RegExp(`^${locale}${this.localeSplitIdentifier}?`, 'i');
 
@@ -158,7 +181,6 @@ export class LocalizationService {
    * @param language
    */
   public useLanguage(language: string): Observable<any> {
-
     language = this.checkFallbackLocalesMap(language);
     return this.translateService.use(language);
   }
@@ -185,7 +207,7 @@ export class LocalizationService {
     if (!this.configuration.enableTranslationDeactivation) {
       throw new Error('Translation deactivation is not enabled. Please set the LocalizationConfiguration property "enableTranslationDeactivation" accordingly.');
     }
-    const newValue = value !== undefined ? value : !this.showKeys;
+    const newValue = value === undefined ? !this.showKeys : value;
     this._showKeys$.next(newValue);
   }
 
@@ -201,14 +223,12 @@ export class LocalizationService {
    * @param requestedKey Original translation key
    */
   public getKey(requestedKey: string) {
-    if (this.keyMapping$) {
-      return this.keyMapping$.pipe(
-        map((keyMapping) => keyMapping && keyMapping[requestedKey] || requestedKey),
+    return this.keyMapping$
+      ? this.keyMapping$.pipe(
+        map((keyMapping) => keyMapping?.[requestedKey] || requestedKey),
         distinctUntilChanged()
-      );
-    } else {
-      return of(requestedKey);
-    }
+      )
+      : of(requestedKey);
   }
 
   /**
@@ -220,7 +240,7 @@ export class LocalizationService {
   public translate(key: string, interpolateParams?: object) {
     return this.getKey(key).pipe(
       switchMap((translationKey) => this.getTranslationStream(translationKey, interpolateParams)),
-      shareReplay(1)
+      shareReplay({ refCount: true, bufferSize: 1 })
     );
   }
 }

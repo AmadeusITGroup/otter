@@ -1,9 +1,19 @@
-import {createFeatureSelector, createSelector} from '@ngrx/store';
-import {placeholderTemplateAdapter} from './placeholder-template.reducer';
-import {PLACEHOLDER_TEMPLATE_STORE_NAME, PlaceholderTemplateState} from './placeholder-template.state';
-import {selectPlaceholderRequestState} from '../placeholder-request';
+import {
+  createFeatureSelector,
+  createSelector,
+} from '@ngrx/store';
+import {
+  selectPlaceholderRequestState,
+} from '../placeholder-request';
+import {
+  placeholderTemplateAdapter,
+} from './placeholder-template.reducer';
+import {
+  PLACEHOLDER_TEMPLATE_STORE_NAME,
+  PlaceholderTemplateState,
+} from './placeholder-template.state';
 
-const {selectEntities} = placeholderTemplateAdapter.getSelectors();
+const { selectEntities } = placeholderTemplateAdapter.getSelectors();
 
 export const selectPlaceholderTemplateState = createFeatureSelector<PlaceholderTemplateState>(PLACEHOLDER_TEMPLATE_STORE_NAME);
 
@@ -33,7 +43,7 @@ export const selectSortedTemplates = (placeholderId: string) => createSelector(
     // The isPending will be considered true if any of the Url is still pending
     let isPending: boolean | undefined = false;
     const templates: { rawUrl: string; priority: number; renderedTemplate?: string; resolvedUrl: string }[] = [];
-    placeholderTemplate.urlsWithPriority.forEach(urlWithPriority => {
+    placeholderTemplate.urlsWithPriority.forEach((urlWithPriority) => {
       const placeholderRequest = placeholderRequestState.entities[urlWithPriority.rawUrl];
       if (placeholderRequest) {
         // If one of the items is pending, we will wait to display all contents at the same time
@@ -51,14 +61,14 @@ export const selectSortedTemplates = (placeholderId: string) => createSelector(
     });
     // No need to perform sorting if still pending
     if (isPending) {
-      return {orderedTemplates: undefined, isPending};
+      return { orderedTemplates: undefined, isPending };
     }
     // Sort templates by priority
     const orderedTemplates = templates.sort((template1, template2) => {
       return (template2.priority - template1.priority) || 1;
-    }).filter(templateData => !!templateData.renderedTemplate);
+    }).filter((templateData) => !!templateData.renderedTemplate);
 
-    return {orderedTemplates, isPending};
+    return { orderedTemplates, isPending };
   });
 
 /**
@@ -75,10 +85,9 @@ export const selectPlaceholderRenderedTemplates = (placeholderId: string) => cre
       return;
     }
     return {
-      orderedRenderedTemplates: placeholderData.orderedTemplates?.map(placeholder => placeholder.renderedTemplate),
+      orderedRenderedTemplates: placeholderData.orderedTemplates?.map((placeholder) => placeholder.renderedTemplate),
       isPending: placeholderData.isPending
     };
   });
-
 
 export const selectPlaceholderTemplateMode = createSelector(selectPlaceholderTemplateState, (state) => state.mode);

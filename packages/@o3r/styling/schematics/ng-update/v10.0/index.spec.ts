@@ -1,8 +1,17 @@
-import { Tree } from '@angular-devkit/schematics';
-import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
-import { updateScssImports } from './update-scss-imports';
 import * as path from 'node:path';
-import { lastValueFrom } from 'rxjs';
+import {
+  Tree,
+} from '@angular-devkit/schematics';
+import {
+  SchematicTestRunner,
+  UnitTestTree,
+} from '@angular-devkit/schematics/testing';
+import {
+  lastValueFrom,
+} from 'rxjs';
+import {
+  updateScssImports,
+} from './update-scss-imports';
 
 describe('Update v10', () => {
   const collectionPath = path.join(__dirname, '../../../migration.json');
@@ -13,7 +22,6 @@ describe('Update v10', () => {
   });
 
   describe('Update SCSS Import', () => {
-
     it('should not update a TS file', async () => {
       const content = '@use "@o3r/styling" as o3r;\n';
       initialTree.create('/source.ts', content);
@@ -107,6 +115,5 @@ describe('Update v10', () => {
 
       expect(res).toEqual(expected);
     });
-
   });
 });

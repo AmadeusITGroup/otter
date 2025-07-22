@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "generateJsonSchematicsSchema",
+  "title": "Generate the JSON Schema from Design Token",
+  "description": "Generate the JSON Schema from Design Token",
+  "properties": {
+    "designTokenFilePatterns": {
+      "description": "Path patterns to the Design Token JSON files (it supports Node dependency paths).",
+      "type": [
+        "array",
+        "string"
+      ],
+      "items": {
+        "type": "string"
+      }
+    },
+    "output": {
+      "type": "string",
+      "description": "Path to the outputted Json schema file.",
+      "default": "design-token.schema.json"
+    },
+    "watch": {
+      "type": "boolean",
+      "default": false,
+      "description": "Enable Watch mode"
+    },
+    "failOnDuplicate": {
+      "type": "boolean",
+      "default": false,
+      "description": "Determine if the process should stop in case of Token duplication"
+    },
+    "schemaId": {
+      "type": "string",
+      "description": "ID used in the generated JSON Schema"
+    },
+    "schemaDescription": {
+      "type": "string",
+      "description": "Description of the generated JSON Schema"
+    }
+  },
+  "additionalProperties": true,
+  "required": [
+    "designTokenFilePatterns"
+  ]
+}

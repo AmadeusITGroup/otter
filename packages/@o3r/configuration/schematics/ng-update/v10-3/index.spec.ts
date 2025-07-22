@@ -1,7 +1,12 @@
-import { Tree } from '@angular-devkit/schematics';
-import { SchematicTestRunner, type UnitTestTree } from '@angular-devkit/schematics/testing';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
+import {
+  Tree,
+} from '@angular-devkit/schematics';
+import {
+  SchematicTestRunner,
+  type UnitTestTree,
+} from '@angular-devkit/schematics/testing';
 
 const migrationPath = path.join(__dirname, '..', '..', '..', 'migration.json');
 

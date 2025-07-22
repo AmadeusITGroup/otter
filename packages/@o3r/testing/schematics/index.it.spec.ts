@@ -5,51 +5,104 @@
  */
 const o3rEnvironment = globalThis.o3rEnvironment;
 
+import * as fs from 'node:fs';
+import * as path from 'node:path';
 import {
   addImportToAppModule,
   getDefaultExecSyncOptions,
   getGitDiff,
   packageManagerExec,
   packageManagerInstall,
-  packageManagerRunOnProject
+  packageManagerRunOnProject,
 } from '@o3r/test-helpers';
-import * as path from 'node:path';
 
-describe('new otter application with testing', () => {
-
-  test('should add testing to existing application', () => {
-    const { workspacePath, projectName, isInWorkspace, o3rVersion } = o3rEnvironment.testEnvironment;
-    const execAppOptions = {...getDefaultExecSyncOptions(), cwd: workspacePath};
-    packageManagerExec({script: 'ng', args: ['add', `@o3r/testing@${o3rVersion}`, '--skip-confirmation', '--project-name', projectName]}, execAppOptions);
-
-    expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
-    expect(() => packageManagerRunOnProject(projectName, isInWorkspace, {script: 'build'}, execAppOptions)).not.toThrow();
-    expect(() => packageManagerRunOnProject(projectName, isInWorkspace, {script: 'test'}, execAppOptions)).not.toThrow();
-  });
-
-  test('should add testing to existing application and fixture to component', async () => {
-
-    const { projectPath, workspacePath, projectName, isInWorkspace, untouchedProjectPath, o3rVersion } = o3rEnvironment.testEnvironment;
-    const execAppOptions = {...getDefaultExecSyncOptions(), cwd: workspacePath};
-    const relativeProjectPath = path.relative(workspacePath, projectPath);
-    packageManagerExec({script: 'ng', args: ['add', `@o3r/testing@${o3rVersion}`, '--skip-confirmation', '--project-name', projectName]}, execAppOptions);
-
-    const componentPath = path.join(relativeProjectPath, 'src/components/test-component/container/test-component-cont.component.ts');
-    packageManagerExec({script: 'ng',
-      args: ['g', '@o3r/core:component', 'test-component', '--use-component-fixtures', 'false', '--component-structure', 'full', '--project-name', projectName]}, execAppOptions);
-    packageManagerExec({script: 'ng', args: ['g', '@o3r/testing:add-fixture', '--path', componentPath]}, execAppOptions);
-    await addImportToAppModule(projectPath, 'TestComponentContModule', 'src/components/test-component');
+describe('ng add testing', () => {
+  test('should add testing to an application', () => {
+    const { workspacePath, appName, isInWorkspace, o3rVersion, libraryPath, untouchedProjectsPaths, applicationPath } = o3rEnvironment.testEnvironment;
+    const execAppOptions = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
+    packageManagerExec({ script: 'ng', args: ['add', `@o3r/testing@${o3rVersion}`, '--testingFramework', 'jest', '--skip-confirmation', '--project-name', appName] }, execAppOptions);
 
     const diff = getGitDiff(execAppOptions.cwd);
-    expect(diff.added).toContain(path.join(relativeProjectPath, 'src/components/test-component/container/test-component-cont.fixture.ts').replace(/[\\/]+/g, '/'));
+    expect(diff.added.length).toBe(11);
+    expect(fs.readFileSync(path.join(applicationPath, 'package.json'), { encoding: 'utf8' })).toContain('@o3r/testing');
+    const vscodeContent = fs.readFileSync(`${workspacePath}/.vscode/extensions.json`, 'utf8');
+    expect(vscodeContent).toContain('"Orta.vscode-jest"');
 
-    if (untouchedProjectPath) {
-      const relativeUntouchedProjectPath = path.relative(workspacePath, untouchedProjectPath);
-      expect(diff.all.filter((file) => new RegExp(relativeUntouchedProjectPath.replace(/[\\/]+/g, '[\\\\/]')).test(file)).length).toBe(0);
-    }
+    [libraryPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
+      expect(diff.all.some((file) => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
+    });
 
     expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
-    expect(() => packageManagerRunOnProject(projectName, isInWorkspace, {script: 'build'}, execAppOptions)).not.toThrow();
-    expect(() => packageManagerRunOnProject(projectName, isInWorkspace, {script: 'test'}, execAppOptions)).not.toThrow();
+    expect(() => packageManagerRunOnProject(appName, isInWorkspace, { script: 'build' }, execAppOptions)).not.toThrow();
+    expect(() => packageManagerRunOnProject(appName, isInWorkspace, { script: 'test' }, execAppOptions)).not.toThrow();
+  });
+
+  test('should add testing to an application and fixture to component', async () => {
+    const { applicationPath, workspacePath, appName, isInWorkspace, o3rVersion, untouchedProjectsPaths, libraryPath } = o3rEnvironment.testEnvironment;
+    const execAppOptions = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
+    const relativeApplicationPath = path.relative(workspacePath, applicationPath);
+    packageManagerExec({ script: 'ng', args: ['add', `@o3r/testing@${o3rVersion}`, '--testingFramework', 'jest', '--skip-confirmation', '--project-name', appName] }, execAppOptions);
+
+    const componentPath = path.join(relativeApplicationPath, 'src/components/test-component/container/test-component-cont.component.ts');
+    packageManagerExec({ script: 'ng',
+      args: ['g', '@o3r/core:component', 'test-component', '--use-component-fixtures', 'false', '--component-structure', 'full', '--project-name', appName] }, execAppOptions);
+    packageManagerExec({ script: 'ng', args: ['g', '@o3r/testing:add-fixture', '--path', componentPath] }, execAppOptions);
+    await addImportToAppModule(applicationPath, 'TestComponentContModule', 'src/components/test-component');
+
+    const diff = getGitDiff(execAppOptions.cwd);
+    expect(diff.added).toContain(path.join(relativeApplicationPath, 'src/components/test-component/container/test-component-cont.fixture.ts').replace(/[/\\]+/g, '/'));
+
+    [libraryPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
+      expect(diff.all.some((file) => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
+    });
+
+    expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
+    expect(() => packageManagerRunOnProject(appName, isInWorkspace, { script: 'build' }, execAppOptions)).not.toThrow();
+    expect(() => packageManagerRunOnProject(appName, isInWorkspace, { script: 'test' }, execAppOptions)).not.toThrow();
+  });
+
+  // eslint-disable-next-line jest/no-disabled-tests -- TODO: fix #1765 first
+  test.skip('should add testing to a library', () => {
+    const { workspacePath, libName, isInWorkspace, o3rVersion, applicationPath, untouchedProjectsPaths } = o3rEnvironment.testEnvironment;
+    const execAppOptions = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
+    packageManagerExec({ script: 'ng', args: ['add', `@o3r/testing@${o3rVersion}`, '--testingFramework', 'jest', '--skip-confirmation', '--project-name', libName] }, execAppOptions);
+
+    const diff = getGitDiff(execAppOptions.cwd);
+    expect(diff.added.length).toBe(6);
+    expect(diff.modified).toEqual(['libs/test-lib/package.json']);
+
+    [applicationPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
+      expect(diff.all.some((file) => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
+    });
+
+    expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
+    expect(() => packageManagerRunOnProject(libName, isInWorkspace, { script: 'build' }, execAppOptions)).not.toThrow();
+    expect(() => packageManagerRunOnProject(libName, isInWorkspace, { script: 'test' }, execAppOptions)).not.toThrow();
+  });
+
+  // eslint-disable-next-line jest/no-disabled-tests -- TODO: fix #1765 first
+  test.skip('should add testing to a library and fixture to component', () => {
+    const { applicationPath, workspacePath, libName, isInWorkspace, o3rVersion, untouchedProjectsPaths, libraryPath } = o3rEnvironment.testEnvironment;
+    const execAppOptions = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
+    const relativeLibraryPath = path.relative(workspacePath, libraryPath);
+    packageManagerExec({ script: 'ng', args: ['add', `@o3r/testing@${o3rVersion}`, '--testingFramework', 'jest', '--skip-confirmation', '--project-name', libName] }, execAppOptions);
+
+    const componentPath = path.join(relativeLibraryPath, 'src/components/test-component/container/test-component-cont.component.ts');
+    packageManagerExec({ script: 'ng',
+      args: ['g', '@o3r/core:component', 'test-component', '--use-component-fixtures', 'false', '--component-structure', 'full', '--project-name', libName] }, execAppOptions);
+    packageManagerExec({ script: 'ng', args: ['g', '@o3r/testing:add-fixture', '--path', componentPath] }, execAppOptions);
+
+    const diff = getGitDiff(execAppOptions.cwd);
+    expect(diff.added).toContain(path.join(relativeLibraryPath, 'src/components/test-component/container/test-component-cont.fixture.ts').replace(/[/\\]+/g, '/'));
+    expect(diff.added.length).toBe(18);
+    expect(diff.modified.length).toBe(6);
+
+    [applicationPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
+      expect(diff.all.some((file) => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
+    });
+
+    expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
+    expect(() => packageManagerRunOnProject(libName, isInWorkspace, { script: 'build' }, execAppOptions)).not.toThrow();
+    expect(() => packageManagerRunOnProject(libName, isInWorkspace, { script: 'test' }, execAppOptions)).not.toThrow();
   });
 });

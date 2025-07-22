@@ -1,6 +1,7 @@
 {
   "extends": "../../../tsconfig.build",
   "compilerOptions": {
+    "skipLibCheck": true, // Due to react sub dependencies
     "incremental": true,
     "composite": true,
     "outDir": "./dist",

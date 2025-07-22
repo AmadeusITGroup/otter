@@ -1,6 +1,13 @@
-import type { Rule } from '@angular-devkit/schematics';
-import type { PresetNames } from '../../ng-add/schema';
-import type { SchematicOptionObject, SetupDependenciesOptions } from '@o3r/schematics';
+import type {
+  Rule,
+} from '@angular-devkit/schematics';
+import type {
+  SchematicOptionObject,
+  SetupDependenciesOptions,
+} from '@o3r/schematics';
+import type {
+  PresetNames,
+} from '../../ng-add/schema';
 
 /** Options of the preset runner  */
 export interface PresetOptions {

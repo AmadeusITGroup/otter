@@ -1,6 +1,14 @@
-import type { Schema, Spec } from 'swagger-schema-official';
-import type { AvailableSwaggerSpecTargets, SwaggerSpec } from './swagger-spec.interface';
-import { sanitizeDefinition } from './utils';
+import type {
+  Schema,
+  Spec,
+} from 'swagger-schema-official';
+import type {
+  AvailableSwaggerSpecTargets,
+  SwaggerSpec,
+} from './swagger-spec.interface';
+import {
+  sanitizeDefinition,
+} from './utils';
 
 export class SwaggerSpecObject implements SwaggerSpec {
   /** @inheritdoc */
@@ -22,13 +30,12 @@ export class SwaggerSpecObject implements SwaggerSpec {
   }
 
   /** @inheritdoc */
-  public async parse() {
-  }
+  public async parse() {}
 
   /** @inheritdoc */
   public getEnvelop(): Promise<{ [k: string]: any }> {
     return Promise.resolve(Object.keys(this.spec)
-      .filter((k) => ['tags', 'parameters', 'paths', 'definitions'].indexOf(k.toLowerCase()) < 0)
+      .filter((k) => !['tags', 'parameters', 'paths', 'definitions'].includes(k.toLowerCase()))
       .reduce<{ [k: string]: any }>((acc, k) => {
         acc[k] = this.spec[k as keyof Spec];
         return acc;

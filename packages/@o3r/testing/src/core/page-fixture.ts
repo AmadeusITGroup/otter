@@ -1,6 +1,14 @@
-import { TranspilationPurposeOnlyError } from '../errors/index';
-import { ComponentFixtureProfile, O3rComponentFixture } from './component-fixture';
-import { ElementProfile, O3rElement } from './element';
+import {
+  TranspilationPurposeOnlyError,
+} from '../errors/index';
+import {
+  ComponentFixtureProfile,
+  O3rComponentFixture,
+} from './component-fixture';
+import {
+  ElementProfile,
+  O3rElement,
+} from './element';
 
 /**
  * Interface to describe a page fixture.
@@ -27,6 +35,6 @@ export class O3rPageFixture<V extends O3rElement = O3rElement> extends O3rCompon
   }
 
   public getTitle(): Promise<string> {
-    throw new TranspilationPurposeOnlyError('Should target Protractor implementation');
+    throw new TranspilationPurposeOnlyError('Should target Playwright implementation');
   }
 }

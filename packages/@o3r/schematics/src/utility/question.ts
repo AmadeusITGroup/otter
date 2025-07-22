@@ -1,4 +1,6 @@
-import { createInterface } from 'node:readline';
+import {
+  createInterface,
+} from 'node:readline';
 
 /**
  * Display a question in the terminal and wait for the user answer

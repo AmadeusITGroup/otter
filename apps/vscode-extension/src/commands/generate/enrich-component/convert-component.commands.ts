@@ -1,5 +1,7 @@
 import * as vscode from 'vscode';
-import { findPathAndExecuteSchematic } from './common';
+import {
+  findPathAndExecuteSchematic,
+} from './common';
 
 const getExtraOptions = async () => {
   const componentType = await vscode.window.showQuickPick([

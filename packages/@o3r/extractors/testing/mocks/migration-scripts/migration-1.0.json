@@ -1,0 +1,17 @@
+{
+  "version": "1.0.0",
+  "libraries": {
+    "@o3r/my-lib": "2.0"
+  },
+  "changes": [
+    {
+      "contentType": "STYLE",
+      "before": {
+        "name": "old-var1"
+      },
+      "after": {
+        "name": "new-var1"
+      }
+    }
+  ]
+}

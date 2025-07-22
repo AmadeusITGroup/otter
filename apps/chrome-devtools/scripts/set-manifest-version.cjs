@@ -6,7 +6,6 @@ const { version } = require(join(__dirname, '..', 'dist', 'package.json'));
 
 /**
  * align the manifest version with the package.json version
- *
  * @param {string} file path to manifest.json
  */
 const updateVersion = async (file) => {

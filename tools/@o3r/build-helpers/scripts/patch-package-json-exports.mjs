@@ -1,16 +1,23 @@
+#!/usr/bin/env node
 /*
  * The purpose of this script is to remove the dist/ part of the path in a "main", "types" and "typing" field of the package.json
  */
 
+import {
+  readFileSync,
+  writeFileSync,
+} from 'node:fs';
+import {
+  join,
+  resolve,
+} from 'node:path';
 import minimist from 'minimist';
-import { readFileSync, writeFileSync } from 'node:fs';
-import { join, resolve } from 'node:path';
 
 const argv = minimist(process.argv.slice(2));
 const root = argv.root ? resolve(process.cwd(), argv.root) : process.cwd();
 
 const packageJsonPath = join(root, 'dist', 'package.json');
-const packageJson = JSON.parse(readFileSync(packageJsonPath, {encoding: 'utf-8'}));
+const packageJson = JSON.parse(readFileSync(packageJsonPath, { encoding: 'utf8' }));
 
 const srcPrefixRegExp = /^\.\/src\//;
 

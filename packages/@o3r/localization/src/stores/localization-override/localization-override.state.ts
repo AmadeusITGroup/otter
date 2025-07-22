@@ -3,7 +3,7 @@
  */
 export interface LocalizationOverrideState {
   /** Mapping of initial localization keys to the one they are replaced with */
-  localizationOverrides: Record<string,string>;
+  localizationOverrides: Record<string, string>;
 }
 
 /**

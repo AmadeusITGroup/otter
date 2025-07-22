@@ -1,6 +1,14 @@
-import type { Logger } from 'loglevel';
-import { Arguments, Argv } from 'yargs';
-import { CommonOptions, yargsAmaCli } from './common-config';
+import type {
+  Logger,
+} from 'loglevel';
+import {
+  Arguments,
+  Argv,
+} from 'yargs';
+import {
+  CommonOptions,
+  yargsAmaCli,
+} from './common-config';
 
 /** Progress bar update options */
 export interface ProgressBarUpdate {

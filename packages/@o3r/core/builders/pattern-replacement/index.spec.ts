@@ -1,10 +1,21 @@
-import { Architect } from '@angular-devkit/architect';
-import { TestingArchitectHost } from '@angular-devkit/architect/testing';
-import { schema } from '@angular-devkit/core';
-import { cleanVirtualFileSystem, useVirtualFileSystem } from '@o3r/test-helpers';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { PatternReplacementBuilderSchema } from './schema';
+import {
+  Architect,
+} from '@angular-devkit/architect';
+import {
+  TestingArchitectHost,
+} from '@angular-devkit/architect/testing';
+import {
+  schema,
+} from '@angular-devkit/core';
+import {
+  cleanVirtualFileSystem,
+  useVirtualFileSystem,
+} from '@o3r/test-helpers';
+import {
+  PatternReplacementBuilderSchema,
+} from './schema';
 
 describe('Pattern replacement Builder', () => {
   const workspaceRoot = path.join('..', '..', '..', '..', '..');
@@ -27,7 +38,7 @@ describe('Pattern replacement Builder', () => {
 
   it('should replace pattern', async () => {
     const fakeFilePath = path.resolve(__dirname, workspaceRoot, 'not-a-real-file.txt');
-    await virtualFileSystem.promises.mkdir(path.dirname(fakeFilePath), {recursive: true});
+    await virtualFileSystem.promises.mkdir(path.dirname(fakeFilePath), { recursive: true });
     await virtualFileSystem.promises.writeFile(fakeFilePath, 'Replace [stuff] here');
     const options: PatternReplacementBuilderSchema = {
       files: [fakeFilePath],
@@ -39,7 +50,7 @@ describe('Pattern replacement Builder', () => {
     expect(output.error).toBeUndefined();
     await run.stop();
 
-    const replacementOutput = await virtualFileSystem.promises.readFile(fakeFilePath, {encoding: 'utf8'});
+    const replacementOutput = await virtualFileSystem.promises.readFile(fakeFilePath, { encoding: 'utf8' });
     expect(replacementOutput).toBe('Replace things here');
   });
 });

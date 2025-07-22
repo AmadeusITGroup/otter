@@ -1,13 +1,27 @@
-/* eslint-disable no-console */
-import { getTestBed, TestBed } from '@angular/core/testing';
-import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
-import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { ConfigurationState } from '../stores';
-import { ConfigurationDevtoolsConsoleService } from './configuration-devtools.console.service';
-import { OTTER_CONFIGURATION_DEVTOOLS_DEFAULT_OPTIONS, OTTER_CONFIGURATION_DEVTOOLS_OPTIONS } from './configuration-devtools.token';
+import {
+  getTestBed,
+  TestBed,
+} from '@angular/core/testing';
+import {
+  BrowserDynamicTestingModule,
+  platformBrowserDynamicTesting,
+} from '@angular/platform-browser-dynamic/testing';
+import {
+  MockStore,
+  provideMockStore,
+} from '@ngrx/store/testing';
+import {
+  ConfigurationState,
+} from '../stores';
+import {
+  ConfigurationDevtoolsConsoleService,
+} from './configuration-devtools.console.service';
+import {
+  OTTER_CONFIGURATION_DEVTOOLS_DEFAULT_OPTIONS,
+  OTTER_CONFIGURATION_DEVTOOLS_OPTIONS,
+} from './configuration-devtools.token';
 
 describe('Configuration DevTools console', () => {
-
   beforeAll(() => getTestBed().platform || TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting(), {
     teardown: { destroyAfterEach: false }
   }));
@@ -26,7 +40,6 @@ describe('Configuration DevTools console', () => {
             configuration: {
               ids: ['@scope/package#componentTest'],
               entities: {
-                // eslint-disable-next-line @typescript-eslint/naming-convention
                 '@scope/package#componentTest': {
                   configEx1: 'test',
                   configEx2: true,
@@ -45,7 +58,6 @@ describe('Configuration DevTools console', () => {
   it('should be activated', () => {
     service.activate();
 
-    // eslint-disable-next-line no-underscore-dangle
     expect((window as any)._OTTER_DEVTOOLS_?.[ConfigurationDevtoolsConsoleService.windowModuleName]).toBeDefined();
   });
 
@@ -69,14 +81,14 @@ describe('Configuration DevTools console', () => {
     const consoleLog = jest.spyOn(console, 'log').mockImplementation();
     await service.displayCurrentConfigurationFor('@scope/package#componentTest');
 
-    expect(consoleLog).toHaveBeenCalledWith({configEx1: 'test', configEx2: true});
+    expect(consoleLog).toHaveBeenCalledWith({ configEx1: 'test', configEx2: true });
   });
 
   it('should set new configuration', () => {
-    mockStore.dispatch = jest.fn();
+    const spy = jest.spyOn(mockStore, 'dispatch');
     service.setDynamicConfig('@scope/package#componentTest', 'lolProp', 123);
 
-    expect(mockStore.dispatch).toHaveBeenCalledWith(expect.objectContaining({
+    expect(spy).toHaveBeenCalledWith(expect.objectContaining({
       id: '@scope/package#componentTest',
       configuration: {
         lolProp: 123
@@ -85,13 +97,12 @@ describe('Configuration DevTools console', () => {
   });
 
   it('should upsert new configurations', () => {
-    mockStore.dispatch = jest.fn();
+    const spy = jest.spyOn(mockStore, 'dispatch');
     service.updateConfigurations('[{"library":"@scope/package","name":"componentTest","config":{"lolProp":123}}]');
 
-    expect(mockStore.dispatch).toHaveBeenCalledWith(expect.objectContaining(
+    expect(spy).toHaveBeenCalledWith(expect.objectContaining(
       {
         entities: {
-          // eslint-disable-next-line @typescript-eslint/naming-convention
           '@scope/package#componentTest': {
             id: '@scope/package#componentTest',
             lolProp: 123

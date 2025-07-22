@@ -7,13 +7,14 @@
   ],
   "timezone": "Europe/Paris",
   "ignorePaths": [
-    "**/node_modules/**",
-    "**/templates/**"
+    "**/node_modules/**"
   ],
   "enabledManagers": [
     "npm",
     "github-actions",
-    "gradle"
+    "gradle",
+    "maven",
+    "regex"
   ],
   "labels": [
     "dependencies"
@@ -22,6 +23,8 @@
     "main",
     "/^release\\/.*-next$/"
   ],
+  "minimumReleaseAge": "5 days",
+  "internalChecksFilter": "strict",
   "packageRules": [
     {
       "matchPackageNames": [
@@ -39,14 +42,6 @@
           ".yarn/sdks/**"
         ]
       }
-    },
-    {
-      // Update of bootstrap disabled as it is not supported by design-factory (Can be removed when upgrading design-factory to v17)
-      "matchCurrentVersion": "<=5.2.0",
-      "matchPackageNames": [
-        "bootstrap"
-      ],
-      "enabled": false
     },
     {
       //Major update of chalk disabled as it drops support on CommonJS
@@ -93,6 +88,50 @@
         ".*markdown-link-check"
       ],
       "enabled": false
+    },
+
+    // OpenAPI updates
+    {
+      "matchManagers": ["maven"],
+      "groupName": "Open API updates",
+      "groupSlug": "openapi",
+      "includePaths": [
+        "packages/@ama-sdk/schematics"
+      ]
+    },
+    {
+      "matchDepNames": [
+        "org.openapitools:openapi-generator"
+      ],
+      "groupName": "Open API updates",
+      "groupSlug": "openapi",
+      // TODO wait for https://github.com/OpenAPITools/openapi-generator/issues/20135 to be fixed before upgrading to 7.10.0
+      "enabled": false
+    },
+    {
+      // We don't want to update this dep as we are still targeting a fork
+      "matchPackageNames": [
+        "io.swagger:swagger-codegen-cli"
+      ],
+      "enabled": false
     }
-  ]
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "datasourceTemplate": "maven",
+      "depNameTemplate": "org.openapitools:openapi-generator",
+      "fileMatch": [
+        "packages/@ama-sdk/schematics/package\\.json"
+      ],
+      "matchStrings": [
+        "\"openApiSupportedVersion\": \"~(?<currentValue>[^\"]+)\""
+      ]
+    }
+  ],
+  "github-actions": {
+    "fileMatch": [
+      "/__dot__github/.*/.+\\.ya?ml$"
+    ]
+  }
 }

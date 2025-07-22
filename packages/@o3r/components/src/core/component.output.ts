@@ -1,4 +1,9 @@
-import type { CategoryDescription, ConfigPropertyWidget, Output } from '@o3r/core';
+import type {
+  CategoryDescription,
+  ConfigPropertyWidget,
+  ItemIdentifier,
+  Output,
+} from '@o3r/core';
 
 /** Types of components config */
 export type ConfigType = 'Block' | 'Page' | 'AppRuntimeConfiguration' | 'AppBuildConfiguration' | 'ExposedComponent';
@@ -92,7 +97,7 @@ export interface ConfigProperty {
   /** Label to be used in the CMS for this config */
   label: string;
   /** Reference to the nested configuration if applicable */
-  reference?: { library: string; name: string };
+  reference?: ItemIdentifier;
   /** List of possible value options */
   choices?: string[];
   /** The category of the config property */
@@ -101,6 +106,8 @@ export interface ConfigProperty {
   widget?: ConfigPropertyWidget;
   /** If true, the CMS user must specify a value for the property */
   required?: boolean;
+  /** Restriction keys */
+  restrictionKeys?: string[];
 }
 
 /**

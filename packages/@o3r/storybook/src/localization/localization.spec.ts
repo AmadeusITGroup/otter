@@ -1,13 +1,20 @@
-import { LOCALIZATION_PREFIX } from './localization-configs.interface';
-import { extractLocalization, getLocalizations } from './localization.helpers';
-import { getLocalizationMetadata, setLocalizationMetadata } from './metadata-manager';
+import {
+  LOCALIZATION_PREFIX,
+} from './localization-configs.interface';
+import {
+  extractLocalization,
+  getLocalizations,
+} from './localization.helpers';
+import {
+  getLocalizationMetadata,
+  setLocalizationMetadata,
+} from './metadata-manager';
 
 describe('Localization Metadata setup', () => {
   beforeEach(() => {
     if (typeof window === 'undefined') {
       globalThis.window = {} as any;
     }
-    // eslint-disable-next-line no-underscore-dangle
     delete window.__OTTER_STORYBOOK_LOCALIZATION_METADATA__;
   });
 
@@ -15,13 +22,11 @@ describe('Localization Metadata setup', () => {
     const mockMetadata = { test: 'fakeValue' } as any;
     setLocalizationMetadata(mockMetadata);
 
-    // eslint-disable-next-line no-underscore-dangle
     expect(window.__OTTER_STORYBOOK_LOCALIZATION_METADATA__).toBe(mockMetadata);
   });
 
   it('should retrieve the metadata', () => {
     const mockMetadata = { test: 'fakeValue' } as any;
-    // eslint-disable-next-line no-underscore-dangle
     window.__OTTER_STORYBOOK_LOCALIZATION_METADATA__ = mockMetadata;
 
     expect(getLocalizationMetadata()).toBe(mockMetadata);
@@ -31,7 +36,7 @@ describe('Localization Metadata setup', () => {
 describe('Localization helper', () => {
   describe('extractLocalization', () => {
     it('should extract description from metadata', () => {
-      const result = extractLocalization({localKeyTest: 'keyTest'}, [
+      const result = extractLocalization({ localKeyTest: 'keyTest' }, [
         {
           key: 'keyTest',
           description: 'ok description',

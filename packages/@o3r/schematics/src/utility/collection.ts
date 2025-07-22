@@ -1,5 +1,10 @@
-import { SchematicContext } from '@angular-devkit/schematics';
-import type { WorkspaceSchema, WorkspaceSchematics } from '../interfaces';
+import {
+  SchematicContext,
+} from '@angular-devkit/schematics';
+import type {
+  WorkspaceSchema,
+  WorkspaceSchematics,
+} from '../interfaces';
 
 /**
  * Register the collection schematic to the workspace
@@ -25,8 +30,12 @@ export function registerCollectionSchematics(workspace: WorkspaceSchema, collect
  * @param options
  * @param options.projectName
  */
-export function getDefaultOptionsForSchematic
-  <T extends WorkspaceSchematics['*:*'] = WorkspaceSchematics['*:*']>(workspace: WorkspaceSchema | null, collection: string, schematicName: string, options?: { projectName?: string | undefined }): T {
+export function getDefaultOptionsForSchematic<T extends WorkspaceSchematics['*:*'] = WorkspaceSchematics['*:*']>(
+  workspace: WorkspaceSchema | null,
+  collection: string,
+  schematicName: string,
+  options?: { projectName?: string | undefined }
+): T {
   if (!workspace) {
     return {} as T;
   }
@@ -41,10 +50,10 @@ export function getDefaultOptionsForSchematic
     }
 
     return Object.entries<Record<string, string>>(schematics)
-      .filter(([key, _]) => new RegExp(key.replace(/[*]/g, '.*')).test(`${collection}:${schematicName}`))
+      .filter(([key, _]) => new RegExp(key.replace(/\*/g, '.*')).test(`${collection}:${schematicName}`))
       .sort(([a], [b]) => (a.match(/\*/g)?.length || 0) - (b.match(/\*/g)?.length || 0))
       .map(([_, value]) => value)
-      .reduce((config, value) => ({...config, ...value}), acc);
+      .reduce((config, value) => ({ ...config, ...value }), acc);
   }, {} as T);
 }
 
@@ -57,11 +66,10 @@ export function getDefaultOptionsForSchematic
 export function getSchematicOptions<T extends WorkspaceSchematics['*:*'] = WorkspaceSchematics['*:*']>(config: WorkspaceSchema, context: SchematicContext): T | undefined {
   const schematicName = `${context.schematic.description.collection.name}:${context.schematic.description.name}`;
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const options = config.schematics && Object.entries(config.schematics)
     .filter(([name]) => new RegExp(name.replace(/\*/g, '.*')).test(schematicName))
     .sort(([a], [b]) => ((a.match(/\*/g)?.length || 0) - (b.match(/\*/g)?.length || 0)))
     .reduce((acc, [, opts]) => ({ ...acc, ...opts }), {} as any);
 
-  return options && Object.keys(options).length ? options : config.schematics?.['*:*'];
+  return options && Object.keys(options).length > 0 ? options : config.schematics?.['*:*'];
 }

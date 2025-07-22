@@ -1,6 +1,15 @@
-import { Rule } from '@angular-devkit/schematics';
+import {
+  Rule,
+} from '@angular-devkit/schematics';
 import * as ts from 'typescript';
-import { getFilesWithExtensionFromTree, getSourceFilesFromWorkspaceProjects, ImportsMapping, updateImportsInFile } from '../../utility/index';
+import {
+  getFilesWithExtensionFromTree,
+  getSourceFilesFromWorkspaceProjects,
+  ImportsMapping,
+  updateImportsInFile,
+} from '../../utility/index';
+
+const escapeRegExp = (str: string) => str.replace(/[$()*+./?[\\\]^{|}-]/g, '\\$&');
 
 /**
  * Update imports based on mapping
@@ -9,15 +18,13 @@ import { getFilesWithExtensionFromTree, getSourceFilesFromWorkspaceProjects, Imp
  * @param fromRoot Perform on all files in project
  */
 export function updateImports(mapImports: ImportsMapping = {}, renamedPackages: Record<string, string> = {}, fromRoot = false): Rule {
-
   return (tree, context) => {
     const files = fromRoot ? getFilesWithExtensionFromTree(tree, 'ts') : getSourceFilesFromWorkspaceProjects(tree);
 
     // exact match on import path
-    const escapeRegExp = (str: string) => str.replace(/[-[\]/{}()*+?.\\^$|]/g, '\\$&');
-    const importsRegexp = new RegExp(`^(${Object.keys(mapImports).map(escapeRegExp).join('|')})$`);
+    const importsRegexp = new RegExp(`^(${Object.keys(mapImports).map((str) => escapeRegExp(str)).join('|')})$`);
     // match the import path starting with the package to be renamed
-    const renamePackagesRegexp = new RegExp(`^(${Object.keys(renamedPackages).map(escapeRegExp).join('|')})`);
+    const renamePackagesRegexp = new RegExp(`^(${Object.keys(renamedPackages).map((str) => escapeRegExp(str)).join('|')})`);
     let nbOfUnResolvedImports = 0;
 
     files.forEach((file) => {

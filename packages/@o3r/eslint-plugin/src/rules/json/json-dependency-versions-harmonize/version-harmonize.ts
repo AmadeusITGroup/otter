@@ -1,9 +1,21 @@
-import * as semver from 'semver';
-import type { PackageJson } from 'type-fest';
 import * as fs from 'node:fs';
-import { existsSync, readFileSync } from 'node:fs';
-import { dirname, normalize, posix , resolve } from 'node:path';
-import { sync as globbySync } from 'globby';
+import {
+  existsSync,
+  readFileSync,
+} from 'node:fs';
+import {
+  dirname,
+  normalize,
+  posix,
+  resolve,
+} from 'node:path';
+import {
+  sync as globbySync,
+} from 'globby';
+import * as semver from 'semver';
+import type {
+  PackageJson,
+} from 'type-fest';
 
 /** List of packages information resulting of a package.json discovery */
 export interface PackageProperty {
@@ -41,7 +53,7 @@ export const findWorkspacePackageJsons = (directory: string, rootDir?: string): 
     return undefined;
   }
   const packageJsonPath = resolve(directory, 'package.json');
-  const content = existsSync(packageJsonPath) && JSON.parse(readFileSync(packageJsonPath, { encoding: 'utf-8' })) as PackageJson;
+  const content = existsSync(packageJsonPath) && JSON.parse(readFileSync(packageJsonPath, { encoding: 'utf8' })) as PackageJson;
   if (!content || !content.workspaces) {
     return findWorkspacePackageJsons(parentFolder, rootDir);
   }
@@ -52,7 +64,7 @@ export const findWorkspacePackageJsons = (directory: string, rootDir?: string): 
   const isPackageWorkspace = packagePaths.some((workspacePath) => normalize(workspacePath) === rootDir);
   const getPackages = () => ([
     { content, path: packageJsonPath, isWorkspace: true },
-    ...packagePaths.map((subPackageJsonPath) => ({ content: JSON.parse(readFileSync(subPackageJsonPath, { encoding: 'utf-8' })) as PackageJson, path: subPackageJsonPath }))
+    ...packagePaths.map((subPackageJsonPath) => ({ content: JSON.parse(readFileSync(subPackageJsonPath, { encoding: 'utf8' })) as PackageJson, path: subPackageJsonPath }))
   ]);
   if (isPackageWorkspace) {
     return {

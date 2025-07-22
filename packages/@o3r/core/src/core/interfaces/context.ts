@@ -1,8 +1,12 @@
-/* eslint-disable @typescript-eslint/ban-types */
-
-import type { EventEmitter } from '@angular/core';
-import type { FormControl } from '@angular/forms';
-import type { Translation } from './translation';
+import type {
+  EventEmitter,
+} from '@angular/core';
+import type {
+  FormControl,
+} from '@angular/forms';
+import type {
+  Translation,
+} from './translation';
 
 /**
  * Inputs of the component
@@ -18,7 +22,6 @@ export interface BaseContextOutput {
   [key: string]: any;
 }
 
-
 /**
  * Type helper to generate the interface of component outputs
  */
@@ -27,13 +30,12 @@ export type EventEmitterify<T extends BaseContextOutput> = { [P in keyof T]: Eve
 /**
  * Context of the component
  */
-export type Context<T extends ContextInput = {}, U extends BaseContextOutput = {}> = {[P in keyof T]: T[P]} & {[P in keyof U]: EventEmitterify<U>[P]};
+export type Context<T extends ContextInput = {}, U extends BaseContextOutput = {}> = { [P in keyof T]: T[P] } & { [P in keyof U]: EventEmitterify<U>[P] };
 
 /**
  * Type helper to generate the template context outputs
  */
 export type Functionify<T extends BaseContextOutput> = { [P in keyof T]: (value: T[P]) => void };
-
 
 /**
  * Interface for a context of a child component
@@ -46,9 +48,9 @@ export interface TemplateContext<
   /** Component configuration */
   config?: Partial<N>;
   /** Component inputs context */
-  inputs: S & {[key: string]: any};
+  inputs: S & { [key: string]: any };
   /** Component outputs context */
-  outputs: Functionify<F & {[key: string]: any}>;
+  outputs: Functionify<F & { [key: string]: any }>;
   /** Component translation */
   translations?: Partial<W>;
   /** Parent Component Id */

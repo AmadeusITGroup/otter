@@ -34,7 +34,7 @@ export interface ErrorMessageObject {
    * {max: {max 12, actual: 31}}
    * ```
    */
-  validationError?: {[key: string]: any};
+  validationError?: { [key: string]: any };
 
   /**
    * An attribute which will be the combination of component name, form control name and the name of the error

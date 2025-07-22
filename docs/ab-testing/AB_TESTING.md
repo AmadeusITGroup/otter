@@ -62,7 +62,7 @@ export interface ExperimentFacts extends FactDefinitions {
 }
 ```
 
-Now you need to expose it to the [rules engine](../rules-engine/how-it-works.md) via a service:
+Now you need to expose it to the [rules engine](../rules-engine/README.md) via a service:
 ```typescript
 import {
   Injectable,
@@ -100,8 +100,9 @@ export class ExperimentFactsService extends FactsService<ExperimentFacts> {
   }
 }
 ```
-**Warning** Your service must be imported only once in the application. A good way to do it is to provide it in root as
-a singleton.
+> [!WARNING]
+> Your service must be imported only once in the application.
+> A good way to do it is to provide it in root as a singleton.
 
 #### The A/B Testing service
 Now, you need to link ``ExperimentFactsService`` and the ``AbTestBridge`` to update the ``experiments`` fact that reflects the
@@ -213,7 +214,6 @@ You can now create A/B testing-driven rulesets .
         {
           "name": "A/B Test - Update configuration ",
           "inputRuntimeFacts": [],
-          "inputFacts": [ "experiments" ],
           "outputRuntimeFacts": [],
           "rootElement": {
             "elementType": "RULE_BLOCK",

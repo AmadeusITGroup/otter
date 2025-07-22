@@ -1,8 +1,11 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 import {
-  chain, Rule
+  chain,
+  Rule,
 } from '@angular-devkit/schematics';
-import { getWorkspaceConfig, WorkspaceSchematics } from '@o3r/schematics';
+import {
+  getWorkspaceConfig,
+  WorkspaceSchematics,
+} from '@o3r/schematics';
 
 const generatorsMappingFromV7 = {
   '@otter/ng-tools:component': '@o3r/core:component',
@@ -36,40 +39,38 @@ function updateGeneratorsPackage(schematicsToUpdate: WorkspaceSchematics) {
 }
 
 /**
+ * Change otter generators names into angular.json
+ * @param tree
+ * @param context
+ */
+const updateAngularJson: Rule = (tree, context) => {
+  const workspace = getWorkspaceConfig(tree);
+
+  if (!workspace) {
+    context.logger.error('No workspace detected');
+    return tree;
+  }
+
+  const projectsInAngularJson = Object.keys(workspace.projects);
+  if (workspace.schematics) {
+    updateGeneratorsPackage(workspace.schematics);
+    delete workspace.schematics['@otter/ng-tools:api-service'];
+  }
+  projectsInAngularJson.forEach((projectName) => {
+    if (workspace.projects[projectName].schematics) {
+      updateGeneratorsPackage(workspace.projects[projectName].schematics);
+      delete workspace.projects[projectName].schematics['@otter/ng-tools:api-service'];
+    }
+  });
+
+  tree.overwrite('/angular.json', JSON.stringify(workspace, null, 2));
+  return tree;
+};
+
+/**
  * Update otter generators names
  */
 export function updateOtterGeneratorsNames(): Rule {
-
-  /**
-   * Change otter generators names into angular.json
-   *
-   * @param tree
-   * @param context
-   */
-  const updateAngularJson: Rule = (tree, context) => {
-    const workspace = getWorkspaceConfig(tree);
-
-    if (!workspace) {
-      context.logger.error('No workspace detected');
-      return tree;
-    }
-
-    const projectsInAngularJson = Object.keys(workspace.projects);
-    if (workspace.schematics) {
-      updateGeneratorsPackage(workspace.schematics);
-      delete workspace.schematics['@otter/ng-tools:api-service'];
-    }
-    projectsInAngularJson.forEach(projectName => {
-      if (workspace.projects[projectName].schematics) {
-        updateGeneratorsPackage(workspace.projects[projectName].schematics!);
-        delete workspace.projects[projectName].schematics!['@otter/ng-tools:api-service'];
-      }
-    });
-
-    tree.overwrite('/angular.json', JSON.stringify(workspace, null, 2));
-    return tree;
-  };
-
   return chain([
     updateAngularJson
   ]);

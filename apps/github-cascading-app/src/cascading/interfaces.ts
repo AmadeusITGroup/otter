@@ -11,6 +11,8 @@ export interface CascadingConfiguration {
   defaultBranch: string;
   /** Pattern determining if the branch is part of the cascading strategy */
   cascadingBranchesPattern: string;
+  /** Determine if the branches for which a higher minor version exists should be skipped during the cascading */
+  onlyCascadeOnHighestMinors: boolean;
   /** Pattern containing a capture to extract the version of a cascading branch */
   versionCapturePattern: string;
   /** Bypass the reviewers validation for the pull request, only the CI checks will be executed */
@@ -34,7 +36,10 @@ export interface PullRequestContext {
   currentBranch: string;
   /** Cascading Pull Request Target Branch */
   targetBranch: string;
-  /** Determine if the reviewers are bypassed */
+  /**
+   * Determine if the reviewers are bypassed
+   * Note: This option is not supported on Github anymore due to Github Api change.
+   */
   bypassReviewers: boolean;
   /** Is the an update of the {@link currentBranch} conflicting */
   isConflicting: boolean;
@@ -68,6 +73,7 @@ export const DEFAULT_CONFIGURATION: Readonly<CascadingConfiguration> = {
   ignoredPatterns: [] as string[],
   defaultBranch: '',
   cascadingBranchesPattern: '^releases?/\\d+\\.\\d+',
+  onlyCascadeOnHighestMinors: false,
   versionCapturePattern: '/((?:0|[1-9]\\d*)\\.(?:0|[1-9]\\d*)(?:\\.0-[^ ]+)?)$',
   bypassReviewers: false,
   labels: [] as string[],

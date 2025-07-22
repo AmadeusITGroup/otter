@@ -1,15 +1,32 @@
-import {firstValueFrom, fromEvent, Observable} from 'rxjs';
-import {v4} from 'uuid';
-import {filter, map, share, timeout} from 'rxjs/operators';
-import {IFrameBridgeOptions, IframeMessage, InternalIframeMessage} from './contracts';
-import {IFRAME_BRIDGE_DEFAULT_OPTIONS, isSupportedMessage} from './helpers';
+import {
+  firstValueFrom,
+  fromEvent,
+  Observable,
+} from 'rxjs';
+import {
+  filter,
+  map,
+  share,
+  timeout,
+} from 'rxjs/operators';
+import {
+  v4,
+} from 'uuid';
+import {
+  IFrameBridgeOptions,
+  IframeMessage,
+  InternalIframeMessage,
+} from './contracts';
+import {
+  IFRAME_BRIDGE_DEFAULT_OPTIONS,
+  isSupportedMessage,
+} from './helpers';
 
 /**
  * Bridge that exposes an easy abstraction layer to communicate between a Host and an IFrame using the
  * postMessage API.
  */
 export class IframeBridge {
-
   /** ID used to ensure that the Bridge only processes messages meant for this instance, since postMessage is global to the window. */
   private readonly channelId: string;
 
@@ -29,7 +46,7 @@ export class IframeBridge {
   public readonly messages$: Observable<InternalIframeMessage>;
 
   constructor(parent: Window, private readonly child: HTMLIFrameElement, options: Partial<IFrameBridgeOptions> = {}) {
-    this.options = {...IFRAME_BRIDGE_DEFAULT_OPTIONS, ...options};
+    this.options = { ...IFRAME_BRIDGE_DEFAULT_OPTIONS, ...options };
     this.channelId = v4();
     this.internalMessages$ = fromEvent(parent, 'message').pipe(
       filter((event): event is MessageEvent<InternalIframeMessage> => {
@@ -58,12 +75,12 @@ export class IframeBridge {
         return;
       } catch {}
     }
-    return Promise.reject('Handshake failed.');
+    throw new Error('Handshake failed.');
   }
 
   private _sendMessage(message: IframeMessage, messageId?: string) {
     if (this.child.contentWindow) {
-      this.child.contentWindow.postMessage({...message, channelId: this.channelId, id: messageId}, '*');
+      this.child.contentWindow.postMessage({ ...message, channelId: this.channelId, id: messageId }, '*');
     }
   }
 

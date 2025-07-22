@@ -1,11 +1,14 @@
-import { Tree } from '@angular-devkit/schematics';
-import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
 import * as path from 'node:path';
+import {
+  Tree,
+} from '@angular-devkit/schematics';
+import {
+  SchematicTestRunner,
+} from '@angular-devkit/schematics/testing';
 
 const collectionPath = path.join(__dirname, '..', '..', 'collection.json');
 
 describe('Renovate Bot generator', () => {
-
   let initialTree: Tree;
 
   beforeEach(() => {
@@ -16,8 +19,8 @@ describe('Renovate Bot generator', () => {
     const organizationName = 'test-orga';
     const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runExternalSchematic('schematics', 'renovate-bot', {
-        organizationName
-      }, initialTree);
+      organizationName
+    }, initialTree);
 
     expect(tree.files.length).toEqual(2);
     expect(tree.readContent('/.renovate/config.js')).toContain(`https://dev.azure.com/${organizationName}`);

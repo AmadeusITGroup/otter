@@ -23,6 +23,7 @@
         "chore",
         "ci",
         "docs",
+        "deprecate",
         "feat",
         "feature",
         "features",

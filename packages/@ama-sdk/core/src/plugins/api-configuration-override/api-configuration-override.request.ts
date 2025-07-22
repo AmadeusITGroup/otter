@@ -1,4 +1,9 @@
-import { AsyncPluginInput, PluginRunner, RequestOptions, RequestPlugin } from '../core';
+import {
+  AsyncPluginInput,
+  PluginRunner,
+  RequestOptions,
+  RequestPlugin,
+} from '../core';
 
 /**
  *  The purpose of this plugin is to allow to send an encrypted JWT which overrides the configuration used by Digital Commerce.
@@ -6,7 +11,6 @@ import { AsyncPluginInput, PluginRunner, RequestOptions, RequestPlugin } from '.
  *  @note this is the default value for the header name. It can be customized at plugin initialization time.
  */
 export class ApiConfigurationOverride implements RequestPlugin {
-
   private readonly jws: AsyncPluginInput<string>;
   private readonly headerName: string;
 
@@ -33,5 +37,4 @@ export class ApiConfigurationOverride implements RequestPlugin {
       }
     };
   }
-
 }

@@ -1,10 +1,7 @@
-# Yarn Audit action
-
-## Pre-requisite
-This task requires yarn2+ installed.
+# Audit action
 
 ## Overview
-This GitHub action runs the ```yarn npm audit``` with the given command parameters, and generates a markdown report out of the json result.
+This GitHub action runs the `npm audit`, or `yarn npm audit` with the given command parameters, and generates a markdown report out of the json result.
 The action will fail and throw an error if it finds vulnerabilities of at least the specified input severity.
 
 ## Task options

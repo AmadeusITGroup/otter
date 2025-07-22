@@ -1,4 +1,6 @@
-import type { Dictionary } from '@ngrx/entity';
+import type {
+  Dictionary,
+} from '@ngrx/entity';
 import type {
   Configuration,
   ConnectContentMessage,
@@ -7,9 +9,11 @@ import type {
   DevtoolsCommonOptions,
   MessageDataTypes,
   OtterMessageContent,
-  RequestMessagesContentMessage
+  RequestMessagesContentMessage,
 } from '@o3r/core';
-import type { ConfigurationModel } from '../stores/index';
+import type {
+  ConfigurationModel,
+} from '../stores/index';
 
 /** Option for Configuration devtools service */
 export interface ConfigurationDevtoolsServiceOptions extends DevtoolsCommonOptions, ContextualizationDevtoolsCommonOptions {
@@ -56,10 +60,10 @@ export type AvailableConfigurationMessageContents =
  */
 export const isConfigurationMessage = (message: any): message is AvailableConfigurationMessageContents => {
   return message && (
-    message.dataType === 'configurations' ||
-    message.dataType === 'updateConfig' ||
-    message.dataType === 'requestMessages' ||
-    message.dataType === 'connect');
+    message.dataType === 'configurations'
+    || message.dataType === 'updateConfig'
+    || message.dataType === 'requestMessages'
+    || message.dataType === 'connect');
 };
 
 /**

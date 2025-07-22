@@ -1,4 +1,6 @@
-import {DocumentationNode} from '../documentation-node';
+import {
+  DocumentationNode,
+} from '../documentation-node';
 
 /**
  * Base entity

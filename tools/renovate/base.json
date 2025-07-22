@@ -26,9 +26,6 @@
     "npm",
     "github-actions"
   ],
-  "npm": {
-    "stabilityDays": 0
-  },
   "updateInternalDeps": true,
   "postUpdateOptions": [
     "yarnDedupeHighest"

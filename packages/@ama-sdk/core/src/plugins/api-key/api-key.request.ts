@@ -1,10 +1,13 @@
-import { PluginRunner, RequestOptions, RequestPlugin } from '../core';
+import {
+  PluginRunner,
+  RequestOptions,
+  RequestPlugin,
+} from '../core';
 
 /**
  * Plugin to add an API Key
  */
 export class ApiKeyRequest implements RequestPlugin {
-
   private readonly apiKey: string | (() => string | Promise<string>);
   private readonly apiKeyHeader: string;
 
@@ -27,5 +30,4 @@ export class ApiKeyRequest implements RequestPlugin {
       }
     };
   }
-
 }

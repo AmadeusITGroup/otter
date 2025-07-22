@@ -1,9 +1,24 @@
-import type { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { chain } from '@angular-devkit/schematics';
-import { addRootImport } from '@schematics/angular/utility';
 import * as path from 'node:path';
-import { registerDevtools } from './helpers/devtools-registration';
-import type { NgAddSchematicsSchema } from './schema';
+import type {
+  Rule,
+  SchematicContext,
+  Tree,
+} from '@angular-devkit/schematics';
+import {
+  chain,
+} from '@angular-devkit/schematics';
+import {
+  addRootImport,
+} from '@schematics/angular/utility';
+import type {
+  PackageJson,
+} from 'type-fest';
+import {
+  registerDevtools,
+} from './helpers/devtools-registration';
+import type {
+  NgAddSchematicsSchema,
+} from './schema';
 
 const reportMissingSchematicsDep = (logger: { error: (message: string) => any }) => (reason: any) => {
   logger.error(`[ERROR]: Adding @o3r/application has failed.
@@ -11,6 +26,21 @@ If the error is related to missing @o3r dependencies you need to install '@o3r/c
 Otherwise, use the error message as guidance.`);
   throw reason;
 };
+
+/**
+ * List of external dependencies to be added to the project as peer dependencies
+ */
+const dependenciesToInstall = [
+  '@angular/common',
+  '@angular/core',
+  'rxjs'
+];
+
+/**
+ * List of external dependencies to be added to the project as dev dependencies
+ */
+const devDependenciesToInstall: string[] = [
+];
 
 /**
  * Add Otter application to an Angular Project
@@ -21,6 +51,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
   return async (tree: Tree, context: SchematicContext) => {
     const {
       getAppModuleFilePath,
+      getExternalDependenciesInfo,
       getWorkspaceConfig,
       insertImportToModuleFile,
       setupDependencies,
@@ -28,8 +59,8 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       getProjectNewDependenciesTypes,
       getPackageInstallConfig
     } = await import('@o3r/schematics');
-    const { isImported } = await import('@schematics/angular/utility/ast-utils');
-    const ts = await import('typescript');
+    const { isImported } = await import('@schematics/angular/utility/ast-utils').catch(() => ({ isImported: undefined }));
+    const ts = await import('typescript').catch(() => undefined);
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
     const depsInfo = getO3rPeerDeps(packageJsonPath);
 
@@ -44,20 +75,30 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       }
 
       const sourceFileContent = tree.readText(moduleFilePath);
-      const sourceFile = ts.createSourceFile(
+      const sourceFile = ts?.createSourceFile(
         moduleFilePath,
         sourceFileContent,
         ts.ScriptTarget.ES2015,
         true
       );
 
+      if (!sourceFile) {
+        context.logger.warn('No Typescript executor detected, the ng-add process will be skipped.');
+        return tree;
+      }
+
+      if (!isImported) {
+        context.logger.warn('No @schematics/angular dependency detected, the ng-add process will be skipped.');
+        return tree;
+      }
+
       if (isImported(sourceFile, 'prefersReducedMotion', '@o3r/application')) {
-        context.logger.info('[LOG]: prefersReducedMotion from @o3r/application is already imported.');
+        context.logger.info('prefersReducedMotion from @o3r/application is already imported.');
         return tree;
       }
 
       const importInRootModule = (name: string, file: string, moduleFunction?: string) => additionalRules.push(
-        addRootImport(options.projectName!, ({code, external}) => code`\n${external(name, file)}${moduleFunction}`)
+        addRootImport(options.projectName!, ({ code, external }) => code`\n${external(name, file)}${moduleFunction}`)
       );
 
       const recorder = tree.beginUpdate(moduleFilePath);
@@ -89,11 +130,24 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       return acc;
     }, getPackageInstallConfig(packageJsonPath, tree, options.projectName, false, !!options.exactO3rVersion));
 
+    const projectDirectory = workspaceProject?.root || '.';
+    const projectPackageJson = tree.readJson(path.posix.join(projectDirectory, 'package.json')) as PackageJson;
+
+    const externalDependenciesInfo = getExternalDependenciesInfo({
+      devDependenciesToInstall,
+      dependenciesToInstall,
+      projectType: workspaceProject?.projectType,
+      o3rPackageJsonPath: packageJsonPath,
+      projectPackageJson
+    },
+    context.logger
+    );
+
     const registerDevtoolRule = await registerDevtools(options);
     return () => chain([
       setupDependencies({
         projectName: options.projectName,
-        dependencies,
+        dependencies: { ...dependencies, ...externalDependenciesInfo },
         ngAddToRun: depsInfo.o3rPeerDeps
       }),
       addAngularAnimationPreferences,

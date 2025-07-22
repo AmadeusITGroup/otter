@@ -1,5 +1,9 @@
-import type { EntityState } from '@ngrx/entity';
-import type { Configuration } from '@o3r/core';
+import type {
+  EntityState,
+} from '@ngrx/entity';
+import type {
+  Configuration,
+} from '@o3r/core';
 
 /**
  * Configuration model

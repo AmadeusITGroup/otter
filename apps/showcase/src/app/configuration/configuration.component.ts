@@ -1,14 +1,41 @@
-import { AsyncPipe } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, Component, computed, QueryList, signal, ViewChildren, ViewEncapsulation } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { ApplicationDevtoolsModule } from '@o3r/application';
-import { ComponentsDevtoolsModule } from '@o3r/components';
-import { ConfigurationBaseServiceModule, ConfigurationDevtoolsMessageService, ConfigurationDevtoolsModule } from '@o3r/configuration';
-import { O3rComponent } from '@o3r/core';
-import { ConfigurationPresComponent, CopyTextPresComponent, IN_PAGE_NAV_PRES_DIRECTIVES, InPageNavLink, InPageNavLinkDirective, InPageNavPresService } from '../../components/index';
-import { ConfigurationPresConfig } from '../../components/showcase/configuration/configuration-pres.config';
+import {
+  AsyncPipe,
+} from '@angular/common';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  QueryList,
+  signal,
+  ViewChildren,
+  ViewEncapsulation,
+} from '@angular/core';
+import {
+  RouterModule,
+} from '@angular/router';
+import {
+  ConfigurationBaseServiceModule,
+} from '@o3r/configuration';
+import {
+  O3rComponent,
+} from '@o3r/core';
+import {
+  MarkdownModule,
+} from 'ngx-markdown';
+import {
+  ConfigurationPresComponent,
+  IN_PAGE_NAV_PRES_DIRECTIVES,
+  InPageNavLink,
+  InPageNavLinkDirective,
+  InPageNavPresService,
+} from '../../components/index';
+import {
+  ConfigurationPresConfig,
+} from '../../components/showcase/configuration/configuration-pres.config';
 
-const CONFIG_OVERRIDE: ConfigurationPresConfig = {
+const CONFIG_OVERRIDE = {
   inXDays: 30,
   destinations: [
     { cityName: 'Manchester', available: true },
@@ -16,7 +43,7 @@ const CONFIG_OVERRIDE: ConfigurationPresConfig = {
     { cityName: 'Dallas', available: true }
   ],
   shouldProposeRoundTrip: true
-};
+} as const satisfies ConfigurationPresConfig;
 
 @O3rComponent({ componentType: 'Page' })
 @Component({
@@ -25,13 +52,10 @@ const CONFIG_OVERRIDE: ConfigurationPresConfig = {
   imports: [
     RouterModule,
     ConfigurationPresComponent,
-    ApplicationDevtoolsModule,
-    ComponentsDevtoolsModule,
-    ConfigurationDevtoolsModule,
     ConfigurationBaseServiceModule,
-    CopyTextPresComponent,
     IN_PAGE_NAV_PRES_DIRECTIVES,
-    AsyncPipe
+    AsyncPipe,
+    MarkdownModule
   ],
   templateUrl: './configuration.template.html',
   styleUrls: ['./configuration.style.scss'],
@@ -39,8 +63,11 @@ const CONFIG_OVERRIDE: ConfigurationPresConfig = {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ConfigurationComponent implements AfterViewInit {
+  private readonly inPageNavPresService = inject(InPageNavPresService);
+
   @ViewChildren(InPageNavLinkDirective)
   private readonly inPageNavLinkDirectives!: QueryList<InPageNavLink>;
+
   public links$ = this.inPageNavPresService.links$;
 
   public config = signal<ConfigurationPresConfig | undefined>(undefined);
@@ -54,18 +81,11 @@ export class ConfigurationComponent implements AfterViewInit {
       : '<o3r-configuration-pres></o3r-configuration-pres>';
   });
 
-  constructor(
-    private readonly inPageNavPresService: InPageNavPresService,
-    configurationDevtoolsMessageService: ConfigurationDevtoolsMessageService
-  ) {
-    configurationDevtoolsMessageService.activate();
-  }
-
   public ngAfterViewInit() {
     this.inPageNavPresService.initialize(this.inPageNavLinkDirectives);
   }
 
   public toggleConfig() {
-    this.config.update((c) => !c ? CONFIG_OVERRIDE : undefined);
+    this.config.update((c) => c ? undefined : CONFIG_OVERRIDE);
   }
 }

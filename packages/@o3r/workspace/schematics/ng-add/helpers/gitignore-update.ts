@@ -1,12 +1,18 @@
-import type { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { getPackageManager, WorkspaceSchema } from '@o3r/schematics';
+import type {
+  Rule,
+  SchematicContext,
+  Tree,
+} from '@angular-devkit/schematics';
+import {
+  getPackageManager,
+  WorkspaceSchema,
+} from '@o3r/schematics';
 
 /**
  * Update git ignore of the repository
  * @param workspaceConfig
  */
 export function updateGitIgnore(workspaceConfig?: WorkspaceSchema | null): Rule {
-
   return (tree: Tree, _context: SchematicContext) => {
     // update gitignore
     if (tree.exists('/.gitignore')) {
@@ -14,15 +20,15 @@ export function updateGitIgnore(workspaceConfig?: WorkspaceSchema | null): Rule 
       const foldersToExclude = ['node_modules', 'dist'];
       const foldersToExcludeRegExp = new RegExp(`(\r\n|\n)/(${foldersToExclude.join('|')})(\r\n|\n)`, 'gm');
       gitignore = gitignore.replaceAll(foldersToExcludeRegExp, '$1$2$3');
-      foldersToExclude.forEach(folderToExclude => {
+      foldersToExclude.forEach((folderToExclude) => {
         if (!gitignore.includes(folderToExclude)) {
-          gitignore +=
-            `
+          gitignore
+            += `
 ${folderToExclude}
         `;
         }
       });
-      const packageManager = getPackageManager({workspaceConfig});
+      const packageManager = getPackageManager({ workspaceConfig });
       if (packageManager === 'yarn') {
         gitignore += `
 
@@ -49,5 +55,4 @@ ${folderToExclude}
     }
     return tree;
   };
-
 }

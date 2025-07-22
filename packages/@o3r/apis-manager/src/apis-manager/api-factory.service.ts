@@ -1,7 +1,20 @@
-import type { Api, ApiClient, ApiName } from '@ama-sdk/core';
-import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
-import { ApiManager } from './api-manager';
-import { API_TOKEN } from './api-manager.token';
+import type {
+  Api,
+  ApiClient,
+  ApiName,
+} from '@ama-sdk/core';
+import {
+  Inject,
+  Injectable,
+  InjectionToken,
+  Optional,
+} from '@angular/core';
+import {
+  ApiManager,
+} from './api-manager';
+import {
+  API_TOKEN,
+} from './api-manager.token';
 
 /** Type of the Class of an SDK Api */
 export type ApiClassType<T extends Api = Api> = (new (client: ApiClient) => T) & ApiName;
@@ -13,7 +26,6 @@ export const INITIAL_APIS_TOKEN = new InjectionToken<(Api | ApiClassType)[]>('In
 
 @Injectable()
 export class ApiFactoryService {
-
   /** Map of loaded APIs */
   private loadedApis: Record<string, Api> = {};
 
@@ -42,7 +54,6 @@ export class ApiFactoryService {
       return cache as T;
     }
 
-    // eslint-disable-next-line new-cap
     const instance = new apiClass(this.getConfigFor(apiClass));
     this.loadedApis[apiClass.apiName] = instance;
     return instance;
@@ -54,17 +65,18 @@ export class ApiFactoryService {
    * @param map Map of loaded APIs to update
    */
   public updateApiMapping(map: (Api | ApiClassType)[] | Record<string, (Api | ApiClassType)>) {
-    const newItems: Record<string, (Api | ApiClassType)> = Array.isArray(map) ? map
-      .reduce<Record<string, Api | ApiClassType<Api>>>((acc, curr) => {
-        acc[curr.apiName] = curr;
-        return acc;
-      }, {}) : map;
+    const newItems: Record<string, (Api | ApiClassType)> = Array.isArray(map)
+      ? map
+        .reduce<Record<string, Api | ApiClassType<Api>>>((acc, curr) => {
+          acc[curr.apiName] = curr;
+          return acc;
+        }, {})
+      : map;
 
     this.loadedApis = {
       ...this.loadedApis,
       ...Object.entries(newItems)
         .reduce<Record<string, Api>>((acc, [apiName, api]) => {
-          // eslint-disable-next-line new-cap
           acc[apiName] = this.isApiClass(api) ? new api(this.getConfigFor(api)) : api;
           return acc;
         }, {})

@@ -1,10 +1,4 @@
-@use './style/design-factory-custom' as design-factory with (
-  $prefix: bs-,
-  $df-spinner-circumference: 2rem,
-  $font-path: '@design-factory/design-factory/assets/fonts',
-  $utilities-bg: ()
-);
-@import "highlight.js/styles/github.css";
+@use '@design-factory/design-factory/design-factory.css';
 @import "./style/theme.scss";
 
 code {
@@ -12,7 +6,7 @@ code {
 }
 
 header {
-  font-family: design-factory.$headings-font-family;
+  font-family: var(--df-body-font-family);
 }
 
 h1 {
@@ -32,14 +26,8 @@ h1, h2 {
   z-index: inherit;
 }
 
-.hljs-built_in, .hljs-symbol {
-  color: #cb3544;
-}
-.hljs-doctag, .hljs-keyword, .hljs-meta .hljs-keyword, .hljs-template-tag, .hljs-template-variable, .hljs-type, .hljs-variable.language_ {
-  color: #cb3544;
-}
-.hljs-name, .hljs-quote, .hljs-selector-tag, .hljs-selector-pseudo {
-  color: #1f7e36;
+.markdown-clipboard-toolbar button {
+  --df-btn-icononly-size: 1.85em;
 }
 
 // Start overrides of design factory

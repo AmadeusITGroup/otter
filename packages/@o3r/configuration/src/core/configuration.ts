@@ -1,6 +1,15 @@
-import { computeItemIdentifier, deepFill } from '@o3r/core';
-import { Observable } from 'rxjs';
-import { distinctUntilChanged, map, shareReplay } from 'rxjs/operators';
+import {
+  computeItemIdentifier,
+  deepFill,
+} from '@o3r/core';
+import {
+  Observable,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  map,
+  shareReplay,
+} from 'rxjs/operators';
 
 /**
  * Interface to define the error messages into component configuration
@@ -58,6 +67,6 @@ export function getConfiguration<T extends Record<string, unknown>>(defaultValue
         return deepFill(defaultValue, configOverride);
       }),
       distinctUntilChanged((prev, current) => JSON.stringify(prev) === JSON.stringify(current)),
-      shareReplay(1)
+      shareReplay({ refCount: true, bufferSize: 1 })
     );
 }

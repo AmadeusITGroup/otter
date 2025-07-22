@@ -1,7 +1,11 @@
-# Swagger Codegen for the javaClient library
+# Swagger Codegen for the javaClient library [Deprecated]
+
+> [!WARN]
+> This project is no longer maintained and is now fully deprecated. We intend to delete it from Otter v12
+> It is based on old version of the SwaggerCodegen tool which is not even compatible with today's standard.
 
 ## Overview
-This is a boiler-plate project to generate your own client library with Swagger.  Its goal is
+This is a boilerplate project to generate your own client library with Swagger.  Its goal is
 to get you started with the basic plumbing so you can put in your own logic.  It won't work without
 your changes applied.
 

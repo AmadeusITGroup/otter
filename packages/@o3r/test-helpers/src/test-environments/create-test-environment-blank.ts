@@ -1,7 +1,18 @@
-import { ExecSyncOptions } from 'node:child_process';
-import { existsSync, promises as fs } from 'node:fs';
+import {
+  ExecSyncOptions,
+} from 'node:child_process';
+import {
+  existsSync,
+  promises as fs,
+} from 'node:fs';
 import * as path from 'node:path';
-import { createWithLock, type CreateWithLockOptions, type Logger, PackageManagerConfig, setPackagerManagerConfig } from '../utilities';
+import {
+  createWithLock,
+  type CreateWithLockOptions,
+  type Logger,
+  PackageManagerConfig,
+  setPackagerManagerConfig,
+} from '../utilities';
 
 export interface CreateTestEnvironmentBlankOptions extends CreateWithLockOptions, PackageManagerConfig {
   /**
@@ -14,7 +25,6 @@ export interface CreateTestEnvironmentBlankOptions extends CreateWithLockOptions
    */
   cwd: string;
 
-
   /** Logger to use for logging */
   logger?: Logger;
 }
@@ -24,7 +34,7 @@ export interface CreateTestEnvironmentBlankOptions extends CreateWithLockOptions
  * @param inputOptions
  */
 export async function createTestEnvironmentBlank(inputOptions: Partial<CreateTestEnvironmentBlankOptions>) {
-  const options: CreateTestEnvironmentBlankOptions = {
+  const options = {
     appDirectory: 'test-app',
     cwd: process.cwd(),
     globalFolderPath: process.cwd(),
@@ -32,22 +42,21 @@ export async function createTestEnvironmentBlank(inputOptions: Partial<CreateTes
     lockTimeout: 10 * 60 * 1000,
     replaceExisting: true,
     ...inputOptions
-  };
+  } as const satisfies CreateTestEnvironmentBlankOptions;
   await createWithLock(async () => {
     const appFolderPath = path.join(options.cwd, options.appDirectory);
-    const execAppOptions: ExecSyncOptions = {
+    const execAppOptions = {
       cwd: appFolderPath,
       stdio: 'inherit',
-      // eslint-disable-next-line @typescript-eslint/naming-convention
-      env: {...process.env, NODE_OPTIONS: '', CI: 'true'}
-    };
+      env: { ...process.env, NODE_OPTIONS: '', CI: 'true' }
+    } as const satisfies ExecSyncOptions;
 
     // Prepare folder
     if (existsSync(appFolderPath)) {
-      await fs.rm(appFolderPath, {recursive: true});
+      await fs.rm(appFolderPath, { recursive: true });
     }
 
-    await fs.mkdir(appFolderPath, {recursive: true});
+    await fs.mkdir(appFolderPath, { recursive: true });
 
     setPackagerManagerConfig(options, { ...execAppOptions, cwd: options.cwd });
     setPackagerManagerConfig(options, execAppOptions);
@@ -59,6 +68,5 @@ export async function createTestEnvironmentBlank(inputOptions: Partial<CreateTes
     if (existsSync(path.join(appFolderPath, 'yarn.lock'))) {
       await fs.rm(path.join(appFolderPath, 'yarn.lock'));
     }
-
   }, { lockFilePath: path.join(options.cwd, `${options.appDirectory}-ongoing.lock`), ...options });
 }

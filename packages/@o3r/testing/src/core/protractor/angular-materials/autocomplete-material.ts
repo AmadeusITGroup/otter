@@ -1,11 +1,18 @@
-import {By, element, ElementFinder} from 'protractor';
-import {MatAutocompleteProfile} from '../../angular-materials';
-import {O3rElement} from '../element';
-
-export {SelectElementProfile} from '../../elements';
+import {
+  By,
+  element,
+  ElementFinder,
+} from 'protractor';
+import {
+  MatAutocompleteProfile,
+} from '../../angular-materials';
+import {
+  O3rElement,
+} from '../element';
 
 /**
  * Implementation dedicated to Protractor.
+ * @deprecated Will be removed in v13, please use Playwright instead
  */
 export class MatAutocomplete extends O3rElement implements MatAutocompleteProfile {
   constructor(sourceElement: ElementFinder | O3rElement) {

@@ -1,15 +1,25 @@
-import { get } from 'node:https';
-import { posix } from 'node:path';
+import type {
+  IncomingMessage,
+} from 'node:http';
+import {
+  get,
+} from 'node:https';
+import {
+  posix,
+} from 'node:path';
 import * as vscode from 'vscode';
-import type { ExtensionContext } from 'vscode';
-import type { IncomingMessage } from 'node:http';
-import { getPackageScriptRunner } from '../helpers';
+import type {
+  ExtensionContext,
+} from 'vscode';
 import type {
   NpmRegistryPackage,
   NPMRegistrySearchResponse,
   OTTER_MODULE_KEYWORD as OTTER_MODULE_KEYWORD_TYPE,
-  OTTER_MODULE_SUPPORTED_SCOPES as OTTER_MODULE_SUPPORTED_SCOPES_TYPE
+  OTTER_MODULE_SUPPORTED_SCOPES as OTTER_MODULE_SUPPORTED_SCOPES_TYPE,
 } from '@o3r/schematics';
+import {
+  getPackageScriptRunner,
+} from '../helpers';
 
 // TODO: Remove this workaround when #362 is implemented
 const OTTER_MODULE_KEYWORD: typeof OTTER_MODULE_KEYWORD_TYPE = 'otter-module';
@@ -23,8 +33,8 @@ async function promiseGetRequest<T>(url: string) {
 
   return new Promise<T>((resolve, reject) => {
     const data: Buffer[] = [];
-    res.on('data', (chunk) => data.push(chunk));
-    res.on('end', () => resolve(JSON.parse(Buffer.concat(data).toString())));
+    res.on('data', (chunk: Buffer) => data.push(chunk));
+    res.on('end', () => resolve(JSON.parse(Buffer.concat(data).toString()) as T));
     res.on('error', reject);
   });
 }
@@ -62,13 +72,9 @@ async function getAvailableModules(keyword: string, scopeWhitelist: string[] | r
 
 /**
  * Add modules to the current workspace
- * @param context
- * @param folder
  * @param _context
- * @returns
  */
 export function generateModuleAddCommand(_context: ExtensionContext) {
-
   return async () => {
     const pMmodules = getAvailableModules(OTTER_MODULE_KEYWORD, OTTER_MODULE_SUPPORTED_SCOPES, true)
       .then((mods) => mods.map<vscode.QuickPickItem>(({ name, description }) => ({
@@ -88,7 +94,7 @@ export function generateModuleAddCommand(_context: ExtensionContext) {
     }
 
     const packageManager = await getPackageScriptRunner();
-    moduleToAdd.forEach(({label}) => {
+    moduleToAdd.forEach(({ label }) => {
       const terminal = vscode.window.createTerminal(`Add the module ${label}`);
       terminal.sendText(`${packageManager} ng add ${label} --defaults`, true);
       terminal.show();

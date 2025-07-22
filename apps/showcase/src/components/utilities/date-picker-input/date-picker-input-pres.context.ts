@@ -1,4 +1,6 @@
-import type {Context} from '@o3r/core';
+import type {
+  Context,
+} from '@o3r/core';
 
 /**
  * The ContextInput interface describes all the inputs of the component

@@ -22,13 +22,7 @@
       "dependsOn": ["^build"]
     },
     "lint": {
-      "options": {
-        "eslintConfig": "packages/@o3r/create/.eslintrc.js",
-        "lintFilePatterns": [
-          "packages/@o3r/create/src/**/*.ts",
-          "packages/@o3r/create/package.json"
-        ]
-      }
+      "executor": "nx:run-commands"
     },
     "test-int": {
       "executor": "@nx/jest:jest",

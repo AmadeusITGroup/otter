@@ -1,8 +1,20 @@
-import { InjectionToken, ModuleWithProviders, NgModule } from '@angular/core';
-import { Action, ActionReducer, StoreModule } from '@ngrx/store';
-
-import { placeholderRequestReducer } from './placeholder-request.reducer';
-import { PLACEHOLDER_REQUEST_STORE_NAME, PlaceholderRequestState } from './placeholder-request.state';
+import {
+  InjectionToken,
+  ModuleWithProviders,
+  NgModule,
+} from '@angular/core';
+import {
+  Action,
+  ActionReducer,
+  StoreModule,
+} from '@ngrx/store';
+import {
+  placeholderRequestReducer,
+} from './placeholder-request.reducer';
+import {
+  PLACEHOLDER_REQUEST_STORE_NAME,
+  PlaceholderRequestState,
+} from './placeholder-request.state';
 
 /** Token of the PlaceholderRequest reducer */
 export const PLACEHOLDER_REQUEST_REDUCER_TOKEN = new InjectionToken<ActionReducer<PlaceholderRequestState, Action>>('Feature PlaceholderRequest Reducer');

@@ -1,20 +1,36 @@
-import { Inject, Injectable, InjectionToken } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { dateReviver, isLocalStorageConfig, isSerializer, rehydrateAction, StorageSyncOptions } from '@o3r/store-sync';
-import { LoggerService } from '@o3r/logger';
+import {
+  Inject,
+  Injectable,
+  InjectionToken,
+} from '@angular/core';
+import {
+  Store,
+} from '@ngrx/store';
+import {
+  LoggerService,
+} from '@o3r/logger';
+import {
+  dateReviver,
+  isLocalStorageConfig,
+  isSerializer,
+  rehydrateAction,
+  StorageSyncOptions,
+} from '@o3r/store-sync';
 
 /**
  * Injection token for the storage sync options
  */
 export const STORAGE_SYNC_OPTIONS = new InjectionToken<Partial<StorageSyncOptions>>('STORAGE_SYNC_OPTIONS');
 
+const noopDeserializer = (raw: string) => raw;
+
 @Injectable()
 export class CapacitorRehydrater {
   private readonly options: StorageSyncOptions;
   constructor(
-      private readonly store: Store<any>,
-      @Inject(STORAGE_SYNC_OPTIONS) options: Partial<StorageSyncOptions>,
-      private readonly logger: LoggerService
+    private readonly store: Store<any>,
+    @Inject(STORAGE_SYNC_OPTIONS) options: Partial<StorageSyncOptions>,
+    private readonly logger: LoggerService
   ) {
     this.options = { keys: [], ...options };
   }
@@ -32,7 +48,7 @@ export class CapacitorRehydrater {
         const storeName = Object.keys(key)[0];
         const storeSynchronizer = (key as any)[storeName];
         let reviver = this.options.restoreDates ? dateReviver : undefined;
-        let deserialize: (raw: string) => any = (raw: string) => raw;
+        let deserialize = noopDeserializer;
 
         if (isSerializer(storeSynchronizer)) {
           if (storeSynchronizer.reviver) {
@@ -49,7 +65,6 @@ export class CapacitorRehydrater {
             : storeName
         );
         if (stateSlice) {
-
           const isObjectRegex = /{|\[/;
           let raw = stateSlice;
 
@@ -68,7 +83,7 @@ export class CapacitorRehydrater {
     this.store.dispatch(
       rehydrateAction({
         payload: result.reduce(
-          (acc: Record<string, any>, store) => ({...acc, ...store}),
+          (acc: Record<string, any>, store) => ({ ...acc, ...store }),
           {}
         )
       })

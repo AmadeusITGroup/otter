@@ -1,4 +1,9 @@
-import type { FetchCall, FetchPlugin, FetchPluginContext, RequestOptions } from '../core';
+import type {
+  FetchCall,
+  FetchPlugin,
+  FetchPluginContext,
+  RequestOptions,
+} from '../core';
 
 interface AbortCallbackParameters {
   /** URL targeted */
@@ -23,6 +28,7 @@ const isPromise = (result: boolean | void | Promise<void> | Promise<boolean>): r
 /**
  * Abort callback
  * Returns `true` to abort a request (or access directly to the controller to cancel fetch request)
+ * @deprecated Use the one exposed by {@link @ama-sdk/client-fetch}, will be removed in v13
  * @example Immediate abort on URL match
  * ```typescript
  * const abortCondition: AbortCallback = ({url}) => url.endsWith('pet');
@@ -48,7 +54,6 @@ const isPromise = (result: boolean | void | Promise<void> | Promise<boolean>): r
  *   }
  * );
  * ```
- *
  * @example Abort on Timeout
  * ```typescript
  * const abortCondition: AbortCallback = ({controller}) => { setTimeout(() => controller?.abort(), 3000); };
@@ -65,14 +70,11 @@ export type AbortCallback = (controller?: AbortCallbackParameters) => void | boo
 
 /** Plugin to abort a Fetch request */
 export class AbortFetch implements FetchPlugin {
-
   /**
    * Abort Fetch plugin
    * @param abortCallback Condition that should be passed to start the call
    */
-  constructor(public abortCallback: AbortCallback) {
-  }
-
+  constructor(public abortCallback: AbortCallback) {}
 
   /** @inheritDoc */
   public load(context: FetchPluginContext) {

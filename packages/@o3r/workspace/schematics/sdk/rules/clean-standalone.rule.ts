@@ -1,6 +1,13 @@
-import { chain, type Rule } from '@angular-devkit/schematics';
-import { posix } from 'node:path';
-import type { PackageJson } from 'type-fest';
+import {
+  posix,
+} from 'node:path';
+import {
+  chain,
+  type Rule,
+} from '@angular-devkit/schematics';
+import type {
+  PackageJson,
+} from 'type-fest';
 
 const deleteIfExists = (paths: string[]): Rule => (tree, context) => {
   paths.forEach((path) => {
@@ -31,11 +38,12 @@ export function cleanStandaloneFiles(targetPath: string): Rule {
     (tree) => {
       const packageJson = tree.readJson(posix.join(targetPath, 'package.json')) as PackageJson;
       if (packageJson.scripts) {
-        const excludedScripts = ['postinstall', 'set:version'];
+        const excludedScripts = ['postinstall', 'set:version', 'tools:changelog'];
         packageJson.scripts = Object.fromEntries(
           Object.entries(packageJson.scripts).filter(([scriptName]) => !excludedScripts.includes(scriptName))
         );
       }
+      delete packageJson['lint-staged'];
       if (packageJson.devDependencies) {
         packageJson.devDependencies = Object.fromEntries(Object.entries(packageJson.devDependencies).filter(([depName]) => depName !== '@o3r/workspace'));
       }

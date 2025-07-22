@@ -1,51 +1,44 @@
-import { chain, Rule, Schematic, type SchematicContext, type TaskId, Tree } from '@angular-devkit/schematics';
-import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
+import {
+  readFileSync,
+} from 'node:fs';
 import * as path from 'node:path';
-import type { PackageJson } from 'type-fest';
+import {
+  chain,
+  Rule,
+  Schematic,
+  type SchematicContext,
+  type TaskId,
+  Tree,
+} from '@angular-devkit/schematics';
+import {
+  NodePackageInstallTask,
+  RunSchematicTask,
+} from '@angular-devkit/schematics/tasks';
+import {
+  NodeDependencyType,
+} from '@schematics/angular/utility/dependencies';
 import * as semver from 'semver';
-import { getPackageManager, getProjectNewDependenciesTypes, getWorkspaceConfig, SupportedPackageManagers } from '../../utility';
-import { NodePackageInstallTask, RunSchematicTask } from '@angular-devkit/schematics/tasks';
-import { readFileSync } from 'node:fs';
-
-/**
- * Options to be passed to the ng add task
- */
-export interface NgAddSchematicOptions {
-  /** Name of the project */
-  projectName?: string | null;
-
-  /** Skip the run of the linter*/
-  skipLinter?: boolean;
-
-  /** Skip the install process */
-  skipInstall?: boolean;
-
-  [x: string]: any;
-}
-
-export interface DependencyInManifest {
-  /**
-   * Range of the dependency
-   * @default 'latest'
-   */
-  range?: string;
-  /**
-   * Types of the dependency
-   * @default [NodeDependencyType.Default]
-   */
-  types?: NodeDependencyType[];
-}
-
-export interface DependencyToAdd {
-  /** Enforce this dependency to be applied to Workspace's manifest only */
-  toWorkspaceOnly?: boolean;
-  /** List of dependency to register in manifest */
-  inManifest: DependencyInManifest[];
-  /** ng-add schematic option dedicated to the package */
-  ngAddOptions?: NgAddSchematicOptions;
-  /** Determine if the dependency require to be installed */
-  requireInstall?: boolean;
-}
+import type {
+  PackageJson,
+} from 'type-fest';
+import {
+  DependencyToAdd,
+  NgAddSchematicOptions,
+} from '../../interfaces';
+import type {
+  SupportedPackageManagers,
+} from '../../utility';
+import {
+  enforceTildeRange,
+} from '../../utility/dependencies';
+import {
+  getProjectNewDependenciesTypes,
+  getWorkspaceConfig,
+} from '../../utility/loaders';
+import {
+  getPackageManager,
+  isPackageInstalled,
+} from '../../utility/package-manager-runner';
 
 export interface SetupDependenciesOptions {
   /** Map of dependencies to install */
@@ -57,10 +50,14 @@ export interface SetupDependenciesOptions {
   /**
    * Will skip install in the end of the package.json update.
    * if `undefined`, the installation will be process only if a ngAdd run is required.
-   * If `true` the install will not run in any case
+   * If `true` the installation will not run in any case
    * @default undefined
    */
   skipInstall?: boolean;
+  /**
+   * Force the installation for a package even if it is already installed.
+   */
+  forceInstall?: boolean;
   /** Project Name */
   projectName?: string;
   /** default ng-add schematic option */
@@ -73,6 +70,11 @@ export interface SetupDependenciesOptions {
   scheduleTaskCallback?: (taskIds?: TaskId[]) => void;
   /** Working directory for the installation process only */
   workingDirectory?: string;
+  /**
+   * Enforce the usage of tilde instead of caret in a dependency range
+   * @default true
+   */
+  enforceTildeRange?: boolean;
 }
 
 /** Result of the Setup Dependencies task scheduling process */
@@ -103,7 +105,7 @@ export const getPackageInstallConfig = (packageJsonPath: string, tree: Tree, pro
     return {};
   }
 
-  const packageJson = JSON.parse(readFileSync(packageJsonPath, {encoding: 'utf-8'})) as PackageJson;
+  const packageJson = JSON.parse(readFileSync(packageJsonPath, { encoding: 'utf8' })) as PackageJson;
   const workspaceProject = projectName ? getWorkspaceConfig(tree)?.projects[projectName] : undefined;
   return {
     [packageJson.name!]: {
@@ -123,12 +125,14 @@ export const getPackageInstallConfig = (packageJsonPath: string, tree: Tree, pro
  * @param options
  */
 export const setupDependencies = (options: SetupDependenciesOptions): Rule => {
-
   return () => {
     const ngAddToRun = new Set(Object.keys(options.dependencies)
       .filter((dep) => options.ngAddToRun?.some((pattern) => typeof pattern === 'string' ? pattern === dep : pattern.test(dep))));
-    const requiringInstallList = new Set(Object.entries(options.dependencies).filter(([, {requireInstall}]) => requireInstall).map(([dep]) => dep));
-    const isInstallNeeded = () => options.skipInstall !== undefined ? !options.skipInstall : (ngAddToRun.size > 0 || requiringInstallList.size > 0);
+    const requiringInstallList = new Set(Object.entries(options.dependencies).filter(([, { requireInstall }]) => requireInstall).map(([dep]) => dep));
+    const isInstallNeeded = () => {
+      const needsInstall = Array.from(ngAddToRun).some((packageName) => !isPackageInstalled(packageName));
+      return needsInstall || (options.skipInstall === undefined ? (ngAddToRun.size > 0 || requiringInstallList.size > 0) : !options.skipInstall);
+    };
 
     const editPackageJson = (packageJsonPath: string, packageToInstall: string, dependency: DependencyToAdd, updateLists: boolean): Rule => {
       return (tree, context) => {
@@ -139,36 +143,40 @@ export const setupDependencies = (options: SetupDependenciesOptions): Rule => {
         const packageJsonContent = tree.readJson(packageJsonPath) as PackageJson;
 
         dependency.inManifest.forEach(({ range, types }) => {
+          const isTildeRangeEnforced = dependency.enforceTildeRange === undefined ? (options.enforceTildeRange === undefined || options.enforceTildeRange) : dependency.enforceTildeRange;
+          if (isTildeRangeEnforced) {
+            range = enforceTildeRange(range);
+          }
           (types || [NodeDependencyType.Default]).forEach((depType) => {
             if (packageJsonContent[depType]?.[packageToInstall]) {
               if (range && semver.validRange(range)) {
-                const currentMinimalVersion = semver.minVersion(packageJsonContent[depType]?.[packageToInstall] as string);
+                const currentMinimalVersion = semver.minVersion(packageJsonContent[depType]?.[packageToInstall]);
                 const myRangeMinimalVersion = semver.minVersion(range);
                 if (currentMinimalVersion && myRangeMinimalVersion && semver.gt(myRangeMinimalVersion, currentMinimalVersion)) {
                   context.logger.debug(`The dependency ${packageToInstall} (${depType}@${range}) will be added in ${packageJsonPath}`);
-                  packageJsonContent[depType]![packageToInstall] = range;
+                  packageJsonContent[depType][packageToInstall] = range;
                 } else {
                   if (updateLists) {
                     ngAddToRun.delete(packageToInstall);
                     requiringInstallList.delete(packageToInstall);
                   }
                   context.logger.debug(`The dependency ${packageToInstall} (${depType}) is already in ${packageJsonPath}, it will not be added.`);
-                  context.logger.debug(`Because its range is inferior or included to the current one (${range} < ${packageJsonContent[depType]![packageToInstall]!}) in targeted ${packageJsonPath}`);
+                  context.logger.debug(`Because its range is inferior or included to the current one (${range} < ${packageJsonContent[depType][packageToInstall]}) in targeted ${packageJsonPath}`);
                 }
               } else {
                 if (updateLists) {
                   ngAddToRun.delete(packageToInstall);
                   requiringInstallList.delete(packageToInstall);
                 }
-                context.logger.warn(`The dependency ${packageToInstall} (${depType}) will not added ` +
-                  `because there is already this dependency with a defined range (${packageJsonContent[depType]![packageToInstall]!}) in targeted ${packageJsonPath}`);
+                context.logger.warn(`The dependency ${packageToInstall} (${depType}) will not added `
+                + `because there is already this dependency with a defined range (${packageJsonContent[depType][packageToInstall]}) in targeted ${packageJsonPath}`);
               }
             } else {
               packageJsonContent[depType] ||= {};
-              packageJsonContent[depType]![packageToInstall] = range;
+              packageJsonContent[depType][packageToInstall] = range;
               context.logger.debug(`The dependency ${packageToInstall} (${depType}@${range}) will be added in ${packageJsonPath}`);
             }
-            packageJsonContent[depType] = Object.keys(packageJsonContent[depType]!)
+            packageJsonContent[depType] = Object.keys(packageJsonContent[depType])
               .sort()
               .reduce((acc, key) => {
                 acc[key] = packageJsonContent[depType]![key];
@@ -185,7 +193,7 @@ export const setupDependencies = (options: SetupDependenciesOptions): Rule => {
 
     const addDependencies: Rule = (tree) => {
       const workspaceConfig = getWorkspaceConfig(tree);
-      const workspaceProject = options.projectName && workspaceConfig?.projects?.[options.projectName] || undefined;
+      const workspaceProject = (options.projectName && workspaceConfig?.projects?.[options.projectName]) || undefined;
       const projectDirectory = workspaceProject?.root;
       return chain(Object.entries(options.dependencies)
         .map(([packageName, dependencyDetails]) => {
@@ -204,12 +212,14 @@ export const setupDependencies = (options: SetupDependenciesOptions): Rule => {
 
     const runNgAddSchematics: Rule = (_, context) => {
       const packageManager = options.packageManager || getPackageManager();
-      const installId = isInstallNeeded() ? [
-        context.addTask(new NodePackageInstallTask({ packageManager, quiet: true, workingDirectory: options.workingDirectory }), options.runAfterTasks)
-      ] : undefined;
+      const installId = isInstallNeeded()
+        ? [
+          context.addTask(new NodePackageInstallTask({ packageManager, quiet: true, workingDirectory: options.workingDirectory }), options.runAfterTasks)
+        ]
+        : undefined;
 
       if (installId !== undefined) {
-        context.logger.debug(`Schedule the installation of the workspace (${ngAddToRun.size > 0 ? 'for: ' + [...ngAddToRun].join(', ') : options.skipInstall ? 'skipped' : 'forced'})`);
+        context.logger.debug(`Schedule the installation of the workspace (${ngAddToRun.size > 0 ? 'for: ' + [...ngAddToRun].join(', ') : (options.skipInstall ? 'skipped' : 'forced')})`);
       }
 
       const getOptions = (packageName: string, schema?: Schematic<any, any>) => {
@@ -253,5 +263,4 @@ export const setupDependencies = (options: SetupDependenciesOptions): Rule => {
       runNgAddSchematics
     ]);
   };
-
 };

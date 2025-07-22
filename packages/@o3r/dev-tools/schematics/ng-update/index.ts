@@ -1,4 +1,8 @@
-import type { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+import type {
+  Rule,
+  SchematicContext,
+  Tree,
+} from '@angular-devkit/schematics';
 
 /**
  * Update Otter dev-tools in an Angular Project

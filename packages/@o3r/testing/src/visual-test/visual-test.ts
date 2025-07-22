@@ -1,11 +1,13 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import {PNG} from 'pngjs';
 import * as pixelmatch from 'pixelmatch';
+import {
+  PNG,
+} from 'pngjs';
 
 export {
   prepareVisualTesting,
-  toggleVisualTestingRender
+  toggleVisualTestingRender,
 } from './utils';
 
 /** Error types returned by visual testing comparison */
@@ -23,24 +25,24 @@ export interface VisualTestMessage {
 }
 
 /** Error messages in case of visual testing failure */
-export const visualTestMessages: VisualTestMessage = {
+export const visualTestMessages: Readonly<VisualTestMessage> = {
   imagesSize: 'Image sizes do not match for:',
   diffMessage: 'Diff between images is greater than threshold for:',
   baseImgNotFound: 'Base screenshot file not found:',
   success: 'Visual test successful',
   generateMode: 'Run in generate screenshot mode'
-};
+} as const;
 
 /**
  * Object returned by a visual test operation
  */
 export interface VisualTestResult {
   /** Error object when base image and actual image have different sizes; Contains the screenshot ffile name */
-  imagesSize?: {screenshotName: string};
+  imagesSize?: { screenshotName: string };
   /** Error object when base screensot not found. Contains the not found path as a string */
-  baseScreenshotNotFound?: {baseScreenshotPath: string};
+  baseScreenshotNotFound?: { baseScreenshotPath: string };
   /** Object containing the actual diff between images as percentage, the threshold and screenshot file name */
-  diff?: {actualDiff: number; threshold: number; screenshotName: string};
+  diff?: { actualDiff: number; threshold: number; screenshotName: string };
   /** Run only generation of screenshots */
   generateMode?: boolean;
 }
@@ -61,7 +63,7 @@ export function toBeVisuallySimilar() {
       if (actual.baseScreenshotNotFound) {
         return {
           pass: false,
-          message: `${visualTestMessages.baseImgNotFound} ${actual.baseScreenshotNotFound.baseScreenshotPath}`};
+          message: `${visualTestMessages.baseImgNotFound} ${actual.baseScreenshotNotFound.baseScreenshotPath}` };
       }
       if (actual.imagesSize) {
         return {
@@ -97,7 +99,7 @@ export function toBeVisuallySimilar() {
 export function saveScreenshot(screenshot: string, scenarioName: string, device: string, filenameWithoutExtension: string, distScreenshotsDir = 'dist-screenshots') {
   const screenshotsDir = path.resolve(distScreenshotsDir, scenarioName, `${device.replace(/ +/g, '_')}`);
   if (!fs.existsSync(screenshotsDir)) {
-    fs.mkdirSync(screenshotsDir, {recursive: true});
+    fs.mkdirSync(screenshotsDir, { recursive: true });
   }
   const fullFileName = `${filenameWithoutExtension}.png`;
   const stream = fs.createWriteStream(path.resolve(screenshotsDir, fullFileName));
@@ -138,32 +140,31 @@ export function writeScreenshotsDiff(pathToScenarioReport: string, screenshotsDi
  */
 export function compareScreenshot(screenshot: string, baseImagePath: string, threshold: number, pathToScenarioReport: string): VisualTestResult {
   const baseImageExists = fs.existsSync(baseImagePath);
-  if (!baseImageExists) {
-    return {baseScreenshotNotFound: {baseScreenshotPath: baseImagePath}};
-  }
-  else {
+  if (baseImageExists) {
     const baseImage = PNG.sync.read(fs.readFileSync(baseImagePath));
-    const {width, height} = baseImage;
-    const diff = new PNG({width, height});
+    const { width, height } = baseImage;
+    const diff = new PNG({ width, height });
 
     const screenshotBuffer = Buffer.from(screenshot, 'base64');
     const currentImg = PNG.sync.read(screenshotBuffer);
     const diffDirName = path.basename(baseImagePath, '.png');
     let result;
     try {
-      result = pixelmatch(baseImage.data, currentImg.data, diff.data, width, height, {threshold: 0.1});
+      result = pixelmatch(baseImage.data, currentImg.data, diff.data, width, height, { threshold: 0.1 });
     } catch (err: any) {
-      if (err.toString().indexOf('Image sizes do not match.') === -1) {
+      if (!err.toString().includes('Image sizes do not match.')) {
         throw err;
       }
       writeScreenshotsDiff(pathToScenarioReport, diffDirName, diff, baseImage, currentImg);
-      return {imagesSize: {screenshotName: diffDirName}};
+      return { imagesSize: { screenshotName: diffDirName } };
     }
     const pr = Math.round(100 * 100 * result / (width * height)) / 100;
     if (pr > threshold) {
       writeScreenshotsDiff(pathToScenarioReport, diffDirName, diff, baseImage, currentImg);
     }
-    return {diff: {actualDiff: pr, threshold, screenshotName: diffDirName}};
+    return { diff: { actualDiff: pr, threshold, screenshotName: diffDirName } };
+  } else {
+    return { baseScreenshotNotFound: { baseScreenshotPath: baseImagePath } };
   }
 }
 
@@ -191,7 +192,7 @@ export function o3rVisualTest(
 ) {
   if (generateMode) {
     saveScreenshot(screenshotObj, scenarioName, device, filenameWithoutExtension);
-    return {generateMode: true};
+    return { generateMode: true };
   } else {
     const baseImagePath = path.resolve(baseScreenshotsDirPath, scenarioName, device, `${filenameWithoutExtension}.png`);
     const visualTestResult = compareScreenshot(screenshotObj, baseImagePath, threshold, pathToScenarioReport);

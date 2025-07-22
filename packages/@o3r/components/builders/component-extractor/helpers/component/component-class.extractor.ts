@@ -1,10 +1,18 @@
-import { logging } from '@angular-devkit/core';
-import type { ComponentStructure } from '@o3r/components';
-import { getLocalizationFileFromAngularElement } from '@o3r/extractors';
-import { isO3rClassComponent } from '@o3r/schematics';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
+import {
+  logging,
+} from '@angular-devkit/core';
+import {
+  getLocalizationFileFromAngularElement,
+} from '@o3r/extractors';
+import {
+  isO3rClassComponent,
+} from '@o3r/schematics';
 import * as ts from 'typescript';
+import type {
+  ComponentStructure,
+} from '@o3r/components';
 
 /** Information extracted from a component file */
 export interface ComponentInformation {
@@ -34,21 +42,19 @@ export interface ComponentInformation {
  * Component class extractor.
  */
 export class ComponentClassExtractor {
-
   /** List of interfaces that a configurable component can implement */
   public readonly CONFIGURABLE_INTERFACES: string[] = ['DynamicConfigurable', 'DynamicConfigurableWithSignal', 'Configurable'];
 
   /**
+   * Component class extractor constructor
    * @param source Typescript SourceFile node of the file
    * @param logger Logger
    * @param filePath Path to the file to extract the data from
    */
-  constructor(public source: ts.SourceFile, private readonly logger: logging.LoggerApi, public filePath: string) {
-  }
+  constructor(public source: ts.SourceFile, private readonly logger: logging.LoggerApi, public filePath: string) {}
 
   /**
    * Indicates if the given decorator is a component decorator.
-   *
    * @param decoratorNode The decorator node to test
    */
   private isComponentDecorator(decoratorNode: ts.Decorator) {
@@ -57,32 +63,28 @@ export class ComponentClassExtractor {
 
   /**
    * Get the component type from the given decorator node.
-   *
    * @param decoratorNode The decorator node to get the component type from
    */
   private getComponentType(decoratorNode: ts.Decorator): ComponentStructure | undefined {
-    if (ts.isCallExpression(decoratorNode.expression)) {
-      if (decoratorNode.expression.expression.getText(this.source) === 'O3rComponent') {
-        const arg1 = decoratorNode.expression.arguments[0];
-        if (ts.isObjectLiteralExpression(arg1)) {
-          return this.getComponentStructure(
-            arg1.properties
-              .find((prop): prop is ts.PropertyAssignment => prop.name?.getText(this.source) === 'componentType')
-              ?.initializer.getText(this.source)
-          );
-        }
+    if (ts.isCallExpression(decoratorNode.expression) && decoratorNode.expression.expression.getText(this.source) === 'O3rComponent') {
+      const arg1 = decoratorNode.expression.arguments[0];
+      if (ts.isObjectLiteralExpression(arg1)) {
+        return this.getComponentStructure(
+          arg1.properties
+            .find((prop): prop is ts.PropertyAssignment => prop.name?.getText(this.source) === 'componentType')
+            ?.initializer.getText(this.source)
+        );
       }
     }
   }
 
   /**
    * Get the component selector from the given decorator node.
-   *
    * @param decoratorNode The decorator node to get the component selector from
    */
   private getComponentSelector(decoratorNode: ts.Decorator) {
     if (this.isComponentDecorator(decoratorNode)) {
-      const matches = /selector:\s*['"](.*)['"]/.exec(decoratorNode.getText(this.source));
+      const matches = /selector:\s*["'](.*)["']/.exec(decoratorNode.getText(this.source));
       if (matches) {
         return matches[1];
       }
@@ -92,7 +94,6 @@ export class ComponentClassExtractor {
   /**
    * Sanitize component type by removing extra quotes
    * Example: "'Page'" becomes 'Page'
-   *
    * @param type
    * @private
    */
@@ -100,26 +101,29 @@ export class ComponentClassExtractor {
     if (!type) {
       return;
     }
-    return type.replaceAll(/['"]/g, '');
+    return type.replaceAll(/["']/g, '');
   }
 
   private getComponentStructure(type: string | undefined): ComponentStructure {
     const sanitizedType = this.sanitizeComponentType(type);
     switch (sanitizedType) {
-      case 'Block':
+      case 'Block': {
         return 'BLOCK';
-      case 'Page':
+      }
+      case 'Page': {
         return 'PAGE';
-      case 'ExposedComponent':
+      }
+      case 'ExposedComponent': {
         return 'EXPOSED_COMPONENT';
-      default:
+      }
+      default: {
         return 'COMPONENT';
+      }
     }
   }
 
   /**
    * Extract component information of a given class node
-   *
    * @param classNode Typescript node of a class
    */
   private getComponentInformation(classNode: ts.ClassDeclaration): ComponentInformation | undefined {
@@ -139,14 +143,15 @@ export class ComponentClassExtractor {
 
           if (!configName && regExp.test(interfaceValue)) {
             configName = interfaceValue.replace(/.*<(.*?)\s*(,\s*('\w*')\s*)?>.*/, '$1');
-            isDynamic = /^Dynamic/.test(interfaceValue);
+            isDynamic = interfaceValue.startsWith('Dynamic');
           } else if (!contextName && interfaceValue.endsWith('Context')) {
             contextName = interfaceValue;
           } else {
             switch (interfaceValue) {
-              case 'LinkableToRuleset':
+              case 'LinkableToRuleset': {
                 linkableToRuleset = true;
                 break;
+              }
             }
           }
         });
@@ -168,21 +173,21 @@ export class ComponentClassExtractor {
 
     const localizationKeys = (localizationFiles || []).reduce((acc: string[], file) => {
       const resolvedFilePath = path.resolve(path.dirname(this.filePath), file);
-      const data = JSON.parse(fs.readFileSync(resolvedFilePath, 'utf-8'));
+      const data = JSON.parse(fs.readFileSync(resolvedFilePath, 'utf8'));
       return acc.concat(Object.keys(data));
     }, []);
 
-    return name && type ? {
-      name, configName, contextName, isDynamicConfig: isDynamic, type, selector, linkableToRuleset,
-      ...(localizationKeys.length ? { localizationKeys } : {})
-    } : undefined;
+    return name && type
+      ? {
+        name, configName, contextName, isDynamicConfig: isDynamic, type, selector, linkableToRuleset,
+        ...(localizationKeys.length > 0 ? { localizationKeys } : {})
+      }
+      : undefined;
   }
 
   /**
    * Get the file path of the given class from the import
-   *
-   * @param contextName Name of the class to find in the imports
-   * @param className
+   * @param className Name of the class to find in the imports
    */
   private getFilePath(className?: string): string | undefined {
     if (!className) {
@@ -191,16 +196,14 @@ export class ComponentClassExtractor {
 
     let res: string | undefined;
     this.source.forEachChild((node) => {
-      if (!res && ts.isImportDeclaration(node)) {
-        if (new RegExp(className).test(node.getText(this.source))) {
-          const children = node.getChildren(this.source);
-          res = children[children.length - 2].getText(this.source).replace(/^['"](.*)['"]/, '$1');
-        }
+      if (!res && ts.isImportDeclaration(node) && new RegExp(className).test(node.getText(this.source))) {
+        const children = node.getChildren(this.source);
+        res = children.at(-2)?.getText(this.source).replace(/^["'](.*)["']/, '$1');
       }
     });
 
     if (res && /^\./.test(res)) {
-      res = path.resolve(path.dirname(this.filePath), `${res}.ts`).replace(/[\\/]/g, '/');
+      res = path.resolve(path.dirname(this.filePath), `${res}.ts`).replace(/[/\\]/g, '/');
     }
 
     return res;
@@ -226,5 +229,4 @@ export class ComponentClassExtractor {
 
     return componentInfo;
   }
-
 }

@@ -1,39 +1,38 @@
-/* eslint-disable @typescript-eslint/restrict-plus-operands, @typescript-eslint/naming-convention */
+/* eslint-disable jest/no-done-callback -- test made with observables */
+/* eslint-disable @typescript-eslint/naming-convention -- localization keys are not following the naming convention */
 
-import { LocalizationConfiguration } from '../core';
-import { TranslationsLoader } from './translations-loader';
+import {
+  LocalizationConfiguration,
+} from '../core';
+import {
+  TranslationsLoader,
+} from './translations-loader';
 
-/**
- * @param body
- */
 function mockSuccessApiResponse(body = {}) {
   return new Response(JSON.stringify(body), {
     status: 200,
-    headers: {'Content-type': 'application/json'}
+    headers: { 'Content-type': 'application/json' }
   });
 }
 
-/**
- * @param body
- */
 function mockFailApiResponse(body = {}) {
   return new Response(JSON.stringify(body), {
     status: 404,
-    headers: {'Content-type': 'application/json'}
+    headers: { 'Content-type': 'application/json' }
   });
 }
 
-interface TranslationsDictionnary {
+interface TranslationsDictionary {
   'good.morning': string;
   'good.evening': string;
 }
 
-const responseEN: TranslationsDictionnary = {
+const responseEN: TranslationsDictionary = {
   'good.morning': 'Good Morning',
   'good.evening': 'Good Evening'
 };
 
-const responseFR: TranslationsDictionnary = {
+const responseFR: TranslationsDictionary = {
   'good.morning': 'Bonjour',
   'good.evening': 'Bonsoir'
 };
@@ -89,11 +88,12 @@ describe('TranslationsLoader - no endPointUrl', () => {
       global.fetch = jest.fn().mockImplementation((url: string) => {
         const lang = url
           .split('/')
-          .slice(-1)[0]
+          .at(-1)
           .split('.')[0];
         countCall++;
         latestUrls.push(url);
         if (lang === configuration.language) {
+          // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors -- reject with a 404 response
           return Promise.reject(mockFailApiResponse());
         }
         return Promise.resolve(mockSuccessApiResponse(responseEN));
@@ -120,7 +120,7 @@ describe('TranslationsLoader - no endPointUrl', () => {
   });
 
   describe('language === fallback language', () => {
-    const configuration2: LocalizationConfiguration = Object.assign({}, configuration, {fallbackLanguage: 'fr'});
+    const configuration2: LocalizationConfiguration = Object.assign({}, configuration, { fallbackLanguage: 'fr' });
     let translationsLoader: TranslationsLoader;
 
     beforeEach(() => {
@@ -131,6 +131,7 @@ describe('TranslationsLoader - no endPointUrl', () => {
       let countCall = 0;
       global.fetch = jest.fn().mockImplementation(() => {
         countCall++;
+        // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors -- reject with a 404 response
         return Promise.reject(mockFailApiResponse({}));
       });
 
@@ -151,7 +152,7 @@ describe('TranslationsLoader - no endPointUrl', () => {
 
 describe('TranslationsLoader - with endPointUrl', () => {
   let translationsLoader: TranslationsLoader;
-  const configuration3 = Object.assign({}, configuration, {endPointUrl: 'http://myUrl/'});
+  const configuration3 = Object.assign({}, configuration, { endPointUrl: 'http://myUrl/' });
 
   describe('local translation merging', () => {
     let translationsBundleSpy: jest.SpyInstance;
@@ -164,10 +165,10 @@ describe('TranslationsLoader - with endPointUrl', () => {
     });
 
     it('should merge local and dynamic translations', (done) => {
-      translationsLoader = new TranslationsLoader({...configuration3, mergeWithLocalTranslations: true});
+      translationsLoader = new TranslationsLoader({ ...configuration3, mergeWithLocalTranslations: true });
       const subscription = translationsLoader.getTranslation(configuration3.language).subscribe((res) => {
         expect(res.localOnly).toBeDefined();
-        expect(res.localOnly).toMatch(/^\[local\] /);
+        expect(res.localOnly).toMatch(/^\[local] /);
         expect(translationsBundleSpy).toHaveBeenCalledTimes(2);
         subscription.unsubscribe();
         done();
@@ -225,6 +226,7 @@ describe('TranslationsLoader - with endPointUrl', () => {
         latestUrls.push(url);
         if (endPointUrl === url) {
           // fail with fr on endPoint
+          // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors -- reject with a 404 response
           return Promise.reject(mockFailApiResponse());
         }
         return Promise.resolve(mockSuccessApiResponse(responseFR));
@@ -257,9 +259,11 @@ describe('TranslationsLoader - with endPointUrl', () => {
         latestUrls.push(url);
         if (endPointUrl === url) {
           // fail with fr on endPoint
+          // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors -- reject with a 404 response
           return Promise.reject(mockFailApiResponse());
         } else if (localLangUrl === url) {
           // success if fr local
+          // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors -- reject with a 404 response
           return Promise.reject(mockFailApiResponse());
         }
         return Promise.resolve(mockSuccessApiResponse(responseEN));
@@ -268,7 +272,6 @@ describe('TranslationsLoader - with endPointUrl', () => {
       jest.spyOn(translationsLoader, 'getTranslationFromLocal');
 
       const subscription = translationsLoader.getTranslation(configuration3.language).subscribe((res) => {
-
         expect(countCall).toBe(3);
 
         expect(latestUrls[0]).toEqual(configuration3.endPointUrl + configuration3.language + '.json');
@@ -288,11 +291,10 @@ describe('TranslationsLoader - with endPointUrl', () => {
   });
 
   describe('With queryParams', () => {
-
     it('performs fetch with one parameter', (done) => {
       let countCall = 0;
       const latestUrls: string[] = [];
-      const configWithParams = Object.assign({}, configuration3, {queryParams: {SITECODE: 'XDEFXDEF'}});
+      const configWithParams = Object.assign({}, configuration3, { queryParams: { SITECODE: 'XDEFXDEF' } });
       translationsLoader = new TranslationsLoader(configWithParams);
       global.fetch = jest.fn().mockImplementation((url: string) => {
         countCall++;
@@ -314,7 +316,7 @@ describe('TranslationsLoader - with endPointUrl', () => {
     it('performs fetch with several parameters', (done) => {
       let countCall = 0;
       const latestUrls: string[] = [];
-      const configWithParams = Object.assign({}, configuration3, {queryParams: {SITECODE: 'XDEFXDEF', OFFICEID: 'ANNCEPAR29MAY'}});
+      const configWithParams = Object.assign({}, configuration3, { queryParams: { SITECODE: 'XDEFXDEF', OFFICEID: 'ANNCEPAR29MAY' } });
       translationsLoader = new TranslationsLoader(configWithParams);
       global.fetch = jest.fn().mockImplementation((url: string) => {
         countCall++;
@@ -336,7 +338,7 @@ describe('TranslationsLoader - with endPointUrl', () => {
     it('performs fetch with encoded parameters', (done) => {
       let countCall = 0;
       const latestUrls: string[] = [];
-      const configWithParams = Object.assign({}, configuration3, {queryParams: {'SITE CODE': 'XDEF DEF'}});
+      const configWithParams = Object.assign({}, configuration3, { queryParams: { 'SITE CODE': 'XDEF DEF' } });
       translationsLoader = new TranslationsLoader(configWithParams);
       global.fetch = jest.fn().mockImplementation((url: string) => {
         countCall++;

@@ -1,14 +1,30 @@
-import { getTestBed, TestBed } from '@angular/core/testing';
-import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
-import { provideMockActions } from '@ngrx/effects/testing';
-import { Store } from '@ngrx/store';
-import { ReplaySubject, Subject, Subscription } from 'rxjs';
-import { ShoppingCartEffect } from './shopping-cart.effect';
+import {
+  getTestBed,
+  TestBed,
+} from '@angular/core/testing';
+import {
+  BrowserDynamicTestingModule,
+  platformBrowserDynamicTesting,
+} from '@angular/platform-browser-dynamic/testing';
+import {
+  provideMockActions,
+} from '@ngrx/effects/testing';
+import {
+  Store,
+} from '@ngrx/store';
+import {
+  ReplaySubject,
+  Subject,
+  Subscription,
+} from 'rxjs';
+import {
+  ShoppingCartEffect,
+} from './shopping-cart.effect';
 
 describe('ShoppingCart Effects', () => {
   beforeAll(() => getTestBed().platform || TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting(), {
     teardown: { destroyAfterEach: false }
-}));
+  }));
 
   let effect: ShoppingCartEffect;
   let actions: Subject<any>;
@@ -28,7 +44,7 @@ describe('ShoppingCart Effects', () => {
       providers: [
         provideMockActions(() => actions),
         ShoppingCartEffect,
-        {provide: Store, useValue: mockStore}
+        { provide: Store, useValue: mockStore }
       ]
     }).compileComponents();
 

@@ -1,5 +1,14 @@
-import {isRangeNumber, isString, isSupportedSimpleTypes, numberValidator, parseRegExp} from '../operator.helpers';
-import { Operator, SupportedSimpleTypes } from '../operator.interface';
+import {
+  isRangeNumber,
+  isString,
+  isSupportedSimpleTypes,
+  numberValidator,
+  parseRegExp,
+} from '../operator.helpers';
+import {
+  Operator,
+  SupportedSimpleTypes,
+} from '../operator.interface';
 
 /**
  * Check if any of the variable's value is equal to a specific value
@@ -7,11 +16,10 @@ import { Operator, SupportedSimpleTypes } from '../operator.interface';
  */
 export const arrayContains: Operator<SupportedSimpleTypes[], SupportedSimpleTypes> = {
   name: 'arrayContains',
-  evaluator: (value, b) => value.indexOf(b) > -1,
+  evaluator: (value, b) => value.includes(b),
   validateLhs: Array.isArray,
   validateRhs: isSupportedSimpleTypes
 };
-
 
 /**
  * Check if the specified text value is included in the text variable
@@ -19,7 +27,7 @@ export const arrayContains: Operator<SupportedSimpleTypes[], SupportedSimpleType
  */
 export const stringContains: Operator<string, string> = {
   name: 'stringContains',
-  evaluator: (inputString, substring) => inputString.indexOf(substring) > -1,
+  evaluator: (inputString, substring) => inputString.includes(substring),
   validateLhs: isString,
   validateRhs: isString
 };
@@ -30,7 +38,7 @@ export const stringContains: Operator<string, string> = {
  */
 export const notArrayContains: Operator<SupportedSimpleTypes[], SupportedSimpleTypes> = {
   name: 'notArrayContains',
-  evaluator: (array, value) => array.indexOf(value) === -1,
+  evaluator: (array, value) => !array.includes(value),
   validateLhs: Array.isArray,
   validateRhs: isSupportedSimpleTypes
 };
@@ -41,7 +49,7 @@ export const notArrayContains: Operator<SupportedSimpleTypes[], SupportedSimpleT
  */
 export const notStringContains: Operator<string, string> = {
   name: 'notStringContains',
-  evaluator: (inputString, substring: any) => inputString.indexOf(substring) === -1,
+  evaluator: (inputString, substring: any) => !inputString.includes(substring),
   validateLhs: isString,
   validateRhs: isString
 };
@@ -52,7 +60,7 @@ export const notStringContains: Operator<string, string> = {
  */
 export const allEqual: Operator<SupportedSimpleTypes[], SupportedSimpleTypes> = {
   name: 'allEqual',
-  // eslint-disable-next-line eqeqeq
+  // eslint-disable-next-line eqeqeq -- possibility of comparing string and number values
   evaluator: (array, value) => array.every((elementValue) => elementValue == value),
   validateLhs: Array.isArray,
   validateRhs: isSupportedSimpleTypes
@@ -75,7 +83,7 @@ export const allGreater: Operator<SupportedSimpleTypes[], number | string> = {
  */
 export const allIn: Operator<SupportedSimpleTypes[], SupportedSimpleTypes[]> = {
   name: 'allIn',
-  evaluator: (array, value) => array.every((elementValue) => value.indexOf(elementValue) > -1),
+  evaluator: (array, value) => array.every((elementValue) => value.includes(elementValue)),
   validateLhs: Array.isArray,
   validateRhs: Array.isArray
 };
@@ -86,7 +94,7 @@ export const allIn: Operator<SupportedSimpleTypes[], SupportedSimpleTypes[]> = {
  */
 export const allNotIn: Operator<SupportedSimpleTypes[], SupportedSimpleTypes[]> = {
   name: 'allNotIn',
-  evaluator: (array, value) => !array.some((elementValue) => value.indexOf(elementValue) > -1),
+  evaluator: (array, value) => !array.some((elementValue) => value.includes(elementValue)),
   validateLhs: Array.isArray,
   validateRhs: Array.isArray
 };
@@ -134,7 +142,7 @@ export const allRangeNumber: Operator<number[], [number | string, number | strin
  */
 export const oneEquals: Operator<SupportedSimpleTypes[], SupportedSimpleTypes> = {
   name: 'oneEquals',
-  // eslint-disable-next-line eqeqeq
+  // eslint-disable-next-line eqeqeq -- possibility of comparing string and number values
   evaluator: (array, value) => array.some((elementValue) => elementValue == value),
   validateLhs: Array.isArray,
   validateRhs: isSupportedSimpleTypes
@@ -158,7 +166,7 @@ export const oneGreater: Operator<number[], number | string> = {
 export const oneIn: Operator<SupportedSimpleTypes[], SupportedSimpleTypes[]> = {
   name: 'oneIn',
   evaluator: (firstArray, secondArray) =>
-    firstArray.some((elementValue) => secondArray.indexOf(elementValue) > -1),
+    firstArray.some((elementValue) => secondArray.includes(elementValue)),
   validateLhs: Array.isArray,
   validateRhs: Array.isArray
 };

@@ -1,9 +1,15 @@
-/* eslint-disable camelcase, @typescript-eslint/naming-convention */
-import type { Rule, Tree } from '@angular-devkit/schematics';
-import { createSchematicWithMetricsIfInstalled, findFilesInTree } from '@o3r/schematics';
+import type {
+  Rule,
+  Tree,
+} from '@angular-devkit/schematics';
+import {
+  createSchematicWithMetricsIfInstalled,
+  findFilesInTree,
+} from '@o3r/schematics';
 
 const configObserverRegExp = /\bConfigObserver\b/g;
 
+// eslint-disable-next-line @typescript-eslint/naming-convention -- version in the function name
 function updateV10_3Fn(): Rule {
   return (tree: Tree) => {
     const files = findFilesInTree(tree.getDir(''), (filePath) => /.*\.ts/.test(filePath));
@@ -19,4 +25,5 @@ function updateV10_3Fn(): Rule {
 /**
  * Update of Otter configuration V10.3
  */
+// eslint-disable-next-line @typescript-eslint/naming-convention -- version in the function name
 export const updateV10_3 = createSchematicWithMetricsIfInstalled(updateV10_3Fn);

@@ -1,10 +1,18 @@
 #!/usr/bin/env node
 
-import { program } from 'commander';
-import * as globby from 'globby';
-import { existsSync, promises as fs, readFileSync } from 'node:fs';
+import {
+  existsSync,
+  promises as fs,
+  readFileSync,
+} from 'node:fs';
 import * as path from 'node:path';
-import type { PackageJson } from 'type-fest';
+import {
+  program,
+} from 'commander';
+import * as globby from 'globby';
+import type {
+  PackageJson,
+} from 'type-fest';
 import * as winston from 'winston';
 
 /** Options of the CLI */
@@ -50,8 +58,7 @@ program
 
 logger.warn('This script is deprecated, will be removed in Otter v12.');
 
-// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-const { cwd, pattern, exportTypes, ...options} = program.opts() as Options;
+const { cwd, pattern, exportTypes, ...options } = program.opts<Options>();
 const srcDir = path.resolve(cwd, options.srcDir);
 const outDir = path.resolve(cwd, options.outDir);
 
@@ -81,7 +88,7 @@ const editPackageJson = async () => {
   packageJson.exports ||= {};
   (packageJson.exports as Record<string, PackageJson.Exports>)['./package.json'] ||= (packageJson.exports as Record<string, PackageJson.Exports>)?.['./package.json'] || { default: './package.json' };
   (packageJson.exports as Record<string, PackageJson.Exports>)['.'] ||= (packageJson.exports as Record<string, PackageJson.Exports>)?.['.'] || {
-    ...exportTypes.reduce<Record<string, string | undefined>>((acc, type) => ({ ...acc, [type]: originPackageJson[type] as string | undefined }), {}),
+    ...Object.fromEntries(exportTypes.map((type) => [type, originPackageJson[type] as string | undefined])),
     default: originPackageJson.main || './index.js',
     node: (originPackageJson.node || originPackageJson.main) as PackageJson.Exports
   };
@@ -106,7 +113,6 @@ const editPackageJson = async () => {
   Object.keys(exportMap).forEach((exp) => logger.debug(`export sub entry: ${exp}`));
   await fs.writeFile(outputtedPackageJsonPath, JSON.stringify(packageJson, null, 2));
 };
-
 
 editPackageJson()
   .then(() => process.exit(0))

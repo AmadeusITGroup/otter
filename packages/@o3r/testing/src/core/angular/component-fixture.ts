@@ -1,12 +1,25 @@
-/* eslint-disable new-cap */
-import {By} from '@angular/platform-browser';
-import {FixtureUsageError} from '../../errors/index';
-import type {ComponentFixtureProfile} from '../component-fixture';
-import {withTimeout} from '../helpers';
-import {O3rElement, O3rElementConstructor} from './element';
-import {O3rGroup, O3rGroupConstructor} from './group';
+import {
+  By,
+} from '@angular/platform-browser';
+import {
+  FixtureUsageError,
+} from '../../errors/index';
+import type {
+  ComponentFixtureProfile,
+} from '../component-fixture';
+import {
+  withTimeout,
+} from '../helpers';
+import {
+  O3rElement,
+  O3rElementConstructor,
+} from './element';
+import {
+  O3rGroup,
+  O3rGroupConstructor,
+} from './group';
 
-export type {ComponentFixtureProfile, Constructable, FixtureWithCustom} from '../component-fixture';
+export type { ComponentFixtureProfile, Constructable, FixtureWithCustom } from '../component-fixture';
 
 /**
  * Implementation of the fixture dedicated to angular, hence using angular testing framework.
@@ -90,12 +103,11 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
       timeout?: number;
     } = {}
   ): Promise<T | O3rElement | undefined> {
-    let element: T | O3rElement | undefined;
-    if (options.index !== undefined) {
-      element = await this.queryNth(selector, options.index, elementConstructor as any);
-    } else {
-      element = await this.query(selector, elementConstructor as any);
-    }
+    const element: T | O3rElement | undefined = await (
+      options.index === undefined
+        ? this.query(selector, elementConstructor as any)
+        : this.queryNth(selector, options.index, elementConstructor as any)
+    );
     if (options.shouldThrowIfNotPresent) {
       return this.throwOnUndefinedElement<O3rElement>(element, options.timeout);
     }
@@ -213,7 +225,7 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
 
   /** @inheritdoc */
   public getSubComponents(): Promise<{ [componentName: string]: ComponentFixtureProfile[] }> {
-    return Promise.resolve({block: [this]});
+    return Promise.resolve({ block: [this] });
   }
 
   /** @inheritDoc */

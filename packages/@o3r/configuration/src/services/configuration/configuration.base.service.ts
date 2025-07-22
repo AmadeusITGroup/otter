@@ -1,9 +1,30 @@
-import { Injectable } from '@angular/core';
-import { select, Store } from '@ngrx/store';
-import { Configuration, CustomConfig, deepFill } from '@o3r/core';
-import { combineLatest, Observable, of } from 'rxjs';
-import { distinctUntilChanged, map, switchMap, take } from 'rxjs/operators';
-import { ConfigOverrideStore, selectComponentOverrideConfig } from '../../stores/config-override/index';
+import {
+  Injectable,
+} from '@angular/core';
+import {
+  select,
+  Store,
+} from '@ngrx/store';
+import {
+  Configuration,
+  CustomConfig,
+  deepFill,
+} from '@o3r/core';
+import {
+  combineLatest,
+  Observable,
+  of,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+import {
+  ConfigOverrideStore,
+  selectComponentOverrideConfig,
+} from '../../stores/config-override/index';
 import {
   computeConfiguration,
   ConfigurationStore,
@@ -13,9 +34,11 @@ import {
   selectGlobalConfiguration,
   updateConfigurationEntity,
   upsertConfigurationEntities,
-  upsertConfigurationEntity
+  upsertConfigurationEntity,
 } from '../../stores/index';
-import { ConfigurationBaseServiceModule } from './configuration.base.module';
+import {
+  ConfigurationBaseServiceModule,
+} from './configuration.base.module';
 
 const jsonStringifyDiff = (obj1: any, obj2: any) => JSON.stringify(obj1) === JSON.stringify(obj2);
 
@@ -26,11 +49,9 @@ const jsonStringifyDiff = (obj1: any, obj2: any) => JSON.stringify(obj1) === JSO
   providedIn: ConfigurationBaseServiceModule
 })
 export class ConfigurationBaseService {
+  private readonly extendedConfiguration: { [key: string]: boolean } = {};
 
-  private readonly extendedConfiguration: {[key: string]: boolean} = {};
-
-  constructor(private readonly store: Store<ConfigurationStore & ConfigOverrideStore>) {
-  }
+  constructor(private readonly store: Store<ConfigurationStore & ConfigOverrideStore>) {}
 
   /**
    * Update a specific component config or add it to the store if does not exist
@@ -38,7 +59,7 @@ export class ConfigurationBaseService {
    * @param configurationId Configuration ID
    */
   public upsertConfiguration<T extends Configuration>(configuration: T, configurationId = globalConfigurationId) {
-    this.store.dispatch(upsertConfigurationEntity({id: configurationId, configuration}));
+    this.store.dispatch(upsertConfigurationEntity({ id: configurationId, configuration }));
   }
 
   /**
@@ -47,7 +68,7 @@ export class ConfigurationBaseService {
    * @param configurationId Configuration ID
    */
   public updateConfiguration<T extends Partial<Configuration>>(configuration: T, configurationId = globalConfigurationId) {
-    this.store.dispatch(updateConfigurationEntity({id: configurationId, configuration}));
+    this.store.dispatch(updateConfigurationEntity({ id: configurationId, configuration }));
   }
 
   /**
@@ -57,7 +78,7 @@ export class ConfigurationBaseService {
   public getConfigFromBodyTag<T extends Configuration>(configTagName = 'staticconfig') {
     const bootstrapConfigString = document.body.dataset[configTagName];
     const customConfigObject: CustomConfig<T>[] = bootstrapConfigString ? JSON.parse(bootstrapConfigString) : [];
-    if (customConfigObject.length) {
+    if (customConfigObject.length > 0) {
       this.computeConfiguration(customConfigObject);
     }
   }
@@ -94,8 +115,8 @@ export class ConfigurationBaseService {
    * @param defaultValue Default value of the configuration
    */
   public getComponentConfig<T extends Configuration>(id: string, defaultValue: T) {
-    return (source: Observable<Partial<T> | undefined>): Observable <T> => {
-      const componentConfigurationFromStore$ = this.getConfig(id) as Observable<T>;
+    return (source: Observable<Partial<T> | undefined>): Observable<T> => {
+      const componentConfigurationFromStore$ = this.getConfig<T>(id);
 
       return source.pipe(
         switchMap((overrideConfig) => componentConfigurationFromStore$.pipe(
@@ -112,9 +133,9 @@ export class ConfigurationBaseService {
    * Get an observable of the configuration from store for a given component and merge it with the global config + the config overrides from the rules engine
    * @param id Id of the component
    */
-  public getConfig(id: string): Observable<any> {
+  public getConfig<T extends Configuration>(id: string): Observable<T> {
     const globalConfig$ = this.store.pipe(select(selectGlobalConfiguration));
-    const componentConfig$ = id !== globalConfigurationId ? this.store.pipe(select(selectConfigurationForComponent({ id }))) : of({});
+    const componentConfig$ = id === globalConfigurationId ? of({}) : this.store.pipe(select(selectConfigurationForComponent({ id })));
     const overrideConfig$ = this.store.pipe(select(selectComponentOverrideConfig(id)));
 
     return combineLatest([globalConfig$, componentConfig$, overrideConfig$]).pipe(

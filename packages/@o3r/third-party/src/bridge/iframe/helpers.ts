@@ -1,23 +1,26 @@
-import { IFrameBridgeOptions, InternalIframeMessage } from './contracts';
+import {
+  IFrameBridgeOptions,
+  InternalIframeMessage,
+} from './contracts';
 
 /**
  * Default options for an IFrameBridge
  */
-export const IFRAME_BRIDGE_DEFAULT_OPTIONS: IFrameBridgeOptions = {
+export const IFRAME_BRIDGE_DEFAULT_OPTIONS: Readonly<IFrameBridgeOptions> = {
   handshakeTries: 10,
   handshakeTimeout: 200,
   messageWithResponseTimeout: 1000
-};
+} as const;
 
 /**
  * Verifies if a message respects the format expected by an IFrameBridge
  * @param message
  */
 export function isSupportedMessage(message: any): message is InternalIframeMessage {
-  return typeof message === 'object' &&
-    !!message.action &&
-    !!message.version &&
-    !!message.channelId;
+  return typeof message === 'object'
+    && !!message.action
+    && !!message.version
+    && !!message.channelId;
 }
 
 /**

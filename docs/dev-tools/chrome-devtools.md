@@ -8,6 +8,8 @@ The extension comes with the following features:
 - **Visual Testing toggle**
 - **Rule Engine current state**: rule engine state, rule engine logs, etc.
 - **Configuration**: display and modification of the application components configuration.
+- **Theming**: display and modification of the application theming variables.
+- **States**: save customization to be able to apply it later or share it.
 
 ## How to install the extension
 

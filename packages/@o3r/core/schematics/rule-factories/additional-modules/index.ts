@@ -1,21 +1,32 @@
-import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+import * as path from 'node:path';
+import {
+  chain,
+  Rule,
+  SchematicContext,
+  Tree,
+} from '@angular-devkit/schematics';
 import {
   getAppModuleFilePath,
-  getProjectNewDependenciesTypes,
+  getExternalDependenciesInfo,
   getWorkspaceConfig,
-  type SetupDependenciesOptions
+  type SetupDependenciesOptions,
 } from '@o3r/schematics';
+import {
+  addRootImport,
+} from '@schematics/angular/utility';
+import {
+  insertImport,
+  isImported,
+} from '@schematics/angular/utility/ast-utils';
+import {
+  InsertChange,
+} from '@schematics/angular/utility/change';
+import type {
+  PackageJson,
+} from 'type-fest';
 import * as ts from 'typescript';
-import { addRootImport } from '@schematics/angular/utility';
-import { insertImport, isImported } from '@schematics/angular/utility/ast-utils';
-import { InsertChange } from '@schematics/angular/utility/change';
-import * as path from 'node:path';
-import * as fs from 'node:fs';
-import type { PackageJson } from 'type-fest';
-import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
 
-const packageJsonPath = path.resolve(__dirname, '..', '..', '..', 'package.json');
-const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf-8' })) as PackageJson & { generatorDependencies: Record<string, string> };
+const o3rPackageJsonPath = path.resolve(__dirname, '..', '..', '..', 'package.json');
 const ngrxStoreDevtoolsDep = '@ngrx/store-devtools';
 
 /**
@@ -29,22 +40,23 @@ export function updateAdditionalModules(options: { projectName?: string | undefi
   /**
    * Update package.json to add additional modules dependencies
    * @param tree
+   * @param context
    */
-  const updatePackageJson: Rule = (tree) => {
-    const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
-    const types = getProjectNewDependenciesTypes(workspaceProject);
-    dependenciesSetupConfig.dependencies.chokidar = {
-      inManifest: [{
-        range: packageJson.peerDependencies!.chokidar,
-        types: [NodeDependencyType.Dev]
-      }]
-    };
+  const updatePackageJson: Rule = (tree, context) => {
+    const workspaceConfig = getWorkspaceConfig(tree);
+    const workspaceProject = (options.projectName && workspaceConfig?.projects?.[options.projectName]) || undefined;
+    const projectDirectory = workspaceProject?.root || '.';
+    const projectPackageJson = tree.readJson(path.posix.join(projectDirectory, 'package.json')) as PackageJson;
 
-    dependenciesSetupConfig.dependencies[ngrxStoreDevtoolsDep] = {
-      inManifest: [{
-        range: packageJson.generatorDependencies[ngrxStoreDevtoolsDep],
-        types
-      }]
+    dependenciesSetupConfig.dependencies = {
+      ...dependenciesSetupConfig.dependencies,
+      ...getExternalDependenciesInfo({
+        dependenciesToInstall: [ngrxStoreDevtoolsDep],
+        devDependenciesToInstall: ['chokidar'],
+        o3rPackageJsonPath,
+        projectType: workspaceProject?.projectType,
+        projectPackageJson
+      }, context.logger)
     };
 
     return tree;
@@ -75,7 +87,7 @@ export function updateAdditionalModules(options: { projectName?: string | undefi
     }
 
     const addImportToModuleFile = (name: string, file: string, moduleFunction?: string) => additionalRules.push(
-      addRootImport(options.projectName!, ({code, external}) => code`\n${external(name, file)}${moduleFunction}`)
+      addRootImport(options.projectName!, ({ code, external }) => code`\n${external(name, file)}${moduleFunction}`)
     );
 
     addImportToModuleFile(
@@ -92,7 +104,6 @@ export function updateAdditionalModules(options: { projectName?: string | undefi
    * @param context
    */
   const registerDevAdditionalModules: Rule = (tree: Tree, context: SchematicContext) => {
-
     const moduleFilePath = getAppModuleFilePath(tree, context, options.projectName);
     if (!moduleFilePath) {
       return tree;

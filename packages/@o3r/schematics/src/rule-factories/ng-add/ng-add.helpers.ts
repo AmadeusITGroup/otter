@@ -1,13 +1,48 @@
-import { chain, externalSchematic, noop, Rule, Schematic, SchematicContext } from '@angular-devkit/schematics';
-import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
-import type { NodeDependency } from '@schematics/angular/utility/dependencies';
-import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
-import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import {
+  mkdirSync,
+  readFileSync,
+  writeFileSync,
+} from 'node:fs';
 import * as path from 'node:path';
-import { lastValueFrom } from 'rxjs';
-import type { PackageJson } from 'type-fest';
-import type { NgAddPackageOptions } from '../../tasks/index';
-import { getExternalDependenciesVersionRange, getNodeDependencyList, getPackageManager } from '../../utility/index';
+import {
+  chain,
+  externalSchematic,
+  noop,
+  type Rule,
+  type Schematic,
+  type SchematicContext,
+} from '@angular-devkit/schematics';
+import {
+  NodePackageInstallTask,
+} from '@angular-devkit/schematics/tasks';
+import {
+  NodeDependencyType,
+} from '@schematics/angular/utility/dependencies';
+import type {
+  PackageJson,
+} from 'type-fest';
+import type {
+  NgAddPackageOptions,
+} from '../../tasks/index';
+import {
+  getPackageManager,
+} from '../../utility/index';
+
+const getNgAddSchema = (packageName: string, context: SchematicContext) => {
+  try {
+    const collection = context.engine.createCollection(packageName);
+    return collection.createSchematic('ng-add');
+  } catch {
+    context.logger.warn(`No ng-add found for ${packageName}`);
+    return undefined;
+  }
+};
+
+const sortDependencies = (packageJson: PackageJson, depType: 'dependencies' | 'devDependencies' | 'peerDependencies') => {
+  packageJson[depType] = packageJson[depType]
+    ? Object.fromEntries(Object.entries(packageJson[depType] || {}).sort(([key1, _val1], [key2, _val2]) => key1.localeCompare(key2)))
+    : undefined;
+};
 
 /**
  * Install via `ng add` a list of npm packages.
@@ -16,10 +51,10 @@ import { getExternalDependenciesVersionRange, getNodeDependencyList, getPackageM
  * @param packageJsonPath path of the package json of the project where they will be installed
  */
 export function ngAddPackages(packages: string[], options?: Omit<NgAddPackageOptions, 'version'> & { version?: string | (string | undefined)[] }, packageJsonPath = '/package.json'): Rule {
-  if (!packages.length) {
+  if (packages.length === 0) {
     return noop;
   }
-  const cwd = process.cwd().replace(/[\\/]+/g, '/');
+  const cwd = process.cwd().replace(/[/\\]+/g, '/');
   // FileSystem working directory might be different from Tree working directory (when using `yarn workspace` for example)
   const fsWorkingDirectory = (options?.workingDirectory && !cwd.endsWith(options.workingDirectory)) ? options.workingDirectory : '.';
   const versions = Object.fromEntries(packages.map<[string, string | undefined]>((packageName, index) =>
@@ -46,21 +81,11 @@ export function ngAddPackages(packages: string[], options?: Omit<NgAddPackageOpt
           return;
         }
         versionFound = version;
-      } catch (e) {
+      } catch {
         return;
       }
     }
     return versionFound;
-  };
-
-  const getNgAddSchema = (packageName: string, context: SchematicContext) => {
-    try {
-      const collection = context.engine.createCollection(packageName);
-      return collection.createSchematic('ng-add');
-    } catch {
-      context.logger.warn(`No ng-add found for ${packageName}`);
-      return undefined;
-    }
   };
 
   const getOptions = (schema: Schematic<any, any>) => {
@@ -76,17 +101,12 @@ export function ngAddPackages(packages: string[], options?: Omit<NgAddPackageOpt
   const installedVersions = packages.map((packageName) => getInstalledVersion(packageName));
   const packageManager = getPackageManager();
   const packagesToInstall = packages.filter((packageName, index) => !installedVersions[index] || installedVersions[index] !== versions[packageName]);
-  if (packagesToInstall.length < 1) {
+  if (packagesToInstall.length === 0) {
     return noop;
   }
   return chain([
     // Update package.json in tree
     (tree) => {
-      const sortDependencies = (packageJson: PackageJson, depType: 'dependencies' | 'devDependencies' | 'peerDependencies') => {
-        packageJson[depType] = packageJson[depType] ?
-          Object.fromEntries(Object.entries(packageJson[depType] || {}).sort(([key1, _val1], [key2, _val2]) => key1.localeCompare(key2))) :
-          undefined;
-      };
       for (const filePath of new Set([packageJsonPath, './package.json'])) {
         const packageJson: PackageJson = tree.readJson(filePath) as PackageJson;
         packages.forEach((packageName) => {
@@ -122,14 +142,17 @@ export function ngAddPackages(packages: string[], options?: Omit<NgAddPackageOpt
         hideOutput: false,
         quiet: false
       } as any));
-      await lastValueFrom(context.engine.executePostTasks());
+
+      await new Promise<void>((resolve, reject) =>
+        context.engine.executePostTasks().subscribe({ next: () => { /* don't store data */ }, complete: () => resolve(), error: (errors: Error) => reject(errors) })
+      );
 
       const ngAddsToApply = packagesToInstall
         .map((packageName) => ({ packageName, ngAddCollection: getNgAddSchema(packageName, context) }))
         .filter(({ packageName, ngAddCollection }) => {
           if (!ngAddCollection) {
             context.logger.info(
-              `No ng-add schematic found for: '${packageName}'. Skipping ng add for: ${packageName}${versions[packageName] ? ' with version: ' + (versions[packageName] as string) : ''}`);
+              `No ng-add schematic found for: '${packageName}'. Skipping ng add for: ${packageName}${versions[packageName] ? ' with version: ' + versions[packageName] : ''}`);
           }
           return !!ngAddCollection;
         })
@@ -137,32 +160,4 @@ export function ngAddPackages(packages: string[], options?: Omit<NgAddPackageOpt
       return chain(ngAddsToApply);
     }
   ]);
-}
-
-/**
- * Look for the peer dependencies and run ng add on the package requested version
- * TODO: Remove this method in v11. No longer used
- * @param packages list of the name of the packages needed
- * @param packageJsonPath path to package json that needs the peer to be resolved
- * @param type how to install the dependency (dev, peer for a library or default for an application)
- * @param options
- * @param parentPackageInfo for logging purposes
- */
-export function ngAddPeerDependencyPackages(packages: string[], packageJsonPath: string, type: NodeDependencyType = NodeDependencyType.Default,
-  options: NgAddPackageOptions, parentPackageInfo?: string) {
-  if (!packages.length) {
-    return noop;
-  }
-  const dependencies: NodeDependency[] = getNodeDependencyList(
-    getExternalDependenciesVersionRange(packages, packageJsonPath),
-    type
-  );
-  return ngAddPackages(dependencies.map(({ name }) => name), {
-    ...options,
-    skipConfirmation: true,
-    version: dependencies.map(({ version }) => version),
-    parentPackageInfo,
-    dependencyType: type,
-    workingDirectory: options.workingDirectory
-  });
 }

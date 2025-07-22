@@ -1,4 +1,8 @@
-import { PluginRunner, RequestOptions, RequestPlugin } from '../core';
+import {
+  PluginRunner,
+  RequestOptions,
+  RequestPlugin,
+} from '../core';
 /**
  * Plugin to set the cache option of the fetch API for every request it is applied to.
  *
@@ -10,7 +14,6 @@ import { PluginRunner, RequestOptions, RequestPlugin } from '../core';
  *  check obsolete. In that case it's recommended to pass your own condition via the constructor.
  */
 export class FetchCacheRequest implements RequestPlugin {
-
   /**
    * Value that will be set as the options of the fetch API.
    */
@@ -29,9 +32,9 @@ export class FetchCacheRequest implements RequestPlugin {
   constructor(fetchCache?: RequestCache, cacheControl?: string, shouldAddCacheControlHeaders?: boolean) {
     this.fetchCache = fetchCache;
     this.cacheControl = cacheControl;
-    this.shouldAddCacheControlHeaders = typeof shouldAddCacheControlHeaders !== 'undefined'
-      ? shouldAddCacheControlHeaders
-      : (typeof fetch === 'undefined' || (fetch as any).polyfill);
+    this.shouldAddCacheControlHeaders = typeof shouldAddCacheControlHeaders === 'undefined'
+      ? (typeof fetch === 'undefined' || (fetch as any).polyfill)
+      : shouldAddCacheControlHeaders;
   }
 
   public load(): PluginRunner<RequestOptions, RequestOptions> {
@@ -43,7 +46,7 @@ export class FetchCacheRequest implements RequestPlugin {
             data.headers.set('Pragma', 'no-cache');
           }
         }
-        return {...data, cache: this.fetchCache};
+        return { ...data, cache: this.fetchCache };
       }
     };
   }

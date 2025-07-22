@@ -3,6 +3,7 @@
     <h4 class="d-inline-block">Information</h4>
     <button type="button" class="btn btn-link mb-2 text-decoration-none" (click)="refreshInfo()">&#10227;</button>
     <ul>
+      <li>App name: <b>{{info.appName}}</b></li>
       <li>App version: <b>{{info.appVersion}}</b></li>
       <li>Mode: <b>{{info.isProduction ? 'Production' : 'Development'}}</b></li>
       @if (info.sessionId) {

@@ -1,4 +1,6 @@
-import { O3rJsonOrStringPipe } from './json-or-string.pipe';
+import {
+  O3rJsonOrStringPipe,
+} from './json-or-string.pipe';
 
 describe('O3rJsonOrStringPipe', () => {
   it('should not escape " in string', () => {
@@ -8,7 +10,7 @@ describe('O3rJsonOrStringPipe', () => {
   });
   it('should stringify json objects', () => {
     const pipe = new O3rJsonOrStringPipe();
-    const myObject = {a: {b: 1}, c: {d: 'e'}, f: ['1', 2]};
+    const myObject = { a: { b: 1 }, c: { d: 'e' }, f: ['1', 2] };
     expect(pipe.transform(myObject)).toEqual(`{
   "a": {
     "b": 1

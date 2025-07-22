@@ -1,8 +1,15 @@
-import { Injectable } from '@angular/core';
-import type { ApplicationInformationContentMessage } from '@o3r/application';
-import { ReplaySubject } from 'rxjs';
+import {
+  Injectable,
+} from '@angular/core';
+import type {
+  ApplicationInformationContentMessage,
+} from '@o3r/application';
+import {
+  ReplaySubject,
+} from 'rxjs';
 
 export interface ExtendedApplicationInformation {
+  appName: string;
   appVersion: string;
   sessionId?: string;
   sessionGeneratedTime?: Date;
@@ -14,7 +21,6 @@ export interface ExtendedApplicationInformation {
   providedIn: 'root'
 })
 export class DebugPanelService {
-
   private readonly applicationInformationSubject = new ReplaySubject<ExtendedApplicationInformation>(1);
 
   /** Application information stream */
@@ -26,6 +32,7 @@ export class DebugPanelService {
    */
   public update(message: ApplicationInformationContentMessage) {
     this.applicationInformationSubject.next({
+      appName: message.appName,
       appVersion: message.appVersion,
       sessionId: message.session?.id,
       sessionGeneratedTime: message.session?.generatedTime,

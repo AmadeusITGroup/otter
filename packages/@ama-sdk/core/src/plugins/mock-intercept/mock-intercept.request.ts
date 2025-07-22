@@ -1,11 +1,19 @@
-import { PluginRunner, RequestOptions, RequestPlugin } from '../core';
-import { CUSTOM_MOCK_OPERATION_ID_HEADER, CUSTOM_MOCK_REQUEST_HEADER, MockInterceptFetchParameters, MockInterceptRequestParameters } from './mock-intercept.interface';
+import {
+  PluginRunner,
+  RequestOptions,
+  RequestPlugin,
+} from '../core';
+import {
+  CUSTOM_MOCK_OPERATION_ID_HEADER,
+  CUSTOM_MOCK_REQUEST_HEADER,
+  MockInterceptFetchParameters,
+  MockInterceptRequestParameters,
+} from './mock-intercept.interface';
 
 /**
  * Plugin to intercept an API request for mock purposes
  */
 export class MockInterceptRequest implements RequestPlugin {
-
   protected options: MockInterceptRequestParameters;
 
   /**
@@ -27,8 +35,9 @@ export class MockInterceptRequest implements RequestPlugin {
         await this.options.adapter.initialize();
 
         if (
-          this.options.disabled ||
-            (this.options.filter && !this.options.filter(data))
+          this.options.disabled
+          // eslint-disable-next-line unicorn/no-array-callback-reference -- filter is not an array callback here
+          || (this.options.filter && !this.options.filter(data))
         ) {
           return data;
         }

@@ -1,5 +1,7 @@
-import {O3rElement, PlaywrightSourceElement} from '../element';
-
+import {
+  O3rElement,
+  PlaywrightSourceElement,
+} from '../element';
 
 /**
  * Implementation dedicated to Playwright.
@@ -11,7 +13,7 @@ export class O3rSelectElement extends O3rElement {
 
   /** @inheritdoc */
   public selectByIndex(index: number, _timeout?: number) {
-    return this.sourceElement.element.selectOption({index});
+    return this.sourceElement.element.selectOption({ index });
   }
 
   /** @inheritdoc */

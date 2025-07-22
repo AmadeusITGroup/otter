@@ -1,8 +1,15 @@
-import type { Tree } from '@angular-devkit/schematics';
-import { askConfirmation } from '@angular/cli/src/utilities/prompt';
+import type {
+  Tree,
+} from '@angular-devkit/schematics';
 import * as ts from 'typescript';
-import { DecoratorWithArg, getPropertyFromDecoratorFirstArgument, isDecoratorWithArg } from './ast';
-import { O3rCliError } from './error';
+import {
+  DecoratorWithArg,
+  getPropertyFromDecoratorFirstArgument,
+  isDecoratorWithArg,
+} from './ast';
+import {
+  O3rCliError,
+} from './error';
 
 /**
  * Returns true if `node` is the decorator of an Angular component
@@ -24,7 +31,7 @@ export const isO3rClassDecorator = (node: ts.Node): node is DecoratorWithArg =>
  * Returns true if `classDeclaration` is an Otter component
  * @param classDeclaration
  */
-export const isNgClassComponent = (classDeclaration: ts.ClassDeclaration) => (ts.getDecorators(classDeclaration) || []).some(isNgClassDecorator);
+export const isNgClassComponent = (classDeclaration: ts.ClassDeclaration) => (ts.getDecorators(classDeclaration) || []).some((decorator) => isNgClassDecorator(decorator));
 
 /**
  * Returns true if `classDeclaration` is an Otter component
@@ -32,9 +39,10 @@ export const isNgClassComponent = (classDeclaration: ts.ClassDeclaration) => (ts
  */
 export const isO3rClassComponent = (classDeclaration: ts.ClassDeclaration) =>
   isNgClassComponent(classDeclaration)
-  && (ts.getDecorators(classDeclaration) || []).some(isO3rClassDecorator);
+  && (ts.getDecorators(classDeclaration) || []).some((decorator) => isO3rClassDecorator(decorator));
 
-export const askConfirmationToConvertComponent = () => askConfirmation('Component found is not an Otter component. Would you like to convert it?', true);
+export const askConfirmationToConvertComponent = async () =>
+  (await import('@angular/cli/src/utilities/prompt')).askConfirmation('Component found is not an Otter component. Would you like to convert it?', true);
 
 export class NoOtterComponent extends Error {
   constructor(componentPath: string) {
@@ -83,7 +91,6 @@ export const getO3rComponentInfoOrThrowIfNotFound = (tree: Tree, componentPath: 
   const selector = selectorExpression && ts.isStringLiteral(selectorExpression)
     ? selectorExpression.text
     : selectorExpression?.getText();
-
 
   if (!selector) {
     throw new O3rCliError(`The component's selector is not specified. Please provide one for the Otter component defined in ${componentPath}.`);

@@ -1,12 +1,9 @@
 const getJestProjectConfig = require('<%= rootRelativePath %>/jest.config.ut').getJestProjectConfig;
 
+const baseConfig = getJestProjectConfig(__dirname, false);
+
 /** @type {import('ts-jest/dist/types').JestConfigWithTsJest} */
 module.exports = {
-  ...getJestProjectConfig(__dirname, false),
-  displayName: require('./package.json').name,
-  testPathIgnorePatterns: [
-    '<rootDir>/dist',
-    '<rootDir>/.*/templates/.*',
-    '\\.it\\.spec\\.ts$'
-  ]
+  ...baseConfig,
+  displayName: require('./package.json').name
 };

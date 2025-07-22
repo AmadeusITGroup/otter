@@ -6,6 +6,7 @@
     "outDir": "./dist",
     "module": "CommonJS",
     "rootDir": ".",
+    "types": ["node"],
     "tsBuildInfoFile": "build/.tsbuildinfo.builders"
   },
   "include": [

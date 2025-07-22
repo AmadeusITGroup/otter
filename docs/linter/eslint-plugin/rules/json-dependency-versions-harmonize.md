@@ -6,7 +6,29 @@ This rule checks each `package.json` to ensure that its dependencies are consist
 
 The linter is dedicated to JSON files and requires the setup of the [jsonc-eslint-parser](https://www.npmjs.com/package/jsonc-eslint-parser).
 
-Example of a ESLint configuration:
+Example of an ESLint flat configuration:
+
+```javascript
+import jsonParser from 'jsonc-eslint-parser';
+import o3rPlugin from '@o3r/eslint-plugin';
+
+export default [
+  {
+    files: ['**/package.json'],
+    languageOptions: {
+      parser: jsonParser
+    },
+    plugins: {
+      '@o3r': o3rPlugin
+    }
+    rules: {
+      '@o3r/json-dependency-versions-harmonize': 'error'
+    }
+  }
+]
+```
+
+Example of an ESLint legacy configuration:
 
 ```json
 {

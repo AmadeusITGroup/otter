@@ -7,5 +7,5 @@ export interface JSONDefinition {
   items?: JSONDefinition;
   $ref?: string;
   values?: string[];
-  properties?: {[name: string]: JSONDefinition};
+  properties?: { [name: string]: JSONDefinition };
 }

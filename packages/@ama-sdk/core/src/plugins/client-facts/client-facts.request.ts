@@ -1,5 +1,11 @@
-import {createJwtEncoder} from '../../utils/json-token';
-import {PluginRunner, RequestOptions, RequestPlugin} from '../core';
+import {
+  createJwtEncoder,
+} from '../../utils/json-token';
+import {
+  PluginRunner,
+  RequestOptions,
+  RequestPlugin,
+} from '../core';
 
 /**
  * Type that represents public facts.
@@ -27,7 +33,7 @@ export type ClientFactsFactory<T extends PublicFacts = PublicFacts> = (request: 
 export interface ClientFactsRequestPluginOptions<T extends PublicFacts = PublicFacts> {
   /**
    * Name of the header where to store the encoded facts
-   * @defaultValue 'ama-client-facts'
+   * @default 'ama-client-facts'
    */
   headerName?: string;
 
@@ -47,16 +53,16 @@ export interface ClientFactsRequestPluginOptions<T extends PublicFacts = PublicF
   factsFactory?: ClientFactsFactory<T>;
 }
 
+const jwtPayload = (data: PublicFacts) => ({
+  sub: 'fact',
+  ...data
+});
+
 /**
  * Creates a JWT encoding function which transforms the provided Facts as a unsecured JWT format https://tools.ietf.org/html/rfc7519#section-6
  */
 export function createJwtFactsEncoder() {
   const jwtEncoder = createJwtEncoder();
-
-  const jwtPayload = (data: PublicFacts) => ({
-    sub: 'fact',
-    ...data
-  });
 
   return (data: PublicFacts) => jwtEncoder(jwtPayload(data));
 }
@@ -128,7 +134,6 @@ export function createJwtFactsEncoder() {
  * ```
  */
 export class ClientFactsRequestPlugin<T extends PublicFacts = PublicFacts> implements RequestPlugin {
-
   /** Name of the header where to store the encoded facts */
   private readonly headerName: string;
 
@@ -169,7 +174,7 @@ export class ClientFactsRequestPlugin<T extends PublicFacts = PublicFacts> imple
   public load(): PluginRunner<RequestOptions, RequestOptions> {
     return {
       transform: async (data: RequestOptions) => {
-        const publicFacts = typeof this.factsFactory === 'function' ? {...this.globalFacts, ...(await this.factsFactory(data))} : this.globalFacts;
+        const publicFacts = typeof this.factsFactory === 'function' ? { ...this.globalFacts, ...(await this.factsFactory(data)) } : this.globalFacts;
         if (publicFacts && Object.keys(publicFacts).length > 0) {
           data.headers.append(this.headerName, this.jwtEncoder(publicFacts));
         }

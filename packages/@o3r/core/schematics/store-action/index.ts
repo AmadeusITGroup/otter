@@ -1,30 +1,42 @@
-import { strings } from '@angular-devkit/core';
-import { chain, noop, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { applyEsLintFix, createSchematicWithMetricsIfInstalled, findLastNodeOfKind, getDestinationPath } from '@o3r/schematics';
 import * as path from 'node:path';
+import {
+  strings,
+} from '@angular-devkit/core';
+import {
+  chain,
+  noop,
+  Rule,
+  SchematicContext,
+  Tree,
+} from '@angular-devkit/schematics';
+import {
+  applyEsLintFix,
+  createSchematicWithMetricsIfInstalled,
+  findLastNodeOfKind,
+  getDestinationPath,
+} from '@o3r/schematics';
 import * as ts from 'typescript';
-import { NgGenerateStoreActionSchematicsSchema } from './schema';
+import {
+  NgGenerateStoreActionSchematicsSchema,
+} from './schema';
+
+/**
+ * Compute action name based on action type and given name
+ * @param aType
+ * @param aName
+ */
+const computeActionName = (aType: string, aName: string) => {
+  const names = aType.split('-');
+  return `${names[0]}-${aName}` + (names[1] ? `-${names[1]}` : '');
+};
 
 /**
  * Add an Action to an Otter Store
  * @param options
  */
 function ngGenerateStoreActionFn(options: NgGenerateStoreActionSchematicsSchema): Rule {
-
-  /**
-   * Compute action name based on action type and given name
-   *
-   * @param aType
-   * @param aName
-   */
-  const computeActionName = (aType: string, aName: string) => {
-    const names = aType.split('-');
-    return `${names[0]}-${aName}` + (names[1] ? `-${names[1]}` : '');
-  };
-
   /**
    * Edit .actions.ts file
-   *
    * @param actionFilePath
    * @param tree
    * @param context
@@ -42,32 +54,40 @@ function ngGenerateStoreActionFn(options: NgGenerateStoreActionSchematicsSchema)
     let actionDefinitionTemplate = '';
     let payloadType = '';
     switch (options.actionType) {
-      case 'set':
+      case 'set': {
         actionDefinitionTemplate = `export const ${actionName} = createAction(${labelName}, props<object /* TODO: Define type */>());`;
         break;
-      case 'set-entities':
+      }
+      case 'set-entities': {
         payloadType = `Set${options.isCallAction ? 'AsyncStoreItem' : ''}EntitiesActionPayload`;
         actionDefinitionTemplate = `export const ${actionName}  = createAction(${labelName}, props<${payloadType}<object /* TODO: Define type */>>());`;
         break;
-      case 'upsert-entities':
+      }
+      case 'upsert-entities': {
         payloadType = `Set${options.isCallAction ? 'AsyncStoreItem' : ''}EntitiesActionPayload`;
         actionDefinitionTemplate = `export const ${actionName} = createAction(${labelName}, props<${payloadType}<object /* TODO: Define type */>>());`;
         break;
-      case 'update':
+      }
+      case 'update': {
         actionDefinitionTemplate = `export const ${actionName} = createAction(${labelName}, props<Partial<object /* TODO: Define type */>>());`;
         break;
-      case 'update-entities':
+      }
+      case 'update-entities': {
         payloadType = `Update${options.isCallAction ? 'AsyncStoreItem' : ''}EntitiesActionPayload`;
         actionDefinitionTemplate = `export const ${actionName} = createAction(${labelName}, props<${payloadType}<object /* TODO: Define type */>>());`;
         break;
-      case 'clear':
+      }
+      case 'clear': {
         actionDefinitionTemplate = `export const ${actionName} = createAction(${labelName});`;
         break;
-      case 'fail':
+      }
+      case 'fail': {
         actionDefinitionTemplate = `export const ${actionName} = createAction(${labelName}, props<{error: any}>());`;
         break;
-      default:
+      }
+      default: {
         actionDefinitionTemplate = `export const ${actionName} = createAction(${labelName}, props<object /* TODO: Define type */>());`;
+      }
     }
 
     const labelTemplate = `const ${labelName} = '${actionId}';`;
@@ -117,13 +137,11 @@ ${actionDefinitionTemplate}`;
 
   /**
    * Edit .reducer.ts file
-   *
    * @param reducerFilePath
    * @param tree
    * @param context
    */
   const editReducerFile = (reducerFilePath: string, tree: Tree, context: SchematicContext) => {
-
     const actionType = options.actionType.replace('-custom-', '');
     const name = (actionType ? computeActionName(actionType, options.actionName) : options.actionName) + (options.isCallAction ? '-from-api' : '');
     const actionName = strings.camelize(name);
@@ -162,7 +180,6 @@ ${actionDefinitionTemplate}`;
 
   /**
    * Create a new action in an existing store
-   *
    * @param tree
    * @param context
    */

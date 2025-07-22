@@ -4,5 +4,3 @@ export * from './localization-override/localization-override.reducer';
 export * from './localization-override/localization-override.selectors';
 export * from './localization-override/localization-override.state';
 export * from './localization-override/localization-override.sync';
-
-

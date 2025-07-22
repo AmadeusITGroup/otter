@@ -1,7 +1,20 @@
-import { InjectionToken, ModuleWithProviders, NgModule } from '@angular/core';
-import { Action, ActionReducer, StoreModule } from '@ngrx/store';
-import { configurationReducer } from './configuration.reducer';
-import { CONFIGURATION_STORE_NAME, ConfigurationState } from './configuration.state';
+import {
+  InjectionToken,
+  ModuleWithProviders,
+  NgModule,
+} from '@angular/core';
+import {
+  Action,
+  ActionReducer,
+  StoreModule,
+} from '@ngrx/store';
+import {
+  configurationReducer,
+} from './configuration.reducer';
+import {
+  CONFIGURATION_STORE_NAME,
+  ConfigurationState,
+} from './configuration.state';
 
 /** Token of the Configuration reducer */
 export const CONFIGURATION_REDUCER_TOKEN = new InjectionToken<ActionReducer<ConfigurationState, Action>>('Feature Configuration Reducer');

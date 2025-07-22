@@ -9,6 +9,7 @@
     "emitDeclarationOnly": true,
     "tsBuildInfoFile": "build/.tsbuildinfo.jasmine",
     "incremental": true,
+    "composite": true,
     "outDir": "./dist"
   },
   "include": ["src/**/fixtures/jasmine/**/*.ts"],

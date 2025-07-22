@@ -1,11 +1,17 @@
-import type { SchematicContext } from '@angular-devkit/schematics';
-import type { AvailableTestFrameworks, WorkspaceSchema } from '../../interfaces';
-import { getSchematicOptions } from '../../utility/index';
-
+import type {
+  SchematicContext,
+} from '@angular-devkit/schematics';
+import type {
+  AvailableTestFrameworks,
+  WorkspaceSchema,
+} from '../../interfaces';
+import {
+  getSchematicOptions,
+} from '../../utility/index';
 
 const testPackageMaps: Record<AvailableTestFrameworks, string[]> = {
-  'jest': ['jest'],
-  'jasmine': ['jasmine-core']
+  jest: ['jest'],
+  jasmine: ['jasmine-core']
 };
 
 /**

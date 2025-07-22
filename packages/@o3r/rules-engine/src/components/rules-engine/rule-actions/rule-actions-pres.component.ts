@@ -1,5 +1,13 @@
-import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
-import type { AllBlock, Facts } from '../../../engine';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  ViewEncapsulation,
+} from '@angular/core';
+import type {
+  AllBlock,
+  Facts,
+} from '../../../engine';
 
 @Component({
   selector: 'o3r-rule-actions-pres',
@@ -9,7 +17,6 @@ import type { AllBlock, Facts } from '../../../engine';
   encapsulation: ViewEncapsulation.None
 })
 export class RuleActionsPresComponent {
-
   /**
    * List of all the output actions of a rules or ruleset execution
    */

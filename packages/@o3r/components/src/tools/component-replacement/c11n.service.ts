@@ -1,8 +1,22 @@
-import { Inject, Injectable, Type } from '@angular/core';
-import type { Configuration, Context } from '@o3r/core';
-import { Observable } from 'rxjs';
-import { distinctUntilChanged, map } from 'rxjs/operators';
-import { C11N_PRESENTERS_MAP_TOKEN } from './c11n.token';
+import {
+  Inject,
+  Injectable,
+  Type,
+} from '@angular/core';
+import type {
+  Configuration,
+  Context,
+} from '@o3r/core';
+import {
+  Observable,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  map,
+} from 'rxjs/operators';
+import {
+  C11N_PRESENTERS_MAP_TOKEN,
+} from './c11n.token';
 
 @Injectable()
 export class C11nService {

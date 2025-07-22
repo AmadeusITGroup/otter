@@ -1,9 +1,19 @@
-import { FetchCall, FetchPlugin, FetchPluginContext } from '../core';
+import {
+  FetchCall,
+  FetchPlugin,
+  FetchPluginContext,
+} from '../core';
 
-/** Callback function type */
-export type CallbackFunction<T> = (context: FetchPluginContext & {data: T | undefined}, fetchCall: FetchCall, response?: Response) => void;
+/**
+ * Callback function type
+ * @deprecated Use the one exposed by {@link @ama-sdk/client-fetch}, will be removed in v13
+ */
+export type CallbackFunction<T> = (context: FetchPluginContext & { data: T | undefined }, fetchCall: FetchCall, response?: Response) => void;
 
-/** Result of the condition function */
+/**
+ * Result of the condition function
+ * @deprecated Use the one exposed by {@link @ama-sdk/client-fetch}, will be removed in v13
+ */
 export interface CanStartConditionResult<T = any> {
   /** Actual result of the condition */
   result: boolean | Promise<boolean>;
@@ -14,12 +24,14 @@ export interface CanStartConditionResult<T = any> {
 
 /**
  * Condition function to determine if the call can start
+ * @deprecated Use the one exposed by {@link @ama-sdk/client-fetch}, will be removed in v13
  * @returns True if the call can start, False if it should be canceled
  */
 export type CanStartConditionFunction<T = any> = (context: FetchPluginContext) => CanStartConditionResult<T> | Promise<CanStartConditionResult<T>>;
 
 /**
  * Plugin to determine if and when a call should be processed
+ * @deprecated Use the one exposed by {@link @ama-sdk/client-fetch}, will be removed in v13
  * @example
  * ```typescript
  * // Use the plugin for an orchestrator 1 per 1
@@ -59,7 +71,6 @@ export type CanStartConditionFunction<T = any> = (context: FetchPluginContext) =
  * ```
  */
 export class WaitForFetch<T = any> implements FetchPlugin {
-
   /** Condition to wait to start the call */
   public canStartCondition: CanStartConditionFunction<T>;
 
@@ -81,16 +92,15 @@ export class WaitForFetch<T = any> implements FetchPlugin {
     this.callback = callback;
   }
 
-
   /** @inheritDoc */
   public load(context: FetchPluginContext) {
     let data: T | undefined;
 
     return {
-      // eslint-disable-next-line no-async-promise-executor
+      // eslint-disable-next-line no-async-promise-executor -- all await are handled with a try-catch block
       canStart: () => new Promise<boolean>(async (resolve) => {
         let didTimeOut = false;
-        let timer: any;
+        let timer: ReturnType<typeof setTimeout> | undefined;
 
         if (this.timeout) {
           timer = setTimeout(() => {
@@ -107,7 +117,7 @@ export class WaitForFetch<T = any> implements FetchPlugin {
           if (!didTimeOut) {
             resolve(canStart);
           }
-        } catch (ex) {
+        } catch {
           if (!didTimeOut) {
             resolve(false);
           }
@@ -135,5 +145,4 @@ export class WaitForFetch<T = any> implements FetchPlugin {
       }
     };
   }
-
 }

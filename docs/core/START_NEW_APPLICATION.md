@@ -13,13 +13,25 @@ Start a new Otter application.
   * This is used to run tests and generate distributable files. We strongly encourage to use an up-to-date LTS version of Node.js to ensure the support of all the Otter packages.
     Each package comes with a minimum Node.js version range defined in the `engine` property of its package.json file.
 
-## Creating a new Otter application
+## Creating a new Otter project
 
 ```shell
-# Create new application
 npm create @o3r my-project
-# Or
-yarn create @o3r my-project
+# Or a project using the yarn package manager
+npm create @o3r my-project -- --package-manager=yarn
+```
+
+### Generate a new application, library or SDK in the project
+
+Once created, you can generate a new application, library or SDK in the project using the following commands:
+
+```shell
+# Application
+npm run ng generate application my-webapp
+# Library
+npm run ng generate library my-library
+# SDK
+npm run ng generate sdk my-sdk
 ```
 
 The application will contain the minimum setup to follow the otter recommendations and to activate the features requested
@@ -61,7 +73,7 @@ to create components and services consistent with your project.
 }
 ```
 
-## Adding Material design theming
+### Adding Material design theming
 
 ```shell
 # Add material design

@@ -43,7 +43,10 @@
           "fonts": true
         },
         "buildOptimizer": true,
-        "polyfills": "apps/chrome-devtools/src/polyfills.ts",
+        "polyfills": [
+          "zone.js",
+          "@angular/localize/init"
+        ],
         "styles": [
           {
             "inject": true,
@@ -92,7 +95,10 @@
           "fonts": true
         },
         "buildOptimizer": true,
-        "polyfills": "apps/chrome-devtools/src/polyfills.ts",
+        "polyfills": [
+          "zone.js",
+          "@angular/localize/init"
+        ],
         "styles": [
           {
             "inject": true,
@@ -132,12 +138,15 @@
       "dependsOn": ["^build"]
     },
     "lint": {
+      "executor": "nx:run-commands",
       "options": {
-        "eslintConfig": "apps/chrome-devtools/.eslintrc.js",
-        "lintFilePatterns": [
-          "apps/chrome-devtools/src/**/*.ts",
-          "apps/chrome-devtools/package.json"
-        ]
+        "cwd": "{projectRoot}",
+        "command": "yarn eslint \"**/*.{m,c,}{j,t}s\" \"**/*.json\" \"**/*.html\""
+      },
+      "configurations": {
+        "ci": {
+          "command": "yarn eslint \"**/*.{m,c,}{j,t}s\" \"**/*.json\" \"**/*.html\" --quiet --cache-location .cache/eslint"
+        }
       }
     },
     "test": {
@@ -154,13 +163,16 @@
       "outputs": [
         "{projectRoot}/dist/assets/**",
         "{projectRoot}/dist/manifest.json",
-        "{projectRoot}/dist/devtools.html"
+        "{projectRoot}/dist/devtools.html",
+        "{projectRoot}/dist/options.html"
       ],
       "inputs": [
-        "global",
+        "base",
+        "!{workspaceRoot}/tsconfig.base.json",
         "{projectRoot}/src/assets/**",
         "{projectRoot}/src/manifest.json",
-        "{projectRoot}/src/devtools.html"
+        "{projectRoot}/src/devtools.html",
+        "{projectRoot}/src/options.html"
       ]
     },
     "publish-extension": {

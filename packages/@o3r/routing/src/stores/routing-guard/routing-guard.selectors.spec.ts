@@ -1,15 +1,18 @@
 import * as selectors from './routing-guard.selectors';
-import {RegisteredItemFailureReason, RegisteredItemStatus, RoutingGuardState} from './routing-guard.state';
+import {
+  RegisteredItemFailureReason,
+  RegisteredItemStatus,
+  RoutingGuardState,
+} from './routing-guard.state';
 
 describe('RoutingGuard Selectors tests', () => {
-
   it('selectRoutingGuardEntitiesStatusList should return the list of entities\' status', () => {
     const state: RoutingGuardState = {
       ids: ['1', '2', '3'],
       entities: {
-        ['1']: {id: '1', status: RegisteredItemStatus.READY},
-        ['2']: {id: '2', status: RegisteredItemStatus.SUCCESS},
-        ['3']: {id: '3', status: RegisteredItemStatus.FAILURE}
+        ['1']: { id: '1', status: RegisteredItemStatus.READY },
+        ['2']: { id: '2', status: RegisteredItemStatus.SUCCESS },
+        ['3']: { id: '3', status: RegisteredItemStatus.FAILURE }
       }
     };
 
@@ -49,19 +52,19 @@ describe('RoutingGuard Selectors tests', () => {
   it('hasNoEntityFailureDueToUnsavedForm should return true if there\'s no entities Failure due to the blocking reason provided', () => {
     let reasons: (string | undefined)[] = [undefined, RegisteredItemFailureReason.ASYNC_CALL_FAILURE];
 
-    expect((selectors.hasNoEntityFailureStateWithReasons.projector as any)(reasons, {blockingReason: RegisteredItemFailureReason.ASYNC_CALL_FAILURE})).toBeFalsy();
-    expect((selectors.hasNoEntityFailureStateWithReasons.projector as any)(reasons, {blockingReason: RegisteredItemFailureReason.FORM_UNSAVED})).toBeTruthy();
+    expect((selectors.hasNoEntityFailureStateWithReasons.projector as any)(reasons, { blockingReason: RegisteredItemFailureReason.ASYNC_CALL_FAILURE })).toBeFalsy();
+    expect((selectors.hasNoEntityFailureStateWithReasons.projector as any)(reasons, { blockingReason: RegisteredItemFailureReason.FORM_UNSAVED })).toBeTruthy();
     reasons = [undefined, undefined];
 
-    expect((selectors.hasNoEntityFailureStateWithReasons.projector as any)(reasons, {blockingReason: RegisteredItemFailureReason.ASYNC_CALL_FAILURE})).toBeTruthy();
-    expect((selectors.hasNoEntityFailureStateWithReasons.projector as any)(reasons, {blockingReason: RegisteredItemFailureReason.FORM_UNSAVED})).toBeTruthy();
+    expect((selectors.hasNoEntityFailureStateWithReasons.projector as any)(reasons, { blockingReason: RegisteredItemFailureReason.ASYNC_CALL_FAILURE })).toBeTruthy();
+    expect((selectors.hasNoEntityFailureStateWithReasons.projector as any)(reasons, { blockingReason: RegisteredItemFailureReason.FORM_UNSAVED })).toBeTruthy();
     reasons = [undefined, RegisteredItemFailureReason.FORM_UNSAVED];
 
-    expect((selectors.hasNoEntityFailureStateWithReasons.projector as any)(reasons, {blockingReason: RegisteredItemFailureReason.ASYNC_CALL_FAILURE})).toBeTruthy();
-    expect((selectors.hasNoEntityFailureStateWithReasons.projector as any)(reasons, {blockingReason: RegisteredItemFailureReason.FORM_UNSAVED})).toBeFalsy();
+    expect((selectors.hasNoEntityFailureStateWithReasons.projector as any)(reasons, { blockingReason: RegisteredItemFailureReason.ASYNC_CALL_FAILURE })).toBeTruthy();
+    expect((selectors.hasNoEntityFailureStateWithReasons.projector as any)(reasons, { blockingReason: RegisteredItemFailureReason.FORM_UNSAVED })).toBeFalsy();
     reasons = [RegisteredItemFailureReason.FORM_UNSAVED, RegisteredItemFailureReason.ASYNC_CALL_FAILURE];
 
-    expect((selectors.hasNoEntityFailureStateWithReasons.projector as any)(reasons, {blockingReason: RegisteredItemFailureReason.ASYNC_CALL_FAILURE})).toBeFalsy();
-    expect((selectors.hasNoEntityFailureStateWithReasons.projector as any)(reasons, {blockingReason: RegisteredItemFailureReason.FORM_UNSAVED})).toBeFalsy();
+    expect((selectors.hasNoEntityFailureStateWithReasons.projector as any)(reasons, { blockingReason: RegisteredItemFailureReason.ASYNC_CALL_FAILURE })).toBeFalsy();
+    expect((selectors.hasNoEntityFailureStateWithReasons.projector as any)(reasons, { blockingReason: RegisteredItemFailureReason.FORM_UNSAVED })).toBeFalsy();
   });
 });

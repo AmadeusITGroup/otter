@@ -1,13 +1,18 @@
 import {
+  AllConditions,
+  BinaryOperation,
+  NotCondition,
+  OperandFact,
+} from '../structure';
+import {
   isAllConditions,
   isAnyConditions,
   isConditionProperties,
   isNotCondition,
-  isOperandFact, isOperandLiteral,
-  isOperandRuntimeFact
+  isOperandFact,
+  isOperandLiteral,
+  isOperandRuntimeFact,
 } from './rule.helpers';
-import {AllConditions, BinaryOperation, NotCondition, OperandFact} from '../structure';
-
 
 describe('Rule helpers', () => {
   describe('isConditionProperties', () => {
@@ -61,7 +66,7 @@ describe('Rule helpers', () => {
       expect(isOperandRuntimeFact('test')).toBeFalsy();
       expect(isOperandRuntimeFact(false)).toBeFalsy();
       expect(isOperandRuntimeFact(true)).toBeFalsy();
-      expect(isOperandRuntimeFact({type: 'FACT', value: 'testFact'} as OperandFact)).toBeFalsy();
+      expect(isOperandRuntimeFact({ type: 'FACT', value: 'testFact' } as OperandFact)).toBeFalsy();
     });
 
     test('should return true if an inner fact operand', () => {
@@ -98,7 +103,7 @@ describe('Rule helpers', () => {
       expect(isAllConditions('test')).toBeFalsy();
       expect(isAllConditions(false)).toBeFalsy();
       expect(isAllConditions(true)).toBeFalsy();
-      expect(isAnyConditions({not: {}} as any)).toBeFalsy();
+      expect(isAnyConditions({ not: {} } as any)).toBeFalsy();
     });
 
     test('should return true if an all condition', () => {
@@ -116,8 +121,8 @@ describe('Rule helpers', () => {
       expect(isAnyConditions('test')).toBeFalsy();
       expect(isAnyConditions(false)).toBeFalsy();
       expect(isAnyConditions(true)).toBeFalsy();
-      expect(isAnyConditions({all: []} as any)).toBeFalsy();
-      expect(isAnyConditions({not: {}} as any)).toBeFalsy();
+      expect(isAnyConditions({ all: [] } as any)).toBeFalsy();
+      expect(isAnyConditions({ not: {} } as any)).toBeFalsy();
     });
   });
 
@@ -129,7 +134,7 @@ describe('Rule helpers', () => {
       expect(isNotCondition('test')).toBeFalsy();
       expect(isNotCondition(false)).toBeFalsy();
       expect(isNotCondition(true)).toBeFalsy();
-      expect(isNotCondition({all: []} as any)).toBeFalsy();
+      expect(isNotCondition({ all: [] } as any)).toBeFalsy();
     });
 
     test('should return true if a not condition', () => {

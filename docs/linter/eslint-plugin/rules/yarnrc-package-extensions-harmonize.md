@@ -6,7 +6,29 @@ This rule checks the `.yarnrc.yml` file to ensure that each version defined in t
 
 The linter is dedicated to YAML files and requires the setup of the [yaml-eslint-parser](https://www.npmjs.com/package/yaml-eslint-parser).
 
-Example of a ESLint configuration:
+Example of an ESLint flat configuration:
+
+```javascript
+import yamlParser from 'yaml-eslint-parser';
+import o3rPlugin from '@o3r/eslint-plugin';
+
+export default [
+  {
+    files: ['yarnrc.y{a,}ml'],
+    languageOptions: {
+      parser: yamlParser
+    },
+    plugins: {
+      '@o3r': o3rPlugin
+    }
+    rules: {
+      '@o3r/yarnrc-package-extensions-harmonize': 'error'
+    }
+  }
+]
+```
+
+Example of an ESLint legacy configuration:
 
 ```json
 {

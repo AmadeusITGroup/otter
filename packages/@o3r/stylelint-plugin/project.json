@@ -38,13 +38,7 @@
       "dependsOn": ["^build"]
     },
     "lint": {
-      "options": {
-        "eslintConfig": "packages/@o3r/stylelint-plugin/.eslintrc.js",
-        "lintFilePatterns": [
-          "packages/@o3r/stylelint-plugin/src/**/*.ts",
-          "packages/@o3r/stylelint-plugin/package.json"
-        ]
-      }
+      "executor": "nx:run-commands"
     },
     "test": {
       "executor": "@nx/jest:jest",

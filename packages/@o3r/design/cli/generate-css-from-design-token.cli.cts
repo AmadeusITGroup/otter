@@ -1,14 +1,29 @@
 #!/usr/bin/env node
 
-import { isAbsolute, normalize, resolve } from 'node:path';
-import { existsSync } from 'node:fs';
-import { parseDesignTokenFile, renderDesignTokens } from '../src/public_api';
-import type { DesignTokenRendererOptions, DesignTokenVariableSet } from '../src/public_api';
+import {
+  existsSync,
+} from 'node:fs';
+import {
+  isAbsolute,
+  normalize,
+  resolve,
+} from 'node:path';
+import type {
+  CliWrapper,
+} from '@o3r/telemetry';
 import * as minimist from 'minimist';
+import {
+  parseDesignTokenFile,
+  renderDesignTokens,
+} from '../src/public_api';
+import type {
+  DesignTokenRendererOptions,
+  DesignTokenVariableSet,
+} from '../src/public_api';
 
 const args = minimist(process.argv.splice(2));
 
-void (async () => {
+const run = async () => {
   const renderDesignTokenOptions: DesignTokenRendererOptions = {};
 
   const output = args.o || args.output;
@@ -29,11 +44,25 @@ void (async () => {
       .map(async (file) => ({ file, parsed: await parseDesignTokenFile(file) }))
   )).reduce<DesignTokenVariableSet>((acc, { file, parsed }) => {
     parsed.forEach((variable, key) => {
+      if (acc.has(key)) {
+        // eslint-disable-next-line no-console -- no logger available
+        console.warn(`A duplication of the variable ${key} is found in ${file}.`);
+      }
       acc.set(key, variable);
-      console.warn(`A duplication of the variable ${key} is found in ${file}`);
     });
     return acc;
   }, new Map());
 
   await renderDesignTokens(tokens, renderDesignTokenOptions);
+};
+
+void (async () => {
+  let wrapper: CliWrapper = (fn: any) => fn;
+  try {
+    const { createCliWithMetrics } = await import('@o3r/telemetry');
+    wrapper = createCliWithMetrics;
+  } catch {
+    // Do not throw if `@o3r/telemetry` is not installed
+  }
+  return wrapper(run, '@o3r/design:build-design-token')();
 })();

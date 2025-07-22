@@ -14,25 +14,13 @@
       "dependsOn": ["compile"]
     },
     "compile": {
-      "executor": "@nx/js:tsc",
+      "executor": "nx:run-script",
       "options": {
-        "main": "packages/@ama-terasu/schematics/src/public_api.ts",
-        "tsConfig": "packages/@ama-terasu/schematics/tsconfig.build.json",
-        "outputPath": "packages/@ama-terasu/schematics/dist",
-        "assets": [
-          "packages/@ama-terasu/schematics/schematics/**/templates/**",
-          "packages/@ama-terasu/schematics/collection.json"
-        ]
+        "script": "build:source"
       }
     },
     "lint": {
-      "options": {
-        "eslintConfig": "packages/@ama-terasu/schematics/.eslintrc.js",
-        "lintFilePatterns": [
-          "packages/@ama-terasu/schematics/src/**/*.ts",
-          "packages/@ama-terasu/schematics/package.json"
-        ]
-      }
+      "executor": "nx:run-commands"
     },
     "test": {
       "executor": "@nx/jest:jest",

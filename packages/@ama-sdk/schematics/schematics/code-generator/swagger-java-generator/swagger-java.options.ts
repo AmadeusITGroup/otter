@@ -1,4 +1,6 @@
-import { CodegenTaskOptions } from '../code-generator';
+import {
+  CodegenTaskOptions,
+} from '../code-generator';
 
 /**
  * Options for the generator-java task.
@@ -30,7 +32,7 @@ export type JavaGeneratorTaskOptions = CodegenTaskOptions & {
 /**
  * Default options to generate a JAVA sdk using the Swagger 2 Generator
  */
-export const defaultOptions: JavaGeneratorTaskOptions = {
+export const defaultOptions: Readonly<JavaGeneratorTaskOptions> = {
   apiTests: true,
   targetFolder: './',
   cliFilename: 'swagger-codegen-cli.jar',
@@ -39,4 +41,4 @@ export const defaultOptions: JavaGeneratorTaskOptions = {
   specPath: 'swagger-spec.yaml',
   outputPath: '.',
   specConfigPath: ''
-};
+} as const;

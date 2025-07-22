@@ -1,26 +1,57 @@
-import { Inject, Injectable, OnDestroy, Optional } from '@angular/core';
-import { DevtoolsServiceInterface, filterMessageContent, sendOtterMessage } from '@o3r/core';
-import { LoggerService } from '@o3r/logger';
-import { isVisualTestingEnabled, prepareVisualTesting,toggleVisualTestingRender } from '@o3r/testing/visual-test/utils';
-import { fromEvent, Subscription } from 'rxjs';
-import { ApplicationDevtoolsServiceOptions, ApplicationMessageDataTypes, AvailableApplicationMessageContents, isApplicationMessage } from './application-devkit.interface';
-import { OtterApplicationDevtools } from './application-devtools.service';
-import { OTTER_APPLICATION_DEVTOOLS_DEFAULT_OPTIONS, OTTER_APPLICATION_DEVTOOLS_OPTIONS } from './application-devtools.token';
+import {
+  DOCUMENT,
+} from '@angular/common';
+import {
+  DestroyRef,
+  inject,
+  Inject,
+  Injectable,
+  Optional,
+} from '@angular/core';
+import {
+  takeUntilDestroyed,
+} from '@angular/core/rxjs-interop';
+import {
+  DevtoolsServiceInterface,
+  filterMessageContent,
+  sendOtterMessage,
+} from '@o3r/core';
+import {
+  LoggerService,
+} from '@o3r/logger';
+import {
+  fromEvent,
+} from 'rxjs';
+import {
+  type ApplicationDevtoolsServiceOptions,
+  type ApplicationMessageDataTypes,
+  type AvailableApplicationMessageContents,
+  isApplicationMessage,
+  type StateSelectionContentMessage,
+} from './application-devkit.interface';
+import {
+  OtterApplicationDevtools,
+} from './application-devtools.service';
+import {
+  OTTER_APPLICATION_DEVTOOLS_DEFAULT_OPTIONS,
+  OTTER_APPLICATION_DEVTOOLS_OPTIONS,
+} from './application-devtools.token';
+
+const OTTER_STATE_RIBBON_ID = 'otter-devtools-state-ribbon';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ApplicationDevtoolsMessageService implements OnDestroy, DevtoolsServiceInterface {
+export class ApplicationDevtoolsMessageService implements DevtoolsServiceInterface {
+  private readonly document = inject(DOCUMENT);
   private readonly options: ApplicationDevtoolsServiceOptions;
-
-  private readonly subscriptions = new Subscription();
-
   private readonly sendMessage = sendOtterMessage<AvailableApplicationMessageContents>;
+  private readonly destroyRef = inject(DestroyRef);
 
   constructor(
-      private readonly logger: LoggerService,
-      private readonly applicationDevtools: OtterApplicationDevtools,
-      @Optional() @Inject(OTTER_APPLICATION_DEVTOOLS_OPTIONS) options?: ApplicationDevtoolsServiceOptions) {
+    private readonly logger: LoggerService,
+    private readonly applicationDevtools: OtterApplicationDevtools,
+    @Optional() @Inject(OTTER_APPLICATION_DEVTOOLS_OPTIONS) options?: ApplicationDevtoolsServiceOptions) {
     this.options = {
       ...OTTER_APPLICATION_DEVTOOLS_DEFAULT_OPTIONS,
       ...options
@@ -55,10 +86,9 @@ export class ApplicationDevtoolsMessageService implements OnDestroy, DevtoolsSer
 
   /**
    * Function to handle the incoming messages from Otter Chrome DevTools extension
-   * @param event Event coming from the Otter Chrome DevTools extension
    * @param message
    */
-  private handleEvents(message: AvailableApplicationMessageContents) {
+  private async handleEvents(message: AvailableApplicationMessageContents) {
     this.logger.debug('Message handling by the application service', message);
 
     switch (message.dataType) {
@@ -71,7 +101,15 @@ export class ApplicationDevtoolsMessageService implements OnDestroy, DevtoolsSer
         break;
       }
       case 'toggleVisualTesting': {
-        this.toggleVisualTestingRender(message.toggle);
+        await this.toggleVisualTestingRender(message.toggle);
+        break;
+      }
+      case 'stateSelection': {
+        this.onStateSelection(message);
+        break;
+      }
+      case 'unselectState': {
+        this.unselectState();
         break;
       }
       default: {
@@ -80,24 +118,59 @@ export class ApplicationDevtoolsMessageService implements OnDestroy, DevtoolsSer
     }
   }
 
+  private unselectState() {
+    const ribbonElement = this.document.body.querySelector<HTMLDivElement>(`#${OTTER_STATE_RIBBON_ID}`);
+    if (ribbonElement) {
+      ribbonElement.remove();
+    }
+  }
+
+  private onStateSelection(message: StateSelectionContentMessage) {
+    let ribbonElement = this.document.body.querySelector<HTMLDivElement>(`#${OTTER_STATE_RIBBON_ID}`);
+    if (!ribbonElement) {
+      ribbonElement = this.document.createElement('div');
+      ribbonElement.id = OTTER_STATE_RIBBON_ID;
+      this.document.body.append(ribbonElement);
+    }
+    if (message.stateName) {
+      ribbonElement.innerHTML = message.stateName;
+      ribbonElement.style.background = message.stateColor;
+      ribbonElement.style.color = message.stateColorContrast;
+      ribbonElement.style.position = 'fixed';
+      ribbonElement.style.bottom = '0';
+      ribbonElement.style.right = '0';
+      ribbonElement.style.transform = 'translate(calc(100% * (1 - cos(45deg)))) rotate(-45deg)';
+      ribbonElement.style.transformOrigin = 'bottom left';
+      ribbonElement.style.clipPath = 'inset(0 -100%)';
+      ribbonElement.style.boxShadow = `0px 0px 0px 999px ${message.stateColor}`;
+    } else {
+      ribbonElement.style.display = 'none';
+    }
+  }
+
   /**
    * Toggle visual testing rendering
    * @param enabled activate or deactivate the visual testing mode
    */
-  private toggleVisualTestingRender(enabled?: boolean) {
-    toggleVisualTestingRender(enabled === undefined ? !isVisualTestingEnabled() : enabled);
+  private async toggleVisualTestingRender(enabled?: boolean) {
+    try {
+      const visualTestUtils = await import('@o3r/testing/visual-test/utils');
+      const isEnabled = enabled ?? visualTestUtils.isVisualTestingEnabled();
+      visualTestUtils.toggleVisualTestingRender(isEnabled);
+    } catch (err) {
+      this.logger.warn('Visual testing utilities are not available:', err);
+    }
   }
 
   /** @inheritDoc */
   public activate() {
-    this.subscriptions.add(
-      fromEvent(window, 'message').pipe(filterMessageContent(isApplicationMessage)).subscribe((e) => this.handleEvents(e))
-    );
-    prepareVisualTesting(this.options.e2eIgnoreClass);
-  }
-
-  /** @inheritDoc */
-  public ngOnDestroy() {
-    this.subscriptions.unsubscribe();
+    fromEvent(window, 'message').pipe(
+      takeUntilDestroyed(this.destroyRef),
+      filterMessageContent(isApplicationMessage)
+    ).subscribe((e) => this.handleEvents(e));
+    import('@o3r/testing/visual-test/utils')
+      .then((visualTestUtils) => visualTestUtils.prepareVisualTesting(this.options.e2eIgnoreClass))
+      .catch((err) => this.logger.warn('Visual testing utilities are not available:', err));
+    this.sendApplicationInformation();
   }
 }

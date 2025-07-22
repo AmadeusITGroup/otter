@@ -1,15 +1,20 @@
 import {
+  createAction,
+  props,
+} from '@ngrx/store';
+import {
   asyncProps,
   AsyncRequest,
   FailAsyncStoreItemEntitiesActionPayload,
   FromApiActionPayload,
   SetActionPayload,
   SetAsyncStoreItemEntitiesActionPayload,
-  UpdateActionPayload
+  UpdateActionPayload,
 } from '@o3r/core';
-
-import { createAction, props } from '@ngrx/store';
-import { RulesetsModel, RulesetsStateDetails } from './rulesets.state';
+import {
+  RulesetsModel,
+  RulesetsStateDetails,
+} from './rulesets.state';
 
 /** StateDetailsActions */
 const ACTION_SET = '[Rulesets] set';

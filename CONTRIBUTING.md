@@ -21,7 +21,7 @@ The issue creation template requires:
 - NodeJS version
 - a fix suggestion, if possible
 
-If you already have a fix for the problem don't hesitate to [open a pull request](#creating-a-pull-request). Each pull request should be assign to an issue, so please create the issue and link it to the PR.
+If you already have a fix for the problem don't hesitate to [open a pull request](#creating-a-pull-request). Each pull request should be assigned to an issue, so please create the issue and link it to the PR.
 
 ## Creating a pull request
 
@@ -43,7 +43,8 @@ Those are common examples, for more information don't hesitate to have a look at
 When contributing, please keep in mind the following rules:
 
 - Make only non-breaking changes in minor versions. Enhancements to existing code are possible - please discuss it beforehand with the Otter team via a [feature request](#feature-requests).
-- If the new feature you are adding is replacing an existing one, please deprecate the old code in minor versions. Add the @deprecated tag in the JSDoc while mentioning the major version when it will be removed. Note that only **even** major Otter versions allow breaking changes. This means we only allow breaking changes in `n+2` major versions.
+- If the new feature you are adding is replacing an existing one, please deprecate the old code in minor versions. Add the `@deprecated` tag in the *JSDoc* while mentioning the major version when it will be removed. Note that only **even** major Otter versions allow **costly breaking changes**. The cost of the breaking change will be determined by the responsible team at code review time (see [Versioning rules](./SECURITY.md)).\
+  A breaking change can be effective only from the major version `n + 2` **after the deprecation.**
 - Please ensure that you are submitting quality code, specifically make sure that the changes comply with our [code styling convention](#style-guide).
 
 ### Style guide
@@ -52,6 +53,7 @@ When contributing, please keep in mind the following rules:
 - A description comment must use the pattern `/** [Your comment] */`
 - Linter tasks must pass
 - Add relevant Unit Tests
+- E2E tests must pass (check [how to update screenshots for visual testing](./apps/showcase/scripts/update-screenshots/readme.md))
 - Any change should be followed by changes in the generator whenever it's applicable
 - Properties should have the most restricted type possible
 
@@ -60,8 +62,48 @@ When contributing, please keep in mind the following rules:
 To ease the process, we are providing a set of:
 
 - [Editors configuration](.editorconfig)
-- [Linters configuration](./packages/@o3r/eslint-config-otter/README.md)
+- [Linters configuration](./packages/@o3r/eslint-config/README.md)
 - [Component generator](./packages/@o3r/core/README.md#generators) (and more)
+
+### Accelerate your build
+
+#### Thanks to Nx Cloud
+
+[Nx Cloud](https://nx.dev/nx-cloud) offers a way to accelerate the build of your project locally thanks to [Remote Cache](https://nx.dev/ci/features/remote-cache).
+
+To be able to benefit from this feature, you will need to perform the following steps:
+
+1. Create an account on [Nx Cloud App](https://cloud.nx.app/)
+2. Create a Personal Access Token on [profile page](https://cloud.nx.app/profile/tokens).
+3. Follow [Nx Cloud instruction](https://nx.dev/ci/recipes/security/personal-access-tokens) to set up your previously generated PAT.
+
+When building (`yarn build`) the project on the `main` branch (or another `release/*` branch), the remote cache will be downloaded.
+
+> [!NOTE]
+> Only Otter Team members can write Remote Cache on Nx Cloud, logged-in users will be able to use Remote Cache in readonly mode.
+> The Local Cache is available for all users (logged or not to Nx Cloud).
+
+#### Increase the number of parallel process
+
+By default, the number of tasks that can run in parallel is 3 (see [Nx Documentation](https://nx.dev/recipes/running-tasks/run-tasks-in-parallel)).
+This number can be increased in the developer machine thanks to the [NX_PARALLEL](https://nx.dev/reference/environment-variables) environment variable by using the following command:
+
+```bash
+yarn print:nx-parallel >> .env
+```
+
+> [!NOTE]
+> The command will set this number to the maximum possible value for your machine, it can be adapted manually after generation
+
+### DevTools to create new Otter monorepo elements
+
+To help developers create new items in the Otter monorepo, several scripts have been provided at root level to accelerate development:
+
+- Create a new scope: `yarn create:scope <scope-name>`
+- Create a new package: `yarn ng g library @<scope-name>/<library-name>`
+
+> [!NOTE]
+> The dependencies of the monorepo need to be installed (thanks to the command `yarn install`) before running the scripts.
 
 ## Code review process
 
@@ -76,6 +118,6 @@ As a reviewer, please follow these guidelines:
 - Always stay polite and professional in your comments.
 - The purpose of comments is to suggest improvements, ask a question or request for a change.
 - Comments should be constructive and suggest ways to improve things.
-- `Request changes` option should't be used if the comments consist only of questions.
+- `Request changes` option shouldn't be used if the comments consist only of questions.
 
 Thanks in advance for your contribution, and we look forward to hearing from you :)

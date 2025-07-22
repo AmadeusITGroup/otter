@@ -1,13 +1,22 @@
-import { TestBed } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { DEFAULT_LOCALIZATION_CONFIGURATION, LocalizationConfiguration } from '../core';
-import { LocalizationModule } from './localization.module';
-import { LocalizationService } from './localization.service';
+import {
+  TestBed,
+} from '@angular/core/testing';
+import {
+  TranslateModule,
+} from '@ngx-translate/core';
+import {
+  DEFAULT_LOCALIZATION_CONFIGURATION,
+  LocalizationConfiguration,
+} from '../core';
+import {
+  LocalizationModule,
+} from './localization.module';
+import {
+  LocalizationService,
+} from './localization.service';
 
 describe('LocalizationService', () => {
-
   describe('default configuration', () => {
-
     const configurationFactory: () => LocalizationConfiguration = () => ({
       ...DEFAULT_LOCALIZATION_CONFIGURATION
     });
@@ -32,11 +41,9 @@ describe('LocalizationService', () => {
 
       expect(localizationService.getCurrentLanguage()).toEqual(expectedLanguage);
     });
-
   });
 
   describe('fallbackLocalesMap configuration unavailable', () => {
-
     const configurationFactory: () => LocalizationConfiguration = () => ({
       ...DEFAULT_LOCALIZATION_CONFIGURATION,
       supportedLocales: ['en-GB', 'fr-FR', 'fr-CA', 'ar-AR'],
@@ -59,7 +66,6 @@ describe('LocalizationService', () => {
     });
 
     it('should translate to the same language, when supported language provided', () => {
-
       localizationService.useLanguage('en-GB');
 
       expect(localizationService.getCurrentLanguage()).toEqual('en-GB');
@@ -75,11 +81,9 @@ describe('LocalizationService', () => {
       localizationService.useLanguage('fr-FR');
 
       expect(localizationService.getCurrentLanguage()).toEqual('fr-FR');
-
     });
 
     it('should translate to the nearest supported language, when un-supported language provided', () => {
-
       localizationService.useLanguage('fr-BE');
 
       expect(localizationService.getCurrentLanguage()).toEqual('fr-FR');
@@ -87,7 +91,6 @@ describe('LocalizationService', () => {
       localizationService.useLanguage('ar-EG');
 
       expect(localizationService.getCurrentLanguage()).toEqual('ar-AR');
-
     });
 
     it(`should translate to the default fallback language, when un-supported language provided and
@@ -99,11 +102,9 @@ describe('LocalizationService', () => {
 
       expect(localizationService.getCurrentLanguage()).toEqual(expectedLanguage);
     });
-
   });
 
   describe('language to use is specified in the configuration and supported', () => {
-
     const configurationFactory: () => LocalizationConfiguration = () => ({
       ...DEFAULT_LOCALIZATION_CONFIGURATION,
       supportedLocales: ['en-GB', 'fr-FR', 'fr-CA', 'ar-AR'],
@@ -135,7 +136,6 @@ describe('LocalizationService', () => {
   });
 
   describe('language to use is specified in the configuration and not supported', () => {
-
     const configurationFactory: () => LocalizationConfiguration = () => ({
       ...DEFAULT_LOCALIZATION_CONFIGURATION,
       supportedLocales: ['en-GB', 'fr-FR', 'fr-CA', 'ar-AR'],
@@ -167,11 +167,9 @@ describe('LocalizationService', () => {
   });
 
   describe('fallbackLocalesMap configuration available', () => {
-
     const configurationFactory: () => LocalizationConfiguration = () => ({
       ...DEFAULT_LOCALIZATION_CONFIGURATION,
       supportedLocales: ['en-GB', 'en-US', 'fr-FR', 'ar-AR'],
-      /* eslint-disable @typescript-eslint/naming-convention */
       fallbackLocalesMap: {
         'en-CA': 'en-US',
         'fr-CA': 'fr-FR',
@@ -181,7 +179,6 @@ describe('LocalizationService', () => {
         hi: 'en-GB',
         zh: 'en-GB'
       },
-      /* eslint-enable @typescript-eslint/naming-convention */
       fallbackLanguage: 'fr-FR'
     });
 
@@ -201,7 +198,6 @@ describe('LocalizationService', () => {
     });
 
     it('should translate to the same language, when supported language provided', () => {
-
       localizationService.useLanguage('en-GB');
 
       expect(localizationService.getCurrentLanguage()).toEqual('en-GB');
@@ -209,11 +205,9 @@ describe('LocalizationService', () => {
       localizationService.useLanguage('ar-AR');
 
       expect(localizationService.getCurrentLanguage()).toEqual('ar-AR');
-
     });
 
     it('should translate to the fallback locale map language, when un-supported language provided', () => {
-
       localizationService.useLanguage('en-CA');
 
       expect(localizationService.getCurrentLanguage()).toEqual('en-US');
@@ -245,11 +239,10 @@ describe('LocalizationService', () => {
       localizationService.useLanguage('zh-CN');
 
       expect(localizationService.getCurrentLanguage()).toEqual('en-GB');
-
     });
 
     it(`should translate to the nearest supported language, when un-supported language provided,
-        fallback locale map doen't have the mapped language`, () => {
+        fallback locale map doesn't have the mapped language`, () => {
       const actualLanguage = 'en-AU';
       const expectedLanguage = 'en-GB';
 
@@ -267,7 +260,5 @@ describe('LocalizationService', () => {
 
       expect(localizationService.getCurrentLanguage()).toEqual(expectedLanguage);
     });
-
   });
-
 });

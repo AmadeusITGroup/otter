@@ -1,5 +1,9 @@
-import type { SchematicOptionObject } from '@o3r/schematics';
-import type { ComponentStructure } from './structures.types';
+import type {
+  SchematicOptionObject,
+} from '@o3r/schematics';
+import type {
+  ComponentStructure,
+} from './structures.types';
 
 export interface NgGenerateComponentSchematicsSchema extends SchematicOptionObject {
   /** Project name */
