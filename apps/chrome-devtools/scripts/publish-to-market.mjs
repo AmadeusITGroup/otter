@@ -6,6 +6,7 @@ import {
 } from 'node:path';
 import * as url from 'node:url';
 import archiver from 'archiver';
+// eslint-disable-next-line import/namespace, import/default, import/no-named-as-default, import/no-named-as-default-member -- issue with the parser on this module
 import chromeWebstoreUpload from 'chrome-webstore-upload';
 
 const logger = console;
