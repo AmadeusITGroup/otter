@@ -41,8 +41,7 @@ const devDependenciesToInstall = [
   'eslint-plugin-jsdoc',
   'eslint-plugin-prefer-arrow',
   'eslint-plugin-unicorn',
-  'jsonc-eslint-parser',
-  'yaml-eslint-parser'
+  'jsonc-eslint-parser'
 ];
 
 /**
@@ -116,6 +115,8 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
  * @param options
  */
 export const ngAdd = (options: NgAddSchematicsSchema): Rule => async (_, { logger }) => {
-  const { createSchematicWithMetricsIfInstalled } = await import('@o3r/schematics').catch(reportMissingSchematicsDep(logger));
-  return createSchematicWithMetricsIfInstalled(ngAddFn)(options);
+  const {
+    createOtterSchematic
+  } = await import('@o3r/schematics').catch(reportMissingSchematicsDep(logger));
+  return createOtterSchematic(ngAddFn)(options);
 };

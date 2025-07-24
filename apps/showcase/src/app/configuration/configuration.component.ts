@@ -7,6 +7,7 @@ import {
   Component,
   computed,
   inject,
+  input,
   QueryList,
   signal,
   ViewChildren,
@@ -16,7 +17,10 @@ import {
   RouterModule,
 } from '@angular/router';
 import {
+  configSignal,
   ConfigurationBaseServiceModule,
+  DynamicConfigurableWithSignal,
+  O3rConfig,
 } from '@o3r/configuration';
 import {
   O3rComponent,
@@ -34,6 +38,11 @@ import {
 import {
   ConfigurationPresConfig,
 } from '../../components/showcase/configuration/configuration-pres.config';
+import {
+  CONFIGURATION_CONFIG_ID,
+  CONFIGURATION_DEFAULT_CONFIG,
+  type ConfigurationConfig,
+} from './configuration.config';
 
 const CONFIG_OVERRIDE = {
   inXDays: 30,
@@ -48,7 +57,6 @@ const CONFIG_OVERRIDE = {
 @O3rComponent({ componentType: 'Page' })
 @Component({
   selector: 'o3r-configuration',
-  standalone: true,
   imports: [
     RouterModule,
     ConfigurationPresComponent,
@@ -62,7 +70,7 @@ const CONFIG_OVERRIDE = {
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ConfigurationComponent implements AfterViewInit {
+export class ConfigurationComponent implements DynamicConfigurableWithSignal<ConfigurationConfig>, AfterViewInit {
   private readonly inPageNavPresService = inject(InPageNavPresService);
 
   @ViewChildren(InPageNavLinkDirective)
@@ -70,10 +78,20 @@ export class ConfigurationComponent implements AfterViewInit {
 
   public links$ = this.inPageNavPresService.links$;
 
-  public config = signal<ConfigurationPresConfig | undefined>(undefined);
+  /** Input configuration to override the default configuration of the component */
+  public config = input<Partial<ConfigurationConfig>>();
+  /** Configuration signal based on the input and the stored configuration */
+  @O3rConfig()
+  public configSignal = configSignal(
+    this.config,
+    CONFIGURATION_CONFIG_ID,
+    CONFIGURATION_DEFAULT_CONFIG
+  );
+
+  public configOverride = signal<ConfigurationPresConfig | undefined>(undefined);
 
   public codeConfig = computed(() => {
-    const config = this.config();
+    const config = this.configOverride();
     return config
       ? `<o3r-configuration-pres
   [config]="${JSON.stringify(config, null, 2)}"
@@ -86,6 +104,6 @@ export class ConfigurationComponent implements AfterViewInit {
   }
 
   public toggleConfig() {
-    this.config.update((c) => c ? undefined : CONFIG_OVERRIDE);
+    this.configOverride.update((c) => c ? undefined : CONFIG_OVERRIDE);
   }
 }

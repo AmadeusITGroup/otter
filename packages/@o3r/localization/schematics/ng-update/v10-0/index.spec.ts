@@ -52,7 +52,8 @@ describe('Update v10', () => {
         @O3rComponent({ componentType: 'Component' })
         @Component({
           selector: 'o3r-example',
-          templateUrl: './example.template.html'
+          templateUrl: './example.template.html',
+          standalone: false
         })
         export class ExampleComponent {
         }

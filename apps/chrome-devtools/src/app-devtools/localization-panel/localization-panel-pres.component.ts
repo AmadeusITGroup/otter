@@ -53,7 +53,6 @@ type LangTranslationsControl = FormGroup<Record<string, TranslationControl>>;
   templateUrl: './localization-panel-pres.template.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  standalone: true,
   imports: [
     NgbAccordionModule,
     DfTooltipModule,

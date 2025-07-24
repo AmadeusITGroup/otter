@@ -94,6 +94,7 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 IN THE SOFTWARE.
 
 @o3r/new-version
+BSD-3-Clause
 Copyright Amadeus SAS
 
 Redistribution and use in source and binary forms, with or without modification,

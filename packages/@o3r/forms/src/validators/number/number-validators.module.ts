@@ -11,9 +11,11 @@ import {
   MinValidator,
 } from './min.directive';
 
+/**
+ * @deprecated MaxValidator and MinValidator are now standalone, this module will be removed in v14
+ */
 @NgModule({
-  imports: [CommonModule],
-  declarations: [MaxValidator, MinValidator],
+  imports: [CommonModule, MaxValidator, MinValidator],
   exports: [MaxValidator, MinValidator]
 })
 export class NumberValidatorsModule {}

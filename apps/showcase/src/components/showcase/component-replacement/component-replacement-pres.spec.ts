@@ -36,8 +36,7 @@ let componentFixture: ComponentReplacementPresFixtureComponent;
       useExisting: forwardRef(() => MockC11nCVAStandaloneDirective),
       multi: true
     }
-  ],
-  standalone: true
+  ]
 })
 class MockC11nCVAStandaloneDirective {
   public writeValue = () => {};

@@ -38,7 +38,7 @@ describe('Add Localization', () => {
         import {CommonModule} from '@angular/common';
         import {ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
         import {O3rComponent} from '@o3r/core';
-        import {Localization, LocalizatioModule, Translatable} from '@o3r/localization';
+        import {Localization, LocalizationModule, Translatable} from '@o3r/localization';
         import {translations, TestTranslation} from './test.translations';
 
         @O3rComponent({
@@ -46,8 +46,7 @@ describe('Add Localization', () => {
         })
         @Component({
           selector: 'o3r-test-pres',
-          standalone: true,
-          imports: [CommonModule, LocalizatioModule],
+          imports: [CommonModule, LocalizationModule],
           styleUrls: ['./test.style.scss'],
           templateUrl: './test.template.html',
           changeDetection: ChangeDetectionStrategy.OnPush,
@@ -74,7 +73,6 @@ describe('Add Localization', () => {
         })
         @Component({
           selector: 'o3r-test-pres',
-          standalone: true,
           imports: [CommonModule],
           styleUrls: ['./test.style.scss'],
           templateUrl: './test.template.html',
@@ -155,7 +153,6 @@ describe('Add Localization', () => {
 
         @Component({
           selector: 'ng-test',
-          standalone: true,
           imports: [CommonModule],
           template: ''
         })
@@ -185,7 +182,7 @@ describe('Add Localization', () => {
           key: 'dummyLoc1',
           description: 'Dummy 1 description',
           value: 'Dummy 1',
-          dictionnary: false
+          dictionary: false
         }), initialTree, { interactive: false }))).rejects.toThrow();
       });
 
@@ -201,7 +198,7 @@ describe('Add Localization', () => {
           key: 'dummyLoc1',
           description: 'Dummy 1 description',
           value: 'Dummy 1',
-          dictionnary: false
+          dictionary: false
         }, initialTree);
 
         expect(spy).toHaveBeenCalledWith('convert-component', expect.anything(), expect.anything());

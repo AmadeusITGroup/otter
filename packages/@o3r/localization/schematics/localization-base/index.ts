@@ -14,7 +14,7 @@ import {
   url,
 } from '@angular-devkit/schematics';
 import {
-  createSchematicWithMetricsIfInstalled,
+  createOtterSchematic,
   findFirstNodeOfKind,
   getAppModuleFilePath,
   getModuleIndex,
@@ -479,4 +479,4 @@ function updateI18nFn(options: { projectName?: string | undefined }): Rule {
   ]);
 }
 
-export const updateI18n = createSchematicWithMetricsIfInstalled(updateI18nFn);
+export const updateI18n = createOtterSchematic(updateI18nFn);

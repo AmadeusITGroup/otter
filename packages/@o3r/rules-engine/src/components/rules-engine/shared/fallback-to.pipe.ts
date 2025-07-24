@@ -3,15 +3,9 @@ import {
   PipeTransform,
 } from '@angular/core';
 
-@Pipe({ name: 'o3rFallbackTo', standalone: true })
+@Pipe({ name: 'o3rFallbackTo' })
 export class O3rFallbackToPipe implements PipeTransform {
   public transform<T>(value: T, fallback = 'undefined'): T | string {
     return value === undefined ? fallback : value;
   }
 }
-
-/**
- * @deprecated please use O3rFallbackToPipe, will be removed in v12.
- */
-@Pipe({ name: 'fallbackTo' })
-export class FallbackToPipe extends O3rFallbackToPipe implements PipeTransform {}

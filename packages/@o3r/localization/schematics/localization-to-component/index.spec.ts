@@ -37,7 +37,6 @@ describe('Add Localization', () => {
         })
         @Component({
           selector: 'o3r-test-pres',
-          standalone: true,
           imports: [CommonModule],
           styleUrls: ['./test.style.scss'],
           templateUrl: './test.template.html',
@@ -135,7 +134,7 @@ describe('Add Localization', () => {
     });
   });
 
-  describe('Otter module component', () => {
+  describe('Otter non standalone component', () => {
     beforeEach(() => {
       initialTree = Tree.empty();
       initialTree.create(o3rComponentPath, `
@@ -151,7 +150,8 @@ describe('Add Localization', () => {
           styleUrls: ['./test.style.scss'],
           templateUrl: './test.template.html',
           changeDetection: ChangeDetectionStrategy.OnPush,
-          encapsulation: ViewEncapsulation.None
+          encapsulation: ViewEncapsulation.None,
+          standalone: false
         })
         export class TestComponent implements OnInit, OnDestroy {
           /**
@@ -231,7 +231,6 @@ describe('Add Localization', () => {
 
         @Component({
           selector: 'ng-test',
-          standalone: true,
           imports: [CommonModule],
           template: ''
         })

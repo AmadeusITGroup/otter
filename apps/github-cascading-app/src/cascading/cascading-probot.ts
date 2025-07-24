@@ -28,7 +28,12 @@ export interface CascadingProbotOptions {
  */
 export class CascadingProbot extends Cascading {
   /** List of possible configuration files paths */
-  public static readonly CONFIGURATION_FILES = ['.github/cascadingrc.json', '.github/.cascadingrc.json', 'cascadingrc.json', '.cascadingrc.json'];
+  public static readonly CONFIGURATION_FILES = [
+    '.github/cascadingrc.json',
+    '.github/.cascadingrc.json',
+    'cascadingrc.json',
+    '.cascadingrc.json'
+  ];
 
   constructor(protected options: CascadingProbotOptions) {
     super(options.logger);
@@ -53,7 +58,7 @@ export class CascadingProbot extends Cascading {
     const configFileResponse = configFileValidResponses[0];
 
     if (configFileValidResponses.length > 1) {
-      this.logger.warn(`Several configuration files have been found (${configFileValidResponses.map((c) => c?.path).join(', ')}). The files will be ignored.`);
+      this.logger.warn(`Several configuration files have been found (${configFileValidResponses.map((c) => c?.path).join(', ')}). Only ${configFileResponse.path} will be considered.`);
     } else if (configFileResponse) {
       try {
         const configFileResponseWithContent = configFileResponse as { content?: string; encoding?: 'utf8' | 'base64' };

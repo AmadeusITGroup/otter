@@ -1,0 +1,26 @@
+<section>
+  @if (facts().length < 1) {
+    <div class="m-2">
+      No facts are registered.
+    </div>
+  } @else {
+    <div class="input-group">
+      <label class="input-group-text" for="search-fact">
+        <span class="mx-1 fa-search" aria-label="Search"></span>
+      </label>
+      <input class="form-control" [(ngModel)]="search" type="text" id="search-fact" placeholder="Search for fact name or value" />
+    </div>
+    <div class="mt-3">
+      List of <b>{{facts().length}}</b> registered facts
+      @if (facts().length > filteredFacts().length) { (<b>{{filteredFacts().length}}</b> matching the search) }
+    </div>
+    <ul>
+    @for (fact of filteredFacts(); track fact.factName) {
+      <li>
+        <span class="fact-name">{{fact.factName}}: </span>
+        <span class="fact-value">{{fact.value | o3rJsonOrString}}</span>
+      </li>
+    }
+    </ul>
+  }
+</section>

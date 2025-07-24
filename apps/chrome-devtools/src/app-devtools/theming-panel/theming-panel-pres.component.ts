@@ -53,8 +53,8 @@ import {
   getPaletteColors,
 } from './color.helpers';
 import {
-  AccessibilityConstrastScorePipe,
-  ConstrastPipe,
+  AccessibilityContrastScorePipe,
+  ContrastPipe,
   HexColorPipe,
 } from './color.pipe';
 import {
@@ -105,15 +105,14 @@ export interface VariableGroup {
   templateUrl: './theming-panel-pres.template.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  standalone: true,
   imports: [
     IsRefPipe,
     NgbAccordionModule,
     ReactiveFormsModule,
     FormsModule,
     HexColorPipe,
-    ConstrastPipe,
-    AccessibilityConstrastScorePipe,
+    ContrastPipe,
+    AccessibilityContrastScorePipe,
     NgbTypeaheadModule,
     VariableLabelPipe,
     DfTooltipModule,

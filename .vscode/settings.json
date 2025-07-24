@@ -56,6 +56,9 @@
   "files.associations": {
     "*.json5": "jsonc"
   },
+  "files.exclude": {
+    "**/.git": true
+  },
   "files.readonlyExclude": {
     "**/packages/@o3r-training/*sdk/src/api/*/index.ts": true,
     "**/packages/@o3r-training/*sdk/src/models/base/*/index.ts": true
@@ -99,5 +102,7 @@
     "**/.pnp.*": true
   },
   "typescript.enablePromptUseWorkspaceTsdk": true,
-  "typescript.tsdk": ".yarn/sdks/typescript/lib"
+  "typescript.tsdk": ".yarn/sdks/typescript/lib",
+  "typescript.tsserver.watchOptions": "vscode",
+  "typescript.preferences.preferTypeOnlyAutoImports": true
 }

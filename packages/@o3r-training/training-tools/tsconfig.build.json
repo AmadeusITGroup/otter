@@ -4,7 +4,7 @@
     "sourceMap": true,
     "incremental": true,
     "composite": true,
-    "rootDir": "src",
+    "rootDir": ".",
     "module": "CommonJS",
     "tsBuildInfoFile": "./build/tsconfig.tsbuildinfo",
     "outDir": "./dist",

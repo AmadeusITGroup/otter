@@ -123,10 +123,10 @@ export default createRule<[VersionsHarmonizeOptions, ...any], 'versionUpdate' | 
               .filter((depGroup): depGroup is AST.JSONObjectExpression => depGroup.type === 'JSONObjectExpression')
               .forEach((depGroup) => {
                 const report = (name: string, resolvedName: string, dep: AST.JSONProperty, range: string | undefined, bestRange: string | undefined) => {
-                  if (bestRange && bestRange !== range) {
+                  if (bestRange && bestRange !== range && !range?.startsWith('workspace:')) {
                     if (!options.alignPeerDependencies && depGroup.parent.type === 'JSONProperty' && range
                       && (depGroup.parent.key.type === 'JSONLiteral' ? depGroup.parent.key.value.toString() : depGroup.parent.key.name) === 'peerDependencies'
-                      && semver.subset(bestRange, range)) {
+                      && semver.subset(bestRange, range, { includePrerelease: true })) {
                       return;
                     }
                     context.report({

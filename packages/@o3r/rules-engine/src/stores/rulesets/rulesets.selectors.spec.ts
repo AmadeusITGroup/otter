@@ -31,9 +31,13 @@ describe('RuleSets Selector tests', () => {
     name: 'r2_name',
     rules: [],
     id: 'r2',
-    linkedComponent: {
-      library: '@mylibrary',
-      name: 'mycomponent'
+    linkedComponents: {
+      or: [
+        {
+          library: '@mylibrary',
+          name: 'mycomponent'
+        }
+      ]
     }
   };
 
@@ -86,10 +90,6 @@ describe('RuleSets Selector tests', () => {
       from: beforeYesterday.toISOString(),
       to: afterTomorrow.toISOString()
     },
-    linkedComponent: {
-      library: '@mylibrary',
-      name: 'thisComponentWillBeIgnored'
-    },
     linkedComponents: {
       or: [
         {
@@ -110,10 +110,6 @@ describe('RuleSets Selector tests', () => {
     rules: [],
     validityRange: {
       from: afterTomorrow.toISOString()
-    },
-    linkedComponent: {
-      library: '@mylibrary',
-      name: 'thisComponentWillBeIgnored'
     },
     linkedComponents: {
       or: [
@@ -253,26 +249,6 @@ describe('RuleSets Selector tests', () => {
     expect(selectors.selectActiveRuleSets.projector(rulesetsInRange)).toEqual([]);
   });
 
-  it('should select the linked components rulesets', () => {
-    const state: RulesetsState = {
-      ids: [r2.id, r4.id, r8.id],
-      entities: {
-        r2: r2,
-        r4: r4,
-        r8: r8
-      },
-      requestIds: []
-    };
-    const allRuleSetsArray = selectors.selectAllRulesets.projector(state);
-    const rulesetsInRange = selectors.selectRuleSetsInRange.projector(allRuleSetsArray);
-
-    const componentsWithRulesets = {
-      [computeItemIdentifier('mycomponent', '@mylibrary')]: [r2.id, r8.id],
-      [computeItemIdentifier('mycomponent2', '@mylibrary')]: [r8.id]
-    };
-    expect(selectors.selectRuleSetLinkComponents.projector(rulesetsInRange)).toEqual(componentsWithRulesets);
-  });
-
   it('should select the map of rulesets linked components', () => {
     const state: RulesetsState = {
       ids: [r2.id, r4.id, r8.id],
@@ -295,20 +271,6 @@ describe('RuleSets Selector tests', () => {
       }
     };
     expect(selectors.selectComponentsLinkedToRuleset.projector(rulesetsInRange)).toEqual(componentsWithRulesets);
-  });
-
-  it('should filter out the linked components rulesets outside the validity range', () => {
-    const state: RulesetsState = {
-      ids: [r9.id],
-      entities: {
-        r9: r9
-      },
-      requestIds: []
-    };
-    const allRuleSetsArray = selectors.selectAllRulesets.projector(state);
-    const rulesetsInRange = selectors.selectRuleSetsInRange.projector(allRuleSetsArray);
-
-    expect(selectors.selectRuleSetLinkComponents.projector(rulesetsInRange)).toEqual({});
   });
 
   it('should filter out the map of rulesets linked components outside the validity range', () => {

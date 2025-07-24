@@ -101,7 +101,7 @@ export const getO3rComponentInfoOrThrowIfNotFound = (tree: Tree, componentPath: 
     'standalone'
   );
 
-  const standalone = standaloneExpression?.kind === ts.SyntaxKind.TrueKeyword;
+  const standalone = standaloneExpression?.kind !== ts.SyntaxKind.FalseKeyword;
 
   const templateUrlExpression = getPropertyFromDecoratorFirstArgument(
     ts.getDecorators(ngComponentDeclaration)?.find(isNgClassDecorator)!,

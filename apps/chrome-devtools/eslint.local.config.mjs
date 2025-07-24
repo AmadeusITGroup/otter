@@ -12,6 +12,13 @@ const __dirname = dirname(__filename);
 
 export default [
   {
+    name: '@o3r/chrome-devtools/ignores',
+    ignores: [
+      'playwright-reports/**/*',
+      'test-results/**/*'
+    ]
+  },
+  {
     name: '@o3r/chrome-devtools/projects',
     languageOptions: {
       sourceType: 'module',
@@ -40,6 +47,15 @@ export default [
     rules: {
       '@typescript-eslint/no-unsafe-assignment': 'off',
       '@typescript-eslint/no-unsafe-member-access': 'off'
+    }
+  },
+  {
+    name: '@o3r/chrome-devtools/playwright',
+    files: ['**/e2e-playwright/**'],
+    languageOptions: {
+      globals: {
+        ...globals.node
+      }
     }
   }
 ];

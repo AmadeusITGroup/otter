@@ -40,7 +40,6 @@ const FILTER_PAG_REGEX = /\D/g;
 @O3rComponent({ componentType: 'Component' })
 @Component({
   selector: 'o3r-sdk-pres',
-  standalone: true,
   imports: [
     NgbHighlight,
     FormsModule,

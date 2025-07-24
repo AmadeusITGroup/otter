@@ -18,6 +18,7 @@ import {
  */
 export function adjustPath(frameworkName: 'playwright' | 'protractor', customTransformOptions: TransformOptions = {}) {
   const modulesCache: Record<string, any> = {};
+  // eslint-disable-next-line @typescript-eslint/unbound-method -- No need to bind the method, we are using `apply`
   const originalRequire = Module.prototype.require;
   const regex = new RegExp(`@o3r/testing/core(?!/${frameworkName})(.*)`);
   Module.prototype.require = function (this: NodeJS.Module, id: string) {

@@ -1,0 +1,44 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "customManagers": [
+    {
+      "description": "Upgrade Node to LTS version in Github Pipeline Environment",
+      "customType": "regex",
+      // TODO: To be removed when Renovate will support fileMatch reference or Manager extension
+      "fileMatch": [
+        // TODO: To be removed when https://github.com/renovatebot/renovate/discussions/26137 is fixed
+        "/(?:__dot__|__empty__\\.)github/.*/.+\\.ya?ml$",
+        // duplicate from Manager `github-actions`:
+        "(^|/)(workflow-templates|\\.(?:github|gitea|forgejo)/(?:workflows|actions))/.+\\.ya?ml$",
+        "(^|/)action\\.ya?ml$"
+      ],
+      "matchStrings": [
+        "node-version: (?<currentValue>[0-9a-zA-Z-.]+)"
+      ],
+      "depNameTemplate": "node",
+      "datasourceTemplate": "node-version",
+      "versioningTemplate": "node"
+    }
+  ],
+  "packageRules": [
+    {
+      // TODO: replace the following matchers to `matchManagers` when https://github.com/renovatebot/renovate/issues/21760 is fixed
+      "matchDatasources": [
+        "node-version"
+      ],
+      "matchFileNames": [
+        "**/.github/workflows/**/*.y{a,}ml",
+        "**/__dot__github/workflows/**/*.y{a,}ml",
+        "**/__empty__.github/workflows/**/*.y{a,}ml",
+        "**/action.y{a,}ml"
+      ],
+
+      "matchBaseBranches": [
+        "main",
+        "master",
+        "develop"
+      ],
+      "enable": true
+    }
+  ]
+}

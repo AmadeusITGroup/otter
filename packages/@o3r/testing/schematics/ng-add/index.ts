@@ -19,7 +19,7 @@ import {
 } from '@angular-devkit/schematics';
 import {
   addVsCodeRecommendations,
-  createSchematicWithMetricsIfInstalled,
+  createOtterSchematic,
   getExternalDependenciesInfo,
   getO3rPeerDeps,
   getPackageInstallConfig,
@@ -55,7 +55,9 @@ const dependenciesToInstall: string[] = [];
 const devDependenciesToInstall = [
   'pixelmatch',
   'pngjs',
-  '@angular-devkit/build-angular'
+  '@angular-devkit/build-angular',
+  '@angular/core',
+  '@angular/common'
 ];
 
 /**
@@ -160,33 +162,38 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
         if (workingDirectory === undefined) {
           throw new O3rCliError(`Could not find working directory for project ${options.projectName || ''}`);
         } else {
-          const packageJsonFile = tree.readJson(`${workingDirectory}/package.json`) as PackageJson;
-          packageJsonFile.scripts ||= {};
-          packageJsonFile.scripts.test = 'jest';
-          tree.overwrite(`${workingDirectory}/package.json`, JSON.stringify(packageJsonFile, null, 2));
-          const rootRelativePath = path.posix.relative(workingDirectory, tree.root.path.replace(/^\//, './'));
-          const jestConfigFilesForProject = () => mergeWith(apply(url('./templates/project'), [
-            template({
-              ...options,
-              rootRelativePath,
-              isAngularSetup: tree.exists('/angular.json')
-            }),
-            move(workingDirectory),
-            renameTemplateFiles()
-          ]), MergeStrategy.Overwrite);
-
-          const jestConfigFilesForWorkspace = () => mergeWith(apply(url('./templates/workspace'), [
-            template({
-              ...options,
-              tsconfigPath: `./${['tsconfig.base.json', 'tsconfig.json'].find((tsconfigBase) => tree.exists(`./${tsconfigBase}`))}`
-            }),
-            move(tree.root.path),
-            renameTemplateFiles()
-          ]), MergeStrategy.Default);
-          rules.push(
-            jestConfigFilesForProject,
-            jestConfigFilesForWorkspace
-          );
+          if (workspaceProject) {
+            const packageJsonFile = tree.readJson(`${workingDirectory}/package.json`) as PackageJson;
+            packageJsonFile.scripts ||= {};
+            packageJsonFile.scripts.test = 'jest';
+            tree.overwrite(`${workingDirectory}/package.json`, JSON.stringify(packageJsonFile, null, 2));
+            const rootRelativePath = path.posix.relative(workingDirectory, tree.root.path.replace(/^\//, './'));
+            const jestConfigFilesForProject = () => mergeWith(apply(url('./templates/project'), [
+              template({
+                ...options,
+                rootRelativePath,
+                isAngularSetup: tree.exists('/angular.json')
+              }),
+              move(workingDirectory),
+              renameTemplateFiles()
+            ]), MergeStrategy.Overwrite);
+            rules.push(jestConfigFilesForProject);
+          }
+          if (tree.exists('/jest.config.js')) {
+            context.logger.info('Jest configuration files already exist at the root of the project.');
+          } else {
+            const jestConfigFilesForWorkspace = () => mergeWith(apply(url('./templates/workspace'), [
+              template({
+                ...options,
+                tsconfigPath: `./${['tsconfig.base.json', 'tsconfig.json'].find((tsconfigBase) => tree.exists(`./${tsconfigBase}`))}`
+              }),
+              move(tree.root.path),
+              renameTemplateFiles()
+            ]), MergeStrategy.Default);
+            rules.push(
+              jestConfigFilesForWorkspace
+            );
+          }
         }
       }
 
@@ -204,4 +211,4 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
  * Add Otter testing to an Angular Project
  * @param options
  */
-export const ngAdd = createSchematicWithMetricsIfInstalled(ngAddFn);
+export const ngAdd = createOtterSchematic(ngAddFn);

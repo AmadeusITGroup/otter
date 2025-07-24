@@ -14,6 +14,9 @@
     },
     {
       "pattern": "^https://cloud.nx.app/*"
+    },
+    {
+      "pattern": "https://petstore3.swagger.io/api/v3"
     }
   ],
   "replacementPatterns": [

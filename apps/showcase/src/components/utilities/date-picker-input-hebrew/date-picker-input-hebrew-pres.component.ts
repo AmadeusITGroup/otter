@@ -15,7 +15,6 @@ import {
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
 import {
-  CloseInputDatePickerDirective,
   DfDatePickerModule,
   DfInputIconDirective,
 } from '@design-factory/design-factory';
@@ -36,8 +35,7 @@ import {
 } from './date-picker-input-hebrew-pres.context';
 
 @Pipe({
-  name: 'getDayNumerals',
-  standalone: true
+  name: 'getDayNumerals'
 })
 export class GetDayNumeralsPipe implements PipeTransform {
   public readonly i18n = inject(NgbDatepickerI18n);
@@ -50,11 +48,9 @@ export class GetDayNumeralsPipe implements PipeTransform {
 @O3rComponent({ componentType: 'ExposedComponent' })
 @Component({
   selector: 'o3r-date-picker-input-pres-new-design',
-  standalone: true,
   imports: [
     FormsModule,
     GetDayNumeralsPipe,
-    CloseInputDatePickerDirective,
     NgbInputDatepicker,
     DfInputIconDirective,
     DfDatePickerModule
@@ -71,7 +67,6 @@ export class GetDayNumeralsPipe implements PipeTransform {
     },
     { provide: NgbCalendar, useClass: NgbCalendarHebrew },
     { provide: NgbDatepickerI18n, useClass: NgbDatepickerI18nHebrew }
-
   ],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush

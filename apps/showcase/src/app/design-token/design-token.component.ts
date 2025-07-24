@@ -30,7 +30,6 @@ import {
 @O3rComponent({ componentType: 'Page' })
 @Component({
   selector: 'o3r-design-token',
-  standalone: true,
   imports: [
     AsyncPipe,
     DesignTokenPresComponent,

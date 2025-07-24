@@ -19,6 +19,14 @@ import {
   extractToken,
 } from './index';
 
+jest.mock('@o3r/schematics', () => {
+  const real = jest.requireActual('@o3r/schematics');
+  return {
+    ...real,
+    createOtterSchematic: (fn: any) => fn
+  };
+});
+
 describe('Extract Token schematic', () => {
   let initialTree: Tree;
 

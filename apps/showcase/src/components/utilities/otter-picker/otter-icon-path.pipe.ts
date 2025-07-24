@@ -8,8 +8,7 @@ import {
 } from './otter-icons';
 
 @Pipe({
-  name: 'otterIconPath',
-  standalone: true
+  name: 'otterIconPath'
 })
 export class OtterIconPathPipe implements PipeTransform {
   private readonly BASE_URL = location.href.split('/#', 1)[0];

@@ -29,6 +29,7 @@ import type {
  */
 const dependenciesToInstall = [
   '@angular/common',
+  '@angular/platform-browser-dynamic',
   '@angular/core',
   '@angular/forms',
   '@ngrx/effects',
@@ -165,6 +166,8 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
  * @param options
  */
 export const ngAdd = (options: NgAddSchematicsSchema): Rule => async (_, { logger }) => {
-  const { createSchematicWithMetricsIfInstalled } = await import('@o3r/schematics').catch(reportMissingSchematicsDep(logger));
-  return createSchematicWithMetricsIfInstalled(ngAddFn)(options);
+  const {
+    createOtterSchematic
+  } = await import('@o3r/schematics').catch(reportMissingSchematicsDep(logger));
+  return createOtterSchematic(ngAddFn)(options);
 };

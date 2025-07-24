@@ -101,7 +101,6 @@ const createStateForm = (name: string, color?: string | null) => new FormGroup<S
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  standalone: true,
   imports: [
     KeyValuePipe,
     JsonPipe,

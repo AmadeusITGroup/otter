@@ -23,7 +23,6 @@ describe('Migrate to config signal-based', () => {
       @O3rComponent({ componentType: 'Block' })
       @Component({
         selector: 'o3r-component',
-        standalone: true,
         templateUrl: './component.template.html',
         styleUrls: ['./component.style.scss'],
         encapsulation: ViewEncapsulation.None,
@@ -33,7 +32,7 @@ describe('Migrate to config signal-based', () => {
         /** Configuration stream based on the input and the stored configuration*/
         public config$: Observable<MyConfig>;
 
-        @ConfigObserver()
+        @O3rConfig()
         private readonly dynamicConfig$: ConfigurationObserver<MyConfig>;
 
         /** Input configuration to override the default configuration of the component */

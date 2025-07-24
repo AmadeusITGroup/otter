@@ -1,9 +1,0 @@
-{
-  "extends": "./tsconfig.build",
-  "include": [
-    "eslint*.config.mjs",
-    "jest.config.js",
-    "src/addon/helpers.ts",
-    "testing/*.ts"
-  ]
-}

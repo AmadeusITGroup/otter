@@ -3,7 +3,7 @@ import type {
   Tree,
 } from '@angular-devkit/schematics';
 import {
-  createSchematicWithMetricsIfInstalled,
+  createOtterSchematic,
   findFilesInTree,
 } from '@o3r/schematics';
 
@@ -25,4 +25,4 @@ function updateV116Fn(): Rule {
 /**
  * Update of Otter configuration V11.6
  */
-export const updateV116 = createSchematicWithMetricsIfInstalled(updateV116Fn);
+export const updateV116 = createOtterSchematic(updateV116Fn);

@@ -53,11 +53,9 @@ const devDependenciesToInstall = [
   'globals',
   'globby',
   'jsonc-eslint-parser',
-  'typescript-eslint',
+  'typescript-eslint'
   // TODO: reactivate once https://github.com/nirtamir2/eslint-plugin-sort-export-all/issues/18 is fixed
   // 'eslint-plugin-sort-export-all',
-  // TODO could be removed once #2482 is fixed
-  'yaml-eslint-parser'
 ];
 
 const handleOtterEslintErrors = (projectName: string): Rule => async (tree: Tree, context: SchematicContext) => {
@@ -166,6 +164,8 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
  * @param options Options for the schematic
  */
 export const ngAdd = (options: NgAddSchematicsSchema): Rule => async (_, { logger }) => {
-  const { createSchematicWithMetricsIfInstalled } = await import('@o3r/schematics').catch(reportMissingSchematicsDep(logger));
-  return createSchematicWithMetricsIfInstalled(ngAddFn)(options);
+  const {
+    createOtterSchematic
+  } = await import('@o3r/schematics').catch(reportMissingSchematicsDep(logger));
+  return createOtterSchematic(ngAddFn)(options);
 };

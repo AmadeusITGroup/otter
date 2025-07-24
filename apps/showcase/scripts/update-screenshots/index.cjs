@@ -28,18 +28,18 @@ const ipAddresses = [
   ...Object.values(os.networkInterfaces())
     .flat()
     .filter((net) => net.family === 'IPv4' && net.address !== '127.0.0.1')
-    .map((net) => `http://${net.address}:${argv.port || '8080'}`)
+    .map((net) => `http://${net.address}:${argv.port || process.env.UPDATE_SCREENSHOTS_PORT || '8080'}`)
 ];
 
 // Command to create the docker container and run the script
-const script = argv.docker || 'docker';
+const script = argv.docker || process.env.UPDATE_SCREENSHOTS_DOCKER || 'docker';
 const args = [
   'run',
   '-it',
   '--rm',
   '--ipc', 'host',
   '-v', `${absolutePathFromRoot}/:${mountPath}`,
-  `mcr.microsoft.com/playwright:v${playwrightVersion}-jammy`,
+  `mcr.microsoft.com/playwright:v${playwrightVersion}-noble`,
   '/bin/bash',
   pathToPodmanScript,
   ipAddresses.join(',')

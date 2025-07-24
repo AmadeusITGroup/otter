@@ -18,6 +18,8 @@ import type {
  * List of external dependencies to be added to the project as peer dependencies
  */
 const dependenciesToInstall = [
+  '@angular/common',
+  '@angular/core',
   '@angular/cdk',
   '@angular/material'
 ];
@@ -121,6 +123,8 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
  * @param options for the dependency installations
  */
 export const ngAdd = (options: NgAddSchematicsSchema): Rule => async (_, { logger }) => {
-  const { createSchematicWithMetricsIfInstalled } = await import('@o3r/schematics').catch(reportMissingSchematicsDep(logger));
-  return createSchematicWithMetricsIfInstalled(ngAddFn)(options);
+  const {
+    createOtterSchematic
+  } = await import('@o3r/schematics').catch(reportMissingSchematicsDep(logger));
+  return createOtterSchematic(ngAddFn)(options);
 };

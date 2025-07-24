@@ -50,10 +50,12 @@ export function ngAddFn(options: NgAddSchematicsSchema): Rule {
 export const ngAdd = (options: NgAddSchematicsSchema): Rule => async (_, { logger }) => {
   const missingSchematicDependencyMessage = 'Missing @o3r/schematics';
   try {
-    const { createSchematicWithMetricsIfInstalled } = await import('@o3r/schematics').catch(() => {
+    const {
+      createOtterSchematic
+    } = await import('@o3r/schematics').catch(() => {
       throw new Error(missingSchematicDependencyMessage);
     });
-    return createSchematicWithMetricsIfInstalled(ngAddFn)(options);
+    return createOtterSchematic(ngAddFn)(options);
   } catch (err) {
     if (err instanceof Error && err.message === missingSchematicDependencyMessage) {
       logger.warn(`[WARNING]: The run of the ng-add schematics of @o3r/design has failed, the setup of default features will not be done.

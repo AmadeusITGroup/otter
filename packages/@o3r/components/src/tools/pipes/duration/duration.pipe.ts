@@ -23,7 +23,7 @@ function padNum(num: number, digits: number) {
 /**
  * Converts a duration in seconds into the HH:mm format
  */
-@Pipe({ name: 'o3rDuration', standalone: true })
+@Pipe({ name: 'o3rDuration' })
 export class O3rDurationPipe implements PipeTransform {
   /**
    * Converts a duration in seconds into the HH:mm format
@@ -70,10 +70,3 @@ export class O3rDurationPipe implements PipeTransform {
     }, pattern);
   }
 }
-
-/**
- * Converts a duration in seconds into the HH:mm format
- * @deprecated please use O3rDurationPipe, will be removed in v12.
- */
-@Pipe({ name: 'duration' })
-export class DurationPipe extends O3rDurationPipe implements PipeTransform {}

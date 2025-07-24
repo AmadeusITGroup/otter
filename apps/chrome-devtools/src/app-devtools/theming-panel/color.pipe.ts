@@ -12,8 +12,7 @@ import {
  * Convert the color to hexadecimal format
  */
 @Pipe({
-  name: 'hexColor',
-  standalone: true
+  name: 'hexColor'
 })
 export class HexColorPipe implements PipeTransform {
   public transform(variableValue: string) {
@@ -29,10 +28,9 @@ export class HexColorPipe implements PipeTransform {
  * Compute the best contrast for a color
  */
 @Pipe({
-  name: 'contrast',
-  standalone: true
+  name: 'contrast'
 })
-export class ConstrastPipe implements PipeTransform {
+export class ContrastPipe implements PipeTransform {
   public transform(color: string) {
     return getBestColorContrast(color);
   }
@@ -43,10 +41,9 @@ export class ConstrastPipe implements PipeTransform {
  * Compute accessibility score for color contrast
  */
 @Pipe({
-  name: 'accessibilityConstrastScore',
-  standalone: true
+  name: 'accessibilityContrastScore'
 })
-export class AccessibilityConstrastScorePipe implements PipeTransform {
+export class AccessibilityContrastScorePipe implements PipeTransform {
   public transform(color1: string, color2: string, textSize: 'small' | 'large') {
     return getAccessibilityContrastScore(color1, color2, textSize);
   }

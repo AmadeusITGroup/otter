@@ -6,7 +6,7 @@ import {
 } from '@angular-devkit/schematics';
 import {
   applyEsLintFix,
-  createSchematicWithMetricsIfInstalled,
+  createOtterSchematic,
   O3rCliError,
 } from '@o3r/schematics';
 import * as ts from 'typescript';
@@ -85,4 +85,4 @@ function ngAddFunctionsToFixtureFn(options: NgAddFunctionsToFixtureSchematicsSch
  * Generate fixture
  * @param options options to generate a fixture
  */
-export const ngAddFunctionsToFixture = createSchematicWithMetricsIfInstalled(ngAddFunctionsToFixtureFn);
+export const ngAddFunctionsToFixture = createOtterSchematic(ngAddFunctionsToFixtureFn);

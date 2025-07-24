@@ -35,7 +35,6 @@ describe('Add Fixture', () => {
         })
         @Component({
           selector: 'o3r-test-pres',
-          standalone: true,
           imports: [CommonModule],
           styleUrls: ['./test.style.scss'],
           templateUrl: './test.template.html',
@@ -67,10 +66,8 @@ let component: TestComponent;
 let fixture: ComponentFixture<TestComponent>;
 
 describe('TestComponent', () => {
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [TestComponent]
-    }).overrideComponent(TestComponent, {
+  beforeEach(() => {
+    TestBed.overrideComponent(TestComponent, {
       set: {changeDetection: ChangeDetectionStrategy.Default}
     }).compileComponents();
   });
@@ -127,7 +124,6 @@ describe('TestComponent', () => {
 
         @Component({
           selector: 'ng-test',
-          standalone: true,
           imports: [CommonModule],
           template: ''
         })

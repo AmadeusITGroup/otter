@@ -30,14 +30,13 @@ export function getPeerDepWithPattern(packageJsonPath: string, pattern: RegExp |
 const basicsPackageName = new Set([
   '@o3r/core',
   '@o3r/schematics',
-  '@o3r/dev-tools',
   '@o3r/workspace'
 ]);
 
 /**
  * Get the list of o3r peer deps from a given package.json file
  * @param packageJsonPath The package json on which we search for o3r peer deps
- * @param filterBasics If activated it will remove the basic peer deps (o3r/core, o3r/dev-tools, o3r/workspace and o3r/schematics) from the list of results
+ * @param filterBasics If activated it will remove the basic peer deps (o3r/core, o3r/workspace and o3r/schematics) from the list of results
  * @param packagePattern Pattern of the package name to look in the packages peer dependencies.
  * @param versionRangePrefix Prefix to add to the package version to determine Semver Range
  */

@@ -11,7 +11,7 @@ declare global {
  * Converts an ArrayBuffer to a string.
  * @param buf ArrayBuffer to convert
  */
-export function ab2str(buf: ArrayBuffer) {
+export function ab2str(buf: ArrayBufferLike) {
   return String.fromCharCode.apply(null, Array.from(new Uint8Array(buf)));
 }
 

@@ -34,6 +34,14 @@ const serializedFiles = await getFilesTree([{
   }], instance.fs as FileSystem, EXCLUDED_FILES_OR_DIRECTORY);
 ```
 
+## Options
+
+| Option                                  | Alias | Value Type | Default Value | Description                                                  |
+|-----------------------------------------|:-----:|------------|---------------|--------------------------------------------------------------|
+| `--files <files>` <br> **(Required)**   |       | `string`   |               | List of files and folder to extract in addition to the path  |
+| `--outout <output>` <br> **(Required)** | `-o`  | `string`   |               | Output file path                                             |
+| `--root <root>`                         | `-r`  | `string`   |               | Root of the extraction                                       |
+
 ## Description
 
 This is a technical package to be used as dependency by [Otter modules](https://github.com/AmadeusITGroup/otter/tree/main/docs/core/MODULE.md) providing tools to used in the development of Otter training.

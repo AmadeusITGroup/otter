@@ -31,8 +31,8 @@ export function generateComponentGenerateCommand(_context: ExtensionContext, fol
     const componentPath = folder || await vscode.window.showInputBox({
       title: 'Path to your component',
       value: getCurrentFolder()
-      || defaultOptions.path
-      || vscode.workspace.workspaceFolders?.[0]?.uri?.fsPath,
+        || defaultOptions.path
+        || vscode.workspace.workspaceFolders?.[0]?.uri?.fsPath,
       ignoreFocusOut: true
     });
 

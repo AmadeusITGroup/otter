@@ -6,7 +6,7 @@ import type {
   PackageJson,
 } from 'type-fest';
 import {
-  createSchematicWithMetricsIfInstalled,
+  createOtterSchematic,
   getExternalDependenciesInfo,
   getWorkspaceConfig,
   setupDependencies,
@@ -65,5 +65,5 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
  * @param options
  */
 export const ngAdd = (options: NgAddSchematicsSchema): Rule => () => {
-  return createSchematicWithMetricsIfInstalled(ngAddFn)(options);
+  return createOtterSchematic(ngAddFn)(options);
 };
