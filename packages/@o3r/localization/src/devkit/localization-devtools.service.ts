@@ -1,5 +1,6 @@
 import {
   ApplicationRef,
+  inject,
   Injectable,
 } from '@angular/core';
 import {
@@ -18,11 +19,9 @@ import {
 
 @Injectable()
 export class OtterLocalizationDevtools {
-  constructor(
-    private readonly localizationService: LocalizationService,
-    private readonly translateCompiler: TranslateCompiler,
-    private readonly appRef: ApplicationRef
-  ) {}
+  private readonly localizationService = inject(LocalizationService);
+  private readonly translateCompiler = inject(TranslateCompiler);
+  private readonly appRef = inject(ApplicationRef);
 
   /**
    * Is the translation deactivation enabled

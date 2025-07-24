@@ -16,7 +16,7 @@ import {
   LocalizationService,
 } from './localization.service';
 import {
-  LocalizedDatePipe,
+  LocalizedCurrencyPipe,
 } from '@o3r/localization';
 
 /**
@@ -43,13 +43,14 @@ describe('LocalizedCurrencyPipe', () => {
     teardown: { destroyAfterEach: false }
   }));
 
-  let localizationService: LocalizationService;
+  let localizedCurrencyPipe: LocalizedCurrencyPipe;
   let changeDetectorRef: ChangeDetectorRef;
   const currentLanguage = new BehaviorSubject('fr');
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
+        LocalizedCurrencyPipe,
         { provide: ChangeDetectorRef, useClass: ChangeDetectorRefFixture },
         {
           provide: LocalizationService,
@@ -62,9 +63,12 @@ describe('LocalizedCurrencyPipe', () => {
         }
       ]
     });
-    localizationService = TestBed.inject(LocalizationService);
+    localizedCurrencyPipe = TestBed.inject(LocalizedCurrencyPipe);
     changeDetectorRef = TestBed.inject(ChangeDetectorRef);
-    new LocalizedDatePipe(localizationService, changeDetectorRef);
+  });
+
+  it('should create an instance', () => {
+    expect(localizedCurrencyPipe).toBeTruthy();
   });
 
   it('should mark for check when the language changes', () => {

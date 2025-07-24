@@ -41,7 +41,8 @@ function ngGenerateFactsServiceFn(options: NgGenerateFactsServiceSchematicsSchem
         path: serviceFolderPath,
         flat: true,
         name: factsInterfaceName,
-        skipTests: true
+        skipTests: true,
+        type: 'service'
       }),
       mergeWith(apply(url('./templates'), [
         template({

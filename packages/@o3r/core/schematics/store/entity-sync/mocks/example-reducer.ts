@@ -2,7 +2,7 @@ export const syncEntityReducerContent = `import {createEntityAdapter, EntityAdap
 import {ActionCreator, createReducer, on, ReducerTypes} from '@ngrx/store';
 import * as actions from './example.actions';
 
-import {ExampleState, ExampleStateDetails, ExampleModel} from './example.state';
+import {ExampleState, ExampleModel} from './example.state';
 
 /**
  * Example Store adapter
@@ -14,7 +14,7 @@ export const exampleAdapter: EntityAdapter<ExampleModel> = createEntityAdapter<E
 /**
  * Example Store initial value
  */
-export const exampleInitialState: ExampleState = exampleAdapter.getInitialState<ExampleStateDetails>({});
+export const exampleInitialState = exampleAdapter.getInitialState<ExampleState>({});
 
 /**
  *  List of basic actions for Example Store

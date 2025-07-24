@@ -1,9 +1,7 @@
 import {
   Directive,
-  ElementRef,
   Input,
   OnInit,
-  Renderer2,
 } from '@angular/core';
 import {
   AnalyticsEvent,
@@ -11,9 +9,6 @@ import {
   ConstructorAnalyticsEventParameters,
   EventContext,
 } from '../../../contracts/index';
-import {
-  EventTrackService,
-} from '../../../services/event-track/event-track.service';
 import {
   BaseTrackEvents,
 } from '../base-track-events';
@@ -48,10 +43,6 @@ export class TrackClickDirective extends BaseTrackEvents implements OnInit {
    * @inheritdoc
    */
   @Input() public trackEventContextConstructorParameters?: ConstructorAnalyticsEventParameters;
-
-  constructor(el: ElementRef, trackEventsService: EventTrackService, renderer: Renderer2) {
-    super(el, trackEventsService, renderer);
-  }
 
   public ngOnInit() {
     this.trackEvent('click');

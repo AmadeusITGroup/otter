@@ -1,7 +1,6 @@
 import {
-  Inject,
+  inject,
   Injectable,
-  Optional,
 } from '@angular/core';
 import {
   select,
@@ -31,13 +30,16 @@ const MEDIA_FOLDER_NAME = 'assets';
  */
 @Injectable()
 export class DynamicContentService {
+  private readonly cmsOnlyAssetsPath = inject(CMS_ASSETS_PATH_TOKEN);
+  private readonly store = inject<Store<AssetPathOverrideStore>>(Store, { optional: true });
+
   public readonly basePath: string;
 
   private readonly mediaFolder: string;
 
-  constructor(@Inject(DYNAMIC_CONTENT_BASE_PATH_TOKEN) dynamicContentPath: string,
-    @Inject(CMS_ASSETS_PATH_TOKEN) private readonly cmsOnlyAssetsPath: string,
-    @Optional() private readonly store?: Store<AssetPathOverrideStore>) {
+  constructor() {
+    const dynamicContentPath = inject(DYNAMIC_CONTENT_BASE_PATH_TOKEN);
+
     this.basePath = dynamicContentPath.replace(/\/$/, '');
     this.mediaFolder = MEDIA_FOLDER_NAME;
   }

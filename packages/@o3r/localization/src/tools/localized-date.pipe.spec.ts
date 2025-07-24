@@ -44,13 +44,13 @@ describe('LocalizedDatePipe', () => {
     teardown: { destroyAfterEach: false }
   }));
 
-  let localizationService: LocalizationService;
   let pipe: LocalizedDatePipe;
   let changeDetectorRef: ChangeDetectorRef;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
+        LocalizedDatePipe,
         {
           provide: ChangeDetectorRef, useClass: ChangeDetectorRefFixture
         },
@@ -66,9 +66,8 @@ describe('LocalizedDatePipe', () => {
         }
       ]
     });
-    localizationService = TestBed.inject(LocalizationService);
+    pipe = TestBed.inject(LocalizedDatePipe);
     changeDetectorRef = TestBed.inject(ChangeDetectorRef);
-    pipe = new LocalizedDatePipe(localizationService, changeDetectorRef);
   });
 
   it('should display the format on showKeys mode', () => {

@@ -4,10 +4,9 @@ import {
   type Mark,
 } from '@ama-sdk/core';
 import {
-  Inject,
+  inject,
   Injectable,
   NgZone,
-  Optional,
 } from '@angular/core';
 import {
   NavigationEnd,
@@ -41,7 +40,6 @@ import {
 import {
   defaultEventTrackConfiguration,
   EVENT_TRACK_SERVICE_CONFIGURATION,
-  EventTrackConfiguration,
 } from './event-track.configuration';
 
 /** The initial value of the performance measurements */
@@ -55,9 +53,9 @@ export const performanceMarksInitialState: Readonly<PerfEventPayload> = {
 /**
  * Service to expose the tracked events as streams. Also provide a way to activate/deactivate the tracking
  */
-@Injectable(
-  { providedIn: 'root' }
-)
+@Injectable({
+  providedIn: 'root'
+})
 export class EventTrackService {
   private readonly uiEventTrack: ReplaySubject<UiEventPayload>;
 
@@ -109,8 +107,12 @@ export class EventTrackService {
   private readonly requestIdHeader: string;
   private readonly traceHeader: string;
 
-  constructor(private readonly router: Router, private readonly zone: NgZone, @Optional() @Inject(EVENT_TRACK_SERVICE_CONFIGURATION) config?: EventTrackConfiguration) {
-    const eventConfiguration = { ...defaultEventTrackConfiguration, ...config };
+  private readonly router = inject(Router);
+  private readonly zone = inject(NgZone);
+  private readonly config = inject(EVENT_TRACK_SERVICE_CONFIGURATION, { optional: true });
+
+  constructor() {
+    const eventConfiguration = { ...defaultEventTrackConfiguration, ...this.config };
     this.requestIdHeader = eventConfiguration.requestIdHeader;
     this.traceHeader = eventConfiguration.traceHeader;
     this.uiTrackingActivated = new BehaviorSubject<boolean>(eventConfiguration.activate.uiTracking);
