@@ -37,6 +37,9 @@ import {
   TrainingProject,
 } from './code-editor-view';
 import {
+  CongratulationsStepComponent,
+} from './congratulations-step';
+import {
   TrainingStepPresComponent,
 } from './training-step';
 
@@ -48,8 +51,7 @@ interface StepProjectUrl {
   contentUrl: string;
 }
 
-/** Description of training step */
-interface TrainingStepDescription {
+interface DynamicStepDescription {
   /** Step title */
   stepTitle: string;
   /** URL to step instructions (HTML content) */
@@ -74,13 +76,13 @@ interface TrainingStepDescription {
 /** Training program */
 interface TrainingProgram {
   /** Steps of the training program */
-  trainingSteps: TrainingStepDescription[];
+  trainingSteps: DynamicStepDescription[];
 }
 
-/** Training step - consists of its description and its dynamic content */
-type TrainingStep = {
+type DynamicTrainingStep = {
   /** Description of the training step */
-  description: TrainingStepDescription;
+  description: DynamicStepDescription;
+  hasDynamicContent: true;
   /** Dynamic content of the training step */
   dynamicContent: {
     /** HTML Content - corresponds to the step instructions */
@@ -90,6 +92,14 @@ type TrainingStep = {
     /** Solution of the exercise project of the step */
     solutionProject: WritableSignal<TrainingProject | null>;
   };
+};
+
+/** Training step - consists of its description and its dynamic content */
+type TrainingStep = DynamicTrainingStep | {
+  description: {
+    stepTitle: string;
+  };
+  hasDynamicContent: false;
 };
 
 /** RegExp of current step index at the end of the location URL (example: http://url/#/fragment#3) */
@@ -102,6 +112,7 @@ const currentStepLocationRegExp = new RegExp(/#([0-9]+)$/);
     FormsModule,
     NgbAccordionModule,
     TrainingStepPresComponent,
+    CongratulationsStepComponent,
     NgbDropdown,
     NgbDropdownToggle,
     NgbDropdownMenu,
@@ -127,6 +138,8 @@ export class TrainingComponent implements OnInit {
   public trainingPath = input('');
   /** Title of the training */
   public title = input('');
+  /** Feedback form link for this specific training */
+  public feedbackFormLink = input('');
 
   private readonly dynamicContentService = inject(DynamicContentService);
   private readonly loggerService = inject(LoggerService);
@@ -135,7 +148,7 @@ export class TrainingComponent implements OnInit {
    * Load the dynamic content of the specified training step
    * @param step
    */
-  private async loadStepContent(step: TrainingStep) {
+  private async loadStepContent(step: DynamicTrainingStep) {
     if (!step.dynamicContent.htmlContent()) {
       const content = await this.loadResource(step.description.htmlContentUrl);
       if (!content) {
@@ -171,6 +184,7 @@ export class TrainingComponent implements OnInit {
     program.trainingSteps.forEach((desc) => {
       const step: TrainingStep = {
         description: desc,
+        hasDynamicContent: true,
         dynamicContent: {
           htmlContent: signal(''),
           project: signal(null),
@@ -180,7 +194,7 @@ export class TrainingComponent implements OnInit {
       void this.loadStepContent(step);
       stepsToLoad.push(step);
     });
-    this.steps.set(stepsToLoad);
+    this.steps.set([...stepsToLoad, { description: { stepTitle: 'Congratulations' }, hasDynamicContent: false }]);
     const stepParam = window.location.href.match(currentStepLocationRegExp)?.[1];
     const stepRequested = !stepParam || Number.isNaN(stepParam) ? 0 : Number(stepParam);
     this.setCurrentStep(stepRequested);
@@ -202,7 +216,7 @@ export class TrainingComponent implements OnInit {
    * @param urls URLs of the step project or solution project
    * @param solutionProject Boolean indicating if the dynamic content is the project or solution project of the step
    */
-  private async updateStepDynamicContent(step: TrainingStep, urls: StepProjectUrl[], solutionProject = false) {
+  private async updateStepDynamicContent(step: DynamicTrainingStep, urls: StepProjectUrl[], solutionProject = false) {
     const resources = (await Promise.all(
       urls.map(
         async ({ path, contentUrl }) => ({

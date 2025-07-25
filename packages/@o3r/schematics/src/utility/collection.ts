@@ -71,5 +71,5 @@ export function getSchematicOptions<T extends WorkspaceSchematics['*:*'] = Works
     .sort(([a], [b]) => ((a.match(/\*/g)?.length || 0) - (b.match(/\*/g)?.length || 0)))
     .reduce((acc, [, opts]) => ({ ...acc, ...opts }), {} as any);
 
-  return options && Object.keys(options).length > 0 ? options : config.schematics?.['*:*'];
+  return options && Object.keys(options).length > 0 ? options : config.schematics?.['*:*'] as T;
 }

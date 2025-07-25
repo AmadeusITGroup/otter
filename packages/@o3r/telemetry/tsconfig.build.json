@@ -6,7 +6,6 @@
     "outDir": "./dist",
     "module": "CommonJS",
     "rootDir": ".",
-    "skipLibCheck": true, // because of @angular-devkit-schematics
     "tsBuildInfoFile": "build/.tsbuildinfo",
     "esModuleInterop": true
   },

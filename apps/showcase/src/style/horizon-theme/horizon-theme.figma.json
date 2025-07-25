@@ -56,9 +56,7 @@
       "A100": {
         "$type": "color",
         "$value": "#ff83ae"
-      },
-      "$type": "color",
-      "$value": "{color.primary.500}"
+      }
     },
     "accent": {
       "50": {
@@ -116,9 +114,7 @@
       "A100": {
         "$type": "color",
         "$value": "#ffffff"
-      },
-      "$type": "color",
-      "$value": "{color.accent.500}"
+      }
     },
     "highlight": {
       "50": {
@@ -176,9 +172,7 @@
       "A100": {
         "$type": "color",
         "$value": "#a5a5ff"
-      },
-      "$type": "color",
-      "$value": "{color.highlight.500}"
+      }
     },
     "warn": {
       "50": {
@@ -236,9 +230,7 @@
       "A100": {
         "$type": "color",
         "$value": "#ffffff"
-      },
-      "$type": "color",
-      "$value": "{color.warn.500}"
+      }
     },
     "out of palette": {
       "green": {

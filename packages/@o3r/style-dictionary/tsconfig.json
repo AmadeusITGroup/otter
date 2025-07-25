@@ -1,0 +1,15 @@
+/* For IDE usage only */
+{
+  "extends": "../../../tsconfig.base",
+  "references": [
+    {
+      "path": "./tsconfig.build.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    },
+    {
+      "path": "./tsconfig.builders.json"
+    }
+  ]
+}

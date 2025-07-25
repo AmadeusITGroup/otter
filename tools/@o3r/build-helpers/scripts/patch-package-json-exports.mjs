@@ -20,6 +20,7 @@ const packageJsonPath = join(root, 'dist', 'package.json');
 const packageJson = JSON.parse(readFileSync(packageJsonPath, { encoding: 'utf8' }));
 
 const srcPrefixRegExp = /^\.\/src\//;
+const distPrefixRegExp = /^\.\/dist\//;
 
 if (!packageJson.exports) {
   process.exit(0);
@@ -28,7 +29,14 @@ if (!packageJson.exports) {
 packageJson.exports = Object.entries(packageJson.exports)
   .reduce((acc, [exportPath, value]) => {
     const newPath = exportPath.replace(srcPrefixRegExp, './');
-    return { ...acc, [newPath]: value };
+    return {
+      ...acc,
+      [newPath]: typeof value === 'object'
+        ? Object.fromEntries(Object.entries(value).map(([exportType, outputPath]) =>
+          [exportType, outputPath.replace(distPrefixRegExp, './')]
+        ))
+        : value
+    };
   }, {});
 
 writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));

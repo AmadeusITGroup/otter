@@ -18,7 +18,7 @@ export interface NgAddSchematicsSchema extends SchematicOptionObject {
   /** Do not initialize a git repository. */
   skipGit: boolean;
 
-  /** Skip the setup of CommitLint and Lint-Stage configurations and pre-commit checks */
+  /** Skip the setup of CommitLint and Lint-Staged configurations and pre-commit checks */
   skipPreCommitChecks: boolean;
 
   /** Use a pinned version for otter packages */
@@ -26,4 +26,10 @@ export interface NgAddSchematicsSchema extends SchematicOptionObject {
 
   /** Monorepo manager to use */
   monorepoManager: MonorepoManager;
+
+  /** Skip adding VSCode tools */
+  skipVscodeTools?: boolean;
+
+  /** Skip adding Renovate config */
+  skipRenovate?: boolean;
 }

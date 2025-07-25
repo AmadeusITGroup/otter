@@ -34,24 +34,24 @@
       <p>
         Do not hesitate to run the application locally, if not installed yet, follow the <a routerLink="/run-app-locally">instructions</a>.
       </p>
-      <a href="https://github.com/AmadeusITGroup/otter/blob/main/apps/showcase/src/components/showcase/design" target="_blank" rel="noopener">Source code</a>
+      <a href="https://github.com/AmadeusITGroup/otter/blob/main/apps/showcase/src/components/showcase/design-token" target="_blank" rel="noopener">Source code</a>
     </div>
     <h2 id="design-token-install">How to install</h2>
     <markdown clipboard ngPreserveWhitespaces>
       ```bash
-      ng add &#64;o3r/design
+      ng add &#64;o3r/style-dictionary
       ```
     </markdown>
-    <h2 id="configuration-add-config-later">How to add design-tokens to a component</h2>
+    <p>
+      This command will install the necessary dependencies and create the configuration file <i><b>style-dictionary.config.mjs</b></i>.
+    </p>
+    <p>
+      You can now run the following command to generate the CSS :
+    </p>
     <markdown clipboard ngPreserveWhitespaces>
       ```bash
-      ng g design-token-to-component --path='path/to/the/component/class/file'
-      ```
-    </markdown>
-    <h2 id="design-token-extract">How to extract design-tokens from Sass files</h2>
-    <markdown clipboard ngPreserveWhitespaces>
-      ```bash
-      ng g extract-token --component-file-patterns='path/to/the/components/**/*.scss'
+      # Via Style Dictionary CLI
+      style-dictionary build -c config.mjs
       ```
     </markdown>
     <h2 id="design-token-references">References</h2>
@@ -59,6 +59,10 @@
       <ul>
         <li>
           <a href="https://docs.otter.digitalforairlines.com/additional-documentation/design/technical-documentation.html" target="_blank" rel="noopener">Documentation</a>
+        </li>
+        <li>
+          <a href="https://styledictionary.com/getting-started/using_the_npm_module/"
+            target="_blank" rel="noopener">Style Dictionary via Node</a>
         </li>
       </ul>
     </div>

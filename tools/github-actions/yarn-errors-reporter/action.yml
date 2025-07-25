@@ -1,0 +1,18 @@
+name: 'Yarn errors reporter'
+description: 'Report errors during yarn install'
+inputs:
+  reportOnFile:
+    description: 'On which file to add the annotation'
+    required: false
+    default: 'yarn.lock'
+  errorCodesToReport:
+    description: 'Which error codes should be reported (comma separated list). See https://yarnpkg.com/advanced/error-codes'
+    required: false
+    default: YN0002,YN0059,YN0060
+  onlyReportsIfAffected:
+    description: 'Only report if the yarn.lock is affected by the changes (only works with fetch-depth > 1)'
+    required: false
+    default: true
+runs:
+  using: 'node20'
+  main: 'packaged-action/index.js'

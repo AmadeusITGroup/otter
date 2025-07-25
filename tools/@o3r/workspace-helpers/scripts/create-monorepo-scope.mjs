@@ -1,9 +1,9 @@
 import {
   readFile,
-  writeFile
+  writeFile,
 } from 'node:fs/promises';
 import {
-  resolve
+  resolve,
 } from 'node:path';
 import minimist from 'minimist';
 
@@ -12,6 +12,7 @@ const root = argv.root ? resolve(process.cwd(), argv.root) : process.cwd();
 const scopeName = argv._.at(0);
 
 /**
+ * Update Verdaccio configuration to allow the new scope
  * @param {string} scopeName
  */
 const updateVerdaccioConfig = async (scopeName) => {
@@ -25,6 +26,7 @@ const updateVerdaccioConfig = async (scopeName) => {
     proxy: no-proxy`;
 
   /**
+   * Add the package rule to the given file
    * @param {string} filePath
    */
   const addPackageRule = async (filePath) =>
@@ -37,6 +39,7 @@ const updateVerdaccioConfig = async (scopeName) => {
 };
 
 /**
+ * Update IT test workflow to cache the new scope
  * @param {string} scopeName
  */
 const updateItTestWorkflow = async (scopeName) => {
@@ -46,6 +49,7 @@ const updateItTestWorkflow = async (scopeName) => {
 };
 
 /**
+ * Update .npmrc. for PR to allow the new scope
  * @param {string} scopeName
  */
 const updateNpmrcPr = async (scopeName) => {
@@ -57,6 +61,7 @@ const updateNpmrcPr = async (scopeName) => {
 };
 
 /**
+ * Update Renovate group to allow the new
  * @param {string} scopeName
  */
 const updateRenovateGroup = async (scopeName) => {
@@ -70,6 +75,7 @@ const updateRenovateGroup = async (scopeName) => {
 };
 
 /**
+ * Update package.json to include the new scope in the workspaces
  * @param {string} scopeName
  */
 const updatePackageJson = async (scopeName) => {

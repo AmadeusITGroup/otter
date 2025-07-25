@@ -56,4 +56,4 @@ On top of them, the following options can be provided to the initializer:
 - `--yarn`: Enforce `yarn` package manager. This option will be ignored if `--package-manager` is already specified.
 - `--yarn-version`: specify the version of yarn to use (default: `latest`)
 - `--exact-o3r-version`: use a pinned version for [Otter packages](https://github.com/AmadeusITGroup/otter/blob/main/docs/README.md).
-- `--preset <preset_name>`: the collection of Otter modules to install. If not provided it defaults to `basic`. The full list of presets is available in [@o3r/core](https://www.npmjs.com/package/@o3r/core#presets)
+- `--preset <preset_name>`: the collection of Otter modules to install. If not provided, it defaults to `recommended`. The full list of presets is available in [@o3r/core](https://www.npmjs.com/package/@o3r/core#presets)

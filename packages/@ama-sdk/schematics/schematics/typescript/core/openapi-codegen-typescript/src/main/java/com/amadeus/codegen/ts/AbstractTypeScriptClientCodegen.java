@@ -146,7 +146,9 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
     additionalProperties.put("parseRegexp", new LambdaHelper.ParseRegexp());
     additionalProperties.put("plurialize", new LambdaHelper.Plurialize());
     additionalProperties.put("urlParamReplacer", new LambdaHelper.UrlParamReplacerLambda());
+    additionalProperties.put("urlSerializedParamReplacer", new LambdaHelper.UrlSerializedParamReplacerLambda());
     additionalProperties.put("tokenizedUrlParamReplacer", new LambdaHelper.TokenizedUrlParamReplacerLambda());
+    additionalProperties.put("tokenizedUrlSerializedParamReplacer", new LambdaHelper.TokenizedUrlSerializedParamReplacerLambda());
     additionalProperties.put("apiFolderName", new LambdaHelper.ApiFolderName());
     additionalProperties.put("removeBrackets", new LambdaHelper.RemoveText("[]"));
     additionalProperties.put("removeFowardslash", new LambdaHelper.RemoveText("/"));
@@ -583,6 +585,17 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
 
       if (parameter != null && parameter.dataType != null && parameter.dataType.matches("^(Date|utils.Date|utils.DateTime)$")) {
         parameter.isPrimitiveType = false;
+      }
+    }
+
+    // Set Otter default parameter serialization for Swagger 2.0
+    if (parameter.style == null || "".equals(parameter.style)) {
+      if (parameter.isQueryParam) {
+        parameter.isExplode = false;
+        parameter.style = "form";
+      } else if (parameter.isPathParam) {
+        parameter.isExplode = false;
+        parameter.style = "simple";
       }
     }
   }
