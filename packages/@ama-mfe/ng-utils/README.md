@@ -1,8 +1,8 @@
 # Ama MFE Angular Utils
 `@ama-mfe/ng-utils` is an Angular library designed to streamline communication within a micro-frontend architecture that
-uses iframes. 
+uses iframes.
 This package is built on the [Amadeus Toolkit for Micro Frontends framework](https://www.npmjs.com/package/@amadeus-it-group/microfrontends-angular)
-and offers a suite of tools - including helpers, wrappers, and services - to facilitate seamless integration and 
+and offers a suite of tools - including helpers, wrappers, and services - to facilitate seamless integration and
 interaction between host and embedded applications.
 
 Key features include:
@@ -26,8 +26,8 @@ In the communication protocol, a message is created by a `Producer` and sent to 
 and react according to its content.
 
 The `@ama-mfe/ng-utils` package exposes a set of features based on messages exchanged between a host application and its
-embedded module. For each feature, the package provides a `Producer`/`Consumer` pair. 
-The former service is in charge of delivering the messages based on triggers (resize event, call to a public function 
+embedded module. For each feature, the package provides a `Producer`/`Consumer` pair.
+The former service is in charge of delivering the messages based on triggers (resize event, call to a public function
 etc.) while the latter implements the logic behind the feature (resizing of the iframe, application of a theme, etc.).
 
 ## How to use
@@ -35,7 +35,7 @@ etc.) while the latter implements the logic behind the feature (resizing of the 
 #### Configure your application connection
 Applications first need to provide and configure the `ConnectionService` to use the communication protocol.
 The `provideConnection` method allows an application to register with a unique ID that others will use to
-connect and target the application.  
+connect and target the application.
 
 ```typescript
 import {provideConnection} from '@ama-mfe/ng-utils';
@@ -139,7 +139,7 @@ bootstrapApplication(AppComponent, appConfig)
 ```
 
 #### Producers
-If your application is a producer, just inject the message producer service and call the trigger when needed.  
+If your application is a producer, just inject the message producer service and call the trigger when needed.
 There is no standardization on the name of the methods used to trigger a message. It will be different for each service.
 
 #### Services provided in @ama-mfe/ng-utils
@@ -226,8 +226,8 @@ Once connected, it is able to send messages via the `MessagePeerService`.
 ```typescript
 import type {CustomMessageV1_0, CustomMessageVersions} from '../messages';
 import {MessagePeerService} from '@amadeus-it-group/microfrontends-angular';
-import {DestroyRef, inject, Injectable} from '@angular/core';
-import {type MessageProducer, type ErrorContent, ProducerManagerService} from '@ama-mfe/ng-utils';
+import {inject, Injectable} from '@angular/core';
+import {type MessageProducer, type ErrorContent, registerProducer} from '@ama-mfe/ng-utils';
 
 @Injectable({
   providedIn: 'root'
@@ -236,12 +236,7 @@ export class CustomService implements MessageProducer<CustomMessageVersions> {
   private readonly messageService = inject(MessagePeerService<CustomMessageVersions>);
 
   constructor() {
-    const producerManagerService = inject(ProducerManagerService);
-    producerManagerService.register(this);
-
-    inject(DestroyRef).onDestroy(() => {
-      producerManagerService.unregister(this);
-    });
+    registerProducer(this);
   }
 
   public handleError(message: ErrorContent<CustomMessage_V1_0>): void {

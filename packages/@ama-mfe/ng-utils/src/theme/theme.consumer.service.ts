@@ -18,11 +18,15 @@ import {
   DomSanitizer,
 } from '@angular/platform-browser';
 import {
+  LoggerService,
+} from '@o3r/logger';
+import {
   ConsumerManagerService,
   MessageConsumer,
 } from '../managers/index';
 import {
   applyTheme,
+  downloadApplicationThemeCss,
 } from './theme.helpers';
 
 /**
@@ -34,6 +38,7 @@ import {
 export class ThemeConsumerService implements MessageConsumer<ThemeMessage> {
   private readonly domSanitizer = inject(DomSanitizer);
   private readonly consumerManagerService = inject(ConsumerManagerService);
+  private readonly logger = inject(LoggerService);
   /**
    * The type of messages this service handles ('theme').
    */
@@ -47,10 +52,16 @@ export class ThemeConsumerService implements MessageConsumer<ThemeMessage> {
      * Use the message paylod to get the theme and apply it
      * @param message message to consume
      */
-    '1.0': (message: RoutedMessage<ThemeV1_0>) => {
+    '1.0': async (message: RoutedMessage<ThemeV1_0>) => {
       const sanitizedCss = this.domSanitizer.sanitize(SecurityContext.STYLE, message.payload.css);
       if (sanitizedCss !== null) {
         applyTheme(sanitizedCss);
+      }
+      try {
+        const css = await downloadApplicationThemeCss(message.payload.name, { logger: this.logger });
+        applyTheme(css, false);
+      } catch (e) {
+        this.logger.warn(`No CSS variable for the theme ${message.payload.name}`, e);
       }
     }
   };

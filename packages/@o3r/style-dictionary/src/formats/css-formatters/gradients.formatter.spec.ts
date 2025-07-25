@@ -48,7 +48,7 @@ describe('createGradientFormatter', () => {
       usesDtcg: true
     };
     const css = createGradientFormatter(options)(mocks.gradientToken.tokens.gradient.primary['50'], '--gradient-primary-50: [object Object];');
-    expect(css).toBe('--gradient-primary-50: linear-gradient(90deg, #000 0%, #fff 1%);');
+    expect(css).toBe('--gradient-primary-50: linear-gradient(90deg, #000 0%, #fff 100%);');
   });
 
   test('should format reference CSS variable', () => {
@@ -59,6 +59,6 @@ describe('createGradientFormatter', () => {
       usesDtcg: true
     };
     const css = createGradientFormatter(options)(mocks.gradientTokenRef.tokens.gradient.primary['50'], '--gradient-primary-50: [object Object];');
-    expect(css).toBe('--gradient-primary-50: linear-gradient(90deg, var(--color-primary-50) 0%, #fff 1%);');
+    expect(css).toBe('--gradient-primary-50: linear-gradient(90deg, var(--color-primary-50) 0%, #fff 100%);');
   });
 });

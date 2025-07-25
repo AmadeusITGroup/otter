@@ -10,7 +10,6 @@ import {
   getTargetFiles,
   register,
 } from '@o3r/style-dictionary';
-// eslint-disable-next-line import/namespace, import/default, import/no-named-as-default, import/no-named-as-default-member -- Import of Module type package
 import StyleDictionary from 'style-dictionary';
 
 const __filename = fileURLToPath(import.meta.url);

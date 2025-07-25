@@ -10,13 +10,12 @@ import {
 } from '@amadeus-it-group/microfrontends-angular';
 import {
   afterNextRender,
-  DestroyRef,
   inject,
   Injectable,
 } from '@angular/core';
 import {
   type MessageProducer,
-  ProducerManagerService,
+  registerProducer,
 } from '../managers/index';
 import {
   type ErrorContent,
@@ -48,13 +47,7 @@ export class ResizeService implements MessageProducer<ResizeMessage> {
   public readonly types = RESIZE_MESSAGE_TYPE;
 
   constructor() {
-    const producerManagerService = inject(ProducerManagerService);
-    producerManagerService.register(this);
-
-    inject(DestroyRef).onDestroy(() => {
-      this.resizeObserver?.disconnect();
-      producerManagerService.unregister(this);
-    });
+    registerProducer(this);
   }
 
   /**

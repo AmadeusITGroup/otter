@@ -1,5 +1,4 @@
 import {
-  isServiceMessage,
   Message,
   RoutedMessage,
 } from '@amadeus-it-group/microfrontends';
@@ -15,6 +14,9 @@ import {
 import {
   takeUntilDestroyed,
 } from '@angular/core/rxjs-interop';
+import {
+  LoggerService,
+} from '@o3r/logger';
 import {
   getAvailableConsumers,
 } from '../messages/available.sender';
@@ -36,6 +38,7 @@ export class ConsumerManagerService {
   private readonly messageService = inject(MessagePeerService);
   private readonly producerManagerService = inject(ProducerManagerService);
   private readonly registeredConsumers = signal<BasicMessageConsumer[]>([]);
+  private readonly logger = inject(LoggerService);
 
   /** The list of registered consumers */
   public readonly consumers = this.registeredConsumers.asReadonly();
@@ -62,9 +65,7 @@ export class ConsumerManagerService {
     if (isErrorMessage(message.payload)) {
       const isHandled = await this.producerManagerService.dispatchError(message.payload);
       if (!isHandled) {
-        // TODO https://github.com/AmadeusITGroup/otter/issues/2887 - proper logger
-        // eslint-disable-next-line no-console -- placeholder for implementation with logger
-        console.warn('Error message not handled', message);
+        this.logger.warn('Error message not handled', message);
       }
       return;
     }
@@ -79,23 +80,16 @@ export class ConsumerManagerService {
    */
   private async consumeAdditionalMessage(message: RoutedMessage<Message>) {
     if (!message.payload) {
-      // TODO https://github.com/AmadeusITGroup/otter/issues/2887 - proper logger
-      // eslint-disable-next-line no-console -- placeholder for implementation with logger
-      console.warn('Cannot consume a messages with undefined payload.');
+      this.logger.warn('Cannot consume a messages with undefined payload.');
       return;
     }
-    // not interested in service messages like 'connect' or 'disconnect'
-    if (isServiceMessage(message.payload)) {
-      return;
-    }
+
     const consumers = this.consumers();
     const typeMatchingConsumers = consumers
       .filter((consumer) => consumer.type === message.payload.type);
 
     if (typeMatchingConsumers.length === 0) {
-      // TODO https://github.com/AmadeusITGroup/otter/issues/2887 - proper logger
-      // eslint-disable-next-line no-console -- placeholder for implementation with logger
-      console.warn(`No consumer found for message type: ${message.payload.type}`);
+      this.logger.warn(`No consumer found for message type: ${message.payload.type}`);
       return sendError(this.messageService, { reason: 'unknown_type', source: message.payload });
     }
 
@@ -104,9 +98,7 @@ export class ConsumerManagerService {
       .flat();
 
     if (versionMatchingConsumers.length === 0) {
-      // TODO https://github.com/AmadeusITGroup/otter/issues/2887 - proper logger
-      // eslint-disable-next-line no-console -- placeholder for implementation with logger
-      console.warn(`No consumer found for message version: ${message.payload.version}`);
+      this.logger.warn(`No consumer found for message version: ${message.payload.version}`);
       return sendError(this.messageService, { reason: 'version_mismatch', source: message.payload });
     }
 
@@ -116,9 +108,7 @@ export class ConsumerManagerService {
           try {
             await consumer.supportedVersions[message.payload.version](message);
           } catch (error) {
-            // TODO https://github.com/AmadeusITGroup/otter/issues/2887 - proper logger
-            // eslint-disable-next-line no-console -- notify directly in the console the error at message consume
-            console.error('Error while consuming message', error);
+            this.logger.error('Error while consuming message', error);
             sendError(this.messageService, { reason: 'internal_error', source: message.payload });
           }
         })
