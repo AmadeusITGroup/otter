@@ -9,6 +9,9 @@ import {
   OTTER_NAME_PREFIX,
 } from '../constants.mjs';
 import {
+  sortByPath,
+} from '../helpers/sort-by-path.sort.helpers.mjs';
+import {
   getDefaultCssFormatter,
 } from './css-formatters/default.formatter.mjs';
 import type {
@@ -44,17 +47,12 @@ export const cssFormat: Format = {
     } as const satisfies FormatterOptions;
 
     const formattedVariables = () => {
-      let allTokens = dictionary.allTokens;
-      const tokens = dictionary.tokens;
-      if (outputReferences) {
-        allTokens = [...allTokens].sort(
-          sortByReference(tokens, { unfilteredTokens: dictionary.unfilteredTokens, usesDtcg })
-        );
-      }
-
+      const { allTokens, tokens, unfilteredTokens } = dictionary;
       const propertyFormatter = getDefaultCssFormatter(baseFormatterOptions);
 
-      return allTokens
+      return [...allTokens]
+        .sort(sortByPath)
+        .sort(outputReferences ? sortByReference(tokens, { unfilteredTokens, usesDtcg }) : () => 0)
         .filter(({ attributes }) => !attributes?.private)
         .map((token) => ({
           token,

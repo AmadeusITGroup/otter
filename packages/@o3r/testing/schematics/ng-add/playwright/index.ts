@@ -26,7 +26,8 @@ import type {
 } from 'type-fest';
 
 const devDependenciesToInstall = [
-  '@playwright/test'
+  '@playwright/test',
+  'rimraf'
 ];
 const dependenciesToInstall: string[] = [];
 

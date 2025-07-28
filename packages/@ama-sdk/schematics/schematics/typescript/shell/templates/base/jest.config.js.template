@@ -22,5 +22,11 @@ module.exports = {
         stringifyContentPathRegex: '\\.html$',
       }
     ]
-  }
+  },
+  coveragePathIgnorePatterns: [
+    '<rootDir>/src/api/**/*.ts',
+    '<rootDir>/src/models/base/**/*.ts',
+    '<rootDir>/src/spec/api-mock.ts',
+    '<rootDir>/src/spec/operation-adapter.ts'
+  ]
 };

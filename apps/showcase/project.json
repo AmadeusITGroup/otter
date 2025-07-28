@@ -245,12 +245,7 @@
         "^build"
       ]
     },
-    "test-e2e": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "test:playwright"
-      }
-    },
+    "test-e2e": {},
     "generate-translations": {
       "executor": "@o3r/localization:localization",
       "inputs": [

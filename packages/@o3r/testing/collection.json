@@ -8,25 +8,28 @@
       "aliases": ["install", "i"]
     },
     "playwright-scenario": {
-      "description": "Generate a Playwright scenario into the project.",
+      "description": "[o3r] Generate a Playwright scenario into the project.",
       "factory": "./schematics/playwright/scenario/index#ngGeneratePlaywrightScenario",
-      "schema": "./schematics/playwright/scenario/schema.json"
+      "schema": "./schematics/playwright/scenario/schema.json",
+      "aliases": ["o3r-playwright-scenario"]
     },
     "playwright-sanity": {
-      "description": "Generate a Playwright sanity into the project.",
+      "description": "[o3r] Generate a Playwright sanity into the project.",
       "factory": "./schematics/playwright/sanity/index#ngGeneratePlaywrightSanity",
-      "schema": "./schematics/playwright/sanity/schema.json"
+      "schema": "./schematics/playwright/sanity/schema.json",
+      "aliases": ["o3r-playwright-sanity"]
     },
     "fixture-to-component": {
-      "description": "Add Otter Fixture to an existing component",
+      "description": "[o3r] Add Otter Fixture to an existing component",
       "factory": "./schematics/fixture-to-component/index#ngAddFixture",
       "schema": "./schematics/fixture-to-component/schema.json",
-      "aliases": ["add-fixture"]
+      "aliases": ["o3r-fixture-to-component", "add-fixture"]
     },
     "add-functions-to-fixture": {
-      "description": "Adding functions to an Otter fixture based on a selector and default methods",
+      "description": "[o3r] Adding functions to an Otter fixture based on a selector and default methods",
       "factory": "./schematics/add-functions-to-fixture/index#ngAddFunctionsToFixture",
-      "schema": "./schematics/add-functions-to-fixture/schema.json"
+      "schema": "./schematics/add-functions-to-fixture/schema.json",
+      "aliases": ["o3r-add-functions-to-fixture"]
     }
   }
 }

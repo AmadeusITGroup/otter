@@ -5,14 +5,12 @@ import {
   MergeStrategy,
   mergeWith,
   move,
-  noop,
   renameTemplateFiles,
   Rule,
   template,
   url,
 } from '@angular-devkit/schematics';
 import {
-  applyEditorConfig,
   createOtterSchematic,
   getExternalDependenciesInfo,
   getO3rPeerDeps,
@@ -27,6 +25,11 @@ import type {
 import type {
   NgAddSchematicsSchema,
 } from './schema';
+/**
+ * List of external dependencies to be added to the project as peer dependencies
+ */
+const dependenciesToInstall: string[] = [
+];
 
 /**
  * List of external dependencies to be added to the project as dev dependencies
@@ -57,7 +60,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
     }, getPackageInstallConfig(packageJsonPath, tree, options.projectName, true, !!options.exactO3rVersion));
     const externalDependenciesInfo = getExternalDependenciesInfo({
       devDependenciesToInstall,
-      dependenciesToInstall: [],
+      dependenciesToInstall,
       o3rPackageJsonPath: packageJsonPath,
       projectPackageJson,
       projectType: workspaceProject?.projectType
@@ -119,8 +122,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
   return chain([
     setup,
     generateConfig,
-    updatePackageJson,
-    options.skipLinter ? noop() : applyEditorConfig()
+    updatePackageJson
   ]);
 }
 
