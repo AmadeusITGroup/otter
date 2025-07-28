@@ -120,7 +120,7 @@
     "@o3r/style-dictionary": "workspace:^",
     "@o3r/test-helpers": "workspace:^",
     "@o3r/testing": "workspace:^",
-    "@playwright/test": "~1.51.0",
+    "@playwright/test": "~1.54.0",
     "@schematics/angular": "~19.2.0",
     "@stylistic/eslint-plugin": "~3.1.0",
     "@types/bootstrap": "^5.2.10",
