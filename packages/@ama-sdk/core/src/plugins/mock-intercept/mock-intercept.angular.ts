@@ -7,6 +7,9 @@ import {
   mergeMap,
 } from 'rxjs';
 import type {
+  RequestPlugin,
+} from '../core';
+import type {
   AngularCall,
   AngularPlugin,
   AngularPluginContext,
@@ -30,15 +33,27 @@ import {
 export class MockInterceptAngular implements AngularPlugin {
   constructor(protected options: MockInterceptFetchParameters) {}
 
-  public load(context: AngularPluginContext): PluginObservableRunner<HttpResponse<any>, AngularCall> {
-    if (!context.apiClient.options.requestPlugins.some((plugin) => plugin instanceof MockInterceptRequest)) {
+  private readonly checkMockInterceptAngularPlugin = (requestPlugins: RequestPlugin[]) => {
+    if (!requestPlugins.some((plugin) => plugin instanceof MockInterceptRequest)) {
       throw new Error('MockInterceptAngular plugin should be used only with the MockInterceptRequest plugin');
+    }
+  };
+
+  public load(context: AngularPluginContext): PluginObservableRunner<HttpResponse<any>, AngularCall> {
+    const requestPlugins = typeof context.apiClient.options.requestPlugins === 'function'
+      ? context.apiClient.options.requestPlugins(context.requestOptions)
+      : context.apiClient.options.requestPlugins;
+    if (Array.isArray(requestPlugins)) {
+      this.checkMockInterceptAngularPlugin(requestPlugins);
     }
 
     return {
       transform: (call: AngularCall) => {
         return from((
           async () => {
+            if (!Array.isArray(requestPlugins)) {
+              this.checkMockInterceptAngularPlugin(await requestPlugins);
+            }
             await this.options.adapter.initialize();
 
             let originalCall = call;
