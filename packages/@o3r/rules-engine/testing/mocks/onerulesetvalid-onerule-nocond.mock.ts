@@ -33,7 +33,7 @@ export const jsonOneRulesetValidOneRuleNoCond: { ruleSets: Ruleset[] } = {
       id: 'e5th46e84-5e4th-54eth65seth46se8th2',
       name: 'the second ruleset',
       validityRange: {
-        to: '2025-07-23T18:25:43.511Z'
+        to: '2125-07-23T18:25:43.511Z'
       },
       linkedComponents: {
         or: [{
