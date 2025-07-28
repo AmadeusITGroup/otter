@@ -5,9 +5,6 @@
  */
 const o3rEnvironment = globalThis.o3rEnvironment;
 
-import {
-  execSync,
-} from 'node:child_process';
 import * as path from 'node:path';
 import {
   addImportToAppModule,
@@ -17,9 +14,7 @@ import {
   packageManagerInstall,
   packageManagerRunOnProject,
 } from '@o3r/test-helpers';
-import getPidFromPort from 'pid-from-port';
 
-const devServerPort = 4200;
 describe('new otter application', () => {
   test('should build empty app', async () => {
     const { applicationPath, workspacePath, appName, isInWorkspace, o3rVersion, untouchedProjectsPaths } = o3rEnvironment.testEnvironment;
@@ -104,7 +99,7 @@ describe('new otter application', () => {
     const diff = getGitDiff(execAppOptions.cwd);
 
     untouchedProjectsPaths.forEach((untouchedProject) => {
-      expect(diff.all.some((file) => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
+      expect(diff.all.some((file) => file.startsWith(path.relative(workspacePath, untouchedProject).replace(/\\+/g, '/')))).toBe(false);
     });
 
     // Expect created files inside `test-app` project
@@ -118,14 +113,5 @@ describe('new otter application', () => {
     expect(diff.modified).toContainEqual(expect.stringMatching(new RegExp(path.posix.join(relativeApplicationPath, 'src/app/app.routes.ts').replace(/[/\\]+/g, '[\\\\/]'))));
 
     expect(() => packageManagerRunOnProject(appName, isInWorkspace, { script: 'build' }, execAppOptions)).not.toThrow();
-  });
-
-  afterAll(async () => {
-    try {
-      const pid = await getPidFromPort(devServerPort);
-      execSync(process.platform === 'win32' ? `taskkill /f /t /pid ${pid}` : `kill -15 ${pid}`, { stdio: 'inherit' });
-    } catch {
-      // http-server already off
-    }
   });
 });

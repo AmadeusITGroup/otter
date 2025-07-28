@@ -40,7 +40,7 @@ describe('ng add analytics', () => {
     ].sort());
 
     [libraryPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
-      expect(diff.all.some((file) => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
+      expect(diff.all.some((file) => file.startsWith(path.relative(workspacePath, untouchedProject).replace(/\\+/g, '/')))).toBe(false);
     });
     expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
     expect(() => packageManagerRunOnProject(appName, isInWorkspace, { script: 'build' }, execAppOptions)).not.toThrow();
@@ -68,7 +68,7 @@ describe('ng add analytics', () => {
     ].sort());
 
     [applicationPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
-      expect(diff.all.some((file) => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
+      expect(diff.all.some((file) => file.startsWith(path.relative(workspacePath, untouchedProject).replace(/\\+/g, '/')))).toBe(false);
     });
     expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
     expect(() => packageManagerRunOnProject(libName, isInWorkspace, { script: 'build' }, execAppOptions)).not.toThrow();

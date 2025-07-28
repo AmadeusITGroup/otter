@@ -14,7 +14,7 @@
   },
   "include": [
     "src/extension/**/*.ts",
-    "src/shared/**/*.ts",
+    "src/shared/**/*.ts"
   ],
   "exclude": [
     "**/*.spec.ts"

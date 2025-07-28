@@ -14,6 +14,11 @@ import {
   Tree,
   url,
 } from '@angular-devkit/schematics';
+import {
+  getTemplateFolder,
+  getWorkspaceConfig,
+  writeAngularJson,
+} from '@o3r/schematics';
 
 /**
  * Added styling support
@@ -22,8 +27,7 @@ import {
  * @param options.projectName
  */
 export function updateThemeFiles(rootPath: string, options: { projectName?: string | null | undefined }): Rule {
-  return async (tree: Tree, context: SchematicContext) => {
-    const { getTemplateFolder, getWorkspaceConfig } = await import('@o3r/schematics');
+  return (tree: Tree, context: SchematicContext) => {
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
     if (!workspaceProject || workspaceProject.projectType === 'library') {
       return noop;
@@ -79,8 +83,7 @@ type Asset = { glob: string; input: string; output: string };
  * @param options.projectName
  */
 export function removeV7OtterAssetsInAngularJson(options: { projectName?: string | null | undefined }): Rule {
-  return async (tree: Tree, context: SchematicContext) => {
-    const { writeAngularJson, getWorkspaceConfig } = await import('@o3r/schematics');
+  return (tree: Tree, context: SchematicContext) => {
     const workspace = getWorkspaceConfig(tree);
     const projectName = options.projectName;
     const workspaceProject = options.projectName ? workspace?.projects[options.projectName] : undefined;

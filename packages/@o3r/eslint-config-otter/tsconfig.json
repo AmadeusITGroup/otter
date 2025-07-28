@@ -1,9 +1,15 @@
-/* For IDE usage only */
+/* For IDE and EsLint usage */
 {
   "extends": "../../../tsconfig.base",
   "references": [
     {
       "path": "./tsconfig.builders.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    },
+    {
+      "path": "./tsconfig.eslint.json"
     }
   ]
 }

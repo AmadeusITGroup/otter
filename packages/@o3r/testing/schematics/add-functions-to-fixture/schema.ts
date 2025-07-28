@@ -21,6 +21,6 @@ export interface NgAddFunctionsToFixtureSchematicsSchema extends SchematicOption
    */
   selector: string;
 
-  /** Skip the linter process */
+  /** Skip the linter process which includes the run of EsLint and EditorConfig rules */
   skipLinter: boolean;
 }

@@ -27,7 +27,7 @@ export interface NgGenerateStoreBaseSchematicsSchema extends SchematicOptionObje
   /** Store name */
   storeType: 'entity-async' | 'simple-async' | 'entity-sync' | 'simple-sync';
 
-  /** Skip the linter process */
+  /** Skip the linter process which includes the run of EsLint and EditorConfig rules */
   skipLinter: boolean;
 }
 

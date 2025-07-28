@@ -1,6 +1,7 @@
 {
   "extends": "../../../tsconfig.build",
   "compilerOptions": {
+    "types": ["node"],
     "incremental": true,
     "composite": true,
     "outDir": "./dist",
@@ -9,7 +10,7 @@
     "tsBuildInfoFile": "build/.tsbuildinfo.builders"
   },
   "include": [
-    "schematics/**/*.ts",
+    "schematics/**/*.ts"
   ],
   "exclude": [
     "**/*.spec.ts",

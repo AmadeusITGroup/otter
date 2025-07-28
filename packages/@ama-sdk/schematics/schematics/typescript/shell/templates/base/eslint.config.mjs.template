@@ -23,11 +23,7 @@ export default [
       sourceType: 'commonjs',
       parserOptions: {
         tsconfigRootDir: __dirname,
-        project: [
-          'testing/tsconfig.spec.json',
-          'tsconfigs/tsconfig.jest.json',
-          'tsconfigs/tsconfig.source.json'
-        ]
+        projectService: true
       },
       ecmaVersion: 12
     }

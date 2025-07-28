@@ -60,6 +60,7 @@ describe('update eslint config', () => {
     expect(tree.exists('eslint.shared.config.mjs')).toBeTruthy();
     expect(tree.exists('tsconfig.eslint.json')).toBeTruthy();
     expect(tree.readJson('angular.json')).toEqual(angularJsonContent);
+    expect(tree.readText('eslint.config.mjs')).toContain(`@o3r/eslint-config/helpers`);
     expect(tree.readText('eslint.local.config.mjs')).toContain(`${monorepoPkgName}/projects`);
     expect(tree.readText('eslint.shared.config.mjs')).toContain(`${monorepoPkgName}/report-unused-disable-directives`);
     expect(tree.readText('eslint.shared.config.mjs')).toContain(`${monorepoPkgName}/eslint-config`);
@@ -82,7 +83,6 @@ describe('update eslint config', () => {
     expect(tree.exists(`${libRoot}/tsconfig.eslint.json`)).toBeFalsy();
     expect(tree.readText(`${appRoot}/eslint.config.mjs`)).toContain('import shared from \'../../eslint.shared.config.mjs\'');
     expect(tree.readText(`${appRoot}/eslint.local.config.mjs`)).toContain(`${pckName}/projects`);
-    expect(tree.readText(`${appRoot}/eslint.local.config.mjs`)).toContain(`${pckName}/ignores`);
     expect(tree.readText(`${appRoot}/eslint.local.config.mjs`)).toContain('...globals.browser');
     expect(tree.readJson('angular.json')).toEqual({
       ...angularJsonContent,
@@ -117,7 +117,6 @@ describe('update eslint config', () => {
     expect(tree.exists(`${appRoot}/tsconfig.eslint.json`)).toBeFalsy();
     expect(tree.readText(`${libRoot}/eslint.config.mjs`)).toContain('import shared from \'../../eslint.shared.config.mjs\'');
     expect(tree.readText(`${libRoot}/eslint.local.config.mjs`)).toContain(`${pckName}/projects`);
-    expect(tree.readText(`${libRoot}/eslint.local.config.mjs`)).toContain(`${pckName}/ignores`);
     expect(tree.readText(`${libRoot}/eslint.local.config.mjs`)).not.toContain('...globals.browser');
     expect(tree.readJson('angular.json')).toEqual({
       ...angularJsonContent,

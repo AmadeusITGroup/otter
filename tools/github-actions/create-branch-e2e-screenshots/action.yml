@@ -21,14 +21,14 @@ runs:
   steps:
     - name: Create branch
       id: auto-commit-action
-      uses: stefanzweifel/git-auto-commit-action@e348103e9026cc0eee72ae06630dbe30c8bf7a79 # v5.1.0
+      uses: stefanzweifel/git-auto-commit-action@b863ae1933cb653a53c021fe36dbb774e1fb9403 # v5.2.0
       with:
         commit_message: ${{ inputs.commitMessage }}
         branch: ${{ inputs.branchName }}
         file_pattern: ${{ inputs.screenshotsPattern }}
         create_branch: true
     - name: Comment the PR
-      if: ${{ steps.auto-commit-action.outputs.changes_detected }}
+      if: ${{ steps.auto-commit-action.outputs.changes_detected == 'true' }}
       env:
         BRANCH_NAME: ${{ inputs.branchName }}
         BRANCH_URL: https://github.com/${{ github.repository }}/tree/${{ inputs.branchName }}

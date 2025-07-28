@@ -4,6 +4,16 @@ import {
   noop,
   Rule,
 } from '@angular-devkit/schematics';
+import {
+  applyEsLintFix,
+  createOtterSchematic,
+  getExternalDependenciesInfo,
+  getO3rPeerDeps,
+  getPackageInstallConfig,
+  getProjectNewDependenciesTypes,
+  getWorkspaceConfig,
+  setupDependencies,
+} from '@o3r/schematics';
 import type {
   PackageJson,
 } from 'type-fest';
@@ -27,29 +37,13 @@ const dependenciesToInstall = [
 const devDependenciesToInstall: string[] = [
 ];
 
-const reportMissingSchematicsDep = (logger: { error: (message: string) => any }) => (reason: any) => {
-  logger.error(`[ERROR]: Adding store-sync has failed.
-If the error is related to missing @o3r dependencies you need to install '@o3r/core' to be able to use the store-sync package. Please run 'ng add @o3r/core' .
-Otherwise, use the error message as guidance.`);
-  throw reason;
-};
-
 /**
  * Add Otter store-sync to an Otter Project
  * @param options
  */
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
-  return async (tree, context) => {
+  return (tree, context) => {
     // use dynamic import to properly raise an exception if it is not an Otter project.
-    const {
-      getPackageInstallConfig,
-      applyEsLintFix,
-      setupDependencies,
-      getO3rPeerDeps,
-      getProjectNewDependenciesTypes,
-      getWorkspaceConfig,
-      getExternalDependenciesInfo
-    } = await import('@o3r/schematics');
 
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
@@ -98,9 +92,4 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
  * Add Otter store-sync to an Otter Project
  * @param options
  */
-export const ngAdd = (options: NgAddSchematicsSchema): Rule => async (_, { logger }) => {
-  const {
-    createOtterSchematic
-  } = await import('@o3r/schematics').catch(reportMissingSchematicsDep(logger));
-  return createOtterSchematic(ngAddFn)(options);
-};
+export const ngAdd = (options: NgAddSchematicsSchema) => createOtterSchematic(ngAddFn)(options);

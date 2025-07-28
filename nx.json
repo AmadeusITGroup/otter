@@ -107,6 +107,7 @@
     ],
     "lint": [
       "base",
+      "{projectRoot}/tsconfig*.json",
       "{projectRoot}/eslint*.config.mjs",
       "{projectRoot}/**/package.json",
       "{projectRoot}/**/*.html",
@@ -128,18 +129,19 @@
       "{projectRoot}/testing/**/*",
       "!{projectRoot}/testing/jest.config.it.js",
       "{projectRoot}/mocks/**/*",
-      "{workspaceRoot}/jest.config.ut.js",
+      "{workspaceRoot}/packages/@o3r/test-helpers/src/jest-config/*.ts",
+      "!{workspaceRoot}/packages/@o3r/test-helpers/src/jest-config/integration-test.ts",
       "{workspaceRoot}/codecov.yml"
     ],
     "integration-test": [
       "base",
       "{projectRoot}/testing/jest.config.it.js",
       "{projectRoot}/**/*.it.spec.ts",
-      "{workspaceRoot}/jest.config.it.js",
       "{workspaceRoot}/packages/*/create/src/*.ts",
       "!{workspaceRoot}/packages/*/create/src/*.spec.ts",
       "{workspaceRoot}/packages/@o3r/test-helpers/src/**/*.ts",
       "!{workspaceRoot}/packages/@o3r/test-helpers/src/**/*.spec.ts",
+      "!{workspaceRoot}/packages/@o3r/test-helpers/src/jest-config/unit-test.ts",
       "{workspaceRoot}/codecov.yml"
     ],
     "plugins": [
@@ -161,11 +163,11 @@
     "lint": {
       "options": {
         "cwd": "{projectRoot}",
-        "command": "yarn eslint \"**/*.{m,c,}{j,t}s\" \"**/*.json\""
+        "command": "git ls-files \":(glob)**/*\" | yarn eslint"
       },
       "configurations": {
         "ci": {
-          "command": "yarn eslint \"**/*.{m,c,}{j,t}s\" \"**/*.json\" --quiet --cache --cache-location .cache/eslint"
+          "command": "git ls-files \":(glob)**/*\" | yarn eslint --quiet --cache --cache-location .cache/eslint"
         }
       },
       "executor": "nx:run-commands",
@@ -488,7 +490,7 @@
     "prepare": {
       "executor": "nx:run-script",
       "inputs": [
-        "base"
+        "project"
       ],
       "outputs": [
         "{projectRoot}/src/package.json"

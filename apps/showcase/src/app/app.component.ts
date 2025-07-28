@@ -56,7 +56,8 @@ export class AppComponent {
         { url: '/dynamic-content', label: 'Dynamic content' },
         { url: '/component-replacement', label: 'Component replacement' },
         { url: '/rules-engine', label: 'Rules engine' },
-        { url: '/placeholder', label: 'Placeholder' }
+        { url: '/placeholder', label: 'Placeholder' },
+        { url: '/forms', label: 'Forms' }
       ]
     },
     {

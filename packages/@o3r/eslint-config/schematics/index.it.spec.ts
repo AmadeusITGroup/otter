@@ -36,7 +36,7 @@ describe('new otter application with eslint config', () => {
     expect(diff.modified).toContain('angular.json');
 
     untouchedProjectsPaths.forEach((untouchedProject) => {
-      expect(diff.all.some((file) => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
+      expect(diff.all.some((file) => file.startsWith(path.relative(workspacePath, untouchedProject).replace(/\\+/g, '/')))).toBe(false);
     });
     // re-enable after https://github.com/AmadeusITGroup/otter/issues/3226
     // expect(() => packageManagerExec({ script: 'ng', args: ['lint', appName, '--fix'] }, execAppOptions)).not.toThrow();
@@ -62,7 +62,7 @@ describe('new otter application with eslint config', () => {
     expect(diff.modified).toContain('angular.json');
 
     untouchedProjectsPaths.forEach((untouchedProject) => {
-      expect(diff.all.some((file) => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
+      expect(diff.all.some((file) => file.startsWith(path.relative(workspacePath, untouchedProject).replace(/\\+/g, '/')))).toBe(false);
     });
     // re-enable after https://github.com/AmadeusITGroup/otter/issues/3226
     // expect(() => packageManagerExec({ script: 'ng', args: ['lint', libName, '--fix'] }, execAppOptions)).not.toThrow();
@@ -84,7 +84,7 @@ describe('new otter application with eslint config', () => {
     expect(diff.added).toContain('eslint.config.mjs');
 
     untouchedProjectsPaths.forEach((untouchedProject) => {
-      expect(diff.all.some((file) => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
+      expect(diff.all.some((file) => file.startsWith(path.relative(workspacePath, untouchedProject).replace(/\\+/g, '/')))).toBe(false);
     });
   });
 });
