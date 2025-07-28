@@ -19,7 +19,7 @@ import {
   setupDependencies,
   setupSchematicsParamsForProject,
 } from '@o3r/schematics';
-import {
+import type {
   PackageJson,
 } from 'type-fest';
 import {
