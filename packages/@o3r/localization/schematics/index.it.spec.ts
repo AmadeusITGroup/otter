@@ -28,6 +28,14 @@ describe('ng add otter localization', () => {
     await addImportToAppModule(applicationPath, 'TestComponentModule', 'src/components/test-component');
 
     const diff = getGitDiff(workspacePath);
+    diff.modified.forEach((p, i) => {
+      // eslint-disable-next-line no-console -- debugging purposes
+      console.log(`  ${i + 1}. ${p}`);
+    });
+    diff.added.forEach((p, i) => {
+      // eslint-disable-next-line no-console -- debugging purposes
+      console.log(`  ${i + 1}. ${p}`);
+    });
     expect(diff.modified.length).toBe(9);
     expect(diff.added.length).toBe(15);
     expect(diff.added).toContain(path.join(relativeApplicationPath, 'src/components/test-component/test-component.localization.json').replace(/[/\\]+/g, '/'));
