@@ -15,7 +15,7 @@ import {
   setupDependencies,
   updateImports,
 } from '@o3r/schematics';
-import {
+import type {
   PackageJson,
 } from 'type-fest';
 import {

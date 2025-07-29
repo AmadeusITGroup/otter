@@ -40,11 +40,6 @@ jest.mock('../utils', () => ({
   isEmbedded: jest.fn()
 }));
 
-jest.mock('../utils', () => ({
-  ...jest.requireActual('../utils'),
-  isEmbedded: jest.fn()
-}));
-
 jest.mock('../history/history.providers', () => ({
   provideDisableHistoryWrites: jest.fn()
 }));

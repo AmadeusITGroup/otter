@@ -6,12 +6,14 @@ import type {
 /**
  * Message received by the Figma UI.
  */
-interface PluginMessage {
+interface PluginMessage<T = string, D> {
   /** The type of the message. */
-  type: string;
+  type: T;
   /** The data payload of the message. */
-  data: any;
+  data: D;
 }
+
+type PluginPaletteMessage = PluginMessage<'store-vars', PaletteData>;
 
 /**
  * Template object for PaletteData with all keys set to undefined.
@@ -23,6 +25,7 @@ const paletteTemplate: Record<keyof PaletteData, undefined> = {
   paletteName: undefined,
   modeId: undefined
 };
+
 /**
  * Array of keys for the PaletteData type.
  */
@@ -36,6 +39,13 @@ const paletteDataKeys = Object.keys(paletteTemplate) as (keyof PaletteData)[];
 function validateObject<T>(obj: any, keys: (keyof T)[]): obj is T {
   return obj && typeof obj === 'object' && keys.every((key) => key in obj);
 }
+
+/**
+ * Infer that the message is a Plugin palette message
+ * @param msg
+ */
+const isPluginPaletteMessage = (msg: PluginMessage): msg is PluginPaletteMessage => msg.type === 'store-vars'
+  && validateObject(msg.data, paletteDataKeys);
 
 /**
  * Initializes the plugin by fetching collections and color variables,
@@ -61,8 +71,8 @@ async function initialize() {
 // eslint-disable-next-line unicorn/prefer-add-event-listener -- Figma API
 figma.ui.onmessage = async (msg: PluginMessage) => {
   const colorVars: { key: string; value: string }[] = [];
-  const pData = msg.data;
-  if (msg.type === 'store-vars' && validateObject(pData, paletteDataKeys)) {
+  if (isPluginPaletteMessage(msg)) {
+    const pData = msg.data;
     const excludedKeys = new Set(pData.filter.split(','));
     // shades input comes as line-separated values, even lines represent the palette names (0, 0.5 etc) and odd ones the colors in hex format
     const shadesInput = pData.shadesInput.split('\n');

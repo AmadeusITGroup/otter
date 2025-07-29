@@ -17,8 +17,8 @@ import {
   setupDependencies,
   setupSchematicsParamsForProject,
 } from '@o3r/schematics';
-import {
-  type PackageJson,
+import type {
+  PackageJson,
 } from 'type-fest';
 import {
   updateCmsAdapter,
