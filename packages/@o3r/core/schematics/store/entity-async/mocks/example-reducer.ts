@@ -2,7 +2,7 @@ export const asyncEntityReducerContent = `import {ActionCreator, createReducer, 
 import {createEntityAdapter} from '@ngrx/entity';
 import {asyncStoreItemAdapter, createEntityAsyncRequestAdapter} from '@o3r/core';
 import * as actions from './example.actions';
-import {ExampleState, ExampleStateDetails, ExampleModel} from './example.state';
+import {ExampleState, ExampleModel} from './example.state';
 
 /**
  * Example Store adapter
@@ -14,7 +14,7 @@ export const exampleAdapter = createEntityAsyncRequestAdapter(createEntityAdapte
 /**
  * Example Store initial value
  */
-export const exampleInitialState: ExampleState = exampleAdapter.getInitialState<ExampleStateDetails>({
+export const exampleInitialState = exampleAdapter.getInitialState<ExampleState>({
   requestIds: []
 });
 

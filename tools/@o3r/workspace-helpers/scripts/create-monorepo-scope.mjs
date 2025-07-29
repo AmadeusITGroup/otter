@@ -79,9 +79,12 @@ const updateRenovateGroup = async (scopeName) => {
  * @param {string} scopeName
  */
 const updatePackageJson = async (scopeName) => {
-  const packageJson = JSON.parse(await readFile(resolve(root, 'package.json'), { encoding: 'utf8' }));
+  const packageJsonPath = resolve(root, 'package.json');
+  const packageJson = JSON.parse(await readFile(packageJsonPath, { encoding: 'utf8' }));
   packageJson.workspaces.push(`packages/@${scopeName}/*`);
   packageJson.scripts['verdaccio:publish'] += ` --@${scopeName}:registry=http://127.0.0.1:4873`;
+  packageJson.scripts['verdaccio:clean'] = packageJson.scripts['verdaccio:clean'].replace(/\}/g, `,${scopeName}}`);
+  await writeFile(packageJsonPath, JSON.stringify(packageJson, null, 2) + '\n');
 };
 
 (() => {

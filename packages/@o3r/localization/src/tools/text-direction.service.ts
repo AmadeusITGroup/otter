@@ -2,7 +2,7 @@ import {
   Directionality,
 } from '@angular/cdk/bidi';
 import {
-  Inject,
+  inject,
   Injectable,
   Renderer2,
   RendererFactory2,
@@ -26,14 +26,15 @@ import {
  */
 @Injectable()
 export class TextDirectionService {
+  private readonly translateService = inject(TranslateService);
+  private readonly configuration = inject<LocalizationConfiguration>(LOCALIZATION_CONFIGURATION_TOKEN);
+  private readonly rendererFactory = inject(RendererFactory2);
+  private readonly directionality = inject(Directionality);
+
   private subscription?: Subscription;
   private readonly renderer: Renderer2;
 
-  constructor(
-    private readonly translateService: TranslateService,
-    @Inject(LOCALIZATION_CONFIGURATION_TOKEN) private readonly configuration: LocalizationConfiguration,
-    private readonly rendererFactory: RendererFactory2,
-    private readonly directionality: Directionality) {
+  constructor() {
     this.renderer = this.rendererFactory.createRenderer(null, null);
   }
 

@@ -6,7 +6,8 @@
     "outDir": "./dist",
     "module": "CommonJS",
     "rootDir": ".",
-    "tsBuildInfoFile": "build/.tsbuildinfo.builders"
+    "tsBuildInfoFile": "build/.tsbuildinfo.builders",
+    "moduleResolution": "node"
   },
   "include": [
     "builders/**/*.ts",

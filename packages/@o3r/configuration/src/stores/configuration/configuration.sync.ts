@@ -11,7 +11,6 @@ export const configurationStorageSync = {
     if (!rawObject || !rawObject.ids) {
       return configurationInitialState;
     }
-    const storeObject = configurationAdapter.getInitialState<ConfigurationState>(rawObject);
-    return storeObject as ConfigurationState;
+    return configurationAdapter.getInitialState<ConfigurationState>(rawObject);
   }
 };
