@@ -129,7 +129,7 @@
   "resolutions": {
     "@sinonjs/fake-timers": "^14.0.0",
     "@types/node": "^20.19.0 || ^22.12.0 || ^24.0.0",
-    "koa": "~2.16.0",
+    "koa": "~3.0.0",
     "rxjs": "^7.8.1",
     "form-data": "^4.0.4",
     "typescript-json-schema/typescript": "~5.8.2"
