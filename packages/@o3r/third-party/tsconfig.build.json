@@ -5,8 +5,7 @@
     "types": [
       "node"
     ],
-    "rootDir": "src",
-    "moduleResolution": "bundler"
+    "rootDir": "src"
   },
   "include": [
     "src/**/*.ts"
