@@ -21,7 +21,7 @@ import {
 import {
   addRootImport,
 } from '@schematics/angular/utility';
-import {
+import type {
   PackageJson,
 } from 'type-fest';
 import {

@@ -111,7 +111,7 @@ const addHarmonizeScript = (): Rule => {
       return tree;
     }
     const postInstall = rootPackageJsonObject.scripts.postinstall;
-    rootPackageJsonObject.scripts.harmonize = `eslint '**/package.json' ${isYarnPackageManager ? '.yarnrc.yml ' : ''}--quiet --fix --no-error-on-unmatched-pattern`;
+    rootPackageJsonObject.scripts.harmonize = `eslint "**/package.json" ${isYarnPackageManager ? '.yarnrc.yml ' : ''}--quiet --fix --no-error-on-unmatched-pattern`;
     rootPackageJsonObject.scripts.postinstall = `${postInstall ? postInstall + ' && ' : ''}${extraPostInstall}`;
     tree.overwrite(rootPackageJsonPath, JSON.stringify(rootPackageJsonObject, null, 2));
     return tree;

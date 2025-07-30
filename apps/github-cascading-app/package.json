@@ -45,11 +45,11 @@
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",
     "@types/semver": "^7.3.13",
-    "@typescript-eslint/parser": "~8.35.0",
+    "@typescript-eslint/parser": "~8.37.0",
     "angular-eslint": "~20.1.0",
     "cpy-cli": "^5.0.0",
     "ejs": "^3.1.9",
-    "eslint": "~9.30.0",
+    "eslint": "~9.31.0",
     "eslint-import-resolver-node": "~0.3.9",
     "eslint-import-resolver-typescript": "~3.10.0",
     "eslint-plugin-import": "~2.32.0",
@@ -71,7 +71,7 @@
     "ts-jest": "~29.3.0",
     "tslib": "^2.6.2",
     "typescript": "~5.8.2",
-    "typescript-eslint": "~8.35.0",
+    "typescript-eslint": "~8.37.0",
     "zone.js": "~0.15.0"
   },
   "engines": {

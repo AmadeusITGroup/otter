@@ -56,7 +56,6 @@ const devDependenciesToInstall = [
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
   return async (tree, context) => {
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
-
     options = { ...getDefaultOptionsForSchematic(getWorkspaceConfig(tree), '@o3r/styling', 'ng-add', options), ...options };
     const { updateThemeFiles, removeV7OtterAssetsInAngularJson } = await import('./theme-files');
     const depsInfo = getO3rPeerDeps(packageJsonPath);
