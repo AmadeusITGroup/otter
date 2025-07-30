@@ -10,7 +10,6 @@
     ],
     "rootDir": "./src",
     "inlineSources": true,
-    "target": "ES5",
     "module": "CommonJS",
   },
   "include": [
