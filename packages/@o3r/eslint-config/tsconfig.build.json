@@ -4,6 +4,7 @@
     "incremental": true,
     "composite": true,
     "module": "CommonJS",
+    "moduleResolution": "node",
     "allowJs": true,
     "esModuleInterop": true
   },

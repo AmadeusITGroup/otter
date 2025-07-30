@@ -7,8 +7,7 @@
     ],
     "skipLibCheck": true, // Due to Jasmine / Jest fixture compilation conflicting on types
     "outDir": "./dist",
-    "rootDir": "src",
-    "moduleResolution": "bundler"
+    "rootDir": "src"
   },
   "include": [
     "src/**/*.ts"
