@@ -9,7 +9,7 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - run: zip -q -r ${{ inputs.artifactName }}.zip . -i "apps/*/dist/*" "packages/*/dist/*" -x "*/node_modules/*" ".cache/*"
+    - run: zip -q -r ${{ inputs.artifactName }}.zip . -i "apps/*/dist/*" "packages/*/dist/*" "tools/*/dist/*" -x "*/node_modules/*" ".cache/*"
       shell: bash
     - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
       with:
