@@ -6226,6 +6226,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@modelcontextprotocol/sdk@npm:~1.17.0":
+  version: 1.17.0
+  resolution: "@modelcontextprotocol/sdk@npm:1.17.0"
+  dependencies:
+    ajv: "npm:^6.12.6"
+    content-type: "npm:^1.0.5"
+    cors: "npm:^2.8.5"
+    cross-spawn: "npm:^7.0.5"
+    eventsource: "npm:^3.0.2"
+    eventsource-parser: "npm:^3.0.0"
+    express: "npm:^5.0.1"
+    express-rate-limit: "npm:^7.5.0"
+    pkce-challenge: "npm:^5.0.0"
+    raw-body: "npm:^3.0.0"
+    zod: "npm:^3.23.8"
+    zod-to-json-schema: "npm:^3.24.1"
+  checksum: 10/e939915c4b68938cc356adc14aeca9da05b0a2c120ae607c2ae45261457c515932c997dc762d85236cf043babac1158aa7cf04418eb050548b2f1dd34ed7f43b
+  languageName: node
+  linkType: hard
+
 "@modern-js/node-bundle-require@npm:2.65.1":
   version: 2.65.1
   resolution: "@modern-js/node-bundle-require@npm:2.65.1"
@@ -10306,6 +10326,63 @@ __metadata:
       optional: true
     type-fest:
       optional: true
+  languageName: unknown
+  linkType: soft
+
+"@o3r/mcp@workspace:tools/@o3r/mcp":
+  version: 0.0.0-use.local
+  resolution: "@o3r/mcp@workspace:tools/@o3r/mcp"
+  dependencies:
+    "@angular/common": "npm:~19.2.0"
+    "@angular/compiler": "npm:~19.2.0"
+    "@angular/compiler-cli": "npm:~19.2.0"
+    "@angular/core": "npm:~19.2.0"
+    "@angular/platform-browser": "npm:~19.2.0"
+    "@angular/platform-browser-dynamic": "npm:~19.2.0"
+    "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
+    "@modelcontextprotocol/sdk": "npm:~1.17.0"
+    "@nx/eslint": "npm:~20.8.0"
+    "@nx/eslint-plugin": "npm:~20.8.0"
+    "@nx/jest": "npm:~20.8.0"
+    "@nx/js": "npm:~20.8.0"
+    "@o3r/build-helpers": "workspace:^"
+    "@o3r/eslint-config": "workspace:^"
+    "@o3r/eslint-plugin": "workspace:^"
+    "@o3r/test-helpers": "workspace:^"
+    "@stylistic/eslint-plugin": "npm:~3.1.0"
+    "@types/jest": "npm:~29.5.2"
+    "@types/node": "npm:^20.0.0"
+    "@typescript-eslint/parser": "npm:~8.37.0"
+    angular-eslint: "npm:~19.4.0"
+    cpy-cli: "npm:^5.0.0"
+    eslint: "npm:~9.31.0"
+    eslint-import-resolver-node: "npm:~0.3.9"
+    eslint-import-resolver-typescript: "npm:~3.10.0"
+    eslint-plugin-import: "npm:~2.32.0"
+    eslint-plugin-import-newlines: "npm:~1.4.0"
+    eslint-plugin-jest: "npm:~28.14.0"
+    eslint-plugin-jsdoc: "npm:~50.8.0"
+    eslint-plugin-prefer-arrow: "npm:~1.2.3"
+    eslint-plugin-unicorn: "npm:~56.0.0"
+    eslint-plugin-unused-imports: "npm:~4.1.4"
+    globals: "npm:^15.9.0"
+    jest: "npm:~29.7.0"
+    jest-environment-jsdom: "npm:~29.7.0"
+    jest-junit: "npm:~16.0.0"
+    jest-preset-angular: "npm:~14.5.0"
+    jsonc-eslint-parser: "npm:~2.4.0"
+    nx: "npm:~20.8.0"
+    rxjs: "npm:^7.8.1"
+    ts-jest: "npm:~29.3.0"
+    ts-node: "npm:~10.9.2"
+    tslib: "npm:^2.6.2"
+    type-fest: "npm:^4.30.1"
+    typescript: "npm:~5.8.2"
+    typescript-eslint: "npm:~8.37.0"
+    zod: "npm:~3.25.76"
+    zone.js: "npm:~0.15.0"
+  bin:
+    o3r-mcp-start: ./dist/cli/index.js
   languageName: unknown
   linkType: soft
 
@@ -20505,7 +20582,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cors@npm:latest":
+"cors@npm:^2.8.5, cors@npm:latest":
   version: 2.8.5
   resolution: "cors@npm:2.8.5"
   dependencies:
@@ -20685,7 +20762,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cross-spawn@npm:^7.0.0, cross-spawn@npm:^7.0.3, cross-spawn@npm:^7.0.6":
+"cross-spawn@npm:^7.0.0, cross-spawn@npm:^7.0.3, cross-spawn@npm:^7.0.5, cross-spawn@npm:^7.0.6":
   version: 7.0.6
   resolution: "cross-spawn@npm:7.0.6"
   dependencies:
@@ -23249,10 +23326,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"eventsource-parser@npm:^3.0.0, eventsource-parser@npm:^3.0.1":
+  version: 3.0.3
+  resolution: "eventsource-parser@npm:3.0.3"
+  checksum: 10/b8f8e79333441ad0eb9299e3fa693ab506892ffc53f0cc1d23134090351cf2d71c8e405a2e879f6acfbd2e17f41d5a00dafba05ff25c82141fc07078ad992187
+  languageName: node
+  linkType: hard
+
 "eventsource@npm:^2.0.2":
   version: 2.0.2
   resolution: "eventsource@npm:2.0.2"
   checksum: 10/e1c4c3664cebf9efdd55c90818ef847099f298bf521768d479cf22d8a681e666b3042de85327711ba6a8414ac6a04c70d2aeb4f405bba8239a8c36e06a019374
+  languageName: node
+  linkType: hard
+
+"eventsource@npm:^3.0.2":
+  version: 3.0.7
+  resolution: "eventsource@npm:3.0.7"
+  dependencies:
+    eventsource-parser: "npm:^3.0.1"
+  checksum: 10/e034915bc97068d1d38617951afd798e6776d6a3a78e36a7569c235b177c7afc2625c9fe82656f7341ab72c7eeecb3fd507b7f88e9328f2448872ff9c4742bb6
   languageName: node
   linkType: hard
 
@@ -23365,6 +23458,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"express-rate-limit@npm:^7.5.0":
+  version: 7.5.1
+  resolution: "express-rate-limit@npm:7.5.1"
+  peerDependencies:
+    express: ">= 4.11"
+  checksum: 10/357c3398450144ab7bbce2841d0bf4f93a0f3fd9d1d5ed9a0ee331b557af969cc790941dc37b47f8d9b5672964aa0e31666f770e1f48b334dc7d1e69f6433040
+  languageName: node
+  linkType: hard
+
 "express@npm:^4.21.2":
   version: 4.21.2
   resolution: "express@npm:4.21.2"
@@ -23404,7 +23506,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"express@npm:^5.0.0":
+"express@npm:^5.0.0, express@npm:^5.0.1":
   version: 5.1.0
   resolution: "express@npm:5.1.0"
   dependencies:
@@ -31830,6 +31932,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"pkce-challenge@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "pkce-challenge@npm:5.0.0"
+  checksum: 10/e60c06a0e0481cb82f80072053d5c479a7490758541c4226460450285dd5d72a995c44b3c553731ca7c2f64cc34b35f1d2e5f9de08d276b59899298f9efe1ddf
+  languageName: node
+  linkType: hard
+
 "pkg-conf@npm:^3.1.0":
   version: 3.1.0
   resolution: "pkg-conf@npm:3.1.0"
@@ -38834,6 +38943,22 @@ __metadata:
     compress-commons: "npm:^6.0.2"
     readable-stream: "npm:^4.0.0"
   checksum: 10/aa5abd6a89590eadeba040afbc375f53337f12637e5e98330012a12d9886cde7a3ccc28bd91aafab50576035bbb1de39a9a316eecf2411c8b9009c9f94f0db27
+  languageName: node
+  linkType: hard
+
+"zod-to-json-schema@npm:^3.24.1":
+  version: 3.24.6
+  resolution: "zod-to-json-schema@npm:3.24.6"
+  peerDependencies:
+    zod: ^3.24.1
+  checksum: 10/a2c30cf1f250aa79a7f975e65b4236d1abafafd63b43c43475057f28ce6e13f4c882391553c656fb426fd09665e6ae293c2439b4ed8600863beda43fb1a56922
+  languageName: node
+  linkType: hard
+
+"zod@npm:^3.23.8, zod@npm:~3.25.76":
+  version: 3.25.76
+  resolution: "zod@npm:3.25.76"
+  checksum: 10/f0c963ec40cd96858451d1690404d603d36507c1fc9682f2dae59ab38b578687d542708a7fdbf645f77926f78c9ed558f57c3d3aa226c285f798df0c4da16995
   languageName: node
   linkType: hard
 
