@@ -4,6 +4,7 @@
     "types": ["node"],
     "target": "ES2022",
     "module": "commonjs",
+    "moduleResolution": "node",
     "outDir": "./tmp",
     "rootDir": "./src",
     "strict": true,

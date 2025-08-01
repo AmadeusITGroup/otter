@@ -3,6 +3,7 @@
   "compilerOptions": {
     "types": ["node"],
     "module": "commonjs",
+    "moduleResolution": "node",
     "outDir": "./tmp",
     "incremental": true,
     "composite": true

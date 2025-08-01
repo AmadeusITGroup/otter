@@ -2,8 +2,7 @@
   "extends": "../../../tsconfig.build",
   "compilerOptions": {
     "outDir": "./dist",
-    "rootDir": "src",
-    "moduleResolution": "bundler"
+    "rootDir": "src"
   },
   "include": [
     "src/**/*.ts"

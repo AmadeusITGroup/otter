@@ -4,7 +4,8 @@
     "allowSyntheticDefaultImports": true,
     "incremental": true,
     "outDir": "../../dist/out-tsc",
-    "module": "commonjs"
+    "module": "commonjs",
+    "moduleResolution": "node"
   },
   "include": [
     "src/**/*.test.ts",

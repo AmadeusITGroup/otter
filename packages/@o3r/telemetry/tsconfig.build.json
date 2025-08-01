@@ -6,6 +6,7 @@
     "incremental": true,
     "outDir": "./dist",
     "module": "CommonJS",
+    "moduleResolution": "node",
     "rootDir": ".",
     "tsBuildInfoFile": "build/.tsbuildinfo",
     "esModuleInterop": true

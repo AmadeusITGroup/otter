@@ -5,6 +5,7 @@
     "incremental": true,
     "composite": true,
     "module": "CommonJS",
+    "moduleResolution": "node",
     "outDir": "./dist",
     "rootDir": ".",
     "tsBuildInfoFile": "build/.tsbuildinfo"
