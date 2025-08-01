@@ -15,7 +15,8 @@
         "{projectRoot}/dist/devtools.html"
       ],
       "options": {
-        "script": "postbuild:patch"
+        "script": "postbuild:patch",
+        "tsConfig": "{projectRoot}/tsconfig.build.json"
       },
       "dependsOn": [
         "^build",
