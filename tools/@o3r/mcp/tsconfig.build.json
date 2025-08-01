@@ -1,0 +1,12 @@
+{
+  "extends": "../../../tsconfig.build",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "src",
+    "module": "commonjs",
+    "types": ["node"],
+    "tsBuildInfoFile": "build/.tsbuildinfo"
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["**/*.spec.ts"]
+}

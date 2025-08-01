@@ -1,0 +1,24 @@
+{
+  "name": "mcp",
+  "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/@o3r/mcp/src",
+  "prefix": "o3r",
+  "targets": {
+    "build": {
+      "executor": "nx:noop",
+      "dependsOn": ["compile"]
+    },
+    "compile": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "compile"
+      },
+      "dependsOn": ["prepare", "^build"]
+    },
+    "lint": {},
+    "prepare-publish": {},
+    "publish": {}
+  },
+  "tags": []
+}
