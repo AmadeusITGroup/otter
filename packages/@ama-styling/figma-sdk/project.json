@@ -10,7 +10,10 @@
       "executor": "nx:noop",
       "dependsOn": [
         "compile"
-      ]
+      ],
+      "options": {
+        "tsConfig": "{projectRoot}/tsconfig.build.json"
+      }
     },
     "regen": {},
     "compile": {

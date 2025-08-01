@@ -15,7 +15,8 @@
         "{projectRoot}/package.json"
       ],
       "options": {
-        "script": "postbuild"
+        "script": "postbuild",
+        "tsConfig": "{projectRoot}/tsconfig.build.json"
       },
       "dependsOn": [
         "compile"

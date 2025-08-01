@@ -7,7 +7,10 @@
   "targets": {
     "build": {
       "executor": "nx:noop",
-      "dependsOn": ["^build", "build-builders", "compile"]
+      "dependsOn": ["^build", "build-builders", "compile"],
+      "options": {
+        "tsConfig": "{projectRoot}/tsconfig.build.json"
+      }
     },
     "compile": {
       "executor": "@angular-devkit/build-angular:ng-packagr",

@@ -12,7 +12,8 @@
       "executor": "nx:run-script",
       "outputs": ["{projectRoot}/dist/package.json"],
       "options": {
-        "script": "postbuild"
+        "script": "postbuild",
+        "tsConfig": "{projectRoot}/tsconfig.build.json"
       },
       "dependsOn": ["compile", "build-builders"]
     },
