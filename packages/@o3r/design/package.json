@@ -58,7 +58,7 @@
     "tslib": "^2.6.2"
   },
   "peerDependencies": {
-    "@angular-devkit/architect": ">=0.1900.0 <0.2000.0-0",
+    "@angular-devkit/architect": "<0.2001.4",
     "@angular-devkit/schematics": "^19.0.0",
     "@o3r/core": "workspace:^",
     "@o3r/schematics": "workspace:^",
@@ -98,7 +98,7 @@
     }
   },
   "devDependencies": {
-    "@angular-devkit/architect": "~0.1902.0",
+    "@angular-devkit/architect": "~0.2001.0",
     "@angular-devkit/build-angular": "~19.2.0",
     "@angular-devkit/core": "~19.2.0",
     "@angular-devkit/schematics": "~19.2.0",
@@ -132,7 +132,7 @@
     "@types/node": "^20.0.0",
     "@types/semver": "^7.3.13",
     "@typescript-eslint/parser": "~8.37.0",
-    "angular-eslint": "~19.4.0",
+    "angular-eslint": "~19.8.0",
     "chokidar": "^4.0.3",
     "cpy-cli": "^5.0.0",
     "eslint": "~9.31.0",
