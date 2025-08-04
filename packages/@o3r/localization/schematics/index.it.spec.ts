@@ -25,7 +25,7 @@ describe('ng add otter localization', () => {
     const componentPath = path.normalize(path.posix.join(relativeApplicationPath, 'src/components/test-component/test-component.component.ts'));
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:component', 'test-component', '--project-name', appName, '--use-localization', 'false'] }, execAppOptions);
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/localization:add-localization', '--activate-dummy', '--path', componentPath] }, execAppOptions);
-    await addImportToAppModule(applicationPath, 'TestComponentModule', 'src/components/test-component');
+    await addImportToAppModule(applicationPath, 'TestComponent', 'src/components/test-component');
 
     const diff = getGitDiff(workspacePath);
 

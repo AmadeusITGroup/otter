@@ -25,7 +25,7 @@ describe('ng add rules-engine', () => {
     const componentPath = path.normalize(path.posix.join(relativeApplicationPath, 'src/components/test-component/test-component.component.ts'));
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:component', 'test-component', '--activate-dummy', '--use-rules-engine', 'false', '--project-name', appName] }, execAppOptions);
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/rules-engine:rules-engine-to-component', '--path', componentPath] }, execAppOptions);
-    await addImportToAppModule(applicationPath, 'TestComponentModule', 'src/components/test-component');
+    await addImportToAppModule(applicationPath, 'TestComponent', 'src/components/test-component');
 
     const diff = getGitDiff(workspacePath);
     const expectedAddedFiles = [

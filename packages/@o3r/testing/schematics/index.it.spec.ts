@@ -47,7 +47,7 @@ describe('ng add testing', () => {
     packageManagerExec({ script: 'ng',
       args: ['g', '@o3r/core:component', 'test-component', '--use-component-fixtures', 'false', '--component-structure', 'full', '--project-name', appName] }, execAppOptions);
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/testing:add-fixture', '--path', componentPath] }, execAppOptions);
-    await addImportToAppModule(applicationPath, 'TestComponentContModule', 'src/components/test-component');
+    await addImportToAppModule(applicationPath, 'TestComponentContComponent', 'src/components/test-component');
 
     const diff = getGitDiff(execAppOptions.cwd);
     expect(diff.added).toContain(path.join(relativeApplicationPath, 'src/components/test-component/container/test-component-cont.fixture.ts').replace(/[/\\]+/g, '/'));

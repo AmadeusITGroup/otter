@@ -26,7 +26,7 @@ describe('ng add styling', () => {
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:component', '--defaults', 'true', 'test-component', '--use-otter-theming', 'false', '--project-name', appName] }, execAppOptions);
     const filePath = path.normalize(path.posix.join(relativeApplicationPath, 'src/components/test-component/test-component.style.scss'));
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/styling:add-theming', '--path', filePath] }, execAppOptions);
-    await addImportToAppModule(applicationPath, 'TestComponentModule', 'src/components/test-component');
+    await addImportToAppModule(applicationPath, 'TestComponent', 'src/components/test-component');
 
     const diff = getGitDiff(execAppOptions.cwd);
     const expectedAddedFiles = [
