@@ -38,7 +38,7 @@ describe('ng add stylelint-plugin', () => {
     });
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:component', '--defaults', 'true', 'test-component', '--use-otter-theming', 'false', '--project-name', appName] }, execAppOptions);
 
-    await addImportToAppModule(applicationPath, 'TestComponentModule', 'src/components/test-component');
+    await addImportToAppModule(applicationPath, 'TestComponent', 'src/components/test-component');
     await writeFile(path.join(applicationPath, '.stylelintrc.json'), JSON.stringify({
       plugins: [
         '@ama-styling/stylelint-plugin'
