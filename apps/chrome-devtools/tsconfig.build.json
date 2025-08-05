@@ -10,7 +10,6 @@
     ],
     "outDir": "dist/",
     "module": "es2022",
-    "moduleResolution": "bundler",
     "incremental": true,
     "composite": true,
     "tsBuildInfoFile": "build/.tsbuildinfo"

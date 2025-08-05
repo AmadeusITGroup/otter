@@ -4,6 +4,7 @@
     "types": ["node"],
     "lib": ["ES2022"],
     "module": "commonjs",
+    "moduleResolution": "node10",
     "outDir": "./dist",
     "noEmitHelpers": false,
     "importHelpers": false,

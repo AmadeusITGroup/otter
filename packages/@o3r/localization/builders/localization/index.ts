@@ -7,8 +7,8 @@ import {
   Target,
 } from '@angular-devkit/architect';
 import {
-  LogEntry,
-} from '@angular-devkit/core/src/logger';
+  logging,
+} from '@angular-devkit/core';
 import {
   createBuilderWithMetricsIfInstalled,
 } from '@o3r/extractors';
@@ -299,7 +299,7 @@ function startMetadataGenerator(localizationExtractorTarget: Target, context: Bu
       logger.pipe(),
       from(extractorBuild.then((build) => build.result))
     ).pipe(
-      filter((entry) => !(entry as LogEntry).message || /Localization metadata bundle extracted/.test((entry as LogEntry).message))
+      filter((entry) => !(entry as logging.LogEntry).message || /Localization metadata bundle extracted/.test((entry as logging.LogEntry).message))
     )
   );
 }

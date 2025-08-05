@@ -2,8 +2,7 @@
   "extends": "./tsconfig.build",
   "compilerOptions": {
     "tsBuildInfoFile": "build/devtools.tsbuildinfo",
-    "composite": false,
-    "moduleResolution": "bundler"
+    "composite": false
   },
   "include": [
     "src/**/*.ts"

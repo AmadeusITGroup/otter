@@ -11,6 +11,7 @@
     "rootDir": "./src",
     "inlineSources": true,
     "target": "ES5",
+    "moduleResolution": "node10",
     "module": "CommonJS",
   },
   "include": [
