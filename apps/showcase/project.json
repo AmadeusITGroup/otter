@@ -26,7 +26,8 @@
       "executor": "nx:run-script",
       "outputs": ["{projectRoot}/dist/package.json"],
       "options": {
-        "script": "postbuild:patch"
+        "script": "postbuild:patch",
+        "tsConfig": "{projectRoot}/tsconfig.app.json"
       },
       "dependsOn": [
         "extract-translations",
