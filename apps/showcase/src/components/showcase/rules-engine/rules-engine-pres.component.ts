@@ -93,10 +93,10 @@ export class RulesEnginePresComponent implements OnDestroy, DynamicConfigurableW
     outboundDate: FormControl<string | null>;
     inboundDate: FormControl<string | null>;
   }> = inject(FormBuilder).group({
-      destination: new FormControl<string | null>(null),
-      outboundDate: new FormControl<string | null>(this.formatDate(Date.now() + 7 * ONE_DAY_IN_MS)),
-      inboundDate: new FormControl<string | null>(this.formatDate(Date.now() + 14 * ONE_DAY_IN_MS))
-    });
+    destination: new FormControl<string | null>(null),
+    outboundDate: new FormControl<string | null>(this.formatDate(Date.now() + 7 * ONE_DAY_IN_MS)),
+    inboundDate: new FormControl<string | null>(this.formatDate(Date.now() + 14 * ONE_DAY_IN_MS))
+  });
 
   /** Input configuration to override the default configuration of the component */
   public config = input<Partial<RulesEnginePresConfig>>();

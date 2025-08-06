@@ -2,8 +2,7 @@ import type {
   SchematicOptionObject,
 } from '@o3r/schematics';
 
-type SupportedSimpleTypes =
-  | 'string'
+type SupportedSimpleTypes = | 'string'
   | 'boolean'
   | 'Date'
   | 'number'

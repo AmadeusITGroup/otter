@@ -2,9 +2,7 @@ import * as path from 'node:path';
 import {
   defineConfig,
 } from '@playwright/test';
-import {
-  default as defaultConfig,
-} from './playwright-config';
+import defaultConfig from './playwright-config';
 
 const config = defineConfig({
   ...defaultConfig,

@@ -109,10 +109,10 @@ export class FormsEmergencyContactPresComponent implements OnInit, OnDestroy, Co
     phone: FormControl<string | null>;
     email: FormControl<string | null>;
   }> = inject(FormBuilder).group({
-      name: new FormControl<string>(''),
-      phone: new FormControl<string>(''),
-      email: new FormControl<string>('')
-    });
+    name: new FormControl<string>(''),
+    phone: new FormControl<string>(''),
+    email: new FormControl<string>('')
+  });
 
   public componentSelector = 'o3r-forms-emergency-contact-pres';
 
