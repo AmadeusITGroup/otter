@@ -20,7 +20,7 @@ import type {
   AvailableStylingMessageContents,
 } from '@o3r/styling';
 
-export type AvailableMessageContents = | AvailableComponentsMessageContents
+export type AvailableMessageContents = AvailableComponentsMessageContents
   | AvailableConfigurationMessageContents
   | AvailableLocalizationMessageContents
   | AvailableRulesEngineMessageContents

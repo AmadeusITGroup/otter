@@ -92,7 +92,7 @@ export interface IsComponentSelectionAvailableMessage extends OtterMessageConten
   available: boolean;
 }
 
-type ComponentsMessageContents = | IsComponentSelectionAvailableMessage
+type ComponentsMessageContents = IsComponentSelectionAvailableMessage
   | SelectedComponentInfoMessage
   | ToggleInspectorMessage
   | ToggleHighlightMessage
@@ -103,7 +103,7 @@ type ComponentsMessageContents = | IsComponentSelectionAvailableMessage
 export type ComponentsMessageDataTypes = MessageDataTypes<ComponentsMessageContents>;
 
 /** List of all messages for Components purpose */
-export type AvailableComponentsMessageContents = | ComponentsMessageContents
+export type AvailableComponentsMessageContents = ComponentsMessageContents
   | ConnectContentMessage
   | RequestMessagesContentMessage<ComponentsMessageDataTypes>;
 

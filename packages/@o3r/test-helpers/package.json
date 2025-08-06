@@ -22,10 +22,10 @@
     }
   },
   "peerDependencies": {
-    "@jest/environment": "~29.7.0",
+    "@jest/environment": "^29.7.0",
     "@jest/transform": "^29.6.3",
     "@jest/types": "^29.6.3",
-    "jest-environment-node": "^30.0.0",
+    "jest-environment-node": "^29.7.0",
     "memfs": "^4.14.0",
     "ts-jest": "~29.3.0",
     "ts-node": "^10.9.2",
@@ -46,7 +46,7 @@
   },
   "devDependencies": {
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
-    "@jest/environment": "~29.7.0",
+    "@jest/environment": "^29.7.0",
     "@jest/transform": "^29.6.3",
     "@jest/types": "^29.6.3",
     "@nx/eslint-plugin": "~21.3.11",
@@ -72,7 +72,7 @@
     "eslint-plugin-unused-imports": "~4.1.4",
     "globals": "^16.0.0",
     "jest": "~29.7.0",
-    "jest-environment-node": "^30.0.0",
+    "jest-environment-node": "^29.7.0",
     "jest-junit": "~16.0.0",
     "jsonc-eslint-parser": "~2.4.0",
     "memfs": "~4.17.0",

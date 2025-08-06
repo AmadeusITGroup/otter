@@ -43,7 +43,7 @@ export interface GetStylingVariableContentMessage extends OtterMessageContent<'g
 /**
  * List of styling message contents
  */
-type StylingMessageContents = | UpdateStylingVariablesContentMessage
+type StylingMessageContents = UpdateStylingVariablesContentMessage
   | ResetStylingVariablesContentMessage
   | GetStylingVariableContentMessage;
 
@@ -51,7 +51,7 @@ type StylingMessageContents = | UpdateStylingVariablesContentMessage
 export type StylingMessageDataTypes = MessageDataTypes<StylingMessageContents>;
 
 /** List of all messages for Styling purposes */
-export type AvailableStylingMessageContents = | StylingMessageContents
+export type AvailableStylingMessageContents = StylingMessageContents
   | ConnectContentMessage
   | RequestMessagesContentMessage<StylingMessageDataTypes>;
 

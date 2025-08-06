@@ -240,7 +240,7 @@ export type DesignTokenCommonFields<E extends DesignTokenExtensions = DesignToke
  * Design Token supported types with their $value structure
  * Note: this definition does not include the $extension and $description fields common to all of them (and to the Token Groups)
  */
-type DesignTokenTypes = | DesignTokenTypeString
+type DesignTokenTypes = DesignTokenTypeString
   | DesignTokenTypeColor
   | DesignTokenTypeDimension
   | DesignTokenTypeFontFamily

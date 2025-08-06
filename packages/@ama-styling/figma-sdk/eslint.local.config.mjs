@@ -17,7 +17,6 @@ export default [
       'src/models/base/',
       'src/helpers/index.ts',
       'src/spec/api-mock.ts',
-      'src/spec/api-mock.ts',
       'src/spec/operation-adapter.ts'
     ]
   },
