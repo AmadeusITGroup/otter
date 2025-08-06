@@ -4446,23 +4446,25 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@design-factory/design-factory@npm:~19.1.0":
-  version: 19.1.1
-  resolution: "@design-factory/design-factory@npm:19.1.1"
+"@design-factory/design-factory@npm:~20.0.0":
+  version: 20.0.0
+  resolution: "@design-factory/design-factory@npm:20.0.0"
   dependencies:
     tslib: "npm:^2.0.0"
   peerDependencies:
-    "@agnos-ui/angular-bootstrap": ~0.8.0
-    "@agnos-ui/core-bootstrap": ~0.8.0
-    "@angular/common": ^19.0.0
-    "@angular/core": ^19.0.0
-    "@angular/localize": ^19.0.0
-    "@angular/router": ^19.0.0
-    "@ng-bootstrap/ng-bootstrap": ~18.0.0
-    "@ng-select/ng-select": ^14.1.0
+    "@agnos-ui/angular-bootstrap": ~0.9.0
+    "@agnos-ui/core-bootstrap": ~0.9.0
+    "@angular/common": ^20.0.0
+    "@angular/core": ^20.0.0
+    "@angular/localize": ^20.0.0
+    "@angular/router": ^20.0.0
+    "@ng-bootstrap/ng-bootstrap": ~19.0.0
+    "@ng-select/ng-select": ^15.0.0 || ^20.0.0
     ag-grid-angular: ^32.0.0
     ag-grid-community: ^32.0.0
-    bootstrap: 5.3.3
+    bootstrap: 5.3.7
+    colorjs.io: ^0.5.2
+    style-dictionary: ^5.0.0
   peerDependenciesMeta:
     "@agnos-ui/angular-bootstrap":
       optional: true
@@ -4472,7 +4474,11 @@ __metadata:
       optional: true
     ag-grid-angular:
       optional: true
-  checksum: 10/51d67d7fcf7827464461bf4e3254b533a6b8c30d63b0c7ebfbd623de3a058f1b97c870abcbbc88672cb78f2f2be7bb84afa663398d7590a413185dd7b602eac8
+    colorjs.io:
+      optional: true
+    style-dictionary:
+      optional: true
+  checksum: 10/14033bc0439f2446a2596805bf93ac4757acef44751082a78c2272f8fd7bace85c0aabb314a81443ab7cc63a3fcda56a800ff467c937548416b9642a2dbde423
   languageName: node
   linkType: hard
 
@@ -8589,7 +8595,7 @@ __metadata:
     "@angular/platform-browser": "npm:~20.0.0"
     "@angular/platform-browser-dynamic": "npm:~20.0.0"
     "@angular/router": "npm:~20.0.0"
-    "@design-factory/design-factory": "npm:~19.1.0"
+    "@design-factory/design-factory": "npm:~20.0.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@ng-bootstrap/ng-bootstrap": "npm:^19.0.0"
     "@ng-select/ng-select": "npm:~15.1.0"
@@ -8622,7 +8628,7 @@ __metadata:
     ag-grid-community: "npm:~32.3.0"
     angular-eslint: "npm:~20.1.0"
     archiver: "npm:^7.0.0"
-    bootstrap: "npm:5.3.3"
+    bootstrap: "npm:5.3.7"
     chokidar: "npm:^4.0.3"
     chrome-webstore-upload: "npm:^3.0.0"
     concurrently: "npm:^9.1.0"
@@ -9847,7 +9853,7 @@ __metadata:
     "@commitlint/config-conventional": "npm:^19.0.0"
     "@commitlint/types": "npm:^19.0.0"
     "@compodoc/compodoc": "npm:^1.1.19"
-    "@design-factory/design-factory": "npm:~19.1.0"
+    "@design-factory/design-factory": "npm:~20.0.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@ng-bootstrap/ng-bootstrap": "npm:^19.0.0"
     "@ng-select/ng-select": "npm:~15.1.0"
@@ -9894,7 +9900,7 @@ __metadata:
     angular-eslint: "npm:~20.1.0"
     angular-split: "npm:^19.0.0"
     babel-loader: "npm:^9.0.0"
-    bootstrap: "npm:5.3.3"
+    bootstrap: "npm:5.3.7"
     bootstrap-icons: "npm:^1.11.3"
     browserslist: "npm:^4.21.4"
     clipboard: "npm:^2.0.11"
@@ -10945,7 +10951,7 @@ __metadata:
     "@angular/platform-browser-dynamic": "npm:~20.0.0"
     "@angular/router": "npm:~20.0.0"
     "@commitlint/types": "npm:^19.0.0"
-    "@design-factory/design-factory": "npm:~19.1.0"
+    "@design-factory/design-factory": "npm:~20.0.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@formatjs/intl-numberformat": "npm:~8.15.0"
     "@ng-bootstrap/ng-bootstrap": "npm:^19.0.0"
@@ -10997,7 +11003,7 @@ __metadata:
     ag-grid-community: "npm:~32.3.0"
     angular-eslint: "npm:~20.1.0"
     angular-split: "npm:^19.0.0"
-    bootstrap: "npm:5.3.3"
+    bootstrap: "npm:5.3.7"
     clipboard: "npm:^2.0.11"
     concurrently: "npm:^9.1.0"
     eslint: "npm:~9.31.0"
@@ -17545,32 +17551,32 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ag-charts-types@npm:10.3.7":
-  version: 10.3.7
-  resolution: "ag-charts-types@npm:10.3.7"
-  checksum: 10/0984b6187c36958d37be0d3130d26dacf159fd3f831a74b15152e0f28fa8ff8f87c6c914b6798a087cf5c34dc2cdc37ed4432569bc06c0973a98a68b8d075528
+"ag-charts-types@npm:10.3.8":
+  version: 10.3.8
+  resolution: "ag-charts-types@npm:10.3.8"
+  checksum: 10/fcda74c343c2ecec3f81a01d10e597c562608ae62b03a589824761e48108181e3e666a947c43a573804008264fab84b44e5c4e1e50c038378b5b381e1c085663
   languageName: node
   linkType: hard
 
 "ag-grid-angular@npm:~32.3.0":
-  version: 32.3.7
-  resolution: "ag-grid-angular@npm:32.3.7"
+  version: 32.3.8
+  resolution: "ag-grid-angular@npm:32.3.8"
   dependencies:
     tslib: "npm:^2.3.0"
   peerDependencies:
     "@angular/common": ">= 16.0.0"
     "@angular/core": ">= 16.0.0"
-    ag-grid-community: 32.3.7
-  checksum: 10/9cc9d91c8b21a5ae1e54abdbc48175a25848ee8eea322d10640bedd37189067c52ced78c38be23ee06d7761e3d6a29cc6ee7aeaf0c7bf774bdb9ec95a005ed53
+    ag-grid-community: 32.3.8
+  checksum: 10/94406daba87c758308bc7bcdd6bc7f26d87212d7426d40215b41017fb1db8ddaab1f82e97e3cf57c58569ae04d59ff8a93ce2df918c7008a022a0e554602cac2
   languageName: node
   linkType: hard
 
 "ag-grid-community@npm:~32.3.0":
-  version: 32.3.7
-  resolution: "ag-grid-community@npm:32.3.7"
+  version: 32.3.8
+  resolution: "ag-grid-community@npm:32.3.8"
   dependencies:
-    ag-charts-types: "npm:10.3.7"
-  checksum: 10/59e3382f40a63330979ef02701b419a6bdd240361718c57079a24b5e69c77d6dafb79c544f9aab960f1058479f349362e39880df5544024f04cd69c6a8f06b77
+    ag-charts-types: "npm:10.3.8"
+  checksum: 10/124b49b1a05a12d78009fe43eff4a53d68aa0028b3bccc32c7a65925865c26b608bfd62ce4c6ce9343d915d87507f002400a19726a092afffb5a8d0391005372
   languageName: node
   linkType: hard
 
@@ -18723,12 +18729,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bootstrap@npm:5.3.3":
-  version: 5.3.3
-  resolution: "bootstrap@npm:5.3.3"
+"bootstrap@npm:5.3.7":
+  version: 5.3.7
+  resolution: "bootstrap@npm:5.3.7"
   peerDependencies:
     "@popperjs/core": ^2.11.8
-  checksum: 10/f05183948b00b496400cc13df5798ecab7a85975e7d9a77b314a763b574a990aec0f1bbf1913c648a93b5d8cc82e73bc05f5ec1161d2932aad7ef7f316d9c82d
+  checksum: 10/f88bbe12303ca5af11c0616f169ccb08edf456fd48185ffacae487520eaff23de9b7774ccc27edf2fdd0b0f65e316039a757590efe1c360ca9af5f4e52b9bf95
   languageName: node
   linkType: hard
 
