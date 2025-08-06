@@ -3,8 +3,8 @@ module.exports = {
     'unicorn'
   ],
   rules: {
-    'unicorn/prefer-node-protocol': 'error',
-    'unicorn/switch-case-braces': 'warn',
-    'unicorn/text-encoding-identifier-case': 'warn'
+    'prefer-node-protocol': 'error',
+    'switch-case-braces': 'warn',
+    'text-encoding-identifier-case': 'warn'
   }
 };

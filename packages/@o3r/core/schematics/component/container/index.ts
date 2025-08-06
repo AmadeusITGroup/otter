@@ -239,6 +239,7 @@ function ngGenerateComponentContainerFn(options: NgGenerateComponentContainerSch
 
         const recorder = tree.beginUpdate(o3rSpecPath);
 
+        // eslint-disable-next-line unicorn/no-array-reverse -- Imposed by the module compilation and safe due to reverse on copy
         const lastImport = [...specSourceFile.statements].reverse().find((statement) =>
           ts.isImportDeclaration(statement)
         );

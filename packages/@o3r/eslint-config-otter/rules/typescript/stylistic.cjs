@@ -30,7 +30,7 @@ module.exports = {
       'single',
       {
         avoidEscape: true,
-        allowTemplateLiterals: true
+        allowTemplateLiterals: 'always'
       }
     ],
     '@stylistic/ts/member-delimiter-style': [
