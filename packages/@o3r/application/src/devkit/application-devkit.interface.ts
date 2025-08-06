@@ -76,7 +76,7 @@ export interface StateSelectionContentMessage extends OtterMessageContent<'state
 /** Unselect state message */
 export interface UnselectStateContentMessage extends OtterMessageContent<'unselectState'> {}
 
-type ApplicationMessageContents = | ApplicationInformationContentMessage
+type ApplicationMessageContents = ApplicationInformationContentMessage
   | StateSelectionContentMessage
   | UnselectStateContentMessage
   | ToggleVisualTestingMessage;
@@ -85,7 +85,7 @@ type ApplicationMessageContents = | ApplicationInformationContentMessage
 export type ApplicationMessageDataTypes = MessageDataTypes<ApplicationMessageContents>;
 
 /** List of all messages for application purpose */
-export type AvailableApplicationMessageContents = | ApplicationMessageContents
+export type AvailableApplicationMessageContents = ApplicationMessageContents
   | ConnectContentMessage
   | RequestMessagesContentMessage<ApplicationMessageDataTypes>;
 

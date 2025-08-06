@@ -1,7 +1,3 @@
-const { loadRules } = require('eslint-plugin-unicorn');
-
-loadRules();
-
 module.exports = {
   plugins: [
     'unicorn'
