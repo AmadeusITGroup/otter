@@ -3,8 +3,8 @@ import type {
 } from 'type-fest';
 
 /** Package as return by the NPM Registry */
-export type NpmRegistryPackage = Pick<PackageJson, 'name' | 'description' | 'version' | 'keywords'> &
-  {
+export type NpmRegistryPackage = Pick<PackageJson, 'name' | 'description' | 'version' | 'keywords'>
+  & {
   /** Package name */
     name: string;
     /** Scope of the package */

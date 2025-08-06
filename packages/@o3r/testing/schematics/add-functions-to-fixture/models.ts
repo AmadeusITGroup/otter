@@ -1,8 +1,7 @@
 /**
  * Type of method available for default fixture
  */
-export type MethodType =
-  | 'clickOnButton'
+export type MethodType = | 'clickOnButton'
   | 'getText'
   | 'getInputValue'
   | 'setInputValue'

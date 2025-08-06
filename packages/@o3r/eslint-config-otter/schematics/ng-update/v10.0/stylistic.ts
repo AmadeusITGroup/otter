@@ -21,7 +21,7 @@ import {
 export const addStylistic: Rule = (tree, context) => {
   const projectPackageJson = tree.readJson(posix.join('.', 'package.json')) as PackageJson;
   const externalDependencies = getExternalDependenciesInfo({
-    devDependenciesToInstall: ['@stylistic/eslint-plugin-ts'],
+    devDependenciesToInstall: ['@stylistic/eslint-plugin'],
     dependenciesToInstall: [],
     o3rPackageJsonPath: resolve(__dirname, '..', '..', '..', 'package.json'),
     projectPackageJson
