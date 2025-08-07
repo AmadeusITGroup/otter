@@ -15,7 +15,6 @@ runs:
       with:
         path: |
           ~/.cache/ms-playwright
-          ~/.cache/node-compile-cache
           .yarn/cache
           .yarn/unplugged
           .pnp.cjs
