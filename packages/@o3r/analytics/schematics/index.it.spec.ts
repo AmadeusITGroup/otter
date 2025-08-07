@@ -25,7 +25,7 @@ describe('ng add analytics', () => {
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:component', 'test-component', '--use-otter-analytics', 'false', '--project-name', appName] }, execAppOptions);
     const componentPath = path.normalize(path.posix.join(relativeApplicationPath, 'src/components/test-component/test-component.component.ts'));
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/analytics:add-analytics', '--path', componentPath] }, execAppOptions);
-    await addImportToAppModule(applicationPath, 'TestComponentModule', 'src/components/test-component');
+    await addImportToAppModule(applicationPath, 'TestComponent', 'src/components/test-component');
 
     const diff = getGitDiff(workspacePath);
 

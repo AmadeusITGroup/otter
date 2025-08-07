@@ -26,14 +26,14 @@ describe('new otter application with configuration', () => {
     const componentPath = path.normalize(path.posix.join(relativeApplicationPath, 'src/components/test-component/test-component.component.ts'));
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:component', 'test-component', '--project-name', appName, '--use-otter-config', 'false'] }, execAppOptions);
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/configuration:add-config', '--path', componentPath] }, execAppOptions);
-    await addImportToAppModule(applicationPath, 'TestComponentModule', 'src/components/test-component');
+    await addImportToAppModule(applicationPath, 'TestComponent', 'src/components/test-component');
 
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:component', 'test-signal', '--project-name', appName, '--use-otter-config', 'false'] }, execAppOptions);
     packageManagerExec({
       script: 'ng',
       args: ['g', '@o3r/configuration:add-config', '--path', path.join(relativeApplicationPath, 'src/components/test-signal/test-signal.component.ts'), '--use-signal']
     }, execAppOptions);
-    await addImportToAppModule(applicationPath, 'TestSignalModule', 'src/components/test-signal');
+    await addImportToAppModule(applicationPath, 'TestSignalComponent', 'src/components/test-signal');
 
     const diff = getGitDiff(workspacePath);
     expect(diff.added.length).toEqual(18);
