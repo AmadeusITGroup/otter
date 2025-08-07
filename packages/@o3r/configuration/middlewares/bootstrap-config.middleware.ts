@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment -- requires NodeNext module resolution
+// @ts-ignore
 import * as cheerio from 'cheerio';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment -- no type are provided for express-interceptor
 // @ts-ignore
