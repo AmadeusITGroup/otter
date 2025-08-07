@@ -334,7 +334,7 @@ __metadata:
   dependencies:
     "@ama-mfe/messages": "workspace:^"
     "@amadeus-it-group/microfrontends": "npm:0.0.7"
-    "@amadeus-it-group/microfrontends-angular": "npm:0.0.7"
+    "@amadeus-it-group/microfrontends-angular": "npm:0.0.8"
     "@angular-devkit/architect": "npm:~0.1902.0"
     "@angular-devkit/build-angular": "npm:~19.2.0"
     "@angular-devkit/core": "npm:~19.2.0"
@@ -388,7 +388,7 @@ __metadata:
   peerDependencies:
     "@ama-mfe/messages": "workspace:^"
     "@amadeus-it-group/microfrontends": 0.0.7
-    "@amadeus-it-group/microfrontends-angular": 0.0.7
+    "@amadeus-it-group/microfrontends-angular": 0.0.8
     "@angular-devkit/core": ~19.2.0
     "@angular-devkit/schematics": ~19.2.0
     "@angular/common": ^19.0.0
@@ -1390,16 +1390,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@amadeus-it-group/microfrontends-angular@npm:0.0.7":
-  version: 0.0.7
-  resolution: "@amadeus-it-group/microfrontends-angular@npm:0.0.7"
+"@amadeus-it-group/microfrontends-angular@npm:0.0.8":
+  version: 0.0.8
+  resolution: "@amadeus-it-group/microfrontends-angular@npm:0.0.8"
   dependencies:
     tslib: "npm:^2.3.0"
   peerDependencies:
-    "@amadeus-it-group/microfrontends": 0.0.7
-    "@angular/core": ^19.0.0
+    "@amadeus-it-group/microfrontends": 0.0.8
+    "@angular/core": ^19.0.0 || ^20.0.0
     rxjs: ^7.8.0
-  checksum: 10/411aa041dbe836f17c86634910d627bb74f4804cc245661a4bf82fb318d38ec1b822a27642cb23018ccf4c526cc0b26d931c5028efcf76ec4e1ee56574199dca
+  checksum: 10/668bdf80c95ed0151fee513f6035caa408925a4f132e40684774adc12eee0c7afc46c684e612f9912dc1d0829b9f4cda0756ef244cadf0ff22079e49165b535a
   languageName: node
   linkType: hard
 
@@ -38947,17 +38947,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zod@npm:^3.23.8, zod@npm:~3.25.76":
+"zod@npm:^3.23.8, zod@npm:^3.24.1, zod@npm:~3.25.76":
   version: 3.25.76
   resolution: "zod@npm:3.25.76"
   checksum: 10/f0c963ec40cd96858451d1690404d603d36507c1fc9682f2dae59ab38b578687d542708a7fdbf645f77926f78c9ed558f57c3d3aa226c285f798df0c4da16995
-  languageName: node
-  linkType: hard
-
-"zod@npm:^3.24.1":
-  version: 3.25.28
-  resolution: "zod@npm:3.25.28"
-  checksum: 10/78c288d9cebf29a1a75fd03dbc1a16bd15eda5cdd0df552dfa5e6190e3e7aa4b2d6e8065f857fbd6d3e687951ca64a3f40d6aee9f5b2e39ce1812b695b47e5ce
   languageName: node
   linkType: hard
 
