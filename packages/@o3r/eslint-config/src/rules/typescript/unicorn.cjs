@@ -12,7 +12,7 @@ const config = [
       '**/*.{c,m,}{t,j}s'
     ],
     rules: {
-      ...convertWarningsToErrors(unicorn.configs['flat/recommended']),
+      ...convertWarningsToErrors(unicorn.default.configs.recommended),
       'unicorn/catch-error-name': 'off',
       'unicorn/consistent-function-scoping': 'off',
       'unicorn/filename-case': [

@@ -224,7 +224,7 @@ module.exports = {
       'error',
       'single',
       {
-        allowTemplateLiterals: true
+        allowTemplateLiterals: 'always'
       }
     ],
     radix: 'error',

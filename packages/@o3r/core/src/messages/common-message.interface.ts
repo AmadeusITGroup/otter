@@ -19,7 +19,6 @@ export interface RequestMessagesContentMessage<AvailableMessageDataTypes extends
 }
 
 /** List of common Otter content messages */
-export type CommonContentMessages =
-  | ConnectContentMessage
+export type CommonContentMessages = | ConnectContentMessage
   | InjectContentMessage
   | RequestMessagesContentMessage;
