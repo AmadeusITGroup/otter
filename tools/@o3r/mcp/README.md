@@ -19,6 +19,7 @@ To add the Otter MCP server, you should first activate mcp with `"chat.mcp.enabl
 > this setting may be grayed out. This may be due to your company's setting.
 
 Then, in your `.vscode/mcp.json` add
+
 ```json
 {
   "Otter": {
@@ -28,9 +29,3 @@ Then, in your `.vscode/mcp.json` add
   }
 }
 ```
-
-> [!NOTE]
-> If you want to test the MCP server locally while you are working on it,
-> you need to build it first with the command:
-> - `yarn nx build mcp`
-
