@@ -14,9 +14,6 @@ on:
         required: false
         description: Skip the nx cache
     secrets:
-      NX_CLOUD_ACCESS_TOKEN:
-        required: false
-        description: Token to use Nx Cloud token
       CODECOV_TOKEN:
         required: false
         description: Token Report to Codecov
@@ -26,7 +23,6 @@ env:
   NX_TASK_TARGET_CONFIGURATION: ci
   NX_SKIP_NX_CACHE: ${{ inputs.skipNxCache }}
   YARN_ENABLE_HARDENED_MODE: 0
-  NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
 
 permissions:
   contents: read

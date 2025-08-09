@@ -10,7 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       SKIP_ON_LABELS: '["cascading"]'
-      NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
     permissions:
       pull-requests: write
       issues: write
