@@ -29,10 +29,6 @@ on:
         type: boolean
         default: false
         description: Run IT Tests
-    secrets:
-      NX_CLOUD_ACCESS_TOKEN:
-        required: false
-        description: Token to use Nx Cloud token
 
 jobs:
   auditRelease:

@@ -48,7 +48,6 @@ on:
 
 env:
   NX_SKIP_NX_CACHE: ${{ inputs.skipNxCache }}
-  NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
 
 permissions:
   contents: read
