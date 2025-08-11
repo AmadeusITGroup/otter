@@ -62,12 +62,16 @@ export function updatePackageDependenciesFactory(
         ...options.useJest
           ? {
             '@angular-builders/jest': o3rWorkspacePackageJson.generatorDependencies!['@angular-builders/jest'],
-            '@types/jest': o3rWorkspacePackageJson.generatorDependencies!['@types/jest'],
-            jest: o3rWorkspacePackageJson.generatorDependencies!.jest,
-            'jest-environment-jsdom': o3rWorkspacePackageJson.generatorDependencies!['jest-environment-jsdom'],
-            'jest-junit': o3rWorkspacePackageJson.generatorDependencies!['jest-junit'],
-            'jest-preset-angular': o3rWorkspacePackageJson.generatorDependencies!['jest-preset-angular'],
+            '@types/jest': o3rWorkspacePackageJson.generatorDependencies!['@types/jest'] || o3rWorkspacePackageJson.devDependencies!['@types/jest'],
+            jest: o3rWorkspacePackageJson.generatorDependencies!.jest || o3rWorkspacePackageJson.devDependencies!.jest,
+            'jest-environment-jsdom': o3rWorkspacePackageJson.generatorDependencies!['jest-environment-jsdom']
+              || o3rWorkspacePackageJson.generatorDependencies!.jest || o3rWorkspacePackageJson.devDependencies!.jest,
+            'jest-junit': o3rWorkspacePackageJson.generatorDependencies!['jest-junit']
+              || o3rWorkspacePackageJson.devDependencies!['jest-junit'],
+            'jest-preset-angular': o3rWorkspacePackageJson.generatorDependencies!['jest-preset-angular']
+              || o3rWorkspacePackageJson.devDependencies!['jest-preset-angular'],
             'ts-jest': o3rWorkspacePackageJson.generatorDependencies!['ts-jest']
+              || o3rWorkspacePackageJson.devDependencies!['ts-jest']
           }
           : {
             '@types/jasmine': o3rWorkspacePackageJson.generatorDependencies!['@types/jasmine']

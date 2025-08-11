@@ -213,6 +213,10 @@
         "source",
         "specs"
       ],
+      "dependsOn": [{
+        "projects": ["test-helpers"],
+        "target": "build"
+      }],
       "outputs": [
         "{projectRoot}/dist-test/junit.xml",
         "{projectRoot}/coverage/cobertura-coverage.xml"
@@ -234,6 +238,10 @@
     },
     "test-int": {
       "executor": "@nx/jest:jest",
+      "dependsOn": [{
+        "projects": ["test-helpers"],
+        "target": "build"
+      }],
       "inputs": [
         {
           "env": "RUNNER_OS"
