@@ -115,6 +115,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
           'jest',
           'jest-environment-jsdom',
           'jest-preset-angular',
+          'jest-util',
           'ts-jest'
         );
       }

@@ -64,8 +64,9 @@ export function updatePackageDependenciesFactory(
             '@angular-builders/jest': o3rCorePackageJson.generatorDependencies!['@angular-builders/jest'],
             '@angular-devkit/build-angular': o3rCorePackageJson.devDependencies!['@angular-devkit/build-angular'],
             '@types/jest': o3rCorePackageJson.devDependencies!['@types/jest'],
-            jest: o3rCorePackageJson.devDependencies!.jest,
-            'jest-environment-jsdom': o3rCorePackageJson.devDependencies!.jest,
+            jest: o3rCorePackageJson.generatorDependencies!.jest || o3rCorePackageJson.devDependencies!.jest,
+            'jest-environment-jsdom': o3rCorePackageJson.generatorDependencies!['jest-environment-jsdom']
+              || o3rCorePackageJson.generatorDependencies!.jest || o3rCorePackageJson.devDependencies!.jest,
             'jest-junit': o3rCorePackageJson.devDependencies!['jest-junit'],
             'jest-preset-angular': o3rCorePackageJson.devDependencies!['jest-preset-angular'],
             'ts-jest': o3rCorePackageJson.devDependencies!['ts-jest']
