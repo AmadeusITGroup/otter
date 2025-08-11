@@ -85,6 +85,7 @@ module.exports.getJestGlobalConfig = (rootDir) => {
     testPathIgnorePatterns: [
       '\\.spec\\.ts$'
     ],
+    globalSetup: 'jest-preset-angular/global-setup',
     reporters: [
       'default',
       ['jest-junit', {outputDirectory: '<rootDir>/dist-test', outputName: 'junit.xml'}],

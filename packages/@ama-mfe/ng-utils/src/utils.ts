@@ -36,7 +36,8 @@ export function getDefaultClientEndpointStartOptions(): PeerConnectionOptions {
 
 /**
  * Return `true` if embedded inside an iframe, `false` otherwise
+ * @param windowParam - optional parameter for testing purposes, defaults to `window`
  */
-export function isEmbedded() {
-  return window.top !== window.self;
+export function isEmbedded(windowParam: Window = window) {
+  return windowParam.top !== windowParam.self;
 }
