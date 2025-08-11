@@ -26,6 +26,7 @@ describe('ThemeProducerService', () => {
   let producerManagerService: ProducerManagerService;
   let messageService: MessagePeerService<ThemeMessage>;
   let loggerServiceMock: jest.Mocked<LoggerService>;
+  let mockWindow: { location: { href: string; toString?: () => string } };
 
   const css = 'body { background-color: black; }';
 
@@ -33,11 +34,14 @@ describe('ThemeProducerService', () => {
     jest.spyOn(themeHelpers, 'getStyle').mockImplementation(() => Promise.resolve(css));
     jest.spyOn(themeHelpers, 'applyTheme').mockImplementation(() => {});
 
-    Object.defineProperty(window, 'location',
-      {
-        value: 'https://example.com?theme=red',
-        configurable: true
-      });
+    mockWindow = {
+      location: {
+        href: 'https://example.com?theme=red',
+        toString: () => {
+          return mockWindow.location.href;
+        }
+      }
+    };
   });
 
   beforeEach(() => {
@@ -59,7 +63,8 @@ describe('ThemeProducerService', () => {
         ThemeProducerService,
         { provide: LoggerService, useValue: loggerServiceMock },
         { provide: ProducerManagerService, useValue: producerManagerServiceMock },
-        { provide: MessagePeerService, useValue: messageServiceMock }
+        { provide: MessagePeerService, useValue: messageServiceMock },
+        { provide: Window, useValue: mockWindow }
       ]
     });
 
