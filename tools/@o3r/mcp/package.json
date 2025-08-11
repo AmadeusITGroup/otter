@@ -18,7 +18,8 @@
     "nx": "nx",
     "ng": "yarn nx",
     "build": "yarn nx build mcp",
-    "compile": "tsc -b ./tsconfig.build.json && yarn cpy 'src/resources/**/*.md' dist/resources && yarn cpy package.json dist && patch-package-json-main"
+    "copy:resources": "yarn cpy '../../../assets/gen-ai/**/*.md' 'src/resources/**/*.md' dist/resources",
+    "compile": "tsc -b ./tsconfig.build.json && yarn copy:resources && yarn cpy package.json dist && patch-package-json-main"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "~1.17.0",

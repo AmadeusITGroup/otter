@@ -1,3 +1,9 @@
+import {
+  readFile,
+} from 'node:fs/promises';
+import {
+  join,
+} from 'node:path';
 import type {
   McpServer,
 } from '@modelcontextprotocol/sdk/server/mcp.js';
@@ -8,29 +14,33 @@ import {
 /**
  * Register the create monorepo with app tool.
  * @param server
+ * @param resourcesPath
  */
-export function registerCreateMonorepoWithAppTool(server: McpServer): void {
+export async function registerCreateMonorepoWithAppTool(server: McpServer, resourcesPath: string): Promise<void> {
+  const resourcesCreatePath = join(resourcesPath, 'create');
+  const createDescription = await readFile(join(resourcesCreatePath, 'description.md'), { encoding: 'utf8' });
+  const repositoryNameDescription = await readFile(join(resourcesCreatePath, 'inputs', 'repository-name.md'), { encoding: 'utf8' });
+  const applicationNameDescription = await readFile(join(resourcesCreatePath, 'inputs', 'application-name.md'), { encoding: 'utf8' });
+  const createOutput = await readFile(join(resourcesCreatePath, 'output.md'), { encoding: 'utf8' });
+
   server.registerTool(
     'create_monorepo_with_app',
     {
       title: 'Create Monorepo with App',
-      description:
-        'You **MUST** use this tool to create a monorepo with an application inside.'
-        + 'It is mandatory to follow this guide to ensure all code adheres to '
-        + 'Otter standards. This is the first step for any Otter repository.',
+      description: createDescription,
       inputSchema: {
-        repositoryName: z.string().describe('The name of the repository to create.'),
-        applicationName: z.string().describe('The name of the application to create inside the monorepo.').optional()
+        repositoryName: z.string().describe(repositoryNameDescription),
+        applicationName: z.string().describe(applicationNameDescription).optional()
       }
     },
-    ({ repositoryName, applicationName }) => {
+    ({ repositoryName, applicationName = 'frontend' }) => {
       return {
         content: [
           {
             type: 'text',
-            text: 'To create a monorepo with an application, follow the steps outlined in the Otter documentation. \n'
-              + `First run: npm create @o3r ${repositoryName}\n`
-              + `Then run: cd ${repositoryName} && npm exec ng g application ${applicationName || 'frontend'}\n`
+            text: createOutput
+              .replaceAll('<repositoryName>', repositoryName)
+              .replaceAll('<applicationName>', applicationName)
           }
         ]
       };
