@@ -1,8 +1,10 @@
 import {
   chat,
   commands,
+  EventEmitter,
   ExtensionContext,
   languages,
+  lm,
   Uri,
   window,
 } from 'vscode';
@@ -59,6 +61,9 @@ import {
   stylingCompletionItemProvider,
   stylingCompletionTriggerChar,
 } from './intellisense/styling';
+import {
+  mcpConfig,
+} from './mcp';
 
 /**
  * Function to register commands.
@@ -70,8 +75,12 @@ export async function activate(context: ExtensionContext) {
   const o3rChatParticipant = chat.createChatParticipant('o3r-chat-participant', await chatParticipantHandler(context, channel));
   o3rChatParticipant.iconPath = Uri.joinPath(context.extensionUri, 'assets', 'logo-128x128.png');
   const designTokenProviders = designTokenCompletionItemAndHoverProviders();
+  // eslint-disable-next-line unicorn/prefer-event-target -- using EventEmitter from vscode
+  const didChangeEmitter = new EventEmitter<void>();
 
   context.subscriptions.push(
+    o3rChatParticipant,
+    lm.registerMcpServerDefinitionProvider('o3rMCPServerProvider', mcpConfig(didChangeEmitter)),
     languages.registerCompletionItemProvider(['javascript', 'typescript'], configurationCompletionItemProvider({ channel }), configurationCompletionTriggerChar),
     languages.registerCompletionItemProvider(['scss'], stylingCompletionItemProvider(), stylingCompletionTriggerChar),
     languages.registerCompletionItemProvider(['scss', 'css'], designTokenProviders),
@@ -98,8 +107,7 @@ export async function activate(context: ExtensionContext) {
     commands.registerCommand('otter.menu.generate.fixture', generateFixtureGenerateCommand(context)),
     commands.registerCommand('otter.add.module', generateModuleAddCommand(context)),
     commands.registerTextEditorCommand('otter.extract.styling.variable', extractToVariable(context)),
-    commands.registerTextEditorCommand('otter.extract.styling.allVariable', extractAllToVariable(context)),
-    o3rChatParticipant
+    commands.registerTextEditorCommand('otter.extract.styling.allVariable', extractAllToVariable(context))
   );
 }
 

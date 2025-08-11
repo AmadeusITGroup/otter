@@ -13,7 +13,11 @@
       "type": "stdio",
       "command": "npx",
       "args": [
-        "-y", "@buger/docs-mcp", "--gitUrl", "https://github.com/AmadeusITGroup/otter"
+        "-y",
+        "@buger/docs-mcp",
+        "--gitUrl", "https://github.com/AmadeusITGroup/otter",
+        "--toolName", "search_otter_docs",
+        "--toolDescription", "Search in Otter documentation using the probe search engine."
       ]
     },
     "o3r": {
