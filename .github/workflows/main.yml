@@ -20,7 +20,6 @@ env:
   NX_PARALLEL: ${{ vars.NX_PARALLEL }}
   NX_TASK_TARGET_CONFIGURATION: ci
   YARN_ENABLE_HARDENED_MODE: 0
-  NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
 
 jobs:
   # Check the integrity of yarn lock
@@ -104,7 +103,6 @@ jobs:
   checks:
     uses: ./.github/workflows/code-check.yml
     secrets:
-      NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
     needs: [yarn_lock_check]
     with:
@@ -114,7 +112,6 @@ jobs:
   it-tests:
     uses: ./.github/workflows/it-tests.yml
     secrets:
-      NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
     needs: [yarn_lock_check, build]
     with:
@@ -126,8 +123,6 @@ jobs:
       issues: write
       pull-requests: write
     uses: ./.github/workflows/e2e-tests.yml
-    secrets:
-      NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
     needs: [yarn_lock_check, build]
     with:
       skipNxCache: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release') }}
