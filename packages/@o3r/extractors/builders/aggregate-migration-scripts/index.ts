@@ -16,7 +16,9 @@ import {
   BuilderOutput,
   createBuilder,
 } from '@angular-devkit/architect';
-import * as globby from 'globby';
+import {
+  sync,
+} from 'globby';
 import * as semver from 'semver';
 import {
   createBuilderWithMetricsIfInstalled,
@@ -48,7 +50,7 @@ interface LibraryVersions {
  * @param glob
  */
 const getMigrationFiles = async (glob: string | string[]): Promise<MigrationFileEntry[]> => {
-  return await Promise.all((await globby(glob, { fs }))
+  return await Promise.all((sync(glob, { fs }))
     .map(async (fileName) => ({
       fileName,
       migrationObject: JSON.parse(await readFile(fileName, { encoding: 'utf8' }))
