@@ -829,7 +829,6 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~3.1.0"
     "@types/jest": "npm:~29.5.2"
     "@types/js-yaml": "npm:^4.0.5"
-    "@types/minimatch": "npm:^5.1.2"
     "@types/minimist": "npm:^1.2.2"
     "@types/node": "npm:^20.0.0"
     "@types/pid-from-port": "npm:^1.1.0"
@@ -920,7 +919,6 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
     "@stylistic/eslint-plugin": "npm:~3.1.0"
-    "@types/glob": "npm:^8.0.0"
     "@types/jest": "npm:~29.5.2"
     "@types/js-yaml": "npm:^4.0.5"
     "@types/node": "npm:^20.0.0"
@@ -7307,15 +7305,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nrwl/nx-cloud@npm:19.1.0":
-  version: 19.1.0
-  resolution: "@nrwl/nx-cloud@npm:19.1.0"
-  dependencies:
-    nx-cloud: "npm:19.1.0"
-  checksum: 10/ecae86aa0af80fb5d82f7f1cfc8e985231624f19b0131237a891895804def6f20a3c69fb2dbab020889b0351361ba9e9108a104c6f40243b029a7f98868a0042
-  languageName: node
-  linkType: hard
-
 "@nuxt/opencollective@npm:0.4.1":
   version: 0.4.1
   resolution: "@nuxt/opencollective@npm:0.4.1"
@@ -8868,7 +8857,6 @@ __metadata:
     "@o3r/testing": "workspace:^"
     "@schematics/angular": "npm:~20.0.0"
     "@stylistic/eslint-plugin": "npm:~3.1.0"
-    "@types/cheerio": "npm:~0.22.35"
     "@types/jasmine": "npm:~5.1.0"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
@@ -8913,8 +8901,7 @@ __metadata:
     "@o3r/logger": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@schematics/angular": ^20.0.0
-    "@types/cheerio": ~0.22.35
-    cheerio: ^1.0.0-rc.10
+    cheerio: ^1.1.2
     express-interceptor: ^1.2.0
     jasmine: ^5.0.0
     rxjs: ^7.8.1
@@ -8927,8 +8914,6 @@ __metadata:
     "@o3r/schematics":
       optional: true
     "@schematics/angular":
-      optional: true
-    "@types/cheerio":
       optional: true
     cheerio:
       optional: true
@@ -9262,7 +9247,6 @@ __metadata:
     "@o3r/test-helpers": "workspace:^"
     "@schematics/angular": "npm:~20.0.0"
     "@stylistic/eslint-plugin": "npm:~3.1.0"
-    "@types/cheerio": "npm:~0.22.35"
     "@types/jasmine": "npm:~5.1.0"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
@@ -9304,8 +9288,7 @@ __metadata:
     "@o3r/core": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@schematics/angular": ^20.0.0
-    "@types/cheerio": ~0.22.35
-    cheerio: ^1.0.0-rc.10
+    cheerio: ^1.1.2
     express-interceptor: ^1.2.0
     jasmine: ^5.0.0
     rxjs: ^7.8.1
@@ -9317,8 +9300,6 @@ __metadata:
     "@o3r/schematics":
       optional: true
     "@schematics/angular":
-      optional: true
-    "@types/cheerio":
       optional: true
     cheerio:
       optional: true
@@ -9442,7 +9423,6 @@ __metadata:
     "@o3r/test-helpers": "workspace:^"
     "@schematics/angular": "npm:~20.0.0"
     "@stylistic/eslint-plugin": "npm:~3.1.0"
-    "@types/eslint__js": "npm:^8.42.3"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
     "@typescript-eslint/parser": "npm:~8.37.0"
@@ -9940,7 +9920,6 @@ __metadata:
     ngx-monaco-tree: "npm:~19.1.0"
     npm-run-all2: "npm:^7.0.0"
     nx: "npm:~21.2.0"
-    nx-cloud: "npm:^19.1.0"
     pixelmatch: "npm:^6.0.0"
     playwright-lighthouse: "npm:~4.0.0"
     pngjs: "npm:^7.0.0"
@@ -14846,15 +14825,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/cheerio@npm:~0.22.35":
-  version: 0.22.35
-  resolution: "@types/cheerio@npm:0.22.35"
-  dependencies:
-    "@types/node": "npm:*"
-  checksum: 10/7d834512df4682733ce2ff1010682251d2d597d4c2f035b5ae43125a18b8a14c37d805d7c7ebcf57be360259c989465c5fd7b9dc21159b6719760d3d7fbd927f
-  languageName: node
-  linkType: hard
-
 "@types/chrome@npm:^0.0.328":
   version: 0.0.328
   resolution: "@types/chrome@npm:0.0.328"
@@ -15240,15 +15210,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/eslint__js@npm:^8.42.3":
-  version: 8.42.3
-  resolution: "@types/eslint__js@npm:8.42.3"
-  dependencies:
-    "@types/eslint": "npm:*"
-  checksum: 10/e31f19de642d35a664695d0cab873ce6de19b8a3506755835b91f8a49a8c41099dcace449df49f1a486de6fa6565d21ceb1fa33be6004fc7adef9226e5d256a1
-  languageName: node
-  linkType: hard
-
 "@types/estree@npm:*, @types/estree@npm:1.0.8, @types/estree@npm:^1.0.0, @types/estree@npm:^1.0.5, @types/estree@npm:^1.0.6":
   version: 1.0.8
   resolution: "@types/estree@npm:1.0.8"
@@ -15347,16 +15308,6 @@ __metadata:
   version: 7946.0.16
   resolution: "@types/geojson@npm:7946.0.16"
   checksum: 10/34d07421bdd60e7b99fa265441d17ac6e9aef48e3ce22d04324127d0de1daf7fbaa0bd3be1cece2092eb6995f21da84afa5231e24621a2910ff7340bc98f496f
-  languageName: node
-  linkType: hard
-
-"@types/glob@npm:^8.0.0":
-  version: 8.1.0
-  resolution: "@types/glob@npm:8.1.0"
-  dependencies:
-    "@types/minimatch": "npm:^5.1.2"
-    "@types/node": "npm:*"
-  checksum: 10/9101f3a9061e40137190f70626aa0e202369b5ec4012c3fabe6f5d229cce04772db9a94fa5a0eb39655e2e4ad105c38afbb4af56a56c0996a8c7d4fc72350e3d
   languageName: node
   linkType: hard
 
@@ -15532,13 +15483,6 @@ __metadata:
   version: 1.3.5
   resolution: "@types/mime@npm:1.3.5"
   checksum: 10/e29a5f9c4776f5229d84e525b7cd7dd960b51c30a0fb9a028c0821790b82fca9f672dab56561e2acd9e8eed51d431bde52eafdfef30f643586c4162f1aecfc78
-  languageName: node
-  linkType: hard
-
-"@types/minimatch@npm:^5.1.2":
-  version: 5.1.2
-  resolution: "@types/minimatch@npm:5.1.2"
-  checksum: 10/94db5060d20df2b80d77b74dd384df3115f01889b5b6c40fa2dfa27cfc03a68fb0ff7c1f2a0366070263eb2e9d6bfd8c87111d4bc3ae93c3f291297c1bf56c85
   languageName: node
   linkType: hard
 
@@ -18223,7 +18167,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:1.10.0, axios@npm:^1.6.0, axios@npm:^1.7.4, axios@npm:^1.8.2, axios@npm:^1.8.3":
+"axios@npm:1.10.0, axios@npm:^1.7.4, axios@npm:^1.8.2, axios@npm:^1.8.3":
   version: 1.10.0
   resolution: "axios@npm:1.10.0"
   dependencies:
@@ -21920,13 +21864,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dotenv@npm:~10.0.0":
-  version: 10.0.0
-  resolution: "dotenv@npm:10.0.0"
-  checksum: 10/55f701ae213e3afe3f4232fae5edfb6e0c49f061a363ff9f1c5a0c2bf3fb990a6e49aeada11b2a116efb5fdc3bc3f1ef55ab330be43033410b267f7c0809a9dc
-  languageName: node
-  linkType: hard
-
 "dotenv@npm:~16.4.5":
   version: 16.4.7
   resolution: "dotenv@npm:16.4.7"
@@ -23933,7 +23870,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fs-extra@npm:11.3.0, fs-extra@npm:^11.0.0, fs-extra@npm:^11.1.0, fs-extra@npm:^11.1.1, fs-extra@npm:^11.2.0":
+"fs-extra@npm:11.3.0, fs-extra@npm:^11.0.0, fs-extra@npm:^11.1.1, fs-extra@npm:^11.2.0":
   version: 11.3.0
   resolution: "fs-extra@npm:11.3.0"
   dependencies:
@@ -25431,13 +25368,6 @@ __metadata:
   version: 4.1.1
   resolution: "ini@npm:4.1.1"
   checksum: 10/64c7102301742a7527bb17257d18451410eacf63b4b5648a20e108816c355c21c4e8a1761bbcbf3fe8c4ded3297f1b832b885d5e3e485d781e293ebfaf56fea6
-  languageName: node
-  linkType: hard
-
-"ini@npm:4.1.3":
-  version: 4.1.3
-  resolution: "ini@npm:4.1.3"
-  checksum: 10/f536b414d1442e5b233429e2b56efcdb354109b2d65ddd489e5939d8f0f5ad23c88aa2b19c92987249d0dd63ba8192e9aeb1a02b0459549c5a9ff31acd729a5d
   languageName: node
   linkType: hard
 
@@ -29603,7 +29533,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-machine-id@npm:1.1.12, node-machine-id@npm:^1.1.12":
+"node-machine-id@npm:1.1.12":
   version: 1.1.12
   resolution: "node-machine-id@npm:1.1.12"
   checksum: 10/46bf3d4fab8d0e63b24c42bcec2b6975c7ec5bc16e53d7a589d095668d0fdf0bfcbcdc28246dd1ef74cf95a37fbd774cd4b17b41f518d79dfad7fdc99f995903
@@ -29876,26 +29806,6 @@ __metadata:
   version: 2.2.20
   resolution: "nwsapi@npm:2.2.20"
   checksum: 10/3dbfbd64c10dfd1edaf4992a6e859af306ec22846b86da2b31e69a743a8b4d7ac3b6ca767dbf248dabea8652905e402d6986f8ba491852e8568e334ec22e1882
-  languageName: node
-  linkType: hard
-
-"nx-cloud@npm:19.1.0, nx-cloud@npm:^19.1.0":
-  version: 19.1.0
-  resolution: "nx-cloud@npm:19.1.0"
-  dependencies:
-    "@nrwl/nx-cloud": "npm:19.1.0"
-    axios: "npm:^1.6.0"
-    chalk: "npm:^4.1.0"
-    dotenv: "npm:~10.0.0"
-    fs-extra: "npm:^11.1.0"
-    ini: "npm:4.1.3"
-    node-machine-id: "npm:^1.1.12"
-    open: "npm:~8.4.0"
-    tar: "npm:6.2.1"
-    yargs-parser: "npm:>=21.1.1"
-  bin:
-    nx-cloud: bin/nx-cloud.js
-  checksum: 10/c4cfaac8b048580e6d0b18d1cc6c94107762c91fc9530806465a7286f2fff924bc98914883ddb052c53c4066fbe2bfe19674f69729e28fe4928e25dd1e911828
   languageName: node
   linkType: hard
 
@@ -30202,7 +30112,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"open@npm:^8.4.0, open@npm:~8.4.0":
+"open@npm:^8.4.0":
   version: 8.4.2
   resolution: "open@npm:8.4.2"
   dependencies:
@@ -30352,7 +30262,6 @@ __metadata:
     "@schematics/angular": "npm:~20.0.0"
     "@stylistic/eslint-plugin": "npm:~3.1.0"
     "@types/eslint": "npm:~9.6.0"
-    "@types/glob": "npm:^8.0.0"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
     "@types/vscode": "npm:^1.100.0"
@@ -35378,7 +35287,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tar@npm:6.2.1, tar@npm:^6.0.5, tar@npm:^6.1.11":
+"tar@npm:^6.0.5, tar@npm:^6.1.11":
   version: 6.2.1
   resolution: "tar@npm:6.2.1"
   dependencies:
@@ -37887,17 +37796,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yargs-parser@npm:>=21.1.1, yargs-parser@npm:^22.0.0":
-  version: 22.0.0
-  resolution: "yargs-parser@npm:22.0.0"
-  checksum: 10/f13c42bad6ebed1a587a72f2db5694f5fa772bcaf409a701691d13cf74eb5adfcf61a2611de08807e319b829d3e5e6e1578b16ebe174cae8e8be3bf7b8e7a19e
-  languageName: node
-  linkType: hard
-
 "yargs-parser@npm:^20.2.2, yargs-parser@npm:^20.2.3":
   version: 20.2.9
   resolution: "yargs-parser@npm:20.2.9"
   checksum: 10/0188f430a0f496551d09df6719a9132a3469e47fe2747208b1dd0ab2bb0c512a95d0b081628bbca5400fb20dbf2fabe63d22badb346cecadffdd948b049f3fcc
+  languageName: node
+  linkType: hard
+
+"yargs-parser@npm:^22.0.0":
+  version: 22.0.0
+  resolution: "yargs-parser@npm:22.0.0"
+  checksum: 10/f13c42bad6ebed1a587a72f2db5694f5fa772bcaf409a701691d13cf74eb5adfcf61a2611de08807e319b829d3e5e6e1578b16ebe174cae8e8be3bf7b8e7a19e
   languageName: node
   linkType: hard
 

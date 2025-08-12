@@ -38,7 +38,6 @@
     "@o3r/eslint-plugin": "workspace:^",
     "@o3r/test-helpers": "workspace:^",
     "@stylistic/eslint-plugin": "~3.1.0",
-    "@types/glob": "^8.0.0",
     "@types/jest": "~29.5.2",
     "@types/js-yaml": "^4.0.5",
     "@types/node": "^20.0.0",
