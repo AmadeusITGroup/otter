@@ -1,9 +1,14 @@
 import {
+  chat,
   commands,
   ExtensionContext,
   languages,
+  Uri,
   window,
 } from 'vscode';
+import {
+  chatParticipantHandler,
+} from './chat';
 import {
   extractAllToVariable,
 } from './commands/extract/styling/extract-all-to-variable.command';
@@ -60,8 +65,10 @@ import {
  * This function is called by VSCode when the extension is activated.
  * @param context
  */
-export function activate(context: ExtensionContext) {
+export async function activate(context: ExtensionContext) {
   const channel = window.createOutputChannel('Otter');
+  const o3rChatParticipant = chat.createChatParticipant('o3r-chat-participant', await chatParticipantHandler(context, channel));
+  o3rChatParticipant.iconPath = Uri.joinPath(context.extensionUri, 'assets', 'logo-128x128.png');
   const designTokenProviders = designTokenCompletionItemAndHoverProviders();
 
   context.subscriptions.push(
@@ -91,7 +98,8 @@ export function activate(context: ExtensionContext) {
     commands.registerCommand('otter.menu.generate.fixture', generateFixtureGenerateCommand(context)),
     commands.registerCommand('otter.add.module', generateModuleAddCommand(context)),
     commands.registerTextEditorCommand('otter.extract.styling.variable', extractToVariable(context)),
-    commands.registerTextEditorCommand('otter.extract.styling.allVariable', extractAllToVariable(context))
+    commands.registerTextEditorCommand('otter.extract.styling.allVariable', extractAllToVariable(context)),
+    o3rChatParticipant
   );
 }
 

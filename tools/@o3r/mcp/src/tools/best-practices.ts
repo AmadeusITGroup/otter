@@ -11,40 +11,37 @@ import type {
 /**
  * Register the best practices tool.
  * @param server
+ * @param resourcesPath
  */
-export function registerBestPracticesTool(server: McpServer): void {
+export async function registerBestPracticesTool(server: McpServer, resourcesPath: string): Promise<void> {
+  const bestPracticesResourcesPath = join(resourcesPath, 'best-practices');
+
   server.registerTool(
     'get_best_practices',
     {
       title: 'Get Otter Coding Best Practices Guide',
-      description:
-        'You **MUST** use this tool to retrieve the Otter Best Practices Guide '
-        + 'before any interaction with Otter and Angular code (creating, analyzing, modifying). '
-        + 'It is mandatory to follow this guide to ensure all code adheres to '
-        + 'modern standards. This is the first step for any Otter task.',
+      description: await readFile(
+        join(bestPracticesResourcesPath, 'description'),
+        { encoding: 'utf8' }
+      ),
       annotations: {
         readOnlyHint: true,
         openWorldHint: false
       }
     },
     async () => {
-      // Logging as error as recommended by modelcontextprotocol.io (https://modelcontextprotocol.io/quickstart/server#quick-examples-2)
-      console.error('Fetching best practices guide...');
-      const text = await readFile(
-        join(__dirname, '..', 'resources', 'instructions', 'best-practices.md'),
-        'utf8'
+      const bestPractices = await readFile(
+        join(bestPracticesResourcesPath, 'output.md'),
+        { encoding: 'utf8' }
       );
-      // Logging as error as recommended by modelcontextprotocol.io (https://modelcontextprotocol.io/quickstart/server#quick-examples-2)
-      console.error('Best practices guide fetched successfully.');
+      const developer = await readFile(
+        join(resourcesPath, 'developer.md'),
+        { encoding: 'utf8' }
+      );
 
-      return {
-        content: [
-          {
-            type: 'text',
-            text
-          }
-        ]
-      };
+      const text = [developer, bestPractices].join('\n\n');
+
+      return { content: [{ type: 'text', text }] };
     }
   );
 }

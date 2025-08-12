@@ -66,6 +66,21 @@
         }
       }
     },
+    "chatParticipants": [
+      {
+        "id": "o3r-chat-participant",
+        "name": "o3r",
+        "fullName": "Otter Chat Participant",
+        "description": "Ask me anything about the Otter framework",
+        "isSticky": true,
+        "commands": [
+          {
+            "name": "new",
+            "description": "Get the commands to create a new Otter monorepo with an application"
+          }
+        ]
+      }
+    ],
     "commands": [
       {
         "command": "otter.add.module",
@@ -338,7 +353,7 @@
     "build": "yarn nx build vscode-extension",
     "build:esbuild": "esbuild ./src/extension.ts --bundle --outfile=dist/src/extension.js --external:vscode --format=cjs --platform=node --sourcemap --minify",
     "postbuild": "yarn copy:assets && cpy ./package.json dist && patch-package-json-main",
-    "copy:assets": "cpy './assets/**' dist/assets && cpy './README.md' dist && cpy '.vscodeignore' dist",
+    "copy:assets": "cpy './assets/**' dist/assets && cpy '../../assets/gen-ai/**/*.md' dist/assets/gen-ai && cpy './README.md' dist && cpy '.vscodeignore' dist",
     "watch": "yarn nx run vscode-extension:compile:watch"
   },
   "dependencies": {
