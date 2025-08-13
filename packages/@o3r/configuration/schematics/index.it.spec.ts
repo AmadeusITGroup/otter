@@ -18,15 +18,15 @@ import {
 
 describe('new otter application with configuration', () => {
   test('should add configuration to an application', async () => {
-    const { applicationPath, workspacePath, appName, libraryPath, isInWorkspace, untouchedProjectsPaths, o3rVersion } = o3rEnvironment.testEnvironment;
+    const { applicationPath, workspacePath, appName, libraryPath, isInWorkspace, isYarnTest, untouchedProjectsPaths, o3rVersion } = o3rEnvironment.testEnvironment;
     const execAppOptions = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
     const relativeApplicationPath = path.relative(workspacePath, applicationPath);
     packageManagerExec({ script: 'ng', args: ['add', `@o3r/configuration@${o3rVersion}`, '--skip-confirmation', '--project-name', appName] }, execAppOptions);
 
-    const componentPath = path.normalize(path.posix.join(relativeApplicationPath, 'src/components/test-component/test-component.component.ts'));
-    packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:component', 'test-component', '--project-name', appName, '--use-otter-config', 'false'] }, execAppOptions);
+    const componentPath = path.normalize(path.posix.join(relativeApplicationPath, 'src/components/test/test.component.ts'));
+    packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:component', 'test', '--project-name', appName, '--use-otter-config', 'false'] }, execAppOptions);
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/configuration:add-config', '--path', componentPath] }, execAppOptions);
-    await addImportToAppModule(applicationPath, 'TestComponent', 'src/components/test-component');
+    await addImportToAppModule(applicationPath, 'TestComponent', 'src/components/test');
 
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:component', 'test-signal', '--project-name', appName, '--use-otter-config', 'false'] }, execAppOptions);
     packageManagerExec({
@@ -36,11 +36,32 @@ describe('new otter application with configuration', () => {
     await addImportToAppModule(applicationPath, 'TestSignalComponent', 'src/components/test-signal');
 
     const diff = getGitDiff(workspacePath);
-    expect(diff.added.length).toEqual(18);
-    expect(diff.modified.length).toEqual(6);
-    expect(diff.modified).toContain('package.json');
-    expect(diff.added).toContain(path.posix.join(relativeApplicationPath, 'src/components/test-component/test-component.config.ts').replace(/[/\\]+/g, '/'));
-    expect(diff.added).toContain(path.posix.join(relativeApplicationPath, 'src/components/test-signal/test-signal.config.ts').replace(/[/\\]+/g, '/'));
+    expect(diff.added.sort()).toEqual([
+      path.join(relativeApplicationPath, 'src/components/test-signal/README.md').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test-signal/index.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test-signal/test-signal.component.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test-signal/test-signal.config.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test-signal/test-signal.context.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test-signal/test-signal.spec.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test-signal/test-signal.style.scss').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test-signal/test-signal.template.html').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test/README.md').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test/index.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test/test.component.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test/test.config.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test/test.context.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test/test.spec.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test/test.style.scss').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test/test.template.html').replace(/[/\\]+/g, '/')
+    ].sort());
+    expect(diff.modified.sort()).toEqual([
+      path.join(relativeApplicationPath, 'package.json').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/app/app.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/main.ts').replace(/[/\\]+/g, '/'),
+      'angular.json',
+      'package.json',
+      isYarnTest ? 'yarn.lock' : 'package-lock.json'
+    ].sort());
 
     [libraryPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
       expect(diff.all.some((file) => file.startsWith(path.relative(workspacePath, untouchedProject).replace(/\\+/g, '/')))).toBe(false);
@@ -50,13 +71,13 @@ describe('new otter application with configuration', () => {
     expect(() => packageManagerRunOnProject(appName, isInWorkspace, { script: 'build' }, execAppOptions)).not.toThrow();
   });
   test('should add configuration to a library', () => {
-    const { workspacePath, untouchedProjectsPaths, isInWorkspace, applicationPath, libName, libraryPath, o3rVersion } = o3rEnvironment.testEnvironment;
+    const { workspacePath, untouchedProjectsPaths, isInWorkspace, isYarnTest, applicationPath, libName, libraryPath, o3rVersion } = o3rEnvironment.testEnvironment;
     const execAppOptions = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
     const relativeLibraryPath = path.relative(workspacePath, libraryPath);
     packageManagerExec({ script: 'ng', args: ['add', `@o3r/configuration@${o3rVersion}`, '--skip-confirmation', '--project-name', libName] }, execAppOptions);
 
-    const componentPath = path.normalize(path.posix.join(relativeLibraryPath, 'src/components/test-component/test-component.component.ts'));
-    packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:component', 'test-component', '--project-name', libName, '--use-otter-config', 'false'] }, execAppOptions);
+    const componentPath = path.normalize(path.posix.join(relativeLibraryPath, 'src/components/test/test.component.ts'));
+    packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:component', 'test', '--project-name', libName, '--use-otter-config', 'false'] }, execAppOptions);
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/configuration:add-config', '--path', componentPath] }, execAppOptions);
 
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:component', 'test-signal', '--project-name', libName, '--use-otter-config', 'false'] }, execAppOptions);
@@ -66,7 +87,6 @@ describe('new otter application with configuration', () => {
     }, execAppOptions);
 
     const diff = getGitDiff(workspacePath);
-    expect(diff.added.length).toEqual(18);
     const angularJSON = JSON.parse(fs.readFileSync(`${workspacePath}/angular.json`, 'utf8'));
     expect(angularJSON.schematics['@o3r/core:component']).toBeDefined();
     expect(angularJSON.schematics['@o3r/core:component-container']).toBeDefined();
@@ -75,8 +95,30 @@ describe('new otter application with configuration', () => {
 
     const packageJson = JSON.parse(fs.readFileSync(`${workspacePath}/package.json`, 'utf8'));
     expect(packageJson.dependencies['@o3r/configuration']).toBeDefined();
-    expect(diff.added).toContain(path.posix.join(relativeLibraryPath, 'src/components/test-component/test-component.config.ts').replace(/[/\\]+/g, '/'));
-    expect(diff.added).toContain(path.posix.join(relativeLibraryPath, 'src/components/test-signal/test-signal.config.ts').replace(/[/\\]+/g, '/'));
+    expect(diff.added.sort()).toEqual([
+      path.join(relativeLibraryPath, 'src/components/test/test.style.scss').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test/test.context.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test/test.template.html').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test/test.spec.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test/test.component.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test/test.config.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test/index.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test/README.md').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test-signal/test-signal.style.scss').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test-signal/test-signal.context.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test-signal/test-signal.template.html').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test-signal/test-signal.spec.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test-signal/test-signal.component.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test-signal/test-signal.config.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test-signal/index.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test-signal/README.md').replace(/[/\\]+/g, '/')
+    ].sort());
+    expect(diff.modified.sort()).toEqual([
+      path.join(relativeLibraryPath, 'package.json').replace(/[/\\]+/g, '/'),
+      'angular.json',
+      'package.json',
+      isYarnTest ? 'yarn.lock' : 'package-lock.json'
+    ].sort());
 
     [applicationPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
       expect(diff.all.some((file) => file.startsWith(path.relative(workspacePath, untouchedProject).replace(/\\+/g, '/')))).toBe(false);
