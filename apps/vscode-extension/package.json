@@ -340,6 +340,12 @@
         "label": "Enrich Otter component",
         "id": "otter.enrich-component.submenu"
       }
+    ],
+    "mcpServerDefinitionProviders": [
+      {
+        "id": "o3rMCPServerProvider",
+        "label": "Otter MCP Server Provider"
+      }
     ]
   },
   "extensionKind": [
@@ -385,7 +391,7 @@
     "@types/glob": "^8.0.0",
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",
-    "@types/vscode": "^1.95.0",
+    "@types/vscode": "~1.102.0",
     "@typescript-eslint/parser": "~8.37.0",
     "@typescript-eslint/utils": "~8.37.0",
     "@vscode/vsce": "^3.2.1",
