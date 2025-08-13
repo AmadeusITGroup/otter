@@ -21,7 +21,7 @@ export async function registerBestPracticesTool(server: McpServer, resourcesPath
     {
       title: 'Get Otter Coding Best Practices Guide',
       description: await readFile(
-        join(bestPracticesResourcesPath, 'description'),
+        join(bestPracticesResourcesPath, 'description.md'),
         { encoding: 'utf8' }
       ),
       annotations: {

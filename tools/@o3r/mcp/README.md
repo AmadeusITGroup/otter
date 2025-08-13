@@ -29,3 +29,8 @@ Then, in your `.vscode/mcp.json` add
   }
 }
 ```
+
+> [!NOTE]
+> If you want to test the MCP server locally while you are working on it,
+> you need to build it first with the command:
+> - `yarn nx build mcp`
