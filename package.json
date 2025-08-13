@@ -302,9 +302,6 @@
     },
     "ngx-monaco-tree": {
       "unplugged": true
-    },
-    "nx": {
-      "built": true
     }
   },
   "engines": {

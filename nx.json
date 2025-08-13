@@ -631,63 +631,11 @@
   },
   "generators": {
     "@schematics/angular:component": {
-      "style": "scss",
-      "type": "component"
+      "style": "scss"
     },
     "@o3r/core:module": {
       "path": "packages",
       "prefix": "o3r"
-    },
-    "@nx/angular:component": {
-      "type": "component"
-    },
-    "@nx/angular:directive": {
-      "type": "directive"
-    },
-    "@schematics/angular:directive": {
-      "type": "directive"
-    },
-    "@nx/angular:service": {
-      "type": "service"
-    },
-    "@schematics/angular:service": {
-      "type": "service"
-    },
-    "@nx/angular:scam": {
-      "type": "component"
-    },
-    "@nx/angular:scam-directive": {
-      "type": "directive"
-    },
-    "@nx/angular:guard": {
-      "typeSeparator": "."
-    },
-    "@schematics/angular:guard": {
-      "typeSeparator": "."
-    },
-    "@nx/angular:interceptor": {
-      "typeSeparator": "."
-    },
-    "@schematics/angular:interceptor": {
-      "typeSeparator": "."
-    },
-    "@nx/angular:module": {
-      "typeSeparator": "."
-    },
-    "@schematics/angular:module": {
-      "typeSeparator": "."
-    },
-    "@nx/angular:pipe": {
-      "typeSeparator": "."
-    },
-    "@schematics/angular:pipe": {
-      "typeSeparator": "."
-    },
-    "@nx/angular:resolver": {
-      "typeSeparator": "."
-    },
-    "@schematics/angular:resolver": {
-      "typeSeparator": "."
     }
   },
   "defaultProject": "core",
@@ -697,12 +645,5 @@
   },
   "useDaemonProcess": false,
   "cacheDirectory": ".cache/nx",
-  "nxCloudId": "63e6951e043da20dd8321aec",
-  "tasksRunnerOptions": {
-    "default": {
-      "options": {
-        "nxCloudId": "63e6951e043da20dd8321aec"
-      }
-    }
-  }
+  "nxCloudId": "63e6951e043da20dd8321aec"
 }
