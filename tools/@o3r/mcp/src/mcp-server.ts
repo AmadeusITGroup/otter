@@ -9,7 +9,7 @@ import {
 } from '@modelcontextprotocol/sdk/server/mcp.js';
 import {
   registerBestPracticesResources,
-} from './resources/best-practices';
+} from './instructions/best-practices';
 import {
   registerBestPracticesTool,
 } from './tools/best-practices';

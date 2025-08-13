@@ -28,9 +28,8 @@
     "o3r-local": {
       "command": "yarn",
       "args": [
-        "dlx",
-        "tsx",
-        "./tools/@o3r/mcp/src/cli/index.ts"
+        "node",
+        "./tools/@o3r/mcp/dist/cli/index.js"
       ]
     }
   }

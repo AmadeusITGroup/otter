@@ -23,7 +23,7 @@ export async function registerBestPracticesResources(server: McpServer, resource
     {
       title: 'Otter Best Practices and Code Generation Guide',
       description: await readFile(
-        join(bestPracticesResourcesPath, 'description'),
+        join(bestPracticesResourcesPath, 'description.md'),
         { encoding: 'utf8' }
       ),
       mimeType: 'text/markdown'
