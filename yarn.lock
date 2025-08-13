@@ -9960,8 +9960,6 @@ __metadata:
       unplugged: true
     ngx-monaco-tree:
       unplugged: true
-    nx:
-      built: true
   languageName: unknown
   linkType: soft
 
