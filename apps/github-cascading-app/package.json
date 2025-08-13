@@ -68,7 +68,7 @@
     "nx": "~20.8.0",
     "rxjs": "^7.8.1",
     "smee-client": "^2.0.0",
-    "ts-jest": "~29.3.0",
+    "ts-jest": "~29.4.0",
     "tslib": "^2.6.2",
     "typescript": "~5.8.2",
     "typescript-eslint": "~8.37.0",
