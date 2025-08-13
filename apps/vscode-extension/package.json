@@ -411,11 +411,12 @@
     "jest": "~29.7.0",
     "jest-environment-jsdom": "~29.7.0",
     "jest-junit": "~16.0.0",
+    "jest-util": "~29.7.0",
     "jiti": "^2.4.0",
     "jsonc-eslint-parser": "~2.4.0",
     "nx": "~20.8.0",
     "rxjs": "^7.8.1",
-    "ts-jest": "~29.3.0",
+    "ts-jest": "~29.4.0",
     "typescript": "~5.8.2",
     "typescript-eslint": "~8.37.0",
     "zone.js": "~0.15.0"
