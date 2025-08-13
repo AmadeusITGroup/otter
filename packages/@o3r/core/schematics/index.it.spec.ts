@@ -62,10 +62,10 @@ describe('new otter application', () => {
       '--use-context', 'false',
       '--use-rules-engine', 'false'
     ];
-    packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:component', 'test-component', ...defaultOptions, ...appNameOptions] },
+    packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:component', 'test', ...defaultOptions, ...appNameOptions] },
       execAppOptions
     );
-    await addImportToAppModule(applicationPath, 'TestComponent', 'src/components/test-component');
+    await addImportToAppModule(applicationPath, 'TestComponent', 'src/components/test');
 
     const advancedOptions = [
       '--activate-dummy',
@@ -81,18 +81,18 @@ describe('new otter application', () => {
     );
     await addImportToAppModule(applicationPath, 'TestComponentAdvancedComponent', 'src/components/test-component-advanced');
 
-    packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:component', 'test-add-context-component', ...defaultOptions, ...appNameOptions] },
+    packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:component', 'test-add-context', ...defaultOptions, ...appNameOptions] },
       execAppOptions
     );
-    packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:add-context', '--path', 'apps/test-app/src/components/test-add-context-component/test-add-context-component.component.ts'] },
+    packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:add-context', '--path', 'apps/test-app/src/components/test-add-context/test-add-context.component.ts'] },
       execAppOptions
     );
-    await addImportToAppModule(applicationPath, 'TestAddContextComponent', 'src/components/test-add-context-component');
+    await addImportToAppModule(applicationPath, 'TestAddContextComponent', 'src/components/test-add-context');
 
-    packageManagerExec({ script: 'ng', args: ['g', '@schematics/angular:component', 'test-ng-component', '--project', appName, '--type', 'component'] },
+    packageManagerExec({ script: 'ng', args: ['g', '@schematics/angular:component', 'test-ng', '--project', appName, '--type', 'component'] },
       execAppOptions
     );
-    packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:convert-component', '--path', 'apps/test-app/src/app/test-ng-component/test-ng-component.component.ts'] },
+    packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:convert-component', '--path', 'apps/test-app/src/app/test-ng/test-ng.component.ts'] },
       execAppOptions
     );
 

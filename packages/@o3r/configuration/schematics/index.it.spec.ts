@@ -23,10 +23,10 @@ describe('new otter application with configuration', () => {
     const relativeApplicationPath = path.relative(workspacePath, applicationPath);
     packageManagerExec({ script: 'ng', args: ['add', `@o3r/configuration@${o3rVersion}`, '--skip-confirmation', '--project-name', appName] }, execAppOptions);
 
-    const componentPath = path.normalize(path.posix.join(relativeApplicationPath, 'src/components/test-component/test-component.component.ts'));
-    packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:component', 'test-component', '--project-name', appName, '--use-otter-config', 'false'] }, execAppOptions);
+    const componentPath = path.normalize(path.posix.join(relativeApplicationPath, 'src/components/test/test.component.ts'));
+    packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:component', 'test', '--project-name', appName, '--use-otter-config', 'false'] }, execAppOptions);
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/configuration:add-config', '--path', componentPath] }, execAppOptions);
-    await addImportToAppModule(applicationPath, 'TestComponent', 'src/components/test-component');
+    await addImportToAppModule(applicationPath, 'TestComponent', 'src/components/test');
 
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:component', 'test-signal', '--project-name', appName, '--use-otter-config', 'false'] }, execAppOptions);
     packageManagerExec({
@@ -39,7 +39,7 @@ describe('new otter application with configuration', () => {
     expect(diff.added.length).toEqual(18);
     expect(diff.modified.length).toEqual(6);
     expect(diff.modified).toContain('package.json');
-    expect(diff.added).toContain(path.posix.join(relativeApplicationPath, 'src/components/test-component/test-component.config.ts').replace(/[/\\]+/g, '/'));
+    expect(diff.added).toContain(path.posix.join(relativeApplicationPath, 'src/components/test/test.config.ts').replace(/[/\\]+/g, '/'));
     expect(diff.added).toContain(path.posix.join(relativeApplicationPath, 'src/components/test-signal/test-signal.config.ts').replace(/[/\\]+/g, '/'));
 
     [libraryPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
@@ -55,8 +55,8 @@ describe('new otter application with configuration', () => {
     const relativeLibraryPath = path.relative(workspacePath, libraryPath);
     packageManagerExec({ script: 'ng', args: ['add', `@o3r/configuration@${o3rVersion}`, '--skip-confirmation', '--project-name', libName] }, execAppOptions);
 
-    const componentPath = path.normalize(path.posix.join(relativeLibraryPath, 'src/components/test-component/test-component.component.ts'));
-    packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:component', 'test-component', '--project-name', libName, '--use-otter-config', 'false'] }, execAppOptions);
+    const componentPath = path.normalize(path.posix.join(relativeLibraryPath, 'src/components/test/test.component.ts'));
+    packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:component', 'test', '--project-name', libName, '--use-otter-config', 'false'] }, execAppOptions);
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/configuration:add-config', '--path', componentPath] }, execAppOptions);
 
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:component', 'test-signal', '--project-name', libName, '--use-otter-config', 'false'] }, execAppOptions);
@@ -66,7 +66,7 @@ describe('new otter application with configuration', () => {
     }, execAppOptions);
 
     const diff = getGitDiff(workspacePath);
-    expect(diff.added.length).toEqual(18);
+    expect(diff.added).toEqual(18);
     const angularJSON = JSON.parse(fs.readFileSync(`${workspacePath}/angular.json`, 'utf8'));
     expect(angularJSON.schematics['@o3r/core:component']).toBeDefined();
     expect(angularJSON.schematics['@o3r/core:component-container']).toBeDefined();
@@ -75,7 +75,7 @@ describe('new otter application with configuration', () => {
 
     const packageJson = JSON.parse(fs.readFileSync(`${workspacePath}/package.json`, 'utf8'));
     expect(packageJson.dependencies['@o3r/configuration']).toBeDefined();
-    expect(diff.added).toContain(path.posix.join(relativeLibraryPath, 'src/components/test-component/test-component.config.ts').replace(/[/\\]+/g, '/'));
+    expect(diff.added).toContain(path.posix.join(relativeLibraryPath, 'src/components/test/test.config.ts').replace(/[/\\]+/g, '/'));
     expect(diff.added).toContain(path.posix.join(relativeLibraryPath, 'src/components/test-signal/test-signal.config.ts').replace(/[/\\]+/g, '/'));
 
     [applicationPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {

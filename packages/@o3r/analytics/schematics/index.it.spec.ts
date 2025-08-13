@@ -22,15 +22,23 @@ describe('ng add analytics', () => {
     const relativeApplicationPath = path.relative(workspacePath, applicationPath);
     expect(() => packageManagerExec({ script: 'ng', args: ['add', `@o3r/analytics@${o3rVersion}`, '--project-name', appName, '--skip-confirmation'] }, execAppOptions)).not.toThrow();
 
-    packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:component', 'test-component', '--use-otter-analytics', 'false', '--project-name', appName] }, execAppOptions);
-    const componentPath = path.normalize(path.posix.join(relativeApplicationPath, 'src/components/test-component/test-component.component.ts'));
+    packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:component', 'test', '--use-otter-analytics', 'false', '--project-name', appName] }, execAppOptions);
+    const componentPath = path.normalize(path.posix.join(relativeApplicationPath, 'src/components/test/test.component.ts'));
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/analytics:add-analytics', '--path', componentPath] }, execAppOptions);
-    await addImportToAppModule(applicationPath, 'TestComponent', 'src/components/test-component');
+    await addImportToAppModule(applicationPath, 'TestComponent', 'src/components/test');
 
     const diff = getGitDiff(workspacePath);
 
-    expect(diff.added).toContain(path.join(relativeApplicationPath, 'src/components/test-component/test-component.analytics.ts').replace(/[/\\]+/g, '/'));
-    expect(diff.added.length).toBe(9);
+    expect(diff.added.sort()).toEqual([
+      path.join(relativeApplicationPath, 'src/components/test/README.md').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test/index.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test/test.analytics.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test/test.component.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test/test.context.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test/test.spec.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test/test.style.scss').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test/test.template.html').replace(/[/\\]+/g, '/')
+    ].sort());
     expect(diff.modified.sort()).toEqual([
       'angular.json',
       'apps/test-app/package.json',
@@ -52,14 +60,23 @@ describe('ng add analytics', () => {
     const relativeLibraryPath = path.relative(workspacePath, libraryPath);
     expect(() => packageManagerExec({ script: 'ng', args: ['add', `@o3r/analytics@${o3rVersion}`, '--project-name', libName, '--skip-confirmation'] }, execAppOptions)).not.toThrow();
 
-    packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:component', 'test-component', '--use-otter-analytics', 'false', '--project-name', libName] }, execAppOptions);
-    const componentPath = path.normalize(path.posix.join(relativeLibraryPath, 'src/components/test-component/test-component.component.ts'));
+    packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:component', 'test', '--use-otter-analytics', 'false', '--project-name', libName] }, execAppOptions);
+    const componentPath = path.normalize(path.posix.join(relativeLibraryPath, 'src/components/test/test.component.ts'));
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/analytics:add-analytics', '--path', componentPath] }, execAppOptions);
 
     const diff = getGitDiff(workspacePath);
 
-    expect(diff.added).toContain(path.join(relativeLibraryPath, 'src/components/test-component/test-component.analytics.ts').replace(/[/\\]+/g, '/'));
-    expect(diff.added.length).toBe(9);
+    expect(diff.added).toContain(path.join(relativeLibraryPath, 'src/components/test/test.analytics.ts').replace(/[/\\]+/g, '/'));
+    expect(diff.added.sort()).toEqual([
+      path.join(relativeLibraryPath, 'src/components/test/README.md').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test/index.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test/test.analytics.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test/test.component.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test/test.spec.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test/test.context.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test/test.style.scss').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test/test.template.html').replace(/[/\\]+/g, '/')
+    ].sort());
     expect(diff.modified.sort()).toEqual([
       'angular.json',
       'libs/test-lib/package.json',
