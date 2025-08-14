@@ -159,7 +159,7 @@ To enhance and facilitate the configuration of the `StyleDictionary` instance, t
 
 The `getTargetFiles` function is used to parameterize the generated file based on Design Token (following the same logic as `$extensions`):
 
-```typescript
+```javascript
 // Example to generate the `color-primary-**` variables in `my-color-primary.css`
 
 import { getTargetFiles } from '@ama-styling/style-dictionary';
@@ -189,6 +189,22 @@ register(sd); // Register all Otter modules
 > [!NOTE]
 > The `format` option will be applied to all the files provided to the `getTargetFiles` function (including `defaultFile`).
 > `defaultFile` defines the default file where variables not matching any rule will be generated.
+
+The helper function `getTargetFiles` is registering the filter into `StyleDictionary` with a unique ID.\
+This IDs can be retrieved as follows:
+
+```javascript
+import { getTargetFiles } from '@ama-styling/style-dictionary';
+
+const sd = new StyleDictionary();
+const files = getTargetFiles({ rules, { styleDictionary: sd } });
+
+/**
+ * Filter IDs registered in {@link sd} Style Dictionary instance
+ * @type {string[]}
+ **/
+const filterIds = files.map(({ filter }) => filter);
+```
 
 ## Advanced
 
