@@ -114,7 +114,7 @@ This preset does not add any additional modules.
 
 This preset is adding recommended Otter modules and features. This preset is the default one.
 
-* [@o3r/eslint-config](https://www.npmjs.com/package/@o3r/eslint-config) (or [@o3r/eslint-config](https://www.npmjs.com/package/@o3r/eslint-config-otter) for legacy configuration)
+* [@o3r/eslint-config](https://www.npmjs.com/package/@o3r/eslint-config) 
 * [@o3r/workspace](https://www.npmjs.com/package/@o3r/workspace) specific features:
   * Renovate configuration
   * VSCode Tooling
