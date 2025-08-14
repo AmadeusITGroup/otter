@@ -6,7 +6,7 @@ import {
 } from 'node:path';
 import type {
   McpServer,
-} from '@modelcontextprotocol/sdk/server/mcp';
+} from '@modelcontextprotocol/sdk/server/mcp.js';
 
 /**
  * Register resources for best practices
