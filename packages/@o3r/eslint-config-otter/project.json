@@ -20,6 +20,11 @@
       "options": {
         "script": "build"
       },
+      "inputs": [
+        "source",
+        "^source",
+        "{projectRoot}/rules/**/*.cjs"
+      ],
       "dependsOn": []
     },
     "prepare-build-builders": {},

@@ -196,9 +196,9 @@ export class CodeEditorViewComponent implements OnDestroy {
     code: FormControl<string | null>;
     file: FormControl<string | null>;
   }> = this.formBuilder.group({
-      code: '',
-      file: ''
-    });
+    code: '',
+    file: ''
+  });
 
   /**
    * Subject used to notify when a new monaco editor has been created

@@ -37,7 +37,7 @@ const dependenciesToInstall: string[] = [];
 const devDependenciesToInstall = [
   '@angular-eslint/builder',
   '@angular-eslint/eslint-plugin',
-  '@stylistic/eslint-plugin-ts',
+  '@stylistic/eslint-plugin',
   '@typescript-eslint/eslint-plugin',
   '@typescript-eslint/parser',
   '@typescript-eslint/utils',

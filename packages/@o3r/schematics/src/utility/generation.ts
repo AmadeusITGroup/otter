@@ -15,14 +15,13 @@ import {
 } from './loaders';
 
 /** Type of generated item */
-export type GeneratedItemType =
-  '@o3r/core:component' |
-  '@o3r/core:page' |
-  '@o3r/core:service' |
-  '@o3r/core:store' |
-  '@o3r/core:schematics-update' |
-  '@o3r/testing:playwright-scenario' |
-  '@o3r/testing:playwright-sanity';
+export type GeneratedItemType = '@o3r/core:component'
+  | '@o3r/core:page'
+  | '@o3r/core:service'
+  | '@o3r/core:store'
+  | '@o3r/core:schematics-update'
+  | '@o3r/testing:playwright-scenario'
+  | '@o3r/testing:playwright-sanity';
 
 /** List of Otter items types */
 export const OTTER_ITEM_TYPES = [

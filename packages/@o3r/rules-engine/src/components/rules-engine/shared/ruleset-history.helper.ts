@@ -38,13 +38,13 @@ export const rulesetReportToHistory = (events: DebugEvent[], rulesetMap: Record<
   return availableRulesets
     .filter((ruleset) => !!ruleset)
     .reduce<(RulesetExecutionEvent | RulesetExecutionErrorEvent)[]>((acc, ruleset) => {
-    const rulesetExecutions = events
-      .filter((e): e is RulesetExecutionEvent | RulesetExecutionErrorEvent => ((e.type === 'RulesetExecutionError' || e.type === 'RulesetExecution') && e.rulesetId === ruleset.id));
-    if (rulesetExecutions) {
-      acc.push(...rulesetExecutions);
-    }
-    return acc;
-  }, [])
+      const rulesetExecutions = events
+        .filter((e): e is RulesetExecutionEvent | RulesetExecutionErrorEvent => ((e.type === 'RulesetExecutionError' || e.type === 'RulesetExecution') && e.rulesetId === ruleset.id));
+      if (rulesetExecutions) {
+        acc.push(...rulesetExecutions);
+      }
+      return acc;
+    }, [])
     .sort((execA, execB) => execB.timestamp - execA.timestamp)
     .map((rulesetExecution) => {
       const rulesetInformation = rulesetMap[rulesetExecution.rulesetId];

@@ -1,23 +1,23 @@
 module.exports = {
   plugins: [
-    '@stylistic/ts'
+    '@stylistic'
   ],
   rules: {
-    '@stylistic/ts/key-spacing': [
+    '@stylistic/key-spacing': [
       'warn',
       {
         beforeColon: false,
         afterColon: true
       }
     ],
-    '@stylistic/ts/keyword-spacing': 'error',
-    '@stylistic/ts/semi': [
+    '@stylistic/keyword-spacing': 'error',
+    '@stylistic/semi': [
       'error',
       'always'
     ],
-    '@stylistic/ts/space-infix-ops': 'error',
-    '@stylistic/ts/no-extra-semi': 'error',
-    '@stylistic/ts/space-before-function-paren': [
+    '@stylistic/space-infix-ops': 'error',
+    '@stylistic/no-extra-semi': 'error',
+    '@stylistic/space-before-function-paren': [
       'error',
       {
         anonymous: 'always',
@@ -25,15 +25,15 @@ module.exports = {
         asyncArrow: 'always'
       }
     ],
-    '@stylistic/ts/quotes': [
+    '@stylistic/quotes': [
       'error',
       'single',
       {
         avoidEscape: true,
-        allowTemplateLiterals: true
+        allowTemplateLiterals: 'always'
       }
     ],
-    '@stylistic/ts/member-delimiter-style': [
+    '@stylistic/member-delimiter-style': [
       'error',
       {
         multiline: {

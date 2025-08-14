@@ -28,8 +28,7 @@ export interface O3rWidgetTagsRuleOption {
   };
 }
 
-type O3rWidgetRuleErrorId =
-  | 'notInConfigurationInterface'
+type O3rWidgetRuleErrorId = 'notInConfigurationInterface'
   | 'notSupportedType'
   | 'notSupportedParamForType'
   | 'invalidParamValueType'

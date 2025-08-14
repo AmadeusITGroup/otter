@@ -19,8 +19,7 @@ import {
   type SendDataFn,
 } from '../sender/index';
 
-type BuilderWrapperFn<S, O extends BuilderOutput = BuilderOutput> =
-  (opts: S, ctx: BuilderContext) => O | Promise<O>;
+type BuilderWrapperFn<S, O extends BuilderOutput = BuilderOutput> = (opts: S, ctx: BuilderContext) => O | Promise<O>;
 
 /**
  * Type of a function that wraps a builder

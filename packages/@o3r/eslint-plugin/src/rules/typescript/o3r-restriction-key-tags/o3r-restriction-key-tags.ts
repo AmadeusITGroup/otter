@@ -15,8 +15,7 @@ export interface O3rRestrictionKeyTagsRuleOption {
   supportedKeys?: string[];
 }
 
-type O3rWidgetRuleErrorId =
-  | 'notSupportedKey'
+type O3rWidgetRuleErrorId = 'notSupportedKey'
   | 'notWrapWithQuotes'
   | 'suggestWrapWithQuotes'
   | 'suggestUseSupportedKey'
