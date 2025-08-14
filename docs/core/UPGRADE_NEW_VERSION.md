@@ -34,38 +34,28 @@ However, the migration scripts are executed for all the projects.
 
 We recommend, setting-up the [version-harmonize](../linter/eslint-plugin/rules/json-dependency-versions-harmonize.md) to make sure the versions are aligned between your projects.
 
-You can easily do so by adding `@o3r/eslint-config-otter` to your repository, this will generate the `eslint` config for you.
+You can easily do so by adding `@o3r/eslint-config` to your repository, this will generate the `eslint` config for you.
 
 ```shell
-yarn ng add @o3r/eslint-config-otter
+yarn ng add @o3r/eslint-config
 ```
 
 If you already have an `eslint` config, you can use the version-harmonize rule like this:
-```json5
-{
-  "overrides": [
-    {
-      "parser": "jsonc-eslint-parser",
-      "files": [
-        "**/*.json"
-      ]
-    },
-    {
-      "files": [
-        "**/package.json"
-      ],
-      "plugins": [
-        "@o3r"
-      ],
-      "rules": {
-        "@o3r/json-dependency-versions-harmonize": ["error", {
-          "ignoredPackages": [],
-          "alignPeerDependencies": false
-        }]
+```js
+export default [
+  //... your currentConfig
+ {
+  name: 'my-app/package-json',
+  files: ['**/package.json'],
+  rules: {
+    '@o3r/json-dependency-versions-harmonize': [
+      'error',
+      {
+        alignPeerDependencies: false
       }
-    }
-  ]
-}
+    ]
+  }
+}]
 ```
 
 Once this is set up, you can run the version-harmonize before and after the migration using `yarn eslint **/package.json --fix`.
