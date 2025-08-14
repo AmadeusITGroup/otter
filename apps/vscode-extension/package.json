@@ -364,7 +364,7 @@
   },
   "dependencies": {
     "@o3r/design": "workspace:^",
-    "eslint": "~9.31.0"
+    "eslint": "~9.33.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~19.2.0",
@@ -392,8 +392,8 @@
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",
     "@types/vscode": "~1.102.0",
-    "@typescript-eslint/parser": "~8.37.0",
-    "@typescript-eslint/utils": "~8.37.0",
+    "@typescript-eslint/parser": "~8.39.0",
+    "@typescript-eslint/utils": "~8.39.0",
     "@vscode/vsce": "^3.2.1",
     "angular-eslint": "~19.4.0",
     "cpy-cli": "^5.0.0",
@@ -418,7 +418,7 @@
     "rxjs": "^7.8.1",
     "ts-jest": "~29.4.0",
     "typescript": "~5.8.2",
-    "typescript-eslint": "~8.37.0",
+    "typescript-eslint": "~8.39.0",
     "zone.js": "~0.15.0"
   }
 }
