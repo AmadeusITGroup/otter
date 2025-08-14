@@ -9,7 +9,8 @@
       "description": "Project name",
       "$default": {
         "$source": "projectName"
-      }
+      },
+      "alias": "project"
     },
     "testingFramework": {
       "type": "string",

@@ -24,7 +24,7 @@ export async function addImportToAppModule(appFolderPath: string, moduleName: st
   const appModule = await readFile(appModuleFilePath, { encoding: 'utf8' });
   const relativeModulePath = path.relative(path.dirname(appModuleFilePath), path.join(appFolderPath, modulePath)).replace(/\\+/g, '/');
   await writeFile(appModuleFilePath, `import { ${moduleName} } from '${relativeModulePath}';\n${
-    appModule.replace(/(imports:\s*\[\s*)/, `$1\n    ${moduleName},`)
+    appModule.replace(/(imports:\s*\[\s*\n?)/, `$1\n    ${moduleName},\n`)
   }`);
 }
 

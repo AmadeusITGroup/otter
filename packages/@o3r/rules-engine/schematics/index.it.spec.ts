@@ -25,7 +25,7 @@ describe('ng add rules-engine', () => {
     const componentPath = path.normalize(path.posix.join(relativeApplicationPath, 'src/components/test-component/test-component.component.ts'));
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:component', 'test-component', '--activate-dummy', '--use-rules-engine', 'false', '--project-name', appName] }, execAppOptions);
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/rules-engine:rules-engine-to-component', '--path', componentPath] }, execAppOptions);
-    await addImportToAppModule(applicationPath, 'TestComponentModule', 'src/components/test-component');
+    await addImportToAppModule(applicationPath, 'TestComponent', 'src/components/test-component');
 
     const diff = getGitDiff(workspacePath);
     const expectedAddedFiles = [
@@ -35,12 +35,12 @@ describe('ng add rules-engine', () => {
       'apps/test-app/migration-scripts/README.md'
     ];
     expectedAddedFiles.forEach((file) => expect(diff.added).toContain(file));
-    expect(diff.added.length).toBe(expectedAddedFiles.length + 8); // TODO define what are the remaining added files
+    expect(diff.added).toEqual(expectedAddedFiles);
     const expectedModifiedFiles = [
       'apps/test-app/src/app/app.config.ts'
     ];
     expectedModifiedFiles.forEach((file) => expect(diff.modified).toContain(file));
-    expect(diff.modified.length).toBe(expectedModifiedFiles.length + 7); // TODO define what are these modified files
+    expect(diff.modified).toEqual(expectedModifiedFiles);
 
     [libraryPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
       expect(diff.all.some((file) => file.startsWith(path.relative(workspacePath, untouchedProject).replace(/\\+/g, '/')))).toBe(false);
@@ -64,11 +64,11 @@ describe('ng add rules-engine', () => {
     expect(diff.added).toContain('libs/test-lib/placeholders.metadata.json');
     expect(diff.added).toContain('libs/test-lib/tsconfig.cms.json');
     expect(diff.added).toContain('libs/test-lib/migration-scripts/README.md');
-    expect(diff.added.length).toBe(12);
+    expect(diff.added).toBe(12);
     expect(diff.modified).toContain('angular.json');
     expect(diff.modified).toContain('package.json');
     expect(diff.modified).toContain('libs/test-lib/package.json');
-    expect(diff.modified.length).toBe(5);
+    expect(diff.modified).toBe(5);
 
     [applicationPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
       expect(diff.all.some((file) => file.startsWith(path.relative(workspacePath, untouchedProject).replace(/\\+/g, '/')))).toBe(false);

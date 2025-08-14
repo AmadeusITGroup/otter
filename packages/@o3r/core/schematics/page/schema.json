@@ -9,7 +9,8 @@
       "description": "Project name",
       "$default": {
         "$source": "projectName"
-      }
+      },
+      "alias": "project"
     },
     "name": {
       "type": "string",
@@ -28,7 +29,8 @@
     },
     "appRoutingModulePath": {
       "type": "string",
-      "description": "Application routing module path"
+      "description": "Application routing module path (will be renamed into `appRoutesDefinitionPath` in Otter v14)",
+      "alias": "appRoutesDefinitionPath"
     },
     "prefix": {
       "type": "string",
@@ -36,6 +38,9 @@
     },
     "path": {
       "type": "string",
+      "$default": {
+        "$source": "workingDirectory"
+      },
       "description": "Directory containing the pages"
     },
     "skipLinter": {

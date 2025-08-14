@@ -47,7 +47,7 @@ describe('ng add testing', () => {
     packageManagerExec({ script: 'ng',
       args: ['g', '@o3r/core:component', 'test-component', '--use-component-fixtures', 'false', '--component-structure', 'full', '--project-name', appName] }, execAppOptions);
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/testing:add-fixture', '--path', componentPath] }, execAppOptions);
-    await addImportToAppModule(applicationPath, 'TestComponentContModule', 'src/components/test-component');
+    await addImportToAppModule(applicationPath, 'TestComponentContComponent', 'src/components/test-component');
 
     const diff = getGitDiff(execAppOptions.cwd);
     expect(diff.added).toContain(path.join(relativeApplicationPath, 'src/components/test-component/container/test-component-cont.fixture.ts').replace(/[/\\]+/g, '/'));
@@ -94,7 +94,7 @@ describe('ng add testing', () => {
   });
 
   test('should add testing to a library and fixture to component', () => {
-    const { applicationPath, workspacePath, libName, isInWorkspace, o3rVersion, untouchedProjectsPaths, libraryPath } = o3rEnvironment.testEnvironment;
+    const { applicationPath, workspacePath, libName, isInWorkspace, o3rVersion, untouchedProjectsPaths, libraryPath, isYarnTest } = o3rEnvironment.testEnvironment;
     const execAppOptions = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
     const relativeLibraryPath = path.relative(workspacePath, libraryPath);
     packageManagerExec({ script: 'ng', args: ['add', `@o3r/testing@${o3rVersion}`, '--testingFramework', 'jest', '--skip-confirmation', '--project-name', libName] }, execAppOptions);
@@ -105,9 +105,39 @@ describe('ng add testing', () => {
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/testing:add-fixture', '--path', componentPath] }, execAppOptions);
 
     const diff = getGitDiff(execAppOptions.cwd);
-    expect(diff.added).toContain(path.join(relativeLibraryPath, 'src/components/test-component/container/test-component-cont.fixture.ts').replace(/[/\\]+/g, '/'));
-    expect(diff.added.length).toBe(23);
-    expect(diff.modified.length).toBe(6);
+    const addedFiles = [
+      path.join('jest.config.ut.js'),
+      path.join('jest.config.js'),
+      path.join('tsconfig.jest.json'),
+      path.join(relativeLibraryPath, 'jest.config.js').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'testing/setup-jest.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test-component/container/README.md').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test-component/container/index.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test-component/container/test-component-cont.context.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test-component/container/test-component-cont.fixture.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test-component/container/test-component-cont.component.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test-component/container/test-component-cont.spec.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test-component/container/test-component-cont.template.html').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test-component/presenter/README.md').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test-component/presenter/index.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test-component/fixtures.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test-component/index.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test-component/presenter/test-component-pres.context.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test-component/presenter/test-component-pres.component.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test-component/presenter/test-component-pres.spec.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test-component/presenter/test-component-pres.style.scss').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test-component/presenter/test-component-pres.template.html').replace(/[/\\]+/g, '/')
+    ].sort();
+    expect(diff.added.sort()).toEqual(addedFiles);
+    const modifiedFiles = [
+      'angular.json',
+      isYarnTest ? 'yarn.lock' : 'package-lock.json',
+      'package.json',
+      '.vscode/extensions.json',
+      'libs/test-lib/package.json',
+      'libs/test-lib/tsconfig.spec.json'
+    ].sort();
+    expect(diff.modified.sort()).toEqual(modifiedFiles);
 
     [applicationPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
       expect(diff.all.some((file) => file.startsWith(path.relative(workspacePath, untouchedProject).replace(/\\+/g, '/')))).toBe(false);
