@@ -49,6 +49,7 @@ export class RestoreRoute implements PipeTransform {
   private readonly activeRoute = inject(ActivatedRoute);
   private readonly domSanitizer = inject(DomSanitizer);
   private readonly routeMemorizeService = inject(RouteMemorizeService, { optional: true });
+  private readonly window: Window = inject(Window, { optional: true }) || window;
 
   /**
    * Transforms the given URL or SafeResourceUrl by appending query parameters and adjusting the pathname.
@@ -74,7 +75,7 @@ export class RestoreRoute implements PipeTransform {
 
       const channelId = options?.memoryChannelId;
       const memorizedRoute = channelId && this.routeMemorizeService?.getRoute(channelId);
-      const topWindowUrl = new URL(memorizedRoute ? window.origin + memorizedRoute : window.location.href);
+      const topWindowUrl = new URL(memorizedRoute ? this.window.origin + memorizedRoute : this.window.location.href);
       const queryParamsTopWindow = new URLSearchParams(topWindowUrl.search);
 
       if (options?.propagateQueryParams) {
