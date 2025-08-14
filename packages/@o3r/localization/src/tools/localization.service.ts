@@ -16,6 +16,7 @@ import {
 import {
   BehaviorSubject,
   combineLatest,
+  firstValueFrom,
   Observable,
   of,
 } from 'rxjs';
@@ -23,6 +24,7 @@ import {
   distinctUntilChanged,
   map,
   shareReplay,
+  startWith,
   switchMap,
 } from 'rxjs/operators';
 import {
@@ -66,7 +68,7 @@ export class LocalizationService {
     @Inject(LOCALIZATION_CONFIGURATION_TOKEN) private readonly configuration: LocalizationConfiguration,
     @Optional() private readonly store?: Store<LocalizationOverrideStore>
   ) {
-    this.configure();
+    void this.configure();
     if (this.store) {
       this.keyMapping$ = this.store.pipe(
         select(selectLocalizationOverride)
@@ -136,8 +138,11 @@ export class LocalizationService {
    * @returns A stream of the translated key
    */
   private getTranslationStream(translationKey: string, interpolateParams?: object) {
-    const translation$ = this.translateService.stream(translationKey, interpolateParams).pipe(
-      map((value: string) => this.configuration.debugMode ? `${translationKey} - ${value}` : value)
+    const translation$ = this.translateService.onTranslationChange.pipe(
+      startWith(),
+      switchMap(() => this.translateService.stream(translationKey, interpolateParams)),
+      map((value) => this.configuration.debugMode ? `${translationKey} - ${value}` : value),
+      distinctUntilChanged()
     );
 
     if (!this.configuration.enableTranslationDeactivation) {
@@ -155,11 +160,11 @@ export class LocalizationService {
   /**
    * Configures TranslateService and registers locales. This method is called from the application level.
    */
-  public configure() {
+  public async configure() {
     const language = this.checkFallbackLocalesMap(this.configuration.language || this.configuration.fallbackLanguage);
     this.translateService.addLangs(this.configuration.supportedLocales);
     this.translateService.setDefaultLang(language);
-    this.useLanguage(language);
+    await firstValueFrom(this.useLanguage(language));
   }
 
   /**

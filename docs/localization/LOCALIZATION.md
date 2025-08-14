@@ -478,7 +478,7 @@ import { LocalizationService } from '@o3r/localization';
 
 // Inject LocalizationService which will take care of configuring TranslateService using LocalizationConfiguration and call configure() method
 constructor() {
-  inject(LocalizationService).configure();
+  void inject(LocalizationService).configure();
 }
 ```
 
