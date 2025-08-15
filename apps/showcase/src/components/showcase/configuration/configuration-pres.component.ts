@@ -1,5 +1,4 @@
 import {
-  AsyncPipe,
   formatDate,
 } from '@angular/common';
 import {
@@ -38,7 +37,7 @@ const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
 @O3rComponent({ componentType: 'ExposedComponent' })
 @Component({
   selector: 'o3r-configuration-pres',
-  imports: [ReactiveFormsModule, DatePickerInputPresComponent, AsyncPipe],
+  imports: [ReactiveFormsModule, DatePickerInputPresComponent],
   templateUrl: './configuration-pres.template.html',
   styleUrls: ['./configuration-pres.style.scss'],
   encapsulation: ViewEncapsulation.None,

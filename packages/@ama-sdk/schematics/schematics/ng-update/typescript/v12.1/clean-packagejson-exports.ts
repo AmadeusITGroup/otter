@@ -46,6 +46,13 @@ export const clearPackageJsonExports: Rule = (tree) => {
             delete map.esm2015;
             delete map.typings;
 
+            // put default field at the end of the map
+            if (map.default) {
+              const defaultField = map.default;
+              delete map.default;
+              map.default = defaultField;
+            }
+
             return [path, map];
           })
       );

@@ -1,5 +1,4 @@
 import {
-  AsyncPipe,
   CommonModule,
   formatDate,
 } from '@angular/common';
@@ -47,7 +46,6 @@ import {
 @Component({
   selector: 'o3r-forms-parent',
   imports: [
-    AsyncPipe,
     CommonModule,
     FormsEmergencyContactPresComponent,
     FormsPersonalInfoPresComponent,

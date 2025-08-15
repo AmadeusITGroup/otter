@@ -30,7 +30,6 @@ import {
 import {
   AppModule,
 } from './app/app.module';
-import '@angular/localize/init';
 
 document.body.dataset.dynamiccontentpath = localStorage.getItem('dynamicPath') || '';
 platformBrowserDynamic().bootstrapModule(AppModule)

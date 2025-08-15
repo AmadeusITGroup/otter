@@ -25,7 +25,6 @@ import {
 } from '@o3r/core';
 import {
   DynamicContentService,
-  O3rDynamicContentPipe,
 } from '@o3r/dynamic-content';
 import {
   RulesEngineDevtoolsModule,
@@ -56,7 +55,6 @@ import {
   selector: 'o3r-placeholder-page',
   imports: [
     PlaceholderPresComponent,
-    O3rDynamicContentPipe,
     RulesEngineRunnerModule,
     RulesEngineDevtoolsModule,
     PlaceholderRulesEngineActionModule,

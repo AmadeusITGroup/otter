@@ -20,10 +20,10 @@
       "main": "./cjs/index.js",
       "module": "./esm2020/index.js",
       "node": "./cjs/index.js",
-      "default": "./esm2020/index.js",
       "types": "./index.d.ts",
       "import": "./esm2020/index.js",
-      "require": "./esm2020/index.js"
+      "require": "./esm2020/index.js",
+      "default": "./esm2020/index.js"
     },
     "./openapi.yml": {
       "default": "./open-api.yaml"

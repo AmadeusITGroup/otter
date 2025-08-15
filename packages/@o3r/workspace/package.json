@@ -15,7 +15,7 @@
       "default": "./dist/src/public_api.js"
     },
     "./package.json": {
-      "node": "./package.json"
+      "default": "./package.json"
     },
     "./builders/*": {
       "types": "./dist/builders/*.d.ts",

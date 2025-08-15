@@ -30,8 +30,8 @@
       "default": "./schemas/*.json"
     },
     "./builders/*/helpers": {
-      "default": "./builders/*/helpers/index.js",
-      "types": "./builders/*/helpers/index.d.ts"
+      "types": "./builders/*/helpers/index.d.ts",
+      "default": "./builders/*/helpers/index.js"
     }
   },
   "peerDependencies": {
