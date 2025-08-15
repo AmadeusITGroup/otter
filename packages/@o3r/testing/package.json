@@ -91,8 +91,8 @@
     },
     "./visual-test/utils": {
       "types": "./visual-test/utils.d.ts",
-      "default": "./visual-test/utils.js",
-      "import": "./esm/visual-test/utils.js"
+      "import": "./esm/visual-test/utils.js",
+      "default": "./visual-test/utils.js"
     },
     "./visual-testing-reporter": {
       "types": "./visual-testing-reporter/index.d.ts",

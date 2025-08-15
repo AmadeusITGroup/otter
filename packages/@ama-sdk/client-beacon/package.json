@@ -19,11 +19,11 @@
       "esm2020": "./dist/src/public_api.js",
       "esm2015": "./dist/esm2015/public_api.js",
       "es2020": "./dist/cjs/public_api.js",
-      "default": "./dist/cjs/public_api.js",
       "typings": "./dist/src/public_api.d.ts",
       "import": "./dist/src/public_api.js",
       "node": "./dist/cjs/public_api.js",
-      "require": "./dist/cjs/public_api.js"
+      "require": "./dist/cjs/public_api.js",
+      "default": "./dist/cjs/public_api.js"
     }
   },
   "scripts": {

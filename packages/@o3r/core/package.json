@@ -15,7 +15,7 @@
       "default": "./dist/src/public_api.js"
     },
     "./package.json": {
-      "node": "./package.json"
+      "default": "./package.json"
     },
     "./builders/*": {
       "types": "./dist/builders/*.d.ts",
@@ -30,8 +30,8 @@
     "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest",
     "postbuild": "patch-package-json-main"
   },
-  "default": "./src/public_api.js",
   "types": "./src/public_api.d.ts",
+  "default": "./src/public_api.js",
   "peerDependencies": {
     "@angular-devkit/architect": ">=0.1900.0 <0.2000.0-0",
     "@angular-devkit/core": "^19.0.0",
