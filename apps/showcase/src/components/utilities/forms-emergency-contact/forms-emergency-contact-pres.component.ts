@@ -50,9 +50,6 @@ import {
   EmergencyContact,
 } from '../../showcase/forms-parent/contracts';
 import {
-  DatePickerInputPresComponent,
-} from '../date-picker-input';
-import {
   FormsEmergencyContactPresTranslation,
   translations,
 } from './forms-emergency-contact-pres.translation';
@@ -62,7 +59,6 @@ import {
   selector: 'o3r-forms-emergency-contact-pres',
   imports: [
     CommonModule,
-    DatePickerInputPresComponent,
     FormsModule,
     JsonPipe,
     LocalizationModule,

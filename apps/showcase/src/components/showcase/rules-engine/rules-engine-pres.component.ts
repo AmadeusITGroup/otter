@@ -1,5 +1,4 @@
 import {
-  AsyncPipe,
   formatDate,
 } from '@angular/common';
 import {
@@ -74,8 +73,7 @@ const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
     ReactiveFormsModule,
     RulesEngineRunnerModule,
     LocalizationModule,
-    DatePickerInputPresComponent,
-    AsyncPipe
+    DatePickerInputPresComponent
   ]
 })
 export class RulesEnginePresComponent implements OnDestroy, DynamicConfigurableWithSignal<RulesEnginePresConfig>, Translatable<RulesEnginePresTranslation>, OnInit {

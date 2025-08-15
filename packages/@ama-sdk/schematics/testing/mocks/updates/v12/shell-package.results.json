@@ -20,20 +20,20 @@
       "main": "./cjs/index.js",
       "module": "./esm2020/index.js",
       "node": "./cjs/index.js",
-      "default": "./esm2020/index.js",
       "import": "./esm2020/index.js",
       "require": "./esm2020/index.js",
-      "types": "./index.d.ts"
+      "types": "./index.d.ts",
+      "default": "./esm2020/index.js"
     },
     "./open-api.yaml": "./open-api.yaml",
     "./helpers": {
       "main": "./cjs/helpers/index.js",
       "node": "./cjs/helpers/index.js",
-      "default": "./esm2020/helpers/index.js",
       "import": "./esm2020/helpers/index.js",
       "require": "./esm2020/helpers/index.js",
       "types": "./helpers/index.d.ts",
-      "module": "./esm2020/helpers/index.js"
+      "module": "./esm2020/helpers/index.js",
+      "default": "./esm2020/helpers/index.js"
     }
   },
   "dependencies": {
