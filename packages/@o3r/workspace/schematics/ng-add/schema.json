@@ -7,7 +7,7 @@
     "skipLinter": {
       "type": "boolean",
       "description": "Skip the linter process which includes EsLint and EditorConfig rules applying",
-      "default": true
+      "default": false
     },
     "skipInstall": {
       "type": "boolean",
