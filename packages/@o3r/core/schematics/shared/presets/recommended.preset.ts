@@ -11,7 +11,7 @@ import type {
  */
 export function recommendedPreset(options: PresetOptions) {
   const modules = [
-    options.isUsingEslintLegacy ? '@o3r/eslint-config-otter' : '@o3r/eslint-config'
+    '@o3r/eslint-config'
   ];
 
   return {
