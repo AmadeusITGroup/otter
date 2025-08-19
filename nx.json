@@ -175,7 +175,8 @@
       },
       "executor": "nx:run-commands",
       "inputs": [
-        "lint"
+        "lint",
+        "^source"
       ],
       "cache": true
     },
