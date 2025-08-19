@@ -300,7 +300,7 @@ export function ngAddLocalizationKeyFn(options: NgAddLocalizationKeySchematicsSc
           ]);
         }
       } else if (e instanceof NoLocalizationArchitecture && context.interactive) {
-        const shouldAddLocalization = await askConfirmation('This component is not localized. Would you like to add the localization architecture?', true);
+        const shouldAddLocalization = await askConfirmation('This component is not localized. Would you like to add the localization architecture?', true, true);
         if (shouldAddLocalization) {
           return chain([
             schematic('localization-to-component', {

@@ -55,7 +55,7 @@ export const askQuestionsToGetRulesOrThrowIfPackageNotAvailable = (
       }
     } else {
       if (typeof applyRule !== 'boolean' && context.interactive) {
-        applyRule = await askConfirmation(ruleQuestion, true);
+        applyRule = await askConfirmation(ruleQuestion, true, true);
         if (applyRule) {
           alwaysApplyRule = await askQuestion(`Generate future components with ${optionName} by default?`, [
             {

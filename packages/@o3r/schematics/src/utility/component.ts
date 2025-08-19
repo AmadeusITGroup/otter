@@ -42,7 +42,7 @@ export const isO3rClassComponent = (classDeclaration: ts.ClassDeclaration) =>
   && (ts.getDecorators(classDeclaration) || []).some((decorator) => isO3rClassDecorator(decorator));
 
 export const askConfirmationToConvertComponent = async () =>
-  (await import('@angular/cli/src/utilities/prompt')).askConfirmation('Component found is not an Otter component. Would you like to convert it?', true);
+  (await import('@angular/cli/src/utilities/prompt')).askConfirmation('Component found is not an Otter component. Would you like to convert it?', true, true);
 
 export class NoOtterComponent extends Error {
   constructor(componentPath: string) {

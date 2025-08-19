@@ -97,7 +97,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
         const modules = [...new Set([...(presetRunner.modules || []), ...(externalPresetRunner?.modules || [])])];
         if (modules.length > 0) {
           c.logger.info(`The following modules will be installed: ${modules.join(', ')}`);
-          if (c.interactive && !await askConfirmation('Would you like to process to the setup of these modules?', true)) {
+          if (c.interactive && !await askConfirmation('Would you like to process to the setup of these modules?', true, true)) {
             return;
           }
         }

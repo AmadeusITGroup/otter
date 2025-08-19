@@ -40,7 +40,7 @@ function ngAddModulesFn(options: NgAddModulesSchematicsSchema): Rule {
     const mods = [...new Set([...(presetRunner?.modules || []), ...(externalPresetRunner?.modules || [])])];
     if (mods.length > 0) {
       context.logger.info(`The following modules will be installed: ${mods.join(', ')}`);
-      if (context.interactive && !await askConfirmation('Would you like to process to the setup of these modules?', true)) {
+      if (context.interactive && !await askConfirmation('Would you like to process to the setup of these modules?', true, true)) {
         return;
       }
     }

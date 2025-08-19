@@ -131,7 +131,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       let installPlaywright = false;
       if (projectType === 'application') {
         installPlaywright = options.enablePlaywright === undefined
-          ? await askConfirmation('Do you want to setup Playwright test framework for E2E?', true)
+          ? await askConfirmation('Do you want to setup Playwright test framework for E2E?', true, true)
           : options.enablePlaywright;
       }
 
