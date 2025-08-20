@@ -40,7 +40,7 @@ const mockTranslationsCompilerProvider: Provider = {
 describe('LocalizationPresComponent', () => {
   let component: LocalizationPresComponent;
   let fixture: ComponentFixture<LocalizationPresComponent>;
-  beforeEach(() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [
         LocalizationPresComponent,
@@ -51,7 +51,7 @@ describe('LocalizationPresComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
     const localizationService = TestBed.inject(LocalizationService);
-    localizationService.configure();
+    await localizationService.configure();
   });
   it('should create', () => {
     expect(component).toBeTruthy();
