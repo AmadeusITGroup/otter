@@ -1069,6 +1069,7 @@ __metadata:
     "@angular/compiler": "npm:~19.2.0"
     "@commitlint/cli": "npm:^19.0.0"
     "@commitlint/config-conventional": "npm:^19.0.0"
+    "@compodoc/compodoc": "npm:^1.1.19"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@figma/rest-api-spec": "npm:~0.32.0"
     "@nx/eslint-plugin": "npm:~20.8.0"

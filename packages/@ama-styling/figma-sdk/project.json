@@ -24,6 +24,9 @@
       ]
     },
     "lint": {},
-    "test": {}
+    "test": {},
+    "prepare-publish": {},
+    "publish": {},
+    "documentation": {}
   }
 }
