@@ -14,7 +14,7 @@ import {
 import {
   EslintFixTask,
   LinterOptions,
-} from '../../tasks/index';
+} from '../../tasks/eslint/index';
 
 interface ApplyEslintFixOption extends LinterOptions {
   /** List of task to wait to run the linter */
