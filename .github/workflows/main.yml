@@ -50,7 +50,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [yarn_lock_check]
     env:
-      NX_SKIP_NX_CACHE: ${{ vars.NX_SKIP_NX_CACHE == 'true' ||  github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release') }}
+      NX_SKIP_NX_CACHE: ${{ vars.NX_SKIP_NX_CACHE == 'true' || github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release') && !endsWith(github.ref, '-next') }}
       NX_SKIP_REMOTE_CACHE: ${{ vars.NX_SKIP_REMOTE_CACHE }}
       NODE_COMPILE_CACHE: ~/.cache/node-compilation
     steps:
@@ -108,7 +108,7 @@ jobs:
     needs: [yarn_lock_check]
     with:
       affected: ${{ github.event_name == 'pull_request' }}
-      skipNxCache: ${{ vars.NX_SKIP_NX_CACHE == 'true' || github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release') }}
+      skipNxCache: ${{ vars.NX_SKIP_NX_CACHE == 'true' || github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release') && !endsWith(github.ref, '-next') }}
       skipNxRemoteCache: ${{ vars.NX_SKIP_REMOTE_CACHE == 'true'  }}
 
   it-tests:
@@ -117,7 +117,7 @@ jobs:
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
     needs: [yarn_lock_check, build]
     with:
-      skipNxCache: ${{ vars.NX_SKIP_NX_CACHE == 'true'   || github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release') }}
+      skipNxCache: ${{ vars.NX_SKIP_NX_CACHE == 'true'   || github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release') && !endsWith(github.ref, '-next') }}
       skipNxRemoteCache: ${{ vars.NX_SKIP_REMOTE_CACHE == 'true'  }}
 
   e2e-tests:
@@ -128,7 +128,7 @@ jobs:
     uses: ./.github/workflows/e2e-tests.yml
     needs: [yarn_lock_check, build]
     with:
-      skipNxCache: ${{ vars.NX_SKIP_NX_CACHE == 'true' || github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release') }}
+      skipNxCache: ${{ vars.NX_SKIP_NX_CACHE == 'true' || github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release') && !endsWith(github.ref, '-next') }}
       skipNxRemoteCache: ${{ vars.NX_SKIP_REMOTE_CACHE == 'true'}}
 
   publish-packages:
@@ -144,7 +144,7 @@ jobs:
       version: ${{ needs.version.outputs.nextVersionTag }}
       prerelease: ${{ needs.version.outputs.isPreRelease == 'true' }}
       isPullRequest: false
-      skipNxCache: ${{ vars.NX_SKIP_NX_CACHE == 'true' || github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release') }}
+      skipNxCache: ${{ vars.NX_SKIP_NX_CACHE == 'true' || github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release') && !endsWith(github.ref, '-next') }}
       skipNxRemoteCache: ${{ vars.NX_SKIP_REMOTE_CACHE == 'true' }}
 
   documentation-main:
