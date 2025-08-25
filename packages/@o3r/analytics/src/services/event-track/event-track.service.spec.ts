@@ -213,3 +213,69 @@ describe('Performance metrics - service configuration activation', () => {
     expect(spyOnConstructor).toHaveBeenCalledTimes(0);
   });
 });
+
+describe('Performance metrics - page loaded event', () => {
+  beforeAll(() => getTestBed().platform || TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting(), {
+    teardown: { destroyAfterEach: false }
+  }));
+  let spyOnMarkFirstLoad: jest.SpyInstance;
+  let service: EventTrackService;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      providers: [
+        EventTrackService,
+        { provide: Router, useClass: MockRouter }
+      ]
+    }).compileComponents();
+    Object.assign(window.performance, {
+      timing: {}
+    });
+    service = TestBed.inject(EventTrackService);
+    spyOnMarkFirstLoad = jest.spyOn(service, 'markFirstLoad').mockImplementation();
+    const promise = fireLoadEvent();
+    await jest.runAllTimersAsync();
+    return promise;
+  });
+
+  it('should mark first load when the tracking is activated and window load event is dispatched', () => {
+    expect(spyOnMarkFirstLoad).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('Performance metrics - missed page loaded event', () => {
+  beforeAll(() => getTestBed().platform || TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting(), {
+    teardown: { destroyAfterEach: false }
+  }));
+  let spyOnMarkFirstLoad: jest.SpyInstance;
+  let service: EventTrackService;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      providers: [
+        EventTrackService,
+        { provide: Router, useClass: MockRouter }
+      ]
+    }).compileComponents();
+    Object.assign(window.performance, {
+      getEntriesByType: jest.fn().mockReturnValue([{ entryType: 'navigation', duration: 100 }]),
+      timing: {}
+    });
+    service = TestBed.inject(EventTrackService);
+    spyOnMarkFirstLoad = jest.spyOn(service, 'markFirstLoad').mockImplementation();
+    await jest.runAllTimersAsync();
+  });
+
+  afterEach(() => {
+    Object.assign(window.performance, {
+      getEntriesByType: jest.fn().mockReturnValue([]),
+      timing: {}
+    });
+  });
+
+  it('should mark first load when the tracking is activated and window performance implicitly indicates load event', async () => {
+    await jest.runAllTimersAsync();
+
+    expect(spyOnMarkFirstLoad).toHaveBeenCalledTimes(1);
+  });
+});
