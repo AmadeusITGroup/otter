@@ -67,6 +67,7 @@
     "@angular/compiler": "~19.2.0",
     "@commitlint/cli": "^19.0.0",
     "@commitlint/config-conventional": "^19.0.0",
+    "@compodoc/compodoc": "^1.1.19",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@figma/rest-api-spec": "~0.32.0",
     "@nx/eslint-plugin": "~20.8.0",
