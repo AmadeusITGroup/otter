@@ -21,16 +21,12 @@ import {
   addVsCodeRecommendations,
   applyEditorConfig,
   createOtterSchematic,
-  getExternalDependenciesInfo,
-  getO3rPeerDeps,
-  getPackageInstallConfig,
-  getProjectNewDependenciesTypes,
   getTestFramework,
   getWorkspaceConfig,
+  ngAddDependenciesRule,
   O3rCliError,
   registerPackageCollectionSchematics,
   removePackages,
-  setupDependencies,
   setupSchematicsParamsForProject,
 } from '@o3r/schematics';
 import type {
@@ -71,10 +67,8 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
     try {
       const testPackageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
       const packageJson = JSON.parse(fs.readFileSync(testPackageJsonPath, { encoding: 'utf8' })) as PackageJson;
-      const depsInfo = getO3rPeerDeps(testPackageJsonPath);
       const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
       const workingDirectory = workspaceProject?.root || '.';
-      const projectPackageJson = tree.readJson(path.posix.join(workingDirectory, 'package.json')) as PackageJson;
       const projectType = workspaceProject?.projectType || 'application';
       let installJest;
 
@@ -98,37 +92,6 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
         }
       }
 
-      const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
-        acc[dep] = {
-          inManifest: [{
-            range: `${options.exactO3rVersion ? '' : '~'}${depsInfo.packageVersion}`,
-            types: getProjectNewDependenciesTypes(workspaceProject)
-          }],
-          ngAddOptions: { exactO3rVersion: options.exactO3rVersion }
-        };
-        return acc;
-      }, getPackageInstallConfig(testPackageJsonPath, tree, options.projectName, true, !!options.exactO3rVersion));
-      if (installJest) {
-        devDependenciesToInstall.push(
-          '@angular-builders/jest',
-          '@types/jest',
-          'jest',
-          'jest-environment-jsdom',
-          'jest-preset-angular',
-          'ts-jest'
-        );
-      }
-
-      const externalDependenciesInfo = getExternalDependenciesInfo({
-        devDependenciesToInstall,
-        dependenciesToInstall,
-        o3rPackageJsonPath: testPackageJsonPath,
-        projectType: workspaceProject?.projectType,
-        projectPackageJson
-      },
-      context.logger
-      );
-
       let installPlaywright = false;
       if (projectType === 'application') {
         installPlaywright = options.enablePlaywright === undefined
@@ -143,21 +106,38 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
         updateFixtureConfig(options),
         removePackages(['@otter/testing']),
         addVsCodeRecommendations(['Orta.vscode-jest']),
-        installPlaywright ? updatePlaywright(options, dependencies) : noop,
-        setupDependencies({
-          projectName: options.projectName,
-          dependencies: {
-            ...dependencies,
-            ...externalDependenciesInfo
-          },
-          ngAddToRun: depsInfo.o3rPeerDeps
-        }),
+        installPlaywright ? updatePlaywright(options) : noop,
         registerPackageCollectionSchematics(packageJson),
         setupSchematicsParamsForProject({
           '@o3r/core:component': schematicsDefaultOptions,
           '@o3r/core:component-container': schematicsDefaultOptions,
           '@o3r/core:component-presenter': schematicsDefaultOptions
         }, options.projectName),
+        ngAddDependenciesRule(
+          options,
+          testPackageJsonPath,
+          {
+            dependenciesToInstall,
+            devDependenciesToInstall: devDependenciesToInstall.concat(
+              installJest
+                ? [
+                  '@angular-builders/jest',
+                  '@types/jest',
+                  'jest',
+                  'jest-environment-jsdom',
+                  'jest-preset-angular',
+                  'ts-jest'
+                ]
+                : [],
+              installPlaywright
+                ? [
+                  '@playwright/test',
+                  'rimraf'
+                ]
+                : []
+            )
+          }
+        ),
         options.skipLinter ? noop() : applyEditorConfig()
       ];
 
