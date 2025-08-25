@@ -14,6 +14,7 @@ export * from './matching-peers';
 export * from './migration/migration';
 export * from './modules';
 export * from './monorepo';
+export * from './ng-add-wrapper';
 export * from './package-manager-runner';
 export * from './package-version';
 export * from './question';

@@ -10,20 +10,12 @@ import {
 import {
   createOtterSchematic,
   getAppModuleFilePath,
-  getExternalDependenciesInfo,
-  getO3rPeerDeps,
-  getPackageInstallConfig,
-  getProjectNewDependenciesTypes,
-  getWorkspaceConfig,
   insertImportToModuleFile,
-  setupDependencies,
+  ngAddSchematicWrapper,
 } from '@o3r/schematics';
 import {
   addRootImport,
 } from '@schematics/angular/utility';
-import type {
-  PackageJson,
-} from 'type-fest';
 import {
   registerDevtools,
 } from './helpers/devtools-registration';
@@ -46,6 +38,8 @@ const dependenciesToInstall = [
 const devDependenciesToInstall: string[] = [
 ];
 
+const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
+
 /**
  * Add Otter application to an Angular Project
  * @param options The options to pass to ng-add execution
@@ -55,10 +49,6 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
   return async (tree: Tree, context: SchematicContext) => {
     const { isImported } = await import('@schematics/angular/utility/ast-utils').catch(() => ({ isImported: undefined }));
     const ts = await import('typescript').catch(() => undefined);
-    const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
-    const depsInfo = getO3rPeerDeps(packageJsonPath);
-
-    const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
 
     const addAngularAnimationPreferences: Rule = () => {
       const additionalRules: Rule[] = [];
@@ -113,39 +103,10 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       tree.commitUpdate(recorder);
       return chain(additionalRules)(tree, context);
     };
-    const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
-      acc[dep] = {
-        inManifest: [{
-          range: `${options.exactO3rVersion ? '' : '~'}${depsInfo.packageVersion}`,
-          types: getProjectNewDependenciesTypes(workspaceProject)
-        }],
-        ngAddOptions: { exactO3rVersion: options.exactO3rVersion }
-      };
-      return acc;
-    }, getPackageInstallConfig(packageJsonPath, tree, options.projectName, false, !!options.exactO3rVersion));
 
-    const projectDirectory = workspaceProject?.root || '.';
-    const projectPackageJson = tree.readJson(path.posix.join(projectDirectory, 'package.json')) as PackageJson;
-
-    const externalDependenciesInfo = getExternalDependenciesInfo({
-      devDependenciesToInstall,
-      dependenciesToInstall,
-      projectType: workspaceProject?.projectType,
-      o3rPackageJsonPath: packageJsonPath,
-      projectPackageJson
-    },
-    context.logger
-    );
-
-    const registerDevtoolRule = registerDevtools(options);
     return () => chain([
-      setupDependencies({
-        projectName: options.projectName,
-        dependencies: { ...dependencies, ...externalDependenciesInfo },
-        ngAddToRun: depsInfo.o3rPeerDeps
-      }),
       addAngularAnimationPreferences,
-      registerDevtoolRule
+      registerDevtools(options)
     ])(tree, context);
   };
 }
@@ -154,4 +115,13 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
  * Add Otter application to an Angular Project
  * @param options The options to pass to ng-add execution
  */
-export const ngAdd = (options: NgAddSchematicsSchema) => createOtterSchematic(ngAddFn)(options);
+export const ngAdd = (options: NgAddSchematicsSchema) => createOtterSchematic(
+  ngAddSchematicWrapper(
+    packageJsonPath,
+    {
+      dep: dependenciesToInstall,
+      devDep: devDependenciesToInstall
+    },
+    ngAddFn
+  )
+)(options);
