@@ -24,8 +24,10 @@ describe('RestoreRoute', () => {
   let sanitizer: DomSanitizer;
   let routeMemorizeService: RouteMemorizeService;
   let activatedRoute: ActivatedRoute;
+  let mockWindow: { location: { href: string }; origin?: string };
 
   beforeEach(() => {
+    mockWindow = { location: { href: window.location.href } };
     const routeMemorizeServiceMock = {
       getRoute: jest.fn(),
       memorizeRoute: jest.fn(() => {})
@@ -35,7 +37,8 @@ describe('RestoreRoute', () => {
         RestoreRoute,
         { provide: DomSanitizer, useValue: { sanitize: jest.fn(() => 'sanitizedUrl'), bypassSecurityTrustResourceUrl: jest.fn((url: string) => url) } },
         { provide: ActivatedRoute, useValue: { routeConfig: { path: 'test-path' } } },
-        { provide: RouteMemorizeService, useValue: routeMemorizeServiceMock }
+        { provide: RouteMemorizeService, useValue: routeMemorizeServiceMock },
+        { provide: Window, useValue: mockWindow }
       ]
     });
 
@@ -74,7 +77,7 @@ describe('RestoreRoute', () => {
     const options: RestoreRouteOptions = { propagateQueryParams: true };
     jest.spyOn(sanitizer, 'sanitize').mockReturnValue(url);
 
-    Object.defineProperty(window, 'location', {
+    Object.defineProperty(mockWindow, 'location', {
       value: { href: 'http://example-top-window.com?param2=value2' },
       writable: true
     });
@@ -89,7 +92,7 @@ describe('RestoreRoute', () => {
     const options: RestoreRouteOptions = { propagateQueryParams: true };
     jest.spyOn(sanitizer, 'sanitize').mockReturnValue(url);
 
-    Object.defineProperty(window, 'location', {
+    Object.defineProperty(mockWindow, 'location', {
       value: { href: 'http://example-top-window.com?param2=value2' },
       writable: true
     });
@@ -103,7 +106,7 @@ describe('RestoreRoute', () => {
     const url = 'http://example.com?param1=value1';
     const options: RestoreRouteOptions = { propagateQueryParams: true, overrideQueryParams: true };
     jest.spyOn(sanitizer, 'sanitize').mockReturnValue(url);
-    Object.defineProperty(window, 'location', {
+    Object.defineProperty(mockWindow, 'location', {
       value: { href: 'http://example-to-window.com?param1=value2' },
       writable: true
     });
@@ -116,7 +119,7 @@ describe('RestoreRoute', () => {
   it('should append the correct pathname and remove the module path from top window url', () => {
     const url = 'http://example.com';
     jest.spyOn(sanitizer, 'sanitize').mockReturnValue(url);
-    Object.defineProperty(window, 'location', {
+    Object.defineProperty(mockWindow, 'location', {
       value: { href: 'http://example-top-window.com/module-path/in-module-path' },
       writable: true
     });
@@ -131,7 +134,7 @@ describe('RestoreRoute', () => {
     const url = 'http://example.com';
     jest.spyOn(sanitizer, 'sanitize').mockReturnValue(url);
 
-    Object.defineProperty(window, 'origin', {
+    Object.defineProperty(mockWindow, 'origin', {
       value: 'http://example-top-window.com'
     });
 
