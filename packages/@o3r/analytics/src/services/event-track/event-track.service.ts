@@ -17,6 +17,8 @@ import {
   combineLatest,
   fromEvent,
   Observable,
+  of,
+  race,
   ReplaySubject,
 } from 'rxjs';
 import {
@@ -42,6 +44,9 @@ import {
   EVENT_TRACK_SERVICE_CONFIGURATION,
   EventTrackConfiguration,
 } from './event-track.configuration';
+import {
+  isPerformanceNavigationEntry,
+} from './event-track.helpers';
 
 /** The initial value of the performance measurements */
 export const performanceMarksInitialState: Readonly<PerfEventPayload> = {
@@ -133,7 +138,15 @@ export class EventTrackService {
         filter(() => typeof window.performance.timing !== 'undefined'),
         takeWhile(([_event, active]) => active)
       ),
-      fromEvent(window, 'load').pipe(delay(0))
+      race([
+        fromEvent(window, 'load').pipe(delay(0)),
+        of(window.performance).pipe(
+          filter((windowPerformance: Performance) => {
+            const latestPerformanceEntry = windowPerformance.getEntriesByType?.('navigation').at(-1);
+            return isPerformanceNavigationEntry(latestPerformanceEntry) && latestPerformanceEntry.duration > 0;
+          })
+        )
+      ])
     ).subscribe(async () => {
       if (eventConfiguration.useBrowserApiForFirstFP) {
         const browserEntries = window.performance.getEntriesByType && window.performance.getEntriesByType('paint');
