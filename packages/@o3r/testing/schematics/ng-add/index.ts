@@ -98,7 +98,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
         }
       }
 
-      const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
+      const internalDependenciesInfo = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
         acc[dep] = {
           inManifest: [{
             range: `${options.exactO3rVersion ? '' : '~'}${depsInfo.packageVersion}`,
@@ -115,6 +115,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
           'jest',
           'jest-environment-jsdom',
           'jest-preset-angular',
+          'jest-util',
           'ts-jest'
         );
       }
@@ -128,6 +129,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       },
       context.logger
       );
+      const dependencies = { ...internalDependenciesInfo, ...externalDependenciesInfo };
 
       let installPlaywright = false;
       if (projectType === 'application') {
@@ -146,10 +148,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
         installPlaywright ? updatePlaywright(options, dependencies) : noop,
         setupDependencies({
           projectName: options.projectName,
-          dependencies: {
-            ...dependencies,
-            ...externalDependenciesInfo
-          },
+          dependencies,
           ngAddToRun: depsInfo.o3rPeerDeps
         }),
         registerPackageCollectionSchematics(packageJson),

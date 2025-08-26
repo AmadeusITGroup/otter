@@ -79,7 +79,7 @@ describe('LocalizationTranslatePipe', () => {
 
       localizationService = TestBed.inject(LocalizationService);
       // initialize TranslateService via configure of LocalizationService
-      localizationService.configure();
+      await localizationService.configure();
       pipe = TestBed.inject(O3rLocalizationTranslatePipe);
 
       expect(() => localizationService.toggleShowKeys()).toThrow();
@@ -109,7 +109,7 @@ describe('LocalizationTranslatePipe', () => {
 
         localizationService = TestBed.inject(LocalizationService);
         // initialize TranslateService via configure of LocalizationService
-        localizationService.configure();
+        await localizationService.configure();
         pipe = TestBed.inject(O3rLocalizationTranslatePipe);
       });
 
@@ -151,7 +151,7 @@ describe('LocalizationTranslatePipe', () => {
         }).compileComponents();
         localizationService = TestBed.inject(LocalizationService);
         // initialize TranslateService via configure of LocalizationService
-        localizationService.configure();
+        await localizationService.configure();
         pipe = TestBed.inject(O3rLocalizationTranslatePipe);
       });
 

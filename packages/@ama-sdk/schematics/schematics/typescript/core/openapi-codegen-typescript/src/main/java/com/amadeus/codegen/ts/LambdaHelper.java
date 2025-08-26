@@ -567,7 +567,7 @@ public class LambdaHelper {
       public static String getFirstJsonMimeType(String[] mimeTypes) {
         for (String mime : mimeTypes) {
           if (HeaderJsonMimeType.isJsonMime(mime)) {
-            return "application/json";
+            return mime;
           }
         }
         return mimeTypes[0];

@@ -24,7 +24,9 @@ describe('ng add testing', () => {
 
     const diff = getGitDiff(execAppOptions.cwd);
     expect(diff.added.length).toBe(11);
-    expect(fs.readFileSync(path.join(applicationPath, 'package.json'), { encoding: 'utf8' })).toContain('@o3r/testing');
+    const packageJsonContent = fs.readFileSync(path.join(applicationPath, 'package.json'), { encoding: 'utf8' });
+    expect(packageJsonContent).toContain('@o3r/testing');
+    expect(packageJsonContent).toContain('@playwright/test');
     const vscodeContent = fs.readFileSync(`${workspacePath}/.vscode/extensions.json`, 'utf8');
     expect(vscodeContent).toContain('"Orta.vscode-jest"');
 
