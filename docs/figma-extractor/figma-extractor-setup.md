@@ -15,7 +15,7 @@ The extractor will help you to:
 
 ## Extractor usage
 
-The list of the commands and options supported by the Figma Extract is available on [@ama-styling/figma-extractor readme](https://www.npmjs.com/package/@ama-styling/).\
+The list of the commands and options supported by the Figma Extract is available on [@ama-styling/figma-extractor readme](https://www.npmjs.com/package/@ama-styling/figma-extractor).\
 This section focuses on the data to provide the CLI and in which context it can be used.
 
 ### Access Permissions
