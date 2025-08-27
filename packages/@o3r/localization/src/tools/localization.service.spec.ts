@@ -33,7 +33,7 @@ describe('LocalizationService', () => {
       }).compileComponents();
       localizationService = TestBed.inject(LocalizationService);
 
-      localizationService.configure();
+      await localizationService.configure();
     });
 
     it('should be used for translations (en)', () => {
@@ -62,7 +62,7 @@ describe('LocalizationService', () => {
       }).compileComponents();
       localizationService = TestBed.inject(LocalizationService);
 
-      localizationService.configure();
+      await localizationService.configure();
     });
 
     it('should translate to the same language, when supported language provided', () => {
@@ -126,7 +126,7 @@ describe('LocalizationService', () => {
       localizationService = TestBed.inject(LocalizationService);
       const translateService = localizationService.getTranslateService();
       translateServiceSpy = jest.spyOn(translateService, 'setDefaultLang');
-      localizationService.configure();
+      await localizationService.configure();
     });
 
     it('should translate to the language provided in the configuration, when a supported language is provided', () => {
@@ -157,7 +157,7 @@ describe('LocalizationService', () => {
       localizationService = TestBed.inject(LocalizationService);
       const translateService = localizationService.getTranslateService();
       translateServiceSpy = jest.spyOn(translateService, 'setDefaultLang');
-      localizationService.configure();
+      await localizationService.configure();
     });
 
     it('should translate to the fallback language provided in the configuration, when a non supported language is provided', () => {
@@ -194,7 +194,7 @@ describe('LocalizationService', () => {
       }).compileComponents();
       localizationService = TestBed.inject(LocalizationService);
 
-      localizationService.configure();
+      await localizationService.configure();
     });
 
     it('should translate to the same language, when supported language provided', () => {

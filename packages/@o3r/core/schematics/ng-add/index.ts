@@ -107,7 +107,45 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
           externalPresetRunner?.rule || noop()
         ])(t, c);
       },
-      options.projectName ? displayModuleListRule({ packageName: options.projectName }) : noop()
+      options.projectName ? displayModuleListRule({ packageName: options.projectName }) : noop(),
+      (t) => {
+        const mcpConfigToAdd = {
+          servers: {
+            angular: {
+              command: 'npx',
+              args: ['@angular/cli', 'mcp']
+            },
+            'o3r-docs': {
+              type: 'stdio',
+              command: 'npx',
+              args: [
+                '-y', '@buger/docs-mcp', '--gitUrl', 'https://github.com/AmadeusITGroup/otter'
+              ]
+            },
+            o3r: {
+              type: 'stdio',
+              command: 'npx',
+              args: ['-y', '-p', '@o3r/mcp', 'o3r-mcp-start']
+            }
+          }
+        };
+        const mcpConfigPath = '/.vscode/mcp.json';
+        if (t.exists(mcpConfigPath)) {
+          const mcpConfig: any = t.readJson(mcpConfigPath);
+          t.overwrite(
+            mcpConfigPath,
+            JSON.stringify({
+              ...mcpConfig,
+              servers: {
+                ...mcpConfigToAdd.servers,
+                ...mcpConfig.servers
+              }
+            }, null, 2)
+          );
+          return t;
+        }
+        t.create(mcpConfigPath, JSON.stringify(mcpConfigToAdd, null, 2));
+      }
     ]);
   };
 }

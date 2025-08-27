@@ -53,10 +53,9 @@ export function updatePlaywright(options: NgAddPackageOptions, dependencies: Rec
       },
       context.logger
     );
-    dependencies = {
-      ...dependencies,
-      ...externalDependencies
-    };
+    Object.entries(externalDependencies).forEach(([key, value]) => {
+      dependencies[key] = value;
+    });
     const workingDirectory = (options?.projectName && getWorkspaceConfig(tree)?.projects[options.projectName]?.root) || '.';
 
     // update gitignore

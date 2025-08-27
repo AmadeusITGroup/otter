@@ -66,6 +66,21 @@
         }
       }
     },
+    "chatParticipants": [
+      {
+        "id": "o3r-chat-participant",
+        "name": "o3r",
+        "fullName": "Otter Chat Participant",
+        "description": "Ask me anything about the Otter framework",
+        "isSticky": true,
+        "commands": [
+          {
+            "name": "new",
+            "description": "Get the commands to create a new Otter monorepo with an application"
+          }
+        ]
+      }
+    ],
     "commands": [
       {
         "command": "otter.add.module",
@@ -325,6 +340,12 @@
         "label": "Enrich Otter component",
         "id": "otter.enrich-component.submenu"
       }
+    ],
+    "mcpServerDefinitionProviders": [
+      {
+        "id": "o3rMCPServerProvider",
+        "label": "Otter MCP Server Provider"
+      }
     ]
   },
   "extensionKind": [
@@ -338,12 +359,12 @@
     "build": "yarn nx build vscode-extension",
     "build:esbuild": "esbuild ./src/extension.ts --bundle --outfile=dist/src/extension.js --external:vscode --format=cjs --platform=node --sourcemap --minify",
     "postbuild": "yarn copy:assets && cpy ./package.json dist && patch-package-json-main",
-    "copy:assets": "cpy './assets/**' dist/assets && cpy './README.md' dist && cpy '.vscodeignore' dist",
+    "copy:assets": "cpy './assets/**' dist/assets && cpy '../../assets/gen-ai/**/*.md' dist/assets/gen-ai && cpy './README.md' dist && cpy '.vscodeignore' dist",
     "watch": "yarn nx run vscode-extension:compile:watch"
   },
   "dependencies": {
     "@o3r/design": "workspace:^",
-    "eslint": "~9.31.0"
+    "eslint": "~9.33.0"
   },
   "peerDependencies": {
     "@types/vscode": "^1.100.0"
@@ -377,9 +398,9 @@
     "@types/eslint": "~9.6.0",
     "@types/jest": "~29.5.2",
     "@types/node": "^22.0.0",
-    "@types/vscode": "^1.100.0",
-    "@typescript-eslint/parser": "~8.37.0",
-    "@typescript-eslint/utils": "~8.37.0",
+    "@types/vscode": "~1.102.0",
+    "@typescript-eslint/parser": "~8.39.0",
+    "@typescript-eslint/utils": "~8.39.0",
     "@vscode/vsce": "^3.2.1",
     "angular-eslint": "~20.1.0",
     "cpy-cli": "^5.0.0",
@@ -397,13 +418,14 @@
     "jest": "~29.7.0",
     "jest-environment-jsdom": "~29.7.0",
     "jest-junit": "~16.0.0",
+    "jest-util": "~29.7.0",
     "jiti": "^2.4.0",
     "jsonc-eslint-parser": "~2.4.0",
     "nx": "~21.3.11",
     "rxjs": "^7.8.1",
-    "ts-jest": "~29.3.0",
+    "ts-jest": "~29.4.0",
     "typescript": "~5.8.2",
-    "typescript-eslint": "~8.37.0",
+    "typescript-eslint": "~8.39.0",
     "zone.js": "~0.15.0"
   }
 }

@@ -20,6 +20,7 @@ env:
   NX_PARALLEL: ${{ vars.NX_PARALLEL }}
   NX_TASK_TARGET_CONFIGURATION: ci
   YARN_ENABLE_HARDENED_MODE: 0
+  NODE_COMPILE_CACHE: ~/.cache/node-compile-cache
 
 jobs:
   # Check the integrity of yarn lock

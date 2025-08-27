@@ -29,6 +29,7 @@ env:
   NX_SKIP_NX_CACHE: ${{ inputs.skipNxCache }}
   NX_SKIP_REMOTE_CACHE: ${{inputs.skipNxRemoteCache}}
   YARN_ENABLE_HARDENED_MODE: 0
+  NODE_COMPILE_CACHE: ~/.cache/node-compile-cache
 
 permissions:
   contents: read

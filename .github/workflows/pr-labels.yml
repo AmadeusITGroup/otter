@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       SKIP_ON_LABELS: '["cascading"]'
+      NODE_COMPILE_CACHE: ~/.cache/node-compile-cache
     permissions:
       pull-requests: write
       issues: write

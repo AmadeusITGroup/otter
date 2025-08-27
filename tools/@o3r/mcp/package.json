@@ -1,0 +1,80 @@
+{
+  "name": "@o3r/mcp",
+  "version": "0.0.0-placeholder",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "This module provides a MCP Server",
+  "keywords": [
+    "mcp",
+    "otter",
+    "otter-module"
+  ],
+  "bin": {
+    "o3r-mcp-start": "./dist/cli/index.js"
+  },
+  "main": "./dist/cli/index.js",
+  "scripts": {
+    "nx": "nx",
+    "ng": "yarn nx",
+    "build": "yarn nx build mcp",
+    "copy:resources": "yarn cpy '../../../assets/gen-ai/**/*.md' dist/resources",
+    "compile": "tsc -b ./tsconfig.build.json && yarn copy:resources && yarn cpy package.json dist && patch-package-json-main"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "~1.17.0",
+    "tslib": "^2.6.2",
+    "zod": "~3.25.76"
+  },
+  "devDependencies": {
+    "@angular/common": "~20.0.0",
+    "@angular/compiler": "~20.0.0",
+    "@angular/compiler-cli": "~20.0.0",
+    "@angular/core": "~20.0.0",
+    "@angular/platform-browser": "~20.0.0",
+    "@angular/platform-browser-dynamic": "~20.0.0",
+    "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
+    "@nx/eslint": "~21.3.11",
+    "@nx/eslint-plugin": "~21.3.11",
+    "@nx/jest": "~21.3.11",
+    "@nx/js": "~21.3.11",
+    "@o3r/build-helpers": "workspace:^",
+    "@o3r/eslint-config": "workspace:^",
+    "@o3r/eslint-plugin": "workspace:^",
+    "@o3r/test-helpers": "workspace:^",
+    "@stylistic/eslint-plugin": "~5.2.0",
+    "@types/jest": "~29.5.2",
+    "@types/node": "^22.0.0",
+    "@typescript-eslint/parser": "~8.39.0",
+    "angular-eslint": "~20.1.0",
+    "cpy-cli": "^5.0.0",
+    "eslint": "~9.33.0",
+    "eslint-import-resolver-node": "~0.3.9",
+    "eslint-import-resolver-typescript": "~4.4.0",
+    "eslint-plugin-import": "~2.32.0",
+    "eslint-plugin-import-newlines": "~1.4.0",
+    "eslint-plugin-jest": "~29.0.0",
+    "eslint-plugin-jsdoc": "~52.0.0",
+    "eslint-plugin-prefer-arrow": "~1.2.3",
+    "eslint-plugin-unicorn": "~60.0.0",
+    "eslint-plugin-unused-imports": "~4.1.4",
+    "globals": "^16.0.0",
+    "jest": "~29.7.0",
+    "jest-environment-jsdom": "~29.7.0",
+    "jest-junit": "~16.0.0",
+    "jest-preset-angular": "~14.6.0",
+    "jest-util": "~29.7.0",
+    "jsonc-eslint-parser": "~2.4.0",
+    "nx": "~21.3.11",
+    "rxjs": "^7.8.1",
+    "ts-jest": "~29.4.0",
+    "ts-node": "~10.9.2",
+    "type-fest": "^4.30.1",
+    "typescript": "~5.8.2",
+    "typescript-eslint": "~8.39.0",
+    "zone.js": "~0.15.0"
+  },
+  "engines": {
+    "node": "^20.19.0 || ^22.17.0 || ^24.0.0"
+  }
+}
