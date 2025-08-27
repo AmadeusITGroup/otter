@@ -1,0 +1,10 @@
+{
+  "o3r-forms-emergency-contact-pres.email.pattern": "Invalid email address pattern",
+  "o3r-forms-emergency-contact-pres.email.pattern.long": "The entered email address has an invalid pattern.",
+  "o3r-forms-emergency-contact-pres.name.required": "The name is required",
+  "o3r-forms-emergency-contact-pres.name.required.long": "You have to enter a name for the emergency contact. Click here to navigate.",
+  "o3r-forms-emergency-contact-pres.phone.pattern": "Invalid phone number pattern",
+  "o3r-forms-emergency-contact-pres.phone.pattern.long": "The entered phone number has an invalid pattern.",
+  "o3r-forms-emergency-contact-pres.phone.required": "The phone number is required",
+  "o3r-forms-emergency-contact-pres.phone.required.long": "You have to enter a phone number for the emergency contact. Click here to navigate."
+}

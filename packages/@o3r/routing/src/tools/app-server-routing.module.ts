@@ -83,7 +83,7 @@ export function withBaseHref<T extends string | undefined>(baseHref: T | ((envir
         provide: APP_BASE_HREF,
         ...(
           typeof baseHref === 'function'
-            ? { useFactory: baseHref }
+            ? { useFactory: baseHref, deps: [ENVIRONMENT_CONFIG_TOKEN] }
             : { useValue: baseHref }
         )
       }

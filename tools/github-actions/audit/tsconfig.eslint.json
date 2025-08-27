@@ -1,4 +1,7 @@
 {
+  "compilerOptions": {
+    "composite": true
+  },
   "include": [
     "jest.config.js",
     "eslint*.config.mjs",

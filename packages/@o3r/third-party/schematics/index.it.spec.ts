@@ -38,7 +38,7 @@ describe('new Angular application', () => {
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/third-party:iframe-to-component', '--path', componentPath] }, execAppOptions);
 
     [libraryPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
-      expect(diff.all.some((file) => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
+      expect(diff.all.some((file) => file.startsWith(path.relative(workspacePath, untouchedProject).replace(/\\+/g, '/')))).toBe(false);
     });
     expect(() => packageManagerRunOnProject(appName, isInWorkspace, { script: 'build' }, execAppOptions)).not.toThrow();
   });

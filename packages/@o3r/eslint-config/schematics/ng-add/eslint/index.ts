@@ -15,6 +15,11 @@ import {
   template,
   url,
 } from '@angular-devkit/schematics';
+import {
+  findFilesInTree,
+  getTemplateFolder,
+  getWorkspaceConfig,
+} from '@o3r/schematics';
 import type {
   WorkspaceSchema,
 } from '@o3r/schematics';
@@ -22,10 +27,9 @@ import {
   updateOrAddTsconfigEslint,
 } from '../tsconfig/index';
 
-const editAngularJson = (projectName: string, extension: string): Rule => async (tree, context) => {
+const editAngularJson = (projectName: string, extension: string): Rule => (tree, context) => {
   let workspace: WorkspaceSchema | null = null;
   try {
-    const { getWorkspaceConfig } = await import('@o3r/schematics');
     workspace = getWorkspaceConfig(tree);
   } catch {
     context.logger.warn(`No @o3r/schematics installed, we could not detect the workspace. The linter task for ${projectName} can not be added.`);
@@ -56,8 +60,7 @@ const editAngularJson = (projectName: string, extension: string): Rule => async 
  * @param rootPath
  * @param projectName
  */
-export const updateEslintConfig = (rootPath: string, projectName?: string): Rule => async (tree, context) => {
-  const { findFilesInTree, getTemplateFolder, getWorkspaceConfig } = await import('@o3r/schematics');
+export const updateEslintConfig = (rootPath: string, projectName?: string): Rule => (tree, context) => {
   const workspace = getWorkspaceConfig(tree);
   const workspaceProject = workspace?.projects[projectName || ''];
   const projectRootPath = workspaceProject?.root || '.';

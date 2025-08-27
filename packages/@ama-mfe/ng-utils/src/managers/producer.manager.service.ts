@@ -1,5 +1,5 @@
 import type {
-  Message,
+  VersionedMessage,
 } from '@amadeus-it-group/microfrontends';
 import {
   Injectable,
@@ -44,7 +44,7 @@ export class ProducerManagerService {
    * @param message - The error message to handle.
    * @returns - A promise that resolves to true if the error was handled by at least one handler, false otherwise.
    */
-  public async dispatchError<T extends Message = Message>(message: ErrorContent<T>) {
+  public async dispatchError<T extends VersionedMessage = VersionedMessage>(message: ErrorContent<T>) {
     const handlers = this.producers
       .filter(({ types }) => (Array.isArray(types) ? types : [types]).includes(message.source.type));
 

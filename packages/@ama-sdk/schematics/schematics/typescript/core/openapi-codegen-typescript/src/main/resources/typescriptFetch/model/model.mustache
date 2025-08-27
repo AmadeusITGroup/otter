@@ -49,7 +49,7 @@ export interface {{classname}} {{#parent}}extends {{{parent}}} {{/parent}}{
             {{/isEnum}}
           {{/isArray}}
         {{/description}}
-  {{#readOnly}}  readonly {{/readOnly}}{{#propertyDeclaration}}{{baseName}}{{/propertyDeclaration}}{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{dataType}}}{{/isEnum}};
+  {{#readOnly}}  readonly {{/readOnly}}{{#propertyDeclaration}}{{baseName}}{{/propertyDeclaration}}{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{dataType}}}{{/isEnum}}{{^isAnyType}}{{#isNullable}} | null{{/isNullable}}{{/isAnyType}};
       {{/vars}}
       {{#vars}}
         {{#vendorExtensions}}

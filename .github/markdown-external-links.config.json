@@ -28,5 +28,6 @@
       "replacement": "/@"
     }
   ],
-  "aliveStatusCodes": [200, 203]
+  "aliveStatusCodes": [200, 203],
+  "retryOn429": true
 }

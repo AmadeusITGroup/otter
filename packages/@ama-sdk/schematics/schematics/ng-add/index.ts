@@ -13,6 +13,10 @@ import {
   Tree,
 } from '@angular-devkit/schematics';
 import {
+  createOtterSchematic,
+  registerPackageCollectionSchematics,
+} from '@o3r/schematics';
+import {
   lastValueFrom,
 } from 'rxjs';
 import type {
@@ -185,10 +189,7 @@ const registerPackageSchematics = async (tree: Tree, context: SchematicContext) 
   }
   return () => chain([
     ...schematicsDependencies.map((dep) => externalSchematic(dep, 'ng-add', {})),
-    async (t, c) => {
-      const { registerPackageCollectionSchematics } = await import('@o3r/schematics');
-      return () => registerPackageCollectionSchematics(amaSdkSchematicsPackageJsonContent)(t, c);
-    }
+    registerPackageCollectionSchematics(amaSdkSchematicsPackageJsonContent)
   ]);
 };
 
@@ -210,9 +211,4 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
  * Add Otter ama-sdk-schematics to a Project
  * @param opts
  */
-export const ngAdd = (opts: NgAddSchematicsSchema): Rule => async () => {
-  const {
-    createOtterSchematic
-  } = await import('@o3r/schematics');
-  return createOtterSchematic(ngAddFn)(opts);
-};
+export const ngAdd = (opts: NgAddSchematicsSchema) => createOtterSchematic(ngAddFn)(opts);

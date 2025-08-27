@@ -17,13 +17,7 @@ export default [
       sourceType: 'module',
       parserOptions: {
         tsconfigRootDir: __dirname,
-        project: [
-          'tsconfig.build.tools.json',
-          'tsconfig.schematics.json',
-          'tsconfig.build.json',
-          'tsconfig.eslint.json',
-          'tsconfig.spec.json'
-        ]
+        projectService: true
       },
       globals: {
         ...globals.node,

@@ -1,8 +1,9 @@
 import type {
   Rule,
 } from '@angular-devkit/schematics';
-import type {
+import {
   createOtterSchematic,
+  globInTree,
 } from '@o3r/schematics';
 import type {
   GenerateCssSchematicsSchema,
@@ -43,8 +44,6 @@ function generateCssFn(options: GenerateCssSchematicsSchema): Rule {
       logger: context.logger
     } as const satisfies DesignTokenRendererOptions;
 
-    const { globInTree } = await import('@o3r/schematics');
-
     const files = globInTree(tree, Array.isArray(options.designTokenFilePatterns) ? options.designTokenFilePatterns : [options.designTokenFilePatterns]);
 
     const duplicatedToken: DesignTokenVariableStructure[] = [];
@@ -69,15 +68,4 @@ function generateCssFn(options: GenerateCssSchematicsSchema): Rule {
  * Generate CSS from Design Token files
  * @param options
  */
-export const generateCss = (options: GenerateCssSchematicsSchema) => async () => {
-  let createOtterSchematicWrapper: typeof createOtterSchematic = (fn) => fn;
-  try {
-    const {
-      createOtterSchematic: wrapper
-    } = await import('@o3r/schematics');
-    createOtterSchematicWrapper = wrapper;
-  } catch {
-    // No @o3r/schematics detected
-  }
-  return createOtterSchematicWrapper(generateCssFn)(options);
-};
+export const generateCss = (options: GenerateCssSchematicsSchema) => createOtterSchematic(generateCssFn)(options);

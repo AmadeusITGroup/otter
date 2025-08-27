@@ -22,6 +22,9 @@ import {
   Tree,
   url,
 } from '@angular-devkit/schematics';
+import {
+  createOtterSchematic,
+} from '@o3r/schematics';
 import * as semver from 'semver';
 import type {
   JsonObject,
@@ -317,9 +320,4 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKCoreSchematic
  * Generate a typescript SDK source code base on swagger specification
  * @param options
  */
-export const ngGenerateTypescriptSDK = (options: NgGenerateTypescriptSDKCoreSchematicsSchema) => async () => {
-  const {
-    createOtterSchematic
-  } = await import('@o3r/schematics');
-  return createOtterSchematic(ngGenerateTypescriptSDKFn)(options);
-};
+export const ngGenerateTypescriptSDK = (options: NgGenerateTypescriptSDKCoreSchematicsSchema) => createOtterSchematic(ngGenerateTypescriptSDKFn)(options);

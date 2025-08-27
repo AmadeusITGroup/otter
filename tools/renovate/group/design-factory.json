@@ -3,13 +3,13 @@
   "description": "Group all design factory dependencies",
   "packageRules": [
     {
-      "matchPackagePatterns": [
-        "bootstrap",
-        "^@ng-select",
-        "^ag-grid-",
-        "^@design-factory",
-        "^@agnos-ui",
-        "^@amadeus-it-group"
+      "matchPackageNames": [
+        "/bootstrap/",
+        "/^@ng-select/",
+        "/^ag-grid-/",
+        "/^@design-factory/",
+        "/^@agnos-ui/",
+        "/^@amadeus-it-group\/tansu/"
       ],
       "groupName": "Design Factory dependencies",
       "groupSlug": "design-factory-dependencies"

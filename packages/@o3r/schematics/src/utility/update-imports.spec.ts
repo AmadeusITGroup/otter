@@ -7,7 +7,7 @@ import {
 import * as ts from 'typescript';
 import {
   updateImportsInFile,
-} from '@o3r/schematics';
+} from './update-imports';
 
 describe('updateImportsInFile', () => {
   const logger = {

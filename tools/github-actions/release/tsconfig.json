@@ -1,8 +1,11 @@
-/* For IDE usage only */
+/* For IDE and EsLint usage */
 {
   "references": [
     {
       "path": "./tsconfig.build.composite.json"
+    },
+    {
+      "path": "./tsconfig.eslint.json"
     }
   ]
 }

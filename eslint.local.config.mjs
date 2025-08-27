@@ -1,25 +1,14 @@
-import {
-  dirname,
-} from 'node:path';
-import {
-  fileURLToPath,
-} from 'node:url';
 import o3rPlugin from '@o3r/eslint-plugin';
+import {
+  defineConfig,
+} from 'eslint/config';
 import yamlParser from 'yaml-eslint-parser';
 
-const __filename = fileURLToPath(import.meta.url);
-// __dirname is not defined in ES module scope
-const __dirname = dirname(__filename);
-
-export default [
+export default defineConfig([
   {
     name: '@o3r/framework/projects',
     languageOptions: {
-      sourceType: 'module',
-      parserOptions: {
-        tsconfigRootDir: __dirname,
-        project: ['tsconfig.eslint.json']
-      }
+      sourceType: 'module'
     }
   },
   {
@@ -60,4 +49,4 @@ export default [
       ]
     }
   }
-];
+]);

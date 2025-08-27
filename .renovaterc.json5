@@ -2,6 +2,7 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "github>AmadeusITGroup/otter//tools/renovate/base",
+    "github>AmadeusITGroup/otter//tools/renovate/group/mfe",
     "github>AmadeusITGroup/otter//tools/renovate/group/design-factory",
     "github>AmadeusITGroup/otter//tools/renovate/branching-strategy/release-branches",
     ":labels(dependencies)"
@@ -85,8 +86,8 @@
     {
       // This rule disable the upgrade of the gaurav-nelson/github-action-markdown-link-check
       // TODO: re-activate the upgrade when the following issue is fixed: gaurav-nelson/github-action-markdown-link-check#200
-      "matchPackagePatterns": [
-        ".*markdown-link-check"
+      "matchPackageNames": [
+        "/.*markdown-link-check/"
       ],
       "enabled": false
     },

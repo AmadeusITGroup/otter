@@ -7,6 +7,7 @@ import {
   MergeStrategy,
   mergeWith,
   move,
+  renameTemplateFiles,
   Rule,
   SchematicContext,
   template,
@@ -54,6 +55,7 @@ function ngGeneratePlaywrightScenarioFn(options: NgGeneratePlaywrightScenarioSch
         ...options,
         scenarioName
       }),
+      renameTemplateFiles(),
       move(scenarioPath)
     ]);
 

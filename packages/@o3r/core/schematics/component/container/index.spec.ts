@@ -196,11 +196,11 @@ describe('Component container', () => {
     const externalCollection = {
       createSchematic: () => externalSchematicsSpy
     } as any;
-    const createCollectionOriginal = runner.engine.createCollection;
+    const createCollectionOriginal = runner.engine.createCollection.bind(runner.engine);
     const createCollectionSpy = jest.spyOn(runner.engine, 'createCollection')
       .mockImplementation((name, requester) => name === '@o3r/rules-engine'
         ? externalCollection
-        : createCollectionOriginal.call(runner.engine, name, requester)
+        : createCollectionOriginal(name, requester)
       );
 
     await runner.runSchematic('component-container', {

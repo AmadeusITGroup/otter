@@ -12,6 +12,6 @@ export interface NgGenerateUpdateSchematicsSchema extends SchematicOptionObject 
   /** Source directory containing the schematics */
   path?: string | undefined;
 
-  /** Skip the linter process */
+  /** Skip the linter process which includes the run of EsLint and EditorConfig rules */
   skipLinter: boolean;
 }
