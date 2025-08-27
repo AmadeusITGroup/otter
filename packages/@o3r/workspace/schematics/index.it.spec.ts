@@ -39,6 +39,7 @@ describe('new otter workspace', () => {
 
     expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
     expect(() => packageManagerRunOnProject('@my-sdk/sdk', isInWorkspace, { script: 'build' }, execAppOptions)).not.toThrow();
+    expect(() => packageManagerRunOnProject('@my-sdk/sdk', isInWorkspace, { script: 'test' }, execAppOptions)).not.toThrow();
   });
 
   test('should add sdk to an existing workspace with local spec', async () => {
