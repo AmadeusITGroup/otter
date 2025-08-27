@@ -6,6 +6,16 @@ import {
   type SchematicContext,
   type Tree,
 } from '@angular-devkit/schematics';
+import {
+  applyEditorConfig,
+  createOtterSchematic,
+  getExternalDependenciesInfo,
+  getO3rPeerDeps,
+  getPackageInstallConfig,
+  getProjectNewDependenciesTypes,
+  getWorkspaceConfig,
+  setupDependencies,
+} from '@o3r/schematics';
 import type {
   PackageJson,
 } from 'type-fest';
@@ -19,50 +29,10 @@ import {
   updateVscode,
 } from './vscode/index';
 
-const reportMissingSchematicsDep = (logger: { error: (message: string) => any }) => (reason: any) => {
-  logger.error(`[ERROR]: Adding @o3r/eslint-config has failed.
-You need to install '@o3r/schematics' package to be able to use the eslint-config package. Please run 'ng add @o3r/schematics' .`);
-  throw reason;
-};
-
-/**
- * List of external dependencies to be added to the project as peer dependencies
- */
-const dependenciesToInstall: string[] = [];
-
-/**
- * List of external dependencies to be added to the project as dev dependencies
- */
-const devDependenciesToInstall = [
-  '@eslint/js',
-  '@eslint-community/eslint-plugin-eslint-comments',
-  '@stylistic/eslint-plugin',
-  '@typescript-eslint/parser',
-  '@typescript-eslint/utils',
-  '@typescript-eslint/types',
-  'angular-eslint',
-  'eslint',
-  'eslint-import-resolver-node',
-  'eslint-import-resolver-typescript',
-  'eslint-plugin-import',
-  'eslint-plugin-import-newlines',
-  'eslint-plugin-jsdoc',
-  'eslint-plugin-prefer-arrow',
-  'eslint-plugin-unicorn',
-  'eslint-plugin-unused-imports',
-  'globals',
-  'globby',
-  'jsonc-eslint-parser',
-  'typescript-eslint'
-  // TODO: reactivate once https://github.com/nirtamir2/eslint-plugin-sort-export-all/issues/18 is fixed
-  // 'eslint-plugin-sort-export-all',
-];
-
-const handleOtterEslintErrors = (projectName: string): Rule => async (tree: Tree, context: SchematicContext) => {
+const handleOtterEslintErrors = (projectName: string): Rule => (tree, context) => {
   if (!projectName) {
     return;
   }
-  const { getWorkspaceConfig } = await import('@o3r/schematics');
   const workspace = getWorkspaceConfig(tree);
   if (!workspace) {
     return;
@@ -89,28 +59,42 @@ const handleOtterEslintErrors = (projectName: string): Rule => async (tree: Tree
 
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
   /* ng add rules */
-  return async (tree: Tree, context: SchematicContext) => {
+  return (tree: Tree, context: SchematicContext) => {
     let installJestPlugin = false;
     try {
       require.resolve('jest');
       installJestPlugin = true;
     } catch {}
 
-    if (installJestPlugin) {
-      devDependenciesToInstall.push('eslint-plugin-jest');
-    }
-    if (options.projectName) {
-      devDependenciesToInstall.push('@angular-eslint/builder');
-    }
+    const devDependenciesToInstall = [
+      '@eslint-community/eslint-plugin-eslint-comments',
+      '@eslint/js',
+      '@stylistic/eslint-plugin',
+      '@typescript-eslint/parser',
+      '@typescript-eslint/utils',
+      '@typescript-eslint/types',
+      'angular-eslint',
+      'eslint',
+      'eslint-import-resolver-node',
+      'eslint-import-resolver-typescript',
+      'eslint-plugin-import',
+      'eslint-plugin-import-newlines',
+      ...(installJestPlugin ? ['eslint-plugin-jest'] : []),
+      'eslint-plugin-jsdoc',
+      'eslint-plugin-prefer-arrow',
+      // TODO: reactivate once https://github.com/nirtamir2/eslint-plugin-sort-export-all/issues/18 is fixed
+      // 'eslint-plugin-sort-export-all',
+      'eslint-plugin-unicorn',
+      'eslint-plugin-unused-imports',
+      'globby',
+      'globals',
+      'jsonc-eslint-parser',
+      'typescript-eslint',
+      // TODO could be removed once #2482 is fixed
+      'yaml-eslint-parser',
+      ...(options.projectName ? ['@angular-eslint/builder'] : [])
+    ];
 
-    const {
-      getExternalDependenciesInfo,
-      setupDependencies,
-      getWorkspaceConfig,
-      getO3rPeerDeps,
-      getProjectNewDependenciesTypes,
-      getPackageInstallConfig
-    } = await import('@o3r/schematics');
     const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'), true, /^@(?:o3r|ama-sdk)/);
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
@@ -130,7 +114,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
 
     const externalDependenciesInfo = getExternalDependenciesInfo({
       devDependenciesToInstall,
-      dependenciesToInstall,
+      dependenciesToInstall: [],
       projectType: workspaceProject?.projectType,
       projectPackageJson,
       o3rPackageJsonPath: packageJsonPath
@@ -154,7 +138,8 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
           updateEslintConfig(__dirname, options.projectName),
           options.fix ? handleOtterEslintErrors(options.projectName) : noop()
         ])
-        : noop()
+        : noop(),
+      options.skipLinter ? noop() : applyEditorConfig()
     ])(tree, context);
   };
 }
@@ -163,9 +148,4 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
  * Add Otter eslint-config to an Angular Project
  * @param options Options for the schematic
  */
-export const ngAdd = (options: NgAddSchematicsSchema): Rule => async (_, { logger }) => {
-  const {
-    createOtterSchematic
-  } = await import('@o3r/schematics').catch(reportMissingSchematicsDep(logger));
-  return createOtterSchematic(ngAddFn)(options);
-};
+export const ngAdd = (options: NgAddSchematicsSchema) => createOtterSchematic(ngAddFn)(options);

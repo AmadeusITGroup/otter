@@ -9,9 +9,6 @@ import {
   rmSync,
 } from 'node:fs';
 import * as path from 'node:path';
-import {
-  O3rCliError,
-} from '@o3r/schematics';
 import type {
   PackageJson,
 } from 'type-fest';
@@ -168,7 +165,7 @@ export async function prepareTestEnv(folderName: string, options?: PrepareTestEn
     }
 
     default: {
-      throw new O3rCliError(`Unknown test environment type: ${type}`);
+      throw new Error(`Unknown test environment type: ${type}`);
     }
   }
 

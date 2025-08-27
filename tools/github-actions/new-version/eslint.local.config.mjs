@@ -17,7 +17,7 @@ export default [
       sourceType: 'module',
       parserOptions: {
         tsconfigRootDir: __dirname,
-        project: [
+        projectService: [
           'tsconfig.json',
           'tsconfig.eslint.json'
         ]

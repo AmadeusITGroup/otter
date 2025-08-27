@@ -8,12 +8,16 @@ import {
   MergeStrategy,
   mergeWith,
   move,
+  renameTemplateFiles,
   Rule,
   SchematicContext,
   template,
   Tree,
   url,
 } from '@angular-devkit/schematics';
+import {
+  createOtterSchematic,
+} from '@o3r/schematics';
 import {
   NgGenerateMockSchematicsSchema,
 } from './schema';
@@ -79,6 +83,7 @@ function ngGenerateMockFn(options: NgGenerateMockSchematicsSchema): Rule {
         dasherizeModelName,
         dasherizeAndCapitalizeModelName: dasherizeModelName.toUpperCase()
       }),
+      renameTemplateFiles(),
       move(mockDestination)
     ]), MergeStrategy.Overwrite)(tree, context);
   };
@@ -95,9 +100,4 @@ function ngGenerateMockFn(options: NgGenerateMockSchematicsSchema): Rule {
  * Add mock
  * @param options
  */
-export const ngGenerateMock = (options: NgGenerateMockSchematicsSchema) => async () => {
-  const {
-    createOtterSchematic
-  } = await import('@o3r/schematics');
-  return createOtterSchematic(ngGenerateMockFn)(options);
-};
+export const ngGenerateMock = (options: NgGenerateMockSchematicsSchema) => createOtterSchematic(ngGenerateMockFn)(options);

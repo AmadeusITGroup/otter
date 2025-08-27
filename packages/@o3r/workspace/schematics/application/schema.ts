@@ -12,7 +12,7 @@ export interface NgGenerateApplicationSchema extends SchematicOptionObject {
   /** Description of the new application */
   description?: string | undefined;
 
-  /** Skip the linter process */
+  /** Skip the linter process which includes the run of EsLint and EditorConfig rules */
   skipLinter: boolean;
 
   /** Do not install dependency packages. */

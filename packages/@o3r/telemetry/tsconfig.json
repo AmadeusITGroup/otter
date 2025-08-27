@@ -9,6 +9,9 @@
     },
     {
       "path": "./tsconfig.builders.json"
+    },
+    {
+      "path": "./tsconfig.eslint.json"
     }
   ]
 }

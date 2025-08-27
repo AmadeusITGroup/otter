@@ -25,6 +25,7 @@ const config = defineConfig({
   navigationTimeout: 10_000,
   timeout: 60_000,
   use: {
+    baseURL: process.env.PLAYWRIGHT_TARGET_URL || 'http://localhost:4200/',
     ignoreHTTPSErrors: true,
     screenshot: 'only-on-failure',
     trace: 'retain-on-failure',

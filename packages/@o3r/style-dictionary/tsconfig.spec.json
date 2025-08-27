@@ -4,6 +4,7 @@
     "resolveJsonModule": true,
     "module": "ESNext",
     "target": "ESNext",
+    "allowJs": true,
     "composite": true,
     "rootDir": "."
   },

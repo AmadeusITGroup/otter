@@ -7,6 +7,7 @@
     "**/dist/**"
   ],
   "compilerOptions": {
+    "types": [],
     "target": "ES2022",
     "useDefineForClassFields": false,
     "declaration": true,
@@ -148,6 +149,15 @@
       ],
       "@o3r/eslint-config": [
         "packages/@o3r/eslint-config"
+      ],
+      "@o3r/eslint-config/helpers": [
+        "packages/@o3r/eslint-config/src/helpers"
+      ],
+      "@o3r/eslint-config/typescript": [
+        "packages/@o3r/eslint-config/src/rules/typescript"
+      ],
+      "@o3r/eslint-config/template": [
+        "packages/@o3r/eslint-config/src/rules/template"
       ],
       "@o3r/eslint-config-otter": [
         "packages/@o3r/eslint-config-otter"

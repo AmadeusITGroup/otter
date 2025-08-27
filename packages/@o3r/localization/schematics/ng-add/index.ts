@@ -5,6 +5,18 @@ import {
   noop,
   Rule,
 } from '@angular-devkit/schematics';
+import {
+  applyEsLintFix,
+  createOtterSchematic,
+  getExternalDependenciesInfo,
+  getO3rPeerDeps,
+  getPackageInstallConfig,
+  getProjectNewDependenciesTypes,
+  getWorkspaceConfig,
+  registerPackageCollectionSchematics,
+  setupDependencies,
+  setupSchematicsParamsForProject,
+} from '@o3r/schematics';
 import type {
   PackageJson,
 } from 'type-fest';
@@ -42,30 +54,12 @@ const devDependenciesToInstall = [
   'globby'
 ];
 
-const reportMissingSchematicsDep = (logger: { error: (message: string) => any }) => (reason: any) => {
-  logger.error(`[ERROR]: Adding @o3r/localization has failed.
-      If the error is related to missing @o3r dependencies you need to install '@o3r/core' to be able to use the localization package. Please run 'ng add @o3r/core' .
-      Otherwise, use the error message as guidance.`);
-  throw reason;
-};
-
 /**
  * Add Otter localization to an Angular Project
  * @param options for the dependencies installations
  */
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
   return async (tree, context) => {
-    const {
-      applyEsLintFix,
-      getPackageInstallConfig,
-      getProjectNewDependenciesTypes,
-      getWorkspaceConfig,
-      setupDependencies,
-      getO3rPeerDeps,
-      getExternalDependenciesInfo,
-      registerPackageCollectionSchematics,
-      setupSchematicsParamsForProject
-    } = await import('@o3r/schematics');
     const { updateI18n, updateLocalization } = await import('../localization-base');
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
     const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' })) as PackageJson;
@@ -98,7 +92,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
     context.logger
     );
 
-    const registerDevtoolRule = await registerDevtools(options);
+    const registerDevtoolRule = registerDevtools(options);
     return chain([
       updateLocalization(options, __dirname),
       updateI18n(options),
@@ -123,9 +117,4 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
  * Add Otter localization to an Angular Project
  * @param options for the dependencies installations
  */
-export const ngAdd = (options: NgAddSchematicsSchema): Rule => async (_, { logger }) => {
-  const {
-    createOtterSchematic
-  } = await import('@o3r/schematics').catch(reportMissingSchematicsDep(logger));
-  return createOtterSchematic(ngAddFn)(options);
-};
+export const ngAdd = (options: NgAddSchematicsSchema) => createOtterSchematic(ngAddFn)(options);

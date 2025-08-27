@@ -1,10 +1,14 @@
-<% if (extension === 'mjs') { %>import local from './eslint.local.config.mjs';
+<% if (extension === 'mjs') { %>import {
+  defineConfig,
+} from 'eslint/config';
+import local from './eslint.local.config.mjs';
 import shared from '<%= relativePathToRoot %>/eslint.shared.config.mjs';
-<% } else { %>const local = require('./eslint.local.config.<%= extension %>');
+<% } else { %>const { defineConfig } = require('eslint/config');
+const local = require('./eslint.local.config.<%= extension %>');
 const shared = require('<%= relativePathToRoot %>/eslint.shared.config.<%= extension %>');
 <% } %>
 
-<%= extension === 'mjs' ? 'export default' : 'module.exports =' %> [
+<%= extension === 'mjs' ? 'export default' : 'module.exports =' %> defineConfig([
   ...shared,
   ...local
-];
+]);

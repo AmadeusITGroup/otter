@@ -5,6 +5,7 @@
     "jest.config.js",
     "e2e-playwright/**/*",
     "testing/setup-jest.ts",
-    "scripts/**/*"
+    "scripts/**/*",
+    "testing/mocks/**/*"
   ]
 }

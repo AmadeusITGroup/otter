@@ -17,12 +17,7 @@ export default [
       parserOptions: {
         EXPERIMENTAL_useSourceOfProjectReferenceRedirect: true,
         tsconfigRootDir: __dirname,
-        project: [
-          'tsconfig.build.json',
-          'tsconfig.spec.json',
-          'tsconfig.eslint.json',
-          'tsconfig.builders.json'
-        ]
+        projectService: true
       }
     }
   }
