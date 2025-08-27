@@ -21,6 +21,11 @@ on:
         default: false
         required: false
         description: Skip the nx cache
+      skipNxRemoteCache:
+        type: boolean
+        default: false
+        required: false
+        description: Skip the nx remote cache
       gitRef:
         type: string
         default: ''
@@ -49,6 +54,7 @@ on:
 env:
   NX_SKIP_NX_CACHE: ${{ inputs.skipNxCache }}
   NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
+  NX_SKIP_REMOTE_CACHE: ${{ inputs.skipNxRemoteCache }}
 
 permissions:
   contents: read
