@@ -92,6 +92,7 @@
   "jest.debugMode": true,
   "jest.jestCommandLine": "yarn jest",
   "npm.packageManager": "yarn",
+  "nxConsole.generateAiAgentRules": true,
   "nxConsole.generatorAllowlist": [
     "@o3r/core:*"
   ],

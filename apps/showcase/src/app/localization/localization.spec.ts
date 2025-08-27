@@ -40,7 +40,7 @@ describe('LocalizationComponent', () => {
   let component: LocalizationComponent;
   let fixture: ComponentFixture<LocalizationComponent>;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [
         RouterModule.forRoot([]),
@@ -54,7 +54,7 @@ describe('LocalizationComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
     const localizationService = TestBed.inject(LocalizationService);
-    localizationService.configure();
+    await localizationService.configure();
   });
 
   it('should create', () => {

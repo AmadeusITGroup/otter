@@ -115,7 +115,6 @@ This preset does not add any additional modules.
 This preset is adding recommended Otter modules and features. This preset is the default one.
 
 * [@o3r/eslint-config](https://www.npmjs.com/package/@o3r/eslint-config) (or [@o3r/eslint-config-otter](https://www.npmjs.com/package/@o3r/eslint-config-otter) for legacy configuration)
-* [@o3r/testing](https://www.npmjs.com/package/@o3r/testing)
 * [@o3r/workspace](https://www.npmjs.com/package/@o3r/workspace) specific features:
   * Renovate configuration
   * VSCode Tooling
@@ -132,6 +131,7 @@ On top of the Otter recommended modules, it includes the following ones:
 * [@o3r/configuration](https://www.npmjs.com/package/@o3r/configuration)
 * [@o3r/dynamic-content](https://www.npmjs.com/package/@o3r/dynamic-content)
 * [@o3r/rules-engine](https://www.npmjs.com/package/@o3r/rules-engine)
+* [@o3r/testing](https://www.npmjs.com/package/@o3r/testing)
 
 ### Preset All
 
@@ -153,6 +153,7 @@ On top of the Otter recommended modules, it includes the following ones:
 * [@o3r/store-sync](https://www.npmjs.com/package/@o3r/store-sync)
 * [@o3r/stylelint-plugin](https://www.npmjs.com/package/@o3r/stylelint-plugin)
 * [@o3r/styling](https://www.npmjs.com/package/@o3r/styling)
+* [@o3r/testing](https://www.npmjs.com/package/@o3r/testing)
 
 ## External (Custom) Preset
 

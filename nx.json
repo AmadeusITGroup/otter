@@ -36,8 +36,8 @@
       "{projectRoot}/tsconfig.build.json",
       "{projectRoot}/tsconfig.build.*.json",
       "{projectRoot}/src/**/*",
-      "!{projectRoot}/**/*.spec.ts",
-      "!{projectRoot}/**/*.spec.scss"
+      "!{projectRoot}/src/**/*.spec.ts",
+      "!{projectRoot}/src/**/*.spec.scss"
     ],
     "jasmine-fixtures": [
       "base",
@@ -76,7 +76,7 @@
       "{projectRoot}/migration.json",
       "{projectRoot}/collection.json",
       "{projectRoot}/schematics/**/*",
-      "!{projectRoot}/**/*.spec.ts"
+      "!{projectRoot}/schematics/**/*.spec.ts"
     ],
     "schematics": [
       "schematics-only",
@@ -144,6 +144,9 @@
       "!{workspaceRoot}/packages/@o3r/test-helpers/src/jest-config/unit-test.ts",
       "{workspaceRoot}/codecov.yml"
     ],
+    "e2e": [
+      "{projectRoot}/e2e-playwright/**/*"
+    ],
     "plugins": [
       "base",
       "{projectRoot}/plugins/**/*",
@@ -172,7 +175,8 @@
       },
       "executor": "nx:run-commands",
       "inputs": [
-        "lint"
+        "lint",
+        "^source"
       ],
       "cache": true
     },
@@ -238,6 +242,20 @@
           "codeCoverage": true
         }
       },
+      "cache": true
+    },
+    "test-e2e": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "test:playwright"
+      },
+      "inputs": [
+        "e2e",
+        "source",
+        "schematics",
+        "assets",
+        "^schematics"
+      ],
       "cache": true
     },
     "publish": {
@@ -552,6 +570,13 @@
     },
     "copy-assets": {
       "cache": true
+    },
+    "regen": {
+      "cache": false,
+      "executor": "nx:run-script",
+      "options": {
+        "script": "spec:regen"
+      }
     },
     "generate-translations": {
       "cache": true

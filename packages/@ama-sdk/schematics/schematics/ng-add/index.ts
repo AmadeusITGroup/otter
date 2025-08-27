@@ -14,7 +14,10 @@ import {
 } from '@angular-devkit/schematics';
 import {
   createOtterSchematic,
+  getExternalDependenciesInfo,
+  getWorkspaceConfig,
   registerPackageCollectionSchematics,
+  setupDependencies,
 } from '@o3r/schematics';
 import {
   lastValueFrom,
@@ -134,8 +137,7 @@ const createOpenApiToolsConfig: Rule = (tree) => {
  * @param options
  */
 const installDependencies = (options: NgAddSchematicsSchema): Rule => {
-  return async (tree, context) => {
-    const { setupDependencies, getWorkspaceConfig, getExternalDependenciesInfo } = await import('@o3r/schematics');
+  return (tree, context) => {
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
     const projectDirectory = workspaceProject?.root || '.';
     const projectPackageJson = tree.readJson(path.posix.join(projectDirectory, 'package.json')) as PackageJson;

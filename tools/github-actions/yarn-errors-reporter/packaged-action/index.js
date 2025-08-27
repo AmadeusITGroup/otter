@@ -32329,6 +32329,7 @@ const COMMENT_IDENTIFIER = '<!-- yarn report comment -->\n';
  * @param errors list of reported errors
  */
 async function writeErrorComment(errors) {
+    const errorContent = formatComment(errors);
     const token = process.env.GITHUB_TOKEN;
     const [owner, repo] = (process.env.GITHUB_REPOSITORY || '').split('/');
     let payload;
@@ -32351,7 +32352,7 @@ async function writeErrorComment(errors) {
 
 <summary>List of reported errors</summary>
 
-${errors.join('\n')}
+${errorContent}
 
 </details>
 `;
@@ -32398,7 +32399,9 @@ function parseYarnInstallOutput(output, errorCodesToReport) {
         .filter((line) => !!line && errorCodesToReport.includes(line.displayName));
 }
 function formatConsole(output) {
-    return output.map((line) => `➤ ${line.displayName} ${line.indent}${line.data}`);
+    return output
+        .map((line) => `➤ ${line.displayName} ${line.indent}${line.data}`)
+        .join(os.EOL);
 }
 function formatComment(output) {
     return [
@@ -32410,7 +32413,7 @@ function formatComment(output) {
             // eslint-disable-next-line no-control-regex -- use to remove ansi color char
             .replace(/\u001B\[[0-9;]+m/g, '')
             .replace(/\*{4}/g, '')} |`)
-    ];
+    ].join('\n');
 }
 async function run() {
     try {
@@ -32460,9 +32463,9 @@ async function run() {
         }
         const errors = (await getYarnErrors()).filter((error) => !previousErrors.some((pError) => pError.data === error.data));
         if (errors.length > 0) {
-            core.warning(os.EOL + formatConsole(errors).join(os.EOL), { file: reportOnFile, title: 'Errors during yarn install' });
+            core.warning(os.EOL + formatConsole(errors), { file: reportOnFile, title: 'Errors during yarn install' });
             if (shouldCommentPullRequest) {
-                await writeErrorComment(formatComment(errors));
+                await writeErrorComment(errors);
             }
         }
         else {

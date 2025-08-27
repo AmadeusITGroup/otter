@@ -33,11 +33,6 @@ ignore:
   - 'apps/@*/*/build'
 
   # Generated files
-  - 'apps/showcase/dev-resources'
-  - 'apps/showcase/training-assets'
-  - 'packages/@o3r-training/showcase-sdk/src/api'
-  - 'packages/@o3r-training/showcase-sdk/src/models/base'
-  - 'packages/@o3r-training/showcase-sdk/src/spec'
   - 'tools/github-actions/*/packaged-action'
 
   # Templates

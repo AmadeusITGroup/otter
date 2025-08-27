@@ -126,16 +126,6 @@ export const prepareProject = (options: NgAddSchematicsSchema): Rule => {
       return acc;
     }, {} as Record<string, DependencyToAdd>);
 
-    devDependenciesToInstall.forEach((dep) => {
-      dependencies[dep] ||= {
-        inManifest: [{
-          range: ownPackageJsonContent.devDependencies?.[dep] || ownPackageJsonContent.generatorDependencies?.[dep] || 'latest',
-          types: [NodeDependencyType.Dev]
-        }],
-        requireInstall: !options.skipPreCommitChecks && dep === 'husky'
-      };
-    });
-
     const workspaceConfig = getWorkspaceConfig(tree);
     const projectPackageJson = tree.readJson('package.json') as PackageJson;
     const externalDependenciesInfo = getExternalDependenciesInfo({
