@@ -9,6 +9,10 @@ import {
   Union,
 } from 'unionfs';
 
+const FS_STATIC_PROPERTIES = [
+  'constants', 'Stats', 'Dirent'
+] as const satisfies (keyof typeof actualFileSystem)[];
+
 /**
  * Mock every call to `node:fs` to write files on a virtual memory instead of disk
  * @param shouldReadFromDisk Use false to not read files from disk
@@ -22,7 +26,10 @@ export function useVirtualFileSystem(shouldReadFromDisk = true) {
   }
   // Use virtual file system as read-write
   fileSystem.use(virtualFileSystem);
-
+  // Keep static properties from actual fs module
+  for (const prop of FS_STATIC_PROPERTIES) {
+    fileSystem[prop] = actualFileSystem[prop];
+  }
   jest.mock('node:fs', () => fileSystem);
   jest.mock('node:fs/promises', () => fileSystem.promises);
 

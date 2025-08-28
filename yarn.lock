@@ -8866,7 +8866,7 @@ __metadata:
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.39.0"
-    unionfs: "npm:~4.5.1"
+    unionfs: "npm:~4.6.0"
     zone.js: "npm:~0.15.0"
   peerDependencies:
     "@angular-devkit/architect": ">=0.1900.0 <0.2000.0-0"
@@ -9129,7 +9129,7 @@ __metadata:
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.39.0"
-    unionfs: "npm:~4.5.1"
+    unionfs: "npm:~4.6.0"
     uuid: "npm:^11.0.5"
     zone.js: "npm:~0.15.0"
   peerDependencies:
@@ -10250,7 +10250,7 @@ __metadata:
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.39.0"
-    unionfs: "npm:~4.5.1"
+    unionfs: "npm:~4.6.0"
     zone.js: "npm:~0.15.0"
   peerDependencies:
     "@angular-devkit/architect": ">=0.1900.0 <0.2000.0-0"
@@ -10954,7 +10954,7 @@ __metadata:
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.39.0"
     typescript-json-schema: "npm:^0.65.0"
-    unionfs: "npm:~4.5.1"
+    unionfs: "npm:~4.6.0"
     zone.js: "npm:~0.15.0"
   peerDependencies:
     "@angular-devkit/architect": ">=0.1900.0 <0.2000.0-0"
@@ -11561,7 +11561,7 @@ __metadata:
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.39.0"
-    unionfs: "npm:~4.5.1"
+    unionfs: "npm:~4.6.0"
     zone.js: "npm:~0.15.0"
   peerDependencies:
     "@angular-devkit/architect": ">=0.1900.0 <0.2000.0-0"
@@ -11750,7 +11750,7 @@ __metadata:
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.8.2"
     typescript-eslint: "npm:~8.39.0"
-    unionfs: "npm:~4.5.1"
+    unionfs: "npm:~4.6.0"
   peerDependencies:
     "@jest/environment": ^29.7.0
     "@jest/transform": ^29.6.3
@@ -37403,12 +37403,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"unionfs@npm:~4.5.1":
-  version: 4.5.4
-  resolution: "unionfs@npm:4.5.4"
+"unionfs@npm:~4.6.0":
+  version: 4.6.0
+  resolution: "unionfs@npm:4.6.0"
   dependencies:
     fs-monkey: "npm:^1.0.0"
-  checksum: 10/13e200164619134cea7d3cb2db8162f052f364c1beb83f53f17935c483ccfd117b6af048e0c6566773a3f1a34c1fbe78b41a2a4e5830d52a8f8e8b58b8f198fe
+  checksum: 10/ff27093d1205f46f22b62429caf086374e0ed1cac9fa5fd6e588674d40c9807eb65d9ac0c542edf2390d4598da4a9372386b84240ef6375b7060ba965e31ad3e
   languageName: node
   linkType: hard
 
