@@ -58,7 +58,6 @@ describe('update eslint config', () => {
     expect(tree.exists('eslint.config.mjs')).toBeTruthy();
     expect(tree.exists('eslint.local.config.mjs')).toBeTruthy();
     expect(tree.exists('eslint.shared.config.mjs')).toBeTruthy();
-    expect(tree.exists('tsconfig.eslint.json')).toBeTruthy();
     expect(tree.readJson('angular.json')).toEqual(angularJsonContent);
     expect(tree.readText('eslint.config.mjs')).toContain(`@o3r/eslint-config/helpers`);
     expect(tree.readText('eslint.local.config.mjs')).toContain(`${monorepoPkgName}/projects`);
@@ -74,13 +73,10 @@ describe('update eslint config', () => {
     expect(tree.exists('eslint.config.mjs')).toBeFalsy();
     expect(tree.exists('eslint.local.config.mjs')).toBeFalsy();
     expect(tree.exists('eslint.shared.config.mjs')).toBeFalsy();
-    expect(tree.exists('tsconfig.eslint.json')).toBeFalsy();
     expect(tree.exists(`${appRoot}/eslint.config.mjs`)).toBeTruthy();
     expect(tree.exists(`${appRoot}/eslint.local.config.mjs`)).toBeTruthy();
-    expect(tree.exists(`${appRoot}/tsconfig.eslint.json`)).toBeTruthy();
     expect(tree.exists(`${libRoot}/eslint.config.mjs`)).toBeFalsy();
     expect(tree.exists(`${libRoot}/eslint.local.config.mjs`)).toBeFalsy();
-    expect(tree.exists(`${libRoot}/tsconfig.eslint.json`)).toBeFalsy();
     expect(tree.readText(`${appRoot}/eslint.config.mjs`)).toContain('import shared from \'../../eslint.shared.config.mjs\'');
     expect(tree.readText(`${appRoot}/eslint.local.config.mjs`)).toContain(`${pckName}/projects`);
     expect(tree.readText(`${appRoot}/eslint.local.config.mjs`)).toContain('...globals.browser');
@@ -108,13 +104,10 @@ describe('update eslint config', () => {
     expect(tree.exists('eslint.config.mjs')).toBeFalsy();
     expect(tree.exists('eslint.local.config.mjs')).toBeFalsy();
     expect(tree.exists('eslint.shared.config.mjs')).toBeFalsy();
-    expect(tree.exists('tsconfig.eslint.json')).toBeFalsy();
     expect(tree.exists(`${libRoot}/eslint.config.mjs`)).toBeTruthy();
     expect(tree.exists(`${libRoot}/eslint.local.config.mjs`)).toBeTruthy();
-    expect(tree.exists(`${libRoot}/tsconfig.eslint.json`)).toBeTruthy();
     expect(tree.exists(`${appRoot}/eslint.config.mjs`)).toBeFalsy();
     expect(tree.exists(`${appRoot}/eslint.local.config.mjs`)).toBeFalsy();
-    expect(tree.exists(`${appRoot}/tsconfig.eslint.json`)).toBeFalsy();
     expect(tree.readText(`${libRoot}/eslint.config.mjs`)).toContain('import shared from \'../../eslint.shared.config.mjs\'');
     expect(tree.readText(`${libRoot}/eslint.local.config.mjs`)).toContain(`${pckName}/projects`);
     expect(tree.readText(`${libRoot}/eslint.local.config.mjs`)).not.toContain('...globals.browser');
