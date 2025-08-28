@@ -57,7 +57,6 @@ const devDependenciesToInstall = [
   'pixelmatch',
   'pngjs',
   '@angular-devkit/build-angular',
-  '@angular/animations',
   '@angular/core',
   '@angular/common'
 ];
