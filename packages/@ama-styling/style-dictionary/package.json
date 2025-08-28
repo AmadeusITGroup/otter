@@ -39,7 +39,7 @@
     }
   },
   "dependencies": {
-    "@angular-devkit/architect": "~0.1902.0",
+    "@angular-devkit/architect": "~0.2002.0",
     "@angular-devkit/schematics": "~19.2.0",
     "@o3r/schematics": "workspace:^",
     "@schematics/angular": "~19.2.0",
@@ -94,7 +94,7 @@
     "@types/node": "^20.0.0",
     "@types/semver": "^7.3.13",
     "@typescript-eslint/parser": "~8.39.0",
-    "angular-eslint": "~19.4.0",
+    "angular-eslint": "~19.8.0",
     "babel-jest": "^29.7.0",
     "chokidar": "^4.0.3",
     "cpy-cli": "^5.0.0",
