@@ -4,6 +4,7 @@
     "tsBuildInfoFile": "build/.tsbuildinfo",
     "outDir": "./dist",
     "module": "CommonJS",
+    "moduleResolution": "node10",
     "rootDir": "src",
     "types": ["node"]
   },

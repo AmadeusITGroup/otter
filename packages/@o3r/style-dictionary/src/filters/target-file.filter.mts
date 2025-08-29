@@ -1,11 +1,20 @@
 import {
+  randomUUID,
+} from 'node:crypto';
+import {
   normalize,
   resolve,
 } from 'node:path';
+import StyleDictionary, {
+  type Filter,
+} from 'style-dictionary';
 import type {
   File,
   FormatFn,
 } from 'style-dictionary/types';
+import {
+  OTTER_NAME_PREFIX,
+} from '../constants.mjs';
 import {
   deflatten,
 } from '../helpers/config-deflatten.helpers.mjs';
@@ -18,33 +27,17 @@ interface TargetFileOptions {
   rootPath?: string;
   /** Default file if not matching any rule */
   defaultFile?: string;
-}
-
-/**
- * Legacy configuration to support inputs from @o3r/design templates
- * @deprecated Should prefer simple string to specify the target file, will be removed in v13
- */
-interface LegacyFileConfig extends FileRuleNode {
-  /** Extensions node in token */
-  $extensions: {
-    /** Indicate the file where to generate the token */
-    o3rTargetFile: string;
-  };
+  /** styleDictionary instance */
+  styleDictionary?: StyleDictionary;
 }
 
 /** Mapping of the Design Tokens to a given file */
 export interface FileRuleNode {
   /** Indicate the file where to generate the token */
-  [path: string]: string | FileRuleNode | LegacyFileConfig;
+  [path: string]: string | FileRuleNode;
 }
 
-const isLegacyConfig = (config: FileRuleNode): config is LegacyFileConfig => typeof (config.$extensions as any)?.o3rTargetFile === 'string';
-
 const getPathMap = (rule: FileRuleNode, path: string[] = [], map: Map<string, string[][]> = new Map()): Map<string, string[][]> => {
-  if (isLegacyConfig(rule)) {
-    map.set(rule.$extensions.o3rTargetFile, [...(map.get(rule.$extensions.o3rTargetFile) || []), path]);
-    return map;
-  }
   return Object.entries(rule)
     .filter(([name]) => name !== '$extensions')
     .reduce((acc, [name, value]) => {
@@ -64,35 +57,43 @@ const getPathMap = (rule: FileRuleNode, path: string[] = [], map: Map<string, st
  * @param options
  */
 export const getTargetFiles = (fileRules: FileRuleNode, options?: TargetFileOptions): File[] => {
+  const styleDictionary = options?.styleDictionary || StyleDictionary;
   const flatterRules = deflatten(fileRules);
   const fileMap = getPathMap(flatterRules);
   const fileMapEntries = [...fileMap.entries()];
 
-  return [
-    ...fileMapEntries
-      .map(([filePath, nodes]): File => {
-        return {
-          destination: options?.rootPath ? resolve(options.rootPath, filePath) : filePath,
-          format: options?.format,
-          filter: (token) =>
-            nodes.some((path) =>
-              path.every((item, idx) => token.path[idx] === item)
-            )
-        };
-      }),
-    ...(options?.defaultFile
-      ? [{
-        destination: options.rootPath ? resolve(options.rootPath, options.defaultFile) : options.defaultFile,
+  const files = fileMapEntries
+    .map(([filePath, nodes]): File => {
+      const filter: Filter['filter'] = (token) =>
+        nodes.some((path) =>
+          path.every((item, idx) => token.path[idx] === item)
+        );
+      const name = `${OTTER_NAME_PREFIX}/filter/${randomUUID()}`;
+      styleDictionary.registerFilter({ name, filter });
+      return {
+        destination: options?.rootPath ? resolve(options.rootPath, filePath) : filePath,
         format: options?.format,
-        filter: (token) =>
-          !fileMapEntries
-            .filter(([filePath]) => normalize(filePath) !== normalize(options.defaultFile!))
-            .some(([, nodes]) =>
-              nodes.some((path) =>
-                path.every((item, idx) => token.path[idx] === item)
-              )
-            )
-      } satisfies File]
-      : [])
-  ];
+        filter: name
+      };
+    });
+
+  if (options?.defaultFile) {
+    const filter: Filter['filter'] = (token) =>
+      !fileMapEntries
+        .filter(([filePath]) => normalize(filePath) !== normalize(options.defaultFile!))
+        .some(([, nodes]) =>
+          nodes.some((path) =>
+            path.every((item, idx) => token.path[idx] === item)
+          )
+        );
+    const name = `${OTTER_NAME_PREFIX}/filter/${randomUUID()}`;
+    styleDictionary.registerFilter({ name, filter });
+    files.push({
+      destination: options.rootPath ? resolve(options.rootPath, options.defaultFile) : options.defaultFile,
+      format: options?.format,
+      filter: name
+    });
+  }
+
+  return files;
 };

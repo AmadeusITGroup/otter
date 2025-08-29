@@ -28,29 +28,29 @@
     "semver": "^7.5.2"
   },
   "peerDependencies": {
-    "typescript": "^5.5.4"
+    "typescript": "^5.8.0"
   },
   "devDependencies": {
-    "@nx/eslint-plugin": "~20.8.0",
+    "@nx/eslint-plugin": "~21.3.11",
     "@o3r/eslint-plugin": "workspace:^",
-    "@stylistic/eslint-plugin-ts": "~3.1.0",
-    "@types/node": "^20.0.0",
+    "@stylistic/eslint-plugin": "~5.2.0",
+    "@types/node": "^22.0.0",
     "@typescript-eslint/eslint-plugin": "~8.39.0",
     "@typescript-eslint/parser": "~8.39.0",
     "@typescript-eslint/utils": "~8.39.0",
     "eslint": "~9.33.0",
     "eslint-import-resolver-node": "~0.3.9",
-    "eslint-import-resolver-typescript": "~3.10.0",
+    "eslint-import-resolver-typescript": "~4.4.0",
     "eslint-plugin-import": "~2.32.0",
     "eslint-plugin-import-newlines": "~1.4.0",
-    "eslint-plugin-jest": "~28.14.0",
-    "eslint-plugin-jsdoc": "~50.8.0",
+    "eslint-plugin-jest": "~29.0.0",
+    "eslint-plugin-jsdoc": "~54.1.0",
     "eslint-plugin-prefer-arrow": "~1.2.3",
-    "eslint-plugin-unicorn": "~56.0.0",
+    "eslint-plugin-unicorn": "~60.0.0",
     "eslint-plugin-unused-imports": "~4.1.4",
-    "globals": "^15.9.0",
+    "globals": "^16.0.0",
     "jsonc-eslint-parser": "~2.4.0",
-    "nx": "~20.8.0",
+    "nx": "~21.3.11",
     "typescript": "~5.8.2"
   }
 }

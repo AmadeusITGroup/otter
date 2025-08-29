@@ -4,10 +4,9 @@ import {
   type Mark,
 } from '@ama-sdk/core';
 import {
-  Inject,
+  inject,
   Injectable,
   NgZone,
-  Optional,
 } from '@angular/core';
 import {
   NavigationEnd,
@@ -43,7 +42,6 @@ import {
 import {
   defaultEventTrackConfiguration,
   EVENT_TRACK_SERVICE_CONFIGURATION,
-  EventTrackConfiguration,
 } from './event-track.configuration';
 import {
   isPerformanceNavigationEntry,
@@ -60,9 +58,9 @@ export const performanceMarksInitialState: Readonly<PerfEventPayload> = {
 /**
  * Service to expose the tracked events as streams. Also provide a way to activate/deactivate the tracking
  */
-@Injectable(
-  { providedIn: 'root' }
-)
+@Injectable({
+  providedIn: 'root'
+})
 export class EventTrackService {
   private readonly uiEventTrack: ReplaySubject<UiEventPayload>;
 
@@ -114,8 +112,12 @@ export class EventTrackService {
   private readonly requestIdHeader: string;
   private readonly traceHeader: string;
 
-  constructor(private readonly router: Router, private readonly zone: NgZone, @Optional() @Inject(EVENT_TRACK_SERVICE_CONFIGURATION) config?: EventTrackConfiguration) {
-    const eventConfiguration = { ...defaultEventTrackConfiguration, ...config };
+  private readonly router = inject(Router);
+  private readonly zone = inject(NgZone);
+  private readonly config = inject(EVENT_TRACK_SERVICE_CONFIGURATION, { optional: true });
+
+  constructor() {
+    const eventConfiguration = { ...defaultEventTrackConfiguration, ...this.config };
     this.requestIdHeader = eventConfiguration.requestIdHeader;
     this.traceHeader = eventConfiguration.traceHeader;
     this.uiTrackingActivated = new BehaviorSubject<boolean>(eventConfiguration.activate.uiTracking);
@@ -298,8 +300,8 @@ export class EventTrackService {
   }
 
   /**
-   * Add a DxAPI SDK server call object, created by the SDK Probe plugin, in the list of server calls metrics.
-   * In order to have requestId for the DxAPI calls, your server has to expose 'ama-request-id' via Access-Control-Expose-Headers
+   * Add a SDK server call mark, in the list of server calls metrics.
+   * In order to have requestId for the API calls, your server has to expose 'ama-request-id' via Access-Control-Expose-Headers
    * @param serverMark The mark object
    */
   public async addSDKServerCallMark(serverMark: Mark) {

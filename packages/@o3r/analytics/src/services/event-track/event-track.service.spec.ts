@@ -1,6 +1,3 @@
-import type {
-  Mark,
-} from '@ama-sdk/core';
 import {
   getTestBed,
   TestBed,
@@ -98,7 +95,7 @@ describe('Performance metrics', () => {
   });
 
   it('should add a mark for a SDK server call', async () => {
-    const sdkCallMark: Mark = {
+    const sdkCallMark = {
       markId: '1',
       url: 'call/path',
       startTime: 100,
@@ -114,7 +111,7 @@ describe('Performance metrics', () => {
   });
 
   it('should add a mark for a SDK server call with trace', async () => {
-    const sdkCallMark: Mark = {
+    const sdkCallMark = {
       markId: '1',
       url: 'call/path',
       startTime: 100,
@@ -136,7 +133,7 @@ describe('Performance metrics', () => {
     const headers: Headers = new Headers();
     headers.append('ama-request-id', 'UNIQUEID');
     const blob = new Blob(['foo', 'bar']);
-    const sdkCallMark: Mark = {
+    const sdkCallMark = {
       markId: '1',
       url: 'call/path',
       startTime: 100,
@@ -162,7 +159,7 @@ describe('Performance metrics', () => {
     const headers: Headers = new Headers();
     headers.append('traceparent', `00-${'1'.repeat(32)}-${'2'.repeat(16)}`);
     const blob = new Blob(['foo', 'bar']);
-    const sdkCallMark: Mark = {
+    const sdkCallMark = {
       markId: '1',
       url: 'call/path',
       startTime: 100,

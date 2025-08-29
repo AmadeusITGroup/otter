@@ -50,9 +50,6 @@ import {
   EmergencyContact,
 } from '../../showcase/forms-parent/contracts';
 import {
-  DatePickerInputPresComponent,
-} from '../date-picker-input';
-import {
   FormsEmergencyContactPresTranslation,
   translations,
 } from './forms-emergency-contact-pres.translation';
@@ -62,7 +59,6 @@ import {
   selector: 'o3r-forms-emergency-contact-pres',
   imports: [
     CommonModule,
-    DatePickerInputPresComponent,
     FormsModule,
     JsonPipe,
     LocalizationModule,
@@ -113,10 +109,10 @@ export class FormsEmergencyContactPresComponent implements OnInit, OnDestroy, Co
     phone: FormControl<string | null>;
     email: FormControl<string | null>;
   }> = inject(FormBuilder).group({
-      name: new FormControl<string>(''),
-      phone: new FormControl<string>(''),
-      email: new FormControl<string>('')
-    });
+    name: new FormControl<string>(''),
+    phone: new FormControl<string>(''),
+    email: new FormControl<string>('')
+  });
 
   public componentSelector = 'o3r-forms-emergency-contact-pres';
 

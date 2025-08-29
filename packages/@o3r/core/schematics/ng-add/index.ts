@@ -26,6 +26,9 @@ import type {
   PackageJson,
 } from 'type-fest';
 import {
+  updatePackageJson,
+} from '../rule-factories/index';
+import {
   getExternalPreset,
   type PresetOptions,
   presets,
@@ -36,9 +39,6 @@ import {
 import {
   NgAddSchematicsSchema,
 } from './schema';
-import {
-  isUsingLegacyConfig,
-} from './utils';
 
 const workspacePackageName = '@o3r/workspace';
 const o3rDevDependencies = [
@@ -88,10 +88,11 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       // Warning: this should always be executed before the setup dependencies as it modifies the options.dependencies
       options.projectName ? prepareProject(options, dependenciesSetupConfig) : noop(),
       registerPackageCollectionSchematics(corePackageJsonContent),
+      updatePackageJson(dependenciesSetupConfig, ['@angular/animations', '@angular/platform-browser-dynamic'], [], options.projectName),
       setupDependencies(dependenciesSetupConfig),
       async (t, c) => {
         const { preset, externalPresets, ...forwardOptions } = options;
-        const presetOptions: PresetOptions = { projectName: forwardOptions.projectName, exactO3rVersion: forwardOptions.exactO3rVersion, forwardOptions, isUsingEslintLegacy: isUsingLegacyConfig(t) };
+        const presetOptions: PresetOptions = { projectName: forwardOptions.projectName, exactO3rVersion: forwardOptions.exactO3rVersion, forwardOptions };
         const presetRunner = await presets[preset](presetOptions);
         const externalPresetRunner = externalPresets ? await getExternalPreset(externalPresets, t, c)(presetOptions) : undefined;
         const modules = [...new Set([...(presetRunner.modules || []), ...(externalPresetRunner?.modules || [])])];

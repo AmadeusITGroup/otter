@@ -22,8 +22,7 @@ declare global {
   }
 }
 
-type Command =
-  | 'add'
+type Command = 'add'
   | 'create'
   | 'exec'
   | 'info'

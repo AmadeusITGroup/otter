@@ -6,6 +6,7 @@
     "composite": true,
     "outDir": "./dist",
     "module": "CommonJS",
+    "moduleResolution": "node10",
     "rootDir": ".",
     "skipLibCheck": true, // because of @angular-devkit-schematics
     "tsBuildInfoFile": "build/.tsbuildinfo.builders"

@@ -1,9 +1,7 @@
 import {
   DestroyRef,
   inject,
-  Inject,
   Injectable,
-  Optional,
 } from '@angular/core';
 import {
   takeUntilDestroyed,
@@ -52,6 +50,9 @@ import {
   providedIn: 'root'
 })
 export class ComponentsDevtoolsMessageService implements DevtoolsServiceInterface {
+  private readonly logger = inject(LoggerService);
+  private readonly store = inject<Store<PlaceholderTemplateState>>(Store);
+
   private readonly options: ComponentsDevtoolsServiceOptions;
   private readonly inspectorService: OtterInspectorService;
   private readonly sendMessage = sendOtterMessage<AvailableComponentsMessageContents>;
@@ -59,11 +60,9 @@ export class ComponentsDevtoolsMessageService implements DevtoolsServiceInterfac
   private readonly destroyRef = inject(DestroyRef);
   private readonly highlightService = inject(HighlightService);
 
-  constructor(
-    private readonly logger: LoggerService,
-    private readonly store: Store<PlaceholderTemplateState>,
-    @Optional() @Inject(OTTER_COMPONENTS_DEVTOOLS_OPTIONS) options?: ComponentsDevtoolsServiceOptions
-  ) {
+  constructor() {
+    const options = inject<ComponentsDevtoolsServiceOptions>(OTTER_COMPONENTS_DEVTOOLS_OPTIONS, { optional: true });
+
     this.options = {
       ...OTTER_COMPONENTS_DEVTOOLS_DEFAULT_OPTIONS,
       ...options

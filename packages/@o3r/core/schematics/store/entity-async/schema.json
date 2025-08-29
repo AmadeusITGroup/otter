@@ -9,7 +9,8 @@
       "description": "Name of the project",
       "$default": {
         "$source": "projectName"
-      }
+      },
+      "alias": "project"
     },
     "storeName": {
       "type": "string",

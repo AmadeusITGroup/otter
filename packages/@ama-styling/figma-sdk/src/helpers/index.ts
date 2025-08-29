@@ -1,1 +1,1 @@
-export * from './variable-types/index';
+export * from './variable-types';

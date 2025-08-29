@@ -84,8 +84,10 @@ const handleOtterEslintErrors = (projectName: string): Rule => (tree, context) =
     const mainTsContent = tree.readText(mainTsPath);
     tree.overwrite(mainTsPath, '/* eslint-disable no-console -- console.error is used to log error in the browser while initializing the Angular application */\n' + mainTsContent);
   }
-  const appComponentPath = path.posix.join(projectRoot, 'src/app/app.component.ts');
-  if (tree.exists(appComponentPath)) {
+  const appComponentPath1 = path.posix.join(projectRoot, 'src/app/app.component.ts');
+  const appComponentPath2 = path.posix.join(projectRoot, 'src/app/app.ts');
+  const appComponentPath = tree.exists(appComponentPath1) ? appComponentPath1 : (tree.exists(appComponentPath2) ? appComponentPath2 : undefined);
+  if (appComponentPath) {
     const appComponentContent = tree.readText(appComponentPath);
     tree.overwrite(appComponentPath, appComponentContent.replace(/^(\s+)(title =)/m, '$1public $2'));
   }

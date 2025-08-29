@@ -21,7 +21,7 @@
       "ES2022"
     ],
     "module": "ES2022",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "noEmitHelpers": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
@@ -36,17 +36,17 @@
     "baseUrl": ".",
     "allowSyntheticDefaultImports": true,
     "paths": {
-      "@ama-sdk/client-fetch": [
-        "packages/@ama-sdk/client-fetch/src/public_api"
-      ],
-      "@ama-sdk/core": [
-        "packages/@ama-sdk/core/src/public_api"
-      ],
       "@ama-mfe/messages": [
         "packages/@ama-mfe/messages/src/public_api"
       ],
       "@ama-mfe/ng-utils": [
         "packages/@ama-mfe/ng-utils/src/public_api"
+      ],
+      "@ama-sdk/client-fetch": [
+        "packages/@ama-sdk/client-fetch/src/public_api"
+      ],
+      "@ama-sdk/core": [
+        "packages/@ama-sdk/core/src/public_api"
       ],
       "@ama-sdk/create": [
         "packages/@ama-sdk/create"
@@ -170,9 +170,6 @@
       ],
       "@o3r/eslint-config/template": [
         "packages/@o3r/eslint-config/src/rules/template"
-      ],
-      "@o3r/eslint-config-otter": [
-        "packages/@o3r/eslint-config-otter"
       ],
       "@o3r/eslint-plugin": [
         "packages/@o3r/eslint-plugin/src"
