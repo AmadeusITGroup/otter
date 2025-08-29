@@ -1,0 +1,6 @@
+import { expect, test } from '@playwright/test';
+
+test('Empty test', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.locator('body')).toBeAttached();
+});
