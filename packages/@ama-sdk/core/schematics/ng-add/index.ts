@@ -4,13 +4,9 @@ import {
   type Rule,
 } from '@angular-devkit/schematics';
 import {
-  NodePackageInstallTask,
-} from '@angular-devkit/schematics/tasks';
-import {
   createOtterSchematic,
   getFilesInFolderFromWorkspaceProjectsInTree,
-  getPeerDepWithPattern,
-  getWorkspaceConfig,
+  ngAddDependenciesRule,
   removePackages,
 } from '@o3r/schematics';
 import * as ts from 'typescript';
@@ -45,30 +41,18 @@ const updateImports: Rule = (tree) => {
   });
 };
 
+const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
+
 /**
  * Rule to import all the necessary dependency to run an @ama-sdk based application
  * Helps to migrate from previous versions with an import replacement
  * @param options schema options
  */
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
-  const addMandatoryPeerDeps: Rule = (tree, context) => {
-    const workingDirectory = (options?.projectName && getWorkspaceConfig(tree)?.projects[options.projectName]?.root) || '.';
-    const peerDepToInstall = getPeerDepWithPattern(path.resolve(__dirname, '..', '..', 'package.json'));
-    context.addTask(new NodePackageInstallTask({
-      workingDirectory,
-      packageName: Object.entries(peerDepToInstall.matchingPackagesVersions)
-
-        .map(([dependency, version]) => `${dependency}@${version || 'latest'}`)
-        .join(' '),
-      hideOutput: false,
-      quiet: false
-    }));
-  };
-
   return chain([
     removeImports,
     updateImports,
-    addMandatoryPeerDeps
+    ngAddDependenciesRule(options, packageJsonPath, { dependenciesToInstall: [], devDependenciesToInstall: [] })
   ]);
 }
 

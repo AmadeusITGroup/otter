@@ -15,8 +15,6 @@ import {
   url,
 } from '@angular-devkit/schematics';
 import {
-  type DependencyToAdd,
-  getExternalDependenciesInfo,
   getPackageManager,
   getWorkspaceConfig,
   NgAddPackageOptions,
@@ -25,37 +23,12 @@ import type {
   PackageJson,
 } from 'type-fest';
 
-const devDependenciesToInstall = [
-  '@playwright/test',
-  'rimraf'
-];
-const dependenciesToInstall: string[] = [];
-
 /**
  * Add Playwright to Otter application
  * @param options @see RuleFactory.options
- * @param dependencies
  */
-export function updatePlaywright(options: NgAddPackageOptions, dependencies: Record<string, DependencyToAdd>): Rule {
-  const corePackageJsonPath = path.resolve(__dirname, '..', '..', '..', 'package.json');
-
+export function updatePlaywright(options: NgAddPackageOptions): Rule {
   return (tree: Tree, context: SchematicContext) => {
-    const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
-    const projectPackageJson = tree.readJson(path.posix.join(workspaceProject?.root || '.', 'package.json')) as PackageJson;
-
-    const externalDependencies = getExternalDependenciesInfo(
-      {
-        devDependenciesToInstall,
-        dependenciesToInstall,
-        o3rPackageJsonPath: corePackageJsonPath,
-        projectPackageJson,
-        projectType: workspaceProject?.projectType
-      },
-      context.logger
-    );
-    Object.entries(externalDependencies).forEach(([key, value]) => {
-      dependencies[key] = value;
-    });
     const workingDirectory = (options?.projectName && getWorkspaceConfig(tree)?.projects[options.projectName]?.root) || '.';
 
     // update gitignore

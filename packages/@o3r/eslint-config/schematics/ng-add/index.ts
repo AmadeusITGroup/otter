@@ -10,13 +10,9 @@ import {
 import {
   applyEditorConfig,
   createOtterSchematic,
-  getExternalDependenciesInfo,
-  getO3rPeerDeps,
-  getPackageInstallConfig,
   getPackageManager,
-  getProjectNewDependenciesTypes,
   getWorkspaceConfig,
-  setupDependencies,
+  ngAddDependenciesRule,
 } from '@o3r/schematics';
 import type {
   PackageJson,
@@ -95,93 +91,62 @@ const handleOtterEslintErrors = (projectName: string): Rule => (tree, context) =
 };
 /**
  * Add a harmonize script in package.json
+ * @param tree
+ * @param context
  */
-const addHarmonizeScript = (): Rule => {
+const addHarmonizeScript: Rule = (tree: Tree, context: SchematicContext) => {
   const rootPackageJsonPath = '/package.json';
-  return (tree: Tree, context: SchematicContext) => {
-    if (!tree.exists(rootPackageJsonPath)) {
-      throw new SchematicsException('Root package.json does not exist');
-    }
-    const isYarnPackageManager = getPackageManager() === 'yarn';
-    const extraPostInstall = isYarnPackageManager ? 'yarn harmonize && yarn install --mode=skip-build' : 'npm run harmonize && npm install --ignore-scripts';
-    const rootPackageJsonObject = tree.readJson(rootPackageJsonPath) as PackageJson;
-    rootPackageJsonObject.scripts ||= {};
-    if (rootPackageJsonObject.scripts.harmonize) {
-      context.logger.info('A "harmonize" script already exists in the root "package.json". Version harmonize script will not be added.');
-      return tree;
-    }
-    const postInstall = rootPackageJsonObject.scripts.postinstall;
-    rootPackageJsonObject.scripts.harmonize = `eslint "**/package.json" ${isYarnPackageManager ? '.yarnrc.yml ' : ''}--quiet --fix --no-error-on-unmatched-pattern`;
-    rootPackageJsonObject.scripts.postinstall = `${postInstall ? postInstall + ' && ' : ''}${extraPostInstall}`;
-    tree.overwrite(rootPackageJsonPath, JSON.stringify(rootPackageJsonObject, null, 2));
+  if (!tree.exists(rootPackageJsonPath)) {
+    throw new SchematicsException('Root package.json does not exist');
+  }
+  const isYarnPackageManager = getPackageManager() === 'yarn';
+  const extraPostInstall = isYarnPackageManager ? 'yarn harmonize && yarn install --mode=skip-build' : 'npm run harmonize && npm install --ignore-scripts';
+  const rootPackageJsonObject = tree.readJson(rootPackageJsonPath) as PackageJson;
+  rootPackageJsonObject.scripts ||= {};
+  if (rootPackageJsonObject.scripts.harmonize) {
+    context.logger.info('A "harmonize" script already exists in the root "package.json". Version harmonize script will not be added.');
     return tree;
-  };
+  }
+  const postInstall = rootPackageJsonObject.scripts.postinstall;
+  rootPackageJsonObject.scripts.harmonize = `eslint "**/package.json" ${isYarnPackageManager ? '.yarnrc.yml ' : ''}--quiet --fix --no-error-on-unmatched-pattern`;
+  rootPackageJsonObject.scripts.postinstall = `${postInstall ? postInstall + ' && ' : ''}${extraPostInstall}`;
+  tree.overwrite(rootPackageJsonPath, JSON.stringify(rootPackageJsonObject, null, 2));
+  return tree;
 };
 
+const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
+
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
-  /* ng add rules */
-  return (tree: Tree, context: SchematicContext) => {
-    let installJestPlugin = false;
-    try {
-      require.resolve('jest');
-      installJestPlugin = true;
-    } catch {}
+  let installJestPlugin = false;
+  try {
+    require.resolve('jest');
+    installJestPlugin = true;
+  } catch {}
 
-    if (installJestPlugin) {
-      devDependenciesToInstall.push('eslint-plugin-jest');
-    }
-    if (options.projectName) {
-      devDependenciesToInstall.push('@angular-eslint/builder');
-    }
-
-    const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'), true, /^@(?:o3r|ama-sdk)/);
+  const setupConfigAndFixKnownErrors: Rule = (tree) => {
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
-    const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
-    const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
-      acc[dep] = {
-        inManifest: [{
-          range: `${options.exactO3rVersion ? '' : '~'}${depsInfo.packageVersion}`,
-          types: getProjectNewDependenciesTypes(workspaceProject)
-        }],
-        ngAddOptions: { exactO3rVersion: options.exactO3rVersion }
-      };
-      return acc;
-    }, getPackageInstallConfig(packageJsonPath, tree, options.projectName, true, !!options.exactO3rVersion));
-
-    const projectDirectory = workspaceProject?.root || '.';
-    const projectPackageJson = tree.readJson(path.posix.join(projectDirectory, 'package.json')) as PackageJson;
-
-    const externalDependenciesInfo = getExternalDependenciesInfo({
-      devDependenciesToInstall,
-      dependenciesToInstall,
-      projectType: workspaceProject?.projectType,
-      projectPackageJson,
-      o3rPackageJsonPath: packageJsonPath
-    },
-    context.logger
-    );
-
-    return () => chain([
-      setupDependencies({
-        projectName: options.projectName,
-        dependencies: {
-          ...dependencies,
-          ...externalDependenciesInfo
-        },
-        ngAddToRun: depsInfo.o3rPeerDeps
-      }),
-      updateVscode,
-      updateEslintConfig(__dirname),
-      addHarmonizeScript(),
-      options.projectName && workspaceProject?.root
-        ? chain([
-          updateEslintConfig(__dirname, options.projectName),
-          options.fix ? handleOtterEslintErrors(options.projectName) : noop()
-        ])
-        : noop(),
-      options.skipLinter ? noop() : applyEditorConfig()
-    ])(tree, context);
+    return options.projectName && workspaceProject?.root
+      ? chain([
+        updateEslintConfig(__dirname, options.projectName),
+        options.fix ? handleOtterEslintErrors(options.projectName) : noop()
+      ])
+      : noop();
   };
+
+  return chain([
+    ngAddDependenciesRule(options, packageJsonPath, {
+      dependenciesToInstall,
+      devDependenciesToInstall: devDependenciesToInstall.concat(
+        installJestPlugin ? ['eslint-plugin-jest'] : [],
+        options.projectName ? ['@angular-eslint/builder'] : []
+      )
+    }),
+    updateVscode,
+    updateEslintConfig(__dirname),
+    addHarmonizeScript,
+    setupConfigAndFixKnownErrors,
+    options.skipLinter ? noop() : applyEditorConfig()
+  ]);
 }
 
 /**

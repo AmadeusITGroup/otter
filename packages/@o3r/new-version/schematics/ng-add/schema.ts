@@ -1,7 +1,6 @@
-export interface NgAddSchematicsSchema {
-  /** Project name */
-  projectName?: string | undefined;
+import type {
+  NgAddOptions,
+  SchematicOptionObject,
+} from '@o3r/schematics';
 
-  /** Use a pinned version for otter packages */
-  exactO3rVersion?: boolean;
-}
+export interface NgAddSchematicsSchema extends NgAddOptions, SchematicOptionObject {}

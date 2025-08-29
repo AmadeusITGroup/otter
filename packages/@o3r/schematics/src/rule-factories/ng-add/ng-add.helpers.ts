@@ -11,6 +11,7 @@ import {
   type Rule,
   type Schematic,
   type SchematicContext,
+  type Tree,
 } from '@angular-devkit/schematics';
 import {
   NodePackageInstallTask,
@@ -25,8 +26,16 @@ import type {
   NgAddPackageOptions,
 } from '../../tasks/index';
 import {
+  getExternalDependenciesInfo,
+  getO3rPeerDeps,
   getPackageManager,
+  getProjectNewDependenciesTypes,
+  getWorkspaceConfig,
 } from '../../utility/index';
+import {
+  getPackageInstallConfig,
+  setupDependencies,
+} from './dependencies';
 
 const getNgAddSchema = (packageName: string, context: SchematicContext) => {
   try {
@@ -160,4 +169,81 @@ export function ngAddPackages(packages: string[], options?: Omit<NgAddPackageOpt
       return chain(ngAddsToApply);
     }
   ]);
+}
+
+export interface NgAddOptions {
+  /** Project name */
+  projectName?: string | undefined;
+
+  /** Use a pinned version for otter packages */
+  exactO3rVersion?: boolean;
+
+  /** Skip the install process */
+  skipInstall?: boolean;
+}
+
+interface DependencyToAdd {
+  dependenciesToInstall?: string[];
+  devDependenciesToInstall?: string[];
+  additionalNgAddToRun?: string[];
+}
+
+type GetDependencyToAdd = (options: NgAddOptions, tree: Tree, context: SchematicContext) => DependencyToAdd | Promise<DependencyToAdd>;
+
+/**
+ * Add dependencies to the project during ng add process
+ * @param options
+ * @param packageJsonPath
+ * @param deps
+ */
+export function ngAddDependenciesRule(
+  options: NgAddOptions,
+  packageJsonPath: string,
+  deps: DependencyToAdd | GetDependencyToAdd | Promise<DependencyToAdd>
+): Rule {
+  return async (tree, context) => {
+    const {
+      dependenciesToInstall = [],
+      devDependenciesToInstall = [],
+      additionalNgAddToRun = []
+    } = await (typeof deps === 'function' ? deps(options, tree, context) : deps);
+    const depsInfo = getO3rPeerDeps(packageJsonPath);
+    const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
+    const projectDirectory = workspaceProject?.root || '.';
+    const projectPackageJson = tree.readJson(path.posix.join(projectDirectory, 'package.json')) as PackageJson;
+    depsInfo.o3rPeerDeps.push(...additionalNgAddToRun.filter((dep) => !depsInfo.o3rPeerDeps.includes(dep)));
+    const internalDependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
+      acc[dep] = {
+        inManifest: [{
+          range: `${options.exactO3rVersion ? '' : '~'}${depsInfo.packageVersion}`,
+          types: getProjectNewDependenciesTypes(workspaceProject)
+        }],
+        ngAddOptions: { exactO3rVersion: options.exactO3rVersion }
+      };
+      return acc;
+    }, getPackageInstallConfig(packageJsonPath, tree, options.projectName, false, !!options.exactO3rVersion));
+    const externalDependenciesInfo = getExternalDependenciesInfo(
+      {
+        devDependenciesToInstall,
+        dependenciesToInstall,
+        o3rPackageJsonPath: packageJsonPath,
+        projectType: workspaceProject?.projectType,
+        projectPackageJson
+      },
+      context.logger
+    );
+    const dependencies = {
+      ...internalDependencies,
+      ...externalDependenciesInfo
+    };
+
+    return chain([
+      setupDependencies({
+        projectName: options.projectName,
+        skipInstall: options.skipInstall,
+        dependencies,
+        ngAddToRun: depsInfo.o3rPeerDeps
+      })
+    ]);
+  };
 }
