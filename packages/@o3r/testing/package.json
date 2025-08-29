@@ -199,7 +199,7 @@
     "@o3r/eslint-plugin": "workspace:^",
     "@o3r/localization": "workspace:^",
     "@o3r/test-helpers": "workspace:^",
-    "@playwright/test": "~1.54.0",
+    "@playwright/test": "~1.55.0",
     "@schematics/angular": "~20.0.0",
     "@stylistic/eslint-plugin": "~5.2.0",
     "@swc/helpers": "~0.5.0",
