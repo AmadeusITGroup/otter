@@ -391,7 +391,7 @@
     "@types/glob": "^8.0.0",
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",
-    "@types/vscode": "~1.102.0",
+    "@types/vscode": "~1.103.0",
     "@typescript-eslint/parser": "~8.39.0",
     "@typescript-eslint/utils": "~8.39.0",
     "@vscode/vsce": "^3.2.1",
