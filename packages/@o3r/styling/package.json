@@ -215,7 +215,7 @@
     "type-fest": "^4.30.1",
     "typescript": "~5.8.2",
     "typescript-eslint": "~8.39.0",
-    "unionfs": "~4.5.1",
+    "unionfs": "~4.6.0",
     "zone.js": "~0.15.0"
   },
   "generatorDependencies": {
