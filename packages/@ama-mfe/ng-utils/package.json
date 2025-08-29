@@ -7,7 +7,7 @@
   "peerDependencies": {
     "@ama-mfe/messages": "workspace:^",
     "@amadeus-it-group/microfrontends": "0.0.7",
-    "@amadeus-it-group/microfrontends-angular": "0.0.7",
+    "@amadeus-it-group/microfrontends-angular": "0.0.8",
     "@angular-devkit/core": "^20.0.0",
     "@angular-devkit/schematics": "^20.0.0",
     "@angular/common": "^20.0.0",
@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@amadeus-it-group/microfrontends": "0.0.7",
-    "@amadeus-it-group/microfrontends-angular": "0.0.7",
+    "@amadeus-it-group/microfrontends-angular": "0.0.8",
     "@o3r/logger": "workspace:^",
     "@o3r/schematics": "workspace:^",
     "tslib": "^2.6.2"
