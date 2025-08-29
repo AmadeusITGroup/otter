@@ -196,7 +196,7 @@
     "@o3r/test-helpers": "workspace:^",
     "@o3r/workspace": "workspace:^",
     "@o3r/workspace-helpers": "workspace:^",
-    "@playwright/test": "~1.54.0",
+    "@playwright/test": "~1.55.0",
     "@popperjs/core": "^2.11.5",
     "@schematics/angular": "~20.0.0",
     "@stylistic/eslint-plugin": "~5.2.0",
