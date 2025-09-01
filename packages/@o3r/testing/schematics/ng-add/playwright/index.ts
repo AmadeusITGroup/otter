@@ -80,16 +80,11 @@ test-results
       const packageJson = tree.readJson(packageJsonPath) as PackageJson;
       packageJson.scripts ||= {};
       packageJson.scripts['test:playwright'] ||= 'playwright test --config=e2e-playwright/playwright-config.ts';
-      packageJson.scripts['test:playwright:sanity'] ||= 'playwright test --config=e2e-playwright/playwright-config.sanity.ts';
       tree.overwrite(packageJsonPath, JSON.stringify(packageJson, null, 2));
     }
 
     // generate files
     if (!tree.exists(path.posix.join(workingDirectory, 'e2e-playwright', 'playwright-config.ts'))) {
-      const name = 'my-scenario';
-      const scenarioName = strings.capitalize(strings.camelize(name));
-      const sanity = 'my-sanity';
-      const sanityName = strings.capitalize(strings.camelize(sanity));
       const startCommand = `${getPackageManager()} run start`;
       const project = options?.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
       const serverPort = project?.architect?.serve?.options?.port || '4200';
@@ -97,10 +92,6 @@ test-results
       const templateSource = apply(url('./playwright/templates'), [
         template({
           ...strings,
-          name,
-          scenarioName,
-          sanity,
-          sanityName,
           serverPort,
           startCommand
         }),
