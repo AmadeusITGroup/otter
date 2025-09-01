@@ -2,9 +2,6 @@ import * as actualFileSystem from 'node:fs';
 import {
   Volume,
 } from 'memfs';
-import type {
-  Volume as VolumeInterface,
-} from 'memfs/lib/volume';
 import {
   Union,
 } from 'unionfs';
@@ -18,7 +15,7 @@ const FS_STATIC_PROPERTIES = [
  * @param shouldReadFromDisk Use false to not read files from disk
  */
 export function useVirtualFileSystem(shouldReadFromDisk = true) {
-  const virtualFileSystem = Volume.fromJSON({}) as any as Omit<VolumeInterface, keyof typeof actualFileSystem> & typeof actualFileSystem;
+  const virtualFileSystem = Volume.fromJSON({}) as any as Omit<typeof Volume, keyof typeof actualFileSystem> & typeof actualFileSystem;
   const fileSystem = new Union();
   if (shouldReadFromDisk) {
     // Use actual file system as read-only to fallback when file not present on virtual
