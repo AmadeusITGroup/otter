@@ -54,7 +54,6 @@ describe('ng add otter localization', () => {
       path.join(relativeApplicationPath, 'src/components/test/README.md').replace(/[/\\]+/g, '/'),
       path.join(relativeApplicationPath, 'src/assets/locales/.gitkeep').replace(/[/\\]+/g, '/'),
       path.join(relativeApplicationPath, 'migration-scripts/README.md').replace(/[/\\]+/g, '/'),
-      path.join(relativeApplicationPath, 'cms.json').replace(/[/\\]+/g, '/'),
       path.join(relativeApplicationPath, 'tsconfig.cms.json').replace(/[/\\]+/g, '/'),
       path.join(relativeApplicationPath, '.gitignore').replace(/[/\\]+/g, '/')
     ].sort();
@@ -100,7 +99,6 @@ describe('ng add otter localization', () => {
       path.join(relativeLibraryPath, 'src/components/test/index.ts').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'src/components/test/README.md').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'migration-scripts/README.md').replace(/[/\\]+/g, '/'),
-      path.join(relativeLibraryPath, 'cms.json').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'tsconfig.cms.json').replace(/[/\\]+/g, '/')
     ].sort();
     expect(diff.added.sort()).toEqual(addedFiles);
