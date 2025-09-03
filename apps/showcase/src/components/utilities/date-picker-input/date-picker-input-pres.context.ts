@@ -1,3 +1,6 @@
+import {
+  InputSignal,
+} from '@angular/core';
 import type {
   Context,
 } from '@o3r/core';
@@ -7,7 +10,9 @@ import type {
  */
 export interface DatePickerInputPresContextInput {
   /** ID of the html element used for selection */
-  id: string;
+  id: InputSignal<string>;
+  /** Label of the datepicker */
+  label?: InputSignal<string>;
 }
 
 /**
