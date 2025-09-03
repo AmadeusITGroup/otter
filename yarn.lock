@@ -12005,6 +12005,7 @@ __metadata:
     eslint-plugin-unicorn: "npm:~60.0.0"
     eslint-plugin-unused-imports: "npm:~4.2.0"
     globals: "npm:^16.0.0"
+    globby: "npm:^11.1.0"
     jest: "npm:~29.7.0"
     jest-environment-node: "npm:^29.7.0"
     jest-junit: "npm:~16.0.0"

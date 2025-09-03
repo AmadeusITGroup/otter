@@ -34,6 +34,7 @@
     "unionfs": "^4.5.1"
   },
   "dependencies": {
+    "globby": "^11.1.0",
     "pid-from-port": "^1.1.3",
     "semver": "^7.5.2",
     "tslib": "^2.6.2"
