@@ -28,7 +28,7 @@ body:
         create,
         design,
         dynamic-content,
-        eslint-config-otter,
+        eslint-config,
         eslint-plugin,
         extractors,
         forms,
