@@ -61,7 +61,7 @@ const config = [
         'error',
         'before',
         {
-          overrides: { '=': 'none' }
+          overrides: { '=': 'ignore' }
         }
       ],
       '@stylistic/quotes': [

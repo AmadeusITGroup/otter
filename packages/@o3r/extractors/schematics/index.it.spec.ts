@@ -29,7 +29,6 @@ describe('ng add extractors', () => {
       isYarnTest ? 'yarn.lock' : 'package-lock.json'
     ].sort());
     expect(diff.added.sort()).toEqual([
-      'apps/test-app/cms.json',
       'apps/test-app/placeholders.metadata.json',
       'apps/test-app/tsconfig.cms.json',
       'apps/test-app/migration-scripts/README.md'
@@ -57,7 +56,6 @@ describe('ng add extractors', () => {
       isYarnTest ? 'yarn.lock' : 'package-lock.json'
     ].sort());
     expect(diff.added.sort()).toEqual([
-      'libs/test-lib/cms.json',
       'libs/test-lib/placeholders.metadata.json',
       'libs/test-lib/tsconfig.cms.json',
       'libs/test-lib/migration-scripts/README.md'
