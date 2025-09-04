@@ -111,6 +111,23 @@ describe('Navigation Producer Service', () => {
     windowSpy.mockRestore();
   });
 
+  it('should not send navigation message via messageService if embedded, if the skipLocationChange is true', () => {
+    const mockedWindow = { ...globalThis.window };
+    Object.defineProperty(mockedWindow, 'top', { value: globalThis.window.top });
+    Object.defineProperty(mockedWindow, 'self', { value: mockedWindow });
+    const windowSpy = jest.spyOn(globalThis, 'window', 'get').mockReturnValue(mockedWindow);
+    jest.spyOn(router, 'getCurrentNavigation').mockReturnValue({ extras: { skipLocationChange: true } } as any);
+
+    runInInjectionContext(TestBed.inject(Injector), () => {
+      routingService.handleEmbeddedRouting();
+    });
+
+    routerEventsSubject.next(new NavigationEnd(1, 'start-url', 'end-url'));
+
+    expect(messageService.send).not.toHaveBeenCalled();
+    windowSpy.mockRestore();
+  });
+
   it('should forward received Navigation message to the router', () => {
     TestBed.runInInjectionContext(() => {
       expect(Object.keys(routingService.supportedVersions)).toEqual(['1.0']);
