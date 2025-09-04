@@ -20,10 +20,7 @@
       }
     </div>
     <div class="row mb-3">
-      <div class="input-group">
-        <label for="dateOfBirth" class="input-group-text w-50">Date of birth</label>
-        <o3r-date-picker-input-pres [id]="'dateOfBirth'" class="w-50" formControlName="dateOfBirth"></o3r-date-picker-input-pres>
-      </div>
+      <o3r-date-picker-input-pres [label]="'Date of birth'" [id]="'dateOfBirth'" formControlName="dateOfBirth"></o3r-date-picker-input-pres>
     </div>
     <div class="row mb-3">
       @if (form.controls.dateOfBirth.errors?.date) {
