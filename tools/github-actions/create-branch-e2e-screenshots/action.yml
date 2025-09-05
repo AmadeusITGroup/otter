@@ -14,7 +14,7 @@ inputs:
     type: string
     description: 'Suffix for the branch that will be created'
     required: false
-    default: ${{ github.head_ref }}-update-e2e-screenshots
+    default: refs/heads/${{ github.head_ref }}-update-e2e-screenshots
 
 runs:
   using: 'composite'
@@ -26,7 +26,6 @@ runs:
         commit_message: ${{ inputs.commitMessage }}
         branch: ${{ inputs.branchName }}
         file_pattern: ${{ inputs.screenshotsPattern }}
-        create_branch: true
     - name: Comment the PR
       if: ${{ steps.auto-commit-action.outputs.changes_detected == 'true' }}
       env:

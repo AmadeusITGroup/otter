@@ -1,17 +1,31 @@
-<div class="input-group">
-  <input [id]="id" #dpin class="form-control" placeholder="YYYY-MM-DD"
-         [ngModel]="selectedDate" (ngModelChange)="selectDate($event)"
-         ngbDatepicker #dp="ngbDatepicker" [displayMonths]="1" [navigation]="'arrows'" [outsideDays]="'collapsed'"
-         [showWeekNumbers]="false" [dayTemplate]="dpdt" (dateSelect)="dpin.focus()" [disabled]="isDisabled()"
-         [dfInputIcon]="['append']" />
+<div class="input-group" [class.is-invalid]="dateControl.invalid">
+  @if (label()) {
+    <label class="w-50 input-group-text" [for]="id()">{{label()}}</label>
+  }
+  <input [id]="id()"
+         #dpin
+         class="form-control df-input-withicon"
+         placeholder="YYYY-MM-DD"
+         [formControl]="dateControl"
+         ngbDatepicker
+         #dp="ngbDatepicker"
+         [displayMonths]="1"
+         [navigation]="'arrows'"
+         [outsideDays]="'collapsed'"
+         [showWeekNumbers]="false"
+         [dayTemplate]="dpdt"
+         (dateSelect)="dpin.focus()"
+         [disabled]="isDisabled()"/>
   <div class="input-group-append">
     <button class="input-group-text fa-calendar" (click)="dp.toggle()" type="button"><span class="visually-hidden">Toggle
             datepicker</span></button>
   </div>
 </div>
 <ng-template #dpdt let-date let-disabled="disabled" let-focused="focused" let-selected="selected">
-  <div class="df-datepicker-date" [class.df-datepicker-date-disabled]="disabled"
-       [class.df-datepicker-date-focused]="focused" [class.df-datepicker-date-selected]="selected" role="link">
+  <div class="df-datepicker-date"
+       [class.df-datepicker-date-disabled]="disabled"
+       [class.df-datepicker-date-focused]="focused"
+       [class.df-datepicker-date-selected]="selected" role="link">
     {{date.day}}
   </div>
 </ng-template>
