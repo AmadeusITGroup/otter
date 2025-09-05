@@ -3,7 +3,7 @@ import {
 } from '../plugins/core/request-plugin';
 import {
   isDateType,
-  type SupportedParamType,
+  type SupportedParamInterface,
 } from './param-serialization';
 import type {
   ReviverType,
@@ -70,7 +70,7 @@ export function getPropertiesFromData<T, K extends keyof T>(data: T, keys: K[]):
  * Stringifies the values of the query parameters
  * @param queryParams Query parameters of supported parameter types
  */
-export function stringifyQueryParams<T extends { [key: string]: SupportedParamType }>(queryParams: T): { [p in keyof T]: string; } {
+export function stringifyQueryParams<T extends SupportedParamInterface<T>>(queryParams: T): { [p in keyof T]: string; } {
   const names = Object.keys(queryParams) as (keyof T)[];
   return names
     .filter((name) => typeof queryParams[name] !== 'undefined' && queryParams[name] !== null)
