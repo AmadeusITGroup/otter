@@ -13,7 +13,11 @@ export interface ParamSerialization {
 /** Primitive types for the operation parameters */
 export type PrimitiveType = string | number | boolean | Date | utils.Date | utils.DateTime | undefined | null;
 /** Supported types for the operation parameters - primitives, primitive arrays, and simple non-nested objects */
-export type SupportedParamType = PrimitiveType | PrimitiveType[] | { [key: string]: PrimitiveType };
+export type SupportedParamType<T = any> = PrimitiveType | PrimitiveType[] | Record<keyof T, PrimitiveType>;
+/** Interface that allows property with a primitive type or a simple object */
+export type SupportedParamInterface<T> = {
+  [K in keyof T]: SupportedParamType<T[K]>;
+};
 
 /** URL encoding of space character, delimiter for spaceDelimited style */
 export const SPACE_URL_CODE = encodeURIComponent(' ');
@@ -41,20 +45,20 @@ export function isParamValueRecord(param: any): param is { [key: string]: string
 }
 
 /** Query parameter value and serialization */
-export type QueryParamValueSerialization = { value: SupportedParamType } & ParamSerialization;
+export type QueryParamValueSerialization<T = any> = { value: SupportedParamType<T> } & ParamSerialization;
 
 /**
  * Serialize query parameters of request plugins
  * @param queryParams
  */
-export function serializeRequestPluginQueryParams(queryParams: { [key: string]: QueryParamValueSerialization }) {
-  const queryParamsValues: { [key: string]: SupportedParamType } = {};
-  const queryParamSerialization: { [key: string]: ParamSerialization } = {};
-  Object.entries(queryParams).forEach(([paramKey, paramValue]) => {
-    queryParamsValues[paramKey] = paramValue.value;
-    queryParamSerialization[paramKey] = { explode: paramValue.explode, style: paramValue.style };
+export function serializeRequestPluginQueryParams<T extends SupportedParamInterface<T>>(queryParams: { [K in keyof T]: QueryParamValueSerialization<T[K]> }) {
+  const queryParamsValues: Partial<SupportedParamInterface<T>> = {};
+  const queryParamSerialization: Partial<{ [key in keyof T]: ParamSerialization }> = {};
+  Object.entries<QueryParamValueSerialization>(queryParams).forEach(([paramKey, paramValue]) => {
+    queryParamsValues[paramKey as keyof T] = paramValue.value;
+    queryParamSerialization[paramKey as keyof T] = { explode: paramValue.explode, style: paramValue.style };
   });
-  return serializeQueryParams(queryParamsValues, queryParamSerialization);
+  return serializeQueryParams(queryParamsValues as T, queryParamSerialization as { [key in keyof T]: ParamSerialization });
 }
 
 /**
@@ -135,9 +139,10 @@ function serializeObjectQueryParams(queryParamName: string, queryParamValue: { [
  * @param queryParams
  * @param queryParamSerialization
  */
-export function serializeQueryParams<T extends { [key: string]: SupportedParamType }>(queryParams: T, queryParamSerialization: { [p in keyof T]: ParamSerialization }): { [p in keyof T]: string } {
-  return Object.entries(queryParamSerialization).reduce((acc, [queryParamName, paramSerialization]) => {
-    const queryParamValue = queryParams[queryParamName];
+export function serializeQueryParams<T extends SupportedParamInterface<T>>(
+  queryParams: T, queryParamSerialization: { [p in keyof T]: ParamSerialization }): { [p in keyof T]: string } {
+  return Object.entries<ParamSerialization>(queryParamSerialization).reduce((acc, [queryParamName, paramSerialization]) => {
+    const queryParamValue = queryParams[queryParamName as keyof T];
     if (typeof queryParamValue !== 'undefined' && queryParamValue !== null && !!paramSerialization) {
       let serializedValue: string | undefined;
       if (Array.isArray(queryParamValue)) {
@@ -263,9 +268,9 @@ function serializePrimitivePathParams(pathParamName: string, pathParamValue: Pri
  * @param pathParams
  * @param pathParamSerialization key value pair with the parameters. If the value is undefined, the key is dropped
  */
-export function serializePathParams<T extends { [key: string]: SupportedParamType }>(pathParams: T, pathParamSerialization: { [p in keyof T]: ParamSerialization }): { [p in keyof T]: string } {
-  return Object.entries(pathParamSerialization).reduce((acc, [pathParamName, paramSerialization]) => {
-    const pathParamValue = pathParams[pathParamName];
+export function serializePathParams<T extends SupportedParamInterface<T>>(pathParams: T, pathParamSerialization: { [p in keyof T]: ParamSerialization }): { [p in keyof T]: string } {
+  return Object.entries<ParamSerialization>(pathParamSerialization).reduce((acc, [pathParamName, paramSerialization]) => {
+    const pathParamValue = pathParams[pathParamName as keyof T];
     if (typeof pathParamValue !== 'undefined' && pathParamValue !== null) {
       let serializedValue: string | undefined;
       if (Array.isArray(pathParamValue)) {

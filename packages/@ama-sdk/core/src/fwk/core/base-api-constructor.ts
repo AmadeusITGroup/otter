@@ -5,9 +5,9 @@ import {
 import type {
   Logger,
 } from '../logger';
-import {
+import type {
   ParamSerialization,
-  SupportedParamType,
+  SupportedParamInterface,
 } from '../param-serialization';
 
 /** Interface of the constructor configuration object */
@@ -30,9 +30,9 @@ export interface BaseApiClientOptions {
   /** Enable parameter serialization with exploded syntax */
   enableParameterSerialization?: boolean;
   /** Custom query parameter serialization method */
-  serializeQueryParams?<T extends { [key: string]: SupportedParamType }>(queryParams: T, queryParamSerialization: { [p in keyof T]: ParamSerialization }): { [p in keyof T]: string };
+  serializeQueryParams?<T extends SupportedParamInterface<T>>(queryParams: T, queryParamSerialization: { [p in keyof T]: ParamSerialization }): { [p in keyof T]: string };
   /** Custom query parameter serialization method */
-  serializePathParams?<T extends { [key: string]: SupportedParamType }>(pathParams: T, pathParamSerialization: { [p in keyof T]: ParamSerialization }): { [p in keyof T]: string };
+  serializePathParams?<T extends SupportedParamInterface<T>>(pathParams: T, pathParamSerialization: { [p in keyof T]: ParamSerialization }): { [p in keyof T]: string };
 }
 
 /** Interface of the constructor configuration object */

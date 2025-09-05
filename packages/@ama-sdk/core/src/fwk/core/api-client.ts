@@ -13,7 +13,7 @@ import type {
 } from '../api.interface';
 import type {
   ParamSerialization,
-  SupportedParamType,
+  SupportedParamInterface,
 } from '../param-serialization';
 import type {
   ReviverType,
@@ -74,7 +74,7 @@ export interface ApiClient {
    * Returns a map containing the query parameters
    * @param queryParams Query parameters of supported parameter types
    */
-  stringifyQueryParams<T extends { [key: string]: SupportedParamType }>(queryParams: T): { [p in keyof T]: string; };
+  stringifyQueryParams<T extends SupportedParamInterface<T>>(queryParams: T): { [p in keyof T]: string; };
 
   /**
    * Retrieve the option to process the HTTP Call
@@ -102,14 +102,14 @@ export interface ApiClient {
    * @param queryParams
    * @param queryParamSerialization
    */
-  serializeQueryParams<T extends { [key: string]: SupportedParamType }>(queryParams: T, queryParamSerialization: { [p in keyof T]: ParamSerialization }): { [p in keyof T]: string };
+  serializeQueryParams<T extends SupportedParamInterface<T>>(queryParams: T, queryParamSerialization: { [p in keyof T]: ParamSerialization }): { [p in keyof T]: string };
 
   /**
    * Prepares the path parameters for the URL to be called
    * @param pathParams
    * @param pathParamSerialization key value pair with the parameters. If the value is undefined, the key is dropped
    */
-  serializePathParams<T extends { [key: string]: SupportedParamType }>(pathParams: T, pathParamSerialization: { [p in keyof T]: ParamSerialization }): { [p in keyof T]: string };
+  serializePathParams<T extends SupportedParamInterface<T>>(pathParams: T, pathParamSerialization: { [p in keyof T]: ParamSerialization }): { [p in keyof T]: string };
 
   /**
    * Returns tokenized request options:
