@@ -4,6 +4,7 @@
     "types": ["node"],
     "outDir": "./dist",
     "module": "CommonJS",
+    "moduleResolution": "node10",
     "composite": true,
     "incremental": true,
     "tsBuildInfoFile": "build/.tsbuildinfo",

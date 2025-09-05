@@ -65,8 +65,7 @@ export interface GetTranslationValuesContentMessage extends OtterMessageContent<
   translations: { [localizationKey: string]: string };
 }
 
-type LocalizationMessageContents =
-  | LanguagesContentMessage
+type LocalizationMessageContents = LanguagesContentMessage
   | ReloadLocalizationKeysContentMessage
   | SwitchLanguageContentMessage
   | LocalizationsContentMessage
@@ -79,8 +78,7 @@ type LocalizationMessageContents =
 export type LocalizationMessageDataTypes = MessageDataTypes<LocalizationMessageContents>;
 
 /** List of all messages for Localization purpose */
-export type AvailableLocalizationMessageContents =
-  | LocalizationMessageContents
+export type AvailableLocalizationMessageContents = LocalizationMessageContents
   | ConnectContentMessage
   | RequestMessagesContentMessage<LocalizationMessageDataTypes>;
 

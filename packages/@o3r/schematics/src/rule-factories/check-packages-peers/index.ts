@@ -2,9 +2,9 @@ import {
   readFileSync,
 } from 'node:fs';
 import * as path from 'node:path';
-import type {
-  LoggerApi,
-} from '@angular-devkit/core/src/logger';
+import {
+  logging,
+} from '@angular-devkit/core';
 import type {
   SchematicContext,
   Tree,
@@ -80,7 +80,7 @@ function getPackagesToInstallOrUpdate(packageName: string) {
  * @param logger
  * @param angularJsonString
  */
-function checkPackagesToInstallOrUpdate(packageName: string, logger: LoggerApi, angularJsonString?: string | null) {
+function checkPackagesToInstallOrUpdate(packageName: string, logger: logging.LoggerApi, angularJsonString?: string | null) {
   const packageManager = getPackageManager({ workspaceConfig: angularJsonString });
   const { packagesToInstall, packagesWrongVersion } = getPackagesToInstallOrUpdate(packageName);
 

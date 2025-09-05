@@ -1,5 +1,5 @@
 import {
-  Inject,
+  inject,
   Injectable,
 } from '@angular/core';
 import {
@@ -31,7 +31,9 @@ export class RequestParametersService implements ParamsType {
 
   private readonly config: RequestParametersConfig;
 
-  constructor(@Inject(REQUEST_PARAMETERS_CONFIG_TOKEN) config: PartialRequestParametersConfig) {
+  constructor() {
+    const config = inject<PartialRequestParametersConfig>(REQUEST_PARAMETERS_CONFIG_TOKEN);
+
     this.config = defaultRequestParametersConfig;
     (Object.keys(config) as (keyof RequestParametersConfig)[])
       .filter((key) => config[key] !== undefined)

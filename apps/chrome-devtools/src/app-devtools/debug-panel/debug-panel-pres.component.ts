@@ -5,6 +5,7 @@ import {
 import {
   ChangeDetectionStrategy,
   Component,
+  inject,
   ViewEncapsulation,
 } from '@angular/core';
 import {
@@ -38,6 +39,9 @@ type PlaceholderMode = 'normal' | 'debug' | 'pending';
   ]
 })
 export class DebugPanelPresComponent {
+  private readonly service = inject(DebugPanelService);
+  private readonly connection = inject(ChromeExtensionConnectionService);
+
   public readonly form = new FormGroup({
     visualTesting: new FormControl<boolean>(false),
     placeholderMode: new FormControl<PlaceholderMode>('normal')
@@ -48,10 +52,7 @@ export class DebugPanelPresComponent {
   /** Application information stream */
   public readonly applicationInformation$ = this.service.applicationInformation$;
 
-  constructor(
-    private readonly service: DebugPanelService,
-    private readonly connection: ChromeExtensionConnectionService
-  ) {
+  constructor() {
     this.form.controls.visualTesting.valueChanges.pipe(takeUntilDestroyed()).subscribe((value) => {
       this.toggleVisualTestingRender(!!value);
     });

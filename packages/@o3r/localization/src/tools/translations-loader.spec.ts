@@ -1,9 +1,14 @@
 /* eslint-disable jest/no-done-callback -- test made with observables */
 /* eslint-disable @typescript-eslint/naming-convention -- localization keys are not following the naming convention */
-
+import {
+  TestBed,
+} from '@angular/core/testing';
 import {
   LocalizationConfiguration,
 } from '../core';
+import {
+  LOCALIZATION_CONFIGURATION_TOKEN,
+} from './localization.token';
 import {
   TranslationsLoader,
 } from './translations-loader';
@@ -55,7 +60,13 @@ describe('TranslationsLoader - no endPointUrl', () => {
     let translationsLoader: TranslationsLoader;
 
     beforeEach(() => {
-      translationsLoader = new TranslationsLoader(configuration);
+      TestBed.configureTestingModule({
+        providers: [
+          { provide: LOCALIZATION_CONFIGURATION_TOKEN, useValue: configuration },
+          { provide: TranslationsLoader, deps: [LOCALIZATION_CONFIGURATION_TOKEN] }
+        ]
+      });
+      translationsLoader = TestBed.inject(TranslationsLoader);
     });
 
     it('OK ' + configuration.language + '.json from local', (done) => {
@@ -124,7 +135,13 @@ describe('TranslationsLoader - no endPointUrl', () => {
     let translationsLoader: TranslationsLoader;
 
     beforeEach(() => {
-      translationsLoader = new TranslationsLoader(configuration2);
+      TestBed.configureTestingModule({
+        providers: [
+          { provide: LOCALIZATION_CONFIGURATION_TOKEN, useValue: configuration2 },
+          { provide: TranslationsLoader, deps: [LOCALIZATION_CONFIGURATION_TOKEN] }
+        ]
+      });
+      translationsLoader = TestBed.inject(TranslationsLoader);
     });
 
     it('KO ' + configuration2.language + '.json from local, but no second call', (done) => {
@@ -165,7 +182,13 @@ describe('TranslationsLoader - with endPointUrl', () => {
     });
 
     it('should merge local and dynamic translations', (done) => {
-      translationsLoader = new TranslationsLoader({ ...configuration3, mergeWithLocalTranslations: true });
+      TestBed.configureTestingModule({
+        providers: [
+          { provide: LOCALIZATION_CONFIGURATION_TOKEN, useValue: { ...configuration3, mergeWithLocalTranslations: true } },
+          { provide: TranslationsLoader, deps: [LOCALIZATION_CONFIGURATION_TOKEN] }
+        ]
+      });
+      translationsLoader = TestBed.inject(TranslationsLoader);
       const subscription = translationsLoader.getTranslation(configuration3.language).subscribe((res) => {
         expect(res.localOnly).toBeDefined();
         expect(res.localOnly).toMatch(/^\[local] /);
@@ -176,7 +199,13 @@ describe('TranslationsLoader - with endPointUrl', () => {
     });
 
     it('should get dynamic translations only', (done) => {
-      translationsLoader = new TranslationsLoader({ ...configuration3, mergeWithLocalTranslations: false });
+      TestBed.configureTestingModule({
+        providers: [
+          { provide: LOCALIZATION_CONFIGURATION_TOKEN, useValue: { ...configuration3, mergeWithLocalTranslations: false } },
+          { provide: TranslationsLoader, deps: [LOCALIZATION_CONFIGURATION_TOKEN] }
+        ]
+      });
+      translationsLoader = TestBed.inject(TranslationsLoader);
       const subscription = translationsLoader.getTranslation(configuration3.language).subscribe((res) => {
         expect(res.localOnly).not.toBeDefined();
         expect(translationsBundleSpy).toHaveBeenCalledTimes(1);
@@ -188,7 +217,13 @@ describe('TranslationsLoader - with endPointUrl', () => {
 
   describe('language !== fallback language', () => {
     beforeEach(() => {
-      translationsLoader = new TranslationsLoader(configuration3);
+      TestBed.configureTestingModule({
+        providers: [
+          { provide: LOCALIZATION_CONFIGURATION_TOKEN, useValue: configuration3 },
+          { provide: TranslationsLoader, deps: [LOCALIZATION_CONFIGURATION_TOKEN] }
+        ]
+      });
+      translationsLoader = TestBed.inject(TranslationsLoader);
     });
 
     it('OK ' + configuration3.language + '.json from endPointUrl', (done) => {
@@ -295,7 +330,13 @@ describe('TranslationsLoader - with endPointUrl', () => {
       let countCall = 0;
       const latestUrls: string[] = [];
       const configWithParams = Object.assign({}, configuration3, { queryParams: { SITECODE: 'XDEFXDEF' } });
-      translationsLoader = new TranslationsLoader(configWithParams);
+      TestBed.configureTestingModule({
+        providers: [
+          { provide: LOCALIZATION_CONFIGURATION_TOKEN, useValue: configWithParams },
+          { provide: TranslationsLoader, deps: [LOCALIZATION_CONFIGURATION_TOKEN] }
+        ]
+      });
+      translationsLoader = TestBed.inject(TranslationsLoader);
       global.fetch = jest.fn().mockImplementation((url: string) => {
         countCall++;
         latestUrls.push(url);
@@ -317,7 +358,13 @@ describe('TranslationsLoader - with endPointUrl', () => {
       let countCall = 0;
       const latestUrls: string[] = [];
       const configWithParams = Object.assign({}, configuration3, { queryParams: { SITECODE: 'XDEFXDEF', OFFICEID: 'ANNCEPAR29MAY' } });
-      translationsLoader = new TranslationsLoader(configWithParams);
+      TestBed.configureTestingModule({
+        providers: [
+          { provide: LOCALIZATION_CONFIGURATION_TOKEN, useValue: configWithParams },
+          { provide: TranslationsLoader, deps: [LOCALIZATION_CONFIGURATION_TOKEN] }
+        ]
+      });
+      translationsLoader = TestBed.inject(TranslationsLoader);
       global.fetch = jest.fn().mockImplementation((url: string) => {
         countCall++;
         latestUrls.push(url);
@@ -339,7 +386,13 @@ describe('TranslationsLoader - with endPointUrl', () => {
       let countCall = 0;
       const latestUrls: string[] = [];
       const configWithParams = Object.assign({}, configuration3, { queryParams: { 'SITE CODE': 'XDEF DEF' } });
-      translationsLoader = new TranslationsLoader(configWithParams);
+      TestBed.configureTestingModule({
+        providers: [
+          { provide: LOCALIZATION_CONFIGURATION_TOKEN, useValue: configWithParams },
+          { provide: TranslationsLoader, deps: [LOCALIZATION_CONFIGURATION_TOKEN] }
+        ]
+      });
+      translationsLoader = TestBed.inject(TranslationsLoader);
       global.fetch = jest.fn().mockImplementation((url: string) => {
         countCall++;
         latestUrls.push(url);

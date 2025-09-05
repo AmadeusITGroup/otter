@@ -164,6 +164,26 @@
       ],
       "description": "Enum collection type of the value type"
     },
+    "choices": {
+      "type": "array",
+      "description": "Array of object to define the choices for a property",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "key",
+          "title"
+        ],
+        "properties": {
+          "key": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          }
+        }
+      }
+    },
     "enumProperty": {
       "type": "object",
       "description": "Type of the property (enum)",
@@ -182,24 +202,7 @@
           "$ref": "#/definitions/propertyCollectionType"
         },
         "choices": {
-          "type": "array",
-          "description": "Array of object to define the choices for an ENUM valueType",
-          "minItems": 1,
-          "items": {
-            "type": "object",
-            "required": [
-              "key",
-              "title"
-            ],
-            "properties": {
-              "key": {
-                "type": "string"
-              },
-              "title": {
-                "type": "string"
-              }
-            }
-          }
+          "$ref": "#/definitions/choices"
         },
         "defaultValue": {
           "type": [
@@ -268,6 +271,9 @@
         },
         "collectionType": {
           "$ref": "#/definitions/propertyCollectionType"
+        },
+        "choices": {
+          "$ref": "#/definitions/choices"
         },
         "defaultValue": {
           "type": [

@@ -9,6 +9,8 @@ import {
   isValidDate,
   isValidDateInput,
   isValidDateRange,
+  isValidTimeInput,
+  isValidTimeRange,
   numberValidator,
   parseRegExp,
 } from './operator.helpers';
@@ -197,6 +199,32 @@ describe('Operator helpers', () => {
       expect(isValidDateRange([1, 2])).toBeTruthy();
       expect(isValidDateRange(['2012-12-12', '2013-03-03'])).toBeTruthy();
       expect(isValidDateRange([new Date('2012-12-12'), new Date('2013-03-03')])).toBeTruthy();
+    });
+  });
+
+  describe('isValidTimeInput', () => {
+    it('should validate input properly', () => {
+      expect(isValidTimeInput(null)).toBeFalsy();
+      expect(isValidTimeInput('test')).toBeFalsy();
+      expect(isValidTimeInput('25:00')).toBeFalsy();
+      expect(isValidTimeInput('12:60')).toBeFalsy();
+      expect(isValidTimeInput('12:30')).toBeTruthy();
+      expect(isValidTimeInput('1:05')).toBeTruthy();
+      expect(isValidTimeInput('00:00')).toBeTruthy();
+    });
+  });
+
+  describe('isValidTimeRange', () => {
+    it('should validate input properly', () => {
+      expect(isValidTimeRange(null)).toBeFalsy();
+      expect(isValidTimeRange('test')).toBeFalsy();
+      expect(isValidTimeRange([3, 1])).toBeFalsy();
+      expect(isValidTimeRange(['25:00', '12:30'])).toBeFalsy();
+      expect(isValidTimeRange(['12:30', '12:60'])).toBeFalsy();
+      expect(isValidTimeRange(['12:30', '13:30'])).toBeTruthy();
+      expect(isValidTimeRange(['1:05', '2:05'])).toBeTruthy();
+      expect(isValidTimeRange(['00:00', '23:59'])).toBeTruthy();
+      expect(isValidTimeRange(['18:00', '01:59'])).toBeTruthy();
     });
   });
 

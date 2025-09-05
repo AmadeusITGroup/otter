@@ -23,7 +23,6 @@ import {
 import {
   ShoppingCartModel,
   ShoppingCartState,
-  ShoppingCartStateDetails,
 } from './shopping-cart.state';
 
 /**
@@ -36,7 +35,7 @@ export const shoppingCartAdapter = createEntityAsyncRequestAdapter(createEntityA
 /**
  * ShoppingCart Store initial value
  */
-export const shoppingCartInitialState: ShoppingCartState = shoppingCartAdapter.getInitialState<ShoppingCartStateDetails>({
+export const shoppingCartInitialState = shoppingCartAdapter.getInitialState<ShoppingCartState>({
   requestIds: [],
   selectedCartId: null
 });

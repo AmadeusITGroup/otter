@@ -4,6 +4,7 @@
     "types": ["node"],
     "outDir": "./dist",
     "module": "CommonJS",
+    "moduleResolution": "node10",
     "importHelpers": false,
     "composite": true,
     "incremental": true,
