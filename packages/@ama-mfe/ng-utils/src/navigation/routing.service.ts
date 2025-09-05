@@ -121,6 +121,7 @@ export class RoutingService implements MessageProducer<NavigationMessage>, Messa
     this.router.events.pipe(
       takeUntilDestroyed(),
       filter((event): event is NavigationEnd => event instanceof NavigationEnd),
+      filter((_event) => !this.router.getCurrentNavigation()?.extras?.skipLocationChange),
       map(({ urlAfterRedirects }) => {
         const channelId = this.router.getCurrentNavigation()?.extras?.state?.channelId;
         const currentRouteRegExp = subRouteOnly && this.activatedRoute.routeConfig?.path && new RegExp('^' + this.activatedRoute.routeConfig.path.replace(/(?=\W)/g, '\\'), 'i');
