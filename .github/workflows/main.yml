@@ -155,6 +155,8 @@ jobs:
     uses: ./.github/workflows/documentation.yml
     with:
       version: ${{ needs.version.outputs.nextVersionTag }}
+      skipNxCache: ${{ vars.NX_SKIP_NX_CACHE == 'true' }}
+      skipNxRemoteCache: ${{ vars.NX_SKIP_REMOTE_CACHE == 'true' }}
   documentation-pr:
     secrets: inherit
     needs: [yarn_lock_check, version]
@@ -163,3 +165,5 @@ jobs:
     with:
       version: ${{ needs.version.outputs.nextVersionTag }}
       shouldDeploy: false
+      skipNxCache: ${{ vars.NX_SKIP_NX_CACHE == 'true' }}
+      skipNxRemoteCache: ${{ vars.NX_SKIP_REMOTE_CACHE == 'true' }}
