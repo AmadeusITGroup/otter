@@ -5,7 +5,7 @@
   <artifactId>typescriptFetch-openapi-generator</artifactId>
   <packaging>jar</packaging>
   <name>typescriptFetch-openapi-generator</name>
-  <version>${project.version}</version>
+  <version>${openapi-generator.version}</version>
   <prerequisites>
     <maven>2.2.0</maven>
   </prerequisites>
@@ -95,7 +95,7 @@
     <dependency>
       <groupId>org.openapitools</groupId>
       <artifactId>openapi-generator</artifactId>
-      <version>7.15.0</version>
+      <version>${openapi-generator.version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
@@ -128,6 +128,6 @@
   <properties>
     <maven-plugin-version>1.0.0</maven-plugin-version>
     <version>1.0.0</version>
-    <project.version>0.0.0</project.version>
+    <openapi-generator.version>7.15.0</openapi-generator.version>
   </properties>
 </project>

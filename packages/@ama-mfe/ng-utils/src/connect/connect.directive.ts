@@ -3,7 +3,6 @@ import {
 } from '@amadeus-it-group/microfrontends-angular';
 import {
   computed,
-  DestroyRef,
   Directive,
   effect,
   ElementRef,
@@ -45,7 +44,7 @@ export class ConnectDirective {
 
   private readonly messageService = inject(MessagePeerService);
   private readonly domSanitizer = inject(DomSanitizer);
-  private readonly elRef = inject(ElementRef);
+  private readonly iframeElement = inject<ElementRef<HTMLIFrameElement>>(ElementRef).nativeElement;
 
   private readonly clientOrigin = computed(() => {
     const src = this.src();
@@ -55,25 +54,31 @@ export class ConnectDirective {
 
   constructor() {
     const logger = inject(LoggerService);
-    // When the origin url or the peer id changes it will remake the connection with the new updates. The old connection is closed
-    effect(async () => {
-      const clientOrigin = this.clientOrigin();
-      const connectId = this.connect();
-      const moduleWindow = (this.elRef.nativeElement as HTMLIFrameElement).contentWindow;
 
-      this.messageService.disconnect();
-      if (clientOrigin && moduleWindow) {
+    // When the origin or connection ID change - reconnect the message service
+    effect((onCleanup) => {
+      let stopHandshakeListening = () => { /* no op */ };
+
+      const origin = this.clientOrigin();
+      const id = this.connect();
+      const source = this.iframeElement.contentWindow;
+
+      // listen for handshakes only if we know the origin and were given a connection ID
+      if (origin && source && id) {
         try {
-          await this.messageService.listen(connectId, {
-            window: moduleWindow,
-            origin: clientOrigin
-          });
+          stopHandshakeListening = this.messageService.listen({ id, source, origin });
         } catch (e) {
-          logger.error(`Fail to connect to client (connection ID: ${connectId})`, e);
+          logger.error(`Failed to start listening for (connection ID: ${id})`, e);
         }
       }
+
+      // stop listening for handshakes and disconnect previous connection when:
+      // - origin/connection ID change
+      // - the directive is destroyed
+      onCleanup(() => {
+        stopHandshakeListening();
+        this.messageService.disconnect();
+      });
     });
-    // When the directive is destroyed clean up the connection too.
-    inject(DestroyRef).onDestroy(() => this.messageService.disconnect());
   }
 }

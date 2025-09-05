@@ -40,17 +40,20 @@ describe('ConnectDirective', () => {
   let directiveInstance: ConnectDirective;
   let parentComponentFixture: ComponentFixture<ParentComponent>;
   let domSanitizer: DomSanitizer;
-  let messagePeerServiceMock: any;
+  let messagePeerServiceMock: Pick<MessagePeerService<Message>, 'disconnect' | 'listen'>;
   let messagePeerService: MessagePeerService<Message>;
   let loggerServiceMock: jest.Mocked<LoggerService>;
-  let listenHandler: jest.Mocked<any>;
+  let listenHandler: jest.Mocked<() => {}>;
+  let stopHandshakeListening: jest.Mocked<() => {}>;
 
   beforeEach(() => {
     listenHandler = jest.fn();
+    stopHandshakeListening = jest.fn();
     messagePeerServiceMock = {
       disconnect: jest.fn(),
       listen: jest.fn().mockImplementation(() => {
-        return listenHandler();
+        listenHandler();
+        return stopHandshakeListening;
       })
     };
 
@@ -67,7 +70,6 @@ describe('ConnectDirective', () => {
       ]
     }).createComponent(ParentComponent);
 
-    parentComponentFixture.detectChanges();
     directiveEl = parentComponentFixture.debugElement.query(By.directive(ConnectDirective));
     directiveInstance = directiveEl.injector.get(ConnectDirective);
     messagePeerService = directiveEl.injector.get<MessagePeerService<Message>>(MessagePeerService);
@@ -79,6 +81,7 @@ describe('ConnectDirective', () => {
   });
 
   it('should set the inital src attribute on the iframe', () => {
+    parentComponentFixture.detectChanges();
     expect(directiveEl.nativeElement.src).toBe('https://example-initial.com/');
   });
 
@@ -89,11 +92,39 @@ describe('ConnectDirective', () => {
     expect(directiveEl.nativeElement.src).toBe('https://example.com/');
   });
 
-  it('should call disconnect before listening to a new connection', () => {
+  it('should not call disconnect initially before listening for a new connection', () => {
     const safeUrl = domSanitizer.bypassSecurityTrustResourceUrl('https://example.com?param=test');
     parentComponentFixture.componentInstance.src = safeUrl;
     parentComponentFixture.detectChanges();
-    expect(messagePeerService.disconnect).toHaveBeenCalled();
+    expect(messagePeerService.disconnect).not.toHaveBeenCalled();
+    expect(listenHandler).toHaveBeenCalled();
+    expect(stopHandshakeListening).not.toHaveBeenCalled();
+  });
+
+  it('should call disconnect before connection needs to be re-established', () => {
+    // initial connection
+    parentComponentFixture.detectChanges();
+    expect(messagePeerService.disconnect).not.toHaveBeenCalled();
+    expect(listenHandler).toHaveBeenCalledTimes(1);
+    expect(stopHandshakeListening).not.toHaveBeenCalled();
+
+    // change of src - should reconnect
+    const safeUrl = domSanitizer.bypassSecurityTrustResourceUrl('https://example.com?param=test');
+    parentComponentFixture.componentInstance.src = safeUrl;
+    parentComponentFixture.detectChanges();
+    expect(messagePeerService.disconnect).toHaveBeenCalledTimes(1);
+    expect(listenHandler).toHaveBeenCalledTimes(2);
+    expect(stopHandshakeListening).toHaveBeenCalledTimes(1);
+  });
+
+  it('should call disconnect and stop listening on destroy', () => {
+    // directive creation
+    parentComponentFixture.detectChanges();
+
+    // directive destruction
+    parentComponentFixture.destroy();
+    expect(messagePeerService.disconnect).toHaveBeenCalledTimes(1);
+    expect(stopHandshakeListening).toHaveBeenCalledTimes(1);
   });
 
   it('should compute the client origin', () => {
@@ -105,7 +136,23 @@ describe('ConnectDirective', () => {
     expect((directiveInstance as any).clientOrigin()).toBe('https://example.com');
   });
 
-  it('should report failure', () => {
+  it('should not connect if connection ID is not provided', () => {
+    parentComponentFixture.componentInstance.connect = undefined;
+    parentComponentFixture.detectChanges();
+    expect(messagePeerService.disconnect).not.toHaveBeenCalled();
+    expect(listenHandler).not.toHaveBeenCalled();
+    expect(stopHandshakeListening).not.toHaveBeenCalled();
+  });
+
+  it('should not connect if origin is not provided', () => {
+    parentComponentFixture.componentInstance.src = domSanitizer.bypassSecurityTrustResourceUrl('');
+    parentComponentFixture.detectChanges();
+    expect(messagePeerService.disconnect).not.toHaveBeenCalled();
+    expect(listenHandler).not.toHaveBeenCalled();
+    expect(stopHandshakeListening).not.toHaveBeenCalled();
+  });
+
+  it('should report failure from listen() call', () => {
     const errorToThrow = new Error('some error');
     listenHandler = () => {
       throw errorToThrow;

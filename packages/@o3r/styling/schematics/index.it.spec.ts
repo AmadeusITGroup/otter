@@ -43,7 +43,6 @@ describe('ng add styling', () => {
       path.join(relativeApplicationPath, 'src/styling/_theme.scss').replace(/[/\\]+/g, '/'),
       path.join(relativeApplicationPath, 'src/styling/global-styles.scss').replace(/[/\\]+/g, '/'),
       path.join(relativeApplicationPath, 'migration-scripts/README.md').replace(/[/\\]+/g, '/'),
-      path.join(relativeApplicationPath, 'cms.json').replace(/[/\\]+/g, '/'),
       path.join(relativeApplicationPath, 'placeholders.metadata.json').replace(/[/\\]+/g, '/'),
       path.join(relativeApplicationPath, 'tsconfig.cms.json').replace(/[/\\]+/g, '/')
     ].sort();
@@ -88,7 +87,6 @@ describe('ng add styling', () => {
       path.join(relativeLibraryPath, 'src/components/test/index.ts').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'src/components/test/README.md').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'migration-scripts/README.md').replace(/[/\\]+/g, '/'),
-      path.join(relativeLibraryPath, 'cms.json').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'placeholders.metadata.json').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'tsconfig.cms.json').replace(/[/\\]+/g, '/')
     ].sort());

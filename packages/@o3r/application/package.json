@@ -19,7 +19,7 @@
     "nx": "nx",
     "ng": "yarn nx",
     "build": "yarn nx build application",
-    "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy '{collection,migration}.json' dist",
+    "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist",
     "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest"
   },
   "peerDependencies": {

@@ -27,11 +27,11 @@ describe('ng add components', () => {
     expect(diff.modified).toContain('angular.json');
     expect(diff.modified).toContain('apps/test-app/package.json');
     expect(diff.modified.length).toBe(6);
-    expect(diff.added).toContain('apps/test-app/cms.json');
-    expect(diff.added).toContain('apps/test-app/placeholders.metadata.json');
-    expect(diff.added).toContain('apps/test-app/tsconfig.cms.json');
-    expect(diff.added).toContain('apps/test-app/migration-scripts/README.md');
-    expect(diff.added.length).toBe(4);
+    expect(diff.added.sort()).toEqual([
+      'apps/test-app/placeholders.metadata.json',
+      'apps/test-app/tsconfig.cms.json',
+      'apps/test-app/migration-scripts/README.md'
+    ].sort());
 
     [libraryPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
       expect(diff.all.some((file) => file.startsWith(path.relative(workspacePath, untouchedProject).replace(/\\+/g, '/')))).toBe(false);
@@ -60,11 +60,11 @@ describe('ng add components', () => {
     const packageJson = JSON.parse(fs.readFileSync(`${workspacePath}/package.json`, 'utf8'));
     expect(packageJson.dependencies['@o3r/components']).toBeDefined();
 
-    expect(diff.added).toContain('libs/test-lib/cms.json');
-    expect(diff.added).toContain('libs/test-lib/placeholders.metadata.json');
-    expect(diff.added).toContain('libs/test-lib/tsconfig.cms.json');
-    expect(diff.added).toContain('libs/test-lib/migration-scripts/README.md');
-    expect(diff.added.length).toBe(4);
+    expect(diff.added.sort()).toEqual([
+      'libs/test-lib/placeholders.metadata.json',
+      'libs/test-lib/tsconfig.cms.json',
+      'libs/test-lib/migration-scripts/README.md'
+    ].sort());
 
     [applicationPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
       expect(diff.all.some((file) => file.startsWith(path.relative(workspacePath, untouchedProject).replace(/\\+/g, '/')))).toBe(false);
