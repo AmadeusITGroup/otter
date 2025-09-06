@@ -93,7 +93,7 @@
     "@o3r/routing": "workspace:^",
     "@o3r/test-helpers": "workspace:^",
     "@schematics/angular": "~20.0.0",
-    "@stylistic/eslint-plugin": "~5.2.0",
+    "@stylistic/eslint-plugin": "~5.3.0",
     "@types/jasmine": "~5.1.0",
     "@types/jest": "~29.5.2",
     "@types/node": "^22.0.0",
