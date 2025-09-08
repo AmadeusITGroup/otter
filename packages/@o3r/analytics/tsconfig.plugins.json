@@ -6,6 +6,7 @@
     "incremental": true,
     "composite": true,
     "module": "CommonJS",
+    "moduleResolution": "node10",
     "outDir": "./dist/plugins",
     "rootDir": "plugins",
     "tsBuildInfoFile": "build/plugins/.tsbuildinfo"

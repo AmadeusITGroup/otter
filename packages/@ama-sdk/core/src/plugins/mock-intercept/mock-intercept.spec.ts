@@ -1,18 +1,11 @@
 import {
-  ApiClient,
   Mock,
   MockAdapter,
-  SequentialMockAdapter,
 } from '../../fwk';
 import {
   RequestOptions,
-  RequestPlugin,
 } from '../core';
 import {
-  MockInterceptFetch,
-} from './mock-intercept.fetch';
-import {
-  CUSTOM_MOCK_OPERATION_ID_HEADER,
   CUSTOM_MOCK_REQUEST_HEADER,
 } from './mock-intercept.interface';
 import {
@@ -32,15 +25,6 @@ const testMockAdapter: MockAdapter = {
   initialize: initializeSpy,
   retrieveOperationId: retrieveOperationIdSpy
 };
-
-const requestPlugins: RequestPlugin[] = [new MockInterceptRequest({ adapter: new SequentialMockAdapter([], {}) })];
-const apiClient = {
-  options: {
-    requestPlugins,
-    basePath: 'test',
-    replyPlugins: []
-  }
-} as ApiClient;
 
 describe('Mock intercept', () => {
   beforeEach(() => jest.clearAllMocks());
@@ -90,105 +74,6 @@ describe('Mock intercept', () => {
       expect(getMockSpy).toHaveBeenCalled();
       expect(text).toBe(JSON.stringify(testMock.mockData));
       expect(initializeSpy).toHaveBeenCalled();
-    });
-  });
-
-  describe('fetch plugin', () => {
-    describe('when using an initialization function', () => {
-      let plugin: MockInterceptFetch;
-      let asyncMockAdapter: MockAdapter;
-
-      beforeEach(() => {
-        asyncMockAdapter = {
-          initialize: initializeSpy,
-          getMock: getMockSpy,
-          getLatestMock: getLatestMockSpy,
-          retrieveOperationId: retrieveOperationIdSpy
-        };
-        plugin = new MockInterceptFetch({ adapter: asyncMockAdapter });
-      });
-
-      it('should call initialize fn', async () => {
-        const loadedPlugin = plugin.load({
-          fetchPlugins: [],
-          url: 'myurl',
-          apiClient,
-          options: {
-            headers: new Headers({
-              [CUSTOM_MOCK_OPERATION_ID_HEADER]: 'testOperation'
-            })
-          }
-        });
-        const testData: any = { test: true };
-        await loadedPlugin.transform(Promise.resolve(testData));
-
-        expect(initializeSpy).toHaveBeenCalled();
-        expect(getMockSpy).not.toHaveBeenCalled();
-        expect(getLatestMockSpy).toHaveBeenCalledWith('testOperation');
-      });
-
-      it('should throw if there is no request plugin', () => {
-        const config = {
-          fetchPlugins: [],
-          url: 'myurl',
-          apiClient: {
-            options: {
-              requestPlugins: []
-            }
-          } as ApiClient,
-          options: {
-            headers: new Headers({
-              [CUSTOM_MOCK_OPERATION_ID_HEADER]: 'testOperation'
-            })
-          }
-        };
-
-        expect(() => plugin.load(config)).toThrow();
-      });
-    });
-  });
-
-  describe('with delay', () => {
-    it('should delay the response of the specific number', async () => {
-      const plugin = new MockInterceptFetch({ adapter: testMockAdapter, delayTiming: 700 });
-      const loadedPlugin = plugin.load({
-        fetchPlugins: [],
-        url: '',
-        apiClient,
-        options: {
-          headers: new Headers({
-            [CUSTOM_MOCK_OPERATION_ID_HEADER]: 'testOperation'
-          })
-        }
-      });
-      const callback = jest.fn();
-      const run = loadedPlugin.transform(Promise.resolve({} as any)).then(callback);
-      await jest.advanceTimersByTimeAsync(699);
-      expect(callback).not.toHaveBeenCalled();
-      await jest.advanceTimersByTimeAsync(1);
-      expect(callback).toHaveBeenCalled();
-      await run;
-    });
-
-    it('should delay the response based on callback', async () => {
-      const plugin = new MockInterceptFetch({ adapter: testMockAdapter, delayTiming: () => 800 });
-      const loadedPlugin = plugin.load({
-        fetchPlugins: [],
-        url: '',
-        apiClient,
-        options: {
-          headers: new Headers({
-            [CUSTOM_MOCK_OPERATION_ID_HEADER]: 'testOperation'
-          })
-        }
-      });
-      const callback = jest.fn();
-      const run = loadedPlugin.transform(Promise.resolve({} as any)).then(callback);
-      await jest.advanceTimersByTimeAsync(799);
-      expect(callback).not.toHaveBeenCalled();
-      await jest.advanceTimersByTimeAsync(1);
-      expect(callback).toHaveBeenCalled();
-      await run;
     });
   });
 });

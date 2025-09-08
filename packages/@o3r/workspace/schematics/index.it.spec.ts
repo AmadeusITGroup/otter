@@ -39,6 +39,7 @@ describe('new otter workspace', () => {
 
     expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
     expect(() => packageManagerRunOnProject('@my-sdk/sdk', isInWorkspace, { script: 'build' }, execAppOptions)).not.toThrow();
+    expect(() => packageManagerRunOnProject('@my-sdk/sdk', isInWorkspace, { script: 'test' }, execAppOptions)).not.toThrow();
   });
 
   test('should add sdk to an existing workspace with local spec', async () => {
@@ -137,6 +138,7 @@ describe('new otter workspace', () => {
     expect(() => packageManagerRun({ script: 'lint' }, execAppOptions)).not.toThrow();
     expect(rootPackageJson.workspaces).toContain('libs/*');
     expect(rootPackageJson.workspaces).toContain('apps/*');
+    expect(existsSync(path.join(workspacePath, '.vscode/mcp.json'))).toBe(true);
     expect(existsSync(path.join(workspacePath, '.editorconfig'))).toBe(true);
     expect(existsSync(path.join(workspacePath, '.husky/commit-msg'))).toBe(true);
     expect(existsSync(path.join(workspacePath, '.husky/pre-commit'))).toBe(true);

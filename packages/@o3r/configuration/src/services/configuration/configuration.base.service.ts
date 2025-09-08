@@ -1,4 +1,5 @@
 import {
+  inject,
   Injectable,
 } from '@angular/core';
 import {
@@ -49,9 +50,9 @@ const jsonStringifyDiff = (obj1: any, obj2: any) => JSON.stringify(obj1) === JSO
   providedIn: ConfigurationBaseServiceModule
 })
 export class ConfigurationBaseService {
-  private readonly extendedConfiguration: { [key: string]: boolean } = {};
+  private readonly store = inject<Store<ConfigurationStore & ConfigOverrideStore>>(Store);
 
-  constructor(private readonly store: Store<ConfigurationStore & ConfigOverrideStore>) {}
+  private readonly extendedConfiguration: { [key: string]: boolean } = {};
 
   /**
    * Update a specific component config or add it to the store if does not exist

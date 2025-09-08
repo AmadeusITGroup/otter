@@ -140,6 +140,26 @@ describe('Mock intercept', () => {
 
         expect(() => plugin.load(config)).toThrow();
       });
+
+      it('should throw if there is no request plugin when dynamic', async () => {
+        const config: any = {
+          controller: jest.fn() as any,
+          fetchPlugins: [],
+          url: 'myurl',
+          apiClient: {
+            options: {
+              requestPlugins: () => Promise.resolve([])
+            }
+          },
+          options: {
+            headers: new Headers({
+              [CUSTOM_MOCK_OPERATION_ID_HEADER]: 'testOperation'
+            })
+          }
+        };
+
+        await expect(() => plugin.load(config).transform({} as any)).rejects.toThrow('MockInterceptFetch plugin should be used only with the MockInterceptRequest plugin');
+      });
     });
   });
 

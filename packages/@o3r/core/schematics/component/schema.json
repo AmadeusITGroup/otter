@@ -9,7 +9,8 @@
       "description": "Project name",
       "$default": {
         "$source": "projectName"
-      }
+      },
+      "alias": "project"
     },
     "componentName": {
       "type": "string",
@@ -23,6 +24,9 @@
     },
     "path": {
       "type": "string",
+      "$default": {
+        "$source": "workingDirectory"
+      },
       "description": "Directory containing the components"
     },
     "prefix": {
@@ -86,7 +90,7 @@
     "standalone": {
       "type": "boolean",
       "description": "Whether the generated component is standalone.",
-      "default": false
+      "default": true
     }
   },
   "additionalProperties": true,

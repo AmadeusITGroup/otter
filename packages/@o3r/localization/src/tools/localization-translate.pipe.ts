@@ -1,6 +1,6 @@
 import {
   ChangeDetectorRef,
-  Inject,
+  inject,
   OnDestroy,
   Pipe,
   PipeTransform,
@@ -31,6 +31,12 @@ import {
   standalone: false
 })
 export class O3rLocalizationTranslatePipe extends TranslatePipe implements PipeTransform, OnDestroy {
+  /** Localization service instance */
+  protected readonly localizationService = inject(LocalizationService);
+  /** Change detector service instance */
+  protected readonly changeDetector = inject(ChangeDetectorRef);
+  /** Localization config token */
+  protected readonly localizationConfig: LocalizationConfiguration = inject(LOCALIZATION_CONFIGURATION_TOKEN);
   /**
    * Internal subscription to the LocalizationService showKeys mode changes
    */
@@ -52,11 +58,9 @@ export class O3rLocalizationTranslatePipe extends TranslatePipe implements PipeT
   /** last key resolved */
   protected lastResolvedKey?: string;
 
-  constructor(protected readonly localizationService: LocalizationService, translateService: TranslateService, protected readonly changeDetector: ChangeDetectorRef,
-    @Inject(LOCALIZATION_CONFIGURATION_TOKEN) protected readonly localizationConfig: LocalizationConfiguration) {
-    super(translateService, changeDetector);
-
-    if (localizationConfig.enableTranslationDeactivation) {
+  constructor() {
+    super(inject(TranslateService), inject(ChangeDetectorRef));
+    if (this.localizationConfig.enableTranslationDeactivation) {
       this.onShowKeysChange = this.localizationService.showKeys$.subscribe((showKeys) => {
         this.showKeys = showKeys;
         this.changeDetector.markForCheck();

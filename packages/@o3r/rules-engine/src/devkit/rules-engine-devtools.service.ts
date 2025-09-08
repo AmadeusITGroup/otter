@@ -1,7 +1,6 @@
 import {
-  Inject,
+  inject,
   Injectable,
-  Optional,
 } from '@angular/core';
 import {
   select,
@@ -46,6 +45,9 @@ import {
   providedIn: 'root'
 })
 export class OtterRulesEngineDevtools {
+  protected store = inject<Store<RulesetsStore>>(Store);
+  private readonly rulesEngineService = inject(RulesEngineRunnerService);
+
   /** Stream of rules engine report */
   public readonly rulesEngineReport$?: Observable<{ events: DebugEvent[]; rulesetMap: Record<string, Ruleset> }>;
 
@@ -59,10 +61,9 @@ export class OtterRulesEngineDevtools {
     return !!this.rulesEngineService.engine.debugMode;
   }
 
-  constructor(
-    protected store: Store<RulesetsStore>,
-    private readonly rulesEngineService: RulesEngineRunnerService,
-    @Optional() @Inject(OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS) options: RulesEngineDevtoolsServiceOptions) {
+  constructor() {
+    const options = inject<RulesEngineDevtoolsServiceOptions>(OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS, { optional: true });
+
     const eventsStackLimit = (options || OTTER_RULES_ENGINE_DEVTOOLS_DEFAULT_OPTIONS).rulesEngineStackLimit;
     this.rulesEngineEvents$ = this.rulesEngineService.engine.engineDebug?.debugEvents$.pipe(
       scan((previousEvents, currentEvent) => {
