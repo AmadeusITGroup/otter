@@ -114,7 +114,7 @@
     "rxjs": "^7.8.1",
     "ts-jest": "~29.4.0",
     "tsc-watch": "^7.0.0",
-    "typescript": "~5.8.2",
+    "typescript": "~5.9.2",
     "typescript-eslint": "~8.42.0",
     "yaml-eslint-parser": "^1.2.2"
   },

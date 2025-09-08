@@ -47,7 +47,7 @@
     "loglevel": "^1.8.0",
     "nx": "~21.4.0",
     "ts-jest": "~29.4.0",
-    "typescript": "~5.8.2",
+    "typescript": "~5.9.2",
     "typescript-eslint": "~8.42.0",
     "yargs": "^18.0.0"
   },
