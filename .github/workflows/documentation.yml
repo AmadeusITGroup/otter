@@ -30,6 +30,21 @@ on:
         required: false
         description: Should the documentation be deployed
         default: true
+      skipNxCache:
+        type: boolean
+        default: false
+        required: false
+        description: Skip the nx cache
+      skipNxRemoteCache:
+        type: boolean
+        default: false
+        required: false
+        description: Skip the nx remote cache
+
+env:
+  NX_SKIP_NX_CACHE: ${{ inputs.skipNxCache }}
+  NX_SKIP_REMOTE_CACHE: ${{ inputs.skipNxRemoteCache }}
+
 
 jobs:
   build:
