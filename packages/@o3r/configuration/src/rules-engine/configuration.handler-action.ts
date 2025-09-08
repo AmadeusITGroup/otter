@@ -1,4 +1,5 @@
 import {
+  inject,
   Injectable,
 } from '@angular/core';
 import {
@@ -25,10 +26,10 @@ import {
  */
 @Injectable()
 export class ConfigurationRulesEngineActionHandler implements RulesEngineActionHandler<ActionUpdateConfigBlock> {
+  private readonly store = inject<Store<ConfigurationStore>>(Store);
+
   /** @inheritdoc */
   public readonly supportingActions = [RULES_ENGINE_CONFIGURATION_UPDATE_ACTION_TYPE] as const;
-
-  constructor(private readonly store: Store<ConfigurationStore>) {}
 
   /** @inheritdoc */
   public executeActions(actions: ActionUpdateConfigBlock[]): void | Promise<void> {

@@ -10,7 +10,7 @@ On the Otter side, an ESLint flat configuration is exposed by the [`@o3r/eslint-
 > [!NOTE]
 > All the rules set to `warn` have been upgraded to `error`.
 
-Below, you can find the list of differences between the configurations exposed by `@o3r/eslint-config-otter` and by `@o3r/eslint-config` for each plugin.
+Below, you can find the list of differences between the configurations exposed by the now deprecated `@o3r/eslint-config-otter` and by `@o3r/eslint-config` for each plugin.
 
 ### Angular ESLint rules
 

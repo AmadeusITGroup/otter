@@ -149,10 +149,10 @@ export class PetApi implements Api {
     let tokenizedUrl;
     if (this.client.options.enableParameterSerialization) {
       const pathParamsProperties = this.client.getPropertiesFromData(data, ['petId']);
-      const pathParamSerialization = { petId: { explode: false, style: 'simple' } }
+      const pathParamSerialization = { petId: { explode: false, style: 'simple' } };
       const serializedPathParams = this.client.serializePathParams(pathParamsProperties, pathParamSerialization);
-      basePath = `${this.client.options.basePath}/pet/${serializedPathParams['petId']}`
-      tokenizedUrl = `${this.client.options.basePath}/pet/${this.piiParamTokens['petId'] || serializedPathParams['petId']}`
+      basePath = `${this.client.options.basePath}/pet/${serializedPathParams['petId']}`;
+      tokenizedUrl = `${this.client.options.basePath}/pet/${this.piiParamTokens['petId'] || serializedPathParams['petId']}`;
     } else {
       basePath = `${this.client.options.basePath}/pet/${data['petId']}`;
       tokenizedUrl = `${this.client.options.basePath}/pet/${this.piiParamTokens['petId'] || data['petId']}`;
@@ -302,10 +302,10 @@ export class PetApi implements Api {
     let tokenizedUrl;
     if (this.client.options.enableParameterSerialization) {
       const pathParamsProperties = this.client.getPropertiesFromData(data, ['petId']);
-      const pathParamSerialization = { petId: { explode: false, style: 'simple' } }
+      const pathParamSerialization = { petId: { explode: false, style: 'simple' } };
       const serializedPathParams = this.client.serializePathParams(pathParamsProperties, pathParamSerialization);
-      basePath = `${this.client.options.basePath}/pet/${serializedPathParams['petId']}`
-      tokenizedUrl = `${this.client.options.basePath}/pet/${this.piiParamTokens['petId'] || serializedPathParams['petId']}`
+      basePath = `${this.client.options.basePath}/pet/${serializedPathParams['petId']}`;
+      tokenizedUrl = `${this.client.options.basePath}/pet/${this.piiParamTokens['petId'] || serializedPathParams['petId']}`;
     } else {
       basePath = `${this.client.options.basePath}/pet/${data['petId']}`;
       tokenizedUrl = `${this.client.options.basePath}/pet/${this.piiParamTokens['petId'] || data['petId']}`;
@@ -405,10 +405,10 @@ export class PetApi implements Api {
       queryParams = this.client.serializeQueryParams(queryParamsProperties, queryParamSerialization);
       paramSerializationOptions.queryParamSerialization = queryParamSerialization;
       const pathParamsProperties = this.client.getPropertiesFromData(data, ['petId']);
-      const pathParamSerialization = { petId: { explode: false, style: 'simple' } }
+      const pathParamSerialization = { petId: { explode: false, style: 'simple' } };
       const serializedPathParams = this.client.serializePathParams(pathParamsProperties, pathParamSerialization);
-      basePath = `${this.client.options.basePath}/pet/${serializedPathParams['petId']}`
-      tokenizedUrl = `${this.client.options.basePath}/pet/${this.piiParamTokens['petId'] || serializedPathParams['petId']}`
+      basePath = `${this.client.options.basePath}/pet/${serializedPathParams['petId']}`;
+      tokenizedUrl = `${this.client.options.basePath}/pet/${this.piiParamTokens['petId'] || serializedPathParams['petId']}`;
     } else {
       queryParams = this.client.stringifyQueryParams(queryParamsProperties);
       basePath = `${this.client.options.basePath}/pet/${data['petId']}`;
@@ -467,10 +467,10 @@ export class PetApi implements Api {
       queryParams = this.client.serializeQueryParams(queryParamsProperties, queryParamSerialization);
       paramSerializationOptions.queryParamSerialization = queryParamSerialization;
       const pathParamsProperties = this.client.getPropertiesFromData(data, ['petId']);
-      const pathParamSerialization = { petId: { explode: false, style: 'simple' } }
+      const pathParamSerialization = { petId: { explode: false, style: 'simple' } };
       const serializedPathParams = this.client.serializePathParams(pathParamsProperties, pathParamSerialization);
-      basePath = `${this.client.options.basePath}/pet/${serializedPathParams['petId']}/uploadImage`
-      tokenizedUrl = `${this.client.options.basePath}/pet/${this.piiParamTokens['petId'] || serializedPathParams['petId']}/uploadImage`
+      basePath = `${this.client.options.basePath}/pet/${serializedPathParams['petId']}/uploadImage`;
+      tokenizedUrl = `${this.client.options.basePath}/pet/${this.piiParamTokens['petId'] || serializedPathParams['petId']}/uploadImage`;
     } else {
       queryParams = this.client.stringifyQueryParams(queryParamsProperties);
       basePath = `${this.client.options.basePath}/pet/${data['petId']}/uploadImage`;

@@ -12,7 +12,7 @@ const config = [
       '**/*.{c,m,}{t,j}s'
     ],
     rules: {
-      ...convertWarningsToErrors(unicorn.configs['flat/recommended']),
+      ...convertWarningsToErrors(unicorn.default.configs.recommended),
       'unicorn/catch-error-name': 'off',
       'unicorn/consistent-function-scoping': 'off',
       'unicorn/filename-case': [
@@ -27,6 +27,7 @@ const config = [
       'unicorn/import-style': 'off',
       'unicorn/no-array-for-each': 'off',
       'unicorn/no-array-reduce': 'off',
+      'unicorn/no-array-reverse': 'off',
       'unicorn/no-await-expression-member': 'off',
       'unicorn/no-null': 'off',
       'unicorn/no-typeof-undefined': 'off',

@@ -7,7 +7,10 @@
   "targets": {
     "build": {
       "executor": "nx:noop",
-      "dependsOn": ["build-builders", "compile"]
+      "dependsOn": ["build-builders", "compile"],
+      "options": {
+        "tsConfig": "{projectRoot}/tsconfig.build.json"
+      }
     },
     "prepare": {},
     "compile": {

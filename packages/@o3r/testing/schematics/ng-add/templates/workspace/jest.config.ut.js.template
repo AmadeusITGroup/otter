@@ -35,7 +35,8 @@ module.exports.getJestProjectConfig = (rootDir, isAngularSetup) => {
     ],
     testPathIgnorePatterns: [
       '<rootDir>/.*/templates/.*',
-      '\\.it\\.spec\\.ts$'
+      '\\.it\\.spec\\.ts$',
+      '\\.e2e\\.spec\\.ts$'
     ],
     fakeTimers: {
       enableGlobally: true

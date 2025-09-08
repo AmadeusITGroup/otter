@@ -92,6 +92,29 @@ export const isValidDateRange = (operatorInput: any): operatorInput is [DateInpu
 };
 
 /**
+ * Verifies if the parameter is a valid time input
+ * @param operatorInput
+ */
+export const isValidTimeInput = (operatorInput: any): operatorInput is string => {
+  if (!isString(operatorInput) || !/^\d{1,2}:\d{2}$/.test(operatorInput)) {
+    return false;
+  }
+  const [hours, minutes] = operatorInput.split(':').map((value) => +value);
+  return hours < 24 && minutes < 60;
+};
+
+/**
+ * Verifies if the parameter is a valid time range
+ * @param operatorInput
+ */
+export const isValidTimeRange = (operatorInput: any): operatorInput is [string, string] => {
+  return Array.isArray(operatorInput)
+    && operatorInput.length === 2
+    && isValidTimeInput(operatorInput[0])
+    && isValidTimeInput(operatorInput[1]);
+};
+
+/**
  * Validate that a value is a supported simple type
  * @param value value to validate
  */

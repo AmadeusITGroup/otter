@@ -1,4 +1,5 @@
 import {
+  inject,
   Injectable,
 } from '@angular/core';
 import {
@@ -32,9 +33,9 @@ export interface StyleURL {
   providedIn: StyleLazyLoaderModule
 })
 export class StyleLazyLoader {
-  private readonly DEFAULT_STYLE_ELEMENT_ID = 'external-theme';
+  private readonly dcService = inject(DynamicContentService);
 
-  constructor(private readonly dcService: DynamicContentService) {}
+  private readonly DEFAULT_STYLE_ELEMENT_ID = 'external-theme';
 
   /**
    * Load a new CSS from an absolute URL, if we already HTML element exists with the url, otherwise

@@ -43,9 +43,9 @@ describe('createEntityAsyncRequestAdapter tests', () => {
     selectId: (model) => model.customId
   }));
 
-  const emptyState: TestState = testAdapter.getInitialState<AsyncStoreItem>({ requestIds: [] });
+  const emptyState = testAdapter.getInitialState<TestState>({ requestIds: [] });
 
-  const emptyStateWithOtherId: TestStateWithCustomId = testAdapterWithCustomId.getInitialState<AsyncStoreItem>({ requestIds: [] });
+  const emptyStateWithOtherId = testAdapterWithCustomId.getInitialState<TestStateWithCustomId>({ requestIds: [] });
 
   const state: TestState = {
     ids: ['myModel1', 'myModel2', 'myModel3'],

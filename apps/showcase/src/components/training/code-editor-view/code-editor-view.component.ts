@@ -24,8 +24,8 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import {
-  DfModalService,
-} from '@design-factory/design-factory';
+  NgbModal,
+} from '@ng-bootstrap/ng-bootstrap';
 import {
   LoggerService,
 } from '@o3r/logger';
@@ -196,9 +196,9 @@ export class CodeEditorViewComponent implements OnDestroy {
     code: FormControl<string | null>;
     file: FormControl<string | null>;
   }> = this.formBuilder.group({
-      code: '',
-      file: ''
-    });
+    code: '',
+    file: ''
+  });
 
   /**
    * Subject used to notify when a new monaco editor has been created
@@ -226,7 +226,7 @@ export class CodeEditorViewComponent implements OnDestroy {
   })
   );
 
-  private readonly modalService = inject(DfModalService);
+  private readonly modalService = inject(NgbModal);
   private readonly forceReload = new Subject<void>();
   private readonly forceSave = new Subject<void>();
 

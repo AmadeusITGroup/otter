@@ -12,7 +12,7 @@ const config = [
       '**/*.{c,m,}{t,j}s'
     ],
     rules: {
-      ...convertWarningsToErrors(stylistic.configs['recommended-flat']),
+      ...convertWarningsToErrors(stylistic.configs.recommended),
       '@stylistic/arrow-parens': ['error', 'always'],
       '@stylistic/brace-style': ['error', '1tbs'],
       '@stylistic/comma-dangle': ['error', {
@@ -61,7 +61,7 @@ const config = [
         'error',
         'before',
         {
-          overrides: { '=': 'none' }
+          overrides: { '=': 'ignore' }
         }
       ],
       '@stylistic/quotes': [
@@ -69,7 +69,7 @@ const config = [
         'single',
         {
           avoidEscape: true,
-          allowTemplateLiterals: true
+          allowTemplateLiterals: 'always'
         }
       ],
       '@stylistic/quote-props': [

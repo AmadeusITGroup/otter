@@ -22,7 +22,6 @@ export interface CascadingProbotOptions {
   /** Application ID */
   appId?: string | number;
 }
-
 /**
  * Cascading class implementation for Probot framework
  */
@@ -45,7 +44,7 @@ export class CascadingProbot extends Cascading {
     let remoteConfig: Partial<CascadingConfiguration> = {};
 
     const configFileResponses = await Promise.all(CascadingProbot.CONFIGURATION_FILES
-      .map((configFile) => this.options.octokit.repos.getContent({
+      .map((configFile) => this.options.octokit.rest.repos.getContent({
         ...this.options.repo,
         path: configFile,
         ref: currentBranch && `refs/heads/${currentBranch}`
@@ -85,7 +84,7 @@ export class CascadingProbot extends Cascading {
 
     if (!config.defaultBranch) {
       this.logger.debug('No default branch, will be retrieve from Github');
-      const { data } = await this.options.octokit.repos.get(this.options.repo);
+      const { data } = await this.options.octokit.rest.repos.get(this.options.repo);
       config.defaultBranch = data.default_branch;
     }
 
@@ -97,7 +96,7 @@ export class CascadingProbot extends Cascading {
   /** @inheritdoc */
   protected async isCascadingPullRequest(id: string | number) {
     if (this.options.appId !== undefined) {
-      const { data } = await this.options.octokit.pulls.get({
+      const { data } = await this.options.octokit.rest.pulls.get({
         ...this.options.repo,
 
         pull_number: +id
@@ -115,7 +114,7 @@ export class CascadingProbot extends Cascading {
 
   /** @inheritdoc */
   protected async mergePullRequest(id: string | number) {
-    const { data } = await this.options.octokit.pulls.merge({
+    const { data } = await this.options.octokit.rest.pulls.merge({
       ...this.options.repo,
 
       pull_number: +id
@@ -128,14 +127,14 @@ export class CascadingProbot extends Cascading {
     this.logger.debug(`Determine if ${baseBranch} is ahead of ${targetBranch}`);
     const [base, head] = await Promise.all(
       [targetBranch, baseBranch].map((branch) =>
-        this.options.octokit.repos.getBranch({
+        this.options.octokit.rest.repos.getBranch({
           ...this.options.repo,
           branch: `refs/heads/${branch}`
         }).then((res) => res.data.commit.sha)
       )
     );
 
-    const { data } = (await this.options.octokit.repos.compareCommits({
+    const { data } = (await this.options.octokit.rest.repos.compareCommits({
       ...this.options.repo,
       base,
       head
@@ -154,7 +153,7 @@ export class CascadingProbot extends Cascading {
     let getCurrentPage = true;
     const branchNames: string[] = [];
     while (getCurrentPage && pageIndex <= 20) {
-      const res = await this.options.octokit.repos.listBranches({
+      const res = await this.options.octokit.rest.repos.listBranches({
         ...this.options.repo,
         per_page: perPage,
         page: pageIndex++
@@ -167,12 +166,12 @@ export class CascadingProbot extends Cascading {
 
   /** @inheritdoc */
   protected async createBranch(branchName: string, baseBranch: string) {
-    const { data } = (await this.options.octokit.repos.getBranch({
+    const { data } = (await this.options.octokit.rest.repos.getBranch({
       ...this.options.repo,
       branch: `refs/heads/${baseBranch}`
     }));
     const sha = data.commit.sha;
-    await this.options.octokit.git.createRef({
+    await this.options.octokit.rest.git.createRef({
       ...this.options.repo,
       ref: `refs/heads/${branchName}`,
       sha
@@ -181,7 +180,7 @@ export class CascadingProbot extends Cascading {
 
   /** @inheritdoc */
   protected async deleteBranch(branchName: string) {
-    await this.options.octokit.git.deleteRef({
+    await this.options.octokit.rest.git.deleteRef({
       ...this.options.repo,
       ref: `refs/heads/${branchName}`
     });
@@ -190,7 +189,7 @@ export class CascadingProbot extends Cascading {
   /** @inheritdoc */
   protected async merge(branchName: string, toBranch: string) {
     try {
-      await this.options.octokit.repos.merge({
+      await this.options.octokit.rest.repos.merge({
         ...this.options.repo,
         base: toBranch,
         head: branchName
@@ -204,7 +203,7 @@ export class CascadingProbot extends Cascading {
   /** @inheritdoc */
   protected async createPullRequest(cascadingBranch: string, targetBranch: string, body: string, title: string, labels?: string[]) {
     // TODO: add auto_merge when allow by the RestAPI (cf: https://github.com/orgs/community/discussions/24719)
-    const { data } = await this.options.octokit.pulls.create({
+    const { data } = await this.options.octokit.rest.pulls.create({
       ...this.options.repo,
       head: `refs/heads/${cascadingBranch}`,
       base: `refs/heads/${targetBranch}`,
@@ -213,7 +212,7 @@ export class CascadingProbot extends Cascading {
     });
     if (labels && labels.length > 0) {
       const id = data.number;
-      await this.options.octokit.issues.addLabels({
+      await this.options.octokit.rest.issues.addLabels({
         ...this.options.repo,
 
         issue_number: id,
@@ -232,7 +231,7 @@ export class CascadingProbot extends Cascading {
 
   /** @inheritdoc */
   protected async updatePullRequestMessage(id: string | number, body: string, title?: string): Promise<CascadingPullRequestInfo> {
-    const { data } = await this.options.octokit.pulls.update({
+    const { data } = await this.options.octokit.rest.pulls.update({
       ...this.options.repo,
 
       pull_number: +id,
@@ -251,7 +250,7 @@ export class CascadingProbot extends Cascading {
 
   /** @inheritdoc */
   protected async getPullRequests(baseBranch?: string, targetBranch?: string) {
-    const { data } = await this.options.octokit.pulls.list(this.options.repo);
+    const { data } = await this.options.octokit.rest.pulls.list(this.options.repo);
     return data
       .filter(({ head, base }) => (!targetBranch || base.ref === targetBranch) && (!baseBranch || head.ref === baseBranch))
       .sort((prA, prB) => (Date.parse(prA.created_at) - Date.parse(prB.created_at)))
@@ -268,7 +267,7 @@ export class CascadingProbot extends Cascading {
 
   /** @inheritdoc */
   protected async getPullRequestFromId(id: string | number): Promise<CascadingPullRequestInfo> {
-    const { data } = await this.options.octokit.pulls.get({
+    const { data } = await this.options.octokit.rest.pulls.get({
       ...this.options.repo,
 
       pull_number: +id

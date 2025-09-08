@@ -1,7 +1,6 @@
 import {
-  Inject,
+  inject,
   Injectable,
-  Optional,
 } from '@angular/core';
 import {
   takeUntilDestroyed,
@@ -55,8 +54,14 @@ import {
 
 @Injectable()
 export class RulesEngineRunnerService {
+  private readonly store = inject<Store<RulesetsStore>>(Store);
+  private readonly logger = inject(LoggerService);
+
   /** Rulesets to restrict the execution of the engine */
   protected ruleSets$: Observable<string[] | undefined>;
+
+  /** List of action handlers */
+  protected readonly actionHandlers = new Set<RulesEngineActionHandler>();
 
   /** Observable of component linked to the component */
   protected linkedComponents$: BehaviorSubject<{ [key: string]: number }> = new BehaviorSubject({});
@@ -70,16 +75,9 @@ export class RulesEngineRunnerService {
   /** Enable action execution on new state change */
   public enabled: boolean;
 
-  /**
-   * List of action handlers
-   * @deprecated will become protected in Otter v13, instead use {@link registerActionHandlers}
-   */
-  public readonly actionHandlers = new Set<RulesEngineActionHandler>();
+  constructor() {
+    const engineConfig = inject<RulesEngineServiceOptions>(RULES_ENGINE_OPTIONS, { optional: true });
 
-  constructor(
-    private readonly store: Store<RulesetsStore>,
-    private readonly logger: LoggerService,
-    @Optional() @Inject(RULES_ENGINE_OPTIONS) engineConfig?: RulesEngineServiceOptions) {
     this.enabled = !engineConfig?.dryRun;
     this.engine = new RulesEngine({
       debugger: engineConfig?.debug ? new EngineDebugger({ eventsStackLimit: engineConfig?.debugEventsStackLimit }) : undefined,
