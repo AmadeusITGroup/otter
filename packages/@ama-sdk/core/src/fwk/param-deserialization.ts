@@ -5,6 +5,7 @@ import {
   PIPE_URL_CODE,
   type PrimitiveType,
   SPACE_URL_CODE,
+  type SupportedParamInterface,
   type SupportedParamType,
 } from './param-serialization';
 
@@ -112,7 +113,7 @@ function deserializeObjectQueryParams(serializedParamValue: string, paramSeriali
 export function deserializeQueryParams<T extends { [key: string]: string }>(
   serializedQueryParams: T,
   queryParamSerialization: { [p in keyof T]: ParamSerialization & { paramType: ParamTypeForDeserialization } }
-): { [p in keyof T]: SupportedParamType } {
+): SupportedParamInterface<T> {
   return Object.entries(serializedQueryParams).reduce((acc, [queryParamName, serializedParamValue]) => {
     const paramSerialization = queryParamSerialization[queryParamName];
     let deserializedValue: SupportedParamType;
@@ -130,7 +131,7 @@ export function deserializeQueryParams<T extends { [key: string]: string }>(
       throw new Error(`Unable to deserialize query parameter ${queryParamName} since the combination explode=${paramSerialization.explode} and style='${paramSerialization.style}' is not supported.`);
     }
     return acc;
-  }, {} as Record<string, SupportedParamType>) as { [p in keyof T]: SupportedParamType };
+  }, {} as Record<string, SupportedParamType>) as SupportedParamInterface<T>;
 }
 
 /**
@@ -199,7 +200,7 @@ function deserializeObjectPathParams(serializedParamValue: string, paramSerializ
 export function deserializePathParams<T extends { [key: string]: string }>(
   serializedPathParams: T,
   pathParamSerialization: { [p in keyof T]: ParamSerialization & { paramType: ParamTypeForDeserialization } }
-): { [p in keyof T]: SupportedParamType } {
+): SupportedParamInterface<T> {
   return Object.entries(serializedPathParams).reduce((acc, [pathParamName, serializedParamValue]) => {
     const paramSerialization = pathParamSerialization[pathParamName];
     let deserializedValue: SupportedParamType;
@@ -216,5 +217,5 @@ export function deserializePathParams<T extends { [key: string]: string }>(
       throw new Error(`Unable to deserialize path parameter ${pathParamName} since the combination explode=${paramSerialization.explode} and style='${paramSerialization.style}' is not supported.`);
     }
     return acc;
-  }, {} as Record<string, SupportedParamType>) as { [p in keyof T]: SupportedParamType };
+  }, {} as Record<string, SupportedParamType>) as SupportedParamInterface<T>;
 }
