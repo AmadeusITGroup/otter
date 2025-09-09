@@ -28,10 +28,10 @@
     "semver": "^7.5.2"
   },
   "peerDependencies": {
-    "typescript": "^5.8.0"
+    "typescript": "^5.9.0"
   },
   "devDependencies": {
-    "@nx/eslint-plugin": "~21.3.11",
+    "@nx/eslint-plugin": "~21.4.0",
     "@o3r/eslint-plugin": "workspace:^",
     "@stylistic/eslint-plugin": "~5.3.0",
     "@types/node": "^22.0.0",
@@ -50,7 +50,7 @@
     "eslint-plugin-unused-imports": "~4.2.0",
     "globals": "^16.0.0",
     "jsonc-eslint-parser": "~2.4.0",
-    "nx": "~21.3.11",
-    "typescript": "~5.8.2"
+    "nx": "~21.4.0",
+    "typescript": "~5.9.2"
   }
 }
