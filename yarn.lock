@@ -9996,7 +9996,7 @@ __metadata:
     "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/parser": "npm:~8.42.0"
     "@typescript-eslint/rule-tester": "npm:~8.42.0"
-    "@vscode/codicons": "npm:^0.0.39"
+    "@vscode/codicons": "npm:^0.0.40"
     "@webcontainer/api": "npm:~1.6.0"
     "@xterm/addon-fit": "npm:^0.10.0"
     "@xterm/xterm": "npm:^5.0.0"
@@ -11166,7 +11166,7 @@ __metadata:
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^22.0.0"
     "@typescript-eslint/parser": "npm:~8.42.0"
-    "@vscode/codicons": "npm:^0.0.39"
+    "@vscode/codicons": "npm:^0.0.40"
     "@webcontainer/api": "npm:~1.6.0"
     "@xterm/addon-fit": "npm:^0.10.0"
     "@xterm/xterm": "npm:^5.0.0"
@@ -16113,10 +16113,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vscode/codicons@npm:^0.0.39":
-  version: 0.0.39
-  resolution: "@vscode/codicons@npm:0.0.39"
-  checksum: 10/5fe9fa052d15fa1dc72fa88d0b7ce9691ff4a2bce975283ae21e76d6db5ef28785a7434ef02c2b1103176a6894547457a0e1f2bfc05c4fe4d5a3b45f8d92cf9f
+"@vscode/codicons@npm:^0.0.40":
+  version: 0.0.40
+  resolution: "@vscode/codicons@npm:0.0.40"
+  checksum: 10/6ce137e2cbea00dc6fe8e82246cb669862a6133d3f3e10a917fcd3213bf7c6765fefe17ef9dcfab33c4b31217a5870a9db70144f1df16d7b208224794f3047ac
   languageName: node
   linkType: hard
 
