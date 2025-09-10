@@ -67,6 +67,7 @@ export class RoutingService implements MessageProducer<NavigationMessage>, Messa
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly messageService = inject(MessagePeerService<NavigationMessage>);
   private readonly logger = inject(LoggerService);
+  private readonly window = inject(Window, { optional: true }) || window;
 
   /**
    * @inheritdoc
@@ -134,7 +135,7 @@ export class RoutingService implements MessageProducer<NavigationMessage>, Messa
         url
       } satisfies NavigationV1_0;
       // TODO: sendBest() is not implemented -- https://github.com/AmadeusITGroup/microfrontends/issues/11
-      if (isEmbedded()) {
+      if (isEmbedded(this.window)) {
         this.messageService.send(messageV10);
       } else {
         if (channelId === undefined) {
