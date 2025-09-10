@@ -31,7 +31,7 @@
     "@angular-devkit/schematics-cli": "~20.2.0",
     "@angular/cli": "~20.2.0",
     "@o3r/schematics": "workspace:*",
-    "@openapitools/openapi-generator-cli": "~2.21.0",
+    "@openapitools/openapi-generator-cli": "~2.23.0",
     "@schematics/angular": "~20.2.0",
     "minimist": "^1.2.6",
     "rxjs": "^7.8.1",
