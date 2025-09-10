@@ -364,7 +364,7 @@
   },
   "dependencies": {
     "@o3r/design": "workspace:^",
-    "eslint": "~9.34.0"
+    "eslint": "~9.35.0"
   },
   "peerDependencies": {
     "@types/vscode": "^1.100.0"
