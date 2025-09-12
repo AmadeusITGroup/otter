@@ -49,7 +49,18 @@ const config = defineConfig({
     }
   },
   projects: [
-    { name: 'Chromium', use: { browserName: 'chromium', channel: 'chromium' } }
+    {
+      name: 'Chromium',
+      use: {
+        browserName: 'chromium',
+        channel: 'chromium',
+        // TODO remove this, just testing screenshots update
+        viewport: {
+          width: 800,
+          height: 600
+        }
+      }
+    }
   ],
   webServer: [
     ...process.env.USE_MOCKS
