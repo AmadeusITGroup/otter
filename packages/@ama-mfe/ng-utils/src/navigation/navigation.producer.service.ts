@@ -9,7 +9,6 @@ import {
   MessagePeerService,
 } from '@amadeus-it-group/microfrontends-angular';
 import {
-  DestroyRef,
   inject,
   Injectable,
 } from '@angular/core';
@@ -22,12 +21,15 @@ import {
   Router,
 } from '@angular/router';
 import {
+  LoggerService,
+} from '@o3r/logger';
+import {
   filter,
   map,
 } from 'rxjs';
 import {
   type MessageProducer,
-  ProducerManagerService,
+  registerProducer,
 } from '../managers/index';
 import {
   type ErrorContent,
@@ -56,6 +58,7 @@ export class RoutingService implements MessageProducer<NavigationMessage> {
   private readonly router = inject(Router);
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly messageService = inject(MessagePeerService<NavigationMessage>);
+  private readonly logger = inject(LoggerService);
 
   /**
    * @inheritdoc
@@ -63,21 +66,14 @@ export class RoutingService implements MessageProducer<NavigationMessage> {
   public readonly types = NAVIGATION_MESSAGE_TYPE;
 
   constructor() {
-    const producerManagerService = inject(ProducerManagerService);
-    producerManagerService.register(this);
-
-    inject(DestroyRef).onDestroy(() => {
-      producerManagerService.unregister(this);
-    });
+    registerProducer(this);
   }
 
   /**
    * @inheritdoc
    */
   public handleError(message: ErrorContent<NavigationV1_0>): void {
-    // TODO https://github.com/AmadeusITGroup/otter/issues/2887 - proper logger
-    // eslint-disable-next-line no-console -- placeholder for the implementation with a logger
-    console.error('Error in navigation service message', message);
+    this.logger.error('Error in navigation service message', message);
   }
 
   /**
@@ -103,22 +99,18 @@ export class RoutingService implements MessageProducer<NavigationMessage> {
         url
       } satisfies NavigationV1_0;
       // TODO: sendBest() is not implemented -- https://github.com/AmadeusITGroup/microfrontends/issues/11
-      if (document.referrer) {
-        this.messageService.send(messageV10);
-      } else {
+      if (window.self === window.top) {
         if (channelId === undefined) {
-          // TODO https://github.com/AmadeusITGroup/otter/issues/2887 - proper logger
-          // eslint-disable-next-line no-console -- warning message as channel id not mandatory
-          console.warn('No channelId provided for navigation message');
+          this.logger.warn('No channelId provided for navigation message');
         } else {
           try {
             this.messageService.send(messageV10, { to: [channelId] });
           } catch (error) {
-            // TODO https://github.com/AmadeusITGroup/otter/issues/2887 - proper logger
-            // eslint-disable-next-line no-console -- send the error in the console, do not fail silently
-            console.error('Error sending navigation message', error);
+            this.logger.error('Error sending navigation message', error);
           }
         }
+      } else {
+        this.messageService.send(messageV10);
       }
     });
   }

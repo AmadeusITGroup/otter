@@ -44,7 +44,8 @@ describe('DynamicContentPipe', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [O3rDynamicContentPipe, HostTestComponent],
+      declarations: [HostTestComponent],
+      imports: [O3rDynamicContentPipe],
       providers: [{ provide: DynamicContentService, useValue: serviceMock }]
     }).compileComponents();
 

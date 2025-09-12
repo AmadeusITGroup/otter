@@ -77,7 +77,7 @@ describe('cssFormat', () => {
       options: { outputReferences: true, usesDtcg: true },
       platform: {}
     }) as string;
-    expect(css.replaceAll(/[\r\n]/g, '')).toBe(':root {--gradient-primary-50: linear-gradient(90deg, #000 0%, #fff 1%);}');
+    expect(css.replaceAll(/[\r\n]/g, '')).toBe(':root {--gradient-primary-50: linear-gradient(90deg, #000 0%, #fff 100%);}');
   });
 
   test('should format gradient CSS variable ref', async () => {
@@ -87,7 +87,7 @@ describe('cssFormat', () => {
       options: { outputReferences: true, usesDtcg: true },
       platform: {}
     }) as string;
-    expect(css.replaceAll(/[\r\n]/g, '')).toBe(':root {--color-primary-50: #ebf3ff;--gradient-primary-50: linear-gradient(90deg, var(--color-primary-50) 0%, #fff 1%);}');
+    expect(css.replaceAll(/[\r\n]/g, '')).toBe(':root {--color-primary-50: #ebf3ff;--gradient-primary-50: linear-gradient(90deg, var(--color-primary-50) 0%, #fff 100%);}');
   });
 
   test('should format reference CSS variable', async () => {

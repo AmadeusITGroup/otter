@@ -12,29 +12,29 @@ Some Otter packages provide implementations for LogRocket (@o3r/logger/logrocket
 
 ### Setup
 
-The `LoggerModule` should be imported in the main Module of the application and an instance of a `LoggerClient` implementation bound through the `forRoot` method.
+Loggers should be provided at application level
 
 ```typescript
-// in app.module.ts
+// in app.config.ts
 
+import {ApplicationConfig} from '@angular/core';
 import {LogRocketClient} from '@o3r/logger/logrocket-logger-client';
 // import {SmartLookClient} from '@o3r/logger/smartlook-logger-client';
 // import {FullStoryClient} from '@o3r/logger/fullstory-logger-client';
-import {LoggerModule} from '@o3r/logger';
+import {provideLogger} from '@o3r/logger';
 
 // ...
 
-@NgModule({
-  imports: [
+export const appConfig: ApplicationConfig = {
+  providers: [
     // ...
-    LoggerModule.forRoot(
+    provideLogger(
       new LogRocketClient('LogRocket appId')
       // new SmartLookClient('SmartLook key')
       // new FullStoryClient('FullStory orgId')
     )
   ]
-})
-export class AppModule {}
+}
 
 ```
 
@@ -70,25 +70,22 @@ To provide complex logger client, the client can be provided via the `LOGGER_CLI
 
 ```typescript
 import {LogRocketClient} from '@o3r/logger/logrocket-logger-client';
-import {LOGGER_CLIENT_TOKEN, LoggerModule} from '@o3r/logger';
+import {LOGGER_CLIENT_TOKEN, LoggerService} from '@o3r/logger';
 
 // ...
 
-@NgModule({
-  imports: [
-    LoggerModule
-  ],
+export const appConfig: ApplicationConfig = {
   providers: [
+    LoggerService,
     { provide: LOGGER_CLIENT_TOKEN, useValue: new LogRocketClient('LogRocket appId') }
   ]
-})
-export class AppModule {}
+}
 ```
 
 ### Multi Client
 
 The Logger service supports multi logger clients.
-This can be provided via the `.forRoot()` function of the `LoggerModule` as following:
+This can be provided via the `provideLogger` function as following:
 
 ```typescript
 import {LogRocketClient} from '@o3r/logger/logrocket-logger-client';
@@ -97,16 +94,15 @@ import {LoggerModule} from '@o3r/logger';
 
 // ...
 
-@NgModule({
-  imports: [
+export const config: ApplicationConfig = {
+  providers: [
     // ...
-    LoggerModule.forRoot(
+    provideLogger(
       new LogRocketClient('LogRocket appId'),
       new SmartLookClient('SmartLook key')
     )
   ]
-})
-export class AppModule {}
+};
 ```
 
 Or via multi providers:
@@ -116,16 +112,13 @@ import {LogRocketClient} from '@o3r/logger/logrocket-logger-client';
 import {SmartLookClient} from '@o3r/logger/smartlook-logger-client';
 import {LOGGER_CLIENT_TOKEN, LoggerModule} from '@o3r/logger';
 
-@NgModule({
-  imports: [
-    LoggerModule
-  ],
+export const config: ApplicationConfig = {
   providers: [
+    LoggerService,
     { provide: LOGGER_CLIENT_TOKEN, useValue: new LogRocketClient('LogRocket appId'), multi: true },
     { provide: LOGGER_CLIENT_TOKEN, useValue: new SmartLookClient('SmartLook key'), multi: true }
   ]
-})
-export class AppModule {}
+};
 ```
 
 ### How to use
@@ -142,7 +135,7 @@ For instance:
 import {LoggerService} from '@o3r/logger';
 
 export class TravelerComponent {
-  constructor(private loggerService: LoggerService) {}
+  private readonly loggerService = inject(LoggerService);
 
   public ngOnInit() {
     this.loggerService.identify(emailAddress, {

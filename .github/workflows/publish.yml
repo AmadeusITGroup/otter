@@ -21,6 +21,11 @@ on:
         default: false
         required: false
         description: Skip the nx cache
+      skipNxRemoteCache:
+        type: boolean
+        default: false
+        required: false
+        description: Skip the nx remote cache
       gitRef:
         type: string
         default: ''
@@ -49,6 +54,7 @@ on:
 env:
   NX_SKIP_NX_CACHE: ${{ inputs.skipNxCache }}
   NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
+  NX_SKIP_REMOTE_CACHE: ${{ inputs.skipNxRemoteCache }}
 
 permissions:
   contents: read
@@ -141,7 +147,7 @@ jobs:
           CHROME_REFRESH_TOKEN: ${{ secrets.CHROME_REFRESH_TOKEN }}
       - name: Expose Chrome extension artifact
         if: (success() || failure()) && !inputs.prerelease
-        uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1 # v4.6.1
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: chrome-extension
           path: apps/chrome-devtools/chrome-extension.zip
