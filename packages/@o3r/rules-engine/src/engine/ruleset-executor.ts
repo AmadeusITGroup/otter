@@ -300,7 +300,8 @@ export class RulesetExecutor {
               if (this.rulesEngine.debugMode) {
                 output.evaluation = handleRuleEvaluationDebug(rule, this.ruleset.name, output.actions, output.error, runtimeFactValues, factValues, oldFactValues, inputFacts);
               } else if (output.error) {
-                this.rulesEngine.logger?.error(`Error while evaluating rule ID: ${rule.id}`, output.error);
+                const errorToLog = output.error instanceof Error || typeof output.error === 'string' ? output.error.toString() : JSON.stringify(output.error);
+                this.rulesEngine.logger?.error(`Error while evaluating rule ID: ${rule.id}; message: ${errorToLog}`);
                 this.rulesEngine.logger?.warn(`Skipping rule ${rule.name}, and the associated ruleset`);
               }
               return output;
