@@ -68,7 +68,7 @@ export class VisualTestingPlaywrightReporter implements Reporter {
    * @inheritdoc
    */
   public async onEnd() {
-    const fileNameExtractor = /snapshot:\s*(?<browser>[\w-]+)[\\/]+(?<filename>[\w-]+)\.(?<extension>\w+)/i;
+    const fileNameExtractor = /snapshot:\s*(?<dir>(?:[\w-]+[\\/]+)*)(?<filename>[\w-]+)\.(?<extension>\w+)/i;
     const screenshotsToUpdate: VisualTestingReporterReport = this.suite.allTests().flatMap((test) =>
       test.results.flatMap((result) =>
         result.errors
@@ -81,10 +81,12 @@ export class VisualTestingPlaywrightReporter implements Reporter {
               acc.push({ actual: error.matcherResult.actual, expected: error.matcherResult.expected });
             } else if (fileNameExtractor.test(error.message)) {
               // Playwright > 1.51
-              const { filename, extension } = fileNameExtractor.exec(error.message)!.groups as RegExpExecArray['groups'] & { filename: string; extension: string };
+              const { dir, filename, extension } = fileNameExtractor.exec(error.message)!.groups as RegExpExecArray['groups'] & {
+                dir: string; filename: string; extension: string;
+              };
               if (filename && extension) {
-                const attachmentMatcherActual = new RegExp(`[\\\\/]${filename}-actual.${extension}`);
-                const attachmentMatcherExpected = new RegExp(`[\\\\/]${filename}-expected.${extension}`);
+                const attachmentMatcherActual = new RegExp(`${dir}${filename}-actual.${extension}`);
+                const attachmentMatcherExpected = new RegExp(`${dir}${filename}-expected.${extension}`);
                 const actual = result.attachments.find((attachment) => attachmentMatcherActual.test(attachment.name));
                 const expected = result.attachments.find((attachment) => attachmentMatcherExpected.test(attachment.name));
                 if (actual?.path && expected?.path) {
