@@ -254,3 +254,39 @@ export class CustomService implements MessageProducer<CustomMessageVersions> {
   }
 }
 ```
+### Host information
+
+#### Host application
+
+A host application can send information to the embedded applications using parameters in the URL.
+
+```html
+<iframe [src]="'myModuleUrl' | hostInfo: {hostId: 'host-app-id', moduleId: 'my-module-to-embed'}"></iframe>
+```
+
+This will add the `location.origin` and the application id of the host to the URL of the embedded application.
+
+#### Embedded application
+
+The embedded application can access the data sent in the previous section using an injection token:
+
+```typescript
+import {inject} from '@angular/core';
+import {getHostInfo, isEmbedded} from '@ama-mfe/ng-utils';
+
+export class SomeClass {
+  private readonly hostInfo = getHostInfo();
+
+  doSomething() {
+    if (this.hostInfo.applicationId === 'app1') {
+      // Do something when embedded in app1
+    } else if (isEmbedded()) {
+      // Do something when embedded elsewhere
+    } else {
+      // Do something when standalone
+    }
+  }
+}
+```
+
+The host information is stored in session storage so it won't be lost when navigating inside the iframe.

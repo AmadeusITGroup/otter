@@ -7,6 +7,7 @@ import {
   MergeStrategy,
   mergeWith,
   move,
+  renameTemplateFiles,
   Rule,
   SchematicContext,
   template,
@@ -54,6 +55,7 @@ function ngGeneratePlaywrightSanityFn(options: NgGeneratePlaywrightSanitySchemat
         ...options,
         sanityName
       }),
+      renameTemplateFiles(),
       move(sanityPath)
     ]);
 

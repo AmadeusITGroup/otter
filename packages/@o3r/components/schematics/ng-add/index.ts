@@ -7,9 +7,19 @@ import {
   Tree,
 } from '@angular-devkit/schematics';
 import {
+  createOtterSchematic,
+  getDefaultOptionsForSchematic,
+  getExternalDependenciesInfo,
+  getO3rPeerDeps,
+  getPackageInstallConfig,
+  getProjectNewDependenciesTypes,
+  getWorkspaceConfig,
+  registerPackageCollectionSchematics,
+  removePackages,
+  setupDependencies,
   setupSchematicsParamsForProject,
 } from '@o3r/schematics';
-import {
+import type {
   PackageJson,
 } from 'type-fest';
 import {
@@ -21,13 +31,6 @@ import {
 import type {
   NgAddSchematicsSchema,
 } from './schema';
-
-const reportMissingSchematicsDep = (logger: { error: (message: string) => any }) => (reason: any) => {
-  logger.error(`[ERROR]: Adding @o3r/components has failed.
-If the error is related to missing @o3r dependencies you need to install '@o3r/core' to be able to use the components package. Please run 'ng add @o3r/core' .
-Otherwise, use the error message as guidance.`);
-  throw reason;
-};
 
 /**
  * List of external dependencies to be added to the project as peer dependencies
@@ -58,18 +61,7 @@ const devDependenciesToInstall = [
  */
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
   /* ng add rules */
-  return async (tree: Tree, context: SchematicContext) => {
-    const {
-      getDefaultOptionsForSchematic,
-      getExternalDependenciesInfo,
-      getO3rPeerDeps,
-      getProjectNewDependenciesTypes,
-      getWorkspaceConfig,
-      setupDependencies,
-      removePackages,
-      registerPackageCollectionSchematics,
-      getPackageInstallConfig
-    } = await import('@o3r/schematics');
+  return (tree: Tree, context: SchematicContext) => {
     options = { ...getDefaultOptionsForSchematic(getWorkspaceConfig(tree), '@o3r/components', 'ng-add', options), ...options };
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
     const o3rPackageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' })) as PackageJson;
@@ -118,7 +110,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
         '@o3r/core:component-presenter': {}
       }, options.projectName),
       ...(options.enableMetadataExtract ? [updateCmsAdapter(options)] : []),
-      await registerDevtools(options)
+      registerDevtools(options)
     ]);
 
     context.logger.info(`The package ${o3rPeerDeps.packageName!} comes with a debug mechanism`);
@@ -132,9 +124,4 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
  * Add Otter components to an Angular Project
  * @param options
  */
-export const ngAdd = (options: NgAddSchematicsSchema): Rule => async (_, { logger }) => {
-  const {
-    createOtterSchematic
-  } = await import('@o3r/schematics').catch(reportMissingSchematicsDep(logger));
-  return createOtterSchematic(ngAddFn)(options);
-};
+export const ngAdd = (options: NgAddSchematicsSchema) => createOtterSchematic(ngAddFn)(options);

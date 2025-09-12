@@ -62,18 +62,7 @@
     },
     "prepare-build-builders": {},
     "build-builders": {},
-    "lint": {
-      "executor": "nx:run-commands",
-      "options": {
-        "cwd": "{projectRoot}",
-        "command": "yarn eslint \"**/*.{m,c,}{j,t}s\" \"**/*.json\" \"**/*.html\""
-      },
-      "configurations": {
-        "ci": {
-          "command": "yarn eslint \"**/*.{m,c,}{j,t}s\" \"**/*.json\" \"**/*.html\" --quiet --cache-location .cache/eslint"
-        }
-      }
-    },
+    "lint": {},
     "test": {},
     "test-int": {},
     "prepare-publish": {},

@@ -1,0 +1,5 @@
+{
+  "o3r-forms-parent.dateOfBirth.dateInThePast": "Date of birth should be in the past",
+  "o3r-forms-parent.globalForbiddenName": "Name cannot be { name }",
+  "o3r-forms-parent.globalForbiddenName.long": "The value entered for the name cannot be { name }"
+}

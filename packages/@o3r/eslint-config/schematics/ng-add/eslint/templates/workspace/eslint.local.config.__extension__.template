@@ -1,22 +1,29 @@
-<% if (extension === 'mjs') { %>import { dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
+<% if (extension === 'mjs') { %>import {
+  defineConfig,
+} from 'eslint/config';
+import {
+  dirname,
+} from 'node:path';
+import {
+  fileURLToPath,
+} from 'node:url';
 
 const __filename = fileURLToPath(import.meta.url);
 // __dirname is not defined in ES module scope
 const __dirname = dirname(__filename);
+<% } else { %>const { defineConfig } = require('eslint/config');
+<% } %>
 
-<% } %><%= codeBeforeConfig %><%= extension === 'mjs' ? 'export default' : 'module.exports =' %> [
+<%= codeBeforeConfig %><%= extension === 'mjs' ? 'export default' : 'module.exports =' %> defineConfig([
   {
     name: '<%= packageName %>/projects',
     languageOptions: {
       sourceType: 'commonjs',
       parserOptions: {
         tsconfigRootDir: __dirname,
-        project: [
-<%= detectedTsConfigs.map((tsconfig) => `          '${tsconfig}'`).join(',\n') %>
-        ]
+        projectService: true
       }
     }
   }
-].concat(<%= oldConfig %>);
+].concat(<%= oldConfig %>));
 <%= codeAfterConfig %>

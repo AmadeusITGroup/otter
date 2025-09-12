@@ -2,6 +2,13 @@ import * as path from 'node:path';
 import type {
   Rule,
 } from '@angular-devkit/schematics';
+import {
+  createOtterSchematic,
+  getExternalDependenciesInfo,
+  getPackageInstallConfig,
+  getWorkspaceConfig,
+  setupDependencies,
+} from '@o3r/schematics';
 import type {
   PackageJson,
 } from 'type-fest';
@@ -28,20 +35,13 @@ const devDependenciesToInstall: string[] = [];
 
 const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
 
-const reportMissingSchematicsDep = (logger: { error: (message: string) => any }) => (reason: any) => {
-  logger.error(`[ERROR]: Adding @o3r/form has failed.
-You need to install '@o3r/core' package to be able to use the form package. Please run 'ng add @o3r/core'.`);
-  throw reason;
-};
-
 /**
  * Add Otter forms to an Angular Project
  * @param options
  */
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
   /* ng add rules */
-  return async (tree, context) => {
-    const { getExternalDependenciesInfo, getPackageInstallConfig, getWorkspaceConfig, setupDependencies } = await import('@o3r/schematics');
+  return (tree, context) => {
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
     const projectDirectory = workspaceProject?.root || '.';
     const projectPackageJson = tree.readJson(path.posix.join(projectDirectory, 'package.json')) as PackageJson;
@@ -68,9 +68,4 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
  * Add Otter forms to an Angular Project
  * @param options
  */
-export const ngAdd = (options: NgAddSchematicsSchema): Rule => async (_, { logger }) => {
-  const {
-    createOtterSchematic
-  } = await import('@o3r/schematics').catch(reportMissingSchematicsDep(logger));
-  return createOtterSchematic(ngAddFn)(options);
-};
+export const ngAdd = (options: NgAddSchematicsSchema) => createOtterSchematic(ngAddFn)(options);

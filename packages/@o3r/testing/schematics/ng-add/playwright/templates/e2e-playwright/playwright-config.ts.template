@@ -20,6 +20,7 @@ const config = defineConfig({
   forbidOnly: !!process.env.CI,
   timeout: FIVE_MINUTES,
   use: {
+    baseURL: process.env.PLAYWRIGHT_TARGET_URL || 'http://localhost:<%= serverPort %>/',
     ignoreHTTPSErrors: true,
     screenshot: 'only-on-failure',
     trace: 'retain-on-failure'
@@ -28,6 +29,15 @@ const config = defineConfig({
     {name: 'Chromium', use: {browserName: 'chromium'}},
     {name: 'Webkit', use: {browserName: 'webkit'}},
     {name: 'Firefox', use: {browserName: 'firefox'}}
+  ],
+  webServer: [
+    ...!process.env.PLAYWRIGHT_TARGET_URL ? [{
+      command: '<%= startCommand %>',
+      cwd: path.join(__dirname, '..'),
+      port: <%= serverPort %>,
+      timeout: 120 * 1000,
+      reuseExistingServer: !process.env.CI
+    }] : []
   ]
 });
 

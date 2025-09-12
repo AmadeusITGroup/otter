@@ -17,12 +17,7 @@ export default [
       sourceType: 'module',
       parserOptions: {
         tsconfigRootDir: __dirname,
-        project: [
-          'tsconfig.build.json',
-          'tsconfig.build.plugin.json',
-          'tsconfig.spec.json',
-          'tsconfig.eslint.json'
-        ]
+        projectService: true
       },
       globals: {
         // TODO: support for flat config https://github.com/figma/eslint-plugin-figma-plugins/issues/28

@@ -14,7 +14,7 @@ import {
   sendData as defaultSendData,
   SchematicMetricData,
   type SendDataFn,
-} from '../sender';
+} from '../sender/index';
 
 /**
  * Factory of the schematic to wrap

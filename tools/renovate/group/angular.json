@@ -3,16 +3,17 @@
   "description": "Group all Angular dependencies",
   "packageRules": [
     {
-      "matchPackagePatterns": [
-        "^@angular",
-        "^ng-packagr",
-        "^@schematics",
-        "angular",
-        "^@ngrx",
-        "^zone.js",
-        "^@nrwl",
-        "^@nx",
-        "^nx"
+      "matchPackageNames": [
+        "/^@angular/",
+        "/^ng-packagr/",
+        "/^@schematics/",
+        "/angular/",
+        "/^@ngrx/",
+        "/^zone.js/",
+        "/^@nrwl/",
+        "/^@nx/",
+        "/^nx/",
+        "!/@amadeus-it-group/microfrontends-angular/"
       ],
       "groupName": "Angular dependencies",
       "groupSlug": "angular-dependencies"

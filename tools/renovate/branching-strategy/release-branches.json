@@ -3,7 +3,7 @@
   "description": "Rules to reduce impacted updates on release branches",
   "packageRules": [
     {
-      "matchPackagePatterns": [
+      "matchPackageNames": [
         "*"
       ],
       "rangeStrategy": "replace"

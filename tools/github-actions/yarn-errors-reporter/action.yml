@@ -13,6 +13,10 @@ inputs:
     description: 'Only report if the yarn.lock is affected by the changes (only works with fetch-depth > 1)'
     required: false
     default: true
+  shouldCommentPullRequest:
+    description: 'Report the errors with a pull request comment'
+    required: false
+    default: true
 runs:
   using: 'node20'
   main: 'packaged-action/index.js'

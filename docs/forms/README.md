@@ -1,64 +1,65 @@
 # Forms overview
 
-## Container/presenter and form creation
-Container/presenter architecture was put in place to ensure the best re-usability/sharing 
-### Where the form object creation should be done?
-  * __form created in presenter__ - it's the presenter which decides how the data is displayed
-  * __container__ needs only the value and errors propagated from the presenter
-  * __container__ can set the default value
+## Introduction to forms
 
-### How the container and presenter will communicate in forms context  
-  * __presenter__ implements [ControlValueAccessor](https://angular.io/api/forms/ControlValueAccessor) and [Validator](https://angular.io/api/forms/Validator) (or [AsyncValidator](https://angular.io/api/forms/AsyncValidator)) interfaces
-     * __propagate__ the value, the form status and the errors
-  * __container__ apply [FormControlDirective](https://angular.io/api/forms/FormControlDirective) on the presenter html tag
-     * __container__ set the default value using __formControl__ directive
-     * __listen__ to the value and status changes using the same directive  
+Applications use forms to handle user input in data-entry tasks (such as logging in or creating a profile for example). 
 
-See [FORM_STRUCTURE](./FORM_STRUCTURE.md)
+Angular provides two approaches for writing forms: [template-driven forms](https://angular.io/guide/forms) and [model-driven or reactive forms](https://angular.io/guide/reactive-forms).
+The utilities that we provide in the __@o3r/forms__ module are based on Angular's reactive forms, which _"provide a model-driven approach to handling form inputs whose values change over time"_.
+This type of form is applicable in many use cases, but there are a couple of exceptions where additional utilities may be useful.
 
-## You want to include form validation and display the errors
-  * interfaces for the error messages provided in __@o3r/forms__
-### Display inline errors     
-  * the error messages returned by validators are used in the inline error display  
-  * __simple/basic/primitive__ validators - set as a configuration of the __presenter__
-    * localization of the error messages associated done on the presenter
-    * the error object associated is computed here and has to be compliant with the store object model
-    * _getFlatControlErrors_ function is available in __@o3r/forms__ to help with the creation of error object model  
-  * __custom__ validators created at container level     
-    * localization of the error messages associated done at container level
-    * custom validators are passed as an input to the presenter
-    * the error returned by the validator has to be compliant with the form error store model
-### Display errors on a messages panel
-  * a dedicated _FormErrorStore_ is available on __@o3r/forms__
-     * allow the display of errors anywhere on the page
-     * the error object model contains the translation key and params  
-See [FORM_VALIDATION](./FORM_VALIDATION.md) and [FORM_ERRORS](./FORM_ERRORS.md)
+These use cases include:
+* A container/presenter structure for components
+* Handling form submission at page level
+* Displaying the error message outside the form
 
-## Form submit
+To handle these, this module provides utilities to enhance the build of Angular reactive forms, including:
+* An asynchronous decorator (`@AsyncInput`) to ensure subscriptions are handled if the references of the input observables change.
+* Basic and custom validators to validate user input for accuracy and completeness.
+* A dedicated NgRX store for form errors to have the possibility of displaying error messages outside the form component.
+* Helper functions to handle the interactions with the forms.
 
-### You want to submit the form
-  * submit triggered by the submit button __in the presenter__ and an event is emitted
-  * __container__ capture the event and execute the submit form logic
+## Form structure
+When a parent/input component architecture is put in place, we provide documentation on some best practices (such as form creation) to use when building Angular reactive forms components.
 
-### What happens when you have multiple forms and you want to submit?
-The answer for this question is that we should avoid having multiple _form_ tags in the same page, as much as possible, because it adds a lot of complexity. We should try to have only one _form_ tag that encapsulates everything and one submit action.
-  
-If the case of multiple forms it's really needed, then we found the following solution:
-   * submit button hidden on the presenters
-   * the __submit__ is __triggered from the page__ 
-   * an __observable__ to trigger the submit is passed as __input__ to the containers;
-   * _AsyncInput_ decorator is provided in __@o3r/forms__ to be applied on the observable input to ensure performance
-   * submit form logic is executed on the containers
-   * containers emit events when the submit is done
-   * the page (parent) capture the events and continue its logic
+See [Form Structure](./FORM_STRUCTURE.md).
 
-This can be applied also, with only one form on the page, when you don't want a submit button in the presenter.
+## Form validation
+The forms use validators to verify their accuracy and completeness when validating them. During validation, error messages might be returned by the validators, which can be displayed.
+The interfaces for these error messages are provided in __@o3r/forms__.
 
-### What happens when you submit from page and the form was not touched
-At the first display of the form, the inline errors (if the form is invalid) are not displayed, because the form element is __not touched__ and __dirty__   
-In the case you want to show the inline errors after the submit, you have to:
-   * register a function in the container to _mark touched and dirty_ the form 
-   * the function is passed via an _@Output_ from the presenter and has to be called before executing the submit logic
-   * _markAllControlsDirtyAndTouched_ helper is available in __@o3r/forms__ to mark interactions on given form
+Depending on the use cases, there are different types of validators to use: __primitive validators__ or __custom validators__.
+You may also need an __asynchronous validator__ for your form if it needs validation for an asynchronous source. 
 
-See [FORM_SUBMIT&INTERCOMMUNICATION](./FORM_SUBMIT_AND_INTERCOMMUNICATION.md)
+See [Form Validation](./FORM_VALIDATION.md).
+
+## Form error display
+
+If the form validation returns error objects, there is a possibility of displaying them as inline error messages in the form and also in error panels
+(anywhere on the page such as at the top of the page, above the submit button, etc.).
+
+This is possible since we have a dedicated NgRX store for the form errors, this way we can listen to the store state and display the errors anywhere
+in the page. The store is provided in the __@o3r/forms__ package.
+
+See [Form Errors](./FORM_ERRORS.md).
+
+## Form submission
+
+We support two cases for the forms submit actions:
+* Submit __from the component__: The submit button is displayed in the input component.
+* Submit __from the page__ (application level): The button is hidden in the input component and the submit action is triggered at application level.
+
+In both cases, the submit logic is handled in the parent component, which is notified when a submit action is fired.
+The execution of the submit logic begins when the event is captured in the parent component. 
+The parent component will handle the business logic and when it has finished, it will emit an event which can be intercepted at page level.
+
+See [Form Submit and Intercommunication](./FORM_SUBMIT_AND_INTERCOMMUNICATION.md).
+
+> [!NOTE]
+> We implemented an example of forms components in the showcase application, in which a parent component has two subcomponents each containing a form.
+> The first subcomponent has a form for the user to fill out their personal information and the second subcomponent has a form for the user to fill out
+> information about their emergency contact. In this example, the two subcomponents correspond to input components.
+>
+> You can find the implementation of this forms example [in the source code of the showcase application](https://github.com/AmadeusITGroup/otter/tree/main/apps/showcase/src/components/showcase/forms-parent).
+>
+> This example will be referenced throughout this documentation.

@@ -12,10 +12,10 @@ import {
   ConfigurationFixtureComponent,
 } from '../../src/app/configuration/configuration.fixture';
 
-test.describe.serial('Test configuration page', () => {
+test.describe('Test configuration page', () => {
   test('Go to configuration and play with override button', async ({ page }) => {
     await page.clock.install({ time: new Date('2000-01-01T00:00:00') });
-    await page.goto(process.env.PLAYWRIGHT_TARGET_URL || 'http://localhost:4200/');
+    await page.goto('/');
     const appFixture = new AppFixtureComponent(new O3rElement({ element: page.locator('app-root'), page }));
 
     await test.step('go to configuration', async () => {

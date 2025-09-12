@@ -94,6 +94,7 @@ export class PlaceholderComponent implements OnInit, OnDestroy, AfterViewChecked
       distinctUntilChanged(),
       switchMap((id: string) =>
         this.store.select(selectSortedTemplates(id)).pipe(
+          takeUntilDestroyed(this.destroyRef),
           map((placeholders) => ({
             id,
             orderedTemplates: placeholders?.orderedTemplates,

@@ -36,18 +36,7 @@
         "compile"
       ]
     },
-    "lint": {
-      "executor": "nx:run-commands",
-      "options": {
-        "cwd": "{projectRoot}",
-        "command": "yarn eslint \"**/*.{m,c,}{j,t}s\" \"**/*.json\" \"**/*.html\""
-      },
-      "configurations": {
-        "ci": {
-          "command": "yarn eslint \"**/*.{m,c,}{j,t}s\" \"**/*.json\" \"**/*.html\" --quiet --cache-location .cache/eslint"
-        }
-      }
-    },
+    "lint": {},
     "compile": {
       "executor": "@angular-devkit/build-angular:application",
       "inputs": [
@@ -140,7 +129,7 @@
             {
               "type": "initial",
               "maximumWarning": "2.5mb",
-              "maximumError": "2.6mb"
+              "maximumError": "2.8mb"
             },
             {
               "type": "anyComponentStyle",

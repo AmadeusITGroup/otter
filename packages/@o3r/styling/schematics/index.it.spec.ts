@@ -38,7 +38,7 @@ describe('ng add styling', () => {
     expect(diff.modified.length).toBe(7); // TODO define what are these modified files
 
     [libraryPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
-      expect(diff.all.some((file) => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
+      expect(diff.all.some((file) => file.startsWith(path.relative(workspacePath, untouchedProject).replace(/\\+/g, '/')))).toBe(false);
     });
 
     expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
@@ -63,7 +63,7 @@ describe('ng add styling', () => {
     expect(diff.modified.length).toBe(5);
 
     [applicationPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
-      expect(diff.all.some((file) => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
+      expect(diff.all.some((file) => file.startsWith(path.relative(workspacePath, untouchedProject).replace(/\\+/g, '/')))).toBe(false);
     });
 
     expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
