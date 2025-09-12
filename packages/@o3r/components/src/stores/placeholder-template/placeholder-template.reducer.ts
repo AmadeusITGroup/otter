@@ -23,7 +23,7 @@ export const placeholderTemplateAdapter = createEntityAdapter<PlaceholderTemplat
 /**
  * PlaceholderTemplate Store initial value
  */
-export const placeholderTemplateInitialState: PlaceholderTemplateState = placeholderTemplateAdapter.getInitialState({
+export const placeholderTemplateInitialState = placeholderTemplateAdapter.getInitialState<PlaceholderTemplateState>({
   mode: 'normal'
 });
 

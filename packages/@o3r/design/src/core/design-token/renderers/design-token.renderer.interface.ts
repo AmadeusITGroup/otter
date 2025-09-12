@@ -42,13 +42,6 @@ export type DesignTokenListTransform = (variableSet: DesignTokenVariableSet, opt
  * Options of the Design Token Renderer value
  */
 export interface DesignTokenRendererOptions {
-  /**
-   * Comparator to sort variable before rendering
-   * @param a first Design Token
-   * @param b second Design Token
-   * @deprecated Use {@link tokenListTransform} instead. Will be removed in v13
-   */
-  variableSortComparator?: (a: DesignTokenVariableStructure, b: DesignTokenVariableStructure) => number;
 
   /**
    * List of tokens transform functions. The transformation will be applied per file.

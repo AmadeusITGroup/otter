@@ -1,7 +1,6 @@
 import {
-  Inject,
+  inject,
   Injectable,
-  Optional,
 } from '@angular/core';
 import {
   Action,
@@ -35,7 +34,9 @@ export class LoggerService implements Logger {
    */
   private recordingState: 'default' | 'resumed' | 'stopped' = 'default';
 
-  constructor(@Optional() @Inject(LOGGER_CLIENT_TOKEN) clients?: LoggerClient | LoggerClient[]) {
+  constructor() {
+    const clients = inject<LoggerClient | LoggerClient[]>(LOGGER_CLIENT_TOKEN, { optional: true });
+
     this.clients = clients ? (Array.isArray(clients) ? clients : [clients]) : [new ConsoleLogger()];
   }
 

@@ -136,6 +136,7 @@ const YARN_CONFIG_REGISTRY_ERROR_CODE = 5;
 const INSTALL_PROCESS_ERROR_CODE = 6;
 const YARN_SET_PACKAGE_EXTENSIONS = 7;
 const NPM_CONFIG_PEER_LEGACY_ERROR_CODE = 8;
+const NPM_CONFIG_IGNORE_SCRIPT = 9;
 
 const exitProcessIfErrorInSpawnSync = (exitCode: number, { error, status }: ReturnType<typeof spawnSync>) => {
   if (error || status !== 0) {
@@ -233,6 +234,15 @@ const prepareWorkspace = (relativeDirectory = '.', projectPackageManager = 'npm'
       spawnSyncOpts
     ));
   }
+  exitProcessIfErrorInSpawnSync(NPM_CONFIG_IGNORE_SCRIPT, spawnSync(
+    runner,
+    ['config', 'set', ...(projectPackageManager === 'yarn'
+      ? ['enableScripts', 'false']
+      : ['-L', 'project', 'ignore-scripts', 'true']
+    )],
+    spawnSyncOpts
+  ));
+
   const registry = process.env.npm_config_registry || (argv.registry && quote([argv.registry]));
 
   if (registry) {

@@ -10,7 +10,9 @@ import {
 import {
   O3rCliError,
 } from '@o3r/schematics';
-import * as glob from 'globby';
+import {
+  sync as globbySync,
+} from 'globby';
 import * as ts from 'typescript';
 import type {
   LocalizationExtractorBuilderSchema,
@@ -83,7 +85,7 @@ export class LocalizationExtractor {
   /** Get the list of file from tsconfig.json */
   private getFilesFromTsConfig() {
     const { include, exclude, cwd } = this.getPatternsFromTsConfig();
-    return glob.sync(include, { ignore: exclude, cwd });
+    return globbySync(include, { ignore: exclude, cwd });
   }
 
   /**

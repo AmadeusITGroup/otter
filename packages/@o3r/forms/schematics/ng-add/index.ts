@@ -1,17 +1,12 @@
 import * as path from 'node:path';
-import type {
-  Rule,
+import {
+  chain,
+  type Rule,
 } from '@angular-devkit/schematics';
 import {
   createOtterSchematic,
-  getExternalDependenciesInfo,
-  getPackageInstallConfig,
-  getWorkspaceConfig,
-  setupDependencies,
+  ngAddDependenciesRule,
 } from '@o3r/schematics';
-import type {
-  PackageJson,
-} from 'type-fest';
 import type {
   NgAddSchematicsSchema,
 } from './schema';
@@ -41,27 +36,9 @@ const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
  */
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
   /* ng add rules */
-  return (tree, context) => {
-    const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
-    const projectDirectory = workspaceProject?.root || '.';
-    const projectPackageJson = tree.readJson(path.posix.join(projectDirectory, 'package.json')) as PackageJson;
-    const externalDependenciesInfo = getExternalDependenciesInfo({
-      devDependenciesToInstall,
-      dependenciesToInstall,
-      o3rPackageJsonPath: packageJsonPath,
-      projectPackageJson,
-      projectType: workspaceProject?.projectType
-    },
-    context.logger
-    );
-    return setupDependencies({
-      projectName: options.projectName,
-      dependencies: {
-        ...getPackageInstallConfig(packageJsonPath, tree, options.projectName, false, !!options.exactO3rVersion),
-        ...externalDependenciesInfo
-      }
-    });
-  };
+  return chain([
+    ngAddDependenciesRule(options, packageJsonPath, { dependenciesToInstall, devDependenciesToInstall })
+  ]);
 }
 
 /**

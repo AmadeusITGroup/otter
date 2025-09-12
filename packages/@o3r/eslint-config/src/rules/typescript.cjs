@@ -79,13 +79,13 @@ const configArray = [
     files: [
       '**/*.{c,m,}{t,j}s'
     ],
-    ...stylistic.configs['recommended-flat']
+    ...stylistic.configs.recommended
   },
   {
     files: [
       '**/*.{c,m,}{t,j}s'
     ],
-    ...unicorn.configs['flat/recommended']
+    ...unicorn.default.configs.recommended
   },
   ...(getJestConfig('recommended')),
   {
