@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import fs from 'node:fs';
 import path from 'node:path';
 import minimist from 'minimist';
@@ -12,12 +11,12 @@ const rootSource = path.join(libRoot, argv.docs);
 
 /**
  * Get the list of files with the given extension from given folder
- * and its subfloders if isRecursive is true
- * @param dirPath
- * @param arrayOfFiles
- * @param extension
- * @param isRecursive
- * @returns
+ * and its subfolders if isRecursive is true
+ * @param {string} dirPath
+ * @param {string[]} arrayOfFiles
+ * @param {string} extension
+ * @param {boolean} isRecursive
+ * @returns {string[]} the list of files with the given extension
  */
 function getAllFiles(dirPath, arrayOfFiles, extension, isRecursive) {
   const files = fs.readdirSync(dirPath);
@@ -44,7 +43,8 @@ const mdRegex = /\.md("?)$/;
 
 /**
  * replace the .md links with .html links inside compodoc generated files
- * @param filePath
+ * @param {string} filePath
+ * @returns {void}
  */
 function replaceMdLinks(filePath) {
   const oldContent = fs.readFileSync(filePath, { encoding: 'utf8' });
@@ -57,17 +57,17 @@ function replaceMdLinks(filePath) {
   });
 
   if (oldContent !== newContent) {
-    fs.writeFileSync(filePath, newContent, { encoding: 'utf-8' });
+    fs.writeFileSync(filePath, newContent, { encoding: 'utf8' });
 
-    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+    // eslint-disable-next-line no-console -- logging
     console.log(`Links modified in: ${filePath}`);
   }
 }
 
 /**
  * Checks the relative paths found in the given filePath, to .md files and to files inside .attachments folder
- * @param  filePath
- * @returns the list of broken file paths from the checked file
+ * @param {string} filePath
+ * @returns {string[]} the list of broken file paths from the checked file
  */
 function checkInternalLinks(filePath) {
   const fileContent = fs.readFileSync(filePath, { encoding: 'utf8' });

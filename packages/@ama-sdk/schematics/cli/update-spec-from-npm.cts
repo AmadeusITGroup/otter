@@ -27,13 +27,11 @@ import type {
 } from 'type-fest';
 import {
   LOCAL_SPEC_FILENAME,
+  type OpenApiToolsConfiguration,
+  type OpenApiToolsGenerator,
   SPEC_JSON_EXTENSION,
   SPEC_YAML_EXTENSION,
-} from '@ama-sdk/schematics';
-import type {
-  OpenApiToolsConfiguration,
-  OpenApiToolsGenerator,
-} from '@ama-sdk/schematics';
+} from '../src/public_api';
 
 const argv = minimist(process.argv.slice(2));
 const packageName = argv._[0];

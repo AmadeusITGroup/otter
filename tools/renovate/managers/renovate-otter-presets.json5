@@ -1,0 +1,35 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "regexManagers": [
+    {
+      "fileMatch": [
+        "^renovate\\.json5?$",
+        "^\\.github/renovate\\.json5?$",
+        "^\\.gitlab/renovate\\.json5?$",
+        "^\\.renovaterc\\.json5?$",
+        "^\\.renovaterc$"
+      ],
+      "matchStrings": [
+        "\"github>AmadeusITGroup/otter//.*#v(?<currentValue>[^\" \\n\\(]+)"
+      ],
+
+      "datasourceTemplate": "npm",
+      "depNameTemplate": "@o3r/core",
+      "depTypeTemplate": "renovate-preset"
+    }
+  ],
+  "packageRules": [
+    {
+      "matchDepTypes": [
+        "renovate-preset"
+      ],
+      "matchBaseBranches": [
+        "main",
+        "master",
+        "develop",
+        "/^release/"
+      ],
+      "enable": true
+    }
+  ]
+}

@@ -32,10 +32,6 @@ import {
 import {
   packagesToRemove,
 } from '../updates-for-v8/replaced-packages';
-import {
-  isUsingFlatConfig,
-  shouldOtterLinterBeInstalled,
-} from '../utils/index';
 
 /**
  * Enable all the otter features requested by the user
@@ -43,7 +39,7 @@ import {
  * @param options installation options to pass to the all the other packages' installation
  * @param dependenciesSetupConfig
  */
-export const prepareProject = (options: NgAddSchematicsSchema, dependenciesSetupConfig: SetupDependenciesOptions): Rule => async (tree, context) => {
+export const prepareProject = (options: NgAddSchematicsSchema, dependenciesSetupConfig: SetupDependenciesOptions): Rule => (tree, context) => {
   const coreSchematicsFolder = path.resolve(__dirname, '..');
   const corePackageJsonPath = path.resolve(coreSchematicsFolder, '..', '..', 'package.json');
   const corePackageJsonContent = JSON.parse(fs.readFileSync(corePackageJsonPath, { encoding: 'utf8' }));
@@ -51,14 +47,12 @@ export const prepareProject = (options: NgAddSchematicsSchema, dependenciesSetup
     context.logger.error('Could not find @o3r/core package. Are you sure it is installed?');
   }
   const o3rCoreVersion = corePackageJsonContent.version;
-  const installOtterLinter = await shouldOtterLinterBeInstalled(context, tree);
   const workspaceConfig = getWorkspaceConfig(tree);
   const workspaceProject = (options.projectName && workspaceConfig?.projects?.[options.projectName]) || undefined;
   const projectType = workspaceProject?.projectType;
   const depsInfo = getO3rPeerDeps(corePackageJsonPath);
   const internalPackagesToInstallWithNgAdd = Array.from(new Set([
     ...(projectType === 'application' ? ['@o3r/application'] : []),
-    ...(installOtterLinter ? [`@o3r/eslint-config${isUsingFlatConfig(tree) ? '' : '-otter'}`] : []),
     ...depsInfo.o3rPeerDeps
   ]));
   const projectDirectory = workspaceProject?.root;
@@ -76,6 +70,13 @@ export const prepareProject = (options: NgAddSchematicsSchema, dependenciesSetup
     });
   (dependenciesSetupConfig.ngAddToRun ||= []).push(...internalPackagesToInstallWithNgAdd);
 
+  let hasEslint = false;
+  try {
+    const eslintPackage = 'eslint';
+    require.resolve(eslintPackage);
+    hasEslint = true;
+  } catch {}
+
   const appLibRules: Rule[] = [
     updateBuildersNames(),
     updateOtterGeneratorsNames(),
@@ -86,7 +87,7 @@ export const prepareProject = (options: NgAddSchematicsSchema, dependenciesSetup
     removePackages(packagesToRemove),
     o3rBasicUpdates(options.projectName, o3rCoreVersion, projectType),
     // task that should run after the schematics should be after the ng-add task as they will wait for the package installation before running the other dependencies
-    !options.skipLinter && installOtterLinter ? applyEsLintFix() : noop()
+    !options.skipLinter && hasEslint ? applyEsLintFix() : noop()
   ];
 
   return chain(appLibRules);

@@ -30,7 +30,10 @@ describe('Create new otter project command', () => {
     const inProjectPath = path.join(workspacePath, workspaceProjectName);
     const execWorkspaceOptions = { ...defaultExecOptions, cwd: workspacePath };
     const execInAppOptions = { ...defaultExecOptions, cwd: inProjectPath };
-    const createOptions = ['--package-manager', getPackageManager(), '--skip-confirmation', ...(packageManagerConfig.yarnVersion ? ['--yarn-version', packageManagerConfig.yarnVersion] : [])];
+    const createOptions = [
+      '--package-manager', getPackageManager(),
+      '--preset basic',
+      '--skip-confirmation', ...(packageManagerConfig.yarnVersion ? ['--yarn-version', packageManagerConfig.yarnVersion] : [])];
 
     // TODO: remove it when fixing #1356
     await fs.mkdir(inProjectPath, { recursive: true });
@@ -194,8 +197,8 @@ describe('Create new otter project command', () => {
     [
       ...Object.entries(rootPackageJson.dependencies), ...Object.entries(rootPackageJson.devDependencies), ...Object.entries(resolutions),
       ...Object.entries(appPackageJson.dependencies), ...Object.entries(appPackageJson.devDependencies)
-    ].filter(([dep]) => dep.startsWith('@o3r/') || dep.startsWith('@ama-sdk/')).forEach(([,version]) => {
-      expect(version).toBe(o3rExactVersion);
+    ].filter(([dep]) => dep.startsWith('@o3r/') || dep.startsWith('@ama-sdk/')).forEach(([dep, version]) => {
+      expect(`${dep}:${version as string}`).toBe(`${dep}:${o3rExactVersion}`);
     });
   });
 
@@ -233,8 +236,8 @@ describe('Create new otter project command', () => {
     [
       ...Object.entries(rootPackageJson.dependencies), ...Object.entries(rootPackageJson.devDependencies), ...Object.entries(resolutions),
       ...Object.entries(appPackageJson.dependencies), ...Object.entries(appPackageJson.devDependencies)
-    ].filter(([dep]) => dep.startsWith('@o3r/') || dep.startsWith('@ama-sdk/')).forEach(([,version]) => {
-      expect(version).toBe(o3rExactVersion);
+    ].filter(([dep]) => dep.startsWith('@o3r/') || dep.startsWith('@ama-sdk/')).forEach(([dep, version]) => {
+      expect(`${dep}:${version as string}`).toBe(`${dep}:${o3rExactVersion}`);
     });
   });
 });

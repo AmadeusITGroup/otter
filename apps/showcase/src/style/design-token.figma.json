@@ -58,8 +58,6 @@
         "$type": "color",
         "$value": "#ffffff"
       },
-      "$type": "color",
-      "$value": "{color.primary.500}",
       "$extensions": {
         "o3rMetadata": {
           "category": "palette-primary",
@@ -127,8 +125,6 @@
         "$type": "color",
         "$value": "#ffffff"
       },
-      "$type": "color",
-      "$value": "{color.accent.500}",
       "$extensions": {
         "o3rMetadata": {
           "category": "palette-accent",
@@ -196,8 +192,6 @@
         "$type": "color",
         "$value": "#ffffff"
       },
-      "$type": "color",
-      "$value": "{color.highlight.500}",
       "$extensions": {
         "o3rMetadata": {
           "category": "palette-highlight",
@@ -265,8 +259,6 @@
         "$type": "color",
         "$value": "#ffffff"
       },
-      "$type": "color",
-      "$value": "{color.warn.500}",
       "$extensions": {
         "o3rMetadata": {
           "category": "palette-warn",
@@ -323,7 +315,7 @@
       },
       "custom": {
         "$type": "color",
-        "$value": "{color.primary}"
+        "$value": "{color.primary.500}"
       },
       "$extensions": {
         "o3rMetadata": {

@@ -1,0 +1,20 @@
+{
+  "name": "github-actions-yarn-errors-reporter",
+  "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "tools/github-actions/yarn-errors-reporter/src",
+  "prefix": "o3r",
+  "targets": {
+    "build": {
+      "executor": "nx:noop",
+      "dependsOn": [
+        "compile-github-action"
+      ]
+    },
+    "compile-github-action": {},
+    "package-github-action": {},
+    "lint": {},
+    "test": {}
+  },
+  "tags": []
+}

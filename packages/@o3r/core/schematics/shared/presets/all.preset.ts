@@ -23,7 +23,6 @@ export function allPreset(options: PresetOptions) {
     '@o3r/application',
     '@o3r/components',
     '@o3r/configuration',
-    '@o3r/design',
     '@o3r/dynamic-content',
     '@o3r/eslint-config',
     '@o3r/eslint-plugin',
@@ -32,6 +31,7 @@ export function allPreset(options: PresetOptions) {
     '@o3r/logger',
     '@o3r/rules-engine',
     '@o3r/store-sync',
+    '@o3r/style-dictionary',
     '@o3r/stylelint-plugin',
     '@o3r/styling'
   ];
