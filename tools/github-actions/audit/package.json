@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
-    "@nx/eslint-plugin": "~21.4.0",
+    "@nx/eslint-plugin": "~21.5.0",
     "@o3r/eslint-config": "workspace:~",
     "@o3r/eslint-plugin": "workspace:~",
     "@o3r/test-helpers": "workspace:^",
