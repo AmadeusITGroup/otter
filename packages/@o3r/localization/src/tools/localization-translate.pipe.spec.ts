@@ -77,7 +77,7 @@ describe('LocalizationTranslatePipe', () => {
 
       localizationService = TestBed.inject(LocalizationService);
       // initialize TranslateService via configure of LocalizationService
-      localizationService.configure();
+      await localizationService.configure();
       translate = TestBed.inject(TranslateService);
       ref = new FakeChangeDetectorRef();
       pipe = new O3rLocalizationTranslatePipe(localizationService, translate, ref, TestBed.inject(LOCALIZATION_CONFIGURATION_TOKEN));
@@ -106,7 +106,7 @@ describe('LocalizationTranslatePipe', () => {
 
         localizationService = TestBed.inject(LocalizationService);
         // initialize TranslateService via configure of LocalizationService
-        localizationService.configure();
+        await localizationService.configure();
         translate = TestBed.inject(TranslateService);
         ref = new FakeChangeDetectorRef();
         pipe = new O3rLocalizationTranslatePipe(localizationService, translate, ref, TestBed.inject(LOCALIZATION_CONFIGURATION_TOKEN));
@@ -148,7 +148,7 @@ describe('LocalizationTranslatePipe', () => {
         }).compileComponents();
         localizationService = TestBed.inject(LocalizationService);
         // initialize TranslateService via configure of LocalizationService
-        localizationService.configure();
+        await localizationService.configure();
         translate = TestBed.inject(TranslateService);
         ref = new FakeChangeDetectorRef();
         pipe = new O3rLocalizationTranslatePipe(localizationService, translate, ref, TestBed.inject(LOCALIZATION_CONFIGURATION_TOKEN));

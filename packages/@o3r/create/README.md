@@ -54,7 +54,7 @@ If the specified package manager is `yarn`, it will also configure the `.yarnrc.
 
 ### Others available options
 
-The generator accepts all the configurations from the Angular `ng new` command, see the [options list](https://angular.io/cli/new#options).
+The generator accepts all the configurations from the Angular `ng new` command, see the [options list](https://angular.dev/cli/new#options).
 On top of them, the following options can be provided to the initializer:
 
 - `--yarn`: Enforce `yarn` package manager. This option will be ignored if `--package-manager` is already specified.

@@ -1,0 +1,8 @@
+{
+  "name": "@ama-styling/figma-sdk/spec",
+  "main": "../cjs/spec/index.js",
+  "module": "../esm2020/spec/index.js",
+  "node": "../cjs/spec/index.js",
+  "types": "./index.d.ts",
+  "default": "../esm2020/spec/index.js"
+}

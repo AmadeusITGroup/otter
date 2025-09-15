@@ -16,13 +16,7 @@
       },
       "inputs": ["source", "^cli"]
     },
-    "regen": {
-      "cache": false,
-      "executor": "nx:run-script",
-      "options": {
-        "script": "spec:regen"
-      }
-    },
+    "regen": {},
     "lint": {},
     "extract-folder-structure": {
       "cache": true,

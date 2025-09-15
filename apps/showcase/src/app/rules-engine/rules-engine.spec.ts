@@ -50,7 +50,7 @@ describe('RulesEngineComponent', () => {
   let component: RulesEngineComponent;
   let fixture: ComponentFixture<RulesEngineComponent>;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [
         RulesEngineComponent,
@@ -80,7 +80,7 @@ describe('RulesEngineComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
     const localizationService = TestBed.inject(LocalizationService);
-    localizationService.configure();
+    await localizationService.configure();
   });
 
   it('should create', () => {

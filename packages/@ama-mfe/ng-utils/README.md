@@ -7,8 +7,7 @@ interaction between host and embedded applications.
 
 Key features include:
 - [Connect](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40ama-mfe/ng-utils/src/connect/): Connect to the communication protocol and send messages to registered applications.
-- [Navigation](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40ama-mfe/ng-utils/src/navigation/): Ensures the host application can update its navigation to reflect the embedded application's URL,
-maintaining consistency even after a page refresh.
+- [Navigation](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40ama-mfe/ng-utils/src/navigation/): Handles navigation messages between the host and embedded applications. Embedded applications can use `RoutingService` to sync their internal routing with the host application. The host application can use `NavigationConsumerService` to get notifications about navigation events in the embedded applications.
 - [Theme](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40ama-mfe/ng-utils/src/theme/): Allows the application of unified CSS variables and styles across embedded modules, ensuring a cohesive
 look and feel.
 - [Resize](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40ama-mfe/ng-utils/src/resize/): Dynamically adjusts the iframe dimensions to fit the content of the embedded application, enhancing the
@@ -290,3 +289,9 @@ export class SomeClass {
 ```
 
 The host information is stored in session storage so it won't be lost when navigating inside the iframe.
+
+### Browser history handling
+
+When using iframes to embed applications, the browser history might be shared by the main page and the embedded iframe. For example `<iframe src="https://example.com" sandbox="allow-same-origin">` will share the same history as the main page. This can lead to unexpected behavior when using browser 'back' and 'forward' buttons.
+
+To avoid this, the `@ama-mfe/ng-utils` will forbid the application running in the iframe to alter the browser history. It will happen when connection is configured using `provideConection()` function. This will prevent the iframe to be able to use the `history.pushState` and `history.replaceState` methods.

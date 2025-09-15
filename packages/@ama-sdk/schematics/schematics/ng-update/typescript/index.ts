@@ -25,6 +25,9 @@ import {
 import {
   clearPackageJsonExports,
 } from './v12.1/clean-packagejson-exports';
+import {
+  updateJestConfigCoveragePathIgnorePatterns,
+} from './v12.3/coverage-ignore';
 
 /**
  * update of Otter library V10.0
@@ -96,6 +99,18 @@ export function updateV11_4(): Rule {
 export function updateV12_1_3(): Rule {
   const updateRules: Rule[] = [
     clearPackageJsonExports
+  ];
+
+  return chain(updateRules);
+}
+
+/**
+ * Update of Ama-sdk library V12.3
+ */
+// eslint-disable-next-line @typescript-eslint/naming-convention -- function name contains the version
+export function updateV12_3(): Rule {
+  const updateRules: Rule[] = [
+    updateJestConfigCoveragePathIgnorePatterns
   ];
 
   return chain(updateRules);

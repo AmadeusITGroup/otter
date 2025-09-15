@@ -23,9 +23,6 @@ import {
 import type {
   WorkspaceSchema,
 } from '@o3r/schematics';
-import {
-  updateOrAddTsconfigEslint,
-} from '../tsconfig/index';
 
 const editAngularJson = (projectName: string, extension: string): Rule => (tree, context) => {
   let workspace: WorkspaceSchema | null = null;
@@ -81,7 +78,6 @@ export const updateEslintConfig = (rootPath: string, projectName?: string): Rule
     oldConfig: '',
     relativePathToRoot: path.posix.relative(projectRootPath, '.'),
     packageName: (tree.readJson(workingDir.file(fragment('package.json'))?.path || 'package.json') as JsonObject).name,
-    detectedTsConfigs: findFilesInTree(workingDir, (f) => /tsconfig\..*\.json/.test(f)).map((entry) => path.basename(entry.path)).concat('tsconfig.eslint.json'),
     isApp: workspaceProject?.projectType === 'application'
   };
 
@@ -111,7 +107,6 @@ export const updateEslintConfig = (rootPath: string, projectName?: string): Rule
     applyToSubtree(
       projectRootPath,
       [
-        updateOrAddTsconfigEslint(rootPath),
         mergeWith(apply(url(getTemplateFolder(rootPath, __dirname, `./templates/${projectRootPath === '.' ? 'workspace' : 'project'}`)), [
           template(templateOptions),
           renameTemplateFiles()

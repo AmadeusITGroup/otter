@@ -24,11 +24,9 @@ describe('new otter application with eslint config', () => {
     expect(() => packageManagerRunOnProject(appName, isInWorkspace, { script: 'build' }, execAppOptions)).not.toThrow();
 
     const diff = getGitDiff(workspacePath);
-    expect(diff.added).toContain('tsconfig.eslint.json');
     expect(diff.added).toContain('eslint.shared.config.mjs');
     expect(diff.added).toContain('eslint.local.config.mjs');
     expect(diff.added).toContain('eslint.config.mjs');
-    expect(diff.added).toContain(path.posix.join('apps', appName, 'tsconfig.eslint.json'));
     expect(diff.added).toContain(path.posix.join('apps', appName, 'eslint.local.config.mjs'));
     expect(diff.added).toContain(path.posix.join('apps', appName, 'eslint.config.mjs'));
     expect(diff.modified).toContain(path.posix.join('apps', appName, 'src', 'main.ts'));
@@ -36,7 +34,7 @@ describe('new otter application with eslint config', () => {
     expect(diff.modified).toContain('angular.json');
 
     untouchedProjectsPaths.forEach((untouchedProject) => {
-      expect(diff.all.some((file) => file.startsWith(path.relative(workspacePath, untouchedProject).replace(/\\+/g, '/')))).toBe(false);
+      expect(diff.all.filter((file) => !file.endsWith('package.json')).some((file) => file.startsWith(path.relative(workspacePath, untouchedProject).replace(/\\+/g, '/')))).toBe(false);
     });
     // re-enable after https://github.com/AmadeusITGroup/otter/issues/3226
     // expect(() => packageManagerExec({ script: 'ng', args: ['lint', appName, '--fix'] }, execAppOptions)).not.toThrow();
@@ -51,18 +49,16 @@ describe('new otter application with eslint config', () => {
     expect(() => packageManagerRunOnProject(libName, isInWorkspace, { script: 'build' }, execAppOptions)).not.toThrow();
 
     const diff = getGitDiff(workspacePath);
-    expect(diff.added).toContain('tsconfig.eslint.json');
     expect(diff.added).toContain('eslint.shared.config.mjs');
     expect(diff.added).toContain('eslint.local.config.mjs');
     expect(diff.added).toContain('eslint.config.mjs');
-    expect(diff.added).toContain(path.posix.join('libs', libName, 'tsconfig.eslint.json'));
     expect(diff.added).toContain(path.posix.join('libs', libName, 'eslint.local.config.mjs'));
     expect(diff.added).toContain(path.posix.join('libs', libName, 'eslint.config.mjs'));
     expect(diff.modified).toContain('package.json');
     expect(diff.modified).toContain('angular.json');
 
     untouchedProjectsPaths.forEach((untouchedProject) => {
-      expect(diff.all.some((file) => file.startsWith(path.relative(workspacePath, untouchedProject).replace(/\\+/g, '/')))).toBe(false);
+      expect(diff.all.filter((file) => !file.endsWith('package.json')).some((file) => file.startsWith(path.relative(workspacePath, untouchedProject).replace(/\\+/g, '/')))).toBe(false);
     });
     // re-enable after https://github.com/AmadeusITGroup/otter/issues/3226
     // expect(() => packageManagerExec({ script: 'ng', args: ['lint', libName, '--fix'] }, execAppOptions)).not.toThrow();
@@ -78,13 +74,12 @@ describe('new otter application with eslint config', () => {
     const diff = getGitDiff(workspacePath);
     expect(diff.modified).toContain('package.json');
     expect(diff.modified).not.toContain('angular.json');
-    expect(diff.added).toContain('tsconfig.eslint.json');
     expect(diff.added).toContain('eslint.shared.config.mjs');
     expect(diff.added).toContain('eslint.local.config.mjs');
     expect(diff.added).toContain('eslint.config.mjs');
 
     untouchedProjectsPaths.forEach((untouchedProject) => {
-      expect(diff.all.some((file) => file.startsWith(path.relative(workspacePath, untouchedProject).replace(/\\+/g, '/')))).toBe(false);
+      expect(diff.all.filter((file) => !file.endsWith('package.json')).some((file) => file.startsWith(path.relative(workspacePath, untouchedProject).replace(/\\+/g, '/')))).toBe(false);
     });
   });
 });

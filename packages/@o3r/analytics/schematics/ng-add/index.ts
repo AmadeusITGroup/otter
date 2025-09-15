@@ -48,15 +48,14 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
     const projectDirectory = workspaceProject?.root || '.';
     const projectPackageJson = tree.readJson(path.posix.join(projectDirectory, 'package.json')) as PackageJson;
 
-    const externalDependenciesInfo = getExternalDependenciesInfo(
-      {
-        devDependenciesToInstall,
-        dependenciesToInstall,
-        projectPackageJson,
-        o3rPackageJsonPath: packageJsonPath,
-        projectType: workspaceProject?.projectType
-      },
-      context.logger
+    const externalDependenciesInfo = getExternalDependenciesInfo({
+      devDependenciesToInstall,
+      dependenciesToInstall,
+      projectPackageJson,
+      o3rPackageJsonPath: packageJsonPath,
+      projectType: workspaceProject?.projectType
+    },
+    context.logger
     );
     return setupDependencies({
       projectName: options.projectName,
