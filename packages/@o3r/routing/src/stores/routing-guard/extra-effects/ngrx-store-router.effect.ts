@@ -1,4 +1,5 @@
 import {
+  inject,
   Injectable,
 } from '@angular/core';
 import {
@@ -25,6 +26,8 @@ import {
  */
 @Injectable()
 export class NgrxStoreRouterEffect {
+  protected actions$ = inject(Actions);
+
   /**
    * Clear Router registrations when the active history entry changes (ex : click on back/next button Action)
    */
@@ -45,6 +48,4 @@ export class NgrxStoreRouterEffect {
       map(() => clearRoutingGuardEntities())
     )
   );
-
-  constructor(protected actions$: Actions) {}
 }

@@ -7,6 +7,7 @@
     "name": {
       "type": "string",
       "description": "Package name",
+      "pattern": "^(?:@[a-zA-Z0-9-*~][a-zA-Z0-9-*._~]*/)?[a-zA-Z0-9-~][a-zA-Z0-9-._~]*$",
       "x-prompt": "Name of the package of the new module?",
       "$default": {
         "$source": "argv",
@@ -29,7 +30,7 @@
     "skipLinter": {
       "type": "boolean",
       "description": "Skip the linter process which includes EsLint and EditorConfig rules applying",
-      "default": true
+      "default": false
     },
     "skipInstall": {
       "description": "Do not install dependency packages.",

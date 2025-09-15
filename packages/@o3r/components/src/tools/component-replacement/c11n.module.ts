@@ -1,4 +1,5 @@
 import {
+  Injector,
   makeEnvironmentProviders,
   ModuleWithProviders,
   NgModule,
@@ -24,11 +25,13 @@ import {
  * @param config.registerCompFunc
  */
 export function createC11nService(config: { registerCompFunc: () => Map<string, any> }) {
-  if (!config) {
-    return new C11nService(new Map());
-  }
-  const custoComp = config.registerCompFunc();
-  return new C11nService(custoComp);
+  const injector = Injector.create({
+    providers: [
+      { provide: C11N_PRESENTERS_MAP_TOKEN, useValue: (config ? config.registerCompFunc() : new Map()) },
+      { provide: C11nService, deps: [C11N_PRESENTERS_MAP_TOKEN] }
+    ]
+  });
+  return injector.get(C11nService);
 }
 
 /**

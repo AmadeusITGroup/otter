@@ -39,7 +39,7 @@ import type {
 /** @see BaseApiClientOptions */
 export interface BaseApiFetchClientOptions extends BaseApiClientOptions {
   /** List of plugins to apply to the fetch call */
-  fetchPlugins: FetchPlugin[];
+  fetchPlugins: FetchPlugin[] | ((requestOpts: RequestOptions) => FetchPlugin[] | Promise<FetchPlugin[]>);
 }
 
 /** @see BaseApiConstructor */
@@ -98,13 +98,14 @@ export class ApiFetchClient implements ApiClient {
       headers: new Headers(filterUndefinedValues(requestOptionsParameters.headers)),
       queryParams: filterUndefinedValues(requestOptionsParameters.queryParams)
     };
-    if (this.options.requestPlugins) {
-      for (const plugin of this.options.requestPlugins) {
-        opts = await plugin.load({
-          logger: this.options.logger,
-          apiName: requestOptionsParameters.api?.apiName
-        }).transform(opts);
-      }
+    const requestPlugins = typeof this.options.requestPlugins === 'function'
+      ? await this.options.requestPlugins(opts)
+      : this.options.requestPlugins;
+    for (const plugin of requestPlugins) {
+      opts = await plugin.load({
+        logger: this.options.logger,
+        apiName: requestOptionsParameters.api?.apiName
+      }).transform(opts);
     }
 
     return opts;
@@ -165,16 +166,17 @@ export class ApiFetchClient implements ApiClient {
       metadataSignal?.addEventListener('abort', () => controller.abort());
 
       const loadedPlugins: (PluginAsyncRunner<Response, FetchCall> & PluginAsyncStarter)[] = [];
-      if (this.options.fetchPlugins) {
-        loadedPlugins.push(...this.options.fetchPlugins.map((plugin) => plugin.load({ url, options, fetchPlugins: loadedPlugins, controller, apiClient: this, logger: this.options.logger })));
-      }
+      const fetchPlugins = typeof this.options.fetchPlugins === 'function'
+        ? await this.options.fetchPlugins(options)
+        : this.options.fetchPlugins;
+      loadedPlugins.push(...fetchPlugins.map((plugin) => plugin.load({ url, options, fetchPlugins: loadedPlugins, controller, apiClient: this, logger: this.options.logger })));
 
       const canStart = await Promise.all(loadedPlugins.map((plugin) => !plugin.canStart || plugin.canStart()));
       const isCanceledBy = canStart.indexOf(false);
       asyncResponse = isCanceledBy === -1
         // One of the fetch plugins cancelled the execution of the call
         ? fetch(url, options)
-        : Promise.reject(new CanceledCallError(`Is canceled by the plugin ${isCanceledBy}`, isCanceledBy, this.options.fetchPlugins[isCanceledBy], { apiName, operationId, url, origin }));
+        : Promise.reject(new CanceledCallError(`Is canceled by the plugin ${isCanceledBy}`, isCanceledBy, fetchPlugins[isCanceledBy], { apiName, operationId, url, origin }));
 
       for (const plugin of loadedPlugins) {
         asyncResponse = plugin.transform(asyncResponse);

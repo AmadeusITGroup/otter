@@ -1,10 +1,14 @@
-<span *ngIf="name">{{name | titlecase}}:</span>
+@if (name) {
+  <span>{{name | titlecase}}:</span>
+}
 <div class="rule-wrapper tree">
-  <ng-container *ngIf="blockType === 'IF_ELSE'; else noCondition">
-    <div class="tree-root" *ngIf="!name" [attr.aria-hidden]="true">
-      <div></div>
-      <div></div>
-    </div>
+  @if (blockType === 'IF_ELSE') {
+    @if (!name) {
+      <div class="tree-root" [attr.aria-hidden]="true">
+        <div></div>
+        <div></div>
+      </div>
+    }
     <div class="rule-conditions">
       <div class="rule-conditions-title">If
         <o3r-rule-condition-pres [condition]="condition"></o3r-rule-condition-pres>
@@ -21,9 +25,9 @@
           <div></div>
         </div>
         <div class="rule-action-title success-actions"
-            tabindex="0"
-            (click)="successActionsExpanded = !successActionsExpanded"
-            (keyup.enter)="successActionsExpanded = !successActionsExpanded">
+          tabindex="0"
+          (click)="successActionsExpanded = !successActionsExpanded"
+          (keyup.enter)="successActionsExpanded = !successActionsExpanded">
           <i class="icon refx-icon-validate"></i>
           <span>Then</span>
           <i class="icon"
@@ -31,9 +35,11 @@
             [class.icon-caret-up]="successActionsExpanded">
           </i>
         </div>
-        <o3r-rule-actions-pres class="rule-tree-actions" *ngIf="successActionsExpanded"
-                              [actions]="successElements">
-        </o3r-rule-actions-pres>
+        @if (successActionsExpanded) {
+          <o3r-rule-actions-pres class="rule-tree-actions"
+            [actions]="successElements">
+          </o3r-rule-actions-pres>
+        }
         <ng-container [ngTemplateOutlet]="subTree" [ngTemplateOutletContext]="{blocks: successElements}"></ng-container>
       </div>
       <div class="rule-actions tree-branch">
@@ -42,9 +48,9 @@
           <div></div>
         </div>
         <div class="rule-action-title error-actions"
-            tabindex="0"
-            (click)="failureActionsExpanded = !failureActionsExpanded"
-            (keyup.enter)="failureActionsExpanded = !failureActionsExpanded">
+          tabindex="0"
+          (click)="failureActionsExpanded = !failureActionsExpanded"
+          (keyup.enter)="failureActionsExpanded = !failureActionsExpanded">
           <i class="icon refx-icon-cross"></i>
           <span>Else</span>
           <i class="icon"
@@ -52,55 +58,58 @@
             [class.icon-caret-up]="failureActionsExpanded">
           </i>
         </div>
-        <o3r-rule-actions-pres class="rule-tree-actions"
-                              *ngIf="failureActionsExpanded"
-                              [actions]="failureElements">
-        </o3r-rule-actions-pres>
+        @if (failureActionsExpanded) {
+          <o3r-rule-actions-pres class="rule-tree-actions"
+            [actions]="failureElements">
+          </o3r-rule-actions-pres>
+        }
         <ng-container [ngTemplateOutlet]="subTree" [ngTemplateOutletContext]="{blocks: failureElements}"></ng-container>
       </div>
     </div>
-  </ng-container>
-</div>
-<ng-template #noCondition>
-  <div class="rule-conditions">
-    <div class="rule-conditions-title">If <span class="input-value">true</span></div>
-    <div class="tree-root" [attr.aria-hidden]="true">
-      <div></div>
-      <div></div>
+  } @else {
+    <div class="rule-conditions">
+      <div class="rule-conditions-title">If <span class="input-value">true</span></div>
+      <div class="tree-root" [attr.aria-hidden]="true">
+        <div></div>
+        <div></div>
+      </div>
     </div>
-  </div>
-  <div class="rule-actions-wrapper">
-    <div class="rule-actions">
-      <div class="rule-action-title success-actions" tabindex="0"
+    <div class="rule-actions-wrapper">
+      <div class="rule-actions">
+        <div class="rule-action-title success-actions" tabindex="0"
           (keyup.enter)="successActionsExpanded = !successActionsExpanded"
           (click)="successActionsExpanded = !successActionsExpanded">
-        <i class="icon refx-icon-validate">
-        </i>
-        <span>Then</span>
-        <i class="icon"
-          [class.icon-caret-down]="!successActionsExpanded"
-          [class.icon-caret-up]="successActionsExpanded">
-        </i>
+          <i class="icon refx-icon-validate">
+          </i>
+          <span>Then</span>
+          <i class="icon"
+            [class.icon-caret-down]="!successActionsExpanded"
+            [class.icon-caret-up]="successActionsExpanded">
+          </i>
+        </div>
+        @if (successActionsExpanded) {
+          <o3r-rule-actions-pres class="rule-tree-actions"
+            [actions]="successElements">
+          </o3r-rule-actions-pres>
+        }
+        <ng-container [ngTemplateOutlet]="subTree" [ngTemplateOutletContext]="{blocks: successElements}"></ng-container>
       </div>
-      <o3r-rule-actions-pres class="rule-tree-actions"
-                            *ngIf="successActionsExpanded"
-                            [actions]="successElements">
-      </o3r-rule-actions-pres>
-      <ng-container [ngTemplateOutlet]="subTree" [ngTemplateOutletContext]="{blocks: successElements}"></ng-container>
     </div>
-  </div>
-</ng-template>
+  }
+</div>
 
 <ng-template #subTree let-blocks="blocks">
   <div class="rule-sub-trees">
-    <ng-container *ngFor="let block of blocks">
-      <div *ngIf="block.blockType === 'IF_ELSE'" class="tree-branch">
-        <o3r-rule-tree-pres
-          [blockType]="'IF_ELSE'"
-          [condition]="block.condition"
-          [failureElements]="block.failureElements"
+    @for (block of blocks; track block) {
+      @if (block.blockType === 'IF_ELSE') {
+        <div class="tree-branch">
+          <o3r-rule-tree-pres
+            [blockType]="'IF_ELSE'"
+            [condition]="block.condition"
+            [failureElements]="block.failureElements"
           [successElements]="block.successElements"></o3r-rule-tree-pres>
-      </div>
-    </ng-container>
+        </div>
+      }
+    }
   </div>
 </ng-template>

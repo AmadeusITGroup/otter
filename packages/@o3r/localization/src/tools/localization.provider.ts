@@ -1,5 +1,6 @@
 import {
   FactoryProvider,
+  Injector,
   Optional,
 } from '@angular/core';
 import {
@@ -29,7 +30,18 @@ import {
  * @param dynamicContentService (optional)
  */
 export function createTranslateLoader(localizationConfiguration: LocalizationConfiguration, logger?: LoggerService, dynamicContentService?: DynamicContentService) {
-  return new TranslationsLoader(localizationConfiguration, logger, dynamicContentService);
+  const injector = Injector.create({
+    providers: [
+      { provide: LOCALIZATION_CONFIGURATION_TOKEN, useValue: localizationConfiguration },
+      { provide: LoggerService, useValue: logger },
+      { provide: DynamicContentService, useValue: dynamicContentService },
+      {
+        provide: TranslationsLoader,
+        deps: [[LoggerService, new Optional()], [DynamicContentService, new Optional()], LOCALIZATION_CONFIGURATION_TOKEN]
+      }
+    ]
+  });
+  return injector.get(TranslationsLoader);
 }
 
 /**

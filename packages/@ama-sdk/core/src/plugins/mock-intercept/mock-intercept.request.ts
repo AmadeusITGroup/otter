@@ -6,7 +6,6 @@ import {
 import {
   CUSTOM_MOCK_OPERATION_ID_HEADER,
   CUSTOM_MOCK_REQUEST_HEADER,
-  MockInterceptFetchParameters,
   MockInterceptRequestParameters,
 } from './mock-intercept.interface';
 
@@ -20,7 +19,7 @@ export class MockInterceptRequest implements RequestPlugin {
    * Creates a new instance of the plugin
    * @param options configuration options for the plugin
    */
-  constructor(options: Partial<MockInterceptRequestParameters> & MockInterceptFetchParameters) {
+  constructor(options: Partial<MockInterceptRequestParameters> & Pick<MockInterceptRequestParameters, 'adapter'>) {
     this.options = {
       disabled: false,
       filter: () => true,

@@ -7,7 +7,6 @@ import {
 } from '@angular-devkit/schematics';
 import {
   getAppModuleFilePath,
-  getExternalDependenciesInfo,
   getWorkspaceConfig,
   type SetupDependenciesOptions,
 } from '@o3r/schematics';
@@ -21,12 +20,11 @@ import {
 import {
   InsertChange,
 } from '@schematics/angular/utility/change';
-import type {
-  PackageJson,
-} from 'type-fest';
 import * as ts from 'typescript';
+import {
+  updatePackageJson,
+} from '../update-package-json';
 
-const o3rPackageJsonPath = path.resolve(__dirname, '..', '..', '..', 'package.json');
 const ngrxStoreDevtoolsDep = '@ngrx/store-devtools';
 
 /**
@@ -37,31 +35,6 @@ const ngrxStoreDevtoolsDep = '@ngrx/store-devtools';
  * @param dependenciesSetupConfig
  */
 export function updateAdditionalModules(options: { projectName?: string | undefined; workingDirectory?: string | undefined }, dependenciesSetupConfig: SetupDependenciesOptions): Rule {
-  /**
-   * Update package.json to add additional modules dependencies
-   * @param tree
-   * @param context
-   */
-  const updatePackageJson: Rule = (tree, context) => {
-    const workspaceConfig = getWorkspaceConfig(tree);
-    const workspaceProject = (options.projectName && workspaceConfig?.projects?.[options.projectName]) || undefined;
-    const projectDirectory = workspaceProject?.root || '.';
-    const projectPackageJson = tree.readJson(path.posix.join(projectDirectory, 'package.json')) as PackageJson;
-
-    dependenciesSetupConfig.dependencies = {
-      ...dependenciesSetupConfig.dependencies,
-      ...getExternalDependenciesInfo({
-        dependenciesToInstall: [ngrxStoreDevtoolsDep],
-        devDependenciesToInstall: ['chokidar'],
-        o3rPackageJsonPath,
-        projectType: workspaceProject?.projectType,
-        projectPackageJson
-      }, context.logger)
-    };
-
-    return tree;
-  };
-
   /**
    * Import additional modules in AppModule
    * @param tree
@@ -236,7 +209,7 @@ export function updateAdditionalModules(options: { projectName?: string | undefi
   };
 
   return chain([
-    updatePackageJson,
+    updatePackageJson(dependenciesSetupConfig, [ngrxStoreDevtoolsDep], ['chokidar'], options.projectName),
     registerModules,
     registerDevAdditionalModules,
     registerProdAdditionalModules
