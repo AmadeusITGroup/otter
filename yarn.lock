@@ -9929,7 +9929,7 @@ __metadata:
     marked: "npm:^15.0.0"
     minimist: "npm:^1.2.6"
     monaco-editor: "npm:~0.52.0"
-    ng-packagr: "npm:~20.2.0"
+    ng-packagr: "npm:~20.3.0"
     ngx-markdown: "npm:^20.0.0"
     ngx-monaco-editor-v2: "npm:^20.0.0"
     ngx-monaco-tree: "npm:~19.1.0"
@@ -10248,7 +10248,7 @@ __metadata:
     jsonc-eslint-parser: "npm:~2.4.0"
     logrocket: "npm:~10.1.0"
     logrocket-ngrx: "npm:^0.2.1"
-    ng-packagr: "npm:~20.2.0"
+    ng-packagr: "npm:~20.3.0"
     nx: "npm:~21.5.0"
     rxjs: "npm:^7.8.1"
     smartlook-client: "npm:^10.0.0"
@@ -29359,9 +29359,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"ng-packagr@npm:~20.2.0":
-  version: 20.2.0
-  resolution: "ng-packagr@npm:20.2.0"
+"ng-packagr@npm:~20.3.0":
+  version: 20.3.0
+  resolution: "ng-packagr@npm:20.3.0"
   dependencies:
     "@ampproject/remapping": "npm:^2.3.0"
     "@rollup/plugin-json": "npm:^6.1.0"
@@ -29386,7 +29386,7 @@ __metadata:
     sass: "npm:^1.81.0"
     tinyglobby: "npm:^0.2.12"
   peerDependencies:
-    "@angular/compiler-cli": ^20.0.0 || ^20.2.0-rc
+    "@angular/compiler-cli": ^20.0.0
     tailwindcss: ^2.0.0 || ^3.0.0 || ^4.0.0
     tslib: ^2.3.0
     typescript: ">=5.8 <6.0"
@@ -29398,7 +29398,7 @@ __metadata:
       optional: true
   bin:
     ng-packagr: src/cli/main.js
-  checksum: 10/c295fd050287201213ead7a4d50943e53437762e6ad06466d7a5fc9fcc609d1f71cdf7aaa76c498e8e4b4cbb21b931ac02d330d2acb7bd9b749c2ed793046995
+  checksum: 10/613c96b44b38c90c65bccfce62395b89223d5632eeb43245e5ef35862abddb8b8c5e736d45a50960adbb81afbe53fd3044981342f70edef9b6b817ce270c9927
   languageName: node
   linkType: hard
 

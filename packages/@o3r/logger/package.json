@@ -120,7 +120,7 @@
     "jsonc-eslint-parser": "~2.4.0",
     "logrocket": "~10.1.0",
     "logrocket-ngrx": "^0.2.1",
-    "ng-packagr": "~20.2.0",
+    "ng-packagr": "~20.3.0",
     "nx": "~21.5.0",
     "rxjs": "^7.8.1",
     "smartlook-client": "^10.0.0",
