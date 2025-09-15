@@ -70,7 +70,7 @@
     "@compodoc/compodoc": "^1.1.19",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@figma/rest-api-spec": "~0.33.0",
-    "@nx/eslint-plugin": "~21.4.0",
+    "@nx/eslint-plugin": "~21.5.0",
     "@o3r/build-helpers": "workspace:^",
     "@o3r/eslint-config": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
