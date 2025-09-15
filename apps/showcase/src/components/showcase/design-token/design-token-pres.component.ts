@@ -1,7 +1,4 @@
 import {
-  AsyncPipe,
-} from '@angular/common';
-import {
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
@@ -25,16 +22,11 @@ import {
   StyleLazyLoader,
   StyleLazyLoaderModule,
 } from '@o3r/dynamic-content';
-import {
-  DatePickerInputPresComponent,
-} from '../../utilities';
 
 @O3rComponent({ componentType: 'Component' })
 @Component({
   selector: 'o3r-design-token-pres',
   imports: [
-    AsyncPipe,
-    DatePickerInputPresComponent,
     FormsModule,
     ReactiveFormsModule,
     StyleLazyLoaderModule

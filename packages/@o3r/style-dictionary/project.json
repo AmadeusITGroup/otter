@@ -16,7 +16,8 @@
       "dependsOn": [
         "^build",
         "compile",
-        "expose-schemas"
+        "expose-schemas",
+        "build-builders"
       ]
     },
     "expose-schemas": {},

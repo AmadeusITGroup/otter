@@ -1,8 +1,7 @@
 /* eslint-disable no-console -- purpose of the service is to log in the console */
 import {
-  Inject,
+  inject,
   Injectable,
-  Optional,
 } from '@angular/core';
 import type {
   DevtoolsServiceInterface,
@@ -26,12 +25,12 @@ export class ApplicationDevtoolsConsoleService implements DevtoolsServiceInterfa
   /** Name of the Window property to access to the devtools */
   public static readonly windowModuleName = 'application';
 
+  private readonly applicationDevtools = inject(OtterApplicationDevtools);
   private readonly options: ApplicationDevtoolsServiceOptions;
 
-  constructor(
-    private readonly applicationDevtools: OtterApplicationDevtools,
-    @Optional() @Inject(OTTER_APPLICATION_DEVTOOLS_OPTIONS) options?: ApplicationDevtoolsServiceOptions
-  ) {
+  constructor() {
+    const options = inject<ApplicationDevtoolsServiceOptions>(OTTER_APPLICATION_DEVTOOLS_OPTIONS, { optional: true });
+
     this.options = { ...OTTER_APPLICATION_DEVTOOLS_DEFAULT_OPTIONS, ...options };
 
     if (this.options.isActivatedOnBootstrap) {

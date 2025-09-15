@@ -120,9 +120,9 @@ export class FormsPersonalInfoPresComponent implements OnInit, OnDestroy, Contro
     name: FormControl<string | null>;
     dateOfBirth: FormControl<string | null>;
   }> = inject(FormBuilder).group({
-      name: new FormControl<string>(''),
-      dateOfBirth: new FormControl<string>(this.formatDate(Date.now()))
-    });
+    name: new FormControl<string>(''),
+    dateOfBirth: new FormControl<string>(this.formatDate(Date.now()))
+  });
 
   public componentSelector = 'o3r-forms-personal-info-pres';
 

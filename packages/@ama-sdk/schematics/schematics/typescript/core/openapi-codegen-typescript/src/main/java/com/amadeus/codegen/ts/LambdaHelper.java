@@ -175,6 +175,20 @@ public class LambdaHelper {
     }
   }
 
+  public static class UpperSnakeCaseLambda extends CustomLambda {
+
+    public UpperSnakeCaseLambda() {}
+
+    @Override
+    public String formatFragment(String fragment) {
+      if (fragment.length() > 0) {
+        String lowerFirst = Character.toLowerCase(fragment.charAt(0)) + fragment.substring(1);
+        return lowerFirst.replaceAll("([A-Z])", "_$1").toUpperCase();
+      }
+      return "";
+    }
+  }
+
   public static class TrimRightLambda extends CustomLambda {
       private final String characters;
 

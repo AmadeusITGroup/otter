@@ -5,6 +5,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  inject,
   ViewEncapsulation,
 } from '@angular/core';
 import {
@@ -53,6 +54,9 @@ import {
   ]
 })
 export class ComponentPanelPresComponent {
+  private readonly connectionService = inject(ChromeExtensionConnectionService);
+  private readonly cd = inject(ChangeDetectorRef);
+
   /** Stream of configuration value */
   public config$: Observable<ConfigurationModel | undefined>;
 
@@ -74,11 +78,10 @@ export class ComponentPanelPresComponent {
   /** Determines if the component selection is available */
   public isComponentSelectionAvailable$: Observable<boolean>;
 
-  constructor(
-    private readonly connectionService: ChromeExtensionConnectionService,
-    rulesetHistoryService: RulesetHistoryService,
-    private readonly cd: ChangeDetectorRef
-  ) {
+  constructor() {
+    const connectionService = this.connectionService;
+    const rulesetHistoryService = inject(RulesetHistoryService);
+
     this.isComponentSelectionAvailable$ = connectionService.message$.pipe(
       filter((message): message is IsComponentSelectionAvailableMessage => message.dataType === 'isComponentSelectionAvailable'),
       map((data) => data.available),

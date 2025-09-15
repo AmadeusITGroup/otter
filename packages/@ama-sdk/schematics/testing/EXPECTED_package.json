@@ -1,9 +1,0 @@
-{
-  "name": "fake-package",
-  "scripts": {
-    "swagger:upgrade": "schematics @ama-sdk/schematics:typescript-core && yarn clear-index",
-    "swagger:regen": "schematics @ama-sdk/schematics:typescript-core --spec-path ./swagger-spec.yaml --force && yarn clear-index",
-    "swagger:generate": "schematics @ama-sdk/schematics:typescript-core --spec-path $(yarn resolve @api-spec/core-public/dist/API_Public.yaml) --force && yarn clear-index",
-    "mock": "yarn ng g @ama-sdk/schematics:typescript-mock"
-  }
-}
