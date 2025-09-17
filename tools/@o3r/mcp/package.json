@@ -22,7 +22,7 @@
     "compile": "tsc -b ./tsconfig.build.json && yarn copy:resources && yarn cpy package.json dist && patch-package-json-main"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "~1.17.0",
+    "@modelcontextprotocol/sdk": "~1.18.0",
     "tslib": "^2.6.2",
     "zod": "~3.25.76"
   },

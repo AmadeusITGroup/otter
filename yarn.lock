@@ -6512,9 +6512,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@modelcontextprotocol/sdk@npm:~1.17.0":
-  version: 1.17.5
-  resolution: "@modelcontextprotocol/sdk@npm:1.17.5"
+"@modelcontextprotocol/sdk@npm:~1.18.0":
+  version: 1.18.0
+  resolution: "@modelcontextprotocol/sdk@npm:1.18.0"
   dependencies:
     ajv: "npm:^6.12.6"
     content-type: "npm:^1.0.5"
@@ -6528,7 +6528,7 @@ __metadata:
     raw-body: "npm:^3.0.0"
     zod: "npm:^3.23.8"
     zod-to-json-schema: "npm:^3.24.1"
-  checksum: 10/feb6dfc747fb6fcbaf72c5adf8a54dcfd118ad7173f095c4ef6b8c10f412c58939fce6dc3873ff7d783cb28d39f4f87ffd07380c131b17cd87c70a5aa669de50
+  checksum: 10/bb2dbde2364b57d26aa8f798a60b2d4ec9e3307de8d1c737de87df504358cb1829dc3883625995cc207a5921b51da732a534567af4c5b57effa331d9248f596b
   languageName: node
   linkType: hard
 
@@ -9105,7 +9105,7 @@ __metadata:
     jest-util: "npm:~29.7.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     jsonpath-plus: "npm:~10.3.0"
-    memfs: "npm:~4.38.0"
+    memfs: "npm:~4.39.0"
     nx: "npm:~21.5.0"
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
@@ -9367,7 +9367,7 @@ __metadata:
     jest-preset-angular: "npm:~14.6.0"
     jest-util: "npm:~29.7.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    memfs: "npm:~4.38.0"
+    memfs: "npm:~4.39.0"
     nx: "npm:~21.5.0"
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
@@ -10206,7 +10206,7 @@ __metadata:
     lint-staged: "npm:^16.0.0"
     marked: "npm:^15.0.0"
     minimist: "npm:^1.2.6"
-    monaco-editor: "npm:~0.52.0"
+    monaco-editor: "npm:~0.53.0"
     ng-packagr: "npm:~20.3.0"
     ngx-markdown: "npm:^20.0.0"
     ngx-monaco-editor-v2: "npm:^20.0.0"
@@ -10389,7 +10389,7 @@ __metadata:
     jest-preset-angular: "npm:~14.6.0"
     jest-util: "npm:~29.7.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    memfs: "npm:~4.38.0"
+    memfs: "npm:~4.39.0"
     nx: "npm:~21.5.0"
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
@@ -10585,7 +10585,7 @@ __metadata:
     "@angular/platform-browser": "npm:~20.2.0"
     "@angular/platform-browser-dynamic": "npm:~20.2.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@modelcontextprotocol/sdk": "npm:~1.17.0"
+    "@modelcontextprotocol/sdk": "npm:~1.18.0"
     "@nx/eslint": "npm:~21.5.0"
     "@nx/eslint-plugin": "npm:~21.5.0"
     "@nx/jest": "npm:~21.5.0"
@@ -11089,7 +11089,7 @@ __metadata:
     jest-util: "npm:~29.7.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     jsonpath-plus: "npm:~10.3.0"
-    memfs: "npm:~4.38.0"
+    memfs: "npm:~4.39.0"
     nx: "npm:~21.5.0"
     pid-from-port: "npm:^1.1.3"
     rimraf: "npm:^6.0.1"
@@ -11365,7 +11365,7 @@ __metadata:
     lighthouse: "npm:~12.8.0"
     marked: "npm:^15.0.0"
     minimist: "npm:^1.2.6"
-    monaco-editor: "npm:~0.52.0"
+    monaco-editor: "npm:~0.53.0"
     ngx-markdown: "npm:^20.0.0"
     ngx-monaco-editor-v2: "npm:^20.0.0"
     ngx-monaco-tree: "npm:~19.1.0"
@@ -11696,7 +11696,7 @@ __metadata:
     jest-preset-angular: "npm:~14.6.0"
     jest-util: "npm:~29.7.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    memfs: "npm:~4.38.0"
+    memfs: "npm:~4.39.0"
     nx: "npm:~21.5.0"
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
@@ -11892,7 +11892,7 @@ __metadata:
     jest-junit: "npm:~16.0.0"
     jest-util: "npm:~29.7.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    memfs: "npm:~4.38.0"
+    memfs: "npm:~4.39.0"
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
@@ -15843,6 +15843,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/trusted-types@npm:^1.0.6":
+  version: 1.0.6
+  resolution: "@types/trusted-types@npm:1.0.6"
+  checksum: 10/22b8efcb6116ab80d07542047135618ee282f2060c481e472126604d838c09e7dad33c9462d88c130aef2c3133aece516f00d6af7ff814f0612f7d19db720e6d
+  languageName: node
+  linkType: hard
+
 "@types/trusted-types@npm:^2.0.7":
   version: 2.0.7
   resolution: "@types/trusted-types@npm:2.0.7"
@@ -15867,10 +15874,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/vscode@npm:~1.103.0":
-  version: 1.103.0
-  resolution: "@types/vscode@npm:1.103.0"
-  checksum: 10/1df901931f75ec79e40145c4dd6119212591e7b666553ac1cd5b364403153b1806add39bc220af5eece02868c73c1008db5f3c8175623699d2decaeb1882d90d
+"@types/vscode@npm:~1.104.0":
+  version: 1.104.0
+  resolution: "@types/vscode@npm:1.104.0"
+  checksum: 10/d421aec4246bc24a40e8b6f111badae458369e2cd409bc6e1a1c7e4014029432751b84d59624f0622fd26a42f097c4b53cf51923e476e1f23fdea7e00c7191ef
   languageName: node
   linkType: hard
 
@@ -29044,7 +29051,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"memfs@npm:^4.17.0, memfs@npm:^4.28.0, memfs@npm:^4.6.0":
+"memfs@npm:^4.17.0, memfs@npm:^4.28.0, memfs@npm:^4.6.0, memfs@npm:~4.39.0":
   version: 4.39.0
   resolution: "memfs@npm:4.39.0"
   dependencies:
@@ -29055,20 +29062,6 @@ __metadata:
     tree-dump: "npm:^1.0.3"
     tslib: "npm:^2.0.0"
   checksum: 10/87cfb215c9165aadfbf7dc213050bfde25dad200ef9bf44e214b9ee276514c7e5c76b0b62b7a4040523f6e3afcdc0c5342682a50110f46fea1e960b966551b67
-  languageName: node
-  linkType: hard
-
-"memfs@npm:~4.38.0":
-  version: 4.38.3
-  resolution: "memfs@npm:4.38.3"
-  dependencies:
-    "@jsonjoy.com/json-pack": "npm:^1.11.0"
-    "@jsonjoy.com/util": "npm:^1.9.0"
-    glob-to-regex.js: "npm:^1.0.1"
-    thingies: "npm:^2.5.0"
-    tree-dump: "npm:^1.0.3"
-    tslib: "npm:^2.0.0"
-  checksum: 10/33aa7112ff4fdb388d73b777c8481890d6895098ad62597d75fbb71c904c96f03eb61a6e637242949411e2ef9b6a25208f96ecb0c84b5cd0223bb7344147c6b4
   languageName: node
   linkType: hard
 
@@ -29543,10 +29536,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"monaco-editor@npm:~0.52.0":
-  version: 0.52.2
-  resolution: "monaco-editor@npm:0.52.2"
-  checksum: 10/0d4962d69ffa0a8df040faa9c582cef1893fa3fb617feca8f1425c5e670e74c2856104b9a2b01cbda0103a5e5f92f58843206bc9a0e070471c0c1270d7f52a96
+"monaco-editor@npm:~0.53.0":
+  version: 0.53.0
+  resolution: "monaco-editor@npm:0.53.0"
+  dependencies:
+    "@types/trusted-types": "npm:^1.0.6"
+  checksum: 10/ecfaeae965ce7a4b7f7c6d6fd889984d035beb169cd3e33f55dbd04b2b33a454c9ab7551e0822c2c37e1e89bb2950999c704235c0fb70bb21602695e182f90b2
   languageName: node
   linkType: hard
 
@@ -30747,7 +30742,7 @@ __metadata:
     "@types/eslint": "npm:~9.6.0"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^22.0.0"
-    "@types/vscode": "npm:~1.103.0"
+    "@types/vscode": "npm:~1.104.0"
     "@typescript-eslint/parser": "npm:~8.43.0"
     "@typescript-eslint/utils": "npm:~8.43.0"
     "@vscode/vsce": "npm:^3.2.1"

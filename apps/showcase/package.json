@@ -87,7 +87,7 @@
     "intl-messageformat": "~10.7.0",
     "jest-preset-angular": "~14.6.0",
     "marked": "^15.0.0",
-    "monaco-editor": "~0.52.0",
+    "monaco-editor": "~0.53.0",
     "ngx-markdown": "^20.0.0",
     "ngx-monaco-editor-v2": "^20.0.0",
     "ngx-monaco-tree": "~19.1.0",
