@@ -1,25 +1,29 @@
 <div class="card my-3">
   <div class="row g-0">
     <div class="col-4 bg-body-tertiary d-flex align-items-center justify-content-center">
-      <img alt="An otter image which will be modified depending on the user search inputs" [src]="'otter.svg' | o3rDynamicContent" class="img-fluid rounded-start" aria-hidden="true">
+      <img alt="An otter image which will be modified depending on the user search inputs"
+           [src]="'otter.svg' | o3rDynamicContent" class="img-fluid rounded-start" aria-hidden="true">
     </div>
     <div class="col-8 container p-3">
       <div class="card-bod d-flex flex-column h-100">
         <div class="row card-title flex-fill d-flex align-items-center m-auto">
-          <h2 class="bg-body-tertiary text-secondary border border-light-subtle border-3 bubble py-3 px-5 position-relative w-auto m-auto">
+          <h2
+            class="bg-body-tertiary text-secondary border border-light-subtle border-3 bubble py-3 px-5 position-relative w-auto m-auto">
             @if (form.value.destination) {
-              {{ translations.welcomeWithCityName | o3rTranslate: { cityName: (translations.cityName + '.' + form.value.destination) | o3rTranslate }  }}
+              {{ translations.welcomeWithCityName | o3rTranslate: {cityName: (translations.cityName + '.' + form.value.destination) | o3rTranslate} }}
             } @else {
               {{ translations.welcome | o3rTranslate }}
             }
-            <div aria-hidden="true" class="bg-body-tertiary position-absolute start-0 top-50 border border-light-subtle border-3 border-end-0 border-bottom-0"></div>
+            <div aria-hidden="true"
+                 class="bg-body-tertiary position-absolute start-0 top-50 border border-light-subtle border-3 border-end-0 border-bottom-0"></div>
           </h2>
         </div>
         <h3 class="row card-text mt-auto ms-1 h5">{{ translations.question | o3rTranslate }}</h3>
         <form class="row g-2" [formGroup]="form">
           <div class="col-12 col-xl-6" [class.col-xl-12]="configSignal().shouldProposeRoundTrip">
             <div class="input-group">
-              <label class="input-group-text w-50" for="destination">{{ translations.destinationLabel | o3rTranslate }}</label>
+              <label class="input-group-text w-50"
+                     for="destination">{{ translations.destinationLabel | o3rTranslate }}</label>
               <select class="form-select" id="destination" formControlName="destination">
                 <option disabled selected value>{{ translations.destinationPlaceholder | o3rTranslate }}</option>
                 @for (destination of configSignal().destinations; track destination.cityCode) {
@@ -31,17 +35,14 @@
             </div>
           </div>
           <div class="col-12 col-xl-6">
-            <div class="input-group">
-              <label for="date-outbound" class="input-group-text w-50">{{ translations.departureLabel | o3rTranslate }}</label>
-              <o3r-date-picker-input-pres [id]="'date-outbound'" class="w-50" formControlName="outboundDate"></o3r-date-picker-input-pres>
-            </div>
+            <o3r-date-picker-input-pres [id]="'date-outbound'"
+                                        [label]="translations.departureLabel | o3rTranslate"
+                                        formControlName="outboundDate"></o3r-date-picker-input-pres>
           </div>
           @if (configSignal().shouldProposeRoundTrip) {
             <div class="col-12 col-xl-6">
-              <div class="input-group">
-                <label for="date-inbound" class="input-group-text w-50">{{ translations.returnLabel | o3rTranslate }}</label>
-                <o3r-date-picker-input-pres [id]="'date-inbound'" class="w-50" formControlName="inboundDate"></o3r-date-picker-input-pres>
-              </div>
+              <o3r-date-picker-input-pres [id]="'date-inbound'" [label]="translations.returnLabel | o3rTranslate"
+                                          formControlName="inboundDate"></o3r-date-picker-input-pres>
             </div>
           }
         </form>
