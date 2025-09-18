@@ -17,7 +17,7 @@ intellij {
   version.set("2024.1")
   type.set("IC") // Target IDE Platform (Community Edition)
 
-  plugins.set(listOf("org.jetbrains.kotlin"))
+  plugins.set(listOf("org.jetbrains.kotlin", "JavaScript", "org.jetbrains.plugins.sass", "terminal"))
 }
 
 tasks {

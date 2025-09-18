@@ -14,10 +14,52 @@
        Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
        Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
   <description><![CDATA[
-<p>This package contains the IntelliJ plugin for Otter framework.</p>
-<p>You can execute actions via the right click -> refactor or via any other refactor menu of the IDE.</p>
-<p>You can extract the CSS variables by using the refactor command 'Extract SCSS property to o3r.variable' while being on the CSS property.</p>
+<p>This package contains the IntelliJ plugin for Otter framework with comprehensive development tools.</p>
 
+<h3>Available Commands</h3>
+
+<h4>Extract</h4>
+<ul>
+<li><strong>Extract SCSS property to o3r.variable</strong> - Extract a single SCSS property into an o3r.variable</li>
+<li><strong>Extract all SCSS properties to o3r.variables</strong> - Extract all SCSS properties in the file using o3r variables</li>
+</ul>
+
+<h4>Generate</h4>
+<ul>
+<li><strong>Generate Component</strong> - Generate an Otter Angular component</li>
+<li><strong>Generate Service</strong> - Generate an Otter service</li>
+<li><strong>Generate Store</strong> - Generate a Store based on NgRX</li>
+<li><strong>Generate Module</strong> - Generate an Otter Module</li>
+</ul>
+
+<h4>Add to Component</h4>
+<ul>
+<li><strong>Add Analytics to Component</strong> - Generate analytics architecture for the selected component</li>
+<li><strong>Add Configuration to Component</strong> - Generate configuration architecture for the selected component</li>
+<li><strong>Add Context to Component</strong> - Generate context architecture for the selected component</li>
+<li><strong>Add Fixture to Component</strong> - Generate fixture architecture for the selected component</li>
+<li><strong>Add Iframe to Component</strong> - Generate an iframe for the selected component</li>
+<li><strong>Add Localization to Component</strong> - Generate localization architecture for the selected component</li>
+<li><strong>Add Rules Engine to Component</strong> - Generate rules engine architecture for the selected component</li>
+<li><strong>Add Theming to Component</strong> - Generate theming architecture for the selected component</li>
+<li><strong>Convert Angular Component</strong> - Convert the selected Angular component into an Otter component</li>
+</ul>
+
+<h3>IntelliSense Features</h3>
+<ul>
+<li><strong>SCSS Styling Completion</strong> - Auto-completion for o3r.variable in SCSS files</li>
+<li><strong>Configuration Tags Completion</strong> - Auto-completion for @o3rWidget and @o3rWidgetParam in JSDoc comments</li>
+</ul>
+
+<h3>Usage</h3>
+<p>You can execute actions via:</p>
+<ul>
+<li>Right click → Otter (in editor or project view)</li>
+<li>Any refactor menu of the IDE</li>
+<li>Main menu → Tools → Otter</li>
+</ul>
+
+<h3>Settings</h3>
 <p>To access the settings of the plugin:</p>
 <ul>
 <li>Open the settings of your IDEA</li>
@@ -31,6 +73,9 @@
   <!-- Product and plugin compatibility requirements.
        Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
   <depends>com.intellij.modules.platform</depends>
+  <depends>JavaScript</depends>
+  <depends>org.jetbrains.plugins.scss</depends>
+  <depends>com.intellij.modules.terminal</depends>
 
   <!-- Extension points defined by the plugin.
        Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
@@ -41,13 +86,131 @@
       id="com.amadeus.otterextension.Extractor"
       instance="com.amadeus.otterextension.ExtractorSettingsPage">
     </applicationConfigurable>
+    
+    <!-- Completion contributors for intellisense -->
+    <completion.contributor 
+      language="SCSS" 
+      implementationClass="com.amadeus.otterextension.intellisense.StylingCompletionContributor"/>
+    <completion.contributor 
+      language="TypeScript" 
+      implementationClass="com.amadeus.otterextension.intellisense.ConfigurationCompletionContributor"/>
+    <completion.contributor 
+      language="JavaScript" 
+      implementationClass="com.amadeus.otterextension.intellisense.ConfigurationCompletionContributor"/>
   </extensions>
   <actions>
-    <group id="com.amadeus.otterextension" text="Otter" popup="true"  icon="com.amadeus.otterextension.OtterIcons.OtterLogo">
+    <group id="com.amadeus.otterextension" text="Otter" popup="true" icon="com.amadeus.otterextension.OtterIcons.OtterLogo">
       <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+      
+      <!-- Extract Actions -->
       <action id="com.amadeus.otterextension.ExtractToVariableAction"
-              class="com.amadeus.otterextension.ExtractToVariableAction" text="Extract SCSS property to o3r.variable" description="Extract the selected SCSS property using o3r variables">
+              class="com.amadeus.otterextension.ExtractToVariableAction" 
+              text="Extract SCSS property to o3r.variable" 
+              description="Extract the selected SCSS property using o3r variables">
       </action>
+      
+      <action id="com.amadeus.otterextension.actions.extract.ExtractAllToVariableAction"
+              class="com.amadeus.otterextension.actions.extract.ExtractAllToVariableAction"
+              text="Extract all SCSS properties to o3r.variables"
+              description="Extract all SCSS properties in the file using o3r variables">
+      </action>
+      
+      <separator/>
+      
+      <!-- Generate Actions -->
+      <group id="com.amadeus.otterextension.generate" text="Generate" popup="true">
+        <action id="com.amadeus.otterextension.actions.generate.GenerateComponentAction"
+                class="com.amadeus.otterextension.actions.generate.GenerateComponentAction"
+                text="Generate Component"
+                description="Generate an Otter Angular component">
+        </action>
+        
+        <action id="com.amadeus.otterextension.actions.generate.GenerateServiceAction"
+                class="com.amadeus.otterextension.actions.generate.GenerateServiceAction"
+                text="Generate Service"
+                description="Generate an Otter service">
+        </action>
+        
+        <action id="com.amadeus.otterextension.actions.generate.GenerateStoreAction"
+                class="com.amadeus.otterextension.actions.generate.GenerateStoreAction"
+                text="Generate Store"
+                description="Generate a Store based on NgRX">
+        </action>
+        
+        <action id="com.amadeus.otterextension.actions.generate.GenerateModuleAction"
+                class="com.amadeus.otterextension.actions.generate.GenerateModuleAction"
+                text="Generate Module"
+                description="Generate an Otter Module">
+        </action>
+      </group>
+      
+      <separator/>
+      
+      <!-- Component Enhancement Actions -->
+      <group id="com.amadeus.otterextension.enrich" text="Add to Component" popup="true">
+        <action id="com.amadeus.otterextension.actions.enrich.AddAnalyticsToComponentAction"
+                class="com.amadeus.otterextension.actions.enrich.AddAnalyticsToComponentAction"
+                text="Add Analytics to Component"
+                description="Generate analytics architecture for the selected component">
+        </action>
+        
+        <action id="com.amadeus.otterextension.actions.enrich.AddConfigurationToComponentAction"
+                class="com.amadeus.otterextension.actions.enrich.AddConfigurationToComponentAction"
+                text="Add Configuration to Component"
+                description="Generate configuration architecture for the selected component">
+        </action>
+        
+        <action id="com.amadeus.otterextension.actions.enrich.AddContextToComponentAction"
+                class="com.amadeus.otterextension.actions.enrich.AddContextToComponentAction"
+                text="Add Context to Component"
+                description="Generate context architecture for the selected component">
+        </action>
+        
+        <action id="com.amadeus.otterextension.actions.enrich.AddFixtureToComponentAction"
+                class="com.amadeus.otterextension.actions.enrich.AddFixtureToComponentAction"
+                text="Add Fixture to Component"
+                description="Generate fixture architecture for the selected component">
+        </action>
+        
+        <action id="com.amadeus.otterextension.actions.enrich.AddIframeToComponentAction"
+                class="com.amadeus.otterextension.actions.enrich.AddIframeToComponentAction"
+                text="Add Iframe to Component"
+                description="Generate an iframe for the selected component">
+        </action>
+        
+        <action id="com.amadeus.otterextension.actions.enrich.AddLocalizationToComponentAction"
+                class="com.amadeus.otterextension.actions.enrich.AddLocalizationToComponentAction"
+                text="Add Localization to Component"
+                description="Generate localization architecture for the selected component">
+        </action>
+        
+        <action id="com.amadeus.otterextension.actions.enrich.AddRulesEngineToComponentAction"
+                class="com.amadeus.otterextension.actions.enrich.AddRulesEngineToComponentAction"
+                text="Add Rules Engine to Component"
+                description="Generate rules engine architecture for the selected component">
+        </action>
+        
+        <action id="com.amadeus.otterextension.actions.enrich.AddThemingToComponentAction"
+                class="com.amadeus.otterextension.actions.enrich.AddThemingToComponentAction"
+                text="Add Theming to Component"
+                description="Generate theming architecture for the selected component">
+        </action>
+        
+        <action id="com.amadeus.otterextension.actions.enrich.ConvertComponentAction"
+                class="com.amadeus.otterextension.actions.enrich.ConvertComponentAction"
+                text="Convert Angular Component"
+                description="Convert the selected Angular component into an Otter component">
+        </action>
+      </group>
+    </group>
+    
+    <!-- Actions also available from Project View -->
+    <group id="com.amadeus.otterextension.projectview" text="Otter" popup="true" icon="com.amadeus.otterextension.OtterIcons.OtterLogo">
+      <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
+      <reference ref="com.amadeus.otterextension.actions.generate.GenerateComponentAction"/>
+      <reference ref="com.amadeus.otterextension.actions.generate.GenerateServiceAction"/>
+      <reference ref="com.amadeus.otterextension.actions.generate.GenerateStoreAction"/>
+      <reference ref="com.amadeus.otterextension.actions.generate.GenerateModuleAction"/>
     </group>
   </actions>
 </idea-plugin>
