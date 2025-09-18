@@ -149,6 +149,7 @@
     "@commitlint/config-conventional": "^19.0.0",
     "@commitlint/types": "^19.0.0",
     "@schematics/angular": "~20.2.0",
+    "@types/jasmine": "~5.1.0",
     "@types/jest": "~29.5.2",
     "@types/node": "~22.0.0",
     "cpy-cli": "^6.0.0",
