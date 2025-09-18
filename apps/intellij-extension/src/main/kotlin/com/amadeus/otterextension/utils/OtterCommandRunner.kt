@@ -37,11 +37,25 @@ object OtterCommandRunner {
       append(schematic)
       append(" ")
       append(optionsStr)
-      append(" \"")
-      append(name)
-      append("\"")
+      if (name.isNotEmpty()) {
+        append(" \"")
+        append(name)
+        append("\"")
+      }
     }
     
+    runCommandInTerminal(project, command, terminalTitle)
+  }
+  
+  /**
+   * Run an ng add command for adding modules
+   */
+  fun runAddModuleCommand(
+    project: Project,
+    moduleName: String,
+    terminalTitle: String = "Add Otter Module"
+  ) {
+    val command = "${getPackageRunner(project)} ng add $moduleName --defaults"
     runCommandInTerminal(project, command, terminalTitle)
   }
   

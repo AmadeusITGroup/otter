@@ -23,6 +23,13 @@ The following actions are currently available:
 | Generate Service      | Generate an Otter service                            | Right click → otter → Generate → Service   |
 | Generate Store        | Generate a Store based on NgRX                       | Right click → otter → Generate → Store     |
 | Generate Module       | Generate an Otter Module                             | Right click → otter → Generate → Module    |
+| Generate Fixture      | Generate functions to an Otter fixture based on a selector and default methods | Select text in template file → right click → otter → Generate → Fixture |
+
+### Module Management
+
+| Action                | Description                                           | How to execute                         |
+|-----------------------|-------------------------------------------------------|----------------------------------------|
+| Add Otter Modules     | Add Otter modules to your project                    | Right click → otter → Add Otter Modules |
 
 ### Add to Component
 
@@ -34,6 +41,7 @@ The following actions are currently available:
 | Add Fixture to Component         | Generate fixture architecture for the selected component         | Right click on component file → otter → Add to Component → Fixture  |
 | Add Iframe to Component          | Generate an iframe for the selected component                    | Right click on component file → otter → Add to Component → Iframe   |
 | Add Localization to Component    | Generate localization architecture for the selected component    | Right click on component file → otter → Add to Component → Localization |
+| Add Localization Key to Component | Add new localization key with the necessary template modification | Select text in template file → right click → otter → Add to Component → Add Localization Key |
 | Add Rules Engine to Component    | Generate rules engine architecture for the selected component    | Right click on component file → otter → Add to Component → Rules Engine |
 | Add Theming to Component         | Generate theming architecture for the selected component         | Right click on component file → otter → Add to Component → Theming  |
 | Convert Angular Component        | Convert the selected Angular component into an Otter component   | Right click on component file → otter → Add to Component → Convert  |

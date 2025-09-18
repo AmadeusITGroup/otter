@@ -30,6 +30,12 @@
 <li><strong>Generate Service</strong> - Generate an Otter service</li>
 <li><strong>Generate Store</strong> - Generate a Store based on NgRX</li>
 <li><strong>Generate Module</strong> - Generate an Otter Module</li>
+<li><strong>Generate Fixture</strong> - Generate functions to an Otter fixture based on a selector and default methods</li>
+</ul>
+
+<h4>Module Management</h4>
+<ul>
+<li><strong>Add Otter Modules</strong> - Add Otter modules to your project using ng add</li>
 </ul>
 
 <h4>Add to Component</h4>
@@ -40,6 +46,7 @@
 <li><strong>Add Fixture to Component</strong> - Generate fixture architecture for the selected component</li>
 <li><strong>Add Iframe to Component</strong> - Generate an iframe for the selected component</li>
 <li><strong>Add Localization to Component</strong> - Generate localization architecture for the selected component</li>
+<li><strong>Add Localization Key to Component</strong> - Add new localization key with the necessary template modification</li>
 <li><strong>Add Rules Engine to Component</strong> - Generate rules engine architecture for the selected component</li>
 <li><strong>Add Theming to Component</strong> - Generate theming architecture for the selected component</li>
 <li><strong>Convert Angular Component</strong> - Convert the selected Angular component into an Otter component</li>
@@ -142,7 +149,22 @@
                 text="Generate Module"
                 description="Generate an Otter Module">
         </action>
+        
+        <action id="com.amadeus.otterextension.actions.generate.GenerateFixtureAction"
+                class="com.amadeus.otterextension.actions.generate.GenerateFixtureAction"
+                text="Generate Fixture"
+                description="Generate functions to an Otter fixture based on a selector and default methods">
+        </action>
       </group>
+      
+      <separator/>
+      
+      <!-- Module Actions -->
+      <action id="com.amadeus.otterextension.actions.module.AddModuleAction"
+              class="com.amadeus.otterextension.actions.module.AddModuleAction"
+              text="Add Otter Modules"
+              description="Add Otter modules to your project">
+      </action>
       
       <separator/>
       
@@ -184,6 +206,12 @@
                 description="Generate localization architecture for the selected component">
         </action>
         
+        <action id="com.amadeus.otterextension.actions.enrich.AddLocalizationKeyToComponentAction"
+                class="com.amadeus.otterextension.actions.enrich.AddLocalizationKeyToComponentAction"
+                text="Add Localization Key to Component"
+                description="Add new localization key with the necessary template modification">
+        </action>
+        
         <action id="com.amadeus.otterextension.actions.enrich.AddRulesEngineToComponentAction"
                 class="com.amadeus.otterextension.actions.enrich.AddRulesEngineToComponentAction"
                 text="Add Rules Engine to Component"
@@ -211,6 +239,7 @@
       <reference ref="com.amadeus.otterextension.actions.generate.GenerateServiceAction"/>
       <reference ref="com.amadeus.otterextension.actions.generate.GenerateStoreAction"/>
       <reference ref="com.amadeus.otterextension.actions.generate.GenerateModuleAction"/>
+      <reference ref="com.amadeus.otterextension.actions.module.AddModuleAction"/>
     </group>
   </actions>
 </idea-plugin>
