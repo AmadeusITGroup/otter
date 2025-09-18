@@ -94,7 +94,7 @@
     "AssetMigrationItem": {
       "type": "object",
       "required": [
-        "name"
+        "path"
       ],
       "properties": {
         "path": {
