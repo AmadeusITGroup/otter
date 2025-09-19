@@ -63,7 +63,7 @@
     "rxjs": "^7.8.1",
     "ts-node": "~10.9.2",
     "type-fest": "^4.30.0",
-    "typescript": "^5.8.0",
+    "typescript": "^5.9.0",
     "typescript-json-schema": "^0.65.0"
   },
   "peerDependenciesMeta": {
@@ -148,7 +148,7 @@
     "@types/jasmine": "~5.1.0",
     "@types/jest": "~29.5.2",
     "@types/json-schema": "^7.0.15",
-    "@types/node": "^22.0.0",
+    "@types/node": "~22.0.0",
     "@types/semver": "^7.3.13",
     "@typescript-eslint/parser": "~8.43.0",
     "angular-eslint": "~20.2.0",
