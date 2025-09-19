@@ -33,9 +33,9 @@ import {RulesEngineRunnerService} from "@o3r/rules-engine";
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
+  templateUrl: './app.html',
 })
-export class AppComponent {
+export class App {
 
   constructor(rulesEngine: RulesEngineRunnerService) {
     rulesEngine.upsertOperators([isTruthy])

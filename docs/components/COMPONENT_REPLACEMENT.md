@@ -21,7 +21,7 @@ Now let's see how to set this mechanism up to create your replacable components.
 
 Firstly we need to prepare the base app to have the extensibility of providers. To do this you need to create a new variable in your app.config.ts that can extend the providers, lets call it customProviders.
 
-#### src/app/app.module.ts
+#### src/app/app-module.ts
 
 ```typescript
 import {initializeEntryComponents, getCustomComponents} from '../customization/presenters-map.empty';

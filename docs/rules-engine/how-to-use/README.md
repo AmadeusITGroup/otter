@@ -36,7 +36,7 @@ Look into the [Going Further](#going-further) section to look for more complex a
 
 ### Step 1: Integrate the service
 
-First, the `RulesEngineRunnerModule` should be imported in your application module (see [showcase application configuration](https://github.com/AmadeusITGroup/otter/blob/main/apps/showcase/src/app/app.module.ts#L102)).
+First, the `RulesEngineRunnerModule` should be imported in your application module (see [showcase application configuration](https://github.com/AmadeusITGroup/otter/blob/main/apps/showcase/src/app/app-module.ts#L102)).
 
 The runner is the core of the rules engine. This is where all the Rulesets will be processed to identify the resulting actions. 
 
@@ -107,15 +107,15 @@ tool:
 ```typescript
 import {inject, runInInjectionContext} from '@angular/core';
 import {OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS, RulesEngineRunnerModule, RulesEngineDevtoolsModule, RulesEngineDevtoolsConsoleService} from '@o3r/rules-engine';
-import {AppComponent} from './app.component';
+import {App} from './app';
 
-bootstrapApplication(AppComponent, {
+bootstrapApplication(App, {
   imports: [
     RulesEngineDevtoolsModule,
     RulesEngineRunnerModule.forRoot({debug: true}) // Activate rule engine debug mode
   ],
-  declarations: [AppComponent],
-  bootstrap: [AppComponent],
+  declarations: [App],
+  bootstrap: [App],
   providers: [
     {provide: OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS, useValue: {isActivatedOnBootstrap: true}}
   ]

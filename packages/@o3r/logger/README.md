@@ -28,7 +28,7 @@ ng add @o3r/logger
 The `LoggerModule` should be imported in the main Module of the application and an instance of a `LoggerClient` implementation bound through the `forRoot` method.
 
 ```typescript
-// in app.module.ts
+// in app-module.ts
 
 import {LogRocketClient} from '@o3r/logger/logrocket-logger-client';
 // import {SmartLookClient} from '@o3r/logger/smartlook-logger-client';
@@ -54,7 +54,7 @@ export class AppModule {}
 The store can also be bound to the third-party logging service by using the `LoggerService.createMetaReducer()` method.
 
 ```typescript
-// in app.module.ts
+// in app-module.ts
 
 import {Action, MetaReducer, USER_PROVIDED_META_REDUCERS} from '@ngrx/store';
 import {LoggerServuce} from '@o3r/logger';

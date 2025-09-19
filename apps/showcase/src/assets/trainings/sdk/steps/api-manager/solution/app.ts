@@ -7,16 +7,15 @@ import { type Pet, PetApi, StoreApi } from 'sdk';
   selector: 'app-root',
   standalone: true,
   imports: [JsonPipe],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  templateUrl: './app.html',
+  styleUrl: './app.scss'
 })
-export class AppComponent {
+export class App {
   /** Title of the application */
   public title = 'tutorial-app';
 
-  // TODO Inject the ApiFactoryService and get the corresponding APIs
-  private readonly petApi = inject(PetApi);
-  private readonly storeApi = inject(StoreApi);
+  private readonly petApi = inject(ApiFactoryService).getApi(PetApi);
+  private readonly storeApi = inject(ApiFactoryService).getApi(StoreApi);
 
   private readonly petsWritable = signal<Pet[]>([]);
   public readonly pets = this.petsWritable.asReadonly();

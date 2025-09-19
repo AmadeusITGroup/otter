@@ -21,7 +21,7 @@ import {inject, runInInjectionContext} from '@angular/core';
 import {bootstrapApplication} from '@angular/platform-browser';
 import {ConnectionService, RoutingService} from '@ama-mfe/ng-utils';
 
-bootstrapApplication(AppComponent, appConfig)
+bootstrapApplication(App, appConfig)
   .then((m) => {
     runInInjectionContext(m.injector, () => {
       if (window.self !== window.top) {

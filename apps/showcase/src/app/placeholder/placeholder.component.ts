@@ -78,7 +78,7 @@ export class PlaceholderComponent implements AfterViewInit {
   public links$ = this.inPageNavPresService.links$;
 
   constructor() {
-    // We recommend to do the next lines in the AppComponent
+    // We recommend to do the next lines in the App class
     // Here we do it for the sake of the example
     inject(TripFactsService).register();
     inject(RulesEngineRunnerService).registerActionHandlers(inject(PlaceholderRulesEngineActionHandler));

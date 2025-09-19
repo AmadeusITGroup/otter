@@ -142,7 +142,7 @@ export function withCmsAssetsPath(cmsAssetsPath: string | (() => string)): Dynam
  * @param features
  * @example
  * ```typescript
- * bootstrapApplication(AppComponent,
+ * bootstrapApplication(App,
  *  {
  *    providers: [
  *      provideDynamicContent(
