@@ -5,6 +5,11 @@
       "implementation": "./builders/rules-engine-extractor/",
       "schema": "./builders/rules-engine-extractor/schema.json",
       "description": "Extract the rules engine metadata information from an Otter project"
+    },
+    "check-rule-fact-migration-metadata": {
+      "implementation": "./builders/metadata-check/",
+      "schema": "./builders/metadata-check/schema.json",
+      "description": "Check for rule-fact metadata breaking changes"
     }
   }
 }

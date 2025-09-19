@@ -33,177 +33,57 @@ import {
   inc,
 } from 'semver';
 import {
-  configMetadataComparator,
-  type MigrationConfigData,
-} from './helpers/config-metadata-comparison.helper';
+  componentMetadataComparator,
+  type MigrationComponentData,
+} from './helpers/component-metadata-comparison.helper';
 import type {
-  ComponentConfigOutput,
-  ConfigProperty,
+  ComponentClassOutput,
 } from '@o3r/components';
 
 const baseVersion = '1.2.0';
 const version = '1.3.0';
 const migrationDataFileName = `migration-scripts/MIGRATION-${version}.json`;
-const metadataFileName = 'component.config.metadata.json';
+const metadataFileName = 'component.class.metadata.json';
 
-const defaultMigrationData: MigrationFile<MigrationConfigData> = {
+const defaultMigrationData: MigrationFile<MigrationComponentData> = {
   version,
   changes: [
-    { // Rename property name
-      contentType: 'CONFIG',
+    { // Update placeholder id
+      contentType: 'COMPONENT',
       before: {
         libraryName: '@o3r/lib1',
-        configName: 'MyConfig1',
-        propertyName: 'prop1'
+        componentName: 'MyComponent1',
+        placeholderId: 'oldPlaceholder1'
       },
       after: {
         libraryName: '@o3r/lib1',
-        configName: 'MyConfig1',
-        propertyName: 'newProp1Name'
-      }
-    },
-    { // Move property to a new config3
-      contentType: 'CONFIG',
-      before: {
-        libraryName: '@o3r/lib2',
-        configName: 'MyConfig2',
-        propertyName: 'prop2'
-      },
-      after: {
-        libraryName: '@o3r/lib2',
-        configName: 'NewConfig2',
-        propertyName: 'prop2'
-      }
-    },
-    { // Move property to a new config and rename property name
-      contentType: 'CONFIG',
-      before: {
-        libraryName: '@o3r/lib3',
-        configName: 'MyConfig3',
-        propertyName: 'prop3'
-      },
-      after: {
-        libraryName: '@o3r/lib3',
-        configName: 'NewConfig3',
-        propertyName: 'newProp3Name'
-      }
-    },
-    { // Move property to a new library
-      contentType: 'CONFIG',
-      before: {
-        libraryName: '@o3r/lib4',
-        configName: 'MyConfig4',
-        propertyName: 'prop4'
-      },
-      after: {
-        libraryName: '@new/lib4',
-        configName: 'MyConfig4',
-        propertyName: 'prop4'
-      }
-    },
-    { // Move property to a new library and rename property name
-      contentType: 'CONFIG',
-      before: {
-        libraryName: '@o3r/lib5',
-        configName: 'MyConfig5',
-        propertyName: 'prop5'
-      },
-      after: {
-        libraryName: '@new/lib5',
-        configName: 'MyConfig5',
-        propertyName: 'newProp5Name'
-      }
-    },
-    { // Move property to a new library and to a new config and rename property name
-      contentType: 'CONFIG',
-      before: {
-        libraryName: '@o3r/lib6',
-        configName: 'MyConfig6',
-        propertyName: 'prop6'
-      },
-      after: {
-        libraryName: '@new/lib6',
-        configName: 'NewConfig6',
-        propertyName: 'newProp6Name'
-      }
-    },
-    { // Rename configuration name for all properties
-      contentType: 'CONFIG',
-      before: {
-        libraryName: '@o3r/lib7',
-        configName: 'MyConfig7'
-      },
-      after: {
-        libraryName: '@o3r/lib7',
-        configName: 'NewConfig7'
-      }
-    },
-    { // Rename library name for all configurations
-      contentType: 'CONFIG',
-      before: {
-        libraryName: '@o3r/lib8'
-      },
-      after: {
-        libraryName: '@new/lib8'
-      }
-    },
-    { // Move configuration to a new library
-      contentType: 'CONFIG',
-      before: {
-        libraryName: '@o3r/lib9',
-        configName: 'MyConfig9'
-      },
-      after: {
-        libraryName: '@new/lib9',
-        configName: 'MyConfig9'
+        componentName: 'MyComponent1',
+        placeholderId: 'newPlaceholder1'
       }
     }
   ]
 };
 
-const createProp = (name: string): ConfigProperty => ({
-  name,
-  type: 'string',
-  description: '',
-  label: name
-});
-
-const createConfig = (library: string, name: string, propertiesName: string[]): ComponentConfigOutput => ({
+const createComponentMetadata = (library: string, name: string, placeholders: string[]): ComponentClassOutput => ({
   library,
   name,
-  properties: propertiesName.map((propName) => createProp(propName)),
-  type: 'EXPOSED_COMPONENT',
-  path: ''
+  placeholders: placeholders.map((id) => ({ id, description: `description for ${id}` })),
+  type: 'COMPONENT',
+  path: '',
+  linkableToRuleset: false,
+  selector: ''
 });
 
-const previousConfigurationMetadata: ComponentConfigOutput[] = [
-  createConfig('@o3r/lib0', 'MyConfig0', ['prop0']),
-  createConfig('@o3r/lib1', 'MyConfig1', ['prop1']),
-  createConfig('@o3r/lib2', 'MyConfig2', ['prop2']),
-  createConfig('@o3r/lib3', 'MyConfig3', ['prop3']),
-  createConfig('@o3r/lib4', 'MyConfig4', ['prop4']),
-  createConfig('@o3r/lib5', 'MyConfig5', ['prop5']),
-  createConfig('@o3r/lib6', 'MyConfig6', ['prop6']),
-  createConfig('@o3r/lib7', 'MyConfig7', ['prop7']),
-  createConfig('@o3r/lib8', 'MyConfig8', ['prop8']),
-  createConfig('@o3r/lib9', 'MyConfig9', ['prop9']),
-  // This case should not happen anymore as we filter config without properties
-  // Adding this case to ensure the support of older metadata
-  createConfig('@o3r/lib10', 'MyConfig10', [])
+const previousComponentMetadata: ComponentClassOutput[] = [
+  createComponentMetadata('@o3r/lib0', 'MyComponent0', ['placeholder0']),
+  createComponentMetadata('@o3r/lib1', 'MyComponent1', ['oldPlaceholder1']),
+  createComponentMetadata('@o3r/lib1', 'MyComponent2', [])
 ];
 
-const newConfigurationMetadata: ComponentConfigOutput[] = [
-  previousConfigurationMetadata[0],
-  createConfig('@o3r/lib1', 'MyConfig1', ['newProp1Name']),
-  createConfig('@o3r/lib2', 'NewConfig2', ['prop2']),
-  createConfig('@o3r/lib3', 'NewConfig3', ['newProp3Name']),
-  createConfig('@new/lib4', 'MyConfig4', ['prop4']),
-  createConfig('@new/lib5', 'MyConfig5', ['newProp5Name']),
-  createConfig('@new/lib6', 'NewConfig6', ['newProp6Name']),
-  createConfig('@o3r/lib7', 'NewConfig7', ['prop7']),
-  createConfig('@new/lib8', 'MyConfig8', ['prop8']),
-  createConfig('@new/lib9', 'MyConfig9', ['prop9']),
-  createConfig('@o3r/lib10', 'MyConfig10', ['prop10'])
+const newComponentMetadata: ComponentClassOutput[] = [
+  previousComponentMetadata[0],
+  createComponentMetadata('@o3r/lib1', 'MyComponent1', ['newPlaceholder1']),
+  createComponentMetadata('@o3r/lib1', 'MyComponent2', ['placeholder2'])
 ];
 
 async function writeFileAsJSON(path: string, content: object) {
@@ -214,8 +94,8 @@ async function writeFileAsJSON(path: string, content: object) {
 }
 
 const initTest = async (
-  newMetadata: ComponentConfigOutput[],
-  migrationData: MigrationFile<MigrationConfigData>,
+  newMetadata: ComponentClassOutput[],
+  migrationData: MigrationFile<MigrationComponentData>,
   packageNameSuffix: string,
   options?: {
     allowBreakingChanges?: boolean;
@@ -244,7 +124,7 @@ const initTest = async (
         '@yarnpkg/cli'
       ]
       : [])
-  ], join(__dirname, '..', '..', 'package.json'), {
+  ], join(__dirname, '..', '..', '..', 'package.json'), {
     warn: jest.fn()
   } as any);
   Object.entries(versions).forEach(([pkgName, pkgVersion]) => packageManagerAdd(`${pkgName}@${pkgVersion}`, execAppOptionsWorkspace));
@@ -257,7 +137,7 @@ const initTest = async (
   // Add builder options
   const angularJson = JSON.parse(readFileSync(angularJsonPath, { encoding: 'utf8' }).toString());
   const builderConfig = {
-    builder: '@o3r/components:check-config-migration-metadata',
+    builder: '@o3r/components:check-component-migration-metadata',
     options: {
       allowBreakingChanges,
       shouldCheckUnusedMigrationData,
@@ -279,7 +159,7 @@ const initTest = async (
   await promises.writeFile(npmIgnorePath, '');
 
   // Set old metadata and publish to registry
-  await writeFileAsJSON(metadataPath, previousConfigurationMetadata);
+  await writeFileAsJSON(metadataPath, previousComponentMetadata);
 
   let latestVersion;
   try {
@@ -312,7 +192,7 @@ const getMessagesForId = (id: string) => ({
 describe('check metadata migration', () => {
   test('should not throw', async () => {
     await initTest(
-      newConfigurationMetadata,
+      newComponentMetadata,
       defaultMigrationData,
       'allow-breaking-changes',
       { allowBreakingChanges: true, shouldCheckUnusedMigrationData: false }
@@ -325,7 +205,7 @@ describe('check metadata migration', () => {
 
   test('should not throw on prerelease', async () => {
     await initTest(
-      newConfigurationMetadata,
+      newComponentMetadata,
       defaultMigrationData,
       'allow-breaking-changes-prerelease',
       { allowBreakingChanges: true, shouldCheckUnusedMigrationData: false, prerelease: 'rc' }
@@ -338,7 +218,7 @@ describe('check metadata migration', () => {
 
   test('should throw because no migration data', async () => {
     await initTest(
-      newConfigurationMetadata,
+      newComponentMetadata,
       {
         ...defaultMigrationData,
         changes: []
@@ -355,15 +235,15 @@ describe('check metadata migration', () => {
     } catch (e: any) {
       /* eslint-disable jest/no-conditional-expect -- always called as there is a throw in the try block */
       expect(e.message).not.toBe('should have thrown before');
-      previousConfigurationMetadata.slice(1, -1).forEach((item) => {
-        const id = configMetadataComparator.getIdentifier(item);
+      previousComponentMetadata.slice(1, -1).forEach((item) => {
+        const id = componentMetadataComparator.getIdentifier(item);
         const { notDocumented, documentedButNotPresent, breakingChangesNotAllowed } = getMessagesForId(id);
         expect(e.message).toContain(notDocumented);
         expect(e.message).not.toContain(documentedButNotPresent);
         expect(e.message).not.toContain(breakingChangesNotAllowed);
       });
-      [previousConfigurationMetadata[0], previousConfigurationMetadata.at(-1)].forEach((item) => {
-        const id = configMetadataComparator.getIdentifier(item);
+      [previousComponentMetadata[0], previousComponentMetadata.at(-1)].forEach((item) => {
+        const id = componentMetadataComparator.getIdentifier(item);
         const { notDocumented, documentedButNotPresent, breakingChangesNotAllowed } = getMessagesForId(id);
         expect(e.message).not.toContain(notDocumented);
         expect(e.message).not.toContain(documentedButNotPresent);
@@ -375,7 +255,7 @@ describe('check metadata migration', () => {
 
   test('should throw because migration data invalid', async () => {
     await initTest(
-      [newConfigurationMetadata[0]],
+      [newComponentMetadata[0]],
       {
         ...defaultMigrationData,
         changes: defaultMigrationData.changes.map((change) => ({
@@ -398,15 +278,15 @@ describe('check metadata migration', () => {
     } catch (e: any) {
       /* eslint-disable jest/no-conditional-expect -- always called as there is a throw in the try block */
       expect(e.message).not.toBe('should have thrown before');
-      previousConfigurationMetadata.slice(1, -1).forEach((item) => {
-        const id = configMetadataComparator.getIdentifier(item);
+      previousComponentMetadata.slice(1, -1).forEach((item) => {
+        const id = componentMetadataComparator.getIdentifier(item);
         const { notDocumented, documentedButNotPresent, breakingChangesNotAllowed } = getMessagesForId(id);
         expect(e.message).not.toContain(notDocumented);
         expect(e.message).toContain(documentedButNotPresent);
         expect(e.message).not.toContain(breakingChangesNotAllowed);
       });
-      [previousConfigurationMetadata[0], previousConfigurationMetadata.at(-1)].forEach((item) => {
-        const id = configMetadataComparator.getIdentifier(item);
+      [previousComponentMetadata[0], previousComponentMetadata.at(-1)].forEach((item) => {
+        const id = componentMetadataComparator.getIdentifier(item);
         const { notDocumented, documentedButNotPresent, breakingChangesNotAllowed } = getMessagesForId(id);
         expect(e.message).not.toContain(notDocumented);
         expect(e.message).not.toContain(documentedButNotPresent);
@@ -418,7 +298,7 @@ describe('check metadata migration', () => {
 
   test('should throw because breaking changes are not allowed', async () => {
     await initTest(
-      newConfigurationMetadata,
+      newComponentMetadata,
       {
         ...defaultMigrationData,
         changes: []
@@ -435,15 +315,15 @@ describe('check metadata migration', () => {
     } catch (e: any) {
       /* eslint-disable jest/no-conditional-expect -- always called as there is a throw in the try block */
       expect(e.message).not.toBe('should have thrown before');
-      previousConfigurationMetadata.slice(1, -1).forEach((item) => {
-        const id = configMetadataComparator.getIdentifier(item);
+      previousComponentMetadata.slice(1, -1).forEach((item) => {
+        const id = componentMetadataComparator.getIdentifier(item);
         const { notDocumented, documentedButNotPresent, breakingChangesNotAllowed } = getMessagesForId(id);
         expect(e.message).not.toContain(notDocumented);
         expect(e.message).not.toContain(documentedButNotPresent);
         expect(e.message).toContain(breakingChangesNotAllowed);
       });
-      [previousConfigurationMetadata[0], previousConfigurationMetadata.at(-1)].forEach((item) => {
-        const id = configMetadataComparator.getIdentifier(item);
+      [previousComponentMetadata[0], previousComponentMetadata.at(-1)].forEach((item) => {
+        const id = componentMetadataComparator.getIdentifier(item);
         const { notDocumented, documentedButNotPresent, breakingChangesNotAllowed } = getMessagesForId(id);
         expect(e.message).not.toContain(notDocumented);
         expect(e.message).not.toContain(documentedButNotPresent);
@@ -455,13 +335,13 @@ describe('check metadata migration', () => {
 
   test('should throw because of unused migration data', async () => {
     const unusedMigrationItem = {
-      contentType: 'CONFIG',
+      contentType: 'COMPONENT',
       before: {
         libraryName: 'fake-remove'
       }
     };
     await initTest(
-      newConfigurationMetadata,
+      newComponentMetadata,
       {
         ...defaultMigrationData,
         changes: [
