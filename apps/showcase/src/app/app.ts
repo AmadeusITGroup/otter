@@ -32,11 +32,11 @@ import {
 @O3rComponent({ componentType: 'Component' })
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  templateUrl: './app.html',
+  styleUrls: ['./app.scss'],
   standalone: false
 })
-export class AppComponent {
+export class App {
   public title = 'showcase';
 
   public linksGroups: SideNavLinksGroup[] = [

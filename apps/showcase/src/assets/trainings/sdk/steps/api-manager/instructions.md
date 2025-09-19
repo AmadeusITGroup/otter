@@ -40,7 +40,7 @@ importProvidersFrom(ApiManagerModule.forRoot(apiManager))
 > This integration should replace the previous providers of `PetApi` and `StoreApi` using the factories `petApiFactory` and `storeApiFactory` 
 > in the `ApplicationConfig`.
 
-Then, checkout the `app.component.ts` file and update the variables `petApi` and `storeApi` by injecting the `ApiFactoryService` to use your 
+Then, checkout the `app.ts` file and update the variables `petApi` and `storeApi` by injecting the `ApiFactoryService` to use your 
 unique instance of the `StoreApi` and `PetApi`.
 
 Now, when clicking the **Get Available Pets** button, your table should be updated with the mock value of available pets and when clicking the 

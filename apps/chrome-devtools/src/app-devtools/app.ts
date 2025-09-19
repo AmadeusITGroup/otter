@@ -69,7 +69,7 @@ import {
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
+  templateUrl: './app.html',
   styles: `
     :host ::ng-deep ng-select.local-change .ng-select-container {
       border-color: var(--df-recommend-warning-color);
@@ -96,7 +96,7 @@ import {
     FactsSnapshotComponent
   ]
 })
-export class AppComponent {
+export class App {
   private readonly stateService = inject(StateService);
   private readonly formBuilder = inject(FormBuilder);
   private readonly connectionService = inject(ChromeExtensionConnectionService);

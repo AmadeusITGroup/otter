@@ -29,7 +29,7 @@ import {
 } from '@o3r/styling';
 import {
   AppModule,
-} from './app/app.module';
+} from './app/app-module';
 
 document.body.dataset.dynamiccontentpath = localStorage.getItem('dynamicPath') || '';
 platformBrowserDynamic().bootstrapModule(AppModule)

@@ -106,10 +106,10 @@ You can now import your fact in your app module and register the facts:
 import {inject, runInInjectionContext} from '@angular/core';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import {appConfig} from './app/app.config';
-import {AppComponent} from './app/app.component';
+import {App} from './app/app';
 import {CustomFactsService} from './services/custom-fact.service';
 
-bootstrapApplication(AppComponent, appConfig)
+bootstrapApplication(App, appConfig)
   .then((m) => {
     runInInjectionContext(m.injector, () => {
       inject(CustomFactsService).register();

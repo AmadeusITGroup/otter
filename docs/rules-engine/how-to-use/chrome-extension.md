@@ -10,15 +10,15 @@ You can activate it via the `forRoot` method of the rules engine module:
 ```typescript
 import {inject, runInInjectionContext} from '@angular/core';
 import {OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS, RulesEngineRunnerModule, RulesEngineDevtoolsModule, RulesEngineDevtoolsMessageService} from '@o3r/rules-engine';
-import {AppComponent} from './app.component';
+import {App} from './app';
 
-bootstrapApplication(AppComponent, {
+bootstrapApplication(App, {
   imports: [
     RulesEngineDevtoolsModule,
     RulesEngineRunnerModule.forRoot({debug: true}) // Activate rule engine debug mode
   ],
-  declarations: [AppComponent],
-  bootstrap: [AppComponent],
+  declarations: [App],
+  bootstrap: [App],
   providers: [
     {provide: OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS, useValue: {isActivatedOnBootstrap: true}}
   ]

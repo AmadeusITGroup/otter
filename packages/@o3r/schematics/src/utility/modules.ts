@@ -28,7 +28,7 @@ import {
 } from './loaders';
 
 /**
- * Get the path to the `app.module.ts`
+ * Get the path to the `app-module.ts`
  * In case of standalone application, get the path to the `app.config.ts` instead
  * @param tree File tree
  * @param context Context of the rule
@@ -67,8 +67,10 @@ export function getAppModuleFilePath(tree: Tree, context: SchematicContext, proj
     return moduleFilePath;
   }
 
-  const possibleAppModule = path.join(path.dirname(mainFilePath), path.dirname(bootstrapModuleFileRegExpResult[1]), 'app.module.ts');
-  if (tree.exists(possibleAppModule) && exportAppModuleClassRegExp.test(tree.read(possibleAppModule)!.toString())) {
+  const possibleAppModule1 = path.join(path.dirname(mainFilePath), path.dirname(bootstrapModuleFileRegExpResult[1]), 'app.module.ts');
+  const possibleAppModule2 = path.join(path.dirname(mainFilePath), path.dirname(bootstrapModuleFileRegExpResult[1]), 'app-module.ts');
+  const possibleAppModule = tree.exists(possibleAppModule1) ? possibleAppModule1 : (tree.exists(possibleAppModule2) ? possibleAppModule2 : undefined);
+  if (possibleAppModule && exportAppModuleClassRegExp.test(tree.read(possibleAppModule)!.toString())) {
     return possibleAppModule;
   }
 

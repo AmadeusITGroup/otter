@@ -129,7 +129,7 @@ export class RulesEngineComponent implements AfterViewInit {
   public activeRuleTab = 'configuration';
 
   constructor() {
-    // We recommend to do the next lines in the AppComponent
+    // We recommend to do the next lines in the App class
     // Here we do it for the sake of the example
     this.rulesEngineService.registerActionHandlers(
       inject(ConfigurationRulesEngineActionHandler),

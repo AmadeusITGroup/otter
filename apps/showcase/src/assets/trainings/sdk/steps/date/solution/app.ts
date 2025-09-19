@@ -5,15 +5,15 @@ import { Component } from '@angular/core';
   selector: 'app-root',
   standalone: true,
   imports: [],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  templateUrl: './app.html',
+  styleUrl: './app.scss'
 })
-export class AppComponent {
+export class App {
   /** Title of the application */
   public title = 'tutorial-app';
 
   /** Date value used to initialize the variables date and dateTime */
-  public dateValue = '';
+  public dateValue = '2024-09-01T10:00:00+02:00';
   /** Date variable of type Date */
   public date: Date | null = null;
   /** Date variable of type utils.DateTime */
@@ -24,6 +24,7 @@ export class AppComponent {
   }
 
   public updateValues() {
-    // TODO Set the values of the variables date and dateTime here
+    this.date = new Date(this.dateValue);
+    this.dateTime = new utils.DateTime(this.dateValue);
   }
 }
