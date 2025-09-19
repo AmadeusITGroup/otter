@@ -41,12 +41,12 @@ npm run ng generate sdk my-sdk
 The application will contain the minimum setup to follow the otter recommendations and to activate the features requested
 during the installation of the `@o3r/core`.
 
-For instance, if you activated the store, your ``app.module.ts`` shall integrate the ngrx Store implementation:
+For instance, if you activated the store, your ``app-module.ts`` shall integrate the ngrx Store implementation:
 
 ```typescript
 @NgModule({
   declarations: [
-    AppComponent
+    App
   ],
   imports: [
     BrowserModule,
@@ -55,7 +55,7 @@ For instance, if you activated the store, your ``app.module.ts`` shall integrate
     StoreModule.forRoot(rootReducers, {metaReducers, runtimeChecks}),
     StoreRouterConnectingModule.forRoot()
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [App]
 })
 export class AppModule { }
 ```

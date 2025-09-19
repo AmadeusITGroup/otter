@@ -23,7 +23,7 @@ const getInitialTree = () => {
   initialTree.create('angular.json', fs.readFileSync(path.resolve(__dirname, '..', '..', 'testing', 'mocks', 'angular.mocks.json')));
   initialTree.create('package.json', fs.readFileSync(path.resolve(__dirname, '..', '..', 'testing', 'mocks', 'package.mocks.json')));
   initialTree.create('.eslintrc.json', fs.readFileSync(path.resolve(__dirname, '..', '..', 'testing', 'mocks', '__dot__eslintrc.mocks.json')));
-  initialTree.create('app.routing.module.ts', fs.readFileSync(path.resolve(__dirname, '..', '..', 'testing', 'mocks', 'app.routing.module.mocks.ts')));
+  initialTree.create('app-routing-module.ts', fs.readFileSync(path.resolve(__dirname, '..', '..', 'testing', 'mocks', 'app-routing-module.mocks.ts')));
 
   return initialTree;
 };
@@ -39,7 +39,7 @@ describe('Page', () => {
       tree = await runner.runExternalSchematic('schematics', 'page', {
         projectName: 'test-project',
         name: 'test-page',
-        appRoutingModulePath: 'app.routing.module.ts',
+        appRoutingModulePath: 'app-routing-module.ts',
         path: 'src/app'
       }, getInitialTree());
     });
@@ -50,7 +50,7 @@ describe('Page', () => {
     });
 
     it('should insert page route in App Routing Module', () => {
-      expect(tree.readContent('/app.routing.module.ts')).toContain('{path: \'test-page\', loadComponent: () => import(\'./test-page/index\').then((m) => m.TestPageComponent)}');
+      expect(tree.readContent('/app-routing-module.ts')).toContain('{path: \'test-page\', loadComponent: () => import(\'./test-page/index\').then((m) => m.TestPageComponent)}');
     });
 
     it('should have the default selector', () => {
@@ -66,7 +66,7 @@ describe('Page', () => {
       tree = await runner.runExternalSchematic('schematics', 'page', {
         projectName: 'test-project',
         name: 'test-page',
-        appRoutingModulePath: 'app.routing.module.ts',
+        appRoutingModulePath: 'app-routing-module.ts',
         path: 'src/app',
         standalone: false
       }, getInitialTree());
@@ -79,7 +79,7 @@ describe('Page', () => {
     });
 
     it('should insert page route in App Routing Module', () => {
-      expect(tree.readContent('/app.routing.module.ts')).toContain('{path: \'test-page\', loadChildren: () => import(\'./test-page/index\').then((m) => m.TestPageModule)}');
+      expect(tree.readContent('/app-routing-module.ts')).toContain('{path: \'test-page\', loadChildren: () => import(\'./test-page/index\').then((m) => m.TestPageModule)}');
     });
   });
 
@@ -93,7 +93,7 @@ describe('Page', () => {
         name: 'testPage',
         scope: 'testScope',
         prefix: 'custom',
-        appRoutingModulePath: 'app.routing.module.ts',
+        appRoutingModulePath: 'app-routing-module.ts',
         path: './custom'
       }, getInitialTree());
     });
@@ -104,7 +104,7 @@ describe('Page', () => {
     });
 
     it('should insert page route in App Routing Module', () => {
-      expect(tree.readContent('/app.routing.module.ts')).toContain('{path: \'test-page\', loadComponent: () => import(\'./test-scope/test-page/index\').then((m) => m.TestPageComponent)}');
+      expect(tree.readContent('/app-routing-module.ts')).toContain('{path: \'test-page\', loadComponent: () => import(\'./test-scope/test-page/index\').then((m) => m.TestPageComponent)}');
     });
 
     it('should have the custom selector', () => {
@@ -121,7 +121,7 @@ describe('Page', () => {
         projectName: 'test-project',
         name: 'testPage',
         prefix: 'o3r',
-        appRoutingModulePath: 'wrong.app.routing.module.ts',
+        appRoutingModulePath: 'wrong.app-routing-module.ts',
         path: '.'
       }, getInitialTree());
     });
@@ -143,7 +143,7 @@ describe('Page', () => {
       initialTree.create('app.config.ts', `
 import { ApplicationConfig } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { appRoutes as routes } from './app.routing.module';
+import { appRoutes as routes } from './app-routing-module';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -162,16 +162,16 @@ export const appConfig: ApplicationConfig = {
         path: '.'
       }, initialTree);
 
-      expect(tree.readText('/app.routing.module.ts')).toContain('path: \'test-page\'');
+      expect(tree.readText('/app-routing-module.ts')).toContain('path: \'test-page\'');
     });
 
     it('should add the route on module application', async () => {
-      mockGetAppModuleFilePath.mockReturnValue('app.module.ts');
+      mockGetAppModuleFilePath.mockReturnValue('app-module.ts');
       const initialTree = getInitialTree();
-      initialTree.create('app.module.ts', `
+      initialTree.create('app-module.ts', `
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/routing';
-import { AppComponent } from './app.component';
+import { App } from './app';
 const appRoutes: Routes = [
   {
     path: '',
@@ -183,12 +183,12 @@ const appRoutes: Routes = [
 
 @NgModule({
   declarations: [
-    AppComponent
+    App
   ],
   imports: [
     RouterModule.forRoot(appRoutes)
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [App]
 })
 export class AppModule {}
       `);
@@ -203,7 +203,7 @@ export class AppModule {}
         path: '.'
       }, initialTree);
 
-      expect(tree.readText('/app.module.ts')).toContain('path: \'test-page\'');
+      expect(tree.readText('/app-module.ts')).toContain('path: \'test-page\'');
     });
   });
 });
