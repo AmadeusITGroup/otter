@@ -17,16 +17,20 @@ import {
 
 describe('ng add components', () => {
   test('should add components to an application', () => {
-    const { workspacePath, appName, isInWorkspace, o3rVersion, libraryPath, untouchedProjectsPaths } = o3rEnvironment.testEnvironment;
+    const { workspacePath, appName, isInWorkspace, o3rVersion, isYarnTest, libraryPath, untouchedProjectsPaths } = o3rEnvironment.testEnvironment;
     const execAppOptions = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
     expect(() => packageManagerExec({ script: 'ng', args: ['add', `@o3r/components@${o3rVersion}`,
       '--skip-confirmation', '--enable-metadata-extract', '--project-name', appName] }, execAppOptions)).not.toThrow();
 
     const diff = getGitDiff(workspacePath);
-    expect(diff.modified).toContain('package.json');
-    expect(diff.modified).toContain('angular.json');
-    expect(diff.modified).toContain('apps/test-app/package.json');
-    expect(diff.modified.length).toBe(6);
+    expect(diff.modified.sort()).toEqual([
+      '.gitignore',
+      'angular.json',
+      'apps/test-app/package.json',
+      'apps/test-app/src/main.ts',
+      isYarnTest ? 'yarn.lock' : 'package-lock.json',
+      'package.json'
+    ].sort());
     expect(diff.added.sort()).toEqual([
       'apps/test-app/placeholders.metadata.json',
       'apps/test-app/tsconfig.cms.json',
