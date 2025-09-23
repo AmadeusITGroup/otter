@@ -1,4 +1,7 @@
 import {
+  join,
+} from 'node:path';
+import {
   chain,
   Rule,
   SchematicContext,
@@ -7,6 +10,7 @@ import {
 import {
   createOtterSchematic,
   updateImports,
+  updatePackageGroup,
 } from '@o3r/schematics';
 import {
   updateConfiguration,
@@ -14,6 +18,8 @@ import {
 import {
   mapImportAsyncStore,
 } from './v8.2/import-map';
+
+const o3rPackageJsonPath = join(__dirname, '../../package.json');
 
 /**
  * Update of Otter library V8.2
@@ -56,3 +62,19 @@ function updateV10_0Fn(): Rule {
  */
 // eslint-disable-next-line @typescript-eslint/naming-convention -- version is in the function name
 export const updateV10_0 = createOtterSchematic(updateV10_0Fn);
+
+/**
+ * Update of Otter library V12.0
+ */
+// eslint-disable-next-line @typescript-eslint/naming-convention -- version is in the function name
+export const updateV12_0 = createOtterSchematic(
+  () => updatePackageGroup(o3rPackageJsonPath, '<12.1.0-0')
+);
+
+/**
+ * Update of Otter library V12.1
+ */
+// eslint-disable-next-line @typescript-eslint/naming-convention -- version is in the function name
+export const updateV12_1 = createOtterSchematic(() =>
+  updatePackageGroup(o3rPackageJsonPath)
+);

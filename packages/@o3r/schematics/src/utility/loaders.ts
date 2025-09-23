@@ -128,10 +128,11 @@ export function getAllFilesInTree(tree: Tree, basePath = '/', excludes: string[]
 /**
  * Get the path of all the files in the Tree
  * @param tree Schematics file tree
- * @param patterns Array of globs to be search in the tree
+ * @param patterns Array of globs to be searched in the tree
+ * @param excludes Array of globs to be ignored
  */
-export function globInTree(tree: Tree, patterns: string[]): string[] {
-  const files = getAllFilesInTree(tree);
+export function globInTree(tree: Tree, patterns: string[], excludes: string[] = []): string[] {
+  const files = getAllFilesInTree(tree, '/', excludes);
   return files.filter((basePath) => patterns.some((p) => minimatch(basePath, p, { dot: true })));
 }
 
@@ -186,4 +187,21 @@ export function getFilesFromWorkspaceProjects(tree: Tree, extension: string) {
  */
 export function getSourceFilesFromWorkspaceProjects(tree: Tree) {
   return getFilesFromWorkspaceProjects(tree, 'ts');
+}
+
+/**
+ * Get all dependencies from all the package.json files in the tree
+ * @param tree
+ * @param dependencyTypes
+ */
+export function getAllDependencies(tree: Tree, dependencyTypes = ['dependencies', 'devDependencies']) {
+  const packageJsonPaths = globInTree(tree, ['**/package.json'], ['**/node_modules']);
+  const allDependencies = new Set<string>();
+  for (const packageJsonPath of packageJsonPaths) {
+    const packageJson = tree.readJson(packageJsonPath) as PackageJson;
+    for (const depType of dependencyTypes) {
+      Object.keys(packageJson[depType] || {}).forEach((dep) => allDependencies.add(dep));
+    }
+  }
+  return allDependencies;
 }
