@@ -48,7 +48,7 @@ import { registerLocaleData } from '@angular/common';
 import localeAR from '@angular/common/locales/ar';
 import localeEN from '@angular/common/locales/en';
 import localeFR from '@angular/common/locales/fr';
-import { TranslateModule } from '@ngx-translate/core';
+import { provideTranslateService } from '@ngx-translate/core';
 import { LocalizationModule, translateLoaderProvider } from '@o3r/localization';
 
 // ...
@@ -76,12 +76,13 @@ export function localizationConfigurationFactory() {
 @NgModule({
   imports: [
     LocalizationModule.forRoot(localizationConfigurationFactory),
-    TranslateModule.forRoot({
-      loader: translateLoaderProvider,
-    }),
     // ...
   ],
-  providers: [],
+  providers: [
+    provideTranslateService({
+      loader: translateLoaderProvider,
+    })
+  ],
   // ...
 })
 export class AppModule {}
@@ -101,7 +102,7 @@ A language can be specified asynchronously by using the `LocalizationService.use
 import localeAR from '@angular/common/locales/ar';
 import localeEN from '@angular/common/locales/en';
 import localeFR from '@angular/common/locales/fr';
-import { TranslateModule } from '@ngx-translate/core';
+import { provideTranslateService } from '@ngx-translate/core';
 import { LOCALIZATION_CONFIGURATION_TOKEN, LocalizationModule, translateLoaderProvider } from '@o3r/localization';
 // ...
 
@@ -112,13 +113,13 @@ registerLocaleData(localeAR, 'ar');
 @NgModule({
   imports: [
     LocalizationModule,
-    TranslateModule.forRoot({
-      loader: translateLoaderProvider,
-    })
     // ...
   ],
   // ...
   providers: [
+    provideTranslateService({
+      loader: translateLoaderProvider,
+    }),
     {provide: LOCALIZATION_CONFIGURATION_TOKEN, useFactory: customCreateLocalizationConfiguration, deps: [YourServiceNeededByTheFactory]}
   ]
 })
@@ -509,7 +510,7 @@ To be able to handle a large amount of ICU translations, a lazy compiler is prov
 import localeAR from '@angular/common/locales/ar';
 import localeEN from '@angular/common/locales/en';
 import localeFR from '@angular/common/locales/fr';
-import { TranslateCompiler, TranslateModule } from '@ngx-translate/core';
+import { TranslateCompiler, provideTranslateService } from '@ngx-translate/core';
 import {
   LocalizationModule,
   MESSAGE_FORMAT_CONFIG,
@@ -526,12 +527,12 @@ registerLocaleData(localeAR, 'ar');
   imports: [
     // ...
     LocalizationModule.forRoot({ ... }),
-    TranslateModule.forRoot({
+  ],
+  providers: [
+    provideTranslateService({
       // ...
       compiler: {provide: TranslateCompiler, useClass: TranslateMessageFormatLazyCompiler}
     })
-  ],
-  providers: [
     // Optional configuration:
     {provide: MESSAGE_FORMAT_CONFIG, useValue: {enableCache: false}}
   ]
@@ -558,23 +559,23 @@ You need to configure the `TranslateModule` for it to use `TranslateMessageForma
 ```typescript
 // app.module.ts
 
-import { TranslateCompiler, TranslateModule } from '@ngx-translate/core';
+import { TranslateCompiler, provideTranslateService } from '@ngx-translate/core';
 import { MESSAGE_FORMAT_CONFIG, TranslateMessageFormatLazyCompiler } from '@o3r/localization';
 
 // ...
 
 @NgModule({
   imports: [
-    TranslateModule.forRoot({
+  // ...
+  ],
+  providers: [
+    provideTranslateService({
       // ...
       compiler: {
         provide: TranslateCompiler,
         useClass: TranslateMessageFormatLazyCompiler
       }
     }),
-  // ...
-  ],
-  providers: [
     // Optional compiler configuration:
     {provide: MESSAGE_FORMAT_CONFIG, useValue: {locales: ['ar', 'fr']}}
   ]

@@ -48,6 +48,7 @@ export function createTranslateLoader(localizationConfiguration: LocalizationCon
  * TranslateLoader provider, using framework's TranslationsLoader class
  */
 export const translateLoaderProvider: Readonly<FactoryProvider> = {
+  // TODO check if provideTranslateLoader could be used
   provide: TranslateLoader,
   useFactory: createTranslateLoader,
   deps: [LOCALIZATION_CONFIGURATION_TOKEN, [new Optional(), LoggerService], [new Optional(), DynamicContentService]]

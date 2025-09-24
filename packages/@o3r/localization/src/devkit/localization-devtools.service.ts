@@ -4,7 +4,9 @@ import {
   Injectable,
 } from '@angular/core';
 import {
+  type InterpolatableTranslationObject,
   TranslateCompiler,
+  TranslateStore,
 } from '@ngx-translate/core';
 import {
   lastValueFrom,
@@ -21,6 +23,7 @@ import {
 export class OtterLocalizationDevtools {
   private readonly localizationService = inject(LocalizationService);
   private readonly translateCompiler = inject(TranslateCompiler);
+  private readonly translateStore = inject(TranslateStore);
   private readonly appRef = inject(ApplicationRef);
 
   /**
@@ -80,10 +83,10 @@ export class OtterLocalizationDevtools {
    */
   public updateLocalizationKeys(keyValues: { [key: string]: string }, language?: string): void | Promise<void> {
     const lang = language || this.getCurrentLanguage();
-    const translateService = this.localizationService.getTranslateService();
-    Object.entries(keyValues).forEach(([key, value]) => {
-      translateService.set(key, value, lang);
-    });
+    this.translateStore.setTranslations(lang, Object.entries(keyValues).reduce((acc: InterpolatableTranslationObject, [key, value]) => {
+      acc[key] = this.translateCompiler.compile(value, lang);
+      return acc;
+    }, {}), true);
     this.appRef.tick();
   }
 
@@ -97,15 +100,8 @@ export class OtterLocalizationDevtools {
     if ((this.translateCompiler as TranslateMessageFormatLazyCompiler).clearCache) {
       (this.translateCompiler as TranslateMessageFormatLazyCompiler).clearCache();
     }
-    const initialLocs = await lastValueFrom(
-      this.localizationService
-        .getTranslateService()
-        .reloadLang(lang)
-    );
-    this.localizationService.getTranslateService().setTranslation(
-      language || this.getCurrentLanguage(),
-      initialLocs
-    );
+    const translateService = this.localizationService.getTranslateService();
+    await lastValueFrom(translateService.reloadLang(lang));
     this.appRef.tick();
   }
 }

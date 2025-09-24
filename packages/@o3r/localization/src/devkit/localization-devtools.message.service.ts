@@ -91,7 +91,7 @@ export class LocalizationDevtoolsMessageService {
     }
     if (!only || only.includes('getTranslationValuesContentMessage')) {
       this.sendMessage('getTranslationValuesContentMessage', {
-        translations: await firstValueFrom(this.localizationService.getTranslateService().getTranslation(this.localizationService.getCurrentLanguage()))
+        translations: await firstValueFrom(this.localizationService.getTranslateService().currentLoader.getTranslation(this.localizationService.getCurrentLanguage()))
       });
     }
     if (!only || only.includes('isTranslationDeactivationEnabled')) {

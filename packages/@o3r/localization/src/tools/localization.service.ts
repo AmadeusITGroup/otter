@@ -162,7 +162,7 @@ export class LocalizationService {
   public async configure() {
     const language = this.checkFallbackLocalesMap(this.configuration.language || this.configuration.fallbackLanguage);
     this.translateService.addLangs(this.configuration.supportedLocales);
-    this.translateService.setDefaultLang(language);
+    this.translateService.setFallbackLang(language);
     await firstValueFrom(this.useLanguage(language));
   }
 
@@ -193,7 +193,7 @@ export class LocalizationService {
    * Wrapper to get the ngx-translate service TranslateService currentLang.
    */
   public getCurrentLanguage() {
-    return this.translateService.currentLang;
+    return this.translateService.getCurrentLang();
   }
 
   /**

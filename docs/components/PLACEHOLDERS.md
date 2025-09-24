@@ -318,7 +318,7 @@ You need to reference one or several CSS files from your application in the `cms
       "npmName": "@o3r/styling"
     }
   ],
-  "defaultLanguage": "en-GB",
+  "fallbackLang": "en-GB",
   "placeholderCssFiles": [
     "dist/assets/placeholders/placeholders.css"
   ]
