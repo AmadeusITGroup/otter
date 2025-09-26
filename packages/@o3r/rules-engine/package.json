@@ -188,15 +188,7 @@
   },
   "builders": "./builders.json",
   "ng-update": {
-    "migrations": "./migration.json",
-    "packageGroup": [
-      "@o3r/core",
-      "@o3r/components",
-      "@o3r/configuration",
-      "@o3r/dynamic-content",
-      "@o3r/eslint-config-otter",
-      "@o3r/localization"
-    ]
+    "migrations": "./migration.json"
   },
   "cmsMetadata": {
     "localizationFilePath": "./localisation.metadata.json",
