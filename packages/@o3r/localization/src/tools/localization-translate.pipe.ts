@@ -7,7 +7,6 @@ import {
 } from '@angular/core';
 import {
   TranslatePipe,
-  TranslateService,
 } from '@ngx-translate/core';
 import {
   Subscription,
@@ -59,7 +58,7 @@ export class O3rLocalizationTranslatePipe extends TranslatePipe implements PipeT
   protected lastResolvedKey?: string;
 
   constructor() {
-    super(inject(TranslateService), inject(ChangeDetectorRef));
+    super();
     if (this.localizationConfig.enableTranslationDeactivation) {
       this.onShowKeysChange = this.localizationService.showKeys$.subscribe((showKeys) => {
         this.showKeys = showKeys;
@@ -87,18 +86,13 @@ export class O3rLocalizationTranslatePipe extends TranslatePipe implements PipeT
         this.changeDetector.markForCheck();
       });
     }
+    const value = super.transform(this.lastResolvedKey || query, ...args);
 
-    if (this.lastResolvedKey) {
-      const value = super.transform(this.lastResolvedKey, ...args);
-
-      if (this.localizationConfig.debugMode) {
-        return `${this.lastResolvedKey} - ${value as string}`;
-      }
-
-      return value;
+    if (this.localizationConfig.debugMode) {
+      return `${this.lastResolvedKey} - ${value as string}`;
     }
 
-    return this.value;
+    return value;
   }
 
   public ngOnDestroy() {

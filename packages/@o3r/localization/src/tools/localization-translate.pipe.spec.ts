@@ -10,8 +10,9 @@ import {
   platformBrowserDynamicTesting,
 } from '@angular/platform-browser-dynamic/testing';
 import {
-  TranslateLoader,
-  TranslateModule,
+  provideTranslateLoader,
+  provideTranslateService,
+  type TranslateLoader,
   TranslateService,
 } from '@ngx-translate/core';
 import {
@@ -65,12 +66,12 @@ describe('LocalizationTranslatePipe', () => {
     it('should throw when trying to deactivate the translation', async () => {
       await TestBed.configureTestingModule({
         imports: [
-          LocalizationModule.forRoot(() => ({ language: 'en' })),
-          TranslateModule.forRoot({
-            loader: { provide: TranslateLoader, useClass: FakeLoader }
-          })
+          LocalizationModule.forRoot(() => ({ language: 'en' }))
         ],
         providers: [
+          provideTranslateService({
+            loader: provideTranslateLoader(FakeLoader)
+          }),
           LocalizationService,
           { provide: ChangeDetectorRef, useClass: FakeChangeDetectorRef },
           { provide: O3rLocalizationTranslatePipe, deps: [LocalizationService, TranslateService, ChangeDetectorRef, LOCALIZATION_CONFIGURATION_TOKEN] }
@@ -91,13 +92,13 @@ describe('LocalizationTranslatePipe', () => {
       beforeEach(async () => {
         await TestBed.configureTestingModule({
           imports: [
-            LocalizationModule.forRoot(() => ({ language: 'en' })),
-            TranslateModule.forRoot({
-              loader: { provide: TranslateLoader, useClass: FakeLoader }
-            })
+            LocalizationModule.forRoot(() => ({ language: 'en' }))
           ],
           providers: [
             LocalizationService,
+            provideTranslateService({
+              loader: provideTranslateLoader(FakeLoader)
+            }),
             {
               provide: LOCALIZATION_CONFIGURATION_TOKEN,
               useFactory: () => createLocalizationConfiguration({ enableTranslationDeactivation: true })
@@ -131,16 +132,13 @@ describe('LocalizationTranslatePipe', () => {
       beforeEach(async () => {
         await TestBed.configureTestingModule({
           imports: [
-            LocalizationModule.forRoot(() => ({ language: 'en' })),
-            TranslateModule.forRoot({
-              loader: {
-                provide: TranslateLoader,
-                useClass: FakeLoader
-              }
-            })
+            LocalizationModule.forRoot(() => ({ language: 'en' }))
           ],
           providers: [
             LocalizationService,
+            provideTranslateService({
+              loader: provideTranslateLoader(FakeLoader)
+            }),
             {
               provide: LOCALIZATION_CONFIGURATION_TOKEN,
               useFactory: () => createLocalizationConfiguration({ debugMode: true, enableTranslationDeactivation: true })

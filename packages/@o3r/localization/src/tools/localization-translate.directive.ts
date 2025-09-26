@@ -1,14 +1,11 @@
 import {
-  ChangeDetectorRef,
   Directive,
-  ElementRef,
   inject,
   Input,
   OnDestroy,
 } from '@angular/core';
 import {
   TranslateDirective,
-  TranslateService,
 } from '@ngx-translate/core';
 import {
   Subscription,
@@ -51,23 +48,18 @@ export class LocalizationTranslateDirective extends TranslateDirective implement
   /** @inheritdoc */
   @Input()
   public set translate(key: string) {
-    if (key && key !== this.key) {
+    if (key) {
       if (this.onKeyChange) {
         this.onKeyChange.unsubscribe();
       }
       this.onKeyChange = this.localizationService.getKey(key).subscribe((newKey) => {
-        this.key = newKey;
-        this.checkNodes();
+        super.translate = newKey;
       });
     }
   }
 
   constructor() {
-    const translateService = inject(TranslateService);
-    const element = inject(ElementRef);
-    const ref = inject(ChangeDetectorRef);
-
-    super(translateService, element, ref);
+    super();
     const localizationService = this.localizationService;
     const localizationConfig = this.localizationConfig;
 

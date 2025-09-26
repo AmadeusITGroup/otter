@@ -52,7 +52,7 @@
     "@ngrx/entity": "~20.0.0",
     "@ngrx/store": "~20.0.0",
     "@ngrx/store-devtools": "~20.0.0",
-    "@ngx-translate/core": "~16.0.4",
+    "@ngx-translate/core": "~17.0.0",
     "@nx/jest": "~21.5.0",
     "@o3r-training/showcase-sdk": "workspace:^",
     "@o3r-training/training-tools": "workspace:^",

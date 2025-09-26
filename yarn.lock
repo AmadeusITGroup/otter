@@ -7749,15 +7749,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ngx-translate/core@npm:~16.0.4":
-  version: 16.0.4
-  resolution: "@ngx-translate/core@npm:16.0.4"
+"@ngx-translate/core@npm:~17.0.0":
+  version: 17.0.0
+  resolution: "@ngx-translate/core@npm:17.0.0"
   dependencies:
     tslib: "npm:^2.3.0"
   peerDependencies:
     "@angular/common": ">=16"
     "@angular/core": ">=16"
-  checksum: 10/1c03119f2361b3d49a0e14e590e606b6202971d11d52ab9d62c4704821fe21b367bf70a156c0e78d8e53f008d00ca5b39f78b466d4159929e1c7a7947f5e823f
+  checksum: 10/a05b86347675b2e841e9bf598ada046f6563159330dfda821df7231025d1f276be54a4a3748170245e23e98288e509428ed1dd77a80fbb3cb191ee93f22c432a
   languageName: node
   linkType: hard
 
@@ -10354,7 +10354,7 @@ __metadata:
     "@ngrx/router-store": "npm:~20.0.0"
     "@ngrx/store": "npm:~20.0.0"
     "@ngrx/store-devtools": "npm:~20.0.0"
-    "@ngx-translate/core": "npm:~16.0.4"
+    "@ngx-translate/core": "npm:~17.0.0"
     "@nx/angular": "npm:~21.5.0"
     "@nx/eslint": "npm:~21.5.0"
     "@nx/eslint-plugin": "npm:~21.5.0"
@@ -10561,7 +10561,7 @@ __metadata:
     "@compodoc/compodoc": "npm:^1.1.19"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@ngrx/store": "npm:~20.0.0"
-    "@ngx-translate/core": "npm:~16.0.4"
+    "@ngx-translate/core": "npm:~17.0.0"
     "@nx/eslint": "npm:~21.5.0"
     "@nx/eslint-plugin": "npm:~21.5.0"
     "@nx/jest": "npm:~21.5.0"
@@ -10633,7 +10633,7 @@ __metadata:
     "@angular/platform-browser-dynamic": ^20.0.0
     "@formatjs/intl-numberformat": ^8.0.2
     "@ngrx/store": ^20.0.0
-    "@ngx-translate/core": ^15.0.0 || ~16.0.4
+    "@ngx-translate/core": ^17.0.0
     "@o3r/core": "workspace:^"
     "@o3r/dynamic-content": "workspace:^"
     "@o3r/extractors": "workspace:^"
@@ -11264,7 +11264,7 @@ __metadata:
     "@ngrx/effects": "npm:~20.0.0"
     "@ngrx/entity": "npm:~20.0.0"
     "@ngrx/store": "npm:~20.0.0"
-    "@ngx-translate/core": "npm:~16.0.4"
+    "@ngx-translate/core": "npm:~17.0.0"
     "@nx/eslint": "npm:~21.5.0"
     "@nx/eslint-plugin": "npm:~21.5.0"
     "@nx/jest": "npm:~21.5.0"
@@ -11335,7 +11335,7 @@ __metadata:
     "@ngrx/effects": ^20.0.0
     "@ngrx/entity": ^20.0.0
     "@ngrx/store": ^20.0.0
-    "@ngx-translate/core": ^15.0.0 || ~16.0.4
+    "@ngx-translate/core": ^17.0.0
     "@o3r/core": "workspace:^"
     "@o3r/extractors": "workspace:^"
     "@o3r/logger": "workspace:^"
@@ -11517,7 +11517,7 @@ __metadata:
     "@ngrx/entity": "npm:~20.0.0"
     "@ngrx/store": "npm:~20.0.0"
     "@ngrx/store-devtools": "npm:~20.0.0"
-    "@ngx-translate/core": "npm:~16.0.4"
+    "@ngx-translate/core": "npm:~17.0.0"
     "@nx/eslint-plugin": "npm:~21.5.0"
     "@nx/jest": "npm:~21.5.0"
     "@o3r-training/showcase-sdk": "workspace:^"
@@ -12172,7 +12172,7 @@ __metadata:
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@material/slider": "npm:^14.0.0"
     "@ngrx/store": "npm:~20.0.0"
-    "@ngx-translate/core": "npm:~16.0.4"
+    "@ngx-translate/core": "npm:~17.0.0"
     "@nx/eslint-plugin": "npm:~21.5.0"
     "@nx/jest": "npm:~21.5.0"
     "@o3r/build-helpers": "workspace:^"
@@ -12239,7 +12239,7 @@ __metadata:
     "@angular/platform-browser": ^20.0.0
     "@material/slider": ^14.0.0
     "@ngrx/store": ^20.0.0
-    "@ngx-translate/core": ^15.0.0 || ~16.0.4
+    "@ngx-translate/core": ^17.0.0
     "@o3r/core": "workspace:^"
     "@o3r/localization": "workspace:^"
     "@o3r/schematics": "workspace:^"

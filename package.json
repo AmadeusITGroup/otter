@@ -183,7 +183,7 @@
     "@ngrx/router-store": "~20.0.0",
     "@ngrx/store": "~20.0.0",
     "@ngrx/store-devtools": "~20.0.0",
-    "@ngx-translate/core": "~16.0.4",
+    "@ngx-translate/core": "~17.0.0",
     "@nx/angular": "~21.5.0",
     "@nx/eslint": "~21.5.0",
     "@nx/eslint-plugin": "~21.5.0",

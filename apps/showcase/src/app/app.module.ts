@@ -31,8 +31,8 @@ import {
   StoreDevtoolsModule,
 } from '@ngrx/store-devtools';
 import {
-  TranslateCompiler,
-  TranslateModule,
+  provideTranslateCompiler,
+  provideTranslateService,
 } from '@ngx-translate/core';
 import {
   ApplicationDevtoolsModule,
@@ -151,13 +151,6 @@ export function localizationConfigurationFactory(): Partial<LocalizationConfigur
     EffectsModule.forRoot([]),
     StoreModule.forRoot({}, { runtimeChecks }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
-    TranslateModule.forRoot({
-      loader: translateLoaderProvider,
-      compiler: {
-        provide: TranslateCompiler,
-        useClass: TranslateMessageFormatLazyCompiler
-      }
-    }),
     LocalizationModule.forRoot(localizationConfigurationFactory),
     RulesEngineRunnerModule.forRoot({ debug: true }),
     AppRoutingModule,
@@ -172,6 +165,11 @@ export function localizationConfigurationFactory(): Partial<LocalizationConfigur
     MonacoEditorModule.forRoot()
   ],
   providers: [
+    provideTranslateService({
+      // TODO check if provideTranslateLoader could be used
+      loader: translateLoaderProvider,
+      compiler: provideTranslateCompiler(TranslateMessageFormatLazyCompiler)
+    }),
     provideCustomComponents(new Map(), withComponent('exampleDatePickerFlavorHebrew', DatePickerHebrewInputPresComponent)),
     { provide: MESSAGE_FORMAT_CONFIG, useValue: {} },
     { provide: LOGGER_CLIENT_TOKEN, useValue: new ConsoleLogger() },

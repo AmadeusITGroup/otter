@@ -77,6 +77,9 @@ export function mockTranslationModules(
 ): ModuleWithProviders<LocalizationModule>[] {
   return [
     LocalizationModule.forRoot(() => localizationConfiguration),
+    // TODO find a way to replace TranslateModule by provideTranslateService, provideTranslateCompiler and provideTranslateLoader,
+    // maybe we should not use mockTranslationModules anymore or with another method for providers only
+    // if so we may provide a migration script
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

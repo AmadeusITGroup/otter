@@ -2,7 +2,7 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import {
-  TranslateModule,
+  provideTranslateService,
 } from '@ngx-translate/core';
 import {
   DEFAULT_LOCALIZATION_CONFIGURATION,
@@ -26,10 +26,10 @@ describe('LocalizationService', () => {
     beforeEach(async () => {
       await TestBed.configureTestingModule({
         imports: [
-          LocalizationModule.forRoot(configurationFactory),
-          TranslateModule.forRoot()
+          LocalizationModule.forRoot(configurationFactory)
+
         ],
-        providers: [LocalizationService]
+        providers: [LocalizationService, provideTranslateService()]
       }).compileComponents();
       localizationService = TestBed.inject(LocalizationService);
 
@@ -55,10 +55,9 @@ describe('LocalizationService', () => {
     beforeEach(async () => {
       await TestBed.configureTestingModule({
         imports: [
-          LocalizationModule.forRoot(configurationFactory),
-          TranslateModule.forRoot()
+          LocalizationModule.forRoot(configurationFactory)
         ],
-        providers: [LocalizationService]
+        providers: [LocalizationService, provideTranslateService()]
       }).compileComponents();
       localizationService = TestBed.inject(LocalizationService);
 
@@ -118,14 +117,13 @@ describe('LocalizationService', () => {
     beforeEach(async () => {
       await TestBed.configureTestingModule({
         imports: [
-          LocalizationModule.forRoot(configurationFactory),
-          TranslateModule.forRoot()
+          LocalizationModule.forRoot(configurationFactory)
         ],
-        providers: [LocalizationService]
+        providers: [LocalizationService, provideTranslateService()]
       }).compileComponents();
       localizationService = TestBed.inject(LocalizationService);
       const translateService = localizationService.getTranslateService();
-      translateServiceSpy = jest.spyOn(translateService, 'setDefaultLang');
+      translateServiceSpy = jest.spyOn(translateService, 'setFallbackLang');
       await localizationService.configure();
     });
 
@@ -149,14 +147,13 @@ describe('LocalizationService', () => {
     beforeEach(async () => {
       await TestBed.configureTestingModule({
         imports: [
-          LocalizationModule.forRoot(configurationFactory),
-          TranslateModule.forRoot()
+          LocalizationModule.forRoot(configurationFactory)
         ],
-        providers: [LocalizationService]
+        providers: [LocalizationService, provideTranslateService()]
       }).compileComponents();
       localizationService = TestBed.inject(LocalizationService);
       const translateService = localizationService.getTranslateService();
-      translateServiceSpy = jest.spyOn(translateService, 'setDefaultLang');
+      translateServiceSpy = jest.spyOn(translateService, 'setFallbackLang');
       await localizationService.configure();
     });
 
@@ -187,10 +184,9 @@ describe('LocalizationService', () => {
     beforeEach(async () => {
       await TestBed.configureTestingModule({
         imports: [
-          LocalizationModule.forRoot(configurationFactory),
-          TranslateModule.forRoot()
+          LocalizationModule.forRoot(configurationFactory)
         ],
-        providers: [LocalizationService]
+        providers: [LocalizationService, provideTranslateService()]
       }).compileComponents();
       localizationService = TestBed.inject(LocalizationService);
 
