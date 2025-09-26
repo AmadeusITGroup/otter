@@ -7,6 +7,7 @@ const angular = require('angular-eslint');
 const importPlugin = require('eslint-plugin-import');
 const jsdoc = require('eslint-plugin-jsdoc');
 const unicorn = require('eslint-plugin-unicorn');
+const globals = require('globals');
 const typescript = require('typescript-eslint');
 const commentsConfigOverrides = require('./typescript/comments.cjs');
 const angularConfigOverrides = require('./typescript/eslint-angular.cjs');
@@ -23,28 +24,15 @@ const stylisticConfig = require('./typescript/stylistic.cjs');
 const unicornConfig = require('./typescript/unicorn.cjs');
 const unusedImportsConfig = require('./typescript/unused-imports.cjs');
 
-/**
- * Get the jest config if dependency is present
- * @param {'recommended' | 'overrides'} type
- * @returns {import('@typescript-eslint/utils').TSESLint.FlatConfig.ConfigArray} config
- */
-const getJestConfig = (type) => {
+const checkJestDependency = () => {
   try {
     require.resolve('jest');
-    return type === 'overrides'
-      ? require('./typescript/jest.cjs')
-      : [{
-        // Name added for debugging purpose with @eslint/config-inspector
-        name: 'jest/flat-recommended',
-        files: [
-          '**/*.{c,m,}{t,j}s'
-        ],
-        ...require('eslint-plugin-jest').configs['flat/recommended']
-      }];
   } catch {
-    return [];
+    return false;
   }
+  return true;
 };
+const hasJestDependency = checkJestDependency();
 
 /**
  * @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.ConfigArray}
@@ -87,7 +75,17 @@ const configArray = [
     ],
     ...unicorn.default.configs.recommended
   },
-  ...(getJestConfig('recommended')),
+  ...(hasJestDependency
+    ? [{
+      // Name added for debugging purpose with @eslint/config-inspector
+      name: 'jest/flat-recommended',
+      files: [
+        '**/*.{c,m,}{t,j}s'
+      ],
+      ...require('eslint-plugin-jest').configs['flat/recommended']
+    }]
+    : []
+  ),
   {
     // Name added for debugging purpose with @eslint/config-inspector
     name: 'import/recommended',
@@ -107,7 +105,18 @@ const configArray = [
   ...typescriptConfigOverrides,
   ...angularConfigOverrides,
   ...jsdocConfigOverrides,
-  ...(getJestConfig('overrides')),
+  ...(hasJestDependency
+    ? require('./typescript/jest.cjs')
+    : [{
+      name: '@o3r/eslint-config/typescript/jasmine-globals',
+      files: ['**/*.{c,m,}ts'],
+      languageOptions: {
+        globals: {
+          ...globals.jasmine
+        }
+      }
+    }]
+  ),
   ...preferArrowConfig,
   ...stylisticConfig,
   ...unicornConfig,
