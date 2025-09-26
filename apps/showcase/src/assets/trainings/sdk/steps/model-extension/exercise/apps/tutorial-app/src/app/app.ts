@@ -6,10 +6,10 @@ import { DummyApi, Flight } from 'sdk';
   selector: 'app-root',
   standalone: true,
   imports: [JsonPipe],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  templateUrl: './app.html',
+  styleUrl: './app.scss'
 })
-export class AppComponent {
+export class App {
   /** Title of the application */
   public title = 'tutorial-app';
 
