@@ -6490,6 +6490,27 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@jsverse/transloco@npm:~8.0.0":
+  version: 8.0.0
+  resolution: "@jsverse/transloco@npm:8.0.0"
+  dependencies:
+    tslib: "npm:^2.2.0"
+  peerDependencies:
+    "@angular/core": ">=16.0.0"
+    "@jsverse/transloco-utils": ^7.0.0
+    "@jsverse/utils": 1.0.0-beta.5
+    rxjs: ">=6.0.0"
+  checksum: 10/b08cf6133603211807dac876c970b2fc77e6bb2f44c293685db86c32a08b1012e6e82eeabcc8809af98edee0ff89eb724fcc2c5035d42455a559dfc89d23db2e
+  languageName: node
+  linkType: hard
+
+"@jsverse/utils@npm:~1.0.0-beta.6":
+  version: 1.0.0-beta.6
+  resolution: "@jsverse/utils@npm:1.0.0-beta.6"
+  checksum: 10/a4bafd9a9cabd2e00cb3e5b8ed12d0af94a5d3c139f5913b9818d0f95bdd42e0e2c734292820125f602e6a9d587990a1cf6df7c2dace1307ef9d81f976c0c524
+  languageName: node
+  linkType: hard
+
 "@keyv/bigmap@npm:^1.0.0":
   version: 1.0.2
   resolution: "@keyv/bigmap@npm:1.0.2"
@@ -10347,6 +10368,8 @@ __metadata:
     "@compodoc/compodoc": "npm:^1.1.19"
     "@design-factory/design-factory": "npm:~20.0.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
+    "@jsverse/transloco": "npm:~8.0.0"
+    "@jsverse/utils": "npm:~1.0.0-beta.6"
     "@ng-bootstrap/ng-bootstrap": "npm:^19.0.0"
     "@ng-select/ng-select": "npm:~20.0.0"
     "@ngrx/effects": "npm:~20.0.0"
@@ -10560,6 +10583,8 @@ __metadata:
     "@babel/preset-typescript": "npm:~7.27.0"
     "@compodoc/compodoc": "npm:^1.1.19"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
+    "@jsverse/transloco": "npm:~8.0.0"
+    "@jsverse/utils": "npm:~1.0.0-beta.6"
     "@ngrx/store": "npm:~20.0.0"
     "@ngx-translate/core": "npm:~16.0.4"
     "@nx/eslint": "npm:~21.5.0"
@@ -10632,6 +10657,7 @@ __metadata:
     "@angular/core": ^20.0.0
     "@angular/platform-browser-dynamic": ^20.0.0
     "@formatjs/intl-numberformat": ^8.0.2
+    "@jsverse/transloco": ^8.0.0
     "@ngrx/store": ^20.0.0
     "@ngx-translate/core": ^15.0.0 || ~16.0.4
     "@o3r/core": "workspace:^"
@@ -11511,6 +11537,8 @@ __metadata:
     "@design-factory/design-factory": "npm:~20.0.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@formatjs/intl-numberformat": "npm:~8.15.0"
+    "@jsverse/transloco": "npm:~8.0.0"
+    "@jsverse/utils": "npm:~1.0.0-beta.6"
     "@ng-bootstrap/ng-bootstrap": "npm:^19.0.0"
     "@ng-select/ng-select": "npm:~20.0.0"
     "@ngrx/effects": "npm:~20.0.0"

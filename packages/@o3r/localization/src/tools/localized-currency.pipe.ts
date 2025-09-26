@@ -30,7 +30,7 @@ export class LocalizedCurrencyPipe extends CurrencyPipe implements OnDestroy, Pi
 
   constructor() {
     super(inject(LocalizationService).getCurrentLanguage());
-    this.onLangChange = this.localizationService.getTranslateService().onLangChange.subscribe(() =>
+    this.onLangChange = this.localizationService.getTranslateService().langChanges$.subscribe(() =>
       this.changeDetectorRef.markForCheck()
     );
   }
