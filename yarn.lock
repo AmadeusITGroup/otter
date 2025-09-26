@@ -439,7 +439,7 @@ __metadata:
     "@swc/cli": "npm:~0.7.7"
     "@swc/core": "npm:~1.13.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@typescript-eslint/parser": "npm:~8.43.0"
     cpy-cli: "npm:^6.0.0"
     eslint: "npm:~9.35.0"
@@ -504,7 +504,7 @@ __metadata:
     "@schematics/angular": "npm:~20.2.0"
     "@types/jest": "npm:~29.5.2"
     "@types/jsdom": "npm:^21.1.7"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     cpy-cli: "npm:^6.0.0"
     eslint: "npm:~9.35.0"
     eslint-import-resolver-node: "npm:~0.3.9"
@@ -591,7 +591,7 @@ __metadata:
     "@swc/core": "npm:~1.13.0"
     "@swc/helpers": "npm:~0.5.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@typescript-eslint/parser": "npm:~8.43.0"
     angular-eslint: "npm:~20.2.0"
     cpy-cli: "npm:^6.0.0"
@@ -673,7 +673,7 @@ __metadata:
     "@swc/core": "npm:~1.13.0"
     "@swc/helpers": "npm:~0.5.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@typescript-eslint/parser": "npm:~8.43.0"
     angular-eslint: "npm:~20.2.0"
     cpy-cli: "npm:^6.0.0"
@@ -753,7 +753,7 @@ __metadata:
     "@swc/core": "npm:~1.13.0"
     "@swc/helpers": "npm:~0.5.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@typescript-eslint/parser": "npm:~8.43.0"
     angular-eslint: "npm:~20.2.0"
     cpy-cli: "npm:^6.0.0"
@@ -836,7 +836,7 @@ __metadata:
     "@swc/core": "npm:~1.13.0"
     "@swc/helpers": "npm:~0.5.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@typescript-eslint/parser": "npm:~8.43.0"
     angular-eslint: "npm:~20.2.0"
     cpy-cli: "npm:^6.0.0"
@@ -915,7 +915,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~5.3.0"
     "@types/jest": "npm:~29.5.2"
     "@types/minimist": "npm:^1.2.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@types/pid-from-port": "npm:^1.1.0"
     "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/parser": "npm:~8.43.0"
@@ -980,7 +980,7 @@ __metadata:
     "@types/jest": "npm:~29.5.2"
     "@types/js-yaml": "npm:^4.0.5"
     "@types/minimist": "npm:^1.2.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@types/pid-from-port": "npm:^1.1.0"
     "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/parser": "npm:~8.43.0"
@@ -1072,7 +1072,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~5.3.0"
     "@types/jest": "npm:~29.5.2"
     "@types/js-yaml": "npm:^4.0.5"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@types/semver": "npm:^7.3.13"
     "@types/swagger-schema-official": "npm:^2.0.22"
     "@typescript-eslint/parser": "npm:~8.43.0"
@@ -1135,7 +1135,7 @@ __metadata:
     "@o3r/test-helpers": "workspace:^"
     "@stylistic/eslint-plugin": "npm:~5.3.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@types/semver": "npm:^7.3.13"
     "@types/yargs": "npm:~17.0.33"
     "@typescript-eslint/parser": "npm:~8.43.0"
@@ -1217,7 +1217,7 @@ __metadata:
     "@swc/core": "npm:~1.13.0"
     "@swc/helpers": "npm:~0.5.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@typescript-eslint/parser": "npm:~8.43.0"
     angular-eslint: "npm:~20.2.0"
     commit-and-tag-version: "npm:^12.0.0"
@@ -1284,7 +1284,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~5.3.0"
     "@types/jest": "npm:~29.5.2"
     "@types/minimist": "npm:^1.2.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/parser": "npm:~8.43.0"
     angular-eslint: "npm:~20.2.0"
@@ -1362,7 +1362,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~5.3.0"
     "@types/css-tree": "npm:~2.3.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@typescript-eslint/parser": "npm:~8.43.0"
     angular-eslint: "npm:~20.2.0"
     babel-jest: "npm:^29.7.0"
@@ -1437,7 +1437,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~5.3.0"
     "@types/jest": "npm:~29.5.2"
     "@types/minimist": "npm:^1.2.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@types/progress": "npm:^2.0.5"
     "@types/prompts": "npm:^2.0.14"
     "@types/yargs": "npm:~17.0.33"
@@ -1512,7 +1512,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~5.3.0"
     "@types/jest": "npm:~29.5.2"
     "@types/minimist": "npm:^1.2.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@types/yargs": "npm:~17.0.33"
     "@typescript-eslint/parser": "npm:~8.43.0"
     angular-eslint: "npm:~20.2.0"
@@ -1562,7 +1562,7 @@ __metadata:
     "@schematics/angular": "npm:~20.2.0"
     "@stylistic/eslint-plugin": "npm:~5.3.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@typescript-eslint/parser": "npm:~8.43.0"
     angular-eslint: "npm:~20.2.0"
     cpy-cli: "npm:^6.0.0"
@@ -6732,9 +6732,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@modelcontextprotocol/sdk@npm:~1.17.0":
-  version: 1.17.5
-  resolution: "@modelcontextprotocol/sdk@npm:1.17.5"
+"@modelcontextprotocol/sdk@npm:~1.18.0":
+  version: 1.18.1
+  resolution: "@modelcontextprotocol/sdk@npm:1.18.1"
   dependencies:
     ajv: "npm:^6.12.6"
     content-type: "npm:^1.0.5"
@@ -6748,7 +6748,7 @@ __metadata:
     raw-body: "npm:^3.0.0"
     zod: "npm:^3.23.8"
     zod-to-json-schema: "npm:^3.24.1"
-  checksum: 10/feb6dfc747fb6fcbaf72c5adf8a54dcfd118ad7173f095c4ef6b8c10f412c58939fce6dc3873ff7d783cb28d39f4f87ffd07380c131b17cd87c70a5aa669de50
+  checksum: 10/44698152dd8432dc347fb343738a63770fca8313b3db27780f8e86e49563f5c6ba35765aac3c59a2260ad81dcd052245e93915cd491994d850460bd57fff5c9a
   languageName: node
   linkType: hard
 
@@ -8315,7 +8315,7 @@ __metadata:
     "@swc/core": "npm:~1.13.0"
     "@swc/helpers": "npm:~0.5.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@typescript-eslint/parser": "npm:~8.43.0"
     angular-eslint: "npm:~20.2.0"
     chokidar: "npm:^4.0.3"
@@ -8385,7 +8385,7 @@ __metadata:
     "@swc/core": "npm:~1.13.0"
     "@swc/helpers": "npm:~0.5.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@typescript-eslint/parser": "npm:~8.43.0"
     angular-eslint: "npm:~20.2.0"
     commit-and-tag-version: "npm:^12.0.0"
@@ -8460,7 +8460,7 @@ __metadata:
     "@swc/core": "npm:~1.13.0"
     "@swc/helpers": "npm:~0.5.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/parser": "npm:~8.43.0"
     "@webcontainer/api": "npm:~1.6.0"
@@ -8529,7 +8529,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~5.3.0"
     "@types/jest": "npm:~29.5.2"
     "@types/js-yaml": "npm:^4.0.5"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@typescript-eslint/parser": "npm:~8.43.0"
     angular-eslint: "npm:~20.2.0"
     cpy-cli: "npm:^6.0.0"
@@ -8574,7 +8574,7 @@ __metadata:
     "@o3r/test-helpers": "workspace:^"
     "@stylistic/eslint-plugin": "npm:~5.3.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@types/tar": "npm:~6.1.1"
     "@typescript-eslint/parser": "npm:~8.43.0"
     angular-eslint: "npm:~20.2.0"
@@ -8624,7 +8624,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~5.3.0"
     "@types/jest": "npm:~29.5.2"
     "@types/js-yaml": "npm:^4.0.5"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@typescript-eslint/parser": "npm:~8.43.0"
     angular-eslint: "npm:~20.2.0"
     cpy-cli: "npm:^6.0.0"
@@ -8674,7 +8674,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~5.3.0"
     "@types/jest": "npm:~29.5.2"
     "@types/js-yaml": "npm:^4.0.5"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@typescript-eslint/parser": "npm:~8.43.0"
     angular-eslint: "npm:~20.2.0"
     cpy-cli: "npm:^6.0.0"
@@ -8740,7 +8740,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~5.3.0"
     "@types/jasmine": "npm:~5.1.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@typescript-eslint/parser": "npm:~8.43.0"
     angular-eslint: "npm:~20.2.0"
     cpy-cli: "npm:^6.0.0"
@@ -8840,7 +8840,7 @@ __metadata:
     "@schematics/angular": "npm:~20.2.0"
     "@stylistic/eslint-plugin": "npm:~5.3.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@typescript-eslint/parser": "npm:~8.43.0"
     angular-eslint: "npm:~20.2.0"
     cpy-cli: "npm:^6.0.0"
@@ -8931,7 +8931,7 @@ __metadata:
     "@schematics/angular": "npm:~20.2.0"
     "@stylistic/eslint-plugin": "npm:~5.3.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@typescript-eslint/parser": "npm:~8.43.0"
     angular-eslint: "npm:~20.2.0"
     cpy-cli: "npm:^6.0.0"
@@ -9010,7 +9010,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~5.3.0"
     "@types/fs-extra": "npm:^11.0.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@typescript-eslint/parser": "npm:~8.43.0"
     angular-eslint: "npm:~20.2.0"
     commander: "npm:^14.0.0"
@@ -9071,7 +9071,7 @@ __metadata:
     "@o3r/test-helpers": "workspace:^"
     "@stylistic/eslint-plugin": "npm:~5.3.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@typescript-eslint/parser": "npm:~8.43.0"
     angular-eslint: "npm:~20.2.0"
     azure-devops-node-api: "npm:^15.0.0"
@@ -9120,7 +9120,7 @@ __metadata:
     "@nx/eslint-plugin": "npm:~21.5.0"
     "@o3r/eslint-plugin": "workspace:^"
     "@stylistic/eslint-plugin": "npm:~5.3.0"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@typescript-eslint/parser": "npm:~8.43.0"
     angular-eslint: "npm:~20.2.0"
     eslint: "npm:~9.35.0"
@@ -9294,7 +9294,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~5.3.0"
     "@swc/helpers": "npm:~0.5.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/parser": "npm:~8.43.0"
     "@typescript/vfs": "npm:^1.6.1"
@@ -9325,7 +9325,7 @@ __metadata:
     jest-util: "npm:~29.7.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     jsonpath-plus: "npm:~10.3.0"
-    memfs: "npm:~4.38.0"
+    memfs: "npm:~4.43.0"
     nx: "npm:~21.5.0"
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
@@ -9455,7 +9455,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~5.3.0"
     "@types/jasmine": "npm:~5.1.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/parser": "npm:~8.43.0"
     angular-eslint: "npm:~20.2.0"
@@ -9563,7 +9563,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~5.3.0"
     "@swc/helpers": "npm:~0.5.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@types/pid-from-port": "npm:^1.1.0"
     "@typescript-eslint/parser": "npm:~8.43.0"
     angular-eslint: "npm:~20.2.0"
@@ -9587,7 +9587,7 @@ __metadata:
     jest-preset-angular: "npm:~14.6.0"
     jest-util: "npm:~29.7.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    memfs: "npm:~4.38.0"
+    memfs: "npm:~4.43.0"
     nx: "npm:~21.5.0"
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
@@ -9666,7 +9666,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~5.3.0"
     "@types/jest": "npm:~29.5.2"
     "@types/minimist": "npm:^1.2.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@types/shell-quote": "npm:^1.7.5"
     "@typescript-eslint/parser": "npm:~8.43.0"
     angular-eslint: "npm:~20.2.0"
@@ -9744,7 +9744,7 @@ __metadata:
     "@swc/helpers": "npm:~0.5.0"
     "@types/jest": "npm:~29.5.2"
     "@types/minimist": "npm:^1.2.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/parser": "npm:~8.43.0"
     angular-eslint: "npm:~20.2.0"
@@ -9772,7 +9772,7 @@ __metadata:
     nx: "npm:~21.5.0"
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
-    sass: "npm:~1.92.0"
+    sass: "npm:~1.93.0"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.4.0"
     ts-node: "npm:~10.9.2"
@@ -9850,7 +9850,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~5.3.0"
     "@types/jasmine": "npm:~5.1.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@typescript-eslint/parser": "npm:~8.43.0"
     angular-eslint: "npm:~20.2.0"
     cheerio: "npm:~1.1.2"
@@ -9932,7 +9932,7 @@ __metadata:
     "@schematics/angular": "npm:~20.2.0"
     "@stylistic/eslint-plugin": "npm:~5.3.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@typescript-eslint/parser": "npm:~8.43.0"
     angular-eslint: "npm:~20.2.0"
     cpy-cli: "npm:^6.0.0"
@@ -10047,7 +10047,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~5.3.0"
     "@types/eslint": "npm:~9.6.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/parser": "npm:~8.43.0"
     "@typescript-eslint/rule-tester": "npm:~8.43.0"
@@ -10133,7 +10133,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~5.3.0"
     "@swc/helpers": "npm:~0.5.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/parser": "npm:~8.43.0"
     "@yarnpkg/cli": "npm:^4.5.0"
@@ -10254,7 +10254,7 @@ __metadata:
     "@schematics/angular": "npm:~20.2.0"
     "@stylistic/eslint-plugin": "npm:~5.3.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@typescript-eslint/parser": "npm:~8.43.0"
     angular-eslint: "npm:~20.2.0"
     cpy-cli: "npm:^6.0.0"
@@ -10378,7 +10378,7 @@ __metadata:
     "@types/eslint": "npm:~9.6.0"
     "@types/estree": "npm:^1.0.5"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/parser": "npm:~8.43.0"
     "@typescript-eslint/rule-tester": "npm:~8.43.0"
@@ -10426,7 +10426,7 @@ __metadata:
     lint-staged: "npm:^16.0.0"
     marked: "npm:^15.0.0"
     minimist: "npm:^1.2.6"
-    monaco-editor: "npm:~0.52.0"
+    monaco-editor: "npm:~0.53.0"
     ng-packagr: "npm:~20.3.0"
     ngx-markdown: "npm:^20.0.0"
     ngx-monaco-editor-v2: "npm:^20.0.0"
@@ -10443,7 +10443,7 @@ __metadata:
     replace-in-files-cli: "npm:^3.0.0"
     rimraf: "npm:^6.0.1"
     rxjs: "npm:^7.8.1"
-    sass: "npm:~1.92.0"
+    sass: "npm:~1.93.0"
     sass-loader: "npm:^16.0.0"
     semver: "npm:^7.5.2"
     source-map-js: "npm:^1.2.1"
@@ -10502,7 +10502,7 @@ __metadata:
     "@types/ejs": "npm:^3.1.2"
     "@types/express-serve-static-core": "npm:^5.0.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/parser": "npm:~8.43.0"
     angular-eslint: "npm:~20.2.0"
@@ -10578,7 +10578,7 @@ __metadata:
     "@schematics/angular": "npm:~20.2.0"
     "@stylistic/eslint-plugin": "npm:~5.3.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/parser": "npm:~8.43.0"
     "@yarnpkg/cli": "npm:^4.5.0"
@@ -10609,7 +10609,7 @@ __metadata:
     jest-preset-angular: "npm:~14.6.0"
     jest-util: "npm:~29.7.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    memfs: "npm:~4.38.0"
+    memfs: "npm:~4.43.0"
     nx: "npm:~21.5.0"
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
@@ -10723,7 +10723,7 @@ __metadata:
     "@schematics/angular": "npm:~20.2.0"
     "@stylistic/eslint-plugin": "npm:~5.3.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@typescript-eslint/parser": "npm:~8.43.0"
     angular-eslint: "npm:~20.2.0"
     cpy-cli: "npm:^6.0.0"
@@ -10805,7 +10805,7 @@ __metadata:
     "@angular/platform-browser": "npm:~20.2.0"
     "@angular/platform-browser-dynamic": "npm:~20.2.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@modelcontextprotocol/sdk": "npm:~1.17.0"
+    "@modelcontextprotocol/sdk": "npm:~1.18.0"
     "@nx/eslint": "npm:~21.5.0"
     "@nx/eslint-plugin": "npm:~21.5.0"
     "@nx/jest": "npm:~21.5.0"
@@ -10816,7 +10816,7 @@ __metadata:
     "@o3r/test-helpers": "workspace:^"
     "@stylistic/eslint-plugin": "npm:~5.3.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@typescript-eslint/parser": "npm:~8.43.0"
     angular-eslint: "npm:~20.2.0"
     cpy-cli: "npm:^6.0.0"
@@ -10891,7 +10891,7 @@ __metadata:
     "@schematics/angular": "npm:~20.2.0"
     "@stylistic/eslint-plugin": "npm:~5.3.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@types/node-fetch": "npm:^2.6.2"
     "@typescript-eslint/parser": "npm:~8.43.0"
     angular-eslint: "npm:~20.2.0"
@@ -10977,7 +10977,7 @@ __metadata:
     "@schematics/angular": "npm:~20.2.0"
     "@stylistic/eslint-plugin": "npm:~5.3.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/parser": "npm:~8.43.0"
     angular-eslint: "npm:~20.2.0"
@@ -11033,7 +11033,7 @@ __metadata:
     "@schematics/angular": "npm:~20.2.0"
     "@stylistic/eslint-plugin": "npm:~5.3.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@typescript-eslint/parser": "npm:~8.43.0"
     angular-eslint: "npm:~20.2.0"
     cpy-cli: "npm:^6.0.0"
@@ -11091,7 +11091,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~5.3.0"
     "@types/jest": "npm:~29.5.2"
     "@types/js-yaml": "npm:^4.0.5"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@typescript-eslint/eslint-plugin": "npm:~8.43.0"
     "@typescript-eslint/parser": "npm:~8.43.0"
     "@typescript-eslint/utils": "npm:~8.43.0"
@@ -11178,7 +11178,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~5.3.0"
     "@types/jasmine": "npm:~5.1.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@typescript-eslint/parser": "npm:~8.43.0"
     angular-eslint: "npm:~20.2.0"
     cpy-cli: "npm:^6.0.0"
@@ -11284,7 +11284,7 @@ __metadata:
     "@types/jasmine": "npm:~5.1.0"
     "@types/jest": "npm:~29.5.2"
     "@types/json-schema": "npm:^7.0.15"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/parser": "npm:~8.43.0"
     angular-eslint: "npm:~20.2.0"
@@ -11309,7 +11309,7 @@ __metadata:
     jest-util: "npm:~29.7.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     jsonpath-plus: "npm:~10.3.0"
-    memfs: "npm:~4.38.0"
+    memfs: "npm:~4.43.0"
     nx: "npm:~21.5.0"
     pid-from-port: "npm:^1.1.3"
     rimraf: "npm:^6.0.1"
@@ -11410,7 +11410,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~5.3.0"
     "@swc/helpers": "npm:~0.5.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/parser": "npm:~8.43.0"
     angular-eslint: "npm:~20.2.0"
@@ -11550,7 +11550,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~5.3.0"
     "@types/bootstrap": "npm:^5.2.10"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@typescript-eslint/parser": "npm:~8.43.0"
     "@vscode/codicons": "npm:^0.0.40"
     "@webcontainer/api": "npm:~1.6.0"
@@ -11585,7 +11585,7 @@ __metadata:
     lighthouse: "npm:~12.8.0"
     marked: "npm:^15.0.0"
     minimist: "npm:^1.2.6"
-    monaco-editor: "npm:~0.52.0"
+    monaco-editor: "npm:~0.53.0"
     ngx-markdown: "npm:^20.0.0"
     ngx-monaco-editor-v2: "npm:^20.0.0"
     ngx-monaco-tree: "npm:~19.1.0"
@@ -11638,7 +11638,7 @@ __metadata:
     "@schematics/angular": "npm:~20.2.0"
     "@stylistic/eslint-plugin": "npm:~5.3.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@typescript-eslint/parser": "npm:~8.43.0"
     angular-eslint: "npm:~20.2.0"
     cpy-cli: "npm:^6.0.0"
@@ -11722,7 +11722,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~5.3.0"
     "@types/jest": "npm:~29.5.2"
     "@types/minimist": "npm:^1.2.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/parser": "npm:~8.43.0"
     angular-eslint: "npm:~20.2.0"
@@ -11796,7 +11796,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~5.3.0"
     "@types/css-tree": "npm:~2.3.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@typescript-eslint/parser": "npm:~8.43.0"
     angular-eslint: "npm:~20.2.0"
     babel-jest: "npm:^29.7.0"
@@ -11887,7 +11887,7 @@ __metadata:
     "@schematics/angular": "npm:~20.2.0"
     "@stylistic/eslint-plugin": "npm:~5.3.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/parser": "npm:~8.43.0"
     "@yarnpkg/cli": "npm:^4.5.0"
@@ -11916,12 +11916,12 @@ __metadata:
     jest-preset-angular: "npm:~14.6.0"
     jest-util: "npm:~29.7.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    memfs: "npm:~4.38.0"
+    memfs: "npm:~4.43.0"
     nx: "npm:~21.5.0"
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
-    sass: "npm:~1.92.0"
-    sass-embedded: "npm:~1.92.0"
+    sass: "npm:~1.93.0"
+    sass-embedded: "npm:~1.93.0"
     semver: "npm:^7.5.2"
     source-map-js: "npm:^1.2.1"
     stylelint: "npm:~16.24.0"
@@ -12029,7 +12029,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~5.3.0"
     "@types/jest": "npm:~29.5.2"
     "@types/minimist": "npm:^1.2.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@typescript-eslint/parser": "npm:~8.43.0"
     angular-eslint: "npm:~20.2.0"
     cpy-cli: "npm:^6.0.0"
@@ -12089,7 +12089,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:^"
     "@stylistic/eslint-plugin": "npm:~5.3.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@types/pid-from-port": "npm:^1.1.0"
     "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/parser": "npm:~8.43.0"
@@ -12112,7 +12112,7 @@ __metadata:
     jest-junit: "npm:~16.0.0"
     jest-util: "npm:~29.7.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    memfs: "npm:~4.38.0"
+    memfs: "npm:~4.43.0"
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
@@ -12186,7 +12186,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~5.3.0"
     "@swc/helpers": "npm:~0.5.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@types/pixelmatch": "npm:^5.2.3"
     "@types/pngjs": "npm:^6.0.0"
     "@typescript-eslint/parser": "npm:~8.43.0"
@@ -12320,7 +12320,7 @@ __metadata:
     "@schematics/angular": "npm:~20.2.0"
     "@stylistic/eslint-plugin": "npm:~5.3.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@typescript-eslint/parser": "npm:~8.43.0"
     angular-eslint: "npm:~20.2.0"
     cpy-cli: "npm:^6.0.0"
@@ -12385,7 +12385,7 @@ __metadata:
     "@nx/eslint-plugin": "npm:~21.5.0"
     "@o3r/eslint-plugin": "workspace:^"
     "@stylistic/eslint-plugin": "npm:~5.3.0"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@typescript-eslint/eslint-plugin": "npm:~8.43.0"
     "@typescript-eslint/parser": "npm:~8.43.0"
     "@typescript-eslint/utils": "npm:~8.43.0"
@@ -12458,7 +12458,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~5.3.0"
     "@types/jest": "npm:~29.5.2"
     "@types/minimist": "npm:^1.2.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@types/pid-from-port": "npm:^1.1.0"
     "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/parser": "npm:~8.43.0"
@@ -15807,7 +15807,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^22.0.0":
+"@types/node@npm:~22.18.0":
   version: 22.18.6
   resolution: "@types/node@npm:22.18.6"
   dependencies:
@@ -16070,6 +16070,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/trusted-types@npm:^1.0.6":
+  version: 1.0.6
+  resolution: "@types/trusted-types@npm:1.0.6"
+  checksum: 10/22b8efcb6116ab80d07542047135618ee282f2060c481e472126604d838c09e7dad33c9462d88c130aef2c3133aece516f00d6af7ff814f0612f7d19db720e6d
+  languageName: node
+  linkType: hard
+
 "@types/trusted-types@npm:^2.0.7":
   version: 2.0.7
   resolution: "@types/trusted-types@npm:2.0.7"
@@ -16094,10 +16101,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/vscode@npm:~1.103.0":
-  version: 1.103.0
-  resolution: "@types/vscode@npm:1.103.0"
-  checksum: 10/1df901931f75ec79e40145c4dd6119212591e7b666553ac1cd5b364403153b1806add39bc220af5eece02868c73c1008db5f3c8175623699d2decaeb1882d90d
+"@types/vscode@npm:~1.104.0":
+  version: 1.104.0
+  resolution: "@types/vscode@npm:1.104.0"
+  checksum: 10/d421aec4246bc24a40e8b6f111badae458369e2cd409bc6e1a1c7e4014029432751b84d59624f0622fd26a42f097c4b53cf51923e476e1f23fdea7e00c7191ef
   languageName: node
   linkType: hard
 
@@ -18500,7 +18507,7 @@ __metadata:
     "@o3r/test-helpers": "workspace:^"
     "@stylistic/eslint-plugin": "npm:~5.3.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@typescript-eslint/parser": "npm:~8.43.0"
     "@vercel/ncc": "npm:~0.38.0"
     angular-eslint: "npm:~20.2.0"
@@ -24641,7 +24648,7 @@ __metadata:
     "@o3r/eslint-config": "workspace:~"
     "@o3r/eslint-plugin": "workspace:~"
     "@stylistic/eslint-plugin": "npm:~5.3.0"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/parser": "npm:~8.43.0"
     "@vercel/ncc": "npm:~0.38.0"
@@ -29396,7 +29403,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"memfs@npm:^4.17.0, memfs@npm:^4.28.0, memfs@npm:^4.6.0":
+"memfs@npm:^4.17.0, memfs@npm:^4.28.0, memfs@npm:^4.6.0, memfs@npm:~4.43.0":
   version: 4.43.0
   resolution: "memfs@npm:4.43.0"
   dependencies:
@@ -29407,20 +29414,6 @@ __metadata:
     tree-dump: "npm:^1.0.3"
     tslib: "npm:^2.0.0"
   checksum: 10/dfe692f574f22b637206af6a3ec8208bbecb25e629e3840584796f117fe5709be279592d0ca9735c20c109ef827a720c6bc53fc512a5b10cf6af220e8734fb24
-  languageName: node
-  linkType: hard
-
-"memfs@npm:~4.38.0":
-  version: 4.38.3
-  resolution: "memfs@npm:4.38.3"
-  dependencies:
-    "@jsonjoy.com/json-pack": "npm:^1.11.0"
-    "@jsonjoy.com/util": "npm:^1.9.0"
-    glob-to-regex.js: "npm:^1.0.1"
-    thingies: "npm:^2.5.0"
-    tree-dump: "npm:^1.0.3"
-    tslib: "npm:^2.0.0"
-  checksum: 10/33aa7112ff4fdb388d73b777c8481890d6895098ad62597d75fbb71c904c96f03eb61a6e637242949411e2ef9b6a25208f96ecb0c84b5cd0223bb7344147c6b4
   languageName: node
   linkType: hard
 
@@ -29886,10 +29879,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"monaco-editor@npm:~0.52.0":
-  version: 0.52.2
-  resolution: "monaco-editor@npm:0.52.2"
-  checksum: 10/0d4962d69ffa0a8df040faa9c582cef1893fa3fb617feca8f1425c5e670e74c2856104b9a2b01cbda0103a5e5f92f58843206bc9a0e070471c0c1270d7f52a96
+"monaco-editor@npm:~0.53.0":
+  version: 0.53.0
+  resolution: "monaco-editor@npm:0.53.0"
+  dependencies:
+    "@types/trusted-types": "npm:^1.0.6"
+  checksum: 10/ecfaeae965ce7a4b7f7c6d6fd889984d035beb169cd3e33f55dbd04b2b33a454c9ab7551e0822c2c37e1e89bb2950999c704235c0fb70bb21602695e182f90b2
   languageName: node
   linkType: hard
 
@@ -30104,7 +30099,7 @@ __metadata:
     "@o3r/test-helpers": "workspace:^"
     "@stylistic/eslint-plugin": "npm:~5.3.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/parser": "npm:~8.43.0"
     "@vercel/ncc": "npm:~0.38.0"
@@ -31089,8 +31084,8 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~5.3.0"
     "@types/eslint": "npm:~9.6.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:~22.0.0"
-    "@types/vscode": "npm:~1.103.0"
+    "@types/node": "npm:~22.18.0"
+    "@types/vscode": "npm:~1.104.0"
     "@typescript-eslint/parser": "npm:~8.43.0"
     "@typescript-eslint/utils": "npm:~8.43.0"
     "@vscode/vsce": "npm:^3.2.1"
@@ -33561,7 +33556,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:~"
     "@stylistic/eslint-plugin": "npm:~5.3.0"
     "@types/minimist": "npm:^1.2.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/parser": "npm:~8.43.0"
     "@vercel/ncc": "npm:~0.38.0"
@@ -34177,293 +34172,163 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass-embedded-all-unknown@npm:1.92.1":
-  version: 1.92.1
-  resolution: "sass-embedded-all-unknown@npm:1.92.1"
+"sass-embedded-all-unknown@npm:1.93.1":
+  version: 1.93.1
+  resolution: "sass-embedded-all-unknown@npm:1.93.1"
   dependencies:
-    sass: "npm:1.92.1"
+    sass: "npm:1.93.1"
   conditions: (!cpu=arm | !cpu=arm64 | !cpu=riscv64 | !cpu=x64)
   languageName: node
   linkType: hard
 
-"sass-embedded-all-unknown@npm:1.93.0":
-  version: 1.93.0
-  resolution: "sass-embedded-all-unknown@npm:1.93.0"
-  dependencies:
-    sass: "npm:1.93.0"
-  conditions: (!cpu=arm | !cpu=arm64 | !cpu=riscv64 | !cpu=x64)
-  languageName: node
-  linkType: hard
-
-"sass-embedded-android-arm64@npm:1.92.1":
-  version: 1.92.1
-  resolution: "sass-embedded-android-arm64@npm:1.92.1"
+"sass-embedded-android-arm64@npm:1.93.1":
+  version: 1.93.1
+  resolution: "sass-embedded-android-arm64@npm:1.93.1"
   conditions: os=android & cpu=arm64
   languageName: node
   linkType: hard
 
-"sass-embedded-android-arm64@npm:1.93.0":
-  version: 1.93.0
-  resolution: "sass-embedded-android-arm64@npm:1.93.0"
-  conditions: os=android & cpu=arm64
-  languageName: node
-  linkType: hard
-
-"sass-embedded-android-arm@npm:1.92.1":
-  version: 1.92.1
-  resolution: "sass-embedded-android-arm@npm:1.92.1"
+"sass-embedded-android-arm@npm:1.93.1":
+  version: 1.93.1
+  resolution: "sass-embedded-android-arm@npm:1.93.1"
   conditions: os=android & cpu=arm
   languageName: node
   linkType: hard
 
-"sass-embedded-android-arm@npm:1.93.0":
-  version: 1.93.0
-  resolution: "sass-embedded-android-arm@npm:1.93.0"
-  conditions: os=android & cpu=arm
-  languageName: node
-  linkType: hard
-
-"sass-embedded-android-riscv64@npm:1.92.1":
-  version: 1.92.1
-  resolution: "sass-embedded-android-riscv64@npm:1.92.1"
+"sass-embedded-android-riscv64@npm:1.93.1":
+  version: 1.93.1
+  resolution: "sass-embedded-android-riscv64@npm:1.93.1"
   conditions: os=android & cpu=riscv64
   languageName: node
   linkType: hard
 
-"sass-embedded-android-riscv64@npm:1.93.0":
-  version: 1.93.0
-  resolution: "sass-embedded-android-riscv64@npm:1.93.0"
-  conditions: os=android & cpu=riscv64
-  languageName: node
-  linkType: hard
-
-"sass-embedded-android-x64@npm:1.92.1":
-  version: 1.92.1
-  resolution: "sass-embedded-android-x64@npm:1.92.1"
+"sass-embedded-android-x64@npm:1.93.1":
+  version: 1.93.1
+  resolution: "sass-embedded-android-x64@npm:1.93.1"
   conditions: os=android & cpu=x64
   languageName: node
   linkType: hard
 
-"sass-embedded-android-x64@npm:1.93.0":
-  version: 1.93.0
-  resolution: "sass-embedded-android-x64@npm:1.93.0"
-  conditions: os=android & cpu=x64
-  languageName: node
-  linkType: hard
-
-"sass-embedded-darwin-arm64@npm:1.92.1":
-  version: 1.92.1
-  resolution: "sass-embedded-darwin-arm64@npm:1.92.1"
+"sass-embedded-darwin-arm64@npm:1.93.1":
+  version: 1.93.1
+  resolution: "sass-embedded-darwin-arm64@npm:1.93.1"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"sass-embedded-darwin-arm64@npm:1.93.0":
-  version: 1.93.0
-  resolution: "sass-embedded-darwin-arm64@npm:1.93.0"
-  conditions: os=darwin & cpu=arm64
-  languageName: node
-  linkType: hard
-
-"sass-embedded-darwin-x64@npm:1.92.1":
-  version: 1.92.1
-  resolution: "sass-embedded-darwin-x64@npm:1.92.1"
+"sass-embedded-darwin-x64@npm:1.93.1":
+  version: 1.93.1
+  resolution: "sass-embedded-darwin-x64@npm:1.93.1"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"sass-embedded-darwin-x64@npm:1.93.0":
-  version: 1.93.0
-  resolution: "sass-embedded-darwin-x64@npm:1.93.0"
-  conditions: os=darwin & cpu=x64
-  languageName: node
-  linkType: hard
-
-"sass-embedded-linux-arm64@npm:1.92.1":
-  version: 1.92.1
-  resolution: "sass-embedded-linux-arm64@npm:1.92.1"
+"sass-embedded-linux-arm64@npm:1.93.1":
+  version: 1.93.1
+  resolution: "sass-embedded-linux-arm64@npm:1.93.1"
   conditions: os=linux & cpu=arm64
   languageName: node
   linkType: hard
 
-"sass-embedded-linux-arm64@npm:1.93.0":
-  version: 1.93.0
-  resolution: "sass-embedded-linux-arm64@npm:1.93.0"
+"sass-embedded-linux-arm@npm:1.93.1":
+  version: 1.93.1
+  resolution: "sass-embedded-linux-arm@npm:1.93.1"
+  conditions: os=linux & cpu=arm
+  languageName: node
+  linkType: hard
+
+"sass-embedded-linux-musl-arm64@npm:1.93.1":
+  version: 1.93.1
+  resolution: "sass-embedded-linux-musl-arm64@npm:1.93.1"
   conditions: os=linux & cpu=arm64
   languageName: node
   linkType: hard
 
-"sass-embedded-linux-arm@npm:1.92.1":
-  version: 1.92.1
-  resolution: "sass-embedded-linux-arm@npm:1.92.1"
+"sass-embedded-linux-musl-arm@npm:1.93.1":
+  version: 1.93.1
+  resolution: "sass-embedded-linux-musl-arm@npm:1.93.1"
   conditions: os=linux & cpu=arm
   languageName: node
   linkType: hard
 
-"sass-embedded-linux-arm@npm:1.93.0":
-  version: 1.93.0
-  resolution: "sass-embedded-linux-arm@npm:1.93.0"
-  conditions: os=linux & cpu=arm
-  languageName: node
-  linkType: hard
-
-"sass-embedded-linux-musl-arm64@npm:1.92.1":
-  version: 1.92.1
-  resolution: "sass-embedded-linux-musl-arm64@npm:1.92.1"
-  conditions: os=linux & cpu=arm64
-  languageName: node
-  linkType: hard
-
-"sass-embedded-linux-musl-arm64@npm:1.93.0":
-  version: 1.93.0
-  resolution: "sass-embedded-linux-musl-arm64@npm:1.93.0"
-  conditions: os=linux & cpu=arm64
-  languageName: node
-  linkType: hard
-
-"sass-embedded-linux-musl-arm@npm:1.92.1":
-  version: 1.92.1
-  resolution: "sass-embedded-linux-musl-arm@npm:1.92.1"
-  conditions: os=linux & cpu=arm
-  languageName: node
-  linkType: hard
-
-"sass-embedded-linux-musl-arm@npm:1.93.0":
-  version: 1.93.0
-  resolution: "sass-embedded-linux-musl-arm@npm:1.93.0"
-  conditions: os=linux & cpu=arm
-  languageName: node
-  linkType: hard
-
-"sass-embedded-linux-musl-riscv64@npm:1.92.1":
-  version: 1.92.1
-  resolution: "sass-embedded-linux-musl-riscv64@npm:1.92.1"
+"sass-embedded-linux-musl-riscv64@npm:1.93.1":
+  version: 1.93.1
+  resolution: "sass-embedded-linux-musl-riscv64@npm:1.93.1"
   conditions: os=linux & cpu=riscv64
   languageName: node
   linkType: hard
 
-"sass-embedded-linux-musl-riscv64@npm:1.93.0":
-  version: 1.93.0
-  resolution: "sass-embedded-linux-musl-riscv64@npm:1.93.0"
+"sass-embedded-linux-musl-x64@npm:1.93.1":
+  version: 1.93.1
+  resolution: "sass-embedded-linux-musl-x64@npm:1.93.1"
+  conditions: os=linux & cpu=x64
+  languageName: node
+  linkType: hard
+
+"sass-embedded-linux-riscv64@npm:1.93.1":
+  version: 1.93.1
+  resolution: "sass-embedded-linux-riscv64@npm:1.93.1"
   conditions: os=linux & cpu=riscv64
   languageName: node
   linkType: hard
 
-"sass-embedded-linux-musl-x64@npm:1.92.1":
-  version: 1.92.1
-  resolution: "sass-embedded-linux-musl-x64@npm:1.92.1"
+"sass-embedded-linux-x64@npm:1.93.1":
+  version: 1.93.1
+  resolution: "sass-embedded-linux-x64@npm:1.93.1"
   conditions: os=linux & cpu=x64
   languageName: node
   linkType: hard
 
-"sass-embedded-linux-musl-x64@npm:1.93.0":
-  version: 1.93.0
-  resolution: "sass-embedded-linux-musl-x64@npm:1.93.0"
-  conditions: os=linux & cpu=x64
-  languageName: node
-  linkType: hard
-
-"sass-embedded-linux-riscv64@npm:1.92.1":
-  version: 1.92.1
-  resolution: "sass-embedded-linux-riscv64@npm:1.92.1"
-  conditions: os=linux & cpu=riscv64
-  languageName: node
-  linkType: hard
-
-"sass-embedded-linux-riscv64@npm:1.93.0":
-  version: 1.93.0
-  resolution: "sass-embedded-linux-riscv64@npm:1.93.0"
-  conditions: os=linux & cpu=riscv64
-  languageName: node
-  linkType: hard
-
-"sass-embedded-linux-x64@npm:1.92.1":
-  version: 1.92.1
-  resolution: "sass-embedded-linux-x64@npm:1.92.1"
-  conditions: os=linux & cpu=x64
-  languageName: node
-  linkType: hard
-
-"sass-embedded-linux-x64@npm:1.93.0":
-  version: 1.93.0
-  resolution: "sass-embedded-linux-x64@npm:1.93.0"
-  conditions: os=linux & cpu=x64
-  languageName: node
-  linkType: hard
-
-"sass-embedded-unknown-all@npm:1.92.1":
-  version: 1.92.1
-  resolution: "sass-embedded-unknown-all@npm:1.92.1"
+"sass-embedded-unknown-all@npm:1.93.1":
+  version: 1.93.1
+  resolution: "sass-embedded-unknown-all@npm:1.93.1"
   dependencies:
-    sass: "npm:1.92.1"
+    sass: "npm:1.93.1"
   conditions: (!os=android | !os=darwin | !os=linux | !os=win32)
   languageName: node
   linkType: hard
 
-"sass-embedded-unknown-all@npm:1.93.0":
-  version: 1.93.0
-  resolution: "sass-embedded-unknown-all@npm:1.93.0"
-  dependencies:
-    sass: "npm:1.93.0"
-  conditions: (!os=android | !os=darwin | !os=linux | !os=win32)
-  languageName: node
-  linkType: hard
-
-"sass-embedded-win32-arm64@npm:1.92.1":
-  version: 1.92.1
-  resolution: "sass-embedded-win32-arm64@npm:1.92.1"
+"sass-embedded-win32-arm64@npm:1.93.1":
+  version: 1.93.1
+  resolution: "sass-embedded-win32-arm64@npm:1.93.1"
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
 
-"sass-embedded-win32-arm64@npm:1.93.0":
-  version: 1.93.0
-  resolution: "sass-embedded-win32-arm64@npm:1.93.0"
-  conditions: os=win32 & cpu=arm64
-  languageName: node
-  linkType: hard
-
-"sass-embedded-win32-x64@npm:1.92.1":
-  version: 1.92.1
-  resolution: "sass-embedded-win32-x64@npm:1.92.1"
+"sass-embedded-win32-x64@npm:1.93.1":
+  version: 1.93.1
+  resolution: "sass-embedded-win32-x64@npm:1.93.1"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
 
-"sass-embedded-win32-x64@npm:1.93.0":
-  version: 1.93.0
-  resolution: "sass-embedded-win32-x64@npm:1.93.0"
-  conditions: os=win32 & cpu=x64
-  languageName: node
-  linkType: hard
-
-"sass-embedded@npm:^1.83.4":
-  version: 1.93.0
-  resolution: "sass-embedded@npm:1.93.0"
+"sass-embedded@npm:^1.83.4, sass-embedded@npm:~1.93.0":
+  version: 1.93.1
+  resolution: "sass-embedded@npm:1.93.1"
   dependencies:
     "@bufbuild/protobuf": "npm:^2.5.0"
     buffer-builder: "npm:^0.2.0"
     colorjs.io: "npm:^0.5.0"
     immutable: "npm:^5.0.2"
     rxjs: "npm:^7.4.0"
-    sass-embedded-all-unknown: "npm:1.93.0"
-    sass-embedded-android-arm: "npm:1.93.0"
-    sass-embedded-android-arm64: "npm:1.93.0"
-    sass-embedded-android-riscv64: "npm:1.93.0"
-    sass-embedded-android-x64: "npm:1.93.0"
-    sass-embedded-darwin-arm64: "npm:1.93.0"
-    sass-embedded-darwin-x64: "npm:1.93.0"
-    sass-embedded-linux-arm: "npm:1.93.0"
-    sass-embedded-linux-arm64: "npm:1.93.0"
-    sass-embedded-linux-musl-arm: "npm:1.93.0"
-    sass-embedded-linux-musl-arm64: "npm:1.93.0"
-    sass-embedded-linux-musl-riscv64: "npm:1.93.0"
-    sass-embedded-linux-musl-x64: "npm:1.93.0"
-    sass-embedded-linux-riscv64: "npm:1.93.0"
-    sass-embedded-linux-x64: "npm:1.93.0"
-    sass-embedded-unknown-all: "npm:1.93.0"
-    sass-embedded-win32-arm64: "npm:1.93.0"
-    sass-embedded-win32-x64: "npm:1.93.0"
+    sass-embedded-all-unknown: "npm:1.93.1"
+    sass-embedded-android-arm: "npm:1.93.1"
+    sass-embedded-android-arm64: "npm:1.93.1"
+    sass-embedded-android-riscv64: "npm:1.93.1"
+    sass-embedded-android-x64: "npm:1.93.1"
+    sass-embedded-darwin-arm64: "npm:1.93.1"
+    sass-embedded-darwin-x64: "npm:1.93.1"
+    sass-embedded-linux-arm: "npm:1.93.1"
+    sass-embedded-linux-arm64: "npm:1.93.1"
+    sass-embedded-linux-musl-arm: "npm:1.93.1"
+    sass-embedded-linux-musl-arm64: "npm:1.93.1"
+    sass-embedded-linux-musl-riscv64: "npm:1.93.1"
+    sass-embedded-linux-musl-x64: "npm:1.93.1"
+    sass-embedded-linux-riscv64: "npm:1.93.1"
+    sass-embedded-linux-x64: "npm:1.93.1"
+    sass-embedded-unknown-all: "npm:1.93.1"
+    sass-embedded-win32-arm64: "npm:1.93.1"
+    sass-embedded-win32-x64: "npm:1.93.1"
     supports-color: "npm:^8.1.1"
     sync-child-process: "npm:^1.0.2"
     varint: "npm:^6.0.0"
@@ -34506,80 +34371,7 @@ __metadata:
       optional: true
   bin:
     sass: dist/bin/sass.js
-  checksum: 10/d11f80ff2053d32f59159488ccc7626aa509ca37f1fb739ea3599cdc6c08bc7c32fea43f5d7bc16e00c0708e7ee3c81aefb8833f4c12d2a2b20b97da60b3a96f
-  languageName: node
-  linkType: hard
-
-"sass-embedded@npm:~1.92.0":
-  version: 1.92.1
-  resolution: "sass-embedded@npm:1.92.1"
-  dependencies:
-    "@bufbuild/protobuf": "npm:^2.5.0"
-    buffer-builder: "npm:^0.2.0"
-    colorjs.io: "npm:^0.5.0"
-    immutable: "npm:^5.0.2"
-    rxjs: "npm:^7.4.0"
-    sass-embedded-all-unknown: "npm:1.92.1"
-    sass-embedded-android-arm: "npm:1.92.1"
-    sass-embedded-android-arm64: "npm:1.92.1"
-    sass-embedded-android-riscv64: "npm:1.92.1"
-    sass-embedded-android-x64: "npm:1.92.1"
-    sass-embedded-darwin-arm64: "npm:1.92.1"
-    sass-embedded-darwin-x64: "npm:1.92.1"
-    sass-embedded-linux-arm: "npm:1.92.1"
-    sass-embedded-linux-arm64: "npm:1.92.1"
-    sass-embedded-linux-musl-arm: "npm:1.92.1"
-    sass-embedded-linux-musl-arm64: "npm:1.92.1"
-    sass-embedded-linux-musl-riscv64: "npm:1.92.1"
-    sass-embedded-linux-musl-x64: "npm:1.92.1"
-    sass-embedded-linux-riscv64: "npm:1.92.1"
-    sass-embedded-linux-x64: "npm:1.92.1"
-    sass-embedded-unknown-all: "npm:1.92.1"
-    sass-embedded-win32-arm64: "npm:1.92.1"
-    sass-embedded-win32-x64: "npm:1.92.1"
-    supports-color: "npm:^8.1.1"
-    sync-child-process: "npm:^1.0.2"
-    varint: "npm:^6.0.0"
-  dependenciesMeta:
-    sass-embedded-all-unknown:
-      optional: true
-    sass-embedded-android-arm:
-      optional: true
-    sass-embedded-android-arm64:
-      optional: true
-    sass-embedded-android-riscv64:
-      optional: true
-    sass-embedded-android-x64:
-      optional: true
-    sass-embedded-darwin-arm64:
-      optional: true
-    sass-embedded-darwin-x64:
-      optional: true
-    sass-embedded-linux-arm:
-      optional: true
-    sass-embedded-linux-arm64:
-      optional: true
-    sass-embedded-linux-musl-arm:
-      optional: true
-    sass-embedded-linux-musl-arm64:
-      optional: true
-    sass-embedded-linux-musl-riscv64:
-      optional: true
-    sass-embedded-linux-musl-x64:
-      optional: true
-    sass-embedded-linux-riscv64:
-      optional: true
-    sass-embedded-linux-x64:
-      optional: true
-    sass-embedded-unknown-all:
-      optional: true
-    sass-embedded-win32-arm64:
-      optional: true
-    sass-embedded-win32-x64:
-      optional: true
-  bin:
-    sass: dist/bin/sass.js
-  checksum: 10/a9b45b3408fe14d01389908cbe477bdc2b0f29c2ebd3070b6b2e9547c5a9dd91e1bb80573a8a306cfd04c9f2ec83b43c2be58e03a2d467d45d77d929f0c2d7a7
+  checksum: 10/ec6536dc765f5f2eaa00d0b291d0fba9bd839d65147229820815f942d9e9da236dc8b6747f6cf8e8fb934d7c57a13cb216b44bdb8e9faf169bc67efbeeb1ccb5
   languageName: node
   linkType: hard
 
@@ -34626,9 +34418,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass@npm:1.92.1, sass@npm:~1.92.0":
-  version: 1.92.1
-  resolution: "sass@npm:1.92.1"
+"sass@npm:1.93.1, sass@npm:^1.81.0, sass@npm:^1.85.0, sass@npm:~1.93.0":
+  version: 1.93.1
+  resolution: "sass@npm:1.93.1"
   dependencies:
     "@parcel/watcher": "npm:^2.4.1"
     chokidar: "npm:^4.0.0"
@@ -34639,24 +34431,7 @@ __metadata:
       optional: true
   bin:
     sass: sass.js
-  checksum: 10/ded47fd238d20a826bf3c5d129b4849100abae6fafe525a082d936b5793d7fd59a914134a302f0a6780efb5b26fdc2d1f1bfa37d8a9302ba632cad5e67675eec
-  languageName: node
-  linkType: hard
-
-"sass@npm:1.93.0, sass@npm:^1.81.0, sass@npm:^1.85.0":
-  version: 1.93.0
-  resolution: "sass@npm:1.93.0"
-  dependencies:
-    "@parcel/watcher": "npm:^2.4.1"
-    chokidar: "npm:^4.0.0"
-    immutable: "npm:^5.0.2"
-    source-map-js: "npm:>=0.6.2 <2.0.0"
-  dependenciesMeta:
-    "@parcel/watcher":
-      optional: true
-  bin:
-    sass: sass.js
-  checksum: 10/37f22e016e1d5ad04754123009064260c1f568771688742a2b34c763d7c30b706e8c991dffb578ca6a1ecf598ea57e7392597719786eff5eb47b099b7dbf03cd
+  checksum: 10/a09c23d4c3c874c56383fa495f0f9051a107d046036ab4502ff9328c28724adf1dff6b918ba8efa9682391a3849f6f0fc2c877694a590cf38164da93d73318b9
   languageName: node
   linkType: hard
 
@@ -38758,7 +38533,7 @@ __metadata:
     "@o3r/test-helpers": "workspace:^"
     "@stylistic/eslint-plugin": "npm:~5.3.0"
     "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:~22.0.0"
+    "@types/node": "npm:~22.18.0"
     "@typescript-eslint/parser": "npm:~8.43.0"
     "@vercel/ncc": "npm:~0.38.0"
     angular-eslint: "npm:~20.2.0"
