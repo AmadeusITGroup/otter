@@ -36,8 +36,8 @@ type Nullable<T> = { [P in keyof T]: T[P] | undefined };
 /**
  * Properties associated to an Otter store
  */
-export type NgGenerateStoreSchematicsSchema = NgGenerateStoreBaseSchematicsSchema &
-  Nullable<NgGenerateEntityAsyncStoreSchematicsSchema> &
-  Nullable<NgGenerateSimpleAsyncStoreSchematicsSchema> &
-  Nullable<NgGenerateEntitySyncStoreSchematicsSchema> &
-  Nullable<NgGenerateSimpleSyncStoreSchematicsSchema>;
+export type NgGenerateStoreSchematicsSchema = NgGenerateStoreBaseSchematicsSchema
+  & Nullable<NgGenerateEntityAsyncStoreSchematicsSchema>
+  & Nullable<NgGenerateSimpleAsyncStoreSchematicsSchema>
+  & Nullable<NgGenerateEntitySyncStoreSchematicsSchema>
+  & Nullable<NgGenerateSimpleSyncStoreSchematicsSchema>;

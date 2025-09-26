@@ -4,8 +4,13 @@ codecov:
 
 coverage:
   status:
+    patch:
+      default:
+        informational: true
+
     default_rules:
       flag_coverage_not_uploaded_behavior: exclude
+
     project:
       default:
         target: auto

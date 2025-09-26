@@ -22,8 +22,7 @@ declare global {
   }
 }
 
-type Command =
-  | 'add'
+type Command = 'add'
   | 'create'
   | 'exec'
   | 'info'
@@ -63,6 +62,16 @@ const PACKAGE_MANAGERS_CMD = {
     workspaceRun: ['yarn', 'workspace']
   }
 } as const satisfies Record<'npm' | 'yarn', Record<Command, string[]>>;
+
+// TODO: To be determined automatically #3264
+/** List of scopes in the current workspace */
+const WORKSPACE_SCOPES = [
+  '@ama-styling',
+  '@ama-mfe',
+  '@ama-sdk',
+  '@ama-terasu',
+  '@o3r'
+];
 
 type CommandArguments = {
   /** Script to run or execute */
@@ -273,9 +282,7 @@ export function setPackagerManagerConfig(options: PackageManagerConfig, execAppO
   const packageManager = packageManagerOverride || getPackageManager();
 
   // Need to add this even for yarn because `ng add` only reads registry from .npmrc
-  execFileSync('npm', ['config', 'set', `@ama-sdk:registry=${options.registry}`, '-L=project'], execOptions);
-  execFileSync('npm', ['config', 'set', `@ama-terasu:registry=${options.registry}`, '-L=project'], execOptions);
-  execFileSync('npm', ['config', 'set', `@o3r:registry=${options.registry}`, '-L=project'], execOptions);
+  WORKSPACE_SCOPES.forEach((scope) => execFileSync('npm', ['config', 'set', `${scope}:registry=${options.registry}`, '-L=project'], execOptions));
 
   const packageJsonPath = join(execOptions.cwd as string, 'package.json');
   const shouldCleanPackageJson = !existsSync(packageJsonPath);
@@ -295,6 +302,7 @@ export function setPackagerManagerConfig(options: PackageManagerConfig, execAppO
         execFileSync('yarn', ['config', 'set', 'globalFolder', options.globalFolderPath], execOptions);
       }
       execFileSync('yarn', ['config', 'set', 'nodeLinker', 'pnp'], execOptions);
+      WORKSPACE_SCOPES.forEach((scope) => execFileSync('yarn', ['config', 'set', `npmScopes.${scope.replace(/^@/, '')}.npmRegistryServer`, options.registry], execOptions));
       execFileSync('yarn', ['config', 'set', 'npmScopes.ama-sdk.npmRegistryServer', options.registry], execOptions);
       execFileSync('yarn', ['config', 'set', 'npmScopes.ama-terasu.npmRegistryServer', options.registry], execOptions);
       execFileSync('yarn', ['config', 'set', 'npmScopes.o3r.npmRegistryServer', options.registry], execOptions);

@@ -1,0 +1,27 @@
+{
+  "name": "ama-figma-extractor",
+  "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/@ama-styling/figma-extractor/src",
+  "prefix": "o3r",
+  "targets": {
+    "build": {
+      "executor": "nx:noop",
+      "dependsOn": ["build-builders", "compile"]
+    },
+    "compile": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "build:source"
+      }
+    },
+    "prepare-build-builders": {},
+    "build-builders": {},
+    "lint": {},
+    "test": {},
+    "prepare-publish": {},
+    "publish": {},
+    "documentation": {}
+  },
+  "tags": []
+}

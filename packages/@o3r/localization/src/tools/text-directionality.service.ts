@@ -4,28 +4,38 @@ import {
   Directionality,
 } from '@angular/cdk/bidi';
 import {
-  Inject,
+  inject,
   Injectable,
   OnDestroy,
-  Optional,
 } from '@angular/core';
 import {
   startWith,
 } from 'rxjs/operators';
 
+/**
+ * @deprecated The value of Directionality is no longer readonly and can be updated, this class will be removed in v16
+ */
 @Injectable()
 export class TextDirectionality extends Directionality implements OnDestroy {
+  public get value(): Direction {
+    return this._value;
+  }
+
+  public set value(value: Direction) {
+    this._value = value;
+  }
+
   /**
    * The current 'ltr' or 'rtl' value.
    * @override
    */
-  public value!: Direction;
+  private _value: Direction = 'ltr';
 
-  constructor(@Optional() @Inject(DIR_DOCUMENT) _document?: any) {
-    super(_document);
+  constructor() {
+    super(inject(DIR_DOCUMENT, { optional: true }));
     this.change
-      .pipe(startWith(this.value))
-      .subscribe((value: Direction) => this.value = value);
+      .pipe(startWith(this._value))
+      .subscribe((value: Direction) => this._value = value);
   }
 
   public ngOnDestroy() {

@@ -6,6 +6,7 @@
     "composite": true,
     "outDir": "./dist",
     "module": "CommonJS",
+    "moduleResolution": "node10",
     "rootDir": ".",
     "tsBuildInfoFile": "build/.tsbuildinfo.builders",
     "esModuleInterop": true,
