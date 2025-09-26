@@ -1,18 +1,11 @@
 import {
-  ApplicationRef,
   inject,
   Injectable,
 } from '@angular/core';
 import {
-  TranslateCompiler,
-} from '@ngx-translate/core';
-import {
   lastValueFrom,
   Subscription,
 } from 'rxjs';
-import type {
-  TranslateMessageFormatLazyCompiler,
-} from '../core';
 import {
   LocalizationService,
 } from '../tools';
@@ -20,8 +13,6 @@ import {
 @Injectable()
 export class OtterLocalizationDevtools {
   private readonly localizationService = inject(LocalizationService);
-  private readonly translateCompiler = inject(TranslateCompiler);
-  private readonly appRef = inject(ApplicationRef);
 
   /**
    * Is the translation deactivation enabled
@@ -36,7 +27,6 @@ export class OtterLocalizationDevtools {
    */
   public showLocalizationKeys(value?: boolean): void {
     this.localizationService.toggleShowKeys(value);
-    this.appRef.tick();
   }
 
   /**
@@ -53,8 +43,8 @@ export class OtterLocalizationDevtools {
   public onLanguageChange(fn: (language: string) => any): Subscription {
     return this.localizationService
       .getTranslateService()
-      .onLangChange
-      .subscribe(({ lang }) => {
+      .langChanges$
+      .subscribe((lang) => {
         fn(lang);
       });
   }
@@ -68,7 +58,6 @@ export class OtterLocalizationDevtools {
       return;
     }
     await lastValueFrom(this.localizationService.useLanguage(language));
-    this.appRef.tick();
   }
 
   /**
@@ -81,10 +70,7 @@ export class OtterLocalizationDevtools {
   public updateLocalizationKeys(keyValues: { [key: string]: string }, language?: string): void | Promise<void> {
     const lang = language || this.getCurrentLanguage();
     const translateService = this.localizationService.getTranslateService();
-    Object.entries(keyValues).forEach(([key, value]) => {
-      translateService.set(key, value, lang);
-    });
-    this.appRef.tick();
+    translateService.setTranslation(keyValues, lang);
   }
 
   /**
@@ -94,18 +80,8 @@ export class OtterLocalizationDevtools {
    */
   public async reloadLocalizationKeys(language?: string) {
     const lang = language || this.getCurrentLanguage();
-    if ((this.translateCompiler as TranslateMessageFormatLazyCompiler).clearCache) {
-      (this.translateCompiler as TranslateMessageFormatLazyCompiler).clearCache();
-    }
-    const initialLocs = await lastValueFrom(
-      this.localizationService
-        .getTranslateService()
-        .reloadLang(lang)
-    );
-    this.localizationService.getTranslateService().setTranslation(
-      language || this.getCurrentLanguage(),
-      initialLocs
-    );
-    this.appRef.tick();
+    const translateService = this.localizationService.getTranslateService();
+    const translations = await lastValueFrom(translateService.load(lang));
+    translateService.setTranslation(translations, lang, { merge: false });
   }
 }

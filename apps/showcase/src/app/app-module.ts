@@ -18,6 +18,10 @@ import {
   BrowserAnimationsModule,
 } from '@angular/platform-browser/animations';
 import {
+  provideTransloco,
+  TranslocoModule,
+} from '@jsverse/transloco';
+import {
   NgbOffcanvasModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -30,10 +34,6 @@ import {
 import {
   StoreDevtoolsModule,
 } from '@ngrx/store-devtools';
-import {
-  TranslateCompiler,
-  TranslateModule,
-} from '@ngx-translate/core';
 import {
   ApplicationDevtoolsModule,
   OTTER_APPLICATION_DEVTOOLS_OPTIONS,
@@ -56,7 +56,6 @@ import {
   MESSAGE_FORMAT_CONFIG,
   OTTER_LOCALIZATION_DEVTOOLS_OPTIONS,
   translateLoaderProvider,
-  TranslateMessageFormatLazyCompiler,
 } from '@o3r/localization';
 import {
   ConsoleLogger,
@@ -151,13 +150,7 @@ export function localizationConfigurationFactory(): Partial<LocalizationConfigur
     EffectsModule.forRoot([]),
     StoreModule.forRoot({}, { runtimeChecks }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
-    TranslateModule.forRoot({
-      loader: translateLoaderProvider,
-      compiler: {
-        provide: TranslateCompiler,
-        useClass: TranslateMessageFormatLazyCompiler
-      }
-    }),
+    TranslocoModule,
     LocalizationModule.forRoot(localizationConfigurationFactory),
     RulesEngineRunnerModule.forRoot({ debug: true }),
     AppRoutingModule,
@@ -199,7 +192,15 @@ export function localizationConfigurationFactory(): Partial<LocalizationConfigur
       /* Templates are only internal, no need to sanitize */
       sanitize: SecurityContext.NONE
     }),
-    { provide: NGX_MONACO_EDITOR_CONFIG, useValue: { baseUrl: `${location.origin}${location.pathname}assets/monaco/min/vs` } }
+    { provide: NGX_MONACO_EDITOR_CONFIG, useValue: { baseUrl: `${location.origin}${location.pathname}assets/monaco/min/vs` } },
+    provideTransloco({
+      config: {
+        availableLangs: ['en', 'fr'],
+        interpolation: ['{', '}'],
+        reRenderOnLangChange: true
+      }
+    }),
+    translateLoaderProvider
   ],
   bootstrap: [App]
 })

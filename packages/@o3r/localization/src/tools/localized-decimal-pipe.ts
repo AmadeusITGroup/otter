@@ -30,7 +30,7 @@ export class LocalizedDecimalPipe extends DecimalPipe implements OnDestroy, Pipe
 
   constructor() {
     super(inject(LocalizationService).getCurrentLanguage());
-    this.onLangChange = this.localizationService.getTranslateService().onLangChange.subscribe(() =>
+    this.onLangChange = this.localizationService.getTranslateService().langChanges$.subscribe(() =>
       this.changeDetectorRef.markForCheck()
     );
   }

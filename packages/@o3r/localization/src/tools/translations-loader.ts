@@ -3,8 +3,8 @@ import {
   Injectable,
 } from '@angular/core';
 import {
-  TranslateLoader,
-} from '@ngx-translate/core';
+  TranslocoLoader,
+} from '@jsverse/transloco';
 import {
   DynamicContentService,
 } from '@o3r/dynamic-content';
@@ -38,7 +38,7 @@ const JSON_EXT = '.json';
  * and finally load the fallback language bundle (if all previous fetches failed)
  */
 @Injectable()
-export class TranslationsLoader implements TranslateLoader {
+export class TranslationsLoader implements TranslocoLoader {
   private readonly localizationConfiguration: LocalizationConfiguration = inject(LOCALIZATION_CONFIGURATION_TOKEN);
   private readonly logger? = inject(LoggerService, { optional: true });
   private readonly dynamicContentService? = inject(DynamicContentService, { optional: true });
