@@ -6,9 +6,11 @@ import {
   PipeTransform,
 } from '@angular/core';
 import {
-  TranslatePipe,
-  TranslateService,
-} from '@ngx-translate/core';
+  TRANSLOCO_LANG,
+  TRANSLOCO_SCOPE,
+  TranslocoPipe,
+  TranslocoService,
+} from '@jsverse/transloco';
 import {
   Subscription,
 } from 'rxjs';
@@ -30,7 +32,7 @@ import {
   pure: false,
   standalone: false
 })
-export class O3rLocalizationTranslatePipe extends TranslatePipe implements PipeTransform, OnDestroy {
+export class O3rLocalizationTranslatePipe extends TranslocoPipe implements PipeTransform, OnDestroy {
   /** Localization service instance */
   protected readonly localizationService = inject(LocalizationService);
   /** Change detector service instance */
@@ -59,13 +61,26 @@ export class O3rLocalizationTranslatePipe extends TranslatePipe implements PipeT
   protected lastResolvedKey?: string;
 
   constructor() {
-    super(inject(TranslateService), inject(ChangeDetectorRef));
+    super(
+      inject(TranslocoService),
+      inject(TRANSLOCO_SCOPE, { optional: true }) || undefined,
+      inject(TRANSLOCO_LANG, { optional: true }) || undefined,
+      inject(ChangeDetectorRef)
+    );
     if (this.localizationConfig.enableTranslationDeactivation) {
       this.onShowKeysChange = this.localizationService.showKeys$.subscribe((showKeys) => {
         this.showKeys = showKeys;
         this.changeDetector.markForCheck();
       });
     }
+    // const translateService = this.localizationService.getTranslateService();
+    // translateService.events$.pipe(
+    //   takeUntilDestroyed()
+    // ).subscribe(() => {
+    //   // HACK to force re-evaluation of the pipe when translations change
+    //   (this as any).lastKey = undefined;
+    //   this.changeDetector.markForCheck();
+    // });
   }
 
   /**
@@ -73,7 +88,7 @@ export class O3rLocalizationTranslatePipe extends TranslatePipe implements PipeT
    * @inheritdoc
    */
   public transform(query: string, ...args: any[]): any {
-    if (this.showKeys) {
+    if (!query || this.showKeys) {
       return query;
     }
 
@@ -88,17 +103,13 @@ export class O3rLocalizationTranslatePipe extends TranslatePipe implements PipeT
       });
     }
 
-    if (this.lastResolvedKey) {
-      const value = super.transform(this.lastResolvedKey, ...args);
+    const value = super.transform(this.lastResolvedKey, ...args);
 
-      if (this.localizationConfig.debugMode) {
-        return `${this.lastResolvedKey} - ${value as string}`;
-      }
-
-      return value;
+    if (this.localizationConfig.debugMode) {
+      return `${this.lastResolvedKey} - ${value}`;
     }
 
-    return this.value;
+    return value;
   }
 
   public ngOnDestroy() {

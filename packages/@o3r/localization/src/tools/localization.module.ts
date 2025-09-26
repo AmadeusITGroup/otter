@@ -16,8 +16,8 @@ import {
   Optional,
 } from '@angular/core';
 import {
-  TranslateModule,
-} from '@ngx-translate/core';
+  TranslocoModule,
+} from '@jsverse/transloco';
 import {
   DynamicContentModule,
 } from '@o3r/dynamic-content';
@@ -77,8 +77,8 @@ export const CUSTOM_LOCALIZATION_CONFIGURATION_TOKEN = new InjectionToken<Partia
 
 @NgModule({
   declarations: [O3rLocalizationTranslatePipe, LocalizationTranslateDirective, LocalizedDatePipe, LocalizedDecimalPipe, LocalizedCurrencyPipe],
-  imports: [TranslateModule, BidiModule, DynamicContentModule, CommonModule],
-  exports: [TranslateModule, O3rLocalizationTranslatePipe, LocalizationTranslateDirective, LocalizedDatePipe, LocalizedDecimalPipe, LocalizedCurrencyPipe],
+  imports: [TranslocoModule, BidiModule, DynamicContentModule, CommonModule],
+  exports: [TranslocoModule, O3rLocalizationTranslatePipe, LocalizationTranslateDirective, LocalizedDatePipe, LocalizedDecimalPipe, LocalizedCurrencyPipe],
   providers: [
     { provide: LOCALIZATION_CONFIGURATION_TOKEN, useFactory: createLocalizationConfiguration, deps: [[new Optional(), CUSTOM_LOCALIZATION_CONFIGURATION_TOKEN]] },
     { provide: LOCALE_ID, useFactory: localeIdNgBridge, deps: [LocalizationService] },
