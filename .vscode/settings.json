@@ -113,5 +113,5 @@
   "typescript.tsserver.watchOptions": "vscode",
   "typescript.preferences.preferTypeOnlyAutoImports": true,
   "chat.agent.enabled": true,
-  "chat.mcp.enabled": true
+  "chat.mcp.access": "all"
 }

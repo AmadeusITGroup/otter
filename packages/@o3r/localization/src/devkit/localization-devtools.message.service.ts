@@ -14,7 +14,6 @@ import {
   LoggerService,
 } from '@o3r/logger';
 import {
-  firstValueFrom,
   fromEvent,
 } from 'rxjs';
 import {
@@ -79,7 +78,7 @@ export class LocalizationDevtoolsMessageService {
    * Function to trigger a re-send a requested messages to the Otter Chrome DevTools extension
    * @param only restricted list of messages to re-send
    */
-  private async handleReEmitRequest(only?: LocalizationMessageDataTypes[]) {
+  private handleReEmitRequest(only?: LocalizationMessageDataTypes[]) {
     if (!only || only.includes('localizations')) {
       void this.sendLocalizationsMetadata();
     }
@@ -91,7 +90,7 @@ export class LocalizationDevtoolsMessageService {
     }
     if (!only || only.includes('getTranslationValuesContentMessage')) {
       this.sendMessage('getTranslationValuesContentMessage', {
-        translations: await firstValueFrom(this.localizationService.getTranslateService().getTranslation(this.localizationService.getCurrentLanguage()))
+        translations: this.localizationService.getTranslateService().getTranslation(this.localizationService.getCurrentLanguage())
       });
     }
     if (!only || only.includes('isTranslationDeactivationEnabled')) {
