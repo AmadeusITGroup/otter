@@ -24,6 +24,15 @@ import type {
 } from 'type-fest';
 
 /**
+ * List of dependencies required by playwright
+ */
+export const playwrightDependencies = [
+  '@playwright/test',
+  '@types/node',
+  'rimraf'
+];
+
+/**
  * Add Playwright to Otter application
  * @param options @see RuleFactory.options
  */
@@ -76,5 +85,18 @@ test-results
     }
 
     return tree;
+  };
+}
+
+/**
+ * Add the playwright files in the tsconfig.eslint to cover the tsconfig during the linting.
+ * @param projectDir
+ */
+export function addPlaywrightFilesToEslintProject(projectDir: string) {
+  return (tree: Tree) => {
+    const appEslintConfigurationPath = path.posix.join(projectDir, 'tsconfig.eslint.json');
+    const eslintConfig = tree.readJson(appEslintConfigurationPath) as { include?: string[] };
+    eslintConfig.include = Array.from(new Set([...(eslintConfig.include || []), 'e2e-playwright/**/*']));
+    tree.overwrite(appEslintConfigurationPath, JSON.stringify(eslintConfig, null, 2));
   };
 }
