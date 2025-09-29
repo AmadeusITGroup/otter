@@ -12241,10 +12241,12 @@ __metadata:
     "@ngrx/store": ^20.0.0
     "@ngx-translate/core": ^15.0.0 || ~16.0.4
     "@o3r/core": "workspace:^"
+    "@o3r/eslint-config": "workspace:^"
     "@o3r/localization": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@playwright/test": ^1.49.0
     "@schematics/angular": ^20.0.0
+    eslint: ~9.35.0
     pixelmatch: ^7.0.0
     pngjs: ^7.0.0
     rxjs: ^7.8.1
@@ -12270,6 +12272,8 @@ __metadata:
     "@ngx-translate/core":
       optional: true
     "@o3r/core":
+      optional: true
+    "@o3r/eslint-config":
       optional: true
     "@o3r/localization":
       optional: true
