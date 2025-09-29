@@ -69,6 +69,7 @@
     "chalk": "^4.1.2",
     "globby": "^11.1.0",
     "minimatch": "~10.0.0",
+    "minimist": "^1.2.6",
     "semver": "^7.5.2",
     "tiny-editorconfig": "~1.0.0",
     "tslib": "^2.6.2"
@@ -103,6 +104,7 @@
     "@stylistic/eslint-plugin": "~5.2.0",
     "@swc/helpers": "~0.5.0",
     "@types/jest": "~29.5.2",
+    "@types/minimist": "^1.2.2",
     "@types/node": "^22.0.0",
     "@types/semver": "^7.3.13",
     "@typescript-eslint/parser": "~8.41.0",

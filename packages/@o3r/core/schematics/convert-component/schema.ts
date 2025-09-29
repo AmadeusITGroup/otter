@@ -3,7 +3,7 @@ import type {
 } from '@o3r/schematics';
 import type {
   ComponentType,
-} from '../..';
+} from '@o3r/core';
 
 export interface ConvertToO3rComponentSchematicsSchema extends SchematicOptionObject {
   /** Path to the component to convert */

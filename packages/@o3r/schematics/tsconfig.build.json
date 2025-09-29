@@ -8,7 +8,8 @@
     "moduleResolution": "node10",
     "outDir": "./dist",
     "rootDir": ".",
-    "tsBuildInfoFile": "build/.tsbuildinfo"
+    "tsBuildInfoFile": "build/.tsbuildinfo",
+    "esModuleInterop": true
   },
   "include": [
     "src/**/*.ts"
