@@ -16643,10 +16643,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@vscode/chat-extension-utils@npm:0.0.0-alpha.5":
+  version: 0.0.0-alpha.5
+  resolution: "@vscode/chat-extension-utils@npm:0.0.0-alpha.5"
+  dependencies:
+    "@vscode/prompt-tsx": "npm:^0.3.0-alpha.14"
+  checksum: 10/ce8c6f1363ce91e2bb7bf592cd030ffbb8fbf8aaeafad7fd199d292902d8189f72613dcd0db0a0ba0b2b4a46b5ca6d97fe4d2df89a0bb25f453f7cd1ed91aed0
+  languageName: node
+  linkType: hard
+
 "@vscode/codicons@npm:^0.0.40":
   version: 0.0.40
   resolution: "@vscode/codicons@npm:0.0.40"
   checksum: 10/6ce137e2cbea00dc6fe8e82246cb669862a6133d3f3e10a917fcd3213bf7c6765fefe17ef9dcfab33c4b31217a5870a9db70144f1df16d7b208224794f3047ac
+  languageName: node
+  linkType: hard
+
+"@vscode/prompt-tsx@npm:^0.3.0-alpha.14":
+  version: 0.3.0-alpha.24
+  resolution: "@vscode/prompt-tsx@npm:0.3.0-alpha.24"
+  checksum: 10/5b0755d6c435a421755b9f8ef36e051bc3315f43123fa6b1c707df1d98684b3d01c977b1364dd2d671bbddccb95c636e4984ddd79794bf3b9eb283cf2e924889
   languageName: node
   linkType: hard
 
@@ -31100,6 +31116,7 @@ __metadata:
     "@types/vscode": "npm:~1.103.0"
     "@typescript-eslint/parser": "npm:~8.43.0"
     "@typescript-eslint/utils": "npm:~8.43.0"
+    "@vscode/chat-extension-utils": "npm:0.0.0-alpha.5"
     "@vscode/vsce": "npm:^3.2.1"
     angular-eslint: "npm:~20.2.0"
     cpy-cli: "npm:^6.0.0"
