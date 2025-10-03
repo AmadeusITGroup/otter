@@ -10,6 +10,16 @@
       "version": "10.0.0-alpha.0",
       "description": "Updates of @o3r/core to v10.0.*",
       "factory": "./schematics/ng-update/index#updateV10_0"
+    },
+    "migration-v12_0": {
+      "version": "12.0.0-next.0",
+      "description": "Updates of @o3r/core to v12.0.*",
+      "factory": "./schematics/ng-update/index#updateV12_0"
+    },
+    "migration-v12_1": {
+      "version": "12.1.0-prerelease.0",
+      "description": "Updates of @o3r/core to v12.1.*",
+      "factory": "./schematics/ng-update/index#updateV12_1"
     }
   }
 }
