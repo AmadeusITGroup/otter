@@ -30,7 +30,7 @@ export async function createMcpServer(): Promise<McpServer> {
       tools: {}
     }
   });
-  const resourcesPath = join(__dirname, 'resources');
+  const resourcesPath = join(__dirname, '..', 'resources');
 
   await registerBestPracticesResources(server, resourcesPath);
   await registerBestPracticesTool(server, resourcesPath);

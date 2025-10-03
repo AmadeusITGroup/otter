@@ -2,7 +2,7 @@
   "extends": "../../../tsconfig.build",
   "compilerOptions": {
     "outDir": "./dist",
-    "rootDir": "src",
+    "rootDir": ".",
     "module": "commonjs",
     "moduleResolution": "node10",
     "types": ["node"],
