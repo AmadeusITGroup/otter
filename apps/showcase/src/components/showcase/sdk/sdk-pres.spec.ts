@@ -9,13 +9,13 @@ import {
   PetApiFixture,
 } from '@o3r-training/showcase-sdk/fixtures';
 import {
-  SdkPresComponent,
-} from './sdk-pres.component';
+  SdkPres,
+} from './sdk-pres';
 import '@angular/localize/init';
 
-describe('SdkPresComponent', () => {
-  let component: SdkPresComponent;
-  let fixture: ComponentFixture<SdkPresComponent>;
+describe('SdkPres', () => {
+  let component: SdkPres;
+  let fixture: ComponentFixture<SdkPres>;
   const petApiFixture = new PetApiFixture();
   petApiFixture.findPetsByStatus = petApiFixture.findPetsByStatus.mockResolvedValue([]);
 
@@ -31,12 +31,12 @@ describe('SdkPresComponent', () => {
     } as Response));
 
     TestBed.configureTestingModule({
-      imports: [SdkPresComponent],
+      imports: [SdkPres],
       providers: [
         { provide: PetApi, useValue: petApiFixture }
       ]
     });
-    fixture = TestBed.createComponent(SdkPresComponent);
+    fixture = TestBed.createComponent(SdkPres);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

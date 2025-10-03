@@ -1,1 +1,1 @@
-export * from './clipboard-button-pres.component';
+export * from './clipboard-button-pres';
