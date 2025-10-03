@@ -21,6 +21,7 @@ import {
   addImportsRule,
   applyEsLintFix,
   createOtterSchematic,
+  getComponentBaseName,
   getComponentFileName,
   getComponentFolderName,
   getComponentModuleName,
@@ -78,12 +79,12 @@ const getTemplateProperties = (options: NgGenerateComponentContainerSchematicsSc
     ...options,
     componentType: options.componentStructure === 'full' ? 'Block' : 'Component',
     presenterModuleName: getComponentModuleName(inputComponentName, ComponentStructureDef.Pres),
-    componentName: getComponentName(inputComponentName, componentStructureDef).replace(/Component$/, ''),
-    presenterComponentName: getComponentName(inputComponentName, ComponentStructureDef.Pres),
+    componentName: getComponentBaseName(inputComponentName, componentStructureDef),
+    presenterComponentName: getComponentName(inputComponentName, ComponentStructureDef.Pres, options.type),
     presenterComponentSelector: `${componentSelector}-${ComponentStructureDef.Pres.toLowerCase()}`,
     componentSelector: getComponentSelectorWithoutSuffix(options.componentName, prefix || null),
     folderName,
-    name: getComponentFileName(options.componentName, componentStructureDef), // air-offer | air-offer-cont,
+    name: getComponentFileName(options.componentName, componentStructureDef, options.type), // air-offer | air-offer-cont,
     suffix: componentStructureDef.toLowerCase(), // cont | ''
     description: options.description || ''
   };
@@ -102,12 +103,13 @@ function ngGenerateComponentContainerFn(options: NgGenerateComponentContainerSch
     const properties = getTemplateProperties(options, ComponentStructureDef.Cont, options.prefix || workspaceProject?.prefix);
 
     const destination = getDestinationPath('@o3r/core:component', options.path, tree, options.projectName);
-    const componentDestination = path.posix.join(destination, fullStructureRequested ? path.posix.join(properties.folderName, CONTAINER_FOLDER) : properties.folderName);
-    const componentPath = path.posix.join(componentDestination, `${properties.name}.component.ts`);
-    const ngSpecPath = path.posix.join(componentDestination, `${properties.name}.component.spec.ts`);
-    const o3rSpecPath = path.posix.join(componentDestination, `${properties.name}.spec.ts`);
-    const ngTemplatePath = path.posix.join(componentDestination, `${properties.name}.component.html`);
-    const o3rTemplatePath = path.posix.join(componentDestination, `${properties.name}.template.html`);
+    const componentDestination = path.posix.join(
+      destination,
+      fullStructureRequested ? path.posix.join(properties.folderName, CONTAINER_FOLDER) : `${properties.folderName}${properties.suffix ? ('-' + properties.suffix) : ''}`
+    );
+    const componentPath = path.posix.join(componentDestination, `${properties.name}.ts`);
+    const specPath = path.posix.join(componentDestination, `${properties.name}.spec.ts`);
+    const templatePath = path.posix.join(componentDestination, `${properties.name}.html`);
 
     const rules: Rule[] = [];
 
@@ -117,8 +119,7 @@ function ngGenerateComponentContainerFn(options: NgGenerateComponentContainerSch
           project: properties.projectName,
           path: componentDestination,
           flat: true,
-          name: properties.componentName,
-          typeSeparator: '.'
+          name: properties.componentName
         })
       );
     }
@@ -139,7 +140,7 @@ function ngGenerateComponentContainerFn(options: NgGenerateComponentContainerSch
         viewEncapsulation: 'None',
         changeDetection: 'OnPush',
         style: 'none',
-        type: 'component',
+        type: properties.type,
         skipSelector: false,
         skipTests: false,
         standalone: options.standalone,
@@ -149,28 +150,12 @@ function ngGenerateComponentContainerFn(options: NgGenerateComponentContainerSch
               skipImport: true
             }
             : {
-              module: `${properties.name}.module.ts`,
+              module: `${properties.name}-module.ts`,
               export: true
             }
         ),
         flat: true
       }),
-      // Angular schematics generate spec file with this pattern: component-name.component.spec.ts
-      move(ngSpecPath, o3rSpecPath),
-      // Angular schematics generate template file with this pattern: component-name.component.html
-      chain([
-        move(ngTemplatePath, o3rTemplatePath),
-        (t) => {
-          t.overwrite(
-            componentPath,
-            t.readText(componentPath).replace(
-              path.basename(ngTemplatePath),
-              path.basename(o3rTemplatePath)
-            )
-          );
-          return t;
-        }
-      ]),
       schematic('convert-component', {
         path: componentPath,
         skipLinter: options.skipLinter,
@@ -210,7 +195,7 @@ function ngGenerateComponentContainerFn(options: NgGenerateComponentContainerSch
           }
         ])
         : () => {
-          const modulePath = path.posix.join(componentDestination, `${properties.name}.module.ts`);
+          const modulePath = path.posix.join(componentDestination, `${properties.name}-module.ts`);
           const moduleSourceFile = ts.createSourceFile(
             modulePath,
             tree.readText(modulePath),
@@ -225,27 +210,27 @@ function ngGenerateComponentContainerFn(options: NgGenerateComponentContainerSch
         };
 
       const addMockPresenterComponentInSpecFile: Rule = () => {
-        if (!tree.exists(o3rSpecPath)) {
-          context.logger.warn(`No update applied on spec file because ${o3rSpecPath} does not exist.`);
+        if (!tree.exists(specPath)) {
+          context.logger.warn(`No update applied on spec file because ${specPath} does not exist.`);
           return;
         }
 
         let specSourceFile = ts.createSourceFile(
-          o3rSpecPath,
-          tree.readText(o3rSpecPath),
+          specPath,
+          tree.readText(specPath),
           ts.ScriptTarget.ES2020,
           true
         );
 
-        const recorder = tree.beginUpdate(o3rSpecPath);
+        const recorder = tree.beginUpdate(specPath);
 
         const lastImport = [...specSourceFile.statements].reverse().find((statement) =>
           ts.isImportDeclaration(statement)
         );
 
         const changes = [
-          insertImport(specSourceFile, o3rSpecPath, 'Component', '@angular/core'),
-          new InsertChange(o3rSpecPath, lastImport?.getEnd() || 0, `
+          insertImport(specSourceFile, specPath, 'Component', '@angular/core'),
+          new InsertChange(specPath, lastImport?.getEnd() || 0, `
 @Component({
   template: '',
   selector: '${properties.presenterComponentSelector}'
@@ -257,8 +242,8 @@ class Mock${properties.presenterComponentName} {}
         tree.commitUpdate(recorder);
 
         specSourceFile = ts.createSourceFile(
-          o3rSpecPath,
-          tree.readText(o3rSpecPath),
+          specPath,
+          tree.readText(specPath),
           ts.ScriptTarget.ES2020,
           true
         );
@@ -276,14 +261,14 @@ class Mock${properties.presenterComponentName} {}
 
         const newContent = printer.printFile(result.transformed[0] as any as ts.SourceFile);
 
-        tree.overwrite(o3rSpecPath, newContent);
+        tree.overwrite(specPath, newContent);
 
         return tree;
       };
 
       rules.push(
         (t) => {
-          t.overwrite(o3rTemplatePath, `<${properties.presenterComponentSelector}></${properties.presenterComponentSelector}>`);
+          t.overwrite(templatePath, `<${properties.presenterComponentSelector}></${properties.presenterComponentSelector}>`);
           return t;
         },
         addPresenterComponentOrModuleToImport,
@@ -305,7 +290,7 @@ class Mock${properties.presenterComponentName} {}
         options
       ),
       getAddRulesEngineRules(
-        path.posix.join(componentDestination, `${properties.name}.component.ts`),
+        path.posix.join(componentDestination, `${properties.name}.ts`),
         options
       )
     );

@@ -12,29 +12,29 @@ import {
   provideMarkdown,
 } from 'ngx-markdown';
 import {
-  ComponentReplacementPresComponent,
-} from '../../components/showcase/component-replacement/component-replacement-pres.component';
+  ComponentReplacementPres,
+} from '../../components/showcase/component-replacement/component-replacement-pres';
 import {
-  ComponentReplacementComponent,
-} from './component-replacement.component';
+  ComponentReplacement,
+} from './component-replacement';
 
-describe('ComponentReplacementComponent', () => {
-  let component: ComponentReplacementComponent;
-  let fixture: ComponentFixture<ComponentReplacementComponent>;
+describe('ComponentReplacement', () => {
+  let component: ComponentReplacement;
+  let fixture: ComponentFixture<ComponentReplacement>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        ComponentReplacementComponent,
+        ComponentReplacement,
         RouterModule.forRoot([]),
         AsyncPipe
       ],
       providers: [provideMarkdown()]
-    }).overrideComponent(ComponentReplacementComponent, {
-      remove: { imports: [ComponentReplacementPresComponent] }
+    }).overrideComponent(ComponentReplacement, {
+      remove: { imports: [ComponentReplacementPres] }
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ComponentReplacementComponent);
+    fixture = TestBed.createComponent(ComponentReplacement);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

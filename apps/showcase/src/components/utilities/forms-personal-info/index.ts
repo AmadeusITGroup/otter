@@ -1,2 +1,2 @@
-export * from './forms-personal-info-pres.component';
-export * from './forms-personal-info-pres.config';
+export * from './forms-personal-info-pres';
+export * from './forms-personal-info-pres-config';

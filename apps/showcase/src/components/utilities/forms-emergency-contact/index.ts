@@ -1,1 +1,1 @@
-export * from './forms-emergency-contact-pres.component';
+export * from './forms-emergency-contact-pres';

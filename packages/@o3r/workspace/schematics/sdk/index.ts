@@ -42,16 +42,16 @@ import type {
 } from 'type-fest';
 import {
   cleanStandaloneFiles,
-} from './rules/clean-standalone.rule';
+} from './rules/clean-standalone-rule';
 import {
   ngRegisterProjectTasks,
-} from './rules/rules.ng';
+} from './rules/rules-ng';
 import {
   nxRegisterProjectTasks,
-} from './rules/rules.nx';
+} from './rules/rules-nx';
 import {
   updateTsConfig,
-} from './rules/update-ts-paths.rule';
+} from './rules/update-ts-paths-rule';
 import {
   NgGenerateSdkSchema,
 } from './schema';

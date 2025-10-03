@@ -34,7 +34,7 @@ import {
 } from 'semver';
 import type {
   MigrationStylingData,
-} from './helpers/styling-metadata-comparison.helper';
+} from './helpers/styling-metadata-comparison-helper';
 import type {
   CssMetadata,
   CssVariable,

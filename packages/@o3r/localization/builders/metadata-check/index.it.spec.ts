@@ -34,7 +34,7 @@ import {
 } from 'semver';
 import type {
   MigrationLocalizationMetadata,
-} from './helpers/localization-metadata-comparison.helper';
+} from './helpers/localization-metadata-comparison-helper';
 import type {
   JSONLocalization,
   LocalizationMetadata,

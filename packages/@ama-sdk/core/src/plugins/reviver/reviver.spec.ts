@@ -3,7 +3,7 @@ import {
 } from '../../fwk/api';
 import {
   ReviverReply,
-} from './reviver.reply';
+} from './reviver-reply';
 
 describe('Reviver Reply Plugin', () => {
   const reviver = jest.fn();

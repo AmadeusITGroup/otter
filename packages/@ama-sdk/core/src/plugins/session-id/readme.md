@@ -12,4 +12,4 @@ The **REQUEST_ID** can be deactivated. In this case the ID is formatted as **SES
 
 ### Type of plugins
 
-- Request plugin: [SessionIdRequest](./session-id.request.ts)
+- Request plugin: [SessionIdRequest](./session-id-request.ts)

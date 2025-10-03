@@ -1,2 +1,2 @@
 export * from './host-info';
-export * from './host-info.pipe';
+export * from './host-info-pipe';

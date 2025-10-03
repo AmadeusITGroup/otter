@@ -18,11 +18,11 @@ import {
   isGlobPattern,
 } from '../utils';
 import {
+  SwaggerSpec,
+} from './swagger-spec-interface';
+import {
   SwaggerSpecObject,
 } from './swagger-spec-object';
-import {
-  SwaggerSpec,
-} from './swagger-spec.interface';
 
 const apiConfigurationSchema = JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', '..', 'schemas', 'api-configuration.schema.json'), { encoding: 'utf8' }));
 

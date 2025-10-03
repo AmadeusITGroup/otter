@@ -28,8 +28,8 @@ import {
   mockTranslationModules,
 } from '@o3r/testing/localization';
 import {
-  RulesEnginePresComponent,
-} from './rules-engine-pres.component';
+  RulesEnginePres,
+} from './rules-engine-pres';
 
 const localizationConfiguration = { language: 'en' };
 const mockTranslations = {
@@ -49,13 +49,13 @@ const mockTranslationsCompilerProvider: Provider = {
   provide: TranslateCompiler,
   useClass: TranslateFakeCompiler
 };
-describe('RulesEnginePresComponent', () => {
-  let component: RulesEnginePresComponent;
-  let fixture: ComponentFixture<RulesEnginePresComponent>;
+describe('RulesEnginePres', () => {
+  let component: RulesEnginePres;
+  let fixture: ComponentFixture<RulesEnginePres>;
   beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [
-        RulesEnginePresComponent,
+        RulesEnginePres,
         StoreModule.forRoot({}),
         EffectsModule.forRoot([]),
         RulesEngineRunnerModule.forRoot(),
@@ -63,7 +63,7 @@ describe('RulesEnginePresComponent', () => {
         AsyncPipe
       ]
     });
-    fixture = TestBed.createComponent(RulesEnginePresComponent);
+    fixture = TestBed.createComponent(RulesEnginePres);
     component = fixture.componentInstance;
     fixture.detectChanges();
     const localizationService = TestBed.inject(LocalizationService);

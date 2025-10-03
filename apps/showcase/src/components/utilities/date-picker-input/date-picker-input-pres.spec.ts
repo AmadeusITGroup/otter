@@ -3,18 +3,18 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import {
-  DatePickerInputPresComponent,
-} from './date-picker-input-pres.component';
+  DatePickerInputPres,
+} from './date-picker-input-pres';
 
-describe('DatePickerInputPresComponent', () => {
-  let component: DatePickerInputPresComponent;
-  let fixture: ComponentFixture<DatePickerInputPresComponent>;
+describe('DatePickerInputPres', () => {
+  let component: DatePickerInputPres;
+  let fixture: ComponentFixture<DatePickerInputPres>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [DatePickerInputPresComponent]
+      imports: [DatePickerInputPres]
     });
-    fixture = TestBed.createComponent(DatePickerInputPresComponent);
+    fixture = TestBed.createComponent(DatePickerInputPres);
     fixture.componentRef.setInput('id', 'test');
     fixture.componentRef.setInput('label', 'test-label');
     component = fixture.componentInstance;

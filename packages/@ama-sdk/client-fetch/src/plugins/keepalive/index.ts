@@ -1,1 +1,1 @@
-export * from './keepalive.request';
+export * from './keepalive-request';

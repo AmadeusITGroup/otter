@@ -7,10 +7,10 @@ import {
 } from '@playwright/test';
 import {
   AppFixtureComponent,
-} from '../../src/app/app.fixture';
+} from '../../src/app/app-fixture';
 import {
   TrainingFixtureComponent,
-} from '../../src/components/training/training.fixture';
+} from '../../src/components/training/training-fixture';
 
 test.describe('Sanity test', () => {
   test('Visual comparison for each page', async ({ browserName, page }) => {

@@ -33,7 +33,8 @@ function ngGenerateFactsServiceFn(options: NgGenerateFactsServiceSchematicsSchem
   const generateFiles = () => {
     const name = dasherize(options.name);
     const serviceFolderPath = path.posix.join(options.path, name);
-    const servicePath = path.posix.join(serviceFolderPath, `${name}-facts.service.ts`);
+    const ngServicePath = path.posix.join(serviceFolderPath, `${name}-facts.ts`);
+    const o3rServicePath = path.posix.join(serviceFolderPath, `${name}-facts-service.ts`);
     const factsInterfaceName = `${classify(name)}Facts`;
     return chain([
       externalSchematic('@schematics/angular', 'service', {
@@ -41,9 +42,11 @@ function ngGenerateFactsServiceFn(options: NgGenerateFactsServiceSchematicsSchem
         path: serviceFolderPath,
         flat: true,
         name: factsInterfaceName,
-        skipTests: true,
-        type: 'service'
+        skipTests: true
       }),
+      // Angular schematics will generate this service file with this pattern: -facts.ts (since the factsInterfaceName ends with 'Facts')
+      // We need to rename it to -facts-service.ts to avoid confusion with the facts file that is created just after
+      move(ngServicePath, o3rServicePath),
       mergeWith(apply(url('./templates'), [
         template({
           name,
@@ -52,23 +55,23 @@ function ngGenerateFactsServiceFn(options: NgGenerateFactsServiceSchematicsSchem
         renameTemplateFiles(),
         move(serviceFolderPath)
       ]), MergeStrategy.Overwrite),
-      addImportsRule(servicePath, [
+      addImportsRule(o3rServicePath, [
         {
           from: '@o3r/rules-engine',
           importNames: ['FactsService', 'RulesEngineService']
         },
         {
-          from: `./${name}.facts`,
+          from: `./${name}-facts`,
           importNames: [factsInterfaceName]
         }
       ]),
       (t) => {
-        const serviceText = t.readText(servicePath);
+        const serviceText = t.readText(o3rServicePath);
         t.overwrite(
-          servicePath,
+          o3rServicePath,
           serviceText
             .replace('constructor() { }', 'public facts = {};')
-            .replace('Service {', `Service extends FactsService<${factsInterfaceName}> {`)
+            .replace(`${factsInterfaceName} {`, `${factsInterfaceName} extends FactsService<${factsInterfaceName}> {`)
         );
         return t;
       }
