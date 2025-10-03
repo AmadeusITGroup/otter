@@ -7,10 +7,10 @@ import {
 } from '@playwright/test';
 import {
   AppFixtureComponent,
-} from '../../src/app/app.fixture';
+} from '../../src/app/app-fixture';
 import {
   DynamicContentFixtureComponent,
-} from '../../src/app/dynamic-content/dynamic-content.fixture';
+} from '../../src/app/dynamic-content/dynamic-content-fixture';
 
 test.describe('Test dynamic content page', () => {
   test('Go to dynamic content and play with override button', async ({ page }) => {

@@ -7,10 +7,10 @@ import {
 } from '@playwright/test';
 import {
   AppFixtureComponent,
-} from '../../src/app/app.fixture';
+} from '../../src/app/app-fixture';
 import {
   ConfigurationFixtureComponent,
-} from '../../src/app/configuration/configuration.fixture';
+} from '../../src/app/configuration/configuration-fixture';
 
 test.describe('Test configuration page', () => {
   test('Go to configuration and play with override button', async ({ page }) => {

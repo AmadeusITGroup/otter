@@ -1,1 +1,1 @@
-export * from './rules-engine.component';
+export * from './rules-engine';

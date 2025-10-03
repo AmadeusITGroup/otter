@@ -11,7 +11,7 @@ import {
 } from 'playwright-lighthouse';
 import {
   AppFixtureComponent,
-} from '../../src/app/app.fixture';
+} from '../../src/app/app-fixture';
 
 const lighthouseConfig = {
   thresholds: {

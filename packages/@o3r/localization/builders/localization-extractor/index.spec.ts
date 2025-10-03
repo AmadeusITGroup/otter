@@ -38,11 +38,11 @@ describe('Localization Extractor Builder', () => {
 
   it('should extract the localizations', async () => {
     const options: LocalizationExtractorBuilderSchema = {
-      tsConfig: 'apps/showcase/tsconfig.cms.json',
+      tsConfig: 'apps/showcase/tsconfig.app.json',
       outputFile: path.resolve(__dirname, workspaceRoot, 'apps/showcase/localisation.metadata.json'),
       libraries: [],
       extraFilePatterns: [
-        'src/i18n/*.localization.json'
+        'src/i18n/*-localization.json'
       ],
       watch: false,
       ignoreDuplicateKeys: false,

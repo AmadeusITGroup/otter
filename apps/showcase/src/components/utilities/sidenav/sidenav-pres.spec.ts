@@ -6,23 +6,23 @@ import {
   O3rElement,
 } from '@o3r/testing/core';
 import {
-  SidenavPresComponent,
-} from './sidenav-pres.component';
+  SidenavPres,
+} from './sidenav-pres';
 import {
   SidenavPresFixtureComponent,
-} from './sidenav-pres.fixture';
+} from './sidenav-pres-fixture';
 
 let componentFixture: SidenavPresFixtureComponent;
 
-describe('SidenavPresComponent', () => {
-  let component: SidenavPresComponent;
-  let fixture: ComponentFixture<SidenavPresComponent>;
+describe('SidenavPres', () => {
+  let component: SidenavPres;
+  let fixture: ComponentFixture<SidenavPres>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [SidenavPresComponent]
+      imports: [SidenavPres]
     });
-    fixture = TestBed.createComponent(SidenavPresComponent);
+    fixture = TestBed.createComponent(SidenavPres);
     component = fixture.componentInstance;
 
     componentFixture = new SidenavPresFixtureComponent(new O3rElement(fixture.debugElement));

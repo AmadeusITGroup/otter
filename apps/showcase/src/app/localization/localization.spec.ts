@@ -25,8 +25,8 @@ import {
   provideMarkdown,
 } from 'ngx-markdown';
 import {
-  LocalizationComponent,
-} from './localization.component';
+  Localization,
+} from './localization';
 
 const localizationConfiguration = { language: 'en' };
 const mockTranslations = {
@@ -36,21 +36,21 @@ const mockTranslationsCompilerProvider: Provider = {
   provide: TranslateCompiler,
   useClass: TranslateFakeCompiler
 };
-describe('LocalizationComponent', () => {
-  let component: LocalizationComponent;
-  let fixture: ComponentFixture<LocalizationComponent>;
+describe('Localization', () => {
+  let component: Localization;
+  let fixture: ComponentFixture<Localization>;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [
         RouterModule.forRoot([]),
-        LocalizationComponent,
+        Localization,
         ...mockTranslationModules(localizationConfiguration, mockTranslations, mockTranslationsCompilerProvider),
         AsyncPipe
       ],
       providers: [provideMarkdown()]
     });
-    fixture = TestBed.createComponent(LocalizationComponent);
+    fixture = TestBed.createComponent(Localization);
     component = fixture.componentInstance;
     fixture.detectChanges();
     const localizationService = TestBed.inject(LocalizationService);

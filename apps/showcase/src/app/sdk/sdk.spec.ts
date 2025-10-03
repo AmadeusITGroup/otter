@@ -18,20 +18,20 @@ import {
   provideMarkdown,
 } from 'ngx-markdown';
 import {
-  SdkComponent,
-} from './sdk.component';
+  Sdk,
+} from './sdk';
 import '@angular/localize/init';
 
-describe('SdkComponent', () => {
-  let component: SdkComponent;
-  let fixture: ComponentFixture<SdkComponent>;
+describe('Sdk', () => {
+  let component: Sdk;
+  let fixture: ComponentFixture<Sdk>;
   const petApiFixture = new PetApiFixture();
   petApiFixture.findPetsByStatus = petApiFixture.findPetsByStatus.mockResolvedValue([]);
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        SdkComponent,
+        Sdk,
         RouterModule.forRoot([]),
         AsyncPipe
       ],
@@ -40,7 +40,7 @@ describe('SdkComponent', () => {
         provideMarkdown()
       ]
     });
-    fixture = TestBed.createComponent(SdkComponent);
+    fixture = TestBed.createComponent(Sdk);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

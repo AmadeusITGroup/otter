@@ -15,17 +15,17 @@ import {
   RulesEngineRunnerModule,
 } from '@o3r/rules-engine';
 import {
-  PlaceholderComponent,
-} from './placeholder.component';
+  Placeholder,
+} from './placeholder';
 
-describe('PlaceholderComponent', () => {
-  let component: PlaceholderComponent;
-  let fixture: ComponentFixture<PlaceholderComponent>;
+describe('Placeholder', () => {
+  let component: Placeholder;
+  let fixture: ComponentFixture<Placeholder>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        PlaceholderComponent,
+        Placeholder,
         StoreModule.forRoot(),
         EffectsModule.forRoot(),
         RulesEngineRunnerModule.forRoot()
@@ -43,7 +43,7 @@ describe('PlaceholderComponent', () => {
       })
     ) as jest.Mock;
 
-    fixture = TestBed.createComponent(PlaceholderComponent);
+    fixture = TestBed.createComponent(Placeholder);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

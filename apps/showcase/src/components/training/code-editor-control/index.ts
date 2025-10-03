@@ -1,1 +1,1 @@
-export * from './code-editor-control.component';
+export * from './code-editor-control';

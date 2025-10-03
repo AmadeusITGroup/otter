@@ -38,17 +38,17 @@ import {
   startWith,
 } from 'rxjs/operators';
 import {
-  AppConnectionComponent,
-} from '../components/app-connection/app-connection.component';
+  AppConnection,
+} from '../components/app-connection/app-connection';
 import {
-  OtterComponentComponent,
-} from '../components/otter-component/otter-component.component';
+  OtterComponent,
+} from '../components/otter-component/otter-component';
 import {
   ChromeExtensionConnectionService,
-} from '../services/connection.service';
+} from '../services/connection-service';
 import {
   RulesetHistoryService,
-} from '../services/ruleset-history.service';
+} from '../services/ruleset-history-service';
 
 declare namespace window {
   let ng: Ng | undefined;
@@ -99,8 +99,8 @@ function getSelectedComponentInfo(getTranslations: typeof devkitGetTranslations,
   templateUrl: './app.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    OtterComponentComponent,
-    AppConnectionComponent,
+    OtterComponent,
+    AppConnection,
     AsyncPipe
   ]
 })
