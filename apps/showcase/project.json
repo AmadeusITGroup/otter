@@ -208,7 +208,7 @@
         "^builders"
       ],
       "options": {
-        "tsConfig": "apps/showcase/tsconfig.cms.json",
+        "tsConfig": "apps/showcase/tsconfig.app.json",
         "configOutputFile": "apps/showcase/component.config.metadata.json",
         "componentOutputFile": "apps/showcase/component.class.metadata.json",
         "name": "showcase",
@@ -229,7 +229,7 @@
     "extract-rules-engine": {
       "executor": "@o3r/rules-engine:extractor",
       "options": {
-        "tsConfig": "apps/showcase/tsconfig.cms.json",
+        "tsConfig": "apps/showcase/tsconfig.app.json",
         "libraries": [
           "packages/@o3r/rules-engine"
         ],
@@ -320,7 +320,7 @@
         "{options.outputFile}"
       ],
       "options": {
-        "tsConfig": "apps/showcase/tsconfig.cms.json",
+        "tsConfig": "apps/showcase/tsconfig.app.json",
         "outputFile": "apps/showcase/localisation.metadata.json",
         "libraries": [],
         "extraFilePatterns": [

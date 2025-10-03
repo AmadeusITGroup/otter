@@ -85,10 +85,10 @@ import {
   NGX_MONACO_EDITOR_CONFIG,
 } from 'ngx-monaco-editor-v2';
 import {
-  ClipboardButtonPresComponent,
-  DatePickerHebrewInputPresComponent,
-  ScrollBackTopPresComponent,
-  SidenavPresComponent,
+  ClipboardButtonPres,
+  DatePickerHebrewInputPres,
+  ScrollBackTopPres,
+  SidenavPres,
 } from '../components/utilities';
 import {
   markedAlert,
@@ -161,9 +161,9 @@ export function localizationConfigurationFactory(): Partial<LocalizationConfigur
     LocalizationModule.forRoot(localizationConfigurationFactory),
     RulesEngineRunnerModule.forRoot({ debug: true }),
     AppRoutingModule,
-    SidenavPresComponent,
+    SidenavPres,
     NgbOffcanvasModule,
-    ScrollBackTopPresComponent,
+    ScrollBackTopPres,
     ApplicationDevtoolsModule,
     ComponentsDevtoolsModule,
     StylingDevtoolsModule,
@@ -172,7 +172,7 @@ export function localizationConfigurationFactory(): Partial<LocalizationConfigur
     MonacoEditorModule.forRoot()
   ],
   providers: [
-    provideCustomComponents(new Map(), withComponent('exampleDatePickerFlavorHebrew', DatePickerHebrewInputPresComponent)),
+    provideCustomComponents(new Map(), withComponent('exampleDatePickerFlavorHebrew', DatePickerHebrewInputPres)),
     { provide: MESSAGE_FORMAT_CONFIG, useValue: {} },
     { provide: LOGGER_CLIENT_TOKEN, useValue: new ConsoleLogger() },
     { provide: PetApi, useFactory: petApiFactory, deps: [LoggerService] },
@@ -186,7 +186,7 @@ export function localizationConfigurationFactory(): Partial<LocalizationConfigur
       clipboardOptions: {
         provide: CLIPBOARD_OPTIONS,
         useValue: {
-          buttonComponent: ClipboardButtonPresComponent
+          buttonComponent: ClipboardButtonPres
         }
       },
       markedExtensions: [

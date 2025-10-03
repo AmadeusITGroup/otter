@@ -16,8 +16,8 @@ import {
   mockTranslationModules,
 } from '@o3r/testing/localization';
 import {
-  LocalizationPresComponent,
-} from './localization-pres.component';
+  LocalizationPres,
+} from './localization-pres';
 
 const localizationConfiguration = { language: 'en' };
 const mockTranslations = {
@@ -37,17 +37,17 @@ const mockTranslationsCompilerProvider: Provider = {
   provide: TranslateCompiler,
   useClass: TranslateFakeCompiler
 };
-describe('LocalizationPresComponent', () => {
-  let component: LocalizationPresComponent;
-  let fixture: ComponentFixture<LocalizationPresComponent>;
+describe('LocalizationPres', () => {
+  let component: LocalizationPres;
+  let fixture: ComponentFixture<LocalizationPres>;
   beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [
-        LocalizationPresComponent,
+        LocalizationPres,
         ...mockTranslationModules(localizationConfiguration, mockTranslations, mockTranslationsCompilerProvider)
       ]
     });
-    fixture = TestBed.createComponent(LocalizationPresComponent);
+    fixture = TestBed.createComponent(LocalizationPres);
     component = fixture.componentInstance;
     fixture.detectChanges();
     const localizationService = TestBed.inject(LocalizationService);
