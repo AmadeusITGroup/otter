@@ -10361,7 +10361,7 @@ __metadata:
     zod: "npm:~3.25.76"
     zone.js: "npm:~0.15.0"
   bin:
-    o3r-mcp-start: ./dist/cli/index.js
+    o3r-mcp-start: ./dist/src/cli/index.js
   languageName: unknown
   linkType: soft
 
