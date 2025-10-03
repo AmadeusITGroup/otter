@@ -9,19 +9,19 @@ import {
   mockTranslationModules,
 } from '@o3r/testing/localization';
 import {
-  FormsEmergencyContactPresComponent,
-} from './forms-emergency-contact-pres.component';
+  FormsEmergencyContactPres,
+} from './forms-emergency-contact-pres';
 
-describe('FormsEmergencyContactPresComponent', () => {
-  let component: FormsEmergencyContactPresComponent;
-  let fixture: ComponentFixture<FormsEmergencyContactPresComponent>;
+describe('FormsEmergencyContactPres', () => {
+  let component: FormsEmergencyContactPres;
+  let fixture: ComponentFixture<FormsEmergencyContactPres>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FormsEmergencyContactPresComponent, ...mockTranslationModules(), ReactiveFormsModule]
+      imports: [FormsEmergencyContactPres, ...mockTranslationModules(), ReactiveFormsModule]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(FormsEmergencyContactPresComponent);
+    fixture = TestBed.createComponent(FormsEmergencyContactPres);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

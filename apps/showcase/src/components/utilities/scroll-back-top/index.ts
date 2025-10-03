@@ -1,1 +1,1 @@
-export * from './scroll-back-top-pres.component';
+export * from './scroll-back-top-pres';
