@@ -20,7 +20,8 @@ export default [
         projectService: true
       },
       globals: {
-        ...globals.node
+        ...globals.node,
+        NodeJS: true
       }
     }
   },

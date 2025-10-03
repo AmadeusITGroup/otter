@@ -1,15 +1,13 @@
 import {
-  chat,
   commands,
   EventEmitter,
   ExtensionContext,
   languages,
   lm,
-  Uri,
   window,
 } from 'vscode';
 import {
-  chatParticipantHandler,
+  initializeChatParticipant,
 } from './chat';
 import {
   extractAllToVariable,
@@ -72,15 +70,14 @@ import {
  */
 export function activate(context: ExtensionContext) {
   const channel = window.createOutputChannel('Otter');
-  const o3rChatParticipant = chat.createChatParticipant('o3r-chat-participant', chatParticipantHandler(context, channel));
-  o3rChatParticipant.iconPath = Uri.joinPath(context.extensionUri, 'assets', 'logo-128x128.png');
+  const o3rChatParticipant = initializeChatParticipant(context, channel);
   const designTokenProviders = designTokenCompletionItemAndHoverProviders();
   // eslint-disable-next-line unicorn/prefer-event-target -- using EventEmitter from vscode
   const didChangeEmitter = new EventEmitter<void>();
 
   context.subscriptions.push(
     o3rChatParticipant,
-    lm.registerMcpServerDefinitionProvider('o3rMCPServerProvider', mcpConfig(didChangeEmitter)),
+    lm.registerMcpServerDefinitionProvider('o3rMCPServerProvider', mcpConfig(didChangeEmitter, channel)),
     languages.registerCompletionItemProvider(['javascript', 'typescript'], configurationCompletionItemProvider({ channel }), configurationCompletionTriggerChar),
     languages.registerCompletionItemProvider(['scss'], stylingCompletionItemProvider(), stylingCompletionTriggerChar),
     languages.registerCompletionItemProvider(['scss', 'css'], designTokenProviders),

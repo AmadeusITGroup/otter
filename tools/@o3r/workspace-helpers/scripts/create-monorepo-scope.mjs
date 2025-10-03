@@ -87,6 +87,13 @@ const updatePackageJson = async (scopeName) => {
   await writeFile(packageJsonPath, JSON.stringify(packageJson, null, 2) + '\n');
 };
 
+const updateMcp = async (scopeName) => {
+  const path = resolve(root, 'tools/@o3r/mcp/src/tools/find-repositories-using-otter.ts');
+  const content = await readFile(path, { encoding: 'utf8' });
+  const newContent = content.replace(/(const O3R_SCOPE_REGEX = \/[^)]*)(\))(.*\/;)$/gm, `$1|${scopeName})$3`);
+  await writeFile(path, newContent);
+};
+
 (() => {
   if (!scopeName) {
     throw new Error('No scope name provided');
@@ -97,6 +104,7 @@ const updatePackageJson = async (scopeName) => {
     updateItTestWorkflow(scopeName),
     updateNpmrcPr(scopeName),
     updateRenovateGroup(scopeName),
-    updatePackageJson(scopeName)
+    updatePackageJson(scopeName),
+    updateMcp(scopeName)
   ]);
 })();

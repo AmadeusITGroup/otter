@@ -16,6 +16,9 @@ import {
 import {
   registerCreateMonorepoWithAppTool,
 } from './tools/create-monorepo-with-app';
+import {
+  registerGetRepositoriesUsingOtterTool,
+} from './tools/find-repositories-using-otter';
 
 /**
  * Create an MCP server instance.
@@ -35,6 +38,6 @@ export async function createMcpServer(): Promise<McpServer> {
   await registerBestPracticesResources(server, resourcesPath);
   await registerBestPracticesTool(server, resourcesPath);
   await registerCreateMonorepoWithAppTool(server, resourcesPath);
-
+  registerGetRepositoriesUsingOtterTool(server);
   return server;
 }

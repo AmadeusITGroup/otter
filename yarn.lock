@@ -10814,6 +10814,7 @@ __metadata:
     "@o3r/eslint-config": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
+    "@octokit/rest": "npm:^22.0.0"
     "@stylistic/eslint-plugin": "npm:~5.3.0"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:~22.18.0"
@@ -12624,7 +12625,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@octokit/core@npm:^7.0.3":
+"@octokit/core@npm:^7.0.2, @octokit/core@npm:^7.0.3":
   version: 7.0.5
   resolution: "@octokit/core@npm:7.0.5"
   dependencies:
@@ -12745,7 +12746,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@octokit/plugin-paginate-rest@npm:^13.1.1":
+"@octokit/plugin-paginate-rest@npm:^13.0.1, @octokit/plugin-paginate-rest@npm:^13.1.1":
   version: 13.2.0
   resolution: "@octokit/plugin-paginate-rest@npm:13.2.0"
   dependencies:
@@ -12764,6 +12765,15 @@ __metadata:
   peerDependencies:
     "@octokit/core": 5
   checksum: 10/9afdd61d24a276ed7c2a8e436f735066d1b71601177deb97afa204a1f224257ca9c02681bc94dcda921d37c288a342124f7dfdd88393817306fe0b1ad1f0690f
+  languageName: node
+  linkType: hard
+
+"@octokit/plugin-request-log@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "@octokit/plugin-request-log@npm:6.0.0"
+  peerDependencies:
+    "@octokit/core": ">=6"
+  checksum: 10/8a79973b1429bfead9113c4117f418aaef5ff368795daded3415ba14623d97d5fc08d1e822dbd566ecc9f041119e1a48a11853a9c48d9eb1caa62baa79c17f83
   languageName: node
   linkType: hard
 
@@ -12856,6 +12866,18 @@ __metadata:
     "@octokit/types": "npm:^13.1.0"
     universal-user-agent: "npm:^6.0.0"
   checksum: 10/2b2c9131cc9b608baeeef8ce2943768cc9db5fbe36a665f734a099bd921561c760e4391fbdf39d5aefb725db26742db1488c65624940ef7cec522e10863caa5e
+  languageName: node
+  linkType: hard
+
+"@octokit/rest@npm:^22.0.0":
+  version: 22.0.0
+  resolution: "@octokit/rest@npm:22.0.0"
+  dependencies:
+    "@octokit/core": "npm:^7.0.2"
+    "@octokit/plugin-paginate-rest": "npm:^13.0.1"
+    "@octokit/plugin-request-log": "npm:^6.0.0"
+    "@octokit/plugin-rest-endpoint-methods": "npm:^16.0.0"
+  checksum: 10/d2b80fefd6aed307cb728980cb1d94cb484d48fabf0055198664287a7fb50544d312b005e4fb8dec2a6e97a153ec0ad7654d62f59898e1077a4cfba64e6d5c3e
   languageName: node
   linkType: hard
 
