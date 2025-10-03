@@ -13,8 +13,8 @@ import {
   sendChatParticipantRequest,
 } from '@vscode/chat-extension-utils';
 
-const SUPPORTED_COMMANDS = ['list-tools'];
-const SUPPORTED_TOOLS_REGEX = /o3r|angular/;
+const SUPPORTED_COMMANDS = ['list-tools', 'list-repos-using-o3r'];
+const SUPPORTED_TOOLS_REGEX = /o3r|angular|github/;
 
 export const chatParticipantHandler = (_context: ExtensionContext, _channel: OutputChannel): ChatRequestHandler => {
   return async (
@@ -24,12 +24,16 @@ export const chatParticipantHandler = (_context: ExtensionContext, _channel: Out
     token: CancellationToken
   ): Promise<ChatResult> => {
     const command = SUPPORTED_COMMANDS.includes(request.command || '') ? request.command : '';
-    const tools = lm.tools.filter((tool) => SUPPORTED_TOOLS_REGEX.test(tool.name));
+    let tools = lm.tools.filter((tool) => SUPPORTED_TOOLS_REGEX.test(tool.name));
 
     switch (command) {
       case 'list-tools': {
         stream.markdown(tools.map((tool) => `- ${tool.name}`).join('\n'));
         return { metadata: { command } };
+      }
+      case 'list-repos-using-o3r': {
+        tools = tools.filter((tool) => tool.name.includes('get_repositories_using_otter'));
+        break;
       }
     }
     const { result } = sendChatParticipantRequest(
