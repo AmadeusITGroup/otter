@@ -33,8 +33,8 @@ import {
   mockTranslationModules,
 } from '@o3r/testing/localization';
 import {
-  AppComponent,
-} from './app.component';
+  App,
+} from './app';
 
 const localizationConfiguration = { language: 'en' };
 const mockTranslations = {
@@ -45,7 +45,7 @@ const mockTranslationsCompilerProvider: Provider = {
   useClass: TranslateFakeCompiler
 };
 
-describe('AppComponent', () => {
+describe('App', () => {
   beforeEach(() => TestBed.configureTestingModule({
     imports: [
       ApplicationDevtoolsModule,
@@ -59,11 +59,11 @@ describe('AppComponent', () => {
     providers: [
       provideMockStore()
     ],
-    declarations: [AppComponent]
+    declarations: [App]
   }));
 
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
+    const fixture = TestBed.createComponent(App);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
   });

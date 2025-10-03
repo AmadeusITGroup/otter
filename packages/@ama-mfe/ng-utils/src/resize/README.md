@@ -18,10 +18,10 @@ window and post a message to inform the parent window.
 import {ConnectionService, ResizeService} from '@ama-mfe/ng-utils';
 import {inject, runInInjectionContext,} from '@angular/core';
 import {bootstrapApplication} from '@angular/platform-browser';
-import {AppComponent} from './app.component';
+import {App} from './app';
 import {appConfig} from './app.config';
 
-bootstrapApplication(AppComponent, appConfig)
+bootstrapApplication(App, appConfig)
   .then((m) => {
     runInInjectionContext(m.injector, () => {
       if (window.self !== window.top) {

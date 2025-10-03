@@ -96,7 +96,7 @@ function getSelectedComponentInfo(getTranslations: typeof devkitGetTranslations,
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
+  templateUrl: './app.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     OtterComponentComponent,
@@ -104,7 +104,7 @@ function getSelectedComponentInfo(getTranslations: typeof devkitGetTranslations,
     AsyncPipe
   ]
 })
-export class AppComponent {
+export class App {
   private readonly cd = inject(ChangeDetectorRef);
 
   /** Configuration value stream */

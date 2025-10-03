@@ -207,7 +207,7 @@
     "@types/eslint": "~9.6.0",
     "@types/estree": "^1.0.5",
     "@types/jest": "~29.5.2",
-    "@types/node": "^22.0.0",
+    "@types/node": "~22.0.0",
     "@types/semver": "^7.3.13",
     "@typescript-eslint/parser": "~8.43.0",
     "@typescript-eslint/rule-tester": "~8.43.0",
@@ -259,7 +259,7 @@
     "ng-packagr": "~20.3.0",
     "ngx-markdown": "^20.0.0",
     "ngx-monaco-editor-v2": "^20.0.0",
-    "ngx-monaco-tree": "~19.1.0",
+    "ngx-monaco-tree": "~20.1.0",
     "npm-run-all2": "^8.0.0",
     "nx": "~21.5.0",
     "playwright-lighthouse": "~4.0.0",
@@ -318,5 +318,5 @@
     "tools/@*/*",
     "apps/*"
   ],
-  "packageManager": "yarn@4.9.4"
+  "packageManager": "yarn@4.10.3"
 }

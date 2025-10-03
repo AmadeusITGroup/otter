@@ -19,13 +19,13 @@ import {
  * Generate rule to update generated package.json file
  * @param targetPath Path of the generated files
  * @param otterVersion Current version of otter
- * @param o3rCorePackageJson Content of core's package.json
+ * @param o3rWorkspacePackageJson Content of @o3r/workspace package.json
  * @param options Option of the schematic
  */
 export function updatePackageDependenciesFactory(
     targetPath: string,
     otterVersion: string,
-    o3rCorePackageJson: PackageJson & { generatorDependencies?: Record<string, string> },
+    o3rWorkspacePackageJson: PackageJson & { generatorDependencies?: Record<string, string> },
     options: NgGenerateModuleSchema & { useJest?: boolean }): Rule {
   return (tree) => {
     const packageJson = tree.readJson(path.posix.join(targetPath, 'package.json')) as PackageJson;
@@ -46,9 +46,9 @@ export function updatePackageDependenciesFactory(
     packageJson.devDependencies = {
       ...packageJson.devDependencies,
       ...Object.fromEntries(Object.entries({
-        '@angular-devkit/build-angular': o3rCorePackageJson.peerDependencies!['@angular-devkit/core'],
-        '@angular-devkit/core': o3rCorePackageJson.peerDependencies!['@angular-devkit/core'],
-        '@angular-eslint/eslint-plugin': o3rCorePackageJson.generatorDependencies!['@angular-eslint/eslint-plugin'],
+        '@angular-devkit/build-angular': o3rWorkspacePackageJson.generatorDependencies!['@angular-devkit/build-angular'],
+        '@angular-devkit/core': o3rWorkspacePackageJson.generatorDependencies!['@angular-devkit/core'],
+        '@angular-eslint/eslint-plugin': o3rWorkspacePackageJson.generatorDependencies!['@angular-eslint/eslint-plugin'],
         '@angular/cli': packageJson.peerDependencies['@angular/common'],
         '@angular/common': packageJson.peerDependencies['@angular/common'],
         '@angular/compiler': packageJson.peerDependencies['@angular/common'],
@@ -56,24 +56,25 @@ export function updatePackageDependenciesFactory(
         '@angular/core': packageJson.peerDependencies['@angular/common'],
         '@angular/platform-browser': packageJson.peerDependencies['@angular/common'],
         '@angular/platform-browser-dynamic': packageJson.peerDependencies['@angular/common'],
-        '@schematics/angular': o3rCorePackageJson.peerDependencies!['@schematics/angular'],
-        'cpy-cli': o3rCorePackageJson.generatorDependencies!['cpy-cli'],
-        '@types/node': o3rCorePackageJson.devDependencies!['@types/node'],
+        '@schematics/angular': o3rWorkspacePackageJson.generatorDependencies!['@schematics/angular'],
+        'cpy-cli': o3rWorkspacePackageJson.generatorDependencies!['cpy-cli'],
+        '@types/node': o3rWorkspacePackageJson.generatorDependencies!['@types/node'],
         ...options.useJest
           ? {
-            '@angular-builders/jest': o3rCorePackageJson.generatorDependencies!['@angular-builders/jest'],
-            '@angular-devkit/build-angular': o3rCorePackageJson.devDependencies!['@angular-devkit/build-angular'],
-            '@types/jest': o3rCorePackageJson.devDependencies!['@types/jest'],
-            jest: o3rCorePackageJson.devDependencies!.jest,
-            'jest-environment-jsdom': o3rCorePackageJson.devDependencies!.jest,
-            'jest-junit': o3rCorePackageJson.devDependencies!['jest-junit'],
-            'jest-preset-angular': o3rCorePackageJson.devDependencies!['jest-preset-angular'],
-            'ts-jest': o3rCorePackageJson.devDependencies!['ts-jest']
+            '@angular-builders/jest': o3rWorkspacePackageJson.generatorDependencies!['@angular-builders/jest'],
+            '@types/jest': o3rWorkspacePackageJson.generatorDependencies!['@types/jest'],
+            jest: o3rWorkspacePackageJson.generatorDependencies!.jest,
+            'jest-environment-jsdom': o3rWorkspacePackageJson.generatorDependencies!['jest-environment-jsdom'],
+            'jest-junit': o3rWorkspacePackageJson.generatorDependencies!['jest-junit'],
+            'jest-preset-angular': o3rWorkspacePackageJson.generatorDependencies!['jest-preset-angular'],
+            'ts-jest': o3rWorkspacePackageJson.generatorDependencies!['ts-jest']
           }
-          : {},
-        rxjs: o3rCorePackageJson.peerDependencies!.rxjs,
-        typescript: o3rCorePackageJson.peerDependencies!.typescript,
-        'zone.js': o3rCorePackageJson.generatorDependencies!['zone.js']
+          : {
+            '@types/jasmine': o3rWorkspacePackageJson.generatorDependencies!['@types/jasmine']
+          },
+        rxjs: o3rWorkspacePackageJson.peerDependencies!.rxjs,
+        typescript: o3rWorkspacePackageJson.peerDependencies!.typescript,
+        'zone.js': o3rWorkspacePackageJson.generatorDependencies!['zone.js']
       }).map(([key, range]) => ([key, enforceTildeRange(range)])))
     };
     tree.overwrite(path.posix.join(targetPath, 'package.json'), JSON.stringify(packageJson, null, 2));

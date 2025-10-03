@@ -75,8 +75,8 @@
         "isSticky": true,
         "commands": [
           {
-            "name": "new",
-            "description": "Get the commands to create a new Otter monorepo with an application"
+            "name": "list-tools",
+            "description": "Get the list of tools available for the chat participant"
           }
         ]
       }
@@ -364,6 +364,7 @@
   },
   "dependencies": {
     "@o3r/design": "workspace:^",
+    "@vscode/chat-extension-utils": "0.0.0-alpha.5",
     "eslint": "~9.35.0"
   },
   "peerDependencies": {
@@ -397,7 +398,7 @@
     "@stylistic/eslint-plugin": "~5.3.0",
     "@types/eslint": "~9.6.0",
     "@types/jest": "~29.5.2",
-    "@types/node": "^22.0.0",
+    "@types/node": "~22.0.0",
     "@types/vscode": "~1.103.0",
     "@typescript-eslint/parser": "~8.43.0",
     "@typescript-eslint/utils": "~8.43.0",
