@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.base",
+  "include": [
+    "eslint*.config.mjs",
+    <% if (jest) { %>
+    "jest.config.js",
+    "testing/setup-jest.ts",
+    "testing/mocks/**/*",
+    <% } %>
+    <% if (playwrightInstalled) { %>
+    "e2e-playwright/**/*"
+    <% } %>
+  ]
+}
