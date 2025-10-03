@@ -38,7 +38,7 @@ describe('ng add stylelint-plugin', () => {
     });
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:component', '--defaults', 'true', 'test', '--use-otter-theming', 'false', '--project-name', appName] }, execAppOptions);
 
-    await addImportToAppModule(applicationPath, 'TestComponent', 'src/components/test/test.component');
+    await addImportToAppModule(applicationPath, 'Test', 'src/components/test/test');
     await writeFile(path.join(applicationPath, '.stylelintrc.json'), JSON.stringify({
       plugins: [
         '@ama-styling/stylelint-plugin'
@@ -51,7 +51,7 @@ describe('ng add stylelint-plugin', () => {
     expect(() => packageManagerRunOnProject(appName, isInWorkspace, { script: 'build' }, execAppOptions)).not.toThrow();
     expect(() => packageManagerExecOnProject(appName, isInWorkspace, {
       script: 'stylelint',
-      args: [path.join(applicationPath, 'src', 'components', 'test', 'test.style.scss')]
+      args: [path.join(applicationPath, 'src', 'components', 'test', 'test.scss')]
     }, execAppOptions)).not.toThrow();
   });
 
@@ -85,7 +85,7 @@ describe('ng add stylelint-plugin', () => {
     expect(() => packageManagerRunOnProject(libName, isInWorkspace, { script: 'build' }, execAppOptions)).not.toThrow();
     expect(() => packageManagerExecOnProject(libName, isInWorkspace, {
       script: 'stylelint',
-      args: [path.join(libraryPath, 'src', 'components', 'test', 'test.style.scss')]
+      args: [path.join(libraryPath, 'src', 'components', 'test', 'test.scss')]
     }, execAppOptions)).not.toThrow();
   });
 });

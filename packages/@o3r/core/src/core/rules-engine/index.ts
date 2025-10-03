@@ -1,1 +1,1 @@
-export * from './rules-engine.interfaces';
+export * from './rules-engine-interfaces';

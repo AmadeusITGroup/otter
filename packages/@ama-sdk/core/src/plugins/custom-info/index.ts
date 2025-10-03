@@ -1,1 +1,1 @@
-export * from './custom-info.reply';
+export * from './custom-info-reply';

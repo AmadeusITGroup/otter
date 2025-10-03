@@ -1,1 +1,1 @@
-export * from './design-token-pres.component';
+export * from './design-token-pres';

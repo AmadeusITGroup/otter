@@ -1,1 +1,1 @@
-export * from './run-app-locally.component';
+export * from './run-app-locally';

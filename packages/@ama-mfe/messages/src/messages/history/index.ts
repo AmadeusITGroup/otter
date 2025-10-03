@@ -1,8 +1,8 @@
 import type {
   HistoryV1_0,
-} from './history.versions';
+} from './history-versions';
 
-export * from './history.versions';
+export * from './history-versions';
 export { HISTORY_MESSAGE_TYPE } from './base';
 
 /** The versions of history messages */

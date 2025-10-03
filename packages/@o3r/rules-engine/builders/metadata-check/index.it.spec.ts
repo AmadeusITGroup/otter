@@ -37,7 +37,7 @@ import type {
 } from '../rules-engine-extractor/helpers';
 import type {
   MigrationRuleFactMetadata,
-} from './helpers/rulefact-metadata-comparison.helper';
+} from './helpers/rulefact-metadata-comparison-helper';
 
 const baseVersion = '1.2.0';
 const version = '1.3.0';

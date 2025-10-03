@@ -29,8 +29,8 @@ In this rule, if the user selects a date during the summer, New-York will be add
 ![Otter showcase](../../../.attachments/screenshots/showcase/nested-rule-standard-form.png)
 
 This Ruleset only makes reference to an action already provided by the Otter framework.
-For this example, let's consider the `outboundDate` fact in the [Otter showcase fact folder](https://github.com/AmadeusITGroup/otter/blob/main/apps/showcase/src/facts/trip/trip.facts.ts#L23) and the 
-`UPDATE_CONFIG` action provided in the `@o3r/configuration` package and the `duringSummer` operator defined in the [Otter showcase operator folder](https://github.com/AmadeusITGroup/otter/blob/main/apps/showcase/src/operators/during-summer/during-summer.operator.ts#L6).
+For this example, let's consider the `outboundDate` fact in the [Otter showcase fact folder](https://github.com/AmadeusITGroup/otter/blob/main/apps/showcase/src/facts/trip/trip-facts.ts#L23) and the 
+`UPDATE_CONFIG` action provided in the `@o3r/configuration` package and the `duringSummer` operator defined in the [Otter showcase operator folder](https://github.com/AmadeusITGroup/otter/blob/main/apps/showcase/src/operators/during-summer/during-summer-operator.ts#L6).
 
 Look into the [Going Further](#going-further) section to look for more complex and optimized use cases.
 
@@ -58,7 +58,7 @@ You will not find the Otter actions in the `@o3r/rules-engine` package but in th
 - `UPDATE_PLACEHOLDER`: requires the import of `PlaceholderRulesEngineActionModule` and `PlaceholderRequestStoreModule` from [@o3r/components](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40o3r/components/)
 
 Once the modules have been imported by the application, they need to be explicitly registered into the Rules Engine in the
-pages where they will be used. For instance, in the showcase, this is done in the [rules engine page component](https://github.com/AmadeusITGroup/otter/blob/main/apps/showcase/src/app/rules-engine/rules-engine.component.ts#L96),  
+pages where they will be used. For instance, in the showcase, this is done in the [rules engine page component](https://github.com/AmadeusITGroup/otter/blob/main/apps/showcase/src/app/rules-engine/rules-engine.ts#L96),  
 
 Note that in the 'New-York availability in summer rule', we only need to register the `UPDATE_CONFIG` action.
 
@@ -78,7 +78,7 @@ As with actions, the rules engine is not aware of the facts that will be used in
 listening and processing useless facts might impact the performance of the rules engine, but also that facts are 
 generally business oriented, and thus they cannot be built-in the framework.
 
-Hence, you will need to explicitly register your fact. Again, in the showcase, this is done in the [rules engine page component](https://github.com/AmadeusITGroup/otter/blob/main/apps/showcase/src/app/rules-engine/rules-engine.component.ts#L101).
+Hence, you will need to explicitly register your fact. Again, in the showcase, this is done in the [rules engine page component](https://github.com/AmadeusITGroup/otter/blob/main/apps/showcase/src/app/rules-engine/rules-engine.ts#L101).
 
 Thanks to this, the application is now ready to retrieve and evaluate the rules and execute the resulting actions.
 
@@ -88,12 +88,12 @@ Thanks to this, the application is now ready to retrieve and evaluate the rules 
 
 ### Step 4 (optional): Register your custom operator
 
-As we rely on a custom `duringSummer` operator, it also needs to be registered in the rules engine (see showcase rules engine implementation)[https://github.com/AmadeusITGroup/otter/blob/main/apps/showcase/src/app/rules-engine/rules-engine.component.ts#L99].
+As we rely on a custom `duringSummer` operator, it also needs to be registered in the rules engine (see showcase rules engine implementation)[https://github.com/AmadeusITGroup/otter/blob/main/apps/showcase/src/app/rules-engine/rules-engine.ts#L99].
 
 ### Step 4: Register your Rulesets
 
 The last step is quite simple, just retrieve your JSON file with all the Rulesets you want to run and set them up in
-the rule engine runner (see [showcase example](https://github.com/AmadeusITGroup/otter/blob/main/apps/showcase/src/app/rules-engine/rules-engine.component.ts#L124)).
+the rule engine runner (see [showcase example](https://github.com/AmadeusITGroup/otter/blob/main/apps/showcase/src/app/rules-engine/rules-engine.ts#L124)).
 
 ## Going further
 

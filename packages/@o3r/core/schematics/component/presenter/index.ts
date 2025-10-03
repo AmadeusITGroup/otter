@@ -18,9 +18,9 @@ import {
 import {
   applyEsLintFix,
   createOtterSchematic,
+  getComponentBaseName,
   getComponentFileName,
   getComponentFolderName,
-  getComponentName,
   getComponentSelectorWithoutSuffix,
   getDestinationPath,
   getInputComponentName,
@@ -70,11 +70,11 @@ const getTemplateProperties = (options: NgGenerateComponentSchematicsSchema, com
 
   return {
     ...options,
-    componentName: getComponentName(inputComponentName, structure).replace(/Component$/, ''),
+    componentName: getComponentBaseName(inputComponentName, structure),
     componentSelector: getComponentSelectorWithoutSuffix(options.componentName, prefix || null),
     projectName: options.projectName || getLibraryNameFromPath(options.path),
     folderName,
-    name: getComponentFileName(options.componentName, structure),
+    name: getComponentFileName(options.componentName, structure, options.type),
     suffix: structure.toLowerCase(),
     description: options.description || ''
   };
@@ -97,15 +97,13 @@ function ngGenerateComponentPresenterFn(options: NgGenerateComponentSchematicsSc
     );
 
     const destination = getDestinationPath('@o3r/core:component', options.path, tree, options.projectName);
-    const componentDestination = path.posix.join(destination, fullStructureRequested ? path.posix.join(properties.folderName, PRESENTER_FOLDER) : properties.folderName);
-    const componentPath = path.posix.join(componentDestination, `${properties.name}.component.ts`);
-    const ngSpecPath = path.posix.join(componentDestination, `${properties.name}.component.spec.ts`);
-    const o3rSpecPath = path.posix.join(componentDestination, `${properties.name}.spec.ts`);
-    const ngStylePath = path.posix.join(componentDestination, `${properties.name}.component.scss`);
-    const o3rStylePath = path.posix.join(componentDestination, `${properties.name}.style.scss`);
+    const componentDestination = path.posix.join(
+      destination,
+      fullStructureRequested ? path.posix.join(properties.folderName, PRESENTER_FOLDER) : `${properties.folderName}${properties.suffix ? ('-' + properties.suffix) : ''}`
+    );
+    const componentPath = path.posix.join(componentDestination, `${properties.name}.ts`);
+    const stylePath = path.posix.join(componentDestination, `${properties.name}.scss`);
     const o3rDesignTokenPath = path.posix.join(componentDestination, `${properties.name}.theme.json`);
-    const ngTemplatePath = path.posix.join(componentDestination, `${properties.name}.component.html`);
-    const o3rTemplatePath = path.posix.join(componentDestination, `${properties.name}.template.html`);
     const componentSelector = `${properties.componentSelector}${properties.suffix ? ('-' + properties.suffix) : ''}`;
 
     const rules: Rule[] = [];
@@ -116,8 +114,7 @@ function ngGenerateComponentPresenterFn(options: NgGenerateComponentSchematicsSc
           project: properties.projectName,
           path: componentDestination,
           flat: true,
-          name: properties.componentName,
-          typeSeparator: '.'
+          name: properties.componentName
         })
       );
     }
@@ -138,7 +135,7 @@ function ngGenerateComponentPresenterFn(options: NgGenerateComponentSchematicsSc
         viewEncapsulation: 'None',
         changeDetection: 'OnPush',
         style: 'scss',
-        type: 'component',
+        type: options.type,
         skipSelector: false,
         standalone: options.standalone,
         ...(
@@ -147,47 +144,12 @@ function ngGenerateComponentPresenterFn(options: NgGenerateComponentSchematicsSc
               skipImport: true
             }
             : {
-              module: `${properties.name}.module.ts`,
+              module: `${properties.name}-module.ts`,
               export: true
             }
         ),
         flat: true
       }),
-      // Angular schematics generate spec file with this pattern: component-name.component.spec.ts
-      move(ngSpecPath, o3rSpecPath),
-      // Angular schematics generate style file with this pattern: component-name.component.scss
-      chain([
-        move(ngStylePath, o3rStylePath),
-        (t) => {
-          // Styling file is empty by default, as we create component with `viewEncapsulation` set to 'None', we should wrap the styling into the selector of the component
-          t.overwrite(o3rStylePath, `${componentSelector} {\n\t// Your component custom SCSS\n}\n`);
-          return t;
-        },
-        (t) => {
-          t.overwrite(
-            componentPath,
-            t.readText(componentPath).replace(
-              path.basename(ngStylePath),
-              path.basename(o3rStylePath)
-            )
-          );
-          return t;
-        }
-      ]),
-      // Angular schematics generate template file with this pattern: component-name.component.html
-      chain([
-        move(ngTemplatePath, o3rTemplatePath),
-        (t) => {
-          t.overwrite(
-            componentPath,
-            t.readText(componentPath).replace(
-              path.basename(ngTemplatePath),
-              path.basename(o3rTemplatePath)
-            )
-          );
-          return t;
-        }
-      ]),
       schematic('convert-component', {
         path: componentPath,
         skipLinter: options.skipLinter
@@ -197,11 +159,11 @@ function ngGenerateComponentPresenterFn(options: NgGenerateComponentSchematicsSc
         options
       ),
       getAddThemingRules(
-        o3rStylePath,
+        stylePath,
         options
       ),
       getAddDesignTokenRules(
-        o3rStylePath,
+        stylePath,
         o3rDesignTokenPath,
         options
       ),

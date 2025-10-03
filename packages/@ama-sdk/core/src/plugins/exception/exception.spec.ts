@@ -7,7 +7,7 @@ import {
 } from '../../fwk/errors';
 import {
   ExceptionReply,
-} from './exception.reply';
+} from './exception-reply';
 
 describe('Exception Reply Plugin', () => {
   const reviver = jest.fn();
