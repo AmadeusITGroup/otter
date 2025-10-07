@@ -69,15 +69,6 @@
       "@ama-styling/stylelint-plugin": [
         "packages/@ama-styling/stylelint-plugin/src/index"
       ],
-      "@ama-terasu/cli": [
-        "packages/@ama-terasu/cli/src"
-      ],
-      "@ama-terasu/core": [
-        "packages/@ama-terasu/core/src/public_api"
-      ],
-      "@ama-terasu/schematics": [
-        "packages/@ama-terasu/schematics/src"
-      ],
       "@o3r-training/showcase-sdk": [
         "packages/@o3r-training/showcase-sdk/src"
       ],
@@ -89,18 +80,6 @@
       ],
       "@o3r-training/training-tools": [
         "packages/@o3r-training/training-tools/src/public_api"
-      ],
-      "@o3r/amaterasu-api-spec": [
-        "packages/@o3r/amaterasu/amaterasu-api-spec/src"
-      ],
-      "@o3r/amaterasu-dodo": [
-        "packages/@o3r/amaterasu/amaterasu-dodo/src"
-      ],
-      "@o3r/amaterasu-otter": [
-        "packages/@o3r/amaterasu/amaterasu-otter/src"
-      ],
-      "@o3r/amaterasu-sdk": [
-        "packages/@o3r/amaterasu/amaterasu-sdk/src"
       ],
       "@o3r/analytics": [
         "packages/@o3r/analytics/src/public_api"

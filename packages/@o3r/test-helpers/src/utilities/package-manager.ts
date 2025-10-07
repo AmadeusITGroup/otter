@@ -312,7 +312,6 @@ export function setPackagerManagerConfig(options: PackageManagerConfig, execAppO
       execFileSync('yarn', ['config', 'set', 'nodeLinker', 'pnp'], execOptions);
       WORKSPACE_SCOPES.forEach((scope) => execFileSync('yarn', ['config', 'set', `npmScopes.${scope.replace(/^@/, '')}.npmRegistryServer`, options.registry], execOptions));
       execFileSync('yarn', ['config', 'set', 'npmScopes.ama-sdk.npmRegistryServer', options.registry], execOptions);
-      execFileSync('yarn', ['config', 'set', 'npmScopes.ama-terasu.npmRegistryServer', options.registry], execOptions);
       execFileSync('yarn', ['config', 'set', 'npmScopes.o3r.npmRegistryServer', options.registry], execOptions);
       execFileSync('yarn', ['config', 'set', 'unsafeHttpWhitelist', '127.0.0.1'], execOptions);
       break;

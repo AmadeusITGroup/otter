@@ -16,7 +16,6 @@ body:
       multiple: true
       options: [
         '*global*',
-        amaterasu,
         analytics,
         apis-manager,
         application,
