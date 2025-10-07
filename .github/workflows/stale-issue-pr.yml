@@ -31,6 +31,6 @@ jobs:
             This issue was automatically marked as stale due to 6 months of inactivity and has remained stale for another 3 months, so it is now being closed. If this is still relevant, feel free to reopen or create a new issue with updated context. Thank you!
           close-pr-message: >-
             This pull request was automatically marked as stale after 6 months of inactivity and has remained stale for another 3 months, so it is now being closed. If you still plan to work on this, you can reopen it or open a new PR rebased on the latest main branch.
-          exempt-issue-labels: 'pinned,security'
+          exempt-issue-labels: 'pinned,security,workaround'
           exempt-pr-labels: 'pinned,security'
           exempt-all-assignees: true
