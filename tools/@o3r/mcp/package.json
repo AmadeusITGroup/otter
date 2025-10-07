@@ -22,7 +22,7 @@
     "compile": "tsc -b ./tsconfig.build.json && yarn copy:resources && yarn cpy package.json dist && patch-package-json-main"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "~1.17.0",
+    "@modelcontextprotocol/sdk": "~1.19.0",
     "tslib": "^2.6.2",
     "zod": "~3.25.76"
   },
@@ -44,7 +44,7 @@
     "@o3r/test-helpers": "workspace:^",
     "@stylistic/eslint-plugin": "~5.3.0",
     "@types/jest": "~29.5.2",
-    "@types/node": "~22.0.0",
+    "@types/node": "~22.18.0",
     "@typescript-eslint/parser": "~8.43.0",
     "angular-eslint": "~20.2.0",
     "cpy-cli": "^6.0.0",
