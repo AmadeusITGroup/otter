@@ -5,6 +5,10 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 import {
+  firstValueFrom,
+  of,
+} from 'rxjs';
+import {
   DEFAULT_LOCALIZATION_CONFIGURATION,
   LocalizationConfiguration,
 } from '../core';
@@ -259,6 +263,18 @@ describe('LocalizationService', () => {
       localizationService.useLanguage(actualLanguage);
 
       expect(localizationService.getCurrentLanguage()).toEqual(expectedLanguage);
+    });
+
+    it('should return the translated value for a given key', async () => {
+      const key = 'HELLO';
+      const value = 'Hello world';
+
+      const translateService = localizationService.getTranslateService();
+      const streamSpy = jest.spyOn(translateService, 'stream').mockReturnValue(of(value));
+
+      const result = await firstValueFrom(localizationService.translate(key));
+      expect(streamSpy).toHaveBeenCalledWith(key, undefined);
+      expect(result).toBe(value);
     });
   });
 });
