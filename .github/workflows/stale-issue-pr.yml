@@ -19,6 +19,7 @@ jobs:
         with:
           stale-issue-label: stale
           stale-pr-label: stale
+          operations-per-run: 200
           days-before-issue-stale: 180 # 6 months
           days-before-pr-stale: 180 # 6 months
           days-before-issue-close: 90 # 3 months
