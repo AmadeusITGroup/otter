@@ -51,6 +51,7 @@ export class ProducerManagerService {
     const handlersPresent = handlers.length > 0;
     if (handlersPresent) {
       await Promise.all(
+        // eslint-disable-next-line @typescript-eslint/await-thenable -- `handleError` can return void or Promise<void>
         handlers.map((handler) => handler.handleError(message))
       );
     }
