@@ -138,7 +138,7 @@ export class LocalizationService {
    */
   private getTranslationStream(translationKey: string, interpolateParams?: object) {
     const translation$ = this.translateService.onTranslationChange.pipe(
-      startWith(),
+      startWith(undefined),
       switchMap(() => this.translateService.stream(translationKey, interpolateParams)),
       map((value) => this.configuration.debugMode ? `${translationKey} - ${value}` : value),
       distinctUntilChanged()
