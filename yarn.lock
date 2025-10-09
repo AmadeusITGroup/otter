@@ -1413,183 +1413,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@ama-terasu/cli@workspace:packages/@ama-terasu/cli":
-  version: 0.0.0-use.local
-  resolution: "@ama-terasu/cli@workspace:packages/@ama-terasu/cli"
-  dependencies:
-    "@ama-terasu/core": "workspace:^"
-    "@angular-devkit/architect": "npm:~0.2002.0"
-    "@angular-devkit/core": "npm:~20.2.0"
-    "@angular-devkit/schematics": "npm:~20.2.0"
-    "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@nx/eslint-plugin": "npm:~21.5.0"
-    "@nx/jest": "npm:~21.5.0"
-    "@o3r/amaterasu-api-spec": "workspace:^"
-    "@o3r/amaterasu-dodo": "workspace:^"
-    "@o3r/amaterasu-otter": "workspace:^"
-    "@o3r/amaterasu-sdk": "workspace:^"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/schematics": "workspace:^"
-    "@o3r/telemetry": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
-    "@schematics/angular": "npm:~20.2.0"
-    "@stylistic/eslint-plugin": "npm:~5.3.0"
-    "@types/jest": "npm:~29.5.2"
-    "@types/minimist": "npm:^1.2.2"
-    "@types/node": "npm:~22.0.0"
-    "@types/progress": "npm:^2.0.5"
-    "@types/prompts": "npm:^2.0.14"
-    "@types/yargs": "npm:~17.0.33"
-    "@typescript-eslint/parser": "npm:~8.43.0"
-    angular-eslint: "npm:~20.2.0"
-    chalk: "npm:^4.1.2"
-    cpy-cli: "npm:^6.0.0"
-    eslint: "npm:~9.35.0"
-    eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~4.4.0"
-    eslint-plugin-import: "npm:~2.32.0"
-    eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.0.0"
-    eslint-plugin-jsdoc: "npm:~54.7.0"
-    eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:~60.0.0"
-    eslint-plugin-unused-imports: "npm:~4.2.0"
-    globals: "npm:^16.0.0"
-    jest: "npm:~29.7.0"
-    jest-junit: "npm:~16.0.0"
-    jest-util: "npm:~29.7.0"
-    jsonc-eslint-parser: "npm:~2.4.0"
-    jsonschema: "npm:~1.5.0"
-    loglevel: "npm:^1.8.0"
-    minimist: "npm:^1.2.6"
-    nx: "npm:~21.5.0"
-    ora: "npm:~8.2.0"
-    progress: "npm:^2.0.3"
-    prompts: "npm:^2.4.2"
-    rxjs: "npm:^7.8.1"
-    ts-jest: "npm:~29.4.0"
-    ts-loader: "npm:^9.5.2"
-    tslib: "npm:^2.6.2"
-    type-fest: "npm:^4.30.1"
-    typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.43.0"
-    webpack: "npm:~5.101.0"
-    webpack-cli: "npm:~6.0.0"
-    yargs: "npm:^18.0.0"
-  peerDependencies:
-    "@o3r/amaterasu-api-spec": "workspace:^"
-    "@o3r/amaterasu-dodo": "workspace:^"
-    "@o3r/amaterasu-otter": "workspace:^"
-    "@o3r/amaterasu-sdk": "workspace:^"
-    "@o3r/telemetry": "workspace:^"
-  peerDependenciesMeta:
-    "@o3r/amaterasu-api-spec":
-      optional: true
-    "@o3r/amaterasu-dodo":
-      optional: true
-    "@o3r/amaterasu-otter":
-      optional: true
-    "@o3r/amaterasu-sdk":
-      optional: true
-    "@o3r/telemetry":
-      optional: true
-  bin:
-    ama: dist/src/cli/ama.js
-  languageName: unknown
-  linkType: soft
-
-"@ama-terasu/core@workspace:^, @ama-terasu/core@workspace:packages/@ama-terasu/core":
-  version: 0.0.0-use.local
-  resolution: "@ama-terasu/core@workspace:packages/@ama-terasu/core"
-  dependencies:
-    "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@nx/eslint-plugin": "npm:~21.5.0"
-    "@nx/jest": "npm:~21.5.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
-    "@stylistic/eslint-plugin": "npm:~5.3.0"
-    "@types/jest": "npm:~29.5.2"
-    "@types/minimist": "npm:^1.2.2"
-    "@types/node": "npm:~22.0.0"
-    "@types/yargs": "npm:~17.0.33"
-    "@typescript-eslint/parser": "npm:~8.43.0"
-    angular-eslint: "npm:~20.2.0"
-    cpy-cli: "npm:^6.0.0"
-    eslint: "npm:~9.35.0"
-    eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~4.4.0"
-    eslint-plugin-import: "npm:~2.32.0"
-    eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.0.0"
-    eslint-plugin-jsdoc: "npm:~54.7.0"
-    eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:~60.0.0"
-    eslint-plugin-unused-imports: "npm:~4.2.0"
-    globals: "npm:^16.0.0"
-    jest: "npm:~29.7.0"
-    jest-junit: "npm:~16.0.0"
-    jest-util: "npm:~29.7.0"
-    jsonc-eslint-parser: "npm:~2.4.0"
-    loglevel: "npm:^1.8.0"
-    nx: "npm:~21.5.0"
-    ts-jest: "npm:~29.4.0"
-    tslib: "npm:^2.6.2"
-    typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.43.0"
-    yargs: "npm:^18.0.0"
-  peerDependencies:
-    loglevel: ^1.7.1
-    yargs: ^18.0.0
-  languageName: unknown
-  linkType: soft
-
-"@ama-terasu/schematics@workspace:packages/@ama-terasu/schematics":
-  version: 0.0.0-use.local
-  resolution: "@ama-terasu/schematics@workspace:packages/@ama-terasu/schematics"
-  dependencies:
-    "@angular-devkit/architect": "npm:~0.2002.0"
-    "@angular-devkit/core": "npm:~20.2.0"
-    "@angular-devkit/schematics": "npm:~20.2.0"
-    "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@nx/eslint-plugin": "npm:~21.5.0"
-    "@nx/jest": "npm:~21.5.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/schematics": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
-    "@schematics/angular": "npm:~20.2.0"
-    "@stylistic/eslint-plugin": "npm:~5.3.0"
-    "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:~22.0.0"
-    "@typescript-eslint/parser": "npm:~8.43.0"
-    angular-eslint: "npm:~20.2.0"
-    cpy-cli: "npm:^6.0.0"
-    eslint: "npm:~9.35.0"
-    eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~4.4.0"
-    eslint-plugin-import: "npm:~2.32.0"
-    eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.0.0"
-    eslint-plugin-jsdoc: "npm:~54.7.0"
-    eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:~60.0.0"
-    eslint-plugin-unused-imports: "npm:~4.2.0"
-    globals: "npm:^16.0.0"
-    jest: "npm:~29.7.0"
-    jest-junit: "npm:~16.0.0"
-    jest-util: "npm:~29.7.0"
-    jsonc-eslint-parser: "npm:~2.4.0"
-    nx: "npm:~21.5.0"
-    rxjs: "npm:^7.8.1"
-    ts-jest: "npm:~29.4.0"
-    tslib: "npm:^2.6.2"
-    typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.43.0"
-  languageName: unknown
-  linkType: soft
-
 "@amadeus-it-group/kassette@npm:^1.7.0":
   version: 1.7.2
   resolution: "@amadeus-it-group/kassette@npm:1.7.2"
@@ -8512,197 +8335,6 @@ __metadata:
       optional: true
   bin:
     o3r-extract-folder-structure: ./dist/cli/extract-folder-structure/extract-folder-structure.cjs
-  languageName: unknown
-  linkType: soft
-
-"@o3r/amaterasu-api-spec@workspace:^, @o3r/amaterasu-api-spec@workspace:packages/@o3r/amaterasu/amaterasu-api-spec":
-  version: 0.0.0-use.local
-  resolution: "@o3r/amaterasu-api-spec@workspace:packages/@o3r/amaterasu/amaterasu-api-spec"
-  dependencies:
-    "@ama-terasu/core": "workspace:^"
-    "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@nx/eslint-plugin": "npm:~21.5.0"
-    "@nx/jest": "npm:~21.5.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
-    "@stylistic/eslint-plugin": "npm:~5.3.0"
-    "@types/jest": "npm:~29.5.2"
-    "@types/js-yaml": "npm:^4.0.5"
-    "@types/node": "npm:~22.0.0"
-    "@typescript-eslint/parser": "npm:~8.43.0"
-    angular-eslint: "npm:~20.2.0"
-    cpy-cli: "npm:^6.0.0"
-    eslint: "npm:~9.35.0"
-    eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~4.4.0"
-    eslint-plugin-import: "npm:~2.32.0"
-    eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.0.0"
-    eslint-plugin-jsdoc: "npm:~54.7.0"
-    eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:~60.0.0"
-    eslint-plugin-unused-imports: "npm:~4.2.0"
-    globals: "npm:^16.0.0"
-    jest: "npm:~29.7.0"
-    jest-junit: "npm:~16.0.0"
-    jest-util: "npm:~29.7.0"
-    js-yaml: "npm:^4.1.0"
-    jsonc-eslint-parser: "npm:~2.4.0"
-    loglevel: "npm:^1.8.0"
-    nx: "npm:~21.5.0"
-    ts-jest: "npm:~29.4.0"
-    tslib: "npm:^2.6.2"
-    typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.43.0"
-    yargs: "npm:^18.0.0"
-  peerDependencies:
-    "@ama-terasu/core": "workspace:^"
-  languageName: unknown
-  linkType: soft
-
-"@o3r/amaterasu-dodo@workspace:^, @o3r/amaterasu-dodo@workspace:packages/@o3r/amaterasu/amaterasu-dodo":
-  version: 0.0.0-use.local
-  resolution: "@o3r/amaterasu-dodo@workspace:packages/@o3r/amaterasu/amaterasu-dodo"
-  dependencies:
-    "@ama-terasu/core": "workspace:^"
-    "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@nx/eslint-plugin": "npm:~21.5.0"
-    "@nx/jest": "npm:~21.5.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
-    "@stylistic/eslint-plugin": "npm:~5.3.0"
-    "@types/jest": "npm:~29.5.2"
-    "@types/node": "npm:~22.0.0"
-    "@types/tar": "npm:~6.1.1"
-    "@typescript-eslint/parser": "npm:~8.43.0"
-    angular-eslint: "npm:~20.2.0"
-    cpy-cli: "npm:^6.0.0"
-    eslint: "npm:~9.35.0"
-    eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~4.4.0"
-    eslint-plugin-import: "npm:~2.32.0"
-    eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.0.0"
-    eslint-plugin-jsdoc: "npm:~54.7.0"
-    eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:~60.0.0"
-    eslint-plugin-unused-imports: "npm:~4.2.0"
-    globals: "npm:^16.0.0"
-    jest: "npm:~29.7.0"
-    jest-junit: "npm:~16.0.0"
-    jest-util: "npm:~29.7.0"
-    jsonc-eslint-parser: "npm:~2.4.0"
-    loglevel: "npm:^1.8.0"
-    nx: "npm:~21.5.0"
-    tar: "npm:^7.0.0"
-    ts-jest: "npm:~29.4.0"
-    tslib: "npm:^2.6.2"
-    typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.43.0"
-    yargs: "npm:^18.0.0"
-  peerDependencies:
-    "@ama-terasu/core": "workspace:^"
-  peerDependenciesMeta:
-    "@angular/cli":
-      optional: true
-  languageName: unknown
-  linkType: soft
-
-"@o3r/amaterasu-otter@workspace:^, @o3r/amaterasu-otter@workspace:packages/@o3r/amaterasu/amaterasu-otter":
-  version: 0.0.0-use.local
-  resolution: "@o3r/amaterasu-otter@workspace:packages/@o3r/amaterasu/amaterasu-otter"
-  dependencies:
-    "@ama-terasu/core": "workspace:^"
-    "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@nx/eslint-plugin": "npm:~21.5.0"
-    "@nx/jest": "npm:~21.5.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
-    "@stylistic/eslint-plugin": "npm:~5.3.0"
-    "@types/jest": "npm:~29.5.2"
-    "@types/js-yaml": "npm:^4.0.5"
-    "@types/node": "npm:~22.0.0"
-    "@typescript-eslint/parser": "npm:~8.43.0"
-    angular-eslint: "npm:~20.2.0"
-    cpy-cli: "npm:^6.0.0"
-    eslint: "npm:~9.35.0"
-    eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~4.4.0"
-    eslint-plugin-import: "npm:~2.32.0"
-    eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.0.0"
-    eslint-plugin-jsdoc: "npm:~54.7.0"
-    eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:~60.0.0"
-    eslint-plugin-unused-imports: "npm:~4.2.0"
-    globals: "npm:^16.0.0"
-    jest: "npm:~29.7.0"
-    jest-junit: "npm:~16.0.0"
-    jest-util: "npm:~29.7.0"
-    js-yaml: "npm:^4.1.0"
-    jsonc-eslint-parser: "npm:~2.4.0"
-    loglevel: "npm:^1.8.0"
-    nx: "npm:~21.5.0"
-    ts-jest: "npm:~29.4.0"
-    tslib: "npm:^2.6.2"
-    typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.43.0"
-    yargs: "npm:^18.0.0"
-  peerDependencies:
-    "@ama-terasu/core": "workspace:^"
-    "@angular/cli": ^20.0.0
-  peerDependenciesMeta:
-    "@angular/cli":
-      optional: true
-  languageName: unknown
-  linkType: soft
-
-"@o3r/amaterasu-sdk@workspace:^, @o3r/amaterasu-sdk@workspace:packages/@o3r/amaterasu/amaterasu-sdk":
-  version: 0.0.0-use.local
-  resolution: "@o3r/amaterasu-sdk@workspace:packages/@o3r/amaterasu/amaterasu-sdk"
-  dependencies:
-    "@ama-terasu/core": "workspace:^"
-    "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@nx/eslint-plugin": "npm:~21.5.0"
-    "@nx/jest": "npm:~21.5.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
-    "@stylistic/eslint-plugin": "npm:~5.3.0"
-    "@types/jest": "npm:~29.5.2"
-    "@types/js-yaml": "npm:^4.0.5"
-    "@types/node": "npm:~22.0.0"
-    "@typescript-eslint/parser": "npm:~8.43.0"
-    angular-eslint: "npm:~20.2.0"
-    cpy-cli: "npm:^6.0.0"
-    eslint: "npm:~9.35.0"
-    eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~4.4.0"
-    eslint-plugin-import: "npm:~2.32.0"
-    eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.0.0"
-    eslint-plugin-jsdoc: "npm:~54.7.0"
-    eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:~60.0.0"
-    eslint-plugin-unused-imports: "npm:~4.2.0"
-    globals: "npm:^16.0.0"
-    jest: "npm:~29.7.0"
-    jest-junit: "npm:~16.0.0"
-    jest-util: "npm:~29.7.0"
-    js-yaml: "npm:^4.1.0"
-    jsonc-eslint-parser: "npm:~2.4.0"
-    loglevel: "npm:^1.8.0"
-    nx: "npm:~21.5.0"
-    ts-jest: "npm:~29.4.0"
-    tslib: "npm:^2.6.2"
-    typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.43.0"
-    yargs: "npm:^18.0.0"
-  peerDependencies:
-    "@ama-terasu/core": "workspace:^"
   languageName: unknown
   linkType: soft
 
@@ -15888,25 +15520,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/progress@npm:^2.0.5":
-  version: 2.0.7
-  resolution: "@types/progress@npm:2.0.7"
-  dependencies:
-    "@types/node": "npm:*"
-  checksum: 10/80c506e0fb100cca36852259ef43028d4f861cfd3f51bc608dc22b20fefab1a724552425dc4907f997d2c82557501a8d160a3f7803cbd56cc43a2bc1edb03c36
-  languageName: node
-  linkType: hard
-
-"@types/prompts@npm:^2.0.14":
-  version: 2.4.9
-  resolution: "@types/prompts@npm:2.4.9"
-  dependencies:
-    "@types/node": "npm:*"
-    kleur: "npm:^3.0.3"
-  checksum: 10/69b8372f4c790b45fea16a46ff8d1bcc71b14579481776b67bd6263637118a7ecb1f12e1311506c29fadc81bf618dc64f1a91f903cfd5be67a0455a227b3e462
-  languageName: node
-  linkType: hard
-
 "@types/qs@npm:*":
   version: 6.14.0
   resolution: "@types/qs@npm:6.14.0"
@@ -16022,16 +15635,6 @@ __metadata:
   version: 2.0.25
   resolution: "@types/swagger-schema-official@npm:2.0.25"
   checksum: 10/0ceec569f8841e327fcafa64e67722ae3f1e107254b7654505515ec5d05df79c03e79d8161445abef0ede5313b960e4d46d151bf2430eb171658f6d7522edd8d
-  languageName: node
-  linkType: hard
-
-"@types/tar@npm:~6.1.1":
-  version: 6.1.13
-  resolution: "@types/tar@npm:6.1.13"
-  dependencies:
-    "@types/node": "npm:*"
-    minipass: "npm:^4.0.0"
-  checksum: 10/d325223cf90399fd03f366d0eabe2383e75e550b3e40a006d5f062d006b894a475cd7c0968d258a8eb8eae5df30b6e7f4607d493a474f89134bbff65362b77ed
   languageName: node
   linkType: hard
 
@@ -29028,7 +28631,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"loglevel@npm:^1.8.0, loglevel@npm:^1.9.2":
+"loglevel@npm:^1.9.2":
   version: 1.9.2
   resolution: "loglevel@npm:1.9.2"
   checksum: 10/6153d8db308323f7ee20130bc40309e7a976c30a10379d8666b596d9c6441965c3e074c8d7ee3347fe5cfc059c0375b6f3e8a10b93d5b813cc5547f5aa412a29
@@ -29801,13 +29404,6 @@ __metadata:
   dependencies:
     yallist: "npm:^4.0.0"
   checksum: 10/a5c6ef069f70d9a524d3428af39f2b117ff8cd84172e19b754e7264a33df460873e6eb3d6e55758531580970de50ae950c496256bb4ad3691a2974cddff189f0
-  languageName: node
-  linkType: hard
-
-"minipass@npm:^4.0.0":
-  version: 4.2.8
-  resolution: "minipass@npm:4.2.8"
-  checksum: 10/e148eb6dcb85c980234cad889139ef8ddf9d5bdac534f4f0268446c8792dd4c74f4502479be48de3c1cce2f6450f6da4d0d4a86405a8a12be04c1c36b339569a
   languageName: node
   linkType: hard
 
@@ -31036,7 +30632,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ora@npm:8.2.0, ora@npm:^8.2.0, ora@npm:~8.2.0":
+"ora@npm:8.2.0, ora@npm:^8.2.0":
   version: 8.2.0
   resolution: "ora@npm:8.2.0"
   dependencies:
@@ -32906,7 +32502,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prompts@npm:^2.0.1, prompts@npm:^2.4.2":
+"prompts@npm:^2.0.1":
   version: 2.4.2
   resolution: "prompts@npm:2.4.2"
   dependencies:
@@ -36256,7 +35852,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tar@npm:^7.0.0, tar@npm:^7.4.3":
+"tar@npm:^7.4.3":
   version: 7.5.1
   resolution: "tar@npm:7.5.1"
   dependencies:
