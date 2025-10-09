@@ -22,10 +22,6 @@
     "configuration": {
       "title": "Otter",
       "properties": {
-        "otter.mcp.githubOrg": {
-          "type": "string",
-          "description": "GitHub organization to use when looking for information with MCP server"
-        },
         "otter.mcp.cacheFolderPath": {
           "type": "string",
           "description": "Path of the cache folder for the MCP server"

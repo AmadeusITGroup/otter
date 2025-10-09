@@ -1,5 +1,5 @@
 const paginate = jest.fn();
-const listForOrg = jest.fn();
+const code = jest.fn();
 const getBranch = jest.fn();
 const getTree = jest.fn();
 const getContent = jest.fn();
@@ -11,12 +11,14 @@ jest.mock('@octokit/rest', () => {
     Octokit: jest.fn().mockImplementation(() => ({
       paginate,
       repos: {
-        listForOrg,
         getBranch,
         getContent
       },
       git: {
         getTree
+      },
+      search: {
+        code
       }
     }))
   };
@@ -76,7 +78,6 @@ const setupClientAndServer = async () => {
 describe('MCP server', () => {
   beforeEach(() => {
     process.env.O3R_MCP_GITHUB_TOKEN = 'fake-token';
-    process.env.O3R_MCP_GITHUB_ORG = 'testOrg';
     process.env.O3R_MCP_USE_CACHED_REPOS = 'false';
   });
 
@@ -120,8 +121,8 @@ describe('MCP server', () => {
     beforeEach(() => {
       paginate.mockImplementation(() => {
         return [
-          { name: 'repo1', full_name: 'testOrg/repo1', default_branch: 'main' },
-          { name: 'repo2', full_name: 'testOrg/repo2', default_branch: 'main' }
+          { repository: { name: 'repo1', full_name: 'testOrg/repo1', default_branch: 'main' } },
+          { repository: { name: 'repo2', full_name: 'testOrg/repo2', default_branch: 'main' } }
         ];
       });
       getBranch.mockImplementation(({ repo }) => {
@@ -167,6 +168,7 @@ describe('MCP server', () => {
         if (repo === 'repo1' && path === 'package.json') {
           return Promise.resolve({
             data: {
+              encoding: 'base64',
               type: 'file',
               content: Buffer.from(JSON.stringify({
                 dependencies: {
@@ -178,6 +180,7 @@ describe('MCP server', () => {
         } else if (repo === 'repo1' && path === 'libs/@scope/name/package.json') {
           return Promise.resolve({
             data: {
+              encoding: 'base64',
               type: 'file',
               content: Buffer.from(JSON.stringify({
                 dependencies: {
@@ -196,7 +199,7 @@ describe('MCP server', () => {
       const response = await client.callTool({ name: 'get_repositories_using_otter' });
       expect(response.content).toEqual([{
         type: 'text',
-        text: 'The following repositories in the organization testOrg use Otter dependencies:\n- testOrg/repo1'
+        text: 'The following repositories use Otter dependencies:\n- testOrg/repo1'
       }]);
     });
 
@@ -216,14 +219,13 @@ describe('MCP server', () => {
       );
       expect(response.content).toEqual([{
         type: 'text',
-        text: 'The following repositories in the organization testOrg use Otter dependencies:\n- testOrg/repo1\n- testOrg/repoCached'
+        text: 'The following repositories use Otter dependencies:\n- testOrg/repo1\n- testOrg/repoCached'
       }]);
     });
   });
 
   afterEach(() => {
     delete process.env.O3R_MCP_GITHUB_TOKEN;
-    delete process.env.O3R_MCP_GITHUB_ORG;
     delete process.env.O3R_MCP_USE_CACHED_REPOS;
     delete process.env.O3R_MCP_CACHE_PATH;
     jest.clearAllMocks();

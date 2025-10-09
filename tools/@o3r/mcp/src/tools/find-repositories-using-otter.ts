@@ -19,23 +19,40 @@ import {
   logger,
 } from '../utils/logger';
 
-async function listOrgRepos(octokit: Octokit) {
-  const repos = (await octokit.paginate(octokit.repos.listForOrg, {
-    org: process.env.O3R_MCP_GITHUB_ORG as string,
-    per_page: 100,
-    type: 'all',
-    sort: 'updated' // Prioritize recently updated repositories
-  })).filter((repo) => !repo.archived && !repo.fork);
-  logger.info(`Found ${repos.length} repositories in the organization ${process.env.O3R_MCP_GITHUB_ORG}`);
-  return repos;
+const OTTER_SCOPES = [
+  'o3r',
+  'ama-styling',
+  'ama-mfe',
+  'ama-sdk'
+];
+
+async function listRepos(octokit: Octokit) {
+  // We use several requests and not only one with OR
+  // because GitHub search API has some limitations in the query length and complexity
+  // Note: We can do only 10 searches per minute,
+  // so we should found another solution if we have more than 10 scopes to look for.
+  const search = (await Promise.all(OTTER_SCOPES
+    .map(async (scope) => {
+      const repos = (await octokit.paginate(octokit.search.code, { q: `@${scope}/ filename:package.json`, per_page: 100 }))
+        // eslint-disable-next-line @typescript-eslint/naming-convention -- Naming convention from GitHub API
+        .map(({ repository: { name, full_name, fork, archived, default_branch } }) => ({ name, full_name, fork, archived, default_branch }))
+        .filter((repo) => !repo.archived && !repo.fork);
+      logger.info(`Found ${repos.length} repositories with references to @${scope} in package.json`);
+      return repos;
+    })
+  )).flat();
+  const repositories = Array.from(new Map((search)
+    .map(({ fork, archived, ...repo }) => [repo.full_name, repo])
+  ).values());
+  logger.info(`Found ${repositories.length} repositories with references to Otter`);
+  return repositories;
 }
 
-type Repository = Awaited<ReturnType<typeof listOrgRepos>>[number];
+type Repository = Awaited<ReturnType<typeof listRepos>>[number];
 
 function findPackageJsonFiles(octokit: Octokit) {
   return async (repository: Repository) => {
-    const owner = process.env.O3R_MCP_GITHUB_ORG as string;
-    const repo = repository.name;
+    const [owner, repo] = repository.full_name.split('/');
     const { data: { commit: { sha } } } = await octokit.repos.getBranch({
       owner,
       repo,
@@ -50,18 +67,17 @@ function findPackageJsonFiles(octokit: Octokit) {
   };
 }
 
-const O3R_SCOPE_REGEX = /^@(o3r|ama-styling|ama-mfe|ama-sdk)\//gm;
+const O3R_SCOPE_REGEX = new RegExp(`^@(?:${OTTER_SCOPES.join('|')})/`, 'gm');
 
 function dependsOnOtter(octokit: Octokit) {
   return async (repository: Repository, packageJsonPath: string) => {
-    const owner = process.env.O3R_MCP_GITHUB_ORG as string;
-    const repo = repository.name;
+    const [owner, repo] = repository.full_name.split('/');
     const { data } = await octokit.repos.getContent({
       owner,
       repo,
       path: packageJsonPath
     });
-    if (Array.isArray(data) || data.type !== 'file') {
+    if (Array.isArray(data) || data.type !== 'file' || data.encoding !== 'base64') {
       throw new Error('Unexpected content response structure');
     }
     const content = Buffer.from(data.content, 'base64').toString('utf8');
@@ -88,7 +104,7 @@ async function findRepositoriesUsingOtter(octokit: Octokit, reposUsingOtter: str
       logger.info('No cache file found, starting fresh search for repositories using Otter dependencies.', e);
     }
   }
-  const repositories = (await listOrgRepos(octokit)).filter((r) => !cachedRepos[r.full_name]);
+  const repositories = (await listRepos(octokit)).filter((r) => !cachedRepos[r.full_name]);
   const findPackageJsonFilesInRepo = findPackageJsonFiles(octokit);
   const dependsOnOtterInRepo = dependsOnOtter(octokit);
 
@@ -124,7 +140,7 @@ async function findRepositoriesUsingOtter(octokit: Octokit, reposUsingOtter: str
     } catch {}
     cachedRepos[repository.full_name] ||= false;
   }));
-  logger.info(`Found ${reposUsingOtter.length} repositories using Otter dependencies in the organization ${process.env.O3R_MCP_GITHUB_ORG}`);
+  logger.info(`Found ${reposUsingOtter.length} repositories using Otter dependencies`);
   if (process.env.O3R_MCP_USE_CACHED_REPOS === 'false') {
     logger.info('Not updating cache as O3R_MCP_USE_CACHED_REPOS is set to false');
   } else {
@@ -148,10 +164,6 @@ export function registerGetRepositoriesUsingOtterTool(server: McpServer) {
     logger.error('Missing O3R_MCP_GITHUB_TOKEN environment variable for search_code_example tool');
     return;
   }
-  if (!process.env.O3R_MCP_GITHUB_ORG) {
-    logger.error('Missing O3R_MCP_GITHUB_ORG environment variable');
-    return;
-  }
 
   const octokit = new Octokit({ auth: process.env.O3R_MCP_GITHUB_TOKEN });
 
@@ -166,7 +178,7 @@ export function registerGetRepositoriesUsingOtterTool(server: McpServer) {
     'get_repositories_using_otter',
     {
       title: 'Get repositories using Otter dependencies',
-      description: 'List all repositories in the specified GitHub organization that use Otter dependencies (@o3r/* or @ama-*/*) in their package.json files.',
+      description: `List all repositories that use Otter dependencies (${OTTER_SCOPES.map((scope) => `@${scope}`).join(' or ')}) in their package.json files.`,
       annotations: {
         readOnlyHint: true,
         openWorldHint: false
@@ -178,9 +190,9 @@ export function registerGetRepositoriesUsingOtterTool(server: McpServer) {
           type: 'text',
           text: (isLookingForRepos ? 'I did not finish to look for repositories. For the moment:\n' : '')
             + reposUsingOtter.length
-            ? `The following repositories in the organization ${process.env.O3R_MCP_GITHUB_ORG} use Otter dependencies:\n`
+            ? `The following repositories use Otter dependencies:\n`
             + reposUsingOtter.sort().map((repo) => `- ${repo}`).join('\n')
-            : `No repositories in the organization ${process.env.O3R_MCP_GITHUB_ORG} were found to use Otter dependencies.`
+            : `No repositories were found to use Otter dependencies.`
         }
       ]
     })
