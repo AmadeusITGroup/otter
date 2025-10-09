@@ -1,4 +1,5 @@
 {
+  "deprecated": "This package won't be maintained after the v13",
   "name": "@ama-terasu/cli",
   "version": "0.0.0-placeholder",
   "publishConfig": {

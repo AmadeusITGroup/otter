@@ -1,4 +1,5 @@
 {
+  "deprecated": "This package won't be maintained after the v13",
   "name": "@ama-terasu/core",
   "main": "dist/src/public_api.js",
   "typings": "dist/src/public_api.d.ts",
