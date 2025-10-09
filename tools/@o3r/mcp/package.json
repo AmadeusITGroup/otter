@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "~1.19.0",
+    "@octokit/rest": "^22.0.0",
     "tslib": "^2.6.2",
     "zod": "~3.25.76"
   },

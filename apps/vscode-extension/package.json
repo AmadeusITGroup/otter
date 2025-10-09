@@ -22,6 +22,14 @@
     "configuration": {
       "title": "Otter",
       "properties": {
+        "otter.mcp.githubOrg": {
+          "type": "string",
+          "description": "GitHub organization to use when looking for information with MCP server"
+        },
+        "otter.mcp.cacheFolderPath": {
+          "type": "string",
+          "description": "Path of the cache folder for the MCP server"
+        },
         "otter.design.filesPatterns": {
           "type": "array",
           "default": [
@@ -77,6 +85,10 @@
           {
             "name": "list-tools",
             "description": "Get the list of tools available for the chat participant"
+          },
+          {
+            "name": "list-repos-using-o3r",
+            "description": "Get the list of repositories in the configured GitHub organization that are using Otter dependencies"
           }
         ]
       }
