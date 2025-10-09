@@ -9,24 +9,24 @@ import {
   provideMarkdown,
 } from 'ngx-markdown';
 import {
-  DesignTokenComponent,
-} from './design-token.component';
+  DesignToken,
+} from './design-token';
 
-describe('DesignTokenComponent', () => {
-  let component: DesignTokenComponent;
-  let fixture: ComponentFixture<DesignTokenComponent>;
+describe('DesignToken', () => {
+  let component: DesignToken;
+  let fixture: ComponentFixture<DesignToken>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        DesignTokenComponent,
+        DesignToken,
         RouterModule.forRoot([])
       ],
       providers: [provideMarkdown()]
     })
       .compileComponents();
 
-    fixture = TestBed.createComponent(DesignTokenComponent);
+    fixture = TestBed.createComponent(DesignToken);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -6,18 +6,18 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import {
-  ConfigurationPresComponent,
-} from './configuration-pres.component';
+  ConfigurationPres,
+} from './configuration-pres';
 
-describe('ConfigurationPresComponent', () => {
-  let component: ConfigurationPresComponent;
-  let fixture: ComponentFixture<ConfigurationPresComponent>;
+describe('ConfigurationPres', () => {
+  let component: ConfigurationPres;
+  let fixture: ComponentFixture<ConfigurationPres>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [AsyncPipe, ConfigurationPresComponent]
+      imports: [AsyncPipe, ConfigurationPres]
     });
-    fixture = TestBed.createComponent(ConfigurationPresComponent);
+    fixture = TestBed.createComponent(ConfigurationPres);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

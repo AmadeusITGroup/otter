@@ -6,19 +6,19 @@ import {
   provideMarkdown,
 } from 'ngx-markdown';
 import {
-  RunAppLocallyComponent,
-} from './run-app-locally.component';
+  RunAppLocally,
+} from './run-app-locally';
 
-describe('RunAppLocallyComponent', () => {
-  let component: RunAppLocallyComponent;
-  let fixture: ComponentFixture<RunAppLocallyComponent>;
+describe('RunAppLocally', () => {
+  let component: RunAppLocally;
+  let fixture: ComponentFixture<RunAppLocally>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [RunAppLocallyComponent],
+      imports: [RunAppLocally],
       providers: [provideMarkdown()]
     });
-    fixture = TestBed.createComponent(RunAppLocallyComponent);
+    fixture = TestBed.createComponent(RunAppLocally);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

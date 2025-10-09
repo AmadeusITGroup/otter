@@ -1,3 +1,3 @@
-export * from './connection.service';
-export * from './localization.service';
-export * from './state.service';
+export * from './connection';
+export * from './localization';
+export * from './state';

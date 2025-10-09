@@ -1,1 +1,1 @@
-export * from './sdk-pres.component';
+export * from './sdk-pres';

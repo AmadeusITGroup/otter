@@ -12,7 +12,7 @@ const getExtraOptions = async (): Promise<string[]> => {
   const componentPath = document
     ? relative(
       vscode.workspace.workspaceFolders?.[0]?.uri?.fsPath || '.',
-      document.fileName.replace(/\.template\.html$/, '.component.ts')
+      document.fileName.replace(/\.template\.html$/, '.ts')
     )
     : '';
   const selectedText = document?.getText(activeEditor?.selection);
