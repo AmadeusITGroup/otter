@@ -4,12 +4,16 @@
     "types": ["node"],
     "incremental": true,
     "composite": true,
+    "module": "NodeNext",
+    "moduleResolution": "nodenext",
     "outDir": "./dist",
-    "rootDir": "src",
+    "rootDir": ".",
     "tsBuildInfoFile": "build/.tsbuildinfo"
   },
   "include": [
-    "src/**/*.cts"
+    "src/**/*.mts"
   ],
-  "exclude": ["**/*.spec.ts"]
+  "exclude": [
+    "**/*.spec.ts"
+  ]
 }

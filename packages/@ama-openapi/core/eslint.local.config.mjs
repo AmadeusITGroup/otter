@@ -12,10 +12,11 @@ const __dirname = dirname(__filename);
 
 export default [
   {
-    name: '@o3r/artifactory-tools/projects',
+    name: '@ama-openapi/core/projects',
     languageOptions: {
       sourceType: 'module',
       parserOptions: {
+        EXPERIMENTAL_useSourceOfProjectReferenceRedirect: true,
         tsconfigRootDir: __dirname,
         projectService: true
       }
