@@ -56,6 +56,9 @@
     "schemas": [
       "{projectRoot}/schemas/*.json"
     ],
+    "renovate": [
+      "{projectRoot}/renovate/*.json"
+    ],
     "assets": [
       "{projectRoot}/assets/**"
     ],
@@ -322,6 +325,19 @@
       ],
       "outputs": [
         "{projectRoot}/dist/schemas/*.json"
+      ],
+      "cache": true
+    },
+    "expose-renovate": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "copy:renovate"
+      },
+      "inputs": [
+        "renovate"
+      ],
+      "outputs": [
+        "{projectRoot}/dist/renovate/*.json"
       ],
       "cache": true
     },

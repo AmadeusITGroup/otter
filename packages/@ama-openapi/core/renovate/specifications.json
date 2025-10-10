@@ -1,0 +1,18 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "regexManagers": [
+    {
+      "fileMatch": [
+        "^manifest\\.json$",
+        "^manifest\\.yaml$",
+        "^manifest\\.yml$"
+      ],
+      "matchStrings": [
+        "\"github>AmadeusITGroup/otter//.*#v(?<currentValue>[^\" \\n\\(]+)"
+      ],
+      "datasourceTemplate": "npm",
+      "depNameTemplate": "@o3r/core",
+      "depTypeTemplate": "renovate-preset"
+    }
+  ]
+}

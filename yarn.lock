@@ -569,6 +569,186 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@ama-openapi/cli@workspace:packages/@ama-openapi/cli":
+  version: 0.0.0-use.local
+  resolution: "@ama-openapi/cli@workspace:packages/@ama-openapi/cli"
+  dependencies:
+    "@ama-openapi/core": "workspace:^"
+    "@babel/core": "npm:~7.28.0"
+    "@babel/preset-env": "npm:~7.28.0"
+    "@babel/preset-typescript": "npm:~7.27.0"
+    "@compodoc/compodoc": "npm:^1.1.19"
+    "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
+    "@nx/eslint": "npm:~21.5.0"
+    "@nx/eslint-plugin": "npm:~21.5.0"
+    "@nx/jest": "npm:~21.5.0"
+    "@nx/js": "npm:~21.5.0"
+    "@o3r/build-helpers": "workspace:^"
+    "@o3r/eslint-plugin": "workspace:^"
+    "@o3r/telemetry": "workspace:^"
+    "@o3r/test-helpers": "workspace:^"
+    "@stylistic/eslint-plugin": "npm:~5.3.0"
+    "@types/jest": "npm:~29.5.2"
+    "@types/js-yaml": "npm:^4.0.5"
+    "@types/minimist": "npm:^1.2.2"
+    "@types/node": "npm:~22.18.0"
+    "@types/semver": "npm:^7.3.13"
+    "@types/yargs": "npm:~17.0.33"
+    "@typescript-eslint/parser": "npm:~8.43.0"
+    angular-eslint: "npm:~20.2.0"
+    babel-jest: "npm:^29.7.0"
+    cpy-cli: "npm:^6.0.0"
+    eslint: "npm:~9.35.0"
+    eslint-import-resolver-node: "npm:~0.3.9"
+    eslint-import-resolver-typescript: "npm:~4.4.0"
+    eslint-plugin-import: "npm:~2.32.0"
+    eslint-plugin-import-newlines: "npm:~1.4.0"
+    eslint-plugin-jest: "npm:~29.0.0"
+    eslint-plugin-jsdoc: "npm:~54.7.0"
+    eslint-plugin-prefer-arrow: "npm:~1.2.3"
+    eslint-plugin-unicorn: "npm:~60.0.0"
+    eslint-plugin-unused-imports: "npm:~4.2.0"
+    globals: "npm:^16.0.0"
+    jest: "npm:~29.7.0"
+    jest-junit: "npm:~16.0.0"
+    jest-resolve: "npm:~29.7.0"
+    jest-util: "npm:~29.7.0"
+    jsonc-eslint-parser: "npm:~2.4.0"
+    nx: "npm:~21.5.0"
+    pid-from-port: "npm:^1.1.3"
+    ts-jest: "npm:~29.4.0"
+    tslib: "npm:^2.6.2"
+    typescript: "npm:~5.9.2"
+    typescript-eslint: "npm:~8.43.0"
+    yargs: "npm:^18.0.0"
+  peerDependencies:
+    "@o3r/telemetry": "workspace:^"
+  peerDependenciesMeta:
+    "@o3r/telemetry":
+      optional: true
+  bin:
+    ama-openapi: ./dist/src/cli/main.mjs
+  languageName: unknown
+  linkType: soft
+
+"@ama-openapi/core@workspace:^, @ama-openapi/core@workspace:packages/@ama-openapi/core":
+  version: 0.0.0-use.local
+  resolution: "@ama-openapi/core@workspace:packages/@ama-openapi/core"
+  dependencies:
+    "@babel/core": "npm:~7.28.0"
+    "@babel/preset-env": "npm:~7.28.0"
+    "@babel/preset-typescript": "npm:~7.27.0"
+    "@compodoc/compodoc": "npm:^1.1.19"
+    "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
+    "@nx/eslint": "npm:~21.5.0"
+    "@nx/eslint-plugin": "npm:~21.5.0"
+    "@nx/jest": "npm:~21.5.0"
+    "@nx/js": "npm:~21.5.0"
+    "@o3r/build-helpers": "workspace:^"
+    "@o3r/eslint-plugin": "workspace:^"
+    "@o3r/telemetry": "workspace:^"
+    "@o3r/test-helpers": "workspace:^"
+    "@stylistic/eslint-plugin": "npm:~5.3.0"
+    "@types/jest": "npm:~29.5.2"
+    "@types/js-yaml": "npm:^4.0.5"
+    "@types/minimist": "npm:^1.2.2"
+    "@types/node": "npm:~22.18.0"
+    "@types/semver": "npm:^7.3.13"
+    "@typescript-eslint/parser": "npm:~8.43.0"
+    ajv: "npm:~8.17.1"
+    angular-eslint: "npm:~20.2.0"
+    babel-jest: "npm:^29.7.0"
+    cpy-cli: "npm:^6.0.0"
+    eslint: "npm:~9.35.0"
+    eslint-import-resolver-node: "npm:~0.3.9"
+    eslint-import-resolver-typescript: "npm:~4.4.0"
+    eslint-plugin-import: "npm:~2.32.0"
+    eslint-plugin-import-newlines: "npm:~1.4.0"
+    eslint-plugin-jest: "npm:~29.0.0"
+    eslint-plugin-jsdoc: "npm:~54.7.0"
+    eslint-plugin-prefer-arrow: "npm:~1.2.3"
+    eslint-plugin-unicorn: "npm:~60.0.0"
+    eslint-plugin-unused-imports: "npm:~4.2.0"
+    globals: "npm:^16.0.0"
+    jest: "npm:~29.7.0"
+    jest-junit: "npm:~16.0.0"
+    jest-resolve: "npm:~29.7.0"
+    jest-util: "npm:~29.7.0"
+    js-yaml: "npm:^4.1.0"
+    jsonc-eslint-parser: "npm:~2.4.0"
+    nx: "npm:~21.5.0"
+    pid-from-port: "npm:^1.1.3"
+    semver: "npm:^7.5.2"
+    ts-jest: "npm:~29.4.0"
+    tslib: "npm:^2.6.2"
+    typescript: "npm:~5.9.2"
+    typescript-eslint: "npm:~8.43.0"
+  languageName: unknown
+  linkType: soft
+
+"@ama-openapi/redocly-plugin@workspace:packages/@ama-openapi/redocly-plugin":
+  version: 0.0.0-use.local
+  resolution: "@ama-openapi/redocly-plugin@workspace:packages/@ama-openapi/redocly-plugin"
+  dependencies:
+    "@ama-openapi/core": "workspace:^"
+    "@babel/core": "npm:~7.28.0"
+    "@babel/preset-env": "npm:~7.28.0"
+    "@babel/preset-typescript": "npm:~7.27.0"
+    "@compodoc/compodoc": "npm:^1.1.19"
+    "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
+    "@nx/eslint": "npm:~21.5.0"
+    "@nx/eslint-plugin": "npm:~21.5.0"
+    "@nx/jest": "npm:~21.5.0"
+    "@nx/js": "npm:~21.5.0"
+    "@o3r/build-helpers": "workspace:^"
+    "@o3r/eslint-plugin": "workspace:^"
+    "@o3r/telemetry": "workspace:^"
+    "@o3r/test-helpers": "workspace:^"
+    "@redocly/openapi-core": "npm:~2.6.0"
+    "@stylistic/eslint-plugin": "npm:~5.3.0"
+    "@types/jest": "npm:~29.5.2"
+    "@types/js-yaml": "npm:^4.0.5"
+    "@types/minimist": "npm:^1.2.2"
+    "@types/node": "npm:~22.18.0"
+    "@types/semver": "npm:^7.3.13"
+    "@types/yargs": "npm:~17.0.33"
+    "@typescript-eslint/parser": "npm:~8.43.0"
+    angular-eslint: "npm:~20.2.0"
+    babel-jest: "npm:^29.7.0"
+    cpy-cli: "npm:^6.0.0"
+    dotenv: "npm:~17.2.3"
+    eslint: "npm:~9.35.0"
+    eslint-import-resolver-node: "npm:~0.3.9"
+    eslint-import-resolver-typescript: "npm:~4.4.0"
+    eslint-plugin-import: "npm:~2.32.0"
+    eslint-plugin-import-newlines: "npm:~1.4.0"
+    eslint-plugin-jest: "npm:~29.0.0"
+    eslint-plugin-jsdoc: "npm:~54.7.0"
+    eslint-plugin-prefer-arrow: "npm:~1.2.3"
+    eslint-plugin-unicorn: "npm:~60.0.0"
+    eslint-plugin-unused-imports: "npm:~4.2.0"
+    globals: "npm:^16.0.0"
+    jest: "npm:~29.7.0"
+    jest-junit: "npm:~16.0.0"
+    jest-resolve: "npm:~29.7.0"
+    jest-util: "npm:~29.7.0"
+    jsonc-eslint-parser: "npm:~2.4.0"
+    nx: "npm:~21.5.0"
+    pid-from-port: "npm:^1.1.3"
+    ts-jest: "npm:~29.4.0"
+    tslib: "npm:^2.6.2"
+    typescript: "npm:~5.9.2"
+    typescript-eslint: "npm:~8.43.0"
+    yargs: "npm:^18.0.0"
+  peerDependencies:
+    "@o3r/telemetry": "workspace:^"
+    "@redocly/openapi-core": ^2.6.0
+  peerDependenciesMeta:
+    "@o3r/telemetry":
+      optional: true
+  languageName: unknown
+  linkType: soft
+
 "@ama-sdk/client-angular@workspace:packages/@ama-sdk/client-angular":
   version: 0.0.0-use.local
   resolution: "@ama-sdk/client-angular@workspace:packages/@ama-sdk/client-angular"
@@ -3860,7 +4040,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.22.6, @babel/runtime@npm:^7.27.6":
+"@babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.18.3, @babel/runtime@npm:^7.22.6, @babel/runtime@npm:^7.27.6":
   version: 7.28.4
   resolution: "@babel/runtime@npm:7.28.4"
   checksum: 10/6c9a70452322ea80b3c9b2a412bcf60771819213a67576c8cec41e88a95bb7bf01fc983754cda35dc19603eef52df22203ccbf7777b9d6316932f9fb77c25163
@@ -13779,6 +13959,44 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@redocly/ajv@npm:^8.11.2":
+  version: 8.11.3
+  resolution: "@redocly/ajv@npm:8.11.3"
+  dependencies:
+    fast-deep-equal: "npm:^3.1.1"
+    json-schema-traverse: "npm:^1.0.0"
+    require-from-string: "npm:^2.0.2"
+    uri-js-replace: "npm:^1.0.1"
+  checksum: 10/da5946f0326c497181e361495a22b801ab8d6f551296be7419c0733f5b74b7b181228cb56b96044ec60c3498776ef09ad283fb8eaeb71a9bb64997f1b4eb7fcf
+  languageName: node
+  linkType: hard
+
+"@redocly/config@npm:^0.31.0":
+  version: 0.31.0
+  resolution: "@redocly/config@npm:0.31.0"
+  dependencies:
+    json-schema-to-ts: "npm:2.7.2"
+  checksum: 10/2b1b2f79bd1a9892352adfc0878eff0c1bb57239f39082a44d2a68cd896725cbebf269e99371e33c9ddacb6b979bd24a69da926b73f80aa3f1697099dae7dfb7
+  languageName: node
+  linkType: hard
+
+"@redocly/openapi-core@npm:~2.6.0":
+  version: 2.6.0
+  resolution: "@redocly/openapi-core@npm:2.6.0"
+  dependencies:
+    "@redocly/ajv": "npm:^8.11.2"
+    "@redocly/config": "npm:^0.31.0"
+    ajv-formats: "npm:^2.1.1"
+    colorette: "npm:^1.2.0"
+    js-levenshtein: "npm:^1.1.6"
+    js-yaml: "npm:^4.1.0"
+    minimatch: "npm:^10.0.1"
+    pluralize: "npm:^8.0.0"
+    yaml-ast-parser: "npm:0.0.43"
+  checksum: 10/fd10267ba73c69fd9ed0e31cd89e0fa317744d3113c8a7ba960d2a8edf02c0a4eeae2b121a9aa04bbcf1bf8eca592aa4cf6ee1e7967a682ff96361a21ae7acfb
+  languageName: node
+  linkType: hard
+
 "@rolldown/binding-android-arm64@npm:1.0.0-beta.32":
   version: 1.0.0-beta.32
   resolution: "@rolldown/binding-android-arm64@npm:1.0.0-beta.32"
@@ -18040,7 +18258,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ajv@npm:8.17.1, ajv@npm:^8.0.0, ajv@npm:^8.0.1, ajv@npm:^8.11.0, ajv@npm:^8.12.0, ajv@npm:^8.17.1, ajv@npm:^8.9.0":
+"ajv@npm:8.17.1, ajv@npm:^8.0.0, ajv@npm:^8.0.1, ajv@npm:^8.11.0, ajv@npm:^8.12.0, ajv@npm:^8.17.1, ajv@npm:^8.9.0, ajv@npm:~8.17.1":
   version: 8.17.1
   resolution: "ajv@npm:8.17.1"
   dependencies:
@@ -20099,6 +20317,13 @@ __metadata:
   version: 2.9.3
   resolution: "colord@npm:2.9.3"
   checksum: 10/907a4506d7307e2f580b471b581e992181ed75ab0c6925ece9ca46d88161d2fc50ed15891cd0556d0d9321237ca75afc9d462e4c050b939ef88428517f047f30
+  languageName: node
+  linkType: hard
+
+"colorette@npm:^1.2.0":
+  version: 1.4.0
+  resolution: "colorette@npm:1.4.0"
+  checksum: 10/c8d6c8c3ef5a99acfc3dd9a68f48019f1479ec347551387e4a1762e40f69e98ce19d4dc321ffb4919d1f28a7bdc90c39d4e9a901f4c474fd2124ad93a00c0454
   languageName: node
   linkType: hard
 
@@ -22319,7 +22544,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dotenv@npm:^17.0.0":
+"dotenv@npm:^17.0.0, dotenv@npm:~17.2.3":
   version: 17.2.3
   resolution: "dotenv@npm:17.2.3"
   checksum: 10/f8b78626ebfff6e44420f634773375c9651808b3e1a33df6d4cc19120968eea53e100f59f04ec35f2a20b2beb334b6aba4f24040b2f8ad61773f158ac042a636
@@ -27819,6 +28044,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"js-levenshtein@npm:^1.1.6":
+  version: 1.1.6
+  resolution: "js-levenshtein@npm:1.1.6"
+  checksum: 10/bb034043fdebab606122fe5b5c0316036f1bb0ea352038af8b0ba4cda4b016303b24f64efb59d9918f66e3680eea97ff421396ff3c153cb00a6f982908f61f8a
+  languageName: node
+  linkType: hard
+
 "js-library-detector@npm:^6.7.0":
   version: 6.7.0
   resolution: "js-library-detector@npm:6.7.0"
@@ -28026,6 +28258,17 @@ __metadata:
   version: 4.0.0
   resolution: "json-parse-even-better-errors@npm:4.0.0"
   checksum: 10/da1ae7ef0cc9db02972a06a71322f26bdcda5d7f648c23b28ce7f158ba35707461bcbd91945d8aace10d8d79c383b896725c65ffa410242352692328aa9b5edf
+  languageName: node
+  linkType: hard
+
+"json-schema-to-ts@npm:2.7.2":
+  version: 2.7.2
+  resolution: "json-schema-to-ts@npm:2.7.2"
+  dependencies:
+    "@babel/runtime": "npm:^7.18.3"
+    "@types/json-schema": "npm:^7.0.9"
+    ts-algebra: "npm:^1.2.0"
+  checksum: 10/e372eb5c652b9c1af470976f8a71d8b26db2b938914e9113ceb67bf3fbc03881d2dee41b76fbc93eaeb3bb28a6f2f0921ce8ce7725fa8d1f243fab4288a8ad2b
   languageName: node
   linkType: hard
 
@@ -36505,6 +36748,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ts-algebra@npm:^1.2.0":
+  version: 1.2.2
+  resolution: "ts-algebra@npm:1.2.2"
+  checksum: 10/198f1d6fdfec0e8ffacf96d3db6464546afd147e80fac06158744188a64809524bc6d5eccfdbe3510e83e665d36d39fc7900940e5e258516a2c57a94b4963102
+  languageName: node
+  linkType: hard
+
 "ts-api-utils@npm:^1.0.1":
   version: 1.4.3
   resolution: "ts-api-utils@npm:1.4.3"
@@ -37337,6 +37587,13 @@ __metadata:
   bin:
     update-browserslist-db: cli.js
   checksum: 10/87af2776054ffb9194cf95e0201547d041f72ee44ce54b144da110e65ea7ca01379367407ba21de5c9edd52c74d95395366790de67f3eb4cc4afa0fe4424e76f
+  languageName: node
+  linkType: hard
+
+"uri-js-replace@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "uri-js-replace@npm:1.0.1"
+  checksum: 10/9c6761023a66eea5c7ff75127e3ea733a64362e4fd232203f627ace86d5f170dc69eda80449e3457448591b8a11e566e29cc0746da6392c9f8de4d5911f57e51
   languageName: node
   linkType: hard
 
@@ -38468,6 +38725,13 @@ __metadata:
   version: 5.0.0
   resolution: "yallist@npm:5.0.0"
   checksum: 10/1884d272d485845ad04759a255c71775db0fac56308764b4c77ea56a20d56679fad340213054c8c9c9c26fcfd4c4b2a90df993b7e0aaf3cdb73c618d1d1a802a
+  languageName: node
+  linkType: hard
+
+"yaml-ast-parser@npm:0.0.43":
+  version: 0.0.43
+  resolution: "yaml-ast-parser@npm:0.0.43"
+  checksum: 10/a54d00c8e0716a392c6e76eee965b3b4bba434494196490946e416fc47f20a1d89820461afacd9431edbb8209e28fce33bcff1fb42dd83f90e51fc31e80251c9
   languageName: node
   linkType: hard
 
