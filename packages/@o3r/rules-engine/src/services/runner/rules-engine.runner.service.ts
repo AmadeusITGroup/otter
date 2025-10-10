@@ -147,6 +147,7 @@ export class RulesEngineRunnerService {
         )
       );
 
+    // eslint-disable-next-line @typescript-eslint/await-thenable -- `executeActions` can return void or Promise<void>
     await Promise.all(handling);
   }
 
