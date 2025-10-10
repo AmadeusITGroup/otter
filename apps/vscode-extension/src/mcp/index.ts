@@ -5,7 +5,6 @@ import {
   McpServerDefinition,
   McpStdioServerDefinition,
   type OutputChannel,
-  window,
   workspace,
 } from 'vscode';
 
@@ -22,17 +21,9 @@ export const mcpConfig = (didChangeEmitter: EventEmitter<void>, channel: OutputC
           ['repo', 'read:user'],
           { createIfNone: true }
         );
-        let githubOrg = mcpConfiguration.get<string>('githubOrg');
-        if (!githubOrg) {
-          githubOrg = await window.showInputBox({
-            prompt: 'Please enter the GitHub organization to use for Otter MCP'
-          });
-          mcpConfiguration.update('githubOrg', githubOrg);
-        }
-        channel.appendLine(`Hello ${session?.account.label}, using the organization ${githubOrg}`);
+        channel.appendLine(`Hello ${session?.account.label}!`);
 
         server.env.O3R_MCP_GITHUB_TOKEN = session.accessToken || null;
-        server.env.O3R_MCP_GITHUB_ORG = githubOrg || null;
       }
       return server;
     },
