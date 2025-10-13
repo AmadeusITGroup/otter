@@ -8,17 +8,20 @@ import {
   McpServer,
 } from '@modelcontextprotocol/sdk/server/mcp.js';
 import {
-  registerBestPracticesResources,
-} from './instructions/best-practices';
+  registerBestPracticesToolAndResources as registerBestPractices,
+} from './best-practices';
 import {
-  registerBestPracticesTool,
-} from './tools/best-practices';
+  registerReleaseNotes,
+} from './release-notes';
 import {
   registerCreateMonorepoWithAppTool,
 } from './tools/create-monorepo-with-app';
 import {
   registerGetRepositoriesUsingOtterTool,
 } from './tools/find-repositories-using-otter';
+import {
+  registerSupportedReleaseTool,
+} from './tools/supported-releases';
 
 /**
  * Create an MCP server instance.
@@ -35,9 +38,13 @@ export async function createMcpServer(): Promise<McpServer> {
   });
   const resourcesPath = join(__dirname, '..', 'resources');
 
-  await registerBestPracticesResources(server, resourcesPath);
-  await registerBestPracticesTool(server, resourcesPath);
-  await registerCreateMonorepoWithAppTool(server, resourcesPath);
-  registerGetRepositoriesUsingOtterTool(server);
+  await Promise.allSettled([
+    registerReleaseNotes(server),
+    registerBestPractices(server, resourcesPath),
+    registerCreateMonorepoWithAppTool(server, resourcesPath),
+    // eslint-disable-next-line @typescript-eslint/await-thenable -- Awaiting a non-promise value
+    registerGetRepositoriesUsingOtterTool(server),
+    registerSupportedReleaseTool(server)
+  ]);
   return server;
 }

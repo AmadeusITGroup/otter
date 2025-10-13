@@ -16,15 +16,14 @@ import {
   Octokit,
 } from '@octokit/rest';
 import {
+  z,
+} from 'zod';
+import {
   logger,
 } from '../utils/logger';
-
-const OTTER_SCOPES = [
-  'o3r',
-  'ama-styling',
-  'ama-mfe',
-  'ama-sdk'
-];
+import {
+  OTTER_SCOPES,
+} from '../utils/otter';
 
 async function listRepos(octokit: Octokit) {
   // We use several requests and not only one with OR
@@ -182,6 +181,9 @@ export function registerGetRepositoriesUsingOtterTool(server: McpServer) {
       annotations: {
         readOnlyHint: true,
         openWorldHint: false
+      },
+      outputSchema: {
+        repositories: z.array(z.string()).describe('List of repositories using Otter dependencies')
       }
     },
     () => ({
@@ -194,7 +196,10 @@ export function registerGetRepositoriesUsingOtterTool(server: McpServer) {
             + reposUsingOtter.sort().map((repo) => `- ${repo}`).join('\n')
             : `No repositories were found to use Otter dependencies.`
         }
-      ]
+      ],
+      structuredContent: {
+        repositories: reposUsingOtter
+      }
     })
   );
 }
