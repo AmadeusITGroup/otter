@@ -1,12 +1,13 @@
 {
-  "name": "@ama-mcp/otter",
+  "name": "@ama-mcp/angular",
   "version": "0.0.0-placeholder",
   "publishConfig": {
     "access": "public"
   },
-  "description": "Experimental package — This module provides a set of MCP tools to retrieve information from Otter",
+  "description": "Experimental package — This module provides a set of MCP tools to retrieve information from Angular",
   "keywords": [
     "mcp",
+    "angular",
     "otter",
     "otter-module"
   ],
@@ -25,14 +26,12 @@
   "scripts": {
     "nx": "nx",
     "ng": "yarn nx",
-    "build": "yarn nx build ama-mcp-otter",
+    "build": "yarn nx build ama-mcp-github",
     "compile": "tsc -b ./tsconfig.build.json && yarn cpy package.json dist && patch-package-json-main"
   },
   "peerDependencies": {
     "@ama-mcp/core": "workspace:^",
-    "@modelcontextprotocol/sdk": "~1.20.0",
-    "compressing": "^2.0.0",
-    "globby": "^11.1.0",
+    "@modelcontextprotocol/sdk": "^1.20.0",
     "zod": "~3.25.76"
   },
   "dependencies": {
@@ -61,7 +60,6 @@
     "@types/node": "~22.18.0",
     "@typescript-eslint/parser": "~8.46.0",
     "angular-eslint": "~20.4.0",
-    "compressing": "^2.0.0",
     "cpy-cli": "^6.0.0",
     "eslint": "~9.38.0",
     "eslint-import-resolver-node": "~0.3.9",
@@ -74,7 +72,6 @@
     "eslint-plugin-unicorn": "~60.0.0",
     "eslint-plugin-unused-imports": "~4.2.0",
     "globals": "^16.0.0",
-    "globby": "^11.1.0",
     "jest": "~29.7.0",
     "jest-environment-jsdom": "~29.7.0",
     "jest-junit": "~16.0.0",
