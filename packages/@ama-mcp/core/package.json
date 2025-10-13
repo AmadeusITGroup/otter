@@ -1,33 +1,38 @@
 {
-  "name": "@o3r/mcp",
+  "name": "@ama-mcp/core",
   "version": "0.0.0-placeholder",
   "publishConfig": {
     "access": "public"
   },
-  "description": "This module provides a MCP Server",
+  "description": "This module provides utilities to interact inside an MCP server",
   "keywords": [
     "mcp",
     "otter",
     "otter-module"
   ],
-  "bin": {
-    "o3r-mcp-start": "./dist/src/cli/index.js"
+  "module": "dist/src/public_api.js",
+  "typings": "dist/src/public_api.d.ts",
+  "sideEffects": false,
+  "exports": {
+    "./package.json": {
+      "default": "./package.json"
+    },
+    ".": {
+      "typings": "./dist/src/public_api.d.ts",
+      "default": "./dist/src/public_api.js"
+    }
   },
-  "main": "./dist/src/cli/index.js",
   "scripts": {
     "nx": "nx",
     "ng": "yarn nx",
-    "build": "yarn nx build mcp",
-    "copy:resources": "yarn cpy '../../../assets/gen-ai/**/*.md' dist/resources",
-    "compile": "tsc -b ./tsconfig.build.json && yarn copy:resources && yarn cpy package.json dist && patch-package-json-main"
+    "build": "yarn nx build ama-mcp-github",
+    "compile": "tsc -b ./tsconfig.build.json && yarn cpy package.json dist && patch-package-json-main"
+  },
+  "peerDependencies": {
+    "@modelcontextprotocol/sdk": "^1.19.0"
   },
   "dependencies": {
-    "@ama-mcp/core": "workspace:^",
-    "@ama-mcp/github": "workspace:^",
-    "@modelcontextprotocol/sdk": "~1.19.0",
-    "@octokit/rest": "~22.0.0",
-    "tslib": "^2.6.2",
-    "zod": "~3.25.76"
+    "tslib": "^2.6.2"
   },
   "devDependencies": {
     "@angular/common": "~20.3.0",
@@ -37,6 +42,7 @@
     "@angular/platform-browser": "~20.3.0",
     "@angular/platform-browser-dynamic": "~20.3.0",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
+    "@modelcontextprotocol/sdk": "~1.19.0",
     "@nx/eslint": "~21.6.0",
     "@nx/eslint-plugin": "~21.6.0",
     "@nx/jest": "~21.6.0",

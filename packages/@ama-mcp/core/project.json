@@ -1,0 +1,32 @@
+{
+  "name": "ama-mcp-core",
+  "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/@ama-mcp/core/src",
+  "prefix": "o3r",
+  "targets": {
+    "build": {
+      "executor": "nx:noop",
+      "dependsOn": ["compile"]
+    },
+    "compile": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "compile"
+      },
+      "dependsOn": ["prepare", "^build"]
+    },
+    "test": {
+      "options": {
+        "jestConfig": "{projectRoot}/jest.config.js",
+        "cacheDirectory": "{workspaceRoot}/.cache/jest",
+        "passWithNoTests": true,
+        "silent": true
+      }
+    },
+    "lint": {},
+    "prepare-publish": {},
+    "publish": {}
+  },
+  "tags": []
+}
