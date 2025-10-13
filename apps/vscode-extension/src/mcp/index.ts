@@ -33,7 +33,8 @@ export const mcpConfig = (didChangeEmitter: EventEmitter<void>, channel: OutputC
         'npx',
         ['-y', '-p', '@o3r/mcp', 'o3r-mcp-start'],
         {
-          O3R_MCP_CACHE_PATH: mcpConfiguration.get<string>('cacheFolderPath') || null
+          O3R_MCP_CACHE_PATH: mcpConfiguration.get<string>('cacheFolderPath') || null,
+          O3R_MCP_CACHE_MAX_AGE: mcpConfiguration.get<number>('cacheMaxAge')?.toString() || null
         }
       ),
       new McpStdioServerDefinition(
