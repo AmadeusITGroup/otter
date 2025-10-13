@@ -7,14 +7,14 @@ import {
 import {
   resourceRegistry,
 } from '@ama-mcp/core';
+import {
+  RESOURCE_URI_PREFIX,
+} from '@ama-mcp/otter';
 import type {
   McpServer,
 } from '@modelcontextprotocol/sdk/server/mcp.js';
-import {
-  uriPrefix,
-} from '../utils/otter';
 
-const uri = `${uriPrefix}://best-practices`;
+const uri = `${RESOURCE_URI_PREFIX}://best-practices`;
 
 async function registerBestPracticesResources(server: McpServer, bestPracticesResourcesPath: string) {
   const content = await readFile(

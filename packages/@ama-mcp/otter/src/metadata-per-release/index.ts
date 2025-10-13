@@ -44,6 +44,7 @@ import {
 
 /**
  * Options for the tool metadata per release
+ * @experimental
  */
 export interface MetadataPerReleaseOptions extends ToolDefinition, ResourceToolOptions, CacheToolOptions {
   /**
@@ -166,6 +167,7 @@ const retrieveAllMetadata = async (
  * Registers the metadata per release resource template and tool on the MCP server.
  * @param server
  * @param options
+ * @experimental
  */
 export async function registerMetadataPerRelease(
   server: McpServer,
