@@ -88,7 +88,7 @@ const updatePackageJson = async (scopeName) => {
 };
 
 const updateMcp = async (scopeName) => {
-  const path = resolve(root, 'tools/@o3r/mcp/src/tools/find-repositories-using-otter.ts');
+  const path = resolve(root, 'tools/@o3r/mcp/src/utils/otter.ts');
   const content = await readFile(path, { encoding: 'utf8' });
   const newContent = content.replace(/(const\s*OTTER_SCOPES\s*=\s*\[)(\s*)([^]]*\])/m, `$1$2'${scopeName}',$2$3`);
   await writeFile(path, newContent);
