@@ -95,7 +95,7 @@
     "@swc/core": "~1.13.0",
     "@types/jest": "~29.5.2",
     "@types/node": "~22.18.0",
-    "@typescript-eslint/parser": "~8.45.0",
+    "@typescript-eslint/parser": "~8.46.0",
     "angular-eslint": "~20.3.0",
     "chokidar": "^4.0.3",
     "commit-and-tag-version": "^12.0.0",
@@ -122,7 +122,7 @@
     "tsc-watch": "^7.0.0",
     "typedoc": "~0.28.0",
     "typescript": "~5.9.2",
-    "typescript-eslint": "~8.45.0"
+    "typescript-eslint": "~8.46.0"
   },
   "peerDependencies": {
     "@ama-sdk/client-fetch": "workspace:^",
