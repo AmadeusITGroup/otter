@@ -26,6 +26,11 @@
           "type": "string",
           "description": "Path of the cache folder for the MCP server"
         },
+        "otter.mcp.cacheMaxAge": {
+          "type": "number",
+          "default": 90,
+          "description": "Maximum age in days of the MCP cache for a repository to be considered valid"
+        },
         "otter.design.filesPatterns": {
           "type": "array",
           "default": [

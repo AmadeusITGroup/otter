@@ -33,17 +33,15 @@ async function listRepos(octokit: Octokit) {
   // so we should found another solution if we have more than 10 scopes to look for.
   const search = (await Promise.all(OTTER_SCOPES
     .map(async (scope) => {
-      const repos = (await octokit.paginate(octokit.search.code, { q: `@${scope}/ filename:package.json`, per_page: 100 }))
-        // eslint-disable-next-line @typescript-eslint/naming-convention -- Naming convention from GitHub API
-        .map(({ repository: { name, full_name, fork, archived, default_branch } }) => ({ name, full_name, fork, archived, default_branch }))
-        .filter((repo) => !repo.archived && !repo.fork);
-      logger.info(`Found ${repos.length} repositories with references to @${scope} in package.json`);
-      return repos;
+      const repos = (await octokit.paginate(octokit.search.code, { q: `@${scope}/ filename:package.json`, per_page: 100 }));
+      // eslint-disable-next-line @typescript-eslint/naming-convention -- Naming convention from GitHub API
+      const reposWithOnlyNeededInfo = repos.map(({ repository: { name, full_name, fork, archived, default_branch } }) => ({ name, full_name, fork, archived, default_branch }));
+      const filteredRepos = reposWithOnlyNeededInfo.filter((repo) => !repo.archived && !repo.fork);
+      logger.info(`Found ${filteredRepos.length} repositories with references to @${scope} in package.json`);
+      return filteredRepos;
     })
   )).flat();
-  const repositories = Array.from(new Map((search)
-    .map(({ fork, archived, ...repo }) => [repo.full_name, repo])
-  ).values());
+  const repositories = Array.from(new Map(search.map(({ fork, archived, ...repo }) => [repo.full_name, repo])).values());
   logger.info(`Found ${repositories.length} repositories with references to Otter`);
   return repositories;
 }
@@ -89,22 +87,50 @@ function dependsOnOtter(octokit: Octokit) {
   };
 }
 
+interface CacheRepository {
+  /** True if it depends on Otter */
+  dependsOn: boolean;
+  /** When it was checked */
+  when: string;
+}
+
+/** Key are the fullName of each repository */
+type Cache = Record<string, CacheRepository>;
+
+const DEFAULT_O3R_MCP_CACHE_MAX_AGE = 90;
+
+const convertDaysToMs = (days: number) => days * 1000 * 60 * 60 * 24;
+
+function validateCache(cachedRepos: Cache) {
+  const now = Date.now();
+  const maxAge = convertDaysToMs(+(process.env.O3R_MCP_CACHE_MAX_AGE || DEFAULT_O3R_MCP_CACHE_MAX_AGE));
+  Object.entries(cachedRepos).forEach(([repo, { when }]) => {
+    const whenDate = new Date(when);
+    if (Number.isNaN(whenDate.getTime()) || (now - whenDate.getTime()) > maxAge) {
+      logger.info(`Cache for repository ${repo} is outdated or invalid, removing it`);
+      delete cachedRepos[repo];
+    }
+  });
+}
+
 async function findRepositoriesUsingOtter(octokit: Octokit, reposUsingOtter: string[]) {
   const cacheFolderPath = process.env.O3R_MCP_CACHE_PATH || '.cache/o3r/mcp';
   const cachePath = resolve(cacheFolderPath, 'repos-using-otter.json');
-  let cachedRepos: Record<string, boolean> = {};
+  let cachedRepos: Cache = {};
   if (process.env.O3R_MCP_USE_CACHED_REPOS === 'false') {
     logger.info('Ignoring cached repositories as O3R_MCP_USE_CACHED_REPOS is set to false');
   } else {
     try {
-      cachedRepos = JSON.parse(await readFile(cachePath, { encoding: 'utf8' })) as Record<string, boolean>;
+      cachedRepos = JSON.parse(await readFile(cachePath, { encoding: 'utf8' })) as Cache;
+      validateCache(cachedRepos);
       reposUsingOtter.push(...Object.entries(cachedRepos).filter(([, usesOtter]) => usesOtter).map(([repo]) => repo));
       logger.info(`Loaded ${Object.keys(cachedRepos).length} cached repositories, ${reposUsingOtter.length} of them using Otter dependencies.`);
     } catch (e) {
       logger.info('No cache file found, starting fresh search for repositories using Otter dependencies.', e);
     }
   }
-  const repositories = (await listRepos(octokit)).filter((r) => !cachedRepos[r.full_name]);
+  const repositories = (await listRepos(octokit)).filter((r) => !cachedRepos[r.full_name]?.dependsOn);
+
   const findPackageJsonFilesInRepo = findPackageJsonFiles(octokit);
   const dependsOnOtterInRepo = dependsOnOtter(octokit);
 
@@ -118,7 +144,10 @@ async function findRepositoriesUsingOtter(octokit: Octokit, reposUsingOtter: str
     }
     if (packageJsonFiles.length === 0) {
       logger.info(`No package.json files found in repository ${repository.full_name}`);
-      cachedRepos[repository.full_name] = false;
+      cachedRepos[repository.full_name] = {
+        dependsOn: false,
+        when: new Date().toISOString()
+      };
       return;
     }
     try {
@@ -132,13 +161,19 @@ async function findRepositoriesUsingOtter(octokit: Octokit, reposUsingOtter: str
         if (depFound) {
           reposUsingOtter.push(repository.full_name);
           logger.info(`Repository ${repository.full_name} uses Otter dependencies`);
-          cachedRepos[repository.full_name] = true;
+          cachedRepos[repository.full_name] = {
+            dependsOn: true,
+            when: new Date().toISOString()
+          };
         } else {
           throw new Error('No Otter dependencies found in this package.json');
         }
       }));
     } catch {}
-    cachedRepos[repository.full_name] ||= false;
+    cachedRepos[repository.full_name] ||= {
+      dependsOn: false,
+      when: new Date().toISOString()
+    };
   }));
   logger.info(`Found ${reposUsingOtter.length} repositories using Otter dependencies`);
   if (process.env.O3R_MCP_USE_CACHED_REPOS === 'false') {
@@ -148,7 +183,7 @@ async function findRepositoriesUsingOtter(octokit: Octokit, reposUsingOtter: str
       await mkdir(cacheFolderPath, { recursive: true });
     }
     try {
-      await writeFile(cachePath, JSON.stringify(cachedRepos, Object.keys(cachedRepos).sort()));
+      await writeFile(cachePath, JSON.stringify(cachedRepos));
     } catch (e) {
       logger.error('Failed to update cache', e);
     }

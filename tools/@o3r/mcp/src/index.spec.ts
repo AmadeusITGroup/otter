@@ -58,7 +58,10 @@ const setupClientAndServer = async () => {
       return Promise.resolve('This tool helps you create a monorepo <repositoryName> with an application <applicationName>.');
     }
     if (path.toString().endsWith('repos-using-otter.json')) {
-      return Promise.resolve(JSON.stringify({ 'testOrg/repoCached': true }));
+      return Promise.resolve(JSON.stringify({
+        'testOrg/repoCached': { dependsOn: true, when: new Date().toISOString() },
+        'testOrg/repoCachedExpired': { dependsOn: true, when: new Date(0).toISOString() } // very old date to simulate expiration
+      }));
     }
     return Promise.resolve('File content');
   });
@@ -211,11 +214,19 @@ describe('MCP server', () => {
       expect(writeFile).toHaveBeenCalled();
       expect(writeFile).toHaveBeenCalledWith(
         expect.stringMatching(/repos-using-otter\.json$/),
-        JSON.stringify({
-          'testOrg/repo1': true,
-          'testOrg/repo2': false,
-          'testOrg/repoCached': true
-        })
+        expect.stringContaining('testOrg/repo1')
+      );
+      expect(writeFile).toHaveBeenCalledWith(
+        expect.stringMatching(/repos-using-otter\.json$/),
+        expect.stringContaining('testOrg/repo2')
+      );
+      expect(writeFile).toHaveBeenCalledWith(
+        expect.stringMatching(/repos-using-otter\.json$/),
+        expect.stringContaining('testOrg/repoCached')
+      );
+      expect(writeFile).toHaveBeenCalledWith(
+        expect.stringMatching(/repos-using-otter\.json$/),
+        expect.not.stringContaining('testOrg/repoCachedExpired')
       );
       expect(response.content).toEqual([{
         type: 'text',
