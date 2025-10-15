@@ -4,6 +4,7 @@ import {
 } from 'node:child_process';
 import {
   existsSync,
+  readFileSync,
   rmSync,
 } from 'node:fs';
 import {
@@ -12,6 +13,9 @@ import {
 import {
   performance,
 } from 'node:perf_hooks';
+import {
+  sync as globbySync,
+} from 'globby';
 
 declare global {
   namespace NodeJS {
@@ -63,15 +67,19 @@ const PACKAGE_MANAGERS_CMD = {
   }
 } as const satisfies Record<'npm' | 'yarn', Record<Command, string[]>>;
 
-// TODO: To be determined automatically #3264
+const getWorkspaceScopes = () => {
+  const files = globbySync('**/package.json', { cwd: process.cwd(), absolute: true, gitignore: true });
+  return Array.from(new Set(
+    files.map((file) => {
+      const packageJsonFileContent = readFileSync(file, { encoding: 'utf8' });
+      const packageJson = JSON.parse(packageJsonFileContent);
+      return packageJson.name?.split('/')[0];
+    }).filter((scope) => !!scope && scope.startsWith('@'))
+  ));
+};
+
 /** List of scopes in the current workspace */
-const WORKSPACE_SCOPES = [
-  '@ama-styling',
-  '@ama-mfe',
-  '@ama-sdk',
-  '@ama-terasu',
-  '@o3r'
-];
+const WORKSPACE_SCOPES = getWorkspaceScopes();
 
 type CommandArguments = {
   /** Script to run or execute */

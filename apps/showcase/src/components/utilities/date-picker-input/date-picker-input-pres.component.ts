@@ -2,20 +2,22 @@ import {
   ChangeDetectionStrategy,
   Component,
   forwardRef,
-  Input,
+  input,
   signal,
   ViewEncapsulation,
 } from '@angular/core';
 import {
+  takeUntilDestroyed,
+} from '@angular/core/rxjs-interop';
+import {
   ControlValueAccessor,
+  FormControl,
   FormsModule,
   NG_VALUE_ACCESSOR,
+  ReactiveFormsModule,
 } from '@angular/forms';
 import {
-  DfInputIconDirective,
-} from '@design-factory/design-factory';
-import {
-  NgbDate,
+  NgbDateStruct,
   NgbInputDatepicker,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -28,7 +30,7 @@ import {
 @O3rComponent({ componentType: 'ExposedComponent' })
 @Component({
   selector: 'o3r-date-picker-input-pres',
-  imports: [FormsModule, NgbInputDatepicker, DfInputIconDirective],
+  imports: [FormsModule, NgbInputDatepicker, ReactiveFormsModule],
   templateUrl: './date-picker-input-pres.template.html',
   styleUrls: ['./date-picker-input-pres.style.scss'],
   providers: [
@@ -42,29 +44,29 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DatePickerInputPresComponent implements ControlValueAccessor, DatePickerInputPresContext {
-  private onTouched!: () => void;
-
-  private onChanges!: (val: string) => void;
-
   /** Disabled state of the date-picker */
   public isDisabled = signal(false);
 
   /** Internal selected date by NgBootstrap */
-  public selectedDate = signal<NgbDate | null>(null);
+  public dateControl = new FormControl<NgbDateStruct | undefined>(undefined, { nonNullable: true });
+  /** @inheritDoc */
+  public id = input.required<string>();
 
   /** @inheritDoc */
-  @Input()
-  public id!: string;
+  public label = input<string | undefined>();
 
-  /**
-   * Trigger when a date is selected
-   * @param date
-   */
-  public selectDate(date: NgbDate | null) {
-    this.selectedDate.set(date);
-    this.onChanges(date ? `${date.year}-${date.month}-${date.day}` : '');
-    this.onTouched();
+  constructor() {
+    this.dateControl.valueChanges.pipe(
+      takeUntilDestroyed()
+    ).subscribe((date) => {
+      this.onChanges(date ? `${date.year}-${date.month}-${date.day}` : '');
+      this.onTouched();
+    });
   }
+
+  private onTouched: () => void = () => {};
+
+  private onChanges: (val: string) => void = (_val: string) => {};
 
   /**
    * Implements ControlValueAccessor
@@ -97,9 +99,9 @@ export class DatePickerInputPresComponent implements ControlValueAccessor, DateP
   public writeValue(obj: any): void {
     if (typeof obj === 'string' && /\d{4}-\d{2}-\d{2}/.test(obj)) {
       const [year, month, day] = obj.split('-', 3);
-      this.selectedDate.set(NgbDate.from({ year: +year, month: +month, day: +day }));
+      this.dateControl.setValue({ year: +year, month: +month, day: +day });
     } else {
-      this.selectedDate.set(null);
+      this.dateControl.setValue(undefined);
     }
   }
 }

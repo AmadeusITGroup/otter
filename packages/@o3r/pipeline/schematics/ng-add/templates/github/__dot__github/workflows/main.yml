@@ -1,14 +1,14 @@
 name: Main CI
 
 env:
-  DEFAULT_BRANCH: main
+  DEFAULT_BRANCH: <%= defaultBranchName %>
   DEFAULT_BRANCH_PRERELEASE_NAME: prerelease
   RELEASE_BRANCH_REGEX: 'release\/(0|[1-9]\d*)\.(0|[1-9]\d*)(\.0-(?:next|prerelease|rc))?$'
 
 on:
   push:
     branches:
-      - main
+      - <%= defaultBranchName %>
       - 'release/*'
   pull_request:
 
