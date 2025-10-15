@@ -60,8 +60,13 @@ export class PlaceholderPresComponent {
   });
 
   constructor() {
+    this.tripService.updateDestination(this.form.controls.destination.value);
+    this.tripService.updateOutboundDate(this.form.controls.outboundDate.value);
+
     this.form.controls.destination.valueChanges.pipe(takeUntilDestroyed()).subscribe((destination) => this.tripService.updateDestination(destination));
-    this.form.controls.outboundDate.valueChanges.pipe(takeUntilDestroyed()).subscribe((outboundDate) => this.tripService.updateOutboundDate(outboundDate));
+    this.form.controls.outboundDate.valueChanges.pipe(takeUntilDestroyed()).subscribe((outboundDate) => {
+      this.tripService.updateOutboundDate(outboundDate);
+    });
   }
 
   private formatDate(dateTime: number) {
