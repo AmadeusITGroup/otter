@@ -56,7 +56,7 @@
     "@stylistic/eslint-plugin": "~5.4.0",
     "@types/jest": "~29.5.2",
     "@types/node": "~22.18.0",
-    "@typescript-eslint/parser": "~8.45.0",
+    "@typescript-eslint/parser": "~8.46.0",
     "angular-eslint": "~20.3.0",
     "cpy-cli": "^6.0.0",
     "eslint": "~9.37.0",
@@ -78,7 +78,7 @@
     "ts-jest": "~29.4.0",
     "ts-node": "~10.9.2",
     "typescript": "~5.9.2",
-    "typescript-eslint": "~8.45.0"
+    "typescript-eslint": "~8.46.0"
   },
   "engines": {
     "node": "^20.19.0 || ^22.17.0 || ^24.0.0"

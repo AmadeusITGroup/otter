@@ -126,7 +126,7 @@
     "@types/bootstrap": "^5.2.10",
     "@types/jest": "~29.5.2",
     "@types/node": "~22.18.0",
-    "@typescript-eslint/parser": "~8.45.0",
+    "@typescript-eslint/parser": "~8.46.0",
     "@webcontainer/api": "~1.6.0",
     "angular-eslint": "~20.3.0",
     "concurrently": "^9.1.0",
@@ -155,7 +155,7 @@
     "style-dictionary": "~5.1.0",
     "ts-jest": "~29.4.0",
     "typescript": "~5.9.2",
-    "typescript-eslint": "~8.45.0",
+    "typescript-eslint": "~8.46.0",
     "webpack": "~5.102.0"
   }
 }
