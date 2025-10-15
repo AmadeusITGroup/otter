@@ -201,7 +201,7 @@ const prepareWorkspace = (relativeDirectory = '.', projectPackageManager = 'npm'
   );
   packageJson.devDependencies ||= {};
   mandatoryDependencies.forEach((dep) => {
-    packageJson.devDependencies![dep] = dependencies?.[dep] || devDependencies?.[dep] || 'latest';
+    packageJson.devDependencies![dep] = (dependencies?.[dep] || devDependencies?.[dep] || 'latest').replace(/^\^/, '~');
   });
   if (exactO3rVersion) {
     const o3rPackages = ['@o3r/core', '@o3r/schematics', '@o3r/workspace'];
