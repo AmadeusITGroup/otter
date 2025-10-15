@@ -9,15 +9,16 @@ const FIVE_MINUTES = 1_000 * 60 * 5;
 const reportsFolder = path.join(__dirname, '..', 'playwright-reports');
 
 const config = defineConfig({
-  testDir: path.join(__dirname, '..', 'e2e-playwright'),
-  testMatch: /.*\.e2e-playwright-spec.ts$/,
+  testDir: '.',
+  testMatch: /.*\.e2e\.ts$/,
+  forbidOnly: !!process.env.CI,
+  retries: process.env.CI ? 3 : 0,
+  workers: process.env.CI ? 1 : undefined,
   reporter: [
     ['list'],
     ['junit', {outputFile: path.join(reportsFolder, 'junit', 'reporter.xml')}],
     ['html', {open: 'never', outputFolder: path.join(reportsFolder, 'html')}]
   ],
-  retries: process.env.CI ? 3 : 0,
-  forbidOnly: !!process.env.CI,
   timeout: FIVE_MINUTES,
   use: {
     baseURL: process.env.PLAYWRIGHT_TARGET_URL || 'http://localhost:<%= serverPort %>/',

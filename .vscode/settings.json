@@ -89,6 +89,7 @@
     "**/build/**": true,
     "**/node_modules/**": true
   },
+  "java.configuration.updateBuildConfiguration": "interactive",
   "jest.debugMode": true,
   "jest.jestCommandLine": "yarn jest",
   "npm.packageManager": "yarn",
@@ -110,5 +111,7 @@
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "typescript.tsdk": ".yarn/sdks/typescript/lib",
   "typescript.tsserver.watchOptions": "vscode",
-  "typescript.preferences.preferTypeOnlyAutoImports": true
+  "typescript.preferences.preferTypeOnlyAutoImports": true,
+  "chat.agent.enabled": true,
+  "chat.mcp.enabled": true
 }

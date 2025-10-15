@@ -1,5 +1,6 @@
 import type {
   PluginAsyncRunner,
+  RequestPlugin,
 } from '@ama-sdk/core';
 import {
   CUSTOM_MOCK_OPERATION_ID_HEADER,
@@ -24,13 +25,25 @@ import {
 export class MockInterceptFetch implements FetchPlugin {
   constructor(protected options: MockInterceptFetchParameters) {}
 
-  public load(context: FetchPluginContext): PluginAsyncRunner<Response, Promise<Response>> & PluginAsyncStarter {
-    if (!context.apiClient.options.requestPlugins.some((plugin) => plugin instanceof MockInterceptRequest)) {
+  private readonly checkMockInterceptFetchPlugin = (requestPlugins: RequestPlugin[]) => {
+    if (!requestPlugins.some((plugin) => plugin instanceof MockInterceptRequest)) {
       throw new Error('MockInterceptFetch plugin should be used only with the MockInterceptRequest plugin');
+    }
+  };
+
+  public load(context: FetchPluginContext): PluginAsyncRunner<Response, Promise<Response>> & PluginAsyncStarter {
+    const requestPlugins = typeof context.apiClient.options.requestPlugins === 'function'
+      ? context.apiClient.options.requestPlugins(context.requestOptions)
+      : context.apiClient.options.requestPlugins;
+    if (Array.isArray(requestPlugins)) {
+      this.checkMockInterceptFetchPlugin(requestPlugins);
     }
 
     return {
       transform: async (fetchCall: FetchCall) => {
+        if (!Array.isArray(requestPlugins)) {
+          this.checkMockInterceptFetchPlugin(await requestPlugins);
+        }
         await this.options.adapter.initialize();
 
         let responsePromise = fetchCall;

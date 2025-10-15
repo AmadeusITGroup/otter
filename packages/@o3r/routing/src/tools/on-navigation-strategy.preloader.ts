@@ -1,4 +1,5 @@
 import {
+  inject,
   Injectable,
 } from '@angular/core';
 import {
@@ -44,7 +45,7 @@ export function hasPreloadingOnDemand(data: any): data is O3rOnDemandPreloadingD
  */
 @Injectable()
 export class O3rOnNavigationPreloadingStrategy implements PreloadingStrategy {
-  constructor(private readonly router: Router) {}
+  private readonly router = inject(Router);
 
   /**
    * Check if the module should be preloaded based on the data preload array of routes or regex value

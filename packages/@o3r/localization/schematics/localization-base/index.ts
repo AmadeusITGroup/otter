@@ -371,7 +371,17 @@ export function updateLocalization(options: { projectName?: string | null | unde
    */
   const addMockTranslationModule: Rule = (tree: Tree, context: SchematicContext) => {
     const moduleFilePath = getAppModuleFilePath(tree, context, options.projectName);
-    const componentSpecFilePath = moduleFilePath && moduleFilePath.replace(/\.(?:module|config)\.ts$/i, '.component.spec.ts');
+
+    const possibleComponentSpecPaths = [
+      moduleFilePath && moduleFilePath.replace(/\.(?:module|config)\.ts$/i, '.component.spec.ts'),
+      moduleFilePath && moduleFilePath.replace(/\.(?:module|config)\.ts$/i, '.spec.ts')
+    ];
+
+    const componentSpecFilePath = possibleComponentSpecPaths.find((compPath) => compPath && tree.exists(compPath));
+
+    if (!(componentSpecFilePath && tree.exists(componentSpecFilePath))) {
+      return tree;
+    }
 
     if (!(componentSpecFilePath && tree.exists(componentSpecFilePath))) {
       return tree;

@@ -1,0 +1,48 @@
+{
+  "name": "ama-style-dictionary",
+  "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/@ama-styling/style-dictionary/src",
+  "prefix": "ama",
+  "targets": {
+    "build": {
+      "executor": "nx:run-script",
+      "outputs": [
+        "{projectRoot}/dist/package.json"
+      ],
+      "options": {
+        "script": "postbuild"
+      },
+      "dependsOn": [
+        "^build",
+        "compile",
+        "expose-schemas",
+        "build-builders"
+      ]
+    },
+    "expose-schemas": {},
+    "compile": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "build:source"
+      }
+    },
+    "lint": {},
+    "test": {
+      "options": {
+        "jestConfig": "{projectRoot}/jest.config.cjs"
+      }
+    },
+    "test-int": {
+      "options": {
+        "jestConfig": "{projectRoot}/testing/jest.config.it.cjs"
+      }
+    },
+    "prepare-build-builders": {},
+    "build-builders": {},
+    "prepare-publish": {},
+    "publish": {},
+    "documentation": {}
+  },
+  "tags": []
+}

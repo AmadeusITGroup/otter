@@ -4,10 +4,9 @@ import type {
   ApiName,
 } from '@ama-sdk/core';
 import {
-  Inject,
+  inject,
   Injectable,
   InjectionToken,
-  Optional,
 } from '@angular/core';
 import {
   ApiManager,
@@ -26,10 +25,14 @@ export const INITIAL_APIS_TOKEN = new InjectionToken<(Api | ApiClassType)[]>('In
 
 @Injectable()
 export class ApiFactoryService {
+  private readonly apiManager = inject<ApiManager>(API_TOKEN);
+
   /** Map of loaded APIs */
   private loadedApis: Record<string, Api> = {};
 
-  constructor(@Inject(API_TOKEN) private readonly apiManager: ApiManager, @Optional() @Inject(INITIAL_APIS_TOKEN) apis?: (Api | ApiClassType)[]) {
+  constructor() {
+    const apis = inject(INITIAL_APIS_TOKEN, { optional: true });
+
     if (apis) {
       this.updateApiMapping(apis);
     }

@@ -22,12 +22,6 @@ export interface PresetOptions {
 
   /** Use a pinned version for otter packages */
   exactO3rVersion?: boolean;
-
-  /**
-   * Is using Eslint legacy configuration.
-   * This option should be removed when @o3r/eslint-config-otter won't be supported anymore.
-   */
-  isUsingEslintLegacy?: boolean;
 }
 
 /** Definition of the modules preset */

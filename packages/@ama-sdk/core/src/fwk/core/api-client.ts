@@ -129,8 +129,8 @@ export interface ApiClient {
   processFormData(data: any, type: string): FormData | string;
 
   /** Process HTTP call */
-  processCall<T>(url: string, options: RequestOptions, apiType: ApiTypes | string, apiName: string, revivers?: ReviverType<T> |
-    { [key: number]: ReviverType<T> | undefined }, operationId?: string): Promise<T>;
+  processCall<T>(url: string, options: RequestOptions, apiType: ApiTypes | string, apiName: string, revivers?: ReviverType<T>
+    | { [key: number]: ReviverType<T> | undefined }, operationId?: string): Promise<T>;
 }
 
 /**

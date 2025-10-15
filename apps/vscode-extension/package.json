@@ -66,6 +66,21 @@
         }
       }
     },
+    "chatParticipants": [
+      {
+        "id": "o3r-chat-participant",
+        "name": "o3r",
+        "fullName": "Otter Chat Participant",
+        "description": "Ask me anything about the Otter framework",
+        "isSticky": true,
+        "commands": [
+          {
+            "name": "new",
+            "description": "Get the commands to create a new Otter monorepo with an application"
+          }
+        ]
+      }
+    ],
     "commands": [
       {
         "command": "otter.add.module",
@@ -325,6 +340,12 @@
         "label": "Enrich Otter component",
         "id": "otter.enrich-component.submenu"
       }
+    ],
+    "mcpServerDefinitionProviders": [
+      {
+        "id": "o3rMCPServerProvider",
+        "label": "Otter MCP Server Provider"
+      }
     ]
   },
   "extensionKind": [
@@ -338,65 +359,73 @@
     "build": "yarn nx build vscode-extension",
     "build:esbuild": "esbuild ./src/extension.ts --bundle --outfile=dist/src/extension.js --external:vscode --format=cjs --platform=node --sourcemap --minify",
     "postbuild": "yarn copy:assets && cpy ./package.json dist && patch-package-json-main",
-    "copy:assets": "cpy './assets/**' dist/assets && cpy './README.md' dist && cpy '.vscodeignore' dist",
+    "copy:assets": "cpy './assets/**' dist/assets && cpy '../../assets/gen-ai/**/*.md' dist/assets/gen-ai && cpy './README.md' dist && cpy '.vscodeignore' dist",
     "watch": "yarn nx run vscode-extension:compile:watch"
   },
   "dependencies": {
     "@o3r/design": "workspace:^",
-    "eslint": "~9.28.0"
+    "eslint": "~9.34.0"
+  },
+  "peerDependencies": {
+    "@types/vscode": "^1.100.0"
+  },
+  "peerDependenciesMeta": {
+    "@types/vscode": {
+      "optional": true
+    }
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~19.2.0",
-    "@angular-devkit/core": "~19.2.0",
-    "@angular-devkit/schematics": "~19.2.0",
-    "@angular/animations": "~19.2.0",
-    "@angular/common": "~19.2.0",
-    "@angular/compiler": "~19.2.0",
-    "@angular/compiler-cli": "~19.2.0",
-    "@angular/core": "~19.2.0",
-    "@angular/platform-browser": "~19.2.0",
-    "@angular/platform-browser-dynamic": "~19.2.0",
+    "@angular-devkit/build-angular": "~20.0.0",
+    "@angular-devkit/core": "~20.0.0",
+    "@angular-devkit/schematics": "~20.0.0",
+    "@angular/animations": "~20.0.0",
+    "@angular/common": "~20.0.0",
+    "@angular/compiler": "~20.0.0",
+    "@angular/compiler-cli": "~20.0.0",
+    "@angular/core": "~20.0.0",
+    "@angular/platform-browser": "~20.0.0",
+    "@angular/platform-browser-dynamic": "~20.0.0",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
-    "@nx/eslint-plugin": "~20.8.0",
-    "@nx/jest": "~20.8.0",
+    "@nx/eslint-plugin": "~21.3.11",
+    "@nx/jest": "~21.3.11",
     "@o3r/build-helpers": "workspace:^",
     "@o3r/core": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
     "@o3r/schematics": "workspace:^",
     "@o3r/test-helpers": "workspace:^",
-    "@schematics/angular": "~19.2.0",
-    "@stylistic/eslint-plugin": "~3.1.0",
+    "@schematics/angular": "~20.0.0",
+    "@stylistic/eslint-plugin": "~5.2.0",
     "@types/eslint": "~9.6.0",
-    "@types/glob": "^8.0.0",
     "@types/jest": "~29.5.2",
-    "@types/node": "^20.0.0",
-    "@types/vscode": "^1.95.0",
-    "@typescript-eslint/parser": "~8.34.0",
-    "@typescript-eslint/utils": "~8.34.0",
+    "@types/node": "^22.0.0",
+    "@types/vscode": "~1.102.0",
+    "@typescript-eslint/parser": "~8.41.0",
+    "@typescript-eslint/utils": "~8.41.0",
     "@vscode/vsce": "^3.2.1",
-    "angular-eslint": "~19.4.0",
-    "cpy-cli": "^5.0.0",
+    "angular-eslint": "~20.1.0",
+    "cpy-cli": "^6.0.0",
     "esbuild": "~0.25.1",
     "eslint-import-resolver-node": "~0.3.9",
-    "eslint-import-resolver-typescript": "~3.10.0",
-    "eslint-plugin-import": "~2.31.0",
+    "eslint-import-resolver-typescript": "~4.4.0",
+    "eslint-plugin-import": "~2.32.0",
     "eslint-plugin-import-newlines": "~1.4.0",
-    "eslint-plugin-jest": "~28.13.0",
-    "eslint-plugin-jsdoc": "~50.7.0",
+    "eslint-plugin-jest": "~29.0.0",
+    "eslint-plugin-jsdoc": "~54.1.0",
     "eslint-plugin-prefer-arrow": "~1.2.3",
-    "eslint-plugin-unicorn": "~56.0.0",
-    "eslint-plugin-unused-imports": "~4.1.4",
-    "globals": "^15.9.0",
+    "eslint-plugin-unicorn": "~60.0.0",
+    "eslint-plugin-unused-imports": "~4.2.0",
+    "globals": "^16.0.0",
     "jest": "~29.7.0",
     "jest-environment-jsdom": "~29.7.0",
     "jest-junit": "~16.0.0",
+    "jest-util": "~29.7.0",
     "jiti": "^2.4.0",
     "jsonc-eslint-parser": "~2.4.0",
-    "nx": "~20.8.0",
+    "nx": "~21.3.11",
     "rxjs": "^7.8.1",
-    "ts-jest": "~29.3.0",
+    "ts-jest": "~29.4.0",
     "typescript": "~5.8.2",
-    "typescript-eslint": "~8.34.0",
+    "typescript-eslint": "~8.41.0",
     "zone.js": "~0.15.0"
   }
 }

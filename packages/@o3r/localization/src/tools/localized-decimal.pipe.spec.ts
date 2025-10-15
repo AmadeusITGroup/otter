@@ -42,12 +42,13 @@ describe('LocalizedDecimalPipe', () => {
   beforeAll(() => getTestBed().platform || TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting(), {
     teardown: { destroyAfterEach: false }
   }));
-  let localizationService: LocalizationService;
   let changeDetectorRef: ChangeDetectorRef;
+  let pipe: LocalizedDecimalPipe;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
+        LocalizedDecimalPipe,
         { provide: ChangeDetectorRef, useClass: ChangeDetectorRefFixture },
         {
           provide: LocalizationService, useValue: {
@@ -59,9 +60,12 @@ describe('LocalizedDecimalPipe', () => {
         }
       ]
     });
-    localizationService = TestBed.inject(LocalizationService);
     changeDetectorRef = TestBed.inject(ChangeDetectorRef);
-    new LocalizedDecimalPipe(localizationService, changeDetectorRef);
+    pipe = TestBed.inject(LocalizedDecimalPipe);
+  });
+
+  it('should create an instance', () => {
+    expect(pipe).toBeTruthy();
   });
 
   it('should mark for check when the language changes', () => {

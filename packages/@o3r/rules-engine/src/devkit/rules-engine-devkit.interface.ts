@@ -23,15 +23,13 @@ export interface RulesEngineDebugEventsContentMessage extends OtterMessageConten
   events: DebugEvent[];
 }
 
-type RulesEngineMessageContents =
-  | RulesEngineDebugEventsContentMessage;
+type RulesEngineMessageContents = RulesEngineDebugEventsContentMessage;
 
 /** List of possible DataTypes for RulesEngine messages */
 export type RulesEngineMessageDataTypes = MessageDataTypes<RulesEngineMessageContents>;
 
 /** List of all messages for configuration purpose */
-export type AvailableRulesEngineMessageContents =
-  | RulesEngineMessageContents
+export type AvailableRulesEngineMessageContents = RulesEngineMessageContents
   | ConnectContentMessage
   | RequestMessagesContentMessage<RulesEngineMessageDataTypes>;
 
