@@ -5,10 +5,10 @@ import { type Pet, PetApi } from 'sdk';
   selector: 'app-root',
   standalone: true,
   imports: [],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  templateUrl: './app.html',
+  styleUrl: './app.scss'
 })
-export class AppComponent {
+export class App {
   /** Title of the application */
   public title = 'tutorial-app';
 
@@ -21,6 +21,7 @@ export class AppComponent {
   }
 
   public async setPets() {
-    // TODO Get the first 10 pets whose status is 'available'
+    const availablePets = await this.petStoreApi.findPetsByStatus({status: 'available'});
+    this.petsWritable.set(availablePets.slice(0, 10));
   }
 }

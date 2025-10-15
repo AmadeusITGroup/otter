@@ -123,7 +123,7 @@ export class PopupActionHandler implements RulesEngineActionHandler<ActionDispla
 }
 ```
 
-Don't forget to provide your service for your application to register it in your `AppComponent`.
+Don't forget to provide your service for your application to register it in your `App`.
 
 ## Register your action
 
@@ -134,10 +134,10 @@ You can do it in your `main.ts`.
 import {inject, runInInjectionContext} from '@angular/core';
 import {RulesEngineRunnerService} from '@o3r/rules-engine';
 import {appConfig} from './app/app.config';
-import {AppComponent} from './app/app.component';
+import {App} from './app/app';
 import {PopupActionHandler} from './services/popup-action-handler';
 
-bootstrapApplication(AppComponent, appConfig)
+bootstrapApplication(App, appConfig)
   .then((m) => {
     runInInjectionContext(m.injector, () => {
       inject(RulesEngineRunnerService);

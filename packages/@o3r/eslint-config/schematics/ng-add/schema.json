@@ -18,7 +18,8 @@
     },
     "fix": {
       "type": "boolean",
-      "description": "Fix known issues with our ESLint config after Otter application or library generation"
+      "description": "Fix known issues with our ESLint config after Otter application or library generation",
+      "default": true
     },
     "skipLinter": {
       "type": "boolean",
