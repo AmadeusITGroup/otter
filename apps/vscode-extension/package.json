@@ -22,6 +22,11 @@
     "configuration": {
       "title": "Otter",
       "properties": {
+        "otter.telemetry.enable": {
+          "type": "boolean",
+          "default": false,
+          "description": "Allow the extension to send usage data and error reports to Amadeus. This helps us to improve the extension. No personal data is sent. See our [privacy policy](https://github.com/AmadeusITGroup/otter/blob/main/docs/telemetry/PRIVACY_NOTICE.md) for more information."
+        },
         "otter.mcp.cacheFolderPath": {
           "type": "string",
           "description": "Path of the cache folder for the MCP server"
@@ -377,6 +382,7 @@
   },
   "dependencies": {
     "@o3r/design": "workspace:^",
+    "@o3r/telemetry": "workspace:^",
     "@vscode/chat-extension-utils": "0.0.0-alpha.5",
     "eslint": "~9.37.0"
   },
