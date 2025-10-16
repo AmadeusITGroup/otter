@@ -9,6 +9,7 @@ import {
   type ExtensionContext,
   lm,
   type OutputChannel,
+  type TelemetryLogger,
   Uri,
 } from 'vscode';
 import {
@@ -18,13 +19,13 @@ import {
 const SUPPORTED_COMMANDS = ['list-tools', 'list-repos-using-o3r'];
 const SUPPORTED_TOOLS_REGEX = /o3r|angular|github|playwright/;
 
-export const initializeChatParticipant = (context: ExtensionContext, channel: OutputChannel) => {
-  const o3rChatParticipant = chat.createChatParticipant('o3r-chat-participant', chatParticipantHandler(context, channel));
+export const initializeChatParticipant = (context: ExtensionContext, channel: OutputChannel, telemetryLogger: TelemetryLogger) => {
+  const o3rChatParticipant = chat.createChatParticipant('o3r-chat-participant', chatParticipantHandler(context, channel, telemetryLogger));
   o3rChatParticipant.iconPath = Uri.joinPath(context.extensionUri, 'assets', 'logo-128x128.png');
   return o3rChatParticipant;
 };
 
-const chatParticipantHandler = (_context: ExtensionContext, _channel: OutputChannel): ChatRequestHandler => {
+const chatParticipantHandler = (_context: ExtensionContext, _channel: OutputChannel, telemetryLogger: TelemetryLogger): ChatRequestHandler => {
   return async (
     request: ChatRequest,
     chatContext: ChatContext,
@@ -37,6 +38,7 @@ const chatParticipantHandler = (_context: ExtensionContext, _channel: OutputChan
     switch (command) {
       case 'list-tools': {
         stream.markdown(tools.map((tool) => `- ${tool.name}`).join('\n'));
+        telemetryLogger.logUsage('Chat interaction', { command, model: request.model.name });
         return { metadata: { command } };
       }
       case 'list-repos-using-o3r': {
@@ -60,6 +62,13 @@ const chatParticipantHandler = (_context: ExtensionContext, _channel: OutputChan
       },
       token
     );
-    return result;
+    try {
+      const awaitedResult = await result;
+      telemetryLogger.logUsage('Chat interaction', { command, error: awaitedResult.errorDetails, model: request.model.name });
+      return awaitedResult;
+    } catch (e: any) {
+      telemetryLogger.logUsage('Chat interaction error', { command, error: e instanceof Error ? e.message : e, model: request.model.name });
+      throw e;
+    }
   };
 };

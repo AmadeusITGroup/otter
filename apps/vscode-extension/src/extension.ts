@@ -62,6 +62,9 @@ import {
 import {
   mcpConfig,
 } from './mcp';
+import {
+  createTelemetryLogger,
+} from './telemetry';
 
 /**
  * Function to register commands.
@@ -70,7 +73,9 @@ import {
  */
 export function activate(context: ExtensionContext) {
   const channel = window.createOutputChannel('Otter');
-  const o3rChatParticipant = initializeChatParticipant(context, channel);
+  const telemetryLogger = createTelemetryLogger(channel);
+  telemetryLogger.logUsage('Extension activated');
+  const o3rChatParticipant = initializeChatParticipant(context, channel, telemetryLogger);
   const designTokenProviders = designTokenCompletionItemAndHoverProviders();
   // eslint-disable-next-line unicorn/prefer-event-target -- using EventEmitter from vscode
   const didChangeEmitter = new EventEmitter<void>();
