@@ -65,9 +65,9 @@
     }
   },
   "devDependencies": {
-    "@ama-sdk/client-fetch": "workspace:^",
-    "@ama-sdk/core": "workspace:^",
-    "@ama-sdk/schematics": "workspace:^",
+    "@ama-sdk/client-fetch": "workspace:~",
+    "@ama-sdk/core": "workspace:~",
+    "@ama-sdk/schematics": "workspace:~",
     "@angular-devkit/core": "~20.3.0",
     "@angular-devkit/schematics": "~20.3.0",
     "@angular-devkit/schematics-cli": "~20.3.0",
@@ -77,11 +77,11 @@
     "@commitlint/config-conventional": "^19.0.0",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@nx/eslint-plugin": "~21.6.0",
-    "@o3r-training/training-tools": "workspace:^",
-    "@o3r/eslint-config": "workspace:^",
-    "@o3r/eslint-plugin": "workspace:^",
-    "@o3r/schematics": "workspace:^",
-    "@o3r/test-helpers": "workspace:^",
+    "@o3r-training/training-tools": "workspace:~",
+    "@o3r/eslint-config": "workspace:~",
+    "@o3r/eslint-plugin": "workspace:~",
+    "@o3r/schematics": "workspace:~",
+    "@o3r/test-helpers": "workspace:~",
     "@openapitools/openapi-generator-cli": "~2.25.0",
     "@schematics/angular": "~20.3.0",
     "@stylistic/eslint-plugin": "~5.5.0",
@@ -119,8 +119,8 @@
     "yaml-eslint-parser": "^1.2.2"
   },
   "peerDependencies": {
-    "@ama-sdk/client-fetch": "workspace:^",
-    "@ama-sdk/core": "workspace:^",
+    "@ama-sdk/client-fetch": "workspace:~",
+    "@ama-sdk/core": "workspace:~",
     "isomorphic-fetch": "~3.0.0"
   },
   "engines": {

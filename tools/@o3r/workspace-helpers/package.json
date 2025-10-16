@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "@nx/eslint-plugin": "~21.6.0",
-    "@o3r/eslint-plugin": "workspace:^",
+    "@o3r/eslint-plugin": "workspace:~",
     "@stylistic/eslint-plugin": "~5.5.0",
     "@types/node": "~22.18.0",
     "@typescript-eslint/eslint-plugin": "~8.46.0",

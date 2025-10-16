@@ -24,13 +24,13 @@
     "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest"
   },
   "dependencies": {
-    "@o3r/schematics": "workspace:^",
+    "@o3r/schematics": "workspace:~",
     "ts-node": "~10.9.2",
     "tslib": "^2.6.2"
   },
   "peerDependencies": {
     "@angular-devkit/schematics": "^20.0.0",
-    "@o3r/schematics": "workspace:^",
+    "@o3r/schematics": "workspace:~",
     "@schematics/angular": "^20.0.0",
     "postcss": "^8.4.5",
     "postcss-scss": "^4.0.9",
@@ -62,10 +62,10 @@
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@nx/eslint-plugin": "~21.6.0",
     "@nx/jest": "~21.6.0",
-    "@o3r/build-helpers": "workspace:^",
-    "@o3r/eslint-config": "workspace:^",
-    "@o3r/eslint-plugin": "workspace:^",
-    "@o3r/test-helpers": "workspace:^",
+    "@o3r/build-helpers": "workspace:~",
+    "@o3r/eslint-config": "workspace:~",
+    "@o3r/eslint-plugin": "workspace:~",
+    "@o3r/test-helpers": "workspace:~",
     "@schematics/angular": "~20.3.0",
     "@stylistic/eslint-plugin": "~5.5.0",
     "@types/css-tree": "~2.3.0",
