@@ -116,7 +116,7 @@
     "@types/node": "~22.18.0",
     "@types/semver": "^7.3.13",
     "@typescript-eslint/parser": "~8.46.0",
-    "angular-eslint": "~20.3.0",
+    "angular-eslint": "~20.4.0",
     "cheerio": "~1.1.2",
     "cpy-cli": "^6.0.0",
     "eslint": "~9.37.0",
