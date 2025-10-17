@@ -31,7 +31,7 @@
   },
   "peerDependencies": {
     "@ama-mcp/core": "workspace:^",
-    "@modelcontextprotocol/sdk": "~1.19.0",
+    "@modelcontextprotocol/sdk": "~1.20.0",
     "@octokit/rest": "^22.0.0",
     "zod": "~3.25.76"
   },
@@ -47,7 +47,7 @@
     "@angular/platform-browser": "~20.3.0",
     "@angular/platform-browser-dynamic": "~20.3.0",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
-    "@modelcontextprotocol/sdk": "~1.19.0",
+    "@modelcontextprotocol/sdk": "~1.20.0",
     "@nx/eslint": "~21.6.0",
     "@nx/eslint-plugin": "~21.6.0",
     "@nx/jest": "~21.6.0",
