@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 import {
+  logger,
+} from '@ama-mcp/core';
+import {
   StdioServerTransport,
 } from '@modelcontextprotocol/sdk/server/stdio.js';
 import {
   createMcpServer,
 } from '../mcp-server';
-import {
-  logger,
-} from '../utils/logger';
 
 async function startMcpServer() {
   const server = await createMcpServer();

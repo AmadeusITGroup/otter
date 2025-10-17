@@ -15,10 +15,16 @@ export const OTTER_SCOPES = [
   'o3r',
   'ama-styling',
   'ama-mfe',
-  'ama-sdk'
+  'ama-sdk',
+  'ama-mcp'
 ];
 
 /**
  * Otter URI prefix
  */
-export const uriPrefix = 'o3r://';
+export const uriPrefix = 'o3r';
+
+/**
+ * Otter library name
+ */
+export const libraryName = 'Otter';

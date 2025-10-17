@@ -3,25 +3,32 @@ import {
 } from 'node:fs/promises';
 import {
   join,
+  resolve,
 } from 'node:path';
+import {
+  logger,
+} from '@ama-mcp/core';
+import {
+  registerGetRepositoriesUsingLibraryTool,
+  registerReleaseNotes,
+  registerSupportedReleasesTool,
+} from '@ama-mcp/github';
 import {
   McpServer,
 } from '@modelcontextprotocol/sdk/server/mcp.js';
 import {
-  registerBestPracticesToolAndResources as registerBestPractices,
+  registerBestPracticesToolAndResources,
 } from './best-practices';
 import {
-  registerReleaseNotes,
-} from './release-notes';
-import {
   registerCreateMonorepoWithAppTool,
-} from './tools/create-monorepo-with-app';
+} from './create-monorepo-with-app';
 import {
-  registerGetRepositoriesUsingOtterTool,
-} from './tools/find-repositories-using-otter';
-import {
-  registerSupportedReleaseTool,
-} from './tools/supported-releases';
+  libraryName,
+  OTTER_SCOPES,
+  owner,
+  repo,
+  uriPrefix,
+} from './utils/otter';
 
 /**
  * Create an MCP server instance.
@@ -37,14 +44,38 @@ export async function createMcpServer(): Promise<McpServer> {
     }
   });
   const resourcesPath = join(__dirname, '..', 'resources');
+  const githubToken = process.env.O3R_MCP_GITHUB_TOKEN;
+  const cachePath = resolve(process.env.O3R_MCP_CACHE_PATH || '.cache/@o3r/mcp', 'repos-using-otter.json');
 
   await Promise.allSettled([
-    registerReleaseNotes(server),
-    registerBestPractices(server, resourcesPath),
+    registerBestPracticesToolAndResources(server, resourcesPath),
     registerCreateMonorepoWithAppTool(server, resourcesPath),
-    // eslint-disable-next-line @typescript-eslint/await-thenable -- Awaiting a non-promise value
-    registerGetRepositoriesUsingOtterTool(server),
-    registerSupportedReleaseTool(server)
+    ...(githubToken
+      ? [
+        registerGetRepositoriesUsingLibraryTool(server, {
+          libraryName,
+          scopes: OTTER_SCOPES,
+          githubToken,
+          cachePath,
+          cacheMaxAge: Number.isNaN(process.env.O3R_MCP_CACHE_MAX_AGE) ? undefined : +(process.env.O3R_MCP_CACHE_MAX_AGE!)
+        }, logger),
+        registerSupportedReleasesTool(server, {
+          githubToken,
+          owner,
+          repo,
+          libraryName
+        }, logger),
+        registerReleaseNotes(server, {
+          githubToken,
+          owner,
+          repo,
+          libraryName,
+          uriPrefix
+        }, logger)
+      ]
+      : [
+        () => logger.error('Missing O3R_MCP_GITHUB_TOKEN environment variable for github tools')
+      ])
   ]);
   return server;
 }

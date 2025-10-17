@@ -422,6 +422,126 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@ama-mcp/core@workspace:^, @ama-mcp/core@workspace:packages/@ama-mcp/core":
+  version: 0.0.0-use.local
+  resolution: "@ama-mcp/core@workspace:packages/@ama-mcp/core"
+  dependencies:
+    "@angular/common": "npm:~20.3.0"
+    "@angular/compiler": "npm:~20.3.0"
+    "@angular/compiler-cli": "npm:~20.3.0"
+    "@angular/core": "npm:~20.3.0"
+    "@angular/platform-browser": "npm:~20.3.0"
+    "@angular/platform-browser-dynamic": "npm:~20.3.0"
+    "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
+    "@modelcontextprotocol/sdk": "npm:~1.19.0"
+    "@nx/eslint": "npm:~21.6.0"
+    "@nx/eslint-plugin": "npm:~21.6.0"
+    "@nx/jest": "npm:~21.6.0"
+    "@nx/js": "npm:~21.6.0"
+    "@o3r/build-helpers": "workspace:^"
+    "@o3r/eslint-config": "workspace:^"
+    "@o3r/eslint-plugin": "workspace:^"
+    "@o3r/test-helpers": "workspace:^"
+    "@stylistic/eslint-plugin": "npm:~5.4.0"
+    "@types/jest": "npm:~29.5.2"
+    "@types/node": "npm:~22.18.0"
+    "@typescript-eslint/parser": "npm:~8.46.0"
+    angular-eslint: "npm:~20.3.0"
+    cpy-cli: "npm:^6.0.0"
+    eslint: "npm:~9.37.0"
+    eslint-import-resolver-node: "npm:~0.3.9"
+    eslint-import-resolver-typescript: "npm:~4.4.0"
+    eslint-plugin-import: "npm:~2.32.0"
+    eslint-plugin-import-newlines: "npm:~1.4.0"
+    eslint-plugin-jest: "npm:~29.0.0"
+    eslint-plugin-jsdoc: "npm:~54.7.0"
+    eslint-plugin-prefer-arrow: "npm:~1.2.3"
+    eslint-plugin-unicorn: "npm:~60.0.0"
+    eslint-plugin-unused-imports: "npm:~4.2.0"
+    globals: "npm:^16.0.0"
+    jest: "npm:~29.7.0"
+    jest-environment-jsdom: "npm:~29.7.0"
+    jest-junit: "npm:~16.0.0"
+    jest-preset-angular: "npm:~14.6.0"
+    jest-util: "npm:~29.7.0"
+    jsonc-eslint-parser: "npm:~2.4.0"
+    nx: "npm:~21.6.0"
+    rxjs: "npm:^7.8.1"
+    ts-jest: "npm:~29.4.0"
+    ts-node: "npm:~10.9.2"
+    tslib: "npm:^2.6.2"
+    type-fest: "npm:^4.30.1"
+    typescript: "npm:~5.9.2"
+    typescript-eslint: "npm:~8.46.0"
+    zone.js: "npm:~0.15.0"
+  peerDependencies:
+    "@modelcontextprotocol/sdk": ^1.19.0
+  languageName: unknown
+  linkType: soft
+
+"@ama-mcp/github@workspace:^, @ama-mcp/github@workspace:packages/@ama-mcp/github":
+  version: 0.0.0-use.local
+  resolution: "@ama-mcp/github@workspace:packages/@ama-mcp/github"
+  dependencies:
+    "@ama-mcp/core": "workspace:^"
+    "@angular/common": "npm:~20.3.0"
+    "@angular/compiler": "npm:~20.3.0"
+    "@angular/compiler-cli": "npm:~20.3.0"
+    "@angular/core": "npm:~20.3.0"
+    "@angular/platform-browser": "npm:~20.3.0"
+    "@angular/platform-browser-dynamic": "npm:~20.3.0"
+    "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
+    "@modelcontextprotocol/sdk": "npm:~1.19.0"
+    "@nx/eslint": "npm:~21.6.0"
+    "@nx/eslint-plugin": "npm:~21.6.0"
+    "@nx/jest": "npm:~21.6.0"
+    "@nx/js": "npm:~21.6.0"
+    "@o3r/build-helpers": "workspace:^"
+    "@o3r/eslint-config": "workspace:^"
+    "@o3r/eslint-plugin": "workspace:^"
+    "@o3r/test-helpers": "workspace:^"
+    "@octokit/rest": "npm:~22.0.0"
+    "@stylistic/eslint-plugin": "npm:~5.4.0"
+    "@types/jest": "npm:~29.5.2"
+    "@types/node": "npm:~22.18.0"
+    "@typescript-eslint/parser": "npm:~8.46.0"
+    angular-eslint: "npm:~20.3.0"
+    cpy-cli: "npm:^6.0.0"
+    eslint: "npm:~9.37.0"
+    eslint-import-resolver-node: "npm:~0.3.9"
+    eslint-import-resolver-typescript: "npm:~4.4.0"
+    eslint-plugin-import: "npm:~2.32.0"
+    eslint-plugin-import-newlines: "npm:~1.4.0"
+    eslint-plugin-jest: "npm:~29.0.0"
+    eslint-plugin-jsdoc: "npm:~54.7.0"
+    eslint-plugin-prefer-arrow: "npm:~1.2.3"
+    eslint-plugin-unicorn: "npm:~60.0.0"
+    eslint-plugin-unused-imports: "npm:~4.2.0"
+    globals: "npm:^16.0.0"
+    jest: "npm:~29.7.0"
+    jest-environment-jsdom: "npm:~29.7.0"
+    jest-junit: "npm:~16.0.0"
+    jest-preset-angular: "npm:~14.6.0"
+    jest-util: "npm:~29.7.0"
+    jsonc-eslint-parser: "npm:~2.4.0"
+    nx: "npm:~21.6.0"
+    rxjs: "npm:^7.8.1"
+    ts-jest: "npm:~29.4.0"
+    ts-node: "npm:~10.9.2"
+    tslib: "npm:^2.6.2"
+    type-fest: "npm:^4.30.1"
+    typescript: "npm:~5.9.2"
+    typescript-eslint: "npm:~8.46.0"
+    zod: "npm:~3.25.76"
+    zone.js: "npm:~0.15.0"
+  peerDependencies:
+    "@ama-mcp/core": "workspace:^"
+    "@modelcontextprotocol/sdk": ~1.19.0
+    "@octokit/rest": ^22.0.0
+    zod: ~3.25.76
+  languageName: unknown
+  linkType: soft
+
 "@ama-mfe/messages@workspace:^, @ama-mfe/messages@workspace:packages/@ama-mfe/messages":
   version: 0.0.0-use.local
   resolution: "@ama-mfe/messages@workspace:packages/@ama-mfe/messages"
@@ -10810,6 +10930,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/mcp@workspace:tools/@o3r/mcp"
   dependencies:
+    "@ama-mcp/core": "workspace:^"
+    "@ama-mcp/github": "workspace:^"
     "@angular/common": "npm:~20.3.0"
     "@angular/compiler": "npm:~20.3.0"
     "@angular/compiler-cli": "npm:~20.3.0"
@@ -10826,7 +10948,7 @@ __metadata:
     "@o3r/eslint-config": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
-    "@octokit/rest": "npm:^22.0.0"
+    "@octokit/rest": "npm:~22.0.0"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:~22.18.0"
@@ -12874,7 +12996,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@octokit/rest@npm:^22.0.0":
+"@octokit/rest@npm:~22.0.0":
   version: 22.0.0
   resolution: "@octokit/rest@npm:22.0.0"
   dependencies:
