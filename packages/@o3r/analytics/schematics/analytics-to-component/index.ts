@@ -83,7 +83,7 @@ const checkAnalytics = (componentPath: string, tree: Tree, baseFileName: string)
 export function ngAddAnalyticsFn(options: NgAddAnalyticsSchematicsSchema): Rule {
   return async (tree: Tree, context: SchematicContext) => {
     try {
-      const baseFileName = basename(options.path, '.component.ts');
+      const baseFileName = basename(options.path, '.ts');
       const { name, standalone, templateRelativePath } = getO3rComponentInfoOrThrowIfNotFound(tree, options.path);
 
       checkAnalytics(options.path, tree, baseFileName);
@@ -92,7 +92,7 @@ export function ngAddAnalyticsFn(options: NgAddAnalyticsSchematicsSchema): Rule 
         ...options,
         componentName: name,
         componentAnalytics: name.concat('Analytics'),
-        name: basename(options.path, '.component.ts')
+        name: basename(options.path, '.ts')
       };
 
       const createAnalyticsFilesRule: Rule = mergeWith(apply(url('./templates'), [
@@ -219,7 +219,7 @@ export function ngAddAnalyticsFn(options: NgAddAnalyticsSchematicsSchema): Rule 
       };
 
       const updateModuleRule: Rule = () => {
-        const moduleFilePath = options.path.replace(/component.ts$/, 'module.ts');
+        const moduleFilePath = options.path.replace(/\.ts$/, '-module.ts');
         const moduleSourceFile = ts.createSourceFile(
           moduleFilePath,
           tree.readText(moduleFilePath),

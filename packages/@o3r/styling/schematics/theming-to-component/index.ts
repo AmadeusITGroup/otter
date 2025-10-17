@@ -28,8 +28,8 @@ import type {
 } from './schema';
 
 const checkTheming = (stylePath: string, tree: Tree) => {
-  if (!/style\.scss$/.test(stylePath)) {
-    throw new O3rCliError('Invalid input path: it must target a style.scss file');
+  if (!/\.scss$/.test(stylePath)) {
+    throw new O3rCliError('Invalid input path: it must target an scss file');
   }
   if (tree.exists(
     stylePath.replace(/\.scss$/, '.theme.scss')
@@ -49,7 +49,7 @@ export function ngAddThemingFn(options: NgAddThemingSchematicsSchema): Rule {
     checkTheming(stylePath, tree);
 
     const properties = {
-      name: basename(stylePath, '.style.scss')
+      name: basename(basename(stylePath, '.scss'), '.style')
     };
 
     const createThemingFilesRule: Rule = mergeWith(apply(url('./templates'), [
@@ -60,7 +60,7 @@ export function ngAddThemingFn(options: NgAddThemingSchematicsSchema): Rule {
 
     const updateStyleRule: Rule = () => {
       const recorder = tree.beginUpdate(stylePath);
-      const change = new InsertChange(stylePath, 0, `@import './${properties.name}.style.theme';\n\n`);
+      const change = new InsertChange(stylePath, 0, `@import './${properties.name}.theme';\n\n`);
       applyToUpdateRecorder(recorder, [change]);
       tree.commitUpdate(recorder);
       return tree;
