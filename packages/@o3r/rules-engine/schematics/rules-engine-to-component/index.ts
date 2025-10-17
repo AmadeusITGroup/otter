@@ -188,7 +188,7 @@ function ngGenerateRulesEngineToComponentFn(options: NgGenerateRulesEngineToComp
       };
 
       const updateModuleRule: Rule = () => {
-        const moduleFilePath = options.path.replace(/component.ts$/, 'module.ts');
+        const moduleFilePath = options.path.replace(/\.ts$/, '-module.ts');
         const moduleSourceFile = ts.createSourceFile(
           moduleFilePath,
           tree.readText(moduleFilePath),

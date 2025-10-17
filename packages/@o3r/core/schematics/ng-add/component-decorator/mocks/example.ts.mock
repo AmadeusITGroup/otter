@@ -4,14 +4,14 @@ import { ConfigurationBaseService, ConfigurationObserver, DynamicConfigurable } 
 import { Block } from '@o3r/core';
 import { Localization, Translatable } from '@o3r/localization';
 import { Observable } from 'rxjs';
-import { SIMPLE_HEADER_PRES_CONFIG_DEFAULT, SIMPLE_HEADER_PRES_CONFIG_ID, SimpleHeaderPresConfig } from './simple-header-pres.config';
-import { SimpleHeaderPresContext } from './simple-header-pres.context';
-import { SimpleHeaderPresTranslation, translations } from './simple-header-pres.translation';
+import { SIMPLE_HEADER_PRES_CONFIG_DEFAULT, SIMPLE_HEADER_PRES_CONFIG_ID, SimpleHeaderPresConfig } from './simple-header-pres-config';
+import { SimpleHeaderPresContext } from './simple-header-pres-context';
+import { SimpleHeaderPresTranslation, translations } from './simple-header-pres-translation';
 
 @Component({
   selector: 'o3r-simple-header-pres',
-  styleUrls: ['./simple-header-pres.style.scss'],
-  templateUrl: './simple-header-pres.template.html',
+  styleUrls: ['./simple-header-pres.scss'],
+  templateUrl: './simple-header-pres.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
@@ -32,7 +32,7 @@ export class SimpleHeaderPresComponent implements DynamicConfigurable<SimpleHead
    */
   @Input()
   @InputMerge()
-  @Localization('./simple-header-pres.localization.json')
+  @Localization('./simple-header-pres-localization.json')
   public translations: SimpleHeaderPresTranslation;
 
   constructor(@Optional() configurationService?: ConfigurationBaseService) {

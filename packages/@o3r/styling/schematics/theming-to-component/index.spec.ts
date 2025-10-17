@@ -7,7 +7,8 @@ import {
 } from '@angular-devkit/schematics/testing';
 
 const collectionPath = path.join(__dirname, '..', '..', 'collection.json');
-const stylePath = '/src/components/test/test.style.scss';
+const stylePath = '/src/components/test/test.scss';
+const oldStylePath = '/src/components/test/test.style.scss';
 describe('Add Theming', () => {
   let initialTree: Tree;
   beforeEach(() => {
@@ -25,10 +26,27 @@ o3r-test-pres {
       path: stylePath
     }, initialTree);
 
-    expect(tree.exists(stylePath.replace(/style\.scss$/, 'style.theme.scss'))).toBeTruthy();
+    expect(tree.exists(stylePath.replace(/\.scss$/, '-theme.scss'))).toBeTruthy();
     const styleFileContent = tree.readText(stylePath);
     expect(styleFileContent).toContain(initialTree.readText(stylePath));
-    expect(styleFileContent).toContain('@import \'./test.style.theme\';');
+    expect(styleFileContent).toContain('@import \'./test-theme\';');
+  });
+
+  it('should create the theming file and update the style file using the previous naming convention', async () => {
+    initialTree.create(oldStylePath, `
+      o3r-test-pres {
+        // Your component custom SCSS
+      }
+    `);
+    const runner = new SchematicTestRunner('schematics', collectionPath);
+    const tree = await runner.runSchematic('theming-to-component', {
+      path: oldStylePath
+    }, initialTree);
+
+    expect(tree.exists(oldStylePath.replace(/\.style\.scss$/, '-theme.scss'))).toBeTruthy();
+    const styleFileContent = tree.readText(oldStylePath);
+    expect(styleFileContent).toContain(initialTree.readText(oldStylePath));
+    expect(styleFileContent).toContain('@import \'./test-theme\';');
   });
 
   it('should throw if we add theming to a component that already has it', async () => {

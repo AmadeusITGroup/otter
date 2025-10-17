@@ -36,7 +36,7 @@ import type {
 
 const checkContext = (componentPath: string, tree: Tree) => {
   const files = [
-    posix.join(dirname(componentPath), `${basename(componentPath, '.component.ts')}.context.ts`)
+    posix.join(dirname(componentPath), `${basename(componentPath, '.ts')}-context.ts`)
   ];
   if (files.some((file) => tree.exists(file))) {
     throw new O3rCliError(`Unable to add context to this component because it already has at least one of these files: ${files.join(', ')}.`);
@@ -57,7 +57,7 @@ export function ngAddContextFn(options: NgAddConfigSchematicsSchema): Rule {
 
       const properties = {
         componentContext: name.concat('Context'),
-        name: basename(componentPath, '.component.ts')
+        name: basename(componentPath, '.ts')
       };
 
       const createConfigFilesRule: Rule = mergeWith(apply(url('./templates'), [
@@ -69,7 +69,7 @@ export function ngAddContextFn(options: NgAddConfigSchematicsSchema): Rule {
       const updateComponentRule: Rule = chain([
         addImportsRule(componentPath, [
           {
-            from: `./${properties.name}.context`,
+            from: `./${properties.name}-context`,
             importNames: [
               properties.componentContext
             ]

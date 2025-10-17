@@ -21,12 +21,12 @@ jest.mock('node:readline', () => ({
 }));
 
 const collectionPath = path.join(__dirname, '..', '..', 'collection.json');
-const emptyO3rComponentPath = '/src/components/empty/empty.component.ts';
-const o3rComponentPath = '/src/components/test/test.component.ts';
-const templatePath = '/src/components/test/test.template.html';
-const translationPath = '/src/components/test/test.translations.ts';
-const localizationPath = '/src/components/test/test.localization.json';
-const ngComponentPath = '/src/components/ng/ng.component.ts';
+const emptyO3rComponentPath = '/src/components/empty/empty.ts';
+const o3rComponentPath = '/src/components/test/test.ts';
+const templatePath = '/src/components/test/test.html';
+const translationPath = '/src/components/test/test-translations.ts';
+const localizationPath = '/src/components/test/test-localization.json';
+const ngComponentPath = '/src/components/ng/ng.ts';
 
 describe('Add Localization', () => {
   let initialTree: Tree;
@@ -39,7 +39,7 @@ describe('Add Localization', () => {
         import {ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
         import {O3rComponent} from '@o3r/core';
         import {Localization, LocalizationModule, Translatable} from '@o3r/localization';
-        import {translations, TestTranslation} from './test.translations';
+        import {translations, TestTranslation} from './test-translations';
 
         @O3rComponent({
           componentType: 'Component'
@@ -47,14 +47,14 @@ describe('Add Localization', () => {
         @Component({
           selector: 'o3r-test-pres',
           imports: [CommonModule, LocalizationModule],
-          styleUrls: ['./test.style.scss'],
-          templateUrl: './test.template.html',
+          styleUrls: ['./test.scss'],
+          templateUrl: './test.html',
           changeDetection: ChangeDetectionStrategy.OnPush,
           encapsulation: ViewEncapsulation.None
         })
-        export class TestComponent implements Translatable<TestTranslation> {
+        export class Test implements Translatable<TestTranslation> {
           @Input()
-          @Localization('./test.localization.json')
+          @Localization('./test-localization.json')
           public translations: TestTranslation;
 
           constructor() {
@@ -66,7 +66,7 @@ describe('Add Localization', () => {
         import {CommonModule} from '@angular/common';
         import {ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
         import {O3rComponent} from '@o3r/core';
-        import {translations, TestTranslation} from './test.translations';
+        import {translations, TestTranslation} from './test-translations';
 
         @O3rComponent({
           componentType: 'Component'
@@ -74,12 +74,12 @@ describe('Add Localization', () => {
         @Component({
           selector: 'o3r-test-pres',
           imports: [CommonModule],
-          styleUrls: ['./test.style.scss'],
-          templateUrl: './test.template.html',
+          styleUrls: ['./test.scss'],
+          templateUrl: './test.html',
           changeDetection: ChangeDetectionStrategy.OnPush,
           encapsulation: ViewEncapsulation.None
         })
-        export class TestComponent {}
+        export class Test {}
       `);
       initialTree.create(templatePath, '<div>Dummy 1</div>');
       initialTree.create(localizationPath, '{}');
@@ -198,7 +198,7 @@ describe('Add Localization', () => {
       const runner = new SchematicTestRunner('schematics', collectionPath);
 
       await expect(runner.runSchematic('add-localization-key', {
-        path: 'inexisting-path.component.ts',
+        path: 'inexisting-path.ts',
         key: 'dummyLoc1',
         description: 'Dummy 1 description',
         value: 'Dummy 1'
@@ -235,7 +235,7 @@ describe('Add Localization', () => {
         }, initialTree);
 
         expect(spy).toHaveBeenCalledWith('convert-component', expect.anything(), expect.anything());
-        expect(tree.exists(ngComponentPath.replace(/component\.ts$/, 'translation.ts'))).toBeTruthy();
+        expect(tree.exists(ngComponentPath.replace(/\.ts$/, '-translation.ts'))).toBeTruthy();
       });
     });
   });
