@@ -17,7 +17,7 @@ import {
 } from '@vscode/chat-extension-utils';
 
 const SUPPORTED_COMMANDS = ['list-tools', 'list-repos-using-o3r'];
-const SUPPORTED_TOOLS_REGEX = /o3r|angular|github|playwright/;
+const SUPPORTED_TOOLS_REGEX = /o3r|angular|github|playwright|nx/;
 
 export const initializeChatParticipant = (context: ExtensionContext, channel: OutputChannel, telemetryLogger: TelemetryLogger) => {
   const o3rChatParticipant = chat.createChatParticipant('o3r-chat-participant', chatParticipantHandler(context, channel, telemetryLogger));

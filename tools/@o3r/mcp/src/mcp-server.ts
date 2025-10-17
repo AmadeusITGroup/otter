@@ -6,6 +6,9 @@ import {
   resolve,
 } from 'node:path';
 import {
+  registerAngularSchematicsTool,
+} from '@ama-mcp/angular';
+import {
   logger,
 } from '@ama-mcp/core';
 import {
@@ -50,6 +53,7 @@ export async function createMcpServer(): Promise<McpServer> {
   await Promise.allSettled([
     registerBestPracticesToolAndResources(server, resourcesPath),
     registerCreateMonorepoWithAppTool(server, resourcesPath),
+    Promise.resolve(registerAngularSchematicsTool(server, {}, logger)),
     ...(githubToken
       ? [
         registerGetRepositoriesUsingLibraryTool(server, {
