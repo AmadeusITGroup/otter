@@ -77,7 +77,7 @@ export interface Combine<%= apiModel %>Config <% if (identified) { %>extends Com
  * @param items the items to be combined
  * @param config the combine configuration
  */
-export function combine<%= dapiModels %>(
+export function combine<%= apiModels %>(
   items: RecursivePartial<<%= apiModel %>>[] = [<%= apiModel %>Repository.DEFAULT],
   <% if (!identified) { %>_<% } %>config: Partial<Combine<%= apiModel %>Config> = {}
 ): CombineResult<Mock<%= apiModel %>> {
