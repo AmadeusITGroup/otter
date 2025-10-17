@@ -14,8 +14,8 @@ import {
 } from './index';
 
 const collectionPath = path.join(__dirname, '..', '..', 'collection.json');
-const o3rComponentPath = '/src/components/test/test.component.ts';
-const ngComponentPath = '/src/components/ng/ng.component.ts';
+const o3rComponentPath = '/src/components/test/test.ts';
+const ngComponentPath = '/src/components/ng/ng.ts';
 describe('Add Config', () => {
   let initialTree: Tree;
   beforeEach(() => {
@@ -32,12 +32,12 @@ import {Subscription} from 'rxjs';
 @Component({
   selector: 'o3r-test-pres',
   imports: [CommonModule],
-  styleUrls: ['./test.style.scss'],
-  templateUrl: './test.template.html',
+  styleUrls: ['./test.scss'],
+  templateUrl: './test.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class TestComponent implements OnInit, OnDestroy {
+export class Test implements OnInit, OnDestroy {
   /**
    * List of subscriptions to unsubscribe on destroy
    */
@@ -74,10 +74,10 @@ export class NgComponent {}
       path: o3rComponentPath
     }, initialTree);
 
-    expect(tree.exists(o3rComponentPath.replace(/component\.ts$/, 'config.ts'))).toBeTruthy();
+    expect(tree.exists(o3rComponentPath.replace(/\.ts$/, '-config.ts'))).toBeTruthy();
     const componentFileContent = tree.readText(o3rComponentPath);
     expect(componentFileContent).toContain('from \'@o3r/configuration\'');
-    expect(componentFileContent).toContain('from \'./test.config\'');
+    expect(componentFileContent).toContain('from \'./test-config\'');
     expect(componentFileContent).toContain('componentType: \'ExposedComponent\'');
     expect(componentFileContent).toContain('DynamicConfigurable<TestConfig>');
     expect(componentFileContent).toContain('public config: Partial<TestConfig> | undefined');
@@ -93,7 +93,7 @@ export class NgComponent {}
       useSignal: true
     }, initialTree);
 
-    expect(tree.exists(o3rComponentPath.replace(/component\.ts$/, 'config.ts'))).toBeTruthy();
+    expect(tree.exists(o3rComponentPath.replace(/\.ts$/, '-config.ts'))).toBeTruthy();
     const componentFileContent = tree.readText(o3rComponentPath);
     expect(componentFileContent).toContain('DynamicConfigurableWithSignal<TestConfig>');
     expect(componentFileContent).toContain('public config = input<Partial<TestConfig>>()');
@@ -130,7 +130,7 @@ export class NgComponent {}
 
     await expect(runner.runSchematic('configuration-to-component', {
       projectName: 'test-project',
-      path: 'inexisting-path.component.ts'
+      path: 'inexisting-path.ts'
     }, initialTree)).rejects.toThrow();
   });
 
@@ -158,7 +158,7 @@ export class NgComponent {}
       }, initialTree);
 
       expect(spy).toHaveBeenCalledWith('convert-component', expect.anything(), expect.anything());
-      expect(tree.exists(ngComponentPath.replace(/component\.ts$/, 'config.ts'))).toBeTruthy();
+      expect(tree.exists(ngComponentPath.replace(/\.ts$/, '-config.ts'))).toBeTruthy();
     });
   });
 });

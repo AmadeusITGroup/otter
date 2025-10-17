@@ -14,8 +14,8 @@ import {
 } from './index';
 
 const collectionPath = path.join(__dirname, '..', '..', 'collection.json');
-const o3rComponentPath = '/src/components/test/test.component.ts';
-const ngComponentPath = '/src/components/ng/ng.component.ts';
+const o3rComponentPath = '/src/components/test/test.ts';
+const ngComponentPath = '/src/components/ng/ng.ts';
 describe('Add Analytics', () => {
   let initialTree: Tree;
   beforeEach(() => {
@@ -32,12 +32,12 @@ import {Subscription} from 'rxjs';
 @Component({
   selector: 'o3r-test-pres',
   imports: [CommonModule],
-  styleUrls: ['./test.style.scss'],
-  templateUrl: './test.template.html',
+  styleUrls: ['./test.scss'],
+  templateUrl: './test.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class TestComponent implements OnInit, OnDestroy {
+export class Test implements OnInit, OnDestroy {
   /**
    * List of subscriptions to unsubscribe on destroy
    */
@@ -74,10 +74,10 @@ export class NgComponent {}
       path: o3rComponentPath
     }, initialTree);
 
-    expect(tree.exists(o3rComponentPath.replace(/component\.ts$/, 'analytics.ts'))).toBeTruthy();
+    expect(tree.exists(o3rComponentPath.replace(/\.ts$/, '-analytics.ts'))).toBeTruthy();
     const componentFileContent = tree.readText(o3rComponentPath);
     expect(componentFileContent).toContain('from \'@o3r/analytics\'');
-    expect(componentFileContent).toContain('from \'./test.analytics\'');
+    expect(componentFileContent).toContain('from \'./test-analytics\'');
     expect(componentFileContent).toContain('Trackable<TestAnalytics>');
     expect(componentFileContent).toContain('public readonly analyticsEvents: TestAnalytics = analyticsEvents');
   });
@@ -98,7 +98,7 @@ export class NgComponent {}
     const runner = new SchematicTestRunner('schematics', collectionPath);
 
     await expect(runner.runSchematic('analytics-to-component', {
-      path: 'inexisting-path.component.ts'
+      path: 'inexisting-path.ts'
     }, initialTree)).rejects.toThrow();
   });
 
@@ -124,7 +124,59 @@ export class NgComponent {}
       }, initialTree);
 
       expect(spy).toHaveBeenCalledWith('convert-component', expect.anything(), expect.anything());
-      expect(tree.exists(ngComponentPath.replace(/component\.ts$/, 'analytics.ts'))).toBeTruthy();
+      expect(tree.exists(ngComponentPath.replace(/\.ts$/, '-analytics.ts'))).toBeTruthy();
+    });
+  });
+
+  describe('Non-standalone component and module', () => {
+    it('should create the analytics file and update the component and update the module', async () => {
+      const o3rOtherTestComponentPath = '/src/components/test/other-test.ts';
+      const o3rOtherTestModulePath = '/src/components/test/other-test-module.ts';
+      initialTree.create(o3rOtherTestComponentPath, `
+        import {CommonModule} from '@angular/common';
+        import {ChangeDetectionStrategy, Component, ViewEncapsulation} from '@angular/core';
+        import {O3rComponent} from '@o3r/core';
+
+        @O3rComponent({
+          componentType: 'Component'
+        })
+        @Component({
+          selector: 'o3r-other-test-pres',
+          imports: [CommonModule],
+          styleUrls: ['./other-test.scss'],
+          templateUrl: './other-test.html',
+          changeDetection: ChangeDetectionStrategy.OnPush,
+          encapsulation: ViewEncapsulation.None,
+          standalone: false
+        })
+        export class OtherTest {}
+      `);
+      initialTree.create(o3rOtherTestModulePath, `
+        import { NgModule } from '@angular/core';
+        import { OtherTest } from './other-test';
+
+        @NgModule({
+          imports: [],
+          declarations: [OtherTest],
+          exports: [OtherTest]
+        })
+        export class OtherTestModule {}
+      `);
+
+      const runner = new SchematicTestRunner('schematics', collectionPath);
+      const tree = await runner.runSchematic('analytics-to-component', {
+        projectName: 'test-project',
+        path: o3rOtherTestComponentPath
+      }, initialTree);
+      expect(tree.exists(o3rOtherTestComponentPath.replace(/\.ts$/, '-analytics.ts'))).toBeTruthy();
+      const componentFileContent = tree.readText(o3rOtherTestComponentPath);
+      expect(componentFileContent).toContain('from \'@o3r/analytics\'');
+      expect(componentFileContent).toContain('from \'./other-test-analytics\'');
+      expect(componentFileContent).toContain('Trackable<OtherTestAnalytics>');
+      expect(componentFileContent).toContain('public readonly analyticsEvents: OtherTestAnalytics = analyticsEvents');
+      const moduleFileContent = tree.readText(o3rOtherTestModulePath);
+      expect(moduleFileContent).toContain('from \'@o3r/analytics\'');
+      expect(moduleFileContent).toContain('TrackEventsModule');
     });
   });
 });

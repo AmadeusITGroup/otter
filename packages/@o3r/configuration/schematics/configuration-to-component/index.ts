@@ -48,7 +48,7 @@ const configProperties = [
 
 const checkConfiguration = (componentPath: string, tree: Tree) => {
   const files = [
-    posix.join(dirname(componentPath), `${basename(componentPath, '.component.ts')}.config.ts`)
+    posix.join(dirname(componentPath), `${basename(componentPath, '.ts')}-config.ts`)
   ];
   if (files.some((file) => tree.exists(file))) {
     throw new O3rCliError(`Unable to add configuration to this component because it already has at least one of these files: ${files.join(', ')}.`);
@@ -90,7 +90,7 @@ export function ngAddConfigFn(options: NgAddConfigSchematicsSchema): Rule {
         componentConfig: name.concat('Config'),
         projectName: options.projectName || getLibraryNameFromPath(componentPath),
         configKey: strings.underscore(name).toUpperCase(),
-        name: basename(componentPath, '.component.ts')
+        name: basename(componentPath, '.ts')
       };
 
       const createConfigFilesRule: Rule = mergeWith(apply(url('./templates'), [
@@ -111,7 +111,7 @@ export function ngAddConfigFn(options: NgAddConfigSchematicsSchema): Rule {
             ]
           },
           {
-            from: `./${properties.name}.config`,
+            from: `./${properties.name}-config`,
             importNames: [
               `${properties.configKey}_DEFAULT_CONFIG`,
               `${properties.configKey}_CONFIG_ID`,
@@ -337,7 +337,7 @@ export function ngAddConfigFn(options: NgAddConfigSchematicsSchema): Rule {
             ]
           },
           {
-            from: `./${properties.name}.config`,
+            from: `./${properties.name}-config`,
             importNames: [
               `${properties.configKey}_DEFAULT_CONFIG`,
               `${properties.configKey}_CONFIG_ID`,

@@ -57,14 +57,14 @@ describe('ng add testing', () => {
       args: ['add', `@o3r/testing@${o3rVersion}`, '--no-enable-playwright', '--testing-framework', 'jest', '--skip-confirmation', '--project-name', appName]
     }, execAppOptions);
 
-    const componentPath = path.join(relativeApplicationPath, 'src/components/test-component/container/test-component-cont.component.ts');
+    const componentPath = path.join(relativeApplicationPath, 'src/components/test-component/container/test-component-cont.ts');
     packageManagerExec({ script: 'ng',
       args: ['g', '@o3r/core:component', 'test-component', '--use-component-fixtures', 'false', '--component-structure', 'full', '--project-name', appName] }, execAppOptions);
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/testing:add-fixture', '--path', componentPath] }, execAppOptions);
-    await addImportToAppModule(applicationPath, 'TestComponentContComponent', 'src/components/test-component');
+    await addImportToAppModule(applicationPath, 'TestComponentCont', 'src/components/test-component');
 
     const diff = getGitDiff(execAppOptions.cwd);
-    expect(diff.added).toContain(path.join(relativeApplicationPath, 'src/components/test-component/container/test-component-cont.fixture.ts').replace(/[/\\]+/g, '/'));
+    expect(diff.added).toContain(path.join(relativeApplicationPath, 'src/components/test-component/container/test-component-cont-fixture.ts').replace(/[/\\]+/g, '/'));
 
     [libraryPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
       expect(diff.all.some((file) => file.startsWith(path.relative(workspacePath, untouchedProject).replace(/\\+/g, '/')))).toBe(false);
@@ -113,7 +113,7 @@ describe('ng add testing', () => {
     const relativeLibraryPath = path.relative(workspacePath, libraryPath);
     packageManagerExec({ script: 'ng', args: ['add', `@o3r/testing@${o3rVersion}`, '--testing-framework', 'jest', '--skip-confirmation', '--project-name', libName] }, execAppOptions);
 
-    const componentPath = path.join(relativeLibraryPath, 'src/components/test-component/container/test-component-cont.component.ts');
+    const componentPath = path.join(relativeLibraryPath, 'src/components/test-component/container/test-component-cont.ts');
     packageManagerExec({ script: 'ng',
       args: ['g', '@o3r/core:component', 'test-component', '--use-component-fixtures', 'false', '--component-structure', 'full', '--project-name', libName] }, execAppOptions);
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/testing:add-fixture', '--path', componentPath] }, execAppOptions);
@@ -127,20 +127,20 @@ describe('ng add testing', () => {
       path.join(relativeLibraryPath, 'testing/setup-jest.ts').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'src/components/test-component/container/README.md').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'src/components/test-component/container/index.ts').replace(/[/\\]+/g, '/'),
-      path.join(relativeLibraryPath, 'src/components/test-component/container/test-component-cont.context.ts').replace(/[/\\]+/g, '/'),
-      path.join(relativeLibraryPath, 'src/components/test-component/container/test-component-cont.fixture.ts').replace(/[/\\]+/g, '/'),
-      path.join(relativeLibraryPath, 'src/components/test-component/container/test-component-cont.component.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test-component/container/test-component-cont-context.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test-component/container/test-component-cont-fixture.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test-component/container/test-component-cont.ts').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'src/components/test-component/container/test-component-cont.spec.ts').replace(/[/\\]+/g, '/'),
-      path.join(relativeLibraryPath, 'src/components/test-component/container/test-component-cont.template.html').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test-component/container/test-component-cont.html').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'src/components/test-component/presenter/README.md').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'src/components/test-component/presenter/index.ts').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'src/components/test-component/fixtures.ts').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'src/components/test-component/index.ts').replace(/[/\\]+/g, '/'),
-      path.join(relativeLibraryPath, 'src/components/test-component/presenter/test-component-pres.context.ts').replace(/[/\\]+/g, '/'),
-      path.join(relativeLibraryPath, 'src/components/test-component/presenter/test-component-pres.component.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test-component/presenter/test-component-pres-context.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test-component/presenter/test-component-pres.ts').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'src/components/test-component/presenter/test-component-pres.spec.ts').replace(/[/\\]+/g, '/'),
-      path.join(relativeLibraryPath, 'src/components/test-component/presenter/test-component-pres.style.scss').replace(/[/\\]+/g, '/'),
-      path.join(relativeLibraryPath, 'src/components/test-component/presenter/test-component-pres.template.html').replace(/[/\\]+/g, '/')
+      path.join(relativeLibraryPath, 'src/components/test-component/presenter/test-component-pres.scss').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test-component/presenter/test-component-pres.html').replace(/[/\\]+/g, '/')
     ].sort();
     expect(diff.added.sort()).toEqual(addedFiles);
     const modifiedFiles = [

@@ -14,9 +14,9 @@ import {
 } from './index';
 
 const collectionPath = path.join(__dirname, '..', '..', 'collection.json');
-const o3rComponentPath = '/src/components/test/test.component.ts';
+const o3rComponentPath = '/src/components/test/test.ts';
 const specPath = '/src/components/test/test.spec.ts';
-const ngComponentPath = '/src/components/ng/ng.component.ts';
+const ngComponentPath = '/src/components/ng/ng.ts';
 
 describe('Add Fixture', () => {
   let initialTree: Tree;
@@ -36,12 +36,12 @@ describe('Add Fixture', () => {
         @Component({
           selector: 'o3r-test-pres',
           imports: [CommonModule],
-          styleUrls: ['./test.style.scss'],
-          templateUrl: './test.template.html',
+          styleUrls: ['./test.scss'],
+          templateUrl: './test.html',
           changeDetection: ChangeDetectionStrategy.OnPush,
           encapsulation: ViewEncapsulation.None
         })
-        export class TestComponent implements OnInit, OnDestroy {
+        export class Test implements OnInit, OnDestroy {
           /**
            * List of subscriptions to unsubscribe on destroy
            */
@@ -60,20 +60,20 @@ describe('Add Fixture', () => {
       initialTree.create(specPath, `
 import {ChangeDetectionStrategy} from '@angular/core';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {TestComponent} from './test.component';
+import {Test} from './test';
 
-let component: TestComponent;
-let fixture: ComponentFixture<TestComponent>;
+let component: Test;
+let fixture: ComponentFixture<Test>;
 
-describe('TestComponent', () => {
+describe('Test', () => {
   beforeEach(() => {
-    TestBed.overrideComponent(TestComponent, {
+    TestBed.overrideComponent(Test, {
       set: {changeDetection: ChangeDetectionStrategy.Default}
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TestComponent);
+    fixture = TestBed.createComponent(Test);
     component = fixture.componentInstance;
   });
 
@@ -92,11 +92,11 @@ describe('TestComponent', () => {
         path: o3rComponentPath
       }, initialTree);
 
-      expect(tree.exists(o3rComponentPath.replace(/component\.ts$/, 'fixture.ts'))).toBeTruthy();
+      expect(tree.exists(o3rComponentPath.replace(/\.ts$/, '-fixture.ts'))).toBeTruthy();
 
       const specFileContent = tree.readText(specPath);
       expect(specFileContent).toContain('import { O3rElement } from \'@o3r/testing/core\'');
-      expect(specFileContent).toContain('import { TestFixtureComponent } from \'./test.fixture\'');
+      expect(specFileContent).toContain('import { TestFixtureComponent } from \'./test-fixture\'');
       expect(specFileContent).toContain('let componentFixture: TestFixtureComponent;');
       expect(specFileContent).toContain('component = fixture.componentInstance;');
       expect(specFileContent).toContain('componentFixture = new TestFixtureComponent(new O3rElement(fixture.debugElement));');
@@ -136,7 +136,7 @@ describe('TestComponent', () => {
       const runner = new SchematicTestRunner('schematics', collectionPath);
 
       await expect(runner.runSchematic('fixture-to-component', {
-        path: 'inexisting-path.component.ts'
+        path: 'inexisting-path.ts'
       }, initialTree)).rejects.toThrow();
     });
 
@@ -166,7 +166,7 @@ describe('TestComponent', () => {
         }, initialTree);
 
         expect(spy).toHaveBeenCalledWith('convert-component', expect.anything(), expect.anything());
-        expect(tree.exists(ngComponentPath.replace(/component\.ts$/, 'fixture.ts'))).toBeTruthy();
+        expect(tree.exists(ngComponentPath.replace(/\.ts$/, '-fixture.ts'))).toBeTruthy();
       });
     });
   });

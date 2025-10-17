@@ -14,8 +14,8 @@ import {
 } from './index';
 
 const collectionPath = path.join(__dirname, '..', '..', 'collection.json');
-const o3rComponentPath = '/src/components/test/test.component.ts';
-const ngComponentPath = '/src/components/ng/ng.component.ts';
+const o3rComponentPath = '/src/components/test/test.ts';
+const ngComponentPath = '/src/components/ng/ng.ts';
 describe('Add context', () => {
   let initialTree: Tree;
   beforeEach(() => {
@@ -32,12 +32,12 @@ import {Subscription} from 'rxjs';
 @Component({
   selector: 'o3r-test-pres',
   imports: [CommonModule],
-  styleUrls: ['./test.style.scss'],
-  templateUrl: './test.template.html',
+  styleUrls: ['./test.scss'],
+  templateUrl: './test.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class TestComponent implements OnInit, OnDestroy {
+export class Test implements OnInit, OnDestroy {
   /**
    * List of subscriptions to unsubscribe on destroy
    */
@@ -73,10 +73,10 @@ export class NgComponent {}
       path: o3rComponentPath
     }, initialTree);
 
-    expect(tree.exists(o3rComponentPath.replace(/component\.ts$/, 'context.ts'))).toBeTruthy();
+    expect(tree.exists(o3rComponentPath.replace(/\.ts$/, '-context.ts'))).toBeTruthy();
     const componentFileContent = tree.readText(o3rComponentPath);
-    expect(componentFileContent).toMatch(/TestComponent implements .*TestContext/);
-    expect(componentFileContent).toContain('import { TestContext } from \'./test.context\'');
+    expect(componentFileContent).toMatch(/Test implements .*TestContext/);
+    expect(componentFileContent).toContain('import { TestContext } from \'./test-context\'');
   });
 
   it('should throw if we add context to a component that already have it', async () => {
@@ -93,7 +93,7 @@ export class NgComponent {}
     const runner = new SchematicTestRunner('schematics', collectionPath);
 
     await expect(runner.runSchematic('context-to-component', {
-      path: 'inexisting-path.component.ts'
+      path: 'inexisting-path.ts'
     }, initialTree)).rejects.toThrow();
   });
 
@@ -116,7 +116,7 @@ export class NgComponent {}
       }, initialTree);
 
       expect(createSchematicSpy).toHaveBeenCalledWith('convert-component', expect.anything(), expect.anything());
-      expect(tree.exists(ngComponentPath.replace(/component\.ts$/, 'context.ts'))).toBeTruthy();
+      expect(tree.exists(ngComponentPath.replace(/\.ts$/, '-context.ts'))).toBeTruthy();
     });
   });
 });

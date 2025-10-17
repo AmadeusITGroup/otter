@@ -34,9 +34,9 @@ describe('new Angular application', () => {
     ].sort());
     expect(diff.added.length).toBe(0);
 
-    const componentPath = path.normalize(path.posix.join(relativeApplicationPath, 'src/components/test/test.component.ts'));
+    const componentPath = path.normalize(path.posix.join(relativeApplicationPath, 'src/components/test/test.ts'));
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:component', 'test', '--project-name', appName, '--use-localization', 'false'] }, execAppOptions);
-    await addImportToAppModule(applicationPath, 'TestComponent', 'src/components/test');
+    await addImportToAppModule(applicationPath, 'Test', 'src/components/test');
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/third-party:iframe-to-component', '--path', componentPath] }, execAppOptions);
 
     [libraryPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
