@@ -310,7 +310,7 @@ export function updateLocalization(options: { projectName?: string | null | unde
    */
   const setDefaultLanguage: Rule = (tree: Tree, context: SchematicContext) => {
     const moduleFilePath = getAppModuleFilePath(tree, context, options.projectName);
-    const componentFilePath = moduleFilePath && moduleFilePath.replace(/\.(?:module|config)\.ts$/i, '.component.ts');
+    const componentFilePath = moduleFilePath && moduleFilePath.replace(/[.-](?:module|config)\.ts$/i, '.ts');
 
     if (!(componentFilePath && tree.exists(componentFilePath))) {
       context.logger.warn(`File ${componentFilePath!} not found, the default language won't be set`);
@@ -474,7 +474,7 @@ function updateI18nFn(options: { projectName?: string | undefined }): Rule {
           localizationConfigs: [{
             localizationFiles: workspace.schematics && workspace.schematics['@o3r/core:component']
               ? [workspace.schematics['@o3r/core:component'].path]
-              : ['**/*.localization.json']
+              : ['**/*-localization.json']
           }]
         }
       };

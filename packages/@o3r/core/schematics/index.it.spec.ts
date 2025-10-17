@@ -84,7 +84,7 @@ describe('new otter application', () => {
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:component', 'test-add-context', ...defaultOptions, ...appNameOptions] },
       execAppOptions
     );
-    packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:add-context', '--path', 'apps/test-app/src/components/test-add-context/test-add-context.component.ts'] },
+    packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:add-context', '--path', 'apps/test-app/src/components/test-add-context/test-add-context.ts'] },
       execAppOptions
     );
     await addImportToAppModule(applicationPath, 'TestAddContextComponent', 'src/components/test-add-context');
@@ -92,7 +92,7 @@ describe('new otter application', () => {
     packageManagerExec({ script: 'ng', args: ['g', '@schematics/angular:component', 'test-ng', '--project', appName, '--type', 'component'] },
       execAppOptions
     );
-    packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:convert-component', '--path', 'apps/test-app/src/app/test-ng/test-ng.component.ts'] },
+    packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:convert-component', '--path', 'apps/test-app/src/app/test-ng/test-ng.ts'] },
       execAppOptions
     );
 

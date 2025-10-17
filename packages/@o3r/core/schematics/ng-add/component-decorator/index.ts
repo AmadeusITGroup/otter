@@ -2,7 +2,7 @@ import {
   Rule,
 } from '@angular-devkit/schematics';
 import {
-  getFilesInFolderFromWorkspaceProjectsInTree,
+  getComponentFilesInFolderFromWorkspaceProjectsInTree,
 } from '@o3r/schematics';
 import {
   insertImport,
@@ -37,7 +37,7 @@ const removeImport = (source: ts.SourceFile, symbolName: string, fileName: strin
  * @param tree Tree
  */
 export const updateComponentDecorators: Rule = (tree) => {
-  const componentFiles = new Set<string>(getFilesInFolderFromWorkspaceProjectsInTree(tree, '', 'component.ts'));
+  const componentFiles = new Set<string>(getComponentFilesInFolderFromWorkspaceProjectsInTree(tree, ''));
   componentFiles.forEach((filePath) => {
     const source = ts.createSourceFile(filePath, tree.readText(filePath), ts.ScriptTarget.ES2015, true);
     const recorder = tree.beginUpdate(filePath);

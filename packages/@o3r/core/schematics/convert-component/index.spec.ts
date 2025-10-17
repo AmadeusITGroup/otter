@@ -9,7 +9,7 @@ import {
 
 const collectionPath = path.join(__dirname, '..', '..', 'collection.json');
 
-const ngComponentPath = 'src/components/angular/angular.component.ts';
+const ngComponentPath = 'src/components/angular/angular.ts';
 
 describe('Convert component generator', () => {
   let initialTree: Tree;

@@ -38,7 +38,7 @@ import type {
 
 const checkFixture = (componentPath: string, tree: Tree, baseFileName: string) => {
   const files = [
-    posix.join(dirname(componentPath), `${baseFileName}.fixture.ts`)
+    posix.join(dirname(componentPath), `${baseFileName}-fixture.ts`)
   ];
   if (files.some((file) => tree.exists(file))) {
     throw new O3rCliError(`Unable to add fixture to this component because it already has at least one of these files: ${files.join(', ')}.`);
@@ -52,7 +52,7 @@ const checkFixture = (componentPath: string, tree: Tree, baseFileName: string) =
 export function ngAddFixtureFn(options: NgAddFixtureSchematicsSchema): Rule {
   return async (tree: Tree, context: SchematicContext) => {
     try {
-      const baseFileName = basename(options.path, '.component.ts');
+      const baseFileName = basename(options.path, '.ts');
       const { name } = getO3rComponentInfoOrThrowIfNotFound(tree, options.path);
 
       checkFixture(options.path, tree, baseFileName);
@@ -77,7 +77,7 @@ export function ngAddFixtureFn(options: NgAddFixtureSchematicsSchema): Rule {
             importNames: ['O3rElement']
           },
           {
-            from: `./${baseFileName}.fixture`,
+            from: `./${baseFileName}-fixture`,
             importNames: [`${properties.componentFixture}Component`]
           }
         ]),
