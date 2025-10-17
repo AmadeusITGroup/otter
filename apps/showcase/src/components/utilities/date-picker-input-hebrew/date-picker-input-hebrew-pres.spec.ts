@@ -3,18 +3,18 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import {
-  DatePickerHebrewInputPresComponent,
-} from './date-picker-input-hebrew-pres.component';
+  DatePickerHebrewInputPres,
+} from './date-picker-input-hebrew-pres';
 
-describe('DatePickerHebrewInputPresComponent', () => {
-  let component: DatePickerHebrewInputPresComponent;
-  let fixture: ComponentFixture<DatePickerHebrewInputPresComponent>;
+describe('DatePickerHebrewInputPres', () => {
+  let component: DatePickerHebrewInputPres;
+  let fixture: ComponentFixture<DatePickerHebrewInputPres>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [DatePickerHebrewInputPresComponent]
+      imports: [DatePickerHebrewInputPres]
     });
-    fixture = TestBed.createComponent(DatePickerHebrewInputPresComponent);
+    fixture = TestBed.createComponent(DatePickerHebrewInputPres);
     component = fixture.componentInstance;
     fixture.componentRef.setInput('id', 'test');
     fixture.detectChanges();

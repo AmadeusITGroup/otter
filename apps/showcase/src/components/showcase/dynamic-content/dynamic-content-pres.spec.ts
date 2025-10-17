@@ -6,21 +6,21 @@ import {
   provideDynamicContent,
 } from '@o3r/dynamic-content';
 import {
-  DynamicContentPresComponent,
-} from './dynamic-content-pres.component';
+  DynamicContentPres,
+} from './dynamic-content-pres';
 
-describe('DynamicContentPresComponent', () => {
-  let component: DynamicContentPresComponent;
-  let fixture: ComponentFixture<DynamicContentPresComponent>;
+describe('DynamicContentPres', () => {
+  let component: DynamicContentPres;
+  let fixture: ComponentFixture<DynamicContentPres>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [DynamicContentPresComponent],
+      imports: [DynamicContentPres],
       providers: [
         provideDynamicContent()
       ]
     });
-    fixture = TestBed.createComponent(DynamicContentPresComponent);
+    fixture = TestBed.createComponent(DynamicContentPres);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

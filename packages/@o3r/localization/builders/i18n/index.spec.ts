@@ -43,7 +43,7 @@ describe('Localization i18n Builder', () => {
       localizationConfigs: [
         {
           localizationFiles: [
-            'apps/showcase/src/!(i18n)/**/*.localization.json'
+            'apps/showcase/src/!(i18n)/**/*-localization.json'
           ],
           i18nFolderPath: 'i18n'
         }

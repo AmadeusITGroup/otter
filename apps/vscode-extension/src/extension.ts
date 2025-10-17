@@ -11,13 +11,13 @@ import {
 } from './chat';
 import {
   extractAllToVariable,
-} from './commands/extract/styling/extract-all-to-variable.command';
+} from './commands/extract/styling/extract-all-to-variable-command';
 import {
   extractToVariable,
-} from './commands/extract/styling/extract-to-variable.command';
+} from './commands/extract/styling/extract-to-variable-command';
 import {
   generateComponentGenerateCommand,
-} from './commands/generate/component.command';
+} from './commands/generate/component-command';
 import {
   generateAddAnalyticsToComponentCommand,
   generateAddConfigurationToComponentCommand,
@@ -32,22 +32,22 @@ import {
 } from './commands/generate/enrich-component';
 import {
   generateFixtureGenerateCommand,
-} from './commands/generate/fixture.command';
+} from './commands/generate/fixture-command';
 import {
   generateModuleGenerateCommand,
-} from './commands/generate/module.command';
+} from './commands/generate/module-command';
 import {
   generateServiceGenerateCommand,
-} from './commands/generate/service.command';
+} from './commands/generate/service-command';
 import {
   generateStoreGenerateCommand,
-} from './commands/generate/store.command';
+} from './commands/generate/store-command';
 import {
   wrapCommandWhenExplorerContext,
 } from './commands/helpers';
 import {
   generateModuleAddCommand,
-} from './commands/module/add-module.command';
+} from './commands/module/add-module-command';
 import {
   configurationCompletionItemProvider,
   configurationCompletionTriggerChar,

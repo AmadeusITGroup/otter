@@ -3,18 +3,18 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import {
-  SdkIntroComponent,
-} from './sdk-intro.component';
+  SdkIntro,
+} from './sdk-intro';
 
-describe('SdkComponent', () => {
-  let component: SdkIntroComponent;
-  let fixture: ComponentFixture<SdkIntroComponent>;
+describe('Sdk', () => {
+  let component: SdkIntro;
+  let fixture: ComponentFixture<SdkIntro>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [SdkIntroComponent]
+      imports: [SdkIntro]
     });
-    fixture = TestBed.createComponent(SdkIntroComponent);
+    fixture = TestBed.createComponent(SdkIntro);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

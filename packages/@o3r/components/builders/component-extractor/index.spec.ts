@@ -38,7 +38,7 @@ describe('Component Extractor Builder', () => {
 
   it('should extract components', async () => {
     const options: ComponentExtractorBuilderSchema = {
-      tsConfig: 'apps/showcase/tsconfig.cms.json',
+      tsConfig: 'apps/showcase/tsconfig.app.json',
       configOutputFile: path.resolve(__dirname, `${workspaceRoot}/apps/showcase/component.config.metadata.json`),
       componentOutputFile: path.resolve(__dirname, `${workspaceRoot}/apps/showcase/component.class.metadata.json`),
       name: 'showcase',
@@ -48,7 +48,7 @@ describe('Component Extractor Builder', () => {
       globalConfigCategories: [
         { name: 'globalCategory', label: 'Global category' }
       ],
-      filePattern: 'src/**/*.(component|config|module).ts',
+      filePattern: 'src/**/*.ts',
       inline: false,
       strictMode: false,
       watch: false
@@ -62,8 +62,6 @@ describe('Component Extractor Builder', () => {
     expect(typeof componentOutput).toBe('object');
     expect(typeof componentOutput.length).toBe('number');
     expect(componentOutput[0].library).toBe('showcase');
-    expect(componentOutput[0].name).toMatch(/.*Component$/);
-    expect(componentOutput[0].path).toMatch(/.*component.ts$/);
 
     const configOutput = JSON.parse(await virtualFileSystem.promises.readFile(options.configOutputFile, { encoding: 'utf8' }));
     expect(typeof configOutput).toBe('object');

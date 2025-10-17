@@ -1,2 +1,2 @@
-export * from './date-picker-input-pres.component';
-export * from './date-picker-input-pres.context';
+export * from './date-picker-input-pres';
+export * from './date-picker-input-pres-context';

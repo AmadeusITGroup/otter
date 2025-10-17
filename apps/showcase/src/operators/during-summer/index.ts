@@ -1,1 +1,1 @@
-export * from './during-summer.operator';
+export * from './during-summer-operator';
