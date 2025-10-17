@@ -109,7 +109,7 @@
     "@types/pid-from-port": "^1.1.0",
     "@types/semver": "^7.3.13",
     "@typescript-eslint/parser": "~8.46.0",
-    "angular-eslint": "~20.3.0",
+    "angular-eslint": "~20.4.0",
     "cpy-cli": "^6.0.0",
     "eslint": "~9.37.0",
     "eslint-import-resolver-node": "~0.3.9",
