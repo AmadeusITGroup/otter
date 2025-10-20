@@ -1,6 +1,7 @@
 {
   "extends": "../../../tsconfig.jest",
   "compilerOptions": {
+    "lib": ["ES2024"],
     "composite": true,
     "outDir": "test",
     "rootDir": ".",

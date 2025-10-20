@@ -1,8 +1,8 @@
 {
-  "name": "ama-mcp-core",
+  "name": "ama-mcp-otter",
   "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
   "projectType": "library",
-  "sourceRoot": "packages/@ama-mcp/core/src",
+  "sourceRoot": "packages/@ama-mcp/otter/src",
   "prefix": "o3r",
   "targets": {
     "build": {

@@ -1,17 +1,19 @@
-# Find repositories using library
+# Find Otter metadata per application release
 
-List all repositories that use the configured library's dependencies in their package.json files.
+Find Otter metadata per application release and register it as resources.
 
 ## How to use
 
 ```typescript
-registerGetRepositoriesUsingLibraryTool(
+registerMetadataPerRelease(
   mcpServer,
   {
     // Mandatory options
-    githubToken: process.env.GITHUB_TOKEN,
-    libraryName: 'My Library',
-    scopes: ['scope-a', 'scope-b'], // Limited to 10 to avoid hitting GitHub Search API rate limit
+    retrievePackages: () => ['otter-application-1', 'otter-application-2'],
+    retrieveTags: (packageName) => packageName === 'otter-application-1'
+      ? ['v1.0.0', 'v1.0.1', 'v2.0.0']
+      : ['v1.1.0', 'v2.0.0'],
+    fetchPackageArtifact: (packageName, tagName) => fetch(`my-api-to-download-tgz-package/${packageName}/${tagName}`)),
     // Optional options
     disableCache: false, // default: false
     cacheFilePath: 'custom/path/for/the/cache.json', // default: .cache/@ama-mcp/repos-using-<library-name>.json

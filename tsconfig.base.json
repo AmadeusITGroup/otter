@@ -42,6 +42,9 @@
       "@ama-mcp/github": [
         "packages/@ama-mcp/github/src/public_api"
       ],
+      "@ama-mcp/otter": [
+        "packages/@ama-mcp/otter/src/public_api"
+      ],
       "@ama-mfe/messages": [
         "packages/@ama-mfe/messages/src/public_api"
       ],

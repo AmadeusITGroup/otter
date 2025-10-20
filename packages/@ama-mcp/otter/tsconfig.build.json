@@ -5,8 +5,8 @@
     "rootDir": ".",
     "module": "commonjs",
     "moduleResolution": "node10",
-    "types": ["node"],
     "lib": ["ES2024"],
+    "types": ["node"],
     "tsBuildInfoFile": "build/.tsbuildinfo"
   },
   "include": ["src/**/*.ts"],

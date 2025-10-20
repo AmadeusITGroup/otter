@@ -17,8 +17,9 @@ registerGetRepositoriesUsingLibraryTool(
     uriPrefix: 'o3r' // By default it will use what is provided in `repo`
     toolName: 'custom-tool-name',
     toolDescription: 'Custom tool description',
-    toolTitle: 'Custom tool title'
-  },
-  customLogger
+    toolTitle: 'Custom tool title',
+    logger: customLogger,
+    logLevel: 'error' // default: info
+  }
 )
 ```

@@ -16,8 +16,9 @@ registerGetRepositoriesUsingLibraryTool(
     libraryName: 'My Library',
     toolName: 'custom-tool-name',
     toolDescription: 'Custom tool description',
-    toolTitle: 'Custom tool title'
-  },
-  customLogger
+    toolTitle: 'Custom tool title',
+    logger: customLogger,
+    logLevel: 'error' // default: info
+  }
 )
 ```

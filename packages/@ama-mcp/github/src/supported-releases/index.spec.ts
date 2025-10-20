@@ -49,7 +49,7 @@ const setUpClientAndServer = async () => {
   return setUpClientAndServerForTesting(mcpServer);
 };
 
-describe('MCP server', () => {
+describe('Supported releases', () => {
   it('should have registered the tool', async () => {
     const { client } = await setUpClientAndServer();
     const { tools } = await client.listTools();
