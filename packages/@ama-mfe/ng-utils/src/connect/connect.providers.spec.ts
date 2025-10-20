@@ -7,7 +7,7 @@ import {
   makeEnvironmentProviders,
 } from '@angular/core';
 import {
-  provideDisableHistoryWrites,
+  provideHistoryOverrides,
 } from '../history';
 import {
   getHostInfo,
@@ -41,7 +41,7 @@ jest.mock('../utils', () => ({
 }));
 
 jest.mock('../history/history.providers', () => ({
-  provideDisableHistoryWrites: jest.fn()
+  provideHistoryOverrides: jest.fn()
 }));
 
 describe('provideConnection', () => {
@@ -124,7 +124,7 @@ describe('provideConnection', () => {
     (isEmbedded as jest.Mock).mockReturnValue(false);
 
     provideConnection();
-    expect(provideDisableHistoryWrites).not.toHaveBeenCalled();
+    expect(provideHistoryOverrides).not.toHaveBeenCalled();
   });
 
   it('should patch browser history in an embedded application', () => {
@@ -132,6 +132,6 @@ describe('provideConnection', () => {
     (isEmbedded as jest.Mock).mockReturnValue(true);
 
     provideConnection();
-    expect(provideDisableHistoryWrites).toHaveBeenCalled();
+    expect(provideHistoryOverrides).toHaveBeenCalled();
   });
 });
