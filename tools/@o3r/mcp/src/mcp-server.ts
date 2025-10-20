@@ -5,8 +5,8 @@ import {
   join,
   resolve,
 } from 'node:path';
-import {
-  logger,
+import type {
+  MCPLogger,
 } from '@ama-mcp/core';
 import {
   registerGetRepositoriesUsingLibraryTool,
@@ -32,8 +32,9 @@ import {
 
 /**
  * Create an MCP server instance.
+ * @param logger
  */
-export async function createMcpServer(): Promise<McpServer> {
+export async function createMcpServer(logger: MCPLogger): Promise<McpServer> {
   const { name, version } = JSON.parse(await readFile(join(__dirname, '..', 'package.json'), 'utf8')) as { name: string; version: string };
   const server = new McpServer({
     name,
@@ -58,20 +59,20 @@ export async function createMcpServer(): Promise<McpServer> {
           githubToken,
           cachePath,
           cacheMaxAge: Number.isNaN(process.env.O3R_MCP_CACHE_MAX_AGE) ? undefined : +(process.env.O3R_MCP_CACHE_MAX_AGE!)
-        }, logger),
+        }),
         registerSupportedReleasesTool(server, {
           githubToken,
           owner,
           repo,
           libraryName
-        }, logger),
+        }),
         registerReleaseNotes(server, {
           githubToken,
           owner,
           repo,
           libraryName,
           uriPrefix
-        }, logger)
+        })
       ]
       : [
         () => logger.error('Missing O3R_MCP_GITHUB_TOKEN environment variable for github tools')

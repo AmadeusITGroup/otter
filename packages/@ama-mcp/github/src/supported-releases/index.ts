@@ -1,7 +1,9 @@
 import {
-  logger as defaultLogger,
   type Logger,
   type ToolDefinition,
+} from '@ama-mcp/core';
+import {
+  MCPLogger,
 } from '@ama-mcp/core';
 import type {
   McpServer,
@@ -40,9 +42,8 @@ async function getSupportedReleases(octokit: Octokit, options: SupportedReleases
  * Register the supported releases tool.
  * @param server
  * @param options
- * @param logger
  */
-export async function registerSupportedReleasesTool(server: McpServer, options: SupportedReleasesOptions, logger: Logger = defaultLogger): Promise<void> {
+export async function registerSupportedReleasesTool(server: McpServer, options: SupportedReleasesOptions): Promise<void> {
   const {
     githubToken,
     libraryName = `${options.owner}/${options.repo}`,
@@ -50,6 +51,7 @@ export async function registerSupportedReleasesTool(server: McpServer, options: 
     toolDescription = `Get the list of supported releases for ${libraryName}`,
     toolTitle = `Get Supported Releases for ${libraryName}`
   } = options;
+  const logger = options.logger ?? new MCPLogger(toolName, options.logLevel);
   if (!githubToken) {
     logger.error?.(`Missing githubToken for ${toolName}`);
     return;

@@ -31,6 +31,7 @@ import {
   join,
 } from 'node:path';
 import {
+  MCPLogger,
   setUpClientAndServerForTesting,
 } from '@ama-mcp/core';
 import {
@@ -50,7 +51,7 @@ const setUpClientAndServer = async () => {
     }
     return Promise.resolve('File content');
   });
-  const mcpServer = await createMcpServer();
+  const mcpServer = await createMcpServer(new MCPLogger('Test Logger'));
   return setUpClientAndServerForTesting(mcpServer);
 };
 
@@ -76,8 +77,8 @@ describe('MCP server', () => {
         githubToken: process.env.O3R_MCP_GITHUB_TOKEN,
         libraryName: 'Otter',
         scopes: expect.any(Array)
-      }),
-      expect.anything());
+      })
+    );
     expect(registerSupportedReleasesTool).toHaveBeenCalledWith(
       expect.anything(),
       expect.objectContaining({
@@ -85,8 +86,8 @@ describe('MCP server', () => {
         owner: 'AmadeusITGroup',
         repo: 'otter',
         libraryName: 'Otter'
-      }),
-      expect.anything());
+      })
+    );
     expect(registerReleaseNotes).toHaveBeenCalledWith(
       expect.anything(),
       expect.objectContaining({
@@ -95,8 +96,7 @@ describe('MCP server', () => {
         repo: 'otter',
         libraryName: 'Otter',
         uriPrefix: 'o3r'
-      }),
-      expect.anything()
+      })
     );
   });
 

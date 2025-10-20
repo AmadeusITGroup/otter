@@ -11,8 +11,8 @@ import {
   resolve,
 } from 'node:path';
 import {
-  logger as defaultLogger,
   type Logger,
+  MCPLogger,
   type ToolDefinition,
 } from '@ama-mcp/core';
 import type {
@@ -66,7 +66,7 @@ type Repository = Pick<
   'name' | 'full_name' | 'fork' | 'archived' | 'default_branch'
 >;
 
-async function listRepos(octokit: Octokit, options: GetRepositoriesUsingLibraryOptions, logger?: Logger) {
+async function listRepos(octokit: Octokit, options: GetRepositoriesUsingLibraryOptions, logger: Logger) {
   // We use several requests and not only one with OR
   // because GitHub search API has some limitations in the query length and complexity
   // Note: We can do only 10 searches per minute,
@@ -77,14 +77,14 @@ async function listRepos(octokit: Octokit, options: GetRepositoriesUsingLibraryO
         // eslint-disable-next-line @typescript-eslint/naming-convention -- Naming convention from GitHub API
         .map(({ repository: { name, full_name, fork, archived, default_branch } }) => ({ name, full_name, fork, archived, default_branch }))
         .filter((repo) => !repo.archived && !repo.fork);
-      logger?.info?.(`Found ${repos.length} repositories with references to @${scope} in package.json`);
+      logger.info?.(`Found ${repos.length} repositories with references to @${scope} in package.json`);
       return repos as Repository[];
     })
   )).filter((result): result is PromiseFulfilledResult<Repository[]> => result.status === 'fulfilled')
     .flatMap((result) => result.value);
   // Deduplicate repositories in case of multiple scopes matching the same repository
   const repositories = Array.from(new Map(search.map((repo) => [repo.full_name, repo])).values());
-  logger?.info?.(`Found ${repositories.length} repositories with references to ${options.libraryName}`);
+  logger.info?.(`Found ${repositories.length} repositories with references to ${options.libraryName}`);
   return repositories;
 }
 
@@ -152,38 +152,38 @@ function validateCache(cachedRepos: Cache, options: GetRepositoriesUsingLibraryO
   });
 }
 
-async function findRepositoriesUsingLibrary(octokit: Octokit, reposUsingLibrary: string[], options: GetRepositoriesUsingLibraryOptions, logger: Logger = defaultLogger) {
+async function findRepositoriesUsingLibrary(octokit: Octokit, reposUsingLibrary: string[], options: GetRepositoriesUsingLibraryOptions, logger: Logger) {
   const {
     cachePath = resolve('.cache', '@ama-mcp', `repos-using-${options.libraryName.toLowerCase().replaceAll(/\s+/g, '-')}.json`),
     disableCache = false
   } = options;
   let cachedRepos: Cache = {};
   if (disableCache) {
-    logger?.info?.('Ignoring cached repositories as caching is disabled');
+    logger.info?.('Ignoring cached repositories as caching is disabled');
   } else {
     try {
       cachedRepos = JSON.parse(await readFile(cachePath, { encoding: 'utf8' })) as Cache;
       validateCache(cachedRepos, options, logger);
       reposUsingLibrary.push(...Object.entries(cachedRepos).filter(([, usesLibrary]) => usesLibrary).map(([repo]) => repo));
-      logger?.info?.(`Loaded ${Object.keys(cachedRepos).length} cached repositories, ${reposUsingLibrary.length} of them using ${options.libraryName} dependencies.`);
+      logger.info?.(`Loaded ${Object.keys(cachedRepos).length} cached repositories, ${reposUsingLibrary.length} of them using ${options.libraryName} dependencies.`);
     } catch (e) {
-      logger?.info?.(`No cache file found, starting fresh search for repositories using ${options.libraryName} dependencies.`, e);
+      logger.info?.(`No cache file found, starting fresh search for repositories using ${options.libraryName} dependencies.`, e);
     }
   }
-  const repositories = (await listRepos(octokit, options)).filter((r) => !cachedRepos[r.full_name]?.dependsOn);
+  const repositories = (await listRepos(octokit, options, logger)).filter((r) => !cachedRepos[r.full_name]?.dependsOn);
   const findPackageJsonFilesInRepo = findPackageJsonFiles(octokit);
   const dependsOnLibraryInRepo = dependsOnLibrary(octokit, options);
 
   await Promise.allSettled(repositories.map(async (repository) => {
-    logger?.debug?.(`Checking repository ${repository.full_name}...`);
+    logger.debug?.(`Checking repository ${repository.full_name}...`);
     const packageJsonFiles: Awaited<ReturnType<typeof findPackageJsonFilesInRepo>> = [];
     try {
       packageJsonFiles.push(...await findPackageJsonFilesInRepo(repository));
     } catch (e) {
-      logger?.warn?.(`Failed to list package.json files in repository ${repository.full_name}`, e);
+      logger.warn?.(`Failed to list package.json files in repository ${repository.full_name}`, e);
     }
     if (packageJsonFiles.length === 0) {
-      logger?.info?.(`No package.json files found in repository ${repository.full_name}`);
+      logger.info?.(`No package.json files found in repository ${repository.full_name}`);
       cachedRepos[repository.full_name] = {
         dependsOn: false,
         when: new Date().toISOString()
@@ -196,11 +196,11 @@ async function findRepositoriesUsingLibrary(octokit: Octokit, reposUsingLibrary:
         try {
           depFound = await dependsOnLibraryInRepo(repository, packageJsonFile.path);
         } catch (e) {
-          logger?.error?.(`Failed to check package.json file at ${packageJsonFile.path} in repository ${repository.full_name}`, e);
+          logger.error?.(`Failed to check package.json file at ${packageJsonFile.path} in repository ${repository.full_name}`, e);
         }
         if (depFound) {
           reposUsingLibrary.push(repository.full_name);
-          logger?.info?.(`Repository ${repository.full_name} uses ${options.libraryName} dependencies`);
+          logger.info?.(`Repository ${repository.full_name} uses ${options.libraryName} dependencies`);
           cachedRepos[repository.full_name] = {
             dependsOn: true,
             when: new Date().toISOString()
@@ -215,9 +215,9 @@ async function findRepositoriesUsingLibrary(octokit: Octokit, reposUsingLibrary:
       when: new Date().toISOString()
     };
   }));
-  logger?.info?.(`Found ${reposUsingLibrary.length} repositories using ${options.libraryName} dependencies`);
+  logger.info?.(`Found ${reposUsingLibrary.length} repositories using ${options.libraryName} dependencies`);
   if (disableCache) {
-    logger?.info?.('Not updating cache as caching is disabled');
+    logger.info?.('Not updating cache as caching is disabled');
   } else {
     const cacheFolderPath = dirname(cachePath);
     if (!existsSync(dirname(cacheFolderPath))) {
@@ -226,7 +226,7 @@ async function findRepositoriesUsingLibrary(octokit: Octokit, reposUsingLibrary:
     try {
       await writeFile(cachePath, JSON.stringify(cachedRepos));
     } catch (e) {
-      logger?.error?.('Failed to update cache', e);
+      logger.error?.('Failed to update cache', e);
     }
   }
 }
@@ -235,9 +235,8 @@ async function findRepositoriesUsingLibrary(octokit: Octokit, reposUsingLibrary:
  * Register the tool to get repositories using a configured library.
  * @param server
  * @param options
- * @param logger
  */
-export function registerGetRepositoriesUsingLibraryTool(server: McpServer, options: GetRepositoriesUsingLibraryOptions, logger?: Logger) {
+export function registerGetRepositoriesUsingLibraryTool(server: McpServer, options: GetRepositoriesUsingLibraryOptions) {
   const {
     githubToken,
     libraryName,
@@ -246,8 +245,10 @@ export function registerGetRepositoriesUsingLibraryTool(server: McpServer, optio
     toolDescription = `List all repositories that use ${options.libraryName} dependencies (${options.scopes.map((scope) => `@${scope}`).join(' or ')}) in their package.json files.`
   } = options;
 
+  const logger = options.logger ?? new MCPLogger(toolName, options.logLevel);
+
   if (!githubToken) {
-    logger?.error?.(`Missing githubToken for ${toolName}`);
+    logger.error?.(`Missing githubToken for ${toolName}`);
     return;
   }
 
@@ -255,8 +256,8 @@ export function registerGetRepositoriesUsingLibraryTool(server: McpServer, optio
 
   let isLookingForRepos = true;
   const reposUsingLibrary: string[] = [];
-  findRepositoriesUsingLibrary(octokit, reposUsingLibrary, options).catch((e) => {
-    logger?.error?.(`Error finding repositories using ${libraryName}:`, e);
+  findRepositoriesUsingLibrary(octokit, reposUsingLibrary, options, logger).catch((e) => {
+    logger.error?.(`Error finding repositories using ${libraryName}:`, e);
   });
   isLookingForRepos = false;
 
