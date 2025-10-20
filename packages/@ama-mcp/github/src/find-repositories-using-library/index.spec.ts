@@ -74,8 +74,8 @@ const getContent = jest.fn().mockImplementation(({ repo, path }) => {
 const readFile = jest.fn().mockImplementation((path) => {
   if (path.toString().endsWith('cache.json')) {
     return Promise.resolve(JSON.stringify({
-      'testOrg/repoCached': { dependsOn: true, when: new Date().toISOString() },
-      'testOrg/repoCachedExpired': { dependsOn: true, when: new Date(0).toISOString() } // very old date to simulate expiration
+      'testOrg/repoCached': { data: { dependsOn: true }, updatedAt: new Date().toISOString() },
+      'testOrg/repoCachedExpired': { data: { dependsOn: true }, updatedAt: new Date(0).toISOString() } // very old date to simulate expiration
     }));
   }
   return Promise.resolve('File content');
@@ -139,7 +139,7 @@ const setUpClientAndServer = async (options: { disableCache?: boolean } = {}) =>
     scopes: ['ama-mcp', 'scope'],
     libraryName: 'TestAmaMcpLibrary',
     disableCache,
-    cachePath: resolve(tmpdir(), 'cache.json')
+    cacheFilePath: resolve(tmpdir(), 'cache.json')
   });
   return setUpClientAndServerForTesting(mcpServer);
 };

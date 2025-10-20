@@ -12,6 +12,17 @@ export type Logger = {
   [K in LogLevel]?: (message: string, meta?: any) => any;
 };
 
+export interface LoggerToolOptions {
+  /**
+   * Logger instance to use for the tool
+   */
+  logger?: Logger;
+  /**
+   * Log level for the tool logger
+   */
+  logLevel?: LogLevel;
+}
+
 const loggerOrder = ['silent', 'error', 'warn', 'info', 'debug'] as const satisfies LogLevel[];
 
 /**
