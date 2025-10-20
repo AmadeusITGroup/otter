@@ -36,6 +36,18 @@
           "default": 90,
           "description": "Maximum age in days of the MCP cache for a repository to be considered valid"
         },
+        "otter.mcp.logLevel": {
+          "type": "string",
+          "enum": [
+            "debug",
+            "info",
+            "warn",
+            "error",
+            "silent"
+          ],
+          "default": "info",
+          "description": "Log level for the MCP server"
+        },
         "otter.design.filesPatterns": {
           "type": "array",
           "default": [

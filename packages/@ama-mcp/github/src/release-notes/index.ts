@@ -1,6 +1,5 @@
 import {
-  logger as defaultLogger,
-  type Logger,
+  MCPLogger,
   resourceRegistry,
   ToolDefinition,
 } from '@ama-mcp/core';
@@ -132,13 +131,13 @@ function registerReleaseNotesTool(server: McpServer, releaseNotes: Awaited<Retur
  * Register the release notes tool and resources.
  * @param server
  * @param options
- * @param logger
  */
-export async function registerReleaseNotes(server: McpServer, options: ReleaseNotesToolOptions, logger: Logger = defaultLogger) {
+export async function registerReleaseNotes(server: McpServer, options: ReleaseNotesToolOptions) {
   const {
     githubToken,
     libraryName = `${options.owner}/${options.repo}`
   } = options;
+  const logger = options.logger ?? new MCPLogger(`release-notes-${libraryName}`, options.logLevel);
   if (!githubToken) {
     logger.error?.(`Missing githubToken for release notes tool and resources for ${libraryName}`);
     return;

@@ -36,7 +36,8 @@ export const mcpConfig = (didChangeEmitter: EventEmitter<void>, channel: OutputC
         isLocal ? ['node', './tools/@o3r/mcp/dist/src/cli/index.js'] : ['-y', '-p', '@o3r/mcp', 'o3r-mcp-start'],
         {
           O3R_MCP_CACHE_PATH: mcpConfiguration.get<string>('cacheFolderPath') || null,
-          O3R_MCP_CACHE_MAX_AGE: mcpConfiguration.get<number>('cacheMaxAge')?.toString() || null
+          O3R_MCP_CACHE_MAX_AGE: mcpConfiguration.get<number>('cacheMaxAge')?.toString() || null,
+          O3R_MCP_LOG_LEVEL: mcpConfiguration.get<string>('logLevel') || null
         }
       );
       if (isLocal && process.env.O3R_DIRECTORY) {
