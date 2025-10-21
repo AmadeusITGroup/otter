@@ -4,7 +4,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "description": "This module provides a set of MCP tools to retrieve information from GitHub",
+  "description": "Experimental package — This module provides a set of MCP tools to retrieve information from GitHub",
   "keywords": [
     "mcp",
     "github",

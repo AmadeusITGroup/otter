@@ -6,6 +6,9 @@
 <br />
 <br />
 
+> [!WARNING]
+> [Experimental](https://github.com/AmadeusITGroup/otter/blob/main/README.md#experimental)
+
 ## Description
 
 This module provides a set of MCP tools to retrieve information from GitHub.

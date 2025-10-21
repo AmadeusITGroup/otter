@@ -21,6 +21,7 @@ import type {
 
 /**
  * Options for the tool to get release notes
+ * @experimental
  */
 export interface ReleaseNotesToolOptions extends Partial<ResourceToolOptions>, GitHubRepositoryToolOptions, ToolDefinition {
   /**
@@ -127,6 +128,7 @@ function registerReleaseNotesTool(server: McpServer, releaseNotes: Awaited<Retur
  * Register the release notes tool and resources.
  * @param server
  * @param options
+ * @experimental
  */
 export async function registerReleaseNotes(server: McpServer, options: ReleaseNotesToolOptions) {
   const {

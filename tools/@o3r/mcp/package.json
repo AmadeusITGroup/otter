@@ -4,7 +4,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "description": "This module provides a MCP Server",
+  "description": "Experimental package — This module provides a MCP Server",
   "keywords": [
     "mcp",
     "otter",

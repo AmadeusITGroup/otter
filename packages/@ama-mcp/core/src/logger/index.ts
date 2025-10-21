@@ -1,7 +1,12 @@
+/**
+ * Log levels for MCP server logging
+ * @experimental
+ */
 export type LogLevel = 'silent' | 'error' | 'warn' | 'info' | 'debug';
 
 /**
  * Logger type for MCP server
+ * @experimental
  */
 export type Logger = {
   /**
@@ -12,6 +17,10 @@ export type Logger = {
   [K in LogLevel]?: (message: string, meta?: any) => any;
 };
 
+/**
+ * Options for a tool using a logger
+ * @experimental
+ */
 export interface LoggerToolOptions {
   /**
    * Logger instance to use for the tool
@@ -40,6 +49,11 @@ const logInStderr = (name: string, level: LogLevel, message: string, meta?: any)
     meta
   }) + '\n'
 );
+
+/**
+ * MCP Logger implementation
+ * @experimental
+ */
 export class MCPLogger implements Logger {
   constructor(
     private readonly name: string,

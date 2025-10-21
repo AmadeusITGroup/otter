@@ -12,6 +12,7 @@ import type {
  * Set up an MCP client and server for testing purposes.
  * DO NOT USE OUTSIDE OF TESTS.
  * @param mcpServer
+ * @experimental
  */
 export const setUpClientAndServerForTesting = async (mcpServer: McpServer) => {
   const [clientTransport, serverTransport] = InMemoryTransport.createLinkedPair();

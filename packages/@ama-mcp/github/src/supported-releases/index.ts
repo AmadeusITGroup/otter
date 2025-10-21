@@ -20,6 +20,7 @@ import type {
 
 /**
  * Options for the tool to get supported releases
+ * @experimental
  */
 export interface SupportedReleasesOptions extends ToolDefinition, GitHubRepositoryToolOptions {
   /**
@@ -42,6 +43,7 @@ async function getSupportedReleases(octokit: Octokit, options: SupportedReleases
  * Register the supported releases tool.
  * @param server
  * @param options
+ * @experimental
  */
 export async function registerSupportedReleasesTool(server: McpServer, options: SupportedReleasesOptions): Promise<void> {
   const {

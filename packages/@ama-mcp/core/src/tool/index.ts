@@ -4,6 +4,7 @@ import type {
 
 /**
  * Possible override for tool definition
+ * @experimental
  */
 export interface ToolDefinition extends LoggerToolOptions {
   /**
