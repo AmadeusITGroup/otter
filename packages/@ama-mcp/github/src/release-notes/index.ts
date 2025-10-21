@@ -1,6 +1,7 @@
 import {
   MCPLogger,
   resourceRegistry,
+  type ResourceToolOptions,
   ToolDefinition,
 } from '@ama-mcp/core';
 import {
@@ -21,16 +22,11 @@ import type {
 /**
  * Options for the tool to get release notes
  */
-export interface ReleaseNotesToolOptions extends GitHubRepositoryToolOptions, ToolDefinition {
+export interface ReleaseNotesToolOptions extends Partial<ResourceToolOptions>, GitHubRepositoryToolOptions, ToolDefinition {
   /**
    * Optional library name
    */
   libraryName?: string;
-
-  /**
-   * URI prefix for the resources
-   */
-  uriPrefix?: string;
 }
 
 const getDefaultUriPrefix = (options: ReleaseNotesToolOptions) => options.libraryName || options.repo;
