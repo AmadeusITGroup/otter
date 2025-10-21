@@ -29,11 +29,13 @@ const MS_IN_A_DAY = 1000 * 60 * 60 * 24;
 
 /**
  * Default maximum age for cache entries before they are considered expired.
+ * @experimental
  */
 export const DEFAULT_AMA_MCP_CACHE_MAX_AGE_DAYS = 90;
 
 /**
  * Options for a tool using the cache manager.
+ * @experimental
  */
 export interface CacheToolOptions extends LoggerToolOptions {
   /**
@@ -63,6 +65,7 @@ interface GetOptions {
 
 /**
  * A simple cache manager that stores cache entries in a JSON file.
+ * @experimental
  */
 export class CacheManager<T> {
   private cache: Cache<T> = {};

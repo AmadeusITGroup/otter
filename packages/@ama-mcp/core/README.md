@@ -6,6 +6,9 @@
 <br />
 <br />
 
+> [!WARNING]
+> [Experimental](https://github.com/AmadeusITGroup/otter/blob/main/README.md#experimental)
+
 ## Description
 
 This module provides utilities to interact inside an MCP server.

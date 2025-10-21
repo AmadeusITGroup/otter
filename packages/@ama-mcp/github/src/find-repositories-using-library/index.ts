@@ -23,6 +23,7 @@ import type {
 
 /**
  * Options for the tool get_repositories_using_library
+ * @experimental
  */
 export interface GetRepositoriesUsingLibraryOptions extends CacheToolOptions, GithubToolOptions, ToolDefinition {
   /**
@@ -172,6 +173,7 @@ async function findRepositoriesUsingLibrary(
  * Register the tool to get repositories using a configured library.
  * @param server
  * @param options
+ * @experimental
  */
 export function registerGetRepositoriesUsingLibraryTool(server: McpServer, options: GetRepositoriesUsingLibraryOptions) {
   const {

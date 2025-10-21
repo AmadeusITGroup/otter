@@ -1,3 +1,7 @@
+/**
+ * GitHub tool options
+ * @experimental
+ */
 export interface GithubToolOptions {
   /**
    * GitHub authentication token
@@ -5,6 +9,10 @@ export interface GithubToolOptions {
   githubToken: string;
 }
 
+/**
+ * GitHub repository tool options
+ * @experimental
+ */
 export interface GitHubRepositoryToolOptions extends GithubToolOptions {
   /**
    * GitHub repository owner
