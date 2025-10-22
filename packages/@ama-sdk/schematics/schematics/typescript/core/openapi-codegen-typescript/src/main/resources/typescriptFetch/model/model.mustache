@@ -54,8 +54,10 @@ export interface {{classname}} {{#parent}}extends {{{parent}}} {{/parent}}{
       {{#vars}}
         {{#vendorExtensions}}
           {{#x-field-name}}
+            {{^x-field-exists}}
   /** Dictionary extraction for {{baseName}} */
   {{#readOnly}}readonly {{/readOnly}}{{x-field-name}}{{^required}}?{{/required}}: {{x-field-type}};
+            {{/x-field-exists}}
           {{/x-field-name}}
         {{/vendorExtensions}}
       {{/vars}}
