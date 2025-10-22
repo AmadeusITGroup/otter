@@ -542,7 +542,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@ama-mfe/messages@workspace:^, @ama-mfe/messages@workspace:packages/@ama-mfe/messages":
+"@ama-mfe/messages@workspace:packages/@ama-mfe/messages, @ama-mfe/messages@workspace:~":
   version: 0.0.0-use.local
   resolution: "@ama-mfe/messages@workspace:packages/@ama-mfe/messages"
   dependencies:
@@ -551,9 +551,9 @@ __metadata:
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
     "@schematics/angular": "npm:~20.3.0"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@swc/cli": "npm:~0.7.7"
@@ -599,7 +599,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ama-mfe/ng-utils@workspace:packages/@ama-mfe/ng-utils"
   dependencies:
-    "@ama-mfe/messages": "workspace:^"
+    "@ama-mfe/messages": "workspace:~"
     "@amadeus-it-group/microfrontends": "npm:0.0.9"
     "@amadeus-it-group/microfrontends-angular": "npm:0.0.9"
     "@angular-devkit/architect": "npm:~0.2003.0"
@@ -615,12 +615,12 @@ __metadata:
     "@angular/platform-browser-dynamic": "npm:~20.3.0"
     "@angular/router": "npm:~20.3.0"
     "@compodoc/compodoc": "npm:^1.1.19"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/eslint-config": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/logger": "workspace:^"
-    "@o3r/schematics": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/eslint-config": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/logger": "workspace:~"
+    "@o3r/schematics": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
     "@schematics/angular": "npm:~20.3.0"
     "@types/jest": "npm:~29.5.2"
     "@types/jsdom": "npm:^21.1.7"
@@ -654,7 +654,7 @@ __metadata:
     typescript-eslint: "npm:~8.46.0"
     zone.js: "npm:~0.15.0"
   peerDependencies:
-    "@ama-mfe/messages": "workspace:^"
+    "@ama-mfe/messages": "workspace:~"
     "@amadeus-it-group/microfrontends": 0.0.9
     "@amadeus-it-group/microfrontends-angular": 0.0.9
     "@angular-devkit/core": ^20.0.0
@@ -663,8 +663,8 @@ __metadata:
     "@angular/core": ^20.0.0
     "@angular/platform-browser": ^20.0.0
     "@angular/router": ^20.0.0
-    "@o3r/logger": "workspace:^"
-    "@o3r/schematics": "workspace:^"
+    "@o3r/logger": "workspace:~"
+    "@o3r/schematics": "workspace:~"
     rxjs: ^7.8.1
     type-fest: ^4.30.1
   peerDependenciesMeta:
@@ -693,7 +693,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ama-sdk/client-angular@workspace:packages/@ama-sdk/client-angular"
   dependencies:
-    "@ama-sdk/core": "workspace:^"
+    "@ama-sdk/core": "workspace:~"
     "@angular-devkit/core": "npm:~20.3.0"
     "@angular-devkit/schematics": "npm:~20.3.0"
     "@angular/common": "npm:~20.3.0"
@@ -701,10 +701,10 @@ __metadata:
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/schematics": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/schematics": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
     "@schematics/angular": "npm:~20.3.0"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@swc/cli": "npm:~0.7.7"
@@ -744,11 +744,11 @@ __metadata:
     uuid: "npm:^11.0.5"
     zone.js: "npm:~0.15.0"
   peerDependencies:
-    "@ama-sdk/core": "workspace:^"
+    "@ama-sdk/core": "workspace:~"
     "@angular-devkit/schematics": ^20.0.0
     "@angular/cli": ^20.0.0
     "@angular/common": ^20.0.0
-    "@o3r/schematics": "workspace:^"
+    "@o3r/schematics": "workspace:~"
     "@schematics/angular": ^20.0.0
     rxjs: ^7.8.1
     type-fest: ^4.30.1
@@ -775,7 +775,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ama-sdk/client-beacon@workspace:packages/@ama-sdk/client-beacon"
   dependencies:
-    "@ama-sdk/core": "workspace:^"
+    "@ama-sdk/core": "workspace:~"
     "@angular-devkit/core": "npm:~20.3.0"
     "@angular-devkit/schematics": "npm:~20.3.0"
     "@angular/common": "npm:~20.3.0"
@@ -783,10 +783,10 @@ __metadata:
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/schematics": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/schematics": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
     "@schematics/angular": "npm:~20.3.0"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@swc/cli": "npm:~0.7.7"
@@ -825,11 +825,11 @@ __metadata:
     uuid: "npm:^11.0.5"
     zone.js: "npm:~0.15.0"
   peerDependencies:
-    "@ama-sdk/core": "workspace:^"
+    "@ama-sdk/core": "workspace:~"
     "@angular-devkit/schematics": ^20.0.0
     "@angular/cli": ^20.0.0
     "@angular/common": ^20.0.0
-    "@o3r/schematics": "workspace:^"
+    "@o3r/schematics": "workspace:~"
     "@schematics/angular": ^20.0.0
     type-fest: ^4.30.1
     typescript: ^5.9.0
@@ -851,11 +851,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@ama-sdk/client-fetch@workspace:^, @ama-sdk/client-fetch@workspace:packages/@ama-sdk/client-fetch":
+"@ama-sdk/client-fetch@workspace:packages/@ama-sdk/client-fetch, @ama-sdk/client-fetch@workspace:~":
   version: 0.0.0-use.local
   resolution: "@ama-sdk/client-fetch@workspace:packages/@ama-sdk/client-fetch"
   dependencies:
-    "@ama-sdk/core": "workspace:^"
+    "@ama-sdk/core": "workspace:~"
     "@angular-devkit/core": "npm:~20.3.0"
     "@angular-devkit/schematics": "npm:~20.3.0"
     "@angular/common": "npm:~20.3.0"
@@ -863,10 +863,10 @@ __metadata:
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/schematics": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/schematics": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
     "@schematics/angular": "npm:~20.3.0"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@swc/cli": "npm:~0.7.7"
@@ -906,11 +906,11 @@ __metadata:
     uuid: "npm:^11.0.5"
     zone.js: "npm:~0.15.0"
   peerDependencies:
-    "@ama-sdk/core": "workspace:^"
+    "@ama-sdk/core": "workspace:~"
     "@angular-devkit/schematics": ^20.0.0
     "@angular/cli": ^20.0.0
     "@angular/common": ^20.0.0
-    "@o3r/schematics": "workspace:^"
+    "@o3r/schematics": "workspace:~"
     "@schematics/angular": ^20.0.0
     isomorphic-fetch: ^3.0.0
     type-fest: ^4.30.1
@@ -935,7 +935,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@ama-sdk/core@workspace:*, @ama-sdk/core@workspace:^, @ama-sdk/core@workspace:packages/@ama-sdk/core":
+"@ama-sdk/core@workspace:*, @ama-sdk/core@workspace:packages/@ama-sdk/core, @ama-sdk/core@workspace:~":
   version: 0.0.0-use.local
   resolution: "@ama-sdk/core@workspace:packages/@ama-sdk/core"
   dependencies:
@@ -946,10 +946,10 @@ __metadata:
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/schematics": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/schematics": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
     "@schematics/angular": "npm:~20.3.0"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@swc/cli": "npm:~0.7.7"
@@ -992,7 +992,7 @@ __metadata:
   peerDependencies:
     "@angular-devkit/schematics": ^20.0.0
     "@angular/cli": ^20.0.0
-    "@o3r/schematics": "workspace:^"
+    "@o3r/schematics": "workspace:~"
     "@schematics/angular": ^20.0.0
     typescript: ^5.9.0
   peerDependenciesMeta:
@@ -1024,12 +1024,12 @@ __metadata:
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
     "@nx/js": "npm:~21.6.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/eslint-config": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/eslint-config": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
     "@o3r/schematics": "workspace:*"
-    "@o3r/telemetry": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/telemetry": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
     "@openapitools/openapi-generator-cli": "npm:~2.24.0"
     "@schematics/angular": "npm:~20.3.0"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
@@ -1068,7 +1068,7 @@ __metadata:
     typescript: "npm:~5.9.2"
     typescript-eslint: "npm:~8.46.0"
   peerDependencies:
-    "@o3r/telemetry": "workspace:^"
+    "@o3r/telemetry": "workspace:~"
   peerDependenciesMeta:
     "@o3r/telemetry":
       optional: true
@@ -1077,11 +1077,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@ama-sdk/schematics@workspace:*, @ama-sdk/schematics@workspace:^, @ama-sdk/schematics@workspace:packages/@ama-sdk/schematics":
+"@ama-sdk/schematics@workspace:*, @ama-sdk/schematics@workspace:packages/@ama-sdk/schematics, @ama-sdk/schematics@workspace:~":
   version: 0.0.0-use.local
   resolution: "@ama-sdk/schematics@workspace:packages/@ama-sdk/schematics"
   dependencies:
-    "@ama-sdk/core": "workspace:^"
+    "@ama-sdk/core": "workspace:~"
     "@angular-devkit/core": "npm:~20.3.0"
     "@angular-devkit/schematics": "npm:~20.3.0"
     "@angular-devkit/schematics-cli": "npm:~20.3.0"
@@ -1089,11 +1089,11 @@ __metadata:
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/schematics": "workspace:^"
-    "@o3r/telemetry": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/schematics": "workspace:~"
+    "@o3r/telemetry": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
     "@openapitools/openapi-generator-cli": "npm:~2.24.0"
     "@schematics/angular": "npm:~20.3.0"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
@@ -1143,12 +1143,12 @@ __metadata:
     typescript: "npm:~5.9.2"
     typescript-eslint: "npm:~8.46.0"
   peerDependencies:
-    "@ama-sdk/core": "workspace:^"
+    "@ama-sdk/core": "workspace:~"
     "@angular-devkit/core": ^20.0.0
     "@angular-devkit/schematics-cli": ^20.0.0
     "@angular/cli": ^20.0.0
-    "@o3r/schematics": "workspace:^"
-    "@o3r/telemetry": "workspace:^"
+    "@o3r/schematics": "workspace:~"
+    "@o3r/telemetry": "workspace:~"
     "@openapitools/openapi-generator-cli": ^2.15.0
     openapi-types: ^12.0.0
     ts-node: ~10.9.2
@@ -1186,9 +1186,9 @@ __metadata:
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@types/jest": "npm:~29.5.2"
     "@types/js-yaml": "npm:^4.0.5"
@@ -1239,9 +1239,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ama-styling/figma-extractor@workspace:packages/@ama-styling/figma-extractor"
   dependencies:
-    "@ama-sdk/client-fetch": "workspace:^"
-    "@ama-sdk/core": "workspace:^"
-    "@ama-styling/figma-sdk": "workspace:^"
+    "@ama-sdk/client-fetch": "workspace:~"
+    "@ama-sdk/core": "workspace:~"
+    "@ama-styling/figma-sdk": "workspace:~"
     "@angular-devkit/schematics": "npm:~20.3.0"
     "@compodoc/compodoc": "npm:^1.1.19"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
@@ -1249,10 +1249,10 @@ __metadata:
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
     "@nx/js": "npm:~21.6.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/schematics": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/schematics": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:~22.18.0"
@@ -1288,10 +1288,10 @@ __metadata:
     yargs: "npm:^18.0.0"
     zone.js: "npm:~0.15.0"
   peerDependencies:
-    "@ama-sdk/client-fetch": "workspace:^"
-    "@ama-sdk/core": "workspace:^"
+    "@ama-sdk/client-fetch": "workspace:~"
+    "@ama-sdk/core": "workspace:~"
     "@angular-devkit/schematics": ~20.3.0
-    "@o3r/schematics": "workspace:^"
+    "@o3r/schematics": "workspace:~"
     type-fest: ^4.30.1
   peerDependenciesMeta:
     "@ama-sdk/client-fetch":
@@ -1307,13 +1307,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@ama-styling/figma-sdk@workspace:^, @ama-styling/figma-sdk@workspace:packages/@ama-styling/figma-sdk":
+"@ama-styling/figma-sdk@workspace:packages/@ama-styling/figma-sdk, @ama-styling/figma-sdk@workspace:~":
   version: 0.0.0-use.local
   resolution: "@ama-styling/figma-sdk@workspace:packages/@ama-styling/figma-sdk"
   dependencies:
-    "@ama-sdk/client-fetch": "workspace:^"
-    "@ama-sdk/core": "workspace:^"
-    "@ama-sdk/schematics": "workspace:^"
+    "@ama-sdk/client-fetch": "workspace:~"
+    "@ama-sdk/core": "workspace:~"
+    "@ama-sdk/schematics": "workspace:~"
     "@angular-devkit/core": "npm:~20.3.0"
     "@angular-devkit/schematics": "npm:~20.3.0"
     "@angular-devkit/schematics-cli": "npm:~20.3.0"
@@ -1325,11 +1325,11 @@ __metadata:
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@figma/rest-api-spec": "npm:~0.34.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/eslint-config": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/schematics": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/eslint-config": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/schematics": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
     "@openapitools/openapi-generator-cli": "npm:~2.24.0"
     "@schematics/angular": "npm:~20.3.0"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
@@ -1368,8 +1368,8 @@ __metadata:
     typescript-eslint: "npm:~8.46.0"
     yaml-eslint-parser: "npm:^1.2.2"
   peerDependencies:
-    "@ama-sdk/client-fetch": "workspace:^"
-    "@ama-sdk/core": "workspace:^"
+    "@ama-sdk/client-fetch": "workspace:~"
+    "@ama-sdk/core": "workspace:~"
     isomorphic-fetch: ~3.0.0
   peerDependenciesMeta:
     "@ama-sdk/client-fetch":
@@ -1394,12 +1394,12 @@ __metadata:
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
     "@nx/js": "npm:~21.6.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/core": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/schematics": "workspace:^"
-    "@o3r/telemetry": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/core": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/schematics": "workspace:~"
+    "@o3r/telemetry": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
     "@schematics/angular": "npm:~20.3.0"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@types/jest": "npm:~29.5.2"
@@ -1438,9 +1438,9 @@ __metadata:
     typescript-eslint: "npm:~8.46.0"
     zone.js: "npm:~0.15.0"
   peerDependencies:
-    "@o3r/core": "workspace:^"
-    "@o3r/schematics": "workspace:^"
-    "@o3r/telemetry": "workspace:^"
+    "@o3r/core": "workspace:~"
+    "@o3r/schematics": "workspace:~"
+    "@o3r/telemetry": "workspace:~"
     style-dictionary: ^5.0.0
     type-fest: ^4.30.1
   peerDependenciesMeta:
@@ -1473,11 +1473,11 @@ __metadata:
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/eslint-config": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/schematics": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/eslint-config": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/schematics": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
     "@schematics/angular": "npm:~20.3.0"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@types/css-tree": "npm:~2.3.0"
@@ -1518,7 +1518,7 @@ __metadata:
     typescript-eslint: "npm:~8.46.0"
   peerDependencies:
     "@angular-devkit/schematics": ^20.0.0
-    "@o3r/schematics": "workspace:^"
+    "@o3r/schematics": "workspace:~"
     "@schematics/angular": ^20.0.0
     postcss: ^8.4.5
     postcss-scss: ^4.0.9
@@ -1537,22 +1537,22 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ama-terasu/cli@workspace:packages/@ama-terasu/cli"
   dependencies:
-    "@ama-terasu/core": "workspace:^"
+    "@ama-terasu/core": "workspace:~"
     "@angular-devkit/architect": "npm:~0.2003.0"
     "@angular-devkit/core": "npm:~20.3.0"
     "@angular-devkit/schematics": "npm:~20.3.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
-    "@o3r/amaterasu-api-spec": "workspace:^"
-    "@o3r/amaterasu-dodo": "workspace:^"
-    "@o3r/amaterasu-otter": "workspace:^"
-    "@o3r/amaterasu-sdk": "workspace:^"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/schematics": "workspace:^"
-    "@o3r/telemetry": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/amaterasu-api-spec": "workspace:~"
+    "@o3r/amaterasu-dodo": "workspace:~"
+    "@o3r/amaterasu-otter": "workspace:~"
+    "@o3r/amaterasu-sdk": "workspace:~"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/schematics": "workspace:~"
+    "@o3r/telemetry": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
     "@schematics/angular": "npm:~20.3.0"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@types/jest": "npm:~29.5.2"
@@ -1598,11 +1598,11 @@ __metadata:
     webpack-cli: "npm:~6.0.0"
     yargs: "npm:^18.0.0"
   peerDependencies:
-    "@o3r/amaterasu-api-spec": "workspace:^"
-    "@o3r/amaterasu-dodo": "workspace:^"
-    "@o3r/amaterasu-otter": "workspace:^"
-    "@o3r/amaterasu-sdk": "workspace:^"
-    "@o3r/telemetry": "workspace:^"
+    "@o3r/amaterasu-api-spec": "workspace:~"
+    "@o3r/amaterasu-dodo": "workspace:~"
+    "@o3r/amaterasu-otter": "workspace:~"
+    "@o3r/amaterasu-sdk": "workspace:~"
+    "@o3r/telemetry": "workspace:~"
   peerDependenciesMeta:
     "@o3r/amaterasu-api-spec":
       optional: true
@@ -1619,16 +1619,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@ama-terasu/core@workspace:^, @ama-terasu/core@workspace:packages/@ama-terasu/core":
+"@ama-terasu/core@workspace:packages/@ama-terasu/core, @ama-terasu/core@workspace:~":
   version: 0.0.0-use.local
   resolution: "@ama-terasu/core@workspace:packages/@ama-terasu/core"
   dependencies:
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@types/jest": "npm:~29.5.2"
     "@types/minimist": "npm:^1.2.2"
@@ -1675,10 +1675,10 @@ __metadata:
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/schematics": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/schematics": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
     "@schematics/angular": "npm:~20.3.0"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@types/jest": "npm:~29.5.2"
@@ -8420,13 +8420,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@o3r-training/showcase-sdk@workspace:^, @o3r-training/showcase-sdk@workspace:packages/@o3r-training/showcase-sdk":
+"@o3r-training/showcase-sdk@workspace:packages/@o3r-training/showcase-sdk, @o3r-training/showcase-sdk@workspace:~":
   version: 0.0.0-use.local
   resolution: "@o3r-training/showcase-sdk@workspace:packages/@o3r-training/showcase-sdk"
   dependencies:
-    "@ama-sdk/client-fetch": "workspace:^"
-    "@ama-sdk/core": "workspace:^"
-    "@ama-sdk/schematics": "workspace:^"
+    "@ama-sdk/client-fetch": "workspace:~"
+    "@ama-sdk/core": "workspace:~"
+    "@ama-sdk/schematics": "workspace:~"
     "@angular-devkit/core": "npm:~20.3.0"
     "@angular-devkit/schematics": "npm:~20.3.0"
     "@angular-devkit/schematics-cli": "npm:~20.3.0"
@@ -8436,10 +8436,10 @@ __metadata:
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
-    "@o3r-training/training-tools": "workspace:^"
-    "@o3r/eslint-config": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r-training/training-tools": "workspace:~"
+    "@o3r/eslint-config": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
     "@openapitools/openapi-generator-cli": "npm:~2.24.0"
     "@schematics/angular": "npm:~20.3.0"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
@@ -8478,8 +8478,8 @@ __metadata:
     typescript: "npm:~5.9.2"
     typescript-eslint: "npm:~8.46.0"
   peerDependencies:
-    "@ama-sdk/client-fetch": "workspace:^"
-    "@ama-sdk/core": "workspace:^"
+    "@ama-sdk/client-fetch": "workspace:~"
+    "@ama-sdk/core": "workspace:~"
     isomorphic-fetch: ^3.0.0
   peerDependenciesMeta:
     "@ama-sdk/client-fetch":
@@ -8489,13 +8489,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@o3r-training/training-sdk@workspace:^, @o3r-training/training-sdk@workspace:packages/@o3r-training/training-sdk":
+"@o3r-training/training-sdk@workspace:packages/@o3r-training/training-sdk, @o3r-training/training-sdk@workspace:~":
   version: 0.0.0-use.local
   resolution: "@o3r-training/training-sdk@workspace:packages/@o3r-training/training-sdk"
   dependencies:
-    "@ama-sdk/client-fetch": "workspace:^"
-    "@ama-sdk/core": "workspace:^"
-    "@ama-sdk/schematics": "workspace:^"
+    "@ama-sdk/client-fetch": "workspace:~"
+    "@ama-sdk/core": "workspace:~"
+    "@ama-sdk/schematics": "workspace:~"
     "@angular-devkit/core": "npm:~20.3.0"
     "@angular-devkit/schematics": "npm:~20.3.0"
     "@angular-devkit/schematics-cli": "npm:~20.3.0"
@@ -8505,11 +8505,11 @@ __metadata:
     "@commitlint/config-conventional": "npm:^19.0.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
-    "@o3r-training/training-tools": "workspace:^"
-    "@o3r/eslint-config": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/schematics": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r-training/training-tools": "workspace:~"
+    "@o3r/eslint-config": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/schematics": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
     "@openapitools/openapi-generator-cli": "npm:~2.24.0"
     "@schematics/angular": "npm:~20.3.0"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
@@ -8548,8 +8548,8 @@ __metadata:
     typescript-eslint: "npm:~8.46.0"
     yaml-eslint-parser: "npm:^1.2.2"
   peerDependencies:
-    "@ama-sdk/client-fetch": "workspace:^"
-    "@ama-sdk/core": "workspace:^"
+    "@ama-sdk/client-fetch": "workspace:~"
+    "@ama-sdk/core": "workspace:~"
     isomorphic-fetch: ~3.0.0
   peerDependenciesMeta:
     "@ama-sdk/client-fetch":
@@ -8559,7 +8559,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@o3r-training/training-tools@workspace:^, @o3r-training/training-tools@workspace:packages/@o3r-training/training-tools":
+"@o3r-training/training-tools@workspace:packages/@o3r-training/training-tools, @o3r-training/training-tools@workspace:~":
   version: 0.0.0-use.local
   resolution: "@o3r-training/training-tools@workspace:packages/@o3r-training/training-tools"
   dependencies:
@@ -8581,11 +8581,11 @@ __metadata:
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
     "@nx/js": "npm:~21.6.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/eslint-config": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/schematics": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/eslint-config": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/schematics": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
     "@schematics/angular": "npm:~20.3.0"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@swc/cli": "npm:~0.7.7"
@@ -8623,7 +8623,7 @@ __metadata:
     zone.js: "npm:~0.15.0"
   peerDependencies:
     "@angular-devkit/schematics": ^20.0.0
-    "@o3r/schematics": "workspace:^"
+    "@o3r/schematics": "workspace:~"
     "@schematics/angular": ^20.0.0
     "@webcontainer/api": ^1.5.0
     rxjs: ^7.8.1
@@ -8647,17 +8647,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@o3r/amaterasu-api-spec@workspace:^, @o3r/amaterasu-api-spec@workspace:packages/@o3r/amaterasu/amaterasu-api-spec":
+"@o3r/amaterasu-api-spec@workspace:packages/@o3r/amaterasu/amaterasu-api-spec, @o3r/amaterasu-api-spec@workspace:~":
   version: 0.0.0-use.local
   resolution: "@o3r/amaterasu-api-spec@workspace:packages/@o3r/amaterasu/amaterasu-api-spec"
   dependencies:
-    "@ama-terasu/core": "workspace:^"
+    "@ama-terasu/core": "workspace:~"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@types/jest": "npm:~29.5.2"
     "@types/js-yaml": "npm:^4.0.5"
@@ -8689,21 +8689,21 @@ __metadata:
     typescript-eslint: "npm:~8.46.0"
     yargs: "npm:^18.0.0"
   peerDependencies:
-    "@ama-terasu/core": "workspace:^"
+    "@ama-terasu/core": "workspace:~"
   languageName: unknown
   linkType: soft
 
-"@o3r/amaterasu-dodo@workspace:^, @o3r/amaterasu-dodo@workspace:packages/@o3r/amaterasu/amaterasu-dodo":
+"@o3r/amaterasu-dodo@workspace:packages/@o3r/amaterasu/amaterasu-dodo, @o3r/amaterasu-dodo@workspace:~":
   version: 0.0.0-use.local
   resolution: "@o3r/amaterasu-dodo@workspace:packages/@o3r/amaterasu/amaterasu-dodo"
   dependencies:
-    "@ama-terasu/core": "workspace:^"
+    "@ama-terasu/core": "workspace:~"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:~22.18.0"
@@ -8735,24 +8735,24 @@ __metadata:
     typescript-eslint: "npm:~8.46.0"
     yargs: "npm:^18.0.0"
   peerDependencies:
-    "@ama-terasu/core": "workspace:^"
+    "@ama-terasu/core": "workspace:~"
   peerDependenciesMeta:
     "@angular/cli":
       optional: true
   languageName: unknown
   linkType: soft
 
-"@o3r/amaterasu-otter@workspace:^, @o3r/amaterasu-otter@workspace:packages/@o3r/amaterasu/amaterasu-otter":
+"@o3r/amaterasu-otter@workspace:packages/@o3r/amaterasu/amaterasu-otter, @o3r/amaterasu-otter@workspace:~":
   version: 0.0.0-use.local
   resolution: "@o3r/amaterasu-otter@workspace:packages/@o3r/amaterasu/amaterasu-otter"
   dependencies:
-    "@ama-terasu/core": "workspace:^"
+    "@ama-terasu/core": "workspace:~"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@types/jest": "npm:~29.5.2"
     "@types/js-yaml": "npm:^4.0.5"
@@ -8784,7 +8784,7 @@ __metadata:
     typescript-eslint: "npm:~8.46.0"
     yargs: "npm:^18.0.0"
   peerDependencies:
-    "@ama-terasu/core": "workspace:^"
+    "@ama-terasu/core": "workspace:~"
     "@angular/cli": ^20.0.0
   peerDependenciesMeta:
     "@angular/cli":
@@ -8792,17 +8792,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@o3r/amaterasu-sdk@workspace:^, @o3r/amaterasu-sdk@workspace:packages/@o3r/amaterasu/amaterasu-sdk":
+"@o3r/amaterasu-sdk@workspace:packages/@o3r/amaterasu/amaterasu-sdk, @o3r/amaterasu-sdk@workspace:~":
   version: 0.0.0-use.local
   resolution: "@o3r/amaterasu-sdk@workspace:packages/@o3r/amaterasu/amaterasu-sdk"
   dependencies:
-    "@ama-terasu/core": "workspace:^"
+    "@ama-terasu/core": "workspace:~"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@types/jest": "npm:~29.5.2"
     "@types/js-yaml": "npm:^4.0.5"
@@ -8834,15 +8834,15 @@ __metadata:
     typescript-eslint: "npm:~8.46.0"
     yargs: "npm:^18.0.0"
   peerDependencies:
-    "@ama-terasu/core": "workspace:^"
+    "@ama-terasu/core": "workspace:~"
   languageName: unknown
   linkType: soft
 
-"@o3r/analytics@workspace:^, @o3r/analytics@workspace:packages/@o3r/analytics":
+"@o3r/analytics@workspace:packages/@o3r/analytics, @o3r/analytics@workspace:~":
   version: 0.0.0-use.local
   resolution: "@o3r/analytics@workspace:packages/@o3r/analytics"
   dependencies:
-    "@ama-sdk/core": "workspace:^"
+    "@ama-sdk/core": "workspace:~"
     "@angular-devkit/build-angular": "npm:~20.3.0"
     "@angular-devkit/core": "npm:~20.3.0"
     "@angular-devkit/schematics": "npm:~20.3.0"
@@ -8863,11 +8863,11 @@ __metadata:
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
     "@nx/js": "npm:~21.6.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/core": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/schematics": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/core": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/schematics": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
     "@schematics/angular": "npm:~20.3.0"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@types/jasmine": "npm:~5.1.0"
@@ -8906,7 +8906,7 @@ __metadata:
     webpack: "npm:~5.102.0"
     zone.js: "npm:~0.15.0"
   peerDependencies:
-    "@ama-sdk/core": "workspace:^"
+    "@ama-sdk/core": "workspace:~"
     "@angular-devkit/schematics": ^20.0.0
     "@angular/common": ^20.0.0
     "@angular/core": ^20.0.0
@@ -8914,8 +8914,8 @@ __metadata:
     "@angular/platform-browser-dynamic": ^20.0.0
     "@angular/router": ^20.0.0
     "@ngrx/store": ^20.0.0
-    "@o3r/core": "workspace:^"
-    "@o3r/schematics": "workspace:^"
+    "@o3r/core": "workspace:~"
+    "@o3r/schematics": "workspace:~"
     "@schematics/angular": ^20.0.0
     jasmine: ^5.0.0
     rxjs: ^7.8.1
@@ -8941,12 +8941,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@o3r/apis-manager@workspace:^, @o3r/apis-manager@workspace:packages/@o3r/apis-manager":
+"@o3r/apis-manager@workspace:packages/@o3r/apis-manager, @o3r/apis-manager@workspace:~":
   version: 0.0.0-use.local
   resolution: "@o3r/apis-manager@workspace:packages/@o3r/apis-manager"
   dependencies:
-    "@ama-sdk/client-fetch": "workspace:^"
-    "@ama-sdk/core": "workspace:^"
+    "@ama-sdk/client-fetch": "workspace:~"
+    "@ama-sdk/core": "workspace:~"
     "@angular-devkit/build-angular": "npm:~20.3.0"
     "@angular-devkit/core": "npm:~20.3.0"
     "@angular-devkit/schematics": "npm:~20.3.0"
@@ -8965,10 +8965,10 @@ __metadata:
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
     "@nx/js": "npm:~21.6.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/schematics": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/schematics": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
     "@schematics/angular": "npm:~20.3.0"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@types/jest": "npm:~29.5.2"
@@ -9005,12 +9005,12 @@ __metadata:
     typescript-eslint: "npm:~8.46.0"
     zone.js: "npm:~0.15.0"
   peerDependencies:
-    "@ama-sdk/client-fetch": "workspace:^"
-    "@ama-sdk/core": "workspace:^"
+    "@ama-sdk/client-fetch": "workspace:~"
+    "@ama-sdk/core": "workspace:~"
     "@angular-devkit/schematics": ^20.0.0
     "@angular/common": ^20.0.0
     "@angular/core": ^20.0.0
-    "@o3r/schematics": "workspace:^"
+    "@o3r/schematics": "workspace:~"
     "@schematics/angular": ^20.0.0
     rxjs: ^7.8.1
     ts-node: ~10.9.2
@@ -9030,7 +9030,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@o3r/application@workspace:^, @o3r/application@workspace:packages/@o3r/application":
+"@o3r/application@workspace:packages/@o3r/application, @o3r/application@workspace:~":
   version: 0.0.0-use.local
   resolution: "@o3r/application@workspace:packages/@o3r/application"
   dependencies:
@@ -9052,14 +9052,14 @@ __metadata:
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
     "@nx/js": "npm:~21.6.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/core": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/logger": "workspace:^"
-    "@o3r/routing": "workspace:^"
-    "@o3r/schematics": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
-    "@o3r/testing": "workspace:^"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/core": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/logger": "workspace:~"
+    "@o3r/routing": "workspace:~"
+    "@o3r/schematics": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
+    "@o3r/testing": "workspace:~"
     "@schematics/angular": "npm:~20.3.0"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@types/jest": "npm:~29.5.2"
@@ -9099,11 +9099,11 @@ __metadata:
     "@angular-devkit/schematics": ^20.0.0
     "@angular/common": ^20.0.0
     "@angular/core": ^20.0.0
-    "@o3r/core": "workspace:^"
-    "@o3r/logger": "workspace:^"
-    "@o3r/routing": "workspace:^"
-    "@o3r/schematics": "workspace:^"
-    "@o3r/testing": "workspace:^"
+    "@o3r/core": "workspace:~"
+    "@o3r/logger": "workspace:~"
+    "@o3r/routing": "workspace:~"
+    "@o3r/schematics": "workspace:~"
+    "@o3r/testing": "workspace:~"
     "@schematics/angular": ^20.0.0
     rxjs: ^7.8.1
     ts-node: ~10.9.2
@@ -9135,10 +9135,10 @@ __metadata:
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/telemetry": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/telemetry": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@types/fs-extra": "npm:^11.0.0"
     "@types/jest": "npm:~29.5.2"
@@ -9172,7 +9172,7 @@ __metadata:
     winston: "npm:^3.8.2"
   peerDependencies:
     "@angular-devkit/schematics": ^20.0.0
-    "@o3r/telemetry": "workspace:^"
+    "@o3r/telemetry": "workspace:~"
   peerDependenciesMeta:
     "@angular-devkit/schematics":
       optional: true
@@ -9197,10 +9197,10 @@ __metadata:
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/telemetry": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/telemetry": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:~22.18.0"
@@ -9233,7 +9233,7 @@ __metadata:
     winston: "npm:^3.8.2"
   peerDependencies:
     "@angular-devkit/schematics": ^20.0.0
-    "@o3r/telemetry": "workspace:^"
+    "@o3r/telemetry": "workspace:~"
   peerDependenciesMeta:
     "@angular-devkit/schematics":
       optional: true
@@ -9244,13 +9244,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@o3r/build-helpers@workspace:^, @o3r/build-helpers@workspace:tools/@o3r/build-helpers":
+"@o3r/build-helpers@workspace:^, @o3r/build-helpers@workspace:tools/@o3r/build-helpers, @o3r/build-helpers@workspace:~":
   version: 0.0.0-use.local
   resolution: "@o3r/build-helpers@workspace:tools/@o3r/build-helpers"
   dependencies:
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
-    "@o3r/eslint-plugin": "workspace:^"
+    "@o3r/eslint-plugin": "workspace:~"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@types/node": "npm:~22.18.0"
     "@typescript-eslint/parser": "npm:~8.46.0"
@@ -9320,18 +9320,18 @@ __metadata:
     "@ngrx/store": "npm:~20.0.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
-    "@o3r/application": "workspace:^"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/components": "workspace:^"
-    "@o3r/configuration": "workspace:^"
-    "@o3r/core": "workspace:^"
-    "@o3r/eslint-config": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/localization": "workspace:^"
-    "@o3r/logger": "workspace:^"
-    "@o3r/rules-engine": "workspace:^"
-    "@o3r/styling": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/application": "workspace:~"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/components": "workspace:~"
+    "@o3r/configuration": "workspace:~"
+    "@o3r/core": "workspace:~"
+    "@o3r/eslint-config": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/localization": "workspace:~"
+    "@o3r/logger": "workspace:~"
+    "@o3r/rules-engine": "workspace:~"
+    "@o3r/styling": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
     "@playwright/test": "npm:~1.56.0"
     "@popperjs/core": "npm:^2.11.5"
     "@schematics/angular": "npm:~20.3.0"
@@ -9384,7 +9384,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@o3r/components@workspace:^, @o3r/components@workspace:packages/@o3r/components":
+"@o3r/components@workspace:packages/@o3r/components, @o3r/components@workspace:~":
   version: 0.0.0-use.local
   resolution: "@o3r/components@workspace:packages/@o3r/components"
   dependencies:
@@ -9410,18 +9410,18 @@ __metadata:
     "@ngrx/store": "npm:~20.0.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
-    "@o3r/analytics": "workspace:^"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/configuration": "workspace:^"
-    "@o3r/core": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/extractors": "workspace:^"
-    "@o3r/localization": "workspace:^"
-    "@o3r/logger": "workspace:^"
-    "@o3r/rules-engine": "workspace:^"
-    "@o3r/schematics": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
-    "@o3r/testing": "workspace:^"
+    "@o3r/analytics": "workspace:~"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/configuration": "workspace:~"
+    "@o3r/core": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/extractors": "workspace:~"
+    "@o3r/localization": "workspace:~"
+    "@o3r/logger": "workspace:~"
+    "@o3r/rules-engine": "workspace:~"
+    "@o3r/schematics": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
+    "@o3r/testing": "workspace:~"
     "@schematics/angular": "npm:~20.3.0"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@swc/helpers": "npm:~0.5.0"
@@ -9483,15 +9483,15 @@ __metadata:
     "@ngrx/effects": ^20.0.0
     "@ngrx/entity": ^20.0.0
     "@ngrx/store": ^20.0.0
-    "@o3r/analytics": "workspace:^"
-    "@o3r/configuration": "workspace:^"
-    "@o3r/core": "workspace:^"
-    "@o3r/dynamic-content": "workspace:^"
-    "@o3r/extractors": "workspace:^"
-    "@o3r/localization": "workspace:^"
-    "@o3r/logger": "workspace:^"
-    "@o3r/rules-engine": "workspace:^"
-    "@o3r/schematics": "workspace:^"
+    "@o3r/analytics": "workspace:~"
+    "@o3r/configuration": "workspace:~"
+    "@o3r/core": "workspace:~"
+    "@o3r/dynamic-content": "workspace:~"
+    "@o3r/extractors": "workspace:~"
+    "@o3r/localization": "workspace:~"
+    "@o3r/logger": "workspace:~"
+    "@o3r/rules-engine": "workspace:~"
+    "@o3r/schematics": "workspace:~"
     "@schematics/angular": ^20.0.0
     "@yarnpkg/cli": ^4.0.0
     "@yarnpkg/core": ^4.1.1
@@ -9552,7 +9552,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@o3r/configuration@workspace:^, @o3r/configuration@workspace:packages/@o3r/configuration":
+"@o3r/configuration@workspace:packages/@o3r/configuration, @o3r/configuration@workspace:~":
   version: 0.0.0-use.local
   resolution: "@o3r/configuration@workspace:packages/@o3r/configuration"
   dependencies:
@@ -9576,13 +9576,13 @@ __metadata:
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
     "@nx/js": "npm:~21.6.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/core": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/logger": "workspace:^"
-    "@o3r/schematics": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
-    "@o3r/testing": "workspace:^"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/core": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/logger": "workspace:~"
+    "@o3r/schematics": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
+    "@o3r/testing": "workspace:~"
     "@schematics/angular": "npm:~20.3.0"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@types/jasmine": "npm:~5.1.0"
@@ -9627,9 +9627,9 @@ __metadata:
     "@angular/platform-browser-dynamic": ^20.0.0
     "@ngrx/entity": ^20.0.0
     "@ngrx/store": ^20.0.0
-    "@o3r/core": "workspace:^"
-    "@o3r/logger": "workspace:^"
-    "@o3r/schematics": "workspace:^"
+    "@o3r/core": "workspace:~"
+    "@o3r/logger": "workspace:~"
+    "@o3r/schematics": "workspace:~"
     "@schematics/angular": ^20.0.0
     cheerio: ^1.1.2
     express-interceptor: ^1.2.0
@@ -9658,7 +9658,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@o3r/core@workspace:^, @o3r/core@workspace:packages/@o3r/core":
+"@o3r/core@workspace:packages/@o3r/core, @o3r/core@workspace:~":
   version: 0.0.0-use.local
   resolution: "@o3r/core@workspace:packages/@o3r/core"
   dependencies:
@@ -9686,11 +9686,11 @@ __metadata:
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
     "@nx/js": "npm:~21.6.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/schematics": "workspace:^"
-    "@o3r/telemetry": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/schematics": "workspace:~"
+    "@o3r/telemetry": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
     "@schematics/angular": "npm:~20.3.0"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@swc/helpers": "npm:~0.5.0"
@@ -9746,7 +9746,7 @@ __metadata:
     "@ngrx/entity": ^20.0.0
     "@ngrx/store": ^20.0.0
     "@nx/angular": ~21.6.0
-    "@o3r/telemetry": "workspace:^"
+    "@o3r/telemetry": "workspace:~"
     "@schematics/angular": ^20.0.0
     chokidar: ^4.0.3
     globby: ^11.1.0
@@ -9789,11 +9789,11 @@ __metadata:
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
     "@nx/js": "npm:~21.6.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/eslint-config": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/schematics": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/eslint-config": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/schematics": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
     "@schematics/angular": "npm:~20.3.0"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@types/jest": "npm:~29.5.2"
@@ -9831,7 +9831,7 @@ __metadata:
     typescript: "npm:~5.9.2"
     typescript-eslint: "npm:~8.46.0"
   peerDependencies:
-    "@o3r/telemetry": "workspace:^"
+    "@o3r/telemetry": "workspace:~"
   peerDependenciesMeta:
     "@o3r/telemetry":
       optional: true
@@ -9840,7 +9840,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@o3r/design@workspace:^, @o3r/design@workspace:packages/@o3r/design":
+"@o3r/design@workspace:packages/@o3r/design, @o3r/design@workspace:~":
   version: 0.0.0-use.local
   resolution: "@o3r/design@workspace:packages/@o3r/design"
   dependencies:
@@ -9864,13 +9864,13 @@ __metadata:
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
     "@nx/js": "npm:~21.6.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/core": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/schematics": "workspace:^"
-    "@o3r/styling": "workspace:^"
-    "@o3r/telemetry": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/core": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/schematics": "workspace:~"
+    "@o3r/styling": "workspace:~"
+    "@o3r/telemetry": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
     "@schematics/angular": "npm:~20.3.0"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@swc/helpers": "npm:~0.5.0"
@@ -9916,10 +9916,10 @@ __metadata:
   peerDependencies:
     "@angular-devkit/architect": ">=0.2000.0 <0.2100.0-0"
     "@angular-devkit/schematics": ^20.0.0
-    "@o3r/core": "workspace:^"
-    "@o3r/schematics": "workspace:^"
-    "@o3r/styling": "workspace:^"
-    "@o3r/telemetry": "workspace:^"
+    "@o3r/core": "workspace:~"
+    "@o3r/schematics": "workspace:~"
+    "@o3r/styling": "workspace:~"
+    "@o3r/telemetry": "workspace:~"
     chokidar: ^4.0.3
     globby: ^11.1.0
     sass: ^1.81.0
@@ -9948,7 +9948,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@o3r/dynamic-content@workspace:^, @o3r/dynamic-content@workspace:packages/@o3r/dynamic-content":
+"@o3r/dynamic-content@workspace:packages/@o3r/dynamic-content, @o3r/dynamic-content@workspace:~":
   version: 0.0.0-use.local
   resolution: "@o3r/dynamic-content@workspace:packages/@o3r/dynamic-content"
   dependencies:
@@ -9972,12 +9972,12 @@ __metadata:
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
     "@nx/js": "npm:~21.6.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/core": "workspace:^"
-    "@o3r/eslint-config": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/schematics": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/core": "workspace:~"
+    "@o3r/eslint-config": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/schematics": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
     "@schematics/angular": "npm:~20.3.0"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@types/jasmine": "npm:~5.1.0"
@@ -10020,8 +10020,8 @@ __metadata:
     "@angular/core": ^20.0.0
     "@angular/platform-browser-dynamic": ^20.0.0
     "@ngrx/store": ^20.0.0
-    "@o3r/core": "workspace:^"
-    "@o3r/schematics": "workspace:^"
+    "@o3r/core": "workspace:~"
+    "@o3r/schematics": "workspace:~"
     "@schematics/angular": ^20.0.0
     cheerio: ^1.1.2
     express-interceptor: ^1.2.0
@@ -10057,10 +10057,10 @@ __metadata:
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@eslint/js": "npm:~9.37.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/schematics": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/schematics": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
     "@schematics/angular": "npm:~20.3.0"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@types/jest": "npm:~29.5.2"
@@ -10100,8 +10100,8 @@ __metadata:
     "@angular/compiler": ^20.0.0
     "@eslint-community/eslint-plugin-eslint-comments": ^4.4.0
     "@eslint/js": ^8.57.0 || ^9.22.0
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/schematics": "workspace:^"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/schematics": "workspace:~"
     "@schematics/angular": ^20.0.0
     "@stylistic/eslint-plugin": ~5.4.0
     "@typescript-eslint/parser": ^8.15.0
@@ -10173,9 +10173,9 @@ __metadata:
     "@eslint/eslintrc": "npm:^3.0.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/eslint-config": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/eslint-config": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@types/eslint": "npm:~9.6.0"
     "@types/jest": "npm:~29.5.2"
@@ -10229,7 +10229,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@o3r/extractors@workspace:^, @o3r/extractors@workspace:packages/@o3r/extractors":
+"@o3r/extractors@workspace:packages/@o3r/extractors, @o3r/extractors@workspace:~":
   version: 0.0.0-use.local
   resolution: "@o3r/extractors@workspace:packages/@o3r/extractors"
   dependencies:
@@ -10254,13 +10254,13 @@ __metadata:
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
     "@nx/js": "npm:~21.6.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/core": "workspace:^"
-    "@o3r/eslint-config": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/schematics": "workspace:^"
-    "@o3r/telemetry": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/core": "workspace:~"
+    "@o3r/eslint-config": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/schematics": "workspace:~"
+    "@o3r/telemetry": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
     "@schematics/angular": "npm:~20.3.0"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@swc/helpers": "npm:~0.5.0"
@@ -10313,9 +10313,9 @@ __metadata:
     "@angular-devkit/architect": ">=0.2000.0 <0.2100.0-0"
     "@angular-devkit/core": ^20.0.0
     "@angular-devkit/schematics": ^20.0.0
-    "@o3r/core": "workspace:^"
-    "@o3r/schematics": "workspace:^"
-    "@o3r/telemetry": "workspace:^"
+    "@o3r/core": "workspace:~"
+    "@o3r/schematics": "workspace:~"
+    "@o3r/telemetry": "workspace:~"
     "@schematics/angular": ^20.0.0
     "@yarnpkg/cli": ^4.0.0
     "@yarnpkg/core": ^4.1.1
@@ -10351,11 +10351,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@o3r/forms@workspace:^, @o3r/forms@workspace:packages/@o3r/forms":
+"@o3r/forms@workspace:packages/@o3r/forms, @o3r/forms@workspace:~":
   version: 0.0.0-use.local
   resolution: "@o3r/forms@workspace:packages/@o3r/forms"
   dependencies:
-    "@ama-sdk/core": "workspace:^"
+    "@ama-sdk/core": "workspace:~"
     "@angular-devkit/build-angular": "npm:~20.3.0"
     "@angular-devkit/core": "npm:~20.3.0"
     "@angular-devkit/schematics": "npm:~20.3.0"
@@ -10377,12 +10377,12 @@ __metadata:
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
     "@nx/js": "npm:~21.6.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/core": "workspace:^"
-    "@o3r/eslint-config": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/schematics": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/core": "workspace:~"
+    "@o3r/eslint-config": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/schematics": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
     "@schematics/angular": "npm:~20.3.0"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@types/jest": "npm:~29.5.2"
@@ -10417,15 +10417,15 @@ __metadata:
     typescript-eslint: "npm:~8.46.0"
     zone.js: "npm:~0.15.0"
   peerDependencies:
-    "@ama-sdk/core": "workspace:^"
+    "@ama-sdk/core": "workspace:~"
     "@angular-devkit/schematics": ^20.0.0
     "@angular/common": ^20.0.0
     "@angular/core": ^20.0.0
     "@angular/forms": ^20.0.0
     "@ngrx/entity": ^20.0.0
     "@ngrx/store": ^20.0.0
-    "@o3r/core": "workspace:^"
-    "@o3r/schematics": "workspace:^"
+    "@o3r/core": "workspace:~"
+    "@o3r/schematics": "workspace:~"
     "@schematics/angular": ^20.0.0
     rxjs: ^7.8.1
     ts-node: ~10.9.2
@@ -10493,12 +10493,12 @@ __metadata:
     "@nx/jest": "npm:~21.6.0"
     "@nx/js": "npm:~21.6.0"
     "@nx/workspace": "npm:~21.6.0"
-    "@o3r/eslint-config": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/telemetry": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
-    "@o3r/workspace": "workspace:^"
-    "@o3r/workspace-helpers": "workspace:^"
+    "@o3r/eslint-config": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/telemetry": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
+    "@o3r/workspace": "workspace:~"
+    "@o3r/workspace-helpers": "workspace:~"
     "@playwright/test": "npm:~1.56.0"
     "@popperjs/core": "npm:^2.11.5"
     "@schematics/angular": "npm:~20.3.0"
@@ -10627,9 +10627,9 @@ __metadata:
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
     "@nx/js": "npm:~21.6.0"
-    "@o3r/eslint-config": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/eslint-config": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@types/ejs": "npm:^3.1.2"
     "@types/express-serve-static-core": "npm:^5.0.0"
@@ -10671,7 +10671,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@o3r/localization@workspace:^, @o3r/localization@workspace:packages/@o3r/localization":
+"@o3r/localization@workspace:packages/@o3r/localization, @o3r/localization@workspace:~":
   version: 0.0.0-use.local
   resolution: "@o3r/localization@workspace:packages/@o3r/localization"
   dependencies:
@@ -10698,15 +10698,15 @@ __metadata:
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
     "@nx/js": "npm:~21.6.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/core": "workspace:^"
-    "@o3r/dynamic-content": "workspace:^"
-    "@o3r/eslint-config": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/extractors": "workspace:^"
-    "@o3r/logger": "workspace:^"
-    "@o3r/schematics": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/core": "workspace:~"
+    "@o3r/dynamic-content": "workspace:~"
+    "@o3r/eslint-config": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/extractors": "workspace:~"
+    "@o3r/logger": "workspace:~"
+    "@o3r/schematics": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
     "@schematics/angular": "npm:~20.3.0"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@types/jest": "npm:~29.5.2"
@@ -10766,11 +10766,11 @@ __metadata:
     "@formatjs/intl-numberformat": ^8.0.2
     "@ngrx/store": ^20.0.0
     "@ngx-translate/core": ^15.0.0 || ~16.0.4
-    "@o3r/core": "workspace:^"
-    "@o3r/dynamic-content": "workspace:^"
-    "@o3r/extractors": "workspace:^"
-    "@o3r/logger": "workspace:^"
-    "@o3r/schematics": "workspace:^"
+    "@o3r/core": "workspace:~"
+    "@o3r/dynamic-content": "workspace:~"
+    "@o3r/extractors": "workspace:~"
+    "@o3r/logger": "workspace:~"
+    "@o3r/schematics": "workspace:~"
     "@schematics/angular": ^20.0.0
     "@yarnpkg/cli": ^4.3.1
     "@yarnpkg/core": ^4.1.1
@@ -10821,7 +10821,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@o3r/logger@workspace:^, @o3r/logger@workspace:packages/@o3r/logger":
+"@o3r/logger@workspace:packages/@o3r/logger, @o3r/logger@workspace:~":
   version: 0.0.0-use.local
   resolution: "@o3r/logger@workspace:packages/@o3r/logger"
   dependencies:
@@ -10846,12 +10846,12 @@ __metadata:
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
     "@nx/js": "npm:~21.6.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/core": "workspace:^"
-    "@o3r/eslint-config": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/schematics": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/core": "workspace:~"
+    "@o3r/eslint-config": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/schematics": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
     "@schematics/angular": "npm:~20.3.0"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@types/jest": "npm:~29.5.2"
@@ -10895,8 +10895,8 @@ __metadata:
     "@angular/platform-browser-dynamic": ^20.0.0
     "@fullstory/browser": ^2.0.0
     "@ngrx/store": ^20.0.0
-    "@o3r/core": "workspace:^"
-    "@o3r/schematics": "workspace:^"
+    "@o3r/core": "workspace:~"
+    "@o3r/schematics": "workspace:~"
     "@schematics/angular": ^20.0.0
     logrocket: ^10.0.0
     logrocket-ngrx: ^0.2.1
@@ -10944,10 +10944,10 @@ __metadata:
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
     "@nx/js": "npm:~21.6.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/eslint-config": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/eslint-config": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
     "@octokit/rest": "npm:~22.0.0"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@types/jest": "npm:~29.5.2"
@@ -11016,13 +11016,13 @@ __metadata:
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
     "@nx/js": "npm:~21.6.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/core": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/logger": "workspace:^"
-    "@o3r/schematics": "workspace:^"
-    "@o3r/store-sync": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/core": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/logger": "workspace:~"
+    "@o3r/schematics": "workspace:~"
+    "@o3r/store-sync": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
     "@schematics/angular": "npm:~20.3.0"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@types/jest": "npm:~29.5.2"
@@ -11071,10 +11071,10 @@ __metadata:
     "@capacitor/device": ^7.0.0
     "@capacitor/preferences": ^7.0.0
     "@ngrx/store": ^20.0.0
-    "@o3r/core": "workspace:^"
-    "@o3r/logger": "workspace:^"
-    "@o3r/schematics": "workspace:^"
-    "@o3r/store-sync": "workspace:^"
+    "@o3r/core": "workspace:~"
+    "@o3r/logger": "workspace:~"
+    "@o3r/schematics": "workspace:~"
+    "@o3r/store-sync": "workspace:~"
     "@schematics/angular": ^20.0.0
     fast-deep-equal: ^3.1.3
     rxjs: ^7.8.1
@@ -11105,10 +11105,10 @@ __metadata:
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/schematics": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/schematics": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
     "@schematics/angular": "npm:~20.3.0"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@types/jest": "npm:~29.5.2"
@@ -11144,7 +11144,7 @@ __metadata:
     typescript-eslint: "npm:~8.46.0"
   peerDependencies:
     "@angular-devkit/schematics": ^20.0.0
-    "@o3r/schematics": "workspace:^"
+    "@o3r/schematics": "workspace:~"
   peerDependenciesMeta:
     "@angular-devkit/schematics":
       optional: true
@@ -11162,9 +11162,9 @@ __metadata:
     "@figma/plugin-typings": "npm:^1.107.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
     "@schematics/angular": "npm:~20.3.0"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@types/jest": "npm:~29.5.2"
@@ -11217,11 +11217,11 @@ __metadata:
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
     "@nx/js": "npm:~21.6.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/schematics": "workspace:^"
-    "@o3r/telemetry": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/schematics": "workspace:~"
+    "@o3r/telemetry": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
     "@schematics/angular": "npm:~20.3.0"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@types/jest": "npm:~29.5.2"
@@ -11259,8 +11259,8 @@ __metadata:
     typescript-eslint: "npm:~8.46.0"
   peerDependencies:
     "@angular-devkit/schematics": ^20.0.0
-    "@o3r/schematics": "workspace:^"
-    "@o3r/telemetry": "workspace:^"
+    "@o3r/schematics": "workspace:~"
+    "@o3r/telemetry": "workspace:~"
     type-fest: ^4.30.1
   peerDependenciesMeta:
     "@angular-devkit/schematics":
@@ -11274,7 +11274,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@o3r/routing@workspace:^, @o3r/routing@workspace:packages/@o3r/routing":
+"@o3r/routing@workspace:packages/@o3r/routing, @o3r/routing@workspace:~":
   version: 0.0.0-use.local
   resolution: "@o3r/routing@workspace:packages/@o3r/routing"
   dependencies:
@@ -11302,13 +11302,13 @@ __metadata:
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
     "@nx/js": "npm:~21.6.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/core": "workspace:^"
-    "@o3r/eslint-config": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/routing": "workspace:^"
-    "@o3r/schematics": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/core": "workspace:~"
+    "@o3r/eslint-config": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/routing": "workspace:~"
+    "@o3r/schematics": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
     "@schematics/angular": "npm:~20.3.0"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@types/jasmine": "npm:~5.1.0"
@@ -11353,9 +11353,9 @@ __metadata:
     "@ngrx/entity": ^20.0.0
     "@ngrx/router-store": ^20.0.0
     "@ngrx/store": ^20.0.0
-    "@o3r/core": "workspace:^"
-    "@o3r/routing": "workspace:^"
-    "@o3r/schematics": "workspace:^"
+    "@o3r/core": "workspace:~"
+    "@o3r/routing": "workspace:~"
+    "@o3r/schematics": "workspace:~"
     "@schematics/angular": ^20.0.0
     jasmine: ^5.0.0
     rxjs: ^7.8.1
@@ -11375,7 +11375,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@o3r/rules-engine@workspace:^, @o3r/rules-engine@workspace:packages/@o3r/rules-engine":
+"@o3r/rules-engine@workspace:packages/@o3r/rules-engine, @o3r/rules-engine@workspace:~":
   version: 0.0.0-use.local
   resolution: "@o3r/rules-engine@workspace:packages/@o3r/rules-engine"
   dependencies:
@@ -11404,15 +11404,15 @@ __metadata:
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
     "@nx/js": "npm:~21.6.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/core": "workspace:^"
-    "@o3r/eslint-config": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/extractors": "workspace:^"
-    "@o3r/logger": "workspace:^"
-    "@o3r/schematics": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
-    "@o3r/testing": "workspace:^"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/core": "workspace:~"
+    "@o3r/eslint-config": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/extractors": "workspace:~"
+    "@o3r/logger": "workspace:~"
+    "@o3r/schematics": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
+    "@o3r/testing": "workspace:~"
     "@schematics/angular": "npm:~20.3.0"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@swc/helpers": "npm:~0.5.0"
@@ -11471,10 +11471,10 @@ __metadata:
     "@ngrx/entity": ^20.0.0
     "@ngrx/store": ^20.0.0
     "@ngx-translate/core": ^15.0.0 || ~16.0.4
-    "@o3r/core": "workspace:^"
-    "@o3r/extractors": "workspace:^"
-    "@o3r/logger": "workspace:^"
-    "@o3r/schematics": "workspace:^"
+    "@o3r/core": "workspace:~"
+    "@o3r/extractors": "workspace:~"
+    "@o3r/logger": "workspace:~"
+    "@o3r/schematics": "workspace:~"
     "@schematics/angular": ^20.0.0
     "@types/json-schema": ^7.0.15
     globby: ^11.1.0
@@ -11514,7 +11514,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@o3r/schematics@workspace:*, @o3r/schematics@workspace:^, @o3r/schematics@workspace:packages/@o3r/schematics":
+"@o3r/schematics@workspace:*, @o3r/schematics@workspace:packages/@o3r/schematics, @o3r/schematics@workspace:~":
   version: 0.0.0-use.local
   resolution: "@o3r/schematics@workspace:packages/@o3r/schematics"
   dependencies:
@@ -11538,9 +11538,9 @@ __metadata:
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
     "@nx/js": "npm:~21.6.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/telemetry": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/telemetry": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
     "@schematics/angular": "npm:~20.3.0"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@swc/helpers": "npm:~0.5.0"
@@ -11587,8 +11587,8 @@ __metadata:
     "@angular-devkit/core": ^20.0.0
     "@angular-devkit/schematics": ^20.0.0
     "@angular/cli": ^20.0.0
-    "@o3r/core": "workspace:^"
-    "@o3r/telemetry": "workspace:^"
+    "@o3r/core": "workspace:~"
+    "@o3r/telemetry": "workspace:~"
     "@schematics/angular": ^20.0.0
     eslint: ^9.14.0
     rxjs: ^7.8.1
@@ -11623,9 +11623,9 @@ __metadata:
   dependencies:
     "@agnos-ui/angular-bootstrap": "npm:~0.9.0"
     "@agnos-ui/core-bootstrap": "npm:~0.9.0"
-    "@ama-sdk/client-fetch": "workspace:^"
-    "@ama-sdk/core": "workspace:^"
-    "@ama-sdk/schematics": "workspace:^"
+    "@ama-sdk/client-fetch": "workspace:~"
+    "@ama-sdk/core": "workspace:~"
+    "@ama-sdk/schematics": "workspace:~"
     "@amadeus-it-group/kassette": "npm:^1.7.0"
     "@amadeus-it-group/tansu": "npm:~2.0.0"
     "@angular-devkit/architect": "npm:~0.2003.0"
@@ -11657,30 +11657,30 @@ __metadata:
     "@ngx-translate/core": "npm:~16.0.4"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
-    "@o3r-training/showcase-sdk": "workspace:^"
-    "@o3r-training/training-sdk": "workspace:^"
-    "@o3r-training/training-tools": "workspace:^"
-    "@o3r/apis-manager": "workspace:^"
-    "@o3r/application": "workspace:^"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/components": "workspace:^"
-    "@o3r/configuration": "workspace:^"
-    "@o3r/core": "workspace:^"
-    "@o3r/dynamic-content": "workspace:^"
-    "@o3r/eslint-config": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/forms": "workspace:^"
-    "@o3r/localization": "workspace:^"
-    "@o3r/logger": "workspace:^"
-    "@o3r/routing": "workspace:^"
-    "@o3r/rules-engine": "workspace:^"
-    "@o3r/schematics": "workspace:^"
-    "@o3r/store-sync": "workspace:^"
-    "@o3r/style-dictionary": "workspace:^"
-    "@o3r/styling": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
-    "@o3r/testing": "workspace:^"
-    "@o3r/workspace": "workspace:^"
+    "@o3r-training/showcase-sdk": "workspace:~"
+    "@o3r-training/training-sdk": "workspace:~"
+    "@o3r-training/training-tools": "workspace:~"
+    "@o3r/apis-manager": "workspace:~"
+    "@o3r/application": "workspace:~"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/components": "workspace:~"
+    "@o3r/configuration": "workspace:~"
+    "@o3r/core": "workspace:~"
+    "@o3r/dynamic-content": "workspace:~"
+    "@o3r/eslint-config": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/forms": "workspace:~"
+    "@o3r/localization": "workspace:~"
+    "@o3r/logger": "workspace:~"
+    "@o3r/routing": "workspace:~"
+    "@o3r/rules-engine": "workspace:~"
+    "@o3r/schematics": "workspace:~"
+    "@o3r/store-sync": "workspace:~"
+    "@o3r/style-dictionary": "workspace:~"
+    "@o3r/styling": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
+    "@o3r/testing": "workspace:~"
+    "@o3r/workspace": "workspace:~"
     "@playwright/test": "npm:~1.56.0"
     "@popperjs/core": "npm:^2.11.5"
     "@schematics/angular": "npm:~20.3.0"
@@ -11744,11 +11744,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@o3r/store-sync@workspace:^, @o3r/store-sync@workspace:packages/@o3r/store-sync":
+"@o3r/store-sync@workspace:packages/@o3r/store-sync, @o3r/store-sync@workspace:~":
   version: 0.0.0-use.local
   resolution: "@o3r/store-sync@workspace:packages/@o3r/store-sync"
   dependencies:
-    "@ama-sdk/core": "workspace:^"
+    "@ama-sdk/core": "workspace:~"
     "@angular-devkit/build-angular": "npm:~20.3.0"
     "@angular-devkit/core": "npm:~20.3.0"
     "@angular-devkit/schematics": "npm:~20.3.0"
@@ -11765,13 +11765,13 @@ __metadata:
     "@nx/eslint": "npm:~21.6.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/js": "npm:~21.6.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/core": "workspace:^"
-    "@o3r/eslint-config": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/logger": "workspace:^"
-    "@o3r/schematics": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/core": "workspace:~"
+    "@o3r/eslint-config": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/logger": "workspace:~"
+    "@o3r/schematics": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
     "@schematics/angular": "npm:~20.3.0"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@types/jest": "npm:~29.5.2"
@@ -11807,14 +11807,14 @@ __metadata:
     typescript-eslint: "npm:~8.46.0"
     zone.js: "npm:~0.15.0"
   peerDependencies:
-    "@ama-sdk/core": "workspace:^"
+    "@ama-sdk/core": "workspace:~"
     "@angular-devkit/core": ^20.0.0
     "@angular-devkit/schematics": ^20.0.0
     "@ngrx/entity": ^20.0.0
     "@ngrx/store": ^20.0.0
-    "@o3r/core": "workspace:^"
-    "@o3r/logger": "workspace:^"
-    "@o3r/schematics": "workspace:^"
+    "@o3r/core": "workspace:~"
+    "@o3r/logger": "workspace:~"
+    "@o3r/schematics": "workspace:~"
     "@schematics/angular": ^20.0.0
     fast-deep-equal: ^3.1.3
     rxjs: ^7.8.1
@@ -11834,7 +11834,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@o3r/style-dictionary@workspace:^, @o3r/style-dictionary@workspace:packages/@o3r/style-dictionary":
+"@o3r/style-dictionary@workspace:packages/@o3r/style-dictionary, @o3r/style-dictionary@workspace:~":
   version: 0.0.0-use.local
   resolution: "@o3r/style-dictionary@workspace:packages/@o3r/style-dictionary"
   dependencies:
@@ -11849,12 +11849,12 @@ __metadata:
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
     "@nx/js": "npm:~21.6.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/core": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/schematics": "workspace:^"
-    "@o3r/telemetry": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/core": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/schematics": "workspace:~"
+    "@o3r/telemetry": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
     "@schematics/angular": "npm:~20.3.0"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@types/jest": "npm:~29.5.2"
@@ -11893,9 +11893,9 @@ __metadata:
     typescript-eslint: "npm:~8.46.0"
     zone.js: "npm:~0.15.0"
   peerDependencies:
-    "@o3r/core": "workspace:^"
-    "@o3r/schematics": "workspace:^"
-    "@o3r/telemetry": "workspace:^"
+    "@o3r/core": "workspace:~"
+    "@o3r/schematics": "workspace:~"
+    "@o3r/telemetry": "workspace:~"
     style-dictionary: ^5.0.0
     type-fest: ^4.30.1
   peerDependenciesMeta:
@@ -11924,11 +11924,11 @@ __metadata:
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/eslint-config": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/schematics": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/eslint-config": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/schematics": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
     "@schematics/angular": "npm:~20.3.0"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@types/css-tree": "npm:~2.3.0"
@@ -11969,7 +11969,7 @@ __metadata:
     typescript-eslint: "npm:~8.46.0"
   peerDependencies:
     "@angular-devkit/schematics": ^20.0.0
-    "@o3r/schematics": "workspace:^"
+    "@o3r/schematics": "workspace:~"
     "@schematics/angular": ^20.0.0
     postcss: ^8.4.5
     postcss-scss: ^4.0.9
@@ -11987,7 +11987,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@o3r/styling@workspace:^, @o3r/styling@workspace:packages/@o3r/styling":
+"@o3r/styling@workspace:packages/@o3r/styling, @o3r/styling@workspace:~":
   version: 0.0.0-use.local
   resolution: "@o3r/styling@workspace:packages/@o3r/styling"
   dependencies:
@@ -12013,14 +12013,14 @@ __metadata:
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
     "@nx/js": "npm:~21.6.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/core": "workspace:^"
-    "@o3r/dynamic-content": "workspace:^"
-    "@o3r/eslint-config": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/extractors": "workspace:^"
-    "@o3r/schematics": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/core": "workspace:~"
+    "@o3r/dynamic-content": "workspace:~"
+    "@o3r/eslint-config": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/extractors": "workspace:~"
+    "@o3r/schematics": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
     "@schematics/angular": "npm:~20.3.0"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@types/jest": "npm:~29.5.2"
@@ -12079,11 +12079,11 @@ __metadata:
     "@angular/common": ^20.0.0
     "@angular/core": ^20.0.0
     "@angular/material": ^20.0.0
-    "@o3r/core": "workspace:^"
-    "@o3r/dynamic-content": "workspace:^"
-    "@o3r/extractors": "workspace:^"
-    "@o3r/logger": "workspace:^"
-    "@o3r/schematics": "workspace:^"
+    "@o3r/core": "workspace:~"
+    "@o3r/dynamic-content": "workspace:~"
+    "@o3r/extractors": "workspace:~"
+    "@o3r/logger": "workspace:~"
+    "@o3r/schematics": "workspace:~"
     "@schematics/angular": ^20.0.0
     "@yarnpkg/cli": ^4.3.1
     "@yarnpkg/core": ^4.1.1
@@ -12149,7 +12149,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@o3r/telemetry@workspace:^, @o3r/telemetry@workspace:packages/@o3r/telemetry":
+"@o3r/telemetry@workspace:packages/@o3r/telemetry, @o3r/telemetry@workspace:~":
   version: 0.0.0-use.local
   resolution: "@o3r/telemetry@workspace:packages/@o3r/telemetry"
   dependencies:
@@ -12160,9 +12160,9 @@ __metadata:
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
     "@nx/js": "npm:~21.6.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@types/jest": "npm:~29.5.2"
     "@types/minimist": "npm:^1.2.2"
@@ -12197,7 +12197,7 @@ __metadata:
     "@angular-devkit/architect": ">=0.2000.0 <0.2100.0-0"
     "@angular-devkit/core": ^20.0.0
     "@angular-devkit/schematics": ^20.0.0
-    "@o3r/core": "workspace:^"
+    "@o3r/core": "workspace:~"
     rxjs: ^7.8.1
   peerDependenciesMeta:
     "@angular-devkit/architect":
@@ -12213,7 +12213,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@o3r/test-helpers@workspace:^, @o3r/test-helpers@workspace:packages/@o3r/test-helpers":
+"@o3r/test-helpers@workspace:^, @o3r/test-helpers@workspace:packages/@o3r/test-helpers, @o3r/test-helpers@workspace:~":
   version: 0.0.0-use.local
   resolution: "@o3r/test-helpers@workspace:packages/@o3r/test-helpers"
   dependencies:
@@ -12222,8 +12222,8 @@ __metadata:
     "@jest/transform": "npm:^29.6.3"
     "@jest/types": "npm:^29.6.3"
     "@nx/eslint-plugin": "npm:~21.6.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:~22.18.0"
@@ -12287,7 +12287,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@o3r/testing@workspace:^, @o3r/testing@workspace:packages/@o3r/testing":
+"@o3r/testing@workspace:packages/@o3r/testing, @o3r/testing@workspace:~":
   version: 0.0.0-use.local
   resolution: "@o3r/testing@workspace:packages/@o3r/testing"
   dependencies:
@@ -12312,12 +12312,12 @@ __metadata:
     "@ngx-translate/core": "npm:~16.0.4"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/core": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/localization": "workspace:^"
-    "@o3r/schematics": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/core": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/localization": "workspace:~"
+    "@o3r/schematics": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
     "@playwright/test": "npm:~1.56.0"
     "@schematics/angular": "npm:~20.3.0"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
@@ -12377,10 +12377,10 @@ __metadata:
     "@material/slider": ^14.0.0
     "@ngrx/store": ^20.0.0
     "@ngx-translate/core": ^15.0.0 || ~16.0.4
-    "@o3r/core": "workspace:^"
-    "@o3r/eslint-config": "workspace:^"
-    "@o3r/localization": "workspace:^"
-    "@o3r/schematics": "workspace:^"
+    "@o3r/core": "workspace:~"
+    "@o3r/eslint-config": "workspace:~"
+    "@o3r/localization": "workspace:~"
+    "@o3r/schematics": "workspace:~"
     "@playwright/test": ^1.49.0
     "@schematics/angular": ^20.0.0
     eslint: ~9.37.0
@@ -12452,12 +12452,12 @@ __metadata:
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/core": "workspace:^"
-    "@o3r/eslint-config": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/schematics": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/core": "workspace:~"
+    "@o3r/eslint-config": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/schematics": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
     "@schematics/angular": "npm:~20.3.0"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@types/jest": "npm:~29.5.2"
@@ -12497,8 +12497,8 @@ __metadata:
     zone.js: "npm:~0.15.0"
   peerDependencies:
     "@angular-devkit/schematics": ^20.0.0
-    "@o3r/core": "workspace:^"
-    "@o3r/schematics": "workspace:^"
+    "@o3r/core": "workspace:~"
+    "@o3r/schematics": "workspace:~"
     "@schematics/angular": ^20.0.0
     rxjs: ^7.8.1
     type-fest: ^4.30.1
@@ -12519,12 +12519,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@o3r/workspace-helpers@workspace:^, @o3r/workspace-helpers@workspace:tools/@o3r/workspace-helpers":
+"@o3r/workspace-helpers@workspace:tools/@o3r/workspace-helpers, @o3r/workspace-helpers@workspace:~":
   version: 0.0.0-use.local
   resolution: "@o3r/workspace-helpers@workspace:tools/@o3r/workspace-helpers"
   dependencies:
     "@nx/eslint-plugin": "npm:~21.6.0"
-    "@o3r/eslint-plugin": "workspace:^"
+    "@o3r/eslint-plugin": "workspace:~"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@types/node": "npm:~22.18.0"
     "@typescript-eslint/eslint-plugin": "npm:~8.46.0"
@@ -12561,7 +12561,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@o3r/workspace@workspace:^, @o3r/workspace@workspace:packages/@o3r/workspace":
+"@o3r/workspace@workspace:packages/@o3r/workspace, @o3r/workspace@workspace:~":
   version: 0.0.0-use.local
   resolution: "@o3r/workspace@workspace:packages/@o3r/workspace"
   dependencies:
@@ -12589,12 +12589,12 @@ __metadata:
     "@nx/jest": "npm:~21.6.0"
     "@nx/js": "npm:~21.6.0"
     "@nx/workspace": "npm:~21.6.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/core": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/schematics": "workspace:^"
-    "@o3r/telemetry": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/core": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/schematics": "workspace:~"
+    "@o3r/telemetry": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
     "@schematics/angular": "npm:~20.3.0"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@types/jest": "npm:~29.5.2"
@@ -12646,8 +12646,8 @@ __metadata:
     "@angular/common": ^20.0.0
     "@angular/compiler-cli": ^20.0.0
     "@angular/core": ^20.0.0
-    "@o3r/schematics": "workspace:^"
-    "@o3r/telemetry": "workspace:^"
+    "@o3r/schematics": "workspace:~"
+    "@o3r/telemetry": "workspace:~"
     "@schematics/angular": ^20.0.0
     ts-node: ~10.9.2
     type-fest: ^4.30.1
@@ -18611,7 +18611,7 @@ __metadata:
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@o3r/eslint-config": "workspace:~"
     "@o3r/eslint-plugin": "workspace:~"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/test-helpers": "workspace:~"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:~22.18.0"
@@ -30194,7 +30194,7 @@ __metadata:
     "@o3r/eslint-config": "workspace:~"
     "@o3r/eslint-plugin": "workspace:~"
     "@o3r/new-version": "workspace:~"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/test-helpers": "workspace:~"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:~22.18.0"
@@ -31173,13 +31173,13 @@ __metadata:
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
-    "@o3r/build-helpers": "workspace:^"
-    "@o3r/core": "workspace:^"
-    "@o3r/design": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/schematics": "workspace:^"
-    "@o3r/telemetry": "workspace:^"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/core": "workspace:~"
+    "@o3r/design": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/schematics": "workspace:~"
+    "@o3r/telemetry": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
     "@schematics/angular": "npm:~20.3.0"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@types/eslint": "npm:~9.6.0"
@@ -38679,7 +38679,7 @@ __metadata:
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@o3r/eslint-config": "workspace:~"
     "@o3r/eslint-plugin": "workspace:~"
-    "@o3r/test-helpers": "workspace:^"
+    "@o3r/test-helpers": "workspace:~"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:~22.18.0"
