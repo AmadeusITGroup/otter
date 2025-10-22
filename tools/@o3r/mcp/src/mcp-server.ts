@@ -46,7 +46,7 @@ export async function createMcpServer(logger: MCPLogger): Promise<McpServer> {
   });
   const resourcesPath = join(__dirname, '..', 'resources');
   const githubToken = process.env.O3R_MCP_GITHUB_TOKEN;
-  const cacheFilePath = resolve(process.env.O3R_MCP_CACHE_PATH || '.cache/@o3r/mcp', 'repos-using-otter.json');
+  const cacheDirPath = process.env.O3R_MCP_CACHE_PATH || '.cache/@o3r/mcp';
 
   await Promise.allSettled([
     registerBestPracticesToolAndResources(server, resourcesPath),
@@ -57,7 +57,7 @@ export async function createMcpServer(logger: MCPLogger): Promise<McpServer> {
           libraryName,
           scopes: OTTER_SCOPES,
           githubToken,
-          cacheFilePath,
+          cacheFilePath: resolve(cacheDirPath, 'repos-using-otter.json'),
           cacheEntryExpireAfterDays: Number.isNaN(process.env.O3R_MCP_CACHE_MAX_AGE) ? undefined : +(process.env.O3R_MCP_CACHE_MAX_AGE!)
         }),
         registerSupportedReleasesTool(server, {

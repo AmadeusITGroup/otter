@@ -144,7 +144,7 @@ const setUpClientAndServer = async (options: { disableCache?: boolean } = {}) =>
   return setUpClientAndServerForTesting(mcpServer);
 };
 
-describe('MCP server', () => {
+describe('Find repositories using library', () => {
   it('should have registered the tool', async () => {
     const { client } = await setUpClientAndServer();
     const { tools } = await client.listTools();

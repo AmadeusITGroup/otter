@@ -6,6 +6,7 @@
     "paths": {
       "@ama-mcp/core": ["packages/@ama-mcp/core/dist", "packages/@ama-mcp/core/src/public_api"],
       "@ama-mcp/github": ["packages/@ama-mcp/github/dist", "packages/@ama-mcp/github/src/public_api"],
+      "@ama-mcp/otter": ["packages/@ama-mcp/otter/dist", "packages/@ama-mcp/otter/src/public_api"],
       "@ama-mfe/messages": ["packages/@ama-mfe/messages/dist", "packages/@ama-mfe/messages/src/public_api"],
       "@ama-mfe/ng-utils": ["packages/@ama-mfe/ng-utils/dist", "packages/@ama-mfe/ng-utils/src/public_api"],
       "@ama-sdk/client-fetch": ["packages/@ama-sdk/client-fetch/dist", "packages/@ama-sdk/client-fetch/src/public_api"],

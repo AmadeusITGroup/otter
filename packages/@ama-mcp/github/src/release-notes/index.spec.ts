@@ -48,7 +48,7 @@ const setUpClientAndServer = async () => {
   return setUpClientAndServerForTesting(mcpServer);
 };
 
-describe('MCP server', () => {
+describe('Release notes', () => {
   it('should have registered the tool and resource template', async () => {
     const { client } = await setUpClientAndServer();
     const { tools } = await client.listTools();
