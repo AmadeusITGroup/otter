@@ -11,6 +11,7 @@ import {
   type OutputChannel,
   type TelemetryLogger,
   Uri,
+  workspace,
 } from 'vscode';
 import {
   sendChatParticipantRequest,
@@ -33,7 +34,9 @@ const chatParticipantHandler = (_context: ExtensionContext, _channel: OutputChan
     token: CancellationToken
   ): Promise<ChatResult> => {
     const command = SUPPORTED_COMMANDS.includes(request.command || '') ? request.command : '';
-    let tools = lm.tools.filter((tool) => SUPPORTED_TOOLS_REGEX.test(tool.name));
+    const config = workspace.getConfiguration('otter.mcp').get<string>('additionalToolsRegexp');
+    const additionalToolsRegExp = config && new RegExp(config);
+    let tools = lm.tools.filter((tool) => SUPPORTED_TOOLS_REGEX.test(tool.name) || (additionalToolsRegExp && additionalToolsRegExp.test(tool.name)));
 
     switch (command) {
       case 'list-tools': {

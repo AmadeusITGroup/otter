@@ -36,6 +36,10 @@
           "default": 90,
           "description": "Maximum age in days of the MCP cache for a repository to be considered valid"
         },
+        "otter.mcp.additionalToolsRegexp": {
+          "type": "string",
+          "description": "A RegExp to detect additional custom tools linked to Otter"
+        },
         "otter.mcp.logLevel": {
           "type": "string",
           "enum": [
