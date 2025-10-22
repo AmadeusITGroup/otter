@@ -433,7 +433,7 @@ __metadata:
     "@angular/platform-browser": "npm:~20.3.0"
     "@angular/platform-browser-dynamic": "npm:~20.3.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@modelcontextprotocol/sdk": "npm:~1.19.0"
+    "@modelcontextprotocol/sdk": "npm:~1.20.0"
     "@nx/eslint": "npm:~21.6.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
@@ -491,7 +491,7 @@ __metadata:
     "@angular/platform-browser": "npm:~20.3.0"
     "@angular/platform-browser-dynamic": "npm:~20.3.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@modelcontextprotocol/sdk": "npm:~1.19.0"
+    "@modelcontextprotocol/sdk": "npm:~1.20.0"
     "@nx/eslint": "npm:~21.6.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
@@ -536,7 +536,7 @@ __metadata:
     zone.js: "npm:~0.15.0"
   peerDependencies:
     "@ama-mcp/core": "workspace:^"
-    "@modelcontextprotocol/sdk": ~1.19.0
+    "@modelcontextprotocol/sdk": ~1.20.0
     "@octokit/rest": ^22.0.0
     zod: ~3.25.76
   languageName: unknown
@@ -1030,7 +1030,7 @@ __metadata:
     "@o3r/schematics": "workspace:*"
     "@o3r/telemetry": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
-    "@openapitools/openapi-generator-cli": "npm:~2.24.0"
+    "@openapitools/openapi-generator-cli": "npm:~2.25.0"
     "@schematics/angular": "npm:~20.3.0"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@types/jest": "npm:~29.5.2"
@@ -1094,7 +1094,7 @@ __metadata:
     "@o3r/schematics": "workspace:^"
     "@o3r/telemetry": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
-    "@openapitools/openapi-generator-cli": "npm:~2.24.0"
+    "@openapitools/openapi-generator-cli": "npm:~2.25.0"
     "@schematics/angular": "npm:~20.3.0"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@types/jest": "npm:~29.5.2"
@@ -1330,7 +1330,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
-    "@openapitools/openapi-generator-cli": "npm:~2.24.0"
+    "@openapitools/openapi-generator-cli": "npm:~2.25.0"
     "@schematics/angular": "npm:~20.3.0"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@swc/cli": "npm:~0.7.7"
@@ -6865,9 +6865,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@modelcontextprotocol/sdk@npm:~1.19.0":
-  version: 1.19.1
-  resolution: "@modelcontextprotocol/sdk@npm:1.19.1"
+"@modelcontextprotocol/sdk@npm:~1.20.0":
+  version: 1.20.1
+  resolution: "@modelcontextprotocol/sdk@npm:1.20.1"
   dependencies:
     ajv: "npm:^6.12.6"
     content-type: "npm:^1.0.5"
@@ -6881,7 +6881,7 @@ __metadata:
     raw-body: "npm:^3.0.0"
     zod: "npm:^3.23.8"
     zod-to-json-schema: "npm:^3.24.1"
-  checksum: 10/ca5fc57927830248865049931a6119dbb21cf284edd74365e390a42791183a1069ed7388ed54754f5abc127bd1752a4f3534f08cee2f8abf1446ff1e276ebac4
+  checksum: 10/7f9f3a35c70e1c955cc87d0fe399b1ac7646b0cfcda09a8170c9d08c484a847867fee5558dc6aa4b7749170b8df9c2db9b71f9549084ea862a09c2ae6ecfa289
   languageName: node
   linkType: hard
 
@@ -8440,7 +8440,7 @@ __metadata:
     "@o3r/eslint-config": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
-    "@openapitools/openapi-generator-cli": "npm:~2.24.0"
+    "@openapitools/openapi-generator-cli": "npm:~2.25.0"
     "@schematics/angular": "npm:~20.3.0"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@swc/cli": "npm:~0.7.7"
@@ -8510,7 +8510,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
-    "@openapitools/openapi-generator-cli": "npm:~2.24.0"
+    "@openapitools/openapi-generator-cli": "npm:~2.25.0"
     "@schematics/angular": "npm:~20.3.0"
     "@stylistic/eslint-plugin": "npm:~5.4.0"
     "@swc/cli": "npm:~0.7.7"
@@ -9457,7 +9457,7 @@ __metadata:
     jest-util: "npm:~29.7.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     jsonpath-plus: "npm:~10.3.0"
-    memfs: "npm:~4.48.0"
+    memfs: "npm:~4.49.0"
     nx: "npm:~21.6.0"
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
@@ -9719,7 +9719,7 @@ __metadata:
     jest-preset-angular: "npm:~14.6.0"
     jest-util: "npm:~29.7.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    memfs: "npm:~4.48.0"
+    memfs: "npm:~4.49.0"
     nx: "npm:~21.6.0"
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
@@ -10514,7 +10514,7 @@ __metadata:
     "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/parser": "npm:~8.46.0"
     "@typescript-eslint/rule-tester": "npm:~8.46.0"
-    "@vscode/codicons": "npm:^0.0.40"
+    "@vscode/codicons": "npm:^0.0.41"
     "@webcontainer/api": "npm:~1.6.0"
     "@xterm/addon-fit": "npm:^0.10.0"
     "@xterm/xterm": "npm:^5.0.0"
@@ -10558,7 +10558,7 @@ __metadata:
     lint-staged: "npm:^16.0.0"
     marked: "npm:^15.0.0"
     minimist: "npm:^1.2.6"
-    monaco-editor: "npm:~0.52.0"
+    monaco-editor: "npm:~0.54.0"
     ng-packagr: "npm:~20.3.0"
     ngx-markdown: "npm:^20.0.0"
     ngx-monaco-editor-v2: "npm:^20.0.0"
@@ -10741,7 +10741,7 @@ __metadata:
     jest-preset-angular: "npm:~14.6.0"
     jest-util: "npm:~29.7.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    memfs: "npm:~4.48.0"
+    memfs: "npm:~4.49.0"
     nx: "npm:~21.6.0"
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
@@ -10939,7 +10939,7 @@ __metadata:
     "@angular/platform-browser": "npm:~20.3.0"
     "@angular/platform-browser-dynamic": "npm:~20.3.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@modelcontextprotocol/sdk": "npm:~1.19.0"
+    "@modelcontextprotocol/sdk": "npm:~1.20.0"
     "@nx/eslint": "npm:~21.6.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
@@ -11444,7 +11444,7 @@ __metadata:
     jest-util: "npm:~29.7.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     jsonpath-plus: "npm:~10.3.0"
-    memfs: "npm:~4.48.0"
+    memfs: "npm:~4.49.0"
     nx: "npm:~21.6.0"
     pid-from-port: "npm:^1.1.3"
     rimraf: "npm:^6.0.1"
@@ -11689,7 +11689,7 @@ __metadata:
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:~22.18.0"
     "@typescript-eslint/parser": "npm:~8.46.0"
-    "@vscode/codicons": "npm:^0.0.40"
+    "@vscode/codicons": "npm:^0.0.41"
     "@webcontainer/api": "npm:~1.6.0"
     "@xterm/addon-fit": "npm:^0.10.0"
     "@xterm/xterm": "npm:^5.0.0"
@@ -11722,7 +11722,7 @@ __metadata:
     lighthouse: "npm:~12.8.0"
     marked: "npm:^15.0.0"
     minimist: "npm:^1.2.6"
-    monaco-editor: "npm:~0.52.0"
+    monaco-editor: "npm:~0.54.0"
     ngx-markdown: "npm:^20.0.0"
     ngx-monaco-editor-v2: "npm:^20.0.0"
     ngx-monaco-tree: "npm:~20.1.0"
@@ -12053,7 +12053,7 @@ __metadata:
     jest-preset-angular: "npm:~14.6.0"
     jest-util: "npm:~29.7.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    memfs: "npm:~4.48.0"
+    memfs: "npm:~4.49.0"
     nx: "npm:~21.6.0"
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
@@ -12249,7 +12249,7 @@ __metadata:
     jest-junit: "npm:~16.0.0"
     jest-util: "npm:~29.7.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    memfs: "npm:~4.48.0"
+    memfs: "npm:~4.49.0"
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
@@ -13077,9 +13077,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openapitools/openapi-generator-cli@npm:~2.24.0":
-  version: 2.24.0
-  resolution: "@openapitools/openapi-generator-cli@npm:2.24.0"
+"@openapitools/openapi-generator-cli@npm:~2.25.0":
+  version: 2.25.0
+  resolution: "@openapitools/openapi-generator-cli@npm:2.25.0"
   dependencies:
     "@nestjs/axios": "npm:4.0.1"
     "@nestjs/common": "npm:11.1.6"
@@ -13100,7 +13100,7 @@ __metadata:
     tslib: "npm:2.8.1"
   bin:
     openapi-generator-cli: main.js
-  checksum: 10/8ed80521926fe1ffd15f8e002f9e3b23f4327aedfd85c63e99decfbe515e4ef4a6e2e432afcc0e14c087a8a69a62d27c146faf2a6a59f025949bb1783a559e20
+  checksum: 10/6456debc95accaded1a85517634fc9cc61bd517ebe45d45f6a138de8d1fe11e100ec5a09c1e3607acb7469398625169fe52035550f8e32e61893cd9c537b402c
   languageName: node
   linkType: hard
 
@@ -16292,10 +16292,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/vscode@npm:~1.104.0":
-  version: 1.104.0
-  resolution: "@types/vscode@npm:1.104.0"
-  checksum: 10/d421aec4246bc24a40e8b6f111badae458369e2cd409bc6e1a1c7e4014029432751b84d59624f0622fd26a42f097c4b53cf51923e476e1f23fdea7e00c7191ef
+"@types/vscode@npm:~1.105.0":
+  version: 1.105.0
+  resolution: "@types/vscode@npm:1.105.0"
+  checksum: 10/880e7613e5fbf120416ed2d862aa47f1bbfb2652c37e2a5091548764b9cee808eb7e1deff79e5e5fcb486d1b4105606afef22a69fd4cd8bbc02a41df2b7465cf
   languageName: node
   linkType: hard
 
@@ -16750,10 +16750,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vscode/codicons@npm:^0.0.40":
-  version: 0.0.40
-  resolution: "@vscode/codicons@npm:0.0.40"
-  checksum: 10/6ce137e2cbea00dc6fe8e82246cb669862a6133d3f3e10a917fcd3213bf7c6765fefe17ef9dcfab33c4b31217a5870a9db70144f1df16d7b208224794f3047ac
+"@vscode/codicons@npm:^0.0.41":
+  version: 0.0.41
+  resolution: "@vscode/codicons@npm:0.0.41"
+  checksum: 10/cc5193c8fb3b1937957343d333c67bba9f15a292af2a210df0caa7094bdc207500acef24cc9c986f4ad527ce20f44e753b2689f80399e0ca59931ee4ad7e7341
   languageName: node
   linkType: hard
 
@@ -22307,6 +22307,13 @@ __metadata:
   dependencies:
     domelementtype: "npm:^2.3.0"
   checksum: 10/809b805a50a9c6884a29f38aec0a4e1b4537f40e1c861950ed47d10b049febe6b79ab72adaeeebb3cc8fc1cd33f34e97048a72a9265103426d93efafa78d3e96
+  languageName: node
+  linkType: hard
+
+"dompurify@npm:3.1.7":
+  version: 3.1.7
+  resolution: "dompurify@npm:3.1.7"
+  checksum: 10/dc637a064306f83cf911caa267ffe1f973552047602020e3b6723c90f67962813edf8a65a0b62e8c9bc13fcd173a2691212a3719bc116226967f46bcd6181277
   languageName: node
   linkType: hard
 
@@ -29369,6 +29376,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"marked@npm:14.0.0":
+  version: 14.0.0
+  resolution: "marked@npm:14.0.0"
+  bin:
+    marked: bin/marked.js
+  checksum: 10/5f69e58e177bde75fb6145127c939c096d05494c5dff92d73af8a550097d6631c82e919f8a375e3743379a2623418151086b925a902a2be123590b887716f2bb
+  languageName: node
+  linkType: hard
+
 "marked@npm:7.0.3":
   version: 7.0.3
   resolution: "marked@npm:7.0.3"
@@ -29496,7 +29512,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"memfs@npm:^4.17.0, memfs@npm:^4.28.0, memfs@npm:^4.43.1, memfs@npm:^4.6.0":
+"memfs@npm:^4.17.0, memfs@npm:^4.28.0, memfs@npm:^4.43.1, memfs@npm:^4.6.0, memfs@npm:~4.49.0":
   version: 4.49.0
   resolution: "memfs@npm:4.49.0"
   dependencies:
@@ -29507,20 +29523,6 @@ __metadata:
     tree-dump: "npm:^1.0.3"
     tslib: "npm:^2.0.0"
   checksum: 10/2c5fe4065d4b0f07d6ef6d0088960a5a02ddc4e32949d45010773d80344b21a34db9fe90af2a03e746874d2ddb3c814e83b2138364c915a1fc07805d494760dd
-  languageName: node
-  linkType: hard
-
-"memfs@npm:~4.48.0":
-  version: 4.48.1
-  resolution: "memfs@npm:4.48.1"
-  dependencies:
-    "@jsonjoy.com/json-pack": "npm:^1.11.0"
-    "@jsonjoy.com/util": "npm:^1.9.0"
-    glob-to-regex.js: "npm:^1.0.1"
-    thingies: "npm:^2.5.0"
-    tree-dump: "npm:^1.0.3"
-    tslib: "npm:^2.0.0"
-  checksum: 10/284a71296ff622e363a5144183e372c34b117546087a67e22d21d98373ca31a8be177ed78cdd0d8824cee45a42a33c03949fa1387f40da971e7ffb8a7a7f9564
   languageName: node
   linkType: hard
 
@@ -29979,10 +29981,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"monaco-editor@npm:~0.52.0":
-  version: 0.52.2
-  resolution: "monaco-editor@npm:0.52.2"
-  checksum: 10/0d4962d69ffa0a8df040faa9c582cef1893fa3fb617feca8f1425c5e670e74c2856104b9a2b01cbda0103a5e5f92f58843206bc9a0e070471c0c1270d7f52a96
+"monaco-editor@npm:~0.54.0":
+  version: 0.54.0
+  resolution: "monaco-editor@npm:0.54.0"
+  dependencies:
+    dompurify: "npm:3.1.7"
+    marked: "npm:14.0.0"
+  checksum: 10/654aa19e8ed859627f8c545026e41955fd015eeac4a26330a5176b955e0afbcd590bbfba06fa9f22fa1bc97d7a33100059e26c754f9541b64d753379a6396711
   languageName: node
   linkType: hard
 
@@ -31185,7 +31190,7 @@ __metadata:
     "@types/eslint": "npm:~9.6.0"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:~22.18.0"
-    "@types/vscode": "npm:~1.104.0"
+    "@types/vscode": "npm:~1.105.0"
     "@typescript-eslint/parser": "npm:~8.46.0"
     "@typescript-eslint/utils": "npm:~8.46.0"
     "@vscode/chat-extension-utils": "npm:0.0.0-alpha.5"
