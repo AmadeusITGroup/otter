@@ -7,7 +7,7 @@
   },
   "description": "Commands relative to the Digital Apis",
   "main": "dist/src/index.js",
-  "typings": "dist/src/index.d.ts",
+  "types": "dist/src/index.d.ts",
   "scripts": {
     "nx": "nx",
     "ng": "yarn nx",
