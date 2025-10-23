@@ -400,7 +400,7 @@
     "@o3r/design": "workspace:^",
     "@o3r/telemetry": "workspace:^",
     "@vscode/chat-extension-utils": "0.0.0-alpha.5",
-    "eslint": "~9.37.0"
+    "eslint": "~9.38.0"
   },
   "peerDependencies": {
     "@types/vscode": "^1.100.0"
@@ -430,7 +430,7 @@
     "@o3r/schematics": "workspace:^",
     "@o3r/test-helpers": "workspace:^",
     "@schematics/angular": "~20.3.0",
-    "@stylistic/eslint-plugin": "~5.4.0",
+    "@stylistic/eslint-plugin": "~5.5.0",
     "@types/eslint": "~9.6.0",
     "@types/jest": "~29.5.2",
     "@types/node": "~22.18.0",
