@@ -12,4 +12,4 @@ This module provides a set of MCP tools to retrieve information from Otter.
 
 ## Tools
 
-- [metadata-per-release](./src/metadata-per-release/README.md)
+- [metadata-per-release](https://github.com/AmadeusITGroup/otter/blob/main/packages/@ama-mcp/otter/src/metadata-per-release/README.md)
