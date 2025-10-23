@@ -25,7 +25,7 @@
       "default": "./package.json"
     },
     ".": {
-      "typings": "./dist/src/public_api.d.ts",
+      "types": "./dist/src/public_api.d.ts",
       "default": "./dist/src/public_api.js"
     }
   },

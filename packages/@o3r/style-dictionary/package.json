@@ -5,7 +5,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "typings": "./dist/src/public_api.d.mts",
+  "types": "./dist/src/public_api.d.mts",
   "main": "./dist/src/public_api.mjs",
   "description": "Package exposing modules and hooks for Style Dictionary",
   "keywords": [
@@ -34,7 +34,7 @@
     },
     ".": {
       "module": "./dist/src/public_api.mjs",
-      "typings": "./dist/src/public_api.d.mts",
+      "types": "./dist/src/public_api.d.mts",
       "default": "./dist/src/public_api.mjs"
     }
   },

@@ -5,7 +5,7 @@
     "access": "public"
   },
   "main": "dist/src/index.js",
-  "typings": "dist/src/index.d.ts",
+  "types": "dist/src/index.d.ts",
   "description": "Command Line Interface to administrate a DES project",
   "scripts": {
     "nx": "nx",

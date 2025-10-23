@@ -6,7 +6,7 @@
   },
   "description": "Contains common messages types used for iframes dialog in mfe architecture",
   "module": "dist/src/public_api.js",
-  "typings": "dist/src/public_api.d.ts",
+  "types": "dist/src/public_api.d.ts",
   "sideEffects": false,
   "exports": {
     "./package.json": {
@@ -14,7 +14,7 @@
     },
     ".": {
       "module": "./dist/src/public_api.js",
-      "typings": "./dist/src/public_api.d.ts",
+      "types": "./dist/src/public_api.d.ts",
       "node": "./dist/cjs/public_api.js",
       "require": "./dist/cjs/public_api.js",
       "default": "./dist/cjs/public_api.js"

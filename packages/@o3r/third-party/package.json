@@ -5,7 +5,7 @@
     "access": "public"
   },
   "description": "This module provides a bridge to communicate with third parties via an iFrame solution.",
-  "typings": "dist/index.d.ts",
+  "types": "dist/index.d.ts",
   "keywords": [
     "third-party",
     "otter",
