@@ -19,17 +19,17 @@ import {
 } from '@o3r/logger';
 import {
   getAvailableConsumers,
-} from '../messages/available.sender';
+} from '../messages/available-sender';
 import {
   isErrorMessage,
   sendError,
-} from '../messages/error.sender';
+} from '../messages/error-sender';
 import type {
   BasicMessageConsumer,
 } from './interfaces';
 import {
   ProducerManagerService,
-} from './producer.manager.service';
+} from './producer-manager-service';
 
 @Injectable({
   providedIn: 'root'

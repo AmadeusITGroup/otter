@@ -11,10 +11,10 @@ import {
 } from '@angular/core/rxjs-interop';
 import {
   NavigationConsumerService,
-} from '../navigation.consumer.service';
+} from '../navigation-consumer-service';
 import {
   RouteMemorizeService,
-} from './route-memorize.service';
+} from './route-memorize-service';
 
 @Directive({
   selector: 'iframe[memorizeRoute]',

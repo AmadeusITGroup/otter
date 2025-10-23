@@ -12,10 +12,10 @@ import {
 } from '@angular/platform-browser';
 import {
   ResizeConsumerService,
-} from './resize.consumer.service';
+} from './resize-consumer-service';
 import {
   ScalableDirective,
-} from './resize.directive';
+} from './scalable-directive';
 
 @Component({
   imports: [ScalableDirective],
