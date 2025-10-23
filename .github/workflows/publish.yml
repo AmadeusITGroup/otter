@@ -55,9 +55,6 @@ env:
   NX_SKIP_NX_CACHE: ${{ inputs.skipNxCache }}
   NX_SKIP_REMOTE_CACHE: ${{ inputs.skipNxRemoteCache }}
 
-permissions:
-  contents: read
-
 jobs:
   publish:
     runs-on: ubuntu-latest
