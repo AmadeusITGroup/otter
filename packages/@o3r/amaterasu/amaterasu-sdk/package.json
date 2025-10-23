@@ -5,7 +5,7 @@
     "access": "public"
   },
   "main": "dist/src/index.js",
-  "typings": "dist/src/index.d.ts",
+  "types": "dist/src/index.d.ts",
   "description": "Ama-terasu module for DES SDK generation",
   "scripts": {
     "nx": "nx",
