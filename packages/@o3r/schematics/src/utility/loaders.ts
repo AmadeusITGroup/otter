@@ -8,6 +8,9 @@ import {
   Tree,
 } from '@angular-devkit/schematics';
 import {
+  isImported,
+} from '@schematics/angular/utility/ast-utils';
+import {
   NodeDependencyType,
 } from '@schematics/angular/utility/dependencies';
 import {
@@ -16,6 +19,7 @@ import {
 import type {
   PackageJson,
 } from 'type-fest';
+import * as ts from 'typescript';
 import type {
   WorkspaceProject,
   WorkspaceSchema,
@@ -149,6 +153,24 @@ export function getFilesInFolderFromWorkspaceProjectsInTree(tree: Tree, folderIn
   return Object.values(workspace?.projects || {})
     .flatMap((project) => getAllFilesInTree(tree, path.posix.join(project.root, folderInProject), excludes))
     .filter((filePath) => extensionMatcher.test(filePath));
+}
+
+/**
+ * Get all component files from the specified folder for all the projects described in the workspace
+ * @param tree
+ * @param folderInProject
+ */
+export function getComponentFilesInFolderFromWorkspaceProjectsInTree(tree: Tree, folderInProject: string) {
+  const workspace = getWorkspaceConfig(tree);
+  const excludes = ['**/node_modules/**', '**/.cache/**'];
+  return Object.values(workspace?.projects || {})
+    .flatMap((project) => getAllFilesInTree(tree, path.posix.join(project.root, folderInProject), excludes))
+    .filter((filePath) => /^(?!.*\.spec\.ts$).*\.ts$/.test(filePath))
+    .filter((filePath) => {
+      const fileContent = tree.readText(filePath);
+      const sourceFile = ts.createSourceFile(filePath, fileContent, ts.ScriptTarget.ES2015, true);
+      return isImported(sourceFile, 'Component', '@angular/core') && fileContent.includes('@Component');
+    });
 }
 
 /**

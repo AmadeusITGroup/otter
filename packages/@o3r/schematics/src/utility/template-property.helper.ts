@@ -75,7 +75,7 @@ export function getComponentAnalyticsName(componentName: string, componentStruct
  */
 export function getComponentName(componentName: string, componentStructureDef: string) {
   const inputComponentName = getInputComponentName(componentName);
-  return `${strings.classify(inputComponentName)}${strings.classify(componentStructureDef)}Component`;
+  return `${strings.classify(inputComponentName)}${strings.classify(componentStructureDef)}`;
 }
 
 /**
