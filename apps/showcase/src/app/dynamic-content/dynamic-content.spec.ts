@@ -18,22 +18,22 @@ import {
   provideMarkdown,
 } from 'ngx-markdown';
 import {
-  DynamicContentComponent,
-} from './dynamic-content.component';
+  DynamicContent,
+} from './dynamic-content';
 import {
   DynamicContentFixtureComponent,
-} from './dynamic-content.fixture';
+} from './dynamic-content-fixture';
 
 let componentFixture: DynamicContentFixtureComponent;
 
-describe('DynamicContentComponent', () => {
-  let component: DynamicContentComponent;
-  let fixture: ComponentFixture<DynamicContentComponent>;
+describe('DynamicContent', () => {
+  let component: DynamicContent;
+  let fixture: ComponentFixture<DynamicContent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        DynamicContentComponent,
+        DynamicContent,
         RouterModule.forRoot([]),
         AsyncPipe
       ],
@@ -42,7 +42,7 @@ describe('DynamicContentComponent', () => {
         provideDynamicContent()
       ]
     });
-    fixture = TestBed.createComponent(DynamicContentComponent);
+    fixture = TestBed.createComponent(DynamicContent);
     component = fixture.componentInstance;
 
     componentFixture = new DynamicContentFixtureComponent(new O3rElement(fixture.debugElement));

@@ -3,18 +3,18 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import {
-  InPageNavPresComponent,
-} from './in-page-nav-pres.component';
+  InPageNavPres,
+} from './in-page-nav-pres';
 
-describe('InPageNavPresComponent', () => {
-  let component: InPageNavPresComponent;
-  let fixture: ComponentFixture<InPageNavPresComponent>;
+describe('InPageNavPres', () => {
+  let component: InPageNavPres;
+  let fixture: ComponentFixture<InPageNavPres>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [InPageNavPresComponent]
+      imports: [InPageNavPres]
     });
-    fixture = TestBed.createComponent(InPageNavPresComponent);
+    fixture = TestBed.createComponent(InPageNavPres);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

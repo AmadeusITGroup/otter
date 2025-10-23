@@ -30,8 +30,8 @@ import {
   RulesetHistoryPresComponent,
 } from '@o3r/rules-engine';
 import {
-  AppConnectionComponent,
-} from '../components/app-connection/app-connection.component';
+  AppConnection,
+} from '../components/app-connection/app-connection';
 import type {
   State,
 } from '../extension/interface';
@@ -41,31 +41,31 @@ import {
 import {
   ChromeExtensionConnectionService,
   isApplicationInformationMessage,
-} from '../services/connection.service';
+} from '../services/connection-service';
 import {
   RulesetHistoryService,
-} from '../services/ruleset-history.service';
+} from '../services/ruleset-history-service';
 import {
-  ComponentPanelPresComponent,
-} from './component-panel/component-panel-pres.component';
+  ComponentPanelPres,
+} from './component-panel/component-panel-pres';
 import {
-  ConfigPanelPresComponent,
-} from './config-panel/config-panel-pres.component';
+  ConfigPanelPres,
+} from './config-panel/config-panel-pres';
 import {
-  DebugPanelPresComponent,
-} from './debug-panel/debug-panel-pres.component';
+  DebugPanelPres,
+} from './debug-panel/debug-panel-pres';
 import {
   DebugPanelService,
-} from './debug-panel/debug-panel.service';
+} from './debug-panel/debug-panel-service';
 import {
-  LocalizationPanelPresComponent,
-} from './localization-panel/localization-panel-pres.component';
+  LocalizationPanelPres,
+} from './localization-panel/localization-panel-pres';
 import {
-  StatePanelComponent,
-} from './state-panel/state-panel.component';
+  StatePanel,
+} from './state-panel/state-panel';
 import {
-  ThemingPanelPresComponent,
-} from './theming-panel/theming-panel-pres.component';
+  ThemingPanelPres,
+} from './theming-panel/theming-panel-pres';
 
 @Component({
   selector: 'app-root',
@@ -80,15 +80,15 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     NgbNavModule,
-    DebugPanelPresComponent,
+    DebugPanelPres,
     RulesetHistoryPresComponent,
-    ConfigPanelPresComponent,
-    ComponentPanelPresComponent,
-    AppConnectionComponent,
-    LocalizationPanelPresComponent,
-    ThemingPanelPresComponent,
+    ConfigPanelPres,
+    ComponentPanelPres,
+    AppConnection,
+    LocalizationPanelPres,
+    ThemingPanelPres,
     AsyncPipe,
-    StatePanelComponent,
+    StatePanel,
     FormsModule,
     ReactiveFormsModule,
     DfSelectModule,
