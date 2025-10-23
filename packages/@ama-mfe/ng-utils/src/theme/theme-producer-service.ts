@@ -30,7 +30,7 @@ import {
   getStyle,
   THEME_QUERY_PARAM_NAME,
   THEME_URL_SUFFIX,
-} from './theme.helpers';
+} from './theme-helpers';
 /**
  * This service exposing the current theme signal
  */

@@ -10,7 +10,7 @@ import {
 } from '@angular/platform-browser';
 import {
   ThemeProducerService,
-} from './theme.producer.service';
+} from './theme-producer-service';
 
 /**
  * A pipe that applies the current theme from a theme manager service, to a given URL or SafeResourceUrl, as query param

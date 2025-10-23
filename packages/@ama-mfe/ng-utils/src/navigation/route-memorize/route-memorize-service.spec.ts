@@ -3,7 +3,7 @@ import {
 } from '@angular/core/testing';
 import {
   RouteMemorizeService,
-} from './route-memorize.service';
+} from './route-memorize-service';
 
 describe('RouteMemorizeService', () => {
   let service: RouteMemorizeService;

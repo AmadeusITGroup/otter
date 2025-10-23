@@ -13,7 +13,7 @@ import {
 } from '../managers/index';
 import {
   ResizeConsumerService,
-} from './resize.consumer.service';
+} from './resize-consumer-service';
 
 describe('ResizeConsumerService', () => {
   let resizeHandlerService: ResizeConsumerService;

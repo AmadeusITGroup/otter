@@ -16,10 +16,10 @@ import {
 import {
   type ErrorContent,
 } from '../messages/index';
-import * as themeHelpers from './theme.helpers';
+import * as themeHelpers from './theme-helpers';
 import {
   ThemeProducerService,
-} from './theme.producer.service';
+} from './theme-producer-service';
 
 describe('ThemeProducerService', () => {
   let themeService: ThemeProducerService;

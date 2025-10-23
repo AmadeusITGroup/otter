@@ -15,7 +15,7 @@ import {
 } from './host-info';
 import {
   HostInfoPipe,
-} from './host-info.pipe';
+} from './host-info-pipe';
 
 describe('HostInfoPipe', () => {
   let pipe: HostInfoPipe;
