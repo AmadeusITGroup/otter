@@ -9,7 +9,7 @@ import type {
 } from './interfaces';
 import {
   ProducerManagerService,
-} from './producer.manager.service';
+} from './producer-manager-service';
 
 describe('ProducerManagerService', () => {
   let service: ProducerManagerService;

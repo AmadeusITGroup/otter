@@ -4,7 +4,7 @@ import {
   downloadApplicationThemeCss,
   getStyle,
   THEME_URL_SUFFIX,
-} from './theme.helpers';
+} from './theme-helpers';
 
 describe('theme helpers', () => {
   beforeAll(() => {

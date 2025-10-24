@@ -23,7 +23,7 @@ import {
 } from '@o3r/logger';
 import {
   ConnectDirective,
-} from './connect.directive';
+} from './connect-directive';
 
 @Component({
   imports: [ConnectDirective],

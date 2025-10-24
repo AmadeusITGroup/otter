@@ -13,7 +13,7 @@ import {
 } from '@angular/router';
 import {
   RouteMemorizeService,
-} from './route-memorize/route-memorize.service';
+} from './route-memorize/route-memorize-service';
 
 /**
  * Options for restoring a route with optional query parameters and memory channel ID.

@@ -27,7 +27,7 @@ import {
 import {
   applyTheme,
   downloadApplicationThemeCss,
-} from './theme.helpers';
+} from './theme-helpers';
 
 /**
  * A service that handles theme messages and applies the received theme.

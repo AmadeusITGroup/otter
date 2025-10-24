@@ -19,7 +19,7 @@ import {
 } from '../messages/index';
 import {
   ResizeService,
-} from './resize.producer.service';
+} from './resize-producer-service';
 
 class MockedResizeObserver {
   public observe = jest.fn();

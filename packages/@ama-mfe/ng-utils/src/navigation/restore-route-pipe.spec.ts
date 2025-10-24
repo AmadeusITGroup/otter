@@ -14,10 +14,10 @@ import {
 import {
   RestoreRoute,
   RestoreRouteOptions,
-} from './restore-route.pipe';
+} from './restore-route-pipe';
 import {
   RouteMemorizeService,
-} from './route-memorize/route-memorize.service';
+} from './route-memorize/route-memorize-service';
 
 describe('RestoreRoute', () => {
   let pipe: RestoreRoute;

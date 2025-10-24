@@ -19,16 +19,16 @@ import {
 import {
   ErrorMessageV1_0,
 } from '../messages';
-import * as errorHelpers from '../messages/error.sender';
+import * as errorHelpers from '../messages/error-sender';
 import {
   ConsumerManagerService,
-} from './consumer.manager.service';
+} from './consumer-manager-service';
 import {
   BasicMessageConsumer,
 } from './interfaces';
 import {
   ProducerManagerService,
-} from './producer.manager.service';
+} from './producer-manager-service';
 
 describe('ConsumerManagerService', () => {
   let service: ConsumerManagerService;

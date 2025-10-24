@@ -1,1 +1,1 @@
-export { provideDisableHistoryWrites } from './history.providers';
+export { provideDisableHistoryWrites } from './history-providers';

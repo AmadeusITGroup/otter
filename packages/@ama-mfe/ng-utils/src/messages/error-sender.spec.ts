@@ -7,7 +7,7 @@ import type {
 import {
   isErrorMessage,
   sendError,
-} from './error.sender';
+} from './error-sender';
 
 describe('sendError', () => {
   it('should send an error message with the correct content', () => {

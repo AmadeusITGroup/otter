@@ -88,7 +88,7 @@ import {ThemeService} from '@ama-mfe/ng-utils';
   imports: [
     CommonModule
   ],
-  templateUrl: './navigation-header.template.html',
+  templateUrl: './navigation-header.html',
 })
 export class NavigationHeaderComponent {
 

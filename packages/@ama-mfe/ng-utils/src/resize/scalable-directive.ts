@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import {
   ResizeConsumerService,
-} from './resize.consumer.service';
+} from './resize-consumer-service';
 
 /**
  * A directive that adjusts the height of an element based on resize messages from a specified channel.

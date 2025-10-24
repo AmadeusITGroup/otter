@@ -25,7 +25,7 @@ import {
 import {
   ConnectionConfig,
   ConnectionService,
-} from './connect.resources';
+} from './connect-resources';
 
 /** Options to configure the connection inside the communication protocol */
 export interface ConnectionConfigOptions extends Omit<ConnectionConfig, 'id'> {

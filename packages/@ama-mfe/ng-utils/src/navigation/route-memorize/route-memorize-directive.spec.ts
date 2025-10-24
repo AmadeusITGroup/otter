@@ -14,13 +14,13 @@ import {
 } from 'rxjs';
 import {
   NavigationConsumerService,
-} from '../navigation.consumer.service';
+} from '../navigation-consumer-service';
 import {
   RouteMemorizeDirective,
-} from './route-memorize.directive';
+} from './route-memorize-directive';
 import {
   RouteMemorizeService,
-} from './route-memorize.service';
+} from './route-memorize-service';
 
 @Component({
   imports: [RouteMemorizeDirective],

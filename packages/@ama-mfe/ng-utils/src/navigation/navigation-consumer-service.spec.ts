@@ -16,7 +16,7 @@ import {
 } from '../managers/index';
 import {
   NavigationConsumerService,
-} from './navigation.consumer.service';
+} from './navigation-consumer-service';
 
 describe('Navigation Handler Service', () => {
   let navHandlerService: NavigationConsumerService;

@@ -32,7 +32,7 @@ import type {
 } from '../messages/error';
 import {
   RoutingService,
-} from './routing.service';
+} from './routing-service';
 
 describe('Navigation Producer Service', () => {
   let routingService: RoutingService;

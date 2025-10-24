@@ -19,8 +19,8 @@ import {
 } from '../managers/index';
 import {
   ThemeConsumerService,
-} from './theme.consumer.service';
-import * as themeHelpers from './theme.helpers';
+} from './theme-consumer-service';
+import * as themeHelpers from './theme-helpers';
 
 describe('ThemeConsumerService', () => {
   let themeHandlerService: ThemeConsumerService;

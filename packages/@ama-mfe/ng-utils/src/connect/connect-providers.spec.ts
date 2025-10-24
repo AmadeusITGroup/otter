@@ -18,10 +18,10 @@ import {
 } from '../utils';
 import {
   provideConnection,
-} from './connect.providers';
+} from './connect-providers';
 import {
   ConnectionService,
-} from './connect.resources';
+} from './connect-resources';
 
 jest.mock('@angular/core', () => {
   const actual = jest.requireActual('@angular/core');
@@ -40,7 +40,7 @@ jest.mock('../utils', () => ({
   isEmbedded: jest.fn()
 }));
 
-jest.mock('../history/history.providers', () => ({
+jest.mock('../history/history-providers', () => ({
   provideDisableHistoryWrites: jest.fn()
 }));
 

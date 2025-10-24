@@ -3,7 +3,7 @@ import type {
 } from '../managers/interfaces';
 import {
   getAvailableConsumers,
-} from './available.sender';
+} from './available-sender';
 
 describe('getAvailableConsumers', () => {
   it('should return the correct DeclareMessages object', () => {
