@@ -15,6 +15,6 @@ This module provides a set of MCP tools to retrieve information from GitHub.
 
 ## Tools
 
-- [get_repositories_using_<library_name>](./src/find-repositories-using-library/README.md)
-- [get_release_notes_<library_name>](./src/release-notes/README.md)
-- [get_supported_releases_<library_name>](./src/supported-releases/README.md)
+- [get_repositories_using_<library_name>](https://github.com/AmadeusITGroup/otter/blob/main/packages/@ama-mcp/github/src/find-repositories-using-library/README.md)
+- [get_release_notes_<library_name>](https://github.com/AmadeusITGroup/otter/blob/main/packages/@ama-mcp/github/src/release-notes/README.md)
+- [get_supported_releases_<library_name>](https://github.com/AmadeusITGroup/otter/blob/main/packages/@ama-mcp/github/src/supported-releases/README.md)
