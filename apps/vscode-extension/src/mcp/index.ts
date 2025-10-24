@@ -28,7 +28,7 @@ export const mcpConfig = (didChangeEmitter: EventEmitter<void>, channel: OutputC
       }
       return server;
     },
-    provideMcpServerDefinitions: () => {
+    provideMcpServerDefinitions: async () => {
       const isLocal = process.env.O3R_MCP_LOCAL === 'true';
       const o3r = new McpStdioServerDefinition(
         'o3r',
@@ -43,6 +43,10 @@ export const mcpConfig = (didChangeEmitter: EventEmitter<void>, channel: OutputC
       if (isLocal && process.env.O3R_DIRECTORY) {
         o3r.cwd = Uri.parse(process.env.O3R_DIRECTORY);
       }
+      const isNxWorkspace = (await workspace.findFiles('nx.json')).length > 0;
+      if (isNxWorkspace) {
+        channel.appendLine('Nx workspace detected, enabling nx tool support');
+      }
       return [
         o3r,
         new McpStdioServerDefinition(
@@ -54,7 +58,14 @@ export const mcpConfig = (didChangeEmitter: EventEmitter<void>, channel: OutputC
           'playwright',
           'npx',
           ['-y', '@playwright/mcp']
-        )
+        ),
+        ...(isNxWorkspace
+          ? [new McpStdioServerDefinition(
+            'nx',
+            'npx',
+            ['nx-mcp']
+          )]
+          : [])
       ];
     }
   });

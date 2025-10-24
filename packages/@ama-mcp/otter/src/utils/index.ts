@@ -1,17 +1,17 @@
 /**
  * Otter repository organization
  */
-export const owner = 'AmadeusITGroup';
+export const GITHUB_OWNER = 'AmadeusITGroup';
 
 /**
  * Otter repository name
  */
-export const repo = 'otter';
+export const GITHUB_REPOSITORY_NAME = 'otter';
 
 /**
  * Otter related scopes
  */
-export const OTTER_SCOPES = [
+export const NPM_PACKAGES_SCOPES = [
   'o3r',
   'ama-styling',
   'ama-mfe',
@@ -22,9 +22,9 @@ export const OTTER_SCOPES = [
 /**
  * Otter URI prefix
  */
-export const uriPrefix = 'o3r';
+export const RESOURCE_URI_PREFIX = 'o3r';
 
 /**
  * Otter library name
  */
-export const libraryName = 'Otter';
+export const LIBRARY_NAME = 'Otter';

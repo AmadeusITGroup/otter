@@ -22,8 +22,10 @@
     "compile": "tsc -b ./tsconfig.build.json && yarn copy:resources && yarn cpy package.json dist && patch-package-json-main"
   },
   "dependencies": {
+    "@ama-mcp/angular": "workspace:^",
     "@ama-mcp/core": "workspace:^",
     "@ama-mcp/github": "workspace:^",
+    "@ama-mcp/otter": "workspace:^",
     "@modelcontextprotocol/sdk": "~1.20.0",
     "@octokit/rest": "~22.0.0",
     "tslib": "^2.6.2",

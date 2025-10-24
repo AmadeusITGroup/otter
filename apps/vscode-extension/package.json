@@ -100,17 +100,17 @@
       {
         "id": "o3r-chat-participant",
         "name": "o3r",
-        "fullName": "Otter Chat Participant",
-        "description": "Ask me anything about the Otter framework",
+        "fullName": "Ottie",
+        "description": "Ask me anything about the Otter (o3r) ecosystem: schematics, generators, architecture and best practices.",
         "isSticky": true,
         "commands": [
           {
             "name": "list-tools",
-            "description": "Get the list of tools available for the chat participant"
+            "description": "List all available Otter & workspace tools I can reference."
           },
           {
             "name": "list-repos-using-o3r",
-            "description": "Get the list of repositories in the configured GitHub organization that are using Otter dependencies"
+            "description": "List all repositories in the configured GitHub organization that depend on Otter packages"
           }
         ]
       }
@@ -397,6 +397,7 @@
     "watch": "yarn nx run vscode-extension:compile:watch"
   },
   "dependencies": {
+    "@ama-mcp/otter": "workspace:^",
     "@o3r/design": "workspace:^",
     "@o3r/telemetry": "workspace:^",
     "@vscode/chat-extension-utils": "0.0.0-alpha.5",
