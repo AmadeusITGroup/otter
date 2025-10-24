@@ -4,7 +4,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "typings": "./dist/src/public_api.d.ts",
+  "types": "./dist/src/public_api.d.ts",
   "main": "dist/src/public_api.js",
   "description": "A package that provides toolchain related helpers.",
   "keywords": [
@@ -28,7 +28,7 @@
       "default": "./package.json"
     },
     ".": {
-      "typings": "./dist/src/public_api.d.ts",
+      "types": "./dist/src/public_api.d.ts",
       "default": "./dist/src/public_api.js"
     }
   },

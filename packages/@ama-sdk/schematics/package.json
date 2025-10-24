@@ -5,9 +5,8 @@
     "access": "public"
   },
   "description": "Swagger specification SDK Generator by schematics",
-  "typings": "./src/public_api.d.ts",
-  "main": "./src/public_api.js",
   "types": "./src/public_api.d.ts",
+  "main": "./src/public_api.js",
   "scripts": {
     "nx": "nx",
     "ng": "yarn nx",
