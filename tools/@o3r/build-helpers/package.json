@@ -29,7 +29,7 @@
     "write-git-hash": "./scripts/write-git-hash.mjs"
   },
   "dependencies": {
-    "globby": "^14.0.0",
+    "globby": "^15.0.0",
     "minimist": "^1.2.6"
   },
   "peerDependencies": {
@@ -49,9 +49,9 @@
     "eslint-plugin-import": "~2.32.0",
     "eslint-plugin-import-newlines": "~1.4.0",
     "eslint-plugin-jest": "~29.0.0",
-    "eslint-plugin-jsdoc": "~54.7.0",
+    "eslint-plugin-jsdoc": "~61.1.0",
     "eslint-plugin-prefer-arrow": "~1.2.3",
-    "eslint-plugin-unicorn": "~60.0.0",
+    "eslint-plugin-unicorn": "~61.0.0",
     "eslint-plugin-unused-imports": "~4.2.0",
     "globals": "^16.0.0",
     "jsonc-eslint-parser": "~2.4.0",
