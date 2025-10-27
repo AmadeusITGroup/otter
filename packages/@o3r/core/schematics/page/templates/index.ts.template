@@ -1,1 +1,1 @@
-export * from './<%= dasherize(name) %><%= standalone ? '' : '-module' %>';
+export * from './<%= dasherize(name) %><%= standalone ? (type ?  '.' + type : '') : '-module' %>';

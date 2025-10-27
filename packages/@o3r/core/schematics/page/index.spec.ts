@@ -58,6 +58,42 @@ describe('Page', () => {
     });
   });
 
+  describe('Default parameters for a typed page', () => {
+    beforeAll(async () => {
+      const runner = new SchematicTestRunner('schematics', collectionPath);
+      const angularPackageJson = require.resolve('@schematics/angular/package.json');
+      runner.registerCollection('@schematics/angular', path.resolve(path.dirname(angularPackageJson), require(angularPackageJson).schematics));
+      tree = await runner.runExternalSchematic('schematics', 'page', {
+        projectName: 'test-project',
+        name: 'test-page',
+        appRoutingModulePath: 'app-routing-module.ts',
+        path: 'src/app',
+        type: 'test-type'
+      }, getInitialTree());
+    });
+
+    it('should generate files', () => {
+      const expectedFileNames = [
+        'test-page.test-type.ts',
+        'test-page.test-type.spec.ts',
+        'test-page.test-type.scss',
+        'test-page.test-type.html',
+        'README.md',
+        'index.ts'
+      ];
+      expect(tree.files.filter((file) => /test-page/.test(file)).sort()).toEqual(expectedFileNames.map((fileName) => `/src/app/test-page/${fileName}`).sort());
+      expect(tree.readContent('/src/app/test-page/index.ts')).toContain('export * from \'./test-page.test-type\';');
+    });
+
+    it('should insert page route in App Routing Module', () => {
+      expect(tree.readContent('/app-routing-module.ts')).toContain('{path: \'test-page\', loadComponent: () => import(\'./test-page/index\').then((m) => m.TestPageTestType)}');
+    });
+
+    it('should have the default selector', () => {
+      expect(tree.readContent('/src/app/test-page/test-page.test-type.ts')).toContain('selector: \'o3r-test-page\'');
+    });
+  });
+
   describe('Non standalone page', () => {
     beforeAll(async () => {
       const runner = new SchematicTestRunner('schematics', collectionPath);

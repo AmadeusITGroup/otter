@@ -21,6 +21,7 @@ import {
   addImportsRule,
   applyEsLintFix,
   createOtterSchematic,
+  getComponentBaseName,
   getComponentFileName,
   getComponentFolderName,
   getComponentModuleName,
@@ -78,12 +79,12 @@ const getTemplateProperties = (options: NgGenerateComponentContainerSchematicsSc
     ...options,
     componentType: options.componentStructure === 'full' ? 'Block' : 'Component',
     presenterModuleName: getComponentModuleName(inputComponentName, ComponentStructureDef.Pres),
-    componentName: getComponentName(inputComponentName, componentStructureDef).replace(/Component$/, ''),
-    presenterComponentName: getComponentName(inputComponentName, ComponentStructureDef.Pres),
+    componentName: getComponentBaseName(inputComponentName, componentStructureDef),
+    presenterComponentName: getComponentName(inputComponentName, ComponentStructureDef.Pres, options.type),
     presenterComponentSelector: `${componentSelector}-${ComponentStructureDef.Pres.toLowerCase()}`,
     componentSelector: getComponentSelectorWithoutSuffix(options.componentName, prefix || null),
     folderName,
-    name: getComponentFileName(options.componentName, componentStructureDef), // air-offer | air-offer-cont,
+    name: getComponentFileName(options.componentName, componentStructureDef, options.type), // air-offer | air-offer-cont,
     suffix: componentStructureDef.toLowerCase(), // cont | ''
     description: options.description || ''
   };
@@ -102,7 +103,10 @@ function ngGenerateComponentContainerFn(options: NgGenerateComponentContainerSch
     const properties = getTemplateProperties(options, ComponentStructureDef.Cont, options.prefix || workspaceProject?.prefix);
 
     const destination = getDestinationPath('@o3r/core:component', options.path, tree, options.projectName);
-    const componentDestination = path.posix.join(destination, fullStructureRequested ? path.posix.join(properties.folderName, CONTAINER_FOLDER) : properties.folderName);
+    const componentDestination = path.posix.join(
+      destination,
+      fullStructureRequested ? path.posix.join(properties.folderName, CONTAINER_FOLDER) : `${properties.folderName}${properties.suffix ? ('-' + properties.suffix) : ''}`
+    );
     const componentPath = path.posix.join(componentDestination, `${properties.name}.ts`);
     const specPath = path.posix.join(componentDestination, `${properties.name}.spec.ts`);
     const templatePath = path.posix.join(componentDestination, `${properties.name}.html`);
@@ -136,6 +140,7 @@ function ngGenerateComponentContainerFn(options: NgGenerateComponentContainerSch
         viewEncapsulation: 'None',
         changeDetection: 'OnPush',
         style: 'none',
+        type: properties.type,
         skipSelector: false,
         skipTests: false,
         standalone: options.standalone,

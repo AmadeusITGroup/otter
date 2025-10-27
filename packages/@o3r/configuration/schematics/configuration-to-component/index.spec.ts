@@ -85,6 +85,36 @@ export class NgComponent {}
     expect(componentFileContent).toContain('public config$: Observable<TestConfig>');
   });
 
+  it('should create the config file and update the typed component', async () => {
+    const componentWithTypePath = '/src/components/other-test/other-test.test-type.ts';
+    initialTree.create(componentWithTypePath, `
+      import {CommonModule} from '@angular/common';
+      import {Component} from '@angular/core';
+
+      @Component({
+        selector: 'other-test',
+        imports: [CommonModule],
+        template: ''
+      })
+      export class OtherTestTestType {}
+    `);
+    const runner = new SchematicTestRunner('schematics', collectionPath);
+    const tree = await runner.runSchematic('configuration-to-component', {
+      projectName: 'test-project',
+      path: componentWithTypePath
+    }, initialTree);
+
+    expect(tree.exists(componentWithTypePath.replace(/\.test-type\.ts$/, '-config.ts'))).toBeTruthy();
+    const componentFileContent = tree.readText(componentWithTypePath);
+    expect(componentFileContent).toContain('from \'@o3r/configuration\'');
+    expect(componentFileContent).toContain('from \'./other-test-config\'');
+    expect(componentFileContent).toContain('componentType: \'ExposedComponent\'');
+    expect(componentFileContent).toContain('DynamicConfigurable<OtherTestConfig>');
+    expect(componentFileContent).toContain('public config: Partial<OtherTestConfig> | undefined');
+    expect(componentFileContent).toContain('private dynamicConfig$: ConfigurationObserver<OtherTestConfig>');
+    expect(componentFileContent).toContain('public config$: Observable<OtherTestConfig>');
+  });
+
   it('should create the config file and update the component with signal based configuration', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('configuration-to-component', {

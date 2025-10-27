@@ -1,2 +1,2 @@
-export * from './<%= name %>-<%= featureName %>';
+export * from './<%= name %>-<%= featureName %><% if (type) { %>.<%= type %><% } %>';
 export * from './<%= name %>-<%= featureName %>-module';

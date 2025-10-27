@@ -1,5 +1,4 @@
 import {
-  basename,
   dirname,
   posix,
 } from 'node:path';
@@ -30,6 +29,8 @@ import {
   createOtterSchematic,
   generateBlockStatementsFromString,
   generateClassElementsFromString,
+  getComponentBaseFileName,
+  getComponentTranslationName,
   getO3rComponentInfoOrThrowIfNotFound,
   isO3rClassComponent,
   NoOtterComponent,
@@ -87,16 +88,16 @@ const checkLocalization = (componentPath: string, tree: Tree, baseFileName: stri
 export function ngAddLocalizationFn(options: NgAddLocalizationSchematicsSchema): Rule {
   return async (tree: Tree, context: SchematicContext) => {
     try {
-      const baseFileName = basename(options.path, '.ts');
-      const { name, selector, standalone, templateRelativePath } = getO3rComponentInfoOrThrowIfNotFound(tree, options.path);
+      const baseFileName = getComponentBaseFileName(options.path);
+      const { selector, standalone, templateRelativePath } = getO3rComponentInfoOrThrowIfNotFound(tree, options.path);
 
       checkLocalization(options.path, tree, baseFileName);
 
       const properties = {
         ...options,
-        componentTranslation: name.concat('Translation'),
+        componentTranslation: getComponentTranslationName(baseFileName),
         componentSelector: selector,
-        name: basename(options.path, '.ts')
+        name: baseFileName
       };
 
       const createLocalizationFilesRule: Rule = mergeWith(apply(url('./templates'), [

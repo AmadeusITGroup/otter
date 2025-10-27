@@ -32,6 +32,24 @@ o3r-test-pres {
     expect(styleFileContent).toContain('@import \'./test-theme\';');
   });
 
+  it('should create the theming file and update the typed style file', async () => {
+    const stylePathWithType = '/src/components/other-test/other-test.test-type.scss';
+    const runner = new SchematicTestRunner('schematics', collectionPath);
+    initialTree.create(stylePathWithType, `
+      o3r-other-test-pres {
+        // Your component custom SCSS
+      }
+    `);
+    const tree = await runner.runSchematic('theming-to-component', {
+      path: stylePathWithType
+    }, initialTree);
+
+    expect(tree.exists(stylePath.replace(/\.test-type\.scss$/, '-theme.scss'))).toBeTruthy();
+    const styleFileContent = tree.readText(stylePathWithType);
+    expect(styleFileContent).toContain(initialTree.readText(stylePathWithType));
+    expect(styleFileContent).toContain('@import \'./other-test-theme\';');
+  });
+
   it('should create the theming file and update the style file using the previous naming convention', async () => {
     initialTree.create(oldStylePath, `
       o3r-test-pres {

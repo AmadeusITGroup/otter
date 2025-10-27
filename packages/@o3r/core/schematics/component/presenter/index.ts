@@ -18,9 +18,9 @@ import {
 import {
   applyEsLintFix,
   createOtterSchematic,
+  getComponentBaseName,
   getComponentFileName,
   getComponentFolderName,
-  getComponentName,
   getComponentSelectorWithoutSuffix,
   getDestinationPath,
   getInputComponentName,
@@ -70,11 +70,11 @@ const getTemplateProperties = (options: NgGenerateComponentSchematicsSchema, com
 
   return {
     ...options,
-    componentName: getComponentName(inputComponentName, structure).replace(/Component$/, ''),
+    componentName: getComponentBaseName(inputComponentName, structure),
     componentSelector: getComponentSelectorWithoutSuffix(options.componentName, prefix || null),
     projectName: options.projectName || getLibraryNameFromPath(options.path),
     folderName,
-    name: getComponentFileName(options.componentName, structure),
+    name: getComponentFileName(options.componentName, structure, options.type),
     suffix: structure.toLowerCase(),
     description: options.description || ''
   };
@@ -97,7 +97,10 @@ function ngGenerateComponentPresenterFn(options: NgGenerateComponentSchematicsSc
     );
 
     const destination = getDestinationPath('@o3r/core:component', options.path, tree, options.projectName);
-    const componentDestination = path.posix.join(destination, fullStructureRequested ? path.posix.join(properties.folderName, PRESENTER_FOLDER) : properties.folderName);
+    const componentDestination = path.posix.join(
+      destination,
+      fullStructureRequested ? path.posix.join(properties.folderName, PRESENTER_FOLDER) : `${properties.folderName}${properties.suffix ? ('-' + properties.suffix) : ''}`
+    );
     const componentPath = path.posix.join(componentDestination, `${properties.name}.ts`);
     const stylePath = path.posix.join(componentDestination, `${properties.name}.scss`);
     const o3rDesignTokenPath = path.posix.join(componentDestination, `${properties.name}.theme.json`);
@@ -132,6 +135,7 @@ function ngGenerateComponentPresenterFn(options: NgGenerateComponentSchematicsSc
         viewEncapsulation: 'None',
         changeDetection: 'OnPush',
         style: 'scss',
+        type: options.type,
         skipSelector: false,
         standalone: options.standalone,
         ...(
