@@ -79,6 +79,52 @@ export class NgComponent {}
     expect(componentFileContent).toContain('import { TestContext } from \'./test-context\'');
   });
 
+  it('should create the context file and update the typed component', async () => {
+    const componentWithTypePath = '/src/components/other-test/other-test.test-type.ts';
+    initialTree.create(componentWithTypePath, `
+      import {CommonModule} from '@angular/common';
+      import {ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+      import {O3rComponent} from '@o3r/core';
+      import {Subscription} from 'rxjs';
+
+      @O3rComponent({
+        componentType: 'Component'
+      })
+      @Component({
+        selector: 'o3r-other-test-pres',
+        imports: [CommonModule],
+        styleUrls: ['./other-test.test-type.scss'],
+        templateUrl: './other-test.test-type.html',
+        changeDetection: ChangeDetectionStrategy.OnPush,
+        encapsulation: ViewEncapsulation.None
+      })
+      export class OtherTestTestType implements OnInit, OnDestroy {
+        /**
+         * List of subscriptions to unsubscribe on destroy
+         */
+        private subscriptions: Subscription[] = [];
+
+        public ngOnInit() {
+          // Run on component initialization
+        }
+
+        public ngOnDestroy() {
+          // Run on component destruction
+          this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+        }
+      }
+    `);
+    const runner = new SchematicTestRunner('schematics', collectionPath);
+    const tree = await runner.runSchematic('context-to-component', {
+      path: componentWithTypePath
+    }, initialTree);
+
+    expect(tree.exists(componentWithTypePath.replace(/\.test-type\.ts$/, '-context.ts'))).toBeTruthy();
+    const componentFileContent = tree.readText(componentWithTypePath);
+    expect(componentFileContent).toMatch(/OtherTestTestType implements .*OtherTestContext/);
+    expect(componentFileContent).toContain('import { OtherTestContext } from \'./other-test-context\'');
+  });
+
   it('should throw if we add context to a component that already have it', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('context-to-component', {

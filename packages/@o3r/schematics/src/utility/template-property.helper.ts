@@ -1,4 +1,8 @@
 import {
+  basename,
+  dirname,
+} from 'node:path';
+import {
   strings,
 } from '@angular-devkit/core';
 
@@ -29,13 +33,27 @@ export function getComponentFolderName(componentName: string): string {
 }
 
 /**
+ * Returns the base file name of a component file
+ * @param componentPath
+ */
+export function getComponentBaseFileName(componentPath: string): string {
+  let baseFileName = basename(dirname(componentPath));
+  if (baseFileName === 'presenter' || baseFileName === 'container') {
+    baseFileName = dirname(componentPath).split(/[\\/]/).at(-2) + (baseFileName === 'presenter' ? '-pres' : '-cont');
+  }
+  return baseFileName;
+}
+
+/**
  * Returns the component file name
  * @param componentName
  * @param componentStructureDef
+ * @param componentType
  */
-export function getComponentFileName(componentName: string, componentStructureDef: string): string {
+export function getComponentFileName(componentName: string, componentStructureDef: string, componentType?: string): string {
   const componentFolderName = getComponentFolderName(componentName);
-  return componentStructureDef ? `${componentFolderName}-${strings.camelize(componentStructureDef)}` : componentFolderName;
+  const componentTypePath = componentType ? '.' + strings.dasherize(componentType) : '';
+  return componentStructureDef ? `${componentFolderName}-${strings.camelize(componentStructureDef)}${componentTypePath}` : componentFolderName;
 }
 
 /**
@@ -63,7 +81,7 @@ export function getComponentModuleName(componentName: string, componentStructure
  * @param componentName
  * @param componentStructureDef
  */
-export function getComponentAnalyticsName(componentName: string, componentStructureDef: string) {
+export function getComponentAnalyticsName(componentName: string, componentStructureDef = '') {
   const inputComponentName = getInputComponentName(componentName);
   return `${strings.classify(inputComponentName)}${strings.classify(componentStructureDef)}Analytics`;
 }
@@ -72,8 +90,19 @@ export function getComponentAnalyticsName(componentName: string, componentStruct
  * Returns the component name (e.g. AirOfferComponent)
  * @param componentName
  * @param componentStructureDef
+ * @param componentType
  */
-export function getComponentName(componentName: string, componentStructureDef: string) {
+export function getComponentName(componentName: string, componentStructureDef: string, componentType?: string) {
+  const inputComponentName = getInputComponentName(componentName);
+  return `${strings.classify(inputComponentName)}${strings.classify(componentStructureDef)}${componentType ? strings.classify(componentType) : ''}`;
+}
+
+/**
+ * Returns the component base name (without type)
+ * @param componentName
+ * @param componentStructureDef
+ */
+export function getComponentBaseName(componentName: string, componentStructureDef: string) {
   const inputComponentName = getInputComponentName(componentName);
   return `${strings.classify(inputComponentName)}${strings.classify(componentStructureDef)}`;
 }
@@ -100,7 +129,7 @@ export function getKebabCaseBlockName(blockName: string) {
  * @param componentName
  * @param componentStructureDef
  */
-export function getComponentConfigName(componentName: string, componentStructureDef: string) {
+export function getComponentConfigName(componentName: string, componentStructureDef = '') {
   const inputComponentName = getInputComponentName(componentName);
   return `${strings.classify(inputComponentName)}${strings.classify(componentStructureDef)}Config`;
 }
@@ -110,7 +139,7 @@ export function getComponentConfigName(componentName: string, componentStructure
  * @param componentName
  * @param componentStructureDef
  */
-export function getComponentTranslationName(componentName: string, componentStructureDef: string) {
+export function getComponentTranslationName(componentName: string, componentStructureDef = '') {
   const inputComponentName = getInputComponentName(componentName);
   return `${strings.classify(inputComponentName)}${strings.classify(componentStructureDef)}Translation`;
 }
@@ -120,7 +149,7 @@ export function getComponentTranslationName(componentName: string, componentStru
  * @param componentName
  * @param componentStructureDef
  */
-export function getComponentContextName(componentName: string, componentStructureDef: string) {
+export function getComponentContextName(componentName: string, componentStructureDef = '') {
   const inputComponentName = getInputComponentName(componentName);
   return `${strings.classify(inputComponentName)}${strings.classify(componentStructureDef)}Context`;
 }
@@ -130,7 +159,7 @@ export function getComponentContextName(componentName: string, componentStructur
  * @param componentName
  * @param componentStructureDef
  */
-export function getComponentFixtureName(componentName: string, componentStructureDef: string) {
+export function getComponentFixtureName(componentName: string, componentStructureDef = '') {
   const inputComponentName = getInputComponentName(componentName);
   return `${strings.classify(inputComponentName)}${strings.classify(componentStructureDef)}Fixture`;
 }
