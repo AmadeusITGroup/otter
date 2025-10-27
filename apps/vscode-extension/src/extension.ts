@@ -1,9 +1,16 @@
 import {
+  chat,
   commands,
+  EventEmitter,
   ExtensionContext,
   languages,
+  lm,
+  Uri,
   window,
 } from 'vscode';
+import {
+  chatParticipantHandler,
+} from './chat';
 import {
   extractAllToVariable,
 } from './commands/extract/styling/extract-all-to-variable.command';
@@ -54,17 +61,26 @@ import {
   stylingCompletionItemProvider,
   stylingCompletionTriggerChar,
 } from './intellisense/styling';
+import {
+  mcpConfig,
+} from './mcp';
 
 /**
  * Function to register commands.
  * This function is called by VSCode when the extension is activated.
  * @param context
  */
-export function activate(context: ExtensionContext) {
+export async function activate(context: ExtensionContext) {
   const channel = window.createOutputChannel('Otter');
+  const o3rChatParticipant = chat.createChatParticipant('o3r-chat-participant', await chatParticipantHandler(context, channel));
+  o3rChatParticipant.iconPath = Uri.joinPath(context.extensionUri, 'assets', 'logo-128x128.png');
   const designTokenProviders = designTokenCompletionItemAndHoverProviders();
+  // eslint-disable-next-line unicorn/prefer-event-target -- using EventEmitter from vscode
+  const didChangeEmitter = new EventEmitter<void>();
 
   context.subscriptions.push(
+    o3rChatParticipant,
+    lm.registerMcpServerDefinitionProvider('o3rMCPServerProvider', mcpConfig(didChangeEmitter)),
     languages.registerCompletionItemProvider(['javascript', 'typescript'], configurationCompletionItemProvider({ channel }), configurationCompletionTriggerChar),
     languages.registerCompletionItemProvider(['scss'], stylingCompletionItemProvider(), stylingCompletionTriggerChar),
     languages.registerCompletionItemProvider(['scss', 'css'], designTokenProviders),

@@ -7,15 +7,8 @@ import {
 import {
   createOtterSchematic,
   getAppModuleFilePath,
-  getDefaultOptionsForSchematic,
-  getExternalDependenciesInfo,
-  getO3rPeerDeps,
-  getPackageInstallConfig,
-  getProjectNewDependenciesTypes,
-  getWorkspaceConfig,
+  ngAddDependenciesRule,
   registerPackageCollectionSchematics,
-  removePackages,
-  setupDependencies,
   setupSchematicsParamsForProject,
 } from '@o3r/schematics';
 import {
@@ -85,72 +78,37 @@ const updateAppModuleOrAppConfig = (projectName: string | undefined): Rule => (t
   );
 };
 
+const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
+const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' })) as PackageJson;
+
 /**
  * Add Otter rules-engine to an Angular Project
  * @param options
  */
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
-  /* ng add rules */
-  return (tree, context) => {
-    options = { ...getDefaultOptionsForSchematic(getWorkspaceConfig(tree), '@o3r/rules-engine', 'ng-add', options), ...options };
-    const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
-    const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' })) as PackageJson;
-    const depsInfo = getO3rPeerDeps(packageJsonPath);
-    if (options.enableMetadataExtract) {
-      depsInfo.o3rPeerDeps = [...depsInfo.o3rPeerDeps, '@o3r/extractors'];
-    }
-    const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
-    const projectDirectory = workspaceProject?.root || '.';
-    const projectPackageJson = tree.readJson(path.posix.join(projectDirectory, 'package.json')) as PackageJson;
-
-    const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
-      acc[dep] = {
-        inManifest: [{
-          range: `${options.exactO3rVersion ? '' : '~'}${depsInfo.packageVersion}`,
-          types: getProjectNewDependenciesTypes(workspaceProject)
-        }],
-        ngAddOptions: { exactO3rVersion: options.exactO3rVersion }
-      };
-      return acc;
-    }, getPackageInstallConfig(packageJsonPath, tree, options.projectName, false, !!options.exactO3rVersion));
-    const externalDependenciesInfo = getExternalDependenciesInfo({
-      devDependenciesToInstall,
-      dependenciesToInstall,
-      projectType: workspaceProject?.projectType,
-      projectPackageJson,
-      o3rPackageJsonPath: packageJsonPath
-    },
-    context.logger
-    );
-
-    const schematicsDefaultOptions = {
-      useRulesEngine: undefined
-    };
-    const rule = chain([
-      registerPackageCollectionSchematics(packageJson),
-      setupSchematicsParamsForProject({
-        '@o3r/core:component': schematicsDefaultOptions,
-        '@o3r/core:component-container': schematicsDefaultOptions
-      }, options.projectName),
-      removePackages(['@otter/rules-engine', '@otter/rules-engine-core']),
-      setupDependencies({
-        projectName: options.projectName,
-        dependencies: {
-          ...dependencies,
-          ...externalDependenciesInfo
-        },
-        ngAddToRun: depsInfo.o3rPeerDeps
-      }),
-      ...(options.enableMetadataExtract ? [updateCmsAdapter(options)] : []),
-      registerDevtools(options),
-      updateAppModuleOrAppConfig(options.projectName)
-    ]);
-
-    context.logger.info(`The package ${depsInfo.packageName!} comes with a debug mechanism`);
-    context.logger.info('Get information on https://github.com/AmadeusITGroup/otter/tree/main/docs/rules-engine/how-to-use/debug.md');
-
-    return rule;
+  const schematicsDefaultOptions = {
+    useRulesEngine: undefined
   };
+  /* ng add rules */
+  return chain([
+    (_, context) => {
+      context.logger.info(`The package @o3r/rules-engine comes with a debug mechanism`);
+      context.logger.info('Get information on https://github.com/AmadeusITGroup/otter/tree/main/docs/rules-engine/how-to-use/debug.md');
+    },
+    registerPackageCollectionSchematics(packageJson),
+    setupSchematicsParamsForProject({
+      '@o3r/core:component': schematicsDefaultOptions,
+      '@o3r/core:component-container': schematicsDefaultOptions
+    }, options.projectName),
+    ngAddDependenciesRule(options, packageJsonPath, {
+      dependenciesToInstall,
+      devDependenciesToInstall,
+      additionalNgAddToRun: options.enableMetadataExtract ? ['@o3r/extractors'] : undefined
+    }),
+    ...(options.enableMetadataExtract ? [updateCmsAdapter(options)] : []),
+    registerDevtools(options),
+    updateAppModuleOrAppConfig(options.projectName)
+  ]);
 }
 
 /**

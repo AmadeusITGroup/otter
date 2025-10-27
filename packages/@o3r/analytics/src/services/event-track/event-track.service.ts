@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/naming-convention -- naming convention for DOM, FP, and FMP imposed by Lighthouse */
-import type {
-  Mark,
+import {
+  decodeTraceparentHeader,
+  type Mark,
 } from '@ama-sdk/core';
 import {
-  Inject,
+  inject,
   Injectable,
   NgZone,
-  Optional,
 } from '@angular/core';
 import {
   NavigationEnd,
@@ -42,7 +42,6 @@ import {
 import {
   defaultEventTrackConfiguration,
   EVENT_TRACK_SERVICE_CONFIGURATION,
-  EventTrackConfiguration,
 } from './event-track.configuration';
 import {
   isPerformanceNavigationEntry,
@@ -59,9 +58,9 @@ export const performanceMarksInitialState: Readonly<PerfEventPayload> = {
 /**
  * Service to expose the tracked events as streams. Also provide a way to activate/deactivate the tracking
  */
-@Injectable(
-  { providedIn: 'root' }
-)
+@Injectable({
+  providedIn: 'root'
+})
 export class EventTrackService {
   private readonly uiEventTrack: ReplaySubject<UiEventPayload>;
 
@@ -110,8 +109,17 @@ export class EventTrackService {
     }
   }
 
-  constructor(private readonly router: Router, private readonly zone: NgZone, @Optional() @Inject(EVENT_TRACK_SERVICE_CONFIGURATION) config?: EventTrackConfiguration) {
-    const eventConfiguration = { ...defaultEventTrackConfiguration, ...config };
+  private readonly requestIdHeader: string;
+  private readonly traceHeader: string;
+
+  private readonly router = inject(Router);
+  private readonly zone = inject(NgZone);
+  private readonly config = inject(EVENT_TRACK_SERVICE_CONFIGURATION, { optional: true });
+
+  constructor() {
+    const eventConfiguration = { ...defaultEventTrackConfiguration, ...this.config };
+    this.requestIdHeader = eventConfiguration.requestIdHeader;
+    this.traceHeader = eventConfiguration.traceHeader;
     this.uiTrackingActivated = new BehaviorSubject<boolean>(eventConfiguration.activate.uiTracking);
     this.uiTrackingActive$ = this.uiTrackingActivated.asObservable();
     this.uiEventTrack = new ReplaySubject<UiEventPayload>(eventConfiguration.uiEventsBufferSize);
@@ -292,8 +300,8 @@ export class EventTrackService {
   }
 
   /**
-   * Add a DxAPI SDK server call object, created by the SDK Probe plugin, in the list of server calls metrics.
-   * In order to have requestId for the DxAPI calls, your server has to expose 'ama-request-id' via Access-Control-Expose-Headers
+   * Add a SDK server call mark, in the list of server calls metrics.
+   * In order to have requestId for the API calls, your server has to expose 'ama-request-id' via Access-Control-Expose-Headers
    * @param serverMark The mark object
    */
   public async addSDKServerCallMark(serverMark: Mark) {
@@ -306,12 +314,16 @@ export class EventTrackService {
     };
     if (serverMark.response) {
       const clonedResponse = serverMark.response.clone();
-      const amaRequestId = clonedResponse.headers.get('ama-request-id');
+      const traceHeader = clonedResponse.headers.get(this.traceHeader);
+      const requestId = serverMark.openTelemetryTrace?.traceId
+        || (traceHeader && decodeTraceparentHeader(traceHeader)?.traceId)
+        || clonedResponse.headers.get(this.requestIdHeader)
+        || undefined;
       const blob = await clonedResponse.blob();
       serverCallMetric = {
         ...serverCallMetric,
         responseSize: blob.size,
-        requestId: amaRequestId || undefined
+        requestId
       };
     }
     this.addServerCallMark(serverCallMetric);

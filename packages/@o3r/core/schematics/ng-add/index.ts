@@ -26,6 +26,9 @@ import type {
   PackageJson,
 } from 'type-fest';
 import {
+  updatePackageJson,
+} from '../rule-factories/index';
+import {
   getExternalPreset,
   type PresetOptions,
   presets,
@@ -36,9 +39,6 @@ import {
 import {
   NgAddSchematicsSchema,
 } from './schema';
-import {
-  isUsingLegacyConfig,
-} from './utils';
 
 const workspacePackageName = '@o3r/workspace';
 const o3rDevDependencies = [
@@ -88,10 +88,11 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       // Warning: this should always be executed before the setup dependencies as it modifies the options.dependencies
       options.projectName ? prepareProject(options, dependenciesSetupConfig) : noop(),
       registerPackageCollectionSchematics(corePackageJsonContent),
+      updatePackageJson(dependenciesSetupConfig, ['@angular/animations', '@angular/platform-browser-dynamic'], [], options.projectName),
       setupDependencies(dependenciesSetupConfig),
       async (t, c) => {
         const { preset, externalPresets, ...forwardOptions } = options;
-        const presetOptions: PresetOptions = { projectName: forwardOptions.projectName, exactO3rVersion: forwardOptions.exactO3rVersion, forwardOptions, isUsingEslintLegacy: isUsingLegacyConfig(t) };
+        const presetOptions: PresetOptions = { projectName: forwardOptions.projectName, exactO3rVersion: forwardOptions.exactO3rVersion, forwardOptions };
         const presetRunner = await presets[preset](presetOptions);
         const externalPresetRunner = externalPresets ? await getExternalPreset(externalPresets, t, c)(presetOptions) : undefined;
         const modules = [...new Set([...(presetRunner.modules || []), ...(externalPresetRunner?.modules || [])])];
@@ -106,7 +107,45 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
           externalPresetRunner?.rule || noop()
         ])(t, c);
       },
-      options.projectName ? displayModuleListRule({ packageName: options.projectName }) : noop()
+      options.projectName ? displayModuleListRule({ packageName: options.projectName }) : noop(),
+      (t) => {
+        const mcpConfigToAdd = {
+          servers: {
+            angular: {
+              command: 'npx',
+              args: ['@angular/cli', 'mcp']
+            },
+            'o3r-docs': {
+              type: 'stdio',
+              command: 'npx',
+              args: [
+                '-y', '@buger/docs-mcp', '--gitUrl', 'https://github.com/AmadeusITGroup/otter'
+              ]
+            },
+            o3r: {
+              type: 'stdio',
+              command: 'npx',
+              args: ['-y', '-p', '@o3r/mcp', 'o3r-mcp-start']
+            }
+          }
+        };
+        const mcpConfigPath = '/.vscode/mcp.json';
+        if (t.exists(mcpConfigPath)) {
+          const mcpConfig: any = t.readJson(mcpConfigPath);
+          t.overwrite(
+            mcpConfigPath,
+            JSON.stringify({
+              ...mcpConfig,
+              servers: {
+                ...mcpConfigToAdd.servers,
+                ...mcpConfig.servers
+              }
+            }, null, 2)
+          );
+          return t;
+        }
+        t.create(mcpConfigPath, JSON.stringify(mcpConfigToAdd, null, 2));
+      }
     ]);
   };
 }

@@ -3,11 +3,9 @@ import {
 } from 'node:fs';
 import * as path from 'node:path';
 import {
+  logging,
   strings,
 } from '@angular-devkit/core';
-import type {
-  LoggerApi,
-} from '@angular-devkit/core/src/logger';
 import {
   ConfigDocParser,
 } from '@o3r/extractors';
@@ -60,7 +58,7 @@ export class RulesEngineExtractor {
   /** Instance of the comment parser */
   private readonly commentParser = new ConfigDocParser();
 
-  constructor(tsconfigPath: string, private readonly basePath: string, private readonly logger: LoggerApi) {
+  constructor(tsconfigPath: string, private readonly basePath: string, private readonly logger: logging.LoggerApi) {
     const { config } = ts.readConfigFile(tsconfigPath, (p) => ts.sys.readFile(p));
     this.tsconfig = config;
   }

@@ -15,6 +15,7 @@ describe('ng-add', () => {
   beforeEach(() => {
     initialTree = Tree.empty();
     initialTree.create('angular.json', fs.readFileSync(path.resolve(__dirname, '..', '..', 'testing', 'mocks', 'angular.mocks.json')));
+    initialTree.create('package.json', JSON.stringify({ name: 'test' }, null, 2));
   });
 
   it('should generate the template files', async () => {

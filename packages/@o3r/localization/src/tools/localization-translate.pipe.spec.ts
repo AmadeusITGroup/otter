@@ -59,9 +59,7 @@ describe('LocalizationTranslatePipe', () => {
   }));
 
   let localizationService: LocalizationService;
-  let translate: TranslateService;
   let pipe: O3rLocalizationTranslatePipe;
-  let ref: any;
 
   describe('enableTranslationDeactivation OFF', () => {
     it('should throw when trying to deactivate the translation', async () => {
@@ -72,15 +70,17 @@ describe('LocalizationTranslatePipe', () => {
             loader: { provide: TranslateLoader, useClass: FakeLoader }
           })
         ],
-        providers: [LocalizationService]
+        providers: [
+          LocalizationService,
+          { provide: ChangeDetectorRef, useClass: FakeChangeDetectorRef },
+          { provide: O3rLocalizationTranslatePipe, deps: [LocalizationService, TranslateService, ChangeDetectorRef, LOCALIZATION_CONFIGURATION_TOKEN] }
+        ]
       }).compileComponents();
 
       localizationService = TestBed.inject(LocalizationService);
       // initialize TranslateService via configure of LocalizationService
       await localizationService.configure();
-      translate = TestBed.inject(TranslateService);
-      ref = new FakeChangeDetectorRef();
-      pipe = new O3rLocalizationTranslatePipe(localizationService, translate, ref, TestBed.inject(LOCALIZATION_CONFIGURATION_TOKEN));
+      pipe = TestBed.inject(O3rLocalizationTranslatePipe);
 
       expect(() => localizationService.toggleShowKeys()).toThrow();
     });
@@ -101,15 +101,16 @@ describe('LocalizationTranslatePipe', () => {
             {
               provide: LOCALIZATION_CONFIGURATION_TOKEN,
               useFactory: () => createLocalizationConfiguration({ enableTranslationDeactivation: true })
-            }]
+            },
+            { provide: ChangeDetectorRef, useClass: FakeChangeDetectorRef },
+            { provide: O3rLocalizationTranslatePipe, deps: [LocalizationService, TranslateService, ChangeDetectorRef, LOCALIZATION_CONFIGURATION_TOKEN] }
+          ]
         }).compileComponents();
 
         localizationService = TestBed.inject(LocalizationService);
         // initialize TranslateService via configure of LocalizationService
         await localizationService.configure();
-        translate = TestBed.inject(TranslateService);
-        ref = new FakeChangeDetectorRef();
-        pipe = new O3rLocalizationTranslatePipe(localizationService, translate, ref, TestBed.inject(LOCALIZATION_CONFIGURATION_TOKEN));
+        pipe = TestBed.inject(O3rLocalizationTranslatePipe);
       });
 
       it('Should not translate if ShowKeys is activated', () => {
@@ -143,15 +144,15 @@ describe('LocalizationTranslatePipe', () => {
             {
               provide: LOCALIZATION_CONFIGURATION_TOKEN,
               useFactory: () => createLocalizationConfiguration({ debugMode: true, enableTranslationDeactivation: true })
-            }
+            },
+            { provide: ChangeDetectorRef, useClass: FakeChangeDetectorRef },
+            { provide: O3rLocalizationTranslatePipe, deps: [LocalizationService, TranslateService, ChangeDetectorRef, LOCALIZATION_CONFIGURATION_TOKEN] }
           ]
         }).compileComponents();
         localizationService = TestBed.inject(LocalizationService);
         // initialize TranslateService via configure of LocalizationService
         await localizationService.configure();
-        translate = TestBed.inject(TranslateService);
-        ref = new FakeChangeDetectorRef();
-        pipe = new O3rLocalizationTranslatePipe(localizationService, translate, ref, TestBed.inject(LOCALIZATION_CONFIGURATION_TOKEN));
+        pipe = TestBed.inject(O3rLocalizationTranslatePipe);
       });
 
       it('Should not translate if ShowKeys is activated', () => {

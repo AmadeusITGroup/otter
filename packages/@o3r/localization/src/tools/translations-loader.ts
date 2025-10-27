@@ -1,7 +1,6 @@
 import {
-  Inject,
+  inject,
   Injectable,
-  Optional,
 } from '@angular/core';
 import {
   TranslateLoader,
@@ -40,9 +39,9 @@ const JSON_EXT = '.json';
  */
 @Injectable()
 export class TranslationsLoader implements TranslateLoader {
-  constructor(@Inject(LOCALIZATION_CONFIGURATION_TOKEN) private readonly localizationConfiguration: LocalizationConfiguration,
-    @Optional() private readonly logger?: LoggerService,
-    @Optional() private readonly dynamicContentService?: DynamicContentService) {}
+  private readonly localizationConfiguration: LocalizationConfiguration = inject(LOCALIZATION_CONFIGURATION_TOKEN);
+  private readonly logger? = inject(LoggerService, { optional: true });
+  private readonly dynamicContentService? = inject(DynamicContentService, { optional: true });
 
   /**
    * Download a language bundle file

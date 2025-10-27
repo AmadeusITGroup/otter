@@ -41,16 +41,14 @@ export interface UpdateConfigMessage extends OtterMessageContent<'updateConfig'>
   configValue: any;
 }
 
-type ConfigurationMessageContents =
-  | ConfigurationsMessage
+type ConfigurationMessageContents = ConfigurationsMessage
   | UpdateConfigMessage;
 
 /** List of possible DataTypes for Configuration messages */
 export type ConfigurationMessageDataTypes = MessageDataTypes<ConfigurationMessageContents>;
 
 /** List of all messages for configuration purpose */
-export type AvailableConfigurationMessageContents =
-  | ConfigurationMessageContents
+export type AvailableConfigurationMessageContents = ConfigurationMessageContents
   | ConnectContentMessage
   | RequestMessagesContentMessage<ConfigurationMessageDataTypes>;
 
