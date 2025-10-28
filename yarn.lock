@@ -8030,69 +8030,69 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ngrx/effects@npm:~20.0.0":
-  version: 20.0.1
-  resolution: "@ngrx/effects@npm:20.0.1"
+"@ngrx/effects@npm:~20.1.0":
+  version: 20.1.0
+  resolution: "@ngrx/effects@npm:20.1.0"
   dependencies:
     tslib: "npm:^2.0.0"
   peerDependencies:
     "@angular/core": ^20.0.0
-    "@ngrx/store": 20.0.1
+    "@ngrx/store": 20.1.0
     rxjs: ^6.5.3 || ^7.5.0
-  checksum: 10/70b1f5bc8698e6090d45c2fbfa60bd28d7c880948ab0e42723560c95c53f114ae8dc7cb09777f57b6bccd98083b4a96ac8aea9203989a32e12cf02337ccc2821
+  checksum: 10/5930275f8389ba04a2a7d34f1e07ae1c4202b43d661851b04d2d6b5c90ee8cc5bbf10a76d8940d1aea12da2da6b5f61c7e2a2e1b38db83f5f27f5ef9ccf0488a
   languageName: node
   linkType: hard
 
-"@ngrx/entity@npm:~20.0.0":
-  version: 20.0.1
-  resolution: "@ngrx/entity@npm:20.0.1"
+"@ngrx/entity@npm:~20.1.0":
+  version: 20.1.0
+  resolution: "@ngrx/entity@npm:20.1.0"
   dependencies:
     tslib: "npm:^2.0.0"
   peerDependencies:
     "@angular/core": ^20.0.0
-    "@ngrx/store": 20.0.1
+    "@ngrx/store": 20.1.0
     rxjs: ^6.5.3 || ^7.5.0
-  checksum: 10/4474135242dc77ae75b6651a807009768414a6a7d6dba2ae661697549d3e9963bffb05852decc4dd87f5a18b462b30681c02cd310fbdd6bf9bddf665b9a24141
+  checksum: 10/baffab586ce70e7a11aea0cb7f71ec58dfd1a176fa137920dfdfec25df4c51d096ffa65bcbd6d0375f1c3b5df55eac7061c4e1264e7cbe76455668b16b7a5fed
   languageName: node
   linkType: hard
 
-"@ngrx/router-store@npm:~20.0.0":
-  version: 20.0.1
-  resolution: "@ngrx/router-store@npm:20.0.1"
+"@ngrx/router-store@npm:~20.1.0":
+  version: 20.1.0
+  resolution: "@ngrx/router-store@npm:20.1.0"
   dependencies:
     tslib: "npm:^2.0.0"
   peerDependencies:
     "@angular/common": ^20.0.0
     "@angular/core": ^20.0.0
     "@angular/router": ^20.0.0
-    "@ngrx/store": 20.0.1
+    "@ngrx/store": 20.1.0
     rxjs: ^6.5.3 || ^7.5.0
-  checksum: 10/7750c1a55a00536f838fef0f4ad125d01e150271e74e08a76cd5c2a5325fd6b9b78fbe005a9e4b5e59873268e49e2a070d1964f4e21ac91ff8a8c2553460d150
+  checksum: 10/03333890a3c9a7d95d3918231949ad8184d14cebf50bdbaa91bef2f6999d0369851a13e8321ef82a0caa046c8a62ba7924a0bd68e92d48f410efe7cca1617082
   languageName: node
   linkType: hard
 
-"@ngrx/store-devtools@npm:~20.0.0":
-  version: 20.0.1
-  resolution: "@ngrx/store-devtools@npm:20.0.1"
+"@ngrx/store-devtools@npm:~20.1.0":
+  version: 20.1.0
+  resolution: "@ngrx/store-devtools@npm:20.1.0"
   dependencies:
     tslib: "npm:^2.0.0"
   peerDependencies:
     "@angular/core": ^20.0.0
-    "@ngrx/store": 20.0.1
+    "@ngrx/store": 20.1.0
     rxjs: ^6.5.3 || ^7.5.0
-  checksum: 10/237cfaa91f52f3411624bfaa4da49d1f70c980cec32c50a2fb15e70ea35ad1a8d5d801e7fa864bbe3a62be29d52e091b2a0576284363efeaa583c894e3b1f846
+  checksum: 10/bcad7d41c40b2e72f32120b12f9c2fd5c915709c267adeee85c2226e214f2ccdf9121aed5a553851b036ffffcad22dab0a7c151cc55fc703a6ac5f7301a68bfe
   languageName: node
   linkType: hard
 
-"@ngrx/store@npm:~20.0.0":
-  version: 20.0.1
-  resolution: "@ngrx/store@npm:20.0.1"
+"@ngrx/store@npm:~20.1.0":
+  version: 20.1.0
+  resolution: "@ngrx/store@npm:20.1.0"
   dependencies:
     tslib: "npm:^2.0.0"
   peerDependencies:
     "@angular/core": ^20.0.0
     rxjs: ^6.5.3 || ^7.5.0
-  checksum: 10/09efe58d0d317064583c9a372ae0811bc32fdeb4292882e624a7570d41d948306ab9c69c379031f9d32369cd41b8d0ccb5e6ff062e7fb557fedafd82951cf134
+  checksum: 10/00089152b5828ae21a8c5d12b386e06fb0efe5d7d9af37d0a8a381198558efc0ea1c08abb0ffc26727fac515c2d2fda141b25d6968633ac45721fd52a243c602
   languageName: node
   linkType: hard
 
@@ -9083,7 +9083,7 @@ __metadata:
     "@babel/preset-typescript": "npm:~7.27.0"
     "@compodoc/compodoc": "npm:^1.1.19"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@ngrx/store": "npm:~20.0.0"
+    "@ngrx/store": "npm:~20.1.0"
     "@nx/eslint": "npm:~21.6.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
@@ -9541,8 +9541,8 @@ __metadata:
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@ng-bootstrap/ng-bootstrap": "npm:^19.0.0"
     "@ng-select/ng-select": "npm:~20.0.0"
-    "@ngrx/entity": "npm:~20.0.0"
-    "@ngrx/store": "npm:~20.0.0"
+    "@ngrx/entity": "npm:~20.1.0"
+    "@ngrx/store": "npm:~20.1.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
     "@o3r/application": "workspace:^"
@@ -9630,9 +9630,9 @@ __metadata:
     "@babel/preset-typescript": "npm:~7.27.0"
     "@compodoc/compodoc": "npm:^1.1.19"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@ngrx/effects": "npm:~20.0.0"
-    "@ngrx/entity": "npm:~20.0.0"
-    "@ngrx/store": "npm:~20.0.0"
+    "@ngrx/effects": "npm:~20.1.0"
+    "@ngrx/entity": "npm:~20.1.0"
+    "@ngrx/store": "npm:~20.1.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
     "@o3r/analytics": "workspace:^"
@@ -9795,8 +9795,8 @@ __metadata:
     "@babel/preset-typescript": "npm:~7.27.0"
     "@compodoc/compodoc": "npm:^1.1.19"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@ngrx/entity": "npm:~20.0.0"
-    "@ngrx/store": "npm:~20.0.0"
+    "@ngrx/entity": "npm:~20.1.0"
+    "@ngrx/store": "npm:~20.1.0"
     "@nx/eslint": "npm:~21.6.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
@@ -9905,8 +9905,8 @@ __metadata:
     "@babel/preset-typescript": "npm:~7.27.0"
     "@compodoc/compodoc": "npm:^1.1.19"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@ngrx/entity": "npm:~20.0.0"
-    "@ngrx/store": "npm:~20.0.0"
+    "@ngrx/entity": "npm:~20.1.0"
+    "@ngrx/store": "npm:~20.1.0"
     "@nx/eslint": "npm:~21.6.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
@@ -10192,7 +10192,7 @@ __metadata:
     "@babel/preset-typescript": "npm:~7.27.0"
     "@compodoc/compodoc": "npm:^1.1.19"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@ngrx/store": "npm:~20.0.0"
+    "@ngrx/store": "npm:~20.1.0"
     "@nx/eslint": "npm:~21.6.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
@@ -10596,8 +10596,8 @@ __metadata:
     "@babel/preset-typescript": "npm:~7.27.0"
     "@compodoc/compodoc": "npm:^1.1.19"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@ngrx/entity": "npm:~20.0.0"
-    "@ngrx/store": "npm:~20.0.0"
+    "@ngrx/entity": "npm:~20.1.0"
+    "@ngrx/store": "npm:~20.1.0"
     "@nx/eslint": "npm:~21.6.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
@@ -10706,11 +10706,11 @@ __metadata:
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@ng-bootstrap/ng-bootstrap": "npm:^19.0.0"
     "@ng-select/ng-select": "npm:~20.0.0"
-    "@ngrx/effects": "npm:~20.0.0"
-    "@ngrx/entity": "npm:~20.0.0"
-    "@ngrx/router-store": "npm:~20.0.0"
-    "@ngrx/store": "npm:~20.0.0"
-    "@ngrx/store-devtools": "npm:~20.0.0"
+    "@ngrx/effects": "npm:~20.1.0"
+    "@ngrx/entity": "npm:~20.1.0"
+    "@ngrx/router-store": "npm:~20.1.0"
+    "@ngrx/store": "npm:~20.1.0"
+    "@ngrx/store-devtools": "npm:~20.1.0"
     "@ngx-translate/core": "npm:~16.0.4"
     "@nx/angular": "npm:~21.6.0"
     "@nx/eslint": "npm:~21.6.0"
@@ -10917,7 +10917,7 @@ __metadata:
     "@babel/preset-typescript": "npm:~7.27.0"
     "@compodoc/compodoc": "npm:^1.1.19"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@ngrx/store": "npm:~20.0.0"
+    "@ngrx/store": "npm:~20.1.0"
     "@ngx-translate/core": "npm:~16.0.4"
     "@nx/eslint": "npm:~21.6.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
@@ -11066,7 +11066,7 @@ __metadata:
     "@compodoc/compodoc": "npm:^1.1.19"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@fullstory/browser": "npm:^2.0.0"
-    "@ngrx/store": "npm:~20.0.0"
+    "@ngrx/store": "npm:~20.1.0"
     "@nx/eslint": "npm:~21.6.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
@@ -11236,7 +11236,7 @@ __metadata:
     "@capacitor/preferences": "npm:^7.0.0"
     "@compodoc/compodoc": "npm:^1.1.19"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@ngrx/store": "npm:~20.0.0"
+    "@ngrx/store": "npm:~20.1.0"
     "@nx/eslint": "npm:~21.6.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
@@ -11519,10 +11519,10 @@ __metadata:
     "@babel/preset-typescript": "npm:~7.27.0"
     "@compodoc/compodoc": "npm:^1.1.19"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@ngrx/effects": "npm:~20.0.0"
-    "@ngrx/entity": "npm:~20.0.0"
-    "@ngrx/router-store": "npm:~20.0.0"
-    "@ngrx/store": "npm:~20.0.0"
+    "@ngrx/effects": "npm:~20.1.0"
+    "@ngrx/entity": "npm:~20.1.0"
+    "@ngrx/router-store": "npm:~20.1.0"
+    "@ngrx/store": "npm:~20.1.0"
     "@nx/eslint": "npm:~21.6.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
@@ -11621,9 +11621,9 @@ __metadata:
     "@babel/preset-typescript": "npm:~7.27.0"
     "@compodoc/compodoc": "npm:^1.1.19"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@ngrx/effects": "npm:~20.0.0"
-    "@ngrx/entity": "npm:~20.0.0"
-    "@ngrx/store": "npm:~20.0.0"
+    "@ngrx/effects": "npm:~20.1.0"
+    "@ngrx/entity": "npm:~20.1.0"
+    "@ngrx/store": "npm:~20.1.0"
     "@ngx-translate/core": "npm:~16.0.4"
     "@nx/eslint": "npm:~21.6.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
@@ -11875,10 +11875,10 @@ __metadata:
     "@formatjs/intl-numberformat": "npm:~8.15.0"
     "@ng-bootstrap/ng-bootstrap": "npm:^19.0.0"
     "@ng-select/ng-select": "npm:~20.0.0"
-    "@ngrx/effects": "npm:~20.0.0"
-    "@ngrx/entity": "npm:~20.0.0"
-    "@ngrx/store": "npm:~20.0.0"
-    "@ngrx/store-devtools": "npm:~20.0.0"
+    "@ngrx/effects": "npm:~20.1.0"
+    "@ngrx/entity": "npm:~20.1.0"
+    "@ngrx/store": "npm:~20.1.0"
+    "@ngrx/store-devtools": "npm:~20.1.0"
     "@ngx-translate/core": "npm:~16.0.4"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
@@ -11985,8 +11985,8 @@ __metadata:
     "@angular/platform-browser": "npm:~20.3.0"
     "@angular/platform-browser-dynamic": "npm:~20.3.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@ngrx/entity": "npm:~20.0.0"
-    "@ngrx/store": "npm:~20.0.0"
+    "@ngrx/entity": "npm:~20.1.0"
+    "@ngrx/store": "npm:~20.1.0"
     "@nx/eslint": "npm:~21.6.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/js": "npm:~21.6.0"
@@ -12533,7 +12533,7 @@ __metadata:
     "@compodoc/compodoc": "npm:^1.1.19"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@material/slider": "npm:^14.0.0"
-    "@ngrx/store": "npm:~20.0.0"
+    "@ngrx/store": "npm:~20.1.0"
     "@ngx-translate/core": "npm:~16.0.4"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
@@ -12806,8 +12806,8 @@ __metadata:
     "@babel/core": "npm:~7.28.0"
     "@babel/preset-typescript": "npm:~7.27.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@ngrx/entity": "npm:~20.0.0"
-    "@ngrx/store": "npm:~20.0.0"
+    "@ngrx/entity": "npm:~20.1.0"
+    "@ngrx/store": "npm:~20.1.0"
     "@nx/angular": "npm:~21.6.0"
     "@nx/eslint": "npm:~21.6.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
