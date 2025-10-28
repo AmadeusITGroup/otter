@@ -1,7 +1,4 @@
 import {
-  AsyncPipe,
-} from '@angular/common';
-import {
   ChangeDetectionStrategy,
   Component,
   computed,
@@ -57,8 +54,7 @@ type LangTranslationsControl = FormGroup<Record<string, TranslationControl>>;
     NgbAccordionModule,
     DfTooltipModule,
     ReactiveFormsModule,
-    FormsModule,
-    AsyncPipe
+    FormsModule
   ]
 })
 export class LocalizationPanelPresComponent {
