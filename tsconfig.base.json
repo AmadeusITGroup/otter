@@ -36,6 +36,9 @@
     "baseUrl": ".",
     "allowSyntheticDefaultImports": true,
     "paths": {
+      "@ama-mcp/angular": [
+        "packages/@ama-mcp/angular/src/public_api"
+      ],
       "@ama-mcp/core": [
         "packages/@ama-mcp/core/src/public_api"
       ],

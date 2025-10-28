@@ -5,6 +5,9 @@ import {
   join,
   resolve,
 } from 'node:path';
+import {
+  registerAngularSchematicsTool,
+} from '@ama-mcp/angular';
 import type {
   MCPLogger,
 } from '@ama-mcp/core';
@@ -14,6 +17,13 @@ import {
   registerSupportedReleasesTool,
 } from '@ama-mcp/github';
 import {
+  LIBRARY_NAME as libraryName,
+  NPM_PACKAGES_SCOPES as OTTER_SCOPES,
+  GITHUB_OWNER as owner,
+  GITHUB_REPOSITORY_NAME as repo,
+  RESOURCE_URI_PREFIX as uriPrefix,
+} from '@ama-mcp/otter';
+import {
   McpServer,
 } from '@modelcontextprotocol/sdk/server/mcp.js';
 import {
@@ -22,13 +32,6 @@ import {
 import {
   registerCreateMonorepoWithAppTool,
 } from './create-monorepo-with-app';
-import {
-  libraryName,
-  OTTER_SCOPES,
-  owner,
-  repo,
-  uriPrefix,
-} from './utils/otter';
 
 /**
  * Create an MCP server instance.
@@ -51,6 +54,7 @@ export async function createMcpServer(logger: MCPLogger): Promise<McpServer> {
   await Promise.allSettled([
     registerBestPracticesToolAndResources(server, resourcesPath),
     registerCreateMonorepoWithAppTool(server, resourcesPath),
+    Promise.resolve(registerAngularSchematicsTool(server, {})),
     ...(githubToken
       ? [
         registerGetRepositoriesUsingLibraryTool(server, {
