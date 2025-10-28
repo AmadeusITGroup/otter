@@ -84,7 +84,7 @@
     "@compodoc/compodoc": "^1.1.19",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@fullstory/browser": "^2.0.0",
-    "@ngrx/store": "~20.0.0",
+    "@ngrx/store": "~20.1.0",
     "@nx/eslint": "~21.6.0",
     "@nx/eslint-plugin": "~21.6.0",
     "@nx/jest": "~21.6.0",
