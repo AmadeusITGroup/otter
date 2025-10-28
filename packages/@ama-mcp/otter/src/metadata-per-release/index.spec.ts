@@ -2,7 +2,11 @@
 jest.mock('node:fs/promises', () => ({
   ...jest.requireActual('node:fs'),
   mkdir: jest.fn(),
-  readFile: jest.fn().mockReturnValue(JSON.stringify([{ content: 'fake' }])),
+  readFile: jest.fn().mockImplementation((path) => {
+    return path.endsWith('cache.json')
+      ? JSON.stringify({})
+      : JSON.stringify([{ content: 'fake' }]);
+  }),
   rm: jest.fn()
 }));
 jest.mock('node:stream/promises', () => ({
@@ -92,6 +96,19 @@ describe('Metadata per release', () => {
     const response = await client.callTool({ name: 'metadata_per_release_tool', arguments: {
       packageName: 'app1',
       tagName: 'v1.0',
+      metadataType: 'configuration'
+    } });
+    expect(response.content).toEqual([
+      expect.objectContaining({ type: 'text', text: JSON.stringify([{ content: 'fake' }], null, 2) }),
+      expect.objectContaining({ type: 'resource_link', name: 'Metadata for app1 v1.0 configuration', uri: 'prefix://metadata/app1/v1.0/configuration' })
+    ]);
+  });
+
+  it('should return the requested metadata even if packageName and tagName are not exactly matching', async () => {
+    const { client } = await setUpClientAndServer();
+    const response = await client.callTool({ name: 'metadata_per_release_tool', arguments: {
+      packageName: '@scope/app1',
+      tagName: '1',
       metadataType: 'configuration'
     } });
     expect(response.content).toEqual([

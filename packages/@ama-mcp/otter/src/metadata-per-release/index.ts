@@ -32,6 +32,9 @@ import {
   McpServer,
   ResourceTemplate,
 } from '@modelcontextprotocol/sdk/server/mcp.js';
+import type {
+  CallToolResult,
+} from '@modelcontextprotocol/sdk/types.d.ts';
 import {
   tgz,
 } from 'compressing';
@@ -44,6 +47,7 @@ import {
 
 /**
  * Options for the tool metadata per release
+ * @experimental
  */
 export interface MetadataPerReleaseOptions extends ToolDefinition, ResourceToolOptions, CacheToolOptions {
   /**
@@ -162,10 +166,54 @@ const retrieveAllMetadata = async (
   }));
 };
 
+const matchPackageName = (key: string, packageName: string) => {
+  const packageNameKey = getPackageAndTagFromKey(key)[0]?.toLowerCase();
+  const packageNameLowerCase = packageName.toLowerCase();
+  return packageNameKey.includes(packageNameLowerCase) || packageName.includes(packageNameKey);
+};
+
+const formatTagName = (tagName: string) => tagName.toLowerCase().replace(/^v/i, '');
+
+const matchTagName = (key: string, tagName: string) => {
+  const tagNameKey = formatTagName(getPackageAndTagFromKey(key)[1]);
+  const tagNameLowerCase = formatTagName(tagName);
+  if (tagNameKey === tagNameLowerCase) {
+    return true;
+  }
+  const [major, minor, patch] = tagNameLowerCase.split('.');
+  if (!major) {
+    return false;
+  }
+  const [keyMajor, keyMinor] = tagNameKey.split('.');
+  if (!minor) {
+    return keyMajor === major;
+  }
+  if (!patch) {
+    return keyMajor === major && keyMinor === minor;
+  }
+  return false;
+};
+
+const getKeysMatchingPackageName = (packageName: string, cacheManager: CacheManager<CacheEntry>) =>
+  cacheManager
+    .getEntries()
+    .filter(([key, value]) => Object.keys(value).length > 0 && matchPackageName(key, packageName))
+    .map(([key]) => key);
+
+const getKeysMatchingTagNames = (packageName: string, tagName: string, cacheManager: CacheManager<CacheEntry>) =>
+  cacheManager.getEntries()
+    .filter(([key, entry]) =>
+      Object.keys(entry).length > 0
+      && matchPackageName(key, packageName)
+      && matchTagName(key, tagName)
+    )
+    .map(([key]) => key);
+
 /**
  * Registers the metadata per release resource template and tool on the MCP server.
  * @param server
  * @param options
+ * @experimental
  */
 export async function registerMetadataPerRelease(
   server: McpServer,
@@ -206,22 +254,13 @@ export async function registerMetadataPerRelease(
       {
         list: undefined,
         complete: {
-          packageName: (userInput) => {
-            return cacheManager.getEntries()
-              .filter(([key, entry]) =>
-                Object.keys(entry).length > 0
-                && key.split(cacheEntrySeparator)[0]?.toLowerCase().includes(userInput.toLowerCase())
-              ).map(([key]) => key.split(cacheEntrySeparator)[0]);
-          },
+          packageName: (userInput) => getKeysMatchingPackageName(userInput, cacheManager)
+            .map((k) => getPackageAndTagFromKey(k)[0]),
           tagName: (userInput, params) => {
             const packageName = params?.arguments?.packageName;
             return packageName
-              ? cacheManager.getEntries()
-                .filter(([key, entry]) =>
-                  Object.keys(entry).length > 0
-                  && key.startsWith(packageName)
-                  && key.split(cacheEntrySeparator)[1]?.toLowerCase().includes(userInput.toLowerCase())
-                ).map(([key]) => key.split(cacheEntrySeparator)[1])
+              ? getKeysMatchingTagNames(packageName, userInput, cacheManager)
+                .map(([k]) => getPackageAndTagFromKey(k)[1])
               : [];
           },
           metadataType: (userInput, params) => {
@@ -271,33 +310,53 @@ export async function registerMetadataPerRelease(
         openWorldHint: false
       },
       inputSchema: {
-        packageName: z.string().describe('The name of the package. Format: app-name for @scope/app-name'),
-        tagName: z.string().describe('The tag name of the release'),
+        packageName: z.string().describe('Package identifier. Accepted: scope | package | scope-package | @scope/package'),
+        tagName: z.string().describe('Release tag (SemVer, truncated forms allowed). Accepted: vMAJOR | MAJOR | MAJOR.MINOR | MAJOR.MINOR.PATCH'),
         metadataType: z.enum(METADATA_TYPE_LIST as [MetadataType, ...MetadataType[]])
           .describe('The type of metadata to fetch')
       },
       outputSchema: {
-        metadata: z.any().describe('The metadata associated to the specified release')
+        metadata: z.any().optional().describe('The metadata associated to the specified release')
       }
     },
     ({ packageName, tagName, metadataType }) => {
-      const uri = getUri(packageName, tagName, metadataType);
-      const metadataContent = resourceRegistry.get(uri);
-      if (!metadataContent) {
-        throw new Error(`Metadata not found for packageName=${packageName}, tagName=${tagName}, metadataType=${metadataType}`);
+      const responses = getKeysMatchingTagNames(packageName, tagName, cacheManager).map((key) => {
+        const [keyPackageName, keyTagName] = getPackageAndTagFromKey(key);
+        const uri = getUri(keyPackageName, keyTagName, metadataType);
+        const metadataContent = resourceRegistry.get(uri);
+        if (!metadataContent) {
+          logger.error?.(`Metadata not found for packageName=${keyPackageName}, tagName=${keyTagName}, metadataType=${metadataType}`);
+          return;
+        }
+        return {
+          content: [{
+            type: 'text',
+            // Format for readability
+            text: JSON.stringify(JSON.parse(metadataContent), null, 2)
+          }, {
+            type: 'resource_link',
+            name: `Metadata for ${keyPackageName} ${keyTagName} ${metadataType}`,
+            uri
+          }],
+          structuredContent: {
+            metadata: JSON.parse(metadataContent)
+          }
+        } satisfies CallToolResult;
+      }).filter((r) => !!r);
+      const content = responses.flatMap((response) => response.content);
+      if (content.length === 0) {
+        return {
+          content: [{
+            type: 'text',
+            text: `Metadata not found for packageName=${packageName}, tagName=${tagName}, metadataType=${metadataType}`
+          }],
+          structuredContent: {}
+        };
       }
       return {
-        content: [{
-          type: 'text',
-          // Format for readability
-          text: JSON.stringify(JSON.parse(resourceRegistry.get(uri)!), null, 2)
-        }, {
-          type: 'resource_link',
-          name: `Metadata for ${packageName} ${tagName} ${metadataType}`,
-          uri
-        }],
+        content,
         structuredContent: {
-          metadata: JSON.parse(metadataContent)
+          metadata: responses.map(({ structuredContent }) => structuredContent.metadata)
         }
       };
     }
