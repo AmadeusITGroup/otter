@@ -3,7 +3,7 @@ import type {
 } from 'swagger-schema-official';
 import {
   SwaggerSpec,
-} from './swagger-spec.interface';
+} from './swagger-spec-interface';
 import {
   getYamlFullPath,
   isOuterRefPath,

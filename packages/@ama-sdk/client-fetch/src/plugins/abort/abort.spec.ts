@@ -1,6 +1,6 @@
 import {
   AbortFetch,
-} from './abort.fetch';
+} from './abort-fetch';
 
 describe('Abort Plugin', () => {
   it('should trigger the callback', async () => {

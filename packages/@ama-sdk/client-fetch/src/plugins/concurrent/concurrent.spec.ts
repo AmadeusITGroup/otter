@@ -1,6 +1,6 @@
 import {
   ConcurrentFetch,
-} from './concurrent.fetch';
+} from './concurrent-fetch';
 
 describe('Concurrent Fetch Plugin', () => {
   it('should start if the limit is not reach', async () => {

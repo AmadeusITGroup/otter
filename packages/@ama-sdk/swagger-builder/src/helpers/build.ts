@@ -1,6 +1,6 @@
 import {
   Formatter,
-} from '../core/formatters/formatter.interface';
+} from '../core/formatters/formatter-interface';
 import {
   JsonFormatter,
 } from '../core/formatters/json-formatter';

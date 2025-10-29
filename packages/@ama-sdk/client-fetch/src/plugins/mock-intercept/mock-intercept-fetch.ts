@@ -14,7 +14,7 @@ import type {
 } from '../../fetch-plugin';
 import {
   MockInterceptFetchParameters,
-} from './mock-intercept.interface';
+} from './mock-intercept-interface';
 
 /**
  * Plugin to mock and intercept the fetch of SDK

@@ -1,1 +1,1 @@
-export * from './client-facts.request';
+export * from './client-facts-request';

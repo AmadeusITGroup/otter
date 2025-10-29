@@ -10,7 +10,7 @@ import type {
 } from '../api';
 import type {
   Api,
-} from '../api.interface';
+} from '../api-interface';
 import type {
   ParamSerialization,
   SupportedParamInterface,

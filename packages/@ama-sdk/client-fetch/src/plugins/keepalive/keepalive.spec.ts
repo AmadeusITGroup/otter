@@ -3,7 +3,7 @@ import type {
 } from '@ama-sdk/core';
 import {
   KeepaliveRequest,
-} from './keepalive.request';
+} from './keepalive-request';
 
 describe('Keepalive Request Plugin', () => {
   const options: RequestOptions = { headers: new Headers(), basePath: 'http://test.com/truc', method: 'get' };

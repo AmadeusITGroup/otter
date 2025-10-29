@@ -1,6 +1,6 @@
 import {
   OpenTelemetryTraceparentReply,
-} from './open-telemetry.traceparent.reply';
+} from './open-telemetry-traceparent-reply';
 
 describe('OpenTelemetry Traceparent Reply Plugin', () => {
   test('should set basic telemetry information in the response', async () => {

@@ -1,6 +1,6 @@
 import {
   SwaggerSpec,
-} from '../swagger-spec-wrappers/swagger-spec.interface';
+} from '../swagger-spec-wrappers/swagger-spec-interface';
 
 /** Checker Error */
 export interface CheckerError {

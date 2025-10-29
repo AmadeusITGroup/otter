@@ -1,6 +1,6 @@
 import {
   PerformanceMetricService,
-} from './perf-metric.service';
+} from './perf-metric';
 
 let perfPlugin: PerformanceMetricService;
 describe('PerformanceMetricService', () => {

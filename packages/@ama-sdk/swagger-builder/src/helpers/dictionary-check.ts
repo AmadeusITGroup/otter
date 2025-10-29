@@ -1,6 +1,6 @@
 import {
   Report,
-} from '../core/checkers/checker.interface';
+} from '../core/checkers/checker-interface';
 import {
   DictionaryChecker,
 } from '../core/checkers/dictionary-checker';

@@ -1,1 +1,1 @@
-export * from './bot-protection-fingerprint.request';
+export * from './bot-protection-fingerprint-request';
