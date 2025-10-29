@@ -75,7 +75,7 @@
   "devDependencies": {
     "@babel/core": "~7.28.0",
     "@babel/preset-env": "~7.28.0",
-    "@babel/preset-typescript": "~7.27.0",
+    "@babel/preset-typescript": "~7.28.0",
     "@compodoc/compodoc": "^1.1.19",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@nx/eslint": "~21.6.0",
