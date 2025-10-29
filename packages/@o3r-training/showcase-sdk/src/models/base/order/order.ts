@@ -21,5 +21,5 @@ export interface Order {
 export const LIST_STATUS_ENUM = ['placed', 'approved', 'delivered'] as const;
 
 /** List of available values for StatusEnum */
-export type StatusEnum = typeof LIST_STATUS_ENUM[number];
+export type StatusEnum = 'placed' | 'approved' | 'delivered';
 
