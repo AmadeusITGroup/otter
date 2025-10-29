@@ -21,13 +21,13 @@
     "des"
   ],
   "devDependencies": {
-    "@ama-terasu/core": "workspace:^",
+    "@ama-terasu/core": "workspace:~",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@nx/eslint-plugin": "~21.6.0",
     "@nx/jest": "~21.6.0",
-    "@o3r/build-helpers": "workspace:^",
-    "@o3r/eslint-plugin": "workspace:^",
-    "@o3r/test-helpers": "workspace:^",
+    "@o3r/build-helpers": "workspace:~",
+    "@o3r/eslint-plugin": "workspace:~",
+    "@o3r/test-helpers": "workspace:~",
     "@stylistic/eslint-plugin": "~5.5.0",
     "@types/jest": "~29.5.2",
     "@types/js-yaml": "^4.0.5",
@@ -62,7 +62,7 @@
     "yargs": "^18.0.0"
   },
   "peerDependencies": {
-    "@ama-terasu/core": "workspace:^"
+    "@ama-terasu/core": "workspace:~"
   },
   "engines": {
     "node": "^20.19.0 || ^22.17.0 || ^24.0.0",
