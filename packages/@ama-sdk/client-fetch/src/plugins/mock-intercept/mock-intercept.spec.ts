@@ -11,7 +11,7 @@ import {
 } from '@ama-sdk/core';
 import {
   MockInterceptFetch,
-} from './mock-intercept.fetch';
+} from './mock-intercept-fetch';
 
 const testMock: Mock<any> = {
   mockData: {}

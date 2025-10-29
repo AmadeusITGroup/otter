@@ -7,7 +7,7 @@ import {
   CUSTOM_MOCK_OPERATION_ID_HEADER,
   CUSTOM_MOCK_REQUEST_HEADER,
   MockInterceptRequestParameters,
-} from './mock-intercept.interface';
+} from './mock-intercept-interface';
 
 /**
  * Plugin to intercept an API request for mock purposes

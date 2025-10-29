@@ -1,6 +1,6 @@
 import {
   RetryFetch,
-} from './retry.fetch';
+} from './retry-fetch';
 
 describe('Retry Fetch Plugin', () => {
   it('should not retry on success', async () => {

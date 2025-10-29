@@ -19,7 +19,7 @@ import type {
 } from '../../angular-plugin';
 import type {
   MockInterceptAngularParameters,
-} from './mock-intercept.interface';
+} from './mock-intercept-interface';
 
 /**
  * Plugin to mock and intercept the call of SDK

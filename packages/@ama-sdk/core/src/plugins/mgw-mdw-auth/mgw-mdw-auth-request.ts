@@ -14,7 +14,7 @@ import {
 import {
   hmacSHA256,
   sha256,
-} from './mgw-mdw-auth.helpers';
+} from './mgw-mdw-auth-helpers';
 
 /**
  * Type that represents context data.

@@ -1,6 +1,6 @@
 import {
   OpenTelemetryTraceparentRequest,
-} from './open-telemetry.traceparent.request';
+} from './open-telemetry-traceparent-request';
 
 describe('OpenTelemetry Traceparent Request Plugin', () => {
   test('should generate default header', async () => {

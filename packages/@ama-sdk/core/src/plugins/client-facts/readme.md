@@ -15,4 +15,4 @@ Plugin to manage client facts send to the API.
 
 ### Type of plugins
 
-- Request plugin: [ClientFactsRequestPlugin](./client-facts.request.ts);
+- Request plugin: [ClientFactsRequestPlugin](./client-facts-request.ts);

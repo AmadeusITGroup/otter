@@ -1,6 +1,6 @@
 import {
   WaitForFetch,
-} from './wait-for.fetch';
+} from './wait-for-fetch';
 
 describe('Wait For Fetch Plugin', () => {
   const defaultContext: any = {};

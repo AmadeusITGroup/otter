@@ -1,6 +1,6 @@
 import {
   PerformanceMetricPlugin,
-} from './perf-metric.fetch';
+} from './perf-metric-fetch';
 
 let perfPlugin: PerformanceMetricPlugin;
 describe('PerformanceMetricPlugin', () => {
