@@ -4,14 +4,14 @@ import {
 } from '@angular/core';
 import {
   ConsumerManagerService,
-} from './consumer.manager.service';
+} from './consumer-manager-service';
 import type {
   MessageConsumer,
   MessageProducer,
 } from './interfaces';
 import {
   ProducerManagerService,
-} from './producer.manager.service';
+} from './producer-manager-service';
 
 /**
  * Method to call in the constructor of a producer

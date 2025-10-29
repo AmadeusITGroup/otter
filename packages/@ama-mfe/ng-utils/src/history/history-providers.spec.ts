@@ -11,7 +11,7 @@ import {
 import {
   noop,
   provideDisableHistoryWrites,
-} from './history.providers';
+} from './history-providers';
 
 describe('provideDisableHistoryWrites()', () => {
   let dom: JSDOM;

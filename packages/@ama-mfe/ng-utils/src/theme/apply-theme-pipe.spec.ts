@@ -10,10 +10,10 @@ import {
 } from '@angular/platform-browser';
 import {
   ApplyTheme,
-} from './apply-theme.pipe';
+} from './apply-theme-pipe';
 import {
   ThemeProducerService,
-} from './theme.producer.service';
+} from './theme-producer-service';
 
 describe('ApplyTheme', () => {
   let pipe: ApplyTheme;
