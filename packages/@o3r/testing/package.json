@@ -11,7 +11,6 @@
     "otter-module"
   ],
   "main": "public_api.js",
-  "typings": "public_api.d.ts",
   "types": "public_api.d.ts",
   "sideEffects": false,
   "scripts": {
