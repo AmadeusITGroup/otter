@@ -64,6 +64,13 @@ const updateExports = async () => {
       packageJson.exports[folder].import = packageJson.exports[folder].module || packageJson.exports[folder].esm2020 || packageJson.exports[folder].esm2015 || packageJson.exports[folder].node;
       packageJson.exports[folder].require = packageJson.exports[folder].node;
       packageJson.exports[folder].main = packageJson.exports[folder].import || packageJson.exports[folder].require;
+
+      // put default field at the end of the map
+      if (packageJson.exports[folder].default) {
+        const defaultField = packageJson.exports[folder].default;
+        delete packageJson.exports[folder].default;
+        packageJson.exports[folder].default = defaultField;
+      }
     } catch (e) {
       if (watch) {
         logger.warn(`Exception in ${packageJsonFile}`, e);

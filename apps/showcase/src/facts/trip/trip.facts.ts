@@ -1,4 +1,5 @@
 import {
+  inject,
   Injectable,
 } from '@angular/core';
 import {
@@ -32,7 +33,9 @@ export class TripFactsService extends FactsService<TripFacts> {
     outboundDate: this.outboundDate$.asObservable().pipe(distinctUntilChanged())
   };
 
-  constructor(rulesEngine: RulesEngineRunnerService) {
+  constructor() {
+    const rulesEngine = inject(RulesEngineRunnerService);
+
     super(rulesEngine);
   }
 

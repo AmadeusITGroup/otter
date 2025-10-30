@@ -16,6 +16,7 @@ export const getJestUnitTestConfig = (config?: JestConfigWithTsJest): JestConfig
     testPathIgnorePatterns: [
       '<rootDir>/.*/templates/.*',
       '\\.it\\.spec\\.ts$',
+      '\\.e2e\\.spec\\.ts$',
       ...(config?.testPathIgnorePatterns || [])
     ],
     reporters: [

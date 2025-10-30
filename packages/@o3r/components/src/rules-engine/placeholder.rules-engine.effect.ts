@@ -1,6 +1,6 @@
 import {
+  inject,
   Injectable,
-  Optional,
 } from '@angular/core';
 import {
   Actions,
@@ -52,6 +52,12 @@ import {
  */
 @Injectable()
 export class PlaceholderTemplateResponseEffect {
+  private readonly actions$ = inject(Actions);
+  private readonly store = inject<Store<PlaceholderRequestStore>>(Store);
+  private readonly rulesEngineService = inject(RulesEngineRunnerService, { optional: true });
+  private readonly dynamicContentService = inject(DynamicContentService, { optional: true });
+  private readonly translationService = inject(LocalizationService, { optional: true });
+
   /**
    * Set the PlaceholderRequest entity with the reply content, dispatch failPlaceholderRequestEntity if it catches a failure
    * Handles the rendering of the HTML content from the template and creates the combine latest from facts list if needed
@@ -104,13 +110,6 @@ export class PlaceholderTemplateResponseEffect {
       )
     )
   );
-
-  constructor(
-    private readonly actions$: Actions,
-    private readonly store: Store<PlaceholderRequestStore>,
-    @Optional() private readonly rulesEngineService: RulesEngineRunnerService | null,
-    @Optional() private readonly dynamicContentService: DynamicContentService | null,
-    @Optional() private readonly translationService: LocalizationService | null) {}
 
   /**
    * Renders the html template, replacing facts and urls and localizationKeys

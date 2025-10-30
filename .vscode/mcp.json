@@ -1,8 +1,36 @@
 {
   "servers": {
-    "nx-mcp": {
-      "type": "sse",
-      "url": "http://localhost:9569/sse"
+    "nx": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["nx-mcp"]
+    },
+    "angular": {
+      "command": "npx",
+      "args": ["@angular/cli", "mcp"]
+    },
+    "o3r-docs": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@buger/docs-mcp",
+        "--gitUrl", "https://github.com/AmadeusITGroup/otter",
+        "--toolName", "search_otter_docs",
+        "--toolDescription", "Search in Otter documentation using the probe search engine."
+      ]
+    },
+    "o3r": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "-p", "@o3r/mcp", "o3r-mcp-start"]
+    },
+    "o3r-local": {
+      "command": "yarn",
+      "args": [
+        "node",
+        "./tools/@o3r/mcp/dist/cli/index.js"
+      ]
     }
   }
 }

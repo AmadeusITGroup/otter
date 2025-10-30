@@ -1,11 +1,11 @@
 import * as path from 'node:path';
-import type {
-  Rule,
+import {
+  chain,
+  type Rule,
 } from '@angular-devkit/schematics';
 import {
   createOtterSchematic,
-  getPackageInstallConfig,
-  setupDependencies,
+  ngAddDependenciesRule,
 } from '@o3r/schematics';
 import type {
   NgAddSchematicsSchema,
@@ -19,12 +19,9 @@ const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
  */
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
   /* ng add rules */
-  return (tree) => {
-    return setupDependencies({
-      projectName: options.projectName,
-      dependencies: getPackageInstallConfig(packageJsonPath, tree, options.projectName, true, !!options.exactO3rVersion)
-    });
-  };
+  return chain([
+    ngAddDependenciesRule(options, packageJsonPath, { dependenciesToInstall: [], devDependenciesToInstall: [] })
+  ]);
 }
 
 export const ngAdd = (options: NgAddSchematicsSchema) => createOtterSchematic(ngAddFn)(options);

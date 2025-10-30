@@ -1,5 +1,4 @@
 import {
-  AsyncPipe,
   formatDate,
 } from '@angular/common';
 import {
@@ -74,8 +73,7 @@ const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
     ReactiveFormsModule,
     RulesEngineRunnerModule,
     LocalizationModule,
-    DatePickerInputPresComponent,
-    AsyncPipe
+    DatePickerInputPresComponent
   ]
 })
 export class RulesEnginePresComponent implements OnDestroy, DynamicConfigurableWithSignal<RulesEnginePresConfig>, Translatable<RulesEnginePresTranslation>, OnInit {
@@ -95,10 +93,10 @@ export class RulesEnginePresComponent implements OnDestroy, DynamicConfigurableW
     outboundDate: FormControl<string | null>;
     inboundDate: FormControl<string | null>;
   }> = inject(FormBuilder).group({
-      destination: new FormControl<string | null>(null),
-      outboundDate: new FormControl<string | null>(this.formatDate(Date.now() + 7 * ONE_DAY_IN_MS)),
-      inboundDate: new FormControl<string | null>(this.formatDate(Date.now() + 14 * ONE_DAY_IN_MS))
-    });
+    destination: new FormControl<string | null>(null),
+    outboundDate: new FormControl<string | null>(this.formatDate(Date.now() + 7 * ONE_DAY_IN_MS)),
+    inboundDate: new FormControl<string | null>(this.formatDate(Date.now() + 14 * ONE_DAY_IN_MS))
+  });
 
   /** Input configuration to override the default configuration of the component */
   public config = input<Partial<RulesEnginePresConfig>>();

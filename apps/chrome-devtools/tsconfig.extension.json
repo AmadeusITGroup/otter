@@ -8,7 +8,6 @@
     "outDir": "dist",
     "rootDir": "./src",
     "module": "ES2020",
-    "moduleResolution": "Node",
     "tsBuildInfoFile": "build/extension.tsbuildinfo",
     "composite": true
   },

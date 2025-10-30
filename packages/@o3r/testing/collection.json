@@ -8,13 +8,15 @@
       "aliases": ["install", "i"]
     },
     "playwright-scenario": {
-      "description": "[o3r] Generate a Playwright scenario into the project.",
+      "hidden": true,
+      "description": "[Deprecated - Removed in v14] Generate a Playwright scenario into the project.",
       "factory": "./schematics/playwright/scenario/index#ngGeneratePlaywrightScenario",
       "schema": "./schematics/playwright/scenario/schema.json",
       "aliases": ["o3r-playwright-scenario"]
     },
     "playwright-sanity": {
-      "description": "[o3r] Generate a Playwright sanity into the project.",
+      "hidden": true,
+      "description": "[Deprecated - Removed in v14] Generate a Playwright sanity into the project.",
       "factory": "./schematics/playwright/sanity/index#ngGeneratePlaywrightSanity",
       "schema": "./schematics/playwright/sanity/schema.json",
       "aliases": ["o3r-playwright-sanity"]

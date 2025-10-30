@@ -1,6 +1,6 @@
 import type {
-  LoggerApi,
-} from '@angular-devkit/core/src/logger';
+  logging,
+} from '@angular-devkit/core';
 import {
   chain,
   type Rule,
@@ -34,7 +34,7 @@ export interface MigrationRulesMap {
  */
 interface MigrationRuleRunnerOptions {
   /** Logger */
-  logger?: LoggerApi;
+  logger?: logging.LoggerApi;
 }
 
 /**

@@ -67,8 +67,9 @@ export class RouteMemorizeDirective {
         return;
       }
       const requested = requestedUrlSignal();
-      const id = this.memorizeRouteId() || this.connect();
-      if (requested && id && requested.channelId === id) {
+      const channelId = this.connect();
+      const id = this.memorizeRouteId() || channelId;
+      if (requested && id && requested.channelId === channelId) {
         memory.memorizeRoute(id, requested.url, untracked(this.maxAge));
       }
     });
