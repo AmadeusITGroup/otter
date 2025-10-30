@@ -87,9 +87,9 @@ export function ngGenerateModule(options: NgGenerateModuleSchema & { targetPath:
    * @param context Context of the schematics
    */
   const updateNgTemplate: Rule = (tree, context) => {
-    const o3rCorePackageJsonPath = path.resolve(__dirname, '..', '..', '..', 'package.json');
-    const o3rCorePackageJson: PackageJson & { generatorDependencies?: Record<string, string> } = JSON.parse(readFileSync(o3rCorePackageJsonPath).toString());
-    const otterVersion = o3rCorePackageJson.dependencies!['@o3r/schematics'];
+    const o3rWorkspacePackageJsonPath = path.resolve(__dirname, '..', '..', '..', 'package.json');
+    const o3rWorkspacePackageJson: PackageJson & { generatorDependencies?: Record<string, string> } = JSON.parse(readFileSync(o3rWorkspacePackageJsonPath).toString());
+    const otterVersion = o3rWorkspacePackageJson.dependencies!['@o3r/schematics'];
 
     const templateNg = apply(url('./templates/ng/common'), [
       template({
@@ -132,7 +132,7 @@ export function ngGenerateModule(options: NgGenerateModuleSchema & { targetPath:
         : [
           setUpAngularTestPackageJson(options)
         ],
-      updatePackageDependenciesFactory(options.targetPath, otterVersion!, o3rCorePackageJson,
+      updatePackageDependenciesFactory(options.targetPath, otterVersion!, o3rWorkspacePackageJson,
         { ...options, useJest: !!hasJestInstalled }
       ),
       updateNgPackagrFactory(options.targetPath),
