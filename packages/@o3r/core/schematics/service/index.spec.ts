@@ -30,6 +30,7 @@ describe('Service generator', () => {
 
     expect(tree.files.filter((file) => /test-service/.test(file)).length).toEqual(9);
     expect(tree.files.some((file) => /^[/\\]?test-service[/\\]test-base[/\\]test-service-test-base-module\.ts$/i.test(file))).toBeTruthy();
+    expect(tree.readContent('test-service/test-base/test-service-test-base-module.ts')).toContain('export class TestServiceTestBaseModule');
   });
 
   it('should generate service in default folder', async () => {
@@ -57,5 +58,42 @@ describe('Service generator', () => {
 
     expect(tree.files.filter((file) => /test-service/.test(file)).length).toEqual(12);
     expect(tree.files.some((file) => /^[/\\]?src[/\\]services[/\\]test-service[/\\]test-base[/\\]test-service-test-base-module\.ts$/i.test(file))).toBeTruthy();
+  });
+
+  it('should generate service with type', async () => {
+    const runner = new SchematicTestRunner('schematics', collectionPath);
+    const tree = await runner.runExternalSchematic('schematics', 'service', {
+      projectName: 'test-project',
+      name: 'test-service',
+      featureName: 'test-base',
+      path: 'src/services',
+      type: 'service'
+    }, initialTree);
+
+    expect(tree.files.filter((file) => /test-service/.test(file)).length).toEqual(9);
+    expect(tree.files.some((file) => /^[/\\]?src[/\\]services[/\\]test-service[/\\]test-base[/\\]test-service-test-base-module\.ts$/i.test(file))).toBeTruthy();
+    expect(tree.files.some((file) => /^[/\\]?src[/\\]services[/\\]test-service[/\\]test-base[/\\]test-service-test-base\.service\.ts$/i.test(file))).toBeTruthy();
+    expect(tree.files.some((file) => /^[/\\]?src[/\\]services[/\\]test-service[/\\]test-base[/\\]test-service-test-base\.service\.spec\.ts$/i.test(file))).toBeTruthy();
+    expect(tree.readContent('src/services/test-service/test-base/test-service-test-base.service.ts')).toContain('export class TestServiceTestBaseService');
+    expect(tree.readContent('src/services/test-service/test-base/test-service-test-base.service.spec.ts')).toContain('import {TestServiceTestBaseService} from \'./test-service-test-base.service\';');
+    expect(tree.readContent('src/services/test-service/test-base/index.ts')).toContain('export * from \'./test-service-test-base.service\';');
+  });
+
+  it('should generate service with type but not appended to the service name', async () => {
+    const runner = new SchematicTestRunner('schematics', collectionPath);
+    const tree = await runner.runExternalSchematic('schematics', 'service', {
+      projectName: 'test-project',
+      name: 'test-service',
+      featureName: 'test-base',
+      path: 'src/services',
+      type: 'service',
+      addTypeToServiceName: false
+    }, initialTree);
+
+    expect(tree.files.filter((file) => /test-service/.test(file)).length).toEqual(9);
+    expect(tree.files.some((file) => /^[/\\]?src[/\\]services[/\\]test-service[/\\]test-base[/\\]test-service-test-base-module\.ts$/i.test(file))).toBeTruthy();
+    expect(tree.files.some((file) => /^[/\\]?src[/\\]services[/\\]test-service[/\\]test-base[/\\]test-service-test-base\.service\.ts$/i.test(file))).toBeTruthy();
+    expect(tree.files.some((file) => /^[/\\]?src[/\\]services[/\\]test-service[/\\]test-base[/\\]test-service-test-base\.service\.spec\.ts$/i.test(file))).toBeTruthy();
+    expect(tree.readContent('src/services/test-service/test-base/test-service-test-base.service.ts')).toContain('export class TestServiceTestBase');
   });
 });

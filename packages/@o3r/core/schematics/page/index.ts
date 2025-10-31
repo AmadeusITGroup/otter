@@ -74,12 +74,13 @@ function ngGeneratePageFn(options: NgGeneratePageSchematicsSchema): Rule {
       context.logger.warn('No application detected in this project, the page cannot be generated');
       return noop;
     }
+    options.type ??= '';
     const destination = getDestinationPath('@o3r/core:page', options.path, tree, options.projectName);
     const pagePath = path.posix.join(destination, strings.dasherize(options.scope), strings.dasherize(options.name));
     const dasherizedPageName = strings.dasherize(options.name);
     const projectName = options.projectName;
-    const componentPath = path.posix.join(pagePath, `${dasherizedPageName}.ts`);
-    const stylePath = path.posix.join(pagePath, `${dasherizedPageName}.scss`);
+    const componentPath = path.posix.join(pagePath, `${dasherizedPageName}${options.type ? '.' + options.type : ''}.ts`);
+    const stylePath = path.posix.join(pagePath, `${dasherizedPageName}${options.type ? '.' + options.type : ''}.scss`);
     const moduleFileName = `${dasherizedPageName}-module.ts`;
     const moduleFilePath = path.posix.join(pagePath, moduleFileName);
 
@@ -133,6 +134,7 @@ function ngGeneratePageFn(options: NgGeneratePageSchematicsSchema): Rule {
         viewEncapsulation: 'None',
         changeDetection: 'OnPush',
         style: 'scss',
+        type: options.type,
         skipSelector: false,
         standalone: options.standalone,
         ...(
@@ -196,7 +198,7 @@ function ngGeneratePageFn(options: NgGeneratePageSchematicsSchema): Rule {
     const route = {
       path: strings.dasherize(options.name),
       import: `./${indexFilePath.replace(/[/\\]/g, '/')}`,
-      module: `${pageName}${options.standalone ? '' : 'Module'}`
+      module: `${pageName}${options.standalone ? (options.type ? strings.classify(options.type) : '') : 'Module'}`
     } as const satisfies Route;
     if (options.appRoutingModulePath) {
       return insertRoute(tree, context, options.appRoutingModulePath, route, options.standalone);

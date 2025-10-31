@@ -72,6 +72,10 @@
       "type": "boolean",
       "description": "Whether the generated component is standalone.",
       "default": true
+    },
+    "type": {
+      "type": "string",
+      "description": "Custom type to append to the component's file name"
     }
   },
   "additionalProperties": true,

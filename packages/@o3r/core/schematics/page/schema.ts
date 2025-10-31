@@ -41,4 +41,7 @@ export interface NgGeneratePageSchematicsSchema extends SchematicOptionObject {
 
   /** Generate dummy values */
   activateDummy: boolean;
+
+  /** Custom type to append to the page's file name */
+  type?: string;
 }

@@ -82,6 +82,33 @@ export class NgComponent {}
     expect(componentFileContent).toContain('public readonly analyticsEvents: TestAnalytics = analyticsEvents');
   });
 
+  it('should create the analytics file and update the typed component', async () => {
+    const componentWithTypePath = '/src/components/other-test/other-test.test-type.ts';
+    initialTree.create(componentWithTypePath, `
+      import {CommonModule} from '@angular/common';
+      import {Component} from '@angular/core';
+
+      @Component({
+        selector: 'other-test',
+        imports: [CommonModule],
+        template: ''
+      })
+      export class OtherTestTestType {}
+    `);
+    const runner = new SchematicTestRunner('schematics', collectionPath);
+    const tree = await runner.runSchematic('analytics-to-component', {
+      projectName: 'test-project',
+      path: componentWithTypePath
+    }, initialTree);
+
+    expect(tree.exists(componentWithTypePath.replace(/\.test-type\.ts$/, '-analytics.ts'))).toBeTruthy();
+    const componentFileContent = tree.readText(componentWithTypePath);
+    expect(componentFileContent).toContain('from \'@o3r/analytics\'');
+    expect(componentFileContent).toContain('from \'./other-test-analytics\'');
+    expect(componentFileContent).toContain('Trackable<OtherTestAnalytics>');
+    expect(componentFileContent).toContain('public readonly analyticsEvents: OtherTestAnalytics = analyticsEvents');
+  });
+
   it('should throw if we add analytics to a component that already has it', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('analytics-to-component', {
@@ -130,8 +157,8 @@ export class NgComponent {}
 
   describe('Non-standalone component and module', () => {
     it('should create the analytics file and update the component and update the module', async () => {
-      const o3rOtherTestComponentPath = '/src/components/test/other-test.ts';
-      const o3rOtherTestModulePath = '/src/components/test/other-test-module.ts';
+      const o3rOtherTestComponentPath = '/src/components/other-test/other-test.ts';
+      const o3rOtherTestModulePath = '/src/components/other-test/other-test-module.ts';
       initialTree.create(o3rOtherTestComponentPath, `
         import {CommonModule} from '@angular/common';
         import {ChangeDetectionStrategy, Component, ViewEncapsulation} from '@angular/core';
