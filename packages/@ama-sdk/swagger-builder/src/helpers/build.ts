@@ -44,6 +44,7 @@ export async function buildSpecs(configuration: BuilderConfiguration, inputs: (s
   };
 
   const specs = await Promise.all(
+    // eslint-disable-next-line @typescript-eslint/await-thenable -- `new SwaggerSpecSplit` is not thenable
     [...(configuration.specs || []), ...inputs].map((input) => {
       return typeof input === 'string' ? getTargetInformation(input) : new SwaggerSpecSplit(input, 'LocalPath');
     })

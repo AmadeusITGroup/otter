@@ -39,7 +39,7 @@ jobs:
     needs: [version]
     permissions:
       contents: read
-      # Needed to publish with provenance (not needed for pull-request but requested by publish.yml workflow)
+      # Needed to publish on npmjs registry (not needed for pull-request but requested by publish.yml workflow)
       id-token: write
     secrets: inherit
     with:
