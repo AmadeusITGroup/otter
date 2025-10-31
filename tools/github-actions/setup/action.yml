@@ -1,5 +1,9 @@
 name: 'Setup'
 description: 'Setup for Otter Library'
+inputs:
+  npm-version:
+    description: 'NPM version to install (only if you want a specific version)'
+    required: false
 
 runs:
   using: "composite"
@@ -10,6 +14,10 @@ runs:
     - name: Enable Corepack
       shell: bash
       run: corepack enable
+    - name: Set NPM version
+      if: ${{ inputs.npm-version }}
+      shell: bash
+      run: npm install -g npm@${{ inputs.npm-version }}
     - name: Cache dependencies
       uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
       with:

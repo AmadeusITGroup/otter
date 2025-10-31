@@ -20,21 +20,9 @@ export default [
         projectService: true
       },
       globals: {
-        ...globals.node
+        ...globals.node,
+        NodeJS: true
       }
-    }
-  },
-  {
-    name: '@o3r/mcp/ignores',
-    ignores: [
-      '**/packaged-cli/**'
-    ]
-  },
-  {
-    name: '@o3r/mcp/overrides',
-    files: ['**/*.ts'],
-    rules: {
-      'no-console': ['error', { allow: ['error'] }]
     }
   }
 ];

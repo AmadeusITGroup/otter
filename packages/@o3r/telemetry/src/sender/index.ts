@@ -52,10 +52,17 @@ export interface CliMetricData extends BaseMetricData {
   };
 }
 
+export interface VSCodeMetricData extends Omit<BaseMetricData, 'duration'> {
+  /** Name of the event */
+  eventName: string;
+  /** Additional data information */
+  data?: Record<string, any>;
+}
+
 /**
  * Different kinds of metrics
  */
-export type MetricData = BuilderMetricData | SchematicMetricData | CliMetricData;
+export type MetricData = BuilderMetricData | SchematicMetricData | CliMetricData | VSCodeMetricData;
 
 /**
  * Function sending metrics to the server
