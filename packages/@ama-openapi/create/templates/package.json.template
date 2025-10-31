@@ -1,0 +1,38 @@
+{
+  "$schema": "https://raw.githubusercontent.com/AmadeusITGroup/otter/refs/heads/feature/open-api/packages/@ama-openapi/core/schemas/manifest.schema.json",
+  "name": "<%- packageName %>",
+  "preferUnplugged": true,
+  "version": "0.0.0-placeholder",
+  "description": "My Specification description",
+  "main": "bundle/specification.yaml",
+  "files": [
+<%-
+  exportedFiles
+    .map((file) => `    "${file}"`)
+    .join(',\n')
+%>
+  ],
+  "readme": "README.md",
+  "scripts": {
+    "build": "redocly bundle",
+    "retrieve-externals": "ama-openapi install",
+    "watch:retrieve-externals": "ama-openapi watch",
+    "postinstall": "ama-openapi install"
+  },
+  "dependencies": {
+    "@ama-openapi/cli": "~<%- version %>"
+  },
+  "devDependencies": {
+    "@ama-openapi/redocly-plugin": "~<%- version %>",
+    "@redocly/cli": "<%- redoclyVersion %>"
+  },
+  "exports": {
+    "./package.json": "./package.json",
+    "./models/*": "./models/*",
+    "./bundle/*": "./bundle/*",
+    ".": {
+      "module": "./bundle/specification.yaml",
+      "default": "./bundle/specification.yaml"
+    }
+  }
+}

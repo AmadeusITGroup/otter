@@ -1,0 +1,4 @@
+<%- standardGitignoreNode %>
+
+# Ignore external models
+/<%- externalModelPath %>
