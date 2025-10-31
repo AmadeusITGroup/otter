@@ -35,7 +35,7 @@ export class AppModule {
 
 ```
 
-Then the services activation can be done in the AppComponent as follows:
+Then the services activation can be done in the App as follows:
 
 ```typescript
 import { ApplicationDevtoolsConsoleService } from '@o3r/application';
@@ -46,7 +46,7 @@ import { RulesEngineDevtoolsConsoleService } from '@o3r/rules-engine';
 @Component({
   selector: 'app'
 })
-export class AppComponent {
+export class App {
   constructor(
     applicationDevtoolsConsoleService: ApplicationDevtoolsConsoleService,
     configurationConsoleService: ConfigurationDevtoolsConsoleService,

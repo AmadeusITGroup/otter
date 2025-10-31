@@ -45,12 +45,21 @@ const angularJsonContent = {
     }
   }
 };
+const tsconfigJsonContent = {
+  extends: '../../../tsconfig.base',
+  references: [
+    {
+      path: './tsconfig.build.json'
+    }
+  ]
+};
 
 describe('update eslint config', () => {
   beforeEach(() => {
     initialTree = Tree.empty();
     initialTree.create('package.json', JSON.stringify({ name: monorepoPkgName }));
     initialTree.create('angular.json', JSON.stringify(angularJsonContent));
+    initialTree.create(`tsconfig`, JSON.stringify(tsconfigJsonContent));
   });
 
   it('should add an eslint config on workspace', async () => {
@@ -69,6 +78,7 @@ describe('update eslint config', () => {
   it('should add an eslint config on an application', async () => {
     const pckName = `@scope/${appName}`;
     initialTree.create(`${appRoot}/package.json`, JSON.stringify({ name: pckName }));
+    initialTree.create(`${appRoot}/tsconfig.json`, JSON.stringify(tsconfigJsonContent));
     const tree = await firstValueFrom(callRule(updateEslintConfig(__dirname, appName), initialTree, runner.engine.createContext(context as any)));
     expect(tree.exists('eslint.config.mjs')).toBeFalsy();
     expect(tree.exists('eslint.local.config.mjs')).toBeFalsy();
@@ -100,6 +110,7 @@ describe('update eslint config', () => {
   it('should add an eslint config on a library', async () => {
     const pckName = `@scope/${libName}`;
     initialTree.create(`${libRoot}/package.json`, JSON.stringify({ name: pckName }));
+    initialTree.create(`${libRoot}/tsconfig.json`, JSON.stringify(tsconfigJsonContent));
     const tree = await firstValueFrom(callRule(updateEslintConfig(__dirname, libName), initialTree, runner.engine.createContext(context as any)));
     expect(tree.exists('eslint.config.mjs')).toBeFalsy();
     expect(tree.exists('eslint.local.config.mjs')).toBeFalsy();
