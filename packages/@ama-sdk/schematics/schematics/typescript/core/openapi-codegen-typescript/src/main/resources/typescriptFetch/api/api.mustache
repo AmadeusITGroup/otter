@@ -111,12 +111,12 @@ export class {{classname}} implements Api {
     let tokenizedUrl;
     if (this.client.options.enableParameterSerialization) {
       {{#hasQueryParams}}
-      const queryParamSerialization = { {{#trimComma}}{{#queryParams}}{{baseName}}: { explode: {{isExplode}}, style: '{{style}}' }, {{/queryParams}}{{/trimComma}} };
+      const queryParamSerialization = { {{#trimComma}}{{#queryParams}}'{{baseName}}': { explode: {{isExplode}}, style: '{{style}}' }, {{/queryParams}}{{/trimComma}} };
       queryParams = this.client.serializeQueryParams(queryParamsProperties, queryParamSerialization);
       paramSerializationOptions.queryParamSerialization = queryParamSerialization;
       {{/hasQueryParams}}
       const pathParamsProperties = this.client.getPropertiesFromData(data, [{{#trimComma}}{{#pathParams}}'{{baseName}}', {{/pathParams}}{{/trimComma}}]);
-      const pathParamSerialization = { {{#trimComma}}{{#pathParams}}{{baseName}}: { explode: {{isExplode}}, style: '{{style}}' }, {{/pathParams}}{{/trimComma}} };
+      const pathParamSerialization = { {{#trimComma}}{{#pathParams}}'{{baseName}}': { explode: {{isExplode}}, style: '{{style}}' }, {{/pathParams}}{{/trimComma}} };
       const serializedPathParams = this.client.serializePathParams(pathParamsProperties, pathParamSerialization);
       basePath = `${this.client.options.basePath}{{#urlSerializedParamReplacer}}{{path}}{{/urlSerializedParamReplacer}}`;
       tokenizedUrl = `${this.client.options.basePath}{{#tokenizedUrlSerializedParamReplacer}}{{path}}{{/tokenizedUrlSerializedParamReplacer}}`;
@@ -131,7 +131,7 @@ export class {{classname}} implements Api {
     {{^hasPathParams}}
     {{#hasQueryParams}}
     if (this.client.options.enableParameterSerialization) {
-      const queryParamSerialization = { {{#trimComma}}{{#queryParams}}{{baseName}}: { explode: {{isExplode}}, style: '{{style}}' }, {{/queryParams}}{{/trimComma}} };
+      const queryParamSerialization = { {{#trimComma}}{{#queryParams}}'{{baseName}}': { explode: {{isExplode}}, style: '{{style}}' }, {{/queryParams}}{{/trimComma}} };
       queryParams = this.client.serializeQueryParams(queryParamsProperties, queryParamSerialization);
       paramSerializationOptions.queryParamSerialization = queryParamSerialization;
     } else {
