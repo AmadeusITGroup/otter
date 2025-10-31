@@ -1,1 +1,1 @@
-export * from './perf-metric.service';
+export * from './perf-metric';

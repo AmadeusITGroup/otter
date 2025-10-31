@@ -12,7 +12,7 @@ import {
 import {
   defaultTypescriptGeneratorOptions,
   OpenApiCliOptions,
-} from './open-api-cli.options';
+} from './open-api-cli-options';
 
 /**
  * Manage the schematic to generate a sdk using the @openapitools/openapi-generator-cli

@@ -1,1 +1,1 @@
-export * from './url-rewrite.request';
+export * from './url-rewrite-request';

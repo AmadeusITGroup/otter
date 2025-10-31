@@ -1,59 +1,50 @@
 import {
   stringifyQueryParams,
-} from '../../fwk/api.helpers';
+} from '../../fwk/api-helpers';
 import {
   isParamValueRecord,
   type QueryParamValueSerialization,
   serializeRequestPluginQueryParams,
 } from '../../fwk/param-serialization';
 import {
-  PluginRunner,
+  PluginSyncRunner,
   RequestOptions,
   RequestPlugin,
   RequestPluginContext,
 } from '../core';
+import {
+  isStringOrUndefined,
+} from './additional-params-request';
 
-export interface AdditionalParameters {
+export interface AdditionalParametersSync {
   /** Additional headers */
-  headers?: { [key: string]: string } | ((headers: Headers) => { [key: string]: string } | Promise<{ [key: string]: string }>);
+  headers?: { [key: string]: string } | ((headers: Headers) => { [key: string]: string });
   /** Additional query params */
   queryParams?: { [key: string]: string } | { [key: string]: QueryParamValueSerialization }
-    | ((defaultValues?: { [key: string]: string } | { [key: string]: QueryParamValueSerialization }) =>
-        { [key: string]: string } | { [key: string]: QueryParamValueSerialization } | Promise<{ [key: string]: string }> | Promise<{ [key: string]: QueryParamValueSerialization }>
-      );
+    | ((defaultValues?: { [key: string]: string } | { [key: string]: QueryParamValueSerialization }) => { [key: string]: string } | { [key: string]: QueryParamValueSerialization });
   /** Additional body params */
-  body?: (defaultValues?: string) => string | null | Promise<string>;
-}
-
-/**
- * Check if the value is a string or undefined.
- * Used to determine the request body type at runtime.
- * @param value
- */
-export function isStringOrUndefined(value: any): value is string | undefined {
-  const type = typeof value;
-  return type === 'undefined' || type === 'string';
+  body?: (defaultValues?: string) => string | null;
 }
 
 /**
  * Plugin to add (or change) the request parameters
  */
-export class AdditionalParamsRequest implements RequestPlugin {
-  private readonly additionalParams: AdditionalParameters;
+export class AdditionalParamsSyncRequest implements RequestPlugin {
+  private readonly additionalParams: AdditionalParametersSync;
 
   /**
    * Initialize your plugin
    * @param additionalParams Parameters to add or modify
    */
-  constructor(additionalParams: AdditionalParameters) {
+  constructor(additionalParams: AdditionalParametersSync) {
     this.additionalParams = additionalParams;
   }
 
-  public load(context?: RequestPluginContext): PluginRunner<RequestOptions, RequestOptions> {
+  public load(context?: RequestPluginContext): PluginSyncRunner<RequestOptions, RequestOptions> {
     return {
-      transform: async (data: RequestOptions) => {
-        const queryParams = typeof this.additionalParams.queryParams === 'function' ? await this.additionalParams.queryParams(data.queryParams) : this.additionalParams.queryParams;
-        const headers = typeof this.additionalParams.headers === 'function' ? await this.additionalParams.headers(data.headers) : this.additionalParams.headers;
+      transform: (data: RequestOptions) => {
+        const queryParams = typeof this.additionalParams.queryParams === 'function' ? this.additionalParams.queryParams(data.queryParams) : this.additionalParams.queryParams;
+        const headers = typeof this.additionalParams.headers === 'function' ? this.additionalParams.headers(data.headers) : this.additionalParams.headers;
         const body = this.additionalParams.body && isStringOrUndefined(data.body) ? this.additionalParams.body(data.body) : undefined;
 
         if (queryParams) {
@@ -75,7 +66,7 @@ export class AdditionalParamsRequest implements RequestPlugin {
         }
 
         if (body !== undefined) {
-          data.body = body === null ? undefined : await body;
+          data.body = body === null ? undefined : body;
         }
 
         if (headers) {

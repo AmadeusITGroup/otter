@@ -6,7 +6,7 @@ import {
   impervaCaptchaEventHandlerFactory,
   TimeoutFetch,
   TimeoutStatus,
-} from './timeout.fetch';
+} from './timeout-fetch';
 
 describe('Timeout Fetch Plugin', () => {
   it('should reject on timeout', async () => {

@@ -31,10 +31,10 @@ import type {
 } from 'type-fest';
 import {
   OpenApiCliGenerator,
-} from '../../code-generator/open-api-cli-generator/open-api-cli.generator';
+} from '../../code-generator/open-api-cli-generator/open-api-cli-generator';
 import {
   OpenApiCliOptions,
-} from '../../code-generator/open-api-cli-generator/open-api-cli.options';
+} from '../../code-generator/open-api-cli-generator/open-api-cli-options';
 import {
   LOCAL_SPEC_FILENAME,
   SPEC_JSON_EXTENSION,

@@ -7,10 +7,10 @@ import {
 } from '../core';
 import {
   CUSTOM_MOCK_REQUEST_HEADER,
-} from './mock-intercept.interface';
+} from './mock-intercept-interface';
 import {
   MockInterceptRequest,
-} from './mock-intercept.request';
+} from './mock-intercept-request';
 
 const testMock: Mock<any> = {
   mockData: {}
