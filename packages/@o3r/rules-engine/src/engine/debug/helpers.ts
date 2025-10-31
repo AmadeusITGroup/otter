@@ -2,7 +2,7 @@ import {
   EvaluationReason,
   RuleEvaluation,
   RuleEvaluationOutput,
-} from '../engine.interface';
+} from '../engine-interface';
 import type {
   Facts,
 } from '../fact';

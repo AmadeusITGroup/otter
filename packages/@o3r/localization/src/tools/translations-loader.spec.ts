@@ -8,7 +8,7 @@ import {
 } from '../core';
 import {
   LOCALIZATION_CONFIGURATION_TOKEN,
-} from './localization.token';
+} from './localization-token';
 import {
   TranslationsLoader,
 } from './translations-loader';

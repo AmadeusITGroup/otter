@@ -27,7 +27,7 @@ import {
 } from '../core';
 import {
   LOCALIZATION_CONFIGURATION_TOKEN,
-} from './localization.token';
+} from './localization-token';
 
 const JSON_EXT = '.json';
 
