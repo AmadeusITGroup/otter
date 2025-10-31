@@ -26,5 +26,5 @@ export interface Pet {
 export const LIST_STATUS_ENUM = ['available', 'pending', 'sold'] as const;
 
 /** List of available values for StatusEnum */
-export type StatusEnum = typeof LIST_STATUS_ENUM[number];
+export type StatusEnum = 'available' | 'pending' | 'sold';
 
