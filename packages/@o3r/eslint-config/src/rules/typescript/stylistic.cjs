@@ -2,6 +2,14 @@
 const stylistic = require('@stylistic/eslint-plugin');
 const { convertWarningsToErrors } = require('../utils.cjs');
 
+const defaultCommatDangleOptions = {
+  arrays: 'never',
+  objects: 'never',
+  imports: 'always-multiline',
+  exports: 'always-multiline',
+  functions: 'never'
+};
+
 /**
  * @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.ConfigArray}
  */
@@ -15,13 +23,7 @@ const config = [
       ...convertWarningsToErrors(stylistic.configs.recommended),
       '@stylistic/arrow-parens': ['error', 'always'],
       '@stylistic/brace-style': ['error', '1tbs'],
-      '@stylistic/comma-dangle': ['error', {
-        arrays: 'never',
-        objects: 'never',
-        imports: 'always-multiline',
-        exports: 'always-multiline',
-        functions: 'never'
-      }],
+      '@stylistic/comma-dangle': ['error', defaultCommatDangleOptions],
       '@stylistic/indent': [
         'error',
         2,
@@ -94,6 +96,18 @@ const config = [
         'error',
         'inside'
       ]
+    }
+  },
+  {
+    name: '@o3r/eslint-config/stylistic-es-overrides',
+    files: [
+      '**/*.{c,m}{t,j}s'
+    ],
+    rules: {
+      '@stylistic/comma-dangle': ['error', {
+        ...defaultCommatDangleOptions,
+        generics: 'ignore'
+      }]
     }
   }
 ];

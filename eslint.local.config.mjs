@@ -1,6 +1,6 @@
 import o3rPlugin from '@o3r/eslint-plugin';
 import {
-  defineConfig,
+  defineConfig
 } from 'eslint/config';
 import yamlParser from 'yaml-eslint-parser';
 
