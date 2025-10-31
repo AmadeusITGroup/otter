@@ -1,5 +1,8 @@
 <h1 align="center">Ama-terasu SDK</h1>
 
+> [!CAUTION]
+> This package is **deprecated** and won't be maintained after the v13".
+
 ## Description
 
 [![Stable Version](https://img.shields.io/npm/v/@o3r/amaterasu-sdk?style=for-the-badge)](https://www.npmjs.com/package/@o3r/amaterasu-sdk)
