@@ -125,7 +125,7 @@
     "@types/node": "~22.18.0",
     "@types/pid-from-port": "^1.1.0",
     "@typescript-eslint/parser": "~8.46.0",
-    "angular-eslint": "~20.4.0",
+    "angular-eslint": "~20.5.0",
     "chokidar": "^4.0.3",
     "cpy-cli": "^6.0.0",
     "eslint": "~9.38.0",
