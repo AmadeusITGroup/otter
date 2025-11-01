@@ -1,0 +1,106 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "OpenApi specification package manifest",
+  "type": "object",
+  "properties": {
+    "models": {
+      "type": "object",
+      "description": "Dependency package containing the specification to include",
+      "additionalProperties": {
+        "oneOf": [
+          { "$ref": "#/definitions/model" },
+          { "type": "array", "items": { "$ref": "#/definitions/model" } }
+        ]
+      }
+    }
+  },
+  "additionalProperties": true,
+  "definitions": {
+    "transform": {
+      "oneOf": [
+        {
+          "type": "object",
+          "examples": [
+            {
+              "mask": { "data": true },
+              "fileRename": "MyPrefix_$1"
+            }
+          ],
+          "properties": {
+            "mask": {
+              "type": "object",
+              "description": "Mask to apply"
+            },
+            "titleRename": {
+              "type": "string",
+              "description": "Rename the model title. The keyword `$1` can be used to refer to original name (ex: a prefix would be `myPrefix_$1`)"
+            },
+            "fileRename": {
+              "type": "string",
+              "description": "Rename the outputted file (to be specified without extension)."
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "fileRename"
+          ]
+        },
+        {
+          "type": "string",
+          "description": "A reference to a predefined transform"
+        }
+      ]
+    },
+    "model": {
+      "examples": [
+        true,
+        "models/ExampleModel.v1.yaml",
+        {
+          "path": "models/ExampleModel.v1.yaml",
+          "transform": {
+            "mask": { "data": true },
+            "fileRename": "MyPrefix_$1"
+          }
+        }
+      ],
+      "oneOf": [
+        {
+          "type": "boolean",
+          "default": true,
+          "description": "Include the default model from the artifact"
+        },
+        {
+          "type": "string",
+          "description": "Path to the model to include as is"
+        },
+        {
+          "type": "object",
+          "description": "Model definition within a dependency",
+          "properties": {
+            "path": {
+              "type": "string",
+              "description": "Path to the model in the artifact"
+            },
+            "transform": {
+              "oneOf": [
+                {
+                  "$ref": "#/definitions/transform"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/transform"
+                  }
+                }
+              ]
+            }
+          },
+          "required": [
+            "path"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    }
+  }
+}

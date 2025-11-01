@@ -9,8 +9,7 @@
     "tsBuildInfoFile": "build/.tsbuildinfo"
   },
   "include": [
-    "src/**/*.ts",
-    "src/cli/**/*.cts"
+    "src/**/*.cts"
   ],
   "exclude": ["**/*.spec.ts"]
 }
