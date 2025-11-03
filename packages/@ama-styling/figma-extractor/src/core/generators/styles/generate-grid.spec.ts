@@ -40,7 +40,7 @@ describe('generateGridStyles', () => {
     jest.mock('../../helpers/variable-formatter', () => ({
       getVariablesFormatter
     }));
-    jest.mock('../../helpers/color-hex.helpers', () => ({
+    jest.mock('../../helpers/color-hex-helpers', () => ({
       getRgbaColorHex
     }));
 
