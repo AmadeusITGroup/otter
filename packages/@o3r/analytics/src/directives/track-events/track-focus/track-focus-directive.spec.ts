@@ -16,26 +16,26 @@ import {
 } from '@angular/platform-browser-dynamic/testing';
 import {
   UiEventPayload,
-} from '../../../contracts';
+} from '../../../contracts/index';
 import {
   EventTrackService,
-} from '../../../services/event-track';
+} from '../../../services/event-track/index';
 import {
-  TrackClickDirective,
-} from './track-click.directive';
+  TrackFocusDirective,
+} from './track-focus-directive';
 
 const dummyEventContext = { eventInfo: { eventName: '', pageId: '', timeStamp: '' } };
 
 @Component({
-  template: '<button trackClick [trackEventContext]="eventModel">Click</button>',
-  imports: [TrackClickDirective],
+  template: `<button trackFocus [trackEventContext]="eventModel">Click</button>`,
+  imports: [TrackFocusDirective],
   providers: [EventTrackService]
 })
 class TestComponent {
   public eventModel = dummyEventContext;
 }
 
-describe('Track click directive:', () => {
+describe('Track focus directive:', () => {
   beforeAll(() => getTestBed().platform || TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting(), {
     teardown: { destroyAfterEach: false }
   }));
@@ -53,16 +53,16 @@ describe('Track click directive:', () => {
 
   it('should capture 2 events when the tracking mode is active', () => {
     fixture.detectChanges();
-    buttonElement.triggerEventHandler('click', null);
-    buttonElement.triggerEventHandler('click', null);
+    buttonElement.triggerEventHandler('focus', null);
+    buttonElement.triggerEventHandler('focus', null);
 
     expect(addEventSpy).toHaveBeenCalledTimes(2);
   });
 
   it('should send the context object', () => {
     fixture.detectChanges();
-    const dummyEvent = new Event('click');
-    buttonElement.triggerEventHandler('click', dummyEvent);
+    const dummyEvent = new Event('focus');
+    buttonElement.triggerEventHandler('focus', dummyEvent);
     const expectedEventPayload: UiEventPayload = { nativeEvent: dummyEvent, context: dummyEventContext };
 
     expect(addEventSpy).toHaveBeenCalledWith(expectedEventPayload);
@@ -71,7 +71,7 @@ describe('Track click directive:', () => {
   it('should stop tracking when tracking mode is off', () => {
     trackService.toggleUiTracking(false);
     fixture.detectChanges();
-    buttonElement.triggerEventHandler('click', null);
+    buttonElement.triggerEventHandler('focus', null);
 
     expect(addEventSpy).not.toHaveBeenCalled();
   });
@@ -80,7 +80,7 @@ describe('Track click directive:', () => {
     trackService.toggleUiTracking(false);
     trackService.toggleUiTracking(true);
     fixture.detectChanges();
-    buttonElement.triggerEventHandler('click', null);
+    buttonElement.triggerEventHandler('focus', null);
 
     expect(addEventSpy).toHaveBeenCalledTimes(1);
   });
@@ -88,7 +88,7 @@ describe('Track click directive:', () => {
   it('should receive the new event context', () => {
     const component = fixture.componentInstance;
     fixture.detectChanges();
-    buttonElement.triggerEventHandler('click', null);
+    buttonElement.triggerEventHandler('focus', null);
 
     expect(addEventSpy).toHaveBeenCalledWith({ nativeEvent: null, context: component.eventModel });
 
@@ -101,7 +101,7 @@ describe('Track click directive:', () => {
     };
     component.eventModel = newModel;
     fixture.detectChanges();
-    buttonElement.triggerEventHandler('click', null);
+    buttonElement.triggerEventHandler('focus', null);
 
     expect(addEventSpy).toHaveBeenCalledWith({ nativeEvent: null, context: newModel });
   });

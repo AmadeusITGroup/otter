@@ -1,6 +1,6 @@
 import {
   isPerformanceNavigationEntry,
-} from './event-track.helpers';
+} from './event-track-helpers';
 
 describe('isPerformanceNavigationEntry', () => {
   test('should return true if entry is navigation', () => {

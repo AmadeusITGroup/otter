@@ -9,14 +9,14 @@ import type {
 } from '@o3r/core';
 import {
   ApplicationDevtoolsServiceOptions,
-} from './application-devkit.interface';
+} from './application-devkit-interface';
 import {
   OtterApplicationDevtools,
-} from './application-devtools.service';
+} from './application-devtools';
 import {
   OTTER_APPLICATION_DEVTOOLS_DEFAULT_OPTIONS,
   OTTER_APPLICATION_DEVTOOLS_OPTIONS,
-} from './application-devtools.token';
+} from './application-devtools-token';
 
 @Injectable({
   providedIn: 'root'

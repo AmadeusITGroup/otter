@@ -22,7 +22,7 @@ import {
 } from '../../services/event-track';
 import {
   TrackEventsDirective,
-} from './track-events.directive';
+} from './track-events-directive';
 
 @Component({
   template: `<button [trackEvents]="['mouseenter', 'mouseleave']" [trackEventContext]="{eventInfo: { eventName: '', pageId: '', timeStamp: ''}}">Click</button>`,

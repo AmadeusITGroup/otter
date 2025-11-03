@@ -12,10 +12,10 @@ import {
 } from '@o3r/routing';
 import type {
   ApplicationInformation,
-} from './application-devkit.interface';
+} from './application-devkit-interface';
 import {
   OTTER_APPLICATION_DEVTOOLS_OPTIONS,
-} from './application-devtools.token';
+} from './application-devtools-token';
 
 @Injectable({ providedIn: 'root' })
 export class OtterApplicationDevtools {
