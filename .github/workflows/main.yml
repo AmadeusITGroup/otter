@@ -39,6 +39,7 @@ jobs:
           # Fetch 2 is needed to properly check if the yarn.lock is affected by a pull-request
           fetch-depth: 2
       - uses: ./tools/github-actions/setup
+        timeout-minutes: 30
         env:
           YARN_ENABLE_HARDENED_MODE: 1
       - name: Yarn errors reporter
@@ -57,6 +58,7 @@ jobs:
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
       - uses: ./tools/github-actions/setup
+        timeout-minutes: 30
       - uses: ./.github/actions/setup-java
         with:
           install-jdk: 'true'

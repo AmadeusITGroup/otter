@@ -45,6 +45,7 @@ jobs:
         with:
           ref: ${{ inputs.ref }}
       - uses: ./tools/github-actions/setup
+        timeout-minutes: 30
       - uses: ./.github/actions/setup-java
         with:
           install-jdk: 'true'

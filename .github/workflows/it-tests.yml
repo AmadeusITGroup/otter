@@ -45,6 +45,7 @@ jobs:
         with:
           artifactName: ${{ inputs.ref && format('dist-{0}', inputs.ref) || 'dist' }}
       - uses: ./tools/github-actions/setup
+        timeout-minutes: 30
       - name: Setup verdaccio once for all tests
         id: setup-verdaccio
         run: |
@@ -93,6 +94,7 @@ jobs:
         with:
           artifactName: ${{ inputs.ref && format('dist-{0}', inputs.ref) || 'dist' }}
       - uses: ./tools/github-actions/setup
+        timeout-minutes: 30
       - shell: bash
         run: |
           git config --global  user.name "GitHub Actions"
