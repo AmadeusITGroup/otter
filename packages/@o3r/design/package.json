@@ -52,7 +52,7 @@
   "dependencies": {
     "@o3r/schematics": "workspace:~",
     "jsonschema": "~1.5.0",
-    "minimatch": "~10.0.0",
+    "minimatch": "~10.1.0",
     "minimist": "^1.2.6",
     "ts-node": "~10.9.2",
     "tslib": "^2.6.2"
