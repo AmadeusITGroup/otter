@@ -68,7 +68,7 @@
     "@inquirer/confirm": "^5.1.0",
     "chalk": "^4.1.2",
     "globby": "^11.1.0",
-    "minimatch": "~10.0.0",
+    "minimatch": "~10.1.0",
     "minimist": "^1.2.6",
     "semver": "^7.5.2",
     "tiny-editorconfig": "~1.0.0",
