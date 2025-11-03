@@ -8,7 +8,7 @@ import {
 } from 'yargs/helpers';
 import {
   DEFAULT_FILENAME_MATCHER,
-} from '../core/requests/get-versions.request';
+} from '../core/requests/get-versions-request';
 import {
   generateJsonFiles,
 } from '../public_api';

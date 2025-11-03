@@ -37,7 +37,7 @@ import {
 import {
   isFigmaFileContext,
   isFigmaProjectContext,
-} from './core/helpers/context.helpers';
+} from './core/helpers/context-helpers';
 import {
   createOutputFolder,
 } from './core/helpers/create-output-folder';
@@ -52,15 +52,15 @@ import type {
 } from './core/interfaces';
 import {
   getFile,
-} from './core/requests/get-file.request';
+} from './core/requests/get-file-request';
 import {
   getVariables,
-} from './core/requests/get-variable.request';
+} from './core/requests/get-variable-request';
 import {
   getAllVersions,
   getFileVersions,
   type VersionWithFileKey,
-} from './core/requests/get-versions.request';
+} from './core/requests/get-versions-request';
 
 interface GenerateJsonFile extends ExtractorContext, Partial<FigmaFileContext>, Partial<FigmaProjectContext> {
   /** Access Token with Variables read permission */
