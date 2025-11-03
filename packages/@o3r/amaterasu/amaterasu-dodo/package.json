@@ -23,7 +23,7 @@
   "preferUnplugged": true,
   "dependencies": {
     "loglevel": "^1.8.0",
-    "tar": "^7.0.0",
+    "tar": "^7.5.2",
     "tslib": "^2.6.2",
     "yargs": "^18.0.0"
   },
