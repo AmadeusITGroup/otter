@@ -1,0 +1,25 @@
+{
+  "name": "ama-mcp-angular",
+  "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/@ama-mcp/angular/src",
+  "prefix": "o3r",
+  "targets": {
+    "build": {
+      "executor": "nx:noop",
+      "dependsOn": ["compile"]
+    },
+    "compile": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "compile"
+      },
+      "dependsOn": ["prepare", "^build"]
+    },
+    "test": {},
+    "lint": {},
+    "prepare-publish": {},
+    "publish": {}
+  },
+  "tags": []
+}

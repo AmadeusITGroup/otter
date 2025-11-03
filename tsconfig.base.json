@@ -36,6 +36,18 @@
     "baseUrl": ".",
     "allowSyntheticDefaultImports": true,
     "paths": {
+      "@ama-mcp/angular": [
+        "packages/@ama-mcp/angular/src/public_api"
+      ],
+      "@ama-mcp/core": [
+        "packages/@ama-mcp/core/src/public_api"
+      ],
+      "@ama-mcp/github": [
+        "packages/@ama-mcp/github/src/public_api"
+      ],
+      "@ama-mcp/otter": [
+        "packages/@ama-mcp/otter/src/public_api"
+      ],
       "@ama-mfe/messages": [
         "packages/@ama-mfe/messages/src/public_api"
       ],

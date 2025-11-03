@@ -4,7 +4,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "description": "This module provides a MCP Server",
+  "description": "Experimental package — This module provides a MCP Server",
   "keywords": [
     "mcp",
     "otter",
@@ -22,7 +22,12 @@
     "compile": "tsc -b ./tsconfig.build.json && yarn copy:resources && yarn cpy package.json dist && patch-package-json-main"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "~1.19.0",
+    "@ama-mcp/angular": "workspace:^",
+    "@ama-mcp/core": "workspace:^",
+    "@ama-mcp/github": "workspace:^",
+    "@ama-mcp/otter": "workspace:^",
+    "@modelcontextprotocol/sdk": "~1.20.0",
+    "@octokit/rest": "~22.0.0",
     "tslib": "^2.6.2",
     "zod": "~3.25.76"
   },
@@ -38,17 +43,17 @@
     "@nx/eslint-plugin": "~21.6.0",
     "@nx/jest": "~21.6.0",
     "@nx/js": "~21.6.0",
-    "@o3r/build-helpers": "workspace:^",
-    "@o3r/eslint-config": "workspace:^",
-    "@o3r/eslint-plugin": "workspace:^",
-    "@o3r/test-helpers": "workspace:^",
-    "@stylistic/eslint-plugin": "~5.3.0",
+    "@o3r/build-helpers": "workspace:~",
+    "@o3r/eslint-config": "workspace:~",
+    "@o3r/eslint-plugin": "workspace:~",
+    "@o3r/test-helpers": "workspace:~",
+    "@stylistic/eslint-plugin": "~5.5.0",
     "@types/jest": "~29.5.2",
     "@types/node": "~22.18.0",
-    "@typescript-eslint/parser": "~8.43.0",
-    "angular-eslint": "~20.3.0",
+    "@typescript-eslint/parser": "~8.46.0",
+    "angular-eslint": "~20.4.0",
     "cpy-cli": "^6.0.0",
-    "eslint": "~9.35.0",
+    "eslint": "~9.38.0",
     "eslint-import-resolver-node": "~0.3.9",
     "eslint-import-resolver-typescript": "~4.4.0",
     "eslint-plugin-import": "~2.32.0",
@@ -57,7 +62,7 @@
     "eslint-plugin-jsdoc": "~54.7.0",
     "eslint-plugin-prefer-arrow": "~1.2.3",
     "eslint-plugin-unicorn": "~60.0.0",
-    "eslint-plugin-unused-imports": "~4.2.0",
+    "eslint-plugin-unused-imports": "~4.3.0",
     "globals": "^16.0.0",
     "jest": "~29.7.0",
     "jest-environment-jsdom": "~29.7.0",
@@ -71,7 +76,7 @@
     "ts-node": "~10.9.2",
     "type-fest": "^4.30.1",
     "typescript": "~5.9.2",
-    "typescript-eslint": "~8.43.0",
+    "typescript-eslint": "~8.46.0",
     "zone.js": "~0.15.0"
   },
   "engines": {
