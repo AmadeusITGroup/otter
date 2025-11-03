@@ -19,10 +19,10 @@ import {
 } from 'rxjs/operators';
 import {
   EVENT_TRACK_SERVICE_CONFIGURATION,
-} from './event-track.configuration';
+} from './event-track-configuration';
 import {
   EventTrackService,
-} from './event-track.service';
+} from './event-track-service';
 
 class MockRouter {
   public p1 = new NavigationEnd(0, '/page1', '/page1');

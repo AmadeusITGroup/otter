@@ -14,7 +14,7 @@ import type {
   ReportData,
   Reporter,
   Timing,
-} from './reporters.interface';
+} from './reporters-interface';
 
 /**
  * BuildStats Plugin Options

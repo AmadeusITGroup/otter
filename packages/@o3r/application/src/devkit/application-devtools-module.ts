@@ -4,20 +4,20 @@ import {
 } from '@angular/core';
 import type {
   ApplicationDevtoolsServiceOptions,
-} from './application-devkit.interface';
-import {
-  ApplicationDevtoolsConsoleService,
-} from './application-devtools.console.service';
-import {
-  ApplicationDevtoolsMessageService,
-} from './application-devtools.message.service';
+} from './application-devkit-interface';
 import {
   OtterApplicationDevtools,
-} from './application-devtools.service';
+} from './application-devtools';
+import {
+  ApplicationDevtoolsConsoleService,
+} from './application-devtools-console-service';
+import {
+  ApplicationDevtoolsMessageService,
+} from './application-devtools-message-service';
 import {
   OTTER_APPLICATION_DEVTOOLS_DEFAULT_OPTIONS,
   OTTER_APPLICATION_DEVTOOLS_OPTIONS,
-} from './application-devtools.token';
+} from './application-devtools-token';
 
 @NgModule({
   providers: [
