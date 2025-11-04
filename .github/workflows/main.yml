@@ -39,6 +39,7 @@ jobs:
           # Fetch 2 is needed to properly check if the yarn.lock is affected by a pull-request
           fetch-depth: 2
       - uses: ./tools/github-actions/setup
+        timeout-minutes: 30
         env:
           YARN_ENABLE_HARDENED_MODE: 1
       - name: Yarn errors reporter
@@ -52,11 +53,12 @@ jobs:
     needs: [yarn_lock_check]
     env:
       NX_SKIP_NX_CACHE: ${{ vars.NX_SKIP_NX_CACHE == 'true' || github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release') && !endsWith(github.ref, '-next') }}
-      NX_SKIP_REMOTE_CACHE: ${{ vars.NX_SKIP_REMOTE_CACHE }}
+      NX_SKIP_REMOTE_CACHE: ${{ vars.NX_SKIP_REMOTE_CACHE || (github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'skipRemoteCache')) }}
       NODE_COMPILE_CACHE: ~/.cache/node-compilation
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
       - uses: ./tools/github-actions/setup
+        timeout-minutes: 30
       - uses: ./.github/actions/setup-java
         with:
           install-jdk: 'true'
@@ -110,7 +112,7 @@ jobs:
     with:
       affected: ${{ github.event_name == 'pull_request' }}
       skipNxCache: ${{ vars.NX_SKIP_NX_CACHE == 'true' || github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release') && !endsWith(github.ref, '-next') }}
-      skipNxRemoteCache: ${{ vars.NX_SKIP_REMOTE_CACHE == 'true'  }}
+      skipNxRemoteCache: ${{ vars.NX_SKIP_REMOTE_CACHE == 'true' || (github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'skipRemoteCache')) }}
 
   it-tests:
     uses: ./.github/workflows/it-tests.yml
@@ -118,8 +120,8 @@ jobs:
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
     needs: [yarn_lock_check, build]
     with:
-      skipNxCache: ${{ vars.NX_SKIP_NX_CACHE == 'true'   || github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release') && !endsWith(github.ref, '-next') }}
-      skipNxRemoteCache: ${{ vars.NX_SKIP_REMOTE_CACHE == 'true'  }}
+      skipNxCache: ${{ vars.NX_SKIP_NX_CACHE == 'true' || github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release') && !endsWith(github.ref, '-next') }}
+      skipNxRemoteCache: ${{ vars.NX_SKIP_REMOTE_CACHE == 'true' || (github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'skipRemoteCache')) }}
 
   e2e-tests:
     permissions:
@@ -130,7 +132,7 @@ jobs:
     needs: [yarn_lock_check, build]
     with:
       skipNxCache: ${{ vars.NX_SKIP_NX_CACHE == 'true' || github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release') && !endsWith(github.ref, '-next') }}
-      skipNxRemoteCache: ${{ vars.NX_SKIP_REMOTE_CACHE == 'true'}}
+      skipNxRemoteCache: ${{ vars.NX_SKIP_REMOTE_CACHE == 'true' || (github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'skipRemoteCache')) }}
 
   publish-packages:
     uses: ./.github/workflows/publish.yml
@@ -166,4 +168,4 @@ jobs:
       version: ${{ needs.version.outputs.nextVersionTag }}
       shouldDeploy: false
       skipNxCache: ${{ vars.NX_SKIP_NX_CACHE == 'true' }}
-      skipNxRemoteCache: ${{ vars.NX_SKIP_REMOTE_CACHE == 'true' }}
+      skipNxRemoteCache: ${{ vars.NX_SKIP_REMOTE_CACHE == 'true' || (github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'skipRemoteCache')) }}

@@ -58,6 +58,7 @@ jobs:
           fetch-depth: ${{ inputs.affected && '0' || '1' }}
       - name: Setup
         uses: ./tools/github-actions/setup
+        timeout-minutes: 30
       - uses: ./.github/actions/setup-java
         with:
           install-jdk: 'true'
@@ -106,6 +107,7 @@ jobs:
           fetch-depth: ${{ inputs.affected && '0' || '1' }}
       - name: Setup
         uses: ./tools/github-actions/setup
+        timeout-minutes: 30
       - name: Cache Eslint
         uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
         env:
@@ -132,6 +134,7 @@ jobs:
           fetch-depth: ${{ inputs.affected && '0' || '1' }}
       - name: Setup
         uses: ./tools/github-actions/setup
+        timeout-minutes: 30
       - name: Package github actions
         env:
           NX_BASE: ${{ format('remotes/origin/{0}', github.base_ref || github.ref_name) }}
