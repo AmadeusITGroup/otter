@@ -35,6 +35,7 @@ permissions:
 jobs:
   prepare-verdaccio:
     runs-on: ubuntu-latest
+    if: ${{ github.event_name != 'pull_request' || github.base_ref != 'main' || contains(github.event.pull_request.labels.*.name, 'runAllTests') }}
     env:
       NODE_COMPILE_CACHE: ~/.cache/node-compile-cache
     steps:
@@ -74,13 +75,6 @@ jobs:
         os: [ubuntu-latest, windows-latest]
         packageManager: [yarn, npm]
         testEnvironment: [o3r-project-with-app]
-        fastRun:
-          - ${{ github.event_name == 'pull_request' && github.base_ref == 'main' && !contains(github.event.pull_request.labels.*.name, 'runAllTests')}}
-        exclude:
-          - fastRun: true
-            os: windows-latest
-          - fastRun: true
-            packageManager: yarn
     name: it-tests (${{ matrix.os }}, ${{ matrix.packageManager }}, ${{ matrix.testEnvironment }})
     runs-on: ${{ matrix.os }}
     env:
@@ -169,10 +163,10 @@ jobs:
   conclusion:
     runs-on: ubuntu-latest
     needs: [it-tests]
-    if: success() || failure()
+    if: ${{ !cancelled() }}
     steps:
       - run: |
-          if [[ $OUTPUT == "success" ]]; then
+          if [[ $OUTPUT == "success" || $OUTPUT == "skipped" ]]; then
             exit 0
           else
             exit 1
