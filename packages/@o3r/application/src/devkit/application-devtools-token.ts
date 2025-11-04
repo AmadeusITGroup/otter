@@ -3,7 +3,7 @@ import {
 } from '@angular/core';
 import {
   ApplicationDevtoolsServiceOptions,
-} from './application-devkit.interface';
+} from './application-devkit-interface';
 
 export const OTTER_APPLICATION_DEVTOOLS_DEFAULT_OPTIONS: Readonly<ApplicationDevtoolsServiceOptions> = {
   isActivatedOnBootstrap: false

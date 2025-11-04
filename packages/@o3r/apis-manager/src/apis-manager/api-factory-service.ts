@@ -13,7 +13,7 @@ import {
 } from './api-manager';
 import {
   API_TOKEN,
-} from './api-manager.token';
+} from './api-manager-token';
 
 /** Type of the Class of an SDK Api */
 export type ApiClassType<T extends Api = Api> = (new (client: ApiClient) => T) & ApiName;

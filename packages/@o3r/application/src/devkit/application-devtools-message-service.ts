@@ -24,14 +24,14 @@ import {
   type AvailableApplicationMessageContents,
   isApplicationMessage,
   type StateSelectionContentMessage,
-} from './application-devkit.interface';
+} from './application-devkit-interface';
 import {
   OtterApplicationDevtools,
-} from './application-devtools.service';
+} from './application-devtools';
 import {
   OTTER_APPLICATION_DEVTOOLS_DEFAULT_OPTIONS,
   OTTER_APPLICATION_DEVTOOLS_OPTIONS,
-} from './application-devtools.token';
+} from './application-devtools-token';
 
 const OTTER_STATE_RIBBON_ID = 'otter-devtools-state-ribbon';
 

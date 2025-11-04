@@ -42,10 +42,10 @@ import {
 import {
   defaultEventTrackConfiguration,
   EVENT_TRACK_SERVICE_CONFIGURATION,
-} from './event-track.configuration';
+} from './event-track-configuration';
 import {
   isPerformanceNavigationEntry,
-} from './event-track.helpers';
+} from './event-track-helpers';
 
 /** The initial value of the performance measurements */
 export const performanceMarksInitialState: Readonly<PerfEventPayload> = {

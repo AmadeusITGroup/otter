@@ -1,6 +1,6 @@
 import {
   appendPreconnect,
-} from './api-manager.helpers';
+} from './api-manager-helpers';
 
 describe('appendPreconnect', () => {
   beforeEach(() => {

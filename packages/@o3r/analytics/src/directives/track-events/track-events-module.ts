@@ -3,13 +3,13 @@ import {
 } from '@angular/core';
 import {
   TrackClickDirective,
-} from './track-click/track-click.directive';
+} from './track-click/track-click-directive';
 import {
   TrackEventsDirective,
-} from './track-events.directive';
+} from './track-events-directive';
 import {
   TrackFocusDirective,
-} from './track-focus/track-focus.directive';
+} from './track-focus/track-focus-directive';
 
 /**
  * @deprecated TrackEventsDirective, TrackClickDirective and TrackFocusDirective are now standalone, this module will be removed in v14
