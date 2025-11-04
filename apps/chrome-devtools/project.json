@@ -161,6 +161,8 @@
         "{projectRoot}/src/options.html"
       ]
     },
+    "set-version": {},
+    "prepare-publish": {},
     "publish-extension": {
       "executor": "nx:run-script",
       "options": {

@@ -35,6 +35,7 @@
     },
     "test-int": {},
     "prepare-publish": {},
+    "set-version": {},
     "publish": {},
     "documentation": {}
   },

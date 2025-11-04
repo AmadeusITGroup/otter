@@ -24,6 +24,7 @@
     "lint": {},
     "test-int": {},
     "prepare-publish": {},
+    "set-version": {},
     "publish": {}
   },
   "tags": []

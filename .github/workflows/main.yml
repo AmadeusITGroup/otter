@@ -21,8 +21,8 @@ env:
   NX_TASK_TARGET_CONFIGURATION: ci
   YARN_ENABLE_HARDENED_MODE: 0
   NODE_COMPILE_CACHE: ~/.cache/node-compile-cache
-  NX_SKIP_NX_CACHE: ${{ vars.NX_SKIP_NX_CACHE == 'true' || github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release') && !endsWith(github.ref, '-next') }}
-  NX_SKIP_REMOTE_CACHE:  ${{ vars.NX_SKIP_REMOTE_CACHE == 'true' || (github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'skipRemoteCache')) }}
+  NX_SKIP_NX_CACHE: ${{ vars.NX_SKIP_NX_CACHE == 'true' }}
+  NX_SKIP_REMOTE_CACHE: ${{ vars.NX_SKIP_REMOTE_CACHE == 'true' || (github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release')) || (github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'skipRemoteCache')) }}
 jobs:
   setupVars:
     runs-on: ubuntu-latest
@@ -77,6 +77,9 @@ jobs:
             ${{ runner.os }}-node-compile
       - run: yarn build
       - uses: ./tools/github-actions/upload-build-output
+      - if: ${{env.NX_SKIP_REMOTE_CACHE == 'true'}}
+        uses: ./.github/actions/upload-cache
+        continue-on-error: true
 
   version:
     permissions:

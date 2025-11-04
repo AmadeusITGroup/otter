@@ -19,6 +19,7 @@
     "test": {},
     "lint": {},
     "prepare-publish": {},
+    "set-version": {},
     "publish": {}
   },
   "tags": []

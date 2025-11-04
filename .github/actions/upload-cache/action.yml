@@ -1,0 +1,19 @@
+name: Upload Cache
+description: Upload a Cache artifact
+inputs:
+  artifactName:
+    description: Name of the artifact on which the cache is published
+    default: cache-dir
+    required: false
+
+runs:
+  using: 'composite'
+  steps:
+    - run: zip -q -r ${{ inputs.artifactName }}.zip . -i ".cache/*" -x "*/node_modules/*"
+      shell: bash
+    - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+      with:
+        name: ${{ inputs.artifactName }}
+        path: ${{ inputs.artifactName }}.zip
+    - run: rm -f ${{ inputs.artifactName }}.zip
+      shell: bash

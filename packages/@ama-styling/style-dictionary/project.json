@@ -41,6 +41,7 @@
     "prepare-build-builders": {},
     "build-builders": {},
     "prepare-publish": {},
+    "set-version": {},
     "publish": {},
     "documentation": {}
   },

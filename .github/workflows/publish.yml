@@ -72,12 +72,14 @@ jobs:
           fetch-depth: 2
           ref: ${{ inputs.gitRef }}
       - uses: ./tools/github-actions/download-build-output
+      - if: ${{env.NX_SKIP_REMOTE_CACHE == 'true'}}
+        uses: ./.github/actions/download-cache
+        continue-on-error: true
       - uses: ./tools/github-actions/setup
         timeout-minutes: 30
         with:
           #TODO Remove when migrate to Node 24
           npm-version: '11.5'
-      - run: yarn set:version ${{ inputs.version }}
       - name: Get tag name
         id: get-npm-tag
         uses: ./tools/github-actions/get-npm-tag
@@ -85,7 +87,7 @@ jobs:
           is-prerelease: ${{ inputs.prerelease }}
           version: ${{ inputs.version }}
       - name: Publish
-        run: yarn run publish --tag=${{ inputs.isPullRequest && 'pr' || steps.get-npm-tag.outputs.tag }} ${{ inputs.isPullRequest && '--userconfig=./.npmrc.pr' || ''}}
+        run: yarn run publish --set-version=${{ inputs.version }} --tag=${{ inputs.isPullRequest && 'pr' || steps.get-npm-tag.outputs.tag }} ${{ inputs.isPullRequest && '--userconfig=./.npmrc.pr' || ''}}
         env:
           GITHUB_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           AZURE_AUTH_TOKEN: ${{ secrets.AZURE_AUTH_TOKEN }}
@@ -103,6 +105,9 @@ jobs:
         with:
           fetch-depth: 2
       - uses: ./tools/github-actions/download-build-output
+      - if: ${{env.NX_SKIP_REMOTE_CACHE == 'true'}}
+        uses: ./.github/actions/download-cache
+        continue-on-error: true
       - uses: ./tools/github-actions/setup
         timeout-minutes: 30
       - run: yarn set:version ${{ inputs.version }}
@@ -137,12 +142,14 @@ jobs:
         with:
           fetch-depth: 2
       - uses: ./tools/github-actions/download-build-output
+      - if: ${{env.NX_SKIP_REMOTE_CACHE == 'true'}}
+        uses: ./.github/actions/download-cache
+        continue-on-error: true
       - uses: ./tools/github-actions/setup
         timeout-minutes: 30
-      - run: yarn set:version ${{ inputs.version }}
       - name: Publish Extensions
         if: '!inputs.prerelease'
-        run: yarn run publish:extensions
+        run: yarn run publish:extensions --set-version=${{ inputs.version }}
         env:
           NX_BASE: HEAD~1
           VSCE_PAT: ${{ secrets.AZURE_VSC_EXT_TOKEN }}

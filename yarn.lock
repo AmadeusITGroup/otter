@@ -10843,7 +10843,6 @@ __metadata:
     postcss-scss: "npm:~4.0.9"
     prism-themes: "npm:^1.9.0"
     prismjs: "npm:^1.30.0"
-    replace-in-files-cli: "npm:^3.0.0"
     rimraf: "npm:^6.0.1"
     rxjs: "npm:^7.8.1"
     sass: "npm:~1.93.0"
@@ -23600,13 +23599,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"escape-string-regexp@npm:^5.0.0":
-  version: 5.0.0
-  resolution: "escape-string-regexp@npm:5.0.0"
-  checksum: 10/20daabe197f3cb198ec28546deebcf24b3dbb1a5a269184381b3116d12f0532e06007f4bc8da25669d6a7f8efb68db0758df4cd981f57bc5b57f521a3e12c59e
-  languageName: node
-  linkType: hard
-
 "escodegen@npm:^2.0.0, escodegen@npm:^2.1.0":
   version: 2.1.0
   resolution: "escodegen@npm:2.1.0"
@@ -25523,7 +25515,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"globby@npm:^14.0.0, globby@npm:^14.0.1, globby@npm:^14.1.0":
+"globby@npm:^14.0.0, globby@npm:^14.1.0":
   version: 14.1.0
   resolution: "globby@npm:14.1.0"
   dependencies:
@@ -34127,21 +34119,6 @@ __metadata:
   version: 2.0.0
   resolution: "replace-ext@npm:2.0.0"
   checksum: 10/ed640ac90d24cce4be977642847d138908d430049cc097633be33b072143515cc7d29699675a0c35f6dc3c3c73cb529ed352d59649cf15931740eb31ae083c1e
-  languageName: node
-  linkType: hard
-
-"replace-in-files-cli@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "replace-in-files-cli@npm:3.0.0"
-  dependencies:
-    escape-string-regexp: "npm:^5.0.0"
-    globby: "npm:^14.0.1"
-    meow: "npm:^13.2.0"
-    normalize-path: "npm:^3.0.0"
-    write-file-atomic: "npm:^5.0.1"
-  bin:
-    replace-in-files: cli.js
-  checksum: 10/f4f231aecd0ae3572a6bc7b3ab030be8777903ea89a0250495089fd8d068802e46151df687f17f993a886eba3415c8c303dbf5ef3117b9103e132861c9123947
   languageName: node
   linkType: hard
 

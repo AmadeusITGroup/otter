@@ -53,6 +53,7 @@
     "test": {},
     "test-int": {},
     "prepare-publish": {},
+    "set-version": {},
     "publish": {},
     "prepare-build-builders": {},
     "build-builders": {},
