@@ -96,21 +96,6 @@ jobs:
       - uses: ./.github/actions/setup-java
         with:
           install-jdk: 'true'
-      - name: Get current month to build the cache key
-        run: echo "currentMonth=$(date +'%Y-%m')" >> $GITHUB_ENV
-        shell: bash
-      - name: Cache test-app yarn
-        if: inputs.ref == ''
-        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
-        with:
-          lookup-only: ${{ github.event_name == 'pull_request' || github.event_name == 'merge_group' }}
-          path: |
-            .cache/test-app
-            !.cache/test-app/cache/@ama-sdk*
-            !.cache/test-app/cache/@ama-terasu*
-            !.cache/test-app/cache/@o3r*
-            !.cache/test-app/npm-cache/_npx/**
-          key: ${{ runner.os }}-test-app-${{ matrix.packageManager }}-${{ env.currentMonth }}
       - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
         name: Download verdaccio storage prepared in the previous job
         with:
