@@ -31,6 +31,7 @@ jobs:
           ref: ${{ inputs.ref }}
       - name: Setup
         uses: ./tools/github-actions/setup
+        timeout-minutes: 30
       - name: Audit
         id: audit
         uses: ./tools/github-actions/audit
