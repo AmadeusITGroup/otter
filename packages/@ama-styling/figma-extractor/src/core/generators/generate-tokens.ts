@@ -10,7 +10,7 @@ import type {
 } from '../interfaces';
 import {
   getTextWeightVariableIds,
-} from '../requests/get-text-weight.request';
+} from '../requests/get-text-weight-request';
 import {
   getTokensFromLocalVariables,
 } from './tokens/token-from-local-variables';
