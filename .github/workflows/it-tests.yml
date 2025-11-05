@@ -34,6 +34,7 @@ permissions:
 
 jobs:
   prepare-verdaccio:
+    name: test
     runs-on: ubuntu-latest
     env:
       NODE_COMPILE_CACHE: ~/.cache/node-compile-cache
