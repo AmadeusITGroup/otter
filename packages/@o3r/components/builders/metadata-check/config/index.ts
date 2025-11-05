@@ -8,7 +8,7 @@ import {
 } from '@o3r/extractors';
 import {
   configMetadataComparator,
-} from './helpers/config-metadata-comparison.helper';
+} from './helpers/config-metadata-comparison-helper';
 import type {
   ConfigMigrationMetadataCheckBuilderSchema,
 } from './schema';

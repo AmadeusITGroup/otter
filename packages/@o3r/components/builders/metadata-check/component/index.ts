@@ -8,7 +8,7 @@ import {
 } from '@o3r/extractors';
 import {
   componentMetadataComparator,
-} from './helpers/component-metadata-comparison.helper';
+} from './helpers/component-metadata-comparison-helper';
 import type {
   ComponentMigrationMetadataCheckBuilderSchema,
 } from './schema';
