@@ -109,8 +109,8 @@ jobs:
             chmod a+rwx -R ./.verdaccio/storage
             yarn verdaccio:start-persistent
           elif [ "$RUNNER_OS" == "Windows" ]; then
-            npx --yes verdaccio --config $GITHUB_WORKSPACE\\.verdaccio\\conf\\config-without-docker.yaml --listen http://127.0.0.1:4873 &
-            npx --yes wait-on http://127.0.0.1:4873 -t 180000
+            npx --yes verdaccio@latest --config $GITHUB_WORKSPACE\\.verdaccio\\conf\\config-without-docker.yaml --listen http://127.0.0.1:4873 &
+            npx --yes wait-on@latest http://127.0.0.1:4873 -t 240000
           fi
           yarn verdaccio:login
         shell: bash
