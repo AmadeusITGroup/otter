@@ -1,5 +1,10 @@
 name: 'Setup'
 description: 'Setup for Otter Library'
+inputs:
+  skipNxRemoteCache:
+    description: 'Skip the nx cache'
+    required: false
+    default: 'false'
 
 runs:
   using: "composite"
@@ -26,4 +31,6 @@ runs:
           ${{ runner.os }}
     - name: Install
       shell: bash
+      env:
+        NX_SKIP_REMOTE_CACHE: ${{ inputs.skipNxRemoteCache }}
       run: yarn install

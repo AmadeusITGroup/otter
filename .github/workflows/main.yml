@@ -57,6 +57,8 @@ jobs:
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
       - uses: ./tools/github-actions/setup
+        with:
+          skipNxRemoteCache: ${{ env.NX_SKIP_REMOTE_CACHE }}
       - uses: ./.github/actions/setup-java
         with:
           install-jdk: 'true'
