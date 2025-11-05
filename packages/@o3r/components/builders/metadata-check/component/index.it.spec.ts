@@ -35,7 +35,7 @@ import {
 import {
   componentMetadataComparator,
   type MigrationComponentData,
-} from './helpers/component-metadata-comparison.helper';
+} from './helpers/component-metadata-comparison-helper';
 import type {
   ComponentClassOutput,
 } from '@o3r/components';
