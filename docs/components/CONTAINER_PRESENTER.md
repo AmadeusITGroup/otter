@@ -23,15 +23,15 @@ It must have a dedicated presenter component which will orchestrate the presenta
 
 It should follow the following naming convention:
 
-| Attribute               | Pattern              |
-| ----------------------- | -------------------- |
-| **Component file name** | *-cont.component.ts  |
-| **Selector name**       | *-cont               |
-| **Component name**      | *ContComponent       |
-| **Template file name**  | *-cont.template.html |
-| **Unit test file name** | *-cont.spec.ts       |
+| Attribute               | Pattern        |
+| ----------------------- |----------------|
+| **Component file name** | *-cont.ts      |
+| **Selector name**       | *-cont         |
+| **Component name**      | *Cont          |
+| **Template file name**  | *-cont.html    |
+| **Unit test file name** | *-cont.spec.ts |
 
-It has its own _index.ts_ file exporting the component. Later, it could export the  customization files linked like `*-pres.config.ts`.
+It has its own _index.ts_ file exporting the component. Later, it could export the  customization files linked like `*-pres-config.ts`.
 
 ### Presenter
 
@@ -39,16 +39,16 @@ The presenter is located in the __presenter__ folder of the component.
 
 It should follow the following naming convention:
 
-| Attribute               | Pattern              |
-| ----------------------- | -------------------- |
-| **Component file name** | *-pres.component.ts  |
-| **Selector name**       | *-pres               |
-| **Component name**      | *PresComponent       |
-| **Template file name**  | *-pres.template.html |
-| **Style file name**     | *-pres.style.scss    |
-| **Unit test file name** | *-pres.spec.ts       |
+| Attribute               | Pattern        |
+| ----------------------- |----------------|
+| **Component file name** | *-pres.ts      |
+| **Selector name**       | *-pres         |
+| **Component name**      | *Pres          |
+| **Template file name**  | *-pres.html    |
+| **Style file name**     | *-pres.scss    |
+| **Unit test file name** | *-pres.spec.ts |
 
-It has its own _index.ts_ file exporting the component. Later, it could export the  customization files linked like `*-pres.translation.ts` or `*-pres.config.ts`.
+It has its own _index.ts_ file exporting the component. Later, it could export the  customization files linked like `*-pres-translation.ts` or `*-pres-config.ts`.
 
 ### Example
 
@@ -58,17 +58,17 @@ Example of a component implementing the container/presenter pattern:
 passengers/
     container/
         [passengers-cont.module.ts]
-        passengers-cont.component.ts
-        passengers-cont.template.html
+        passengers-cont.ts
+        passengers-cont.html
         passengers-cont.spec.ts
         index.ts
     contracts/
         passenger.model.ts
     presenter/
         [passengers-pres.module.ts]
-        passengers-pres.component.ts
-        passengers-pres.template.html
-        passengers-pres.style.scss
+        passengers-pres.ts
+        passengers-pres.html
+        passengers-pres.scss
         passengers-pres.spec.ts
         index.ts
     sub-components/

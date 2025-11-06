@@ -97,9 +97,9 @@ import {NavigationConsumerService} from '@ama-mfe/ng-utils';
 import {ThemeConsumerService} from "./theme-consumer-service";
 
 @Component({
-  selector: 'app-example-module',
-  template: './example-module.html',
-  styleUrl: './example-module.scss',
+  selector: 'app-example-module-component',
+  template: './example-module-component.html',
+  styleUrl: './example-module-component.scss',
 })
 export class ExampleModuleComponent {
   private readonly navigationConsumerService = inject(NavigationConsumerService);

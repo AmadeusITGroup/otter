@@ -44,7 +44,7 @@ A component will have to handle different types of configurations.
 
 ### Default configuration
 
-- Each __configurable component__ will have a default configuration which will be defined in the `.config.ts` file associated to the component
+- Each __configurable component__ will have a default configuration which will be defined in the `-config.ts` file associated to the component
 
 > [!WARNING]
 > The field name `id` should not be used in the configuration, as we use this field in our internal implementation.
@@ -109,7 +109,7 @@ A block component class should specify `'Block'` for `componentType` in the `@O3
   componentType: 'Block'
 })
 @Component({
-  selector: 'o3r-block',
+  selector: 'o3r-block-component',
   template: ''
 })
 export class BlockComponent {}
@@ -123,7 +123,7 @@ __Page configuration__: Each page component class should specify `'Page'` for `c
   componentType: 'Page'
 })
 @Component({
-  selector: 'o3r-page',
+  selector: 'o3r-page-component',
   template: ''
 })
 export class PageComponent {}
@@ -157,17 +157,17 @@ ng g component ComponentName --use-otter-config
 ### To generate configuration in an existing component
 
 ```shell
-ng g @o3r/configuration:add-config --path="/path/to/the/component/class.component.ts"
+ng g @o3r/configuration:add-config --path="/path/to/the/component/class.ts"
 ```
 
 
-## Configuration file (*.config.ts)
+## Configuration file (*-config.ts)
 
-You need to implement `Configuration` in the dedicated file of the component (`*.config.ts`).
+You need to implement `Configuration` in the dedicated file of the component (`*-config.ts`).
 The configuration should extend the interface of the configuration that is supported by the extractor.
 
 > [!NOTE]
-> The Otter VSCode extension offers a command to add configuration to an existing component. To do so, right-click a component file (ending with *.component.ts),
+> The Otter VSCode extension offers a command to add configuration to an existing component. To do so, right-click a component file,
 > select "Enrich Otter component", then the option "Add configuration to component".
 
 It can also contain nested configurations which need to extend `NestedConfiguration`.
@@ -395,7 +395,7 @@ export interface SimpleHeaderPresConfig extends Configuration {
 }
 ```
 
-## Component file (*.component.ts)
+## Component file
 
 ### Observable
 
@@ -548,17 +548,17 @@ export class App implements OnInit, OnDestroy {
 ## Naming convention
 
 | Attribute                   | Pattern     |
-| --------------------------- | ----------- |
-| **Configuration file name** | *.config.ts |
+| --------------------------- |-------------|
+| **Configuration file name** | *-config.ts |
 | **Configuration name**      | *Config     |
 
 ## Key takeaways
 
 The configuration mechanism is based on the __Configuration Service__ and __Extractors__.
 
-The __Default configuration__ for a component is the one taken from the `.config.ts` file associated to that component.
+The __Default configuration__ for a component is the one taken from the `-config.ts` file associated to that component.
 
-- The configuration metadata is extracted and computed from the `.config.ts` file of each component.
+- The configuration metadata is extracted and computed from the `-config.ts` file of each component.
 
 The __Static configuration__ is the one injected in the `index.html` of the application.
 
