@@ -110,12 +110,14 @@ jobs:
   checks:
     uses: ./.github/workflows/code-check.yml
     needs: [ yarn_lock_check, setupVars ]
+    env:
+      NX_SKIP_REMOTE_CACHE: ${{ needs.setupVars.outputs.skipNxRemoteCache  == 'true' }}
     secrets:
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
     with:
       affected: ${{ github.event_name == 'pull_request' }}
       skipNxCache: ${{ vars.NX_SKIP_NX_CACHE == 'true' || github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release') && !endsWith(github.ref, '-next') }}
-      skipNxRemoteCache: ${{ needs.setupVars.outputs.skipNxRemoteCache  == 'true' }}
+      skipNxRemoteCache: ${{ env.NX_SKIP_REMOTE_CACHE }}
 
   it-tests:
     uses: ./.github/workflows/it-tests.yml
