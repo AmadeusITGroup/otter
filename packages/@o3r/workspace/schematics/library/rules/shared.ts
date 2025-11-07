@@ -46,7 +46,7 @@ export function updatePackageDependenciesFactory(
     packageJson.devDependencies = {
       ...packageJson.devDependencies,
       ...Object.fromEntries(Object.entries({
-        '@angular-devkit/build-angular': o3rWorkspacePackageJson.generatorDependencies!['@angular-devkit/core'],
+        '@angular-devkit/build-angular': o3rWorkspacePackageJson.generatorDependencies!['@angular-devkit/build-angular'],
         '@angular-devkit/core': o3rWorkspacePackageJson.generatorDependencies!['@angular-devkit/core'],
         '@angular-eslint/eslint-plugin': o3rWorkspacePackageJson.generatorDependencies!['@angular-eslint/eslint-plugin'],
         '@angular/cli': packageJson.peerDependencies['@angular/common'],
@@ -62,7 +62,6 @@ export function updatePackageDependenciesFactory(
         ...options.useJest
           ? {
             '@angular-builders/jest': o3rWorkspacePackageJson.generatorDependencies!['@angular-builders/jest'],
-            '@angular-devkit/build-angular': o3rWorkspacePackageJson.generatorDependencies!['@angular-devkit/build-angular'],
             '@types/jest': o3rWorkspacePackageJson.generatorDependencies!['@types/jest'],
             jest: o3rWorkspacePackageJson.generatorDependencies!.jest,
             'jest-environment-jsdom': o3rWorkspacePackageJson.generatorDependencies!['jest-environment-jsdom'],
@@ -70,7 +69,9 @@ export function updatePackageDependenciesFactory(
             'jest-preset-angular': o3rWorkspacePackageJson.generatorDependencies!['jest-preset-angular'],
             'ts-jest': o3rWorkspacePackageJson.generatorDependencies!['ts-jest']
           }
-          : {},
+          : {
+            '@types/jasmine': o3rWorkspacePackageJson.generatorDependencies!['@types/jasmine']
+          },
         rxjs: o3rWorkspacePackageJson.peerDependencies!.rxjs,
         typescript: o3rWorkspacePackageJson.peerDependencies!.typescript,
         'zone.js': o3rWorkspacePackageJson.generatorDependencies!['zone.js']

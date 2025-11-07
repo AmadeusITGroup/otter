@@ -70,9 +70,9 @@ import {
  * This function is called by VSCode when the extension is activated.
  * @param context
  */
-export async function activate(context: ExtensionContext) {
+export function activate(context: ExtensionContext) {
   const channel = window.createOutputChannel('Otter');
-  const o3rChatParticipant = chat.createChatParticipant('o3r-chat-participant', await chatParticipantHandler(context, channel));
+  const o3rChatParticipant = chat.createChatParticipant('o3r-chat-participant', chatParticipantHandler(context, channel));
   o3rChatParticipant.iconPath = Uri.joinPath(context.extensionUri, 'assets', 'logo-128x128.png');
   const designTokenProviders = designTokenCompletionItemAndHoverProviders();
   // eslint-disable-next-line unicorn/prefer-event-target -- using EventEmitter from vscode

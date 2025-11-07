@@ -7,6 +7,7 @@ const angular = require('angular-eslint');
 const importPlugin = require('eslint-plugin-import');
 const jsdoc = require('eslint-plugin-jsdoc');
 const unicorn = require('eslint-plugin-unicorn');
+const globals = require('globals');
 const typescript = require('typescript-eslint');
 const commentsConfigOverrides = require('./typescript/comments.cjs');
 const angularConfigOverrides = require('./typescript/eslint-angular.cjs');
@@ -23,28 +24,18 @@ const stylisticConfig = require('./typescript/stylistic.cjs');
 const unicornConfig = require('./typescript/unicorn.cjs');
 const unusedImportsConfig = require('./typescript/unused-imports.cjs');
 
-/**
- * Get the jest config if dependency is present
- * @param {'recommended' | 'overrides'} type
- * @returns {import('@typescript-eslint/utils').TSESLint.FlatConfig.ConfigArray} config
- */
-const getJestConfig = (type) => {
+const checkDependency = (packageName) => {
   try {
-    require.resolve('jest');
-    return type === 'overrides'
-      ? require('./typescript/jest.cjs')
-      : [{
-        // Name added for debugging purpose with @eslint/config-inspector
-        name: 'jest/flat-recommended',
-        files: [
-          '**/*.{c,m,}{t,j}s'
-        ],
-        ...require('eslint-plugin-jest').configs['flat/recommended']
-      }];
+    require.resolve(packageName);
   } catch {
-    return [];
+    return false;
   }
+  return true;
 };
+
+const hasPlaywrightInstalled = checkDependency('@playwright/test');
+
+const hasJestDependency = checkDependency('jest');
 
 /**
  * @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.ConfigArray}
@@ -87,7 +78,17 @@ const configArray = [
     ],
     ...unicorn.default.configs.recommended
   },
-  ...(getJestConfig('recommended')),
+  ...(hasJestDependency
+    ? [{
+      // Name added for debugging purpose with @eslint/config-inspector
+      name: 'jest/flat-recommended',
+      files: [
+        '**/*.{c,m,}{t,j}s'
+      ],
+      ...require('eslint-plugin-jest').configs['flat/recommended']
+    }]
+    : []
+  ),
   {
     // Name added for debugging purpose with @eslint/config-inspector
     name: 'import/recommended',
@@ -107,7 +108,18 @@ const configArray = [
   ...typescriptConfigOverrides,
   ...angularConfigOverrides,
   ...jsdocConfigOverrides,
-  ...(getJestConfig('overrides')),
+  ...(hasJestDependency
+    ? require('./typescript/jest.cjs')
+    : [{
+      name: '@o3r/eslint-config/typescript/jasmine-globals',
+      files: ['**/*.{c,m,}ts'],
+      languageOptions: {
+        globals: {
+          ...globals.jasmine
+        }
+      }
+    }]
+  ),
   ...preferArrowConfig,
   ...stylisticConfig,
   ...unicornConfig,
@@ -132,7 +144,33 @@ const configArray = [
         }
       }
     }
-  }
+  }, {
+    name: '@o3r/eslint-config/node-files',
+    files: [
+      '**/schematics/**/*.{j,t}s',
+      ...hasJestDependency ? ['**/jest.config.{c,m,}{j,t}s'] : []
+    ],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+        NodeJS: true
+      }
+    }
+  },
+  ...hasPlaywrightInstalled
+    ? [{
+      name: '@o3r/eslint-config/e2e-playwright',
+      files: [
+        '**/e2e-playwright/**/*.{j,t}s'
+      ],
+      languageOptions: {
+        globals: {
+          ...globals.node,
+          NodeJS: true
+        }
+      }
+    }]
+    : []
 ];
 
 module.exports = configArray;

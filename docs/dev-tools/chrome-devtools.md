@@ -58,7 +58,7 @@ import { StylingDevtoolsModule } from '@o3r/styling';
 export class AppModule {}
 ```
 
-Then the activation of the services can be done in the `AppComponent` as follows:
+Then the activation of the services can be done in the `App` as follows:
 
 ```typescript
 import { ApplicationDevtoolsMessageService } from '@o3r/application';
@@ -71,7 +71,7 @@ import { StylingDevtoolsMessageService } from '@o3r/styling';
 @Component({
   selector: 'app'
 })
-export class AppComponent {
+export class App {
   constructor(
     applicationDevtoolsMessageService: ApplicationDevtoolsMessageService,
     componentsDevtoolsMessageService: ComponentsDevtoolsMessageService,

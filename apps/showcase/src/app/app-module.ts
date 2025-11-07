@@ -94,11 +94,11 @@ import {
   markedAlert,
 } from '../helpers/marked-alert-extension';
 import {
-  AppRoutingModule,
-} from './app-routing.module';
+  App,
+} from './app';
 import {
-  AppComponent,
-} from './app.component';
+  AppRoutingModule,
+} from './app-routing-module';
 
 const runtimeChecks = {
   strictActionImmutability: false,
@@ -143,7 +143,7 @@ export function localizationConfigurationFactory(): Partial<LocalizationConfigur
 
 @NgModule({
   declarations: [
-    AppComponent
+    App
   ],
   imports: [
     BrowserModule,
@@ -201,6 +201,6 @@ export function localizationConfigurationFactory(): Partial<LocalizationConfigur
     }),
     { provide: NGX_MONACO_EDITOR_CONFIG, useValue: { baseUrl: `${location.origin}${location.pathname}assets/monaco/min/vs` } }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [App]
 })
 export class AppModule {}
