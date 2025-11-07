@@ -31,7 +31,7 @@ import {
   type OpenApiToolsGenerator,
   SPEC_JSON_EXTENSION,
   SPEC_YAML_EXTENSION,
-} from '../src/public_api';
+} from '@ama-sdk/schematics';
 
 const argv = minimist(process.argv.slice(2));
 const packageName = argv._[0];
