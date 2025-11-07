@@ -87,6 +87,13 @@ const updatePackageJson = async (scopeName) => {
   await writeFile(packageJsonPath, JSON.stringify(packageJson, null, 2) + '\n');
 };
 
+const updateMcp = async (scopeName) => {
+  const path = resolve(root, 'packages/@ama-mcp/otter/src/utils/index.ts');
+  const content = await readFile(path, { encoding: 'utf8' });
+  const newContent = content.replace(/(const\s*NPM_PACKAGES_SCOPES\s*=\s*\[)(\s*)([^]]*\])/m, `$1$2'${scopeName}',$2$3`);
+  await writeFile(path, newContent);
+};
+
 (() => {
   if (!scopeName) {
     throw new Error('No scope name provided');
@@ -97,6 +104,7 @@ const updatePackageJson = async (scopeName) => {
     updateItTestWorkflow(scopeName),
     updateNpmrcPr(scopeName),
     updateRenovateGroup(scopeName),
-    updatePackageJson(scopeName)
+    updatePackageJson(scopeName),
+    updateMcp(scopeName)
   ]);
 })();

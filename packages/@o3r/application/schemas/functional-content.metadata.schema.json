@@ -91,6 +91,10 @@
                   "type": "string",
                   "description": "Unique name of the definition in the section (which can be referenced by the rootReference property)"
                 },
+                "title": {
+                  "type": "string",
+                  "description": "Title to display to the CMS user"
+                },
                 "properties": {
                   "type": "array",
                   "description": "Array of properties of this definition",
@@ -152,6 +156,17 @@
           }
         }
       }
+    },
+    "dataSources": {
+      "type": "object",
+      "description": "Map of data sources that can be used to populate the choices of enum/string properties",
+      "additionalProperties": {
+        "type": "array",
+        "description": "Array of object to define the data source items",
+        "items": {
+          "$ref": "#/definitions/choiceItem"
+        }
+      }
     }
   },
   "definitions": {
@@ -169,28 +184,15 @@
       "description": "Array of object to define the choices for a property",
       "minItems": 1,
       "items": {
-        "type": "object",
-        "required": [
-          "key",
-          "title"
-        ],
-        "properties": {
-          "key": {
-            "type": "string"
-          },
-          "title": {
-            "type": "string"
-          }
-        }
+        "$ref": "#/definitions/choiceItem"
       }
     },
     "enumProperty": {
       "type": "object",
-      "description": "Type of the property (enum)",
+      "description": "Type of the property (enum). The enum values can be defined in the choices array or can be fetched from a data source specified in the widget parameter 'dataSource'",
       "required": [
         "valueType",
-        "collectionType",
-        "choices"
+        "collectionType"
       ],
       "additionalProperties": false,
       "properties": {
@@ -322,6 +324,24 @@
           }
         }
       }
+    },
+    "choiceItem": {
+      "type": "object",
+      "description": "A choice item",
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "The key of the choice item"
+        },
+        "title": {
+          "type": "string",
+          "description": "The title of the choice item"
+        }
+      },
+      "required": [
+        "key",
+        "title"
+      ]
     }
   }
 }

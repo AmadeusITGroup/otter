@@ -9,17 +9,6 @@
       "command": "npx",
       "args": ["@angular/cli", "mcp"]
     },
-    "o3r-docs": {
-      "type": "stdio",
-      "command": "npx",
-      "args": [
-        "-y",
-        "@buger/docs-mcp",
-        "--gitUrl", "https://github.com/AmadeusITGroup/otter",
-        "--toolName", "search_otter_docs",
-        "--toolDescription", "Search in Otter documentation using the probe search engine."
-      ]
-    },
     "o3r": {
       "type": "stdio",
       "command": "npx",
@@ -30,6 +19,13 @@
       "args": [
         "node",
         "./tools/@o3r/mcp/dist/cli/index.js"
+      ]
+    },
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@playwright/mcp"
       ]
     }
   }

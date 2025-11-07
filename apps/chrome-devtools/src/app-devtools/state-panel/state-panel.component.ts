@@ -1,5 +1,4 @@
 import {
-  JsonPipe,
   KeyValuePipe,
   NgClass,
 } from '@angular/common';
@@ -103,7 +102,6 @@ const createStateForm = (name: string, color?: string | null) => new FormGroup<S
   encapsulation: ViewEncapsulation.None,
   imports: [
     KeyValuePipe,
-    JsonPipe,
     ReactiveFormsModule,
     FormsModule,
     DfTriggerClickDirective,
