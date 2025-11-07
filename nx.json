@@ -17,17 +17,23 @@
     }
   },
   "namedInputs": {
+    "sharedGlobals": [
+      "{workspaceRoot}/yarn.lock",
+      "{workspaceRoot}/tsconfig.base.json",
+      "{workspaceRoot}/nx.json",
+      "{workspaceRoot}/.nxignore",
+      {
+        "runtime": "node -p 'process.versions.node.split(\".\")[0]'"
+      }
+    ],
     "project": [
       "{projectRoot}/package.json",
       "{projectRoot}/project.json"
     ],
     "base": [
       "project",
-      "{workspaceRoot}/yarn.lock",
-      "{workspaceRoot}/tsconfig.base.json",
+      "sharedGlobals",
       "{workspaceRoot}/tsconfig.build.json",
-      "{workspaceRoot}/nx.json",
-      "{workspaceRoot}/.nxignore",
       "{workspaceRoot}/tools/@o3r/build-helpers/scripts/*.mjs"
     ],
     "source": [
