@@ -229,7 +229,7 @@
     "concurrently": "^9.1.0",
     "cpy-cli": "^6.0.0",
     "editorconfig-checker": "^6.0.1",
-    "eslint": "~9.38.0",
+    "eslint": "~9.39.0",
     "eslint-import-resolver-node": "~0.3.9",
     "eslint-import-resolver-typescript": "~4.4.0",
     "eslint-plugin-import": "~2.32.0",

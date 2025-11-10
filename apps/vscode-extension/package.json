@@ -401,7 +401,7 @@
     "@o3r/design": "workspace:~",
     "@o3r/telemetry": "workspace:~",
     "@vscode/chat-extension-utils": "0.0.0-alpha.5",
-    "eslint": "~9.38.0"
+    "eslint": "~9.39.0"
   },
   "peerDependencies": {
     "@types/vscode": "^1.100.0"
