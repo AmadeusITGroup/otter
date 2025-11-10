@@ -9,6 +9,9 @@ import {
   RouterModule,
 } from '@angular/router';
 import {
+  NgbScrollSpyService,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
   provideMarkdown,
 } from 'ngx-markdown';
 import {
@@ -21,15 +24,23 @@ import {
 describe('ComponentReplacement', () => {
   let component: ComponentReplacement;
   let fixture: ComponentFixture<ComponentReplacement>;
+  let mockScrollSpyService: Partial<NgbScrollSpyService>;
 
   beforeEach(async () => {
+    mockScrollSpyService = {
+      start: jest.fn(),
+      stop: jest.fn()
+    };
     await TestBed.configureTestingModule({
       imports: [
         ComponentReplacement,
         RouterModule.forRoot([]),
         AsyncPipe
       ],
-      providers: [provideMarkdown()]
+      providers: [
+        { provide: NgbScrollSpyService, useValue: mockScrollSpyService },
+        provideMarkdown()
+      ]
     }).overrideComponent(ComponentReplacement, {
       remove: { imports: [ComponentReplacementPres] }
     }).compileComponents();

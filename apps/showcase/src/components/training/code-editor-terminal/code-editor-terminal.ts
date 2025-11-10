@@ -8,7 +8,7 @@ import {
   EventEmitter,
   inject,
   Output,
-  ViewChild,
+  viewChild,
 } from '@angular/core';
 import {
   FitAddon,
@@ -36,8 +36,7 @@ export class CodeEditorTerminal implements AfterViewChecked, AfterViewInit {
   /**
    * HTML reference to the terminal container in the CodeEditorTerminal component
    */
-  @ViewChild('terminal')
-  public terminalEl!: ElementRef<HTMLDivElement>;
+  public terminalEl = viewChild.required<ElementRef<HTMLDivElement>>('terminal');
 
   /**
    * Inform the parent that the terminal of the component has been created and is ready to use as input/output
@@ -74,7 +73,7 @@ export class CodeEditorTerminal implements AfterViewChecked, AfterViewInit {
    * Create terminal instance and share the information with the component parent
    */
   private initTerminal() {
-    this.terminal.open(this.terminalEl.nativeElement);
+    this.terminal.open(this.terminalEl().nativeElement);
     this.terminalUpdated.emit(this.terminal);
   }
 

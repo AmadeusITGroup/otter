@@ -6,8 +6,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   inject,
-  QueryList,
-  ViewChildren,
+  viewChildren,
   ViewEncapsulation,
 } from '@angular/core';
 import {
@@ -115,14 +114,12 @@ export class RulesEngine implements AfterViewInit {
   private readonly inPageNavPresService = inject(InPageNavPresService);
   private readonly dynamicContentService = inject(DynamicContentService);
   private readonly rulesEngineService = inject(RulesEngineRunnerService);
+  private readonly inPageNavLinkDirectives = viewChildren<InPageNavLink>(InPageNavLinkDirective);
 
   public newYorkAvailableRule = '';
   public helloNewYorkRule = '';
   public summerOtterRule = '';
   public lateOtterRule = '';
-
-  @ViewChildren(InPageNavLinkDirective)
-  private readonly inPageNavLinkDirectives!: QueryList<InPageNavLink>;
 
   public links$ = this.inPageNavPresService.links$;
 
@@ -176,7 +173,7 @@ export class RulesEngine implements AfterViewInit {
   }
 
   public ngAfterViewInit() {
-    this.inPageNavPresService.initialize(this.inPageNavLinkDirectives);
+    this.inPageNavPresService.initialize(this.inPageNavLinkDirectives());
   }
 
   public activateRuleTab(tab: string) {

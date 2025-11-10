@@ -3,6 +3,9 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import {
+  NgbScrollSpyService,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
   EffectsModule,
 } from '@ngrx/effects';
 import {
@@ -21,8 +24,13 @@ import {
 describe('Placeholder', () => {
   let component: Placeholder;
   let fixture: ComponentFixture<Placeholder>;
+  let mockScrollSpyService: Partial<NgbScrollSpyService>;
 
   beforeEach(async () => {
+    mockScrollSpyService = {
+      start: jest.fn(),
+      stop: jest.fn()
+    };
     await TestBed.configureTestingModule({
       imports: [
         Placeholder,
@@ -31,6 +39,7 @@ describe('Placeholder', () => {
         RulesEngineRunnerModule.forRoot()
       ],
       providers: [
+        { provide: NgbScrollSpyService, useValue: mockScrollSpyService },
         provideDynamicContent()
       ]
     }).compileComponents();
