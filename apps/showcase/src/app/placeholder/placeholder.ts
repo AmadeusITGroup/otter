@@ -6,8 +6,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   inject,
-  type QueryList,
-  ViewChildren,
+  viewChildren,
   ViewEncapsulation,
 } from '@angular/core';
 import {
@@ -71,9 +70,7 @@ export class Placeholder implements AfterViewInit {
   private readonly inPageNavPresService = inject(InPageNavPresService);
   private readonly dynamicContentService = inject(DynamicContentService);
   private readonly store = inject(Store<RulesetsStore>);
-
-  @ViewChildren(InPageNavLinkDirective)
-  private readonly inPageNavLinkDirectives!: QueryList<InPageNavLink>;
+  private readonly inPageNavLinkDirectives = viewChildren<InPageNavLink>(InPageNavLinkDirective);
 
   public links$ = this.inPageNavPresService.links$;
 
@@ -99,6 +96,6 @@ export class Placeholder implements AfterViewInit {
   }
 
   public ngAfterViewInit() {
-    this.inPageNavPresService.initialize(this.inPageNavLinkDirectives);
+    this.inPageNavPresService.initialize(this.inPageNavLinkDirectives());
   }
 }

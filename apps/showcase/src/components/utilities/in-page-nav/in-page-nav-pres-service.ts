@@ -1,14 +1,10 @@
 import {
   Injectable,
-  QueryList,
 } from '@angular/core';
 import {
+  BehaviorSubject,
   delay,
-  map,
   shareReplay,
-  startWith,
-  Subject,
-  switchMap,
 } from 'rxjs';
 import {
   InPageNavLink,
@@ -18,14 +14,10 @@ import {
   providedIn: 'root'
 })
 export class InPageNavPresService {
-  private readonly linksSubject = new Subject<QueryList<InPageNavLink>>();
+  private readonly linksSubject = new BehaviorSubject<readonly InPageNavLink[]>([]);
 
   /** Observable of links */
   public links$ = this.linksSubject.pipe(
-    switchMap((inPageNavLinkDirectives) => inPageNavLinkDirectives.changes.pipe(
-      startWith([]),
-      map(() => inPageNavLinkDirectives.toArray())
-    )),
     delay(0), // Delay needed else ExpressionChangedAfterItHasBeenCheckedError throws
     shareReplay(1)
   );
@@ -34,7 +26,7 @@ export class InPageNavPresService {
    * Initialize the navigation links list
    * @param inPageNavLinkDirectives
    */
-  public initialize(inPageNavLinkDirectives: QueryList<InPageNavLink>) {
+  public initialize(inPageNavLinkDirectives: readonly InPageNavLink[]) {
     this.linksSubject.next(inPageNavLinkDirectives);
   }
 }
