@@ -56,7 +56,7 @@ describe('ResizeConsumerService', () => {
       }
     };
     resizeHandlerService.supportedVersions['1.0'](resizeMessage);
-    expect(resizeHandlerService.newHeightFromChannel()).toEqual({ height: 500, channelId: 'test' });
+    expect(resizeHandlerService.heightPx()).toEqual(500);
   });
 
   it('should have the correct message type', () => {
