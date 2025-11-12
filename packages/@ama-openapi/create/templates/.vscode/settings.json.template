@@ -1,0 +1,12 @@
+{
+  "editor.defaultFormatter": "42Crunch.vscode-openapi",
+  "files.readonlyFromPermissions": true,
+  "files.readonlyInclude": {
+    "**/.cache/**": true,
+    "**/node_modules/**": true,
+    "**/<%- externalModelPath %>/**/*.{json,yaml,yml}": true
+  },
+  "explorer.fileNesting.patterns": {
+    "package.json": "package-lock.json, openapi.manifest.yaml"
+  }
+}

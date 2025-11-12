@@ -57,7 +57,8 @@
     "*.json5": "jsonc"
   },
   "files.exclude": {
-    "**/.git": true
+    "**/.git": true,
+    "**/.cache": true
   },
   "files.readonlyExclude": {
     "**/packages/@*/*sdk/src/api/*/index.ts": true,
@@ -90,7 +91,6 @@
     "**/build/**": true,
     "**/node_modules/**": true
   },
-  "java.configuration.updateBuildConfiguration": "interactive",
   "jest.debugMode": true,
   "jest.jestCommandLine": "yarn jest",
   "npm.packageManager": "yarn",

@@ -60,8 +60,12 @@ fields
   .forEach(({ field, path }) => packageJson[field] = path);
 
 if (packageJson.bin) {
-  Object.keys(packageJson.bin)
-    .forEach((cli) => packageJson.bin[cli] = updateField('cli', packageJson.bin[cli]).path);
+  if (typeof packageJson.bin === 'string') {
+    packageJson.bin = updateField('cli', packageJson.bin).path;
+  } else {
+    Object.keys(packageJson.bin)
+      .forEach((cli) => packageJson.bin[cli] = updateField('cli', packageJson.bin[cli]).path);
+  }
 }
 
 if (packageJson.cmsMetadata) {
