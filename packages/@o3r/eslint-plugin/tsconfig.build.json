@@ -10,7 +10,8 @@
     "types": ["node"],
     "baseUrl": ".",
     "outDir": "dist",
-    "module": "CommonJS"
+    "module": "CommonJS",
+    "moduleResolution": "node10"
   },
   "include": [
     "src/**/*.ts"

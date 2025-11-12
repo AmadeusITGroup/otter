@@ -1,5 +1,4 @@
 import {
-  DOCUMENT,
   JsonPipe,
   KeyValuePipe,
   NgClass,
@@ -7,6 +6,7 @@ import {
 import {
   ChangeDetectionStrategy,
   Component,
+  DOCUMENT,
   effect,
   type ElementRef,
   inject,

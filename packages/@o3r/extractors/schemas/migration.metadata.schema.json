@@ -24,9 +24,24 @@
       "description": "List of all the changes contained in this version",
       "items": {
         "oneOf": [
-          { "$ref": "#/definitions/ConfigChange" },
-          { "$ref": "#/definitions/LocalizationChange" },
-          { "$ref": "#/definitions/StyleChange" }
+          {
+            "$ref": "#/definitions/ConfigChange"
+          },
+          {
+            "$ref": "#/definitions/LocalizationChange"
+          },
+          {
+            "$ref": "#/definitions/StyleChange"
+          },
+          {
+            "$ref": "#/definitions/AssetChange"
+          },
+          {
+            "$ref": "#/definitions/ComponentChange"
+          },
+          {
+            "$ref": "#/definitions/RuleFactChange"
+          }
         ]
       }
     }
@@ -34,7 +49,9 @@
   "definitions": {
     "ConfigMigrationItem": {
       "type": "object",
-      "required": ["libraryName"],
+      "required": [
+        "libraryName"
+      ],
       "properties": {
         "libraryName": {
           "type": "string",
@@ -52,7 +69,9 @@
     },
     "LocalizationMigrationItem": {
       "type": "object",
-      "required": ["key"],
+      "required": [
+        "key"
+      ],
       "properties": {
         "key": {
           "type": "string",
@@ -62,11 +81,57 @@
     },
     "StyleMigrationItem": {
       "type": "object",
-      "required": ["name"],
+      "required": [
+        "name"
+      ],
       "properties": {
         "name": {
           "type": "string",
           "description": "CSS variable name"
+        }
+      }
+    },
+    "AssetMigrationItem": {
+      "type": "object",
+      "required": [
+        "path"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "Path of the asset, starting from the root assets folder"
+        }
+      }
+    },
+    "ComponentMigrationItem": {
+      "type": "object",
+      "required": [
+        "libraryName"
+      ],
+      "properties": {
+        "libraryName": {
+          "type": "string",
+          "description": "Library name"
+        },
+        "componentName": {
+          "type": "string",
+          "description": "Component name"
+        },
+        "placeholderId": {
+          "type": "string",
+          "description": "Placeholder id"
+        }
+      }
+    },
+    "RuleFactMigrationItem": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the fact"
         }
       }
     },
@@ -133,6 +198,72 @@
         "after": {
           "description": "New metadata value",
           "$ref": "#/definitions/StyleMigrationItem"
+        }
+      }
+    },
+    "AssetChange": {
+      "type": "object",
+      "required": [
+        "contentType",
+        "before"
+      ],
+      "properties": {
+        "contentType": {
+          "type": "string",
+          "description": "Metadata type",
+          "const": "ASSET"
+        },
+        "before": {
+          "description": "Previous metadata value",
+          "$ref": "#/definitions/AssetMigrationItem"
+        },
+        "after": {
+          "description": "New metadata value",
+          "$ref": "#/definitions/AssetMigrationItem"
+        }
+      }
+    },
+    "ComponentChange": {
+      "type": "object",
+      "required": [
+        "contentType",
+        "before"
+      ],
+      "properties": {
+        "contentType": {
+          "type": "string",
+          "description": "Metadata type",
+          "const": "COMPONENT"
+        },
+        "before": {
+          "description": "Previous metadata value",
+          "$ref": "#/definitions/ComponentMigrationItem"
+        },
+        "after": {
+          "description": "New metadata value",
+          "$ref": "#/definitions/ComponentMigrationItem"
+        }
+      }
+    },
+    "RuleFactChange": {
+      "type": "object",
+      "required": [
+        "contentType",
+        "before"
+      ],
+      "properties": {
+        "contentType": {
+          "type": "string",
+          "description": "Metadata type",
+          "const": "RULE_FACT"
+        },
+        "before": {
+          "description": "Previous metadata value",
+          "$ref": "#/definitions/RuleFactMigrationItem"
+        },
+        "after": {
+          "description": "New metadata value",
+          "$ref": "#/definitions/RuleFactMigrationItem"
         }
       }
     }

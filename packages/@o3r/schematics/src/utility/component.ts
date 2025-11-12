@@ -84,7 +84,7 @@ export const getO3rComponentInfoOrThrowIfNotFound = (tree: Tree, componentPath: 
   }
 
   const selectorExpression = getPropertyFromDecoratorFirstArgument(
-    ts.getDecorators(ngComponentDeclaration)?.find(isNgClassDecorator)!,
+    ts.getDecorators(ngComponentDeclaration)?.find((decorator) => isNgClassDecorator(decorator))!,
     'selector'
   );
 
@@ -97,14 +97,14 @@ export const getO3rComponentInfoOrThrowIfNotFound = (tree: Tree, componentPath: 
   }
 
   const standaloneExpression = getPropertyFromDecoratorFirstArgument(
-    ts.getDecorators(ngComponentDeclaration)?.find(isNgClassDecorator)!,
+    ts.getDecorators(ngComponentDeclaration)?.find((decorator) => isNgClassDecorator(decorator))!,
     'standalone'
   );
 
   const standalone = standaloneExpression?.kind !== ts.SyntaxKind.FalseKeyword;
 
   const templateUrlExpression = getPropertyFromDecoratorFirstArgument(
-    ts.getDecorators(ngComponentDeclaration)?.find(isNgClassDecorator)!,
+    ts.getDecorators(ngComponentDeclaration)?.find((decorator) => isNgClassDecorator(decorator))!,
     'templateUrl'
   );
 

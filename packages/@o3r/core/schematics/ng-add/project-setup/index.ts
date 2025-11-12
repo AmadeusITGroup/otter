@@ -18,6 +18,7 @@ import {
   updateAdditionalModules,
   updateCustomizationEnvironment,
   updateOtterEnvironmentAdapter,
+  updatePackageJson,
   updateStore,
 } from '../../rule-factories/index';
 import type {
@@ -83,6 +84,7 @@ export const prepareProject = (options: NgAddSchematicsSchema, dependenciesSetup
     updateOtterEnvironmentAdapter(optionsAndWorkingDir, coreSchematicsFolder),
     updateStore(optionsAndWorkingDir, projectType),
     options.enableCustomization && projectType === 'application' ? updateCustomizationEnvironment(coreSchematicsFolder, o3rCoreVersion, optionsAndWorkingDir, false) : noop,
+    updatePackageJson(dependenciesSetupConfig, ['@angular/animations', '@angular/platform-browser-dynamic'], [], options.projectName),
     projectType === 'application' ? updateAdditionalModules(optionsAndWorkingDir, dependenciesSetupConfig) : noop,
     removePackages(packagesToRemove),
     o3rBasicUpdates(options.projectName, o3rCoreVersion, projectType),

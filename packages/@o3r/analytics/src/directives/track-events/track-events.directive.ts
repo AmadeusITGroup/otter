@@ -1,9 +1,7 @@
 import {
   Directive,
-  ElementRef,
   Input,
   OnChanges,
-  Renderer2,
   SimpleChanges,
 } from '@angular/core';
 import {
@@ -13,9 +11,6 @@ import {
   EventContext,
   TrackEventName,
 } from '../../contracts';
-import {
-  EventTrackService,
-} from '../../services/event-track/event-track.service';
 import {
   BaseTrackEvents,
 } from './base-track-events';
@@ -53,10 +48,6 @@ export class TrackEventsDirective extends BaseTrackEvents implements OnChanges {
 
   /** The list of events to listen */
   @Input('trackEvents') public trackEventNames: TrackEventName[] = [];
-
-  constructor(el: ElementRef, trackEventsService: EventTrackService, renderer: Renderer2) {
-    super(el, trackEventsService, renderer);
-  }
 
   public ngOnChanges(changes: SimpleChanges) {
     if ('trackEventNames' in changes) {

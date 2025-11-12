@@ -5,6 +5,12 @@
     "rootDir": "src",
     "target": "ES2020"
   },
-  "include": ["src/**/*.ts"],
-  "exclude": ["**/*.spec.ts", "src/builders/**/*.ts", "src/helpers/**/*.ts"]
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "**/*.spec.ts",
+    "src/builders/**/*.ts",
+    "src/helpers/**/*.ts"
+  ]
 }

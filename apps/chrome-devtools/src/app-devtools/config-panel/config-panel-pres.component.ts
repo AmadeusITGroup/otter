@@ -4,6 +4,7 @@ import {
 import {
   ChangeDetectionStrategy,
   Component,
+  inject,
   ViewEncapsulation,
 } from '@angular/core';
 import {
@@ -55,7 +56,9 @@ export class ConfigPanelPresComponent {
     search: new FormControl('')
   });
 
-  constructor(connectionService: ChromeExtensionConnectionService) {
+  constructor() {
+    const connectionService = inject(ChromeExtensionConnectionService);
+
     connectionService.sendMessage(
       'requestMessages',
       {
