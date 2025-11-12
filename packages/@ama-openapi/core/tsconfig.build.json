@@ -12,7 +12,7 @@
   },
   "include": [
     "src/**/*.mts"
-, "src/core/manifest/extract-dependency-models.spec.ts", "src/core/transforms/rename.spec.ts", "src/core/transforms/to-reference.spec.ts", "src/core/transforms/update-references.spec.ts", "src/core/serialization.spec.ts", "src/core/process.spec.ts"  ],
+  ],
   "exclude": [
     "**/*.spec.ts"
   ]

@@ -6,7 +6,7 @@ import {
 } from 'js-yaml';
 
 /**
- * Check if the file is a JSON file
+ * Parse a file content based on its extension
  * @param filePath
  */
 export const isJsonFile = (filePath: string): boolean => {
@@ -14,7 +14,7 @@ export const isJsonFile = (filePath: string): boolean => {
 };
 
 /**
- *n Parse a file content based on its extension
+ * Parse a file content based on its extension
  * @param filePath
  */
 export const parseFile = async <S,>(filePath: string): Promise<S> => {

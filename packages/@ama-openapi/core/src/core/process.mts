@@ -23,6 +23,9 @@ import {
 import {
   toReference,
 } from './transforms/to-reference.mjs';
+import type {
+  SpecificationFile,
+} from './transforms/transform.mjs';
 import {
   updateReferences,
 } from './transforms/update-references.mjs';
@@ -41,7 +44,7 @@ export const processModel = (models: Promise<RetrievedDependencyModel>[], contex
 
       const transforms = [toReference, addAnnotation, applyMask, updateReferences, renameTitle];
       const modelObj = await transforms.reduce(async (acc, transform) =>
-        transform(await acc, retrievedModel, context), Promise.resolve<object>(deserialize(retrievedModel.content, retrievedModel)));
+        transform(await acc, retrievedModel, context), Promise.resolve<SpecificationFile>(deserialize(retrievedModel.content, retrievedModel)));
       return {
         ...retrievedModel,
         content: serialize(modelObj, retrievedModel)

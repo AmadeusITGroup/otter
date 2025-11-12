@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/compodoc/compodoc/develop/src/config/schema.json",
-  "name": "Style Dictionary",
-  "output": "../../../generated-doc/style-dictionary",
+  "name": "Ama OpenApi Core",
+  "output": "../../../generated-doc/ama-openapi-core",
   "tsconfig": "./tsconfig.doc.json",
   "assetsFolder": "../../../.attachments",
   "disableSourceCode": true,
