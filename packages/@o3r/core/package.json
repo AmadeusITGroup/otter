@@ -201,6 +201,8 @@
   "ng-update": {
     "migrations": "./migration.json",
     "packageGroup": [
+      "@ama-mfe/messages",
+      "@ama-mfe/ng-utils",
       "@ama-sdk/core",
       "@ama-sdk/schematics",
       "@ama-sdk/swagger-builder",

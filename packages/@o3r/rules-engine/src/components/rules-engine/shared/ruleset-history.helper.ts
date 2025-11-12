@@ -32,7 +32,7 @@ export const getStatus = (rulesetExecution: RulesetExecutionErrorEvent | Ruleset
  * @param rulesetMap
  */
 export const rulesetReportToHistory = (events: DebugEvent[], rulesetMap: Record<string, Ruleset>): RulesetExecutionDebug[] => {
-  const availableRulesets = (events.filter((e) => e.type === 'AvailableRulesets').reverse()[0])?.availableRulesets || [];
+  const availableRulesets = Object.values(rulesetMap);
   const lastActiveRulesets = (events.filter((e) => e.type === 'ActiveRulesets').reverse()[0])?.rulesets || [];
 
   return availableRulesets
