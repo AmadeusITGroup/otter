@@ -44,6 +44,8 @@
   },
   "tags": [
     "private",
-    "showcase"
+    "showcase",
+    "scope:o3r-training",
+    "type:sdk"
   ]
 }

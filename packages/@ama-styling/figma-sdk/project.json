@@ -28,5 +28,9 @@
     "prepare-publish": {},
     "publish": {},
     "documentation": {}
-  }
+  },
+  "tags": [
+    "scope:ama-styling",
+    "type:sdk"
+  ]
 }

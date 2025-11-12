@@ -25,5 +25,8 @@
     "prepare-publish": {},
     "publish": {}
   },
-  "tags": []
+  "tags": [
+    "scope:ama-terasu",
+    "type:schematics"
+  ]
 }

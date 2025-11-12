@@ -29,5 +29,8 @@
     "test-int": {},
     "publish": {}
   },
-  "tags": []
+  "tags": [
+    "scope:ama-sdk",
+    "type:create"
+  ]
 }

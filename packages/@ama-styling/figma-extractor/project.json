@@ -23,5 +23,8 @@
     "publish": {},
     "documentation": {}
   },
-  "tags": []
+  "tags": [
+    "scope:ama-styling",
+    "type:cli"
+  ]
 }

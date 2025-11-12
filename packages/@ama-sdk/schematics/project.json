@@ -90,5 +90,8 @@
     "prepare-publish": {},
     "publish": {}
   },
-  "tags": []
+  "tags": [
+    "scope:ama-sdk",
+    "type:schematics"
+  ]
 }

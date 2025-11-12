@@ -44,5 +44,8 @@
     "prepare-build-builders": {},
     "build-builders": {}
   },
-  "tags": []
+  "tags": [
+    "scope:ama-sdk",
+    "type:sdk-client"
+  ]
 }
