@@ -32,5 +32,8 @@
     "build-builders": {},
     "publish": {}
   },
-  "tags": []
+  "tags": [
+    "scope:o3r",
+    "type:configuration"
+  ]
 }

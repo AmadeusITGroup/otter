@@ -47,5 +47,8 @@
     "prepare-build-builders": {},
     "documentation": {}
   },
-  "tags": []
+  "tags": [
+    "scope:o3r",
+    "type:library"
+  ]
 }

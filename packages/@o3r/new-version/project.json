@@ -28,5 +28,9 @@
     "publish": {},
     "documentation": {}
   },
-  "tags": ["tools"]
+  "tags": [
+    "type:tools",
+    "scope:o3r",
+    "type:library"
+  ]
 }

@@ -38,5 +38,11 @@
     "prepare-publish": {},
     "publish": {}
   },
-  "tags": []
+  "tags": [
+    "scope:o3r",
+    "type:schematics",
+    "type:cli",
+    "type:library",
+    "workspace-required"
+  ]
 }

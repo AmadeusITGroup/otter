@@ -18,5 +18,8 @@
     "lint": {},
     "test": {}
   },
-  "tags": []
+  "tags": [
+    "scope:o3r",
+    "type:github-app"
+  ]
 }

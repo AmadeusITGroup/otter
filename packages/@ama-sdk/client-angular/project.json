@@ -47,6 +47,6 @@
   },
   "tags": [
     "scope:ama-sdk",
-    "type:sdl-client"
+    "type:sdk-client"
   ]
 }
