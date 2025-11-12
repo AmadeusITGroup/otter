@@ -174,55 +174,55 @@
         "command": "otter.generate.analytics-to-component",
         "title": "Add analytics to component",
         "category": "Otter",
-        "enablement": "resourceFilename =~ /.component.ts$/"
+        "enablement": "resourceFilename =~ /.ts$/"
       },
       {
         "command": "otter.generate.configuration-to-component",
         "title": "Add configuration to component",
         "category": "Otter",
-        "enablement": "resourceFilename =~ /.component.ts$/"
+        "enablement": "resourceFilename =~ /.ts$/"
       },
       {
         "command": "otter.generate.context-to-component",
         "title": "Add context to component",
         "category": "Otter",
-        "enablement": "resourceFilename =~ /.component.ts$/"
+        "enablement": "resourceFilename =~ /.ts$/"
       },
       {
         "command": "otter.generate.convert-component",
         "title": "Convert Angular component",
         "category": "Otter",
-        "enablement": "resourceFilename =~ /.component.ts$/"
+        "enablement": "resourceFilename =~ /.ts$/"
       },
       {
         "command": "otter.generate.fixture-to-component",
         "title": "Add fixture to component",
         "category": "Otter",
-        "enablement": "resourceFilename =~ /.component.ts$/"
+        "enablement": "resourceFilename =~ /.ts$/"
       },
       {
         "command": "otter.generate.iframe-to-component",
         "title": "Add iframe to component",
         "category": "Otter",
-        "enablement": "resourceFilename =~ /.component.ts$/"
+        "enablement": "resourceFilename =~ /.ts$/"
       },
       {
         "command": "otter.generate.localization-key-to-component",
         "title": "Add localization key to component",
         "category": "Otter",
-        "enablement": "editorHasSelection && resourceFilename =~ /.template.html$/"
+        "enablement": "editorHasSelection && resourceFilename =~ /.html$/"
       },
       {
         "command": "otter.generate.localization-to-component",
         "title": "Add localization to component",
         "category": "Otter",
-        "enablement": "resourceFilename =~ /.component.ts$/"
+        "enablement": "resourceFilename =~ /.ts$/"
       },
       {
         "command": "otter.generate.rules-engine-to-component",
         "title": "Add rules engine to component",
         "category": "Otter",
-        "enablement": "resourceFilename =~ /.component.ts$/"
+        "enablement": "resourceFilename =~ /.ts$/"
       },
       {
         "command": "otter.generate.theming-to-component",
@@ -290,7 +290,7 @@
       "otter.editor.context.submenu": [
         {
           "command": "otter.menu.generate.fixture",
-          "when": "editorHasSelection && resourceFilename =~ /template.html$/"
+          "when": "editorHasSelection && resourceFilename =~ /.html$/"
         },
         {
           "command": "otter.extract.styling.variable",

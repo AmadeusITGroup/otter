@@ -1,1 +1,1 @@
-export * from './save-code-dialog.component';
+export * from './save-code-dialog';

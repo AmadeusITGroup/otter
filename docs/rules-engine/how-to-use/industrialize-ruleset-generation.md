@@ -48,10 +48,10 @@ Declare it in your `angular.json` and run it as a script: `ng run my-project:ext
             "outputFactsDirectory": "",
             "outputOperatorsDirectory": "",
             "factFilePatterns": [
-              "src/**/!(portal)/*.facts.ts"
+              "src/**/!(portal)/*-facts.ts"
             ],
             "operatorFilePatterns": [
-              "src/operators/*.operators.ts"
+              "src/operators/*-operators.ts"
             ],
             "ignoreFactsFromLibraries": [
               "@o3r/rules-engine"

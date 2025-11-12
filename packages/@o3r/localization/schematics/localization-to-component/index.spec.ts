@@ -14,11 +14,11 @@ import {
 } from './index';
 
 const collectionPath = path.join(__dirname, '..', '..', 'collection.json');
-const o3rComponentPath = '/src/components/test/test.component.ts';
+const o3rComponentPath = '/src/components/test/test.ts';
 const specPath = '/src/components/test/test.spec.ts';
-const templatePath = '/src/components/test/test.template.html';
-const modulePath = '/src/components/test/test.module.ts';
-const ngComponentPath = '/src/components/ng/ng.component.ts';
+const templatePath = '/src/components/test/test.html';
+const modulePath = '/src/components/test/test-module.ts';
+const ngComponentPath = '/src/components/ng/ng.ts';
 
 describe('Add Localization', () => {
   let initialTree: Tree;
@@ -38,12 +38,12 @@ describe('Add Localization', () => {
         @Component({
           selector: 'o3r-test-pres',
           imports: [CommonModule],
-          styleUrls: ['./test.style.scss'],
-          templateUrl: './test.template.html',
+          styleUrls: ['./test.scss'],
+          templateUrl: './test.html',
           changeDetection: ChangeDetectionStrategy.OnPush,
           encapsulation: ViewEncapsulation.None
         })
-        export class TestComponent implements OnInit, OnDestroy {
+        export class Test implements OnInit, OnDestroy {
           /**
            * List of subscriptions to unsubscribe on destroy
            */
@@ -62,17 +62,17 @@ describe('Add Localization', () => {
       initialTree.create(templatePath, '<div>My HTML content</div>');
       initialTree.create(specPath, `
         import { ComponentFixture, TestBed } from '@angular/core/testing';
-        import { TestComponent } from './test.component';
+        import { Test } from './test';
 
-        describe('TestComponent', () => {
-          let component: TestComponent;
-          let fixture: ComponentFixture<TestComponent>;
+        describe('Test', () => {
+          let component: Test;
+          let fixture: ComponentFixture<Test>;
 
           beforeEach(() => {
             TestBed.configureTestingModule({
-              imports: [TestComponent]
+              imports: [Test]
             });
-            fixture = TestBed.createComponent(TestComponent);
+            fixture = TestBed.createComponent(Test);
             component = fixture.componentInstance;
             fixture.detectChanges();
           });
@@ -90,11 +90,12 @@ describe('Add Localization', () => {
       const tree = await runner.runSchematic('localization-to-component', {
         projectName: 'test-project',
         path: o3rComponentPath,
-        activateDummy: true
+        activateDummy: true,
+        skipLinter: true
       }, initialTree);
 
-      const translationFile = o3rComponentPath.replace(/component\.ts$/, 'translation.ts');
-      const localizationFile = o3rComponentPath.replace(/component\.ts$/, 'localization.json');
+      const translationFile = o3rComponentPath.replace(/\.ts$/, '-translation.ts');
+      const localizationFile = o3rComponentPath.replace(/\.ts$/, '-localization.json');
 
       expect(tree.exists(translationFile)).toBeTruthy();
       expect(tree.readText(translationFile)).toContain('dummyLoc1');
@@ -107,7 +108,7 @@ describe('Add Localization', () => {
       expect(componentFileContent).toContain('Translatable<TestTranslation>');
       expect(componentFileContent).toContain('public translations: TestTranslation;');
       expect(componentFileContent).toContain('this.translations = translations');
-      expect(componentFileContent).toContain('@Localization(\'./test.localization.json\')');
+      expect(componentFileContent).toContain('@Localization(\'./test-localization.json\')');
 
       const templateFileContent = tree.readText(templatePath);
       expect(templateFileContent).toContain('<div>Localization: {{ translations.dummyLoc1 | o3rTranslate }}</div>');
@@ -119,6 +120,56 @@ describe('Add Localization', () => {
       expect(specFileContent).toContain('const localizationConfiguration = ');
       expect(specFileContent).toContain('const mockTranslations = ');
       expect(specFileContent).toContain('const mockTranslationsCompilerProvider: Provider = ');
+    });
+
+    it('should create the localization files and update the typed component', async () => {
+      const componentWithTypePath = '/src/components/other-test/other-test.test-type.ts';
+      initialTree.create(componentWithTypePath, `
+        import {CommonModule} from '@angular/common';
+        import {ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+        import {O3rComponent} from '@o3r/core';
+        import {Subscription} from 'rxjs';
+
+        @O3rComponent({
+          componentType: 'Component'
+        })
+        @Component({
+          selector: 'o3r-other-test-pres',
+          imports: [CommonModule],
+          styleUrls: ['./other-test.test-type.scss'],
+          templateUrl: './other-test.test-type.html',
+          changeDetection: ChangeDetectionStrategy.OnPush,
+          encapsulation: ViewEncapsulation.None
+        })
+        export class OtherTestTestType implements OnInit, OnDestroy {
+          /**
+           * List of subscriptions to unsubscribe on destroy
+           */
+          private subscriptions: Subscription[] = [];
+
+          public ngOnInit() {
+            // Run on component initialization
+          }
+
+          public ngOnDestroy() {
+            // Run on component destruction
+            this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+          }
+        }
+      `);
+      const runner = new SchematicTestRunner('schematics', collectionPath);
+      const tree = await runner.runSchematic('localization-to-component', {
+        projectName: 'test-project',
+        path: componentWithTypePath,
+        activateDummy: true,
+        skipLinter: true
+      }, initialTree);
+
+      const translationFile = componentWithTypePath.replace(/\.test-type\.ts$/, '-translation.ts');
+      const localizationFile = componentWithTypePath.replace(/\.test-type\.ts$/, '-localization.json');
+
+      expect(tree.exists(translationFile)).toBeTruthy();
+      expect(tree.exists(localizationFile)).toBeTruthy();
     });
 
     it('should throw if we add localization to a component that already has it', async () => {
@@ -147,13 +198,13 @@ describe('Add Localization', () => {
         })
         @Component({
           selector: 'o3r-test-pres',
-          styleUrls: ['./test.style.scss'],
-          templateUrl: './test.template.html',
+          styleUrls: ['./test.scss'],
+          templateUrl: './test.html',
           changeDetection: ChangeDetectionStrategy.OnPush,
           encapsulation: ViewEncapsulation.None,
           standalone: false
         })
-        export class TestComponent implements OnInit, OnDestroy {
+        export class Test implements OnInit, OnDestroy {
           /**
            * List of subscriptions to unsubscribe on destroy
            */
@@ -172,17 +223,17 @@ describe('Add Localization', () => {
       initialTree.create(templatePath, '<div>My HTML content</div>');
       initialTree.create(specPath, `
         import { ComponentFixture, TestBed } from '@angular/core/testing';
-        import { TestComponent } from './test.component';
+        import { Test } from './test';
 
-        describe('TestComponent', () => {
-          let component: TestComponent;
-          let fixture: ComponentFixture<TestComponent>;
+        describe('Test', () => {
+          let component: Test;
+          let fixture: ComponentFixture<Test>;
 
           beforeEach(() => {
             TestBed.configureTestingModule({
-              declarations: [TestComponent]
+              declarations: [Test]
             });
-            fixture = TestBed.createComponent(TestComponent);
+            fixture = TestBed.createComponent(Test);
             component = fixture.componentInstance;
             fixture.detectChanges();
           });
@@ -195,12 +246,12 @@ describe('Add Localization', () => {
       initialTree.create(modulePath, `
         import {CommonModule} from '@angular/common';
         import {NgModule} from '@angular/core';
-        import {TestComponent} from './test.component';
+        import {Test} from './test';
 
         @NgModule({
           imports: [CommonModule],
-          declarations: [TestComponent],
-          exports: [TestComponent]
+          declarations: [Test],
+          exports: [Test]
         })
         export class TestModule {}
       `);
@@ -244,7 +295,7 @@ describe('Add Localization', () => {
 
       await expect(runner.runSchematic('localization-to-component', {
         projectName: 'test-project',
-        path: 'inexisting-path.component.ts'
+        path: 'inexisting-path.ts'
       }, initialTree)).rejects.toThrow();
     });
 
@@ -271,7 +322,7 @@ describe('Add Localization', () => {
         }, initialTree);
 
         expect(spy).toHaveBeenCalledWith('convert-component', expect.anything(), expect.anything());
-        expect(tree.exists(ngComponentPath.replace(/component\.ts$/, 'translation.ts'))).toBeTruthy();
+        expect(tree.exists(ngComponentPath.replace(/\.ts$/, '-translation.ts'))).toBeTruthy();
       });
     });
   });

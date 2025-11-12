@@ -1,1 +1,1 @@
-export * from './config-metadata-comparison.helper';
+export * from './config-metadata-comparison-helper';

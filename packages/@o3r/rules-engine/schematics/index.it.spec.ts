@@ -22,20 +22,20 @@ describe('ng add rules-engine', () => {
     const relativeApplicationPath = path.relative(workspacePath, applicationPath);
     expect(() => packageManagerExec({ script: 'ng', args: ['add', `@o3r/rules-engine@${o3rVersion}`,
       '--enable-metadata-extract', '--project-name', appName, '--skip-confirmation'] }, execAppOptions)).not.toThrow();
-    const componentPath = path.normalize(path.posix.join(relativeApplicationPath, 'src/components/test/test.component.ts'));
+    const componentPath = path.normalize(path.posix.join(relativeApplicationPath, 'src/components/test/test.ts'));
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:component', 'test', '--activate-dummy', '--use-rules-engine', 'false', '--project-name', appName] }, execAppOptions);
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/rules-engine:rules-engine-to-component', '--path', componentPath] }, execAppOptions);
-    await addImportToAppModule(applicationPath, 'TestComponent', 'src/components/test');
+    await addImportToAppModule(applicationPath, 'Test', 'src/components/test');
 
     const diff = getGitDiff(workspacePath);
     const expectedAddedFiles = [
       path.join(relativeApplicationPath, 'src/components/test/README.md').replace(/[/\\]+/g, '/'),
       path.join(relativeApplicationPath, 'src/components/test/index.ts').replace(/[/\\]+/g, '/'),
-      path.join(relativeApplicationPath, 'src/components/test/test.component.ts').replace(/[/\\]+/g, '/'),
-      path.join(relativeApplicationPath, 'src/components/test/test.context.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test/test.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test/test-context.ts').replace(/[/\\]+/g, '/'),
       path.join(relativeApplicationPath, 'src/components/test/test.spec.ts').replace(/[/\\]+/g, '/'),
-      path.join(relativeApplicationPath, 'src/components/test/test.style.scss').replace(/[/\\]+/g, '/'),
-      path.join(relativeApplicationPath, 'src/components/test/test.template.html').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test/test.scss').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test/test.html').replace(/[/\\]+/g, '/'),
       path.join(relativeApplicationPath, 'migration-scripts/README.md').replace(/[/\\]+/g, '/'),
       path.join(relativeApplicationPath, 'placeholders.metadata.json').replace(/[/\\]+/g, '/'),
       path.join(relativeApplicationPath, 'tsconfig.cms.json').replace(/[/\\]+/g, '/')
@@ -65,17 +65,17 @@ describe('ng add rules-engine', () => {
     const relativeLibraryPath = path.relative(workspacePath, libraryPath);
     expect(() => packageManagerExec({ script: 'ng', args: ['add', `@o3r/rules-engine@${o3rVersion}`,
       '--enable-metadata-extract', '--project-name', libName, '--skip-confirmation'] }, execAppOptions)).not.toThrow();
-    const componentPath = path.normalize(path.posix.join(relativeLibraryPath, 'src/components/test/test.component.ts'));
+    const componentPath = path.normalize(path.posix.join(relativeLibraryPath, 'src/components/test/test.ts'));
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:component', 'test', '--activate-dummy', '--use-rules-engine', 'false', '--project-name', libName] }, execAppOptions);
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/rules-engine:rules-engine-to-component', '--path', componentPath] }, execAppOptions);
 
     const diff = getGitDiff(workspacePath);
     expect(diff.added.sort()).toEqual([
-      path.join(relativeLibraryPath, 'src/components/test/test.style.scss').replace(/[/\\]+/g, '/'),
-      path.join(relativeLibraryPath, 'src/components/test/test.context.ts').replace(/[/\\]+/g, '/'),
-      path.join(relativeLibraryPath, 'src/components/test/test.template.html').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test/test.scss').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test/test-context.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test/test.html').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'src/components/test/test.spec.ts').replace(/[/\\]+/g, '/'),
-      path.join(relativeLibraryPath, 'src/components/test/test.component.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test/test.ts').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'src/components/test/index.ts').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'src/components/test/README.md').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'migration-scripts/README.md').replace(/[/\\]+/g, '/'),

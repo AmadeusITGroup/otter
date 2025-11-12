@@ -11,7 +11,7 @@
       "items": {
         "type": "string"
       },
-      "default": ["src/**/*.style.scss"]
+      "default": ["src/**/*.scss"]
     },
     "name": {
       "type": "string",

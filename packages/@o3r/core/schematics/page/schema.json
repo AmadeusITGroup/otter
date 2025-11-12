@@ -73,6 +73,10 @@
       "type": "boolean",
       "description": "Generate dummy values",
       "default": false
+    },
+    "type": {
+      "type": "string",
+      "description": "Custom type to append to the page's file name"
     }
   },
   "additionalProperties": true,
