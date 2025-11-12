@@ -24,7 +24,7 @@
     "js-yaml": "^4.1.0",
     "loglevel": "^1.8.0",
     "tslib": "^2.6.2",
-    "yargs": "^18.0.0"
+    "yargs": "~18.0.0"
   },
   "peerDependenciesMeta": {
     "@angular/cli": {

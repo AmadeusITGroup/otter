@@ -1,0 +1,115 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "OpenApi specification package manifest",
+  "type": "object",
+  "properties": {
+    "models": {
+      "type": "object",
+      "description": "Dependency package containing the specification to include",
+      "additionalProperties": {
+        "oneOf": [
+          { "$ref": "#/definitions/model" },
+          { "type": "array", "items": { "$ref": "#/definitions/model" } }
+        ]
+      }
+    }
+  },
+  "additionalProperties": true,
+  "definitions": {
+    "transform": {
+      "oneOf": [
+        {
+          "type": "object",
+          "examples": [
+            {
+              "mask": { "data": true },
+              "fileRename": "MyPrefix_$1"
+            }
+          ],
+          "properties": {
+            "mask": {
+              "type": "object",
+              "description": "Mask to apply"
+            },
+            "titleRename": {
+              "type": "string",
+              "description": "Rename the model title. The keyword `$1` can be used to refer to original name (ex: a prefix would be `myPrefix_$1`)",
+              "examples": [
+                "myPrefix_$1",
+                "myModel"
+              ]
+            },
+            "fileRename": {
+              "type": "string",
+              "description": "Rename the outputted file. The keyword `$1` can be used to refer to original name (ex: a prefix would be `my-prefix-$1`)",
+              "examples": [
+                "my-prefix-$1",
+                "myModel.v1.yaml"
+              ]
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "fileRename"
+          ]
+        },
+        {
+          "type": "string",
+          "description": "A reference to a predefined transform"
+        }
+      ]
+    },
+    "model": {
+      "examples": [
+        true,
+        "models/ExampleModel.v1.yaml",
+        {
+          "path": "models/ExampleModel.v1.yaml",
+          "transform": {
+            "mask": { "properties": { "field": true } },
+            "fileRename": "MyPrefix_$1"
+          }
+        }
+      ],
+      "oneOf": [
+        {
+          "type": "boolean",
+          "default": true,
+          "description": "Include the default model exposed by the artifact"
+        },
+        {
+          "type": "string",
+          "description": "Path to the specific model to include as is. The path is relative to the artifact root (e.g., 'models/ExampleModel.v1.yaml')"
+        },
+        {
+          "type": "object",
+          "description": "Detailed model inclusion with optional transformations to apply",
+          "properties": {
+            "path": {
+              "type": "string",
+              "description": "Path to the specific model to include as is. The path is relative to the artifact root (e.g., 'models/ExampleModel.v1.yaml')"
+            },
+            "transform": {
+              "oneOf": [
+                {
+                  "$ref": "#/definitions/transform"
+                },
+                {
+                  "type": "array",
+                  "description": "List of transforms to apply in sequence. Each transform will result to a new model being created in the output.",
+                  "items": {
+                    "$ref": "#/definitions/transform"
+                  }
+                }
+              ]
+            }
+          },
+          "required": [
+            "path"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    }
+  }
+}

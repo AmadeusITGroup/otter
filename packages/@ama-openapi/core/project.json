@@ -1,0 +1,46 @@
+{
+  "name": "ama-openapi-core",
+  "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/@ama-openapi/core/src",
+  "prefix": "ama",
+  "targets": {
+    "build": {
+      "executor": "nx:run-script",
+      "outputs": [
+        "{projectRoot}/dist/package.json"
+      ],
+      "options": {
+        "script": "postbuild"
+      },
+      "dependsOn": [
+        "^build",
+        "compile",
+        "expose-schemas",
+        "expose-renovate"
+      ]
+    },
+    "set-version": {},
+    "expose-schemas": {},
+    "expose-renovate": {},
+    "compile": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "build:source"
+      }
+    },
+    "lint": {},
+    "test": {
+      "options": {
+        "jestConfig": "{projectRoot}/jest.config.cjs"
+      }
+    },
+    "prepare-publish": {},
+    "publish": {},
+    "documentation": {}
+  },
+  "tags": [
+    "scope:ama-openapi",
+    "type:library"
+  ]
+}
