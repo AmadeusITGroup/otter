@@ -13,11 +13,14 @@ import {
 import type {
   Context,
 } from '../../context.mjs';
+import {
+  isRelativePath,
+} from '../file-system/relative-path.mjs';
 import type {
   RetrievedDependencyModel,
 } from '../manifest/extract-dependency-models.mjs';
-import {
-  isRelativePath,
+import type {
+  SpecificationFile,
 } from './transform.mjs';
 
 /**
@@ -26,9 +29,9 @@ import {
  * @param receivedModel
  * @param context
  */
-export const updateReferences = <S extends object>(specification: S, receivedModel: RetrievedDependencyModel, context: Context): S => {
+export const updateReferences = <S extends SpecificationFile>(specification: S, receivedModel: RetrievedDependencyModel, context: Context): S => {
   const { logger } = context;
-  const walkSpecification = <T extends S>(specItem: T): T => {
+  const walkSpecification = <T extends S | object>(specItem: T): T => {
     if (typeof specItem === 'object') {
       if (specItem === null) {
         return specItem;

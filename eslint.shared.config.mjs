@@ -193,7 +193,7 @@ export default defineConfig([
     }
   },
   {
-    name: '@o3r/framework/mjs-files',
+    name: '@o3r/framework/node-module-type',
     files: ['**/*.m{j,t}s'],
     rules: {
       'no-underscore-dangle': [

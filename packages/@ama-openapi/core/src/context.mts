@@ -3,7 +3,7 @@ import type {
 } from './logger.mjs';
 
 /**
- * Context interface for AMA OpenAPI processing
+ * Context interface for Ama OpenAPI processing
  */
 export interface Context {
   /** Current working directory */

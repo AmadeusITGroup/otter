@@ -18,14 +18,17 @@ import type {
   Context,
 } from '../../context.mjs';
 import {
+  isRelativePath,
+} from '../file-system/relative-path.mjs';
+import {
   extractDependencyModelsObject,
   type RetrievedDependencyModel,
 } from '../manifest/extract-dependency-models.mjs';
 import type {
   Model,
 } from '../manifest/manifest.mjs';
-import {
-  isRelativePath,
+import type {
+  SpecificationFile,
 } from './transform.mjs';
 
 type ReferenceSpecification = { $ref: string; [x: string]: any };
@@ -69,17 +72,12 @@ const splitArtifactModelPaths = async (modelPath: string, context: Context): Pro
 };
 
 /**
- * Apply the mask to the model
- * @param specification
+ * Create the function to apply mask to a given model
  * @param retrievedModel
  * @param context
  */
-export const applyMask = <S extends object>(specification: S, retrievedModel: RetrievedDependencyModel, context: Context): S | Promise<S> => {
+const createMaskApplier = (retrievedModel: RetrievedDependencyModel, context: Context) => {
   const { logger } = context;
-  if (!retrievedModel.transform || !retrievedModel.transform.mask) {
-    logger?.debug?.(`No mask found for model from ${retrievedModel.artifactName} at ${retrievedModel.model.path}, skipping mask application`);
-    return specification;
-  }
 
   /**
    * Handle a $ref in the specification during mask application when the mask needs to be applied to the referenced model
@@ -194,5 +192,22 @@ export const applyMask = <S extends object>(specification: S, retrievedModel: Re
     }
   };
 
-  return applySubMask(specification, retrievedModel.transform.mask, []) as Promise<S>;
+  return applySubMask;
+};
+
+/**
+ * Apply the mask to the model
+ * @param specification
+ * @param retrievedModel
+ * @param context
+ */
+export const applyMask = <S extends SpecificationFile>(specification: S, retrievedModel: RetrievedDependencyModel, context: Context): S | Promise<S> => {
+  const { logger } = context;
+  if (!retrievedModel.transform || !retrievedModel.transform.mask) {
+    logger?.debug?.(`No mask found for model from ${retrievedModel.artifactName} at ${retrievedModel.model.path}, skipping mask application`);
+    return specification;
+  }
+
+  const maskApplier = createMaskApplier(retrievedModel, context);
+  return maskApplier(specification, retrievedModel.transform.mask, []) as Promise<S>;
 };

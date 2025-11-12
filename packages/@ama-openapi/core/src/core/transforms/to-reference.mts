@@ -13,9 +13,13 @@ import type {
 import type {
   RetrievedDependencyModel,
 } from '../manifest/extract-dependency-models.mjs';
+import type {
+  SpecificationFile,
+} from './transform.mjs';
 
 type ReferenceSpecification = {
   $ref: string;
+  [GENERATED_REF_PROPERTY_KEY]: boolean;
   [x: string]: any;
 };
 
@@ -26,7 +30,7 @@ type ReferenceSpecification = {
  * @param retrievedModel
  * @param context
  */
-export const toReference = <S extends object>(specification: S, retrievedModel: RetrievedDependencyModel, context: Context): S | ReferenceSpecification => {
+export const toReference = <S extends SpecificationFile>(specification: S, retrievedModel: RetrievedDependencyModel, context: Context): S | ReferenceSpecification => {
   const { logger } = context;
   if (retrievedModel.transform) {
     logger?.debug?.(`The specification ${retrievedModel.modelPath} has transform, the conversion to reference will be ignored`);

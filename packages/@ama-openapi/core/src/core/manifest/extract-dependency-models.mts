@@ -7,13 +7,9 @@ import {
 import {
   basename,
   dirname,
-  extname,
   join,
   resolve,
 } from 'node:path';
-import {
-  load,
-} from 'js-yaml';
 import type {
   PackageJson,
 } from 'type-fest';
@@ -28,6 +24,7 @@ import type {
 } from '../../logger.mjs';
 import {
   isJsonFile,
+  parseFile,
 } from '../file-system/parse-file.mjs';
 import type {
   Manifest,
@@ -48,7 +45,7 @@ export interface RetrievedDependencyModel {
   /** Content of the model file */
   content: string;
   /** Model definition from the manifest */
-  model: Model & { path: string };
+  model: Model & Required<Pick<Model, 'path'>>;
   /** Indicates if the input model file is a JSON file */
   isInputJson: boolean;
   /** Indicates if the output model file is a JSON file */
@@ -79,13 +76,23 @@ const sanitizePackagePath = (artifactName: string) => {
 const retrieveTransform = async (cwd: string, transform?: Transform | string): Promise<Transform | undefined> => {
   if (typeof transform === 'string') {
     const transformPath = resolve(cwd, transform);
-    const fileContent = await fs.readFile(transformPath, { encoding: 'utf8' });
-    return extname(transformPath).toLowerCase() === '.json'
-      ? JSON.parse(fileContent) as Transform
-      : load(fileContent) as Transform;
+    return parseFile<Transform>(transformPath);
   }
 
   return transform;
+};
+
+/**
+ * Get information for artifactory manifest file
+ * @param require
+ * @param artifactName
+ */
+const getArtifactInfo = async (require: NodeJS.Require, artifactName: string) => {
+  const artifactPackageJson = require.resolve(`${artifactName}/package.json`);
+  const artifactBasePath = dirname(artifactPackageJson);
+  const packageJsonContent = await fs.readFile(artifactPackageJson, { encoding: 'utf8' });
+  const version: string = (JSON.parse(packageJsonContent) as PackageJson).version || 'latest';
+  return { artifactBasePath, version };
 };
 
 /**
@@ -104,10 +111,8 @@ const extractDependencyModelsSimple = async (
   outputDirectory = OUTPUT_DIRECTORY): Promise<RetrievedDependencyModel> => {
   logger?.debug?.(`extracting model ${modelName} from ${outputDirectory}`);
   const require = createRequire(resolve(cwd, 'package.json'));
-  const artifactPackageJson = require.resolve(`${artifactName}/package.json`);
-  const artifactBasePath = dirname(artifactPackageJson);
+  const { artifactBasePath, version } = await getArtifactInfo(require, artifactName);
   const modelPath = typeof modelName === 'string' ? join(artifactBasePath, modelName) : require.resolve(artifactName);
-  const version = await fs.readFile(artifactPackageJson, { encoding: 'utf8' }).then((data) => (JSON.parse(data) as PackageJson).version || 'latest');
   const content = await fs.readFile(modelPath, { encoding: 'utf8' });
   const path = typeof modelName === 'string' ? modelName : artifactName;
   const model = { path } satisfies Model;
@@ -144,10 +149,8 @@ export const extractDependencyModelsObject = async (
   const { cwd, logger } = context;
   const require = createRequire(resolve(cwd, 'package.json'));
   const transform = await transformPromise;
-  const artifactPackageJson = require.resolve(`${artifactName}/package.json`);
-  const artifactBasePath = dirname(artifactPackageJson);
+  const { artifactBasePath, version } = await getArtifactInfo(require, artifactName);
   const modelPath = model.path ? join(artifactBasePath, model.path) : require.resolve(artifactName);
-  const version = await fs.readFile(artifactPackageJson, { encoding: 'utf8' }).then((data) => (JSON.parse(data) as PackageJson).version || 'latest');
   const content = await fs.readFile(modelPath, { encoding: 'utf8' });
   logger?.debug?.(`extracting model ${modelPath} from ${outputDirectory}`);
 
@@ -184,10 +187,13 @@ export const extractDependencyModels = (manifest: Manifest, context: Context) =>
   return Object.entries(manifest.models).flatMap(([dependencyName, modelDefinition]) => {
     const models = Array.isArray(modelDefinition) ? modelDefinition : [modelDefinition];
     return models
-      .flatMap((model) => typeof model === 'string' || typeof model === 'boolean'
-        ? [extractDependencyModelsSimple(cwd, dependencyName, model, logger)]
-        : (Array.isArray(model.transform)
+      .flatMap((model) => {
+        if (typeof model === 'string' || typeof model === 'boolean') {
+          return [extractDependencyModelsSimple(cwd, dependencyName, model, logger)];
+        }
+        return Array.isArray(model.transform)
           ? (model.transform.length > 0 ? model.transform : [undefined]).map((transform) => extractDependencyModelsObject(dependencyName, model, retrieveTransform(cwd, transform), context))
-          : [extractDependencyModelsObject(dependencyName, model, retrieveTransform(cwd, model.transform), context)]));
+          : [extractDependencyModelsObject(dependencyName, model, retrieveTransform(cwd, model.transform), context)];
+      });
   });
 };
