@@ -1,6 +1,3 @@
-import {
-  isAbsolute,
-} from 'node:path';
 import type {
   Context,
 } from '../../context.mjs';
@@ -9,14 +6,11 @@ import type {
 } from '../manifest/extract-dependency-models.mjs';
 
 /**
- * Transform a specification with specified transformation function
+ * Specification file as supported by {@link https://redocly.com/| Redocly}
  */
-export type Transform<S extends object = object, T = any> = (specification: S, retrievedModel: RetrievedDependencyModel, context: Context) => T | Promise<T>;
+export type SpecificationFile = Record<string, any>;
 
 /**
- *  Determine if a path is relative
- * @param path
+ * Transform a specification with specified transformation function
  */
-export const isRelativePath = (path: string): boolean => {
-  return !URL.canParse(path) && !isAbsolute(path);
-};
+export type Transform<S extends SpecificationFile = SpecificationFile, T = any> = (specification: S, retrievedModel: RetrievedDependencyModel, context: Context) => T | Promise<T>;

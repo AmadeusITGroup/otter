@@ -1,6 +1,7 @@
 /** Directory containing the extracted module */
 export const OUTPUT_DIRECTORY = 'models_external';
 
+/** Directory containing masked model when the mask is applied to referenced models */
 export const SUB_MASK_DIRECTORY = 'sub-masks';
 
 /** Default manifest filenames to look for */

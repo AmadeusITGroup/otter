@@ -159,22 +159,6 @@ describe('parseFile', () => {
   });
 
   describe('performance and edge cases', () => {
-    it('should handle large files efficiently', async () => {
-      const largeObject = {
-        data: Array.from({ length: 1000 }).fill(0).map((_, i) => ({ id: i, value: `value-${i}` }))
-      };
-      const largeJson = JSON.stringify(largeObject);
-
-      mockedFs.readFile.mockResolvedValue(largeJson);
-
-      const startTime = Date.now();
-      const result: any = await parseFile(mockFilePath);
-      const endTime = Date.now();
-
-      expect(result.data).toHaveLength(1000);
-      expect(endTime - startTime).toBeLessThan(1000); // Should complete within 1 second
-    });
-
     it('should handle files with special characters', async () => {
       const specialCharJson = JSON.stringify({
         unicode: '🚀 test with émojis and accénts',

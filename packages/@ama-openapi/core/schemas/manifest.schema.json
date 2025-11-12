@@ -41,7 +41,7 @@
             },
             "fileRename": {
               "type": "string",
-              "description": "Rename the outputted file. The keyword `$1` can be used to refer to original name (ex: a prefix would be `my-prefix-$1`)",
+              "description": "Rename the outputted file. The keyword `$1` can be used to refer to the original name (ex: a prefix would be `my-prefix-$1`)",
               "examples": [
                 "my-prefix-$1",
                 "myModel.v1.yaml"

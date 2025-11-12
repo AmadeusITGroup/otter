@@ -4,6 +4,9 @@ import type {
 import type {
   RetrievedDependencyModel,
 } from '../manifest/extract-dependency-models.mjs';
+import type {
+  SpecificationFile,
+} from './transform.mjs';
 
 /**
  * Rename the title of the specification
@@ -11,12 +14,12 @@ import type {
  * @param retrievedModel
  * @param context
  */
-export const renameTitle = <S extends object>(specification: S, retrievedModel: RetrievedDependencyModel, context: Context): S => {
+export const renameTitle = <S extends SpecificationFile>(specification: S, retrievedModel: RetrievedDependencyModel, context: Context): S & { title?: string } => {
   const { logger } = context;
   if (retrievedModel.transform?.titleRename) {
     logger?.debug?.(`Renaming title in model from ${retrievedModel.artifactName} at ${retrievedModel.modelPath}`);
-    let title: string | undefined = 'title' in specification ? specification.title as string : undefined;
-    title = title && title.replace(new RegExp(`^(${title})$`), retrievedModel.transform.titleRename);
+    let title: string | undefined = specification.title ?? undefined;
+    title = title?.replace(/^(.*)$/, retrievedModel.transform.titleRename);
     specification = {
       ...specification,
       title

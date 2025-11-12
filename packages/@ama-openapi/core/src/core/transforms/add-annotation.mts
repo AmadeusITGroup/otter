@@ -13,6 +13,9 @@ import type {
 import type {
   RetrievedDependencyModel,
 } from '../manifest/extract-dependency-models.mjs';
+import type {
+  SpecificationFile,
+} from './transform.mjs';
 
 type AdditionalAnnotation = {
   [MASKED_PROPERTY_KEY]: boolean;
@@ -27,7 +30,7 @@ type AdditionalAnnotation = {
  * @param retrievedModel
  * @param context
  */
-export const addAnnotation = <S extends object>(specification: S, retrievedModel: RetrievedDependencyModel, context: Context): S & AdditionalAnnotation => {
+export const addAnnotation = <S extends SpecificationFile>(specification: S, retrievedModel: RetrievedDependencyModel, context: Context): S & AdditionalAnnotation => {
   const { logger } = context;
   const { artifactName, version, transform } = retrievedModel;
   logger?.debug?.(`Adding annotation to model from ${artifactName} at ${retrievedModel.model.path}`);

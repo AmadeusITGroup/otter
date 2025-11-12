@@ -3,7 +3,6 @@ import {
   promises as fs,
 } from 'node:fs';
 import {
-  extname,
   resolve,
 } from 'node:path';
 import {
@@ -13,17 +12,14 @@ import {
   Ajv,
 } from 'ajv';
 import {
-  load,
-} from 'js-yaml';
-import type {
-  PackageJson,
-} from 'type-fest';
-import {
   DEFAULT_MANIFEST_FILENAMES,
 } from '../../constants.mjs';
 import type {
   Logger,
 } from '../../logger.mjs';
+import {
+  parseFile,
+} from '../file-system/parse-file.mjs';
 
 /**
  * Mask object for filtering properties
@@ -65,7 +61,7 @@ export type SupportedModelTypes = string | Model | boolean;
 export type Models = Record<string, SupportedModelTypes | SupportedModelTypes[]>;
 
 /** Manifest file structure */
-export type Manifest = PackageJson & { models: Models };
+export type Manifest = { models: Models };
 
 /**
  * Validate the manifest file
@@ -105,10 +101,7 @@ export const retrieveManifest = async (workspaceDirectory: string, logger?: Logg
       continue;
     }
 
-    const content = await fs.readFile(manifestPath, { encoding: 'utf8' });
-    const manifest = (extname(manifestPath).toLowerCase() === '.json'
-      ? JSON.parse(content)
-      : load(content)) as Manifest;
+    const manifest = await parseFile<Manifest>(manifestPath);
     if (await isValidManifest(manifest, manifestPath, logger)) {
       logger?.info?.(`Manifest file found at ${manifestPath}`);
       return manifest;
