@@ -1,0 +1,9 @@
+description: |-
+  Example response model for demonstration purposes.
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        data:
+          $ref: '../models/ExampleModel.v1.yaml'
