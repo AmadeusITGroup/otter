@@ -9,3 +9,4 @@ export * from './logger';
 export * from './mocks/index';
 export * from './param-serialization';
 export * from './reviver';
+export * from './server';
