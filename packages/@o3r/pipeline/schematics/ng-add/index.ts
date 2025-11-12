@@ -63,6 +63,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       template({
         ...options,
         npmRegistry: options.npmRegistry || '',
+        defaultBranchName: options.defaultBranchName || 'main',
         packageManager,
         setupCommand,
         actionVersionString,
