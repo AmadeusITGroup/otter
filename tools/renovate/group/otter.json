@@ -13,6 +13,7 @@
         "/^@o3r-training/",
         "/^@ama-mfe/",
         "/^@ama-styling/",
+        "/^@ama-openapi/",
         "/^@ama-mcp/"
       ]
     },
@@ -28,8 +29,7 @@
         "/^@ama-terasu/",
         "/^@o3r-training/",
         "/^@ama-mfe/",
-        "/^@ama-styling/",
-        "/^@ama-mcp/"
+        "/^@ama-styling/"
       ],
       "rangeStrategy": "bump"
     },
@@ -44,8 +44,7 @@
         "/^@ama-terasu/",
         "/^@o3r-training/",
         "/^@ama-mfe/",
-        "/^@ama-styling/",
-        "/^@ama-mcp/"
+        "/^@ama-styling/"
       ],
       "rangeStrategy": "patch"
     }
