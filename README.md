@@ -66,6 +66,22 @@ Any bug of feature request can be addressed via [issue](https://github.com/Amade
 
 ## Developer
 
+### Experimental
+
+In this monorepo, certain APIs across all packages are marked with the `@experimental` tag in their TypeScript documentation (TSDoc). This tag highlights that these exports — whether classes, functions, types, or constants — are experimental and may change without warning.
+
+#### What does @experimental mean?
+
+- The marked APIs are not stable and can undergo breaking changes in future releases.
+- Experimental features may be added, modified, or removed at any time.
+- These APIs are intended for early adopters and should be used with caution.
+
+#### What should you do?
+
+- When using any `@experimental` APIs from any package in this monorepo, pin the package versions explicitly to avoid unexpected breaking changes.
+- Regularly check release notes and changelogs for updates on experimental features.
+- Treat these APIs as preview or evolving interfaces that may mature or be deprecated in upcoming versions.
+
 ### Building and Testing library
 
 These documents describe how to set up your development environment to build and test the framework.

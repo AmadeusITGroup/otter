@@ -142,7 +142,7 @@ jobs:
     if: ${{ github.event_name != 'pull_request' && github.event_name != 'merge_group' }}
     permissions:
       contents: read
-      # Needed to publish with provenance
+      # Needed to publish on npmjs registry
       id-token: write
     secrets: inherit
     needs: [ yarn_lock_check, version, build, checks, it-tests, setupVars ]
