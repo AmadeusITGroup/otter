@@ -3,11 +3,11 @@ import {
   RequestOptions,
 } from '../core/request-plugin';
 import {
-  AdditionalParamsSyncRequest,
-} from './additional-params-sync.request';
-import {
   AdditionalParamsRequest,
-} from './additional-params.request';
+} from './additional-params-request';
+import {
+  AdditionalParamsSyncRequest,
+} from './additional-params-sync-request';
 
 describe('Additional Params Request Plugin', () => {
   const additionalGetParams = jest.fn().mockReturnValue({ test: 'ok' });

@@ -1,1 +1,1 @@
-export * from './styling-metadata-comparison.helper';
+export * from './styling-metadata-comparison-helper';

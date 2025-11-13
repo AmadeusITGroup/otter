@@ -1,6 +1,6 @@
 import {
   PostProcess,
-} from './post-process.interface';
+} from './post-process-interface';
 
 /**
  * Post Process to remove non white listed paths from the final Swagger Specification

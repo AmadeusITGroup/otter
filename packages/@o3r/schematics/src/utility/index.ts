@@ -20,7 +20,7 @@ export * from './package-version';
 export * from './question';
 export * from './routes';
 export * from './sub-entry';
-export * from './template-property.helper';
+export * from './template-property-helper';
 export * from './update-imports';
 export * from './update-pipes';
 export * from './wrapper';

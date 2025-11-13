@@ -14,7 +14,7 @@ You can directly access the service `EventTrackService` inside your component to
 
 ```typescript
 import {EventTrackService} from '@o3r/analytics';
-import {analyticsEvents, MyComponentAnalytics} from './my-component.analytics';
+import {analyticsEvents, MyComponentAnalytics} from './my-component-analytics';
 
 class MyComponent extends Trackable<MyComponentAnalytics>, ... {
   ...
@@ -92,7 +92,7 @@ If the object passed in `trackEventContext` has to be updated in the model file 
 </form>
 ```
 
-in component.ts file
+in component file
 ```typescript
 eventModel = {name: 'searchBtnMouseEvent'};
 ```

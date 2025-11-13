@@ -8,7 +8,7 @@ import {
 } from '@ama-styling/figma-sdk';
 import {
   generateTokenTree,
-} from '../../helpers/generate-token-tree.helpers';
+} from '../../helpers/generate-token-tree-helpers';
 import {
   getVariablesFormatter,
 } from '../../helpers/variable-formatter';

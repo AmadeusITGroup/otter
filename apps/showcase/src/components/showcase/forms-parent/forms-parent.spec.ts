@@ -12,20 +12,20 @@ import {
   provideMarkdown,
 } from 'ngx-markdown';
 import {
-  FormsParentComponent,
-} from './forms-parent.component';
+  FormsParent,
+} from './forms-parent';
 
-describe('FormsParentComponent', () => {
-  let component: FormsParentComponent;
-  let fixture: ComponentFixture<FormsParentComponent>;
+describe('FormsParent', () => {
+  let component: FormsParent;
+  let fixture: ComponentFixture<FormsParent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FormsParentComponent, ...mockTranslationModules(), ReactiveFormsModule],
+      imports: [FormsParent, ...mockTranslationModules(), ReactiveFormsModule],
       providers: [provideMarkdown()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(FormsParentComponent);
+    fixture = TestBed.createComponent(FormsParent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

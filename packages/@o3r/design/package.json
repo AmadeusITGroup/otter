@@ -46,13 +46,13 @@
     }
   },
   "bin": {
-    "o3r-build-design-token": "./dist/cli/build-design-token.cli.cjs",
-    "o3r-css-from-design-token": "./dist/cli/generate-css-from-design-token.cli.cjs"
+    "o3r-build-design-token": "./dist/cli/build-design-token-cli.cjs",
+    "o3r-css-from-design-token": "./dist/cli/generate-css-from-design-token-cli.cjs"
   },
   "dependencies": {
     "@o3r/schematics": "workspace:~",
     "jsonschema": "~1.5.0",
-    "minimatch": "~10.0.0",
+    "minimatch": "~10.1.0",
     "minimist": "^1.2.6",
     "ts-node": "~10.9.2",
     "tslib": "^2.6.2"
@@ -132,10 +132,10 @@
     "@types/node": "~22.18.0",
     "@types/semver": "^7.3.13",
     "@typescript-eslint/parser": "~8.46.0",
-    "angular-eslint": "~20.4.0",
+    "angular-eslint": "~20.5.0",
     "chokidar": "^4.0.3",
     "cpy-cli": "^6.0.0",
-    "eslint": "~9.38.0",
+    "eslint": "~9.39.0",
     "eslint-import-resolver-node": "~0.3.9",
     "eslint-import-resolver-typescript": "~4.4.0",
     "eslint-plugin-import": "~2.32.0",

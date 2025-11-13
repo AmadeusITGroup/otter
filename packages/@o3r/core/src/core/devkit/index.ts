@@ -1,1 +1,1 @@
-export * from './devtools.interface';
+export * from './devtools-interface';

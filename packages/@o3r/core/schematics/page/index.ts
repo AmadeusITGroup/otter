@@ -74,18 +74,14 @@ function ngGeneratePageFn(options: NgGeneratePageSchematicsSchema): Rule {
       context.logger.warn('No application detected in this project, the page cannot be generated');
       return noop;
     }
+    options.type ??= '';
     const destination = getDestinationPath('@o3r/core:page', options.path, tree, options.projectName);
     const pagePath = path.posix.join(destination, strings.dasherize(options.scope), strings.dasherize(options.name));
     const dasherizedPageName = strings.dasherize(options.name);
     const projectName = options.projectName;
-    const componentPath = path.posix.join(pagePath, `${dasherizedPageName}.component.ts`);
-    const ngSpecPath = path.posix.join(pagePath, `${dasherizedPageName}.component.spec.ts`);
-    const o3rSpecPath = path.posix.join(pagePath, `${dasherizedPageName}.spec.ts`);
-    const ngStylePath = path.posix.join(pagePath, `${dasherizedPageName}.component.scss`);
-    const o3rStylePath = path.posix.join(pagePath, `${dasherizedPageName}.style.scss`);
-    const ngTemplatePath = path.posix.join(pagePath, `${dasherizedPageName}.component.html`);
-    const o3rTemplatePath = path.posix.join(pagePath, `${dasherizedPageName}.template.html`);
-    const moduleFileName = `${dasherizedPageName}.module.ts`;
+    const componentPath = path.posix.join(pagePath, `${dasherizedPageName}${options.type ? '.' + options.type : ''}.ts`);
+    const stylePath = path.posix.join(pagePath, `${dasherizedPageName}${options.type ? '.' + options.type : ''}.scss`);
+    const moduleFileName = `${dasherizedPageName}-module.ts`;
     const moduleFilePath = path.posix.join(pagePath, moduleFileName);
 
     const rules: Rule[] = [];
@@ -96,8 +92,7 @@ function ngGeneratePageFn(options: NgGeneratePageSchematicsSchema): Rule {
           project: projectName,
           path: pagePath,
           flat: true,
-          name: pageName,
-          typeSeparator: '.'
+          name: pageName
         }),
         () => {
           const sourceFileContent = tree.readText(moduleFilePath);
@@ -119,7 +114,7 @@ function ngGeneratePageFn(options: NgGeneratePageSchematicsSchema): Rule {
             recorder,
             moduleFilePath,
             moduleIndex,
-            `.forChild([{path: '', component: ${strings.classify(pageName)}Component}])`,
+            `.forChild([{path: '', component: ${strings.classify(pageName)}}])`,
             true
           );
           tree.commitUpdate(recorder);
@@ -139,7 +134,7 @@ function ngGeneratePageFn(options: NgGeneratePageSchematicsSchema): Rule {
         viewEncapsulation: 'None',
         changeDetection: 'OnPush',
         style: 'scss',
-        type: 'component',
+        type: options.type,
         skipSelector: false,
         standalone: options.standalone,
         ...(
@@ -148,42 +143,12 @@ function ngGeneratePageFn(options: NgGeneratePageSchematicsSchema): Rule {
               skipImport: true
             }
             : {
-              module: `${dasherizedPageName}.module.ts`,
+              module: `${dasherizedPageName}-module.ts`,
               export: true
             }
         ),
         flat: true
       }),
-      // Angular schematics generate spec file with this pattern: component-name.component.spec.ts
-      move(ngSpecPath, o3rSpecPath),
-      // Angular schematics generate style file with this pattern: component-name.component.scss
-      chain([
-        move(ngStylePath, o3rStylePath),
-        (t) => {
-          t.overwrite(
-            componentPath,
-            t.readText(componentPath).replace(
-              path.basename(ngStylePath),
-              path.basename(o3rStylePath)
-            )
-          );
-          return t;
-        }
-      ]),
-      // Angular schematics generate template file with this pattern: component-name.component.html
-      chain([
-        move(ngTemplatePath, o3rTemplatePath),
-        (t) => {
-          t.overwrite(
-            componentPath,
-            t.readText(componentPath).replace(
-              path.basename(ngTemplatePath),
-              path.basename(o3rTemplatePath)
-            )
-          );
-          return t;
-        }
-      ]),
       schematic('convert-component', {
         path: componentPath,
         skipLinter: options.skipLinter,
@@ -203,7 +168,7 @@ function ngGeneratePageFn(options: NgGeneratePageSchematicsSchema): Rule {
         options
       ),
       getAddThemingRules(
-        o3rStylePath,
+        stylePath,
         options
       ),
       getAddLocalizationRules(
@@ -233,7 +198,7 @@ function ngGeneratePageFn(options: NgGeneratePageSchematicsSchema): Rule {
     const route = {
       path: strings.dasherize(options.name),
       import: `./${indexFilePath.replace(/[/\\]/g, '/')}`,
-      module: `${pageName}${options.standalone ? 'Component' : 'Module'}`
+      module: `${pageName}${options.standalone ? (options.type ? strings.classify(options.type) : '') : 'Module'}`
     } as const satisfies Route;
     if (options.appRoutingModulePath) {
       return insertRoute(tree, context, options.appRoutingModulePath, route, options.standalone);

@@ -1,1 +1,1 @@
-export * from './replace-with-bold.pipe';
+export * from './replace-with-bold-pipe';

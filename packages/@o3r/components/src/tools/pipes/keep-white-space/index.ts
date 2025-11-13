@@ -1,1 +1,1 @@
-export * from './keep-white-space.pipe';
+export * from './keep-white-space-pipe';

@@ -1,1 +1,1 @@
-export * from './monaco-tree.helper';
+export * from './monaco-tree-helper';

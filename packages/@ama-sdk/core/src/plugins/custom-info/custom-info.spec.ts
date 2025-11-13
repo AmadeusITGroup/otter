@@ -3,7 +3,7 @@ import {
 } from '../../fwk/api';
 import {
   CustomInfoReply,
-} from './custom-info.reply';
+} from './custom-info-reply';
 
 describe('Custom info reply plugin', () => {
   it('should add the content of the custom information in the reply', async () => {

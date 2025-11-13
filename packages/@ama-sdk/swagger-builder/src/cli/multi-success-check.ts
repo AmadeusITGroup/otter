@@ -9,7 +9,7 @@ import {
 } from 'globby';
 import {
   Report,
-} from '../core/checkers/checker.interface';
+} from '../core/checkers/checker-interface';
 import {
   MultiSuccessChecker,
 } from '../core/checkers/multi-success-checker';

@@ -6,15 +6,20 @@ coverage:
   status:
     patch:
       default:
+        target: auto
+        threshold: 0.3%
         informational: true
 
     default_rules:
       flag_coverage_not_uploaded_behavior: exclude
+      target: auto
+      threshold: 0.3%
+      informational: true
 
     project:
       default:
         target: auto
-        threshold: 5%
+        threshold: 0.3%
         base: auto
         if_ci_failed: error
         informational: true

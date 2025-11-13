@@ -6,7 +6,7 @@ import type {
 } from 'swagger-schema-official';
 import {
   SwaggerSpec,
-} from './swagger-spec-wrappers/swagger-spec.interface';
+} from './swagger-spec-wrappers/swagger-spec-interface';
 import {
   isOuterRefPath,
   isUrlRefPath,

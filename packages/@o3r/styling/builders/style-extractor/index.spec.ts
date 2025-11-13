@@ -39,7 +39,7 @@ describe('Styling Extractor Builder', () => {
   it('should extract css variables', async () => {
     const options: StyleExtractorBuilderSchema = {
       name: 'showcase',
-      filePatterns: ['apps/showcase/src/**/*.style.scss'],
+      filePatterns: ['apps/showcase/src/**/*.scss'],
       ignoreInvalidValue: true,
       watch: false,
       libraries: [],
