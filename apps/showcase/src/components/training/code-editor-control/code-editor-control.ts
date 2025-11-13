@@ -7,7 +7,7 @@ import {
   inject,
   Input,
   OnDestroy,
-  ViewChild,
+  viewChild,
   ViewEncapsulation,
 } from '@angular/core';
 import {
@@ -56,8 +56,7 @@ export class CodeEditorControl implements OnDestroy, AfterViewInit {
   /**
    * Reference to the iframe used to display the content of the application served in the web container
    */
-  @ViewChild('iframe')
-  public iframeEl!: ElementRef<HTMLIFrameElement>;
+  public iframeEl = viewChild.required<ElementRef<HTMLIFrameElement>>('iframe');
 
   /**
    * Manage the web-container commands and outputs.
@@ -103,7 +102,7 @@ export class CodeEditorControl implements OnDestroy, AfterViewInit {
    * @inheritDoc
    */
   public ngAfterViewInit() {
-    this.webContainerService.runner.registerIframe(this.iframeEl.nativeElement);
+    this.webContainerService.runner.registerIframe(this.iframeEl().nativeElement);
   }
 
   /**

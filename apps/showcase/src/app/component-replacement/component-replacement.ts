@@ -6,8 +6,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   inject,
-  QueryList,
-  ViewChildren,
+  viewChildren,
   ViewEncapsulation,
 } from '@angular/core';
 import {
@@ -50,13 +49,11 @@ import {
 })
 export class ComponentReplacement implements AfterViewInit {
   private readonly inPageNavPresService = inject(InPageNavPresService);
-
-  @ViewChildren(InPageNavLinkDirective)
-  private readonly inPageNavLinkDirectives!: QueryList<InPageNavLink>;
+  private readonly inPageNavLinkDirectives = viewChildren<InPageNavLink>(InPageNavLinkDirective);
 
   public links$ = this.inPageNavPresService.links$;
 
   public ngAfterViewInit() {
-    this.inPageNavPresService.initialize(this.inPageNavLinkDirectives);
+    this.inPageNavPresService.initialize(this.inPageNavLinkDirectives());
   }
 }

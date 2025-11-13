@@ -73,7 +73,7 @@ export class InPageNavPres implements OnChanges, OnDestroy {
 
   /** List of links */
   @Input()
-  public links: InPageNavLink[] = [];
+  public links: readonly InPageNavLink[] = [];
 
   private readonly scrollSpyService = inject(NgbScrollSpyService);
 

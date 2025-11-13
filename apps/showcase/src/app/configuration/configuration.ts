@@ -8,9 +8,8 @@ import {
   computed,
   inject,
   input,
-  QueryList,
   signal,
-  ViewChildren,
+  viewChildren,
   ViewEncapsulation,
 } from '@angular/core';
 import {
@@ -72,9 +71,7 @@ const CONFIG_OVERRIDE = {
 })
 export class Configuration implements DynamicConfigurableWithSignal<ConfigurationConfig>, AfterViewInit {
   private readonly inPageNavPresService = inject(InPageNavPresService);
-
-  @ViewChildren(InPageNavLinkDirective)
-  private readonly inPageNavLinkDirectives!: QueryList<InPageNavLink>;
+  private readonly inPageNavLinkDirectives = viewChildren<InPageNavLink>(InPageNavLinkDirective);
 
   public links$ = this.inPageNavPresService.links$;
 
@@ -100,7 +97,7 @@ export class Configuration implements DynamicConfigurableWithSignal<Configuratio
   });
 
   public ngAfterViewInit() {
-    this.inPageNavPresService.initialize(this.inPageNavLinkDirectives);
+    this.inPageNavPresService.initialize(this.inPageNavLinkDirectives());
   }
 
   public toggleConfig() {
