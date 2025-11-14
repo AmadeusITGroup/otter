@@ -39,7 +39,7 @@
     "@types/node": "~22.18.0",
     "@typescript-eslint/parser": "~8.46.0",
     "@vercel/ncc": "~0.38.0",
-    "angular-eslint": "~20.5.0",
+    "angular-eslint": "~20.6.0",
     "audit-types": "^0.6.0",
     "eslint": "~9.39.0",
     "eslint-plugin-import": "~2.32.0",

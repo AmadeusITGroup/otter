@@ -54,7 +54,7 @@
   },
   "devDependencies": {
     "@angular-devkit/core": "~20.3.0",
-    "@angular-eslint/test-utils": "~20.5.0",
+    "@angular-eslint/test-utils": "~20.6.0",
     "@angular/compiler": "~20.3.0",
     "@babel/core": "~7.28.0",
     "@babel/preset-typescript": "~7.28.0",
@@ -73,7 +73,7 @@
     "@types/semver": "^7.3.13",
     "@typescript-eslint/parser": "~8.46.0",
     "@typescript-eslint/rule-tester": "~8.46.0",
-    "angular-eslint": "~20.5.0",
+    "angular-eslint": "~20.6.0",
     "cpy-cli": "^6.0.0",
     "eslint": "~9.39.0",
     "eslint-plugin-import": "~2.32.0",
