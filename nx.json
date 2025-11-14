@@ -1,6 +1,10 @@
 {
   "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/nx-schema.json",
   "defaultBase": "remotes/origin/main",
+  "tui": {
+    "autoExit": true,
+    "enabled": true
+  },
   "cli": {
     "schematicCollections": [
       "@schematics/angular",
