@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "@ama-openapi/core/schemas/transform.schema.json",
+  "title": "OpenApi mask definition",
+  "type": "object",
+  "examples": [
+    {
+      "mask": {
+        "data": true
+      }
+    },
+    {
+      "fileRename": "MyPrefix_$1"
+    },
+    {
+      "mask": {
+        "data": true
+      },
+      "fileRename": "MyPrefix_$1"
+    }
+  ],
+  "properties": {
+    "mask": {
+      "type": "object",
+      "description": "Mask to apply"
+    },
+    "titleRename": {
+      "type": "string",
+      "description": "Rename the model title. The keyword `$1` can be used to refer to original name (ex: a prefix would be `myPrefix_$1`)",
+      "examples": [
+        "myPrefix_$1",
+        "myModel"
+      ]
+    },
+    "fileRename": {
+      "type": "string",
+      "description": "Rename the outputted file. The keyword `$1` can be used to refer to the original name (ex: a prefix would be `my-prefix-$1`)",
+      "examples": [
+        "my-prefix-$1",
+        "myModel.v1.yaml"
+      ]
+    }
+  },
+  "additionalProperties": false
+}

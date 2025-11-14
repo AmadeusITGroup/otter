@@ -35,7 +35,7 @@ export interface Transform {
   /** Rename the model */
   titleRename?: string;
   /** Rename the outputted file (without extension) */
-  fileRename: string;
+  fileRename?: string;
 }
 
 type TransformOrReference = Transform | string;
@@ -51,7 +51,7 @@ export interface Model {
    * Transforms to apply to the model
    * Note that for each transform object, a new definition will be generated
    */
-  transform?: TransformOrReference | TransformOrReference[];
+  transform?: TransformOrReference;
 }
 
 /** List of supported types for an Model */
@@ -73,16 +73,18 @@ const isValidManifest = async (manifest: any, manifestPath: string, logger?: Log
   if (!manifest || (typeof manifest === 'object' && !('models' in manifest))) {
     return false;
   }
+  const schemaManifestPath = resolve(fileURLToPath(new URL('.', import.meta.url)), '..', '..', '..', 'schemas', 'manifest.schema.json');
+  const schemaTransformPath = resolve(fileURLToPath(new URL('.', import.meta.url)), '..', '..', '..', 'schemas', 'transform.schema.json');
+  const schemaManifest = JSON.parse(await fs.readFile(schemaManifestPath, { encoding: 'utf8' })) as object;
+  const schemaTransform = JSON.parse(await fs.readFile(schemaTransformPath, { encoding: 'utf8' })) as object;
   const ajv = new Ajv();
-  const schemaPath = resolve(fileURLToPath(new URL('.', import.meta.url)), '..', '..', '..', 'schemas', 'manifest.schema.json');
-  const schema = JSON.parse(await fs.readFile(schemaPath, { encoding: 'utf8' })) as object;
-  const validate = ajv.compile(schema);
+  const validate = ajv.addSchema(schemaTransform).compile(schemaManifest);
   const isValid = validate(manifest);
 
   if (!isValid) {
     logger?.error(`${manifestPath} is invalid. Errors:`);
     logger?.error(validate.errors);
-    throw new Error('Invalid models definitions');
+    throw new Error('Invalid Manifest');
   }
 
   return true;
