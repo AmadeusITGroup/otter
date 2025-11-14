@@ -16,6 +16,7 @@ The goal is to ensure dependencies in a ecosystem of specification and allow the
     - [NPM package dependency](#npm-package-dependency)
     - [Model extraction](#model-extraction)
   - [Transforms](#transforms)
+    - [Definition of a transform](#definition-of-a-transform)
     - [Mask Features](#mask-features)
   - [Extracted model details](#extracted-model-details)
     - [Reference only](#reference-only)
@@ -185,6 +186,45 @@ The following transformation are available:
 | `fileRename` | Allow renaming a model file name and allow referring the original name with the keyword `$1`. <br /> *Example: `"myPrefix_$1"` will prefix the model.* <br /> Note that the filename is used by [Redocly bundle](https://redocly.com/docs/cli/commands/bundle) to generate the final model name. |
 | `titleRename` | Allow renaming a model title name and allow referring the original name with the keyword `$1`.<br /> *Example: `"myPrefix_$1"` will prefix the model title.* Note that the field `title` is ignored by Redocly. |
 | `mask` | Mask to apply to the model as [defined in stoplight](https://meta.stoplight.io/docs/platform/2nebi9gb2ankj-override-model-properties) |
+
+### Definition of a transform
+
+There are 2 ways to define a transform for a specific model.
+
+1. Directly inside the [manifest file](#manifest-configuration) like in the following example:
+
+```yaml
+# in openapi.manifest.yaml
+models:
+  "@my/specification-package":
+    path: "models/ExampleModel.v1.yaml"
+    transform:
+      fileRename: "new-model-name.json"
+      mask:
+        properties:
+          field1:
+```
+
+2. In a dedicated file:
+
+```yaml
+# in openapi.manifest.yaml
+models:
+  "@my/specification-package":
+    path: "models/ExampleModel.v1.yaml"
+    transform: "./transform-example.yaml"
+```
+
+```yaml
+# in openapi.manifest.yaml
+fileRename: "new-model-name.json"
+mask:
+  properties:
+    field1:
+```
+
+> [!TIP]
+> Both `json` and `yaml` format files are supported.
 
 ### Mask Features
 
@@ -396,8 +436,8 @@ Equivalent to:
   "models": {
     "@my/specification-package": {
       "path": "models/ExampleModel.v1.yaml",
-      "transform: {
-        fileRename": "MyPrefix_$1",
+      "transform": {
+        "fileRename": "MyPrefix_$1",
       }
     }
   }
@@ -432,42 +472,42 @@ Equivalent to:
 }
 ```
 
-> [!NOTE]
-> This will result in the generation of multiple models, one for each transform object.
-
 </details>
 
 <details>
 
-<summary>Multi transforms</summary>
+<summary>Multiple mask for a single model</summary>
 
 ```json5
 {
   "models": {
-    "@my/specification-package": {
-      "path": "models/ExampleModel.v1.yaml",
-      "transform": [
-        {
-          "fileRename": "transformed_$1",
-          "titleRename": "transformed_$1",
+    "@my/specification-package": [
+      {
+        "path": "models/ExampleModel.v1.yaml",
+        "transform": {
+          "fileRename": "transformed1_$1",
           "mask": {
             "properties": {
               "field": true
             }
           }
-        },
-        {
-          "fileRename": "origin_$1",
-          "titleRename": "origin_$1"
         }
-      ]
-    }
+      },
+      {
+        "path": "models/ExampleModel.v1.yaml",
+        "transform": {
+          "fileRename": "transformed2_$1",
+          "mask": {
+            "properties": {
+              "other": true
+            }
+          }
+        }
+      }
+    ]
   }
 }
 ```
-
-> [!NOTE]
-> This will result in the generation of multiple models, one for each transform object.
 
 </details>
 
@@ -560,9 +600,12 @@ properties:
 
 ### Schema Validation
 
-The package includes JSON Schema validation for manifest files. The schema is available at: [@ama-openapi/core/schemas/manifest.schema.json](./schemas/manifest.schema.json).
+The package includes 2 JSON Schema which can be used to validate configurations. The schemas are the following:
 
-You can use this schema in your IDE or build tools to get validation and autocomplete support for manifest files.
+- A JSON Schema to validate [Manifest configuration](#manifest-configuration) is available at: [@ama-openapi/core/schemas/manifest.schema.json](./schemas/manifest.schema.json).
+- A JSON Schema to validate the [Transform files](#transforms) is available at: [@ama-openapi/core/schemas/transform.schema.json](./schemas/transform.schema.json).
+
+You can use these schemas in your IDE or build tools to get validation and autocomplete support for manifest files.
 
 > [!NOTE]
 > The project generator [@ama-openapi/create](https://www.npmjs.com/package/@ama-openapi/create) prepares the manifest configuration file (and `package.json`) to refer the `manifest.schema.json`.

@@ -111,14 +111,15 @@ describe('retrieveManifest', () => {
         'test-model': {
           specKey: 'test-spec',
           name: 'TestModel'
-        } as any
+        }
       }
-    };
+    } as any;
 
     beforeEach(() => {
       mockExistsSync.mockReturnValueOnce(true);
       mockReadFile
         .mockResolvedValueOnce(JSON.stringify(validManifest))
+        .mockResolvedValueOnce('{"type": "object"}') // transform mock
         .mockResolvedValueOnce('{"type": "object"}'); // schema mock
     });
 
@@ -127,7 +128,7 @@ describe('retrieveManifest', () => {
       const mockValidate = jest.fn().mockReturnValue(true);
       jest.doMock('ajv', () => {
         return jest.fn().mockImplementation(() => ({
-          compile: jest.fn().mockReturnValue(mockValidate)
+          addSchema: jest.fn().mockReturnValue({ compile: jest.fn().mockReturnValue(mockValidate) })
         }));
       });
 
@@ -146,14 +147,15 @@ describe('retrieveManifest', () => {
         'first-model': {
           specKey: 'first-spec',
           name: 'FirstModel'
-        } as any
+        }
       }
-    };
+    } as any;
 
     beforeEach(() => {
       mockExistsSync.mockReturnValueOnce(true).mockReturnValueOnce(false);
       mockReadFile
         .mockResolvedValueOnce(JSON.stringify(firstManifest))
+        .mockResolvedValueOnce('{"type": "object"}') // transform mock
         .mockResolvedValueOnce('{"type": "object"}'); // schema mock
     });
 

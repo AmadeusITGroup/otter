@@ -155,8 +155,7 @@ export const extractDependencyModelsObject = async (
   logger?.debug?.(`extracting model ${modelPath} from ${outputDirectory}`);
 
   const path = model.path || require.resolve(artifactName).split(artifactName)[1];
-  const replaceName = transform?.fileRename && path.replace(new RegExp(`(${basename(path).replaceAll('.', '\\.')})$`), transform.fileRename);
-  const fileNameOutput = replaceName || path;
+  const fileNameOutput = transform?.fileRename ? path.replace(new RegExp(`(${basename(path).replaceAll('.', '\\.')})$`), transform.fileRename) : path;
   const outputFilePath = resolve(cwd, outputDirectory, sanitizePackagePath(artifactName), fileNameOutput);
   return {
     transform,
@@ -184,16 +183,10 @@ export const extractDependencyModels = (manifest: Manifest, context: Context) =>
   const { logger, cwd } = context;
   logger?.info(`${Object.keys(manifest.models).length} dependencies models found in the manifest`);
   logger?.debug?.('Extracting information from the manifest configuration: ', manifest);
-  return Object.entries(manifest.models).flatMap(([dependencyName, modelDefinition]) => {
-    const models = Array.isArray(modelDefinition) ? modelDefinition : [modelDefinition];
-    return models
-      .flatMap((model) => {
-        if (typeof model === 'string' || typeof model === 'boolean') {
-          return [extractDependencyModelsSimple(cwd, dependencyName, model, logger)];
-        }
-        return Array.isArray(model.transform)
-          ? (model.transform.length > 0 ? model.transform : [undefined]).map((transform) => extractDependencyModelsObject(dependencyName, model, retrieveTransform(cwd, transform), context))
-          : [extractDependencyModelsObject(dependencyName, model, retrieveTransform(cwd, model.transform), context)];
-      });
-  });
+  return Object.entries(manifest.models).flatMap(([dependencyName, modelDefinition]) =>
+    (Array.isArray(modelDefinition) ? modelDefinition : [modelDefinition])
+      .map((model) => (typeof model === 'string' || typeof model === 'boolean')
+        ? extractDependencyModelsSimple(cwd, dependencyName, model, logger)
+        : extractDependencyModelsObject(dependencyName, model, retrieveTransform(cwd, model.transform), context))
+  );
 };
