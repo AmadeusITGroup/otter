@@ -103,7 +103,7 @@
     "@types/jest": "~29.5.2",
     "@types/node": "~22.18.0",
     "@typescript-eslint/parser": "~8.46.0",
-    "angular-eslint": "~20.5.0",
+    "angular-eslint": "~20.6.0",
     "cheerio": "~1.1.2",
     "cpy-cli": "^6.0.0",
     "eslint": "~9.39.0",
