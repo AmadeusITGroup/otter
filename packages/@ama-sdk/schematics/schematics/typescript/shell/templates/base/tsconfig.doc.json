@@ -17,6 +17,7 @@
   "include": [
     "./src/api/**/*.ts",
     "./src/models/**/*.ts",
-    "./src/helpers/**/*.ts"
+    "./src/helpers/**/*.ts",
+    "./src/constants/**/*.ts"
   ]
 }
