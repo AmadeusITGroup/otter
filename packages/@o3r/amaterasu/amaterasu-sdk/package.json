@@ -56,7 +56,7 @@
     "typescript-eslint": "~8.46.0"
   },
   "dependencies": {
-    "js-yaml": "^4.1.0",
+    "js-yaml": "^4.1.1",
     "loglevel": "^1.8.0",
     "tslib": "^2.6.2",
     "yargs": "^18.0.0"

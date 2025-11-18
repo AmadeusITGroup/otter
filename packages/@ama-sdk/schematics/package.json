@@ -79,7 +79,7 @@
     "@o3r/schematics": "workspace:~",
     "chokidar": "^4.0.3",
     "globby": "^11.1.0",
-    "js-yaml": "^4.1.0",
+    "js-yaml": "^4.1.1",
     "minimatch": "~10.1.0",
     "minimist": "^1.2.6",
     "rxjs": "^7.8.1",

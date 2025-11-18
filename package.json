@@ -248,7 +248,7 @@
     "jest-environment-jsdom": "~29.7.0",
     "jest-preset-angular": "~14.6.0",
     "jest-util": "~29.7.0",
-    "js-yaml": "^4.1.0",
+    "js-yaml": "^4.1.1",
     "jsonc-eslint-parser": "~2.4.0",
     "jsonpath-plus": "~10.3.0",
     "lighthouse": "~12.8.0",
