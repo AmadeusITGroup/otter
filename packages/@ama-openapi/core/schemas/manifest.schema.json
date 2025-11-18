@@ -36,7 +36,7 @@
           "path": "models/ExampleModel.v1.yaml",
           "transform": {
             "mask": { "properties": { "field": true } },
-            "fileRename": "MyPrefix_$1"
+            "rename": "MyPrefix_$1"
           }
         }
       ],

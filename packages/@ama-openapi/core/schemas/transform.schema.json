@@ -10,13 +10,13 @@
       }
     },
     {
-      "fileRename": "MyPrefix_$1"
+      "rename": "MyPrefix_$1"
     },
     {
       "mask": {
         "data": true
       },
-      "fileRename": "MyPrefix_$1"
+      "rename": "MyPrefix_$1"
     }
   ],
   "properties": {
@@ -32,7 +32,7 @@
         "myModel"
       ]
     },
-    "fileRename": {
+    "rename": {
       "type": "string",
       "description": "Rename the outputted file. The keyword `$1` can be used to refer to the original name (ex: a prefix would be `my-prefix-$1`)",
       "examples": [

@@ -99,7 +99,7 @@ const createMaskApplier = (retrievedModel: RetrievedDependencyModel, context: Co
     const maskFileName = determineSubMaskFileName(node.$ref, parents);
     const outputFileDirectory = determineSubMaskPath(retrievedModel);
     const transform = {
-      fileRename: maskFileName,
+      rename: maskFileName,
       mask
     };
 
@@ -169,7 +169,7 @@ const createMaskApplier = (retrievedModel: RetrievedDependencyModel, context: Co
       if ('$ref' in node && typeof node.$ref === 'string' && mask && typeof mask === 'object' && 'properties' in mask) {
         return handleReference(node, mask, parents);
       }
-      return typeof mask === 'object'
+      return mask && typeof mask === 'object'
         ? {
           ...node,
           ...Object.fromEntries(
@@ -188,7 +188,7 @@ const createMaskApplier = (retrievedModel: RetrievedDependencyModel, context: Co
             )
           )
         }
-        : (mask ? node : undefined);
+        : (mask || mask === null ? node : undefined);
     }
   };
 

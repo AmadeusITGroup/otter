@@ -38,7 +38,7 @@ describe('toReference', () => {
       modelPath: 'models/test-model.yaml',
       outputFilePath: 'output/models/test-model.yaml',
       transform: {
-        fileRename: 'renamed-model'
+        rename: 'renamed-model'
       }
     } as any;
 

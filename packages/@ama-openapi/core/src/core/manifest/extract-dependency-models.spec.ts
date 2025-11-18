@@ -78,7 +78,7 @@ describe('extract-dependency-models', () => {
         mockDependencyName,
         mockModel,
         Promise.resolve<Transform>({
-          fileRename: 'test-model'
+          rename: 'test-model'
         }),
         mockContext
       );

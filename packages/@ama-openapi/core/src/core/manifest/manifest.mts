@@ -35,7 +35,7 @@ export interface Transform {
   /** Rename the model */
   titleRename?: string;
   /** Rename the outputted file (without extension) */
-  fileRename?: string;
+  rename?: string;
 }
 
 type TransformOrReference = Transform | string;

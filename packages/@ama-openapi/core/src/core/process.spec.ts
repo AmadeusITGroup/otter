@@ -73,7 +73,7 @@ describe('processModel', () => {
       isOutputJson: true,
       transform: {
         titleRename: 'RenamedTitle',
-        fileRename: 'renamed-model.json',
+        rename: 'renamed-model.json',
         mask: { properties: { fieldToMask: false } }
       }
     } as any;

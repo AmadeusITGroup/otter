@@ -155,7 +155,7 @@ export const extractDependencyModelsObject = async (
   logger?.debug?.(`extracting model ${modelPath} from ${outputDirectory}`);
 
   const path = model.path || require.resolve(artifactName).split(artifactName)[1];
-  const fileNameOutput = transform?.fileRename ? path.replace(new RegExp(`(${basename(path).replaceAll('.', '\\.')})$`), transform.fileRename) : path;
+  const fileNameOutput = transform?.rename ? path.replace(new RegExp(`(${basename(path).replaceAll('.', '\\.')})$`), transform.rename) : path;
   const outputFilePath = resolve(cwd, outputDirectory, sanitizePackagePath(artifactName), fileNameOutput);
   return {
     transform,

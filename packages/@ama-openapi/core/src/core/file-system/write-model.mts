@@ -33,7 +33,7 @@ export const writeModelFile = async (retrievedModel: RetrievedDependencyModel, c
 
   if (existsSync(outputFilePath)) {
     logger?.warn(`The file ${outputFilePath} already exist and will be replaced.`
-      + `${EOL}This may be due to a previous model extraction, please verify or apply a "fileRename" value to the associated Transform.`);
+      + `${EOL}This may be due to a previous model extraction, please verify or apply a "rename" value to the associated Transform.`);
   }
 
   await fs.writeFile(outputFilePath, content, { encoding: 'utf8' });
