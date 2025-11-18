@@ -6,6 +6,9 @@ import {
   RouterModule,
 } from '@angular/router';
 import {
+  NgbScrollSpyService,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
   mockTranslationModules,
 } from '@o3r/testing/localization';
 import {
@@ -18,11 +21,19 @@ import {
 describe('Forms', () => {
   let component: Forms;
   let fixture: ComponentFixture<Forms>;
+  let mockScrollSpyService: Partial<NgbScrollSpyService>;
 
   beforeEach(async () => {
+    mockScrollSpyService = {
+      start: jest.fn(),
+      stop: jest.fn()
+    };
     await TestBed.configureTestingModule({
       imports: [RouterModule.forRoot([]), Forms, ...mockTranslationModules()],
-      providers: [provideMarkdown()]
+      providers: [
+        { provide: NgbScrollSpyService, useValue: mockScrollSpyService },
+        provideMarkdown()
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(Forms);

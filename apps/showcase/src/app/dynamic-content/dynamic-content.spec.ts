@@ -9,6 +9,9 @@ import {
   RouterModule,
 } from '@angular/router';
 import {
+  NgbScrollSpyService,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
   provideDynamicContent,
 } from '@o3r/dynamic-content';
 import {
@@ -29,8 +32,13 @@ let componentFixture: DynamicContentFixtureComponent;
 describe('DynamicContent', () => {
   let component: DynamicContent;
   let fixture: ComponentFixture<DynamicContent>;
+  let mockScrollSpyService: Partial<NgbScrollSpyService>;
 
   beforeEach(() => {
+    mockScrollSpyService = {
+      start: jest.fn(),
+      stop: jest.fn()
+    };
     TestBed.configureTestingModule({
       imports: [
         DynamicContent,
@@ -38,6 +46,7 @@ describe('DynamicContent', () => {
         AsyncPipe
       ],
       providers: [
+        { provide: NgbScrollSpyService, useValue: mockScrollSpyService },
         provideMarkdown(),
         provideDynamicContent()
       ]

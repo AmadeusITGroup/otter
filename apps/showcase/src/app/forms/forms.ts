@@ -6,8 +6,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   inject,
-  QueryList,
-  ViewChildren,
+  viewChildren,
   ViewEncapsulation,
 } from '@angular/core';
 import {
@@ -43,14 +42,12 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Forms implements AfterViewInit {
-  @ViewChildren(InPageNavLinkDirective)
-  private readonly inPageNavLinkDirectives!: QueryList<InPageNavLink>;
-
+  private readonly inPageNavLinkDirectives = viewChildren<InPageNavLink>(InPageNavLinkDirective);
   private readonly inPageNavPresService = inject(InPageNavPresService);
 
   public links$ = this.inPageNavPresService.links$;
 
   public ngAfterViewInit() {
-    this.inPageNavPresService.initialize(this.inPageNavLinkDirectives);
+    this.inPageNavPresService.initialize(this.inPageNavLinkDirectives());
   }
 }

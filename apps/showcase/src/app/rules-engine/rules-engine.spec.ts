@@ -12,6 +12,9 @@ import {
   RouterModule,
 } from '@angular/router';
 import {
+  NgbScrollSpyService,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
   EffectsModule,
 } from '@ngrx/effects';
 import {
@@ -49,8 +52,13 @@ const mockTranslationsCompilerProvider: Provider = {
 describe('RulesEngine', () => {
   let component: RulesEngine;
   let fixture: ComponentFixture<RulesEngine>;
+  let mockScrollSpyService: Partial<NgbScrollSpyService>;
 
   beforeEach(async () => {
+    mockScrollSpyService = {
+      start: jest.fn(),
+      stop: jest.fn()
+    };
     TestBed.configureTestingModule({
       imports: [
         RulesEngine,
@@ -61,7 +69,10 @@ describe('RulesEngine', () => {
         ...mockTranslationModules(localizationConfiguration, mockTranslations, mockTranslationsCompilerProvider),
         AsyncPipe
       ],
-      providers: [provideMarkdown()]
+      providers: [
+        { provide: NgbScrollSpyService, useValue: mockScrollSpyService },
+        provideMarkdown()
+      ]
     });
     global.fetch = jest.fn(() =>
       Promise.resolve({

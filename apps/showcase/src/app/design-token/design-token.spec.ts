@@ -6,6 +6,9 @@ import {
   RouterModule,
 } from '@angular/router';
 import {
+  NgbScrollSpyService,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
   provideMarkdown,
 } from 'ngx-markdown';
 import {
@@ -15,14 +18,22 @@ import {
 describe('DesignToken', () => {
   let component: DesignToken;
   let fixture: ComponentFixture<DesignToken>;
+  let mockScrollSpyService: Partial<NgbScrollSpyService>;
 
   beforeEach(async () => {
+    mockScrollSpyService = {
+      start: jest.fn(),
+      stop: jest.fn()
+    };
     await TestBed.configureTestingModule({
       imports: [
         DesignToken,
         RouterModule.forRoot([])
       ],
-      providers: [provideMarkdown()]
+      providers: [
+        { provide: NgbScrollSpyService, useValue: mockScrollSpyService },
+        provideMarkdown()
+      ]
     })
       .compileComponents();
 
