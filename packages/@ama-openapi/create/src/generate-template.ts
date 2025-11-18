@@ -9,7 +9,7 @@ import {
 } from 'node:path';
 import {
   DEFAULT_MANIFEST_FILENAMES,
-  // eslint-disable-next-line import/no-unresolved -- Cannot resolve mjs file in current setup
+  // eslint-disable-next-line import/no-unresolved -- Cannot resolve mjs file in current setup (see #3738)
 } from '@ama-openapi/core';
 import {
   renderFile,

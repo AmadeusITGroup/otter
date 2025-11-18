@@ -37,3 +37,36 @@ export interface Logger {
    */
   debug?(message?: any, ...optionalParams: any[]): void;
 }
+
+/** Log levels for logger */
+export type LogLevel = 'silent' | 'error' | 'warn' | 'info' | 'debug';
+
+const noop = () => {};
+
+/**
+ * Get a logger with the specified log level
+ * @param level
+ * @param logger
+ */
+export const getLogger = (level?: LogLevel, logger: Logger = console) => {
+  if (level) {
+    switch (level) {
+      case 'silent': {
+        logger = { ...logger, error: noop, log: noop };
+      }
+      // eslint-disable-next-line no-fallthrough -- done on purpose to disable multiple levels
+      case 'error': {
+        logger = { ...logger, warn: noop };
+      }
+      // eslint-disable-next-line no-fallthrough -- done on purpose to disable multiple levels
+      case 'warn': {
+        logger = { ...logger, info: noop };
+      }
+      // eslint-disable-next-line no-fallthrough -- done on purpose to disable multiple levels
+      case 'info': {
+        logger = { ...logger, debug: noop };
+      }
+    }
+  }
+  return logger;
+};

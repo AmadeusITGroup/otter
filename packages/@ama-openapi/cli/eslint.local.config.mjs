@@ -12,7 +12,7 @@ const __dirname = dirname(__filename);
 
 export default [
   {
-    name: '@ama-openapi/core/projects',
+    name: '@ama-openapi/cli/projects',
     languageOptions: {
       sourceType: 'module',
       parserOptions: {
@@ -22,19 +22,13 @@ export default [
     }
   },
   {
-    name: '@ama-openapi/core/globals',
+    name: '@ama-openapi/cli/globals',
     languageOptions: {
       sourceType: 'module',
       globals: {
         ...globals.node,
         NodeJS: true
       }
-    }
-  },
-  {
-    name: '@ama-openapi/core/overrides',
-    rules: {
-      'import/no-cycle': 'off'
     }
   }
 ];
