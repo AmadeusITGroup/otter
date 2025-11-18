@@ -2,7 +2,7 @@
 
 As the dependency system is based on NPM packages, a shareable specification should follow the requirements of an NPM package:
 
-1. A `package.json` should be provided and exposed the files accessible by the consumer
+1. A `package.json` should be provided and should expose the files accessible by the consumer
 2. The package should be published to an NPM registry thanks to the command `npm publish`
 3. The relative references of the different models should be rewritten to target the same model from a different location.
 
@@ -43,6 +43,10 @@ To ensure that the external references will be resolvable by the [Redocly bundle
 - The external references should target exclusively URL or files in `models_external/` directory.
 - The package of externally referred models should be listed in the `dependencies` or the `package.json`
 - The external models are extracted during the `postinstall` lifecycle of your package.
+
+> [!WARNING]
+> The `ignore-scripts` option from NPM will block the `postinstall` script run which we will to wrong dependency path recalculation.\
+> To avoid it, the option should be disabled from `.npmrc` (or command line options) and the installation need to be rerun.
 
 <details>
 

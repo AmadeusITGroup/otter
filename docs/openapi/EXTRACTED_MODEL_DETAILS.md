@@ -45,7 +45,7 @@ The model will also include additional [annotations](#model-annotations) accordi
 
 ## Model annotations
 
-The following annotations, via [x-vendor](https://swagger.io/docs/specification/v3_0/openapi-extensions/) fields, are added to the models extracted to the `models_extrenal` directory:
+Transformed model are generated in the `models_external` directory. They shall be annotated with the following [x-vendor](https://swagger.io/docs/specification/v3_0/openapi-extensions/) fields:
 
 | Annotation | Position | Description |
 | --- | --- | --- |

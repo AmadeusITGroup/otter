@@ -10,7 +10,11 @@ The dependency management system uses manifest files to define which OpenAPI mod
 - `openapi.manifest.yml`
 
 > [!TIP]
-> In case no valid file from previous the list is found, the mechanism will parse the `package.json` to find manifest definitions.
+> In case no valid file from the previous list is found, the mechanism will parse the `package.json` to find manifest definitions.
+
+> [!IMPORTANT]
+> To make sure to properly expose its models, the Manifest file need to be embedded in the artifact.
+The manifest file follows a [specific schema](../../packages/@ama-openapi/core/schemas/manifest.schema.json) that list sthe referenceable models and the `transforms` applied to it.
 
 ## Manifest Schema
 

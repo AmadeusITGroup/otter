@@ -26,7 +26,7 @@ The system leverages **NPM's package resolution mechanism** to manage OpenAPI sp
 
 Models can be transformed during extraction:
 
-- **fileRename**: Rename model files (e.g., `"myPrefix_$1"`)
+- **rename**: Rename model files (e.g., `"myPrefix_$1"`)
 - **titleRename**: Rename model titles
 - **mask**: Filter/override/add properties using Stoplight mask syntax
 
