@@ -26,6 +26,7 @@
     "lint": {},
     "test": {},
     "prepare-publish": {},
+    "set-version": {},
     "publish": {},
     "documentation": {}
   }

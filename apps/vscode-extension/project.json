@@ -27,6 +27,7 @@
     },
     "lint": {},
     "test": {},
+    "set-version": {},
     "prepare-publish": {
       "options": {
         "commands": [

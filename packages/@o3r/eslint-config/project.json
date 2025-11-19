@@ -30,6 +30,7 @@
     "prepare-build-builders": {},
     "prepare-publish": {},
     "build-builders": {},
+    "set-version": {},
     "publish": {}
   },
   "tags": []

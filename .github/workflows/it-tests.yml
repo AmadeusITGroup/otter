@@ -47,6 +47,9 @@ jobs:
           artifactName: ${{ inputs.ref && format('dist-{0}', inputs.ref) || 'dist' }}
       - uses: ./tools/github-actions/setup
         timeout-minutes: 30
+      - if: ${{env.NX_SKIP_REMOTE_CACHE == 'true'}}
+        uses: ./.github/actions/download-cache
+        continue-on-error: true
       - name: Setup verdaccio once for all tests
         id: setup-verdaccio
         run: |

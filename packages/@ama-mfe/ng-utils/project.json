@@ -25,6 +25,7 @@
     "prepare": {},
     "lint": {},
     "test": {},
+    "set-version": {},
     "publish": {},
     "prepare-publish": {},
     "prepare-build-builders": {},
