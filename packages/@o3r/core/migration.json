@@ -20,6 +20,11 @@
       "version": "12.1.0-prerelease.0",
       "description": "Updates of @o3r/core to v12.1.*",
       "factory": "./schematics/ng-update/index#updateV12_1"
+    },
+    "migration-all": {
+      "version": "*",
+      "description": "Run on all versions",
+      "factory": "./schematics/ng-update/index#updateAll"
     }
   }
 }
