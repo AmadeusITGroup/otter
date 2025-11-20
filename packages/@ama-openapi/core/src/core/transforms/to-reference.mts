@@ -14,6 +14,9 @@ import type {
   RetrievedDependencyModel,
 } from '../manifest/extract-dependency-models.mjs';
 import type {
+  Transform,
+} from '../manifest/manifest.mjs';
+import type {
   SpecificationFile,
 } from './transform.mjs';
 
@@ -22,6 +25,9 @@ type ReferenceSpecification = {
   [GENERATED_REF_PROPERTY_KEY]: boolean;
   [x: string]: any;
 };
+
+/** Transform accepted to continue the replacement by a reference */
+const ACCEPTED_TRANSFORMS = ['rename'] as const satisfies (keyof Transform)[];
 
 /**
  * Transform the specification to a single reference if no transformation required
@@ -32,7 +38,7 @@ type ReferenceSpecification = {
  */
 export const toReference = <S extends SpecificationFile>(specification: S, retrievedModel: RetrievedDependencyModel, context: Context): S | ReferenceSpecification => {
   const { logger } = context;
-  if (retrievedModel.transform) {
+  if (retrievedModel.transform && !Object.keys(retrievedModel.transform).every((transform) => ACCEPTED_TRANSFORMS.includes(transform as any))) {
     logger?.debug?.(`The specification ${retrievedModel.modelPath} has transform, the conversion to reference will be ignored`);
     return specification;
   }

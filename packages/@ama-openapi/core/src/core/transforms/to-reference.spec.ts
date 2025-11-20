@@ -38,11 +38,30 @@ describe('toReference', () => {
       modelPath: 'models/test-model.yaml',
       outputFilePath: 'output/models/test-model.yaml',
       transform: {
-        rename: 'renamed-model'
+        mask: 'model'
       }
     } as any;
 
     const resultSpecification = toReference(mockSpecification, mockRetrievedModel, mockContext);
     expect(resultSpecification).toEqual(mockSpecification);
+  });
+
+  it('should convert specification to reference when allow transforms are accepted', () => {
+    const mockSpecification = { testField: 'testValue' };
+    const mockRetrievedModel: RetrievedDependencyModel = {
+      modelPath: 'models/test-model.yaml',
+      outputFilePath: 'output/models/test-model.yaml',
+      transform: {
+        rename: 'test-model.yaml'
+      },
+      'x-vendor-custom': 'customValue'
+    } as any;
+
+    const referenceSpecification = toReference(mockSpecification, mockRetrievedModel, mockContext);
+    expect(referenceSpecification).toEqual({
+      $ref: '../../models/test-model.yaml',
+      'x-vendor-custom': 'customValue',
+      'x-internal-reference-generated': true
+    });
   });
 });

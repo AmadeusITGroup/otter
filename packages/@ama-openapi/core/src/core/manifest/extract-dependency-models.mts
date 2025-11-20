@@ -7,6 +7,7 @@ import {
 import {
   basename,
   dirname,
+  extname,
   join,
   resolve,
 } from 'node:path';
@@ -69,6 +70,25 @@ const sanitizePackagePath = (artifactName: string) => {
 };
 
 /**
+ * Get the path to the file containing the model
+ * @param modelPath
+ */
+const getFilePathFromModelPath = (modelPath: string) => {
+  return modelPath.replace(/#\/.+$/, '');
+};
+
+/**
+ * Get the file name resulting of a model path
+ * @param modelPath
+ */
+const getOutFilePathFromModelPath = (modelPath: string) => {
+  const match = modelPath.match(/^(.*)#\/(.+)?$/);
+  return match
+    ? join(dirname(match[1]), match[2] + extname(match[1]))
+    : modelPath;
+};
+
+/**
  * Retrieve the transform object from the manifest
  * @param cwd
  * @param transform
@@ -113,10 +133,11 @@ const extractDependencyModelsSimple = async (
   const require = createRequire(resolve(cwd, 'package.json'));
   const { artifactBasePath, version } = await getArtifactInfo(require, artifactName);
   const modelPath = typeof modelName === 'string' ? join(artifactBasePath, modelName) : require.resolve(artifactName);
-  const content = await fs.readFile(modelPath, { encoding: 'utf8' });
+  const content = await fs.readFile(getFilePathFromModelPath(modelPath), { encoding: 'utf8' });
   const path = typeof modelName === 'string' ? modelName : artifactName;
   const model = { path } satisfies Model;
-  const outputFilePath = resolve(cwd, outputDirectory, sanitizePackagePath(artifactName), model.path);
+  const fileNameOutput = getOutFilePathFromModelPath(model.path);
+  const outputFilePath = resolve(cwd, outputDirectory, sanitizePackagePath(artifactName), fileNameOutput);
   return {
     outputFilePath,
     artifactBasePath,
@@ -151,11 +172,14 @@ export const extractDependencyModelsObject = async (
   const transform = await transformPromise;
   const { artifactBasePath, version } = await getArtifactInfo(require, artifactName);
   const modelPath = model.path ? join(artifactBasePath, model.path) : require.resolve(artifactName);
-  const content = await fs.readFile(modelPath, { encoding: 'utf8' });
+  const content = await fs.readFile(getFilePathFromModelPath(modelPath), { encoding: 'utf8' });
   logger?.debug?.(`extracting model ${modelPath} from ${outputDirectory}`);
 
   const path = model.path || require.resolve(artifactName).split(artifactName)[1];
-  const fileNameOutput = transform?.rename ? path.replace(new RegExp(`(${basename(path).replaceAll('.', '\\.')})$`), transform.rename) : path;
+  const fileName = getFilePathFromModelPath(path);
+  const fileNameOutput = transform?.rename
+    ? fileName.replace(new RegExp(`(${basename(fileName).replaceAll('.', '\\.')})$`), transform.rename)
+    : getOutFilePathFromModelPath(path);
   const outputFilePath = resolve(cwd, outputDirectory, sanitizePackagePath(artifactName), fileNameOutput);
   return {
     transform,
