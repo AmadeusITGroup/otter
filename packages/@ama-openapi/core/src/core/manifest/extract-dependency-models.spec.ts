@@ -103,6 +103,23 @@ describe('extract-dependency-models', () => {
       expect(fs.readFile).toHaveBeenCalled();
     });
 
+    it('should handle properly target file with inner paths', async () => {
+      const yamlModel = {
+        ...mockModel,
+        path: './models/test-model.yaml#/definition'
+      };
+
+      const result = await extractDependencyModelsObject(
+        mockDependencyName,
+        yamlModel,
+        Promise.resolve(mockTransform as any as Transform),
+        mockContext
+      );
+
+      expect(result).toBeDefined();
+      expect(fs.readFile).toHaveBeenNthCalledWith(2, expect.stringMatching(/[\\/]models[\\/]test-model\.yaml$/), expect.anything());
+    });
+
     it('should resolve npm package paths', async () => {
       const npmModel = {
         ...mockModel,
