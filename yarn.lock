@@ -10798,7 +10798,6 @@ __metadata:
     jest-environment-jsdom: "npm:~29.7.0"
     jest-preset-angular: "npm:~14.6.0"
     jest-util: "npm:~29.7.0"
-    js-yaml: "npm:^4.1.1"
     jsonc-eslint-parser: "npm:~2.4.0"
     jsonpath-plus: "npm:~10.3.0"
     lighthouse: "npm:~12.8.0"
