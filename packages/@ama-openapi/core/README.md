@@ -52,7 +52,7 @@ To create a shareable specification:
 4. Publish to NPM registry
 
 > [!NOTE]
-> Complete documentation is available on [dedicated shaerable specification section](https://github.com/AmadeusITGroup/otter/tree/main/docs/openapi/TECHNICAL_INFORMATION.md).
+> Complete documentation is available on [dedicated shaerable specification section](https://github.com/AmadeusITGroup/otter/tree/main/docs/openapi/SHAREABLE_SPECIFICATION.md).
 
 ## Integration
 
