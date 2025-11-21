@@ -3,7 +3,7 @@ import {
   Component,
   forwardRef,
   inject,
-  Input,
+  input,
   Pipe,
   type PipeTransform,
   signal,
@@ -16,7 +16,6 @@ import {
 } from '@angular/forms';
 import {
   DfDatePickerModule,
-  DfInputIconDirective,
 } from '@design-factory/design-factory';
 import {
   NgbCalendar,
@@ -52,7 +51,6 @@ export class GetDayNumeralsPipe implements PipeTransform {
     FormsModule,
     GetDayNumeralsPipe,
     NgbInputDatepicker,
-    DfInputIconDirective,
     DfDatePickerModule
   ],
   templateUrl: './date-picker-input-hebrew-pres.template.html',
@@ -83,8 +81,7 @@ export class DatePickerHebrewInputPresComponent implements ControlValueAccessor,
   public selectedDate = signal<NgbDate | null>(null);
 
   /** @inheritDoc */
-  @Input()
-  public id!: string;
+  public id = input.required<string>();
 
   private readonly calendar = inject(NgbCalendar);
 

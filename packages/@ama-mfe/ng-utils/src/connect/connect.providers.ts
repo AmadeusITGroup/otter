@@ -11,7 +11,7 @@ import {
   type Logger,
 } from '@o3r/logger';
 import {
-  provideDisableHistoryWrites,
+  provideHistoryOverrides,
 } from '../history';
 import {
   getHostInfo,
@@ -62,7 +62,6 @@ export function provideConnection(connectionConfigOptions?: ConnectionConfigOpti
       // in the case of the ConnectionService will extend the base service 'useExisting' should be used
       provide: MessagePeerService, useClass: ConnectionService, deps: [MESSAGE_PEER_CONFIG]
     },
-    // deactivate history writes to avoid embedded app writing to the host history
-    ...isEmbedded() ? [provideDisableHistoryWrites()] : []
+    ...isEmbedded() ? [provideHistoryOverrides()] : []
   ]);
 }

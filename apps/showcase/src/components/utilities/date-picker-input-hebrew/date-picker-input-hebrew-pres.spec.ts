@@ -16,6 +16,7 @@ describe('DatePickerHebrewInputPresComponent', () => {
     });
     fixture = TestBed.createComponent(DatePickerHebrewInputPresComponent);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('id', 'test');
     fixture.detectChanges();
   });
 

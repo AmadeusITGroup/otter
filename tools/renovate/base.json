@@ -25,6 +25,7 @@
     "master",
     "/^release\\/.*-next$/"
   ],
+  "minimumReleaseAge": "3 days",
   "prConcurrentLimit": 0,
   "prHourlyLimit": 0,
   "enabledManagers": [

@@ -1,8 +1,8 @@
 <p class="mb-0 text-center">Hebrew calendar</p>
 <div class="input-group">
-  <input [id]="id"
+  <input [id]="id()"
         #dpin
-        class="form-control"
+        class="form-control df-input-withicon"
         placeholder="YYYY-MM-DD"
         [ngModel]="selectedDate()"
         (ngModelChange)="selectDate($event)"
@@ -15,7 +15,6 @@
         [dayTemplateData]="dayTemplateData"
         (dateSelect)="dpin.focus()"
         [disabled]="isDisabled()"
-        [dfInputIcon]="['append']"
         />
   <div class="input-group-append">
     <button class="input-group-text fa-otter" (click)="dp.toggle()" type="button"><span class="visually-hidden">Toggle

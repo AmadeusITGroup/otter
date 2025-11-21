@@ -7,7 +7,7 @@ type RSAOAEPParams = { name: 'RSA-OAEP'; hash: 'SHA-256' };
 
 export interface MsCrypto {
   msCrypto: {
-    getRandomValues: (typedArray: Uint8Array) => Uint8Array;
+    getRandomValues: (typedArray: Uint8Array) => Uint8Array<ArrayBuffer>;
     subtle: {
       generateKey: (algorithm: { name: string; length: number }, extractable: boolean, keyUsages: string[]) => CryptoFunctionOutput<CryptoKey>;
       encrypt: <Params extends RSAOAEPParams | AesGcmParams>(algorithm: Params, key: CryptoKey, data: Uint8Array) =>

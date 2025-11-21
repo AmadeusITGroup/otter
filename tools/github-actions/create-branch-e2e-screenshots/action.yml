@@ -14,7 +14,7 @@ inputs:
     type: string
     description: 'Suffix for the branch that will be created'
     required: false
-    default: ${{ github.head_ref }}-update-e2e-screenshots
+    default: refs/heads/${{ github.head_ref }}-update-e2e-screenshots
 
 runs:
   using: 'composite'
@@ -26,7 +26,6 @@ runs:
         commit_message: ${{ inputs.commitMessage }}
         branch: ${{ inputs.branchName }}
         file_pattern: ${{ inputs.screenshotsPattern }}
-        create_branch: true
     - name: Comment the PR
       if: ${{ steps.auto-commit-action.outputs.changes_detected == 'true' }}
       env:
@@ -34,7 +33,7 @@ runs:
         BRANCH_URL: https://github.com/${{ github.repository }}/tree/${{ inputs.branchName }}
         COMMIT_HASH: ${{ steps.auto-commit-action.outputs.commit_hash }}
         COMMIT_URL: https://github.com/${{ github.repository }}/commit/${{ steps.auto-commit-action.outputs.commit_hash }}
-      uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+      uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7.1.0
       with:
         script: |
           const comment = [

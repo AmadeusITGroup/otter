@@ -27,6 +27,11 @@
     "npmRegistry": {
       "type": "string",
       "description": "A custom npm registry (the public one will be used by default)."
+    },
+    "defaultBranchName": {
+      "type": "string",
+      "description": "The repository default branch name",
+      "default": "main"
     }
   },
   "additionalProperties": true,

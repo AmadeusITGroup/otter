@@ -15,11 +15,15 @@ body:
       description: Which package(s) are you facing issue with?
       multiple: true
       options: [
+        client-angular,
+        client-beacon,
+        client-fetch,
         core,
         create,
         schematics,
         showcase-sdk
-        swagger-builder
+        swagger-builder,
+        training-sdk
       ]
     validations:
       required: true

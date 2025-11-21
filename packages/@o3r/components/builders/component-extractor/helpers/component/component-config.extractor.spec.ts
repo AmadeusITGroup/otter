@@ -162,7 +162,7 @@ describe('ComponentConfigExtractor', () => {
 
       const configuration = runExtractionForPath(configurationFilePath, configurationFileContent, logger);
       expect(logger.warn).toHaveBeenCalledTimes(1);
-      expect(logger.warn).toHaveBeenCalledWith('Unsupported type found will be ignored with kind = 211 and value = foo.bar');
+      expect(logger.warn).toHaveBeenCalledWith(`Unsupported type found will be ignored with kind = ${ts.SyntaxKind.PropertyAccessExpression} and value = foo.bar`);
       expect(configuration).toEqual({
         nestedConfiguration: [],
         unionTypeStringLiteral: [],
@@ -205,8 +205,8 @@ describe('ComponentConfigExtractor', () => {
 
       const configuration = runExtractionForPath(configurationFilePath, configurationFileContent, logger);
       expect(logger.warn).toHaveBeenCalledTimes(2);
-      expect(logger.warn).toHaveBeenCalledWith('Unsupported type found will be ignored with kind = 211 and value = foo.bar');
-      expect(logger.warn).toHaveBeenCalledWith('Unsupported type found will be ignored with kind = 211 and value = foo.foo');
+      expect(logger.warn).toHaveBeenCalledWith(`Unsupported type found will be ignored with kind = ${ts.SyntaxKind.PropertyAccessExpression} and value = foo.bar`);
+      expect(logger.warn).toHaveBeenCalledWith(`Unsupported type found will be ignored with kind = ${ts.SyntaxKind.PropertyAccessExpression} and value = foo.foo`);
       expect(configuration).toEqual({
         nestedConfiguration: [],
         unionTypeStringLiteral: [],

@@ -84,4 +84,4 @@ jobs:
         if: ${{ steps.update-e2e-screenshots.outputs.screenshots != '0' }}
         uses: ./tools/github-actions/create-branch-e2e-screenshots
         with:
-          screenshotsPattern: apps/showcase/e2e-playwright/sanity/screenshots/**
+          screenshotsPattern: apps/showcase/e2e-playwright/screenshots/sanity/**

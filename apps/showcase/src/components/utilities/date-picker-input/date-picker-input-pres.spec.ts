@@ -15,6 +15,8 @@ describe('DatePickerInputPresComponent', () => {
       imports: [DatePickerInputPresComponent]
     });
     fixture = TestBed.createComponent(DatePickerInputPresComponent);
+    fixture.componentRef.setInput('id', 'test');
+    fixture.componentRef.setInput('label', 'test-label');
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
