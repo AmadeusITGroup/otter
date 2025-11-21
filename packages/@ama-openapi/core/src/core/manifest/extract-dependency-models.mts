@@ -74,7 +74,7 @@ const sanitizePackagePath = (artifactName: string) => {
  * @param modelPath
  */
 const getFilePathFromModelPath = (modelPath: string) => {
-  return modelPath.replace(/#\/.+$/, '');
+  return modelPath.replace(/#[\\/].+$/, '');
 };
 
 /**
@@ -82,7 +82,7 @@ const getFilePathFromModelPath = (modelPath: string) => {
  * @param modelPath
  */
 const getOutFilePathFromModelPath = (modelPath: string) => {
-  const match = modelPath.match(/^(.*)#\/(.+)?$/);
+  const match = modelPath.match(/^(.*)#[\\/](.+)?$/);
   return match
     ? join(dirname(match[1]), match[2] + extname(match[1]))
     : modelPath;

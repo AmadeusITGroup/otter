@@ -1,17 +1,17 @@
 # Transforms
 
 Before being exposed to be used by your specifications, a dependency model can be transformed via options defined in the [manifest configuration](./MANIFEST_CONFIGURATION.md).\
-The following transformation are available:
+The following transformations are available:
 
 | Transform name | Description |
 | --- | --- |
-| `fileRename` | Allow renaming a model file name and allow referring the original name with the keyword `$1`. <br /> *Example: `"myPrefix_$1"` will prefix the model.* <br /> Note that the filename is used by [Redocly bundle](https://redocly.com/docs/cli/commands/bundle) to generate the final model name. |
-| `titleRename` | Allow renaming a model title name and allow referring the original name with the keyword `$1`.<br /> *Example: `"myPrefix_$1"` will prefix the model title.* Note that the field `title` is ignored by Redocly. |
+| `fileRename` | Rename a model file name and allow referring to the original name with the keyword `$1`. <br /> *Example: `"myPrefix_$1"` will prefix the model.* <br /> Note that the filename is used by the [Redocly bundle](https://redocly.com/docs/cli/commands/bundle) to generate the final model name. |
+| `titleRename` | Rename a model title name and allow referring to the original name with the keyword `$1`.<br /> *Example: `"myPrefix_$1"` will prefix the model title.* <br /> Note that the field `title` is ignored by Redocly. |
 | `mask` | Mask to apply to the model as [defined in stoplight](https://meta.stoplight.io/docs/platform/2nebi9gb2ankj-override-model-properties) |
 
 ## Definition of a transform
 
-There are 2 ways to define a transform for a specific model.
+There are 2 ways to define a `transform` for a specific model.
 
 1. Directly inside the [manifest file](./MANIFEST_CONFIGURATION.md) like in the following example:
 
@@ -48,13 +48,13 @@ mask:
 > [!TIP]
 > Both `json` and `yaml` format files are supported.
 
-## Mask Features
+## Mask feature
 
 The mask feature offers 4 main capabilities:
 
-- Filter the fields of a model object `properties`
-- Override object property's value
-- Add object property
+- Filter the fields of a model object's `properties`
+- Override the value of an object property
+- Add an object property
 - Be applied on referenced objects
 
 <details>
@@ -104,7 +104,7 @@ property:
       subField1:
 ```
 
-will result to:
+will result in:
 
 ```yaml
 # in model_external/models/example.v1.yaml
