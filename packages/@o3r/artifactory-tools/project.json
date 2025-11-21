@@ -3,7 +3,10 @@
   "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
   "sourceRoot": "packages/@o3r/artifactory-tools/src",
   "prefix": "o3r",
-  "tags": ["tools"],
+  "tags": [
+    "scope:o3r",
+    "type:tools"
+  ],
   "projectType": "library",
   "targets": {
     "build": {

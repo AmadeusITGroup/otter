@@ -43,7 +43,9 @@
     "publish": {}
   },
   "tags": [
-    "private",
-    "showcase"
+    "access:private",
+    "scope:o3r-training",
+    "scope:showcase",
+    "type:sdk"
   ]
 }

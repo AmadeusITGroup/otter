@@ -41,5 +41,9 @@
     "publish": {},
     "documentation": {}
   },
-  "tags": []
+  "tags": [
+    "scope:o3r",
+    "workspace-required",
+    "type:plugin"
+  ]
 }

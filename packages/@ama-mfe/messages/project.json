@@ -39,5 +39,8 @@
     "publish": {},
     "documentation": {}
   },
-  "tags": []
+  "tags": [
+    "scope:ama-mfe",
+    "type:library"
+  ]
 }

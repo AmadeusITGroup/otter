@@ -30,5 +30,10 @@
     "lint": {},
     "test": {}
   },
-  "tags": ["private","showcase"]
+  "tags": [
+    "access:private",
+    "scope:o3r-training",
+    "scope:showcase",
+    "type:tools"
+  ]
 }

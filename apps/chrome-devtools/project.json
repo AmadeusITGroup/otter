@@ -168,5 +168,8 @@
       }
     }
   },
-  "tags": []
+  "tags": [
+    "scope:o3r",
+    "type:extension"
+  ]
 }

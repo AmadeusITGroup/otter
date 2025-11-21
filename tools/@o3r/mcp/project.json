@@ -21,5 +21,9 @@
     "prepare-publish": {},
     "publish": {}
   },
-  "tags": []
+  "tags": [
+    "scope:o3r",
+    "type:cli",
+    "type:mcp"
+  ]
 }

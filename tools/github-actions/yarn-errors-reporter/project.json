@@ -16,5 +16,8 @@
     "lint": {},
     "test": {}
   },
-  "tags": []
+  "tags": [
+    "scope:github",
+    "type:github-action"
+  ]
 }

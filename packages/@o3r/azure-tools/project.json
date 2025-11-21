@@ -27,5 +27,8 @@
     "publish": {},
     "documentation": {}
   },
-  "tags": ["tools"]
+  "tags": [
+    "scope:o3r",
+    "type:tools"
+  ]
 }

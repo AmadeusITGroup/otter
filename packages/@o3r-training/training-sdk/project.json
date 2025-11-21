@@ -34,5 +34,10 @@
       "dependsOn": ["^build", "compile"]
     }
   },
-  "tags": ["training"]
+  "tags": [
+    "training",
+    "scope:showcase",
+    "scope:o3r-training",
+    "type:sdk"
+  ]
 }

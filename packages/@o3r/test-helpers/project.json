@@ -31,5 +31,10 @@
     "lint": {},
     "test": {}
   },
-  "tags": []
+  "tags": [
+    "access:private",
+    "scope:o3r",
+    "type:library",
+    "workspace-required"
+  ]
 }

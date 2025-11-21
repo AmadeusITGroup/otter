@@ -6,7 +6,9 @@
   "root": "apps/showcase",
   "prefix": "app",
   "tags": [
-    "showcase"
+    "scope:showcase",
+    "scope:o3r",
+    "type:ui"
   ],
   "generators": {
     "@schematics/angular:component": {
