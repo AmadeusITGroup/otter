@@ -10,23 +10,23 @@ import {
 } from '@o3r/schematics';
 
 /**
- * Rule to update the Style-dictionary configuration to new scope
+ * Rule to update the Stylelint configuration to new scope
  * @param tree
  * @param context
  */
-const updateStyleDictionaryConfig: Rule = (tree, context) => {
+const updateStyleLintConfig: Rule = (tree, context) => {
   const excludes = ['**/node_modules/**', '**/.cache/**'];
-  const extensionMatcher = /config\.[mc]?js$/;
+  const extensionMatcher = /stylelint.config\.[mc]?js$/;
   const configFiles = getAllFilesInTree(tree, '/', excludes)
     .filter((filePath) => extensionMatcher.test(filePath));
 
   configFiles.forEach((file) => {
     const text = tree.readText(file);
-    if (text.includes('@o3r/style-dictionary')) {
+    if (text.includes('@o3r/stylelint-plugin')) {
       context.logger.debug(`Update ${file}`);
       tree.overwrite(file, text
-        .replaceAll(/@o3r\/style-dictionary/g, '@ama-styling/style-dictionary')
-        .replaceAll(/(['"])o3r\//g, '$1ama/')
+        .replaceAll(/@o3r\/stylelint-plugin/g, '@ama-styling/stylelint-plugin')
+        .replaceAll(/o3r-/g, 'ama-')
       );
     }
   });
@@ -36,9 +36,9 @@ const updateStyleDictionaryConfig: Rule = (tree, context) => {
  * Update of Otter library V13.0
  */
 export const updateAll = createOtterSchematic(() => chain([
-  updateStyleDictionaryConfig,
+  updateStyleLintConfig,
   (_, context) => {
-    context.logger.warn('The package "@o3r/style-dictionary" is deprecated, please install "@ama-styling/style-dictionary" with the following command:');
-    context.logger.warn('ng add @ama-styling/style-dictionary');
+    context.logger.warn('The package "@o3r/stylelint-plugin" is deprecated, please install "@ama-styling/stylelint-plugin" with the following command:');
+    context.logger.warn('ng add @ama-styling/stylelint-plugin');
   }
 ]));
