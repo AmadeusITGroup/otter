@@ -10,15 +10,15 @@ The dependency management system uses manifest files to define which OpenAPI mod
 - `openapi.manifest.yml`
 
 > [!TIP]
-> In case no valid file from the previous list is found, the mechanism will parse the `package.json` to find manifest definitions.
+> In case no valid file from the previous list is found, the mechanism will parse the `package.json` file to find manifest definitions.
 
 > [!IMPORTANT]
-> To make sure to properly expose its models, the Manifest file need to be embedded in the artifact.
-The manifest file follows a [specific schema](../../packages/@ama-openapi/core/schemas/manifest.schema.json) that list sthe referenceable models and the `transforms` applied to it.
+> To ensure proper exposure of its models, the manifest file need to be embedded in the artifact.
+The manifest file follows a [specific schema](../../packages/@ama-openapi/core/schemas/manifest.schema.json) that lists the referenceable models and the `transform` fields applied to it.
 
 ## Manifest Schema
 
-The manifest file follows a [specific schema](../../packages/@ama-openapi/core/schemas/manifest.schema.json) that list the referenceable models and the transforms applied to it.
+The manifest file follows a [specific schema](../../packages/@ama-openapi/core/schemas/manifest.schema.json) that lists the referenceable models and the `transform` fields applied to it.
 
 **Examples:**
 
@@ -111,7 +111,7 @@ Equivalent to:
 
 <details>
 
-<summary>Multiple mask for a single model</summary>
+<summary>Multiple masks for a single model</summary>
 
 ```json5
 {
@@ -145,3 +145,6 @@ Equivalent to:
 ```
 
 </details>
+
+> [!NOTE]
+> A complete documentation relative to the masking feature is available in the [Transform section](./TRANSFORM.md).

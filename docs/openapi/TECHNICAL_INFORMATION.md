@@ -2,15 +2,15 @@
 
 ## Schema Validation
 
-The package includes 2 JSON Schema which can be used to validate configurations. The schemas are the following:
+The package includes 2 JSON schemas which can be used to validate configurations. The schemas are the following:
 
-- A JSON Schema to validate the [manifest configuration](./MANIFEST_CONFIGURATION.md) is available at: [@ama-openapi/core/schemas/manifest.schema.json](../../packages/@ama-openapi/core/schemas/manifest.schema.json).
-- A JSON Schema to validate the [transform files](./TRANSFORM.md) is available at: [@ama-openapi/core/schemas/transform.schema.json](../../packages/@ama-openapi/core/schemas/transform.schema.json).
+- A JSON schema to validate the [manifest configuration](./MANIFEST_CONFIGURATION.md) is available at: [@ama-openapi/core/schemas/manifest.schema.json](../../packages/@ama-openapi/core/schemas/manifest.schema.json).
+- A JSON schema to validate the [transform files](./TRANSFORM.md) is available at: [@ama-openapi/core/schemas/transform.schema.json](../../packages/@ama-openapi/core/schemas/transform.schema.json).
 
 You can use these schemas in your IDE or build tools to get validation and autocomplete support for manifest files.
 
 > [!NOTE]
-> The project generator [@ama-openapi/create](https://www.npmjs.com/package/@ama-openapi/create) prepares the manifest configuration file (and `package.json`) to refer the `manifest.schema.json`.
+> The project generator [@ama-openapi/create](https://www.npmjs.com/package/@ama-openapi/create) prepares the manifest configuration file (and `package.json` file) to refer to the `manifest.schema.json` file.
 
 ## Renovate configuration
 
