@@ -73,7 +73,7 @@
     "@o3r/testing": "workspace:~",
     "@o3r/workspace": "workspace:~",
     "@popperjs/core": "^2.11.5",
-    "@vscode/codicons": "^0.0.41",
+    "@vscode/codicons": "^0.0.42",
     "@webcontainer/api": "~1.6.0",
     "@xterm/addon-fit": "^0.10.0",
     "@xterm/xterm": "^5.0.0",
@@ -125,7 +125,7 @@
     "@stylistic/eslint-plugin": "~5.5.0",
     "@types/bootstrap": "^5.2.10",
     "@types/jest": "~29.5.2",
-    "@types/node": "~22.18.0",
+    "@types/node": "~22.19.0",
     "@typescript-eslint/parser": "~8.46.0",
     "@webcontainer/api": "~1.6.0",
     "angular-eslint": "~20.6.0",
@@ -156,6 +156,6 @@
     "ts-jest": "~29.4.0",
     "typescript": "~5.9.2",
     "typescript-eslint": "~8.46.0",
-    "webpack": "~5.102.0"
+    "webpack": "~5.103.0"
   }
 }
