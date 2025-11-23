@@ -88,7 +88,7 @@
     "@schematics/angular": "~20.3.0",
     "@stylistic/eslint-plugin": "~5.5.0",
     "@swc/cli": "~0.7.7",
-    "@swc/core": "~1.13.0",
+    "@swc/core": "~1.15.0",
     "@types/jest": "~29.5.2",
     "@types/node": "~22.18.0",
     "@typescript-eslint/parser": "~8.46.0",
