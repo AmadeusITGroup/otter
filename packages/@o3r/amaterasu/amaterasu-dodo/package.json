@@ -42,7 +42,7 @@
     "@o3r/test-helpers": "workspace:~",
     "@stylistic/eslint-plugin": "~5.5.0",
     "@types/jest": "~29.5.2",
-    "@types/node": "~22.18.0",
+    "@types/node": "~22.19.0",
     "@types/tar": "~6.1.1",
     "@typescript-eslint/parser": "~8.46.0",
     "angular-eslint": "~20.6.0",
