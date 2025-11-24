@@ -163,7 +163,7 @@ The modules can be regrouped in custom Presets by following the next steps:
 
 * Adding a **keyword**, in the module *package.json*'s `keywords` field, following the pattern `otter-preset-<my-preset>`.
 * The module needs to be published to a public (or private) NPM Registry.
-* The package's scope should be whitelisted, via a Pull Request, in the following [OTTER_MODULE_SUPPORTED_SCOPES constant](https://github.com/AmadeusITGroup/otter/blob/main/packages/@o3r/schematics/src/modules/modules.constants.ts).
+* The package's scope should be whitelisted, via a Pull Request, in the following [OTTER_MODULE_SUPPORTED_SCOPES constant](https://github.com/AmadeusITGroup/otter/blob/main/packages/@o3r/schematics/src/modules/modules-constants.ts).
 
 > [!TIP]
 > Get more information regarding the **Otter Modules** in the [Module Documentation](https://github.com/AmadeusITGroup/otter/blob/main/docs/core/MODULE.md).
