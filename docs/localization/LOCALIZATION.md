@@ -351,7 +351,7 @@ We can now use the `translations` property (declared in the component file) in t
 ```
 
 > [!NOTE]
-> The code to the `o3rTranslate` pipe can be found in the [tools of the @o3r/localization module](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40o3r/localization/src/tools/localization-translate.pipe.ts).
+> The code to the `o3rTranslate` pipe can be found in the [tools of the @o3r/localization module](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40o3r/localization/src/tools/localization-translate-pipe.ts).
 
 ### Localization bundle
 
