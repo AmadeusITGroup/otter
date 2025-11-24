@@ -431,13 +431,13 @@
     "@o3r/schematics": "workspace:~",
     "@o3r/test-helpers": "workspace:~",
     "@schematics/angular": "~20.3.0",
-    "@stylistic/eslint-plugin": "~5.5.0",
+    "@stylistic/eslint-plugin": "~5.6.0",
     "@types/eslint": "~9.6.0",
     "@types/jest": "~29.5.2",
     "@types/node": "~22.18.0",
     "@types/vscode": "~1.105.0",
-    "@typescript-eslint/parser": "~8.46.0",
-    "@typescript-eslint/utils": "~8.46.0",
+    "@typescript-eslint/parser": "~8.47.0",
+    "@typescript-eslint/utils": "~8.47.0",
     "@vscode/vsce": "^3.2.1",
     "angular-eslint": "~20.6.0",
     "cpy-cli": "^6.0.0",
@@ -462,7 +462,7 @@
     "rxjs": "^7.8.1",
     "ts-jest": "~29.4.0",
     "typescript": "~5.9.2",
-    "typescript-eslint": "~8.46.0",
+    "typescript-eslint": "~8.47.0",
     "zone.js": "~0.15.0"
   }
 }

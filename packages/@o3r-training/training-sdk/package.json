@@ -84,12 +84,12 @@
     "@o3r/test-helpers": "workspace:~",
     "@openapitools/openapi-generator-cli": "~2.25.0",
     "@schematics/angular": "~20.3.0",
-    "@stylistic/eslint-plugin": "~5.5.0",
+    "@stylistic/eslint-plugin": "~5.6.0",
     "@swc/cli": "~0.7.7",
     "@swc/core": "~1.13.0",
     "@types/jest": "~29.5.2",
     "@types/node": "~22.18.0",
-    "@typescript-eslint/parser": "~8.46.0",
+    "@typescript-eslint/parser": "~8.47.0",
     "angular-eslint": "~20.6.0",
     "commit-and-tag-version": "^12.0.0",
     "cpy-cli": "^6.0.0",
@@ -115,7 +115,7 @@
     "ts-jest": "~29.4.0",
     "tsc-watch": "^7.0.0",
     "typescript": "~5.9.2",
-    "typescript-eslint": "~8.46.0",
+    "typescript-eslint": "~8.47.0",
     "yaml-eslint-parser": "^1.2.2"
   },
   "peerDependencies": {

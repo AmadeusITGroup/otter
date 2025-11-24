@@ -24,11 +24,11 @@
     "@nx/eslint-plugin": "~21.6.0",
     "@o3r/eslint-config": "workspace:~",
     "@o3r/eslint-plugin": "workspace:~",
-    "@stylistic/eslint-plugin": "~5.5.0",
+    "@stylistic/eslint-plugin": "~5.6.0",
     "@types/minimist": "^1.2.2",
     "@types/node": "~22.18.0",
     "@types/semver": "^7.3.13",
-    "@typescript-eslint/parser": "~8.46.0",
+    "@typescript-eslint/parser": "~8.47.0",
     "@vercel/ncc": "~0.38.0",
     "angular-eslint": "~20.6.0",
     "eslint": "~9.39.0",
@@ -42,7 +42,7 @@
     "globals": "^16.0.0",
     "jsonc-eslint-parser": "~2.4.0",
     "typescript": "~5.9.2",
-    "typescript-eslint": "~8.46.0"
+    "typescript-eslint": "~8.47.0"
   },
   "engines": {
     "node": "^20.19.0 || ^22.17.0 || ^24.0.0"
