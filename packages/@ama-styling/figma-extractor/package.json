@@ -57,8 +57,8 @@
   "devDependencies": {
     "@ama-sdk/client-fetch": "workspace:~",
     "@ama-sdk/core": "workspace:~",
-    "@angular-devkit/schematics": "~20.3.0",
-    "@compodoc/compodoc": "^1.1.19",
+    "@angular-devkit/schematics": "~20.3.11",
+    "@compodoc/compodoc": "^1.1.32",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@nx/eslint": "~21.6.0",
     "@nx/eslint-plugin": "~21.6.0",

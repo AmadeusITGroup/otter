@@ -26,13 +26,13 @@
   "dependencies": {
     "@ama-sdk/core": "workspace:*",
     "@ama-sdk/schematics": "workspace:*",
-    "@angular-devkit/core": "~20.3.0",
-    "@angular-devkit/schematics": "~20.3.0",
-    "@angular-devkit/schematics-cli": "~20.3.0",
-    "@angular/cli": "~20.3.0",
+    "@angular-devkit/core": "~20.3.11",
+    "@angular-devkit/schematics": "~20.3.11",
+    "@angular-devkit/schematics-cli": "~20.3.11",
+    "@angular/cli": "~20.3.11",
     "@o3r/schematics": "workspace:*",
     "@openapitools/openapi-generator-cli": "~2.25.0",
-    "@schematics/angular": "~20.3.0",
+    "@schematics/angular": "~20.3.11",
     "minimist": "^1.2.6",
     "rxjs": "^7.8.1",
     "typescript": "~5.9.2"
