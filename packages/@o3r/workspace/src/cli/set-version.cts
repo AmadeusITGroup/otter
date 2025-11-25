@@ -40,6 +40,7 @@ program
   .description('Replace the packages version in a monorepos')
   .option('-p, --placeholder <placeholder>', 'Pattern of the version placeholder', '0.0.0(-placeholder)?')
   .option('--include <file>', 'Add files pattern to apply the version replacement', collect, defaultIncludedFiles)
+  .option('--set-public', 'Enforce the package to be public', process.env.O3R_SET_PUBLIC === 'true')
   .option('-v, --verbose', 'Display debug logs')
   .action((version: string) => {
     const cleanVersion = clean(version);
@@ -63,9 +64,15 @@ const cliFn = () => {
       content: fs.readFileSync(filePath).toString()
     }))
     .forEach((pathWithContent: { path: string; content: string }) => {
-      const newContent = pathWithContent.content
-        .replace(new RegExp('"([~^]?)' + (options.placeholder as string).replace(/[$()+.?[\\\]^{|}]/g, '\\$&').replace(/\\*\./g, '\\.') + '"', 'g'), `"$1${replaceVersion}"`)
-        .replace(/"workspace:([^~]?)[^"]*"(,?)$/gm, `"$1${replaceVersion}"$2`);
+      let newContent = pathWithContent.content
+        .replace(new RegExp('"([~^]?)' + (options.placeholder as string)
+          .replace(/[$()+.?[\\\]^{|}]/g, '\\$&')
+          .replace(/\\*\./g, '\\.') + '"', 'g'), `"$1${replaceVersion}"`)
+        .replace(/"workspace:([~^*]?)[^"]*"(,?)$/gm, `"$1${replaceVersion}"$2`)
+        .replace(/"\*(.+)"(,?)$/gm, `"=$1"$2`);
+      if (options.setPublic) {
+        newContent = newContent.replace(/^\s*"private"\s*:\s*true\s*,?$/gm, '');
+      }
       if (newContent === pathWithContent.content) {
         logger.debug(`No change in ${pathWithContent.path}`);
       } else {

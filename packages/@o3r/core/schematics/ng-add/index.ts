@@ -115,13 +115,6 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
               command: 'npx',
               args: ['@angular/cli', 'mcp']
             },
-            'o3r-docs': {
-              type: 'stdio',
-              command: 'npx',
-              args: [
-                '-y', '@buger/docs-mcp', '--gitUrl', 'https://github.com/AmadeusITGroup/otter'
-              ]
-            },
             o3r: {
               type: 'stdio',
               command: 'npx',

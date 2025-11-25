@@ -1,5 +1,9 @@
 #!/usr/bin/env node
 import {
+  type LogLevel,
+  MCPLogger,
+} from '@ama-mcp/core';
+import {
   StdioServerTransport,
 } from '@modelcontextprotocol/sdk/server/stdio.js';
 import {
@@ -7,11 +11,11 @@ import {
 } from '../mcp-server';
 
 async function startMcpServer() {
-  const server = await createMcpServer();
+  const logger = new MCPLogger('O3R MCP server', process.env.O3R_MCP_LOG_LEVEL as LogLevel);
+  const server = await createMcpServer(logger);
   const transport = new StdioServerTransport();
   await server.connect(transport);
-  // Logging as error as recommended by modelcontextprotocol.io (https://modelcontextprotocol.io/quickstart/server#quick-examples-2)
-  console.error('Server connected...');
+  logger.info('Server connected...');
 }
 
 void startMcpServer();
