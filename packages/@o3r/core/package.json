@@ -234,6 +234,7 @@
       "@o3r/rules-engine",
       "@o3r/schematics",
       "@o3r/store-sync",
+      "@o3r/style-dictionary",
       "@o3r/stylelint-plugin",
       "@o3r/styling",
       "@o3r/telemetry",
