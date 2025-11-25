@@ -1,7 +1,4 @@
 import {
-  readFile,
-} from 'node:fs/promises';
-import {
   type CancellationToken,
   type ChatContext,
   type ChatRequest,
@@ -9,57 +6,48 @@ import {
   type ChatResponseStream,
   type ChatResult,
   type ExtensionContext,
-  LanguageModelChatMessage,
+  lm,
   type OutputChannel,
-  Uri,
 } from 'vscode';
+import {
+  sendChatParticipantRequest,
+} from '@vscode/chat-extension-utils';
 
-const SUPPORTED_COMMANDS = ['new'];
+const SUPPORTED_COMMANDS = ['list-tools'];
+const SUPPORTED_TOOLS_REGEX = /o3r|angular/;
 
-/* eslint-disable new-cap -- restricted by LanguageModelChatMessage typing */
-export const chatParticipantHandler = async (context: ExtensionContext, channel: OutputChannel): Promise<ChatRequestHandler> => {
-  const genAIResourcesPath = Uri.joinPath(context.extensionUri, 'assets', 'gen-ai');
-  const retrieveFile = async (path: string) => {
-    channel.appendLine(`Retrieve ${path}...`);
-    const content = await readFile(
-      Uri.joinPath(genAIResourcesPath, path).fsPath,
-      { encoding: 'utf8' }
-    );
-    channel.appendLine(`${path} retrieved!`);
-    return content;
-  };
-  channel.appendLine('Retrieve developer.md...');
-  const developer = await retrieveFile('developer.md');
+export const chatParticipantHandler = (_context: ExtensionContext, _channel: OutputChannel): ChatRequestHandler => {
   return async (
     request: ChatRequest,
-    _handlerContext: ChatContext,
+    chatContext: ChatContext,
     stream: ChatResponseStream,
     token: CancellationToken
   ): Promise<ChatResult> => {
     const command = SUPPORTED_COMMANDS.includes(request.command || '') ? request.command : '';
-    channel.appendLine(`Chat assistant called with command: ${command}`);
-
-    const messages = [LanguageModelChatMessage.User(developer)];
+    const tools = lm.tools.filter((tool) => SUPPORTED_TOOLS_REGEX.test(tool.name));
 
     switch (command) {
-      case 'new': {
-        const createOutput = await retrieveFile('create/output.md');
-        messages.push(LanguageModelChatMessage.User(createOutput));
-        break;
-      }
-      default: {
-        const bestPracticesOutput = await retrieveFile('best-practices/output.md');
-        messages.push(LanguageModelChatMessage.User(bestPracticesOutput));
-        break;
+      case 'list-tools': {
+        stream.markdown(tools.map((tool) => `- ${tool.name}`).join('\n'));
+        return { metadata: { command } };
       }
     }
-    messages.push(LanguageModelChatMessage.User(request.prompt));
-    channel.appendLine(`Prompts sent:`);
-    messages.forEach((m) => channel.appendLine(JSON.stringify(m, null, 2)));
-    const chatResponse = await request.model.sendRequest(messages, {}, token);
-    for await (const fragment of chatResponse.text) {
-      stream.markdown(fragment);
-    }
-    return { metadata: { command } };
+    const { result } = sendChatParticipantRequest(
+      request,
+      chatContext,
+      {
+        prompt: ` You are Ottie the otter !
+                  Use tools when it is possible to answer precisely the user's question. Prefer using the o3r tools.
+                  If you don't know the answer, just say you don't know. Never make up an answer.`,
+        responseStreamOptions: {
+          stream,
+          references: true,
+          responseText: true
+        },
+        tools
+      },
+      token
+    );
+    return result;
   };
 };

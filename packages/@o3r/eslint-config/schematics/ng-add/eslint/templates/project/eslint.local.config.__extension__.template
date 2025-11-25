@@ -31,5 +31,18 @@ const __dirname = dirname(__filename);
         ...globals.browser
       }<% } %>
     }
-  }
+  }<% if (playwrightInstalled) { %>,
+     {
+      name: '<%= packageName %>/e2e',
+      files: [
+        '**/e2e-playwright/**/*.{j,t}s'
+      ],
+      languageOptions: {
+        globals: {
+          ...globals.node,
+          NodeJS: true
+        }
+      }
+     }
+   <% } %>
 ]);
