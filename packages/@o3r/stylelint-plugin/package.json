@@ -20,7 +20,7 @@
     "build": "yarn nx build stylelint-plugin",
     "build:source": "tsc -b tsconfig.build.json",
     "postbuild": "cpy package.json dist/ && patch-package-json-main",
-    "prepare:build:builders": "yarn cpy 'schematics/**/*.json' 'schematics/**/templates/**' dist/schematics && yarn cpy './collection.json' dist",
+    "prepare:build:builders": "yarn cpy 'schematics/**/*.json' 'schematics/**/templates/**' dist/schematics && yarn cpy './collection.json' './migration.json' dist",
     "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest"
   },
   "dependencies": {
