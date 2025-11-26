@@ -22,7 +22,7 @@ export function isVerdaccioInUse(): boolean {
   try {
     // eslint-disable-next-line no-console -- need to inform user about the check
     console.log(`Checking for Verdaccio registry at ${verdaccioAddress}...`);
-    execFileSync('npm', ['ping', `--registry=${verdaccioAddress}`], { stdio: 'pipe', shell: true, timeout: 5000 });
+    execFileSync('npm', ['ping', `--registry=${verdaccioAddress}`], { stdio: 'pipe', shell: true, timeout: 60_000 });
     return true;
   } catch {
     return false;
