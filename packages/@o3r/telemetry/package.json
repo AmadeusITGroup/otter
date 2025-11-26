@@ -45,9 +45,9 @@
     }
   },
   "devDependencies": {
-    "@angular-devkit/architect": "~0.2003.0",
-    "@angular-devkit/core": "~20.3.0",
-    "@angular-devkit/schematics": "~20.3.0",
+    "@angular-devkit/architect": "~0.2003.11",
+    "@angular-devkit/core": "~20.3.11",
+    "@angular-devkit/schematics": "~20.3.11",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@nx/eslint-plugin": "~21.6.0",
     "@nx/jest": "~21.6.0",
