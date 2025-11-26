@@ -4,12 +4,6 @@
   "packageRules": [
     {
       "matchPackageNames": [
-        "*"
-      ],
-      "rangeStrategy": "replace"
-    },
-    {
-      "matchPackageNames": [
         "typescript"
       ],
       "rangeStrategy": "in-range-only"
