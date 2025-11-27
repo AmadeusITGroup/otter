@@ -74,9 +74,6 @@ jobs:
       - uses: ./tools/github-actions/download-build-output
       - uses: ./tools/github-actions/setup
         timeout-minutes: 30
-        with:
-          #TODO Remove when migrate to Node 24
-          npm-version: '11.5'
       - run: yarn set:version ${{ inputs.version }}
       - name: Get tag name
         id: get-npm-tag

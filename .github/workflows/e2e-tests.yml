@@ -40,8 +40,8 @@ jobs:
       - run: yarn playwright install
       - name: Run e2e tests
         run: |
-          npx --yes http-server apps/showcase/dist/browser -p 8080 -s &
-          npx --yes wait-on $PLAYWRIGHT_TARGET_URL -t 5000
+          npx --yes http-server@latest apps/showcase/dist/browser -p 8080 -s &
+          npx --yes wait-on@latest $PLAYWRIGHT_TARGET_URL -t 5000
           yarn test-e2e
         shell: bash
         env:
