@@ -25,6 +25,7 @@
     "noEmitHelpers": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
+    "noUncheckedSideEffectImports": true,
     "outDir": "dist/",
     "removeComments": false,
     "sourceMap": true,
