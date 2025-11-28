@@ -80,6 +80,17 @@ ama-openapi watch
 ama-openapi watch --debug
 ```
 
+### Command `generate-schema`
+
+Generate the [JSON Schemas](https://json-schema.org/) that can be used for configuration auto completion.
+
+#### Options
+
+| Option | Alias | Description | Default value |
+| --- | --- | --- | --- |
+| `--output` | `-o` | Output directory where generating the schemas | `'./schemas'` |
+| `--keywords` | `-k` | List of the keywords to be listed in the artifact to considered in the schema generation | `['openapi']` |
+
 ## Expose shareable models
 
 To expose models from the OpenAPI package, the following setups are required:
