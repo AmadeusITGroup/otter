@@ -9,6 +9,7 @@ import {
 } from 'node:path';
 import {
   DEFAULT_MANIFEST_FILENAMES,
+  OPENAPI_NPM_KEYWORDS,
   // eslint-disable-next-line import/no-unresolved -- Cannot resolve mjs file in current setup (see #3738)
 } from '@ama-openapi/core';
 import {
@@ -78,6 +79,7 @@ export const generateTemplate = async (options: CreateOptions) => {
         templatePathAbsolute,
         {
           ...options,
+          packageKeywords: OPENAPI_NPM_KEYWORDS,
           nodeSupportedRange: engines.node,
           projectFolder: basename(options.target),
           exportedFiles,
