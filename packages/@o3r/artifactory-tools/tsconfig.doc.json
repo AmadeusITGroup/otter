@@ -5,6 +5,7 @@
     "**/*.fixture.ts"
   ],
   "include": [
-    "src/**/*.ts"
+    "src/**/*.ts",
+    "src/**/*.cts"
   ]
 }
