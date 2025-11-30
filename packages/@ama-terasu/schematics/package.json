@@ -19,14 +19,14 @@
     "vscode": "^1.67.0"
   },
   "dependencies": {
-    "@angular-devkit/architect": "~0.2003.11",
+    "@angular-devkit/architect": "0.2003.12",
     "@angular-devkit/core": "~20.3.11",
     "@angular-devkit/schematics": "~20.3.11",
     "@o3r/schematics": "workspace:~",
     "tslib": "^2.6.2"
   },
   "devDependencies": {
-    "@angular-devkit/architect": "~0.2003.11",
+    "@angular-devkit/architect": "0.2003.12",
     "@angular-devkit/core": "~20.3.11",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@nx/eslint-plugin": "~21.6.0",

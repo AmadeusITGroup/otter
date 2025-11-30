@@ -72,7 +72,7 @@
     "tslib": "^2.6.2"
   },
   "devDependencies": {
-    "@angular-devkit/architect": "~0.2003.11",
+    "@angular-devkit/architect": "0.2003.12",
     "@angular-devkit/build-angular": "~20.3.11",
     "@angular-devkit/core": "~20.3.11",
     "@angular-devkit/schematics": "~20.3.11",
