@@ -16802,13 +16802,13 @@ __metadata:
   linkType: hard
 
 "@typescript/vfs@npm:^1.6.1":
-  version: 1.6.1
-  resolution: "@typescript/vfs@npm:1.6.1"
+  version: 1.6.2
+  resolution: "@typescript/vfs@npm:1.6.2"
   dependencies:
     debug: "npm:^4.1.1"
   peerDependencies:
     typescript: "*"
-  checksum: 10/87db451ca9ed431fee150d04bbdf963efdd5be8475da5521c55933d4f2c80752a0caaa553bc3ab5fd95e16a95efb0158d5e963348df5819cdb854821c27cea10
+  checksum: 10/b0bb83225d5af6451c6323071d41cb8eb5436f6b435cfb8a6497030e2fac98041af8dea28821fd2062f0ac43884091628b0f4f627a17bcea1179d69fd9bfe5ec
   languageName: node
   linkType: hard
 
