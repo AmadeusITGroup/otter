@@ -1,6 +1,7 @@
 import {
   Component,
   DebugElement,
+  provideZonelessChangeDetection,
 } from '@angular/core';
 import {
   ComponentFixture,
@@ -44,7 +45,11 @@ describe('Track focus directive:', () => {
   let buttonElement: DebugElement;
   let addEventSpy: jest.SpyInstance;
 
-  beforeEach(() => {
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [TestComponent],
+      providers: [provideZonelessChangeDetection()]
+    }).compileComponents();
     fixture = TestBed.createComponent(TestComponent);
     buttonElement = fixture.debugElement.query(By.css('button'));
     trackService = fixture.debugElement.injector.get(EventTrackService);
