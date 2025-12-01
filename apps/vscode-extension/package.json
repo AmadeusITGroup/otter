@@ -100,7 +100,7 @@
       {
         "id": "o3r-chat-participant",
         "name": "o3r",
-        "fullName": "Ottie",
+        "fullName": "Copilotter",
         "description": "Ask me anything about the Otter (o3r) ecosystem: schematics, generators, architecture and best practices.",
         "isSticky": true,
         "commands": [
