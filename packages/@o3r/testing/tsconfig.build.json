@@ -9,6 +9,7 @@
       "node"
     ],
     "rootDir": "./src",
+    "skipLibCheck": true, // because of @angular/core
     "inlineSources": true,
     "moduleResolution": "node10",
     "module": "CommonJS",

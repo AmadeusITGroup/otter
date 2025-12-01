@@ -18,8 +18,7 @@
     "@angular/platform-browser-dynamic": "<%= rootDependencies['@angular/platform-browser-dynamic'] || rootDependencies['@angular/core'] || 'latest' %>",
     "@angular/router": "<%= rootDependencies['@angular/router'] || rootDependencies['@angular/core'] || 'latest' %>",
     "rxjs": "<%= rootDependencies['rxjs'] || 'latest' %>",
-    "tslib": "<%= rootDependencies['tslib'] || 'latest' %>",
-    "zone.js": "<%= rootDependencies['zone.js'] || 'latest' %>"
+    "tslib": "<%= rootDependencies['tslib'] || 'latest' %>"
   },
   "devDependencies": {
     "@angular/cli": "<%= rootDependencies['@angular/cli'] || 'latest' %>",
