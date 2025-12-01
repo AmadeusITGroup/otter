@@ -1,4 +1,5 @@
 import jsonDependencyVersionsHarmonize from './rules/json/json-dependency-versions-harmonize/json-dependency-versions-harmonize';
+import projectJsonTags from './rules/json/project-json-tags/project-json-tags';
 import noInnerHTML from './rules/template/no-inner-html/no-inner-html';
 import templateAsyncNumberLimitation from './rules/template/template-async-number-limitation/template-async-number-limitation';
 import matchingConfigurationName from './rules/typescript/matching-configuration-name/matching-configuration-name';
@@ -20,7 +21,8 @@ module.exports = {
     'yarnrc-package-extensions-harmonize': yarnrcPackageExtensionHarmonize,
     'no-multiple-type-configuration-property': noMultipleTypeConfigurationProperty,
     'o3r-categories-tags': o3rCategoriesTags,
-    'o3r-restriction-key-tags': o3rRestrictionKeyTags
+    'o3r-restriction-key-tags': o3rRestrictionKeyTags,
+    'project-json-tags': projectJsonTags
   },
   configs: {
     '@o3r/no-folder-import-for-module': 'error',
