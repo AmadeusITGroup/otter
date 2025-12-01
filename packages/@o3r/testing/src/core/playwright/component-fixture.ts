@@ -99,7 +99,7 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
    * @param options.elementConstructor Constructor that will be used to create the Element, defaults to O3rElement
    * @param options.index index Select the element associated to the index
    * @param options.shouldThrowIfNotPresent If set to true the function will throw if the element is not present
-   * @param options.timeout Duration to wait for the element to be present before it throws
+   * @param options.timeout Duration to wait for the element
    */
   protected async getText<T extends O3rElement>(selector: string, options: {
     elementConstructor?: O3rElementConstructor<T>;
@@ -107,10 +107,10 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
     shouldThrowIfNotPresent?: boolean;
     timeout?: number;
   } = {}): Promise<string | undefined> {
-    const element = await this.queryWithOptions(selector, options.elementConstructor, options);
-    if (!await element.isVisible()) {
+    if (!await this.isVisible(selector, options)) {
       return;
     }
+    const element = await this.queryWithOptions(selector, options.elementConstructor, options);
     return await element.getText();
   }
 
@@ -121,7 +121,7 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
    * @param options.elementConstructor Constructor that will be used to create the Element, defaults to O3rElement
    * @param options.index index Select the element associated to the index
    * @param options.shouldThrowIfNotPresent If set to true the function will throw if the element is not present
-   * @param options.timeout Duration to wait for the element to be present before it throws
+   * @param options.timeout Duration to wait for the element
    */
   protected async isVisible<T extends O3rElement>(selector: string, options: {
     elementConstructor?: O3rElementConstructor<T> | undefined;
@@ -130,7 +130,15 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
     timeout?: number;
   } = {}): Promise<boolean> {
     const element = await this.queryWithOptions(selector, options.elementConstructor, options);
-    return await element.isVisible();
+    try {
+      await element.sourceElement.element.waitFor({
+        state: 'visible',
+        timeout: options.timeout
+      });
+      return true;
+    } catch {
+      return false;
+    }
   }
 
   /**
@@ -148,8 +156,8 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
     shouldThrowIfNotPresent?: boolean;
     timeout?: number;
   } = {}): Promise<void> {
-    const element = await this.queryWithOptions(selector, options.elementConstructor, options);
-    if (await element.isVisible()) {
+    if (await this.isVisible(selector, options)) {
+      const element = await this.queryWithOptions(selector, options.elementConstructor, options);
       await element.click();
     }
   }
