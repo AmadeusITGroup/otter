@@ -11,6 +11,14 @@ import {
   ENVIRONMENT_VARIABLE_PREFIX,
 } from './constants.mjs';
 import {
+  DECORATOR_ID_REDIRECT_REF,
+  redirectRefsDecorator,
+} from './plugins/decorators/common/replace-refs/replace-refs.decorator.mjs';
+import {
+  DECORATOR_ID_REMOVE_UNUSED_COMPONENT,
+  removeUnusedComponentsDecorator,
+} from './plugins/decorators/oas3/remove-unused-components/remove-unused-components.decorator.mjs';
+import {
   retrieveDependency,
   type RetrieveDependencyOptions,
 } from './plugins/meta/retrieve-dependency.meta.mjs';
@@ -41,6 +49,21 @@ export const amaOpenapiPlugin = async (options?: AmaOpenapiPluginOptions): Promi
   });
 
   return {
-    id: 'ama-openapi'
+    id: 'ama-openapi',
+    decorators: {
+      oas2: {
+        [DECORATOR_ID_REDIRECT_REF]: redirectRefsDecorator
+      },
+      oas3: {
+        [DECORATOR_ID_REDIRECT_REF]: redirectRefsDecorator,
+        [DECORATOR_ID_REMOVE_UNUSED_COMPONENT]: removeUnusedComponentsDecorator
+      },
+      async2: {
+        [DECORATOR_ID_REDIRECT_REF]: redirectRefsDecorator
+      },
+      async3: {
+        [DECORATOR_ID_REDIRECT_REF]: redirectRefsDecorator
+      }
+    }
   };
 };
