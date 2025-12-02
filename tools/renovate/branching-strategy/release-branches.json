@@ -61,6 +61,13 @@
       "groupName": "Major dependencies",
       "groupSlug": "major-dependencies",
       "enabled": true
+    },
+    {
+      "matchUpdateTypes": [
+        "patch"
+      ],
+      "groupName": "Patch dependencies",
+      "groupSlug": "patch-dependencies"
     }
   ]
 }
