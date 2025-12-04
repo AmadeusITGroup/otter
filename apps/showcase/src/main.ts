@@ -1,5 +1,6 @@
 import {
   inject,
+  provideZoneChangeDetection,
   runInInjectionContext,
 } from '@angular/core';
 import {
@@ -32,7 +33,7 @@ import {
 } from './app/app-module';
 
 document.body.dataset.dynamiccontentpath = localStorage.getItem('dynamicPath') || '';
-platformBrowserDynamic().bootstrapModule(AppModule)
+platformBrowserDynamic().bootstrapModule(AppModule, { applicationProviders: [provideZoneChangeDetection()] })
   .then((m) => {
     runInInjectionContext(m.injector, () => {
       inject(ApplicationDevtoolsConsoleService);

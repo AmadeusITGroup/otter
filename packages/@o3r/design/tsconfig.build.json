@@ -8,6 +8,7 @@
     "moduleResolution": "node10",
     "outDir": "./dist",
     "rootDir": ".",
+    "skipLibCheck": true, // because of @angular/core
     "tsBuildInfoFile": "build/.tsbuildinfo"
   },
   "include": [

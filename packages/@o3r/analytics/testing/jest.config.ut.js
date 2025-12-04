@@ -15,7 +15,7 @@ module.exports = {
     ]
   }),
   fakeTimers: {
-    enableGlobally: true
+    enableGlobally: false
   },
   setupFilesAfterEnv: ['<rootDir>/testing/setup-jest.ts']
 };
