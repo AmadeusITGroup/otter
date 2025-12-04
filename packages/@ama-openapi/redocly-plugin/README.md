@@ -1,5 +1,8 @@
 # Ama OpenAPI Redocly Plugin
 
+> [!WARNING]
+> [Experimental](https://github.com/AmadeusITGroup/otter/blob/main/README.md#experimental): This package is available in early access, it will be part of the v14 release.
+
 [![Stable Version](https://img.shields.io/npm/v/@ama-openapi/redocly-plugin?style=for-the-badge)](https://www.npmjs.com/package/@ama-openapi/redocly-plugin)
 [![Bundle Size](https://img.shields.io/bundlephobia/min/@ama-openapi/redocly-plugin?color=green&style=for-the-badge)](https://www.npmjs.com/package/@ama-openapi/redocly-plugin)
 

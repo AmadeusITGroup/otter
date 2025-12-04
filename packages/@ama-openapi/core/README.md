@@ -1,5 +1,11 @@
 # @ama-openapi/core Documentation
 
+> [!WARNING]
+> [Experimental](https://github.com/AmadeusITGroup/otter/blob/main/README.md#experimental): This package is available in early access, it will be part of the v14 release.
+
+[![Stable Version](https://img.shields.io/npm/v/@ama-openapi/core?style=for-the-badge)](https://www.npmjs.com/package/@ama-openapi/core)
+[![Bundle Size](https://img.shields.io/bundlephobia/min/@ama-openapi/core?color=green&style=for-the-badge)](https://www.npmjs.com/package/@ama-openapi/core)
+
 This package provides a **dependency management system for OpenAPI specifications** in JavaScript/TypeScript projects, enabling modular and reusable OpenAPI definitions.
 
 ## Core Concept
