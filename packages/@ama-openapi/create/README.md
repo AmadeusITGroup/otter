@@ -1,5 +1,8 @@
 # Ama OpenAPI Create
 
+> [!WARNING]
+> [Experimental](https://github.com/AmadeusITGroup/otter/blob/main/README.md#experimental): This package is available in early access, it will be part of the v14 release.
+
 [![Stable Version](https://img.shields.io/npm/v/@ama-openapi/create?style=for-the-badge)](https://www.npmjs.com/package/@ama-openapi/create)
 [![Bundle Size](https://img.shields.io/bundlephobia/min/@ama-openapi/create?color=green&style=for-the-badge)](https://www.npmjs.com/package/@ama-openapi/create)
 
@@ -63,7 +66,7 @@ my-openapi-project/
 > - **Configuration files**: Project-specific configurations
 > - **Development environment**: VS Code settings and extensions
 > - **Package management**: Pre-configured `package.json` file with common scripts
-> - **Renovate Configuration**: Extends the [@ama-openapi/core preset] package (https://github.com/AmadeusITGroup/otter/tree/main/packages/@ama-openapi/core/renovate/default.json)
+> - **Renovate Configuration**: Extends the [@ama-openapi/core preset] package (<https://github.com/AmadeusITGroup/otter/tree/main/packages/@ama-openapi/core/renovate/default.json>)
 
 ## Integration
 
