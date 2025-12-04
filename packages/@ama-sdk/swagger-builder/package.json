@@ -64,7 +64,6 @@
     "jest-util": "~29.7.0",
     "jsonc-eslint-parser": "~2.4.0",
     "ts-jest": "~29.4.0",
-    "ts-node": "~10.9.2",
     "typescript": "~5.9.2",
     "typescript-eslint": "~8.47.0"
   },

@@ -27,7 +27,6 @@
     "@typescript-eslint/utils": "~8.47.0",
     "globby": "^11.1.0",
     "semver": "^7.5.2",
-    "ts-node": "~10.9.2",
     "tslib": "^2.6.2",
     "type-fest": "^4.30.1"
   },

@@ -69,7 +69,6 @@
     "@o3r/telemetry": "workspace:~",
     "@openapitools/openapi-generator-cli": "^2.15.0",
     "openapi-types": "^12.0.0",
-    "ts-node": "~10.9.2",
     "type-fest": "^4.30.1",
     "typescript": "^5.9.0"
   },
@@ -132,7 +131,6 @@
     "openapi-types": "^12.0.0",
     "semver": "^7.5.2",
     "ts-jest": "~29.4.0",
-    "ts-node": "~10.9.2",
     "type-fest": "^4.30.1",
     "typescript": "~5.9.2",
     "typescript-eslint": "~8.47.0"
