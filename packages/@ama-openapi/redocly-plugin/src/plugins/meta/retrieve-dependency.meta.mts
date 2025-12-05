@@ -5,6 +5,9 @@ import {
   type LogLevel,
   // eslint-disable-next-line import/no-unresolved -- Cannot resolve mjs file in current setup (see #3738)
 } from '@ama-openapi/core';
+import {
+  logger,
+} from '@redocly/openapi-core';
 
 /**
  * Options to retrieve dependency
@@ -29,13 +32,13 @@ export interface RetrieveDependencyOptions extends InstallDependenciesOptions {
  * @param options
  */
 export const retrieveDependency = async (options: RetrieveDependencyOptions) => {
-  const logger = options.quiet ? undefined : getLogger(options.logLevel);
+  const amaLogger = options.quiet ? undefined : getLogger(options.logLevel, logger);
 
   try {
-    await installDependencies(process.cwd(), { ...options, logger });
+    await installDependencies(process.cwd(), { ...options, logger: amaLogger });
   } catch (e) {
     if (options?.continueOnError) {
-      logger?.error(e);
+      amaLogger?.error(e);
     } else {
       throw e;
     }

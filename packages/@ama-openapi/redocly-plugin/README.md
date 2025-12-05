@@ -106,6 +106,12 @@ The following environment variables are supported:
 | `AMA_OPENAPI_REDOCLY_VERBOSE` | Display debug level logs | `false` |
 | `AMA_OPENAPI_REDOCLY_QUIET` | Suppress all output| `false` |
 
+## Additional custom decorators
+
+The plugin offer additional [Redocly decorator](https://redocly.com/docs/cli/decorators) which can be selected and configured in [Redocly configuration](https://redocly.com/docs/cli/rules/configure-rules).
+
+The full list of available decorators, along with their options, is provided in the [dedicated documentation](https://github.com/AmadeusITGroup/otter/blob/main/docs/redocly/DECORATORS.md).
+
 ## Integration
 
 This Redocly Plugin is designed to work with the following tools:
