@@ -40,6 +40,7 @@
   },
   "devDependencies": {
     "@ama-mcp/core": "workspace:^",
+    "@angular-devkit/schematics": "~20.3.11",
     "@angular/common": "~20.3.13",
     "@angular/compiler": "~20.3.13",
     "@angular/compiler-cli": "~20.3.13",
@@ -56,6 +57,7 @@
     "@o3r/eslint-config": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
     "@o3r/test-helpers": "workspace:^",
+    "@schematics/angular": "~20.3.11",
     "@stylistic/eslint-plugin": "~5.6.0",
     "@types/jest": "~29.5.2",
     "@types/node": "~22.18.0",
@@ -84,7 +86,6 @@
     "nx": "~21.6.0",
     "rxjs": "^7.8.1",
     "ts-jest": "~29.4.0",
-    "ts-node": "~10.9.2",
     "type-fest": "^4.30.1",
     "typescript": "~5.9.2",
     "typescript-eslint": "~8.47.0",

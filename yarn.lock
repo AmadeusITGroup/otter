@@ -427,6 +427,7 @@ __metadata:
   resolution: "@ama-mcp/angular@workspace:packages/@ama-mcp/angular"
   dependencies:
     "@ama-mcp/core": "workspace:^"
+    "@angular-devkit/schematics": "npm:~20.3.11"
     "@angular/common": "npm:~20.3.13"
     "@angular/compiler": "npm:~20.3.13"
     "@angular/compiler-cli": "npm:~20.3.13"
@@ -469,7 +470,6 @@ __metadata:
     nx: "npm:~21.6.0"
     rxjs: "npm:^7.8.1"
     ts-jest: "npm:~29.4.0"
-    ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.9.2"
@@ -487,6 +487,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ama-mcp/core@workspace:packages/@ama-mcp/core"
   dependencies:
+    "@angular-devkit/schematics": "npm:~20.3.11"
     "@angular/common": "npm:~20.3.13"
     "@angular/compiler": "npm:~20.3.13"
     "@angular/compiler-cli": "npm:~20.3.13"
@@ -529,7 +530,6 @@ __metadata:
     nx: "npm:~21.6.0"
     rxjs: "npm:^7.8.1"
     ts-jest: "npm:~29.4.0"
-    ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.9.2"
@@ -545,6 +545,7 @@ __metadata:
   resolution: "@ama-mcp/github@workspace:packages/@ama-mcp/github"
   dependencies:
     "@ama-mcp/core": "workspace:^"
+    "@angular-devkit/schematics": "npm:~20.3.11"
     "@angular/common": "npm:~20.3.13"
     "@angular/compiler": "npm:~20.3.13"
     "@angular/compiler-cli": "npm:~20.3.13"
@@ -588,7 +589,6 @@ __metadata:
     nx: "npm:~21.6.0"
     rxjs: "npm:^7.8.1"
     ts-jest: "npm:~29.4.0"
-    ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.9.2"
@@ -608,6 +608,7 @@ __metadata:
   resolution: "@ama-mcp/otter@workspace:packages/@ama-mcp/otter"
   dependencies:
     "@ama-mcp/core": "workspace:^"
+    "@angular-devkit/schematics": "npm:~20.3.11"
     "@angular/common": "npm:~20.3.13"
     "@angular/compiler": "npm:~20.3.13"
     "@angular/compiler-cli": "npm:~20.3.13"
@@ -624,6 +625,7 @@ __metadata:
     "@o3r/eslint-config": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
+    "@schematics/angular": "npm:~20.3.11"
     "@stylistic/eslint-plugin": "npm:~5.6.0"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:~22.18.0"
@@ -652,7 +654,6 @@ __metadata:
     nx: "npm:~21.6.0"
     rxjs: "npm:^7.8.1"
     ts-jest: "npm:~29.4.0"
-    ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.9.2"
@@ -707,7 +708,6 @@ __metadata:
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.4.0"
-    ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.9.2"
@@ -772,7 +772,6 @@ __metadata:
     jsonc-eslint-parser: "npm:~2.4.0"
     rxjs: "npm:^7.8.1"
     ts-jest: "npm:~29.4.0"
-    ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.9.2"
@@ -1115,7 +1114,6 @@ __metadata:
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.4.0"
-    ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.9.2"
@@ -1195,7 +1193,6 @@ __metadata:
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.4.0"
-    ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.9.2"
@@ -1275,7 +1272,6 @@ __metadata:
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.4.0"
-    ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.9.2"
@@ -1358,7 +1354,6 @@ __metadata:
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.4.0"
-    ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.9.2"
@@ -1509,7 +1504,6 @@ __metadata:
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.4.0"
-    ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.9.2"
@@ -1523,7 +1517,6 @@ __metadata:
     "@o3r/telemetry": "workspace:~"
     "@openapitools/openapi-generator-cli": ^2.15.0
     openapi-types: ^12.0.0
-    ts-node: ~10.9.2
     type-fest: ^4.30.1
     typescript: ^5.9.0
   peerDependenciesMeta:
@@ -1595,7 +1588,6 @@ __metadata:
     semver: "npm:^7.5.2"
     swagger-schema-official: "npm:~2.0.0-bab6bed"
     ts-jest: "npm:~29.4.0"
-    ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.9.2"
     typescript-eslint: "npm:~8.47.0"
@@ -1651,7 +1643,6 @@ __metadata:
     nx: "npm:~21.6.0"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.4.0"
-    ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.9.2"
@@ -1801,7 +1792,6 @@ __metadata:
     nx: "npm:~21.6.0"
     style-dictionary: "npm:~5.1.0"
     ts-jest: "npm:~29.4.0"
-    ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.9.2"
@@ -1880,7 +1870,6 @@ __metadata:
     semver: "npm:^7.5.2"
     stylelint: "npm:~16.25.0"
     ts-jest: "npm:~29.4.0"
-    ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.9.2"
@@ -2271,7 +2260,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular-devkit/core@npm:20.3.11, @angular-devkit/core@npm:~20.3.11":
+"@angular-devkit/core@npm:20.3.11, @angular-devkit/core@npm:>= 20.0.0 < 21.0.0, @angular-devkit/core@npm:~20.3.11":
   version: 20.3.11
   resolution: "@angular-devkit/core@npm:20.3.11"
   dependencies:
@@ -2306,25 +2295,6 @@ __metadata:
     chokidar:
       optional: true
   checksum: 10/3d21b024958fc5fcfdafbfcb674cd161ea44f3017ce0b61bdb287a916899c92a1b31737e6ff9281cfe1158e40ee4473dc5a067948b2e28c04c5833797c8e143b
-  languageName: node
-  linkType: hard
-
-"@angular-devkit/core@npm:>= 20.0.0 < 21.0.0":
-  version: 20.3.7
-  resolution: "@angular-devkit/core@npm:20.3.7"
-  dependencies:
-    ajv: "npm:8.17.1"
-    ajv-formats: "npm:3.0.1"
-    jsonc-parser: "npm:3.3.1"
-    picomatch: "npm:4.0.3"
-    rxjs: "npm:7.8.2"
-    source-map: "npm:0.7.6"
-  peerDependencies:
-    chokidar: ^4.0.0
-  peerDependenciesMeta:
-    chokidar:
-      optional: true
-  checksum: 10/cd820426ac9e14f9ed01acfda0902cdd76a6dbc4605be146d5387070fcba3c247cfb41459910db4490fd318bd4ea58867621fa0e8b8c36ef5bc2a88f2330d014
   languageName: node
   linkType: hard
 
@@ -4523,17 +4493,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/types@npm:^7.0.0, @babel/types@npm:^7.20.7, @babel/types@npm:^7.24.7, @babel/types@npm:^7.27.1, @babel/types@npm:^7.27.3, @babel/types@npm:^7.28.2, @babel/types@npm:^7.28.4, @babel/types@npm:^7.3.3, @babel/types@npm:^7.4.4":
-  version: 7.28.4
-  resolution: "@babel/types@npm:7.28.4"
-  dependencies:
-    "@babel/helper-string-parser": "npm:^7.27.1"
-    "@babel/helper-validator-identifier": "npm:^7.27.1"
-  checksum: 10/db50bf257aafa5d845ad16dae0587f57d596e4be4cbb233ea539976a4c461f9fbcc0bf3d37adae3f8ce5dcb4001462aa608f3558161258b585f6ce6ce21a2e45
-  languageName: node
-  linkType: hard
-
-"@babel/types@npm:^7.28.5":
+"@babel/types@npm:^7.0.0, @babel/types@npm:^7.20.7, @babel/types@npm:^7.24.7, @babel/types@npm:^7.27.1, @babel/types@npm:^7.27.3, @babel/types@npm:^7.28.2, @babel/types@npm:^7.28.4, @babel/types@npm:^7.28.5, @babel/types@npm:^7.3.3, @babel/types@npm:^7.4.4":
   version: 7.28.5
   resolution: "@babel/types@npm:7.28.5"
   dependencies:
@@ -9158,7 +9118,6 @@ __metadata:
     nx: "npm:~21.6.0"
     rxjs: "npm:^7.8.1"
     ts-jest: "npm:~29.4.0"
-    ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.9.2"
@@ -9440,7 +9399,6 @@ __metadata:
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.4.0"
-    ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.9.2"
@@ -9461,7 +9419,6 @@ __metadata:
     "@schematics/angular": ^20.0.0
     jasmine: ^5.0.0
     rxjs: ^7.8.1
-    ts-node: ~10.9.2
     type-fest: ^4.30.1
     typescript: ^5.9.0
     webpack: ^5.96.0
@@ -9539,7 +9496,6 @@ __metadata:
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.4.0"
-    ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.9.2"
@@ -9554,7 +9510,6 @@ __metadata:
     "@o3r/schematics": "workspace:~"
     "@schematics/angular": ^20.0.0
     rxjs: ^7.8.1
-    ts-node: ~10.9.2
     type-fest: ^4.30.1
     typescript: ^5.9.0
   peerDependenciesMeta:
@@ -9629,7 +9584,6 @@ __metadata:
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.4.0"
-    ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.9.2"
@@ -9646,7 +9600,6 @@ __metadata:
     "@o3r/testing": "workspace:~"
     "@schematics/angular": ^20.0.0
     rxjs: ^7.8.1
-    ts-node: ~10.9.2
     type-fest: ^4.30.1
     typescript: ^5.9.0
   peerDependenciesMeta:
@@ -9705,7 +9658,6 @@ __metadata:
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~21.6.0"
     ts-jest: "npm:~29.4.0"
-    ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.9.2"
     typescript-eslint: "npm:~8.47.0"
@@ -9766,7 +9718,6 @@ __metadata:
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~21.6.0"
     ts-jest: "npm:~29.4.0"
-    ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.9.2"
     typescript-eslint: "npm:~8.47.0"
@@ -10002,7 +9953,6 @@ __metadata:
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.4.0"
-    ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.9.2"
@@ -10042,7 +9992,6 @@ __metadata:
     jsonpath-plus: ^9.0.0 || ^10.0.0
     rxjs: ^7.8.1
     semver: ^7.5.2
-    ts-node: ~10.9.2
     type-fest: ^4.30.1
     typescript: ^5.9.0
   peerDependenciesMeta:
@@ -10153,7 +10102,6 @@ __metadata:
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.4.0"
-    ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.9.2"
@@ -10173,7 +10121,6 @@ __metadata:
     express-interceptor: ^1.2.0
     jasmine: ^5.0.0
     rxjs: ^7.8.1
-    ts-node: ~10.9.2
     type-fest: ^4.30.1
     typescript: ^5.9.0
   peerDependenciesMeta:
@@ -10260,7 +10207,6 @@ __metadata:
     nx: "npm:~21.6.0"
     rxjs: "npm:^7.8.1"
     ts-jest: "npm:~29.4.0"
-    ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.9.2"
@@ -10287,7 +10233,6 @@ __metadata:
     chokidar: ^4.0.3
     globby: ^11.1.0
     rxjs: ^7.8.1
-    ts-node: ~10.9.2
     type-fest: ^4.30.1
     typescript: ^5.9.0
   peerDependenciesMeta:
@@ -10441,7 +10386,6 @@ __metadata:
     sass: "npm:~1.93.0"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.4.0"
-    ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.9.2"
@@ -10541,7 +10485,6 @@ __metadata:
     nx: "npm:~21.6.0"
     rxjs: "npm:^7.8.1"
     ts-jest: "npm:~29.4.0"
-    ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.9.2"
@@ -10561,7 +10504,6 @@ __metadata:
     express-interceptor: ^1.2.0
     jasmine: ^5.0.0
     rxjs: ^7.8.1
-    ts-node: ~10.9.2
     type-fest: ^4.30.1
   peerDependenciesMeta:
     "@angular-devkit/schematics":
@@ -10621,7 +10563,6 @@ __metadata:
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.4.0"
-    ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.9.2"
@@ -10655,7 +10596,6 @@ __metadata:
     globby: ^11.1.0
     jest: ^29.7.0
     jsonc-eslint-parser: ^2.4.0
-    ts-node: ^10.9.2
     type-fest: ^4.30.1
     typescript: ^5.9.0
     typescript-eslint: ^8.15.0
@@ -10737,7 +10677,6 @@ __metadata:
     rimraf: "npm:^6.0.1"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.4.0"
-    ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.9.2"
@@ -10832,7 +10771,6 @@ __metadata:
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.4.0"
-    ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
     typedoc: "npm:~0.28.0"
@@ -10855,7 +10793,6 @@ __metadata:
     "@yarnpkg/plugin-pack": ^4.0.0
     globby: ^11.1.0
     semver: ^7.5.2
-    ts-node: ~10.9.2
     type-fest: ^4.30.1
     typescript: ^5.9.0
   peerDependenciesMeta:
@@ -10887,6 +10824,7 @@ __metadata:
   resolution: "@o3r/forms@workspace:packages/@o3r/forms"
   dependencies:
     "@ama-sdk/core": "workspace:~"
+    "@angular-devkit/architect": "npm:~0.2003.11"
     "@angular-devkit/build-angular": "npm:~20.3.11"
     "@angular-devkit/core": "npm:~20.3.11"
     "@angular-devkit/schematics": "npm:~20.3.11"
@@ -10941,7 +10879,6 @@ __metadata:
     nx: "npm:~21.6.0"
     rxjs: "npm:^7.8.1"
     ts-jest: "npm:~29.4.0"
-    ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.9.2"
@@ -10959,7 +10896,6 @@ __metadata:
     "@o3r/schematics": "workspace:~"
     "@schematics/angular": ^20.0.0
     rxjs: ^7.8.1
-    ts-node: ~10.9.2
     type-fest: ^4.30.1
   peerDependenciesMeta:
     "@angular-devkit/schematics":
@@ -11116,7 +11052,6 @@ __metadata:
     stylelint: "npm:~16.25.0"
     stylelint-scss: "npm:~6.12.0"
     ts-jest: "npm:~29.4.0"
-    ts-node: "npm:~10.9.2"
     tsc-watch: "npm:^7.0.0"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.9.2"
@@ -11280,7 +11215,6 @@ __metadata:
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.4.0"
-    ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.9.2"
@@ -11315,7 +11249,6 @@ __metadata:
     intl-messageformat: ^10.7.0
     rxjs: ^7.8.1
     semver: ^7.5.2
-    ts-node: ~10.9.2
     type-fest: ^4.30.1
     typescript: ^5.9.0
   peerDependenciesMeta:
@@ -11416,7 +11349,6 @@ __metadata:
     rxjs: "npm:^7.8.1"
     smartlook-client: "npm:^10.0.0"
     ts-jest: "npm:~29.4.0"
-    ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.9.2"
@@ -11435,7 +11367,6 @@ __metadata:
     logrocket-ngrx: ^0.2.1
     rxjs: ^7.8.1
     smartlook-client: ^10.0.0
-    ts-node: ~10.9.2
     type-fest: ^4.30.1
   peerDependenciesMeta:
     "@angular-devkit/schematics":
@@ -11467,6 +11398,8 @@ __metadata:
     "@ama-mcp/core": "workspace:^"
     "@ama-mcp/github": "workspace:^"
     "@ama-mcp/otter": "workspace:^"
+    "@angular-devkit/architect": "npm:~0.2003.11"
+    "@angular-devkit/schematics": "npm:~20.3.11"
     "@angular/common": "npm:~20.3.13"
     "@angular/compiler": "npm:~20.3.13"
     "@angular/compiler-cli": "npm:~20.3.13"
@@ -11510,7 +11443,6 @@ __metadata:
     nx: "npm:~21.6.0"
     rxjs: "npm:^7.8.1"
     ts-jest: "npm:~29.4.0"
-    ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.9.2"
@@ -11590,7 +11522,6 @@ __metadata:
     nx: "npm:~21.6.0"
     rxjs: "npm:^7.8.1"
     ts-jest: "npm:~29.4.0"
-    ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.9.2"
@@ -11671,7 +11602,6 @@ __metadata:
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.4.0"
-    ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.9.2"
@@ -11728,7 +11658,6 @@ __metadata:
     style-loader: "npm:^4.0.0"
     ts-jest: "npm:~29.4.0"
     ts-loader: "npm:^9.5.2"
-    ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.9.2"
@@ -11785,7 +11714,6 @@ __metadata:
     nx: "npm:~21.6.0"
     rxjs: "npm:^7.8.1"
     ts-jest: "npm:~29.4.0"
-    ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.9.2"
@@ -11870,7 +11798,6 @@ __metadata:
     nx: "npm:~21.6.0"
     rxjs: "npm:^7.8.1"
     ts-jest: "npm:~29.4.0"
-    ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.9.2"
@@ -11892,7 +11819,6 @@ __metadata:
     "@schematics/angular": ^20.0.0
     jasmine: ^5.0.0
     rxjs: ^7.8.1
-    ts-node: ~10.9.2
     type-fest: ^4.30.1
   peerDependenciesMeta:
     "@angular-devkit/schematics":
@@ -11983,7 +11909,6 @@ __metadata:
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.4.0"
-    ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.9.2"
@@ -12014,7 +11939,6 @@ __metadata:
     json-schema: ~0.4.0
     jsonpath-plus: ^9.0.0 || ^10.0.0
     rxjs: ^7.8.1
-    ts-node: ~10.9.2
     type-fest: ^4.30.0
     typescript: ^5.9.0
     typescript-json-schema: ^0.65.0
@@ -12108,7 +12032,6 @@ __metadata:
     semver: "npm:^7.5.2"
     tiny-editorconfig: "npm:~1.0.0"
     ts-jest: "npm:~29.4.0"
-    ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.9.2"
@@ -12124,7 +12047,6 @@ __metadata:
     "@schematics/angular": ^20.0.0
     eslint: ^9.14.0
     rxjs: ^7.8.1
-    ts-node: ~10.9.2
     type-fest: ^4.30.1
     typescript: ^5.9.0
   peerDependenciesMeta:
@@ -12332,7 +12254,6 @@ __metadata:
     nx: "npm:~21.6.0"
     rxjs: "npm:^7.8.1"
     ts-jest: "npm:~29.4.0"
-    ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.9.2"
@@ -12350,7 +12271,6 @@ __metadata:
     "@schematics/angular": ^20.0.0
     fast-deep-equal: ^3.1.3
     rxjs: ^7.8.1
-    ts-node: ~10.9.2
     type-fest: ^4.30.1
   peerDependenciesMeta:
     "@angular-devkit/core":
@@ -12417,7 +12337,6 @@ __metadata:
     nx: "npm:~21.6.0"
     style-dictionary: "npm:~5.1.0"
     ts-jest: "npm:~29.4.0"
-    ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.9.2"
@@ -12492,7 +12411,6 @@ __metadata:
     semver: "npm:^7.5.2"
     stylelint: "npm:~16.25.0"
     ts-jest: "npm:~29.4.0"
-    ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.9.2"
@@ -12593,7 +12511,6 @@ __metadata:
     stylelint: "npm:~16.25.0"
     stylelint-scss: "npm:~6.12.0"
     ts-jest: "npm:~29.4.0"
-    ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.9.2"
@@ -12625,7 +12542,6 @@ __metadata:
     sass: ^1.81.0
     sass-embedded: ^1.81.0
     semver: ^7.5.2
-    ts-node: ~10.9.2
     type-fest: ^4.30.1
     typescript: ^5.9.0
   peerDependenciesMeta:
@@ -12718,7 +12634,6 @@ __metadata:
     nx: "npm:~21.6.0"
     rxjs: "npm:^7.8.1"
     ts-jest: "npm:~29.4.0"
-    ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.9.2"
     typescript-eslint: "npm:~8.47.0"
@@ -12782,7 +12697,6 @@ __metadata:
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.4.0"
-    ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.9.2"
@@ -12795,7 +12709,6 @@ __metadata:
     jest-environment-node: ^29.7.0
     memfs: ^4.14.0
     ts-jest: ~29.4.0
-    ts-node: ^10.9.2
     type-fest: ^4.30.1
     typescript: ~5.9.2
     unionfs: ^4.5.1
@@ -12885,7 +12798,6 @@ __metadata:
     semver: "npm:^7.5.2"
     temporal-polyfill: "npm:^0.3.0"
     ts-jest: "npm:~29.4.0"
-    ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.9.2"
@@ -12915,7 +12827,6 @@ __metadata:
     pngjs: ^7.0.0
     rxjs: ^7.8.1
     temporal-polyfill: ^0.3.0
-    ts-node: ~10.9.2
     type-fest: ^4.30.1
     typescript: ^5.9.0
   peerDependenciesMeta:
@@ -13014,7 +12925,6 @@ __metadata:
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.4.0"
-    ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.9.2"
@@ -13154,7 +13064,6 @@ __metadata:
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.4.0"
-    ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.9.2"
@@ -13173,7 +13082,6 @@ __metadata:
     "@o3r/schematics": "workspace:~"
     "@o3r/telemetry": "workspace:~"
     "@schematics/angular": ^20.0.0
-    ts-node: ~10.9.2
     type-fest: ^4.30.1
     typescript: ^5.9.0
   peerDependenciesMeta:
@@ -13397,7 +13305,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@octokit/plugin-paginate-rest@npm:^13.0.1":
+"@octokit/plugin-paginate-rest@npm:^13.0.1, @octokit/plugin-paginate-rest@npm:^13.1.1":
   version: 13.2.1
   resolution: "@octokit/plugin-paginate-rest@npm:13.2.1"
   dependencies:
@@ -13405,17 +13313,6 @@ __metadata:
   peerDependencies:
     "@octokit/core": ">=6"
   checksum: 10/72ad8822594435e766acb968dcdfc3f15779aab9721c51febf078450805cd30c98f5dcaa397f9b20c166b2b75cb1a3b2e3da0354a770fdb502569ef90225e9b1
-  languageName: node
-  linkType: hard
-
-"@octokit/plugin-paginate-rest@npm:^13.1.1":
-  version: 13.2.0
-  resolution: "@octokit/plugin-paginate-rest@npm:13.2.0"
-  dependencies:
-    "@octokit/types": "npm:^15.0.0"
-  peerDependencies:
-    "@octokit/core": ">=6"
-  checksum: 10/2d4fe4bb4531e247096cb11b4183897bb39b09da4fe90ae5120e37b20a66d591503ccbbcb34fdea1b7d2023e325a9d18adad61f2ab771a29f36e95ed75d8ee4f
   languageName: node
   linkType: hard
 
@@ -16957,19 +16854,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/project-service@npm:8.45.0":
-  version: 8.45.0
-  resolution: "@typescript-eslint/project-service@npm:8.45.0"
-  dependencies:
-    "@typescript-eslint/tsconfig-utils": "npm:^8.45.0"
-    "@typescript-eslint/types": "npm:^8.45.0"
-    debug: "npm:^4.3.4"
-  peerDependencies:
-    typescript: ">=4.8.4 <6.0.0"
-  checksum: 10/919c8260dae79eaec79de84a5ae66fbb09c2ab7aca8c3b7785cb011582a2864c8091e64c84013b05bce812e522fbc4a5ae1c68f86404e078fc84da0fe80247ce
-  languageName: node
-  linkType: hard
-
 "@typescript-eslint/project-service@npm:8.47.0":
   version: 8.47.0
   resolution: "@typescript-eslint/project-service@npm:8.47.0"
@@ -17010,16 +16894,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/scope-manager@npm:8.45.0":
-  version: 8.45.0
-  resolution: "@typescript-eslint/scope-manager@npm:8.45.0"
-  dependencies:
-    "@typescript-eslint/types": "npm:8.45.0"
-    "@typescript-eslint/visitor-keys": "npm:8.45.0"
-  checksum: 10/e45d63a0109eca00f6b431d87e73eacfa03b1795905f123e9144bcacb5abb83888167d1849317c6f90ba1f3553196b2eab13e5e7cdd1050d7a84eaadb65ba801
-  languageName: node
-  linkType: hard
-
 "@typescript-eslint/scope-manager@npm:8.47.0":
   version: 8.47.0
   resolution: "@typescript-eslint/scope-manager@npm:8.47.0"
@@ -17027,15 +16901,6 @@ __metadata:
     "@typescript-eslint/types": "npm:8.47.0"
     "@typescript-eslint/visitor-keys": "npm:8.47.0"
   checksum: 10/e97ae0f746f6bb5706181a973bcc0c1268706ef7e8c18594b37168bb0b41b1673d3f0ba1a2575ee3bd121066500fdc75af313f6ad283198942a5cdb65ade7621
-  languageName: node
-  linkType: hard
-
-"@typescript-eslint/tsconfig-utils@npm:8.45.0, @typescript-eslint/tsconfig-utils@npm:^8.45.0":
-  version: 8.45.0
-  resolution: "@typescript-eslint/tsconfig-utils@npm:8.45.0"
-  peerDependencies:
-    typescript: ">=4.8.4 <6.0.0"
-  checksum: 10/91696bbc34758749d3647236986bf418bacdc0de0e27c2d39cd7c2408c404c35ed18c47c2a55aea0bb9525cc7eb656586359c4e651144603f3438ce93fe80081
   languageName: node
   linkType: hard
 
@@ -17048,7 +16913,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/type-utils@npm:8.47.0":
+"@typescript-eslint/type-utils@npm:8.47.0, @typescript-eslint/type-utils@npm:^8.0.0":
   version: 8.47.0
   resolution: "@typescript-eslint/type-utils@npm:8.47.0"
   dependencies:
@@ -17064,33 +16929,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/type-utils@npm:^8.0.0":
-  version: 8.45.0
-  resolution: "@typescript-eslint/type-utils@npm:8.45.0"
-  dependencies:
-    "@typescript-eslint/types": "npm:8.45.0"
-    "@typescript-eslint/typescript-estree": "npm:8.45.0"
-    "@typescript-eslint/utils": "npm:8.45.0"
-    debug: "npm:^4.3.4"
-    ts-api-utils: "npm:^2.1.0"
-  peerDependencies:
-    eslint: ^8.57.0 || ^9.0.0
-    typescript: ">=4.8.4 <6.0.0"
-  checksum: 10/81017b3f4780a65a4e4268ab208f1cb8891c1ced9ade23d8eb4575b18aeb99fe59a0d0ddbb4eea9c086567a1b4515d3466e850d4c81ec0d2d88658c43877a6cf
-  languageName: node
-  linkType: hard
-
 "@typescript-eslint/types@npm:6.21.0":
   version: 6.21.0
   resolution: "@typescript-eslint/types@npm:6.21.0"
   checksum: 10/e26da86d6f36ca5b6ef6322619f8ec55aabcd7d43c840c977ae13ae2c964c3091fc92eb33730d8be08927c9de38466c5323e78bfb270a9ff1d3611fe821046c5
-  languageName: node
-  linkType: hard
-
-"@typescript-eslint/types@npm:8.45.0, @typescript-eslint/types@npm:^8.45.0":
-  version: 8.45.0
-  resolution: "@typescript-eslint/types@npm:8.45.0"
-  checksum: 10/889ded2b9bf376c876611b2a37f89051fdc8ec501314a4b97832caefa4305bffc4b752548941ce2e7f9659a81336d096d439d4c2ed236c99fefdf60b715593dd
   languageName: node
   linkType: hard
 
@@ -17120,26 +16962,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/typescript-estree@npm:8.45.0":
-  version: 8.45.0
-  resolution: "@typescript-eslint/typescript-estree@npm:8.45.0"
-  dependencies:
-    "@typescript-eslint/project-service": "npm:8.45.0"
-    "@typescript-eslint/tsconfig-utils": "npm:8.45.0"
-    "@typescript-eslint/types": "npm:8.45.0"
-    "@typescript-eslint/visitor-keys": "npm:8.45.0"
-    debug: "npm:^4.3.4"
-    fast-glob: "npm:^3.3.2"
-    is-glob: "npm:^4.0.3"
-    minimatch: "npm:^9.0.4"
-    semver: "npm:^7.6.0"
-    ts-api-utils: "npm:^2.1.0"
-  peerDependencies:
-    typescript: ">=4.8.4 <6.0.0"
-  checksum: 10/2fb4e63ad6128afbada8eabaabfe7d5a8f1a1f387bb13d7d3209103493ba974b518bf47b17e9a853beba10ec81efd5582ebf628c2eb77a924cf67d4d85466e5e
-  languageName: node
-  linkType: hard
-
 "@typescript-eslint/typescript-estree@npm:8.47.0":
   version: 8.47.0
   resolution: "@typescript-eslint/typescript-estree@npm:8.47.0"
@@ -17157,21 +16979,6 @@ __metadata:
   peerDependencies:
     typescript: ">=4.8.4 <6.0.0"
   checksum: 10/a480e83f1fca8a389642cbb18855ef25214c4765694b1d4a74051d2653a4fbbbf3a3cc4e544d1ecb79d49958fbf819246043c0d823d4384aa1c7b5ff79d02fcc
-  languageName: node
-  linkType: hard
-
-"@typescript-eslint/utils@npm:8.45.0":
-  version: 8.45.0
-  resolution: "@typescript-eslint/utils@npm:8.45.0"
-  dependencies:
-    "@eslint-community/eslint-utils": "npm:^4.7.0"
-    "@typescript-eslint/scope-manager": "npm:8.45.0"
-    "@typescript-eslint/types": "npm:8.45.0"
-    "@typescript-eslint/typescript-estree": "npm:8.45.0"
-  peerDependencies:
-    eslint: ^8.57.0 || ^9.0.0
-    typescript: ">=4.8.4 <6.0.0"
-  checksum: 10/9e675a0da4434bd434901f9ba3e1e91d4d7ad542d7fcf8c23534a67f2f9039a569da20929e67a6562e3a263be226ad424cd0c1ac80f7828f4285f7f34e361926
   languageName: node
   linkType: hard
 
@@ -17214,16 +17021,6 @@ __metadata:
     "@typescript-eslint/types": "npm:6.21.0"
     eslint-visitor-keys: "npm:^3.4.1"
   checksum: 10/30422cdc1e2ffad203df40351a031254b272f9c6f2b7e02e9bfa39e3fc2c7b1c6130333b0057412968deda17a3a68a578a78929a8139c6acef44d9d841dc72e1
-  languageName: node
-  linkType: hard
-
-"@typescript-eslint/visitor-keys@npm:8.45.0":
-  version: 8.45.0
-  resolution: "@typescript-eslint/visitor-keys@npm:8.45.0"
-  dependencies:
-    "@typescript-eslint/types": "npm:8.45.0"
-    eslint-visitor-keys: "npm:^4.2.1"
-  checksum: 10/8ae7e19c69c1f67fa8f952c18a09ad42a8cba492545d6e1dca6750e760893773f69ec6b1a96d0997e833c82aecc5ff7fb9546c5abd6c4427d91206670cf8ff37
   languageName: node
   linkType: hard
 
@@ -37521,7 +37318,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-node@npm:^10.9.1, ts-node@npm:~10.9.2":
+"ts-node@npm:^10.9.1":
   version: 10.9.2
   resolution: "ts-node@npm:10.9.2"
   dependencies:

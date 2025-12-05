@@ -24,7 +24,6 @@
   "dependencies": {
     "azure-devops-node-api": "^15.0.0",
     "commander": "^14.0.0",
-    "ts-node": "~10.9.2",
     "tslib": "^2.6.2",
     "winston": "^3.8.2"
   },
@@ -76,7 +75,6 @@
     "jsonc-eslint-parser": "~2.4.0",
     "nx": "~21.6.0",
     "ts-jest": "~29.4.0",
-    "ts-node": "~10.9.2",
     "typescript": "~5.9.2",
     "typescript-eslint": "~8.47.0"
   },
