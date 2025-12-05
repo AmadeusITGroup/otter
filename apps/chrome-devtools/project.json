@@ -31,7 +31,10 @@
       "outputs": ["{projectRoot}/dist/components"],
       "options": {
         "baseHref": "components",
-        "outputPath": "apps/chrome-devtools/dist/components",
+        "outputPath": {
+          "base": "apps/chrome-devtools/dist/components",
+          "browser": ""
+        },
         "index": "apps/chrome-devtools/src/app-components.html",
         "browser": "apps/chrome-devtools/src/app-components.main.ts",
         "tsConfig": "apps/chrome-devtools/tsconfig.build.components.json",
@@ -81,7 +84,10 @@
       "outputs": ["{projectRoot}/dist/panel"],
       "options": {
         "baseHref": "panel",
-        "outputPath": "apps/chrome-devtools/dist/panel",
+        "outputPath": {
+          "base": "apps/chrome-devtools/dist/panel",
+          "browser": ""
+        },
         "index": "apps/chrome-devtools/src/app-devtools.html",
         "browser": "apps/chrome-devtools/src/app-devtools.main.ts",
         "tsConfig": "apps/chrome-devtools/tsconfig.build.devtools.json",
