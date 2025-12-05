@@ -3,6 +3,7 @@ import {
   promises as fs,
 } from 'node:fs';
 import {
+  dirname,
   resolve,
 } from 'node:path';
 import * as process from 'node:process';
@@ -46,5 +47,9 @@ export const generateValidationSchemaFiles = async (cwd = process.cwd(), options
   if (!existsSync(directory)) {
     await fs.mkdir(directory, { recursive: true });
   }
-  await fs.writeFile(resolve(outputDirectory, MANIFEST_SCHEMA_FILE), JSON.stringify(manifestSchemaObj), { encoding: 'utf8' });
+  await fs.writeFile(resolve(outputDirectory, MANIFEST_SCHEMA_FILE), JSON.stringify(manifestSchemaObj.manifest), { encoding: 'utf8' });
+  await Promise.all(
+    manifestSchemaObj.masks
+      .map(({ mask, fileName }) => fs.writeFile(resolve(outputDirectory, dirname(MANIFEST_SCHEMA_FILE), fileName), JSON.stringify(mask), { encoding: 'utf8' }))
+  );
 };
