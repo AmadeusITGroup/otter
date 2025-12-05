@@ -90,7 +90,7 @@
     "@agnos-ui/core-bootstrap": "~0.9.0",
     "@amadeus-it-group/tansu": "~2.0.0",
     "@angular/animations": "~20.3.13",
-    "@angular/common": "~20.3.13",
+    "@angular/common": "~20.3.14",
     "@angular/core": "~20.3.13",
     "@angular/forms": "~20.3.13",
     "@angular/localize": "~20.3.13",

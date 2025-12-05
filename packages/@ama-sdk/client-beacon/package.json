@@ -77,7 +77,7 @@
     "@ama-sdk/core": "workspace:~",
     "@angular-devkit/core": "~20.3.11",
     "@angular-devkit/schematics": "~20.3.11",
-    "@angular/common": "~20.3.13",
+    "@angular/common": "~20.3.14",
     "@angular/core": "~20.3.13",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@nx/eslint-plugin": "~21.6.0",
