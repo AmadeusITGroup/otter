@@ -41,7 +41,7 @@ The following global options can be used with any command:
 
 ## Available Commands
 
-### Command `install`
+### `install` Command
 
 This command scans for [manifest files](https://github.com/AmadeusITGroup/otter/tree/main/docs/openapi/MANIFEST_CONFIGURATION.md) in the current working directory and installs all [OpenAPI specifications](https://www.openapis.org/) specified in those files. The installation process will download and process the OpenAPI specifications according to the configuration in your manifest.
 
@@ -62,7 +62,7 @@ ama-openapi install --debug
 ama-openapi install --silent
 ```
 
-### Command `watch`
+### `watch` Command
 
 This command starts a file watcher that monitors manifest files for changes. When a manifest file is modified, it automatically triggers the installation process, ensuring your [OpenAPI specifications](https://www.openapis.org/) are always up to date during development.
 
@@ -79,6 +79,21 @@ ama-openapi watch
 # Watch with debug output
 ama-openapi watch --debug
 ```
+
+### `generate-schema` command
+
+Generate the [JSON Schemas](https://json-schema.org/) that can be used for configuration auto completion.
+
+```shell
+npm exec @ama-openapi/cli generate-schema -- [options]
+```
+
+#### Options
+
+| Option | Alias | Description | Default value |
+| --- | --- | --- | --- |
+| `--output` | `-o` | Output directory where generating the schemas | `'./schemas'` |
+| `--keywords` | `-k` | List of the keywords to be listed in the artifact to considered in the schema generation | `['openapi']` |
 
 ## Expose shareable models
 
