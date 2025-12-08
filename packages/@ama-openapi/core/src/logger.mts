@@ -28,7 +28,7 @@ export interface Logger {
    * @param message Message to log
    * @param optionalParams Optional parameters to log
    */
-  log(message?: any, ...optionalParams: any[]): void;
+  log?(message?: any, ...optionalParams: any[]): void;
 
   /**
    * Log a debug message.
