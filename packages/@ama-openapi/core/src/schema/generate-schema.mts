@@ -2,141 +2,37 @@ import type {
   Context,
 } from '../context.mjs';
 import {
-  sanitizePackagePath,
-} from '../core/manifest/extract-dependency-models.mjs';
+  getManifestModelsProperties,
+} from './configurations/manifest-model-properties.mjs';
+import {
+  getModelDefinitions,
+} from './configurations/model-definitions.mjs';
+import {
+  getTransformDefinitions,
+} from './configurations/transform-definitions.mjs';
 import {
   type ListDependenciesOptions,
   listSpecificationArtifacts,
 } from './list-artifacts.mjs';
 import {
-  generateMaskSchemaModelAt,
-} from './mask/generate-mask-from-model.mjs';
+  getDependencyModelMasks,
+} from './mask/dependencies-masks.mjs';
 
 /** Options for Generate OpenAPI Manifest Schema function */
 export interface GenerateOpenApiManifestSchemaOptions extends ListDependenciesOptions {
 }
 
-const generateModelNameRef = (artifactName: string, modelPath: string): string => {
-  const sanitizedArtifactName = sanitizePackagePath(artifactName);
-  const [filePath, innerPath] = modelPath.split('#/');
-  const modelName = (filePath.replace(/\.(json|ya?ml)$/, '') + (innerPath ?? ''))
-    .replace(/^\.+\//, '')
-    .replace(/\//g, '-')
-    .replace(/-/g, '_');
-  return `${sanitizedArtifactName}-${modelName}`;
-};
-
 /**
- * Generate Ama-openapi Manifest schema to provide autocompletion and structure validation
+ * Generate Ama-openapi Manifest schema to provide autocompletion and structure validation for the Specification manifest files
  * @param options
  */
 export const generateOpenApiManifestSchema = async (options: GenerateOpenApiManifestSchemaOptions & Context) => {
   const artifacts = await listSpecificationArtifacts(options);
 
-  const modelsProperties = Object.fromEntries(
-    artifacts.map(({ packageManifest, models }) => {
-      const refModels = models
-        .filter((modelObj) => !!modelObj)
-        .map(({ model }) => `model-${generateModelNameRef(packageManifest.name!, model)}`);
-      return [
-        packageManifest.name!,
-        {
-          oneOf: [
-            ...refModels.map((modelName) => ({ $ref: `#/definitions/${modelName}` })),
-            { type: 'array', items: { oneOf: refModels.map((modelName) => ({ $ref: `#/definitions/${modelName}` })) } }
-          ]
-        }
-      ];
-    })
-  );
-
-  const modelDefinitions = Object.fromEntries(
-    artifacts.flatMap(({ packageManifest, models }) => {
-      return models
-        .filter((modelObj) => !!modelObj)
-        .map(({ model }) => {
-          const modelRef = generateModelNameRef(packageManifest.name!, model);
-          return [
-            `model-${modelRef}`,
-            {
-              oneOf: [
-                ...packageManifest.main
-                  ? [{
-                    type: 'boolean',
-                    default: true,
-                    description: 'Include the default model exposed by the artifact'
-                  }]
-                  : [],
-                {
-                  type: 'string',
-                  const: model
-                },
-                {
-                  type: 'object',
-                  description: 'Detailed model inclusion with optional transformations to apply',
-                  properties: {
-                    path: {
-                      type: 'string',
-                      const: model,
-                      description: "Path to the specific model to include as is. The path is relative to the artifact root (e.g., 'models/ExampleModel.v1.yaml')"
-                    },
-                    transform: {
-                      $ref: `#/definitions/transform-${modelRef}`
-                    }
-                  },
-                  required: [
-                    'path'
-                  ],
-                  additionalProperties: false
-                }
-              ]
-            }
-          ];
-        });
-    })
-  );
-
-  const transformDefinitions = Object.fromEntries(
-    artifacts.flatMap(({ packageManifest, models }) => {
-      return models
-        .filter((modelObj) => !!modelObj)
-        .map(({ model }) => {
-          const modelRef = generateModelNameRef(packageManifest.name!, model);
-          const maskSchemaFileName = `mask-${modelRef}.json`;
-          return [
-            `transform-${modelRef}`,
-            {
-              allOf: [
-                {
-                  $ref: '#/definitions/baseTransform'
-                },
-                {
-                  mask: {
-                    type: 'object',
-                    $ref: `./${maskSchemaFileName}`
-                  }
-                }
-              ]
-            }
-          ];
-        });
-    })
-  );
-
-  const masks = (await Promise.all(
-    artifacts.map(({ packageManifest, models }) => {
-      return Promise.all(models
-        .filter((modelObj) => !!modelObj)
-        .map(async ({ model, modelPath }) => {
-          const modelRef = generateModelNameRef(packageManifest.name!, model);
-          return {
-            mask: await generateMaskSchemaModelAt(modelPath, options),
-            fileName: `mask-${modelRef}.json`
-          };
-        })
-      );
-    })
-  )).flat();
+  const manifestModelsProperties = getManifestModelsProperties(artifacts);
+  const modelDefinitions = getModelDefinitions(artifacts);
+  const transformDefinitions = getTransformDefinitions(artifacts);
+  const masks = await getDependencyModelMasks(artifacts, options);
 
   return {
     masks,
@@ -149,7 +45,7 @@ export const generateOpenApiManifestSchema = async (options: GenerateOpenApiMani
         models: {
           type: 'object',
           description: 'Dependency package containing the specification to include',
-          properties: modelsProperties
+          properties: manifestModelsProperties
         }
       },
       additionalProperties: true,

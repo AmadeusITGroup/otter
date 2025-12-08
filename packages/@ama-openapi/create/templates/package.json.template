@@ -24,7 +24,7 @@
     "build": "redocly bundle",
     "retrieve-externals": "ama-openapi install",
     "watch:retrieve-externals": "ama-openapi watch",
-    "prepare": "ama-openapi generate-schema"
+    "prepare": "ama-openapi generate-schema",
     "postinstall": "ama-openapi install"
   },
   "dependencies": {
