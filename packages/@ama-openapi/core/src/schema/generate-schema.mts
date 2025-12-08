@@ -2,29 +2,21 @@ import type {
   Context,
 } from '../context.mjs';
 import {
-  sanitizePackagePath,
-} from '../core/manifest/extract-dependency-models.mjs';
+  generateModelNameRef,
+  getMaskFileName,
+} from './generate-model-name.mjs';
 import {
   type ListDependenciesOptions,
   listSpecificationArtifacts,
 } from './list-artifacts.mjs';
 import {
+  FIELD_SCHEMA_DEFINITION,
   generateMaskSchemaModelAt,
 } from './mask/generate-mask-from-model.mjs';
 
 /** Options for Generate OpenAPI Manifest Schema function */
 export interface GenerateOpenApiManifestSchemaOptions extends ListDependenciesOptions {
 }
-
-const generateModelNameRef = (artifactName: string, modelPath: string): string => {
-  const sanitizedArtifactName = sanitizePackagePath(artifactName);
-  const [filePath, innerPath] = modelPath.split('#/');
-  const modelName = (filePath.replace(/\.(json|ya?ml)$/, '') + (innerPath ?? ''))
-    .replace(/^\.+\//, '')
-    .replace(/\//g, '-')
-    .replace(/-/g, '_');
-  return `${sanitizedArtifactName}-${modelName}`;
-};
 
 /**
  * Generate Ama-openapi Manifest schema to provide autocompletion and structure validation
@@ -38,6 +30,9 @@ export const generateOpenApiManifestSchema = async (options: GenerateOpenApiMani
       const refModels = models
         .filter((modelObj) => !!modelObj)
         .map(({ model }) => `model-${generateModelNameRef(packageManifest.name!, model)}`);
+      if (refModels.length === 0) {
+        return [];
+      }
       return [
         packageManifest.name!,
         {
@@ -68,7 +63,6 @@ export const generateOpenApiManifestSchema = async (options: GenerateOpenApiMani
                   }]
                   : [],
                 {
-                  type: 'string',
                   const: model
                 },
                 {
@@ -76,7 +70,6 @@ export const generateOpenApiManifestSchema = async (options: GenerateOpenApiMani
                   description: 'Detailed model inclusion with optional transformations to apply',
                   properties: {
                     path: {
-                      type: 'string',
                       const: model,
                       description: "Path to the specific model to include as is. The path is relative to the artifact root (e.g., 'models/ExampleModel.v1.yaml')"
                     },
@@ -102,7 +95,7 @@ export const generateOpenApiManifestSchema = async (options: GenerateOpenApiMani
         .filter((modelObj) => !!modelObj)
         .map(({ model }) => {
           const modelRef = generateModelNameRef(packageManifest.name!, model);
-          const maskSchemaFileName = `mask-${modelRef}.json`;
+          const maskSchemaFileName = getMaskFileName(modelRef);
           return [
             `transform-${modelRef}`,
             {
@@ -111,9 +104,11 @@ export const generateOpenApiManifestSchema = async (options: GenerateOpenApiMani
                   $ref: '#/definitions/baseTransform'
                 },
                 {
-                  mask: {
-                    type: 'object',
-                    $ref: `./${maskSchemaFileName}`
+                  type: 'object',
+                  properties: {
+                    mask: {
+                      $ref: `./${maskSchemaFileName}`
+                    }
                   }
                 }
               ]
@@ -125,13 +120,29 @@ export const generateOpenApiManifestSchema = async (options: GenerateOpenApiMani
 
   const masks = (await Promise.all(
     artifacts.map(({ packageManifest, models }) => {
-      return Promise.all(models
-        .filter((modelObj) => !!modelObj)
+      const filteredModels = models
+        .filter((modelObj) => !!modelObj);
+      const modelPaths = Object.fromEntries(filteredModels.map((m) => ([m.modelPath, m.model])));
+      return Promise.all(filteredModels
         .map(async ({ model, modelPath }) => {
           const modelRef = generateModelNameRef(packageManifest.name!, model);
+          const fileName = getMaskFileName(modelRef);
+          const ctx = {
+            ...options,
+            modelPaths,
+            packageName: packageManifest.name!
+          };
           return {
-            mask: await generateMaskSchemaModelAt(modelPath, options),
-            fileName: `mask-${modelRef}.json`
+            mask: {
+              $schema: 'http://json-schema.org/draft-07/schema#',
+              title: `OpenApi specification mask ${modelRef}`,
+              $id: `@ama-openapi/core/schemas/${fileName}`,
+              ...await generateMaskSchemaModelAt(modelPath, ctx),
+              definitions: {
+                ...FIELD_SCHEMA_DEFINITION
+              }
+            },
+            fileName
           };
         })
       );
