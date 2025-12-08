@@ -31,7 +31,7 @@ export interface GenerateValidationSchemasOptions extends GenerateOpenApiManifes
 }
 
 /**
- * Generate the Schema provide help on option files\
+ * Generate the validation schemas for the OpenAPI Manifest and the masked models
  * @param cwd
  * @param options
  */
