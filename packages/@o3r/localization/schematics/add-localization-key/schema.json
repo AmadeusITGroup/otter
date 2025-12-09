@@ -34,6 +34,11 @@
     "updateTemplate": {
       "type": "boolean",
       "description": "Update the template by replacing matching value by the localization key"
+    },
+    "keyToKebabCase": {
+      "type": "boolean",
+      "description": "Convert the key to kebab-case",
+      "default": false
     }
   },
   "additionalProperties": true,

@@ -142,6 +142,39 @@ describe('Add Localization', () => {
         value: 'Dummy 1'
       }, initialTree)).rejects.toThrow();
     });
+
+    it('should apply kebab-case with option selected', async () => {
+      const runner = new SchematicTestRunner('schematics', collectionPath);
+      const tree = await runner.runSchematic('add-localization-key', {
+        path: o3rComponentPath,
+        key: 'kebabKeyLoc',
+        description: 'Dummy 1 description',
+        value: 'Dummy 1',
+        keyToKebabCase: true
+      }, initialTree);
+
+      const localizationFileContent: any = tree.readJson(localizationPath);
+      expect(localizationFileContent['o3r-test-pres.kebab-key-loc']).toBeDefined();
+
+      const translationFileContent = tree.readText(translationPath);
+      expect(translationFileContent).toContain('kebabKeyLoc: \'o3r-test-pres.kebab-key-loc\'');
+    });
+
+    it('should sanitize key input to camelCase', async () => {
+      const runner = new SchematicTestRunner('schematics', collectionPath);
+      const tree = await runner.runSchematic('add-localization-key', {
+        path: o3rComponentPath,
+        key: 'messy Key_format',
+        description: 'Dummy 1 description',
+        value: 'Dummy 1'
+      }, initialTree);
+
+      const localizationFileContent: any = tree.readJson(localizationPath);
+      expect(localizationFileContent['o3r-test-pres.messyKeyFormat']).toBeDefined();
+
+      const translationFileContent = tree.readText(translationPath);
+      expect(translationFileContent).toContain('messyKeyFormat: \'o3r-test-pres.messyKeyFormat\'');
+    });
   });
 
   describe('Angular component', () => {

@@ -63,9 +63,6 @@ import {
   searchFn,
 } from './common';
 import {
-  IsRefPipe,
-} from './is-ref.pipe';
-import {
   MemoizePipe,
 } from './memoize.pipe';
 import {
@@ -106,7 +103,6 @@ export interface VariableGroup {
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   imports: [
-    IsRefPipe,
     NgbAccordionModule,
     ReactiveFormsModule,
     FormsModule,
