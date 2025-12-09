@@ -22,7 +22,7 @@ export default [
   },
   {
     name: '@ama-mfe/messages/messages-definition',
-    files: ['**/*.versions.ts'],
+    files: ['**/*-versions.ts'],
     rules: {
       '@typescript-eslint/naming-convention': [
         'error',

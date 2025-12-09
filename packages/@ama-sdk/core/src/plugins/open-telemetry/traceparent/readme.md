@@ -4,5 +4,5 @@ Plugin to add a header with [Traceparent ID](https://www.w3.org/TR/trace-context
 
 ### Type of plugins
 
-- Request plugin: [OpenTelemetryTraceparentRequest](./open-telemetry.traceparent.request.ts)
-- Reply plugin: [OpenTelemetryTraceparentReply](./open-telemetry.traceparent.reply.ts)
+- Request plugin: [OpenTelemetryTraceparentRequest](./open-telemetry-traceparent-request.ts)
+- Reply plugin: [OpenTelemetryTraceparentReply](./open-telemetry-traceparent-reply.ts)

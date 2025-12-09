@@ -12,6 +12,9 @@ import {
   RouterModule,
 } from '@angular/router';
 import {
+  NgbScrollSpyService,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
   EffectsModule,
 } from '@ngrx/effects';
 import {
@@ -34,8 +37,8 @@ import {
   provideMarkdown,
 } from 'ngx-markdown';
 import {
-  RulesEngineComponent,
-} from './rules-engine.component';
+  RulesEngine,
+} from './rules-engine';
 
 const localizationConfiguration = { language: 'en' };
 const mockTranslations = {
@@ -46,14 +49,19 @@ const mockTranslationsCompilerProvider: Provider = {
   useClass: TranslateFakeCompiler
 };
 
-describe('RulesEngineComponent', () => {
-  let component: RulesEngineComponent;
-  let fixture: ComponentFixture<RulesEngineComponent>;
+describe('RulesEngine', () => {
+  let component: RulesEngine;
+  let fixture: ComponentFixture<RulesEngine>;
+  let mockScrollSpyService: Partial<NgbScrollSpyService>;
 
   beforeEach(async () => {
+    mockScrollSpyService = {
+      start: jest.fn(),
+      stop: jest.fn()
+    };
     TestBed.configureTestingModule({
       imports: [
-        RulesEngineComponent,
+        RulesEngine,
         StoreModule.forRoot(),
         EffectsModule.forRoot(),
         RulesEngineRunnerModule.forRoot(),
@@ -61,7 +69,10 @@ describe('RulesEngineComponent', () => {
         ...mockTranslationModules(localizationConfiguration, mockTranslations, mockTranslationsCompilerProvider),
         AsyncPipe
       ],
-      providers: [provideMarkdown()]
+      providers: [
+        { provide: NgbScrollSpyService, useValue: mockScrollSpyService },
+        provideMarkdown()
+      ]
     });
     global.fetch = jest.fn(() =>
       Promise.resolve({
@@ -76,7 +87,7 @@ describe('RulesEngineComponent', () => {
         })
       })
     ) as jest.Mock;
-    fixture = TestBed.createComponent(RulesEngineComponent);
+    fixture = TestBed.createComponent(RulesEngine);
     component = fixture.componentInstance;
     fixture.detectChanges();
     const localizationService = TestBed.inject(LocalizationService);

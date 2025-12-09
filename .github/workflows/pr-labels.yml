@@ -20,6 +20,7 @@ jobs:
           fetch-depth: 0
       - name: Setup
         uses: ./tools/github-actions/setup
+        timeout-minutes: 30
       - name: Determine labels
         run: |
           LABELS="$(yarn pr-labels --target="${{ github.base_ref || github.ref_name }}")"

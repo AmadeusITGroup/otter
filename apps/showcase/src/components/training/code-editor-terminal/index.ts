@@ -1,1 +1,1 @@
-export * from './code-editor-terminal.component';
+export * from './code-editor-terminal';

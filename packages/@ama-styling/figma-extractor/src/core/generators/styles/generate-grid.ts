@@ -9,10 +9,10 @@ import {
 } from '@ama-styling/figma-sdk';
 import {
   getRgbaColorHex,
-} from '../../helpers/color-hex.helpers';
+} from '../../helpers/color-hex-helpers';
 import {
   generateTokenTree,
-} from '../../helpers/generate-token-tree.helpers';
+} from '../../helpers/generate-token-tree-helpers';
 import type {
   FigmaFileContext,
 } from '../../interfaces';

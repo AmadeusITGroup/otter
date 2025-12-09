@@ -1,12 +1,6 @@
 import {
-  execSync,
-} from 'node:child_process';
-import {
   rm,
 } from 'node:fs/promises';
-import {
-  join,
-} from 'node:path';
 import type {
   EnvironmentContext,
   JestEnvironmentConfig,
@@ -15,13 +9,18 @@ import type {
   Circus,
 } from '@jest/types';
 import {
+  redBright,
+} from 'chalk';
+import {
   TestEnvironment as NodeTestEnvironment,
 } from 'jest-environment-node';
-import pidFromPort from 'pid-from-port';
 import {
   prepareTestEnv,
   type PrepareTestEnvType,
 } from '../prepare-test-env';
+import {
+  isVerdaccioInUse,
+} from '../utilities';
 
 /**
  *  Return type of prepareTestEnv
@@ -32,17 +31,10 @@ declare global {
   var o3rEnvironment: { testEnvironment: TestEnvironment };
 }
 
-const rootFolder = join(__dirname, '..', '..', '..', '..');
-
 /**
  * Custom Jest environment used to manage test environments with Verdaccio setup
  */
 export class JestEnvironmentO3r extends NodeTestEnvironment {
-  /**
-   * Stop Verdaccio server at the end of the test
-   */
-  private shouldHandleVerdaccio = false;
-
   /**
    * Folder containing the generated files
    */
@@ -72,28 +64,6 @@ export class JestEnvironmentO3r extends NodeTestEnvironment {
   }
 
   /**
-   * Start Verdaccio server if not already running on localhost:4873
-   */
-  private async startVerdaccio() {
-    try {
-      await pidFromPort(4873);
-    } catch {
-      this.shouldHandleVerdaccio = true;
-      execSync('yarn verdaccio:start', { cwd: rootFolder, stdio: 'inherit' });
-      execSync('yarn verdaccio:publish', { cwd: rootFolder, stdio: 'inherit' });
-    }
-  }
-
-  /**
-   * Stop Verdaccio server if it was started by this class
-   */
-  private stopVerdaccio() {
-    if (this.shouldHandleVerdaccio) {
-      execSync('yarn verdaccio:stop', { cwd: rootFolder, stdio: 'inherit' });
-    }
-  }
-
-  /**
    * Catch Jest lifecycle events
    * @param event
    * @param _state
@@ -117,16 +87,15 @@ export class JestEnvironmentO3r extends NodeTestEnvironment {
    * Executed before any test starts
    */
   public async setup() {
-    await this.startVerdaccio();
+    if (!isVerdaccioInUse()) {
+      throw new Error(`:
+${redBright('Error: Verdaccio is not running.')}
+Please set it up with the following commands:
+ - verdaccio:start or verdaccio:start-local
+ - verdaccio:publish
+`);
+    }
     await super.setup();
-  }
-
-  /**
-   * Executed after all tests are finished
-   */
-  public async teardown() {
-    await super.teardown();
-    this.stopVerdaccio();
   }
 }
 

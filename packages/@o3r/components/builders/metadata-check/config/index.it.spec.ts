@@ -35,7 +35,7 @@ import {
 import {
   configMetadataComparator,
   type MigrationConfigData,
-} from './helpers/config-metadata-comparison.helper';
+} from './helpers/config-metadata-comparison-helper';
 import type {
   ComponentConfigOutput,
   ConfigProperty,

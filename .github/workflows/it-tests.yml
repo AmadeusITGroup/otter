@@ -35,6 +35,7 @@ permissions:
 jobs:
   prepare-verdaccio:
     runs-on: ubuntu-latest
+    if: ${{ github.event_name != 'pull_request' || github.base_ref != 'main' || contains(github.event.pull_request.labels.*.name, 'runAllTests') }}
     env:
       NODE_COMPILE_CACHE: ~/.cache/node-compile-cache
     steps:
@@ -45,6 +46,7 @@ jobs:
         with:
           artifactName: ${{ inputs.ref && format('dist-{0}', inputs.ref) || 'dist' }}
       - uses: ./tools/github-actions/setup
+        timeout-minutes: 30
       - name: Setup verdaccio once for all tests
         id: setup-verdaccio
         run: |
@@ -73,13 +75,6 @@ jobs:
         os: [ubuntu-latest, windows-latest]
         packageManager: [yarn, npm]
         testEnvironment: [o3r-project-with-app]
-        fastRun:
-          - ${{ github.event_name == 'pull_request' && github.base_ref == 'main' && !contains(github.event.pull_request.labels.*.name, 'runAllTests')}}
-        exclude:
-          - fastRun: true
-            os: windows-latest
-          - fastRun: true
-            packageManager: yarn
     name: it-tests (${{ matrix.os }}, ${{ matrix.packageManager }}, ${{ matrix.testEnvironment }})
     runs-on: ${{ matrix.os }}
     env:
@@ -93,6 +88,7 @@ jobs:
         with:
           artifactName: ${{ inputs.ref && format('dist-{0}', inputs.ref) || 'dist' }}
       - uses: ./tools/github-actions/setup
+        timeout-minutes: 30
       - shell: bash
         run: |
           git config --global  user.name "GitHub Actions"
@@ -100,21 +96,6 @@ jobs:
       - uses: ./.github/actions/setup-java
         with:
           install-jdk: 'true'
-      - name: Get current month to build the cache key
-        run: echo "currentMonth=$(date +'%Y-%m')" >> $GITHUB_ENV
-        shell: bash
-      - name: Cache test-app yarn
-        if: inputs.ref == ''
-        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
-        with:
-          lookup-only: ${{ github.event_name == 'pull_request' || github.event_name == 'merge_group' }}
-          path: |
-            .cache/test-app
-            !.cache/test-app/cache/@ama-sdk*
-            !.cache/test-app/cache/@ama-terasu*
-            !.cache/test-app/cache/@o3r*
-            !.cache/test-app/npm-cache/_npx/**
-          key: ${{ runner.os }}-test-app-${{ matrix.packageManager }}-${{ env.currentMonth }}
       - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
         name: Download verdaccio storage prepared in the previous job
         with:
@@ -167,10 +148,10 @@ jobs:
   conclusion:
     runs-on: ubuntu-latest
     needs: [it-tests]
-    if: success() || failure()
+    if: ${{ !cancelled() }}
     steps:
       - run: |
-          if [[ $OUTPUT == "success" ]]; then
+          if [[ $OUTPUT == "success" || $OUTPUT == "skipped" ]]; then
             exit 0
           else
             exit 1

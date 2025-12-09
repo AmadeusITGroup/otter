@@ -19,7 +19,7 @@ import {
   LibraryMetadataMap,
   LocalizationExtractor,
   LocalizationFileMap,
-} from '../helpers/localization.generator';
+} from '../helpers/localization-generator';
 import type {
   LocalizationExtractorBuilderSchema,
 } from './schema';

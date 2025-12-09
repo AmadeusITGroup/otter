@@ -1,1 +1,1 @@
-export * from './placeholder-pres.component';
+export * from './placeholder-pres';

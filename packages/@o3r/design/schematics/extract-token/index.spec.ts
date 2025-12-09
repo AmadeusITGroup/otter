@@ -79,8 +79,8 @@ $breadcrumb-pres-item-other-color: o3r.variable('breadcrumb-pres-item-other-colo
 
   beforeEach(() => {
     initialTree = Tree.empty();
-    initialTree.create('src/component/my-comp.theme.css', 'should be ignored');
-    initialTree.create('src/component/my-comp.theme.scss', initialSassFile);
+    initialTree.create('src/component/my-comp-theme.css', 'should be ignored');
+    initialTree.create('src/component/my-comp-theme.scss', initialSassFile);
   });
 
   it('should correctly extract the Design Token', async () => {
@@ -90,9 +90,9 @@ $breadcrumb-pres-item-other-color: o3r.variable('breadcrumb-pres-item-other-colo
       componentFilePatterns: ['src/component/**.*scss']
     }), initialTree, { logger } as any));
 
-    expect(tree.exists('src/component/my-comp.theme.json')).toBe(true);
-    expect(validate(tree.readText('src/component/my-comp.theme.json'), fs.readFileSync(resolve(__dirname, '../../schemas/design-token.schema.json'))).errors).toHaveLength(0);
-    expect(tree.readText('src/component/my-comp.theme.scss')).toBe(initialSassFile);
+    expect(tree.exists('src/component/my-comp-theme.json')).toBe(true);
+    expect(validate(tree.readText('src/component/my-comp-theme.json'), fs.readFileSync(resolve(__dirname, '../../schemas/design-token.schema.json'))).errors).toHaveLength(0);
+    expect(tree.readText('src/component/my-comp-theme.scss')).toBe(initialSassFile);
   });
 
   it('should extract the Design Token with right flatten level', async () => {
@@ -104,8 +104,8 @@ $breadcrumb-pres-item-other-color: o3r.variable('breadcrumb-pres-item-other-colo
       flattenLevel: 1
     }), initialTree, { logger } as any));
 
-    const resultLevel1 = tree.readJson('src/component/my-comp.theme.json') as any;
-    tree.delete('src/component/my-comp.theme.json');
+    const resultLevel1 = tree.readJson('src/component/my-comp-theme.json') as any;
+    tree.delete('src/component/my-comp-theme.json');
 
     tree = await firstValueFrom(callRule(extractToken({
       includeTags: false,
@@ -113,8 +113,8 @@ $breadcrumb-pres-item-other-color: o3r.variable('breadcrumb-pres-item-other-colo
       flattenLevel: 2
     }), initialTree, { logger } as any));
 
-    const resultLevel2 = tree.readJson('src/component/my-comp.theme.json') as any;
-    tree.delete('src/component/my-comp.theme.json');
+    const resultLevel2 = tree.readJson('src/component/my-comp-theme.json') as any;
+    tree.delete('src/component/my-comp-theme.json');
 
     tree = await firstValueFrom(callRule(extractToken({
       includeTags: false,
@@ -122,7 +122,7 @@ $breadcrumb-pres-item-other-color: o3r.variable('breadcrumb-pres-item-other-colo
       flattenLevel: 10
     }), initialTree, { logger } as any));
 
-    const resultLevel10 = tree.readJson('src/component/my-comp.theme.json') as any;
+    const resultLevel10 = tree.readJson('src/component/my-comp-theme.json') as any;
 
     expect(resultLevel1.breadcrumb['pres.item.icon.color']).toBeDefined();
     expect(resultLevel1.breadcrumb['pres.item.icon.color.bg']).toBeDefined();
@@ -143,8 +143,8 @@ $breadcrumb-pres-item-other-color: o3r.variable('breadcrumb-pres-item-other-colo
       componentFilePatterns: ['src/component/**.*scss']
     }), initialTree, { logger } as any));
 
-    expect(tree.readText('src/component/my-comp.theme.scss')).not.toBe(initialSassFile);
-    expect(tree.readText('src/component/my-comp.theme.scss')).toBe(`
+    expect(tree.readText('src/component/my-comp-theme.scss')).not.toBe(initialSassFile);
+    expect(tree.readText('src/component/my-comp-theme.scss')).toBe(`
 @use '@o3r/styling' as o3r;
 
 /* --- BEGIN THEME Auto-generated --- */
