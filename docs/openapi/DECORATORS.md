@@ -91,7 +91,7 @@ apis:
   mySpec:
     root: apis/mySpec.json
     decorators:
-      ama-openapi/remove-unused-component: on
+      ama-openapi/remove-unused-components: on
 ```
 
 will turn the spec :

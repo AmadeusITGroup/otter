@@ -5,7 +5,7 @@ import {
 } from '@redocly/openapi-core';
 
 /** Name of the removeUnusedComponents custom decorator */
-export const DECORATOR_ID_REMOVE_UNUSED_COMPONENT = 'remove-unused-component';
+export const DECORATOR_ID_REMOVE_UNUSED_COMPONENTS = 'remove-unused-components';
 
 /**
  * This decorator remove the components not referred in the bundled specification
