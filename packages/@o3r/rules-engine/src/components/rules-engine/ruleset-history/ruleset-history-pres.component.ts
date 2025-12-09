@@ -5,6 +5,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  inject,
   Input,
   ViewEncapsulation,
 } from '@angular/core';
@@ -53,6 +54,8 @@ export type RulesetExecutionDebug = (RulesetExecutionEvent | RulesetExecutionErr
   ]
 })
 export class RulesetHistoryPresComponent {
+  private readonly cd = inject(ChangeDetectorRef);
+
   /**
    * Reflects the state of each ruleset expanded elements.
    * Each ruleset entry contains a list of subpanel that can be collapsed or expanded.
@@ -69,8 +72,6 @@ export class RulesetHistoryPresComponent {
 
   @Input()
   public executionDurationFormat = '1.3-3';
-
-  constructor(private readonly cd: ChangeDetectorRef) {}
 
   /**
    * Toggle a ruleset subpanel

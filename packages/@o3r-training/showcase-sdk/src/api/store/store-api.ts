@@ -65,10 +65,10 @@ export class StoreApi implements Api {
     let tokenizedUrl;
     if (this.client.options.enableParameterSerialization) {
       const pathParamsProperties = this.client.getPropertiesFromData(data, ['orderId']);
-      const pathParamSerialization = { orderId: { explode: false, style: 'simple' } }
+      const pathParamSerialization = { orderId: { explode: false, style: 'simple' } };
       const serializedPathParams = this.client.serializePathParams(pathParamsProperties, pathParamSerialization);
-      basePath = `${this.client.options.basePath}/store/order/${serializedPathParams['orderId']}`
-      tokenizedUrl = `${this.client.options.basePath}/store/order/${this.piiParamTokens['orderId'] || serializedPathParams['orderId']}`
+      basePath = `${this.client.options.basePath}/store/order/${serializedPathParams['orderId']}`;
+      tokenizedUrl = `${this.client.options.basePath}/store/order/${this.piiParamTokens['orderId'] || serializedPathParams['orderId']}`;
     } else {
       basePath = `${this.client.options.basePath}/store/order/${data['orderId']}`;
       tokenizedUrl = `${this.client.options.basePath}/store/order/${this.piiParamTokens['orderId'] || data['orderId']}`;
@@ -159,10 +159,10 @@ export class StoreApi implements Api {
     let tokenizedUrl;
     if (this.client.options.enableParameterSerialization) {
       const pathParamsProperties = this.client.getPropertiesFromData(data, ['orderId']);
-      const pathParamSerialization = { orderId: { explode: false, style: 'simple' } }
+      const pathParamSerialization = { orderId: { explode: false, style: 'simple' } };
       const serializedPathParams = this.client.serializePathParams(pathParamsProperties, pathParamSerialization);
-      basePath = `${this.client.options.basePath}/store/order/${serializedPathParams['orderId']}`
-      tokenizedUrl = `${this.client.options.basePath}/store/order/${this.piiParamTokens['orderId'] || serializedPathParams['orderId']}`
+      basePath = `${this.client.options.basePath}/store/order/${serializedPathParams['orderId']}`;
+      tokenizedUrl = `${this.client.options.basePath}/store/order/${this.piiParamTokens['orderId'] || serializedPathParams['orderId']}`;
     } else {
       basePath = `${this.client.options.basePath}/store/order/${data['orderId']}`;
       tokenizedUrl = `${this.client.options.basePath}/store/order/${this.piiParamTokens['orderId'] || data['orderId']}`;

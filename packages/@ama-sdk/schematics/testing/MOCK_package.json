@@ -1,9 +1,0 @@
-{
-  "name": "fake-package",
-  "scripts": {
-    "swagger:upgrade": "yo $(yarn resolve @ama-sdk/generator-sdk/src/generators/core) && yarn clear-index",
-    "swagger:regen": "yo $(yarn resolve @ama-sdk/generator-sdk/src/generators/core) --swaggerSpecPath ./swagger-spec.yaml --force && yarn clear-index",
-    "swagger:generate": "yo $(yarn resolve @ama-sdk/generator-sdk/generators/core) --swaggerSpecPath $(yarn resolve @api-spec/core-public/dist/API_Public.yaml) --force && yarn clear-index",
-    "mock": "yarn ng g @ama-sdk/generator-sdk:mock"
-  }
-}

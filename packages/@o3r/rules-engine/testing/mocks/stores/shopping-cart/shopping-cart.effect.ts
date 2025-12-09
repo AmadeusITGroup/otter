@@ -1,4 +1,5 @@
 import {
+  inject,
   Injectable,
 } from '@angular/core';
 import {
@@ -34,6 +35,8 @@ import {
  */
 @Injectable()
 export class ShoppingCartEffect {
+  protected actions$ = inject(Actions);
+
   /**
    * Set the entities with the reply content, dispatch failShoppingCartEntities if it catches a failure
    */
@@ -77,6 +80,4 @@ export class ShoppingCartEffect {
       )
     )
   );
-
-  constructor(protected actions$: Actions) {}
 }

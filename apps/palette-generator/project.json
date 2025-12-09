@@ -45,7 +45,8 @@
         "!{projectRoot}/src/plugin/**"
       ],
       "outputs": [
-        "{projectRoot}/dist/src"
+        "{projectRoot}/dist/src/ui",
+        "{projectRoot}/dist/src/contract"
       ]
     },
     "lint": {},

@@ -15,7 +15,8 @@
         "{projectRoot}/dist/devtools.html"
       ],
       "options": {
-        "script": "postbuild:patch"
+        "script": "postbuild:patch",
+        "tsConfig": "{projectRoot}/tsconfig.build.json"
       },
       "dependsOn": [
         "^build",
@@ -26,13 +27,16 @@
       ]
     },
     "build-components": {
-      "executor": "@angular-devkit/build-angular:browser-esbuild",
+      "executor": "@angular-devkit/build-angular:application",
       "outputs": ["{projectRoot}/dist/components"],
       "options": {
         "baseHref": "components",
-        "outputPath": "apps/chrome-devtools/dist/components",
+        "outputPath": {
+          "base": "apps/chrome-devtools/dist/components",
+          "browser": ""
+        },
         "index": "apps/chrome-devtools/src/app-components.html",
-        "main": "apps/chrome-devtools/src/app-components.main.ts",
+        "browser": "apps/chrome-devtools/src/app-components.main.ts",
         "tsConfig": "apps/chrome-devtools/tsconfig.build.components.json",
         "optimization": {
           "scripts": true,
@@ -42,7 +46,6 @@
           },
           "fonts": true
         },
-        "buildOptimizer": true,
         "polyfills": [
           "zone.js",
           "@angular/localize/init"
@@ -68,23 +71,25 @@
           "baseHref": "components",
           "outputPath": "apps/chrome-devtools/dist/components",
           "index": "apps/chrome-devtools/src/app-components.html",
-          "main": "apps/chrome-devtools/src/app-components.main.ts",
+          "browser": "apps/chrome-devtools/src/app-components.main.ts",
           "tsConfig": "apps/chrome-devtools/tsconfig.build.components.json",
           "aot": false,
-          "optimization": false,
-          "buildOptimizer": false
+          "optimization": false
         }
       },
       "dependsOn": ["^build"]
     },
     "build-panel": {
-      "executor": "@angular-devkit/build-angular:browser-esbuild",
+      "executor": "@angular-devkit/build-angular:application",
       "outputs": ["{projectRoot}/dist/panel"],
       "options": {
         "baseHref": "panel",
-        "outputPath": "apps/chrome-devtools/dist/panel",
+        "outputPath": {
+          "base": "apps/chrome-devtools/dist/panel",
+          "browser": ""
+        },
         "index": "apps/chrome-devtools/src/app-devtools.html",
-        "main": "apps/chrome-devtools/src/app-devtools.main.ts",
+        "browser": "apps/chrome-devtools/src/app-devtools.main.ts",
         "tsConfig": "apps/chrome-devtools/tsconfig.build.devtools.json",
         "optimization": {
           "scripts": true,
@@ -94,7 +99,6 @@
           },
           "fonts": true
         },
-        "buildOptimizer": true,
         "polyfills": [
           "zone.js",
           "@angular/localize/init"
@@ -120,11 +124,10 @@
           "baseHref": "panel",
           "outputPath": "apps/chrome-devtools/dist/panel",
           "index": "apps/chrome-devtools/src/app-devtools.html",
-          "main": "apps/chrome-devtools/src/app-devtools.main.ts",
+          "browser": "apps/chrome-devtools/src/app-devtools.main.ts",
           "tsConfig": "apps/chrome-devtools/tsconfig.build.devtools.json",
           "aot": false,
-          "optimization": false,
-          "buildOptimizer": false
+          "optimization": false
         }
       },
       "dependsOn": ["^build"]

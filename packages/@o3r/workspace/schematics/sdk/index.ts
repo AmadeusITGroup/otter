@@ -10,6 +10,7 @@ import {
   MergeStrategy,
   mergeWith,
   move,
+  noop,
   renameTemplateFiles,
   Rule,
   strings,
@@ -96,14 +97,16 @@ function generateSdkFn(options: NgGenerateSdkSchema): Rule {
     /** Path to the folder where generate the new SDK */
     const targetPath = path.posix.join(options.path || defaultRoot, cleanName);
 
-    const addModuleSpecificFiles = () => mergeWith(apply(url('./templates'), [
-      template({
-        ...options,
-        rootRelativePath: path.posix.relative(targetPath, tree.root.path.replace(/^\//, './'))
-      }),
-      move(targetPath),
-      renameTemplateFiles()
-    ]), MergeStrategy.Overwrite);
+    const overrideFilesIfRootJestConfigUTExists = tree.exists('jest.config.ut.js')
+      ? mergeWith(apply(url('./templates'), [
+        template({
+          ...options,
+          rootRelativePath: path.posix.relative(targetPath, tree.root.path.replace(/^\//, './'))
+        }),
+        move(targetPath),
+        renameTemplateFiles()
+      ]), MergeStrategy.Overwrite)
+      : noop();
 
     const packageManager = getPackageManager({ workspaceConfig });
     const specExtension = options.specPackagePath ? path.extname(options.specPackagePath) : '.yaml';
@@ -151,7 +154,7 @@ function generateSdkFn(options: NgGenerateSdkSchema): Rule {
       isNx ? nxRegisterProjectTasks(options, targetPath, cleanName) : ngRegisterProjectTasks(options, targetPath, cleanName),
       updateTsConfig(targetPath, projectName, scope),
       cleanStandaloneFiles(targetPath),
-      addModuleSpecificFiles(),
+      overrideFilesIfRootJestConfigUTExists,
       setupDependencies({
         dependencies,
         skipInstall: options.skipInstall,
@@ -159,7 +162,7 @@ function generateSdkFn(options: NgGenerateSdkSchema): Rule {
         projectName: cleanName,
         runAfterTasks: sdkGenerationTasks
       })
-    ])(tree, context);
+    ]);
   };
 }
 

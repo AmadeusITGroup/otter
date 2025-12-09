@@ -3,6 +3,7 @@
   "compilerOptions": {
     "types": ["node"],
     "module": "CommonJS",
+    "moduleResolution": "node10",
     "outDir": "./dist",
     "composite": true,
     "incremental": true,

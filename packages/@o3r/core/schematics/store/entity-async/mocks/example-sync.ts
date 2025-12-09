@@ -10,7 +10,7 @@ export const exampleStorageDeserializer = (rawObject: any) => {
   if (!rawObject || !rawObject.ids) {
     return exampleInitialState;
   }
-  const storeObject = exampleAdapter.getInitialState(rawObject);
+  const storeObject = exampleAdapter.getInitialState<ExampleState>(rawObject);
   for (const id of rawObject.ids) {
     storeObject.entities[id] = reviveExample(rawObject.entities[id]);
   }
