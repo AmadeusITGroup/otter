@@ -38,7 +38,8 @@ describe('ng-add', () => {
     const tree = await runner.runSchematic('ng-add', {
       toolchain: 'github',
       runner: 'windows-latest',
-      npmRegistry: 'private.registry.com'
+      npmRegistry: 'private.registry.com',
+      defaultBranchName: 'develop'
     } as NgAddSchematicsSchema, initialTree);
 
     expect(tree.exists('.github/actions/setup/action.yml')).toBe(true);
@@ -46,6 +47,7 @@ describe('ng-add', () => {
     expect(tree.exists('.npmrc')).toBe(true);
 
     expect(tree.readText('.github/workflows/main.yml')).toContain('windows-latest');
+    expect(tree.readText('.github/workflows/main.yml')).toContain('DEFAULT_BRANCH: develop');
     expect(tree.readText('.npmrc')).toContain('registry=private.registry.com');
   });
 
