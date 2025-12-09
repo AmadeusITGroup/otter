@@ -41,6 +41,7 @@ export class ThemeProducerService implements MessageProducer<ThemeMessage> {
   private readonly messageService = inject(MessagePeerService<ThemeMessage>);
   private readonly logger = inject(LoggerService);
   private previousTheme: ThemeStructure | undefined;
+  private readonly window = inject(Window, { optional: true }) || window;
 
   private readonly currentThemeSelection;
   /** Current selected theme signal */
@@ -55,7 +56,7 @@ export class ThemeProducerService implements MessageProducer<ThemeMessage> {
     registerProducer(this);
 
     // get the current theme name from the url (if any) and emit a first value for the current theme
-    const parentUrl = new URL(window.location.toString());
+    const parentUrl = new URL(this.window.location.toString());
     const selectedThemeName = parentUrl.searchParams.get(THEME_QUERY_PARAM_NAME);
     this.currentThemeSelection = signal<ThemeStructure | undefined>(selectedThemeName
       ? {

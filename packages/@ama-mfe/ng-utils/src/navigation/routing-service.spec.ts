@@ -43,6 +43,7 @@ describe('Navigation Producer Service', () => {
   let routerEventsSubject: Subject<any>;
   let mockRouter: Partial<Router>;
   let router: Router;
+  let mockedWindow: Window;
 
   beforeEach(() => {
     routerEventsSubject = new Subject<any>();
@@ -69,6 +70,8 @@ describe('Navigation Producer Service', () => {
       error: jest.fn()
     } as unknown as jest.Mocked<LoggerService>;
 
+    mockedWindow = { ...globalThis.window };
+
     TestBed.configureTestingModule({
       providers: [
         RoutingService,
@@ -77,7 +80,8 @@ describe('Navigation Producer Service', () => {
         { provide: ProducerManagerService, useValue: consumerManagerServiceMock },
         { provide: ConsumerManagerService, useValue: producerManagerServiceMock },
         { provide: MessagePeerService, useValue: messageServiceMock },
-        { provide: ActivatedRoute, useValue: { routeConfig: { path: 'test-path' } } }
+        { provide: ActivatedRoute, useValue: { routeConfig: { path: 'test-path' } } },
+        { provide: Window, useValue: mockedWindow }
       ]
     });
 
@@ -93,10 +97,8 @@ describe('Navigation Producer Service', () => {
   });
 
   it('should send navigation message via messageService if embedded', () => {
-    const mockedWindow = { ...globalThis.window };
     Object.defineProperty(mockedWindow, 'top', { value: globalThis.window.top });
     Object.defineProperty(mockedWindow, 'self', { value: mockedWindow });
-    const windowSpy = jest.spyOn(globalThis, 'window', 'get').mockReturnValue(mockedWindow);
     runInInjectionContext(TestBed.inject(Injector), () => {
       routingService.handleEmbeddedRouting();
     });
@@ -108,14 +110,11 @@ describe('Navigation Producer Service', () => {
       version: '1.0',
       url: 'end-url'
     });
-    windowSpy.mockRestore();
   });
 
   it('should not send navigation message via messageService if embedded, if the skipLocationChange is true', () => {
-    const mockedWindow = { ...globalThis.window };
     Object.defineProperty(mockedWindow, 'top', { value: globalThis.window.top });
     Object.defineProperty(mockedWindow, 'self', { value: mockedWindow });
-    const windowSpy = jest.spyOn(globalThis, 'window', 'get').mockReturnValue(mockedWindow);
     jest.spyOn(router, 'getCurrentNavigation').mockReturnValue({ extras: { skipLocationChange: true } } as any);
 
     runInInjectionContext(TestBed.inject(Injector), () => {
@@ -125,7 +124,6 @@ describe('Navigation Producer Service', () => {
     routerEventsSubject.next(new NavigationEnd(1, 'start-url', 'end-url'));
 
     expect(messageService.send).not.toHaveBeenCalled();
-    windowSpy.mockRestore();
   });
 
   it('should forward received Navigation message to the router', () => {
