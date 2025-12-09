@@ -155,7 +155,7 @@ export class C11nDirective<
       }
       // In case of lazy loaded component keep the config
       if (!changes.config && this.config) {
-        inputChanges.config = new SimpleChange(this.componentRef.instance.config, this.config, true);
+        inputChanges.config = new SimpleChange<D>(this.componentRef.instance.config, this.config, true);
         this.uninitializedInputs.delete('config');
       }
     }
