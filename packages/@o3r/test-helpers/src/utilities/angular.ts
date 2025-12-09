@@ -15,8 +15,10 @@ import * as path from 'node:path';
  * @param modulePath path of the module to import
  */
 export async function addImportToAppModule(appFolderPath: string, moduleName: string, modulePath: string) {
-  let appModuleFilePath = path.join(appFolderPath, 'src/app/app.module.ts');
-  if (!existsSync(appModuleFilePath)) {
+  const appModuleFilePath1 = path.join(appFolderPath, 'src/app/app-module.ts');
+  const appModuleFilePath2 = path.join(appFolderPath, 'src/app/app.module.ts');
+  let appModuleFilePath = existsSync(appModuleFilePath1) ? appModuleFilePath1 : (existsSync(appModuleFilePath2) ? appModuleFilePath2 : undefined);
+  if (!appModuleFilePath) {
     // assume standalone component
     const appComponentFilePath = path.join(appFolderPath, 'src/app/app.component.ts');
     appModuleFilePath = existsSync(appComponentFilePath) ? appComponentFilePath : path.join(appFolderPath, 'src/app/app.ts');

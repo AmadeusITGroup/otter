@@ -456,8 +456,8 @@ import {ConfigurationBaseServiceModule} from '@o3r/configuration';
   imports: [
     ConfigurationBaseServiceModule
   ],
-  declarations: [AppComponent],
-  bootstrap: [AppComponent],
+  declarations: [App],
+  bootstrap: [App],
   providers: []
 })
 export class AppModule {
@@ -467,7 +467,7 @@ export class AppModule {
 #### Get and inject dynamic configuration
 
 ````typescript
-export class AppComponent implements OnInit, OnDestroy {
+export class App implements OnInit, OnDestroy {
   constructor(
     private dynamicContentService: DynamicContentService,
     @Optional() private configurationService?: ConfigurationBaseService
@@ -502,7 +502,7 @@ export class AppComponent implements OnInit, OnDestroy {
 ````typescript
 import {ConfigurationBaseService} from '@o3r/configuration';
 
-export class AppComponent implements OnInit, OnDestroy {
+export class App implements OnInit, OnDestroy {
 
   constructor(
     @Optional() private configurationService?: ConfigurationBaseService
@@ -527,7 +527,7 @@ import {AREA_1_CONFIG_DEFAULT} from '@scope/area-1';
 import {AREA_2_CONFIG_DEFAULT} from '@scope/area-2';
 import {ConfigurationBaseService} from '@o3r/configuration';
 
-export class AppComponent implements OnInit, OnDestroy {
+export class App implements OnInit, OnDestroy {
 
   constructor(
     @Optional() private configurationService?: ConfigurationBaseService
@@ -615,7 +615,7 @@ export class AppModule { }
 import { ConfigurationDevtoolsMessageService } from '@o3r/configuration';
 
 @Component({ ... })
-export class AppComponent {
+export class App {
   constructor(configurationMessageService: ConfigurationDevtoolsMessageService) {
     if (IS_DEBUG_MODE) {
       configurationMessageService.activate();
