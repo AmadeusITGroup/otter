@@ -2,7 +2,7 @@ import type {
   UserContext,
 } from '@redocly/openapi-core';
 import {
-  DECORATOR_ID_REMOVE_UNUSED_COMPONENT,
+  DECORATOR_ID_REMOVE_UNUSED_COMPONENTS,
   removeUnusedComponentsDecorator,
 } from './remove-unused-components.decorator.mjs';
 
@@ -15,9 +15,9 @@ jest.mock('@redocly/openapi-core', () => {
 });
 
 describe('removeUnusedComponentsDecorator', () => {
-  describe('DECORATOR_ID_REMOVE_UNUSED_COMPONENT', () => {
+  describe('DECORATOR_ID_REMOVE_UNUSED_COMPONENTS', () => {
     it('should have the correct decorator ID', () => {
-      expect(DECORATOR_ID_REMOVE_UNUSED_COMPONENT).toBe('remove-unused-component');
+      expect(DECORATOR_ID_REMOVE_UNUSED_COMPONENTS).toBe('remove-unused-components');
     });
   });
 

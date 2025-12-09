@@ -15,7 +15,7 @@ import {
   redirectRefsDecorator,
 } from './plugins/decorators/common/replace-refs/replace-refs.decorator.mjs';
 import {
-  DECORATOR_ID_REMOVE_UNUSED_COMPONENT,
+  DECORATOR_ID_REMOVE_UNUSED_COMPONENTS,
   removeUnusedComponentsDecorator,
 } from './plugins/decorators/oas3/remove-unused-components/remove-unused-components.decorator.mjs';
 import {
@@ -56,7 +56,7 @@ export const amaOpenapiPlugin = async (options?: AmaOpenapiPluginOptions): Promi
       },
       oas3: {
         [DECORATOR_ID_REDIRECT_REF]: redirectRefsDecorator,
-        [DECORATOR_ID_REMOVE_UNUSED_COMPONENT]: removeUnusedComponentsDecorator
+        [DECORATOR_ID_REMOVE_UNUSED_COMPONENTS]: removeUnusedComponentsDecorator
       },
       async2: {
         [DECORATOR_ID_REDIRECT_REF]: redirectRefsDecorator
