@@ -18,7 +18,7 @@ import {
   sync,
 } from 'globby';
 
-type Templates = 'design';
+type Templates = 'design' | 'design-extension';
 
 /**
  * Options for template generation
@@ -34,6 +34,8 @@ export interface CreateOptions {
   packageName: string;
   /** Name of the template directory */
   templateDirectory: Templates;
+  /** Dependency base specification */
+  dependencyBaseSpec?: string;
   /** Logger */
   logger: typeof console;
 }

@@ -6,10 +6,6 @@ import {
 import {
   resolve,
 } from 'node:path';
-import {
-  OUTPUT_DIRECTORY,
-  // eslint-disable-next-line import/no-unresolved -- Cannot resolve mjs file in current setup (see #3738)
-} from '@ama-openapi/core';
 import type {
   PackageJson,
 } from 'type-fest';
@@ -18,9 +14,11 @@ import {
   hideBin,
 } from 'yargs/helpers';
 import {
-  type CreateOptions,
-  generateTemplate,
-} from './generate-template';
+  generateDesign,
+} from './generate-design';
+import {
+  generateExtension,
+} from './generate-extension';
 
 void (async () => {
   const version = (JSON.parse(await fs.readFile(resolve(__dirname, '..', 'package.json'), { encoding: 'utf8' })) as PackageJson).version!;
@@ -38,14 +36,23 @@ void (async () => {
         describe: 'Name of the artifact / package to generate'
       });
     }, async (argv) => {
-      const options: CreateOptions = {
-        target: argv.target,
-        externalModelPath: OUTPUT_DIRECTORY,
-        version,
-        packageName: argv.name,
-        logger: console
-      };
-      await generateTemplate(options);
+      await generateDesign(argv.target, argv.name, version);
+    })
+    .command('extension <name>', 'Name of the artifact / package to generate', (y) => {
+      return y
+        .positional('name', {
+          type: 'string',
+          demandOption: true,
+          describe: 'Name of the artifact / package to generate'
+        })
+        .option('dependencyBaseSpec', {
+          type: 'string',
+          alias: 'b',
+          demandOption: false,
+          describe: 'Name of the NPM artifact to use as the dependency base specification (e.g. @my-org/specification)'
+        });
+    }, async (argv) => {
+      await generateExtension(argv.target, argv.name, version, argv.dependencyBaseSpec);
     })
     .version(version)
     .alias('h', 'help')

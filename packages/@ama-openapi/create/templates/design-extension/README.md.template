@@ -1,6 +1,10 @@
 # <%- packageName %>
 
-This package exposes [OpenApi specification](https://swagger.io/specification/) which can be used to use to generate an SDK or be referred in another specification.
+This package exposes 3 different [OpenApi specifications](https://swagger.io/specification/) which can be used to use to generate an SDK or be referred in another specification.
+
+- `<%- packageName %>/bundle/base.yam;`: The core the extension is based on.
+- `<%- packageName %>/bundle/extension.yaml`: The extension specification which contains only the new endpoints .
+- `<%- packageName %>/bundle/specification.yaml`: The merged specification of the base and the extension
 
 ## How to work on it
 
