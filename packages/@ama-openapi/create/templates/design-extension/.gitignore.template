@@ -1,0 +1,13 @@
+<% if (standardGitignoreNode) { %>
+<%- standardGitignoreNode %>
+<% } else { %>
+# Dependency directory
+node_modules/
+<% } %>
+
+# External models directory
+/<%- externalModelPath %>
+
+# Bundle specifications directory
+/tmp
+/bundle

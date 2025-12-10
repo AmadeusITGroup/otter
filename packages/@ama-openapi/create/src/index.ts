@@ -1,15 +1,12 @@
 #!/usr/bin/env node
 
 import {
+  existsSync,
   promises as fs,
 } from 'node:fs';
 import {
   resolve,
 } from 'node:path';
-import {
-  OUTPUT_DIRECTORY,
-  // eslint-disable-next-line import/no-unresolved -- Cannot resolve mjs file in current setup (see #3738)
-} from '@ama-openapi/core';
 import type {
   PackageJson,
 } from 'type-fest';
@@ -18,9 +15,23 @@ import {
   hideBin,
 } from 'yargs/helpers';
 import {
-  type CreateOptions,
-  generateTemplate,
-} from './generate-template';
+  generateDesign,
+} from './generate-design';
+import {
+  generateExtension,
+} from './generate-extension';
+
+/**
+ * Check if a folder is empty
+ * @param path
+ */
+const isNotEmptyFolder = async (path: string) => {
+  if (!existsSync(path)) {
+    return false;
+  }
+  const files = await fs.readdir(path);
+  return files.some((file) => !file.startsWith('.'));
+};
 
 void (async () => {
   const version = (JSON.parse(await fs.readFile(resolve(__dirname, '..', 'package.json'), { encoding: 'utf8' })) as PackageJson).version!;
@@ -38,14 +49,29 @@ void (async () => {
         describe: 'Name of the artifact / package to generate'
       });
     }, async (argv) => {
-      const options: CreateOptions = {
-        target: argv.target,
-        externalModelPath: OUTPUT_DIRECTORY,
-        version,
-        packageName: argv.name,
-        logger: console
-      };
-      await generateTemplate(options);
+      if (await isNotEmptyFolder(argv.target)) {
+        throw new Error(`Target directory ${argv.target} is not empty`);
+      }
+      await generateDesign(argv.target, argv.name, version);
+    })
+    .command('extension <name>', 'Name of the artifact / package to generate', (y) => {
+      return y
+        .positional('name', {
+          type: 'string',
+          demandOption: true,
+          describe: 'Name of the artifact / package to generate'
+        })
+        .option('dependencyBaseSpec', {
+          type: 'string',
+          alias: 'b',
+          demandOption: false,
+          describe: 'Name of the NPM artifact to use as the dependency base specification (e.g. @my-org/specification)'
+        });
+    }, async (argv) => {
+      if (await isNotEmptyFolder(argv.target)) {
+        throw new Error(`Target directory ${argv.target} is not empty`);
+      }
+      await generateExtension(argv.target, argv.name, version, argv.dependencyBaseSpec);
     })
     .version(version)
     .alias('h', 'help')

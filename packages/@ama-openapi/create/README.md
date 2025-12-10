@@ -59,14 +59,26 @@ my-openapi-project/
 └── renovate.json
 ```
 
-> [!NOTE]
-> The package includes several template files that are customized during project generation:
->
-> - **API specifications**: Example OpenAPI YAML files
-> - **Configuration files**: Project-specific configurations
-> - **Development environment**: VS Code settings and extensions
-> - **Package management**: Pre-configured `package.json` file with common scripts
-> - **Renovate Configuration**: Extends the [@ama-openapi/core preset] package (<https://github.com/AmadeusITGroup/otter/tree/main/packages/@ama-openapi/core/renovate/default.json>)
+### Design Extension Project
+
+Create a new [OpenAPI](https://www.openapis.org/) design project extension via the following command:
+
+```shell
+npm create @ama-openapi extension <project-name> -- [options]
+```
+
+The following options are available:
+
+| Options | Default Value | Description |
+| --- | --- | --- |
+| `--target`, `-t` | `.` | Target directory where files will be generated. |
+| `--dependency-base-spec`, `-b` | - | Name of the NPM artifact to use as the dependency base specification (e.g. @my-org/specification). |
+
+The command will generate a directory with the same structure of the `design` command but will setup the repository to prepare the generation of 3 specification:
+
+- `base` specification which is extended by the current specification
+- `extension` specification bundling only the specification defined in the current project
+- `merge` specification which is the merge of the `base` and `extension` specifications
 
 ## Integration
 
