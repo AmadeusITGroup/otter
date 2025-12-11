@@ -78,3 +78,10 @@ export const updateV12_0 = createOtterSchematic(
 export const updateV12_1 = createOtterSchematic(() =>
   updatePackageGroup(o3rPackageJsonPath)
 );
+
+/**
+ * Update of All versions
+ */
+export const updateAll = createOtterSchematic(() =>
+  updatePackageGroup(o3rPackageJsonPath)
+);

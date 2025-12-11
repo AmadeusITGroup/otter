@@ -57,7 +57,8 @@
     "*.json5": "jsonc"
   },
   "files.exclude": {
-    "**/.git": true
+    "**/.git": true,
+    "**/.cache": true
   },
   "files.readonlyExclude": {
     "**/packages/@*/*sdk/src/api/*/index.ts": true,
@@ -71,6 +72,7 @@
     "**/node_modules/**": true,
     "**/packages/@*/*sdk/src/api/**/*.ts": true,
     "**/packages/@*/*sdk/src/models/base/**/*.ts": true,
+    "**/packages/@*/*sdk/src/constants/**/*.ts": true,
     "**/packages/@*/*sdk/src/spec/api-mock.ts": true,
     "**/packages/@*/*sdk/src/spec/operation-adapter.ts": true,
     "**/tools/github-actions/*/packaged-action/**": true,
@@ -89,7 +91,6 @@
     "**/build/**": true,
     "**/node_modules/**": true
   },
-  "java.configuration.updateBuildConfiguration": "interactive",
   "jest.debugMode": true,
   "jest.jestCommandLine": "yarn jest",
   "npm.packageManager": "yarn",
@@ -111,7 +112,5 @@
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "typescript.tsdk": ".yarn/sdks/typescript/lib",
   "typescript.tsserver.watchOptions": "vscode",
-  "typescript.preferences.preferTypeOnlyAutoImports": true,
-  "chat.agent.enabled": true,
-  "chat.mcp.enabled": true
+  "typescript.preferences.preferTypeOnlyAutoImports": true
 }

@@ -7,7 +7,7 @@ import {
 } from '../core/request-plugin';
 import {
   PiiTokenizerRequest,
-} from './pii-tokenizer.request';
+} from './pii-tokenizer-request';
 
 describe('Tokenizer Request Plugin', () => {
   let options: RequestOptions;

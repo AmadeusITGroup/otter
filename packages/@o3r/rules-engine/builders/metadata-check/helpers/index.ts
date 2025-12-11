@@ -1,1 +1,1 @@
-export * from './rulefact-metadata-comparison.helper';
+export * from './rulefact-metadata-comparison-helper';

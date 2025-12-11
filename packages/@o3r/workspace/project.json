@@ -38,5 +38,7 @@
     "prepare-publish": {},
     "publish": {}
   },
-  "tags": []
+  "tags": [
+    "hook:postinstall"
+  ]
 }

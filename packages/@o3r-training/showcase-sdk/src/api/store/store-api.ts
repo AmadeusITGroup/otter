@@ -1,6 +1,6 @@
 import { Order } from '../../models/base/order/index';
-import { Api, ApiClient, ApiTypes, computePiiParameterTokens, isJsonMimeType, ParamSerializationOptions, RequestBody, RequestMetadata, } from '@ama-sdk/core';
-
+import { Api, ApiClient, ApiTypes, computePiiParameterTokens, isJsonMimeType, ParamSerializationOptions, RequestBody, RequestMetadata, Server, selectServerBasePath, } from '@ama-sdk/core';
+import { SDK_SERVERS } from '../../constants/servers';
 /** Parameters object to StoreApi's deleteOrder function */
 export interface StoreApiDeleteOrderRequestData {
   /** ID of the order that needs to be deleted */
@@ -55,6 +55,11 @@ export class StoreApi implements Api {
       ...(metadataHeaderAccept ? {'Accept': metadataHeaderAccept} : {})
     };
 
+    const operationServers = [
+] as const satisfies Server[];
+
+    const serverBasePath = selectServerBasePath(this.client.options, operationServers.length > 0 ? operationServers : SDK_SERVERS, this.client.options.logger);
+
     let body: RequestBody = '';
 
     let queryParams = {};
@@ -65,13 +70,13 @@ export class StoreApi implements Api {
     let tokenizedUrl;
     if (this.client.options.enableParameterSerialization) {
       const pathParamsProperties = this.client.getPropertiesFromData(data, ['orderId']);
-      const pathParamSerialization = { orderId: { explode: false, style: 'simple' } };
+      const pathParamSerialization = { 'orderId': { explode: false, style: 'simple' } };
       const serializedPathParams = this.client.serializePathParams(pathParamsProperties, pathParamSerialization);
-      basePath = `${this.client.options.basePath}/store/order/${serializedPathParams['orderId']}`;
-      tokenizedUrl = `${this.client.options.basePath}/store/order/${this.piiParamTokens['orderId'] || serializedPathParams['orderId']}`;
+      basePath = `${serverBasePath}/store/order/${serializedPathParams['orderId']}`;
+      tokenizedUrl = `${serverBasePath}/store/order/${this.piiParamTokens['orderId'] || serializedPathParams['orderId']}`;
     } else {
-      basePath = `${this.client.options.basePath}/store/order/${data['orderId']}`;
-      tokenizedUrl = `${this.client.options.basePath}/store/order/${this.piiParamTokens['orderId'] || data['orderId']}`;
+      basePath = `${serverBasePath}/store/order/${data['orderId']}`;
+      tokenizedUrl = `${serverBasePath}/store/order/${this.piiParamTokens['orderId'] || data['orderId']}`;
     }
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 
@@ -107,14 +112,19 @@ export class StoreApi implements Api {
       ...(metadataHeaderAccept ? {'Accept': metadataHeaderAccept} : {})
     };
 
+    const operationServers = [
+] as const satisfies Server[];
+
+    const serverBasePath = selectServerBasePath(this.client.options, operationServers.length > 0 ? operationServers : SDK_SERVERS, this.client.options.logger);
+
     let body: RequestBody = '';
 
     let queryParams = {};
     const paramSerializationOptions: ParamSerializationOptions = {
       enableParameterSerialization: this.client.options.enableParameterSerialization
     };
-    const basePath = `${this.client.options.basePath}/store/inventory`;
-    const tokenizedUrl = `${this.client.options.basePath}/store/inventory`;
+    const basePath = `${serverBasePath}/store/inventory`;
+    const tokenizedUrl = `${serverBasePath}/store/inventory`;
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 
     const requestOptions = {
@@ -149,6 +159,11 @@ export class StoreApi implements Api {
       ...(metadataHeaderAccept ? {'Accept': metadataHeaderAccept} : {})
     };
 
+    const operationServers = [
+] as const satisfies Server[];
+
+    const serverBasePath = selectServerBasePath(this.client.options, operationServers.length > 0 ? operationServers : SDK_SERVERS, this.client.options.logger);
+
     let body: RequestBody = '';
 
     let queryParams = {};
@@ -159,13 +174,13 @@ export class StoreApi implements Api {
     let tokenizedUrl;
     if (this.client.options.enableParameterSerialization) {
       const pathParamsProperties = this.client.getPropertiesFromData(data, ['orderId']);
-      const pathParamSerialization = { orderId: { explode: false, style: 'simple' } };
+      const pathParamSerialization = { 'orderId': { explode: false, style: 'simple' } };
       const serializedPathParams = this.client.serializePathParams(pathParamsProperties, pathParamSerialization);
-      basePath = `${this.client.options.basePath}/store/order/${serializedPathParams['orderId']}`;
-      tokenizedUrl = `${this.client.options.basePath}/store/order/${this.piiParamTokens['orderId'] || serializedPathParams['orderId']}`;
+      basePath = `${serverBasePath}/store/order/${serializedPathParams['orderId']}`;
+      tokenizedUrl = `${serverBasePath}/store/order/${this.piiParamTokens['orderId'] || serializedPathParams['orderId']}`;
     } else {
-      basePath = `${this.client.options.basePath}/store/order/${data['orderId']}`;
-      tokenizedUrl = `${this.client.options.basePath}/store/order/${this.piiParamTokens['orderId'] || data['orderId']}`;
+      basePath = `${serverBasePath}/store/order/${data['orderId']}`;
+      tokenizedUrl = `${serverBasePath}/store/order/${this.piiParamTokens['orderId'] || data['orderId']}`;
     }
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 
@@ -201,6 +216,11 @@ export class StoreApi implements Api {
       ...(metadataHeaderAccept ? {'Accept': metadataHeaderAccept} : {})
     };
 
+    const operationServers = [
+] as const satisfies Server[];
+
+    const serverBasePath = selectServerBasePath(this.client.options, operationServers.length > 0 ? operationServers : SDK_SERVERS, this.client.options.logger);
+
     let body: RequestBody = '';
     if (headers['Content-Type'] && isJsonMimeType(headers['Content-Type'])) {
       body = typeof data['Order'] !== 'undefined' ? JSON.stringify(data['Order']) : '{}';
@@ -212,8 +232,8 @@ export class StoreApi implements Api {
     const paramSerializationOptions: ParamSerializationOptions = {
       enableParameterSerialization: this.client.options.enableParameterSerialization
     };
-    const basePath = `${this.client.options.basePath}/store/order`;
-    const tokenizedUrl = `${this.client.options.basePath}/store/order`;
+    const basePath = `${serverBasePath}/store/order`;
+    const tokenizedUrl = `${serverBasePath}/store/order`;
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 
     const requestOptions = {

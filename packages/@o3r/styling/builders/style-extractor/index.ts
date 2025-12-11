@@ -80,7 +80,7 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<StyleExtractorB
         try {
           context.reportProgress(idx, STEP_NUMBER, `Extracting ${file}`);
           const variables = await cssVariableExtractor.extractFile(file);
-          const themeFileSuffix = '.style.theme.scss';
+          const themeFileSuffix = '-theme.scss';
           if (file.endsWith(themeFileSuffix)) {
             const componentPath = path.join(path.dirname(file), `${path.basename(file, themeFileSuffix)}.component.ts`);
             const componentSourceFile = ts.createSourceFile(

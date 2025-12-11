@@ -3,7 +3,7 @@ import {
 } from '../core/request-plugin';
 import {
   FetchCacheRequest,
-} from './fetch-cache.request';
+} from './fetch-cache-request';
 
 describe('Fetch API cache Request Plugin', () => {
   let globalFetchBackup: any;

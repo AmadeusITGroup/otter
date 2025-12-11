@@ -23,36 +23,36 @@ describe('new otter application with configuration', () => {
     const relativeApplicationPath = path.relative(workspacePath, applicationPath);
     packageManagerExec({ script: 'ng', args: ['add', `@o3r/configuration@${o3rVersion}`, '--skip-confirmation', '--project-name', appName] }, execAppOptions);
 
-    const componentPath = path.normalize(path.posix.join(relativeApplicationPath, 'src/components/test/test.component.ts'));
+    const componentPath = path.normalize(path.posix.join(relativeApplicationPath, 'src/components/test/test.ts'));
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:component', 'test', '--project-name', appName, '--use-otter-config', 'false'] }, execAppOptions);
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/configuration:add-config', '--path', componentPath] }, execAppOptions);
-    await addImportToAppModule(applicationPath, 'TestComponent', 'src/components/test');
+    await addImportToAppModule(applicationPath, 'Test', 'src/components/test');
 
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:component', 'test-signal', '--project-name', appName, '--use-otter-config', 'false'] }, execAppOptions);
     packageManagerExec({
       script: 'ng',
-      args: ['g', '@o3r/configuration:add-config', '--path', path.join(relativeApplicationPath, 'src/components/test-signal/test-signal.component.ts'), '--use-signal']
+      args: ['g', '@o3r/configuration:add-config', '--path', path.join(relativeApplicationPath, 'src/components/test-signal/test-signal.ts'), '--use-signal']
     }, execAppOptions);
-    await addImportToAppModule(applicationPath, 'TestSignalComponent', 'src/components/test-signal');
+    await addImportToAppModule(applicationPath, 'TestSignal', 'src/components/test-signal');
 
     const diff = getGitDiff(workspacePath);
     expect(diff.added.sort()).toEqual([
       path.join(relativeApplicationPath, 'src/components/test-signal/README.md').replace(/[/\\]+/g, '/'),
       path.join(relativeApplicationPath, 'src/components/test-signal/index.ts').replace(/[/\\]+/g, '/'),
-      path.join(relativeApplicationPath, 'src/components/test-signal/test-signal.component.ts').replace(/[/\\]+/g, '/'),
-      path.join(relativeApplicationPath, 'src/components/test-signal/test-signal.config.ts').replace(/[/\\]+/g, '/'),
-      path.join(relativeApplicationPath, 'src/components/test-signal/test-signal.context.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test-signal/test-signal.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test-signal/test-signal-config.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test-signal/test-signal-context.ts').replace(/[/\\]+/g, '/'),
       path.join(relativeApplicationPath, 'src/components/test-signal/test-signal.spec.ts').replace(/[/\\]+/g, '/'),
-      path.join(relativeApplicationPath, 'src/components/test-signal/test-signal.style.scss').replace(/[/\\]+/g, '/'),
-      path.join(relativeApplicationPath, 'src/components/test-signal/test-signal.template.html').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test-signal/test-signal.scss').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test-signal/test-signal.html').replace(/[/\\]+/g, '/'),
       path.join(relativeApplicationPath, 'src/components/test/README.md').replace(/[/\\]+/g, '/'),
       path.join(relativeApplicationPath, 'src/components/test/index.ts').replace(/[/\\]+/g, '/'),
-      path.join(relativeApplicationPath, 'src/components/test/test.component.ts').replace(/[/\\]+/g, '/'),
-      path.join(relativeApplicationPath, 'src/components/test/test.config.ts').replace(/[/\\]+/g, '/'),
-      path.join(relativeApplicationPath, 'src/components/test/test.context.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test/test.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test/test-config.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test/test-context.ts').replace(/[/\\]+/g, '/'),
       path.join(relativeApplicationPath, 'src/components/test/test.spec.ts').replace(/[/\\]+/g, '/'),
-      path.join(relativeApplicationPath, 'src/components/test/test.style.scss').replace(/[/\\]+/g, '/'),
-      path.join(relativeApplicationPath, 'src/components/test/test.template.html').replace(/[/\\]+/g, '/')
+      path.join(relativeApplicationPath, 'src/components/test/test.scss').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test/test.html').replace(/[/\\]+/g, '/')
     ].sort());
     expect(diff.modified.sort()).toEqual([
       path.join(relativeApplicationPath, 'package.json').replace(/[/\\]+/g, '/'),
@@ -76,14 +76,14 @@ describe('new otter application with configuration', () => {
     const relativeLibraryPath = path.relative(workspacePath, libraryPath);
     packageManagerExec({ script: 'ng', args: ['add', `@o3r/configuration@${o3rVersion}`, '--skip-confirmation', '--project-name', libName] }, execAppOptions);
 
-    const componentPath = path.normalize(path.posix.join(relativeLibraryPath, 'src/components/test/test.component.ts'));
+    const componentPath = path.normalize(path.posix.join(relativeLibraryPath, 'src/components/test/test.ts'));
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:component', 'test', '--project-name', libName, '--use-otter-config', 'false'] }, execAppOptions);
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/configuration:add-config', '--path', componentPath] }, execAppOptions);
 
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:component', 'test-signal', '--project-name', libName, '--use-otter-config', 'false'] }, execAppOptions);
     packageManagerExec({
       script: 'ng',
-      args: ['g', '@o3r/configuration:add-config', '--path', path.join(relativeLibraryPath, 'src/components/test-signal/test-signal.component.ts'), '--use-signal']
+      args: ['g', '@o3r/configuration:add-config', '--path', path.join(relativeLibraryPath, 'src/components/test-signal/test-signal.ts'), '--use-signal']
     }, execAppOptions);
 
     const diff = getGitDiff(workspacePath);
@@ -96,20 +96,20 @@ describe('new otter application with configuration', () => {
     const packageJson = JSON.parse(fs.readFileSync(`${workspacePath}/package.json`, 'utf8'));
     expect(packageJson.dependencies['@o3r/configuration']).toBeDefined();
     expect(diff.added.sort()).toEqual([
-      path.join(relativeLibraryPath, 'src/components/test/test.style.scss').replace(/[/\\]+/g, '/'),
-      path.join(relativeLibraryPath, 'src/components/test/test.context.ts').replace(/[/\\]+/g, '/'),
-      path.join(relativeLibraryPath, 'src/components/test/test.template.html').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test/test.scss').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test/test-context.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test/test.html').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'src/components/test/test.spec.ts').replace(/[/\\]+/g, '/'),
-      path.join(relativeLibraryPath, 'src/components/test/test.component.ts').replace(/[/\\]+/g, '/'),
-      path.join(relativeLibraryPath, 'src/components/test/test.config.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test/test.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test/test-config.ts').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'src/components/test/index.ts').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'src/components/test/README.md').replace(/[/\\]+/g, '/'),
-      path.join(relativeLibraryPath, 'src/components/test-signal/test-signal.style.scss').replace(/[/\\]+/g, '/'),
-      path.join(relativeLibraryPath, 'src/components/test-signal/test-signal.context.ts').replace(/[/\\]+/g, '/'),
-      path.join(relativeLibraryPath, 'src/components/test-signal/test-signal.template.html').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test-signal/test-signal.scss').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test-signal/test-signal-context.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test-signal/test-signal.html').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'src/components/test-signal/test-signal.spec.ts').replace(/[/\\]+/g, '/'),
-      path.join(relativeLibraryPath, 'src/components/test-signal/test-signal.component.ts').replace(/[/\\]+/g, '/'),
-      path.join(relativeLibraryPath, 'src/components/test-signal/test-signal.config.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test-signal/test-signal.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test-signal/test-signal-config.ts').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'src/components/test-signal/index.ts').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'src/components/test-signal/README.md').replace(/[/\\]+/g, '/')
     ].sort());

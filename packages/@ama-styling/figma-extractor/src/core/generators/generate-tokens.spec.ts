@@ -7,7 +7,7 @@ describe('getTokensVariables', () => {
     const getTextWeightVariableIds = jest.fn();
     const getTokensFromLocalVariables = jest.fn().mockReturnValue(['']);
     jest.mock('@ama-styling/figma-sdk', () => ({}));
-    jest.mock('../requests/get-text-weight.request', () => ({
+    jest.mock('../requests/get-text-weight-request', () => ({
       getTextWeightVariableIds
     }));
     jest.mock('./tokens/token-from-local-variables', () => ({

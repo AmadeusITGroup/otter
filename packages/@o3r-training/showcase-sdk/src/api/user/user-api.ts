@@ -1,6 +1,6 @@
 import { User } from '../../models/base/user/index';
-import { Api, ApiClient, ApiTypes, computePiiParameterTokens, isJsonMimeType, ParamSerializationOptions, RequestBody, RequestMetadata, } from '@ama-sdk/core';
-
+import { Api, ApiClient, ApiTypes, computePiiParameterTokens, isJsonMimeType, ParamSerializationOptions, RequestBody, RequestMetadata, Server, selectServerBasePath, } from '@ama-sdk/core';
+import { SDK_SERVERS } from '../../constants/servers';
 /** Parameters object to UserApi's createUser function */
 export interface UserApiCreateUserRequestData {
   /** Created user object */
@@ -74,6 +74,11 @@ export class UserApi implements Api {
       ...(metadataHeaderAccept ? {'Accept': metadataHeaderAccept} : {})
     };
 
+    const operationServers = [
+] as const satisfies Server[];
+
+    const serverBasePath = selectServerBasePath(this.client.options, operationServers.length > 0 ? operationServers : SDK_SERVERS, this.client.options.logger);
+
     let body: RequestBody = '';
     if (headers['Content-Type'] && isJsonMimeType(headers['Content-Type'])) {
       body = typeof data['User'] !== 'undefined' ? JSON.stringify(data['User']) : '{}';
@@ -85,8 +90,8 @@ export class UserApi implements Api {
     const paramSerializationOptions: ParamSerializationOptions = {
       enableParameterSerialization: this.client.options.enableParameterSerialization
     };
-    const basePath = `${this.client.options.basePath}/user`;
-    const tokenizedUrl = `${this.client.options.basePath}/user`;
+    const basePath = `${serverBasePath}/user`;
+    const tokenizedUrl = `${serverBasePath}/user`;
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 
     const requestOptions = {
@@ -121,6 +126,11 @@ export class UserApi implements Api {
       ...(metadataHeaderAccept ? {'Accept': metadataHeaderAccept} : {})
     };
 
+    const operationServers = [
+] as const satisfies Server[];
+
+    const serverBasePath = selectServerBasePath(this.client.options, operationServers.length > 0 ? operationServers : SDK_SERVERS, this.client.options.logger);
+
     let body: RequestBody = '';
     if (headers['Content-Type'] && isJsonMimeType(headers['Content-Type'])) {
       body = typeof data['User'] !== 'undefined' ? JSON.stringify(data['User']) : '[]';
@@ -132,8 +142,8 @@ export class UserApi implements Api {
     const paramSerializationOptions: ParamSerializationOptions = {
       enableParameterSerialization: this.client.options.enableParameterSerialization
     };
-    const basePath = `${this.client.options.basePath}/user/createWithList`;
-    const tokenizedUrl = `${this.client.options.basePath}/user/createWithList`;
+    const basePath = `${serverBasePath}/user/createWithList`;
+    const tokenizedUrl = `${serverBasePath}/user/createWithList`;
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 
     const requestOptions = {
@@ -168,6 +178,11 @@ export class UserApi implements Api {
       ...(metadataHeaderAccept ? {'Accept': metadataHeaderAccept} : {})
     };
 
+    const operationServers = [
+] as const satisfies Server[];
+
+    const serverBasePath = selectServerBasePath(this.client.options, operationServers.length > 0 ? operationServers : SDK_SERVERS, this.client.options.logger);
+
     let body: RequestBody = '';
 
     let queryParams = {};
@@ -178,13 +193,13 @@ export class UserApi implements Api {
     let tokenizedUrl;
     if (this.client.options.enableParameterSerialization) {
       const pathParamsProperties = this.client.getPropertiesFromData(data, ['username']);
-      const pathParamSerialization = { username: { explode: false, style: 'simple' } };
+      const pathParamSerialization = { 'username': { explode: false, style: 'simple' } };
       const serializedPathParams = this.client.serializePathParams(pathParamsProperties, pathParamSerialization);
-      basePath = `${this.client.options.basePath}/user/${serializedPathParams['username']}`;
-      tokenizedUrl = `${this.client.options.basePath}/user/${this.piiParamTokens['username'] || serializedPathParams['username']}`;
+      basePath = `${serverBasePath}/user/${serializedPathParams['username']}`;
+      tokenizedUrl = `${serverBasePath}/user/${this.piiParamTokens['username'] || serializedPathParams['username']}`;
     } else {
-      basePath = `${this.client.options.basePath}/user/${data['username']}`;
-      tokenizedUrl = `${this.client.options.basePath}/user/${this.piiParamTokens['username'] || data['username']}`;
+      basePath = `${serverBasePath}/user/${data['username']}`;
+      tokenizedUrl = `${serverBasePath}/user/${this.piiParamTokens['username'] || data['username']}`;
     }
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 
@@ -220,6 +235,11 @@ export class UserApi implements Api {
       ...(metadataHeaderAccept ? {'Accept': metadataHeaderAccept} : {})
     };
 
+    const operationServers = [
+] as const satisfies Server[];
+
+    const serverBasePath = selectServerBasePath(this.client.options, operationServers.length > 0 ? operationServers : SDK_SERVERS, this.client.options.logger);
+
     let body: RequestBody = '';
 
     let queryParams = {};
@@ -230,13 +250,13 @@ export class UserApi implements Api {
     let tokenizedUrl;
     if (this.client.options.enableParameterSerialization) {
       const pathParamsProperties = this.client.getPropertiesFromData(data, ['username']);
-      const pathParamSerialization = { username: { explode: false, style: 'simple' } };
+      const pathParamSerialization = { 'username': { explode: false, style: 'simple' } };
       const serializedPathParams = this.client.serializePathParams(pathParamsProperties, pathParamSerialization);
-      basePath = `${this.client.options.basePath}/user/${serializedPathParams['username']}`;
-      tokenizedUrl = `${this.client.options.basePath}/user/${this.piiParamTokens['username'] || serializedPathParams['username']}`;
+      basePath = `${serverBasePath}/user/${serializedPathParams['username']}`;
+      tokenizedUrl = `${serverBasePath}/user/${this.piiParamTokens['username'] || serializedPathParams['username']}`;
     } else {
-      basePath = `${this.client.options.basePath}/user/${data['username']}`;
-      tokenizedUrl = `${this.client.options.basePath}/user/${this.piiParamTokens['username'] || data['username']}`;
+      basePath = `${serverBasePath}/user/${data['username']}`;
+      tokenizedUrl = `${serverBasePath}/user/${this.piiParamTokens['username'] || data['username']}`;
     }
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 
@@ -272,6 +292,11 @@ export class UserApi implements Api {
       ...(metadataHeaderAccept ? {'Accept': metadataHeaderAccept} : {})
     };
 
+    const operationServers = [
+] as const satisfies Server[];
+
+    const serverBasePath = selectServerBasePath(this.client.options, operationServers.length > 0 ? operationServers : SDK_SERVERS, this.client.options.logger);
+
     let body: RequestBody = '';
 
     let queryParams = {};
@@ -280,14 +305,14 @@ export class UserApi implements Api {
       enableParameterSerialization: this.client.options.enableParameterSerialization
     };
     if (this.client.options.enableParameterSerialization) {
-      const queryParamSerialization = { username: { explode: true, style: 'form' }, password: { explode: true, style: 'form' } };
+      const queryParamSerialization = { 'username': { explode: true, style: 'form' }, 'password': { explode: true, style: 'form' } };
       queryParams = this.client.serializeQueryParams(queryParamsProperties, queryParamSerialization);
       paramSerializationOptions.queryParamSerialization = queryParamSerialization;
     } else {
       queryParams = this.client.stringifyQueryParams(queryParamsProperties);
     }
-    const basePath = `${this.client.options.basePath}/user/login`;
-    const tokenizedUrl = `${this.client.options.basePath}/user/login`;
+    const basePath = `${serverBasePath}/user/login`;
+    const tokenizedUrl = `${serverBasePath}/user/login`;
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 
     const requestOptions = {
@@ -322,14 +347,19 @@ export class UserApi implements Api {
       ...(metadataHeaderAccept ? {'Accept': metadataHeaderAccept} : {})
     };
 
+    const operationServers = [
+] as const satisfies Server[];
+
+    const serverBasePath = selectServerBasePath(this.client.options, operationServers.length > 0 ? operationServers : SDK_SERVERS, this.client.options.logger);
+
     let body: RequestBody = '';
 
     let queryParams = {};
     const paramSerializationOptions: ParamSerializationOptions = {
       enableParameterSerialization: this.client.options.enableParameterSerialization
     };
-    const basePath = `${this.client.options.basePath}/user/logout`;
-    const tokenizedUrl = `${this.client.options.basePath}/user/logout`;
+    const basePath = `${serverBasePath}/user/logout`;
+    const tokenizedUrl = `${serverBasePath}/user/logout`;
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 
     const requestOptions = {
@@ -364,6 +394,11 @@ export class UserApi implements Api {
       ...(metadataHeaderAccept ? {'Accept': metadataHeaderAccept} : {})
     };
 
+    const operationServers = [
+] as const satisfies Server[];
+
+    const serverBasePath = selectServerBasePath(this.client.options, operationServers.length > 0 ? operationServers : SDK_SERVERS, this.client.options.logger);
+
     let body: RequestBody = '';
     if (headers['Content-Type'] && isJsonMimeType(headers['Content-Type'])) {
       body = typeof data['User'] !== 'undefined' ? JSON.stringify(data['User']) : '{}';
@@ -379,13 +414,13 @@ export class UserApi implements Api {
     let tokenizedUrl;
     if (this.client.options.enableParameterSerialization) {
       const pathParamsProperties = this.client.getPropertiesFromData(data, ['username']);
-      const pathParamSerialization = { username: { explode: false, style: 'simple' } };
+      const pathParamSerialization = { 'username': { explode: false, style: 'simple' } };
       const serializedPathParams = this.client.serializePathParams(pathParamsProperties, pathParamSerialization);
-      basePath = `${this.client.options.basePath}/user/${serializedPathParams['username']}`;
-      tokenizedUrl = `${this.client.options.basePath}/user/${this.piiParamTokens['username'] || serializedPathParams['username']}`;
+      basePath = `${serverBasePath}/user/${serializedPathParams['username']}`;
+      tokenizedUrl = `${serverBasePath}/user/${this.piiParamTokens['username'] || serializedPathParams['username']}`;
     } else {
-      basePath = `${this.client.options.basePath}/user/${data['username']}`;
-      tokenizedUrl = `${this.client.options.basePath}/user/${this.piiParamTokens['username'] || data['username']}`;
+      basePath = `${serverBasePath}/user/${data['username']}`;
+      tokenizedUrl = `${serverBasePath}/user/${this.piiParamTokens['username'] || data['username']}`;
     }
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 

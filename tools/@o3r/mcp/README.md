@@ -6,6 +6,9 @@
 <br />
 <br />
 
+> [!WARNING]
+> [Experimental](https://github.com/AmadeusITGroup/otter/blob/main/README.md#experimental)
+
 ## Description
 
 A small example of an MCP server.

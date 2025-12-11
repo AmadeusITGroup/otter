@@ -8,25 +8,6 @@ body:
     attributes:
       value: |
         Thanks for taking the time to fill out this bug report! Please make sure we have all the information we need to investigate efficiently.
-  - type: dropdown
-    id: package-name
-    attributes:
-      label: Package name
-      description: Which package(s) are you facing issue with?
-      multiple: true
-      options: [
-        client-angular,
-        client-beacon,
-        client-fetch,
-        core,
-        create,
-        schematics,
-        showcase-sdk
-        swagger-builder,
-        training-sdk
-      ]
-    validations:
-      required: true
   - type: input
     id: package-version
     attributes:

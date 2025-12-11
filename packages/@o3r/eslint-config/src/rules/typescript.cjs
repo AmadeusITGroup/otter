@@ -24,15 +24,18 @@ const stylisticConfig = require('./typescript/stylistic.cjs');
 const unicornConfig = require('./typescript/unicorn.cjs');
 const unusedImportsConfig = require('./typescript/unused-imports.cjs');
 
-const checkJestDependency = () => {
+const checkDependency = (packageName) => {
   try {
-    require.resolve('jest');
+    require.resolve(packageName);
   } catch {
     return false;
   }
   return true;
 };
-const hasJestDependency = checkJestDependency();
+
+const hasPlaywrightInstalled = checkDependency('@playwright/test');
+
+const hasJestDependency = checkDependency('jest');
 
 /**
  * @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.ConfigArray}
@@ -141,7 +144,33 @@ const configArray = [
         }
       }
     }
-  }
+  }, {
+    name: '@o3r/eslint-config/node-files',
+    files: [
+      '**/schematics/**/*.{j,t}s',
+      ...hasJestDependency ? ['**/jest.config.{c,m,}{j,t}s'] : []
+    ],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+        NodeJS: true
+      }
+    }
+  },
+  ...hasPlaywrightInstalled
+    ? [{
+      name: '@o3r/eslint-config/e2e-playwright',
+      files: [
+        '**/e2e-playwright/**/*.{j,t}s'
+      ],
+      languageOptions: {
+        globals: {
+          ...globals.node,
+          NodeJS: true
+        }
+      }
+    }]
+    : []
 ];
 
 module.exports = configArray;

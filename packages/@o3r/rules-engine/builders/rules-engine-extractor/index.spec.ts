@@ -38,12 +38,12 @@ describe('Rules-engine Extractor Builder', () => {
 
   it('should extract rules-engine metadata', async () => {
     const options: RulesEngineExtractorBuilderSchema = {
-      tsConfig: 'apps/showcase/tsconfig.cms.json',
+      tsConfig: 'apps/showcase/tsconfig.app.json',
       libraries: [
         path.resolve(__dirname, workspaceRoot, 'packages/@o3r/rules-engine')
       ],
       factFilePatterns: [
-        'apps/showcase/src/facts/**/*.facts.ts'
+        'apps/showcase/src/facts/**/*-facts.ts'
       ],
       operatorFilePatterns: [
         'apps/showcase/src/operators/**/*.ts'

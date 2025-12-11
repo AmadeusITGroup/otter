@@ -14,7 +14,7 @@ You can directly access the service `EventTrackService` inside your component to
 
 ```typescript
 import {EventTrackService} from '@o3r/analytics';
-import {analyticsEvents, MyComponentAnalytics} from './my-component.analytics';
+import {analyticsEvents, MyComponentAnalytics} from './my-component-analytics';
 
 class MyComponent extends Trackable<MyComponentAnalytics>, ... {
   ...
@@ -92,7 +92,7 @@ If the object passed in `trackEventContext` has to be updated in the model file 
 </form>
 ```
 
-in component.ts file
+in component file
 ```typescript
 eventModel = {name: 'searchBtnMouseEvent'};
 ```
@@ -155,7 +155,7 @@ For the time being we will consider only the implementation of __data ready__
 As the browser can't understand when a route event happens in an SPA, the NavigationTimingAPI can't be directly used apart from the first page load at most.
 Subsequent routing changes won't profit of the API connection timings.
 
-In regard of the __server fetches__ (filter out from the resource timing API), the [PerformanceMetricPlugin](https://github.com/AmadeusITGroup/otter/blob/main/packages/@ama-sdk/client-fetch/src/plugins/perf-metric/perf-metric.fetch.ts)
+In regard of the __server fetches__ (filter out from the resource timing API), the [PerformanceMetricPlugin](https://github.com/AmadeusITGroup/otter/blob/main/packages/@ama-sdk/client-fetch/src/plugins/perf-metric/perf-metric-fetch.ts)
 has been put in place to get the metrics associated to server calls.
 Check [ServerCallMetric](https://github.com/AmadeusITGroup/otter/blob/main/packages/@o3r/analytics/src/contracts/events-contracts.ts)
 model to see which information is saved for each call.
@@ -174,7 +174,7 @@ constructor(trackService: EventTrackService) {
 }
 ```
 ### Tracking configuration
-You can override the default configuration via a configuration token ([EVENT_TRACK_SERVICE_CONFIGURATION](https://github.com/AmadeusITGroup/otter/blob/main/packages/@o3r/analytics/src/services/event-track/event-track.configuration.ts)).
+You can override the default configuration via a configuration token ([EVENT_TRACK_SERVICE_CONFIGURATION](https://github.com/AmadeusITGroup/otter/blob/main/packages/@o3r/analytics/src/services/event-track/event-track-configuration.ts)).
 Example of configuration override:
 ```typescript
 // in app module
