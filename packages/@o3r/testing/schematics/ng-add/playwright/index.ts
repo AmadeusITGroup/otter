@@ -24,6 +24,15 @@ import type {
 } from 'type-fest';
 
 /**
+ * List of dependencies required by playwright
+ */
+export const playwrightDependencies = [
+  '@playwright/test',
+  '@types/node',
+  'rimraf'
+];
+
+/**
  * Add Playwright to Otter application
  * @param options @see RuleFactory.options
  */
