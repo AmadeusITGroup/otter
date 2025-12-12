@@ -1,2 +1,2 @@
-export { HistoryConsumerService } from './history.consumer.service';
-export { provideHistoryOverrides } from './history.providers';
+export { HistoryConsumerService } from './history-consumer-service';
+export { provideHistoryOverrides } from './history-providers';

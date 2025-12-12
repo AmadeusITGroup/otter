@@ -3,18 +3,29 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import {
-  SdkIntroComponent,
-} from './sdk-intro.component';
+  NgbScrollSpyService,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  SdkIntro,
+} from './sdk-intro';
 
-describe('SdkComponent', () => {
-  let component: SdkIntroComponent;
-  let fixture: ComponentFixture<SdkIntroComponent>;
+describe('Sdk', () => {
+  let component: SdkIntro;
+  let fixture: ComponentFixture<SdkIntro>;
+  let mockScrollSpyService: Partial<NgbScrollSpyService>;
 
   beforeEach(() => {
+    mockScrollSpyService = {
+      start: jest.fn(),
+      stop: jest.fn()
+    };
     TestBed.configureTestingModule({
-      imports: [SdkIntroComponent]
+      imports: [SdkIntro],
+      providers: [
+        { provide: NgbScrollSpyService, useValue: mockScrollSpyService }
+      ]
     });
-    fixture = TestBed.createComponent(SdkIntroComponent);
+    fixture = TestBed.createComponent(SdkIntro);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -7,10 +7,10 @@ import {
 } from '@playwright/test';
 import {
   AppFixtureComponent,
-} from '../../src/app/app.fixture';
+} from '../../src/app/app-fixture';
 import {
   ComponentReplacementPresFixtureComponent,
-} from '../../src/components/showcase/component-replacement/component-replacement-pres.fixture';
+} from '../../src/components/showcase/component-replacement/component-replacement-pres-fixture';
 
 test.describe('Test component replacement page', () => {
   test('Go to component replacement and play with date input', async ({ page }) => {

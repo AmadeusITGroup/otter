@@ -1,0 +1,17 @@
+[
+{{#servers}}
+  {
+    url: '{{url}}',
+    description: '{{description}}',
+    variables: {
+    {{#variables}}
+      '{{name}}': {
+        description: '{{description}}',
+        defaultValue: '{{defaultValue}}',
+        enumValues: [{{#enumValues}}'{{.}}'{{^-last}}, {{/-last}}{{/enumValues}}] as const
+      }{{^-last}},{{/-last}}
+    {{/variables}}
+    }
+  }{{^-last}},{{/-last}}
+{{/servers}}
+] as const satisfies Server[];

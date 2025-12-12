@@ -1,1 +1,1 @@
-export * from './dynamic-content-pres.component';
+export * from './dynamic-content-pres';

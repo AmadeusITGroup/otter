@@ -9,7 +9,7 @@ import {
 } from 'jsonschema';
 import type {
   DesignTokenSpecification,
-} from './design-token-specification.interface';
+} from './design-token-specification-interface';
 import {
   parseDesignToken,
   TokenKeyRenderer,

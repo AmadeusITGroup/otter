@@ -4,17 +4,22 @@ codecov:
 
 coverage:
   status:
-    patch:
-      default:
-        informational: true
-
     default_rules:
       flag_coverage_not_uploaded_behavior: exclude
+      target: auto
+      threshold: 0.3%
+      informational: true
+      
+    patch:
+      default:
+        target: 75%
+        threshold: 100%
+        informational: true
 
     project:
       default:
         target: auto
-        threshold: 5%
+        threshold: 0.3%
         base: auto
         if_ci_failed: error
         informational: true

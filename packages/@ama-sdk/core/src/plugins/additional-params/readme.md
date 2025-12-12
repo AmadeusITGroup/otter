@@ -4,5 +4,5 @@ SDK Plugin providing features to add and modify the request query parameters, bo
 
 ### Type of plugins
 
-- Request plugin: [AdditionalParamsRequest](./additional-params.request.ts);
-- Synchronous Request plugin: [AdditionalParamsSyncRequest](./additional-params-sync.request.ts)
+- Request plugin: [AdditionalParamsRequest](./additional-params-request.ts);
+- Synchronous Request plugin: [AdditionalParamsSyncRequest](./additional-params-sync-request.ts)

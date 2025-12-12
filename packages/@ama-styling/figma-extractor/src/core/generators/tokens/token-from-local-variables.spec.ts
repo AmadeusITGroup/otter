@@ -3,7 +3,7 @@ describe('getTokensFromLocalVariables', () => {
     const getRgbaColorHex = jest.fn().mockReturnValue('#test');
     const convertNameToReference = jest.fn().mockImplementation((value: string) => `${value}.ref`);
     const getPathFromName = jest.fn().mockImplementation((value: string) => [value, 'path']);
-    jest.mock('../../helpers/color-hex.helpers', () => ({
+    jest.mock('../../helpers/color-hex-helpers', () => ({
       getRgbaColorHex
     }));
 

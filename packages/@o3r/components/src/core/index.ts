@@ -1,2 +1,2 @@
-export * from './component.output';
+export * from './component-output';
 export * from './rendering/index';

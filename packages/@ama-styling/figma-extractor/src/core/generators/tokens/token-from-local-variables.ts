@@ -8,7 +8,7 @@ import {
 } from '../../constants';
 import {
   getRgbaColorHex,
-} from '../../helpers/color-hex.helpers';
+} from '../../helpers/color-hex-helpers';
 import {
   convertNameToReference,
 } from '../../helpers/name-to-reference';

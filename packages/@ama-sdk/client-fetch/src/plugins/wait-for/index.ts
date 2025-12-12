@@ -1,1 +1,1 @@
-export * from './wait-for.fetch';
+export * from './wait-for-fetch';

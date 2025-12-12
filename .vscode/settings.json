@@ -71,6 +71,7 @@
     "**/node_modules/**": true,
     "**/packages/@*/*sdk/src/api/**/*.ts": true,
     "**/packages/@*/*sdk/src/models/base/**/*.ts": true,
+    "**/packages/@*/*sdk/src/constants/**/*.ts": true,
     "**/packages/@*/*sdk/src/spec/api-mock.ts": true,
     "**/packages/@*/*sdk/src/spec/operation-adapter.ts": true,
     "**/tools/github-actions/*/packaged-action/**": true,

@@ -24,22 +24,22 @@ describe('ng add styling', () => {
       '--enable-metadata-extract', '--skip-confirmation', '--project-name', appName] }, execAppOptions)).not.toThrow();
 
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:component', '--defaults', 'true', 'test', '--use-otter-theming', 'false', '--project-name', appName] }, execAppOptions);
-    const filePath = path.normalize(path.posix.join(relativeApplicationPath, 'src/components/test/test.style.scss'));
+    const filePath = path.normalize(path.posix.join(relativeApplicationPath, 'src/components/test/test.scss'));
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/styling:add-theming', '--path', filePath] }, execAppOptions);
-    await addImportToAppModule(applicationPath, 'TestComponent', 'src/components/test');
+    await addImportToAppModule(applicationPath, 'Test', 'src/components/test');
 
     const diff = getGitDiff(execAppOptions.cwd);
     const expectedAddedFiles = [
       path.join(relativeApplicationPath, 'src/components/test/README.md').replace(/[/\\]+/g, '/'),
       path.join(relativeApplicationPath, 'src/components/test/index.ts').replace(/[/\\]+/g, '/'),
-      path.join(relativeApplicationPath, 'src/components/test/test.component.ts').replace(/[/\\]+/g, '/'),
-      path.join(relativeApplicationPath, 'src/components/test/test.context.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test/test.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test/test-context.ts').replace(/[/\\]+/g, '/'),
       path.join(relativeApplicationPath, 'src/components/test/test.spec.ts').replace(/[/\\]+/g, '/'),
-      path.join(relativeApplicationPath, 'src/components/test/test.style.scss').replace(/[/\\]+/g, '/'),
-      path.join(relativeApplicationPath, 'src/components/test/test.style.theme.scss').replace(/[/\\]+/g, '/'),
-      path.join(relativeApplicationPath, 'src/components/test/test.template.html').replace(/[/\\]+/g, '/'),
-      path.join(relativeApplicationPath, 'src/styling/_component-styling.override.scss').replace(/[/\\]+/g, '/'),
-      path.join(relativeApplicationPath, 'src/styling/_component-variable.override.scss').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test/test.scss').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test/test-theme.scss').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test/test.html').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/styling/_component-styling-override.scss').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/styling/_component-variable-override.scss').replace(/[/\\]+/g, '/'),
       path.join(relativeApplicationPath, 'src/styling/_theme.scss').replace(/[/\\]+/g, '/'),
       path.join(relativeApplicationPath, 'src/styling/global-styles.scss').replace(/[/\\]+/g, '/'),
       path.join(relativeApplicationPath, 'migration-scripts/README.md').replace(/[/\\]+/g, '/'),
@@ -73,24 +73,23 @@ describe('ng add styling', () => {
       '--enable-metadata-extract', '--skip-confirmation', '--project-name', libName] }, execAppOptions)).not.toThrow();
 
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:component', '--defaults', 'true', 'test', '--use-otter-theming', 'false', '--project-name', libName] }, execAppOptions);
-    const filePath = path.normalize(path.posix.join(relativeLibraryPath, 'src/components/test/test.style.scss'));
+    const filePath = path.normalize(path.posix.join(relativeLibraryPath, 'src/components/test/test.scss'));
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/styling:add-theming', '--path', filePath] }, execAppOptions);
 
     const diff = getGitDiff(execAppOptions.cwd);
     expect(diff.added.sort()).toEqual([
-      path.join(relativeLibraryPath, 'src/components/test/test.style.theme.scss').replace(/[/\\]+/g, '/'),
-      path.join(relativeLibraryPath, 'src/components/test/test.style.scss').replace(/[/\\]+/g, '/'),
-      path.join(relativeLibraryPath, 'src/components/test/test.context.ts').replace(/[/\\]+/g, '/'),
-      path.join(relativeLibraryPath, 'src/components/test/test.template.html').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test/test-theme.scss').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test/test.scss').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test/test-context.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test/test.html').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'src/components/test/test.spec.ts').replace(/[/\\]+/g, '/'),
-      path.join(relativeLibraryPath, 'src/components/test/test.component.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test/test.ts').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'src/components/test/index.ts').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'src/components/test/README.md').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'migration-scripts/README.md').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'placeholders.metadata.json').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'tsconfig.cms.json').replace(/[/\\]+/g, '/')
     ].sort());
-    expect(diff.added).toContain(path.join(relativeLibraryPath, 'src/components/test/test.style.theme.scss').replace(/[/\\]+/g, '/'));
 
     expect(diff.modified.sort()).toEqual([
       path.join(relativeLibraryPath, 'package.json').replace(/[/\\]+/g, '/'),

@@ -22,10 +22,10 @@ describe('ng add otter localization', () => {
     const relativeApplicationPath = path.relative(workspacePath, applicationPath);
     expect(() => packageManagerExec({ script: 'ng', args: ['add', `@o3r/localization@${o3rVersion}`, '--skip-confirmation', '--project-name', appName] }, execAppOptions)).not.toThrow();
 
-    const componentPath = path.normalize(path.posix.join(relativeApplicationPath, 'src/components/test/test.component.ts'));
+    const componentPath = path.normalize(path.posix.join(relativeApplicationPath, 'src/components/test/test.ts'));
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:component', 'test', '--project-name', appName, '--use-localization', 'false'] }, execAppOptions);
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/localization:add-localization', '--activate-dummy', '--path', componentPath] }, execAppOptions);
-    await addImportToAppModule(applicationPath, 'TestComponent', 'src/components/test');
+    await addImportToAppModule(applicationPath, 'Test', 'src/components/test');
 
     const diff = getGitDiff(workspacePath);
 
@@ -43,13 +43,13 @@ describe('ng add otter localization', () => {
     expect(diff.modified.sort()).toEqual(modifiedFiles);
 
     const newFiles = [
-      path.join(relativeApplicationPath, 'src/components/test/test.translation.ts').replace(/[/\\]+/g, '/'),
-      path.join(relativeApplicationPath, 'src/components/test/test.style.scss').replace(/[/\\]+/g, '/'),
-      path.join(relativeApplicationPath, 'src/components/test/test.context.ts').replace(/[/\\]+/g, '/'),
-      path.join(relativeApplicationPath, 'src/components/test/test.template.html').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test/test-translation.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test/test.scss').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test/test-context.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test/test.html').replace(/[/\\]+/g, '/'),
       path.join(relativeApplicationPath, 'src/components/test/test.spec.ts').replace(/[/\\]+/g, '/'),
-      path.join(relativeApplicationPath, 'src/components/test/test.localization.json').replace(/[/\\]+/g, '/'),
-      path.join(relativeApplicationPath, 'src/components/test/test.component.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test/test-localization.json').replace(/[/\\]+/g, '/'),
+      path.join(relativeApplicationPath, 'src/components/test/test.ts').replace(/[/\\]+/g, '/'),
       path.join(relativeApplicationPath, 'src/components/test/index.ts').replace(/[/\\]+/g, '/'),
       path.join(relativeApplicationPath, 'src/components/test/README.md').replace(/[/\\]+/g, '/'),
       path.join(relativeApplicationPath, 'src/assets/locales/.gitkeep').replace(/[/\\]+/g, '/'),
@@ -73,7 +73,7 @@ describe('ng add otter localization', () => {
     const relativeLibraryPath = path.relative(workspacePath, libraryPath);
     expect(() => packageManagerExec({ script: 'ng', args: ['add', `@o3r/localization@${o3rVersion}`, '--skip-confirmation', '--project-name', libName] }, execAppOptions)).not.toThrow();
 
-    const componentPath = path.normalize(path.posix.join(relativeLibraryPath, 'src/components/test/test.component.ts'));
+    const componentPath = path.normalize(path.posix.join(relativeLibraryPath, 'src/components/test/test.ts'));
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:component', 'test', '--project-name', libName, '--use-localization', 'false'] }, execAppOptions);
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/localization:add-localization', '--activate-dummy', '--path', componentPath] }, execAppOptions);
 
@@ -89,13 +89,13 @@ describe('ng add otter localization', () => {
     expect(diff.modified.sort()).toEqual(modifiedFiles);
 
     const addedFiles = [
-      path.join(relativeLibraryPath, 'src/components/test/test.translation.ts').replace(/[/\\]+/g, '/'),
-      path.join(relativeLibraryPath, 'src/components/test/test.style.scss').replace(/[/\\]+/g, '/'),
-      path.join(relativeLibraryPath, 'src/components/test/test.context.ts').replace(/[/\\]+/g, '/'),
-      path.join(relativeLibraryPath, 'src/components/test/test.template.html').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test/test-translation.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test/test.scss').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test/test-context.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test/test.html').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'src/components/test/test.spec.ts').replace(/[/\\]+/g, '/'),
-      path.join(relativeLibraryPath, 'src/components/test/test.localization.json').replace(/[/\\]+/g, '/'),
-      path.join(relativeLibraryPath, 'src/components/test/test.component.ts').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test/test-localization.json').replace(/[/\\]+/g, '/'),
+      path.join(relativeLibraryPath, 'src/components/test/test.ts').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'src/components/test/index.ts').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'src/components/test/README.md').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'migration-scripts/README.md').replace(/[/\\]+/g, '/'),

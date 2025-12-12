@@ -1,1 +1,1 @@
-export * from './sdk-intro.component';
+export * from './sdk-intro';

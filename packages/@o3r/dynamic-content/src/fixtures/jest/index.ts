@@ -1,1 +1,1 @@
-export * from './request-parameters.fixture.jest';
+export * from './request-parameters-service-fixture-jest';

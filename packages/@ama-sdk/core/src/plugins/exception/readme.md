@@ -4,4 +4,4 @@ Plugin to trigger an exception in case of wrong response / data based on the res
 
 ### Type of plugins
 
-- Reply plugin: [ExceptionReply](./exception.reply.ts);
+- Reply plugin: [ExceptionReply](./exception-reply.ts);

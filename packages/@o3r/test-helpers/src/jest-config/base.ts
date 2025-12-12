@@ -81,6 +81,7 @@ export const getOtterJestBaseConfig = (rootDir: string, options: OtterJestBaseCo
     ],
     moduleNameMapper: {
       ...moduleNameMapper,
+      '^(\\.{1,2}/.*)\\.mjs$': ['$1.mjs', '$1.mts'],
       ...options?.config?.moduleNameMapper
     },
     testEnvironmentOptions: {
