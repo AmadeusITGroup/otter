@@ -18,6 +18,8 @@ import {
   sync,
 } from 'globby';
 
+type Templates = 'design' | 'design-extension';
+
 /**
  * Options for template generation
  */
@@ -30,6 +32,10 @@ export interface CreateOptions {
   version: string;
   /** Name of the package/artifact */
   packageName: string;
+  /** Name of the template directory */
+  templateDirectory: Templates;
+  /** Dependency base specification */
+  dependencyBaseSpec?: string;
   /** Logger */
   logger: typeof console;
 }
@@ -64,7 +70,7 @@ export const generateTemplate = async (options: CreateOptions) => {
   const { generatorDependencies, engines } = JSON.parse(
     await fs.readFile(resolve(__dirname, '..', 'package.json'), { encoding: 'utf8' })
   ) as { generatorDependencies: Record<string, string>; engines: Record<string, string> };
-  const templatesDirectory = resolve(__dirname, '..', 'templates');
+  const templatesDirectory = resolve(__dirname, '..', 'templates', options.templateDirectory);
   const regExpExtension = new RegExp(`\\${TEMPLATE_EXTENSION}$`);
   const exportedFiles: string[] = [
     'bundle',
