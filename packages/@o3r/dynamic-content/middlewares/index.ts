@@ -1,1 +1,1 @@
-export * from './parameter-extractor.middleware';
+export * from './parameter-extractor-middleware';

@@ -56,4 +56,4 @@ const client = new ApiFetchClient(
 
 ### Type of plugins
 
-- Fetch plugin: [AbortFetch](./abort.fetch.ts)
+- Fetch plugin: [AbortFetch](./abort-fetch.ts)

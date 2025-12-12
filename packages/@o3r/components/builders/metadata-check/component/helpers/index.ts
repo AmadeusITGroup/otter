@@ -1,1 +1,1 @@
-export * from './component-metadata-comparison.helper';
+export * from './component-metadata-comparison-helper';

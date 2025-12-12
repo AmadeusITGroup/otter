@@ -5,9 +5,7 @@
   "sourceRoot": "apps/showcase/src",
   "root": "apps/showcase",
   "prefix": "app",
-  "tags": [
-    "showcase"
-  ],
+  "tags": [],
   "generators": {
     "@schematics/angular:component": {
       "style": "scss"
@@ -208,7 +206,7 @@
         "^builders"
       ],
       "options": {
-        "tsConfig": "apps/showcase/tsconfig.cms.json",
+        "tsConfig": "apps/showcase/tsconfig.app.json",
         "configOutputFile": "apps/showcase/component.config.metadata.json",
         "componentOutputFile": "apps/showcase/component.class.metadata.json",
         "name": "showcase",
@@ -229,7 +227,7 @@
     "extract-rules-engine": {
       "executor": "@o3r/rules-engine:extractor",
       "options": {
-        "tsConfig": "apps/showcase/tsconfig.cms.json",
+        "tsConfig": "apps/showcase/tsconfig.app.json",
         "libraries": [
           "packages/@o3r/rules-engine"
         ],
@@ -276,7 +274,7 @@
         "{projectRoot}/src/assets/locales",
         "{projectRoot}/src/assets/locales/*",
         "{projectRoot}/src/components/**/i18n",
-        "{projectRoot}/src/components/**/*.localization.json",
+        "{projectRoot}/src/components/**/*-localization.json",
         "^builders"
       ],
       "outputs": [
@@ -320,11 +318,11 @@
         "{options.outputFile}"
       ],
       "options": {
-        "tsConfig": "apps/showcase/tsconfig.cms.json",
+        "tsConfig": "apps/showcase/tsconfig.app.json",
         "outputFile": "apps/showcase/localisation.metadata.json",
         "libraries": [],
         "extraFilePatterns": [
-          "src/i18n/*.localization.json"
+          "src/i18n/*-localization.json"
         ],
         "strictMode": true
       },
@@ -345,7 +343,7 @@
     "i18n": {
       "executor": "@o3r/localization:i18n",
       "inputs": [
-        "{projectRoot}/src/!(i18n)/**/*.localization.json",
+        "{projectRoot}/src/!(i18n)/**/*-localization.json",
         "^builders"
       ],
       "outputs": [
@@ -355,7 +353,7 @@
         "localizationConfigs": [
           {
             "localizationFiles": [
-              "apps/showcase/src/!(i18n)/**/*.localization.json"
+              "apps/showcase/src/!(i18n)/**/*-localization.json"
             ]
           }
         ]

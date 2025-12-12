@@ -11,10 +11,33 @@ import type {
   SupportedParamInterface,
 } from '../param-serialization';
 
+/** Server configuration to use for the request */
+export interface ServerConfiguration {
+  /**
+   * Index of the server in the list
+   * The first server will be used if not specified
+   */
+  index?: number;
+  /** Variables used in the server URL defined in the specification */
+  variables?: Record<string, string>;
+}
+
+/** Base path and server configuration and selection to use for the request */
+export interface BasePathServer {
+  /**
+   * URL of the call to process (without the query parameters)
+   * Note: If both {@link basePath} and {@link server} are provided, server will be ignored
+   * @example 'https://api.example.com/v1/resource'
+   */
+  basePath?: string;
+  /** Default basePath to use if no {@link basePath} is provided, no server are matching the API server list and no default server has been specified in the specification  */
+  defaultBasePath?: string;
+  /** basePath server configuration to use for the request */
+  server?: ServerConfiguration;
+}
+
 /** Interface of the constructor configuration object */
-export interface BaseApiClientOptions {
-  /** API Gateway base path (when targeting a proxy or middleware) */
-  basePath: string;
+export interface BaseApiClientOptions extends BasePathServer {
   /** List of plugins to apply on the request before calling the API */
   requestPlugins: RequestPlugin[] | ((originalRequestOpts: RequestOptions) => RequestPlugin[] | Promise<RequestPlugin[]>);
   /**

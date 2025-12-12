@@ -24,7 +24,7 @@ Firstly we need to prepare the base app to have the extensibility of providers. 
 #### src/app/app-module.ts
 
 ```typescript
-import {initializeEntryComponents, getCustomComponents} from '../customization/presenters-map.empty';
+import {initializeEntryComponents, getCustomComponents} from '../customization/presenters-map-empty';
 import {provideCustomComponents} from '@o3r/components';
 ...
 
@@ -44,7 +44,7 @@ const entry = initializeEntryComponents();
 #### src/app/app.config.ts
 
 ```typescript
-import {initializeEntryComponents, getCustomComponents} from '../customization/presenters-map.empty';
+import {initializeEntryComponents, getCustomComponents} from '../customization/presenters-map-empty';
 import {provideCustomComponents} from '@o3r/components';
 ...
 
@@ -64,7 +64,7 @@ We'll do that in a customization folder src/customization.
 This is just an "empty shell" since it is just adding an empty array to the customComponents and an empty array to the custom modules. It will register an empty map of custom components.
 However, it allows the customization app to replace these empty functions with functions which provides the setup for custom components.
 
-#### src/customization/presenters-map.empty.ts
+#### src/customization/presenters-map-empty.ts
 
 ```typescript
 import {EntryCustomComponents} from '@o3r/components';
@@ -88,7 +88,7 @@ Once the base app is prepared, the customization app can be configured to use th
 
 * Could be named: ``custo-app-folder/white-label/src/customization/component-replacement-map.ts``.
 
-* In your ``custom-config.js``, register your mapping ``"customComponentsFile": "component-replacement-map.ts"`` so the framework will use this file instead of ``presenters-map.empty.ts`` which is here by default so that the application compiles.
+* In your ``custom-config.js``, register your mapping ``"customComponentsFile": "component-replacement-map.ts"`` so the framework will use this file instead of ``presenters-map-empty.ts`` which is here by default so that the application compiles.
 
 * Within the replacement file you will register the custom components like this:
 
@@ -96,7 +96,7 @@ Once the base app is prepared, the customization app can be configured to use th
 
 ```typescript
 import {EntryCustomComponents, registerCustomComponent} from '@o3r/components';
-import {ExamplePresComponent} from './example/example-pres.component';
+import {ExamplePres} from './example/example-pres';
 import {ExamplePresModule} from './example/index';
 
 /**
@@ -108,18 +108,18 @@ import {ExamplePresModule} from './example/index';
  * ```
  */
 export function registerCustomComponents(): Map<string, any> {
-  return registerCustomComponent(new Map(), 'exampleCustomPres', ExamplePresComponent);
+  return registerCustomComponent(new Map(), 'exampleCustomPres', ExamplePres);
 }
 /** Returns the array of custom components and the array of associated components modules */
 export function initializeEntryComponents(): EntryCustomComponents {
   return {
-    customComponents: [ExamplePresComponent],
+    customComponents: [ExamplePres],
     customComponentsModules: [ExamplePresModule]
   };
 }
 ```
 
-* Once you run the ``apply customization`` script, the ``angular.json`` of the application will be modified to replace the ``presenters-map.empty.ts`` with your own file, meaning that your application module will now import your custom components.
+* Once you run the ``apply customization`` script, the ``angular.json`` of the application will be modified to replace the ``presenters-map-empty.ts`` with your own file, meaning that your application module will now import your custom components.
 
 ## Configure parent component to accept new subcomponent
 
@@ -162,13 +162,13 @@ Here we need to do two things:
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {C11nDirective} from '@o3r/components';
-import {DummyContComponent} from './dummy-cont.component';
-import {DummyPresComponent} from '../presenter/dummy-pres.component';
+import {DummyCont} from './dummy-cont';
+import {DummyPres} from '../presenter/dummy-pres';
 
 @NgModule({
   imports: [CommonModule, C11nDirective],
-  declarations: [DummyContComponent],
-  exports: [DummyContComponent],
+  declarations: [DummyCont],
+  exports: [DummyCont],
 })
 export class ExampleContModule {}
 ````
@@ -199,7 +199,7 @@ export const DUMMY_CONT_CONFIG_ID = computeItemIdentifier('DummyContConfig', '@s
 
 For more information on configuration, you can check this [documentation](../configuration/OVERVIEW.md).
 
-### Subcomponent's context (`.context.ts`)
+### Subcomponent's context (`-context.ts`)
 
 The context of the subcomponent is used to define the contract to interact with your component, defining the set of dynamic inputs and outputs that a component has.
 It is structured into three interfaces:
@@ -235,10 +235,10 @@ Here we need to do a couple of things:
 
 ```` typescript
 import {ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit, Optional, Type} from '@angular/core';
-import {DummyContConfig, DUMMY_CONT_CONFIG_ID, DUMMY_CONT_DEFAULT_CONFIG} from './dummy-cont.config';
-import {DummyContContext} from './dummy-cont.context';
+import {DummyContConfig, DUMMY_CONT_CONFIG_ID, DUMMY_CONT_DEFAULT_CONFIG} from './dummy-cont-config';
+import {DummyContContext} from './dummy-cont-context';
 import {DummyPresContext} from '../presenter/index';
-import {DummyPresComponent} from '../presenter/dummy-pres.component';
+import {DummyPres} from '../presenter/dummy-pres';
 import {ConfigurationBaseService, ConfigurationObserver} from '@o3r/configuration';
 import {Block} from '@o3r/core';
 import {C11nService} from '@o3r/components';
@@ -246,10 +246,10 @@ import {Observable} from 'rxjs';
 
 @Component({
   selector: 'o3r-dummy-cont',
-  templateUrl: './dummy-cont.template.html',
+  templateUrl: './dummy-cont.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DummyContComponent implements DynamicConfigurable<DummyContConfig>, DummyContContext, OnInit, OnDestroy, Block {
+export class DummyCont implements DynamicConfigurable<DummyContConfig>, DummyContContext, OnInit, OnDestroy, Block {
 
   /** Input configuration to override the default configuration of the component
    */
@@ -281,7 +281,7 @@ export class DummyContComponent implements DynamicConfigurable<DummyContConfig>,
   private loadPresenter() {
     this.presenter$ = this.config$.pipe(
       // Compute which presenter to use according to the configuration and the default presenter that we define here
-      this.c11nService.getPresenter(DummyPresComponent, 'customDummyPresKey')
+      this.c11nService.getPresenter(DummyPres, 'customDummyPresKey')
     );
 
     this.outputs = {
@@ -334,6 +334,6 @@ the [HostBinding](https://angular.io/api/core/HostBinding) decorator, there is n
 ## Naming convetion
 
 | Attribute                   | Pattern                                   |
-| --------------------------- | ----------------------------------------- |
-| **Context file name**       | *.context.ts                              |
+| --------------------------- |-------------------------------------------|
+| **Context file name**       | *-context.ts                              |
 | **Context interface names** | *ContextInput / *ContextOutput / *Context |

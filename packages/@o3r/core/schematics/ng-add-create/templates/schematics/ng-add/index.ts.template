@@ -10,7 +10,7 @@ import {
 
 const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
 
-const doCustomAction = (options: NgAddSchematicsSchema): Rule => (tree) => {
+const doCustomAction = (_options: NgAddSchematicsSchema): Rule => (tree) => {
   // your custom code here
   return tree;
 };

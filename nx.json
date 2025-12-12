@@ -1,6 +1,10 @@
 {
   "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/nx-schema.json",
   "defaultBase": "remotes/origin/main",
+  "tui": {
+    "autoExit": true,
+    "enabled": true
+  },
   "cli": {
     "schematicCollections": [
       "@schematics/angular",
@@ -17,17 +21,23 @@
     }
   },
   "namedInputs": {
+    "sharedGlobals": [
+      "{workspaceRoot}/yarn.lock",
+      "{workspaceRoot}/tsconfig.base.json",
+      "{workspaceRoot}/nx.json",
+      "{workspaceRoot}/.nxignore",
+      {
+        "runtime": "node -p 'process.versions.node.split(\".\")[0]'"
+      }
+    ],
     "project": [
       "{projectRoot}/package.json",
       "{projectRoot}/project.json"
     ],
     "base": [
       "project",
-      "{workspaceRoot}/yarn.lock",
-      "{workspaceRoot}/tsconfig.base.json",
+      "sharedGlobals",
       "{workspaceRoot}/tsconfig.build.json",
-      "{workspaceRoot}/nx.json",
-      "{workspaceRoot}/.nxignore",
       "{workspaceRoot}/tools/@o3r/build-helpers/scripts/*.mjs"
     ],
     "source": [
@@ -38,6 +48,15 @@
       "{projectRoot}/src/**/*",
       "!{projectRoot}/src/**/*.spec.ts",
       "!{projectRoot}/src/**/*.spec.scss"
+    ],
+    "templates-only": [
+      "{projectRoot}/templates/**",
+      "{projectRoot}/schematics/**/templates/**",
+      "{projectRoot}/builders/**/templates/**"
+    ],
+    "templates": [
+      "templates-only",
+      "source"
     ],
     "jasmine-fixtures": [
       "base",
@@ -55,6 +74,9 @@
     ],
     "schemas": [
       "{projectRoot}/schemas/*.json"
+    ],
+    "renovate": [
+      "{projectRoot}/renovate/*.json"
     ],
     "assets": [
       "{projectRoot}/assets/**"
@@ -191,6 +213,10 @@
         "source",
         "specs"
       ],
+      "dependsOn": [{
+        "projects": ["test-helpers"],
+        "target": "build"
+      }],
       "outputs": [
         "{projectRoot}/dist-test/junit.xml",
         "{projectRoot}/coverage/cobertura-coverage.xml"
@@ -212,6 +238,10 @@
     },
     "test-int": {
       "executor": "@nx/jest:jest",
+      "dependsOn": [{
+        "projects": ["test-helpers"],
+        "target": "build"
+      }],
       "inputs": [
         {
           "env": "RUNNER_OS"
@@ -322,6 +352,19 @@
       ],
       "outputs": [
         "{projectRoot}/dist/schemas/*.json"
+      ],
+      "cache": true
+    },
+    "expose-renovate": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "copy:renovate"
+      },
+      "inputs": [
+        "renovate"
+      ],
+      "outputs": [
+        "{projectRoot}/dist/renovate/*.json"
       ],
       "cache": true
     },

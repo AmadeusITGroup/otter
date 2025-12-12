@@ -25,7 +25,7 @@
     "filePattern": {
       "type": "string",
       "description": "Path pattern to watch for component files",
-      "default": "src/**/*.(component|config|module).ts"
+      "default": "src/**/*.ts"
     },
     "componentOutputFile": {
       "type": "string",

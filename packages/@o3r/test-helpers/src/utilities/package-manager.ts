@@ -121,7 +121,12 @@ function execCmd(args: string[], execOptions: ExecSyncOptions) {
   try {
     const startTime = performance.now();
     const [runner, ...options] = args.filter((arg) => !!arg);
-    const output = execFileSync(runner, options, { ...execOptions, shell: process.platform === 'win32', stdio: 'pipe', encoding: 'utf8' });
+    const output = execFileSync(runner, options, {
+      ...execOptions,
+      shell: process.platform === 'win32',
+      stdio: 'pipe',
+      encoding: 'utf8'
+    });
     // eslint-disable-next-line no-console -- no logger available
     console.log(`${args.join(' ')} [${Math.ceil(performance.now() - startTime)}ms]\n${output}`);
     return output;

@@ -41,5 +41,7 @@
     "publish": {},
     "documentation": {}
   },
-  "tags": []
+  "tags": [
+    "hook:postinstall"
+  ]
 }

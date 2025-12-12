@@ -10,10 +10,10 @@ ng g component <ComponentName> [--project-name <project-name>]
 
 ## Structure
 Below you can see the basic files generated for a component (more files can be generated depending on the activated options):
-- `component-name.component.ts` will contain the logic of the component
+- `component-name.ts` will contain the logic of the component
 - `component-name.spec.ts` will contain component unit tests
-- `component-name.style.scss` will contain the styling of the component
-- `component-name.template.html` will contain the structure of the component
+- `component-name.scss` will contain the styling of the component
+- `component-name.html` will contain the structure of the component
 
 > [!NOTE]
 > By convention, file names must be written in kebab-case
@@ -29,12 +29,12 @@ It will be used to extract metadata or for debugging purpose.
 })
 @Component({
   selector: 'o3r-component-name',
-  templateUrl: './component-name.template.html',
-  styleUrls: ['./component-name.style.scss'],
+  templateUrl: './component-name.html',
+  styleUrls: ['./component-name.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ComponentNameComponent {}
+export class ComponentName {}
 ```
 
 > [!NOTE]

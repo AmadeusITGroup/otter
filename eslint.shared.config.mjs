@@ -193,8 +193,8 @@ export default defineConfig([
     }
   },
   {
-    name: '@o3r/framework/mjs-files',
-    files: ['**/*.mjs'],
+    name: '@o3r/framework/node-module-type',
+    files: ['**/*.m{j,t}s'],
     rules: {
       'no-underscore-dangle': [
         'error',
@@ -207,7 +207,7 @@ export default defineConfig([
   },
   {
     name: '@o3r/framework/warn-until-migration-completed',
-    files: ['**/*.ts', '**/*.tsx', '**/*.mts', '**/*.cts'],
+    files: ['**/*.{m,c,}ts{x,}'],
     rules: {
       '@typescript-eslint/no-unsafe-argument': 'warn',
       '@typescript-eslint/no-unsafe-assignment': 'warn',

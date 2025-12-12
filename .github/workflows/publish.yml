@@ -64,15 +64,19 @@ jobs:
     environment: ${{inputs.isPullRequest && 'development' || 'production'}}
     permissions:
       contents: read
-      # Needed to publish with provenance
+      # Needed to publish on npmjs registry
       id-token: write
     steps:
-      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
         with:
           fetch-depth: 2
           ref: ${{ inputs.gitRef }}
       - uses: ./tools/github-actions/download-build-output
       - uses: ./tools/github-actions/setup
+        timeout-minutes: 30
+        with:
+          #TODO Remove when migrate to Node 24
+          npm-version: '11.5'
       - run: yarn set:version ${{ inputs.version }}
       - name: Get tag name
         id: get-npm-tag
@@ -81,10 +85,9 @@ jobs:
           is-prerelease: ${{ inputs.prerelease }}
           version: ${{ inputs.version }}
       - name: Publish
-        run: yarn run publish --tag=${{ inputs.isPullRequest && 'pr' || steps.get-npm-tag.outputs.tag }} ${{ inputs.isPullRequest && '--userconfig=./.npmrc.pr' || ''}} --always-auth=true ${{ !inputs.isPullRequest && '--provenance' || ''}}
+        run: yarn run publish --tag=${{ inputs.isPullRequest && 'pr' || steps.get-npm-tag.outputs.tag }} ${{ inputs.isPullRequest && '--userconfig=./.npmrc.pr' || ''}}
         env:
           GITHUB_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           AZURE_AUTH_TOKEN: ${{ secrets.AZURE_AUTH_TOKEN }}
           AZURE_USERNAME: ${{ secrets.AZURE_USERNAME }}
           AZURE_EMAIL: ${{ secrets.AZURE_EMAIL }}
@@ -96,11 +99,12 @@ jobs:
       APP_PATH: 'apps/github-cascading-app/dist'
     environment: 'cascading-app'
     steps:
-      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
         with:
           fetch-depth: 2
       - uses: ./tools/github-actions/download-build-output
       - uses: ./tools/github-actions/setup
+        timeout-minutes: 30
       - run: yarn set:version ${{ inputs.version }}
       - name: Get tag name
         id: get-npm-tag
@@ -129,15 +133,16 @@ jobs:
     environment: ${{inputs.isPullRequest && 'development' || 'production'}}
     needs: [publish]
     steps:
-      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
         with:
           fetch-depth: 2
       - uses: ./tools/github-actions/download-build-output
       - uses: ./tools/github-actions/setup
+        timeout-minutes: 30
       - run: yarn set:version ${{ inputs.version }}
       - name: Publish Extensions
         if: '!inputs.prerelease'
-        run: yarn run ${{ endsWith(inputs.version, '.0') && 'publish:extensions' || 'publish:extensions:affected' }}
+        run: yarn run publish:extensions
         env:
           NX_BASE: HEAD~1
           VSCE_PAT: ${{ secrets.AZURE_VSC_EXT_TOKEN }}

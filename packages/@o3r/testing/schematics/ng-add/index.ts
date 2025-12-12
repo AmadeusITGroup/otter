@@ -4,18 +4,11 @@ import {
   askConfirmation,
 } from '@angular/cli/src/utilities/prompt';
 import {
-  apply,
   chain,
-  MergeStrategy,
-  mergeWith,
-  move,
   noop,
-  renameTemplateFiles,
   Rule,
   SchematicContext,
-  template,
   Tree,
-  url,
 } from '@angular-devkit/schematics';
 import {
   addVsCodeRecommendations,
@@ -39,8 +32,14 @@ import {
   updateFixtureConfig,
 } from './fixture';
 import {
+  jestDependencies,
+  setupJest,
+} from './jest';
+import {
+  playwrightDependencies,
   updatePlaywright,
 } from './playwright';
+
 /**
  * List of external dependencies to be added to the project as peer dependencies
  */
@@ -67,9 +66,16 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       const testPackageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
       const packageJson = JSON.parse(fs.readFileSync(testPackageJsonPath, { encoding: 'utf8' })) as PackageJson;
       const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
-      const workingDirectory = workspaceProject?.root || '.';
       const projectType = workspaceProject?.projectType || 'application';
       let installJest;
+      let isEslintInstalled;
+
+      try {
+        require.resolve('@o3r/eslint-config');
+        isEslintInstalled = true;
+      } catch {
+        isEslintInstalled = false;
+      }
 
       const testFramework = options.testingFramework || getTestFramework(getWorkspaceConfig(tree), context);
       switch (testFramework) {
@@ -105,7 +111,12 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
         updateFixtureConfig(options),
         removePackages(['@otter/testing']),
         addVsCodeRecommendations(['Orta.vscode-jest']),
-        installPlaywright ? updatePlaywright(options) : noop,
+        ...installPlaywright
+          ? [
+            updatePlaywright(options)
+          ]
+          : [],
+        ...installJest ? [setupJest(options)] : [],
         registerPackageCollectionSchematics(packageJson),
         setupSchematicsParamsForProject({
           '@o3r/core:component': schematicsDefaultOptions,
@@ -118,68 +129,13 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
           {
             dependenciesToInstall,
             devDependenciesToInstall: devDependenciesToInstall.concat(
-              installJest
-                ? [
-                  '@angular-builders/jest',
-                  '@types/jest',
-                  'jest',
-                  'jest-environment-jsdom',
-                  'jest-preset-angular',
-                  'jest-util',
-                  'ts-jest'
-                ]
-                : [],
-              installPlaywright
-                ? [
-                  '@playwright/test',
-                  'rimraf'
-                ]
-                : []
+              installJest ? jestDependencies(isEslintInstalled) : [],
+              installPlaywright ? playwrightDependencies : []
             )
           }
         ),
         options.skipLinter ? noop() : applyEditorConfig()
       ];
-
-      if (installJest) {
-        if (workingDirectory === undefined) {
-          throw new O3rCliError(`Could not find working directory for project ${options.projectName || ''}`);
-        } else {
-          if (workspaceProject) {
-            const packageJsonFile = tree.readJson(`${workingDirectory}/package.json`) as PackageJson;
-            packageJsonFile.scripts ||= {};
-            packageJsonFile.scripts.test = 'jest';
-            tree.overwrite(`${workingDirectory}/package.json`, JSON.stringify(packageJsonFile, null, 2));
-            const rootRelativePath = path.posix.relative(workingDirectory, tree.root.path.replace(/^\//, './'));
-            const jestConfigFilesForProject = () => mergeWith(apply(url('./templates/project'), [
-              template({
-                ...options,
-                rootRelativePath,
-                isAngularSetup: tree.exists('/angular.json')
-              }),
-              move(workingDirectory),
-              renameTemplateFiles()
-            ]), MergeStrategy.Overwrite);
-            rules.push(jestConfigFilesForProject);
-          }
-          if (tree.exists('/jest.config.js')) {
-            context.logger.info('Jest configuration files already exist at the root of the project.');
-          } else {
-            const jestConfigFilesForWorkspace = () => mergeWith(apply(url('./templates/workspace'), [
-              template({
-                ...options,
-                tsconfigPath: `./${['tsconfig.base.json', 'tsconfig.json'].find((tsconfigBase) => tree.exists(`./${tsconfigBase}`))}`
-              }),
-              move(tree.root.path),
-              renameTemplateFiles()
-            ]), MergeStrategy.Default);
-            rules.push(
-              jestConfigFilesForWorkspace
-            );
-          }
-        }
-      }
-
       return () => chain(rules)(tree, context);
     } catch (e) {
       context.logger.error(`[ERROR]: Adding @o3r/testing has failed.

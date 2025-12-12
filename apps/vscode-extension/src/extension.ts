@@ -1,25 +1,23 @@
 import {
-  chat,
   commands,
   EventEmitter,
   ExtensionContext,
   languages,
   lm,
-  Uri,
   window,
 } from 'vscode';
 import {
-  chatParticipantHandler,
+  initializeChatParticipant,
 } from './chat';
 import {
   extractAllToVariable,
-} from './commands/extract/styling/extract-all-to-variable.command';
+} from './commands/extract/styling/extract-all-to-variable-command';
 import {
   extractToVariable,
-} from './commands/extract/styling/extract-to-variable.command';
+} from './commands/extract/styling/extract-to-variable-command';
 import {
   generateComponentGenerateCommand,
-} from './commands/generate/component.command';
+} from './commands/generate/component-command';
 import {
   generateAddAnalyticsToComponentCommand,
   generateAddConfigurationToComponentCommand,
@@ -34,22 +32,22 @@ import {
 } from './commands/generate/enrich-component';
 import {
   generateFixtureGenerateCommand,
-} from './commands/generate/fixture.command';
+} from './commands/generate/fixture-command';
 import {
   generateModuleGenerateCommand,
-} from './commands/generate/module.command';
+} from './commands/generate/module-command';
 import {
   generateServiceGenerateCommand,
-} from './commands/generate/service.command';
+} from './commands/generate/service-command';
 import {
   generateStoreGenerateCommand,
-} from './commands/generate/store.command';
+} from './commands/generate/store-command';
 import {
   wrapCommandWhenExplorerContext,
 } from './commands/helpers';
 import {
   generateModuleAddCommand,
-} from './commands/module/add-module.command';
+} from './commands/module/add-module-command';
 import {
   configurationCompletionItemProvider,
   configurationCompletionTriggerChar,
@@ -64,6 +62,9 @@ import {
 import {
   mcpConfig,
 } from './mcp';
+import {
+  createTelemetryLogger,
+} from './telemetry';
 
 /**
  * Function to register commands.
@@ -72,15 +73,16 @@ import {
  */
 export function activate(context: ExtensionContext) {
   const channel = window.createOutputChannel('Otter');
-  const o3rChatParticipant = chat.createChatParticipant('o3r-chat-participant', chatParticipantHandler(context, channel));
-  o3rChatParticipant.iconPath = Uri.joinPath(context.extensionUri, 'assets', 'logo-128x128.png');
+  const telemetryLogger = createTelemetryLogger(channel);
+  telemetryLogger.logUsage('Extension activated');
+  const o3rChatParticipant = initializeChatParticipant(context, channel, telemetryLogger);
   const designTokenProviders = designTokenCompletionItemAndHoverProviders();
   // eslint-disable-next-line unicorn/prefer-event-target -- using EventEmitter from vscode
   const didChangeEmitter = new EventEmitter<void>();
 
   context.subscriptions.push(
     o3rChatParticipant,
-    lm.registerMcpServerDefinitionProvider('o3rMCPServerProvider', mcpConfig(didChangeEmitter)),
+    lm.registerMcpServerDefinitionProvider('o3rMCPServerProvider', mcpConfig(didChangeEmitter, channel)),
     languages.registerCompletionItemProvider(['javascript', 'typescript'], configurationCompletionItemProvider({ channel }), configurationCompletionTriggerChar),
     languages.registerCompletionItemProvider(['scss'], stylingCompletionItemProvider(), stylingCompletionTriggerChar),
     languages.registerCompletionItemProvider(['scss', 'css'], designTokenProviders),

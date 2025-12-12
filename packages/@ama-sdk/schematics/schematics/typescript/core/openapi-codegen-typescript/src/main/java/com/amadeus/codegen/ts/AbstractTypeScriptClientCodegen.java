@@ -491,10 +491,28 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
 
     // Check that we have vendor extensions for dictionary
     if (property.vendorExtensions.containsKey("x-dictionary-name")) {
+      String name = (String) property.vendorExtensions.get("x-field-name");
+      String type = (String) property.vendorExtensions.get("x-field-type");
+      boolean propertyNameExists = false;
+      // Check if a property with the same name and type already exists
+      for (CodegenProperty prop : model.vars) {
+        if (type.equals(prop.baseType) && name.equals(prop.baseName)) {
+          String textToAdd = "Property is backed up as a dictionary extraction";
+          // Check if the text hasn't already been added
+          if (prop.description == null || !prop.description.contains(textToAdd)) {
+              prop.description = (prop.description != null && !prop.description.isEmpty())
+                  ? prop.description + " " + textToAdd
+                  : textToAdd;
+          }
+          propertyNameExists = true;
+          break;
+        }
+      }
+      property.vendorExtensions.put("x-field-exists", propertyNameExists);
+
       boolean isPrimitive = false;
       boolean isRevived = false;
 
-      String type = (String) property.vendorExtensions.get("x-field-type");
       if (typeMapping.containsKey(type) || languageSpecificPrimitives.contains(type)) {
         if (typeMapping.containsKey(type)) {
           property.vendorExtensions.put("x-field-type", (String) typeMapping.get(type));

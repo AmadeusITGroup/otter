@@ -50,4 +50,7 @@ export interface NgGenerateComponentPresenterSchematicsSchema extends SchematicO
 
   /** Whether the generated component is standalone */
   standalone: boolean;
+
+  /** Custom type to append to the component's file name */
+  type?: string;
 }

@@ -8,56 +8,6 @@ body:
     attributes:
       value: |
         Thanks for taking the time to fill out this bug report! Please make sure we have all the information we need to investigate efficiently.
-  - type: dropdown
-    id: package-name
-    attributes:
-      label: Package name
-      description: Which package(s) are you facing issue with?
-      multiple: true
-      options: [
-        '*global*',
-        analytics,
-        apis-manager,
-        application,
-        artifactory-tools,
-        azure-tools,
-        build-helpers,
-        chrome-devtools,
-        components,
-        configuration,
-        core,
-        create,
-        design,
-        dynamic-content,
-        eslint-config,
-        eslint-plugin,
-        extractors,
-        forms,
-        github-actions,
-        github-cascading-app,
-        localization,
-        logger,
-        mcp,
-        mobile,
-        new-version,
-        pipeline,
-        routing,
-        rules-engine,
-        schematics,
-        store-sync,
-        style-dictionary,
-        stylelint-plugin,
-        styling,
-        telemetry,
-        test-helpers,
-        testing,
-        third-party,
-        training-tools,
-        workspace,
-        workspace-helpers
-      ]
-    validations:
-      required: true
   - type: input
     id: package-version
     attributes:

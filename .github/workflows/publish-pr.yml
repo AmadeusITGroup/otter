@@ -39,7 +39,7 @@ jobs:
     needs: [version]
     permissions:
       contents: read
-      # Needed to publish with provenance (not needed for pull-request but requested by publish.yml workflow)
+      # Needed to publish on npmjs registry (not needed for pull-request but requested by publish.yml workflow)
       id-token: write
     secrets: inherit
     with:
@@ -47,6 +47,8 @@ jobs:
       prerelease: true
       isPullRequest: true
       gitRef: ${{ github.event.workflow_run.pull_requests[0].base.ref }}
+      skipNxCache: ${{ vars.NX_SKIP_NX_CACHE == 'true' }}
+      skipNxRemoteCache: ${{ vars.NX_SKIP_REMOTE_CACHE == 'true' }}
 
   notify-parent:
     runs-on: ubuntu-latest

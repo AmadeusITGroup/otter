@@ -4,8 +4,16 @@
   "extends": "./tsconfig.base",
   "compilerOptions": {
     "paths": {
+      "@ama-mcp/angular": ["packages/@ama-mcp/angular/dist", "packages/@ama-mcp/angular/src/public_api"],
+      "@ama-mcp/core": ["packages/@ama-mcp/core/dist", "packages/@ama-mcp/core/src/public_api"],
+      "@ama-mcp/github": ["packages/@ama-mcp/github/dist", "packages/@ama-mcp/github/src/public_api"],
+      "@ama-mcp/otter": ["packages/@ama-mcp/otter/dist", "packages/@ama-mcp/otter/src/public_api"],
       "@ama-mfe/messages": ["packages/@ama-mfe/messages/dist", "packages/@ama-mfe/messages/src/public_api"],
       "@ama-mfe/ng-utils": ["packages/@ama-mfe/ng-utils/dist", "packages/@ama-mfe/ng-utils/src/public_api"],
+      "@ama-openapi/cli": ["packages/@ama-openapi/cli/dist", "packages/@ama-openapi/cli/src"],
+      "@ama-openapi/create": ["packages/@ama-openapi/create/dist", "packages/@ama-openapi/create/src"],
+      "@ama-openapi/core": ["packages/@ama-openapi/core/dist", "packages/@ama-openapi/core/dist/src/public_api", "packages/@ama-openapi/core/src/public_api"],
+      "@ama-openapi/redocly-plugin": ["packages/@ama-openapi/redocly-plugin/dist", "packages/@ama-openapi/redocly-plugin/src/public_api"],
       "@ama-sdk/client-fetch": ["packages/@ama-sdk/client-fetch/dist", "packages/@ama-sdk/client-fetch/src/public_api"],
       "@ama-sdk/core": ["packages/@ama-sdk/core/dist", "packages/@ama-sdk/core/src/public_api"],
       "@ama-sdk/swagger-builder": ["packages/@ama-sdk/swagger-build/dist", "packages/@ama-sdk/swagger-builder"],

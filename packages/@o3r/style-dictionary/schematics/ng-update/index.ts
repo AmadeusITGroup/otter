@@ -24,7 +24,10 @@ const updateStyleDictionaryConfig: Rule = (tree, context) => {
     const text = tree.readText(file);
     if (text.includes('@o3r/style-dictionary')) {
       context.logger.debug(`Update ${file}`);
-      tree.overwrite(file, text.replace(/o3r/g, 'ama'));
+      tree.overwrite(file, text
+        .replaceAll(/@o3r\/style-dictionary/g, '@ama-styling/style-dictionary')
+        .replaceAll(/(['"])o3r\//g, '$1ama/')
+      );
     }
   });
 };

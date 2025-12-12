@@ -1,7 +1,7 @@
 import { ApiResponse } from '../../models/base/api-response/index';
 import { Pet } from '../../models/base/pet/index';
-import { Api, ApiClient, ApiTypes, computePiiParameterTokens, isJsonMimeType, ParamSerializationOptions, RequestBody, RequestMetadata, } from '@ama-sdk/core';
-
+import { Api, ApiClient, ApiTypes, computePiiParameterTokens, isJsonMimeType, ParamSerializationOptions, RequestBody, RequestMetadata, Server, selectServerBasePath, } from '@ama-sdk/core';
+import { SDK_SERVERS } from '../../constants/servers';
 /** Enum status used in the PetApi's findPetsByStatus function parameter */
 export type PetApiFindPetsByStatusStatusEnum = 'available' | 'pending' | 'sold';
 
@@ -91,6 +91,17 @@ export class PetApi implements Api {
       ...(metadataHeaderAccept ? {'Accept': metadataHeaderAccept} : {})
     };
 
+    const operationServers = [
+  {
+    url: '/override',
+    description: '',
+    variables: {
+    }
+  }
+] as const satisfies Server[];
+
+    const serverBasePath = selectServerBasePath(this.client.options, operationServers.length > 0 ? operationServers : SDK_SERVERS, this.client.options.logger);
+
     let body: RequestBody = '';
     if (headers['Content-Type'] && isJsonMimeType(headers['Content-Type'])) {
       body = typeof data['Pet'] !== 'undefined' ? JSON.stringify(data['Pet']) : '{}';
@@ -102,8 +113,8 @@ export class PetApi implements Api {
     const paramSerializationOptions: ParamSerializationOptions = {
       enableParameterSerialization: this.client.options.enableParameterSerialization
     };
-    const basePath = `${this.client.options.basePath}/pet`;
-    const tokenizedUrl = `${this.client.options.basePath}/pet`;
+    const basePath = `${serverBasePath}/pet`;
+    const tokenizedUrl = `${serverBasePath}/pet`;
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 
     const requestOptions = {
@@ -139,6 +150,11 @@ export class PetApi implements Api {
       'api_key': data['api_key']
     };
 
+    const operationServers = [
+] as const satisfies Server[];
+
+    const serverBasePath = selectServerBasePath(this.client.options, operationServers.length > 0 ? operationServers : SDK_SERVERS, this.client.options.logger);
+
     let body: RequestBody = '';
 
     let queryParams = {};
@@ -149,13 +165,13 @@ export class PetApi implements Api {
     let tokenizedUrl;
     if (this.client.options.enableParameterSerialization) {
       const pathParamsProperties = this.client.getPropertiesFromData(data, ['petId']);
-      const pathParamSerialization = { petId: { explode: false, style: 'simple' } };
+      const pathParamSerialization = { 'petId': { explode: false, style: 'simple' } };
       const serializedPathParams = this.client.serializePathParams(pathParamsProperties, pathParamSerialization);
-      basePath = `${this.client.options.basePath}/pet/${serializedPathParams['petId']}`;
-      tokenizedUrl = `${this.client.options.basePath}/pet/${this.piiParamTokens['petId'] || serializedPathParams['petId']}`;
+      basePath = `${serverBasePath}/pet/${serializedPathParams['petId']}`;
+      tokenizedUrl = `${serverBasePath}/pet/${this.piiParamTokens['petId'] || serializedPathParams['petId']}`;
     } else {
-      basePath = `${this.client.options.basePath}/pet/${data['petId']}`;
-      tokenizedUrl = `${this.client.options.basePath}/pet/${this.piiParamTokens['petId'] || data['petId']}`;
+      basePath = `${serverBasePath}/pet/${data['petId']}`;
+      tokenizedUrl = `${serverBasePath}/pet/${this.piiParamTokens['petId'] || data['petId']}`;
     }
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 
@@ -192,6 +208,11 @@ export class PetApi implements Api {
       ...(metadataHeaderAccept ? {'Accept': metadataHeaderAccept} : {})
     };
 
+    const operationServers = [
+] as const satisfies Server[];
+
+    const serverBasePath = selectServerBasePath(this.client.options, operationServers.length > 0 ? operationServers : SDK_SERVERS, this.client.options.logger);
+
     let body: RequestBody = '';
 
     let queryParams = {};
@@ -200,14 +221,14 @@ export class PetApi implements Api {
       enableParameterSerialization: this.client.options.enableParameterSerialization
     };
     if (this.client.options.enableParameterSerialization) {
-      const queryParamSerialization = { status: { explode: true, style: 'form' } };
+      const queryParamSerialization = { 'status': { explode: true, style: 'form' } };
       queryParams = this.client.serializeQueryParams(queryParamsProperties, queryParamSerialization);
       paramSerializationOptions.queryParamSerialization = queryParamSerialization;
     } else {
       queryParams = this.client.stringifyQueryParams(queryParamsProperties);
     }
-    const basePath = `${this.client.options.basePath}/pet/findByStatus`;
-    const tokenizedUrl = `${this.client.options.basePath}/pet/findByStatus`;
+    const basePath = `${serverBasePath}/pet/findByStatus`;
+    const tokenizedUrl = `${serverBasePath}/pet/findByStatus`;
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 
     const requestOptions = {
@@ -242,6 +263,11 @@ export class PetApi implements Api {
       ...(metadataHeaderAccept ? {'Accept': metadataHeaderAccept} : {})
     };
 
+    const operationServers = [
+] as const satisfies Server[];
+
+    const serverBasePath = selectServerBasePath(this.client.options, operationServers.length > 0 ? operationServers : SDK_SERVERS, this.client.options.logger);
+
     let body: RequestBody = '';
 
     let queryParams = {};
@@ -250,14 +276,14 @@ export class PetApi implements Api {
       enableParameterSerialization: this.client.options.enableParameterSerialization
     };
     if (this.client.options.enableParameterSerialization) {
-      const queryParamSerialization = { tags: { explode: true, style: 'form' } };
+      const queryParamSerialization = { 'tags': { explode: true, style: 'form' } };
       queryParams = this.client.serializeQueryParams(queryParamsProperties, queryParamSerialization);
       paramSerializationOptions.queryParamSerialization = queryParamSerialization;
     } else {
       queryParams = this.client.stringifyQueryParams(queryParamsProperties);
     }
-    const basePath = `${this.client.options.basePath}/pet/findByTags`;
-    const tokenizedUrl = `${this.client.options.basePath}/pet/findByTags`;
+    const basePath = `${serverBasePath}/pet/findByTags`;
+    const tokenizedUrl = `${serverBasePath}/pet/findByTags`;
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 
     const requestOptions = {
@@ -292,6 +318,11 @@ export class PetApi implements Api {
       ...(metadataHeaderAccept ? {'Accept': metadataHeaderAccept} : {})
     };
 
+    const operationServers = [
+] as const satisfies Server[];
+
+    const serverBasePath = selectServerBasePath(this.client.options, operationServers.length > 0 ? operationServers : SDK_SERVERS, this.client.options.logger);
+
     let body: RequestBody = '';
 
     let queryParams = {};
@@ -302,13 +333,13 @@ export class PetApi implements Api {
     let tokenizedUrl;
     if (this.client.options.enableParameterSerialization) {
       const pathParamsProperties = this.client.getPropertiesFromData(data, ['petId']);
-      const pathParamSerialization = { petId: { explode: false, style: 'simple' } };
+      const pathParamSerialization = { 'petId': { explode: false, style: 'simple' } };
       const serializedPathParams = this.client.serializePathParams(pathParamsProperties, pathParamSerialization);
-      basePath = `${this.client.options.basePath}/pet/${serializedPathParams['petId']}`;
-      tokenizedUrl = `${this.client.options.basePath}/pet/${this.piiParamTokens['petId'] || serializedPathParams['petId']}`;
+      basePath = `${serverBasePath}/pet/${serializedPathParams['petId']}`;
+      tokenizedUrl = `${serverBasePath}/pet/${this.piiParamTokens['petId'] || serializedPathParams['petId']}`;
     } else {
-      basePath = `${this.client.options.basePath}/pet/${data['petId']}`;
-      tokenizedUrl = `${this.client.options.basePath}/pet/${this.piiParamTokens['petId'] || data['petId']}`;
+      basePath = `${serverBasePath}/pet/${data['petId']}`;
+      tokenizedUrl = `${serverBasePath}/pet/${this.piiParamTokens['petId'] || data['petId']}`;
     }
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 
@@ -344,6 +375,11 @@ export class PetApi implements Api {
       ...(metadataHeaderAccept ? {'Accept': metadataHeaderAccept} : {})
     };
 
+    const operationServers = [
+] as const satisfies Server[];
+
+    const serverBasePath = selectServerBasePath(this.client.options, operationServers.length > 0 ? operationServers : SDK_SERVERS, this.client.options.logger);
+
     let body: RequestBody = '';
     if (headers['Content-Type'] && isJsonMimeType(headers['Content-Type'])) {
       body = typeof data['Pet'] !== 'undefined' ? JSON.stringify(data['Pet']) : '{}';
@@ -355,8 +391,8 @@ export class PetApi implements Api {
     const paramSerializationOptions: ParamSerializationOptions = {
       enableParameterSerialization: this.client.options.enableParameterSerialization
     };
-    const basePath = `${this.client.options.basePath}/pet`;
-    const tokenizedUrl = `${this.client.options.basePath}/pet`;
+    const basePath = `${serverBasePath}/pet`;
+    const tokenizedUrl = `${serverBasePath}/pet`;
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 
     const requestOptions = {
@@ -391,6 +427,11 @@ export class PetApi implements Api {
       ...(metadataHeaderAccept ? {'Accept': metadataHeaderAccept} : {})
     };
 
+    const operationServers = [
+] as const satisfies Server[];
+
+    const serverBasePath = selectServerBasePath(this.client.options, operationServers.length > 0 ? operationServers : SDK_SERVERS, this.client.options.logger);
+
     let body: RequestBody = '';
 
     let queryParams = {};
@@ -401,18 +442,18 @@ export class PetApi implements Api {
     let basePath;
     let tokenizedUrl;
     if (this.client.options.enableParameterSerialization) {
-      const queryParamSerialization = { name: { explode: true, style: 'form' }, status: { explode: true, style: 'form' } };
+      const queryParamSerialization = { 'name': { explode: true, style: 'form' }, 'status': { explode: true, style: 'form' } };
       queryParams = this.client.serializeQueryParams(queryParamsProperties, queryParamSerialization);
       paramSerializationOptions.queryParamSerialization = queryParamSerialization;
       const pathParamsProperties = this.client.getPropertiesFromData(data, ['petId']);
-      const pathParamSerialization = { petId: { explode: false, style: 'simple' } };
+      const pathParamSerialization = { 'petId': { explode: false, style: 'simple' } };
       const serializedPathParams = this.client.serializePathParams(pathParamsProperties, pathParamSerialization);
-      basePath = `${this.client.options.basePath}/pet/${serializedPathParams['petId']}`;
-      tokenizedUrl = `${this.client.options.basePath}/pet/${this.piiParamTokens['petId'] || serializedPathParams['petId']}`;
+      basePath = `${serverBasePath}/pet/${serializedPathParams['petId']}`;
+      tokenizedUrl = `${serverBasePath}/pet/${this.piiParamTokens['petId'] || serializedPathParams['petId']}`;
     } else {
       queryParams = this.client.stringifyQueryParams(queryParamsProperties);
-      basePath = `${this.client.options.basePath}/pet/${data['petId']}`;
-      tokenizedUrl = `${this.client.options.basePath}/pet/${this.piiParamTokens['petId'] || data['petId']}`;
+      basePath = `${serverBasePath}/pet/${data['petId']}`;
+      tokenizedUrl = `${serverBasePath}/pet/${this.piiParamTokens['petId'] || data['petId']}`;
     }
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 
@@ -448,6 +489,11 @@ export class PetApi implements Api {
       ...(metadataHeaderAccept ? {'Accept': metadataHeaderAccept} : {})
     };
 
+    const operationServers = [
+] as const satisfies Server[];
+
+    const serverBasePath = selectServerBasePath(this.client.options, operationServers.length > 0 ? operationServers : SDK_SERVERS, this.client.options.logger);
+
     let body: RequestBody = '';
     if (headers['Content-Type'] && isJsonMimeType(headers['Content-Type'])) {
       body = typeof data['body'] !== 'undefined' ? JSON.stringify(data['body']) : '{}';
@@ -463,18 +509,18 @@ export class PetApi implements Api {
     let basePath;
     let tokenizedUrl;
     if (this.client.options.enableParameterSerialization) {
-      const queryParamSerialization = { additionalMetadata: { explode: true, style: 'form' } };
+      const queryParamSerialization = { 'additionalMetadata': { explode: true, style: 'form' } };
       queryParams = this.client.serializeQueryParams(queryParamsProperties, queryParamSerialization);
       paramSerializationOptions.queryParamSerialization = queryParamSerialization;
       const pathParamsProperties = this.client.getPropertiesFromData(data, ['petId']);
-      const pathParamSerialization = { petId: { explode: false, style: 'simple' } };
+      const pathParamSerialization = { 'petId': { explode: false, style: 'simple' } };
       const serializedPathParams = this.client.serializePathParams(pathParamsProperties, pathParamSerialization);
-      basePath = `${this.client.options.basePath}/pet/${serializedPathParams['petId']}/uploadImage`;
-      tokenizedUrl = `${this.client.options.basePath}/pet/${this.piiParamTokens['petId'] || serializedPathParams['petId']}/uploadImage`;
+      basePath = `${serverBasePath}/pet/${serializedPathParams['petId']}/uploadImage`;
+      tokenizedUrl = `${serverBasePath}/pet/${this.piiParamTokens['petId'] || serializedPathParams['petId']}/uploadImage`;
     } else {
       queryParams = this.client.stringifyQueryParams(queryParamsProperties);
-      basePath = `${this.client.options.basePath}/pet/${data['petId']}/uploadImage`;
-      tokenizedUrl = `${this.client.options.basePath}/pet/${this.piiParamTokens['petId'] || data['petId']}/uploadImage`;
+      basePath = `${serverBasePath}/pet/${data['petId']}/uploadImage`;
+      tokenizedUrl = `${serverBasePath}/pet/${this.piiParamTokens['petId'] || data['petId']}/uploadImage`;
     }
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 
