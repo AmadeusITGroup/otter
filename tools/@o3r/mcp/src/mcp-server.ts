@@ -41,11 +41,7 @@ export async function createMcpServer(logger: MCPLogger): Promise<McpServer> {
   const { name, version } = JSON.parse(await readFile(join(__dirname, '..', 'package.json'), 'utf8')) as { name: string; version: string };
   const server = new McpServer({
     name,
-    version,
-    capabilities: {
-      resources: {},
-      tools: {}
-    }
+    version
   });
   const resourcesPath = join(__dirname, '..', 'resources');
   const githubToken = process.env.O3R_MCP_GITHUB_TOKEN;

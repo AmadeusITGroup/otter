@@ -129,10 +129,7 @@ const setUpClientAndServer = async (options: { disableCache?: boolean } = {}) =>
   const { disableCache = false } = options;
   const mcpServer = new McpServer({
     name: 'test-find-repositories-using-library-server',
-    version: '1.0.0',
-    capabilities: {
-      tools: {}
-    }
+    version: '1.0.0'
   });
   registerGetRepositoriesUsingLibraryTool(mcpServer, {
     githubToken: 'fakeToken',

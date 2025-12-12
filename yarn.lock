@@ -435,7 +435,7 @@ __metadata:
     "@angular/platform-browser": "npm:~20.3.15"
     "@angular/platform-browser-dynamic": "npm:~20.3.15"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@modelcontextprotocol/sdk": "npm:~1.20.0"
+    "@modelcontextprotocol/sdk": "npm:~1.24.0"
     "@nx/eslint": "npm:~21.6.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
@@ -472,12 +472,12 @@ __metadata:
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.9.2"
     typescript-eslint: "npm:~8.47.0"
-    zod: "npm:~3.25.76"
+    zod: "npm:~4.1.0"
     zone.js: "npm:~0.15.0"
   peerDependencies:
     "@ama-mcp/core": "workspace:^"
     "@modelcontextprotocol/sdk": ^1.20.0
-    zod: ~3.25.76
+    zod: ^3.25.76 || ^4.0.0
   languageName: unknown
   linkType: soft
 
@@ -493,7 +493,7 @@ __metadata:
     "@angular/platform-browser": "npm:~20.3.15"
     "@angular/platform-browser-dynamic": "npm:~20.3.15"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@modelcontextprotocol/sdk": "npm:~1.20.0"
+    "@modelcontextprotocol/sdk": "npm:~1.24.0"
     "@nx/eslint": "npm:~21.6.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
@@ -530,6 +530,7 @@ __metadata:
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.9.2"
     typescript-eslint: "npm:~8.47.0"
+    zod: "npm:~4.1.0"
     zone.js: "npm:~0.15.0"
   peerDependencies:
     "@modelcontextprotocol/sdk": ^1.19.0
@@ -549,7 +550,7 @@ __metadata:
     "@angular/platform-browser": "npm:~20.3.15"
     "@angular/platform-browser-dynamic": "npm:~20.3.15"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@modelcontextprotocol/sdk": "npm:~1.20.0"
+    "@modelcontextprotocol/sdk": "npm:~1.24.0"
     "@nx/eslint": "npm:~21.6.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
@@ -587,13 +588,13 @@ __metadata:
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.9.2"
     typescript-eslint: "npm:~8.47.0"
-    zod: "npm:~3.25.76"
+    zod: "npm:~4.1.0"
     zone.js: "npm:~0.15.0"
   peerDependencies:
     "@ama-mcp/core": "workspace:^"
-    "@modelcontextprotocol/sdk": ~1.20.0
+    "@modelcontextprotocol/sdk": ^1.24.0
     "@octokit/rest": ^22.0.0
-    zod: ~3.25.76
+    zod: ^3.25.76 || ^4.0.0
   languageName: unknown
   linkType: soft
 
@@ -610,7 +611,7 @@ __metadata:
     "@angular/platform-browser": "npm:~20.3.15"
     "@angular/platform-browser-dynamic": "npm:~20.3.15"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@modelcontextprotocol/sdk": "npm:~1.20.0"
+    "@modelcontextprotocol/sdk": "npm:~1.24.0"
     "@nx/eslint": "npm:~21.6.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
@@ -650,14 +651,14 @@ __metadata:
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.9.2"
     typescript-eslint: "npm:~8.47.0"
-    zod: "npm:~3.25.76"
+    zod: "npm:~4.1.0"
     zone.js: "npm:~0.15.0"
   peerDependencies:
     "@ama-mcp/core": "workspace:^"
-    "@modelcontextprotocol/sdk": ~1.20.0
+    "@modelcontextprotocol/sdk": ^1.24.0
     compressing: ^2.0.0
     globby: ^11.1.0
-    zod: ~3.25.76
+    zod: ^3.25.76 || ^4.0.0
   languageName: unknown
   linkType: soft
 
@@ -7414,11 +7415,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@modelcontextprotocol/sdk@npm:~1.20.0":
-  version: 1.20.2
-  resolution: "@modelcontextprotocol/sdk@npm:1.20.2"
+"@modelcontextprotocol/sdk@npm:~1.24.0":
+  version: 1.24.3
+  resolution: "@modelcontextprotocol/sdk@npm:1.24.3"
   dependencies:
-    ajv: "npm:^6.12.6"
+    ajv: "npm:^8.17.1"
+    ajv-formats: "npm:^3.0.1"
     content-type: "npm:^1.0.5"
     cors: "npm:^2.8.5"
     cross-spawn: "npm:^7.0.5"
@@ -7426,11 +7428,20 @@ __metadata:
     eventsource-parser: "npm:^3.0.0"
     express: "npm:^5.0.1"
     express-rate-limit: "npm:^7.5.0"
+    jose: "npm:^6.1.1"
     pkce-challenge: "npm:^5.0.0"
     raw-body: "npm:^3.0.0"
-    zod: "npm:^3.23.8"
-    zod-to-json-schema: "npm:^3.24.1"
-  checksum: 10/7601ef98bd2a1673456267ca11e049b35664a698dfe4525c7b49d7593983191128249218333e6ef2ffcc1bc0b8c6986f07cd4fbec38d52a12dc36d7fe6473de9
+    zod: "npm:^3.25 || ^4.0"
+    zod-to-json-schema: "npm:^3.25.0"
+  peerDependencies:
+    "@cfworker/json-schema": ^4.1.1
+    zod: ^3.25 || ^4.0
+  peerDependenciesMeta:
+    "@cfworker/json-schema":
+      optional: true
+    zod:
+      optional: false
+  checksum: 10/661aea493ee06674edc0d1409d5ff6e53053da2c3eb27d28ecdd5aa212d9d6bac8c00bec1cd18c1065f2d5774afef34e3cdcd19643056f954c14f611fee8cbc4
   languageName: node
   linkType: hard
 
@@ -11466,7 +11477,7 @@ __metadata:
     "@angular/platform-browser": "npm:~20.3.15"
     "@angular/platform-browser-dynamic": "npm:~20.3.15"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@modelcontextprotocol/sdk": "npm:~1.20.0"
+    "@modelcontextprotocol/sdk": "npm:~1.24.0"
     "@nx/eslint": "npm:~21.6.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
@@ -11504,7 +11515,7 @@ __metadata:
     type-fest: "npm:^4.30.1"
     typescript: "npm:~5.9.2"
     typescript-eslint: "npm:~8.47.0"
-    zod: "npm:~3.25.76"
+    zod: "npm:~4.1.0"
     zone.js: "npm:~0.15.0"
   bin:
     o3r-mcp-start: ./dist/src/cli/index.js
@@ -38828,7 +38839,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zod-to-json-schema@npm:^3.24.1, zod-to-json-schema@npm:^3.25.0":
+"zod-to-json-schema@npm:^3.25.0":
   version: 3.25.0
   resolution: "zod-to-json-schema@npm:3.25.0"
   peerDependencies:
@@ -38837,14 +38848,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zod@npm:4.1.13, zod@npm:^3.25 || ^4.0":
+"zod@npm:4.1.13, zod@npm:^3.25 || ^4.0, zod@npm:~4.1.0":
   version: 4.1.13
   resolution: "zod@npm:4.1.13"
   checksum: 10/0679190318928f69fcb07751063719de232c663b13955fcdb55db59839569d39f3f29b955cb0cba7af0b724233f88c06b3e84c550397ad4e68f8088fa6799d88
   languageName: node
   linkType: hard
 
-"zod@npm:^3.23.8, zod@npm:^3.24.1, zod@npm:~3.25.76":
+"zod@npm:^3.24.1":
   version: 3.25.76
   resolution: "zod@npm:3.25.76"
   checksum: 10/f0c963ec40cd96858451d1690404d603d36507c1fc9682f2dae59ab38b578687d542708a7fdbf645f77926f78c9ed558f57c3d3aa226c285f798df0c4da16995
