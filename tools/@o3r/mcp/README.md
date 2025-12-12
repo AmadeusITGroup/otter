@@ -23,12 +23,17 @@ To add the Otter MCP server, you should first activate mcp with `"chat.mcp.enabl
 
 Then, in your `.vscode/mcp.json` add
 
-```json
+```json5
 {
   "Otter": {
     "type": "stdio",
     "command": "npx",
-    "args": ["-y", "-p", "@o3r/mcp", "o3r-mcp-start"]
+    "args": ["-y", "-p", "@o3r/mcp", "o3r-mcp-start"],
+    "env": {
+      // Help us improve Otter by setting this to true.
+      // More details on our privacy policy: https://github.com/AmadeusITGroup/otter/blob/main/PRIVACY.md
+      "O3R_METRICS": true
+    }
   }
 }
 ```
