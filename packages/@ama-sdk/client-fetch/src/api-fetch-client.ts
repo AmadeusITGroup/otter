@@ -171,6 +171,7 @@ export class ApiFetchClient implements ApiClient {
         : this.options.fetchPlugins;
       loadedPlugins.push(...fetchPlugins.map((plugin) => plugin.load({ url, options, fetchPlugins: loadedPlugins, controller, apiClient: this, logger: this.options.logger })));
 
+      // eslint-disable-next-line @typescript-eslint/await-thenable -- `canStart` can return either a boolean or Promise<boolean>
       const canStart = await Promise.all(loadedPlugins.map((plugin) => !plugin.canStart || plugin.canStart()));
       const isCanceledBy = canStart.indexOf(false);
       asyncResponse = isCanceledBy === -1

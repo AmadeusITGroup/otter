@@ -16,6 +16,7 @@
       },
       "dependsOn": ["prepare", "^build"]
     },
+    "test": {},
     "lint": {},
     "prepare-publish": {},
     "publish": {}
