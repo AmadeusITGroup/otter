@@ -99,7 +99,7 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
    * @param options.elementConstructor Constructor that will be used to create the Element, defaults to O3rElement
    * @param options.index index Select the element associated to the index
    * @param options.shouldThrowIfNotPresent If set to true the function will throw if the element is not present
-   * @param options.timeout Duration to wait for the element to be present before it throws
+   * @param options.timeout Duration to wait for the element
    */
   protected async getText<T extends O3rElement>(selector: string, options: {
     elementConstructor?: O3rElementConstructor<T>;
@@ -108,9 +108,6 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
     timeout?: number;
   } = {}): Promise<string | undefined> {
     const element = await this.queryWithOptions(selector, options.elementConstructor, options);
-    if (!await element.isVisible()) {
-      return;
-    }
     return await element.getText();
   }
 
@@ -121,7 +118,7 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
    * @param options.elementConstructor Constructor that will be used to create the Element, defaults to O3rElement
    * @param options.index index Select the element associated to the index
    * @param options.shouldThrowIfNotPresent If set to true the function will throw if the element is not present
-   * @param options.timeout Duration to wait for the element to be present before it throws
+   * @param options.timeout Duration to wait for the element
    */
   protected async isVisible<T extends O3rElement>(selector: string, options: {
     elementConstructor?: O3rElementConstructor<T> | undefined;
@@ -130,7 +127,18 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
     timeout?: number;
   } = {}): Promise<boolean> {
     const element = await this.queryWithOptions(selector, options.elementConstructor, options);
-    return await element.isVisible();
+    if (options.timeout) {
+      try {
+        await element.sourceElement.element.waitFor({
+          state: 'visible',
+          timeout: options.timeout
+        });
+        return true;
+      } catch {
+        return false;
+      }
+    }
+    return element.isVisible();
   }
 
   /**
@@ -149,9 +157,7 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
     timeout?: number;
   } = {}): Promise<void> {
     const element = await this.queryWithOptions(selector, options.elementConstructor, options);
-    if (await element.isVisible()) {
-      await element.click();
-    }
+    await element.click();
   }
 
   /** @inheritdoc */
@@ -160,7 +166,10 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
   public query<T extends O3rElement>(selector: string, returnType: O3rElementConstructor<T> | undefined): Promise<T | O3rElement> {
     const elements = this.rootElement.sourceElement.element.locator(selector);
     const element = elements.first();
-    const selectedElement = { element: element, page: this.rootElement.sourceElement.page } as const satisfies PlaywrightSourceElement;
+    const selectedElement = {
+      element: element,
+      page: this.rootElement.sourceElement.page
+    } as const satisfies PlaywrightSourceElement;
     return Promise.resolve(new (returnType || O3rElement)(selectedElement));
   }
 
@@ -170,7 +179,10 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
   public queryNth<T extends O3rElement>(selector: string, index: number, returnType: O3rElementConstructor<T> | undefined): Promise<T | O3rElement> {
     const elements = this.rootElement.sourceElement.element.locator(selector);
     const element = elements.nth(index);
-    const selectedElement = { element: element, page: this.rootElement.sourceElement.page } as const satisfies PlaywrightSourceElement;
+    const selectedElement = {
+      element: element,
+      page: this.rootElement.sourceElement.page
+    } as const satisfies PlaywrightSourceElement;
     return Promise.resolve(new (returnType || O3rElement)(selectedElement));
   }
 
@@ -192,7 +204,10 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
       const pElementsCount = await pElements.count();
       const elements = [];
       for (let i = 0; i < pElementsCount; i++) {
-        const selectedElement: PlaywrightSourceElement = { element: pElements.nth(i), page: this.rootElement.sourceElement.page };
+        const selectedElement: PlaywrightSourceElement = {
+          element: pElements.nth(i),
+          page: this.rootElement.sourceElement.page
+        };
         elements.push(returnType ? new returnType(selectedElement) : new O3rElement(selectedElement));
       }
       if (groupType) {
