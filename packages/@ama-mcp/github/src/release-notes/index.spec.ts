@@ -33,10 +33,7 @@ import {
 const setUpClientAndServer = async () => {
   const mcpServer = new McpServer({
     name: 'test-release-notes-server',
-    version: '1.0.0',
-    capabilities: {
-      tools: {}
-    }
+    version: '1.0.0'
   });
   await registerReleaseNotes(mcpServer, {
     githubToken: 'fakeToken',
