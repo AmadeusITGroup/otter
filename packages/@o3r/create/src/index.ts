@@ -87,7 +87,7 @@ if (!args.some((a) => a.startsWith('--preset'))) {
   args.push('--preset', 'recommended');
 }
 
-args.push('--no-create-application');
+args.push('--no-create-application', '--zoneless');
 
 const supportedPackageManager = ['npm', 'yarn'];
 const supportedPackageManagerRegExp = new RegExp(`^(${supportedPackageManager.join('|')})$`);
