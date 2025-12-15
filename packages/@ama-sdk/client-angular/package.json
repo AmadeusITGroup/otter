@@ -92,7 +92,7 @@
     "@swc/cli": "~0.7.9",
     "@swc/core": "~1.15.3",
     "@types/jest": "~30.0.0",
-    "@types/node": "~22.18.0",
+    "@types/node": "~24.10.0",
     "@typescript-eslint/parser": "~8.47.0",
     "angular-eslint": "~20.6.0",
     "cpy-cli": "^6.0.0",

@@ -92,7 +92,7 @@
     "@swc/core": "~1.15.3",
     "@swc/helpers": "~0.5.17",
     "@types/jest": "~30.0.0",
-    "@types/node": "~22.18.0",
+    "@types/node": "~24.10.0",
     "@types/semver": "^7.3.13",
     "@typescript-eslint/parser": "~8.47.0",
     "@webcontainer/api": "~1.6.0",
