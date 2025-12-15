@@ -40,8 +40,8 @@
     }
   },
   "devDependencies": {
-    "@angular-devkit/core": "~20.3.11",
-    "@angular-devkit/schematics": "~20.3.11",
+    "@angular-devkit/core": "~20.3.13",
+    "@angular-devkit/schematics": "~20.3.13",
     "@babel/core": "~7.28.0",
     "@babel/preset-typescript": "~7.28.0",
     "@compodoc/compodoc": "^1.1.32",

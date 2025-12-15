@@ -427,13 +427,13 @@ __metadata:
   resolution: "@ama-mcp/angular@workspace:packages/@ama-mcp/angular"
   dependencies:
     "@ama-mcp/core": "workspace:^"
-    "@angular-devkit/schematics": "npm:~20.3.11"
-    "@angular/common": "npm:~20.3.13"
-    "@angular/compiler": "npm:~20.3.13"
-    "@angular/compiler-cli": "npm:~20.3.13"
-    "@angular/core": "npm:~20.3.13"
-    "@angular/platform-browser": "npm:~20.3.13"
-    "@angular/platform-browser-dynamic": "npm:~20.3.13"
+    "@angular-devkit/schematics": "npm:~20.3.13"
+    "@angular/common": "npm:~20.3.15"
+    "@angular/compiler": "npm:~20.3.15"
+    "@angular/compiler-cli": "npm:~20.3.15"
+    "@angular/core": "npm:~20.3.15"
+    "@angular/platform-browser": "npm:~20.3.15"
+    "@angular/platform-browser-dynamic": "npm:~20.3.15"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@modelcontextprotocol/sdk": "npm:~1.20.0"
     "@nx/eslint": "npm:~21.6.0"
@@ -485,13 +485,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ama-mcp/core@workspace:packages/@ama-mcp/core"
   dependencies:
-    "@angular-devkit/schematics": "npm:~20.3.11"
-    "@angular/common": "npm:~20.3.13"
-    "@angular/compiler": "npm:~20.3.13"
-    "@angular/compiler-cli": "npm:~20.3.13"
-    "@angular/core": "npm:~20.3.13"
-    "@angular/platform-browser": "npm:~20.3.13"
-    "@angular/platform-browser-dynamic": "npm:~20.3.13"
+    "@angular-devkit/schematics": "npm:~20.3.13"
+    "@angular/common": "npm:~20.3.15"
+    "@angular/compiler": "npm:~20.3.15"
+    "@angular/compiler-cli": "npm:~20.3.15"
+    "@angular/core": "npm:~20.3.15"
+    "@angular/platform-browser": "npm:~20.3.15"
+    "@angular/platform-browser-dynamic": "npm:~20.3.15"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@modelcontextprotocol/sdk": "npm:~1.20.0"
     "@nx/eslint": "npm:~21.6.0"
@@ -541,13 +541,13 @@ __metadata:
   resolution: "@ama-mcp/github@workspace:packages/@ama-mcp/github"
   dependencies:
     "@ama-mcp/core": "workspace:^"
-    "@angular-devkit/schematics": "npm:~20.3.11"
-    "@angular/common": "npm:~20.3.13"
-    "@angular/compiler": "npm:~20.3.13"
-    "@angular/compiler-cli": "npm:~20.3.13"
-    "@angular/core": "npm:~20.3.13"
-    "@angular/platform-browser": "npm:~20.3.13"
-    "@angular/platform-browser-dynamic": "npm:~20.3.13"
+    "@angular-devkit/schematics": "npm:~20.3.13"
+    "@angular/common": "npm:~20.3.15"
+    "@angular/compiler": "npm:~20.3.15"
+    "@angular/compiler-cli": "npm:~20.3.15"
+    "@angular/core": "npm:~20.3.15"
+    "@angular/platform-browser": "npm:~20.3.15"
+    "@angular/platform-browser-dynamic": "npm:~20.3.15"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@modelcontextprotocol/sdk": "npm:~1.20.0"
     "@nx/eslint": "npm:~21.6.0"
@@ -602,13 +602,13 @@ __metadata:
   resolution: "@ama-mcp/otter@workspace:packages/@ama-mcp/otter"
   dependencies:
     "@ama-mcp/core": "workspace:^"
-    "@angular-devkit/schematics": "npm:~20.3.11"
-    "@angular/common": "npm:~20.3.13"
-    "@angular/compiler": "npm:~20.3.13"
-    "@angular/compiler-cli": "npm:~20.3.13"
-    "@angular/core": "npm:~20.3.13"
-    "@angular/platform-browser": "npm:~20.3.13"
-    "@angular/platform-browser-dynamic": "npm:~20.3.13"
+    "@angular-devkit/schematics": "npm:~20.3.13"
+    "@angular/common": "npm:~20.3.15"
+    "@angular/compiler": "npm:~20.3.15"
+    "@angular/compiler-cli": "npm:~20.3.15"
+    "@angular/core": "npm:~20.3.15"
+    "@angular/platform-browser": "npm:~20.3.15"
+    "@angular/platform-browser-dynamic": "npm:~20.3.15"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@modelcontextprotocol/sdk": "npm:~1.20.0"
     "@nx/eslint": "npm:~21.6.0"
@@ -619,7 +619,7 @@ __metadata:
     "@o3r/eslint-config": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
-    "@schematics/angular": "npm:~20.3.11"
+    "@schematics/angular": "npm:~20.3.13"
     "@stylistic/eslint-plugin": "npm:~5.6.0"
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~22.18.0"
@@ -673,7 +673,7 @@ __metadata:
     "@o3r/build-helpers": "workspace:~"
     "@o3r/eslint-plugin": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@schematics/angular": "npm:~20.3.11"
+    "@schematics/angular": "npm:~20.3.13"
     "@stylistic/eslint-plugin": "npm:~5.6.0"
     "@swc/cli": "npm:~0.7.9"
     "@swc/core": "npm:~1.15.3"
@@ -719,18 +719,18 @@ __metadata:
     "@ama-mfe/messages": "workspace:~"
     "@amadeus-it-group/microfrontends": "npm:0.0.9"
     "@amadeus-it-group/microfrontends-angular": "npm:0.0.9"
-    "@angular-devkit/architect": "npm:~0.2003.11"
-    "@angular-devkit/build-angular": "npm:~20.3.11"
-    "@angular-devkit/core": "npm:~20.3.11"
-    "@angular-devkit/schematics": "npm:~20.3.11"
-    "@angular/cli": "npm:~20.3.11"
-    "@angular/common": "npm:~20.3.13"
-    "@angular/compiler": "npm:~20.3.13"
-    "@angular/compiler-cli": "npm:~20.3.13"
-    "@angular/core": "npm:~20.3.13"
-    "@angular/platform-browser": "npm:~20.3.13"
-    "@angular/platform-browser-dynamic": "npm:~20.3.13"
-    "@angular/router": "npm:~20.3.13"
+    "@angular-devkit/architect": "npm:0.2003.13"
+    "@angular-devkit/build-angular": "npm:~20.3.13"
+    "@angular-devkit/core": "npm:~20.3.13"
+    "@angular-devkit/schematics": "npm:~20.3.13"
+    "@angular/cli": "npm:~20.3.13"
+    "@angular/common": "npm:~20.3.15"
+    "@angular/compiler": "npm:~20.3.15"
+    "@angular/compiler-cli": "npm:~20.3.15"
+    "@angular/core": "npm:~20.3.15"
+    "@angular/platform-browser": "npm:~20.3.15"
+    "@angular/platform-browser-dynamic": "npm:~20.3.15"
+    "@angular/router": "npm:~20.3.15"
     "@compodoc/compodoc": "npm:^1.1.32"
     "@jest/environment-jsdom-abstract": "npm:~30.2.0"
     "@o3r/build-helpers": "workspace:~"
@@ -739,7 +739,7 @@ __metadata:
     "@o3r/logger": "workspace:~"
     "@o3r/schematics": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@schematics/angular": "npm:~20.3.11"
+    "@schematics/angular": "npm:~20.3.13"
     "@types/jest": "npm:~30.0.0"
     "@types/jsdom": "npm:^21.1.7"
     "@types/node": "npm:~22.18.0"
@@ -937,7 +937,7 @@ __metadata:
   resolution: "@ama-openapi/create@workspace:packages/@ama-openapi/create"
   dependencies:
     "@ama-openapi/core": "workspace:~"
-    "@angular-devkit/schematics": "npm:~20.3.11"
+    "@angular-devkit/schematics": "npm:~20.3.13"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@nx/eslint": "npm:~21.6.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
@@ -948,7 +948,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:~"
     "@o3r/telemetry": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@schematics/angular": "npm:~20.3.11"
+    "@schematics/angular": "npm:~20.3.13"
     "@stylistic/eslint-plugin": "npm:~5.6.0"
     "@types/ejs": "npm:^3.1.2"
     "@types/jest": "npm:~30.0.0"
@@ -1066,10 +1066,10 @@ __metadata:
   resolution: "@ama-sdk/client-angular@workspace:packages/@ama-sdk/client-angular"
   dependencies:
     "@ama-sdk/core": "workspace:~"
-    "@angular-devkit/core": "npm:~20.3.11"
-    "@angular-devkit/schematics": "npm:~20.3.11"
-    "@angular/common": "npm:~20.3.13"
-    "@angular/core": "npm:~20.3.13"
+    "@angular-devkit/core": "npm:~20.3.13"
+    "@angular-devkit/schematics": "npm:~20.3.13"
+    "@angular/common": "npm:~20.3.15"
+    "@angular/core": "npm:~20.3.15"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
@@ -1077,7 +1077,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:~"
     "@o3r/schematics": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@schematics/angular": "npm:~20.3.11"
+    "@schematics/angular": "npm:~20.3.13"
     "@stylistic/eslint-plugin": "npm:~5.6.0"
     "@swc/cli": "npm:~0.7.9"
     "@swc/core": "npm:~1.15.3"
@@ -1146,10 +1146,10 @@ __metadata:
   resolution: "@ama-sdk/client-beacon@workspace:packages/@ama-sdk/client-beacon"
   dependencies:
     "@ama-sdk/core": "workspace:~"
-    "@angular-devkit/core": "npm:~20.3.11"
-    "@angular-devkit/schematics": "npm:~20.3.11"
-    "@angular/common": "npm:~20.3.13"
-    "@angular/core": "npm:~20.3.13"
+    "@angular-devkit/core": "npm:~20.3.13"
+    "@angular-devkit/schematics": "npm:~20.3.13"
+    "@angular/common": "npm:~20.3.15"
+    "@angular/core": "npm:~20.3.15"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
@@ -1157,7 +1157,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:~"
     "@o3r/schematics": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@schematics/angular": "npm:~20.3.11"
+    "@schematics/angular": "npm:~20.3.13"
     "@stylistic/eslint-plugin": "npm:~5.6.0"
     "@swc/cli": "npm:~0.7.9"
     "@swc/core": "npm:~1.15.3"
@@ -1224,10 +1224,10 @@ __metadata:
   resolution: "@ama-sdk/client-fetch@workspace:packages/@ama-sdk/client-fetch"
   dependencies:
     "@ama-sdk/core": "workspace:~"
-    "@angular-devkit/core": "npm:~20.3.11"
-    "@angular-devkit/schematics": "npm:~20.3.11"
-    "@angular/common": "npm:~20.3.13"
-    "@angular/core": "npm:~20.3.13"
+    "@angular-devkit/core": "npm:~20.3.13"
+    "@angular-devkit/schematics": "npm:~20.3.13"
+    "@angular/common": "npm:~20.3.15"
+    "@angular/core": "npm:~20.3.15"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
@@ -1235,7 +1235,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:~"
     "@o3r/schematics": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@schematics/angular": "npm:~20.3.11"
+    "@schematics/angular": "npm:~20.3.13"
     "@stylistic/eslint-plugin": "npm:~5.6.0"
     "@swc/cli": "npm:~0.7.9"
     "@swc/core": "npm:~1.15.3"
@@ -1305,10 +1305,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ama-sdk/core@workspace:packages/@ama-sdk/core"
   dependencies:
-    "@angular-devkit/core": "npm:~20.3.11"
-    "@angular-devkit/schematics": "npm:~20.3.11"
-    "@angular/common": "npm:~20.3.13"
-    "@angular/core": "npm:~20.3.13"
+    "@angular-devkit/core": "npm:~20.3.13"
+    "@angular-devkit/schematics": "npm:~20.3.13"
+    "@angular/common": "npm:~20.3.15"
+    "@angular/core": "npm:~20.3.15"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
@@ -1316,7 +1316,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:~"
     "@o3r/schematics": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@schematics/angular": "npm:~20.3.11"
+    "@schematics/angular": "npm:~20.3.13"
     "@stylistic/eslint-plugin": "npm:~5.6.0"
     "@swc/cli": "npm:~0.7.9"
     "@swc/core": "npm:~1.15.3"
@@ -1379,10 +1379,10 @@ __metadata:
   dependencies:
     "@ama-sdk/core": "workspace:*"
     "@ama-sdk/schematics": "workspace:*"
-    "@angular-devkit/core": "npm:~20.3.11"
-    "@angular-devkit/schematics": "npm:~20.3.11"
-    "@angular-devkit/schematics-cli": "npm:~20.3.11"
-    "@angular/cli": "npm:~20.3.11"
+    "@angular-devkit/core": "npm:~20.3.13"
+    "@angular-devkit/schematics": "npm:~20.3.13"
+    "@angular-devkit/schematics-cli": "npm:~20.3.13"
+    "@angular/cli": "npm:~20.3.13"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@nx/eslint": "npm:~21.6.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
@@ -1395,7 +1395,7 @@ __metadata:
     "@o3r/telemetry": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
     "@openapitools/openapi-generator-cli": "npm:~2.25.0"
-    "@schematics/angular": "npm:~20.3.11"
+    "@schematics/angular": "npm:~20.3.13"
     "@stylistic/eslint-plugin": "npm:~5.6.0"
     "@types/jest": "npm:~30.0.0"
     "@types/minimist": "npm:^1.2.2"
@@ -1444,10 +1444,10 @@ __metadata:
   resolution: "@ama-sdk/schematics@workspace:packages/@ama-sdk/schematics"
   dependencies:
     "@ama-sdk/core": "workspace:~"
-    "@angular-devkit/core": "npm:~20.3.11"
-    "@angular-devkit/schematics": "npm:~20.3.11"
-    "@angular-devkit/schematics-cli": "npm:~20.3.11"
-    "@angular/cli": "npm:~20.3.11"
+    "@angular-devkit/core": "npm:~20.3.13"
+    "@angular-devkit/schematics": "npm:~20.3.13"
+    "@angular-devkit/schematics-cli": "npm:~20.3.13"
+    "@angular/cli": "npm:~20.3.13"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
@@ -1457,7 +1457,7 @@ __metadata:
     "@o3r/telemetry": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
     "@openapitools/openapi-generator-cli": "npm:~2.25.0"
-    "@schematics/angular": "npm:~20.3.11"
+    "@schematics/angular": "npm:~20.3.13"
     "@stylistic/eslint-plugin": "npm:~5.6.0"
     "@types/jest": "npm:~30.0.0"
     "@types/js-yaml": "npm:^4.0.5"
@@ -1597,7 +1597,7 @@ __metadata:
     "@ama-sdk/client-fetch": "workspace:~"
     "@ama-sdk/core": "workspace:~"
     "@ama-styling/figma-sdk": "workspace:~"
-    "@angular-devkit/schematics": "npm:~20.3.11"
+    "@angular-devkit/schematics": "npm:~20.3.13"
     "@compodoc/compodoc": "npm:^1.1.32"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@nx/eslint": "npm:~21.6.0"
@@ -1667,11 +1667,11 @@ __metadata:
     "@ama-sdk/client-fetch": "workspace:~"
     "@ama-sdk/core": "workspace:~"
     "@ama-sdk/schematics": "workspace:~"
-    "@angular-devkit/core": "npm:~20.3.11"
-    "@angular-devkit/schematics": "npm:~20.3.11"
-    "@angular-devkit/schematics-cli": "npm:~20.3.11"
-    "@angular/cli": "npm:~20.3.11"
-    "@angular/compiler": "npm:~20.3.13"
+    "@angular-devkit/core": "npm:~20.3.13"
+    "@angular-devkit/schematics": "npm:~20.3.13"
+    "@angular-devkit/schematics-cli": "npm:~20.3.13"
+    "@angular/cli": "npm:~20.3.13"
+    "@angular/compiler": "npm:~20.3.15"
     "@commitlint/cli": "npm:^19.0.0"
     "@commitlint/config-conventional": "npm:^19.0.0"
     "@compodoc/compodoc": "npm:^1.1.32"
@@ -1684,7 +1684,7 @@ __metadata:
     "@o3r/schematics": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
     "@openapitools/openapi-generator-cli": "npm:~2.25.0"
-    "@schematics/angular": "npm:~20.3.11"
+    "@schematics/angular": "npm:~20.3.13"
     "@stylistic/eslint-plugin": "npm:~5.6.0"
     "@swc/cli": "npm:~0.7.9"
     "@swc/core": "npm:~1.15.3"
@@ -1736,8 +1736,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ama-styling/style-dictionary@workspace:packages/@ama-styling/style-dictionary"
   dependencies:
-    "@angular-devkit/architect": "npm:~0.2003.11"
-    "@angular-devkit/schematics": "npm:~20.3.11"
+    "@angular-devkit/architect": "npm:0.2003.13"
+    "@angular-devkit/schematics": "npm:~20.3.13"
     "@babel/core": "npm:~7.28.0"
     "@babel/preset-env": "npm:~7.28.0"
     "@babel/preset-typescript": "npm:~7.28.0"
@@ -1753,7 +1753,7 @@ __metadata:
     "@o3r/schematics": "workspace:~"
     "@o3r/telemetry": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@schematics/angular": "npm:~20.3.11"
+    "@schematics/angular": "npm:~20.3.13"
     "@stylistic/eslint-plugin": "npm:~5.6.0"
     "@types/jest": "npm:~30.0.0"
     "@types/minimist": "npm:^1.2.2"
@@ -1814,9 +1814,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ama-styling/stylelint-plugin@workspace:packages/@ama-styling/stylelint-plugin"
   dependencies:
-    "@angular-devkit/core": "npm:~20.3.11"
-    "@angular-devkit/schematics": "npm:~20.3.11"
-    "@angular/compiler": "npm:~20.3.13"
+    "@angular-devkit/core": "npm:~20.3.13"
+    "@angular-devkit/schematics": "npm:~20.3.13"
+    "@angular/compiler": "npm:~20.3.15"
     "@babel/core": "npm:~7.28.0"
     "@babel/preset-env": "npm:~7.28.0"
     "@babel/preset-typescript": "npm:~7.28.0"
@@ -1829,7 +1829,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:~"
     "@o3r/schematics": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@schematics/angular": "npm:~20.3.11"
+    "@schematics/angular": "npm:~20.3.13"
     "@stylistic/eslint-plugin": "npm:~5.6.0"
     "@types/css-tree": "npm:~2.3.0"
     "@types/jest": "npm:~30.0.0"
@@ -1887,9 +1887,9 @@ __metadata:
   resolution: "@ama-terasu/cli@workspace:packages/@ama-terasu/cli"
   dependencies:
     "@ama-terasu/core": "workspace:~"
-    "@angular-devkit/architect": "npm:~0.2003.11"
-    "@angular-devkit/core": "npm:~20.3.11"
-    "@angular-devkit/schematics": "npm:~20.3.11"
+    "@angular-devkit/architect": "npm:0.2003.13"
+    "@angular-devkit/core": "npm:~20.3.13"
+    "@angular-devkit/schematics": "npm:~20.3.13"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
@@ -1902,7 +1902,7 @@ __metadata:
     "@o3r/schematics": "workspace:~"
     "@o3r/telemetry": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@schematics/angular": "npm:~20.3.11"
+    "@schematics/angular": "npm:~20.3.13"
     "@stylistic/eslint-plugin": "npm:~5.6.0"
     "@types/jest": "npm:~30.0.0"
     "@types/minimist": "npm:^1.2.2"
@@ -2018,9 +2018,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ama-terasu/schematics@workspace:packages/@ama-terasu/schematics"
   dependencies:
-    "@angular-devkit/architect": "npm:~0.2003.11"
-    "@angular-devkit/core": "npm:~20.3.11"
-    "@angular-devkit/schematics": "npm:~20.3.11"
+    "@angular-devkit/architect": "npm:0.2003.13"
+    "@angular-devkit/core": "npm:~20.3.13"
+    "@angular-devkit/schematics": "npm:~20.3.13"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
@@ -2028,7 +2028,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:~"
     "@o3r/schematics": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@schematics/angular": "npm:~20.3.11"
+    "@schematics/angular": "npm:~20.3.13"
     "@stylistic/eslint-plugin": "npm:~5.6.0"
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~22.18.0"
@@ -2116,25 +2116,25 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular-devkit/architect@npm:0.2003.11, @angular-devkit/architect@npm:>= 0.2000.0 < 0.2100.0, @angular-devkit/architect@npm:~0.2003.11":
-  version: 0.2003.11
-  resolution: "@angular-devkit/architect@npm:0.2003.11"
+"@angular-devkit/architect@npm:0.2003.13, @angular-devkit/architect@npm:>= 0.2000.0 < 0.2100.0":
+  version: 0.2003.13
+  resolution: "@angular-devkit/architect@npm:0.2003.13"
   dependencies:
-    "@angular-devkit/core": "npm:20.3.11"
+    "@angular-devkit/core": "npm:20.3.13"
     rxjs: "npm:7.8.2"
-  checksum: 10/d3fef26d4b307f4c215eb7bbe6c2f3daf29696c44563e75d0c3fe552a2701376efb3d1c03043092f0b7fd8ebe4625e4f2e324e879c3198f628b61bc7cbe73fee
+  checksum: 10/48b53dbb9789549e008c2d7083fdabe8a2412c002c086b6bd302d3ec03c77e69e08705e370610728d2bb0d7509af189e92f04e4ec1950ebe33b354b47e91de2b
   languageName: node
   linkType: hard
 
-"@angular-devkit/build-angular@npm:~20.3.11":
-  version: 20.3.11
-  resolution: "@angular-devkit/build-angular@npm:20.3.11"
+"@angular-devkit/build-angular@npm:~20.3.13":
+  version: 20.3.13
+  resolution: "@angular-devkit/build-angular@npm:20.3.13"
   dependencies:
     "@ampproject/remapping": "npm:2.3.0"
-    "@angular-devkit/architect": "npm:0.2003.11"
-    "@angular-devkit/build-webpack": "npm:0.2003.11"
-    "@angular-devkit/core": "npm:20.3.11"
-    "@angular/build": "npm:20.3.11"
+    "@angular-devkit/architect": "npm:0.2003.13"
+    "@angular-devkit/build-webpack": "npm:0.2003.13"
+    "@angular-devkit/core": "npm:20.3.13"
+    "@angular/build": "npm:20.3.13"
     "@babel/core": "npm:7.28.3"
     "@babel/generator": "npm:7.28.3"
     "@babel/helper-annotate-as-pure": "npm:7.27.3"
@@ -2145,7 +2145,7 @@ __metadata:
     "@babel/preset-env": "npm:7.28.3"
     "@babel/runtime": "npm:7.28.3"
     "@discoveryjs/json-ext": "npm:0.6.3"
-    "@ngtools/webpack": "npm:20.3.11"
+    "@ngtools/webpack": "npm:20.3.13"
     ansi-colors: "npm:4.1.3"
     autoprefixer: "npm:10.4.21"
     babel-loader: "npm:10.0.0"
@@ -2192,7 +2192,7 @@ __metadata:
     "@angular/platform-browser": ^20.0.0
     "@angular/platform-server": ^20.0.0
     "@angular/service-worker": ^20.0.0
-    "@angular/ssr": ^20.3.11
+    "@angular/ssr": ^20.3.13
     "@web/test-runner": ^0.20.0
     browser-sync: ^3.0.2
     jest: ^29.5.0 || ^30.2.0
@@ -2234,26 +2234,26 @@ __metadata:
       optional: true
     tailwindcss:
       optional: true
-  checksum: 10/d912dfe55f644b8782403baf472af349c2f9dfa4e7da11159c367328788db46f3c5673410c39c19289094a71d72424a324a537af0eeeef283e1e863bdb2ce756
+  checksum: 10/e84f8a9d825622e9af0810f8808fb16812d1aabf91a7c1b743bb719864c9480a65c2f69f2df80d6e8b6040d99ea69ab6a728f76c0a7aefc6b8d5e5d6b717068c
   languageName: node
   linkType: hard
 
-"@angular-devkit/build-webpack@npm:0.2003.11":
-  version: 0.2003.11
-  resolution: "@angular-devkit/build-webpack@npm:0.2003.11"
+"@angular-devkit/build-webpack@npm:0.2003.13":
+  version: 0.2003.13
+  resolution: "@angular-devkit/build-webpack@npm:0.2003.13"
   dependencies:
-    "@angular-devkit/architect": "npm:0.2003.11"
+    "@angular-devkit/architect": "npm:0.2003.13"
     rxjs: "npm:7.8.2"
   peerDependencies:
     webpack: ^5.30.0
     webpack-dev-server: ^5.0.2
-  checksum: 10/7906cb7039037a9c102c6e594317c67b04a5a5ab54e68dc1a21b4c46aed0923f904c9d2539471fd947aed78c5a893f2e2556b3c09c13cf77a56a1ce6c992bbae
+  checksum: 10/d38397fe6be3d26bbbfb3ac2ec047198852126027633cc4d5308d28c786cb51eecbc5abacb98c339b6e5909a91a0a78ceec7c8240d2fc96c1620f2b9664e3786
   languageName: node
   linkType: hard
 
-"@angular-devkit/core@npm:20.3.11, @angular-devkit/core@npm:>= 20.0.0 < 21.0.0, @angular-devkit/core@npm:~20.3.11":
-  version: 20.3.11
-  resolution: "@angular-devkit/core@npm:20.3.11"
+"@angular-devkit/core@npm:20.3.13, @angular-devkit/core@npm:>= 20.0.0 < 21.0.0, @angular-devkit/core@npm:~20.3.13":
+  version: 20.3.13
+  resolution: "@angular-devkit/core@npm:20.3.13"
   dependencies:
     ajv: "npm:8.17.1"
     ajv-formats: "npm:3.0.1"
@@ -2266,7 +2266,7 @@ __metadata:
   peerDependenciesMeta:
     chokidar:
       optional: true
-  checksum: 10/6a4df8f04909457635c3d324146d7c81c37590b423a7fb7101dab3edf837d076a2bfe3714db1fea486cc29679c4f886739dc139306ffbb5db5ec5325ecd54e16
+  checksum: 10/8cb9335a3433a30b3c624a64dcd157d1f2287fafaa443117d04c9909c363e01571f8ae9d9526dea50d9103090ca6ff1a76a3119d1ea538744ba9c3068f8e9129
   languageName: node
   linkType: hard
 
@@ -2289,31 +2289,31 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular-devkit/schematics-cli@npm:~20.3.11":
-  version: 20.3.11
-  resolution: "@angular-devkit/schematics-cli@npm:20.3.11"
+"@angular-devkit/schematics-cli@npm:~20.3.13":
+  version: 20.3.13
+  resolution: "@angular-devkit/schematics-cli@npm:20.3.13"
   dependencies:
-    "@angular-devkit/core": "npm:20.3.11"
-    "@angular-devkit/schematics": "npm:20.3.11"
+    "@angular-devkit/core": "npm:20.3.13"
+    "@angular-devkit/schematics": "npm:20.3.13"
     "@inquirer/prompts": "npm:7.8.2"
     ansi-colors: "npm:4.1.3"
     yargs-parser: "npm:22.0.0"
   bin:
     schematics: bin/schematics.js
-  checksum: 10/3b73ce56283198bb54880d2da91b124242426716ad13499edcb5c0c0a2caed5c8190694d7cc0f893ee921b444d5b3ac2ff8206bee87687a4e1a912e70d78e139
+  checksum: 10/4b52a0f721e201d2d2c41ca89d87ae31a357f145e91864581a12579a36cd9dc5ad059738e590d0a66d7a0ee18073ba1d5c39e26a329e4790ddf040e5fa6cd414
   languageName: node
   linkType: hard
 
-"@angular-devkit/schematics@npm:20.3.11, @angular-devkit/schematics@npm:>= 20.0.0 < 21.0.0, @angular-devkit/schematics@npm:~20.3.11":
-  version: 20.3.11
-  resolution: "@angular-devkit/schematics@npm:20.3.11"
+"@angular-devkit/schematics@npm:20.3.13, @angular-devkit/schematics@npm:>= 20.0.0 < 21.0.0, @angular-devkit/schematics@npm:~20.3.13":
+  version: 20.3.13
+  resolution: "@angular-devkit/schematics@npm:20.3.13"
   dependencies:
-    "@angular-devkit/core": "npm:20.3.11"
+    "@angular-devkit/core": "npm:20.3.13"
     jsonc-parser: "npm:3.3.1"
     magic-string: "npm:0.30.17"
     ora: "npm:8.2.0"
     rxjs: "npm:7.8.2"
-  checksum: 10/516a40c33b59a2d76d29d26276270e8fccc6147967ec59569cb5c5d04279456953432431bf9e277f192a1e7165a0d1c53be024c7546f9b6ec2d4df50a5142bd5
+  checksum: 10/93468a387a26bc8399829b032c70c86af7b50bab5c251d610690d34a5021597915ba3b8d68a8cff46438c1b1ea2b103fdf5695fd3e2a9c34a829ef9fbeac9ccf
   languageName: node
   linkType: hard
 
@@ -2443,23 +2443,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular/animations@npm:~20.3.13":
-  version: 20.3.13
-  resolution: "@angular/animations@npm:20.3.13"
+"@angular/animations@npm:~20.3.15":
+  version: 20.3.15
+  resolution: "@angular/animations@npm:20.3.15"
   dependencies:
     tslib: "npm:^2.3.0"
   peerDependencies:
-    "@angular/core": 20.3.13
-  checksum: 10/44e5edb2c904d02d74c8e72e30fa6760096a8999f8715bb680490e9a2a4b885f823ec89d6bb2fa052178bb09feaa10322360abfe8fd2e7ab1fb2e30866774903
+    "@angular/core": 20.3.15
+  checksum: 10/59a7f2532c8fd71b272ad89e4f111eac69ca289d7baf7a08f5cdb01df17852f8a62fdf41d3957fded3490b9fd36a5400230d302d2b603017f0e61d8313381efb
   languageName: node
   linkType: hard
 
-"@angular/build@npm:20.3.11, @angular/build@npm:~20.3.11":
-  version: 20.3.11
-  resolution: "@angular/build@npm:20.3.11"
+"@angular/build@npm:20.3.13, @angular/build@npm:~20.3.13":
+  version: 20.3.13
+  resolution: "@angular/build@npm:20.3.13"
   dependencies:
     "@ampproject/remapping": "npm:2.3.0"
-    "@angular-devkit/architect": "npm:0.2003.11"
+    "@angular-devkit/architect": "npm:0.2003.13"
     "@babel/core": "npm:7.28.3"
     "@babel/helper-annotate-as-pure": "npm:7.27.3"
     "@babel/helper-split-export-declaration": "npm:7.24.7"
@@ -2493,7 +2493,7 @@ __metadata:
     "@angular/platform-browser": ^20.0.0
     "@angular/platform-server": ^20.0.0
     "@angular/service-worker": ^20.0.0
-    "@angular/ssr": ^20.3.11
+    "@angular/ssr": ^20.3.13
     karma: ^6.4.0
     less: ^4.2.0
     ng-packagr: ^20.0.0
@@ -2530,7 +2530,7 @@ __metadata:
       optional: true
     vitest:
       optional: true
-  checksum: 10/6012b0eace0e4918b4268463f19363d6bd07fbee3f1d2a3328e6d529092efe20060e1c75745d688097f98ff504c31424820a1c7345bd568a11692fff5d52a5f3
+  checksum: 10/316166f939486789e9f53719a302dccad38b25eddbffd1d74bbb608ae7e510a1f584d3258354aedda2bb232a60ffc9dbecd64d432c09f0450c21a094f0087f1b
   languageName: node
   linkType: hard
 
@@ -2548,17 +2548,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular/cli@npm:~20.3.11":
-  version: 20.3.11
-  resolution: "@angular/cli@npm:20.3.11"
+"@angular/cli@npm:~20.3.13":
+  version: 20.3.13
+  resolution: "@angular/cli@npm:20.3.13"
   dependencies:
-    "@angular-devkit/architect": "npm:0.2003.11"
-    "@angular-devkit/core": "npm:20.3.11"
-    "@angular-devkit/schematics": "npm:20.3.11"
+    "@angular-devkit/architect": "npm:0.2003.13"
+    "@angular-devkit/core": "npm:20.3.13"
+    "@angular-devkit/schematics": "npm:20.3.13"
     "@inquirer/prompts": "npm:7.8.2"
     "@listr2/prompt-adapter-inquirer": "npm:3.0.1"
-    "@modelcontextprotocol/sdk": "npm:1.17.3"
-    "@schematics/angular": "npm:20.3.11"
+    "@modelcontextprotocol/sdk": "npm:1.24.0"
+    "@schematics/angular": "npm:20.3.13"
     "@yarnpkg/lockfile": "npm:1.1.0"
     algoliasearch: "npm:5.35.0"
     ini: "npm:5.0.0"
@@ -2569,28 +2569,28 @@ __metadata:
     resolve: "npm:1.22.10"
     semver: "npm:7.7.2"
     yargs: "npm:18.0.0"
-    zod: "npm:3.25.76"
+    zod: "npm:4.1.13"
   bin:
     ng: bin/ng.js
-  checksum: 10/136d7836055221011ae50330cda0e54ef9b87dfd23af43dcbeef0570b5f685005e3c2d86c37609fda9800e2476b84e30bbe19082971b334099a948b02db647c8
+  checksum: 10/6f71b6524a56f5992bf9824b8f3b041c397e6e2ca78003faece4855d03d7aefc0ea70bbf5c7c8be5cec83aed887826fa0186dfe8f66deb1dafd8ab8a4b44a360
   languageName: node
   linkType: hard
 
-"@angular/common@npm:~20.3.13":
-  version: 20.3.13
-  resolution: "@angular/common@npm:20.3.13"
+"@angular/common@npm:~20.3.15":
+  version: 20.3.15
+  resolution: "@angular/common@npm:20.3.15"
   dependencies:
     tslib: "npm:^2.3.0"
   peerDependencies:
-    "@angular/core": 20.3.13
+    "@angular/core": 20.3.15
     rxjs: ^6.5.3 || ^7.4.0
-  checksum: 10/80e62364262d281d7ef0dc3439a901c9f3bb4fdeaecda3b25f862444425503130af7e8a1823c33b466d2155679fce49f6abff0e593749a85514b679d258a0770
+  checksum: 10/6f2c07abcf2d9d99af667b92532ff97d0a0ea32be5a5156aec6887398d2fbc906fece859d0ec70fc183cc89a68aefc12ce8822d91158a2ba7a121193405d4690
   languageName: node
   linkType: hard
 
-"@angular/compiler-cli@npm:~20.3.13":
-  version: 20.3.13
-  resolution: "@angular/compiler-cli@npm:20.3.13"
+"@angular/compiler-cli@npm:~20.3.15":
+  version: 20.3.15
+  resolution: "@angular/compiler-cli@npm:20.3.15"
   dependencies:
     "@babel/core": "npm:7.28.3"
     "@jridgewell/sourcemap-codec": "npm:^1.4.14"
@@ -2601,7 +2601,7 @@ __metadata:
     tslib: "npm:^2.3.0"
     yargs: "npm:^18.0.0"
   peerDependencies:
-    "@angular/compiler": 20.3.13
+    "@angular/compiler": 20.3.15
     typescript: ">=5.8 <6.0"
   peerDependenciesMeta:
     typescript:
@@ -2609,26 +2609,26 @@ __metadata:
   bin:
     ng-xi18n: bundles/src/bin/ng_xi18n.js
     ngc: bundles/src/bin/ngc.js
-  checksum: 10/a5d8c7071e38f1faf8dce29a51c97bb694cf8be2f52fb05865831dc97515bc9a1920c257a4d21899036b7bd315bf15551460d700d8beb95bed7274d22c8cfa47
+  checksum: 10/b2245554d4ac0017cd1c233d58d77ec037a2990eb78daf882f3097476d283cbe627e4c7720b38c316dddfa19f711e44a7d9d30b5e660b7d5209432d31e967ef4
   languageName: node
   linkType: hard
 
-"@angular/compiler@npm:~20.3.13":
-  version: 20.3.13
-  resolution: "@angular/compiler@npm:20.3.13"
+"@angular/compiler@npm:~20.3.15":
+  version: 20.3.15
+  resolution: "@angular/compiler@npm:20.3.15"
   dependencies:
     tslib: "npm:^2.3.0"
-  checksum: 10/1ee405f45292386a94a4a8596ec3b268d40257d579bdb6556034523daad42814770bc685ca1cebecb3c86fb1d7d06973ddd29935068f46c21aaad1ffe317ddef
+  checksum: 10/b082168f431caace1752dae3281f39d97903cc47e367d44f05ac398a440d5aec893ab96df64a9281f6a496c24d3dd49df4ac0b0acd5250bf6e904fa7c5f1c2db
   languageName: node
   linkType: hard
 
-"@angular/core@npm:~20.3.13":
-  version: 20.3.13
-  resolution: "@angular/core@npm:20.3.13"
+"@angular/core@npm:~20.3.15":
+  version: 20.3.15
+  resolution: "@angular/core@npm:20.3.15"
   dependencies:
     tslib: "npm:^2.3.0"
   peerDependencies:
-    "@angular/compiler": 20.3.13
+    "@angular/compiler": 20.3.15
     rxjs: ^6.5.3 || ^7.4.0
     zone.js: ~0.15.0
   peerDependenciesMeta:
@@ -2636,40 +2636,40 @@ __metadata:
       optional: true
     zone.js:
       optional: true
-  checksum: 10/14120c5e42818f60fe285cd0658df491058603bb31b21ff4edec5c98c56c60852a4aebec8a1e15dee77cd6788cc9a28f93da167f1f2bd3b5af37f3d77b06b0a8
+  checksum: 10/cfd6153148f30f6d417f0560f19cdacc5b7e9baf24d14a3ac771ec5a768923ecb09fa058356badb9f12dfbe24e84a7473916fb1922a0484a6114a09ae670c03f
   languageName: node
   linkType: hard
 
-"@angular/forms@npm:~20.3.13":
-  version: 20.3.13
-  resolution: "@angular/forms@npm:20.3.13"
+"@angular/forms@npm:~20.3.15":
+  version: 20.3.15
+  resolution: "@angular/forms@npm:20.3.15"
   dependencies:
     tslib: "npm:^2.3.0"
   peerDependencies:
-    "@angular/common": 20.3.13
-    "@angular/core": 20.3.13
-    "@angular/platform-browser": 20.3.13
+    "@angular/common": 20.3.15
+    "@angular/core": 20.3.15
+    "@angular/platform-browser": 20.3.15
     rxjs: ^6.5.3 || ^7.4.0
-  checksum: 10/5d4a35028e6d9895e36f8ada64f64aaab8c5b961443c51c8ab3d8e73c0a67b91f5c6a03ad59ffb5a741d21c035d5e0888c0d7e73f039f50d9560f3ee73496b03
+  checksum: 10/ec645a5853ac80695ad3ed5287533e8b2801e503b09e991288314caa4d130e29acc86eb8d321a2ff394685b6b8e796fef812bbaae179f0c0a5533200abd8323b
   languageName: node
   linkType: hard
 
-"@angular/localize@npm:~20.3.13":
-  version: 20.3.13
-  resolution: "@angular/localize@npm:20.3.13"
+"@angular/localize@npm:~20.3.15":
+  version: 20.3.15
+  resolution: "@angular/localize@npm:20.3.15"
   dependencies:
     "@babel/core": "npm:7.28.3"
     "@types/babel__core": "npm:7.20.5"
     tinyglobby: "npm:^0.2.12"
     yargs: "npm:^18.0.0"
   peerDependencies:
-    "@angular/compiler": 20.3.13
-    "@angular/compiler-cli": 20.3.13
+    "@angular/compiler": 20.3.15
+    "@angular/compiler-cli": 20.3.15
   bin:
     localize-extract: tools/bundles/src/extract/cli.js
     localize-migrate: tools/bundles/src/migrate/cli.js
     localize-translate: tools/bundles/src/translate/cli.js
-  checksum: 10/b04d9937456244c3d49b0c463ee8cfffc7fc5d9011067ee02763c02f27a20586c021247062d859d4f1fdf697eb690be63945d9ae825a5f39c16a65dd659ff20c
+  checksum: 10/e7d28c7351aa0860f9f23342452d54b5de66b79131b27a5cdcf9a0756b9c3e501a6c08281c342dd45ca9a4390645ec56826e8aafb0eb459d0527a47ce67312bc
   languageName: node
   linkType: hard
 
@@ -2689,47 +2689,47 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular/platform-browser-dynamic@npm:~20.3.13":
-  version: 20.3.13
-  resolution: "@angular/platform-browser-dynamic@npm:20.3.13"
+"@angular/platform-browser-dynamic@npm:~20.3.15":
+  version: 20.3.15
+  resolution: "@angular/platform-browser-dynamic@npm:20.3.15"
   dependencies:
     tslib: "npm:^2.3.0"
   peerDependencies:
-    "@angular/common": 20.3.13
-    "@angular/compiler": 20.3.13
-    "@angular/core": 20.3.13
-    "@angular/platform-browser": 20.3.13
-  checksum: 10/7665023d7b79d530ae6071a42253ba015b8ac23ead1ef074b9a85b889a6366ad0618e2176b3333684a27020555718b8efa1a272dc193e407a96ab679d92f2de5
+    "@angular/common": 20.3.15
+    "@angular/compiler": 20.3.15
+    "@angular/core": 20.3.15
+    "@angular/platform-browser": 20.3.15
+  checksum: 10/a20115cf20f33f7709e5ec6963bad4fbbfb927668a2a5e09646e1ddc59022948e465ad754f961da543a2822768c39f929540bcfcba42a6f675281f3b6e902d67
   languageName: node
   linkType: hard
 
-"@angular/platform-browser@npm:~20.3.13":
-  version: 20.3.13
-  resolution: "@angular/platform-browser@npm:20.3.13"
+"@angular/platform-browser@npm:~20.3.15":
+  version: 20.3.15
+  resolution: "@angular/platform-browser@npm:20.3.15"
   dependencies:
     tslib: "npm:^2.3.0"
   peerDependencies:
-    "@angular/animations": 20.3.13
-    "@angular/common": 20.3.13
-    "@angular/core": 20.3.13
+    "@angular/animations": 20.3.15
+    "@angular/common": 20.3.15
+    "@angular/core": 20.3.15
   peerDependenciesMeta:
     "@angular/animations":
       optional: true
-  checksum: 10/2628457707924e329a7500d957080f76ec10b329645fa14e4135fb48615e2f243c9743940b338068a40e889275243803b6e9c6ffa606f325abf484345faa4e37
+  checksum: 10/9ac1b71df6e1392b4f826f7d2d2e2ca40cdc8e6be9e5f4e069c8206817bfdcdc752b37133f5b460b90b99ad7269c85aadcf2ace72d48b1e1b8729e3d3ad4334f
   languageName: node
   linkType: hard
 
-"@angular/router@npm:~20.3.13":
-  version: 20.3.13
-  resolution: "@angular/router@npm:20.3.13"
+"@angular/router@npm:~20.3.15":
+  version: 20.3.15
+  resolution: "@angular/router@npm:20.3.15"
   dependencies:
     tslib: "npm:^2.3.0"
   peerDependencies:
-    "@angular/common": 20.3.13
-    "@angular/core": 20.3.13
-    "@angular/platform-browser": 20.3.13
+    "@angular/common": 20.3.15
+    "@angular/core": 20.3.15
+    "@angular/platform-browser": 20.3.15
     rxjs: ^6.5.3 || ^7.4.0
-  checksum: 10/f508d0d5bad4d3706d5d477830c7926ccdb9093f0458387810545bf3b937f531e6818c148562f88bd3bb8786b6e884014fdbf2983cfeaebbd0e9b004907dfc0a
+  checksum: 10/94e5be8a620c9bce0d946e11034f231a953f7a46c7025d3445408d4c84352aca5aee8a709853d3f2d69b39e31121ecde1f48b6a21f3613ba676e2b0a40b939bb
   languageName: node
   linkType: hard
 
@@ -7384,11 +7384,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@modelcontextprotocol/sdk@npm:1.17.3":
-  version: 1.17.3
-  resolution: "@modelcontextprotocol/sdk@npm:1.17.3"
+"@modelcontextprotocol/sdk@npm:1.24.0":
+  version: 1.24.0
+  resolution: "@modelcontextprotocol/sdk@npm:1.24.0"
   dependencies:
-    ajv: "npm:^6.12.6"
+    ajv: "npm:^8.17.1"
+    ajv-formats: "npm:^3.0.1"
     content-type: "npm:^1.0.5"
     cors: "npm:^2.8.5"
     cross-spawn: "npm:^7.0.5"
@@ -7396,11 +7397,20 @@ __metadata:
     eventsource-parser: "npm:^3.0.0"
     express: "npm:^5.0.1"
     express-rate-limit: "npm:^7.5.0"
+    jose: "npm:^6.1.1"
     pkce-challenge: "npm:^5.0.0"
     raw-body: "npm:^3.0.0"
-    zod: "npm:^3.23.8"
-    zod-to-json-schema: "npm:^3.24.1"
-  checksum: 10/16d5ff6f82c6e0b5ba4006937b5a0b45b7d5daad86f2f49794995acc8665b860ee6d5afc5d619679a6cc9292ee20531c8ed10a1569cdf655247f35eb875ead1e
+    zod: "npm:^3.25 || ^4.0"
+    zod-to-json-schema: "npm:^3.25.0"
+  peerDependencies:
+    "@cfworker/json-schema": ^4.1.1
+    zod: ^3.25 || ^4.0
+  peerDependenciesMeta:
+    "@cfworker/json-schema":
+      optional: true
+    zod:
+      optional: false
+  checksum: 10/35c3f30eb28d7ca5ca032a3b3b6d7853dffd069a9285ba65a8531a704382b2bec355c63de3ec335532c748794f438aa7d8c4d58497e6f737a3fc5f286f4c1373
   languageName: node
   linkType: hard
 
@@ -8410,14 +8420,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ngtools/webpack@npm:20.3.11":
-  version: 20.3.11
-  resolution: "@ngtools/webpack@npm:20.3.11"
+"@ngtools/webpack@npm:20.3.13":
+  version: 20.3.13
+  resolution: "@ngtools/webpack@npm:20.3.13"
   peerDependencies:
     "@angular/compiler-cli": ^20.0.0
     typescript: ">=5.8 <6.0"
     webpack: ^5.54.0
-  checksum: 10/52788cf0e62bd90a72aba17b6870ad897cccc17fa35172c4a1eff2f71dcd1e6b457c5c3fefb3e20df80ea776e45b901d54bb5e33550c30886c418dba48306886
+  checksum: 10/f0768d41007818336426ac313e4ab62ca9ab1e05534cde925c39b559b14c901e43ae17f6989c04b1c384cefe7e07b2be227adb1b6b524f6424db9de052755415
   languageName: node
   linkType: hard
 
@@ -8966,10 +8976,10 @@ __metadata:
     "@ama-sdk/client-fetch": "workspace:~"
     "@ama-sdk/core": "workspace:~"
     "@ama-sdk/schematics": "workspace:~"
-    "@angular-devkit/core": "npm:~20.3.11"
-    "@angular-devkit/schematics": "npm:~20.3.11"
-    "@angular-devkit/schematics-cli": "npm:~20.3.11"
-    "@angular/compiler": "npm:~20.3.13"
+    "@angular-devkit/core": "npm:~20.3.13"
+    "@angular-devkit/schematics": "npm:~20.3.13"
+    "@angular-devkit/schematics-cli": "npm:~20.3.13"
+    "@angular/compiler": "npm:~20.3.15"
     "@commitlint/cli": "npm:^19.0.0"
     "@commitlint/config-conventional": "npm:^19.0.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
@@ -8980,7 +8990,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
     "@openapitools/openapi-generator-cli": "npm:~2.25.0"
-    "@schematics/angular": "npm:~20.3.11"
+    "@schematics/angular": "npm:~20.3.13"
     "@stylistic/eslint-plugin": "npm:~5.6.0"
     "@swc/cli": "npm:~0.7.9"
     "@swc/core": "npm:~1.15.3"
@@ -9035,11 +9045,11 @@ __metadata:
     "@ama-sdk/client-fetch": "workspace:~"
     "@ama-sdk/core": "workspace:~"
     "@ama-sdk/schematics": "workspace:~"
-    "@angular-devkit/core": "npm:~20.3.11"
-    "@angular-devkit/schematics": "npm:~20.3.11"
-    "@angular-devkit/schematics-cli": "npm:~20.3.11"
-    "@angular/cli": "npm:~20.3.11"
-    "@angular/compiler": "npm:~20.3.13"
+    "@angular-devkit/core": "npm:~20.3.13"
+    "@angular-devkit/schematics": "npm:~20.3.13"
+    "@angular-devkit/schematics-cli": "npm:~20.3.13"
+    "@angular/cli": "npm:~20.3.13"
+    "@angular/compiler": "npm:~20.3.15"
     "@commitlint/cli": "npm:^19.0.0"
     "@commitlint/config-conventional": "npm:^19.0.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
@@ -9050,7 +9060,7 @@ __metadata:
     "@o3r/schematics": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
     "@openapitools/openapi-generator-cli": "npm:~2.25.0"
-    "@schematics/angular": "npm:~20.3.11"
+    "@schematics/angular": "npm:~20.3.13"
     "@stylistic/eslint-plugin": "npm:~5.6.0"
     "@swc/cli": "npm:~0.7.9"
     "@swc/core": "npm:~1.15.3"
@@ -9102,17 +9112,17 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r-training/training-tools@workspace:packages/@o3r-training/training-tools"
   dependencies:
-    "@angular-devkit/build-angular": "npm:~20.3.11"
-    "@angular-devkit/core": "npm:~20.3.11"
-    "@angular-devkit/schematics": "npm:~20.3.11"
-    "@angular/animations": "npm:~20.3.13"
-    "@angular/cli": "npm:~20.3.11"
-    "@angular/common": "npm:~20.3.13"
-    "@angular/compiler": "npm:~20.3.13"
-    "@angular/compiler-cli": "npm:~20.3.13"
-    "@angular/core": "npm:~20.3.13"
-    "@angular/platform-browser": "npm:~20.3.13"
-    "@angular/platform-browser-dynamic": "npm:~20.3.13"
+    "@angular-devkit/build-angular": "npm:~20.3.13"
+    "@angular-devkit/core": "npm:~20.3.13"
+    "@angular-devkit/schematics": "npm:~20.3.13"
+    "@angular/animations": "npm:~20.3.15"
+    "@angular/cli": "npm:~20.3.13"
+    "@angular/common": "npm:~20.3.15"
+    "@angular/compiler": "npm:~20.3.15"
+    "@angular/compiler-cli": "npm:~20.3.15"
+    "@angular/core": "npm:~20.3.15"
+    "@angular/platform-browser": "npm:~20.3.15"
+    "@angular/platform-browser-dynamic": "npm:~20.3.15"
     "@babel/core": "npm:~7.28.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
@@ -9125,7 +9135,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:~"
     "@o3r/schematics": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@schematics/angular": "npm:~20.3.11"
+    "@schematics/angular": "npm:~20.3.13"
     "@stylistic/eslint-plugin": "npm:~5.6.0"
     "@swc/cli": "npm:~0.7.9"
     "@swc/core": "npm:~1.15.3"
@@ -9381,17 +9391,17 @@ __metadata:
   resolution: "@o3r/analytics@workspace:packages/@o3r/analytics"
   dependencies:
     "@ama-sdk/core": "workspace:~"
-    "@angular-devkit/build-angular": "npm:~20.3.11"
-    "@angular-devkit/core": "npm:~20.3.11"
-    "@angular-devkit/schematics": "npm:~20.3.11"
-    "@angular/animations": "npm:~20.3.13"
-    "@angular/common": "npm:~20.3.13"
-    "@angular/compiler": "npm:~20.3.13"
-    "@angular/compiler-cli": "npm:~20.3.13"
-    "@angular/core": "npm:~20.3.13"
-    "@angular/platform-browser": "npm:~20.3.13"
-    "@angular/platform-browser-dynamic": "npm:~20.3.13"
-    "@angular/router": "npm:~20.3.13"
+    "@angular-devkit/build-angular": "npm:~20.3.13"
+    "@angular-devkit/core": "npm:~20.3.13"
+    "@angular-devkit/schematics": "npm:~20.3.13"
+    "@angular/animations": "npm:~20.3.15"
+    "@angular/common": "npm:~20.3.15"
+    "@angular/compiler": "npm:~20.3.15"
+    "@angular/compiler-cli": "npm:~20.3.15"
+    "@angular/core": "npm:~20.3.15"
+    "@angular/platform-browser": "npm:~20.3.15"
+    "@angular/platform-browser-dynamic": "npm:~20.3.15"
+    "@angular/router": "npm:~20.3.15"
     "@babel/core": "npm:~7.28.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@compodoc/compodoc": "npm:^1.1.32"
@@ -9406,7 +9416,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:~"
     "@o3r/schematics": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@schematics/angular": "npm:~20.3.11"
+    "@schematics/angular": "npm:~20.3.13"
     "@stylistic/eslint-plugin": "npm:~5.6.0"
     "@types/jasmine": "npm:~5.1.0"
     "@types/jest": "npm:~30.0.0"
@@ -9483,16 +9493,16 @@ __metadata:
   dependencies:
     "@ama-sdk/client-fetch": "workspace:~"
     "@ama-sdk/core": "workspace:~"
-    "@angular-devkit/build-angular": "npm:~20.3.11"
-    "@angular-devkit/core": "npm:~20.3.11"
-    "@angular-devkit/schematics": "npm:~20.3.11"
-    "@angular/animations": "npm:~20.3.13"
-    "@angular/common": "npm:~20.3.13"
-    "@angular/compiler": "npm:~20.3.13"
-    "@angular/compiler-cli": "npm:~20.3.13"
-    "@angular/core": "npm:~20.3.13"
-    "@angular/platform-browser": "npm:~20.3.13"
-    "@angular/platform-browser-dynamic": "npm:~20.3.13"
+    "@angular-devkit/build-angular": "npm:~20.3.13"
+    "@angular-devkit/core": "npm:~20.3.13"
+    "@angular-devkit/schematics": "npm:~20.3.13"
+    "@angular/animations": "npm:~20.3.15"
+    "@angular/common": "npm:~20.3.15"
+    "@angular/compiler": "npm:~20.3.15"
+    "@angular/compiler-cli": "npm:~20.3.15"
+    "@angular/core": "npm:~20.3.15"
+    "@angular/platform-browser": "npm:~20.3.15"
+    "@angular/platform-browser-dynamic": "npm:~20.3.15"
     "@babel/core": "npm:~7.28.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@compodoc/compodoc": "npm:^1.1.32"
@@ -9505,7 +9515,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:~"
     "@o3r/schematics": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@schematics/angular": "npm:~20.3.11"
+    "@schematics/angular": "npm:~20.3.13"
     "@stylistic/eslint-plugin": "npm:~5.6.0"
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~22.18.0"
@@ -9568,16 +9578,16 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/application@workspace:packages/@o3r/application"
   dependencies:
-    "@angular-devkit/build-angular": "npm:~20.3.11"
-    "@angular-devkit/core": "npm:~20.3.11"
-    "@angular-devkit/schematics": "npm:~20.3.11"
-    "@angular/animations": "npm:~20.3.13"
-    "@angular/common": "npm:~20.3.13"
-    "@angular/compiler": "npm:~20.3.13"
-    "@angular/compiler-cli": "npm:~20.3.13"
-    "@angular/core": "npm:~20.3.13"
-    "@angular/platform-browser": "npm:~20.3.13"
-    "@angular/platform-browser-dynamic": "npm:~20.3.13"
+    "@angular-devkit/build-angular": "npm:~20.3.13"
+    "@angular-devkit/core": "npm:~20.3.13"
+    "@angular-devkit/schematics": "npm:~20.3.13"
+    "@angular/animations": "npm:~20.3.15"
+    "@angular/common": "npm:~20.3.15"
+    "@angular/compiler": "npm:~20.3.15"
+    "@angular/compiler-cli": "npm:~20.3.15"
+    "@angular/core": "npm:~20.3.15"
+    "@angular/platform-browser": "npm:~20.3.15"
+    "@angular/platform-browser-dynamic": "npm:~20.3.15"
     "@babel/core": "npm:~7.28.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@compodoc/compodoc": "npm:^1.1.32"
@@ -9594,7 +9604,7 @@ __metadata:
     "@o3r/schematics": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
     "@o3r/testing": "workspace:~"
-    "@schematics/angular": "npm:~20.3.11"
+    "@schematics/angular": "npm:~20.3.13"
     "@stylistic/eslint-plugin": "npm:~5.6.0"
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~22.18.0"
@@ -9659,8 +9669,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/artifactory-tools@workspace:packages/@o3r/artifactory-tools"
   dependencies:
-    "@angular-devkit/core": "npm:~20.3.11"
-    "@angular-devkit/schematics": "npm:~20.3.11"
+    "@angular-devkit/core": "npm:~20.3.13"
+    "@angular-devkit/schematics": "npm:~20.3.13"
     "@babel/core": "npm:~7.28.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@compodoc/compodoc": "npm:^1.1.32"
@@ -9720,8 +9730,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/azure-tools@workspace:packages/@o3r/azure-tools"
   dependencies:
-    "@angular-devkit/core": "npm:~20.3.11"
-    "@angular-devkit/schematics": "npm:~20.3.11"
+    "@angular-devkit/core": "npm:~20.3.13"
+    "@angular-devkit/schematics": "npm:~20.3.13"
     "@babel/core": "npm:~7.28.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@compodoc/compodoc": "npm:^1.1.32"
@@ -9829,19 +9839,19 @@ __metadata:
     "@agnos-ui/angular-bootstrap": "npm:~0.9.0"
     "@agnos-ui/core-bootstrap": "npm:~0.9.0"
     "@amadeus-it-group/tansu": "npm:~2.0.0"
-    "@angular-devkit/build-angular": "npm:~20.3.11"
-    "@angular-devkit/schematics": "npm:~20.3.11"
-    "@angular/animations": "npm:~20.3.13"
-    "@angular/cli": "npm:~20.3.11"
-    "@angular/common": "npm:~20.3.13"
-    "@angular/compiler": "npm:~20.3.13"
-    "@angular/compiler-cli": "npm:~20.3.13"
-    "@angular/core": "npm:~20.3.13"
-    "@angular/forms": "npm:~20.3.13"
-    "@angular/localize": "npm:~20.3.13"
-    "@angular/platform-browser": "npm:~20.3.13"
-    "@angular/platform-browser-dynamic": "npm:~20.3.13"
-    "@angular/router": "npm:~20.3.13"
+    "@angular-devkit/build-angular": "npm:~20.3.13"
+    "@angular-devkit/schematics": "npm:~20.3.13"
+    "@angular/animations": "npm:~20.3.15"
+    "@angular/cli": "npm:~20.3.13"
+    "@angular/common": "npm:~20.3.15"
+    "@angular/compiler": "npm:~20.3.15"
+    "@angular/compiler-cli": "npm:~20.3.15"
+    "@angular/core": "npm:~20.3.15"
+    "@angular/forms": "npm:~20.3.15"
+    "@angular/localize": "npm:~20.3.15"
+    "@angular/platform-browser": "npm:~20.3.15"
+    "@angular/platform-browser-dynamic": "npm:~20.3.15"
+    "@angular/router": "npm:~20.3.15"
     "@design-factory/design-factory": "npm:~20.0.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@ng-bootstrap/ng-bootstrap": "npm:^19.0.0"
@@ -9864,7 +9874,7 @@ __metadata:
     "@o3r/test-helpers": "workspace:~"
     "@playwright/test": "npm:~1.57.0"
     "@popperjs/core": "npm:^2.11.5"
-    "@schematics/angular": "npm:~20.3.11"
+    "@schematics/angular": "npm:~20.3.13"
     "@stylistic/eslint-plugin": "npm:~5.6.0"
     "@types/chrome": "npm:^0.1.0"
     "@types/color": "npm:^4.0.0"
@@ -9919,19 +9929,19 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/components@workspace:packages/@o3r/components"
   dependencies:
-    "@angular-devkit/architect": "npm:~0.2003.11"
-    "@angular-devkit/build-angular": "npm:~20.3.11"
-    "@angular-devkit/core": "npm:~20.3.11"
-    "@angular-devkit/schematics": "npm:~20.3.11"
-    "@angular/animations": "npm:~20.3.13"
+    "@angular-devkit/architect": "npm:0.2003.13"
+    "@angular-devkit/build-angular": "npm:~20.3.13"
+    "@angular-devkit/core": "npm:~20.3.13"
+    "@angular-devkit/schematics": "npm:~20.3.13"
+    "@angular/animations": "npm:~20.3.15"
     "@angular/cdk": "npm:~20.2.14"
-    "@angular/common": "npm:~20.3.13"
-    "@angular/compiler": "npm:~20.3.13"
-    "@angular/compiler-cli": "npm:~20.3.13"
-    "@angular/core": "npm:~20.3.13"
-    "@angular/forms": "npm:~20.3.13"
-    "@angular/platform-browser": "npm:~20.3.13"
-    "@angular/platform-browser-dynamic": "npm:~20.3.13"
+    "@angular/common": "npm:~20.3.15"
+    "@angular/compiler": "npm:~20.3.15"
+    "@angular/compiler-cli": "npm:~20.3.15"
+    "@angular/core": "npm:~20.3.15"
+    "@angular/forms": "npm:~20.3.15"
+    "@angular/platform-browser": "npm:~20.3.15"
+    "@angular/platform-browser-dynamic": "npm:~20.3.15"
     "@babel/core": "npm:~7.28.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@compodoc/compodoc": "npm:^1.1.32"
@@ -9953,7 +9963,7 @@ __metadata:
     "@o3r/schematics": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
     "@o3r/testing": "workspace:~"
-    "@schematics/angular": "npm:~20.3.11"
+    "@schematics/angular": "npm:~20.3.13"
     "@stylistic/eslint-plugin": "npm:~5.6.0"
     "@swc/helpers": "npm:~0.5.17"
     "@types/jest": "npm:~30.0.0"
@@ -10085,16 +10095,16 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/configuration@workspace:packages/@o3r/configuration"
   dependencies:
-    "@angular-devkit/build-angular": "npm:~20.3.11"
-    "@angular-devkit/core": "npm:~20.3.11"
-    "@angular-devkit/schematics": "npm:~20.3.11"
-    "@angular/animations": "npm:~20.3.13"
-    "@angular/common": "npm:~20.3.13"
-    "@angular/compiler": "npm:~20.3.13"
-    "@angular/compiler-cli": "npm:~20.3.13"
-    "@angular/core": "npm:~20.3.13"
-    "@angular/platform-browser": "npm:~20.3.13"
-    "@angular/platform-browser-dynamic": "npm:~20.3.13"
+    "@angular-devkit/build-angular": "npm:~20.3.13"
+    "@angular-devkit/core": "npm:~20.3.13"
+    "@angular-devkit/schematics": "npm:~20.3.13"
+    "@angular/animations": "npm:~20.3.15"
+    "@angular/common": "npm:~20.3.15"
+    "@angular/compiler": "npm:~20.3.15"
+    "@angular/compiler-cli": "npm:~20.3.15"
+    "@angular/core": "npm:~20.3.15"
+    "@angular/platform-browser": "npm:~20.3.15"
+    "@angular/platform-browser-dynamic": "npm:~20.3.15"
     "@babel/core": "npm:~7.28.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@compodoc/compodoc": "npm:^1.1.32"
@@ -10112,7 +10122,7 @@ __metadata:
     "@o3r/schematics": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
     "@o3r/testing": "workspace:~"
-    "@schematics/angular": "npm:~20.3.11"
+    "@schematics/angular": "npm:~20.3.13"
     "@stylistic/eslint-plugin": "npm:~5.6.0"
     "@types/jasmine": "npm:~5.1.0"
     "@types/jest": "npm:~30.0.0"
@@ -10189,20 +10199,20 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/core@workspace:packages/@o3r/core"
   dependencies:
-    "@angular-devkit/architect": "npm:~0.2003.11"
-    "@angular-devkit/build-angular": "npm:~20.3.11"
-    "@angular-devkit/core": "npm:~20.3.11"
-    "@angular-devkit/schematics": "npm:~20.3.11"
-    "@angular/animations": "npm:~20.3.13"
-    "@angular/cli": "npm:~20.3.11"
-    "@angular/common": "npm:~20.3.13"
-    "@angular/compiler": "npm:~20.3.13"
-    "@angular/compiler-cli": "npm:~20.3.13"
-    "@angular/core": "npm:~20.3.13"
-    "@angular/forms": "npm:~20.3.13"
-    "@angular/platform-browser": "npm:~20.3.13"
-    "@angular/platform-browser-dynamic": "npm:~20.3.13"
-    "@angular/router": "npm:~20.3.13"
+    "@angular-devkit/architect": "npm:0.2003.13"
+    "@angular-devkit/build-angular": "npm:~20.3.13"
+    "@angular-devkit/core": "npm:~20.3.13"
+    "@angular-devkit/schematics": "npm:~20.3.13"
+    "@angular/animations": "npm:~20.3.15"
+    "@angular/cli": "npm:~20.3.13"
+    "@angular/common": "npm:~20.3.15"
+    "@angular/compiler": "npm:~20.3.15"
+    "@angular/compiler-cli": "npm:~20.3.15"
+    "@angular/core": "npm:~20.3.15"
+    "@angular/forms": "npm:~20.3.15"
+    "@angular/platform-browser": "npm:~20.3.15"
+    "@angular/platform-browser-dynamic": "npm:~20.3.15"
+    "@angular/router": "npm:~20.3.15"
     "@babel/core": "npm:~7.28.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@compodoc/compodoc": "npm:^1.1.32"
@@ -10218,7 +10228,7 @@ __metadata:
     "@o3r/schematics": "workspace:~"
     "@o3r/telemetry": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@schematics/angular": "npm:~20.3.11"
+    "@schematics/angular": "npm:~20.3.13"
     "@stylistic/eslint-plugin": "npm:~5.6.0"
     "@swc/helpers": "npm:~0.5.17"
     "@types/jest": "npm:~30.0.0"
@@ -10304,10 +10314,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/create@workspace:packages/@o3r/create"
   dependencies:
-    "@angular-devkit/architect": "npm:~0.2003.11"
-    "@angular-devkit/core": "npm:~20.3.11"
-    "@angular-devkit/schematics": "npm:~20.3.11"
-    "@angular/cli": "npm:~20.3.11"
+    "@angular-devkit/architect": "npm:0.2003.13"
+    "@angular-devkit/core": "npm:~20.3.13"
+    "@angular-devkit/schematics": "npm:~20.3.13"
+    "@angular/cli": "npm:~20.3.13"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@nx/eslint": "npm:~21.6.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
@@ -10318,7 +10328,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:~"
     "@o3r/schematics": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@schematics/angular": "npm:~20.3.11"
+    "@schematics/angular": "npm:~20.3.13"
     "@stylistic/eslint-plugin": "npm:~5.6.0"
     "@types/jest": "npm:~30.0.0"
     "@types/minimist": "npm:^1.2.2"
@@ -10367,18 +10377,18 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/design@workspace:packages/@o3r/design"
   dependencies:
-    "@angular-devkit/architect": "npm:~0.2003.11"
-    "@angular-devkit/build-angular": "npm:~20.3.11"
-    "@angular-devkit/core": "npm:~20.3.11"
-    "@angular-devkit/schematics": "npm:~20.3.11"
-    "@angular/animations": "npm:~20.3.13"
-    "@angular/cli": "npm:~20.3.11"
-    "@angular/common": "npm:~20.3.13"
-    "@angular/compiler": "npm:~20.3.13"
-    "@angular/compiler-cli": "npm:~20.3.13"
-    "@angular/core": "npm:~20.3.13"
-    "@angular/platform-browser": "npm:~20.3.13"
-    "@angular/platform-browser-dynamic": "npm:~20.3.13"
+    "@angular-devkit/architect": "npm:0.2003.13"
+    "@angular-devkit/build-angular": "npm:~20.3.13"
+    "@angular-devkit/core": "npm:~20.3.13"
+    "@angular-devkit/schematics": "npm:~20.3.13"
+    "@angular/animations": "npm:~20.3.15"
+    "@angular/cli": "npm:~20.3.13"
+    "@angular/common": "npm:~20.3.15"
+    "@angular/compiler": "npm:~20.3.15"
+    "@angular/compiler-cli": "npm:~20.3.15"
+    "@angular/core": "npm:~20.3.15"
+    "@angular/platform-browser": "npm:~20.3.15"
+    "@angular/platform-browser-dynamic": "npm:~20.3.15"
     "@babel/core": "npm:~7.28.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@compodoc/compodoc": "npm:^1.1.32"
@@ -10394,7 +10404,7 @@ __metadata:
     "@o3r/styling": "workspace:~"
     "@o3r/telemetry": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@schematics/angular": "npm:~20.3.11"
+    "@schematics/angular": "npm:~20.3.13"
     "@stylistic/eslint-plugin": "npm:~5.6.0"
     "@swc/helpers": "npm:~0.5.17"
     "@types/jest": "npm:~30.0.0"
@@ -10473,17 +10483,17 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/dynamic-content@workspace:packages/@o3r/dynamic-content"
   dependencies:
-    "@angular-devkit/architect": "npm:~0.2003.11"
-    "@angular-devkit/build-angular": "npm:~20.3.11"
-    "@angular-devkit/core": "npm:~20.3.11"
-    "@angular-devkit/schematics": "npm:~20.3.11"
-    "@angular/animations": "npm:~20.3.13"
-    "@angular/common": "npm:~20.3.13"
-    "@angular/compiler": "npm:~20.3.13"
-    "@angular/compiler-cli": "npm:~20.3.13"
-    "@angular/core": "npm:~20.3.13"
-    "@angular/platform-browser": "npm:~20.3.13"
-    "@angular/platform-browser-dynamic": "npm:~20.3.13"
+    "@angular-devkit/architect": "npm:0.2003.13"
+    "@angular-devkit/build-angular": "npm:~20.3.13"
+    "@angular-devkit/core": "npm:~20.3.13"
+    "@angular-devkit/schematics": "npm:~20.3.13"
+    "@angular/animations": "npm:~20.3.15"
+    "@angular/common": "npm:~20.3.15"
+    "@angular/compiler": "npm:~20.3.15"
+    "@angular/compiler-cli": "npm:~20.3.15"
+    "@angular/core": "npm:~20.3.15"
+    "@angular/platform-browser": "npm:~20.3.15"
+    "@angular/platform-browser-dynamic": "npm:~20.3.15"
     "@babel/core": "npm:~7.28.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@compodoc/compodoc": "npm:^1.1.32"
@@ -10499,7 +10509,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:~"
     "@o3r/schematics": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@schematics/angular": "npm:~20.3.11"
+    "@schematics/angular": "npm:~20.3.13"
     "@stylistic/eslint-plugin": "npm:~5.6.0"
     "@types/jasmine": "npm:~5.1.0"
     "@types/jest": "npm:~30.0.0"
@@ -10571,9 +10581,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/eslint-config@workspace:packages/@o3r/eslint-config"
   dependencies:
-    "@angular-devkit/core": "npm:~20.3.11"
-    "@angular-devkit/schematics": "npm:~20.3.11"
-    "@angular/compiler": "npm:~20.3.13"
+    "@angular-devkit/core": "npm:~20.3.13"
+    "@angular-devkit/schematics": "npm:~20.3.13"
+    "@angular/compiler": "npm:~20.3.15"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@eslint/js": "npm:~9.39.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
@@ -10581,7 +10591,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:~"
     "@o3r/schematics": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@schematics/angular": "npm:~20.3.11"
+    "@schematics/angular": "npm:~20.3.13"
     "@stylistic/eslint-plugin": "npm:~5.6.0"
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~22.18.0"
@@ -10680,9 +10690,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/eslint-plugin@workspace:packages/@o3r/eslint-plugin"
   dependencies:
-    "@angular-devkit/core": "npm:~20.3.11"
+    "@angular-devkit/core": "npm:~20.3.13"
     "@angular-eslint/test-utils": "npm:~20.6.0"
-    "@angular/compiler": "npm:~20.3.13"
+    "@angular/compiler": "npm:~20.3.15"
     "@babel/core": "npm:~7.28.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@compodoc/compodoc": "npm:^1.1.32"
@@ -10748,17 +10758,17 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/extractors@workspace:packages/@o3r/extractors"
   dependencies:
-    "@angular-devkit/architect": "npm:~0.2003.11"
-    "@angular-devkit/build-angular": "npm:~20.3.11"
-    "@angular-devkit/core": "npm:~20.3.11"
-    "@angular-devkit/schematics": "npm:~20.3.11"
-    "@angular/animations": "npm:~20.3.13"
-    "@angular/common": "npm:~20.3.13"
-    "@angular/compiler": "npm:~20.3.13"
-    "@angular/compiler-cli": "npm:~20.3.13"
-    "@angular/core": "npm:~20.3.13"
-    "@angular/platform-browser": "npm:~20.3.13"
-    "@angular/platform-browser-dynamic": "npm:~20.3.13"
+    "@angular-devkit/architect": "npm:0.2003.13"
+    "@angular-devkit/build-angular": "npm:~20.3.13"
+    "@angular-devkit/core": "npm:~20.3.13"
+    "@angular-devkit/schematics": "npm:~20.3.13"
+    "@angular/animations": "npm:~20.3.15"
+    "@angular/common": "npm:~20.3.15"
+    "@angular/compiler": "npm:~20.3.15"
+    "@angular/compiler-cli": "npm:~20.3.15"
+    "@angular/core": "npm:~20.3.15"
+    "@angular/platform-browser": "npm:~20.3.15"
+    "@angular/platform-browser-dynamic": "npm:~20.3.15"
     "@babel/core": "npm:~7.28.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@compodoc/compodoc": "npm:^1.1.32"
@@ -10776,7 +10786,7 @@ __metadata:
     "@o3r/schematics": "workspace:~"
     "@o3r/telemetry": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@schematics/angular": "npm:~20.3.11"
+    "@schematics/angular": "npm:~20.3.13"
     "@stylistic/eslint-plugin": "npm:~5.6.0"
     "@swc/helpers": "npm:~0.5.17"
     "@types/jest": "npm:~30.0.0"
@@ -10869,18 +10879,18 @@ __metadata:
   resolution: "@o3r/forms@workspace:packages/@o3r/forms"
   dependencies:
     "@ama-sdk/core": "workspace:~"
-    "@angular-devkit/architect": "npm:~0.2003.11"
-    "@angular-devkit/build-angular": "npm:~20.3.11"
-    "@angular-devkit/core": "npm:~20.3.11"
-    "@angular-devkit/schematics": "npm:~20.3.11"
-    "@angular/animations": "npm:~20.3.13"
-    "@angular/common": "npm:~20.3.13"
-    "@angular/compiler": "npm:~20.3.13"
-    "@angular/compiler-cli": "npm:~20.3.13"
-    "@angular/core": "npm:~20.3.13"
-    "@angular/forms": "npm:~20.3.13"
-    "@angular/platform-browser": "npm:~20.3.13"
-    "@angular/platform-browser-dynamic": "npm:~20.3.13"
+    "@angular-devkit/architect": "npm:0.2003.13"
+    "@angular-devkit/build-angular": "npm:~20.3.13"
+    "@angular-devkit/core": "npm:~20.3.13"
+    "@angular-devkit/schematics": "npm:~20.3.13"
+    "@angular/animations": "npm:~20.3.15"
+    "@angular/common": "npm:~20.3.15"
+    "@angular/compiler": "npm:~20.3.15"
+    "@angular/compiler-cli": "npm:~20.3.15"
+    "@angular/core": "npm:~20.3.15"
+    "@angular/forms": "npm:~20.3.15"
+    "@angular/platform-browser": "npm:~20.3.15"
+    "@angular/platform-browser-dynamic": "npm:~20.3.15"
     "@babel/core": "npm:~7.28.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@compodoc/compodoc": "npm:^1.1.32"
@@ -10897,7 +10907,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:~"
     "@o3r/schematics": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@schematics/angular": "npm:~20.3.11"
+    "@schematics/angular": "npm:~20.3.13"
     "@stylistic/eslint-plugin": "npm:~5.6.0"
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~22.18.0"
@@ -10966,23 +10976,23 @@ __metadata:
     "@agnos-ui/core-bootstrap": "npm:~0.9.0"
     "@amadeus-it-group/tansu": "npm:~2.0.0"
     "@ampproject/remapping": "npm:^2.3.0"
-    "@angular-devkit/architect": "npm:~0.2003.11"
-    "@angular-devkit/build-angular": "npm:~20.3.11"
-    "@angular-devkit/core": "npm:~20.3.11"
-    "@angular-devkit/schematics": "npm:~20.3.11"
-    "@angular/animations": "npm:~20.3.13"
-    "@angular/build": "npm:~20.3.11"
+    "@angular-devkit/architect": "npm:0.2003.13"
+    "@angular-devkit/build-angular": "npm:~20.3.13"
+    "@angular-devkit/core": "npm:~20.3.13"
+    "@angular-devkit/schematics": "npm:~20.3.13"
+    "@angular/animations": "npm:~20.3.15"
+    "@angular/build": "npm:~20.3.13"
     "@angular/cdk": "npm:~20.2.14"
-    "@angular/cli": "npm:~20.3.11"
-    "@angular/common": "npm:~20.3.13"
-    "@angular/compiler": "npm:~20.3.13"
-    "@angular/compiler-cli": "npm:~20.3.13"
-    "@angular/core": "npm:~20.3.13"
-    "@angular/forms": "npm:~20.3.13"
-    "@angular/localize": "npm:~20.3.13"
-    "@angular/platform-browser": "npm:~20.3.13"
-    "@angular/platform-browser-dynamic": "npm:~20.3.13"
-    "@angular/router": "npm:~20.3.13"
+    "@angular/cli": "npm:~20.3.13"
+    "@angular/common": "npm:~20.3.15"
+    "@angular/compiler": "npm:~20.3.15"
+    "@angular/compiler-cli": "npm:~20.3.15"
+    "@angular/core": "npm:~20.3.15"
+    "@angular/forms": "npm:~20.3.15"
+    "@angular/localize": "npm:~20.3.15"
+    "@angular/platform-browser": "npm:~20.3.15"
+    "@angular/platform-browser-dynamic": "npm:~20.3.15"
+    "@angular/router": "npm:~20.3.15"
     "@babel/core": "npm:~7.28.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@commitlint/cli": "npm:^19.0.0"
@@ -11017,7 +11027,7 @@ __metadata:
     "@o3r/workspace-helpers": "workspace:~"
     "@playwright/test": "npm:~1.57.0"
     "@popperjs/core": "npm:^2.11.5"
-    "@schematics/angular": "npm:~20.3.11"
+    "@schematics/angular": "npm:~20.3.13"
     "@stylistic/eslint-plugin": "npm:~5.6.0"
     "@swc-node/register": "npm:^1.9.2"
     "@swc/core": "npm:~1.15.3"
@@ -11129,14 +11139,14 @@ __metadata:
   resolution: "@o3r/github-cascading-app@workspace:apps/github-cascading-app"
   dependencies:
     "@actions/github": "npm:^6.0.0"
-    "@angular-devkit/schematics": "npm:~20.3.11"
-    "@angular/animations": "npm:~20.3.13"
-    "@angular/common": "npm:~20.3.13"
-    "@angular/compiler": "npm:~20.3.13"
-    "@angular/compiler-cli": "npm:~20.3.13"
-    "@angular/core": "npm:~20.3.13"
-    "@angular/platform-browser": "npm:~20.3.13"
-    "@angular/platform-browser-dynamic": "npm:~20.3.13"
+    "@angular-devkit/schematics": "npm:~20.3.13"
+    "@angular/animations": "npm:~20.3.15"
+    "@angular/common": "npm:~20.3.15"
+    "@angular/compiler": "npm:~20.3.15"
+    "@angular/compiler-cli": "npm:~20.3.15"
+    "@angular/core": "npm:~20.3.15"
+    "@angular/platform-browser": "npm:~20.3.15"
+    "@angular/platform-browser-dynamic": "npm:~20.3.15"
     "@azure/functions": "npm:^4.1.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@nx/eslint": "npm:~21.6.0"
@@ -11191,19 +11201,19 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/localization@workspace:packages/@o3r/localization"
   dependencies:
-    "@angular-devkit/architect": "npm:~0.2003.11"
-    "@angular-devkit/build-angular": "npm:~20.3.11"
-    "@angular-devkit/core": "npm:~20.3.11"
-    "@angular-devkit/schematics": "npm:~20.3.11"
-    "@angular/animations": "npm:~20.3.13"
+    "@angular-devkit/architect": "npm:0.2003.13"
+    "@angular-devkit/build-angular": "npm:~20.3.13"
+    "@angular-devkit/core": "npm:~20.3.13"
+    "@angular-devkit/schematics": "npm:~20.3.13"
+    "@angular/animations": "npm:~20.3.15"
     "@angular/cdk": "npm:~20.2.14"
-    "@angular/cli": "npm:~20.3.11"
-    "@angular/common": "npm:~20.3.13"
-    "@angular/compiler": "npm:~20.3.13"
-    "@angular/compiler-cli": "npm:~20.3.13"
-    "@angular/core": "npm:~20.3.13"
-    "@angular/platform-browser": "npm:~20.3.13"
-    "@angular/platform-browser-dynamic": "npm:~20.3.13"
+    "@angular/cli": "npm:~20.3.13"
+    "@angular/common": "npm:~20.3.15"
+    "@angular/compiler": "npm:~20.3.15"
+    "@angular/compiler-cli": "npm:~20.3.15"
+    "@angular/core": "npm:~20.3.15"
+    "@angular/platform-browser": "npm:~20.3.15"
+    "@angular/platform-browser-dynamic": "npm:~20.3.15"
     "@babel/core": "npm:~7.28.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@compodoc/compodoc": "npm:^1.1.32"
@@ -11223,7 +11233,7 @@ __metadata:
     "@o3r/logger": "workspace:~"
     "@o3r/schematics": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@schematics/angular": "npm:~20.3.11"
+    "@schematics/angular": "npm:~20.3.13"
     "@stylistic/eslint-plugin": "npm:~5.6.0"
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~22.18.0"
@@ -11339,17 +11349,17 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/logger@workspace:packages/@o3r/logger"
   dependencies:
-    "@angular-devkit/architect": "npm:~0.2003.11"
-    "@angular-devkit/build-angular": "npm:~20.3.11"
-    "@angular-devkit/core": "npm:~20.3.11"
-    "@angular-devkit/schematics": "npm:~20.3.11"
-    "@angular/animations": "npm:~20.3.13"
-    "@angular/common": "npm:~20.3.13"
-    "@angular/compiler": "npm:~20.3.13"
-    "@angular/compiler-cli": "npm:~20.3.13"
-    "@angular/core": "npm:~20.3.13"
-    "@angular/platform-browser": "npm:~20.3.13"
-    "@angular/platform-browser-dynamic": "npm:~20.3.13"
+    "@angular-devkit/architect": "npm:0.2003.13"
+    "@angular-devkit/build-angular": "npm:~20.3.13"
+    "@angular-devkit/core": "npm:~20.3.13"
+    "@angular-devkit/schematics": "npm:~20.3.13"
+    "@angular/animations": "npm:~20.3.15"
+    "@angular/common": "npm:~20.3.15"
+    "@angular/compiler": "npm:~20.3.15"
+    "@angular/compiler-cli": "npm:~20.3.15"
+    "@angular/core": "npm:~20.3.15"
+    "@angular/platform-browser": "npm:~20.3.15"
+    "@angular/platform-browser-dynamic": "npm:~20.3.15"
     "@babel/core": "npm:~7.28.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@compodoc/compodoc": "npm:^1.1.32"
@@ -11366,7 +11376,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:~"
     "@o3r/schematics": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@schematics/angular": "npm:~20.3.11"
+    "@schematics/angular": "npm:~20.3.13"
     "@stylistic/eslint-plugin": "npm:~5.6.0"
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~22.18.0"
@@ -11447,14 +11457,14 @@ __metadata:
     "@ama-mcp/core": "workspace:^"
     "@ama-mcp/github": "workspace:^"
     "@ama-mcp/otter": "workspace:^"
-    "@angular-devkit/architect": "npm:~0.2003.11"
-    "@angular-devkit/schematics": "npm:~20.3.11"
-    "@angular/common": "npm:~20.3.13"
-    "@angular/compiler": "npm:~20.3.13"
-    "@angular/compiler-cli": "npm:~20.3.13"
-    "@angular/core": "npm:~20.3.13"
-    "@angular/platform-browser": "npm:~20.3.13"
-    "@angular/platform-browser-dynamic": "npm:~20.3.13"
+    "@angular-devkit/architect": "npm:0.2003.13"
+    "@angular-devkit/schematics": "npm:~20.3.13"
+    "@angular/common": "npm:~20.3.15"
+    "@angular/compiler": "npm:~20.3.15"
+    "@angular/compiler-cli": "npm:~20.3.15"
+    "@angular/core": "npm:~20.3.15"
+    "@angular/platform-browser": "npm:~20.3.15"
+    "@angular/platform-browser-dynamic": "npm:~20.3.15"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@modelcontextprotocol/sdk": "npm:~1.20.0"
     "@nx/eslint": "npm:~21.6.0"
@@ -11505,18 +11515,18 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/mobile@workspace:packages/@o3r/mobile"
   dependencies:
-    "@angular-devkit/architect": "npm:~0.2003.11"
-    "@angular-devkit/build-angular": "npm:~20.3.11"
-    "@angular-devkit/core": "npm:~20.3.11"
-    "@angular-devkit/schematics": "npm:~20.3.11"
-    "@angular/animations": "npm:~20.3.13"
-    "@angular/cli": "npm:~20.3.11"
-    "@angular/common": "npm:~20.3.13"
-    "@angular/compiler": "npm:~20.3.13"
-    "@angular/compiler-cli": "npm:~20.3.13"
-    "@angular/core": "npm:~20.3.13"
-    "@angular/platform-browser": "npm:~20.3.13"
-    "@angular/platform-browser-dynamic": "npm:~20.3.13"
+    "@angular-devkit/architect": "npm:0.2003.13"
+    "@angular-devkit/build-angular": "npm:~20.3.13"
+    "@angular-devkit/core": "npm:~20.3.13"
+    "@angular-devkit/schematics": "npm:~20.3.13"
+    "@angular/animations": "npm:~20.3.15"
+    "@angular/cli": "npm:~20.3.13"
+    "@angular/common": "npm:~20.3.15"
+    "@angular/compiler": "npm:~20.3.15"
+    "@angular/compiler-cli": "npm:~20.3.15"
+    "@angular/core": "npm:~20.3.15"
+    "@angular/platform-browser": "npm:~20.3.15"
+    "@angular/platform-browser-dynamic": "npm:~20.3.15"
     "@babel/core": "npm:~7.28.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@capacitor/browser": "npm:^7.0.0"
@@ -11537,7 +11547,7 @@ __metadata:
     "@o3r/schematics": "workspace:~"
     "@o3r/store-sync": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@schematics/angular": "npm:~20.3.11"
+    "@schematics/angular": "npm:~20.3.13"
     "@stylistic/eslint-plugin": "npm:~5.6.0"
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~22.18.0"
@@ -11611,8 +11621,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/new-version@workspace:packages/@o3r/new-version"
   dependencies:
-    "@angular-devkit/core": "npm:~20.3.11"
-    "@angular-devkit/schematics": "npm:~20.3.11"
+    "@angular-devkit/core": "npm:~20.3.13"
+    "@angular-devkit/schematics": "npm:~20.3.13"
     "@babel/core": "npm:~7.28.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@compodoc/compodoc": "npm:^1.1.32"
@@ -11623,7 +11633,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:~"
     "@o3r/schematics": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@schematics/angular": "npm:~20.3.11"
+    "@schematics/angular": "npm:~20.3.13"
     "@stylistic/eslint-plugin": "npm:~5.6.0"
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~22.18.0"
@@ -11677,7 +11687,7 @@ __metadata:
     "@o3r/build-helpers": "workspace:~"
     "@o3r/eslint-plugin": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@schematics/angular": "npm:~20.3.11"
+    "@schematics/angular": "npm:~20.3.13"
     "@stylistic/eslint-plugin": "npm:~5.6.0"
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~22.18.0"
@@ -11720,9 +11730,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/pipeline@workspace:packages/@o3r/pipeline"
   dependencies:
-    "@angular-devkit/architect": "npm:~0.2003.11"
-    "@angular-devkit/core": "npm:~20.3.11"
-    "@angular-devkit/schematics": "npm:~20.3.11"
+    "@angular-devkit/architect": "npm:0.2003.13"
+    "@angular-devkit/core": "npm:~20.3.13"
+    "@angular-devkit/schematics": "npm:~20.3.13"
     "@compodoc/compodoc": "npm:^1.1.32"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
@@ -11733,7 +11743,7 @@ __metadata:
     "@o3r/schematics": "workspace:~"
     "@o3r/telemetry": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@schematics/angular": "npm:~20.3.11"
+    "@schematics/angular": "npm:~20.3.13"
     "@stylistic/eslint-plugin": "npm:~5.6.0"
     "@types/jest": "npm:~30.0.0"
     "@types/js-yaml": "npm:^4.0.5"
@@ -11787,18 +11797,18 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/routing@workspace:packages/@o3r/routing"
   dependencies:
-    "@angular-devkit/architect": "npm:~0.2003.11"
-    "@angular-devkit/build-angular": "npm:~20.3.11"
-    "@angular-devkit/core": "npm:~20.3.11"
-    "@angular-devkit/schematics": "npm:~20.3.11"
-    "@angular/animations": "npm:~20.3.13"
-    "@angular/common": "npm:~20.3.13"
-    "@angular/compiler": "npm:~20.3.13"
-    "@angular/compiler-cli": "npm:~20.3.13"
-    "@angular/core": "npm:~20.3.13"
-    "@angular/platform-browser": "npm:~20.3.13"
-    "@angular/platform-browser-dynamic": "npm:~20.3.13"
-    "@angular/router": "npm:~20.3.13"
+    "@angular-devkit/architect": "npm:0.2003.13"
+    "@angular-devkit/build-angular": "npm:~20.3.13"
+    "@angular-devkit/core": "npm:~20.3.13"
+    "@angular-devkit/schematics": "npm:~20.3.13"
+    "@angular/animations": "npm:~20.3.15"
+    "@angular/common": "npm:~20.3.15"
+    "@angular/compiler": "npm:~20.3.15"
+    "@angular/compiler-cli": "npm:~20.3.15"
+    "@angular/core": "npm:~20.3.15"
+    "@angular/platform-browser": "npm:~20.3.15"
+    "@angular/platform-browser-dynamic": "npm:~20.3.15"
+    "@angular/router": "npm:~20.3.15"
     "@babel/core": "npm:~7.28.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@compodoc/compodoc": "npm:^1.1.32"
@@ -11818,7 +11828,7 @@ __metadata:
     "@o3r/routing": "workspace:~"
     "@o3r/schematics": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@schematics/angular": "npm:~20.3.11"
+    "@schematics/angular": "npm:~20.3.13"
     "@stylistic/eslint-plugin": "npm:~5.6.0"
     "@types/jasmine": "npm:~5.1.0"
     "@types/jest": "npm:~30.0.0"
@@ -11888,18 +11898,18 @@ __metadata:
   resolution: "@o3r/rules-engine@workspace:packages/@o3r/rules-engine"
   dependencies:
     "@ampproject/remapping": "npm:^2.3.0"
-    "@angular-devkit/architect": "npm:~0.2003.11"
-    "@angular-devkit/build-angular": "npm:~20.3.11"
-    "@angular-devkit/core": "npm:~20.3.11"
-    "@angular-devkit/schematics": "npm:~20.3.11"
-    "@angular/animations": "npm:~20.3.13"
-    "@angular/common": "npm:~20.3.13"
-    "@angular/compiler": "npm:~20.3.13"
-    "@angular/compiler-cli": "npm:~20.3.13"
-    "@angular/core": "npm:~20.3.13"
-    "@angular/forms": "npm:~20.3.13"
-    "@angular/platform-browser": "npm:~20.3.13"
-    "@angular/platform-browser-dynamic": "npm:~20.3.13"
+    "@angular-devkit/architect": "npm:0.2003.13"
+    "@angular-devkit/build-angular": "npm:~20.3.13"
+    "@angular-devkit/core": "npm:~20.3.13"
+    "@angular-devkit/schematics": "npm:~20.3.13"
+    "@angular/animations": "npm:~20.3.15"
+    "@angular/common": "npm:~20.3.15"
+    "@angular/compiler": "npm:~20.3.15"
+    "@angular/compiler-cli": "npm:~20.3.15"
+    "@angular/core": "npm:~20.3.15"
+    "@angular/forms": "npm:~20.3.15"
+    "@angular/platform-browser": "npm:~20.3.15"
+    "@angular/platform-browser-dynamic": "npm:~20.3.15"
     "@babel/core": "npm:~7.28.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@compodoc/compodoc": "npm:^1.1.32"
@@ -11921,7 +11931,7 @@ __metadata:
     "@o3r/schematics": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
     "@o3r/testing": "workspace:~"
-    "@schematics/angular": "npm:~20.3.11"
+    "@schematics/angular": "npm:~20.3.13"
     "@stylistic/eslint-plugin": "npm:~5.6.0"
     "@swc/helpers": "npm:~0.5.17"
     "@types/jasmine": "npm:~5.1.0"
@@ -12024,17 +12034,17 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/schematics@workspace:packages/@o3r/schematics"
   dependencies:
-    "@angular-devkit/build-angular": "npm:~20.3.11"
-    "@angular-devkit/core": "npm:~20.3.11"
-    "@angular-devkit/schematics": "npm:~20.3.11"
-    "@angular/animations": "npm:~20.3.13"
-    "@angular/cli": "npm:~20.3.11"
-    "@angular/common": "npm:~20.3.13"
-    "@angular/compiler": "npm:~20.3.13"
-    "@angular/compiler-cli": "npm:~20.3.13"
-    "@angular/core": "npm:~20.3.13"
-    "@angular/platform-browser": "npm:~20.3.13"
-    "@angular/platform-browser-dynamic": "npm:~20.3.13"
+    "@angular-devkit/build-angular": "npm:~20.3.13"
+    "@angular-devkit/core": "npm:~20.3.13"
+    "@angular-devkit/schematics": "npm:~20.3.13"
+    "@angular/animations": "npm:~20.3.15"
+    "@angular/cli": "npm:~20.3.13"
+    "@angular/common": "npm:~20.3.15"
+    "@angular/compiler": "npm:~20.3.15"
+    "@angular/compiler-cli": "npm:~20.3.15"
+    "@angular/core": "npm:~20.3.15"
+    "@angular/platform-browser": "npm:~20.3.15"
+    "@angular/platform-browser-dynamic": "npm:~20.3.15"
     "@babel/core": "npm:~7.28.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@compodoc/compodoc": "npm:^1.1.32"
@@ -12047,7 +12057,7 @@ __metadata:
     "@o3r/build-helpers": "workspace:~"
     "@o3r/telemetry": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@schematics/angular": "npm:~20.3.11"
+    "@schematics/angular": "npm:~20.3.13"
     "@stylistic/eslint-plugin": "npm:~5.6.0"
     "@swc/helpers": "npm:~0.5.17"
     "@types/jest": "npm:~30.0.0"
@@ -12132,22 +12142,22 @@ __metadata:
     "@ama-sdk/schematics": "workspace:~"
     "@amadeus-it-group/kassette": "npm:^1.7.0"
     "@amadeus-it-group/tansu": "npm:~2.0.0"
-    "@angular-devkit/architect": "npm:~0.2003.11"
-    "@angular-devkit/build-angular": "npm:~20.3.11"
-    "@angular-devkit/core": "npm:~20.3.11"
-    "@angular-devkit/schematics": "npm:~20.3.11"
-    "@angular/animations": "npm:~20.3.13"
+    "@angular-devkit/architect": "npm:0.2003.13"
+    "@angular-devkit/build-angular": "npm:~20.3.13"
+    "@angular-devkit/core": "npm:~20.3.13"
+    "@angular-devkit/schematics": "npm:~20.3.13"
+    "@angular/animations": "npm:~20.3.15"
     "@angular/cdk": "npm:~20.2.14"
-    "@angular/cli": "npm:~20.3.11"
-    "@angular/common": "npm:~20.3.13"
-    "@angular/compiler": "npm:~20.3.13"
-    "@angular/compiler-cli": "npm:~20.3.13"
-    "@angular/core": "npm:~20.3.13"
-    "@angular/forms": "npm:~20.3.13"
-    "@angular/localize": "npm:~20.3.13"
-    "@angular/platform-browser": "npm:~20.3.13"
-    "@angular/platform-browser-dynamic": "npm:~20.3.13"
-    "@angular/router": "npm:~20.3.13"
+    "@angular/cli": "npm:~20.3.13"
+    "@angular/common": "npm:~20.3.15"
+    "@angular/compiler": "npm:~20.3.15"
+    "@angular/compiler-cli": "npm:~20.3.15"
+    "@angular/core": "npm:~20.3.15"
+    "@angular/forms": "npm:~20.3.15"
+    "@angular/localize": "npm:~20.3.15"
+    "@angular/platform-browser": "npm:~20.3.15"
+    "@angular/platform-browser-dynamic": "npm:~20.3.15"
+    "@angular/router": "npm:~20.3.15"
     "@commitlint/types": "npm:^19.0.0"
     "@design-factory/design-factory": "npm:~20.0.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
@@ -12187,7 +12197,7 @@ __metadata:
     "@o3r/workspace": "workspace:~"
     "@playwright/test": "npm:~1.57.0"
     "@popperjs/core": "npm:^2.11.5"
-    "@schematics/angular": "npm:~20.3.11"
+    "@schematics/angular": "npm:~20.3.13"
     "@stylistic/eslint-plugin": "npm:~5.6.0"
     "@types/bootstrap": "npm:^5.2.10"
     "@types/jest": "npm:~30.0.0"
@@ -12254,16 +12264,16 @@ __metadata:
   resolution: "@o3r/store-sync@workspace:packages/@o3r/store-sync"
   dependencies:
     "@ama-sdk/core": "workspace:~"
-    "@angular-devkit/build-angular": "npm:~20.3.11"
-    "@angular-devkit/core": "npm:~20.3.11"
-    "@angular-devkit/schematics": "npm:~20.3.11"
-    "@angular/animations": "npm:~20.3.13"
-    "@angular/common": "npm:~20.3.13"
-    "@angular/compiler": "npm:~20.3.13"
-    "@angular/compiler-cli": "npm:~20.3.13"
-    "@angular/core": "npm:~20.3.13"
-    "@angular/platform-browser": "npm:~20.3.13"
-    "@angular/platform-browser-dynamic": "npm:~20.3.13"
+    "@angular-devkit/build-angular": "npm:~20.3.13"
+    "@angular-devkit/core": "npm:~20.3.13"
+    "@angular-devkit/schematics": "npm:~20.3.13"
+    "@angular/animations": "npm:~20.3.15"
+    "@angular/common": "npm:~20.3.15"
+    "@angular/compiler": "npm:~20.3.15"
+    "@angular/compiler-cli": "npm:~20.3.15"
+    "@angular/core": "npm:~20.3.15"
+    "@angular/platform-browser": "npm:~20.3.15"
+    "@angular/platform-browser-dynamic": "npm:~20.3.15"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@ngrx/entity": "npm:~20.1.0"
     "@ngrx/store": "npm:~20.1.0"
@@ -12277,7 +12287,7 @@ __metadata:
     "@o3r/logger": "workspace:~"
     "@o3r/schematics": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@schematics/angular": "npm:~20.3.11"
+    "@schematics/angular": "npm:~20.3.13"
     "@stylistic/eslint-plugin": "npm:~5.6.0"
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~22.18.0"
@@ -12342,8 +12352,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/style-dictionary@workspace:packages/@o3r/style-dictionary"
   dependencies:
-    "@angular-devkit/architect": "npm:~0.2003.11"
-    "@angular-devkit/schematics": "npm:~20.3.11"
+    "@angular-devkit/architect": "npm:0.2003.13"
+    "@angular-devkit/schematics": "npm:~20.3.13"
     "@babel/core": "npm:~7.28.0"
     "@babel/preset-env": "npm:~7.28.0"
     "@babel/preset-typescript": "npm:~7.28.0"
@@ -12359,7 +12369,7 @@ __metadata:
     "@o3r/schematics": "workspace:~"
     "@o3r/telemetry": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@schematics/angular": "npm:~20.3.11"
+    "@schematics/angular": "npm:~20.3.13"
     "@stylistic/eslint-plugin": "npm:~5.6.0"
     "@types/jest": "npm:~30.0.0"
     "@types/minimist": "npm:^1.2.2"
@@ -12416,9 +12426,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/stylelint-plugin@workspace:packages/@o3r/stylelint-plugin"
   dependencies:
-    "@angular-devkit/core": "npm:~20.3.11"
-    "@angular-devkit/schematics": "npm:~20.3.11"
-    "@angular/compiler": "npm:~20.3.13"
+    "@angular-devkit/core": "npm:~20.3.13"
+    "@angular-devkit/schematics": "npm:~20.3.13"
+    "@angular/compiler": "npm:~20.3.15"
     "@babel/core": "npm:~7.28.0"
     "@babel/preset-env": "npm:~7.28.0"
     "@babel/preset-typescript": "npm:~7.28.0"
@@ -12431,7 +12441,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:~"
     "@o3r/schematics": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@schematics/angular": "npm:~20.3.11"
+    "@schematics/angular": "npm:~20.3.13"
     "@stylistic/eslint-plugin": "npm:~5.6.0"
     "@types/css-tree": "npm:~2.3.0"
     "@types/jest": "npm:~30.0.0"
@@ -12491,20 +12501,20 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/styling@workspace:packages/@o3r/styling"
   dependencies:
-    "@angular-devkit/architect": "npm:~0.2003.11"
-    "@angular-devkit/build-angular": "npm:~20.3.11"
-    "@angular-devkit/core": "npm:~20.3.11"
-    "@angular-devkit/schematics": "npm:~20.3.11"
-    "@angular/animations": "npm:~20.3.13"
+    "@angular-devkit/architect": "npm:0.2003.13"
+    "@angular-devkit/build-angular": "npm:~20.3.13"
+    "@angular-devkit/core": "npm:~20.3.13"
+    "@angular-devkit/schematics": "npm:~20.3.13"
+    "@angular/animations": "npm:~20.3.15"
     "@angular/cdk": "npm:~20.2.14"
-    "@angular/common": "npm:~20.3.13"
-    "@angular/compiler": "npm:~20.3.13"
-    "@angular/compiler-cli": "npm:~20.3.13"
-    "@angular/core": "npm:~20.3.13"
-    "@angular/forms": "npm:~20.3.13"
+    "@angular/common": "npm:~20.3.15"
+    "@angular/compiler": "npm:~20.3.15"
+    "@angular/compiler-cli": "npm:~20.3.15"
+    "@angular/core": "npm:~20.3.15"
+    "@angular/forms": "npm:~20.3.15"
     "@angular/material": "npm:~20.2.14"
-    "@angular/platform-browser": "npm:~20.3.13"
-    "@angular/platform-browser-dynamic": "npm:~20.3.13"
+    "@angular/platform-browser": "npm:~20.3.15"
+    "@angular/platform-browser-dynamic": "npm:~20.3.15"
     "@babel/core": "npm:~7.28.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@compodoc/compodoc": "npm:^1.1.32"
@@ -12521,7 +12531,7 @@ __metadata:
     "@o3r/extractors": "workspace:~"
     "@o3r/schematics": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@schematics/angular": "npm:~20.3.11"
+    "@schematics/angular": "npm:~20.3.13"
     "@stylistic/eslint-plugin": "npm:~5.6.0"
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~22.18.0"
@@ -12651,9 +12661,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/telemetry@workspace:packages/@o3r/telemetry"
   dependencies:
-    "@angular-devkit/architect": "npm:~0.2003.11"
-    "@angular-devkit/core": "npm:~20.3.11"
-    "@angular-devkit/schematics": "npm:~20.3.11"
+    "@angular-devkit/architect": "npm:0.2003.13"
+    "@angular-devkit/core": "npm:~20.3.13"
+    "@angular-devkit/schematics": "npm:~20.3.13"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
@@ -12787,17 +12797,17 @@ __metadata:
   resolution: "@o3r/testing@workspace:packages/@o3r/testing"
   dependencies:
     "@amadeus-it-group/kassette": "npm:^1.7.0"
-    "@angular-devkit/build-angular": "npm:~20.3.11"
-    "@angular-devkit/core": "npm:~20.3.11"
-    "@angular-devkit/schematics": "npm:~20.3.11"
-    "@angular/cli": "npm:~20.3.11"
-    "@angular/common": "npm:~20.3.13"
-    "@angular/compiler": "npm:~20.3.13"
-    "@angular/compiler-cli": "npm:~20.3.13"
-    "@angular/core": "npm:~20.3.13"
-    "@angular/forms": "npm:~20.3.13"
-    "@angular/platform-browser": "npm:~20.3.13"
-    "@angular/platform-browser-dynamic": "npm:~20.3.13"
+    "@angular-devkit/build-angular": "npm:~20.3.13"
+    "@angular-devkit/core": "npm:~20.3.13"
+    "@angular-devkit/schematics": "npm:~20.3.13"
+    "@angular/cli": "npm:~20.3.13"
+    "@angular/common": "npm:~20.3.15"
+    "@angular/compiler": "npm:~20.3.15"
+    "@angular/compiler-cli": "npm:~20.3.15"
+    "@angular/core": "npm:~20.3.15"
+    "@angular/forms": "npm:~20.3.15"
+    "@angular/platform-browser": "npm:~20.3.15"
+    "@angular/platform-browser-dynamic": "npm:~20.3.15"
     "@babel/core": "npm:~7.28.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@compodoc/compodoc": "npm:^1.1.32"
@@ -12814,7 +12824,7 @@ __metadata:
     "@o3r/schematics": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
     "@playwright/test": "npm:~1.57.0"
-    "@schematics/angular": "npm:~20.3.11"
+    "@schematics/angular": "npm:~20.3.13"
     "@stylistic/eslint-plugin": "npm:~5.6.0"
     "@swc/helpers": "npm:~0.5.17"
     "@types/jest": "npm:~30.0.0"
@@ -12928,17 +12938,17 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/third-party@workspace:packages/@o3r/third-party"
   dependencies:
-    "@angular-devkit/build-angular": "npm:~20.3.11"
-    "@angular-devkit/core": "npm:~20.3.11"
-    "@angular-devkit/schematics": "npm:~20.3.11"
-    "@angular/animations": "npm:~20.3.13"
-    "@angular/cli": "npm:~20.3.11"
-    "@angular/common": "npm:~20.3.13"
-    "@angular/compiler": "npm:~20.3.13"
-    "@angular/compiler-cli": "npm:~20.3.13"
-    "@angular/core": "npm:~20.3.13"
-    "@angular/platform-browser": "npm:~20.3.13"
-    "@angular/platform-browser-dynamic": "npm:~20.3.13"
+    "@angular-devkit/build-angular": "npm:~20.3.13"
+    "@angular-devkit/core": "npm:~20.3.13"
+    "@angular-devkit/schematics": "npm:~20.3.13"
+    "@angular/animations": "npm:~20.3.15"
+    "@angular/cli": "npm:~20.3.13"
+    "@angular/common": "npm:~20.3.15"
+    "@angular/compiler": "npm:~20.3.15"
+    "@angular/compiler-cli": "npm:~20.3.15"
+    "@angular/core": "npm:~20.3.15"
+    "@angular/platform-browser": "npm:~20.3.15"
+    "@angular/platform-browser-dynamic": "npm:~20.3.15"
     "@babel/core": "npm:~7.28.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@compodoc/compodoc": "npm:^1.1.32"
@@ -12951,7 +12961,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:~"
     "@o3r/schematics": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@schematics/angular": "npm:~20.3.11"
+    "@schematics/angular": "npm:~20.3.13"
     "@stylistic/eslint-plugin": "npm:~5.6.0"
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~22.18.0"
@@ -13057,19 +13067,19 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/workspace@workspace:packages/@o3r/workspace"
   dependencies:
-    "@angular-devkit/architect": "npm:~0.2003.11"
-    "@angular-devkit/build-angular": "npm:~20.3.11"
-    "@angular-devkit/core": "npm:~20.3.11"
-    "@angular-devkit/schematics": "npm:~20.3.11"
-    "@angular/animations": "npm:~20.3.13"
-    "@angular/cli": "npm:~20.3.11"
-    "@angular/common": "npm:~20.3.13"
-    "@angular/compiler": "npm:~20.3.13"
-    "@angular/compiler-cli": "npm:~20.3.13"
-    "@angular/core": "npm:~20.3.13"
-    "@angular/platform-browser": "npm:~20.3.13"
-    "@angular/platform-browser-dynamic": "npm:~20.3.13"
-    "@angular/router": "npm:~20.3.13"
+    "@angular-devkit/architect": "npm:0.2003.13"
+    "@angular-devkit/build-angular": "npm:~20.3.13"
+    "@angular-devkit/core": "npm:~20.3.13"
+    "@angular-devkit/schematics": "npm:~20.3.13"
+    "@angular/animations": "npm:~20.3.15"
+    "@angular/cli": "npm:~20.3.13"
+    "@angular/common": "npm:~20.3.15"
+    "@angular/compiler": "npm:~20.3.15"
+    "@angular/compiler-cli": "npm:~20.3.15"
+    "@angular/core": "npm:~20.3.15"
+    "@angular/platform-browser": "npm:~20.3.15"
+    "@angular/platform-browser-dynamic": "npm:~20.3.15"
+    "@angular/router": "npm:~20.3.15"
     "@babel/core": "npm:~7.28.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
@@ -13087,7 +13097,7 @@ __metadata:
     "@o3r/schematics": "workspace:~"
     "@o3r/telemetry": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@schematics/angular": "npm:~20.3.11"
+    "@schematics/angular": "npm:~20.3.13"
     "@stylistic/eslint-plugin": "npm:~5.6.0"
     "@types/jest": "npm:~30.0.0"
     "@types/minimist": "npm:^1.2.2"
@@ -15002,14 +15012,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@schematics/angular@npm:20.3.11, @schematics/angular@npm:~20.3.11":
-  version: 20.3.11
-  resolution: "@schematics/angular@npm:20.3.11"
+"@schematics/angular@npm:20.3.13, @schematics/angular@npm:~20.3.13":
+  version: 20.3.13
+  resolution: "@schematics/angular@npm:20.3.13"
   dependencies:
-    "@angular-devkit/core": "npm:20.3.11"
-    "@angular-devkit/schematics": "npm:20.3.11"
+    "@angular-devkit/core": "npm:20.3.13"
+    "@angular-devkit/schematics": "npm:20.3.13"
     jsonc-parser: "npm:3.3.1"
-  checksum: 10/f37a06ba28d8dedcb40cbe02a2f0071fd4999599ac3f8b688a4258ea7fbb1e53ff1636ab5bc12baedda23c85e6a39a224f4c815227a02af7bd94aba97e0090fa
+  checksum: 10/ea6aca46e0bc6511c9432819fc98c85ede132af0e256fdf74cd1824d1aac47fb1fda10248d64aeb27e0c4df18096e05cfc08facce132dd809140a9989a3296e9
   languageName: node
   linkType: hard
 
@@ -18604,7 +18614,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ajv-formats@npm:3.0.1":
+"ajv-formats@npm:3.0.1, ajv-formats@npm:^3.0.1":
   version: 3.0.1
   resolution: "ajv-formats@npm:3.0.1"
   dependencies:
@@ -28037,6 +28047,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"jose@npm:^6.1.1":
+  version: 6.1.3
+  resolution: "jose@npm:6.1.3"
+  checksum: 10/9626c51e8c3792b505e954f3094698c182208617b62dfb27269230f31e57560b083985ed8128b8a9753aa92daf18d3a2341cc826d149503f14569abe87d42389
+  languageName: node
+  linkType: hard
+
 "joycon@npm:^3.1.1":
   version: 3.1.1
   resolution: "joycon@npm:3.1.1"
@@ -31279,16 +31296,16 @@ __metadata:
   resolution: "otter-devtools@workspace:apps/vscode-extension"
   dependencies:
     "@ama-mcp/otter": "workspace:^"
-    "@angular-devkit/build-angular": "npm:~20.3.11"
-    "@angular-devkit/core": "npm:~20.3.11"
-    "@angular-devkit/schematics": "npm:~20.3.11"
-    "@angular/animations": "npm:~20.3.13"
-    "@angular/common": "npm:~20.3.13"
-    "@angular/compiler": "npm:~20.3.13"
-    "@angular/compiler-cli": "npm:~20.3.13"
-    "@angular/core": "npm:~20.3.13"
-    "@angular/platform-browser": "npm:~20.3.13"
-    "@angular/platform-browser-dynamic": "npm:~20.3.13"
+    "@angular-devkit/build-angular": "npm:~20.3.13"
+    "@angular-devkit/core": "npm:~20.3.13"
+    "@angular-devkit/schematics": "npm:~20.3.13"
+    "@angular/animations": "npm:~20.3.15"
+    "@angular/common": "npm:~20.3.15"
+    "@angular/compiler": "npm:~20.3.15"
+    "@angular/compiler-cli": "npm:~20.3.15"
+    "@angular/core": "npm:~20.3.15"
+    "@angular/platform-browser": "npm:~20.3.15"
+    "@angular/platform-browser-dynamic": "npm:~20.3.15"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
     "@nx/jest": "npm:~21.6.0"
@@ -31299,7 +31316,7 @@ __metadata:
     "@o3r/schematics": "workspace:~"
     "@o3r/telemetry": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@schematics/angular": "npm:~20.3.11"
+    "@schematics/angular": "npm:~20.3.13"
     "@stylistic/eslint-plugin": "npm:~5.6.0"
     "@types/eslint": "npm:~9.6.0"
     "@types/jest": "npm:~30.0.0"
@@ -36741,7 +36758,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-jest@npm:^29.4.0":
+"ts-jest@npm:^29.4.0, ts-jest@npm:~29.4.0":
   version: 29.4.6
   resolution: "ts-jest@npm:29.4.6"
   dependencies:
@@ -36778,46 +36795,6 @@ __metadata:
   bin:
     ts-jest: cli.js
   checksum: 10/e0ff9e13f684166d5331808b288043b8054f49a1c2970480a92ba3caec8d0ff20edd092f2a4e7a3ad8fcb9ba4d674bee10ec7ee75046d8066bbe43a7d16cf72e
-  languageName: node
-  linkType: hard
-
-"ts-jest@npm:~29.4.0":
-  version: 29.4.5
-  resolution: "ts-jest@npm:29.4.5"
-  dependencies:
-    bs-logger: "npm:^0.2.6"
-    fast-json-stable-stringify: "npm:^2.1.0"
-    handlebars: "npm:^4.7.8"
-    json5: "npm:^2.2.3"
-    lodash.memoize: "npm:^4.1.2"
-    make-error: "npm:^1.3.6"
-    semver: "npm:^7.7.3"
-    type-fest: "npm:^4.41.0"
-    yargs-parser: "npm:^21.1.1"
-  peerDependencies:
-    "@babel/core": ">=7.0.0-beta.0 <8"
-    "@jest/transform": ^29.0.0 || ^30.0.0
-    "@jest/types": ^29.0.0 || ^30.0.0
-    babel-jest: ^29.0.0 || ^30.0.0
-    jest: ^29.0.0 || ^30.0.0
-    jest-util: ^29.0.0 || ^30.0.0
-    typescript: ">=4.3 <6"
-  peerDependenciesMeta:
-    "@babel/core":
-      optional: true
-    "@jest/transform":
-      optional: true
-    "@jest/types":
-      optional: true
-    babel-jest:
-      optional: true
-    esbuild:
-      optional: true
-    jest-util:
-      optional: true
-  bin:
-    ts-jest: cli.js
-  checksum: 10/48d867e0707474241b6339336cbe57d85122d6018fef957c8c095ff365e5d9428f112fe2cb11a8301343bbd32cec3ff639523d9bf9eea3a371734aa9a100f8a2
   languageName: node
   linkType: hard
 
@@ -38851,16 +38828,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zod-to-json-schema@npm:^3.24.1":
-  version: 3.24.6
-  resolution: "zod-to-json-schema@npm:3.24.6"
+"zod-to-json-schema@npm:^3.24.1, zod-to-json-schema@npm:^3.25.0":
+  version: 3.25.0
+  resolution: "zod-to-json-schema@npm:3.25.0"
   peerDependencies:
-    zod: ^3.24.1
-  checksum: 10/a2c30cf1f250aa79a7f975e65b4236d1abafafd63b43c43475057f28ce6e13f4c882391553c656fb426fd09665e6ae293c2439b4ed8600863beda43fb1a56922
+    zod: ^3.25 || ^4
+  checksum: 10/cb932e20b5b5e64c75b2c34a7e6dae74b727292eab9e014b93c2607378b8cb1b227f80b429053ceb77c8e0dddc338837f9e534b2a658540ff60c9e4ffdc7cc19
   languageName: node
   linkType: hard
 
-"zod@npm:3.25.76, zod@npm:^3.23.8, zod@npm:^3.24.1, zod@npm:~3.25.76":
+"zod@npm:4.1.13, zod@npm:^3.25 || ^4.0":
+  version: 4.1.13
+  resolution: "zod@npm:4.1.13"
+  checksum: 10/0679190318928f69fcb07751063719de232c663b13955fcdb55db59839569d39f3f29b955cb0cba7af0b724233f88c06b3e84c550397ad4e68f8088fa6799d88
+  languageName: node
+  linkType: hard
+
+"zod@npm:^3.23.8, zod@npm:^3.24.1, zod@npm:~3.25.76":
   version: 3.25.76
   resolution: "zod@npm:3.25.76"
   checksum: 10/f0c963ec40cd96858451d1690404d603d36507c1fc9682f2dae59ab38b578687d542708a7fdbf645f77926f78c9ed558f57c3d3aa226c285f798df0c4da16995
