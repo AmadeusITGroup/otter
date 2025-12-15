@@ -4,11 +4,17 @@
     "composite": true,
     "outDir": "test",
     "rootDir": ".",
-    "allowImportingTsExtensions": true
+    "allowImportingTsExtensions": true,
+    "module": "nodenext",
+    "target": "ESNext",
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "moduleResolution": "nodenext"
   },
   "include": [
     "./src/**/*.spec.ts",
-    "./schematics/**/*.it.spec.ts"
+    "./schematics/**/*.it.spec.ts",
+    "testing/**/*.ts"
   ],
   "exclude": [],
   "references": [

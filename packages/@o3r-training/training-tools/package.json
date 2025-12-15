@@ -75,8 +75,6 @@
     "@angular/core": "~20.3.13",
     "@angular/platform-browser": "~20.3.13",
     "@angular/platform-browser-dynamic": "~20.3.13",
-    "@babel/core": "~7.28.0",
-    "@babel/preset-typescript": "~7.28.0",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@nx/eslint": "~21.6.0",
     "@nx/eslint-plugin": "~21.6.0",

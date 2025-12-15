@@ -23,7 +23,8 @@
     "build:source": "tsc -b tsconfig.build.json && yarn cpy package.json dist/",
     "build": "yarn nx build design",
     "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist && yarn copy:templates",
-    "postbuild": "patch-package-json-main"
+    "postbuild": "patch-package-json-main",
+    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules yarn jest --config=jest.config.cjs"
   },
   "exports": {
     "./package.json": {
@@ -73,9 +74,6 @@
     }
   },
   "devDependencies": {
-    "@babel/core": "~7.28.0",
-    "@babel/preset-env": "~7.28.0",
-    "@babel/preset-typescript": "~7.28.0",
     "@compodoc/compodoc": "^1.1.32",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@nx/eslint": "~21.6.0",
@@ -95,7 +93,6 @@
     "@types/semver": "^7.3.13",
     "@typescript-eslint/parser": "~8.47.0",
     "angular-eslint": "~20.6.0",
-    "babel-jest": "^30.0.5",
     "chokidar": "^4.0.3",
     "cpy-cli": "^6.0.0",
     "eslint": "~9.39.0",

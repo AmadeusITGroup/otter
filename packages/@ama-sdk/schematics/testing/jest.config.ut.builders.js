@@ -9,9 +9,10 @@ module.exports = {
   ...createDefaultPreset(getTsJestBaseConfig()),
   ...getOtterJestBaseConfig(rootDir),
   ...getJestUnitTestConfig({
+    setupFilesAfterEnv: ['<rootDir>/testing/setup-jest.ts'],
     testPathIgnorePatterns: [
       '<rootDir>/src/.*'
-    ]
-  }),
-  setupFilesAfterEnv: ['<rootDir>/testing/setup-jest.ts']
+    ],
+    testEnvironment: 'node'
+  })
 };

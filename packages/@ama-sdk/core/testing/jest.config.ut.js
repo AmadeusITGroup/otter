@@ -12,11 +12,11 @@ module.exports = {
     testPathIgnorePatterns: [
       '<rootDir>/builders/.*',
       '<rootDir>/schematics/.*'
-    ]
-  }),
-  fakeTimers: {
-    enableGlobally: true
-  },
-  globalSetup: '<rootDir>/testing/global-timezone-setup.js',
-  setupFilesAfterEnv: ['<rootDir>/testing/setup-jest.ts']
+    ],
+    fakeTimers: {
+      enableGlobally: true
+    },
+    globalSetup: '<rootDir>/testing/global-timezone-setup.js',
+    setupFilesAfterEnv: ['<rootDir>/testing/setup-jest.ts']
+  })
 };

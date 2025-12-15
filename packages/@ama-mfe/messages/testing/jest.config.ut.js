@@ -8,6 +8,8 @@ const rootDir = path.join(__dirname, '..');
 module.exports = {
   ...createDefaultPreset(getTsJestBaseConfig()),
   ...getOtterJestBaseConfig(rootDir),
-  ...getJestUnitTestConfig(),
-  setupFilesAfterEnv: ['<rootDir>/testing/setup-jest.ts']
+  ...getJestUnitTestConfig({
+      setupFilesAfterEnv: ['<rootDir>/testing/setup-jest.ts'],
+      testEnvironment: 'node'
+  }),
 };

@@ -5,9 +5,13 @@ import {
   resolve,
 } from 'node:path';
 import {
+  fileURLToPath,
+} from 'node:url';
+import {
   createPrivateFormatter,
 } from './private-formatter.mjs';
 
+const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const mocksPath = resolve(__dirname, '..', '..', '..', 'testing', 'mocks', 'dictionaries');
 
 let mocks!: {

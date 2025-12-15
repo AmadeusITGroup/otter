@@ -5,12 +5,16 @@ import {
   resolve,
 } from 'node:path';
 import {
+  fileURLToPath,
+} from 'node:url';
+import {
   OTTER_NAME_PREFIX,
 } from '../constants.mjs';
 import {
   cssFormat,
 } from './css-format.mjs';
 
+const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const mocksPath = resolve(__dirname, '..', '..', 'testing', 'mocks', 'dictionaries');
 
 let mocks!: {

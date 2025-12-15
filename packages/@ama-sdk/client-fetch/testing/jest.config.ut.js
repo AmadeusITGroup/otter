@@ -12,10 +12,11 @@ module.exports = {
     testPathIgnorePatterns: [
       '<rootDir>/builders/.*',
       '<rootDir>/schematics/.*'
-    ]
-  }),
-  fakeTimers: {
-    enableGlobally: true
-  },
-  setupFilesAfterEnv: ['<rootDir>/testing/setup-jest.ts']
+    ],
+    fakeTimers: {
+      enableGlobally: true
+    },
+    setupFilesAfterEnv: ['<rootDir>/testing/setup-jest.ts'],
+    testEnvironment: 'node'
+  })
 };

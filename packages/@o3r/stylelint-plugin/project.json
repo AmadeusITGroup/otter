@@ -28,7 +28,12 @@
       "dependsOn": ["^build"]
     },
     "lint": {},
-    "test": {},
+    "test": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "test"
+      }
+    },
     "test-int": {},
     "prepare-publish": {},
     "publish": {},

@@ -5,12 +5,16 @@ import {
   resolve,
 } from 'node:path';
 import {
+  fileURLToPath,
+} from 'node:url';
+import {
   OTTER_NAME_PREFIX,
 } from '../constants.mjs';
 import {
   metadataFormat,
 } from './metadata-format.mjs';
 
+const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const mocksPath = resolve(__dirname, '..', '..', 'testing', 'mocks', 'dictionaries');
 
 let mocks!: {
@@ -33,7 +37,7 @@ jest.mock('style-dictionary/utils', () => ({
       }
       return mem;
     };
-    return [...flat(tokens, new Set())].filter(({ path }: any) => value?.includes(path.join('.')));
+    return [...flat(tokens, new Set())].filter(({ path }: any) => JSON.stringify(value)?.includes(path.join('.')));
   }),
   sortByReference: jest.fn()
 }));

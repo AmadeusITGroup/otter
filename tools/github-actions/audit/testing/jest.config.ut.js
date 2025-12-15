@@ -1,5 +1,5 @@
 const path = require('node:path');
-const { getTsJestBaseConfig, getOtterJestBaseConfig, getJestUnitTestConfig } = require('@o3r/test-helpers');
+const { getOtterJestBaseConfig, getJestUnitTestConfig, getTsJestBaseConfig } = require('@o3r/test-helpers');
 const { createDefaultPreset } = require('ts-jest');
 
 const rootDir = path.join(__dirname, '..');

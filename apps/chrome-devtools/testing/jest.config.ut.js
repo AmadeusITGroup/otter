@@ -10,6 +10,7 @@ module.exports = {
   ...getOtterJestBaseConfig(rootDir),
   ...getJestUnitTestConfig(),
   transformIgnorePatterns: ['^.+\\.js$'],
+  testEnvironment: 'node',
   globals: {
     chrome: {
       runtime: {},

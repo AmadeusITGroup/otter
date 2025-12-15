@@ -8,6 +8,8 @@ const rootDir = path.join(__dirname, '..');
 module.exports = {
   ...createDefaultPreset(getTsJestBaseConfig()),
   ...getOtterJestBaseConfig(rootDir),
-  ...getJestUnitTestConfig(),
-  transformIgnorePatterns: ['^.+\\.js$']
+  ...getJestUnitTestConfig({
+      testEnvironment: 'node',
+      transformIgnorePatterns: ['^.+\\.js$']
+  })
 };

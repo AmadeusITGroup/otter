@@ -11,6 +11,7 @@ module.exports = {
   ...getJestUnitTestConfig({
     testPathIgnorePatterns: [
       '<rootDir>/src/.*'
-    ]
+    ],
+    testEnvironment: 'node'
   })
 };

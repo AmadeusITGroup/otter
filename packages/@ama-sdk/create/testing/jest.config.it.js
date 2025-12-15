@@ -8,5 +8,7 @@ const rootDir = path.join(__dirname, '..');
 module.exports = {
   ...createDefaultPreset(getTsJestBaseConfig()),
   ...getOtterJestBaseConfig(rootDir),
-  ...getJestIntegrationTestConfig()
+  ...getJestIntegrationTestConfig({
+    testEnvironment: 'node'
+  })
 };

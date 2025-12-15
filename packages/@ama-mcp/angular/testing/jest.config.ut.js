@@ -12,6 +12,7 @@ module.exports = {
     testPathIgnorePatterns: [
       '<rootDir>/builders/.*',
       '<rootDir>/schematics/.*'
-    ]
+    ],
+    testEnvironment: 'node'
   })
 };

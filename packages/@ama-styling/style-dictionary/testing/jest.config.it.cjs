@@ -1,12 +1,18 @@
 const path = require('node:path');
 const { getTsJestBaseConfig, getOtterJestBaseConfig, getJestIntegrationTestConfig } = require('@o3r/test-helpers');
-const { createDefaultPreset } = require('ts-jest');
+const { createJsWithTsEsmPreset } = require('ts-jest');
 
 const rootDir = path.join(__dirname, '..');
 
+const tsJestConfig = { ...getTsJestBaseConfig(), useESM: true, diagnostics: { ignoreCodes: [151002] } };
+
 /** @type {import('ts-jest/dist/types').JestConfigWithTsJest} */
 module.exports = {
-  ...createDefaultPreset(getTsJestBaseConfig()),
+  ...createJsWithTsEsmPreset(tsJestConfig),
   ...getOtterJestBaseConfig(rootDir),
-  ...getJestIntegrationTestConfig()
+  ...getJestIntegrationTestConfig(),
+  testEnvironment: 'node',
+  extensionsToTreatAsEsm: ['.ts', '.mts'],
+  resolver: '<rootDir>/testing/jest-resolver.cjs',
+  injectGlobals: true
 };

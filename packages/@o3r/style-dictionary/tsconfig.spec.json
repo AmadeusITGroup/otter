@@ -2,14 +2,18 @@
   "extends": "../../../tsconfig.jest",
   "compilerOptions": {
     "resolveJsonModule": true,
-    "module": "ESNext",
+    "module": "nodenext",
     "target": "ESNext",
     "allowJs": true,
     "composite": true,
-    "rootDir": "."
+    "rootDir": ".",
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "moduleResolution": "nodenext"
   },
   "include": [
-    "**/*.spec.ts"
+    "**/*.spec.ts",
+    "testing/**/*.ts"
   ],
   "exclude": [],
   "references": [

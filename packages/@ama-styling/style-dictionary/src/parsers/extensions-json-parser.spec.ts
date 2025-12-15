@@ -5,6 +5,9 @@ import {
   resolve,
 } from 'node:path';
 import {
+  fileURLToPath,
+} from 'node:url';
+import {
   OTTER_EXTENSIONS_NODE_NAME,
   OTTER_NAME_PREFIX,
 } from '../constants.mjs';
@@ -12,6 +15,7 @@ import {
   extensionsJsonParser,
 } from './extensions-json-parser.mjs';
 
+const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const filePath = resolve(__dirname, '..', '..', 'testing', 'mocks', 'extensions.json');
 let contents: string;
 

@@ -7,6 +7,7 @@ import {
   relative,
   resolve,
 } from 'node:path';
+import defaultTransformerOptions from 'jest-preset-angular/presets';
 import {
   type JestConfigWithTsJest,
   pathsToModuleNameMapper,
@@ -18,6 +19,21 @@ import type {
 import {
   parseConfigFileTextToJson,
 } from 'typescript';
+
+export const getAngularJestConfig = () => {
+  return {
+        preset: 'jest-preset-angular',
+        transform: {
+      '^.+\\.(ts|mts|js|mjs|html|svg)$': [
+        'jest-preset-angular',
+        {
+          ...defaultTransformerOptions,
+          ...getTsJestBaseConfig()
+        },
+      ],
+    }
+  }
+}
 
 /**
  * Get Base config for TS-jest creation
@@ -79,6 +95,7 @@ export const getOtterJestBaseConfig = (rootDir: string, options: OtterJestBaseCo
       '<rootDir>/dist',
       '<rootDir>/src/package.json'
     ],
+    extensionsToTreatAsEsm: ['.ts', '.mts'],
     moduleNameMapper: {
       ...moduleNameMapper,
       '^(\\.{1,2}/.*)\\.mjs$': ['$1.mjs', '$1.mts'],

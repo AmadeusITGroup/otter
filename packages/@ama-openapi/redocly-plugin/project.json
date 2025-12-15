@@ -26,9 +26,9 @@
     },
     "lint": {},
     "test": {
+      "executor": "nx:run-script",
       "options": {
-        "jestConfig": "{projectRoot}/jest.config.cjs",
-        "passWithNoTests": true
+        "script": "test"
       }
     },
     "set-version": {},

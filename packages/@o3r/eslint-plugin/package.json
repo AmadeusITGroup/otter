@@ -55,8 +55,6 @@
     "@angular-devkit/core": "~20.3.11",
     "@angular-eslint/test-utils": "~20.6.0",
     "@angular/compiler": "~20.3.13",
-    "@babel/core": "~7.28.0",
-    "@babel/preset-typescript": "~7.28.0",
     "@compodoc/compodoc": "^1.1.32",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@eslint/eslintrc": "^3.0.0",

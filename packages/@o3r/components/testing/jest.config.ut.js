@@ -1,12 +1,11 @@
 const path = require('node:path');
-const { getTsJestBaseConfig, getOtterJestBaseConfig, getJestUnitTestConfig, getJestFixtureMapping } = require('@o3r/test-helpers');
-const { createCjsPreset } = require('jest-preset-angular/presets');
+const { getAngularJestConfig, getOtterJestBaseConfig, getJestUnitTestConfig, getJestFixtureMapping } = require('@o3r/test-helpers');
 
 const rootDir = path.join(__dirname, '..');
 
 /** @type {import('ts-jest/dist/types').JestConfigWithTsJest} */
 module.exports = {
-  ...createCjsPreset(getTsJestBaseConfig()),
+  ...getAngularJestConfig(),
   ...getOtterJestBaseConfig(rootDir, {
     moduleNameMapper: getJestFixtureMapping('angular')
   }),

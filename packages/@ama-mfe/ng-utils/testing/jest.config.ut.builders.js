@@ -11,7 +11,8 @@ module.exports = {
   ...getJestUnitTestConfig({
     testPathIgnorePatterns: [
       '<rootDir>/src/.*'
-    ]
+    ],
+    testEnvironment: 'node',
+    setupFilesAfterEnv: ['<rootDir>/testing/setup-jest.builders.ts']
   }),
-  setupFilesAfterEnv: ['<rootDir>/testing/setup-jest.builders.ts']
 };

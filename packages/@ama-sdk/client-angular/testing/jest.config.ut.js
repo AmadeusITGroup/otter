@@ -12,7 +12,8 @@ module.exports = {
     testPathIgnorePatterns: [
       '<rootDir>/builders/.*',
       '<rootDir>/schematics/.*'
-    ]
-  }),
-  setupFilesAfterEnv: ['<rootDir>/testing/setup-jest.ts']
+    ],
+    testEnvironment: 'node',
+    setupFilesAfterEnv: ['<rootDir>/testing/setup-jest.ts']
+  })
 };

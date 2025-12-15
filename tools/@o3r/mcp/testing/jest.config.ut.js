@@ -1,6 +1,6 @@
 const path = require('node:path');
-const { getTsJestBaseConfig, getOtterJestBaseConfig, getJestUnitTestConfig } = require('@o3r/test-helpers');
 const { createDefaultPreset } = require('ts-jest');
+const { getOtterJestBaseConfig, getJestUnitTestConfig, getTsJestBaseConfig } = require('@o3r/test-helpers');
 
 const rootDir = path.join(__dirname, '..');
 
@@ -12,6 +12,7 @@ module.exports = {
     testPathIgnorePatterns: [
       '<rootDir>/builders/.*',
       '<rootDir>/schematics/.*'
-    ]
-  })
+    ],
+    testEnvironment: 'node'
+  }),
 };
