@@ -39,10 +39,10 @@
     }
   },
   "dependencies": {
-    "@angular-devkit/architect": "~0.2003.11",
-    "@angular-devkit/schematics": "~20.3.11",
+    "@angular-devkit/architect": "0.2003.13",
+    "@angular-devkit/schematics": "~20.3.13",
     "@o3r/schematics": "workspace:~",
-    "@schematics/angular": "~20.3.11",
+    "@schematics/angular": "~20.3.13",
     "tslib": "^2.6.2"
   },
   "peerDependencies": {
@@ -87,11 +87,11 @@
     "@o3r/eslint-plugin": "workspace:~",
     "@o3r/telemetry": "workspace:~",
     "@o3r/test-helpers": "workspace:~",
-    "@schematics/angular": "~20.3.11",
+    "@schematics/angular": "~20.3.13",
     "@stylistic/eslint-plugin": "~5.6.0",
     "@types/jest": "~30.0.0",
     "@types/minimist": "^1.2.2",
-    "@types/node": "~22.18.0",
+    "@types/node": "~24.10.0",
     "@types/semver": "^7.3.13",
     "@typescript-eslint/parser": "~8.47.0",
     "angular-eslint": "~20.6.0",
