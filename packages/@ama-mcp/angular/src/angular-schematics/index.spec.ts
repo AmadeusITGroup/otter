@@ -45,8 +45,7 @@ const basicScenarios: Scenario[] = [
 const setupClientAndServer = async () => {
   const mcpServer = new McpServer({
     name: 'test-angular-schematics-server',
-    version: '1.0.0',
-    capabilities: { tools: {} }
+    version: '1.0.0'
   });
   registerAngularSchematicsTool(mcpServer, {});
   return setUpClientAndServerForTesting(mcpServer);
