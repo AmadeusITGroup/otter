@@ -147,7 +147,7 @@
     "@types/jasmine": "~5.1.0",
     "@types/jest": "~30.0.0",
     "@types/json-schema": "^7.0.15",
-    "@types/node": "~22.18.0",
+    "@types/node": "~24.10.0",
     "@types/semver": "^7.3.13",
     "@typescript-eslint/parser": "~8.47.0",
     "angular-eslint": "~20.6.0",
