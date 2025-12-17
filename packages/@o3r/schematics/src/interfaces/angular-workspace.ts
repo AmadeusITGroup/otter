@@ -47,7 +47,7 @@ export interface WorkspaceSchematics extends SchematicOptions {
     /** in addition to the WorkspaceLayout, an optional testFramework attribute is available */
     testFramework?: AvailableTestFrameworks;
   };
-  /** eslint-enable @typescript-eslint/naming-convention */
+  /* eslint-enable @typescript-eslint/naming-convention */
 }
 export interface WorkspaceProject extends NgWorkspaceProject {
   name?: string;

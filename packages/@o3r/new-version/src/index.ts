@@ -18,7 +18,7 @@ export type BaseLogger = { debug: (log: string) => void; info: (log: string) => 
  * Options expected by the NewVersion plug-in
  */
 export interface NewVersionOptions<T extends BaseLogger> {
-  /** Logger, you can provide here core from @actions/core for example */
+  /** Logger, you can provide here core from `@actions/core` for example */
   logger: T;
 
   /** If the branching model supports a default branch on top of usual release branches, the branch name */

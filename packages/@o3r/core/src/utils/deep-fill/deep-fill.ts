@@ -6,7 +6,7 @@ export interface PrimitiveReviverMapper<T = any> {
   /**
    * Construct the primitive type if needed
    * @param data to be constructed
-   * @default {@see defaultConstruct}
+   * @default {@link defaultConstruct}
    */
   construct?: (data: any) => T;
 }

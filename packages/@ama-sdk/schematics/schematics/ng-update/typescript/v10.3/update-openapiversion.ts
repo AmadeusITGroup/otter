@@ -11,7 +11,7 @@ import {
 import * as semver from 'semver';
 
 /**
- * Update open api version used in the project to match with the one used in @ama-sdk/schematics:typescript-core
+ * Update open api version used in the project to match with the one used in `@ama-sdk/schematics:typescript-core`
  */
 export const updateOpenApiVersionInProject = (): Rule => {
   const overwriteOpenApiVersion = (pathOfWorkspace: string): Rule => {

@@ -28,7 +28,7 @@ import type {
 export interface GetRepositoriesUsingLibraryOptions extends CacheToolOptions, GithubToolOptions, ToolDefinition {
   /**
    * Scopes to look for when searching for repositories
-   * (e.g. for @ama-mcp/github, the scope is ama-mcp)
+   * (e.g. for `@ama-mcp/github`, the scope is ama-mcp)
    * Limit to 10 scopes to avoid hitting GitHub search API rate limit
    * @example ['ama-mcp', 'o3r']
    */

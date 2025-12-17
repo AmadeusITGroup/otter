@@ -28,7 +28,7 @@ export class LoggerModule {
   /**
    * Provide logger at application level
    * By default {@link ConsoleLogger} will be used if nothing is specified
-   * @param {...any} clients Registered {@link https://github.com/AmadeusITGroup/otter/blob/main/docs/logger/LOGS.md | Logger Client}
+   * @param {...LoggerClient[]} clients Registered {@link https://github.com/AmadeusITGroup/otter/blob/main/docs/logger/LOGS.md | Logger Client}
    * @deprecated Please use {@link provideLogger} instead, will be removed in v14.
    */
   public static forRoot(...clients: LoggerClient[]): ModuleWithProviders<LoggerModule> {

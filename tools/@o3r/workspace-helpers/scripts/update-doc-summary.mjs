@@ -44,7 +44,6 @@ function generateFolderMdFiles(folderPath) {
 /**
  * Generate CompoDoc summary object
  * @param {string} folderPath Path to the folder containing MarkDown files
- * @returns {Promise<any[]>}
  */
 function generateSummary(folderPath) {
   return readdir(folderPath)

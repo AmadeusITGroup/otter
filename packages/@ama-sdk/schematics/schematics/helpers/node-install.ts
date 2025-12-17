@@ -17,7 +17,7 @@ export function getPackageManagerName(enforcedNpmManager?: SupportedPackageManag
 }
 
 /**
- * Duplication of the interface not exposed by the @angular-devkit/schematics
+ * Duplication of the interface not exposed by the `@angular-devkit/schematics`
  */
 export interface NodePackageInstallTaskOptions {
   packageManager?: 'yarn' | 'npm' | '';

@@ -16,7 +16,7 @@ import {
 export interface CssTokenValueRendererOptions {
   /**
    * Determine if the variable is private and should not be rendered
-   * @default {@see isO3rPrivateVariable}
+   * @default {@link isO3rPrivateVariable}
    */
   isPrivateVariable?: (variable: DesignTokenVariableStructure) => boolean;
 
