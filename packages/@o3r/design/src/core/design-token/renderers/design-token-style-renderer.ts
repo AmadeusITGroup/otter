@@ -77,7 +77,7 @@ export const getFileToUpdatePath = async (root?: string, defaultFile = 'styles.s
  */
 export const getTokenSorterByName: DesignTokenListTransform = (_variables, options) => {
   const splitNameRegExp = /^(.*?)(\d+)$/;
-  return (tokens) => tokens.sort((a, b) => {
+  return (tokens) => tokens.toSorted((a, b) => {
     const keyA = a.getKey(options?.tokenVariableNameRenderer);
     const keyB = b.getKey(options?.tokenVariableNameRenderer);
     const splitA = splitNameRegExp.exec(keyA);
@@ -156,7 +156,7 @@ export const getTokenSorterFromRegExpList: (regExps: RegExp[], applyRendererName
   return (tokens) =>
     tokens
       .map((token) => ({ index: regExps.findIndex((regExp) => applyRegExp(token, regExp)), token }))
-      .sort((a, b) => {
+      .toSorted((a, b) => {
         if (a.index === -1) {
           if (b.index === -1) {
             return 0;

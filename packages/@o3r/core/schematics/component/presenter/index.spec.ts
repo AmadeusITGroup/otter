@@ -87,8 +87,8 @@ describe('Component presenter', () => {
       'index.ts'
     ];
 
-    expect(tree.files.filter((file) => /test-component-pres/.test(file)).sort()).toEqual(
-      expectedFileNamesWithType.map((fileName) => getGeneratedComponentPath(componentName, fileName, 'presenter')).sort()
+    expect(tree.files.filter((file) => /test-component-pres/.test(file)).toSorted()).toEqual(
+      expectedFileNamesWithType.map((fileName) => getGeneratedComponentPath(componentName, fileName, 'presenter')).toSorted()
     );
     expect(tree.readContent(getGeneratedComponentPath(componentName, 'index.ts', 'presenter'))).toContain('export * from \'./test-component-pres.test-type\';');
     const componentFileContent = tree.readContent(getGeneratedComponentPath(componentName, 'test-component-pres.test-type.ts', 'presenter'));

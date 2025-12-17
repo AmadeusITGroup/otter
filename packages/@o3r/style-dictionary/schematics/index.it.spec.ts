@@ -27,15 +27,15 @@ describe('ng add otter style-dictionary hooks', () => {
 
     let diff = getGitDiff(workspacePath);
 
-    expect(diff.modified.sort()).toEqual([
+    expect(diff.modified.toSorted()).toEqual([
       path.join(relativeApplicationPath, 'package.json').replace(/[/\\]+/g, '/'),
       isYarnTest ? 'yarn.lock' : 'package-lock.json',
       'package.json'
-    ].sort());
-    expect(diff.added.sort()).toEqual([
+    ].toSorted());
+    expect(diff.added.toSorted()).toEqual([
       path.join(relativeApplicationPath, 'token.extensions.json').replace(/[/\\]+/g, '/'),
       path.join(relativeApplicationPath, 'config.mjs').replace(/[/\\]+/g, '/')
-    ].sort());
+    ].toSorted());
 
     await fs.writeFile(path.join(applicationPath, 'test.tokens.json'), JSON.stringify({ colors: { primary: { $value: '#000' } } }));
 
@@ -62,15 +62,15 @@ describe('ng add otter style-dictionary hooks', () => {
 
     let diff = getGitDiff(workspacePath);
 
-    expect(diff.modified.sort()).toEqual([
+    expect(diff.modified.toSorted()).toEqual([
       path.join(relativeLibraryPath, 'package.json').replace(/[/\\]+/g, '/'),
       isYarnTest ? 'yarn.lock' : 'package-lock.json',
       'package.json'
-    ].sort());
-    expect(diff.added.sort()).toEqual([
+    ].toSorted());
+    expect(diff.added.toSorted()).toEqual([
       path.join(relativeLibraryPath, 'token.extensions.json').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'config.mjs').replace(/[/\\]+/g, '/')
-    ].sort());
+    ].toSorted());
 
     await fs.writeFile(path.join(libraryPath, 'test.tokens.json'), JSON.stringify({ colors: { primary: { $value: '#000' } } }));
 

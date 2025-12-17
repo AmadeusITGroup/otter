@@ -23,19 +23,19 @@ describe('ng add components', () => {
       '--skip-confirmation', '--enable-metadata-extract', '--project-name', appName] }, execAppOptions)).not.toThrow();
 
     const diff = getGitDiff(workspacePath);
-    expect(diff.modified.sort()).toEqual([
+    expect(diff.modified.toSorted()).toEqual([
       '.gitignore',
       'angular.json',
       'apps/test-app/package.json',
       'apps/test-app/src/main.ts',
       isYarnTest ? 'yarn.lock' : 'package-lock.json',
       'package.json'
-    ].sort());
-    expect(diff.added.sort()).toEqual([
+    ].toSorted());
+    expect(diff.added.toSorted()).toEqual([
       'apps/test-app/placeholders.metadata.json',
       'apps/test-app/tsconfig.cms.json',
       'apps/test-app/migration-scripts/README.md'
-    ].sort());
+    ].toSorted());
 
     [libraryPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
       expect(diff.all.some((file) => file.startsWith(path.relative(workspacePath, untouchedProject).replace(/\\+/g, '/')))).toBe(false);
@@ -64,11 +64,11 @@ describe('ng add components', () => {
     const packageJson = JSON.parse(fs.readFileSync(`${workspacePath}/package.json`, 'utf8'));
     expect(packageJson.dependencies['@o3r/components']).toBeDefined();
 
-    expect(diff.added.sort()).toEqual([
+    expect(diff.added.toSorted()).toEqual([
       'libs/test-lib/placeholders.metadata.json',
       'libs/test-lib/tsconfig.cms.json',
       'libs/test-lib/migration-scripts/README.md'
-    ].sort());
+    ].toSorted());
 
     [applicationPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
       expect(diff.all.some((file) => file.startsWith(path.relative(workspacePath, untouchedProject).replace(/\\+/g, '/')))).toBe(false);
