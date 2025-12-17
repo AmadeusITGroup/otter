@@ -17,17 +17,21 @@ export const DECORATOR_ID_REMOVE_UNUSED_COMPONENTS = 'remove-unused-components';
 export const removeUnusedComponentsDecorator: Oas3Preprocessor = () => {
   const refMaps = new Map<string, string[]>();
 
+  const setRef = (ref: string, ctx: UserContext) => {
+    if (refMaps.has(ref)) {
+      const refs = refMaps.get(ref)!;
+      if (!refs.includes(ctx.location.absolutePointer)) {
+        return refMaps.set(ref, [...refs, ctx.location.absolutePointer]);
+      }
+    } else {
+      return refMaps.set(ref, [ctx.location.absolutePointer]);
+    }
+  };
+
   const registerComponent = (node: any, ctx: UserContext) => {
     const rec = (obj: any) => {
       if (obj && typeof obj === 'object' && obj.$ref && !ctx.location.absolutePointer.endsWith(obj.$ref)) {
-        if (refMaps.has(obj.$ref)) {
-          const refs = refMaps.get(obj.$ref)!;
-          if (!refs.includes(ctx.location.absolutePointer)) {
-            return refMaps.set(obj.$ref, [...refs, ctx.location.absolutePointer]);
-          }
-        } else {
-          return refMaps.set(obj.$ref, [ctx.location.absolutePointer]);
-        }
+        setRef(obj.$ref, ctx);
       }
       if (typeof obj === 'object') {
         if (Array.isArray(obj)) {
@@ -41,6 +45,12 @@ export const removeUnusedComponentsDecorator: Oas3Preprocessor = () => {
   };
 
   return {
+    Discriminator: {
+      leave: (node, ctx) => {
+        Object.values(node.mapping ?? {})
+          .forEach((value) => setRef(value, ctx));
+      }
+    },
     Paths: {
       leave: registerComponent
     },
