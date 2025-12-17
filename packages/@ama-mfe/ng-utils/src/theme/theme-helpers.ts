@@ -73,8 +73,9 @@ export async function applyInitialTheme(options?: StyleHelperOptions): Promise<P
   const theme = searchParams.get(THEME_QUERY_PARAM_NAME);
   document.adoptedStyleSheets = [];
   if (theme) {
-    const themeRequest: Promise<void>[] = [];
-    themeRequest.push(downloadApplicationThemeCss(theme, options).then((styleToApply) => applyTheme(styleToApply, false)));
+    const themeRequest: Promise<void>[] = [
+      downloadApplicationThemeCss(theme, options).then((styleToApply) => applyTheme(styleToApply, false))
+    ];
     const hostInfo = getHostInfo();
     if (hostInfo.hostURL) {
       const url = new URL(hostInfo.hostURL);
