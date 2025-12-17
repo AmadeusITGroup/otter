@@ -64,7 +64,7 @@ export const selectSortedTemplates = (placeholderId: string) => createSelector(
       return { orderedTemplates: undefined, isPending };
     }
     // Sort templates by priority
-    const orderedTemplates = templates.sort((template1, template2) => {
+    const orderedTemplates = templates.toSorted((template1, template2) => {
       return (template2.priority - template1.priority) || 1;
     }).filter((templateData) => !!templateData.renderedTemplate);
 

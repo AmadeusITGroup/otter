@@ -61,7 +61,7 @@ export async function getFilesFromRegistry(packageDescriptor: string, paths: str
         const range = new semver.Range(packageRange, { includePrerelease: true });
         versions = versions.filter((v) => range.test(v));
       }
-      versions.sort((a, b) => semver.compare(b, a));
+      versions.toSorted((a, b) => semver.compare(b, a));
     }
     const latestVersion = typeof versions === 'string' ? versions : versions[0];
 

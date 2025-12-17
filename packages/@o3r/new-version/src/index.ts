@@ -139,7 +139,7 @@ export class NewVersion {
     let parsedSortedTags = tags
       .map((tag) => semver.parse(tag.replace('V', 'v')))
       .filter((tag): tag is semver.SemVer => !!tag && !!regexpVersionMask.test(tag.raw))
-      .sort((v1, v2) => semver.compare(v2, v1));
+      .toSorted((v1, v2) => semver.compare(v2, v1));
 
     this.options.logger.debug('Parsed and sorted tags:');
     this.options.logger.debug(JSON.stringify(parsedSortedTags));

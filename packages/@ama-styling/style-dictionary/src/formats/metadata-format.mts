@@ -53,7 +53,7 @@ export const metadataFormat: Format = {
     let allTokens = dictionary.allTokens;
     const tokens = dictionary.tokens;
     if (outputReferences) {
-      allTokens = [...allTokens].sort(
+      allTokens = [...allTokens].toSorted(
         sortByReference(tokens, { unfilteredTokens: dictionary.unfilteredTokens, usesDtcg })
       );
     }

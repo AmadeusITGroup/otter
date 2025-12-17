@@ -26,11 +26,11 @@ describe('ng add stylelint-plugin', () => {
     packageManagerExec({ script: 'ng', args: ['add', `@o3r/stylelint-plugin@${o3rVersion}`, '--enable-metadata-extract', '--skip-confirmation', '--project-name', appName] }, execAppOptions);
     const diff = getGitDiff(workspacePath);
 
-    expect(diff.modified.sort()).toEqual([
+    expect(diff.modified.toSorted()).toEqual([
       'apps/test-app/package.json',
       'package.json',
       isYarnTest ? 'yarn.lock' : 'package-lock.json'
-    ].sort());
+    ].toSorted());
     expect(diff.added.length).toBe(0);
 
     [libraryPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
@@ -63,11 +63,11 @@ describe('ng add stylelint-plugin', () => {
     packageManagerExec({ script: 'ng', args: ['add', `@o3r/stylelint-plugin@${o3rVersion}`, '--enable-metadata-extract', '--skip-confirmation', '--project-name', libName] }, execAppOptions);
     const diff = getGitDiff(workspacePath);
 
-    expect(diff.modified.sort()).toEqual([
+    expect(diff.modified.toSorted()).toEqual([
       'libs/test-lib/package.json',
       'package.json',
       isYarnTest ? 'yarn.lock' : 'package-lock.json'
-    ].sort());
+    ].toSorted());
     expect(diff.added.length).toBe(0);
 
     [applicationPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {

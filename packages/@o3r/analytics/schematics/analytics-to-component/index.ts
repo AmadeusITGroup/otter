@@ -165,7 +165,7 @@ export function ngAddAnalyticsFn(options: NgAddAnalyticsSchematicsSchema): Rule 
 
                   const newMembers = node.members
                     .concat(propertiesToAdd)
-                    .sort(sortClassElement);
+                    .toSorted(sortClassElement);
 
                   addCommentsOnClassProperties(
                     newMembers,

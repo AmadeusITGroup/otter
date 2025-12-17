@@ -234,7 +234,7 @@ export function registerGetRepositoriesUsingLibraryTool(server: McpServer, optio
             text: (isLookingForRepos ? 'I did not finish to look for repositories. For the moment:\n' : '')
               + reposUsingLibrary.length
               ? `The following repositories use ${libraryName} dependencies:\n`
-              + reposUsingLibrary.sort().map((repo) => `- ${repo}`).join('\n')
+              + reposUsingLibrary.toSorted().map((repo) => `- ${repo}`).join('\n')
               : `No repositories found using ${libraryName} dependencies.`
           }
         ],

@@ -81,22 +81,22 @@ describe('ng add testing', () => {
     packageManagerExec({ script: 'ng', args: ['add', `@o3r/testing@${o3rVersion}`, '--testing-framework', 'jest', '--skip-confirmation', '--project-name', libName] }, execAppOptions);
 
     const diff = getGitDiff(execAppOptions.cwd);
-    expect(diff.modified.sort()).toEqual([
+    expect(diff.modified.toSorted()).toEqual([
       'angular.json',
       isYarnTest ? 'yarn.lock' : 'package-lock.json',
       'package.json',
       '.vscode/extensions.json',
       'libs/test-lib/package.json',
       'libs/test-lib/tsconfig.spec.json'
-    ].sort());
+    ].toSorted());
 
-    expect(diff.added.sort()).toEqual([
+    expect(diff.added.toSorted()).toEqual([
       'jest.config.js',
       'jest.config.ut.js',
       'tsconfig.jest.json',
       'libs/test-lib/jest.config.js',
       'libs/test-lib/testing/setup-jest.ts'
-    ].sort());
+    ].toSorted());
 
     [applicationPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
       expect(diff.all.some((file) => file.startsWith(path.relative(workspacePath, untouchedProject).replace(/\\+/g, '/')))).toBe(false);
@@ -141,8 +141,8 @@ describe('ng add testing', () => {
       path.join(relativeLibraryPath, 'src/components/test-component/presenter/test-component-pres.spec.ts').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'src/components/test-component/presenter/test-component-pres.scss').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'src/components/test-component/presenter/test-component-pres.html').replace(/[/\\]+/g, '/')
-    ].sort();
-    expect(diff.added.sort()).toEqual(addedFiles);
+    ].toSorted();
+    expect(diff.added.toSorted()).toEqual(addedFiles);
     const modifiedFiles = [
       'angular.json',
       isYarnTest ? 'yarn.lock' : 'package-lock.json',
@@ -150,8 +150,8 @@ describe('ng add testing', () => {
       '.vscode/extensions.json',
       'libs/test-lib/package.json',
       'libs/test-lib/tsconfig.spec.json'
-    ].sort();
-    expect(diff.modified.sort()).toEqual(modifiedFiles);
+    ].toSorted();
+    expect(diff.modified.toSorted()).toEqual(modifiedFiles);
 
     [applicationPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
       expect(diff.all.some((file) => file.startsWith(path.relative(workspacePath, untouchedProject).replace(/\\+/g, '/')))).toBe(false);

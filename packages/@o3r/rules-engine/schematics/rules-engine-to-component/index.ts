@@ -160,7 +160,7 @@ function ngGenerateRulesEngineToComponentFn(options: NgGenerateRulesEngineToComp
                     findMethodByName('ngOnInit')(classElement) || findMethodByName('ngOnDestroy')(classElement)
                   ))
                   .concat(propertiesToAdd, newNgOnInit, newNgOnDestroy)
-                  .sort(sortClassElement);
+                  .toSorted(sortClassElement);
 
                 return factory.updateClassDeclaration(
                   node,
