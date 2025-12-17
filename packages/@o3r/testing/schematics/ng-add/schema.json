@@ -17,6 +17,7 @@
       "description": "The framework for Unit Tests to use",
       "enum": [
         "jest",
+        "vitest",
         "other"
       ]
     },

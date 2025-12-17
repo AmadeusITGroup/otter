@@ -111,6 +111,7 @@ describe('ConnectDirective', () => {
     // change of src - should reconnect
     const safeUrl = domSanitizer.bypassSecurityTrustResourceUrl('https://example.com?param=test');
     parentComponentFixture.componentInstance.src = safeUrl;
+    parentComponentFixture.changeDetectorRef.markForCheck();
     parentComponentFixture.detectChanges();
     expect(messagePeerService.disconnect).toHaveBeenCalledTimes(1);
     expect(listenHandler).toHaveBeenCalledTimes(2);

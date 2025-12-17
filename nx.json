@@ -223,7 +223,6 @@
       ],
       "options": {
         "jestConfig": "{projectRoot}/jest.config.js",
-        "cacheDirectory": "{workspaceRoot}/.cache/jest",
         "passWithNoTests": false,
         "silent": true
       },
