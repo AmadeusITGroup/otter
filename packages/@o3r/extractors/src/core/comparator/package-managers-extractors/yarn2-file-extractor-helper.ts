@@ -179,7 +179,7 @@ async function fetchPackage(project: Project, descriptor: Descriptor): Promise<F
 /**
  * Retrieves the list of given files using yarn
  * from an npm package that is not present in the dependencies.
- * @param packageDescriptor Package descriptor using the npm semver format (i.e. @o3r/demo@^1.2.3)
+ * @param packageDescriptor Package descriptor using the npm semver format (i.e. `@o3r/demo@^1.2.3`)
  * @param paths Paths of the files to extract
  * @param cwd working directory
  */

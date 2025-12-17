@@ -39,7 +39,7 @@ function sanitizeInput(input: string) {
 
 /**
  * Retrieves the list of given files from an npm package using npm.
- * @param packageDescriptor Package descriptor using the npm semver format (i.e. @o3r/demo@^1.2.3)
+ * @param packageDescriptor Package descriptor using the npm semver format (i.e. `@o3r/demo@^1.2.3`)
  * @param paths Paths of the files to extract
  */
 export async function getFilesFromRegistry(packageDescriptor: string, paths: string[]): Promise<Record<string, string>> {

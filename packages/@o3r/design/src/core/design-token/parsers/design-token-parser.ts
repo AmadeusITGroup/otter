@@ -286,7 +286,7 @@ export const parseDesignToken = (specification: DesignTokenSpecification): Desig
 interface ParseDesignTokenFileOptions {
   /**
    * Custom function to read a file required by the token renderer
-   * @default {@see import('node:fs/promises').readFile}
+   * @default {@link import('node:fs/promises').readFile}
    * @param filePath Path to the file to read
    */
   readFile?: (filePath: string) => string | Promise<string>;

@@ -36,7 +36,7 @@ import {
 
 /**
  * Enable customization capabilities
- * @param rootPath @see RuleFactory.rootPath
+ * @param rootPath {@link RuleFactory.rootPath}
  * @param o3rCoreVersion
  * @param options
  * @param options.projectName

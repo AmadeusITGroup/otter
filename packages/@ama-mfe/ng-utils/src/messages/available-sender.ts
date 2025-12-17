@@ -6,7 +6,7 @@ import type {
 } from '../managers/interfaces';
 
 /**
- * Gets the available consumers and formats them into a {@see DeclareMessages} object.
+ * Gets the available consumers and formats them into a {@link DeclareMessages} object.
  * @param consumers - The list of registered message consumers.
  * @returns The formatted DeclareMessages object.
  */

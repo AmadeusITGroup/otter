@@ -68,14 +68,14 @@ export interface DesignTokenRendererOptions {
 
   /**
    * Custom function to read a file required by the token renderer
-   * @default {@see fs.promises.readFile}
+   * @default {@link fs.promises.readFile}
    * @param filePath Path to the file to read
    */
   readFile?: (filePath: string) => string | Promise<string>;
 
   /**
    * Custom function to determine if file required by the token renderer exists
-   * @default {@see fs.existsSync}
+   * @default {@link fs.existsSync}
    * @param filePath Path to the file to check
    * @returns
    */
@@ -83,7 +83,7 @@ export interface DesignTokenRendererOptions {
 
   /**
    * Custom function to write a file required by the token renderer
-   * @default {@see fs.promise.writeFile}
+   * @default {@link fs.promise.writeFile}
    * @param filePath Path to the file to write
    * @param content Content to write
    */

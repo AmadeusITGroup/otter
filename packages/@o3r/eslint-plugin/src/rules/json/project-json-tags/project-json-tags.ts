@@ -6,7 +6,7 @@ import {
 } from '../../utils';
 
 /**
- * Options for the linter rules @o3r/project-json-tags
+ * Options for the linter rules `@o3r/project-json-tags`
  */
 export interface ProjectJsonTagsOptions {
   /**

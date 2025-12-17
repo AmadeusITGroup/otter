@@ -19,7 +19,7 @@ import {
  * Generate rule to update generated package.json file
  * @param targetPath Path of the generated files
  * @param otterVersion Current version of otter
- * @param o3rWorkspacePackageJson Content of @o3r/workspace package.json
+ * @param o3rWorkspacePackageJson Content of `@o3r/workspace` package.json
  * @param options Option of the schematic
  */
 export function updatePackageDependenciesFactory(

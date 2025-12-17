@@ -23,13 +23,13 @@ export interface SassTokenDefinitionRendererOptions {
 
   /**
    * Renderer the name of the Sass Variable (without initial $)
-   * @default {@see tokenVariableNameSassRenderer}
+   * @default {@link tokenVariableNameSassRenderer}
    */
   tokenVariableNameRenderer?: TokenKeyRenderer;
 
   /**
    * Determine if the variable is private and should not be rendered
-   * @default {@see isO3rPrivateVariable}
+   * @default {@link isO3rPrivateVariable}
    */
   isPrivateVariable?: (variable: DesignTokenVariableStructure) => boolean;
 
