@@ -234,10 +234,10 @@
           "packages/@o3r/rules-engine"
         ],
         "factFilePatterns": [
-          "apps/showcase/src/facts/**/*.facts.ts"
+          "apps/showcase/src/facts/**/*-facts.ts"
         ],
         "operatorFilePatterns": [
-          "apps/showcase/src/operators/**/*.ts"
+          "apps/showcase/src/operators/**/*-operator.ts"
         ],
         "outputFactsDirectory": "apps/showcase",
         "outputOperatorsDirectory": "apps/showcase"
