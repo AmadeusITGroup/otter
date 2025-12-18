@@ -1,0 +1,56 @@
+# <%- packageName %>
+
+This package exposes 3 different [OpenAPI specifications](https://swagger.io/specification/) which can be used to generate an SDK or be referred to in another specification.
+
+- `<%- packageName %>/bundle/base.yam;`: The core on which the extension is based.
+- `<%- packageName %>/bundle/extension.yaml`: The extension specification which contains only the new endpoints.
+- `<%- packageName %>/bundle/specification.yaml`: The merged specification of the base and the extension.
+
+## How to work on it
+
+**Recommendations:**
+
+- Code editor [Visual Studio Code](https://code.visualstudio.com/) with the recommended extension (proposed on start).
+- [NodeJs](https://nodejs.org/) with an odd [LTS (or latest) version](https://nodejs.org/en/about/previous-releases).
+
+**Setup:**
+
+```shell
+npm install
+```
+
+### Add dependency
+
+```shell
+npm install <artifact_name>
+```
+
+and refer to its models via config in the [manifest](https://github.com/AmadeusITGroup/otter/tree/main/docs/openapi/MANIFEST_CONFIGURATION.md):
+
+```yaml
+models:
+  <artifact_name>:
+    - models/first-model.yaml
+    - models/second-model.yaml
+```
+
+> [!NOTE]
+> The complete documentation is available on [Dependency concept documentation](https://github.com/AmadeusITGroup/otter/tree/main/docs/openapi/DEPENDENCY_RESOLUTION_CONCEPT.md).
+
+## Repository structure
+
+The current repository has the following structure:
+
+```text
+<%- projectFolder %>/
+├── .vscode/                  # VsCode options and recommended extensions
+├── apis/                     # List of the APIs to bundle in the final specification
+├── models/                   # Models to be referred to locally and shared
+├── responses/                # List of responses used in the APIs
+├── .gitignore
+├── openapi.manifest.yaml
+├── package.json
+├── redocly.yaml
+├── README.md
+└── renovate.json
+```

@@ -4,7 +4,7 @@ This package exposes [OpenApi specification](https://swagger.io/specification/) 
 
 ## How to work on it
 
-**Requirements:**
+**Recommendations:**
 
 - Code editor [Visual Studio Code](https://code.visualstudio.com/) with the recommended extension (proposed on start).
 - [NodeJs](https://nodejs.org/) with a odd [LTS (or latest) version](https://nodejs.org/en/about/previous-releases).
