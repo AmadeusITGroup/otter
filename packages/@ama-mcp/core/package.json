@@ -29,7 +29,13 @@
     "compile": "tsc -b ./tsconfig.build.json && yarn cpy package.json dist && patch-package-json-main"
   },
   "peerDependencies": {
-    "@modelcontextprotocol/sdk": "^1.19.0"
+    "@modelcontextprotocol/sdk": "^1.19.0",
+    "@o3r/telemetry": "workspace:~"
+  },
+  "peerDependenciesMeta": {
+    "@o3r/telemetry": {
+      "optional": true
+    }
   },
   "dependencies": {
     "tslib": "^2.6.2"
@@ -51,6 +57,7 @@
     "@o3r/build-helpers": "workspace:^",
     "@o3r/eslint-config": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
+    "@o3r/telemetry": "workspace:~",
     "@o3r/test-helpers": "workspace:^",
     "@stylistic/eslint-plugin": "~5.6.0",
     "@types/jest": "~30.0.0",
