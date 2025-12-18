@@ -671,7 +671,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ama-mfe/messages@workspace:packages/@ama-mfe/messages"
   dependencies:
-    "@amadeus-it-group/microfrontends": "npm:0.0.9"
+    "@amadeus-it-group/microfrontends": "npm:0.0.10"
     "@compodoc/compodoc": "npm:^1.1.32"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
@@ -711,7 +711,7 @@ __metadata:
     typescript: "npm:~5.9.2"
     typescript-eslint: "npm:~8.49.0"
   peerDependencies:
-    "@amadeus-it-group/microfrontends": 0.0.9
+    "@amadeus-it-group/microfrontends": 0.0.10
   peerDependenciesMeta:
     "@amadeus-it-group/microfrontends":
       optional: true
@@ -723,8 +723,8 @@ __metadata:
   resolution: "@ama-mfe/ng-utils@workspace:packages/@ama-mfe/ng-utils"
   dependencies:
     "@ama-mfe/messages": "workspace:~"
-    "@amadeus-it-group/microfrontends": "npm:0.0.9"
-    "@amadeus-it-group/microfrontends-angular": "npm:0.0.9"
+    "@amadeus-it-group/microfrontends": "npm:0.0.10"
+    "@amadeus-it-group/microfrontends-angular": "npm:0.0.10"
     "@angular-devkit/architect": "npm:0.2003.13"
     "@angular-devkit/build-angular": "npm:~20.3.13"
     "@angular-devkit/core": "npm:~20.3.13"
@@ -778,8 +778,8 @@ __metadata:
     zone.js: "npm:~0.15.0"
   peerDependencies:
     "@ama-mfe/messages": "workspace:~"
-    "@amadeus-it-group/microfrontends": 0.0.9
-    "@amadeus-it-group/microfrontends-angular": 0.0.9
+    "@amadeus-it-group/microfrontends": 0.0.10
+    "@amadeus-it-group/microfrontends-angular": 0.0.10
     "@angular-devkit/core": ^20.0.0
     "@angular-devkit/schematics": ^20.0.0
     "@angular/common": ^20.0.0
@@ -2085,23 +2085,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@amadeus-it-group/microfrontends-angular@npm:0.0.9":
-  version: 0.0.9
-  resolution: "@amadeus-it-group/microfrontends-angular@npm:0.0.9"
+"@amadeus-it-group/microfrontends-angular@npm:0.0.10":
+  version: 0.0.10
+  resolution: "@amadeus-it-group/microfrontends-angular@npm:0.0.10"
   dependencies:
     tslib: "npm:^2.3.0"
   peerDependencies:
-    "@amadeus-it-group/microfrontends": 0.0.9
-    "@angular/core": ^19.0.0 || ^20.0.0
+    "@amadeus-it-group/microfrontends": 0.0.10
+    "@angular/core": ^19.0.0 || ^20.0.0 || ^21.0.0
     rxjs: ^7.8.0
-  checksum: 10/68a0b5cd6f8a6052180e8150251c05bb862e676d543b7329b46954c6f367cc52ac73bdd336c05d6cfb0f4b53b93aa0375aaf94bc57d1473d20196c7d96aa53c0
+  checksum: 10/b0cee74227e23758103b99d2905859f0c984f5ecadc8ef916e3c76143a8b0289b60c89f4e22aff74d5a6543aa8679a9431acc9a3bb54c327f8c214bc8d483f4b
   languageName: node
   linkType: hard
 
-"@amadeus-it-group/microfrontends@npm:0.0.9":
-  version: 0.0.9
-  resolution: "@amadeus-it-group/microfrontends@npm:0.0.9"
-  checksum: 10/d36c1b72978f797e01fb4113eea8ddaa43da24a7d7e74553fa09990e259a2a8ba0f847a9b26f0953e4d4f61d6b4fc8e014d30cbc7691e1f98a3d7298a5b69620
+"@amadeus-it-group/microfrontends@npm:0.0.10":
+  version: 0.0.10
+  resolution: "@amadeus-it-group/microfrontends@npm:0.0.10"
+  checksum: 10/27be58b0922405ec1ffb49172007445bf4c5dfd36d123d4a9248d97b9bfead914aa0ebf68cb69b3f039dd927f603040f0aef1d3ea59a27d85a12e78374999343
   languageName: node
   linkType: hard
 
@@ -9938,7 +9938,7 @@ __metadata:
     ag-grid-community: "npm:~32.3.0"
     angular-eslint: "npm:~20.6.0"
     archiver: "npm:^7.0.0"
-    bootstrap: "npm:5.3.7"
+    bootstrap: "npm:5.3.8"
     chokidar: "npm:^4.0.3"
     chrome-webstore-upload: "npm:^3.0.0"
     concurrently: "npm:^9.1.0"
@@ -11103,7 +11103,7 @@ __metadata:
     angular-eslint: "npm:~20.6.0"
     angular-split: "npm:^20.0.0"
     babel-loader: "npm:^10.0.0"
-    bootstrap: "npm:5.3.7"
+    bootstrap: "npm:5.3.8"
     bootstrap-icons: "npm:^1.11.3"
     browserslist: "npm:^4.21.4"
     clipboard: "npm:^2.0.11"
@@ -12269,7 +12269,7 @@ __metadata:
     ag-grid-community: "npm:~32.3.0"
     angular-eslint: "npm:~20.6.0"
     angular-split: "npm:^20.0.0"
-    bootstrap: "npm:5.3.7"
+    bootstrap: "npm:5.3.8"
     clipboard: "npm:^2.0.11"
     concurrently: "npm:^9.1.0"
     eslint: "npm:~9.39.0"
@@ -20233,12 +20233,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bootstrap@npm:5.3.7":
-  version: 5.3.7
-  resolution: "bootstrap@npm:5.3.7"
+"bootstrap@npm:5.3.8":
+  version: 5.3.8
+  resolution: "bootstrap@npm:5.3.8"
   peerDependencies:
     "@popperjs/core": ^2.11.8
-  checksum: 10/f88bbe12303ca5af11c0616f169ccb08edf456fd48185ffacae487520eaff23de9b7774ccc27edf2fdd0b0f65e316039a757590efe1c360ca9af5f4e52b9bf95
+  checksum: 10/ca36e1816940ee424b91f3a534e7a359c1f180da00e92c650b92a9c2621a1ca24ee71a0886666675718b58527f9193cd0ead934da7a92108224013fa07bec2d2
   languageName: node
   linkType: hard
 
