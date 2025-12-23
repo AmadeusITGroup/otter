@@ -55,7 +55,7 @@ The property can be applied to the Token directly as follows:
 }
 ```
 
-or in a dedicated `.extensions.json` file (when the [o3r/json-parser/extensions](#parsers) parser is loaded):
+or in a dedicated `.extensions.json` file (when the [ama/json-parser/extensions](#parsers) parser is loaded):
 
 ```json5
 // color.token.json
@@ -84,13 +84,13 @@ or in a dedicated `.extensions.json` file (when the [o3r/json-parser/extensions]
 
 | Extensions        | Type                                                                                                                                                     | Description                                                                                                                                                                                                                                                                                         | Required hooks                                                                            |
 | ----------------- |----------------------------------------------------------------------------------------------------------------------------------------------------------| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| o3rPrivate        | `boolean`                                                                                                                                                | Determine if the token is flagged as private                                                                                                                                                                                                                                                        | pre-processor: **o3r/pre-processor/extensions** <br />formatter: **o3r/css/variable**     |
-| o3rImportant      | `boolean`                                                                                                                                                | Determine if the token should be flagged as important when generated                                                                                                                                                                                                                                | pre-processor: **o3r/pre-processor/extensions** <br />formatter: **o3r/css/variable**     |
-| o3rScope          | `string`                                                                                                                                                 | Scope to apply to the generated variable                                                                                                                                                                                                                                                            | pre-processor: **o3r/pre-processor/extensions** <br />formatter: **o3r/css/variable**     |
-| o3rMetadata       | [CMS Metadata](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40ama-styling/style-dictionary/src/interfaces/style-dictionary-interface.mts) | Additional information to provide to the metadata if generated                                                                                                                                                                                                                                      | pre-processor: **o3r/pre-processor/extensions** <br />formatter: **o3r/json/metadata**    |
-| o3rUnit           | `string`                                                                                                                                                 | Convert a numeric value from the specified unit to the new unit. It will add a unit to the tokens of type \"number\" for which the unit is not specified.<br />In the case of complex types (such as shadow, transition, etc...), the unit will be applied to all numeric types they contain.       | pre-processor: **o3r/pre-processor/extensions** <br />transforms: **o3r/transform/unit**  |
-| o3rRatio          | `number`                                                                                                                                                 | Ratio to apply to the previous value. The ratio will only be applied to tokens of type \"number\" or to the first numbers determined in \"string\" like types.<br />In the case of complex types (such as shadow, transition, etc...), the ratio will be applied to all numeric types they contain. | pre-processor: **o3r/pre-processor/extensions** <br />transforms: **o3r/transform/ratio** |
-| o3rExpectOverride | `boolean`                                                                                                                                                | Indicate that the token is expected to be overridden by external rules                                                                                                                                                                                                                              | pre-processor: **o3r/pre-processor/extensions**                                           |
+| o3rPrivate        | `boolean`                                                                                                                                                | Determine if the token is flagged as private                                                                                                                                                                                                                                                        | pre-processor: **ama/pre-processor/extensions** <br />formatter: **ama/css/variable**     |
+| o3rImportant      | `boolean`                                                                                                                                                | Determine if the token should be flagged as important when generated                                                                                                                                                                                                                                | pre-processor: **ama/pre-processor/extensions** <br />formatter: **ama/css/variable**     |
+| o3rScope          | `string`                                                                                                                                                 | Scope to apply to the generated variable                                                                                                                                                                                                                                                            | pre-processor: **ama/pre-processor/extensions** <br />formatter: **ama/css/variable**     |
+| o3rMetadata       | [CMS Metadata](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40ama-styling/style-dictionary/src/interfaces/style-dictionary-interface.mts) | Additional information to provide to the metadata if generated                                                                                                                                                                                                                                      | pre-processor: **ama/pre-processor/extensions** <br />formatter: **ama/json/metadata**    |
+| o3rUnit           | `string`                                                                                                                                                 | Convert a numeric value from the specified unit to the new unit. It will add a unit to the tokens of type \"number\" for which the unit is not specified.<br />In the case of complex types (such as shadow, transition, etc...), the unit will be applied to all numeric types they contain.       | pre-processor: **ama/pre-processor/extensions** <br />transforms: **ama/transform/unit**  |
+| o3rRatio          | `number`                                                                                                                                                 | Ratio to apply to the previous value. The ratio will only be applied to tokens of type \"number\" or to the first numbers determined in \"string\" like types.<br />In the case of complex types (such as shadow, transition, etc...), the ratio will be applied to all numeric types they contain. | pre-processor: **ama/pre-processor/extensions** <br />transforms: **ama/transform/ratio** |
+| o3rExpectOverride | `boolean`                                                                                                                                                | Indicate that the token is expected to be overridden by external rules                                                                                                                                                                                                                              | pre-processor: **ama/pre-processor/extensions**                                           |
 
 > [!WARNING]
 > The **required hooks** need to be registered to the [Style Dictionary configuration](https://styledictionary.com/reference/config/) to fully support the extension.
@@ -101,34 +101,34 @@ or in a dedicated `.extensions.json` file (when the [o3r/json-parser/extensions]
 
 | Name                           | Matching files         | Description                                                                      |
 | ------------------------------ | ---------------------- | -------------------------------------------------------------------------------- |
-| o3r/json-parser/one-line-token | `**/*.json`            | Allow *dot notation* Token in JSON file                                          |
-| o3r/json-parser/extensions     | `**/*.extensions.json` | Parse file containing `$extensions` instructions to apply on top of Design Token |
+| ama/json-parser/one-line-token | `**/*.json`            | Allow *dot notation* Token in JSON file                                          |
+| ama/json-parser/extensions     | `**/*.extensions.json` | Parse file containing `$extensions` instructions to apply on top of Design Token |
 
 ### [Pre-processor](https://styledictionary.com/reference/hooks/preprocessors/)
 
 | Name                         | Description                                                                                                                                                                 |
 | ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| o3r/pre-processor/extensions | Pre-processor to add the support of the `$extensions` instructions in the Token (or dedicated `extensions.json` file). This pre-processor is mandatory for any Otter hooks. |
+| ama/pre-processor/extensions | Pre-processor to add the support of the `$extensions` instructions in the Token (or dedicated `extensions.json` file). This pre-processor is mandatory for any Otter hooks. |
 
 ### [Transforms](https://styledictionary.com/reference/hooks/transforms/)
 
 | Name                | Type    | Criteria                         | Description                                                                             |
 | ------------------- | ------- | -------------------------------- | --------------------------------------------------------------------------------------- |
-| o3r/transform/ratio | `value` | `o3rRatio` extension is provided | Apply the given `o3rRatio` to the numeric values of the Token(s) it refers to.          |
-| o3r/transform/unit  | `value` | `o3rUnit` extension is provided  | Replace the unit of the values of the Token(s) it refers to, by the provided `o3rUnit`. |
+| ama/transform/ratio | `value` | `o3rRatio` extension is provided | Apply the given `o3rRatio` to the numeric values of the Token(s) it refers to.          |
+| ama/transform/unit  | `value` | `o3rUnit` extension is provided  | Replace the unit of the values of the Token(s) it refers to, by the provided `o3rUnit`. |
 
 ### [Transform-groups](https://styledictionary.com/reference/hooks/transform-groups/)
 
 | Name                | Description                                                                                                                                                                       |
 | ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| o3r/css/recommended | Extend the official [CSS transform groups](https://styledictionary.com/reference/hooks/transform-groups/predefined/#css) by adding `o3r/transform/ratio` and `o3r/transform/unit` |
+| ama/css/recommended | Extend the official [CSS transform groups](https://styledictionary.com/reference/hooks/transform-groups/predefined/#css) by adding `ama/transform/ratio` and `ama/transform/unit` |
 
 ### [Formats](https://styledictionary.com/reference/hooks/formats/)
 
 | Name              | Options                                                                                                                                 | Description                                                                                                                                                                                               |
 | ----------------- | --------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| o3r/css/variable  | See [css/variables options](https://styledictionary.com/reference/hooks/formats/predefined/#cssvariables)                               | Render CSS variable block (based on the [built-in format](https://styledictionary.com/reference/hooks/formats/predefined/#cssvariables)) supporting additional [Otter Extensions features](#enhancement). |
-| o3r/json/metadata | See [css/variables options](https://styledictionary.com/reference/hooks/formats/predefined/#cssvariables) *(applied to `defaultValue`)*<br />- **keepPrivate**: include private variables | Render [CMS style metadata](https://github.com/AmadeusITGroup/otter/blob/main/docs/styling/THEME.md).                                                                                                     |
+| ama/css/variable  | See [css/variables options](https://styledictionary.com/reference/hooks/formats/predefined/#cssvariables)                               | Render CSS variable block (based on the [built-in format](https://styledictionary.com/reference/hooks/formats/predefined/#cssvariables)) supporting additional [Otter Extensions features](#enhancement). |
+| ama/json/metadata | See [css/variables options](https://styledictionary.com/reference/hooks/formats/predefined/#cssvariables) *(applied to `defaultValue`)*<br />- **keepPrivate**: include private variables | Render [CMS style metadata](https://github.com/AmadeusITGroup/otter/blob/main/docs/styling/THEME.md).                                                                                                     |
 
 ### Registration process
 
@@ -235,7 +235,7 @@ const sd = new StyleDictionary({
       options: {
         outputReferences: true // to output `--var: var(--other-var)` instead of the value of `--other-var`
       },
-      transformGroup: 'o3r/css/recommended',
+      transformGroup: 'ama/css/recommended',
       files: [
         ...getTargetFiles(fileRules, { format: 'css' }),
         // default CSS file where generate variables
@@ -246,9 +246,9 @@ const sd = new StyleDictionary({
       options: {
         outputReferences: true
       },
-      transformGroup: 'o3r/css/recommended',
+      transformGroup: 'ama/css/recommended',
       files: [
-        { destination: 'style.metadata.json', format: 'o3r/json/metadata' }
+        { destination: 'style.metadata.json', format: 'ama/json/metadata' }
       ]
     }
   }
