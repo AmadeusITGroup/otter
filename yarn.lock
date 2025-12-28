@@ -11095,7 +11095,7 @@ __metadata:
     "@typescript-eslint/rule-tester": "npm:~8.49.0"
     "@vscode/codicons": "npm:^0.0.43"
     "@webcontainer/api": "npm:~1.6.0"
-    "@xterm/addon-fit": "npm:^0.10.0"
+    "@xterm/addon-fit": "npm:^0.11.0"
     "@xterm/xterm": "npm:^5.0.0"
     "@yarnpkg/sdks": "npm:^3.2.0"
     ag-grid-angular: "npm:~32.3.0"
@@ -12263,7 +12263,7 @@ __metadata:
     "@typescript-eslint/parser": "npm:~8.49.0"
     "@vscode/codicons": "npm:^0.0.43"
     "@webcontainer/api": "npm:~1.6.0"
-    "@xterm/addon-fit": "npm:^0.10.0"
+    "@xterm/addon-fit": "npm:^0.11.0"
     "@xterm/xterm": "npm:^5.0.0"
     ag-grid-angular: "npm:~32.3.0"
     ag-grid-community: "npm:~32.3.0"
@@ -18126,12 +18126,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@xterm/addon-fit@npm:^0.10.0":
-  version: 0.10.0
-  resolution: "@xterm/addon-fit@npm:0.10.0"
-  peerDependencies:
-    "@xterm/xterm": ^5.0.0
-  checksum: 10/8edfad561c0d0316c5883cbe2ce56109f105a2b2bf53b71d5f8c788e656a3205c1093a659dddcf4025a459e4b7ff8e07b6c6a19815c8711deeded560de5f1893
+"@xterm/addon-fit@npm:^0.11.0":
+  version: 0.11.0
+  resolution: "@xterm/addon-fit@npm:0.11.0"
+  checksum: 10/daeb1cc2be794e0ee3b0f6b1cbec0ba70ac7c65f14093b405a2dfbf93bf267cd3f81490a72bb71364044ff7fd68ff0e8e124977dd812ff9914ad864c6a610c0b
   languageName: node
   linkType: hard
 
