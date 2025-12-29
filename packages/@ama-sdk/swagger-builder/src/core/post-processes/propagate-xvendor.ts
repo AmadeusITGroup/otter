@@ -27,8 +27,7 @@ export class PropagateXvendor implements PostProcess {
           }
           const parentFlag = processedDefs[defEntry.name][this.vendorExtToPropagate];
           if (parentFlag) {
-            const defCopy = { ...definition };
-            defCopy[this.vendorExtToPropagate] = parentFlag;
+            const defCopy = { ...definition, [this.vendorExtToPropagate]: parentFlag };
             processedDefs[definitionName] = defCopy;
           }
           return !!parentFlag;

@@ -103,9 +103,7 @@ export const injectServiceInMain = (options: DevtoolRegisterOptions): Rule => (t
   }
 
   const recorder = tree.beginUpdate(mainFilePath);
-  const changes = [];
-
-  changes.push(
+  const changes = [
     new InsertChange(
       mainFilePath,
       match.index + match[0].length,
@@ -117,7 +115,7 @@ export const injectServiceInMain = (options: DevtoolRegisterOptions): Rule => (t
     return m;
   })`
     )
-  );
+  ];
 
   applyToUpdateRecorder(recorder, changes);
   tree.commitUpdate(recorder);
