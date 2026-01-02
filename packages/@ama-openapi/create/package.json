@@ -8,6 +8,15 @@
   "keywords": [
     "create"
   ],
+  "main": "./src/index.ts",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts"
+    },
+    "./package.json": {
+      "default": "./package.json"
+    }
+  },
   "bin": "./src/index.js",
   "scripts": {
     "nx": "nx",

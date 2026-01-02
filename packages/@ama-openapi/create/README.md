@@ -12,7 +12,7 @@ It helps developers quickly set up new OpenAPI projects with best practices and 
 ## Usage
 
 ```shell
-npm create @ama-openapi <command> -- [options]
+npm create @ama-openapi -- [options]
 ```
 
 The following global options can be used with any command:
@@ -22,14 +22,12 @@ The following global options can be used with any command:
 | `--version`, `-v` | Display the current version of the generator. |
 | `--help`, `-h` | Display usage for the CLI commands. |
 
-## Available commands
+## Generate Open Api basic project
 
-### Design Project
-
-Create a new [OpenAPI](https://www.openapis.org/) design project via the following command :
+Create a new [OpenAPI](https://www.openapis.org/) basic project via the following command :
 
 ```shell
-npm create @ama-openapi design <project-name> -- [options]
+npm create @ama-openapi <project-name> -- [options]
 ```
 
 The following options are available:

@@ -24,31 +24,31 @@ import {
 
 void (async () => {
   const version = (JSON.parse(await fs.readFile(resolve(__dirname, '..', 'package.json'), { encoding: 'utf8' })) as PackageJson).version!;
-  await yargs(hideBin(process.argv))
+  const { name, target } = await yargs(hideBin(process.argv))
     .option('target', {
       alias: 't',
       type: 'string',
       description: 'Target directory to generate the files into',
       default: process.cwd()
     })
-    .command('design <name>', 'Name of the artifact / package to generate', (y) => {
-      return y.positional('name', {
-        type: 'string',
-        demandOption: true,
-        describe: 'Name of the artifact / package to generate'
-      });
-    }, async (argv) => {
-      const options: CreateOptions = {
-        target: argv.target,
-        externalModelPath: OUTPUT_DIRECTORY,
-        version,
-        packageName: argv.name,
-        logger: console
-      };
-      await generateTemplate(options);
+    .command('* <name>', 'Create a new OpenAPI basic project.')
+    .positional('name', {
+      type: 'string',
+      demandOption: true,
+      description: 'Name of the artifact / package to generate'
     })
+    .usage('Usage: npm create @ama-openapi <name> -- [options]')
     .version(version)
     .alias('h', 'help')
     .alias('v', 'version')
     .parse();
+
+  const options: CreateOptions = {
+    target,
+    externalModelPath: OUTPUT_DIRECTORY,
+    version,
+    packageName: name,
+    logger: console
+  };
+  await generateTemplate(options);
 })();
