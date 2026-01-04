@@ -1,0 +1,29 @@
+extends:
+  - recommended
+
+plugins:
+  - '@ama-openapi/redocly-plugin'
+
+apis:
+  # The base API
+  base:
+    root: ./node_modules/<%- dependencyBaseSpec || '@example/package' %>/bundle/specification.yaml
+    output: bundle/base.yaml
+
+  # The API of the extension
+  extension@v1:
+    root: apis/example.v1.yaml
+    output: bundle/extension.yaml
+
+  # This API is used to filter out the extended endpooints of the base API
+  filter-base:
+    root: ./node_modules/<%- dependencyBaseSpec || '@example/package' %>/bundle/specification.yaml
+    output: ./tmp/filtered-dapi.yaml
+    decorators:
+      filter-out:
+        property: operationId
+        value: [] # Array of operationIds to filter
+
+  # This filtered base API
+  filtered-base:
+    root: ./tmp/filtered-dapi.yaml

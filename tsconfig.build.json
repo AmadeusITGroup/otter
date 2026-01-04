@@ -12,6 +12,7 @@
       "@ama-mfe/ng-utils": ["packages/@ama-mfe/ng-utils/dist", "packages/@ama-mfe/ng-utils/src/public_api"],
       "@ama-openapi/cli": ["packages/@ama-openapi/cli/dist", "packages/@ama-openapi/cli/src"],
       "@ama-openapi/create": ["packages/@ama-openapi/create/dist", "packages/@ama-openapi/create/src/public_api"],
+      "@ama-openapi/create-extension": ["packages/@ama-openapi/create-extension/dist", "packages/@ama-openapi/create-extension/src/public_api"],
       "@ama-openapi/core": ["packages/@ama-openapi/core/dist", "packages/@ama-openapi/core/dist/src/public_api", "packages/@ama-openapi/core/src/public_api"],
       "@ama-openapi/redocly-plugin": ["packages/@ama-openapi/redocly-plugin/dist", "packages/@ama-openapi/redocly-plugin/src/public_api"],
       "@ama-sdk/client-fetch": ["packages/@ama-sdk/client-fetch/dist", "packages/@ama-sdk/client-fetch/src/public_api"],

@@ -1,23 +1,16 @@
 {
-  "name": "@ama-openapi/create",
+  "name": "@ama-openapi/create-extension",
   "version": "0.0.0-placeholder",
   "preferUnplugged": true,
   "publishConfig": {
     "access": "public"
   },
-  "description": "Create a new OpenApi Specification project",
+  "description": "Create a new OpenApi Specification extension project",
   "keywords": [
-    "create"
+    "create",
+    "openapi",
+    "extension"
   ],
-  "main": "./src/public_api.ts",
-  "exports": {
-    ".": {
-      "default": "./src/public_api.ts"
-    },
-    "./package.json": {
-      "default": "./package.json"
-    }
-  },
   "bin": "./src/index.js",
   "scripts": {
     "nx": "nx",
@@ -41,6 +34,7 @@
   },
   "dependencies": {
     "@ama-openapi/core": "workspace:~",
+    "@ama-openapi/create": "workspace:~",
     "ejs": "~3.1.9",
     "globby": "^11.1.0",
     "tslib": "^2.6.2",
