@@ -1,4 +1,4 @@
-import { InjectionToken, ModuleWithProviders, NgModule } from '@angular/core';
+import { InjectionToken, ModuleWithProviders, NgModule, Optional } from '@angular/core';
 import { Action, ActionReducer, StoreModule } from '@ngrx/store';
 <%if (isAsync) {%>
 import { EffectsModule } from '@ngrx/effects';
@@ -6,24 +6,35 @@ import { <%= storeName %>Effect } from './<%= fileName %>.effect';<%}%>
 import { <%= cStoreName %>Reducer } from './<%= fileName %>.reducer';
 import { <%= scuStoreName %>_STORE_NAME, <%= storeName %>State } from './<%= fileName %>.state';
 
-/** Token of the <%= storeName %> reducer */
-export const <%= scuStoreName %>_REDUCER_TOKEN = new InjectionToken<ActionReducer<<%= storeName %>State, Action>>('Feature <%= storeName %> Reducer');
+/** Action Reducer map for <%= storeName %> store */
+type <%= storeName %>ActionReducer<T extends <%= storeName %>State=<%= storeName %>State, V extends Action=Action> = ActionReducer<T, V>;
 
-/** Provide default reducer for <%= storeName %> store */
-export function getDefault<%= storeName %>Reducer() {
-  return <%= cStoreName %>Reducer;
+/** Internal Token of the <%= storeName %> reducer */
+const INTERNAL_<%= scuStoreName %>_REDUCER_TOKEN = new InjectionToken<<%= storeName %>ActionReducer>('Internal <%= storeName %> Reducer');
+
+/** Token of the <%= storeName %> reducer */
+export const <%= scuStoreName %>_REDUCER_TOKEN = new InjectionToken<<%= storeName %>ActionReducer>('Feature <%= storeName %> Reducer');
+
+/**
+ * Retrieve default reducer for <%= storeName %> store
+ * @param customReducer
+ */
+export function get<%= storeName %>Reducer(customReducer: <%= storeName %>ActionReducer = <%= cStoreName %>Reducer): <%= storeName %>ActionReducer {
+  return customReducer;
 }
 
 @NgModule({
   imports: [
-    StoreModule.forFeature(<%= scuStoreName %>_STORE_NAME, <%= scuStoreName %>_REDUCER_TOKEN)<%if (isAsync) {%>, EffectsModule.forFeature([<%= storeName %>Effect])<%}%>
+    StoreModule.forFeature(<%= scuStoreName %>_STORE_NAME, INTERNAL_<%= scuStoreName %>_REDUCER_TOKEN)<%if (isAsync) {%>, EffectsModule.forFeature([<%= storeName %>Effect])<%}%>
   ],
-  providers: [
-    { provide: <%= scuStoreName %>_REDUCER_TOKEN, useFactory: getDefault<%= storeName %>Reducer }
-  ]
+  providers: [{
+    provide: INTERNAL_<%= scuStoreName %>_REDUCER_TOKEN,
+    useFactory: get<%= storeName %>Reducer,
+    deps: [[new Optional(), <%= scuStoreName %>_REDUCER_TOKEN]]
+  }]
 })
 export class <%= storeName %>StoreModule {
-  public static forRoot<T extends <%= storeName %>State>(reducerFactory: () => ActionReducer<T, Action>): ModuleWithProviders<<%= storeName %>StoreModule> {
+  public static forRoot<T extends <%= storeName %>State>(reducerFactory: () => <%= storeName %>ActionReducer<T>): ModuleWithProviders<<%= storeName %>StoreModule> {
     return {
       ngModule: <%= storeName %>StoreModule,
       providers: [
