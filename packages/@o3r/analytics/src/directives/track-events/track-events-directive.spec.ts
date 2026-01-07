@@ -1,6 +1,7 @@
 import {
   Component,
   DebugElement,
+  provideZonelessChangeDetection,
 } from '@angular/core';
 import {
   ComponentFixture,
@@ -40,7 +41,11 @@ describe('Track events directive:', () => {
   let buttonElement: DebugElement;
   let addEventSpy: jest.SpyInstance;
 
-  beforeEach(() => {
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [TestComponent],
+      providers: [provideZonelessChangeDetection()]
+    }).compileComponents();
     fixture = TestBed.createComponent(TestComponent);
     buttonElement = fixture.debugElement.query(By.css('button'));
     trackService = fixture.debugElement.injector.get(EventTrackService);
@@ -49,8 +54,8 @@ describe('Track events directive:', () => {
 
   it('should send the context object', () => {
     fixture.detectChanges();
-    const dummyEvent = new Event('mouseevent');
-    buttonElement.triggerEventHandler('mouseleave', dummyEvent);
+    const dummyEvent = new Event('mouseleave');
+    buttonElement.nativeElement.dispatchEvent(dummyEvent);
     const expectedEventPayload: UiEventPayload = { nativeEvent: dummyEvent, context: { eventInfo: { eventName: '', pageId: '', timeStamp: '' } } };
 
     expect(addEventSpy).toHaveBeenCalledWith(expectedEventPayload);
@@ -58,8 +63,8 @@ describe('Track events directive:', () => {
 
   it('should capture the events when tracking mode is on', () => {
     fixture.detectChanges();
-    buttonElement.triggerEventHandler('mouseenter', null);
-    buttonElement.triggerEventHandler('mouseleave', null);
+    buttonElement.nativeElement.dispatchEvent(new Event('mouseenter'));
+    buttonElement.nativeElement.dispatchEvent(new Event('mouseleave'));
 
     expect(addEventSpy).toHaveBeenCalledTimes(2);
   });
@@ -67,8 +72,8 @@ describe('Track events directive:', () => {
   it('should stop tracking when tracking mode is off', () => {
     trackService.toggleUiTracking(false);
     fixture.detectChanges();
-    buttonElement.triggerEventHandler('mouseenter', null);
-    buttonElement.triggerEventHandler('mouseenter', null);
+    buttonElement.nativeElement.dispatchEvent(new Event('mouseenter'));
+    buttonElement.nativeElement.dispatchEvent(new Event('mouseenter'));
 
     expect(addEventSpy).not.toHaveBeenCalled();
   });
@@ -77,7 +82,7 @@ describe('Track events directive:', () => {
     trackService.toggleUiTracking(false);
     trackService.toggleUiTracking(true);
     fixture.detectChanges();
-    buttonElement.triggerEventHandler('mouseenter', null);
+    buttonElement.nativeElement.dispatchEvent(new Event('mouseenter'));
 
     expect(addEventSpy).toHaveBeenCalledTimes(1);
   });

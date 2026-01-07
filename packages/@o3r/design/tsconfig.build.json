@@ -8,6 +8,7 @@
     "moduleResolution": "node10",
     "outDir": "./dist",
     "rootDir": ".",
+    "skipLibCheck": true, // Angular 21+ uses package exports incompatible with moduleResolution: node10
     "tsBuildInfoFile": "build/.tsbuildinfo"
   },
   "include": [

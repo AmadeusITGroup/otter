@@ -1,5 +1,4 @@
 import {
-  CommonModule,
   formatDate,
 } from '@angular/common';
 import {
@@ -46,7 +45,6 @@ import {
 @Component({
   selector: 'o3r-forms-parent',
   imports: [
-    CommonModule,
     FormsEmergencyContactPres,
     FormsPersonalInfoPres,
     ReactiveFormsModule,

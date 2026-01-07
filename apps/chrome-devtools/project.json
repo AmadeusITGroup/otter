@@ -47,7 +47,6 @@
           "fonts": true
         },
         "polyfills": [
-          "zone.js",
           "@angular/localize/init"
         ],
         "styles": [
@@ -100,7 +99,6 @@
           "fonts": true
         },
         "polyfills": [
-          "zone.js",
           "@angular/localize/init"
         ],
         "styles": [
