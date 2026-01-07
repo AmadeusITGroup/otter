@@ -63,7 +63,7 @@ export interface RetrievedDependencyModel {
  * Sanitize the package path to be used in file system
  * @param artifactName
  */
-const sanitizePackagePath = (artifactName: string) => {
+export const sanitizePackagePath = (artifactName: string) => {
   return artifactName
     .replace('/', '-')
     .replace(/^@/, '');
