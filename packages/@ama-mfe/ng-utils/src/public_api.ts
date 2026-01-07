@@ -6,4 +6,5 @@ export * from './messages/index';
 export * from './navigation/index';
 export * from './resize/index';
 export * from './theme/index';
+export * from './user-activity/index';
 export * from './utils';
