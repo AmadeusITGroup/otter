@@ -1,5 +1,6 @@
+import '@o3r/test-helpers/setup-jest-builders';
 import {
-  setupZoneTestEnv,
-} from 'jest-preset-angular/setup-env/zone';
+  setupZonelessTestEnv,
+} from 'jest-preset-angular/setup-env/zoneless';
 
-setupZoneTestEnv();
+setupZonelessTestEnv();

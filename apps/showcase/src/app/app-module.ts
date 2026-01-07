@@ -9,6 +9,7 @@ import localeFR from '@angular/common/locales/fr';
 import {
   isDevMode,
   NgModule,
+  provideZonelessChangeDetection,
   SecurityContext,
 } from '@angular/core';
 import {
@@ -79,6 +80,7 @@ import {
   CLIPBOARD_OPTIONS,
   MARKED_EXTENSIONS,
   provideMarkdown,
+  SANITIZE,
 } from 'ngx-markdown';
 import {
   MonacoEditorModule,
@@ -172,6 +174,7 @@ export function localizationConfigurationFactory(): Partial<LocalizationConfigur
     MonacoEditorModule.forRoot()
   ],
   providers: [
+    provideZonelessChangeDetection(),
     provideCustomComponents(new Map(), withComponent('exampleDatePickerFlavorHebrew', DatePickerHebrewInputPres)),
     { provide: MESSAGE_FORMAT_CONFIG, useValue: {} },
     { provide: LOGGER_CLIENT_TOKEN, useValue: new ConsoleLogger() },
@@ -197,7 +200,7 @@ export function localizationConfigurationFactory(): Partial<LocalizationConfigur
         }
       ],
       /* Templates are only internal, no need to sanitize */
-      sanitize: SecurityContext.NONE
+      sanitize: { provide: SANITIZE, useValue: SecurityContext.NONE }
     }),
     { provide: NGX_MONACO_EDITOR_CONFIG, useValue: { baseUrl: `${location.origin}${location.pathname}assets/monaco/min/vs` } }
   ],
