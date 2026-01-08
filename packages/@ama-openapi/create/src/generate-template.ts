@@ -33,6 +33,8 @@ export interface CreateOptions {
   packageName: string;
   /** Logger */
   logger: typeof console;
+  /** Directory containing the templates */
+  templatesDirectory?: string;
 }
 
 const TEMPLATE_EXTENSION = '.template';
@@ -65,7 +67,7 @@ export const generateTemplate = async (options: CreateOptions) => {
   const { generatorDependencies, engines } = JSON.parse(
     await fs.readFile(resolve(__dirname, '..', 'package.json'), { encoding: 'utf8' })
   ) as { generatorDependencies: Record<string, string>; engines: Record<string, string> };
-  const templatesDirectory = resolve(__dirname, '..', 'templates');
+  const templatesDirectory = options.templatesDirectory || resolve(__dirname, '..', 'templates');
   const regExpExtension = new RegExp(`\\${TEMPLATE_EXTENSION}$`);
   const exportedFiles: string[] = [
     'bundle',
