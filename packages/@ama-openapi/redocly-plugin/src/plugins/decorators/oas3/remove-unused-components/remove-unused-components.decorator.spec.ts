@@ -516,6 +516,56 @@ describe('removeUnusedComponentsDecorator', () => {
     });
   });
 
+  describe('Discriminator.leave', () => {
+    it('should not remove schemas if they are used from paths', () => {
+      const decorator = removeUnusedComponentsDecorator({});
+
+      const schemaA = { type: 'object', properties: { name: { type: 'string' } } };
+      const schemaACtx = {
+        location: { absolutePointer: '#/components/schemas/SchemaA' }
+      } as UserContext;
+      // eslint-disable-next-line new-cap -- Part of the Redocly definition
+      decorator.NamedSchemas.Schema(schemaA, schemaACtx);
+
+      // Use SchemaA from path
+      const pathNode = {
+        '/items': {
+          get: {
+            responses: {
+              200: {
+                content: {
+                  'application/json': {
+                    schema: { $ref: '#/components/schemas/SchemaA' }
+                  }
+                }
+              }
+            }
+          }
+        }
+      };
+      const pathCtx = {
+        location: { absolutePointer: '#/paths' }
+      } as UserContext;
+      decorator.Paths.leave!(pathNode, pathCtx);
+
+      const components = {
+        schemas: {
+          SchemaA: schemaA,
+          UnusedSchema: { type: 'object' }
+        }
+      };
+      const componentsCtx = {
+        location: { absolutePointer: '#/components' }
+      } as UserContext;
+
+      decorator.Components.leave!(components, componentsCtx);
+
+      // SchemaA is used from path, so it should not be removed
+      expect(components.schemas.SchemaA).toBeDefined();
+      expect(components.schemas.UnusedSchema).toBeUndefined();
+    });
+  });
+
   describe('Root.leave', () => {
     it('should remove empty components object', () => {
       const decorator = removeUnusedComponentsDecorator({});
