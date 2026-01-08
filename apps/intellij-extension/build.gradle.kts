@@ -14,10 +14,10 @@ repositories {
 // Configure Gradle IntelliJ Plugin
 // Read more: https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html
 intellij {
-  version.set("2023.2.2")
-  type.set("IU") // Target IDE Platform
+  version.set("2024.1")
+  type.set("IC") // Target IDE Platform (Community Edition)
 
-  plugins.set(listOf("org.jetbrains.kotlin"))
+  plugins.set(listOf("org.jetbrains.kotlin", "JavaScript", "org.jetbrains.plugins.sass", "terminal"))
 }
 
 tasks {
@@ -27,7 +27,9 @@ tasks {
     targetCompatibility = "17"
   }
   withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-    kotlinOptions.jvmTarget = "17"
+    compilerOptions {
+      jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+    }
   }
 
   patchPluginXml {
