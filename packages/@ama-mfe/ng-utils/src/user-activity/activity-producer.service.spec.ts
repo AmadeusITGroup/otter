@@ -518,6 +518,56 @@ describe('ActivityProducerService', () => {
 
       expect(shouldBroadcastMock).toHaveBeenCalledWith(expect.any(Event));
     }));
+
+    it('should throttle shouldBroadcast calls for high-frequency events to avoid performance issues', fakeAsync(() => {
+      const shouldBroadcastMock = jest.fn().mockReturnValue(true);
+      const config: ActivityProducerConfig = {
+        throttleMs: 100,
+        highFrequencyThrottleMs: 300,
+        shouldBroadcast: shouldBroadcastMock
+      };
+
+      service.start(config);
+      afterNextRenderCallback?.();
+
+      // Dispatch many scroll events rapidly (high-frequency event)
+      for (let i = 0; i < 10; i++) {
+        document.dispatchEvent(new Event('scroll'));
+        tick(10); // 10ms between each event
+      }
+
+      // shouldBroadcast should only be called once due to throttling (300ms throttle, 100ms total time)
+      expect(shouldBroadcastMock).toHaveBeenCalledTimes(1);
+
+      // After throttle window passes, next scroll should call shouldBroadcast again
+      tick(300);
+      document.dispatchEvent(new Event('scroll'));
+      tick(0);
+
+      expect(shouldBroadcastMock).toHaveBeenCalledTimes(2);
+    }));
+
+    it('should call shouldBroadcast on every non-high-frequency event', fakeAsync(() => {
+      const shouldBroadcastMock = jest.fn().mockReturnValue(true);
+      const config: ActivityProducerConfig = {
+        throttleMs: 1000,
+        shouldBroadcast: shouldBroadcastMock
+      };
+
+      service.start(config);
+      afterNextRenderCallback?.();
+
+      // Dispatch multiple click events (not a high-frequency event)
+      document.dispatchEvent(new Event('click'));
+      tick(10);
+      document.dispatchEvent(new Event('click'));
+      tick(10);
+      document.dispatchEvent(new Event('click'));
+      tick(0);
+
+      // shouldBroadcast should be called for each click event
+      expect(shouldBroadcastMock).toHaveBeenCalledTimes(3);
+    }));
   });
 
   describe('localActivity signal', () => {
