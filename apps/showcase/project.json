@@ -55,7 +55,6 @@
         "index": "apps/showcase/src/index.html",
         "browser": "apps/showcase/src/main.ts",
         "polyfills": [
-          "zone.js",
           "@angular/localize/init"
         ],
         "tsConfig": "apps/showcase/tsconfig.app.json",

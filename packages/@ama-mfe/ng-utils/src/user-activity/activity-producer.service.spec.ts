@@ -6,9 +6,7 @@ import {
   EnvironmentInjector,
 } from '@angular/core';
 import {
-  fakeAsync,
   TestBed,
-  tick,
 } from '@angular/core/testing';
 import {
   LoggerService,
@@ -52,6 +50,7 @@ describe('ActivityProducerService', () => {
   let loggerServiceMock: jest.Mocked<LoggerService>;
 
   beforeEach(() => {
+    jest.useFakeTimers();
     afterNextRenderCallback = null;
 
     connectionServiceMock = {
@@ -81,6 +80,7 @@ describe('ActivityProducerService', () => {
 
   afterEach(() => {
     jest.clearAllMocks();
+    jest.useRealTimers();
     // Clean up any event listeners
     service?.stop();
   });
@@ -139,26 +139,26 @@ describe('ActivityProducerService', () => {
       throttleMs: 100
     };
 
-    it('should start with default config when no config is provided', fakeAsync(() => {
+    it('should start with default config when no config is provided', () => {
       service.start();
       afterNextRenderCallback?.();
 
       // First event should send
       document.dispatchEvent(new Event('click'));
-      tick(0);
+      jest.advanceTimersByTime(0);
       expect(connectionServiceMock.send).toHaveBeenCalledTimes(1);
 
       // Second event should not send (default throttle is 1000ms)
       document.dispatchEvent(new Event('click'));
-      tick(0);
+      jest.advanceTimersByTime(0);
       expect(connectionServiceMock.send).toHaveBeenCalledTimes(1);
 
       // After default throttle window passes, it should send again
-      tick(1000);
+      jest.advanceTimersByTime(1000);
       document.dispatchEvent(new Event('click'));
-      tick(0);
+      jest.advanceTimersByTime(0);
       expect(connectionServiceMock.send).toHaveBeenCalledTimes(2);
-    }));
+    });
 
     it('should not start twice', () => {
       service.start(config);
@@ -222,9 +222,9 @@ describe('ActivityProducerService', () => {
       afterNextRenderCallback?.();
     });
 
-    it('should send message on click event', fakeAsync(() => {
+    it('should send message on click event', () => {
       document.dispatchEvent(new Event('click'));
-      tick(0);
+      jest.advanceTimersByTime(0);
 
       expect(connectionServiceMock.send).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -236,54 +236,54 @@ describe('ActivityProducerService', () => {
         }),
         { to: ['host-app'] }
       );
-    }));
+    });
 
-    it('should update localActivity signal on activity', fakeAsync(() => {
+    it('should update localActivity signal on activity', () => {
       document.dispatchEvent(new Event('click'));
-      tick(0);
+      jest.advanceTimersByTime(0);
 
       const activity = service.localActivity();
       expect(activity).toBeDefined();
       expect(activity?.channelId).toBe('local');
       expect(activity?.eventType).toBe('click');
       expect(activity?.timestamp).toBeGreaterThan(0);
-    }));
+    });
 
-    it('should throttle messages', fakeAsync(() => {
+    it('should throttle messages', () => {
       // First event should send
       document.dispatchEvent(new Event('click'));
-      tick(0);
+      jest.advanceTimersByTime(0);
       expect(connectionServiceMock.send).toHaveBeenCalledTimes(1);
 
       // Second event within throttle window should not send
       document.dispatchEvent(new Event('click'));
-      tick(50);
+      jest.advanceTimersByTime(50);
       expect(connectionServiceMock.send).toHaveBeenCalledTimes(1);
 
       // Event after throttle window should send
-      tick(100);
+      jest.advanceTimersByTime(100);
       document.dispatchEvent(new Event('click'));
-      tick(0);
+      jest.advanceTimersByTime(0);
       expect(connectionServiceMock.send).toHaveBeenCalledTimes(2);
-    }));
+    });
 
-    it('should always update localActivity signal even when throttled', fakeAsync(() => {
+    it('should always update localActivity signal even when throttled', () => {
       document.dispatchEvent(new Event('click'));
-      tick(0);
+      jest.advanceTimersByTime(0);
       const firstTimestamp = service.localActivity()?.timestamp;
 
-      tick(50);
+      jest.advanceTimersByTime(50);
       document.dispatchEvent(new Event('keydown'));
-      tick(0);
+      jest.advanceTimersByTime(0);
 
       // localActivity should be updated even though message was throttled
       expect(service.localActivity()?.eventType).toBe('keydown');
       expect(service.localActivity()?.timestamp).toBeGreaterThanOrEqual(firstTimestamp);
-    }));
+    });
 
-    it('should handle keydown events', fakeAsync(() => {
+    it('should handle keydown events', () => {
       document.dispatchEvent(new Event('keydown'));
-      tick(0);
+      jest.advanceTimersByTime(0);
 
       expect(connectionServiceMock.send).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -291,20 +291,20 @@ describe('ActivityProducerService', () => {
         }),
         { to: ['host-app'] }
       );
-    }));
+    });
 
-    it('should ignore repeated keydown events', fakeAsync(() => {
+    it('should ignore repeated keydown events', () => {
       const repeatedKeydownEvent = new KeyboardEvent('keydown', { repeat: true });
 
       document.dispatchEvent(repeatedKeydownEvent);
-      tick(0);
+      jest.advanceTimersByTime(0);
 
       expect(connectionServiceMock.send).not.toHaveBeenCalled();
-    }));
+    });
 
-    it('should handle scroll events with throttling', fakeAsync(() => {
+    it('should handle scroll events with throttling', () => {
       document.dispatchEvent(new Event('scroll'));
-      tick(300); // Wait for throttle interval (default 300ms)
+      jest.advanceTimersByTime(300); // Wait for throttle interval (default 300ms)
 
       expect(connectionServiceMock.send).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -312,34 +312,34 @@ describe('ActivityProducerService', () => {
         }),
         { to: ['host-app'] }
       );
-    }));
+    });
 
-    it('should throttle high-frequency scroll events', fakeAsync(() => {
+    it('should throttle high-frequency scroll events', () => {
       // First scroll event should send immediately
       document.dispatchEvent(new Event('scroll'));
-      tick(0);
+      jest.advanceTimersByTime(0);
       expect(connectionServiceMock.send).toHaveBeenCalledTimes(1);
 
       // Second scroll within throttle window (300ms) should not send
       document.dispatchEvent(new Event('scroll'));
-      tick(100);
+      jest.advanceTimersByTime(100);
       expect(connectionServiceMock.send).toHaveBeenCalledTimes(1);
 
       // Third scroll still within throttle window should not send
       document.dispatchEvent(new Event('scroll'));
-      tick(100);
+      jest.advanceTimersByTime(100);
       expect(connectionServiceMock.send).toHaveBeenCalledTimes(1);
 
       // After throttle window passes, next scroll should send
-      tick(200); // Total 400ms since first event
+      jest.advanceTimersByTime(200); // Total 400ms since first event
       document.dispatchEvent(new Event('scroll'));
-      tick(0);
+      jest.advanceTimersByTime(0);
       expect(connectionServiceMock.send).toHaveBeenCalledTimes(2);
-    }));
+    });
 
-    it('should handle touchstart events', fakeAsync(() => {
+    it('should handle touchstart events', () => {
       document.dispatchEvent(new Event('touchstart'));
-      tick(0);
+      jest.advanceTimersByTime(0);
 
       expect(connectionServiceMock.send).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -347,11 +347,11 @@ describe('ActivityProducerService', () => {
         }),
         { to: ['host-app'] }
       );
-    }));
+    });
 
-    it('should handle focus events', fakeAsync(() => {
+    it('should handle focus events', () => {
       document.dispatchEvent(new Event('focus'));
-      tick(0);
+      jest.advanceTimersByTime(0);
 
       expect(connectionServiceMock.send).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -359,16 +359,16 @@ describe('ActivityProducerService', () => {
         }),
         { to: ['host-app'] }
       );
-    }));
+    });
 
-    it('should handle visibilitychange when document becomes visible', fakeAsync(() => {
+    it('should handle visibilitychange when document becomes visible', () => {
       Object.defineProperty(document, 'visibilityState', {
         value: 'visible',
         configurable: true
       });
 
       document.dispatchEvent(new Event('visibilitychange'));
-      tick(0);
+      jest.advanceTimersByTime(0);
 
       expect(connectionServiceMock.send).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -376,11 +376,11 @@ describe('ActivityProducerService', () => {
         }),
         { to: ['host-app'] }
       );
-    }));
+    });
   });
 
   describe('peer filtering', () => {
-    it('should not send message when no peers have registered for user activity', fakeAsync(() => {
+    it('should not send message when no peers have registered for user activity', () => {
       const localConnectionMock = {
         send: jest.fn(),
         id: 'test-module',
@@ -402,13 +402,13 @@ describe('ActivityProducerService', () => {
       afterNextRenderCallback?.();
 
       document.dispatchEvent(new Event('click'));
-      tick(0);
+      jest.advanceTimersByTime(0);
 
       expect(localConnectionMock.send).not.toHaveBeenCalled();
       localService.stop();
-    }));
+    });
 
-    it('should not send message when only self has registered for user activity', fakeAsync(() => {
+    it('should not send message when only self has registered for user activity', () => {
       const localConnectionMock = {
         send: jest.fn(),
         id: 'test-module',
@@ -430,13 +430,13 @@ describe('ActivityProducerService', () => {
       afterNextRenderCallback?.();
 
       document.dispatchEvent(new Event('click'));
-      tick(0);
+      jest.advanceTimersByTime(0);
 
       expect(localConnectionMock.send).not.toHaveBeenCalled();
       localService.stop();
-    }));
+    });
 
-    it('should send to multiple peers that have registered for user activity', fakeAsync(() => {
+    it('should send to multiple peers that have registered for user activity', () => {
       const localConnectionMock = {
         send: jest.fn(),
         id: 'test-module',
@@ -460,7 +460,7 @@ describe('ActivityProducerService', () => {
       afterNextRenderCallback?.();
 
       document.dispatchEvent(new Event('click'));
-      tick(0);
+      jest.advanceTimersByTime(0);
 
       expect(localConnectionMock.send).toHaveBeenCalled();
       const callArgs = localConnectionMock.send.mock.calls[0][1] as { to: string[] };
@@ -468,11 +468,11 @@ describe('ActivityProducerService', () => {
       expect(callArgs.to).toContain('other-module');
       expect(callArgs.to).not.toContain('test-module');
       localService.stop();
-    }));
+    });
   });
 
   describe('shouldBroadcast filter', () => {
-    it('should not send message when shouldBroadcast returns false', fakeAsync(() => {
+    it('should not send message when shouldBroadcast returns false', () => {
       const config: ActivityProducerConfig = {
         throttleMs: 100,
         shouldBroadcast: () => false
@@ -482,12 +482,12 @@ describe('ActivityProducerService', () => {
       afterNextRenderCallback?.();
 
       document.dispatchEvent(new Event('click'));
-      tick(0);
+      jest.advanceTimersByTime(0);
 
       expect(connectionServiceMock.send).not.toHaveBeenCalled();
-    }));
+    });
 
-    it('should send message when shouldBroadcast returns true', fakeAsync(() => {
+    it('should send message when shouldBroadcast returns true', () => {
       const config: ActivityProducerConfig = {
         throttleMs: 100,
         shouldBroadcast: () => true
@@ -497,12 +497,12 @@ describe('ActivityProducerService', () => {
       afterNextRenderCallback?.();
 
       document.dispatchEvent(new Event('click'));
-      tick(0);
+      jest.advanceTimersByTime(0);
 
       expect(connectionServiceMock.send).toHaveBeenCalled();
-    }));
+    });
 
-    it('should pass event to shouldBroadcast filter', fakeAsync(() => {
+    it('should pass event to shouldBroadcast filter', () => {
       const shouldBroadcastMock = jest.fn().mockReturnValue(true);
       const config: ActivityProducerConfig = {
         throttleMs: 100,
@@ -514,10 +514,10 @@ describe('ActivityProducerService', () => {
 
       const clickEvent = new Event('click');
       document.dispatchEvent(clickEvent);
-      tick(0);
+      jest.advanceTimersByTime(0);
 
       expect(shouldBroadcastMock).toHaveBeenCalledWith(expect.any(Event));
-    }));
+    });
   });
 
   describe('localActivity signal', () => {

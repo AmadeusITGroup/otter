@@ -3,9 +3,10 @@
   "version": "0.0.0-placeholder",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development"
+    "start": "ng serve <%= name %>",
+    "build": "ng build <%= name %>",
+    "watch": "ng build <%= name %> --watch --configuration development"<% if (testingFramework !== 'jest') { %>,
+    "test": "ng test <%= name %>"<% } %>
   },
   "private": true,
   "dependencies": {
@@ -18,13 +19,14 @@
     "@angular/platform-browser-dynamic": "<%= rootDependencies['@angular/platform-browser-dynamic'] || rootDependencies['@angular/core'] || 'latest' %>",
     "@angular/router": "<%= rootDependencies['@angular/router'] || rootDependencies['@angular/core'] || 'latest' %>",
     "rxjs": "<%= rootDependencies['rxjs'] || 'latest' %>",
-    "tslib": "<%= rootDependencies['tslib'] || 'latest' %>",
-    "zone.js": "<%= rootDependencies['zone.js'] || 'latest' %>"
+    "tslib": "<%= rootDependencies['tslib'] || 'latest' %>"
   },
   "devDependencies": {
     "@angular/cli": "<%= rootDependencies['@angular/cli'] || 'latest' %>",
     "@angular/compiler-cli": "<%= rootDependencies['@angular/compiler-cli'] || rootDependencies['@angular/cli'] || 'latest' %>",
-    <% if (rootDependencies['@types/jasmine']) { %>"@types/jasmine": "<%= rootDependencies['@types/jasmine'] %>",
-    <% } %>"typescript": "<%= enforceTildeRange(rootDependencies['typescript'] || 'latest') %>"
+    <% if (testingFramework === 'jasmine') { %>"@types/jasmine": "<%= rootDependencies['@types/jasmine'] %>",
+    <% } %>"typescript": "<%= enforceTildeRange(rootDependencies['typescript'] || 'latest') %>"<% if (testingFramework === 'vitest') { %>,
+    "jsdom": "<%= rootDependencies['jsdom'] %>",
+    "vitest": "<%= rootDependencies['vitest'] %>"<% } %>
   }
 }

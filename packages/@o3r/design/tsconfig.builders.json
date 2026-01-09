@@ -8,6 +8,7 @@
     "module": "CommonJS",
     "moduleResolution": "node10",
     "rootDir": ".",
+    "skipLibCheck": true, // Angular 21+ uses package exports incompatible with moduleResolution: node10
     "tsBuildInfoFile": "build/.tsbuildinfo.builders"
   },
   "include": [

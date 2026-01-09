@@ -36,6 +36,7 @@ const checkDependency = (packageName) => {
 const hasPlaywrightInstalled = checkDependency('@playwright/test');
 
 const hasJestDependency = checkDependency('jest');
+const hasVitestDependency = checkDependency('vitest');
 
 /**
  * @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.ConfigArray}
@@ -111,11 +112,11 @@ const configArray = [
   ...(hasJestDependency
     ? require('./typescript/jest.cjs')
     : [{
-      name: '@o3r/eslint-config/typescript/jasmine-globals',
+      name: '@o3r/eslint-config/typescript/unit-test-globals',
       files: ['**/*.{c,m,}ts'],
       languageOptions: {
         globals: {
-          ...globals.jasmine
+          ...hasVitestDependency ? globals.vitest : globals.jasmine
         }
       }
     }]
