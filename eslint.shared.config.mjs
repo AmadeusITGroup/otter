@@ -168,12 +168,11 @@ export default defineConfig([
       '@o3r/json-dependency-versions-harmonize': [
         'error',
         {
-          ignoredPackages: [
-            '@o3r/build-helpers',
-            '@o3r/workspace-helpers'
-          ],
           alignPeerDependencies: false,
-          alignEngines: true
+          alignEngines: true,
+          ignoredDependencies: [
+            'globby'
+          ]
         }
       ]
     }

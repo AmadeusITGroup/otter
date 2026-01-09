@@ -18,7 +18,7 @@
       "command": "yarn",
       "args": [
         "node",
-        "./tools/@o3r/mcp/dist/cli/index.js"
+        "./tools/@o3r/mcp/dist/src/cli/index.js"
       ]
     },
     "playwright": {
