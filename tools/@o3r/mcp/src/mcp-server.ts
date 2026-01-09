@@ -35,6 +35,9 @@ import {
 import {
   registerCreateMonorepoWithAppTool,
 } from './create-monorepo-with-app';
+import {
+  registerMigrateVersionTool,
+} from './migrate-version';
 
 /**
  * Create an MCP server instance.
@@ -58,6 +61,7 @@ export async function createMcpServer(logger: MCPLogger): Promise<AmaMcpServer> 
   await Promise.allSettled([
     registerBestPracticesToolAndResources(server, resourcesPath),
     registerCreateMonorepoWithAppTool(server, resourcesPath),
+    Promise.resolve(registerMigrateVersionTool(server)),
     Promise.resolve(registerAngularSchematicsTool(server, {})),
     ...(githubToken
       ? [
