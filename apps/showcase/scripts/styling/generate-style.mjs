@@ -9,7 +9,7 @@ import {
   baseConfig,
   getTargetFiles,
   register,
-} from '@o3r/style-dictionary';
+} from '@ama-styling/style-dictionary';
 import StyleDictionary from 'style-dictionary';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -26,7 +26,7 @@ const sd = new StyleDictionary({
       options: {
         outputReferences: true
       },
-      transforms: ['o3r/transform/ratio', 'o3r/transform/unit'],
+      transforms: ['ama/transform/ratio', 'ama/transform/unit'],
       transformGroup: 'css'
     }
   },
@@ -52,10 +52,10 @@ void (async () => {
         files: [
           ...getTargetFiles({
             'run-app-locally.tertiary-bg': 'src/app/run-app-locally/run-app-locally-style-vars.scss'
-          }, { format: 'o3r/css/variable' }),
+          }, { format: 'ama/css/variable' }),
           {
             destination: getPath('src/style/theme.scss'),
-            format: 'o3r/css/variable'
+            format: 'ama/css/variable'
           }
         ]
       },
@@ -63,12 +63,12 @@ void (async () => {
         options: {
           outputReferences: true
         },
-        transforms: ['o3r/transform/ratio', 'o3r/transform/unit'],
+        transforms: ['ama/transform/ratio', 'ama/transform/unit'],
         transformGroup: 'css',
         files: [
           {
             destination: getPath('styling.metadata.json'),
-            format: 'o3r/json/metadata'
+            format: 'ama/json/metadata'
           }
         ]
       }
@@ -87,7 +87,7 @@ void (async () => {
             files: [
               {
                 destination: getPath(`src/style/${brand}/${brand}.scss`),
-                format: 'o3r/css/variable'
+                format: 'ama/css/variable'
               }
             ]
           }

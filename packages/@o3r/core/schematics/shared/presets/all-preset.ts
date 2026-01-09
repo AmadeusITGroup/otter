@@ -18,6 +18,8 @@ import type {
  */
 export function allPreset(options: PresetOptions) {
   const modules = [
+    '@ama-styling/style-dictionary',
+    '@ama-styling/stylelint-plugin',
     '@o3r/analytics',
     '@o3r/apis-manager',
     '@o3r/application',
@@ -31,8 +33,6 @@ export function allPreset(options: PresetOptions) {
     '@o3r/logger',
     '@o3r/rules-engine',
     '@o3r/store-sync',
-    '@o3r/style-dictionary',
-    '@o3r/stylelint-plugin',
     '@o3r/styling'
   ];
 

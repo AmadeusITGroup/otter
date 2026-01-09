@@ -138,6 +138,7 @@ On top of the Otter recommended modules, it includes the following ones:
 Will add all official modules provided by the Otter Framework.
 On top of the Otter recommended modules, it includes the following ones:
 
+* [@ama-styling/stylelint-plugin](https://www.npmjs.com/package/@ama-styling/stylelint-plugin)
 * [@o3r/analytics](https://www.npmjs.com/package/@o3r/analytics)
 * [@o3r/apis-manager](https://www.npmjs.com/package/@o3r/apis-manager)
 * [@o3r/application](https://www.npmjs.com/package/@o3r/application)
@@ -151,7 +152,6 @@ On top of the Otter recommended modules, it includes the following ones:
 * [@o3r/logger](https://www.npmjs.com/package/@o3r/logger)
 * [@o3r/rules-engine](https://www.npmjs.com/package/@o3r/rules-engine)
 * [@o3r/store-sync](https://www.npmjs.com/package/@o3r/store-sync)
-* [@o3r/stylelint-plugin](https://www.npmjs.com/package/@o3r/stylelint-plugin)
 * [@o3r/styling](https://www.npmjs.com/package/@o3r/styling)
 * [@o3r/testing](https://www.npmjs.com/package/@o3r/testing)
 
