@@ -95,25 +95,21 @@ export class ActivityProducerService implements MessageProducer<UserActivityMess
   }
 
   /**
-   * Handles high-frequency events by applying a per-eventType throttle before calling onActivity.
-   *
-   * Difference with onActivity:
-   * - onActivityThrottled limits how often a given high-frequency event type (e.g. scroll) is processed
-   *   (based on highFrequencyThrottleMs and lastEmitTimestamps)
-   * - onActivity updates the local activity signal and applies the global message throttle
-   *   (based on global throttleMs and lastSentTimestamp)
-   * @param eventType The type of activity event that occurred
-   * @param configObject
+   * Checks if a high-frequency event should be processed based on throttle timing.
+   * This is called before shouldBroadcast to avoid expensive filter operations on every event.
+   * @param eventType The type of activity event
+   * @param throttleMs The throttle interval in milliseconds
+   * @returns true if the event should be processed, false if it should be skipped
    */
-  private onActivityThrottled(eventType: UserActivityEventType, configObject: ActivityProducerConfig): void {
+  private shouldProcessHighFrequencyEvent(eventType: UserActivityEventType, throttleMs: number): boolean {
     const now = Date.now();
     const lastEmit = this.lastEmitTimestamps.get(eventType) ?? 0;
-    const throttleMs = configObject.highFrequencyThrottleMs!;
 
     if (now - lastEmit >= throttleMs) {
       this.lastEmitTimestamps.set(eventType, now);
-      this.onActivity(eventType, configObject);
+      return true;
     }
+    return false;
   }
 
   /**
@@ -190,15 +186,16 @@ export class ActivityProducerService implements MessageProducer<UserActivityMess
           if (eventType === 'keydown' && event instanceof KeyboardEvent && event.repeat) {
             return;
           }
+          // For high-frequency events, apply throttle BEFORE shouldBroadcast
+          // to avoid expensive filter operations on every event (e.g. reflows)
+          if (isHighFrequency && !this.shouldProcessHighFrequencyEvent(eventType, configObject.highFrequencyThrottleMs!)) {
+            return;
+          }
           // Apply filter if provided
           if (configObject.shouldBroadcast?.(event) === false) {
             return;
           }
-          if (isHighFrequency) {
-            this.onActivityThrottled(eventType, configObject);
-          } else {
-            this.onActivity(eventType, configObject);
-          }
+          this.onActivity(eventType, configObject);
         };
         this.boundListeners.set(eventType, listener);
         document.addEventListener(eventType, listener, { passive: true, capture: true });
