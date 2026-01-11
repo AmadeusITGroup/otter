@@ -85,7 +85,7 @@
     "type-fest": "^4.30.1",
     "typescript": "~5.9.2",
     "typescript-eslint": "~8.51.0",
-    "zone.js": "~0.15.0"
+    "zone.js": "~0.16.0"
   },
   "keywords": [
     "otter-module",
