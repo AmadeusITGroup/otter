@@ -30,7 +30,7 @@
     "@o3r/telemetry": "workspace:~",
     "@octokit/rest": "~22.0.0",
     "tslib": "^2.6.2",
-    "zod": "~4.1.0"
+    "zod": "~4.3.0"
   },
   "devDependencies": {
     "@angular-devkit/architect": "0.2003.13",
