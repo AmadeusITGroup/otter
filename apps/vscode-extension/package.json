@@ -439,7 +439,7 @@
     "@typescript-eslint/parser": "~8.51.0",
     "@typescript-eslint/utils": "~8.51.0",
     "@vscode/vsce": "^3.2.1",
-    "angular-eslint": "~20.6.0",
+    "angular-eslint": "~20.7.0",
     "cpy-cli": "^6.0.0",
     "esbuild": "~0.25.1",
     "eslint-import-resolver-node": "~0.3.9",
@@ -463,6 +463,6 @@
     "ts-jest": "~29.4.0",
     "typescript": "~5.9.2",
     "typescript-eslint": "~8.51.0",
-    "zone.js": "~0.15.0"
+    "zone.js": "~0.16.0"
   }
 }
