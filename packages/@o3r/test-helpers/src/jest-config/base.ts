@@ -4,6 +4,7 @@ import {
 } from 'node:fs';
 import {
   dirname,
+  join,
   relative,
   resolve,
 } from 'node:path';
@@ -41,10 +42,18 @@ type OtterJestBaseConfigOptions = {
  * @param options
  */
 export const getOtterJestBaseConfig = (rootDir: string, options: OtterJestBaseConfigOptions): JestConfigWithTsJest => {
+  // Find workspace root by looking for nx.json
+  let workspaceRoot = rootDir;
+  let previousPath: string | undefined;
+  while (workspaceRoot !== previousPath && !existsSync(resolve(workspaceRoot, 'nx.json'))) {
+    previousPath = workspaceRoot;
+    workspaceRoot = dirname(workspaceRoot);
+  }
+
   let baseTsconfigPath = options?.baseTsconfig;
   if (!baseTsconfigPath) {
     let currentPath = rootDir;
-    let previousPath: string | undefined;
+    previousPath = undefined;
     while (currentPath !== previousPath && !baseTsconfigPath) {
       const file = resolve(currentPath, 'tsconfig.base.json');
       baseTsconfigPath = existsSync(file) ? file : undefined;
@@ -82,6 +91,7 @@ export const getOtterJestBaseConfig = (rootDir: string, options: OtterJestBaseCo
     moduleNameMapper: {
       ...moduleNameMapper,
       '^(\\.{1,2}/.*)\\.mjs$': ['$1.mjs', '$1.mts'],
+      '^intl-messageformat': join(workspaceRoot, 'packages/@o3r/test-helpers/src/mocks/intl-messageformat.mock.js'),
       ...options?.config?.moduleNameMapper
     },
     testEnvironmentOptions: {
@@ -89,7 +99,8 @@ export const getOtterJestBaseConfig = (rootDir: string, options: OtterJestBaseCo
       customExportConditions: ['require', 'node'],
       ...options?.config?.testEnvironmentOptions
     },
-    workerIdleMemoryLimit: '700MB'
+    workerIdleMemoryLimit: '700MB',
+    cacheDirectory: join(workspaceRoot, '.cache', 'jest')
   };
 };
 

@@ -128,7 +128,7 @@
     }
   ],
   "resolutions": {
-    "@sinonjs/fake-timers": "^14.0.0",
+    "@sinonjs/fake-timers": "~15.0.0",
     "@types/node": "~24.10.0",
     "form-data": "^4.0.4",
     "koa": "~3.1.0",
@@ -218,7 +218,7 @@
     "@vscode/codicons": "^0.0.43",
     "@webcontainer/api": "~1.6.0",
     "@xterm/addon-fit": "^0.11.0",
-    "@xterm/xterm": "^5.0.0",
+    "@xterm/xterm": "~6.0.0",
     "@yarnpkg/sdks": "^3.2.0",
     "ag-grid-angular": "~32.3.0",
     "ag-grid-community": "~32.3.0",
@@ -247,7 +247,7 @@
     "globby": "^11.1.0",
     "http-server": "~14.1.1",
     "husky": "~9.1.0",
-    "intl-messageformat": "~10.7.0",
+    "intl-messageformat": "~11.0.0",
     "isomorphic-fetch": "~3.0.0",
     "jest": "~30.2.0",
     "jest-environment-jsdom": "~30.2.0",
