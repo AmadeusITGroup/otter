@@ -89,7 +89,7 @@
     "jest-util": "~30.2.0",
     "jsdom": "^26.1.0",
     "marked": "^15.0.0",
-    "monaco-editor": "~0.54.0",
+    "monaco-editor": "~0.55.0",
     "ngx-markdown": "^20.0.0",
     "ngx-monaco-editor-v2": "^20.0.0",
     "ngx-monaco-tree": "~20.1.0",
