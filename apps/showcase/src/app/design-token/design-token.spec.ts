@@ -9,6 +9,9 @@ import {
   NgbScrollSpyService,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
+  provideDynamicContent,
+} from '@o3r/dynamic-content';
+import {
   provideMarkdown,
 } from 'ngx-markdown';
 import {
@@ -32,7 +35,8 @@ describe('DesignToken', () => {
       ],
       providers: [
         { provide: NgbScrollSpyService, useValue: mockScrollSpyService },
-        provideMarkdown()
+        provideMarkdown(),
+        provideDynamicContent()
       ]
     })
       .compileComponents();

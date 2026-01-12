@@ -41,7 +41,8 @@
     "express-interceptor": "^1.2.0",
     "jasmine": "^5.0.0",
     "rxjs": "^7.8.1",
-    "type-fest": "^5.3.1"
+    "type-fest": "^5.3.1",
+    "typescript": "~5.9.2"
   },
   "peerDependenciesMeta": {
     "@angular-devkit/schematics": {

@@ -14,7 +14,6 @@ import {
   CanceledCallError,
   EmptyResponseError,
   ExceptionReply,
-  extractQueryParams,
   filterUndefinedValues,
   getPropertiesFromData,
   getResponseReviver,
@@ -46,7 +45,9 @@ export interface BaseApiAngularClientOptions extends BaseApiClientOptions {
   angularPlugins: AngularPlugin[] | ((requestOpts: RequestOptions) => AngularPlugin[] | Promise<AngularPlugin[]>);
 }
 
-/** @see BaseApiConstructor */
+/**
+ * Interface of the constructor configuration object
+ */
 export interface BaseApiAngularClientConstructor extends PartialExcept<BaseApiAngularClientOptions, 'basePath' | 'httpClient'> {
 }
 
@@ -56,7 +57,7 @@ const DEFAULT_OPTIONS = {
   requestPlugins: [],
   enableTokenization: false,
   disableFallback: false,
-  enableParameterSerialization: false
+  enableParameterSerialization: true
 } as const satisfies Omit<BaseApiAngularClientOptions, 'basePath' | 'httpClient'>;
 
 /** Client to process the call to the API using Angular API */
@@ -73,11 +74,6 @@ export class ApiAngularClient implements ApiClient {
       ...DEFAULT_OPTIONS,
       ...options
     };
-  }
-
-  /** @inheritdoc */
-  public extractQueryParams<T extends { [key: string]: any }>(data: T, names: (keyof T)[]): { [p in keyof T]: string; } {
-    return extractQueryParams(data, names);
   }
 
   /** @inheritdoc */
