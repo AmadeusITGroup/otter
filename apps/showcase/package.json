@@ -105,6 +105,7 @@
     "zone.js": "~0.15.0"
   },
   "devDependencies": {
+    "@ama-styling/style-dictionary": "workspace:~",
     "@amadeus-it-group/kassette": "^1.7.0",
     "@angular-devkit/architect": "0.2003.13",
     "@angular-devkit/build-angular": "~20.3.13",
@@ -119,7 +120,6 @@
     "@o3r/eslint-config": "workspace:~",
     "@o3r/eslint-plugin": "workspace:~",
     "@o3r/schematics": "workspace:~",
-    "@o3r/style-dictionary": "workspace:~",
     "@o3r/test-helpers": "workspace:~",
     "@o3r/testing": "workspace:~",
     "@playwright/test": "~1.57.0",
