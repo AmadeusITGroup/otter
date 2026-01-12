@@ -146,7 +146,7 @@
     "type-fest": "^4.30.1",
     "typescript": "~5.9.2",
     "typescript-eslint": "~8.51.0",
-    "typescript-json-schema": "^0.65.0",
+    "typescript-json-schema": "^0.67.0",
     "zone.js": "~0.15.0"
   },
   "engines": {
