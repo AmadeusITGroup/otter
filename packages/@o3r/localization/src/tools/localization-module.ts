@@ -19,9 +19,6 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 import {
-  DynamicContentModule,
-} from '@o3r/dynamic-content';
-import {
   DEFAULT_LOCALIZATION_CONFIGURATION,
   LocalizationConfiguration,
 } from '../core';
@@ -77,7 +74,7 @@ export const CUSTOM_LOCALIZATION_CONFIGURATION_TOKEN = new InjectionToken<Partia
 
 @NgModule({
   declarations: [O3rLocalizationTranslatePipe, LocalizationTranslateDirective, LocalizedDatePipe, LocalizedDecimalPipe, LocalizedCurrencyPipe],
-  imports: [TranslateModule, BidiModule, DynamicContentModule, CommonModule],
+  imports: [TranslateModule, BidiModule, CommonModule],
   exports: [TranslateModule, O3rLocalizationTranslatePipe, LocalizationTranslateDirective, LocalizedDatePipe, LocalizedDecimalPipe, LocalizedCurrencyPipe],
   providers: [
     { provide: LOCALIZATION_CONFIGURATION_TOKEN, useFactory: createLocalizationConfiguration, deps: [[new Optional(), CUSTOM_LOCALIZATION_CONFIGURATION_TOKEN]] },

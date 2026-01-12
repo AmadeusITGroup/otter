@@ -1,6 +1,5 @@
 import {
   execFileSync,
-  execSync,
   type ExecSyncOptions,
 } from 'node:child_process';
 import {
@@ -27,31 +26,6 @@ export function isVerdaccioInUse(): boolean {
   } catch {
     return false;
   }
-}
-
-/**
- * Set up a local npm registry inside a docker image before the tests.
- * Publish all the packages of the Otter monorepo on it.
- * Can be accessed during the tests with url http://127.0.0.1:4873
- * @deprecated to be removed in v14 -- Not used and probably not working on most cases (ENOENT if docker not installed)
- */
-export function setupLocalRegistry() {
-  let shouldHandleVerdaccio = false;
-  const rootFolder = join(__dirname, '..', '..', '..', '..');
-
-  beforeAll(() => {
-    if (!isVerdaccioInUse()) {
-      shouldHandleVerdaccio = true;
-      execSync('yarn verdaccio:start', { cwd: rootFolder, stdio: 'inherit' });
-      execSync('yarn verdaccio:publish', { cwd: rootFolder, stdio: 'inherit' });
-    }
-  });
-
-  afterAll(() => {
-    if (shouldHandleVerdaccio) {
-      execSync('yarn verdaccio:stop', { cwd: rootFolder, stdio: 'inherit' });
-    }
-  });
 }
 
 /**

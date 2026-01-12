@@ -20,7 +20,6 @@ import {
 } from '@o3r/core';
 import {
   StyleLazyLoader,
-  StyleLazyLoaderModule,
 } from '@o3r/dynamic-content';
 
 @O3rComponent({ componentType: 'Component' })
@@ -28,8 +27,7 @@ import {
   selector: 'o3r-design-token-pres',
   imports: [
     FormsModule,
-    ReactiveFormsModule,
-    StyleLazyLoaderModule
+    ReactiveFormsModule
   ],
   templateUrl: './design-token-pres.html',
   styleUrl: './design-token-pres.scss',

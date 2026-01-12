@@ -77,11 +77,8 @@ export function updateCustomizationEnvironment(rootPath: string, o3rCoreVersion?
       return tree;
     }
 
-    // if we already have the customization module imported do nothing to avoid overriding custom configs with the empty ones
-    if (
-      isImported(fileInfo.sourceFile, 'C11nModule', '@o3r/components')
-      || isImported(fileInfo.sourceFile, 'provideCustomComponents', '@o3r/components')
-    ) {
+    // if we already provide the customization, do nothing to avoid overriding custom configs with the empty ones
+    if (isImported(fileInfo.sourceFile, 'provideCustomComponents', '@o3r/components')) {
       return tree;
     }
 

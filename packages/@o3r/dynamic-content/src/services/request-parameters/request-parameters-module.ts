@@ -1,7 +1,5 @@
 import {
   makeEnvironmentProviders,
-  ModuleWithProviders,
-  NgModule,
 } from '@angular/core';
 import {
   RequestParametersConfig,
@@ -18,39 +16,6 @@ import {
  */
 export function defaultConfigFactory() {
   return {};
-}
-/**
- * RequestParametersService Module
- * @deprecated Will be removed in v14.
- */
-@NgModule({
-  imports: [],
-  providers: [
-    {
-      provide: REQUEST_PARAMETERS_CONFIG_TOKEN,
-      useValue: {}
-    },
-    RequestParametersService
-  ]
-})
-export class RequestParametersModule {
-  /**
-   * Provide request parameters config
-   * @param config
-   * @deprecated Please use {@link provideRequestParameters} instead. Will be removed in v14.
-   */
-  public static forRoot(config: () => Partial<RequestParametersConfig> = defaultConfigFactory): ModuleWithProviders<RequestParametersModule> {
-    return {
-      ngModule: RequestParametersModule,
-      providers: [
-        {
-          provide: REQUEST_PARAMETERS_CONFIG_TOKEN,
-          useFactory: config
-        },
-        RequestParametersService
-      ]
-    };
-  }
 }
 
 /**

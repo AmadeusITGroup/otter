@@ -19,6 +19,7 @@ import {
 } from '@angular-devkit/schematics';
 import {
   addCommentsOnClassProperties,
+  addImportsIntoComponentDecoratorTransformerFactory,
   addImportsRule,
   addInterfaceToClassTransformerFactory,
   applyEsLintFix,
@@ -28,7 +29,6 @@ import {
   getComponentAnalyticsName,
   getComponentBaseFileName,
   getO3rComponentInfoOrThrowIfNotFound,
-  getPropertyFromDecoratorFirstArgument,
   isNgClassDecorator,
   isO3rClassComponent,
   NoOtterComponent,
@@ -107,7 +107,6 @@ export function ngAddAnalyticsFn(options: NgAddAnalyticsSchematicsSchema): Rule 
           {
             from: '@o3r/analytics',
             importNames: [
-              ...(standalone ? ['TrackEventsModule'] : []),
               'Trackable'
             ]
           },
@@ -137,30 +136,9 @@ export function ngAddAnalyticsFn(options: NgAddAnalyticsSchematicsSchema): Rule 
               `);
 
                   const ngDecorator = (ts.getDecorators(node) || []).find((decorator) => isNgClassDecorator(decorator))!;
-                  const importInitializer = standalone ? getPropertyFromDecoratorFirstArgument(ngDecorator, 'imports') : undefined;
-                  const importsList = importInitializer && ts.isArrayLiteralExpression(importInitializer) ? [...importInitializer.elements] : [];
-                  const newNgDecorator = standalone
-                    ? factory.updateDecorator(
-                      ngDecorator,
-                      factory.updateCallExpression(
-                        ngDecorator.expression,
-                        ngDecorator.expression.expression,
-                        ngDecorator.expression.typeArguments,
-                        [
-                          factory.createObjectLiteralExpression([
-                            ...(ngDecorator.expression.arguments[0] as ts.ObjectLiteralExpression).properties.filter((prop) => prop.name?.getText() !== 'imports'),
-                            factory.createPropertyAssignment('imports', factory.createArrayLiteralExpression(
-                              importsList.concat(factory.createIdentifier('TrackEventsModule')),
-                              true
-                            ))
-                          ], true)
-                        ]
-                      )
-                    )
-                    : ngDecorator;
 
                   const newModifiers = (ts.getDecorators(node) || []).filter((decorator) => !isNgClassDecorator(decorator))
-                    .concat([newNgDecorator])
+                    .concat([ngDecorator])
                     .concat((ts.getModifiers(node) || []) as any) as any[] as ts.Modifier[];
 
                   const newMembers = node.members
@@ -200,44 +178,51 @@ export function ngAddAnalyticsFn(options: NgAddAnalyticsSchematicsSchema): Rule 
         }
       ]);
 
-      const updateTemplateRule: Rule = () => {
-        const templatePath = templateRelativePath && posix.join(dirname(options.path), templateRelativePath);
-        if (templatePath && tree.exists(templatePath)) {
-          tree.commitUpdate(
-            tree
-              .beginUpdate(templatePath)
-              .insertLeft(0, `
+      const updateDummyTemplateAndImportsRule: Rule = chain([
+        standalone
+          ? chain([
+            addImportsRule(options.path, [{ from: '@o3r/analytics', importNames: ['TrackClickDirective'] }]),
+            () => {
+              const componentSourceFile = ts.createSourceFile(options.path, tree.readText(options.path), ts.ScriptTarget.ES2020, true);
+              const result = ts.transform(componentSourceFile, [addImportsIntoComponentDecoratorTransformerFactory(['TrackClickDirective'])]);
+              const printer = ts.createPrinter({ removeComments: false, newLine: ts.NewLineKind.LineFeed });
+              tree.overwrite(options.path, printer.printFile(result.transformed[0] as any as ts.SourceFile));
+              return tree;
+            }
+          ])
+          : () => {
+            const moduleFilePath = posix.join(dirname(options.path), `${properties.name}-module.ts`);
+            const moduleSourceFile = ts.createSourceFile(moduleFilePath, tree.readText(moduleFilePath), ts.ScriptTarget.ES2020, true);
+            const recorder = tree.beginUpdate(moduleFilePath);
+            const changes = addImportToModule(moduleSourceFile, moduleFilePath, 'TrackClickDirective', '@o3r/analytics');
+            applyToUpdateRecorder(recorder, changes);
+            tree.commitUpdate(recorder);
+            return tree;
+          },
+        () => {
+          const templatePath = templateRelativePath && posix.join(dirname(options.path), templateRelativePath);
+          if (templatePath && tree.exists(templatePath)) {
+            tree.commitUpdate(
+              tree
+                .beginUpdate(templatePath)
+                .insertLeft(0, `
   <button trackClick [trackEventContextConstructor]="analyticsEvents.dummyEvent"></button>
   <button trackClick
           [trackEventContextConstructor]="analyticsEvents.runtimeDummyEvent"
           [trackEventContextConstructorParameters]="{runtimedata: 'runtimedata'}">
   </button>
               `)
-          );
+            );
+          }
+
+          return tree;
         }
-
-        return tree;
-      };
-
-      const updateModuleRule: Rule = () => {
-        const moduleFilePath = posix.join(dirname(options.path), `${properties.name}-module.ts`);
-        const moduleSourceFile = ts.createSourceFile(
-          moduleFilePath,
-          tree.readText(moduleFilePath),
-          ts.ScriptTarget.ES2020,
-          true
-        );
-        const recorder = tree.beginUpdate(moduleFilePath);
-        const changes = addImportToModule(moduleSourceFile, moduleFilePath, 'TrackEventsModule', '@o3r/analytics');
-        applyToUpdateRecorder(recorder, changes);
-        tree.commitUpdate(recorder);
-      };
+      ]);
 
       return chain([
         createAnalyticsFilesRule,
         updateComponentRule,
-        standalone ? noop() : updateModuleRule,
-        options.activateDummy ? updateTemplateRule : noop(),
+        options.activateDummy ? updateDummyTemplateAndImportsRule : noop(),
         options.skipLinter ? noop() : applyEsLintFix()
       ]);
     } catch (e) {

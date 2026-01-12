@@ -50,6 +50,9 @@ import {
   OTTER_CONFIGURATION_DEVTOOLS_OPTIONS,
 } from '@o3r/configuration';
 import {
+  provideDynamicContent,
+} from '@o3r/dynamic-content';
+import {
   LocalizationConfiguration,
   LocalizationDevtoolsModule,
   LocalizationModule,
@@ -173,6 +176,7 @@ export function localizationConfigurationFactory(): Partial<LocalizationConfigur
   ],
   providers: [
     provideCustomComponents(new Map(), withComponent('exampleDatePickerFlavorHebrew', DatePickerHebrewInputPres)),
+    provideDynamicContent(),
     { provide: MESSAGE_FORMAT_CONFIG, useValue: {} },
     { provide: LOGGER_CLIENT_TOKEN, useValue: new ConsoleLogger() },
     { provide: PetApi, useFactory: petApiFactory, deps: [LoggerService] },

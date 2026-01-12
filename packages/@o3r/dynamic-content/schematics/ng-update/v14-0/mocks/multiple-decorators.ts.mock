@@ -1,0 +1,17 @@
+import { Component, NgModule } from '@angular/core';
+import { StyleLazyLoaderModule } from '@o3r/dynamic-content';
+
+@Component({
+  selector: 'app-multi',
+  standalone: true,
+  imports: [StyleLazyLoaderModule],
+  template: '<div>Multi</div>'
+})
+export class MultiComponent {}
+
+@NgModule({
+  imports: [StyleLazyLoaderModule],
+  declarations: [],
+  exports: []
+})
+export class MultiModule {}
