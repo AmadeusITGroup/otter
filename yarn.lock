@@ -8385,16 +8385,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ng-select/ng-select@npm:~20.0.0":
-  version: 20.0.2
-  resolution: "@ng-select/ng-select@npm:20.0.2"
+"@ng-select/ng-select@npm:~20.7.0":
+  version: 20.7.0
+  resolution: "@ng-select/ng-select@npm:20.7.0"
   dependencies:
     tslib: "npm:^2.8.1"
   peerDependencies:
     "@angular/common": ^20.0.0
     "@angular/core": ^20.0.0
     "@angular/forms": ^20.0.0
-  checksum: 10/ba75a33e159c1cf4d38727663d5f381963730b444758fa3fbdc64ba509152e4be26826c06268aff2a6005f60f211cc0f765d4b311018ccfd22c9ed77226c6038
+  checksum: 10/d6ebd2ac024f6a9c29259c9d5084442ba8b5ac2fe1d36e4ed02faa1ae799bbe8203acaaa63d253486489d8a05c4492e3e56a951231c806430b518ae1f53ec7b4
   languageName: node
   linkType: hard
 
@@ -9921,7 +9921,7 @@ __metadata:
     "@design-factory/design-factory": "npm:~20.0.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@ng-bootstrap/ng-bootstrap": "npm:^19.0.0"
-    "@ng-select/ng-select": "npm:~20.0.0"
+    "@ng-select/ng-select": "npm:~20.7.0"
     "@ngrx/entity": "npm:~20.1.0"
     "@ngrx/store": "npm:~20.1.0"
     "@nx/eslint-plugin": "npm:~21.6.0"
@@ -11069,7 +11069,7 @@ __metadata:
     "@design-factory/design-factory": "npm:~20.0.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@ng-bootstrap/ng-bootstrap": "npm:^19.0.0"
-    "@ng-select/ng-select": "npm:~20.0.0"
+    "@ng-select/ng-select": "npm:~20.7.0"
     "@ngrx/effects": "npm:~20.1.0"
     "@ngrx/entity": "npm:~20.1.0"
     "@ngrx/router-store": "npm:~20.1.0"
@@ -12234,7 +12234,7 @@ __metadata:
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@formatjs/intl-numberformat": "npm:~8.15.0"
     "@ng-bootstrap/ng-bootstrap": "npm:^19.0.0"
-    "@ng-select/ng-select": "npm:~20.0.0"
+    "@ng-select/ng-select": "npm:~20.7.0"
     "@ngrx/effects": "npm:~20.1.0"
     "@ngrx/entity": "npm:~20.1.0"
     "@ngrx/store": "npm:~20.1.0"

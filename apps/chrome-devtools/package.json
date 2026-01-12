@@ -100,7 +100,7 @@
     "@angular/router": "~20.3.16",
     "@design-factory/design-factory": "~20.0.0",
     "@ng-bootstrap/ng-bootstrap": "^19.0.0",
-    "@ng-select/ng-select": "~20.0.0",
+    "@ng-select/ng-select": "~20.7.0",
     "@ngrx/entity": "~20.1.0",
     "@ngrx/store": "~20.1.0",
     "@o3r/application": "workspace:~",
