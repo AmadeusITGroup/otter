@@ -1,9 +1,9 @@
 import 'isomorphic-fetch';
 import {
-  setupZoneTestEnv,
-} from 'jest-preset-angular/setup-env/zone';
+  setupZonelessTestEnv,
+} from 'jest-preset-angular/setup-env/zoneless';
 
-setupZoneTestEnv();
+setupZonelessTestEnv();
 
 // Need to add this because jsdom doesn't support Response.json yet
 if (!Response.json) {

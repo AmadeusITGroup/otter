@@ -42,7 +42,7 @@ describe('ng add testing', () => {
 
     expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
     expect(() => packageManagerRunOnProject(appName, isInWorkspace, { script: 'build' }, execAppOptions)).not.toThrow();
-    expect(() => packageManagerRunOnProject(appName, isInWorkspace, { script: 'test' }, execAppOptions)).not.toThrow();
+    expect(() => packageManagerRunOnProject(appName, isInWorkspace, { script: 'test', args: ['--no-watch'] }, execAppOptions)).not.toThrow();
 
     packageManagerExecOnProject(appName, isInWorkspace, { script: 'playwright', args: ['install', '--with-deps'] }, execAppOptions);
     expect(() => packageManagerRunOnProject(appName, isInWorkspace, { script: 'test:playwright' }, execAppOptions)).not.toThrow();
@@ -72,7 +72,7 @@ describe('ng add testing', () => {
 
     expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
     expect(() => packageManagerRunOnProject(appName, isInWorkspace, { script: 'build' }, execAppOptions)).not.toThrow();
-    expect(() => packageManagerRunOnProject(appName, isInWorkspace, { script: 'test' }, execAppOptions)).not.toThrow();
+    expect(() => packageManagerRunOnProject(appName, isInWorkspace, { script: 'test', args: ['--no-watch'] }, execAppOptions)).not.toThrow();
   });
 
   test('should add testing to a library', () => {
@@ -104,7 +104,7 @@ describe('ng add testing', () => {
 
     expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
     expect(() => packageManagerRunOnProject(libName, isInWorkspace, { script: 'build' }, execAppOptions)).not.toThrow();
-    expect(() => packageManagerRunOnProject(libName, isInWorkspace, { script: 'test' }, execAppOptions)).not.toThrow();
+    expect(() => packageManagerRunOnProject(libName, isInWorkspace, { script: 'test', args: ['--no-watch'] }, execAppOptions)).not.toThrow();
   });
 
   test('should add testing to a library and fixture to component', () => {
@@ -159,7 +159,7 @@ describe('ng add testing', () => {
 
     expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
     expect(() => packageManagerRunOnProject(libName, isInWorkspace, { script: 'build' }, execAppOptions)).not.toThrow();
-    expect(() => packageManagerRunOnProject(libName, isInWorkspace, { script: 'test' }, execAppOptions)).not.toThrow();
+    expect(() => packageManagerRunOnProject(libName, isInWorkspace, { script: 'test', args: ['--no-watch'] }, execAppOptions)).not.toThrow();
   });
   test('should add testing compatible with @o3r/eslint-config to an application', () => {
     const { workspacePath, appName, o3rVersion } = o3rEnvironment.testEnvironment;
@@ -167,5 +167,17 @@ describe('ng add testing', () => {
     packageManagerExec({ script: 'ng', args: ['add', `@o3r/eslint-config@${o3rVersion}`, '--project-name', appName, '--skip-confirmation'] }, execAppOptions);
     packageManagerExec({ script: 'ng', args: ['add', `@o3r/testing@${o3rVersion}`, '--testing-framework', 'jest', '--skip-confirmation', '--project-name', appName] }, execAppOptions);
     expect(() => packageManagerExec({ script: 'ng', args: ['lint', appName, '--fix'] }, execAppOptions)).not.toThrow();
+  });
+  test('should add testing compatible with vitest to an application', () => {
+    const { workspacePath, appName, isInWorkspace, o3rVersion } = o3rEnvironment.testEnvironment;
+    const execAppOptions = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
+    packageManagerExec({ script: 'ng', args: ['add', `@o3r/testing@${o3rVersion}`, '--testing-framework', 'vitest', '--skip-confirmation', '--project-name', appName] }, execAppOptions);
+    expect(() => packageManagerRunOnProject(appName, isInWorkspace, { script: 'test', args: ['--no-watch'] }, execAppOptions)).not.toThrow();
+  });
+  test('should add testing compatible with vitest to a library', () => {
+    const { workspacePath, libName, isInWorkspace, o3rVersion } = o3rEnvironment.testEnvironment;
+    const execAppOptions = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
+    packageManagerExec({ script: 'ng', args: ['add', `@o3r/testing@${o3rVersion}`, '--testing-framework', 'vitest', '--skip-confirmation', '--project-name', libName] }, execAppOptions);
+    expect(() => packageManagerRunOnProject(libName, isInWorkspace, { script: 'test', args: ['--no-watch'] }, execAppOptions)).not.toThrow();
   });
 });
