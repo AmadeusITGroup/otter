@@ -1,4 +1,7 @@
 import {
+  provideZonelessChangeDetection,
+} from '@angular/core';
+import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
@@ -17,6 +20,7 @@ describe('CodeEditorView', () => {
     await TestBed.configureTestingModule({
       imports: [CodeEditorView],
       providers: [
+        provideZonelessChangeDetection(),
         { provide: NGX_MONACO_EDITOR_CONFIG, useValue: { baseUrl: '' } }
       ]
     }).compileComponents();
@@ -24,6 +28,7 @@ describe('CodeEditorView', () => {
     fixture = TestBed.createComponent(CodeEditorView);
     fixture.componentRef.setInput('project', { startingFile: 'someFile', files: {}, commands: [], cwd: '' });
     component = fixture.componentInstance;
+    fixture.changeDetectorRef.markForCheck();
     fixture.detectChanges();
   });
 

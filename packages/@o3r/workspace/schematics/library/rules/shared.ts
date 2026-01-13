@@ -26,7 +26,7 @@ export function updatePackageDependenciesFactory(
     targetPath: string,
     otterVersion: string,
     o3rWorkspacePackageJson: PackageJson & { generatorDependencies?: Record<string, string> },
-    options: NgGenerateModuleSchema & { useJest?: boolean }): Rule {
+    options: NgGenerateModuleSchema & { useJest?: boolean; useVitest?: boolean }): Rule {
   return (tree) => {
     const packageJson = tree.readJson(path.posix.join(targetPath, 'package.json')) as PackageJson;
     const runner = getPackageManagerRunner(getWorkspaceConfig(tree));
@@ -73,9 +73,14 @@ export function updatePackageDependenciesFactory(
             'ts-jest': o3rWorkspacePackageJson.generatorDependencies!['ts-jest']
               || o3rWorkspacePackageJson.devDependencies!['ts-jest']
           }
-          : {
-            '@types/jasmine': o3rWorkspacePackageJson.generatorDependencies!['@types/jasmine']
-          },
+          : (options.useVitest
+            ? {
+              jsdom: o3rWorkspacePackageJson.generatorDependencies!.jsdom || o3rWorkspacePackageJson.devDependencies!.jsdom,
+              vitest: o3rWorkspacePackageJson.generatorDependencies!.vitest
+            }
+            : {
+              '@types/jasmine': o3rWorkspacePackageJson.generatorDependencies!['@types/jasmine']
+            }),
         rxjs: o3rWorkspacePackageJson.peerDependencies!.rxjs,
         typescript: o3rWorkspacePackageJson.peerDependencies!.typescript,
         'zone.js': o3rWorkspacePackageJson.generatorDependencies!['zone.js']

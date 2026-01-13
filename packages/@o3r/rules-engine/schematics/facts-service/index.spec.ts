@@ -14,6 +14,7 @@ describe('Generate facts service', () => {
 
   beforeEach(() => {
     initialTree = Tree.empty();
+    initialTree.create('angular.json', '{"version": 1, "projects": {"test-project": {"root": "."}}}');
     initialTree.create('.eslintrc.json', fs.readFileSync(path.resolve(__dirname, '..', '..', 'testing', 'mocks', '__dot__eslintrc.mocks.json')));
   });
 

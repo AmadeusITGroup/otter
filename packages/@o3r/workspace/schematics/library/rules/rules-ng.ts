@@ -119,7 +119,8 @@ export function ngGenerateModule(options: NgGenerateModuleSchema & { targetPath:
       move(options.targetPath)
     ]);
     const packageJsonContent = tree.readText('/package.json');
-    const hasJestInstalled = options.testingFramework === 'jest' || packageJsonContent.match('"jest"');
+    const hasJestInstalled = options.testingFramework === 'jest' || /"jest"/.test(packageJsonContent);
+    const hasVitestInstalled = options.testingFramework === 'vitest' || /"vitest"/.test(packageJsonContent);
     return chain([
       mergeWith(templateNg, MergeStrategy.Overwrite),
       ...hasJestInstalled
@@ -133,7 +134,7 @@ export function ngGenerateModule(options: NgGenerateModuleSchema & { targetPath:
           setUpAngularTestPackageJson(options)
         ],
       updatePackageDependenciesFactory(options.targetPath, otterVersion!, o3rWorkspacePackageJson,
-        { ...options, useJest: !!hasJestInstalled }
+        { ...options, useJest: !!hasJestInstalled, useVitest: !!hasVitestInstalled }
       ),
       updateNgPackagrFactory(options.targetPath),
       (t) => {
