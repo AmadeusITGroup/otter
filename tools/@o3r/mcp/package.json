@@ -33,7 +33,7 @@
     "zod": "~4.1.0"
   },
   "devDependencies": {
-    "@angular-devkit/architect": "0.2003.13",
+    "@angular-devkit/architect": "0.2003.14",
     "@angular-devkit/schematics": "~20.3.13",
     "@angular/common": "~20.3.16",
     "@angular/compiler": "~20.3.16",

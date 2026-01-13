@@ -154,7 +154,7 @@
     "@agnos-ui/core-bootstrap": "~0.9.0",
     "@amadeus-it-group/tansu": "~2.0.0",
     "@ampproject/remapping": "^2.3.0",
-    "@angular-devkit/architect": "0.2003.13",
+    "@angular-devkit/architect": "0.2003.14",
     "@angular-devkit/build-angular": "~20.3.13",
     "@angular-devkit/core": "~20.3.13",
     "@angular-devkit/schematics": "~20.3.13",
