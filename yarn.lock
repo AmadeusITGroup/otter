@@ -12730,6 +12730,7 @@ __metadata:
     eslint-plugin-unused-imports: "npm:~4.3.0"
     globals: "npm:^16.0.0"
     globby: "npm:^14.0.0"
+    js-yaml: "npm:^4.1.1"
     jsonc-eslint-parser: "npm:~2.4.0"
     minimist: "npm:^1.2.6"
     nx: "npm:~22.3.3"
@@ -12743,6 +12744,7 @@ __metadata:
     get-build-targets: ./scripts/get-build-targets.mjs
     pr-labels: ./scripts/pr-labels.mjs
     prepare-doc-root-menu-template: ./scripts/prepare-doc-root-menu-template.mjs
+    "prompt-registry:validate-collections": ./scripts/prompt-registry/validate-collections.mjs
     report-deprecates: ./scripts/report-deprecates.mjs
     update-doc-summary: ./scripts/update-doc-summary.mjs
     update-package: ./scripts/update-package.mjs

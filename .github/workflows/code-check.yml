@@ -141,3 +141,10 @@ jobs:
           nxCmd: ${{ inputs.affected && 'nx affected' || 'nx run-many'}}
         run: yarn ${{ env.nxCmd }} --target=package-github-action
 
+  prompt-registry:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
+      - uses: ./tools/github-actions/setup
+      - name: Validate collections
+        run: yarn exec prompt-registry:validate-collections
