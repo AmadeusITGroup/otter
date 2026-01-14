@@ -436,8 +436,8 @@
     "@types/jest": "~30.0.0",
     "@types/node": "~24.10.0",
     "@types/vscode": "~1.105.0",
-    "@typescript-eslint/parser": "~8.51.0",
-    "@typescript-eslint/utils": "~8.51.0",
+    "@typescript-eslint/parser": "~8.52.0",
+    "@typescript-eslint/utils": "~8.52.0",
     "@vscode/vsce": "^3.2.1",
     "angular-eslint": "~21.0.1",
     "cpy-cli": "^6.0.0",
@@ -446,7 +446,7 @@
     "eslint-import-resolver-typescript": "~4.4.0",
     "eslint-plugin-import": "~2.32.0",
     "eslint-plugin-import-newlines": "~1.4.0",
-    "eslint-plugin-jest": "~29.11.0",
+    "eslint-plugin-jest": "~29.12.0",
     "eslint-plugin-jsdoc": "~61.5.0",
     "eslint-plugin-prefer-arrow": "~1.2.3",
     "eslint-plugin-unicorn": "~62.0.0",
@@ -462,6 +462,6 @@
     "rxjs": "^7.8.1",
     "ts-jest": "~29.4.0",
     "typescript": "~5.9.2",
-    "typescript-eslint": "~8.51.0"
+    "typescript-eslint": "~8.52.0"
   }
 }

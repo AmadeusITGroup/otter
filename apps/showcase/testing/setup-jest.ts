@@ -30,25 +30,23 @@ globalThis.monaco = {
     registerEditorOpener: jest.fn(),
     getModels: jest.fn().mockReturnValue([])
   },
-  languages: {
-    register: jest.fn(),
-    typescript: {
-      typescriptDefaults: {
-        setCompilerOptions: jest.fn(),
-        getCompilerOptions: jest.fn().mockReturnValue({})
-      },
-      ScriptTarget: {
-        Latest: 99
-      },
-      ModuleKind: {
-        ESNext: 99
-      },
-      ModuleResolutionKind: {
-        NodeJs: 2
-      },
-      JsxEmit: {
-        React: 2
-      }
+  register: jest.fn(),
+  typescript: {
+    typescriptDefaults: {
+      setCompilerOptions: jest.fn(),
+      getCompilerOptions: jest.fn().mockReturnValue({})
+    },
+    ScriptTarget: {
+      Latest: 99
+    },
+    ModuleKind: {
+      ESNext: 99
+    },
+    ModuleResolutionKind: {
+      NodeJs: 2
+    },
+    JsxEmit: {
+      React: 2
     }
   }
 };
