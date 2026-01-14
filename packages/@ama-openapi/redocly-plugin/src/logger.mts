@@ -9,7 +9,7 @@ import type {
   RuleSeverity,
 } from '@redocly/openapi-core';
 
-/** Duplicate of Problem not exposed by @redocly/openapi-core */
+/** Duplicate of Problem not exposed by `@redocly/openapi-core` */
 type Problem = {
   message: string;
   suggest?: string[];

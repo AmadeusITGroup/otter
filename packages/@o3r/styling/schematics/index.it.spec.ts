@@ -45,9 +45,9 @@ describe('ng add styling', () => {
       path.join(relativeApplicationPath, 'migration-scripts/README.md').replace(/[/\\]+/g, '/'),
       path.join(relativeApplicationPath, 'placeholders.metadata.json').replace(/[/\\]+/g, '/'),
       path.join(relativeApplicationPath, 'tsconfig.cms.json').replace(/[/\\]+/g, '/')
-    ].sort();
-    expect(diff.added.sort()).toEqual(expectedAddedFiles);
-    expect(diff.modified.sort()).toEqual([
+    ].toSorted();
+    expect(diff.added.toSorted()).toEqual(expectedAddedFiles);
+    expect(diff.modified.toSorted()).toEqual([
       path.join(relativeApplicationPath, 'package.json').replace(/[/\\]+/g, '/'),
       path.join(relativeApplicationPath, 'src/app/app.ts').replace(/[/\\]+/g, '/'),
       path.join(relativeApplicationPath, 'src/styles.scss').replace(/[/\\]+/g, '/'),
@@ -55,7 +55,7 @@ describe('ng add styling', () => {
       'angular.json',
       'package.json',
       isYarnTest ? 'yarn.lock' : 'package-lock.json'
-    ].sort());
+    ].toSorted());
 
     [libraryPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
       expect(diff.all.some((file) => file.startsWith(path.relative(workspacePath, untouchedProject).replace(/\\+/g, '/')))).toBe(false);
@@ -77,7 +77,7 @@ describe('ng add styling', () => {
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/styling:add-theming', '--path', filePath] }, execAppOptions);
 
     const diff = getGitDiff(execAppOptions.cwd);
-    expect(diff.added.sort()).toEqual([
+    expect(diff.added.toSorted()).toEqual([
       path.join(relativeLibraryPath, 'src/components/test/test-theme.scss').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'src/components/test/test.scss').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'src/components/test/test-context.ts').replace(/[/\\]+/g, '/'),
@@ -89,15 +89,15 @@ describe('ng add styling', () => {
       path.join(relativeLibraryPath, 'migration-scripts/README.md').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'placeholders.metadata.json').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'tsconfig.cms.json').replace(/[/\\]+/g, '/')
-    ].sort());
+    ].toSorted());
 
-    expect(diff.modified.sort()).toEqual([
+    expect(diff.modified.toSorted()).toEqual([
       path.join(relativeLibraryPath, 'package.json').replace(/[/\\]+/g, '/'),
       '.gitignore',
       'angular.json',
       'package.json',
       isYarnTest ? 'yarn.lock' : 'package-lock.json'
-    ].sort());
+    ].toSorted());
 
     [applicationPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
       expect(diff.all.some((file) => file.startsWith(path.relative(workspacePath, untouchedProject).replace(/\\+/g, '/')))).toBe(false);

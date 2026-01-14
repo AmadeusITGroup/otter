@@ -90,7 +90,7 @@ const getLibrariesVersions = (migrationFiles: MigrationFileEntry[]): LibraryVers
   }
   // Sort and dedupe versions
   Object.entries(libraries).forEach(([libName, libVersions]) => {
-    libVersions.sort((a, b) => semver.compare(a.appVersion, b.appVersion));
+    libVersions.toSorted((a, b) => semver.compare(a.appVersion, b.appVersion));
     libraries[libName] = libVersions.filter((libVersion, index) =>
       index < 1 || libVersions[index - 1].libVersion !== libVersion.libVersion);
   });

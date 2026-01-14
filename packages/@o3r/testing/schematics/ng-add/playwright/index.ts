@@ -34,7 +34,7 @@ export const playwrightDependencies = [
 
 /**
  * Add Playwright to Otter application
- * @param options @see RuleFactory.options
+ * @param options {@link RuleFactory.options}
  */
 export function updatePlaywright(options: NgAddPackageOptions): Rule {
   return (tree: Tree, context: SchematicContext) => {

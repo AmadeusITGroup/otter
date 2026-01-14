@@ -236,7 +236,7 @@ export class ThemingPanelPres {
           isPalette,
           defaultVariable
         }]);
-      }, []).sort((a, b) => {
+      }, []).toSorted((a, b) => {
         // Others should go at the end
         if (a.name === 'others') {
           return 1;

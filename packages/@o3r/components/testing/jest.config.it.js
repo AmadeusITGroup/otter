@@ -8,5 +8,6 @@ const rootDir = path.join(__dirname, '..');
 module.exports = {
   ...createDefaultPreset(getTsJestBaseConfig()),
   ...getOtterJestBaseConfig(rootDir),
-  ...getJestIntegrationTestConfig()
+  ...getJestIntegrationTestConfig(),
+  setupFilesAfterEnv: ['<rootDir>/testing/setup-jest.builders.ts']
 };

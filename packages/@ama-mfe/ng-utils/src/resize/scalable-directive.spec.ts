@@ -69,6 +69,7 @@ describe('ScalableDirective', () => {
     jest.spyOn(resizeHandlerService, 'newHeightFromChannel').mockReturnValue({ height: 300, channelId });
     const rendererSpy = jest.spyOn(renderer, 'setStyle');
     parentComponentFixture.componentInstance.scalableValue = channelId;
+    parentComponentFixture.changeDetectorRef.markForCheck();
     parentComponentFixture.detectChanges();
     expect(rendererSpy).toHaveBeenCalledWith(directiveEl.nativeElement, 'height', '300px');
     rendererSpy.mockClear();
@@ -80,6 +81,7 @@ describe('ScalableDirective', () => {
     const rendererSpy = jest.spyOn(renderer, 'setStyle');
     parentComponentFixture.componentInstance.scalableValue = undefined;
     parentComponentFixture.componentInstance.connect = channelId;
+    parentComponentFixture.changeDetectorRef.markForCheck();
     parentComponentFixture.detectChanges();
     expect(rendererSpy).toHaveBeenCalledWith(directiveEl.nativeElement, 'height', '400px');
     rendererSpy.mockClear();
@@ -92,6 +94,7 @@ describe('ScalableDirective', () => {
     const rendererSpy = jest.spyOn(renderer, 'setStyle');
     parentComponentFixture.componentInstance.scalableValue = scalableChannelId;
     parentComponentFixture.componentInstance.connect = connectChannelId;
+    parentComponentFixture.changeDetectorRef.markForCheck();
     parentComponentFixture.detectChanges();
     expect(rendererSpy).toHaveBeenCalledWith(directiveEl.nativeElement, 'height', '400px');
     rendererSpy.mockClear();
@@ -104,6 +107,7 @@ describe('ScalableDirective', () => {
     const rendererSpy = jest.spyOn(renderer, 'setStyle');
     parentComponentFixture.componentInstance.scalableValue = 'not-matching-channel-id';
     parentComponentFixture.componentInstance.connect = connectChannelId;
+    parentComponentFixture.changeDetectorRef.markForCheck();
     parentComponentFixture.detectChanges();
     expect(rendererSpy).not.toHaveBeenCalled();
     rendererSpy.mockClear();
@@ -114,6 +118,7 @@ describe('ScalableDirective', () => {
     jest.spyOn(resizeHandlerService, 'newHeightFromChannel').mockReturnValue(undefined);
     const rendererSpy = jest.spyOn(renderer, 'setStyle');
     parentComponentFixture.componentInstance.scalableValue = channelId;
+    parentComponentFixture.changeDetectorRef.markForCheck();
     parentComponentFixture.detectChanges();
     expect(rendererSpy).not.toHaveBeenCalled();
     rendererSpy.mockClear();

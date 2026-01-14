@@ -40,7 +40,7 @@ describe('ng add rules-engine', () => {
       path.join(relativeApplicationPath, 'placeholders.metadata.json').replace(/[/\\]+/g, '/'),
       path.join(relativeApplicationPath, 'tsconfig.cms.json').replace(/[/\\]+/g, '/')
     ];
-    expect(diff.added.sort()).toEqual(expectedAddedFiles.sort());
+    expect(diff.added.toSorted()).toEqual(expectedAddedFiles.toSorted());
     const expectedModifiedFiles = [
       path.join(relativeApplicationPath, 'package.json').replace(/[/\\]+/g, '/'),
       path.join(relativeApplicationPath, 'src/app/app.ts').replace(/[/\\]+/g, '/'),
@@ -51,7 +51,7 @@ describe('ng add rules-engine', () => {
       'package.json',
       isYarnTest ? 'yarn.lock' : 'package-lock.json'
     ];
-    expect(diff.modified.sort()).toEqual(expectedModifiedFiles.sort());
+    expect(diff.modified.toSorted()).toEqual(expectedModifiedFiles.toSorted());
     [libraryPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
       expect(diff.all.some((file) => file.startsWith(path.relative(workspacePath, untouchedProject).replace(/\\+/g, '/')))).toBe(false);
     });
@@ -70,7 +70,7 @@ describe('ng add rules-engine', () => {
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/rules-engine:rules-engine-to-component', '--path', componentPath] }, execAppOptions);
 
     const diff = getGitDiff(workspacePath);
-    expect(diff.added.sort()).toEqual([
+    expect(diff.added.toSorted()).toEqual([
       path.join(relativeLibraryPath, 'src/components/test/test.scss').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'src/components/test/test-context.ts').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'src/components/test/test.html').replace(/[/\\]+/g, '/'),
@@ -81,14 +81,14 @@ describe('ng add rules-engine', () => {
       path.join(relativeLibraryPath, 'migration-scripts/README.md').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'placeholders.metadata.json').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'tsconfig.cms.json').replace(/[/\\]+/g, '/')
-    ].sort());
-    expect(diff.modified.sort()).toEqual([
+    ].toSorted());
+    expect(diff.modified.toSorted()).toEqual([
       path.join(relativeLibraryPath, 'package.json').replace(/[/\\]+/g, '/'),
       '.gitignore',
       'angular.json',
       'package.json',
       isYarnTest ? 'yarn.lock' : 'package-lock.json'
-    ].sort());
+    ].toSorted());
 
     [applicationPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
       expect(diff.all.some((file) => file.startsWith(path.relative(workspacePath, untouchedProject).replace(/\\+/g, '/')))).toBe(false);

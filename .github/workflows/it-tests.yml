@@ -39,7 +39,7 @@ jobs:
     env:
       NODE_COMPILE_CACHE: ~/.cache/node-compile-cache
     steps:
-      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
           ref: ${{ inputs.ref }}
       - uses: ./tools/github-actions/download-build-output
@@ -59,7 +59,7 @@ jobs:
         run: zip -r verdaccio.zip ./.verdaccio
         shell: bash
       - name: Publish verdaccio storage
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         with:
           name: ${{ inputs.ref && format('verdaccio-{0}', inputs.ref) || 'verdaccio' }}
           path: verdaccio.zip
@@ -81,7 +81,7 @@ jobs:
       ENFORCED_PACKAGE_MANAGER: ${{ matrix.packageManager }}
       PREPARE_TEST_ENV_TYPE: ${{ matrix.testEnvironment }}
     steps:
-      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
           ref: ${{ inputs.ref }}
       - uses: ./tools/github-actions/download-build-output
@@ -96,7 +96,7 @@ jobs:
       - uses: ./.github/actions/setup-java
         with:
           install-jdk: 'true'
-      - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
         name: Download verdaccio storage prepared in the previous job
         with:
           name: ${{ inputs.ref && format('verdaccio-{0}', inputs.ref) || 'verdaccio' }}
@@ -130,13 +130,13 @@ jobs:
         shell: bash
       - name: Publish generated tests environment on failure
         if: failure() && steps.it-tests.conclusion == 'failure'
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         with:
           name: it-tests-${{ matrix.os }}-${{ matrix.packageManager }}-${{ inputs.ref }}
           path: it-tests.zip
       - name: Publish tests reports
         if: always()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         with:
           name: it-reports-${{ matrix.os }}-${{ matrix.packageManager }}-${{ inputs.ref }}
           path: 'packages/**/dist-test/it-report.xml'

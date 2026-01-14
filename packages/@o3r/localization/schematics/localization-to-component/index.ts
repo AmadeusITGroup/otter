@@ -180,7 +180,7 @@ export function ngAddLocalizationFn(options: NgAddLocalizationSchematicsSchema):
                   const newMembers = node.members
                     .filter((classElement) => !ts.isConstructorDeclaration(classElement))
                     .concat(propertiesToAdd, newContructorDeclaration)
-                    .sort(sortClassElement);
+                    .toSorted(sortClassElement);
 
                   addCommentsOnClassProperties(
                     newMembers,

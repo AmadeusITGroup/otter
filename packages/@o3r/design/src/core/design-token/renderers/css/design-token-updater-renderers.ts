@@ -17,13 +17,13 @@ export const AUTO_GENERATED_END = '/* --- END THEME Auto-generated --- */';
 export interface CssStyleContentUpdaterOptions {
   /**
    * Opening tag marking the content edition part
-   * @default {@see AUTO_GENERATED_START}
+   * @default {@link AUTO_GENERATED_START}
    */
   startTag?: string;
 
   /**
    * Closing tag marking the content edition part
-   * @default {@see AUTO_GENERATED_END}
+   * @default {@link AUTO_GENERATED_END}
    */
   endTag?: string;
 
