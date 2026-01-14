@@ -47,7 +47,7 @@
     "@angular/platform-browser": "~21.0.3",
     "@angular/platform-browser-dynamic": "~21.0.3",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
-    "@modelcontextprotocol/sdk": "~1.25.0",
+    "@modelcontextprotocol/sdk": "~1.25.2",
     "@nx/eslint": "~22.3.3",
     "@nx/eslint-plugin": "~22.3.3",
     "@nx/jest": "~22.3.3",
