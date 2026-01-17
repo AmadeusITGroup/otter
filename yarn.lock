@@ -6164,10 +6164,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@inquirer/ansi@npm:^2.0.2":
-  version: 2.0.2
-  resolution: "@inquirer/ansi@npm:2.0.2"
-  checksum: 10/2755a5547c539734ac8eccaf475533a8c4c1b39c4dd5f9d7926030f824284ea750a59c9e0366be5cdee771885c32a0de65d7c548253615cd7058142e0f6a106a
+"@inquirer/ansi@npm:^2.0.3":
+  version: 2.0.3
+  resolution: "@inquirer/ansi@npm:2.0.3"
+  checksum: 10/846bf48acc4a89e62c2be49af74c014311e5a575a46875fe3066c28ac241671132fb16518e859bd63db6a2be326a6a7160c9a79f60013b1a2c6a1c1d620a98ac
   languageName: node
   linkType: hard
 
@@ -6220,17 +6220,17 @@ __metadata:
   linkType: hard
 
 "@inquirer/confirm@npm:^6.0.0":
-  version: 6.0.3
-  resolution: "@inquirer/confirm@npm:6.0.3"
+  version: 6.0.4
+  resolution: "@inquirer/confirm@npm:6.0.4"
   dependencies:
-    "@inquirer/core": "npm:^11.1.0"
-    "@inquirer/type": "npm:^4.0.2"
+    "@inquirer/core": "npm:^11.1.1"
+    "@inquirer/type": "npm:^4.0.3"
   peerDependencies:
     "@types/node": ">=18"
   peerDependenciesMeta:
     "@types/node":
       optional: true
-  checksum: 10/8b0c9074340e35bcaf4bb213654cfe5bba802ff6da668ba60d8f127e56e53e767bc5146cd31cb65584c7e1b68ea19efd1787ed4298544b2309bea129750e501f
+  checksum: 10/ff3c544ebb8ec45f77641c37565f838cf9502c5af9ace7b789c57897829f700e0ac3a4a2b2a700ba563942b20f1878dfa39bf656f8f92a19860d5541ddc04238
   languageName: node
   linkType: hard
 
@@ -6255,13 +6255,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@inquirer/core@npm:^11.1.0":
-  version: 11.1.0
-  resolution: "@inquirer/core@npm:11.1.0"
+"@inquirer/core@npm:^11.1.1":
+  version: 11.1.1
+  resolution: "@inquirer/core@npm:11.1.1"
   dependencies:
-    "@inquirer/ansi": "npm:^2.0.2"
-    "@inquirer/figures": "npm:^2.0.2"
-    "@inquirer/type": "npm:^4.0.2"
+    "@inquirer/ansi": "npm:^2.0.3"
+    "@inquirer/figures": "npm:^2.0.3"
+    "@inquirer/type": "npm:^4.0.3"
     cli-width: "npm:^4.1.0"
     mute-stream: "npm:^3.0.0"
     signal-exit: "npm:^4.1.0"
@@ -6271,7 +6271,7 @@ __metadata:
   peerDependenciesMeta:
     "@types/node":
       optional: true
-  checksum: 10/1af903cfe0cda58776837903275ead9279acdafc00e3a4f6e341fb57b709b3dacd20b7dacf285903afa39720ce5be9b5677e65207b590834a1c661cb6f87fbf5
+  checksum: 10/a4f084fe7f536240f48175baf4dcf761651810b0547c5661dd92032b37139c14ff9da2c6b2dc3245f99a68d42c70d0bf0e9f240dda2cd64d8085cd5511d63882
   languageName: node
   linkType: hard
 
@@ -6329,10 +6329,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@inquirer/figures@npm:^2.0.2":
-  version: 2.0.2
-  resolution: "@inquirer/figures@npm:2.0.2"
-  checksum: 10/89c254dfcb65e36d71fbe3f80048f3b9546d3dd00b9317552f2db941d06ec8721e55a9df447229c2cf8294cceebc2940806f7feebe75b57c33ef422dbb69008d
+"@inquirer/figures@npm:^2.0.3":
+  version: 2.0.3
+  resolution: "@inquirer/figures@npm:2.0.3"
+  checksum: 10/d1496081e28e8fb5f50790fdbf7fb5f437933de557092a3eaac7f290190f9597ff9d75693bbb6d94e3da71b4dae567f2e88d3c54557b280b7b832219ff26e072
   languageName: node
   linkType: hard
 
@@ -6468,15 +6468,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@inquirer/type@npm:^4.0.2":
-  version: 4.0.2
-  resolution: "@inquirer/type@npm:4.0.2"
+"@inquirer/type@npm:^4.0.3":
+  version: 4.0.3
+  resolution: "@inquirer/type@npm:4.0.3"
   peerDependencies:
     "@types/node": ">=18"
   peerDependenciesMeta:
     "@types/node":
       optional: true
-  checksum: 10/1611281b5a6c9b6af6d4c8aee58bf893f9b059337c1300d5ec547dd33342756e56b17220106851fbf04cafd8a2549301bc9478a770209f79dbdad04e6de8d733
+  checksum: 10/93166fc35dbb597067341c125090a51b1c8d0d57308ec14ad601727513d0aefa33643cff28aa52e7e6796a866bb2f60b4e49820774970110fe8454a276ac7c4c
   languageName: node
   linkType: hard
 
@@ -38348,8 +38348,8 @@ __metadata:
   linkType: hard
 
 "typedoc@npm:~0.28.0":
-  version: 0.28.15
-  resolution: "typedoc@npm:0.28.15"
+  version: 0.28.16
+  resolution: "typedoc@npm:0.28.16"
   dependencies:
     "@gerrit0/mini-shiki": "npm:^3.17.0"
     lunr: "npm:^2.3.9"
@@ -38360,7 +38360,7 @@ __metadata:
     typescript: 5.0.x || 5.1.x || 5.2.x || 5.3.x || 5.4.x || 5.5.x || 5.6.x || 5.7.x || 5.8.x || 5.9.x
   bin:
     typedoc: bin/typedoc
-  checksum: 10/c4bfed5435c5fbd8a63f0e058b7d845c83872c2648c5db49c2ace613013dbce55ca04b30630db2c72abbbd0850d8c110781cd5da6c508e781f7a7845a0e9c0d7
+  checksum: 10/657afd087d88a14cf77ad941de8913041a6a025e87c78833a5ee58a52b8252b685730394ab7920781b0b2faa0507b1c9d87fcf82dd86d1b788420716fc17ded3
   languageName: node
   linkType: hard
 
