@@ -15,6 +15,7 @@ import {
 /**
  * Extract a single prop/value scss line to an otter variable
  * The active cursor needs to be on the line you want to refactor
+ * @deprecated Rely on Design Token extraction instead. Will be removed in v15
  * @param _context
  */
 export function extractToVariable(_context: ExtensionContext) {
