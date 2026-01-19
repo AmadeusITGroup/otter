@@ -32,6 +32,7 @@
     "@ama-sdk/client-fetch": "workspace:~",
     "@ama-sdk/core": "workspace:~",
     "@ama-sdk/schematics": "workspace:~",
+    "@ama-styling/devkit": "workspace:~",
     "@amadeus-it-group/tansu": "~2.0.0",
     "@angular/animations": "~20.3.15",
     "@angular/cdk": "~20.2.14",
@@ -69,7 +70,6 @@
     "@o3r/routing": "workspace:~",
     "@o3r/rules-engine": "workspace:~",
     "@o3r/store-sync": "workspace:~",
-    "@o3r/styling": "workspace:~",
     "@o3r/testing": "workspace:~",
     "@o3r/workspace": "workspace:~",
     "@popperjs/core": "^2.11.5",
@@ -102,7 +102,8 @@
     "ts-jest": "~29.4.0",
     "tslib": "^2.6.2",
     "typescript": "~5.9.2",
-    "zone.js": "~0.15.0"
+    "zone.js": "~0.15.0",
+    "@o3r/styling": "0.0.0-placeholder"
   },
   "devDependencies": {
     "@ama-styling/style-dictionary": "workspace:~",

@@ -1,40 +1,24 @@
-# @ama-styling/devkit
+<h1 align="center">Otter styling</h1>
+<p align="center">
+  <img src="https://raw.githubusercontent.com/AmadeusITGroup/otter/main/assets/logo/otter.png" alt="Super cute Otter!" width="40%"/>
+</p>
 
-Development toolkit for styling-related utilities and tools.
+This package is an [Otter Framework Module](https://github.com/AmadeusITGroup/otter/tree/main/docs/core/MODULE.md).
+<br />
+<br />
 
 ## Description
 
+[![Stable Version](https://img.shields.io/npm/v/@ama-styling/devkit?style=for-the-badge)](https://www.npmjs.com/package/@ama-styling/devkit)
+[![Bundle Size](https://img.shields.io/bundlephobia/min/@ama-styling/devkit?color=green&style=for-the-badge)](https://www.npmjs.com/package/@ama-styling/devkit)
+
 This package provides development utilities and tools for styling workflows, including helpers for design tokens, CSS processing, and other styling-related development tasks.
 
-## Installation
+## How to install
 
-```bash
-npm install @ama-styling/devkit
+```shell
+ng add @ama-styling/devkit
 ```
 
-## Usage
-
-```typescript
-import { VERSION } from '@ama-styling/devkit';
-
-console.log('Dev Kit Version:', VERSION);
-```
-
-## Features
-
-- Development utilities for styling workflows
-- Design token processing helpers
-- CSS development tools
-- Build and development helpers
-
-## API Documentation
-
-The API documentation is available [here](./docs/README.md).
-
-## Contributing
-
-Please refer to the [contributing guidelines](../../../CONTRIBUTING.md) for information on how to contribute to this package.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](../../../LICENSE) file for details.
+> [!WARNING]
+> This module requires [@o3r/core](https://www.npmjs.com/package/@o3r/core) to be installed.

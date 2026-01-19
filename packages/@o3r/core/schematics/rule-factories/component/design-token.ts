@@ -18,7 +18,7 @@ export const getAddDesignTokenRules = (
   options.useOtterDesignToken,
   'Generate component with Design Token specification?',
   ['@o3r/core:component', '@o3r/core:component-presenter'],
-  '@o3r/design',
+  '@ama-styling/style-dictionary',
   'design-token-to-component',
   {
     ...options,

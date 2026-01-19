@@ -2,6 +2,10 @@ import {
   ApiFetchClient,
 } from '@ama-sdk/client-fetch';
 import {
+  OTTER_STYLING_DEVTOOLS_OPTIONS,
+  StylingDevtoolsModule,
+} from '@ama-styling/devkit';
+import {
   registerLocaleData,
 } from '@angular/common';
 import localeEN from '@angular/common/locales/en';
@@ -68,10 +72,6 @@ import {
   OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS,
   RulesEngineRunnerModule,
 } from '@o3r/rules-engine';
-import {
-  OTTER_STYLING_DEVTOOLS_OPTIONS,
-  StylingDevtoolsModule,
-} from '@o3r/styling';
 import {
   PetApi,
 } from '@o3r-training/showcase-sdk';

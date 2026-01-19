@@ -1,4 +1,3 @@
-// TODO helpers needs to be moved into @o3r/design (https://github.com/AmadeusITGroup/otter/issues/1685)
 import TinyColor from 'tinycolor2';
 
 /**
