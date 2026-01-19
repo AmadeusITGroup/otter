@@ -37,9 +37,6 @@ import {
   getAddContextRules,
 } from '../../rule-factories/component/context';
 import {
-  getAddDesignTokenRules,
-} from '../../rule-factories/component/design-token';
-import {
   getAddFixtureRules,
 } from '../../rule-factories/component/fixture';
 import {
@@ -99,8 +96,6 @@ function ngGenerateComponentPresenterFn(options: NgGenerateComponentSchematicsSc
       fullStructureRequested ? path.posix.join(properties.folderName, PRESENTER_FOLDER) : `${properties.folderName}${properties.suffix ? ('-' + properties.suffix) : ''}`
     );
     const componentPath = path.posix.join(componentDestination, `${properties.name}.ts`);
-    const stylePath = path.posix.join(componentDestination, `${properties.name}.scss`);
-    const o3rDesignTokenPath = path.posix.join(componentDestination, `${properties.name}.theme.json`);
     const componentSelector = `${properties.componentSelector}${properties.suffix ? ('-' + properties.suffix) : ''}`;
 
     const rules: Rule[] = [];
@@ -153,11 +148,6 @@ function ngGenerateComponentPresenterFn(options: NgGenerateComponentSchematicsSc
       }),
       getAddConfigurationRules(
         componentPath,
-        options
-      ),
-      getAddDesignTokenRules(
-        stylePath,
-        o3rDesignTokenPath,
         options
       ),
       getAddLocalizationRules(

@@ -5,6 +5,7 @@
 
 /// Get an Otter variable reference
 /// @access public
+/// @deprecated The function is deprecated, rely on CSS Variable strategy instead. Will be removed in v15
 /// @alias var
 /// @param {string} $name Name of the variable
 /// @param $value Fallback value
@@ -24,6 +25,7 @@
 
 /// Get an Otter variable reference
 /// @access public
+/// @deprecated The function is deprecated, rely on CSS Variable strategy instead. Will be removed in v15
 /// @alias variable
 /// @param {string} $name Name of the variable
 /// @param $value Fallback value
@@ -37,6 +39,7 @@
 }
 
 /// Returns true if the given map is an Otter Theme variable
+/// @deprecated The function is deprecated, rely on CSS Variable strategy instead. Will be removed in v15
 /// @param {map} $map map to test
 /// @return {bool} is an Otter compatible variable
 @function is-variable($map) {

@@ -174,17 +174,6 @@ describe('Component presenter', () => {
     );
   });
 
-  it('should throw if generate a presenter component with otter theming, as styling is not installed', async () => {
-    await expect(runner.runSchematic('component-presenter', {
-      projectName: 'test-project',
-      componentName,
-      prefix: 'o3r',
-      componentStructure: 'presenter',
-      useOtterTheming: true,
-      path: 'src/components'
-    }, initialTree)).rejects.toThrow();
-  });
-
   it('should throw if generate a presenter component with otter localization, as @o3r/localization is not installed', async () => {
     await expect(runner.runSchematic('component-presenter', {
       projectName: 'test-project',

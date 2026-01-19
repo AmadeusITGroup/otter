@@ -66,7 +66,6 @@ Different kind of customization could be applied to a component:
 * [Configuration](../configuration/OVERVIEW.md)
 * [Localization](../localization/LOCALIZATION.md)
 * [Styling](../styling/THEME.md)
-* [Design token](../design/TECHNICAL_DOCUMENTATION.md)
 * [Analytics](../analytics/ANALYTICS.md)
 
 In case you need to replace a component at runtime, you can have a look at the [component replacement](./COMPONENT_REPLACEMENT.md) mechanism.
