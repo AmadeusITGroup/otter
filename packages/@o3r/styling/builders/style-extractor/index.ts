@@ -16,6 +16,9 @@ import {
 import {
   isO3rClassComponent,
 } from '@o3r/schematics';
+import type {
+  CssMetadata,
+} from '@o3r/styling';
 import * as chokidar from 'chokidar';
 import {
   sync as globbySync,
@@ -30,9 +33,6 @@ import {
 import type {
   StyleExtractorBuilderSchema,
 } from './schema';
-import type {
-  CssMetadata,
-} from '@o3r/styling';
 
 export type * from './schema';
 
@@ -46,9 +46,9 @@ const defaultLibraryName = (currentDir: string = process.cwd()) => {
 };
 
 export default createBuilder(createBuilderWithMetricsIfInstalled<StyleExtractorBuilderSchema>(async (options, context): Promise<BuilderOutput> => {
-  context.logger.warn('The extraction of style metadata is deprecated, we encourage to generate it from Design Token via the "generate-css" builder');
-  context.logger.warn('Use the following command to install the builder: "ng add @o3r/design"');
-  context.logger.warn('Get more information on https://www.npmjs.com/package/@o3r/design');
+  context.logger.warn('The extraction of style metadata is deprecated, we encourage to generate it from Design Token via Style Dictionary');
+  context.logger.warn('Use the following command to install the builder: "ng add @ama-styling/style-dictionaty"');
+  context.logger.warn('Get more information on https://www.npmjs.com/package/@ama-styling/style-dictionaty');
   context.reportRunning();
   const libraryName = options.name || defaultLibraryName(context.currentDirectory);
 

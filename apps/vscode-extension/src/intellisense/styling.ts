@@ -10,9 +10,14 @@ const importStyling = /@use '@o3r\/styling'( as (?<lib>\w+))?;/;
 
 /**
  * Character that will trigger the vscode autocompletion for styling
+ * @deprecated Will rely on native CSS Variable completion. Will be removed in v15
  */
 export const stylingCompletionTriggerChar = '$';
 
+/**
+ * Styling completion provider
+ * @deprecated Will rely on native CSS Variable completion. Will be removed in v15
+ */
 export const stylingCompletionItemProvider = (): CompletionItemProvider<CompletionItem> => {
   return {
     provideCompletionItems: (doc) => {

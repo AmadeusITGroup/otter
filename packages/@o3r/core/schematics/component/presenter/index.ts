@@ -46,9 +46,6 @@ import {
   getAddLocalizationRules,
 } from '../../rule-factories/component/localization';
 import {
-  getAddThemingRules,
-} from '../../rule-factories/component/theming';
-import {
   NgGenerateComponentSchematicsSchema,
 } from '../schema';
 import {
@@ -156,10 +153,6 @@ function ngGenerateComponentPresenterFn(options: NgGenerateComponentSchematicsSc
       }),
       getAddConfigurationRules(
         componentPath,
-        options
-      ),
-      getAddThemingRules(
-        stylePath,
         options
       ),
       getAddDesignTokenRules(

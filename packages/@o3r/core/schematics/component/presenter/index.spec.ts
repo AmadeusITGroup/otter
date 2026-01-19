@@ -174,7 +174,7 @@ describe('Component presenter', () => {
     );
   });
 
-  it('should throw if generate a presenter component with otter theming, as @o3r/styling is not installed', async () => {
+  it('should throw if generate a presenter component with otter theming, as styling is not installed', async () => {
     await expect(runner.runSchematic('component-presenter', {
       projectName: 'test-project',
       componentName,

@@ -1,4 +1,10 @@
 import {
+  type GetStylingVariableContentMessage,
+  PALETTE_TAG_NAME,
+  type StylingVariable,
+  THEME_TAG_NAME,
+} from '@ama-styling/devkit';
+import {
   ChangeDetectionStrategy,
   Component,
   computed,
@@ -28,12 +34,6 @@ import {
 import {
   computeItemIdentifier,
 } from '@o3r/core';
-import {
-  type GetStylingVariableContentMessage,
-  PALETTE_TAG_NAME,
-  type StylingVariable,
-  THEME_TAG_NAME,
-} from '@o3r/styling';
 import {
   combineLatest,
   Observable,

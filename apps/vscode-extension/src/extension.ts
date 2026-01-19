@@ -53,9 +53,6 @@ import {
   configurationCompletionTriggerChar,
 } from './intellisense/configuration';
 import {
-  designTokenCompletionItemAndHoverProviders,
-} from './intellisense/design-token';
-import {
   stylingCompletionItemProvider,
   stylingCompletionTriggerChar,
 } from './intellisense/styling';
@@ -76,7 +73,6 @@ export function activate(context: ExtensionContext) {
   const telemetryLogger = createTelemetryLogger(channel);
   telemetryLogger.logUsage('Extension activated');
   const o3rChatParticipant = initializeChatParticipant(context, channel, telemetryLogger);
-  const designTokenProviders = designTokenCompletionItemAndHoverProviders();
   // eslint-disable-next-line unicorn/prefer-event-target -- using EventEmitter from vscode
   const didChangeEmitter = new EventEmitter<void>();
 
@@ -85,8 +81,6 @@ export function activate(context: ExtensionContext) {
     lm.registerMcpServerDefinitionProvider('o3rMCPServerProvider', mcpConfig(didChangeEmitter, channel)),
     languages.registerCompletionItemProvider(['javascript', 'typescript'], configurationCompletionItemProvider({ channel }), configurationCompletionTriggerChar),
     languages.registerCompletionItemProvider(['scss'], stylingCompletionItemProvider(), stylingCompletionTriggerChar),
-    languages.registerCompletionItemProvider(['scss', 'css'], designTokenProviders),
-    languages.registerHoverProvider(['scss', 'css'], designTokenProviders),
     commands.registerCommand('otter.generate.component', generateComponentGenerateCommand(context)),
     commands.registerCommand('otter.generate.service', generateServiceGenerateCommand(context)),
     commands.registerCommand('otter.generate.store', generateStoreGenerateCommand(context)),
