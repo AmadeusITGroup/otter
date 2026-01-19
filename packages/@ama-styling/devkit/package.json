@@ -17,12 +17,11 @@
   "scripts": {
     "nx": "nx",
     "ng": "yarn nx",
-    "build": "yarn nx build application",
+    "build": "yarn nx build ama-styling-devkit",
     "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist",
     "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest"
   },
   "peerDependencies": {
-    "@ama-styling/style-dictionary": "workspace:~",
     "@angular-devkit/schematics": "^20.0.0",
     "@angular/common": "^20.0.0",
     "@angular/core": "^20.0.0",
@@ -36,9 +35,6 @@
     "typescript": "^5.9.0"
   },
   "peerDependenciesMeta": {
-    "@ama-styling/style-dictionary": {
-      "optional": true
-    },
     "@angular-devkit/schematics": {
       "optional": true
     },
@@ -60,7 +56,6 @@
     "tslib": "^2.6.2"
   },
   "devDependencies": {
-    "@ama-styling/style-dictionary": "workspace:~",
     "@angular-devkit/build-angular": "~20.3.13",
     "@angular-devkit/core": "~20.3.13",
     "@angular-devkit/schematics": "~20.3.13",
@@ -71,8 +66,6 @@
     "@angular/core": "~20.3.15",
     "@angular/platform-browser": "~20.3.15",
     "@angular/platform-browser-dynamic": "~20.3.15",
-    "@babel/core": "~7.28.0",
-    "@babel/preset-typescript": "~7.28.0",
     "@compodoc/compodoc": "^1.1.32",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@nx/eslint": "~21.6.0",

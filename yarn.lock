@@ -1608,7 +1608,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@ama-styling/devkit@workspace:packages/@ama-styling/devkit":
+"@ama-styling/devkit@workspace:packages/@ama-styling/devkit, @ama-styling/devkit@workspace:~":
   version: 0.0.0-use.local
   resolution: "@ama-styling/devkit@workspace:packages/@ama-styling/devkit"
   dependencies:
@@ -1623,8 +1623,6 @@ __metadata:
     "@angular/core": "npm:~20.3.15"
     "@angular/platform-browser": "npm:~20.3.15"
     "@angular/platform-browser-dynamic": "npm:~20.3.15"
-    "@babel/core": "npm:~7.28.0"
-    "@babel/preset-typescript": "npm:~7.28.0"
     "@compodoc/compodoc": "npm:^1.1.32"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@nx/eslint": "npm:~21.6.0"
@@ -9627,6 +9625,7 @@ __metadata:
   dependencies:
     "@agnos-ui/angular-bootstrap": "npm:~0.9.0"
     "@agnos-ui/core-bootstrap": "npm:~0.9.0"
+    "@ama-styling/devkit": "workspace:~"
     "@amadeus-it-group/tansu": "npm:~2.0.0"
     "@angular-devkit/build-angular": "npm:~20.3.13"
     "@angular-devkit/schematics": "npm:~20.3.13"
@@ -9659,7 +9658,6 @@ __metadata:
     "@o3r/localization": "workspace:~"
     "@o3r/logger": "workspace:~"
     "@o3r/rules-engine": "workspace:~"
-    "@o3r/styling": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
     "@playwright/test": "npm:~1.57.0"
     "@popperjs/core": "npm:^2.11.5"
@@ -10159,112 +10157,6 @@ __metadata:
       optional: true
   bin:
     create: ./index.js
-  languageName: unknown
-  linkType: soft
-
-"@o3r/design@workspace:packages/@o3r/design, @o3r/design@workspace:~":
-  version: 0.0.0-use.local
-  resolution: "@o3r/design@workspace:packages/@o3r/design"
-  dependencies:
-    "@angular-devkit/architect": "npm:0.2003.13"
-    "@angular-devkit/build-angular": "npm:~20.3.13"
-    "@angular-devkit/core": "npm:~20.3.13"
-    "@angular-devkit/schematics": "npm:~20.3.13"
-    "@angular/animations": "npm:~20.3.15"
-    "@angular/cli": "npm:~20.3.13"
-    "@angular/common": "npm:~20.3.15"
-    "@angular/compiler": "npm:~20.3.15"
-    "@angular/compiler-cli": "npm:~20.3.15"
-    "@angular/core": "npm:~20.3.15"
-    "@angular/platform-browser": "npm:~20.3.15"
-    "@angular/platform-browser-dynamic": "npm:~20.3.15"
-    "@babel/core": "npm:~7.28.0"
-    "@babel/preset-typescript": "npm:~7.28.0"
-    "@compodoc/compodoc": "npm:^1.1.32"
-    "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@nx/eslint": "npm:~21.6.0"
-    "@nx/eslint-plugin": "npm:~21.6.0"
-    "@nx/jest": "npm:~21.6.0"
-    "@nx/js": "npm:~21.6.0"
-    "@o3r/build-helpers": "workspace:~"
-    "@o3r/core": "workspace:~"
-    "@o3r/eslint-plugin": "workspace:~"
-    "@o3r/schematics": "workspace:~"
-    "@o3r/styling": "workspace:~"
-    "@o3r/telemetry": "workspace:~"
-    "@o3r/test-helpers": "workspace:~"
-    "@schematics/angular": "npm:~20.3.13"
-    "@stylistic/eslint-plugin": "npm:~5.6.0"
-    "@swc/helpers": "npm:~0.5.17"
-    "@types/jest": "npm:~30.0.0"
-    "@types/minimist": "npm:^1.2.2"
-    "@types/node": "npm:~24.10.0"
-    "@types/semver": "npm:^7.3.13"
-    "@typescript-eslint/parser": "npm:~8.51.0"
-    angular-eslint: "npm:~20.6.0"
-    chokidar: "npm:^4.0.3"
-    cpy-cli: "npm:^6.0.0"
-    eslint: "npm:~9.39.0"
-    eslint-import-resolver-node: "npm:~0.3.9"
-    eslint-import-resolver-typescript: "npm:~4.4.0"
-    eslint-plugin-import: "npm:~2.32.0"
-    eslint-plugin-import-newlines: "npm:~1.4.0"
-    eslint-plugin-jest: "npm:~29.11.0"
-    eslint-plugin-jsdoc: "npm:~61.5.0"
-    eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:~62.0.0"
-    eslint-plugin-unused-imports: "npm:~4.3.0"
-    globals: "npm:^16.0.0"
-    globby: "npm:^11.1.0"
-    jest: "npm:~30.2.0"
-    jest-junit: "npm:~16.0.0"
-    jest-util: "npm:~30.2.0"
-    jsonc-eslint-parser: "npm:~2.4.0"
-    jsonschema: "npm:~1.5.0"
-    minimatch: "npm:~10.1.0"
-    minimist: "npm:^1.2.6"
-    nx: "npm:~21.6.0"
-    rxjs: "npm:^7.8.1"
-    sass: "npm:~1.93.0"
-    semver: "npm:^7.5.2"
-    ts-jest: "npm:~29.4.0"
-    tslib: "npm:^2.6.2"
-    type-fest: "npm:^5.3.1"
-    typescript: "npm:~5.9.2"
-    typescript-eslint: "npm:~8.51.0"
-    zone.js: "npm:~0.15.0"
-  peerDependencies:
-    "@angular-devkit/architect": ">=0.2000.0 <0.2100.0-0"
-    "@angular-devkit/schematics": ^20.0.0
-    "@o3r/core": "workspace:~"
-    "@o3r/schematics": "workspace:~"
-    "@o3r/styling": "workspace:~"
-    "@o3r/telemetry": "workspace:~"
-    chokidar: ^4.0.3
-    globby: ^11.1.0
-    sass: ^1.81.0
-  peerDependenciesMeta:
-    "@angular-devkit/architect":
-      optional: true
-    "@angular-devkit/schematics":
-      optional: true
-    "@o3r/core":
-      optional: true
-    "@o3r/schematics":
-      optional: true
-    "@o3r/styling":
-      optional: true
-    "@o3r/telemetry":
-      optional: true
-    chokidar:
-      optional: true
-    globby:
-      optional: true
-    sass:
-      optional: true
-  bin:
-    o3r-build-design-token: ./dist/cli/build-design-token-cli.cjs
-    o3r-css-from-design-token: ./dist/cli/generate-css-from-design-token-cli.cjs
   languageName: unknown
   linkType: soft
 
@@ -11935,6 +11827,7 @@ __metadata:
     "@ama-sdk/client-fetch": "workspace:~"
     "@ama-sdk/core": "workspace:~"
     "@ama-sdk/schematics": "workspace:~"
+    "@ama-styling/devkit": "workspace:~"
     "@ama-styling/style-dictionary": "workspace:~"
     "@amadeus-it-group/kassette": "npm:^1.7.0"
     "@amadeus-it-group/tansu": "npm:~2.0.0"
@@ -11986,7 +11879,6 @@ __metadata:
     "@o3r/rules-engine": "workspace:~"
     "@o3r/schematics": "workspace:~"
     "@o3r/store-sync": "workspace:~"
-    "@o3r/styling": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
     "@o3r/testing": "workspace:~"
     "@o3r/workspace": "workspace:~"
@@ -12143,7 +12035,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@o3r/styling@workspace:packages/@o3r/styling, @o3r/styling@workspace:~":
+"@o3r/styling@workspace:packages/@o3r/styling":
   version: 0.0.0-use.local
   resolution: "@o3r/styling@workspace:packages/@o3r/styling"
   dependencies:
@@ -32128,6 +32020,7 @@ __metadata:
   resolution: "otter-devtools@workspace:apps/vscode-extension"
   dependencies:
     "@ama-mcp/otter": "workspace:^"
+    "@ama-styling/style-dictionary": "workspace:~"
     "@angular-devkit/build-angular": "npm:~20.3.13"
     "@angular-devkit/core": "npm:~20.3.13"
     "@angular-devkit/schematics": "npm:~20.3.13"
@@ -32143,7 +32036,6 @@ __metadata:
     "@nx/jest": "npm:~21.6.0"
     "@o3r/build-helpers": "workspace:~"
     "@o3r/core": "workspace:~"
-    "@o3r/design": "workspace:~"
     "@o3r/eslint-plugin": "workspace:~"
     "@o3r/schematics": "workspace:~"
     "@o3r/telemetry": "workspace:~"

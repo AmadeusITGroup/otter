@@ -9,6 +9,6 @@
     "entryFile": "src/public_api.ts"
   },
   "assets": [
-    "schemas/*.json"
+    "collection.json"
   ]
 }

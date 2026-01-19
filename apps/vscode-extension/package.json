@@ -142,11 +142,13 @@
       },
       {
         "command": "otter.extract.styling.variable",
+        "deprecated": "Rely on Design Token generation instead. Will be removed in v15",
         "title": "Extract SCSS property to o3r.variable",
         "category": "Otter"
       },
       {
         "command": "otter.extract.styling.allVariable",
+        "deprecated": "Rely on Design Token generation instead. Will be removed in v15",
         "title": "Extract all SCSS properties to o3r.variable",
         "category": "Otter"
       },
@@ -398,7 +400,7 @@
   },
   "dependencies": {
     "@ama-mcp/otter": "workspace:^",
-    "@o3r/design": "workspace:~",
+    "@ama-styling/style-dictionary": "workspace:~",
     "@o3r/telemetry": "workspace:~",
     "@vscode/chat-extension-utils": "0.0.0-alpha.5",
     "eslint": "~9.39.0"
