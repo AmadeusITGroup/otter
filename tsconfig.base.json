@@ -85,6 +85,9 @@
       "@ama-styling/figma-extractor": [
         "packages/@ama-styling/figma-extractor/src/public_api"
       ],
+      "@ama-styling/devkit": [
+        "packages/@ama-styling/devkit/src/public_api"
+      ],
       "@ama-styling/figma-sdk": [
         "packages/@ama-styling/figma-sdk/src/index"
       ],
