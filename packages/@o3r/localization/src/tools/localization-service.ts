@@ -137,9 +137,9 @@ export class LocalizationService {
    * @returns A stream of the translated key
    */
   private getTranslationStream(translationKey: string, interpolateParams?: object) {
-    const translation$ = this.translateService.onTranslationChange.pipe(
+    const translation$ = this.translateService.events$.pipe(
       startWith(),
-      switchMap(() => this.translateService.stream(translationKey, interpolateParams)),
+      switchMap(() => this.translateService.selectTranslate(translationKey, interpolateParams)),
       map((value) => this.configuration.debugMode ? `${translationKey} - ${value}` : value),
       distinctUntilChanged()
     );
@@ -177,7 +177,7 @@ export class LocalizationService {
    * Wrapper to call the ngx-translate service TranslateService method getLangs().
    */
   public getLanguages() {
-    return this.translateService.getAvailableLangs();
+    return this.translateService.getAvailableLangs().map((l) => (typeof l === 'string' ? l : l.id));
   }
 
   /**

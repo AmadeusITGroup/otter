@@ -6880,6 +6880,44 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@jsverse/transloco-utils@npm:^8.0.2":
+  version: 8.2.0
+  resolution: "@jsverse/transloco-utils@npm:8.2.0"
+  dependencies:
+    cosmiconfig: "npm:^8.1.3"
+    tslib: "npm:^2.3.0"
+  checksum: 10/fb5c754a2eef4c4e34d038eeb54cb9bdb5680266484c349dd9e9a0e93955c008e0d4ce92d302fed1ec664a883599693c0d71dfffd973ed90930a45a17896cb9e
+  languageName: node
+  linkType: hard
+
+"@jsverse/transloco@npm:~8.0.0":
+  version: 8.0.2
+  resolution: "@jsverse/transloco@npm:8.0.2"
+  dependencies:
+    "@jsverse/transloco-utils": "npm:^8.0.2"
+    "@jsverse/utils": "npm:1.0.0-beta.5"
+    tslib: "npm:^2.2.0"
+  peerDependencies:
+    "@angular/core": ">=16.0.0"
+    rxjs: ">=6.0.0"
+  checksum: 10/3547cd06aafc30540a6780d52eca52e83f1fc3c1358299a5a0adc5a81f5d2b01bb2ebcc258972b81d014428c9302293737b76a4df58f8370189c2dff8e1fe684
+  languageName: node
+  linkType: hard
+
+"@jsverse/utils@npm:1.0.0-beta.5":
+  version: 1.0.0-beta.5
+  resolution: "@jsverse/utils@npm:1.0.0-beta.5"
+  checksum: 10/f54293c5a71ba1dc3f0d30c76acf1936f9fe14f8c620cd03184f585386896dbbd9109de44309f4b7db704c158d66f7255e6de4f58f60275ccca835a30f83a8fd
+  languageName: node
+  linkType: hard
+
+"@jsverse/utils@npm:~1.0.0-beta.6":
+  version: 1.0.0-beta.6
+  resolution: "@jsverse/utils@npm:1.0.0-beta.6"
+  checksum: 10/a4bafd9a9cabd2e00cb3e5b8ed12d0af94a5d3c139f5913b9818d0f95bdd42e0e2c734292820125f602e6a9d587990a1cf6df7c2dace1307ef9d81f976c0c524
+  languageName: node
+  linkType: hard
+
 "@keyv/bigmap@npm:^1.0.2":
   version: 1.1.0
   resolution: "@keyv/bigmap@npm:1.1.0"
@@ -10726,6 +10764,8 @@ __metadata:
     "@compodoc/compodoc": "npm:^1.1.32"
     "@design-factory/design-factory": "npm:~20.0.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
+    "@jsverse/transloco": "npm:~8.0.0"
+    "@jsverse/utils": "npm:~1.0.0-beta.6"
     "@ng-bootstrap/ng-bootstrap": "npm:^19.0.0"
     "@ng-select/ng-select": "npm:~20.0.0"
     "@ngrx/effects": "npm:~20.1.0"
@@ -10939,6 +10979,8 @@ __metadata:
     "@babel/preset-typescript": "npm:~7.28.0"
     "@compodoc/compodoc": "npm:^1.1.32"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
+    "@jsverse/transloco": "npm:~8.0.0"
+    "@jsverse/utils": "npm:~1.0.0-beta.6"
     "@ngrx/store": "npm:~20.1.0"
     "@ngx-translate/core": "npm:~16.0.4"
     "@nx/eslint": "npm:~21.6.0"
@@ -11010,6 +11052,7 @@ __metadata:
     "@angular/core": ^20.0.0
     "@angular/platform-browser-dynamic": ^20.0.0
     "@formatjs/intl-numberformat": ^8.0.2
+    "@jsverse/transloco": ^8.0.0
     "@ngrx/store": ^20.0.0
     "@ngx-translate/core": ^15.0.0 || ~16.0.4
     "@o3r/core": "workspace:~"
@@ -11893,6 +11936,8 @@ __metadata:
     "@design-factory/design-factory": "npm:~20.0.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@formatjs/intl-numberformat": "npm:~8.15.0"
+    "@jsverse/transloco": "npm:~8.0.0"
+    "@jsverse/utils": "npm:~1.0.0-beta.6"
     "@ng-bootstrap/ng-bootstrap": "npm:^19.0.0"
     "@ng-select/ng-select": "npm:~20.0.0"
     "@ngrx/effects": "npm:~20.1.0"
@@ -21226,6 +21271,23 @@ __metadata:
     path-type: "npm:^4.0.0"
     yaml: "npm:^1.10.0"
   checksum: 10/03600bb3870c80ed151b7b706b99a1f6d78df8f4bdad9c95485072ea13358ef294b13dd99f9e7bf4cc0b43bcd3599d40df7e648750d21c2f6817ca2cd687e071
+  languageName: node
+  linkType: hard
+
+"cosmiconfig@npm:^8.1.3":
+  version: 8.3.6
+  resolution: "cosmiconfig@npm:8.3.6"
+  dependencies:
+    import-fresh: "npm:^3.3.0"
+    js-yaml: "npm:^4.1.0"
+    parse-json: "npm:^5.2.0"
+    path-type: "npm:^4.0.0"
+  peerDependencies:
+    typescript: ">=4.9.5"
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  checksum: 10/91d082baca0f33b1c085bf010f9ded4af43cbedacba8821da0fb5667184d0a848addc52c31fadd080007f904a555319c238cf5f4c03e6d58ece2e4876b2e73d6
   languageName: node
   linkType: hard
 
