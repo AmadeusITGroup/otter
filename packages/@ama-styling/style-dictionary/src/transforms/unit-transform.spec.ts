@@ -62,6 +62,22 @@ describe('unitTransform', () => {
     expect(result).toEqual({ field: { value: '1.3 lol', valueNoSpace: '1.3lol', valueNumber: 5, valueDot: '.5lol' } });
   });
 
+  test('should apply unit to complex type single level', () => {
+    const result = unitTransform.transform({
+      $value: {
+        value: '1.3 em',
+        valueNoSpace: '1.3em',
+        valueNumber: 5,
+        valueDot: '.5vw'
+      },
+      attributes: {
+        o3rUnit: 'lol'
+      }
+    } as any, {} as any, { usesDtcg: true });
+
+    expect(result).toEqual({ value: '1.3 lol', valueNoSpace: '1.3lol', valueNumber: 5, valueDot: '.5lol' });
+  });
+
   test('should not apply unit on non-numeric type', () => {
     const result: any = unitTransform.transform({
       $value: 'it\'s 1 value',

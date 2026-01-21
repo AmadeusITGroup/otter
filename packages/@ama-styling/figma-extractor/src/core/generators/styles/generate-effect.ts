@@ -70,7 +70,7 @@ export const generateEffectStyles = async (
                 color: formatVariables(effect.boundVariables?.color) || getRgbaColorHex(effect.color) || '',
                 offsetX: formatVariables(effect.boundVariables?.offsetX) || `${effect.offset.x}${options.defaultUnit || 'px'}` || '0',
                 offsetY: formatVariables(effect.boundVariables?.offsetY) || `${effect.offset.y}${options.defaultUnit || 'px'}` || '0',
-                spread: formatVariables(effect.boundVariables?.spread) || `${effect.spread}${options.defaultUnit || 'px'}` || '0',
+                spread: formatVariables(effect.boundVariables?.spread) || `${effect.spread || 0}${options.defaultUnit || 'px'}`,
                 inset: effect.type === 'INNER_SHADOW'
               };
             }
