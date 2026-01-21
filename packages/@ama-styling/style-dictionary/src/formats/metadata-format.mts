@@ -27,7 +27,7 @@ export const metadataFormat: Format = {
     const { outputReferences: outRef, usesDtcg, formatting, keepPrivate } = options;
     const outputReferences = outRef ?? true;
     const format = 'css';
-    const suffix = ';';
+    const suffix = ' ';
     const prefix = '--';
     const separator = ':';
     const commentStyle = options.formatting?.commentStyle ?? 'none';
@@ -60,7 +60,8 @@ export const metadataFormat: Format = {
 
     const propertyFormatter = getDefaultCssFormatter(baseFormatterOptions);
 
-    const getValueFromCssVariable = (strValue: string) => strValue.replace(new RegExp(`^.*?${separator}(.*)$`), '$1').trim();
+    const getValueFromCssVariable = (strValue: string) =>
+      strValue.replace(new RegExp(`^.*?${separator}(.*?)[ ;]*$`), '$1').trim();
 
     const getMetadataReferences = (token: TransformedToken): CssVariable[] | undefined => {
       const originalValue = usesDtcg ? token.original.$value : token.original.value;
