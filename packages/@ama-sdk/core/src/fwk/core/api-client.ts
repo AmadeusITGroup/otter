@@ -56,14 +56,6 @@ export interface ApiClient {
   options: BaseApiClientOptions;
 
   /**
-   * Returns a map containing the query parameters
-   * @param data
-   * @param names
-   * @deprecated use {@link stringifyQueryParams} which accepts only supported types, will be removed in v14.
-   */
-  extractQueryParams<T extends { [key: string]: any }>(data: T, names: (keyof T)[]): { [p in keyof T]: string; };
-
-  /**
    * Get requested properties from data
    * @param data Data to get properties from
    * @param keys Keys of properties to retrieve
@@ -85,7 +77,7 @@ export interface ApiClient {
    * Prepares the url to be called
    * @param url Base url to be used
    * @param queryParameters Key value pair with the parameters. If the value is undefined, the key is dropped
-   * @deprecated use {@link prepareUrlWithQueryParams} with query parameter serialization, will be removed in v14.
+   * @deprecated use {@link prepareUrlWithQueryParams} with query parameter serialization, will be removed in v15.
    */
   prepareUrl(url: string, queryParameters?: { [key: string]: string | undefined }): string;
 
@@ -141,9 +133,9 @@ export function isApiClient(client: any): client is ApiClient {
   const apiClient: ApiClient | undefined = client;
   return !!apiClient
     && !!apiClient.options
-    && typeof apiClient.extractQueryParams === 'function'
+    && typeof apiClient.stringifyQueryParams === 'function'
     && typeof apiClient.getRequestOptions === 'function'
-    && typeof apiClient.prepareUrl === 'function'
+    && (typeof apiClient.prepareUrl === 'function' || typeof apiClient.prepareUrlWithQueryParams === 'function')
     && typeof apiClient.processFormData === 'function'
     && typeof apiClient.processCall === 'function';
 }

@@ -1,0 +1,15 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { StyleLazyLoaderModule } from '@o3r/dynamic-content';
+import { OtherModule } from './other-module';
+
+@NgModule({
+  imports: [
+    CommonModule,
+    StyleLazyLoaderModule,
+    OtherModule
+  ],
+  declarations: [],
+  exports: []
+})
+export class ExampleModule {}

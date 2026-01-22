@@ -1,7 +1,7 @@
 # Track UI Events
 
 The main purpose of this mechanism is to ease event tracking at component level.
-You can capture your events via the tracking event directives (exposed in the [TrackEventsModule](#TrackEventsModule))
+You can capture your events via the tracking event directives (`TrackEventsDirective`, `TrackClickDirective`, `TrackFocusDirective`)
 and the [EventTrackService](#EventTrackService).
 
 You can access all these events via the [EventTrackService](#EventTrackService).
@@ -36,10 +36,9 @@ class MyComponent extends Trackable<MyComponentAnalytics>, ... {
 }
 ```
 
-## TrackEventsModule
-The `TrackEventsModule` contains directives to help you track standard event such as the `TrackClickDirective` or
-`TrackFocusDirective`.
-You can track more standard ui event with the `TrackEventsDirective` and even create your own component events
+## Track directives
+The exposed directives to help you track standard events such as the `TrackClickDirective` or `TrackFocusDirective`.
+You can track more standard UI events with the `TrackEventsDirective` and even create your own component events
 (see [Analytics Events](./ANALYTICS.md)).
 Note that all these events will be stored as UI Events in the [EventTrackService](#EventTrackService).
 ```html
