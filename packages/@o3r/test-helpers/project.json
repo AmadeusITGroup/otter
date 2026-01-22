@@ -31,5 +31,8 @@
     "lint": {},
     "test": {}
   },
-  "tags": []
+  "tags": [
+    "access:private",
+    "hook:postinstall"
+  ]
 }
