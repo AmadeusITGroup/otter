@@ -1618,6 +1618,95 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@ama-styling/devkit@workspace:packages/@ama-styling/devkit":
+  version: 0.0.0-use.local
+  resolution: "@ama-styling/devkit@workspace:packages/@ama-styling/devkit"
+  dependencies:
+    "@angular-devkit/build-angular": "npm:~21.0.2"
+    "@angular-devkit/core": "npm:~21.0.2"
+    "@angular-devkit/schematics": "npm:~21.0.2"
+    "@angular/animations": "npm:~21.0.3"
+    "@angular/common": "npm:~21.0.3"
+    "@angular/compiler": "npm:~21.0.3"
+    "@angular/compiler-cli": "npm:~21.0.3"
+    "@angular/core": "npm:~21.0.3"
+    "@angular/platform-browser": "npm:~21.0.3"
+    "@angular/platform-browser-dynamic": "npm:~21.0.3"
+    "@compodoc/compodoc": "npm:^1.1.32"
+    "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
+    "@nx/eslint": "npm:~22.3.3"
+    "@nx/eslint-plugin": "npm:~22.3.3"
+    "@nx/jest": "npm:~22.3.3"
+    "@nx/js": "npm:~22.3.3"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/core": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/logger": "workspace:~"
+    "@o3r/schematics": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
+    "@o3r/testing": "workspace:~"
+    "@schematics/angular": "npm:~21.0.2"
+    "@stylistic/eslint-plugin": "npm:~5.6.0"
+    "@types/jest": "npm:~30.0.0"
+    "@types/node": "npm:~24.10.0"
+    "@typescript-eslint/parser": "npm:~8.52.0"
+    angular-eslint: "npm:~21.0.1"
+    cpy-cli: "npm:^6.0.0"
+    eslint: "npm:~9.39.0"
+    eslint-import-resolver-node: "npm:~0.3.9"
+    eslint-import-resolver-typescript: "npm:~4.4.0"
+    eslint-plugin-import: "npm:~2.32.0"
+    eslint-plugin-import-newlines: "npm:~1.4.0"
+    eslint-plugin-jest: "npm:~29.12.0"
+    eslint-plugin-jsdoc: "npm:~61.5.0"
+    eslint-plugin-prefer-arrow: "npm:~1.2.3"
+    eslint-plugin-unicorn: "npm:~62.0.0"
+    eslint-plugin-unused-imports: "npm:~4.3.0"
+    globals: "npm:^16.0.0"
+    jest: "npm:~30.2.0"
+    jest-environment-jsdom: "npm:~30.2.0"
+    jest-junit: "npm:~16.0.0"
+    jest-preset-angular: "npm:~16.0.0"
+    jest-util: "npm:~30.2.0"
+    jsdom: "npm:~27.3.0"
+    jsonc-eslint-parser: "npm:~2.4.0"
+    nx: "npm:~22.3.3"
+    rxjs: "npm:^7.8.1"
+    semver: "npm:^7.5.2"
+    ts-jest: "npm:~29.4.0"
+    tslib: "npm:^2.6.2"
+    type-fest: "npm:^5.3.1"
+    typescript: "npm:~5.9.2"
+    typescript-eslint: "npm:~8.52.0"
+    zone.js: "npm:~0.15.0"
+  peerDependencies:
+    "@angular-devkit/schematics": ~21.0.2
+    "@angular/common": ~21.0.3
+    "@angular/core": ~21.0.3
+    "@o3r/core": "workspace:~"
+    "@o3r/logger": "workspace:~"
+    "@o3r/schematics": "workspace:~"
+    "@o3r/testing": "workspace:~"
+    "@schematics/angular": ~21.0.2
+    rxjs: ^7.8.1
+    type-fest: ^5.3.1
+    typescript: ^5.9.0
+  peerDependenciesMeta:
+    "@angular-devkit/schematics":
+      optional: true
+    "@o3r/logger":
+      optional: true
+    "@o3r/schematics":
+      optional: true
+    "@o3r/testing":
+      optional: true
+    type-fest:
+      optional: true
+    typescript:
+      optional: true
+  languageName: unknown
+  linkType: soft
+
 "@ama-styling/figma-extractor@workspace:packages/@ama-styling/figma-extractor":
   version: 0.0.0-use.local
   resolution: "@ama-styling/figma-extractor@workspace:packages/@ama-styling/figma-extractor"
@@ -7270,7 +7359,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@modelcontextprotocol/sdk@npm:1.25.2, @modelcontextprotocol/sdk@npm:~1.25.0":
+"@modelcontextprotocol/sdk@npm:1.25.2":
   version: 1.25.2
   resolution: "@modelcontextprotocol/sdk@npm:1.25.2"
   dependencies:
@@ -7299,6 +7388,38 @@ __metadata:
     zod:
       optional: false
   checksum: 10/32ce322664e03aa038986ee60a5d3b92ddbec45cf1a023d07f7d90fec3e2926ba40bb21fc6f723bf1d50979995ae76bc440001f4d5eec3f5b55aa824091c20ab
+  languageName: node
+  linkType: hard
+
+"@modelcontextprotocol/sdk@npm:~1.25.0":
+  version: 1.25.1
+  resolution: "@modelcontextprotocol/sdk@npm:1.25.1"
+  dependencies:
+    "@hono/node-server": "npm:^1.19.7"
+    ajv: "npm:^8.17.1"
+    ajv-formats: "npm:^3.0.1"
+    content-type: "npm:^1.0.5"
+    cors: "npm:^2.8.5"
+    cross-spawn: "npm:^7.0.5"
+    eventsource: "npm:^3.0.2"
+    eventsource-parser: "npm:^3.0.0"
+    express: "npm:^5.0.1"
+    express-rate-limit: "npm:^7.5.0"
+    jose: "npm:^6.1.1"
+    json-schema-typed: "npm:^8.0.2"
+    pkce-challenge: "npm:^5.0.0"
+    raw-body: "npm:^3.0.0"
+    zod: "npm:^3.25 || ^4.0"
+    zod-to-json-schema: "npm:^3.25.0"
+  peerDependencies:
+    "@cfworker/json-schema": ^4.1.1
+    zod: ^3.25 || ^4.0
+  peerDependenciesMeta:
+    "@cfworker/json-schema":
+      optional: true
+    zod:
+      optional: false
+  checksum: 10/21ab680412822f4bac16536fa444a251efdf288e4adcd42a048524beebb2715c278360bf57f45f7a51fb6e5a82c06c960f5c969460039a1f0cf6f9d9b47e4454
   languageName: node
   linkType: hard
 
@@ -8053,7 +8174,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@napi-rs/wasm-runtime@npm:^1.0.7, @napi-rs/wasm-runtime@npm:^1.1.0":
+"@napi-rs/wasm-runtime@npm:^1.0.7":
   version: 1.1.1
   resolution: "@napi-rs/wasm-runtime@npm:1.1.1"
   dependencies:
@@ -8061,6 +8182,17 @@ __metadata:
     "@emnapi/runtime": "npm:^1.7.1"
     "@tybys/wasm-util": "npm:^0.10.1"
   checksum: 10/080e7f2aefb84e09884d21c650a2cbafdf25bfd2634693791b27e36eec0ddaa3c1656a943f8c913ac75879a0b04e68f8a827897ee655ab54a93169accf05b194
+  languageName: node
+  linkType: hard
+
+"@napi-rs/wasm-runtime@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "@napi-rs/wasm-runtime@npm:1.1.0"
+  dependencies:
+    "@emnapi/core": "npm:^1.7.1"
+    "@emnapi/runtime": "npm:^1.7.1"
+    "@tybys/wasm-util": "npm:^0.10.1"
+  checksum: 10/87c7ab4685527aa4820320020e2af5879b99d88e94b42cdc3690646722536f14656667392975a9576bf411a3804a464949fadbc343a646a2c2a8b2f10d921f6c
   languageName: node
   linkType: hard
 
@@ -40340,5 +40472,12 @@ __metadata:
   version: 4.3.5
   resolution: "zod@npm:4.3.5"
   checksum: 10/3148bd52e56ab7c1641ec397e6be6eddbb1d8f5db71e95baab9bb9622a0ea49d8a385885fc1c22b90fa6d8c5234e051f4ef5d469cfe3fb90198d5a91402fd89c
+  languageName: node
+  linkType: hard
+
+"zone.js@npm:~0.15.0":
+  version: 0.15.1
+  resolution: "zone.js@npm:0.15.1"
+  checksum: 10/10f8b8651694e7c9484b32da677d4051b8aaa7e2cb3a6baa1f608ff789e249fbccca33820b0590f9d80a7bbfc860a3ae3a6969b5c433f77b1b66e896f3d5b4d5
   languageName: node
   linkType: hard
