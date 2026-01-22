@@ -64,7 +64,7 @@ describe('metadataFormat', () => {
     expect(obj).toMatchObject({
       variables: {
         'color-primary-50': {
-          defaultValue: '#ebf3ff;',
+          defaultValue: '#ebf3ff',
           name: 'color-primary-50',
           references: [],
           type: 'color'
@@ -84,7 +84,7 @@ describe('metadataFormat', () => {
     expect(obj).toMatchObject({
       variables: {
         'color-primary-50': {
-          defaultValue: '#ebf3ff;',
+          defaultValue: '#ebf3ff',
           name: 'color-primary-50',
           references: [],
           type: 'color'
@@ -93,7 +93,7 @@ describe('metadataFormat', () => {
           defaultValue: 'var(--color-primary-50)',
           name: 'color-primary-ref',
           references: [
-            { defaultValue: '#ebf3ff;', name: 'color-primary-50', references: [] }
+            { defaultValue: '#ebf3ff', name: 'color-primary-50', references: [] }
           ],
           type: 'color'
         }
