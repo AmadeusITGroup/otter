@@ -8,9 +8,8 @@ import {
   RendererFactory2,
 } from '@angular/core';
 import {
-  LangChangeEvent,
-  TranslateService,
-} from '@ngx-translate/core';
+  TranslocoService,
+} from '@jsverse/transloco';
 import {
   Subscription,
 } from 'rxjs';
@@ -26,7 +25,7 @@ import {
  */
 @Injectable()
 export class TextDirectionService {
-  private readonly translateService = inject(TranslateService);
+  private readonly translateService = inject(TranslocoService);
   private readonly configuration = inject<LocalizationConfiguration>(LOCALIZATION_CONFIGURATION_TOKEN);
   private readonly rendererFactory = inject(RendererFactory2);
   private readonly directionality = inject(Directionality);
@@ -46,8 +45,8 @@ export class TextDirectionService {
     if (this.subscription && !this.subscription.closed) {
       return this.subscription;
     }
-    this.subscription = this.translateService.onLangChange.subscribe((event: LangChangeEvent) => {
-      const direction = this.configuration.rtlLanguages.includes(event.lang.split('-')[0]) ? 'rtl' : 'ltr';
+    this.subscription = this.translateService.langChanges$.subscribe((lang) => {
+      const direction = this.configuration.rtlLanguages.includes(lang.split('-')[0]) ? 'rtl' : 'ltr';
       this.renderer.setAttribute(document.body, 'dir', direction);
       this.directionality.change.emit(direction);
     });

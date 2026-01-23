@@ -65,8 +65,7 @@ export class PlaceholderRulesEngineActionHandler implements RulesEngineActionHan
     const translateService = inject(LocalizationService, { optional: true });
 
     const lang$ = translateService
-      ? translateService.getTranslateService().onLangChange.pipe(
-        map(({ lang }) => lang),
+      ? translateService.getTranslateService().langChanges$.pipe(
         startWith(translateService.getCurrentLanguage()),
         distinctUntilChanged()
       )

@@ -3,12 +3,12 @@ import {
   Injectable,
 } from '@angular/core';
 import {
+  TranslocoService,
+} from '@jsverse/transloco';
+import {
   select,
   Store,
 } from '@ngrx/store';
-import {
-  TranslateService,
-} from '@ngx-translate/core';
 import {
   LoggerService,
 } from '@o3r/logger';
@@ -44,7 +44,7 @@ import {
  */
 @Injectable()
 export class LocalizationService {
-  private readonly translateService = inject(TranslateService);
+  private readonly translateService = inject(TranslocoService);
   private readonly logger = inject(LoggerService);
   private readonly configuration = inject<LocalizationConfiguration>(LOCALIZATION_CONFIGURATION_TOKEN);
   private readonly store = inject<Store<LocalizationOverrideStore>>(Store, { optional: true });
@@ -137,9 +137,9 @@ export class LocalizationService {
    * @returns A stream of the translated key
    */
   private getTranslationStream(translationKey: string, interpolateParams?: object) {
-    const translation$ = this.translateService.onTranslationChange.pipe(
-      startWith(undefined),
-      switchMap(() => this.translateService.stream(translationKey, interpolateParams)),
+    const translation$ = this.translateService.events$.pipe(
+      startWith(),
+      switchMap(() => this.translateService.selectTranslate(translationKey, interpolateParams)),
       map((value) => this.configuration.debugMode ? `${translationKey} - ${value}` : value),
       distinctUntilChanged()
     );
@@ -161,7 +161,7 @@ export class LocalizationService {
    */
   public async configure() {
     const language = this.checkFallbackLocalesMap(this.configuration.language || this.configuration.fallbackLanguage);
-    this.translateService.addLangs(this.configuration.supportedLocales);
+    this.translateService.setAvailableLangs(this.configuration.supportedLocales);
     this.translateService.setDefaultLang(language);
     await firstValueFrom(this.useLanguage(language));
   }
@@ -177,7 +177,7 @@ export class LocalizationService {
    * Wrapper to call the ngx-translate service TranslateService method getLangs().
    */
   public getLanguages() {
-    return this.translateService.getLangs();
+    return this.translateService.getAvailableLangs().map((l) => (typeof l === 'string' ? l : l.id));
   }
 
   /**
@@ -186,14 +186,14 @@ export class LocalizationService {
    */
   public useLanguage(language: string): Observable<any> {
     language = this.checkFallbackLocalesMap(language);
-    return this.translateService.use(language);
+    return of(this.translateService.setActiveLang(language));
   }
 
   /**
    * Wrapper to get the ngx-translate service TranslateService currentLang.
    */
   public getCurrentLanguage() {
-    return this.translateService.currentLang;
+    return this.translateService.getActiveLang();
   }
 
   /**

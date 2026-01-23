@@ -4,8 +4,8 @@ import {
   Optional,
 } from '@angular/core';
 import {
-  TranslateLoader,
-} from '@ngx-translate/core';
+  TRANSLOCO_LOADER,
+} from '@jsverse/transloco';
 import {
   DynamicContentService,
 } from '@o3r/dynamic-content';
@@ -48,7 +48,7 @@ export function createTranslateLoader(localizationConfiguration: LocalizationCon
  * TranslateLoader provider, using framework's TranslationsLoader class
  */
 export const translateLoaderProvider: Readonly<FactoryProvider> = {
-  provide: TranslateLoader,
+  provide: TRANSLOCO_LOADER,
   useFactory: createTranslateLoader,
   deps: [LOCALIZATION_CONFIGURATION_TOKEN, [new Optional(), LoggerService], [new Optional(), DynamicContentService]]
 } as const;
