@@ -39,7 +39,7 @@ jobs:
     env:
       NODE_COMPILE_CACHE: ~/.cache/node-compile-cache
     steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           ref: ${{ inputs.ref }}
       - uses: ./tools/github-actions/download-build-output
@@ -81,7 +81,7 @@ jobs:
       ENFORCED_PACKAGE_MANAGER: ${{ matrix.packageManager }}
       PREPARE_TEST_ENV_TYPE: ${{ matrix.testEnvironment }}
     steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           ref: ${{ inputs.ref }}
       - uses: ./tools/github-actions/download-build-output
