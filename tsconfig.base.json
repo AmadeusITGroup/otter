@@ -8,7 +8,7 @@
   ],
   "compilerOptions": {
     "types": [],
-    "target": "ES2022",
+    "target": "ES2024",
     "useDefineForClassFields": false,
     "declaration": true,
     "incremental": true,
@@ -18,13 +18,14 @@
     "lib": [
       "DOM",
       "DOM.Iterable",
-      "ES2022"
+      "ES2024",
     ],
     "module": "ES2022",
     "moduleResolution": "bundler",
     "noEmitHelpers": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
+    "noUncheckedSideEffectImports": true,
     "outDir": "dist/",
     "removeComments": false,
     "sourceMap": true,
@@ -53,6 +54,18 @@
       ],
       "@ama-mfe/ng-utils": [
         "packages/@ama-mfe/ng-utils/src/public_api"
+      ],
+      "@ama-openapi/cli": [
+        "packages/@ama-openapi/cli/src"
+      ],
+      "@ama-openapi/core": [
+        "packages/@ama-openapi/core/src/public_api"
+      ],
+      "@ama-openapi/create": [
+        "packages/@ama-openapi/create/src/public_api"
+      ],
+      "@ama-openapi/redocly-plugin": [
+        "packages/@ama-openapi/redocly-plugin/src"
       ],
       "@ama-sdk/client-fetch": [
         "packages/@ama-sdk/client-fetch/src/public_api"

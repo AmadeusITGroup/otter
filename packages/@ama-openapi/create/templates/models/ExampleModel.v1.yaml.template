@@ -1,0 +1,8 @@
+title: Example
+description: |-
+  Example model for demonstration purposes.
+type: object
+properties:
+  field:
+    type: string
+    description: Sample data field

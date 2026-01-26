@@ -62,10 +62,7 @@ const setUpClientAndServer = async (options: { disableCache?: boolean } = {}) =>
   const { disableCache = false } = options;
   const mcpServer = new McpServer({
     name: 'test-metadata',
-    version: '1.0.0',
-    capabilities: {
-      tools: {}
-    }
+    version: '1.0.0'
   });
   await registerMetadataPerRelease(mcpServer, {
     fetchPackageArtifact,
