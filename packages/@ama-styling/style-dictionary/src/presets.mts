@@ -45,9 +45,9 @@ export const register = (styleDictionary?: StyleDictionary) => {
 
 /** Base configuration for Otter Extension */
 export const baseConfig = {
-  preprocessors: ['o3r/pre-processor/extensions'],
+  preprocessors: [extensionPropagatePreprocessor.name],
   parsers: [
-    'o3r/json-parser/one-line-token',
-    'o3r/json-parser/extensions'
+    oneLineTokenJsonParser.name,
+    extensionsJsonParser.name
   ]
 } as const satisfies Config;
