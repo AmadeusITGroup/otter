@@ -16,6 +16,7 @@ const imports = new RegExp(/^@import\s+["']~?@(o3r|otter)\/styling.*\s*/, 'gm');
 
 /**
  * Update SASS imports to use a scoped dependency
+ * @deprecated The function help of the migration to a deprecated package. Will be removed in v15
  * @param alias The name of the otter styling package
  * @param dependencyName The name of the dependency to update imports on
  * @param exposedElements The list of exposed elements

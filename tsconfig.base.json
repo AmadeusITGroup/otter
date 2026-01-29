@@ -154,12 +154,6 @@
       "@o3r/core": [
         "packages/@o3r/core/src/public_api"
       ],
-      "@o3r/design": [
-        "packages/@o3r/design/src/public_api"
-      ],
-      "@o3r/design/schemas/*": [
-        "packages/@o3r/design/schemas/*"
-      ],
       "@o3r/dynamic-content": [
         "packages/@o3r/dynamic-content/src/public_api"
       ],

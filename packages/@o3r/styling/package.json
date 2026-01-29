@@ -1,7 +1,7 @@
 {
   "name": "@o3r/styling",
   "version": "0.0.0-placeholder",
-  "deprecated": "This package will be removed in Otter v14. Please use @ama-styling/style-dictionary instead.",
+  "deprecated": "This package will be removed in Otter v15. Please use @ama-styling/devkit instead.",
   "publishConfig": {
     "access": "public"
   },

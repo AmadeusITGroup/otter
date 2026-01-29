@@ -90,6 +90,7 @@
   "dependencies": {
     "@agnos-ui/angular-bootstrap": "~0.9.0",
     "@agnos-ui/core-bootstrap": "~0.9.0",
+    "@ama-styling/devkit": "workspace:~",
     "@amadeus-it-group/tansu": "~2.0.0",
     "@angular/animations": "~21.0.3",
     "@angular/common": "~21.0.3",
@@ -110,7 +111,6 @@
     "@o3r/core": "workspace:~",
     "@o3r/localization": "workspace:~",
     "@o3r/rules-engine": "workspace:~",
-    "@o3r/styling": "workspace:~",
     "@popperjs/core": "^2.11.5",
     "@types/color": "^4.0.0",
     "ag-grid-angular": "~32.3.0",
@@ -118,6 +118,7 @@
     "bootstrap": "5.3.8",
     "rxjs": "^7.8.1",
     "tinycolor2": "^1.6.0",
-    "tslib": "^2.6.2"
+    "tslib": "^2.6.2",
+    "zone.js": "~0.15.0"
   }
 }

@@ -32,8 +32,7 @@ export function allPreset(options: PresetOptions) {
     '@o3r/localization',
     '@o3r/logger',
     '@o3r/rules-engine',
-    '@o3r/store-sync',
-    '@o3r/styling'
+    '@o3r/store-sync'
   ];
 
   const rule = defaultPresetRuleFactory(modules, options);
