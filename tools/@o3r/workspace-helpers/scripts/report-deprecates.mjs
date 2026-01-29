@@ -28,6 +28,9 @@ import {
   isVariableDeclarationList,
   ScriptTarget,
 } from 'typescript';
+import {
+  sanitizeVariable,
+} from './utils.mjs';
 
 const argv = minimist(process.argv.slice(2));
 const root = argv.root ? resolve(process.cwd(), argv.root) : process.cwd();
@@ -36,7 +39,7 @@ const output = resolve(process.cwd(), argv.output || argv.o || 'migration-guides
 const ignore = argv.ignore
   ? argv.ignore.split(',')
   : ['**/dist/**'];
-const versionPattern = argv.versionPattern ? new RegExp(argv.versionPattern) : /[vV]([0-9]+(?:[.][0-9]+)?)/;
+const versionPattern = argv.versionPattern ? new RegExp(sanitizeVariable(argv.versionPattern)) : /[vV]([0-9]+(?:[.][0-9]+)?)/;
 const removalTargetVersion = +version + 1;
 /**
  * Work through the TS Node to find the deprecated node

@@ -2,6 +2,9 @@ import fs from 'node:fs';
 import path from 'node:path';
 import util from 'node:util';
 import minimist from 'minimist';
+import {
+  sanitizeVariable,
+} from './utils.mjs';
 
 const argv = minimist(process.argv.slice(2));
 
@@ -62,7 +65,8 @@ function generateSummary(folderPath) {
           generateSummary(folder)
             .then((list) => {
               const folderName = path.basename(folder);
-              let ref = ret.find((item) => new RegExp(`${folderName}\\.md`, 'i').test(item.file));
+              const sanitizedFolderName = sanitizeVariable(folderName);
+              let ref = ret.find((item) => new RegExp(`${sanitizedFolderName}\\.md`, 'i').test(item.file));
               if (!ref) {
                 ref = { title: folderName };
                 ret.push(ref);

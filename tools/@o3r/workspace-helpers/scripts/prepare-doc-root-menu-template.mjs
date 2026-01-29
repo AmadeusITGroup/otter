@@ -12,6 +12,9 @@ import {
   globby as glob,
 } from 'globby';
 import minimist from 'minimist';
+import {
+  sanitizeVariable,
+} from './utils.mjs';
 
 const argv = minimist(process.argv.slice(2));
 
@@ -34,8 +37,9 @@ void (async () => {
   const menuTemplateFile = path.resolve(process.cwd(), argv.menuTemplateFile || 'compodoc-templates/root/partials/menu.hbs');
   const content = fs.readFileSync(menuTemplateFile).toString();
   const configs = await findCompodocrcConfig(argv.compodocGlobFiles || 'packages/@o3r/*/.compodocrc.json');
+  const generatedDocOutputRegExp = sanitizeVariable(argv.generatedDocOutputRegExp || '^(\\.\\.?/)*generated-doc/');
   const packages = configs.map((c) => ({
-    path: c.output.replace(new RegExp(argv.generatedDocOutputRegExp || '^(\\.\\.?/)*generated-doc/'), ''),
+    path: c.output.replace(new RegExp(generatedDocOutputRegExp), ''),
     name: c.name
   }));
   const newContent = content.replace(argv.packagesVariableValueIdentifier || '%PACKAGES%', JSON.stringify(packages, null, 2));
