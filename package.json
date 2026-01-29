@@ -134,7 +134,9 @@
     "koa": "~3.1.0",
     "qs": "~6.14.1",
     "rxjs": "^7.8.1",
-    "typescript-json-schema/typescript": "~5.9.2"
+    "typescript-json-schema/typescript": "~5.9.2",
+    "@yarnpkg/core/tar": "~7.5.7",
+    "npm-registry-client/ssri": "^12.0.0"
   },
   "dependencies": {
     "@angular/core": "~21.0.3",
