@@ -5,7 +5,7 @@ import {
   test,
 } from '../test-with-extension';
 
-const EXTENSION_ID = 'aejabgendbpckkdnjaphhlifbhepmbne';
+const EXTENSION_ID = 'cgbnjkegcpddliemjooeiomcdnacbdol';
 
 test.describe('Install extension to chrome', () => {
   test('Background service worker', ({ extensionServiceWorker, extensionId }) => {

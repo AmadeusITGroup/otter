@@ -6,7 +6,7 @@
 ## Description
 
 [![Stable Version](https://img.shields.io/npm/v/@o3r/core?style=for-the-badge)](https://www.npmjs.com/package/@o3r/core)
-[![Chrome Extension](https://img.shields.io/chrome-web-store/v/aejabgendbpckkdnjaphhlifbhepmbne?style=for-the-badge&label=Chrome%20Extension&color=%23F2C146)](https://chromewebstore.google.com/detail/otter-devtools/aejabgendbpckkdnjaphhlifbhepmbne)
+[![Chrome Extension](https://img.shields.io/chrome-web-store/v/cgbnjkegcpddliemjooeiomcdnacbdol?style=for-the-badge&label=Chrome%20Extension&color=%23F2C146)](https://chromewebstore.google.com/detail/otter-devtools/cgbnjkegcpddliemjooeiomcdnacbdol)
 [![VSCode Extension](https://img.shields.io/visual-studio-marketplace/v/AmadeusITGroup.otter-devtools?style=for-the-badge&label=VSCode%20Extension&color=%2352A6E7)](https://marketplace.visualstudio.com/items?itemName=AmadeusITGroup.otter-devtools)
 [![Downloads](https://img.shields.io/npm/dm/@o3r/core?style=for-the-badge)](https://www.npmjs.com/package/@o3r/core)
 

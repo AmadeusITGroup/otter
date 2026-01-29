@@ -52,7 +52,7 @@ Example:
 
 ## Runtime debugging
 
-The Otter framework provides an [Otter Chrome Extension](https://chrome.google.com/webstore/detail/otter-devtools/aejabgendbpckkdnjaphhlifbhepmbne) to help debug an Otter application.
+The Otter framework provides an [Otter Chrome Extension](https://chrome.google.com/webstore/detail/otter-devtools/cgbnjkegcpddliemjooeiomcdnacbdol) to help debug an Otter application.
 To enable the communication between your application and the Chrome Extension you can follow this [documentation](../dev-tools/chrome-devtools.md).
 
 ## Next steps
