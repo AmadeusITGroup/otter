@@ -1,11 +1,16 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import process from 'node:process';
 import util from 'node:util';
 import minimist from 'minimist';
 
 const argv = minimist(process.argv.slice(2));
+const paramPath = argv._[0];
 
-const docsFolder = path.join(process.cwd(), argv._[0]);
+if (!/^[.a-zA-Z0-9-]+(?:\/[.a-zA-Z0-9-]+)*\/?$/.test(paramPath)) {
+  throw new Error(`Invalid docs folder path ${paramPath}`);
+}
+const docsFolder = path.join(process.cwd(), paramPath);
 const summaryFilePath = path.resolve(docsFolder, 'summary.json');
 
 const readdir = util.promisify(fs.readdir);
