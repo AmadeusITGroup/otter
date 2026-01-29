@@ -49,11 +49,26 @@ export interface ListDependenciesOptions {
   moduleResolve?: NodeJS.RequireResolve;
 }
 
+/** Specification Artifact representing a package and its exposed models */
+export interface SpecificationArtifact {
+  /** Package manifest */
+  packageManifest: PackageJson;
+  /** Base directory of the package */
+  baseDirectory: string;
+  /** List of exposed models */
+  models: {
+    /** Model path */
+    model: string;
+    /** Resolved model path */
+    modelPath: string;
+  }[];
+}
+
 /**
  * List the artifacts and their exposed models for the declared dependencies
  * @param options
  */
-export const listSpecificationArtifacts = async (options: ListDependenciesOptions & Context) => {
+export const listSpecificationArtifacts = async (options: ListDependenciesOptions & Context): Promise<SpecificationArtifact[]> => {
   const { cwd, keywordsWhitelist } = options;
   const { moduleResolve = createRequire(resolve(cwd, 'package.json')).resolve } = options;
   let packageList = '{}';
@@ -105,7 +120,7 @@ export const listSpecificationArtifacts = async (options: ListDependenciesOption
             return;
           }
         })
-        .filter((modelObj) => !!modelObj?.model);
+        .filter((modelObj): modelObj is { model: string; modelPath: string } => !!modelObj?.model);
       return { packageManifest, baseDirectory, models };
     }));
 
