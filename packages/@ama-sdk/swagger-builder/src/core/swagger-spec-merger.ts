@@ -1,4 +1,7 @@
-import path from 'node:path';
+import {
+  posix,
+  relative,
+} from 'node:path';
 import process from 'node:process';
 import type {
   Path,
@@ -75,7 +78,10 @@ export class SwaggerSpecMerger {
    * @param swaggerPath Path to the swagger targeted by the reference
    * @param innerPath Inner path of the reference inside the targeted swagger spec
    */
-  private async editSpecWithReferences(swaggerSpec: Partial<Spec>, swaggerPath: string, innerPath: string) {
+  private async editSpecWithReferences(swaggerSpec: Partial<Spec>, swaggerPath: string, innerPath?: string) {
+    // Consider it is a reference to the definition if no inner path is provided
+    // This is following Stoplight behavior and preparing OAS3 conversion
+    innerPath ||= `/definitions/${posix.basename(swaggerPath, posix.extname(swaggerPath))}`;
     const originalSpec = this.specs.find((spec) => spec.sourcePath === swaggerPath);
     const [resourceType, resourcePath] = innerPath.replace(/^\//, '').split('/') as [keyof OverrideItems, any];
     const isOverride = originalSpec && this.overrideItems[resourceType] && this.overrideItems[resourceType].includes(resourcePath);
@@ -204,8 +210,8 @@ export class SwaggerSpecMerger {
         // eslint-disable-next-line prefer-const -- innerPath is not a const
         let [swaggerPath, innerPath] = currentNode.split('#');
         if (!this.ignoredSwaggerPath.includes(swaggerPath)) {
-          if (!this.additionalSpecs[swaggerPath] && !this.specs.some((s) => s.sourcePath === swaggerPath)) {
-            this.additionalSpecs[swaggerPath] = await getTargetInformation(isUrlRefPath(swaggerPath) ? swaggerPath : path.relative(process.cwd(), swaggerPath));
+          if (swaggerPath && !this.additionalSpecs[swaggerPath] && !this.specs.some((s) => s.sourcePath === swaggerPath)) {
+            this.additionalSpecs[swaggerPath] = await getTargetInformation(isUrlRefPath(swaggerPath) ? swaggerPath : relative(process.cwd(), swaggerPath));
           }
           if (isUrlRefPath(swaggerPath) && !innerPath) {
             innerPath = `definitions/${Object.keys(await this.additionalSpecs[swaggerPath].getDefinitions())[0]}`;
