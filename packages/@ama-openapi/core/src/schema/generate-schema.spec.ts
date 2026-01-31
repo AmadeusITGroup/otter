@@ -7,6 +7,9 @@ import type {
 import {
   generateOpenApiManifestSchema,
 } from './generate-schema.mjs';
+import {
+  listSpecificationArtifacts,
+} from './list-artifacts.mjs';
 
 jest.mock('node:fs', () => ({
   ...jest.requireActual('memfs'),
@@ -18,6 +21,14 @@ jest.mock('./list-artifacts.mjs', () => ({
 }));
 
 jest.mock('node:fs/promises', () => jest.requireActual('memfs').promises);
+
+jest.mock('./mask/generate-mask-from-model.mjs', () => ({
+  generateMaskSchemaModelAt: jest.fn().mockResolvedValue({})
+}));
+
+jest.mock('./mask/field-schema.constants.mjs', () => ({
+  FIELD_SCHEMA_DEFINITION: {}
+}));
 
 describe('generateOpenApiManifestSchema', () => {
   let mockContext: Context;
@@ -69,6 +80,56 @@ describe('generateOpenApiManifestSchema', () => {
     });
   });
 
+  describe('models properties generation', () => {
+    it('should create modelsProperties entries when artifacts expose models', async () => {
+      const artifacts: any[] = [
+        {
+          packageManifest: {
+            name: '@test/api',
+            main: 'index.js'
+          },
+          baseDirectory: '/node_modules/@test/api',
+          models: [
+            {
+              model: 'models/Example.v1.yaml',
+              modelPath: '/node_modules/@test/api/models/Example.v1.yaml'
+            }
+          ]
+        }
+      ];
+
+      jest.mocked(listSpecificationArtifacts).mockResolvedValue(artifacts as any);
+
+      const options: any = {
+        ...mockContext
+      };
+
+      const result = await generateOpenApiManifestSchema(options);
+
+      const models = result.manifest.properties.models.properties as Record<string, any>;
+
+      expect(models['@test/api']).toBeDefined();
+      expect(models['@test/api'].oneOf).toBeDefined();
+      expect(models['@test/api'].oneOf).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({
+            $ref: expect.stringContaining('#/definitions/model-test-api-')
+          }),
+          expect.objectContaining({
+            type: 'array',
+            items: expect.objectContaining({
+              oneOf: expect.arrayContaining([
+                expect.objectContaining({
+                  $ref: expect.stringContaining('#/definitions/model-test-api-')
+                })
+              ])
+            })
+          })
+        ])
+      );
+    });
+  });
+
   describe('dependency handling', () => {
     it('should process dependencies when provided', async () => {
       const options: any = {
@@ -116,8 +177,8 @@ describe('generateOpenApiManifestSchema', () => {
 
       const result = await generateOpenApiManifestSchema(options);
 
-      expect(result).toHaveProperty('$schema');
-      expect(result).toHaveProperty('type');
+      expect(result.manifest).toHaveProperty('$schema');
+      expect(result.manifest).toHaveProperty('type');
     });
 
     it('should include metadata in the schema', async () => {
@@ -230,8 +291,9 @@ describe('generateOpenApiManifestSchema', () => {
 
       expect(results).toHaveLength(3);
       results.forEach((result) => {
-        expect(result).toBeDefined();
+        expect(result.manifest.properties.models.properties).toBeDefined();
       });
+      expect(results.some((result) => Object.keys(result.manifest.properties.models.properties).length > 0)).toBe(true);
     });
   });
 

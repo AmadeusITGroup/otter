@@ -11,7 +11,7 @@ import type {
  * @param specification
  * @param model
  */
-export const deserialize = (specification: string, model: RetrievedDependencyModel): any => {
+export const deserialize = (specification: string, model: Pick<RetrievedDependencyModel, 'isInputJson'>): any => {
   if (model.isInputJson) {
     return JSON.parse(specification);
   }
@@ -23,7 +23,7 @@ export const deserialize = (specification: string, model: RetrievedDependencyMod
  * @param specification
  * @param model
  */
-export const serialize = (specification: any, model: RetrievedDependencyModel): string => {
+export const serialize = (specification: any, model: Pick<RetrievedDependencyModel, 'isOutputJson'>): string => {
   if (model.isOutputJson) {
     return JSON.stringify(specification, null, 2);
   }
