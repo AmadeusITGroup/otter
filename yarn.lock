@@ -8110,16 +8110,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ng-select/ng-select@npm:~21.1.0":
-  version: 21.1.4
-  resolution: "@ng-select/ng-select@npm:21.1.4"
+"@ng-select/ng-select@npm:~21.2.0":
+  version: 21.2.0
+  resolution: "@ng-select/ng-select@npm:21.2.0"
   dependencies:
     tslib: "npm:^2.8.1"
   peerDependencies:
     "@angular/common": ^21.0.0
     "@angular/core": ^21.0.0
     "@angular/forms": ^21.0.0
-  checksum: 10/535e1cdf1afae975926e83fddd97ae46d7911ba2b2684b8f4208968473eca729b5eac6d792f91f30fca012b887cb13a6bdec6c2ff636d58c5dbaccc6420720a7
+  checksum: 10/b0f65c3b52e173aa5a8bfad60862a68444ef3c5b6bc095c240ec6d84f0b8ed53563761fe107349f7034d151039aaf9f85f7625b6b3cad16390011562d2d09599
   languageName: node
   linkType: hard
 
@@ -9460,7 +9460,7 @@ __metadata:
     "@design-factory/styles": "npm:~21.0.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@ng-bootstrap/ng-bootstrap": "npm:~20.0.0"
-    "@ng-select/ng-select": "npm:~21.1.0"
+    "@ng-select/ng-select": "npm:~21.2.0"
     "@ngrx/entity": "npm:~21.0.0"
     "@ngrx/store": "npm:~21.0.0"
     "@nx/eslint-plugin": "npm:~22.3.3"
@@ -10607,7 +10607,7 @@ __metadata:
     "@design-factory/styles": "npm:~21.0.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@ng-bootstrap/ng-bootstrap": "npm:~20.0.0"
-    "@ng-select/ng-select": "npm:~21.1.0"
+    "@ng-select/ng-select": "npm:~21.2.0"
     "@ngrx/effects": "npm:~21.0.0"
     "@ngrx/entity": "npm:~21.0.0"
     "@ngrx/router-store": "npm:~21.0.0"
@@ -11771,7 +11771,7 @@ __metadata:
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@formatjs/intl-numberformat": "npm:~9.2.0"
     "@ng-bootstrap/ng-bootstrap": "npm:~20.0.0"
-    "@ng-select/ng-select": "npm:~21.1.0"
+    "@ng-select/ng-select": "npm:~21.2.0"
     "@ngrx/effects": "npm:~21.0.0"
     "@ngrx/entity": "npm:~21.0.0"
     "@ngrx/store": "npm:~21.0.0"
