@@ -7,6 +7,9 @@ import {
 /** Name of the removeUnusedComponents custom decorator */
 export const DECORATOR_ID_REMOVE_UNUSED_COMPONENTS = 'remove-unused-components';
 
+/** Composition keywords in OpenAPI Schema */
+const COMPOSITION_KEYWORDS = ['allOf', 'oneOf', 'anyOf', 'not'] as const;
+
 /**
  * This decorator remove the components not referred in the bundled specification
  *
@@ -15,6 +18,7 @@ export const DECORATOR_ID_REMOVE_UNUSED_COMPONENTS = 'remove-unused-components';
  * This plugin will be deprecated in favor to the built-in plugin when issue https://github.com/Redocly/redocly-cli/issues/1783 is fixed
  */
 export const removeUnusedComponentsDecorator: Oas3Preprocessor = () => {
+  const discriminatorNoMappingRefs = new Set<UserContext>();
   const refMaps = new Map<string, string[]>();
 
   const setRef = (ref: string, ctx: UserContext) => {
@@ -51,6 +55,40 @@ export const removeUnusedComponentsDecorator: Oas3Preprocessor = () => {
           .forEach((value) => setRef(value, ctx));
       }
     },
+
+    // Discover and register if the schema references are used as implicit polymorphism
+    Schema: {
+      skip: (node) => node.type !== 'object',
+      enter: (node, ctx) => {
+        if (node.discriminator) {
+          if (node.discriminator.mapping) {
+            Object.values(node.discriminator.mapping)
+              .forEach((value) => setRef(value, ctx));
+          } else {
+            discriminatorNoMappingRefs.add(ctx);
+          }
+        }
+      },
+      leave: (node, ctx) => {
+        const discriminatorRefs = [...discriminatorNoMappingRefs];
+        COMPOSITION_KEYWORDS
+          .map((key) => node[key])
+          .filter((item) => !!item)
+          .forEach((item) => {
+            const schemas = Array.isArray(item) ? item : [item];
+            schemas.forEach((schema) => {
+              const schemaRef = schema.$ref;
+              if (schemaRef) {
+                const discriminatorRef = discriminatorRefs.find(({ location }) => location.absolutePointer.endsWith(schemaRef));
+                if (discriminatorRef) {
+                  setRef(ctx.location.pointer, discriminatorRef);
+                }
+              }
+            });
+          });
+      }
+    },
+
     Paths: {
       leave: registerComponent
     },
@@ -72,6 +110,7 @@ export const removeUnusedComponentsDecorator: Oas3Preprocessor = () => {
     NamedHeaders: {
       Header: registerComponent
     },
+
     Components: {
       leave: (node, ctx) => {
         const removeUnusedSchemas = (): number => {
