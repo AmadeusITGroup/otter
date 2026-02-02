@@ -14,14 +14,6 @@
       "$type": "color",
       "$value": "{color.primary.800}"
     },
-    "nav-pills": {
-      "$extensions": {
-        "o3rScope": ".nav-pills"
-      },
-      "link-active-color": {
-        "$value": "{color.primary.500}"
-      }
-    },
     "navbar": {
       "color": {
         "$type": "color",

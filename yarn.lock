@@ -80,49 +80,49 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@agnos-ui/angular-bootstrap@npm:~0.9.0":
-  version: 0.9.4
-  resolution: "@agnos-ui/angular-bootstrap@npm:0.9.4"
+"@agnos-ui/angular-bootstrap@npm:~0.10.0":
+  version: 0.10.0
+  resolution: "@agnos-ui/angular-bootstrap@npm:0.10.0"
   dependencies:
-    "@agnos-ui/angular-headless": "npm:0.9.4"
-    "@agnos-ui/core-bootstrap": "npm:0.9.4"
+    "@agnos-ui/angular-headless": "npm:0.10.0"
+    "@agnos-ui/core-bootstrap": "npm:0.10.0"
     tslib: "npm:^2.8.1"
   peerDependencies:
     "@amadeus-it-group/tansu": ^2.0.0
-    "@angular/common": ^20.0.0
-    "@angular/core": ^20.0.0
-  checksum: 10/43f5942aa27403a7724cfcf80d0f47280706198aeb3f11b8b19f0c7212f1949936215f09552eaaccc2facefa917e450421bb69a75d0c8640ba33c84aa0e1112e
+    "@angular/common": ^21.0.0
+    "@angular/core": ^21.0.0
+  checksum: 10/e1b42071407907b2780a70883e2c2e2097c2473dcbd6ecddbdf9c6bd42f49eccd0b8622389dc3cfa8ed9e0586c8f8193049ddb3fa3f8b3209003b6b7662cf6ba
   languageName: node
   linkType: hard
 
-"@agnos-ui/angular-headless@npm:0.9.4":
-  version: 0.9.4
-  resolution: "@agnos-ui/angular-headless@npm:0.9.4"
+"@agnos-ui/angular-headless@npm:0.10.0, @agnos-ui/angular-headless@npm:~0.10.0":
+  version: 0.10.0
+  resolution: "@agnos-ui/angular-headless@npm:0.10.0"
   dependencies:
-    "@agnos-ui/core": "npm:0.9.4"
+    "@agnos-ui/core": "npm:0.10.0"
     tslib: "npm:^2.8.1"
   peerDependencies:
     "@amadeus-it-group/tansu": ^2.0.0
-    "@angular/common": ^20.0.0
-    "@angular/core": ^20.0.0
-  checksum: 10/be4d65e7fb2521123e8d03a0bec791f9dbbf396cd8c96dda1a0e5f92b6cee544fa03ee265d6f15c698b4ea55a04d82b6ef6798fda0065e827c4af7fa219e1847
+    "@angular/common": ^21.0.0
+    "@angular/core": ^21.0.0
+  checksum: 10/0016944b04bfbf26ab3e4b41a71ce565eb5eef98bfc6c2b7124a3bf203cd55cf21f428e5774a6e0530dc60095dd6ee12aaf5d5da7584ef8bb4b871dbcae88378
   languageName: node
   linkType: hard
 
-"@agnos-ui/core-bootstrap@npm:0.9.4, @agnos-ui/core-bootstrap@npm:~0.9.0":
-  version: 0.9.4
-  resolution: "@agnos-ui/core-bootstrap@npm:0.9.4"
+"@agnos-ui/core-bootstrap@npm:0.10.0, @agnos-ui/core-bootstrap@npm:~0.10.0":
+  version: 0.10.0
+  resolution: "@agnos-ui/core-bootstrap@npm:0.10.0"
   dependencies:
-    "@agnos-ui/core": "npm:0.9.4"
+    "@agnos-ui/core": "npm:0.10.0"
   peerDependencies:
     "@amadeus-it-group/tansu": ^2.0.0
-  checksum: 10/f0ab7171e76093e8300deebe629ecaea346c0f21bbf00757c8342ff7603bce890182050f55edac5a66fc571e2ec235f33e629acf3354247ffac839c3b5b79323
+  checksum: 10/c71ae6b511d2cf6065f4c54f38974dbf710262ae5c16a709355a4da8b0dfdd04882cceb9ccc8bc7569394ac4bf738a562593352c1478fdb3320dba29a6eb36df
   languageName: node
   linkType: hard
 
-"@agnos-ui/core@npm:0.9.4":
-  version: 0.9.4
-  resolution: "@agnos-ui/core@npm:0.9.4"
+"@agnos-ui/core@npm:0.10.0":
+  version: 0.10.0
+  resolution: "@agnos-ui/core@npm:0.10.0"
   dependencies:
     clsx: "npm:^2.1.1"
   peerDependencies:
@@ -130,7 +130,7 @@ __metadata:
     "@floating-ui/dom": ^1.6.12
     embla-carousel: ^8.5.2
     esm-env: ^1.2.1
-  checksum: 10/49312c51a782f98e25a6f2dbac46b5b73fc306c075b648201f7dd1ffc079252c1a51ea8c684af181e9b16b5260af3c91f1c04eedddd297aec7330f7df83b69e0
+  checksum: 10/e63ce2e980dde675ac18df48f5e29d01a3d22b02bef00d66ff78043f9bc262238b7a781b263b3a3962747cffbde4448182ce7ccac8c4327b73a1bbfbf3347466
   languageName: node
   linkType: hard
 
@@ -5075,39 +5075,54 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@design-factory/design-factory@npm:~20.0.0":
-  version: 20.0.2
-  resolution: "@design-factory/design-factory@npm:20.0.2"
+"@design-factory/design-factory@npm:~21.0.0":
+  version: 21.0.0
+  resolution: "@design-factory/design-factory@npm:21.0.0"
   dependencies:
     tslib: "npm:^2.0.0"
   peerDependencies:
-    "@agnos-ui/angular-bootstrap": ~0.9.0
-    "@agnos-ui/core-bootstrap": ~0.9.0
-    "@angular/common": ^20.0.0
-    "@angular/core": ^20.0.0
-    "@angular/localize": ^20.0.0
-    "@angular/router": ^20.0.0
-    "@ng-bootstrap/ng-bootstrap": ~19.0.0
-    "@ng-select/ng-select": ^15.0.0 || ^20.0.0
-    ag-grid-angular: ^32.0.0
-    ag-grid-community: ^32.0.0
-    bootstrap: 5.3.7
-    colorjs.io: ^0.5.2
-    style-dictionary: ^5.0.0
+    "@agnos-ui/angular-bootstrap": ~0.10.0
+    "@agnos-ui/angular-headless": ~0.10.0
+    "@angular-devkit/core": ^21.0.0
+    "@angular/common": ^21.0.0
+    "@angular/core": ^21.0.0
+    "@angular/localize": ^21.0.0
+    "@angular/router": ^21.0.0
+    "@design-factory/styles": 21.0.0
+    "@ng-bootstrap/ng-bootstrap": ~20.0.0
+    "@ng-select/ng-select": ^21.0.0
+    ag-grid-angular: ^35.0.0
+    ag-grid-community: ^35.0.0
   peerDependenciesMeta:
     "@agnos-ui/angular-bootstrap":
       optional: true
-    "@angular/localize":
-      optional: true
-    "@angular/router":
-      optional: true
     ag-grid-angular:
       optional: true
-    colorjs.io:
+  checksum: 10/fc703a4436e0312879699bae351b6fe2802f2ddeec421c1240b70fd9ba2d635ee7afd9ac56ac0bd6525aeb6affdc715dbe77aa10d698efe48567f7e61cc2fb70
+  languageName: node
+  linkType: hard
+
+"@design-factory/styles@npm:~21.0.0":
+  version: 21.0.0
+  resolution: "@design-factory/styles@npm:21.0.0"
+  peerDependencies:
+    "@agnos-ui/core-bootstrap": ~0.10.0
+    "@design-factory/tokens": 21.0.0
+    "@ng-select/ng-select": ^21.0.0
+    ag-grid-community: ^35.0.0
+    bootstrap: 5.3.8
+  peerDependenciesMeta:
+    "@agnos-ui/core-bootstrap":
       optional: true
-    style-dictionary:
+    "@design-factory/tokens":
       optional: true
-  checksum: 10/dfbfc1f4a01522bfbad5d0896e3e3628d5806252b65144c465db0ca9a1f4fc8e129d133538abad78ff574a55f8dfdc3288725166cdf2f3bc79d908e7844542b9
+    "@ng-select/ng-select":
+      optional: true
+    ag-grid-community:
+      optional: true
+    bootstrap:
+      optional: true
+  checksum: 10/295da85b7f3e2eba8dd31c1fd832fd99b630617886b9bfe39aa0dc955fc8183660242272aaaa2ff63587da3019310e9ece0b3303e6de53e6819e8396c6893896
   languageName: node
   linkType: hard
 
@@ -9423,10 +9438,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/chrome-devtools@workspace:apps/chrome-devtools"
   dependencies:
-    "@agnos-ui/angular-bootstrap": "npm:~0.9.0"
-    "@agnos-ui/core-bootstrap": "npm:~0.9.0"
+    "@agnos-ui/angular-bootstrap": "npm:~0.10.0"
+    "@agnos-ui/angular-headless": "npm:~0.10.0"
+    "@agnos-ui/core-bootstrap": "npm:~0.10.0"
     "@amadeus-it-group/tansu": "npm:~2.0.0"
     "@angular-devkit/build-angular": "npm:~21.0.2"
+    "@angular-devkit/core": "npm:~21.0.2"
     "@angular-devkit/schematics": "npm:~21.0.2"
     "@angular/animations": "npm:~21.0.3"
     "@angular/cli": "npm:~21.0.2"
@@ -9439,7 +9456,8 @@ __metadata:
     "@angular/platform-browser": "npm:~21.0.3"
     "@angular/platform-browser-dynamic": "npm:~21.0.3"
     "@angular/router": "npm:~21.0.3"
-    "@design-factory/design-factory": "npm:~20.0.0"
+    "@design-factory/design-factory": "npm:~21.0.0"
+    "@design-factory/styles": "npm:~21.0.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@ng-bootstrap/ng-bootstrap": "npm:~20.0.0"
     "@ng-select/ng-select": "npm:~21.1.0"
@@ -9469,8 +9487,8 @@ __metadata:
     "@types/jest": "npm:~30.0.0"
     "@types/tinycolor2": "npm:^1.4.6"
     "@typescript-eslint/parser": "npm:~8.52.0"
-    ag-grid-angular: "npm:~32.3.0"
-    ag-grid-community: "npm:~32.3.0"
+    ag-grid-angular: "npm:~35.0.0"
+    ag-grid-community: "npm:~35.0.0"
     angular-eslint: "npm:~21.0.1"
     archiver: "npm:^7.0.0"
     bootstrap: "npm:5.3.8"
@@ -10556,8 +10574,9 @@ __metadata:
     "@actions/core": "npm:^2.0.0"
     "@actions/exec": "npm:^2.0.0"
     "@actions/github": "npm:^6.0.0"
-    "@agnos-ui/angular-bootstrap": "npm:~0.9.0"
-    "@agnos-ui/core-bootstrap": "npm:~0.9.0"
+    "@agnos-ui/angular-bootstrap": "npm:~0.10.0"
+    "@agnos-ui/angular-headless": "npm:~0.10.0"
+    "@agnos-ui/core-bootstrap": "npm:~0.10.0"
     "@amadeus-it-group/tansu": "npm:~2.0.0"
     "@ampproject/remapping": "npm:^2.3.0"
     "@angular-devkit/architect": "npm:~0.2100.2"
@@ -10584,7 +10603,8 @@ __metadata:
     "@commitlint/config-conventional": "npm:^20.2.0"
     "@commitlint/types": "npm:^20.2.0"
     "@compodoc/compodoc": "npm:^1.1.32"
-    "@design-factory/design-factory": "npm:~20.0.0"
+    "@design-factory/design-factory": "npm:~21.0.0"
+    "@design-factory/styles": "npm:~21.0.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@ng-bootstrap/ng-bootstrap": "npm:~20.0.0"
     "@ng-select/ng-select": "npm:~21.1.0"
@@ -10630,8 +10650,8 @@ __metadata:
     "@xterm/addon-fit": "npm:^0.11.0"
     "@xterm/xterm": "npm:~6.0.0"
     "@yarnpkg/sdks": "npm:^3.2.0"
-    ag-grid-angular: "npm:~32.3.0"
-    ag-grid-community: "npm:~32.3.0"
+    ag-grid-angular: "npm:~35.0.0"
+    ag-grid-community: "npm:~35.0.0"
     angular-eslint: "npm:~21.0.1"
     angular-split: "npm:^20.0.0"
     babel-loader: "npm:^10.0.0"
@@ -11720,8 +11740,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/showcase@workspace:apps/showcase"
   dependencies:
-    "@agnos-ui/angular-bootstrap": "npm:~0.9.0"
-    "@agnos-ui/core-bootstrap": "npm:~0.9.0"
+    "@agnos-ui/angular-bootstrap": "npm:~0.10.0"
+    "@agnos-ui/angular-headless": "npm:~0.10.0"
+    "@agnos-ui/core-bootstrap": "npm:~0.10.0"
     "@ama-sdk/client-fetch": "workspace:~"
     "@ama-sdk/core": "workspace:~"
     "@ama-sdk/schematics": "workspace:~"
@@ -11745,7 +11766,8 @@ __metadata:
     "@angular/platform-browser-dynamic": "npm:~21.0.3"
     "@angular/router": "npm:~21.0.3"
     "@commitlint/types": "npm:^20.2.0"
-    "@design-factory/design-factory": "npm:~20.0.0"
+    "@design-factory/design-factory": "npm:~21.0.0"
+    "@design-factory/styles": "npm:~21.0.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@formatjs/intl-numberformat": "npm:~9.2.0"
     "@ng-bootstrap/ng-bootstrap": "npm:~20.0.0"
@@ -11793,8 +11815,8 @@ __metadata:
     "@webcontainer/api": "npm:~1.6.0"
     "@xterm/addon-fit": "npm:^0.11.0"
     "@xterm/xterm": "npm:~6.0.0"
-    ag-grid-angular: "npm:~32.3.0"
-    ag-grid-community: "npm:~32.3.0"
+    ag-grid-angular: "npm:~35.0.0"
+    ag-grid-community: "npm:~35.0.0"
     angular-eslint: "npm:~21.0.1"
     angular-split: "npm:^20.0.0"
     bootstrap: "npm:5.3.8"
@@ -18329,32 +18351,32 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ag-charts-types@npm:10.3.9":
-  version: 10.3.9
-  resolution: "ag-charts-types@npm:10.3.9"
-  checksum: 10/321c017950c09bfb18af2ecd0f65a5890c8984f81175f0d802879df4c158c0c7c308d653f3adf2a55713cc5faaadfa0f462baea30a8ff3ae96443c4bca0b6e84
+"ag-charts-types@npm:13.0.1":
+  version: 13.0.1
+  resolution: "ag-charts-types@npm:13.0.1"
+  checksum: 10/af74fe8b3660b4ec6a9cd54fedb3f687cffb9dbf179cdf551d12a6f7f62830d5a18156474a3d11416e4af9174999b5f0615fab5c95d97d0201022ffb71a66b47
   languageName: node
   linkType: hard
 
-"ag-grid-angular@npm:~32.3.0":
-  version: 32.3.9
-  resolution: "ag-grid-angular@npm:32.3.9"
+"ag-grid-angular@npm:~35.0.0":
+  version: 35.0.1
+  resolution: "ag-grid-angular@npm:35.0.1"
   dependencies:
+    ag-grid-community: "npm:35.0.1"
     tslib: "npm:^2.3.0"
   peerDependencies:
-    "@angular/common": ">= 16.0.0"
-    "@angular/core": ">= 16.0.0"
-    ag-grid-community: 32.3.9
-  checksum: 10/f3a15efe241b2bee324d5676107eeb5aa46396d313b92aba5169803b9aff98040965c1e17aa682adc3d97f4d0a969426120d06b7d1a389debbc9dccdd588f62e
+    "@angular/common": ">= 18.0.0"
+    "@angular/core": ">= 18.0.0"
+  checksum: 10/b110ba12d626417329cbbba1bc5a3a9c82321ec5b014308bd8bfcdecdc95a667955ee6bb272dcfcf20bcd38c19dc38eb5dc9eeb4bcb2fc516f3b6e180a3550d4
   languageName: node
   linkType: hard
 
-"ag-grid-community@npm:~32.3.0":
-  version: 32.3.9
-  resolution: "ag-grid-community@npm:32.3.9"
+"ag-grid-community@npm:35.0.1, ag-grid-community@npm:~35.0.0":
+  version: 35.0.1
+  resolution: "ag-grid-community@npm:35.0.1"
   dependencies:
-    ag-charts-types: "npm:10.3.9"
-  checksum: 10/d5ce19fe37e6c67498676540fc27526931a2cc85822484cce383df32198ccb6faab1bd851332cfcba78442c5afdb4728eccb3a42d67e337d2292b5bfd24d5d33
+    ag-charts-types: "npm:13.0.1"
+  checksum: 10/c379bd21f0d742892971384def417c0e557132e63b80dde439fcba3afaa42d670d22c656b225d9007519145f9a33afbd855490c374e06b0502cafad0ba70bfef
   languageName: node
   linkType: hard
 
