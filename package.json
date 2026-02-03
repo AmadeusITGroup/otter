@@ -182,7 +182,7 @@
     "@design-factory/styles": "~21.0.0",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@ng-bootstrap/ng-bootstrap": "~20.0.0",
-    "@ng-select/ng-select": "~21.1.0",
+    "@ng-select/ng-select": "~21.2.0",
     "@ngrx/effects": "~21.0.0",
     "@ngrx/entity": "~21.0.0",
     "@ngrx/router-store": "~21.0.0",
