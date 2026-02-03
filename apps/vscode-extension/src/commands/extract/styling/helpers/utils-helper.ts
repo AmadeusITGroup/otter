@@ -182,7 +182,7 @@ export function lineIndexToInsert(document: TextDocument): number {
 
 /**
  * Insert the varibale definition, and the library import if needed, into the given document
- * @deprecated The function is deprecated, rely on CSS Variable strategy instead
+ * @deprecated The function is deprecated, rely on CSS Variable strategy instead. Will be removed in v15.
  * @param document
  * @param edit
  * @param variableName

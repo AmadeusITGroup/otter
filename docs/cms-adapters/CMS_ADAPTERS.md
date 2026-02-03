@@ -119,7 +119,7 @@ For an up-to-date documentation, run `ng help @o3r/localization:extractor`
 
 ### Style extractor
 
-The Style metadata provided to the CMS is now exposed as [Style Dictionary](https://styledictionary.com/) format via via the package [@ama-styling/style-dictionary](https://www.npmjs.com/package/@ama-styling/style-dictionary).
+The Style metadata provided to the CMS is exposed as [Style Dictionary](https://styledictionary.com/) format via via the package [@ama-styling/style-dictionary](https://www.npmjs.com/package/@ama-styling/style-dictionary).
 
 ### Rules engine extractor
 
