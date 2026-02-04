@@ -5,7 +5,7 @@ import type {
 } from '@o3r/core';
 import type {
   AvailableMessageContents,
-} from '../shared/index';
+} from './index';
 
 /** Message from the DevTools message */
 export interface ExtensionMessage<T extends OtterMessageContent = AvailableMessageContents> extends OtterMessage<T> {

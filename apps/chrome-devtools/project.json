@@ -23,7 +23,7 @@
         "build-panel",
         "build-components",
         "build-extension",
-        "copy-assets"
+        "build-manifest"
       ]
     },
     "build-components": {
@@ -76,7 +76,10 @@
           "optimization": false
         }
       },
-      "dependsOn": ["^build"]
+      "dependsOn": [
+        "^build",
+        "build-manifest"
+      ]
     },
     "build-panel": {
       "executor": "@angular-devkit/build-angular:application",
@@ -128,39 +131,46 @@
           "optimization": false
         }
       },
-      "dependsOn": ["^build"]
+      "dependsOn": [
+        "^build",
+        "build-manifest"
+      ]
     },
     "build-extension": {
       "executor": "nx:run-script",
       "outputs": [
-        "{projectRoot}/dist/extension/**/*.js",
-        "{projectRoot}/dist/extension/**/*.ts",
-        "{projectRoot}/dist/extension/**/*.map"
+        "{projectRoot}/dist/extension"
       ],
       "options": {
         "script": "build:extension"
       },
-      "dependsOn": ["^build"]
+      "dependsOn": [
+        "^build",
+        "build-manifest"
+      ]
     },
     "lint": {},
     "test": {},
     "test-e2e": {},
-    "copy-assets": {
+    "build-manifest": {
       "executor": "nx:run-script",
       "options": {
-        "script": "copy:assets"
+        "script": "build:manifest"
       },
       "outputs": [
-        "{projectRoot}/dist/extension/icons/**",
+        "{projectRoot}/dist/src/**",
+        "{projectRoot}/dist/assets/**",
+        "{projectRoot}/dist/.vite/**",
         "{projectRoot}/dist/manifest.json",
-        "{projectRoot}/dist/devtools.html",
-        "{projectRoot}/dist/options.html"
+        "{projectRoot}/dist/service-worker-loader.js"
       ],
       "inputs": [
         "base",
-        "!{workspaceRoot}/tsconfig.base.json",
+        "{workspaceRoot}/tsconfig.node.json",
+        "{projectRoot}/vite.config.ts",
         "{projectRoot}/src/assets/**",
-        "{projectRoot}/src/manifest.json",
+        "{projectRoot}/src/background/**",
+        "{projectRoot}/src/manifest.ts",
         "{projectRoot}/src/devtools.html",
         "{projectRoot}/src/options.html"
       ]
@@ -169,7 +179,8 @@
       "executor": "nx:run-script",
       "options": {
         "script": "publish-to-market"
-      }
+      },
+      "dependsOn": ["^build"]
     }
   },
   "tags": []
