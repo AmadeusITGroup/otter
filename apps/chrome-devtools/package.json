@@ -1,5 +1,6 @@
 {
   "name": "@o3r/chrome-devtools",
+  "displayName": "Otter DevTools",
   "version": "0.0.0-placeholder",
   "publishConfig": {
     "access": "public"
@@ -13,10 +14,10 @@
   ],
   "scripts": {
     "build": "yarn nx build chrome-devtools",
-    "postbuild:patch": "yarn patch:package && yarn patch:manifest && yarn patch:extension",
+    "postbuild:patch": "yarn patch:package && yarn patch:extension",
     "patch:package": "cpy 'package.json' 'dist' && patch-package-json-main",
     "copy:assets": "cpy 'src/manifest.json' 'src/devtools.html' 'src/options.html' dist --flat && cpy './src/assets/**' dist",
-    "patch:manifest": "node scripts/sanitize-manifest.cjs",
+    "build:manifest": "vite build",
     "build:extension": "tsc -b tsconfig.extension.json",
     "patch:extension": "node scripts/sanitize-extension.cjs && node scripts/set-manifest-version.cjs",
     "start": "concurrently 'yarn:watch:*'",
@@ -86,7 +87,8 @@
     "ts-jest": "~29.4.0",
     "tsc-watch": "^7.0.0",
     "typescript": "~5.9.2",
-    "typescript-eslint": "~8.52.0"
+    "typescript-eslint": "~8.52.0",
+    "vite": "~7.3.1"
   },
   "dependencies": {
     "@agnos-ui/angular-bootstrap": "~0.10.0",
@@ -102,6 +104,7 @@
     "@angular/platform-browser": "~21.0.3",
     "@angular/platform-browser-dynamic": "~21.0.3",
     "@angular/router": "~21.0.3",
+    "@crxjs/vite-plugin": "~2.3.0",
     "@design-factory/design-factory": "~21.0.0",
     "@design-factory/styles": "~21.0.0",
     "@ng-bootstrap/ng-bootstrap": "~20.0.0",
@@ -121,6 +124,7 @@
     "bootstrap": "5.3.8",
     "rxjs": "^7.8.1",
     "tinycolor2": "^1.6.0",
-    "tslib": "^2.6.2"
+    "tslib": "^2.6.2",
+    "type-fest": "^5.3.1"
   }
 }

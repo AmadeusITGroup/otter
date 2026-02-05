@@ -8,15 +8,13 @@ import type {
   otterMessageType,
 } from '@o3r/core';
 import type {
-  scriptToInject as ScriptToInject,
-} from '../shared/index';
-import type {
   ACTIVE_STATE_NAME_KEY as ActivateStateNameKey,
   ExtensionMessage,
+  scriptToInject as ScriptToInject,
   State,
   STATES_KEY as StatesKey,
   WHITELISTED_HOSTS_KEY as WhitelistedHostsKey,
-} from './interface';
+} from '../shared/index';
 
 /** Type of a message exchanged with the Otter Chrome DevTools extension */
 const postMessageType: typeof otterMessageType = 'otter';
