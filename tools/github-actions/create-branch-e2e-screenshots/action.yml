@@ -12,9 +12,9 @@ inputs:
     default: 'fix: update e2e screenshots'
   branchName:
     type: string
-    description: 'Suffix for the branch that will be created'
+    description: 'Name of the branch that will be created'
     required: false
-    default: refs/heads/${{ github.head_ref }}-update-e2e-screenshots
+    default: refs/heads/e2e-screenshots/${{ github.head_ref }}
 
 runs:
   using: 'composite'
