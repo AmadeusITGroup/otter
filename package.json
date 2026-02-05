@@ -204,7 +204,7 @@
     "@o3r/test-helpers": "workspace:~",
     "@o3r/workspace": "workspace:~",
     "@o3r/workspace-helpers": "workspace:~",
-    "@playwright/test": "~1.57.0",
+    "@playwright/test": "~1.58.0",
     "@popperjs/core": "^2.11.5",
     "@schematics/angular": "~21.0.2",
     "@standard-schema/spec": "~1.0.0",
