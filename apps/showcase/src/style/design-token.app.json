@@ -1,5 +1,5 @@
 {
-  "$schema": "../../../../packages/@o3r/design/schemas/design-token.schema.json",
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
   "run-app-locally.tertiary-bg": {
     "$description": "Run App Locally Tertiary Background",
     "$value": "{color.primary.50}"

@@ -114,7 +114,7 @@ This preset does not add any additional modules.
 
 This preset is adding recommended Otter modules and features. This preset is the default one.
 
-* [@o3r/eslint-config](https://www.npmjs.com/package/@o3r/eslint-config) 
+* [@o3r/eslint-config](https://www.npmjs.com/package/@o3r/eslint-config)
 * [@o3r/workspace](https://www.npmjs.com/package/@o3r/workspace) specific features:
   * Renovate configuration
   * VSCode Tooling
@@ -125,8 +125,8 @@ This preset is adding recommended Otter modules and features. This preset is the
 Will add all the modules allowing the allowing the full managing of an application by the CMS.
 On top of the Otter recommended modules, it includes the following ones:
 
+* [@ama-styling/style-dictionary](https://www.npmjs.com/package/@ama-styling/style-dictionary)
 * [@o3r/localization](https://www.npmjs.com/package/@o3r/localization)
-* [@o3r/styling](https://www.npmjs.com/package/@o3r/styling)
 * [@o3r/components](https://www.npmjs.com/package/@o3r/components)
 * [@o3r/configuration](https://www.npmjs.com/package/@o3r/configuration)
 * [@o3r/dynamic-content](https://www.npmjs.com/package/@o3r/dynamic-content)
@@ -138,6 +138,7 @@ On top of the Otter recommended modules, it includes the following ones:
 Will add all official modules provided by the Otter Framework.
 On top of the Otter recommended modules, it includes the following ones:
 
+* [@ama-styling/style-dictionary](https://www.npmjs.com/package/@ama-styling/style-dictionary)
 * [@ama-styling/stylelint-plugin](https://www.npmjs.com/package/@ama-styling/stylelint-plugin)
 * [@o3r/analytics](https://www.npmjs.com/package/@o3r/analytics)
 * [@o3r/apis-manager](https://www.npmjs.com/package/@o3r/apis-manager)
@@ -152,7 +153,6 @@ On top of the Otter recommended modules, it includes the following ones:
 * [@o3r/logger](https://www.npmjs.com/package/@o3r/logger)
 * [@o3r/rules-engine](https://www.npmjs.com/package/@o3r/rules-engine)
 * [@o3r/store-sync](https://www.npmjs.com/package/@o3r/store-sync)
-* [@o3r/styling](https://www.npmjs.com/package/@o3r/styling)
 * [@o3r/testing](https://www.npmjs.com/package/@o3r/testing)
 
 ## External (Custom) Preset

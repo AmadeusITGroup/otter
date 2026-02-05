@@ -1,4 +1,7 @@
 import {
+  StylingDevtoolsMessageService,
+} from '@ama-styling/devkit';
+import {
   inject,
   provideZonelessChangeDetection,
   runInInjectionContext,
@@ -25,9 +28,6 @@ import {
   RulesEngineDevtoolsConsoleService,
   RulesEngineDevtoolsMessageService,
 } from '@o3r/rules-engine';
-import {
-  StylingDevtoolsMessageService,
-} from '@o3r/styling';
 import {
   AppModule,
 } from './app/app-module';

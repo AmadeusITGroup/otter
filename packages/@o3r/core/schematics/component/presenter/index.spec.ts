@@ -155,36 +155,6 @@ describe('Component presenter', () => {
     expect(tree.files.filter((file) => /test-component-pres[.-]fixture\.ts$/.test(file)).length).toBe(0);
   });
 
-  it('should generate a presenter component without otter theme', async () => {
-    const tree = await runner.runSchematic('component-presenter', {
-      projectName: 'test-project',
-      componentName,
-      prefix: 'o3r',
-      componentStructure: 'presenter',
-      useOtterTheming: false,
-      activateDummy: true,
-      path: 'src/components'
-    }, initialTree);
-
-    const expectedFileNamesWithoutOtterTheme = expectedFileNames.filter((fileName) => fileName !== 'test-component-pres-theme.scss');
-
-    expect(tree.files.filter((file) => /test-component-pres/.test(file)).length).toEqual(expectedFileNamesWithoutOtterTheme.length);
-    expect(tree.files.filter((file) => /test-component-pres/.test(file))).toEqual(expect.arrayContaining(
-      expectedFileNamesWithoutOtterTheme.map((fileName) => getGeneratedComponentPath(componentName, fileName, 'presenter')))
-    );
-  });
-
-  it('should throw if generate a presenter component with otter theming, as @o3r/styling is not installed', async () => {
-    await expect(runner.runSchematic('component-presenter', {
-      projectName: 'test-project',
-      componentName,
-      prefix: 'o3r',
-      componentStructure: 'presenter',
-      useOtterTheming: true,
-      path: 'src/components'
-    }, initialTree)).rejects.toThrow();
-  });
-
   it('should throw if generate a presenter component with otter localization, as @o3r/localization is not installed', async () => {
     await expect(runner.runSchematic('component-presenter', {
       projectName: 'test-project',
