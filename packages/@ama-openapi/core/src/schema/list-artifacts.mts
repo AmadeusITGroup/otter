@@ -33,7 +33,11 @@ import type {
  * Options controlling how dependencies are listed for a package or project.
  */
 export interface ListDependenciesOptions {
-  /** Keyword of the whitelisted packages */
+  /**
+   * List of NPM Keywords to use when searching for packages exposing OpenAPI specifications
+   * The whitelisted packages should includes at least one of the listed keywords
+   * @default [OPENAPI_NPM_KEYWORDS]
+   */
   keywordsWhitelist?: string[];
 
   /**
