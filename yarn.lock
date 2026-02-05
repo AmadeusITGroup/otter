@@ -841,8 +841,8 @@ __metadata:
   resolution: "@ama-openapi/cli@workspace:packages/@ama-openapi/cli"
   dependencies:
     "@ama-openapi/core": "workspace:~"
-    "@babel/core": "npm:~7.28.0"
-    "@babel/preset-env": "npm:~7.28.0"
+    "@babel/core": "npm:~7.29.0"
+    "@babel/preset-env": "npm:~7.29.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@compodoc/compodoc": "npm:^1.1.32"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
@@ -905,8 +905,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ama-openapi/core@workspace:packages/@ama-openapi/core"
   dependencies:
-    "@babel/core": "npm:~7.28.0"
-    "@babel/preset-env": "npm:~7.28.0"
+    "@babel/core": "npm:~7.29.0"
+    "@babel/preset-env": "npm:~7.29.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@compodoc/compodoc": "npm:^1.1.32"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
@@ -1036,8 +1036,8 @@ __metadata:
   resolution: "@ama-openapi/redocly-plugin@workspace:packages/@ama-openapi/redocly-plugin"
   dependencies:
     "@ama-openapi/core": "workspace:~"
-    "@babel/core": "npm:~7.28.0"
-    "@babel/preset-env": "npm:~7.28.0"
+    "@babel/core": "npm:~7.29.0"
+    "@babel/preset-env": "npm:~7.29.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@compodoc/compodoc": "npm:^1.1.32"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
@@ -1853,8 +1853,8 @@ __metadata:
   dependencies:
     "@angular-devkit/architect": "npm:~0.2100.2"
     "@angular-devkit/schematics": "npm:~21.0.2"
-    "@babel/core": "npm:~7.28.0"
-    "@babel/preset-env": "npm:~7.28.0"
+    "@babel/core": "npm:~7.29.0"
+    "@babel/preset-env": "npm:~7.29.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@compodoc/compodoc": "npm:^1.1.32"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
@@ -1931,8 +1931,8 @@ __metadata:
     "@angular-devkit/core": "npm:~21.0.2"
     "@angular-devkit/schematics": "npm:~21.0.2"
     "@angular/compiler": "npm:~21.0.3"
-    "@babel/core": "npm:~7.28.0"
-    "@babel/preset-env": "npm:~7.28.0"
+    "@babel/core": "npm:~7.29.0"
+    "@babel/preset-env": "npm:~7.29.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@compodoc/compodoc": "npm:^1.1.32"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
@@ -3000,7 +3000,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/compat-data@npm:^7.28.0, @babel/compat-data@npm:^7.28.6":
+"@babel/compat-data@npm:^7.28.0, @babel/compat-data@npm:^7.28.6, @babel/compat-data@npm:^7.29.0":
   version: 7.29.0
   resolution: "@babel/compat-data@npm:7.29.0"
   checksum: 10/7f21beedb930ed8fbf7eabafc60e6e6521c1d905646bf1317a61b2163339157fe797efeb85962bf55136e166b01fd1a6b526a15974b92a8b877d564dcb6c9580
@@ -3030,7 +3030,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/core@npm:7.28.6, @babel/core@npm:^7.23.2, @babel/core@npm:^7.23.9, @babel/core@npm:^7.27.4, @babel/core@npm:~7.28.0":
+"@babel/core@npm:7.28.6":
   version: 7.28.6
   resolution: "@babel/core@npm:7.28.6"
   dependencies:
@@ -3050,6 +3050,29 @@ __metadata:
     json5: "npm:^2.2.3"
     semver: "npm:^6.3.1"
   checksum: 10/1a150a69c547daf13c457be1fdaf1a0935d02b94605e777e049537ec2f279b4bb442ffbe1c2d8ff62c688878b1d5530a5784daf72ece950d1917fb78717f51d2
+  languageName: node
+  linkType: hard
+
+"@babel/core@npm:^7.23.2, @babel/core@npm:^7.23.9, @babel/core@npm:^7.27.4, @babel/core@npm:~7.29.0":
+  version: 7.29.0
+  resolution: "@babel/core@npm:7.29.0"
+  dependencies:
+    "@babel/code-frame": "npm:^7.29.0"
+    "@babel/generator": "npm:^7.29.0"
+    "@babel/helper-compilation-targets": "npm:^7.28.6"
+    "@babel/helper-module-transforms": "npm:^7.28.6"
+    "@babel/helpers": "npm:^7.28.6"
+    "@babel/parser": "npm:^7.29.0"
+    "@babel/template": "npm:^7.28.6"
+    "@babel/traverse": "npm:^7.29.0"
+    "@babel/types": "npm:^7.29.0"
+    "@jridgewell/remapping": "npm:^2.3.5"
+    convert-source-map: "npm:^2.0.0"
+    debug: "npm:^4.1.0"
+    gensync: "npm:^1.0.0-beta.2"
+    json5: "npm:^2.2.3"
+    semver: "npm:^6.3.1"
+  checksum: 10/25f4e91688cdfbaf1365831f4f245b436cdaabe63d59389b75752013b8d61819ee4257101b52fc328b0546159fd7d0e74457ed7cf12c365fea54be4fb0a40229
   languageName: node
   linkType: hard
 
@@ -3626,7 +3649,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-transform-async-generator-functions@npm:^7.28.0, @babel/plugin-transform-async-generator-functions@npm:^7.28.6":
+"@babel/plugin-transform-async-generator-functions@npm:^7.28.0, @babel/plugin-transform-async-generator-functions@npm:^7.28.6, @babel/plugin-transform-async-generator-functions@npm:^7.29.0":
   version: 7.29.0
   resolution: "@babel/plugin-transform-async-generator-functions@npm:7.29.0"
   dependencies:
@@ -3774,7 +3797,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-transform-duplicate-named-capturing-groups-regex@npm:^7.27.1, @babel/plugin-transform-duplicate-named-capturing-groups-regex@npm:^7.28.6":
+"@babel/plugin-transform-duplicate-named-capturing-groups-regex@npm:^7.27.1, @babel/plugin-transform-duplicate-named-capturing-groups-regex@npm:^7.28.6, @babel/plugin-transform-duplicate-named-capturing-groups-regex@npm:^7.29.0":
   version: 7.29.0
   resolution: "@babel/plugin-transform-duplicate-named-capturing-groups-regex@npm:7.29.0"
   dependencies:
@@ -3924,7 +3947,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-transform-modules-systemjs@npm:^7.27.1, @babel/plugin-transform-modules-systemjs@npm:^7.28.5":
+"@babel/plugin-transform-modules-systemjs@npm:^7.27.1, @babel/plugin-transform-modules-systemjs@npm:^7.28.5, @babel/plugin-transform-modules-systemjs@npm:^7.29.0":
   version: 7.29.0
   resolution: "@babel/plugin-transform-modules-systemjs@npm:7.29.0"
   dependencies:
@@ -3950,7 +3973,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-transform-named-capturing-groups-regex@npm:^7.27.1":
+"@babel/plugin-transform-named-capturing-groups-regex@npm:^7.27.1, @babel/plugin-transform-named-capturing-groups-regex@npm:^7.29.0":
   version: 7.29.0
   resolution: "@babel/plugin-transform-named-capturing-groups-regex@npm:7.29.0"
   dependencies:
@@ -4092,7 +4115,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-transform-regenerator@npm:^7.28.3, @babel/plugin-transform-regenerator@npm:^7.28.6":
+"@babel/plugin-transform-regenerator@npm:^7.28.3, @babel/plugin-transform-regenerator@npm:^7.28.6, @babel/plugin-transform-regenerator@npm:^7.29.0":
   version: 7.29.0
   resolution: "@babel/plugin-transform-regenerator@npm:7.29.0"
   dependencies:
@@ -4356,7 +4379,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/preset-env@npm:7.28.6, @babel/preset-env@npm:^7.23.2, @babel/preset-env@npm:~7.28.0":
+"@babel/preset-env@npm:7.28.6":
   version: 7.28.6
   resolution: "@babel/preset-env@npm:7.28.6"
   dependencies:
@@ -4433,6 +4456,86 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.0.0-0
   checksum: 10/ee1b96dec8518436013c4a758003734842e9fed2a3af2013bee7a462289bae4e7bbce99733701164c28a93554be5a9a4c50818fa32335274d19e8b7d3dd53316
+  languageName: node
+  linkType: hard
+
+"@babel/preset-env@npm:^7.23.2, @babel/preset-env@npm:~7.29.0":
+  version: 7.29.0
+  resolution: "@babel/preset-env@npm:7.29.0"
+  dependencies:
+    "@babel/compat-data": "npm:^7.29.0"
+    "@babel/helper-compilation-targets": "npm:^7.28.6"
+    "@babel/helper-plugin-utils": "npm:^7.28.6"
+    "@babel/helper-validator-option": "npm:^7.27.1"
+    "@babel/plugin-bugfix-firefox-class-in-computed-class-key": "npm:^7.28.5"
+    "@babel/plugin-bugfix-safari-class-field-initializer-scope": "npm:^7.27.1"
+    "@babel/plugin-bugfix-safari-id-destructuring-collision-in-function-expression": "npm:^7.27.1"
+    "@babel/plugin-bugfix-v8-spread-parameters-in-optional-chaining": "npm:^7.27.1"
+    "@babel/plugin-bugfix-v8-static-class-fields-redefine-readonly": "npm:^7.28.6"
+    "@babel/plugin-proposal-private-property-in-object": "npm:7.21.0-placeholder-for-preset-env.2"
+    "@babel/plugin-syntax-import-assertions": "npm:^7.28.6"
+    "@babel/plugin-syntax-import-attributes": "npm:^7.28.6"
+    "@babel/plugin-syntax-unicode-sets-regex": "npm:^7.18.6"
+    "@babel/plugin-transform-arrow-functions": "npm:^7.27.1"
+    "@babel/plugin-transform-async-generator-functions": "npm:^7.29.0"
+    "@babel/plugin-transform-async-to-generator": "npm:^7.28.6"
+    "@babel/plugin-transform-block-scoped-functions": "npm:^7.27.1"
+    "@babel/plugin-transform-block-scoping": "npm:^7.28.6"
+    "@babel/plugin-transform-class-properties": "npm:^7.28.6"
+    "@babel/plugin-transform-class-static-block": "npm:^7.28.6"
+    "@babel/plugin-transform-classes": "npm:^7.28.6"
+    "@babel/plugin-transform-computed-properties": "npm:^7.28.6"
+    "@babel/plugin-transform-destructuring": "npm:^7.28.5"
+    "@babel/plugin-transform-dotall-regex": "npm:^7.28.6"
+    "@babel/plugin-transform-duplicate-keys": "npm:^7.27.1"
+    "@babel/plugin-transform-duplicate-named-capturing-groups-regex": "npm:^7.29.0"
+    "@babel/plugin-transform-dynamic-import": "npm:^7.27.1"
+    "@babel/plugin-transform-explicit-resource-management": "npm:^7.28.6"
+    "@babel/plugin-transform-exponentiation-operator": "npm:^7.28.6"
+    "@babel/plugin-transform-export-namespace-from": "npm:^7.27.1"
+    "@babel/plugin-transform-for-of": "npm:^7.27.1"
+    "@babel/plugin-transform-function-name": "npm:^7.27.1"
+    "@babel/plugin-transform-json-strings": "npm:^7.28.6"
+    "@babel/plugin-transform-literals": "npm:^7.27.1"
+    "@babel/plugin-transform-logical-assignment-operators": "npm:^7.28.6"
+    "@babel/plugin-transform-member-expression-literals": "npm:^7.27.1"
+    "@babel/plugin-transform-modules-amd": "npm:^7.27.1"
+    "@babel/plugin-transform-modules-commonjs": "npm:^7.28.6"
+    "@babel/plugin-transform-modules-systemjs": "npm:^7.29.0"
+    "@babel/plugin-transform-modules-umd": "npm:^7.27.1"
+    "@babel/plugin-transform-named-capturing-groups-regex": "npm:^7.29.0"
+    "@babel/plugin-transform-new-target": "npm:^7.27.1"
+    "@babel/plugin-transform-nullish-coalescing-operator": "npm:^7.28.6"
+    "@babel/plugin-transform-numeric-separator": "npm:^7.28.6"
+    "@babel/plugin-transform-object-rest-spread": "npm:^7.28.6"
+    "@babel/plugin-transform-object-super": "npm:^7.27.1"
+    "@babel/plugin-transform-optional-catch-binding": "npm:^7.28.6"
+    "@babel/plugin-transform-optional-chaining": "npm:^7.28.6"
+    "@babel/plugin-transform-parameters": "npm:^7.27.7"
+    "@babel/plugin-transform-private-methods": "npm:^7.28.6"
+    "@babel/plugin-transform-private-property-in-object": "npm:^7.28.6"
+    "@babel/plugin-transform-property-literals": "npm:^7.27.1"
+    "@babel/plugin-transform-regenerator": "npm:^7.29.0"
+    "@babel/plugin-transform-regexp-modifiers": "npm:^7.28.6"
+    "@babel/plugin-transform-reserved-words": "npm:^7.27.1"
+    "@babel/plugin-transform-shorthand-properties": "npm:^7.27.1"
+    "@babel/plugin-transform-spread": "npm:^7.28.6"
+    "@babel/plugin-transform-sticky-regex": "npm:^7.27.1"
+    "@babel/plugin-transform-template-literals": "npm:^7.27.1"
+    "@babel/plugin-transform-typeof-symbol": "npm:^7.27.1"
+    "@babel/plugin-transform-unicode-escapes": "npm:^7.27.1"
+    "@babel/plugin-transform-unicode-property-regex": "npm:^7.28.6"
+    "@babel/plugin-transform-unicode-regex": "npm:^7.27.1"
+    "@babel/plugin-transform-unicode-sets-regex": "npm:^7.28.6"
+    "@babel/preset-modules": "npm:0.1.6-no-external-plugins"
+    babel-plugin-polyfill-corejs2: "npm:^0.4.15"
+    babel-plugin-polyfill-corejs3: "npm:^0.14.0"
+    babel-plugin-polyfill-regenerator: "npm:^0.6.6"
+    core-js-compat: "npm:^3.48.0"
+    semver: "npm:^6.3.1"
+  peerDependencies:
+    "@babel/core": ^7.0.0-0
+  checksum: 10/211b33ec8644636275f61aa273071d8cbc2a6bb28d82ad246e3831a6aa7d96c610a55b5140bcd21be7f71fb04c3aa4a10eb08665fb5505e153cfdd8dbc8c1c1c
   languageName: node
   linkType: hard
 
@@ -9210,7 +9313,7 @@ __metadata:
     "@angular/core": "npm:~21.0.3"
     "@angular/platform-browser": "npm:~21.0.3"
     "@angular/platform-browser-dynamic": "npm:~21.0.3"
-    "@babel/core": "npm:~7.28.0"
+    "@babel/core": "npm:~7.29.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@nx/eslint": "npm:~22.3.3"
@@ -9297,7 +9400,7 @@ __metadata:
     "@angular/platform-browser": "npm:~21.0.3"
     "@angular/platform-browser-dynamic": "npm:~21.0.3"
     "@angular/router": "npm:~21.0.3"
-    "@babel/core": "npm:~7.28.0"
+    "@babel/core": "npm:~7.29.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@compodoc/compodoc": "npm:^1.1.32"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
@@ -9397,7 +9500,7 @@ __metadata:
     "@angular/core": "npm:~21.0.3"
     "@angular/platform-browser": "npm:~21.0.3"
     "@angular/platform-browser-dynamic": "npm:~21.0.3"
-    "@babel/core": "npm:~7.28.0"
+    "@babel/core": "npm:~7.29.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@compodoc/compodoc": "npm:^1.1.32"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
@@ -9481,7 +9584,7 @@ __metadata:
     "@angular/core": "npm:~21.0.3"
     "@angular/platform-browser": "npm:~21.0.3"
     "@angular/platform-browser-dynamic": "npm:~21.0.3"
-    "@babel/core": "npm:~7.28.0"
+    "@babel/core": "npm:~7.29.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@compodoc/compodoc": "npm:^1.1.32"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
@@ -9563,7 +9666,7 @@ __metadata:
   dependencies:
     "@angular-devkit/core": "npm:~21.0.2"
     "@angular-devkit/schematics": "npm:~21.0.2"
-    "@babel/core": "npm:~7.28.0"
+    "@babel/core": "npm:~7.29.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@compodoc/compodoc": "npm:^1.1.32"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
@@ -9624,7 +9727,7 @@ __metadata:
   dependencies:
     "@angular-devkit/core": "npm:~21.0.2"
     "@angular-devkit/schematics": "npm:~21.0.2"
-    "@babel/core": "npm:~7.28.0"
+    "@babel/core": "npm:~7.29.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@compodoc/compodoc": "npm:^1.1.32"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
@@ -9840,7 +9943,7 @@ __metadata:
     "@angular/forms": "npm:~21.0.3"
     "@angular/platform-browser": "npm:~21.0.3"
     "@angular/platform-browser-dynamic": "npm:~21.0.3"
-    "@babel/core": "npm:~7.28.0"
+    "@babel/core": "npm:~7.29.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@compodoc/compodoc": "npm:^1.1.32"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
@@ -10003,7 +10106,7 @@ __metadata:
     "@angular/core": "npm:~21.0.3"
     "@angular/platform-browser": "npm:~21.0.3"
     "@angular/platform-browser-dynamic": "npm:~21.0.3"
-    "@babel/core": "npm:~7.28.0"
+    "@babel/core": "npm:~7.29.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@compodoc/compodoc": "npm:^1.1.32"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
@@ -10110,7 +10213,7 @@ __metadata:
     "@angular/platform-browser": "npm:~21.0.3"
     "@angular/platform-browser-dynamic": "npm:~21.0.3"
     "@angular/router": "npm:~21.0.3"
-    "@babel/core": "npm:~7.28.0"
+    "@babel/core": "npm:~7.29.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@compodoc/compodoc": "npm:^1.1.32"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
@@ -10285,7 +10388,7 @@ __metadata:
     "@angular/core": "npm:~21.0.3"
     "@angular/platform-browser": "npm:~21.0.3"
     "@angular/platform-browser-dynamic": "npm:~21.0.3"
-    "@babel/core": "npm:~7.28.0"
+    "@babel/core": "npm:~7.29.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@compodoc/compodoc": "npm:^1.1.32"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
@@ -10484,7 +10587,7 @@ __metadata:
     "@angular-devkit/core": "npm:~21.0.2"
     "@angular-eslint/test-utils": "npm:~21.0.0"
     "@angular/compiler": "npm:~21.0.3"
-    "@babel/core": "npm:~7.28.0"
+    "@babel/core": "npm:~7.29.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@compodoc/compodoc": "npm:^1.1.32"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
@@ -10560,7 +10663,7 @@ __metadata:
     "@angular/core": "npm:~21.0.3"
     "@angular/platform-browser": "npm:~21.0.3"
     "@angular/platform-browser-dynamic": "npm:~21.0.3"
-    "@babel/core": "npm:~7.28.0"
+    "@babel/core": "npm:~7.29.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@compodoc/compodoc": "npm:^1.1.32"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
@@ -10681,7 +10784,7 @@ __metadata:
     "@angular/forms": "npm:~21.0.3"
     "@angular/platform-browser": "npm:~21.0.3"
     "@angular/platform-browser-dynamic": "npm:~21.0.3"
-    "@babel/core": "npm:~7.28.0"
+    "@babel/core": "npm:~7.29.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@compodoc/compodoc": "npm:^1.1.32"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
@@ -10784,7 +10887,7 @@ __metadata:
     "@angular/platform-browser": "npm:~21.0.3"
     "@angular/platform-browser-dynamic": "npm:~21.0.3"
     "@angular/router": "npm:~21.0.3"
-    "@babel/core": "npm:~7.28.0"
+    "@babel/core": "npm:~7.29.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@commitlint/cli": "npm:^20.2.0"
     "@commitlint/config-angular": "npm:^20.2.0"
@@ -11009,7 +11112,7 @@ __metadata:
     "@angular/core": "npm:~21.0.3"
     "@angular/platform-browser": "npm:~21.0.3"
     "@angular/platform-browser-dynamic": "npm:~21.0.3"
-    "@babel/core": "npm:~7.28.0"
+    "@babel/core": "npm:~7.29.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@compodoc/compodoc": "npm:^1.1.32"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
@@ -11154,7 +11257,7 @@ __metadata:
     "@angular/core": "npm:~21.0.3"
     "@angular/platform-browser": "npm:~21.0.3"
     "@angular/platform-browser-dynamic": "npm:~21.0.3"
-    "@babel/core": "npm:~7.28.0"
+    "@babel/core": "npm:~7.29.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@compodoc/compodoc": "npm:^1.1.32"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
@@ -11323,7 +11426,7 @@ __metadata:
     "@angular/core": "npm:~21.0.3"
     "@angular/platform-browser": "npm:~21.0.3"
     "@angular/platform-browser-dynamic": "npm:~21.0.3"
-    "@babel/core": "npm:~7.28.0"
+    "@babel/core": "npm:~7.29.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@capacitor/browser": "npm:^8.0.0"
     "@capacitor/core": "npm:^8.0.0"
@@ -11418,7 +11521,7 @@ __metadata:
   dependencies:
     "@angular-devkit/core": "npm:~21.0.2"
     "@angular-devkit/schematics": "npm:~21.0.2"
-    "@babel/core": "npm:~7.28.0"
+    "@babel/core": "npm:~7.29.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@compodoc/compodoc": "npm:^1.1.32"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
@@ -11604,7 +11707,7 @@ __metadata:
     "@angular/platform-browser": "npm:~21.0.3"
     "@angular/platform-browser-dynamic": "npm:~21.0.3"
     "@angular/router": "npm:~21.0.3"
-    "@babel/core": "npm:~7.28.0"
+    "@babel/core": "npm:~7.29.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@compodoc/compodoc": "npm:^1.1.32"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
@@ -11704,7 +11807,7 @@ __metadata:
     "@angular/forms": "npm:~21.0.3"
     "@angular/platform-browser": "npm:~21.0.3"
     "@angular/platform-browser-dynamic": "npm:~21.0.3"
-    "@babel/core": "npm:~7.28.0"
+    "@babel/core": "npm:~7.29.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@compodoc/compodoc": "npm:^1.1.32"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
@@ -11839,7 +11942,7 @@ __metadata:
     "@angular/core": "npm:~21.0.3"
     "@angular/platform-browser": "npm:~21.0.3"
     "@angular/platform-browser-dynamic": "npm:~21.0.3"
-    "@babel/core": "npm:~7.28.0"
+    "@babel/core": "npm:~7.29.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@compodoc/compodoc": "npm:^1.1.32"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
@@ -12160,7 +12263,7 @@ __metadata:
     "@angular/material": "npm:~21.0.1"
     "@angular/platform-browser": "npm:~21.0.3"
     "@angular/platform-browser-dynamic": "npm:~21.0.3"
-    "@babel/core": "npm:~7.28.0"
+    "@babel/core": "npm:~7.29.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@compodoc/compodoc": "npm:^1.1.32"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
@@ -12453,7 +12556,7 @@ __metadata:
     "@angular/forms": "npm:~21.0.3"
     "@angular/platform-browser": "npm:~21.0.3"
     "@angular/platform-browser-dynamic": "npm:~21.0.3"
-    "@babel/core": "npm:~7.28.0"
+    "@babel/core": "npm:~7.29.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@compodoc/compodoc": "npm:^1.1.32"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
@@ -12593,7 +12696,7 @@ __metadata:
     "@angular/core": "npm:~21.0.3"
     "@angular/platform-browser": "npm:~21.0.3"
     "@angular/platform-browser-dynamic": "npm:~21.0.3"
-    "@babel/core": "npm:~7.28.0"
+    "@babel/core": "npm:~7.29.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@compodoc/compodoc": "npm:^1.1.32"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
@@ -12723,7 +12826,7 @@ __metadata:
     "@angular/platform-browser": "npm:~21.0.3"
     "@angular/platform-browser-dynamic": "npm:~21.0.3"
     "@angular/router": "npm:~21.0.3"
-    "@babel/core": "npm:~7.28.0"
+    "@babel/core": "npm:~7.29.0"
     "@babel/preset-typescript": "npm:~7.28.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@ngrx/entity": "npm:~21.0.0"
@@ -19727,7 +19830,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-plugin-polyfill-corejs2@npm:^0.4.14":
+"babel-plugin-polyfill-corejs2@npm:^0.4.14, babel-plugin-polyfill-corejs2@npm:^0.4.15":
   version: 0.4.15
   resolution: "babel-plugin-polyfill-corejs2@npm:0.4.15"
   dependencies:
@@ -19752,7 +19855,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-plugin-polyfill-regenerator@npm:^0.6.5":
+"babel-plugin-polyfill-corejs3@npm:^0.14.0":
+  version: 0.14.0
+  resolution: "babel-plugin-polyfill-corejs3@npm:0.14.0"
+  dependencies:
+    "@babel/helper-define-polyfill-provider": "npm:^0.6.6"
+    core-js-compat: "npm:^3.48.0"
+  peerDependencies:
+    "@babel/core": ^7.4.0 || ^8.0.0-0 <8.0.0
+  checksum: 10/09c854a3bda9a930fbce4b80d52a24e5b0744fccb0c81bf8f470d62296f197a2afe111b2b9ecb0d8a47068de2f938d14b748295953377e47594b0673d53c9396
+  languageName: node
+  linkType: hard
+
+"babel-plugin-polyfill-regenerator@npm:^0.6.5, babel-plugin-polyfill-regenerator@npm:^0.6.6":
   version: 0.6.6
   resolution: "babel-plugin-polyfill-regenerator@npm:0.6.6"
   dependencies:
@@ -21874,7 +21989,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"core-js-compat@npm:^3.43.0, core-js-compat@npm:^3.46.0":
+"core-js-compat@npm:^3.43.0, core-js-compat@npm:^3.46.0, core-js-compat@npm:^3.48.0":
   version: 3.48.0
   resolution: "core-js-compat@npm:3.48.0"
   dependencies:

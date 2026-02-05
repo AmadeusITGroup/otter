@@ -152,7 +152,7 @@
     "@angular/forms": "~21.0.3",
     "@angular/platform-browser": "~21.0.3",
     "@angular/platform-browser-dynamic": "~21.0.3",
-    "@babel/core": "~7.28.0",
+    "@babel/core": "~7.29.0",
     "@babel/preset-typescript": "~7.28.0",
     "@compodoc/compodoc": "^1.1.32",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
