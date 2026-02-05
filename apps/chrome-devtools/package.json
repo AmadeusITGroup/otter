@@ -46,7 +46,7 @@
     "@o3r/logger": "workspace:~",
     "@o3r/rules-engine": "workspace:~",
     "@o3r/test-helpers": "workspace:~",
-    "@playwright/test": "~1.57.0",
+    "@playwright/test": "~1.58.0",
     "@schematics/angular": "~21.0.2",
     "@standard-schema/spec": "~1.0.0",
     "@stylistic/eslint-plugin": "~5.6.0",
