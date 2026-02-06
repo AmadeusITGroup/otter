@@ -63,7 +63,7 @@
     "rxjs": "^7.8.1",
     "type-fest": "^5.3.1",
     "typescript": "^5.9.0",
-    "typescript-json-schema": "^0.65.0"
+    "typescript-json-schema": "^0.67.0"
   },
   "peerDependenciesMeta": {
     "@angular-devkit/core": {
