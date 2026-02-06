@@ -294,7 +294,7 @@
     "uuid": "~13.0.0",
     "verdaccio": "~6.2.4",
     "wait-on": "~9.0.3",
-    "webpack": "~5.102.0",
+    "webpack": "~5.104.0",
     "winston": "^3.8.2",
     "yaml-eslint-parser": "^1.2.2"
   },
