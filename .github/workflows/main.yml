@@ -18,6 +18,7 @@ on:
 
 env:
   NX_PARALLEL: ${{ vars.NX_PARALLEL }}
+  NX_CLOUD_ACCESS_TOKEN: ${{ github.event_name == 'pull_request' && secrets.NX_CLOUD_ACCESS_TOKEN_READ || secrets.NX_CLOUD_ACCESS_TOKEN_WRITE }}
   NX_TASK_TARGET_CONFIGURATION: ci
   YARN_ENABLE_HARDENED_MODE: 0
   NODE_COMPILE_CACHE: ~/.cache/node-compile-cache
@@ -116,6 +117,7 @@ jobs:
     needs: [ yarn_lock_check, setupVars ]
     secrets:
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      NX_CLOUD_ACCESS_TOKEN: ${{ github.event_name == 'pull_request' && secrets.NX_CLOUD_ACCESS_TOKEN_READ || secrets.NX_CLOUD_ACCESS_TOKEN_WRITE }}
     with:
       affected: ${{ github.event_name == 'pull_request' }}
       skipNxCache: ${{ vars.NX_SKIP_NX_CACHE == 'true' || github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release') && !endsWith(github.ref, '-next') }}
@@ -125,6 +127,7 @@ jobs:
     uses: ./.github/workflows/it-tests.yml
     secrets:
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      NX_CLOUD_ACCESS_TOKEN: ${{ github.event_name == 'pull_request' && secrets.NX_CLOUD_ACCESS_TOKEN_READ || secrets.NX_CLOUD_ACCESS_TOKEN_WRITE }}
     needs: [ yarn_lock_check, build, setupVars ]
     with:
       skipNxCache: ${{ vars.NX_SKIP_NX_CACHE == 'true' || github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release') && !endsWith(github.ref, '-next') }}
@@ -137,6 +140,8 @@ jobs:
       pull-requests: write
     uses: ./.github/workflows/e2e-tests.yml
     needs: [ yarn_lock_check, build, setupVars ]
+    secrets:
+      NX_CLOUD_ACCESS_TOKEN: ${{ github.event_name == 'pull_request' && secrets.NX_CLOUD_ACCESS_TOKEN_READ || secrets.NX_CLOUD_ACCESS_TOKEN_WRITE }}
     with:
       skipNxCache: ${{ vars.NX_SKIP_NX_CACHE == 'true' || github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release') && !endsWith(github.ref, '-next') }}
       skipNxRemoteCache: ${{ needs.setupVars.outputs.skipNxRemoteCache  == 'true' }}
