@@ -686,7 +686,6 @@
     "libsDir": "packages",
     "appsDir": "apps"
   },
-  "useDaemonProcess": false,
   "cacheDirectory": ".cache/nx",
   "nxCloudId": "63e6951e043da20dd8321aec"
 }
