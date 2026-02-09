@@ -22,8 +22,9 @@
     "tslib": "^2.6.2"
   },
   "devDependencies": {
+    "@angular/cli": "~21.1.0",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
-    "@nx/eslint-plugin": "~22.3.3",
+    "@nx/eslint-plugin": "~22.4.0",
     "@o3r/eslint-config": "workspace:~",
     "@o3r/eslint-plugin": "workspace:~",
     "@o3r/test-helpers": "workspace:~",
@@ -32,7 +33,7 @@
     "@types/node": "~24.10.0",
     "@typescript-eslint/parser": "~8.54.0",
     "@vercel/ncc": "~0.38.0",
-    "angular-eslint": "~21.0.1",
+    "angular-eslint": "~21.1.0",
     "eslint": "~9.39.0",
     "eslint-plugin-import": "~2.32.0",
     "eslint-plugin-import-newlines": "~1.4.0",
