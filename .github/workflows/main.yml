@@ -77,6 +77,8 @@ jobs:
             ${{ runner.os }}-node-compile
       - run: yarn build
       - uses: ./tools/github-actions/upload-build-output
+      - run: yarn nx fix-ci
+        if: always()
 
   version:
     permissions:

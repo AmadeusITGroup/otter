@@ -87,6 +87,7 @@ jobs:
           flags: unittests
           token: ${{ secrets.CODECOV_TOKEN }}
       - name: Upload test results to Codecov
+        if: always()
         uses: codecov/test-results-action@47f89e9acb64b76debcd5ea40642d25a4adced9f # v1.1.1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
@@ -99,6 +100,8 @@ jobs:
             apps/**/dist-test/junit.xml
             packages/**/dist-test/junit.xml
             tools/**/dist-test/junit.xml
+      - run: yarn nx fix-ci
+        if: always() && runner.os == 'Linux'
   lint:
     runs-on: ubuntu-latest
     steps:
@@ -124,6 +127,8 @@ jobs:
           NX_BASE: ${{ format('remotes/origin/{0}', github.base_ref || github.ref_name) }}
           lintCmd: ${{ inputs.affected && 'lint:affected' || 'lint'}}
         run: yarn ${{ env.lintCmd }} --configuration ci
+      - run: yarn nx fix-ci
+        if: always()
 
   # Check that the packaging of github-actions is still working
   github-actions:
