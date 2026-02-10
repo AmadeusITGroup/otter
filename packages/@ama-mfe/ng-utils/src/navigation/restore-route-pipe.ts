@@ -54,7 +54,7 @@ export class RestoreRoute implements PipeTransform {
   /**
    * Transforms the given URL or SafeResourceUrl by appending query parameters and adjusting the pathname.
    * @param url - The URL or SafeResourceUrl to be transformed.
-   * @param options - Optional parameters to control the transformation. {@see RestoreRouteOptions}
+   * @param options - Optional parameters to control the transformation. {@link RestoreRouteOptions}
    * @returns - The transformed SafeResourceUrl or undefined if the input URL is invalid.
    */
   public transform(url: string, options?: Partial<RestoreRouteOptions>): string;

@@ -3,6 +3,9 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import {
+  provideDynamicContent,
+} from '@o3r/dynamic-content';
+import {
   DesignTokenPres,
 } from './design-token-pres';
 
@@ -12,7 +15,8 @@ describe('DesignTokenPres', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DesignTokenPres]
+      imports: [DesignTokenPres],
+      providers: [provideDynamicContent()]
     })
       .compileComponents();
 

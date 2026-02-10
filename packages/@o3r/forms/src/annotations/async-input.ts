@@ -7,7 +7,7 @@ import {
 } from 'rxjs/operators';
 
 /**
- * Decorator for @Input property
+ * Decorator for `@Input` property
  * It considers the input as an async one.
  * When a change in the input happens, it unsubscribe from the previous value
  * and subscribe to the next one

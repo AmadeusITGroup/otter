@@ -15,7 +15,6 @@ import {
   CanceledCallError,
   EmptyResponseError,
   ExceptionReply,
-  extractQueryParams,
   filterUndefinedValues,
   getPropertiesFromData,
   getResponseReviver,
@@ -42,7 +41,9 @@ export interface BaseApiFetchClientOptions extends BaseApiClientOptions {
   fetchPlugins: FetchPlugin[] | ((requestOpts: RequestOptions) => FetchPlugin[] | Promise<FetchPlugin[]>);
 }
 
-/** @see BaseApiConstructor */
+/**
+ * Interface of the constructor configuration object
+ */
 export interface BaseApiFetchClientConstructor extends PartialExcept<BaseApiFetchClientOptions, 'basePath'> {
 }
 
@@ -52,7 +53,7 @@ const DEFAULT_OPTIONS = {
   requestPlugins: [],
   enableTokenization: false,
   disableFallback: false,
-  enableParameterSerialization: false
+  enableParameterSerialization: true
 } as const satisfies Omit<BaseApiFetchClientOptions, 'basePath'>;
 
 /** Client to process the call to the API using Fetch API */
@@ -69,11 +70,6 @@ export class ApiFetchClient implements ApiClient {
       ...DEFAULT_OPTIONS,
       ...options
     };
-  }
-
-  /** @inheritdoc */
-  public extractQueryParams<T extends { [key: string]: any }>(data: T, names: (keyof T)[]): { [p in keyof T]: string; } {
-    return extractQueryParams(data, names);
   }
 
   /** @inheritdoc */

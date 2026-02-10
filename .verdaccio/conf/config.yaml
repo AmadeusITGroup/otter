@@ -56,11 +56,6 @@ packages:
     publish: $authenticated
     proxy: no-proxy
   #    proxy: npmjs
-  '@ama-terasu/*':
-    access: $all
-    publish: $authenticated
-    proxy: no-proxy
-#    proxy: npmjs
 
 #uplinks:
 #  npmjs:

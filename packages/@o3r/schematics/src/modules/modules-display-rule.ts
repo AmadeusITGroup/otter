@@ -22,12 +22,12 @@ import {
 export interface DisplayModuleListOptions {
   /**
    * List of whitelisted scopes
-   * @default {@see OTTER_MODULE_SUPPORTED_SCOPES}
+   * @default {@link OTTER_MODULE_SUPPORTED_SCOPES}
    */
   scopeWhitelist: string[] | readonly string[];
   /**
    * Keyword to search for Otter modules
-   * @default {@see OTTER_MODULE_KEYWORD}
+   * @default {@link OTTER_MODULE_KEYWORD}
    */
   keyword: string;
   /** Display only the Otter modules with CMS administration */

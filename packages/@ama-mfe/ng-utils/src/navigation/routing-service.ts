@@ -115,7 +115,7 @@ export class RoutingService implements MessageProducer<NavigationMessage>, Messa
    * Handles embedded routing by listening to router events and sending navigation messages to the connected endpoints.
    * It can be a parent window or another iframe
    * @note - This method has to be called in an injection context
-   * @param options - Optional parameters to control the routing behavior {@see RoutingServiceOptions}.
+   * @param options - Optional parameters to control the routing behavior {@link RoutingServiceOptions}.
    */
   public handleEmbeddedRouting(options?: RoutingServiceOptions): void {
     const subRouteOnly = options?.subRouteOnly ?? false;

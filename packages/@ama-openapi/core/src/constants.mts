@@ -15,6 +15,15 @@ export const DEFAULT_MANIFEST_FILENAMES = [
   'package.json'
 ] as const;
 
+/** Default directory where to generate the JSON Schemas */
+export const DEFAULT_SCHEMA_OUTPUT_DIRECTORY = 'schemas';
+
+/** NPM keywords to identify a specification package */
+export const OPENAPI_NPM_KEYWORDS = ['openapi'] as const;
+
+/** Name of the JSON schema validating the manifest file */
+export const MANIFEST_SCHEMA_FILE = 'manifest.schema.json';
+
 // Internal property keys :
 
 /** Key to mark masked properties */

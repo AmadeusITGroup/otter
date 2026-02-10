@@ -33,6 +33,8 @@ import type {
   Transform,
 } from './manifest.mjs';
 
+const INNER_PATH_SEPARATOR = '#[\\/]';
+
 /**
  * Extracted dependency model information
  */
@@ -46,7 +48,7 @@ export interface RetrievedDependencyModel {
   /** Content of the model file */
   content: string;
   /** Model definition from the manifest */
-  model: Model & Required<Pick<Model, 'path'>>;
+  model: Model & Required<Pick<Model, 'path' | 'filePath'>>;
   /** Indicates if the input model file is a JSON file */
   isInputJson: boolean;
   /** Indicates if the output model file is a JSON file */
@@ -63,18 +65,19 @@ export interface RetrievedDependencyModel {
  * Sanitize the package path to be used in file system
  * @param artifactName
  */
-const sanitizePackagePath = (artifactName: string) => {
+export const sanitizePackagePath = (artifactName: string) => {
   return artifactName
     .replace('/', '-')
     .replace(/^@/, '');
 };
 
 /**
- * Get the path to the file containing the model
+ * Split model path into file path and inner path
  * @param modelPath
  */
-const getFilePathFromModelPath = (modelPath: string) => {
-  return modelPath.replace(/#[\\/].+$/, '');
+const splitModelPath = (modelPath: string) => {
+  const [filePath, innerPath] = modelPath.split(new RegExp(INNER_PATH_SEPARATOR));
+  return { filePath, innerPath };
 };
 
 /**
@@ -82,10 +85,10 @@ const getFilePathFromModelPath = (modelPath: string) => {
  * @param modelPath
  */
 const getOutFilePathFromModelPath = (modelPath: string) => {
-  const match = modelPath.match(/^(.*)#[\\/](.+)?$/);
-  return match
-    ? join(dirname(match[1]), match[2] + extname(match[1]))
-    : modelPath;
+  const { filePath, innerPath } = splitModelPath(modelPath);
+  return innerPath
+    ? join(dirname(filePath), innerPath + extname(filePath))
+    : filePath;
 };
 
 /**
@@ -132,9 +135,10 @@ const extractDependencyModelsSimple = async (
   logger?.debug?.(`extracting model ${modelName} from ${outputDirectory}`);
   const require = createRequire(resolve(cwd, 'package.json'));
   const { artifactBasePath, version } = await getArtifactInfo(require, artifactName);
-  const modelPath = typeof modelName === 'string' ? join(artifactBasePath, modelName) : require.resolve(artifactName);
-  const content = await fs.readFile(getFilePathFromModelPath(modelPath), { encoding: 'utf8' });
   const path = typeof modelName === 'string' ? modelName : artifactName;
+  const { filePath, innerPath } = splitModelPath(path);
+  const modelPath = typeof modelName === 'string' ? join(artifactBasePath, filePath) : require.resolve(artifactName);
+  const content = await fs.readFile(filePath, { encoding: 'utf8' });
   const model = { path } satisfies Model;
   const fileNameOutput = getOutFilePathFromModelPath(model.path);
   const outputFilePath = resolve(cwd, outputDirectory, sanitizePackagePath(artifactName), fileNameOutput);
@@ -146,7 +150,9 @@ const extractDependencyModelsSimple = async (
     version,
     content,
     model: {
-      path
+      path,
+      filePath,
+      innerPath
     },
     isInputJson: isJsonFile(modelPath),
     isOutputJson: isJsonFile(outputFilePath)
@@ -171,14 +177,14 @@ export const extractDependencyModelsObject = async (
   const require = createRequire(resolve(cwd, 'package.json'));
   const transform = await transformPromise;
   const { artifactBasePath, version } = await getArtifactInfo(require, artifactName);
-  const modelPath = model.path ? join(artifactBasePath, model.path) : require.resolve(artifactName);
-  const content = await fs.readFile(getFilePathFromModelPath(modelPath), { encoding: 'utf8' });
+  const path = model.path || require.resolve(artifactName).split(artifactName)[1];
+  const { filePath, innerPath } = splitModelPath(path);
+  const modelPath = model.path ? join(artifactBasePath, filePath) : require.resolve(artifactName);
+  const content = await fs.readFile(filePath, { encoding: 'utf8' });
   logger?.debug?.(`extracting model ${modelPath} from ${outputDirectory}`);
 
-  const path = model.path || require.resolve(artifactName).split(artifactName)[1];
-  const fileName = getFilePathFromModelPath(path);
   const fileNameOutput = transform?.rename
-    ? fileName.replace(new RegExp(`(${basename(fileName).replaceAll('.', '\\.')})$`), transform.rename)
+    ? filePath.replace(new RegExp(`(${basename(filePath).replaceAll('.', '\\.')})$`), transform.rename)
     : getOutFilePathFromModelPath(path);
   const outputFilePath = resolve(cwd, outputDirectory, sanitizePackagePath(artifactName), fileNameOutput);
   return {
@@ -191,7 +197,9 @@ export const extractDependencyModelsObject = async (
     content,
     model: {
       ...model,
-      path
+      path,
+      filePath,
+      innerPath
     },
     isInputJson: isJsonFile(modelPath),
     isOutputJson: isJsonFile(outputFilePath)

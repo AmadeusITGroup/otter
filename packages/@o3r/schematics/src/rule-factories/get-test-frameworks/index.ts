@@ -11,7 +11,8 @@ import {
 
 const testPackageMaps: Record<AvailableTestFrameworks, string[]> = {
   jest: ['jest'],
-  jasmine: ['jasmine-core']
+  jasmine: ['jasmine-core'],
+  vitest: ['vitest']
 };
 
 /**

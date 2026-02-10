@@ -29,7 +29,7 @@ describe('ng add analytics', () => {
 
     const diff = getGitDiff(workspacePath);
 
-    expect(diff.added.sort()).toEqual([
+    expect(diff.added.toSorted()).toEqual([
       path.join(relativeApplicationPath, 'src/components/test/README.md').replace(/[/\\]+/g, '/'),
       path.join(relativeApplicationPath, 'src/components/test/index.ts').replace(/[/\\]+/g, '/'),
       path.join(relativeApplicationPath, 'src/components/test/test-analytics.ts').replace(/[/\\]+/g, '/'),
@@ -38,14 +38,14 @@ describe('ng add analytics', () => {
       path.join(relativeApplicationPath, 'src/components/test/test.spec.ts').replace(/[/\\]+/g, '/'),
       path.join(relativeApplicationPath, 'src/components/test/test.scss').replace(/[/\\]+/g, '/'),
       path.join(relativeApplicationPath, 'src/components/test/test.html').replace(/[/\\]+/g, '/')
-    ].sort());
-    expect(diff.modified.sort()).toEqual([
+    ].toSorted());
+    expect(diff.modified.toSorted()).toEqual([
       'angular.json',
       'apps/test-app/package.json',
       'apps/test-app/src/app/app.ts',
       'package.json',
       isYarnTest ? 'yarn.lock' : 'package-lock.json'
-    ].sort());
+    ].toSorted());
 
     [libraryPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
       expect(diff.all.some((file) => file.startsWith(path.relative(workspacePath, untouchedProject).replace(/\\+/g, '/')))).toBe(false);
@@ -67,7 +67,7 @@ describe('ng add analytics', () => {
     const diff = getGitDiff(workspacePath);
 
     expect(diff.added).toContain(path.join(relativeLibraryPath, 'src/components/test/test-analytics.ts').replace(/[/\\]+/g, '/'));
-    expect(diff.added.sort()).toEqual([
+    expect(diff.added.toSorted()).toEqual([
       path.join(relativeLibraryPath, 'src/components/test/README.md').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'src/components/test/index.ts').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'src/components/test/test-analytics.ts').replace(/[/\\]+/g, '/'),
@@ -76,13 +76,13 @@ describe('ng add analytics', () => {
       path.join(relativeLibraryPath, 'src/components/test/test-context.ts').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'src/components/test/test.scss').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'src/components/test/test.html').replace(/[/\\]+/g, '/')
-    ].sort());
-    expect(diff.modified.sort()).toEqual([
+    ].toSorted());
+    expect(diff.modified.toSorted()).toEqual([
       'angular.json',
       'libs/test-lib/package.json',
       'package.json',
       isYarnTest ? 'yarn.lock' : 'package-lock.json'
-    ].sort());
+    ].toSorted());
 
     [applicationPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
       expect(diff.all.some((file) => file.startsWith(path.relative(workspacePath, untouchedProject).replace(/\\+/g, '/')))).toBe(false);

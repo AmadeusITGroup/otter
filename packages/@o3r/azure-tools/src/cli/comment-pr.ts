@@ -15,7 +15,10 @@ import {
 let comment: string | undefined;
 /**
  * How to use
+ * @example
+ * ```bash
  * yarn dlx -p @o3r/azure-tools o3r-comment-pr "[Deployed app]($(url))" -s Closed -I app-link -m Replace -T $(System.AccessToken)
+ * ```
  */
 program
   .arguments('<comment>')

@@ -36,7 +36,7 @@ describe('new otter application with configuration', () => {
     await addImportToAppModule(applicationPath, 'TestSignal', 'src/components/test-signal');
 
     const diff = getGitDiff(workspacePath);
-    expect(diff.added.sort()).toEqual([
+    expect(diff.added.toSorted()).toEqual([
       path.join(relativeApplicationPath, 'src/components/test-signal/README.md').replace(/[/\\]+/g, '/'),
       path.join(relativeApplicationPath, 'src/components/test-signal/index.ts').replace(/[/\\]+/g, '/'),
       path.join(relativeApplicationPath, 'src/components/test-signal/test-signal.ts').replace(/[/\\]+/g, '/'),
@@ -53,15 +53,15 @@ describe('new otter application with configuration', () => {
       path.join(relativeApplicationPath, 'src/components/test/test.spec.ts').replace(/[/\\]+/g, '/'),
       path.join(relativeApplicationPath, 'src/components/test/test.scss').replace(/[/\\]+/g, '/'),
       path.join(relativeApplicationPath, 'src/components/test/test.html').replace(/[/\\]+/g, '/')
-    ].sort());
-    expect(diff.modified.sort()).toEqual([
+    ].toSorted());
+    expect(diff.modified.toSorted()).toEqual([
       path.join(relativeApplicationPath, 'package.json').replace(/[/\\]+/g, '/'),
       path.join(relativeApplicationPath, 'src/app/app.ts').replace(/[/\\]+/g, '/'),
       path.join(relativeApplicationPath, 'src/main.ts').replace(/[/\\]+/g, '/'),
       'angular.json',
       'package.json',
       isYarnTest ? 'yarn.lock' : 'package-lock.json'
-    ].sort());
+    ].toSorted());
 
     [libraryPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
       expect(diff.all.some((file) => file.startsWith(path.relative(workspacePath, untouchedProject).replace(/\\+/g, '/')))).toBe(false);
@@ -95,7 +95,7 @@ describe('new otter application with configuration', () => {
 
     const packageJson = JSON.parse(fs.readFileSync(`${workspacePath}/package.json`, 'utf8'));
     expect(packageJson.dependencies['@o3r/configuration']).toBeDefined();
-    expect(diff.added.sort()).toEqual([
+    expect(diff.added.toSorted()).toEqual([
       path.join(relativeLibraryPath, 'src/components/test/test.scss').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'src/components/test/test-context.ts').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'src/components/test/test.html').replace(/[/\\]+/g, '/'),
@@ -112,13 +112,13 @@ describe('new otter application with configuration', () => {
       path.join(relativeLibraryPath, 'src/components/test-signal/test-signal-config.ts').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'src/components/test-signal/index.ts').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'src/components/test-signal/README.md').replace(/[/\\]+/g, '/')
-    ].sort());
-    expect(diff.modified.sort()).toEqual([
+    ].toSorted());
+    expect(diff.modified.toSorted()).toEqual([
       path.join(relativeLibraryPath, 'package.json').replace(/[/\\]+/g, '/'),
       'angular.json',
       'package.json',
       isYarnTest ? 'yarn.lock' : 'package-lock.json'
-    ].sort());
+    ].toSorted());
 
     [applicationPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
       expect(diff.all.some((file) => file.startsWith(path.relative(workspacePath, untouchedProject).replace(/\\+/g, '/')))).toBe(false);

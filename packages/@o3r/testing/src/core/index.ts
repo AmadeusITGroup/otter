@@ -5,3 +5,4 @@ export * from './elements';
 export * from './group';
 export * from './groups';
 export * from './page-fixture';
+export * from '../errors';

@@ -37,9 +37,9 @@ function convertToO3rComponentFn(options: ConvertToO3rComponentSchematicsSchema)
     );
 
     const recorder = tree.beginUpdate(options.path);
-    const changes = [];
-
-    changes.push(insertImport(sourceFile, options.path, 'O3rComponent', '@o3r/core'));
+    const changes = [
+      insertImport(sourceFile, options.path, 'O3rComponent', '@o3r/core')
+    ];
 
     const ngComponentDeclaration = sourceFile.statements.find((s): s is ts.ClassDeclaration => ts.isClassDeclaration(s) && isNgClassComponent(s));
 

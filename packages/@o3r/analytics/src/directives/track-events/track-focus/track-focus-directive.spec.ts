@@ -1,6 +1,7 @@
 import {
   Component,
   DebugElement,
+  provideZonelessChangeDetection,
 } from '@angular/core';
 import {
   ComponentFixture,
@@ -44,7 +45,11 @@ describe('Track focus directive:', () => {
   let buttonElement: DebugElement;
   let addEventSpy: jest.SpyInstance;
 
-  beforeEach(() => {
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [TestComponent],
+      providers: [provideZonelessChangeDetection()]
+    }).compileComponents();
     fixture = TestBed.createComponent(TestComponent);
     buttonElement = fixture.debugElement.query(By.css('button'));
     trackService = fixture.debugElement.injector.get(EventTrackService);
@@ -53,8 +58,8 @@ describe('Track focus directive:', () => {
 
   it('should capture 2 events when the tracking mode is active', () => {
     fixture.detectChanges();
-    buttonElement.triggerEventHandler('focus', null);
-    buttonElement.triggerEventHandler('focus', null);
+    buttonElement.nativeElement.dispatchEvent(new Event('focus'));
+    buttonElement.nativeElement.dispatchEvent(new Event('focus'));
 
     expect(addEventSpy).toHaveBeenCalledTimes(2);
   });
@@ -62,7 +67,7 @@ describe('Track focus directive:', () => {
   it('should send the context object', () => {
     fixture.detectChanges();
     const dummyEvent = new Event('focus');
-    buttonElement.triggerEventHandler('focus', dummyEvent);
+    buttonElement.nativeElement.dispatchEvent(dummyEvent);
     const expectedEventPayload: UiEventPayload = { nativeEvent: dummyEvent, context: dummyEventContext };
 
     expect(addEventSpy).toHaveBeenCalledWith(expectedEventPayload);
@@ -71,7 +76,7 @@ describe('Track focus directive:', () => {
   it('should stop tracking when tracking mode is off', () => {
     trackService.toggleUiTracking(false);
     fixture.detectChanges();
-    buttonElement.triggerEventHandler('focus', null);
+    buttonElement.nativeElement.dispatchEvent(new Event('focus'));
 
     expect(addEventSpy).not.toHaveBeenCalled();
   });
@@ -80,7 +85,7 @@ describe('Track focus directive:', () => {
     trackService.toggleUiTracking(false);
     trackService.toggleUiTracking(true);
     fixture.detectChanges();
-    buttonElement.triggerEventHandler('focus', null);
+    buttonElement.nativeElement.dispatchEvent(new Event('focus'));
 
     expect(addEventSpy).toHaveBeenCalledTimes(1);
   });
@@ -88,9 +93,10 @@ describe('Track focus directive:', () => {
   it('should receive the new event context', () => {
     const component = fixture.componentInstance;
     fixture.detectChanges();
-    buttonElement.triggerEventHandler('focus', null);
+    const event1 = new Event('focus');
+    buttonElement.nativeElement.dispatchEvent(event1);
 
-    expect(addEventSpy).toHaveBeenCalledWith({ nativeEvent: null, context: component.eventModel });
+    expect(addEventSpy).toHaveBeenCalledWith({ nativeEvent: event1, context: component.eventModel });
 
     const newModel = {
       ...dummyEventContext,
@@ -100,9 +106,12 @@ describe('Track focus directive:', () => {
       }
     };
     component.eventModel = newModel;
+    // In zoneless mode, we need to explicitly trigger change detection for the component
+    fixture.componentRef.changeDetectorRef.markForCheck();
     fixture.detectChanges();
-    buttonElement.triggerEventHandler('focus', null);
+    const event2 = new Event('focus');
+    buttonElement.nativeElement.dispatchEvent(event2);
 
-    expect(addEventSpy).toHaveBeenCalledWith({ nativeEvent: null, context: newModel });
+    expect(addEventSpy).toHaveBeenCalledWith({ nativeEvent: event2, context: newModel });
   });
 });

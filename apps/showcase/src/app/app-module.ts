@@ -2,6 +2,10 @@ import {
   ApiFetchClient,
 } from '@ama-sdk/client-fetch';
 import {
+  OTTER_STYLING_DEVTOOLS_OPTIONS,
+  StylingDevtoolsModule,
+} from '@ama-styling/devkit';
+import {
   registerLocaleData,
 } from '@angular/common';
 import localeEN from '@angular/common/locales/en';
@@ -9,6 +13,7 @@ import localeFR from '@angular/common/locales/fr';
 import {
   isDevMode,
   NgModule,
+  provideZonelessChangeDetection,
   SecurityContext,
 } from '@angular/core';
 import {
@@ -50,6 +55,9 @@ import {
   OTTER_CONFIGURATION_DEVTOOLS_OPTIONS,
 } from '@o3r/configuration';
 import {
+  provideDynamicContent,
+} from '@o3r/dynamic-content';
+import {
   LocalizationConfiguration,
   LocalizationDevtoolsModule,
   LocalizationModule,
@@ -69,16 +77,13 @@ import {
   RulesEngineRunnerModule,
 } from '@o3r/rules-engine';
 import {
-  OTTER_STYLING_DEVTOOLS_OPTIONS,
-  StylingDevtoolsModule,
-} from '@o3r/styling';
-import {
   PetApi,
 } from '@o3r-training/showcase-sdk';
 import {
   CLIPBOARD_OPTIONS,
   MARKED_EXTENSIONS,
   provideMarkdown,
+  SANITIZE,
 } from 'ngx-markdown';
 import {
   MonacoEditorModule,
@@ -172,7 +177,9 @@ export function localizationConfigurationFactory(): Partial<LocalizationConfigur
     MonacoEditorModule.forRoot()
   ],
   providers: [
+    provideZonelessChangeDetection(),
     provideCustomComponents(new Map(), withComponent('exampleDatePickerFlavorHebrew', DatePickerHebrewInputPres)),
+    provideDynamicContent(),
     { provide: MESSAGE_FORMAT_CONFIG, useValue: {} },
     { provide: LOGGER_CLIENT_TOKEN, useValue: new ConsoleLogger() },
     { provide: PetApi, useFactory: petApiFactory, deps: [LoggerService] },
@@ -197,7 +204,7 @@ export function localizationConfigurationFactory(): Partial<LocalizationConfigur
         }
       ],
       /* Templates are only internal, no need to sanitize */
-      sanitize: SecurityContext.NONE
+      sanitize: { provide: SANITIZE, useValue: SecurityContext.NONE }
     }),
     { provide: NGX_MONACO_EDITOR_CONFIG, useValue: { baseUrl: `${location.origin}${location.pathname}assets/monaco/min/vs` } }
   ],

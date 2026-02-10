@@ -28,7 +28,7 @@ import type {
 export interface GetRepositoriesUsingLibraryOptions extends CacheToolOptions, GithubToolOptions, ToolDefinition {
   /**
    * Scopes to look for when searching for repositories
-   * (e.g. for @ama-mcp/github, the scope is ama-mcp)
+   * (e.g. for `@ama-mcp/github`, the scope is ama-mcp)
    * Limit to 10 scopes to avoid hitting GitHub search API rate limit
    * @example ['ama-mcp', 'o3r']
    */
@@ -234,7 +234,7 @@ export function registerGetRepositoriesUsingLibraryTool(server: McpServer, optio
             text: (isLookingForRepos ? 'I did not finish to look for repositories. For the moment:\n' : '')
               + reposUsingLibrary.length
               ? `The following repositories use ${libraryName} dependencies:\n`
-              + reposUsingLibrary.sort().map((repo) => `- ${repo}`).join('\n')
+              + reposUsingLibrary.toSorted().map((repo) => `- ${repo}`).join('\n')
               : `No repositories found using ${libraryName} dependencies.`
           }
         ],

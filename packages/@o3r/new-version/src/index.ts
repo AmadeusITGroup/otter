@@ -18,7 +18,7 @@ export type BaseLogger = { debug: (log: string) => void; info: (log: string) => 
  * Options expected by the NewVersion plug-in
  */
 export interface NewVersionOptions<T extends BaseLogger> {
-  /** Logger, you can provide here core from @actions/core for example */
+  /** Logger, you can provide here core from `@actions/core` for example */
   logger: T;
 
   /** If the branching model supports a default branch on top of usual release branches, the branch name */
@@ -139,7 +139,7 @@ export class NewVersion {
     let parsedSortedTags = tags
       .map((tag) => semver.parse(tag.replace('V', 'v')))
       .filter((tag): tag is semver.SemVer => !!tag && !!regexpVersionMask.test(tag.raw))
-      .sort((v1, v2) => semver.compare(v2, v1));
+      .toSorted((v1, v2) => semver.compare(v2, v1));
 
     this.options.logger.debug('Parsed and sorted tags:');
     this.options.logger.debug(JSON.stringify(parsedSortedTags));

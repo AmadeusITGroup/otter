@@ -4,9 +4,11 @@
 
 import {
   DEFAULT_MANIFEST_FILENAMES,
+  generateValidationSchemaFiles,
   getLogger,
   installDependencies,
   type LogLevel,
+  OPENAPI_NPM_KEYWORDS,
   // eslint-disable-next-line import/no-unresolved -- Cannot resolve mjs file in current setup (see #3738)
 } from '@ama-openapi/core';
 import yargs from 'yargs';
@@ -25,15 +27,41 @@ void yargs(hideBin(process.argv))
     description: 'Determine the level of logs to display',
     default: 'error'
   })
-  .command('install', 'Install the OpenAPI specifications from manifest files', () => {}, async (args) => {
+
+  .command('generate-schema', 'Generate the schema that can be used for configuration auto completion', (yargsInstance) => {
+    return yargsInstance
+      .option('output', {
+        type: 'string',
+        alias: 'o',
+        description: 'Output directory where generating the schemas'
+      })
+      .option('keywords', {
+        type: 'string',
+        array: true,
+        alias: 'k',
+        default: OPENAPI_NPM_KEYWORDS,
+        description: 'List of NPM Keywords to use when searching for packages exposing OpenAPI specifications'
+      });
+  }, async (args) => {
+    const logger = args.logLevel === 'silent' ? undefined : getLogger(args.logLevel as LogLevel, console);
     try {
-      const logger = args.logLevel === 'silent' ? undefined : getLogger(args.logLevel as LogLevel, console);
-      await installDependencies(process.cwd(), { logger });
+      await generateValidationSchemaFiles(process.cwd(), { logger, outputDirectory: args.output, keywordsWhitelist: args.keywords.map(String) });
     } catch (e) {
-      console.error(e);
+      (logger?.error ?? console.error)(e);
       process.exit(1);
     }
   })
+
+  .command('install', 'Install the OpenAPI specifications from manifest files', () => {}, async (args) => {
+    const logger = args.logLevel === 'silent' ? undefined : getLogger(args.logLevel as LogLevel, console);
+    try {
+      await installDependencies(process.cwd(), { logger });
+    } catch (e) {
+      (logger?.error ?? console.error)(e);
+      process.exit(1);
+    }
+  })
+
   .command('watch', 'Watch and install the OpenAPI specifications from manifest files on changes', () => {}, async (args) => {
     const { watch } = await import('chokidar');
     const logger = args.logLevel === 'silent' ? undefined : getLogger(args.logLevel as LogLevel, console);
@@ -54,4 +82,6 @@ void yargs(hideBin(process.argv))
         });
     });
   })
+
+  .strictCommands()
   .parse();

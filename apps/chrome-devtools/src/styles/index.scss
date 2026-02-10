@@ -1,4 +1,4 @@
-@use '@design-factory/design-factory/design-factory.css';
+@use '@design-factory/styles/bundle.css';
 
 // TODO check why accordion are not working corectly without that
 .collapse:not(.show) {

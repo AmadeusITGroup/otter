@@ -45,7 +45,7 @@ module.exports.getJestProjectConfig = (rootDir, isAngularSetup) => {
       '\\.e2e\\.spec\\.ts$'
     ],
     fakeTimers: {
-      enableGlobally: true
+      enableGlobally: false // This breaks the initial setup with Angular21
     },
     transform: {
       // eslint-disable-next-line @typescript-eslint/naming-convention

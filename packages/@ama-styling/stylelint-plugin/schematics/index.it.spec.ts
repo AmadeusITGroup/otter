@@ -26,17 +26,17 @@ describe('ng add stylelint-plugin', () => {
     packageManagerExec({ script: 'ng', args: ['add', `@ama-styling/stylelint-plugin@${o3rVersion}`, '--enable-metadata-extract', '--skip-confirmation', '--project-name', appName] }, execAppOptions);
     const diff = getGitDiff(workspacePath);
 
-    expect(diff.modified.sort()).toEqual([
+    expect(diff.modified.toSorted()).toEqual([
       'apps/test-app/package.json',
       'package.json',
       isYarnTest ? 'yarn.lock' : 'package-lock.json'
-    ].sort());
+    ].toSorted());
     expect(diff.added.length).toBe(0);
 
     [libraryPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
       expect(diff.all.some((file) => file.startsWith(path.relative(workspacePath, untouchedProject).replace(/\\+/g, '/')))).toBe(false);
     });
-    packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:component', '--defaults', 'true', 'test', '--use-otter-theming', 'false', '--project-name', appName] }, execAppOptions);
+    packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:component', '--defaults', 'true', 'test', '--project-name', appName] }, execAppOptions);
 
     await addImportToAppModule(applicationPath, 'Test', 'src/components/test/test');
     await writeFile(path.join(applicationPath, '.stylelintrc.json'), JSON.stringify({
@@ -61,17 +61,17 @@ describe('ng add stylelint-plugin', () => {
     packageManagerExec({ script: 'ng', args: ['add', `@ama-styling/stylelint-plugin@${o3rVersion}`, '--enable-metadata-extract', '--skip-confirmation', '--project-name', libName] }, execAppOptions);
     const diff = getGitDiff(workspacePath);
 
-    expect(diff.modified.sort()).toEqual([
+    expect(diff.modified.toSorted()).toEqual([
       'libs/test-lib/package.json',
       'package.json',
       isYarnTest ? 'yarn.lock' : 'package-lock.json'
-    ].sort());
+    ].toSorted());
     expect(diff.added.length).toBe(0);
 
     [applicationPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
       expect(diff.all.some((file) => file.startsWith(path.relative(workspacePath, untouchedProject).replace(/\\+/g, '/')))).toBe(false);
     });
-    packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:component', '--defaults', 'true', 'test', '--use-otter-theming', 'false', '--project-name', libName] }, execAppOptions);
+    packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:component', '--defaults', 'true', 'test', '--project-name', libName] }, execAppOptions);
 
     await writeFile(path.join(libraryPath, '.stylelintrc.json'), JSON.stringify({
       plugins: [

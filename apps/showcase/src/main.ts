@@ -1,10 +1,14 @@
 import {
+  StylingDevtoolsMessageService,
+} from '@ama-styling/devkit';
+import {
   inject,
+  provideZonelessChangeDetection,
   runInInjectionContext,
 } from '@angular/core';
 import {
-  platformBrowserDynamic,
-} from '@angular/platform-browser-dynamic';
+  platformBrowser,
+} from '@angular/platform-browser';
 import {
   ApplicationDevtoolsConsoleService,
   ApplicationDevtoolsMessageService,
@@ -25,14 +29,11 @@ import {
   RulesEngineDevtoolsMessageService,
 } from '@o3r/rules-engine';
 import {
-  StylingDevtoolsMessageService,
-} from '@o3r/styling';
-import {
   AppModule,
 } from './app/app-module';
 
 document.body.dataset.dynamiccontentpath = localStorage.getItem('dynamicPath') || '';
-platformBrowserDynamic().bootstrapModule(AppModule)
+platformBrowser().bootstrapModule(AppModule, { applicationProviders: [provideZonelessChangeDetection()] })
   .then((m) => {
     runInInjectionContext(m.injector, () => {
       inject(ApplicationDevtoolsConsoleService);

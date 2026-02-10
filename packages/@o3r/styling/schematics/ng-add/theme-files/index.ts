@@ -21,8 +21,8 @@ import {
 
 /**
  * Added styling support
- * @param rootPath @see RuleFactory.rootPath
- * @param options @see RuleFactory.options
+ * @param rootPath {@link RuleFactory.rootPath}
+ * @param options {@link RuleFactory.options}
  * @param options.projectName
  */
 export function updateThemeFiles(rootPath: string, options: { projectName?: string | null | undefined }): Rule {

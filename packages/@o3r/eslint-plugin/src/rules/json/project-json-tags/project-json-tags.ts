@@ -6,7 +6,7 @@ import {
 } from '../../utils';
 
 /**
- * Options for the linter rules @o3r/project-json-tags
+ * Options for the linter rules `@o3r/project-json-tags`
  */
 export interface ProjectJsonTagsOptions {
   /**
@@ -47,7 +47,7 @@ export default createRule<[ProjectJsonTagsOptions, ...any], 'unsupportedTag' | '
   },
   defaultOptions,
   create: (context, [options]: Readonly<[ProjectJsonTagsOptions, ...any]>) => {
-    const allowedTags = new Set(options.allowedTags ?? []);
+    const allowedTags = new Set(options.allowedTags);
     const rule = (node: AST.JSONProperty) => {
       if (node.key.type !== 'JSONLiteral' || node.key?.value !== 'tags') {
         return;

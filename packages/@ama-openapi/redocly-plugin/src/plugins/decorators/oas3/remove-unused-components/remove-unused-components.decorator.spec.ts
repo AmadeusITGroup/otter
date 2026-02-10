@@ -701,6 +701,237 @@ describe('removeUnusedComponentsDecorator', () => {
     });
   });
 
+  describe('implicit discriminator (without mapping)', () => {
+    it('should handle oneOf composition with discriminator without mapping', () => {
+      const decorator = removeUnusedComponentsDecorator({});
+
+      // Base schema with discriminator
+      const animalSchema = {
+        type: 'object' as const,
+        discriminator: {
+          propertyName: 'animalType'
+        },
+        properties: {
+          animalType: { type: 'string' as const }
+        }
+      };
+      const animalSchemaCtx = {
+        location: { absolutePointer: '#/components/schemas/Animal' }
+      } as UserContext;
+
+      decorator.Schema.enter!(animalSchema, animalSchemaCtx);
+      // eslint-disable-next-line new-cap -- Part of the Redocly definition
+      decorator.NamedSchemas.Schema(animalSchema, animalSchemaCtx);
+
+      // Derived schema using oneOf
+      const petSchema = {
+        oneOf: [
+          { $ref: '#/components/schemas/Animal' }
+        ]
+      };
+      const petSchemaCtx = {
+        location: { absolutePointer: '#/components/schemas/Pet' }
+      } as UserContext;
+
+      // eslint-disable-next-line new-cap -- Part of the Redocly definition
+      decorator.NamedSchemas.Schema(petSchema, petSchemaCtx);
+      decorator.Schema.leave!(petSchema, petSchemaCtx);
+
+      // Use Pet from paths
+      const pathNode = {
+        '/pets': {
+          get: {
+            responses: {
+              200: {
+                content: {
+                  'application/json': {
+                    schema: { $ref: '#/components/schemas/Pet' }
+                  }
+                }
+              }
+            }
+          }
+        }
+      };
+      const pathCtx = {
+        location: { absolutePointer: '#/paths' }
+      } as UserContext;
+
+      decorator.Paths.leave!(pathNode, pathCtx);
+
+      const components = {
+        schemas: {
+          Animal: animalSchema,
+          Pet: petSchema
+        }
+      };
+      const componentsCtx = {
+        location: { absolutePointer: '#/components' }
+      } as UserContext;
+
+      decorator.Components.leave!(components, componentsCtx);
+
+      expect(components.schemas.Animal).toBeDefined();
+      expect(components.schemas.Pet).toBeDefined();
+    });
+
+    it('should handle anyOf composition with discriminator without mapping', () => {
+      const decorator = removeUnusedComponentsDecorator({});
+
+      // Base schema with discriminator
+      const shapeSchema = {
+        type: 'object' as const,
+        discriminator: {
+          propertyName: 'shapeType'
+        }
+      };
+      const shapeSchemaCtx = {
+        location: { absolutePointer: '#/components/schemas/Shape' }
+      } as UserContext;
+
+      decorator.Schema.enter!(shapeSchema, shapeSchemaCtx);
+      // eslint-disable-next-line new-cap -- Part of the Redocly definition
+      decorator.NamedSchemas.Schema(shapeSchema, shapeSchemaCtx);
+
+      // Derived schema using anyOf
+      const drawableSchema = {
+        anyOf: [
+          { $ref: '#/components/schemas/Shape' }
+        ]
+      };
+      const drawableSchemaCtx = {
+        location: { absolutePointer: '#/components/schemas/Drawable' }
+      } as UserContext;
+
+      // eslint-disable-next-line new-cap -- Part of the Redocly definition
+      decorator.NamedSchemas.Schema(drawableSchema, drawableSchemaCtx);
+      decorator.Schema.leave!(drawableSchema, drawableSchemaCtx);
+
+      // Use Drawable from paths
+      const pathNode = {
+        '/shapes': {
+          post: {
+            requestBody: {
+              content: {
+                'application/json': {
+                  schema: { $ref: '#/components/schemas/Drawable' }
+                }
+              }
+            }
+          }
+        }
+      };
+      const pathCtx = {
+        location: { absolutePointer: '#/paths' }
+      } as UserContext;
+
+      decorator.Paths.leave!(pathNode, pathCtx);
+
+      const components = {
+        schemas: {
+          Shape: shapeSchema,
+          Drawable: drawableSchema
+        }
+      };
+      const componentsCtx = {
+        location: { absolutePointer: '#/components' }
+      } as UserContext;
+
+      decorator.Components.leave!(components, componentsCtx);
+
+      expect(components.schemas.Shape).toBeDefined();
+      expect(components.schemas.Drawable).toBeDefined();
+    });
+
+    it('should not affect schemas with discriminator that has explicit mapping', () => {
+      const decorator = removeUnusedComponentsDecorator({});
+
+      // Base schema with discriminator AND mapping
+      const vehicleSchema = {
+        type: 'object' as const,
+        discriminator: {
+          propertyName: 'vehicleType',
+          mapping: {
+            car: '#/components/schemas/Car',
+            truck: '#/components/schemas/Truck'
+          }
+        }
+      };
+      const vehicleSchemaCtx = {
+        location: { absolutePointer: '#/components/schemas/Vehicle' }
+      } as UserContext;
+
+      decorator.Schema.enter!(vehicleSchema, vehicleSchemaCtx);
+      decorator.Discriminator.leave!(vehicleSchema.discriminator, vehicleSchemaCtx);
+      // eslint-disable-next-line new-cap -- Part of the Redocly definition
+      decorator.NamedSchemas.Schema(vehicleSchema, vehicleSchemaCtx);
+
+      const carSchema = {
+        allOf: [
+          { $ref: '#/components/schemas/Vehicle' }
+        ]
+      };
+      const carSchemaCtx = {
+        location: { absolutePointer: '#/components/schemas/Car' }
+      } as UserContext;
+
+      // eslint-disable-next-line new-cap -- Part of the Redocly definition
+      decorator.NamedSchemas.Schema(carSchema, carSchemaCtx);
+
+      const truckSchema = {
+        allOf: [
+          { $ref: '#/components/schemas/Vehicle' }
+        ]
+      };
+      const truckSchemaCtx = {
+        location: { absolutePointer: '#/components/schemas/Truck' }
+      } as UserContext;
+
+      // eslint-disable-next-line new-cap -- Part of the Redocly definition
+      decorator.NamedSchemas.Schema(truckSchema, truckSchemaCtx);
+
+      // Use Vehicle from paths
+      const pathNode = {
+        '/vehicles': {
+          get: {
+            responses: {
+              200: {
+                content: {
+                  'application/json': {
+                    schema: { $ref: '#/components/schemas/Vehicle' }
+                  }
+                }
+              }
+            }
+          }
+        }
+      };
+      const pathCtx = {
+        location: { absolutePointer: '#/paths' }
+      } as UserContext;
+
+      decorator.Paths.leave!(pathNode, pathCtx);
+
+      const components = {
+        schemas: {
+          Vehicle: vehicleSchema,
+          Car: carSchema,
+          Truck: truckSchema
+        }
+      };
+      const componentsCtx = {
+        location: { absolutePointer: '#/components' }
+      } as UserContext;
+
+      decorator.Components.leave!(components, componentsCtx);
+
+      // With explicit mapping, all mapped schemas should be kept
+      expect(components.schemas.Vehicle).toBeDefined();
+      expect(components.schemas.Car).toBeDefined();
+      expect(components.schemas.Truck).toBeDefined();
+    });
+  });
+
   describe('edge cases', () => {
     it('should handle null values in objects', () => {
       const decorator = removeUnusedComponentsDecorator({});

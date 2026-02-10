@@ -201,9 +201,6 @@ export class NgComponent {}
       expect(componentFileContent).toContain('from \'./other-test-analytics\'');
       expect(componentFileContent).toContain('Trackable<OtherTestAnalytics>');
       expect(componentFileContent).toContain('public readonly analyticsEvents: OtherTestAnalytics = analyticsEvents');
-      const moduleFileContent = tree.readText(o3rOtherTestModulePath);
-      expect(moduleFileContent).toContain('from \'@o3r/analytics\'');
-      expect(moduleFileContent).toContain('TrackEventsModule');
     });
   });
 });

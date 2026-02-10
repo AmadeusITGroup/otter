@@ -27,9 +27,6 @@ export interface NgGenerateComponentSchematicsSchema extends SchematicOptionObje
   /** Indicates if the component should generate fixtures */
   useComponentFixtures?: boolean | undefined;
 
-  /** Indicates if the component should use otter theming architecture */
-  useOtterTheming?: boolean | undefined;
-
   /** Indicates if the component should use Design Token Specifications */
   useOtterDesignToken?: boolean | undefined;
 

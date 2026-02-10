@@ -9,7 +9,7 @@ export interface NgAddSchematicsSchema extends NgAddOptions, SchematicOptionObje
 
   /**
    * Skip the code sample generated in application to register the ApiManager
-   * If `false`, a dependency to @ama-sdk/client-fetch will be added
+   * If `false`, a dependency to `@ama-sdk/client-fetch` will be added
    */
   skipCodeSample?: boolean;
 }

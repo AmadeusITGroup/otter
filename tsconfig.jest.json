@@ -5,7 +5,11 @@
     "strictNullChecks": false,
     "types": ["node", "jest"],
     "composite": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "emitDecoratorMetadata": false,
+    "module": "commonjs",
+    "moduleResolution": "node"
   },
   "include": [],
   "exclude": ["**/*.e2e.spec.ts"]
