@@ -44,7 +44,7 @@ export const generateMaskSchemaModelAt = async (modelPath: string, ctx: MaskCont
 
   if (ctx.parsedFiles?.includes(modelPath)) {
     logger?.warn(`The reference ${modelPath} is circular, it will be resolve to "any"`);
-    return {};
+    return undefined;
   }
 
   const [filePath, innerPath] = modelPath.split('#/');
@@ -100,7 +100,7 @@ export const generateMaskSchemaModelAt = async (modelPath: string, ctx: MaskCont
  * @param model Model object
  * @param ctx Mask context
  */
-export const generateMaskSchemaFromModel = async (model: any, ctx: MaskContext): Promise<Record<string, any>> => {
+export const generateMaskSchemaFromModel = async (model: any, ctx: MaskContext): Promise<Record<string, any> | undefined> => {
   // Primitive types
   if (typeof model !== 'object' || !model) {
     return {
@@ -116,9 +116,11 @@ export const generateMaskSchemaFromModel = async (model: any, ctx: MaskContext):
   if (Array.isArray(model)) {
     return {
       type: 'array',
-      prefixItems: await Promise.all(
-        model.map((item) => generateMaskSchemaFromModel(item, ctx))
-      )
+      prefixItems: (
+        await Promise.all(
+          model.map((item) => generateMaskSchemaFromModel(item, ctx))
+        )
+      ).filter((item) => !!item)
     };
   }
 
@@ -137,21 +139,22 @@ export const generateMaskSchemaFromModel = async (model: any, ctx: MaskContext):
           ? {
             properties: {
               type: 'object',
-              properties: Object.fromEntries(
+              properties: Object.fromEntries((
                 await Promise.all(
-                  Object.entries(model.properties).map(async ([key, value]) => ([key, await generateMaskSchemaFromModel(value, ctx)]))
+                  Object.entries(model.properties)
+                    .map(async ([key, value]) => ([key, await generateMaskSchemaFromModel(value, ctx)]))
                 )
-              )
+              ).filter(([, value]) => !!value))
             }
           }
           : {},
-        ...Object.fromEntries(
+        ...Object.fromEntries((
           await Promise.all(
             Object.entries(model)
               .filter(([key]) => !['properties', 'type', '$ref'].includes(key))
               .map(async ([key, value]) => ([key, await generateMaskSchemaFromModel(value, ctx)]))
           )
-        )
+        ).filter(([, value]) => !!value))
       }
     };
   }
