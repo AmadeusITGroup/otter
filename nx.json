@@ -49,14 +49,10 @@
       "!{projectRoot}/src/**/*.spec.ts",
       "!{projectRoot}/src/**/*.spec.scss"
     ],
-    "templates-only": [
+    "templates": [
       "{projectRoot}/templates/**",
       "{projectRoot}/schematics/**/templates/**",
       "{projectRoot}/builders/**/templates/**"
-    ],
-    "templates": [
-      "templates-only",
-      "source"
     ],
     "jasmine-fixtures": [
       "base",
@@ -338,6 +334,24 @@
       ],
       "cache": true
     },
+    "expose-templates": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "copy:templates"
+      },
+      "dependsOn": [
+        "compile"
+      ],
+      "inputs": [
+        "templates"
+      ],
+      "outputs": [
+        "{projectRoot}/dist/templates/**",
+        "{projectRoot}/dist/schematics/**/templates/**",
+        "{projectRoot}/dist/builders/**/templates/**"
+      ],
+      "cache": true
+    },
     "expose-schemas": {
       "executor": "nx:run-script",
       "options": {
@@ -446,7 +460,8 @@
         "compile"
       ],
       "inputs": [
-        "build",
+        "schematics",
+        "builders",
         "^cli"
       ],
       "outputs": [
