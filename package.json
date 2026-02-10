@@ -227,7 +227,7 @@
     "@yarnpkg/sdks": "^3.2.0",
     "ag-grid-angular": "~35.0.0",
     "ag-grid-community": "~35.0.0",
-    "angular-eslint": "~21.1.0",
+    "angular-eslint": "~21.2.0",
     "angular-split": "^20.0.0",
     "babel-loader": "^10.0.0",
     "bootstrap": "5.3.8",

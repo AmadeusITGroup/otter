@@ -45,7 +45,7 @@
     "@types/semver": "^7.3.13",
     "@types/swagger-schema-official": "^2.0.22",
     "@typescript-eslint/parser": "~8.54.0",
-    "angular-eslint": "~21.1.0",
+    "angular-eslint": "~21.2.0",
     "concurrently": "^9.1.0",
     "cpy-cli": "^6.0.0",
     "eslint": "~9.39.0",
