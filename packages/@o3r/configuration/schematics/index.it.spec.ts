@@ -94,7 +94,7 @@ describe('new otter application with configuration', () => {
     expect(angularJSON.cli?.schematicCollections?.indexOf('@o3r/configuration') > -1).toBe(true);
 
     const packageJson = JSON.parse(fs.readFileSync(`${workspacePath}/package.json`, 'utf8'));
-    expect(packageJson.dependencies['@o3r/configuration']).toBeDefined();
+    expect(packageJson.devDependencies['@o3r/configuration']).toBeDefined();
     expect(diff.added.toSorted()).toEqual([
       path.join(relativeLibraryPath, 'src/components/test/test.scss').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'src/components/test/test-context.ts').replace(/[/\\]+/g, '/'),
