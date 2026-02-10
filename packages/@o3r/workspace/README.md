@@ -39,7 +39,7 @@ Replace the packages version in a monorepos
 Options:
 
   -p, --placeholder <placeholder>  Pattern of the version placeholder (default: 0.0.0)
-  --include <file>                 Add files pattern to apply the verison replacement (default: */lerna.json,**/package.json,!**/node_modules/**/{package,lerna}.json)
+  --include <file>                 Add files pattern to apply the verison replacement (default: '**/package.json', '**/lerna.json', '!**/templates', '!**/node_modules')
   --set-public                     Enforce the package to be public
   -V, --verbose                    Display debug logs
   -h, --help                       output usage information
