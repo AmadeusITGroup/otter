@@ -171,7 +171,7 @@
   },
   "dependencies": {
     "@o3r/schematics": "workspace:~",
-    "esbuild": "~0.25.1",
+    "esbuild": "~0.27.0",
     "tslib": "^2.6.2"
   },
   "devDependencies": {
@@ -203,7 +203,7 @@
     "@o3r/test-helpers": "workspace:~",
     "@playwright/test": "~1.58.0",
     "@schematics/angular": "~21.1.0",
-    "@standard-schema/spec": "~1.0.0",
+    "@standard-schema/spec": "~1.1.0",
     "@stylistic/eslint-plugin": "~5.7.0",
     "@swc/helpers": "~0.5.17",
     "@types/jest": "~30.0.0",
@@ -231,7 +231,7 @@
     "jest-junit": "~16.0.0",
     "jest-preset-angular": "~16.0.0",
     "jest-util": "~30.2.0",
-    "jsdom": "~27.3.0",
+    "jsdom": "~27.4.0",
     "jsonc-eslint-parser": "~2.4.0",
     "nx": "~22.4.0",
     "pixelmatch": "^7.0.0",
