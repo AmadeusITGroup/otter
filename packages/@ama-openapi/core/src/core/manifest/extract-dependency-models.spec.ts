@@ -41,6 +41,7 @@ describe('extract-dependency-models', () => {
     const mockDependencyName = 'test-dependency';
     const mockModel = {
       name: 'TestModel',
+      filePath: './models/test-model.json',
       path: './models/test-model.json',
       transform: 'test-transform'
     };

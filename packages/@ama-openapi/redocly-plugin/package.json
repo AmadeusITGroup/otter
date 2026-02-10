@@ -62,7 +62,6 @@
     "@redocly/openapi-core": "~2.11.0",
     "@stylistic/eslint-plugin": "~5.7.0",
     "@types/jest": "~30.0.0",
-    "@types/js-yaml": "^4.0.5",
     "@types/minimist": "^1.2.2",
     "@types/node": "~24.10.0",
     "@types/semver": "^7.3.13",
