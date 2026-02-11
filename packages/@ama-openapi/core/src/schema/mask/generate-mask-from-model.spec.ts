@@ -62,7 +62,7 @@ describe('generateMaskSchemaModelAt', () => {
     expect(ctx.logger?.warn).toHaveBeenCalledWith(
       `The reference ${modelPath} is circular, it will be resolve to "any"`
     );
-    expect(result).toEqual({});
+    expect(result).toEqual(undefined);
     expect(parseFileMock).not.toHaveBeenCalled();
   });
 
