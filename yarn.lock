@@ -1057,7 +1057,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:~"
     "@o3r/telemetry": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@redocly/openapi-core": "npm:~2.15.0"
+    "@redocly/openapi-core": "npm:~2.16.0"
     "@stylistic/eslint-plugin": "npm:~5.7.0"
     "@types/jest": "npm:~30.0.0"
     "@types/minimist": "npm:^1.2.2"
@@ -14114,9 +14114,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@redocly/openapi-core@npm:~2.15.0":
-  version: 2.15.2
-  resolution: "@redocly/openapi-core@npm:2.15.2"
+"@redocly/openapi-core@npm:~2.16.0":
+  version: 2.16.0
+  resolution: "@redocly/openapi-core@npm:2.16.0"
   dependencies:
     "@redocly/ajv": "npm:^8.17.2"
     "@redocly/config": "npm:^0.41.4"
@@ -14128,7 +14128,7 @@ __metadata:
     picomatch: "npm:^4.0.3"
     pluralize: "npm:^8.0.0"
     yaml-ast-parser: "npm:0.0.43"
-  checksum: 10/3d39bef244be3daa6fa3679b3a27d6118a3091a80a9f02ac24f6bff2ce9be7c52a82bf3a33ddccde9d85d4fca9e443b3cd590b3f754c64cc5b7758872adf8270
+  checksum: 10/d9711ed7b5417837ce814b8e2c8f51c48d0c63adb79a6fc226afc01b6ce6aa77be9c30158b0331ebc19be258e5a667e96632c9ae7f7d57cb66f3c87a1074fc9f
   languageName: node
   linkType: hard
 
