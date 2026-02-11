@@ -21,6 +21,12 @@
       "options": {
         "script": "prepare:build:builders"
       },
+      "inputs": [
+        "schematics",
+        "builders",
+        "^cli",
+        "{projectRoot}/schematics/**/*.jar"
+      ],
       "outputs": [
         "{projectRoot}/dist/package.json",
         "{projectRoot}/dist/builders.json",
@@ -50,10 +56,6 @@
         "{projectRoot}/dist/schematics/**/*.js",
         "{projectRoot}/dist/schematics/**/*.d.ts",
         "{projectRoot}/dist/schematics/**/*.d.ts.map",
-        "{projectRoot}/dist/middlewares/package.json",
-        "{projectRoot}/dist/middlewares/**/*.js",
-        "{projectRoot}/dist/middlewares/**/*.d.ts",
-        "{projectRoot}/dist/middlewares/**/*.d.ts.map",
         "{projectRoot}/build/.tsbuildinfo.builders"
       ]
     },
