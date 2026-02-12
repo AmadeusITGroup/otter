@@ -44,18 +44,23 @@
       "options": {
         "script": "build:builders"
       },
+      "inputs": [
+        "schematics",
+        "source",
+        "^source"
+      ],
       "outputs": [
         "{projectRoot}/dist/src/**/*.js",
         "{projectRoot}/dist/src/**/*.d.ts",
-        "{projectRoot}/dist/src/**/*.d.ts.map",
+        "{projectRoot}/dist/src/**/*.map",
         "{projectRoot}/dist/builders/package.json",
         "{projectRoot}/dist/builders/**/*.js",
         "{projectRoot}/dist/builders/**/*.d.ts",
-        "{projectRoot}/dist/builders/**/*.d.ts.map",
+        "{projectRoot}/dist/builders/**/*.map",
         "{projectRoot}/dist/schematics/package.json",
         "{projectRoot}/dist/schematics/**/*.js",
         "{projectRoot}/dist/schematics/**/*.d.ts",
-        "{projectRoot}/dist/schematics/**/*.d.ts.map",
+        "{projectRoot}/dist/schematics/**/*.map",
         "{projectRoot}/build/.tsbuildinfo.builders"
       ]
     },
