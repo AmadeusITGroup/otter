@@ -492,10 +492,9 @@
         "{projectRoot}/dist/cli/package.json",
         "{projectRoot}/dist/cli/**/*.cjs",
         "{projectRoot}/dist/cli/**/*.d.cts",
-        "{projectRoot}/dist/cli/**/*.d.cts.map",
         "{projectRoot}/dist/cli/**/*.js",
         "{projectRoot}/dist/cli/**/*.d.ts",
-        "{projectRoot}/dist/cli/**/*.d.ts.map"
+        "{projectRoot}/dist/cli/**/*.map"
       ],
       "cache": true
     },
@@ -520,17 +519,17 @@
         "{projectRoot}/dist/builders/**/*.cjs",
         "{projectRoot}/dist/builders/**/*.js",
         "{projectRoot}/dist/builders/**/*.d.ts",
-        "{projectRoot}/dist/builders/**/*.d.ts.map",
+        "{projectRoot}/dist/builders/**/*.map",
         "{projectRoot}/dist/schematics/package.json",
         "{projectRoot}/dist/schematics/**/*.cjs",
         "{projectRoot}/dist/schematics/**/*.js",
         "{projectRoot}/dist/schematics/**/*.d.ts",
-        "{projectRoot}/dist/schematics/**/*.d.ts.map",
+        "{projectRoot}/dist/schematics/**/*.map",
         "{projectRoot}/dist/middlewares/package.json",
         "{projectRoot}/dist/middlewares/**/*.cjs",
         "{projectRoot}/dist/middlewares/**/*.js",
         "{projectRoot}/dist/middlewares/**/*.d.ts",
-        "{projectRoot}/dist/middlewares/**/*.d.ts.map",
+        "{projectRoot}/dist/middlewares/**/*.map",
         "{projectRoot}/build/.tsbuildinfo.builders",
         "{projectRoot}/build/.tsbuildinfo.schematics"
       ],

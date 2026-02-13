@@ -94,7 +94,7 @@
     "typescript-eslint": "~8.54.0"
   },
   "generatorDependencies": {
-    "@redocly/openapi-core": "~2.11.0"
+    "@redocly/openapi-core": "~2.15.0"
   },
   "engines": {
     "node": "^20.19.0 || ^22.17.0 || ^24.0.0",
