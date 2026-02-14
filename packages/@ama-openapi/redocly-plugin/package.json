@@ -59,7 +59,7 @@
     "@o3r/eslint-plugin": "workspace:~",
     "@o3r/telemetry": "workspace:~",
     "@o3r/test-helpers": "workspace:~",
-    "@redocly/openapi-core": "~2.16.0",
+    "@redocly/openapi-core": "~2.17.0",
     "@stylistic/eslint-plugin": "~5.7.0",
     "@types/jest": "~30.0.0",
     "@types/minimist": "^1.2.2",
