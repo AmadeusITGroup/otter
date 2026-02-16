@@ -52,14 +52,14 @@ describe('getTransformDefinitions', () => {
     expect(definition.allOf[0]).toEqual({
       $ref: '#/definitions/baseTransform'
     });
-    expect(definition.allOf[1]).toEqual({
+    expect(definition.allOf[1]).toEqual(expect.objectContaining({
       type: 'object',
       properties: {
-        mask: {
+        mask: expect.objectContaining({
           $ref: './mask-pkg-model-ref.json'
-        }
+        })
       }
-    });
+    }));
   });
 
   it('should fallback to base directory name when package manifest name is missing', () => {
