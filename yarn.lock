@@ -1057,7 +1057,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:~"
     "@o3r/telemetry": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@redocly/openapi-core": "npm:~2.16.0"
+    "@redocly/openapi-core": "npm:~2.17.0"
     "@stylistic/eslint-plugin": "npm:~5.7.0"
     "@types/jest": "npm:~30.0.0"
     "@types/minimist": "npm:^1.2.2"
@@ -1911,7 +1911,7 @@ __metadata:
     jest-util: "npm:~30.2.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~22.5.0"
-    style-dictionary: "npm:~5.2.0"
+    style-dictionary: "npm:~5.3.0"
     ts-jest: "npm:~29.4.0"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^5.3.1"
@@ -4629,22 +4629,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@bundled-es-modules/glob@npm:^11.1.0":
-  version: 11.1.0
-  resolution: "@bundled-es-modules/glob@npm:11.1.0"
+"@bundled-es-modules/glob@npm:^13.0.1":
+  version: 13.0.1
+  resolution: "@bundled-es-modules/glob@npm:13.0.1"
   dependencies:
     buffer: "npm:^6.0.3"
     events: "npm:^3.3.0"
-    glob: "npm:^11.1.0"
+    glob: "npm:^13.0.1"
     path: "npm:^0.12.7"
     stream: "npm:^0.0.3"
     string_decoder: "npm:^1.3.0"
     url: "npm:^0.11.4"
-  checksum: 10/85b823a9ddcc35a57b422b64746419ea5466e3fc77caa2af5c7d575286ea2e2c881adfefd2595ea393086943ca4b5975f2c7f898d239e209cf3fa9b6098a6fda
+  checksum: 10/4c71045fd2b2a72e7ee6334ac1e7d403011ee3a1df5a979b2b50d54512757209b4630110e73c25418e72c222c0d92413472bd4abb36cff9b115f749f3a1a5c5c
   languageName: node
   linkType: hard
 
-"@bundled-es-modules/memfs@npm:^4.9.4":
+"@bundled-es-modules/memfs@npm:^4.17.0":
   version: 4.17.0
   resolution: "@bundled-es-modules/memfs@npm:4.17.0"
   dependencies:
@@ -11921,7 +11921,7 @@ __metadata:
     rimraf: "npm:^6.0.1"
     rxjs: "npm:^7.8.1"
     sass-loader: "npm:^16.0.0"
-    style-dictionary: "npm:~5.2.0"
+    style-dictionary: "npm:~5.3.0"
     ts-jest: "npm:~29.4.0"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.9.2"
@@ -14114,9 +14114,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@redocly/openapi-core@npm:~2.16.0":
-  version: 2.16.0
-  resolution: "@redocly/openapi-core@npm:2.16.0"
+"@redocly/openapi-core@npm:~2.17.0":
+  version: 2.17.0
+  resolution: "@redocly/openapi-core@npm:2.17.0"
   dependencies:
     "@redocly/ajv": "npm:^8.17.2"
     "@redocly/config": "npm:^0.41.4"
@@ -14128,7 +14128,7 @@ __metadata:
     picomatch: "npm:^4.0.3"
     pluralize: "npm:^8.0.0"
     yaml-ast-parser: "npm:0.0.43"
-  checksum: 10/d9711ed7b5417837ce814b8e2c8f51c48d0c63adb79a6fc226afc01b6ce6aa77be9c30158b0331ebc19be258e5a667e96632c9ae7f7d57cb66f3c87a1074fc9f
+  checksum: 10/eff7203256fe9a40f0afbe12708f706e36503dcec03fea056f291b44006f34a1a53d7c861bc8744f63b6c88d247aa0923d436f7c819d8d12ad45509a250a5475
   languageName: node
   linkType: hard
 
@@ -19628,6 +19628,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"balanced-match@npm:^4.0.2":
+  version: 4.0.2
+  resolution: "balanced-match@npm:4.0.2"
+  dependencies:
+    jackspeak: "npm:^4.2.3"
+  checksum: 10/862d6e14832a45558bdd2bc4663ba6d8e7ba60670a6cb1ef952a62348d5f086b16ee71a21b369f0fee808432590c724c823a80cb59eddd140b5ffa3f55497b62
+  languageName: node
+  linkType: hard
+
 "bare-events@npm:^2.5.4, bare-events@npm:^2.7.0":
   version: 2.8.2
   resolution: "bare-events@npm:2.8.2"
@@ -19977,6 +19986,15 @@ __metadata:
   dependencies:
     balanced-match: "npm:^1.0.0"
   checksum: 10/01dff195e3646bc4b0d27b63d9bab84d2ebc06121ff5013ad6e5356daa5a9d6b60fa26cf73c74797f2dc3fbec112af13578d51f75228c1112b26c790a87b0488
+  languageName: node
+  linkType: hard
+
+"brace-expansion@npm:^5.0.2":
+  version: 5.0.2
+  resolution: "brace-expansion@npm:5.0.2"
+  dependencies:
+    balanced-match: "npm:^4.0.2"
+  checksum: 10/18d382c0919c68f8bb56fbe4a9cb1181a0bf10e6786b5683e586493dfbb517bdcf972f4a3a8d560486627fd9c9c6ecef0a2b8fd454eb6082780307ffd5586251
   languageName: node
   linkType: hard
 
@@ -20995,7 +21013,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"colorjs.io@npm:^0.5.0":
+"colorjs.io@npm:^0.5.0, colorjs.io@npm:^0.5.2":
   version: 0.5.2
   resolution: "colorjs.io@npm:0.5.2"
   checksum: 10/a6f6345865b177d19481008cb299c46ec9ff1fd206f472cd9ef69ddbca65832c81237b19fdcd24f3f9540c3e6343a22eb486cd800f5eab9815ce7c98c16a0f0e
@@ -25741,7 +25759,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"glob@npm:13.0.1, glob@npm:^13.0.0":
+"glob@npm:13.0.1":
   version: 13.0.1
   resolution: "glob@npm:13.0.1"
   dependencies:
@@ -25768,7 +25786,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"glob@npm:^11.0.0, glob@npm:^11.1.0":
+"glob@npm:^11.0.0":
   version: 11.1.0
   resolution: "glob@npm:11.1.0"
   dependencies:
@@ -25781,6 +25799,17 @@ __metadata:
   bin:
     glob: dist/esm/bin.mjs
   checksum: 10/da4501819633daff8822c007bb3f93d5c4d2cbc7b15a8e886660f4497dd251a1fb4f53a85fba1e760b31704eff7164aeb2c7a82db10f9f2c362d12c02fe52cf3
+  languageName: node
+  linkType: hard
+
+"glob@npm:^13.0.0, glob@npm:^13.0.1":
+  version: 13.0.3
+  resolution: "glob@npm:13.0.3"
+  dependencies:
+    minimatch: "npm:^10.2.0"
+    minipass: "npm:^7.1.2"
+    path-scurry: "npm:^2.0.0"
+  checksum: 10/38a9c78de078f61df1a555badf1198833c298fd3320520c93504a499f14afed6c37c892c576119f05e4d94981a4550a1a2246e826ffa6894a427004aff5b78b2
   languageName: node
   linkType: hard
 
@@ -27888,12 +27917,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jackspeak@npm:^4.1.1":
-  version: 4.2.1
-  resolution: "jackspeak@npm:4.2.1"
+"jackspeak@npm:^4.1.1, jackspeak@npm:^4.2.3":
+  version: 4.2.3
+  resolution: "jackspeak@npm:4.2.3"
   dependencies:
     "@isaacs/cliui": "npm:^9.0.0"
-  checksum: 10/9f60509748f74c6775a28d9eb05c44cc39ff85607c7b79a359d685f8f5722d1e0039f8c1476b2a1ac78ee1a22daae6882c9f929ac8bb76837f4dabb5cae0ed6f
+  checksum: 10/b88e3fe5fa04d34f0f939a15b7cef4a8589999b7a366ef89a3e0f2c45d2a7666066b67cbf46d57c3a4796a76d27b9d869b23d96a803dd834200d222c2a70de7e
   languageName: node
   linkType: hard
 
@@ -30434,12 +30463,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minimatch@npm:^10.0.1, minimatch@npm:^10.0.3, minimatch@npm:^10.1.1, minimatch@npm:^10.1.2, minimatch@npm:~10.1.0":
-  version: 10.1.2
-  resolution: "minimatch@npm:10.1.2"
+"minimatch@npm:^10.0.1, minimatch@npm:^10.0.3, minimatch@npm:^10.1.1, minimatch@npm:^10.1.2, minimatch@npm:^10.2.0":
+  version: 10.2.0
+  resolution: "minimatch@npm:10.2.0"
   dependencies:
-    "@isaacs/brace-expansion": "npm:^5.0.1"
-  checksum: 10/6f0ef975463739207144e411bdd54f7205ce38770b162fa3bc4c9be4987a16cb20d0962a82f26c2372598cfba90faa97b327239d303b529b774f17681c163b46
+    brace-expansion: "npm:^5.0.2"
+  checksum: 10/3ceceac1c66b4702236ea00b4fb9ad7a16d44f7a4f380fe838f99fbb3577ed4b15e6beb48e01367f597817f8b0ad6a53a220be2bafaa36d0b04fabdd7d2070c2
   languageName: node
   linkType: hard
 
@@ -30467,6 +30496,15 @@ __metadata:
   dependencies:
     brace-expansion: "npm:^2.0.1"
   checksum: 10/dd6a8927b063aca6d910b119e1f2df6d2ce7d36eab91de83167dd136bb85e1ebff97b0d3de1cb08bd1f7e018ca170b4962479fefab5b2a69e2ae12cb2edc8348
+  languageName: node
+  linkType: hard
+
+"minimatch@npm:~10.1.0":
+  version: 10.1.2
+  resolution: "minimatch@npm:10.1.2"
+  dependencies:
+    "@isaacs/brace-expansion": "npm:^5.0.1"
+  checksum: 10/6f0ef975463739207144e411bdd54f7205ce38770b162fa3bc4c9be4987a16cb20d0962a82f26c2372598cfba90faa97b327239d303b529b774f17681c163b46
   languageName: node
   linkType: hard
 
@@ -36764,16 +36802,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"style-dictionary@npm:~5.2.0":
-  version: 5.2.0
-  resolution: "style-dictionary@npm:5.2.0"
+"style-dictionary@npm:~5.3.0":
+  version: 5.3.0
+  resolution: "style-dictionary@npm:5.3.0"
   dependencies:
     "@bundled-es-modules/deepmerge": "npm:^4.3.1"
-    "@bundled-es-modules/glob": "npm:^11.1.0"
-    "@bundled-es-modules/memfs": "npm:^4.9.4"
+    "@bundled-es-modules/glob": "npm:^13.0.1"
+    "@bundled-es-modules/memfs": "npm:^4.17.0"
     "@zip.js/zip.js": "npm:^2.7.44"
     chalk: "npm:^5.3.0"
     change-case: "npm:^5.3.0"
+    colorjs.io: "npm:^0.5.2"
     commander: "npm:^12.1.0"
     is-plain-obj: "npm:^4.1.0"
     json5: "npm:^2.2.2"
@@ -36782,7 +36821,7 @@ __metadata:
     tinycolor2: "npm:^1.6.0"
   bin:
     style-dictionary: bin/style-dictionary.js
-  checksum: 10/7e53c85115ab3179ddcf7c4647fd4a8cdbc767afbf94c195a777c93fc525fc207d3808df652f1f7ad7d4da828decbc9a23207933e5875a1154d7c0ccc14922fb
+  checksum: 10/eba46341304d8191b4fc28a9ea7d7b4c56d75b1767fd4cd611c6c21fe9b88f6e1f90da33c2770fa12aba699735d037a9cd78cb664593325498486105de8eb7d6
   languageName: node
   linkType: hard
 
