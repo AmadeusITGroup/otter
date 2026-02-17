@@ -137,6 +137,39 @@ jobs:
       skipNxCache: ${{ vars.NX_SKIP_NX_CACHE == 'true' || github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release') && !endsWith(github.ref, '-next') }}
       skipNxRemoteCache: ${{ needs.setupVars.outputs.skipNxRemoteCache  == 'true' }}
 
+  check-mcp-changes:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name != 'merge_group' }}
+    outputs:
+      mcp-changed: ${{ steps.filter.outputs.mcp-changed }}
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 0
+      - uses: ./tools/github-actions/setup
+      - name: Check for MCP changes
+        id: filter
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            BASE_SHA=${{ github.event.pull_request.base.sha }}
+            HEAD_SHA=${{ github.event.pull_request.head.sha }}
+          else
+            HEAD_SHA=${{ github.sha }}
+            BASE_SHA=${{ github.event.before }}
+          fi
+          if yarn nx show projects --affected --base="$BASE_SHA" --head="$HEAD_SHA" | grep -q '^mcp$'; then
+            echo "mcp-changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "mcp-changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  deepeval-tests:
+    uses: ./.github/workflows/deepeval-tests.yml
+    needs: [ yarn_lock_check, check-mcp-changes ]
+    if: ${{ github.event_name != 'merge_group' && needs.check-mcp-changes.outputs.mcp-changed == 'true' }}
+    secrets:
+      DEEPEVAL_LLM_API_KEY: ${{ secrets.DEEPEVAL_LLM_API_KEY }}
+
   publish-packages:
     uses: ./.github/workflows/publish.yml
     if: ${{ github.event_name != 'pull_request' && github.event_name != 'merge_group' }}

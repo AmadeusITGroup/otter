@@ -1,0 +1,39 @@
+[
+  {
+    "id": "noisy_best_practices_typo",
+    "user_prompt": "whats the bset practices for otter?",
+    "expected_tools": ["get_best_practices"],
+    "expected_args": {}
+  },
+  {
+    "id": "noisy_create_monorepo_casual",
+    "user_prompt": "hey can u make me an otter monorepo called my-app plz",
+    "expected_tools": ["create_monorepo_with_app"],
+    "expected_args_subset": {
+      "repositoryName": "my-app"
+    }
+  },
+  {
+    "id": "noisy_migrate_abbreviation",
+    "user_prompt": "upgrd otter to v14",
+    "expected_tools": ["migrate_otter_version"],
+    "expected_args_subset": {
+      "targetVersion": "14"
+    }
+  },
+  {
+    "id": "noisy_schematics_informal",
+    "user_prompt": "what schematics do we have for angular stuff",
+    "expected_tools": ["angular_schematics"],
+    "expected_args": {},
+    "requires_non_nx_workspace": true
+  },
+  {
+    "id": "noisy_create_monorepo_mixed_case",
+    "user_prompt": "Setup a new OTTER project called Travel-App with app travel-ui",
+    "expected_tools": ["create_monorepo_with_app"],
+    "expected_args_subset": {
+      "applicationName": "travel-ui"
+    }
+  }
+]

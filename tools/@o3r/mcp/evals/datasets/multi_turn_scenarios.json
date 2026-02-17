@@ -1,0 +1,52 @@
+[
+  {
+    "id": "best_practices_then_create",
+    "description": "User asks about best practices, then creates a project based on advice",
+    "turns": [
+      {
+        "user_prompt": "What are the best practices for an Otter project?",
+        "expected_tools": ["get_best_practices"]
+      },
+      {
+        "user_prompt": "Great, now create a new monorepo called 'airline-portal' with an app named 'booking-ui' following those practices",
+        "expected_tools": ["create_monorepo_with_app"],
+        "expected_args_subset": {
+          "repositoryName": "airline-portal",
+          "applicationName": "booking-ui"
+        }
+      }
+    ]
+  },
+  {
+    "id": "schematics_then_best_practices",
+    "description": "User asks about available schematics, then asks for guidelines",
+    "requires_non_nx_workspace": true,
+    "turns": [
+      {
+        "user_prompt": "What schematics can I use to generate components?",
+        "expected_tools": ["angular_schematics"]
+      },
+      {
+        "user_prompt": "And what are the recommended patterns I should follow when using them?",
+        "expected_tools": ["get_best_practices"]
+      }
+    ]
+  },
+  {
+    "id": "unrelated_then_otter",
+    "description": "User starts with generic question, then switches to Otter",
+    "turns": [
+      {
+        "user_prompt": "How do I create a promise in JavaScript?",
+        "expected_tools": []
+      },
+      {
+        "user_prompt": "Now, how do I set up a new Otter monorepo called 'my-project'?",
+        "expected_tools": ["create_monorepo_with_app"],
+        "expected_args_subset": {
+          "repositoryName": "my-project"
+        }
+      }
+    ]
+  }
+]

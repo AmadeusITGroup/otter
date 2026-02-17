@@ -1,0 +1,83 @@
+name: DeepEval MCP Tests
+
+on:
+  workflow_call:
+    secrets:
+      AZURE_OPENAI_ENDPOINT:
+        required: true
+        description: Azure OpenAI endpoint URL
+      AZURE_OPENAI_API_VERSION:
+        required: true
+        description: Azure OpenAI API version
+      AZURE_CLIENT_ID:
+        required: true
+        description: Azure service principal client ID for OIDC login
+      AZURE_TENANT_ID:
+        required: true
+        description: Azure AD tenant ID for OIDC login
+      AZURE_SUBSCRIPTION_ID:
+        required: true
+        description: Azure subscription ID for OIDC login
+
+env:
+  YARN_ENABLE_HARDENED_MODE: 0
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  deepeval:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        model: [gpt-4o, gpt-5-mini]
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Setup Node.js
+        uses: ./tools/github-actions/setup
+        timeout-minutes: 30
+
+      - name: Setup Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+          cache-dependency-path: 'tools/@o3r/mcp/evals/requirements.lock'
+
+      - name: Install Python dependencies
+        run: pip install -r tools/@o3r/mcp/evals/requirements.lock
+
+      - name: Azure login (OIDC)
+        uses: azure/login@a65d910e8af852a8061c627c456678983e180302 # v2.2.0
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      # Build is required here because this is a reusable workflow (workflow_call)
+      # that runs standalone and cannot receive build artifacts from the caller.
+      - name: Build MCP server
+        run: yarn nx build mcp
+
+      - name: Run deepeval (${{ matrix.model }})
+        timeout-minutes: 15
+        env:
+          AZURE_OPENAI_ENDPOINT: ${{ secrets.AZURE_OPENAI_ENDPOINT }}
+          AZURE_OPENAI_API_VERSION: ${{ secrets.AZURE_OPENAI_API_VERSION }}
+          O3R_MCP_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Must match an actual deployment name on the Azure OpenAI resource
+          EVAL_AGENT_MODEL: ${{ matrix.model }}
+          DEEPEVAL_TELEMETRY_OPT_OUT: '1'
+        working-directory: tools/@o3r/mcp/evals
+        run: deepeval test run . --verbose
+
+      - name: Upload deepeval results
+        if: always()
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+        with:
+          name: deepeval-results-${{ matrix.model }}
+          path: tools/@o3r/mcp/evals/.deepeval/
+          if-no-files-found: ignore

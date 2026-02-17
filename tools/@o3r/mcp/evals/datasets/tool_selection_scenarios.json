@@ -1,0 +1,106 @@
+[
+  {
+    "id": "best_practices_query",
+    "user_prompt": "What are the best practices for developing with Otter?",
+    "expected_tools": ["get_best_practices"],
+    "expected_args": {}
+  },
+  {
+    "id": "create_monorepo_query",
+    "user_prompt": "Create a new monorepo called 'hotel-booking' with an app named 'web-client'",
+    "expected_tools": ["create_monorepo_with_app"],
+    "expected_args": {
+      "repositoryName": "hotel-booking",
+      "applicationName": "web-client"
+    }
+  },
+  {
+    "id": "create_monorepo_simple_query",
+    "user_prompt": "Set up a new Otter project called my-travel-app",
+    "expected_tools": ["create_monorepo_with_app"],
+    "expected_args_subset": {
+      "repositoryName": "my-travel-app"
+    }
+  },
+  {
+    "id": "migrate_version_query",
+    "user_prompt": "I need to upgrade my Otter project to version 14.0",
+    "expected_tools": ["migrate_otter_version"],
+    "expected_args_subset": {
+      "targetVersion": "14.0"
+    }
+  },
+  {
+    "id": "migrate_version_latest_query",
+    "user_prompt": "I want to upgrade my Otter installation to the latest version",
+    "expected_tools": ["migrate_otter_version"],
+    "expected_args": {}
+  },
+  {
+    "id": "angular_components_query",
+    "user_prompt": "How should I structure my Angular components in an Otter project?",
+    "expected_tools": ["get_best_practices"],
+    "expected_args": {}
+  },
+  {
+    "id": "release_notes_query",
+    "user_prompt": "What's new in Otter v13.1.0?",
+    "expected_tools": ["get_release_notes_otter"],
+    "expected_args": {
+      "version": "v13.1.0"
+    },
+    "requires_github_token": true
+  },
+  {
+    "id": "repos_using_otter_query",
+    "user_prompt": "Which repositories are using the Otter framework?",
+    "expected_tools": ["get_repositories_using_otter"],
+    "expected_args": {},
+    "requires_github_token": true
+  },
+  {
+    "id": "supported_releases_query",
+    "user_prompt": "What Otter versions are currently supported?",
+    "expected_tools": ["get_supported_releases_amadeusitgroup/otter"],
+    "expected_args": {},
+    "requires_github_token": true
+  },
+  {
+    "id": "angular_schematics_query",
+    "user_prompt": "What Angular schematics are available for generating components?",
+    "expected_tools": ["angular_schematics"],
+    "expected_args": {},
+    "requires_non_nx_workspace": true
+  },
+  {
+    "id": "angular_schematics_generate_component",
+    "user_prompt": "Generate a new component using Angular schematics in my Otter project",
+    "expected_tools": ["angular_schematics"],
+    "expected_args": {},
+    "requires_non_nx_workspace": true
+  },
+  {
+    "id": "ambiguous_version_query",
+    "user_prompt": "Tell me about Otter version 14",
+    "expected_tools": ["get_release_notes_otter", "get_supported_releases_amadeusitgroup/otter"],
+    "expected_args": {},
+    "requires_github_token": true
+  },
+  {
+    "id": "migrate_with_workspace_context",
+    "user_prompt": "My package.json is at ./apps/main/package.json. Upgrade my Otter dependencies to 14.0",
+    "expected_tools": ["migrate_otter_version"],
+    "expected_args_subset": {
+      "targetVersion": "14.0",
+      "packageJsonPath": "./apps/main/package.json"
+    }
+  },
+  {
+    "id": "create_monorepo_workspace_context",
+    "user_prompt": "I'm starting a new project for our flight-search microservice. Set up an Otter monorepo for it with a frontend app called 'search-ui'",
+    "expected_tools": ["create_monorepo_with_app"],
+    "expected_args_subset": {
+      "applicationName": "search-ui"
+    }
+  }
+]
