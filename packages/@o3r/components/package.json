@@ -210,7 +210,7 @@
     "jsonc-eslint-parser": "~2.4.0",
     "jsonpath-plus": "~10.3.0",
     "memfs": "~4.50.0",
-    "nx": "~22.3.3",
+    "nx": "~22.4.0",
     "rxjs": "^7.8.1",
     "semver": "^7.5.2",
     "ts-jest": "~29.4.0",
