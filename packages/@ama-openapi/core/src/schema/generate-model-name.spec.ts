@@ -53,10 +53,10 @@ describe('generateModelNameRef', () => {
 });
 
 describe('getMaskFileName', () => {
-  it('should prefix modelNameRef with mask- and suffix with .json', () => {
+  it('should prefix modelNameRef with mask- and suffix with .schema.json', () => {
     const modelNameRef = 'pkg-schemas-user';
     const result = getMaskFileName(modelNameRef);
 
-    expect(result).toBe('mask-pkg-schemas-user.json');
+    expect(result).toBe('mask-pkg-schemas-user.schema.json');
   });
 });
