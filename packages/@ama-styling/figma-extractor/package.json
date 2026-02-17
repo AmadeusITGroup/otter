@@ -22,7 +22,7 @@
   "bin": "./cli/figma-extract.js",
   "generatorDependencies": {
     "@ama-styling/style-dictionary": "workspace:~",
-    "style-dictionary": "~5.2.0"
+    "style-dictionary": "~5.3.0"
   },
   "peerDependencies": {
     "@ama-sdk/client-fetch": "workspace:~",
@@ -100,6 +100,6 @@
   },
   "schematics": "./collection.json",
   "engines": {
-    "node": "^20.19.0 || ^22.17.0 || ^24.0.0"
+    "node": "^22.17.0 || ^24.0.0"
   }
 }
