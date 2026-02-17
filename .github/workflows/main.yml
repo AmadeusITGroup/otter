@@ -137,6 +137,14 @@ jobs:
       skipNxCache: ${{ vars.NX_SKIP_NX_CACHE == 'true' || github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release') && !endsWith(github.ref, '-next') }}
       skipNxRemoteCache: ${{ needs.setupVars.outputs.skipNxRemoteCache  == 'true' }}
 
+  deepeval-tests:
+    uses: ./.github/workflows/deepeval-tests.yml
+    needs: [ yarn_lock_check, build ]
+    if: ${{ github.event_name != 'merge_group' }}
+    secrets:
+      DEEPEVAL_LLM_API_KEY: ${{ secrets.DEEPEVAL_LLM_API_KEY }}
+      O3R_MCP_GITHUB_TOKEN: ${{ secrets.O3R_MCP_GITHUB_TOKEN }}
+
   publish-packages:
     uses: ./.github/workflows/publish.yml
     if: ${{ github.event_name != 'pull_request' && github.event_name != 'merge_group' }}

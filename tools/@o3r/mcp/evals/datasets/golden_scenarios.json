@@ -1,0 +1,129 @@
+{
+  "tool_output_scenarios": [
+    {
+      "id": "best_practices_relevance",
+      "tool": "get_best_practices",
+      "arguments": {},
+      "description": "Best practices tool should return comprehensive Angular/TypeScript coding guidelines",
+      "expected_topics": [
+        "component",
+        "Angular",
+        "signal",
+        "TypeScript"
+      ],
+      "quality_criteria": "The output should contain actionable coding best practices for the Otter framework, covering component creation, code generation patterns, and Angular-specific guidelines."
+    },
+    {
+      "id": "create_monorepo_basic",
+      "tool": "create_monorepo_with_app",
+      "arguments": {
+        "repositoryName": "test-airline-app",
+        "applicationName": "booking"
+      },
+      "description": "Create monorepo tool should return instructions with correct repo and app names substituted",
+      "expected_topics": [
+        "test-airline-app",
+        "booking"
+      ],
+      "quality_criteria": "The output should contain step-by-step instructions for creating a monorepo named 'test-airline-app' with an application named 'booking'. It should not contain any unresolved placeholders like <repositoryName> or <applicationName>."
+    },
+    {
+      "id": "create_monorepo_default_app",
+      "tool": "create_monorepo_with_app",
+      "arguments": {
+        "repositoryName": "my-project"
+      },
+      "description": "Create monorepo tool should use default application name 'frontend' when not specified",
+      "expected_topics": [
+        "my-project",
+        "frontend"
+      ],
+      "quality_criteria": "The output should contain instructions referencing 'my-project' as the repository name and 'frontend' as the default application name."
+    }
+  ],
+  "agent_selection_scenarios": [
+    {
+      "id": "query_best_practices",
+      "input": "What are the best practices for creating Otter components?",
+      "expected_tools": ["get_best_practices"],
+      "expected_arguments": {},
+      "description": "Should select get_best_practices for questions about coding standards"
+    },
+    {
+      "id": "query_create_repo",
+      "input": "Create a new monorepo called 'airline-booking' with an app called 'web-app'",
+      "expected_tools": ["create_monorepo_with_app"],
+      "expected_arguments": {
+        "repositoryName": "airline-booking",
+        "applicationName": "web-app"
+      },
+      "description": "Should select create_monorepo_with_app with correct repo and app names"
+    },
+    {
+      "id": "query_create_repo_simple",
+      "input": "Set up a new Otter project called my-travel-app",
+      "expected_tools": ["create_monorepo_with_app"],
+      "expected_arguments": {
+        "repositoryName": "my-travel-app"
+      },
+      "description": "Should select create_monorepo_with_app for project setup requests"
+    },
+    {
+      "id": "query_migration",
+      "input": "How do I migrate my Otter project from version 12 to version 14?",
+      "expected_tools": ["migrate_otter_version"],
+      "expected_arguments": {
+        "targetVersion": "14"
+      },
+      "description": "Should select migrate_otter_version for migration questions"
+    },
+    {
+      "id": "query_migration_no_target",
+      "input": "I want to upgrade my Otter installation to the latest version",
+      "expected_tools": ["migrate_otter_version"],
+      "expected_arguments": {},
+      "description": "Should select migrate_otter_version without a specific target version"
+    },
+    {
+      "id": "query_release_notes",
+      "input": "What's new in Otter v13.1.0?",
+      "expected_tools": ["get_release_notes_otter"],
+      "expected_arguments": {
+        "version": "v13.1.0"
+      },
+      "description": "Should select get_release_notes_otter for release-related questions",
+      "requires_github_token": true
+    },
+    {
+      "id": "query_repos_using_otter",
+      "input": "Which repositories are using the Otter framework?",
+      "expected_tools": ["get_repositories_using_otter"],
+      "expected_arguments": {},
+      "description": "Should select get_repositories_using_otter for discovery questions",
+      "requires_github_token": true
+    },
+    {
+      "id": "query_supported_releases",
+      "input": "What Otter versions are currently supported?",
+      "expected_tools": ["get_supported_releases_amadeusitgroup/otter"],
+      "expected_arguments": {},
+      "description": "Should select get_supported_releases for version support questions",
+      "requires_github_token": true
+    },
+    {
+      "id": "query_angular_schematics",
+      "input": "What Angular schematics are available for generating components?",
+      "expected_tools": ["angular_schematics"],
+      "expected_arguments": {},
+      "description": "Should select angular_schematics for schematic discovery requests"
+    },
+    {
+      "id": "ambiguous_migration_or_release",
+      "input": "Tell me about Otter version 14",
+      "expected_tools": ["get_release_notes_otter", "get_supported_releases_amadeusitgroup/otter"],
+      "expected_arguments": {},
+      "description": "Ambiguous query - either release notes or supported releases is acceptable",
+      "requires_github_token": true
+    }
+  ]
+}

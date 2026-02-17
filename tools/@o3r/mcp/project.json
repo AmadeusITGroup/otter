@@ -18,6 +18,18 @@
     },
     "test": {},
     "lint": {},
+    "deepeval": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "tools/@o3r/mcp/evals",
+        "commands": [
+          "pip install -r requirements.lock",
+          "deepeval test run ."
+        ],
+        "parallel": false
+      },
+      "dependsOn": ["build"]
+    },
     "prepare-publish": {},
     "publish": {}
   },
