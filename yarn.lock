@@ -4691,11 +4691,11 @@ __metadata:
   linkType: hard
 
 "@capacitor/core@npm:^8.0.0":
-  version: 8.0.2
-  resolution: "@capacitor/core@npm:8.0.2"
+  version: 8.1.0
+  resolution: "@capacitor/core@npm:8.1.0"
   dependencies:
     tslib: "npm:^2.1.0"
-  checksum: 10/12d77e62dc961a11541caac300397c10a3b3fb4bf9cedbfc6b89a003b6506c70324fd928e86c7690bb611033eaffb5f1bdf970483cf6336b3b2746246a5bf753
+  checksum: 10/cc5a125217889e31d16fc8d1cdf3b2cca385de48a934bd023bf111e37ff39235b5173594a9ce16dde39c2c718078cdd510fcc0cdaf5faa2a67c88befa00a5da1
   languageName: node
   linkType: hard
 
