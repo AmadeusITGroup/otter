@@ -5,6 +5,12 @@ import {
   resolve,
 } from 'node:path';
 import {
+  describe,
+  expect,
+  it,
+  vi,
+} from 'vitest';
+import {
   REF_REWRITTEN_PROPERTY_KEY,
 } from '../../constants.mjs';
 import type {
@@ -18,9 +24,9 @@ describe('updateReferences', () => {
   const mockCwd = '/test/cwd';
   const mockContext = {
     logger: {
-      debug: jest.fn(),
-      warn: jest.fn(),
-      error: jest.fn()
+      debug: vi.fn(),
+      warn: vi.fn(),
+      error: vi.fn()
     },
     cwd: mockCwd
   } as any;

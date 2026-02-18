@@ -1,3 +1,11 @@
+import {
+  beforeEach,
+  describe,
+  expect,
+  it,
+  type MockedFunction,
+  vi,
+} from 'vitest';
 import type {
   Context,
 } from '../../context.mjs';
@@ -12,19 +20,19 @@ import {
   generateMaskSchemaModelAt,
 } from './generate-mask-from-model.mjs';
 
-jest.mock('../generate-model-name.mjs', () => ({
-  generateModelNameRef: jest.fn(),
-  getMaskFileName: jest.fn()
+vi.mock('../generate-model-name.mjs', () => ({
+  generateModelNameRef: vi.fn(),
+  getMaskFileName: vi.fn()
 }));
 
-jest.mock('./generate-mask-from-model.mjs', () => ({
-  generateMaskSchemaModelAt: jest.fn()
+vi.mock('./generate-mask-from-model.mjs', () => ({
+  generateMaskSchemaModelAt: vi.fn()
 }));
 
 describe('getDependencyModelMasks', () => {
-  const generateModelNameRefMock = generateModelNameRef as jest.MockedFunction<typeof generateModelNameRef>;
-  const getMaskFileNameMock = getMaskFileName as jest.MockedFunction<typeof getMaskFileName>;
-  const generateMaskSchemaModelAtMock = generateMaskSchemaModelAt as jest.MockedFunction<typeof generateMaskSchemaModelAt>;
+  const generateModelNameRefMock = generateModelNameRef as MockedFunction<typeof generateModelNameRef>;
+  const getMaskFileNameMock = getMaskFileName as MockedFunction<typeof getMaskFileName>;
+  const generateMaskSchemaModelAtMock = generateMaskSchemaModelAt as MockedFunction<typeof generateMaskSchemaModelAt>;
 
   const baseContext: Context = {
     rootPath: '/root',
@@ -32,7 +40,7 @@ describe('getDependencyModelMasks', () => {
   } as any;
 
   beforeEach(() => {
-    jest.resetAllMocks();
+    vi.resetAllMocks();
   });
 
   it('should build masks for each model and flatten artifacts', async () => {

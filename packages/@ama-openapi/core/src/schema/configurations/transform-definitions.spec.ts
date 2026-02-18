@@ -1,4 +1,12 @@
 import {
+  beforeEach,
+  describe,
+  expect,
+  it,
+  type MockedFunction,
+  vi,
+} from 'vitest';
+import {
   generateModelNameRef,
   getMaskFileName,
 } from '../generate-model-name.mjs';
@@ -6,19 +14,19 @@ import {
   getTransformDefinitions,
 } from './transform-definitions.mjs';
 
-jest.mock('../generate-model-name.mjs', () => ({
-  generateModelNameRef: jest.fn(),
-  getMaskFileName: jest.fn()
+vi.mock('../generate-model-name.mjs', () => ({
+  generateModelNameRef: vi.fn(),
+  getMaskFileName: vi.fn()
 }));
 
 describe('getTransformDefinitions', () => {
   const generateModelNameRefMock =
-    generateModelNameRef as jest.MockedFunction<typeof generateModelNameRef>;
+    generateModelNameRef as MockedFunction<typeof generateModelNameRef>;
   const getMaskFileNameMock =
-    getMaskFileName as jest.MockedFunction<typeof getMaskFileName>;
+    getMaskFileName as MockedFunction<typeof getMaskFileName>;
 
   beforeEach(() => {
-    jest.resetAllMocks();
+    vi.resetAllMocks();
   });
 
   it('should generate transform definitions for each valid model using helpers', () => {
