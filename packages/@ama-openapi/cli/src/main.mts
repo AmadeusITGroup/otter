@@ -3,7 +3,17 @@
 /* eslint-disable no-console -- required for CLI feedback */
 
 import {
+  existsSync,
+} from 'node:fs';
+import {
+  rm,
+} from 'node:fs/promises';
+import {
+  resolve,
+} from 'node:path';
+import {
   DEFAULT_MANIFEST_FILENAMES,
+  DEFAULT_SCHEMA_OUTPUT_DIRECTORY,
   generateValidationSchemaFiles,
   getLogger,
   installDependencies,
@@ -32,6 +42,7 @@ void yargs(hideBin(process.argv))
     return yargsInstance
       .option('output', {
         type: 'string',
+        default: DEFAULT_SCHEMA_OUTPUT_DIRECTORY,
         alias: 'o',
         description: 'Output directory where generating the schemas'
       })
@@ -41,11 +52,25 @@ void yargs(hideBin(process.argv))
         alias: 'k',
         default: OPENAPI_NPM_KEYWORDS,
         description: 'List of NPM Keywords to use when searching for packages exposing OpenAPI specifications'
+      })
+      .option('clean', {
+        type: 'boolean',
+        alias: 'c',
+        default: false,
+        description: 'Clean the output directory before generating the schemas'
       });
   }, async (args) => {
     const logger = args.logLevel === 'silent' ? undefined : getLogger(args.logLevel as LogLevel, console);
     try {
-      await generateValidationSchemaFiles(process.cwd(), { logger, outputDirectory: args.output, keywordsWhitelist: args.keywords.map(String) });
+      const outputDirectory = args.output;
+      const outputDirectoryPath = resolve(process.cwd(), outputDirectory);
+
+      if (args.clean && existsSync(outputDirectoryPath)) {
+        logger?.info(`Cleaning output directory "${outputDirectory}"...`);
+        await rm(outputDirectoryPath, { recursive: true, force: true });
+      }
+
+      await generateValidationSchemaFiles(process.cwd(), { logger, outputDirectory, keywordsWhitelist: args.keywords.map(String) });
     } catch (e) {
       (logger?.error ?? console.error)(e);
       process.exit(1);

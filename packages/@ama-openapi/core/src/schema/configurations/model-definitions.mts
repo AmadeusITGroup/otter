@@ -58,9 +58,12 @@ export const getModelDefinitions = (artifacts: SpecificationArtifact[]) => {
                   description: 'Detailed model inclusion with optional transformations to apply',
                   properties: {
                     path: {
+                      description: 'Path to the model to include. \n'
+                        + 'The path is relative to the artifact root (e.g., "models/ExampleModel.v1.yaml" or "models/ExampleModel.v1.yaml#/components/schemas/Example")',
                       oneOf: pathSchemas
                     },
                     transform: {
+                      description: 'The transformations to apply to the model',
                       $ref: `#/definitions/transform-${modelRef}`
                     }
                   },
