@@ -138,7 +138,7 @@ const extractDependencyModelsSimple = async (
   const path = typeof modelName === 'string' ? modelName : artifactName;
   const { filePath, innerPath } = splitModelPath(path);
   const modelPath = typeof modelName === 'string' ? join(artifactBasePath, filePath) : require.resolve(artifactName);
-  const content = await fs.readFile(filePath, { encoding: 'utf8' });
+  const content = await fs.readFile(modelPath, { encoding: 'utf8' });
   const model = { path } satisfies Model;
   const fileNameOutput = getOutFilePathFromModelPath(model.path);
   const outputFilePath = resolve(cwd, outputDirectory, sanitizePackagePath(artifactName), fileNameOutput);
@@ -180,8 +180,8 @@ export const extractDependencyModelsObject = async (
   const path = model.path || require.resolve(artifactName).split(artifactName)[1];
   const { filePath, innerPath } = splitModelPath(path);
   const modelPath = model.path ? join(artifactBasePath, filePath) : require.resolve(artifactName);
-  const content = await fs.readFile(filePath, { encoding: 'utf8' });
-  logger?.debug?.(`extracting model ${modelPath} from ${outputDirectory}`);
+  const content = await fs.readFile(modelPath, { encoding: 'utf8' });
+  logger?.debug?.(`extracting model ${modelPath} to ${outputDirectory}`);
 
   const fileNameOutput = transform?.rename
     ? filePath.replace(new RegExp(`(${basename(filePath).replaceAll('.', '\\.')})$`), transform.rename)
