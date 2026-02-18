@@ -1,31 +1,38 @@
 import {
+  beforeEach,
+  describe,
+  expect,
+  test,
+  vi,
+} from 'vitest';
+import {
   OTTER_NAME_PREFIX,
 } from '../constants.mjs';
 import {
   cssRecommendedTransformGroup,
 } from './css-recommended-transform-group.mjs';
 
-jest.mock('style-dictionary/enums', () => ({
+vi.mock('style-dictionary/enums', () => ({
   transforms: {
-    attributeCti: jest.fn(),
-    nameKebab: jest.fn(),
-    timeSeconds: jest.fn(),
-    htmlIcon: jest.fn(),
-    sizeRem: jest.fn(),
-    colorCss: jest.fn(),
-    assetUrl: jest.fn(),
-    fontFamilyCss: jest.fn(),
-    cubicBezierCss: jest.fn(),
-    strokeStyleCssShorthand: jest.fn(),
-    borderCssShorthand: jest.fn(),
-    typographyCssShorthand: jest.fn(),
-    transitionCssShorthand: jest.fn(),
-    shadowCssShorthand: jest.fn()
+    attributeCti: vi.fn(),
+    nameKebab: vi.fn(),
+    timeSeconds: vi.fn(),
+    htmlIcon: vi.fn(),
+    sizeRem: vi.fn(),
+    colorCss: vi.fn(),
+    assetUrl: vi.fn(),
+    fontFamilyCss: vi.fn(),
+    cubicBezierCss: vi.fn(),
+    strokeStyleCssShorthand: vi.fn(),
+    borderCssShorthand: vi.fn(),
+    typographyCssShorthand: vi.fn(),
+    transitionCssShorthand: vi.fn(),
+    shadowCssShorthand: vi.fn()
   }
 }));
 
 describe('cssRecommendedTransformGroup', () => {
-  beforeEach(() => jest.clearAllMocks());
+  beforeEach(() => vi.clearAllMocks());
 
   test('should have otter prefix', () => {
     expect(cssRecommendedTransformGroup.name).toMatch(new RegExp(`^${OTTER_NAME_PREFIX}`));

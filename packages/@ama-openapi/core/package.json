@@ -55,9 +55,6 @@
   },
   "devDependencies": {
     "@angular/cli": "~21.2.0",
-    "@babel/core": "~7.29.0",
-    "@babel/preset-env": "~7.29.0",
-    "@babel/preset-typescript": "~7.28.0",
     "@compodoc/compodoc": "^1.1.32",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@nx/eslint": "~22.5.3",
