@@ -485,7 +485,7 @@ __metadata:
     jest-util: "npm:~30.2.0"
     jsdom: "npm:~27.3.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    nx: "npm:~22.3.3"
+    nx: "npm:~22.4.0"
     rxjs: "npm:^7.8.1"
     ts-jest: "npm:~29.4.0"
     tslib: "npm:^2.6.2"
@@ -546,7 +546,7 @@ __metadata:
     jest-util: "npm:~30.2.0"
     jsdom: "npm:~27.3.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    nx: "npm:~22.3.3"
+    nx: "npm:~22.4.0"
     rxjs: "npm:^7.8.1"
     ts-jest: "npm:~29.4.0"
     tslib: "npm:^2.6.2"
@@ -610,7 +610,7 @@ __metadata:
     jest-util: "npm:~30.2.0"
     jsdom: "npm:~27.3.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    nx: "npm:~22.3.3"
+    nx: "npm:~22.4.0"
     rxjs: "npm:^7.8.1"
     ts-jest: "npm:~29.4.0"
     tslib: "npm:^2.6.2"
@@ -675,7 +675,7 @@ __metadata:
     jest-util: "npm:~30.2.0"
     jsdom: "npm:~27.3.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    nx: "npm:~22.3.3"
+    nx: "npm:~22.4.0"
     rxjs: "npm:^7.8.1"
     ts-jest: "npm:~29.4.0"
     tslib: "npm:^2.6.2"
@@ -882,7 +882,7 @@ __metadata:
     jest-resolve: "npm:~30.2.0"
     jest-util: "npm:~30.2.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    nx: "npm:~22.3.3"
+    nx: "npm:~22.4.0"
     ts-jest: "npm:~29.4.0"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.9.2"
@@ -949,7 +949,7 @@ __metadata:
     js-yaml: "npm:^4.1.1"
     jsonc-eslint-parser: "npm:~2.4.0"
     memfs: "npm:~4.50.0"
-    nx: "npm:~22.3.3"
+    nx: "npm:~22.4.0"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.4.0"
     tslib: "npm:^2.6.2"
@@ -1008,7 +1008,7 @@ __metadata:
     jest-junit: "npm:~16.0.0"
     jest-util: "npm:~30.2.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    nx: "npm:~22.3.3"
+    nx: "npm:~22.4.0"
     rimraf: "npm:^6.0.1"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
@@ -1077,7 +1077,7 @@ __metadata:
     jest-resolve: "npm:~30.2.0"
     jest-util: "npm:~30.2.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    nx: "npm:~22.3.3"
+    nx: "npm:~22.4.0"
     ts-jest: "npm:~29.4.0"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.9.2"
@@ -1447,7 +1447,7 @@ __metadata:
     jest-util: "npm:~30.2.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     minimist: "npm:^1.2.6"
-    nx: "npm:~22.3.3"
+    nx: "npm:~22.4.0"
     rimraf: "npm:^6.0.1"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
@@ -1518,7 +1518,7 @@ __metadata:
     minimatch: "npm:~10.1.0"
     minimist: "npm:^1.2.6"
     npm-run-all2: "npm:^8.0.0"
-    nx: "npm:~22.3.3"
+    nx: "npm:~22.4.0"
     openapi-types: "npm:^12.0.0"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
@@ -1669,7 +1669,7 @@ __metadata:
     jest-util: "npm:~30.2.0"
     jsdom: "npm:~27.3.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    nx: "npm:~22.3.3"
+    nx: "npm:~22.4.0"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.4.0"
@@ -1746,7 +1746,7 @@ __metadata:
     jest-environment-jsdom: "npm:~30.2.0"
     jest-junit: "npm:~16.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    nx: "npm:~22.3.3"
+    nx: "npm:~22.4.0"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.4.0"
     tslib: "npm:^2.6.2"
@@ -1894,7 +1894,7 @@ __metadata:
     jest-resolve: "npm:~30.2.0"
     jest-util: "npm:~30.2.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    nx: "npm:~22.3.3"
+    nx: "npm:~22.4.0"
     style-dictionary: "npm:~5.1.0"
     ts-jest: "npm:~29.4.0"
     tslib: "npm:^2.6.2"
@@ -1966,7 +1966,7 @@ __metadata:
     jest-junit: "npm:~16.0.0"
     jest-util: "npm:~30.2.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    nx: "npm:~22.3.3"
+    nx: "npm:~22.4.0"
     postcss: "npm:~8.5.1"
     postcss-scss: "npm:~4.0.9"
     rimraf: "npm:^6.0.1"
@@ -8896,9 +8896,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nx/nx-darwin-arm64@npm:22.4.5":
+  version: 22.4.5
+  resolution: "@nx/nx-darwin-arm64@npm:22.4.5"
+  conditions: os=darwin & cpu=arm64
+  languageName: node
+  linkType: hard
+
 "@nx/nx-darwin-x64@npm:22.3.3":
   version: 22.3.3
   resolution: "@nx/nx-darwin-x64@npm:22.3.3"
+  conditions: os=darwin & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@nx/nx-darwin-x64@npm:22.4.5":
+  version: 22.4.5
+  resolution: "@nx/nx-darwin-x64@npm:22.4.5"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
@@ -8910,9 +8924,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nx/nx-freebsd-x64@npm:22.4.5":
+  version: 22.4.5
+  resolution: "@nx/nx-freebsd-x64@npm:22.4.5"
+  conditions: os=freebsd & cpu=x64
+  languageName: node
+  linkType: hard
+
 "@nx/nx-linux-arm-gnueabihf@npm:22.3.3":
   version: 22.3.3
   resolution: "@nx/nx-linux-arm-gnueabihf@npm:22.3.3"
+  conditions: os=linux & cpu=arm
+  languageName: node
+  linkType: hard
+
+"@nx/nx-linux-arm-gnueabihf@npm:22.4.5":
+  version: 22.4.5
+  resolution: "@nx/nx-linux-arm-gnueabihf@npm:22.4.5"
   conditions: os=linux & cpu=arm
   languageName: node
   linkType: hard
@@ -8924,9 +8952,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nx/nx-linux-arm64-gnu@npm:22.4.5":
+  version: 22.4.5
+  resolution: "@nx/nx-linux-arm64-gnu@npm:22.4.5"
+  conditions: os=linux & cpu=arm64 & libc=glibc
+  languageName: node
+  linkType: hard
+
 "@nx/nx-linux-arm64-musl@npm:22.3.3":
   version: 22.3.3
   resolution: "@nx/nx-linux-arm64-musl@npm:22.3.3"
+  conditions: os=linux & cpu=arm64 & libc=musl
+  languageName: node
+  linkType: hard
+
+"@nx/nx-linux-arm64-musl@npm:22.4.5":
+  version: 22.4.5
+  resolution: "@nx/nx-linux-arm64-musl@npm:22.4.5"
   conditions: os=linux & cpu=arm64 & libc=musl
   languageName: node
   linkType: hard
@@ -8938,9 +8980,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nx/nx-linux-x64-gnu@npm:22.4.5":
+  version: 22.4.5
+  resolution: "@nx/nx-linux-x64-gnu@npm:22.4.5"
+  conditions: os=linux & cpu=x64 & libc=glibc
+  languageName: node
+  linkType: hard
+
 "@nx/nx-linux-x64-musl@npm:22.3.3":
   version: 22.3.3
   resolution: "@nx/nx-linux-x64-musl@npm:22.3.3"
+  conditions: os=linux & cpu=x64 & libc=musl
+  languageName: node
+  linkType: hard
+
+"@nx/nx-linux-x64-musl@npm:22.4.5":
+  version: 22.4.5
+  resolution: "@nx/nx-linux-x64-musl@npm:22.4.5"
   conditions: os=linux & cpu=x64 & libc=musl
   languageName: node
   linkType: hard
@@ -8952,9 +9008,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nx/nx-win32-arm64-msvc@npm:22.4.5":
+  version: 22.4.5
+  resolution: "@nx/nx-win32-arm64-msvc@npm:22.4.5"
+  conditions: os=win32 & cpu=arm64
+  languageName: node
+  linkType: hard
+
 "@nx/nx-win32-x64-msvc@npm:22.3.3":
   version: 22.3.3
   resolution: "@nx/nx-win32-x64-msvc@npm:22.3.3"
+  conditions: os=win32 & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@nx/nx-win32-x64-msvc@npm:22.4.5":
+  version: 22.4.5
+  resolution: "@nx/nx-win32-x64-msvc@npm:22.4.5"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
@@ -9268,7 +9338,7 @@ __metadata:
     jest-util: "npm:~30.2.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     jsonschema: "npm:~1.5.0"
-    nx: "npm:~22.3.3"
+    nx: "npm:~22.4.0"
     rxjs: "npm:^7.8.1"
     ts-jest: "npm:~29.4.0"
     tslib: "npm:^2.6.2"
@@ -9357,7 +9427,7 @@ __metadata:
     jest-util: "npm:~30.2.0"
     jsdom: "npm:~27.3.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    nx: "npm:~22.3.3"
+    nx: "npm:~22.4.0"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.4.0"
@@ -9454,7 +9524,7 @@ __metadata:
     jest-util: "npm:~30.2.0"
     jsdom: "npm:~27.3.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    nx: "npm:~22.3.3"
+    nx: "npm:~22.4.0"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.4.0"
@@ -9542,7 +9612,7 @@ __metadata:
     jest-util: "npm:~30.2.0"
     jsdom: "npm:~27.3.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    nx: "npm:~22.3.3"
+    nx: "npm:~22.4.0"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.4.0"
@@ -9617,7 +9687,7 @@ __metadata:
     jest-junit: "npm:~16.0.0"
     jest-util: "npm:~30.2.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    nx: "npm:~22.3.3"
+    nx: "npm:~22.4.0"
     ts-jest: "npm:~29.4.0"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.9.2"
@@ -9677,7 +9747,7 @@ __metadata:
     jest-junit: "npm:~16.0.0"
     jest-util: "npm:~30.2.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    nx: "npm:~22.3.3"
+    nx: "npm:~22.4.0"
     ts-jest: "npm:~29.4.0"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.9.2"
@@ -9721,7 +9791,7 @@ __metadata:
     globby: "npm:^14.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     minimist: "npm:^1.2.6"
-    nx: "npm:~22.3.3"
+    nx: "npm:~22.4.0"
     typescript: "npm:~5.9.2"
     typescript-eslint: "npm:~8.52.0"
   peerDependencies:
@@ -9828,7 +9898,7 @@ __metadata:
     jsonc-eslint-parser: "npm:~2.4.0"
     lighthouse: "npm:~13.0.0"
     minimist: "npm:^1.2.6"
-    nx: "npm:~22.3.3"
+    nx: "npm:~22.4.0"
     playwright-lighthouse: "npm:~4.0.0"
     rimraf: "npm:^6.0.1"
     rxjs: "npm:^7.8.1"
@@ -9919,7 +9989,7 @@ __metadata:
     jsonc-eslint-parser: "npm:~2.4.0"
     jsonpath-plus: "npm:~10.3.0"
     memfs: "npm:~4.50.0"
-    nx: "npm:~22.3.3"
+    nx: "npm:~22.4.0"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.4.0"
@@ -10068,7 +10138,7 @@ __metadata:
     jest-util: "npm:~30.2.0"
     jsdom: "npm:~27.3.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    nx: "npm:~22.3.3"
+    nx: "npm:~22.4.0"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.4.0"
@@ -10175,7 +10245,7 @@ __metadata:
     jsdom: "npm:~27.3.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     memfs: "npm:~4.50.0"
-    nx: "npm:~22.3.3"
+    nx: "npm:~22.4.0"
     rxjs: "npm:^7.8.1"
     ts-jest: "npm:~29.4.0"
     tslib: "npm:^2.6.2"
@@ -10270,7 +10340,7 @@ __metadata:
     jest-util: "npm:~30.2.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     minimist: "npm:^1.2.6"
-    nx: "npm:~22.3.3"
+    nx: "npm:~22.4.0"
     rimraf: "npm:^6.0.1"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
@@ -10347,7 +10417,7 @@ __metadata:
     jest-util: "npm:~30.2.0"
     jsdom: "npm:~27.3.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    nx: "npm:~22.3.3"
+    nx: "npm:~22.4.0"
     rxjs: "npm:^7.8.1"
     ts-jest: "npm:~29.4.0"
     tslib: "npm:^2.6.2"
@@ -10424,7 +10494,7 @@ __metadata:
     jest-junit: "npm:~16.0.0"
     jest-util: "npm:~30.2.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    nx: "npm:~22.3.3"
+    nx: "npm:~22.4.0"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.4.0"
@@ -10538,7 +10608,7 @@ __metadata:
     jest-junit: "npm:~16.0.0"
     jest-util: "npm:~30.2.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    nx: "npm:~22.3.3"
+    nx: "npm:~22.4.0"
     rimraf: "npm:^6.0.1"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.4.0"
@@ -10632,7 +10702,7 @@ __metadata:
     jsdom: "npm:~27.3.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     jsonschema: "npm:~1.5.0"
-    nx: "npm:~22.3.3"
+    nx: "npm:~22.4.0"
     rimraf: "npm:^6.0.1"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
@@ -10743,7 +10813,7 @@ __metadata:
     jest-util: "npm:~30.2.0"
     jsdom: "npm:~27.3.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    nx: "npm:~22.3.3"
+    nx: "npm:~22.4.0"
     rxjs: "npm:^7.8.1"
     ts-jest: "npm:~29.4.0"
     tslib: "npm:^2.6.2"
@@ -10906,7 +10976,7 @@ __metadata:
     ngx-monaco-tree: "npm:~20.1.0"
     npm-cli-login: "npm:~1.0.0"
     npm-run-all2: "npm:^8.0.0"
-    nx: "npm:~22.3.3"
+    nx: "npm:~22.4.0"
     pixelmatch: "npm:^7.0.0"
     playwright-lighthouse: "npm:~4.0.0"
     pngjs: "npm:^7.0.0"
@@ -11000,7 +11070,7 @@ __metadata:
     jest-util: "npm:~30.2.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     nock: "npm:^14.0.0"
-    nx: "npm:~22.3.3"
+    nx: "npm:~22.4.0"
     probot: "npm:^14.0.0"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
@@ -11084,7 +11154,7 @@ __metadata:
     jsdom: "npm:~27.3.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     memfs: "npm:~4.50.0"
-    nx: "npm:~22.3.3"
+    nx: "npm:~22.4.0"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.4.0"
@@ -11218,7 +11288,7 @@ __metadata:
     logrocket: "npm:~11.0.0"
     logrocket-ngrx: "npm:^0.2.1"
     ng-packagr: "npm:~21.0.0"
-    nx: "npm:~22.3.3"
+    nx: "npm:~22.4.0"
     rxjs: "npm:^7.8.1"
     smartlook-client: "npm:^10.0.0"
     ts-jest: "npm:~29.4.0"
@@ -11314,7 +11384,7 @@ __metadata:
     jest-util: "npm:~30.2.0"
     jsdom: "npm:~27.3.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    nx: "npm:~22.3.3"
+    nx: "npm:~22.4.0"
     rxjs: "npm:^7.8.1"
     ts-jest: "npm:~29.4.0"
     tslib: "npm:^2.6.2"
@@ -11393,7 +11463,7 @@ __metadata:
     jsdom: "npm:~27.3.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     node-fetch: "npm:^3.0.0"
-    nx: "npm:~22.3.3"
+    nx: "npm:~22.4.0"
     rxjs: "npm:^7.8.1"
     ts-jest: "npm:~29.4.0"
     tslib: "npm:^2.6.2"
@@ -11471,7 +11541,7 @@ __metadata:
     jest-junit: "npm:~16.0.0"
     jest-util: "npm:~30.2.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    nx: "npm:~22.3.3"
+    nx: "npm:~22.4.0"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.4.0"
@@ -11584,7 +11654,7 @@ __metadata:
     jest-util: "npm:~30.2.0"
     js-yaml: "npm:^4.1.1"
     jsonc-eslint-parser: "npm:~2.4.0"
-    nx: "npm:~22.3.3"
+    nx: "npm:~22.4.0"
     rxjs: "npm:^7.8.1"
     ts-jest: "npm:~29.4.0"
     tslib: "npm:^2.6.2"
@@ -11669,7 +11739,7 @@ __metadata:
     jest-util: "npm:~30.2.0"
     jsdom: "npm:~27.3.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    nx: "npm:~22.3.3"
+    nx: "npm:~22.4.0"
     rxjs: "npm:^7.8.1"
     ts-jest: "npm:~29.4.0"
     tslib: "npm:^2.6.2"
@@ -11779,7 +11849,7 @@ __metadata:
     jsonc-eslint-parser: "npm:~2.4.0"
     jsonpath-plus: "npm:~10.3.0"
     memfs: "npm:~4.50.0"
-    nx: "npm:~22.3.3"
+    nx: "npm:~22.4.0"
     rimraf: "npm:^6.0.1"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
@@ -11901,7 +11971,7 @@ __metadata:
     jsonschema: "npm:~1.5.0"
     minimatch: "npm:~10.1.0"
     minimist: "npm:^1.2.6"
-    nx: "npm:~22.3.3"
+    nx: "npm:~22.4.0"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
     tiny-editorconfig: "npm:~1.0.0"
@@ -12128,7 +12198,7 @@ __metadata:
     jest-util: "npm:~30.2.0"
     jsdom: "npm:~27.3.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    nx: "npm:~22.3.3"
+    nx: "npm:~22.4.0"
     rxjs: "npm:^7.8.1"
     ts-jest: "npm:~29.4.0"
     tslib: "npm:^2.6.2"
@@ -12231,7 +12301,7 @@ __metadata:
     jsdom: "npm:~27.3.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     memfs: "npm:~4.50.0"
-    nx: "npm:~22.3.3"
+    nx: "npm:~22.4.0"
     rxjs: "npm:^7.8.1"
     sass: "npm:~1.93.0"
     sass-embedded: "npm:~1.93.0"
@@ -12359,7 +12429,7 @@ __metadata:
     jest-util: "npm:~30.2.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     minimist: "npm:^1.2.6"
-    nx: "npm:~22.3.3"
+    nx: "npm:~22.4.0"
     rxjs: "npm:^7.8.1"
     ts-jest: "npm:~29.4.0"
     tslib: "npm:^2.6.2"
@@ -12521,7 +12591,7 @@ __metadata:
     jest-util: "npm:~30.2.0"
     jsdom: "npm:~27.3.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    nx: "npm:~22.3.3"
+    nx: "npm:~22.4.0"
     pixelmatch: "npm:^7.0.0"
     pngjs: "npm:^7.0.0"
     rxjs: "npm:^7.8.1"
@@ -12650,7 +12720,7 @@ __metadata:
     jest-util: "npm:~30.2.0"
     jsdom: "npm:~27.3.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    nx: "npm:~22.3.3"
+    nx: "npm:~22.4.0"
     rimraf: "npm:^6.0.1"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
@@ -12709,7 +12779,7 @@ __metadata:
     globby: "npm:^14.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     minimist: "npm:^1.2.6"
-    nx: "npm:~22.3.3"
+    nx: "npm:~22.4.0"
     semver: "npm:^7.5.2"
     typescript: "npm:~5.9.2"
   peerDependencies:
@@ -12790,7 +12860,7 @@ __metadata:
     jsdom: "npm:~27.3.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     minimist: "npm:^1.2.6"
-    nx: "npm:~22.3.3"
+    nx: "npm:~22.4.0"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.4.0"
@@ -30710,6 +30780,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"minimatch@npm:10.1.1, minimatch@npm:^10.0.1, minimatch@npm:^10.0.3, minimatch@npm:^10.1.1, minimatch@npm:~10.1.0":
+  version: 10.1.1
+  resolution: "minimatch@npm:10.1.1"
+  dependencies:
+    "@isaacs/brace-expansion": "npm:^5.0.0"
+  checksum: 10/110f38921ea527022e90f7a5f43721838ac740d0a0c26881c03b57c261354fb9a0430e40b2c56dfcea2ef3c773768f27210d1106f1f2be19cde3eea93f26f45e
+  languageName: node
+  linkType: hard
+
 "minimatch@npm:7.4.6":
   version: 7.4.6
   resolution: "minimatch@npm:7.4.6"
@@ -30725,15 +30804,6 @@ __metadata:
   dependencies:
     brace-expansion: "npm:^2.0.1"
   checksum: 10/c81b47d28153e77521877649f4bab48348d10938df9e8147a58111fe00ef89559a2938de9f6632910c4f7bf7bb5cd81191a546167e58d357f0cfb1e18cecc1c5
-  languageName: node
-  linkType: hard
-
-"minimatch@npm:^10.0.1, minimatch@npm:^10.0.3, minimatch@npm:^10.1.1, minimatch@npm:~10.1.0":
-  version: 10.1.1
-  resolution: "minimatch@npm:10.1.1"
-  dependencies:
-    "@isaacs/brace-expansion": "npm:^5.0.0"
-  checksum: 10/110f38921ea527022e90f7a5f43721838ac740d0a0c26881c03b57c261354fb9a0430e40b2c56dfcea2ef3c773768f27210d1106f1f2be19cde3eea93f26f45e
   languageName: node
   linkType: hard
 
@@ -31771,7 +31841,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nx@npm:22.3.3, nx@npm:~22.3.3":
+"nx@npm:22.3.3":
   version: 22.3.3
   resolution: "nx@npm:22.3.3"
   dependencies:
@@ -31853,6 +31923,91 @@ __metadata:
     nx: bin/nx.js
     nx-cloud: bin/nx-cloud.js
   checksum: 10/9e109db85086af83568ffb151cbc9585d3e10c233d7995a8e66f95bd7b3919e9a74e61fce613901d535aaa7e1757a044899bdaad3375ca13d5e1b55b0a31394b
+  languageName: node
+  linkType: hard
+
+"nx@npm:~22.4.0":
+  version: 22.4.5
+  resolution: "nx@npm:22.4.5"
+  dependencies:
+    "@napi-rs/wasm-runtime": "npm:0.2.4"
+    "@nx/nx-darwin-arm64": "npm:22.4.5"
+    "@nx/nx-darwin-x64": "npm:22.4.5"
+    "@nx/nx-freebsd-x64": "npm:22.4.5"
+    "@nx/nx-linux-arm-gnueabihf": "npm:22.4.5"
+    "@nx/nx-linux-arm64-gnu": "npm:22.4.5"
+    "@nx/nx-linux-arm64-musl": "npm:22.4.5"
+    "@nx/nx-linux-x64-gnu": "npm:22.4.5"
+    "@nx/nx-linux-x64-musl": "npm:22.4.5"
+    "@nx/nx-win32-arm64-msvc": "npm:22.4.5"
+    "@nx/nx-win32-x64-msvc": "npm:22.4.5"
+    "@yarnpkg/lockfile": "npm:^1.1.0"
+    "@yarnpkg/parsers": "npm:3.0.2"
+    "@zkochan/js-yaml": "npm:0.0.7"
+    axios: "npm:^1.12.0"
+    chalk: "npm:^4.1.0"
+    cli-cursor: "npm:3.1.0"
+    cli-spinners: "npm:2.6.1"
+    cliui: "npm:^8.0.1"
+    dotenv: "npm:~16.4.5"
+    dotenv-expand: "npm:~11.0.6"
+    enquirer: "npm:~2.3.6"
+    figures: "npm:3.2.0"
+    flat: "npm:^5.0.2"
+    front-matter: "npm:^4.0.2"
+    ignore: "npm:^7.0.5"
+    jest-diff: "npm:^30.0.2"
+    jsonc-parser: "npm:3.2.0"
+    lines-and-columns: "npm:2.0.3"
+    minimatch: "npm:10.1.1"
+    node-machine-id: "npm:1.1.12"
+    npm-run-path: "npm:^4.0.1"
+    open: "npm:^8.4.0"
+    ora: "npm:5.3.0"
+    resolve.exports: "npm:2.0.3"
+    semver: "npm:^7.6.3"
+    string-width: "npm:^4.2.3"
+    tar-stream: "npm:~2.2.0"
+    tmp: "npm:~0.2.1"
+    tree-kill: "npm:^1.2.2"
+    tsconfig-paths: "npm:^4.1.2"
+    tslib: "npm:^2.3.0"
+    yaml: "npm:^2.6.0"
+    yargs: "npm:^17.6.2"
+    yargs-parser: "npm:21.1.1"
+  peerDependencies:
+    "@swc-node/register": ^1.8.0
+    "@swc/core": ^1.3.85
+  dependenciesMeta:
+    "@nx/nx-darwin-arm64":
+      optional: true
+    "@nx/nx-darwin-x64":
+      optional: true
+    "@nx/nx-freebsd-x64":
+      optional: true
+    "@nx/nx-linux-arm-gnueabihf":
+      optional: true
+    "@nx/nx-linux-arm64-gnu":
+      optional: true
+    "@nx/nx-linux-arm64-musl":
+      optional: true
+    "@nx/nx-linux-x64-gnu":
+      optional: true
+    "@nx/nx-linux-x64-musl":
+      optional: true
+    "@nx/nx-win32-arm64-msvc":
+      optional: true
+    "@nx/nx-win32-x64-msvc":
+      optional: true
+  peerDependenciesMeta:
+    "@swc-node/register":
+      optional: true
+    "@swc/core":
+      optional: true
+  bin:
+    nx: bin/nx.js
+    nx-cloud: bin/nx-cloud.js
+  checksum: 10/eb50ed4e41eb522e1a0e26ab99698139a12e7fa1a54b8f116c8129a8ed383c6ebbe4ef53cd9891b214dfd50bd7db070e576066b7c15cd3bec4eadff16902d93e
   languageName: node
   linkType: hard
 
@@ -32274,7 +32429,7 @@ __metadata:
     jest-util: "npm:~30.2.0"
     jiti: "npm:^2.4.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    nx: "npm:~22.3.3"
+    nx: "npm:~22.4.0"
     rxjs: "npm:^7.8.1"
     ts-jest: "npm:~29.4.0"
     typescript: "npm:~5.9.2"

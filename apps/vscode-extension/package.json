@@ -460,7 +460,7 @@
     "jest-util": "~30.2.0",
     "jiti": "^2.4.0",
     "jsonc-eslint-parser": "~2.4.0",
-    "nx": "~22.3.3",
+    "nx": "~22.4.0",
     "rxjs": "^7.8.1",
     "ts-jest": "~29.4.0",
     "typescript": "~5.9.2",
