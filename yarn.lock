@@ -2069,7 +2069,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular-devkit/architect@npm:0.2101.4, @angular-devkit/architect@npm:~0.2101.0":
+"@angular-devkit/architect@npm:0.2101.4, @angular-devkit/architect@npm:>= 0.2100.0 < 0.2200.0, @angular-devkit/architect@npm:~0.2101.0":
   version: 0.2101.4
   resolution: "@angular-devkit/architect@npm:0.2101.4"
   dependencies:
@@ -2078,18 +2078,6 @@ __metadata:
   bin:
     architect: bin/cli.js
   checksum: 10/6b272143a56d95770f1b33ccb90e2ad5be36660663faf7585b732b0de4d398ba7051e01b7d0bc9e8cf7503c6f2f6fe50458ab506664ed03cd10987532cfd46e3
-  languageName: node
-  linkType: hard
-
-"@angular-devkit/architect@npm:>= 0.2100.0 < 0.2200.0":
-  version: 0.2101.2
-  resolution: "@angular-devkit/architect@npm:0.2101.2"
-  dependencies:
-    "@angular-devkit/core": "npm:21.1.2"
-    rxjs: "npm:7.8.2"
-  bin:
-    architect: bin/cli.js
-  checksum: 10/08067082421d62c61e6aea914fa13e41b134898819797eb0514f2a0c986ac353d4e8a4144ddd22f83b047182cf81ba39c2e29eb7c20c43b6c69e1a32586e9775
   languageName: node
   linkType: hard
 
@@ -2237,25 +2225,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular-devkit/core@npm:21.1.2":
-  version: 21.1.2
-  resolution: "@angular-devkit/core@npm:21.1.2"
-  dependencies:
-    ajv: "npm:8.17.1"
-    ajv-formats: "npm:3.0.1"
-    jsonc-parser: "npm:3.3.1"
-    picomatch: "npm:4.0.3"
-    rxjs: "npm:7.8.2"
-    source-map: "npm:0.7.6"
-  peerDependencies:
-    chokidar: ^5.0.0
-  peerDependenciesMeta:
-    chokidar:
-      optional: true
-  checksum: 10/4fb1ad1e31b0c2c3d6eafd6d9dd43c65bf251efd3e725f7f3571d7a9dd29ce08592fb8dc73463c28534b341e408e3768b4df0405481437ab849b7adbad75da1d
-  languageName: node
-  linkType: hard
-
 "@angular-devkit/core@npm:21.1.4, @angular-devkit/core@npm:>= 21.0.0 < 22.0.0, @angular-devkit/core@npm:~21.1.0":
   version: 21.1.4
   resolution: "@angular-devkit/core@npm:21.1.4"
@@ -2301,7 +2270,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular-devkit/schematics@npm:21.1.4, @angular-devkit/schematics@npm:~21.1.0":
+"@angular-devkit/schematics@npm:21.1.4, @angular-devkit/schematics@npm:>= 21.0.0 < 22.0.0, @angular-devkit/schematics@npm:~21.1.0":
   version: 21.1.4
   resolution: "@angular-devkit/schematics@npm:21.1.4"
   dependencies:
@@ -2311,19 +2280,6 @@ __metadata:
     ora: "npm:9.0.0"
     rxjs: "npm:7.8.2"
   checksum: 10/90aa380c14cc4013e293edcedc301752862184b67a49bba461d954c42fde24101ad9f67951e583f4ec05e1da3e3aa0384933c48d927456b24cab7bada2473ba0
-  languageName: node
-  linkType: hard
-
-"@angular-devkit/schematics@npm:>= 21.0.0 < 22.0.0":
-  version: 21.1.2
-  resolution: "@angular-devkit/schematics@npm:21.1.2"
-  dependencies:
-    "@angular-devkit/core": "npm:21.1.2"
-    jsonc-parser: "npm:3.3.1"
-    magic-string: "npm:0.30.21"
-    ora: "npm:9.0.0"
-    rxjs: "npm:7.8.2"
-  checksum: 10/982a52df40b08653430d91d9501f1c87e38ae753aec28f249e9307b677aafb0005c00e75f8aab9e6aee57b3e421200136c91fd52e38822fe3b19c006d4d5b4cb
   languageName: node
   linkType: hard
 
@@ -3622,18 +3578,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-syntax-typescript@npm:^7.27.1, @babel/plugin-syntax-typescript@npm:^7.3.3":
-  version: 7.27.1
-  resolution: "@babel/plugin-syntax-typescript@npm:7.27.1"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.27.1"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10/87836f7e32af624c2914c73cd6b9803cf324e07d43f61dbb973c6a86f75df725e12540d91fac7141c14b697aa9268fd064220998daced156e96ac3062d7afb41
-  languageName: node
-  linkType: hard
-
-"@babel/plugin-syntax-typescript@npm:^7.28.6":
+"@babel/plugin-syntax-typescript@npm:^7.27.1, @babel/plugin-syntax-typescript@npm:^7.28.6, @babel/plugin-syntax-typescript@npm:^7.3.3":
   version: 7.28.6
   resolution: "@babel/plugin-syntax-typescript@npm:7.28.6"
   dependencies:
@@ -4747,11 +4692,11 @@ __metadata:
   linkType: hard
 
 "@capacitor/core@npm:^8.0.0":
-  version: 8.0.2
-  resolution: "@capacitor/core@npm:8.0.2"
+  version: 8.1.0
+  resolution: "@capacitor/core@npm:8.1.0"
   dependencies:
     tslib: "npm:^2.1.0"
-  checksum: 10/12d77e62dc961a11541caac300397c10a3b3fb4bf9cedbfc6b89a003b6506c70324fd928e86c7690bb611033eaffb5f1bdf970483cf6336b3b2746246a5bf753
+  checksum: 10/cc5a125217889e31d16fc8d1cdf3b2cca385de48a934bd023bf111e37ff39235b5173594a9ce16dde39c2c718078cdd510fcc0cdaf5faa2a67c88befa00a5da1
   languageName: node
   linkType: hard
 
@@ -13955,19 +13900,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@peculiar/asn1-x509-attr@npm:^2.6.0":
-  version: 2.6.0
-  resolution: "@peculiar/asn1-x509-attr@npm:2.6.0"
-  dependencies:
-    "@peculiar/asn1-schema": "npm:^2.6.0"
-    "@peculiar/asn1-x509": "npm:^2.6.0"
-    asn1js: "npm:^3.0.6"
-    tslib: "npm:^2.8.1"
-  checksum: 10/9ecd7a2e57e2199cc937691fc6e8fdce0d25039e2d16b2261ba5b7550250b903fd9d9f8bf3f5290eb23332fdb289abb79656c97477bf711af6897235312e0535
-  languageName: node
-  linkType: hard
-
-"@peculiar/asn1-x509-attr@npm:^2.6.1":
+"@peculiar/asn1-x509-attr@npm:^2.6.0, @peculiar/asn1-x509-attr@npm:^2.6.1":
   version: 2.6.1
   resolution: "@peculiar/asn1-x509-attr@npm:2.6.1"
   dependencies:
@@ -19488,7 +19421,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:1.13.5":
+"axios@npm:1.13.5, axios@npm:^1.12.0, axios@npm:^1.13.2":
   version: 1.13.5
   resolution: "axios@npm:1.13.5"
   dependencies:
@@ -19496,17 +19429,6 @@ __metadata:
     form-data: "npm:^4.0.5"
     proxy-from-env: "npm:^1.1.0"
   checksum: 10/db726d09902565ef9a0632893530028310e2ec2b95b727114eca1b101450b00014133dfc3871cffc87983fb922bca7e4874d7e2826d1550a377a157cdf3f05b6
-  languageName: node
-  linkType: hard
-
-"axios@npm:^1.12.0, axios@npm:^1.13.2":
-  version: 1.13.4
-  resolution: "axios@npm:1.13.4"
-  dependencies:
-    follow-redirects: "npm:^1.15.6"
-    form-data: "npm:^4.0.4"
-    proxy-from-env: "npm:^1.1.0"
-  checksum: 10/54b7ef71c64837f9d52475832337f520cf6fa85c94612e03a3a2aad7082804a2544741267122696662147e90e6d2746601346984cf531ae715ecdb56d586a04c
   languageName: node
   linkType: hard
 
@@ -25274,7 +25196,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"follow-redirects@npm:^1.0.0, follow-redirects@npm:^1.15.11, follow-redirects@npm:^1.15.6":
+"follow-redirects@npm:^1.0.0, follow-redirects@npm:^1.15.11":
   version: 1.15.11
   resolution: "follow-redirects@npm:1.15.11"
   peerDependenciesMeta:
@@ -35479,7 +35401,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass@npm:1.97.3, sass@npm:~1.97.0":
+"sass@npm:1.97.3, sass@npm:^1.81.0, sass@npm:^1.85.0, sass@npm:~1.97.0":
   version: 1.97.3
   resolution: "sass@npm:1.97.3"
   dependencies:
@@ -35493,23 +35415,6 @@ __metadata:
   bin:
     sass: sass.js
   checksum: 10/707ef8e525ed32d375e737346140d4b675f44de208df996c2df3407f5e62f3f38226ea1faf41a9fd4b068201e67b3a7e152b9e9c3b098daa847dd480c735f038
-  languageName: node
-  linkType: hard
-
-"sass@npm:^1.81.0, sass@npm:^1.85.0":
-  version: 1.94.2
-  resolution: "sass@npm:1.94.2"
-  dependencies:
-    "@parcel/watcher": "npm:^2.4.1"
-    chokidar: "npm:^4.0.0"
-    immutable: "npm:^5.0.2"
-    source-map-js: "npm:>=0.6.2 <2.0.0"
-  dependenciesMeta:
-    "@parcel/watcher":
-      optional: true
-  bin:
-    sass: sass.js
-  checksum: 10/e60c214ea93677740c9ddfad55c77fd433255bbfdd9faba137acf1215bed5ba6ad9d83efea81feb87a89283931d01f0435227e3fff37c65c263e0ee05f885328
   languageName: node
   linkType: hard
 
@@ -38355,7 +38260,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"undici@npm:7.20.0":
+"undici@npm:7.20.0, undici@npm:^7.0.0, undici@npm:^7.12.0, undici@npm:^7.19.0":
   version: 7.20.0
   resolution: "undici@npm:7.20.0"
   checksum: 10/09ca3e1255cf05f3c76e6dff2ae760131ea5bba57290b9b184bd94f5167939548e7ea73292c524c25eb91f5a2152623394d4c6124e222d34fcd53ef733c6b156
@@ -38375,13 +38280,6 @@ __metadata:
   version: 6.23.0
   resolution: "undici@npm:6.23.0"
   checksum: 10/56950995e7b628e62c996430445d17995ca9b70f6f2afe760a63da54205660d968bd08f0741b6f4fb008f40aa35c69cce979cd96ced399585d8c897a76a4f1d1
-  languageName: node
-  linkType: hard
-
-"undici@npm:^7.0.0, undici@npm:^7.12.0, undici@npm:^7.19.0":
-  version: 7.19.2
-  resolution: "undici@npm:7.19.2"
-  checksum: 10/26a01804402e5f09d02a5d09607e42096828698dddbcf32132dd313af4fda99f3c04ed84d884e28528f945a5b77d87df5c01ec6c1bdc918fd28878cb35f1cb4a
   languageName: node
   linkType: hard
 
