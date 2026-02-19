@@ -193,14 +193,6 @@
       "jest-fixtures"
     ]
   },
-  "plugins": [
-    {
-      "plugin": "@nx/vitest",
-      "options": {
-        "testTargetName": "test"
-      }
-    }
-  ],
   "targetDefaults": {
     "lint": {
       "options": {

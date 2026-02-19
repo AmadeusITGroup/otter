@@ -19,7 +19,8 @@
     "copy:schemas": "yarn cpy 'schemas/*.json' dist/schemas",
     "copy:renovate": "yarn cpy 'renovate/*.json' dist/renovate",
     "build:source": "tsc -b tsconfig.build.json && yarn cpy package.json dist/",
-    "build": "yarn nx build ama-openapi-core"
+    "build": "yarn nx build ama-openapi-core",
+    "postbuild": "patch-package-json-main"
   },
   "exports": {
     "./package.json": {
@@ -75,7 +76,6 @@
     "@typescript-eslint/parser": "~8.54.0",
     "@vitest/coverage-istanbul": "^4.0.18",
     "angular-eslint": "~21.2.0",
-    "babel-plugin-transform-import-meta": "^2.0.0",
     "cpy-cli": "^6.0.0",
     "eslint": "~9.39.0",
     "eslint-import-resolver-node": "~0.3.9",
@@ -93,7 +93,6 @@
     "type-fest": "^5.3.1",
     "typescript": "~5.9.2",
     "typescript-eslint": "~8.54.0",
-    "vite": "~7.3.1",
     "vitest": "~4.0.18"
   },
   "engines": {
