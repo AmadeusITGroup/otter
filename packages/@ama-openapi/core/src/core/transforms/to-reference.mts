@@ -44,9 +44,11 @@ export const toReference = <S extends SpecificationFile>(specification: S, retri
   }
 
   logger?.debug?.(`Converting specification ${retrievedModel.modelPath} to a $ref`);
+  const refFilePath = relative(dirname(retrievedModel.outputFilePath), retrievedModel.modelPath);
+
   return {
     ...Object.fromEntries(Object.entries(retrievedModel).filter(([key]) => key.startsWith('x-'))),
     [GENERATED_REF_PROPERTY_KEY]: true,
-    $ref: relative(dirname(retrievedModel.outputFilePath), retrievedModel.modelPath).replaceAll(sep, posix.sep)
+    $ref: refFilePath.replaceAll(sep, posix.sep) + (retrievedModel.model.innerPath ? `#/${retrievedModel.model.innerPath}` : '')
   };
 };
