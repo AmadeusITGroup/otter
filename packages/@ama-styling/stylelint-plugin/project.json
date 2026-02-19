@@ -20,7 +20,7 @@
       "outputs": [
         "{projectRoot}/dist/**/*.mjs",
         "{projectRoot}/dist/**/*.d.mts",
-        "{projectRoot}/dist/**/*.d.mts.map"
+        "{projectRoot}/dist/**/*.map"
       ],
       "options": {
         "script": "build:source"

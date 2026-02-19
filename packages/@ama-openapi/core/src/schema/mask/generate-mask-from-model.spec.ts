@@ -318,4 +318,18 @@ describe('generateMaskSchemaFromModel', () => {
       ]
     });
   });
+
+  it('should allow any object if type is not specified', async () => {
+    const ctx = createBaseCtx();
+    const model = {};
+
+    const result = await generateMaskSchemaFromModel(model as any, ctx);
+
+    expect(result).toEqual({
+      oneOf: [
+        { $ref: FIELD_SCHEMA_REF },
+        { type: 'object' }
+      ]
+    });
+  });
 });

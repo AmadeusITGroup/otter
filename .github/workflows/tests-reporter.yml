@@ -15,7 +15,7 @@ jobs:
       # Required to publish Unit Test Report to the pipeline execution result
       checks: write
     steps:
-      - uses: dorny/test-reporter@dc3a92680fcc15842eef52e8c4606ea7ce6bd3f3 # v2.1.1
+      - uses: dorny/test-reporter@b082adf0eced0765477756c2a610396589b8c637 # v2.5.0
         with:
           artifact: /ut-reports(.*)/
           name: UT Tests report$1
@@ -28,7 +28,7 @@ jobs:
       # Required to publish Integration Test Report to the pipeline execution result
       checks: write
     steps:
-      - uses: dorny/test-reporter@dc3a92680fcc15842eef52e8c4606ea7ce6bd3f3 # v2.1.1
+      - uses: dorny/test-reporter@b082adf0eced0765477756c2a610396589b8c637 # v2.5.0
         with:
           artifact: /it-reports(.*)/
           name: IT Tests report$1

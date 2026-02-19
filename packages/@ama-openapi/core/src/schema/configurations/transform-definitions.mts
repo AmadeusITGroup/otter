@@ -25,6 +25,7 @@ export const getTransformDefinitions = (artifacts: SpecificationArtifact[]) => {
           return [
             `transform-${modelRef}`,
             {
+              description: `Transformations to apply to the model "${model}" from package "${packageManifestName}"`,
               allOf: [
                 {
                   $ref: '#/definitions/baseTransform'
@@ -33,6 +34,9 @@ export const getTransformDefinitions = (artifacts: SpecificationArtifact[]) => {
                   type: 'object',
                   properties: {
                     mask: {
+                      description: `The JSON Schema of the mask to apply to the model "${model}" from package "${packageManifestName}".\n`
+                        + 'The mask schema is generated based on the model structure.\n'
+                        + 'It can be used to specify which properties to include or exclude from the model, as well as to apply transformations to the included properties.',
                       $ref: `./${maskSchemaFileName}`
                     }
                   }

@@ -37,13 +37,27 @@ describe('getModelDefinitions', () => {
           description: 'Include the default model exposed by the artifact'
         }),
         expect.objectContaining({
-          const: 'models/Example.v1.yaml'
+          const: 'models/Example.v1.yaml',
+          description: 'Path to the specific model to include as is. The path is relative to the artifact root (e.g., "models/ExampleModel.v1.yaml")'
+        }),
+        expect.objectContaining({
+          type: 'string',
+          pattern: expect.stringContaining('^models\\/Example\\.v1\\.yaml#/.*$')
         }),
         expect.objectContaining({
           type: 'object',
           properties: expect.objectContaining({
             path: expect.objectContaining({
-              const: 'models/Example.v1.yaml'
+              oneOf: expect.arrayContaining([
+                expect.objectContaining({
+                  const: 'models/Example.v1.yaml',
+                  description: 'Path to the specific model to include as is. The path is relative to the artifact root (e.g., "models/ExampleModel.v1.yaml")'
+                }),
+                expect.objectContaining({
+                  type: 'string',
+                  pattern: expect.stringContaining('^models\\/Example\\.v1\\.yaml#/.*$')
+                })
+              ])
             }),
             transform: expect.objectContaining({
               $ref: expect.stringContaining('#/definitions/transform-test-api-')
