@@ -910,6 +910,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ama-openapi/core@workspace:packages/@ama-openapi/core"
   dependencies:
+    "@angular/cli": "npm:~21.1.0"
     "@babel/core": "npm:~7.29.0"
     "@babel/preset-env": "npm:~7.29.0"
     "@babel/preset-typescript": "npm:~7.28.0"
