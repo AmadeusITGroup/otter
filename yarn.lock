@@ -1506,7 +1506,7 @@ __metadata:
     "@typescript-eslint/parser": "npm:~8.54.0"
     angular-eslint: "npm:~21.2.0"
     chokidar: "npm:~5.0.0"
-    commit-and-tag-version: "npm:^12.0.0"
+    commit-and-tag-version: "npm:^12.6.1"
     cpy-cli: "npm:^6.0.0"
     eslint: "npm:~9.39.0"
     eslint-import-resolver-node: "npm:~0.3.9"
@@ -1822,7 +1822,7 @@ __metadata:
     "@types/node": "npm:~24.10.0"
     "@typescript-eslint/parser": "npm:~8.54.0"
     angular-eslint: "npm:~21.2.0"
-    commit-and-tag-version: "npm:^12.0.0"
+    commit-and-tag-version: "npm:^12.6.1"
     cpy-cli: "npm:^6.0.0"
     eslint: "npm:~9.39.0"
     eslint-plugin-import: "npm:~2.32.0"
@@ -8927,7 +8927,7 @@ __metadata:
     "@typescript-eslint/parser": "npm:~8.54.0"
     angular-eslint: "npm:~21.2.0"
     chokidar: "npm:~5.0.0"
-    commit-and-tag-version: "npm:^12.0.0"
+    commit-and-tag-version: "npm:^12.6.1"
     cpy-cli: "npm:^6.0.0"
     eslint: "npm:~9.39.0"
     eslint-plugin-import: "npm:~2.32.0"
@@ -8996,7 +8996,7 @@ __metadata:
     "@types/node": "npm:~24.10.0"
     "@typescript-eslint/parser": "npm:~8.54.0"
     angular-eslint: "npm:~21.2.0"
-    commit-and-tag-version: "npm:^12.0.0"
+    commit-and-tag-version: "npm:^12.6.1"
     cpy-cli: "npm:^6.0.0"
     eslint: "npm:~9.39.0"
     eslint-plugin-import: "npm:~2.32.0"
@@ -10700,7 +10700,7 @@ __metadata:
     bootstrap-icons: "npm:^1.11.3"
     browserslist: "npm:^4.21.4"
     clipboard: "npm:^2.0.11"
-    commit-and-tag-version: "npm:^12.0.0"
+    commit-and-tag-version: "npm:^12.6.1"
     concurrently: "npm:^9.1.0"
     cpy-cli: "npm:^6.0.0"
     editorconfig-checker: "npm:^6.0.1"
@@ -21168,7 +21168,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"commit-and-tag-version@npm:^12.0.0":
+"commit-and-tag-version@npm:^12.6.1":
   version: 12.6.1
   resolution: "commit-and-tag-version@npm:12.6.1"
   dependencies:
@@ -24837,13 +24837,13 @@ __metadata:
   linkType: hard
 
 "fast-xml-parser@npm:^5.2.5":
-  version: 5.3.4
-  resolution: "fast-xml-parser@npm:5.3.4"
+  version: 5.3.7
+  resolution: "fast-xml-parser@npm:5.3.7"
   dependencies:
-    strnum: "npm:^2.1.0"
+    strnum: "npm:^2.1.2"
   bin:
     fxparser: src/cli/cli.js
-  checksum: 10/0d7e6872fed7c3065641400d43cdf24c03177f05c343bfb31df53b79f0900b085c103f647852d0b00693125aa3f0e9d8b8cfc4273b168d4da0308f857dafe830
+  checksum: 10/c3dfba84b8c8920a1a6f2596c387c8fbb3b76fcad9a26769a793f1e26d7718c50363478f3be2a71e952b2bf765be51d8f8e3434b37cc7af029c6a09662ea6ba4
   languageName: node
   linkType: hard
 
@@ -36803,7 +36803,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"strnum@npm:^2.1.0":
+"strnum@npm:^2.1.2":
   version: 2.1.2
   resolution: "strnum@npm:2.1.2"
   checksum: 10/7d894dff385e3a5c5b29c012cf0a7ea7962a92c6a299383c3d6db945ad2b6f3e770511356a9774dbd54444c56af1dc7c435dad6466c47293c48173274dd6c631
