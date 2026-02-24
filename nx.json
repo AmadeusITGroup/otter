@@ -50,6 +50,7 @@
       "!{projectRoot}/src/**/*.spec.scss"
     ],
     "templates": [
+      "{projectRoot}/**/*.template",
       "{projectRoot}/templates/**",
       "{projectRoot}/schematics/**/templates/**",
       "{projectRoot}/builders/**/templates/**"
@@ -348,7 +349,8 @@
       "outputs": [
         "{projectRoot}/dist/templates/**",
         "{projectRoot}/dist/schematics/**/templates/**",
-        "{projectRoot}/dist/builders/**/templates/**"
+        "{projectRoot}/dist/builders/**/templates/**",
+        "{projectRoot}/dist/**/*.template"
       ],
       "cache": true
     },

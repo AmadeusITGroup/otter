@@ -116,7 +116,7 @@ To align ourselves with OpenAPI 3.1, we now support arrays and objects in path a
 Based on the values of the keywords `style` and `explode` within the specification file, the parameters are serialized accordingly in the URLs of the APIs.
 For more information, check out OpenAPI's documentation on [parameter serialization](https://swagger.io/specification/).
 
-It is important to note that, as in OpenAPI 3.1, we only support simple arrays and simple non-nested objects in path and query parameters. 
+It is important to note that, as in OpenAPI 3.1, we only support simple arrays and simple non-nested objects in path and query parameters.
 The parameter types that we support are stored in `SupportedParamType` in the package `@ama-sdk/core`.
 
 To enable the parameter serialization within your API, you can set the option `enableParameterSerialization` to `true` (its current default value is `false`) in the constructor. For example:
@@ -165,7 +165,7 @@ If your specification file includes dates, there are multiple options for the ge
 to the `openapitools.json`.
 > [!NOTE]
 > An extra type to manage special timezone use cases can be used at property level thanks to the
-> `x-local-timezone` vendor. 
+> `x-local-timezone` vendor.
 > Please check out the [date documentation](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/schematics/schematics/typescript/shell/templates/base#manage-dates).
 
 Example to use `Date`:
@@ -328,3 +328,4 @@ Use `--help` on each command for more information
 | amasdk-clear-index          | Remove the index files that are no longer necessary after the deletion of the associated model |
 | amasdk-files-pack           | Prepare the dist folder for publication                                                        |
 | amasdk-update-spec-from-npm | Update the OpenAPI spec from an NPM package                                                    |
+| amasdk-update-sdk-context   | Update the SDK_CONTEXT.md file with the latest information from the OpenAPI spec (see [update-sdk-context](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/schematics/cli/genai-context/README.md))               |

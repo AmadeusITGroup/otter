@@ -11,6 +11,7 @@
     "nx": "nx",
     "ng": "yarn nx",
     "prepare:build:builders": "yarn cpy 'schematics/**/*.json' 'schematics/**/templates/**' 'schematics/**/*.jar' dist/schematics && yarn cpy '{package,collection,migration}.json' dist",
+    "copy:templates": "yarn cpy 'cli/**/*.template' dist/cli",
     "build": "yarn nx build ama-sdk-schematics",
     "postbuild": "patch-package-json-main",
     "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest",
@@ -21,6 +22,7 @@
   "bin": {
     "amasdk-clear-index": "./dist/cli/clear-index.cjs",
     "amasdk-files-pack": "./dist/cli/files-pack.cjs",
+    "amasdk-update-sdk-context": "./dist/cli/update-sdk-genai-context.cjs",
     "amasdk-update-spec-from-npm": "./dist/cli/update-spec-from-npm.cjs"
   },
   "ng-update": {
@@ -77,6 +79,7 @@
     "@angular-devkit/schematics": "~21.1.0",
     "@o3r/schematics": "workspace:~",
     "chokidar": "~5.0.0",
+    "ejs": "~3.1.9",
     "globby": "^11.1.0",
     "js-yaml": "^4.1.1",
     "minimatch": "~10.2.0",
@@ -99,6 +102,7 @@
     "@openapitools/openapi-generator-cli": "~2.28.0",
     "@schematics/angular": "~21.1.0",
     "@stylistic/eslint-plugin": "~5.7.0",
+    "@types/ejs": "^3.1.2",
     "@types/jest": "~30.0.0",
     "@types/js-yaml": "^4.0.5",
     "@types/minimist": "^1.2.2",

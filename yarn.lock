@@ -1498,6 +1498,7 @@ __metadata:
     "@openapitools/openapi-generator-cli": "npm:~2.28.0"
     "@schematics/angular": "npm:~21.1.0"
     "@stylistic/eslint-plugin": "npm:~5.7.0"
+    "@types/ejs": "npm:^3.1.2"
     "@types/jest": "npm:~30.0.0"
     "@types/js-yaml": "npm:^4.0.5"
     "@types/minimist": "npm:^1.2.2"
@@ -1508,6 +1509,7 @@ __metadata:
     chokidar: "npm:~5.0.0"
     commit-and-tag-version: "npm:^12.6.1"
     cpy-cli: "npm:^6.0.0"
+    ejs: "npm:~3.1.9"
     eslint: "npm:~9.39.0"
     eslint-import-resolver-node: "npm:~0.3.9"
     eslint-import-resolver-typescript: "npm:~4.4.0"
@@ -1570,6 +1572,7 @@ __metadata:
   bin:
     amasdk-clear-index: ./dist/cli/clear-index.cjs
     amasdk-files-pack: ./dist/cli/files-pack.cjs
+    amasdk-update-sdk-context: ./dist/cli/update-sdk-genai-context.cjs
     amasdk-update-spec-from-npm: ./dist/cli/update-spec-from-npm.cjs
   languageName: unknown
   linkType: soft
