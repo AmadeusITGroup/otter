@@ -1,5 +1,6 @@
 import {
   promises as fs,
+  readFileSync,
 } from 'node:fs';
 import {
   createRequire,
@@ -11,6 +12,9 @@ import {
   join,
   resolve,
 } from 'node:path';
+import {
+  globbySync,
+} from 'globby';
 import type {
   PackageJson,
 } from 'type-fest';
@@ -27,10 +31,15 @@ import {
   isJsonFile,
   parseFile,
 } from '../file-system/parse-file.mjs';
-import type {
-  Manifest,
-  Model,
-  Transform,
+import {
+  deserialize,
+} from '../serialization.mjs';
+import {
+  isPatternsModel,
+  type Manifest,
+  type Model,
+  type PatternsModel,
+  type Transform,
 } from './manifest.mjs';
 
 const INNER_PATH_SEPARATOR = '#[\\/]';
@@ -75,7 +84,7 @@ export const sanitizePackagePath = (artifactName: string) => {
  * Split model path into file path and inner path
  * @param modelPath
  */
-const splitModelPath = (modelPath: string) => {
+export const splitModelPath = (modelPath: string) => {
   const [filePath, innerPath] = modelPath.split(new RegExp(INNER_PATH_SEPARATOR));
   return { filePath, innerPath };
 };
@@ -114,6 +123,19 @@ const getArtifactInfo = async (require: NodeJS.Require, artifactName: string) =>
   const artifactPackageJson = require.resolve(`${artifactName}/package.json`);
   const artifactBasePath = dirname(artifactPackageJson);
   const packageJsonContent = await fs.readFile(artifactPackageJson, { encoding: 'utf8' });
+  const version: string = (JSON.parse(packageJsonContent) as PackageJson).version || 'latest';
+  return { artifactBasePath, version };
+};
+
+/**
+ * Get information for artifactory manifest file
+ * @param require
+ * @param artifactName
+ */
+const getArtifactInfoSync = (require: NodeJS.Require, artifactName: string) => {
+  const artifactPackageJson = require.resolve(`${artifactName}/package.json`);
+  const artifactBasePath = dirname(artifactPackageJson);
+  const packageJsonContent = readFileSync(artifactPackageJson, { encoding: 'utf8' });
   const version: string = (JSON.parse(packageJsonContent) as PackageJson).version || 'latest';
   return { artifactBasePath, version };
 };
@@ -207,6 +229,63 @@ export const extractDependencyModelsObject = async (
 };
 
 /**
+ * Extract dependency models from patterns model definition
+ * @param artifactName
+ * @param models
+ * @param context
+ * @param outputDirectory
+ */
+const extractDependencyPatternsModelsObject = (
+  artifactName: string,
+  models: PatternsModel,
+  context: Context,
+  outputDirectory = OUTPUT_DIRECTORY) => {
+  const { cwd, logger } = context;
+  const paths = Array.isArray(models.patterns) ? models.patterns : [models.patterns];
+  const require = createRequire(resolve(cwd, 'package.json'));
+  const { artifactBasePath } = getArtifactInfoSync(require, artifactName);
+
+  return paths.flatMap((modelPath) => {
+    const { filePath, innerPath } = splitModelPath(modelPath);
+    return globbySync(filePath, { cwd: artifactBasePath })
+      .flatMap((matchedFilePath) => {
+        if (!innerPath.includes('*')) {
+          return [extractDependencyModelsSimple(cwd, artifactName, matchedFilePath + (innerPath ? `#/${innerPath}` : ''), logger, outputDirectory)];
+        }
+
+        const content = readFileSync(matchedFilePath, { encoding: 'utf8' });
+        const deserialized = deserialize(content, { isInputJson: isJsonFile(matchedFilePath) });
+        const innerPathParts = innerPath.split('/');
+        return innerPathParts
+          .reduce((nodes, part) => {
+            if (part.includes('*')) {
+              const regex = new RegExp(`^${part.replaceAll('*', '.*')}$`);
+              return nodes
+                .flatMap(({ node, path }) => {
+                  const keys = Object.keys(node).filter((k) => regex.test(k));
+                  return keys
+                    .map((k) => ({
+                      node: node[k],
+                      path: `${path}/${k}`
+                    }))
+                    .filter(({ node: n }) => !!n);
+                });
+            } else {
+              return nodes
+                .map(({ node, path }) => ({
+                  node: node?.[part],
+                  path: `${path}/${part}`
+                }))
+                .filter(({ node }) => !!node);
+            }
+          }, [{ node: deserialized, path: '' }])
+          .map(({ path }) => path)
+          .map((path) => extractDependencyModelsSimple(cwd, artifactName, matchedFilePath + (path ? `#${path}` : ''), logger, outputDirectory));
+      });
+  });
+};
+
+/**
  * Extract dependency models from the manifest
  * @param manifest
  * @param context
@@ -217,8 +296,14 @@ export const extractDependencyModels = (manifest: Manifest, context: Context) =>
   logger?.debug?.('Extracting information from the manifest configuration: ', manifest);
   return Object.entries(manifest.models).flatMap(([dependencyName, modelDefinition]) =>
     (Array.isArray(modelDefinition) ? modelDefinition : [modelDefinition])
-      .map((model) => (typeof model === 'string' || typeof model === 'boolean')
-        ? extractDependencyModelsSimple(cwd, dependencyName, model, logger)
-        : extractDependencyModelsObject(dependencyName, model, retrieveTransform(cwd, model.transform), context))
+      .flatMap((model) => {
+        if (isPatternsModel(model)) {
+          return extractDependencyPatternsModelsObject(dependencyName, model, context);
+        }
+        const singleModel = (typeof model === 'string' || typeof model === 'boolean')
+          ? extractDependencyModelsSimple(cwd, dependencyName, model, logger)
+          : extractDependencyModelsObject(dependencyName, model, retrieveTransform(cwd, model.transform), context);
+        return [singleModel];
+      })
   );
 };

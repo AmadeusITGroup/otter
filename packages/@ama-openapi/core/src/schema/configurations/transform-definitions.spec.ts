@@ -7,6 +7,9 @@ import {
   vi,
 } from 'vitest';
 import {
+  BASE_TRANSFORM_DEFINITION_KEY,
+} from '../constants.mjs';
+import {
   generateModelNameRef,
   getMaskFileName,
 } from '../generate-model-name.mjs';
@@ -58,7 +61,7 @@ describe('getTransformDefinitions', () => {
     expect(definition).toBeDefined();
     expect(definition.allOf).toHaveLength(2);
     expect(definition.allOf[0]).toEqual({
-      $ref: '#/definitions/baseTransform'
+      $ref: `#/definitions/${BASE_TRANSFORM_DEFINITION_KEY}`
     });
     expect(definition.allOf[1]).toEqual(expect.objectContaining({
       type: 'object',

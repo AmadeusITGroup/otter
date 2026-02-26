@@ -13,11 +13,18 @@ import type {
   Context,
 } from '../context.mjs';
 import {
+  PATTERNS_MODEL_DEFINITION_KEY,
+} from './constants.mjs';
+import {
   generateOpenApiManifestSchema,
 } from './generate-schema.mjs';
 import {
   listSpecificationArtifacts,
 } from './list-artifacts.mjs';
+
+vi.mock('globby', () => ({
+  globbySync: vi.fn().mockReturnValue([])
+}));
 
 vi.mock('node:fs', async () => ({
   ...(await vi.importActual('memfs') as any),
@@ -121,14 +128,28 @@ describe('generateOpenApiManifestSchema', () => {
       expect(models['@test/api'].oneOf).toEqual(
         expect.arrayContaining([
           expect.objectContaining({
-            $ref: expect.stringContaining('#/definitions/model-test-api-')
+            oneOf: expect.arrayContaining([
+              expect.objectContaining({
+                $ref: expect.stringContaining('#/definitions/model-test-api-')
+              }),
+              expect.objectContaining({
+                $ref: expect.stringContaining(`#/definitions/${PATTERNS_MODEL_DEFINITION_KEY}`)
+              })
+            ])
           }),
           expect.objectContaining({
             type: 'array',
             items: expect.objectContaining({
               oneOf: expect.arrayContaining([
                 expect.objectContaining({
-                  $ref: expect.stringContaining('#/definitions/model-test-api-')
+                  oneOf: expect.arrayContaining([
+                    expect.objectContaining({
+                      $ref: expect.stringContaining('#/definitions/model-test-api-')
+                    }),
+                    expect.objectContaining({
+                      $ref: expect.stringContaining(`#/definitions/${PATTERNS_MODEL_DEFINITION_KEY}`)
+                    })
+                  ])
                 })
               ])
             })

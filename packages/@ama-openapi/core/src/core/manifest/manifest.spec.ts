@@ -10,6 +10,7 @@ import {
   DEFAULT_MANIFEST_FILENAMES,
 } from '../../constants.mjs';
 import {
+  isPatternsModel,
   type Manifest,
   retrieveManifest,
 } from './manifest.mjs';
@@ -252,5 +253,19 @@ describe('retrieveManifest', () => {
       expect(result).toBeUndefined();
       // Should not throw error when logger.debug is undefined
     });
+  });
+});
+
+describe('isPatternsModel', () => {
+  it('should return true for a model with patterns', () => {
+    expect(isPatternsModel({ patterns: 'models/.+' })).toBe(true);
+    expect(isPatternsModel({ patterns: ['models/.+', 'schemas/.+'] })).toBe(true);
+  });
+
+  it('should return false for non-pattern model definitions', () => {
+    expect(isPatternsModel('model/path.yaml#/components/schemas/Model')).toBe(false);
+    expect(isPatternsModel(true)).toBe(false);
+    expect(isPatternsModel(false)).toBe(false);
+    expect(isPatternsModel({ path: 'models/Model.yaml' } as any)).toBe(false);
   });
 });

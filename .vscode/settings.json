@@ -101,12 +101,14 @@
   "otter.extract.styling.prefix": "o3r",
   "search.useIgnoreFiles": true,
   "search.exclude": {
-    "**/*.code-search": true,
     "**/github-actions/*/packaged-action/**": true,
     "**/.yarn": true,
     "**/.pnp.*": true,
     "**/.cache/**": true,
     "**/dist/**": true,
+    "**/dist-*/**": true,
+    "**/build/**": true,
+    "**/coverage/**": true,
     "**/.tsbuildinfo*": true
   },
   "typescript.enablePromptUseWorkspaceTsdk": true,

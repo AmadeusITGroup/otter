@@ -36,7 +36,7 @@
     "build:fixtures:jasmine": "tsc -b tsconfig.fixture.jasmine.json --pretty"
   },
   "generatorDependencies": {
-    "jsonpath-plus": "~10.3.0"
+    "jsonpath-plus": "~10.4.0"
   },
   "peerDependencies": {
     "@angular-devkit/architect": ">=0.2100.0 <0.2200.0-0",
