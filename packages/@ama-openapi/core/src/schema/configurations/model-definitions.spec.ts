@@ -1,4 +1,9 @@
 import {
+  describe,
+  expect,
+  it,
+} from 'vitest';
+import {
   getModelDefinitions,
 } from './model-definitions.mjs';
 

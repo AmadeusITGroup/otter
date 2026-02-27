@@ -1,4 +1,9 @@
 import {
+  describe,
+  expect,
+  it,
+} from 'vitest';
+import {
   getManifestModelsProperties,
 } from './manifest-model-properties.mjs';
 

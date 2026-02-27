@@ -2,6 +2,13 @@ import {
   promises as fs,
 } from 'node:fs';
 import {
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from 'vitest';
+import {
   extractDependencyModelsObject,
   sanitizePackagePath,
 } from './extract-dependency-models.mjs';
@@ -10,15 +17,15 @@ import type {
 } from './manifest.mts';
 
 // Mock dependencies
-jest.mock('node:fs', () => ({
+vi.mock('node:fs', () => ({
   promises: {
-    readFile: jest.fn().mockResolvedValue('{"test": "data"}'),
-    stat: jest.fn().mockResolvedValue({ isFile: () => true } as any)
+    readFile: vi.fn().mockResolvedValue('{"test": "data"}'),
+    stat: vi.fn().mockResolvedValue({ isFile: () => true } as any)
   }
 }));
-jest.mock('node:module', () => ({
-  createRequire: jest.fn().mockReturnValue({
-    resolve: jest.fn().mockReturnValue('/node_modules/some-package/index.json')
+vi.mock('node:module', () => ({
+  createRequire: vi.fn().mockReturnValue({
+    resolve: vi.fn().mockReturnValue('/node_modules/some-package/index.json')
   })
 }));
 
@@ -26,15 +33,15 @@ describe('extract-dependency-models', () => {
   const mockCwd = '/test/cwd';
   const mockContext = {
     logger: {
-      debug: jest.fn(),
-      warn: jest.fn(),
-      error: jest.fn()
+      debug: vi.fn(),
+      warn: vi.fn(),
+      error: vi.fn()
     },
     cwd: mockCwd
   } as any;
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   describe('extractDependencyModelsObject', () => {
@@ -45,7 +52,7 @@ describe('extract-dependency-models', () => {
       path: './models/test-model.json',
       transform: 'test-transform'
     };
-    const mockTransform = jest.fn();
+    const mockTransform = vi.fn();
 
     it('should extract dependency model from object configuration', async () => {
       const result = await extractDependencyModelsObject(
@@ -130,9 +137,9 @@ describe('extract-dependency-models', () => {
 
       // Mock require.resolve behavior
       const mockRequire = {
-        resolve: jest.fn().mockReturnValue('/node_modules/@test/package/index.js')
+        resolve: vi.fn().mockReturnValue('/node_modules/@test/package/index.js')
       };
-      jest.doMock('node:module', () => ({
+      vi.doMock('node:module', () => ({
         createRequire: () => mockRequire
       }));
 

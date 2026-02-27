@@ -151,6 +151,19 @@
       "!{workspaceRoot}/packages/@o3r/test-helpers/src/jest-config/integration-test.ts",
       "{workspaceRoot}/codecov.yml"
     ],
+    "tests": [
+      "base",
+      "{projectRoot}/**/*.spec.ts",
+      "{projectRoot}/**/*.spec.mts",
+      "{projectRoot}/**/*.test.ts",
+      "{projectRoot}/**/*.test.mts",
+      "{projectRoot}/vitest.*.ts",
+      "{projectRoot}/vitest.*.mts",
+      "{projectRoot}/mocks/**/*",
+      "{workspaceRoot}/vitest.*.ts",
+      "{workspaceRoot}/vitest.*.mts",
+      "{workspaceRoot}/codecov.yml"
+    ],
     "integration-test": [
       "base",
       "{projectRoot}/testing/jest.config.it.js",

@@ -1,3 +1,9 @@
+import {
+  describe,
+  expect,
+  it,
+  vi,
+} from 'vitest';
 import type {
   RetrievedDependencyModel,
 } from '../manifest/extract-dependency-models.mjs';
@@ -9,9 +15,9 @@ describe('addAnnotation', () => {
   const mockCwd = '/test/cwd';
   const mockContext = {
     logger: {
-      debug: jest.fn(),
-      warn: jest.fn(),
-      error: jest.fn()
+      debug: vi.fn(),
+      warn: vi.fn(),
+      error: vi.fn()
     },
     cwd: mockCwd
   } as any;
