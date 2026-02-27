@@ -1,4 +1,12 @@
 import {
+  afterEach,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from 'vitest';
+import {
   DEFAULT_MANIFEST_FILENAMES,
 } from '../../constants.mjs';
 import {
@@ -6,10 +14,10 @@ import {
   retrieveManifest,
 } from './manifest.mjs';
 
-let mockExistsSync = jest.fn();
-let mockReadFile = jest.fn();
-let mockResolve = jest.fn();
-jest.mock('node:fs', () => {
+let mockExistsSync = vi.fn();
+let mockReadFile = vi.fn();
+let mockResolve = vi.fn();
+vi.mock('node:fs', () => {
   return {
     existsSync: (...args: any[]) => mockExistsSync(...args),
     promises: {
@@ -17,38 +25,38 @@ jest.mock('node:fs', () => {
     }
   };
 });
-jest.mock('node:path', () => ({
-  ...jest.requireActual<object>('node:path'),
+vi.mock('node:path', async () => ({
+  ...(await vi.importActual<object>('node:path') as any),
   resolve: (...args: any[]) => mockResolve(...args)
 }));
 
 // Mock constants
-jest.mock('../../constants.mts', () => ({
+vi.mock('../../constants.mts', () => ({
   DEFAULT_MANIFEST_FILENAMES: ['package.json', 'manifest.json']
 }));
 
 describe('retrieveManifest', () => {
   const mockWorkspaceDirectory = '/workspace';
   const mockLogger = {
-    debug: jest.fn(),
-    error: jest.fn(),
-    warn: jest.fn(),
-    info: jest.fn(),
-    log: jest.fn()
+    debug: vi.fn(),
+    error: vi.fn(),
+    warn: vi.fn(),
+    info: vi.fn(),
+    log: vi.fn()
   };
 
   beforeEach(() => {
-    jest.clearAllMocks();
-    mockResolve = jest.fn().mockImplementation((...paths) => paths.join('/'));
+    vi.clearAllMocks();
+    mockResolve = vi.fn().mockImplementation((...paths) => paths.join('/'));
   });
 
   afterEach(() => {
-    jest.resetAllMocks();
+    vi.resetAllMocks();
   });
 
   describe('when no manifest files exist', () => {
     beforeEach(() => {
-      mockExistsSync = jest.fn().mockReturnValue(false);
+      mockExistsSync = vi.fn().mockReturnValue(false);
     });
 
     it('should return undefined when no manifest files are found', async () => {
@@ -71,8 +79,8 @@ describe('retrieveManifest', () => {
 
   describe('when manifest file exists but is invalid JSON', () => {
     beforeEach(() => {
-      mockExistsSync = jest.fn().mockReturnValueOnce(true);
-      mockReadFile = jest.fn().mockResolvedValueOnce('invalid json content');
+      mockExistsSync = vi.fn().mockReturnValueOnce(true);
+      mockReadFile = vi.fn().mockResolvedValueOnce('invalid json content');
     });
 
     it('should handle JSON parsing errors gracefully', async () => {
@@ -88,8 +96,8 @@ describe('retrieveManifest', () => {
     };
 
     beforeEach(() => {
-      mockExistsSync = jest.fn().mockReturnValueOnce(true);
-      mockReadFile = jest.fn()
+      mockExistsSync = vi.fn().mockReturnValueOnce(true);
+      mockReadFile = vi.fn()
         .mockResolvedValueOnce(JSON.stringify(invalidManifest))
         .mockResolvedValueOnce('{"type": "object"}'); // schema mock
     });
@@ -125,10 +133,10 @@ describe('retrieveManifest', () => {
 
     it('should return the valid manifest', async () => {
       // Mock the schema validation to pass
-      const mockValidate = jest.fn().mockReturnValue(true);
-      jest.doMock('ajv', () => {
-        return jest.fn().mockImplementation(() => ({
-          addSchema: jest.fn().mockReturnValue({ compile: jest.fn().mockReturnValue(mockValidate) })
+      const mockValidate = vi.fn().mockReturnValue(true);
+      vi.doMock('ajv', () => {
+        return vi.fn().mockImplementation(() => ({
+          addSchema: vi.fn().mockReturnValue({ compile: vi.fn().mockReturnValue(mockValidate) })
         }));
       });
 
@@ -161,10 +169,10 @@ describe('retrieveManifest', () => {
 
     it('should return the first valid manifest found', async () => {
       // Mock the schema validation to pass
-      const mockValidate = jest.fn().mockReturnValue(true);
-      jest.doMock('ajv', () => {
-        return jest.fn().mockImplementation(() => ({
-          compile: jest.fn().mockReturnValue(mockValidate)
+      const mockValidate = vi.fn().mockReturnValue(true);
+      vi.doMock('ajv', () => {
+        return vi.fn().mockImplementation(() => ({
+          compile: vi.fn().mockReturnValue(mockValidate)
         }));
       });
 
@@ -183,8 +191,8 @@ describe('retrieveManifest', () => {
     };
 
     beforeEach(() => {
-      mockExistsSync = jest.fn().mockReturnValueOnce(true);
-      mockReadFile = jest.fn()
+      mockExistsSync = vi.fn().mockReturnValueOnce(true);
+      mockReadFile = vi.fn()
         .mockResolvedValueOnce(JSON.stringify(validManifest))
         .mockRejectedValueOnce(new Error('Schema file not found'));
     });
@@ -233,10 +241,10 @@ describe('retrieveManifest', () => {
 
     it('should not call logger.debug when logger.debug is undefined', async () => {
       const loggerWithoutDebug = {
-        error: jest.fn(),
-        warn: jest.fn(),
-        info: jest.fn(),
-        log: jest.fn()
+        error: vi.fn(),
+        warn: vi.fn(),
+        info: vi.fn(),
+        log: vi.fn()
       };
 
       const result = await retrieveManifest(mockWorkspaceDirectory, loggerWithoutDebug);

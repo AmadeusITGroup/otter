@@ -5,22 +5,30 @@ import {
   resolve,
 } from 'node:path';
 import {
+  beforeEach,
+  describe,
+  expect,
+  it,
+  type Mock,
+  vi,
+} from 'vitest';
+import {
   OUTPUT_DIRECTORY,
 } from '../../constants.mjs';
 import {
   cleanOutputDirectory,
 } from './cleaner.mjs';
 
-jest.mock('node:fs', () => ({
+vi.mock('node:fs', () => ({
   promises: {
-    rm: jest.fn()
+    rm: vi.fn()
   }
 }));
 
 describe('cleanOutputDirectory', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
-    (fs.rm as jest.Mock).mockResolvedValue(undefined);
+    vi.clearAllMocks();
+    (fs.rm as Mock).mockResolvedValue(undefined);
   });
 
   it('should remove output directory', async () => {

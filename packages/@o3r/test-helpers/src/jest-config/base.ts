@@ -91,6 +91,7 @@ export const getOtterJestBaseConfig = (rootDir: string, options: OtterJestBaseCo
     moduleNameMapper: {
       ...moduleNameMapper,
       '^(\\.{1,2}/.*)\\.mjs$': ['$1.mjs', '$1.mts'],
+      '^chokidar$': join(workspaceRoot, 'packages/@o3r/test-helpers/src/mocks/chokidar.mock.js'),
       '^intl-messageformat$': join(workspaceRoot, 'packages/@o3r/test-helpers/src/mocks/intl-messageformat.mock.js'),
       '^ora$': join(workspaceRoot, 'packages/@o3r/test-helpers/src/mocks/ora.mock.js'),
       '^uuid$': join(workspaceRoot, 'packages/@o3r/test-helpers/src/mocks/uuid.mock.js'),

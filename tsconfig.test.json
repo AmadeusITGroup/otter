@@ -1,0 +1,25 @@
+{
+  "extends": "./tsconfig.base",
+  "compilerOptions": {
+    "strictPropertyInitialization": false,
+    "strictNullChecks": false,
+    "types": ["node"],
+    "composite": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "emitDecoratorMetadata": false,
+    "resolveJsonModule": true,
+    "rootDir": "."
+  },
+  "include": [
+    "**/vitest.*.ts",
+    "**/vitest.*.mts",
+    "**/*.spec.ts",
+    "**/*.spec.mts",
+    "**/*.test.ts",
+    "**/*.test.mts"
+  ],
+  "exclude": [
+    "**/*.e2e.spec.ts"
+  ]
+}

@@ -22,9 +22,13 @@ on:
       CODECOV_TOKEN:
         required: false
         description: Token Report to Codecov
+      NX_CLOUD_ACCESS_TOKEN:
+        required: false
+        description: Token to access to nx cloud
 
 env:
   NX_PARALLEL: ${{ vars.NX_PARALLEL }}
+  NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
   NX_TASK_TARGET_CONFIGURATION: ci
   NX_SKIP_NX_CACHE: ${{ inputs.skipNxCache }}
   NX_SKIP_REMOTE_CACHE: ${{inputs.skipNxRemoteCache}}
@@ -80,14 +84,15 @@ jobs:
           NX_BASE: ${{ format('remotes/origin/{0}', github.base_ref || github.ref_name) }}
           testCmd: ${{ inputs.affected && 'test:affected' || 'test'}}
           NODE_OPTIONS: ${{ runner.os == 'Windows' && '--max_old_space_size=4096' || '' }}
-        run: yarn ${{ env.testCmd }} --collectCoverage --configuration=ci
+        run: yarn ${{ env.testCmd }} --coverage --configuration=ci
       - name: Upload results to Codecov
         uses: codecov/codecov-action@671740ac38dd9b0130fbe1cec585b89eea48d3de # v5.5.2
         with:
           flags: unittests
           token: ${{ secrets.CODECOV_TOKEN }}
       - name: Upload test results to Codecov
-        uses: codecov/test-results-action@47f89e9acb64b76debcd5ea40642d25a4adced9f # v1.1.1
+        if: always()
+        uses: codecov/test-results-action@0fa95f0e1eeaafde2c782583b36b28ad0d8c77d3 # v1.2.1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
       - name: Publish tests reports
@@ -99,6 +104,8 @@ jobs:
             apps/**/dist-test/junit.xml
             packages/**/dist-test/junit.xml
             tools/**/dist-test/junit.xml
+      - run: yarn nx fix-ci
+        if: always() && runner.os == 'Linux'
   lint:
     runs-on: ubuntu-latest
     steps:
@@ -124,6 +131,8 @@ jobs:
           NX_BASE: ${{ format('remotes/origin/{0}', github.base_ref || github.ref_name) }}
           lintCmd: ${{ inputs.affected && 'lint:affected' || 'lint'}}
         run: yarn ${{ env.lintCmd }} --configuration ci
+      - run: yarn nx fix-ci
+        if: always()
 
   # Check that the packaging of github-actions is still working
   github-actions:
@@ -146,4 +155,4 @@ jobs:
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - uses: ./tools/github-actions/setup
-      - uses: AmadeusITGroup/prompt-registry/github-actions/validate-collections@47ebd8721a5deabae468d13b160a0372a1a1c407 # v0.0.27
+      - uses: AmadeusITGroup/prompt-registry/github-actions/validate-collections@7f88961a69e0121ec98cccfb4431d6858cdd4334 # v0.0.30

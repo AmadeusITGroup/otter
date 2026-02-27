@@ -1,6 +1,14 @@
 import {
   vol,
 } from 'memfs';
+import {
+  afterEach,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from 'vitest';
 import type {
   Context,
 } from '../context.mjs';
@@ -11,22 +19,22 @@ import {
   listSpecificationArtifacts,
 } from './list-artifacts.mjs';
 
-jest.mock('node:fs', () => ({
-  ...jest.requireActual('memfs'),
-  promises: jest.requireActual('memfs').promises
+vi.mock('node:fs', async () => ({
+  ...(await vi.importActual('memfs') as any),
+  promises: (await vi.importActual('memfs') as any).promises
 }));
 
-jest.mock('./list-artifacts.mjs', () => ({
-  listSpecificationArtifacts: jest.fn().mockReturnValue([])
+vi.mock('./list-artifacts.mjs', () => ({
+  listSpecificationArtifacts: vi.fn().mockReturnValue([])
 }));
 
-jest.mock('node:fs/promises', () => jest.requireActual('memfs').promises);
+vi.mock('node:fs/promises', async () => (await vi.importActual('memfs') as any).promises);
 
-jest.mock('./mask/generate-mask-from-model.mjs', () => ({
-  generateMaskSchemaModelAt: jest.fn().mockResolvedValue({})
+vi.mock('./mask/generate-mask-from-model.mjs', () => ({
+  generateMaskSchemaModelAt: vi.fn().mockResolvedValue({})
 }));
 
-jest.mock('./mask/field-schema.constants.mjs', () => ({
+vi.mock('./mask/field-schema.constants.mjs', () => ({
   FIELD_SCHEMA_DEFINITION: {}
 }));
 
@@ -42,7 +50,7 @@ describe('generateOpenApiManifestSchema', () => {
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   describe('basic schema generation', () => {
@@ -98,7 +106,7 @@ describe('generateOpenApiManifestSchema', () => {
         }
       ];
 
-      jest.mocked(listSpecificationArtifacts).mockResolvedValue(artifacts as any);
+      vi.mocked(listSpecificationArtifacts).mockResolvedValue(artifacts as any);
 
       const options: any = {
         ...mockContext
@@ -200,9 +208,7 @@ describe('generateOpenApiManifestSchema', () => {
         specPath: '/non-existent/path/spec.yaml'
       };
 
-      await expect(async () => {
-        await generateOpenApiManifestSchema(options);
-      }).resolves.not.toThrow();
+      await expect(generateOpenApiManifestSchema(options)).resolves.not.toThrow();
     });
 
     it('should handle invalid output path', async () => {

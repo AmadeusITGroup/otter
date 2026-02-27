@@ -21,9 +21,13 @@ on:
       CODECOV_TOKEN:
         required: false
         description: Token Report to Codecov
+      NX_CLOUD_ACCESS_TOKEN:
+        required: false
+        description: Token to access to nx cloud
 
 env:
   NX_PARALLEL: ${{ vars.NX_PARALLEL }}
+  NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
   NX_TASK_TARGET_CONFIGURATION: ci
   NX_SKIP_NX_CACHE: ${{ inputs.skipNxCache }}
   NX_SKIP_REMOTE_CACHE: ${{inputs.skipNxRemoteCache}}

@@ -1,4 +1,12 @@
 import {
+  beforeEach,
+  describe,
+  expect,
+  it,
+  type MockedFunction,
+  vi,
+} from 'vitest';
+import {
   sanitizePackagePath,
 } from '../core/manifest/extract-dependency-models.mjs';
 import {
@@ -6,16 +14,16 @@ import {
   getMaskFileName,
 } from './generate-model-name.mjs';
 
-jest.mock('../core/manifest/extract-dependency-models.mjs', () => ({
-  sanitizePackagePath: jest.fn()
+vi.mock('../core/manifest/extract-dependency-models.mjs', () => ({
+  sanitizePackagePath: vi.fn()
 }));
 
 describe('generateModelNameRef', () => {
   const sanitizePackagePathMock =
-    sanitizePackagePath as jest.MockedFunction<typeof sanitizePackagePath>;
+    sanitizePackagePath as MockedFunction<typeof sanitizePackagePath>;
 
   beforeEach(() => {
-    jest.resetAllMocks();
+    vi.resetAllMocks();
   });
 
   it('should build model reference using sanitized artifact name and model file path without inner path', () => {
@@ -53,10 +61,10 @@ describe('generateModelNameRef', () => {
 });
 
 describe('getMaskFileName', () => {
-  it('should prefix modelNameRef with mask- and suffix with .json', () => {
+  it('should prefix modelNameRef with mask- and suffix with .schema.json', () => {
     const modelNameRef = 'pkg-schemas-user';
     const result = getMaskFileName(modelNameRef);
 
-    expect(result).toBe('mask-pkg-schemas-user.json');
+    expect(result).toBe('mask-pkg-schemas-user.schema.json');
   });
 });

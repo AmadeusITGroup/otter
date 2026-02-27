@@ -1,8 +1,19 @@
+import {
+  dirname,
+  join,
+} from 'node:path';
+import {
+  fileURLToPath,
+} from 'node:url';
 import o3rPlugin from '@o3r/eslint-plugin';
 import {
   defineConfig,
 } from 'eslint/config';
 import yamlParser from 'yaml-eslint-parser';
+
+const __filename = fileURLToPath(import.meta.url);
+// __dirname is not defined in ES module scope
+const __dirname = dirname(__filename);
 
 export default defineConfig([
   {
@@ -61,6 +72,17 @@ export default defineConfig([
           allowedTags: ['access:private', 'hook:postinstall']
         }
       ]
+    }
+  },
+  {
+    name: '@o3r/framework/config-ts',
+    files: ['*.{m,c,}ts'],
+    languageOptions: {
+      parserOptions: {
+        project: join(__dirname, '/tsconfig.eslint.json')
+      },
+      sourceType: 'module',
+      ecmaVersion: 12
     }
   }
 ]);

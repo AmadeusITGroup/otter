@@ -22,5 +22,5 @@ export const generateModelNameRef = (artifactName: string, modelPath: string): s
  * @param modelNameRef
  */
 export const getMaskFileName = (modelNameRef: string) => {
-  return `mask-${modelNameRef}.json`;
+  return `mask-${modelNameRef}.schema.json`;
 };

@@ -49,14 +49,10 @@
       "!{projectRoot}/src/**/*.spec.ts",
       "!{projectRoot}/src/**/*.spec.scss"
     ],
-    "templates-only": [
+    "templates": [
       "{projectRoot}/templates/**",
       "{projectRoot}/schematics/**/templates/**",
       "{projectRoot}/builders/**/templates/**"
-    ],
-    "templates": [
-      "templates-only",
-      "source"
     ],
     "jasmine-fixtures": [
       "base",
@@ -153,6 +149,19 @@
       "{projectRoot}/mocks/**/*",
       "{workspaceRoot}/packages/@o3r/test-helpers/src/jest-config/*.ts",
       "!{workspaceRoot}/packages/@o3r/test-helpers/src/jest-config/integration-test.ts",
+      "{workspaceRoot}/codecov.yml"
+    ],
+    "tests": [
+      "base",
+      "{projectRoot}/**/*.spec.ts",
+      "{projectRoot}/**/*.spec.mts",
+      "{projectRoot}/**/*.test.ts",
+      "{projectRoot}/**/*.test.mts",
+      "{projectRoot}/vitest.*.ts",
+      "{projectRoot}/vitest.*.mts",
+      "{projectRoot}/mocks/**/*",
+      "{workspaceRoot}/vitest.*.ts",
+      "{workspaceRoot}/vitest.*.mts",
       "{workspaceRoot}/codecov.yml"
     ],
     "integration-test": [
@@ -338,6 +347,24 @@
       ],
       "cache": true
     },
+    "expose-templates": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "copy:templates"
+      },
+      "dependsOn": [
+        "compile"
+      ],
+      "inputs": [
+        "templates"
+      ],
+      "outputs": [
+        "{projectRoot}/dist/templates/**",
+        "{projectRoot}/dist/schematics/**/templates/**",
+        "{projectRoot}/dist/builders/**/templates/**"
+      ],
+      "cache": true
+    },
     "expose-schemas": {
       "executor": "nx:run-script",
       "options": {
@@ -446,7 +473,8 @@
         "compile"
       ],
       "inputs": [
-        "build",
+        "schematics",
+        "builders",
         "^cli"
       ],
       "outputs": [
@@ -477,10 +505,9 @@
         "{projectRoot}/dist/cli/package.json",
         "{projectRoot}/dist/cli/**/*.cjs",
         "{projectRoot}/dist/cli/**/*.d.cts",
-        "{projectRoot}/dist/cli/**/*.d.cts.map",
         "{projectRoot}/dist/cli/**/*.js",
         "{projectRoot}/dist/cli/**/*.d.ts",
-        "{projectRoot}/dist/cli/**/*.d.ts.map"
+        "{projectRoot}/dist/cli/**/*.map"
       ],
       "cache": true
     },
@@ -505,17 +532,17 @@
         "{projectRoot}/dist/builders/**/*.cjs",
         "{projectRoot}/dist/builders/**/*.js",
         "{projectRoot}/dist/builders/**/*.d.ts",
-        "{projectRoot}/dist/builders/**/*.d.ts.map",
+        "{projectRoot}/dist/builders/**/*.map",
         "{projectRoot}/dist/schematics/package.json",
         "{projectRoot}/dist/schematics/**/*.cjs",
         "{projectRoot}/dist/schematics/**/*.js",
         "{projectRoot}/dist/schematics/**/*.d.ts",
-        "{projectRoot}/dist/schematics/**/*.d.ts.map",
+        "{projectRoot}/dist/schematics/**/*.map",
         "{projectRoot}/dist/middlewares/package.json",
         "{projectRoot}/dist/middlewares/**/*.cjs",
         "{projectRoot}/dist/middlewares/**/*.js",
         "{projectRoot}/dist/middlewares/**/*.d.ts",
-        "{projectRoot}/dist/middlewares/**/*.d.ts.map",
+        "{projectRoot}/dist/middlewares/**/*.map",
         "{projectRoot}/build/.tsbuildinfo.builders",
         "{projectRoot}/build/.tsbuildinfo.schematics"
       ],
@@ -686,7 +713,6 @@
     "libsDir": "packages",
     "appsDir": "apps"
   },
-  "useDaemonProcess": false,
   "cacheDirectory": ".cache/nx",
   "nxCloudId": "63e6951e043da20dd8321aec"
 }
