@@ -49,7 +49,14 @@ type SchematicsOutput = z.infer<typeof schematicsOutputSchema>;
 
 async function run(cmd: string, args: string[], cwd: string, logger: Logger): Promise<string> {
   logger.debug?.(`Running command: ${cmd} ${args.join(' ')} in ${cwd}`);
-  const { stdout } = await promisify(execFile)(cmd, args, { cwd });
+  const isWindows = process.platform === 'win32';
+  const { stdout } = isWindows
+    // On Windows, we need a shell to find .cmd files in PATH
+    // /c to make cmd.exe run the command and exit
+    // /s to prevent cmd.exe from stripping quotes which are needed for arguments with spaces
+    // /d to prevent cmd.exe from executing AutoRun commands which can interfere with the output parsing
+    ? await promisify(execFile)(process.env.comspec || 'cmd.exe', ['/d', '/s', '/c', cmd, ...args], { cwd, windowsVerbatimArguments: true })
+    : await promisify(execFile)(cmd, args, { cwd });
   logger.debug?.(`Command output: \n${stdout}`);
   return stdout;
 }
