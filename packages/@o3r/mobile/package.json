@@ -75,7 +75,7 @@
     "@angular/common": "~21.1.0",
     "@angular/compiler": "~21.1.0",
     "@angular/compiler-cli": "~21.1.0",
-    "@angular/core": "~21.1.0",
+    "@angular/core": "~21.1.6",
     "@angular/platform-browser": "~21.1.0",
     "@angular/platform-browser-dynamic": "~21.1.0",
     "@babel/core": "~7.29.0",
