@@ -19,7 +19,7 @@
     }
     <span>(
       @for (cond of $any(condition).all || $any(condition).any || [$any(condition).not]; track cond; let last = $last) {
-        <o3r-rule-condition-pres [condition]="cond"></o3r-rule-condition-pres>
+        <o3r-rule-condition-pres [condition]="cond" />
         @if (!last) {
           <span>, </span>
         }

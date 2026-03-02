@@ -30,12 +30,12 @@
           </div>
           <div class="col-12 col-xl-6">
             <o3r-date-picker-input-pres [id]="'date-outbound'" [label]="'Departure'"
-                                        formControlName="outboundDate"></o3r-date-picker-input-pres>
+                                        formControlName="outboundDate" />
           </div>
           @if (shouldProposeRoundTrip()) {
             <div class="col-12 col-xl-6">
               <o3r-date-picker-input-pres [id]="'date-inbound'" [label]="'Return'"
-                                          formControlName="inboundDate"></o3r-date-picker-input-pres>
+                                          formControlName="inboundDate" />
             </div>
           }
         </form>
