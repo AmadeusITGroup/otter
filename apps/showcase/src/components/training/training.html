@@ -52,9 +52,8 @@
       [title]="currentStep.description.stepTitle"
       [project]="showSolution() ? currentStep.dynamicContent.solutionProject() : currentStep.dynamicContent.project()"
       [editorMode]="showSolution() ? 'readonly' : currentStep.description.filesConfiguration?.mode"
-      [displayTerminal]="currentStep.description.filesConfiguration?.mode === 'interactive'">
-    </o3r-training-step-pres>
+      [displayTerminal]="currentStep.description.filesConfiguration?.mode === 'interactive'" />
   } @else {
-    <congratulations-step [title]="currentStep.description.stepTitle" [feedbackForUrl]="feedbackFormLink()"></congratulations-step>
+    <congratulations-step [title]="currentStep.description.stepTitle" [feedbackForUrl]="feedbackFormLink()" />
   }
 }
