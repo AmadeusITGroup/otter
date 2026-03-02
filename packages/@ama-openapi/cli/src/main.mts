@@ -1,0 +1,57 @@
+#!/usr/bin/env node
+
+/* eslint-disable no-console -- required for CLI feedback */
+
+import {
+  DEFAULT_MANIFEST_FILENAMES,
+  getLogger,
+  installDependencies,
+  type LogLevel,
+  // eslint-disable-next-line import/no-unresolved -- Cannot resolve mjs file in current setup (see #3738)
+} from '@ama-openapi/core';
+import yargs from 'yargs';
+import {
+  hideBin,
+} from 'yargs/helpers';
+
+/** Log levels for logger */
+const logLevels = ['silent', 'error', 'warn', 'info', 'debug'] as const satisfies LogLevel[];
+
+void yargs(hideBin(process.argv))
+  .option('log-level', {
+    type: 'string',
+    alias: 'l',
+    choices: logLevels,
+    description: 'Determine the level of logs to display',
+    default: 'error'
+  })
+  .command('install', 'Install the OpenAPI specifications from manifest files', () => {}, async (args) => {
+    try {
+      const logger = args.logLevel === 'silent' ? undefined : getLogger(args.logLevel as LogLevel, console);
+      await installDependencies(process.cwd(), { logger });
+    } catch (e) {
+      console.error(e);
+      process.exit(1);
+    }
+  })
+  .command('watch', 'Watch and install the OpenAPI specifications from manifest files on changes', () => {}, async (args) => {
+    const { watch } = await import('chokidar');
+    const logger = args.logLevel === 'silent' ? undefined : getLogger(args.logLevel as LogLevel, console);
+
+    return new Promise<void>((_resolve, reject) => {
+      watch([...DEFAULT_MANIFEST_FILENAMES], { awaitWriteFinish: true, ignoreInitial: false, cwd: process.cwd() })
+        .on('all', async (path) => {
+          logger?.info(`Detected change in ${path}. Installing dependencies...`);
+          try {
+            await installDependencies(process.cwd(), { logger });
+          } catch (e) {
+            logger?.error('Error during installation: ', e);
+          }
+        })
+        .on('error', (error) => {
+          logger?.error('Watcher error: ', error);
+          reject(error as Error);
+        });
+    });
+  })
+  .parse();

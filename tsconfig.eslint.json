@@ -7,10 +7,9 @@
     "commitlint.config.cts",
     "jest.config.*.js",
     "testing/*",
-    "scripts/**/*.js",
-    "scripts/**/*.mjs",
+    "scripts/**/*.{m,}js",
     ".storybook/**/*.js",
-    "{apps,packages}/@*/*/{builders,schematics,src}/**/*.ts",
-    "{apps,packages,tools}/@*/*/scripts/**/*.js"
+    "{apps,packages}/@*/*/{builders,schematics,src}/**/*.{m,c,}ts",
+    "{apps,packages,tools}/@*/*/scripts/**/*.{m,c,}js"
   ]
 }

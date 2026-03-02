@@ -7,7 +7,8 @@
     "moduleResolution": "node10",
     "types": ["node"],
     "lib": ["ES2024"],
-    "tsBuildInfoFile": "build/.tsbuildinfo"
+    "tsBuildInfoFile": "build/.tsbuildinfo",
+    "skipLibCheck": true // because of @modelcontextprotocol-sdk
   },
   "include": ["src/**/*.ts"],
   "exclude": ["**/*.spec.ts"]

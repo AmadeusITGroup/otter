@@ -82,6 +82,7 @@ export async function publishToVerdaccio(options: ExecSyncOptions) {
   }
   packageManagerPublish([
     '--registry', registry,
+    '--tag', 'latest',
     '--userconfig', npmrcLoggedTarget,
     '--no-workspaces'
   ], options);

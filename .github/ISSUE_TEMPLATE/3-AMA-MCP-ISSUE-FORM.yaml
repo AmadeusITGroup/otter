@@ -1,26 +1,13 @@
-name: Bug Report on @ama-terasu
-description: File a bug report on @ama-terasu scope
+name: Bug Report on @ama-mcp
+description: File a bug report on @ama-mcp scope
 title: "[Bug]: "
-labels: ["ama-terasu", "triage"]
+labels: ["mcp", "triage"]
 type: Bug
 body:
   - type: markdown
     attributes:
       value: |
         Thanks for taking the time to fill out this bug report! Please make sure we have all the information we need to investigate efficiently.
-  - type: dropdown
-    id: package-name
-    attributes:
-      label: Package name
-      description: Which package(s) are you facing issue with?
-      multiple: true
-      options: [
-          cli,
-          core,
-          schematics
-      ]
-    validations:
-      required: true
   - type: input
     id: package-version
     attributes:

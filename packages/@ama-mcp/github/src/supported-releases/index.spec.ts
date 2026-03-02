@@ -35,10 +35,7 @@ import {
 const setUpClientAndServer = async () => {
   const mcpServer = new McpServer({
     name: 'test-supported-releases-server',
-    version: '1.0.0',
-    capabilities: {
-      tools: {}
-    }
+    version: '1.0.0'
   });
   await registerSupportedReleasesTool(mcpServer, {
     githubToken: 'fakeToken',

@@ -16,7 +16,7 @@ import {
 } from 'semver';
 import * as winston from 'winston';
 
-const defaultIncludedFiles = ['**/package.json', '!/**/templates/**/package.json', '!**/node_modules/**/package.json', '**/lerna.json'];
+const defaultIncludedFiles = ['**/package.json', '**/lerna.json', '!**/templates', '!**/node_modules'];
 
 const collect = (pattern: string, patterns: string[]) => {
   if (patterns === defaultIncludedFiles && pattern) {

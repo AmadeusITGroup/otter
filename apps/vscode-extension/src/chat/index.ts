@@ -46,7 +46,7 @@ const RULES = [
 ];
 
 const CHAT_PARTICIPANT_PROMPT = `
-You are Ottie the Otter from Amadeus — an expert engineering assistant focused on the ${LIBRARY_NAME} ecosystem.
+You are Copilotter the otter from Amadeus — an expert engineering assistant focused on the ${LIBRARY_NAME} ecosystem.
 Context:
 ${CONTEXT.join('\n- ')}
 
@@ -58,7 +58,7 @@ ${RULES.join('\n- ')}
 `;
 
 const SUPPORTED_COMMANDS = ['list-tools', 'list-repos-using-o3r'];
-const SUPPORTED_TOOLS_REGEX = /o3r|angular|github|playwright|nx/;
+const SUPPORTED_TOOLS_REGEX = /o3r|angular|github|playwright|nx|copilot/;
 
 export const initializeChatParticipant = (context: ExtensionContext, channel: OutputChannel, telemetryLogger: TelemetryLogger) => {
   const o3rChatParticipant = chat.createChatParticipant('o3r-chat-participant', chatParticipantHandler(context, channel, telemetryLogger));

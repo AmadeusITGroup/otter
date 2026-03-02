@@ -39,7 +39,7 @@ jobs:
     env:
       NODE_COMPILE_CACHE: ~/.cache/node-compile-cache
     steps:
-      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
         with:
           ref: ${{ inputs.ref }}
       - uses: ./tools/github-actions/download-build-output
@@ -81,7 +81,7 @@ jobs:
       ENFORCED_PACKAGE_MANAGER: ${{ matrix.packageManager }}
       PREPARE_TEST_ENV_TYPE: ${{ matrix.testEnvironment }}
     steps:
-      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
         with:
           ref: ${{ inputs.ref }}
       - uses: ./tools/github-actions/download-build-output
@@ -109,8 +109,8 @@ jobs:
             chmod a+rwx -R ./.verdaccio/storage
             yarn verdaccio:start-persistent
           elif [ "$RUNNER_OS" == "Windows" ]; then
-            npx --yes verdaccio --config $GITHUB_WORKSPACE\\.verdaccio\\conf\\config-without-docker.yaml --listen http://127.0.0.1:4873 &
-            npx --yes wait-on http://127.0.0.1:4873 -t 180000
+            yarn verdaccio --config $GITHUB_WORKSPACE\\.verdaccio\\conf\\config-without-docker.yaml --listen http://127.0.0.1:4873 &
+            yarn wait-on http://127.0.0.1:4873 -t 180000
           fi
           yarn verdaccio:login
         shell: bash

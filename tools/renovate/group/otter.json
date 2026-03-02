@@ -12,8 +12,9 @@
         "/^@ama-terasu/",
         "/^@o3r-training/",
         "/^@ama-mfe/",
+        "/^@ama-mcp/",
         "/^@ama-styling/",
-        "/^@ama-mcp/"
+        "/^@ama-openapi/"
       ]
     },
     {
@@ -28,8 +29,9 @@
         "/^@ama-terasu/",
         "/^@o3r-training/",
         "/^@ama-mfe/",
+        "/^@ama-mcp/",
         "/^@ama-styling/",
-        "/^@ama-mcp/"
+        "/^@ama-openapi/"
       ],
       "rangeStrategy": "bump"
     },
@@ -44,8 +46,9 @@
         "/^@ama-terasu/",
         "/^@o3r-training/",
         "/^@ama-mfe/",
+        "/^@ama-mcp/",
         "/^@ama-styling/",
-        "/^@ama-mcp/"
+        "/^@ama-openapi/"
       ],
       "rangeStrategy": "patch"
     }

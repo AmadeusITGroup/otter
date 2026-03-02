@@ -2,6 +2,9 @@ import {
   EnvironmentMetricData,
 } from '../environment';
 
+/**
+ * Base metric data
+ */
 export interface BaseMetricData {
   /** Environment information */
   environment: EnvironmentMetricData;
@@ -11,6 +14,9 @@ export interface BaseMetricData {
   error?: string;
 }
 
+/**
+ * Builder metric data
+ */
 export interface BuilderMetricData extends BaseMetricData {
   /** Builder information */
   builder: {
@@ -30,6 +36,9 @@ export interface BuilderMetricData extends BaseMetricData {
   };
 }
 
+/**
+ * Schematic metric data
+ */
 export interface SchematicMetricData extends BaseMetricData {
   /** Schematic information */
   schematic: {
@@ -42,6 +51,9 @@ export interface SchematicMetricData extends BaseMetricData {
   };
 }
 
+/**
+ * CLI metric data
+ */
 export interface CliMetricData extends BaseMetricData {
   /** CLI information */
   cli: {
@@ -52,6 +64,36 @@ export interface CliMetricData extends BaseMetricData {
   };
 }
 
+type GenAICapability = 'prompt' | 'tool' | 'resource';
+
+/**
+ * GenAI event types for calls
+ */
+export type GenAICapabilityCall = `${GenAICapability}Call`;
+
+type GenAICapabilityRegistration = `${GenAICapability}Registration`;
+
+/**
+ * GenAI event types
+ */
+export type GenAIMetricsEvent = 'registrationStart' | 'registrationEnd' | GenAICapabilityRegistration | GenAICapabilityCall;
+
+/**
+ * Gen AI metric data
+ */
+export interface GenAIMetricData extends BaseMetricData {
+  /** GenAI information */
+  genAI: {
+    /** Name of the tool / prompt / resource / server */
+    name: string;
+    /** Event type */
+    kind: GenAIMetricsEvent;
+  };
+}
+
+/**
+ * VSCode metric data
+ */
 export interface VSCodeMetricData extends Omit<BaseMetricData, 'duration'> {
   /** Name of the event */
   eventName: string;
@@ -62,14 +104,14 @@ export interface VSCodeMetricData extends Omit<BaseMetricData, 'duration'> {
 /**
  * Different kinds of metrics
  */
-export type MetricData = BuilderMetricData | SchematicMetricData | CliMetricData | VSCodeMetricData;
+export type MetricData = BuilderMetricData | SchematicMetricData | CliMetricData | GenAIMetricData | VSCodeMetricData;
 
 /**
  * Function sending metrics to the server
  * @param data Metrics to report
  * @param logger Optional logger to provide to the function
  */
-export type SendDataFn = (data: MetricData, logger?: { error: (msg: string) => void }) => Promise<void>;
+export type SendDataFn = (data: MetricData, logger?: { error?: (msg: string) => void }) => Promise<void>;
 
 /**
  * Send metric to a Amadeus Log Server
@@ -97,7 +139,7 @@ export const sendData: SendDataFn = (data, logger) => {
       body
     }).catch((e) => {
       const err = (e instanceof Error ? e : new Error(e));
-      logger?.error(err.stack || err.toString());
+      logger?.error?.(err.stack || err.toString());
     });
   }, 1).unref();
 

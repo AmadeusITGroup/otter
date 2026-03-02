@@ -5,9 +5,7 @@
   "sourceRoot": "apps/showcase/src",
   "root": "apps/showcase",
   "prefix": "app",
-  "tags": [
-    "showcase"
-  ],
+  "tags": [],
   "generators": {
     "@schematics/angular:component": {
       "style": "scss"
