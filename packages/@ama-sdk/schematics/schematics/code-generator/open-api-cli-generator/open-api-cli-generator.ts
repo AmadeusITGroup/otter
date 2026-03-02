@@ -1,4 +1,5 @@
 import {
+  type ChildProcess,
   spawn,
   SpawnOptions,
 } from 'node:child_process';
@@ -13,6 +14,28 @@ import {
   defaultTypescriptGeneratorOptions,
   OpenApiCliOptions,
 } from './open-api-cli-options';
+
+/**
+ * On Windows, use cmd.exe to find .cmd files in PATH:
+ * - /d prevents cmd.exe from executing AutoRun commands which can interfere with the output parsing
+ * - /s prevents cmd.exe from stripping quotes which are needed for arguments with spaces
+ * - /c makes cmd.exe run the command and exit
+ *
+ * On other platforms, call the command directly without a shell.
+ * @param command
+ * @param args
+ * @param options
+ */
+function crossPlatformSpawn(command: string, args: string[], options: SpawnOptions = {}): ChildProcess {
+  if (process.platform === 'win32') {
+    return spawn(
+      process.env.comspec || 'cmd.exe',
+      ['/d', '/s', '/c', command, ...args],
+      { ...options, windowsVerbatimArguments: true }
+    );
+  }
+  return spawn(command, args, options);
+}
 
 /**
  * Manage the schematic to generate a sdk using the `@openapitools/openapi-generator-cli`
@@ -38,7 +61,7 @@ export class OpenApiCliGenerator extends CodeGenerator<OpenApiCliOptions> {
    */
   private runInstallOpenApiGenerator(version: string, spawnOptions: SpawnOptions): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-      spawn(this.packageManagerRunner,
+      crossPlatformSpawn(this.packageManagerRunner,
         ['openapi-generator-cli', 'version-manager', 'set', version],
         spawnOptions
       ).on('close', (code: number) => {
@@ -73,7 +96,7 @@ export class OpenApiCliGenerator extends CodeGenerator<OpenApiCliOptions> {
         ]
     ];
     return new Promise<void>((resolve, reject) => {
-      spawn(this.packageManagerRunner, args, spawnOptions)
+      crossPlatformSpawn(this.packageManagerRunner, args, spawnOptions)
         .on('close', (code: number) => {
           if (code === 0) {
             resolve();
@@ -98,7 +121,6 @@ export class OpenApiCliGenerator extends CodeGenerator<OpenApiCliOptions> {
       }
       const spawnOptions = {
         stdio: 'inherit',
-        shell: true,
         cwd: rootDirectory
       } as const satisfies SpawnOptions;
       if (generatorOptions.generatorVersion) {

@@ -2,6 +2,7 @@
 import {
   execSync,
   spawnSync,
+  type SpawnSyncOptions,
 } from 'node:child_process';
 import {
   dirname,
@@ -20,6 +21,28 @@ import type {
   CliWrapper,
 } from '@o3r/telemetry';
 import * as minimist from 'minimist';
+
+/**
+ * On Windows, use cmd.exe to find .cmd files in PATH:
+ * - /d prevents cmd.exe from executing AutoRun commands which can interfere with the output parsing
+ * - /s prevents cmd.exe from stripping quotes which are needed for arguments with spaces
+ * - /c makes cmd.exe run the command and exit
+ *
+ * On other platforms, call the command directly without a shell.
+ * @param command
+ * @param commandArgs
+ * @param options
+ */
+function crossPlatformSpawnSync(command: string, commandArgs: string[], options?: SpawnSyncOptions) {
+  if (process.platform === 'win32') {
+    return spawnSync(
+      process.env.comspec || 'cmd.exe',
+      ['/d', '/s', '/c', command, ...commandArgs],
+      { ...options, windowsVerbatimArguments: true }
+    );
+  }
+  return spawnSync(command, commandArgs, options);
+}
 
 const packageManagerEnv = process.env.npm_config_user_agent?.split('/')[0];
 const binPath = resolve(require.resolve('@angular-devkit/schematics-cli/package.json'), '../bin/schematics.js');
@@ -114,19 +137,18 @@ const run = () => {
     localFilePathToBeCreated || (isSpecRelativePath ? relative(resolveTargetDirectory, resolve(process.cwd(), argv['spec-path'])) : argv['spec-path'])
   ];
 
-  const runner = process.platform === 'win32' ? `${packageManager}.cmd` : packageManager;
   const steps: { args: string[]; cwd?: string; runner?: string }[] = [
     { args: [binPath, `${schematicsPackage}:typescript-shell`, ...shellSchematicArgs, '--directory', targetDirectory] },
     ...(
       packageManager === 'yarn'
-        ? [{ runner, args: ['set', 'version', getYarnVersion()], cwd: resolveTargetDirectory }]
+        ? [{ runner: packageManager, args: ['set', 'version', getYarnVersion()], cwd: resolveTargetDirectory }]
         : (packageManager === 'npm'
-          ? [{ runner, args: ['config', 'set', '-L', 'project', 'legacy-peer-deps', 'true'], cwd: resolveTargetDirectory }]
+          ? [{ runner: packageManager, args: ['config', 'set', '-L', 'project', 'legacy-peer-deps', 'true'], cwd: resolveTargetDirectory }]
           : [])
     ),
     ...(argv['spec-package-name']
       ? [{
-        runner,
+        runner: packageManager,
         args: [
           'exec',
           'amasdk-update-spec-from-npm',
@@ -149,14 +171,14 @@ const run = () => {
       : []),
     ...(packageManager === 'npm'
       ? [
-        { runner, args: ['config', 'set', '-L', 'project', 'legacy-peer-deps', 'false'], cwd: resolveTargetDirectory },
-        { runner, args: ['install'], cwd: resolveTargetDirectory }
+        { runner: packageManager, args: ['config', 'set', '-L', 'project', 'legacy-peer-deps', 'false'], cwd: resolveTargetDirectory },
+        { runner: packageManager, args: ['install'], cwd: resolveTargetDirectory }
       ]
       : []
     )
   ];
   const errors = steps
-    .map((step) => spawnSync(step.runner || `"${process.execPath}"`, step.args, { stdio: 'inherit', cwd: step.cwd || process.cwd(), shell: true }))
+    .map((step) => crossPlatformSpawnSync(step.runner || process.execPath, step.args, { stdio: 'inherit', cwd: step.cwd || process.cwd() }))
     .filter(({ error, status }) => (error || status !== 0));
 
   if (errors.length > 0) {

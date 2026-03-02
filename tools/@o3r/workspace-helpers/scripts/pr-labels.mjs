@@ -16,6 +16,28 @@ import {
 } from 'node:path';
 import minimist from 'minimist';
 
+/**
+ * On Windows, use cmd.exe to find .cmd files in PATH:
+ * - /d prevents cmd.exe from executing AutoRun commands which can interfere with the output parsing
+ * - /s prevents cmd.exe from stripping quotes which are needed for arguments with spaces
+ * - /c makes cmd.exe run the command and exit
+ *
+ * On other platforms, call the command directly without a shell.
+ * @param {string} command
+ * @param {string[]} args
+ * @param {import('child_process').SpawnSyncOptions} options
+ */
+function crossPlatformSpawnSync(command, args, options) {
+  if (process.platform === 'win32') {
+    return spawnSync(
+      process.env.comspec || 'cmd.exe',
+      ['/d', '/s', '/c', command, ...args],
+      { ...options, windowsVerbatimArguments: true }
+    );
+  }
+  return spawnSync(command, args, options);
+}
+
 /** Default configuration */
 const defaultConfig = {
   enableProjectLabel: true,
@@ -57,7 +79,7 @@ function getLabelsFromMessage(targetBranch, config) {
   }
 
   /** @type {Set<string>} */const commitLabels = new Set();
-  const commitMessages = spawnSync('git', ['log', `${targetBranch}..HEAD`, '--pretty=%B'], { encoding: 'utf8', shell: true }).stdout.trim() || '';
+  const commitMessages = crossPlatformSpawnSync('git', ['log', `${targetBranch}..HEAD`, '--pretty=%B'], { encoding: 'utf8' }).stdout.trim() || '';
   const lines = commitMessages?.split(EOL) || [];
 
   lines.forEach((line) =>
@@ -80,13 +102,13 @@ async function getLabelsFromProjects(targetBranch, config) {
     return [];
   }
 
-  const /** @type {string[]} */ listTouchedFiles = spawnSync('git', ['log', `${targetBranch}..HEAD`, '--name-only', '--pretty=format:""'], { encoding: 'utf8', shell: true }).stdout.trim()
+  const /** @type {string[]} */ listTouchedFiles = crossPlatformSpawnSync('git', ['log', `${targetBranch}..HEAD`, '--name-only', '--pretty=format:""'], { encoding: 'utf8' }).stdout.trim()
     .split(EOL)
     .map((file) => file.replace(/\\/g, '/')) || [];
 
   const tempDirPath = join(tmpdir(), 'pr-labels');
   const graphJsonPath = join(tempDirPath, 'graph.json');
-  spawnSync('yarn', ['nx', 'graph', '--file', graphJsonPath], { encoding: 'utf8', shell: true });
+  crossPlatformSpawnSync('yarn', ['nx', 'graph', '--file', graphJsonPath], { encoding: 'utf8' });
   const { graph } = JSON.parse(await fs.readFile(graphJsonPath, { encoding: 'utf8' }));
   rmSync(tempDirPath, { recursive: true });
   const projects = Object.entries(graph.nodes);

@@ -1,5 +1,6 @@
 import {
   execFileSync,
+  type ExecFileSyncOptions,
   ExecSyncOptions,
 } from 'node:child_process';
 import {
@@ -67,6 +68,28 @@ const PACKAGE_MANAGERS_CMD = {
   }
 } as const satisfies Record<'npm' | 'yarn', Record<Command, string[]>>;
 
+/**
+ * On Windows, use cmd.exe to find .cmd files in PATH:
+ * - /d prevents cmd.exe from executing AutoRun commands which can interfere with the output parsing
+ * - /s prevents cmd.exe from stripping quotes which are needed for arguments with spaces
+ * - /c makes cmd.exe run the command and exit
+ *
+ * On other platforms, call the command directly without a shell.
+ * @param command
+ * @param args
+ * @param options
+ */
+function crossPlatformExecFileSync(command: string, args: string[], options?: ExecFileSyncOptions) {
+  if (process.platform === 'win32') {
+    return execFileSync(
+      process.env.comspec || 'cmd.exe',
+      ['/d', '/s', '/c', command, ...args],
+      { ...options, windowsVerbatimArguments: true } as ExecFileSyncOptions
+    );
+  }
+  return execFileSync(command, args, options);
+}
+
 const getWorkspaceScopes = () => {
   const files = globbySync('**/package.json', { cwd: process.cwd(), absolute: true, gitignore: true });
   return Array.from(new Set(
@@ -121,12 +144,11 @@ function execCmd(args: string[], execOptions: ExecSyncOptions) {
   try {
     const startTime = performance.now();
     const [runner, ...options] = args.filter((arg) => !!arg);
-    const output = execFileSync(runner, options, {
+    const output = crossPlatformExecFileSync(runner, options, {
       ...execOptions,
-      shell: process.platform === 'win32',
       stdio: 'pipe',
       encoding: 'utf8'
-    });
+    }).toString();
     // eslint-disable-next-line no-console -- no logger available
     console.log(`${args.join(' ')} [${Math.ceil(performance.now() - startTime)}ms]\n${output}`);
     return output;
@@ -291,11 +313,11 @@ export interface PackageManagerConfig {
  * @param packageManagerOverride
  */
 export function setPackagerManagerConfig(options: PackageManagerConfig, execAppOptions: ExecSyncOptions, packageManagerOverride?: keyof typeof PACKAGE_MANAGERS_CMD) {
-  const execOptions = { ...execAppOptions, shell: process.platform === 'win32' };
+  const execOptions = { ...execAppOptions };
   const packageManager = packageManagerOverride || getPackageManager();
 
   // Need to add this even for yarn because `ng add` only reads registry from .npmrc
-  WORKSPACE_SCOPES.forEach((scope) => execFileSync('npm', ['config', 'set', `${scope}:registry=${options.registry}`, '-L=project'], execOptions));
+  WORKSPACE_SCOPES.forEach((scope) => crossPlatformExecFileSync('npm', ['config', 'set', `${scope}:registry=${options.registry}`, '-L=project'], execOptions));
 
   const packageJsonPath = join(execOptions.cwd as string, 'package.json');
   const shouldCleanPackageJson = !existsSync(packageJsonPath);
@@ -303,34 +325,34 @@ export function setPackagerManagerConfig(options: PackageManagerConfig, execAppO
     case 'yarn': {
       // Set yarn version
       if (options.yarnVersion) {
-        execFileSync('yarn', ['set', 'version', options.yarnVersion], execOptions);
+        crossPlatformExecFileSync('yarn', ['set', 'version', options.yarnVersion], execOptions);
       }
 
       // Set config to target local registry
-      execFileSync('yarn', ['config', 'set', 'checksumBehavior', 'update'], execOptions);
-      execFileSync('yarn', ['config', 'set', 'enableImmutableInstalls', 'false'], execOptions);
-      execFileSync('yarn', ['config', 'set', 'enableScripts', 'false'], execOptions);
+      crossPlatformExecFileSync('yarn', ['config', 'set', 'checksumBehavior', 'update'], execOptions);
+      crossPlatformExecFileSync('yarn', ['config', 'set', 'enableImmutableInstalls', 'false'], execOptions);
+      crossPlatformExecFileSync('yarn', ['config', 'set', 'enableScripts', 'false'], execOptions);
       if (options.globalFolderPath) {
-        execFileSync('yarn', ['config', 'set', 'enableGlobalCache', 'true'], execOptions);
-        execFileSync('yarn', ['config', 'set', 'globalFolder', options.globalFolderPath], execOptions);
+        crossPlatformExecFileSync('yarn', ['config', 'set', 'enableGlobalCache', 'true'], execOptions);
+        crossPlatformExecFileSync('yarn', ['config', 'set', 'globalFolder', options.globalFolderPath], execOptions);
       }
-      execFileSync('yarn', ['config', 'set', 'nodeLinker', 'pnp'], execOptions);
-      WORKSPACE_SCOPES.forEach((scope) => execFileSync('yarn', ['config', 'set', `npmScopes.${scope.replace(/^@/, '')}.npmRegistryServer`, options.registry], execOptions));
-      execFileSync('yarn', ['config', 'set', 'npmScopes.ama-sdk.npmRegistryServer', options.registry], execOptions);
-      execFileSync('yarn', ['config', 'set', 'npmScopes.o3r.npmRegistryServer', options.registry], execOptions);
-      execFileSync('yarn', ['config', 'set', 'unsafeHttpWhitelist', '127.0.0.1'], execOptions);
+      crossPlatformExecFileSync('yarn', ['config', 'set', 'nodeLinker', 'pnp'], execOptions);
+      WORKSPACE_SCOPES.forEach((scope) => crossPlatformExecFileSync('yarn', ['config', 'set', `npmScopes.${scope.replace(/^@/, '')}.npmRegistryServer`, options.registry], execOptions));
+      crossPlatformExecFileSync('yarn', ['config', 'set', 'npmScopes.ama-sdk.npmRegistryServer', options.registry], execOptions);
+      crossPlatformExecFileSync('yarn', ['config', 'set', 'npmScopes.o3r.npmRegistryServer', options.registry], execOptions);
+      crossPlatformExecFileSync('yarn', ['config', 'set', 'unsafeHttpWhitelist', '127.0.0.1'], execOptions);
       break;
     }
   }
 
-  execFileSync('npm', ['config', 'set', 'audit=false', '-L=project'], execOptions);
-  execFileSync('npm', ['config', 'set', 'fund=false', '-L=project'], execOptions);
-  execFileSync('npm', ['config', 'set', 'prefer-dedupe=true', '-L=project'], execOptions);
-  execFileSync('npm', ['config', 'set', 'prefer-offline=false', '-L=project'], execOptions);
-  execFileSync('npm', ['config', 'set', 'ignore-scripts=true', '-L=project'], execOptions);
+  crossPlatformExecFileSync('npm', ['config', 'set', 'audit=false', '-L=project'], execOptions);
+  crossPlatformExecFileSync('npm', ['config', 'set', 'fund=false', '-L=project'], execOptions);
+  crossPlatformExecFileSync('npm', ['config', 'set', 'prefer-dedupe=true', '-L=project'], execOptions);
+  crossPlatformExecFileSync('npm', ['config', 'set', 'prefer-offline=false', '-L=project'], execOptions);
+  crossPlatformExecFileSync('npm', ['config', 'set', 'ignore-scripts=true', '-L=project'], execOptions);
 
   if (options.globalFolderPath) {
-    execFileSync('npm', ['config', 'set', `cache=${join(options.globalFolderPath, 'npm-cache')}`, '-L=project'], execOptions);
+    crossPlatformExecFileSync('npm', ['config', 'set', `cache=${join(options.globalFolderPath, 'npm-cache')}`, '-L=project'], execOptions);
   }
 
   if (shouldCleanPackageJson && existsSync(packageJsonPath)) {
@@ -344,7 +366,7 @@ export function setPackagerManagerConfig(options: PackageManagerConfig, execAppO
  * @param execAppOptions
  */
 export function getLatestPackageVersion(packageName: string, execAppOptions?: Partial<ExecSyncOptions> & { registry?: string }) {
-  return execFileSync('npm', [
+  return crossPlatformExecFileSync('npm', [
     'info',
     packageName,
     'version',
@@ -352,7 +374,6 @@ export function getLatestPackageVersion(packageName: string, execAppOptions?: Pa
   ], {
     ...execAppOptions,
     stdio: 'pipe',
-    encoding: 'utf8',
-    shell: true
-  }).replace(/\s/g, '');
+    encoding: 'utf8'
+  }).toString().replace(/\s/g, '');
 }

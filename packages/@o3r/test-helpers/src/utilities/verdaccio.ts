@@ -1,5 +1,6 @@
 import {
   execFileSync,
+  type ExecFileSyncOptions,
   type ExecSyncOptions,
 } from 'node:child_process';
 import {
@@ -14,6 +15,28 @@ import {
 } from './package-manager';
 
 /**
+ * On Windows, use cmd.exe to find .cmd files in PATH:
+ * - /d prevents cmd.exe from executing AutoRun commands which can interfere with the output parsing
+ * - /s prevents cmd.exe from stripping quotes which are needed for arguments with spaces
+ * - /c makes cmd.exe run the command and exit
+ *
+ * On other platforms, call the command directly without a shell.
+ * @param command
+ * @param args
+ * @param options
+ */
+function crossPlatformExecFileSync(command: string, args: string[], options?: ExecFileSyncOptions) {
+  if (process.platform === 'win32') {
+    return execFileSync(
+      process.env.comspec || 'cmd.exe',
+      ['/d', '/s', '/c', command, ...args],
+      { ...options, windowsVerbatimArguments: true } as ExecFileSyncOptions
+    );
+  }
+  return execFileSync(command, args, options);
+}
+
+/**
  * Check if a verdaccio instance is running
  */
 export function isVerdaccioInUse(): boolean {
@@ -21,7 +44,7 @@ export function isVerdaccioInUse(): boolean {
   try {
     // eslint-disable-next-line no-console -- need to inform user about the check
     console.log(`Checking for Verdaccio registry at ${verdaccioAddress}...`);
-    execFileSync('npm', ['ping', `--registry=${verdaccioAddress}`], { stdio: 'pipe', shell: true, timeout: 60_000 });
+    crossPlatformExecFileSync('npm', ['ping', `--registry=${verdaccioAddress}`], { stdio: 'pipe', timeout: 60_000 });
     return true;
   } catch {
     return false;
@@ -44,7 +67,7 @@ export async function publishToVerdaccio(options: ExecSyncOptions) {
     if (!existsSync(npmrcLoggedTarget)) {
       await promises.writeFile(npmrcLoggedTarget, `registry=${registry}/`);
     }
-    execFileSync('npx', [
+    crossPlatformExecFileSync('npx', [
       '--yes',
       'npm-cli-login',
       '-u', 'verdaccio',
@@ -52,7 +75,7 @@ export async function publishToVerdaccio(options: ExecSyncOptions) {
       '-e', 'test@test.com',
       '-r', registry,
       '--config-path', npmrcLoggedTarget
-    ], { ...options, shell: true });
+    ], { ...options });
   }
   packageManagerPublish([
     '--registry', registry,

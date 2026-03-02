@@ -2,6 +2,7 @@
 
 import {
   spawnSync,
+  type SpawnSyncOptions,
   type SpawnSyncOptionsWithBufferEncoding,
 } from 'node:child_process';
 import {
@@ -138,6 +139,28 @@ const YARN_SET_PACKAGE_EXTENSIONS = 7;
 const NPM_CONFIG_PEER_LEGACY_ERROR_CODE = 8;
 const NPM_CONFIG_IGNORE_SCRIPT = 9;
 
+/**
+ * On Windows, use cmd.exe to find .cmd files in PATH:
+ * - /d prevents cmd.exe from executing AutoRun commands which can interfere with the output parsing
+ * - /s prevents cmd.exe from stripping quotes which are needed for arguments with spaces
+ * - /c makes cmd.exe run the command and exit
+ *
+ * On other platforms, call the command directly without a shell.
+ * @param command
+ * @param commandArgs
+ * @param options
+ */
+function crossPlatformSpawnSync(command: string, commandArgs: string[], options?: SpawnSyncOptions) {
+  if (process.platform === 'win32') {
+    return spawnSync(
+      process.env.comspec || 'cmd.exe',
+      ['/d', '/s', '/c', command, ...commandArgs],
+      { ...options, windowsVerbatimArguments: true }
+    );
+  }
+  return spawnSync(command, commandArgs, options);
+}
+
 const exitProcessIfErrorInSpawnSync = (exitCode: number, { error, status }: ReturnType<typeof spawnSync>) => {
   if (error || status !== 0) {
     if (error) {
@@ -161,8 +184,8 @@ const createNgProject = () => {
     .flat();
   exitProcessIfErrorInSpawnSync(
     NG_NEW_ERROR_CODE,
-    spawnSync(
-      `"${process.execPath}"`,
+    crossPlatformSpawnSync(
+      process.execPath,
       [
         binPath,
         'new',
@@ -170,8 +193,7 @@ const createNgProject = () => {
         ...options.map((opt) => opt && quote([opt]))
       ],
       {
-        stdio: 'inherit',
-        shell: true
+        stdio: 'inherit'
       }
     )
   );
@@ -181,10 +203,8 @@ const prepareWorkspace = (relativeDirectory = '.', projectPackageManager = 'npm'
   const cwd = resolve(process.cwd(), relativeDirectory);
   const spawnSyncOpts = {
     stdio: 'inherit',
-    shell: true,
     cwd
   } as const satisfies SpawnSyncOptionsWithBufferEncoding;
-  const runner = process.platform === 'win32' ? `${projectPackageManager}.cmd` : projectPackageManager;
   const mandatoryDependencies = [
     '@angular-devkit/schematics',
     '@schematics/angular',
@@ -222,20 +242,20 @@ const prepareWorkspace = (relativeDirectory = '.', projectPackageManager = 'npm'
 
   if (projectPackageManager === 'yarn') {
     const yarnVersion = quote([argv['yarn-version'] || 'stable']);
-    exitProcessIfErrorInSpawnSync(YARN_SET_VERSION_ERROR_CODE, spawnSync(
-      runner,
+    exitProcessIfErrorInSpawnSync(YARN_SET_VERSION_ERROR_CODE, crossPlatformSpawnSync(
+      projectPackageManager,
       ['set', 'version', yarnVersion],
       spawnSyncOpts
     ));
-    exitProcessIfErrorInSpawnSync(YARN_SET_PACKAGE_EXTENSIONS, spawnSync(
-      runner,
+    exitProcessIfErrorInSpawnSync(YARN_SET_PACKAGE_EXTENSIONS, crossPlatformSpawnSync(
+      projectPackageManager,
       // TODO temporarily fixed until https://github.com/listr2/listr2/pull/719 is merged
       ['config', 'set', 'packageExtensions["@listr2/prompt-adapter-inquirer@*"].peerDependencies.listr2', '"*"'],
       spawnSyncOpts
     ));
   }
-  exitProcessIfErrorInSpawnSync(NPM_CONFIG_IGNORE_SCRIPT, spawnSync(
-    runner,
+  exitProcessIfErrorInSpawnSync(NPM_CONFIG_IGNORE_SCRIPT, crossPlatformSpawnSync(
+    projectPackageManager,
     ['config', 'set', ...(projectPackageManager === 'yarn'
       ? ['enableScripts', 'false']
       : ['-L', 'project', 'ignore-scripts', 'true']
@@ -247,23 +267,23 @@ const prepareWorkspace = (relativeDirectory = '.', projectPackageManager = 'npm'
 
   if (registry) {
     // Need to add this even for yarn because `ng add` only reads registry from .npmrc
-    exitProcessIfErrorInSpawnSync(NPM_CONFIG_REGISTRY_ERROR_CODE, spawnSync(
-      runner,
+    exitProcessIfErrorInSpawnSync(NPM_CONFIG_REGISTRY_ERROR_CODE, crossPlatformSpawnSync(
+      projectPackageManager,
       ['config', 'set', '-L', 'project', 'registry', registry],
       spawnSyncOpts
     ));
 
     if (projectPackageManager === 'yarn') {
-      exitProcessIfErrorInSpawnSync(YARN_CONFIG_REGISTRY_ERROR_CODE, spawnSync(
-        runner,
+      exitProcessIfErrorInSpawnSync(YARN_CONFIG_REGISTRY_ERROR_CODE, crossPlatformSpawnSync(
+        projectPackageManager,
         ['config', 'set', 'npmRegistryServer', registry],
         spawnSyncOpts
       ));
     }
   }
   if (projectPackageManager === 'npm') {
-    exitProcessIfErrorInSpawnSync(NPM_CONFIG_PEER_LEGACY_ERROR_CODE, spawnSync(
-      runner,
+    exitProcessIfErrorInSpawnSync(NPM_CONFIG_PEER_LEGACY_ERROR_CODE, crossPlatformSpawnSync(
+      projectPackageManager,
       ['config', 'set', '-L', 'project', 'legacy-peer-deps', 'true'],
       spawnSyncOpts
     ));
@@ -284,22 +304,20 @@ const prepareWorkspace = (relativeDirectory = '.', projectPackageManager = 'npm'
     ].join('\n')
   );
 
-  exitProcessIfErrorInSpawnSync(INSTALL_PROCESS_ERROR_CODE, spawnSync(runner, ['install'], spawnSyncOpts));
+  exitProcessIfErrorInSpawnSync(INSTALL_PROCESS_ERROR_CODE, crossPlatformSpawnSync(projectPackageManager, ['install'], spawnSyncOpts));
 };
 
 const addOtterFramework = (relativeDirectory = '.', projectPackageManager = 'npm') => {
   const cwd = resolve(process.cwd(), relativeDirectory);
-  const runner = process.platform === 'win32' ? `${projectPackageManager}.cmd` : projectPackageManager;
   const options = schematicsCliOptions
     .flat();
 
-  exitProcessIfErrorInSpawnSync(ADD_O3R_CORE_ERROR_CODE, spawnSync(
-    runner,
+  exitProcessIfErrorInSpawnSync(ADD_O3R_CORE_ERROR_CODE, crossPlatformSpawnSync(
+    projectPackageManager,
     ['exec', 'ng', 'add', `@o3r/core@${exactO3rVersion ? '' : '~'}${version}`, ...(projectPackageManager === 'npm' ? ['--'] : []), ...options],
     {
       stdio: 'inherit',
       cwd,
-      shell: true,
       env: exactO3rVersion && projectPackageManager === 'npm'
         ? {
           ...process.env,
@@ -310,22 +328,20 @@ const addOtterFramework = (relativeDirectory = '.', projectPackageManager = 'npm
   ));
 
   if (projectPackageManager === 'npm') {
-    exitProcessIfErrorInSpawnSync(NPM_CONFIG_PEER_LEGACY_ERROR_CODE, spawnSync(
-      runner,
+    exitProcessIfErrorInSpawnSync(NPM_CONFIG_PEER_LEGACY_ERROR_CODE, crossPlatformSpawnSync(
+      projectPackageManager,
       ['config', 'set', '-L', 'project', 'legacy-peer-deps', 'false'],
       {
         stdio: 'inherit',
-        shell: true,
         cwd
       }
     ));
-    exitProcessIfErrorInSpawnSync(INSTALL_PROCESS_ERROR_CODE, spawnSync(
-      runner,
+    exitProcessIfErrorInSpawnSync(INSTALL_PROCESS_ERROR_CODE, crossPlatformSpawnSync(
+      projectPackageManager,
       ['install'],
       {
         stdio: 'inherit',
-        cwd,
-        shell: true
+        cwd
       }
     ));
   }

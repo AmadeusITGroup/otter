@@ -1,5 +1,6 @@
 import {
   execFile,
+  type ExecFileOptions,
 } from 'node:child_process';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
@@ -47,18 +48,33 @@ const schematicsOutputSchema = z.array(z.object({
 
 type SchematicsOutput = z.infer<typeof schematicsOutputSchema>;
 
+/**
+ * On Windows, use cmd.exe to find .cmd files in PATH:
+ * - /d prevents cmd.exe from executing AutoRun commands which can interfere with the output parsing
+ * - /s prevents cmd.exe from stripping quotes which are needed for arguments with spaces
+ * - /c makes cmd.exe run the command and exit
+ *
+ * On other platforms, call the command directly without a shell.
+ * @param command
+ * @param args
+ * @param options
+ */
+function crossPlatformExecFile(command: string, args: string[], options?: ExecFileOptions) {
+  if (process.platform === 'win32') {
+    return promisify(execFile)(
+      process.env.comspec || 'cmd.exe',
+      ['/d', '/s', '/c', command, ...args],
+      { ...options, windowsVerbatimArguments: true }
+    );
+  }
+  return promisify(execFile)(command, args, options);
+}
+
 async function run(cmd: string, args: string[], cwd: string, logger: Logger): Promise<string> {
   logger.debug?.(`Running command: ${cmd} ${args.join(' ')} in ${cwd}`);
-  const isWindows = process.platform === 'win32';
-  const { stdout } = isWindows
-    // On Windows, we need a shell to find .cmd files in PATH
-    // /c to make cmd.exe run the command and exit
-    // /s to prevent cmd.exe from stripping quotes which are needed for arguments with spaces
-    // /d to prevent cmd.exe from executing AutoRun commands which can interfere with the output parsing
-    ? await promisify(execFile)(process.env.comspec || 'cmd.exe', ['/d', '/s', '/c', cmd, ...args], { cwd, windowsVerbatimArguments: true })
-    : await promisify(execFile)(cmd, args, { cwd });
-  logger.debug?.(`Command output: \n${stdout}`);
-  return stdout;
+  const { stdout } = await crossPlatformExecFile(cmd, args, { cwd });
+  logger.debug?.(`Command output: \n${stdout.toString('utf8')}`);
+  return stdout.toString('utf8');
 }
 
 function getBlock(lines: string[], blockName: string) {
