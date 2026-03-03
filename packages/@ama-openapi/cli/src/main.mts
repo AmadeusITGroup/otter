@@ -21,6 +21,9 @@ import {
   OPENAPI_NPM_KEYWORDS,
   // eslint-disable-next-line import/no-unresolved -- Cannot resolve mjs file in current setup (see #3738)
 } from '@ama-openapi/core';
+import {
+  createCliWithMetrics,
+} from '@o3r/telemetry';
 import yargs from 'yargs';
 import {
   hideBin,
@@ -29,7 +32,7 @@ import {
 /** Log levels for logger */
 const logLevels = ['silent', 'error', 'warn', 'info', 'debug'] as const satisfies LogLevel[];
 
-void yargs(hideBin(process.argv))
+const run = () => yargs(hideBin(process.argv))
   .option('log-level', {
     type: 'string',
     alias: 'l',
@@ -110,3 +113,5 @@ void yargs(hideBin(process.argv))
 
   .strictCommands()
   .parse();
+
+void createCliWithMetrics(run, '@ama-openapi/cli')();
