@@ -12,7 +12,6 @@ import {
   insertImportToModuleFile as o3rInsertImportToModuleFile,
 } from '@o3r/schematics';
 import {
-  addRootImport,
   addRootProvider,
 } from '@schematics/angular/utility';
 import {
@@ -43,24 +42,15 @@ export function updateApiDependencies(options: NgAddSchematicsSchema): Rule {
       true
     );
 
-    if (isImported(sourceFile, 'ApiManagerModule', '@otter/common') || isImported(sourceFile, 'ApiManagerModule', '@o3r/apis-manager')) {
+    if (isImported(sourceFile, 'provideApiManager', '@otter/common') || isImported(sourceFile, 'provideApiManager', '@o3r/apis-manager')) {
       return tree;
     }
 
     const recorder = tree.beginUpdate(moduleFilePath);
     const { moduleIndex } = getModuleIndex(sourceFile, sourceFileContent);
 
-    const addImportToModuleFile = (name: string, file: string, moduleFunction?: string) => additionalRules.push(
-      addRootImport(options.projectName!, ({ code, external }) => code`${external(name, file)}${moduleFunction}`)
-    );
-
     const insertImportToModuleFile = (name: string, file: string, isDefault?: boolean) =>
       o3rInsertImportToModuleFile(name, file, sourceFile, recorder, moduleFilePath, isDefault);
-
-    const addProviderToModuleFile = (name: string, file: string, customProvider: string) => additionalRules.push(
-      addRootProvider(options.projectName!, ({ code, external }) =>
-        code`{provide: ${external(name, file)}, ${customProvider}}`)
-    );
 
     const insertBeforeModule = (line: string) => o3rInsertBeforeModule(line, sourceFileContent, recorder, moduleIndex);
 
@@ -70,20 +60,20 @@ export function updateApiDependencies(options: NgAddSchematicsSchema): Rule {
 
     insertBeforeModule('appendPreconnect(PROXY_SERVER);');
 
-    addImportToModuleFile('ApiManagerModule', '@o3r/apis-manager');
+    insertImportToModuleFile('provideApiManager', '@o3r/apis-manager', false);
 
     if (!options.skipCodeSample) {
       insertBeforeModule(`
-export function apiManagerFactory(): ApiManager {
-  const apiClient = new ApiFetchClient({
-    basePath: PROXY_SERVER,
-    requestPlugins: [new ApiKeyRequest(/* API Key */ 'YOUR_API_KEY', 'Authorization')]
-  });
+const apiConfig = new ApiFetchClient({
+  basePath: PROXY_SERVER,
+  requestPlugins: [new ApiKeyRequest(/* API Key */ 'YOUR_API_KEY', 'Authorization')]
+});
 
-  return new ApiManager(apiClient);
-}`);
+const apiManager = new ApiManager(apiConfig);`);
 
-      addProviderToModuleFile('API_TOKEN', '@o3r/apis-manager', 'useFactory: apiManagerFactory');
+      additionalRules.push(
+        addRootProvider(options.projectName!, ({ code }) => code`provideApiManager(apiManager)`)
+      );
       insertImportToModuleFile('ApiFetchClient', '@ama-sdk/client-fetch', false);
     }
 

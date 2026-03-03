@@ -1,0 +1,35 @@
+{
+  "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
+  "name": "ama-styling-devkit",
+  "projectType": "library",
+  "root": "packages/@ama-styling/devkit",
+  "sourceRoot": "packages/@ama-styling/devkit/src",
+  "prefix": "ama",
+  "targets": {
+    "build": {
+      "executor": "nx:noop",
+      "dependsOn": [
+        "build-builders",
+        "compile"
+      ]
+    },
+    "compile": {
+      "executor": "@angular-devkit/build-angular:ng-packagr",
+      "options": {
+        "project": "packages/@ama-styling/devkit/ng-package.json",
+        "tsConfig": "packages/@ama-styling/devkit/tsconfig.build.json"
+      }
+    },
+    "lint": {},
+    "test": {
+      "options": {
+        "passWithNoTests": true
+      }
+    },
+    "prepare-publish": {},
+    "publish": {},
+    "prepare-build-builders": {},
+    "build-builders": {},
+    "documentation": {}
+  }
+}

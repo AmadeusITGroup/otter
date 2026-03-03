@@ -33,11 +33,11 @@ describe('new otter project', () => {
     const diff = getGitDiff(workspacePath);
     const yamlFiles = ['.github/actions/setup/action.yml', '.github/workflows/main.yml'];
 
-    expect(diff.added.sort()).toEqual(yamlFiles.sort());
-    expect(diff.modified.sort()).toEqual([
+    expect(diff.added.toSorted()).toEqual(yamlFiles.toSorted());
+    expect(diff.modified.toSorted()).toEqual([
       'package.json',
       isYarnTest ? 'yarn.lock' : 'package-lock.json'
-    ].sort());
+    ].toSorted());
     expect(diff.deleted.length).toBe(0);
 
     const packageJson = JSON.parse(readFileSync(path.join(workspacePath, 'package.json'), { encoding: 'utf8' })) as PackageJson;
@@ -69,12 +69,12 @@ describe('new otter project', () => {
     const diff = getGitDiff(workspacePath);
     const yamlFiles = ['.github/actions/setup/action.yml', '.github/workflows/main.yml'];
 
-    expect(diff.added.sort()).toEqual(yamlFiles.sort());
-    expect(diff.modified.sort()).toEqual([
+    expect(diff.added.toSorted()).toEqual(yamlFiles.toSorted());
+    expect(diff.modified.toSorted()).toEqual([
       'package.json',
       isYarnTest ? 'yarn.lock' : 'package-lock.json',
       isYarnTest ? '.yarnrc.yml' : '.npmrc'
-    ].sort());
+    ].toSorted());
     expect(diff.deleted.length).toBe(0);
     yamlFiles.forEach((yamlFile) => {
       execSync(`npx -p @action-validator/cli action-validator ${yamlFile}`, execAppOptions);

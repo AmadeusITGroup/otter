@@ -182,6 +182,7 @@ export function lineIndexToInsert(document: TextDocument): number {
 
 /**
  * Insert the varibale definition, and the library import if needed, into the given document
+ * @deprecated The function is deprecated, rely on CSS Variable strategy instead. Will be removed in v15.
  * @param document
  * @param edit
  * @param variableName
@@ -191,13 +192,13 @@ export function lineIndexToInsert(document: TextDocument): number {
  */
 export function insertVariable(document: TextDocument, edit: TextEditorEdit, variableName: string, value: string, noImport = false, previousPosition?: Position) {
   const cssFileContent = document.getText();
-  const matches = cssFileContent.match(new RegExp('^@use [\'"]@o3r/styling[\'"] as (.+);', 'm'));
+  const matches = cssFileContent.match(new RegExp('^@use [\'"]@ama-styling/devkit[\'"] as (.+);', 'm'));
   const needToInsertImport = !matches;
   const alias = matches?.[1] || 'o3r';
   const position = previousPosition || document.lineAt(lineIndexToInsert(document)).range.start;
 
   if (needToInsertImport && !noImport) {
-    edit.insert(position, `@use '@o3r/styling' as ${alias};${EOL}${EOL}`);
+    edit.insert(position, `@use '@ama-styling/devkit' as ${alias};${EOL}${EOL}`);
   }
   edit.insert(position, `$${variableName}: ${alias}.variable('${variableName}', ${value});${EOL}`);
   return position;

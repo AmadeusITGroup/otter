@@ -48,10 +48,6 @@
       "description": "Skip the linter process which includes EsLint and EditorConfig rules applying",
       "default": false
     },
-    "useOtterTheming": {
-      "type": "boolean",
-      "description": "Generate page with Otter theming architecture"
-    },
     "useOtterConfig": {
       "type": "boolean",
       "description": "Generate page with Otter configuration"

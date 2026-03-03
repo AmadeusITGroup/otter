@@ -9,6 +9,7 @@ import {
 } from 'node:path';
 import {
   DEFAULT_MANIFEST_FILENAMES,
+  OPENAPI_NPM_KEYWORDS,
   // eslint-disable-next-line import/no-unresolved -- Cannot resolve mjs file in current setup (see #3738)
 } from '@ama-openapi/core';
 import {
@@ -32,6 +33,11 @@ export interface CreateOptions {
   packageName: string;
   /** Logger */
   logger: typeof console;
+  /** Directory containing the templates */
+  templatesDirectory?: string;
+
+  /** Additional properties to be used in templates */
+  [key: string]: any;
 }
 
 const TEMPLATE_EXTENSION = '.template';
@@ -64,7 +70,7 @@ export const generateTemplate = async (options: CreateOptions) => {
   const { generatorDependencies, engines } = JSON.parse(
     await fs.readFile(resolve(__dirname, '..', 'package.json'), { encoding: 'utf8' })
   ) as { generatorDependencies: Record<string, string>; engines: Record<string, string> };
-  const templatesDirectory = resolve(__dirname, '..', 'templates');
+  const templatesDirectory = options.templatesDirectory || resolve(__dirname, '..', 'templates');
   const regExpExtension = new RegExp(`\\${TEMPLATE_EXTENSION}$`);
   const exportedFiles: string[] = [
     'bundle',
@@ -78,6 +84,7 @@ export const generateTemplate = async (options: CreateOptions) => {
         templatePathAbsolute,
         {
           ...options,
+          packageKeywords: OPENAPI_NPM_KEYWORDS,
           nodeSupportedRange: engines.node,
           projectFolder: basename(options.target),
           exportedFiles,
@@ -96,7 +103,7 @@ export const generateTemplate = async (options: CreateOptions) => {
       const outputPath = resolve(options.target, templatePath.replace(regExpExtension, ''));
       const outputDirectory = dirname(outputPath);
       if (!existsSync(outputDirectory)) {
-        await fs.mkdir(dirname(outputPath), { recursive: true });
+        await fs.mkdir(outputDirectory, { recursive: true });
       }
       await fs.writeFile(outputPath, content, { encoding: 'utf8' });
     });

@@ -14,5 +14,10 @@ module.exports = {
       }
     }
   }),
-  ...getJestUnitTestConfig()
+  ...getJestUnitTestConfig({
+    testPathIgnorePatterns: [
+      '<rootDir>/schematics/.*',
+      '\\.it\\.spec\\.ts$'
+    ]
+  })
 };

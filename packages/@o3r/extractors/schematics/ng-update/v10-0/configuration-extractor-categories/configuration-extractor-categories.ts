@@ -30,7 +30,7 @@ const update: Rule = (tree) => {
 };
 
 /**
- * Replace the XML format to specify categories in the configuration extractor (<o3rCategories>) to JSDoc annotations (@o3rCategories)
+ * Replace the XML format to specify categories in the configuration extractor (<o3rCategories>) to JSDoc annotations (`@o3rCategories`)
  */
 export function updateConfigurationExtractorCategories(): Rule {
   return update;

@@ -58,19 +58,3 @@ export interface BaseApiClientOptions extends BasePathServer {
   /** Custom query parameter serialization method */
   serializePathParams?<T extends SupportedParamInterface<T>>(pathParams: T, pathParamSerialization: { [p in keyof T]: ParamSerialization }): { [p in keyof T]: string };
 }
-
-/**
- * Interface of the constructor configuration object
- * @deprecated Not used any more as each ApiClient should redefine their constructor options. Will be removed in V14.
- */
-export interface BaseApiConstructor extends Partial<BaseApiClientOptions> {
-}
-
-/**
- * Determine if object passed to the constructor is valid
- * @deprecated Not used any more as each ApiClient should redefine their constructor options. Will be removed in V14.
- * @param args
- */
-export function isConstructorObject(args: any[]): args is [BaseApiConstructor] {
-  return !!args && args.length === 1 && !!args[0] && typeof args[0] === 'object';
-}

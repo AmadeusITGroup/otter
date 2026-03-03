@@ -15,6 +15,7 @@
     "mrmlnc.vscode-scss",
     "nrwl.angular-console",
     "Orta.vscode-jest",
+    "redhat.vscode-yaml",
     "stylelint.vscode-stylelint"
   ]
 }

@@ -136,7 +136,7 @@ export class OtterRulesEngineDevtools {
    */
   public async getRulesEvaluationsForRuleset(rulesetId: string) {
     const rulesetExec = await this.getRulesetExecutions(rulesetId);
-    return rulesetExec?.map((e) => (e as BaseRulesetExecution)?.rulesEvaluations?.filter((re) => !re.cached)).flat();
+    return rulesetExec?.flatMap((e) => (e as BaseRulesetExecution)?.rulesEvaluations?.filter((re) => !re.cached));
   }
 
   /**
@@ -153,7 +153,8 @@ export class OtterRulesEngineDevtools {
    * @param rulesetId
    */
   public async getTriggersForRuleset(rulesetId: string) {
-    return (await this.getRulesEvaluationsForRuleset(rulesetId))?.map((e) => e.triggers).flat().flatMap((triggersMap) => Object.values(triggersMap));
+    const rulesEvaluationsForRuleset = await this.getRulesEvaluationsForRuleset(rulesetId);
+    return rulesEvaluationsForRuleset?.flatMap((e) => Object.values(e.triggers)).flatMap((triggersMap) => Object.values(triggersMap));
   }
 
   /**

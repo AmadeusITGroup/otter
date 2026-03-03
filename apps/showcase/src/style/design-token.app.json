@@ -1,5 +1,5 @@
 {
-  "$schema": "../../../../packages/@o3r/design/schemas/design-token.schema.json",
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
   "run-app-locally.tertiary-bg": {
     "$description": "Run App Locally Tertiary Background",
     "$value": "{color.primary.50}"
@@ -13,14 +13,6 @@
     "primary-800": {
       "$type": "color",
       "$value": "{color.primary.800}"
-    },
-    "nav-pills": {
-      "$extensions": {
-        "o3rScope": ".nav-pills"
-      },
-      "link-active-color": {
-        "$value": "{color.primary.500}"
-      }
     },
     "navbar": {
       "color": {

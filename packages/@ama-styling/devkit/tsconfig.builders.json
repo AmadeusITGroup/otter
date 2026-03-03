@@ -1,0 +1,20 @@
+{
+  "extends": "../../../tsconfig.build",
+  "compilerOptions": {
+    "incremental": true,
+    "composite": true,
+    "outDir": "./dist",
+    "module": "CommonJS",
+    "moduleResolution": "node10",
+    "rootDir": ".",
+    "types": ["node"],
+    "tsBuildInfoFile": "build/.tsbuildinfo.builders"
+  },
+  "include": [
+    "schematics/**/*.ts"
+  ],
+  "exclude": [
+    "**/*.spec.ts",
+    "schematics/**/templates/**"
+  ]
+}

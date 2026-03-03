@@ -149,7 +149,7 @@ export class SdkPres {
     this.isLoading.set(true);
     this.hasErrors.set(false);
     return this.petStoreApi.findPetsByStatus({ status: 'available' }).then((pets) => {
-      this.pets.set(pets.filter((p) => p.category?.name === 'otter').sort((a, b) => (a.id && b.id && (a.id - b.id)) || 0));
+      this.pets.set(pets.filter((p) => p.category?.name === 'otter').toSorted((a, b) => (a.id && b.id && (a.id - b.id)) || 0));
       this.isLoading.set(false);
     }).catch(() => {
       this.isLoading.set(false);

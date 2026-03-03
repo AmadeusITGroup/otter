@@ -1,5 +1,5 @@
 {
-  "$schema": "https://raw.githubusercontent.com/AmadeusITGroup/otter/main/packages/%40o3r/design/schemas/design-token.schema.json",
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
   "color": {
     "primary": {
       "50": {

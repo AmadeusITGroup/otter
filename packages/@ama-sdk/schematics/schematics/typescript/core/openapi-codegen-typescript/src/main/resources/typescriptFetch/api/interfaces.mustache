@@ -1,9 +1,0 @@
-/* @deprecated : this file is deprecated, the RequestData interfaces are exported at package level, will be removed in V14 */
-
-{{#apiInfo}}
-{{#apis}}
-{{#operations}}
-export type { {{#operation}}{{classname}}{{#uppercaseFirst}}{{nickname}}{{/uppercaseFirst}}RequestData{{^-last}}, {{/-last}}{{/operation}} } from './{{#apiFolderName}}{{classname}}{{/apiFolderName}}/index';
-{{/operations}}
-{{/apis}}
-{{/apiInfo}}

@@ -16,6 +16,7 @@ import {
 
 /**
  * Replace all the interested lines with an Otter variable
+ * @deprecated Rely on Design Token extraction instead. Will be removed in v15
  * @param _context
  */
 export function extractAllToVariable(_context: ExtensionContext) {

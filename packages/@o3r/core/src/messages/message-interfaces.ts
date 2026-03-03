@@ -13,7 +13,7 @@ export interface OtterMessage<Content extends OtterMessageContent = OtterMessage
   /** Type of the message */
   type: typeof otterMessageType;
 
-  /** Version of the message (default to the @o3r/core version ) */
+  /** Version of the message (default to the `@o3r/core` version ) */
   version?: string;
 
   /** Target of the message */

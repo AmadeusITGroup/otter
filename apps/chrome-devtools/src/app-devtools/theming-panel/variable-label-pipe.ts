@@ -1,10 +1,10 @@
+import type {
+  StylingVariable,
+} from '@ama-styling/devkit';
 import {
   Pipe,
   type PipeTransform,
 } from '@angular/core';
-import type {
-  StylingVariable,
-} from '@o3r/styling';
 
 @Pipe({
   name: 'variableLabel'

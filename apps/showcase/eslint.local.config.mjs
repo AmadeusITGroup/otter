@@ -50,7 +50,7 @@ export default [
         'error',
         {
           ignore: [
-            '^@o3r/style-dictionary' // for mjs resolving when not built
+            '^@ama-styling/style-dictionary' // for mjs resolving when not built
           ]
         }
       ]

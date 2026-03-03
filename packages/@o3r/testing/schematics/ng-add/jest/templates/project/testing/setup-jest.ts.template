@@ -1,5 +1,18 @@
 import {
-  setupZoneTestEnv,
-} from 'jest-preset-angular/setup-env/zone';
+  setupZonelessTestEnv,
+} from 'jest-preset-angular/setup-env/zoneless';
 
-setupZoneTestEnv();
+setupZonelessTestEnv();
+
+// Mock ES modules that cause issues in Jest
+// This is needed unless we enable --experimental-vm-modules (see https://jestjs.io/docs/ecmascript-modules)
+jest.mock('uuid', () => {
+  let counter = 0;
+  return {
+    v4: jest.fn(() => {
+      const id = counter++;
+      return `00000000-0000-0000-0000-${id.toString().padStart(12, '0')}`;
+    })
+  };
+});
+

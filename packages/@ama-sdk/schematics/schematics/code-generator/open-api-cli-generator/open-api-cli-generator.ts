@@ -15,7 +15,7 @@ import {
 } from './open-api-cli-options';
 
 /**
- * Manage the schematic to generate a sdk using the @openapitools/openapi-generator-cli
+ * Manage the schematic to generate a sdk using the `@openapitools/openapi-generator-cli`
  */
 export class OpenApiCliGenerator extends CodeGenerator<OpenApiCliOptions> {
   protected readonly packageManager: 'npm' | 'yarn';

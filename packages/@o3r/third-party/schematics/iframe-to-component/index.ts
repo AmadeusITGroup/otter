@@ -160,7 +160,7 @@ export function ngAddIframeFn(options: NgAddIframeSchematicsSchema): Rule {
                       propertiesToAdd,
                       newNgAfterViewInit
                     )
-                    .sort(sortClassElement);
+                    .toSorted(sortClassElement);
 
                   addCommentsOnClassProperties(
                     newMembers,

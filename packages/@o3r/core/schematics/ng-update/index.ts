@@ -16,6 +16,12 @@ import {
   updateConfiguration,
 } from './v10.0/configuration';
 import {
+  removeStylingDesignDependencies,
+} from './v14.0/remove-styling-design-deps';
+import {
+  updateStylingImports,
+} from './v14.0/update-styling-imports';
+import {
   mapImportAsyncStore,
 } from './v8.2/import-map';
 
@@ -78,6 +84,27 @@ export const updateV12_0 = createOtterSchematic(
 export const updateV12_1 = createOtterSchematic(() =>
   updatePackageGroup(o3rPackageJsonPath)
 );
+
+/**
+ * Update of Otter library V14.0
+ */
+// eslint-disable-next-line @typescript-eslint/naming-convention -- version is in the function name
+function updateV14_0Fn(): Rule {
+  return (tree: Tree, context: SchematicContext) => {
+    const updateRules: Rule[] = [
+      updateStylingImports,
+      removeStylingDesignDependencies
+    ];
+
+    return chain(updateRules)(tree, context);
+  };
+}
+
+/**
+ * Update of Otter library V14.0
+ */
+// eslint-disable-next-line @typescript-eslint/naming-convention -- version is in the function name
+export const updateV14_0 = createOtterSchematic(updateV14_0Fn);
 
 /**
  * Update of All versions

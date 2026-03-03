@@ -197,7 +197,7 @@ export abstract class Cascading {
         }
         return true;
       })
-      .sort((branchObjectA, branchObjectB) => {
+      .toSorted((branchObjectA, branchObjectB) => {
         if (!branchObjectA.semver) {
           return 1;
         } else if (!branchObjectB.semver) {

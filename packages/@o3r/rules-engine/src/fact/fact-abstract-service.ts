@@ -8,6 +8,13 @@ import {
 
 /** Abstract fact set service */
 export abstract class FactsService<T extends FactDefinitions> {
+  #isRegistered = false;
+
+  /** Get the registered state */
+  public get isRegistered() {
+    return this.#isRegistered;
+  }
+
   /** Set of facts provided */
   public abstract facts: FactSet<T>;
 
@@ -19,5 +26,6 @@ export abstract class FactsService<T extends FactDefinitions> {
       Object.entries(this.facts)
         .map(([id, factValue]) => ({ id, value$: factValue }))
     );
+    this.#isRegistered = true;
   }
 }

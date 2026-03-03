@@ -111,19 +111,6 @@ export namespace utils {
     public override toJSON(): string {
       return (`${this.getFullYear()}-${pad(this.getMonth() + 1)}-${pad(this.getDate())}`);
     }
-
-    /**
-     * Compare if two dates are equals.
-     * @deprecated this will be removed in v14, please use {@link compareDates} instead
-     * @param  {Date}    date the date to compare
-     * @returns {boolean}      true if the dates are equals.
-     */
-    public equals(date?: Date): boolean {
-      if (!date) {
-        return false;
-      }
-      return this.getFullYear() === date.getFullYear() && this.getMonth() === date.getMonth() && this.getDate() === date.getDate();
-    }
   }
 
   export class DateTime extends CommonDate {

@@ -7,13 +7,14 @@ const { convertWarningsToErrors } = require('../utils.cjs');
  */
 const config = [
   {
-    name: '@o3r/eslint-config/eslint-comments',
+    name: '@o3r/eslint-config/angular-eslint-template',
     files: [
       '**/*.html'
     ],
     rules: {
       ...convertWarningsToErrors(angular.configs.templateRecommended),
       ...convertWarningsToErrors(angular.configs.templateAccessibility),
+      '@angular-eslint/template/prefer-self-closing-tags': ['error'],
       '@angular-eslint/template/interactive-supports-focus': [
         'error',
         {

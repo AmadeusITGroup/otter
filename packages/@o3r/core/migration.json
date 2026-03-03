@@ -21,6 +21,11 @@
       "description": "Updates of @o3r/core to v12.1.*",
       "factory": "./schematics/ng-update/index#updateV12_1"
     },
+    "migration-v14_0": {
+      "version": "14.0.0-alpha.0",
+      "description": "Updates of @o3r/core to v14.0.* - Remove @o3r/styling and @o3r/design dependencies",
+      "factory": "./schematics/ng-update/index#updateV14_0"
+    },
     "migration-all": {
       "version": "*",
       "description": "Run on all versions",

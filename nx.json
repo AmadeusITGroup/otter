@@ -223,7 +223,6 @@
       ],
       "options": {
         "jestConfig": "{projectRoot}/jest.config.js",
-        "cacheDirectory": "{workspaceRoot}/.cache/jest",
         "passWithNoTests": false,
         "silent": true
       },
@@ -590,6 +589,9 @@
     "build-react": {
       "cache": true
     },
+    "build-manifest": {
+      "cache": true
+    },
     "build-panel": {
       "cache": true
     },
@@ -609,9 +611,6 @@
       "cache": true
     },
     "build-utils": {
-      "cache": true
-    },
-    "copy-assets": {
       "cache": true
     },
     "regen": {

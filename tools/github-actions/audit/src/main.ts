@@ -89,7 +89,7 @@ ${reportData.errors.length > 0
 
 ${reportData.errors
     .filter((vul) => isVulnerabilityWithKnownSeverity(vul))
-    .sort(sortVulnerabilityBySeverity)
+    .toSorted(sortVulnerabilityBySeverity)
     .map((vul) => formatVulnerability(vul))
     .join(os.EOL)
 }
@@ -105,7 +105,7 @@ Vulnerabilities below the threshold: ${severityConfig}
 
 ${reportData.warnings
     .filter((vul) => isVulnerabilityWithKnownSeverity(vul))
-    .sort(sortVulnerabilityBySeverity)
+    .toSorted(sortVulnerabilityBySeverity)
     .map((vul) => formatVulnerability(vul))
     .join(os.EOL)
     .replaceAll('${', '&#36;{')
