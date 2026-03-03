@@ -262,7 +262,7 @@
     "marked": "~17.0.0",
     "minimist": "^1.2.6",
     "monaco-editor": "~0.55.0",
-    "ng-packagr": "~21.1.0",
+    "ng-packagr": "~21.2.0",
     "ngx-markdown": "~21.1.0",
     "ngx-monaco-editor-v2": "^20.0.0",
     "ngx-monaco-tree": "~20.1.0",
