@@ -894,11 +894,8 @@ __metadata:
     typescript-eslint: "npm:~8.54.0"
     yargs: "npm:~18.0.0"
   peerDependencies:
-    "@o3r/telemetry": "workspace:~"
     chokidar: ^4.0.0 || ^5.0.0
   peerDependenciesMeta:
-    "@o3r/telemetry":
-      optional: true
     chokidar:
       optional: true
   bin:
@@ -1019,11 +1016,8 @@ __metadata:
     typescript-eslint: "npm:~8.54.0"
     yargs: "npm:~18.0.0"
   peerDependencies:
-    "@o3r/telemetry": "workspace:~"
     type-fest: ^5.3.1
   peerDependenciesMeta:
-    "@o3r/telemetry":
-      optional: true
     type-fest:
       optional: true
   bin:

@@ -27,19 +27,16 @@
     "postbuild": "cpy 'package.json' 'dist' && patch-package-json-main"
   },
   "peerDependencies": {
-    "@o3r/telemetry": "workspace:~",
     "type-fest": "^5.3.1"
   },
   "peerDependenciesMeta": {
-    "@o3r/telemetry": {
-      "optional": true
-    },
     "type-fest": {
       "optional": true
     }
   },
   "dependencies": {
     "@ama-openapi/core": "workspace:~",
+    "@o3r/telemetry": "workspace:~",
     "ejs": "~3.1.9",
     "globby": "^11.1.0",
     "tslib": "^2.6.2",
@@ -56,7 +53,6 @@
     "@o3r/build-helpers": "workspace:~",
     "@o3r/eslint-config": "workspace:~",
     "@o3r/eslint-plugin": "workspace:~",
-    "@o3r/telemetry": "workspace:~",
     "@o3r/test-helpers": "workspace:~",
     "@schematics/angular": "~21.1.0",
     "@stylistic/eslint-plugin": "~5.7.0",
