@@ -16,6 +16,7 @@ const mocksPath = resolve(__dirname, '..', '..', 'testing', 'mocks', 'dictionari
 let mocks!: {
   singleToken: any;
   privateToken: any;
+  privateRefs: any;
   referenceToken: any;
 };
 
@@ -45,6 +46,7 @@ describe('metadataFormat', () => {
     mocks = {
       singleToken: JSON.parse(readFileSync(resolve(mocksPath, 'single-token.json'), { encoding: 'utf8' })),
       privateToken: JSON.parse(readFileSync(resolve(mocksPath, 'private-token.json'), { encoding: 'utf8' })),
+      privateRefs: JSON.parse(readFileSync(resolve(mocksPath, 'private-refs.json'), { encoding: 'utf8' })),
       referenceToken: JSON.parse(readFileSync(resolve(mocksPath, 'ref-token.json'), { encoding: 'utf8' }))
     };
   });
@@ -121,5 +123,43 @@ describe('metadataFormat', () => {
     }) as string;
     const obj = JSON.parse(css);
     expect(Object.keys(obj.variables)).toContain('color-primary-private-ref');
+  });
+
+  test('should correctly handle private variables with references', async () => {
+    const css = await metadataFormat.format({
+      dictionary: mocks.privateRefs,
+      file: {},
+      options: { outputReferences: true, usesDtcg: true },
+      platform: {}
+    }) as string;
+    const obj = JSON.parse(css);
+    expect(obj).toMatchObject({
+      variables: {
+        'color-neutral-70': {
+          name: 'color-neutral-70',
+          type: 'color',
+          defaultValue: '#4d4d4d',
+          references: []
+        },
+        'badge-color-foreground-disabled': {
+          name: 'badge-color-foreground-disabled',
+          type: 'string',
+          defaultValue: 'var(--application-color-foreground-generic-disabled, var(--color-neutral-70))',
+          references: [
+            {
+              defaultValue: 'var(--color-neutral-70)',
+              name: 'application-color-foreground-generic-disabled',
+              references: [
+                {
+                  defaultValue: '#4d4d4d',
+                  name: 'color-neutral-70',
+                  references: []
+                }
+              ]
+            }
+          ]
+        }
+      }
+    });
   });
 });
