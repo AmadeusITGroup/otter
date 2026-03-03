@@ -27,7 +27,7 @@ export const metadataFormat: Format = {
     const { outputReferences: outRef, usesDtcg, formatting, keepPrivate } = options;
     const outputReferences = outRef ?? true;
     const format = 'css';
-    const suffix = ' ';
+    const suffix = ';';
     const prefix = '--';
     const separator = ':';
     const commentStyle = options.formatting?.commentStyle ?? 'none';
@@ -53,7 +53,7 @@ export const metadataFormat: Format = {
     let allTokens = dictionary.allTokens;
     const tokens = dictionary.tokens;
     if (outputReferences) {
-      allTokens = [...allTokens].toSorted(
+      allTokens = allTokens.toSorted(
         sortByReference(tokens, { unfilteredTokens: dictionary.unfilteredTokens, usesDtcg })
       );
     }

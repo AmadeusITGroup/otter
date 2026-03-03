@@ -1,0 +1,362 @@
+{
+  "tokens": {
+    "color": {
+      "neutral": {
+        "70": {
+          "$type": "color",
+          "$value": "#4d4d4d",
+          "filePath": "example.tokens.json",
+          "isSource": true,
+          "attributes": {
+            "category": "color",
+            "type": "neutral",
+            "item": "70"
+          },
+          "original": {
+            "$type": "color",
+            "$value": "#4d4d4d"
+          },
+          "name": "color-neutral-70",
+          "path": [
+            "color",
+            "neutral",
+            "70"
+          ]
+        }
+      }
+    },
+    "badge": {
+      "color": {
+        "foreground": {
+          "disabled": {
+            "$value": "#4d4d4d",
+            "filePath": "example.tokens.json",
+            "isSource": true,
+            "attributes": {
+              "category": "badge",
+              "type": "color",
+              "item": "foreground",
+              "subitem": "disabled"
+            },
+            "original": {
+              "$value": "{application.color.foreground.generic.disabled}"
+            },
+            "name": "badge-color-foreground-disabled",
+            "path": [
+              "badge",
+              "color",
+              "foreground",
+              "disabled"
+            ]
+          }
+        }
+      }
+    },
+    "application": {
+      "color": {
+        "foreground": {
+          "generic": {
+            "disabled": {
+              "$extensions": {
+                "o3rPrivate": true
+              },
+              "$value": "#4d4d4d",
+              "filePath": "example.tokens.json",
+              "isSource": true,
+              "attributes": {
+                "o3rPrivate": true,
+                "private": true,
+                "category": "application",
+                "type": "color",
+                "item": "foreground",
+                "subitem": "generic",
+                "state": "disabled"
+              },
+              "original": {
+                "$extensions": {
+                  "o3rPrivate": true
+                },
+                "$value": "{color.neutral.70}",
+                "attributes": {
+                  "o3rPrivate": true,
+                  "private": true
+                }
+              },
+              "name": "application-color-foreground-generic-disabled",
+              "path": [
+                "application",
+                "color",
+                "foreground",
+                "generic",
+                "disabled"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "allTokens": [
+    {
+      "$type": "color",
+      "$value": "#4d4d4d",
+      "filePath": "example.tokens.json",
+      "isSource": true,
+      "attributes": {
+        "category": "color",
+        "type": "neutral",
+        "item": "70"
+      },
+      "original": {
+        "$type": "color",
+        "$value": "#4d4d4d"
+      },
+      "name": "color-neutral-70",
+      "path": [
+        "color",
+        "neutral",
+        "70"
+      ],
+      "key": "{color.neutral.70}"
+    },
+    {
+      "$value": "#4d4d4d",
+      "filePath": "example.tokens.json",
+      "isSource": true,
+      "attributes": {
+        "category": "badge",
+        "type": "color",
+        "item": "foreground",
+        "subitem": "disabled"
+      },
+      "original": {
+        "$value": "{application.color.foreground.generic.disabled}"
+      },
+      "name": "badge-color-foreground-disabled",
+      "path": [
+        "badge",
+        "color",
+        "foreground",
+        "disabled"
+      ],
+      "key": "{badge.color.foreground.disabled}"
+    },
+    {
+      "$extensions": {
+        "o3rPrivate": true
+      },
+      "$value": "#4d4d4d",
+      "filePath": "example.tokens.json",
+      "isSource": true,
+      "attributes": {
+        "o3rPrivate": true,
+        "private": true,
+        "category": "application",
+        "type": "color",
+        "item": "foreground",
+        "subitem": "generic",
+        "state": "disabled"
+      },
+      "original": {
+        "$extensions": {
+          "o3rPrivate": true
+        },
+        "$value": "{color.neutral.70}",
+        "attributes": {
+          "o3rPrivate": true,
+          "private": true
+        }
+      },
+      "name": "application-color-foreground-generic-disabled",
+      "path": [
+        "application",
+        "color",
+        "foreground",
+        "generic",
+        "disabled"
+      ],
+      "key": "{application.color.foreground.generic.disabled}"
+    }
+  ],
+  "tokenMap": {},
+  "unfilteredTokens": {
+    "color": {
+      "neutral": {
+        "70": {
+          "$type": "color",
+          "$value": "#4d4d4d",
+          "filePath": "example.tokens.json",
+          "isSource": true,
+          "attributes": {
+            "category": "color",
+            "type": "neutral",
+            "item": "70"
+          },
+          "original": {
+            "$type": "color",
+            "$value": "#4d4d4d"
+          },
+          "name": "color-neutral-70",
+          "path": [
+            "color",
+            "neutral",
+            "70"
+          ]
+        }
+      }
+    },
+    "badge": {
+      "color": {
+        "foreground": {
+          "disabled": {
+            "$value": "#4d4d4d",
+            "filePath": "example.tokens.json",
+            "isSource": true,
+            "attributes": {
+              "category": "badge",
+              "type": "color",
+              "item": "foreground",
+              "subitem": "disabled"
+            },
+            "original": {
+              "$value": "{application.color.foreground.generic.disabled}"
+            },
+            "name": "badge-color-foreground-disabled",
+            "path": [
+              "badge",
+              "color",
+              "foreground",
+              "disabled"
+            ]
+          }
+        }
+      }
+    },
+    "application": {
+      "color": {
+        "foreground": {
+          "generic": {
+            "disabled": {
+              "$extensions": {
+                "o3rPrivate": true
+              },
+              "$value": "#4d4d4d",
+              "filePath": "example.tokens.json",
+              "isSource": true,
+              "attributes": {
+                "o3rPrivate": true,
+                "private": true,
+                "category": "application",
+                "type": "color",
+                "item": "foreground",
+                "subitem": "generic",
+                "state": "disabled"
+              },
+              "original": {
+                "$extensions": {
+                  "o3rPrivate": true
+                },
+                "$value": "{color.neutral.70}",
+                "attributes": {
+                  "o3rPrivate": true,
+                  "private": true
+                }
+              },
+              "name": "application-color-foreground-generic-disabled",
+              "path": [
+                "application",
+                "color",
+                "foreground",
+                "generic",
+                "disabled"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "unfilteredAllTokens": [
+    {
+      "$type": "color",
+      "$value": "#4d4d4d",
+      "filePath": "example.tokens.json",
+      "isSource": true,
+      "attributes": {
+        "category": "color",
+        "type": "neutral",
+        "item": "70"
+      },
+      "original": {
+        "$type": "color",
+        "$value": "#4d4d4d"
+      },
+      "name": "color-neutral-70",
+      "path": [
+        "color",
+        "neutral",
+        "70"
+      ],
+      "key": "{color.neutral.70}"
+    },
+    {
+      "$value": "#4d4d4d",
+      "filePath": "example.tokens.json",
+      "isSource": true,
+      "attributes": {
+        "category": "badge",
+        "type": "color",
+        "item": "foreground",
+        "subitem": "disabled"
+      },
+      "original": {
+        "$value": "{application.color.foreground.generic.disabled}"
+      },
+      "name": "badge-color-foreground-disabled",
+      "path": [
+        "badge",
+        "color",
+        "foreground",
+        "disabled"
+      ],
+      "key": "{badge.color.foreground.disabled}"
+    },
+    {
+      "$extensions": {
+        "o3rPrivate": true
+      },
+      "$value": "#4d4d4d",
+      "filePath": "example.tokens.json",
+      "isSource": true,
+      "attributes": {
+        "o3rPrivate": true,
+        "private": true,
+        "category": "application",
+        "type": "color",
+        "item": "foreground",
+        "subitem": "generic",
+        "state": "disabled"
+      },
+      "original": {
+        "$extensions": {
+          "o3rPrivate": true
+        },
+        "$value": "{color.neutral.70}",
+        "attributes": {
+          "o3rPrivate": true,
+          "private": true
+        }
+      },
+      "name": "application-color-foreground-generic-disabled",
+      "path": [
+        "application",
+        "color",
+        "foreground",
+        "generic",
+        "disabled"
+      ],
+      "key": "{application.color.foreground.generic.disabled}"
+    }
+  ],
+  "unfilteredTokenMap": {}
+}
