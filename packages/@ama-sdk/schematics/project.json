@@ -66,8 +66,11 @@
     },
     "build-cli": {
       "dependsOn": [
-        "build-builders"
+        "build-builders",
+        "expose-templates"
       ]
+    },
+    "expose-templates": {
     },
     "lint": {},
     "build-swagger": {
