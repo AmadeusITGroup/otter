@@ -16,7 +16,7 @@
                   <o3r-rule-key-value-pres
                     [key]="action.fact | o3rFallbackTo: 'Missing \'fact\''"
                     [value]="action.value | o3rFallbackTo"
-                    [type]="'assignment'"></o3r-rule-key-value-pres>
+                    [type]="'assignment'" />
                 </div>
               </div>
             }
@@ -27,7 +27,7 @@
                   <o3r-rule-key-value-pres
                     [key]="action.property | o3rFallbackTo: 'Missing \'property\''"
                     [value]="action.value | o3rFallbackTo"
-                    [type]="'assignment'"></o3r-rule-key-value-pres>
+                    [type]="'assignment'" />
                 </div>
               </div>
             }
@@ -38,7 +38,7 @@
                   <o3r-rule-key-value-pres
                     [oldValue]="action.asset | o3rFallbackTo: 'Missing \'asset\''"
                     [value]="action.value | o3rFallbackTo"
-                    [type]="'state'"></o3r-rule-key-value-pres>
+                    [type]="'state'" />
                 </div>
               </div>
             }
@@ -49,7 +49,7 @@
                   <o3r-rule-key-value-pres
                     [oldValue]="action.key | o3rFallbackTo: 'Missing \'key\''"
                     [value]="action.value | o3rFallbackTo"
-                    [type]="'state'"></o3r-rule-key-value-pres>
+                    [type]="'state'" />
                 </div>
               </div>
             }
@@ -60,7 +60,7 @@
                   <o3r-rule-key-value-pres
                     [oldValue]="action.placeholderId | o3rFallbackTo: 'Missing \'placeholderId\''"
                     [value]="action.value"
-                    [type]="'state'"></o3r-rule-key-value-pres>
+                    [type]="'state'" />
                 </div>
               </div>
             }
@@ -81,7 +81,7 @@
           <o3r-rule-key-value-pres
             [key]="runtimeOutput | o3rFallbackTo: 'Missing \'fact\''"
             [value]="temporaryFacts[runtimeOutput] | o3rFallbackTo"
-            [type]="'assignment'"></o3r-rule-key-value-pres>
+            [type]="'assignment'" />
         </div>
       </li>
     }

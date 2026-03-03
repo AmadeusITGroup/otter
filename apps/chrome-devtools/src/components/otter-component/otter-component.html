@@ -9,7 +9,7 @@
     <ng-template ngbNavContent>
       @if (config) {
         <h3>{{config.id}}</h3>
-        <app-config-form class="config-form mb-2 d-block" [config]="config"></app-config-form>
+        <app-config-form class="config-form mb-2 d-block" [config]="config" />
       } @else {
         <h3>No configuration</h3>
       }
@@ -29,11 +29,11 @@
         </div>
       }
       @if (rulesetExecutions?.length) {
-        <o3r-ruleset-history-pres [rulesetExecutions]="rulesetExecutions"></o3r-ruleset-history-pres>
+        <o3r-ruleset-history-pres [rulesetExecutions]="rulesetExecutions" />
       } @else {
         <h3>No ruleset executions</h3>
       }
-      <ng-template #noRulesetExecutions></ng-template>
+      <ng-template #noRulesetExecutions />
     </ng-template>
   </li>
   <li [ngbNavItem]="3" [disabled]="!(translations| nbProp)">

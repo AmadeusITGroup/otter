@@ -8,10 +8,13 @@
   "keywords": [
     "create"
   ],
-  "main": "./src/index.ts",
+  "preferUnplugged": true,
+  "main": "./src/public_api.ts",
+  "types": "./src/public_api.d.ts",
   "exports": {
     ".": {
-      "default": "./src/index.ts"
+      "default": "./src/public_api.ts",
+      "types": "./src/public_api.d.ts"
     },
     "./package.json": {
       "default": "./package.json"

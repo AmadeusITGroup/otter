@@ -53,11 +53,11 @@
                       [ngTemplateOutletContext]="{
                         rules: execution.rulesetInformation?.rules,
                         expansionID: execution.executionId
-                      }"></ng-container>
+                      }" />
             <ng-container [ngTemplateOutlet]="inputs"
                       [ngTemplateOutletContext]="{
                         inputs: execution.inputFacts
-                      }"></ng-container>
+                      }" />
             @if (execution.type === 'RulesetExecutionError') {
               <div class="ruleset-panel-category-title">Rules:</div>
               <ul class="ruleset-panel-category-body rule-description">
@@ -79,12 +79,12 @@
                                 [ngTemplateOutletContext]="{
                                   inputs: execution.inputFacts,
                                   runtimeInputs: execution.rulesetInformation?.rules[index]?.inputRuntimeFacts
-                                }"></ng-container>
+                                }" />
                         @if (!ruleEvaluation.error) {
                           <o3r-rule-actions-pres
                             [temporaryFacts]="ruleEvaluation.temporaryFacts"
                             [runtimeOutputs]="execution.rulesetInformation?.rules[index]?.outputRuntimeFacts"
-                          ></o3r-rule-actions-pres>
+                          />
                         }
                       </div>
                     </ng-container>
@@ -92,7 +92,7 @@
                 }
               </ul>
             } @else {
-              <o3r-rule-actions-pres [actions]="execution.outputActions"></o3r-rule-actions-pres>
+              <o3r-rule-actions-pres [actions]="execution.outputActions" />
               <div class="ruleset-panel-category-title">Executed Rules</div>
               <ul class="rule-description ruleset-panel-category-body">
                 @for (ruleEvaluation of execution.rulesEvaluations; track ruleEvaluation; let index = $index) {
@@ -106,12 +106,11 @@
                     </div>
                     <div>
                       <ng-container [ngTemplateOutlet]="triggers"
-                      [ngTemplateOutletContext]="{triggers: (ruleEvaluation.triggers[ruleEvaluation.rule.id])}"></ng-container>
+                      [ngTemplateOutletContext]="{triggers: (ruleEvaluation.triggers[ruleEvaluation.rule.id])}" />
                       <o3r-rule-actions-pres
                         [actions]="ruleEvaluation.outputActions"
                         [temporaryFacts]="ruleEvaluation.temporaryFacts"
-                        [runtimeOutputs]="execution.rulesetInformation?.rules[index]?.outputRuntimeFacts">
-                      </o3r-rule-actions-pres>
+                        [runtimeOutputs]="execution.rulesetInformation?.rules[index]?.outputRuntimeFacts" />
                     </div>
                   </li>
                 }
@@ -139,7 +138,7 @@
             [key]="trigger.value.factName"
             [oldValue]="trigger.value.oldValue | o3rFallbackTo"
             [value]="trigger.value.newValue | o3rFallbackTo"
-          [type]="'state'"></o3r-rule-key-value-pres>
+          [type]="'state'" />
         </li>
       }
     }
@@ -168,8 +167,7 @@
               [condition]="rule?.rootElement?.condition"
               [blockType]="rule?.rootElement?.blockType"
               [successElements]="rule?.rootElement?.successElements"
-              [failureElements]="rule?.rootElement?.failureElements">
-            </o3r-rule-tree-pres>
+              [failureElements]="rule?.rootElement?.failureElements" />
           </li>
         }
       </ul>
@@ -189,7 +187,7 @@
           <o3r-rule-key-value-pres
             [key]="input.factName"
             [value]="input.value | o3rFallbackTo"
-          [type]="'state'"></o3r-rule-key-value-pres>
+          [type]="'state'" />
         </li>
       }
       @for (input of runtimeInputs; track input) {

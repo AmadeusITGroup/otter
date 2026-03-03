@@ -4,7 +4,7 @@
       <li [ngbNavItem]="1">
         <a ngbNavLink>General</a>
         <ng-template ngbNavContent>
-          <o3r-debug-panel-pres></o3r-debug-panel-pres>
+          <o3r-debug-panel-pres />
         </ng-template>
       </li>
       <li [ngbNavItem]="2">
@@ -14,13 +14,13 @@
             <li [ngbNavItem]="2.1">
               <a ngbNavLink>Facts</a>
               <ng-template ngbNavContent>
-                <o3r-facts-snapshot [facts]="facts$ | async"></o3r-facts-snapshot>
+                <o3r-facts-snapshot [facts]="facts$ | async" />
               </ng-template>
             </li>
             <li [ngbNavItem]="2.2">
               <a ngbNavLink>Ruleset execution</a>
               <ng-template ngbNavContent>
-                <o3r-ruleset-history-pres [rulesetExecutions]="rulesetExecutions$ | async"></o3r-ruleset-history-pres>
+                <o3r-ruleset-history-pres [rulesetExecutions]="rulesetExecutions$ | async" />
               </ng-template>
             </li>
           </ul>
@@ -30,31 +30,31 @@
       <li [ngbNavItem]="3">
         <a ngbNavLink>Configuration</a>
         <ng-template ngbNavContent>
-          <o3r-config-panel-pres></o3r-config-panel-pres>
+          <o3r-config-panel-pres />
         </ng-template>
       </li>
       <li [ngbNavItem]="4">
         <a ngbNavLink>Component</a>
         <ng-template ngbNavContent>
-          <o3r-component-panel-pres></o3r-component-panel-pres>
+          <o3r-component-panel-pres />
         </ng-template>
       </li>
       <li [ngbNavItem]="5">
         <a ngbNavLink>Localization</a>
         <ng-template ngbNavContent>
-          <o3r-localization-panel-pres></o3r-localization-panel-pres>
+          <o3r-localization-panel-pres />
         </ng-template>
       </li>
       <li [ngbNavItem]="6">
         <a ngbNavLink>Theming</a>
         <ng-template ngbNavContent>
-          <o3r-theming-panel-pres></o3r-theming-panel-pres>
+          <o3r-theming-panel-pres />
         </ng-template>
       </li>
       <li [ngbNavItem]="7">
         <a ngbNavLink>States</a>
         <ng-template ngbNavContent>
-          <o3r-state-panel></o3r-state-panel>
+          <o3r-state-panel />
         </ng-template>
       </li>
     </ul>

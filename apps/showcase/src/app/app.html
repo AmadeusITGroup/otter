@@ -16,10 +16,10 @@
         <o3r-sidenav-pres
         [linksGroups]="linksGroups"
         [activeUrl]="activeUrl$ | async"
-        ></o3r-sidenav-pres>
+        />
       </div>
       <main class="page-content col-12 col-xl-10 px-3 px-md-6 px-lg-9">
-        <router-outlet></router-outlet>
+        <router-outlet />
       </main>
     </div>
   </div>
@@ -51,7 +51,7 @@
     <o3r-sidenav-pres
       [linksGroups]="linksGroups"
       [activeUrl]="activeUrl$ | async"
-    ></o3r-sidenav-pres>
+    />
   </div>
 </ng-template>
-<o3r-scroll-back-top-pres class="d-xl-none"></o3r-scroll-back-top-pres>
+<o3r-scroll-back-top-pres class="d-xl-none" />

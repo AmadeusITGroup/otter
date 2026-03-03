@@ -37,12 +37,12 @@
           <div class="col-12 col-xl-6">
             <o3r-date-picker-input-pres [id]="'date-outbound'"
                                         [label]="translations.departureLabel | o3rTranslate"
-                                        formControlName="outboundDate"></o3r-date-picker-input-pres>
+                                        formControlName="outboundDate" />
           </div>
           @if (configSignal().shouldProposeRoundTrip) {
             <div class="col-12 col-xl-6">
               <o3r-date-picker-input-pres [id]="'date-inbound'" [label]="translations.returnLabel | o3rTranslate"
-                                          formControlName="inboundDate"></o3r-date-picker-input-pres>
+                                          formControlName="inboundDate" />
             </div>
           }
         </form>

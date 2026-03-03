@@ -75,7 +75,7 @@
                             }
                             <ng-template #resultTemplate let-result="result" let-term="term">
                               <div class="d-flex flex-column gap-2">
-                                <ngb-highlight [result]="result" [term]="term"></ngb-highlight>
+                                <ngb-highlight [result]="result" [term]="term" />
                                 @if (result | variableName; as varName) {
                                   @if (variablesMap()[varName]; as searchVariable) {
                                     <div class="d-flex gap-3 fs-6 text-secondary align-items-center">
@@ -83,12 +83,12 @@
                                         <div class="border border-secondary rounded-circle" [style.background]="resolvedVariables()[searchVariable.name] | hexColor" [style.width]="'15px'" [style.height]="'15px'"></div>
                                       }
                                       @if (searchVariable.description; as description) {
-                                        <ngb-highlight [result]="description" [term]="term"></ngb-highlight>
+                                        <ngb-highlight [result]="description" [term]="term" />
                                       }
                                       @if (searchVariable.runtimeValue) {
-                                        <ngb-highlight [result]="searchVariable.runtimeValue" [term]="term"></ngb-highlight>
+                                        <ngb-highlight [result]="searchVariable.runtimeValue" [term]="term" />
                                       } @else {
-                                        <ngb-highlight [result]="searchVariable.defaultValue" [term]="term"></ngb-highlight>
+                                        <ngb-highlight [result]="searchVariable.defaultValue" [term]="term" />
                                       }
                                     </div>
                                   }
