@@ -453,7 +453,7 @@ __metadata:
     "@angular/platform-browser": "npm:~21.1.0"
     "@angular/platform-browser-dynamic": "npm:~21.1.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@modelcontextprotocol/sdk": "npm:~1.26.0"
+    "@modelcontextprotocol/sdk": "npm:~1.27.0"
     "@nx/eslint": "npm:~22.5.0"
     "@nx/eslint-plugin": "npm:~22.5.0"
     "@nx/jest": "npm:~22.5.0"
@@ -514,7 +514,7 @@ __metadata:
     "@angular/platform-browser": "npm:~21.1.0"
     "@angular/platform-browser-dynamic": "npm:~21.1.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@modelcontextprotocol/sdk": "npm:~1.26.0"
+    "@modelcontextprotocol/sdk": "npm:~1.27.0"
     "@nx/eslint": "npm:~22.5.0"
     "@nx/eslint-plugin": "npm:~22.5.0"
     "@nx/jest": "npm:~22.5.0"
@@ -579,7 +579,7 @@ __metadata:
     "@angular/platform-browser": "npm:~21.1.0"
     "@angular/platform-browser-dynamic": "npm:~21.1.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@modelcontextprotocol/sdk": "npm:~1.26.0"
+    "@modelcontextprotocol/sdk": "npm:~1.27.0"
     "@nx/eslint": "npm:~22.5.0"
     "@nx/eslint-plugin": "npm:~22.5.0"
     "@nx/jest": "npm:~22.5.0"
@@ -643,7 +643,7 @@ __metadata:
     "@angular/platform-browser": "npm:~21.1.0"
     "@angular/platform-browser-dynamic": "npm:~21.1.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@modelcontextprotocol/sdk": "npm:~1.26.0"
+    "@modelcontextprotocol/sdk": "npm:~1.27.0"
     "@nx/eslint": "npm:~22.5.0"
     "@nx/eslint-plugin": "npm:~22.5.0"
     "@nx/jest": "npm:~22.5.0"
@@ -1050,7 +1050,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:~"
     "@o3r/telemetry": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@redocly/openapi-core": "npm:~2.18.0"
+    "@redocly/openapi-core": "npm:~2.19.0"
     "@stylistic/eslint-plugin": "npm:~5.7.0"
     "@types/jest": "npm:~30.0.0"
     "@types/minimist": "npm:^1.2.2"
@@ -1426,7 +1426,7 @@ __metadata:
     "@o3r/schematics": "workspace:*"
     "@o3r/telemetry": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@openapitools/openapi-generator-cli": "npm:~2.28.0"
+    "@openapitools/openapi-generator-cli": "npm:~2.30.0"
     "@schematics/angular": "npm:~21.1.0"
     "@stylistic/eslint-plugin": "npm:~5.7.0"
     "@types/jest": "npm:~30.0.0"
@@ -1488,7 +1488,7 @@ __metadata:
     "@o3r/schematics": "workspace:~"
     "@o3r/telemetry": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@openapitools/openapi-generator-cli": "npm:~2.28.0"
+    "@openapitools/openapi-generator-cli": "npm:~2.30.0"
     "@schematics/angular": "npm:~21.1.0"
     "@stylistic/eslint-plugin": "npm:~5.7.0"
     "@types/jest": "npm:~30.0.0"
@@ -1805,7 +1805,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:~"
     "@o3r/schematics": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@openapitools/openapi-generator-cli": "npm:~2.28.0"
+    "@openapitools/openapi-generator-cli": "npm:~2.30.0"
     "@schematics/angular": "npm:~21.1.0"
     "@stylistic/eslint-plugin": "npm:~5.7.0"
     "@swc/cli": "npm:~0.8.0"
@@ -6196,6 +6196,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@inquirer/core@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "@inquirer/core@npm:6.0.0"
+  dependencies:
+    "@inquirer/type": "npm:^1.1.6"
+    "@types/mute-stream": "npm:^0.0.4"
+    "@types/node": "npm:^20.10.7"
+    "@types/wrap-ansi": "npm:^3.0.0"
+    ansi-escapes: "npm:^4.3.2"
+    chalk: "npm:^4.1.2"
+    cli-spinners: "npm:^2.9.2"
+    cli-width: "npm:^4.1.0"
+    figures: "npm:^3.2.0"
+    mute-stream: "npm:^1.0.0"
+    run-async: "npm:^3.0.0"
+    signal-exit: "npm:^4.1.0"
+    strip-ansi: "npm:^6.0.1"
+    wrap-ansi: "npm:^6.2.0"
+  checksum: 10/a9f79fe538deab439afc845e16fa8832872b4562be6e39a5de8b50eca3e2b27be0e470fc4ee014f202a750213adc8a06068402d51d6d7b34b118b12b08200f85
+  languageName: node
+  linkType: hard
+
 "@inquirer/editor@npm:^4.2.23":
   version: 4.2.23
   resolution: "@inquirer/editor@npm:4.2.23"
@@ -6228,7 +6250,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@inquirer/external-editor@npm:^1.0.0, @inquirer/external-editor@npm:^1.0.3":
+"@inquirer/external-editor@npm:^1.0.3":
   version: 1.0.3
   resolution: "@inquirer/external-editor@npm:1.0.3"
   dependencies:
@@ -6359,6 +6381,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@inquirer/select@npm:1.3.3":
+  version: 1.3.3
+  resolution: "@inquirer/select@npm:1.3.3"
+  dependencies:
+    "@inquirer/core": "npm:^6.0.0"
+    "@inquirer/type": "npm:^1.1.6"
+    ansi-escapes: "npm:^4.3.2"
+    chalk: "npm:^4.1.2"
+    figures: "npm:^3.2.0"
+  checksum: 10/0f33c51ab69c156b96092bfb107d08dd0f4227274917b9406aa23877e3ba94fd6738800fb973c44c051aaebdba72d07dc328df4b76e6e1285f68aa01a7ed0ed8
+  languageName: node
+  linkType: hard
+
 "@inquirer/select@npm:^4.4.2":
   version: 4.4.2
   resolution: "@inquirer/select@npm:4.4.2"
@@ -6374,6 +6409,15 @@ __metadata:
     "@types/node":
       optional: true
   checksum: 10/795ec0ac77d575f20bd6a12fb1c040093e62217ac0c80194829a8d3c3d1e09f70ad738e9a9dd6095cc8358fff4e13882209c09bdf8eb0864a86dcabef5b0a6a6
+  languageName: node
+  linkType: hard
+
+"@inquirer/type@npm:^1.1.6":
+  version: 1.5.5
+  resolution: "@inquirer/type@npm:1.5.5"
+  dependencies:
+    mute-stream: "npm:^1.0.0"
+  checksum: 10/bd3f3d7510785af4ad599e042e99e4be6380f52f79f3db140fe6fed0a605acf27b1a0a20fb5cc688eaf7b8aa0c36dacb1d89c7bba4586f38cbf58ba9f159e7b5
   languageName: node
   linkType: hard
 
@@ -7361,7 +7405,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@modelcontextprotocol/sdk@npm:1.26.0, @modelcontextprotocol/sdk@npm:~1.26.0":
+"@modelcontextprotocol/sdk@npm:1.26.0":
   version: 1.26.0
   resolution: "@modelcontextprotocol/sdk@npm:1.26.0"
   dependencies:
@@ -7391,6 +7435,39 @@ __metadata:
     zod:
       optional: false
   checksum: 10/a206b2a4d61a23be8b8f4c886528dd9348d11b17ce36013b350edf5c082b1c1f07941d52ea098f721daf3828085b6f6276bb844c484a0e9913edbc028517a3d5
+  languageName: node
+  linkType: hard
+
+"@modelcontextprotocol/sdk@npm:~1.27.0":
+  version: 1.27.1
+  resolution: "@modelcontextprotocol/sdk@npm:1.27.1"
+  dependencies:
+    "@hono/node-server": "npm:^1.19.9"
+    ajv: "npm:^8.17.1"
+    ajv-formats: "npm:^3.0.1"
+    content-type: "npm:^1.0.5"
+    cors: "npm:^2.8.5"
+    cross-spawn: "npm:^7.0.5"
+    eventsource: "npm:^3.0.2"
+    eventsource-parser: "npm:^3.0.0"
+    express: "npm:^5.2.1"
+    express-rate-limit: "npm:^8.2.1"
+    hono: "npm:^4.11.4"
+    jose: "npm:^6.1.3"
+    json-schema-typed: "npm:^8.0.2"
+    pkce-challenge: "npm:^5.0.0"
+    raw-body: "npm:^3.0.0"
+    zod: "npm:^3.25 || ^4.0"
+    zod-to-json-schema: "npm:^3.25.1"
+  peerDependencies:
+    "@cfworker/json-schema": ^4.1.1
+    zod: ^3.25 || ^4.0
+  peerDependenciesMeta:
+    "@cfworker/json-schema":
+      optional: true
+    zod:
+      optional: false
+  checksum: 10/3cb0d61cfb916e555c85b4a527e772f88fcf9c6abacbe5eb5e965aac7c898190c416341ab3b3cba8c2d5f5ce4d513279fba3ad7784a0903d7ccd335decc55395
   languageName: node
   linkType: hard
 
@@ -8167,9 +8244,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nestjs/common@npm:11.1.13":
-  version: 11.1.13
-  resolution: "@nestjs/common@npm:11.1.13"
+"@nestjs/common@npm:11.1.14":
+  version: 11.1.14
+  resolution: "@nestjs/common@npm:11.1.14"
   dependencies:
     file-type: "npm:21.3.0"
     iterare: "npm:1.2.1"
@@ -8186,13 +8263,13 @@ __metadata:
       optional: true
     class-validator:
       optional: true
-  checksum: 10/85d865d45a36c3b7082c6167161022a51574e4a6b0e1a1d9160ebde0e26884597ec9f78343a9f944bb89c65b2f93a8102c00e168c55e2348610a506078560f5b
+  checksum: 10/420c4f66ce4d3219196fa9cc6a6c4de63aacdabe869cc95754419a0d306f498a1e52031cf2f5f6c1737616943323309fb875708f5a4f61c960eebc62d5f60232
   languageName: node
   linkType: hard
 
-"@nestjs/core@npm:11.1.13":
-  version: 11.1.13
-  resolution: "@nestjs/core@npm:11.1.13"
+"@nestjs/core@npm:11.1.14":
+  version: 11.1.14
+  resolution: "@nestjs/core@npm:11.1.14"
   dependencies:
     "@nuxt/opencollective": "npm:0.4.1"
     fast-safe-stringify: "npm:2.1.1"
@@ -8214,7 +8291,7 @@ __metadata:
       optional: true
     "@nestjs/websockets":
       optional: true
-  checksum: 10/63b5954510ca26b4ab908e54abaf76cb2a9fd121f78750cb4fe59f0abb93bc558c5b9e593f256355d3ac9045a7545d4f7c827749aea601a8b11f805a49668b98
+  checksum: 10/e346efe760079c99ab303bf05de587f172d348c194a174a4665944ab6858b36993a64b07afe62772c4e9042c685797d02579b86f12d549eb199842b436c9045e
   languageName: node
   linkType: hard
 
@@ -8930,7 +9007,7 @@ __metadata:
     "@o3r/eslint-config": "workspace:~"
     "@o3r/eslint-plugin": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@openapitools/openapi-generator-cli": "npm:~2.28.0"
+    "@openapitools/openapi-generator-cli": "npm:~2.30.0"
     "@schematics/angular": "npm:~21.1.0"
     "@stylistic/eslint-plugin": "npm:~5.7.0"
     "@swc/cli": "npm:~0.8.0"
@@ -9000,7 +9077,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:~"
     "@o3r/schematics": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@openapitools/openapi-generator-cli": "npm:~2.28.0"
+    "@openapitools/openapi-generator-cli": "npm:~2.30.0"
     "@schematics/angular": "npm:~21.1.0"
     "@stylistic/eslint-plugin": "npm:~5.7.0"
     "@swc/cli": "npm:~0.8.0"
@@ -9758,7 +9835,7 @@ __metadata:
     jest-util: "npm:~30.2.0"
     jsdom: "npm:~27.4.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    jsonpath-plus: "npm:~10.3.0"
+    jsonpath-plus: "npm:~10.4.0"
     memfs: "npm:~4.56.0"
     nx: "npm:~22.5.0"
     rxjs: "npm:^7.8.1"
@@ -10743,7 +10820,7 @@ __metadata:
     js-yaml: "npm:^4.1.1"
     jsdom: "npm:~27.4.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    jsonpath-plus: "npm:~10.3.0"
+    jsonpath-plus: "npm:~10.4.0"
     lighthouse: "npm:~13.0.0"
     lint-staged: "npm:^16.0.0"
     marked: "npm:~17.0.0"
@@ -11134,7 +11211,7 @@ __metadata:
     "@angular/platform-browser": "npm:~21.1.0"
     "@angular/platform-browser-dynamic": "npm:~21.1.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@modelcontextprotocol/sdk": "npm:~1.26.0"
+    "@modelcontextprotocol/sdk": "npm:~1.27.0"
     "@nx/eslint": "npm:~22.5.0"
     "@nx/eslint-plugin": "npm:~22.5.0"
     "@nx/jest": "npm:~22.5.0"
@@ -11637,7 +11714,7 @@ __metadata:
     jest-util: "npm:~30.2.0"
     jsdom: "npm:~27.4.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    jsonpath-plus: "npm:~10.3.0"
+    jsonpath-plus: "npm:~10.4.0"
     memfs: "npm:~4.56.0"
     nx: "npm:~22.5.0"
     rimraf: "npm:^6.0.1"
@@ -13102,13 +13179,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openapitools/openapi-generator-cli@npm:~2.28.0":
-  version: 2.28.3
-  resolution: "@openapitools/openapi-generator-cli@npm:2.28.3"
+"@openapitools/openapi-generator-cli@npm:~2.30.0":
+  version: 2.30.0
+  resolution: "@openapitools/openapi-generator-cli@npm:2.30.0"
   dependencies:
+    "@inquirer/select": "npm:1.3.3"
     "@nestjs/axios": "npm:4.0.1"
-    "@nestjs/common": "npm:11.1.13"
-    "@nestjs/core": "npm:11.1.13"
+    "@nestjs/common": "npm:11.1.14"
+    "@nestjs/core": "npm:11.1.14"
     "@nuxtjs/opencollective": "npm:0.3.2"
     axios: "npm:1.13.5"
     chalk: "npm:4.1.2"
@@ -13117,15 +13195,14 @@ __metadata:
     concurrently: "npm:9.2.1"
     console.table: "npm:0.10.0"
     fs-extra: "npm:11.3.3"
-    glob: "npm:13.0.1"
-    inquirer: "npm:8.2.7"
+    glob: "npm:13.0.6"
     proxy-agent: "npm:6.5.0"
     reflect-metadata: "npm:0.2.2"
     rxjs: "npm:7.8.2"
     tslib: "npm:2.8.1"
   bin:
     openapi-generator-cli: main.js
-  checksum: 10/8c94894bf9f8025e61f6ed0219a1efa5912ff248f1be3cff453393699cc63b912ee295ed03de08fa9bcee64742cc2ce930f555a5fcd93f9807833b9cee46fa5b
+  checksum: 10/645c45ebcd5a1db128fbcb990b34c19a6476a37953912f9ad46e2c47c27d2528dd02809b47f5ace371f75086059e4afdefbf914547a4af564dee5b45a347db15
   languageName: node
   linkType: hard
 
@@ -14118,9 +14195,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@redocly/openapi-core@npm:~2.18.0":
-  version: 2.18.1
-  resolution: "@redocly/openapi-core@npm:2.18.1"
+"@redocly/openapi-core@npm:~2.19.0":
+  version: 2.19.2
+  resolution: "@redocly/openapi-core@npm:2.19.2"
   dependencies:
     "@redocly/ajv": "npm:^8.17.4"
     "@redocly/config": "npm:^0.43.0"
@@ -14132,7 +14209,7 @@ __metadata:
     picomatch: "npm:^4.0.3"
     pluralize: "npm:^8.0.0"
     yaml-ast-parser: "npm:0.0.43"
-  checksum: 10/9b80a280b5ebcb81cca9897eaecb28a346dc1ea89610d80d0411141f2fdfc5a1ad5bbf505938c8d0c6df70e80374b7c19d575143e805cb5522f29baceb0f6222
+  checksum: 10/70a2ec0f486d27bcc76dc57c4832565c324efbc092351bce43c5429aa229b3bc06ee7541bba6176b356fbec8bcc0b8cef740d0660fbe4cc50e591d553dcd3e83
   languageName: node
   linkType: hard
 
@@ -16368,6 +16445,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/mute-stream@npm:^0.0.4":
+  version: 0.0.4
+  resolution: "@types/mute-stream@npm:0.0.4"
+  dependencies:
+    "@types/node": "npm:*"
+  checksum: 10/af8d83ad7b68ea05d9357985daf81b6c9b73af4feacb2f5c2693c7fd3e13e5135ef1bd083ce8d5bdc8e97acd28563b61bb32dec4e4508a8067fcd31b8a098632
+  languageName: node
+  linkType: hard
+
 "@types/mysql@npm:2.15.26":
   version: 2.15.26
   resolution: "@types/mysql@npm:2.15.26"
@@ -16679,6 +16765,13 @@ __metadata:
   version: 1.109.0
   resolution: "@types/vscode@npm:1.109.0"
   checksum: 10/bf5402ed90b80b4de4817721e50c797dfc07a633677e20ac48b0038b5741918e9b188d7ee248728b73614f5a18070e3ab8b84132a20a8493638cb10b11ad1708
+  languageName: node
+  linkType: hard
+
+"@types/wrap-ansi@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "@types/wrap-ansi@npm:3.0.0"
+  checksum: 10/8aa644946ca4e859668c36b8e2bcf2ac4bdee59dac760414730ea57be8a93ae9166ebd40a088f2ab714843aaea2a2a67f0e6e6ec11cfc9c8701b2466ca1c4089
   languageName: node
   linkType: hard
 
@@ -20058,7 +20151,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bl@npm:^4.0.3, bl@npm:^4.1.0":
+"bl@npm:^4.0.3":
   version: 4.1.0
   resolution: "bl@npm:4.1.0"
   dependencies:
@@ -20617,7 +20710,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chalk@npm:4.1.2, chalk@npm:^4.0.0, chalk@npm:^4.1.0, chalk@npm:^4.1.1, chalk@npm:^4.1.2":
+"chalk@npm:4.1.2, chalk@npm:^4.0.0, chalk@npm:^4.1.0, chalk@npm:^4.1.2":
   version: 4.1.2
   resolution: "chalk@npm:4.1.2"
   dependencies:
@@ -20922,7 +21015,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cli-spinners@npm:^2.5.0":
+"cli-spinners@npm:^2.5.0, cli-spinners@npm:^2.9.2":
   version: 2.9.2
   resolution: "cli-spinners@npm:2.9.2"
   checksum: 10/a0a863f442df35ed7294424f5491fa1756bd8d2e4ff0c8736531d886cec0ece4d85e8663b77a5afaf1d296e3cbbebff92e2e99f52bbea89b667cbe789b994794
@@ -20953,13 +21046,6 @@ __metadata:
     slice-ansi: "npm:^7.1.0"
     string-width: "npm:^8.0.0"
   checksum: 10/994262b5fc8691657a06aeb352d4669354252989e5333b5fc74beb5cec75ceaad9de779864e68e6a1fe83b7cca04fa35eb505de67b20668896880728876631ba
-  languageName: node
-  linkType: hard
-
-"cli-width@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "cli-width@npm:3.0.0"
-  checksum: 10/8730848b04fb189666ab037a35888d191c8f05b630b1d770b0b0e4c920b47bb5cc14bddf6b8ffe5bfc66cee97c8211d4d18e756c1ffcc75d7dbe7e1186cd7826
   languageName: node
   linkType: hard
 
@@ -25129,7 +25215,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"figures@npm:3.2.0, figures@npm:^3.0.0, figures@npm:^3.2.0":
+"figures@npm:3.2.0, figures@npm:^3.2.0":
   version: 3.2.0
   resolution: "figures@npm:3.2.0"
   dependencies:
@@ -26020,14 +26106,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"glob@npm:13.0.1":
-  version: 13.0.1
-  resolution: "glob@npm:13.0.1"
+"glob@npm:13.0.6, glob@npm:^13.0.0, glob@npm:^13.0.1":
+  version: 13.0.6
+  resolution: "glob@npm:13.0.6"
   dependencies:
-    minimatch: "npm:^10.1.2"
-    minipass: "npm:^7.1.2"
-    path-scurry: "npm:^2.0.0"
-  checksum: 10/465e8cc269ab88d7415a3906cdc0f4543a2ae54df99207204af5bc28a944396d8d893822f546a8056a78ec714e608ab4f3502532c4d6b9cc5e113adf0fe5109e
+    minimatch: "npm:^10.2.2"
+    minipass: "npm:^7.1.3"
+    path-scurry: "npm:^2.0.2"
+  checksum: 10/201ad69e5f0aa74e1d8c00a481581f8b8c804b6a4fbfabeeb8541f5d756932800331daeba99b58fb9e4cd67e12ba5a7eba5b82fb476691588418060b84353214
   languageName: node
   linkType: hard
 
@@ -26060,17 +26146,6 @@ __metadata:
   bin:
     glob: dist/esm/bin.mjs
   checksum: 10/da4501819633daff8822c007bb3f93d5c4d2cbc7b15a8e886660f4497dd251a1fb4f53a85fba1e760b31704eff7164aeb2c7a82db10f9f2c362d12c02fe52cf3
-  languageName: node
-  linkType: hard
-
-"glob@npm:^13.0.0, glob@npm:^13.0.1":
-  version: 13.0.3
-  resolution: "glob@npm:13.0.3"
-  dependencies:
-    minimatch: "npm:^10.2.0"
-    minipass: "npm:^7.1.2"
-    path-scurry: "npm:^2.0.0"
-  checksum: 10/38a9c78de078f61df1a555badf1198833c298fd3320520c93504a499f14afed6c37c892c576119f05e4d94981a4550a1a2246e826ffa6894a427004aff5b78b2
   languageName: node
   linkType: hard
 
@@ -27333,29 +27408,6 @@ __metadata:
     "@types/react":
       optional: true
   checksum: 10/cfbd8808cd1ee995440aac7a89af1156e587fec271bc3bc7460788b8b0c844eaf6364ac3d19dd4caa9f8f19bfb97d3fa0a51a5f7d89b6c6b990686ac68f083f6
-  languageName: node
-  linkType: hard
-
-"inquirer@npm:8.2.7":
-  version: 8.2.7
-  resolution: "inquirer@npm:8.2.7"
-  dependencies:
-    "@inquirer/external-editor": "npm:^1.0.0"
-    ansi-escapes: "npm:^4.2.1"
-    chalk: "npm:^4.1.1"
-    cli-cursor: "npm:^3.1.0"
-    cli-width: "npm:^3.0.0"
-    figures: "npm:^3.0.0"
-    lodash: "npm:^4.17.21"
-    mute-stream: "npm:0.0.8"
-    ora: "npm:^5.4.1"
-    run-async: "npm:^2.4.0"
-    rxjs: "npm:^7.5.5"
-    string-width: "npm:^4.1.0"
-    strip-ansi: "npm:^6.0.0"
-    through: "npm:^2.3.6"
-    wrap-ansi: "npm:^6.0.1"
-  checksum: 10/526fb5ca55a29decda9b67c7b2bd437730152104c6e7c5f0d7ade90af6dc999371e1602ce86eb4a39ee3d91993501cddec32e4fe3f599723f2b653b02b685e3b
   languageName: node
   linkType: hard
 
@@ -29098,9 +29150,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jsonpath-plus@npm:~10.3.0":
-  version: 10.3.0
-  resolution: "jsonpath-plus@npm:10.3.0"
+"jsonpath-plus@npm:~10.4.0":
+  version: 10.4.0
+  resolution: "jsonpath-plus@npm:10.4.0"
   dependencies:
     "@jsep-plugin/assignment": "npm:^1.3.0"
     "@jsep-plugin/regex": "npm:^1.0.4"
@@ -29108,7 +29160,7 @@ __metadata:
   bin:
     jsonpath: bin/jsonpath-cli.js
     jsonpath-plus: bin/jsonpath-cli.js
-  checksum: 10/082302334414c7c5ab0cc8239563118f7f14bb2949d001b009f436491d00f94a7a293eed3eaf61ffdaf72f6fda9d25198a4280c4f68a4c403154ca7ed2bd0dc9
+  checksum: 10/0ff33c7eb6500d7c8d789ce15a63ac2c46cb01b855f1c53729ca9e3833e0253af70277fc1799ebfe0b3130ddc03c127562669b999729dd11f2621b81472248d4
   languageName: node
   linkType: hard
 
@@ -29955,7 +30007,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"log-symbols@npm:^4.0.0, log-symbols@npm:^4.1.0":
+"log-symbols@npm:^4.0.0":
   version: 4.1.0
   resolution: "log-symbols@npm:4.1.0"
   dependencies:
@@ -30735,7 +30787,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minimatch@npm:^10.0.1, minimatch@npm:^10.0.3, minimatch@npm:^10.1.1, minimatch@npm:^10.1.2, minimatch@npm:^10.2.0, minimatch@npm:~10.2.0":
+"minimatch@npm:^10.0.1, minimatch@npm:^10.0.3, minimatch@npm:^10.1.1, minimatch@npm:^10.2.2, minimatch@npm:~10.2.0":
   version: 10.2.4
   resolution: "minimatch@npm:10.2.4"
   dependencies:
@@ -30864,10 +30916,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minipass@npm:^5.0.0 || ^6.0.2 || ^7.0.0, minipass@npm:^7.0.2, minipass@npm:^7.0.3, minipass@npm:^7.0.4, minipass@npm:^7.1.2":
-  version: 7.1.2
-  resolution: "minipass@npm:7.1.2"
-  checksum: 10/c25f0ee8196d8e6036661104bacd743785b2599a21de5c516b32b3fa2b83113ac89a2358465bc04956baab37ffb956ae43be679b2262bf7be15fce467ccd7950
+"minipass@npm:^5.0.0 || ^6.0.2 || ^7.0.0, minipass@npm:^7.0.2, minipass@npm:^7.0.3, minipass@npm:^7.0.4, minipass@npm:^7.1.2, minipass@npm:^7.1.3":
+  version: 7.1.3
+  resolution: "minipass@npm:7.1.3"
+  checksum: 10/175e4d5e20980c3cd316ae82d2c031c42f6c746467d8b1905b51060a0ba4461441a0c25bb67c025fd9617f9a3873e152c7b543c6b5ac83a1846be8ade80dffd6
   languageName: node
   linkType: hard
 
@@ -31028,10 +31080,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mute-stream@npm:0.0.8, mute-stream@npm:~0.0.4":
-  version: 0.0.8
-  resolution: "mute-stream@npm:0.0.8"
-  checksum: 10/a2d2e79dde87e3424ffc8c334472c7f3d17b072137734ca46e6f221131f1b014201cc593b69a38062e974fb2394d3d1cb4349f80f012bbf8b8ac1b28033e515f
+"mute-stream@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "mute-stream@npm:1.0.0"
+  checksum: 10/36fc968b0e9c9c63029d4f9dc63911950a3bdf55c9a87f58d3a266289b67180201cade911e7699f8b2fa596b34c9db43dad37649e3f7fdd13c3bb9edb0017ee7
   languageName: node
   linkType: hard
 
@@ -31046,6 +31098,13 @@ __metadata:
   version: 3.0.0
   resolution: "mute-stream@npm:3.0.0"
   checksum: 10/bee5db5c996a4585dbffc49e51fea10f3582d7f65441db9bc63126f16269541713c6ccb5a6fe37e08f627967b6eb28dd6b35e54a8dce53cf3837d7e010917b43
+  languageName: node
+  linkType: hard
+
+"mute-stream@npm:~0.0.4":
+  version: 0.0.8
+  resolution: "mute-stream@npm:0.0.8"
+  checksum: 10/a2d2e79dde87e3424ffc8c334472c7f3d17b072137734ca46e6f221131f1b014201cc593b69a38062e974fb2394d3d1cb4349f80f012bbf8b8ac1b28033e515f
   languageName: node
   linkType: hard
 
@@ -32156,23 +32215,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ora@npm:^5.4.1":
-  version: 5.4.1
-  resolution: "ora@npm:5.4.1"
-  dependencies:
-    bl: "npm:^4.1.0"
-    chalk: "npm:^4.1.0"
-    cli-cursor: "npm:^3.1.0"
-    cli-spinners: "npm:^2.5.0"
-    is-interactive: "npm:^1.0.0"
-    is-unicode-supported: "npm:^0.1.0"
-    log-symbols: "npm:^4.1.0"
-    strip-ansi: "npm:^6.0.0"
-    wcwidth: "npm:^1.0.1"
-  checksum: 10/8d071828f40090a8e1c6e8f350c6eb065808e9ab2b3e57fa37e0d5ae78cb46dac00117c8f12c3c8b8da2923454afbd8265e08c10b69881170c5b269f451e7fef
-  languageName: node
-  linkType: hard
-
 "ora@npm:^9.0.0":
   version: 9.1.0
   resolution: "ora@npm:9.1.0"
@@ -32892,13 +32934,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"path-scurry@npm:^2.0.0":
-  version: 2.0.1
-  resolution: "path-scurry@npm:2.0.1"
+"path-scurry@npm:^2.0.0, path-scurry@npm:^2.0.2":
+  version: 2.0.2
+  resolution: "path-scurry@npm:2.0.2"
   dependencies:
     lru-cache: "npm:^11.0.0"
     minipass: "npm:^7.1.2"
-  checksum: 10/1e9c74e9ccf94d7c16056a5cb2dba9fa23eec1bc221ab15c44765486b9b9975b4cd9a4d55da15b96eadf67d5202e9a2f1cec9023fbb35fe7d9ccd0ff1891f88b
+  checksum: 10/2b4257422bcb870a4c2d205b3acdbb213a72f5e2250f61c80f79c9d014d010f82bdf8584441612c8e1fa4eb098678f5704a66fa8377d72646bad4be38e57a2c3
   languageName: node
   linkType: hard
 
@@ -35323,10 +35365,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"run-async@npm:^2.4.0":
-  version: 2.4.1
-  resolution: "run-async@npm:2.4.1"
-  checksum: 10/c79551224dafa26ecc281cb1efad3510c82c79116aaf681f8a931ce70fdf4ca880d58f97d3b930a38992c7aad7955a08e065b32ec194e1dd49d7790c874ece50
+"run-async@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "run-async@npm:3.0.0"
+  checksum: 10/97fb8747f7765b77ebcd311d3a33548099336f04c6434e0763039b98c1de0f1b4421000695aff8751f309c0b995d8dfd620c1f1e4c35572da38c101488165305
   languageName: node
   linkType: hard
 
@@ -37629,7 +37671,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"through@npm:2, through@npm:>=2.2.7 <3, through@npm:^2.3.6, through@npm:^2.3.8, through@npm:~2.3, through@npm:~2.3.1, through@npm:~2.3.4":
+"through@npm:2, through@npm:>=2.2.7 <3, through@npm:^2.3.8, through@npm:~2.3, through@npm:~2.3.1, through@npm:~2.3.4":
   version: 2.3.8
   resolution: "through@npm:2.3.8"
   checksum: 10/5da78346f70139a7d213b65a0106f3c398d6bc5301f9248b5275f420abc2c4b1e77c2abc72d218dedc28c41efb2e7c312cb76a7730d04f9c2d37d247da3f4198
@@ -40068,7 +40110,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wrap-ansi@npm:^6.0.1, wrap-ansi@npm:^6.2.0":
+"wrap-ansi@npm:^6.2.0":
   version: 6.2.0
   resolution: "wrap-ansi@npm:6.2.0"
   dependencies:

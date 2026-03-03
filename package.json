@@ -256,7 +256,7 @@
     "js-yaml": "^4.1.1",
     "jsdom": "~27.4.0",
     "jsonc-eslint-parser": "~2.4.0",
-    "jsonpath-plus": "~10.3.0",
+    "jsonpath-plus": "~10.4.0",
     "lighthouse": "~13.0.0",
     "lint-staged": "^16.0.0",
     "marked": "~17.0.0",
