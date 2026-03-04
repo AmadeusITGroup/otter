@@ -21,9 +21,9 @@
     "semver": "^7.5.2"
   },
   "devDependencies": {
-    "@angular/cli": "~21.1.0",
+    "@angular/cli": "~21.2.0",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
-    "@nx/eslint-plugin": "~22.5.0",
+    "@nx/eslint-plugin": "~22.5.3",
     "@o3r/eslint-config": "workspace:~",
     "@o3r/eslint-plugin": "workspace:~",
     "@stylistic/eslint-plugin": "~5.7.0",
