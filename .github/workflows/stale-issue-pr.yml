@@ -2,7 +2,7 @@ name: Mark and close stale issues and PRs
 
 on:
   schedule:
-    - cron: "* * * * 0" # Runs every sunday
+    - cron: "0 0 * * 0" # Runs every sunday
   workflow_dispatch:
 
 permissions:
