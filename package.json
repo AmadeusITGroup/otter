@@ -130,7 +130,7 @@
   "resolutions": {
     "@angular-devkit/schematics": "~21.2.0",
     "@sinonjs/fake-timers": "~15.1.0",
-    "@types/node": "~24.10.0",
+    "@types/node": "~24.11.0",
     "form-data": "^4.0.4",
     "koa": "~3.1.0",
     "qs": "~6.15.0",
@@ -211,7 +211,7 @@
     "@types/eslint": "~9.6.0",
     "@types/estree": "^1.0.5",
     "@types/jest": "~30.0.0",
-    "@types/node": "~24.10.0",
+    "@types/node": "~24.11.0",
     "@types/semver": "^7.3.13",
     "@typescript-eslint/parser": "~8.54.0",
     "@typescript-eslint/rule-tester": "~8.54.0",
