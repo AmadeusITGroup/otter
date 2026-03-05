@@ -2,6 +2,9 @@ import {
   basename,
 } from 'node:path';
 import {
+  BASE_TRANSFORM_DEFINITION_KEY,
+} from '../constants.mjs';
+import {
   generateModelNameRef,
   getMaskFileName,
 } from '../generate-model-name.mjs';
@@ -28,7 +31,7 @@ export const getTransformDefinitions = (artifacts: SpecificationArtifact[]) => {
               description: `Transformations to apply to the model "${model}" from package "${packageManifestName}"`,
               allOf: [
                 {
-                  $ref: '#/definitions/baseTransform'
+                  $ref: `#/definitions/${BASE_TRANSFORM_DEFINITION_KEY}`
                 },
                 {
                   type: 'object',

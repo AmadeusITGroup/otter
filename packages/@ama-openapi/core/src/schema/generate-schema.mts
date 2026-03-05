@@ -11,6 +11,10 @@ import {
   getTransformDefinitions,
 } from './configurations/transform-definitions.mjs';
 import {
+  BASE_TRANSFORM_DEFINITION_KEY,
+  PATTERNS_MODEL_DEFINITION_KEY,
+} from './constants.mjs';
+import {
   type ListDependenciesOptions,
   listSpecificationArtifacts,
 } from './list-artifacts.mjs';
@@ -50,7 +54,7 @@ export const generateOpenApiManifestSchema = async (options: GenerateOpenApiMani
       },
       additionalProperties: true,
       definitions: {
-        baseTransform: {
+        [BASE_TRANSFORM_DEFINITION_KEY]: {
           type: 'object',
           examples: [
             {
@@ -67,6 +71,31 @@ export const generateOpenApiManifestSchema = async (options: GenerateOpenApiMani
               ]
             }
           }
+        },
+        [PATTERNS_MODEL_DEFINITION_KEY]: {
+          type: 'object',
+          description: 'Detailed model patterns inclusion',
+          properties: {
+            patterns: {
+              oneOf: [
+                {
+                  type: 'array',
+                  description: "Glob patterns to match models to include. The patterns are relative to the artifact root (e.g., 'models/**/*.yaml')",
+                  items: {
+                    type: 'string'
+                  }
+                },
+                {
+                  type: 'string',
+                  description: "Glob pattern to match models to include. The pattern is relative to the artifact root (e.g., 'models/**/*.yaml')"
+                }
+              ]
+            }
+          },
+          required: [
+            'patterns'
+          ],
+          additionalProperties: false
         },
         ...modelDefinitions,
         ...transformDefinitions

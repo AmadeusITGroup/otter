@@ -9,14 +9,19 @@ import {
   vi,
 } from 'vitest';
 import {
+  extractDependencyModels,
   extractDependencyModelsObject,
   sanitizePackagePath,
 } from './extract-dependency-models.mjs';
 import type {
+  Manifest,
   Transform,
 } from './manifest.mts';
 
 // Mock dependencies
+vi.mock('globby', () => ({
+  globbySync: vi.fn().mockReturnValue([])
+}));
 vi.mock('node:fs', () => ({
   promises: {
     readFile: vi.fn().mockResolvedValue('{"test": "data"}'),
@@ -152,6 +157,210 @@ describe('extract-dependency-models', () => {
 
       expect(result).toBeDefined();
     });
+  });
+});
+
+describe('extractDependencyModels', () => {
+  const mockCwd = '/test/cwd';
+  const mockContext = {
+    logger: {
+      info: vi.fn(),
+      debug: vi.fn(),
+      warn: vi.fn(),
+      error: vi.fn()
+    },
+    cwd: mockCwd
+  } as any;
+
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  it('should log the number of dependencies found in the manifest', async () => {
+    const manifest: Manifest = {
+      models: {
+        'dep-a': './model-a.json',
+        'dep-b': './model-b.json'
+      }
+    };
+
+    await Promise.all(extractDependencyModels(manifest, mockContext));
+
+    expect(mockContext.logger.info).toHaveBeenCalledWith('2 dependencies models found in the manifest');
+    expect(mockContext.logger.debug).toHaveBeenCalledWith('Extracting information from the manifest configuration: ', manifest);
+  });
+
+  it('should return an empty array when the manifest has no models', () => {
+    const manifest: Manifest = { models: {} };
+
+    const result = extractDependencyModels(manifest, mockContext);
+
+    expect(result).toEqual([]);
+    expect(mockContext.logger.info).toHaveBeenCalledWith('0 dependencies models found in the manifest');
+  });
+
+  it('should handle a string model definition and return a promise', () => {
+    const manifest: Manifest = {
+      models: {
+        'test-dependency': './models/test-model.json'
+      }
+    };
+
+    const result = extractDependencyModels(manifest, mockContext);
+
+    expect(result).toHaveLength(1);
+    expect(result[0]).toBeInstanceOf(Promise);
+  });
+
+  it('should handle a boolean model definition and return a promise', () => {
+    const manifest: Manifest = {
+      models: {
+        'test-dependency': true
+      }
+    };
+
+    const result = extractDependencyModels(manifest, mockContext);
+
+    expect(result).toHaveLength(1);
+    expect(result[0]).toBeInstanceOf(Promise);
+  });
+
+  it('should handle an object model definition and return a promise', () => {
+    const manifest: Manifest = {
+      models: {
+        'test-dependency': { path: './models/test-model.json' }
+      }
+    };
+
+    const result = extractDependencyModels(manifest, mockContext);
+
+    expect(result).toHaveLength(1);
+    expect(result[0]).toBeInstanceOf(Promise);
+  });
+
+  it('should handle an array of model definitions', () => {
+    const manifest: Manifest = {
+      models: {
+        'test-dependency': [
+          './models/model-a.json',
+          { path: './models/model-b.json' },
+          true
+        ]
+      }
+    };
+
+    const result = extractDependencyModels(manifest, mockContext);
+
+    expect(result).toHaveLength(3);
+    result.forEach((item) => expect(item).toBeInstanceOf(Promise));
+  });
+
+  it('should handle multiple dependencies', () => {
+    const manifest: Manifest = {
+      models: {
+        'dep-a': './models/model-a.json',
+        'dep-b': { path: './models/model-b.json' },
+        'dep-c': true
+      }
+    };
+
+    const result = extractDependencyModels(manifest, mockContext);
+
+    expect(result).toHaveLength(3);
+  });
+
+  it('should resolve string model definitions with correct content', async () => {
+    const manifest: Manifest = {
+      models: {
+        'test-dependency': './models/test-model.json'
+      }
+    };
+
+    const results = extractDependencyModels(manifest, mockContext);
+    const resolved = await results[0];
+
+    expect(resolved.artifactName).toBe('test-dependency');
+    expect(resolved.model.path).toBe('./models/test-model.json');
+    expect(resolved.content).toBe('{"test": "data"}');
+    expect(fs.readFile).toHaveBeenCalled();
+  });
+
+  it('should resolve boolean model definitions using require.resolve', async () => {
+    const manifest: Manifest = {
+      models: {
+        'test-dependency': true
+      }
+    };
+
+    const results = extractDependencyModels(manifest, mockContext);
+    const resolved = await results[0];
+
+    expect(resolved.artifactName).toBe('test-dependency');
+    expect(resolved.model.path).toBe('test-dependency');
+  });
+
+  it('should resolve object model definitions with transform', async () => {
+    const manifest: Manifest = {
+      models: {
+        'test-dependency': {
+          path: './models/test-model.json',
+          transform: { rename: 'renamed-model' }
+        }
+      }
+    };
+
+    const results = extractDependencyModels(manifest, mockContext);
+    const resolved = await results[0];
+
+    expect(resolved.artifactName).toBe('test-dependency');
+    expect(resolved.transform).toEqual({ rename: 'renamed-model' });
+    expect(resolved.outputFilePath).toMatch(/renamed-model/);
+  });
+
+  it('should handle mixed array of string and object model definitions', async () => {
+    const manifest: Manifest = {
+      models: {
+        'test-dependency': [
+          './models/model-a.json',
+          { path: './models/model-b.json' }
+        ]
+      }
+    };
+
+    const results = extractDependencyModels(manifest, mockContext);
+    expect(results).toHaveLength(2);
+
+    const [first, second] = await Promise.all(results);
+
+    expect(first.model.path).toBe('./models/model-a.json');
+    expect(second.model.path).toBe('./models/model-b.json');
+  });
+
+  it('should work without a logger', () => {
+    const contextWithoutLogger = { cwd: mockCwd } as any;
+    const manifest: Manifest = {
+      models: {
+        'test-dependency': './models/test-model.json'
+      }
+    };
+
+    expect(() => extractDependencyModels(manifest, contextWithoutLogger)).not.toThrow();
+    const result = extractDependencyModels(manifest, contextWithoutLogger);
+    expect(result).toHaveLength(1);
+  });
+
+  it('should generate output file path under sanitized artifact directory', async () => {
+    const manifest: Manifest = {
+      models: {
+        '@scope/my-package': './models/test-model.json'
+      }
+    };
+
+    const results = extractDependencyModels(manifest, mockContext);
+    const resolved = await results[0];
+
+    expect(resolved.outputFilePath).toContain('scope-my-package');
+    expect(resolved.outputFilePath).not.toContain('@');
   });
 });
 

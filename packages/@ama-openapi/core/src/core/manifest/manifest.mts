@@ -60,8 +60,13 @@ export interface Model {
   transform?: TransformOrReference;
 }
 
+export interface PatternsModel {
+  /** Pattern to match model paths in the artifact. The pattern is a regex applied on the full path of the model (i.e., "models/ExampleModel.v1.yaml#/components/schemas/Example") */
+  patterns: string | string[];
+}
+
 /** List of supported types for an Model */
-export type SupportedModelTypes = string | Model | boolean;
+export type SupportedModelTypes = string | Model | boolean | PatternsModel;
 
 /** Models dependencies */
 export type Models = Record<string, SupportedModelTypes | SupportedModelTypes[]>;
@@ -94,6 +99,14 @@ const isValidManifest = async (manifest: any, manifestPath: string, logger?: Log
   }
 
   return true;
+};
+
+/**
+ * Check if the model is a PatternsModel
+ * @param model Model to check
+ */
+export const isPatternsModel = (model: SupportedModelTypes): model is PatternsModel => {
+  return typeof model === 'object' && model !== null && 'patterns' in model;
 };
 
 /**

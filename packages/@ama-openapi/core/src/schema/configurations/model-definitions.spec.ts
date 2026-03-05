@@ -2,10 +2,15 @@ import {
   describe,
   expect,
   it,
+  vi,
 } from 'vitest';
 import {
   getModelDefinitions,
 } from './model-definitions.mjs';
+
+vi.mock('globby', () => ({
+  globbySync: vi.fn().mockReturnValue([])
+}));
 
 const createArtifact = (overrides: Partial<any> = {}) => ({
   packageManifest: {
