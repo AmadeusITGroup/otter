@@ -147,7 +147,7 @@
     "@schematics/angular": "~21.2.0",
     "@types/jasmine": "~5.1.0",
     "@types/jest": "~30.0.0",
-    "@types/node": "~24.11.0",
+    "@types/node": "~24.12.0",
     "cpy-cli": "^6.0.0",
     "editorconfig-checker": "^6.0.1",
     "husky": "~9.1.0",
