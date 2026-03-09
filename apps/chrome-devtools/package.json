@@ -108,7 +108,7 @@
     "@design-factory/design-factory": "~21.0.0",
     "@design-factory/styles": "~21.0.0",
     "@ng-bootstrap/ng-bootstrap": "~20.0.0",
-    "@ng-select/ng-select": "~21.4.0",
+    "@ng-select/ng-select": "~21.5.0",
     "@ngrx/entity": "~21.0.0",
     "@ngrx/store": "~21.0.0",
     "@o3r/application": "workspace:~",
