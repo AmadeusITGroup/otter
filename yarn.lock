@@ -11951,6 +11951,8 @@ __metadata:
       optional: true
     "@o3r/core":
       optional: true
+    "@types/minimist":
+      optional: true
     rxjs:
       optional: true
   languageName: unknown
