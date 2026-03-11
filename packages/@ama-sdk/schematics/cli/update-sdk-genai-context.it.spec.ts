@@ -264,4 +264,115 @@ describe('Update SDK context command', () => {
       }, { ...execAppOptions, cwd: sdkPackagePath })
     ).toThrow();
   });
+
+  test('should preserve user edits outside DOMAINS section when --preserve-edits is used', () => {
+    // First, generate the initial SDK_CONTEXT.md
+    packageManagerExec({
+      script: 'amasdk-update-sdk-context',
+      args: []
+    }, { ...execAppOptions, cwd: sdkPackagePath });
+
+    // Read the generated file and add custom content
+    const sdkContextPath = path.join(sdkPackagePath, 'SDK_CONTEXT.md');
+    let sdkContextContent = readFileSync(sdkContextPath, 'utf8');
+
+    // Add custom header content before DOMAINS-START
+    sdkContextContent = sdkContextContent.replace(
+      '<!-- DOMAINS-START -->',
+      '## My Custom Header Section\n\nThis is custom content that should be preserved.\n\n<!-- DOMAINS-START -->'
+    );
+
+    // Add custom footer content after DOMAINS-END
+    sdkContextContent = sdkContextContent.replace(
+      '<!-- DOMAINS-END -->',
+      '<!-- DOMAINS-END -->\n\n## My Custom Footer Section\n\nThis footer content should also be preserved.'
+    );
+
+    fs.writeFileSync(sdkContextPath, sdkContextContent);
+
+    // Re-run the update-sdk-context script with --preserve-edits flag
+    expect(() =>
+      packageManagerExec({
+        script: 'amasdk-update-sdk-context',
+        args: ['--preserve-edits']
+      }, { ...execAppOptions, cwd: sdkPackagePath })
+    ).not.toThrow();
+
+    // Verify the custom content was preserved
+    const updatedContent = readFileSync(sdkContextPath, 'utf8');
+    expect(updatedContent).toContain('## My Custom Header Section');
+    expect(updatedContent).toContain('This is custom content that should be preserved.');
+    expect(updatedContent).toContain('## My Custom Footer Section');
+    expect(updatedContent).toContain('This footer content should also be preserved.');
+
+    // Verify the domains section was still regenerated (contains expected domains)
+    expect(updatedContent).toContain('### pet');
+    expect(updatedContent).toContain('### store');
+    expect(updatedContent).toContain('### user');
+  });
+
+  test('should regenerate full file without --preserve-edits even if file exists', () => {
+    // First, generate the initial SDK_CONTEXT.md
+    packageManagerExec({
+      script: 'amasdk-update-sdk-context',
+      args: []
+    }, { ...execAppOptions, cwd: sdkPackagePath });
+
+    // Read the generated file and add custom content
+    const sdkContextPath = path.join(sdkPackagePath, 'SDK_CONTEXT.md');
+    let sdkContextContent = readFileSync(sdkContextPath, 'utf8');
+
+    // Add custom header content
+    sdkContextContent = sdkContextContent.replace(
+      '<!-- DOMAINS-START -->',
+      '## Custom Content To Be Overwritten\n\n<!-- DOMAINS-START -->'
+    );
+    fs.writeFileSync(sdkContextPath, sdkContextContent);
+
+    // Re-run WITHOUT --preserve-edits flag
+    expect(() =>
+      packageManagerExec({
+        script: 'amasdk-update-sdk-context',
+        args: []
+      }, { ...execAppOptions, cwd: sdkPackagePath })
+    ).not.toThrow();
+
+    // Verify the custom content was NOT preserved (file was regenerated)
+    const updatedContent = readFileSync(sdkContextPath, 'utf8');
+    expect(updatedContent).not.toContain('## Custom Content To Be Overwritten');
+
+    // Verify standard content is present
+    expect(updatedContent).toContain('### pet');
+  });
+
+  test('should preserve disambiguation notes when --preserve-edits is used', () => {
+    // First, generate the initial SDK_CONTEXT.md
+    packageManagerExec({
+      script: 'amasdk-update-sdk-context',
+      args: []
+    }, { ...execAppOptions, cwd: sdkPackagePath });
+
+    // Read the generated file and add disambiguation notes
+    const sdkContextPath = path.join(sdkPackagePath, 'SDK_CONTEXT.md');
+    let sdkContextContent = readFileSync(sdkContextPath, 'utf8');
+
+    // Add disambiguation notes in the expected section
+    sdkContextContent = sdkContextContent.replace(
+      '<!-- Add project-specific clarifications below -->',
+      '<!-- Add project-specific clarifications below -->\nMy custom disambiguation note: Use pet domain for all animal-related operations.'
+    );
+    fs.writeFileSync(sdkContextPath, sdkContextContent);
+
+    // Re-run with --preserve-edits flag
+    expect(() =>
+      packageManagerExec({
+        script: 'amasdk-update-sdk-context',
+        args: ['--preserve-edits']
+      }, { ...execAppOptions, cwd: sdkPackagePath })
+    ).not.toThrow();
+
+    // Verify disambiguation notes were preserved
+    const updatedContent = readFileSync(sdkContextPath, 'utf8');
+    expect(updatedContent).toContain('My custom disambiguation note: Use pet domain for all animal-related operations.');
+  });
 });

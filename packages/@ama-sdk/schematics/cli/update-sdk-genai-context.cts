@@ -23,6 +23,7 @@ const isInteractive = !!argv.interactive || !!argv.i;
 const domainDescriptionsFile = argv['domain-descriptions'] as string | undefined;
 const specPathArg = argv['spec-path'] as string | undefined;
 const prepareScript = argv['prepare-script'] as boolean | undefined;
+const preserveEdits = !!argv['preserve-edits'];
 const sdkPath = argv['sdk-path'] as string | undefined;
 const projectPath = sdkPath ? resolve(process.cwd(), sdkPath) : resolve(process.cwd());
 const noop = () => {};
@@ -30,7 +31,7 @@ const noop = () => {};
 const logger = quiet ? { error: console.error, warn: noop, log: noop, info: noop, debug: noop } : console;
 
 const run = async () => {
-  await generateSdkContext(projectPath, specPathArg, domainDescriptionsFile, isInteractive, prepareScript, logger);
+  await generateSdkContext(projectPath, specPathArg, domainDescriptionsFile, isInteractive, prepareScript, preserveEdits, logger);
 };
 if (help) {
   // eslint-disable-next-line no-console -- Help output should always be visible even with --quiet flag
@@ -46,6 +47,9 @@ if (help) {
     --prepare-script        Add a prepare:context script to package.json that copies SDK_CONTEXT.md to dist folder
     --sdk-path              Path to SDK directory where SDK_CONTEXT.md will be created and package.json will be modified
                             (default: current directory)
+    --preserve-edits        Preserve user edits outside the Domains section on re-run.
+                            When set, only the Domains section is regenerated;
+                            all other sections (SDK Information, Guidelines, User Notes) are preserved.
     --quiet                 Suppress non-essential output
     --help                  Show this help message
   `);

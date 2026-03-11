@@ -29,6 +29,7 @@ This document provides context about the generated TypeScript SDK to help AI ass
 └── openapitools.json           # Generator configuration
 ```
 
+<!-- DOMAINS-START -->
 ## Domains
 
 The following domains were extracted from the OpenAPI specification. Each domain represents a logical grouping of related API operations.
@@ -98,13 +99,13 @@ The following domains were extracted from the OpenAPI specification. Each domain
 **Models used in this domain:**
 - `User` - imported from `src/models/base/user/`
 
-
+<!-- DOMAINS-END -->
 
 ## Important Guidelines
 
 ### DO NOT
 
-- Modify files in `src/models/base/` - these are auto-generated
+- Modify files in `models/base/` - these are auto-generated
 - Invent operation IDs that don't exist in the domains above
 - Assume model properties not defined in the OpenAPI spec
 - Create new API classes outside the domain structure
@@ -112,9 +113,8 @@ The following domains were extracted from the OpenAPI specification. Each domain
 ### DO
 
 - Use the exact operation IDs listed above
-- Reference models from `src/models/base/` for type definitions
-- Extend functionality in `src/models/core/` or `src/models/custom/` if needed
-- Check `src/api/{domain}/{domain}-api.ts` for available methods
+- Reference models from `models/base/` (or `src/models/base/` in case mcp server is running in the o3r/framework project) for type definitions
+- Check `api/{domain}/{domain}-api.ts` for available methods
 
 ## User Disambiguation Notes
 
