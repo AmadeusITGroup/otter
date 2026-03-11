@@ -120,6 +120,7 @@ It is important to note that, as in OpenAPI 3.1, we only support simple arrays a
 The parameter types that we support are stored in `SupportedParamType` in the package `@ama-sdk/core`.
 
 To enable the parameter serialization within your API, you can set the option `enableParameterSerialization` to `true` (its current default value is `false`) in the constructor. For example:
+
 ```typescript
 const apiConfig: ApiClient = new ApiFetchClient(
   {
@@ -163,6 +164,7 @@ If your specification file includes dates, there are multiple options for the ge
   For more information related to these types, check out this [documentation](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/schematics/schematics/typescript/shell/templates/base#manage-dates).
   This can be done by adding `--global-property stringifyDate=false` to the generator command or by adding the global property
 to the `openapitools.json`.
+
 > [!NOTE]
 > An extra type to manage special timezone use cases can be used at property level thanks to the
 > `x-local-timezone` vendor.
@@ -173,6 +175,30 @@ Example to use `Date`:
 ```shell
 yarn schematics @ama-sdk/schematics:typescript-core --spec-path ./swagger-spec.yaml --global-property stringifyDate=false
 ```
+
+##### Request Body Transformation
+
+You may want to customize the request body parameters in your SDK.
+This can be done by using the global property option `requestBodyTransform` by adding `--global-property requestBodyTransform=yourTransform` to the generator command.
+The original name of the body request parameter can be referred in the value of `requestBodyTransform` with `{{bodyRequest}}`.
+
+Examples:
+
+```shell
+yarn schematics @ama-sdk/schematics:typescript-core --spec-path ./swagger-spec.yaml --global-property requestBodyTransform=content{{bodyRequest}}
+```
+
+> In this example, the prefix for request body parameters will be prefixed with `content`.
+
+```shell
+yarn schematics @ama-sdk/schematics:typescript-core --spec-path ./swagger-spec.yaml --global-property requestBodyTransform=content
+```
+
+> In this example, the prefix for request body parameters will be replaced by `content`.
+
+The Body request parameter generated in the SDK can also be defined in the specification file by using the vendor extension `x-body-param-name` at body parameter level.
+> [!WARNING]
+> This vendor extension will take precedence over the global property `requestBodyTransform`.
 
 ##### Extensible models
 
