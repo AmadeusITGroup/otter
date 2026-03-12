@@ -29,9 +29,22 @@
     },
     "lint": {},
     "test": {
-      "options": {
-        "passWithNoTests": true
-      }
+      "plugin": "@nx/vitest",
+      "executor": "@nx/vitest:test",
+      "inputs": [
+        {
+          "env": "RUNNER_OS"
+        },
+        "builders",
+        "schematics",
+        "source",
+        "tests"
+      ],
+      "outputs": [
+        "{projectRoot}/dist-test/junit.xml",
+        "{projectRoot}/coverage/cobertura-coverage.xml"
+      ],
+      "dependsOn": []
     },
     "test-int": {},
     "prepare-publish": {},

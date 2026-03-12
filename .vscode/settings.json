@@ -111,10 +111,9 @@
     "**/coverage/**": true,
     "**/.tsbuildinfo*": true
   },
-  "typescript.enablePromptUseWorkspaceTsdk": true,
-  "typescript.tsdk": ".yarn/sdks/typescript/lib",
-  "typescript.tsserver.watchOptions": "vscode",
-  "typescript.preferences.preferTypeOnlyAutoImports": true,
-  // Ignore Cxr plugin causing error warning at startup
-  "vitest.configSearchPatternExclude": "{**/.cache/**,**/.nx/**,**/node_modules/**,**/.*/**,**/*.d.ts,**/apps/chrome-devtools/vite.config.ts}"
+  "js/ts.tsdk.promptToUseWorkspaceVersion": true,
+  "js/ts.tsdk.path": ".yarn/sdks/typescript/lib",
+  "js/ts.tsserver.watchOptions": "vscode",
+  "js/ts.preferences.preferTypeOnlyAutoImports": true,
+  "vitest.maximumConfigs": 100
 }

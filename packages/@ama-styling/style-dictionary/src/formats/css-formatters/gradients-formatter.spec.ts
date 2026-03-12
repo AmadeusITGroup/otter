@@ -5,6 +5,14 @@ import {
   resolve,
 } from 'node:path';
 import {
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  test,
+  vi,
+} from 'vitest';
+import {
   createGradientFormatter,
 } from './gradients-formatter.mjs';
 
@@ -15,8 +23,8 @@ let mocks!: {
   gradientTokenRef: any;
 };
 
-jest.mock('style-dictionary/utils', () => ({
-  getReferences: jest.fn().mockImplementation((value, tokens) => {
+vi.mock('style-dictionary/utils', () => ({
+  getReferences: vi.fn().mockImplementation((value, tokens) => {
     const flat = (obj: any, mem: Set<any>) => {
       if (obj.isSource) {
         mem.add(obj);
@@ -31,7 +39,7 @@ jest.mock('style-dictionary/utils', () => ({
 }));
 
 describe('createGradientFormatter', () => {
-  beforeEach(() => jest.clearAllMocks());
+  beforeEach(() => vi.clearAllMocks());
 
   beforeAll(() => {
     mocks = {
@@ -43,7 +51,7 @@ describe('createGradientFormatter', () => {
   test('should format CSS variable', () => {
     const options: any = {
       dictionary: mocks.gradientToken,
-      formatter: jest.fn().mockImplementation((res) => res),
+      formatter: vi.fn().mockImplementation((res) => res),
       outputReferences: true,
       usesDtcg: true
     };
@@ -54,7 +62,7 @@ describe('createGradientFormatter', () => {
   test('should format reference CSS variable', () => {
     const options: any = {
       dictionary: mocks.gradientTokenRef,
-      formatter: jest.fn().mockImplementation((res) => typeof res === 'object' ? res.value || res.$value : res),
+      formatter: vi.fn().mockImplementation((res) => typeof res === 'object' ? res.value || res.$value : res),
       outputReferences: true,
       usesDtcg: true
     };
