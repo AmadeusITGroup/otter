@@ -1,0 +1,7 @@
+@let hostInfoOptions = {hostId: hostApplicationId(), moduleId: moduleId()};
+<iframe
+  [connect]="hostInfoOptions.moduleId"
+  scalable
+  [src]="safeSrc() | hostInfo: hostInfoOptions | applyTheme"
+  sandbox="allow-scripts allow-forms allow-same-origin allow-downloads">
+</iframe>
