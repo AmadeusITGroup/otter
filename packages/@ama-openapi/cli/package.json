@@ -67,7 +67,7 @@
     "@types/yargs": "~17.0.33",
     "@typescript-eslint/parser": "~8.54.0",
     "@vitest/coverage-istanbul": "^4.0.18",
-    "angular-eslint": "~21.2.0",
+    "angular-eslint": "~21.3.0",
     "chokidar": "~5.0.0",
     "cpy-cli": "^6.0.0",
     "eslint": "~9.39.0",
