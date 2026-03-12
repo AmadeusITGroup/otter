@@ -29,8 +29,11 @@ import type {
 } from 'type-fest';
 import {
   type Domain,
+  type ExistingContextSections,
   extractDomains,
   type OpenAPISpec,
+  parseExistingContext,
+  updatePackageJsonForContextScript,
 } from './update-sdk-context.helpers';
 import {
   renderSdkContextTemplate,
@@ -115,34 +118,27 @@ function loadPackageJson(projectPath: string): PackageJson {
 }
 
 /**
- * Read the existing disambiguation notes from SDK_CONTEXT.md
+ * Load and parse existing SDK_CONTEXT.md to extract preserved sections
  * @param projectPath Path to the project root
+ * @returns Parsed sections or defaults if file doesn't exist
  */
-function loadExistingDisambiguation(projectPath: string): string {
+function loadExistingContext(projectPath: string): ExistingContextSections {
   const contextPath = join(projectPath, 'SDK_CONTEXT.md');
-  if (existsSync(contextPath)) {
-    const content = readFileSync(contextPath, 'utf8');
-    const match = content.match(/## User Disambiguation Notes\s*\n<!-- Add project-specific clarifications below -->\n([\s\S]*?)(?=\n---|\n##|$)/);
-    return match ? match[1].trim() : '';
+
+  if (!existsSync(contextPath)) {
+    return parseExistingContext(null);
   }
-  return '';
+
+  const content = readFileSync(contextPath, 'utf8');
+  return parseExistingContext(content);
 }
 
 /**
- * Generate the SDK_CONTEXT.md file
- * @param spec OpenAPI specification as JSON object
+ * Generate the domains section content
  * @param domains Map of domains
- * @param packageName Package name
- * @param disambiguation Disambiguation notes
+ * @returns Formatted domains section markdown
  */
-async function generateContextFile(
-  spec: OpenAPISpec,
-  domains: Map<string, Domain>,
-  packageName: string,
-  disambiguation: string
-): Promise<string> {
-  const openApiVersion = 'openapi' in spec ? spec.openapi : ('swagger' in spec ? spec.swagger : 'unknown');
-  const apiTitle = spec.info?.title || 'Unknown API';
+function generateDomainsSection(domains: Map<string, Domain>): string {
   let domainsSection = '';
   domains.forEach((domain) => {
     domainsSection += `
@@ -170,6 +166,25 @@ async function generateContextFile(
     }
     domainsSection += '\n';
   });
+  return domainsSection;
+}
+
+/**
+ * Generate the SDK_CONTEXT.md file from template
+ * @param spec OpenAPI specification as JSON object
+ * @param domains Map of domains
+ * @param packageName Package name
+ * @param disambiguation Disambiguation notes
+ */
+async function generateContextFile(
+  spec: OpenAPISpec,
+  domains: Map<string, Domain>,
+  packageName: string,
+  disambiguation: string
+): Promise<string> {
+  const openApiVersion = 'openapi' in spec ? spec.openapi : ('swagger' in spec ? spec.swagger : 'unknown');
+  const apiTitle = spec.info?.title || 'Unknown API';
+  const domainsSection = generateDomainsSection(domains);
 
   const domainTree = Array.from(domains.values())
     .map((d) => `│   ├── ${d.name}/              # ${d.description.substring(0, 40)}...`)
@@ -337,22 +352,21 @@ async function addPrepareContextScript(packageJsonPath: string, logger: Logger):
       }
     }
 
-    // Add the prepare:context script if it doesn't exist
-    if (packageJson.scripts['prepare:context']) {
-      logger.log(`'prepare:context' script already exists in package.json`);
-    } else {
-      packageJson.scripts['prepare:context'] = 'cpy SDK_CONTEXT.md dist/';
+    // Update package.json with prepare:context script
+    const updateResult = updatePackageJsonForContextScript(packageJson);
+
+    if (updateResult.prepareContextAdded) {
       logger.log(`Added 'prepare:context' script to package.json`);
+    } else {
+      logger.log(`'prepare:context' script already exists in package.json`);
     }
 
-    // Update build script to include prepare:context if it exists and doesn't already include it
-    if (packageJson.scripts.build && !packageJson.scripts.build.includes('prepare:context')) {
-      packageJson.scripts.build = `${packageJson.scripts.build} && npm run prepare:context`;
+    if (updateResult.buildScriptUpdated) {
       logger.log(`Updated 'build' script to include 'prepare:context'`);
     }
 
     // Write the updated package.json back to file
-    await fs.writeFile(packageJsonPath, JSON.stringify(packageJson, null, 2), 'utf8');
+    await fs.writeFile(packageJsonPath, JSON.stringify(updateResult.packageJson, null, 2), 'utf8');
     logger.log(`Package.json updated successfully: ${packageJsonPath}`);
   } catch {
     // Ignore errors for now
@@ -366,6 +380,7 @@ async function addPrepareContextScript(packageJsonPath: string, logger: Logger):
  * @param domainDescriptionsFileName Name of the domain descriptions file
  * @param isInteractive Whether to run in interactive mode
  * @param prepareScript Whether to add a prepare:context script to package.json
+ * @param preserveEdits Whether to preserve user edits outside the Domains section on re-run
  * @param logger Logger instance
  */
 export const generateSdkContext = async (
@@ -374,6 +389,7 @@ export const generateSdkContext = async (
   domainDescriptionsFileName: string | undefined,
   isInteractive: boolean,
   prepareScript: boolean | undefined,
+  preserveEdits: boolean,
   logger: Logger
 ) => {
   logger.log(`Loading OpenAPI spec from: ${projectPath}`);
@@ -386,13 +402,29 @@ export const generateSdkContext = async (
 
   logger.log(`Found ${domains.size} domains with ${Array.from(domains.values()).reduce((sum, d) => sum + d.operations.length, 0)} operations`);
 
-  let disambiguation = loadExistingDisambiguation(projectPath);
+  // Load existing context to preserve user edits
+  const existingContext = loadExistingContext(projectPath);
+
+  let disambiguation = existingContext.disambiguation;
 
   if (isInteractive) {
     disambiguation = await promptForDisambiguation(domains, disambiguation, !!customDescriptions, projectPath, logger);
   }
 
-  const contextContent = await generateContextFile(spec, domains, packageName, disambiguation);
+  // Generate the new domains section
+  const domainsSection = generateDomainsSection(domains);
+
+  // If preserveEdits is enabled and we have existing content with markers, preserve user edits; otherwise generate fresh file
+  const contextContent = (preserveEdits && existingContext.beforeDomains !== null && existingContext.afterDomains !== null)
+    ? existingContext.beforeDomains
+    + '<!-- DOMAINS-START -->\n'
+    + '## Domains\n\n'
+    + 'The following domains were extracted from the OpenAPI specification. Each domain represents a logical grouping of related API operations.\n\n'
+    + domainsSection
+    + '<!-- DOMAINS-END -->'
+    + existingContext.afterDomains
+    : await generateContextFile(spec, domains, packageName, disambiguation);
+
   const outputPath = join(projectPath, 'SDK_CONTEXT.md');
 
   await fs.writeFile(outputPath, contextContent, 'utf8');

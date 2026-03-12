@@ -7,6 +7,8 @@ import {
   extractRefModel,
   inferDomainFromPath,
   type OpenAPISpec,
+  parseExistingContext,
+  updatePackageJsonForContextScript,
 } from './update-sdk-context.helpers';
 
 describe('update-sdk-context.helpers', () => {
@@ -300,6 +302,333 @@ describe('update-sdk-context.helpers', () => {
 
       expect(message).toContain('--domain-descriptions');
       expect(message).toContain(DOMAIN_DESCRIPTIONS_FILENAME);
+    });
+  });
+
+  describe('parseExistingContext (preserve-edits)', () => {
+    it('should return defaults when content is null', () => {
+      const result = parseExistingContext(null);
+
+      expect(result.beforeDomains).toBeNull();
+      expect(result.afterDomains).toBeNull();
+      expect(result.disambiguation).toBe('');
+    });
+
+    it('should extract sections when markers are present', () => {
+      const content = `# SDK Context for AI Tools
+
+Custom header content here
+
+<!-- DOMAINS-START -->
+## Domains
+
+### pet
+
+**What this domain is about**: Pet operations
+
+<!-- DOMAINS-END -->
+
+## Important Guidelines
+
+Custom footer content.
+
+## User Disambiguation Notes
+
+<!-- Add project-specific clarifications below -->
+My custom disambiguation notes here
+`;
+
+      const result = parseExistingContext(content);
+
+      expect(result.beforeDomains).toBe(`# SDK Context for AI Tools
+
+Custom header content here
+
+`);
+      expect(result.afterDomains).toBe(`
+
+## Important Guidelines
+
+Custom footer content.
+
+## User Disambiguation Notes
+
+<!-- Add project-specific clarifications below -->
+My custom disambiguation notes here
+`);
+      expect(result.disambiguation).toBe('My custom disambiguation notes here');
+    });
+
+    it('should return null sections when markers are missing', () => {
+      const content = `# SDK Context for AI Tools
+
+No markers in this file.
+
+## User Disambiguation Notes
+
+<!-- Add project-specific clarifications below -->
+Some notes
+`;
+
+      const result = parseExistingContext(content);
+
+      expect(result.beforeDomains).toBeNull();
+      expect(result.afterDomains).toBeNull();
+      expect(result.disambiguation).toBe('Some notes');
+    });
+
+    it('should handle content with only DOMAINS-START marker', () => {
+      const content = `# SDK Context
+
+<!-- DOMAINS-START -->
+## Domains
+
+Some domain content
+`;
+
+      const result = parseExistingContext(content);
+
+      expect(result.beforeDomains).toBeNull();
+      expect(result.afterDomains).toBeNull();
+    });
+
+    it('should handle content with only DOMAINS-END marker', () => {
+      const content = `# SDK Context
+
+## Domains
+
+Some domain content
+<!-- DOMAINS-END -->
+`;
+
+      const result = parseExistingContext(content);
+
+      expect(result.beforeDomains).toBeNull();
+      expect(result.afterDomains).toBeNull();
+    });
+
+    it('should handle markers in wrong order', () => {
+      const content = `# SDK Context
+
+<!-- DOMAINS-END -->
+## Domains
+
+Some domain content
+<!-- DOMAINS-START -->
+`;
+
+      const result = parseExistingContext(content);
+
+      expect(result.beforeDomains).toBeNull();
+      expect(result.afterDomains).toBeNull();
+    });
+
+    it('should extract empty disambiguation when section exists but is empty', () => {
+      const content = `# SDK Context
+
+<!-- DOMAINS-START -->
+## Domains
+<!-- DOMAINS-END -->
+
+## User Disambiguation Notes
+
+<!-- Add project-specific clarifications below -->
+
+---
+`;
+
+      const result = parseExistingContext(content);
+
+      expect(result.disambiguation).toBe('');
+    });
+
+    it('should handle multiline disambiguation notes', () => {
+      const content = `# SDK Context
+
+<!-- DOMAINS-START -->
+## Domains
+<!-- DOMAINS-END -->
+
+## User Disambiguation Notes
+
+<!-- Add project-specific clarifications below -->
+First line of notes
+Second line of notes
+Third line of notes
+
+---
+`;
+
+      const result = parseExistingContext(content);
+
+      expect(result.disambiguation).toBe('First line of notes\nSecond line of notes\nThird line of notes');
+    });
+
+    it('should preserve content with empty before section', () => {
+      const content = `<!-- DOMAINS-START -->
+## Domains
+
+### old-domain
+
+<!-- DOMAINS-END -->
+
+## Custom Footer
+
+User footer content.
+`;
+
+      const result = parseExistingContext(content);
+
+      expect(result.beforeDomains).toBe('');
+      expect(result.afterDomains).toBe(`
+
+## Custom Footer
+
+User footer content.
+`);
+    });
+
+    it('should preserve content with empty after section', () => {
+      const content = `# Custom Header
+
+User header content.
+
+<!-- DOMAINS-START -->
+## Domains
+
+### old-domain
+
+<!-- DOMAINS-END -->`;
+
+      const result = parseExistingContext(content);
+
+      expect(result.beforeDomains).toBe(`# Custom Header
+
+User header content.
+
+`);
+      expect(result.afterDomains).toBe('');
+    });
+  });
+
+  describe('updatePackageJsonForContextScript (prepare:context script)', () => {
+    it('should add prepare:context script when scripts object is empty', () => {
+      const packageJson = { scripts: {} };
+
+      const result = updatePackageJsonForContextScript(packageJson);
+
+      expect(result.packageJson.scripts?.['prepare:context']).toBe('cpy SDK_CONTEXT.md dist/');
+      expect(result.prepareContextAdded).toBe(true);
+      expect(result.buildScriptUpdated).toBe(false);
+    });
+
+    it('should add prepare:context script when scripts object does not exist', () => {
+      const packageJson = {};
+
+      const result = updatePackageJsonForContextScript(packageJson);
+
+      expect(result.packageJson.scripts?.['prepare:context']).toBe('cpy SDK_CONTEXT.md dist/');
+      expect(result.prepareContextAdded).toBe(true);
+      expect(result.buildScriptUpdated).toBe(false);
+    });
+
+    it('should not overwrite existing prepare:context script', () => {
+      const packageJson = {
+        scripts: {
+          'prepare:context': 'custom-command'
+        }
+      };
+
+      const result = updatePackageJsonForContextScript(packageJson);
+
+      expect(result.packageJson.scripts?.['prepare:context']).toBe('custom-command');
+      expect(result.prepareContextAdded).toBe(false);
+    });
+
+    it('should update build script to include prepare:context', () => {
+      const packageJson = {
+        scripts: {
+          build: 'tsc'
+        }
+      };
+
+      const result = updatePackageJsonForContextScript(packageJson);
+
+      expect(result.packageJson.scripts?.build).toBe('tsc && npm run prepare:context');
+      expect(result.buildScriptUpdated).toBe(true);
+    });
+
+    it('should not update build script if it already includes prepare:context', () => {
+      const packageJson = {
+        scripts: {
+          build: 'tsc && npm run prepare:context'
+        }
+      };
+
+      const result = updatePackageJsonForContextScript(packageJson);
+
+      expect(result.packageJson.scripts?.build).toBe('tsc && npm run prepare:context');
+      expect(result.buildScriptUpdated).toBe(false);
+    });
+
+    it('should not update build script if it does not exist', () => {
+      const packageJson = {
+        scripts: {}
+      };
+
+      const result = updatePackageJsonForContextScript(packageJson);
+
+      expect(result.packageJson.scripts?.build).toBeUndefined();
+      expect(result.buildScriptUpdated).toBe(false);
+    });
+
+    it('should add prepare:context and update build script together', () => {
+      const packageJson = {
+        scripts: {
+          build: 'tsc',
+          test: 'jest'
+        }
+      };
+
+      const result = updatePackageJsonForContextScript(packageJson);
+
+      expect(result.packageJson.scripts?.['prepare:context']).toBe('cpy SDK_CONTEXT.md dist/');
+      expect(result.packageJson.scripts?.build).toBe('tsc && npm run prepare:context');
+      expect(result.packageJson.scripts?.test).toBe('jest');
+      expect(result.prepareContextAdded).toBe(true);
+      expect(result.buildScriptUpdated).toBe(true);
+    });
+
+    it('should preserve other package.json properties', () => {
+      const packageJson = {
+        name: '@test/my-sdk',
+        version: '1.0.0',
+        scripts: {
+          build: 'tsc'
+        },
+        dependencies: {
+          lodash: '^4.0.0'
+        }
+      };
+
+      const result = updatePackageJsonForContextScript(packageJson);
+
+      expect(result.packageJson.name).toBe('@test/my-sdk');
+      expect(result.packageJson.version).toBe('1.0.0');
+      expect(result.packageJson.dependencies).toEqual({ lodash: '^4.0.0' });
+    });
+
+    it('should not mutate the original package.json object', () => {
+      const packageJson = {
+        scripts: {
+          build: 'tsc'
+        }
+      };
+
+      updatePackageJsonForContextScript(packageJson);
+
+      expect(packageJson.scripts.build).toBe('tsc');
+      expect(packageJson.scripts['prepare:context']).toBeUndefined();
     });
   });
 });

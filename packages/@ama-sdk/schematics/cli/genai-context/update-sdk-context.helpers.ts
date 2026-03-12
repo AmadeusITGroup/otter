@@ -3,9 +3,112 @@ import type {
   OpenAPIV3,
   OpenAPIV3_1,
 } from 'openapi-types';
+import type {
+  PackageJson,
+} from 'type-fest';
 
 /** Supported OpenAPI document types */
 export type OpenAPISpec = OpenAPIV2.Document | OpenAPIV3.Document | OpenAPIV3_1.Document;
+
+/**
+ * Represents the parsed sections of an existing SDK_CONTEXT.md file
+ */
+export interface ExistingContextSections {
+  /** Content before the DOMAINS-START marker (null if no existing file or no markers) */
+  beforeDomains: string | null;
+  /** Content after the DOMAINS-END marker (null if no existing file or no markers) */
+  afterDomains: string | null;
+  /** Disambiguation notes extracted from the file */
+  disambiguation: string;
+}
+
+/**
+ * Parse SDK_CONTEXT.md content to extract preserved sections
+ * @param content The content of the SDK_CONTEXT.md file (null if file doesn't exist)
+ * @returns Parsed sections or defaults if content is null
+ */
+export function parseExistingContext(content: string | null): ExistingContextSections {
+  const defaultResult: ExistingContextSections = {
+    beforeDomains: null,
+    afterDomains: null,
+    disambiguation: ''
+  };
+
+  if (content === null) {
+    return defaultResult;
+  }
+
+  // Check if file has the domain markers
+  const domainsStartMatch = content.indexOf('<!-- DOMAINS-START -->');
+  const domainsEndMatch = content.indexOf('<!-- DOMAINS-END -->');
+
+  // Extract disambiguation notes
+  const disambiguationMatch = content.match(/## User Disambiguation Notes\s*\n<!-- Add project-specific clarifications below -->\n([\s\S]*?)(?=\n---|$)/);
+  const disambiguation = disambiguationMatch ? disambiguationMatch[1].trim() : '';
+
+  // If markers exist, extract the sections before and after
+  if (domainsStartMatch !== -1 && domainsEndMatch !== -1 && domainsEndMatch > domainsStartMatch) {
+    const beforeDomains = content.substring(0, domainsStartMatch);
+    const afterDomains = content.substring(domainsEndMatch + '<!-- DOMAINS-END -->'.length);
+
+    return {
+      beforeDomains,
+      afterDomains,
+      disambiguation
+    };
+  }
+
+  // No markers found, return just the disambiguation
+  return {
+    ...defaultResult,
+    disambiguation
+  };
+}
+
+/**
+ * Result of updating package.json for prepare:context script
+ */
+export interface PrepareContextScriptResult {
+  /** Updated package.json object */
+  packageJson: PackageJson.PackageJsonStandard;
+  /** Whether the prepare:context script was added */
+  prepareContextAdded: boolean;
+  /** Whether the build script was updated */
+  buildScriptUpdated: boolean;
+}
+
+/**
+ * Updates a package.json object to add prepare:context script and update build script
+ * @param packageJson The package.json object to update
+ * @returns Result containing updated package.json and flags indicating what was changed
+ */
+export function updatePackageJsonForContextScript(
+  packageJson: PackageJson
+): PrepareContextScriptResult {
+  // Deep copy to avoid mutating the original object
+  const scripts: PackageJson.Scripts = { ...packageJson.scripts };
+  let prepareContextAdded = false;
+  let buildScriptUpdated = false;
+
+  // Add the prepare:context script if it doesn't exist
+  if (!scripts['prepare:context']) {
+    scripts['prepare:context'] = 'cpy SDK_CONTEXT.md dist/';
+    prepareContextAdded = true;
+  }
+
+  // Update build script to include prepare:context if it exists and doesn't already include it
+  const buildScript = scripts.build;
+  if (buildScript && !buildScript.includes('prepare:context')) {
+    scripts.build = `${buildScript} && npm run prepare:context`;
+    buildScriptUpdated = true;
+  }
+
+  return {
+    packageJson: { ...packageJson, scripts },
+    prepareContextAdded,
+    buildScriptUpdated
+  };
+}
 
 /**
  * Represents a domain extracted from an OpenAPI specification

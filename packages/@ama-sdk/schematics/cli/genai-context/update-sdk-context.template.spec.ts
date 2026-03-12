@@ -57,6 +57,21 @@ describe('update-sdk-context.template', () => {
       expect(result).toContain('## User Disambiguation Notes');
     });
 
+    it('should include domain markers for re-run support', async () => {
+      const result = await renderSdkContextTemplate(baseMockData);
+
+      expect(result).toContain('<!-- DOMAINS-START -->');
+      expect(result).toContain('<!-- DOMAINS-END -->');
+
+      // Verify markers wrap the domains section
+      const startIndex = result.indexOf('<!-- DOMAINS-START -->');
+      const endIndex = result.indexOf('<!-- DOMAINS-END -->');
+      const domainsIndex = result.indexOf('## Domains');
+
+      expect(startIndex).toBeLessThan(domainsIndex);
+      expect(domainsIndex).toBeLessThan(endIndex);
+    });
+
     it('should include generator attribution', async () => {
       const result = await renderSdkContextTemplate(baseMockData);
 

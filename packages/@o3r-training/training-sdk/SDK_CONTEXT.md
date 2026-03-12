@@ -4,17 +4,17 @@ This document provides context about the generated TypeScript SDK to help AI ass
 
 ## SDK Information
 
-- **Package Name**: `<%= packageName %>`
-- **OpenAPI Version**: `<%= openApiVersion %>`
-- **API Title**: <%= apiTitle %>
+- **Package Name**: `@o3r-training/training-sdk`
+- **OpenAPI Version**: `3.0.2`
+- **API Title**: Otter Training SDK
 - **Generated with**: `@ama-sdk/schematics:typescript-core`
 
 ## Project Structure
 
 ```
-<%= packageName %>/
+@o3r-training/training-sdk/
 ├── api/                    # API endpoint classes (domain-based)
-<%= domainTree %>
+│   ├── dummy/              # Dummy operations...
 │   └── index.ts
 ├── models/
 │   ├── base/               # Auto-generated from OpenAPI (DO NOT MODIFY)
@@ -32,7 +32,23 @@ This document provides context about the generated TypeScript SDK to help AI ass
 
 The following domains were extracted from the OpenAPI specification. Each domain represents a logical grouping of related API operations.
 
-<%= domainsSection %>
+
+### dummy
+
+**What this domain is about**: Dummy operations
+
+**API Class**: `src/api/dummy/dummy-api.ts`
+
+**Available Operations:**
+
+| Operation ID | Method | Description |
+|--------------|--------|-------------|
+| `dummyGet` | GET | Dummy get |
+
+**Models used in this domain:**
+- `Flight` - imported from `src/models/base/flight/`
+
+
 <!-- DOMAINS-END -->
 
 ## Important Guidelines
@@ -53,11 +69,9 @@ The following domains were extracted from the OpenAPI specification. Each domain
 ## User Disambiguation Notes
 
 <!-- Add project-specific clarifications below -->
-<% if (disambiguation) { %>
-<%= disambiguation %>
-<% } else { %>
+
  (No disambiguation notes added yet. Run with --interactive to add notes.)
-<% } %>
+
 
 ---
 

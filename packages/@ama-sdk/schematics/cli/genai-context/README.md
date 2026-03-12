@@ -45,6 +45,7 @@ amasdk-update-sdk-context --quiet
 | `--spec-path` | | Path to OpenAPI specification file (default: `open-api.yaml` or `open-api.json`) |
 | `--prepare-script` | | Add a `prepare:context` script to package.json that copies SDK_CONTEXT.md to dist folder |
 | `--sdk-path` | | Path to SDK directory where SDK_CONTEXT.md will be created and package.json will be modified (default: current directory) |
+| `--preserve-edits` | | Preserve user edits outside the Domains section on re-run (only regenerate Domains) |
 | `--quiet` | | Suppress non-essential output |
 | `--help` | `-h` | Show help message |
 
@@ -124,6 +125,27 @@ The generated `SDK_CONTEXT.md` file includes:
   - Models used by each domain
 - **Guidelines**: DO's and DON'Ts for AI tools
 - **User Disambiguation Notes**: Project-specific clarifications
+
+### Re-run Behavior
+
+Use the `--preserve-edits` flag to preserve user edits on re-runs:
+
+```bash
+amasdk-update-sdk-context --preserve-edits
+```
+
+When `--preserve-edits` is set:
+
+- **Only the Domains section is regenerated** from the OpenAPI spec
+- **All other sections are preserved**, including:
+  - SDK Information (package name, version, title)
+  - Project Structure
+  - Important Guidelines
+  - User Disambiguation Notes
+
+This allows you to customize any section except Domains without losing your changes on re-run.
+
+Without `--preserve-edits`, the entire file is regenerated from the template.
 
 ## Best Practices
 
@@ -233,18 +255,6 @@ Alternatively, add custom scripts to your `package.json`:
 }
 ```
 
-### CI/CD Pipeline
-
-```yaml
-# .github/workflows/publish.yml
-- name: Build SDK and Generate Context
-  run: |
-    npm run build
-
-- name: Verify Context
-  run: |
-    test -f dist/SDK_CONTEXT.md || (echo "SDK_CONTEXT.md not found in dist folder" && exit 1)
-```
 
 ## Resources
 
