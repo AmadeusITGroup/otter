@@ -59,7 +59,7 @@
     "@schematics/angular": "~21.2.0",
     "@types/jest": "~30.0.0",
     "@types/jsdom": "^27.0.0",
-    "@types/node": "~24.11.0",
+    "@types/node": "~24.12.0",
     "cpy-cli": "^6.0.0",
     "eslint": "~9.39.0",
     "eslint-import-resolver-node": "~0.3.9",
