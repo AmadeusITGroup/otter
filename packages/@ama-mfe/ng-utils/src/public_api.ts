@@ -1,6 +1,7 @@
 export * from './connect/index';
 export * from './history/index';
 export * from './host-info';
+export * from './iframe-embed/index';
 export * from './managers/index';
 export * from './messages/index';
 export * from './navigation/index';

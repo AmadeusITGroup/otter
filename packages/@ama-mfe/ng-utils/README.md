@@ -13,6 +13,7 @@ look and feel.
 - [Resize](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40ama-mfe/ng-utils/src/resize/): Dynamically adjusts the iframe dimensions to fit the content of the embedded application, enhancing the
 user experience.
 - [User Activity](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40ama-mfe/ng-utils/src/user-activity/): Tracks user interactions across embedded micro-frontends for session timeout functionality, analytics, or any feature that needs to detect user activity.
+- [Iframe Embed](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40ama-mfe/ng-utils/src/iframe-embed/): A ready-to-use Angular component that renders an iframe with all MFE integration directives pre-wired (connect, scalable, host info, theme).
 
 ## Installation
 To install the package, run:
@@ -73,7 +74,17 @@ bootstrapApplication(App, appConfig)
 ```
 
 #### Initiate the connection to your embedded module
-Use the `connect` directive to initiate the communication between your application and the module in the iframe.
+The recommended way to embed a module is to use the [`IframeEmbedComponent`](#iframe-embed-component), which
+pre-wires `connect`, `scalable`, `hostInfo` and `applyTheme` on the iframe:
+
+```html
+<mfe-iframe-embed
+  src="https://my-embedded-app.example.com"
+  moduleId="myModuleUniqueID"
+  hostApplicationId="hostUniqueID" />
+```
+
+Alternatively, if you need full control over the iframe, you can use the `connect` directive directly.
 The communication pipe will be closed once the iframe is destroyed.
 
 ```html
@@ -255,11 +266,46 @@ export class CustomService implements MessageProducer<CustomMessageVersions> {
   }
 }
 ```
+### Iframe Embed Component
+
+The `IframeEmbedComponent` is a ready-to-use component that renders an iframe with all MFE integration directives
+pre-configured. It handles URL sanitization, cross-iframe communication (`connect`), auto-resizing (`scalable`),
+host info injection (`hostInfo`) and theming (`applyTheme`).
+
+```typescript
+import {IframeEmbedComponent} from '@ama-mfe/ng-utils';
+
+@Component({
+  selector: 'app-host',
+  imports: [IframeEmbedComponent],
+  template: `
+    <mfe-iframe-embed
+      src="https://my-embedded-app.example.com"
+      moduleId="my-module-id"
+      hostApplicationId="host-app-id" />
+  `
+})
+export class HostComponent {}
+```
+
+| Input | Type | Description |
+|-------|------|-------------|
+| `src` | `string \| SafeResourceUrl` | The URL for the iframe. Plain strings are automatically sanitized. |
+| `moduleId` | `string` | Unique identifier for the embedded module (used by the `connect` directive). |
+| `hostApplicationId` | `string` | The host application identifier sent to the embedded module via `hostInfo`. |
+
+The component applies the `sandbox` attribute to the iframe for security.
+
 ### Host information
 
 #### Host application
 
 A host application can send information to the embedded applications using parameters in the URL.
+
+The [`IframeEmbedComponent`](#iframe-embed-component) handles this automatically via its `moduleId` and
+`hostApplicationId` inputs — no extra setup is needed.
+
+If you manage the iframe yourself, you can apply the `hostInfo` pipe directly:
 
 ```html
 <iframe [src]="'myModuleUrl' | hostInfo: {hostId: 'host-app-id', moduleId: 'my-module-to-embed'}"></iframe>
