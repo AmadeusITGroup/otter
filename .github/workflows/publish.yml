@@ -118,7 +118,7 @@ jobs:
         env:
           PUBLISH_PROFILE: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_8996AC226FB9456EA73A6B8439B12946 || secrets.CASCADING_AZURE_APP_PUBLISH_PROFILE }}
         if: env.PUBLISH_PROFILE != null && (github.base_ref == 'main' || github.ref_name == 'main')
-        uses: Azure/functions-action@0bd707f87c0b6385742bab336c74e1afc61f6369 # v1.5.3
+        uses: Azure/functions-action@02a16c5f3a5707fa97fca56c202cc2ef6cc7dccb # v1.5.4
         with:
           app-name: 'github-cascading'
           slot-name: 'production'
