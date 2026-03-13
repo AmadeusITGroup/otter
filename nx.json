@@ -367,6 +367,22 @@
       ],
       "cache": true
     },
+    "expose-resources": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "copy:resources"
+      },
+      "dependsOn": [
+        "compile"
+      ],
+      "inputs": [
+        "{projectRoot}/resources/**"
+      ],
+      "outputs": [
+        "{projectRoot}/dist/resources/**"
+      ],
+      "cache": true
+    },
     "expose-schemas": {
       "executor": "nx:run-script",
       "options": {
