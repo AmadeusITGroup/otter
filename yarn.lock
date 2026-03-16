@@ -2565,12 +2565,12 @@ __metadata:
   linkType: hard
 
 "@angular/core@npm:~21.2.0":
-  version: 21.2.2
-  resolution: "@angular/core@npm:21.2.2"
+  version: 21.2.4
+  resolution: "@angular/core@npm:21.2.4"
   dependencies:
     tslib: "npm:^2.3.0"
   peerDependencies:
-    "@angular/compiler": 21.2.2
+    "@angular/compiler": 21.2.4
     rxjs: ^6.5.3 || ^7.4.0
     zone.js: ~0.15.0 || ~0.16.0
   peerDependenciesMeta:
@@ -2578,7 +2578,7 @@ __metadata:
       optional: true
     zone.js:
       optional: true
-  checksum: 10/b0e148fdcf4fcae4bda2d617c6732cb1842f08a0da2a22a073f82a1d011d8feb463afca0c1aff806f16817055d7527a7a3c8489362dc325c21774bbaa278d45a
+  checksum: 10/bd075cbcbdb0866bc8806ec7bc42c9954d3266452c2426abfc56c058e8346836a5163d68bda25f5e19f0af7a45d02dcfe6bed85bbd9b93a00909be14ed135172
   languageName: node
   linkType: hard
 
