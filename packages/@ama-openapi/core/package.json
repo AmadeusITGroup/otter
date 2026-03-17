@@ -90,7 +90,7 @@
     "type-fest": "^5.3.1",
     "typescript": "~5.9.2",
     "typescript-eslint": "~8.54.0",
-    "vitest": "~4.0.18"
+    "vitest": "~4.1.0"
   },
   "engines": {
     "node": "^22.17.0 || ^24.0.0"
