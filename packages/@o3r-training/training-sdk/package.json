@@ -72,7 +72,7 @@
     "@angular-devkit/schematics": "~21.2.0",
     "@angular-devkit/schematics-cli": "~21.2.0",
     "@angular/cli": "~21.2.0",
-    "@angular/compiler": "~21.2.0",
+    "@angular/compiler": "~21.2.4",
     "@commitlint/cli": "^20.2.0",
     "@commitlint/config-conventional": "^20.2.0",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
