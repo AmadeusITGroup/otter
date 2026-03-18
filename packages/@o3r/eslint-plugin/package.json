@@ -55,7 +55,7 @@
     "@angular-devkit/core": "~21.2.0",
     "@angular-eslint/test-utils": "~21.3.0",
     "@angular/cli": "~21.2.0",
-    "@angular/compiler": "~21.2.0",
+    "@angular/compiler": "~21.2.4",
     "@babel/core": "~7.29.0",
     "@babel/preset-typescript": "~7.28.0",
     "@compodoc/compodoc": "^1.1.32",
