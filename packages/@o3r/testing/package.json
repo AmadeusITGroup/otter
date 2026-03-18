@@ -247,10 +247,10 @@
   "generatorDependencies": {
     "@angular-builders/jest": "~21.0.0-beta.1",
     "@types/jest": "~30.0.0",
-    "jest": "~30.2.0",
-    "jest-environment-jsdom": "~30.2.0",
+    "jest": "~30.3.0",
+    "jest-environment-jsdom": "~30.3.0",
     "jest-preset-angular": "~16.1.0",
-    "jest-util": "~30.2.0",
+    "jest-util": "~30.3.0",
     "rimraf": "^6.0.1",
     "ts-jest": "~29.4.0",
     "uuid": "~13.0.0"
