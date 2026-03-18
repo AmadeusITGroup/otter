@@ -49,7 +49,7 @@
     "@o3r/eslint-plugin": "workspace:~",
     "@o3r/schematics": "workspace:~",
     "@schematics/angular": "^21.0.0",
-    "@stylistic/eslint-plugin": "~5.7.0",
+    "@stylistic/eslint-plugin": "~5.10.0",
     "@typescript-eslint/parser": "^8.15.0",
     "@typescript-eslint/types": "^8.15.0",
     "@typescript-eslint/utils": "^8.15.0",

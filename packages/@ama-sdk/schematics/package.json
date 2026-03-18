@@ -145,7 +145,7 @@
     "@swc/cli": "~0.8.0",
     "@swc/core": "~1.15.17",
     "@swc/helpers": "~0.5.17",
-    "@typescript-eslint/eslint-plugin": "~8.54.0",
+    "@typescript-eslint/eslint-plugin": "~8.57.0",
     "jest-junit": "~16.0.0",
     "lint-staged": "^16.0.0",
     "minimist": "^1.2.6",
