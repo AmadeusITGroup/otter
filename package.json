@@ -216,7 +216,7 @@
     "@typescript-eslint/parser": "~8.54.0",
     "@typescript-eslint/rule-tester": "~8.54.0",
     "@vitest/coverage-istanbul": "^4.0.18",
-    "@vscode/codicons": "^0.0.44",
+    "@vscode/codicons": "^0.0.45",
     "@webcontainer/api": "~1.6.0",
     "@xterm/addon-fit": "^0.11.0",
     "@xterm/xterm": "~6.0.0",
