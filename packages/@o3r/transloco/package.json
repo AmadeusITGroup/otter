@@ -1,0 +1,97 @@
+{
+  "name": "@o3r/transloco",
+  "version": "0.0.0-placeholder",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Experimental package — This module provides a runtime dynamic language/translation support based on JSVerse Transloco and debug tools.",
+  "keywords": [
+    "localization",
+    "transloco",
+    "otter",
+    "otter-module",
+    "experimental"
+  ],
+  "exports": {
+    "./package.json": {
+      "default": "./package.json"
+    }
+  },
+  "scripts": {
+    "nx": "nx",
+    "ng": "yarn nx",
+    "prepare:compile": "cp-package-json",
+    "build": "yarn nx build transloco",
+    "test": "jest --passWithNoTests"
+  },
+  "peerDependencies": {
+    "@angular/common": "^21.0.0",
+    "@angular/core": "^21.0.0",
+    "@jsverse/transloco": "^8.0.0",
+    "@o3r/core": "workspace:~",
+    "rxjs": "^7.8.1"
+  },
+  "dependencies": {
+    "@o3r/schematics": "workspace:~",
+    "tslib": "^2.6.2"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "~21.2.0",
+    "@angular/animations": "~21.2.4",
+    "@angular/cli": "~21.2.0",
+    "@angular/common": "~21.2.4",
+    "@angular/compiler": "~21.2.4",
+    "@angular/compiler-cli": "~21.2.4",
+    "@angular/core": "~21.2.4",
+    "@angular/platform-browser": "~21.2.4",
+    "@angular/platform-browser-dynamic": "~21.2.4",
+    "@babel/core": "~7.29.0",
+    "@babel/preset-typescript": "~7.28.0",
+    "@compodoc/compodoc": "^1.1.32",
+    "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
+    "@jsverse/transloco": "~8.2.1",
+    "@nx/eslint": "~22.5.3",
+    "@nx/eslint-plugin": "~22.5.3",
+    "@nx/jest": "~22.5.3",
+    "@nx/js": "~22.5.3",
+    "@o3r/build-helpers": "workspace:~",
+    "@o3r/core": "workspace:~",
+    "@o3r/eslint-config": "workspace:~",
+    "@o3r/eslint-plugin": "workspace:~",
+    "@o3r/test-helpers": "workspace:~",
+    "@stylistic/eslint-plugin": "~5.10.0",
+    "@types/jest": "~30.0.0",
+    "@types/node": "~24.12.0",
+    "@typescript-eslint/parser": "~8.57.0",
+    "angular-eslint": "~21.3.0",
+    "cpy-cli": "^6.0.0",
+    "eslint": "~9.39.0",
+    "eslint-import-resolver-node": "~0.3.9",
+    "eslint-import-resolver-typescript": "~4.4.0",
+    "eslint-plugin-import": "~2.32.0",
+    "eslint-plugin-import-newlines": "~1.4.0",
+    "eslint-plugin-jest": "~29.15.0",
+    "eslint-plugin-jsdoc": "~61.7.0",
+    "eslint-plugin-prefer-arrow": "~1.2.3",
+    "eslint-plugin-unicorn": "~62.0.0",
+    "eslint-plugin-unused-imports": "~4.4.0",
+    "globals": "^16.0.0",
+    "isomorphic-fetch": "~3.0.0",
+    "jest": "~30.3.0",
+    "jest-environment-jsdom": "~30.3.0",
+    "jest-junit": "~16.0.0",
+    "jest-preset-angular": "~16.1.0",
+    "jest-util": "~30.3.0",
+    "jsdom": "~27.4.0",
+    "jsonc-eslint-parser": "~2.4.0",
+    "nx": "~22.5.3",
+    "rxjs": "^7.8.1",
+    "ts-jest": "~29.4.0",
+    "typescript": "~5.9.2",
+    "typescript-eslint": "~8.57.0"
+  },
+  "engines": {
+    "node": "^22.17.0 || ^24.0.0"
+  },
+  "sideEffects": false
+}

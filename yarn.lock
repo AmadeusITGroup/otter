@@ -7038,6 +7038,37 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@jsverse/transloco-utils@npm:^8.2.1":
+  version: 8.2.1
+  resolution: "@jsverse/transloco-utils@npm:8.2.1"
+  dependencies:
+    cosmiconfig: "npm:^8.1.3"
+    tslib: "npm:^2.3.0"
+  checksum: 10/ce733296c974341c6656e072a448cc2ccadd7f6b27ad575fa64f7c7508c28aaa5e23a8bb6adc64728f3b7bd6eca808a4c0a20fe2675d7e129232363149d5c273
+  languageName: node
+  linkType: hard
+
+"@jsverse/transloco@npm:~8.2.1":
+  version: 8.2.1
+  resolution: "@jsverse/transloco@npm:8.2.1"
+  dependencies:
+    "@jsverse/transloco-utils": "npm:^8.2.1"
+    "@jsverse/utils": "npm:1.0.0-beta.5"
+    tslib: "npm:^2.2.0"
+  peerDependencies:
+    "@angular/core": ">=16.0.0"
+    rxjs: ">=6.0.0"
+  checksum: 10/ef60d49263d1d67b7b76114a4a44590ea1721d9c2971cd7b2458a6ed676b4d4a3a11ba0ad3b6bf914e966ad232a1597dfb9cc144fe556dd269524bfd8721b588
+  languageName: node
+  linkType: hard
+
+"@jsverse/utils@npm:1.0.0-beta.5":
+  version: 1.0.0-beta.5
+  resolution: "@jsverse/utils@npm:1.0.0-beta.5"
+  checksum: 10/f54293c5a71ba1dc3f0d30c76acf1936f9fe14f8c620cd03184f585386896dbbd9109de44309f4b7db704c158d66f7255e6de4f58f60275ccca835a30f83a8fd
+  languageName: node
+  linkType: hard
+
 "@keyv/bigmap@npm:^1.3.1":
   version: 1.3.1
   resolution: "@keyv/bigmap@npm:1.3.1"
@@ -12479,6 +12510,74 @@ __metadata:
       optional: true
     typescript:
       optional: true
+  languageName: unknown
+  linkType: soft
+
+"@o3r/transloco@workspace:packages/@o3r/transloco":
+  version: 0.0.0-use.local
+  resolution: "@o3r/transloco@workspace:packages/@o3r/transloco"
+  dependencies:
+    "@angular-devkit/build-angular": "npm:~21.2.0"
+    "@angular/animations": "npm:~21.2.4"
+    "@angular/cli": "npm:~21.2.0"
+    "@angular/common": "npm:~21.2.4"
+    "@angular/compiler": "npm:~21.2.4"
+    "@angular/compiler-cli": "npm:~21.2.4"
+    "@angular/core": "npm:~21.2.4"
+    "@angular/platform-browser": "npm:~21.2.4"
+    "@angular/platform-browser-dynamic": "npm:~21.2.4"
+    "@babel/core": "npm:~7.29.0"
+    "@babel/preset-typescript": "npm:~7.28.0"
+    "@compodoc/compodoc": "npm:^1.1.32"
+    "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
+    "@jsverse/transloco": "npm:~8.2.1"
+    "@nx/eslint": "npm:~22.5.3"
+    "@nx/eslint-plugin": "npm:~22.5.3"
+    "@nx/jest": "npm:~22.5.3"
+    "@nx/js": "npm:~22.5.3"
+    "@o3r/build-helpers": "workspace:~"
+    "@o3r/core": "workspace:~"
+    "@o3r/eslint-config": "workspace:~"
+    "@o3r/eslint-plugin": "workspace:~"
+    "@o3r/schematics": "workspace:~"
+    "@o3r/test-helpers": "workspace:~"
+    "@stylistic/eslint-plugin": "npm:~5.10.0"
+    "@types/jest": "npm:~30.0.0"
+    "@types/node": "npm:~24.12.0"
+    "@typescript-eslint/parser": "npm:~8.57.0"
+    angular-eslint: "npm:~21.3.0"
+    cpy-cli: "npm:^6.0.0"
+    eslint: "npm:~9.39.0"
+    eslint-import-resolver-node: "npm:~0.3.9"
+    eslint-import-resolver-typescript: "npm:~4.4.0"
+    eslint-plugin-import: "npm:~2.32.0"
+    eslint-plugin-import-newlines: "npm:~1.4.0"
+    eslint-plugin-jest: "npm:~29.15.0"
+    eslint-plugin-jsdoc: "npm:~61.7.0"
+    eslint-plugin-prefer-arrow: "npm:~1.2.3"
+    eslint-plugin-unicorn: "npm:~62.0.0"
+    eslint-plugin-unused-imports: "npm:~4.4.0"
+    globals: "npm:^16.0.0"
+    isomorphic-fetch: "npm:~3.0.0"
+    jest: "npm:~30.3.0"
+    jest-environment-jsdom: "npm:~30.3.0"
+    jest-junit: "npm:~16.0.0"
+    jest-preset-angular: "npm:~16.1.0"
+    jest-util: "npm:~30.3.0"
+    jsdom: "npm:~27.4.0"
+    jsonc-eslint-parser: "npm:~2.4.0"
+    nx: "npm:~22.5.3"
+    rxjs: "npm:^7.8.1"
+    ts-jest: "npm:~29.4.0"
+    tslib: "npm:^2.6.2"
+    typescript: "npm:~5.9.2"
+    typescript-eslint: "npm:~8.57.0"
+  peerDependencies:
+    "@angular/common": ^21.0.0
+    "@angular/core": ^21.0.0
+    "@jsverse/transloco": ^8.0.0
+    "@o3r/core": "workspace:~"
+    rxjs: ^7.8.1
   languageName: unknown
   linkType: soft
 
@@ -21953,6 +22052,23 @@ __metadata:
     path-type: "npm:^4.0.0"
     yaml: "npm:^1.10.0"
   checksum: 10/03600bb3870c80ed151b7b706b99a1f6d78df8f4bdad9c95485072ea13358ef294b13dd99f9e7bf4cc0b43bcd3599d40df7e648750d21c2f6817ca2cd687e071
+  languageName: node
+  linkType: hard
+
+"cosmiconfig@npm:^8.1.3":
+  version: 8.3.6
+  resolution: "cosmiconfig@npm:8.3.6"
+  dependencies:
+    import-fresh: "npm:^3.3.0"
+    js-yaml: "npm:^4.1.0"
+    parse-json: "npm:^5.2.0"
+    path-type: "npm:^4.0.0"
+  peerDependencies:
+    typescript: ">=4.9.5"
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  checksum: 10/91d082baca0f33b1c085bf010f9ded4af43cbedacba8821da0fb5667184d0a848addc52c31fadd080007f904a555319c238cf5f4c03e6d58ece2e4876b2e73d6
   languageName: node
   linkType: hard
 
