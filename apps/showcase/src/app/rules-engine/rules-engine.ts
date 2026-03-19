@@ -42,13 +42,6 @@ import {
   AssetRulesEngineActionModule,
 } from '@o3r/dynamic-content/rules-engine';
 import {
-  LocalizationOverrideStoreModule,
-} from '@o3r/localization';
-import {
-  LocalizationRulesEngineActionHandler,
-  LocalizationRulesEngineActionModule,
-} from '@o3r/localization/rules-engine';
-import {
   CurrentTimeFactsService,
   dateInNextMinutes,
   Rule,
@@ -57,6 +50,9 @@ import {
   RulesEngineRunnerService,
   Ruleset,
 } from '@o3r/rules-engine';
+import {
+  LocalizationRulesEngineActionHandler,
+} from '@o3r/transloco/rules-engine';
 import {
   MarkdownModule,
 } from 'ngx-markdown';
@@ -95,10 +91,8 @@ import {
     RulesEngineDevtoolsModule,
     ConfigurationRulesEngineActionModule,
     AssetRulesEngineActionModule,
-    LocalizationRulesEngineActionModule,
     ConfigOverrideStoreModule,
     AssetPathOverrideStoreModule,
-    LocalizationOverrideStoreModule,
     RouterModule,
     IN_PAGE_NAV_PRES_DIRECTIVES,
     NgbNavModule,

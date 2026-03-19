@@ -17,11 +17,11 @@ import {
   DynamicContentService,
 } from '@o3r/dynamic-content';
 import {
-  LocalizationService,
-} from '@o3r/localization';
-import {
   LoggerService,
 } from '@o3r/logger';
+import {
+  LocalizationService,
+} from '@o3r/transloco';
 import {
   combineLatest,
   distinctUntilChanged,
@@ -65,8 +65,7 @@ export class PlaceholderRulesEngineActionHandler implements RulesEngineActionHan
     const translateService = inject(LocalizationService, { optional: true });
 
     const lang$ = translateService
-      ? translateService.getTranslateService().onLangChange.pipe(
-        map(({ lang }) => lang),
+      ? translateService.getTranslateService().langChanges$.pipe(
         startWith(translateService.getCurrentLanguage()),
         distinctUntilChanged()
       )
