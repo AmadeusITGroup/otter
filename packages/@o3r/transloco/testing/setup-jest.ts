@@ -1,1 +1,19 @@
-import '@o3r/test-helpers/setup-jest-builders';
+import 'isomorphic-fetch';
+import {
+  setupZonelessTestEnv,
+} from 'jest-preset-angular/setup-env/zoneless';
+
+setupZonelessTestEnv();
+
+// Need to add this because jsdom doesn't support Response.json yet
+if (!Response.json) {
+  Response.json = (data: any, init?: ResponseInit) =>
+    // eslint-disable-next-line unicorn/prefer-response-static-json -- not supported by jsdom
+    new Response(JSON.stringify(data), {
+      ...init,
+      headers: {
+        'Content-Type': 'application/json',
+        ...init?.headers
+      }
+    });
+}
