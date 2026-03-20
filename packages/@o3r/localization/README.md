@@ -7,6 +7,9 @@ This package is an [Otter Framework Module](https://github.com/AmadeusITGroup/ot
 <br />
 <br />
 
+> [!WARNING]
+> ngx-translate will no longer be supported in Otter v16. Please migrate to [`@o3r/transloco`](https://www.npmjs.com/package/@o3r/transloco), which is based on [JSVerse Transloco](https://github.com/jsverse/transloco).
+
 ## Description
 
 [![Stable Version](https://img.shields.io/npm/v/@o3r/localization?style=for-the-badge)](https://www.npmjs.com/package/@o3r/localization)
