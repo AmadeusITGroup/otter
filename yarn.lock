@@ -4609,11 +4609,11 @@ __metadata:
   linkType: hard
 
 "@commitlint/config-angular@npm:^20.2.0":
-  version: 20.4.4
-  resolution: "@commitlint/config-angular@npm:20.4.4"
+  version: 20.5.0
+  resolution: "@commitlint/config-angular@npm:20.5.0"
   dependencies:
     "@commitlint/config-angular-type-enum": "npm:^20.0.0"
-  checksum: 10/08bcc396e30d81a1c71cbd68c79128265ca1d2eb8ccdd976edcea1d3546f02464ebea74dd473317220f09d02f6ee503585f2376f0b07275714f3615ccd26bf41
+  checksum: 10/33e37a28bf00dea1694009401b2940011672cce82234a930e0364c3ea3f2563d8105f0c7233d0a719d1ead54ec11b446ba9744bd2df56ae813b9b4e9abe82769
   languageName: node
   linkType: hard
 
