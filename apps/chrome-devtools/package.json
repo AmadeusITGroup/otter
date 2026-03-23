@@ -104,7 +104,7 @@
     "@angular/platform-browser": "~21.2.4",
     "@angular/platform-browser-dynamic": "~21.2.4",
     "@angular/router": "~21.2.4",
-    "@crxjs/vite-plugin": "~2.3.0",
+    "@crxjs/vite-plugin": "~2.4.0",
     "@design-factory/design-factory": "~21.0.0",
     "@design-factory/styles": "~21.0.0",
     "@ng-bootstrap/ng-bootstrap": "~20.0.0",
