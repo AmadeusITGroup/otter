@@ -71,7 +71,7 @@
     "winston": "^3.8.2"
   },
   "devDependencies": {
-    "@angular-devkit/architect": "0.2102.2",
+    "@angular-devkit/architect": "0.2102.3",
     "@angular-devkit/build-angular": "~21.2.0",
     "@angular-devkit/core": "~21.2.0",
     "@angular-devkit/schematics": "~21.2.0",
