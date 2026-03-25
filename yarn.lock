@@ -1078,7 +1078,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:~"
     "@o3r/telemetry": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@redocly/openapi-core": "npm:~2.22.0"
+    "@redocly/openapi-core": "npm:~2.24.0"
     "@stylistic/eslint-plugin": "npm:~5.10.0"
     "@types/minimist": "npm:^1.2.2"
     "@types/node": "npm:~24.12.0"
@@ -14199,9 +14199,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@redocly/openapi-core@npm:~2.22.0":
-  version: 2.22.1
-  resolution: "@redocly/openapi-core@npm:2.22.1"
+"@redocly/openapi-core@npm:~2.24.0":
+  version: 2.24.1
+  resolution: "@redocly/openapi-core@npm:2.24.1"
   dependencies:
     "@redocly/ajv": "npm:^8.18.0"
     "@redocly/config": "npm:^0.44.1"
@@ -14213,7 +14213,7 @@ __metadata:
     picomatch: "npm:^4.0.3"
     pluralize: "npm:^8.0.0"
     yaml-ast-parser: "npm:0.0.43"
-  checksum: 10/0f5040efc2a6c538c07b8732e3c6a2bdaeccd80b796364d66d4a390e5cf2effaa2d7d0483ce1ea930be7e1e72924567b7d15f505b25b12bc48e70045617502ab
+  checksum: 10/eb6e6781e27bc233ae8235901f77eadc5cbff6635af4b31a4346c5be89ec9632bc6b48807bf13bbb536715ea1cdfac9b61e1b55281a5a182e71d886ba1a75e3f
   languageName: node
   linkType: hard
 
@@ -38316,11 +38316,11 @@ __metadata:
   linkType: hard
 
 "type-fest@npm:^5.3.1":
-  version: 5.4.4
-  resolution: "type-fest@npm:5.4.4"
+  version: 5.5.0
+  resolution: "type-fest@npm:5.5.0"
   dependencies:
     tagged-tag: "npm:^1.0.0"
-  checksum: 10/0bbdca645f95740587f389a2d712fe8d5e9ab7d13e74aac97cf396112510abcaab6b75fd90d65172bc13b02fdfc827e6a871322cc9c1c1a5a2754d9ab264c6f5
+  checksum: 10/b5423e991f29dd8cb6ba1bf613f6ab95065673706bf6ffbc8319a457256af8e9844de013801b4ab94572cee32eb35e3ebc9ff67db2bd4b2937cc153a2b91a093
   languageName: node
   linkType: hard
 
