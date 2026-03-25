@@ -162,7 +162,7 @@
     "@ngrx/router-store": "~21.0.0",
     "@ngrx/store": "~21.0.0",
     "@ngrx/store-devtools": "~21.0.0",
-    "@nx/eslint-plugin": "~22.5.3",
+    "@nx/eslint-plugin": "~22.6.0",
     "@o3r/store-sync": "workspace:~",
     "@stylistic/eslint-plugin": "~5.10.0",
     "@types/jest": "~30.0.0",
@@ -187,7 +187,7 @@
     "jsdom": "~27.4.0",
     "jest-util": "~30.3.0",
     "jsonc-eslint-parser": "~2.4.0",
-    "nx": "~22.5.3",
+    "nx": "~22.6.0",
     "ts-jest": "~29.4.0",
     "typescript-eslint": "~8.57.0"
   },

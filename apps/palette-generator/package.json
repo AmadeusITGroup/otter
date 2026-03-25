@@ -20,7 +20,7 @@
   "devDependencies": {
     "@angular/cli": "~21.2.0",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
-    "@figma/eslint-plugin-figma-plugins": "^0.16.0",
+    "@figma/eslint-plugin-figma-plugins": "^1.0.0",
     "@figma/plugin-typings": "^1.107.0",
     "@nx/eslint-plugin": "~22.6.0",
     "@nx/jest": "~22.6.0",
