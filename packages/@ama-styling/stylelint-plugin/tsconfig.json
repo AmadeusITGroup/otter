@@ -13,6 +13,13 @@
     },
     {
       "path": "./tsconfig.eslint.json"
+    },
+    {
+      "path": "./tsconfig.test.json"
+    },
+    {
+      "path": "../../../tsconfig.test.json"
     }
+
   ]
 }

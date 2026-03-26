@@ -2,6 +2,9 @@ import {
   basename,
 } from 'node:path';
 import {
+  BASE_TRANSFORM_DEFINITION_KEY,
+} from '../constants.mjs';
+import {
   generateModelNameRef,
   getMaskFileName,
 } from '../generate-model-name.mjs';
@@ -25,14 +28,18 @@ export const getTransformDefinitions = (artifacts: SpecificationArtifact[]) => {
           return [
             `transform-${modelRef}`,
             {
+              description: `Transformations to apply to the model "${model}" from package "${packageManifestName}"`,
               allOf: [
                 {
-                  $ref: '#/definitions/baseTransform'
+                  $ref: `#/definitions/${BASE_TRANSFORM_DEFINITION_KEY}`
                 },
                 {
                   type: 'object',
                   properties: {
                     mask: {
+                      description: `The JSON Schema of the mask to apply to the model "${model}" from package "${packageManifestName}".\n`
+                        + 'The mask schema is generated based on the model structure.\n'
+                        + 'It can be used to specify which properties to include or exclude from the model, as well as to apply transformations to the included properties.',
                       $ref: `./${maskSchemaFileName}`
                     }
                   }

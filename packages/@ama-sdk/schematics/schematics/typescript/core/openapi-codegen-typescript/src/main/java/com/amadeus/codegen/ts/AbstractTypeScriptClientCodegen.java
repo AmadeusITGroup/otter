@@ -47,6 +47,7 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
   private final boolean stringifyDate;
   private final boolean allowModelExtension;
   private final boolean useLegacyDateExtension;
+  private final String requestBodyTransform;
 
   public AbstractTypeScriptClientCodegen() {
     super();
@@ -117,6 +118,8 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
     allowModelExtension = allowModelExtensionString != null ? !"false".equalsIgnoreCase(allowModelExtensionString) : false;
     String stringifyDateString = GlobalSettings.getProperty("stringifyDate");
     stringifyDate = stringifyDateString != null ? !"false".equalsIgnoreCase(stringifyDateString) : true;
+    String requestBodyTransformString = GlobalSettings.getProperty("requestBodyTransform");
+    requestBodyTransform = requestBodyTransformString != null ? requestBodyTransformString : "";
     typeMapping.put("DateTime", useLegacyDateExtension ? "utils.DateTime" : getDateTimeStandardTime(stringifyDate));
     typeMapping.put("Date", useLegacyDateExtension ? "utils.Date" : getDateType(stringifyDate));
     //TODO binary should be mapped to byte array
@@ -163,6 +166,7 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
     additionalProperties.put("propertyAccess", new LambdaHelper.PropertyAccess());
     additionalProperties.put("headerJsonMimeType", new LambdaHelper.HeaderJsonMimeType());
     additionalProperties.put("keepRevivers", true);
+    additionalProperties.put("transformBodyRequest", new LambdaHelper.TransformBodyRequest(requestBodyTransform));
   }
 
   private static class CamelizeLambda extends LambdaHelper.CustomLambda {

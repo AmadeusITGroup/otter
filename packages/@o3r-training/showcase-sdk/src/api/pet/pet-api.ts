@@ -8,7 +8,7 @@ export type PetApiFindPetsByStatusStatusEnum = 'available' | 'pending' | 'sold';
 /** Parameters object to PetApi's addPet function */
 export interface PetApiAddPetRequestData {
   /** Create a new pet in the store */
-  'Pet': Pet;
+  'contentPet': Pet;
 }
 /** Parameters object to PetApi's deletePet function */
 export interface PetApiDeletePetRequestData {
@@ -35,7 +35,7 @@ export interface PetApiGetPetByIdRequestData {
 /** Parameters object to PetApi's updatePet function */
 export interface PetApiUpdatePetRequestData {
   /** Update an existent pet in the store */
-  'Pet': Pet;
+  'contentPet': Pet;
 }
 /** Parameters object to PetApi's updatePetWithForm function */
 export interface PetApiUpdatePetWithFormRequestData {
@@ -53,7 +53,7 @@ export interface PetApiUploadFileRequestData {
   /** Additional Metadata */
   'additionalMetadata'?: string;
   /**  */
-  'body'?: File;
+  'contentbody'?: File;
 }
 export class PetApi implements Api {
 
@@ -103,10 +103,11 @@ export class PetApi implements Api {
     const serverBasePath = selectServerBasePath(this.client.options, operationServers.length > 0 ? operationServers : SDK_SERVERS, this.client.options.logger);
 
     let body: RequestBody = '';
+    const bodyRequestParam = 'contentPet';
     if (headers['Content-Type'] && isJsonMimeType(headers['Content-Type'])) {
-      body = typeof data['Pet'] !== 'undefined' ? JSON.stringify(data['Pet']) : '{}';
+      body = typeof data[bodyRequestParam] !== 'undefined' ? JSON.stringify(data[bodyRequestParam]) : '{}';
     } else {
-      body = data['Pet'] as any;
+      body = data[bodyRequestParam] as any;
     }
 
     let queryParams = {};
@@ -381,10 +382,11 @@ export class PetApi implements Api {
     const serverBasePath = selectServerBasePath(this.client.options, operationServers.length > 0 ? operationServers : SDK_SERVERS, this.client.options.logger);
 
     let body: RequestBody = '';
+    const bodyRequestParam = 'contentPet';
     if (headers['Content-Type'] && isJsonMimeType(headers['Content-Type'])) {
-      body = typeof data['Pet'] !== 'undefined' ? JSON.stringify(data['Pet']) : '{}';
+      body = typeof data[bodyRequestParam] !== 'undefined' ? JSON.stringify(data[bodyRequestParam]) : '{}';
     } else {
-      body = data['Pet'] as any;
+      body = data[bodyRequestParam] as any;
     }
 
     let queryParams = {};
@@ -495,10 +497,11 @@ export class PetApi implements Api {
     const serverBasePath = selectServerBasePath(this.client.options, operationServers.length > 0 ? operationServers : SDK_SERVERS, this.client.options.logger);
 
     let body: RequestBody = '';
+    const bodyRequestParam = 'contentbody';
     if (headers['Content-Type'] && isJsonMimeType(headers['Content-Type'])) {
-      body = typeof data['body'] !== 'undefined' ? JSON.stringify(data['body']) : '{}';
+      body = typeof data[bodyRequestParam] !== 'undefined' ? JSON.stringify(data[bodyRequestParam]) : '{}';
     } else {
-      body = data['body'] as any;
+      body = data[bodyRequestParam] as any;
     }
 
     let queryParams = {};

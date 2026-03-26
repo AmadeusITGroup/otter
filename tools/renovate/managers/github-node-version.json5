@@ -7,10 +7,10 @@
       // TODO: To be removed when Renovate will support fileMatch reference or Manager extension
       "fileMatch": [
         // TODO: To be removed when https://github.com/renovatebot/renovate/discussions/26137 is fixed
-        "/(?:__dot__|__empty__\\.)github/.*/.+\\.ya?ml$",
+        "/(?:__dot__|__empty__\\.)github/.*/.+\\.ya?ml(?:\\.template)?$",
         // duplicate from Manager `github-actions`:
-        "(^|/)(workflow-templates|\\.(?:github|gitea|forgejo)/(?:workflows|actions))/.+\\.ya?ml$",
-        "(^|/)action\\.ya?ml$"
+        "(^|/)(workflow-templates|\\.(?:github|gitea|forgejo)/(?:workflows|actions))/.+\\.ya?ml(?:\\.template)?$",
+        "(^|/)action\\.ya?ml(?:\\.template)?$"
       ],
       "matchStrings": [
         "node-version: (?<currentValue>[0-9a-zA-Z-.]+)"

@@ -1,9 +1,20 @@
 import {
   vol,
 } from 'memfs';
+import {
+  afterEach,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from 'vitest';
 import type {
   Context,
 } from '../context.mjs';
+import {
+  PATTERNS_MODEL_DEFINITION_KEY,
+} from './constants.mjs';
 import {
   generateOpenApiManifestSchema,
 } from './generate-schema.mjs';
@@ -11,22 +22,26 @@ import {
   listSpecificationArtifacts,
 } from './list-artifacts.mjs';
 
-jest.mock('node:fs', () => ({
-  ...jest.requireActual('memfs'),
-  promises: jest.requireActual('memfs').promises
+vi.mock('globby', () => ({
+  globbySync: vi.fn().mockReturnValue([])
 }));
 
-jest.mock('./list-artifacts.mjs', () => ({
-  listSpecificationArtifacts: jest.fn().mockReturnValue([])
+vi.mock('node:fs', async () => ({
+  ...(await vi.importActual('memfs') as any),
+  promises: (await vi.importActual('memfs') as any).promises
 }));
 
-jest.mock('node:fs/promises', () => jest.requireActual('memfs').promises);
-
-jest.mock('./mask/generate-mask-from-model.mjs', () => ({
-  generateMaskSchemaModelAt: jest.fn().mockResolvedValue({})
+vi.mock('./list-artifacts.mjs', () => ({
+  listSpecificationArtifacts: vi.fn().mockReturnValue([])
 }));
 
-jest.mock('./mask/field-schema.constants.mjs', () => ({
+vi.mock('node:fs/promises', async () => (await vi.importActual('memfs') as any).promises);
+
+vi.mock('./mask/generate-mask-from-model.mjs', () => ({
+  generateMaskSchemaModelAt: vi.fn().mockResolvedValue({})
+}));
+
+vi.mock('./mask/field-schema.constants.mjs', () => ({
   FIELD_SCHEMA_DEFINITION: {}
 }));
 
@@ -42,7 +57,7 @@ describe('generateOpenApiManifestSchema', () => {
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   describe('basic schema generation', () => {
@@ -98,7 +113,7 @@ describe('generateOpenApiManifestSchema', () => {
         }
       ];
 
-      jest.mocked(listSpecificationArtifacts).mockResolvedValue(artifacts as any);
+      vi.mocked(listSpecificationArtifacts).mockResolvedValue(artifacts as any);
 
       const options: any = {
         ...mockContext
@@ -113,14 +128,28 @@ describe('generateOpenApiManifestSchema', () => {
       expect(models['@test/api'].oneOf).toEqual(
         expect.arrayContaining([
           expect.objectContaining({
-            $ref: expect.stringContaining('#/definitions/model-test-api-')
+            oneOf: expect.arrayContaining([
+              expect.objectContaining({
+                $ref: expect.stringContaining('#/definitions/model-test-api-')
+              }),
+              expect.objectContaining({
+                $ref: expect.stringContaining(`#/definitions/${PATTERNS_MODEL_DEFINITION_KEY}`)
+              })
+            ])
           }),
           expect.objectContaining({
             type: 'array',
             items: expect.objectContaining({
               oneOf: expect.arrayContaining([
                 expect.objectContaining({
-                  $ref: expect.stringContaining('#/definitions/model-test-api-')
+                  oneOf: expect.arrayContaining([
+                    expect.objectContaining({
+                      $ref: expect.stringContaining('#/definitions/model-test-api-')
+                    }),
+                    expect.objectContaining({
+                      $ref: expect.stringContaining(`#/definitions/${PATTERNS_MODEL_DEFINITION_KEY}`)
+                    })
+                  ])
                 })
               ])
             })
@@ -200,9 +229,7 @@ describe('generateOpenApiManifestSchema', () => {
         specPath: '/non-existent/path/spec.yaml'
       };
 
-      await expect(async () => {
-        await generateOpenApiManifestSchema(options);
-      }).resolves.not.toThrow();
+      await expect(generateOpenApiManifestSchema(options)).resolves.not.toThrow();
     });
 
     it('should handle invalid output path', async () => {

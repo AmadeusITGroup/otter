@@ -88,6 +88,7 @@ describe('new otter workspace', () => {
 
     expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
     expect(() => packageManagerRunOnProject('@my-sdk/sdk', isInWorkspace, { script: 'build' }, execAppOptions)).not.toThrow();
+    expect(() => packageManagerRunOnProject('@my-sdk/sdk', isInWorkspace, { script: 'test' }, execAppOptions)).not.toThrow();
     expect(() => packageManagerRunOnProject('@my-sdk/sdk', isInWorkspace, { script: 'spec:upgrade' }, execAppOptions)).not.toThrow();
   });
 
@@ -122,6 +123,85 @@ describe('new otter workspace', () => {
     expect(!!tsconfigLibProd.extends && existsSync(path.resolve(inLibraryPath, tsconfigLibProd.extends))).toBe(true);
     expect(() => packageManagerRunOnProject(libName, isInWorkspace, { script: 'prepare:build:builders' }, execAppOptions)).not.toThrow();
     expect(() => packageManagerRunOnProject(libName, isInWorkspace, { script: 'build:builders' }, execAppOptions)).not.toThrow();
+    expect(() => packageManagerRunOnProject(libName, isInWorkspace, { script: 'test' }, execAppOptions)).not.toThrow();
+  });
+
+  test('should add a library to an existing workspace with @o3r/testing', async () => {
+    const { isInWorkspace, workspacePath } = o3rEnvironment.testEnvironment;
+    const execAppOptions = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
+    const libName = 'test-library-otter-testing';
+    const inLibraryPath = path.resolve(workspacePath, 'libs', libName);
+    expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
+
+    const generatedLibFiles = [
+      'README.md',
+      'ng-package.json',
+      'package.json',
+      'tsconfig.lib.json',
+      'tsconfig.lib.prod.json',
+      'tsconfig.spec.json',
+      'src/public-api.ts',
+      'collection.json',
+      '.gitignore',
+      '.npmignore',
+      'tsconfig.builders.json',
+      'tsconfig.json'
+    ];
+    expect(() => packageManagerExec({ script: 'ng', args: ['add', '@o3r/testing', '--skip-confirmation'] }, execAppOptions)).not.toThrow();
+    expect(() => packageManagerExec({ script: 'ng', args: ['g', 'library', libName] }, execAppOptions)).not.toThrow();
+    expect(existsSync(path.join(workspacePath, 'project'))).toBe(false);
+    generatedLibFiles.forEach((file) => expect(existsSync(path.join(inLibraryPath, file))).toBe(true));
+    expect(() => packageManagerRunOnProject(libName, isInWorkspace, { script: 'build' }, execAppOptions)).not.toThrow();
+
+    // check tsconfig.lib.prod.json override
+    const tsconfigLibProd = JSON.parse(await fs.readFile(path.join(inLibraryPath, 'tsconfig.lib.prod.json'), { encoding: 'utf8' }));
+    expect(!!tsconfigLibProd.extends && existsSync(path.resolve(inLibraryPath, tsconfigLibProd.extends))).toBe(true);
+    expect(() => packageManagerRunOnProject(libName, isInWorkspace, { script: 'prepare:build:builders' }, execAppOptions)).not.toThrow();
+    expect(() => packageManagerRunOnProject(libName, isInWorkspace, { script: 'build:builders' }, execAppOptions)).not.toThrow();
+    expect(() => packageManagerRunOnProject(libName, isInWorkspace, { script: 'test' }, execAppOptions)).not.toThrow();
+  });
+
+  test('should add an application to an existing workspace', () => {
+    const { isInWorkspace, workspacePath } = o3rEnvironment.testEnvironment;
+    const execAppOptions = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
+    const appName = 'test-app-workspace';
+    const inAppPath = path.resolve(workspacePath, 'apps', appName);
+    expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
+
+    const generatedLibFiles = [
+      'package.json',
+      'tsconfig.json',
+      'tsconfig.app.json',
+      'tsconfig.spec.json',
+      'src/main.ts'
+    ];
+    expect(() => packageManagerExec({ script: 'ng', args: ['g', 'application', appName] }, execAppOptions)).not.toThrow();
+    expect(existsSync(path.join(workspacePath, 'project'))).toBe(false);
+    generatedLibFiles.forEach((file) => expect(existsSync(path.join(inAppPath, file))).toBe(true));
+    expect(() => packageManagerRunOnProject(appName, isInWorkspace, { script: 'build' }, execAppOptions)).not.toThrow();
+    expect(() => packageManagerRunOnProject(appName, isInWorkspace, { script: 'test' }, execAppOptions)).not.toThrow();
+  });
+
+  test('should add an application to an existing workspace with @o3r/testing', () => {
+    const { isInWorkspace, workspacePath } = o3rEnvironment.testEnvironment;
+    const execAppOptions = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
+    const appName = 'test-app-workspace-otter-testing';
+    const inAppPath = path.resolve(workspacePath, 'apps', appName);
+    expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
+    expect(() => packageManagerExec({ script: 'ng', args: ['add', '@o3r/testing', '--skip-confirmation'] }, execAppOptions)).not.toThrow();
+
+    const generatedLibFiles = [
+      'package.json',
+      'tsconfig.json',
+      'tsconfig.app.json',
+      'tsconfig.spec.json',
+      'src/main.ts'
+    ];
+    expect(() => packageManagerExec({ script: 'ng', args: ['g', 'application', appName] }, execAppOptions)).not.toThrow();
+    expect(existsSync(path.join(workspacePath, 'project'))).toBe(false);
+    generatedLibFiles.forEach((file) => expect(existsSync(path.join(inAppPath, file))).toBe(true));
+    expect(() => packageManagerRunOnProject(appName, isInWorkspace, { script: 'build' }, execAppOptions)).not.toThrow();
+    expect(() => packageManagerRunOnProject(appName, isInWorkspace, { script: 'test' }, execAppOptions)).not.toThrow();
   });
 
   test('should generate a monorepo setup', async () => {

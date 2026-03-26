@@ -2,6 +2,11 @@ import type {
   TransformedToken,
 } from 'style-dictionary/types';
 import {
+  describe,
+  expect,
+  it,
+} from 'vitest';
+import {
   sortByPath,
 } from './sort-by-path-sort-helpers.mjs';
 
