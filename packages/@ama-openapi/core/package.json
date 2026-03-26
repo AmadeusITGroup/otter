@@ -85,7 +85,7 @@
     "eslint-plugin-unused-imports": "~4.4.0",
     "globals": "^16.0.0",
     "jsonc-eslint-parser": "~2.4.0",
-    "memfs": "~4.56.0",
+    "memfs": "~4.57.0",
     "nx": "~22.6.0",
     "type-fest": "^5.3.1",
     "typescript": "~5.9.2",

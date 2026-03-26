@@ -175,7 +175,7 @@
     "jsdom": "~27.4.0",
     "jsonc-eslint-parser": "~2.4.0",
     "jsonpath-plus": "~10.4.0",
-    "memfs": "~4.56.0",
+    "memfs": "~4.57.0",
     "nx": "~22.6.0",
     "rimraf": "^6.0.1",
     "rxjs": "^7.8.1",
