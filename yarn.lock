@@ -1927,7 +1927,7 @@ __metadata:
     jest-util: "npm:~30.3.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~22.6.0"
-    style-dictionary: "npm:~5.3.0"
+    style-dictionary: "npm:~5.4.0"
     ts-jest: "npm:~29.4.0"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^5.3.1"
@@ -11760,7 +11760,7 @@ __metadata:
     rimraf: "npm:^6.0.1"
     rxjs: "npm:^7.8.1"
     sass-loader: "npm:^16.0.0"
-    style-dictionary: "npm:~5.3.0"
+    style-dictionary: "npm:~5.4.0"
     ts-jest: "npm:~29.4.0"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.9.2"
@@ -36874,9 +36874,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"style-dictionary@npm:~5.3.0":
-  version: 5.3.3
-  resolution: "style-dictionary@npm:5.3.3"
+"style-dictionary@npm:~5.4.0":
+  version: 5.4.0
+  resolution: "style-dictionary@npm:5.4.0"
   dependencies:
     "@bundled-es-modules/deepmerge": "npm:^4.3.1"
     "@bundled-es-modules/glob": "npm:^13.0.6"
@@ -36893,7 +36893,7 @@ __metadata:
     tinycolor2: "npm:^1.6.0"
   bin:
     style-dictionary: bin/style-dictionary.js
-  checksum: 10/6fad7dada9363557aba4d8aaa169539ec0f2583cfb716a677aea4a2d80928e7e1154d166a70a63c974b4bede8b9f4e2c5de1e6a4dffa7ca186f49092b91704e7
+  checksum: 10/ba1ccd881dce65c0f46cb0f8dccb195607ab834101b77c4b537ec8de8e5afa3694ade4aa46c962913a5e0a1efcb25c13a46aa0254211908318837df40ddb62af
   languageName: node
   linkType: hard
 
