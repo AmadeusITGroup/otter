@@ -12,7 +12,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: './spec-chunk1.yaml'
+                $ref: >-
+                  ./spec-chunk1.yaml
   /test2:
     get:
       responses:
