@@ -282,7 +282,8 @@ import {IframeEmbedComponent} from '@ama-mfe/ng-utils';
     <mfe-iframe-embed
       src="https://my-embedded-app.example.com"
       moduleId="my-module-id"
-      hostApplicationId="host-app-id" />
+      hostApplicationId="host-app-id"
+      sandbox="allow-scripts allow-same-origin" />
   `
 })
 export class HostComponent {}
@@ -293,8 +294,9 @@ export class HostComponent {}
 | `src` | `string \| SafeResourceUrl` | The URL for the iframe. Plain strings are automatically sanitized. |
 | `moduleId` | `string` | Unique identifier for the embedded module (used by the `connect` directive). |
 | `hostApplicationId` | `string` | The host application identifier sent to the embedded module via `hostInfo`. |
+| `sandbox` | `string` | The iframe sandbox permissions. Defaults to `'allow-scripts allow-same-origin'`. |
 
-The component applies the `sandbox` attribute to the iframe for security.
+The `sandbox` attribute is set once at initialization for security reasons (runtime changes are ignored).
 
 ### Host information
 

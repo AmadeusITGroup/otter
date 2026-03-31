@@ -33,6 +33,14 @@ class MockConnectDirective {
 })
 class MockScalableDirective {}
 
+@Directive({
+  selector: 'iframe[mfeSandbox]',
+  standalone: true
+})
+class MockSandboxDirective {
+  public readonly mfeSandbox = input('');
+}
+
 @Pipe({
   name: 'hostInfo',
   standalone: true
@@ -86,7 +94,7 @@ describe('IframeEmbedComponent', () => {
       ]
     }).overrideComponent(IframeEmbedComponent, {
       set: {
-        imports: [MockConnectDirective, MockScalableDirective, MockHostInfoPipe, MockApplyTheme]
+        imports: [MockConnectDirective, MockScalableDirective, MockHostInfoPipe, MockApplyTheme, MockSandboxDirective]
       }
     }).compileComponents();
 
@@ -159,9 +167,8 @@ describe('IframeEmbedComponent', () => {
       expect(iframe).toBeTruthy();
     });
 
-    it('should have a static sandbox attribute with the expected permissions', () => {
-      const iframe = hostFixture.nativeElement.querySelector('iframe') as HTMLIFrameElement;
-      expect(iframe.getAttribute('sandbox')).toBe('allow-scripts allow-forms allow-same-origin allow-downloads');
+    it('should have the default sandbox attribute', () => {
+      expect(component.sandbox()).toBe('allow-scripts allow-same-origin');
     });
 
     it('should apply the scalable directive', () => {
