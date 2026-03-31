@@ -453,7 +453,7 @@ __metadata:
     "@angular/platform-browser": "npm:~21.2.4"
     "@angular/platform-browser-dynamic": "npm:~21.2.4"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@modelcontextprotocol/sdk": "npm:~1.27.0"
+    "@modelcontextprotocol/sdk": "npm:~1.28.0"
     "@nx/eslint": "npm:~22.6.0"
     "@nx/eslint-plugin": "npm:~22.6.0"
     "@nx/jest": "npm:~22.6.0"
@@ -514,7 +514,7 @@ __metadata:
     "@angular/platform-browser": "npm:~21.2.4"
     "@angular/platform-browser-dynamic": "npm:~21.2.4"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@modelcontextprotocol/sdk": "npm:~1.27.0"
+    "@modelcontextprotocol/sdk": "npm:~1.28.0"
     "@nx/eslint": "npm:~22.6.0"
     "@nx/eslint-plugin": "npm:~22.6.0"
     "@nx/jest": "npm:~22.6.0"
@@ -579,7 +579,7 @@ __metadata:
     "@angular/platform-browser": "npm:~21.2.4"
     "@angular/platform-browser-dynamic": "npm:~21.2.4"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@modelcontextprotocol/sdk": "npm:~1.27.0"
+    "@modelcontextprotocol/sdk": "npm:~1.28.0"
     "@nx/eslint": "npm:~22.6.0"
     "@nx/eslint-plugin": "npm:~22.6.0"
     "@nx/jest": "npm:~22.6.0"
@@ -643,7 +643,7 @@ __metadata:
     "@angular/platform-browser": "npm:~21.2.4"
     "@angular/platform-browser-dynamic": "npm:~21.2.4"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@modelcontextprotocol/sdk": "npm:~1.27.0"
+    "@modelcontextprotocol/sdk": "npm:~1.28.0"
     "@nx/eslint": "npm:~22.6.0"
     "@nx/eslint-plugin": "npm:~22.6.0"
     "@nx/jest": "npm:~22.6.0"
@@ -702,7 +702,7 @@ __metadata:
   dependencies:
     "@ama-mcp/core": "workspace:~"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@modelcontextprotocol/sdk": "npm:~1.27.0"
+    "@modelcontextprotocol/sdk": "npm:~1.28.0"
     "@nx/eslint": "npm:~22.6.0"
     "@nx/eslint-plugin": "npm:~22.6.0"
     "@nx/jest": "npm:~22.6.0"
@@ -1078,7 +1078,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:~"
     "@o3r/telemetry": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@redocly/openapi-core": "npm:~2.24.0"
+    "@redocly/openapi-core": "npm:~2.25.0"
     "@stylistic/eslint-plugin": "npm:~5.10.0"
     "@types/minimist": "npm:^1.2.2"
     "@types/node": "npm:~24.12.0"
@@ -1448,7 +1448,7 @@ __metadata:
     "@o3r/schematics": "workspace:*"
     "@o3r/telemetry": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@openapitools/openapi-generator-cli": "npm:~2.30.0"
+    "@openapitools/openapi-generator-cli": "npm:~2.31.0"
     "@schematics/angular": "npm:~21.2.0"
     "@stylistic/eslint-plugin": "npm:~5.10.0"
     "@types/jest": "npm:~30.0.0"
@@ -1510,7 +1510,7 @@ __metadata:
     "@o3r/schematics": "workspace:~"
     "@o3r/telemetry": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@openapitools/openapi-generator-cli": "npm:~2.30.0"
+    "@openapitools/openapi-generator-cli": "npm:~2.31.0"
     "@schematics/angular": "npm:~21.2.0"
     "@stylistic/eslint-plugin": "npm:~5.10.0"
     "@types/ejs": "npm:^3.1.2"
@@ -1830,7 +1830,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:~"
     "@o3r/schematics": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@openapitools/openapi-generator-cli": "npm:~2.30.0"
+    "@openapitools/openapi-generator-cli": "npm:~2.31.0"
     "@schematics/angular": "npm:~21.2.0"
     "@stylistic/eslint-plugin": "npm:~5.10.0"
     "@swc/cli": "npm:~0.8.0"
@@ -2882,12 +2882,12 @@ __metadata:
   linkType: hard
 
 "@azure/functions@npm:^4.1.0":
-  version: 4.11.2
-  resolution: "@azure/functions@npm:4.11.2"
+  version: 4.12.0
+  resolution: "@azure/functions@npm:4.12.0"
   dependencies:
     "@azure/functions-extensions-base": "npm:0.2.0"
     cookie: "npm:^0.7.0"
-  checksum: 10/5d639d28e1345a37e51c2a2b2be07ee502584fe18f80a18b86d28327740e40a820c42f33f88dbc7c5cb9c013236faeec7b57a42928cf004b975db878a5c4937f
+  checksum: 10/80da22a3bb048bc90eafb40e65d4ad7a524549a4829f42ade41feb72851a20f702fa038f2d9e91e94388a27567d7b647fe33484a2a44e3bbebd27cb00fb39d1d
   languageName: node
   linkType: hard
 
@@ -7365,9 +7365,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@modelcontextprotocol/sdk@npm:~1.27.0":
-  version: 1.27.1
-  resolution: "@modelcontextprotocol/sdk@npm:1.27.1"
+"@modelcontextprotocol/sdk@npm:~1.28.0":
+  version: 1.28.0
+  resolution: "@modelcontextprotocol/sdk@npm:1.28.0"
   dependencies:
     "@hono/node-server": "npm:^1.19.9"
     ajv: "npm:^8.17.1"
@@ -7394,7 +7394,7 @@ __metadata:
       optional: true
     zod:
       optional: false
-  checksum: 10/3cb0d61cfb916e555c85b4a527e772f88fcf9c6abacbe5eb5e965aac7c898190c416341ab3b3cba8c2d5f5ce4d513279fba3ad7784a0903d7ccd335decc55395
+  checksum: 10/df5d6db04607d26029c6c60f82dc10a09f7d60939aaf7916fd5ab5d45d434eb1d4551089735321527fa724a81f9231dcef395978a31ee0d0338d7cc154172ccd
   languageName: node
   linkType: hard
 
@@ -8003,11 +8003,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nestjs/common@npm:11.1.16":
-  version: 11.1.16
-  resolution: "@nestjs/common@npm:11.1.16"
+"@nestjs/common@npm:11.1.17":
+  version: 11.1.17
+  resolution: "@nestjs/common@npm:11.1.17"
   dependencies:
-    file-type: "npm:21.3.0"
+    file-type: "npm:21.3.2"
     iterare: "npm:1.2.1"
     load-esm: "npm:1.0.3"
     tslib: "npm:2.8.1"
@@ -8022,13 +8022,13 @@ __metadata:
       optional: true
     class-validator:
       optional: true
-  checksum: 10/23b0bd734333f17c97712d441d5ba0ff1981968f4fe1d3b3b8b0eafd3598c97f16b40e29d14f9cbf0dd3dfd98d665fe532f85b91dabc36c82f0783cb31160b30
+  checksum: 10/5cf09b83373ac1090a3f81ffcf34b91237f062b7e48ff37453e7c2d0cb4373e2e8dc33ed13636ff0e944a900ab19508436a76c8a5e73702d57f930ed5a0cc9c2
   languageName: node
   linkType: hard
 
-"@nestjs/core@npm:11.1.16":
-  version: 11.1.16
-  resolution: "@nestjs/core@npm:11.1.16"
+"@nestjs/core@npm:11.1.17":
+  version: 11.1.17
+  resolution: "@nestjs/core@npm:11.1.17"
   dependencies:
     "@nuxt/opencollective": "npm:0.4.1"
     fast-safe-stringify: "npm:2.1.1"
@@ -8050,7 +8050,7 @@ __metadata:
       optional: true
     "@nestjs/websockets":
       optional: true
-  checksum: 10/a4e53b3877a503c78c763b2535307a5c43133e114ee826640b1e4d8feb5142a36e16f5db591e8d2077626a28e4e5cf2076fbacc217e0141557e21a3b85649326
+  checksum: 10/287e14b4d4a662071c9ad41d8f864010561108241da4c2b9df2f7d41962a0a9e5be6e5bcdf9b04087955ef62b7ff56f4c892da25827566dbe5bd06a921c39f8a
   languageName: node
   linkType: hard
 
@@ -8765,7 +8765,7 @@ __metadata:
     "@o3r/eslint-config": "workspace:~"
     "@o3r/eslint-plugin": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@openapitools/openapi-generator-cli": "npm:~2.30.0"
+    "@openapitools/openapi-generator-cli": "npm:~2.31.0"
     "@schematics/angular": "npm:~21.2.0"
     "@stylistic/eslint-plugin": "npm:~5.10.0"
     "@swc/cli": "npm:~0.8.0"
@@ -8835,7 +8835,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:~"
     "@o3r/schematics": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@openapitools/openapi-generator-cli": "npm:~2.30.0"
+    "@openapitools/openapi-generator-cli": "npm:~2.31.0"
     "@schematics/angular": "npm:~21.2.0"
     "@stylistic/eslint-plugin": "npm:~5.10.0"
     "@swc/cli": "npm:~0.8.0"
@@ -10969,7 +10969,7 @@ __metadata:
     "@angular/platform-browser": "npm:~21.2.4"
     "@angular/platform-browser-dynamic": "npm:~21.2.4"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
-    "@modelcontextprotocol/sdk": "npm:~1.27.0"
+    "@modelcontextprotocol/sdk": "npm:~1.28.0"
     "@nx/eslint": "npm:~22.6.0"
     "@nx/eslint-plugin": "npm:~22.6.0"
     "@nx/jest": "npm:~22.6.0"
@@ -12940,14 +12940,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openapitools/openapi-generator-cli@npm:~2.30.0":
-  version: 2.30.2
-  resolution: "@openapitools/openapi-generator-cli@npm:2.30.2"
+"@openapitools/openapi-generator-cli@npm:~2.31.0":
+  version: 2.31.0
+  resolution: "@openapitools/openapi-generator-cli@npm:2.31.0"
   dependencies:
     "@inquirer/select": "npm:1.3.3"
     "@nestjs/axios": "npm:4.0.1"
-    "@nestjs/common": "npm:11.1.16"
-    "@nestjs/core": "npm:11.1.16"
+    "@nestjs/common": "npm:11.1.17"
+    "@nestjs/core": "npm:11.1.17"
     "@nuxtjs/opencollective": "npm:0.3.2"
     axios: "npm:^1.13.6"
     chalk: "npm:4.1.2"
@@ -12963,7 +12963,7 @@ __metadata:
     tslib: "npm:2.8.1"
   bin:
     openapi-generator-cli: main.js
-  checksum: 10/247d3e3fce575440a6ce45c28b5851b4f07c6dd414a1f71526109e69f3768f1379871f92f822075625fd95c038cd5e8c11f486060a3f1c5a82ac3e5ec620acc7
+  checksum: 10/8b09cd463eaf748f65a8a5cd93b07f507e945e1389192f5f169db8e42baf5a207e6f3cfa47593dc2c77b2af3981370744261b757b95edbe19f16e5e619946b82
   languageName: node
   linkType: hard
 
@@ -13954,30 +13954,30 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@redocly/config@npm:^0.44.1":
-  version: 0.44.1
-  resolution: "@redocly/config@npm:0.44.1"
+"@redocly/config@npm:^0.45.0":
+  version: 0.45.0
+  resolution: "@redocly/config@npm:0.45.0"
   dependencies:
     json-schema-to-ts: "npm:2.7.2"
-  checksum: 10/d7390032cf0d06adddfcc69172f47193f280a993a55f5567d0dc2611d76ad0d773465f9052964a9926d404a75749ff7e955601a081be91372c1386d27836fc14
+  checksum: 10/a0abef4059d71641432ee721d56c678545441576db174f73fd8bf0ae4f92fcc182b6c399a2a4976814fddcbed21fcf4028c57f6fe193077a3c93b59773cc1a54
   languageName: node
   linkType: hard
 
-"@redocly/openapi-core@npm:~2.24.0":
-  version: 2.24.1
-  resolution: "@redocly/openapi-core@npm:2.24.1"
+"@redocly/openapi-core@npm:~2.25.0":
+  version: 2.25.2
+  resolution: "@redocly/openapi-core@npm:2.25.2"
   dependencies:
     "@redocly/ajv": "npm:^8.18.0"
-    "@redocly/config": "npm:^0.44.1"
+    "@redocly/config": "npm:^0.45.0"
     ajv: "npm:@redocly/ajv@8.18.0"
     ajv-formats: "npm:^3.0.1"
     colorette: "npm:^1.2.0"
     js-levenshtein: "npm:^1.1.6"
     js-yaml: "npm:^4.1.0"
-    picomatch: "npm:^4.0.3"
+    picomatch: "npm:^4.0.4"
     pluralize: "npm:^8.0.0"
     yaml-ast-parser: "npm:0.0.43"
-  checksum: 10/eb6e6781e27bc233ae8235901f77eadc5cbff6635af4b31a4346c5be89ec9632bc6b48807bf13bbb536715ea1cdfac9b61e1b55281a5a182e71d886ba1a75e3f
+  checksum: 10/3127650f647c8cc3891709ee20bdddeeaae3dd900130776af7b35f1f48b3cb8e82c3504f2a8078fdbcfe6952f08f453e8671802c8e717caef4930e00cb07fb3f
   languageName: node
   linkType: hard
 
@@ -24925,15 +24925,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"file-type@npm:21.3.0":
-  version: 21.3.0
-  resolution: "file-type@npm:21.3.0"
+"file-type@npm:21.3.2":
+  version: 21.3.2
+  resolution: "file-type@npm:21.3.2"
   dependencies:
     "@tokenizer/inflate": "npm:^0.4.1"
     strtok3: "npm:^10.3.4"
     token-types: "npm:^6.1.1"
     uint8array-extras: "npm:^1.4.0"
-  checksum: 10/8eb8707f34d0a0fd6c2d2b223edf1ed6235cb00a44a90216741be9e812ae08dc8497dbf4e2dd63e629728509cdf361070ed32ae2280724744463ab459da81a83
+  checksum: 10/3912271811e0c745d43ff1f6c97e66d4b0d890c68d1041de4ef0c8068ede46f725ef3ed0f92c97d0cd2a261f84c3b51881d60ab797e47fa9a15e7ed227f04c85
   languageName: node
   linkType: hard
 
@@ -32794,7 +32794,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"picomatch@npm:4.0.3, picomatch@npm:^4.0.2, picomatch@npm:^4.0.3":
+"picomatch@npm:4.0.3":
   version: 4.0.3
   resolution: "picomatch@npm:4.0.3"
   checksum: 10/57b99055f40b16798f2802916d9c17e9744e620a0db136554af01d19598b96e45e2f00014c91d1b8b13874b80caa8c295b3d589a3f72373ec4aaf54baa5962d5
@@ -32805,6 +32805,13 @@ __metadata:
   version: 2.3.1
   resolution: "picomatch@npm:2.3.1"
   checksum: 10/60c2595003b05e4535394d1da94850f5372c9427ca4413b71210f437f7b2ca091dbd611c45e8b37d10036fa8eade25c1b8951654f9d3973bfa66a2ff4d3b08bc
+  languageName: node
+  linkType: hard
+
+"picomatch@npm:^4.0.2, picomatch@npm:^4.0.3, picomatch@npm:^4.0.4":
+  version: 4.0.4
+  resolution: "picomatch@npm:4.0.4"
+  checksum: 10/f6ef80a3590827ce20378ae110ac78209cc4f74d39236370f1780f957b7ee41c12acde0e4651b90f39983506fd2f5e449994716f516db2e9752924aff8de93ce
   languageName: node
   linkType: hard
 

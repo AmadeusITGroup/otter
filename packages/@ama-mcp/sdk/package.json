@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@ama-mcp/core": "workspace:~",
-    "@modelcontextprotocol/sdk": "~1.27.0",
+    "@modelcontextprotocol/sdk": "~1.28.0",
     "@o3r/telemetry": "workspace:~",
     "commander": "^14.0.0",
     "tslib": "^2.6.2",
@@ -38,7 +38,7 @@
   "devDependencies": {
     "@ama-mcp/core": "workspace:~",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
-    "@modelcontextprotocol/sdk": "~1.27.0",
+    "@modelcontextprotocol/sdk": "~1.28.0",
     "@nx/eslint": "~22.6.0",
     "@nx/eslint-plugin": "~22.6.0",
     "@nx/jest": "~22.6.0",
