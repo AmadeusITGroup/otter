@@ -18,7 +18,9 @@ import {
   sep,
 } from 'node:path';
 
-const refMatcher = /\B["']?\$ref["']?\s*:\s*([^\n#]+)/g;
+type Logger = Pick<Console, 'error'>;
+
+const refMatcher = /\B["']?\$ref["']?\s*:\s*(?:>-?\s*\n\s*)?([^\n#>]+)/g;
 
 /**
  * Extract the list of local references from a single spec file content
@@ -82,8 +84,10 @@ export function updateLocalRelativeRefs(specContent: string, newBaseRelativePath
  * Copy the local files referenced in the input spec file to the output directory
  * @param specFilePath
  * @param outputDirectory
+ * @param options
+ * @param options.logger
  */
-export async function copyReferencedFiles(specFilePath: string, outputDirectory: string) {
+export async function copyReferencedFiles(specFilePath: string, outputDirectory: string, options?: { logger?: Logger }): Promise<string> {
   const dedupe = (paths: string[]) => ([...new Set(paths)]);
   const allRefPaths = await extractRefPathRecursive(specFilePath, specFilePath, new Set());
   const refPaths = dedupe(allRefPaths);
@@ -104,7 +108,11 @@ export async function copyReferencedFiles(specFilePath: string, outputDirectory:
       if (!existsSync(dirname(destPath))) {
         await mkdir(dirname(destPath), { recursive: true });
       }
-      await copyFile(sourcePath, destPath);
+      try {
+        await copyFile(sourcePath, destPath);
+      } catch (error) {
+        options?.logger?.error(`Error copying file from ${sourcePath} to ${destPath}:`, error);
+      }
     }));
 
     return join(outputDirectory, baseRelativePath);
