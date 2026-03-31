@@ -9473,8 +9473,8 @@ __metadata:
     "@types/jest": "npm:~30.0.0"
     "@types/tinycolor2": "npm:^1.4.6"
     "@typescript-eslint/parser": "npm:~8.57.0"
-    ag-grid-angular: "npm:~35.1.0"
-    ag-grid-community: "npm:~35.1.0"
+    ag-grid-angular: "npm:~35.2.0"
+    ag-grid-community: "npm:~35.2.0"
     angular-eslint: "npm:~21.3.0"
     archiver: "npm:^7.0.0"
     bootstrap: "npm:5.3.8"
@@ -10542,8 +10542,8 @@ __metadata:
     "@xterm/addon-fit": "npm:^0.11.0"
     "@xterm/xterm": "npm:~6.0.0"
     "@yarnpkg/sdks": "npm:^3.2.0"
-    ag-grid-angular: "npm:~35.1.0"
-    ag-grid-community: "npm:~35.1.0"
+    ag-grid-angular: "npm:~35.2.0"
+    ag-grid-community: "npm:~35.2.0"
     angular-eslint: "npm:~21.3.0"
     angular-split: "npm:^20.0.0"
     babel-loader: "npm:^10.0.0"
@@ -11718,8 +11718,8 @@ __metadata:
     "@webcontainer/api": "npm:~1.6.0"
     "@xterm/addon-fit": "npm:^0.11.0"
     "@xterm/xterm": "npm:~6.0.0"
-    ag-grid-angular: "npm:~35.1.0"
-    ag-grid-community: "npm:~35.1.0"
+    ag-grid-angular: "npm:~35.2.0"
+    ag-grid-community: "npm:~35.2.0"
     angular-eslint: "npm:~21.3.0"
     angular-split: "npm:^20.0.0"
     bootstrap: "npm:5.3.8"
@@ -18651,32 +18651,32 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ag-charts-types@npm:13.1.0":
-  version: 13.1.0
-  resolution: "ag-charts-types@npm:13.1.0"
-  checksum: 10/8f53271a6ef04c45835f0a67ec474a10bfa7dd890d7636c1c564f2c7b6ee813dac13da7dd7800391db8ad260f26e4f249d22597835add9aebfd680479c109c7b
+"ag-charts-types@npm:13.2.0":
+  version: 13.2.0
+  resolution: "ag-charts-types@npm:13.2.0"
+  checksum: 10/b798c06e3ad34ea2ad5c61d33a18b7b0c28cd3aac1220af5c25d0991baa8a7a86ca333371645b008054eab7ed0f0522783f1182db9aced85108df45bdef2f2f4
   languageName: node
   linkType: hard
 
-"ag-grid-angular@npm:~35.1.0":
-  version: 35.1.0
-  resolution: "ag-grid-angular@npm:35.1.0"
+"ag-grid-angular@npm:~35.2.0":
+  version: 35.2.0
+  resolution: "ag-grid-angular@npm:35.2.0"
   dependencies:
-    ag-grid-community: "npm:35.1.0"
+    ag-grid-community: "npm:35.2.0"
     tslib: "npm:^2.3.0"
   peerDependencies:
     "@angular/common": ">= 18.0.0"
     "@angular/core": ">= 18.0.0"
-  checksum: 10/08bffe995f610a9712186aeb3947ad03db5cb779f88274157bd9416aeb7d26402feb520af87fe21921fdfa0edcd57f26852c11dadb0b3109d2b06df28b2dc546
+  checksum: 10/e455109a0a25d0588a8ea40fc250d9e304ccec5ee658456743339959da899c9482204f424d3f5fc2ad8cffd9b77335d8de0402eb929e168e488e07f03c6e71c8
   languageName: node
   linkType: hard
 
-"ag-grid-community@npm:35.1.0, ag-grid-community@npm:~35.1.0":
-  version: 35.1.0
-  resolution: "ag-grid-community@npm:35.1.0"
+"ag-grid-community@npm:35.2.0, ag-grid-community@npm:~35.2.0":
+  version: 35.2.0
+  resolution: "ag-grid-community@npm:35.2.0"
   dependencies:
-    ag-charts-types: "npm:13.1.0"
-  checksum: 10/5d37ee9d20335f24e44947807c8cc6aaa1d6df0acd7e897203b01e688fa7c5f36594148cca35876d03bd5fffabcffaa91788ff73e217222fbc6a51174dbadf69
+    ag-charts-types: "npm:13.2.0"
+  checksum: 10/f87d3419b5f63158f83568869f6c0ab9fe8d4bf008d680e2ecb062cbf3552631d00fa89fcb94bda8720373bb120fe2ff25c72c88431a32f922b0fbc0edcd294d
   languageName: node
   linkType: hard
 
