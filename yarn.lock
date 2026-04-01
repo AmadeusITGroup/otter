@@ -5802,9 +5802,9 @@ __metadata:
   linkType: hard
 
 "@figma/plugin-typings@npm:^1.107.0":
-  version: 1.123.0
-  resolution: "@figma/plugin-typings@npm:1.123.0"
-  checksum: 10/ebf1319e0754f73fe2966a3bcd481d2bbb087b4a81b2c6ed1990feeef32532c2745e3794a6ad72c835841864fddc3c7acc50b118a2dddbbf91806e8df8af5b20
+  version: 1.124.0
+  resolution: "@figma/plugin-typings@npm:1.124.0"
+  checksum: 10/ed4e05b4e93b006db6dc9c5a5d49a7fbb318ea8bc87af28af5d5466e7ef4ab34a8a0a1940eada0284ffd0058a47eb96fe0dc4adea92d60bc5038febb4b296739
   languageName: node
   linkType: hard
 
