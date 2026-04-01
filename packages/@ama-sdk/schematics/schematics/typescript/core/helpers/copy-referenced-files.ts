@@ -73,10 +73,16 @@ const formatPath = (inputPath: string) => (inputPath.startsWith('.') ? inputPath
  */
 export function updateLocalRelativeRefs(specContent: string, newBaseRelativePath: string) {
   return specContent.replace(refMatcher, (match, ref: string) => {
-    const refPath = ref.replace(/["']/g, '');
-    return refPath.startsWith('.')
-      ? match.replace(refPath, formatPath(normalize(posix.join(newBaseRelativePath.replaceAll(sep, posix.sep), refPath))))
-      : match;
+    const refPath = ref.replace(/["']/g, '').trim();
+    if (!refPath.startsWith('.')) {
+      return match;
+    }
+    const newPath = formatPath(normalize(posix.join(newBaseRelativePath.replaceAll(sep, posix.sep), refPath)));
+    // Normalize block scalar (>-) multiline format to single-line
+    if (/>\-?\s*\n/.test(match)) {
+      return `$ref: '${newPath}'`;
+    }
+    return match.replace(refPath, newPath);
   });
 }
 
