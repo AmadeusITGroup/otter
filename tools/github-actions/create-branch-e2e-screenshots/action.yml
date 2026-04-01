@@ -26,6 +26,7 @@ runs:
       with:
         commit_message: ${{ inputs.commitMessage }}
         branch: ${{ inputs.branchName }}
+        create_branch: true
         file_pattern: ${{ inputs.screenshotsPattern }}
     - name: Comment the PR
       if: ${{ steps.auto-commit-action.outputs.changes_detected == 'true' }}
