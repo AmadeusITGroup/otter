@@ -591,4 +591,22 @@ public class LambdaHelper {
           return requestBodyTransform.replace("{{bodyRequest}}", fragment);
         }
     }
+
+    public static class RemoveDuplicateEmptyLines extends CustomLambda {
+
+        final String whitespaceTransform = "(\\n\\r?){3,}";
+        final String trailingWhitespaceTransform = "(\\n\\r?){2,}$";
+
+        public RemoveDuplicateEmptyLines() {
+        }
+
+        @Override
+        public String formatFragment(String fragment) {
+          if (fragment == null || fragment.equals("")) {
+            return fragment;
+          }
+          fragment = fragment.replaceAll(whitespaceTransform, "\n");
+          return fragment.replaceAll(trailingWhitespaceTransform, "\n");
+        }
+    }
 }

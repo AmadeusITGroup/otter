@@ -10,7 +10,10 @@
         "output": ".",
         "inputSpec": "./open-api.yaml",
         "globalProperty": {
+          "overrideDiscriminatorTypeWithValue": true,
+          "useDynamicEnumType": true,
           "stringifyDate": true,
+          "childrenModelListTypeSuffix": "Children",
           "requestBodyTransform": "content{{bodyRequest}}"
         }
       }

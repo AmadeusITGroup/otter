@@ -223,10 +223,14 @@
         "source",
         "specs"
       ],
-      "dependsOn": [{
-        "projects": ["test-helpers"],
-        "target": "build"
-      }],
+      "dependsOn": [
+        {
+          "projects": [
+            "test-helpers"
+          ],
+          "target": "build"
+        }
+      ],
       "outputs": [
         "{projectRoot}/dist-test/junit.xml",
         "{projectRoot}/coverage/cobertura-coverage.xml"
@@ -247,10 +251,14 @@
     },
     "test-int": {
       "executor": "@nx/jest:jest",
-      "dependsOn": [{
-        "projects": ["test-helpers"],
-        "target": "build"
-      }],
+      "dependsOn": [
+        {
+          "projects": [
+            "test-helpers"
+          ],
+          "target": "build"
+        }
+      ],
       "inputs": [
         {
           "env": "RUNNER_OS"
@@ -732,5 +740,6 @@
     "appsDir": "apps"
   },
   "cacheDirectory": ".cache/nx",
-  "nxCloudId": "63e6951e043da20dd8321aec"
+  "nxCloudId": "63e6951e043da20dd8321aec",
+  "analytics": false
 }

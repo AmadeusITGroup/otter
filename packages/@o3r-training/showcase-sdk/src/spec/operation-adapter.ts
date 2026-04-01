@@ -2,6 +2,8 @@ import {PathObject} from '@ama-sdk/core';
 
 /* eslint-disable max-len */
 export const OPERATION_ADAPTER: PathObject[] = [{
+      path: "/animal",urlPattern: "/animal(?:/(?=$))?$",regexp: new RegExp('^/animal(?:/(?=$))?$'),operations: [{"method":"get","operationId":"animalGet"}]
+    },{
       path: "/pet",urlPattern: "/pet(?:/(?=$))?$",regexp: new RegExp('^/pet(?:/(?=$))?$'),operations: [{"method":"post","operationId":"addPet"},{"method":"put","operationId":"updatePet"}]
     },{
       path: "/pet/findByStatus",urlPattern: "/pet/findByStatus(?:/(?=$))?$",regexp: new RegExp('^/pet/findByStatus(?:/(?=$))?$'),operations: [{"method":"get","operationId":"findPetsByStatus"}]

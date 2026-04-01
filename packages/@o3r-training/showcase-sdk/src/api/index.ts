@@ -1,3 +1,5 @@
+export type { DummyApiAnimalGetRequestData } from './dummy/index';
+export { DummyApi } from './dummy/index';
 export type { PetApiAddPetRequestData, PetApiDeletePetRequestData, PetApiFindPetsByStatusRequestData, PetApiFindPetsByTagsRequestData, PetApiGetPetByIdRequestData, PetApiUpdatePetRequestData, PetApiUpdatePetWithFormRequestData, PetApiUploadFileRequestData } from './pet/index';
 export { PetApi } from './pet/index';
 export type { StoreApiDeleteOrderRequestData, StoreApiGetInventoryRequestData, StoreApiGetOrderByIdRequestData, StoreApiPlaceOrderRequestData } from './store/index';

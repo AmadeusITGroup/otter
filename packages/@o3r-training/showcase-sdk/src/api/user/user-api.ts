@@ -1,4 +1,4 @@
-import { User } from '../../models/base/user/index';
+import type { User } from '../../models/base/user/index';
 import { Api, ApiClient, ApiTypes, computePiiParameterTokens, isJsonMimeType, ParamSerializationOptions, RequestBody, RequestMetadata, Server, selectServerBasePath, } from '@ama-sdk/core';
 import { SDK_SERVERS } from '../../constants/servers';
 /** Parameters object to UserApi's createUser function */

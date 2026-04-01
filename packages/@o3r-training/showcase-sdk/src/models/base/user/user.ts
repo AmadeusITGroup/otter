@@ -4,9 +4,6 @@
  * THIS FILE HAS BEEN AUTOMATICALLY GENERATED. DO NOT EDIT.
  *
  */
-
-
-
 export interface User {
   id?: number;
   username?: string;
@@ -17,6 +14,5 @@ export interface User {
   phone?: string;
   /** User Status */
   userStatus?: number;
+
 }
-
-

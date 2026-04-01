@@ -41,6 +41,20 @@ tags:
   - name: user
     description: Operations about user
 paths:
+  /animal:
+    get:
+      tags:
+        - "dummy"
+      summary: Animal get
+      description: Get an animal
+      operationId: animalGet
+      responses:
+        200:
+          description: "Successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Animal'
   /pet:
     post:
       servers:
@@ -630,6 +644,38 @@ externalDocs:
   url: 'http://swagger.io'
 components:
   schemas:
+    Animal:
+      type: object
+      required:
+        - petType
+      properties:
+        petType:
+          type: string
+          enum: [cat, dog] # <- optional enum, can be forgotten in the declaration without changing generated code
+      discriminator:
+        propertyName: petType
+        mapping: # <- mandatory
+          dog: "#/components/schemas/Dog"
+          cat: "#/components/schemas/Cat"
+    Dog:
+      allOf:
+        - $ref: '#/components/schemas/Animal'
+        - type: object
+          properties:
+            bark:
+              type: boolean
+            breed:
+              type: string
+              enum: [Dingo, Husky, Retriever, Shepherd]
+    Cat:
+      allOf:
+        - $ref: '#/components/schemas/Animal'
+        - type: object
+          properties:
+            hunts:
+              type: boolean
+            age:
+              type: integer
     Order:
       x-swagger-router-model: io.swagger.petstore.model.Order
       properties:

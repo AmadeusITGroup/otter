@@ -1,3 +1,4 @@
+{{#noMultipleEmptyLines}}
 {{#noUnusedImport}}
 /**
  * Model: {{classname}}
@@ -15,7 +16,7 @@ import {utils} from '@ama-sdk/core';
 {{/models}}
 
 {{#imports}}
-import { {{import}} } from '../{{#kebabCase}}{{import}}{{/kebabCase}}';
+import type { {{import}} } from '../{{#kebabCase}}{{import}}{{/kebabCase}}';
 {{/imports}}
 
 {{#models}}
@@ -69,6 +70,10 @@ export interface {{classname}} {{#parent}}extends {{{parent}}} {{/parent}}{
           {{/x-map-name}}
         {{/vendorExtensions}}
       {{/vars}}
+{{#parent}}{{#vendorExtensions}}{{#x-discriminator-field}}{{#x-override-discriminator-type-with-value}}
+  /** @see {{parent}}.{{x-discriminator-field}} */
+  {{x-discriminator-field}}: '{{x-discriminator-value}}';
+{{/x-override-discriminator-type-with-value}}{{/x-discriminator-field}}{{/vendorExtensions}}{{/parent}}
 }
     {{/oneOf}}
     {{#oneOf}}
@@ -84,7 +89,11 @@ export type {{classname}} = {{#oneOf}}{{.}}{{^-last}} | {{/-last}}{{/oneOf}};
 export const {{#upperSnakeCase}}list{{#removeBrackets}}{{{datatypeWithEnum}}}{{/removeBrackets}}{{/upperSnakeCase}} = [{{#trimComma}}{{#vendorExtensions}}{{#x-sanitized-allowable-values}}'{{.}}'{{^-last}}, {{/-last}}{{/x-sanitized-allowable-values}}{{/vendorExtensions}}{{/trimComma}}] as const;
 
 /** List of available values for {{#removeBrackets}}{{{datatypeWithEnum}}}{{/removeBrackets}} */
+{{#vendorExtensions}}{{#x-use-dynamic-enum-type}}
+export type {{#removeBrackets}}{{{datatypeWithEnum}}}{{/removeBrackets}} = typeof {{#upperSnakeCase}}list{{#removeBrackets}}{{{datatypeWithEnum}}}{{/removeBrackets}}{{/upperSnakeCase}}[number];
+{{/x-use-dynamic-enum-type}}{{^x-use-dynamic-enum-type}}
 export type {{#removeBrackets}}{{{datatypeWithEnum}}}{{/removeBrackets}} = {{#trimPipe}}{{#allowableValues}}{{#values}}'{{.}}' | {{/values}}{{/allowableValues}}{{/trimPipe}};
+{{/x-use-dynamic-enum-type}}{{/vendorExtensions}}
         {{/isEnum}}
       {{/allVars}}
     {{/hasEnums}}
@@ -97,12 +106,34 @@ export const {{baseName}}Pattern = {{#parseRegexp}}{{{pattern}}}{{/parseRegexp}}
     {{/vars}}
   {{/isEnum}}
   {{#isEnum}}
-/** Array of {{classname}} items */
-export const {{#upperSnakeCase}}list{{classname}}{{/upperSnakeCase}} = [{{#trimComma}}{{#allowableValues}}{{#values}}'{{.}}'{{^-last}}, {{/-last}}{{/values}}{{/allowableValues}}{{/trimComma}}] as const;
+/** @inheritDoc */
+export const {{#upperSnakeCase}}list{{classname}}{{/upperSnakeCase}} = [{{#trimComma}}{{#allowableValues}}{{#values}}'{{.}}'{{^-last}}, {{/-last}}{{/values}}{{/allowableValues}}{{/trimComma}}] as const satisfies {{classname}}[];
 
 /** List of available values for {{classname}} */
-export type {{classname}} = {{#trimPipe}}{{#allowableValues}}{{#values}}'{{.}}' | {{/values}}{{/allowableValues}}{{/trimPipe}};
+{{#vendorExtensions}}{{#x-use-dynamic-enum-type}}
+export type {{classname}} = typeof {{#upperSnakeCase}}list{{classname}}{{/upperSnakeCase}}[number];
+{{/x-use-dynamic-enum-type}}{{^x-use-dynamic-enum-type}}
+export type {{classname}} = {{#trimPipe}}{{#allowableValues}}{{#values}}'{{.}}'{{^-last}} | {{/-last}}{{/values}}{{/allowableValues}}{{/trimPipe}};
+{{/x-use-dynamic-enum-type}}{{/vendorExtensions}}
   {{/isEnum}}
+
+{{#vendorExtensions}}{{#discriminator}}{{#x-children-model-list-type-suffix}}
+/** Mapping between discriminator values and their corresponding types for {{classname}} */
+export type {{classname}}{{x-children-model-list-type-suffix}} = {{#x-discriminator-mapping-values}}{{.}}{{^-last}} | {{/-last}}{{/x-discriminator-mapping-values}};
+{{/x-children-model-list-type-suffix}}{{/discriminator}}{{/vendorExtensions}}
+
+{{#parent}}{{#vendorExtensions}}{{#x-discriminator-field}}
+/**
+ * Type guard for {{classname}} implementing the discriminator logic
+ * @param data The data to check
+ * @returns True if the data is of type {{classname}}, false otherwise
+ */
+export const is{{classname}} = (data: {{parent}}): data is {{classname}} => {
+  return data['{{x-discriminator-field}}'] === '{{x-discriminator-value}}';
+};
+{{/x-discriminator-field}}{{/vendorExtensions}}{{/parent}}
+
 {{/model}}
 {{/models}}
 {{/noUnusedImport}}
+{{/noMultipleEmptyLines}}

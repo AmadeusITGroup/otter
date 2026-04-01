@@ -6,8 +6,6 @@
  */
 
 import {utils} from '@ama-sdk/core';
-
-
 export interface Flight {
   originLocationCode: string;
   destinationLocationCode: string;
@@ -15,6 +13,5 @@ export interface Flight {
   departureDateTime: utils.DateTime;
   /** @see Date */
   paymentExpirationDate: Date;
+
 }
-
-

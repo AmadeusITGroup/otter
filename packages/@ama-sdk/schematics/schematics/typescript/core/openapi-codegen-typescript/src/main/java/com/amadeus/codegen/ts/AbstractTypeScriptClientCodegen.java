@@ -47,7 +47,10 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
   private final boolean stringifyDate;
   private final boolean allowModelExtension;
   private final boolean useLegacyDateExtension;
+  private final boolean useDynamicEnumType;
+  private final boolean overrideDiscriminatorTypeWithValue;
   private final String requestBodyTransform;
+  private final String childrenModelListTypeSuffix;
 
   public AbstractTypeScriptClientCodegen() {
     super();
@@ -120,6 +123,12 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
     stringifyDate = stringifyDateString != null ? !"false".equalsIgnoreCase(stringifyDateString) : true;
     String requestBodyTransformString = GlobalSettings.getProperty("requestBodyTransform");
     requestBodyTransform = requestBodyTransformString != null ? requestBodyTransformString : "";
+    String useDynamicEnumTypeString = GlobalSettings.getProperty("useDynamicEnumType");
+    useDynamicEnumType = useDynamicEnumTypeString != null ? !"false".equalsIgnoreCase(useDynamicEnumTypeString) : false;
+    String overrideDiscriminatorTypeWithValueString = GlobalSettings.getProperty("overrideDiscriminatorTypeWithValue");
+    overrideDiscriminatorTypeWithValue = overrideDiscriminatorTypeWithValueString != null ? !"false".equalsIgnoreCase(overrideDiscriminatorTypeWithValueString) : false;
+    String childrenModelListTypeSuffixString = GlobalSettings.getProperty("childrenModelListTypeSuffix");
+    childrenModelListTypeSuffix = childrenModelListTypeSuffixString;
     typeMapping.put("DateTime", useLegacyDateExtension ? "utils.DateTime" : getDateTimeStandardTime(stringifyDate));
     typeMapping.put("Date", useLegacyDateExtension ? "utils.Date" : getDateType(stringifyDate));
     //TODO binary should be mapped to byte array
@@ -161,6 +170,7 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
     additionalProperties.put("resourceFromPath", new LambdaHelper.ResourceFromPath());
     additionalProperties.put("areaFromPath", new LambdaHelper.AreaFromPath());
     additionalProperties.put("noEmptyLines", new LambdaHelper.RemoveEmptyLines());
+    additionalProperties.put("noMultipleEmptyLines", new LambdaHelper.RemoveDuplicateEmptyLines());
     additionalProperties.put("replaceWithEmptyExportIfNeeded", new LambdaHelper.ReplaceWithTextIfEmpty("export {};"));
     additionalProperties.put("propertyDeclaration", new LambdaHelper.PropertyDeclaration());
     additionalProperties.put("propertyAccess", new LambdaHelper.PropertyAccess());
@@ -657,6 +667,15 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
     // Set additional properties and check non model objects
     for (ModelMap modelMap : models) {
       CodegenModel model = modelMap.getModel();
+
+      if (model.discriminator != null) {
+        List<String> discriminatorValues = new ArrayList<String>();
+        for (CodegenDiscriminator.MappedModel mm : model.discriminator.getMappedModels()) {
+          discriminatorValues.add(mm.getModelName());
+        }
+        model.vendorExtensions.put("x-discriminator-mapping-values", discriminatorValues);
+      }
+
       if (model.isEnum) {
         nonObjectModels.add(toModelName(model.name));
       }
@@ -744,6 +763,9 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
   @Override
   public Map<String, ModelsMap> postProcessAllModels(Map<String, ModelsMap> objs) {
     System.out.println("Non object models: " + nonObjectModels.toString());
+
+    Map<String, String> discriminatorField = new HashMap<>();
+    Map<String, String> discriminatorValue = new HashMap<>();
     for (Map.Entry<String, ModelsMap> entry : objs.entrySet()) {
       ModelsMap modelsMap = entry.getValue();
       List<ModelMap> modelMaps = modelsMap.getModels();
@@ -769,12 +791,43 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
             prop.vendorExtensions.put("nonObjectDefinition", nonObjectDefinition);
           }
         }
+
+        if (model.discriminator != null) {
+          for (CodegenDiscriminator.MappedModel mm : model.discriminator.getMappedModels()) {
+            discriminatorField.put(mm.getModelName(), model.discriminator.getPropertyName());
+            discriminatorValue.put(mm.getModelName(), mm.getMappingName());
+          }
+        }
       }
     }
+
     objs = super.postProcessAllModels(objs);
     for (Map.Entry<String, ModelsMap> entry : objs.entrySet()) {
       entry.setValue(this.postProcessImports(entry.getValue()));
+      ModelsMap modelsMap = entry.getValue();
+      List<ModelMap> modelMaps = modelsMap.getModels();
+      for (ModelMap _modelMap : modelMaps) {
+        CodegenModel model = _modelMap.getModel();
+        // Set the useDynamicEnumType vendor extension for the model and its properties to be able to use it in the templates
+        model.vendorExtensions.put("x-use-dynamic-enum-type", useDynamicEnumType);
+        // Set the overrideDiscriminatorTypeWithValue vendor extension for the model to be able to use it in the templates
+        model.vendorExtensions.put("x-override-discriminator-type-with-value", overrideDiscriminatorTypeWithValue);
+        // Set the childrenModelListTypeSuffix vendor extension for the model to be able to use it in the templates
+        model.vendorExtensions.put("x-children-model-list-type-suffix", childrenModelListTypeSuffix);
+        for (CodegenProperty prop : model.getAllVars()) {
+          if (prop.isEnum) {
+            prop.vendorExtensions.put("x-use-dynamic-enum-type", useDynamicEnumType);
+          }
+        }
+
+        // Set discriminator field and value as vendor extension for the model if any, to be able to use it in the templates
+        if (discriminatorField.containsKey(model.classname) && discriminatorValue.containsKey(model.classname)) {
+          model.vendorExtensions.put("x-discriminator-field", discriminatorField.get(model.classname));
+          model.vendorExtensions.put("x-discriminator-value", discriminatorValue.get(model.classname));
+        }
+      }
     }
+
     // if allowModelExtension is true, we don't need to analyze the conditions since we want to ensure the generation of the revivers
     if (!allowModelExtension) {
       Predicate<CodegenProperty> varRequiredReviverPredicate = var -> !(var.isPrimitiveType || var.complexType != null || var.isEnum || var.isEnumRef);

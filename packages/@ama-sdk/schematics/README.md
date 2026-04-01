@@ -200,6 +200,26 @@ The Body request parameter generated in the SDK can also be defined in the speci
 > [!WARNING]
 > This vendor extension will take precedence over the global property `requestBodyTransform`.
 
+##### Dynamic Enums Type
+
+By default, enums are generated as static types. You can enable dynamic enum type generation by using the global property option `useDynamicEnumType` by adding `--global-property useDynamicEnumType=true` to the generator command.
+
+This option allows enums to be generated as dynamic types that can handle additional values not explicitly defined in the specification, making your SDK more resilient to API changes.
+
+Example:
+
+```shell
+yarn schematics @ama-sdk/schematics:typescript-core --spec-path ./swagger-spec.yaml --global-property useDynamicEnumType=true
+```
+
+##### Override Discriminator Type with Value
+
+By default, when a discriminator is used in the specification file, the children models are generated with a type that corresponds to the discriminator property and its value (for example, if the discriminator is `petType` and its value is `Dog`, the generated type for the children model will be `Dog`). You can enable the generation of the discriminator property as a type instead of its value by using the global property option `overrideDiscriminatorTypeWithValue` by adding `--global-property overrideDiscriminatorTypeWithValue=true` to the generator command.
+
+##### Children Model List Type Suffix
+
+The options `childrenModelListTypeSuffix` will add a suffix to the generated type of the list of children models when a discriminator is used in the specification file. If not specified the list of object children will not be generated.
+
 ##### Extensible models
 
 You may be in a case in which you want to be able to extend your SDK models and therefore ensure that revivers are generated

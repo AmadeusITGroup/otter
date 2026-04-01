@@ -1,5 +1,5 @@
-import { ApiResponse } from '../../models/base/api-response/index';
-import { Pet } from '../../models/base/pet/index';
+import type { ApiResponse } from '../../models/base/api-response/index';
+import type { Pet } from '../../models/base/pet/index';
 import { Api, ApiClient, ApiTypes, computePiiParameterTokens, isJsonMimeType, ParamSerializationOptions, RequestBody, RequestMetadata, Server, selectServerBasePath, } from '@ama-sdk/core';
 import { SDK_SERVERS } from '../../constants/servers';
 /** Enum status used in the PetApi's findPetsByStatus function parameter */
