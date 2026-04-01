@@ -61,6 +61,24 @@ describe('DynamicContentService', () => {
     it('should return a non-empty base path when calling getDynamicContentBasePath', () => {
       expect(service.basePath).toBe('dynamic-base-path');
     });
+
+    it('should return the absolute URL as-is for getContentPathStream when an http URL is provided', () => {
+      return expect(firstValueFrom(
+        service.getContentPathStream('http://cdn.example.com/asset.png')
+      )).resolves.toBe('http://cdn.example.com/asset.png');
+    });
+
+    it('should return the absolute URL as-is for getContentPathStream when an https URL is provided', () => {
+      return expect(firstValueFrom(
+        service.getContentPathStream('https://cdn.example.com/asset.png')
+      )).resolves.toBe('https://cdn.example.com/asset.png');
+    });
+
+    it('should return the absolute URL as-is for getMediaPathStream when an https URL is provided', () => {
+      return expect(firstValueFrom(
+        service.getMediaPathStream('https://cdn.example.com/asset.png')
+      )).resolves.toBe('https://cdn.example.com/asset.png');
+    });
   });
 
   describe('with a content base path ending in /', () => {
@@ -341,6 +359,18 @@ describe('DynamicContentService', () => {
         service.getMediaPathStream('/asset.png')
       )).resolves.toBe('my-custom-path/assets/asset.png');
     });
+
+    it('should return the absolute URL as-is for getContentPathStream', () => {
+      return expect(firstValueFrom(
+        service.getContentPathStream('https://cdn.example.com/asset.png')
+      )).resolves.toBe('https://cdn.example.com/asset.png');
+    });
+
+    it('should return the absolute URL as-is for getMediaPathStream', () => {
+      return expect(firstValueFrom(
+        service.getMediaPathStream('https://cdn.example.com/asset.png')
+      )).resolves.toBe('https://cdn.example.com/asset.png');
+    });
   });
 
   describe('with the custom configuration for content as object', () => {
@@ -399,6 +429,18 @@ describe('DynamicContentService', () => {
         service.getMediaPathStream('/asset.png')
       )).resolves.toBe('/asset.png');
     });
+
+    it('should return the absolute URL as-is for getMediaPathStream even when cms assets token is provided', () => {
+      return expect(firstValueFrom(
+        service.getMediaPathStream('https://cdn.example.com/asset.png')
+      )).resolves.toBe('https://cdn.example.com/asset.png');
+    });
+
+    it('should return the absolute URL as-is for getContentPathStream even when cms assets token is provided', () => {
+      return expect(firstValueFrom(
+        service.getContentPathStream('https://cdn.example.com/asset.png')
+      )).resolves.toBe('https://cdn.example.com/asset.png');
+    });
   });
 
   describe('with a tag data-cmsassetspath in the body', () => {
@@ -425,6 +467,18 @@ describe('DynamicContentService', () => {
 
     it('should return the assets path if it is starting with / and cms assets token is provided', () => {
       return expect(firstValueFrom(service.getMediaPathStream('/asset.png'))).resolves.toBe('/asset.png');
+    });
+
+    it('should return the absolute URL as-is for getMediaPathStream even when data-cmsassetspath is set', () => {
+      return expect(firstValueFrom(
+        service.getMediaPathStream('https://cdn.example.com/asset.png')
+      )).resolves.toBe('https://cdn.example.com/asset.png');
+    });
+
+    it('should return the absolute URL as-is for getContentPathStream even when data-cmsassetspath is set', () => {
+      return expect(firstValueFrom(
+        service.getContentPathStream('https://cdn.example.com/asset.png')
+      )).resolves.toBe('https://cdn.example.com/asset.png');
     });
   });
 });
