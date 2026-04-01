@@ -1,0 +1,257 @@
+import {
+  inject,
+  Injectable,
+  signal,
+} from '@angular/core';
+import {
+  toObservable,
+} from '@angular/core/rxjs-interop';
+import {
+  TranslocoService,
+} from '@jsverse/transloco';
+import {
+  select,
+  Store,
+} from '@ngrx/store';
+import {
+  LoggerService,
+} from '@o3r/logger';
+import {
+  combineLatest,
+  distinctUntilChanged,
+  firstValueFrom,
+  map,
+  Observable,
+  of,
+  shareReplay,
+  startWith,
+  switchMap,
+} from 'rxjs';
+import {
+  LocalizationConfiguration,
+} from '../core/localization-configuration';
+import {
+  LocalizationOverrideStore,
+  selectLocalizationOverride,
+} from '../stores/index';
+import {
+  getDebugKey,
+} from './localization-helpers';
+import {
+  LOCALIZATION_CONFIGURATION_TOKEN,
+} from './localization-token';
+
+/**
+ * Service which is wrapping the configuration logic of TranslocoService from JSVerse Transloco.
+ * Any application willing to use localization just needs to inject LocalizationService
+ * in the root component and call its configure() method.
+ */
+@Injectable()
+export class LocalizationService {
+  private readonly translateService = inject(TranslocoService);
+  private readonly logger = inject(LoggerService, { optional: true });
+  private readonly configuration = inject<LocalizationConfiguration>(LOCALIZATION_CONFIGURATION_TOKEN);
+  private readonly store = inject<Store<LocalizationOverrideStore>>(Store, { optional: true });
+
+  private readonly localeSplitIdentifier = '-';
+
+  /**
+   * Internal signal that we use to track changes between keys only and translation mode
+   */
+  private readonly _showKeys = signal(false);
+
+  /**
+   * Map of localization keys to replace a key to another
+   */
+  private readonly keyMapping$?: Observable<Record<string, any>>;
+
+  /**
+   * _showKeys exposed as an Observable
+   */
+  public readonly showKeys$ = toObservable(this._showKeys);
+
+  /**
+   * Return the current value of debug show/hide translation keys.
+   */
+  public readonly showKeys = this._showKeys.asReadonly();
+
+  constructor() {
+    this.configure().catch((err) => {
+      this.logger?.error(`Failed to configure LocalizationService: ${err}`);
+    });
+    if (this.store) {
+      this.keyMapping$ = this.store.pipe(
+        select(selectLocalizationOverride)
+      );
+    } else {
+      this.logger?.debug('Store not available: localization key overrides via rules engine will not be active.');
+    }
+  }
+
+  /**
+   * This will handle the fallback language hierarchy to find out fallback language.
+   * supportedLocales language has highest priority, next priority goes to fallbackLocalesMap and default would be
+   * fallbackLanguage.
+   * @param language Selected language.
+   * @returns selected language if supported, fallback language otherwise.
+   */
+  private checkFallbackLocalesMap<T extends string | undefined>(language: T) {
+    if (language && !this.configuration.supportedLocales.includes(language)) {
+      const closestSupportedLanguageCode = this.getFirstClosestSupportedLanguageCode(language);
+      const fallbackForLanguage = this.getFallbackMapLangCode(language);
+      const fallbackStrategyDebug = (fallbackForLanguage && ' associated fallback language ')
+        || (closestSupportedLanguageCode && ' closest supported language ')
+        || (this.configuration.fallbackLanguage && ' configured default language ');
+      const fallbackLang = fallbackForLanguage || closestSupportedLanguageCode || this.configuration.fallbackLanguage || language;
+      if (language !== fallbackLang) {
+        this.logger?.debug(`Non supported languages ${language} will fallback to ${fallbackStrategyDebug} ${fallbackLang}`);
+      }
+      return fallbackLang;
+    } else if (!language) {
+      this.logger?.debug('Language is not defined');
+    }
+    return language;
+  }
+
+  /**
+   * This function checks if fallback language can be provided from fallbackLocalesMap.
+   * supportedLocales: ['en-GB', 'en-US', 'fr-FR'], fallbackLocalesMap: {'en-CA': 'en-US', 'de': 'fr-FR'}
+   * translate to en-CA -> fallback to en-US, translate to de-DE -> fallback to fr-FR
+   * translate to en-NZ -> fallback to en-GB
+   * @param language Selected language.
+   * @returns Fallback language if available, undefined otherwise.
+   */
+  private getFallbackMapLangCode(language: string): string | undefined {
+    const fallbackLocalesMap = this.configuration.fallbackLocalesMap;
+    const [locale] = language.split(this.localeSplitIdentifier);
+
+    return fallbackLocalesMap && (fallbackLocalesMap[language] || fallbackLocalesMap[locale]);
+  }
+
+  /**
+   * This function checks if closest supported language available incase of selected language is not
+   * supported language.
+   * supportedLocales: ['en-GB', 'en-US', 'fr-FR']
+   * translate to en-CA -> fallback to en-GB
+   * @param language Selected language.
+   * @returns Closest supported language if available, undefined otherwise.
+   */
+  private getFirstClosestSupportedLanguageCode(language: string): string | undefined {
+    const [locale] = language.split(this.localeSplitIdentifier);
+    const firstClosestRegx = new RegExp(`^${locale}${this.localeSplitIdentifier}?`, 'i');
+
+    return this.configuration.supportedLocales.find((supportedLang) => firstClosestRegx.test(supportedLang));
+  }
+
+  /**
+   * Returns a stream of translated values of a key which updates whenever the language changes.
+   * @param translationKey Key to translate
+   * @param interpolateParams Object to use in translation binding
+   * @returns A stream of the translated key
+   */
+  private getTranslationStream(translationKey: string, interpolateParams?: object) {
+    const translation$ = this.translateService.events$.pipe(
+      startWith(undefined),
+      switchMap(() => this.translateService.selectTranslate(translationKey, interpolateParams)),
+      map((value) => this.configuration.debugMode ? getDebugKey(translationKey, value) : value),
+      distinctUntilChanged()
+    );
+
+    if (!this.configuration.enableTranslationDeactivation) {
+      return translation$;
+    }
+
+    return combineLatest([
+      translation$,
+      this.showKeys$
+    ]).pipe(
+      map(([value, showKeys]) => showKeys ? translationKey : value)
+    );
+  }
+
+  /**
+   * Configures TranslocoService and registers locales. This method is called from the application level.
+   */
+  public async configure() {
+    const language = this.checkFallbackLocalesMap(this.configuration.language || this.configuration.fallbackLanguage);
+    this.translateService.setAvailableLangs(this.configuration.supportedLocales);
+    this.translateService.setDefaultLang(language);
+    await firstValueFrom(this.useLanguage(language));
+  }
+
+  /**
+   * Is the translation deactivation enabled
+   */
+  public isTranslationDeactivationEnabled() {
+    return this.configuration.enableTranslationDeactivation;
+  }
+
+  /**
+   * Wrapper to call the TranslocoService method getAvailableLangs().
+   */
+  public getLanguages() {
+    return this.translateService.getAvailableLangs().map((l) => (typeof l === 'string' ? l : l.id));
+  }
+
+  /**
+   * Wrapper to call the TranslocoService method setActiveLang(language).
+   * @param language
+   */
+  public useLanguage(language: string): Observable<any> {
+    language = this.checkFallbackLocalesMap(language);
+    this.translateService.setActiveLang(language);
+    return this.translateService.load(language);
+  }
+
+  /**
+   * Wrapper to get the TranslocoService getActiveLang.
+   */
+  public getCurrentLanguage() {
+    return this.translateService.getActiveLang();
+  }
+
+  /**
+   * Get the instance of the TranslocoService used by LocalizationService.
+   */
+  public getTranslateService() {
+    return this.translateService;
+  }
+
+  /**
+   * Toggle the ShowKeys mode between active and inactive.
+   * @param value if specified, set the ShowKeys mode to value. If not specified, toggle the ShowKeys mode.
+   */
+  public toggleShowKeys(value?: boolean) {
+    if (!this.configuration.enableTranslationDeactivation) {
+      throw new Error('Translation deactivation is not enabled. Please set the LocalizationConfiguration property "enableTranslationDeactivation" accordingly.');
+    }
+    const newValue = value === undefined ? !this.showKeys() : value;
+    this._showKeys.set(newValue);
+  }
+
+  /**
+   * Get an observable of translation key after global mapping
+   * @param requestedKey Original translation key
+   */
+  public getKey(requestedKey: string) {
+    return this.keyMapping$
+      ? this.keyMapping$.pipe(
+        map((keyMapping) => keyMapping[requestedKey] || requestedKey),
+        distinctUntilChanged()
+      )
+      : of(requestedKey);
+  }
+
+  /**
+   * Returns a stream of translated values of a key which updates whenever the language changes.
+   * @param key Key to translate
+   * @param interpolateParams Object to use in translation binding
+   * @returns A stream of the translated key
+   */
+  public translate(key: string, interpolateParams?: object) {
+    return this.getKey(key).pipe(
+      switchMap((translationKey) => this.getTranslationStream(translationKey, interpolateParams)),
+      shareReplay({ refCount: true, bufferSize: 1 })
+    );
+  }
+}

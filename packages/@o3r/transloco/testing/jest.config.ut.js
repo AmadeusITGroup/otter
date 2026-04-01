@@ -13,5 +13,8 @@ module.exports = {
       '<rootDir>/schematics/.*'
     ]
   }),
-  setupFilesAfterEnv: ['<rootDir>/testing/setup-jest.ts']
+  setupFilesAfterEnv: ['<rootDir>/testing/setup-jest.ts'],
+  transformIgnorePatterns: [
+    'node_modules/(?!.*\\.mjs$|@jsverse)'
+  ]
 };
