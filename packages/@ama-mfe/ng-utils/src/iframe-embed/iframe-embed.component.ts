@@ -24,6 +24,9 @@ import {
 import {
   ApplyTheme,
 } from '../theme/apply-theme-pipe';
+import {
+  SandboxDirective,
+} from './sandbox.directive';
 
 /**
  * Presentational component for rendering an iframe with MFE integration directives.
@@ -35,7 +38,8 @@ import {
     ConnectDirective,
     ScalableDirective,
     ApplyTheme,
-    HostInfoPipe
+    HostInfoPipe,
+    SandboxDirective
   ],
   templateUrl: './iframe-embed.template.html',
   styleUrl: './iframe-embed.style.scss',
@@ -61,4 +65,10 @@ export class IframeEmbedComponent {
 
   /** The host application identifier sent to the embedded module. */
   public readonly hostApplicationId = input.required<string>();
+
+  /**
+   * The sandbox attribute for the iframe.
+   * Pass through to the SandboxDirective on the iframe element.
+   */
+  public readonly sandbox = input('allow-scripts allow-same-origin');
 }
