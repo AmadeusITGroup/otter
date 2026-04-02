@@ -79,7 +79,7 @@ export function updateLocalRelativeRefs(specContent: string, newBaseRelativePath
     }
     const newPath = formatPath(normalize(posix.join(newBaseRelativePath.replaceAll(sep, posix.sep), refPath)));
     // Normalize block scalar (>-) multiline format to single-line
-    if (/>\-?\s*\n/.test(match)) {
+    if (/>-?\s*\n/.test(match)) {
       return `$ref: '${newPath}'`;
     }
     return match.replace(refPath, newPath);
