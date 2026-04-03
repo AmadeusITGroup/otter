@@ -6,7 +6,7 @@ import {
   StoreModule,
 } from '@ngrx/store';
 import {
-  LoggerModule,
+  provideLogger,
 } from '@o3r/logger';
 import type {
   StorageSyncOptions,
@@ -18,8 +18,7 @@ import {
 
 @NgModule({
   imports: [
-    StoreModule,
-    LoggerModule
+    StoreModule
   ],
   providers: [
     CapacitorRehydrater
@@ -30,6 +29,7 @@ export class CapacitorRehydraterModule {
     return {
       ngModule: CapacitorRehydraterModule,
       providers: [
+        provideLogger(),
         { provide: STORAGE_SYNC_OPTIONS, useValue: options }
       ]
     };

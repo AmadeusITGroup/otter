@@ -408,6 +408,6 @@ export class LocalizationExtractor {
       throw new O3rCliError('Unknown referenced key');
     }
 
-    return options.sortKeys ? localizationMetadata.sort((a, b) => this.compareKeys(a, b)) : localizationMetadata;
+    return options.sortKeys ? localizationMetadata.toSorted((a, b) => this.compareKeys(a, b)) : localizationMetadata;
   }
 }

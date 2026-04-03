@@ -41,12 +41,12 @@ const editTsConfigJson = (tree: Tree) => {
 
 /**
  * Update Otter environment variable for schematics
- * @param options @see RuleFactory.options
+ * @param options {@link RuleFactory.options}
  * @param options.projectName
  * @param options.enableStyling
  * @param options.enableAnalytics
  * @param options.workingDirectory
- * @param _rootPath @see RuleFactory.rootPath
+ * @param _rootPath {@link RuleFactory.rootPath}
  */
 export function updateOtterEnvironmentAdapter(
   options: {

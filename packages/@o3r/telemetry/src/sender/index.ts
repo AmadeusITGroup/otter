@@ -42,7 +42,7 @@ export interface BuilderMetricData extends BaseMetricData {
 export interface SchematicMetricData extends BaseMetricData {
   /** Schematic information */
   schematic: {
-    /** Schematic name format @pkg/name:schematic-name */
+    /** Schematic name format `@pkg/name:schematic-name` */
     name: string;
     /** Schematic options */
     options?: any;

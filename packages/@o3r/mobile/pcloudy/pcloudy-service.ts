@@ -58,7 +58,7 @@ export class PCloudyService {
 
   /**
    * Find the devices available for a platform
-   * @throws Error if no available devices on pCloudy
+   * @throws {Error} if no available devices on pCloudy
    * @param devicePlatform
    * @param minVersion
    */

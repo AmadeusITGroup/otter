@@ -51,7 +51,7 @@ const getInfoFromWorkspaceJsonUris = async <T>(
   getInfo: (workspaceJsonUri: vscode.Uri) => Promise<T | undefined>
 ) => {
   const workspaceJsonUris = await vscode.workspace.findFiles('{angular,nx}.json');
-  const sortedWorkspaceJsonUris = workspaceJsonUris.sort(sortWorkspaceUris);
+  const sortedWorkspaceJsonUris = workspaceJsonUris.toSorted(sortWorkspaceUris);
   for (const workspaceJsonUri of sortedWorkspaceJsonUris) {
     const infoFromWorkspace = await getInfo(workspaceJsonUri);
     if (infoFromWorkspace) {

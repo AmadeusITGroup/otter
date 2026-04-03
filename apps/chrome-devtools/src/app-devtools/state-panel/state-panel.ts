@@ -38,12 +38,12 @@ import {
   combineLatest,
   map,
 } from 'rxjs';
-import type {
-  State,
-} from '../../extension/interface';
 import {
   StateService,
 } from '../../services';
+import type {
+  State,
+} from '../../shared/extension-interface';
 import {
   getBestColorContrast,
 } from '../theming-panel/color-helpers';

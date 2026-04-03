@@ -192,8 +192,8 @@ describe('Find repositories using library', () => {
     }]);
     expect(response.structuredContent).toEqual(expect.objectContaining({
       repositories: [
-        'testOrg/repo1',
-        'testOrg/repoCached'
+        'testOrg/repoCached',
+        'testOrg/repo1'
       ]
     }));
   });

@@ -21,7 +21,7 @@ import type {
 
 /**
  * Add renovate configuration to Otter application
- * @param rootPath @see RuleFactory.rootPath
+ * @param rootPath {@link RuleFactory.rootPath}
  */
 export function generateRenovateConfig(rootPath: string): Rule {
   const ownPackageJsonContent = JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', '..', '..', '..', 'package.json'), { encoding: 'utf8' })) as PackageJson;

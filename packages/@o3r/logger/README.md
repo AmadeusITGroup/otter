@@ -25,7 +25,7 @@ ng add @o3r/logger
 
 ## Setup
 
-The `LoggerModule` should be imported in the main Module of the application and an instance of a `LoggerClient` implementation bound through the `forRoot` method.
+The logger should be provided in the main module of the application and an instance of a `LoggerClient` implementation bound through the `provideLogger` function.
 
 ```typescript
 // in app-module.ts
@@ -33,14 +33,14 @@ The `LoggerModule` should be imported in the main Module of the application and 
 import {LogRocketClient} from '@o3r/logger/logrocket-logger-client';
 // import {SmartLookClient} from '@o3r/logger/smartlook-logger-client';
 // import {FullStoryClient} from '@o3r/logger/fullstory-logger-client';
-import {LoggerModule} from '@o3r/logger';
+import {provideLogger} from '@o3r/logger';
 
 // ...
 
 @NgModule({
-  imports: [
+  providers: [
     // ...
-    LoggerModule.forRoot(
+    provideLogger(
       new LogRocketClient('LogRocket appId')
       // new SmartLookClient('SmartLook key')
       // new FullStoryClient('FullStory orgId')
@@ -57,7 +57,7 @@ The store can also be bound to the third-party logging service by using the `Log
 // in app-module.ts
 
 import {Action, MetaReducer, USER_PROVIDED_META_REDUCERS} from '@ngrx/store';
-import {LoggerServuce} from '@o3r/logger';
+import {LoggerService} from '@o3r/logger';
 
 // ...
 
@@ -83,43 +83,39 @@ To provide complex logger client, the client can be provided via the `LOGGER_CLI
 
 ```typescript
 import {LogRocketClient} from '@o3r/logger/logrocket-logger-client';
-import {LOGGER_CLIENT_TOKEN, LoggerModule} from '@o3r/logger';
+import {LOGGER_CLIENT_TOKEN, LoggerService} from '@o3r/logger';
 
 // ...
 
-@NgModule({
-  imports: [
-    LoggerModule
-  ],
+export const appConfig: ApplicationConfig = {
   providers: [
+    LoggerService,
     { provide: LOGGER_CLIENT_TOKEN, useValue: new LogRocketClient('LogRocket appId') }
   ]
-})
-export class AppModule {}
+}
 ```
 
 ### Multi Client
 
 The Logger service supports multi logger clients.
-This can be provided via the `.forRoot()` function of the `LoggerModule` as following:
+This can be provided via the `provideLogger` function as follows:
 
 ```typescript
 import {LogRocketClient} from '@o3r/logger/logrocket-logger-client';
 import {SmartLookClient} from '@o3r/logger/smartlook-logger-client';
-import {LoggerModule} from '@o3r/logger';
+import {provideLogger} from '@o3r/logger';
 
 // ...
 
-@NgModule({
-  imports: [
+export const config: ApplicationConfig = {
+  providers: [
     // ...
-    LoggerModule.forRoot(
+    provideLogger(
       new LogRocketClient('LogRocket appId'),
       new SmartLookClient('SmartLook key')
     )
   ]
-})
-export class AppModule {}
+};
 ```
 
 Or via multi providers:
@@ -127,18 +123,15 @@ Or via multi providers:
 ```typescript
 import {LogRocketClient} from '@o3r/logger/logrocket-logger-client';
 import {SmartLookClient} from '@o3r/logger/smartlook-logger-client';
-import {LOGGER_CLIENT_TOKEN, LoggerModule} from '@o3r/logger';
+import {LOGGER_CLIENT_TOKEN, LoggerService} from '@o3r/logger';
 
-@NgModule({
-  imports: [
-    LoggerModule
-  ],
+export const appConfig: ApplicationConfig = {
   providers: [
+    LoggerService,
     { provide: LOGGER_CLIENT_TOKEN, useValue: new LogRocketClient('LogRocket appId'), multi: true },
     { provide: LOGGER_CLIENT_TOKEN, useValue: new SmartLookClient('SmartLook key'), multi: true }
   ]
-})
-export class AppModule {}
+}
 ```
 
 ## How to use

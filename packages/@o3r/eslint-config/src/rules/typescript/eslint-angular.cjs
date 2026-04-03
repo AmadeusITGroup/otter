@@ -16,6 +16,7 @@ const config = [
         'error',
         {
           type: 'element',
+          prefix: [],
           style: 'kebab-case'
         }
       ],
@@ -25,6 +26,7 @@ const config = [
         'error',
         {
           type: 'attribute',
+          prefix: [],
           style: 'camelCase'
         }
       ],

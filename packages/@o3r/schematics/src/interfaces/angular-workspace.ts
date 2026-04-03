@@ -5,9 +5,9 @@ import type {
 } from '@angular/cli/lib/config/workspace-schema';
 
 /**
- * Type representing supported testing frameworks: 'jest' or 'jasmine'.
+ * Type representing supported testing frameworks: 'jest', 'jasmine' or 'vitest'.
  */
-export type AvailableTestFrameworks = 'jest' | 'jasmine';
+export type AvailableTestFrameworks = 'jest' | 'jasmine' | 'vitest';
 
 export interface WorkspaceProjectI18n {
   locales: Record<string, string>;
@@ -47,7 +47,7 @@ export interface WorkspaceSchematics extends SchematicOptions {
     /** in addition to the WorkspaceLayout, an optional testFramework attribute is available */
     testFramework?: AvailableTestFrameworks;
   };
-  /** eslint-enable @typescript-eslint/naming-convention */
+  /* eslint-enable @typescript-eslint/naming-convention */
 }
 export interface WorkspaceProject extends NgWorkspaceProject {
   name?: string;

@@ -421,7 +421,7 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<LocalizationBui
       Object.entries(bundles).forEach(([language, bundle]) => {
         const filePath = path.resolve(writingFolder, `${language}.json`);
         context.logger.info(`Writing file to disk ${filePath}`);
-        fs.writeFileSync(filePath, JSON.stringify(bundle, Object.keys(bundle).sort(), 2));
+        fs.writeFileSync(filePath, JSON.stringify(bundle, Object.keys(bundle).toSorted(), 2));
       });
 
       return {

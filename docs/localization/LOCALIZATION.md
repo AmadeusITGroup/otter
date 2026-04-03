@@ -799,8 +799,8 @@ Examples:
 
 ## Enable Chrome extension debugging
 
-The Otter framework provides a [Chrome Extension](https://chrome.google.com/webstore/detail/otter-devtools/aejabgendbpckkdnjaphhlifbhepmbne) to help debug the application.
-To enable the communication with the [Otter Devtools](https://chrome.google.com/webstore/detail/otter-devtools/aejabgendbpckkdnjaphhlifbhepmbne), the two following steps are required:
+The Otter framework provides a [Chrome Extension](https://chrome.google.com/webstore/detail/otter-devtools/cgbnjkegcpddliemjooeiomcdnacbdol) to help debug the application.
+To enable the communication with the [Otter Devtools](https://chrome.google.com/webstore/detail/otter-devtools/cgbnjkegcpddliemjooeiomcdnacbdol), the two following steps are required:
 
 1. Importing the Devtools module into the application module:
 

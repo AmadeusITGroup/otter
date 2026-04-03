@@ -1,4 +1,7 @@
 import type {
+  AvailableStylingMessageContents,
+} from '@ama-styling/devkit';
+import type {
   AvailableApplicationMessageContents,
 } from '@o3r/application';
 import type {
@@ -16,9 +19,6 @@ import type {
 import type {
   AvailableRulesEngineMessageContents,
 } from '@o3r/rules-engine';
-import type {
-  AvailableStylingMessageContents,
-} from '@o3r/styling';
 
 export type AvailableMessageContents = AvailableComponentsMessageContents
   | AvailableConfigurationMessageContents

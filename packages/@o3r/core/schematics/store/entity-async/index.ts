@@ -67,8 +67,7 @@ function ngGenerateEntityAsyncStoreFn(options: NgGenerateEntityAsyncStoreSchemat
       currentStoreIndex = currentStoreIndexBuffer ? currentStoreIndexBuffer.toString() : '';
       tree.delete(barrelPath);
     }
-    const rules: Rule[] = [];
-    rules.push(
+    const rules: Rule[] = [
       mergeWith(apply(commonTemplates, [
         template({
           ...strings,
@@ -89,7 +88,7 @@ function ngGenerateEntityAsyncStoreFn(options: NgGenerateEntityAsyncStoreSchemat
         renameTemplateFiles(),
         move(`${destination}/${strings.dasherize(options.storeName)}`)
       ]), MergeStrategy.Overwrite)
-    );
+    ];
     if (moduleHasSubEntryPoints(tree, destination)) {
       writeSubEntryPointPackageJson(tree, destination, strings.dasherize(options.storeName));
     }
