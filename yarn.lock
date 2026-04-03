@@ -12416,6 +12416,7 @@ __metadata:
   peerDependencies:
     typescript: ^5.9.0
   bin:
+    check-plugin-marketplace-sync: ./scripts/check-plugin-marketplace-sync.mjs
     create-monorepo-scope: ./scripts/create-monorepo-scope.mjs
     doc-links: ./scripts/doc-links.mjs
     get-build-targets: ./scripts/get-build-targets.mjs
