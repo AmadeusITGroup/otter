@@ -62,7 +62,7 @@ describe('ng add components', () => {
     expect(angularJSON.cli?.schematicCollections?.indexOf('@o3r/components') > -1).toBe(true);
 
     const packageJson = JSON.parse(fs.readFileSync(`${workspacePath}/package.json`, 'utf8'));
-    expect(packageJson.dependencies['@o3r/components']).toBeDefined();
+    expect(packageJson.devDependencies['@o3r/components']).toBeDefined();
 
     expect(diff.added.toSorted()).toEqual([
       'libs/test-lib/placeholders.metadata.json',

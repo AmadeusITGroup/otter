@@ -2,30 +2,39 @@ import {
   promises as fs,
 } from 'node:fs';
 import {
+  afterEach,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  type Mocked,
+  vi,
+} from 'vitest';
+import {
   isJsonFile,
   parseFile,
 } from './parse-file.mjs';
 
 // Mock fs module
-jest.mock('node:fs', () => ({
+vi.mock('node:fs', () => ({
   promises: {
-    readFile: jest.fn(),
-    stat: jest.fn(),
-    access: jest.fn()
+    readFile: vi.fn(),
+    stat: vi.fn(),
+    access: vi.fn()
   }
 }));
 
-const mockedFs = fs as jest.Mocked<typeof fs>;
+const mockedFs = fs as Mocked<typeof fs>;
 
 describe('parseFile', () => {
   const mockFilePath = '/path/to/test-file.json';
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   afterEach(() => {
-    jest.resetAllMocks();
+    vi.resetAllMocks();
   });
 
   describe('successful parsing', () => {
