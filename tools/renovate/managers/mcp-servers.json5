@@ -1,0 +1,17 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "customManagers": [
+    {
+      "description": "Upgrade npm package versions in MCP server configuration files",
+      "customType": "regex",
+      "fileMatch": [
+        "(^|/)\\.?mcp\\.json$"
+      ],
+      "matchStrings": [
+        "\"(?<depName>@?[a-zA-Z0-9-]+(?:/[a-zA-Z0-9-]+)?)@(?<currentValue>[^\"]+)\""
+      ],
+      "datasourceTemplate": "npm",
+      "versioningTemplate": "npm"
+    }
+  ]
+}

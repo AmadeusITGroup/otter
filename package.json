@@ -54,6 +54,9 @@
     "**/{package.json,.yarnrc.yml,*.ts,*.mts,*.cts*.js,*.mjs,*.cjs,*.html}": [
       "eslint --quiet --fix --cache-location .cache/eslint"
     ],
+    "{.claude-plugin,.github/plugin}/marketplace.json|tools/llm/plugins/otter/{,.claude-plugin/}plugin.json": [
+      "node tools/@o3r/workspace-helpers/scripts/check-plugin-marketplace-sync.mjs"
+    ],
     "*": [
       "editorconfig-checker -exclude \".*[\\\\/]templates[\\\\/].*\" -ignore-defaults --verbose"
     ]

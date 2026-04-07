@@ -13,7 +13,8 @@
     ":automergeMinor",
     "github>AmadeusITGroup/otter//tools/renovate/group/angular",
     "github>AmadeusITGroup/otter//tools/renovate/group/typescript",
-    "github>AmadeusITGroup/otter//tools/renovate/managers/github-node-version.json5"
+    "github>AmadeusITGroup/otter//tools/renovate/managers/github-node-version.json5",
+    "github>AmadeusITGroup/otter//tools/renovate/managers/mcp-servers.json5"
   ],
   "separateMajorMinor": true,
   "separateMinorPatch": true,

@@ -1,0 +1,18 @@
+{
+  "name": "Otter",
+  "description": "AI plugin providing MCP server recommendations for working with Otter framework projects and Angular applications",
+  "owner": {
+    "name": "Otter team"
+  },
+  "plugins": [
+    {
+      "name": "Otter MCP servers recommendations",
+      "source": "./tools/llm/plugins/otter",
+      "tags": [
+        "otter",
+        "angular",
+        "playwright"
+      ]
+    }
+  ]
+}

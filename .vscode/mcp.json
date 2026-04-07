@@ -3,16 +3,16 @@
     "nx": {
       "type": "stdio",
       "command": "npx",
-      "args": ["nx-mcp"]
+      "args": ["nx-mcp@~0.24.0"]
     },
     "angular": {
       "command": "npx",
-      "args": ["@angular/cli", "mcp"]
+      "args": ["@angular/cli@^21.0.0", "mcp"]
     },
     "o3r": {
       "type": "stdio",
       "command": "npx",
-      "args": ["-y", "-p", "@o3r/mcp", "o3r-mcp-start"]
+      "args": ["-y", "-p", "@o3r/mcp@^14.0.0", "o3r-mcp-start"]
     },
     "o3r-local": {
       "command": "yarn",
@@ -25,7 +25,7 @@
       "command": "npx",
       "args": [
         "-y",
-        "@playwright/mcp"
+        "@playwright/mcp@~0.0.70"
       ]
     }
   }
