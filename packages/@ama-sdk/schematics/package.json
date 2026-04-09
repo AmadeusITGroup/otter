@@ -142,6 +142,7 @@
     "@angular-eslint/eslint-plugin": "~21.1.0",
     "@commitlint/cli": "^20.2.0",
     "@commitlint/config-conventional": "^20.2.0",
+    "@eslint/compat": "~2.0.4",
     "@swc/cli": "~0.8.0",
     "@swc/core": "~1.15.17",
     "@swc/helpers": "~0.5.17",

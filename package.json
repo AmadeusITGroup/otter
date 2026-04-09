@@ -185,6 +185,7 @@
     "@design-factory/design-factory": "~21.1.0",
     "@design-factory/styles": "~21.1.0",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
+    "@eslint/compat": "~2.0.4",
     "@ng-bootstrap/ng-bootstrap": "~20.0.0",
     "@ng-select/ng-select": "~21.8.0",
     "@ngrx/effects": "~21.1.0",
