@@ -5878,6 +5878,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@eslint/compat@npm:~2.0.4":
+  version: 2.0.5
+  resolution: "@eslint/compat@npm:2.0.5"
+  dependencies:
+    "@eslint/core": "npm:^1.2.1"
+  peerDependencies:
+    eslint: ^8.40 || 9 || 10
+  peerDependenciesMeta:
+    eslint:
+      optional: true
+  checksum: 10/5d1ce77570ab4b1c6941583be25400816209b9cbd6eae704193d5a12dec25e0f33d43219464d49744b08fe675719d899751afb678862f1d520c74e1922b292fa
+  languageName: node
+  linkType: hard
+
 "@eslint/config-array@npm:^0.21.2":
   version: 0.21.2
   resolution: "@eslint/config-array@npm:0.21.2"
@@ -5904,6 +5918,15 @@ __metadata:
   dependencies:
     "@types/json-schema": "npm:^7.0.15"
   checksum: 10/f9a428cc651ec15fb60d7d60c2a7bacad4666e12508320eafa98258e976fafaa77d7be7be91519e75f801f15f830105420b14a458d4aab121a2b0a59bc43517b
+  languageName: node
+  linkType: hard
+
+"@eslint/core@npm:^1.2.1":
+  version: 1.2.1
+  resolution: "@eslint/core@npm:1.2.1"
+  dependencies:
+    "@types/json-schema": "npm:^7.0.15"
+  checksum: 10/e1f9f5534f495b74a4c13c372e8f2feaf0c67f5dd666111c849c97c221d4ba730c98333a2ca94dd28cd7c24e3b1016bd868ca03c42e070732c047053f854cb13
   languageName: node
   linkType: hard
 
@@ -10304,6 +10327,7 @@ __metadata:
     "@angular/cli": "npm:~21.2.0"
     "@angular/compiler": "npm:~21.2.17"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
+    "@eslint/compat": "npm:~2.0.4"
     "@eslint/js": "npm:~9.39.0"
     "@nx/eslint-plugin": "npm:~22.7.0"
     "@o3r/build-helpers": "workspace:~"
@@ -10346,6 +10370,7 @@ __metadata:
     "@angular-eslint/builder": ^21.0.0
     "@angular/compiler": ^21.0.0
     "@eslint-community/eslint-plugin-eslint-comments": ^4.4.0
+    "@eslint/compat": ^2.0.4
     "@eslint/js": ^8.57.0 || ^9.22.0
     "@o3r/eslint-plugin": "workspace:~"
     "@o3r/schematics": "workspace:~"
@@ -10381,6 +10406,8 @@ __metadata:
     "@angular-eslint/builder":
       optional: true
     "@angular/compiler":
+      optional: true
+    "@eslint/compat":
       optional: true
     "@o3r/schematics":
       optional: true
@@ -10725,6 +10752,7 @@ __metadata:
     "@design-factory/design-factory": "npm:~21.1.0"
     "@design-factory/styles": "npm:~21.1.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
+    "@eslint/compat": "npm:~2.0.4"
     "@jsverse/transloco": "npm:~8.3.0"
     "@jsverse/transloco-messageformat": "npm:~8.3.0"
     "@jsverse/utils": "npm:1.0.0-beta.6"
