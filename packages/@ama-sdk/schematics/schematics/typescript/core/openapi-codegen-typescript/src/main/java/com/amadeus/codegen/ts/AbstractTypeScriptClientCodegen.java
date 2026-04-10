@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import io.swagger.v3.oas.models.OpenAPI;
-import io.swagger.v3.oas.models.media.ArraySchema;
 import io.swagger.v3.oas.models.media.Schema;
 
 import org.apache.commons.lang3.StringUtils;
@@ -321,7 +320,7 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
   @Override
   public String getTypeDeclaration(Schema p) {
     if (ModelUtils.isArraySchema(p)) {
-      Schema items = ModelUtils.getSchemaItems((ArraySchema) p);
+      Schema items = ModelUtils.getSchemaItems(p);
       return getTypeDeclaration(ModelUtils.unaliasSchema(this.openAPI, items)) + "[]";
     } else if (ModelUtils.isMapSchema(p)) {
       Schema inner = getSchemaAdditionalProperties(p);
