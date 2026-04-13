@@ -55,9 +55,11 @@
                 <ng-template>
                   <div class="form-group">
                     <div class="d-flex gap-4 align-items-center position-relative">
-                      <ng-container [formGroupName]="form.value.lang">
-                        <input [attr.aria-describedby]="localization.key" class="form-control" type="text" [formControlName]="localization.key" />
-                      </ng-container>
+                      @if (form.value.lang) {
+                        <ng-container [formGroupName]="form.value.lang">
+                          <input [attr.aria-describedby]="localization.key" class="form-control" type="text" [formControlName]="localization.key" />
+                        </ng-container>
+                      }
                       @if (localizationActiveStateOverridesForCurrentLang()[localization.key] || localizationLocalStateOverridesForCurrentLang()[localization.key]) {
                         @let text = activeStateName() && localizationActiveStateOverridesForCurrentLang()[localization.key] !== localizationLocalStateOverridesForCurrentLang()[localization.key]
                           ? 'Reset value to the one from ' + activeStateName() + ': ' + (localizationActiveStateOverridesForCurrentLang()[localization.key] || localization.value)

@@ -68,7 +68,7 @@ export class RulesetHistoryPresComponent {
   public expansionStatus: { [key: string]: { [subpanel: string]: boolean } } = {};
 
   @Input()
-  public rulesetExecutions: RulesetExecutionDebug[] = [];
+  public rulesetExecutions?: RulesetExecutionDebug[] | null = [];
 
   @Input()
   public executionDurationFormat = '1.3-3';
