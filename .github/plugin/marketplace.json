@@ -6,7 +6,7 @@
   },
   "plugins": [
     {
-      "name": "Otter MCP servers recommendations",
+      "name": "otter",
       "source": "./tools/llm/plugins/otter",
       "tags": [
         "otter",
