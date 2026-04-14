@@ -1,2 +1,2 @@
-export * from './in-page-nav-pres.component';
-export * from './in-page-nav-pres.service';
+export * from './in-page-nav-pres';
+export * from './in-page-nav-pres-service';

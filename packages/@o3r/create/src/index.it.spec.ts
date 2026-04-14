@@ -102,7 +102,7 @@ describe('Create new otter project command', () => {
     const rootPackageJsonPath = path.join(inProjectPath, 'package.json');
     expect(existsSync(rootPackageJsonPath)).toBe(true);
     expect(() => packageManagerInstall(execInAppOptions)).not.toThrow();
-    expect(JSON.parse(await fs.readFile(rootPackageJsonPath, 'utf8'))).not.toContain('@o3r/testing');
+    expect(await fs.readFile(rootPackageJsonPath, 'utf8')).not.toContain('@o3r/testing');
 
     const appName = 'test-application';
     const inApplicationPath = path.join(inProjectPath, 'apps', appName);
@@ -111,7 +111,7 @@ describe('Create new otter project command', () => {
 
     const appPackageJsonPath = path.join(inApplicationPath, 'package.json');
     expect(existsSync(appPackageJsonPath)).toBe(true);
-    expect(JSON.parse(await fs.readFile(appPackageJsonPath, 'utf8'))).not.toContain('@o3r/testing');
+    expect(await fs.readFile(appPackageJsonPath, 'utf8')).not.toContain('@o3r/testing');
     expect(existsSync(path.join(inApplicationPath, 'tsconfig.json'))).toBe(true);
     expect(() => packageManagerRunOnProject(appName, true, { script: 'build' }, execInAppOptions)).not.toThrow();
   });

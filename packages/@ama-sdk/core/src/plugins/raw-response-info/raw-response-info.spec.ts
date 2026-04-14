@@ -3,7 +3,7 @@ import {
 } from '../../fwk/api';
 import {
   RawResponseInfoReply,
-} from './raw-response-info.reply';
+} from './raw-response-info-reply';
 
 describe('Raw response info Reply plugin', () => {
   const reviver = jest.fn();

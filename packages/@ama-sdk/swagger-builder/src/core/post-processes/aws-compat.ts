@@ -1,6 +1,6 @@
 import {
   PostProcess,
-} from './post-process.interface';
+} from './post-process-interface';
 
 /**
  * Post Process to Convert the spec to a AWS compatible spec

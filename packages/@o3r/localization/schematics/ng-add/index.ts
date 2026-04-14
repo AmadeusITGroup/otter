@@ -8,13 +8,8 @@ import {
 import {
   applyEsLintFix,
   createOtterSchematic,
-  getExternalDependenciesInfo,
-  getO3rPeerDeps,
-  getPackageInstallConfig,
-  getProjectNewDependenciesTypes,
-  getWorkspaceConfig,
+  ngAddDependenciesRule,
   registerPackageCollectionSchematics,
-  setupDependencies,
   setupSchematicsParamsForProject,
 } from '@o3r/schematics';
 import type {
@@ -23,6 +18,10 @@ import type {
 import {
   updateCmsAdapter,
 } from '../cms-adapter';
+import {
+  updateI18n,
+  updateLocalization,
+} from '../localization-base';
 import {
   registerDevtools,
 } from './helpers/devtools-registration';
@@ -54,63 +53,28 @@ const devDependenciesToInstall = [
   'globby'
 ];
 
+const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
+const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' })) as PackageJson;
+
 /**
  * Add Otter localization to an Angular Project
  * @param options for the dependencies installations
  */
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
-  return async (tree, context) => {
-    const { updateI18n, updateLocalization } = await import('../localization-base');
-    const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
-    const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' })) as PackageJson;
-
-    const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
-    const projectDirectory = workspaceProject?.root || '.';
-    const projectPackageJson = tree.readJson(path.posix.join(projectDirectory, 'package.json')) as PackageJson;
-    const depsInfo = getO3rPeerDeps(packageJsonPath);
-    context.logger.info(`The package ${depsInfo.packageName as string} comes with a debug mechanism`);
-    context.logger.info('Get information on https://github.com/AmadeusITGroup/otter/tree/main/docs/localization/LOCALIZATION.md#Debugging');
-
-    const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
-      acc[dep] = {
-        inManifest: [{
-          range: `${options.exactO3rVersion ? '' : '~'}${depsInfo.packageVersion}`,
-          types: getProjectNewDependenciesTypes(workspaceProject)
-        }],
-        ngAddOptions: { exactO3rVersion: options.exactO3rVersion }
-      };
-      return acc;
-    }, getPackageInstallConfig(packageJsonPath, tree, options.projectName, false, !!options.exactO3rVersion));
-
-    const externalDependenciesInfo = getExternalDependenciesInfo({
-      devDependenciesToInstall,
-      dependenciesToInstall,
-      projectType: workspaceProject?.projectType,
-      projectPackageJson,
-      o3rPackageJsonPath: packageJsonPath
+  return chain([
+    (_, context) => {
+      context.logger.info(`The package @o3r/localization comes with a debug mechanism`);
+      context.logger.info('Get information on https://github.com/AmadeusITGroup/otter/tree/main/docs/localization/LOCALIZATION.md#Debugging');
     },
-    context.logger
-    );
-
-    const registerDevtoolRule = registerDevtools(options);
-    return chain([
-      updateLocalization(options, __dirname),
-      updateI18n(options),
-      options.skipLinter ? noop() : applyEsLintFix(),
-      setupDependencies({
-        projectName: options.projectName,
-        dependencies: {
-          ...dependencies,
-          ...externalDependenciesInfo
-        },
-        ngAddToRun: depsInfo.o3rPeerDeps
-      }),
-      updateCmsAdapter(options),
-      registerPackageCollectionSchematics(packageJson),
-      setupSchematicsParamsForProject({ '@o3r/core:component*': { useLocalization: true } }, options.projectName),
-      registerDevtoolRule
-    ]);
-  };
+    updateLocalization(options, __dirname),
+    updateI18n(options),
+    options.skipLinter ? noop() : applyEsLintFix(),
+    ngAddDependenciesRule(options, packageJsonPath, { dependenciesToInstall, devDependenciesToInstall }),
+    updateCmsAdapter(options),
+    registerPackageCollectionSchematics(packageJson),
+    setupSchematicsParamsForProject({ '@o3r/core:component*': { useLocalization: true } }, options.projectName),
+    registerDevtools(options)
+  ]);
 }
 
 /**

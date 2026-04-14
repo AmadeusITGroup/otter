@@ -15,7 +15,6 @@ export default [
     languageOptions: {
       sourceType: 'module',
       parserOptions: {
-        EXPERIMENTAL_useSourceOfProjectReferenceRedirect: true,
         tsconfigRootDir: __dirname,
         projectService: true
       }

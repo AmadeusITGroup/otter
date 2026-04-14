@@ -3,23 +3,13 @@ import * as path from 'node:path';
 import {
   chain,
   Rule,
-  SchematicContext,
-  Tree,
 } from '@angular-devkit/schematics';
 import {
   createOtterSchematic,
-  getExternalDependenciesInfo,
-  getO3rPeerDeps,
-  getPackageInstallConfig,
-  getProjectNewDependenciesTypes,
-  getWorkspaceConfig,
+  ngAddDependenciesRule,
   registerPackageCollectionSchematics,
-  setupDependencies,
   setupSchematicsParamsForProject,
 } from '@o3r/schematics';
-import type {
-  PackageJson,
-} from 'type-fest';
 import {
   registerDevtools,
 } from './helpers/devtools-registration';
@@ -50,57 +40,24 @@ const devDependenciesToInstall = [
  * @param options The options to pass to ng-add execution
  */
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
-  /* ng add rules */
-  return (tree: Tree, context: SchematicContext) => {
-    const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
-    const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' }));
-    const depsInfo = getO3rPeerDeps(packageJsonPath);
-    const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
-    const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
-      acc[dep] = {
-        inManifest: [{
-          range: `${options.exactO3rVersion ? '' : '~'}${depsInfo.packageVersion}`,
-          types: getProjectNewDependenciesTypes(workspaceProject)
-        }],
-        ngAddOptions: { exactO3rVersion: options.exactO3rVersion }
-      };
-      return acc;
-    }, getPackageInstallConfig(packageJsonPath, tree, options.projectName, false, !!options.exactO3rVersion));
-    context.logger.info(`The package ${depsInfo.packageName as string} comes with a debug mechanism`);
-    context.logger.info('Get more information on the following page: https://github.com/AmadeusITGroup/otter/tree/main/docs/configuration/OVERVIEW.md#Runtime-debugging');
-    const schematicsDefaultOptions = { useOtterConfig: undefined };
+  const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
+  const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' }));
+  const schematicsDefaultOptions = { useOtterConfig: undefined };
 
-    const projectDirectory = workspaceProject?.root || '.';
-    const projectPackageJson = tree.readJson(path.posix.join(projectDirectory, 'package.json')) as PackageJson;
-
-    const externalDependenciesInfo = getExternalDependenciesInfo({
-      devDependenciesToInstall,
-      dependenciesToInstall,
-      o3rPackageJsonPath: packageJsonPath,
-      projectType: workspaceProject?.projectType,
-      projectPackageJson
+  return () => chain([
+    (_, context) => {
+      context.logger.info(`The package @o3r/configuration comes with a debug mechanism`);
+      context.logger.info('Get more information on the following page: https://github.com/AmadeusITGroup/otter/tree/main/docs/configuration/OVERVIEW.md#Runtime-debugging');
     },
-    context.logger
-    );
-
-    return () => chain([
-      registerPackageCollectionSchematics(packageJson),
-      setupSchematicsParamsForProject({
-        '@o3r/core:component': schematicsDefaultOptions,
-        '@o3r/core:component-container': schematicsDefaultOptions,
-        '@o3r/core:component-presenter': schematicsDefaultOptions
-      }, options.projectName),
-      setupDependencies({
-        projectName: options.projectName,
-        dependencies: {
-          ...dependencies,
-          ...externalDependenciesInfo
-        },
-        ngAddToRun: depsInfo.o3rPeerDeps
-      }),
-      () => registerDevtools(options)
-    ])(tree, context);
-  };
+    registerPackageCollectionSchematics(packageJson),
+    setupSchematicsParamsForProject({
+      '@o3r/core:component': schematicsDefaultOptions,
+      '@o3r/core:component-container': schematicsDefaultOptions,
+      '@o3r/core:component-presenter': schematicsDefaultOptions
+    }, options.projectName),
+    ngAddDependenciesRule(options, packageJsonPath, { dependenciesToInstall, devDependenciesToInstall }),
+    () => registerDevtools(options)
+  ]);
 }
 
 /**

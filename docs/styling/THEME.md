@@ -315,14 +315,14 @@ $meta-theme: generate-app-theme($override: $override-original-theme);
 
 The component style should rely on variables with default value. As much as possible, the variables shall rely on the
 theme properties. This way, they will always be consistent with the generated theme.
-The variables shall be included in a `my-component.style.theme.scss` files which shall be included in the component
+The variables shall be included in a `my-component-theme.scss` files which shall be included in the component
 stylesheet.
 This will allow a component level customization.
 
 ```scss
-//file: ./my-component-pres.style.scss
+//file: ./my-component-pres.scss
 
-@import './my-component-pres.style.theme.scss';
+@import './my-component-pres-theme.scss';
 
 // Move
 
@@ -350,7 +350,7 @@ The principal functions are the following:
 * **otter-theme.contrast(*`<theme-palette>`*, *`<value>`*)**: similar to [mat-contrast](https://material.angular.io/guide/theming-your-components), it will retrieve the color from the theme palette. Instead of printing directly the color, the function will generate a css-var (ex: `otter-theme.contrast($primary-palette, 500)` will generate `var('--primary-color-contrast-500', #505)`).
 
 ```scss
-//file: ./my-component-pres.style.theme.scss
+//file: ./my-component-pres-theme.scss
 
 @use '@o3r/styling' as o3r;
 @use '@o3r/styling/otter-theme' as otter-theme;
@@ -388,9 +388,9 @@ Here is an example of how your files architecture could look:
 ...
 >> **component**
 >>> **presenter**
->>>> **my-component-pres.component.ts**: styleUrls='my-component-pres.style.scss'\
->>>> **my-component-pres.style.scss**: component style - import style.theme.scss\
->>>> **my-component-pres.style.theme.scss**: variables - import app-styling.scss\
+>>>> **my-component-pres.ts**: styleUrls='my-component-pres.scss'\
+>>>> **my-component-pres.scss**: component style - import theme.scss\
+>>>> **my-component-pres-theme.scss**: variables - import app-styling.scss\
 >>>> ...
 
 ## Technical structure (advance)

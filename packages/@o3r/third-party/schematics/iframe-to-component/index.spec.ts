@@ -14,9 +14,9 @@ import {
 } from './index';
 
 const collectionPath = path.join(__dirname, '..', '..', 'collection.json');
-const o3rComponentPath = '/src/components/test/test.component.ts';
-const templatePath = '/src/components/test/test.template.html';
-const ngComponentPath = '/src/components/ng/ng.component.ts';
+const o3rComponentPath = '/src/components/test/test.ts';
+const templatePath = '/src/components/test/test.html';
+const ngComponentPath = '/src/components/ng/ng.ts';
 
 describe('Add Iframe', () => {
   let initialTree: Tree;
@@ -35,8 +35,8 @@ describe('Add Iframe', () => {
         @Component({
           selector: 'o3r-test-pres',
           imports: [CommonModule],
-          styleUrls: ['./test.style.scss'],
-          templateUrl: './test.template.html',
+          styleUrls: ['./test.scss'],
+          templateUrl: './test.html',
           changeDetection: ChangeDetectionStrategy.OnPush,
           encapsulation: ViewEncapsulation.None
         })
@@ -98,7 +98,7 @@ describe('Add Iframe', () => {
 
       await expect(runner.runSchematic('iframe-to-component', {
         projectName: 'test-project',
-        path: 'inexisting-path.component.ts'
+        path: 'inexisting-path.ts'
       }, initialTree)).rejects.toThrow();
     });
 

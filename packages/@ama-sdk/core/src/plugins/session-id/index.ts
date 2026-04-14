@@ -1,1 +1,1 @@
-export * from './session-id.request';
+export * from './session-id-request';

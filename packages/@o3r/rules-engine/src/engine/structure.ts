@@ -114,8 +114,7 @@ export interface RuleBlock extends RuleElement {
 }
 
 /** All supported blocks (supporting nested structure) */
-export type AllBlock =
-  IfElseBlock
+export type AllBlock = IfElseBlock
   | (ActionBlock & Record<string, any>);
 
 /** Block representing an 'if else' condition. If no condition specified it will execute success elements only */

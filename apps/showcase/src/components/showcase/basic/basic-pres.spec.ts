@@ -3,18 +3,18 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import {
-  BasicPresComponent,
-} from './basic-pres.component';
+  BasicPres,
+} from './basic-pres';
 
-describe('BasicPresComponent', () => {
-  let component: BasicPresComponent;
-  let fixture: ComponentFixture<BasicPresComponent>;
+describe('BasicPres', () => {
+  let component: BasicPres;
+  let fixture: ComponentFixture<BasicPres>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [BasicPresComponent]
+      imports: [BasicPres]
     });
-    fixture = TestBed.createComponent(BasicPresComponent);
+    fixture = TestBed.createComponent(BasicPres);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

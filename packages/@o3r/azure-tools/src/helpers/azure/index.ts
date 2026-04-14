@@ -1,1 +1,1 @@
-export * from './pull-requests.service';
+export * from './pull-requests';

@@ -1,9 +1,0 @@
-{
-  "extends": "../../../tsconfig.base",
-  "include": [
-    "*.cjs",
-    "rules/**/*.cjs",
-    "eslint*.config.mjs",
-    "testing/setup-jest*.ts"
-  ]
-}

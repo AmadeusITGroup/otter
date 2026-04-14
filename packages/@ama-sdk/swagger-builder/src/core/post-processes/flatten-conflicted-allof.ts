@@ -3,7 +3,7 @@ import {
 } from '../utils';
 import {
   PostProcess,
-} from './post-process.interface';
+} from './post-process-interface';
 
 /**
  * Flatten conflicted AllOf post process

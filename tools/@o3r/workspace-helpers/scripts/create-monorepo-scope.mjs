@@ -79,9 +79,19 @@ const updateRenovateGroup = async (scopeName) => {
  * @param {string} scopeName
  */
 const updatePackageJson = async (scopeName) => {
-  const packageJson = JSON.parse(await readFile(resolve(root, 'package.json'), { encoding: 'utf8' }));
+  const packageJsonPath = resolve(root, 'package.json');
+  const packageJson = JSON.parse(await readFile(packageJsonPath, { encoding: 'utf8' }));
   packageJson.workspaces.push(`packages/@${scopeName}/*`);
   packageJson.scripts['verdaccio:publish'] += ` --@${scopeName}:registry=http://127.0.0.1:4873`;
+  packageJson.scripts['verdaccio:clean'] = packageJson.scripts['verdaccio:clean'].replace(/\}/g, `,${scopeName}}`);
+  await writeFile(packageJsonPath, JSON.stringify(packageJson, null, 2) + '\n');
+};
+
+const updateMcp = async (scopeName) => {
+  const path = resolve(root, 'packages/@ama-mcp/otter/src/utils/index.ts');
+  const content = await readFile(path, { encoding: 'utf8' });
+  const newContent = content.replace(/(const\s*NPM_PACKAGES_SCOPES\s*=\s*\[)(\s*)([^]]*\])/m, `$1$2'${scopeName}',$2$3`);
+  await writeFile(path, newContent);
 };
 
 (() => {
@@ -94,6 +104,7 @@ const updatePackageJson = async (scopeName) => {
     updateItTestWorkflow(scopeName),
     updateNpmrcPr(scopeName),
     updateRenovateGroup(scopeName),
-    updatePackageJson(scopeName)
+    updatePackageJson(scopeName),
+    updateMcp(scopeName)
   ]);
 })();

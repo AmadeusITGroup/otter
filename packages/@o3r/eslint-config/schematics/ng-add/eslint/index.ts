@@ -9,7 +9,6 @@ import {
   chain,
   MergeStrategy,
   mergeWith,
-  noop,
   renameTemplateFiles,
   type Rule,
   template,
@@ -23,7 +22,15 @@ import {
 import type {
   WorkspaceSchema,
 } from '@o3r/schematics';
+import type {
+  PackageJson,
+} from 'type-fest';
 
+/**
+ * Setup the lint task in the angular.json file
+ * @param projectName
+ * @param extension
+ */
 const editAngularJson = (projectName: string, extension: string): Rule => (tree, context) => {
   let workspace: WorkspaceSchema | null = null;
   try {
@@ -43,13 +50,37 @@ const editAngularJson = (projectName: string, extension: string): Rule => (tree,
     options: {
       eslintConfig: `${workspaceProject.root}/eslint.config.${extension}`,
       lintFilePatterns: [
-        `${workspaceProject.sourceRoot || path.posix.join(workspaceProject.root, 'src')}/**/*.ts`
+        `${workspaceProject.root}/**/*.{m,c,}{j,t}s`,
+        `${workspaceProject.root}/**/*.json`,
+        `${workspaceProject.root}/**/*.html`
       ]
     }
   };
 
   workspace!.projects[projectName] = workspaceProject;
   tree.overwrite('/angular.json', JSON.stringify(workspace, null, 2));
+};
+
+/**
+ * Add the lint task in the package.json
+ * @param projectPath
+ * @param projectName
+ */
+const editPackageJson = (projectPath: string, projectName: string): Rule => (tree) => {
+  const packageJsonPath = path.posix.join(projectPath, 'package.json');
+  const packageJson = tree.readJson(packageJsonPath) as PackageJson;
+  packageJson.scripts ??= {};
+  packageJson.scripts.lint ??= `ng lint ${projectName}`;
+  tree.overwrite(packageJsonPath, JSON.stringify(packageJson, null, 2));
+};
+
+const isInstalled = (packageName: string): boolean => {
+  try {
+    require.resolve(packageName);
+  } catch {
+    return false;
+  }
+  return true;
 };
 
 /**
@@ -74,6 +105,8 @@ export const updateEslintConfig = (rootPath: string, projectName?: string): Rule
   const templateOptions = {
     extension: 'mjs',
     codeBeforeConfig: '',
+    playwrightInstalled: isInstalled('playwright'),
+    jest: isInstalled('jest'),
     codeAfterConfig: '',
     oldConfig: '',
     relativePathToRoot: path.posix.relative(projectRootPath, '.'),
@@ -103,7 +136,12 @@ export const updateEslintConfig = (rootPath: string, projectName?: string): Rule
   }
 
   return chain([
-    projectName ? editAngularJson(projectName, templateOptions.extension) : noop(),
+    ...projectName
+      ? [
+        editAngularJson(projectName, templateOptions.extension),
+        editPackageJson(projectRootPath, projectName)
+      ]
+      : [],
     applyToSubtree(
       projectRootPath,
       [

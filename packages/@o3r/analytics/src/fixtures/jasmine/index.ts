@@ -1,1 +1,1 @@
-export * from './event-track.service.fixture.jasmine';
+export * from './event-track-service-fixture-jasmine';

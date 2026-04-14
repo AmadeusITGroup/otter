@@ -1,1 +1,1 @@
-export * from './css-variable.extractor';
+export * from './css-variable-extractor';

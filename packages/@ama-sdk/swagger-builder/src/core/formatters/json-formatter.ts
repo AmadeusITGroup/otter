@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {
   Formatter,
-} from './formatter.interface';
+} from './formatter-interface';
 import {
   generatePackageJson,
 } from './utils';

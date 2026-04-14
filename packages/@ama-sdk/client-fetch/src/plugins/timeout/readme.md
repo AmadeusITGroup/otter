@@ -16,7 +16,7 @@ Today the @ama-sdk/core plugin exposes the ``impervaCaptchaEventHandlerFactory``
 been displayed on your website. It is only compatible with Imperva UI events and can be used as follows:
 
 ```typescript
-import {impervaCaptchaEventHandlerFactory, TimeoutFetch} from './timeout.fetch';
+import {impervaCaptchaEventHandlerFactory, TimeoutFetch} from './timeout-fetch';
 
 const fetchPlugin = new TimeoutFetch(60000, impervaCaptchaEventHandlerFactory({whiteListedHostNames: ['myCaptchaDomain']}));
 ```
@@ -47,4 +47,4 @@ export const myTimeoutPauseEventHandlerFactory: TimeoutPauseEventHandlerFactory<
 
 ## Type of plugins
 
-- Fetch plugin: [TimeoutFetch](./timeout.fetch.ts)
+- Fetch plugin: [TimeoutFetch](./timeout-fetch.ts)

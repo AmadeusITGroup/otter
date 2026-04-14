@@ -9,6 +9,9 @@ import {
   RouterModule,
 } from '@angular/router';
 import {
+  NgbScrollSpyService,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
   provideDynamicContent,
 } from '@o3r/dynamic-content';
 import {
@@ -18,31 +21,37 @@ import {
   provideMarkdown,
 } from 'ngx-markdown';
 import {
-  DynamicContentComponent,
-} from './dynamic-content.component';
+  DynamicContent,
+} from './dynamic-content';
 import {
   DynamicContentFixtureComponent,
-} from './dynamic-content.fixture';
+} from './dynamic-content-fixture';
 
 let componentFixture: DynamicContentFixtureComponent;
 
-describe('DynamicContentComponent', () => {
-  let component: DynamicContentComponent;
-  let fixture: ComponentFixture<DynamicContentComponent>;
+describe('DynamicContent', () => {
+  let component: DynamicContent;
+  let fixture: ComponentFixture<DynamicContent>;
+  let mockScrollSpyService: Partial<NgbScrollSpyService>;
 
   beforeEach(() => {
+    mockScrollSpyService = {
+      start: jest.fn(),
+      stop: jest.fn()
+    };
     TestBed.configureTestingModule({
       imports: [
-        DynamicContentComponent,
+        DynamicContent,
         RouterModule.forRoot([]),
         AsyncPipe
       ],
       providers: [
+        { provide: NgbScrollSpyService, useValue: mockScrollSpyService },
         provideMarkdown(),
         provideDynamicContent()
       ]
     });
-    fixture = TestBed.createComponent(DynamicContentComponent);
+    fixture = TestBed.createComponent(DynamicContent);
     component = fixture.componentInstance;
 
     componentFixture = new DynamicContentFixtureComponent(new O3rElement(fixture.debugElement));

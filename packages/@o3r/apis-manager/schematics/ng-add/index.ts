@@ -7,16 +7,12 @@ import {
 import {
   applyEsLintFix,
   createOtterSchematic,
-  getExternalDependenciesInfo,
-  getO3rPeerDeps,
-  getPackageInstallConfig,
-  getProjectNewDependenciesTypes,
   getWorkspaceConfig,
-  setupDependencies,
+  ngAddDependenciesRule,
 } from '@o3r/schematics';
-import type {
-  PackageJson,
-} from 'type-fest';
+import {
+  updateApiDependencies,
+} from '../helpers/update-api-deps';
 import type {
   NgAddSchematicsSchema,
 } from './schema';
@@ -40,55 +36,23 @@ const devDependenciesToInstall: string[] = [];
  * @param options
  */
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
-  return async (tree, context) => {
-    const { updateApiDependencies } = await import('../helpers/update-api-deps');
-    const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
-    const depsInfo = getO3rPeerDeps(packageJsonPath);
-    const rulesToExecute: Rule[] = [];
-    const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
-    const projectType = workspaceProject?.projectType || 'application';
-    if (projectType === 'application') {
-      rulesToExecute.push(updateApiDependencies(options));
-    }
-
-    if (!options.skipCodeSample) {
-      depsInfo.o3rPeerDeps.push('@ama-sdk/client-fetch');
-    }
-
-    const projectDirectory = workspaceProject?.root || '.';
-    const projectPackageJson = tree.readJson(path.posix.join(projectDirectory, 'package.json')) as PackageJson;
-
-    const externalDependenciesInfo = getExternalDependenciesInfo({
-      dependenciesToInstall,
-      devDependenciesToInstall,
-      projectType: workspaceProject?.projectType,
-      o3rPackageJsonPath: packageJsonPath,
-      projectPackageJson
+  const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
+  return chain([
+    (tree) => {
+      const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
+      const projectType = workspaceProject?.projectType || 'application';
+      if (projectType === 'application') {
+        return updateApiDependencies(options);
+      }
     },
-    context.logger
-    );
-
-    const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
-      acc[dep] = {
-        inManifest: [{
-          range: `${options.exactO3rVersion ? '' : '~'}${depsInfo.packageVersion}`,
-          types: getProjectNewDependenciesTypes(workspaceProject)
-        }],
-        ngAddOptions: { exactO3rVersion: options.exactO3rVersion }
-      };
-      return acc;
-    }, getPackageInstallConfig(packageJsonPath, tree, options.projectName, false, !!options.exactO3rVersion));
-
-    return () => chain([
-      ...rulesToExecute,
-      options.skipLinter ? noop : applyEsLintFix(),
-      setupDependencies({
-        projectName: options.projectName,
-        dependencies: { ...dependencies, ...externalDependenciesInfo },
-        ngAddToRun: depsInfo.o3rPeerDeps
-      })
-    ]);
-  };
+    options.skipLinter ? noop : applyEsLintFix(),
+    ngAddDependenciesRule(options, packageJsonPath, {
+      dependenciesToInstall: dependenciesToInstall.concat(
+        options.skipCodeSample ? [] : ['@ama-sdk/client-fetch']
+      ),
+      devDependenciesToInstall
+    })
+  ]);
 }
 
 /**

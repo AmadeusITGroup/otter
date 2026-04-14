@@ -4,7 +4,9 @@ import {
 
 /** Describes a path on the swagger specification */
 export interface PathObject {
-  /** The regular expression that defines the path */
+  /** Pattern of the URL after part after the baseUrl */
+  urlPattern?: string;
+  /** The regular expression that defines the full path (including baseUrl) */
   regexp: RegExp;
   /** The url path */
   path: string;

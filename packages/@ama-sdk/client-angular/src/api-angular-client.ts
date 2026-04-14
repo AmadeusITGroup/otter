@@ -43,7 +43,7 @@ export interface BaseApiAngularClientOptions extends BaseApiClientOptions {
   /** Angular HTTP Client  */
   httpClient: HttpClient;
   /** List of plugins to apply to the Angular Http call */
-  angularPlugins: AngularPlugin[];
+  angularPlugins: AngularPlugin[] | ((requestOpts: RequestOptions) => AngularPlugin[] | Promise<AngularPlugin[]>);
 }
 
 /** @see BaseApiConstructor */
@@ -98,7 +98,8 @@ export class ApiAngularClient implements ApiClient {
       queryParams: filterUndefinedValues(requestOptionsParameters.queryParams)
     };
     if (this.options.requestPlugins) {
-      for (const plugin of this.options.requestPlugins) {
+      const requestPlugins = typeof this.options.requestPlugins === 'function' ? await this.options.requestPlugins(opts) : this.options.requestPlugins;
+      for (const plugin of requestPlugins) {
         opts = await plugin.load({
           logger: this.options.logger,
           apiName: requestOptionsParameters.api?.apiName
@@ -161,22 +162,24 @@ export class ApiAngularClient implements ApiClient {
     try {
       const headers = Object.fromEntries(options.headers.entries());
 
+      const angularPlugins = typeof this.options.angularPlugins === 'function'
+        ? await this.options.angularPlugins(options)
+        : this.options.angularPlugins;
+
       const asyncResponse = new Promise<HttpResponse<any>>((resolve, reject) => {
         let data: HttpResponse<any>;
         const metadataSignal = options.metadata?.signal;
         metadataSignal?.throwIfAborted();
 
         const loadedPlugins: (PluginObservableRunner<HttpResponse<any>, AngularCall>)[] = [];
-        if (this.options.angularPlugins) {
-          loadedPlugins.push(...this.options.angularPlugins.map((plugin) => plugin.load({
-            angularPlugins: loadedPlugins,
-            apiClient: this,
-            url,
-            apiName,
-            requestOptions: options,
-            logger: this.options.logger
-          })));
-        }
+        loadedPlugins.push(...angularPlugins.map((plugin) => plugin.load({
+          angularPlugins: loadedPlugins,
+          apiClient: this,
+          url,
+          apiName,
+          requestOptions: options,
+          logger: this.options.logger
+        })));
 
         let httpRequest = this.options.httpClient.request(options.method, url, {
           ...options,

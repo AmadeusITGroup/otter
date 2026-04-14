@@ -15,7 +15,7 @@ import type {
 } from 'type-fest';
 import type {
   PresetOptions,
-} from './preset.interface';
+} from './preset-interface';
 
 /**
  * Default implementation of the preset rule

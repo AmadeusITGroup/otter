@@ -9,6 +9,9 @@ import {
   RouterModule,
 } from '@angular/router';
 import {
+  NgbScrollSpyService,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
   StoreModule,
 } from '@ngrx/store';
 import {
@@ -18,29 +21,37 @@ import {
   provideMarkdown,
 } from 'ngx-markdown';
 import {
-  ConfigurationComponent,
-} from './configuration.component';
+  Configuration,
+} from './configuration';
 import {
   ConfigurationFixtureComponent,
-} from './configuration.fixture';
+} from './configuration-fixture';
 
 let componentFixture: ConfigurationFixtureComponent;
 
-describe('ConfigurationComponent', () => {
-  let component: ConfigurationComponent;
-  let fixture: ComponentFixture<ConfigurationComponent>;
+describe('Configuration', () => {
+  let component: Configuration;
+  let fixture: ComponentFixture<Configuration>;
+  let mockScrollSpyService: Partial<NgbScrollSpyService>;
 
   beforeEach(() => {
+    mockScrollSpyService = {
+      start: jest.fn(),
+      stop: jest.fn()
+    };
     TestBed.configureTestingModule({
       imports: [
-        ConfigurationComponent,
+        Configuration,
         StoreModule.forRoot(),
         RouterModule.forRoot([]),
         AsyncPipe
       ],
-      providers: [provideMarkdown()]
+      providers: [
+        { provide: NgbScrollSpyService, useValue: mockScrollSpyService },
+        provideMarkdown()
+      ]
     });
-    fixture = TestBed.createComponent(ConfigurationComponent);
+    fixture = TestBed.createComponent(Configuration);
     component = fixture.componentInstance;
 
     componentFixture = new ConfigurationFixtureComponent(new O3rElement(fixture.debugElement));

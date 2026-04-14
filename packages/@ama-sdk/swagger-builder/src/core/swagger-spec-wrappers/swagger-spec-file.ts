@@ -3,7 +3,7 @@ import type {
 } from 'swagger-schema-official';
 import {
   SwaggerSpec,
-} from './swagger-spec.interface';
+} from './swagger-spec-interface';
 import {
   getYamlFullPath,
   isOuterRefPath,
@@ -48,7 +48,7 @@ export abstract class SwaggerSpecFile implements SwaggerSpec {
     } else if (field === '$ref') {
       if (isOuterRefPath(currentNode)) {
         const [relativeSourcePath, innerPath] = currentNode.split('#');
-        return getYamlFullPath(this.sourcePath, relativeSourcePath) + '#' + (innerPath as (string | undefined) || '');
+        return getYamlFullPath(this.sourcePath, relativeSourcePath) + (innerPath ? `#${innerPath}` : '');
       }
       return currentNode;
     } else if (Array.isArray(currentNode)) {

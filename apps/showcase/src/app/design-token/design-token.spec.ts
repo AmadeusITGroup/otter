@@ -6,27 +6,38 @@ import {
   RouterModule,
 } from '@angular/router';
 import {
+  NgbScrollSpyService,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
   provideMarkdown,
 } from 'ngx-markdown';
 import {
-  DesignTokenComponent,
-} from './design-token.component';
+  DesignToken,
+} from './design-token';
 
-describe('DesignTokenComponent', () => {
-  let component: DesignTokenComponent;
-  let fixture: ComponentFixture<DesignTokenComponent>;
+describe('DesignToken', () => {
+  let component: DesignToken;
+  let fixture: ComponentFixture<DesignToken>;
+  let mockScrollSpyService: Partial<NgbScrollSpyService>;
 
   beforeEach(async () => {
+    mockScrollSpyService = {
+      start: jest.fn(),
+      stop: jest.fn()
+    };
     await TestBed.configureTestingModule({
       imports: [
-        DesignTokenComponent,
+        DesignToken,
         RouterModule.forRoot([])
       ],
-      providers: [provideMarkdown()]
+      providers: [
+        { provide: NgbScrollSpyService, useValue: mockScrollSpyService },
+        provideMarkdown()
+      ]
     })
       .compileComponents();
 
-    fixture = TestBed.createComponent(DesignTokenComponent);
+    fixture = TestBed.createComponent(DesignToken);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -7,7 +7,7 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "module": "commonjs",
-    "moduleResolution": "node",
+    "moduleResolution": "node10",
     "noEmitHelpers": true,
     "noUnusedLocals": true,
     "outDir": "./dist/pcloudy",

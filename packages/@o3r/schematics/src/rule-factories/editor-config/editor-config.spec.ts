@@ -20,7 +20,7 @@ insert_final_newline = true
 trim_trailing_whitespace = true
 `;
 
-jest.mock('./editor-config.helpers', () => ({
+jest.mock('./editor-config-helpers', () => ({
   __esModule: true,
   editorConfigParse: jest.fn().mockResolvedValue({}),
   editorConfigResolve: jest.fn().mockResolvedValue({

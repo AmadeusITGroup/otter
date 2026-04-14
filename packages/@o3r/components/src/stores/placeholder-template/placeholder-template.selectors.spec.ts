@@ -82,19 +82,19 @@ describe('selectPlaceholderRenderedTemplates', () => {
     };
   });
   it('should handle undefined state properly', () => {
-    expect(selectors.selectPlaceholderRenderedTemplates('fakeId')({
+    expect(selectors.selectSortedTemplates('fakeId')({
       placeholderRequest: undefined,
       placeholderTemplate: undefined
     })).toBeUndefined();
-    expect(selectors.selectPlaceholderRenderedTemplates('fakeId')({
+    expect(selectors.selectSortedTemplates('fakeId')({
       placeholderRequest: placeholderRequestState,
       placeholderTemplate: undefined
     })).toBeUndefined();
-    expect(selectors.selectPlaceholderRenderedTemplates('fakeId')({
+    expect(selectors.selectSortedTemplates('fakeId')({
       placeholderRequest: undefined,
       placeholderTemplate: placeholderTemplateState
     })).toBeUndefined();
-    expect(selectors.selectPlaceholderRenderedTemplates('fakeId')({
+    expect(selectors.selectSortedTemplates('fakeId')({
       placeholderRequest: placeholderRequestState,
       placeholderTemplate: placeholderTemplateState
     })).toBeUndefined();
@@ -102,32 +102,32 @@ describe('selectPlaceholderRenderedTemplates', () => {
 
   it('should handle pending status properly', () => {
     placeholderRequestState.entities['assets/placeholders/[LANGUAGE]/searchSecondPlaceholder.json'].isPending = true;
-    expect(selectors.selectPlaceholderRenderedTemplates('pl2358lv-2c63-42e1-b450-6aafd91fbae8')({
+    expect(selectors.selectSortedTemplates('pl2358lv-2c63-42e1-b450-6aafd91fbae8')({
       placeholderRequest: placeholderRequestState,
       placeholderTemplate: placeholderTemplateState
-    })).toStrictEqual({ orderedRenderedTemplates: undefined, isPending: true });
+    })).toStrictEqual({ orderedTemplates: undefined, isPending: true });
   });
 
   it('should filter items on failure out', () => {
     placeholderRequestState.entities['assets/placeholders/[LANGUAGE]/searchSecondPlaceholder.json'].isFailure = true;
-    expect(selectors.selectPlaceholderRenderedTemplates('pl2358lv-2c63-42e1-b450-6aafd91fbae8')({
+    expect(selectors.selectSortedTemplates('pl2358lv-2c63-42e1-b450-6aafd91fbae8')({
       placeholderRequest: placeholderRequestState,
       placeholderTemplate: placeholderTemplateState
-    })?.orderedRenderedTemplates?.length).toBe(1);
+    })?.orderedTemplates?.length).toBe(1);
     placeholderRequestState.entities['assets/placeholders/searchPlaceholder.json'].isFailure = true;
-    expect(selectors.selectPlaceholderRenderedTemplates('pl2358lv-2c63-42e1-b450-6aafd91fbae8')({
+    expect(selectors.selectSortedTemplates('pl2358lv-2c63-42e1-b450-6aafd91fbae8')({
       placeholderRequest: placeholderRequestState,
       placeholderTemplate: placeholderTemplateState
-    })?.orderedRenderedTemplates?.length).toBe(0);
+    })?.orderedTemplates?.length).toBe(0);
   });
 
   it('should return the list of sorted placeholders', () => {
-    const results = selectors.selectPlaceholderRenderedTemplates('pl2358lv-2c63-42e1-b450-6aafd91fbae8')({
+    const results = selectors.selectSortedTemplates('pl2358lv-2c63-42e1-b450-6aafd91fbae8')({
       placeholderRequest: placeholderRequestState,
       placeholderTemplate: placeholderTemplateState
     });
     expect(results?.isPending).toBeFalsy();
-    expect(results?.orderedRenderedTemplates[0]).toContain('Placeholder from the library');
-    expect(results?.orderedRenderedTemplates[1]).toContain('Placeholder from application');
+    expect(results?.orderedTemplates[0].renderedTemplate).toContain('Placeholder from the library');
+    expect(results?.orderedTemplates[1].renderedTemplate).toContain('Placeholder from application');
   });
 });

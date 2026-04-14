@@ -31,18 +31,20 @@ describe('new otter project', () => {
     expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
 
     const diff = getGitDiff(workspacePath);
-    expect(diff.added.length).toBe(2);
-    expect(diff.modified.length).toBe(2);
+    const yamlFiles = ['.github/actions/setup/action.yml', '.github/workflows/main.yml'];
+
+    expect(diff.added.sort()).toEqual(yamlFiles.sort());
+    expect(diff.modified.sort()).toEqual([
+      'package.json',
+      isYarnTest ? 'yarn.lock' : 'package-lock.json'
+    ].sort());
     expect(diff.deleted.length).toBe(0);
-    expect(diff.modified).toContain('package.json');
-    expect(diff.modified).toContain(isYarnTest ? 'yarn.lock' : 'package-lock.json');
 
     const packageJson = JSON.parse(readFileSync(path.join(workspacePath, 'package.json'), { encoding: 'utf8' })) as PackageJson;
     expect(packageJson.devDependencies).toHaveProperty('@o3r/pipeline');
     expect(packageJson.dependencies).not.toHaveProperty('@o3r/pipeline');
 
-    ['.github/actions/setup/action.yml', '.github/workflows/main.yml'].forEach((yamlFile) => {
-      expect(diff.added).toContain(yamlFile);
+    yamlFiles.forEach((yamlFile) => {
       execSync(`npx -p @action-validator/cli action-validator ${yamlFile}`, execAppOptions);
     });
 
@@ -65,14 +67,16 @@ describe('new otter project', () => {
     expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
 
     const diff = getGitDiff(workspacePath);
-    expect(diff.added.length).toBe(2);
-    expect(diff.modified.length).toBe(3);
+    const yamlFiles = ['.github/actions/setup/action.yml', '.github/workflows/main.yml'];
+
+    expect(diff.added.sort()).toEqual(yamlFiles.sort());
+    expect(diff.modified.sort()).toEqual([
+      'package.json',
+      isYarnTest ? 'yarn.lock' : 'package-lock.json',
+      isYarnTest ? '.yarnrc.yml' : '.npmrc'
+    ].sort());
     expect(diff.deleted.length).toBe(0);
-    expect(diff.modified).toContain('package.json');
-    expect(diff.modified).toContain(isYarnTest ? 'yarn.lock' : 'package-lock.json');
-    expect(diff.modified).toContain(isYarnTest ? '.yarnrc.yml' : '.npmrc');
-    ['.github/actions/setup/action.yml', '.github/workflows/main.yml'].forEach((yamlFile) => {
-      expect(diff.added).toContain(yamlFile);
+    yamlFiles.forEach((yamlFile) => {
       execSync(`npx -p @action-validator/cli action-validator ${yamlFile}`, execAppOptions);
     });
     untouchedProjectsPaths.forEach((untouchedProject) => {

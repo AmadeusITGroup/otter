@@ -3,7 +3,7 @@ import {
 } from '../core/request-plugin';
 import {
   SiTokenRequest,
-} from './si-token.request';
+} from './si-token-request';
 
 describe('SI Token Request Plugin', () => {
   const defaultGetParams = { defaultTest: 'ok' };

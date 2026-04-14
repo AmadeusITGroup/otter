@@ -1,0 +1,32 @@
+@if (key) {
+  <span class="input-key">{{key}}{{type === 'state' ? ':' : ''}}</span>
+}
+{{type === 'assignment' ? '=' : ''}}
+@if (oldValue) {
+  <pre class="input-value"
+    [class.limit-characters]="shouldLimitCharactersForOldValue"
+    (click)="shouldLimitCharactersForOldValue = !shouldLimitCharactersForOldValue"
+    (keyup.enter)="shouldLimitCharactersForOldValue = !shouldLimitCharactersForOldValue"
+    tabindex="0"
+  >
+    {{isOldValuePrimitiveType ? oldValue : (oldValue | json)}}
+  </pre>
+  @if (isClipBoardFeatureAvailableForOldValue) {
+    <button (click)="copyToClipBoard(oldValue)" title="Copy to clipboard">📋</button>
+  }
+  →
+}
+<pre class="input-value"
+  [class.limit-characters]="shouldLimitCharactersForValue"
+  (click)="shouldLimitCharactersForValue = !shouldLimitCharactersForValue"
+  (keyup.enter)="shouldLimitCharactersForValue = !shouldLimitCharactersForValue"
+  tabindex="0"
+>
+  {{isValuePrimitiveType ? value : (value | json)}}
+</pre>
+@if (isClipBoardFeatureAvailableForValue) {
+  <button (click)="copyToClipBoard(value)" title="Copy to clipboard">📋</button>
+}
+@if (showNotification$ | async) {
+  <div role="alert" class="notification">Copied to clipboard</div>
+}

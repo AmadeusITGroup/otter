@@ -1,1 +1,1 @@
-export * from './fetch-credentials.request';
+export * from './fetch-credentials-request';

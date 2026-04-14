@@ -1,0 +1,12 @@
+{
+  "extends": "<%= tsconfigPath %>",
+  "compilerOptions": {
+    "strictPropertyInitialization": false,
+    "strictNullChecks": false,
+    "types": ["node", "jest"],
+    "composite": true,
+    "esModuleInterop": true
+  },
+  "include": [],
+  "exclude": ["**/*.e2e.spec.ts"]
+}

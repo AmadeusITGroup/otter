@@ -7,8 +7,8 @@ import {
   Target,
 } from '@angular-devkit/architect';
 import {
-  LogEntry,
-} from '@angular-devkit/core/src/logger';
+  logging,
+} from '@angular-devkit/core';
 import {
   createBuilderWithMetricsIfInstalled,
 } from '@o3r/extractors';
@@ -299,7 +299,7 @@ function startMetadataGenerator(localizationExtractorTarget: Target, context: Bu
       logger.pipe(),
       from(extractorBuild.then((build) => build.result))
     ).pipe(
-      filter((entry) => !(entry as LogEntry).message || /Localization metadata bundle extracted/.test((entry as LogEntry).message))
+      filter((entry) => !(entry as logging.LogEntry).message || /Localization metadata bundle extracted/.test((entry as logging.LogEntry).message))
     )
   );
 }
@@ -349,16 +349,13 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<LocalizationBui
     context.getBuilderNameForTarget(localizationExtractorTarget)
   ]);
   const [browserTargetOptions, localizationExtracterTargetOptions] = await Promise.all([
-    context.validateOptions<{ outputPath: string | { base: string; browser?: string } }>(browserTargetRawOptions, browserTargetBuilder),
+    context.validateOptions<{ outputPath?: string | { base: string; browser?: string } }>(browserTargetRawOptions, browserTargetBuilder),
     context.validateOptions<LocalizationExtractorBuilderSchema>(localizationExtracterTargetRawOptions, localizationExtracterTargetBuilder)
   ]);
   let browserTargetOptionsOutputPath: string;
   // Check the minimum of mandatory options to the builders
   if (typeof browserTargetOptions.outputPath !== 'string' && typeof browserTargetOptions.outputPath?.base !== 'string') {
-    return {
-      success: false,
-      error: `The targetBrowser ${options.browserTarget} does not provide 'outputPath' option`
-    };
+    browserTargetOptionsOutputPath = path.join(context.workspaceRoot, 'dist', browserTarget.project); // outputPath became optional in Angular v20
   } else if (typeof browserTargetOptions.outputPath === 'string') {
     browserTargetOptionsOutputPath = browserTargetOptions.outputPath;
   } else {

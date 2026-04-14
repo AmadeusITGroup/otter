@@ -9,4 +9,4 @@ For older browsers relying on a polyfill that does not support the fetch 'cache'
 
 ### Type of plugins
 
-- Request plugin: [FetchCacheRequest](./fetch-cache.request.ts);
+- Request plugin: [FetchCacheRequest](./fetch-cache-request.ts);

@@ -56,7 +56,7 @@ Your component needs to implement _Trackable_ interface.
 
 ```typescript
 ...
-import {analyticsEvents, MyComponentAnalytics} from './my-component.analytics';
+import {analyticsEvents, MyComponentAnalytics} from './my-component-analytics';
 
 class MyComponent implements Trackable<MyComponentAnalytics>, ... {
   ...

@@ -64,7 +64,8 @@ export interface CascadingPullRequestInfo {
 }
 
 /** Check suite possible conclusions */
-export type CheckConclusion = 'cancelled' | 'neutral' | 'success' | 'failure' | 'timed_out' | 'action_required' | 'stale' | null;
+export type CheckConclusion = 'skipped' | 'cancelled' | 'neutral' | 'success' | 'failure' | 'timed_out' | 'action_required'
+  | 'stale' | 'startup_failure' | null;
 
 /**
  * Default configuration

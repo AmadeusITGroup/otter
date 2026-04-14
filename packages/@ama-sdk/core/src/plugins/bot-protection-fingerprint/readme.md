@@ -15,4 +15,4 @@ But you can also provide your own logic.
 
 ### Type of plugins
 
-- Request plugin: [BotProtectionFingerprintRequest](./bot-protection-fingerprint.request.ts)
+- Request plugin: [BotProtectionFingerprintRequest](./bot-protection-fingerprint-request.ts)

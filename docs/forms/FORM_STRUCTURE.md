@@ -95,14 +95,14 @@ __Parent component class:__
 * Create a form control to set the binding and the default data.
 * This form control will be passed as an input to the input component class through the HTML template.
 
-You can find the implementation of a parent component class in the [showcase application](https://github.com/AmadeusITGroup/otter/tree/main/apps/showcase/src/components/showcase/forms-parent/forms-parent.component.ts).
+You can find the implementation of a parent component class in the [showcase application](https://github.com/AmadeusITGroup/otter/tree/main/apps/showcase/src/components/showcase/forms-parent/forms-parent.ts).
 
 __Input component class:__
    * Here we have to create the `formGroup`/`formArray`/`formControl` object.
    * Provide [NG_VALUE_ACCESSOR](https://angular.io/api/forms/NG_VALUE_ACCESSOR) - used to provide a [ControlValueAccessor](https://angular.io/api/forms/DefaultValueAccessor) for form controls, to write a value and listen to changes on input elements.
    * Provide [NG_VALIDATORS](https://angular.io/api/forms/NG_VALIDATORS) - this is an [InjectionToken](https://angular.io/api/core/InjectionToken) for registering additional synchronous validators used with forms.
 
-You can find the implementation of an input component class in the [showcase application](https://github.com/AmadeusITGroup/otter/tree/main/apps/showcase/src/components/utilities/forms-personal-info/forms-personal-info-pres.component.ts).
+You can find the implementation of an input component class in the [showcase application](https://github.com/AmadeusITGroup/otter/tree/main/apps/showcase/src/components/utilities/forms-personal-info/forms-personal-info-pres.ts).
 
 __Submit and Intercommunication:__
 

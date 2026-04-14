@@ -1,1 +1,1 @@
-export * from './api-configuration-override.request';
+export * from './api-configuration-override-request';

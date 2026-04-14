@@ -10,12 +10,12 @@ import {
 import {
   hmacSHA256,
   sha256,
-} from './mgw-mdw-auth.helpers';
+} from './mgw-mdw-auth-helpers';
 import {
   JsonTokenPayload,
   MicroGatewayMiddlewareAuthenticationRequest,
   MicroGatewayMiddlewareAuthenticationRequestConstructor,
-} from './mgw-mdw-auth.request';
+} from './mgw-mdw-auth-request';
 
 const authHeaderKey = 'Authorization';
 const authHeaderPrefix = 'Bearer ';

@@ -1,1 +1,1 @@
-export * from './styles.interface';
+export * from './styles-interface';

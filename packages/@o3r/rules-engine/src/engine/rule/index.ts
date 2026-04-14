@@ -1,1 +1,1 @@
-export * from './rule.helpers';
+export * from './rule-helpers';

@@ -24,7 +24,7 @@ import type {
 } from '../../ng-add/schema';
 
 /**
- * Update app.module file with api manager, if needed
+ * Update app-module file with api manager, if needed
  * @param options
  */
 export function updateApiDependencies(options: NgAddSchematicsSchema): Rule {

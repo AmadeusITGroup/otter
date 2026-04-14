@@ -240,7 +240,7 @@ import { Router } from '@angular/router';
 import { FactsService, RulesEngineRunnerService } from '@o3r/rules-engine';
 import { interval } from 'rxjs';
 import { retrieveUrl } from './fact-factories/index';
-import { PageFacts } from './page.facts';
+import { PageFacts } from './page-facts';
 
 @Injectable()
 export class PageFactsService extends FactsService<PageFacts> {

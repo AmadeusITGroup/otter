@@ -73,7 +73,7 @@ import {
 } from '@o3r/rules-engine';
 import type {
   ExperimentFacts,
-} from './experiment.facts';
+} from './experiment-facts';
 import {BehaviorSubject} from 'rxjs';
 
 /**
@@ -112,7 +112,7 @@ Now, you need to link ``ExperimentFactsService`` and the ``AbTestBridge`` to upd
 import {
   ABTestingExperiment,
   isExperimentEqual
-} from './experiment.interface';
+} from './experiment-interface';
 import {
   Injectable,
 } from '@angular/core';
@@ -123,10 +123,11 @@ import {
   ExperimentFactsService,
 } from './facts';
 import {
-  AbTestBridge, AbTestBridgeConfig,
+  AbTestBridge,
+  AbTestBridgeConfig,
 } from '@o3r/third-party';
 import {
-    LoggerService
+  LoggerService
 } from '@o3r/logger';
 
 /**

@@ -1,1 +1,1 @@
-export * from './linkable-to-ruleset.interfaces';
+export * from './linkable-to-ruleset-interfaces';

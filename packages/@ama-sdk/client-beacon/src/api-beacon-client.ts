@@ -95,14 +95,18 @@ export class ApiBeaconClient implements ApiClient {
       headers: new Headers(filterUndefinedValues(options.headers)),
       queryParams: filterUndefinedValues(options.queryParams)
     };
-    if (this.options.requestPlugins) {
-      for (const plugin of this.options.requestPlugins) {
-        const changedOpt = plugin.load({ logger: this.options.logger, apiName: options.api?.apiName }).transform(opts);
-        if (isPromise(changedOpt)) {
-          throw new Error(`Request plugin ${plugin.constructor.name} has async transform method. Only sync methods are supported with the Beacon client.`);
-        } else {
-          opts = changedOpt;
-        }
+    const requestPlugins = typeof this.options.requestPlugins === 'function'
+      ? this.options.requestPlugins(opts)
+      : this.options.requestPlugins;
+    if (isPromise(requestPlugins)) {
+      throw new Error('Only a synchronous function is supported to return the list of Request Plugin for this Client');
+    }
+    for (const plugin of requestPlugins) {
+      const changedOpt = plugin.load({ logger: this.options.logger, apiName: options.api?.apiName }).transform(opts);
+      if (isPromise(changedOpt)) {
+        throw new Error(`Request plugin ${plugin.constructor.name} has async transform method. Only sync methods are supported with the Beacon client.`);
+      } else {
+        opts = changedOpt;
       }
     }
 

@@ -9,12 +9,10 @@ Please refer to the [ama-sdk-schematics](../schematics/README.md) package for ge
 
 ## Available plugins
 
-- [abort](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/abort) *(deprecated, now available [here](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/client-fetch/src/plugins/abort))*
 - [additional-params](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/additional-params)
 - [api-configuration-override](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/api-configuration-override)
 - [api-key](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/api-key)
 - [bot-protection-fingerprint](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/bot-protection-fingerprint)
-- [concurrent](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/concurrent) *(deprecated, now available [here](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/client-fetch/src/plugins/concurrent))*
 - [core](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/core)
 - [client-facts](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/client-facts)
 - [custom-info](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/custom-info)
@@ -22,30 +20,26 @@ Please refer to the [ama-sdk-schematics](../schematics/README.md) package for ge
 - [fetch-cache](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/fetch-cache)
 - [fetch-credentials](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/fetch-credentials)
 - [json-token](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/json-token)
-- [keepalive](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/keepalive) *(deprecated, now available [here](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/client-fetch/src/plugins/keepalive))*
 - [mock-intercept](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/mock-intercept)
-- [perf-metric](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/perf-metric) *(deprecated, now available [here](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/client-fetch/src/plugins/perf-metric))*
+- [OpenTelemetry Traceparent](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/open-telemetry/traceparent)
 - [pii-tokenizer](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/pii-tokenizer)
 - [raw-response-info](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/raw-response-info)
-- [retry](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/retry) *(deprecated, now available [here](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/client-fetch/src/plugins/retry))*
 - [reviver](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/reviver)
 - [session-id](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/session-id)
 - [si-token](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/si-token)
 - [simple-api-key-authentication](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/simple-api-key-authentication)
 - [url-rewrite](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/url-rewrite)
-- [timeout](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/timeout) *(deprecated, now available [here](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/client-fetch/src/plugins/timeout))*
-- [wait-for](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/wait-for) *(deprecated, now available [here](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/client-fetch/src/plugins/wait-for))*
 
 ## Available API Client
 
 The **API Clients** are mandatory to the SDK to indicate the service that should be used by the SDK to process the calls.
 A list of API Clients are provided by this package:
 
-| API Client       | Import                                                                   | Description                                                                  |
-| ---------------- | ------------------------------------------------------------------------ | ---------------------------------------------------------------------------- |
-| ApiFetchClient   | [@ama-sdk/client-fetch](https://npmjs.com/package/@ama-sdk/client-fetch) | Default API Client based on the browser FetchApi                             |
-| ApiBeaconClient  | @ama-sdk/core                                                            | API Client based on the browser BeaconApi, it is processing synchronous call |
-| ApiAngularClient | @ama-sdk/core/clients/api-angular-client                                 | API Client using the HttpClient exposed by the `@angular/common` package     |
+| API Client       | Import                                                                            | Description                                                                  |
+| ---------------- | --------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| ApiFetchClient   | [@ama-sdk/client-fetch](https://npmjs.com/package/@ama-sdk/client-fetch)          | Default API Client based on the browser FetchApi                             |
+| ApiBeaconClient  | [@ama-sdk/beacon-fetch](https://npmjs.com/package/@ama-sdk/beacon-fetch)                  | API Client based on the browser BeaconApi, it is processing synchronous call |
+| ApiAngularClient | [@ama-sdk/api-angular-client](https://npmjs.com/package/@ama-sdk/angular-fetch)   | API Client using the HttpClient exposed by the `@angular/common` package     |
 
 ### Logs
 

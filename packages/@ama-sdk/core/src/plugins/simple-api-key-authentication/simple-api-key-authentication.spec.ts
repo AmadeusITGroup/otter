@@ -6,7 +6,7 @@ import {
 } from '../core/request-plugin';
 import {
   SimpleApiKeyAuthenticationRequest,
-} from './simple-api-key-authentication.request';
+} from './simple-api-key-authentication-request';
 
 const base64UrlDecoder = createBase64UrlDecoder();
 

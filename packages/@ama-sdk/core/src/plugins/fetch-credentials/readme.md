@@ -4,4 +4,4 @@ Plugin to set the "credentials" option of the fetch API for every request it is 
 
 ### Type of plugins
 
-- Request plugin: [FetchCredentialsRequest](./fetch-credentials.request.ts)
+- Request plugin: [FetchCredentialsRequest](./fetch-credentials-request.ts)

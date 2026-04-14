@@ -1,11 +1,11 @@
 import {
   SwaggerSpec,
-} from '../swagger-spec-wrappers/swagger-spec.interface';
+} from '../swagger-spec-wrappers/swagger-spec-interface';
 import {
   Checker,
   CheckerError,
   Report,
-} from './checker.interface';
+} from './checker-interface';
 
 /**
  * Checker for Multi success response

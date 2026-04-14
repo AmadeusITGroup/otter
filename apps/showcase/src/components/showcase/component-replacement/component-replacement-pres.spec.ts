@@ -18,11 +18,11 @@ import {
   O3rElement,
 } from '@o3r/testing/core';
 import {
-  ComponentReplacementPresComponent,
-} from './component-replacement-pres.component';
+  ComponentReplacementPres,
+} from './component-replacement-pres';
 import {
   ComponentReplacementPresFixtureComponent,
-} from './component-replacement-pres.fixture';
+} from './component-replacement-pres-fixture';
 
 let componentFixture: ComponentReplacementPresFixtureComponent;
 
@@ -44,22 +44,22 @@ class MockC11nCVAStandaloneDirective {
   public registerOnTouched = () => {};
 }
 
-describe('ComponentReplacementPresComponent', () => {
-  let component: ComponentReplacementPresComponent;
-  let fixture: ComponentFixture<ComponentReplacementPresComponent>;
+describe('ComponentReplacementPres', () => {
+  let component: ComponentReplacementPres;
+  let fixture: ComponentFixture<ComponentReplacementPres>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        ComponentReplacementPresComponent
+        ComponentReplacementPres
       ],
       providers: [{ provide: C11nService, useClass: C11nMockService }]
-    }).overrideComponent(ComponentReplacementPresComponent, {
+    }).overrideComponent(ComponentReplacementPres, {
       remove: { imports: [C11nDirective] },
       add: { imports: [MockC11nCVAStandaloneDirective] }
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ComponentReplacementPresComponent);
+    fixture = TestBed.createComponent(ComponentReplacementPres);
     component = fixture.componentInstance;
 
     componentFixture = new ComponentReplacementPresFixtureComponent(new O3rElement(fixture.debugElement));

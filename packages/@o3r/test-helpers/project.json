@@ -15,7 +15,8 @@
         "{projectRoot}/package.json"
       ],
       "options": {
-        "script": "postbuild"
+        "script": "postbuild",
+        "tsConfig": "{projectRoot}/tsconfig.build.json"
       },
       "dependsOn": [
         "compile"
@@ -30,5 +31,8 @@
     "lint": {},
     "test": {}
   },
-  "tags": []
+  "tags": [
+    "access:private",
+    "hook:postinstall"
+  ]
 }

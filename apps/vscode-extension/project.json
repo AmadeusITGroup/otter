@@ -40,8 +40,7 @@
       "options": {
         "command": "npm install && npx @vscode/vsce publish",
         "cwd": "apps/vscode-extension/dist"
-      },
-      "dependsOn": ["prepare-publish"]
+      }
     }
   },
   "tags": []

@@ -6,10 +6,10 @@ import {
 } from '../core/request-plugin';
 import {
   JsonTokenReply,
-} from './json-token.reply';
+} from './json-token-reply';
 import {
   JsonTokenRequest,
-} from './json-token.request';
+} from './json-token-request';
 
 describe('Json Token', () => {
   const tokenValue = 'tokenValue';

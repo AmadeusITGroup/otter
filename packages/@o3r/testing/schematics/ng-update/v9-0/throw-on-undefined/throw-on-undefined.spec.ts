@@ -22,14 +22,14 @@ describe('Update ThrowOnUndefined helper', () => {
     initialTree = Tree.empty();
     initialTree.create('angular.json', fs.readFileSync(path.resolve(__dirname, 'mocks', 'angular.mocks.json.template')));
     initialTree.create('/src/mock.fixture.ts', fs.readFileSync(path.resolve(__dirname, 'mocks', 'fixture.mocks.ts.template')));
-    initialTree.create('/src/mock.component.ts', fs.readFileSync(path.resolve(__dirname, 'mocks', 'fixture.mocks.ts.template')));
+    initialTree.create('/src/mock.ts', fs.readFileSync(path.resolve(__dirname, 'mocks', 'fixture.mocks.ts.template')));
   });
 
   it('should not update non-fixture files', async () => {
     const runner = new SchematicTestRunner('migrations', collectionPath);
     const tree = await lastValueFrom(runner.callRule(updateThrowOnUndefinedCalls(), initialTree));
 
-    expect(tree.readText('/src/mock.component.ts')).toBe(fs.readFileSync(path.resolve(__dirname, 'mocks', 'fixture.mocks.ts.template'), { encoding: 'utf8' }));
+    expect(tree.readText('/src/mock.ts')).toBe(fs.readFileSync(path.resolve(__dirname, 'mocks', 'fixture.mocks.ts.template'), { encoding: 'utf8' }));
   });
 
   it('should update fixture files', async () => {

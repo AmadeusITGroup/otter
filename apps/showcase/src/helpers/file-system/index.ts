@@ -1,1 +1,1 @@
-export * from './file-system.helper';
+export * from './file-system-helper';

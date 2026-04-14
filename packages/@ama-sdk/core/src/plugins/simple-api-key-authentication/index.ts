@@ -1,1 +1,1 @@
-export * from './simple-api-key-authentication.request';
+export * from './simple-api-key-authentication-request';

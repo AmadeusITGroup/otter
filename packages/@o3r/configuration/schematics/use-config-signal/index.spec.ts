@@ -19,12 +19,12 @@ describe('Migrate to config signal-based', () => {
     initialTree.create('angular.json', fs.readFileSync(path.resolve(__dirname, '..', '..', 'testing', 'mocks', 'angular.mocks.json')));
     initialTree.create('package.json', fs.readFileSync(path.resolve(__dirname, '..', '..', 'testing', 'mocks', 'package.mocks.json')));
     initialTree.create('.eslintrc.json', fs.readFileSync(path.resolve(__dirname, '..', '..', 'testing', 'mocks', '__dot__eslintrc.mocks.json')));
-    initialTree.create('component.ts', `
+    initialTree.create('my-component.ts', `
       @O3rComponent({ componentType: 'Block' })
       @Component({
         selector: 'o3r-component',
-        templateUrl: './component.template.html',
-        styleUrls: ['./component.style.scss'],
+        templateUrl: './my-component.html',
+        styleUrls: ['./my-component.scss'],
         encapsulation: ViewEncapsulation.None,
         changeDetection: ChangeDetectionStrategy.OnPush
       })
@@ -52,12 +52,12 @@ describe('Migrate to config signal-based', () => {
       }`);
     runner = new SchematicTestRunner('schematics', collectionPath);
     tree = await runner.runSchematic('use-config-signal', {
-      path: 'component.ts'
+      path: 'my-component.ts'
     }, initialTree);
   });
 
   it('should migrate to a signal-based configuration', () => {
-    const componentFileContent = tree.readText('component.ts');
+    const componentFileContent = tree.readText('my-component.ts');
 
     expect(componentFileContent).toContain('DynamicConfigurableWithSignal<MyConfig>');
     expect(componentFileContent).toContain('public config = input<Partial<MyConfig>>()');

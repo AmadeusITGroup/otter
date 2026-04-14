@@ -1,2 +1,2 @@
-export * from './<%= name %>.<%= featureName %>.fixture.jest';
+export * from './<%= name %>-<%= featureName %>-fixture-jest';
 <%= currentFixtureJestIndex %>

@@ -72,11 +72,15 @@ public class TypescriptfetchGenerator extends AbstractTypeScriptClientCodegen {
     addSupportingFile("api/enums.mustache", apiPackage, "enums.ts");
     addSupportingFile("spec/api-mock.mustache", "src/spec", "api-mock.ts");
 
+    String constantsPackage = "src/constants";
+    addSupportingFile("constants/servers.mustache", constantsPackage, "servers.ts");
+    
     /**
      * Template Location.  This is the location which templates will be read from.  The generator
      * will use the resource stream to attempt to read the templates.
      */
     templateDir = "typescriptFetch";
+    embeddedTemplateDir = "typescriptFetch/partials";
 
     for (String pattern : this.overwriteFilepathPatterns) {
       LOGGER.info("Overwrite: " + pattern);

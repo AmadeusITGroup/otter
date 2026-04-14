@@ -5,7 +5,7 @@ import {
 } from 'js-yaml';
 import {
   Formatter,
-} from './formatter.interface';
+} from './formatter-interface';
 import {
   generatePackageJson,
 } from './utils';

@@ -4,7 +4,7 @@ import type {
 import {
   editorConfigParse,
   editorConfigResolve,
-} from './editor-config.helpers';
+} from './editor-config-helpers';
 
 /**
  * Apply the rule of the editor-config to the file listed by the patterns

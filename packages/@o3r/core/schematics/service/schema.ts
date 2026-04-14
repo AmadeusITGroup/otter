@@ -17,4 +17,10 @@ export interface NgGenerateServiceSchematicsSchema extends SchematicOptionObject
 
   /** Skip the linter process which includes the run of EsLint and EditorConfig rules */
   skipLinter: boolean;
+
+  /** Custom type to append to the service's file name */
+  type?: string;
+
+  /** Append the 'type' option to the generated class name */
+  addTypeToClassName: boolean;
 }

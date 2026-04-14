@@ -23,8 +23,8 @@ import {ChangeDetectionStrategy, Component, ViewEncapsulation, inject, OnInit, O
 @O3rComponent({ componentType: 'Component' })
 @Component({
   selector: 'app-my-component',
-  templateUrl: './my-component.template.html',
-  styleUrl: './my-component.style.scss',
+  templateUrl: './my-component.html',
+  styleUrl: './my-component.scss',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })

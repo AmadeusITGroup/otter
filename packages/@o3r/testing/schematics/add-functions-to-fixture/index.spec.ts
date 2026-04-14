@@ -18,8 +18,8 @@ describe('Fixture', () => {
   });
 
   it('should generate a fixture in an empty fixture', async () => {
-    const filePath = 'example-empty.fixture.ts';
-    initialTree.create(filePath, fs.readFileSync(path.join(__dirname, 'mocks/example-empty.fixture.ts.mock')));
+    const filePath = 'example-empty-fixture.ts';
+    initialTree.create(filePath, fs.readFileSync(path.join(__dirname, 'mocks/example-empty-fixture.ts.mock')));
     const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('add-functions-to-fixture', {
       path: filePath,
@@ -33,8 +33,8 @@ describe('Fixture', () => {
   });
 
   it('should generate a fixture in a fixture file', async () => {
-    const filePath = 'example.fixture.ts';
-    initialTree.create(filePath, fs.readFileSync(path.join(__dirname, 'mocks/example.fixture.ts.mock')));
+    const filePath = 'example-fixture.ts';
+    initialTree.create(filePath, fs.readFileSync(path.join(__dirname, 'mocks/example-fixture.ts.mock')));
     const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('add-functions-to-fixture', {
       path: filePath,

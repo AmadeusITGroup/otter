@@ -1,1 +1,1 @@
-export * from './fetch-cache.request';
+export * from './fetch-cache-request';

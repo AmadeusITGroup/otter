@@ -5,7 +5,7 @@ import {
   ClientFactsRequestPlugin,
   createJwtFactsEncoder,
   PublicFacts,
-} from './client-facts.request';
+} from './client-facts-request';
 
 const defaultFacts: PublicFacts = {
   foo: 'one',

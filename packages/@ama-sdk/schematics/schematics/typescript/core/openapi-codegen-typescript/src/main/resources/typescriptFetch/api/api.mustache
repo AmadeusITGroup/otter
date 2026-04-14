@@ -5,8 +5,8 @@ import { {{import}} } from '../../models/base/{{#kebabCase}}{{import}}{{/kebabCa
 import { revive{{import}} } from '../../models/base/{{#kebabCase}}{{import}}{{/kebabCase}}/{{#kebabCase}}{{import}}{{/kebabCase}}.reviver';
 {{/keepRevivers}}
 {{/imports}}
-import { Api, ApiClient, ApiTypes, computePiiParameterTokens, isJsonMimeType, ParamSerializationOptions, RequestBody, RequestMetadata, utils } from '@ama-sdk/core';
-
+import { Api, ApiClient, ApiTypes, computePiiParameterTokens, isJsonMimeType, ParamSerializationOptions, RequestBody, RequestMetadata, Server, selectServerBasePath, utils } from '@ama-sdk/core';
+import { SDK_SERVERS } from '../../constants/servers';
 {{#operations}}
   {{#operation}}
     {{#allParams}}
@@ -79,6 +79,9 @@ export class {{classname}} implements Api {
 
     };
 
+    const operationServers = {{> servers.partial }}
+    const serverBasePath = selectServerBasePath(this.client.options, operationServers.length > 0 ? operationServers : SDK_SERVERS, this.client.options.logger);
+
     let body: RequestBody = '';
     {{#hasFormParams}}
     let formParams:any = {};
@@ -118,14 +121,14 @@ export class {{classname}} implements Api {
       const pathParamsProperties = this.client.getPropertiesFromData(data, [{{#trimComma}}{{#pathParams}}'{{baseName}}', {{/pathParams}}{{/trimComma}}]);
       const pathParamSerialization = { {{#trimComma}}{{#pathParams}}'{{baseName}}': { explode: {{isExplode}}, style: '{{style}}' }, {{/pathParams}}{{/trimComma}} };
       const serializedPathParams = this.client.serializePathParams(pathParamsProperties, pathParamSerialization);
-      basePath = `${this.client.options.basePath}{{#urlSerializedParamReplacer}}{{path}}{{/urlSerializedParamReplacer}}`;
-      tokenizedUrl = `${this.client.options.basePath}{{#tokenizedUrlSerializedParamReplacer}}{{path}}{{/tokenizedUrlSerializedParamReplacer}}`;
+      basePath = `${serverBasePath}{{#urlSerializedParamReplacer}}{{path}}{{/urlSerializedParamReplacer}}`;
+      tokenizedUrl = `${serverBasePath}{{#tokenizedUrlSerializedParamReplacer}}{{path}}{{/tokenizedUrlSerializedParamReplacer}}`;
     } else {
       {{#hasQueryParams}}
       queryParams = this.client.stringifyQueryParams(queryParamsProperties);
       {{/hasQueryParams}}
-      basePath = `${this.client.options.basePath}{{#urlParamReplacer}}{{path}}{{/urlParamReplacer}}`;
-      tokenizedUrl = `${this.client.options.basePath}{{#tokenizedUrlParamReplacer}}{{path}}{{/tokenizedUrlParamReplacer}}`;
+      basePath = `${serverBasePath}{{#urlParamReplacer}}{{path}}{{/urlParamReplacer}}`;
+      tokenizedUrl = `${serverBasePath}{{#tokenizedUrlParamReplacer}}{{path}}{{/tokenizedUrlParamReplacer}}`;
     }
     {{/hasPathParams}}
     {{^hasPathParams}}
@@ -138,8 +141,8 @@ export class {{classname}} implements Api {
       queryParams = this.client.stringifyQueryParams(queryParamsProperties);
     }
     {{/hasQueryParams}}
-    const basePath = `${this.client.options.basePath}{{#urlParamReplacer}}{{path}}{{/urlParamReplacer}}`;
-    const tokenizedUrl = `${this.client.options.basePath}{{#tokenizedUrlParamReplacer}}{{path}}{{/tokenizedUrlParamReplacer}}`;
+    const basePath = `${serverBasePath}{{#urlParamReplacer}}{{path}}{{/urlParamReplacer}}`;
+    const tokenizedUrl = `${serverBasePath}{{#tokenizedUrlParamReplacer}}{{path}}{{/tokenizedUrlParamReplacer}}`;
     {{/hasPathParams}}
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 

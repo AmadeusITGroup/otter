@@ -62,9 +62,9 @@ import {CurrentTimeFactsService} from '@o3r/rules-engine';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
+  templateUrl: './app.html',
 })
-export class AppComponent implements OnInit {
+export class App implements OnInit {
   constructor(private currentTimeFactsService: CurrentTimeFactsService) {}
 
   ngOnInit() {

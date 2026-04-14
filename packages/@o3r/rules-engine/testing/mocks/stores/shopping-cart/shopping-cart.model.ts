@@ -1,6 +1,6 @@
 import {
   XmasHamper,
-} from '../../xmas-hamper.mock';
+} from '../../xmas-hamper-mock';
 
 /**
  * Shopping cart content

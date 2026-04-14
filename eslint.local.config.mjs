@@ -48,5 +48,20 @@ export default defineConfig([
         }
       ]
     }
+  },
+  {
+    name: '@o3r/framework/project-json',
+    plugins: {
+      '@o3r': o3rPlugin
+    },
+    files: ['**/project.json'],
+    rules: {
+      '@o3r/project-json-tags': [
+        'error',
+        {
+          allowedTags: ['access:private', 'hook:postinstall']
+        }
+      ]
+    }
   }
 ]);

@@ -1,5 +1,4 @@
 import {
-  basename,
   dirname,
   posix,
 } from 'node:path';
@@ -29,6 +28,8 @@ import {
   generateBlockStatementsFromString,
   generateClassElementsFromString,
   generateParametersDeclarationFromString,
+  getComponentBaseFileName,
+  getComponentConfigName,
   getLibraryNameFromPath,
   getO3rComponentInfoOrThrowIfNotFound,
   isO3rClassComponent,
@@ -46,9 +47,9 @@ const configProperties = [
   'dynamicConfig$', 'config', 'config$', 'configSignal'
 ];
 
-const checkConfiguration = (componentPath: string, tree: Tree) => {
+const checkConfiguration = (componentPath: string, tree: Tree, baseFileName: string) => {
   const files = [
-    posix.join(dirname(componentPath), `${basename(componentPath, '.component.ts')}.config.ts`)
+    posix.join(dirname(componentPath), `${baseFileName}-config.ts`)
   ];
   if (files.some((file) => tree.exists(file))) {
     throw new O3rCliError(`Unable to add configuration to this component because it already has at least one of these files: ${files.join(', ')}.`);
@@ -82,15 +83,16 @@ export function ngAddConfigFn(options: NgAddConfigSchematicsSchema): Rule {
   return async (tree: Tree, context: SchematicContext) => {
     try {
       const componentPath = options.path;
+      const baseFileName = getComponentBaseFileName(componentPath);
       const { name } = getO3rComponentInfoOrThrowIfNotFound(tree, componentPath);
 
-      checkConfiguration(componentPath, tree);
+      checkConfiguration(componentPath, tree, baseFileName);
 
       const properties = {
-        componentConfig: name.concat('Config'),
+        componentConfig: getComponentConfigName(baseFileName),
         projectName: options.projectName || getLibraryNameFromPath(componentPath),
         configKey: strings.underscore(name).toUpperCase(),
-        name: basename(componentPath, '.component.ts')
+        name: baseFileName
       };
 
       const createConfigFilesRule: Rule = mergeWith(apply(url('./templates'), [
@@ -111,7 +113,7 @@ export function ngAddConfigFn(options: NgAddConfigSchematicsSchema): Rule {
             ]
           },
           {
-            from: `./${properties.name}.config`,
+            from: `./${properties.name}-config`,
             importNames: [
               `${properties.configKey}_DEFAULT_CONFIG`,
               `${properties.configKey}_CONFIG_ID`,
@@ -337,7 +339,7 @@ export function ngAddConfigFn(options: NgAddConfigSchematicsSchema): Rule {
             ]
           },
           {
-            from: `./${properties.name}.config`,
+            from: `./${properties.name}-config`,
             importNames: [
               `${properties.configKey}_DEFAULT_CONFIG`,
               `${properties.configKey}_CONFIG_ID`,

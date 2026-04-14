@@ -14,4 +14,7 @@ export interface NgAddSchematicsSchema extends SchematicOptionObject {
 
   /** A custom npm registry */
   npmRegistry?: string | undefined;
+
+  /** The repository default branch name */
+  defaultBranchName: string;
 }

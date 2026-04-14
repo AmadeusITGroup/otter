@@ -41,7 +41,7 @@ export function generateContentEncryptionKey() {
 /**
  * Generates an Initialization Vector of 96 bytes
  */
-export function generateIV() {
+export function generateIV(): Uint8Array<ArrayBuffer> {
   if (typeof window.msCrypto !== 'undefined') {
     return window.msCrypto.getRandomValues(new Uint8Array(12));
   }
@@ -70,7 +70,13 @@ export async function wrapContentEncryptionKey(publicKey: CryptoKey, contentEncr
  * @param authenticationTagLength Length of the authentication tag AES will generate
  * @param additionalAuthenticatedData Additional cleartext data to authenticate. Altering them will make decryption impossible.
  */
-export async function encryptPayload(iv: Uint8Array, key: CryptoKey, payload: Uint8Array, authenticationTagLength: number, additionalAuthenticatedData?: Uint8Array) {
+export async function encryptPayload(
+  iv: Uint8Array<ArrayBuffer>,
+  key: CryptoKey,
+  payload: Uint8Array<ArrayBuffer>,
+  authenticationTagLength: number,
+  additionalAuthenticatedData?: Uint8Array<ArrayBuffer>
+) {
   let ciphertext: ArrayBuffer;
   let authenticationTag: ArrayBuffer;
   const aesParams: AesGcmParams = {

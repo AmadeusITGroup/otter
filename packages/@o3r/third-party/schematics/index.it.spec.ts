@@ -25,16 +25,18 @@ describe('new Angular application', () => {
     expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
 
     const diff = getGitDiff(workspacePath);
-    expect(diff.modified).toContain('package.json');
-    expect(diff.modified).toContain('angular.json');
-    expect(diff.modified).toContain('apps/test-app/package.json');
-    expect(diff.modified).toContain(isYarnTest ? 'yarn.lock' : 'package-lock.json');
-    expect(diff.modified.length).toBe(4);
+
+    expect(diff.modified.sort()).toEqual([
+      'package.json',
+      'angular.json',
+      'apps/test-app/package.json',
+      isYarnTest ? 'yarn.lock' : 'package-lock.json'
+    ].sort());
     expect(diff.added.length).toBe(0);
 
-    const componentPath = path.normalize(path.posix.join(relativeApplicationPath, 'src/components/test-component/test-component.component.ts'));
-    packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:component', 'test-component', '--project-name', appName, '--use-localization', 'false'] }, execAppOptions);
-    await addImportToAppModule(applicationPath, 'TestComponentModule', 'src/components/test-component');
+    const componentPath = path.normalize(path.posix.join(relativeApplicationPath, 'src/components/test/test.ts'));
+    packageManagerExec({ script: 'ng', args: ['g', '@o3r/core:component', 'test', '--project-name', appName, '--use-localization', 'false'] }, execAppOptions);
+    await addImportToAppModule(applicationPath, 'Test', 'src/components/test');
     packageManagerExec({ script: 'ng', args: ['g', '@o3r/third-party:iframe-to-component', '--path', componentPath] }, execAppOptions);
 
     [libraryPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {

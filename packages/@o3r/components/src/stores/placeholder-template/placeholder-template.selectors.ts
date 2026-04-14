@@ -71,23 +71,4 @@ export const selectSortedTemplates = (placeholderId: string) => createSelector(
     return { orderedTemplates, isPending };
   });
 
-/**
- * Select the ordered rendered templates for a given placeholderId
- * Return undefined if the placeholder is not found
- * Returns {orderedRenderedTemplates: undefined, isPending: true} if any of the request is still pending
- * @param placeholderId
- * @deprecated Please use {@link selectSortedTemplates} instead
- */
-export const selectPlaceholderRenderedTemplates = (placeholderId: string) => createSelector(
-  selectSortedTemplates(placeholderId),
-  (placeholderData) => {
-    if (!placeholderData) {
-      return;
-    }
-    return {
-      orderedRenderedTemplates: placeholderData.orderedTemplates?.map((placeholder) => placeholder.renderedTemplate),
-      isPending: placeholderData.isPending
-    };
-  });
-
 export const selectPlaceholderTemplateMode = createSelector(selectPlaceholderTemplateState, (state) => state.mode);

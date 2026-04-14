@@ -1,6 +1,6 @@
 import {
   getPropertiesFromData,
-} from './api.helpers';
+} from './api-helpers';
 import {
   utils,
 } from './date';

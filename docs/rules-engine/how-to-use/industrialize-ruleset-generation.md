@@ -48,10 +48,10 @@ Declare it in your `angular.json` and run it as a script: `ng run my-project:ext
             "outputFactsDirectory": "",
             "outputOperatorsDirectory": "",
             "factFilePatterns": [
-              "src/**/!(portal)/*.facts.ts"
+              "src/**/!(portal)/*-facts.ts"
             ],
             "operatorFilePatterns": [
-              "src/operators/*.operators.ts"
+              "src/operators/*-operators.ts"
             ],
             "ignoreFactsFromLibraries": [
               "@o3r/rules-engine"
@@ -115,7 +115,7 @@ to a single element.
 > Here, the `@title` decorator in the tsdoc is used to specify a user-friendly name for the operator.
 
 > [!NOTE] 
-> The models for the `OperatorsMetadata` are available in the [rules engine metadata interface file](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40o3r/rules-engine/builders/rules-engine-extractor/helpers/rules-engine.extractor.interfaces.ts).
+> The models for the `OperatorsMetadata` are available in the [rules engine metadata interface file](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40o3r/rules-engine/builders/rules-engine-extractor/helpers/rules-engine-extractor-interfaces.ts).
 
 #### Operands supported types
 
@@ -222,7 +222,7 @@ You can note that the `ComplexInterface` fact results in a separated schema file
 ```
 
 > [!NOTE]
-> The models for the `OperatorsMetadata` are available in the [rules engine metadata interface file](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40o3r/rules-engine/builders/rules-engine-extractor/helpers/rules-engine.extractor.interfaces.ts).
+> The models for the `OperatorsMetadata` are available in the [rules engine metadata interface file](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40o3r/rules-engine/builders/rules-engine-extractor/helpers/rules-engine-extractor-interfaces.ts).
 
 ### Project with module sub-entries
 

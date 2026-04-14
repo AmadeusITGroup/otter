@@ -61,8 +61,8 @@ Here is an example on a library:
 In case you have a library in a mono repository, it's important to specify both the `configOutputFile` option and the `componentOutputFile` option.
 It will prevent the files generated for the library to conflict with the ones generated for the application because by default, if it is not specified, the output files will be generated at the root of the project.
 
-For the `tsconfig`, you should include only the files that you want to parse, i.e. components and config. You can
-extend your `tsconfig`, and just override the fields that you need.
+For the `tsconfig`, you should include only the files that you want to parse.
+You can extend your `tsconfig`, and just override the fields that you need.
 
 Example of a `tsconfig` :
 
@@ -71,8 +71,7 @@ Example of a `tsconfig` :
   "extends": "./tsconfig",
   "rootDir": ".",
   "include": [
-    "src/**/*.component.ts",
-    "src/**/*.config.ts"
+    "src/**/*.ts"
   ],
   "exclude": [
     // Put all paths that you would like to exclude here (ex: src/**/*.spec.ts)

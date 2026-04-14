@@ -1,6 +1,14 @@
 openapi: 3.0.2
+
 servers:
-  - url: /v3
+  - url: 'https://{environment}/v3'
+    variables:
+      environment:
+        enum:
+          - 'dev'
+          - 'prd'
+        default: 'prd'
+        description: Software environment
 info:
   description: |-
     This is a sample Pet Store Server based on the OpenAPI 3.0 specification.  You can find out more about
@@ -35,6 +43,8 @@ tags:
 paths:
   /pet:
     post:
+      servers:
+        - url: '/override'
       tags:
         - pet
       summary: Add a new pet to the store

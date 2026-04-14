@@ -88,8 +88,12 @@ export const updatePipes = (pipeReplacementInfo: PipeReplacementInfo): Rule => (
     if (matchers.length > 0) {
       const directory = dirname(file.path);
       const baseFileName = basename(basename(file.path, '.html'), '.template');
-      const componentFile = join(directory, `${baseFileName}.component.ts`);
-      const moduleFile = join(directory, `${baseFileName}.module.ts`);
+      const componentFilePath1 = join(directory, `${baseFileName}.component.ts`);
+      const componentFilePath2 = join(directory, `${baseFileName}.ts`);
+      const componentFile = tree.exists(componentFilePath1) ? componentFilePath1 : componentFilePath2;
+      const moduleFilePath1 = join(directory, `${baseFileName}.module.ts`);
+      const moduleFilePath2 = join(directory, `${baseFileName}-module.ts`);
+      const moduleFile = tree.exists(moduleFilePath1) ? moduleFilePath1 : moduleFilePath2;
       let standalone = true;
       if (tree.exists(componentFile)) {
         try {

@@ -8,49 +8,6 @@ body:
     attributes:
       value: |
         Thanks for taking the time to fill out this bug report! Please make sure we have all the information we need to investigate efficiently.
-  - type: dropdown
-    id: package-name
-    attributes:
-      label: Package name
-      description: Which package(s) are you facing issue with?
-      multiple: true
-      options: [
-        '*global*',
-        amaterasu,
-        analytics,
-        apis-manager,
-        application,
-        build-helpers,
-        chrome-devtools,
-        components,
-        configuration,
-        core,
-        create,
-        design,
-        dynamic-content,
-        eslint-config-otter,
-        eslint-plugin,
-        extractors,
-        forms,
-        github-actions,
-        github-cascading-app,
-        localization,
-        logger,
-        mobile,
-        routing,
-        rules-engine,
-        schematics,
-        showcase,
-        store-sync,
-        stylelint-plugin,
-        styling,
-        telemetry,
-        testing,
-        third-party,
-        workspace
-      ]
-    validations:
-      required: true
   - type: input
     id: package-version
     attributes:

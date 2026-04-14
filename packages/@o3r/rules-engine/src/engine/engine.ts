@@ -18,18 +18,18 @@ import {
 } from 'rxjs/operators';
 import {
   EngineDebugger,
-} from './debug/engine.debug';
+} from './debug/engine-debug';
 import {
   FactObject,
   RulesEngineOptions,
-} from './engine.interface';
+} from './engine-interface';
 import type {
   Fact,
   Facts,
 } from './fact/index';
 import {
   filterRulesetsEventStream,
-} from './helpers/filter-ruleset-event.operator';
+} from './helpers/filter-ruleset-event-operator';
 import {
   Operator,
   operatorList,

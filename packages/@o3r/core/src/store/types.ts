@@ -67,12 +67,6 @@ export interface FailActionPayload<T> {
 
 export type Keep<T, K extends keyof T> = Partial<T> & Pick<T, K>;
 
-/**
- * @deprecated please use {@link Keep} instead, will be removed in v13.
- */
-// eslint-disable-next-line @typescript-eslint/naming-convention -- deprecated
-export type keep<T, K extends keyof T> = Keep<T, K>;
-
 /** Payload to update entities actions */
 export interface UpdateEntitiesActionPayload<T, K extends keyof T> {
   entities: Keep<T, K>[];

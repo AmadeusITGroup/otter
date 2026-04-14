@@ -1,10 +1,10 @@
 import {
   SwaggerSpec,
-} from '../swagger-spec-wrappers/swagger-spec.interface';
+} from '../swagger-spec-wrappers/swagger-spec-interface';
 import {
   Checker,
   Report,
-} from './checker.interface';
+} from './checker-interface';
 
 /** Dictionary reference object */
 export interface DictionaryReference {

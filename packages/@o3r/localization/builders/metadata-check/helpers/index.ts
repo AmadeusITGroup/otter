@@ -1,1 +1,1 @@
-export * from './localization-metadata-comparison.helper';
+export * from './localization-metadata-comparison-helper';

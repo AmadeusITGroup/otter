@@ -19,7 +19,9 @@ export function getOperationId(pathObject: PathObject, method: string): string |
 }
 
 /**
- * Gets a PathObject from a requested URL
+ * Gets a PathObject from a requested URL.
+ * If present in the {@link pathObjects} item, the {@link PathObject.urlPattern | urlPattern} will be used to match the {@link requestURL} path part.
+ * If not, the matching will be proceed with the {@link PathObject.regexp | regexp} on the whole {@link requestURL}
  * @param requestUrl the URL string
  * @param pathObjects the list of available path objects
  * @param method the optional HTTP method used in case of several matches
@@ -33,7 +35,8 @@ export function getPath(requestUrl: string, pathObjects: PathObject[], method?: 
 
   // Find all matching paths
   let matches = pathObjects.reduce<{ index: number; segments: string[]; methods: string[] }[]>((newMatches, pathObject, index) => {
-    if (pathObject.regexp.test(pathName)) {
+    const regexp = pathObject.urlPattern ? new RegExp(pathObject.urlPattern) : pathObject.regexp;
+    if (regexp.test(pathName)) {
       newMatches.push({
         index,
         segments: pathObject.path.split('/'),

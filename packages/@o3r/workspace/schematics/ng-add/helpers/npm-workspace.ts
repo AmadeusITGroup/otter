@@ -18,6 +18,9 @@ import {
 import type {
   PackageJson,
 } from 'type-fest';
+import {
+  TsConfigJson,
+} from 'type-fest';
 import type {
   MonorepoManager,
 } from '../schema';
@@ -127,5 +130,30 @@ export function addMonorepoManager(o3rWorkspacePackageJson: PackageJson & { gene
       tree.overwrite(rootPackageJsonPath, JSON.stringify(rootPackageJsonObject, null, 2));
     }
     return tree;
+  };
+}
+
+/**
+ * Patch the root tsconfig.json to remove the "files" property if empty
+ * This is to ensure compatibility with eslint projectService: true mode.
+ */
+export function patchAngularRootTsconfig() {
+  return (tree: Tree, context: SchematicContext) => {
+    const tsconfigPath = '/tsconfig.json';
+    if (tree.exists(tsconfigPath)) {
+      const tsconfig = tree.readJson(tsconfigPath) as TsConfigJson;
+      if (tsconfig.files && tsconfig.files.length === 0) {
+        delete tsconfig.files;
+        tree.overwrite(tsconfigPath, JSON.stringify(tsconfig, null, 2));
+      } else if (tsconfig.files && tsconfig.files.length > 0) {
+        context.logger.warn(`
+        Root tsconfig.json contains "files" property. This is not fully compliant with the Otter architecture, you may encounter some
+        disruptions.
+
+        Otter CLI will not modify it to ensure no disruption to your setup.
+
+        Consider removing the "files" property.`);
+      }
+    }
   };
 }

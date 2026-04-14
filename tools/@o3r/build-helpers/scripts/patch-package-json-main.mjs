@@ -21,7 +21,7 @@ const root = argv.root ? resolve(process.cwd(), argv.root) : process.cwd();
 const distFolder = 'dist';
 const availableSourceExtension = ['js', 'cjs', 'mjs'];
 const typeFields = ['types', 'typings'];
-const srcFields = ['main', 'default', 'module', 'esm2015', 'esm2020', 'schematics', 'builders'];
+const srcFields = ['main', 'default', 'module', 'esm2015', 'esm2020', 'schematics', 'builders', 'node'];
 const fields = [...typeFields, ...srcFields];
 const distPath = resolve(root, distFolder);
 const packageJsonPath = join(distPath, 'package.json');
@@ -60,8 +60,12 @@ fields
   .forEach(({ field, path }) => packageJson[field] = path);
 
 if (packageJson.bin) {
-  Object.keys(packageJson.bin)
-    .forEach((cli) => packageJson.bin[cli] = updateField('cli', packageJson.bin[cli]).path);
+  if (typeof packageJson.bin === 'string') {
+    packageJson.bin = updateField('cli', packageJson.bin).path;
+  } else {
+    Object.keys(packageJson.bin)
+      .forEach((cli) => packageJson.bin[cli] = updateField('cli', packageJson.bin[cli]).path);
+  }
 }
 
 if (packageJson.cmsMetadata) {

@@ -5,6 +5,7 @@
     "incremental": true,
     "declaration": true,
     "module": "commonjs",
+    "moduleResolution": "node10",
     "outDir": "./dist",
     "importHelpers": false,
     "tsBuildInfoFile": "build/.tsbuildinfo"

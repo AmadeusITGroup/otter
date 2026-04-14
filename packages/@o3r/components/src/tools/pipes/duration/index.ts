@@ -1,1 +1,1 @@
-export * from './duration.pipe';
+export * from './duration-pipe';

@@ -3,20 +3,20 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import {
-  DesignTokenPresComponent,
-} from './design-token-pres.component';
+  DesignTokenPres,
+} from './design-token-pres';
 
-describe('DesignTokenPresComponent', () => {
-  let component: DesignTokenPresComponent;
-  let fixture: ComponentFixture<DesignTokenPresComponent>;
+describe('DesignTokenPres', () => {
+  let component: DesignTokenPres;
+  let fixture: ComponentFixture<DesignTokenPres>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DesignTokenPresComponent]
+      imports: [DesignTokenPres]
     })
       .compileComponents();
 
-    fixture = TestBed.createComponent(DesignTokenPresComponent);
+    fixture = TestBed.createComponent(DesignTokenPres);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

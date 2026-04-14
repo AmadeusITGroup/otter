@@ -1,0 +1,20 @@
+{
+  "extends": "../../../tsconfig.build",
+  "compilerOptions": {
+    "types": ["node"],
+    "skipLibCheck": true, // Due to @redocly/openapi-core
+    "incremental": true,
+    "composite": true,
+    "module": "NodeNext",
+    "moduleResolution": "nodenext",
+    "outDir": "./dist",
+    "rootDir": ".",
+    "tsBuildInfoFile": "build/.tsbuildinfo"
+  },
+  "include": [
+    "src/**/*.mts"
+  ],
+  "exclude": [
+    "**/*.spec.ts"
+  ]
+}

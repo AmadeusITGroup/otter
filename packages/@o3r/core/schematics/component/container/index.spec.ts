@@ -23,7 +23,9 @@ import {
 const collectionPath = path.join(__dirname, '..', '..', '..', 'collection.json');
 
 function getGeneratedComponentPath(componentName: string, fileName: string, componentStructure: string) {
-  return `/${TYPES_DEFAULT_FOLDER['@o3r/core:component'].app}/${strings.dasherize(componentName)}/${componentStructure === 'full' ? CONTAINER_FOLDER + '/' : ''}${fileName}`;
+  return `/${TYPES_DEFAULT_FOLDER['@o3r/core:component'].app}/` + (componentStructure === 'full'
+    ? `${strings.dasherize(componentName)}/${CONTAINER_FOLDER + '/'}${fileName}`
+    : `${strings.dasherize(componentName) + (componentStructure === 'presenter' ? '-pres' : '-cont')}/${fileName}`);
 }
 
 describe('Component container', () => {
@@ -32,10 +34,10 @@ describe('Component container', () => {
 
   const componentName = 'testComponent';
   const expectedFileNames = [
-    'test-component-cont.component.ts',
-    'test-component-cont.context.ts',
+    'test-component-cont.ts',
+    'test-component-cont-context.ts',
     'test-component-cont.spec.ts',
-    'test-component-cont.template.html',
+    'test-component-cont.html',
     'README.md',
     'index.ts'
   ];
@@ -59,10 +61,38 @@ describe('Component container', () => {
       path: 'src/components'
     }, initialTree);
 
-    expect(tree.files.filter((file) => /test-component/.test(file)).length).toEqual(expectedFileNames.length);
-    expect(tree.files.filter((file) => /test-component/.test(file))).toEqual(expect.arrayContaining(
+    expect(tree.files.filter((file) => /test-component-cont/.test(file)).length).toEqual(expectedFileNames.length);
+    expect(tree.files.filter((file) => /test-component-cont/.test(file))).toEqual(expect.arrayContaining(
       expectedFileNames.map((fileName) => getGeneratedComponentPath(componentName, fileName, 'container')))
     );
+  });
+
+  it('should generate a container component with a type', async () => {
+    const tree = await runner.runSchematic('component-container', {
+      projectName: 'test-project',
+      componentName,
+      prefix: 'o3r',
+      componentStructure: 'container',
+      path: 'src/components',
+      type: 'test-type'
+    }, initialTree);
+
+    const expectedFileNamesWithType = [
+      'test-component-cont-context.ts',
+      'test-component-cont.test-type.ts',
+      'test-component-cont.test-type.spec.ts',
+      'test-component-cont.test-type.html',
+      'README.md',
+      'index.ts'
+    ];
+
+    expect(tree.files.filter((file) => /test-component-cont/.test(file)).sort()).toEqual(
+      expectedFileNamesWithType.map((fileName) => getGeneratedComponentPath(componentName, fileName, 'container')).sort()
+    );
+    expect(tree.readContent(getGeneratedComponentPath(componentName, 'index.ts', 'container'))).toContain('export * from \'./test-component-cont.test-type\';');
+    const componentFileContent = tree.readContent(getGeneratedComponentPath(componentName, 'test-component-cont.test-type.ts', 'container'));
+    expect(componentFileContent).toContain(`export class TestComponentContTestType`);
+    expect(componentFileContent).toContain(`import { TestComponentContContext } from './test-component-cont-context'`);
   });
 
   it('should generate a container component as part of a full component structure', async () => {
@@ -89,7 +119,7 @@ describe('Component container', () => {
       path: 'src/components'
     }, initialTree);
 
-    expect(tree.readContent(getGeneratedComponentPath(componentName, 'test-component-cont.component.ts', 'container')))
+    expect(tree.readContent(getGeneratedComponentPath(componentName, 'test-component-cont.ts', 'container')))
       .toContain(`selector: '${getComponentSelectorWithoutSuffix(componentName, 'o3r')}-cont'`);
   });
 
@@ -103,7 +133,7 @@ describe('Component container', () => {
       path: 'src/components'
     }, initialTree);
 
-    expect(tree.readContent(getGeneratedComponentPath(componentName, 'test-component-cont.component.ts', 'container')))
+    expect(tree.readContent(getGeneratedComponentPath(componentName, 'test-component-cont.ts', 'container')))
       .toContain(`selector: '${getComponentSelectorWithoutSuffix(componentName, customPrefix)}-cont'`);
   });
 
@@ -117,7 +147,7 @@ describe('Component container', () => {
       path: 'src/components'
     }, initialTree);
 
-    expect(tree.files.filter((file) => /test-component-cont\.fixture\.ts$/.test(file)).length).toBe(0);
+    expect(tree.files.filter((file) => /test-component-cont[.-]fixture\.ts$/.test(file)).length).toBe(0);
   });
 
   it('should throw if generate a container component with otter fixture, as @o3r/testing is not installed', async () => {
@@ -136,7 +166,7 @@ describe('Component container', () => {
       projectName: 'test-project',
       componentName,
       prefix: 'o3r',
-      componentStructure: 'presenter',
+      componentStructure: 'container',
       useOtterConfig: true,
       activateDummy: true,
       path: 'src/components'
@@ -153,7 +183,7 @@ describe('Component container', () => {
       path: 'src/components'
     }, initialTree);
 
-    expect(tree.files.filter((file) => /test-component-cont\.config\.ts$/.test(file)).length).toBe(0);
+    expect(tree.files.filter((file) => /test-component-cont[.-]config\.ts$/.test(file)).length).toBe(0);
   });
 
   it('should generate a non standalone container component', async () => {
@@ -166,13 +196,13 @@ describe('Component container', () => {
       path: 'src/components'
     }, initialTree);
 
-    const expectedFileNamesWithModule = [...expectedFileNames, 'test-component-cont.module.ts'];
+    const expectedFileNamesWithModule = [...expectedFileNames, 'test-component-cont-module.ts'];
 
-    expect(tree.files.filter((file) => /test-component/.test(file)).length).toEqual(expectedFileNamesWithModule.length);
-    expect(tree.files.filter((file) => /test-component/.test(file))).toEqual(expect.arrayContaining(
+    expect(tree.files.filter((file) => /test-component-cont/.test(file)).length).toEqual(expectedFileNamesWithModule.length);
+    expect(tree.files.filter((file) => /test-component-cont/.test(file))).toEqual(expect.arrayContaining(
       expectedFileNamesWithModule.map((fileName) => getGeneratedComponentPath(componentName, fileName, 'container')))
     );
-    expect(tree.readContent(tree.files.find((file) => file.includes('test-component-cont.component.ts')))).toContain('standalone: false');
+    expect(tree.readContent(tree.files.find((file) => file.includes('test-component-cont.ts')))).toContain('standalone: false');
   });
 
   it('should throw if generate a container component with rules engine, as @o3r/rules-engine is not installed', async () => {

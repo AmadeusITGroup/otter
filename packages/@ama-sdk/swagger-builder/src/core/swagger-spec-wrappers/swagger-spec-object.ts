@@ -5,7 +5,7 @@ import type {
 import type {
   AvailableSwaggerSpecTargets,
   SwaggerSpec,
-} from './swagger-spec.interface';
+} from './swagger-spec-interface';
 import {
   sanitizeDefinition,
 } from './utils';

@@ -1,1 +1,1 @@
-export * from './request-parameters.fixture.jasmine';
+export * from './request-parameters-service-fixture-jasmine';

@@ -1,28 +1,26 @@
 import * as path from 'node:path';
-import type {
-  Rule,
+import {
+  chain,
+  type Rule,
 } from '@angular-devkit/schematics';
 import {
   createOtterSchematic,
-  getPackageInstallConfig,
-  setupDependencies,
+  ngAddDependenciesRule,
 } from '@o3r/schematics';
 import type {
   NgAddSchematicsSchema,
 } from './schema';
+
+const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
 
 /**
  * Add Otter training tools to an Angular Project
  * @param options
  */
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
-  return (tree) => {
-    const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
-    return setupDependencies({
-      projectName: options.projectName,
-      dependencies: getPackageInstallConfig(packageJsonPath, tree, options.projectName, false)
-    });
-  };
+  return chain([
+    ngAddDependenciesRule(options, packageJsonPath, { dependenciesToInstall: [], devDependenciesToInstall: [] })
+  ]);
 }
 
 /**

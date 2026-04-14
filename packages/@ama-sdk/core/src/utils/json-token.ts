@@ -172,9 +172,9 @@ export function createJweEncoder(aesTagLengthInBits = 128, useHeaderAsAAD = fals
     const { ciphertext, authenticationTag } = await encryptPayload(
       iv,
       cek,
-      stringEncoder.encode(JSON.stringify(jwePayload)),
+      stringEncoder.encode(JSON.stringify(jwePayload)) as Uint8Array<ArrayBuffer>,
       aesTagLengthInBits,
-      useHeaderAsAAD ? stringEncoder.encode(serializedHeader) : undefined
+      useHeaderAsAAD ? stringEncoder.encode(serializedHeader) as Uint8Array<ArrayBuffer> : undefined
     );
 
     return serializedHeader + '.'

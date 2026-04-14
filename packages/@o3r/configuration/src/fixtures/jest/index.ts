@@ -1,1 +1,1 @@
-export * from './configuration.base.service.fixture.jest';
+export * from './configuration-base-service-fixture-jest';

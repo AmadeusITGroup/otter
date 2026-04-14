@@ -1,1 +1,1 @@
-export * from './perf-metric.fetch';
+export * from './perf-metric-fetch';

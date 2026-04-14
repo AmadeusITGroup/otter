@@ -19,7 +19,7 @@ import {
   isLocalStorageConfig,
   isSerializer,
   rehydrateAction,
-} from './storage-sync.helpers';
+} from './storage-sync-helpers';
 
 /**
  * Storage synchronizer

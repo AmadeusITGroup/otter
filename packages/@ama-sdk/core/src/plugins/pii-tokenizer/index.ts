@@ -1,1 +1,1 @@
-export * from './pii-tokenizer.request';
+export * from './pii-tokenizer-request';

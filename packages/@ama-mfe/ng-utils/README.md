@@ -59,7 +59,7 @@ import {inject, runInInjectionContext} from '@angular/core';
 import {bootstrapApplication} from '@angular/platform-browser';
 import {ConnectionService, NavigationConsumerService} from '@ama-mfe/ng-utils';
 
-bootstrapApplication(AppComponent, appConfig)
+bootstrapApplication(App, appConfig)
   .then((m) => {
     runInInjectionContext(m.injector, () => {
       if (window.top !== window.self) {
@@ -94,12 +94,12 @@ If you are a consumer of the message, call the `start` and `stop` methods to res
 ```typescript
 import {Component, inject} from '@angular/core';
 import {NavigationConsumerService} from '@ama-mfe/ng-utils';
-import {ThemeConsumerService} from "./theme.consumer.service";
+import {ThemeConsumerService} from "./theme-consumer-service";
 
 @Component({
-  selector: 'app-example-module',
-  template: './example-module.template.html',
-  styleUrl: './example-module.style.scss',
+  selector: 'app-example-module-component',
+  template: './example-module-component.html',
+  styleUrl: './example-module-component.scss',
 })
 export class ExampleModuleComponent {
   private readonly navigationConsumerService = inject(NavigationConsumerService);
@@ -123,7 +123,7 @@ import {inject, runInInjectionContext} from '@angular/core';
 import {bootstrapApplication} from '@angular/platform-browser';
 import {ConnectionService, ThemeConsumerService} from '@ama-mfe/ng-utils';
 
-bootstrapApplication(AppComponent, appConfig)
+bootstrapApplication(App, appConfig)
   .then((m) => {
     runInInjectionContext(m.injector, () => {
       if (window.top !== window.self) {

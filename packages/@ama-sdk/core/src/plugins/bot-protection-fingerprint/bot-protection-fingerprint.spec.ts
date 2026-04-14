@@ -7,7 +7,7 @@ import {
   BotProtectionFingerprintRetriever,
   ImpervaProtection,
   impervaProtectionRetrieverFactory,
-} from './bot-protection-fingerprint.request';
+} from './bot-protection-fingerprint-request';
 
 declare let global: any;
 

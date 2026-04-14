@@ -33,10 +33,10 @@ describe('useRegisterActionHandlers', () => {
       import {inject, runInInjectionContext} from '@angular/core';
       import {RulesEngineRunnerService} from '@o3r/rules-engine';
       import {appConfig} from './app/app.config';
-      import {AppComponent} from './app/app.component';
+      import {App} from './app/app';
       import {PopupActionHandler} from './services/popup-action-handler';
 
-      bootstrapApplication(AppComponent, appConfig)
+      bootstrapApplication(App, appConfig)
         .then((m) => {
           runInInjectionContext(m.injector, () => {
             inject(RulesEngineRunnerService);
@@ -56,10 +56,10 @@ describe('useRegisterActionHandlers', () => {
       import {inject, runInInjectionContext} from '@angular/core';
       import {RulesEngineRunnerService} from '@o3r/rules-engine';
       import {appConfig} from './app/app.config';
-      import {AppComponent} from './app/app.component';
+      import {App} from './app/app';
       import {PopupActionHandler} from './services/popup-action-handler';
 
-      bootstrapApplication(AppComponent, appConfig)
+      bootstrapApplication(App, appConfig)
         .then((m) => {
           runInInjectionContext(m.injector, () => {
             inject(RulesEngineRunnerService);
@@ -80,10 +80,10 @@ describe('useRegisterActionHandlers', () => {
       import {RulesEngineRunnerService} from '@o3r/rules-engine';
       import {ConfigurationRulesEngineActionHandler} from '@o3r/configuration/rules-engine';
       import {appConfig} from './app/app.config';
-      import {AppComponent} from './app/app.component';
+      import {App} from './app/app';
       import {PopupActionHandler} from './services/popup-action-handler';
 
-      bootstrapApplication(AppComponent, appConfig)
+      bootstrapApplication(App, appConfig)
         .then((m) => {
           runInInjectionContext(m.injector, () => {
             inject(RulesEngineRunnerService);

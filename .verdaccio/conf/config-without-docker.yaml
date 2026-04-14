@@ -25,6 +25,14 @@ auth:
     algorithm: bcrypt
 
 packages:
+  '@ama-openapi/*':
+    access: $all
+    publish: $authenticated
+    proxy: no-proxy
+  '@ama-mcp/*':
+    access: $all
+    publish: $authenticated
+    proxy: no-proxy
   '@ama-styling/*':
     access: $all
     publish: $authenticated

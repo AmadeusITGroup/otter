@@ -1,2 +1,2 @@
-export * from './rules-engine.extractor';
-export * from './rules-engine.extractor.interfaces';
+export * from './rules-engine-extractor';
+export * from './rules-engine-extractor-interfaces';

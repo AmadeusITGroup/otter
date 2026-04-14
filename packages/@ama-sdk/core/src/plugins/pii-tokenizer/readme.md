@@ -15,4 +15,4 @@ There are two modes:
 
 ### Type of plugins
 
-- Request plugin: [PiiTokenizerRequest](./pii-tokenizer.request.ts)
+- Request plugin: [PiiTokenizerRequest](./pii-tokenizer-request.ts)

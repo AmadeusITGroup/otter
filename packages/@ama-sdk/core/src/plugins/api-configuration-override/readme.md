@@ -5,4 +5,4 @@ The plugin takes an already encoded JWT (JWS) and adds it in an instance of `ama
 
 ### Type of plugins
 
-- Request plugin: [ApiConfigurationOverride](./api-configuration-override.request.ts);
+- Request plugin: [ApiConfigurationOverride](./api-configuration-override-request.ts);
