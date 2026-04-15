@@ -10,6 +10,9 @@ import {
   OUTPUT_DIRECTORY,
   // eslint-disable-next-line import/no-unresolved -- Cannot resolve mjs file in current setup (see #3738)
 } from '@ama-openapi/core';
+import {
+  createCliWithMetrics,
+} from '@o3r/telemetry';
 import type {
   PackageJson,
 } from 'type-fest';
@@ -22,7 +25,7 @@ import {
   generateTemplate,
 } from './generate-template';
 
-void (async () => {
+const run = async () => {
   const version = (JSON.parse(await fs.readFile(resolve(__dirname, '..', 'package.json'), { encoding: 'utf8' })) as PackageJson).version!;
   const { name, target } = await yargs(hideBin(process.argv))
     .option('target', {
@@ -51,4 +54,6 @@ void (async () => {
     logger: console
   };
   await generateTemplate(options);
-})();
+};
+
+void createCliWithMetrics(run, '@ama-openapi/create')();

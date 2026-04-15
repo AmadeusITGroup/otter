@@ -44,9 +44,9 @@ The following table provides the status of the Otter versions under support and 
 
 | Otter version | Angular version | Support ends |
 | :-----------: | :-------------: | :----------: |
-|      13       |       20        |  2027-02-24  |
-|      12       |       19        |  2026-08-18  |
-|      11       |       18        |  2026-02-24  |
+|      14       |       21        |  2027-05-19  |
+|      13       |       20        |  2026-11-28  |
+|      12       |       19        |  2026-05-19  |
 
 ## Reporting a Vulnerability
 

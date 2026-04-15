@@ -12,7 +12,8 @@ trigger: always_on
 
 ## Test Frameworks
 
-- **Use Jest** for unit tests
+- **Use Jest** for unit tests of type commonjs packages (e.g. packages without explicit type in package.json or not including .mts files)
+- **Use Vitest** for unit tests of type module packages (e.g. packages with explicit type "module" in package.json or packages including .mts files)
 - **Use Playwright** for e2e tests
 
 ## Test File Naming

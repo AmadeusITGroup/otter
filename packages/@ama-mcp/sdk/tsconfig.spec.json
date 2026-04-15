@@ -1,0 +1,17 @@
+{
+  "extends": "../../../tsconfig.jest",
+  "compilerOptions": {
+    "composite": true,
+    "outDir": "test",
+    "rootDir": ".",
+  },
+  "include": [
+    "./src/**/*.spec.ts"
+  ],
+  "exclude": [],
+  "references": [
+    {
+      "path": "./tsconfig.build.composite.json"
+    }
+  ]
+}

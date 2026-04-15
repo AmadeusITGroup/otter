@@ -1,4 +1,9 @@
 import {
+  describe,
+  expect,
+  test,
+} from 'vitest';
+import {
   deflatten,
 } from './config-deflatten-helpers.mjs';
 
