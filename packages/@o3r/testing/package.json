@@ -201,7 +201,7 @@
     "@o3r/eslint-plugin": "workspace:~",
     "@o3r/localization": "workspace:~",
     "@o3r/test-helpers": "workspace:~",
-    "@playwright/test": "~1.58.0",
+    "@playwright/test": "~1.59.0",
     "@schematics/angular": "~21.2.0",
     "@standard-schema/spec": "~1.1.0",
     "@stylistic/eslint-plugin": "~5.10.0",
@@ -210,7 +210,7 @@
     "@types/node": "~24.12.0",
     "@types/pixelmatch": "^5.2.3",
     "@types/pngjs": "^6.0.0",
-    "@typescript-eslint/parser": "~8.57.0",
+    "@typescript-eslint/parser": "~8.58.0",
     "angular-eslint": "~21.3.0",
     "concurrently": "^9.1.0",
     "cpy-cli": "^6.0.0",
@@ -242,7 +242,7 @@
     "ts-jest": "~29.4.0",
     "type-fest": "^5.3.1",
     "typescript": "~5.9.2",
-    "typescript-eslint": "~8.57.0"
+    "typescript-eslint": "~8.58.0"
   },
   "generatorDependencies": {
     "@angular-builders/jest": "~21.0.0-beta.1",
