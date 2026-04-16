@@ -5191,20 +5191,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@design-factory/design-factory@npm:~21.0.0":
-  version: 21.0.4
-  resolution: "@design-factory/design-factory@npm:21.0.4"
+"@design-factory/design-factory@npm:~21.1.0":
+  version: 21.1.0
+  resolution: "@design-factory/design-factory@npm:21.1.0"
   dependencies:
     tslib: "npm:^2.0.0"
   peerDependencies:
     "@agnos-ui/angular-bootstrap": ~0.10.0
-    "@agnos-ui/angular-headless": ~0.10.0
     "@angular-devkit/core": ^21.0.0
     "@angular/common": ^21.0.0
     "@angular/core": ^21.0.0
     "@angular/localize": ^21.0.0
     "@angular/router": ^21.0.0
-    "@design-factory/styles": 21.0.4
+    "@design-factory/styles": 21.1.0
     "@ng-bootstrap/ng-bootstrap": ~20.0.0
     "@ng-select/ng-select": ^21.0.0
     ag-grid-angular: ^35.0.0
@@ -5214,16 +5213,16 @@ __metadata:
       optional: true
     ag-grid-angular:
       optional: true
-  checksum: 10/af6cc601d50e036ddc77fd9b996d62e2885be194086304ee7e61454e299dbe3886fd81e38cdbd2be7429513617765a21243579a852c8a9c51c88ed5947688a7d
+  checksum: 10/9152ab28dd59275b61a2a46893c363f0c10825a5d3cd95998b21c783275ed0a2a73e4cdae514a78f2493e7661fa1631e9ee5b1967994973a12314fa5a3f87111
   languageName: node
   linkType: hard
 
-"@design-factory/styles@npm:~21.0.0":
-  version: 21.0.4
-  resolution: "@design-factory/styles@npm:21.0.4"
+"@design-factory/styles@npm:~21.1.0":
+  version: 21.1.0
+  resolution: "@design-factory/styles@npm:21.1.0"
   peerDependencies:
     "@agnos-ui/core-bootstrap": ~0.10.0
-    "@design-factory/tokens": 21.0.4
+    "@design-factory/tokens": 21.1.0
     "@ng-select/ng-select": ^21.0.0
     ag-grid-community: ^35.0.0
     bootstrap: 5.3.8
@@ -5238,7 +5237,7 @@ __metadata:
       optional: true
     bootstrap:
       optional: true
-  checksum: 10/af0cd0eddf02d82b46520b69d6104a02adfa65cbe014811d142c1c926acc73525c9085fa57296b4ae69dcaa03a3dd6cb7b8eea158dbcb75eff331c3db09ea09d
+  checksum: 10/0924c289c38d6cd113c1e511c8cc08d17b13c5ca7ab1d420ba4ae5adae5834f3d4fcaf981db0df329a4315039f3efaa13d680f226a2607d1c7f1027eadfd12d2
   languageName: node
   linkType: hard
 
@@ -8070,16 +8069,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ng-select/ng-select@npm:~21.5.0":
-  version: 21.5.2
-  resolution: "@ng-select/ng-select@npm:21.5.2"
+"@ng-select/ng-select@npm:~21.8.0":
+  version: 21.8.0
+  resolution: "@ng-select/ng-select@npm:21.8.0"
   dependencies:
     tslib: "npm:^2.8.1"
   peerDependencies:
     "@angular/common": ^21.0.0
     "@angular/core": ^21.0.0
     "@angular/forms": ^21.0.0
-  checksum: 10/212e834016913ceefef7759e0a7e8b2ab3c83c9778c11be69d9c011ea29ee1809436f8a067b0642c395a73055ff48fffbcf0ea7354b1b199c653bcdafb092dea
+  checksum: 10/f930216df52c1b22365702aef4ff764acc81d9c51d22b396f203072682590917418ca39bc990aa9078629295c9dd79f905ba771739df2ee987aa813d7c372da4
   languageName: node
   linkType: hard
 
@@ -9443,11 +9442,11 @@ __metadata:
     "@angular/platform-browser-dynamic": "npm:~21.2.4"
     "@angular/router": "npm:~21.2.4"
     "@crxjs/vite-plugin": "npm:~2.4.0"
-    "@design-factory/design-factory": "npm:~21.0.0"
-    "@design-factory/styles": "npm:~21.0.0"
+    "@design-factory/design-factory": "npm:~21.1.0"
+    "@design-factory/styles": "npm:~21.1.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@ng-bootstrap/ng-bootstrap": "npm:~20.0.0"
-    "@ng-select/ng-select": "npm:~21.5.0"
+    "@ng-select/ng-select": "npm:~21.8.0"
     "@ngrx/entity": "npm:~21.1.0"
     "@ngrx/store": "npm:~21.1.0"
     "@nx/eslint-plugin": "npm:~22.6.0"
@@ -10493,11 +10492,11 @@ __metadata:
     "@commitlint/config-conventional": "npm:^20.2.0"
     "@commitlint/types": "npm:^20.2.0"
     "@compodoc/compodoc": "npm:^1.1.32"
-    "@design-factory/design-factory": "npm:~21.0.0"
-    "@design-factory/styles": "npm:~21.0.0"
+    "@design-factory/design-factory": "npm:~21.1.0"
+    "@design-factory/styles": "npm:~21.1.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@ng-bootstrap/ng-bootstrap": "npm:~20.0.0"
-    "@ng-select/ng-select": "npm:~21.5.0"
+    "@ng-select/ng-select": "npm:~21.8.0"
     "@ngrx/effects": "npm:~21.1.0"
     "@ngrx/entity": "npm:~21.1.0"
     "@ngrx/router-store": "npm:~21.1.0"
@@ -11670,12 +11669,12 @@ __metadata:
     "@angular/platform-browser-dynamic": "npm:~21.2.4"
     "@angular/router": "npm:~21.2.4"
     "@commitlint/types": "npm:^20.2.0"
-    "@design-factory/design-factory": "npm:~21.0.0"
-    "@design-factory/styles": "npm:~21.0.0"
+    "@design-factory/design-factory": "npm:~21.1.0"
+    "@design-factory/styles": "npm:~21.1.0"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@formatjs/intl-numberformat": "npm:~9.3.0"
     "@ng-bootstrap/ng-bootstrap": "npm:~20.0.0"
-    "@ng-select/ng-select": "npm:~21.5.0"
+    "@ng-select/ng-select": "npm:~21.8.0"
     "@ngrx/effects": "npm:~21.1.0"
     "@ngrx/entity": "npm:~21.1.0"
     "@ngrx/store": "npm:~21.1.0"
