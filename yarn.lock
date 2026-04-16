@@ -1448,7 +1448,7 @@ __metadata:
     "@o3r/schematics": "workspace:*"
     "@o3r/telemetry": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@openapitools/openapi-generator-cli": "npm:~2.31.0"
+    "@openapitools/openapi-generator-cli": "npm:~2.31.1"
     "@schematics/angular": "npm:~21.2.0"
     "@stylistic/eslint-plugin": "npm:~5.10.0"
     "@types/jest": "npm:~30.0.0"
@@ -1510,7 +1510,7 @@ __metadata:
     "@o3r/schematics": "workspace:~"
     "@o3r/telemetry": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@openapitools/openapi-generator-cli": "npm:~2.31.0"
+    "@openapitools/openapi-generator-cli": "npm:~2.31.1"
     "@schematics/angular": "npm:~21.2.0"
     "@stylistic/eslint-plugin": "npm:~5.10.0"
     "@types/ejs": "npm:^3.1.2"
@@ -1830,7 +1830,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:~"
     "@o3r/schematics": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@openapitools/openapi-generator-cli": "npm:~2.31.0"
+    "@openapitools/openapi-generator-cli": "npm:~2.31.1"
     "@schematics/angular": "npm:~21.2.0"
     "@stylistic/eslint-plugin": "npm:~5.10.0"
     "@swc/cli": "npm:~0.8.0"
@@ -8757,7 +8757,7 @@ __metadata:
     "@o3r/eslint-config": "workspace:~"
     "@o3r/eslint-plugin": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@openapitools/openapi-generator-cli": "npm:~2.31.0"
+    "@openapitools/openapi-generator-cli": "npm:~2.31.1"
     "@schematics/angular": "npm:~21.2.0"
     "@stylistic/eslint-plugin": "npm:~5.10.0"
     "@swc/cli": "npm:~0.8.0"
@@ -8827,7 +8827,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:~"
     "@o3r/schematics": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
-    "@openapitools/openapi-generator-cli": "npm:~2.31.0"
+    "@openapitools/openapi-generator-cli": "npm:~2.31.1"
     "@schematics/angular": "npm:~21.2.0"
     "@stylistic/eslint-plugin": "npm:~5.10.0"
     "@swc/cli": "npm:~0.8.0"
@@ -12933,7 +12933,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openapitools/openapi-generator-cli@npm:~2.31.0":
+"@openapitools/openapi-generator-cli@npm:~2.31.1":
   version: 2.31.1
   resolution: "@openapitools/openapi-generator-cli@npm:2.31.1"
   dependencies:
