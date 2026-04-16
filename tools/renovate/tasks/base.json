@@ -1,6 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "description": "Trigger post install scripts when updating package manager",
+  "description": "Trigger post install scripts when updating package manager. arg0: optional npm config file path (only supported for npm and Yarn 1 via NPM_CONFIG_USERCONFIG; for Yarn 2+, configure hostRules instead, see https://docs.renovatebot.com/getting-started/private-packages/#yarn-2).",
   "packageRules": [
     {
       "matchDepTypes": [
@@ -11,7 +11,7 @@
       ],
       "postUpgradeTasks": {
         "commands": [
-          "npm install"
+          "{{#if (equals '{{arg0}}' '')}}npm install{{else}}NPM_CONFIG_USERCONFIG={{arg0}} npm install{{/if}}"
         ],
         "executionMode": "branch",
         "fileFilters": [
@@ -33,7 +33,7 @@
       ],
       "postUpgradeTasks": {
         "commands": [
-          "yarn install"
+          "{{#if (equals '{{arg0}}' '')}}yarn install{{else}}NPM_CONFIG_USERCONFIG={{arg0}} yarn install{{/if}}"
         ],
         "executionMode": "branch",
         "fileFilters": [
