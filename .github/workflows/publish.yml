@@ -118,7 +118,7 @@ jobs:
         env:
           PUBLISH_PROFILE: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_8996AC226FB9456EA73A6B8439B12946 || secrets.CASCADING_AZURE_APP_PUBLISH_PROFILE }}
         if: env.PUBLISH_PROFILE != null && (github.base_ref == 'main' || github.ref_name == 'main')
-        uses: Azure/functions-action@02a16c5f3a5707fa97fca56c202cc2ef6cc7dccb # v1.5.4
+        uses: Azure/functions-action@ac2abfb0e49d12ed5d273a3cb39f01bdd1654c43 # v1.5.5
         with:
           app-name: 'github-cascading'
           slot-name: 'production'
@@ -148,7 +148,7 @@ jobs:
           CHROME_REFRESH_TOKEN: ${{ secrets.CHROME_REFRESH_TOKEN }}
       - name: Expose Chrome extension artifact
         if: (success() || failure()) && !inputs.prerelease
-        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: chrome-extension
           path: apps/chrome-devtools/chrome-extension.zip

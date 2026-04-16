@@ -97,7 +97,7 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
       - name: Publish tests reports
         if: always()
-        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: ut-reports-${{ matrix.os }}
           path: |
@@ -155,4 +155,4 @@ jobs:
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - uses: ./tools/github-actions/setup
-      - uses: AmadeusITGroup/prompt-registry/github-actions/validate-collections@a7ff87d4483b9cfccbaaa3c245728f62c678f8e5 # v0.0.31
+      - uses: AmadeusITGroup/prompt-registry/github-actions/validate-collections@b79f0cd515107ecf9709385bfcfadad65689abd9 # v0.0.32
