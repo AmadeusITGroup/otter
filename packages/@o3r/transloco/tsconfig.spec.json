@@ -6,7 +6,8 @@
     "rootDir": "."
   },
   "include": [
-    "./src/**/*.spec.ts"
+    "./src/**/*.spec.ts",
+    "./builders/**/*.spec.ts"
   ],
   "exclude": [],
   "references": [
