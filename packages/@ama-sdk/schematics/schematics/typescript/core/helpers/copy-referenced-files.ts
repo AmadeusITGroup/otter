@@ -17,8 +17,11 @@ import {
   resolve,
   sep,
 } from 'node:path';
+import type {
+  logging,
+} from '@angular-devkit/core';
 
-type Logger = Pick<Console, 'error'>;
+type Logger = Pick<logging.Logger, 'error'>;
 
 const refMatcher = /\B["']?\$ref["']?\s*:\s*(?:>-?\s*\n\s*)?([^\n#>]+)/g;
 
@@ -117,7 +120,7 @@ export async function copyReferencedFiles(specFilePath: string, outputDirectory:
       try {
         await copyFile(sourcePath, destPath);
       } catch (error) {
-        options?.logger?.error(`Error copying file from ${sourcePath} to ${destPath}:`, error);
+        options?.logger?.error(`Error copying file from ${sourcePath} to ${destPath}:`, error as any);
       }
     }));
 
