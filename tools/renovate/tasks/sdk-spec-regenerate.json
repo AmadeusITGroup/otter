@@ -1,6 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "description": "Trigger SDK regeneration for a specific package name. arg0: package manager (yarn, npm). arg1: full package name. arg2: optional npm config file path, e.g. '.npmrc-renovate' (only supported for npm and Yarn 1 via NPM_CONFIG_USERCONFIG; for Yarn 2+, configure hostRules instead, see https://docs.renovatebot.com/getting-started/private-packages/#yarn-2).",
+  "description": "Trigger SDK regeneration for a specific package name. Need to pass the package manager as the first parameter (yarn, npm) and the full package name as the second parameter.",
   "packageRules": [
     {
       "matchPackageNames": [
@@ -8,7 +8,7 @@
       ],
       "postUpgradeTasks": {
         "commands": [
-          "{{#if (equals '{{arg2}}' '')}}{{arg0}} install{{else}}NPM_CONFIG_USERCONFIG={{arg2}} {{arg0}} install{{/if}}",
+          "{{arg0}} install",
           "{{arg0}} run spec:upgrade"
         ],
         "executionMode": "branch",

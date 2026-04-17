@@ -21,17 +21,24 @@ Otter framework provides a set of Renovate presets to facilitate the setup and r
 | **group/sdk-spec**                      | spec-package-name                                              | Create a dedicated group for the SDK spec (when fetching the spec from an NPM repository)          |
 | **group/angular**                       |                                                                | Group all Angular dependencies                                                                     |
 | **group/typescript**                    |                                                                | Group all Typescript dependenciesmanager                                                           |
-| **tasks/base**                          | npmrc-path (optional)                                          | Trigger post-install script when upgrading the package manager                                     |
-| **tasks/otter-ng-update**               | package-manager, npmrc-path (optional)                         | Trigger the migration scripts when upgrading the Otter dependencies                                |
-| **tasks/sdk-regenerate**                | package-manager, npmrc-path (optional)                         | Regenerate the SDK when upgrading the SDK dependencies                                             |
-| **tasks/sdk-spec-regenerate**           | package-manager, spec-package-name, npmrc-path (optional)      | Regenerate the SDK when upgrading the SDK spec (when fetching the spec from an NPM repository)     |
+| **tasks/base**                          |                                                                | Trigger post-install script when upgrading the package manager                                     |
+| **tasks/base-private-reg**              | npmrc-path                                                     | Same as tasks/base with private registry support via `NPM_CONFIG_USERCONFIG`                       |
+| **tasks/otter-ng-update**               | package-manager                                                | Trigger the migration scripts when upgrading the Otter dependencies                                |
+| **tasks/otter-ng-update-private-reg**   | package-manager, npmrc-path                                    | Same as tasks/otter-ng-update with private registry support via `NPM_CONFIG_USERCONFIG`            |
+| **tasks/sdk-regenerate**                | package-manager                                                | Regenerate the SDK when upgrading the SDK dependencies                                             |
+| **tasks/sdk-regenerate-private-reg**    | package-manager, npmrc-path                                    | Same as tasks/sdk-regenerate with private registry support via `NPM_CONFIG_USERCONFIG`             |
+| **tasks/sdk-spec-regenerate**           | package-manager, spec-package-name                             | Regenerate the SDK when upgrading the SDK spec (when fetching the spec from an NPM repository)     |
+| **tasks/sdk-spec-regenerate-private-reg** | package-manager, spec-package-name, npmrc-path               | Same as tasks/sdk-spec-regenerate with private registry support via `NPM_CONFIG_USERCONFIG`        |
 | **branching-strategy/release-branches** |                                                                | Rules to reduce impacted updates on release branches                                               |
 | **branching-strategy/trunk-based**      |                                                                | Rules to apply on trunk-based development                                                          |
 | **tasks/yarn-pnp**                      |                                                                | **(Yarn only)** Upgrade Yarn SDKs when upgrading the version of Yarn (only relevant with PnP)      |
 | **base**                                |                                                                | Base configuration recommended for any project                                                     |
-| **otter-project**                       | npmrc-path (optional)                                          | **(Yarn only)** Additional configuration recommended for an Otter-based project                    |
-| **sdk**                                 | npmrc-path (optional)                                          | **(Yarn only)** Additional configuration recommended for an SDK project                            |
-| **sdk-spec-upgrade**                    | spec-package-name, npmrc-path (optional)                       | **(Yarn only)** Additional configuration recommended when fetching the spec from an NPM repository |
+| **otter-project**                       |                                                                | **(Yarn only)** Additional configuration recommended for an Otter-based project                    |
+| **otter-project-private-reg**           | npmrc-path                                                     | **(Yarn only)** Same as otter-project with private registry support via `NPM_CONFIG_USERCONFIG`    |
+| **sdk**                                 |                                                                | **(Yarn only)** Additional configuration recommended for an SDK project                            |
+| **sdk-private-reg**                     | npmrc-path                                                     | **(Yarn only)** Same as sdk with private registry support via `NPM_CONFIG_USERCONFIG`              |
+| **sdk-spec-upgrade**                    | spec-package-name                                              | **(Yarn only)** Additional configuration recommended when fetching the spec from an NPM repository |
+| **sdk-spec-upgrade-private-reg**        | spec-package-name, npmrc-path                                  | **(Yarn only)** Same as sdk-spec-upgrade with private registry support via `NPM_CONFIG_USERCONFIG` |
 
 ## Recommended setup
 
@@ -135,10 +142,21 @@ Then pass the file path as a parameter to the presets:
   "extends": [
     "github>AmadeusITGroup/otter//tools/renovate/base",
     "github>AmadeusITGroup/otter//tools/renovate/group/otter",
-    "github>AmadeusITGroup/otter//tools/renovate/tasks/base(.npmrc-renovate)",
+    "github>AmadeusITGroup/otter//tools/renovate/tasks/base-private-reg(.npmrc-renovate)",
     "github>AmadeusITGroup/otter//tools/renovate/branching-strategy/release-branches",
-    "github>AmadeusITGroup/otter//tools/renovate/tasks/otter-ng-update(yarn, .npmrc-renovate)",
+    "github>AmadeusITGroup/otter//tools/renovate/tasks/otter-ng-update-private-reg(yarn, .npmrc-renovate)",
     "github>AmadeusITGroup/otter//tools/renovate/managers/renovate-otter-presets.json5"
+  ]
+}
+```
+
+Or, using the aggregator preset:
+
+```json5
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "github>AmadeusITGroup/otter//tools/renovate/otter-project-private-reg(.npmrc-renovate)"
   ]
 }
 ```
@@ -151,9 +169,9 @@ Then pass the file path as a parameter to the presets:
   "extends": [
     "github>AmadeusITGroup/otter//tools/renovate/base",
     "github>AmadeusITGroup/otter//tools/renovate/group/otter",
-    "github>AmadeusITGroup/otter//tools/renovate/tasks/base(.npmrc-renovate)",
+    "github>AmadeusITGroup/otter//tools/renovate/tasks/base-private-reg(.npmrc-renovate)",
     "github>AmadeusITGroup/otter//tools/renovate/branching-strategy/release-branches",
-    "github>AmadeusITGroup/otter//tools/renovate/tasks/otter-ng-update(npm, .npmrc-renovate)",
+    "github>AmadeusITGroup/otter//tools/renovate/tasks/otter-ng-update-private-reg(npm, .npmrc-renovate)",
     "github>AmadeusITGroup/otter//tools/renovate/managers/renovate-otter-presets.json5"
   ]
 }
@@ -166,8 +184,8 @@ Then pass the file path as a parameter to the presets:
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "github>AmadeusITGroup/otter//tools/renovate/base",
-    "github>AmadeusITGroup/otter//tools/renovate/sdk(.npmrc-renovate)",
-    "github>AmadeusITGroup/otter//tools/renovate/sdk-spec-upgrade(@my-spec/super-spec, .npmrc-renovate)"
+    "github>AmadeusITGroup/otter//tools/renovate/sdk-private-reg(.npmrc-renovate)",
+    "github>AmadeusITGroup/otter//tools/renovate/sdk-spec-upgrade-private-reg(@my-spec/super-spec, .npmrc-renovate)"
   ]
 }
 ```
@@ -180,10 +198,10 @@ Then pass the file path as a parameter to the presets:
   "extends": [
     "github>AmadeusITGroup/otter//tools/renovate/base",
     "github>AmadeusITGroup/otter//tools/renovate/group/otter",
-    "github>AmadeusITGroup/otter//tools/renovate/tasks/base(.npmrc-renovate)",
-    "github>AmadeusITGroup/otter//tools/renovate/tasks/sdk-regenerate(npm, .npmrc-renovate)",
+    "github>AmadeusITGroup/otter//tools/renovate/tasks/base-private-reg(.npmrc-renovate)",
+    "github>AmadeusITGroup/otter//tools/renovate/tasks/sdk-regenerate-private-reg(npm, .npmrc-renovate)",
     "github>AmadeusITGroup/otter//tools/renovate/group/sdk-spec(@my-spec/super-spec)",
-    "github>AmadeusITGroup/otter//tools/renovate/tasks/sdk-spec-regenerate(npm, @my-spec/super-spec, .npmrc-renovate)"
+    "github>AmadeusITGroup/otter//tools/renovate/tasks/sdk-spec-regenerate-private-reg(npm, @my-spec/super-spec, .npmrc-renovate)"
   ]
 }
 ```
@@ -201,34 +219,6 @@ Yarn Berry does not support `NPM_CONFIG_USERCONFIG`. Instead, configure [`hostRu
 > **Why not use `hostRules` for npm / Yarn 1 too?**
 > Renovate converts `hostRules` into package manager credentials for its own [artifact updating](https://docs.renovatebot.com/getting-started/private-packages/#package-manager-credentials-for-artifact-updating) (lock file regeneration). However, the `postUpgradeTasks` shell commands (e.g. `ng update`, `npm install`) used by our presets run separately and do not automatically receive `hostRules` credentials. For Yarn Berry, Renovate has [built-in support](https://docs.renovatebot.com/getting-started/private-packages/#yarn-2) that writes credentials into `.yarnrc.yml` before any Yarn command runs, so `hostRules` alone is sufficient. For npm and Yarn 1, the equivalent mechanism does not exist — hence the `.npmrc-renovate` + `NPM_CONFIG_USERCONFIG` approach described above.
 
-The `hostRules` can be defined in two places:
+The Renovate bot operator defines `hostRules` with the token in the [self-hosted configuration](https://docs.renovatebot.com/self-hosted-configuration/). The token stays secret and is never committed to the repository.
 
-- **Bot/platform config** (recommended): The Renovate bot operator defines `hostRules` with the token in the [self-hosted configuration](https://docs.renovatebot.com/self-hosted-configuration/). The token stays secret and is never committed to the repository.
-- **Repository config** (`.renovaterc.json`): You can add `hostRules` directly in your repo config, but the token must then be [encrypted](https://docs.renovatebot.com/configuration-options/#encrypted) to avoid exposing it in plain text.
-
-For more details on all available approaches, see the [Renovate private packages documentation](https://docs.renovatebot.com/getting-started/private-packages/).
-
-**Repository config example (with encrypted token):**
-
-```json5
-// .renovaterc.json
-{
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "github>AmadeusITGroup/otter//tools/renovate/base",
-    "github>AmadeusITGroup/otter//tools/renovate/otter-project"
-  ],
-  "hostRules": [
-    {
-      "matchHost": "https://your-private-registry.com/",
-      "hostType": "npm",
-      "encrypted": {
-        "token": "<your-encrypted-token>"
-      }
-    }
-  ]
-}
-```
-
-> [!TIP]
-> If the Renovate bot operator has already configured `hostRules` for your registry at the platform level, you do not need to add anything to your repository config — it will work out of the box.
+For more details, see the [Renovate private packages documentation](https://docs.renovatebot.com/getting-started/private-packages/).

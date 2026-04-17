@@ -1,11 +1,11 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "description": "Group all otter dependencies and trigger SDK regeneration with yarn. arg0: optional npm config file path for private registry support (only npm/Yarn 1 via NPM_CONFIG_USERCONFIG; for Yarn 2+, use hostRules).",
+  "description": "Group all otter dependencies and trigger SDK regeneration with yarn",
   "extends": [
     "github>AmadeusITGroup/otter//tools/renovate/group/otter",
-    "github>AmadeusITGroup/otter//tools/renovate/tasks/base({{arg0}})",
+    "github>AmadeusITGroup/otter//tools/renovate/tasks/base",
     "github>AmadeusITGroup/otter//tools/renovate/branching-strategy/release-branches",
-    "github>AmadeusITGroup/otter//tools/renovate/tasks/sdk-regenerate(yarn, {{arg0}})",
+    "github>AmadeusITGroup/otter//tools/renovate/tasks/sdk-regenerate(yarn)",
     "github>AmadeusITGroup/otter//tools/renovate/tasks/yarn-pnp"
   ]
 }
