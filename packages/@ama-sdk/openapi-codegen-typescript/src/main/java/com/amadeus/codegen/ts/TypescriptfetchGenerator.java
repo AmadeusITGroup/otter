@@ -70,6 +70,7 @@ public class TypescriptfetchGenerator extends AbstractTypeScriptClientCodegen {
     addSupportingFile("api/fixtures.jest.mustache", apiPackage, "fixtures.jest.ts");
     addSupportingFile("api/enums.mustache", apiPackage, "enums.ts");
     addSupportingFile("spec/api-mock.mustache", "src/spec", "api-mock.ts");
+    addSupportingFile("spec/operation-adapter.mustache", "src/spec", "operation-adapter.ts");
 
     String constantsPackage = "src/constants";
     addSupportingFile("constants/servers.mustache", constantsPackage, "servers.ts");

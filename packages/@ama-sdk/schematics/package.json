@@ -73,7 +73,6 @@
     "typescript": "^5.9.0"
   },
   "dependencies": {
-    "@ama-sdk/openapi-codegen-typescript": "workspace:~",
     "@angular-devkit/core": "~21.2.0",
     "@angular-devkit/schematics": "~21.2.0",
     "@o3r/schematics": "workspace:~",
@@ -87,11 +86,12 @@
     "semver": "^7.5.2",
     "tslib": "^2.6.2"
   },
-  "bundledDependencies": [
+  "bundleDependencies": [
     "@ama-sdk/openapi-codegen-typescript"
   ],
   "devDependencies": {
     "@ama-sdk/core": "workspace:~",
+    "@ama-sdk/openapi-codegen-typescript": "workspace:~",
     "@angular-devkit/schematics-cli": "~21.2.0",
     "@angular/cli": "~21.2.0",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
