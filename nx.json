@@ -700,6 +700,13 @@
       "cache": true
     },
     "build-jar": {
+      "inputs": [
+        "source",
+        "{projectRoot}/pom.xml"
+      ],
+      "outputs": [
+        "{projectRoot}/target/*.jar"
+      ],
       "cache": true
     },
     "i18n": {

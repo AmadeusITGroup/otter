@@ -1,8 +1,10 @@
+import {
+  createRequire,
+} from 'node:module';
 import * as path from 'node:path';
 import {
   CodegenTaskOptions,
 } from '../code-generator';
-import { createRequire } from 'node:module';
 
 /**
  * Options to pass the {@link OpenApiCliGenerator} to configure the generator

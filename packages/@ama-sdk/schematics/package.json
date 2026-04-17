@@ -87,9 +87,6 @@
     "semver": "^7.5.2",
     "tslib": "^2.6.2"
   },
-  "bundledDependencies": [
-    "@ama-sdk/openapi-codegen-typescript"
-  ],
   "devDependencies": {
     "@ama-sdk/core": "workspace:~",
     "@angular-devkit/schematics-cli": "~21.2.0",
