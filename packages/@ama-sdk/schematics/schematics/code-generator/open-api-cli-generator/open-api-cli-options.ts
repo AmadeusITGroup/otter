@@ -2,6 +2,7 @@ import * as path from 'node:path';
 import {
   CodegenTaskOptions,
 } from '../code-generator';
+import { createRequire } from 'node:module';
 
 /**
  * Options to pass the {@link OpenApiCliGenerator} to configure the generator
@@ -59,13 +60,16 @@ export type OpenApiCliOptions = CodegenTaskOptions & {
   openapiNormalizer: string;
 };
 
+const appRequire = createRequire(path.resolve(__dirname, '..', '..', '..', 'package.json'));
+const generatorCustomPath = appRequire.resolve('@ama-sdk/openapi-codegen-typescript');
+
 /**
  * Default options to run our custom typescript generator
  */
 export const defaultTypescriptGeneratorOptions: Readonly<OpenApiCliOptions> = {
   generatorVersion: '',
   generatorName: 'typescriptFetch',
-  generatorCustomPath: path.join(__dirname, '..', '..', 'typescript', 'core', 'openapi-codegen-typescript', 'target', 'typescriptFetch-openapi-generator.jar'),
+  generatorCustomPath,
   specPath: 'swagger-spec.yaml',
   outputPath: '.',
   specConfigPath: '',
