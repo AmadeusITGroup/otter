@@ -80,7 +80,7 @@
         "packages/@ama-sdk/create"
       ],
       "@ama-sdk/openapi-codegen-typescript": [
-        "packages/@ama-sdk/openapi-codegen-typescript/src"
+        "packages/@ama-sdk/openapi-codegen-typescript"
       ],
       "@ama-sdk/schematics": [
         "packages/@ama-sdk/schematics/src/public_api"
