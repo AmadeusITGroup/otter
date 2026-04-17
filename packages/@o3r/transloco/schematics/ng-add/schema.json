@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "ngAddSchematicsSchema",
+  "title": "Add Otter Localization (Transloco)",
+  "description": "ngAdd Otter Localization (Transloco)",
+  "properties": {
+    "projectName": {
+      "type": "string",
+      "description": "Project name",
+      "$default": {
+        "$source": "projectName"
+      },
+      "alias": "project"
+    },
+    "skipLinter": {
+      "type": "boolean",
+      "description": "Skip the linter process which includes EsLint and EditorConfig rules applying",
+      "default": false
+    },
+    "skipInstall": {
+      "type": "boolean",
+      "description": "Skip the install process",
+      "default": true
+    },
+    "exactO3rVersion": {
+      "type": "boolean",
+      "description": "Use a pinned version for otter packages"
+    }
+  },
+  "additionalProperties": true,
+  "required": [
+  ]
+}
