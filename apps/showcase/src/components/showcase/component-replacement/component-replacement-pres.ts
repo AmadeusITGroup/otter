@@ -6,8 +6,6 @@ import {
   Component,
   inject,
   input,
-  type Signal,
-  Type,
   ViewEncapsulation,
 } from '@angular/core';
 import {
@@ -16,6 +14,7 @@ import {
 } from '@angular/core/rxjs-interop';
 import {
   FormControl,
+  FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
 import {
@@ -32,7 +31,6 @@ import {
 } from '@o3r/core';
 import {
   DatePickerInputPres,
-  DatePickerInputPresContext,
 } from '../../utilities/index';
 import {
   COMPONENT_REPLACEMENT_PRES_CONFIG_ID,
@@ -45,7 +43,7 @@ const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
 @O3rComponent({ componentType: 'ExposedComponent' })
 @Component({
   selector: 'o3r-component-replacement-pres',
-  imports: [C11nDirective, ReactiveFormsModule],
+  imports: [C11nDirective, FormsModule, ReactiveFormsModule],
   templateUrl: './component-replacement-pres.html',
   styleUrl: './component-replacement-pres.scss',
   encapsulation: ViewEncapsulation.None,
@@ -57,6 +55,9 @@ export class ComponentReplacementPres implements DynamicConfigurableWithSignal<C
   /** Input configuration to override the default configuration of the component*/
   public config = input<Partial<ComponentReplacementPresConfig>>();
 
+  /** Id of the child component */
+  protected childId = 'date-outbound';
+
   @O3rConfig()
   public readonly configSignal = configSignal(
     this.config,
@@ -64,16 +65,12 @@ export class ComponentReplacementPres implements DynamicConfigurableWithSignal<C
     COMPONENT_REPLACEMENT_PRES_DEFAULT_CONFIG
   );
 
-  public datePickerComponent: Signal<Type<DatePickerInputPresContext> | undefined>;
+  public datePickerComponent = toSignal(toObservable(this.configSignal).pipe(
+    // Compute which presenter to use according to the configuration and the default presenter that we define here
+    this.c11nService.getPresenter(DatePickerInputPres, 'datePickerCustomKey')
+  ));
 
   public dateFormControl = new FormControl<string | null>(this.formatDate(Date.now() + 7 * ONE_DAY_IN_MS));
-
-  constructor() {
-    this.datePickerComponent = toSignal(toObservable(this.configSignal).pipe(
-      // Compute which presenter to use according to the configuration and the default presenter that we define here
-      this.c11nService.getPresenter(DatePickerInputPres, 'datePickerCustomKey')
-    ));
-  }
 
   private formatDate(dateTime: number) {
     return formatDate(dateTime, 'yyyy-MM-dd', 'en-GB');

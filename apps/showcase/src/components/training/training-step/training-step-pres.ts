@@ -26,7 +26,7 @@ export class TrainingStepPres {
   /**
    * Description of the coding project to load in the code view editor
    */
-  public project = input<TrainingProject>();
+  public project = input<TrainingProject | undefined | null>();
   /**
    * Whether to allow the user to modify the project files in the editor
    */

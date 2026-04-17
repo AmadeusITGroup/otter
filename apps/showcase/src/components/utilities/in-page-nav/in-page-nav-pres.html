@@ -1,10 +1,13 @@
 <h2>On this page</h2>
-<nav [id]="id" class="navbar px-3 mb-3">
+<nav [id]="id()" class="navbar px-3 mb-3">
   <ul class="nav nav-pills flex-column">
-    @for (link of links; track link.id) {
-      <li class="nav-item">
-        <a tabindex="0" role="button" class="nav-link" ngbScrollSpyItem [fragment]="link.id" (click)="link.scrollTo($event)" (keyup.enter)="link.scrollTo($event)">{{ link.label }}</a>
-      </li>
+    @let linkValues = links();
+    @if (linkValues) {
+      @for (link of linkValues; track link.id) {
+        <li class="nav-item">
+          <a tabindex="0" role="button" class="nav-link" ngbScrollSpyItem [fragment]="link.id" (click)="link.scrollTo($event)" (keyup.enter)="link.scrollTo($event)">{{ link.label }}</a>
+        </li>
+      }
     }
   </ul>
 </nav>

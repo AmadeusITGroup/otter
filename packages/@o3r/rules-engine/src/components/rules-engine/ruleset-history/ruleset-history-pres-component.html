@@ -62,6 +62,7 @@
               <div class="ruleset-panel-category-title">Rules:</div>
               <ul class="ruleset-panel-category-body rule-description">
                 @for (ruleEvaluation of execution.rulesEvaluations; track ruleEvaluation; let index = $index) {
+                  @let rule = execution.rulesetInformation?.rules?.[index];
                   <li>
                     <ng-container>
                       <div class="ruleset-panel-title" [class.error]="ruleEvaluation.error">
@@ -78,12 +79,12 @@
                         <ng-container [ngTemplateOutlet]="inputs"
                                 [ngTemplateOutletContext]="{
                                   inputs: execution.inputFacts,
-                                  runtimeInputs: execution.rulesetInformation?.rules[index]?.inputRuntimeFacts
+                                  runtimeInputs: rule?.inputRuntimeFacts
                                 }" />
                         @if (!ruleEvaluation.error) {
                           <o3r-rule-actions-pres
                             [temporaryFacts]="ruleEvaluation.temporaryFacts"
-                            [runtimeOutputs]="execution.rulesetInformation?.rules[index]?.outputRuntimeFacts"
+                            [runtimeOutputs]="rule?.outputRuntimeFacts"
                           />
                         }
                       </div>
@@ -96,6 +97,7 @@
               <div class="ruleset-panel-category-title">Executed Rules</div>
               <ul class="rule-description ruleset-panel-category-body">
                 @for (ruleEvaluation of execution.rulesEvaluations; track ruleEvaluation; let index = $index) {
+                  @let rule = execution.rulesetInformation?.rules?.[index];
                   <li>
                     <div class="ruleset-panel-title">
                       <span>{{ruleEvaluation.rule.name | titlecase}}</span>
@@ -110,7 +112,7 @@
                       <o3r-rule-actions-pres
                         [actions]="ruleEvaluation.outputActions"
                         [temporaryFacts]="ruleEvaluation.temporaryFacts"
-                        [runtimeOutputs]="execution.rulesetInformation?.rules[index]?.outputRuntimeFacts" />
+                        [runtimeOutputs]="rule?.outputRuntimeFacts" />
                     </div>
                   </li>
                 }
