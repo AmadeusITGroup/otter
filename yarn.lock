@@ -658,7 +658,7 @@ __metadata:
     "@types/node": "npm:~24.12.0"
     "@typescript-eslint/parser": "npm:~8.58.0"
     angular-eslint: "npm:~21.3.0"
-    compressing: "npm:^2.0.0"
+    compressing: "npm:^2.1.1"
     cpy-cli: "npm:^6.0.0"
     eslint: "npm:~9.39.0"
     eslint-import-resolver-node: "npm:~0.3.9"
@@ -690,7 +690,7 @@ __metadata:
   peerDependencies:
     "@ama-mcp/core": "workspace:^"
     "@modelcontextprotocol/sdk": ^1.24.0
-    compressing: ^2.0.0
+    compressing: ^2.1.1
     globby: ^11.1.0
     zod: ^3.25.76 || ^4.0.0
   languageName: unknown
@@ -21219,9 +21219,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"compressing@npm:^2.0.0":
-  version: 2.1.0
-  resolution: "compressing@npm:2.1.0"
+"compressing@npm:^2.1.1":
+  version: 2.1.1
+  resolution: "compressing@npm:2.1.1"
   dependencies:
     "@eggjs/yauzl": "npm:^2.11.0"
     flushwritable: "npm:^1.0.0"
@@ -21230,7 +21230,7 @@ __metadata:
     streamifier: "npm:^0.1.1"
     tar-stream: "npm:^1.5.2"
     yazl: "npm:^2.4.2"
-  checksum: 10/f544484f8c77a7b53e1543043172fbc3237e7f8b14d948c77d60406600f778da67410999f581b9311263ac7b2a5071836c0545bae26bc11785cdcdccba781a4c
+  checksum: 10/82198d40fc24f38635b6e86e7b2220ef8ad92f1d65f9d05c24c9068cf56ea52c637ece61c5e274f2bfb3b30838d0b136b3e4a1f9d9a4a88aa4244c66fa91a7c9
   languageName: node
   linkType: hard
 
