@@ -75,6 +75,7 @@
   "devDependencies": {
     "@ama-sdk/client-fetch": "workspace:~",
     "@ama-sdk/core": "workspace:~",
+    "@ama-sdk/openapi-codegen-typescript": "workspace:~",
     "@ama-sdk/schematics": "workspace:~",
     "@angular-devkit/core": "~21.2.0",
     "@angular-devkit/schematics": "~21.2.0",

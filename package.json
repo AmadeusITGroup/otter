@@ -16,7 +16,7 @@
     "build:tools": "yarn nx run-many --tui=false --target=build --projects=tag:hook:postinstall",
     "build:lint": "yarn nx run-many --tui=false --target=build --projects=eslint-plugin",
     "build:ama-openapi": "yarn nx run-many --tui=false  --target=build --projects=tag:scope:ama-openapi",
-    "build:swagger-gen": "yarn nx run-many --target=build-swagger",
+    "build:swagger-gen": "yarn nx run-many --target=build-jar",
     "publish": "yarn nx run-many --target=prepare-publish --exclude-task-dependencies && yarn nx run-many --target=publish --exclude=tag:access:private",
     "publish:extensions": "yarn nx run-many --target=prepare-publish --exclude-task-dependencies && yarn nx run-many --target=publish-extension",
     "publish:extensions:affected": "yarn nx affected --target=publish-extension",

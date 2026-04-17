@@ -1,0 +1,16 @@
+{
+  "name": "@ama-sdk/openapi-codegen-typescript",
+  "version": "0.0.0-placeholder",
+  "private": true,
+  "scripts": {
+    "build:jar": "mvn clean package -f ./pom.xml"
+  },
+  "main": "./target/typescriptFetch-openapi-generator.jar",
+  "exports": {
+    ".": "./target/typescriptFetch-openapi-generator.jar",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "./target/typescriptFetch-openapi-generator.jar"
+  ]
+}

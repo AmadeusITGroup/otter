@@ -699,7 +699,7 @@
       ],
       "cache": true
     },
-    "build-swagger": {
+    "build-jar": {
       "cache": true
     },
     "i18n": {
