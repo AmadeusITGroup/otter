@@ -15,8 +15,6 @@
     "build": "yarn nx build ama-sdk-schematics",
     "postbuild": "patch-package-json-main",
     "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest",
-    "build:swagger": "yarn build:openapi-typescript-gen && yarn cpy 'schematics/**/*.jar' dist/schematics",
-    "build:openapi-typescript-gen": "mvn clean package -f ./schematics/typescript/core/openapi-codegen-typescript/pom.xml",
     "build:cli": "tsc -b tsconfig.cli.json --pretty && yarn generate-cjs-manifest"
   },
   "bin": {
@@ -75,6 +73,7 @@
     "typescript": "^5.9.0"
   },
   "dependencies": {
+    "@ama-sdk/openapi-codegen-typescript": "workspace:~",
     "@angular-devkit/core": "~21.2.0",
     "@angular-devkit/schematics": "~21.2.0",
     "@o3r/schematics": "workspace:~",
@@ -88,6 +87,9 @@
     "semver": "^7.5.2",
     "tslib": "^2.6.2"
   },
+  "bundledDependencies": [
+    "@ama-sdk/openapi-codegen-typescript"
+  ],
   "devDependencies": {
     "@ama-sdk/core": "workspace:~",
     "@angular-devkit/schematics-cli": "~21.2.0",

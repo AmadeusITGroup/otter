@@ -1493,11 +1493,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@ama-sdk/openapi-codegen-typescript@workspace:packages/@ama-sdk/openapi-codegen-typescript, @ama-sdk/openapi-codegen-typescript@workspace:~":
+  version: 0.0.0-use.local
+  resolution: "@ama-sdk/openapi-codegen-typescript@workspace:packages/@ama-sdk/openapi-codegen-typescript"
+  languageName: unknown
+  linkType: soft
+
 "@ama-sdk/schematics@workspace:*, @ama-sdk/schematics@workspace:packages/@ama-sdk/schematics, @ama-sdk/schematics@workspace:~":
   version: 0.0.0-use.local
   resolution: "@ama-sdk/schematics@workspace:packages/@ama-sdk/schematics"
   dependencies:
     "@ama-sdk/core": "workspace:~"
+    "@ama-sdk/openapi-codegen-typescript": "workspace:~"
     "@angular-devkit/core": "npm:~21.2.0"
     "@angular-devkit/schematics": "npm:~21.2.0"
     "@angular-devkit/schematics-cli": "npm:~21.2.0"
@@ -8742,6 +8749,7 @@ __metadata:
   dependencies:
     "@ama-sdk/client-fetch": "workspace:~"
     "@ama-sdk/core": "workspace:~"
+    "@ama-sdk/openapi-codegen-typescript": "workspace:~"
     "@ama-sdk/schematics": "workspace:~"
     "@angular-devkit/core": "npm:~21.2.0"
     "@angular-devkit/schematics": "npm:~21.2.0"
@@ -8812,6 +8820,7 @@ __metadata:
   dependencies:
     "@ama-sdk/client-fetch": "workspace:~"
     "@ama-sdk/core": "workspace:~"
+    "@ama-sdk/openapi-codegen-typescript": "workspace:~"
     "@ama-sdk/schematics": "workspace:~"
     "@angular-devkit/core": "npm:~21.2.0"
     "@angular-devkit/schematics": "npm:~21.2.0"
