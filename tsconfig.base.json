@@ -256,6 +256,9 @@
       "@o3r/transloco": [
         "packages/@o3r/transloco/src/public_api"
       ],
+      "@o3r/transloco/schemas/*": [
+        "packages/@o3r/transloco/schemas/*"
+      ],
       "@o3r/transloco/*": [
         "packages/@o3r/transloco/src/*/public_api"
       ],

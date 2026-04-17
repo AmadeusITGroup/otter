@@ -2085,18 +2085,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular-devkit/architect@npm:0.2102.2":
-  version: 0.2102.2
-  resolution: "@angular-devkit/architect@npm:0.2102.2"
-  dependencies:
-    "@angular-devkit/core": "npm:21.2.2"
-    rxjs: "npm:7.8.2"
-  bin:
-    architect: bin/cli.js
-  checksum: 10/200e1f425980536e835ac909c9c877d5eda45698e3facfb552b3752d8e847771829673d37ced539f9bb0127450bf3c68190dd0bbbef6ac87790ce8095898a603
-  languageName: node
-  linkType: hard
-
 "@angular-devkit/architect@npm:0.2102.7, @angular-devkit/architect@npm:>= 0.2100.0 < 0.2200.0":
   version: 0.2102.7
   resolution: "@angular-devkit/architect@npm:0.2102.7"
@@ -2231,25 +2219,6 @@ __metadata:
     webpack: ^5.30.0
     webpack-dev-server: ^5.0.2
   checksum: 10/03971a3ca70cb799999c0f36cdf7c40d119aae0f2944032ce1107f63af44c561bcc092cab8dfaa3bccc1a5af211e8edce9b38906ccabf484fc0c8243b719da7b
-  languageName: node
-  linkType: hard
-
-"@angular-devkit/core@npm:21.2.2":
-  version: 21.2.2
-  resolution: "@angular-devkit/core@npm:21.2.2"
-  dependencies:
-    ajv: "npm:8.18.0"
-    ajv-formats: "npm:3.0.1"
-    jsonc-parser: "npm:3.3.1"
-    picomatch: "npm:4.0.3"
-    rxjs: "npm:7.8.2"
-    source-map: "npm:0.7.6"
-  peerDependencies:
-    chokidar: ^5.0.0
-  peerDependenciesMeta:
-    chokidar:
-      optional: true
-  checksum: 10/8077116039f94e4a9795046119a2c92327c80c1cdd604c101cf0bb2685056579154de6884be301de5ce0955c471c9b9576e777ee73bd6b57a1c2488d41cc49de
   languageName: node
   linkType: hard
 
@@ -6929,19 +6898,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jsonjoy.com/fs-core@npm:4.56.11":
-  version: 4.56.11
-  resolution: "@jsonjoy.com/fs-core@npm:4.56.11"
-  dependencies:
-    "@jsonjoy.com/fs-node-builtins": "npm:4.56.11"
-    "@jsonjoy.com/fs-node-utils": "npm:4.56.11"
-    thingies: "npm:^2.5.0"
-  peerDependencies:
-    tslib: 2
-  checksum: 10/46adecf53d79246eed43503e999f3068b38d6c5b209e305c5b6ca55cfbb68fd2780a2fe3ddc2de3535c51a6db76e4acaca67dc127d1ce54399cf786a5ccbd4ca
-  languageName: node
-  linkType: hard
-
 "@jsonjoy.com/fs-core@npm:4.57.2":
   version: 4.57.2
   resolution: "@jsonjoy.com/fs-core@npm:4.57.2"
@@ -6952,20 +6908,6 @@ __metadata:
   peerDependencies:
     tslib: 2
   checksum: 10/6db8b3a7fb874229c7991bbdc094d752adbde7d774e5ef70df5a787130c7c8ed4ac2d34eaac079383c527269feaa91d1cb4f5c1504af995cca95070af769a0bd
-  languageName: node
-  linkType: hard
-
-"@jsonjoy.com/fs-fsa@npm:4.56.11":
-  version: 4.56.11
-  resolution: "@jsonjoy.com/fs-fsa@npm:4.56.11"
-  dependencies:
-    "@jsonjoy.com/fs-core": "npm:4.56.11"
-    "@jsonjoy.com/fs-node-builtins": "npm:4.56.11"
-    "@jsonjoy.com/fs-node-utils": "npm:4.56.11"
-    thingies: "npm:^2.5.0"
-  peerDependencies:
-    tslib: 2
-  checksum: 10/ed322ec4596f0b385d17dfeca6f2e1c2de51aa7c356f092700ad7b8930816f27f7f49234ba5eb544f03d173ea3cf5f9509597a5c64f0c03d2c4c456b751e2a16
   languageName: node
   linkType: hard
 
@@ -6983,34 +6925,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jsonjoy.com/fs-node-builtins@npm:4.56.11":
-  version: 4.56.11
-  resolution: "@jsonjoy.com/fs-node-builtins@npm:4.56.11"
-  peerDependencies:
-    tslib: 2
-  checksum: 10/04ca8c56cd3b883149b42cce5d9376d18445a071b6d88c5366f930c2ba93505a7d708ad8f5af1a15e691dd87ffb971048b906450287d5faf363472ced43ea884
-  languageName: node
-  linkType: hard
-
 "@jsonjoy.com/fs-node-builtins@npm:4.57.2":
   version: 4.57.2
   resolution: "@jsonjoy.com/fs-node-builtins@npm:4.57.2"
   peerDependencies:
     tslib: 2
   checksum: 10/3284f0f0a989ad2bc0abc485748b2f3581648401c7d86be9b4541374f65050d384b61b5e44eff9b463d43fd1764bead1251783681105962ba5954b5e64b42480
-  languageName: node
-  linkType: hard
-
-"@jsonjoy.com/fs-node-to-fsa@npm:4.56.11":
-  version: 4.56.11
-  resolution: "@jsonjoy.com/fs-node-to-fsa@npm:4.56.11"
-  dependencies:
-    "@jsonjoy.com/fs-fsa": "npm:4.56.11"
-    "@jsonjoy.com/fs-node-builtins": "npm:4.56.11"
-    "@jsonjoy.com/fs-node-utils": "npm:4.56.11"
-  peerDependencies:
-    tslib: 2
-  checksum: 10/e4e8b6ea18969665925b97055cb06636fbd74e5025cd126280ede2245ba2efe328146e0b7a5e45c45a64175dc74231caa982de4dda51bffb061c028c931f2fad
   languageName: node
   linkType: hard
 
@@ -7027,17 +6947,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jsonjoy.com/fs-node-utils@npm:4.56.11":
-  version: 4.56.11
-  resolution: "@jsonjoy.com/fs-node-utils@npm:4.56.11"
-  dependencies:
-    "@jsonjoy.com/fs-node-builtins": "npm:4.56.11"
-  peerDependencies:
-    tslib: 2
-  checksum: 10/72ca92de077c34d26c935b1ec6011de587bc2f382e822d9e57c76318d506f3c40f5075d04ede666b59d45e275e577ea77032a10b48161483040f3e3f7c381232
-  languageName: node
-  linkType: hard
-
 "@jsonjoy.com/fs-node-utils@npm:4.57.2":
   version: 4.57.2
   resolution: "@jsonjoy.com/fs-node-utils@npm:4.57.2"
@@ -7046,23 +6955,6 @@ __metadata:
   peerDependencies:
     tslib: 2
   checksum: 10/f63c7c8fd5a63a163a01bc70dac262419bcc1ae182186f249e038703b04a401e49eab9043514384555177e9385929b58a76cab945e8c7cdc6809efc2ea50bf31
-  languageName: node
-  linkType: hard
-
-"@jsonjoy.com/fs-node@npm:4.56.11":
-  version: 4.56.11
-  resolution: "@jsonjoy.com/fs-node@npm:4.56.11"
-  dependencies:
-    "@jsonjoy.com/fs-core": "npm:4.56.11"
-    "@jsonjoy.com/fs-node-builtins": "npm:4.56.11"
-    "@jsonjoy.com/fs-node-utils": "npm:4.56.11"
-    "@jsonjoy.com/fs-print": "npm:4.56.11"
-    "@jsonjoy.com/fs-snapshot": "npm:4.56.11"
-    glob-to-regex.js: "npm:^1.0.0"
-    thingies: "npm:^2.5.0"
-  peerDependencies:
-    tslib: 2
-  checksum: 10/a6a7e84de467d644bd2b23f34afaf61e93eb05245f40325a067403d2af5b4b22adce806639b80ff0f8431049dda706a803e6f73f2bf944d73a1ad78ac04bbd15
   languageName: node
   linkType: hard
 
@@ -7083,18 +6975,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jsonjoy.com/fs-print@npm:4.56.11":
-  version: 4.56.11
-  resolution: "@jsonjoy.com/fs-print@npm:4.56.11"
-  dependencies:
-    "@jsonjoy.com/fs-node-utils": "npm:4.56.11"
-    tree-dump: "npm:^1.1.0"
-  peerDependencies:
-    tslib: 2
-  checksum: 10/352fb4932c0ed44b5fb148b253754748b6d3e9859452ef1b03cebb6b9601e9f84336ef0932ca4de9687b2f3ec703083d4572c7bf2036537f787673229c3ed68b
-  languageName: node
-  linkType: hard
-
 "@jsonjoy.com/fs-print@npm:4.57.2":
   version: 4.57.2
   resolution: "@jsonjoy.com/fs-print@npm:4.57.2"
@@ -7104,20 +6984,6 @@ __metadata:
   peerDependencies:
     tslib: 2
   checksum: 10/4931c8de684a655ab11ba2285016c35f3558f1f8f3444ac42fe7f5ea417556661b6f88d238c107f30c30b2d131eb2e0ecb1bb8626a7f6e0440996f42ea31dd7b
-  languageName: node
-  linkType: hard
-
-"@jsonjoy.com/fs-snapshot@npm:4.56.11":
-  version: 4.56.11
-  resolution: "@jsonjoy.com/fs-snapshot@npm:4.56.11"
-  dependencies:
-    "@jsonjoy.com/buffers": "npm:^17.65.0"
-    "@jsonjoy.com/fs-node-utils": "npm:4.56.11"
-    "@jsonjoy.com/json-pack": "npm:^17.65.0"
-    "@jsonjoy.com/util": "npm:^17.65.0"
-  peerDependencies:
-    tslib: 2
-  checksum: 10/97665962c5bf609720ac2913111da540235fa8aed52241e017da16ae2ac0228ae9e1938906d51e61f85fdaa0511c46db22b3c8212c9ba77a0ae4082cd20e4d57
   languageName: node
   linkType: hard
 
@@ -7215,6 +7081,21 @@ __metadata:
   peerDependencies:
     tslib: 2
   checksum: 10/1a6e5301d725a7161b93ff707eb1a954bf4552a2fa96eee9a960d3ae3ed5f993d18b56dcff29e98036341a5968c5d1b2dfe21f76695390e7f0d89b81f24c85e0
+  languageName: node
+  linkType: hard
+
+"@jsverse/transloco-messageformat@npm:~8.2.1":
+  version: 8.2.1
+  resolution: "@jsverse/transloco-messageformat@npm:8.2.1"
+  dependencies:
+    "@messageformat/core": "npm:^3.0.0"
+    tslib: "npm:^2.2.0"
+  peerDependencies:
+    "@angular/core": ">=16.0.0"
+    "@jsverse/transloco": ">=8.0.0"
+    "@jsverse/utils": 1.0.0-beta.5
+    rxjs: ">=6.0.0"
+  checksum: 10/96902837d2963c8a3193aecb669683b2f6cf5fa2a6d622fa65459bd1dd5c1817160d429987225392f0ba44205ba979bf96122775a6af5c1adf07651cf9bb354b
   languageName: node
   linkType: hard
 
@@ -7464,6 +7345,52 @@ __metadata:
   dependencies:
     langium: "npm:^4.0.0"
   checksum: 10/648c96da8464113c3694587f3f950421b1914d34fddc194b6dff7a8c28da5e37273ddc4d56a4efaeda82e93c7a168389f035dbac6c8d5b65930ee60b5063ece4
+  languageName: node
+  linkType: hard
+
+"@messageformat/core@npm:^3.0.0":
+  version: 3.4.0
+  resolution: "@messageformat/core@npm:3.4.0"
+  dependencies:
+    "@messageformat/date-skeleton": "npm:^1.0.0"
+    "@messageformat/number-skeleton": "npm:^1.0.0"
+    "@messageformat/parser": "npm:^5.1.0"
+    "@messageformat/runtime": "npm:^3.0.1"
+    make-plural: "npm:^7.0.0"
+    safe-identifier: "npm:^0.4.1"
+  checksum: 10/a75745bb36715a6460623610646de56e52e0642b4b87dcfe074c3d47561042ea7e1bea13fac137808bc1e2807f456691b0ad315d4dbc93d05d943b306738c384
+  languageName: node
+  linkType: hard
+
+"@messageformat/date-skeleton@npm:^1.0.0":
+  version: 1.1.0
+  resolution: "@messageformat/date-skeleton@npm:1.1.0"
+  checksum: 10/b90a8bf4bdff26e1762865456ef8cd16cb0208385509fa1db1ed4a113607a2449fc3775d51f2ba764349489d616f66b33f15bc7a867a95fe8667c1280924197e
+  languageName: node
+  linkType: hard
+
+"@messageformat/number-skeleton@npm:^1.0.0":
+  version: 1.2.0
+  resolution: "@messageformat/number-skeleton@npm:1.2.0"
+  checksum: 10/6591ceee52cc008c4bdaf3026e5272ce0f88c6658ec3dae1fa253a608931e06b85826a89aae69143d9d29f66c7444c63c643c4fb3181fdbb862fd46b7e0472a8
+  languageName: node
+  linkType: hard
+
+"@messageformat/parser@npm:^5.1.0":
+  version: 5.1.1
+  resolution: "@messageformat/parser@npm:5.1.1"
+  dependencies:
+    moo: "npm:^0.5.1"
+  checksum: 10/32b1e503532f62df976dd62fbe27fcec9d8ff44770d9fa9722cbbc86545fdacb11038594f739d0c29e984535df8535a1da69375109f684bd4efd3c60156b3b49
+  languageName: node
+  linkType: hard
+
+"@messageformat/runtime@npm:^3.0.1":
+  version: 3.0.2
+  resolution: "@messageformat/runtime@npm:3.0.2"
+  dependencies:
+    make-plural: "npm:^7.0.0"
+  checksum: 10/9baf876a98d017ed79fa7ca6da6f43f44e48570b2723d6745df5a1eb31e86bea116b63e23ec1663be493f6188a36b1c81ecfbdac662ab531b2e2d6ee46a6a220
   languageName: node
   linkType: hard
 
@@ -8276,18 +8203,6 @@ __metadata:
     "@ngrx/store": 21.1.0
     rxjs: ^6.5.3 || ^7.5.0
   checksum: 10/8983300a6d893f9c5a56c3086ad7cf14ab62b3769770035830a7cbaf470b62e6e599928158328300c7581a5ee9f429f68fd853b755be0426dac4203f340e1c47
-  languageName: node
-  linkType: hard
-
-"@ngrx/store@npm:~21.0.0":
-  version: 21.0.1
-  resolution: "@ngrx/store@npm:21.0.1"
-  dependencies:
-    tslib: "npm:^2.0.0"
-  peerDependencies:
-    "@angular/core": ^21.0.0
-    rxjs: ^6.5.3 || ^7.5.0
-  checksum: 10/72604bc19da753ef959f8940fd066b5cef39d93d147dd59d6baa021e5f709ede2ac4a4e670f5b64e4f8ccbbfeb1da5f67022d39044784c697c63b922c353f793
   languageName: node
   linkType: hard
 
@@ -12339,6 +12254,7 @@ __metadata:
     "@babel/preset-typescript": "npm:~7.28.0"
     "@compodoc/compodoc": "npm:^1.1.32"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
+    "@jsverse/transloco": "npm:~8.2.1"
     "@material/slider": "npm:^14.0.0"
     "@ngrx/store": "npm:~21.1.0"
     "@ngx-translate/core": "npm:~16.0.4"
@@ -12350,6 +12266,7 @@ __metadata:
     "@o3r/localization": "workspace:~"
     "@o3r/schematics": "workspace:~"
     "@o3r/test-helpers": "workspace:~"
+    "@o3r/transloco": "workspace:~"
     "@playwright/test": "npm:~1.59.0"
     "@schematics/angular": "npm:~21.2.0"
     "@standard-schema/spec": "npm:~1.1.0"
@@ -12404,6 +12321,7 @@ __metadata:
     "@angular/core": ^21.0.0
     "@angular/forms": ^21.0.0
     "@angular/platform-browser": ^21.0.0
+    "@jsverse/transloco": ^8.0.0
     "@material/slider": ^14.0.0
     "@ngrx/store": ^21.0.0
     "@ngx-translate/core": ^15.0.0 || ~16.0.4
@@ -12411,6 +12329,7 @@ __metadata:
     "@o3r/eslint-config": "workspace:~"
     "@o3r/localization": "workspace:~"
     "@o3r/schematics": "workspace:~"
+    "@o3r/transloco": "workspace:~"
     "@playwright/test": ^1.49.0
     "@schematics/angular": ^21.0.0
     eslint: ~9.39.0
@@ -12431,6 +12350,8 @@ __metadata:
       optional: true
     "@angular/forms":
       optional: true
+    "@jsverse/transloco":
+      optional: true
     "@material/slider":
       optional: true
     "@ngrx/store":
@@ -12444,6 +12365,8 @@ __metadata:
     "@o3r/localization":
       optional: true
     "@o3r/schematics":
+      optional: true
+    "@o3r/transloco":
       optional: true
     "@playwright/test":
       optional: true
@@ -12546,11 +12469,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@o3r/transloco@workspace:packages/@o3r/transloco":
+"@o3r/transloco@workspace:packages/@o3r/transloco, @o3r/transloco@workspace:~":
   version: 0.0.0-use.local
   resolution: "@o3r/transloco@workspace:packages/@o3r/transloco"
   dependencies:
-    "@angular-devkit/architect": "npm:0.2102.2"
+    "@angular-devkit/architect": "npm:0.2102.7"
     "@angular-devkit/build-angular": "npm:~21.2.0"
     "@angular-devkit/core": "npm:~21.2.0"
     "@angular-devkit/schematics": "npm:~21.2.0"
@@ -12568,7 +12491,9 @@ __metadata:
     "@compodoc/compodoc": "npm:^1.1.32"
     "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.4.0"
     "@jsverse/transloco": "npm:~8.2.1"
-    "@ngrx/store": "npm:~21.0.0"
+    "@jsverse/transloco-messageformat": "npm:~8.2.1"
+    "@jsverse/utils": "npm:1.0.0-beta.5"
+    "@ngrx/store": "npm:~21.1.0"
     "@nx/eslint": "npm:~22.6.0"
     "@nx/eslint-plugin": "npm:~22.6.0"
     "@nx/jest": "npm:~22.6.0"
@@ -12587,6 +12512,11 @@ __metadata:
     "@types/jest": "npm:~30.0.0"
     "@types/node": "npm:~24.12.0"
     "@typescript-eslint/parser": "npm:~8.58.0"
+    "@yarnpkg/cli": "npm:^4.5.0"
+    "@yarnpkg/core": "npm:^4.1.3"
+    "@yarnpkg/fslib": "npm:^3.1.0"
+    "@yarnpkg/plugin-npm": "npm:^3.0.1"
+    "@yarnpkg/plugin-pack": "npm:^4.0.0"
     angular-eslint: "npm:~21.3.0"
     chokidar: "npm:~5.0.0"
     cpy-cli: "npm:^6.0.0"
@@ -12610,12 +12540,13 @@ __metadata:
     jest-util: "npm:~30.3.0"
     jsdom: "npm:~27.4.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    memfs: "npm:~4.56.0"
+    memfs: "npm:~4.57.0"
     nx: "npm:~22.6.0"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.4.0"
     tslib: "npm:^2.6.2"
+    type-fest: "npm:^5.3.1"
     typescript: "npm:~5.9.2"
     typescript-eslint: "npm:~8.58.0"
     unionfs: "npm:~4.6.0"
@@ -12624,9 +12555,13 @@ __metadata:
     "@angular-devkit/core": ^21.0.0
     "@angular-devkit/schematics": ^21.0.0
     "@angular/cdk": ^21.0.0
+    "@angular/cli": ^21.0.0
     "@angular/common": ^21.0.0
     "@angular/core": ^21.0.0
+    "@angular/platform-browser-dynamic": ^21.0.0
     "@jsverse/transloco": ^8.0.0
+    "@jsverse/transloco-messageformat": ^8.0.0
+    "@jsverse/utils": 1.0.0-beta.5
     "@ngrx/store": ^21.0.0
     "@o3r/core": "workspace:~"
     "@o3r/dynamic-content": "workspace:~"
@@ -12634,9 +12569,16 @@ __metadata:
     "@o3r/logger": "workspace:~"
     "@o3r/schematics": "workspace:~"
     "@schematics/angular": ^21.0.0
+    "@yarnpkg/cli": ^4.3.1
+    "@yarnpkg/core": ^4.1.1
+    "@yarnpkg/fslib": ^3.1.0
+    "@yarnpkg/plugin-npm": ^3.0.1
+    "@yarnpkg/plugin-pack": ^4.0.0
     chokidar: ^4.0.0 || ^5.0.0
     globby: ^11.1.0
     rxjs: ^7.8.1
+    semver: ^7.5.2
+    type-fest: ^5.3.1
     typescript: ^5.9.0
   peerDependenciesMeta:
     "@angular-devkit/architect":
@@ -12645,19 +12587,29 @@ __metadata:
       optional: true
     "@angular-devkit/schematics":
       optional: true
-    "@o3r/dynamic-content":
-      optional: true
-    "@o3r/extractors":
-      optional: true
-    "@o3r/logger":
+    "@angular/cli":
       optional: true
     "@o3r/schematics":
       optional: true
     "@schematics/angular":
       optional: true
+    "@yarnpkg/cli":
+      optional: true
+    "@yarnpkg/core":
+      optional: true
+    "@yarnpkg/fslib":
+      optional: true
+    "@yarnpkg/plugin-npm":
+      optional: true
+    "@yarnpkg/plugin-pack":
+      optional: true
     chokidar:
       optional: true
     globby:
+      optional: true
+    semver:
+      optional: true
+    type-fest:
       optional: true
     typescript:
       optional: true
@@ -30483,6 +30435,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"make-plural@npm:^7.0.0":
+  version: 7.5.0
+  resolution: "make-plural@npm:7.5.0"
+  checksum: 10/096241357d7f6b274967998ca03006723ab40a9b49282ed37a0f863aeb1ac9fb12704a07fafbd2dfa3b75ee2e39edbb6c665a3884865ed1c805e8b4d419714d1
+  languageName: node
+  linkType: hard
+
 "makeerror@npm:1.0.12":
   version: 1.0.12
   resolution: "makeerror@npm:1.0.12"
@@ -30688,30 +30647,6 @@ __metadata:
   peerDependencies:
     tslib: 2
   checksum: 10/872b08504889b616a2ec28655509632112d80f8f0fd6d8c23219f4f62b4ff7d6a890205e3127379d985f3bdcaf82909a9f2c3a17867495f98b4678bc2af8a458
-  languageName: node
-  linkType: hard
-
-"memfs@npm:~4.56.0":
-  version: 4.56.11
-  resolution: "memfs@npm:4.56.11"
-  dependencies:
-    "@jsonjoy.com/fs-core": "npm:4.56.11"
-    "@jsonjoy.com/fs-fsa": "npm:4.56.11"
-    "@jsonjoy.com/fs-node": "npm:4.56.11"
-    "@jsonjoy.com/fs-node-builtins": "npm:4.56.11"
-    "@jsonjoy.com/fs-node-to-fsa": "npm:4.56.11"
-    "@jsonjoy.com/fs-node-utils": "npm:4.56.11"
-    "@jsonjoy.com/fs-print": "npm:4.56.11"
-    "@jsonjoy.com/fs-snapshot": "npm:4.56.11"
-    "@jsonjoy.com/json-pack": "npm:^1.11.0"
-    "@jsonjoy.com/util": "npm:^1.9.0"
-    glob-to-regex.js: "npm:^1.0.1"
-    thingies: "npm:^2.5.0"
-    tree-dump: "npm:^1.0.3"
-    tslib: "npm:^2.0.0"
-  peerDependencies:
-    tslib: 2
-  checksum: 10/2d99bce59dee0f5c96a039851892e39c09c1eee11d8978cf37dbb93462d706d842d6a5b0b3d5081d47f19883ed4b6d973c8086301a9155b098b80d66c3e79cb7
   languageName: node
   linkType: hard
 
@@ -31179,6 +31114,13 @@ __metadata:
     dompurify: "npm:3.2.7"
     marked: "npm:14.0.0"
   checksum: 10/73836b612a923342001b8cbb459aad0de486c94672fb7cf9d28bdafed9f3b7523d5aba510d9f8e7d24476a5aacf0d3a5c0cdc520ed4764f6f89f8cf5ba8d9329
+  languageName: node
+  linkType: hard
+
+"moo@npm:^0.5.1":
+  version: 0.5.3
+  resolution: "moo@npm:0.5.3"
+  checksum: 10/ce4a2e5ccab15bbe1b1ade5b8f821eea7d03cecda2898c2b343bd2c84f357c04ada2bdbc9bef9201cd1e4ddd7f2be7d365c2e058bb4862734790e0fa77740d81
   languageName: node
   linkType: hard
 
@@ -33320,13 +33262,6 @@ __metadata:
   version: 1.1.1
   resolution: "picocolors@npm:1.1.1"
   checksum: 10/e1cf46bf84886c79055fdfa9dcb3e4711ad259949e3565154b004b260cd356c5d54b31a1437ce9782624bf766272fe6b0154f5f0c744fb7af5d454d2b60db045
-  languageName: node
-  linkType: hard
-
-"picomatch@npm:4.0.3":
-  version: 4.0.3
-  resolution: "picomatch@npm:4.0.3"
-  checksum: 10/57b99055f40b16798f2802916d9c17e9744e620a0db136554af01d19598b96e45e2f00014c91d1b8b13874b80caa8c295b3d589a3f72373ec4aaf54baa5962d5
   languageName: node
   linkType: hard
 
@@ -35780,6 +35715,13 @@ __metadata:
   version: 5.2.1
   resolution: "safe-buffer@npm:5.2.1"
   checksum: 10/32872cd0ff68a3ddade7a7617b8f4c2ae8764d8b7d884c651b74457967a9e0e886267d3ecc781220629c44a865167b61c375d2da6c720c840ecd73f45d5d9451
+  languageName: node
+  linkType: hard
+
+"safe-identifier@npm:^0.4.1":
+  version: 0.4.2
+  resolution: "safe-identifier@npm:0.4.2"
+  checksum: 10/c2697c0d2fe128aa5f5faa7bd3ccf02d06ba937cdff9b2f65afb247e222a1505fc414a3b6a04d2a6a71bb5a84b8bc345edc408fabc8afc498f04e367ddc02366
   languageName: node
   linkType: hard
 

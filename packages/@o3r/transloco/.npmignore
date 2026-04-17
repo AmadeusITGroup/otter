@@ -1,0 +1,1 @@
+# Nested package.json's in builders and schematics are needed for CommonJS compatibility

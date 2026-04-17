@@ -56,6 +56,10 @@
       "types": "./localization/index.d.ts",
       "default": "./localization/index.js"
     },
+    "./transloco": {
+      "types": "./transloco/index.d.ts",
+      "default": "./transloco/index.js"
+    },
     "./mocks": {
       "types": "./mocks/index.d.ts",
       "default": "./mocks/index.js"
@@ -96,6 +100,7 @@
     "@angular/core": "^21.0.0",
     "@angular/forms": "^21.0.0",
     "@angular/platform-browser": "^21.0.0",
+    "@jsverse/transloco": "^8.0.0",
     "@material/slider": "^14.0.0",
     "@ngrx/store": "^21.0.0",
     "@ngx-translate/core": "^15.0.0 || ~16.0.4",
@@ -103,6 +108,7 @@
     "@o3r/eslint-config": "workspace:~",
     "@o3r/localization": "workspace:~",
     "@o3r/schematics": "workspace:~",
+    "@o3r/transloco": "workspace:~",
     "@playwright/test": "^1.49.0",
     "@schematics/angular": "^21.0.0",
     "eslint": "~9.39.0",
@@ -129,6 +135,9 @@
     "@angular/forms": {
       "optional": true
     },
+    "@jsverse/transloco": {
+      "optional": true
+    },
     "@material/slider": {
       "optional": true
     },
@@ -148,6 +157,9 @@
       "optional": true
     },
     "@o3r/schematics": {
+      "optional": true
+    },
+    "@o3r/transloco": {
       "optional": true
     },
     "@playwright/test": {
@@ -191,6 +203,7 @@
     "@babel/preset-typescript": "~7.28.0",
     "@compodoc/compodoc": "^1.1.32",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
+    "@jsverse/transloco": "~8.2.1",
     "@material/slider": "^14.0.0",
     "@ngrx/store": "~21.1.0",
     "@ngx-translate/core": "~16.0.4",
@@ -201,6 +214,7 @@
     "@o3r/eslint-plugin": "workspace:~",
     "@o3r/localization": "workspace:~",
     "@o3r/test-helpers": "workspace:~",
+    "@o3r/transloco": "workspace:~",
     "@playwright/test": "~1.59.0",
     "@schematics/angular": "~21.2.0",
     "@standard-schema/spec": "~1.1.0",

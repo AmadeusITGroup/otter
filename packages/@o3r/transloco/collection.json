@@ -1,0 +1,23 @@
+{
+  "$schema": "https://raw.githubusercontent.com/angular/angular-cli/main/packages/angular_devkit/schematics/collection-schema.json",
+  "schematics": {
+    "ng-add": {
+      "description": "Add Otter Localization (Transloco) to the project.",
+      "factory": "./schematics/ng-add/index#ngAdd",
+      "schema": "./schematics/ng-add/schema.json",
+      "aliases": ["install", "i"]
+    },
+    "localization-to-component": {
+      "description": "[o3r] Add Otter Localization architecture to an existing component",
+      "factory": "./schematics/localization-to-component/index#ngAddLocalization",
+      "schema": "./schematics/localization-to-component/schema.json",
+      "aliases": ["o3r-localization-to-component", "add-localization"]
+    },
+    "localization-key-to-component": {
+      "description": "[o3r] Add Otter Localization key to an existing component",
+      "factory": "./schematics/add-localization-key/index#ngAddLocalizationKey",
+      "schema": "./schematics/add-localization-key/schema.json",
+      "aliases": ["o3r-localization-key-to-component", "add-localization-key"]
+    }
+  }
+}
