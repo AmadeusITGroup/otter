@@ -3,29 +3,41 @@ import { Api, ApiClient, ApiTypes, computePiiParameterTokens, isJsonMimeType, Pa
 import { SDK_SERVERS } from '../../constants/servers';
 /** Parameters object to UserApi's createUser function */
 export interface UserApiCreateUserRequestData {
-  /** Created user object */
+  /**
+   * Created user object 
+   */
   'contentUser'?: User;
 }
 /** Parameters object to UserApi's createUsersWithListInput function */
 export interface UserApiCreateUsersWithListInputRequestData {
-  /** List of Users */
+  /**
+   * List of Users 
+   */
   'contentUser'?: User[];
 }
 /** Parameters object to UserApi's deleteUser function */
 export interface UserApiDeleteUserRequestData {
-  /** The name that needs to be deleted */
+  /**
+   * The name that needs to be deleted 
+   */
   'username': string;
 }
 /** Parameters object to UserApi's getUserByName function */
 export interface UserApiGetUserByNameRequestData {
-  /** The name that needs to be fetched. Use user1 for testing.  */
+  /**
+   * The name that needs to be fetched. Use user1 for testing.  
+   */
   'username': string;
 }
 /** Parameters object to UserApi's loginUser function */
 export interface UserApiLoginUserRequestData {
-  /** The user name for login */
+  /**
+   * The user name for login 
+   */
   'username'?: string;
-  /** The password for login in clear text */
+  /**
+   * The password for login in clear text 
+   */
   'password'?: string;
 }
 /** Parameters object to UserApi's logoutUser function */
@@ -33,9 +45,13 @@ export interface UserApiLogoutUserRequestData {
 }
 /** Parameters object to UserApi's updateUser function */
 export interface UserApiUpdateUserRequestData {
-  /** name that needs to be updated */
+  /**
+   * name that needs to be updated 
+   */
   'username': string;
-  /** Update an existent user in the store */
+  /**
+   * Update an existent user in the store 
+   */
   'contentUser'?: User;
 }
 export class UserApi implements Api {
