@@ -6,6 +6,7 @@
     "storageDir": ".openapi-generator",
     "generators": {
       "<%=projectName%>-<%=projectPackageName%>": {
+        "useDynamicEnumType": true,
         "generatorName": "typescriptFetch",
         "output": ".",
         "inputSpec": ""

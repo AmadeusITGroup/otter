@@ -4,10 +4,8 @@
  * THIS FILE HAS BEEN AUTOMATICALLY GENERATED. DO NOT EDIT.
  *
  */
-
-
-import { Category } from '../category';
-import { Tag } from '../tag';
+import type { Category } from '../category';
+import type { Tag } from '../tag';
 
 export interface Pet {
   id?: number;
@@ -20,11 +18,12 @@ export interface Pet {
   tags?: Tag[];
   /** pet status in the store */
   status?: StatusEnum;
+
 }
 
 /** Array of StatusEnum items */
 export const LIST_STATUS_ENUM = ['available', 'pending', 'sold'] as const;
 
 /** List of available values for StatusEnum */
-export type StatusEnum = 'available' | 'pending' | 'sold';
 
+export type StatusEnum = typeof LIST_STATUS_ENUM[number];

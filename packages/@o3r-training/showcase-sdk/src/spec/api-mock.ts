@@ -8,6 +8,7 @@ import * as api from '../api';
 export const MOCK_SERVER_BASE_PATH = 'http://localhost:10010/v2';
 
 export interface Api {
+  dummyApi: api.DummyApi;
   petApi: api.PetApi;
   storeApi: api.StoreApi;
   userApi: api.UserApi;
@@ -25,6 +26,7 @@ export interface Api {
  */
 export function getMockedApi(apiClient: ApiClient): Api {
   return {
+    dummyApi: new api.DummyApi(apiClient),
     petApi: new api.PetApi(apiClient),
     storeApi: new api.StoreApi(apiClient),
     userApi: new api.UserApi(apiClient)

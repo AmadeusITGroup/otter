@@ -1,6 +1,6 @@
 {{#noUnusedImport}}
 {{#imports}}
-import { {{import}} } from '../../models/base/{{#kebabCase}}{{import}}{{/kebabCase}}/index';
+import type { {{import}} } from '../../models/base/{{#kebabCase}}{{import}}{{/kebabCase}}/index';
 {{#keepRevivers}}
 import { revive{{import}} } from '../../models/base/{{#kebabCase}}{{import}}{{/kebabCase}}/{{#kebabCase}}{{import}}{{/kebabCase}}.reviver';
 {{/keepRevivers}}

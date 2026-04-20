@@ -1,9 +1,8 @@
-import type { Flight } from '../../models/base/flight/index';
-import { reviveFlight } from '../../models/base/flight/flight.reviver';
+import type { Animal } from '../../models/base/animal/index';
 import { Api, ApiClient, ApiTypes, computePiiParameterTokens,  ParamSerializationOptions, RequestBody, RequestMetadata, Server, selectServerBasePath, } from '@ama-sdk/core';
 import { SDK_SERVERS } from '../../constants/servers';
-/** Parameters object to DummyApi's dummyGet function */
-export interface DummyApiDummyGetRequestData {
+/** Parameters object to DummyApi's animalGet function */
+export interface DummyApiAnimalGetRequestData {
 }
 export class DummyApi implements Api {
 
@@ -29,12 +28,12 @@ export class DummyApi implements Api {
   }
 
   /**
-   * Dummy get
-   * Dummy get
+   * Animal get
+   * Get an animal
    * @param data Data to provide to the API call
    * @param metadata Metadata to pass to the API call
    */
-  public async dummyGet(data: DummyApiDummyGetRequestData, metadata?: RequestMetadata<string, 'application/json'>): Promise<Flight> {
+  public async animalGet(data: DummyApiAnimalGetRequestData, metadata?: RequestMetadata<string, 'application/json'>): Promise<Animal> {
     const metadataHeaderAccept = metadata?.headerAccept || 'application/json';
     const headers: { [key: string]: string | undefined } = {
       'Content-Type': metadata?.headerContentType || 'application/json',
@@ -52,8 +51,8 @@ export class DummyApi implements Api {
     const paramSerializationOptions: ParamSerializationOptions = {
       enableParameterSerialization: this.client.options.enableParameterSerialization
     };
-    const basePath = `${serverBasePath}/dummy`;
-    const tokenizedUrl = `${serverBasePath}/dummy`;
+    const basePath = `${serverBasePath}/animal`;
+    const tokenizedUrl = `${serverBasePath}/animal`;
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 
     const requestOptions = {
@@ -71,7 +70,7 @@ export class DummyApi implements Api {
     const options = await this.client.getRequestOptions(requestOptions);
     const url = this.client.options.enableParameterSerialization ? this.client.prepareUrlWithQueryParams(options.basePath, options.queryParams) : this.client.prepareUrl(options.basePath, options.queryParams);
 
-    const ret = this.client.processCall<Flight>(url, options, ApiTypes.DEFAULT, DummyApi.apiName, { 200: reviveFlight } , 'dummyGet');
+    const ret = this.client.processCall<Animal>(url, options, ApiTypes.DEFAULT, DummyApi.apiName, undefined, 'animalGet');
     return ret;
   }
 
