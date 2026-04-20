@@ -81,7 +81,7 @@ describe('Page', () => {
         'README.md',
         'index.ts'
       ];
-      expect(tree.files.filter((file) => /test-page/.test(file)).sort()).toEqual(expectedFileNames.map((fileName) => `/src/app/test-page/${fileName}`).sort());
+      expect(tree.files.filter((file) => /test-page/.test(file)).toSorted()).toEqual(expectedFileNames.map((fileName) => `/src/app/test-page/${fileName}`).toSorted());
       expect(tree.readContent('/src/app/test-page/index.ts')).toContain('export * from \'./test-page.test-type\';');
     });
 

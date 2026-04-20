@@ -53,7 +53,7 @@ export class CustomNpmSemverResolver extends NpmSemverResolver {
       ? noDeprecatedCandidates
       : candidates;
 
-    finalCandidates.sort((a, b) => -a.compare(b));
+    finalCandidates.toSorted((a, b) => -a.compare(b));
 
     return finalCandidates.map((version) => {
       const versionLocator = structUtils.makeLocator(descriptor, `${PROTOCOL}${version.raw}`);

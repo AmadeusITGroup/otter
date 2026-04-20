@@ -21,18 +21,18 @@ describe('ng add extractors', () => {
     expect(() => packageManagerExec({ script: 'ng', args: ['add', `@o3r/extractors@${o3rVersion}`, '--skip-confirmation', '--project-name', appName] }, execAppOptions)).not.toThrow();
 
     const diff = getGitDiff(workspacePath);
-    expect(diff.modified.sort()).toEqual([
+    expect(diff.modified.toSorted()).toEqual([
       'angular.json',
       '.gitignore',
       'package.json',
       'apps/test-app/package.json',
       isYarnTest ? 'yarn.lock' : 'package-lock.json'
-    ].sort());
-    expect(diff.added.sort()).toEqual([
+    ].toSorted());
+    expect(diff.added.toSorted()).toEqual([
       'apps/test-app/placeholders.metadata.json',
       'apps/test-app/tsconfig.cms.json',
       'apps/test-app/migration-scripts/README.md'
-    ].sort());
+    ].toSorted());
 
     [libraryPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
       expect(diff.all.some((file) => file.startsWith(path.relative(workspacePath, untouchedProject).replace(/\\+/g, '/')))).toBe(false);
@@ -48,18 +48,18 @@ describe('ng add extractors', () => {
     expect(() => packageManagerExec({ script: 'ng', args: ['add', `@o3r/extractors@${o3rVersion}`, '--skip-confirmation', '--project-name', libName] }, execAppOptions)).not.toThrow();
 
     const diff = getGitDiff(workspacePath);
-    expect(diff.modified.sort()).toEqual([
+    expect(diff.modified.toSorted()).toEqual([
       'angular.json',
       '.gitignore',
       'package.json',
       'libs/test-lib/package.json',
       isYarnTest ? 'yarn.lock' : 'package-lock.json'
-    ].sort());
-    expect(diff.added.sort()).toEqual([
+    ].toSorted());
+    expect(diff.added.toSorted()).toEqual([
       'libs/test-lib/placeholders.metadata.json',
       'libs/test-lib/tsconfig.cms.json',
       'libs/test-lib/migration-scripts/README.md'
-    ].sort());
+    ].toSorted());
 
     [applicationPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
       expect(diff.all.some((file) => file.startsWith(path.relative(workspacePath, untouchedProject).replace(/\\+/g, '/')))).toBe(false);

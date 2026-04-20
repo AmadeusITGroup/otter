@@ -25,6 +25,9 @@ import {
   TranslateFakeCompiler,
 } from '@ngx-translate/core';
 import {
+  provideDynamicContent,
+} from '@o3r/dynamic-content';
+import {
   LocalizationService,
 } from '@o3r/localization';
 import {
@@ -71,7 +74,8 @@ describe('RulesEngine', () => {
       ],
       providers: [
         { provide: NgbScrollSpyService, useValue: mockScrollSpyService },
-        provideMarkdown()
+        provideMarkdown(),
+        provideDynamicContent()
       ]
     });
     global.fetch = jest.fn(() =>

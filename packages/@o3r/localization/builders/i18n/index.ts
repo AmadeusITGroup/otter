@@ -27,7 +27,7 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<I18nBuilderSche
       const newContent = JSON.stringify(
         Object.entries(localizationJson)
           .filter(([, value]) => !value.dictionary && !value.$ref && value.defaultValue !== undefined)
-          .sort((a, b) => a[0] < b[0] ? -1 : 1)
+          .toSorted((a, b) => a[0] < b[0] ? -1 : 1)
           .reduce((acc: { [key: string]: string }, [key, { defaultValue }]) => {
             acc[key] = defaultValue;
             return acc;

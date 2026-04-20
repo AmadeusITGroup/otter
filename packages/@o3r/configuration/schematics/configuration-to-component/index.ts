@@ -285,7 +285,7 @@ export function ngAddConfigFn(options: NgAddConfigSchematicsSchema): Rule {
                       ts.isConstructorDeclaration(classElement) || isNgOnChangesMethod(classElement)
                     ))
                     .concat(propertiesToAdd, newContructorDeclaration, newNgOnChanges)
-                    .sort(sortClassElement);
+                    .toSorted(sortClassElement);
 
                   addCommentsOnClassProperties(
                     newMembers,

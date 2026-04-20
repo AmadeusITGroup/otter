@@ -51,6 +51,7 @@ const dependenciesToInstall: string[] = [];
 const devDependenciesToInstall = [
   'pixelmatch',
   'pngjs',
+  'uuid',
   '@angular-devkit/build-angular',
   '@angular/core',
   '@angular/common'
@@ -83,7 +84,8 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
           installJest = true;
           break;
         }
-        case 'jasmine': {
+        case 'jasmine':
+        case 'vitest': {
           installJest = await askConfirmation(`You are currently using ${testFramework}. Do you want to setup Jest test framework? You will have to remove ${testFramework} yourself.`, true, false);
           break;
         }

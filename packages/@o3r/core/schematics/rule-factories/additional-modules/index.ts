@@ -29,7 +29,7 @@ const ngrxStoreDevtoolsDep = '@ngrx/store-devtools';
 
 /**
  * Add additional modules for dev only
- * @param options @see RuleFactory.options
+ * @param options {@link RuleFactory.options}
  * @param options.projectName
  * @param options.workingDirectory the directory where to execute the rule factory
  * @param dependenciesSetupConfig

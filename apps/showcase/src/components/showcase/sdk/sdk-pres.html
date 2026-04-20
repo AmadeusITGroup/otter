@@ -17,7 +17,7 @@
             [id]="'pet-image'"
             name="petImage"
             [ngModel]="petImage()" (ngModelChange)="petImage.set($event)"
-          ></o3r-otter-picker-pres>
+          />
         </div>
         <div class="col-xs-3 col-sm-auto mt-2 mt-sm-0">
           <button class="btn btn-primary w-100 w-sm-auto" (click)="create()">Create a pet</button>
@@ -74,9 +74,9 @@
               }
             </td>
             <th scope="row">
-              <ngb-highlight [result]="pet.name" [term]="searchTerm()"></ngb-highlight>
+              <ngb-highlight [result]="pet.name" [term]="searchTerm()" />
             </th>
-            <th><ngb-highlight [result]="getTags(pet)" [term]="searchTerm()"></ngb-highlight></th>
+            <th><ngb-highlight [result]="getTags(pet)" [term]="searchTerm()" /></th>
             <td>
               <button class="btn btn-outline-danger df-btn-icononly btn-sm fa-trash-alt" title="Delete pet: {{pet.name}}" (click)="delete(pet)"></button>
             </td>

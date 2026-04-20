@@ -4,8 +4,7 @@
     <o3r-in-page-nav-pres
       id="rules-engine-nav"
       [links]="links$ | async"
-    >
-    </o3r-in-page-nav-pres>
+    />
   </div>
   <div class="order-2 order-lg-1 col-12 col-lg-10">
     <h2 id="rules-engine-description">Description</h2>
@@ -22,9 +21,9 @@
         <br>
         Selecting a date in summer will change the logo and add New-York to the list
       </p>
-      <o3r-rules-engine-pres></o3r-rules-engine-pres>
+      <o3r-rules-engine-pres />
       <p>
-        You can see more information about the rules execution by installing our <a href="https://chrome.google.com/webstore/detail/otter-devtools/aejabgendbpckkdnjaphhlifbhepmbne" target="_blank" rel="noopener">Otter Chrome extension</a>
+        You can see more information about the rules execution by installing our <a href="https://chrome.google.com/webstore/detail/otter-devtools/cgbnjkegcpddliemjooeiomcdnacbdol" target="_blank" rel="noopener">Otter Chrome extension</a>
       </p>
       <p>
         Do not hesitate to run the application locally, if not installed yet, follow the <a routerLink="/run-app-locally">instructions</a>.
@@ -43,7 +42,7 @@
               <br>
               You can check that New-York will be available if you select dates during the summer (between June 21st and September 21st).
             </p>
-            <markdown clipboard [data]="newYorkAvailableRule | language: 'json'"></markdown>
+            <markdown clipboard [data]="newYorkAvailableRule | language: 'json'" />
           </ng-template>
         </li>
         <li ngbNavItem class="nav-item">
@@ -53,7 +52,7 @@
             <p>
               When a destination is selected, the text will change from "Where do you want to go?" to "When do you want to go?". We have created the following rule to change the localization key.
             </p>
-            <markdown clipboard [data]="helloNewYorkRule | language: 'json'"></markdown>
+            <markdown clipboard [data]="helloNewYorkRule | language: 'json'" />
           </ng-template>
         </li>
         <li ngbNavItem class="nav-item">
@@ -65,7 +64,7 @@
               <br>
               You can check that the image changes if you select dates during the summer (between June 21st and September 21st).
             </p>
-            <markdown clipboard [data]="summerOtterRule | language: 'json'"></markdown>
+            <markdown clipboard [data]="summerOtterRule | language: 'json'" />
           </ng-template>
         </li>
         <li ngbNavItem class="nav-item">
@@ -77,7 +76,7 @@
               <br>
               It is using the `inNextMinutes` operator which is based on the current time.
             </p>
-            <markdown clipboard [data]="lateOtterRule | language: 'json'"></markdown>
+            <markdown clipboard [data]="lateOtterRule | language: 'json'" />
           </ng-template>
         </li>
       </ul>

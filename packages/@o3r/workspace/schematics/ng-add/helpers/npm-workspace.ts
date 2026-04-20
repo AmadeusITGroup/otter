@@ -95,7 +95,7 @@ export function filterPackageJsonScripts(tree: Tree, _context: SchematicContext)
 
 /**
  * Add a monorepo manager at the root of the project
- * @param o3rWorkspacePackageJson the @o3r/workspace package.json
+ * @param o3rWorkspacePackageJson the `@o3r/workspace` package.json
  * @param manager the monorepo manager
  */
 export function addMonorepoManager(o3rWorkspacePackageJson: PackageJson & { generatorDependencies: Record<string, string> }, manager: MonorepoManager): Rule {

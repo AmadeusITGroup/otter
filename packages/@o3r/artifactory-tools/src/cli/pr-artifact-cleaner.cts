@@ -76,7 +76,7 @@ const fetchOptions = {
             ]
         }
       ).include("name","repo","path","created")
-      .sort({"$desc" : ["path","name"]})
+      .toSorted({"$desc" : ["path","name"]})
       .limit(10000)`
 } as const satisfies RequestInit;
 
@@ -98,14 +98,14 @@ const run = async () => {
   const mapOfKeptItems = new Map<string, number[]>();
   const mapOfKeptResult = new Map<string, { repo: string; path: string; name: string }[]>();
   const resultToDelete: { repo: string; path: string; name: string }[] = [];
-  const sortedResult = responseSearchObj.results.sort((a, b) => b.name.localeCompare(a.name));
+  const sortedResult = responseSearchObj.results.toSorted((a, b) => b.name.localeCompare(a.name));
   for (const result of sortedResult) {
     const splitPath = result.name.split('.');
     const mapId = splitPath.slice(0, -2).join('.');
     const currentBuildNumber = +splitPath.at(-2)!;
     const buildNumbers = mapOfKeptItems.get(mapId);
     if (buildNumbers) {
-      buildNumbers.sort();
+      buildNumbers.toSorted();
       let isBuildNumberAlreadyInMap = false;
       let isBuildNumberHigherThanExisting = true;
       buildNumbers.forEach((value) => {
@@ -126,7 +126,7 @@ const run = async () => {
             }
           }
           buildNumbers.push(currentBuildNumber);
-          buildNumbers.sort();
+          buildNumbers.toSorted();
           mapOfKeptItems.set(mapId, buildNumbers);
           const keptBuildNumbers = mapOfKeptResult.get(`${mapId}${currentBuildNumber}`);
           if (keptBuildNumbers) {

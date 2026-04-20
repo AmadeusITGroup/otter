@@ -74,7 +74,7 @@ Otter framework provides a set of code generators based on [Angular schematics](
 | operators                 | Generate an operator                                          | `ng g operator`                  |
 
 ## Debug
-A whole section of the [Otter Chrome Devtool extension](https://chromewebstore.google.com/detail/otter-devtools/aejabgendbpckkdnjaphhlifbhepmbne) is dedicated to the debug of the rules engine with
+A whole section of the [Otter Chrome Devtool extension](https://chromewebstore.google.com/detail/otter-devtools/cgbnjkegcpddliemjooeiomcdnacbdol) is dedicated to the debug of the rules engine with
 a visual representation of your Rulesets and a history of the run, conditions met and actions applied.
 
 Find more information on the tool in the [Otter Chrome Devtool extension documentation](https://github.com/AmadeusITGroup/otter/blob/main/docs/dev-tools/chrome-devtools.md)

@@ -39,8 +39,8 @@ describe('ng add otter localization', () => {
       path.join(relativeApplicationPath, 'src/app/app.spec.ts').replace(/[/\\]+/g, '/'),
       path.join(relativeApplicationPath, 'src/app/app.ts').replace(/[/\\]+/g, '/'),
       path.join(relativeApplicationPath, 'src/main.ts').replace(/[/\\]+/g, '/')
-    ].sort();
-    expect(diff.modified.sort()).toEqual(modifiedFiles);
+    ].toSorted();
+    expect(diff.modified.toSorted()).toEqual(modifiedFiles);
 
     const newFiles = [
       path.join(relativeApplicationPath, 'src/components/test/test-translation.ts').replace(/[/\\]+/g, '/'),
@@ -56,8 +56,8 @@ describe('ng add otter localization', () => {
       path.join(relativeApplicationPath, 'migration-scripts/README.md').replace(/[/\\]+/g, '/'),
       path.join(relativeApplicationPath, 'tsconfig.cms.json').replace(/[/\\]+/g, '/'),
       path.join(relativeApplicationPath, '.gitignore').replace(/[/\\]+/g, '/')
-    ].sort();
-    expect(diff.added.sort()).toEqual(newFiles);
+    ].toSorted();
+    expect(diff.added.toSorted()).toEqual(newFiles);
 
     [libraryPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
       expect(diff.all.some((file) => file.startsWith(path.relative(workspacePath, untouchedProject).replace(/\\+/g, '/')))).toBe(false);
@@ -85,8 +85,8 @@ describe('ng add otter localization', () => {
       'angular.json',
       'package.json',
       isYarnTest ? 'yarn.lock' : 'package-lock.json'
-    ].sort();
-    expect(diff.modified.sort()).toEqual(modifiedFiles);
+    ].toSorted();
+    expect(diff.modified.toSorted()).toEqual(modifiedFiles);
 
     const addedFiles = [
       path.join(relativeLibraryPath, 'src/components/test/test-translation.ts').replace(/[/\\]+/g, '/'),
@@ -100,8 +100,8 @@ describe('ng add otter localization', () => {
       path.join(relativeLibraryPath, 'src/components/test/README.md').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'migration-scripts/README.md').replace(/[/\\]+/g, '/'),
       path.join(relativeLibraryPath, 'tsconfig.cms.json').replace(/[/\\]+/g, '/')
-    ].sort();
-    expect(diff.added.sort()).toEqual(addedFiles);
+    ].toSorted();
+    expect(diff.added.toSorted()).toEqual(addedFiles);
 
     [applicationPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
       expect(diff.all.some((file) => file.startsWith(path.relative(workspacePath, untouchedProject).replace(/\\+/g, '/')))).toBe(false);

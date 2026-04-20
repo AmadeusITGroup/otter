@@ -15,6 +15,7 @@ module.exports = {
     ],
     coveragePathIgnorePatterns: [
       '<rootDir>/src/generate-json.ts'
-    ]
+    ],
+    setupFilesAfterEnv: ['<rootDir>/testing/setup-jest.ts']
   })
 };

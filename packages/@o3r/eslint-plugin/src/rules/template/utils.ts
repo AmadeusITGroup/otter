@@ -12,7 +12,7 @@ interface SourceSpan {
   end: { line: number; col: any };
 }
 
-/** Basic interface for the Parser Services object provided by @angular-eslint/template-parser */
+/** Basic interface for the Parser Services object provided by `@angular-eslint/template-parser` */
 type TemplateParserServices = ParserServices & {
   /** Set body visitor rule runner */
   convertElementSourceSpanToLoc: (listenerObj: any) => any;
@@ -22,7 +22,7 @@ type TemplateParserServices = ParserServices & {
 };
 
 /**
- * Determine if @angular-eslint/template-parser is used
+ * Determine if `@angular-eslint/template-parser` is used
  * @param parserServices Parser services object
  */
 export function isTemplateParserServices(parserServices: any): parserServices is TemplateParserServices {
@@ -51,8 +51,8 @@ export function getTemplateParserServices(context: Readonly<TSESLint.RuleContext
 }
 
 /**
- * Utility for rule authors to ensure that their rule is correctly being used with @angular-eslint/template-parser
- * If @angular-eslint/template-parser is not the configured parser when the function is invoked it will throw
+ * Utility for rule authors to ensure that their rule is correctly being used with `@angular-eslint/template-parser`
+ * If `@angular-eslint/template-parser` is not the configured parser when the function is invoked it will throw
  * @param context
  */
 export function ensureTemplateParser(context: Readonly<TSESLint.RuleContext<string, readonly unknown[]>>): void {

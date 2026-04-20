@@ -20,6 +20,7 @@ describe('toReference', () => {
     const mockSpecification = { testField: 'testValue' };
     const mockRetrievedModel: RetrievedDependencyModel = {
       modelPath: 'models/test-model.yaml',
+      model: {},
       outputFilePath: 'output/models/test-model.yaml',
       'x-vendor-custom': 'customValue'
     } as any;
@@ -51,6 +52,7 @@ describe('toReference', () => {
     const mockRetrievedModel: RetrievedDependencyModel = {
       modelPath: 'models/test-model.yaml',
       outputFilePath: 'output/models/test-model.yaml',
+      model: {},
       transform: {
         rename: 'test-model.yaml'
       },
@@ -61,6 +63,23 @@ describe('toReference', () => {
     expect(referenceSpecification).toEqual({
       $ref: '../../models/test-model.yaml',
       'x-vendor-custom': 'customValue',
+      'x-internal-reference-generated': true
+    });
+  });
+
+  it('should handle innerPath in the model', () => {
+    const mockSpecification = { testField: 'testValue' };
+    const mockRetrievedModel: RetrievedDependencyModel = {
+      modelPath: 'models/test-model.yaml',
+      outputFilePath: 'output/models/test-model.yaml',
+      model: {
+        innerPath: 'components/schemas/TestModel'
+      } as any
+    } as any;
+
+    const referenceSpecification = toReference(mockSpecification, mockRetrievedModel, mockContext);
+    expect(referenceSpecification).toEqual({
+      $ref: '../../models/test-model.yaml#/components/schemas/TestModel',
       'x-internal-reference-generated': true
     });
   });

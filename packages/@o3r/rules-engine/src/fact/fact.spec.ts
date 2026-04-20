@@ -33,11 +33,18 @@ describe('Rules engine fact', () => {
     factsService = new FakeFactsService(mockEngine, facts);
   });
 
+  it ('should indicate that the facts are registered', () => {
+    expect(factsService.isRegistered).toBe(false);
+    factsService.register();
+    expect(factsService.isRegistered).toBe(true);
+  });
+
   it('should register the facts', async () => {
     factsService.register();
     await jest.runAllTimersAsync();
 
     expect(mockEngine.upsertFacts).toHaveBeenCalledTimes(1);
+    expect(factsService.isRegistered).toBe(true);
   });
 
   it('should update the value of a fact', async () => {
@@ -47,5 +54,6 @@ describe('Rules engine fact', () => {
     await jest.runAllTimersAsync();
 
     expect(mockEngine.upsertFacts).toHaveBeenCalledTimes(1);
+    expect(factsService.isRegistered).toBe(true);
   });
 });

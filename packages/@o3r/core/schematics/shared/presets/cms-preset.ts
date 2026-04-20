@@ -18,8 +18,8 @@ import type {
  */
 export function cmsPreset(options: PresetOptions) {
   const modules = [
+    '@ama-styling/style-dictionary',
     '@o3r/localization',
-    '@o3r/styling',
     '@o3r/components',
     '@o3r/configuration',
     '@o3r/dynamic-content',

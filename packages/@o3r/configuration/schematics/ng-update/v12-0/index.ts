@@ -10,7 +10,7 @@ import {
   updateImports,
 } from '@o3r/schematics';
 
-/** Map containing the import and value changes for computeConfigurationName updated to computeItemIdentifier in @o3r/core */
+/** Map containing the import and value changes for computeConfigurationName updated to computeItemIdentifier in `@o3r/core` */
 const mapImportsConfigurationName: ImportsMapping = {
   '@o3r/configuration': {
     computeConfigurationName: {

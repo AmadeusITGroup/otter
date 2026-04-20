@@ -45,7 +45,7 @@ export const rulesetReportToHistory = (events: DebugEvent[], rulesetMap: Record<
       }
       return acc;
     }, [])
-    .sort((execA, execB) => execB.timestamp - execA.timestamp)
+    .toSorted((execA, execB) => execB.timestamp - execA.timestamp)
     .map((rulesetExecution) => {
       const rulesetInformation = rulesetMap[rulesetExecution.rulesetId];
       const isActive = lastActiveRulesets.find((r) => r.id === rulesetExecution.rulesetId);
@@ -54,7 +54,7 @@ export const rulesetReportToHistory = (events: DebugEvent[], rulesetMap: Record<
         status: getStatus(rulesetExecution, !!isActive),
         isActive: !!isActive,
         rulesetInformation,
-        rulesEvaluations: (rulesetExecution.rulesEvaluations || []).sort((evalA, evalB) =>
+        rulesEvaluations: (rulesetExecution.rulesEvaluations || []).toSorted((evalA, evalB) =>
           (rulesetInformation?.rules.findIndex((r) => r.id === evalA.rule.id) || -1)
           - (rulesetInformation?.rules.findIndex((r) => r.id === evalB.rule.id) || -1)
         )

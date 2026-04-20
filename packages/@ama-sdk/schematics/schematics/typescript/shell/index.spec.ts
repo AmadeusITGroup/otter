@@ -109,7 +109,7 @@ describe('Typescript Shell Generator', () => {
   });
 
   it('should generate basic SDK package', () => {
-    expect(yarnTree.files.sort()).toEqual(baseFileList.sort());
+    expect(yarnTree.files.toSorted()).toEqual(baseFileList.toSorted());
   });
 
   it('should generate correct package name', () => {

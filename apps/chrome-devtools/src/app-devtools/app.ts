@@ -32,9 +32,6 @@ import {
 import {
   AppConnection,
 } from '../components/app-connection/app-connection';
-import type {
-  State,
-} from '../extension/interface';
 import {
   StateService,
 } from '../services';
@@ -45,6 +42,9 @@ import {
 import {
   RulesetHistoryService,
 } from '../services/ruleset-history-service';
+import type {
+  State,
+} from '../shared/extension-interface';
 import {
   ComponentPanelPres,
 } from './component-panel/component-panel-pres';

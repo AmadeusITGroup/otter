@@ -20,7 +20,7 @@ type ImpervaCaptchaMessageData = {
 };
 
 /**
- * Type to describe the timer status of the {@see TimeoutFetch} plugin.
+ * Type to describe the timer status of the {@link TimeoutFetch} plugin.
  * Today, only the stop and restart of the timer is supported which match the following events:
  * - stop: stop the timeout timer
  * - start: reset the timer and restart it
@@ -44,7 +44,7 @@ function isImpervaCaptchaMessage(message: any): message is ImpervaCaptchaMessage
  */
 export type TimeoutPauseEventHandler = ((timeoutPauseCallback: (timeoutStatus: TimeoutStatus) => void, context: any) => () => void);
 /**
- * Factory to generate a {@see TimeoutPauseEventHandler} depending on various configurations
+ * Factory to generate a {@link TimeoutPauseEventHandler} depending on various configurations
  */
 export type TimeoutPauseEventHandlerFactory<T> = (config?: Partial<T>) => TimeoutPauseEventHandler;
 

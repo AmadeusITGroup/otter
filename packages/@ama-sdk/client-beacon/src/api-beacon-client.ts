@@ -10,7 +10,6 @@ import type {
   TokenizedOptions,
 } from '@ama-sdk/core';
 import {
-  extractQueryParams,
   filterUndefinedValues,
   getPropertiesFromData,
   prepareUrl,
@@ -28,7 +27,9 @@ export interface BaseApiBeaconClientOptions extends BaseApiClientOptions {
   replyPlugins: never[];
 }
 
-/** @see BaseApiConstructor */
+/**
+ * Interface of the constructor configuration object
+ */
 export interface BaseApiBeaconClientConstructor extends PartialExcept<Omit<BaseApiBeaconClientOptions, 'replyPlugins'>, 'basePath'> {
 }
 
@@ -36,7 +37,7 @@ const DEFAULT_OPTIONS = {
   replyPlugins: [] as never[],
   requestPlugins: [],
   enableTokenization: false,
-  enableParameterSerialization: false
+  enableParameterSerialization: true
 } as const satisfies Omit<BaseApiBeaconClientOptions, 'basePath'>;
 
 /**
@@ -67,11 +68,6 @@ export class ApiBeaconClient implements ApiClient {
       ...DEFAULT_OPTIONS,
       ...options
     };
-  }
-
-  /** @inheritdoc */
-  public extractQueryParams<T extends { [key: string]: any }>(data: T, names: (keyof T)[]): { [p in keyof T]: string; } {
-    return extractQueryParams(data, names);
   }
 
   /** @inheritdoc */

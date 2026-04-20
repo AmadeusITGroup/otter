@@ -26,12 +26,12 @@ describe('new Angular application', () => {
 
     const diff = getGitDiff(workspacePath);
 
-    expect(diff.modified.sort()).toEqual([
+    expect(diff.modified.toSorted()).toEqual([
       'package.json',
       'angular.json',
       'apps/test-app/package.json',
       isYarnTest ? 'yarn.lock' : 'package-lock.json'
-    ].sort());
+    ].toSorted());
     expect(diff.added.length).toBe(0);
 
     const componentPath = path.normalize(path.posix.join(relativeApplicationPath, 'src/components/test/test.ts'));

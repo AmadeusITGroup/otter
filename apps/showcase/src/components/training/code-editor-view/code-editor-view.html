@@ -8,7 +8,7 @@
                        (currentFileChange)="onClickFile($event)"
                        [width]="'auto'"
                        [height]="'auto'"
-                       class="w-100 editor-view"></monaco-tree>
+                       class="w-100 editor-view" />
         </as-split-area>
         <as-split-area [size]="75" class="editor-view">
           @if (editorOptions()) {
@@ -17,8 +17,7 @@
                                [model]="model$ | async"
                                (keydown)="onEditorKeyDown($event)"
                                (onInit)="newMonacoEditorCreated.next()"
-                               formControlName="code">
-            </ngx-monaco-editor>
+                               formControlName="code" />
           }
         </as-split-area>
       </as-split>
@@ -26,7 +25,7 @@
   </as-split-area>
   @if (displayTerminal()) {
     <as-split-area [size]="50">
-      <code-editor-control class="d-flex flex-column h-100"></code-editor-control>
+      <code-editor-control class="d-flex flex-column h-100" />
     </as-split-area>
   }
 </as-split>
