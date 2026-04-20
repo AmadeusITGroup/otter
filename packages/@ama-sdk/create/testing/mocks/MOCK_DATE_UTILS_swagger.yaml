@@ -73,6 +73,12 @@ paths:
           schema:
             $ref: '#/definitions/Error'
 definitions:
+  Status:
+    type: string
+    enum:
+      - available
+      - pending
+      - sold
   Pet:
     type: "object"
     required:
@@ -95,6 +101,8 @@ definitions:
         type: string
       tag:
         type: string
+      status:
+        $ref: '#/definitions/Status'
   Pets:
     type: array
     items:
