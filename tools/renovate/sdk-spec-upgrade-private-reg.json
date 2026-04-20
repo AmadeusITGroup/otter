@@ -1,8 +1,0 @@
-{
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "description": "Trigger SDK regeneration for a specific package name with yarn, with private registry support. arg0: full package name. arg1: npm config file path (e.g. '.npmrc-renovate').",
-  "extends": [
-    "github>AmadeusITGroup/otter//tools/renovate/group/sdk-spec({{arg0}})",
-    "github>AmadeusITGroup/otter//tools/renovate/tasks/sdk-spec-regenerate-private-reg(yarn, {{arg0}}, {{arg1}})"
-  ]
-}

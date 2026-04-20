@@ -1,0 +1,25 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Trigger SDK regeneration on @ama-sdk update, with private registry authentication. Configures npm user-level config (~/.npmrc) on the Renovate runner so install and SDK migration can authenticate against a private registry. arg0: package manager (yarn, npm). arg1: scheme-less registry URL with trailing slash (e.g. '//npm.my-company.example/api/npm/npm/'). arg2: name of the environment variable holding the base64-encoded token (e.g. 'NPM_AUTH_BASE64'); must be exposed to Renovate via customEnvVariables. Only supported for npm and Yarn 1; for Yarn 2+, configure hostRules (see https://docs.renovatebot.com/getting-started/private-packages/#yarn-2).",
+  "packageRules": [
+    {
+      "matchPackageNames": [
+        "/^@ama-sdk/"
+      ],
+      "postUpgradeTasks": {
+        "commands": [
+          "npm config set --location=user registry https:{{arg1}}",
+          "npm config set --location=user ignore-scripts true",
+          "npm config set --location=user {{arg1}}:_auth \"${{arg2}}\"",
+          "{{arg0}} install",
+          "{{arg0}} exec schematics @ama-sdk/schematics:migrate {{#if (equals '{{arg0}}' 'npm')}}-- {{/if}}--from={{{currentVersion}}} --to={{{newVersion}}}",
+          "{{arg0}} run spec:upgrade"
+        ],
+        "fileFilters": [
+          "!**/.{npmrc,yarnrc*}"
+        ],
+        "executionMode": "branch"
+      }
+    }
+  ]
+}

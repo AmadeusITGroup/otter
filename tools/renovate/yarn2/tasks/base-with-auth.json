@@ -1,0 +1,30 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Trigger post install scripts when updating package manager, with private registry authentication for Yarn Berry (Yarn >= 2). Configures Yarn home config (~/.yarnrc.yml) on the Renovate runner so 'yarn install' can authenticate against a private registry, then runs the install. arg0: scheme-less registry URL with trailing slash (e.g. '//npm.my-company.example/api/npm/npm/'); used to derive 'https:{{arg0}}' for npmRegistryServer and as the key for 'npmRegistries[...].npmAuthIdent'. arg1: name of the environment variable holding the base64-encoded 'user:password' token (e.g. 'NPM_AUTH_BASE64'); must be exposed to Renovate via customEnvVariables. If your registry uses a bearer token instead, replace npmAuthIdent with npmAuthToken in this preset. References: https://yarnpkg.com/configuration/yarnrc ; https://yarnpkg.com/cli/config/set ; https://docs.renovatebot.com/getting-started/private-packages/#yarn-2",
+  "packageRules": [
+    {
+      "matchDepTypes": [
+        "packageManager"
+      ],
+      "matchPackageNames": [
+        "yarn"
+      ],
+      "postUpgradeTasks": {
+        "commands": [
+          "yarn config set -H npmRegistryServer \"https:{{arg0}}\"",
+          "yarn config set -H enableScripts false",
+          "yarn config set -H 'npmRegistries[\"{{arg0}}\"].npmAuthIdent' \"${{arg1}}\"",
+          "yarn install"
+        ],
+        "executionMode": "branch",
+        "fileFilters": [
+          "packages/**/package.json",
+          "packages/**/package.json.template",
+          "package.json"
+        ]
+      },
+      "groupName": "Package manager",
+      "groupSlug": "package-manager"
+    }
+  ]
+}

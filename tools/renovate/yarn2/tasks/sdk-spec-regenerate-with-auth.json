@@ -1,0 +1,24 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Trigger SDK regeneration for a specific package name, with private registry authentication for Yarn Berry (Yarn >= 2). Configures Yarn home config (~/.yarnrc.yml) on the Renovate runner so install and spec:upgrade can authenticate against a private registry. arg0: full package name. arg1: scheme-less registry URL with trailing slash (e.g. '//npm.my-company.example/api/npm/npm/'). arg2: name of the environment variable holding the base64-encoded 'user:password' token (e.g. 'NPM_AUTH_BASE64'); must be exposed to Renovate via customEnvVariables. If your registry uses a bearer token instead, replace npmAuthIdent with npmAuthToken in this preset. References: https://yarnpkg.com/configuration/yarnrc ; https://docs.renovatebot.com/getting-started/private-packages/#yarn-2",
+  "packageRules": [
+    {
+      "matchPackageNames": [
+        "{{arg0}}"
+      ],
+      "postUpgradeTasks": {
+        "commands": [
+          "yarn config set -H npmRegistryServer \"https:{{arg1}}\"",
+          "yarn config set -H enableScripts false",
+          "yarn config set -H 'npmRegistries[\"{{arg1}}\"].npmAuthIdent' \"${{arg2}}\"",
+          "yarn install",
+          "yarn run spec:upgrade"
+        ],
+        "executionMode": "branch",
+        "fileFilters": [
+          "!**/.{npmrc,yarnrc*}"
+        ]
+      }
+    }
+  ]
+}
