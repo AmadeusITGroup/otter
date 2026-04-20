@@ -1,0 +1,22 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Configure a private npm registry at user level on the Renovate runner. Merges into the postUpgradeTasks of Otter's built-in task presets (tasks/base, tasks/otter-ng-update, tasks/sdk-regenerate) so that their `install`, `ng update` and `spec:upgrade` commands can authenticate against the private registry. MUST be extended BEFORE those task presets. arg0: scheme-less registry URL with trailing slash (e.g. '//repository.rnd.amadeus.net/api/npm/npm/'); used to derive the registry URL ('https:{{arg0}}') and the auth entry key ('{{arg0}}:_auth'). arg1: name of the environment variable holding the base64-encoded token (e.g. 'NPM_AUTH_BASE64'); must be exposed to Renovate via customEnvVariables / allowedEnv. Writes to ~/.npmrc on the runner so nothing is committed. If you use tasks/sdk-spec-regenerate with a custom spec package, add that package name to the matchPackageNames of this rule via a local override so the auth commands also run on its updates. Only supported for npm and Yarn 1; for Yarn 2+, configure hostRules instead (see https://docs.renovatebot.com/getting-started/private-packages/#yarn-2).",
+  "packageRules": [
+    {
+      "matchPackageNames": [
+        "npm",
+        "yarn",
+        "@o3r/core",
+        "/^@ama-sdk/"
+      ],
+      "postUpgradeTasks": {
+        "commands": [
+          "npm config set --location=user registry https:{{arg0}}",
+          "npm config set --location=user ignore-scripts true",
+          "npm config set --location=user {{arg0}}:_auth \"${{arg1}}\""
+        ],
+        "executionMode": "branch"
+      }
+    }
+  ]
+}

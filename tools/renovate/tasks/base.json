@@ -7,11 +7,12 @@
         "packageManager"
       ],
       "matchPackageNames": [
-        "npm"
+        "npm",
+        "yarn"
       ],
       "postUpgradeTasks": {
         "commands": [
-          "npm install"
+          "{{{depName}}} install"
         ],
         "executionMode": "branch",
         "fileFilters": [
@@ -20,28 +21,8 @@
           "package.json"
         ]
       },
-      "rangeStrategy": "auto",
       "groupName": "Package manager",
       "groupSlug": "package-manager"
-    },
-    {
-      "matchDepTypes": [
-        "packageManager"
-      ],
-      "matchPackageNames": [
-        "yarn"
-      ],
-      "postUpgradeTasks": {
-        "commands": [
-          "yarn install"
-        ],
-        "executionMode": "branch",
-        "fileFilters": [
-          "packages/**/package.json",
-          "packages/**/package.json.template",
-          "package.json"
-        ]
-      }
     }
   ]
 }
