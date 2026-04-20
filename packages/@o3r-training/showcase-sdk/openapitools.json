@@ -10,7 +10,8 @@
         "output": ".",
         "inputSpec": "./open-api.yaml",
         "globalProperty": {
-          "stringifyDate": true
+          "stringifyDate": true,
+          "requestBodyTransform": "content{{bodyRequest}}"
         }
       }
     }

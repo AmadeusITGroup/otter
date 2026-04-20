@@ -16,6 +16,7 @@
     "nrwl.angular-console",
     "Orta.vscode-jest",
     "redhat.vscode-yaml",
-    "stylelint.vscode-stylelint"
+    "stylelint.vscode-stylelint",
+    "vitest.explorer"
   ]
 }

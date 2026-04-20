@@ -172,14 +172,14 @@ export class SdkPres {
     this.isLoading.set(true);
     await this.petStoreApi.addPet({
 
-      Pet: pet
+      contentPet: pet
     });
     if (pet.photoUrls.length > 0) {
       const filePath = `${this.baseUrl}${pet.photoUrls[0]}`;
       const blob = await (await fetch(filePath)).blob();
       await this.petStoreApi.uploadFile({
         petId: pet.id,
-        body: new File([blob], filePath, { type: blob.type })
+        contentbody: new File([blob], filePath, { type: blob.type })
       });
     }
     await this.reload();

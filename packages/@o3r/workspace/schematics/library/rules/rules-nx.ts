@@ -117,7 +117,7 @@ export function nxGenerateModule(options: NgGenerateModuleSchema & { packageJson
       renameTemplateFiles(),
       move(targetPath)
     ]);
-    const templateJest = apply(url('./templates/jest'), [
+    const templateJest = apply(url('../common/templates/jest'), [
       template({
         ...options,
         tsconfigBasePath: findConfigFileRelativePath(tree, ['tsconfig.base.json', 'tsconfig.json'], targetPath)

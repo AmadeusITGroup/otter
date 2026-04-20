@@ -19,6 +19,6 @@ module.exports = {
   },
   setupFilesAfterEnv: ['<rootDir>/testing/setup-jest.ts'],
   transformIgnorePatterns: [
-    'node_modules/(?!.*\\.mjs$|parse5|jsdom)'
+    'node_modules/(?!.*\\.mjs$|parse5|jsdom|@exodus/bytes)'
   ]
 };

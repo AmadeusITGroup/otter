@@ -572,5 +572,23 @@ public class LambdaHelper {
         }
         return mimeTypes[0];
       }
+
+    }
+
+    public static class TransformBodyRequest extends CustomLambda {
+
+        String requestBodyTransform;
+
+        public TransformBodyRequest(String requestBodyTransform) {
+            this.requestBodyTransform = requestBodyTransform;
+        }
+
+        @Override
+        public String formatFragment(String fragment) {
+          if (requestBodyTransform == null || requestBodyTransform.equals("")) {
+            return fragment;
+          }
+          return requestBodyTransform.replace("{{bodyRequest}}", fragment);
+        }
     }
 }
