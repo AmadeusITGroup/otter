@@ -53,7 +53,7 @@ export interface PetApiUploadFileRequestData {
   /** Additional Metadata */
   'additionalMetadata'?: string;
   /**  */
-  'contentbody'?: File;
+  'contentbody'?: any;
 }
 export class PetApi implements Api {
 

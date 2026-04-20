@@ -14,7 +14,7 @@ export class StoreApiFixture implements Partial<Readonly<StoreApi>> {
   /**
    * Fixture associated to function getInventory
    */
-  public getInventory: jest.Mock<Promise<{ [key: string]: number; }>, [StoreApiGetInventoryRequestData]> = jest.fn();
+  public getInventory: jest.Mock<Promise<Record<string, number>>, [StoreApiGetInventoryRequestData]> = jest.fn();
   /**
    * Fixture associated to function getOrderById
    */
