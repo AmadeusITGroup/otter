@@ -4,6 +4,7 @@ const { getJestProjectConfig } = require('@o3r/test-helpers');
 module.exports = {
   ...getJestProjectConfig(),
   projects: [
-    '<rootDir>/testing/jest.config.ut.js'
+    '<rootDir>/testing/jest.config.ut.js',
+    '<rootDir>/testing/jest.config.ut.builders.js'
   ]
 };
