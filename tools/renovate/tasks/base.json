@@ -1,28 +1,7 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "description": "Trigger post install scripts when updating package manager",
-  "packageRules": [
-    {
-      "matchDepTypes": [
-        "packageManager"
-      ],
-      "matchPackageNames": [
-        "npm",
-        "yarn"
-      ],
-      "postUpgradeTasks": {
-        "commands": [
-          "{{{depName}}} install"
-        ],
-        "executionMode": "branch",
-        "fileFilters": [
-          "packages/**/package.json",
-          "packages/**/package.json.template",
-          "package.json"
-        ]
-      },
-      "groupName": "Package manager",
-      "groupSlug": "package-manager"
-    }
+  "description": "Trigger post install scripts when updating package manager. Thin wrapper around base-with-auth preset with empty authentication args.",
+  "extends": [
+    "github>AmadeusITGroup/otter//tools/renovate/tasks/base-with-auth#feat/renovate-install-private-reg(,)"
   ]
 }

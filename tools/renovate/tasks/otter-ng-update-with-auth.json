@@ -1,6 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "description": "Trigger ng update scripts for otter dependencies, with private registry authentication. Configures npm user-level config (~/.npmrc) on the Renovate runner so install and ng update can authenticate against a private registry. arg0: package manager (yarn, npm). arg1: scheme-less registry URL with trailing slash (e.g. '//npm.my-company.example/api/npm/npm/'). arg2: name of the environment variable holding the base64-encoded token (e.g. 'NPM_AUTH_BASE64'); must be exposed to Renovate via customEnvVariables. Only supported for npm and Yarn 1; for Yarn 2+, configure hostRules (see https://docs.renovatebot.com/getting-started/private-packages/#yarn-2).",
+  "description": "Trigger ng update scripts for otter dependencies, with optional private registry authentication. When registry args are provided, configures npm user-level config (~/.npmrc) on the Renovate runner so install and ng update can authenticate against a private registry. arg0: package manager (yarn, npm). arg1: (optional) scheme-less registry URL with trailing slash (e.g. '//npm.my-company.example/api/npm/npm/'). arg2: (optional) name of the environment variable holding the base64-encoded token (e.g. 'NPM_AUTH_BASE64'); must be exposed to Renovate via customEnvVariables. When arg1/arg2 are empty, no authentication is configured. Only supported for npm and Yarn 1; for Yarn 2+, configure hostRules (see https://docs.renovatebot.com/getting-started/private-packages/#yarn-2).",
   "packageRules": [
     {
       "matchPackageNames": [
@@ -8,9 +8,9 @@
       ],
       "postUpgradeTasks": {
         "commands": [
-          "npm config set --location=user registry https:{{arg1}}",
-          "npm config set --location=user ignore-scripts true",
-          "npm config set --location=user {{arg1}}:_auth \"${{arg2}}\"",
+          "{{#unless (equals '{{arg1}}' '')}}npm config set --location=user registry https:{{arg1}}{{/unless}}",
+          "{{#unless (equals '{{arg1}}' '')}}npm config set --location=user ignore-scripts true{{/unless}}",
+          "{{#unless (equals '{{arg1}}' '')}}npm config set --location=user {{arg1}}:_auth \"${{arg2}}\"{{/unless}}",
           "{{arg0}} install",
           "{{arg0}} run ng update {{{depName}}} {{#if (equals '{{arg0}}' 'npm')}}-- {{/if}}--from={{{currentVersion}}} --to={{{newVersion}}} --migrate-only --allow-dirty --force"
         ],

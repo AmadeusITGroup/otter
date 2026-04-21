@@ -1,21 +1,7 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "description": "Trigger ng update scripts for otter dependencies. Need to pass the package manager as a parameter (yarn, npm).",
-  "packageRules": [
-    {
-      "matchPackageNames": [
-        "@o3r/core"
-      ],
-      "postUpgradeTasks": {
-        "commands": [
-          "{{arg0}} install",
-          "{{arg0}} run ng update {{{depName}}} {{#if (equals '{{arg0}}' 'npm')}}-- {{/if}}--from={{{currentVersion}}} --to={{{newVersion}}} --migrate-only --allow-dirty --force"
-        ],
-        "fileFilters": [
-          "!**/.{npmrc,yarnrc*}"
-        ],
-        "executionMode": "update"
-      }
-    }
+  "description": "Trigger ng update scripts for otter dependencies. Thin wrapper around otter-ng-update-with-auth preset with empty authentication args. Need to pass the package manager as a parameter (yarn, npm).",
+  "extends": [
+    "github>AmadeusITGroup/otter//tools/renovate/tasks/otter-ng-update-with-auth#feat/renovate-install-private-reg({{arg0}},,)"
   ]
 }

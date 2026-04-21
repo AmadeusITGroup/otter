@@ -1,6 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "description": "Trigger post install scripts when updating package manager, with private registry authentication. Configures npm user-level config (~/.npmrc) on the Renovate runner so 'npm install' / 'yarn install' can authenticate against a private registry, then runs the install. arg0: scheme-less registry URL with trailing slash (e.g. '//npm.my-company.example/api/npm/npm/'); used to derive 'https:{{arg0}}' for the registry URL and '{{arg0}}:_auth' for the auth entry. arg1: name of the environment variable holding the base64-encoded token (e.g. 'NPM_AUTH_BASE64'); must be exposed to Renovate via customEnvVariables. Only supported for npm and Yarn 1; for Yarn 2+, configure hostRules (see https://docs.renovatebot.com/getting-started/private-packages/#yarn-2).",
+  "description": "Trigger post install scripts when updating package manager, with optional private registry authentication. When registry args are provided, configures npm user-level config (~/.npmrc) on the Renovate runner so 'npm install' / 'yarn install' can authenticate against a private registry, then runs the install. arg0: (optional) scheme-less registry URL with trailing slash (e.g. '//npm.my-company.example/api/npm/npm/'); used to derive 'https:{{arg0}}' for the registry URL and '{{arg0}}:_auth' for the auth entry. arg1: (optional) name of the environment variable holding the base64-encoded token (e.g. 'NPM_AUTH_BASE64'); must be exposed to Renovate via customEnvVariables. When arg0/arg1 are empty, no authentication is configured. Only supported for npm and Yarn 1; for Yarn 2+, configure hostRules (see https://docs.renovatebot.com/getting-started/private-packages/#yarn-2).",
   "packageRules": [
     {
       "matchDepTypes": [
@@ -12,9 +12,9 @@
       ],
       "postUpgradeTasks": {
         "commands": [
-          "npm config set --location=user registry https:{{arg0}}",
-          "npm config set --location=user ignore-scripts true",
-          "npm config set --location=user {{arg0}}:_auth \"${{arg1}}\"",
+          "{{#unless (equals '{{arg0}}' '')}}npm config set --location=user registry https:{{arg0}}{{/unless}}",
+          "{{#unless (equals '{{arg0}}' '')}}npm config set --location=user ignore-scripts true{{/unless}}",
+          "{{#unless (equals '{{arg0}}' '')}}npm config set --location=user {{arg0}}:_auth \"${{arg1}}\"{{/unless}}",
           "{{{depName}}} install"
         ],
         "executionMode": "branch",
