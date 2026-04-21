@@ -20,11 +20,10 @@ import {
   ChangeDetectorRefFixture,
 } from '../../testing/change-detector-ref-fixture';
 import {
-  createLocalizationConfiguration,
   LOCALIZATION_CONFIGURATION_TOKEN,
-  LocalizationModule,
   LocalizationService,
   O3rLocalizationTranslatePipe,
+  provideLocalization,
 } from '@o3r/transloco';
 
 const translations: Record<string, Translation> = {
@@ -47,12 +46,9 @@ describe('LocalizationTranslatePipe', () => {
   describe('enableTranslationDeactivation OFF', () => {
     it('should throw when trying to deactivate the translation', async () => {
       await TestBed.configureTestingModule({
-        imports: [
-          LocalizationModule.forRoot(() => ({ language: 'en', supportedLocales: ['en'] }))
-        ],
         providers: [
           provideTransloco({ config: {} }),
-          LocalizationService,
+          provideLocalization({ language: 'en', supportedLocales: ['en'] }),
           { provide: TRANSLOCO_LOADER, useClass: FakeLoader },
           { provide: ChangeDetectorRef, useClass: ChangeDetectorRefFixture },
           { provide: O3rLocalizationTranslatePipe, deps: [LocalizationService, TranslocoService, ChangeDetectorRef, LOCALIZATION_CONFIGURATION_TOKEN] }
@@ -72,17 +68,10 @@ describe('LocalizationTranslatePipe', () => {
     describe('debug mode OFF', () => {
       beforeEach(async () => {
         await TestBed.configureTestingModule({
-          imports: [
-            LocalizationModule.forRoot(() => ({ language: 'en', supportedLocales: ['en'] }))
-          ],
           providers: [
             provideTransloco({ config: { defaultLang: 'en', prodMode: true } }),
-            LocalizationService,
+            provideLocalization({ supportedLocales: ['en'], enableTranslationDeactivation: true }),
             { provide: TRANSLOCO_LOADER, useClass: FakeLoader },
-            {
-              provide: LOCALIZATION_CONFIGURATION_TOKEN,
-              useFactory: () => createLocalizationConfiguration({ supportedLocales: ['en'], enableTranslationDeactivation: true })
-            },
             { provide: ChangeDetectorRef, useClass: ChangeDetectorRefFixture },
             { provide: O3rLocalizationTranslatePipe, deps: [LocalizationService, TranslocoService, ChangeDetectorRef, LOCALIZATION_CONFIGURATION_TOKEN] }
           ]
@@ -114,17 +103,10 @@ describe('LocalizationTranslatePipe', () => {
     describe('debug mode ON', () => {
       beforeEach(async () => {
         await TestBed.configureTestingModule({
-          imports: [
-            LocalizationModule.forRoot(() => ({ language: 'en', supportedLocales: ['en'] }))
-          ],
           providers: [
             provideTransloco({ config: { defaultLang: 'en', prodMode: true } }),
-            LocalizationService,
+            provideLocalization({ supportedLocales: ['en'], debugMode: true, enableTranslationDeactivation: true }),
             { provide: TRANSLOCO_LOADER, useClass: FakeLoader },
-            {
-              provide: LOCALIZATION_CONFIGURATION_TOKEN,
-              useFactory: () => createLocalizationConfiguration({ supportedLocales: ['en'], debugMode: true, enableTranslationDeactivation: true })
-            },
             { provide: ChangeDetectorRef, useClass: ChangeDetectorRefFixture },
             { provide: O3rLocalizationTranslatePipe, deps: [LocalizationService, TranslocoService, ChangeDetectorRef, LOCALIZATION_CONFIGURATION_TOKEN] }
           ]

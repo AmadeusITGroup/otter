@@ -20,7 +20,7 @@ import {
 @Pipe({
   name: 'date',
   pure: false,
-  standalone: false
+  standalone: true
 })
 export class LocalizedDatePipe extends DatePipe implements PipeTransform {
   private readonly localizationService = inject(LocalizationService);

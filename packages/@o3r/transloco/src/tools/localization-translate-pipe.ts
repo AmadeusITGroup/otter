@@ -15,7 +15,8 @@ import {
   TranslocoService,
 } from '@jsverse/transloco';
 import {
-  Subscription,
+  Subject,
+  switchMap,
 } from 'rxjs';
 import {
   LocalizationConfiguration,
@@ -36,7 +37,7 @@ import {
 @Pipe({
   name: 'o3rTranslate',
   pure: false,
-  standalone: false
+  standalone: true
 })
 export class O3rLocalizationTranslatePipe extends TranslocoPipe implements PipeTransform {
   /** Localization service instance */
@@ -49,17 +50,14 @@ export class O3rLocalizationTranslatePipe extends TranslocoPipe implements PipeT
   protected readonly destroyRef = inject(DestroyRef);
 
   /**
-   * Internal subscription to the LocalizationService key mapping
-   */
-  protected onKeyChange?: Subscription;
-
-  /**
    * Should we display keys instead of translations
    */
   protected showKeys = false;
 
-  /** last key queried */
-  protected lastQueryKey?: string;
+  /**
+   * Subject to emit translation key changes
+   */
+  protected readonly querySubject = new Subject<string>();
 
   /** last key resolved */
   protected lastResolvedKey?: string;
@@ -77,6 +75,15 @@ export class O3rLocalizationTranslatePipe extends TranslocoPipe implements PipeT
         this.changeDetector.markForCheck();
       });
     }
+
+    // Set up reactive key mapping subscription
+    this.querySubject.pipe(
+      switchMap((query) => this.localizationService.getKey(query)),
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe((key) => {
+      this.lastResolvedKey = key;
+      this.changeDetector.markForCheck();
+    });
   }
 
   /**
@@ -88,18 +95,8 @@ export class O3rLocalizationTranslatePipe extends TranslocoPipe implements PipeT
       return query;
     }
 
-    if (query !== this.lastQueryKey) {
-      this.lastQueryKey = query;
-      if (this.onKeyChange) {
-        this.onKeyChange.unsubscribe();
-      }
-      this.onKeyChange = this.localizationService.getKey(query)
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe((key) => {
-          this.lastResolvedKey = key;
-          this.changeDetector.markForCheck();
-        });
-    }
+    // Emit query to subject for reactive key mapping
+    this.querySubject.next(query);
 
     const value = super.transform(this.lastResolvedKey, ...args);
 

@@ -20,7 +20,7 @@ import {
 @Pipe({
   name: 'currency',
   pure: false,
-  standalone: false
+  standalone: true
 })
 export class LocalizedCurrencyPipe extends CurrencyPipe implements PipeTransform {
   private readonly localizationService = inject(LocalizationService);

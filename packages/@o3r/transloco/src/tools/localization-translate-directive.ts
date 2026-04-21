@@ -19,7 +19,8 @@ import {
   TranslocoDirective,
 } from '@jsverse/transloco';
 import {
-  Subscription,
+  Subject,
+  switchMap,
 } from 'rxjs';
 import {
   LocalizationConfiguration,
@@ -52,7 +53,7 @@ import {
  */
 @Directive({
   selector: '[transloco]',
-  standalone: false
+  standalone: true
 })
 export class LocalizationTranslateDirective extends TranslocoDirective implements OnInit, OnChanges {
   private readonly localizationService = inject(LocalizationService);
@@ -69,23 +70,15 @@ export class LocalizationTranslateDirective extends TranslocoDirective implement
   private showKeys = false;
 
   /**
-   * Internal subscription to the LocalizationService key mapping
+   * Subject to emit translation key changes
    */
-  private onKeyChange?: Subscription;
+  private readonly translocoSubject = new Subject<string>();
 
   /** @inheritdoc */
   @Input()
   public set transloco(key: string) {
-    if (key && key !== this.key) {
-      this.onKeyChange?.unsubscribe();
-      this.onKeyChange = this.localizationService.getKey(key)
-        .pipe(takeUntilDestroyed(this.o3rDestroyRef))
-        .subscribe((newKey) => {
-          const previousKey = this.key;
-          this.key = newKey;
-          this.changeDetectorRef.markForCheck();
-          super.ngOnChanges({ transloco: new SimpleChange(previousKey, newKey, !previousKey) });
-        });
+    if (key) {
+      this.translocoSubject.next(key);
     }
   }
 
@@ -97,6 +90,17 @@ export class LocalizationTranslateDirective extends TranslocoDirective implement
         this.changeDetectorRef.markForCheck();
       });
     }
+
+    // Set up reactive key mapping subscription
+    this.translocoSubject.pipe(
+      switchMap((key) => this.localizationService.getKey(key)),
+      takeUntilDestroyed(this.o3rDestroyRef)
+    ).subscribe((newKey) => {
+      const previousKey = this.key;
+      this.key = newKey;
+      this.changeDetectorRef.markForCheck();
+      super.ngOnChanges({ transloco: new SimpleChange(previousKey, newKey, !previousKey) });
+    });
   }
 
   /**
