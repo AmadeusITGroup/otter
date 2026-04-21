@@ -1,7 +1,11 @@
 {{#replaceWithEmptyExportIfNeeded}}
 {{#noEmptyExport}}
+{{#models}}{{#model}}{{#isEnum}}export { {{#upperSnakeCase}}list{{classname}}{{/upperSnakeCase}} } from './{{#kebabCase}}{{classname}}{{/kebabCase}}/{{#kebabCase}}{{classname}}{{/kebabCase}}';
+{{/isEnum}}{{/model}}{{/models}}
 {{#models}}{{#model}}{{#hasEnums}}{{#removeBrackets}}export { {{#trimComma}}{{#vars}}{{#isEnum}}{{#upperSnakeCase}}list{{{datatypeWithEnum}}}{{/upperSnakeCase}} as {{#upperSnakeCase}}{{vendorExtensions.x-exposed-classname}}List{{{datatypeWithEnum}}}{{/upperSnakeCase}}, {{/isEnum}}{{/vars}}{{/trimComma}} } from './{{#kebabCase}}{{classname}}{{/kebabCase}}/{{#kebabCase}}{{classname}}{{/kebabCase}}';
 {{/removeBrackets}}{{/hasEnums}}{{/model}}{{/models}}
+{{#models}}{{#model}}{{#isEnum}}export type { {{classname}} } from './{{#kebabCase}}{{classname}}{{/kebabCase}}/{{#kebabCase}}{{classname}}{{/kebabCase}}';
+{{/isEnum}}{{/model}}{{/models}}
 {{#models}}{{#model}}{{#hasEnums}}{{#removeBrackets}}export type { {{#trimComma}}{{#vars}}{{#isEnum}}{{{datatypeWithEnum}}} as {{vendorExtensions.x-exposed-classname}}{{{datatypeWithEnum}}}, {{/isEnum}}{{/vars}}{{/trimComma}} } from './{{#kebabCase}}{{classname}}{{/kebabCase}}/{{#kebabCase}}{{classname}}{{/kebabCase}}';
 {{/removeBrackets}}{{/hasEnums}}{{/model}}{{/models}}{{/noEmptyExport}}
 {{/replaceWithEmptyExportIfNeeded}}
