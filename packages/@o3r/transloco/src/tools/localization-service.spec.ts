@@ -11,8 +11,8 @@ import {
 import {
   DEFAULT_LOCALIZATION_CONFIGURATION,
   LocalizationConfiguration,
-  LocalizationModule,
   LocalizationService,
+  provideLocalization,
 } from '@o3r/transloco';
 
 describe('LocalizationService', () => {
@@ -25,10 +25,10 @@ describe('LocalizationService', () => {
 
     beforeEach(async () => {
       await TestBed.configureTestingModule({
-        imports: [
-          LocalizationModule.forRoot(configurationFactory)
-        ],
-        providers: [provideTransloco({ config: {} }), LocalizationService]
+        providers: [
+          provideTransloco({ config: {} }),
+          provideLocalization(configurationFactory())
+        ]
       }).compileComponents();
       localizationService = TestBed.inject(LocalizationService);
 
@@ -53,10 +53,10 @@ describe('LocalizationService', () => {
 
     beforeEach(async () => {
       await TestBed.configureTestingModule({
-        imports: [
-          LocalizationModule.forRoot(configurationFactory)
-        ],
-        providers: [provideTransloco({ config: {} }), LocalizationService]
+        providers: [
+          provideTransloco({ config: {} }),
+          provideLocalization(configurationFactory())
+        ]
       }).compileComponents();
       localizationService = TestBed.inject(LocalizationService);
 
@@ -115,10 +115,10 @@ describe('LocalizationService', () => {
 
     beforeEach(async () => {
       await TestBed.configureTestingModule({
-        imports: [
-          LocalizationModule.forRoot(configurationFactory)
-        ],
-        providers: [provideTransloco({ config: {} }), LocalizationService]
+        providers: [
+          provideTransloco({ config: {} }),
+          provideLocalization(configurationFactory())
+        ]
       }).compileComponents();
       localizationService = TestBed.inject(LocalizationService);
       const translateService = localizationService.getTranslateService();
@@ -145,10 +145,10 @@ describe('LocalizationService', () => {
 
     beforeEach(async () => {
       await TestBed.configureTestingModule({
-        imports: [
-          LocalizationModule.forRoot(configurationFactory)
-        ],
-        providers: [provideTransloco({ config: {} }), LocalizationService]
+        providers: [
+          provideTransloco({ config: {} }),
+          provideLocalization(configurationFactory())
+        ]
       }).compileComponents();
       localizationService = TestBed.inject(LocalizationService);
       const translateService = localizationService.getTranslateService();
@@ -182,10 +182,10 @@ describe('LocalizationService', () => {
 
     beforeEach(async () => {
       await TestBed.configureTestingModule({
-        imports: [
-          LocalizationModule.forRoot(configurationFactory)
-        ],
-        providers: [provideTransloco({ config: {} }), LocalizationService]
+        providers: [
+          provideTransloco({ config: {} }),
+          provideLocalization(configurationFactory())
+        ]
       }).compileComponents();
       localizationService = TestBed.inject(LocalizationService);
 

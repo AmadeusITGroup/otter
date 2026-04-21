@@ -1,22 +1,16 @@
 import {
-  BidiModule,
-} from '@angular/cdk/bidi';
-import {
-  CommonModule,
   CurrencyPipe,
   DatePipe,
   DecimalPipe,
 } from '@angular/common';
 import {
+  type EnvironmentProviders,
   InjectionToken,
   LOCALE_ID,
-  ModuleWithProviders,
-  NgModule,
+  makeEnvironmentProviders,
   Optional,
+  type Provider,
 } from '@angular/core';
-import {
-  TranslocoModule,
-} from '@jsverse/transloco';
 import {
   DEFAULT_LOCALIZATION_CONFIGURATION,
   LocalizationConfiguration,
@@ -27,12 +21,6 @@ import {
 import {
   LOCALIZATION_CONFIGURATION_TOKEN,
 } from './localization-token';
-import {
-  LocalizationTranslateDirective,
-} from './localization-translate-directive';
-import {
-  O3rLocalizationTranslatePipe,
-} from './localization-translate-pipe';
 import {
   LocalizedCurrencyPipe,
 } from './localized-currency-pipe';
@@ -68,43 +56,36 @@ export function localeIdNgBridge(localizationService: LocalizationService) {
 /** Custom Localization Configuration Token to override default localization configuration */
 export const CUSTOM_LOCALIZATION_CONFIGURATION_TOKEN = new InjectionToken<Partial<LocalizationConfiguration>>('Partial Localization configuration');
 
-@NgModule({
-  declarations: [O3rLocalizationTranslatePipe, LocalizationTranslateDirective, LocalizedDatePipe, LocalizedDecimalPipe, LocalizedCurrencyPipe],
-  imports: [TranslocoModule, BidiModule, CommonModule],
-  exports: [TranslocoModule, O3rLocalizationTranslatePipe, LocalizationTranslateDirective, LocalizedDatePipe, LocalizedDecimalPipe, LocalizedCurrencyPipe],
-  providers: [
+/**
+ * Provide localization services and configuration for the application.
+ * This is the recommended way to set up localization in standalone applications.
+ * @param configuration Optional partial localization configuration to override defaults. Can be a configuration object or a factory function.
+ * @example Override of default and supported languages override at application bootstrap
+ * ```typescript
+ * bootstrapApplication(App, {
+ *   providers: [
+ *     provideLocalization({ language: 'en-US', supportedLocales: ['en-US', 'fr-FR'] })
+ *   ]
+ * });
+ * ```
+ */
+export function provideLocalization(configuration?: Partial<LocalizationConfiguration> | (() => Partial<LocalizationConfiguration>)): EnvironmentProviders {
+  const providers: (Provider | EnvironmentProviders)[] = [
+    LocalizationService,
+    TextDirectionService,
     { provide: LOCALIZATION_CONFIGURATION_TOKEN, useFactory: createLocalizationConfiguration, deps: [[new Optional(), CUSTOM_LOCALIZATION_CONFIGURATION_TOKEN]] },
     { provide: LOCALE_ID, useFactory: localeIdNgBridge, deps: [LocalizationService] },
     { provide: DatePipe, useClass: LocalizedDatePipe },
     { provide: DecimalPipe, useClass: LocalizedDecimalPipe },
-    { provide: CurrencyPipe, useClass: LocalizedCurrencyPipe },
-    TextDirectionService
-  ]
-})
-export class LocalizationModule {
-  /**
-   * forRoot method should be called only once from the application index.ts
-   * It will do several things:
-   * - provide the configuration for the whole application
-   * - register all locales specified in the LocalizationConfiguration
-   * - configure TranslocoService
-   * - inject LOCALE_ID token
-   * @param configuration LocalizationConfiguration
-   */
-  public static forRoot(
-    configuration?: () => Partial<LocalizationConfiguration>
-  ): ModuleWithProviders<LocalizationModule> {
-    return {
-      ngModule: LocalizationModule,
-      providers: [
-        LocalizationService,
-        ...(configuration
-          ? [{
-            provide: CUSTOM_LOCALIZATION_CONFIGURATION_TOKEN,
-            useFactory: configuration
-          }]
-          : [])
-      ]
-    };
+    { provide: CurrencyPipe, useClass: LocalizedCurrencyPipe }
+  ];
+
+  if (configuration) {
+    providers.push({
+      provide: CUSTOM_LOCALIZATION_CONFIGURATION_TOKEN,
+      ...(typeof configuration === 'function' ? { useFactory: configuration } : { useValue: configuration })
+    });
   }
+
+  return makeEnvironmentProviders(providers);
 }

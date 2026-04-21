@@ -20,7 +20,7 @@ import {
 @Pipe({
   name: 'number',
   pure: false,
-  standalone: false
+  standalone: true
 })
 export class LocalizedDecimalPipe extends DecimalPipe implements PipeTransform {
   private readonly localizationService = inject(LocalizationService);
