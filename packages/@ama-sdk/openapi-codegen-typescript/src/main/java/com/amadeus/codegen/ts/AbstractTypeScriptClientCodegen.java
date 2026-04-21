@@ -24,30 +24,63 @@ import static org.openapitools.codegen.utils.StringUtils.*;
 
 
 
-/*
-java -agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005 -cp ".\target\typescriptFetch-openapi-generator-0.0.0.jar;openapi-generator-cli-5.1.1.jar" org.openapitools.codegen.OpenAPIGenerator generate -g typescriptFetch -e handlebars -i spec.yml -o . --global-property models=Acceptance
+/**
+ * Abstract TypeScript client code generator with Otter-specific customizations.
+ * <p>
+ * Extends the upstream OpenAPI Generator's AbstractTypeScriptClientCodegen with:
+ * <ul>
+ *   <li>Custom date handling (utils.Date, utils.DateTime) with timezone support via vendor extensions</li>
+ *   <li>Reviver logic for TypeScript model deserialization</li>
+ *   <li>Dictionary support via vendor extensions (x-dictionary-name, x-field-type)</li>
+ *   <li>kebab-case file naming convention</li>
+ *   <li>Custom Mustache lambda helpers for code generation</li>
+ *   <li>Fine-grained file overwrite control</li>
+ * </ul>
+ * <p>
+ * Debug command example:
+ * <pre>
+ * java -agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005 -cp ".\target\typescriptFetch-openapi-generator-0.0.0.jar;openapi-generator-cli-5.1.1.jar" org.openapitools.codegen.OpenAPIGenerator generate -g typescriptFetch -e handlebars -i spec.yml -o . --global-property models=Acceptance
+ * </pre>
  */
+public abstract class AbstractTypeScriptClientCodegen extends org.openapitools.codegen.languages.AbstractTypeScriptClientCodegen {
 
-public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen implements CodegenConfig {
-
+  /** Standard line endings used in generated files */
   public final static String END_LINES = "\r\n";
-  protected String modelPropertyNaming = "camelCase";
-  protected Boolean supportsES6 = true;
 
-  // Pattern to indicate which filepaths should be overwritten
+  /** Patterns of file paths that should be forcefully overwritten */
   protected List<String> overwriteFilepathPatterns;
-  // Pattern to indicate which filepaths should skip overwrite
+
+  /** Patterns of file paths that should skip overwriting if they already exist */
   protected List<String> skipOverwriteFilepathPatterns;
 
+  /** List of non-object models (e.g., enums) that do not require revivers for deserialization */
   protected List<String> nonObjectModels;
 
   private final Logger LOGGER = LoggerFactory.getLogger(AbstractTypeScriptClientCodegen.class);
 
+  /** Whether to stringify Date objects to strings (GlobalSettings: stringifyDate, default: true) */
   private final boolean stringifyDate;
+
+  /** Whether to allow model extension for reviver generation (GlobalSettings: allowModelExtension, default: false) */
   private final boolean allowModelExtension;
+
+  /** Whether to use legacy date extension with utils.Date/utils.DateTime (GlobalSettings: useLegacyDateExtension, default: false) */
   private final boolean useLegacyDateExtension;
+
+  /** Custom request body transformation logic (GlobalSettings: requestBodyTransform, default: empty) */
   private final String requestBodyTransform;
 
+  /**
+   * Constructor for Otter-specific TypeScript client code generator.
+   * <p>
+   * Initializes the generator with Otter-specific customizations on top of the upstream AbstractTypeScriptClientCodegen:
+   * <ul>
+   *   <li>Reads GlobalSettings properties for Otter-specific behavior (allowModelExtension, useLegacyDateExtension, stringifyDate, requestBodyTransform)</li>
+   *   <li>Adds custom date type mappings (utils.Date, utils.DateTime) based on configuration</li>
+   *   <li>Enables ES6 support by default</li>
+   *   <li>Registers 20+ custom Mustache lambda helpers for advanced template processing</li>
+   * </ul>
+   */
   public AbstractTypeScriptClientCodegen() {
     super();
     LOGGER.warn("Starting custom generation");
@@ -56,61 +89,7 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
     // Holds the list of nonObjectModels (models that does not contain revivers)
     nonObjectModels = new ArrayList<String>();
 
-    // clear import mapping (from default generator) as TS does not use it
-    // at the moment
-    importMapping.clear();
-
-    supportsInheritance = true;
-
-    // to support multiple inheritance e.g. export interface ModelC extends ModelA, ModelB
-    supportsMultipleInheritance = true;
-
-    setReservedWordsLowerCase(Arrays.asList(
-      // local variable names used in API methods (endpoints)
-      "varLocalPath", "queryParameters", "headerParams", "formParams", "useFormData", "varLocalDeferred",
-      "requestOptions",
-      // Typescript reserved words
-      "abstract", "await", "boolean", "break", "byte", "case", "catch", "char", "class", "const", "continue", "debugger", "default", "delete", "do", "double", "else", "enum", "export", "extends", "false", "final", "finally", "float", "for", "function", "goto", "if", "implements", "import", "in", "instanceof", "int", "interface", "let", "long", "native", "new", "null", "package", "private", "protected", "public", "return", "short", "static", "super", "switch", "synchronized", "this", "throw", "transient", "true", "try", "typeof", "var", "void", "volatile", "while", "with", "yield"));
-
-    languageSpecificPrimitives = new HashSet<String>(Arrays.asList(
-      "string",
-      "String",
-      "boolean",
-      "Boolean",
-      "Double",
-      "Integer",
-      "Long",
-      "Float",
-      "Object",
-      "Array",
-      "Date",
-      "utils.DateTime",
-      "number",
-      "Map",
-      "Blob",
-      "File",
-      "any"
-    ));
-    instantiationTypes.put("array", "Array");
-
-    typeMapping = new HashMap<String, String>();
-    typeMapping.put("Array", "Array");
-    typeMapping.put("array", "Array");
-    typeMapping.put("List", "Array");
-    typeMapping.put("boolean", "boolean");
-    typeMapping.put("string", "string");
-    typeMapping.put("int", "number");
-    typeMapping.put("Integer", "number");
-    typeMapping.put("float", "number");
-    typeMapping.put("number", "number");
-    typeMapping.put("long", "number");
-    typeMapping.put("short", "number");
-    typeMapping.put("char", "string");
-    typeMapping.put("double", "number");
-    typeMapping.put("object", "any");
-    typeMapping.put("integer", "number");
-    typeMapping.put("Map", "any");
-    typeMapping.put("AnyType", "any");
+    // Custom Otter-specific configuration
     String allowModelExtensionString = GlobalSettings.getProperty("allowModelExtension");
     String useLegacyDateExtensionString = GlobalSettings.getProperty("useLegacyDateExtension");
     useLegacyDateExtension = useLegacyDateExtensionString != null ? !"false".equalsIgnoreCase(useLegacyDateExtensionString) : false;
@@ -119,17 +98,15 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
     stringifyDate = stringifyDateString != null ? !"false".equalsIgnoreCase(stringifyDateString) : true;
     String requestBodyTransformString = GlobalSettings.getProperty("requestBodyTransform");
     requestBodyTransform = requestBodyTransformString != null ? requestBodyTransformString : "";
+
+    // Add custom type mappings for Otter date handling
+    languageSpecificPrimitives.add("utils.DateTime");
+    languageSpecificPrimitives.add("utils.Date");
     typeMapping.put("DateTime", useLegacyDateExtension ? "utils.DateTime" : getDateTimeStandardTime(stringifyDate));
     typeMapping.put("Date", useLegacyDateExtension ? "utils.Date" : getDateType(stringifyDate));
-    //TODO binary should be mapped to byte array
-    // mapped to String as a workaround
-    typeMapping.put("binary", "string");
-    typeMapping.put("ByteArray", "string");
-    typeMapping.put("UUID", "string");
-    typeMapping.put("URI", "string");
 
-    cliOptions.add(new CliOption(CodegenConstants.MODEL_PROPERTY_NAMING, CodegenConstants.MODEL_PROPERTY_NAMING_DESC).defaultValue("camelCase"));
-    cliOptions.add(new CliOption(CodegenConstants.SUPPORTS_ES6, CodegenConstants.SUPPORTS_ES6_DESC).defaultValue("false"));
+    // Override ES6 support
+    setSupportsES6(true);
 
     additionalProperties.put("addTabs", new LambdaHelper.AddTabs(1));
     additionalProperties.put("camelize", new CamelizeLambda(true));
@@ -168,9 +145,19 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
     additionalProperties.put("transformBodyRequest", new LambdaHelper.TransformBodyRequest(requestBodyTransform));
   }
 
+  /**
+   * Mustache lambda helper for camelizing strings.
+   * <p>
+   * Converts strings to camelCase or PascalCase depending on the configuration.
+   */
   private static class CamelizeLambda extends LambdaHelper.CustomLambda {
     private final CamelizeOption camelizeOption;
 
+    /**
+     * Creates a new CamelizeLambda.
+     *
+     * @param lowerCaseFirst if true, first character is lowercase (camelCase); if false, first character is uppercase (PascalCase)
+     */
     public CamelizeLambda(boolean lowerCaseFirst) {
       if (lowerCaseFirst) {
         this.camelizeOption = CamelizeOption.LOWERCASE_FIRST_CHAR;
@@ -195,106 +182,153 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
     return "_" + name;
   }
 
+  /**
+   * Otter-specific override: Returns the API file folder using kebab-case naming convention.
+   * <p>
+   * <b>Difference from base:</b> Applies kebab-case transformation to the API package name,
+   * while the base implementation uses the package name as-is.
+   *
+   * @return the API file folder path in kebab-case format (e.g., "output/pet-api")
+   */
   @Override
   public String apiFileFolder() {
     return outputFolder + "/" + kebabCase(apiPackage());
   }
 
+  /**
+   * Otter-specific override: Returns the API documentation file folder using kebab-case naming convention.
+   * <p>
+   * <b>Difference from base:</b> Applies kebab-case transformation to the API package name,
+   * while the base implementation uses the package name as-is.
+   *
+   * @return the API documentation file folder path in kebab-case format
+   */
   @Override
   public String apiDocFileFolder() {
     return outputFolder + "/" + kebabCase(apiPackage());
   }
 
+  /**
+   * Otter-specific override: Returns the model file folder using kebab-case naming convention.
+   * <p>
+   * <b>Difference from base:</b> Applies kebab-case transformation to the model package name,
+   * while the base implementation uses the package name as-is.
+   *
+   * @return the model file folder path in kebab-case format (e.g., "output/pet-model")
+   */
   @Override
   public String modelFileFolder() {
     return outputFolder + "/" + kebabCase(modelPackage());
   }
 
+  /**
+   * Otter-specific override: Returns the model documentation file folder using kebab-case naming convention.
+   * <p>
+   * <b>Difference from base:</b> Applies kebab-case transformation to the model package name,
+   * while the base implementation uses the package name as-is.
+   *
+   * @return the model documentation file folder path in kebab-case format
+   */
   @Override
   public String modelDocFileFolder() {
     return outputFolder + "/" + kebabCase(modelPackage());
   }
 
+  /**
+   * Otter-specific override: Returns the default value for a schema.
+   * <p>
+   * <b>Difference from base:</b> Returns null explicitly when no default is present,
+   * while delegating to the base implementation when a default value exists.
+   *
+   * @param schema the schema to extract default value from
+   * @return the default value as a string, or null if no default is present
+   */
   @Override
-  public String toParamName(String name) {
-    // replace - with _ e.g. created-at => created_at
-    name = name.replaceAll("-", "_");
+  public String toDefaultValue(Schema schema) {
+    if (schema.getDefault() != null) {
+      return super.toDefaultValue(schema);
+    }
 
-    // if it's all uppper case, do nothing
-    if (name.matches("^[A-Z_]*$"))
-      return name;
-
-    // camelize the variable name
-    // pet_id => petId
-    name = camelize(name, CamelizeOption.LOWERCASE_FIRST_CHAR);
-
-    // for reserved word or word starting with number, append _
-    if (isReservedWord(name) || name.matches("^\\d.*"))
-      name = escapeReservedWord(name);
-
-    return name;
+    return null;
   }
 
-  @Override
-  public String toVarName(String name) {
-    // should be the same as variable name
-    return getNameUsingModelPropertyNaming(name);
-  }
-
+  /**
+   * Otter-specific override: Converts a model name to the proper TypeScript format.
+   * <p>
+   * <b>Difference from base:</b> Handles the special "_allOf_" pattern used for inline properties
+   * in referenced inline models. This pattern is specific to Otter's model composition handling.
+   * After removing the "_allOf" prefix, delegates to the base implementation for standard processing.
+   *
+   * @param name the model name to convert
+   * @return the converted model name in PascalCase
+   */
   @Override
   public String toModelName(String name) {
     name = sanitizeName(name);
 
-    // Generated model to manage an inline property in a referenced inline model ("_allOf_{{propertyName}}")
+    // Custom: Generated model to manage an inline property in a referenced inline model ("_allOf_{{propertyName}}")
     // Does not refer to inline model generated to manage composition (cleaned during model post process) and
     // inheritance (kept as it is)
     if (name.contains("_allOf_")) {
       name = name.replace("_allOf", "");
     }
 
-    if (!StringUtils.isEmpty(modelNamePrefix)) {
-      name = modelNamePrefix + "_" + name;
-    }
-
-    if (!StringUtils.isEmpty(modelNameSuffix)) {
-      name = name + "_" + modelNameSuffix;
-    }
-
-    // model name cannot use reserved keyword, e.g. return
-    if (isReservedWord(name)) {
-      String modelName = camelize("model_" + name);
-      LOGGER.warn(name + " (reserved word) cannot be used as model name. Renamed to " + modelName);
-      return modelName;
-    }
-
-    // model name starts with number
-    if (name.matches("^\\d.*")) {
-      String modelName = camelize("model_" + name); // e.g. 200Response => Model200Response (after camelize)
-      LOGGER.warn(name + " (model name starts with number) cannot be used as model name. Renamed to " + modelName);
-      return modelName;
-    }
-
-    // camelize the model name
-    // phone_number => PhoneNumber
-    return camelize(name);
+    return super.toModelName(name);
   }
 
+  /**
+   * Returns the API folder name in kebab-case format.
+   * <p>
+   * Otter-specific: Converts the API name to kebab-case and removes the "Api" suffix.
+   * For example, "PetApi" becomes "pet".
+   *
+   * @param name the API name
+   * @return the API folder name in kebab-case format
+   */
   public String apiFolderName(String name) {
     return kebabCase(toApiName(name).replaceFirst("(.*)Api$", "$1"));
   }
 
+  /**
+   * Otter-specific override: Returns the API filename with nested folder structure.
+   * <p>
+   * <b>Difference from base:</b> Uses nested folder structure with kebab-case naming.
+   * For example, "PetApi" becomes "pet/pet-api" instead of just "PetApi".
+   *
+   * @param name the API name
+   * @return the API filename with folder structure (e.g., "pet/pet-api")
+   */
   @Override
   public String toApiFilename(String name) {
     String resName = kebabCase(toApiName(name));
     return apiFolderName(name) + "/" + resName;
   }
 
+  /**
+   * Otter-specific override: Returns the API documentation filename (index file).
+   * <p>
+   * <b>Difference from base:</b> Generates an index.ts file within the API folder
+   * for barrel exports. For example, "PetApi" becomes "pet/index".
+   *
+   * @param name the API name
+   * @return the API documentation filename (e.g., "pet/index")
+   */
   @Override
   public String toApiDocFilename(String name) {
     // api Doc is used to generate index.ts file for each model
     return apiFolderName(name) + "/index";
   }
 
+  /**
+   * Otter-specific override: Returns the model filename with nested folder structure.
+   * <p>
+   * <b>Difference from base:</b> Uses nested folder structure with kebab-case naming.
+   * For example, "Pet" becomes "pet/pet" instead of just "Pet".
+   * This creates a folder-per-model structure.
+   *
+   * @param name the model name
+   * @return the model filename with folder structure (e.g., "pet/pet")
+   */
   @Override
   public String toModelFilename(String name) {
     // should be the same as the model name
@@ -302,146 +336,38 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
     return resName + "/" + resName;
   }
 
+  /**
+   * Otter-specific override: Returns the model documentation filename (index file).
+   * <p>
+   * <b>Difference from base:</b> Generates an index.ts file within the model folder
+   * for barrel exports. For example, "Pet" becomes "pet/index".
+   *
+   * @param name the model name
+   * @return the model documentation filename (e.g., "pet/index")
+   */
   @Override
   public String toModelDocFilename(String name) {
     // model Doc is used to generate index.ts file for each model
     return kebabCase(toModelName(name)) + "/index";
   }
 
-  @Override
-  public String toDefaultValue(Schema schema) {
-    if (schema.getDefault() != null) {
-      return schema.getDefault().toString();
-    }
-
-    return null;
-  }
-
-  @Override
-  public String getTypeDeclaration(Schema p) {
-    if (ModelUtils.isArraySchema(p)) {
-      Schema items = ModelUtils.getSchemaItems(p);
-      return getTypeDeclaration(ModelUtils.unaliasSchema(this.openAPI, items)) + "[]";
-    } else if (ModelUtils.isMapSchema(p)) {
-      Schema inner = getSchemaAdditionalProperties(p);
-//      String nullSafeSuffix = getNullSafeAdditionalProps() ? " | undefined" : "";
-      return "{ [key: string]: " + getTypeDeclaration(ModelUtils.unaliasSchema(this.openAPI, inner)) + "; }";
-    } else if (ModelUtils.isFileSchema(p)) {
-      return "any";
-    }
-    return super.getTypeDeclaration(p);
-  }
-
-  @Override
-  public String getSchemaType(Schema schema) {
-    String swaggerType = super.getSchemaType(schema);
-    String type = null;
-    if (typeMapping.containsKey(swaggerType)) {
-      type = typeMapping.get(swaggerType);
-
-      if (languageSpecificPrimitives.contains(type))
-        return type;
-    } else
-      type = swaggerType;
-    return toModelName(type);
-  }
-
-  @Override
-  public String toOperationId(String operationId) {
-    // throw exception if method name is empty
-    if (StringUtils.isEmpty(operationId)) {
-      throw new RuntimeException("Empty method name (operationId) not allowed");
-    }
-
-    // method name cannot use reserved keyword, e.g. return
-    // append _ at the beginning, e.g. _return
-    if (isReservedWord(operationId)) {
-      return escapeReservedWord(camelize(sanitizeName(operationId), CamelizeOption.LOWERCASE_FIRST_CHAR));
-    }
-
-    return camelize(sanitizeName(operationId), CamelizeOption.LOWERCASE_FIRST_CHAR);
-  }
-
-
-  public String getNameUsingModelPropertyNaming(String name) {
-    switch (CodegenConstants.MODEL_PROPERTY_NAMING_TYPE.valueOf(this.modelPropertyNaming)) {
-      case original:
-        return name;
-      case camelCase:
-        return camelize(name, CamelizeOption.LOWERCASE_FIRST_CHAR);
-      case PascalCase:
-        return camelize(name);
-      case snake_case:
-        return underscore(name);
-      default:
-        throw new IllegalArgumentException("Invalid model property naming '" +
-          name + "'. Must be 'original', 'camelCase', " +
-          "'PascalCase' or 'snake_case'");
-    }
-
-  }
-
-  @Override
-  public String toEnumValue(String value, String datatype) {
-    if ("number".equals(datatype)) {
-      return value;
-    } else {
-      return "\'" + escapeText(value) + "\'";
-    }
-  }
-
-  @Override
-  public String toEnumDefaultValue(String value, String datatype) {
-    return datatype + "_" + value;
-  }
-
-  @Override
-  public String toEnumVarName(String name, String datatype) {
-    // for symbol, e.g. $, #
-    if (getSymbolName(name) != null) {
-      return camelize(getSymbolName(name));
-    }
-
-    // number
-    if ("number".equals(datatype)) {
-      String varName = "NUMBER_" + name;
-
-      varName = varName.replaceAll("-", "MINUS_");
-      varName = varName.replaceAll("\\+", "PLUS_");
-      varName = varName.replaceAll("\\.", "_DOT_");
-      return varName;
-    }
-
-    // string
-    String enumName = sanitizeName(name);
-    enumName = enumName.replaceFirst("^_", "");
-    enumName = enumName.replaceFirst("_$", "");
-
-    // camelize the enum variable name
-    // ref: https://basarat.gitbooks.io/typescript/content/docs/enums.html
-    enumName = camelize(enumName);
-
-    if (enumName.matches("\\d.*")) { // starts with number
-      return "_" + enumName;
-    } else {
-      return enumName;
-    }
-  }
-
-  @Override
-  public String toEnumName(CodegenProperty property) {
-    String enumName = toModelName(property.name) + "Enum";
-
-    if (enumName.matches("\\d.*")) { // starts with number
-      return "_" + enumName;
-    } else {
-      return enumName;
-    }
-  }
 
   /**
-   * Ensures that date and datetime are not considered primitives.
-   * Adds Vendor Extensions to properly describe the types.
+   * Otter-specific override: Post-processes model properties with custom handling for dates, enums, and dictionaries.
+   * <p>
+   * <b>Difference from base:</b> Adds extensive Otter-specific logic including:
+   * <ul>
+   *   <li>Dictionary vendor extensions support (x-dictionary-name, x-field-name, x-field-type)</li>
+   *   <li>x-map-name vendor extension validation</li>
+   *   <li>Custom date handling with x-local-timezone and x-date-timezone vendor extensions</li>
+   *   <li>Discriminator subtype filtering for reviver generation</li>
+   *   <li>x-exposed-classname vendor extension for runtime type information</li>
+   * </ul>
+   * <p>
+   * The base implementation handles discriminator properties and ensures date/datetime types are properly marked.
+   *
+   * @param model the CodegenModel containing the property
+   * @param property the CodegenProperty to post-process
    */
   @Override
   public void postProcessModelProperty(CodegenModel model, CodegenProperty property) {
@@ -549,11 +475,21 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
   }
 
   /**
-   * Compute date type for date or date-type object considering local timezone offset.
+   * Otter-specific: Computes the date type for date or date-time properties considering local timezone offset.
+   * <p>
+   * Handles Otter-specific vendor extensions:
+   * <ul>
+   *   <li>x-local-timezone: Forces utils.DateTime for datetime (respects local timezone)</li>
+   *   <li>x-date-timezone: (deprecated) Forces standard Date/string for datetime</li>
+   * </ul>
+   * <p>
+   * Validates that conflicting vendor extensions are not used together and provides migration guidance.
    *
-   * @param name
-   * @param isDateTime
-   * @param extensions
+   * @param name the property name (for error messages)
+   * @param isDateTime true if the property is date-time format, false if date only
+   * @param extensions the vendor extensions map to check for timezone directives
+   * @return the override data type (utils.DateTime, utils.Date, string, or Date), or null if no override
+   * @throws IllegalArgumentException if incompatible vendor extensions are used together
    */
   private String getDateDataTypeOverride(String name, boolean isDateTime, Map<String, Object> extensions) {
     boolean activateLocalDateTime = extensions.containsKey("x-local-timezone");
@@ -595,7 +531,16 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
   }
 
   /**
-   * @inherit
+   * Otter-specific: Post-processes operation parameters with custom date handling and serialization defaults.
+   * <p>
+   * Otter-specific logic:
+   * <ul>
+   *   <li>Applies date type overrides based on x-local-timezone/x-date-timezone vendor extensions</li>
+   *   <li>Marks utils.Date/utils.DateTime types as non-primitive for proper reviver handling</li>
+   *   <li>Sets Otter default parameter serialization for Swagger 2.0 (form style for query, simple for path)</li>
+   * </ul>
+   *
+   * @param parameter the CodegenParameter to post-process
    */
   public void postProcessParameter(CodegenParameter parameter) {
     if (parameter.isDate || parameter.isDateTime) {
@@ -624,30 +569,39 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
   }
 
   /**
-   * Get type for date-time object without any modification on the timezone.
+   * Otter-specific: Returns the TypeScript type for date-time objects without timezone modification.
+   * <p>
+   * Used for date-time properties that should preserve the timezone as-is (standard ISO 8601 format).
    *
-   * @param isDateStringified
-   * @return
+   * @param isDateStringified true if dates should be represented as strings, false for Date objects
+   * @return "string" if dates are stringified, "Date" otherwise
    */
   private String getDateTimeStandardTime(boolean isDateStringified) {
     return isDateStringified ? "string" : "Date";
   }
 
   /**
-   * Get type for date object.
+   * Otter-specific: Returns the TypeScript type for date objects (date-only, no time component).
+   * <p>
+   * Used for date properties that represent calendar dates without time information.
    *
-   * @param isDateStringified
-   * @return
+   * @param isDateStringified true if dates should be represented as strings, false for utils.Date objects
+   * @return "string" if dates are stringified, "utils.Date" otherwise (custom Otter type for date-only values)
    */
   private String getDateType(boolean isDateStringified) {
     return isDateStringified ? "string" : "utils.Date";
   }
 
   /**
-   * As we do not want to modify Swagger's generator, we need to remove the package from the imports.
-   * Also, extracts additional imports from vendor extensions (used for dictionaries);
-   * ie: model.Category becomes Category
-   * import {Category} from './Category';
+   * Otter-specific override: Post-processes models to track non-object models (enums).
+   * <p>
+   * <b>Difference from base:</b> Maintains a list of enum models in the {@code nonObjectModels} collection.
+   * This list is used later to determine which models do not require revivers for deserialization,
+   * as enums don't need complex object revival logic. The base implementation handles model preprocessing
+   * without this enum tracking.
+   *
+   * @param objs the ModelsMap containing all models to process
+   * @return the processed ModelsMap
    */
   @Override
   public ModelsMap postProcessModels(ModelsMap objs) {
@@ -664,25 +618,38 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
     return objs;
   }
 
+  /**
+   * Otter-specific override: Returns the TypeScript type declaration for a schema.
+   * <p>
+   * <b>Difference from base:</b> Handles array types with custom logic, using TypeScript's
+   * array suffix notation (e.g., "Pet[]") instead of the base implementation's approach.
+   * For non-array types, delegates to the base implementation.
+   *
+   * @param p the schema to generate a type declaration for
+   * @return the TypeScript type declaration string (e.g., "Pet[]", "Record<string, Pet>")
+   */
   @Override
-  protected void addImport(CodegenModel m, String type) {
-    if (type == null) {
-      return;
+  public String getTypeDeclaration(Schema p) {
+    if (ModelUtils.isArraySchema(p)) {
+      Schema items = ModelUtils.getSchemaItems(p);
+      return getTypeDeclaration(ModelUtils.unaliasSchema(this.openAPI, items)) + "[]";
     }
-
-    String[] parts = type.split("( [|&] )|[<>]");
-    for (String s : parts) {
-      if (needToImport(s)) {
-        m.imports.add(s);
-      }
-    }
+    return super.getTypeDeclaration(p);
   }
 
   /**
-   * Post process the import of a ModelsMap, make sure to include the field and the subtypes with their revivers
+   * Otter-specific: Post-processes imports in a ModelsMap to include fields and subtypes with their revivers.
+   * <p>
+   * Handles Otter-specific import requirements:
+   * <ul>
+   *   <li>Removes package prefixes from imports (model.Category → Category)</li>
+   *   <li>Extracts additional imports from x-field-type vendor extensions (for dictionary support)</li>
+   *   <li>Includes discriminator subtypes for reviver generation</li>
+   *   <li>Sets requireDictionary vendor extension when dictionary fields are present</li>
+   * </ul>
    *
-   * @param objs
-   * @return
+   * @param objs the ModelsMap to process imports for
+   * @return the ModelsMap with processed imports
    */
   private ModelsMap postProcessImports(ModelsMap objs) {
     List<ModelMap> models = objs.getModels();
@@ -737,8 +704,21 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
   }
 
   /**
-   * This post-processing is to avoid the use of revivers from non-object models (e.g. enums in definition),
-   * to remove intermediate classes with no use in the project and to adjust the imports
+   * Otter-specific override: Post-processes all models with reviver logic and import management.
+   * <p>
+   * <b>Difference from base:</b> Implements Otter-specific reviver generation logic:
+   * <ul>
+   *   <li>Marks properties that reference non-object models (enums) with nonObjectDefinition vendor extension</li>
+   *   <li>Determines if revivers are needed based on model complexity (dictionaries, non-primitive types)</li>
+   *   <li>Sets keepRevivers flag globally and per-model to control reviver template generation</li>
+   *   <li>Removes reviver templates if not needed to reduce generated code size</li>
+   *   <li>Calls postProcessImports to handle Otter-specific import requirements</li>
+   * </ul>
+   * <p>
+   * The base implementation handles standard model post-processing without the reviver optimization logic.
+   *
+   * @param objs map of all models to post-process
+   * @return the processed models map
    */
   @Override
   public Map<String, ModelsMap> postProcessAllModels(Map<String, ModelsMap> objs) {
@@ -801,7 +781,12 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
   }
 
   /**
-   * Retrieve the first model in the model's map
+   * Otter-specific: Retrieves the first model from a ModelsMap.
+   * <p>
+   * Helper method to safely extract a CodegenModel from a ModelsMap structure.
+   *
+   * @param modelsMap the ModelsMap to extract from
+   * @return the first CodegenModel found, or null if none exists
    */
   private CodegenModel getCodegenModel(ModelsMap modelsMap) {
     final List<ModelMap> dataModelsList = modelsMap.getModels();
@@ -817,13 +802,19 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
   }
 
   /**
-   * As we do not want to modify Swagger's generator, we need to remove the package from the imports.
-   * ie: model.Category becomes Category
-   * import {Category} from './Category';
+   * Otter-specific: Post-processes operations with custom import handling and PII tracking.
    * <p>
-   * Also, TypeScript does not need JAVA imports, so remove them as well.
-   * <p>
-   * Group the parameters marked as containing personal information from all the operations into a global set.
+   * Otter-specific logic:
+   * <ul>
+   *   <li>Removes package prefixes from TypeScript imports (model.Category → Category)</li>
+   *   <li>Filters out non-TypeScript imports (Java-style imports)</li>
+   *   <li>Collects parameters marked with x-risk-personal-data-field vendor extension for PII compliance</li>
+   *   <li>Groups 2xx responses with their return types for template processing</li>
+   * </ul>
+   *
+   * @param objs the OperationsMap to post-process
+   * @param allModels list of all models (unused but required by signature)
+   * @return the processed OperationsMap with cleaned imports and PII parameter tracking
    */
   @SuppressWarnings("static-method")
   public OperationsMap postProcessOperationsWithModels(OperationsMap objs, List<ModelMap> allModels) {
@@ -870,10 +861,20 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
     return objs;
   }
 
+  /**
+   * Sets the ES6 support flag.
+   *
+   * @param value true to enable ES6 features, false otherwise
+   */
   public void setSupportsES6(Boolean value) {
     supportsES6 = value;
   }
 
+  /**
+   * Gets the ES6 support flag.
+   *
+   * @return true if ES6 features are enabled, false otherwise
+   */
   public Boolean getSupportsES6() {
     return supportsES6;
   }
@@ -889,6 +890,22 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
     return input.replace("*/", "*_/").replace("/*", "/_*");
   }
 
+  /**
+   * Otter-specific override: Determines if a file should be overwritten with fine-grained pattern control.
+   * <p>
+   * <b>Difference from base:</b> Implements a three-tier decision process:
+   * <ol>
+   *   <li>Force overwrite if filename matches any pattern in overwriteFilepathPatterns</li>
+   *   <li>Skip overwrite if filename matches skipOverwriteFilepathPatterns and file exists</li>
+   *   <li>Delegate to base implementation for standard behavior</li>
+   * </ol>
+   * <p>
+   * This allows generators to have fine control over which files are always regenerated (e.g., models)
+   * and which should be preserved if they exist (e.g., custom configuration files).
+   *
+   * @param filename the absolute path of the file to check
+   * @return true if the file should be overwritten, false if it should be preserved
+   */
   @Override
   public boolean shouldOverwrite(String filename) {
     for (String pattern : this.overwriteFilepathPatterns) {
@@ -913,14 +930,45 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
     return super.shouldOverwrite(filename);
   }
 
+  /**
+   * Generates a regex pattern to match file paths.
+   * <p>
+   * Defaults to recursive matching with index files excluded.
+   *
+   * @param folder the folder path to match
+   * @param fileExtension the file extension to match (e.g., ".ts")
+   * @return a regex pattern string
+   */
   public String getFilePathPattern(String folder, String fileExtension) {
     return getFilePathPattern(folder, fileExtension, true);
   }
 
+  /**
+   * Generates a regex pattern to match file paths.
+   * <p>
+   * Defaults to excluding index files.
+   *
+   * @param folder the folder path to match
+   * @param fileExtension the file extension to match (e.g., ".ts")
+   * @param recursive true to match files in subdirectories recursively
+   * @return a regex pattern string
+   */
   public String getFilePathPattern(String folder, String fileExtension, boolean recursive) {
     return getFilePathPattern(folder, fileExtension, true, true);
   }
 
+  /**
+   * Otter-specific: Generates a regex pattern to match file paths with customizable options.
+   * <p>
+   * Creates a cross-platform regex pattern (handles both / and \ path separators) that matches
+   * files in a specific folder with a given extension. Used for fine-grained file overwrite control.
+   *
+   * @param folder the folder path to match
+   * @param fileExtension the file extension to match (e.g., ".ts")
+   * @param recursive true to match files in subdirectories recursively
+   * @param ignoreIndex true to exclude index files from the pattern
+   * @return a regex pattern string for matching file paths
+   */
   public String getFilePathPattern(String folder, String fileExtension, boolean recursive, boolean ignoreIndex) {
     String pattern = ".*(\\/|\\\\)" + folder.replaceAll("/", "(\\\\/|\\\\\\\\)") + "(\\/|\\\\)";
     if (recursive) {
@@ -932,57 +980,158 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
     return pattern + fileExtension.replace(".", "\\.") + "$";
   }
 
-  /////
-
+  /**
+   * Otter-specific: Registers a model template file with default overwrite behavior.
+   * <p>
+   * Convenience method that defaults to overwriting existing files.
+   *
+   * @param template the Mustache template name (e.g., "model/model.mustache")
+   * @param fileExtension the file extension to generate (e.g., ".ts")
+   */
   public void addModelFile(String template, String fileExtension) {
     addModelFile(template, fileExtension, true);
   }
 
+  /**
+   * Otter-specific: Registers a model template file with configurable overwrite behavior.
+   * <p>
+   * Generates a file path pattern for the model package automatically.
+   *
+   * @param template the Mustache template name
+   * @param fileExtension the file extension to generate
+   * @param overwrite true to always overwrite, false to preserve existing files
+   */
   public void addModelFile(String template, String fileExtension, boolean overwrite) {
     String pattern = getFilePathPattern(modelPackage(), fileExtension);
     addModelFile(template, fileExtension, overwrite, pattern, modelTemplateFiles);
   }
 
+  /**
+   * Otter-specific: Registers a model template file with custom pattern matching.
+   * <p>
+   * Allows specifying a custom regex pattern for file matching.
+   *
+   * @param template the Mustache template name
+   * @param fileExtension the file extension to generate
+   * @param overwrite true to always overwrite, false to preserve existing files
+   * @param pattern custom regex pattern for matching files
+   */
   public void addModelFile(String template, String fileExtension, boolean overwrite, String pattern) {
     addModelFile(template, fileExtension, overwrite, pattern, modelTemplateFiles);
   }
 
+  /**
+   * Otter-specific: Registers a model template file with full customization.
+   * <p>
+   * Final implementation that registers the template in the specified file container.
+   *
+   * @param template the Mustache template name
+   * @param fileExtension the file extension to generate
+   * @param overwrite true to always overwrite, false to preserve existing files
+   * @param pattern custom regex pattern for matching files
+   * @param fileContainer the container map to add the template to (usually modelTemplateFiles)
+   */
   public void addModelFile(String template, String fileExtension, boolean overwrite, String
     pattern, Map<String, String> fileContainer) {
     addFile(template, fileExtension, overwrite, pattern, fileContainer);
   }
 
-  ////////
-
+  /**
+   * Otter-specific: Registers an API template file with default overwrite behavior.
+   * <p>
+   * Convenience method that defaults to overwriting existing files.
+   *
+   * @param template the Mustache template name (e.g., "api/api.mustache")
+   * @param fileExtension the file extension to generate (e.g., ".ts")
+   */
   public void addApiFile(String template, String fileExtension) {
     addApiFile(template, fileExtension, true);
   }
 
+  /**
+   * Otter-specific: Registers an API template file with configurable overwrite behavior.
+   * <p>
+   * Generates a file path pattern for the API package automatically.
+   *
+   * @param template the Mustache template name
+   * @param fileExtension the file extension to generate
+   * @param overwrite true to always overwrite, false to preserve existing files
+   */
   public void addApiFile(String template, String fileExtension, boolean overwrite) {
     String pattern = getFilePathPattern(apiPackage(), fileExtension);
     addApiFile(template, fileExtension, overwrite, pattern, apiTemplateFiles);
   }
 
+  /**
+   * Otter-specific: Registers an API template file with custom pattern matching.
+   * <p>
+   * Allows specifying a custom regex pattern for file matching.
+   *
+   * @param template the Mustache template name
+   * @param fileExtension the file extension to generate
+   * @param overwrite true to always overwrite, false to preserve existing files
+   * @param pattern custom regex pattern for matching files
+   */
   public void addApiFile(String template, String fileExtension, boolean overwrite, String pattern) {
     addApiFile(template, fileExtension, overwrite, pattern, apiTemplateFiles);
   }
 
+  /**
+   * Otter-specific: Registers an API template file with full customization.
+   * <p>
+   * Final implementation that registers the template in the specified file container.
+   *
+   * @param template the Mustache template name
+   * @param fileExtension the file extension to generate
+   * @param overwrite true to always overwrite, false to preserve existing files
+   * @param pattern custom regex pattern for matching files
+   * @param fileContainer the container map to add the template to (usually apiTemplateFiles)
+   */
   public void addApiFile(String template, String fileExtension, boolean overwrite, String pattern,
                          Map<String, String> fileContainer) {
     addFile(template, fileExtension, overwrite, pattern, fileContainer);
   }
 
-  /////
-
+  /**
+   * Otter-specific: Registers a supporting file with default overwrite behavior.
+   * <p>
+   * Convenience method that defaults to overwriting existing files.
+   * Supporting files are non-model/non-API files (e.g., utilities, configuration).
+   *
+   * @param template the Mustache template name
+   * @param folder the destination folder
+   * @param destinationFilename the destination filename
+   */
   public void addSupportingFile(String template, String folder, String destinationFilename) {
     addSupportingFile(template, folder, destinationFilename, true);
   }
 
+  /**
+   * Otter-specific: Registers a supporting file with configurable overwrite behavior.
+   * <p>
+   * Generates a non-recursive file path pattern automatically.
+   *
+   * @param template the Mustache template name
+   * @param folder the destination folder
+   * @param destinationFilename the destination filename
+   * @param overwrite true to always overwrite, false to preserve existing files
+   */
   public void addSupportingFile(String template, String folder, String destinationFilename, boolean overwrite) {
     String pattern = getFilePathPattern(folder, destinationFilename, false);
     addSupportingFile(template, folder, destinationFilename, overwrite, pattern);
   }
 
+  /**
+   * Otter-specific: Registers a supporting file with custom pattern matching.
+   * <p>
+   * Final implementation that adds the supporting file and registers the overwrite pattern.
+   *
+   * @param template the Mustache template name
+   * @param folder the destination folder
+   * @param destinationFilename the destination filename
+   * @param overwrite true to always overwrite, false to preserve existing files
+   * @param pattern custom regex pattern for matching files
+   */
   public void addSupportingFile(String template, String folder, String destinationFilename, boolean overwrite,
                                 String pattern) {
     supportingFiles.add(new SupportingFile(template, folder, destinationFilename));
@@ -993,14 +1142,39 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
     }
   }
 
+  /**
+   * Otter-specific: Adds a pattern to the force-overwrite list.
+   * <p>
+   * Files matching this pattern will always be overwritten during code generation.
+   *
+   * @param pattern regex pattern to match file paths
+   */
   public void addForceOverwritePattern(String pattern) {
     this.overwriteFilepathPatterns.add(pattern);
   }
 
+  /**
+   * Otter-specific: Adds a pattern to the skip-overwrite list.
+   * <p>
+   * Existing files matching this pattern will be preserved during code generation.
+   *
+   * @param pattern regex pattern to match file paths
+   */
   public void addSkipOverwritePattern(String pattern) {
     this.skipOverwriteFilepathPatterns.add(pattern);
   }
 
+  /**
+   * Otter-specific: Core method to register a template file with overwrite control.
+   * <p>
+   * Used internally by addModelFile, addApiFile, and addSupportingFile methods.
+   *
+   * @param template the Mustache template name
+   * @param fileExtension the file extension to generate
+   * @param overwrite true to add to force-overwrite list, false to add to skip-overwrite list
+   * @param pattern regex pattern for matching files
+   * @param fileContainer the template container map to register the file in
+   */
   public void addFile(String template, String fileExtension, boolean overwrite, String
     pattern, Map<String, String> fileContainer) {
     fileContainer.put(template, fileExtension);
@@ -1011,16 +1185,40 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
     }
   }
 
+  /**
+   * Otter-specific: Converts the first character of a string to lowercase.
+   * <p>
+   * Helper method used by kebabCase conversion. Returns empty string for empty input.
+   *
+   * @param str the string to convert
+   * @return the string with the first character lowercased (e.g., "PetApi" → "petApi")
+   */
   public String lowerFirst(String str) {
     return str.length() > 0 ? Character.toLowerCase(str.charAt(0)) + str.substring(1) : "";
   }
 
+  /**
+   * Otter-specific: Converts a string to kebab-case format.
+   * <p>
+   * Used throughout Otter for file and folder naming conventions.
+   * Converts PascalCase/camelCase to lowercase with hyphens.
+   *
+   * @param str the string to convert
+   * @return the kebab-case string (e.g., "PetApi" → "pet-api", "petStore" → "pet-store")
+   */
   public String kebabCase(String str) {
     return str.length() > 0 ? lowerFirst(str).replaceAll("([A-Z])", "-$1").toLowerCase() : "";
   }
 
   /**
-   * Override code-gen method to use `Record<string, T>` instead of `null<String, T>` for map definitions
+   * Otter-specific override: Returns the TypeScript type for schema instantiation.
+   * <p>
+   * <b>Difference from base:</b> Uses TypeScript's {@code Record<string, T>} type for map schemas
+   * instead of the base implementation's approach. Record is the idiomatic TypeScript way to
+   * represent dictionaries/maps with string keys.
+   *
+   * @param schema the schema to generate an instantiation type for
+   * @return the TypeScript instantiation type (e.g., "Record<string, Pet>" for map of Pet objects)
    */
   @Override
   public String toInstantiationType(Schema schema) {
