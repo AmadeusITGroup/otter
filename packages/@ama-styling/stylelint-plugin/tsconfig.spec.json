@@ -7,7 +7,6 @@
     "allowImportingTsExtensions": true
   },
   "include": [
-    "./src/**/*.spec.ts",
     "./schematics/**/*.it.spec.ts"
   ],
   "exclude": [],

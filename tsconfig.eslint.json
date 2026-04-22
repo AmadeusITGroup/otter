@@ -6,6 +6,7 @@
     "jest.config.js",
     "commitlint.config.cts",
     "jest.config.*.js",
+    "vitest.*.ts",
     "testing/*",
     "scripts/**/*.{m,}js",
     ".storybook/**/*.js",

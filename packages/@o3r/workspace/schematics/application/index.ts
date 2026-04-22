@@ -37,6 +37,10 @@ import type {
   PackageJson,
 } from 'type-fest';
 import {
+  setUpAngularTestPackageJson,
+  setUpJest,
+} from '../common';
+import {
   updateProjectTsConfig,
 } from '../rule-factories/index';
 import type {
@@ -67,8 +71,7 @@ function generateApplicationFn(options: NgGenerateApplicationSchema): Rule {
   const ownPackageJsonContent = JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', '..', 'package.json'), { encoding: 'utf8' })) as PackageJson;
   const packageJsonName = strings.dasherize(options.name);
   const cleanName = packageJsonName.replace(/^@/, '').replaceAll(/\//g, '-');
-
-  const addProjectSpecificFiles = (targetPath: string, rootDependencies: Record<string, string | undefined>, tsconfigBasePath: string) => {
+  const addProjectSpecificFiles = (targetPath: string, rootDependencies: Record<string, string | undefined>, tsconfigBasePath: string, testingFramework: string) => {
     return mergeWith(apply(url('./templates'), [
       template({
         ...options,
@@ -76,7 +79,7 @@ function generateApplicationFn(options: NgGenerateApplicationSchema): Rule {
         enforceTildeRange,
         name: packageJsonName,
         rootDependencies,
-        testingFramework: rootDependencies.vitest ? 'vitest' : (rootDependencies.jest ? 'jest' : 'jasmine')
+        testingFramework
       }),
       move(targetPath),
       renameTemplateFiles()
@@ -106,7 +109,7 @@ function generateApplicationFn(options: NgGenerateApplicationSchema): Rule {
 
     const rootPackageJson = tree.readJson('/package.json') as PackageJson;
 
-    const rootDependencies = { ...rootPackageJson.dependencies, ...rootPackageJson.devDependencies };
+    const rootDependencies = { ...rootPackageJson.dependencies, ...rootPackageJson.devDependencies } as PackageJson.Dependency;
 
     const angularAppSchema = context.engine.createCollection('@schematics/angular').createSchematic('application');
 
@@ -129,21 +132,27 @@ function generateApplicationFn(options: NgGenerateApplicationSchema): Rule {
     } as const satisfies Record<string, DependencyToAdd>;
 
     const tsconfigBasePath = findConfigFileRelativePath(tree, ['tsconfig.base.json', 'tsconfig.json'], targetPath);
-
+    const testingFramework = rootDependencies.vitest ? 'vitest' : (rootDependencies.jest ? 'jest' : 'jasmine');
     return chain([
       externalSchematic<Partial<ApplicationOptions>>('@schematics/angular', 'application', {
         ...Object.entries(extendedOptions).reduce((acc, [key, value]) => (angularOptions.includes(key) ? { ...acc, [key]: value } : acc), {}),
         name: cleanName,
         projectRoot,
         style: Style.Scss }),
-      addProjectSpecificFiles(targetPath, rootDependencies, tsconfigBasePath),
+      addProjectSpecificFiles(targetPath, rootDependencies, tsconfigBasePath, testingFramework),
       updateProjectTsConfig(targetPath, 'tsconfig.app.json', { updateInputFiles: true }),
       setupDependencies({
         dependencies,
         skipInstall: options.skipInstall,
         ngAddToRun: Object.keys(dependencies),
         projectName: cleanName
-      })
+      }),
+      ...testingFramework === 'jest'
+        ? [
+          setUpAngularTestPackageJson({ targetPath, name: cleanName }),
+          setUpJest({ targetPath, name: cleanName })
+        ]
+        : []
     ])(tree, context);
   };
 

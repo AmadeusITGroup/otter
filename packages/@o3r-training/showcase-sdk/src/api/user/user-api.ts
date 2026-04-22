@@ -4,12 +4,12 @@ import { SDK_SERVERS } from '../../constants/servers';
 /** Parameters object to UserApi's createUser function */
 export interface UserApiCreateUserRequestData {
   /** Created user object */
-  'User'?: User;
+  'contentUser'?: User;
 }
 /** Parameters object to UserApi's createUsersWithListInput function */
 export interface UserApiCreateUsersWithListInputRequestData {
   /** List of Users */
-  'User'?: User[];
+  'contentUser'?: User[];
 }
 /** Parameters object to UserApi's deleteUser function */
 export interface UserApiDeleteUserRequestData {
@@ -36,7 +36,7 @@ export interface UserApiUpdateUserRequestData {
   /** name that needs to be updated */
   'username': string;
   /** Update an existent user in the store */
-  'User'?: User;
+  'contentUser'?: User;
 }
 export class UserApi implements Api {
 
@@ -80,10 +80,11 @@ export class UserApi implements Api {
     const serverBasePath = selectServerBasePath(this.client.options, operationServers.length > 0 ? operationServers : SDK_SERVERS, this.client.options.logger);
 
     let body: RequestBody = '';
+    const bodyRequestParam = 'contentUser';
     if (headers['Content-Type'] && isJsonMimeType(headers['Content-Type'])) {
-      body = typeof data['User'] !== 'undefined' ? JSON.stringify(data['User']) : '{}';
+      body = typeof data[bodyRequestParam] !== 'undefined' ? JSON.stringify(data[bodyRequestParam]) : '{}';
     } else {
-      body = data['User'] as any;
+      body = data[bodyRequestParam] as any;
     }
 
     let queryParams = {};
@@ -132,10 +133,11 @@ export class UserApi implements Api {
     const serverBasePath = selectServerBasePath(this.client.options, operationServers.length > 0 ? operationServers : SDK_SERVERS, this.client.options.logger);
 
     let body: RequestBody = '';
+    const bodyRequestParam = 'contentUser';
     if (headers['Content-Type'] && isJsonMimeType(headers['Content-Type'])) {
-      body = typeof data['User'] !== 'undefined' ? JSON.stringify(data['User']) : '[]';
+      body = typeof data[bodyRequestParam] !== 'undefined' ? JSON.stringify(data[bodyRequestParam]) : '[]';
     } else {
-      body = data['User'] as any;
+      body = data[bodyRequestParam] as any;
     }
 
     let queryParams = {};
@@ -400,10 +402,11 @@ export class UserApi implements Api {
     const serverBasePath = selectServerBasePath(this.client.options, operationServers.length > 0 ? operationServers : SDK_SERVERS, this.client.options.logger);
 
     let body: RequestBody = '';
+    const bodyRequestParam = 'contentUser';
     if (headers['Content-Type'] && isJsonMimeType(headers['Content-Type'])) {
-      body = typeof data['User'] !== 'undefined' ? JSON.stringify(data['User']) : '{}';
+      body = typeof data[bodyRequestParam] !== 'undefined' ? JSON.stringify(data[bodyRequestParam]) : '{}';
     } else {
-      body = data['User'] as any;
+      body = data[bodyRequestParam] as any;
     }
 
     let queryParams = {};

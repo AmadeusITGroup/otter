@@ -1,6 +1,15 @@
 import {
   vol,
 } from 'memfs';
+import {
+  afterEach,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  type Mock,
+  vi,
+} from 'vitest';
 import type {
   Context,
 } from '../context.mjs';
@@ -12,27 +21,27 @@ import {
   listSpecificationArtifacts,
 } from './list-artifacts.mjs';
 
-jest.mock('node:fs', () => ({
-  ...jest.requireActual('memfs'),
-  promises: jest.requireActual('memfs').promises
+vi.mock('node:fs', async () => ({
+  ...(await vi.importActual('memfs') as any),
+  promises: (await vi.importActual('memfs') as any).promises
 }));
 
-jest.mock('node:fs/promises', () => jest.requireActual('memfs').promises);
+vi.mock('node:fs/promises', async () => (await vi.importActual('memfs') as any).promises);
 
-jest.mock('node:child_process', () => ({
-  exec: jest.fn()
+vi.mock('node:child_process', () => ({
+  exec: vi.fn()
 }));
 
-jest.mock('globby', () => ({
-  globby: jest.fn()
+vi.mock('globby', () => ({
+  globby: vi.fn()
 }));
 
 describe('listSpecificationArtifacts', () => {
   let mockContext: Context & ListDependenciesOptions;
-  let execMock: jest.Mock;
-  let globbyMock: jest.Mock;
+  let execMock: Mock;
+  let globbyMock: Mock;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     vol.reset();
 
     mockContext = {
@@ -43,8 +52,8 @@ describe('listSpecificationArtifacts', () => {
     } as any;
 
     // Setup mocks
-    execMock = require('node:child_process').exec as jest.Mock;
-    globbyMock = require('globby').globby as jest.Mock;
+    execMock = (await import('node:child_process')).exec as any as Mock;
+    globbyMock = (await import('globby')).globby as any as Mock;
 
     // Default successful npm ls response
     execMock.mockImplementation((_cmd, callback) => {
@@ -59,7 +68,7 @@ describe('listSpecificationArtifacts', () => {
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   describe('basic functionality', () => {
@@ -369,8 +378,8 @@ describe('listSpecificationArtifacts', () => {
   describe('error handling', () => {
     it('should handle npm ls errors with stdout present', async () => {
       const mockLogger = {
-        warn: jest.fn(),
-        debug: jest.fn()
+        warn: vi.fn(),
+        debug: vi.fn()
       } as any as Logger;
 
       execMock.mockImplementation((_cmd, callback) => {
@@ -414,8 +423,8 @@ describe('listSpecificationArtifacts', () => {
 
     it('should skip packages that cannot be accessed', async () => {
       const mockLogger = {
-        warn: jest.fn(),
-        debug: jest.fn()
+        warn: vi.fn(),
+        debug: vi.fn()
       } as any as Logger;
 
       execMock.mockImplementation((_cmd, callback) => {

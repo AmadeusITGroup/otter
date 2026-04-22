@@ -6,13 +6,19 @@
       "path": "./tsconfig.build.json"
     },
     {
-      "path": "./tsconfig.spec.json"
-    },
-    {
       "path": "./tsconfig.builders.json"
     },
     {
       "path": "./tsconfig.eslint.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    },
+    {
+      "path": "./tsconfig.test.json"
+    },
+    {
+      "path": "../../../tsconfig.test.json"
     }
   ]
 }

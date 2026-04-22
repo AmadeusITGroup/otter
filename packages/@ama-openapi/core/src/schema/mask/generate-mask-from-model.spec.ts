@@ -3,6 +3,14 @@ import {
   posix,
 } from 'node:path';
 import {
+  beforeEach,
+  describe,
+  expect,
+  it,
+  type MockedFunction,
+  vi,
+} from 'vitest';
+import {
   parseFile,
 } from '../../core/file-system/parse-file.mjs';
 import {
@@ -17,23 +25,23 @@ import {
   generateMaskSchemaModelAt,
 } from './generate-mask-from-model.mjs';
 
-jest.mock('../../core/file-system/parse-file.mjs', () => ({
-  parseFile: jest.fn()
+vi.mock('../../core/file-system/parse-file.mjs', () => ({
+  parseFile: vi.fn()
 }));
 
-jest.mock('../generate-model-name.mjs', () => ({
-  generateModelNameRef: jest.fn(),
-  getMaskFileName: jest.fn()
+vi.mock('../generate-model-name.mjs', () => ({
+  generateModelNameRef: vi.fn(),
+  getMaskFileName: vi.fn()
 }));
 
 const FIELD_SCHEMA_REF = '#/definitions/baseMaskField';
 
 const createBaseCtx = (overrides: Partial<MaskContext> = {}): MaskContext => ({
   logger: {
-    warn: jest.fn(),
-    info: jest.fn(),
-    debug: jest.fn(),
-    error: jest.fn()
+    warn: vi.fn(),
+    info: vi.fn(),
+    debug: vi.fn(),
+    error: vi.fn()
   } as any,
   modelPaths: {},
   packageName: 'test-package',
@@ -41,14 +49,14 @@ const createBaseCtx = (overrides: Partial<MaskContext> = {}): MaskContext => ({
 } as any);
 
 describe('generateMaskSchemaModelAt', () => {
-  const parseFileMock = parseFile as jest.MockedFunction<typeof parseFile>;
+  const parseFileMock = parseFile as MockedFunction<typeof parseFile>;
   const generateModelNameRefMock =
-    generateModelNameRef as jest.MockedFunction<typeof generateModelNameRef>;
+    generateModelNameRef as MockedFunction<typeof generateModelNameRef>;
   const getMaskFileNameMock =
-    getMaskFileName as jest.MockedFunction<typeof getMaskFileName>;
+    getMaskFileName as MockedFunction<typeof getMaskFileName>;
 
   beforeEach(() => {
-    jest.resetAllMocks();
+    vi.resetAllMocks();
   });
 
   it('should resolve circular references using parsedFiles and log a warning', async () => {
@@ -184,7 +192,7 @@ describe('generateMaskSchemaModelAt', () => {
 
 describe('generateMaskSchemaFromModel', () => {
   beforeEach(() => {
-    jest.resetAllMocks();
+    vi.resetAllMocks();
   });
 
   it('should return FIELD_SCHEMA_REF for non-object or null model', async () => {
@@ -315,6 +323,20 @@ describe('generateMaskSchemaFromModel', () => {
       oneOf: [
         { $ref: FIELD_SCHEMA_REF },
         { type: 'string' }
+      ]
+    });
+  });
+
+  it('should allow any object if type is not specified', async () => {
+    const ctx = createBaseCtx();
+    const model = {};
+
+    const result = await generateMaskSchemaFromModel(model as any, ctx);
+
+    expect(result).toEqual({
+      oneOf: [
+        { $ref: FIELD_SCHEMA_REF },
+        { type: 'object' }
       ]
     });
   });

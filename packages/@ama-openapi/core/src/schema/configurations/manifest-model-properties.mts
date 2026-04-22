@@ -2,6 +2,9 @@ import {
   basename,
 } from 'node:path/posix';
 import {
+  PATTERNS_MODEL_DEFINITION_KEY,
+} from '../constants.mjs';
+import {
   generateModelNameRef,
 } from '../generate-model-name.mjs';
 import type {
@@ -22,12 +25,22 @@ export const getManifestModelsProperties = (artifacts: SpecificationArtifact[]) 
       if (refModels.length === 0) {
         return [];
       }
+      const getModelRef = (modelName: string) => ({
+        oneOf: [
+          {
+            $ref: `#/definitions/${modelName}`
+          },
+          {
+            $ref: `#/definitions/${PATTERNS_MODEL_DEFINITION_KEY}`
+          }
+        ]
+      });
       return [
         packageManifestName,
         {
           oneOf: [
-            ...refModels.map((modelName) => ({ $ref: `#/definitions/${modelName}` })),
-            { type: 'array', items: { oneOf: refModels.map((modelName) => ({ $ref: `#/definitions/${modelName}` })) } }
+            ...refModels.map((ref) => getModelRef(ref)),
+            { type: 'array', items: { oneOf: refModels.map((ref) => getModelRef(ref)) } }
           ]
         }
       ];
