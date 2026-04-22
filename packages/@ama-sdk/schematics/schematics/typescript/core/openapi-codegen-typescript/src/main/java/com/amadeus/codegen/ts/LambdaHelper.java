@@ -32,7 +32,7 @@ public class LambdaHelper {
 
   private static final String VALID_PROPERTY_REGEXP = "^(?!\\d)[\\w$]+$";
 
-    /**
+  /**
    * Mustache lambda helper for camelizing strings.
    * <p>
    * Converts strings to camelCase or PascalCase depending on the configuration.
